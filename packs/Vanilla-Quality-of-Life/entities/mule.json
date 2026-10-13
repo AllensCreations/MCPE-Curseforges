@@ -463,16 +463,9 @@
         "value": 0.5
       },
       "minecraft:leashable": {
-        "presets": [
-          {
-            "filter": {
-              "test": "is_family",
-              "subject": "other",
-              "value": "happy_ghast"
-            },
-            "spring_type": "quad_dampened"
-          }
-        ]
+        "soft_distance": 4.0,
+        "hard_distance": 6.0,
+        "max_distance": 10.0
       },
       "minecraft:balloonable": {},
       "minecraft:healable": {
@@ -586,7 +579,8 @@
         ]
       },
       "minecraft:pushable_by_block": {},
-      "minecraft:conditional_bandwidth_optimization": {}
+      "minecraft:conditional_bandwidth_optimization": {},
+      "minecraft:leashable_to": {}
     },
     "events": {
       "minecraft:entity_spawned": {

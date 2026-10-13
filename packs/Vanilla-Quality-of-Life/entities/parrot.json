@@ -80,7 +80,11 @@
       },
       "minecraft:is_hidden_when_invisible": {},
       "minecraft:jump.static": {},
-      "minecraft:leashable": {},
+      "minecraft:leashable": {
+        "soft_distance": 4.0,
+        "hard_distance": 6.0,
+        "max_distance": 10.0
+      },
       "minecraft:movement": {
         "value": 0.4
       },
@@ -94,7 +98,8 @@
       "minecraft:pushable": {
         "is_pushable": true,
         "is_pushable_by_piston": true
-      }
+      },
+      "minecraft:leashable_to": {}
     },
     "component_groups": {
       "minecraft:parrot_adult": {

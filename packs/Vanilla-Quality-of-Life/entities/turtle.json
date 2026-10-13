@@ -235,7 +235,12 @@
         "probability": 0.02
       },
       "minecraft:conditional_bandwidth_optimization": {},
-      "minecraft:leashable": {}
+      "minecraft:leashable": {
+        "soft_distance": 4.0,
+        "hard_distance": 6.0,
+        "max_distance": 10.0
+      },
+      "minecraft:leashable_to": {}
     },
     "events": {
       "minecraft:entity_spawned": {

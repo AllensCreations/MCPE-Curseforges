@@ -1,0 +1,21 @@
+{
+  "format_version": "1.20.10",
+  "minecraft:recipe_shapeless": {
+    "description": {
+      "identifier": "allenscreations:stonecutter_jungle_slab"
+    },
+    "tags": [
+      "stonecutter"
+    ],
+    "priority": 1,
+    "ingredients": [
+      {
+        "item": "minecraft:jungle_planks"
+      }
+    ],
+    "result": {
+      "item": "minecraft:jungle_slab",
+      "count": 2
+    }
+  }
+}

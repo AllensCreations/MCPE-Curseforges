@@ -1,0 +1,44 @@
+{
+  "format_version": "1.20.10",
+  "minecraft:recipe_shapeless": {
+    "description": {
+      "identifier": "allenscreations:hydrate_magenta_concrete"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "ingredients": [
+      {
+        "item": "minecraft:magenta_concrete_powder"
+      },
+      {
+        "item": "minecraft:magenta_concrete_powder"
+      },
+      {
+        "item": "minecraft:magenta_concrete_powder"
+      },
+      {
+        "item": "minecraft:magenta_concrete_powder"
+      },
+      {
+        "item": "minecraft:magenta_concrete_powder"
+      },
+      {
+        "item": "minecraft:magenta_concrete_powder"
+      },
+      {
+        "item": "minecraft:magenta_concrete_powder"
+      },
+      {
+        "item": "minecraft:magenta_concrete_powder"
+      },
+      {
+        "item": "minecraft:potion"
+      }
+    ],
+    "result": {
+      "item": "minecraft:magenta_concrete",
+      "count": 8
+    }
+  }
+}

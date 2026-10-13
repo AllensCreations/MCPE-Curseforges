@@ -373,7 +373,9 @@
       },
       "minecraft:spawn_egg_interaction": {},
       "minecraft:leashable": {
-        "unleash_on_removal": false
+        "soft_distance": 4.0,
+        "hard_distance": 6.0,
+        "max_distance": 10.0
       },
       "minecraft:balloonable": {
         "mass": 0.6
@@ -493,7 +495,8 @@
       "minecraft:behavior.look_at_player": {
         "priority": 9
       },
-      "minecraft:uses_legacy_friction": {}
+      "minecraft:uses_legacy_friction": {},
+      "minecraft:leashable_to": {}
     },
     "events": {
       "minecraft:entity_spawned": {

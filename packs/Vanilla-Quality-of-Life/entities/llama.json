@@ -500,14 +500,9 @@
         "max": 40
       },
       "minecraft:leashable": {
-        "on_leash": {
-          "event": "minecraft:on_leash",
-          "target": "self"
-        },
-        "on_unleash": {
-          "event": "minecraft:on_unleash",
-          "target": "self"
-        }
+        "soft_distance": 4.0,
+        "hard_distance": 6.0,
+        "max_distance": 10.0
       },
       "minecraft:balloonable": {},
       "minecraft:healable": {
@@ -602,6 +597,12 @@
                   "subject": "other",
                   "operator": "!=",
                   "value": "minecraft:is_tamed"
+                },
+                {
+                  "test": "is_leashed",
+                  "subject": "self",
+                  "operator": "equals",
+                  "value": false
                 }
               ]
             },
@@ -682,7 +683,8 @@
       "minecraft:collision_box": {
         "width": 0.9,
         "height": 1.87
-      }
+      },
+      "minecraft:leashable_to": {}
     },
     "events": {
       "minecraft:entity_spawned": {
