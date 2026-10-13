@@ -1,0 +1,49 @@
+{
+  "format_version": "1.10.0",
+  "minecraft:client_entity": {
+    "description": {
+      "identifier": "minecraft:spider",
+      "min_engine_version": "1.8.0",
+      "materials": {
+        "default": "spider",
+        "invisible": "spider_invisible"
+      },
+      "textures": {
+        "default": "textures/entity/spider/spider"
+      },
+      "geometry": {
+        "default": "geometry.spider"
+      },
+      "locators": {
+        "lead": {
+          "body0": [0.0, 3.0, 0.0]
+        }
+      },
+      "scripts": {
+        "pre_animation": [
+          "variable.is_blinking = Math.cos(query.life_time * 800.0) < -0.8;"
+        ]
+      },
+      "animations": {
+        "walk": "animation.spider.walk",
+        "look_at_target": "animation.common.look_at_target"
+      },
+      "animation_controllers": [
+        {
+          "walk": "controller.animation.spider.walk"
+        },
+        {
+          "look_at_target": "controller.animation.spider.look_at_target"
+        }
+      ],
+      "render_controllers": [
+        "controller.render.spider"
+      ],
+      "spawn_egg": {
+        "texture": "spawn_egg",
+        "texture_index": 3
+      },
+      "enable_attachables": true
+    }
+  }
+}

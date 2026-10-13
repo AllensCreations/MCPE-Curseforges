@@ -1,0 +1,36 @@
+{
+  "format_version": 2,
+  "header": {
+    "name": "Vanilla Quality of Life BP by AllensCreations",
+    "description": "Clean, data-driven Quality of Life improvements for Minecraft Bedrock. By AllensCreations.",
+    "uuid": "5461534c-a7c4-4c5b-9269-8be52d2b761b",
+    "version": [1, 2, 0],
+    "min_engine_version": [1, 26, 50]
+  },
+  "modules": [
+    {
+      "description": "Vanilla Quality of Life Behavior Module",
+      "type": "data",
+      "uuid": "81382d42-b64c-4759-8c05-0e4e3e8436e8",
+      "version": [1, 2, 0]
+    },
+    {
+      "description": "Vanilla Quality of Life Script Module",
+      "type": "script",
+      "language": "javascript",
+      "uuid": "880944f5-3d04-401d-a5d5-011d89c969b6",
+      "version": [1, 2, 0],
+      "entry": "scripts/main.js"
+    }
+  ],
+  "dependencies": [
+    {
+      "module_name": "@minecraft/server",
+      "version": "1.13.0"
+    },
+    {
+      "uuid": "fd036566-d0b1-4f92-9b28-9dd45a376d44",
+      "version": [1, 2, 0]
+    }
+  ]
+}

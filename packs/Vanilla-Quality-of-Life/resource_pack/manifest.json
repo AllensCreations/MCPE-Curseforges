@@ -1,0 +1,18 @@
+{
+  "format_version": 2,
+  "header": {
+    "name": "Vanilla Quality of Life RP by AllensCreations",
+    "description": "Client entity locators and visual fixes for Vanilla Quality of Life. By AllensCreations.",
+    "uuid": "fd036566-d0b1-4f92-9b28-9dd45a376d44",
+    "version": [1, 2, 0],
+    "min_engine_version": [1, 26, 50]
+  },
+  "modules": [
+    {
+      "description": "Vanilla Quality of Life Resource Module",
+      "type": "resources",
+      "uuid": "340a271e-9aa3-4c12-bc1a-0254e887ec38",
+      "version": [1, 2, 0]
+    }
+  ]
+}

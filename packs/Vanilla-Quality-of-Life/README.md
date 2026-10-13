@@ -3,8 +3,8 @@
 ![Vanilla QoL Icon](https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/packs/Vanilla-Quality-of-Life/pack_icon.png)
 
 [![Minecraft Bedrock](https://img.shields.io/badge/Minecraft%20Bedrock-1.21%20--%201.26+-brightgreen?style=flat-square&logo=minecraft)](https://github.com/AllensCreations/MCPE-Curseforges)
-[![Release](https://img.shields.io/badge/Release-v1.2.0-blue?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Vanilla-Quality-of-Life/Vanilla_QoL_AllensCreations.mcpack)
-[![Format](https://img.shields.io/badge/Format-.MCPACK-orange?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Vanilla-Quality-of-Life/Vanilla_QoL_AllensCreations.mcpack)
+[![Release](https://img.shields.io/badge/Release-v1.2.0-blue?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Vanilla-Quality-of-Life/Vanilla_QoL_AllensCreations.mcaddon)
+[![Format](https://img.shields.io/badge/Format-.MCADDON-orange?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Vanilla-Quality-of-Life/Vanilla_QoL_AllensCreations.mcaddon)
 [![Platform](https://img.shields.io/badge/Platform-Mobile%20%7C%20PC%20%7C%20Console%20%7C%20Realms-yellow?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges)
 
 > **Created by AllensCreations**  
@@ -45,6 +45,7 @@ Tired of accidentally slicing your favorite pet dog during a mob fight? Frustrat
 
 ### 🪢 Universal Leashing on ALL 101 Mobs
 - **Leash Any Mob:** Lead Villagers, Wandering Traders, Iron Golems, Turtles, Zombies, Skeletons, Creepers, Endermen, Wardens, Withers, and Ghasts!
+- **Spider Lead Alignment:** Custom client locators ensure leashes tether naturally to the spider and cave spider's body rather than floating high above.
 - **Pacified on Leads:** Hostile mobs attached to your leash are pacified and will **not** attack you, making zoo collection and mob transportation safe.
 - **Smart Villager Interaction:**
   - **Normal Right-Click / Tap:** Opens the trade menu.
@@ -65,11 +66,14 @@ Tired of accidentally slicing your favorite pet dog during a mob fight? Frustrat
 ### 🧪 Stackable Potions & Milk Buckets (16x)
 - Potions, Splash Potions, Lingering Potions, and Milk Buckets now stack up to **16** in your inventory.
 
-### 🗡️ Offhand Utility Items
+### 🗡️ Offhand Utility Items & Quick-Swap
 - Equip utility gear in your **Offhand slot**:
   - Torches & Soul Torches
   - Lanterns & Soul Lanterns
   - Clocks, Compasses & Recovery Compasses
+- **Flexible Equipping:**
+  - **Inventory UI:** Drag and drop directly into the offhand slot using native Bedrock support.
+  - **Quick-Swap Control:** **Sneak + Right-Click / Tap** while holding any of the 7 utility items to instantly swap it with your offhand.
 
 ### 💀 Mob Head Trophy System & PvP Heads
 - Slain mobs have a **2.5% base drop chance** (+1% per Looting level) to drop their heads on player kills:
@@ -140,14 +144,34 @@ Tired of accidentally slicing your favorite pet dog during a mob fight? Frustrat
 
 | Package | Format | Description | Download Link |
 | :--- | :--- | :--- | :--- |
-| **Complete Pack (Recommended)** | `.mcpack` | Universal leashing, fast leaf decay, woodcutter, 16x potions, and mob head drops | [⬇️ **Download .mcpack**](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Vanilla-Quality-of-Life/Vanilla_QoL_AllensCreations.mcpack) |
+| **Complete Pack (Recommended)** | `.mcaddon` | All-in-one bundle: Universal leashing, spider lead fix, offhand quick-swap, fast leaf decay, woodcutter, 16x potions, and mob heads | [⬇️ **Download .mcaddon**](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Vanilla-Quality-of-Life/Vanilla_QoL_AllensCreations.mcaddon) |
+
+---
+
+## 🚀 Installation Guide
+
+### 📱 Android, iOS & iPadOS
+1. Click the [Download Link](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Vanilla-Quality-of-Life/Vanilla_QoL_AllensCreations.mcaddon) to download `Vanilla_QoL_AllensCreations.mcaddon`.
+2. Tap the downloaded file in your browser or Files app.
+3. Select **Open with Minecraft**.
+4. Minecraft will launch and display: *Import Started... Successfully Imported!*
+5. Open World Settings $\rightarrow$ **Behavior Packs** $\rightarrow$ Activate **Vanilla Quality of Life BP by AllensCreations**.
+
+### 💻 Windows 10 / 11
+1. Download `Vanilla_QoL_AllensCreations.mcaddon`.
+2. Double-click the file to automatically install into Minecraft.
+3. Activate the pack in your world settings.
+
+### 🌐 Realms & Dedicated Servers
+1. Activate the pack on your single-player world.
+2. Upload the world to your Realm via **Realm Settings $\rightarrow$ Edit World $\rightarrow$ Replace World**.
 
 ---
 
 ## ❓ Frequently Asked Questions (FAQ)
 
 ### Does this pack require Experimental Gameplay toggles?
-No! This pack is built using 100% pure vanilla JSON overrides. It requires zero experimental toggles, making it safe for long-term survival worlds and future game updates.
+No! This pack uses standard Bedrock components and stable Bedrock Scripting. It requires zero experimental toggles, making it safe for long-term survival worlds and future game updates.
 
 ### Can I use this pack on my Realm or multiplayer server?
 Yes! The pack works seamlessly on Realms and Bedrock Dedicated Servers. The single-player sleep feature works automatically without requiring cheat permissions.
@@ -164,3 +188,10 @@ Vanilla Quality of Life modifies entity behaviors, recipes, and loot tables. It 
 - **No Direct Re-uploading:** Do not re-upload this pack, its individual files, or modified copies to any website, app store, or file-sharing service.
 - **No Paywalls or Link Shorteners:** It is strictly prohibited to distribute this pack behind paywalls, ad-gate links (e.g., AdFly, Linkvertise, Boost.ink), or paid monetization walls.
 - **Server & Realm Use:** You are free to use this pack on your personal worlds, private servers, and Bedrock Realms.
+
+---
+
+## ⬇️ Downloads & Links
+
+- **Direct Download (.mcaddon):** [Vanilla_QoL_AllensCreations.mcaddon](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Vanilla-Quality-of-Life/Vanilla_QoL_AllensCreations.mcaddon)
+- **Source Code Repository:** [GitHub - AllensCreations/MCPE-Curseforges](https://github.com/AllensCreations/MCPE-Curseforges)

@@ -27,7 +27,7 @@
 
 | Pack Name | Version | Type | Download | Source Code | Highlights |
 | :--- | :--- | :--- | :--- | :--- | :--- |
-| **Vanilla Quality of Life** | `v1.2.0` | Behavior Pack (`.mcpack`) | [⬇️ **Download (.mcpack)**](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Vanilla-Quality-of-Life/Vanilla_QoL_AllensCreations.mcpack) | [`packs/Vanilla-Quality-of-Life/`](packs/Vanilla-Quality-of-Life/) | Universal Leashes (101 mobs), Fast Leaf Decay, Woodcutter in Stonecutter, 16x Potions, Mob Head Drops, Pet Protection. |
+| **Vanilla Quality of Life** | `v1.2.0` | Complete Pack (`.mcaddon`) | [⬇️ **Download (.mcaddon)**](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Vanilla-Quality-of-Life/Vanilla_QoL_AllensCreations.mcaddon) | [`packs/Vanilla-Quality-of-Life/`](packs/Vanilla-Quality-of-Life/) | Universal Leashes (101 mobs), Spider Leash Fix, Fast Leaf Decay, Woodcutter, 16x Potions, Offhand Quick-Swap, Mob Heads. |
 | **Monster Companions** | `v1.0.0` | Complete Pack (`.mcaddon`) | [⬇️ **Download (.mcaddon)**](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Monster-Companions/Monster_Companions_AllensCreations.mcaddon) | [`packs/Monster-Companions/`](packs/Monster-Companions/) | Tame 32 monsters into bodyguards & rideable mounts with Beast Biscuits! Custom texture, combat pacification below 50% HP, wall-climbing spiders. |
 
 👉 **[Explore Full Packs Directory](packs/README.md)**
@@ -71,7 +71,8 @@
 - **🍃 Fast Leaf Decay:** Chopping down tree trunks clears floating leaves within 1–2 seconds.
 - **🪚 Full Stonecutter Woodcutter:** Cut all 11 wood types into slabs, stairs, trapdoors, fences, and gates at fair 1:1 ratios.
 - **🧪 16x Potion & Milk Stacking:** Potions, splash potions, lingering potions, and milk buckets stack to 16.
-- **🗡️ Offhand Equipment:** Equippable torches, soul torches, lanterns, compasses, and clocks.
+- **🗡️ Offhand Equipment & Quick-Swap:** Equippable torches, soul torches, lanterns, compasses, and clocks via UI drag or Sneak + Tap/Click quick-swap.
+- **🕷️ Spider Leash Alignment:** Custom client locators ensure leads attach accurately to spiders and cave spiders at body height instead of floating above.
 - **💀 Mob Head Trophy Drops:** 2.5% chance on player kill for Zombie, Skeleton, Creeper, and Piglin heads; guaranteed Dragon Head + Elytra; PvP player heads.
 - **💎 Wandering Trader Collector Shop:** 1 Block of Diamonds → Any Mob Head.
 - **📦 100% Guaranteed Shulker Shells:** Every shulker drops 2 shells.
