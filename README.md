@@ -50,6 +50,8 @@
 
 ## 🌟 Pack 1: Vanilla Quality of Life (v1.2.0)
 
+![Vanilla QoL Icon](https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/packs/Vanilla-Quality-of-Life/pack_icon.png)
+
 > *"The definitive Vanilla+ upgrade for Bedrock. No clunky scripts, no bloated custom items—just pure, polished Minecraft the way it was meant to be played."*
 
 - **🪢 Universal Leashing & Pacified Hostiles:** Leash any of the 101 mobs. Hostiles attached to a lead are pacified and won't attack you! Sneak-click Villagers to leash them without opening the trade menu.
@@ -69,7 +71,7 @@
 
 ## 🌟 Pack 2: Monster Companions (v1.0.0)
 
-![Monster Companions Banner](https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/packs/Monster-Companions/1791889996745.jpg)
+![Monster Companions Icon](https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/packs/Monster-Companions/1791889944961.jpg)
 
 > *"Turn hostile monsters into loyal combat bodyguards and rideable wall-climbing mounts!"*
 
