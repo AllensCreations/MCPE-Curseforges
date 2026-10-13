@@ -28,7 +28,7 @@
 | Pack Name | Version | Type | Download | Source Code | Highlights |
 | :--- | :--- | :--- | :--- | :--- | :--- |
 | **Vanilla Quality of Life** | `v1.2.0` | Behavior Pack (`.mcpack`) | [⬇️ **Download (.mcpack)**](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Vanilla-Quality-of-Life/Vanilla_QoL_AllensCreations.mcpack) | [`packs/Vanilla-Quality-of-Life/`](packs/Vanilla-Quality-of-Life/) | Universal Leashes (101 mobs), Fast Leaf Decay, Woodcutter in Stonecutter, 16x Potions, Mob Head Drops, Pet Protection. |
-| **Monster Companions** | `v1.0.0` | Complete Pack (`.mcaddon`) | [⬇️ **Download (.mcaddon)**](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Monster-Companions/Monster_Companions_AllensCreations.mcaddon) | [`packs/Monster-Companions/`](packs/Monster-Companions/) | Tame 27 monsters into bodyguards & rideable mounts with Beast Biscuits! Custom texture, combat pacification below 50% HP, wall-climbing spiders. |
+| **Monster Companions** | `v1.0.0` | Complete Pack (`.mcaddon`) | [⬇️ **Download (.mcaddon)**](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Monster-Companions/Monster_Companions_AllensCreations.mcaddon) | [`packs/Monster-Companions/`](packs/Monster-Companions/) | Tame 32 monsters into bodyguards & rideable mounts with Beast Biscuits! Custom texture, combat pacification below 50% HP, wall-climbing spiders. |
 
 👉 **[Explore Full Packs Directory](packs/README.md)**
 
@@ -59,7 +59,7 @@
 - **🧪 16x Potion & Milk Stacking:** Potions, splash potions, lingering potions, and milk buckets stack to 16.
 - **🗡️ Offhand Equipment:** Equippable torches, soul torches, lanterns, compasses, and clocks.
 - **💀 Mob Head Trophy Drops:** 2.5% chance on player kill for Zombie, Skeleton, Creeper, and Piglin heads; guaranteed Dragon Head + Elytra; PvP player heads.
-- **💎 Wandering Trader Collector Shop:** 1 Block of Diamonds $\rightarrow$ Any Mob Head.
+- **💎 Wandering Trader Collector Shop:** 1 Block of Diamonds → Any Mob Head.
 - **📦 100% Guaranteed Shulker Shells:** Every shulker drops 2 shells.
 - **🛏️ Automatic One-Player Sleep:** 1 player sleeping skips the night on Realms without cheats.
 
@@ -73,12 +73,12 @@
 
 > *"Turn hostile monsters into loyal combat bodyguards and rideable wall-climbing mounts!"*
 
-- **🍖 Primal Beast Biscuit:** Custom item with handcrafted texture. Crafted with 1 Rotten Flesh + 1 Bone + 1 Sweet Berries + 1 Honey Bottle $\rightarrow$ 4 Biscuits.
+- **🍖 Primal Beast Biscuit:** Custom item with handcrafted texture. Crafted with 1 Rotten Flesh + 1 Bone + 1 Sweet Berries + 1 Honey Bottle → 4 Biscuits.
 - **⚔️ Combat Pacification:** Weaken monsters below 50% health in battle, then feed them a Beast Biscuit to tame them!
-- **🛡️ Loyal Bodyguard Squad & Perimeter Guard:** Escorts you at a respectful 4.5-block perimeter. Teleports only when >20 blocks away to a safe distance so they never block your vision!
-- **Zero Squad Friendly Fire & Complete Peace:** Squadmates cannot hurt each other or the player; retaliatory AI is disabled to completely eliminate companion infighting.
+- **🛡️ Loyal Bodyguard Squad & Perimeter Guard:** Escorts you at a respectful buffer distance so they never block your vision or crowd your camera!
+- **Zero Squad Friendly Fire:** Squadmates cannot hurt each other or the player; chaotic crossfire will never trigger infighting.
 - **🔮 Evoker Minion Summoning:** Tamed Evokers summon 100% loyal Spirit Vexes that fight your enemies.
-- **🕷️ Rideable Mounts (WASD Direct Steering):** Put a saddle on tamed Spiders, Ravagers, and Iron Golems. Zero auto-wandering while mounted—full player manual control!
+- **🕷️ Rideable Mounts (WASD Direct Steering):** Put a saddle on tamed Spiders, Ravagers, Iron Golems, Hoglins, and Zoglins with native Ride UI! Zero auto-wandering while mounted—full player manual control!
 
 👉 **[Read Full Monster Companions Documentation](packs/Monster-Companions/README.md)**
 
@@ -93,8 +93,10 @@
 
 ---
 
-## 📜 Credits & Terms of Use
+## 📜 Terms of Use & Guidelines
 
-- **Creator:** **AllensCreations**
-- **Content Creators:** You are 100% free to feature any of these add-ons and maps in YouTube, TikTok, or Twitch videos! Please provide credit and link to this GitHub repository.
-- **Redistribution:** Do not re-upload these packs or maps behind paywalls or link shorteners.
+- **Creator Attribution:** Created by **AllensCreations**.
+- **Content Creators (YouTube, TikTok, Twitch):** You are 100% welcome to showcase this pack in videos, live streams, and reviews! Please include credit to **AllensCreations** and link to the official download page or this GitHub repository.
+- **No Direct Re-uploading:** Do not re-upload this pack, its individual files, or modified copies to any website, app store, or file-sharing service.
+- **No Paywalls or Link Shorteners:** It is strictly prohibited to distribute this pack behind paywalls, ad-gate links (e.g., AdFly, Linkvertise, Boost.ink), or paid monetization walls.
+- **Server & Realm Use:** You are free to use this pack on your personal worlds, private servers, and Bedrock Realms.

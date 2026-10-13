@@ -13,15 +13,6 @@ This directory contains standalone, production-ready **Minecraft Bedrock Maps** 
 
 ---
 
-## 📥 How to Install & Play
-
-1. **Download**: Download any `.mcworld` file from the catalog above.
-2. **Open / Import**: Tap or double-click the `.mcworld` file on your device (Android, iOS, Windows 10/11, Xbox).
-3. **Automatic Import**: Minecraft Bedrock will launch automatically and import the world into your Worlds menu.
-4. **Play**: Select the world and begin your adventure!
-
----
-
 ## 🌟 Map Highlights: OneBlock Void Survival (v1.2.0)
 
 > *"Start with nothing but a single floating block above an infinite void. Break it to unlock progressive biome phases, discover 43 secret islands across 3 dimensions, and conquer the void!"*
@@ -33,3 +24,14 @@ This directory contains standalone, production-ready **Minecraft Bedrock Maps** 
 - **💀 Hardcore Survival Mode**: When a player falls, they enter Spectator mode for high-stakes void survival.
 
 👉 **[Read Full OneBlock Void Survival Documentation](OneBlock-Void-Survival/README.md)**
+
+---
+
+## 📜 Terms of Use & Guidelines
+
+- **Creator Attribution:** Created by **AllensCreations**.
+- **Content Creators (YouTube, TikTok, Twitch):** You are 100% welcome to showcase this map in videos, live streams, and reviews! Please include credit to **AllensCreations** and link to the official download page or this GitHub repository.
+- **No Direct Re-uploading:** Do not re-upload this map, its individual files, or modified copies to any website, app store, or file-sharing service.
+- **No Paywalls or Link Shorteners:** It is strictly prohibited to distribute this map behind paywalls, ad-gate links (e.g., AdFly, Linkvertise, Boost.ink), or paid monetization walls.
+- **Server & Realm Use:** You are free to use this map on your personal worlds, private servers, and Bedrock Realms.
+

@@ -66,6 +66,10 @@
 
 ---
 
-## 📜 Credits & License
-- **Author:** **AllensCreations**
-- Free to play, showcase, stream, and feature in video content with credit!
+## 📜 Terms of Use & Guidelines
+
+- **Creator Attribution:** Created by **AllensCreations**.
+- **Content Creators (YouTube, TikTok, Twitch):** You are 100% welcome to showcase this map in videos, live streams, and reviews! Please include credit to **AllensCreations** and link to the official download page or this GitHub repository.
+- **No Direct Re-uploading:** Do not re-upload this map, its individual files, or modified copies to any website, app store, or file-sharing service.
+- **No Paywalls or Link Shorteners:** It is strictly prohibited to distribute this map behind paywalls, ad-gate links (e.g., AdFly, Linkvertise, Boost.ink), or paid monetization walls.
+- **Server & Realm Use:** You are free to use this map on your personal worlds, private servers, and Bedrock Realms.

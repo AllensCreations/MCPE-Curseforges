@@ -20,9 +20,7 @@ Ever wanted a pet Creeper to guard your house? An army of Skeleton archers defen
 
 **100% Data-Driven & Script-Free.** No experimental toggles needed!
 
-<p align="center">
-  <img src="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/packs/Monster-Companions/1791889944961.jpg" alt="Monster Companions Logo Art" width="500" />
-</p>
+![Monster Companions Artwork](https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/packs/Monster-Companions/1791889944961.jpg)
 
 ---
 
@@ -32,14 +30,12 @@ Ever wanted a pet Creeper to guard your house? An army of Skeleton archers defen
 
 ![Craft the Primal Beast Biscuit Recipe](https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/packs/Monster-Companions/1791890109719.jpg)
 
-> **Custom Item Texture:** Baked into a golden honey-glazed cookie with a sweet-berry beast paw print in the center and crunchy ivory bone shards embedded throughout!
+![Primal Beast Biscuit Item](https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/packs/Monster-Companions/beast_biscuit_preview.png)
 
-<p align="center">
-  <img src="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/packs/Monster-Companions/beast_biscuit_preview.png" alt="Primal Beast Biscuit Item Sprite" width="128" />
-</p>
+> **Custom Item:** Baked into a golden honey-glazed cookie with a sweet-berry beast paw print in the center and crunchy bone shards embedded throughout!
 
 Craft the universal treat required to tame and heal any monster:
-- **Recipe (Shapeless):** 1 Rotten Flesh + 1 Bone + 1 Sweet Berries + 1 Honey Bottle $\rightarrow$ **4 Primal Beast Biscuits**
+- **Recipe (Shapeless):** 1 Rotten Flesh + 1 Bone + 1 Sweet Berries + 1 Honey Bottle → **4 Primal Beast Biscuits**
 
 ---
 
@@ -49,33 +45,33 @@ You cannot simply bribe a wild monster with candy! You must first **fight and we
 ---
 
 ### 🛡️ 3. Loyal Bodyguard Squad
-- **Perimeter Guard Radius (Vision-Friendly):** Companions escort you maintaining a respectful 4.5-block perimeter (`stop_distance: 4.5`). If separated by more than 20 blocks, they teleport to a safe 5-block radius so they never obstruct your view or crowd your camera.
-- **Zero Squad Friendly Fire & Complete Peace:** Companions are immune to player weapons, teammate arrows, splash potions, and explosions. Targeting AI strictly excludes teammates, so missed arrows or crossfire will NEVER cause companion infighting.
-- **Distinct Visual Differentiation:** Tamed companions display an always-visible floating nameplate above their head and celebrate taming with a golden totem sparkle fanfare (`random.levelup`). Name tags can be applied directly without needing an anvil.
-- **🔮 Evoker Minion Summoning (Loyal Spirit Vexes):** When a tamed Evoker summons Vexes, they spawn 100% loyal to you, swarm your enemies, and naturally vanish when their timer expires without ever turning on you. Evocation fangs pass through companions and you harmlessly.
-- **Healing:** Right-click your wounded companion with a Beast Biscuit to restore **10 HP (5 hearts)**.
-- **Sunlight Protection:** Tamed Zombies, Skeletons, and Phantoms must wear a helmet or hat to survive daytime sunlight!
-- **One-Time Kamikaze Creepers:** Tamed Creepers rush enemies that attack you and detonate on the target (single-use loyal explosive!).
-- **No Clutter on Death:** Fallen companions drop no clutter upon dying in battle.
+- **Vision-Friendly Perimeter Guard:** Companions escort you while maintaining a respectful buffer zone. If you sprint ahead or get separated, they catch up and safely teleport behind you, ensuring they never crowd your screen, bump into you, or obstruct your line of sight.
+- **Zero Squad Friendly Fire:** Companions are completely immune to player sword sweeps, teammate arrows, splash potions, and explosions. Squad targeting strictly excludes allies, ensuring chaotic crossfire will never trigger infighting among your monsters.
+- **Distinct Visual Differentiation:** Tamed companions display an always-visible floating nameplate above their head so you can easily spot your allies in the dark, celebrated with a burst of golden sparkles when tamed. Name tags can be applied directly without needing an anvil.
+- **🔮 Loyal Spirit Vexes (Evoker Minions):** When a tamed Evoker summons Vexes, they spawn 100% loyal to you, swarm your enemies, and naturally vanish when their timer expires without ever turning on you. Evoker fangs pass through you and your companions harmlessly.
+- **Healing in Combat:** Feed your wounded companion a Beast Biscuit at any time to restore **10 HP (5 hearts)**.
+- **Sunlight Protection:** Tamed Zombies, Skeletons, and Phantoms can wear a helmet or hat to survive daytime sunlight without burning!
+- **Loyal Kamikaze Creepers:** Tamed Creepers rush enemies that threaten you and detonate on the target (single-use loyal explosive bodyguard!).
+- **Clean Defeat:** Fallen companions drop no clutter upon dying in battle.
 
 ---
 
-### 🕷️ 4. Rideable Mounts & Native Ride UI (WASD Direct Steering)
+### 🕷️ 4. Rideable Mounts & Native Ride UI (Direct Steering)
 Equip a **Saddle** to mount and command large monsters with full **Bedrock Ride UI** integration:
 - **On-Screen Mount Button:** Approaching a tamed mount displays the native on-screen **"Mount"** prompt on Mobile touch controls, Controller, and PC.
 - **Sneak-To-Interact:** Crouching bypasses the Ride UI, so you can feed Beast Biscuits to heal, attach leads, or apply Name Tags without accidentally climbing on.
-- **100% Manual WASD Steering:** When mounted, random wandering and autonomous head-turning are completely disabled. Mounts stand completely still unless you press movement keys!
+- **100% Manual Steering:** When mounted, random wandering and autonomous head-turning are completely disabled. Mounts stand completely still unless you press movement controls!
 - **Follow on Dismount:** When you dismount (by pressing Sneak), your mount automatically resumes escorting you on foot as a bodyguard.
 - **Spider & Cave Spider:** Climb straight up walls and vertical cliffs!
 - **Ravager:** Heavy shock-tank war beast with immense knockback resistance!
-- **Iron Golem:** Indestructible frontline vehicle!
+- **Iron Golem:** Indestructible frontline war machine!
 - **Hoglin & Zoglin:** High-damage Nether battering ram!
 
 ---
 
 ## 📋 Tamable Mob Roster (32 Monsters)
 
-- 🧟 **Undead:** Zombie, Drowned, Husk, Zombie Villager (v1 & v2), Zombie Pigman
+- 🧟 **Undead:** Zombie, Drowned, Husk, Zombie Villager, Zombified Pigman
 - 🏹 **Skeletons:** Skeleton, Stray, Bogged, Wither Skeleton (Wither Blade)
 - 🌪️ **1.21 Tricky Trials:** Breeze (Wind Charge Leaper & Launcher)
 - 🐗 **Nether Beasts:** Hoglin (War Boar), Zoglin (Undead War Boar)
@@ -90,7 +86,7 @@ Equip a **Saddle** to mount and command large monsters with full **Bedrock Ride 
 
 ---
 
-## 📥 Direct Downloads & Installation
+## 📥 Direct Downloads
 
 | Package | Format | Description | Download Link |
 | :--- | :--- | :--- | :--- |
@@ -98,9 +94,12 @@ Equip a **Saddle** to mount and command large monsters with full **Bedrock Ride 
 | **Behavior Pack Only** | `.mcpack` | Game behaviors, taming logic, mounts, and recipes. | [⬇️ **Download BP (.mcpack)**](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Monster-Companions/Monster_Companions_BP.mcpack) |
 | **Resource Pack Only** | `.mcpack` | Beast Biscuit custom texture, icons, and language names. | [⬇️ **Download RP (.mcpack)**](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Monster-Companions/Monster_Companions_RP.mcpack) |
 
-### 🚀 Easy Installation Steps
-1. Download **`Monster_Companions_AllensCreations.mcaddon`**.
-2. Tap or double-click the downloaded file in your browser or Files app.
-3. Minecraft Bedrock will launch automatically and import both packs.
-4. Go to World Settings $\rightarrow$ **Behavior Packs**, select **Monster Companions by AllensCreations**, and click **Activate**.
-5. Craft your Beast Biscuits and build your monster companion army!
+---
+
+## 📜 Terms of Use & Guidelines
+
+- **Creator Attribution:** Created by **AllensCreations**.
+- **Content Creators (YouTube, TikTok, Twitch):** You are 100% welcome to showcase this pack in videos, live streams, and reviews! Please include credit to **AllensCreations** and link to the official download page or this GitHub repository.
+- **No Direct Re-uploading:** Do not re-upload this pack, its individual files, or modified copies to any website, app store, or file-sharing service.
+- **No Paywalls or Link Shorteners:** It is strictly prohibited to distribute this pack behind paywalls, ad-gate links (e.g., AdFly, Linkvertise, Boost.ink), or paid monetization walls.
+- **Server & Realm Use:** You are free to use this pack on your personal worlds, private servers, and Bedrock Realms.

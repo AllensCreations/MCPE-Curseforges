@@ -45,8 +45,8 @@ Tired of accidentally slicing your favorite pet dog during a mob fight? Frustrat
 - **Leash Any Mob:** Lead Villagers, Wandering Traders, Iron Golems, Turtles, Zombies, Skeletons, Creepers, Endermen, Wardens, Withers, and Ghasts!
 - **Pacified on Leads:** Hostile mobs attached to your leash are pacified and will **not** attack you, making zoo collection and mob transportation safe.
 - **Smart Villager Interaction:**
-  - **Normal Right-Click:** Opens the trade menu.
-  - **Sneak + Right-Click with Lead:** Attaches the leash cleanly without opening the trade screen.
+  - **Normal Right-Click / Tap:** Opens the trade menu.
+  - **Sneak + Right-Click / Tap with Lead:** Attaches the leash cleanly without opening the trade screen.
 
 ### 🛡️ Pet & Mount Friendly-Fire Immunity
 - Tamed Wolves, Cats, Parrots, Horses, Donkeys, Mules, and Llamas take **zero damage** from player sword sweeps, axe chops, and stray arrows.
@@ -57,8 +57,8 @@ Tired of accidentally slicing your favorite pet dog during a mob fight? Frustrat
 
 ### 🪚 Full Stonecutter Woodcutter
 - Use the Stonecutter to cut all **11 Wood Types** (Oak, Spruce, Birch, Jungle, Acacia, Dark Oak, Mangrove, Cherry, Bamboo, Crimson, Warped):
-  - **Logs $\rightarrow$** 4 Planks, 8 Slabs, 4 Stairs
-  - **Planks $\rightarrow$** Slabs (2x), Stairs (1x), Trapdoors (1x), Fences (1x), Fence Gates (1x)
+  - **Logs →** 4 Planks, 8 Slabs, 4 Stairs
+  - **Planks →** Slabs (2x), Stairs (1x), Trapdoors (1x), Fences (1x), Fence Gates (1x)
 
 ### 🧪 Stackable Potions & Milk Buckets (16x)
 - Potions, Splash Potions, Lingering Potions, and Milk Buckets now stack up to **16** in your inventory.
@@ -71,36 +71,31 @@ Tired of accidentally slicing your favorite pet dog during a mob fight? Frustrat
 
 ### 💀 Mob Head Trophy System & PvP Heads
 - Slain mobs have a **2.5% base drop chance** (+1% per Looting level) to drop their heads on player kills:
-  - 🧟 **Zombie, Husk, Drowned** $\rightarrow$ Zombie Head
-  - 🏹 **Skeleton, Stray, Bogged** $\rightarrow$ Skeleton Skull
-  - 🧨 **Creeper** $\rightarrow$ Creeper Head
-  - 🐷 **Piglin, Zombified Piglin** $\rightarrow$ Piglin Head
-  - 💀 **Wither Skeleton** $\rightarrow$ Fair 10% base drop rate
-  - 🐉 **Ender Dragon** $\rightarrow$ Drops **1 Dragon Head** + **1 Elytra** + **Dragon's Breath**
-  - ⚔️ **PvP Player Head** $\rightarrow$ Slaying another player in combat drops their Player Head!
+  - 🧟 **Zombie, Husk, Drowned** → Zombie Head
+  - 🏹 **Skeleton, Stray, Bogged** → Skeleton Skull
+  - 🧨 **Creeper** → Creeper Head
+  - 🐷 **Piglin, Zombified Piglin** → Piglin Head
+  - 💀 **Wither Skeleton** → Fair 10% base drop rate
+  - 🐉 **Ender Dragon** → Drops **1 Dragon Head** + **1 Elytra** + **Dragon's Breath**
+  - ⚔️ **PvP Player Head** → Slaying another player in combat drops their Player Head!
 
 ### 💎 Wandering Trader Collector Shop
 - Trade **1 Block of Diamonds** for any rare mob head:
-  - 1 Diamond Block $\rightarrow$ Zombie, Skeleton, Creeper, Wither Skeleton, Piglin, Player, or Dragon Head
+  - 1 Diamond Block → Zombie, Skeleton, Creeper, Wither Skeleton, Piglin, Player, or Dragon Head
   - Also offers rare biome flora: Spore Blossoms, Wither Roses, Nautilus Shells, Bundles, and Heart of the Sea.
 
 ### 📦 100% Guaranteed Shulker Shells
 - Shulkers in End Cities always drop **2 Shulker Shells** (1 complete Shulker Box per kill).
 
 ### 🛏️ Automatic Single-Player Sleep
-- Automatically sets `playersSleepingPercentage 0` on world tick. A single player sleeping skips the night on Realms and multiplayer without requiring cheats.
+- A single player sleeping automatically skips the night for the entire world on Realms and multiplayer without requiring operator cheats.
 
 ---
 
 ## 🛠️ Complete Recipe & Crafting Guide
 
-<details>
-<summary><b>▶ Click to Expand All Recipes (Landscaping, Recycling, Crafting)</b></summary>
-
-<br/>
-
 ### 🌱 Landscaping & Nature Recipes
-- **Dirt + Seed $\rightarrow$ Grass Block:** 1 Dirt + 1 of any seed (Wheat, Pumpkin, Melon, Beetroot, Torchflower, Pitcher Pod) crafts **1 Grass Block**.
+- **Dirt + Seed → Grass Block:** 1 Dirt + 1 of any seed (Wheat, Pumpkin, Melon, Beetroot, Torchflower, Pitcher Pod) crafts **1 Grass Block**.
 - **Guaranteed Flint:** 3 Gravel crafts into **3 Flint** (shapeless).
 - **Mossy Cobblestone & Stone Bricks:** 1 Cobblestone/Stone Brick + 1 Moss Block (or Vine) crafts **1 Mossy Block**.
 - **Craftable Cobwebs:** 4 String + 1 Slimeball crafts **1 Cobweb**.
@@ -115,20 +110,18 @@ Tired of accidentally slicing your favorite pet dog during a mob fight? Frustrat
 ### 🪜 Fair Crafting Yields
 - **Fair 8-Stair Crafting:** 6 blocks crafts **8 stairs** across all 95 stair types.
 - **Fair 4-Chain Crafting:** 1 Ingot + 2 Nuggets crafts **4 Chains** (instead of 1).
-- **3 Sugar Cane $\rightarrow$ 6 Paper.**
-- **6 Glass Panes $\rightarrow$ 2 Glass Blocks.**
-- **8 Concrete Powder + 1 Water Bottle $\rightarrow$ 8 solid Concrete + 1 Glass Bottle.**
+- **3 Sugar Cane → 6 Paper.**
+- **6 Glass Panes → 2 Glass Blocks.**
+- **8 Concrete Powder + 1 Water Bottle → 8 solid Concrete + 1 Glass Bottle.**
 
 ### ♻️ Recycling & Smelting
 - **Smelt Rotten Flesh:** Smelt or smoke Rotten Flesh in any furnace, smoker, or campfire to produce **Leather**.
 - **Recycle Slabs:** 2 Slabs recombines into **1 Full Block**.
 - **Recycle Stairs:** 4 Stairs uncrafts into **3 Full Blocks**.
-- **Wool $\rightarrow$ String:** 1 Wool (any color) crafts into **4 String**.
+- **Wool → String:** 1 Wool (any color) crafts into **4 String**.
 - **Workstations:** 1 Blast Furnace or Smoker uncrafts into **1 standard Furnace**.
 - **Redstone Flexibility:** Repeaters and Comparators accept Cobblestone, Deepslate, or Blackstone.
 - **Block Uncrafting:** Amethyst (4 shards), Quartz (4 quartz), Clay (4 clay balls), Glowstone (4 dust), Magma (4 cream), Honeycombs (4 honeycombs), Melons (9 slices), Nether Wart Blocks (9 wart).
-
-</details>
 
 ---
 
@@ -141,54 +134,31 @@ Tired of accidentally slicing your favorite pet dog during a mob fight? Frustrat
 
 ---
 
-## 📥 Installation Guide
+## 📥 Direct Downloads
 
-### 📱 Android, iOS & iPadOS
-1. Click the [Download Link](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Vanilla-Quality-of-Life/Vanilla_QoL_AllensCreations.mcpack) to download `Vanilla_QoL_AllensCreations.mcpack`.
-2. Tap the downloaded file in your browser or Files app.
-3. Select **Open with Minecraft**.
-4. Minecraft will launch and display: *Import Started... Successfully Imported!*
-5. Open World Settings $\rightarrow$ **Behavior Packs** $\rightarrow$ Activate **Vanilla Quality of Life by AllensCreations**.
-
-### 💻 Windows 10 / 11
-1. Download `Vanilla_QoL_AllensCreations.mcpack`.
-2. Double-click the file to automatically install into Minecraft.
-3. Activate the pack in your world settings.
-
-### 🌐 Realms & Dedicated Servers
-1. Activate the pack on your single-player world.
-2. Upload the world to your Realm via **Realm Settings $\rightarrow$ Edit World $\rightarrow$ Replace World**.
+| Package | Format | Description | Download Link |
+| :--- | :--- | :--- | :--- |
+| **Complete Pack (Recommended)** | `.mcpack` | Universal leashing, fast leaf decay, woodcutter, 16x potions, and mob head drops | [⬇️ **Download .mcpack**](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Vanilla-Quality-of-Life/Vanilla_QoL_AllensCreations.mcpack) |
 
 ---
 
 ## ❓ Frequently Asked Questions (FAQ)
 
-<details>
-<summary><b>Does this pack require Experimental Gameplay toggles?</b></summary>
+### Does this pack require Experimental Gameplay toggles?
 No! This pack is built using 100% pure vanilla JSON overrides. It requires zero experimental toggles, making it safe for long-term survival worlds and future game updates.
-</details>
 
-<details>
-<summary><b>Can I use this pack on my Realm or multiplayer server?</b></summary>
+### Can I use this pack on my Realm or multiplayer server?
 Yes! The pack works seamlessly on Realms and Bedrock Dedicated Servers. The single-player sleep feature works automatically without requiring cheat permissions.
-</details>
 
-<details>
-<summary><b>Will this conflict with other add-ons?</b></summary>
+### Will this conflict with other add-ons?
 Vanilla Quality of Life modifies entity behaviors, recipes, and loot tables. It works alongside resource packs, custom item packs, and world generation mods.
-</details>
 
 ---
 
-## 📜 Credits & Terms of Use
+## 📜 Terms of Use & Guidelines
 
-- **Creator:** **AllensCreations**
-- **Showcases & Videos:** You are free to feature this add-on in YouTube, TikTok, or Twitch videos! Please provide credit and link to this project.
-- **Redistribution:** Do not re-upload this pack to other websites or app stores behind paywalls or link shorteners (AdFly, Linkvertise, etc.).
-
----
-
-## ⬇️ Downloads & Links
-
-- **Direct Download (.mcpack):** [Vanilla_QoL_AllensCreations.mcpack](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Vanilla-Quality-of-Life/Vanilla_QoL_AllensCreations.mcpack)
-- **Source Code Repository:** [GitHub - AllensCreations/MCPE-Curseforges](https://github.com/AllensCreations/MCPE-Curseforges)
+- **Creator Attribution:** Created by **AllensCreations**.
+- **Content Creators (YouTube, TikTok, Twitch):** You are 100% welcome to showcase this pack in videos, live streams, and reviews! Please include credit to **AllensCreations** and link to the official download page or this GitHub repository.
+- **No Direct Re-uploading:** Do not re-upload this pack, its individual files, or modified copies to any website, app store, or file-sharing service.
+- **No Paywalls or Link Shorteners:** It is strictly prohibited to distribute this pack behind paywalls, ad-gate links (e.g., AdFly, Linkvertise, Boost.ink), or paid monetization walls.
+- **Server & Realm Use:** You are free to use this pack on your personal worlds, private servers, and Bedrock Realms.
