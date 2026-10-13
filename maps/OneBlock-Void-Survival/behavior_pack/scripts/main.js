@@ -881,8 +881,8 @@ function checkRandomIslandSpawn(dimension, phaseIndex, totalCount) {
     const dimKey = getDimKey(dimension.id);
     const targetDim = (dimKey === "nether") ? "nether" : ((dimKey === "end") ? "the_end" : "overworld");
 
-    // Avoid triggering island rifts during the tutorial in overworld
-    if (dimKey === "overworld" && totalCount < TUTORIAL_BLOCKS.length) return;
+    // Avoid triggering island rifts during tutorial and early starter phases (up to Phase 3) in overworld
+    if (dimKey === "overworld" && (totalCount < TUTORIAL_BLOCKS.length || phaseIndex <= 3)) return;
 
     // 1. Track blocks mined since last island spawn in this dimension:
     const lastMineProp = `last_island_mine_count_${dimKey}`;
@@ -1070,9 +1070,10 @@ function handleAutomatedBlockDestruction(dimension) {
     // Advance progression for automated destruction (TNT, Piston, etc.)
     incrementDimensionCount(dimKey, dimension);
 
-    // Roll lucky chest spawn (5% chance)
+    // Roll lucky chest spawn (5% chance) - only after Phase 3 in Overworld
+    const isEarlyGame = (dimKey === "overworld" && (state.count < TUTORIAL_BLOCKS.length || state.phaseIndex <= 3));
     const rollChest = Math.random();
-    if (rollChest < 0.05 && phase && phase.chests && phase.chests.length > 0) {
+    if (!isEarlyGame && rollChest < 0.05 && phase && phase.chests && phase.chests.length > 0) {
       const items = [];
       const numItems = 2 + Math.floor(Math.random() * 3);
       for (let i = 0; i < numItems; i++) {
@@ -1788,6 +1789,13 @@ function tickDimensionShifters() {
   ];
 
   for (const { key, dim } of dims) {
+    // Postpone Dimension Shifter visits in Overworld until player reaches Phase 4+
+    if (key === "overworld") {
+      const owState = getDimensionState("overworld");
+      if (owState.phaseIndex <= 3) {
+        continue;
+      }
+    }
     const state = dimensionShifterState[key];
 
     if (!state.isPresent) {
@@ -2186,9 +2194,11 @@ world.afterEvents.playerBreakBlock.subscribe((event) => {
   // The block broken naturally drops its vanilla items (dirt drops dirt, stone drops cobblestone, coal ore drops coal with fortune/silk-touch).
 
   // Mid-Phase Events: strictly trigger in the middle window (30% to 70% of the phase)
+  // Suppress all random events during Tutorial and early starter phases (Phases 0 to 3) in Overworld
+  const isEarlyGame = (dimKey === "overworld" && (state.count < TUTORIAL_BLOCKS.length || state.phaseIndex <= 3));
   const minMid = Math.floor(state.currentPhaseLength * 0.3);
   const maxMid = Math.floor(state.currentPhaseLength * 0.7);
-  if (state.phaseProgress >= minMid && state.phaseProgress <= maxMid) {
+  if (!isEarlyGame && state.phaseProgress >= minMid && state.phaseProgress <= maxMid) {
     const roll = Math.random();
 
     if (roll < CHEST_CHANCE) {
@@ -2339,7 +2349,7 @@ world.afterEvents.entityDie.subscribe((event) => {
 world.afterEvents.entitySpawn.subscribe((event) => {
   try {
     const entity = event.entity;
-    if (entity && entity.typeId === "minecraft:wandering_trader") {
+    if (entity && entity.typeId === "minecraft:wandering_trader" && !entity.hasTag("dimension_shifter")) {
       for (const player of world.getAllPlayers()) {
         player.sendMessage("§e★ A Wandering Trader has arrived with mystery survival goods! §7(Accepts Emeralds, Gold, & Diamonds)");
         player.playSound("mob.villager.idle", { pitch: 1.1, volume: 1.0 });
