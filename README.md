@@ -98,9 +98,11 @@
 
 ## Minigame 1: Alphabet Scavenger Hunt (v1.0.0)
 
-![Alphabet Scavenger Hunt Icon](https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/minigames/Alphabet-Scavenger-Hunt/pack_icon.png)
+![Alphabet Scavenger Hunt Icon](https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/minigames/Alphabet-Scavenger-Hunt/1791906906852.jpg)
 
 > *"A high-stakes 20-round survival challenge! Scavenge items matching the target letter before the 60-second timer expires or suffer permanent max health loss!"*
+
+![Alphabet Scavenger Hunt Banner](https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/minigames/Alphabet-Scavenger-Hunt/1791906974481.jpg)
 
 - **20-Round Gauntlet:** Conquer 20 progressive rounds featuring balanced survival letter selection.
 - **Top-Screen Objective Bar:** Live tracking of round, target letter, countdown timer, and health penalty status strictly at the top of your screen via native Bossbar and Action Bar.
@@ -108,7 +110,7 @@
 - **Permanent Health Decay:** Failing to find an item before the 60-second timer reaches 0 results in an un-regenerable -2 Max HP penalty!
 - **Fireworks Victory:** Complete all 20 rounds to claim ultimate victory and celebratory fireworks!
 
-👉 **[Read Full Alphabet Scavenger Hunt Documentation](minigames/Alphabet-Scavenger-Hunt/README.md)**
+[Read Full Alphabet Scavenger Hunt Documentation](minigames/Alphabet-Scavenger-Hunt/README.md)
 
 ---
 
