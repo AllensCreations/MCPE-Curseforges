@@ -4,7 +4,7 @@
 
 [![Minecraft Bedrock](https://img.shields.io/badge/Minecraft%20Bedrock-1.21%20--%201.26+-brightgreen?style=flat-square&logo=minecraft)](https://github.com/AllensCreations/MCPE-Curseforges)
 [![Platform](https://img.shields.io/badge/Platform-Mobile%20%7C%20PC%20%7C%20Console%20%7C%20Realms-yellow?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges)
-[![Collection Size](https://img.shields.io/badge/Collection-2%20Packs%20%7C%201%20Map%20%7C%201%20Minigame-orange?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges)
+[![Collection Size](https://img.shields.io/badge/Collection-2%20Packs%20%7C%201%20Map%20%7C%202%20Minigames-orange?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges)
 [![Format](https://img.shields.io/badge/Format-.MCPACK%20%7C%20.MCADDON%20%7C%20.MCWORLD-blue?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges)
 
 > **Created by AllensCreations**  
@@ -39,6 +39,7 @@
 | Minigame | Version | Category | Download (.mcaddon) | Source Code | Highlights |
 | :--- | :--- | :--- | :--- | :--- | :--- |
 | **Alphabet Scavenger Hunt** | `v1.0.0` | Survival Challenge | [⬇️ **Download (.mcaddon)**](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Alphabet-Scavenger-Hunt/Alphabet_Scavenger_Hunt_AllensCreations.mcaddon) | [`minigames/Alphabet-Scavenger-Hunt/`](minigames/Alphabet-Scavenger-Hunt/) | 20-Round survival challenge. Scavenge items matching the target letter within 60s or suffer permanent max health loss! PrismarineJS item verification engine. |
+| **Shared Hivemind Inventory** | `v1.0.0` | Multiplayer Challenge | [⬇️ **Download (.mcaddon)**](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Shared-Hivemind-Inventory/Shared_Hivemind_Inventory_AllensCreations.mcaddon) | [`minigames/Shared-Hivemind-Inventory/`](minigames/Shared-Hivemind-Inventory/) | All online players share the exact same 36 inventory slots and offhand in real-time. Single death spot drops and anti-duplication engine. |
 
 👉 **[Explore Full Minigames Directory](minigames/README.md)**
 
@@ -111,6 +112,21 @@
 - **Fireworks Victory:** Complete all 20 rounds to claim ultimate victory and celebratory fireworks!
 
 [Read Full Alphabet Scavenger Hunt Documentation](minigames/Alphabet-Scavenger-Hunt/README.md)
+
+---
+
+## Minigame 2: Shared Hivemind Inventory (v1.0.0)
+
+![Shared Hivemind Inventory Icon](https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/minigames/Shared-Hivemind-Inventory/pack_icon.png)
+
+> *"All online players share the exact same 36 inventory slots and offhand in real-time! Mine, craft, eat, and fight as one unified collective consciousness."*
+
+- **Authoritative Real-Time Sync:** 1-tick delta synchronization engine mirrors all 36 main inventory slots and offhand across all online players without circular feedback loops.
+- **Anti-Duplication & Drop Safety:** Fast-drop and simultaneous-click protections immediately deduct items in the Master State, eliminating phantom items.
+- **Single Death Spot Drop:** Automatically sets `keepInventory` to `true`. When any player dies, all 36 shared slots drop physically at that exact death spot, and all living teammates' inventories are cleared instantly with a shatter sound cue and coordinate HUD.
+- **Persistent HUD Indicator:** Live top-screen indicator showing `[ HIVEMIND ACTIVE ] Shared Slots: Synchronized`.
+
+[Read Full Shared Hivemind Inventory Documentation](minigames/Shared-Hivemind-Inventory/README.md)
 
 ---
 

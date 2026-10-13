@@ -1,0 +1,26 @@
+{
+  "format_version": 2,
+  "header": {
+    "name": "Shared Hivemind Inventory BP",
+    "description": "All players share the exact same 36 inventory slots and offhand in real-time. Created by AllensCreations",
+    "uuid": "ea58a63d-0e39-4d06-b07e-07c0a98ac0e3",
+    "version": [1, 0, 0],
+    "min_engine_version": [1, 21, 0]
+  },
+  "modules": [
+    {
+      "description": "Shared Hivemind Inventory Script Engine",
+      "type": "script",
+      "language": "javascript",
+      "uuid": "e5b9f904-8fb7-4302-ac75-1fa2b1cf4f70",
+      "version": [1, 0, 0],
+      "entry": "scripts/main.js"
+    }
+  ],
+  "dependencies": [
+    {
+      "module_name": "@minecraft/server",
+      "version": "1.13.0"
+    }
+  ]
+}
