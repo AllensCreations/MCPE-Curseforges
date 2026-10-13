@@ -1,0 +1,28 @@
+{
+  "format_version": "1.20.10",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "allenscreations:craftable_gold_horse_armor"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      "  M",
+      "MWM",
+      "MMM"
+    ],
+    "key": {
+      "M": {
+        "item": "minecraft:gold_ingot"
+      },
+      "W": {
+        "item": "minecraft:white_wool"
+      }
+    },
+    "result": {
+      "item": "minecraft:golden_horse_armor",
+      "count": 1
+    }
+  }
+}

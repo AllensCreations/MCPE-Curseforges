@@ -1,0 +1,23 @@
+{
+  "format_version": "1.20.10",
+  "minecraft:recipe_shapeless": {
+    "description": {
+      "identifier": "allenscreations:grass_block_from_melon_seeds"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "ingredients": [
+      {
+        "item": "minecraft:dirt"
+      },
+      {
+        "item": "minecraft:melon_seeds"
+      }
+    ],
+    "result": {
+      "item": "minecraft:grass_block",
+      "count": 1
+    }
+  }
+}
