@@ -6,7 +6,15 @@
       "materials": {
         "default": "entity_alphatest"
       },
-      "render_controllers": []
+      "textures": {
+        "default": "textures/entity/invisible"
+      },
+      "geometry": {
+        "default": "geometry.status_marker"
+      },
+      "render_controllers": [
+        "controller.render.status_marker"
+      ]
     }
   }
 }

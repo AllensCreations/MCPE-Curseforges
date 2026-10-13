@@ -4,7 +4,7 @@
  * Created by AllensCreations
  */
 
-import { world, system, EntityComponentTypes } from "@minecraft/server";
+import { world, system } from "@minecraft/server";
 
 // ============================================================================
 // 1. CONFIGURATION & CONSTANTS
@@ -378,7 +378,7 @@ function onTick() {
       hits = [];
     }
 
-    // 2. Filter out invalid/ignored targets
+    // 2. Filter out invalid/ignored targets from raycast
     let validTarget = null;
     for (const hit of hits) {
       const ent = hit.entity;
@@ -390,17 +390,54 @@ function onTick() {
       break;
     }
 
+    // 2b. View Cone Fallback: If laser raycast is slightly off-center, lock onto entity in view direction
+    if (!validTarget) {
+      try {
+        const pLoc = player.location;
+        const viewVec = player.getViewDirection();
+        const nearby = player.dimension.getEntities({
+          location: pLoc,
+          maxDistance: RAYCAST_MAX_DISTANCE,
+          excludeTypes: ["minecraft:player", MARKER_TYPE_ID]
+        });
+
+        let bestDot = 0.88; // ~28 degrees view cone
+        for (const ent of nearby) {
+          if (!ent.isValid() || IGNORED_TYPE_IDS.has(ent.typeId)) continue;
+          const eLoc = ent.location;
+          const dx = eLoc.x - pLoc.x;
+          const dy = (eLoc.y + 1.0) - (pLoc.y + 1.5);
+          const dz = eLoc.z - pLoc.z;
+          const dist = Math.hypot(dx, dy, dz);
+          if (dist < 0.5 || dist > RAYCAST_MAX_DISTANCE) continue;
+
+          const nx = dx / dist;
+          const ny = dy / dist;
+          const nz = dz / dist;
+          const dot = nx * viewVec.x + ny * viewVec.y + nz * viewVec.z;
+
+          if (dot > bestDot) {
+            bestDot = dot;
+            validTarget = ent;
+          }
+        }
+      } catch (coneErr) {}
+    }
+
     // 3. If no target found, remove active marker
     if (!validTarget) {
       clearOverlay(player.id);
       continue;
     }
 
-    // 4. Read target health
+    // 4. Read target health (universal component access)
     let currentHp = 20;
     let maxHp = 20;
     try {
-      const healthComp = validTarget.getComponent(EntityComponentTypes.Health);
+      let healthComp = validTarget.getComponent("minecraft:health");
+      if (!healthComp && typeof EntityComponentTypes !== "undefined") {
+        healthComp = validTarget.getComponent(EntityComponentTypes.Health);
+      }
       if (healthComp) {
         currentHp = healthComp.currentValue;
         maxHp = healthComp.effectiveMax;
@@ -425,6 +462,12 @@ function onTick() {
     };
 
     const overlayText = buildOverlayText(validTarget, currentHp, maxHp);
+
+    // Also display in player Actionbar for instant on-screen feedback
+    try {
+      player.onScreenDisplay.setActionBar(overlayText);
+    } catch (ae) {}
+
     const existing = activeOverlays.get(player.id);
 
     // 6. Reuse or spawn marker entity
@@ -490,6 +533,16 @@ world.afterEvents.entityDie.subscribe((event) => {
 // Clean up when player leaves
 world.afterEvents.playerLeave.subscribe((event) => {
   clearOverlay(event.playerId);
+});
+
+// Welcome notification on player join
+world.afterEvents.playerSpawn.subscribe((event) => {
+  const { player, initialSpawn } = event;
+  if (initialSpawn) {
+    try {
+      player.sendMessage("§a[RPG Mob Info Overlay] §eActive! Look directly at any mob within 12 blocks to view its Rank, Health Bar, and Threat Rating.");
+    } catch (se) {}
+  }
 });
 
 // Cleanup any lingering status markers on initialization
