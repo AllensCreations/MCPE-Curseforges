@@ -69,6 +69,8 @@
 
 ## 🌟 Pack 2: Monster Companions (v1.0.0)
 
+![Monster Companions Banner](https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/packs/Monster-Companions/1791889996745.jpg)
+
 > *"Turn hostile monsters into loyal combat bodyguards and rideable wall-climbing mounts!"*
 
 - **🍖 Primal Beast Biscuit:** Custom item with handcrafted texture. Crafted with 1 Rotten Flesh + 1 Bone + 1 Sweet Berries + 1 Honey Bottle $\rightarrow$ 4 Biscuits.
