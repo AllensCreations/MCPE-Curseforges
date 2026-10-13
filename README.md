@@ -4,7 +4,7 @@
 
 [![Minecraft Bedrock](https://img.shields.io/badge/Minecraft%20Bedrock-1.21%20--%201.26+-brightgreen?style=flat-square&logo=minecraft)](https://github.com/AllensCreations/MCPE-Curseforges)
 [![Platform](https://img.shields.io/badge/Platform-Mobile%20%7C%20PC%20%7C%20Console%20%7C%20Realms-yellow?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges)
-[![Collection Size](https://img.shields.io/badge/Collection-2%20Packs%20%7C%201%20Map%20%7C%202%20Minigames-orange?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges)
+[![Collection Size](https://img.shields.io/badge/Collection-2%20Packs%20%7C%201%20Map%20%7C%203%20Minigames-orange?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges)
 [![Format](https://img.shields.io/badge/Format-.MCPACK%20%7C%20.MCADDON%20%7C%20.MCWORLD-blue?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges)
 
 > **Created by AllensCreations**  
@@ -40,6 +40,7 @@
 | :--- | :--- | :--- | :--- | :--- | :--- |
 | **Alphabet Scavenger Hunt** | `v1.0.0` | Survival Challenge | [⬇️ **Download (.mcaddon)**](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Alphabet-Scavenger-Hunt/Alphabet_Scavenger_Hunt_AllensCreations.mcaddon) | [`minigames/Alphabet-Scavenger-Hunt/`](minigames/Alphabet-Scavenger-Hunt/) | 20-Round survival challenge. Scavenge items matching the target letter within 60s or suffer permanent max health loss! PrismarineJS item verification engine. |
 | **Shared Hivemind Inventory** | `v1.0.0` | Multiplayer Challenge | [⬇️ **Download (.mcaddon)**](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Shared-Hivemind-Inventory/Shared_Hivemind_Inventory_AllensCreations.mcaddon) | [`minigames/Shared-Hivemind-Inventory/`](minigames/Shared-Hivemind-Inventory/) | All online players share the exact same 36 inventory slots and offhand in real-time. Single death spot drops and anti-duplication engine. |
+| **Tethered: Breaker & Builder** | `v1.0.0` | Asymmetric Co-op | [⬇️ **Download (.mcaddon)**](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Tethered-Breaker-And-Builder/Tethered_Breaker_And_Builder_AllensCreations.mcaddon) | [`minigames/Tethered-Breaker-And-Builder/`](minigames/Tethered-Breaker-And-Builder/) | 2-Player asymmetric co-op challenge. 15m dynamic elastic energy leash, anchor physics, strict mining/building separation, and live tension HUD. |
 
 👉 **[Explore Full Minigames Directory](minigames/README.md)**
 
@@ -127,6 +128,22 @@
 - **Persistent HUD Indicator:** Live top-screen indicator showing `[ HIVEMIND ACTIVE ] Shared Slots: Synchronized`.
 
 [Read Full Shared Hivemind Inventory Documentation](minigames/Shared-Hivemind-Inventory/README.md)
+
+---
+
+## Minigame 3: Tethered: Breaker & Builder (v1.0.0)
+
+![Tethered Icon](https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/minigames/Tethered-Breaker-And-Builder/pack_icon.png)
+
+> *"An intense 2-player asymmetric co-op challenge where two partners are physically bound by an elastic energy leash with strictly separated abilities!"*
+
+- **Dynamic Energy Leash:** 15m elastic tether rendered via dynamic color-coded particles. Anchor-aware physics safely reel falling teammates back onto solid ground.
+- **Strict Role Separation:** Breaker has exclusive rights to mine blocks and fight enemies; Builder has exclusive rights to place blocks, fluids, and craft utilities.
+- **Co-op Respawn & Re-anchor:** When a player dies, they respawn and immediately teleport to their partner with an invulnerability window so the tether never snaps.
+- **Overstretch Damage Strain:** Separating past 18m deals 2 damage points per second until partners regroup.
+- **Live Tension Action Bar:** Real-time distance and leash tension status displayed on the HUD.
+
+[Read Full Tethered Documentation](minigames/Tethered-Breaker-And-Builder/README.md)
 
 ---
 
