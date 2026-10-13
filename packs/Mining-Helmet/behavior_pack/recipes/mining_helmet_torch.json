@@ -1,0 +1,27 @@
+{
+  "format_version": "1.12.0",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "custom:mining_helmet_torch"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      " T ",
+      " H "
+    ],
+    "key": {
+      "T": {
+        "item": "minecraft:torch"
+      },
+      "H": {
+        "item": "minecraft:golden_helmet"
+      }
+    },
+    "result": {
+      "item": "custom:mining_helmet",
+      "count": 1
+    }
+  }
+}

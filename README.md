@@ -29,6 +29,7 @@
 | :--- | :--- | :--- | :--- | :--- | :--- |
 | **Vanilla Quality of Life** | `v1.2.0` | Complete Pack (`.mcaddon`) | [⬇️ **Download (.mcaddon)**](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Vanilla-Quality-of-Life/Vanilla_QoL_AllensCreations.mcaddon) | [`packs/Vanilla-Quality-of-Life/`](packs/Vanilla-Quality-of-Life/) | Universal Leashes (101 mobs), Spider Leash Fix, Fast Leaf Decay, Woodcutter, 16x Potions, Offhand Quick-Swap, Mob Heads. |
 | **Monster Companions** | `v1.0.0` | Complete Pack (`.mcaddon`) | [⬇️ **Download (.mcaddon)**](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Monster-Companions/Monster_Companions_AllensCreations.mcaddon) | [`packs/Monster-Companions/`](packs/Monster-Companions/) | Tame 32 monsters into bodyguards & rideable mounts with Beast Biscuits! Custom texture, combat pacification below 50% HP, wall-climbing spiders. |
+| **Mining Helmet** | `v1.0.0` | Complete Pack (`.mcaddon`) | [⬇️ **Download (.mcaddon)**](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Mining-Helmet/Mining_Helmet_AllensCreations.mcaddon) | [`packs/Mining-Helmet/`](packs/Mining-Helmet/) | Wearable Mining Helmet with real-time level 15 dynamic following light, zero-residue block cleanup, and gold helmet model styling. |
 
 👉 **[Explore Full Packs Directory](packs/README.md)**
 
@@ -96,6 +97,22 @@
 - **🕷️ Rideable Mounts (WASD Direct Steering):** Put a saddle on tamed Spiders, Ravagers, Iron Golems, Hoglins, and Zoglins with native Ride UI! Zero auto-wandering while mounted—full player manual control!
 
 👉 **[Read Full Monster Companions Documentation](packs/Monster-Companions/README.md)**
+
+---
+
+## 🌟 Pack 3: Mining Helmet (v1.0.0)
+
+![Mining Helmet Icon](https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/packs/Mining-Helmet/behavior_pack/pack_icon.png)
+
+> *"Hands-free Level 15 dynamic following light for deep cave spelunking and night survival!"*
+
+- **💡 Hands-Free Level 15 Light:** Equipping the Mining Helmet in your head slot projects maximum brightness wherever you walk, leaving both hands free for tools and shields.
+- **🧹 Fail-Proof Zero Residue:** Temporary `minecraft:light_block` updates automatically restore to air upon movement, unequip, death, or disconnect.
+- **🛡️ Gold/Iron Grade Armor:** 2 defense points, 165 durability, repairable on an anvil using Gold Ingots, and fully enchantable.
+- **🎨 Custom Golden Helmet Model & Textures:** Industrial gold hard hat with dark rubber brim detailing and a mounted forehead lamp bracket.
+- **🔨 Flexible Crafting:** Craft with 1 Golden Helmet + 1 Lantern (or Torch) at any crafting table.
+
+👉 **[Read Full Mining Helmet Documentation](packs/Mining-Helmet/README.md)**
 
 ---
 
