@@ -17,7 +17,7 @@
 | Pack Name | Version | Type | Download (.mcpack) | Source Code | Highlights |
 | :--- | :--- | :--- | :--- | :--- | :--- |
 | **Vanilla Quality of Life** | `v1.2.0` | Behavior Pack | [⬇️ **Download (.mcpack)**](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Vanilla-Quality-of-Life/Vanilla_QoL_AllensCreations.mcpack) | [`packs/Vanilla-Quality-of-Life/`](packs/Vanilla-Quality-of-Life/) | Universal Leashes (101 mobs), Fast Leaf Decay, Woodcutter in Stonecutter, 16x Potions, Mob Head Drops, Pet Protection. |
-| **Monster Companions** | `v1.0.0` | Behavior Pack | [⬇️ **Download (.mcpack)**](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Monster-Companions/Monster_Companions_AllensCreations.mcpack) | [`packs/Monster-Companions/`](packs/Monster-Companions/) | Tame 27 monsters into bodyguards & rideable mounts with Beast Biscuits! Combat pacification below 50% HP, wall-climbing spiders. |
+| **Monster Companions** | `v1.0.0` | Complete Pack (`.mcaddon`) | [⬇️ **Download (.mcaddon)**](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Monster-Companions/Monster_Companions_AllensCreations.mcaddon) | [`packs/Monster-Companions/`](packs/Monster-Companions/) | Tame 27 monsters into bodyguards & rideable mounts with Beast Biscuits! Custom texture, combat pacification below 50% HP, wall-climbing spiders. |
 
 ---
 
@@ -44,7 +44,7 @@
 
 > *"Turn hostile monsters into loyal combat bodyguards and rideable wall-climbing mounts!"*
 
-- **🍖 Primal Beast Biscuit:** Crafted with 1 Rotten Flesh + 1 Bone + 1 Sweet Berries + 1 Honey Bottle $\rightarrow$ 4 Biscuits.
+- **🍖 Primal Beast Biscuit:** Custom item with handcrafted texture (golden honey glaze, sweet-berry paw print & bone shards). Crafted with 1 Rotten Flesh + 1 Bone + 1 Sweet Berries + 1 Honey Bottle $\rightarrow$ 4 Biscuits.
 - **⚔️ Combat Pacification:** Weaken monsters below 50% health in battle, then feed them a Beast Biscuit to tame them!
 - **🛡️ Loyal Bodyguard Squad:** Tamed monsters follow you on foot and charge into battle against anyone you attack or who attacks you.
 - **Zero Squad Friendly Fire:** You and your companion squad are immune to each other's attacks.

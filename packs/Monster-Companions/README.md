@@ -3,8 +3,8 @@
 ![Monster Companions Banner](https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/banner.jpg)
 
 [![Minecraft Bedrock](https://img.shields.io/badge/Minecraft%20Bedrock-1.21%20--%201.26+-brightgreen?style=flat-square&logo=minecraft)](https://github.com/AllensCreations/MCPE-Curseforges)
-[![Release](https://img.shields.io/badge/Release-v1.0.0-blue?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Monster-Companions/Monster_Companions_AllensCreations.mcpack)
-[![Format](https://img.shields.io/badge/Format-.MCPACK-orange?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Monster-Companions/Monster_Companions_AllensCreations.mcpack)
+[![Release](https://img.shields.io/badge/Release-v1.0.0-blue?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Monster-Companions/Monster_Companions_AllensCreations.mcaddon)
+[![Format](https://img.shields.io/badge/Format-.MCADDON%20%7C%20.MCPACK-orange?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Monster-Companions/Monster_Companions_AllensCreations.mcaddon)
 [![Platform](https://img.shields.io/badge/Platform-Mobile%20%7C%20PC%20%7C%20Console%20%7C%20Realms-yellow?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges)
 
 > **Created by AllensCreations**  
@@ -25,6 +25,11 @@ Ever wanted a pet Creeper to guard your house? An army of Skeleton archers defen
 ## ⚡ How It Works
 
 ### 🍖 1. Craft the Primal Beast Biscuit
+
+![Primal Beast Biscuit](https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/packs/Monster-Companions/beast_biscuit_preview.png)
+
+> **Custom Item Texture:** Baked into a golden honey-glazed cookie with a sweet-berry beast paw print in the center and crunchy ivory bone shards embedded throughout!
+
 Craft the universal treat required to tame and heal any monster:
 - **Recipe (Shapeless):** 1 Rotten Flesh + 1 Bone + 1 Sweet Berries + 1 Honey Bottle $\rightarrow$ **4 Primal Beast Biscuits**
 
@@ -63,8 +68,16 @@ Equip a **Saddle** to mount and steer large monsters directly:
 
 ---
 
-## 📥 Direct Download & Installation
+## 📥 Direct Downloads & Installation
 
-- **Direct Download (.mcpack):** [Monster_Companions_AllensCreations.mcpack](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Monster-Companions/Monster_Companions_AllensCreations.mcpack)
-- Double-click or tap the file to import directly into Minecraft Bedrock.
-- Activate under **World Settings $\rightarrow$ Behavior Packs**.
+| Package | Format | Description | Download Link |
+| :--- | :--- | :--- | :--- |
+| **All-In-One (Recommended)** | `.mcaddon` | Installs both Behavior Pack and Resource Pack (custom textures) in one click! | [⬇️ **Download .mcaddon**](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Monster-Companions/Monster_Companions_AllensCreations.mcaddon) |
+| **Behavior Pack Only** | `.mcpack` | Game behaviors, taming logic, mounts, and recipes. | [⬇️ **Download BP (.mcpack)**](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Monster-Companions/Monster_Companions_BP.mcpack) |
+| **Resource Pack Only** | `.mcpack` | Beast Biscuit custom texture, icons, and language names. | [⬇️ **Download RP (.mcpack)**](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Monster-Companions/Monster_Companions_RP.mcpack) |
+
+### 🚀 Easy Setup
+1. Download **`Monster_Companions_AllensCreations.mcaddon`**.
+2. Tap or double-click to import into Minecraft.
+3. In World Settings $\rightarrow$ **Behavior Packs**, activate **Monster Companions by AllensCreations**.
+4. Both behaviors and custom textures are active and ready!
