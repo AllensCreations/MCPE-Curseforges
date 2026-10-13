@@ -1,0 +1,36 @@
+{
+  "format_version": 2,
+  "header": {
+    "name": "RPG Mob Info Overlay BP",
+    "description": "3D Floating RPG Mob Information Overlay with Ranks, Visual Health Bars, and Threat Levels by AllensCreations.",
+    "uuid": "8059e232-1b9f-43f9-8471-9851a6e0fcc7",
+    "version": [1, 0, 0],
+    "min_engine_version": [1, 20, 80]
+  },
+  "modules": [
+    {
+      "description": "RPG Mob Info Overlay Data Module",
+      "type": "data",
+      "uuid": "6bd10fdf-33c4-4957-9bf6-7c59bb491374",
+      "version": [1, 0, 0]
+    },
+    {
+      "description": "RPG Mob Info Overlay Script Module",
+      "type": "script",
+      "language": "javascript",
+      "entry": "scripts/main.js",
+      "uuid": "dfa05b75-dbc6-4925-9f73-83a042686daa",
+      "version": [1, 0, 0]
+    }
+  ],
+  "dependencies": [
+    {
+      "uuid": "ecedddaf-38b4-47cd-bbc1-8c0907802b19",
+      "version": [1, 0, 0]
+    },
+    {
+      "module_name": "@minecraft/server",
+      "version": "1.13.0"
+    }
+  ]
+}

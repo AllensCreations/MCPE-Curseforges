@@ -1,0 +1,28 @@
+{
+  "format_version": "1.12.0",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "oneblock:craft_sponge"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      "YYY",
+      "YCY",
+      "YYY"
+    ],
+    "key": {
+      "Y": {
+        "item": "minecraft:yellow_wool"
+      },
+      "C": {
+        "item": "minecraft:clay_ball"
+      }
+    },
+    "result": {
+      "item": "minecraft:sponge",
+      "count": 1
+    }
+  }
+}
