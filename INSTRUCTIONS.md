@@ -89,7 +89,7 @@ Keep the repository structure clean and organized:
 ```
 MCPE-Curseforges/
 ├── INSTRUCTIONS.md                # This standards file
-├── README.md                      # Catalog of all active packs & maps
+├── README.md                      # Catalog of all active packs, maps & minigames
 ├── banner.jpg                     # Master repository banner
 ├── packs/                         # Source folders for packs & addons
 │   ├── <Pack-Name>/
@@ -98,10 +98,17 @@ MCPE-Curseforges/
 │   │   ├── README.md              # CurseForge-ready description
 │   │   └── <images>               # Banners, infographics, previews
 │   └── README.md
+├── minigames/                     # Source folders for minigames & challenges
+│   ├── <Game-Name>/
+│   │   ├── behavior_pack/         # BP source code & game scripts
+│   │   ├── pack_icon.png          # 1:1 square icon
+│   │   └── README.md              # CurseForge-ready description
+│   └── README.md
 ├── maps/                          # Source folders for custom maps
 │   ├── <Map-Name>/
 │   └── README.md
 └── builds/                        # Compiled distribution archives
     ├── <Pack-Name>/               # .mcaddon / .mcpack binaries
+    ├── <Game-Name>/               # .mcaddon / .mcpack binaries
     └── <Map-Name>/                # .mcworld binaries
 ```

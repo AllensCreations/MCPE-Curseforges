@@ -4,7 +4,7 @@
 
 [![Minecraft Bedrock](https://img.shields.io/badge/Minecraft%20Bedrock-1.21%20--%201.26+-brightgreen?style=flat-square&logo=minecraft)](https://github.com/AllensCreations/MCPE-Curseforges)
 [![Platform](https://img.shields.io/badge/Platform-Mobile%20%7C%20PC%20%7C%20Console%20%7C%20Realms-yellow?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges)
-[![Collection Size](https://img.shields.io/badge/Collection-3%20Packs%20%7C%201%20Map-orange?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges)
+[![Collection Size](https://img.shields.io/badge/Collection-2%20Packs%20%7C%201%20Map%20%7C%201%20Minigame-orange?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges)
 [![Format](https://img.shields.io/badge/Format-.MCPACK%20%7C%20.MCADDON%20%7C%20.MCWORLD-blue?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges)
 
 > **Created by AllensCreations**  
@@ -29,9 +29,18 @@
 | :--- | :--- | :--- | :--- | :--- | :--- |
 | **Vanilla Quality of Life** | `v1.2.0` | Behavior Pack (`.mcpack`) | [⬇️ **Download (.mcpack)**](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Vanilla-Quality-of-Life/Vanilla_QoL_AllensCreations.mcpack) | [`packs/Vanilla-Quality-of-Life/`](packs/Vanilla-Quality-of-Life/) | Universal Leashes (101 mobs), Fast Leaf Decay, Woodcutter in Stonecutter, 16x Potions, Mob Head Drops, Pet Protection. |
 | **Monster Companions** | `v1.0.0` | Complete Pack (`.mcaddon`) | [⬇️ **Download (.mcaddon)**](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Monster-Companions/Monster_Companions_AllensCreations.mcaddon) | [`packs/Monster-Companions/`](packs/Monster-Companions/) | Tame 32 monsters into bodyguards & rideable mounts with Beast Biscuits! Custom texture, combat pacification below 50% HP, wall-climbing spiders. |
-| **Alphabet Scavenger Hunt** | `v1.0.0` | Challenge Pack (`.mcaddon`) | [Download (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Alphabet-Scavenger-Hunt/Alphabet_Scavenger_Hunt_AllensCreations.mcaddon) | [`packs/Alphabet-Scavenger-Hunt/`](packs/Alphabet-Scavenger-Hunt/) | 20-Round survival challenge. Scavenge items matching the target letter within 60s or suffer permanent max health loss! |
 
 👉 **[Explore Full Packs Directory](packs/README.md)**
+
+---
+
+## 🎯 Minigames & Challenges Catalog
+
+| Minigame | Version | Category | Download (.mcaddon) | Source Code | Highlights |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| **Alphabet Scavenger Hunt** | `v1.0.0` | Survival Challenge | [⬇️ **Download (.mcaddon)**](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Alphabet-Scavenger-Hunt/Alphabet_Scavenger_Hunt_AllensCreations.mcaddon) | [`minigames/Alphabet-Scavenger-Hunt/`](minigames/Alphabet-Scavenger-Hunt/) | 20-Round survival challenge. Scavenge items matching the target letter within 60s or suffer permanent max health loss! PrismarineJS item verification engine. |
+
+👉 **[Explore Full Minigames Directory](minigames/README.md)**
 
 ---
 
@@ -87,9 +96,9 @@
 
 ---
 
-## Pack 3: Alphabet Scavenger Hunt (v1.0.0)
+## Minigame 1: Alphabet Scavenger Hunt (v1.0.0)
 
-![Alphabet Scavenger Hunt Icon](https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/packs/Alphabet-Scavenger-Hunt/pack_icon.png)
+![Alphabet Scavenger Hunt Icon](https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/minigames/Alphabet-Scavenger-Hunt/pack_icon.png)
 
 > *"A high-stakes 20-round survival challenge! Scavenge items matching the target letter before the 60-second timer expires or suffer permanent max health loss!"*
 
@@ -99,7 +108,7 @@
 - **Permanent Health Decay:** Failing to find an item before the 60-second timer reaches 0 results in an un-regenerable -2 Max HP penalty!
 - **Fireworks Victory:** Complete all 20 rounds to claim ultimate victory and celebratory fireworks!
 
-[Read Full Alphabet Scavenger Hunt Documentation](packs/Alphabet-Scavenger-Hunt/README.md)
+👉 **[Read Full Alphabet Scavenger Hunt Documentation](minigames/Alphabet-Scavenger-Hunt/README.md)**
 
 ---
 
