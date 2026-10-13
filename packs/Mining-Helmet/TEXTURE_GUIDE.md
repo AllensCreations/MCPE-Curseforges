@@ -36,43 +36,39 @@ This technical guide details the exact pixel mapping, palette structure, and UV 
 ## 🛠️ Detailed Pixel Mapping
 
 ### 1. Armor Model (`textures/models/armor/mining_helmet_1.png` — 64 × 32)
-The standard Bedrock humanoid armor model uses a 64×32 canvas with two head layers:
+The standard Bedrock humanoid armor model uses a 64×32 canvas with the helmet mapped to the head cube:
 
-#### A. Inner Head Base (UV: `0, 0` to `32, 16`)
-- **Top Face (`8, 0` to `16, 8`):** Alternating `#FECD2D` and `#FFEB73` crown surface.
-- **Front Face (`8, 8` to `16, 16`):** Solid `#FECD2D` base.
-- **Side Faces (`0, 8` to `8, 16` & `16, 8` to `24, 16`):** Shaded `#C39114` gold.
+#### A. Crown & Skullcap Coverage (Hair Area Only)
+Unlike full bucket helmets that enclose the jaw and cheeks, the Mining Helmet adopts an open-face miner skullcap profile:
+- **Top Face (`8, 0` to `16, 8` and `40, 0` to `48, 8`):** Full 8×8 gold hardhat dome with raised center ridge (`X: 11..12` / `X: 43..44`) in specular `#FFF176`.
+- **Upper Hair & Brow (`Y: 8..9`):** Continuous gold hard hat cap body with protective dark rubber gasket/rim (`#2E2822`).
+- **Nape / Back Hair (`Y: 10..11`, `X: 24..31` and `X: 56..63`):** Shaded gold cap rim cupping the upper back of the hair.
 
-#### B. Outer Helmet Shell (UV: `32, 0` to `64, 16`)
-The outer layer inflates over the player's skull and contains the helmet features:
-- **Top Cap (`40, 0` to `48, 8`):** Main hardhat ridge with `#FFEB73` center ridge lines at `X: 43..44`.
-- **Front Face (`40, 8` to `48, 16`):**
-  - **Forehead Lantern Bracket (Coordinates `X: 42..45, Y: 10..13`):**
-    - A 4×4 dark metallic mount (`#3C4048`) centered squarely above the brow line.
-  - **Centered Glowing Headlamp (Coordinates `X: 43..44, Y: 11..12`):**
-    - Upper bulb pixels: `#FFFFF0` (intense white/daylight lens).
-    - Lower bulb pixels: `#FFDC46` (warm halogen glow fringe).
-  - **Rubber Rim Lining (Coordinates `X: 40..47, Y: 15`):**
-    - A continuous 1-pixel dark rubber line (`#202226`) wrapping the entire bottom edge.
-- **Side & Rear Panels (`32..39, 8..16`, `48..55, 8..16`, `56..63, 8..16`):**
-  - Gold hardhat shell with the matching dark rubber lip at `Y: 15`.
+#### B. Forehead Center Mounted Light
+- **Mount & Bracket (`Y: 9..11`, `X: 10..13` and `X: 42..45`):** Dark metallic alloy mounting plate (`#37474F`).
+- **Centered Headlamp Lens (`Y: 10`, `X: 11..12` and `X: 43..44`):**
+  - Core bulb: Pure high-intensity electric white (`#FFFFFF`).
+  - Warm lens surround: Halogen emission tint (`#FFF9C4` / `#FFE082`).
+
+#### C. Open Face Transparency (`Y: 12..15`)
+- Rows `12` through `15` across all facial and side quadrants are **100% transparent (alpha = 0)**.
+- Rows `10..11` along the eyes and cheeks are transparent outside the center lamp bracket (`X: 10..13`).
+- This leaves the player's eyes, nose, cheeks, mouth, chin, and lower ears completely open and visible without visor clipping.
 
 ---
 
 ### 2. Item Icon (`textures/items/mining_helmet.png` — 16 × 16)
-- **Hard Hat Silhouette:** Modeled directly after `gold_helmet.png` from `X: 3..13, Y: 2..12`.
-- **Mount & Headlamp:**
-  - Bracket pixels at `(6, 5)`, `(9, 5)`, `(6, 7)`, `(9, 7)` using `#3C4048`.
-  - Twin bulb pixels at `(7, 6)`, `(8, 6)` using glowing `#FFFFF0`.
-  - Lens warmth at `(7, 7)`, `(8, 7)` using `#FFDC46`.
-- **Rubber Gasket Brim:** Bottom row `Y: 10` shaded in dark rubber `#202226`.
+- **Hard Hat Silhouette:** Modeled with an open hard hat dome, raised central crown ridge, and dark lower brim.
+- **Center Headlamp:**
+  - Dark mounting bracket (`#37474F`) at rows `Y: 6..9`.
+  - Glowing white center bulb (`#FFFFFF`) with amber lens fringe (`#FFE082` / `#FFF9C4`).
+- **Open Profile:** Distinct miner hard hat silhouette with open lower facial clearance.
 
 ---
 
 ## 📦 Blockbench / Image Editor Instructions
 
-1. Open Blockbench $\rightarrow$ **Minecraft Skin / Entity Model** or open any standard pixel art editor (Aseprite, Photoshop, GIMP).
-2. Load the vanilla `textures/models/armor/gold_1.png` file as a starting layer.
-3. Apply the 4×4 bracket and 2×2 glowing bulb cluster to the front outer head UV `[40, 8, 48, 16]`.
-4. Paint the bottom-most pixel row of the helmet shell (`Y: 15`) with the dark rubber rim `#202226`.
-5. Export as a 32-bit PNG with alpha transparency preserved.
+1. Open Blockbench $\rightarrow$ **Minecraft Skin / Entity Model** or any pixel art editor (Aseprite, Photoshop, GIMP).
+2. Load `textures/models/armor/mining_helmet_1.png` on the humanoid helmet mesh (`geometry.humanoid.armor.helmet`).
+3. Notice that the top crown (`Y: 0..7`) and upper hair rows (`Y: 8..11`) wrap the skull and hair, while `Y: 12..15` remain transparent for the open face.
+4. Export as a 32-bit PNG with RGBA alpha channel intact.
