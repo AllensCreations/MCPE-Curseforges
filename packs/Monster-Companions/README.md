@@ -37,18 +37,21 @@ Craft the universal treat required to tame and heal any monster:
 You cannot simply bribe a wild monster with candy! You must first **fight and weaken the monster below 50% health** in combat. Once wounded, feed it a **Primal Beast Biscuit** to pacify and tame it into a loyal ally!
 
 ### 🛡️ 3. Loyal Bodyguard Squad
-- **Fierce Defense:** Tamed monsters follow you continuously on foot. When you hit an enemy or an enemy hits you, your entire monster squad charges in and fights for you!
-- **Zero Squad Friendly Fire:** You cannot accidentally hurt your companions, and fellow companions never hurt each other with arrows or melee crossfire.
-- **Physical Journey (No Teleporting):** Mobs run, jump, and navigate beside you without magic teleporting. Pull them with leads or ride them across terrain!
+- **Perimeter Guard Radius (Vision-Friendly):** Companions escort you maintaining a respectful 4.5-block perimeter (`stop_distance: 4.5`). If separated by more than 20 blocks, they teleport to a safe 5-block radius so they never obstruct your view or crowd your camera.
+- **Zero Squad Friendly Fire & Complete Peace:** Companions are immune to player weapons, teammate arrows, splash potions, and explosions. Targeting AI strictly excludes teammates, so missed arrows or crossfire will NEVER cause companion infighting.
+- **Distinct Visual Differentiation:** Tamed companions display an always-visible floating nameplate above their head and celebrate taming with a golden totem sparkle fanfare (`random.levelup`). Name tags can be applied directly without needing an anvil.
+- **🔮 Evoker Minion Summoning (Loyal Spirit Vexes):** When a tamed Evoker summons Vexes, they spawn 100% loyal to you, swarm your enemies, and naturally vanish when their timer expires without ever turning on you. Evocation fangs pass through companions and you harmlessly.
 - **Healing:** Right-click your wounded companion with a Beast Biscuit to restore **10 HP (5 hearts)**.
 - **Sunlight Protection:** Tamed Zombies, Skeletons, and Phantoms must wear a helmet or hat to survive daytime sunlight!
 - **One-Time Kamikaze Creepers:** Tamed Creepers rush enemies that attack you and detonate on the target (single-use loyal explosive!).
 - **No Clutter on Death:** Fallen companions drop no clutter upon dying in battle.
 
-### 🕷️ 4. Rideable Mounts (WASD Direct Steering)
-Equip a **Saddle** to mount and steer large monsters directly:
+### 🕷️ 4. Rideable Mounts (WASD Direct Steering — Zero Auto-Wander)
+Equip a **Saddle** to mount and command large monsters:
+- **100% Manual WASD Steering:** When mounted, random wandering and autonomous head-turning are completely disabled. Mounts stand completely still unless you press movement keys!
+- **Follow on Dismount:** When you dismount, your mount automatically resumes escorting you on foot as a bodyguard.
 - **Spiders & Cave Spiders:** Climb straight up walls and vertical cliffs!
-- **Ravagers:** Heavy shock-tank mount!
+- **Ravagers:** Heavy shock-tank war mount!
 - **Iron Golems:** Indestructible frontline vehicle!
 
 ---

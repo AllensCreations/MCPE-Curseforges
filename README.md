@@ -46,9 +46,11 @@
 
 - **🍖 Primal Beast Biscuit:** Custom item with handcrafted texture (golden honey glaze, sweet-berry paw print & bone shards). Crafted with 1 Rotten Flesh + 1 Bone + 1 Sweet Berries + 1 Honey Bottle $\rightarrow$ 4 Biscuits.
 - **⚔️ Combat Pacification:** Weaken monsters below 50% health in battle, then feed them a Beast Biscuit to tame them!
-- **🛡️ Loyal Bodyguard Squad:** Tamed monsters follow you on foot and charge into battle against anyone you attack or who attacks you.
-- **Zero Squad Friendly Fire:** You and your companion squad are immune to each other's attacks.
-- **🕷️ Rideable Mounts (WASD Direct Steering):** Put a saddle on tamed Spiders to climb vertical cliffs, or ride Ravagers and Iron Golems into battle!
+- **🛡️ Loyal Bodyguard Squad & Perimeter Guard:** Escorts you at a respectful 4.5-block perimeter. Teleports only when >20 blocks away to a safe distance so they never block your vision!
+- **Zero Squad Friendly Fire & Complete Peace:** Squadmates cannot hurt each other or the player; retaliatory AI is disabled to completely eliminate companion infighting.
+- **Distinct Visual Differentiation:** Companions display an always-visible floating nameplate and celebrate taming with a golden level-up particle burst.
+- **🔮 Evoker Minion Summoning:** Tamed Evokers summon 100% loyal Spirit Vexes that fight your enemies and never attack you or your companions.
+- **🕷️ Rideable Mounts (WASD Direct Steering):** Put a saddle on tamed Spiders, Ravagers, and Iron Golems. Zero auto-wandering while mounted—full player manual control!
 - **Sunlight Protection:** Undead companions (Zombies, Skeletons) must wear a helmet to explore in the daytime sun.
 - **Loyal Kamikaze Creepers:** Tamed Creepers rush enemies and detonate on the target (single-use, no clutter).
 

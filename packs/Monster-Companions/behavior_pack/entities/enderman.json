@@ -82,15 +82,57 @@
         },
         "minecraft:behavior.follow_owner": {
           "priority": 3,
-          "speed_multiplier": 1.25,
-          "start_distance": 5.0,
-          "stop_distance": 2.0
+          "speed_multiplier": 1.35,
+          "start_distance": 9.0,
+          "stop_distance": 4.5,
+          "post_teleport_distance": 5,
+          "can_teleport": true
         },
         "minecraft:behavior.owner_hurt_by_target": {
-          "priority": 1
+          "priority": 1,
+          "entity_types": [
+            {
+              "filters": {
+                "all_of": [
+                  {
+                    "test": "is_family",
+                    "subject": "other",
+                    "operator": "!=",
+                    "value": "monster_companion"
+                  },
+                  {
+                    "test": "is_family",
+                    "subject": "other",
+                    "operator": "!=",
+                    "value": "player"
+                  }
+                ]
+              }
+            }
+          ]
         },
         "minecraft:behavior.owner_hurt_target": {
-          "priority": 2
+          "priority": 2,
+          "entity_types": [
+            {
+              "filters": {
+                "all_of": [
+                  {
+                    "test": "is_family",
+                    "subject": "other",
+                    "operator": "!=",
+                    "value": "monster_companion"
+                  },
+                  {
+                    "test": "is_family",
+                    "subject": "other",
+                    "operator": "!=",
+                    "value": "player"
+                  }
+                ]
+              }
+            }
+          ]
         },
         "minecraft:damage_sensor": {
           "triggers": [
@@ -125,6 +167,33 @@
               "heal_amount": 10
             }
           ]
+        },
+        "minecraft:behavior.hurt_by_target": {
+          "priority": 99,
+          "entity_types": [
+            {
+              "filters": {
+                "all_of": [
+                  {
+                    "test": "is_family",
+                    "subject": "other",
+                    "operator": "!=",
+                    "value": "monster_companion"
+                  },
+                  {
+                    "test": "is_family",
+                    "subject": "other",
+                    "operator": "!=",
+                    "value": "player"
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        "minecraft:nameable": {
+          "always_show": true,
+          "allow_name_tag_renaming": true
         }
       }
     },
@@ -414,6 +483,12 @@
           "component_groups": [
             "allenscreations:companion"
           ]
+        },
+        "emit_particle": {
+          "particle": "totem_particle"
+        },
+        "play_sound": {
+          "sound": "random.levelup"
         }
       }
     }
