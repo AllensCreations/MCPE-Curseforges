@@ -492,5 +492,23 @@ world.afterEvents.playerLeave.subscribe((event) => {
   clearOverlay(event.playerId);
 });
 
+// Cleanup any lingering status markers on initialization
+system.run(() => {
+  try {
+    for (const dimName of ["overworld", "nether", "the_end"]) {
+      try {
+        const dim = world.getDimension(dimName);
+        if (dim) {
+          const markers = dim.getEntities({ type: MARKER_TYPE_ID });
+          for (const m of markers) {
+            m.remove();
+          }
+        }
+      } catch (de) {}
+    }
+  } catch (e) {}
+});
+
 // Start optimized interval loop
 system.runInterval(onTick, TICK_INTERVAL);
+
