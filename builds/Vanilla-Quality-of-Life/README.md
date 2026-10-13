@@ -21,8 +21,7 @@ This folder contains the compiled, ready-to-install `.mcaddon` builds for **Vani
 3. **Activate in World Settings**:
    - Go to your World Settings $\rightarrow$ **Behavior Packs**.
    - Select **Vanilla Quality of Life BP by AllensCreations** and click **Activate**.
-   - The companion Resource Pack activates automatically to ensure proper spider lead attachment heights.
-   - Use Sneak + Tap / Right-Click to quick-swap utility items into your offhand, or drag them via the Inventory UI!
+   - Double-sneak (crouch twice quickly) or Sneak + Tap in air while holding a torch, lantern, clock, or compass to instantly equip it to your offhand with real-time dynamic light!
 
 ---
 

@@ -34,7 +34,7 @@ Tired of accidentally slicing your favorite pet dog during a mob fight? Frustrat
 | **Leaf Decay Speed** | ⏳ 10–30 seconds | ⚡ **1–2 fast seconds!** |
 | **Cutting Wood in Stonecutter** | ❌ Stone blocks only | ✅ **Cut all 11 wood types at 1:1 ratios!** |
 | **Potions & Milk Stacking** | ❌ 1 per slot (clutter) | ✅ **Stacks up to 16!** |
-| **Offhand Torches & Compasses** | ❌ Shield & Totem only | ✅ **Torches, Lanterns & Compasses supported!** |
+| **Offhand Torches & Dynamic Light** | ❌ Shield & Totem only | ✅ **Double-sneak swap + real-time moving light!** |
 | **Shulker Shell RNG** | 🎲 0–1 shells (painful RNG) | 📦 **100% Guaranteed 2 Shells per kill!** |
 | **Multiplayer Sleep** | ❌ Everyone must sleep | 🛏️ **1 Player skips the night automatically!** |
 | **Mob Head Trophies** | ⚡ Needs Charged Creeper | 💀 **2.5% player kill drops + Dragon & PvP heads!** |
@@ -66,14 +66,18 @@ Tired of accidentally slicing your favorite pet dog during a mob fight? Frustrat
 ### 🧪 Stackable Potions & Milk Buckets (16x)
 - Potions, Splash Potions, Lingering Potions, and Milk Buckets now stack up to **16** in your inventory.
 
-### 🗡️ Offhand Utility Items & Quick-Swap
-- Equip utility gear in your **Offhand slot**:
+### 🗡️ Offhand Utility Items & Dynamic Lighting
+- **Supported Items:**
   - Torches & Soul Torches
   - Lanterns & Soul Lanterns
   - Clocks, Compasses & Recovery Compasses
-- **Flexible Equipping:**
-  - **Inventory UI:** Drag and drop directly into the offhand slot using native Bedrock support.
-  - **Quick-Swap Control:** **Sneak + Right-Click / Tap** while holding any of the 7 utility items to instantly swap it with your offhand.
+- **How to Equip (Double-Sneak Quick-Swap):**
+  - Because Bedrock’s survival inventory UI hardcodes restrictions against dragging non-shield items into the offhand slot, equipping is handled seamlessly via controls:
+  - 🔄 **Double-Sneak (Crouch 2x quickly):** Hold any supported utility item in your main hand and press crouch twice within ~0.7 seconds to instantly equip it to your offhand.
+  - 👆 **Sneak + Use / Tap:** You can also sneak and tap/right-click in the air while holding a supported item to swap it into your offhand.
+  - 🔄 **Swap Back:** Double-sneak again anytime to swap or retrieve the item back into your main hand.
+- **💡 Real-Time Dynamic Handheld Light:**
+  - Holding or equipping a Torch (Level 14) or Lantern (Level 15) in either your mainhand or offhand emits real-time moving light that follows your movements without placing permanent blocks.
 
 ### 💀 Mob Head Trophy System & PvP Heads
 - Slain mobs have a **2.5% base drop chance** (+1% per Looting level) to drop their heads on player kills:

@@ -71,7 +71,7 @@
 - **🍃 Fast Leaf Decay:** Chopping down tree trunks clears floating leaves within 1–2 seconds.
 - **🪚 Full Stonecutter Woodcutter:** Cut all 11 wood types into slabs, stairs, trapdoors, fences, and gates at fair 1:1 ratios.
 - **🧪 16x Potion & Milk Stacking:** Potions, splash potions, lingering potions, and milk buckets stack to 16.
-- **🗡️ Offhand Equipment & Quick-Swap:** Equippable torches, soul torches, lanterns, compasses, and clocks via UI drag or Sneak + Tap/Click quick-swap.
+- **🗡️ Offhand Utility Items & Dynamic Light:** Equip torches, lanterns, clocks, and compasses into your offhand via double-sneak (or sneak + tap) quick-swap, with real-time moving light following you.
 - **🕷️ Spider Leash Alignment:** Custom client locators ensure leads attach accurately to spiders and cave spiders at body height instead of floating above.
 - **💀 Mob Head Trophy Drops:** 2.5% chance on player kill for Zombie, Skeleton, Creeper, and Piglin heads; guaranteed Dragon Head + Elytra; PvP player heads.
 - **💎 Wandering Trader Collector Shop:** 1 Block of Diamonds → Any Mob Head.
