@@ -1,14 +1,13 @@
-# 🎮 MCPE Curseforges — Addons & Maps Collection
+# 🎮 MCPE Curseforges — Official Add-on & Map Collection
 
-![MCPE Curseforges Banner](https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/banner.jpg)
+![Collection Banner](https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/banner.jpg)
 
 [![Minecraft Bedrock](https://img.shields.io/badge/Minecraft%20Bedrock-1.21%20--%201.26+-brightgreen?style=flat-square&logo=minecraft)](https://github.com/AllensCreations/MCPE-Curseforges)
+[![Release](https://img.shields.io/badge/Catalog-v1.2.0-blue?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges)
 [![Platform](https://img.shields.io/badge/Platform-Mobile%20%7C%20PC%20%7C%20Console%20%7C%20Realms-yellow?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges)
-[![Collection Size](https://img.shields.io/badge/Collection-3%20Packs%20%7C%201%20Map-orange?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges)
-[![Format](https://img.shields.io/badge/Format-.MCPACK%20%7C%20.MCADDON%20%7C%20.MCWORLD-blue?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges)
 
 > **Created by AllensCreations**  
-> *A curated collection of modular, production-ready Minecraft Bedrock behavior packs, addons, and custom survival maps.*
+> *The official repository and distribution catalog for premium Minecraft Bedrock Edition (MCPE) Behavior Packs, Resource Packs, Add-ons, and Custom Survival Maps.*
 
 ---
 
@@ -28,7 +27,7 @@
 | Pack Name | Version | Type | Download | Source Code | Highlights |
 | :--- | :--- | :--- | :--- | :--- | :--- |
 | **Vanilla Quality of Life** | `v1.2.0` | Behavior Pack (`.mcpack`) | [⬇️ **Download (.mcpack)**](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Vanilla-Quality-of-Life/Vanilla_QoL_AllensCreations.mcpack) | [`packs/Vanilla-Quality-of-Life/`](packs/Vanilla-Quality-of-Life/) | Universal Leashes (101 mobs), Fast Leaf Decay, Woodcutter in Stonecutter, 16x Potions, Mob Head Drops, Pet Protection. |
-| **Monster Companions** | `v1.0.0` | Complete Pack (`.mcaddon`) | [⬇️ **Download (.mcaddon)**](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Monster-Companions/Monster_Companions_AllensCreations.mcaddon) | [`packs/Monster-Companions/`](packs/Monster-Companions/) | Tame 27 monsters into bodyguards & rideable mounts with Beast Biscuits! Custom texture, combat pacification below 50% HP, wall-climbing spiders. |
+| **Monster Companions** | `v1.0.0` | Complete Pack (`.mcaddon`) | [⬇️ **Download (.mcaddon)**](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Monster-Companions/Monster_Companions_AllensCreations.mcaddon) | [`packs/Monster-Companions/`](packs/Monster-Companions/) | Tame 32 monsters into bodyguards & rideable mounts with Beast Biscuits! Custom texture, Wither Skeletons, Breeze, War Boars, Ride UI, wall-climbing spiders. |
 | **RPG Mob Info Overlay** | `v1.0.0` | Complete Pack (`.mcaddon`) | [⬇️ **Download (.mcaddon)**](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/RPG-Mob-Info-Overlay/RPG_Mob_Info_Overlay.mcaddon) | [`packs/RPG-Mob-Info-Overlay/`](packs/RPG-Mob-Info-Overlay/) | 3D floating RPG status nametag with dynamic 10-pip health bar, mob rank (E to S-Rank), and threat level on look via Bedrock Script API 1.13.0+. |
 
 👉 **[Explore Full Packs Directory](packs/README.md)**
@@ -76,8 +75,10 @@
 - **⚔️ Combat Pacification:** Weaken monsters below 50% health in battle, then feed them a Beast Biscuit to tame them!
 - **🛡️ Loyal Bodyguard Squad & Perimeter Guard:** Escorts you at a respectful 4.5-block perimeter. Teleports only when >20 blocks away to a safe distance so they never block your vision!
 - **Zero Squad Friendly Fire & Complete Peace:** Squadmates cannot hurt each other or the player; retaliatory AI is disabled to completely eliminate companion infighting.
+- **Distinct Visual Differentiation:** Companions display an always-visible floating nameplate and celebrate taming with a golden level-up particle burst.
 - **🔮 Evoker Minion Summoning:** Tamed Evokers summon 100% loyal Spirit Vexes that fight your enemies.
-- **🕷️ Rideable Mounts (WASD Direct Steering):** Put a saddle on tamed Spiders, Ravagers, and Iron Golems. Zero auto-wandering while mounted—full player manual control!
+- **🕷️ Rideable Mounts & Ride UI:** Mount Spiders, Ravagers, Iron Golems, and Hoglins with on-screen "Mount" button prompt. Zero auto-wandering while mounted—full player manual control!
+- **🌪️ Nether & Trial Expansions:** Wither Skeletons (wither touch), Breeze (wind charge jumps), Hoglins (loyal Zoglin conversion in Overworld).
 
 👉 **[Read Full Monster Companions Documentation](packs/Monster-Companions/README.md)**
 

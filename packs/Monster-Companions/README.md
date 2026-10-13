@@ -56,17 +56,19 @@ Equip a **Saddle** to mount and command large monsters:
 
 ---
 
-## 📋 Tamable Mob Roster (27 Monsters)
+## 📋 Tamable Mob Roster (32 Monsters)
 
 - 🧟 **Undead:** Zombie, Drowned, Husk, Zombie Villager, Zombie Pigman
-- 🏹 **Skeletons:** Skeleton, Stray, Bogged
+- 🏹 **Skeletons:** Skeleton, Stray, Bogged, Wither Skeleton (Wither Blade)
+- 🌪️ **1.21 Tricky Trials:** Breeze (Wind Charge Leaper)
+- 🐗 **Nether Beasts:** Hoglin (War Boar), Zoglin (Zombified War Boar)
 - 🧨 **Explosives:** Creeper (Loyal Kamikaze)
 - 🕷️ **Arachnids (Mountable):** Spider, Cave Spider
 - 👁️ **Dimensionals:** Enderman
 - 🐷 **Piglins:** Piglin, Piglin Brute
 - 🧪 **Occult & Slimes:** Witch, Slime, Magma Cube
 - 🔥 **Nether & Sky:** Blaze, Ghast, Phantom
-- 🪓 **Illagers & Mounts:** Ravager (Mountable), Vindicator, Pillager, Evoker
+- 🪓 **Illagers & Spirits:** Ravager (Mountable), Vindicator, Pillager, Evoker, Vex (Loyal Spirit Minion)
 - 🛡️ **Golems:** Iron Golem (Mountable), Snow Golem
 
 ---

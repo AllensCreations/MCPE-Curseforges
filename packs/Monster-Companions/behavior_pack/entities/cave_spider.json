@@ -500,6 +500,9 @@
         },
         "minecraft:rideable": {
           "seat_count": 1,
+          "crouching_skip_interact": true,
+          "interact_text": "action.interact.mount",
+          "controlling_seat": 0,
           "family_types": [
             "player"
           ],
@@ -507,7 +510,7 @@
             {
               "position": [
                 0.0,
-                0.75,
+                0.45,
                 0.0
               ]
             }
