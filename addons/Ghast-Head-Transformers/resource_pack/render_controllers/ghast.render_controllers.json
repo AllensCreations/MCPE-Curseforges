@@ -35,7 +35,12 @@
       "part_visibility": [
         {
           "tentacles_*": "query.variant == 0",
-          "tentacle*": "query.variant == 0"
+          "tentacle*": "query.variant == 0",
+          "body": true,
+          "hat": "query.variant != 0",
+          "piglin_snout": "query.variant == 6",
+          "piglin_ear_left": "query.variant == 6",
+          "piglin_ear_right": "query.variant == 6"
         }
       ],
       "textures": [
