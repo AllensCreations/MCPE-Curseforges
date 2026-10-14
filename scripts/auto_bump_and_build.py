@@ -306,11 +306,15 @@ def main():
     parser = argparse.ArgumentParser(description="Auto bump pack versions and rebuild distribution packages.")
     parser.add_argument("--base", help="Git base ref or commit to diff against (e.g. HEAD~1, origin/main, or commit SHA)")
     parser.add_argument("--project", help="Explicit project directory or name to bump (e.g. MCPEDL/addons/Mining-Helmet or Mining-Helmet)")
+    parser.add_argument("--all", action="store_true", help="Bump and rebuild all packs/maps/scripts across MCPEDL/")
     args = parser.parse_args()
 
     project_dirs = find_target_project_dirs()
 
-    if args.project:
+    if args.all:
+        print("[Auto-Version] Mode: Manual trigger - Updating ALL projects across repository...")
+        changed_projects = sorted(list(project_dirs.keys()))
+    elif args.project:
         matched_projects = []
         for p in project_dirs:
             if args.project == p or args.project == os.path.basename(p) or args.project in p:

@@ -6,17 +6,12 @@ on:
       - main
     paths:
       - 'MCPEDL/**'
-      - 'packs/**'
-      - 'minigames/**'
-      - 'maps/**'
-      - '!builds/**'
-      - '!scripts/**'
-      - '!.github/**'
   workflow_dispatch:
     inputs:
-      project:
-        description: 'Specific pack/script/map directory to bump (optional, leave empty for auto-detect)'
-        required: false
+      target:
+        description: 'Which project to bump? (Type "all" for every pack in MCPEDL, or enter a pack name like "Mining-Helmet")'
+        required: true
+        default: 'all'
         type: string
 
 permissions:
@@ -41,8 +36,12 @@ jobs:
       - name: Detect Changes and Bump Version (+0.0.1) & Rebuild Packages
         id: bump
         run: |
-          if [ "${{ github.event.inputs.project }}" != "" ]; then
-            python3 scripts/auto_bump_and_build.py --project "${{ github.event.inputs.project }}"
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+            if [ "${{ github.event.inputs.target }}" = "all" ] || [ "${{ github.event.inputs.target }}" = "" ]; then
+              python3 scripts/auto_bump_and_build.py --all
+            else
+              python3 scripts/auto_bump_and_build.py --project "${{ github.event.inputs.target }}"
+            fi
           elif [ "${{ github.event.before }}" != "" ] && [ "${{ github.event.before }}" != "0000000000000000000000000000000000000000" ]; then
             python3 scripts/auto_bump_and_build.py --base "${{ github.event.before }}"
           else
