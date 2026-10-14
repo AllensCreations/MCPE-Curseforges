@@ -791,12 +791,68 @@
       "minecraft:entity_spawned": {
         "randomize": [
           {
+            "weight": 20,
             "add": {
               "component_groups": [
                 "ghast:default"
               ]
-            },
-            "weight": 1
+            }
+          },
+          {
+            "weight": 10,
+            "add": {
+              "component_groups": [
+                "ghast:skeleton"
+              ]
+            }
+          },
+          {
+            "weight": 10,
+            "add": {
+              "component_groups": [
+                "ghast:wither_skeleton"
+              ]
+            }
+          },
+          {
+            "weight": 10,
+            "add": {
+              "component_groups": [
+                "ghast:zombie"
+              ]
+            }
+          },
+          {
+            "weight": 10,
+            "add": {
+              "component_groups": [
+                "ghast:steve"
+              ]
+            }
+          },
+          {
+            "weight": 10,
+            "add": {
+              "component_groups": [
+                "ghast:creeper"
+              ]
+            }
+          },
+          {
+            "weight": 10,
+            "add": {
+              "component_groups": [
+                "ghast:piglin"
+              ]
+            }
+          },
+          {
+            "weight": 10,
+            "add": {
+              "component_groups": [
+                "ghast:custom_head"
+              ]
+            }
           }
         ]
       },

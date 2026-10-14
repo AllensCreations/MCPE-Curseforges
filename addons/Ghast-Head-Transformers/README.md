@@ -65,6 +65,11 @@ Interact with any Ghast while holding one of the following items to initiate the
 - Obtainable via commands: `/give @s custom:custom_head`.
 - Retexturing: Replace `textures/entity/ghast/heads/custom_head.png` (idle) and `custom_head_charging.png` (charging) in the resource pack to load any custom skin, YouTuber face, or custom mob design.
 
+### 5. Behavior Pack Slider Settings (Subpacks)
+Configure natural mob head spawn behavior directly from the world settings using the Behavior Pack's gear icon slider:
+- **Option 1: `Natural Ghast Spawn with Mob Heads` (Default):** Ghasts naturally spawning in the Nether have an 80% chance to spawn wearing one of the mob heads (Skeleton, Wither Skeleton, Zombie, Steve, Creeper, Piglin, or Custom Head) with their matching custom attack projectiles and audio cues!
+- **Option 2: `Manual Equip Only (No Natural Spawn)`:** Ghasts spawn strictly as classic vanilla Ghasts. They only transform when a player manually equips a mob head by interacting with them!
+
 ---
 
 ## Technical Specifications
