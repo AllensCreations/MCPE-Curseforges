@@ -3,6 +3,18 @@
   "render_controllers": {
     "controller.render.ghast": {
       "arrays": {
+        "geometries": {
+          "Array.geos": [
+            "Geometry.default",
+            "Geometry.head",
+            "Geometry.head",
+            "Geometry.head",
+            "Geometry.head",
+            "Geometry.head",
+            "Geometry.head",
+            "Geometry.head"
+          ]
+        },
         "textures": {
           "Array.idle": [
             "Texture.default",
@@ -26,10 +38,10 @@
           ]
         }
       },
-      "geometry": "query.variant == 0 ? Geometry.default : Geometry.head",
+      "geometry": "Array.geos[query.variant]",
       "materials": [
         {
-          "*": "query.variant == 0 ? Material.default : Material.head"
+          "*": "Material.default"
         }
       ],
       "part_visibility": [

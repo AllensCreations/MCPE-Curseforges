@@ -4,9 +4,9 @@
   <img src="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/assets/mcpedl.png" alt="MCPEDL" title="MCPEDL" width="150" />
 </div>
 
-[![Minecraft Bedrock](https://img.shields.io/badge/Minecraft%20Bedrock-1.21%20--%201.26+-brightgreen?style=flat-square&logo=minecraft)](https://github.com/AllensCreations/MCPE-Curseforges)
-[![Release](https://img.shields.io/badge/Release-v1.1.0-blue?style=flat-square)](../README.md)
-[![Format](https://img.shields.io/badge/Format-.MCPACK-orange?style=flat-square)](../README.md)
+[![Minecraft Bedrock](https://img.shields.io/badge/Minecraft%20Bedrock-1.21%20--%201.26%2B-brightgreen?style=flat-square&logo=minecraft)](https://github.com/AllensCreations/MCPE-Curseforges)
+[![Release](https://img.shields.io/badge/Release-v1.1.0-blue?style=flat-square)](../README.md#available-source-add-ons)
+[![Format](https://img.shields.io/badge/Format-.MCPACK-orange?style=flat-square)](../README.md#available-source-add-ons)
 [![Platform](https://img.shields.io/badge/Platform-Mobile%20%7C%20PC%20%7C%20Console%20%7C%20Realms-yellow?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges)
 
 Creator: AllensCreations  
@@ -85,12 +85,6 @@ Item components are preserved during swaps:
 | **Building and Off-Hand Usage** | Unaffected | Hotbar slots 2 to 9 remain completely manual |
 | **Touch Controls Usability** | Frequent manual hotbar tapping | Automated selection reduces input overhead |
 | **Configuration Requirements** | Not applicable | Zero scoreboard or command setup required |
-
----
-
-## Downloads & Installation
-
-To download the compiled `.mcpack` and `.mcaddon` releases for this add-on, visit the [Add-ons Catalog](../README.md#available-source-add-ons) or the [Builds Directory](../../builds/README.md).
 
 ---
 

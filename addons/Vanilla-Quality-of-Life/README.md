@@ -2,9 +2,9 @@
 <div align="center">
   <img src="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/assets/mcpedl.png" alt="MCPEDL" title="MCPEDL" width="150" />
 </div>
-[![Minecraft Bedrock](https://img.shields.io/badge/Minecraft%20Bedrock-1.21%20--%201.26+-brightgreen?style=flat-square&logo=minecraft)](https://github.com/AllensCreations/MCPE-Curseforges)
-[![Release](https://img.shields.io/badge/Release-v1.2.0-blue?style=flat-square)](../README.md)
-[![Format](https://img.shields.io/badge/Format-.MCADDON-orange?style=flat-square)](../README.md)
+[![Minecraft Bedrock](https://img.shields.io/badge/Minecraft%20Bedrock-1.21%20--%201.26%2B-brightgreen?style=flat-square&logo=minecraft)](https://github.com/AllensCreations/MCPE-Curseforges)
+[![Release](https://img.shields.io/badge/Release-v1.2.0-blue?style=flat-square)](../README.md#available-source-add-ons)
+[![Format](https://img.shields.io/badge/Format-.MCADDON-orange?style=flat-square)](../README.md#available-source-add-ons)
 [![Platform](https://img.shields.io/badge/Platform-Mobile%20%7C%20PC%20%7C%20Console%20%7C%20Realms-yellow?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges)
 
 Creator: AllensCreations  
@@ -121,21 +121,6 @@ The pack modifies entity definitions, loot tables, and recipes using standard Be
 - 1 Blast Furnace or Smoker -> 1 Furnace
 - Repeaters and Comparators accept Cobblestone, Deepslate, or Blackstone
 - Uncrafting support: Amethyst Blocks (4 shards), Quartz Blocks (4 quartz), Clay Blocks (4 clay balls), Glowstone Blocks (4 dust), Magma Blocks (4 cream), Honeycomb Blocks (4 honeycombs), Melons (9 slices), Nether Wart Blocks (9 nether wart)
-
----
-
-## Installation and Compatibility
-
-- Minecraft Bedrock Compatibility: 1.21.0 through 1.26.x+
-- Platforms: Windows 10/11, Android, iOS, iPadOS, Xbox, PlayStation, Nintendo Switch
-- Multiplayer: Compatible with Realms, Bedrock Dedicated Servers (BDS), and LAN worlds
-- Experimental Toggles: None required
-
----
-
-## Downloads & Installation
-
-To download the compiled `.mcaddon` and `.mcpack` releases for this add-on, visit the [Add-ons Catalog](../README.md#available-source-add-ons) or the [Builds Directory](../../builds/README.md).
 
 ---
 

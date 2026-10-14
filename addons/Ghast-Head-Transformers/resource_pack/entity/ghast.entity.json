@@ -4,8 +4,7 @@
     "description": {
       "identifier": "minecraft:ghast",
       "materials": {
-        "default": "ghast",
-        "head": "entity_alphatest"
+        "default": "entity_alphatest"
       },
       "textures": {
         "default": "textures/entity/ghast/ghast",

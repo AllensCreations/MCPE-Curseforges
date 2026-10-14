@@ -2,10 +2,10 @@
 
 ![MCPEDL](https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/maps/OneBlock-Void-Survival/behavior_pack/pack_icon.png "MCPEDL")
 
-[![Minecraft Bedrock](https://img.shields.io/badge/Minecraft%20Bedrock-1.21.x+-brightgreen?style=flat-square&logo=minecraft)](https://github.com/AllensCreations/MCPE-Curseforges)
-[![Version](https://img.shields.io/badge/Map%20Version-v1.2.0-blue?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges)
+[![Minecraft Bedrock](https://img.shields.io/badge/Minecraft%20Bedrock-1.21.x%2B-brightgreen?style=flat-square&logo=minecraft)](https://github.com/AllensCreations/MCPE-Curseforges)
+[![Version](https://img.shields.io/badge/Map%20Version-v1.2.0-blue?style=flat-square)](../README.md#available-maps-catalog)
 [![Format](https://img.shields.io/badge/Format-.MCWORLD-orange?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges)
-[![Experiments](https://img.shields.io/badge/Experiments-None%20(Pure%20Vanilla)-brightgreen?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges)
+[![Experiments](https://img.shields.io/badge/Experiments-None%20%28Pure%20Vanilla%29-brightgreen?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges)
 
 Creator: AllensCreations  
 Description: Void survival map featuring progressive block mining, 43 procedural theme islands, and vanilla survival compatibility.
@@ -73,12 +73,6 @@ The map package includes an Admin Edition (`OneBlock_Void_Survival_Admin.mcworld
 - Minecraft Bedrock Version: 1.21.0 through 1.26.x+
 - Experimental Flags: None required (`experiments_ever_used: 0`)
 - Multiplayer: Fully compatible with LAN, Dedicated Servers (BDS), and Realms
-
----
-
-## Downloads & Installation
-
-To download the compiled `.mcworld` releases for this map, visit the [Maps Catalog](../README.md#available-maps-catalog) or the [Builds Directory](../../builds/README.md).
 
 ---
 

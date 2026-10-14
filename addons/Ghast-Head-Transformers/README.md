@@ -4,9 +4,9 @@
 
 ![MCPEDL](https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/addons/Ghast-Head-Transformers/pack_icon.png?v=1791967147 "MCPEDL")
 
-[![Minecraft Bedrock](https://img.shields.io/badge/Minecraft%20Bedrock-1.21%20--%201.26+-brightgreen?style=flat-square&logo=minecraft)](https://github.com/AllensCreations/MCPE-Curseforges)
-[![Release](https://img.shields.io/badge/Release-v1.1.0-blue?style=flat-square)](../README.md)
-[![Format](https://img.shields.io/badge/Format-.MCADDON%20%7C%20.MCPACK-orange?style=flat-square)](../README.md)
+[![Minecraft Bedrock](https://img.shields.io/badge/Minecraft%20Bedrock-1.21%20--%201.26%2B-brightgreen?style=flat-square&logo=minecraft)](https://github.com/AllensCreations/MCPE-Curseforges)
+[![Release](https://img.shields.io/badge/Release-v1.1.0-blue?style=flat-square)](../README.md#available-source-add-ons)
+[![Format](https://img.shields.io/badge/Format-.MCADDON%20%7C%20.MCPACK-orange?style=flat-square)](../README.md#available-source-add-ons)
 [![Platform](https://img.shields.io/badge/Platform-Mobile%20%7C%20PC%20%7C%20Console%20%7C%20Realms-yellow?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges)
 
 Creator: AllensCreations  
@@ -79,12 +79,6 @@ Configure natural mob head spawn behavior directly from the world settings using
 - **Multiplayer & Realms:** 100% compatible with Realms, Dedicated Servers (BDS), and LAN multiplayer.
 - **Geometry Architecture:** Custom dual-geometry setup (`geometry.ghast` for default; `geometry.ghast.head` with native 64x64 mob head UV coordinates for transformed states).
 - **Render Controllers:** Dynamic Molang texture switching based on `query.variant` and `query.is_charging`.
-
----
-
-## Downloads & Installation
-
-To download the compiled `.mcaddon` and `.mcpack` releases for this add-on, visit the [Add-ons Catalog](../README.md#available-source-add-ons) or the [Builds Directory](../../builds/README.md).
 
 ---
 

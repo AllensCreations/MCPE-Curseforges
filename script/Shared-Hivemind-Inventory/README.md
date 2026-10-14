@@ -2,9 +2,9 @@
 
 ![MCPEDL](https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/script/Shared-Hivemind-Inventory/pack_icon.png "MCPEDL")
 
-[![Minecraft Bedrock](https://img.shields.io/badge/Minecraft%20Bedrock-1.21%20--%201.26+-brightgreen?style=flat-square&logo=minecraft)](https://github.com/AllensCreations/MCPE-Curseforges)
-[![Release](https://img.shields.io/badge/Release-v1.0.0-blue?style=flat-square)](../README.md)
-[![Format](https://img.shields.io/badge/Format-.MCPACK-orange?style=flat-square)](../README.md)
+[![Minecraft Bedrock](https://img.shields.io/badge/Minecraft%20Bedrock-1.21%20--%201.26%2B-brightgreen?style=flat-square&logo=minecraft)](https://github.com/AllensCreations/MCPE-Curseforges)
+[![Release](https://img.shields.io/badge/Release-v1.0.0-blue?style=flat-square)](../README.md#available-challenge-scripts)
+[![Format](https://img.shields.io/badge/Format-.MCPACK-orange?style=flat-square)](../README.md#available-challenge-scripts)
 [![Platform](https://img.shields.io/badge/Platform-Mobile%20%7C%20PC%20%7C%20Console%20%7C%20Realms-yellow?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges)
 
 Creator: AllensCreations  
@@ -77,12 +77,6 @@ Admins and operators can use native script commands via `/scriptevent`:
 - `/scriptevent hivemind:sync` -- Force resynchronizes all online players to the Master State.
 - `/scriptevent hivemind:status` -- Displays online player count, occupied slot count, and offhand item.
 - `/scriptevent hivemind:clear` -- Wipes the shared inventory across all players.
-
----
-
-## Downloads & Installation
-
-To download the compiled `.mcpack` release for this challenge, visit the [Script Projects Catalog](../README.md#available-script-projects-catalog) or the [Builds Directory](../../builds/README.md).
 
 ---
 

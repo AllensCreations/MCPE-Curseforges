@@ -8,9 +8,9 @@ This folder contains compiled release packages for **Ghast Mob Head Transformers
 
 | File Name | Format | Size | Description | Download Link |
 | :--- | :--- | :--- | :--- | :--- |
-| **`Ghast_Head_Transformers_AllensCreations.mcaddon`** | `.mcaddon` | ~16 KB | Complete bundle containing both Behavior Pack and Resource Pack. | [Download (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Ghast-Head-Transformers/Ghast_Head_Transformers_AllensCreations.mcaddon) |
-| **`Ghast_Head_Transformers_BP.mcpack`** | `.mcpack` | ~5 KB | Behavior Pack: Mob head interaction events, component groups, and shearing drops. | [Download BP (.mcpack)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Ghast-Head-Transformers/Ghast_Head_Transformers_BP.mcpack) |
-| **`Ghast_Head_Transformers_RP.mcpack`** | `.mcpack` | ~10 KB | Resource Pack: Giant mob head cube geometry, variant skins, and charging state controllers. | [Download RP (.mcpack)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Ghast-Head-Transformers/Ghast_Head_Transformers_RP.mcpack) |
+| **`Ghast_Head_Transformers_AllensCreations.mcaddon`** | `.mcaddon` | ~250 KB | Complete bundle containing both Behavior Pack and Resource Pack. | [Download (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Ghast-Head-Transformers/Ghast_Head_Transformers_AllensCreations.mcaddon) |
+| **`Ghast_Head_Transformers_BP.mcpack`** | `.mcpack` | ~119 KB | Behavior Pack: Mob head interaction events, component groups, and shearing drops. | [Download BP (.mcpack)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Ghast-Head-Transformers/Ghast_Head_Transformers_BP.mcpack) |
+| **`Ghast_Head_Transformers_RP.mcpack`** | `.mcpack` | ~130 KB | Resource Pack: Giant mob head cube geometry, variant skins, and charging state controllers. | [Download RP (.mcpack)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Ghast-Head-Transformers/Ghast_Head_Transformers_RP.mcpack) |
 
 ---
 

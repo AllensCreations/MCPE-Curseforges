@@ -2,9 +2,9 @@
 
 ![MCPEDL](https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/addons/Mining-Helmet/1791946330457.jpg "MCPEDL")
 
-[![Minecraft Bedrock](https://img.shields.io/badge/Minecraft%20Bedrock-1.20.80%20--%201.26+-brightgreen?style=flat-square&logo=minecraft)](https://github.com/AllensCreations/MCPE-Curseforges)
-[![Release](https://img.shields.io/badge/Release-v1.0.0-blue?style=flat-square)](../README.md)
-[![Format](https://img.shields.io/badge/Format-.MCADDON-orange?style=flat-square)](../README.md)
+[![Minecraft Bedrock](https://img.shields.io/badge/Minecraft%20Bedrock-1.20.80%20--%201.26%2B-brightgreen?style=flat-square&logo=minecraft)](https://github.com/AllensCreations/MCPE-Curseforges)
+[![Release](https://img.shields.io/badge/Release-v1.0.0-blue?style=flat-square)](../README.md#available-source-add-ons)
+[![Format](https://img.shields.io/badge/Format-.MCADDON-orange?style=flat-square)](../README.md#available-source-add-ons)
 [![Platform](https://img.shields.io/badge/Platform-Mobile%20%7C%20PC%20%7C%20Console%20%7C%20Realms-yellow?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges)
 
 Creator: AllensCreations  
@@ -91,25 +91,6 @@ Players who crafted the Torch Mining Helmet can upgrade it directly to the Level
 - Pattern: Row 1 = [Empty, Lantern, Empty], Row 2 = [Empty, Mining Helmet (Torch), Empty]
 - Result: 1x Mining Helmet (Lantern)
 - Light Power: Level 15
-
----
-
-## Installation and Settings
-
-### Installation Steps
-1. Download `Mining_Helmet_AllensCreations.mcaddon` from the builds directory.
-2. Open or tap the file to import both the Behavior Pack and Resource Pack into Minecraft Bedrock.
-3. In World Settings, navigate to Behavior Packs and activate `Mining Helmet BP by AllensCreations`.
-4. Ensure `Mining Helmet RP by AllensCreations` is active under Resource Packs.
-
-### Required Experimental Toggles
-- **Beta APIs**: ENABLED (Required for Script API dynamic light updates)
-
----
-
-## Downloads & Installation
-
-To download the compiled `.mcaddon` release for this add-on, visit the [Add-ons Catalog](../README.md#available-source-add-ons) or the [Builds Directory](../../builds/README.md).
 
 ---
 
