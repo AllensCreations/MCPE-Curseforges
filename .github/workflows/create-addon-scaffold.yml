@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
     inputs:
       payload_b64:
-        description: "Paste the Base64-encoded add-on payload. Everything else is automatic."
+        description: "Paste the Base64-encoded plain-text add-on payload."
         required: true
         type: string
 
@@ -21,6 +21,7 @@ jobs:
 
     env:
       PAYLOAD_B64: ${{ inputs.payload_b64 }}
+      PYTHONDONTWRITEBYTECODE: "1"
 
     steps:
       - name: Checkout repository
@@ -34,7 +35,7 @@ jobs:
         with:
           python-version: "3.x"
 
-      - name: Validate and decode payload
+      - name: Validate and decode Base64 payload
         id: payload
         shell: bash
         run: |
@@ -42,7 +43,6 @@ jobs:
 
           python3 - <<'PY'
           import base64
-          import json
           import os
           import re
           import sys
@@ -51,9 +51,13 @@ jobs:
               print(f"::error::{message}")
               sys.exit(1)
 
-          MAX_PAYLOAD_BYTES = 2 * 1024 * 1024
+          MAX_BYTES = 8 * 1024 * 1024
 
-          encoded = re.sub(r"\s+", "", os.environ.get("PAYLOAD_B64", ""))
+          encoded = re.sub(
+              r"\s+",
+              "",
+              os.environ.get("PAYLOAD_B64", "")
+          )
 
           if encoded.lower().startswith("base64:"):
               encoded = encoded[7:]
@@ -61,7 +65,7 @@ jobs:
           if not encoded:
               fail("Base64 payload is required.")
 
-          if len(encoded) > MAX_PAYLOAD_BYTES * 2:
+          if len(encoded) > MAX_BYTES * 2:
               fail("Encoded payload exceeds the size limit.")
 
           try:
@@ -69,180 +73,169 @@ jobs:
                   encoded + "=" * (-len(encoded) % 4),
                   validate=True
               )
-              if len(decoded) > MAX_PAYLOAD_BYTES:
-                  fail("Decoded payload exceeds the 2 MiB limit.")
+
+              if len(decoded) > MAX_BYTES:
+                  fail("Decoded payload exceeds the 8 MiB limit.")
 
               text = decoded.decode("utf-8")
+
           except Exception as exc:
               fail(f"Unable to decode Base64 payload: {exc}")
 
-          sections = {}
+          lines = text.splitlines()
+          slug = None
+          files = {}
+          current_path = None
+          buffer = []
 
-          if text.lstrip().startswith("{"):
-              try:
-                  data = json.loads(text)
-              except json.JSONDecodeError as exc:
-                  fail(f"Invalid JSON payload: {exc}")
+          def finish_file():
+              global current_path, buffer
 
-              if not isinstance(data, dict):
-                  fail("JSON payload must be an object.")
+              if current_path is None:
+                  return
 
-              aliases = {
-                  "addon_name": "addon_name",
-                  "name": "addon_name",
-                  "description": "description",
-                  "overview": "overview",
-                  "features": "features",
-                  "limitations": "limitations",
-                  "main_js": "main_js",
-                  "min_engine_version": "min_engine_version",
-                  "server_api_version": "server_api_version",
-              }
+              if current_path in files:
+                  fail(f"Duplicate file path: {current_path}")
 
-              for key, value in data.items():
-                  normalized = aliases.get(key.lower())
+              files[current_path] = "\n".join(buffer)
 
-                  if normalized is None:
-                      fail(f"Unknown payload field: {key}")
+          for line_number, line in enumerate(lines, 1):
+              marker = line.strip()
 
-                  if normalized in sections:
-                      fail(f"Duplicate payload field: {normalized}")
+              if marker == "===SLUG===":
+                  finish_file()
+                  current_path = None
+                  buffer = []
 
-                  if not isinstance(value, str):
-                      fail(f"Payload field '{key}' must be a string.")
+                  if slug is not None:
+                      fail("Duplicate SLUG section.")
 
-                  sections[normalized] = value
+                  slug = "__reading_slug__"
+                  current_path = "__slug__"
+                  continue
 
-          else:
-              allowed = {
-                  "addon_name",
-                  "description",
-                  "overview",
-                  "features",
-                  "limitations",
-                  "main_js",
-                  "min_engine_version",
-                  "server_api_version",
-              }
-
-              aliases = {
-                  "name": "addon_name",
-                  "addon": "addon_name",
-              }
-
-              current = None
-              buffers = {}
-
-              for line_number, line in enumerate(text.splitlines(), 1):
-                  match = re.fullmatch(
-                      r"===([A-Za-z_]+)===",
-                      line.strip()
-                  )
-
-                  if match:
-                      key = match.group(1).lower()
-                      key = aliases.get(key, key)
-
-                      if key not in allowed:
-                          fail(
-                              f"Unknown section '{key}' "
-                              f"on line {line_number}."
-                          )
-
-                      if key in buffers:
-                          fail(f"Duplicate section: {key}")
-
-                      buffers[key] = []
-                      current = key
-                      continue
-
-                  if current is None:
-                      if line.strip():
-                          fail(
-                              "Unexpected text before the first section marker."
-                          )
-                      continue
-
-                  buffers[current].append(line)
-
-              sections = {
-                  key: "\n".join(lines).strip("\n")
-                  for key, lines in buffers.items()
-              }
-
-          addon = sections.get("addon_name", "").strip()
-
-          if not addon:
-              fail("Missing required ADDON_NAME section.")
-
-          if not re.fullmatch(r"[A-Za-z0-9_-]+", addon):
-              fail(
-                  "Invalid add-on name. Use letters, numbers, "
-                  "hyphens, and underscores only."
+              file_match = re.fullmatch(
+                  r"===FILE:(.+)===",
+                  marker
               )
 
-          description = " ".join(
-              sections.get("description", "").split()
+              if file_match:
+                  finish_file()
+
+                  current_path = file_match.group(1).strip()
+                  buffer = []
+
+                  if current_path == "__slug__":
+                      fail("Reserved path.")
+
+                  continue
+
+              if current_path is None:
+                  if marker:
+                      fail(
+                          f"Unexpected content on line {line_number}."
+                      )
+                  continue
+
+              buffer.append(line)
+
+          finish_file()
+
+          if slug == "__reading_slug__":
+              slug = files.pop("__slug__", "").strip()
+
+          if not slug:
+              fail("Missing SLUG section.")
+
+          if not re.fullmatch(r"[A-Za-z0-9_-]+", slug):
+              fail(
+                  "Invalid slug. Use letters, numbers, "
+                  "hyphens, and underscores."
+              )
+
+          if not files:
+              fail("No FILE sections were supplied.")
+
+          from pathlib import PurePosixPath
+
+          normalized_files = {}
+
+          for path, content in files.items():
+              if not path or "\\" in path:
+                  fail(f"Invalid file path: {path}")
+
+              pure = PurePosixPath(path)
+
+              if (
+                  pure.is_absolute()
+                  or any(part in ("", ".", "..") for part in pure.parts)
+                  or ":" in path
+                  or "\x00" in path
+              ):
+                  fail(f"Unsafe file path: {path}")
+
+              if path.startswith(".git/") or path == ".git":
+                  fail("Git metadata cannot be included in the payload.")
+
+              if path == "README.md":
+                  fail(
+                      "README.md is generated automatically. "
+                      "Remove it from the payload."
+                  )
+
+              if path in normalized_files:
+                  fail(f"Duplicate normalized path: {path}")
+
+              normalized_files[path] = content
+
+          if not any(
+              path.endswith("/manifest.json")
+              or path == "manifest.json"
+              for path in normalized_files
+          ):
+              fail("Payload must contain at least one manifest.json.")
+
+          output_dir = "_incoming"
+          os.makedirs(output_dir, exist_ok=True)
+
+          output_path = os.path.join(
+              output_dir,
+              "decoded_addon_payload.txt"
           )
 
-          if not description:
-              fail("Missing required DESCRIPTION section.")
+          with open(
+              output_path,
+              "w",
+              encoding="utf-8",
+              newline="\n"
+          ) as output:
+              output.write(f"SLUG={slug}\n")
 
-          if len(description) > 256:
-              fail("Description exceeds 256 characters.")
+              for path, content in normalized_files.items():
+                  output.write(f"\n===FILE:{path}===\n")
+                  output.write(content)
+                  output.write("\n")
 
-          main_js = sections.get("main_js", "").strip("\n")
+          with open(
+              os.environ["GITHUB_ENV"],
+              "a",
+              encoding="utf-8"
+          ) as env:
+              env.write(f"ADDON={slug}\n")
 
-          if not main_js.strip():
-              fail("Missing required MAIN_JS section.")
+          with open(
+              os.environ["GITHUB_OUTPUT"],
+              "a",
+              encoding="utf-8"
+          ) as output:
+              output.write(f"addon_name={slug}\n")
 
-          engine = (
-              sections.get("min_engine_version", "").strip() or "1.26.0"
-          )
-          api_version = (
-              sections.get("server_api_version", "").strip() or "2.0.0"
-          )
-
-          for label, version in [
-              ("Minimum engine version", engine),
-              ("Script API version", api_version),
-          ]:
-              if not re.fullmatch(r"[0-9]+\.[0-9]+\.[0-9]+", version):
-                  fail(f"Invalid {label}: {version}")
-
-          output_path = "_incoming/decoded_addon_payload.json"
-          os.makedirs("_incoming", exist_ok=True)
-
-          normalized = {
-              "addon_name": addon,
-              "description": description,
-              "overview": sections.get("overview", "").strip(),
-              "features": sections.get("features", ""),
-              "limitations": sections.get("limitations", ""),
-              "main_js": main_js,
-              "min_engine_version": engine,
-              "server_api_version": api_version,
-          }
-
-          with open(output_path, "w", encoding="utf-8") as file:
-              json.dump(normalized, file, ensure_ascii=False, indent=2)
-              file.write("\n")
-
-          with open(os.environ["GITHUB_ENV"], "a", encoding="utf-8") as file:
-              file.write(f"ADDON={addon}\n")
-              file.write(f"ENGINE={engine}\n")
-              file.write(f"API_VER={api_version}\n")
-
-          with open(os.environ["GITHUB_OUTPUT"], "a", encoding="utf-8") as file:
-              file.write(f"addon_name={addon}\n")
-
-          print("Payload validated.")
-          print(f"Add-on: {addon}")
-          print(f"Minimum engine: {engine}")
-          print(f"Script API: {api_version}")
+          print("Base64 payload decoded and validated.")
+          print(f"Slug: {slug}")
+          print(f"Files: {len(normalized_files)}")
           PY
 
-      - name: Check repository and prepare files
+      - name: Check repository and existing project
         shell: bash
         run: |
           set -euo pipefail
@@ -257,7 +250,116 @@ jobs:
             exit 1
           fi
 
-      - name: Generate behavior pack, manifest, and README
+      - name: Generate add-on files and placeholder README
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          python3 - <<'PY'
+          import os
+          import re
+          import sys
+          import uuid
+
+          addon = os.environ["ADDON"]
+
+          payload_path = "_incoming/decoded_addon_payload.txt"
+          root = f"MCPEDL/addons/{addon}"
+
+          files = {}
+          current_path = None
+          buffer = []
+
+          with open(
+              payload_path,
+              encoding="utf-8"
+          ) as source:
+              for line in source:
+                  line = line.rstrip("\n")
+
+                  match = re.fullmatch(
+                      r"===FILE:(.+)===",
+                      line.strip()
+                  )
+
+                  if match:
+                      if current_path is not None:
+                          files[current_path] = "\n".join(buffer)
+
+                      current_path = match.group(1).strip()
+                      buffer = []
+                      continue
+
+                  if current_path is not None:
+                      buffer.append(line)
+
+          if current_path is not None:
+              files[current_path] = "\n".join(buffer)
+
+          if not files:
+              sys.exit("No files found in decoded payload.")
+
+          os.makedirs(root, exist_ok=False)
+
+          for relative_path, content in files.items():
+              destination = os.path.join(root, relative_path)
+
+              resolved_root = os.path.realpath(root)
+              resolved_destination = os.path.realpath(destination)
+
+              if not (
+                  resolved_destination == resolved_root
+                  or resolved_destination.startswith(
+                      resolved_root + os.sep
+                  )
+              ):
+                  sys.exit(f"Unsafe output path: {relative_path}")
+
+              os.makedirs(
+                  os.path.dirname(destination),
+                  exist_ok=True
+              )
+
+              with open(
+                  destination,
+                  "w",
+                  encoding="utf-8",
+                  newline="\n"
+              ) as output:
+                  output.write(content)
+
+                  if content and not content.endswith("\n"):
+                      output.write("\n")
+
+          readme = f"""# {addon}
+
+This add-on was generated automatically by the AllensCreations add-on workflow.
+
+## Documentation status
+
+- Actual README documentation: Missing.
+- Logo: Missing.
+- Banner: Missing.
+
+These assets have not been supplied or generated by this workflow. Replace this placeholder README and add the missing branding assets before publishing the add-on.
+
+## Project files
+
+The project files are generated from the supplied Base64 payload. Refer to the included manifests and pack contents for the add-on configuration.
+"""
+
+          with open(
+              os.path.join(root, "README.md"),
+              "w",
+              encoding="utf-8"
+          ) as output:
+              output.write(readme)
+
+          print(f"Generated {len(files)} supplied files.")
+          print(f"Generated placeholder README for {addon}.")
+          PY
+
+      - name: Validate manifests, UUIDs, paths, and JavaScript
         shell: bash
         run: |
           set -euo pipefail
@@ -269,215 +371,168 @@ jobs:
           import sys
           import uuid
 
-          addon = os.environ["ADDON"]
-          engine = [
-              int(part)
-              for part in os.environ["ENGINE"].split(".")
-          ]
-          api_version = os.environ["API_VER"]
+          root = f"MCPEDL/addons/{os.environ['ADDON']}"
 
-          with open(
-              "_incoming/decoded_addon_payload.json",
-              encoding="utf-8"
-          ) as file:
-              data = json.load(file)
+          manifest_count = 0
+          seen_uuids = set()
+          script_files = []
 
-          root = f"MCPEDL/addons/{addon}"
-          bp = f"{root}/behavior_pack"
-          scripts = f"{bp}/scripts"
-
-          os.makedirs(scripts, exist_ok=False)
-
-          with open(
-              f"{scripts}/main.js",
-              "w",
-              encoding="utf-8"
-          ) as file:
-              file.write(data["main_js"].rstrip("\n") + "\n")
-
-          manifest = {
-              "format_version": 2,
-              "header": {
-                  "name": f"{addon} BP by AllensCreations",
-                  "description": data["description"],
-                  "uuid": str(uuid.uuid4()),
-                  "version": [1, 0, 0],
-                  "min_engine_version": engine,
-              },
-              "modules": [
-                  {
-                      "description": f"{addon} Behavior Module",
-                      "type": "data",
-                      "uuid": str(uuid.uuid4()),
-                      "version": [1, 0, 0],
-                  },
-                  {
-                      "description": f"{addon} Script Module",
-                      "type": "script",
-                      "language": "javascript",
-                      "uuid": str(uuid.uuid4()),
-                      "version": [1, 0, 0],
-                      "entry": "scripts/main.js",
-                  },
-              ],
-              "dependencies": [
-                  {
-                      "module_name": "@minecraft/server",
-                      "version": api_version,
-                  }
-              ],
-          }
-
-          uuids = [
-              manifest["header"]["uuid"],
-              *[
-                  module["uuid"]
-                  for module in manifest["modules"]
-              ],
-          ]
-
-          if len(uuids) != len(set(uuids)):
-              sys.exit("Generated manifest contains duplicate UUIDs.")
-
-          with open(
-              f"{bp}/manifest.json",
-              "w",
-              encoding="utf-8"
-          ) as file:
-              json.dump(manifest, file, indent=2, ensure_ascii=False)
-              file.write("\n")
-
-          def markdown_escape(value):
-              return (
-                  value.replace("\\", "\\\\")
-                  .replace("|", "\\|")
-                  .replace("\n", " ")
-              )
-
-          def list_items(value):
-              return [
-                  re.sub(r"^\s*[-*]\s+", "", line).strip()
-                  for line in value.splitlines()
-                  if line.strip()
+          for current_root, directories, filenames in os.walk(root):
+              directories[:] = [
+                  name for name in directories
+                  if name != "__pycache__"
               ]
 
-          title = addon.replace("-", " ").replace("_", " ")
-          features = list_items(data["features"])
-          limitations = list_items(data["limitations"])
+              for filename in filenames:
+                  path = os.path.join(current_root, filename)
 
-          readme = [
-              f"# {title} - Add-on for Minecraft Bedrock",
-              "",
-              "Creator: AllensCreations",
-              "",
-              f"Description: {markdown_escape(data['description'])}",
-              "",
-          ]
+                  if filename == "manifest.json":
+                      manifest_count += 1
 
-          if data["overview"]:
-              readme += [
-                  "## Overview",
-                  "",
-                  data["overview"],
-                  "",
-              ]
+                      try:
+                          with open(
+                              path,
+                              encoding="utf-8"
+                          ) as source:
+                              manifest = json.load(source)
+                      except Exception as exc:
+                          sys.exit(
+                              f"Invalid manifest {path}: {exc}"
+                          )
 
-          if features:
-              readme += ["## Features", ""]
-              readme += [f"- {item}" for item in features]
-              readme += [""]
+                      if not isinstance(manifest, dict):
+                          sys.exit(
+                              f"Manifest must be an object: {path}"
+                          )
 
-          readme += [
-              "## Requirements",
-              "",
-              "| Requirement | Value |",
-              "| --- | --- |",
-              f"| Behavior pack | `{addon} BP by AllensCreations` |",
-              f"| Script API | `@minecraft/server` {api_version} |",
-              "| Entry point | `scripts/main.js` |",
-              f"| Minimum engine | {'.'.join(map(str, engine))} |",
-              "",
-              "## Installation",
-              "",
-              "1. Download the generated package from the repository catalog.",
-              "2. Open the package with Minecraft to import it.",
-              f"3. Activate `{addon} BP by AllensCreations` in the world's Behavior Packs settings.",
-              "4. Enable any additional requirements documented for this add-on.",
-              "",
-              "## Compatibility and known limitations",
-              "",
-              f"- Declared minimum engine version: {'.'.join(map(str, engine))}.",
-              f"- Declared Script API dependency: {api_version}.",
-              "- Runtime compatibility must be verified in the target game version.",
-              "",
-          ]
+                      header = manifest.get("header")
 
-          if limitations:
-              readme += [f"- {item}" for item in limitations]
-              readme += [""]
+                      if not isinstance(header, dict):
+                          sys.exit(
+                              f"Missing manifest header: {path}"
+                          )
 
-          readme += [
-              "## Credits and permissions",
-              "",
-              "- Creator: AllensCreations.",
-              "- Give credit when showcasing this add-on.",
-              "- Do not redistribute without authorization.",
-              "",
-              "All rights reserved for AllensCreations.",
-              "",
-          ]
+                      if not header.get("name"):
+                          sys.exit(
+                              f"Missing header name: {path}"
+                          )
 
-          with open(
-              f"{root}/README.md",
-              "w",
-              encoding="utf-8"
-          ) as file:
-              file.write("\n".join(readme))
+                      try:
+                          header_uuid = str(
+                              uuid.UUID(header["uuid"])
+                          )
+                      except Exception:
+                          sys.exit(
+                              f"Invalid header UUID: {path}"
+                          )
 
-          print(f"Generated scaffold for {addon}.")
+                      if header_uuid in seen_uuids:
+                          sys.exit(
+                              f"Duplicate UUID: {header_uuid}"
+                          )
+
+                      seen_uuids.add(header_uuid)
+
+                      if not isinstance(
+                          header.get("version"),
+                          list
+                      ) or len(header["version"]) != 3:
+                          sys.exit(
+                              f"Invalid header version: {path}"
+                          )
+
+                      if not isinstance(
+                          header.get("min_engine_version"),
+                          list
+                      ) or len(header["min_engine_version"]) != 3:
+                          sys.exit(
+                              f"Invalid minimum engine version: {path}"
+                          )
+
+                      modules = manifest.get("modules", [])
+
+                      if not isinstance(modules, list) or not modules:
+                          sys.exit(
+                              f"Missing manifest modules: {path}"
+                          )
+
+                      for module in modules:
+                          if not isinstance(module, dict):
+                              sys.exit(
+                                  f"Invalid module in {path}"
+                              )
+
+                          try:
+                              module_uuid = str(
+                                  uuid.UUID(module["uuid"])
+                              )
+                          except Exception:
+                              sys.exit(
+                                  f"Invalid module UUID: {path}"
+                              )
+
+                          if module_uuid in seen_uuids:
+                              sys.exit(
+                                  f"Duplicate UUID: {module_uuid}"
+                              )
+
+                          seen_uuids.add(module_uuid)
+
+                          if module.get("type") == "script":
+                              entry = module.get("entry")
+
+                              if not isinstance(entry, str):
+                                  sys.exit(
+                                      f"Script module missing entry: {path}"
+                                  )
+
+                              pack_root = os.path.dirname(path)
+                              entry_path = os.path.realpath(
+                                  os.path.join(pack_root, entry)
+                              )
+
+                              if not entry_path.startswith(
+                                  os.path.realpath(pack_root) + os.sep
+                              ):
+                                  sys.exit(
+                                      f"Unsafe script entry: {entry}"
+                                  )
+
+                              if not os.path.isfile(entry_path):
+                                  sys.exit(
+                                      f"Script entry does not exist: "
+                                      f"{entry_path}"
+                                  )
+
+                              if entry_path.endswith(".js"):
+                                  script_files.append(entry_path)
+
+                  elif filename.endswith(".json"):
+                      try:
+                          with open(
+                              path,
+                              encoding="utf-8"
+                          ) as source:
+                              json.load(source)
+                      except Exception as exc:
+                          sys.exit(
+                              f"Invalid JSON file {path}: {exc}"
+                          )
+
+          if manifest_count == 0:
+              sys.exit("No manifests found.")
+
+          print(f"Validated {manifest_count} manifest(s).")
+          print(f"Validated {len(seen_uuids)} unique UUID(s).")
+          print("All JSON files are valid.")
           PY
 
-      - name: Validate manifest and JavaScript syntax
-        shell: bash
-        run: |
-          set -euo pipefail
-
-          python3 - <<'PY'
-          import json
-          import os
-          import sys
-
-          root = f"MCPEDL/addons/{os.environ['ADDON']}/behavior_pack"
-
-          with open(
-              f"{root}/manifest.json",
-              encoding="utf-8"
-          ) as file:
-              manifest = json.load(file)
-
-          if manifest.get("format_version") != 2:
-              sys.exit("Unsupported manifest format.")
-
-          if not manifest.get("header", {}).get("uuid"):
-              sys.exit("Missing header UUID.")
-
-          modules = manifest.get("modules", [])
-
-          if not any(
-              module.get("type") == "script"
-              and module.get("entry") == "scripts/main.js"
-              for module in modules
-          ):
-              sys.exit("Missing valid script module.")
-
-          if not os.path.isfile(f"{root}/scripts/main.js"):
-              sys.exit("Missing main.js.")
-
-          print("Manifest validation passed.")
-          PY
-
-          cp "MCPEDL/addons/$ADDON/behavior_pack/scripts/main.js" /tmp/check.mjs
-          node --check /tmp/check.mjs
+          while IFS= read -r -d '' file; do
+            node --check "$file"
+          done < <(
+            find "MCPEDL/addons/$ADDON" \
+              -type f -name '*.js' -print0
+          )
 
           echo "JavaScript syntax validation passed."
 
@@ -490,7 +545,7 @@ jobs:
             --project "$ADDON" \
             --no-bump
 
-      - name: Verify generated package
+      - name: Verify generated packages
         shell: bash
         run: |
           set -euo pipefail
@@ -500,31 +555,44 @@ jobs:
             exit 1
           fi
 
-          PACKAGE=$(find "builds/$ADDON" -type f \
-            \( -name "*.mcpack" -o -name "*.mcaddon" -o -name "*.zip" \) \
-            -print -quit)
-
-          if [ -z "$PACKAGE" ]; then
-            echo "::error::No distributable package found."
-            exit 1
-          fi
-
-          python3 - "$PACKAGE" <<'PY'
+          python3 - "$ADDON" <<'PY'
+          import os
           import sys
           import zipfile
 
-          path = sys.argv[1]
+          addon = sys.argv[1]
+          build_root = f"builds/{addon}"
 
-          if not zipfile.is_zipfile(path):
-              sys.exit(f"Invalid package archive: {path}")
+          packages = []
 
-          with zipfile.ZipFile(path) as archive:
-              corrupt = archive.testzip()
+          for root, _, filenames in os.walk(build_root):
+              for filename in filenames:
+                  if filename.endswith(
+                      (".mcpack", ".mcaddon", ".zip")
+                  ):
+                      packages.append(
+                          os.path.join(root, filename)
+                      )
 
-              if corrupt:
-                  sys.exit(f"Corrupt archive entry: {corrupt}")
+          if not packages:
+              sys.exit("No distributable packages found.")
 
-          print(f"Package archive verified: {path}")
+          for path in packages:
+              if not zipfile.is_zipfile(path):
+                  sys.exit(f"Invalid package archive: {path}")
+
+              with zipfile.ZipFile(path) as archive:
+                  bad_entry = archive.testzip()
+
+                  if bad_entry:
+                      sys.exit(
+                          f"Corrupt archive entry in {path}: "
+                          f"{bad_entry}"
+                      )
+
+              print(f"Verified: {path}")
+
+          print(f"Verified {len(packages)} package(s).")
           PY
 
       - name: Commit and push changes
@@ -533,7 +601,8 @@ jobs:
           set -euo pipefail
 
           git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git config user.email \
+            "41898282+github-actions[bot]@users.noreply.github.com"
 
           git add "MCPEDL/addons/$ADDON"
           git add -f "builds/$ADDON"
@@ -542,14 +611,13 @@ jobs:
           [ -f builds/README.md ] && git add builds/README.md || true
           [ -f MCPEDL/addons/README.md ] && git add MCPEDL/addons/README.md || true
 
-          git add -f _incoming/decoded_addon_payload.json
-
           if git diff --cached --quiet; then
             echo "::error::No generated changes to commit."
             exit 1
           fi
 
-          git commit -m "feat(addon): scaffold $ADDON and build packages [skip ci]"
+          git commit \
+            -m "feat(addon): generate $ADDON packages [skip ci]"
 
           PUSHED=false
 
@@ -582,14 +650,14 @@ jobs:
         shell: bash
         run: |
           {
-            echo "## Add-on Scaffold Results"
+            echo "## Add-on Generation Results"
             echo ""
             echo "| Field | Value |"
             echo "| --- | --- |"
-            echo "| Add-on | \`${ADDON:-Not generated}\` |"
-            echo "| Engine | \`${ENGINE:-Unknown}\` |"
-            echo "| Script API | \`${API_VER:-Unknown}\` |"
-            echo "| Initial version | 1.0.0 |"
+            echo "| Slug | \`${ADDON:-Not generated}\` |"
+            echo "| README | Placeholder generated |"
+            echo "| Logo | Not supplied |"
+            echo "| Banner | Not supplied |"
             echo ""
-            echo "Review the workflow steps for validation, build, and push results."
+            echo "Review the preceding steps for validation, build, and push results."
           } >> "$GITHUB_STEP_SUMMARY"
