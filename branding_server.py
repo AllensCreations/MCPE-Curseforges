@@ -20,6 +20,7 @@ import mimetypes
 import os
 import re
 import shutil
+import subprocess
 import sys
 import time
 from http.server import HTTPServer, BaseHTTPRequestHandler
@@ -238,6 +239,103 @@ def update_readme_content(content, target_id, banner_rel, logo_rel, cache_buster
                 break
 
     return "\n".join(new_lines) + ("\n" if content.endswith("\n") else "")
+
+def run_git_command(args, cwd=BASE_DIR):
+    """Executes a git command safely and returns (success: bool, stdout: str, stderr: str)."""
+    try:
+        proc = subprocess.run(
+            ["git"] + args,
+            cwd=cwd,
+            capture_output=True,
+            text=True,
+            timeout=45
+        )
+        return proc.returncode == 0, proc.stdout.strip(), proc.stderr.strip()
+    except Exception as e:
+        return False, "", str(e)
+
+def git_commit_and_push(target_name, files_to_add=None, custom_message=None):
+    """
+    Stages changed files, creates an atomic commit with conventional commit format,
+    and automatically pushes to the current remote branch.
+    """
+    # 1. Determine active branch
+    ok, branch, err = run_git_command(["branch", "--show-current"])
+    if not ok or not branch:
+        branch = "main"
+
+    # 2. Stage files
+    if files_to_add:
+        valid_files = [f for f in files_to_add if os.path.exists(os.path.join(BASE_DIR, f))]
+        if valid_files:
+            ok_add, out_add, err_add = run_git_command(["add"] + valid_files)
+        else:
+            ok_add, out_add, err_add = run_git_command(["add", "-A"])
+    else:
+        ok_add, out_add, err_add = run_git_command(["add", "-A"])
+
+    if not ok_add:
+        return {
+            "success": False,
+            "committed": False,
+            "pushed": False,
+            "error": f"git add failed: {err_add}",
+            "branch": branch
+        }
+
+    # 3. Check if anything is staged to commit
+    ok_diff, _, _ = run_git_command(["diff", "--cached", "--quiet"])
+    if ok_diff:
+        # Diff is clean (no staged changes)
+        return {
+            "success": True,
+            "committed": False,
+            "pushed": False,
+            "message": "Working tree already clean; no new changes to commit.",
+            "branch": branch
+        }
+
+    # 4. Formulate commit message
+    if custom_message and custom_message.strip():
+        msg = custom_message.strip()
+    else:
+        msg = f"chore(branding): update logo and banner for {target_name} and sync README.md"
+
+    ok_commit, out_commit, err_commit = run_git_command(["commit", "-m", msg])
+    if not ok_commit:
+        return {
+            "success": False,
+            "committed": False,
+            "pushed": False,
+            "error": f"git commit failed: {err_commit}",
+            "branch": branch
+        }
+
+    # 5. Extract short commit hash
+    _, commit_hash, _ = run_git_command(["rev-parse", "--short", "HEAD"])
+    if not commit_hash:
+        commit_hash = "HEAD"
+
+    # 6. Push to origin
+    ok_push, out_push, err_push = run_git_command(["push", "origin", branch])
+    if not ok_push:
+        return {
+            "success": False,
+            "committed": True,
+            "pushed": False,
+            "commitHash": commit_hash,
+            "branch": branch,
+            "error": f"git push failed: {err_push}. Commit {commit_hash} was created locally."
+        }
+
+    return {
+        "success": True,
+        "committed": True,
+        "pushed": True,
+        "commitHash": commit_hash,
+        "branch": branch,
+        "message": f"Committed ({commit_hash}) and pushed to origin/{branch} successfully!"
+    }
 
 class BrandingServerHandler(BaseHTTPRequestHandler):
     def end_headers(self):
@@ -495,13 +593,22 @@ class BrandingServerHandler(BaseHTTPRequestHandler):
                 else:
                     diff_info = {"hasChanges": False}
 
+        # 4. Optional Git Auto-Commit & Push
+        git_info = None
+        git_auto_commit = options.get("gitAutoCommit", True)
+        git_custom_msg = options.get("gitCommitMessage")
+
+        if git_auto_commit and updated_files:
+            git_info = git_commit_and_push(proj["name"], updated_files, git_custom_msg)
+
         res = {
             "success": True,
             "message": f"Successfully updated branding for {proj['name']}!",
             "target": target_id,
             "updatedFiles": updated_files,
             "backupFile": backup_file,
-            "diff": diff_info
+            "diff": diff_info,
+            "git": git_info
         }
 
         data = json.dumps(res, indent=2).encode("utf-8")
@@ -534,7 +641,21 @@ class BrandingServerHandler(BaseHTTPRequestHandler):
             return
 
         shutil.copyfile(bak_full, readme_full)
-        res = {"success": True, "message": f"Restored {proj['readmePath']} from backup successfully!"}
+
+        git_auto_commit = payload.get("gitAutoCommit", True)
+        git_info = None
+        if git_auto_commit:
+            git_info = git_commit_and_push(
+                proj["name"],
+                [proj["readmePath"]],
+                f"revert(branding): restore {proj['name']} README.md from backup"
+            )
+
+        res = {
+            "success": True,
+            "message": f"Restored {proj['readmePath']} from backup successfully!",
+            "git": git_info
+        }
         data = json.dumps(res).encode("utf-8")
         self.send_response(200)
         self.send_header("Content-Type", "application/json")

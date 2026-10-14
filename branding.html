@@ -913,6 +913,14 @@
           <input type="checkbox" id="optBackupReadme" checked>
           <span>Create automatic .bak backup</span>
         </label>
+        <label class="option-item" style="grid-column: 1 / -1; background: rgba(16, 185, 129, 0.08); padding: 0.65rem 0.85rem; border-radius: 6px; border: 1px solid rgba(16, 185, 129, 0.25);">
+          <input type="checkbox" id="optGitPush" checked>
+          <span style="color: #6ee7b7; font-weight: 600;">🚀 Auto-Commit & Push changes to GitHub (origin/main)</span>
+        </label>
+        <div id="gitMessageWrapper" style="grid-column: 1 / -1; display: flex; flex-direction: column; gap: 0.35rem;">
+          <span style="font-size: 0.72rem; color: var(--text-dim); font-weight: 700; text-transform: uppercase;">Git Commit Message (Optional - leave blank for auto):</span>
+          <input type="text" id="gitCommitMsgInput" placeholder="chore(branding): update banner and logo and sync README.md" style="background: var(--surface-1); border: 1px solid var(--border); color: var(--text); padding: 0.5rem 0.85rem; border-radius: var(--radius-sm); font-size: 0.84rem; font-family: var(--font-mono); outline: none;">
+        </div>
       </div>
 
       <!-- Tabs: Live Diff vs Rendered Markdown -->
@@ -949,7 +957,7 @@
         ↺ Revert to Backup
       </button>
       <button class="btn btn-primary" id="applyBtn">
-        <span>✨ Apply & Replace README Images</span>
+        <span>🚀 Apply, Commit & Push to GitHub</span>
       </button>
     </div>
   </div>
@@ -1017,6 +1025,9 @@
     const optUpdateLogo = document.getElementById("optUpdateLogo");
     const optCacheBuster = document.getElementById("optCacheBuster");
     const optBackupReadme = document.getElementById("optBackupReadme");
+    const optGitPush = document.getElementById("optGitPush");
+    const gitMessageWrapper = document.getElementById("gitMessageWrapper");
+    const gitCommitMsgInput = document.getElementById("gitCommitMsgInput");
 
     const tabDiffBtn = document.getElementById("tabDiffBtn");
     const tabRenderBtn = document.getElementById("tabRenderBtn");
@@ -1247,6 +1258,21 @@
         opt.addEventListener("change", renderDiff);
       });
 
+      // Git Push toggle & Apply button text
+      function updateApplyButtonLabel() {
+        if (optGitPush && optGitPush.checked) {
+          applyBtn.innerHTML = '<span>🚀 Apply, Commit & Push to GitHub</span>';
+          if (gitMessageWrapper) gitMessageWrapper.style.display = "flex";
+        } else {
+          applyBtn.innerHTML = '<span>✨ Apply & Replace README Images</span>';
+          if (gitMessageWrapper) gitMessageWrapper.style.display = "none";
+        }
+      }
+      if (optGitPush) {
+        optGitPush.addEventListener("change", updateApplyButtonLabel);
+        updateApplyButtonLabel();
+      }
+
       // Apply button
       applyBtn.addEventListener("click", applyChanges);
       restoreBtn.addEventListener("click", restoreBackup);
@@ -1459,8 +1485,11 @@
         return;
       }
 
+      const willPush = optGitPush && optGitPush.checked;
       applyBtn.disabled = true;
-      applyBtn.innerHTML = '<div class="spinner"></div> Applying Changes...';
+      applyBtn.innerHTML = willPush
+        ? '<div class="spinner"></div> Applying, Committing & Pushing to GitHub...'
+        : '<div class="spinner"></div> Applying Changes...';
 
       if (state.isServerMode) {
         try {
@@ -1471,7 +1500,9 @@
             options: {
               updateReadme: optUpdateBanner.checked || optUpdateLogo.checked,
               cacheBuster: optCacheBuster.checked,
-              backup: optBackupReadme.checked
+              backup: optBackupReadme.checked,
+              gitAutoCommit: willPush,
+              gitCommitMessage: gitCommitMsgInput ? gitCommitMsgInput.value.trim() : ""
             }
           };
 
@@ -1483,9 +1514,23 @@
 
           const data = await res.json();
           if (res.ok && data.success) {
-            showToast(`✅ ${data.message} (${data.updatedFiles.join(", ")})`);
+            let msg = `✅ ${data.message} (${data.updatedFiles.join(", ")})`;
+            let isErr = false;
+            if (data.git) {
+              if (data.git.pushed) {
+                msg = `🚀 Applied, Committed (${data.git.commitHash}) & Pushed to origin/${data.git.branch}!`;
+              } else if (data.git.committed) {
+                msg = `⚠️ Committed (${data.git.commitHash}) locally, but push failed: ${data.git.error}`;
+                isErr = true;
+              } else if (!data.git.success && data.git.error) {
+                msg = `⚠️ Files saved, but Git error: ${data.git.error}`;
+                isErr = true;
+              }
+            }
+            showToast(msg, isErr);
             clearStagedBanner();
             clearStagedLogo();
+            if (gitCommitMsgInput) gitCommitMsgInput.value = "";
             // Reload target to refresh images from disk
             await onTargetChanged();
           } else {
@@ -1506,7 +1551,7 @@
       }
 
       applyBtn.disabled = false;
-      applyBtn.innerHTML = '<span>✨ Apply & Replace README Images</span>';
+      updateApplyButtonLabel();
     }
 
     // Restore Backup
@@ -1515,14 +1560,22 @@
 
       if (state.isServerMode) {
         try {
+          const willPush = optGitPush && optGitPush.checked;
           const res = await fetch("/api/restore", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ target: state.currentTarget })
+            body: JSON.stringify({
+              target: state.currentTarget,
+              gitAutoCommit: willPush
+            })
           });
           const data = await res.json();
           if (res.ok && data.success) {
-            showToast("✅ Restored README.md from backup successfully!");
+            let msg = "✅ Restored README.md from backup successfully!";
+            if (data.git && data.git.pushed) {
+              msg = `🚀 Reverted & Pushed to origin/${data.git.branch} (${data.git.commitHash})!`;
+            }
+            showToast(msg);
             await onTargetChanged();
           } else {
             showToast(data.error || "No backup file found", true);
