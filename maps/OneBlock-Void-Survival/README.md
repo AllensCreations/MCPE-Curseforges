@@ -1,5 +1,7 @@
 # 🌌 OneBlock Void Survival v1.2 — [AllensCreations]
 
+![MCPEDL](behavior_pack/pack_icon.png "MCPEDL")
+
 [![Minecraft Bedrock](https://img.shields.io/badge/Minecraft%20Bedrock-1.21.x+-brightgreen?style=flat-square&logo=minecraft)](https://github.com/AllensCreations/MCPE-Curseforges)
 [![Version](https://img.shields.io/badge/Map%20Version-v1.2.0-blue?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges)
 [![Format](https://img.shields.io/badge/Format-.MCWORLD%20%7C%20.MCPACK-orange?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges)
@@ -63,6 +65,16 @@
 - **Zero Experimental Flags Needed:** `experiments_ever_used: 0`. Achievements compatible!
 - **Script API:** Built on stable `@minecraft/server` v1.13.0 and `@minecraft/server-ui` v1.3.0.
 - **Multiplayer:** 100% compatible with LAN, Dedicated Servers (BDS), and Realms.
+
+---
+
+## 🚀 MCPEDL & CurseForge Distribution Checklist
+
+Ensure that you have already:
+- Connected your Curseforge Account.
+- Your project has an image with the title MCPEDL (no quotes).
+- Your project files are already approved.
+- Your project has the third party sharing option enabled.
 
 ---
 

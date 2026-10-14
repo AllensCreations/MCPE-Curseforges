@@ -1,6 +1,6 @@
 # 🎮 MCPE Curseforges — Addons & Maps Collection
 
-![MCPE Curseforges Banner](banner.jpg)
+![MCPEDL](banner.jpg "MCPEDL")
 
 [![Minecraft Bedrock](https://img.shields.io/badge/Minecraft%20Bedrock-1.21%20--%201.26+-brightgreen?style=flat-square&logo=minecraft)](https://github.com/AllensCreations/MCPE-Curseforges)
 [![Platform](https://img.shields.io/badge/Platform-Mobile%20%7C%20PC%20%7C%20Console%20%7C%20Realms-yellow?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges)
@@ -173,6 +173,16 @@ Dynamic following light system for cave mining and survival.
 - **Supported Platforms:** Windows 10/11, Android, iOS, iPadOS, Xbox, PlayStation, Nintendo Switch.
 - **Multiplayer:** 100% compatible with Realms, Bedrock Dedicated Server (BDS), and LAN games.
 - **Installation:** Download any `.mcpack`, `.mcaddon`, or `.mcworld` file from the catalog above and open it to automatically import into Minecraft.
+
+---
+
+## 🚀 MCPEDL & CurseForge Distribution Checklist
+
+Ensure that you have already:
+- Connected your Curseforge Account.
+- Your project has an image with the title MCPEDL (no quotes).
+- Your project files are already approved.
+- Your project has the third party sharing option enabled.
 
 ---
 

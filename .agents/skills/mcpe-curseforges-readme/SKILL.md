@@ -81,10 +81,24 @@ Every pack `README.md` must follow this order:
 - Numbered installation instructions for `.mcaddon` or `.mcpack`.
 - Checklist of required Experimental Toggles (e.g., Beta APIs: ENABLED).
 
-### 7. Guidelines & Attribution
+### 7. MCPEDL & CurseForge Distribution Checklist
+- Every pack and map must include a banner or icon image with the title `MCPEDL` (no quotes): `![MCPEDL](<image-file> "MCPEDL")`.
+- Include the verification checklist:
+  ```markdown
+  ## 🚀 MCPEDL & CurseForge Distribution Checklist
+
+  Ensure that you have already:
+  - Connected your Curseforge Account.
+  - Your project has an image with the title MCPEDL (no quotes).
+  - Your project files are already approved.
+  - Your project has the third party sharing option enabled.
+  ```
+
+### 8. Guidelines & Attribution
 - Creator attribution: AllensCreations.
 - Rights and reservation: All rights reserved for AllensCreations.
 - Content creator / video recording policy.
 - Strict no-reupload / direct download bypass policy.
 - Standard copyright footer: `© All rights reserved for AllensCreations.`
+
 

@@ -1,6 +1,6 @@
 # Alphabet Scavenger Hunt Challenge
 
-![Alphabet Scavenger Hunt Icon](1791906906852.jpg)
+![MCPEDL](1791906906852.jpg "MCPEDL")
 
 [![Minecraft Bedrock](https://img.shields.io/badge/Minecraft%20Bedrock-1.21%20--%201.26+-brightgreen?style=flat-square&logo=minecraft)](https://github.com/AllensCreations/MCPE-Curseforges)
 [![Release](https://img.shields.io/badge/Release-v1.0.0-blue?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Alphabet-Scavenger-Hunt/Alphabet_Scavenger_Hunt_AllensCreations.mcaddon)
@@ -119,6 +119,16 @@ Because this challenge is powered by the modern Bedrock Script API (`@minecraft/
 | :--- | :--- | :--- | :--- |
 | **All-In-One Pack (Recommended)** | `.mcaddon` | Installs the complete challenge Behavior Pack in one click! | [Download .mcaddon](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Alphabet-Scavenger-Hunt/Alphabet_Scavenger_Hunt_AllensCreations.mcaddon) |
 | **Behavior Pack Only** | `.mcpack` | Standalone Behavior Pack archive. | [Download .mcpack](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Alphabet-Scavenger-Hunt/Alphabet_Scavenger_Hunt_AllensCreations.mcpack) |
+
+---
+
+## 🚀 MCPEDL & CurseForge Distribution Checklist
+
+Ensure that you have already:
+- Connected your Curseforge Account.
+- Your project has an image with the title MCPEDL (no quotes).
+- Your project files are already approved.
+- Your project has the third party sharing option enabled.
 
 ---
 

@@ -1,6 +1,6 @@
 # Mining Helmet - Dynamic Lighting Add-on for Minecraft Bedrock
 
-![Mining Helmet Banner](1791946330457.jpg)
+![MCPEDL](1791946330457.jpg "MCPEDL")
 
 [![Minecraft Bedrock](https://img.shields.io/badge/Minecraft%20Bedrock-1.20.80%20--%201.26+-brightgreen?style=flat-square&logo=minecraft)](https://github.com/AllensCreations/MCPE-Curseforges)
 [![Release](https://img.shields.io/badge/Release-v1.0.0-blue?style=flat-square)](../../builds/Mining-Helmet/Mining_Helmet_AllensCreations.mcaddon)
@@ -104,6 +104,16 @@ Players who crafted the Torch Mining Helmet can upgrade it directly to the Level
 
 ### Required Experimental Toggles
 - **Beta APIs**: ENABLED (Required for Script API dynamic light updates)
+
+---
+
+## MCPEDL and CurseForge Distribution Checklist
+
+Ensure that you have already:
+- Connected your Curseforge Account.
+- Your project has an image with the title MCPEDL (no quotes).
+- Your project files are already approved.
+- Your project has the third party sharing option enabled.
 
 ---
 

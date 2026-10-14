@@ -1,6 +1,6 @@
 # 🧟 Monster Companions by AllensCreations
 
-![Monster Companions Icon](1791889944961.jpg)
+![MCPEDL](1791889944961.jpg "MCPEDL")
 
 [![Minecraft Bedrock](https://img.shields.io/badge/Minecraft%20Bedrock-1.21%20--%201.26+-brightgreen?style=flat-square&logo=minecraft)](https://github.com/AllensCreations/MCPE-Curseforges)
 [![Release](https://img.shields.io/badge/Release-v1.0.0-blue?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Monster-Companions/Monster_Companions_AllensCreations.mcaddon)
@@ -93,6 +93,16 @@ Equip a **Saddle** to mount and command large monsters with full **Bedrock Ride 
 | **All-In-One (Recommended)** | `.mcaddon` | Installs both Behavior Pack and Resource Pack (custom textures & Ride UI) in one click! | [⬇️ **Download .mcaddon**](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Monster-Companions/Monster_Companions_AllensCreations.mcaddon) |
 | **Behavior Pack Only** | `.mcpack` | Game behaviors, taming logic, mounts, and recipes. | [⬇️ **Download BP (.mcpack)**](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Monster-Companions/Monster_Companions_BP.mcpack) |
 | **Resource Pack Only** | `.mcpack` | Beast Biscuit custom texture, icons, and language names. | [⬇️ **Download RP (.mcpack)**](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Monster-Companions/Monster_Companions_RP.mcpack) |
+
+---
+
+## 🚀 MCPEDL & CurseForge Distribution Checklist
+
+Ensure that you have already:
+- Connected your Curseforge Account.
+- Your project has an image with the title MCPEDL (no quotes).
+- Your project files are already approved.
+- Your project has the third party sharing option enabled.
 
 ---
 

@@ -61,15 +61,30 @@ Every pack and map `README.md` must conclude with this standardized Terms of Use
 ## 📜 Terms of Use & Guidelines
 
 - **Creator Attribution:** Created by **AllensCreations**.
+- **Rights & Reservation:** All rights reserved for AllensCreations.
 - **Content Creators (YouTube, TikTok, Twitch):** You are 100% welcome to showcase this pack in videos, live streams, and reviews! Please include credit to **AllensCreations** and link to the official download page or this GitHub repository.
 - **No Direct Re-uploading:** Do not re-upload this pack, its individual files, or modified copies to any website, app store, or file-sharing service.
 - **No Paywalls or Link Shorteners:** It is strictly prohibited to distribute this pack behind paywalls, ad-gate links (e.g., AdFly, Linkvertise, Boost.ink), or paid monetization walls.
 - **Server & Realm Use:** You are free to use this pack on your personal worlds, private servers, and Bedrock Realms.
+
+---
+
+© All rights reserved for AllensCreations.
 ```
 
 ---
 
-## 5. 🖼️ Visual Assets & Images
+## 5. 🚀 MCPEDL & CurseForge Distribution Prerequisites
+
+Before importing or synchronizing any project from CurseForge to MCPEDL, ensure that you have already:
+- Connected your Curseforge Account.
+- Your project has an image with the title "MCPEDL" (no quotes). In Markdown: `![MCPEDL](image.jpg "MCPEDL")`.
+- Your project files are already approved on CurseForge.
+- Your project has the third party sharing option enabled in CurseForge project settings.
+
+---
+
+## 6. 🖼️ Visual Assets & Images
 
 Whenever visual assets (promotional banners, artwork, item previews, recipe infographics) are stored in the repository, incorporate them directly into the pack description:
 
