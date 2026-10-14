@@ -10,16 +10,19 @@ description: >-
 
 This skill provides direct guidelines and workflows for leveraging Mojang's official [bedrock-samples repository](https://github.com/mojang/bedrock-samples) across all Minecraft Bedrock add-ons and documentation in this repository.
 
+The full repository is cloned locally at `/root/bedrock-samples/` (containing all 22,000+ vanilla resource, behavior, and documentation files).
+
 ---
 
 ## 1. Overview of Bedrock Samples
 
-The official repository `https://github.com/mojang/bedrock-samples` contains the upstream vanilla Minecraft Bedrock data and assets updated with every release:
+The repository contains upstream vanilla Minecraft Bedrock data and assets updated with every release:
 
 - **`resource_pack/`**: Complete vanilla client assets:
   - `textures/items/`: Item icons (e.g., `gold_helmet.png`, `lantern.png`, `iron_ingot.png`).
   - `textures/blocks/`: Block textures and placeable items (e.g., `torch_on.png`, `soul_torch.png`, `crafting_table_top.png`).
   - `textures/models/armor/`: Humanoid armor layer textures (64x32 / 64x64).
+  - `textures/ui/`: UI frames, slots, and icons.
   - `attachables/`: Entity attachable JSON definitions for wearable items.
   - `texts/`: Official localized language strings (`en_US.lang`).
 - **`behavior_pack/`**: Complete vanilla server/data definitions:
@@ -32,7 +35,7 @@ The official repository `https://github.com/mojang/bedrock-samples` contains the
 
 ## 2. Using Official Resource Pack Textures in Crafting UI Images
 
-When generating 3x3 crafting grid images for `README.md` files or platform documentation, always source vanilla ingredient textures directly from `bedrock-samples/resource_pack/`:
+When generating 3x3 crafting grid images for `README.md` files or platform documentation, always source vanilla ingredient textures directly from `/root/bedrock-samples/resource_pack/`:
 
 ### Standard Texture Paths
 | Ingredient | Path in bedrock-samples |
@@ -54,7 +57,7 @@ Always scale vanilla 16x16 pixel textures using nearest-neighbor interpolation (
 from PIL import Image
 
 # Load official vanilla item texture
-vanilla_icon = Image.open('resource_pack/textures/items/gold_helmet.png').convert('RGBA')
+vanilla_icon = Image.open('/root/bedrock-samples/resource_pack/textures/items/gold_helmet.png').convert('RGBA')
 
 # Nearest-neighbor upscale into crafting slot
 slot_size = (44, 44)
@@ -67,4 +70,4 @@ pixel_scaled = vanilla_icon.resize(slot_size, Image.Resampling.NEAREST)
 
 1. **Vanilla Parity:** Inspect vanilla recipes in `behavior_pack/recipes/` to match formatting version, group tags, and ingredient identifiers.
 2. **Durability and Defense:** Match armor values to vanilla benchmarks in `behavior_pack/items/` (e.g., Gold helmet = 2 protection, 165 durability; Iron helmet = 2 protection, 165 durability; Diamond helmet = 3 protection, 363 durability).
-3. **Texture Sourcing:** Never draw placeholder textures for vanilla items when generating promotional materials; always pull directly from `bedrock-samples`.
+3. **Texture Sourcing:** Never draw placeholder textures for vanilla items when generating promotional materials; always pull directly from the full `/root/bedrock-samples/` local repository.
