@@ -4,7 +4,7 @@
 
 [![Minecraft Bedrock](https://img.shields.io/badge/Minecraft%20Bedrock-1.21%20--%201.26+-brightgreen?style=flat-square&logo=minecraft)](https://github.com/AllensCreations/MCPE-Curseforges)
 [![Platform](https://img.shields.io/badge/Platform-Mobile%20%7C%20PC%20%7C%20Console%20%7C%20Realms-yellow?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges)
-[![Collection Size](https://img.shields.io/badge/Collection-4%20Add--ons%20%7C%201%20Map%20%7C%203%20Scripts-orange?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges)
+[![Collection Size](https://img.shields.io/badge/Collection-5%20Add--ons%20%7C%201%20Map%20%7C%203%20Scripts-orange?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges)
 [![Format](https://img.shields.io/badge/Format-.MCPACK%20%7C%20.MCADDON%20%7C%20.MCWORLD-blue?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges)
 
 Creator: AllensCreations  
@@ -31,6 +31,7 @@ Explore the full [Maps Directory](maps/README.md).
 | **Monster Companions** | `v1.0.0` | Complete Pack (`.mcaddon`) | [Download (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Monster-Companions/Monster_Companions_AllensCreations.mcaddon) | [`addons/Monster-Companions/`](addons/Monster-Companions/) | Tame 32 monsters into bodyguards and rideable mounts with Beast Biscuits. Combat pacification below 50% HP, wall-climbing spiders. |
 | **Mining Helmet** | `v1.0.0` | Complete Pack (`.mcaddon`) | [Download (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Mining-Helmet/Mining_Helmet_AllensCreations.mcaddon) | [`addons/Mining-Helmet/`](addons/Mining-Helmet/) | Wearable Mining Helmet with real-time level 15 dynamic following light, zero-residue block cleanup, and gold helmet model styling. |
 | **Passive Auto-Switch Tools** | `v1.0.0` | Behavior Pack (`.mcpack` / `.mcaddon`) | [Download (.mcpack)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Passive-Auto-Switch-Tools/Passive_Auto_Switch_Tools_AllensCreations.mcpack) | [`addons/Passive-Auto-Switch-Tools/`](addons/Passive-Auto-Switch-Tools/) | Zero-configuration tool auto-switcher when holding Slot 1. Dynamically raycasts target blocks and swaps optimal tools seamlessly. |
+| **Ghast Mob Head Transformers** | `v1.0.0` | Complete Pack (`.mcaddon`) | [Download (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Ghast-Head-Transformers/Ghast_Head_Transformers_AllensCreations.mcaddon) | [`addons/Ghast-Head-Transformers/`](addons/Ghast-Head-Transformers/) | Transform vanilla Ghasts into giant flying mob heads by equipping skulls, with charging faces and shearing drops. |
 
 Explore the full [Add-ons Directory](addons/README.md).
 
@@ -131,6 +132,22 @@ Zero-configuration passive tool auto-switcher when holding Slot 1.
 - Stable Bedrock API: Built strictly on `@minecraft/server` v1.13.0+ with zero experimental flags or beta APIs required.
 
 [Read Full Passive Auto-Switch Tools Documentation](addons/Passive-Auto-Switch-Tools/README.md)
+
+---
+
+### Add-on 5: Ghast Mob Head Transformers (v1.0.0)
+
+![Ghast Mob Head Transformers Icon](https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/addons/Ghast-Head-Transformers/pack_icon.png)
+
+Transform vanilla Ghasts into giant flying mob heads by equipping skulls.
+
+- Mob Head Morphing: Equip Skeleton, Wither Skeleton, Zombie, Steve, Creeper, Piglin, or Custom heads to transform Ghasts into giant flying skull cubes.
+- Tentacle Concealment: Hides all dangling tentacles via custom dual-geometry and bone visibility arrays when transformed.
+- Charging Expressions: Dynamic face texture switching when firing fireballs with open jaws, glowing soul flames, and red battle eyes.
+- Shearing Drop System: Use Shears on any transformed Ghast to pop off and recover the equipped skull item and restore the vanilla Ghast.
+- Custom Head Item Template: Includes `custom:custom_head` for creators to retexture and deploy custom giant flying heads.
+
+[Read Full Ghast Mob Head Transformers Documentation](addons/Ghast-Head-Transformers/README.md)
 
 ---
 

@@ -1,0 +1,48 @@
+{
+  "format_version": "1.8.0",
+  "minecraft:client_entity": {
+    "description": {
+      "identifier": "minecraft:ghast",
+      "materials": {
+        "default": "ghast"
+      },
+      "textures": {
+        "default": "textures/entity/ghast/ghast",
+        "shooting": "textures/entity/ghast/ghast_shooting",
+        "skeleton": "textures/entity/ghast/heads/skeleton_head",
+        "skeleton_charging": "textures/entity/ghast/heads/skeleton_head_charging",
+        "wither_skeleton": "textures/entity/ghast/heads/wither_skeleton_head",
+        "wither_skeleton_charging": "textures/entity/ghast/heads/wither_skeleton_head_charging",
+        "zombie": "textures/entity/ghast/heads/zombie_head",
+        "zombie_charging": "textures/entity/ghast/heads/zombie_head_charging",
+        "steve": "textures/entity/ghast/heads/steve_head",
+        "steve_charging": "textures/entity/ghast/heads/steve_head_charging",
+        "creeper": "textures/entity/ghast/heads/creeper_head",
+        "creeper_charging": "textures/entity/ghast/heads/creeper_head_charging",
+        "piglin": "textures/entity/ghast/heads/piglin_head",
+        "piglin_charging": "textures/entity/ghast/heads/piglin_head_charging",
+        "custom_head": "textures/entity/ghast/heads/custom_head",
+        "custom_head_charging": "textures/entity/ghast/heads/custom_head_charging"
+      },
+      "geometry": {
+        "default": "geometry.ghast",
+        "head": "geometry.ghast.head"
+      },
+      "spawn_egg": {
+        "texture": "spawn_egg_ghast"
+      },
+      "animations": {
+        "move": "animation.ghast.move",
+        "scale": "animation.ghast.scale"
+      },
+      "animation_controllers": [
+        {
+          "move": "controller.animation.ghast.move"
+        }
+      ],
+      "render_controllers": [
+        "controller.render.ghast"
+      ]
+    }
+  }
+}

@@ -1,0 +1,46 @@
+{
+  "format_version": "1.8.0",
+  "render_controllers": {
+    "controller.render.ghast": {
+      "arrays": {
+        "textures": {
+          "Array.idle": [
+            "Texture.default",
+            "Texture.skeleton",
+            "Texture.wither_skeleton",
+            "Texture.zombie",
+            "Texture.steve",
+            "Texture.creeper",
+            "Texture.piglin",
+            "Texture.custom_head"
+          ],
+          "Array.charging": [
+            "Texture.shooting",
+            "Texture.skeleton_charging",
+            "Texture.wither_skeleton_charging",
+            "Texture.zombie_charging",
+            "Texture.steve_charging",
+            "Texture.creeper_charging",
+            "Texture.piglin_charging",
+            "Texture.custom_head_charging"
+          ]
+        }
+      },
+      "geometry": "query.variant == 0 ? Geometry.default : Geometry.head",
+      "materials": [
+        {
+          "*": "Material.default"
+        }
+      ],
+      "part_visibility": [
+        {
+          "tentacles_*": "query.variant == 0",
+          "tentacle*": "query.variant == 0"
+        }
+      ],
+      "textures": [
+        "query.is_charging ? Array.charging[query.variant] : Array.idle[query.variant]"
+      ]
+    }
+  }
+}

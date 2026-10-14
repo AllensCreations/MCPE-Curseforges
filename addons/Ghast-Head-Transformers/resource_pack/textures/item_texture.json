@@ -1,0 +1,9 @@
+{
+  "resource_pack_name": "ghast_head_transformers_rp",
+  "texture_name": "atlas.items",
+  "texture_data": {
+    "custom_head": {
+      "textures": "textures/items/custom_head"
+    }
+  }
+}
