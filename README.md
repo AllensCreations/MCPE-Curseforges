@@ -206,6 +206,16 @@ Multiplayer challenge synchronizing player inventories.
 
 ---
 
+## Repository Tools and Management
+
+- **Branding & Asset Manager**: Interactive web studio to manage banners, pack icons, and logos with automated `README.md` image synchronization:
+  ```bash
+  ./manage_branding.sh
+  # Accessible at http://localhost:8080 or by opening branding.html in your browser
+  ```
+
+---
+
 ## Guidelines and Attribution
 
 - Creator: AllensCreations

@@ -1,0 +1,1644 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MCPE Curseforges - Branding & README Image Manager</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%2310b981'/><text y='70' font-size='70' x='15'>🎮</text></svg>">
+  <style>
+    :root {
+      --bg: #090a10;
+      --surface-1: #111420;
+      --surface-2: #171b2b;
+      --surface-3: #1f253b;
+      --border: #262c42;
+      --border-focus: #3b82f6;
+      --text: #f1f5f9;
+      --text-muted: #94a3b8;
+      --text-dim: #64748b;
+      --primary: #10b981;
+      --primary-hover: #059669;
+      --blue: #3b82f6;
+      --blue-hover: #2563eb;
+      --amber: #f59e0b;
+      --red: #ef4444;
+      --radius-sm: 6px;
+      --radius-md: 10px;
+      --radius-lg: 16px;
+      --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Inter", sans-serif;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background-color: var(--bg);
+      color: var(--text);
+      font-family: var(--font-sans);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      line-height: 1.5;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* Top Navigation */
+    header {
+      background: var(--surface-1);
+      border-bottom: 1px solid var(--border);
+      padding: 0.85rem 1.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      z-index: 50;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .brand-icon {
+      width: 34px;
+      height: 34px;
+      background: linear-gradient(135deg, #10b981, #0284c7);
+      border-radius: var(--radius-sm);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.15rem;
+      box-shadow: 0 2px 8px rgba(16, 185, 129, 0.25);
+    }
+
+    .brand-title {
+      font-size: 1.05rem;
+      font-weight: 700;
+      letter-spacing: -0.01em;
+    }
+
+    .brand-subtitle {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      margin-left: 0.4rem;
+      font-weight: 400;
+    }
+
+    .header-controls {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .status-pill {
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-size: 0.78rem;
+      font-weight: 500;
+      padding: 0.25rem 0.65rem;
+      border-radius: 999px;
+      background: rgba(16, 185, 129, 0.1);
+      border: 1px solid rgba(16, 185, 129, 0.3);
+      color: var(--primary);
+    }
+
+    .status-pill.offline {
+      background: rgba(245, 158, 11, 0.1);
+      border-color: rgba(245, 158, 11, 0.3);
+      color: var(--amber);
+    }
+
+    .status-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: currentColor;
+      box-shadow: 0 0 6px currentColor;
+    }
+
+    /* Target Selector Bar */
+    .target-bar {
+      background: var(--surface-2);
+      border-bottom: 1px solid var(--border);
+      padding: 0.75rem 1.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .target-select-wrapper {
+      display: flex;
+      align-items: center;
+      gap: 0.65rem;
+    }
+
+    .target-label {
+      font-size: 0.82rem;
+      color: var(--text-muted);
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+
+    select.target-dropdown {
+      background: var(--surface-1);
+      color: var(--text);
+      border: 1px solid var(--border);
+      padding: 0.45rem 1rem;
+      border-radius: var(--radius-sm);
+      font-size: 0.9rem;
+      font-weight: 500;
+      cursor: pointer;
+      outline: none;
+      transition: border-color 0.15s;
+      min-width: 280px;
+    }
+
+    select.target-dropdown:focus {
+      border-color: var(--border-focus);
+    }
+
+    .target-meta-badges {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+    }
+
+    .meta-badge {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      background: var(--surface-1);
+      border: 1px solid var(--border);
+      padding: 0.2rem 0.5rem;
+      border-radius: var(--radius-sm);
+      color: var(--text-muted);
+    }
+
+    /* Main Container */
+    main {
+      flex: 1;
+      max-width: 1360px;
+      width: 100%;
+      margin: 0 auto;
+      padding: 1.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+
+    /* Info Alert Banner */
+    .info-banner {
+      background: rgba(59, 130, 246, 0.08);
+      border: 1px solid rgba(59, 130, 246, 0.25);
+      border-radius: var(--radius-md);
+      padding: 0.85rem 1.25rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      font-size: 0.86rem;
+      color: #93c5fd;
+    }
+
+    .info-banner a, .info-banner button {
+      color: #bfdbfe;
+      font-weight: 600;
+      text-decoration: underline;
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-size: 0.86rem;
+    }
+
+    /* Studio Grid */
+    .studio-grid {
+      display: grid;
+      grid-template-columns: 1.2fr 1fr;
+      gap: 1.5rem;
+    }
+
+    @media (max-width: 960px) {
+      .studio-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* Card Panels */
+    .card {
+      background: var(--surface-1);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 1.25rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      position: relative;
+    }
+
+    .card-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 0.75rem;
+    }
+
+    .card-title {
+      font-size: 0.95rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .card-path {
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      background: var(--surface-2);
+      padding: 0.15rem 0.5rem;
+      border-radius: var(--radius-sm);
+    }
+
+    /* Stage Subgrids */
+    .stage-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+    }
+
+    @media (max-width: 600px) {
+      .stage-row {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .stage-box {
+      background: var(--surface-2);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 0.75rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .stage-label {
+      font-size: 0.72rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--text-dim);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .stage-preview {
+      width: 100%;
+      height: 180px;
+      background: #050608;
+      border-radius: var(--radius-sm);
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      border: 1px solid rgba(255, 255, 255, 0.04);
+    }
+
+    .stage-preview.checkerboard {
+      background-image: linear-gradient(45deg, #181c2b 25%, transparent 25%),
+                        linear-gradient(-45deg, #181c2b 25%, transparent 25%),
+                        linear-gradient(45deg, transparent 75%, #181c2b 75%),
+                        linear-gradient(-45deg, transparent 75%, #181c2b 75%);
+      background-size: 16px 16px;
+      background-position: 0 0, 0 8px, 8px -8px, -8px 0px;
+    }
+
+    .stage-preview img {
+      max-width: 100%;
+      max-height: 100%;
+      object-fit: contain;
+    }
+
+    .banner-preview img {
+      object-fit: cover;
+      width: 100%;
+      height: 100%;
+    }
+
+    .stage-empty {
+      color: var(--text-dim);
+      font-size: 0.78rem;
+      text-align: center;
+      padding: 1rem;
+    }
+
+    /* Drag & Drop Upload Zone */
+    .dropzone {
+      border: 2px dashed var(--border);
+      border-radius: var(--radius-md);
+      padding: 1.25rem 1rem;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      background: rgba(255, 255, 255, 0.01);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 0.4rem;
+    }
+
+    .dropzone:hover, .dropzone.dragover {
+      border-color: var(--border-focus);
+      background: rgba(59, 130, 246, 0.05);
+    }
+
+    .dropzone-icon {
+      font-size: 1.75rem;
+    }
+
+    .dropzone-title {
+      font-size: 0.88rem;
+      font-weight: 600;
+    }
+
+    .dropzone-desc {
+      font-size: 0.72rem;
+      color: var(--text-dim);
+    }
+
+    .file-input {
+      display: none;
+    }
+
+    /* Badges & Meta */
+    .img-specs {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 0.72rem;
+      font-family: var(--font-mono);
+      color: var(--text-muted);
+      margin-top: 0.25rem;
+    }
+
+    .badge-ok {
+      color: var(--primary);
+    }
+
+    .badge-warn {
+      color: var(--amber);
+    }
+
+    /* Logo Avatar Preview */
+    .logo-avatar-row {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      padding: 0.5rem;
+      background: var(--surface-2);
+      border-radius: var(--radius-sm);
+      margin-top: 0.25rem;
+    }
+
+    .avatar-preview-round {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      overflow: hidden;
+      background: #000;
+      border: 2px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .avatar-preview-square {
+      width: 44px;
+      height: 44px;
+      border-radius: 8px;
+      overflow: hidden;
+      background: #000;
+      border: 2px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .avatar-preview-round img, .avatar-preview-square img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .avatar-caption {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* README Sync & Options Section */
+    .readme-card {
+      background: var(--surface-1);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 1.25rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .options-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 0.85rem;
+      padding: 0.75rem;
+      background: var(--surface-2);
+      border-radius: var(--radius-md);
+      border: 1px solid var(--border);
+    }
+
+    .option-item {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.82rem;
+      color: var(--text-muted);
+      cursor: pointer;
+    }
+
+    .option-item input[type="checkbox"] {
+      width: 16px;
+      height: 16px;
+      accent-color: var(--primary);
+      cursor: pointer;
+    }
+
+    /* Tabs & Diff Viewer */
+    .tab-bar {
+      display: flex;
+      border-bottom: 1px solid var(--border);
+      gap: 0.5rem;
+    }
+
+    .tab-btn {
+      background: none;
+      border: none;
+      color: var(--text-muted);
+      font-size: 0.82rem;
+      font-weight: 600;
+      padding: 0.5rem 0.85rem;
+      cursor: pointer;
+      border-bottom: 2px solid transparent;
+      transition: all 0.15s;
+    }
+
+    .tab-btn.active {
+      color: var(--text);
+      border-bottom-color: var(--primary);
+    }
+
+    .diff-container {
+      background: #06070a;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      font-family: var(--font-mono);
+      font-size: 0.78rem;
+      padding: 1rem;
+      overflow-x: auto;
+      max-height: 280px;
+      white-space: pre-wrap;
+      line-height: 1.6;
+    }
+
+    .diff-del {
+      background: rgba(239, 68, 68, 0.15);
+      color: #fca5a5;
+      display: block;
+      padding: 0 0.4rem;
+      border-radius: 2px;
+    }
+
+    .diff-add {
+      background: rgba(16, 185, 129, 0.15);
+      color: #6ee7b7;
+      display: block;
+      padding: 0 0.4rem;
+      border-radius: 2px;
+    }
+
+    .diff-unchanged {
+      color: var(--text-dim);
+      display: block;
+      padding: 0 0.4rem;
+    }
+
+    .readme-live-render {
+      background: #0d1117;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 1.5rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1rem;
+      max-height: 350px;
+      overflow-y: auto;
+    }
+
+    .readme-live-render h1 {
+      font-size: 1.35rem;
+      border-bottom: 1px solid #30363d;
+      padding-bottom: 0.4rem;
+      width: 100%;
+      text-align: center;
+    }
+
+    .readme-live-banner {
+      width: 100%;
+      max-height: 180px;
+      object-fit: cover;
+      border-radius: 6px;
+    }
+
+    .readme-live-logo {
+      width: 120px;
+      height: 120px;
+      object-fit: contain;
+    }
+
+    /* Floating Action Dock */
+    .action-dock {
+      position: sticky;
+      bottom: 1.5rem;
+      background: rgba(17, 20, 32, 0.95);
+      backdrop-filter: blur(12px);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 0.85rem 1.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+      z-index: 40;
+    }
+
+    .dock-status {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+    }
+
+    .dock-actions {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .btn {
+      padding: 0.55rem 1.25rem;
+      font-size: 0.85rem;
+      font-weight: 600;
+      border-radius: var(--radius-md);
+      border: 1px solid transparent;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      transition: all 0.15s ease;
+      outline: none;
+    }
+
+    .btn-primary {
+      background: var(--primary);
+      color: #042f1a;
+      box-shadow: 0 2px 10px rgba(16, 185, 129, 0.3);
+    }
+
+    .btn-primary:hover {
+      background: var(--primary-hover);
+    }
+
+    .btn-secondary {
+      background: var(--surface-2);
+      border-color: var(--border);
+      color: var(--text);
+    }
+
+    .btn-secondary:hover {
+      background: var(--surface-3);
+    }
+
+    .btn-outline {
+      background: transparent;
+      border-color: var(--border);
+      color: var(--text-muted);
+    }
+
+    .btn-outline:hover {
+      color: var(--text);
+      border-color: var(--text-muted);
+    }
+
+    .btn:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
+    /* Toast Notification */
+    .toast {
+      position: fixed;
+      bottom: 5.5rem;
+      right: 1.5rem;
+      background: var(--surface-2);
+      border: 1px solid var(--primary);
+      color: var(--text);
+      padding: 0.75rem 1.25rem;
+      border-radius: var(--radius-md);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
+      font-size: 0.86rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      transform: translateY(20px);
+      opacity: 0;
+      pointer-events: none;
+      transition: all 0.25s ease;
+      z-index: 100;
+    }
+
+    .toast.show {
+      transform: translateY(0);
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .toast.error {
+      border-color: var(--red);
+    }
+
+    /* Spinner */
+    .spinner {
+      width: 14px;
+      height: 14px;
+      border: 2px solid rgba(0,0,0,0.2);
+      border-top-color: currentColor;
+      border-radius: 50%;
+      animation: spin 0.6s linear infinite;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Top Header -->
+  <header>
+    <div class="brand">
+      <div class="brand-icon">🎮</div>
+      <div>
+        <span class="brand-title">MCPE Curseforges</span>
+        <span class="brand-subtitle">Branding & Asset Manager</span>
+      </div>
+    </div>
+
+    <div class="header-controls">
+      <div class="status-pill" id="serverStatusPill">
+        <span class="status-dot"></span>
+        <span id="serverStatusText">Detecting Environment...</span>
+      </div>
+      <button class="btn btn-outline" id="fsConnectBtn" style="font-size: 0.78rem; padding: 0.35rem 0.75rem;" title="Direct folder access via browser">
+        📁 Open Local Repo Folder
+      </button>
+    </div>
+  </header>
+
+  <!-- Target Selection Subheader -->
+  <div class="target-bar">
+    <div class="target-select-wrapper">
+      <span class="target-label">Target:</span>
+      <select class="target-dropdown" id="targetSelect">
+        <option value="root">📦 Repository Root (Master Catalog)</option>
+        <optgroup label="Add-ons">
+          <option value="addons/Passive-Auto-Switch-Tools">⚡ Passive Auto-Switch Tools</option>
+          <option value="addons/Mining-Helmet">🪖 Mining Helmet</option>
+          <option value="addons/Monster-Companions">🐺 Monster Companions</option>
+          <option value="addons/Vanilla-Quality-of-Life">🌿 Vanilla Quality of Life</option>
+          <option value="addons/Ghast-Head-Transformers">👻 Ghast Mob Head Transformers</option>
+        </optgroup>
+        <optgroup label="Maps">
+          <option value="maps/OneBlock-Void-Survival">🏝️ OneBlock Void Survival</option>
+        </optgroup>
+        <optgroup label="Scripts & Challenges">
+          <option value="script/Alphabet-Scavenger-Hunt">🔤 Alphabet Scavenger Hunt</option>
+          <option value="script/Shared-Hivemind-Inventory">🧠 Shared Hivemind Inventory</option>
+          <option value="script/Tethered-Breaker-And-Builder">🔗 Tethered: Breaker & Builder</option>
+        </optgroup>
+      </select>
+    </div>
+
+    <div class="target-meta-badges">
+      <span class="meta-badge" id="badgeDir">Dir: .</span>
+      <span class="meta-badge" id="badgeReadme">README: README.md</span>
+      <span class="meta-badge" id="badgeBanner">Banner: banner.jpg</span>
+      <span class="meta-badge" id="badgeLogo">Logo: assets/mcpedl.png</span>
+    </div>
+  </div>
+
+  <!-- Main Studio Workspace -->
+  <main>
+
+    <!-- Info Notice -->
+    <div class="info-banner" id="modeNotice">
+      <span>
+        💡 <strong>Branding Automation Active:</strong> Uploading a new Banner or Logo will automatically convert, optimize, and write the image files, and auto-replace the corresponding image tags in <code style="font-family: var(--font-mono); font-size: 0.8rem;">README.md</code>.
+      </span>
+      <span style="font-size: 0.8rem; opacity: 0.8;">Pure Markdown (No HTML) Compliant</span>
+    </div>
+
+    <!-- Two-Column Studio: Banner & Logo -->
+    <div class="studio-grid">
+
+      <!-- BANNER STUDIO -->
+      <section class="card">
+        <div class="card-header">
+          <div class="card-title">
+            <span>🖼️ Hero Banner</span>
+          </div>
+          <span class="card-path" id="bannerPathLabel">banner.jpg</span>
+        </div>
+
+        <div class="stage-row">
+          <!-- Current Banner -->
+          <div class="stage-box">
+            <div class="stage-label">
+              <span>Current Banner</span>
+              <span id="currBannerRes">Loading...</span>
+            </div>
+            <div class="stage-preview banner-preview" id="currBannerBox">
+              <img id="currBannerImg" src="/api/image?path=banner.jpg" alt="Current Banner" onerror="handleImgError(this, 'No Banner File')">
+            </div>
+          </div>
+
+          <!-- Staged / New Banner Preview -->
+          <div class="stage-box">
+            <div class="stage-label">
+              <span>Staged New Banner</span>
+              <span id="stagedBannerRes" class="badge-ok">Ready to Apply</span>
+            </div>
+            <div class="stage-preview banner-preview" id="stagedBannerBox">
+              <div class="stage-empty" id="stagedBannerEmpty">No new banner staged.<br>Drop an image below to replace.</div>
+              <img id="stagedBannerImg" style="display: none;" alt="Staged Banner">
+            </div>
+          </div>
+        </div>
+
+        <!-- Banner Drop Zone -->
+        <div class="dropzone" id="bannerDropzone">
+          <input type="file" id="bannerFileInput" class="file-input" accept="image/png,image/jpeg,image/webp,image/svg+xml">
+          <div class="dropzone-icon">📥</div>
+          <div class="dropzone-title">Click or Drop New Banner Image Here</div>
+          <div class="dropzone-desc">Accepts PNG, JPG, WebP. Recommended: 1280×640 or 1920×1080 (16:9 / 2:1). Supports Clipboard Paste (<kbd>Ctrl+V</kbd>).</div>
+        </div>
+
+        <div class="img-specs">
+          <span id="bannerFileSpec">Format: Auto-convert to optimized JPEG</span>
+          <button class="btn btn-outline" id="clearBannerBtn" style="font-size: 0.72rem; padding: 0.2rem 0.5rem; display: none;">Clear Staged</button>
+        </div>
+      </section>
+
+      <!-- LOGO & PACK ICON STUDIO -->
+      <section class="card">
+        <div class="card-header">
+          <div class="card-title">
+            <span>💎 Logo / Pack Icon</span>
+          </div>
+          <span class="card-path" id="logoPathLabel">assets/mcpedl.png</span>
+        </div>
+
+        <div class="stage-row">
+          <!-- Current Logo -->
+          <div class="stage-box">
+            <div class="stage-label">
+              <span>Current Logo</span>
+              <span id="currLogoRes">Loading...</span>
+            </div>
+            <div class="stage-preview checkerboard" id="currLogoBox">
+              <img id="currLogoImg" src="/api/image?path=assets/mcpedl.png" alt="Current Logo" onerror="handleImgError(this, 'No Logo File')">
+            </div>
+          </div>
+
+          <!-- Staged New Logo -->
+          <div class="stage-box">
+            <div class="stage-label">
+              <span>Staged New Logo</span>
+              <span id="stagedLogoRes" class="badge-ok">Ready to Apply</span>
+            </div>
+            <div class="stage-preview checkerboard" id="stagedLogoBox">
+              <div class="stage-empty" id="stagedLogoEmpty">No new logo staged.<br>Drop an image below to replace.</div>
+              <img id="stagedLogoImg" style="display: none;" alt="Staged Logo">
+            </div>
+          </div>
+        </div>
+
+        <!-- Avatar / Social Previews -->
+        <div class="logo-avatar-row">
+          <div class="avatar-preview-round">
+            <img id="avatarPreviewRound" src="/api/image?path=assets/mcpedl.png" alt="Avatar Round" onerror="this.src=''">
+          </div>
+          <div class="avatar-preview-square">
+            <img id="avatarPreviewSquare" src="/api/image?path=assets/mcpedl.png" alt="Avatar Square" onerror="this.src=''">
+          </div>
+          <div class="avatar-caption">
+            <strong>Icon / Badge Previews</strong>
+            <span>Shows how the logo renders as a square pack icon or circular social avatar.</span>
+          </div>
+        </div>
+
+        <!-- Logo Drop Zone -->
+        <div class="dropzone" id="logoDropzone">
+          <input type="file" id="logoFileInput" class="file-input" accept="image/png,image/jpeg,image/webp,image/svg+xml">
+          <div class="dropzone-icon">🎨</div>
+          <div class="dropzone-title">Click or Drop New Logo Here</div>
+          <div class="dropzone-desc">Accepts PNG with transparent background, WebP, SVG, JPG. Recommended: 512×512 or 1024×1024 (1:1 Square).</div>
+        </div>
+
+        <div class="img-specs">
+          <span id="logoFileSpec">Format: Auto-convert to transparent RGBA PNG</span>
+          <button class="btn btn-outline" id="clearLogoBtn" style="font-size: 0.72rem; padding: 0.2rem 0.5rem; display: none;">Clear Staged</button>
+        </div>
+      </section>
+
+    </div>
+
+    <!-- README.MD AUTO-SYNC & DIFF INSPECTOR -->
+    <section class="readme-card">
+      <div class="card-header">
+        <div class="card-title">
+          <span>📝 README.md Image Auto-Replacement</span>
+        </div>
+        <span class="card-path" id="readmeSyncPath">README.md</span>
+      </div>
+
+      <!-- Sync Options Grid -->
+      <div class="options-grid">
+        <label class="option-item">
+          <input type="checkbox" id="optUpdateBanner" checked>
+          <span>Auto-replace Banner in README.md</span>
+        </label>
+        <label class="option-item">
+          <input type="checkbox" id="optUpdateLogo" checked>
+          <span>Auto-replace Logo in README.md</span>
+        </label>
+        <label class="option-item">
+          <input type="checkbox" id="optCacheBuster" checked>
+          <span>GitHub CDN Cache-Buster (?v=timestamp)</span>
+        </label>
+        <label class="option-item">
+          <input type="checkbox" id="optBackupReadme" checked>
+          <span>Create automatic .bak backup</span>
+        </label>
+      </div>
+
+      <!-- Tabs: Live Diff vs Rendered Markdown -->
+      <div class="tab-bar">
+        <button class="tab-btn active" id="tabDiffBtn">Diff / Changes Inspector</button>
+        <button class="tab-btn" id="tabRenderBtn">Live Render Preview</button>
+      </div>
+
+      <!-- Tab 1: Diff Box -->
+      <div class="diff-container" id="diffBox">
+        <span class="diff-unchanged">Select or stage a new Banner or Logo to preview the exact markdown lines that will be updated in README.md.</span>
+      </div>
+
+      <!-- Tab 2: Rendered Markdown Box -->
+      <div class="readme-live-render" id="renderBox" style="display: none;">
+        <h1 id="liveTitle">MCPE Curseforges - Add-ons, Maps, and Minigames Collection</h1>
+        <img class="readme-live-banner" id="liveBannerImg" src="/api/image?path=banner.jpg" alt="Banner">
+        <img class="readme-live-logo" id="liveLogoImg" src="/api/image?path=assets/mcpedl.png" alt="Logo">
+        <p style="font-size: 0.85rem; color: var(--text-muted); text-align: center;">Curated collection of modular, production-ready Minecraft Bedrock behavior packs, add-ons, and custom survival maps.</p>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Sticky Bottom Action Dock -->
+  <div class="action-dock">
+    <div class="dock-status">
+      <span id="dockStatusIcon">⚡</span>
+      <span id="dockStatusText">Ready. Stage a new banner or logo above, then click Apply.</span>
+    </div>
+
+    <div class="dock-actions">
+      <button class="btn btn-secondary" id="restoreBtn" title="Restores README.md from the last .bak file">
+        ↺ Revert to Backup
+      </button>
+      <button class="btn btn-primary" id="applyBtn">
+        <span>✨ Apply & Replace README Images</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- Toast Notification -->
+  <div class="toast" id="toast">
+    <span id="toastIcon">✅</span>
+    <span id="toastMsg">Changes applied successfully!</span>
+  </div>
+
+  <script>
+    // State Store
+    const state = {
+      isServerMode: false,
+      fsDirHandle: null,
+      currentTarget: "root",
+      targets: {},
+      stagedBanner: null, // base64 data url
+      stagedLogo: null,   // base64 data url
+      readmeContent: "",
+      readmeBak: null
+    };
+
+    // DOM Elements
+    const serverStatusPill = document.getElementById("serverStatusPill");
+    const serverStatusText = document.getElementById("serverStatusText");
+    const targetSelect = document.getElementById("targetSelect");
+    const fsConnectBtn = document.getElementById("fsConnectBtn");
+
+    const badgeDir = document.getElementById("badgeDir");
+    const badgeReadme = document.getElementById("badgeReadme");
+    const badgeBanner = document.getElementById("badgeBanner");
+    const badgeLogo = document.getElementById("badgeLogo");
+
+    const bannerPathLabel = document.getElementById("bannerPathLabel");
+    const logoPathLabel = document.getElementById("logoPathLabel");
+    const readmeSyncPath = document.getElementById("readmeSyncPath");
+
+    const currBannerImg = document.getElementById("currBannerImg");
+    const currBannerRes = document.getElementById("currBannerRes");
+    const stagedBannerBox = document.getElementById("stagedBannerBox");
+    const stagedBannerImg = document.getElementById("stagedBannerImg");
+    const stagedBannerEmpty = document.getElementById("stagedBannerEmpty");
+    const stagedBannerRes = document.getElementById("stagedBannerRes");
+
+    const currLogoImg = document.getElementById("currLogoImg");
+    const currLogoRes = document.getElementById("currLogoRes");
+    const stagedLogoBox = document.getElementById("stagedLogoBox");
+    const stagedLogoImg = document.getElementById("stagedLogoImg");
+    const stagedLogoEmpty = document.getElementById("stagedLogoEmpty");
+    const stagedLogoRes = document.getElementById("stagedLogoRes");
+
+    const avatarPreviewRound = document.getElementById("avatarPreviewRound");
+    const avatarPreviewSquare = document.getElementById("avatarPreviewSquare");
+
+    const bannerDropzone = document.getElementById("bannerDropzone");
+    const bannerFileInput = document.getElementById("bannerFileInput");
+    const logoDropzone = document.getElementById("logoDropzone");
+    const logoFileInput = document.getElementById("logoFileInput");
+
+    const clearBannerBtn = document.getElementById("clearBannerBtn");
+    const clearLogoBtn = document.getElementById("clearLogoBtn");
+
+    const optUpdateBanner = document.getElementById("optUpdateBanner");
+    const optUpdateLogo = document.getElementById("optUpdateLogo");
+    const optCacheBuster = document.getElementById("optCacheBuster");
+    const optBackupReadme = document.getElementById("optBackupReadme");
+
+    const tabDiffBtn = document.getElementById("tabDiffBtn");
+    const tabRenderBtn = document.getElementById("tabRenderBtn");
+    const diffBox = document.getElementById("diffBox");
+    const renderBox = document.getElementById("renderBox");
+
+    const liveBannerImg = document.getElementById("liveBannerImg");
+    const liveLogoImg = document.getElementById("liveLogoImg");
+    const liveTitle = document.getElementById("liveTitle");
+
+    const dockStatusText = document.getElementById("dockStatusText");
+    const applyBtn = document.getElementById("applyBtn");
+    const restoreBtn = document.getElementById("restoreBtn");
+    const toast = document.getElementById("toast");
+    const toastMsg = document.getElementById("toastMsg");
+
+    // Initialize
+    async function init() {
+      setupEventHandlers();
+      await detectEnvironment();
+    }
+
+    // Detect if running with backend server
+    async function detectEnvironment() {
+      try {
+        const res = await fetch("/api/targets", { cache: "no-store" });
+        if (res.ok) {
+          const data = await res.json();
+          state.isServerMode = true;
+          serverStatusPill.classList.remove("offline");
+          serverStatusText.textContent = "Server Connected (localhost:8080)";
+          
+          state.targets = {};
+          targetSelect.innerHTML = "";
+          
+          const groups = { root: [], addon: [], map: [], script: [] };
+          data.targets.forEach(t => {
+            state.targets[t.id] = t;
+            if (groups[t.category]) groups[t.category].push(t);
+          });
+
+          // Build select options
+          if (groups.root.length) {
+            groups.root.forEach(t => {
+              const opt = document.createElement("option");
+              opt.value = t.id;
+              opt.textContent = `📦 ${t.name}`;
+              targetSelect.appendChild(opt);
+            });
+          }
+
+          const groupLabels = { addon: "Add-ons", map: "Maps", script: "Scripts & Minigames" };
+          ['addon', 'map', 'script'].forEach(cat => {
+            if (groups[cat].length) {
+              const grp = document.createElement("optgroup");
+              grp.label = groupLabels[cat];
+              groups[cat].forEach(t => {
+                const opt = document.createElement("option");
+                opt.value = t.id;
+                opt.textContent = `${cat === 'addon' ? '⚡' : cat === 'map' ? '🏝️' : '🎮'} ${t.name}`;
+                targetSelect.appendChild(opt);
+              });
+              targetSelect.appendChild(grp);
+            }
+          });
+
+          onTargetChanged();
+          return;
+        }
+      } catch (err) {
+        // Server not reachable -> File System Access Mode
+      }
+
+      state.isServerMode = false;
+      serverStatusPill.classList.add("offline");
+      serverStatusText.textContent = "Offline / File Mode";
+      document.getElementById("modeNotice").innerHTML = `
+        <span>📁 <strong>Browser Standalone Mode:</strong> Click <strong>"Open Local Repo Folder"</strong> to grant direct write access, or run <code style="font-family: var(--font-mono); font-size: 0.8rem; background: rgba(0,0,0,0.3); padding: 2px 6px; border-radius: 4px;">python3 branding_server.py</code> in terminal.</span>
+      `;
+    }
+
+    // Handle Image Load Errors
+    function handleImgError(img, placeholderText) {
+      img.style.display = "none";
+      const p = img.parentElement;
+      if (!p.querySelector(".stage-empty")) {
+        const empty = document.createElement("div");
+        empty.className = "stage-empty";
+        empty.textContent = placeholderText || "No file found";
+        p.appendChild(empty);
+      }
+    }
+
+    // Target Selection Change
+    async function onTargetChanged() {
+      const targetId = targetSelect.value;
+      state.currentTarget = targetId;
+      const target = state.targets[targetId];
+
+      if (!target) return;
+
+      badgeDir.textContent = `Dir: ${target.dir}`;
+      badgeReadme.textContent = `README: ${target.readmePath}`;
+      badgeBanner.textContent = `Banner: ${target.bannerPath}`;
+      badgeLogo.textContent = `Logo: ${target.logoPath}`;
+
+      bannerPathLabel.textContent = target.bannerPath;
+      logoPathLabel.textContent = target.logoPath;
+      readmeSyncPath.textContent = target.readmePath;
+
+      // Reset staged images
+      clearStagedBanner();
+      clearStagedLogo();
+
+      const timestamp = Date.now();
+      if (state.isServerMode) {
+        // Reload current images from server API
+        currBannerImg.style.display = "block";
+        currBannerImg.src = `/api/image?path=${encodeURIComponent(target.bannerPath)}&t=${timestamp}`;
+
+        currLogoImg.style.display = "block";
+        currLogoImg.src = `/api/image?path=${encodeURIComponent(target.logoPath)}&t=${timestamp}`;
+
+        avatarPreviewRound.src = `/api/image?path=${encodeURIComponent(target.logoPath)}&t=${timestamp}`;
+        avatarPreviewSquare.src = `/api/image?path=${encodeURIComponent(target.logoPath)}&t=${timestamp}`;
+
+        liveBannerImg.src = `/api/image?path=${encodeURIComponent(target.bannerPath)}&t=${timestamp}`;
+        liveLogoImg.src = `/api/image?path=${encodeURIComponent(target.logoPath)}&t=${timestamp}`;
+        liveTitle.textContent = target.name;
+
+        // Fetch README
+        try {
+          const r = await fetch(`/api/readme?target=${encodeURIComponent(targetId)}`);
+          if (r.ok) {
+            const d = await r.json();
+            state.readmeContent = d.content;
+            renderDiff();
+          }
+        } catch {}
+      }
+
+      updateImageMetrics();
+    }
+
+    // Inspect image resolutions when loaded
+    currBannerImg.onload = function() {
+      currBannerRes.textContent = `${this.naturalWidth} × ${this.naturalHeight} px`;
+      currBannerImg.style.display = "block";
+      const emp = currBannerImg.parentElement.querySelector(".stage-empty");
+      if (emp) emp.remove();
+    };
+
+    currLogoImg.onload = function() {
+      currLogoRes.textContent = `${this.naturalWidth} × ${this.naturalHeight} px`;
+      currLogoImg.style.display = "block";
+      const emp = currLogoImg.parentElement.querySelector(".stage-empty");
+      if (emp) emp.remove();
+    };
+
+    function updateImageMetrics() {
+      currBannerRes.textContent = currBannerImg.naturalWidth ? `${currBannerImg.naturalWidth} × ${currBannerImg.naturalHeight} px` : "No file";
+      currLogoRes.textContent = currLogoImg.naturalWidth ? `${currLogoImg.naturalWidth} × ${currLogoImg.naturalHeight} px` : "No file";
+    }
+
+    // File Drop & Select Handling
+    function setupEventHandlers() {
+      targetSelect.addEventListener("change", onTargetChanged);
+
+      // Banner dropzone
+      bannerDropzone.addEventListener("click", () => bannerFileInput.click());
+      bannerFileInput.addEventListener("change", (e) => {
+        if (e.target.files.length) handleBannerFile(e.target.files[0]);
+      });
+      setupDragDrop(bannerDropzone, handleBannerFile);
+
+      // Logo dropzone
+      logoDropzone.addEventListener("click", () => logoFileInput.click());
+      logoFileInput.addEventListener("change", (e) => {
+        if (e.target.files.length) handleLogoFile(e.target.files[0]);
+      });
+      setupDragDrop(logoDropzone, handleLogoFile);
+
+      // Clipboard Paste
+      window.addEventListener("paste", (e) => {
+        const items = e.clipboardData?.items;
+        if (!items) return;
+        for (const item of items) {
+          if (item.type.startsWith("image/")) {
+            const file = item.getAsFile();
+            // Check aspect ratio to determine banner vs logo
+            const img = new Image();
+            img.onload = () => {
+              if (img.naturalWidth > img.naturalHeight * 1.5) {
+                handleBannerFile(file);
+                showToast("Pasted image staged as Banner!");
+              } else {
+                handleLogoFile(file);
+                showToast("Pasted image staged as Logo!");
+              }
+            };
+            img.src = URL.createObjectURL(file);
+            break;
+          }
+        }
+      });
+
+      // Clear staged buttons
+      clearBannerBtn.addEventListener("click", clearStagedBanner);
+      clearLogoBtn.addEventListener("click", clearStagedLogo);
+
+      // Tab switcher
+      tabDiffBtn.addEventListener("click", () => {
+        tabDiffBtn.classList.add("active");
+        tabRenderBtn.classList.remove("active");
+        diffBox.style.display = "block";
+        renderBox.style.display = "none";
+      });
+
+      tabRenderBtn.addEventListener("click", () => {
+        tabRenderBtn.classList.add("active");
+        tabDiffBtn.classList.remove("active");
+        diffBox.style.display = "none";
+        renderBox.style.display = "flex";
+      });
+
+      // Option change
+      [optUpdateBanner, optUpdateLogo, optCacheBuster, optBackupReadme].forEach(opt => {
+        opt.addEventListener("change", renderDiff);
+      });
+
+      // Apply button
+      applyBtn.addEventListener("click", applyChanges);
+      restoreBtn.addEventListener("click", restoreBackup);
+
+      // File System connect
+      fsConnectBtn.addEventListener("click", connectFileSystem);
+    }
+
+    function setupDragDrop(el, handler) {
+      ['dragenter', 'dragover'].forEach(eventName => {
+        el.addEventListener(eventName, (e) => {
+          e.preventDefault();
+          el.classList.add('dragover');
+        });
+      });
+      ['dragleave', 'drop'].forEach(eventName => {
+        el.addEventListener(eventName, (e) => {
+          e.preventDefault();
+          el.classList.remove('dragover');
+        });
+      });
+      el.addEventListener('drop', (e) => {
+        const files = e.dataTransfer?.files;
+        if (files && files.length) {
+          handler(files[0]);
+        }
+      });
+    }
+
+    // Process Staged Banner
+    function handleBannerFile(file) {
+      if (!file.type.startsWith("image/")) {
+        showToast("Selected file must be an image", true);
+        return;
+      }
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        state.stagedBanner = e.target.result;
+        stagedBannerImg.src = state.stagedBanner;
+        stagedBannerImg.style.display = "block";
+        stagedBannerEmpty.style.display = "none";
+        clearBannerBtn.style.display = "inline-flex";
+
+        liveBannerImg.src = state.stagedBanner;
+
+        stagedBannerImg.onload = function() {
+          const ratio = (this.naturalWidth / this.naturalHeight).toFixed(2);
+          stagedBannerRes.textContent = `${this.naturalWidth} × ${this.naturalHeight} (${ratio}:1)`;
+          stagedBannerRes.className = ratio >= 1.5 ? "badge-ok" : "badge-warn";
+          if (ratio < 1.4) {
+            stagedBannerRes.textContent += " ⚠️ Wide recommended";
+          }
+        };
+
+        renderDiff();
+        dockStatusText.textContent = "New Banner staged. Review changes below and click Apply.";
+      };
+      reader.readAsDataURL(file);
+    }
+
+    function clearStagedBanner() {
+      state.stagedBanner = null;
+      stagedBannerImg.style.display = "none";
+      stagedBannerImg.src = "";
+      stagedBannerEmpty.style.display = "block";
+      stagedBannerRes.textContent = "Ready to Apply";
+      clearBannerBtn.style.display = "none";
+      renderDiff();
+    }
+
+    // Process Staged Logo
+    function handleLogoFile(file) {
+      if (!file.type.startsWith("image/")) {
+        showToast("Selected file must be an image", true);
+        return;
+      }
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        state.stagedLogo = e.target.result;
+        stagedLogoImg.src = state.stagedLogo;
+        stagedLogoImg.style.display = "block";
+        stagedLogoEmpty.style.display = "none";
+        clearLogoBtn.style.display = "inline-flex";
+
+        avatarPreviewRound.src = state.stagedLogo;
+        avatarPreviewSquare.src = state.stagedLogo;
+        liveLogoImg.src = state.stagedLogo;
+
+        stagedLogoImg.onload = function() {
+          const ratio = (this.naturalWidth / this.naturalHeight).toFixed(2);
+          stagedLogoRes.textContent = `${this.naturalWidth} × ${this.naturalHeight} (${ratio}:1)`;
+          stagedLogoRes.className = Math.abs(ratio - 1) < 0.15 ? "badge-ok" : "badge-warn";
+          if (Math.abs(ratio - 1) >= 0.15) {
+            stagedLogoRes.textContent += " ⚠️ 1:1 Square recommended";
+          }
+        };
+
+        renderDiff();
+        dockStatusText.textContent = "New Logo staged. Review changes below and click Apply.";
+      };
+      reader.readAsDataURL(file);
+    }
+
+    function clearStagedLogo() {
+      state.stagedLogo = null;
+      stagedLogoImg.style.display = "none";
+      stagedLogoImg.src = "";
+      stagedLogoEmpty.style.display = "block";
+      stagedLogoRes.textContent = "Ready to Apply";
+      clearLogoBtn.style.display = "none";
+      renderDiff();
+    }
+
+    // Render README.md Diff Preview
+    function renderDiff() {
+      if (!state.readmeContent) {
+        diffBox.innerHTML = '<span class="diff-unchanged">No README.md content loaded yet.</span>';
+        return;
+      }
+
+      const target = state.targets[state.currentTarget];
+      if (!target) return;
+
+      const lines = state.readmeContent.split("\n");
+      const diffLines = [];
+      let changesDetected = false;
+
+      const timestamp = Date.now();
+      const cacheQuery = optCacheBuster.checked ? `?v=${timestamp}` : "";
+      const rawPrefix = "https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/";
+
+      const bannerTargetUrl = state.stagedBanner ? `${rawPrefix}${target.bannerPath}${cacheQuery}` : null;
+      const logoTargetUrl = state.stagedLogo ? `${rawPrefix}${target.logoPath}${cacheQuery}` : null;
+
+      for (let i = 0; i < lines.length; i++) {
+        const line = lines[i];
+
+        // Banner line detection
+        if (optUpdateBanner.checked && bannerTargetUrl && (
+            /!\[.*?\]\(.*?(?:banner|179\d+).*?\.(?:jpg|png|jpeg|webp)[^\)]*\)/i.test(line) ||
+            (i <= 5 && /!\[MCPEDL\]\(.*?\)/i.test(line))
+        )) {
+          const altMatch = line.match(/!\[(.*?)\]/);
+          const alt = altMatch ? altMatch[1] : "MCPEDL";
+          const newLine = `![${alt}](${bannerTargetUrl} "${alt}")`;
+          if (line !== newLine) {
+            diffLines.push({ type: "del", text: line });
+            diffLines.push({ type: "add", text: newLine });
+            changesDetected = true;
+            continue;
+          }
+        }
+
+        // Logo detection (HTML img or markdown)
+        if (optUpdateLogo.checked && logoTargetUrl && (
+            /src=["'][^"']*?(?:mcpedl|logo)[^"']*?["']/i.test(line) ||
+            /!\[.*?\]\(.*?(?:mcpedl|pack_icon).*?\.(?:png|jpg)[^\)]*\)/i.test(line)
+        )) {
+          let newLine = line;
+          if (/<img/i.test(line)) {
+            newLine = line.replace(/src=["'][^"']*?["']/, `src="${logoTargetUrl}"`);
+          } else {
+            const altMatch = line.match(/!\[(.*?)\]/);
+            const alt = altMatch ? altMatch[1] : "MCPEDL";
+            newLine = `![${alt}](${logoTargetUrl} "${alt}")`;
+          }
+          if (line !== newLine) {
+            diffLines.push({ type: "del", text: line });
+            diffLines.push({ type: "add", text: newLine });
+            changesDetected = true;
+            continue;
+          }
+        }
+
+        diffLines.push({ type: "ctx", text: line });
+      }
+
+      if (!changesDetected) {
+        if (!state.stagedBanner && !state.stagedLogo) {
+          diffBox.innerHTML = '<span class="diff-unchanged">Stage a new banner or logo image to preview README.md changes.</span>';
+        } else {
+          diffBox.innerHTML = '<span class="diff-unchanged">Images are staged, but no matching markdown tags were detected in this README. The images will be written to disk, and standard tags will be appended to the header.</span>';
+        }
+        return;
+      }
+
+      // Render diff lines
+      let html = "";
+      diffLines.forEach(item => {
+        if (item.type === "del") {
+          html += `<span class="diff-del">- ${escapeHtml(item.text)}</span>`;
+        } else if (item.type === "add") {
+          html += `<span class="diff-add">+ ${escapeHtml(item.text)}</span>`;
+        } else {
+          // Show only lines near changes for compactness
+          // html += `<span class="diff-unchanged">  ${escapeHtml(item.text)}</span>`;
+        }
+      });
+      diffBox.innerHTML = html;
+    }
+
+    function escapeHtml(str) {
+      return str.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+    }
+
+    // Apply Changes (Upload & Update README)
+    async function applyChanges() {
+      if (!state.stagedBanner && !state.stagedLogo) {
+        showToast("Please stage a new Banner or Logo before applying", true);
+        return;
+      }
+
+      applyBtn.disabled = true;
+      applyBtn.innerHTML = '<div class="spinner"></div> Applying Changes...';
+
+      if (state.isServerMode) {
+        try {
+          const payload = {
+            target: state.currentTarget,
+            bannerData: state.stagedBanner,
+            logoData: state.stagedLogo,
+            options: {
+              updateReadme: optUpdateBanner.checked || optUpdateLogo.checked,
+              cacheBuster: optCacheBuster.checked,
+              backup: optBackupReadme.checked
+            }
+          };
+
+          const res = await fetch("/api/update", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(payload)
+          });
+
+          const data = await res.json();
+          if (res.ok && data.success) {
+            showToast(`✅ ${data.message} (${data.updatedFiles.join(", ")})`);
+            clearStagedBanner();
+            clearStagedLogo();
+            // Reload target to refresh images from disk
+            await onTargetChanged();
+          } else {
+            showToast(`Error: ${data.error || "Update failed"}`, true);
+          }
+        } catch (err) {
+          showToast(`Server communication error: ${err.message}`, true);
+        }
+      } else if (state.fsDirHandle) {
+        // Direct File System Access API
+        try {
+          await applyViaFileSystem();
+        } catch (err) {
+          showToast(`File system write error: ${err.message}`, true);
+        }
+      } else {
+        showToast("Connect to server or click 'Open Local Repo Folder' to write changes", true);
+      }
+
+      applyBtn.disabled = false;
+      applyBtn.innerHTML = '<span>✨ Apply & Replace README Images</span>';
+    }
+
+    // Restore Backup
+    async function restoreBackup() {
+      if (!confirm("Are you sure you want to revert README.md to its last .bak backup?")) return;
+
+      if (state.isServerMode) {
+        try {
+          const res = await fetch("/api/restore", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ target: state.currentTarget })
+          });
+          const data = await res.json();
+          if (res.ok && data.success) {
+            showToast("✅ Restored README.md from backup successfully!");
+            await onTargetChanged();
+          } else {
+            showToast(data.error || "No backup file found", true);
+          }
+        } catch (err) {
+          showToast(`Restore failed: ${err.message}`, true);
+        }
+      } else {
+        showToast("Restore is supported in server mode", true);
+      }
+    }
+
+    // Direct Browser File System Access API (when opened as file://)
+    async function connectFileSystem() {
+      if (!window.showDirectoryPicker) {
+        alert("The File System Access API is not supported in this browser. Please use Google Chrome or Microsoft Edge, or run 'python3 branding_server.py'.");
+        return;
+      }
+      try {
+        state.fsDirHandle = await window.showDirectoryPicker({ mode: "readwrite" });
+        serverStatusPill.classList.remove("offline");
+        serverStatusText.textContent = `Folder Connected (${state.fsDirHandle.name})`;
+        showToast(`Connected to ${state.fsDirHandle.name} successfully!`);
+
+        // Load README directly
+        try {
+          const readmeFile = await state.fsDirHandle.getFileHandle("README.md");
+          const file = await readmeFile.getFile();
+          state.readmeContent = await file.text();
+          renderDiff();
+        } catch {}
+      } catch (err) {
+        if (err.name !== "AbortError") {
+          showToast(`Folder selection failed: ${err.message}`, true);
+        }
+      }
+    }
+
+    async function applyViaFileSystem() {
+      const handle = state.fsDirHandle;
+      if (!handle) return;
+
+      // 1. Write banner
+      if (state.stagedBanner) {
+        const bannerHandle = await handle.getFileHandle("banner.jpg", { create: true });
+        const writable = await bannerHandle.createWritable();
+        const res = await fetch(state.stagedBanner);
+        const blob = await res.blob();
+        await writable.write(blob);
+        await writable.close();
+      }
+
+      // 2. Write logo
+      if (state.stagedLogo) {
+        const assetsDir = await handle.getDirectoryHandle("assets", { create: true });
+        const logoHandle = await assetsDir.getFileHandle("mcpedl.png", { create: true });
+        const writable = await logoHandle.createWritable();
+        const res = await fetch(state.stagedLogo);
+        const blob = await res.blob();
+        await writable.write(blob);
+        await writable.close();
+      }
+
+      // 3. Update README
+      if (optUpdateBanner.checked || optUpdateLogo.checked) {
+        const readmeHandle = await handle.getFileHandle("README.md", { create: true });
+        const file = await readmeHandle.getFile();
+        const text = await file.text();
+
+        // Create backup
+        if (optBackupReadme.checked) {
+          const bakHandle = await handle.getFileHandle("README.md.bak", { create: true });
+          const bakWritable = await bakHandle.createWritable();
+          await bakWritable.write(text);
+          await bakWritable.close();
+        }
+
+        // Apply replacements
+        const timestamp = Date.now();
+        const cacheQuery = optCacheBuster.checked ? `?v=${timestamp}` : "";
+        const rawPrefix = "https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/";
+        let newText = text;
+
+        if (state.stagedBanner) {
+          newText = newText.replace(/!\[.*?\]\((.*?(?:banner|179\d+).*?\.(?:jpg|png|jpeg|webp)[^\)]*)\)/i, 
+            `![MCPEDL](${rawPrefix}banner.jpg${cacheQuery} "MCPEDL")`);
+        }
+        if (state.stagedLogo) {
+          newText = newText.replace(/src=["'][^"']*?(?:mcpedl|logo)[^"']*?["']/i,
+            `src="${rawPrefix}assets/mcpedl.png${cacheQuery}"`);
+        }
+
+        const writable = await readmeHandle.createWritable();
+        await writable.write(newText);
+        await writable.close();
+
+        state.readmeContent = newText;
+      }
+
+      showToast("✅ Successfully wrote files and updated README.md directly!");
+      clearStagedBanner();
+      clearStagedLogo();
+    }
+
+    // Toast Notification Utility
+    function showToast(msg, isError = false) {
+      toastMsg.textContent = msg;
+      toast.className = isError ? "toast show error" : "toast show";
+      document.getElementById("toastIcon").textContent = isError ? "⚠️" : "✅";
+      setTimeout(() => {
+        toast.className = "toast";
+      }, 4500);
+    }
+
+    // Start on DOM ready
+    window.addEventListener("DOMContentLoaded", init);
+  </script>
+</body>
+</html>

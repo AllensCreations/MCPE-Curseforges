@@ -1,6 +1,8 @@
 # Ghast Mob Head Transformers - Giant Flying Mob Heads Add-on
 
-![MCPEDL](https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/addons/Ghast-Head-Transformers/pack_icon.png "MCPEDL")
+![MCPEDL](https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/addons/Ghast-Head-Transformers/1791965821315.jpg?v=1791967147 "MCPEDL")
+
+![MCPEDL](https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/addons/Ghast-Head-Transformers/pack_icon.png?v=1791967147 "MCPEDL")
 
 [![Minecraft Bedrock](https://img.shields.io/badge/Minecraft%20Bedrock-1.21%20--%201.26+-brightgreen?style=flat-square&logo=minecraft)](https://github.com/AllensCreations/MCPE-Curseforges)
 [![Release](https://img.shields.io/badge/Release-v1.0.0-blue?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Ghast-Head-Transformers/Ghast_Head_Transformers_AllensCreations.mcaddon)
