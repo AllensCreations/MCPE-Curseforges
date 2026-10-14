@@ -26,7 +26,7 @@ This folder contains compiled release packages for **Ghast Mob Head Transformers
 
 ## Source Files
 To inspect uncompressed JSON files, geometry, render controllers, and textures:
-- [View Source Add-on Files](../../addons/Ghast-Head-Transformers/)
+- [View Source Add-on Files](../../MCPEDL/addons/Ghast-Head-Transformers/)
 
 ---
 

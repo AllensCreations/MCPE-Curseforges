@@ -1,6 +1,6 @@
 # Mining Helmet - Releases and Downloads
 
-![MCPEDL](https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/addons/Mining-Helmet/1791946330457.jpg "MCPEDL")
+![MCPEDL](https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/MCPEDL/addons/Mining-Helmet/1791946330457.jpg "MCPEDL")
 
 This folder contains compiled releases for Mining Helmet by AllensCreations.
 
@@ -16,7 +16,7 @@ This folder contains compiled releases for Mining Helmet by AllensCreations.
 
 ## Item Texture Preview
 
-![Mining Helmet Item Texture](https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/addons/Mining-Helmet/mining_helmet_preview.png)
+![Mining Helmet Item Texture](https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/MCPEDL/addons/Mining-Helmet/mining_helmet_preview.png)
 
 Custom 16 x 16 Bedrock Item Icon (`custom:mining_helmet`).
 
@@ -34,7 +34,7 @@ Custom 16 x 16 Bedrock Item Icon (`custom:mining_helmet`).
 
 ## Source Files
 To inspect uncompressed JSON files, items, recipes, and scripts:
-- [View Source Add-on Files](../../addons/Mining-Helmet/)
+- [View Source Add-on Files](../../MCPEDL/addons/Mining-Helmet/)
 
 ---
 

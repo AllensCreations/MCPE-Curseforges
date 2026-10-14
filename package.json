@@ -1,6 +1,6 @@
 {
   "name": "mcpe-curseforges",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Curated collection of Minecraft Bedrock Add-ons, Maps, and Minigames by AllensCreations",
   "main": "server.js",
   "scripts": {

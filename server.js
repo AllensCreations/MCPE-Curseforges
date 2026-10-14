@@ -154,9 +154,9 @@ function renderDirectoryListing(dirPath, reqPath) {
       </div>
       <nav>
         <a href="/">🏠 Root</a>
-        <a href="/addons/">🧩 Add-ons</a>
-        <a href="/maps/">🗺️ Maps</a>
-        <a href="/script/">📜 Scripts</a>
+        <a href="/MCPEDL/addons/">🧩 Add-ons</a>
+        <a href="/MCPEDL/maps/">🗺️ Maps</a>
+        <a href="/MCPEDL/script/">📜 Scripts</a>
         <a href="/builds/">📦 Builds</a>
       </nav>
     </header>

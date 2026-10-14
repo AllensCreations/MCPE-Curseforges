@@ -40,9 +40,9 @@ Pack descriptions must be direct, technical, and focused on gameplay and mechani
 To keep documentation clean and prevent dead download links across individual sub-projects:
 - **No "Download & Installation" Sections in Individual READMEs:** Individual add-on, map, and script `README.md` files must not contain redundant download sections.
 - **Semi-Root Catalogs as Source of Truth:** All download links (`.mcaddon`, `.mcpack`, `.mcworld`) are centralized in the semi-root directory READMEs:
-  - Add-ons: [`addons/README.md`](addons/README.md#available-source-add-ons)
-  - Maps: [`maps/README.md`](maps/README.md#available-maps-catalog)
-  - Scripts & Challenges: [`script/README.md`](script/README.md#available-challenge-scripts)
+  - Add-ons: [`MCPEDL/addons/README.md`](MCPEDL/addons/README.md#available-source-add-ons)
+  - Maps: [`MCPEDL/maps/README.md`](MCPEDL/maps/README.md#available-maps-catalog)
+  - Scripts & Challenges: [`MCPEDL/script/README.md`](MCPEDL/script/README.md#available-challenge-scripts)
   - Master Compiled Builds: [`builds/README.md`](builds/README.md#available-pack-and-map-builds)
 - **Badge Links:** Badges in individual READMEs link directly to their corresponding semi-root catalog anchor.
 
@@ -99,25 +99,26 @@ MCPE-Curseforges/
 ├── INSTRUCTIONS.md                # This standards file
 ├── README.md                      # Catalog of all active addons, maps & scripts
 ├── banner.jpg                     # Master repository banner
-├── addons/                        # Source folders for add-ons & packs
-│   ├── <Addon-Name>/
-│   │   ├── behavior_pack/         # BP source code
-│   │   ├── resource_pack/         # RP source code
-│   │   ├── README.md              # Documentation
-│   │   └── <images>               # Banners, infographics, previews
-│   └── README.md
-├── script/                        # Source folders for scripts, minigames & challenges
-│   ├── <Project-Name>/
-│   │   ├── behavior_pack/         # BP source code & game scripts
-│   │   ├── pack_icon.png          # 1:1 square icon
-│   │   └── README.md              # Documentation
-│   └── README.md
-├── maps/                          # Source folders for custom maps
-│   ├── <Map-Name>/
-│   │   ├── behavior_pack/
-│   │   ├── pack_icon.png
-│   │   └── README.md              # Documentation
-│   └── README.md
+├── MCPEDL/                        # Consolidated projects directory (Addons, Scripts, Maps)
+│   ├── addons/                    # Source folders for add-ons & packs
+│   │   ├── <Addon-Name>/
+│   │   │   ├── behavior_pack/     # BP source code
+│   │   │   ├── resource_pack/     # RP source code
+│   │   │   ├── README.md          # Documentation
+│   │   │   └── <images>           # Banners, infographics, previews
+│   │   └── README.md
+│   ├── script/                    # Source folders for scripts, minigames & challenges
+│   │   ├── <Project-Name>/
+│   │   │   ├── behavior_pack/     # BP source code & game scripts
+│   │   │   ├── pack_icon.png      # 1:1 square icon
+│   │   │   └── README.md          # Documentation
+│   │   └── README.md
+│   └── maps/                      # Source folders for custom maps
+│       ├── <Map-Name>/
+│       │   ├── behavior_pack/
+│       │   ├── pack_icon.png
+│       │   └── README.md          # Documentation
+│       └── README.md
 └── builds/                        # Compiled distribution archives
     ├── <Addon-Name>/              # .mcaddon / .mcpack binaries
     ├── <Project-Name>/            # .mcaddon / .mcpack binaries

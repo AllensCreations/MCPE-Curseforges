@@ -1,0 +1,42 @@
+{
+  "format_version": 2,
+  "header": {
+    "name": "Tethered: Breaker & Builder BP",
+    "description": "2-Player Asymmetric Co-op challenge with a dynamic elastic leash. Created by AllensCreations",
+    "uuid": "57d260b6-c748-4db4-8feb-0d5d6be74613",
+    "version": [
+      1,
+      0,
+      1
+    ],
+    "min_engine_version": [
+      1,
+      21,
+      0
+    ]
+  },
+  "modules": [
+    {
+      "description": "Tethered Asymmetric Co-op Script Engine",
+      "type": "script",
+      "language": "javascript",
+      "uuid": "969f8937-48b6-4394-9cbf-c4224c551d7b",
+      "version": [
+        1,
+        0,
+        1
+      ],
+      "entry": "scripts/main.js"
+    }
+  ],
+  "dependencies": [
+    {
+      "module_name": "@minecraft/server",
+      "version": "1.13.0"
+    },
+    {
+      "module_name": "@minecraft/server-ui",
+      "version": "1.3.0"
+    }
+  ]
+}
