@@ -1,41 +1,37 @@
-# 📦 Mining Helmet — Downloads & Releases
+# Mining Helmet - Releases and Downloads
 
 ![Mining Helmet Banner](../../packs/Mining-Helmet/1791946330457.jpg)
 
-This folder contains the compiled, ready-to-install releases for **Mining Helmet by AllensCreations**.
+This folder contains compiled releases for Mining Helmet by AllensCreations.
 
 ---
 
-## 📥 Direct Download Links
+## Direct Download Links
 
 | File Name | Format | Size | Description | Download Link |
 | :--- | :--- | :--- | :--- | :--- |
-| **`Mining_Helmet_AllensCreations.mcaddon`** | `.mcaddon` | ~750 KB | **All-In-One Bundle:** Installs both Behavior Pack (dynamic light script, recipes, items) & Resource Pack (models, attachables, textures, and high-res icon). | [⬇️ **Download (.mcaddon)**](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Mining-Helmet/Mining_Helmet_AllensCreations.mcaddon) |
-
-> 🔗 **Alternative Local Link:** [`Mining_Helmet_AllensCreations.mcaddon`](Mining_Helmet_AllensCreations.mcaddon)
+| **`Mining_Helmet_AllensCreations.mcaddon`** | `.mcaddon` | ~750 KB | All-in-one bundle containing Behavior Pack and Resource Pack with tiered dynamic lighting (Lantern: Level 15, Torch: Level 10). | [Download (.mcaddon)](Mining_Helmet_AllensCreations.mcaddon) |
 
 ---
 
-## ⛑️ Item Texture Preview
+## Item Texture Preview
 
 ![Mining Helmet Item Texture](../../packs/Mining-Helmet/mining_helmet_preview.png)
 
-*Custom 16×16 Bedrock Item Icon (`custom:mining_helmet`) with Level 15 dynamic following light.*
+Custom 16 x 16 Bedrock Item Icon (`custom:mining_helmet`).
 
 ---
 
-## 🚀 Quick Install Instructions
+## Quick Installation Instructions
 
-1. **Click the Download Link** above to save `Mining_Helmet_AllensCreations.mcaddon`.
-2. **Open / Tap the file**: Minecraft Bedrock will launch automatically and import both packs in one step.
-3. **Activate in World Settings**:
-   - Go to your World Settings $\rightarrow$ **Behavior Packs**.
-   - Select **Mining Helmet BP by AllensCreations** and click **Activate**.
-   - The companion Resource Pack activates automatically.
-   - Craft the Mining Helmet at any crafting table and equip it to your head slot for hands-free dynamic light!
+1. Download `Mining_Helmet_AllensCreations.mcaddon`.
+2. Tap or double-click the file to import into Minecraft Bedrock.
+3. In World Settings, activate `Mining Helmet BP by AllensCreations` under Behavior Packs.
+4. Ensure `Mining Helmet RP by AllensCreations` is active under Resource Packs.
+5. Enable Beta APIs in World Settings.
 
 ---
 
-## 📂 Source Code
-To inspect the uncompressed source JSON files, entities, recipes, and scripts:
-- 📁 [View Source Pack Files](../../packs/Mining-Helmet/)
+## Source Files
+To inspect uncompressed JSON files, items, recipes, and scripts:
+- [View Source Pack Files](../../packs/Mining-Helmet/)

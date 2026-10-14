@@ -100,21 +100,21 @@
 
 ---
 
-## 🌟 Pack 3: Mining Helmet (v1.0.0)
+## Pack 3: Mining Helmet (v1.0.0)
 
 ![Mining Helmet Banner](packs/Mining-Helmet/1791946330457.jpg)
 
-> *"Hands-free Level 15 dynamic following light for deep cave spelunking and night survival!"*
+Dynamic following light system for cave mining and survival.
 
 ![Mining Helmet Item](packs/Mining-Helmet/mining_helmet_preview.png)
 
-- **💡 Hands-Free Level 15 Light:** Equipping the Mining Helmet in your head slot projects maximum brightness wherever you walk, leaving both hands free for tools and shields.
-- **🧹 Fail-Proof Zero Residue:** Temporary `minecraft:light_block` updates automatically restore to air upon movement, unequip, death, or disconnect.
-- **🛡️ Gold/Iron Grade Armor:** 2 defense points, 165 durability, repairable on an anvil using Gold Ingots, and fully enchantable.
-- **🎨 Custom Golden Helmet Model & Textures:** Industrial gold hard hat with dark rubber brim detailing, mounted forehead lamp bracket, and glowing core lens.
-- **🔨 Flexible Crafting:** Craft with 1 Golden Helmet + 1 Lantern (or Torch) at any crafting table.
+- Dynamic Following Light: Hands-free real-time lighting with tiered power levels (Lantern: Level 15, Torch: Level 10).
+- Automatic Cleanup: Light blocks clear automatically on movement, unequip, death, or disconnect.
+- Armor Protection: 2 defense points, 165 durability, repairable on an anvil using Gold Ingots, and enchantable.
+- Custom Model and Texture: Industrial hard hat base with mounted front headlamp.
+- Flexible Crafting: Craft with Golden Helmet + Lantern (Level 15) or Torch (Level 10).
 
-👉 **[Read Full Mining Helmet Documentation](packs/Mining-Helmet/README.md)**
+[Read Full Mining Helmet Documentation](packs/Mining-Helmet/README.md)
 
 ---
 

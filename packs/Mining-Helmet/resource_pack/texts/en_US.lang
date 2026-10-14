@@ -1,4 +1,6 @@
 pack.name=Mining Helmet RP
 pack.description=Textures, attachables, and models for Mining Helmet. By AllensCreations.
-item.custom:mining_helmet.name=Mining Helmet
-item.custom:mining_helmet=Mining Helmet
+item.custom:mining_helmet.name=Mining Helmet (Lantern)
+item.custom:mining_helmet=Mining Helmet (Lantern)
+item.custom:torch_mining_helmet.name=Mining Helmet (Torch)
+item.custom:torch_mining_helmet=Mining Helmet (Torch)
