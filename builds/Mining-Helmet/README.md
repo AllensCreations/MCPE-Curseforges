@@ -1,5 +1,7 @@
 # 📦 Mining Helmet — Downloads & Releases
 
+![Mining Helmet Banner](https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/packs/Mining-Helmet/1791946330457.jpg)
+
 This folder contains the compiled, ready-to-install releases for **Mining Helmet by AllensCreations**.
 
 ---
@@ -8,9 +10,17 @@ This folder contains the compiled, ready-to-install releases for **Mining Helmet
 
 | File Name | Format | Size | Description | Download Link |
 | :--- | :--- | :--- | :--- | :--- |
-| **`Mining_Helmet_AllensCreations.mcaddon`** | `.mcaddon` | ~8 KB | **All-In-One Bundle:** Installs both Behavior Pack (dynamic light script, recipes, items) & Resource Pack (models, attachables, textures). | [⬇️ **Download (.mcaddon)**](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Mining-Helmet/Mining_Helmet_AllensCreations.mcaddon) |
+| **`Mining_Helmet_AllensCreations.mcaddon`** | `.mcaddon` | ~750 KB | **All-In-One Bundle:** Installs both Behavior Pack (dynamic light script, recipes, items) & Resource Pack (models, attachables, textures, and high-res icon). | [⬇️ **Download (.mcaddon)**](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Mining-Helmet/Mining_Helmet_AllensCreations.mcaddon) |
 
 > 🔗 **Alternative Local Link:** [`Mining_Helmet_AllensCreations.mcaddon`](Mining_Helmet_AllensCreations.mcaddon)
+
+---
+
+## ⛑️ Item Texture Preview
+
+![Mining Helmet Item Texture](https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/packs/Mining-Helmet/mining_helmet_preview.png)
+
+*Custom 16×16 Bedrock Item Icon (`custom:mining_helmet`) with Level 15 dynamic following light.*
 
 ---
 
