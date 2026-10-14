@@ -97,7 +97,7 @@ Operators can use `/scriptevent` commands to manage roles:
 
 ---
 
-## 🚀 MCPEDL & CurseForge Distribution Checklist
+## MCPEDL and CurseForge Distribution Checklist
 
 Ensure that you have already:
 - Connected your Curseforge Account.

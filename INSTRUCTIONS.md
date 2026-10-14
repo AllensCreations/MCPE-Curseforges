@@ -1,71 +1,57 @@
-# 📋 Repository Guidelines & Markdown Standards
+# Repository Guidelines and Markdown Standards
 
-This document establishes the official documentation and packaging standards for all add-ons, behavior packs, resource packs, and custom maps in the **MCPE Curseforges** repository by **AllensCreations**.
+This document establishes the official documentation and packaging standards for all add-ons, behavior packs, resource packs, and custom maps in the MCPE Curseforges repository by AllensCreations.
 
-All documentation files (`README.md` across repository root, packs, and maps) must strictly follow these rules to ensure seamless rendering across **CurseForge**, **MCPEDL**, **Planet Minecraft**, and **GitHub**.
+All documentation files (README.md across repository root, packs, and maps) must strictly follow these rules to ensure seamless rendering across CurseForge, MCPEDL, Planet Minecraft, and GitHub.
 
 ---
 
-## 1. 📝 Pure Markdown Compatibility (No Raw HTML)
+## 1. Pure Markdown Compatibility (No Raw HTML)
 
 CurseForge and several Minecraft add-on platforms use strict Markdown parsers that strip, break, or misalign raw HTML tags.
 
 ### Rules:
-- **NO Raw HTML Tags:** Never use `<p>`, `<p align="center">`, `<div>`, `<img ...>`, `<br/>`, `<details>`, or `<summary>`.
-- **Standard Image Syntax Only:** Always embed images using pure Markdown:
-  ```markdown
-  ![Description of Image](https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/path/to/image.jpg)
-  ```
-- **Absolute GitHub URLs:** All images and file download links must use absolute GitHub raw links pointing to the `main` branch. This guarantees that images and downloads work regardless of where the markdown description is displayed or syndicated.
-  - Image pattern: `https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/packs/<Pack-Name>/<image-file>`
-  - Download pattern: `https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/builds/<Pack-Name>/<filename>.mcaddon`
-- **Clean Unicode Formatting:** Avoid LaTeX notation like `$\rightarrow$`. Use clean Unicode arrows (`→`) and standard bullet points.
+- NO Raw HTML Tags: Never use `<p>`, `<p align="center">`, `<div>`, `<img ...>`, `<br/>`, `<details>`, or `<summary>`.
+- Standard Image Syntax Only: Always embed images using pure Markdown:
+  `![MCPEDL](image.jpg "MCPEDL")`
+- Relative Paths: Use clean, relative paths for local assets (e.g., `banner.jpg`, `1791889944961.jpg`, `recipe_lantern.png`).
+- Clean Formatting: Avoid LaTeX notation like `$\rightarrow$`. Use clean arrows (`->` or unicode arrows) and standard bullet points.
+- No Emojis: Do not include emojis in headings, titles, bullet points, or body text.
 
 ---
 
-## 2. 🎮 Player-Focused Descriptions (Zero Inside / Engine Jargon)
+## 2. Technical and Factual Descriptions (Zero Marketing Slop)
 
-Pack descriptions are read by players, server owners, and content creators. Descriptions must be exciting, clear, and focused on survival gameplay.
+Pack descriptions must be direct, technical, and focused on gameplay and mechanics.
 
 ### Rules:
-- **No Developer Jargon:** Do not include internal Minecraft entity JSON component names or code parameters (e.g., do NOT mention `stop_distance: 4.5`, `random.levelup`, `minecraft:behavior.follow_owner`, `priority`, or `components`).
-- **Translate Mechanics to Player Experience:**
-  - *Incorrect:* "Companions use `stop_distance: 4.5` and teleport when distance > 20 to avoid occlusion."
-  - *Correct:* "Companions maintain a respectful perimeter so they never crowd your camera or obstruct your view in combat. If you sprint far ahead, they safely catch up behind you."
-- **Clear Gameplay Highlights:** Focus on what players can do, how items are crafted, and how mechanics enhance survival.
+- No Developer Jargon in Player Guides: Translate internal JSON components into clear player mechanics.
+- No AI Slop or Marketing Hype: Avoid rhetorical questions, buzzwords, and promotional hype (e.g., "Tired of holding torches?", "Meet your new best friend!", "revolutionary").
+- Clear Gameplay Highlights: Focus on exact values, light levels, durability points, crafting recipes, and technical specifications.
 
 ---
 
-## 3. 🚫 No "How to Download" Tutorials
+## 3. Direct Downloads
 
-Do not include step-by-step device tutorials (e.g., "Step 1: Click the file. Step 2: Open with Minecraft...") in pack `README.md` files.
+Present available packages cleanly in a standard Markdown table:
 
-### Rules:
-- **Reason:** CurseForge, MCPEDL, and Bedrock browsers have their own native installation buttons, app handlers, and instructions. Step-by-step tutorials clutter the description.
-- **Provide a Direct Downloads Table Instead:** Present available packages cleanly in a standard Markdown table:
-  ```markdown
-  ## 📥 Downloads
-
-  | Package | Format | Description | Download Link |
-  | :--- | :--- | :--- | :--- |
-  | **All-In-One Pack** | `.mcaddon` | Complete Behavior and Resource Pack | [⬇️ Download (.mcaddon)](URL) |
-  ```
+| Package | Format | Description | Download Link |
+| :--- | :--- | :--- | :--- |
+| **All-In-One Pack** | `.mcaddon` | Complete Behavior and Resource Pack | [Download (.mcaddon)](../../builds/<Pack-Name>/<filename>.mcaddon) |
 
 ---
 
-## 4. 📜 Mandatory Terms of Use & Content Creation Section
+## 4. Mandatory Guidelines and Attribution Section
 
-Every pack and map `README.md` must conclude with this standardized Terms of Use section:
+Every pack and map README.md must conclude with this standardized section:
 
 ```markdown
-## 📜 Terms of Use & Guidelines
+## Guidelines and Attribution
 
-- **Creator Attribution:** Created by **AllensCreations**.
-- **Rights & Reservation:** All rights reserved for AllensCreations.
-- **Content Creators (YouTube, TikTok, Twitch):** You are 100% welcome to showcase this pack in videos, live streams, and reviews! Please include credit to **AllensCreations** and link to the official download page or this GitHub repository.
-- **No Direct Re-uploading:** Do not re-upload this pack, its individual files, or modified copies to any website, app store, or file-sharing service.
-- **No Paywalls or Link Shorteners:** It is strictly prohibited to distribute this pack behind paywalls, ad-gate links (e.g., AdFly, Linkvertise, Boost.ink), or paid monetization walls.
-- **Server & Realm Use:** You are free to use this pack on your personal worlds, private servers, and Bedrock Realms.
+- Creator: AllensCreations
+- Rights & Reservation: All rights reserved for AllensCreations.
+- Content Creators: Content creators are permitted to feature this creation in videos and streams with credit to AllensCreations.
+- Redistribution: Do not re-upload this pack or provide direct monetized download bypasses. Link directly to the official repository page.
 
 ---
 
@@ -74,7 +60,7 @@ Every pack and map `README.md` must conclude with this standardized Terms of Use
 
 ---
 
-## 5. 🚀 MCPEDL & CurseForge Distribution Prerequisites
+## 5. MCPEDL and CurseForge Distribution Prerequisites
 
 Before importing or synchronizing any project from CurseForge to MCPEDL, ensure that you have already:
 - Connected your Curseforge Account.
@@ -84,22 +70,18 @@ Before importing or synchronizing any project from CurseForge to MCPEDL, ensure 
 
 ---
 
-## 6. 🖼️ Visual Assets & Images
+## 6. Visual Assets and Images
 
 Whenever visual assets (promotional banners, artwork, item previews, recipe infographics) are stored in the repository, incorporate them directly into the pack description:
 
-1. **Hero Banner:** Placed near the top below the main title.
-2. **Pack Artwork / Logo:** Displayed in the About section.
-3. **Recipe / Feature Infographics:** Placed in the corresponding mechanic section.
-4. **Item Sprites:** Displayed alongside crafting and usage explanations.
-
-All images must be optimized and stored in the respective `packs/<Pack-Name>/` folder.
+1. Hero Banner: Placed near the top below the main title with title `MCPEDL`.
+2. Pack Artwork: Displayed in the Overview or Features section.
+3. Recipe Infographics: Placed in the Crafting Recipes section as pre-rendered standalone PNG images.
+4. Item Sprites: Displayed alongside item specifications.
 
 ---
 
-## 6. 📁 Repository Organization
-
-Keep the repository structure clean and organized:
+## 7. Repository Organization
 
 ```
 MCPE-Curseforges/
@@ -110,17 +92,20 @@ MCPE-Curseforges/
 │   ├── <Pack-Name>/
 │   │   ├── behavior_pack/         # BP source code
 │   │   ├── resource_pack/         # RP source code
-│   │   ├── README.md              # CurseForge-ready description
+│   │   ├── README.md              # Documentation
 │   │   └── <images>               # Banners, infographics, previews
 │   └── README.md
 ├── minigames/                     # Source folders for minigames & challenges
 │   ├── <Game-Name>/
 │   │   ├── behavior_pack/         # BP source code & game scripts
 │   │   ├── pack_icon.png          # 1:1 square icon
-│   │   └── README.md              # CurseForge-ready description
+│   │   └── README.md              # Documentation
 │   └── README.md
 ├── maps/                          # Source folders for custom maps
 │   ├── <Map-Name>/
+│   │   ├── behavior_pack/
+│   │   ├── pack_icon.png
+│   │   └── README.md              # Documentation
 │   └── README.md
 └── builds/                        # Compiled distribution archives
     ├── <Pack-Name>/               # .mcaddon / .mcpack binaries

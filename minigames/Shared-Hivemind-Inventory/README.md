@@ -89,7 +89,7 @@ Admins and operators can use native script commands via `/scriptevent`:
 
 ---
 
-## 🚀 MCPEDL & CurseForge Distribution Checklist
+## MCPEDL and CurseForge Distribution Checklist
 
 Ensure that you have already:
 - Connected your Curseforge Account.

@@ -122,7 +122,7 @@ Because this challenge is powered by the modern Bedrock Script API (`@minecraft/
 
 ---
 
-## 🚀 MCPEDL & CurseForge Distribution Checklist
+## MCPEDL and CurseForge Distribution Checklist
 
 Ensure that you have already:
 - Connected your Curseforge Account.

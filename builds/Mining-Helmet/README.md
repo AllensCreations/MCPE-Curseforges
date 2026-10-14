@@ -1,6 +1,6 @@
 # Mining Helmet - Releases and Downloads
 
-![Mining Helmet Banner](../../packs/Mining-Helmet/1791946330457.jpg)
+![MCPEDL](../../packs/Mining-Helmet/1791946330457.jpg "MCPEDL")
 
 This folder contains compiled releases for Mining Helmet by AllensCreations.
 
