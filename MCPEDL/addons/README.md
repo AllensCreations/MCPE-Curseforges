@@ -13,6 +13,7 @@ This directory stores the uncompressed development source trees (entities, funct
 | **Mining Helmet** | Wearable headlamp with real-time level 15 dynamic following light and zero residue cleanup. | [`Mining-Helmet/`](Mining-Helmet/) | [Download (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Mining-Helmet/Mining_Helmet_AllensCreations.mcaddon) | v1.0.2 |
 | **Passive Auto-Switch Tools** | Event-driven tool & weapon switcher when holding Slot 1. Swaps optimal tools upon breaking and equips axe/sword for mobs. | [`Passive-Auto-Switch-Tools/`](Passive-Auto-Switch-Tools/) | [Download (.mcpack)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Passive-Auto-Switch-Tools/Passive_Auto_Switch_Tools_AllensCreations.mcpack) | v1.1.3 |
 | **Ghast Mob Head Transformers** | Transform vanilla Ghasts into giant flying mob heads by equipping skulls, with charging faces and shearing drops. | [`Ghast-Head-Transformers/`](Ghast-Head-Transformers/) | [Download (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Ghast-Head-Transformers/Ghast_Head_Transformers_AllensCreations.mcaddon) | v1.0.1 |
+| **Pet Immortality** | Prevents damage to selected tamed pets. | [`pet-immortality/`](pet-immortality/) | [Download (.mcpack)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/pet-immortality/pet_immortality_AllensCreations.mcpack) | v1.0.0 |
 
 Looking for Challenge Scripts & Minigames? Explore the [Script Directory](../MCPEDL/script/README.md).
 
