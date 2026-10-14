@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
     inputs:
       addon_name:
-        description: 'Addon folder name (hyphens/underscores, no spaces)'
+        description: 'Addon folder name (e.g. "My-Cool-Addon" — use hyphens, no spaces)'
         required: true
         type: string
       addon_description:
@@ -17,180 +17,125 @@ on:
         required: false
         default: '1.21.0'
         type: string
-      server_api_version:
-        description: '@minecraft/server version (e.g. 1.13.0)'
-        required: false
-        default: '1.13.0'
-        type: string
-      main_js:
-        description: 'FULL main.js code. Tip: prefix with "base64:" if pasting multi-line code. Leave empty to use _incoming/main.js or the default template.'
-        required: false
-        default: ''
-        type: string
 
 permissions:
   contents: write
 
-concurrency:
-  group: addon-scaffold-${{ github.ref }}
-  cancel-in-progress: false
-
 jobs:
   scaffold:
     runs-on: ubuntu-latest
-
-    # Inputs are passed through env vars (never interpolated into shell)
-    # to prevent script injection.
-    env:
-      ADDON: ${{ github.event.inputs.addon_name }}
-      DESC: ${{ github.event.inputs.addon_description }}
-      ENGINE: ${{ github.event.inputs.min_engine_version }}
-      API_VER: ${{ github.event.inputs.server_api_version }}
-      MAIN_JS_INPUT: ${{ github.event.inputs.main_js }}
 
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Validate inputs
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
+
+      - name: Validate addon name
         run: |
-          if [[ ! "$ADDON" =~ ^[A-Za-z0-9_-]+$ ]]; then
-            echo "❌ Addon name '$ADDON' is invalid. Use letters, numbers, hyphens, or underscores only."
+          ADDON="${{ github.event.inputs.addon_name }}"
+          if [[ -z "$ADDON" ]]; then
+            echo "❌ Addon name cannot be empty."
             exit 1
           fi
-          for V in "$ENGINE" "$API_VER"; do
-            if [[ ! "$V" =~ ^[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
-              echo "❌ Version '$V' must look like 1.21.0"
-              exit 1
-            fi
-          done
-          if [ -d "MCPEDL/addons/$ADDON" ]; then
-            echo "❌ Addon folder 'MCPEDL/addons/$ADDON' already exists. Choose a different name."
+          if [[ "$ADDON" =~ [^a-zA-Z0-9_\-] ]]; then
+            echo "❌ Addon name '$ADDON' contains invalid characters. Use letters, numbers, hyphens, or underscores only."
             exit 1
           fi
-          echo "✅ Inputs valid: $ADDON"
+          TARGET="MCPEDL/addons/$ADDON"
+          if [ -d "$TARGET" ]; then
+            echo "❌ Addon folder '$TARGET' already exists. Choose a different name."
+            exit 1
+          fi
+          echo "✅ Addon name is valid: $ADDON"
 
-      - name: Create folders, manifest and README
+      - name: Generate UUIDs
+        id: uuids
         run: |
-          python3 - <<'PY'
-          import json, os, uuid
+          UUID_HEADER=$(python3 -c "import uuid; print(str(uuid.uuid4()))")
+          UUID_DATA_MODULE=$(python3 -c "import uuid; print(str(uuid.uuid4()))")
+          UUID_SCRIPT_MODULE=$(python3 -c "import uuid; print(str(uuid.uuid4()))")
+          echo "header=$UUID_HEADER"             >> $GITHUB_OUTPUT
+          echo "data_module=$UUID_DATA_MODULE"   >> $GITHUB_OUTPUT
+          echo "script_module=$UUID_SCRIPT_MODULE" >> $GITHUB_OUTPUT
 
-          addon   = os.environ["ADDON"]
-          desc    = os.environ["DESC"]
-          engine  = [int(x) for x in os.environ["ENGINE"].split(".")]
-          api_ver = os.environ["API_VER"]
+      - name: Parse min engine version
+        id: engine
+        run: |
+          VERSION="${{ github.event.inputs.min_engine_version }}"
+          MAJOR=$(echo "$VERSION" | cut -d. -f1)
+          MINOR=$(echo "$VERSION" | cut -d. -f2)
+          PATCH=$(echo "$VERSION" | cut -d. -f3)
+          echo "major=$MAJOR" >> $GITHUB_OUTPUT
+          echo "minor=$MINOR" >> $GITHUB_OUTPUT
+          echo "patch=$PATCH" >> $GITHUB_OUTPUT
 
-          root = f"MCPEDL/addons/{addon}"
-          os.makedirs(f"{root}/behavior_pack/scripts", exist_ok=True)
+      - name: Create addon scaffold
+        run: |
+          ADDON="${{ github.event.inputs.addon_name }}"
+          DESC="${{ github.event.inputs.addon_description }}"
+          ROOT="MCPEDL/addons/$ADDON"
 
-          manifest = {
-              "format_version": 2,
-              "header": {
-                  "name": f"{addon} BP by AllensCreations",
-                  "description": desc,
-                  "uuid": str(uuid.uuid4()),
-                  "version": [1, 0, 0],
-                  "min_engine_version": engine,
+          UUID_HEADER="${{ steps.uuids.outputs.header }}"
+          UUID_DATA="${{ steps.uuids.outputs.data_module }}"
+          UUID_SCRIPT="${{ steps.uuids.outputs.script_module }}"
+
+          ENG_MAJOR="${{ steps.engine.outputs.major }}"
+          ENG_MINOR="${{ steps.engine.outputs.minor }}"
+          ENG_PATCH="${{ steps.engine.outputs.patch }}"
+
+          echo "📁 Creating folder structure at $ROOT ..."
+          mkdir -p "$ROOT/behavior_pack/scripts"
+
+          # ── behavior_pack/manifest.json ──────────────────────────────────
+          cat > "$ROOT/behavior_pack/manifest.json" <<EOF
+          {
+            "format_version": 2,
+            "header": {
+              "name": "$ADDON BP by AllensCreations",
+              "description": "$DESC",
+              "uuid": "$UUID_HEADER",
+              "version": [1, 0, 0],
+              "min_engine_version": [$ENG_MAJOR, $ENG_MINOR, $ENG_PATCH]
+            },
+            "modules": [
+              {
+                "description": "$ADDON Behavior Module",
+                "type": "data",
+                "uuid": "$UUID_DATA",
+                "version": [1, 0, 0]
               },
-              "modules": [
-                  {
-                      "description": f"{addon} Behavior Module",
-                      "type": "data",
-                      "uuid": str(uuid.uuid4()),
-                      "version": [1, 0, 0],
-                  },
-                  {
-                      "description": f"{addon} Script Module",
-                      "type": "script",
-                      "language": "javascript",
-                      "uuid": str(uuid.uuid4()),
-                      "version": [1, 0, 0],
-                      "entry": "scripts/main.js",
-                  },
-              ],
-              "dependencies": [
-                  {"module_name": "@minecraft/server", "version": api_ver}
-              ],
+              {
+                "description": "$ADDON Script Module",
+                "type": "script",
+                "language": "javascript",
+                "uuid": "$UUID_SCRIPT",
+                "version": [1, 0, 0],
+                "entry": "scripts/main.js"
+              }
+            ],
+            "dependencies": [
+              {
+                "module_name": "@minecraft/server",
+                "version": "1.13.0"
+              }
+            ]
           }
+          EOF
 
-          with open(f"{root}/behavior_pack/manifest.json", "w", encoding="utf-8") as f:
-              json.dump(manifest, f, indent=2)
-              f.write("\n")
-
-          eng = os.environ["ENGINE"]
-          lines = [
-              f"# {addon} — Minecraft Bedrock Addon",
-              "",
-              f"[![Minecraft Bedrock](https://img.shields.io/badge/Minecraft%20Bedrock-{eng}%2B-brightgreen?style=flat-square&logo=minecraft)](https://github.com/AllensCreations/MCPE-Curseforges)",
-              "[![Release](https://img.shields.io/badge/Release-v1.0.0-blue?style=flat-square)](../README.md#available-source-add-ons)",
-              "[![Format](https://img.shields.io/badge/Format-.MCPACK-orange?style=flat-square)](../README.md#available-source-add-ons)",
-              "[![Platform](https://img.shields.io/badge/Platform-Mobile%20%7C%20PC%20%7C%20Console%20%7C%20Realms-yellow?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges)",
-              "",
-              "Creator: AllensCreations  ",
-              f"Description: {desc}",
-              "",
-              "---",
-              "",
-              "## Overview",
-              "",
-              "<!-- TODO: Describe what this addon does. -->",
-              "",
-              "---",
-              "",
-              "## Features",
-              "",
-              "<!-- TODO: List features here. -->",
-              "",
-              "---",
-              "",
-              "## Installation",
-              "",
-              f"1. Download `{addon}.mcpack` from this folder.",
-              "2. Open the file to auto-import into Minecraft.",
-              f"3. Apply **{addon} BP** to your world's behavior packs.",
-              "",
-              "---",
-              "",
-              "## Guidelines and Attribution",
-              "",
-              "- Creator: AllensCreations",
-              "- Video & Showcase: Content creators may feature this addon with credit to AllensCreations.",
-              "- Redistribution: Do not re-upload or provide direct monetized download bypasses.",
-              "- Rights: All rights reserved for AllensCreations.",
-              "",
-              "---",
-              "",
-              "© All rights reserved for AllensCreations.",
-              "",
-          ]
-          with open(f"{root}/README.md", "w", encoding="utf-8") as f:
-              f.write("\n".join(lines))
-          PY
-
-      - name: Write main.js
-        run: |
-          OUT="MCPEDL/addons/$ADDON/behavior_pack/scripts/main.js"
-          USED_INCOMING=false
-
-          if [ -n "$MAIN_JS_INPUT" ]; then
-            echo "📝 Using main.js from workflow input"
-            if [[ "$MAIN_JS_INPUT" == base64:* ]]; then
-              printf '%s' "${MAIN_JS_INPUT#base64:}" | base64 -d > "$OUT"
-            else
-              printf '%s\n' "$MAIN_JS_INPUT" > "$OUT"
-            fi
-          elif [ -f "_incoming/main.js" ]; then
-            echo "📝 Using main.js from _incoming/main.js"
-            cp "_incoming/main.js" "$OUT"
-            USED_INCOMING=true
-          else
-            echo "📝 No script provided — using default template"
-            cat > "$OUT" <<EOF
+          # ── behavior_pack/scripts/main.js ────────────────────────────────
+          cat > "$ROOT/behavior_pack/scripts/main.js" <<EOF
           // $ADDON — main.js
           // Created: $(date -u +"%Y-%m-%d")
           // Author : AllensCreations
+          //
+          // TODO: Add your script logic here.
 
           import * as mc from "@minecraft/server";
 
@@ -198,73 +143,102 @@ jobs:
             mc.world.sendMessage("§a[$ADDON] §rAddon loaded successfully!");
           });
           EOF
-          fi
 
-          echo "USED_INCOMING=$USED_INCOMING" >> "$GITHUB_ENV"
+          # ── README.md ────────────────────────────────────────────────────
+          cat > "$ROOT/README.md" <<EOF
+          # $ADDON — Minecraft Bedrock Addon
 
-          if [ ! -s "$OUT" ]; then
-            echo "❌ main.js is empty (bad base64?)."
-            exit 1
-          fi
+          [![Minecraft Bedrock](https://img.shields.io/badge/Minecraft%20Bedrock-$ENG_MAJOR.$ENG_MINOR.$ENG_PATCH%2B-brightgreen?style=flat-square&logo=minecraft)](https://github.com/AllensCreations/MCPE-Curseforges)
+          [![Release](https://img.shields.io/badge/Release-v1.0.0-blue?style=flat-square)](../README.md#available-source-add-ons)
+          [![Format](https://img.shields.io/badge/Format-.MCPACK-orange?style=flat-square)](../README.md#available-source-add-ons)
+          [![Platform](https://img.shields.io/badge/Platform-Mobile%20%7C%20PC%20%7C%20Console%20%7C%20Realms-yellow?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges)
 
-      - name: Syntax-check main.js
+          Creator: AllensCreations
+          Description: $DESC
+
+          ---
+
+          ## Overview
+
+          <!-- TODO: Describe what this addon does. -->
+
+          ---
+
+          ## Features
+
+          <!-- TODO: List features here. -->
+
+          ---
+
+          ## Installation
+
+          1. Download the \`.mcaddon\` file from the [releases](../README.md).
+          2. Double-tap / open the file to auto-import into Minecraft.
+          3. Apply the **$ADDON BP** to your world's behavior packs.
+
+          ---
+
+          ## Guidelines and Attribution
+
+          - Creator: AllensCreations
+          - Video & Showcase: Content creators may feature this addon with credit to AllensCreations.
+          - Redistribution: Do not re-upload or provide direct monetized download bypasses.
+          - Rights: All rights reserved for AllensCreations.
+
+          ---
+
+          © All rights reserved for AllensCreations.
+          EOF
+
+          echo ""
+          echo "✅ Scaffold files created:"
+          find "$ROOT" -type f | sort
+
+      - name: Build packages & register in catalogs
         run: |
-          cp "MCPEDL/addons/$ADDON/behavior_pack/scripts/main.js" /tmp/check.mjs
-          node --check /tmp/check.mjs && echo "✅ main.js syntax OK"
+          ADDON="${{ github.event.inputs.addon_name }}"
+          echo "🔨 Building packages and registering '$ADDON' in all catalog READMEs..."
+          # --no-bump keeps version at v1.0.0 (first release — no increment needed)
+          python3 scripts/auto_bump_and_build.py --project "$ADDON" --no-bump
 
-      - name: Build .mcpack
+      - name: Commit and push scaffold + builds + catalog updates
         run: |
-          ROOT="MCPEDL/addons/$ADDON"
-          (cd "$ROOT/behavior_pack" && zip -r -X "../$ADDON.mcpack" . -x "*.DS_Store")
-          echo "📦 Built:"
-          unzip -l "$ROOT/$ADDON.mcpack"
+          git config --global user.name  "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
 
-      - name: Commit and push
-        run: |
-          git config user.name  "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          ADDON="${{ github.event.inputs.addon_name }}"
 
           git add "MCPEDL/addons/$ADDON"
-          if [ "$USED_INCOMING" = "true" ]; then
-            git rm -q --ignore-unmatch "_incoming/main.js"
-          fi
+          git add "builds/$ADDON" 2>/dev/null || true
+          [ -f "README.md" ]       && git add README.md
+          [ -f "builds/README.md" ] && git add builds/README.md
+          git add "MCPEDL/addons/README.md" 2>/dev/null || true
 
-          if git diff --cached --quiet; then
+          if git diff --staged --quiet; then
             echo "Nothing to commit."
-            exit 0
+          else
+            git commit -m "feat(addon): scaffold $ADDON, build packages & register in catalogs [skip ci]"
+            git push origin main
+            echo "✅ Pushed to main."
           fi
 
-          git commit -m "feat(addon): scaffold $ADDON and build .mcpack"
-
-          for i in 1 2 3; do
-            git pull --rebase origin "$GITHUB_REF_NAME" && git push origin "HEAD:$GITHUB_REF_NAME" && break
-            echo "Push failed, retrying ($i/3)..."
-            sleep 3
-          done
-
-      - name: Summary
+      - name: Job summary
         run: |
-          {
-            echo "### ✅ Addon Created, Packed & Pushed"
-            echo ""
-            echo "| Field | Value |"
-            echo "|---|---|"
-            echo "| **Addon** | \`$ADDON\` |"
-            echo "| **Location** | \`MCPEDL/addons/$ADDON/\` |"
-            echo "| **Min Engine** | $ENGINE |"
-            echo "| **@minecraft/server** | $API_VER |"
-            echo "| **Pack** | \`$ADDON.mcpack\` |"
-            echo ""
-            echo "**Files:**"
-            echo '```'
-            find "MCPEDL/addons/$ADDON" -type f | sort
-            echo '```'
-          } >> "$GITHUB_STEP_SUMMARY"
-
-      - name: Upload .mcpack artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: ${{ github.event.inputs.addon_name }}-mcpack
-          path: MCPEDL/addons/${{ github.event.inputs.addon_name }}/${{ github.event.inputs.addon_name }}.mcpack
-          if-no-files-found: error
-          retention-days: 7
+          ADDON="${{ github.event.inputs.addon_name }}"
+          echo "### ✅ Addon Scaffold Complete" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "| Field | Value |" >> $GITHUB_STEP_SUMMARY
+          echo "|---|---|" >> $GITHUB_STEP_SUMMARY
+          echo "| **Addon Name** | \`$ADDON\` |" >> $GITHUB_STEP_SUMMARY
+          echo "| **Location** | \`MCPEDL/addons/$ADDON/\` |" >> $GITHUB_STEP_SUMMARY
+          echo "| **Description** | ${{ github.event.inputs.addon_description }} |" >> $GITHUB_STEP_SUMMARY
+          echo "| **Min Engine** | ${{ github.event.inputs.min_engine_version }} |" >> $GITHUB_STEP_SUMMARY
+          echo "| **Version** | v1.0.0 |" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "**Files created & committed:**" >> $GITHUB_STEP_SUMMARY
+          echo "\`\`\`" >> $GITHUB_STEP_SUMMARY
+          find "MCPEDL/addons/$ADDON" "builds/$ADDON" -type f 2>/dev/null | sort >> $GITHUB_STEP_SUMMARY
+          echo "\`\`\`" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "> 📖 The addon is now registered in **README.md**, **MCPEDL/addons/README.md**, and **builds/README.md**." >> $GITHUB_STEP_SUMMARY
+          echo "> ✏️ Add your script to \`MCPEDL/addons/$ADDON/behavior_pack/scripts/main.js\` and push!" >> $GITHUB_STEP_SUMMARY
