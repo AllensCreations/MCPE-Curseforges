@@ -3,8 +3,8 @@
 ![MCPEDL](https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/addons/Mining-Helmet/1791946330457.jpg "MCPEDL")
 
 [![Minecraft Bedrock](https://img.shields.io/badge/Minecraft%20Bedrock-1.20.80%20--%201.26+-brightgreen?style=flat-square&logo=minecraft)](https://github.com/AllensCreations/MCPE-Curseforges)
-[![Release](https://img.shields.io/badge/Release-v1.0.0-blue?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Mining-Helmet/Mining_Helmet_AllensCreations.mcaddon)
-[![Format](https://img.shields.io/badge/Format-.MCADDON-orange?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Mining-Helmet/Mining_Helmet_AllensCreations.mcaddon)
+[![Release](https://img.shields.io/badge/Release-v1.0.0-blue?style=flat-square)](../README.md)
+[![Format](https://img.shields.io/badge/Format-.MCADDON-orange?style=flat-square)](../README.md)
 [![Platform](https://img.shields.io/badge/Platform-Mobile%20%7C%20PC%20%7C%20Console%20%7C%20Realms-yellow?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges)
 
 Creator: AllensCreations  
@@ -107,11 +107,9 @@ Players who crafted the Torch Mining Helmet can upgrade it directly to the Level
 
 ---
 
-## Direct Downloads
+## Downloads & Installation
 
-| Package | Format | Description | Download Link |
-| :--- | :--- | :--- | :--- |
-| **All-In-One Pack** | `.mcaddon` | Complete Behavior and Resource Pack | [Download (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Mining-Helmet/Mining_Helmet_AllensCreations.mcaddon) |
+To download the compiled `.mcaddon` release for this add-on, visit the [Add-ons Catalog](../README.md#available-source-add-ons) or the [Builds Directory](../../builds/README.md).
 
 ---
 

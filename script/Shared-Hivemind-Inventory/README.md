@@ -3,8 +3,8 @@
 ![MCPEDL](https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/script/Shared-Hivemind-Inventory/pack_icon.png "MCPEDL")
 
 [![Minecraft Bedrock](https://img.shields.io/badge/Minecraft%20Bedrock-1.21%20--%201.26+-brightgreen?style=flat-square&logo=minecraft)](https://github.com/AllensCreations/MCPE-Curseforges)
-[![Release](https://img.shields.io/badge/Release-v1.0.0-blue?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Shared-Hivemind-Inventory/Shared_Hivemind_Inventory_AllensCreations.mcpack)
-[![Format](https://img.shields.io/badge/Format-.MCPACK-orange?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Shared-Hivemind-Inventory/Shared_Hivemind_Inventory_AllensCreations.mcpack)
+[![Release](https://img.shields.io/badge/Release-v1.0.0-blue?style=flat-square)](../README.md)
+[![Format](https://img.shields.io/badge/Format-.MCPACK-orange?style=flat-square)](../README.md)
 [![Platform](https://img.shields.io/badge/Platform-Mobile%20%7C%20PC%20%7C%20Console%20%7C%20Realms-yellow?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges)
 
 Creator: AllensCreations  
@@ -80,11 +80,9 @@ Admins and operators can use native script commands via `/scriptevent`:
 
 ---
 
-## Direct Downloads
+## Downloads & Installation
 
-| Package | Format | Description | Download Link |
-| :--- | :--- | :--- | :--- |
-| **`Shared_Hivemind_Inventory_AllensCreations.mcpack`** | `.mcpack` | Complete Script Behavior Pack archive | [Download .mcpack](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Shared-Hivemind-Inventory/Shared_Hivemind_Inventory_AllensCreations.mcpack) |
+To download the compiled `.mcpack` release for this challenge, visit the [Script Projects Catalog](../README.md#available-script-projects-catalog) or the [Builds Directory](../../builds/README.md).
 
 ---
 

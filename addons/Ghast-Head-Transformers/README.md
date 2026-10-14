@@ -5,8 +5,8 @@
 ![MCPEDL](https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/addons/Ghast-Head-Transformers/pack_icon.png?v=1791967147 "MCPEDL")
 
 [![Minecraft Bedrock](https://img.shields.io/badge/Minecraft%20Bedrock-1.21%20--%201.26+-brightgreen?style=flat-square&logo=minecraft)](https://github.com/AllensCreations/MCPE-Curseforges)
-[![Release](https://img.shields.io/badge/Release-v1.0.0-blue?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Ghast-Head-Transformers/Ghast_Head_Transformers_AllensCreations.mcaddon)
-[![Format](https://img.shields.io/badge/Format-.MCADDON%20%7C%20.MCPACK-orange?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Ghast-Head-Transformers/Ghast_Head_Transformers_AllensCreations.mcaddon)
+[![Release](https://img.shields.io/badge/Release-v1.1.0-blue?style=flat-square)](../README.md)
+[![Format](https://img.shields.io/badge/Format-.MCADDON%20%7C%20.MCPACK-orange?style=flat-square)](../README.md)
 [![Platform](https://img.shields.io/badge/Platform-Mobile%20%7C%20PC%20%7C%20Console%20%7C%20Realms-yellow?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges)
 
 Creator: AllensCreations  
@@ -82,13 +82,9 @@ Configure natural mob head spawn behavior directly from the world settings using
 
 ---
 
-## Direct Downloads
+## Downloads & Installation
 
-| Package | Format | Description | Download Link |
-| :--- | :--- | :--- | :--- |
-| **All-In-One Bundle** | `.mcaddon` | Complete Behavior and Resource Pack | [Download (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Ghast-Head-Transformers/Ghast_Head_Transformers_AllensCreations.mcaddon) |
-| **Behavior Pack** | `.mcpack` | Entity components, interaction definitions & loot tables | [Download BP (.mcpack)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Ghast-Head-Transformers/Ghast_Head_Transformers_BP.mcpack) |
-| **Resource Pack** | `.mcpack` | Geometries, render controllers, textures & item atlas | [Download RP (.mcpack)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Ghast-Head-Transformers/Ghast_Head_Transformers_RP.mcpack) |
+To download the compiled `.mcaddon` and `.mcpack` releases for this add-on, visit the [Add-ons Catalog](../README.md#available-source-add-ons) or the [Builds Directory](../../builds/README.md).
 
 ---
 

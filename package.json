@@ -1,0 +1,22 @@
+{
+  "name": "mcpe-curseforges",
+  "version": "1.0.0",
+  "description": "Curated collection of Minecraft Bedrock Add-ons, Maps, and Minigames by AllensCreations",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js",
+    "serve": "node server.js"
+  },
+  "keywords": [
+    "minecraft",
+    "bedrock",
+    "mcpe",
+    "addons",
+    "mcaddon",
+    "mcpack",
+    "mcworld"
+  ],
+  "author": "AllensCreations",
+  "license": "UNLICENSED"
+}

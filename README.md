@@ -1,6 +1,8 @@
 # MCPE Curseforges - Add-ons, Maps, and Minigames Collection
 
-![MCPEDL](https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/banner.jpg "MCPEDL")
+<p align="center">
+  <img src="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/banner.jpg" alt="MCPEDL" width="540" />
+</p>
 
 [![Minecraft Bedrock](https://img.shields.io/badge/Minecraft%20Bedrock-1.21%20--%201.26+-brightgreen?style=flat-square&logo=minecraft)](https://github.com/AllensCreations/MCPE-Curseforges)
 [![Platform](https://img.shields.io/badge/Platform-Mobile%20%7C%20PC%20%7C%20Console%20%7C%20Realms-yellow?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges)
@@ -206,8 +208,24 @@ Multiplayer challenge synchronizing player inventories.
 
 ---
 
+## Localhost Preview & Development
+
+You can preview the repository documentation, browse all pack folders, and test downloads locally in your browser using npm:
+
+```bash
+# Start the local development server (zero dependencies required)
+npm start
+# or
+npm run dev
+```
+
+Open [http://localhost:3000](http://localhost:3000) in your web browser to access the local directory browser, view markdown docs, and download releases.
+
+---
+
 ## Repository Tools and Management
 
+- **Localhost Web Server**: Instant zero-dependency Node.js server (`npm start` or `npm run dev`) at [http://localhost:3000](http://localhost:3000).
 - **Branding & Asset Manager**: Interactive web studio to manage banners, pack icons, and logos with automated `README.md` image synchronization:
   ```bash
   ./manage_branding.sh

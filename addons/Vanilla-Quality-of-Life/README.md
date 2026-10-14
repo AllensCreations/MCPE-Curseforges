@@ -3,8 +3,8 @@
   <img src="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/assets/mcpedl.png" alt="MCPEDL" title="MCPEDL" width="150" />
 </div>
 [![Minecraft Bedrock](https://img.shields.io/badge/Minecraft%20Bedrock-1.21%20--%201.26+-brightgreen?style=flat-square&logo=minecraft)](https://github.com/AllensCreations/MCPE-Curseforges)
-[![Release](https://img.shields.io/badge/Release-v1.2.0-blue?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Vanilla-Quality-of-Life/Vanilla_QoL_AllensCreations.mcaddon)
-[![Format](https://img.shields.io/badge/Format-.MCADDON-orange?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Vanilla-Quality-of-Life/Vanilla_QoL_AllensCreations.mcaddon)
+[![Release](https://img.shields.io/badge/Release-v1.2.0-blue?style=flat-square)](../README.md)
+[![Format](https://img.shields.io/badge/Format-.MCADDON-orange?style=flat-square)](../README.md)
 [![Platform](https://img.shields.io/badge/Platform-Mobile%20%7C%20PC%20%7C%20Console%20%7C%20Realms-yellow?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges)
 
 Creator: AllensCreations  
@@ -133,12 +133,9 @@ The pack modifies entity definitions, loot tables, and recipes using standard Be
 
 ---
 
-## Direct Downloads
+## Downloads & Installation
 
-| Package | Format | Description | Download Link |
-| :--- | :--- | :--- | :--- |
-| **Complete Pack** | `.mcaddon` | All-in-one bundle containing Behavior Pack and Resource Pack | [Download (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Vanilla-Quality-of-Life/Vanilla_QoL_AllensCreations.mcaddon) |
-| **Behavior Pack** | `.mcpack` | Standalone Behavior Pack archive | [Download BP (.mcpack)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Vanilla-Quality-of-Life/Vanilla_QoL_AllensCreations.mcpack) |
+To download the compiled `.mcaddon` and `.mcpack` releases for this add-on, visit the [Add-ons Catalog](../README.md#available-source-add-ons) or the [Builds Directory](../../builds/README.md).
 
 ---
 

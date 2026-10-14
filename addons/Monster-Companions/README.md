@@ -3,8 +3,8 @@
 ![MCPEDL](https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/addons/Monster-Companions/1791889944961.jpg "MCPEDL")
 
 [![Minecraft Bedrock](https://img.shields.io/badge/Minecraft%20Bedrock-1.21%20--%201.26+-brightgreen?style=flat-square&logo=minecraft)](https://github.com/AllensCreations/MCPE-Curseforges)
-[![Release](https://img.shields.io/badge/Release-v1.0.0-blue?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Monster-Companions/Monster_Companions_AllensCreations.mcaddon)
-[![Format](https://img.shields.io/badge/Format-.MCADDON%20%7C%20.MCPACK-orange?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Monster-Companions/Monster_Companions_AllensCreations.mcaddon)
+[![Release](https://img.shields.io/badge/Release-v1.0.0-blue?style=flat-square)](../README.md)
+[![Format](https://img.shields.io/badge/Format-.MCADDON%20%7C%20.MCPACK-orange?style=flat-square)](../README.md)
 [![Platform](https://img.shields.io/badge/Platform-Mobile%20%7C%20PC%20%7C%20Console%20%7C%20Realms-yellow?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges)
 
 Creator: AllensCreations  
@@ -93,13 +93,9 @@ Equipping a Saddle onto supported large companions enables manual mounting and d
 
 ---
 
-## Direct Downloads
+## Downloads & Installation
 
-| Package | Format | Description | Download Link |
-| :--- | :--- | :--- | :--- |
-| **All-In-One Pack** | `.mcaddon` | Installs Behavior Pack and Resource Pack in one file | [Download (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Monster-Companions/Monster_Companions_AllensCreations.mcaddon) |
-| **Behavior Pack Only** | `.mcpack` | Mob behaviors, taming components, mounts, and recipes | [Download BP (.mcpack)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Monster-Companions/Monster_Companions_BP.mcpack) |
-| **Resource Pack Only** | `.mcpack` | Custom item textures, icons, and localized names | [Download RP (.mcpack)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Monster-Companions/Monster_Companions_RP.mcpack) |
+To download the compiled `.mcaddon` and `.mcpack` releases for this add-on, visit the [Add-ons Catalog](../README.md#available-source-add-ons) or the [Builds Directory](../../builds/README.md).
 
 ---
 

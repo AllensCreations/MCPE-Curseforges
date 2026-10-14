@@ -5,8 +5,8 @@
 </div>
 
 [![Minecraft Bedrock](https://img.shields.io/badge/Minecraft%20Bedrock-1.21%20--%201.26+-brightgreen?style=flat-square&logo=minecraft)](https://github.com/AllensCreations/MCPE-Curseforges)
-[![Release](https://img.shields.io/badge/Release-v1.1.0-blue?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Passive-Auto-Switch-Tools/Passive_Auto_Switch_Tools_AllensCreations.mcpack)
-[![Format](https://img.shields.io/badge/Format-.MCPACK-orange?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Passive-Auto-Switch-Tools/Passive_Auto_Switch_Tools_AllensCreations.mcpack)
+[![Release](https://img.shields.io/badge/Release-v1.1.0-blue?style=flat-square)](../README.md)
+[![Format](https://img.shields.io/badge/Format-.MCPACK-orange?style=flat-square)](../README.md)
 [![Platform](https://img.shields.io/badge/Platform-Mobile%20%7C%20PC%20%7C%20Console%20%7C%20Realms-yellow?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges)
 
 Creator: AllensCreations  
@@ -88,12 +88,9 @@ Item components are preserved during swaps:
 
 ---
 
-## Direct Downloads
+## Downloads & Installation
 
-| Package | Format | Description | Download Link |
-| :--- | :--- | :--- | :--- |
-| **Passive Auto-Switch Tools Pack** | `.mcpack` | Behavior Pack archive for Minecraft Bedrock | [Download (.mcpack)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Passive-Auto-Switch-Tools/Passive_Auto_Switch_Tools_AllensCreations.mcpack) |
-| **Passive Auto-Switch Tools Addon** | `.mcaddon` | All-In-One add-on archive | [Download (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Passive-Auto-Switch-Tools/Passive_Auto_Switch_Tools_AllensCreations.mcaddon) |
+To download the compiled `.mcpack` and `.mcaddon` releases for this add-on, visit the [Add-ons Catalog](../README.md#available-source-add-ons) or the [Builds Directory](../../builds/README.md).
 
 ---
 

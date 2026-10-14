@@ -76,12 +76,9 @@ The map package includes an Admin Edition (`OneBlock_Void_Survival_Admin.mcworld
 
 ---
 
-## Direct Downloads
+## Downloads & Installation
 
-| File | Type | Description | Download Link |
-| :--- | :--- | :--- | :--- |
-| **`OneBlock_Void_Survival.mcworld`** | World | Standard Survival Experience | [Download Survival (.mcworld)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/OneBlock-Void-Survival/OneBlock_Void_Survival.mcworld) |
-| **`OneBlock_Void_Survival_Admin.mcworld`** | World | Testing and Photography Studio Edition | [Download Admin (.mcworld)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/OneBlock-Void-Survival/OneBlock_Void_Survival_Admin.mcworld) |
+To download the compiled `.mcworld` releases for this map, visit the [Maps Catalog](../README.md#available-maps-catalog) or the [Builds Directory](../../builds/README.md).
 
 ---
 
