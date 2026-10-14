@@ -10,11 +10,11 @@ This directory stores all compiled releases (behavior packs, resource packs, add
 
 | Pack Name | Version | Type | Download Link | Build Folder |
 | :--- | :--- | :--- | :--- | :--- |
-| **Vanilla Quality of Life** | `v1.2.0` | Behavior Pack (`.mcpack`) | [Download (.mcpack)](Vanilla-Quality-of-Life/Vanilla_QoL_AllensCreations.mcpack) | [`Vanilla-Quality-of-Life/`](Vanilla-Quality-of-Life/) |
-| **Monster Companions** | `v1.0.0` | Complete Pack (`.mcaddon`) | [Download (.mcaddon)](Monster-Companions/Monster_Companions_AllensCreations.mcaddon) | [`Monster-Companions/`](Monster-Companions/) |
-| **Mining Helmet** | `v1.0.0` | Complete Pack (`.mcaddon`) | [Download (.mcaddon)](Mining-Helmet/Mining_Helmet_AllensCreations.mcaddon) | [`Mining-Helmet/`](Mining-Helmet/) |
-| **Passive Auto-Switch Tools** | `v1.1.0` | Complete Pack (`.mcaddon`) | [Download (.mcaddon)](Passive-Auto-Switch-Tools/Passive_Auto_Switch_Tools_AllensCreations.mcaddon) | [`Passive-Auto-Switch-Tools/`](Passive-Auto-Switch-Tools/) |
-| **Ghast Mob Head Transformers** | `v1.0.0` | Complete Pack (`.mcaddon`) | [Download (.mcaddon)](Ghast-Head-Transformers/Ghast_Head_Transformers_AllensCreations.mcaddon) | [`Ghast-Head-Transformers/`](Ghast-Head-Transformers/) |
+| **Vanilla Quality of Life** | `v1.2.0` | Complete Add-on (`.mcaddon`) | [Download (.mcaddon)](Vanilla-Quality-of-Life/Vanilla_QoL_AllensCreations.mcaddon) | [`Vanilla-Quality-of-Life/`](Vanilla-Quality-of-Life/) |
+| **Monster Companions** | `v1.0.0` | Complete Add-on (`.mcaddon`) | [Download (.mcaddon)](Monster-Companions/Monster_Companions_AllensCreations.mcaddon) | [`Monster-Companions/`](Monster-Companions/) |
+| **Mining Helmet** | `v1.0.0` | Complete Add-on (`.mcaddon`) | [Download (.mcaddon)](Mining-Helmet/Mining_Helmet_AllensCreations.mcaddon) | [`Mining-Helmet/`](Mining-Helmet/) |
+| **Passive Auto-Switch Tools** | `v1.1.0` | Script Behavior Pack (`.mcpack`) | [Download (.mcpack)](Passive-Auto-Switch-Tools/Passive_Auto_Switch_Tools_AllensCreations.mcpack) | [`Passive-Auto-Switch-Tools/`](Passive-Auto-Switch-Tools/) |
+| **Ghast Mob Head Transformers** | `v1.0.0` | Complete Add-on (`.mcaddon`) | [Download (.mcaddon)](Ghast-Head-Transformers/Ghast_Head_Transformers_AllensCreations.mcaddon) | [`Ghast-Head-Transformers/`](Ghast-Head-Transformers/) |
 
 ### Worlds and Maps
 
@@ -27,9 +27,9 @@ This directory stores all compiled releases (behavior packs, resource packs, add
 
 | Project Name | Version | Type | Download Link | Build Folder |
 | :--- | :--- | :--- | :--- | :--- |
-| **Alphabet Scavenger Hunt** | `v1.0.0` | Complete Pack (`.mcaddon`) | [Download (.mcaddon)](Alphabet-Scavenger-Hunt/Alphabet_Scavenger_Hunt_AllensCreations.mcaddon) | [`Alphabet-Scavenger-Hunt/`](Alphabet-Scavenger-Hunt/) |
-| **Shared Hivemind Inventory** | `v1.0.0` | Complete Pack (`.mcaddon`) | [Download (.mcaddon)](Shared-Hivemind-Inventory/Shared_Hivemind_Inventory_AllensCreations.mcaddon) | [`Shared-Hivemind-Inventory/`](Shared-Hivemind-Inventory/) |
-| **Tethered: Breaker & Builder** | `v1.0.0` | Complete Pack (`.mcaddon`) | [Download (.mcaddon)](Tethered-Breaker-And-Builder/Tethered_Breaker_And_Builder_AllensCreations.mcaddon) | [`Tethered-Breaker-And-Builder/`](Tethered-Breaker-And-Builder/) |
+| **Alphabet Scavenger Hunt** | `v1.0.0` | Script Behavior Pack (`.mcpack`) | [Download (.mcpack)](Alphabet-Scavenger-Hunt/Alphabet_Scavenger_Hunt_AllensCreations.mcpack) | [`Alphabet-Scavenger-Hunt/`](Alphabet-Scavenger-Hunt/) |
+| **Shared Hivemind Inventory** | `v1.0.0` | Script Behavior Pack (`.mcpack`) | [Download (.mcpack)](Shared-Hivemind-Inventory/Shared_Hivemind_Inventory_AllensCreations.mcpack) | [`Shared-Hivemind-Inventory/`](Shared-Hivemind-Inventory/) |
+| **Tethered: Breaker & Builder** | `v1.0.0` | Script Behavior Pack (`.mcpack`) | [Download (.mcpack)](Tethered-Breaker-And-Builder/Tethered_Breaker_And_Builder_AllensCreations.mcpack) | [`Tethered-Breaker-And-Builder/`](Tethered-Breaker-And-Builder/) |
 
 ---
 

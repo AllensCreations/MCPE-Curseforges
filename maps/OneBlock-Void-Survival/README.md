@@ -4,7 +4,7 @@
 
 [![Minecraft Bedrock](https://img.shields.io/badge/Minecraft%20Bedrock-1.21.x+-brightgreen?style=flat-square&logo=minecraft)](https://github.com/AllensCreations/MCPE-Curseforges)
 [![Version](https://img.shields.io/badge/Map%20Version-v1.2.0-blue?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges)
-[![Format](https://img.shields.io/badge/Format-.MCWORLD%20%7C%20.MCPACK-orange?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges)
+[![Format](https://img.shields.io/badge/Format-.MCWORLD-orange?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges)
 [![Experiments](https://img.shields.io/badge/Experiments-None%20(Pure%20Vanilla)-brightgreen?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges)
 
 Creator: AllensCreations  
@@ -82,7 +82,6 @@ The map package includes an Admin Edition (`OneBlock_Void_Survival_Admin.mcworld
 | :--- | :--- | :--- | :--- |
 | **`OneBlock_Void_Survival.mcworld`** | World | Standard Survival Experience | [Download Survival (.mcworld)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/OneBlock-Void-Survival/OneBlock_Void_Survival.mcworld) |
 | **`OneBlock_Void_Survival_Admin.mcworld`** | World | Testing and Photography Studio Edition | [Download Admin (.mcworld)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/OneBlock-Void-Survival/OneBlock_Void_Survival_Admin.mcworld) |
-| **`OneBlock_Void_Survival.mcpack`** | Behavior Pack | Standalone Behavior Pack for Custom Worlds | [Download BP (.mcpack)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/OneBlock-Void-Survival/OneBlock_Void_Survival.mcpack) |
 
 ---
 

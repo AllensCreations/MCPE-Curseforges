@@ -8,8 +8,7 @@ This directory contains compiled release packages for **Tethered: Breaker & Buil
 
 | Package | Format | Description | Download Link |
 | :--- | :--- | :--- | :--- |
-| **`Tethered_Breaker_And_Builder_AllensCreations.mcaddon`** | `.mcaddon` | Complete one-click install archive | [Download .mcaddon](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Tethered-Breaker-And-Builder/Tethered_Breaker_And_Builder_AllensCreations.mcaddon) |
-| **`Tethered_Breaker_And_Builder_AllensCreations.mcpack`** | `.mcpack` | Standalone Behavior Pack archive | [Download .mcpack](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Tethered-Breaker-And-Builder/Tethered_Breaker_And_Builder_AllensCreations.mcpack) |
+| **`Tethered_Breaker_And_Builder_AllensCreations.mcpack`** | `.mcpack` | Script Behavior Pack archive | [Download .mcpack](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Tethered-Breaker-And-Builder/Tethered_Breaker_And_Builder_AllensCreations.mcpack) |
 
 ---
 

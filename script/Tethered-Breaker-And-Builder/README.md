@@ -3,8 +3,8 @@
 ![MCPEDL](https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/script/Tethered-Breaker-And-Builder/pack_icon.png "MCPEDL")
 
 [![Minecraft Bedrock](https://img.shields.io/badge/Minecraft%20Bedrock-1.21%20--%201.26+-brightgreen?style=flat-square&logo=minecraft)](https://github.com/AllensCreations/MCPE-Curseforges)
-[![Release](https://img.shields.io/badge/Release-v1.0.0-blue?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Tethered-Breaker-And-Builder/Tethered_Breaker_And_Builder_AllensCreations.mcaddon)
-[![Format](https://img.shields.io/badge/Format-.MCPACK%20%7C%20.MCADDON-orange?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Tethered-Breaker-And-Builder/Tethered_Breaker_And_Builder_AllensCreations.mcaddon)
+[![Release](https://img.shields.io/badge/Release-v1.0.0-blue?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Tethered-Breaker-And-Builder/Tethered_Breaker_And_Builder_AllensCreations.mcpack)
+[![Format](https://img.shields.io/badge/Format-.MCPACK-orange?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Tethered-Breaker-And-Builder/Tethered_Breaker_And_Builder_AllensCreations.mcpack)
 [![Platform](https://img.shields.io/badge/Platform-Mobile%20%7C%20PC%20%7C%20Console%20%7C%20Realms-yellow?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges)
 
 Creator: AllensCreations  
@@ -92,8 +92,7 @@ Operators can use `/scriptevent` commands to manage roles:
 
 | Package | Format | Description | Download Link |
 | :--- | :--- | :--- | :--- |
-| **All-In-One Pack (Recommended)** | `.mcaddon` | Complete one-click install archive | [Download .mcaddon](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Tethered-Breaker-And-Builder/Tethered_Breaker_And_Builder_AllensCreations.mcaddon) |
-| **Behavior Pack Only** | `.mcpack` | Standalone Behavior Pack archive | [Download .mcpack](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Tethered-Breaker-And-Builder/Tethered_Breaker_And_Builder_AllensCreations.mcpack) |
+| **`Tethered_Breaker_And_Builder_AllensCreations.mcpack`** | `.mcpack` | Complete Script Behavior Pack archive | [Download .mcpack](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Tethered-Breaker-And-Builder/Tethered_Breaker_And_Builder_AllensCreations.mcpack) |
 
 ---
 

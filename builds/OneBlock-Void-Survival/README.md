@@ -10,7 +10,6 @@ This directory contains compiled releases for OneBlock Void Survival v1.2 by All
 | :--- | :--- | :--- | :--- |
 | **`OneBlock_Void_Survival.mcworld`** | ~273 KB | Hardcore Survival World | [Download Survival World](OneBlock_Void_Survival.mcworld) |
 | **`OneBlock_Void_Survival_Admin.mcworld`** | ~273 KB | Photo Studio and Admin Testing World | [Download Admin World](OneBlock_Void_Survival_Admin.mcworld) |
-| **`OneBlock_Void_Survival.mcpack`** | ~154 KB | Behavior Pack | [Download Behavior Pack](OneBlock_Void_Survival.mcpack) |
 
 ---
 

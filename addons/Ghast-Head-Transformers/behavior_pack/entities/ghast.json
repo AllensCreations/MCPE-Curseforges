@@ -54,7 +54,10 @@
         "priority": 0
       },
       "minecraft:behavior.float_wander": {
-        "float_duration": [2, 7],
+        "float_duration": [
+          2,
+          7
+        ],
         "float_wander_has_move_control": false,
         "must_reach": true,
         "priority": 2,
@@ -158,19 +161,39 @@
             "play_sounds": "mob.ghast.scream",
             "on_interact": {
               "event": "ghast:equip_skeleton",
-              "target": "self"
-            },
-            "filters": {
-              "all_of": [
-                {
-                  "any_of": [
-                    { "domain": "hand", "subject": "other", "test": "has_equipment", "value": "skeleton_skull" },
-                    { "domain": "hand", "subject": "other", "test": "has_equipment", "value": "minecraft:skeleton_skull" },
-                    { "domain": "hand", "subject": "other", "test": "has_equipment", "value": "skull:0" }
-                  ]
-                },
-                { "operator": "!=", "subject": "self", "test": "is_variant", "value": 1 }
-              ]
+              "target": "self",
+              "filters": {
+                "all_of": [
+                  {
+                    "any_of": [
+                      {
+                        "domain": "hand",
+                        "subject": "other",
+                        "test": "has_equipment",
+                        "value": "skeleton_skull"
+                      },
+                      {
+                        "domain": "hand",
+                        "subject": "other",
+                        "test": "has_equipment",
+                        "value": "minecraft:skeleton_skull"
+                      },
+                      {
+                        "domain": "hand",
+                        "subject": "other",
+                        "test": "has_equipment",
+                        "value": "skull:0"
+                      }
+                    ]
+                  },
+                  {
+                    "operator": "!=",
+                    "subject": "self",
+                    "test": "is_variant",
+                    "value": 1
+                  }
+                ]
+              }
             }
           },
           {
@@ -179,19 +202,39 @@
             "play_sounds": "mob.ghast.scream",
             "on_interact": {
               "event": "ghast:equip_wither_skeleton",
-              "target": "self"
-            },
-            "filters": {
-              "all_of": [
-                {
-                  "any_of": [
-                    { "domain": "hand", "subject": "other", "test": "has_equipment", "value": "wither_skeleton_skull" },
-                    { "domain": "hand", "subject": "other", "test": "has_equipment", "value": "minecraft:wither_skeleton_skull" },
-                    { "domain": "hand", "subject": "other", "test": "has_equipment", "value": "skull:1" }
-                  ]
-                },
-                { "operator": "!=", "subject": "self", "test": "is_variant", "value": 2 }
-              ]
+              "target": "self",
+              "filters": {
+                "all_of": [
+                  {
+                    "any_of": [
+                      {
+                        "domain": "hand",
+                        "subject": "other",
+                        "test": "has_equipment",
+                        "value": "wither_skeleton_skull"
+                      },
+                      {
+                        "domain": "hand",
+                        "subject": "other",
+                        "test": "has_equipment",
+                        "value": "minecraft:wither_skeleton_skull"
+                      },
+                      {
+                        "domain": "hand",
+                        "subject": "other",
+                        "test": "has_equipment",
+                        "value": "skull:1"
+                      }
+                    ]
+                  },
+                  {
+                    "operator": "!=",
+                    "subject": "self",
+                    "test": "is_variant",
+                    "value": 2
+                  }
+                ]
+              }
             }
           },
           {
@@ -200,19 +243,39 @@
             "play_sounds": "mob.ghast.scream",
             "on_interact": {
               "event": "ghast:equip_zombie",
-              "target": "self"
-            },
-            "filters": {
-              "all_of": [
-                {
-                  "any_of": [
-                    { "domain": "hand", "subject": "other", "test": "has_equipment", "value": "zombie_head" },
-                    { "domain": "hand", "subject": "other", "test": "has_equipment", "value": "minecraft:zombie_head" },
-                    { "domain": "hand", "subject": "other", "test": "has_equipment", "value": "skull:2" }
-                  ]
-                },
-                { "operator": "!=", "subject": "self", "test": "is_variant", "value": 3 }
-              ]
+              "target": "self",
+              "filters": {
+                "all_of": [
+                  {
+                    "any_of": [
+                      {
+                        "domain": "hand",
+                        "subject": "other",
+                        "test": "has_equipment",
+                        "value": "zombie_head"
+                      },
+                      {
+                        "domain": "hand",
+                        "subject": "other",
+                        "test": "has_equipment",
+                        "value": "minecraft:zombie_head"
+                      },
+                      {
+                        "domain": "hand",
+                        "subject": "other",
+                        "test": "has_equipment",
+                        "value": "skull:2"
+                      }
+                    ]
+                  },
+                  {
+                    "operator": "!=",
+                    "subject": "self",
+                    "test": "is_variant",
+                    "value": 3
+                  }
+                ]
+              }
             }
           },
           {
@@ -221,19 +284,39 @@
             "play_sounds": "mob.ghast.scream",
             "on_interact": {
               "event": "ghast:equip_steve",
-              "target": "self"
-            },
-            "filters": {
-              "all_of": [
-                {
-                  "any_of": [
-                    { "domain": "hand", "subject": "other", "test": "has_equipment", "value": "player_head" },
-                    { "domain": "hand", "subject": "other", "test": "has_equipment", "value": "minecraft:player_head" },
-                    { "domain": "hand", "subject": "other", "test": "has_equipment", "value": "skull:3" }
-                  ]
-                },
-                { "operator": "!=", "subject": "self", "test": "is_variant", "value": 4 }
-              ]
+              "target": "self",
+              "filters": {
+                "all_of": [
+                  {
+                    "any_of": [
+                      {
+                        "domain": "hand",
+                        "subject": "other",
+                        "test": "has_equipment",
+                        "value": "player_head"
+                      },
+                      {
+                        "domain": "hand",
+                        "subject": "other",
+                        "test": "has_equipment",
+                        "value": "minecraft:player_head"
+                      },
+                      {
+                        "domain": "hand",
+                        "subject": "other",
+                        "test": "has_equipment",
+                        "value": "skull:3"
+                      }
+                    ]
+                  },
+                  {
+                    "operator": "!=",
+                    "subject": "self",
+                    "test": "is_variant",
+                    "value": 4
+                  }
+                ]
+              }
             }
           },
           {
@@ -242,19 +325,39 @@
             "play_sounds": "mob.ghast.scream",
             "on_interact": {
               "event": "ghast:equip_creeper",
-              "target": "self"
-            },
-            "filters": {
-              "all_of": [
-                {
-                  "any_of": [
-                    { "domain": "hand", "subject": "other", "test": "has_equipment", "value": "creeper_head" },
-                    { "domain": "hand", "subject": "other", "test": "has_equipment", "value": "minecraft:creeper_head" },
-                    { "domain": "hand", "subject": "other", "test": "has_equipment", "value": "skull:4" }
-                  ]
-                },
-                { "operator": "!=", "subject": "self", "test": "is_variant", "value": 5 }
-              ]
+              "target": "self",
+              "filters": {
+                "all_of": [
+                  {
+                    "any_of": [
+                      {
+                        "domain": "hand",
+                        "subject": "other",
+                        "test": "has_equipment",
+                        "value": "creeper_head"
+                      },
+                      {
+                        "domain": "hand",
+                        "subject": "other",
+                        "test": "has_equipment",
+                        "value": "minecraft:creeper_head"
+                      },
+                      {
+                        "domain": "hand",
+                        "subject": "other",
+                        "test": "has_equipment",
+                        "value": "skull:4"
+                      }
+                    ]
+                  },
+                  {
+                    "operator": "!=",
+                    "subject": "self",
+                    "test": "is_variant",
+                    "value": 5
+                  }
+                ]
+              }
             }
           },
           {
@@ -263,19 +366,39 @@
             "play_sounds": "mob.ghast.scream",
             "on_interact": {
               "event": "ghast:equip_piglin",
-              "target": "self"
-            },
-            "filters": {
-              "all_of": [
-                {
-                  "any_of": [
-                    { "domain": "hand", "subject": "other", "test": "has_equipment", "value": "piglin_head" },
-                    { "domain": "hand", "subject": "other", "test": "has_equipment", "value": "minecraft:piglin_head" },
-                    { "domain": "hand", "subject": "other", "test": "has_equipment", "value": "skull:5" }
-                  ]
-                },
-                { "operator": "!=", "subject": "self", "test": "is_variant", "value": 6 }
-              ]
+              "target": "self",
+              "filters": {
+                "all_of": [
+                  {
+                    "any_of": [
+                      {
+                        "domain": "hand",
+                        "subject": "other",
+                        "test": "has_equipment",
+                        "value": "piglin_head"
+                      },
+                      {
+                        "domain": "hand",
+                        "subject": "other",
+                        "test": "has_equipment",
+                        "value": "minecraft:piglin_head"
+                      },
+                      {
+                        "domain": "hand",
+                        "subject": "other",
+                        "test": "has_equipment",
+                        "value": "skull:5"
+                      }
+                    ]
+                  },
+                  {
+                    "operator": "!=",
+                    "subject": "self",
+                    "test": "is_variant",
+                    "value": 6
+                  }
+                ]
+              }
             }
           },
           {
@@ -284,18 +407,33 @@
             "play_sounds": "mob.ghast.scream",
             "on_interact": {
               "event": "ghast:equip_custom_head",
-              "target": "self"
-            },
-            "filters": {
-              "all_of": [
-                {
-                  "any_of": [
-                    { "domain": "hand", "subject": "other", "test": "has_equipment", "value": "custom_head" },
-                    { "domain": "hand", "subject": "other", "test": "has_equipment", "value": "custom:custom_head" }
-                  ]
-                },
-                { "operator": "!=", "subject": "self", "test": "is_variant", "value": 7 }
-              ]
+              "target": "self",
+              "filters": {
+                "all_of": [
+                  {
+                    "any_of": [
+                      {
+                        "domain": "hand",
+                        "subject": "other",
+                        "test": "has_equipment",
+                        "value": "custom_head"
+                      },
+                      {
+                        "domain": "hand",
+                        "subject": "other",
+                        "test": "has_equipment",
+                        "value": "custom:custom_head"
+                      }
+                    ]
+                  },
+                  {
+                    "operator": "!=",
+                    "subject": "self",
+                    "test": "is_variant",
+                    "value": 7
+                  }
+                ]
+              }
             }
           },
           {
@@ -308,18 +446,33 @@
             },
             "on_interact": {
               "event": "ghast:reset_to_default",
-              "target": "self"
-            },
-            "filters": {
-              "all_of": [
-                {
-                  "any_of": [
-                    { "domain": "hand", "subject": "other", "test": "has_equipment", "value": "shears" },
-                    { "domain": "hand", "subject": "other", "test": "has_equipment", "value": "minecraft:shears" }
-                  ]
-                },
-                { "operator": "==", "subject": "self", "test": "is_variant", "value": 1 }
-              ]
+              "target": "self",
+              "filters": {
+                "all_of": [
+                  {
+                    "any_of": [
+                      {
+                        "domain": "hand",
+                        "subject": "other",
+                        "test": "has_equipment",
+                        "value": "shears"
+                      },
+                      {
+                        "domain": "hand",
+                        "subject": "other",
+                        "test": "has_equipment",
+                        "value": "minecraft:shears"
+                      }
+                    ]
+                  },
+                  {
+                    "operator": "==",
+                    "subject": "self",
+                    "test": "is_variant",
+                    "value": 1
+                  }
+                ]
+              }
             }
           },
           {
@@ -332,18 +485,33 @@
             },
             "on_interact": {
               "event": "ghast:reset_to_default",
-              "target": "self"
-            },
-            "filters": {
-              "all_of": [
-                {
-                  "any_of": [
-                    { "domain": "hand", "subject": "other", "test": "has_equipment", "value": "shears" },
-                    { "domain": "hand", "subject": "other", "test": "has_equipment", "value": "minecraft:shears" }
-                  ]
-                },
-                { "operator": "==", "subject": "self", "test": "is_variant", "value": 2 }
-              ]
+              "target": "self",
+              "filters": {
+                "all_of": [
+                  {
+                    "any_of": [
+                      {
+                        "domain": "hand",
+                        "subject": "other",
+                        "test": "has_equipment",
+                        "value": "shears"
+                      },
+                      {
+                        "domain": "hand",
+                        "subject": "other",
+                        "test": "has_equipment",
+                        "value": "minecraft:shears"
+                      }
+                    ]
+                  },
+                  {
+                    "operator": "==",
+                    "subject": "self",
+                    "test": "is_variant",
+                    "value": 2
+                  }
+                ]
+              }
             }
           },
           {
@@ -356,18 +524,33 @@
             },
             "on_interact": {
               "event": "ghast:reset_to_default",
-              "target": "self"
-            },
-            "filters": {
-              "all_of": [
-                {
-                  "any_of": [
-                    { "domain": "hand", "subject": "other", "test": "has_equipment", "value": "shears" },
-                    { "domain": "hand", "subject": "other", "test": "has_equipment", "value": "minecraft:shears" }
-                  ]
-                },
-                { "operator": "==", "subject": "self", "test": "is_variant", "value": 3 }
-              ]
+              "target": "self",
+              "filters": {
+                "all_of": [
+                  {
+                    "any_of": [
+                      {
+                        "domain": "hand",
+                        "subject": "other",
+                        "test": "has_equipment",
+                        "value": "shears"
+                      },
+                      {
+                        "domain": "hand",
+                        "subject": "other",
+                        "test": "has_equipment",
+                        "value": "minecraft:shears"
+                      }
+                    ]
+                  },
+                  {
+                    "operator": "==",
+                    "subject": "self",
+                    "test": "is_variant",
+                    "value": 3
+                  }
+                ]
+              }
             }
           },
           {
@@ -380,18 +563,33 @@
             },
             "on_interact": {
               "event": "ghast:reset_to_default",
-              "target": "self"
-            },
-            "filters": {
-              "all_of": [
-                {
-                  "any_of": [
-                    { "domain": "hand", "subject": "other", "test": "has_equipment", "value": "shears" },
-                    { "domain": "hand", "subject": "other", "test": "has_equipment", "value": "minecraft:shears" }
-                  ]
-                },
-                { "operator": "==", "subject": "self", "test": "is_variant", "value": 4 }
-              ]
+              "target": "self",
+              "filters": {
+                "all_of": [
+                  {
+                    "any_of": [
+                      {
+                        "domain": "hand",
+                        "subject": "other",
+                        "test": "has_equipment",
+                        "value": "shears"
+                      },
+                      {
+                        "domain": "hand",
+                        "subject": "other",
+                        "test": "has_equipment",
+                        "value": "minecraft:shears"
+                      }
+                    ]
+                  },
+                  {
+                    "operator": "==",
+                    "subject": "self",
+                    "test": "is_variant",
+                    "value": 4
+                  }
+                ]
+              }
             }
           },
           {
@@ -404,18 +602,33 @@
             },
             "on_interact": {
               "event": "ghast:reset_to_default",
-              "target": "self"
-            },
-            "filters": {
-              "all_of": [
-                {
-                  "any_of": [
-                    { "domain": "hand", "subject": "other", "test": "has_equipment", "value": "shears" },
-                    { "domain": "hand", "subject": "other", "test": "has_equipment", "value": "minecraft:shears" }
-                  ]
-                },
-                { "operator": "==", "subject": "self", "test": "is_variant", "value": 5 }
-              ]
+              "target": "self",
+              "filters": {
+                "all_of": [
+                  {
+                    "any_of": [
+                      {
+                        "domain": "hand",
+                        "subject": "other",
+                        "test": "has_equipment",
+                        "value": "shears"
+                      },
+                      {
+                        "domain": "hand",
+                        "subject": "other",
+                        "test": "has_equipment",
+                        "value": "minecraft:shears"
+                      }
+                    ]
+                  },
+                  {
+                    "operator": "==",
+                    "subject": "self",
+                    "test": "is_variant",
+                    "value": 5
+                  }
+                ]
+              }
             }
           },
           {
@@ -428,18 +641,33 @@
             },
             "on_interact": {
               "event": "ghast:reset_to_default",
-              "target": "self"
-            },
-            "filters": {
-              "all_of": [
-                {
-                  "any_of": [
-                    { "domain": "hand", "subject": "other", "test": "has_equipment", "value": "shears" },
-                    { "domain": "hand", "subject": "other", "test": "has_equipment", "value": "minecraft:shears" }
-                  ]
-                },
-                { "operator": "==", "subject": "self", "test": "is_variant", "value": 6 }
-              ]
+              "target": "self",
+              "filters": {
+                "all_of": [
+                  {
+                    "any_of": [
+                      {
+                        "domain": "hand",
+                        "subject": "other",
+                        "test": "has_equipment",
+                        "value": "shears"
+                      },
+                      {
+                        "domain": "hand",
+                        "subject": "other",
+                        "test": "has_equipment",
+                        "value": "minecraft:shears"
+                      }
+                    ]
+                  },
+                  {
+                    "operator": "==",
+                    "subject": "self",
+                    "test": "is_variant",
+                    "value": 6
+                  }
+                ]
+              }
             }
           },
           {
@@ -452,18 +680,33 @@
             },
             "on_interact": {
               "event": "ghast:reset_to_default",
-              "target": "self"
-            },
-            "filters": {
-              "all_of": [
-                {
-                  "any_of": [
-                    { "domain": "hand", "subject": "other", "test": "has_equipment", "value": "shears" },
-                    { "domain": "hand", "subject": "other", "test": "has_equipment", "value": "minecraft:shears" }
-                  ]
-                },
-                { "operator": "==", "subject": "self", "test": "is_variant", "value": 7 }
-              ]
+              "target": "self",
+              "filters": {
+                "all_of": [
+                  {
+                    "any_of": [
+                      {
+                        "domain": "hand",
+                        "subject": "other",
+                        "test": "has_equipment",
+                        "value": "shears"
+                      },
+                      {
+                        "domain": "hand",
+                        "subject": "other",
+                        "test": "has_equipment",
+                        "value": "minecraft:shears"
+                      }
+                    ]
+                  },
+                  {
+                    "operator": "==",
+                    "subject": "self",
+                    "test": "is_variant",
+                    "value": 7
+                  }
+                ]
+              }
             }
           }
         ]

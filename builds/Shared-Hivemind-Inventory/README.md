@@ -8,8 +8,7 @@ This directory contains compiled release packages for **Shared Hivemind Inventor
 
 | Package | Format | Description | Download Link |
 | :--- | :--- | :--- | :--- |
-| **`Shared_Hivemind_Inventory_AllensCreations.mcaddon`** | `.mcaddon` | Complete one-click install archive | [Download .mcaddon](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Shared-Hivemind-Inventory/Shared_Hivemind_Inventory_AllensCreations.mcaddon) |
-| **`Shared_Hivemind_Inventory_AllensCreations.mcpack`** | `.mcpack` | Standalone Behavior Pack archive | [Download .mcpack](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Shared-Hivemind-Inventory/Shared_Hivemind_Inventory_AllensCreations.mcpack) |
+| **`Shared_Hivemind_Inventory_AllensCreations.mcpack`** | `.mcpack` | Script Behavior Pack archive | [Download .mcpack](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Shared-Hivemind-Inventory/Shared_Hivemind_Inventory_AllensCreations.mcpack) |
 
 ---
 
