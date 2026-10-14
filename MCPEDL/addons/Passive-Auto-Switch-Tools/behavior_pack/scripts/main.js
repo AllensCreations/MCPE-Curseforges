@@ -2,7 +2,7 @@
  * ==============================================================================
  * PASSIVE AUTO-SWITCH TOOLS -- MINECRAFT BEDROCK SCRIPT API
  * ==============================================================================
- * Version: 1.2.0
+ * Version: 1.3.0
  * Target Engine: Minecraft Bedrock 1.21.0+ / v1.26 Standards
  * API Module: @minecraft/server v1.13.0+ (STABLE)
  * Author: AllensCreations
@@ -36,8 +36,12 @@
  *    - Weapon (Combat): Highest tier Sword or Axe when attacking entities.
  *
  * 5. Safe In-Place Inventory Swapping:
- *    - If Slot 1 already holds a matching tool/weapon, no action is taken (preserves
- *      the player's active selection, e.g., Silk Touch vs. Fortune, or Axe vs. Sword).
+ *    - Slot 1 is kept if it already holds a matching tool, UNLESS a clearly better one
+ *      exists (higher tier, better enchantments, healthier durability).
+ *    - Enchantment aware: Silk Touch for glass/ice/bookshelves, Fortune for ores,
+ *      Efficiency / Sharpness as bonuses.
+ *    - Nearly broken tools (15 uses or fewer) are avoided when alternatives exist.
+ *    - Your original Slot 1 item is returned after you stop mining/fighting.
  *    - If a different tool category is needed, scans inventory (0..35) for the
  *      highest-tier tool (Netherite > Diamond > Iron > Stone > Wood/Golden).
  *    - Executes container.swapItems(bestSlot, 0, container) to seamlessly swap
@@ -164,6 +168,94 @@ function getMaterialTier(rawId) {
     if (rawId.includes(tier)) return score;
   }
   return 25; // Default fallback for custom or unlisted addon tools
+}
+
+// ------------------------------------------------------------------------------
+// Smart scoring: tier + enchantments + durability
+// ------------------------------------------------------------------------------
+
+/** A candidate must beat the held tool by this much before we swap (prevents flip-flopping). */
+const SWITCH_MARGIN = 3;
+
+/** Tools with this many uses (or fewer) left are treated as "nearly broken". */
+const LOW_DURABILITY_USES = 15;
+const LOW_DURABILITY_PENALTY = 100;
+
+/** Reads the enchantments we care about from an item (all 0 if none). */
+function readEnchants(item) {
+  const result = { silk: 0, fortune: 0, efficiency: 0, sharpness: 0 };
+  try {
+    const comp = item.getComponent("minecraft:enchantable");
+    if (!comp) return result;
+    result.silk = comp.getEnchantment("silk_touch")?.level ?? 0;
+    result.fortune = comp.getEnchantment("fortune")?.level ?? 0;
+    result.efficiency = comp.getEnchantment("efficiency")?.level ?? 0;
+    result.sharpness = comp.getEnchantment("sharpness")?.level ?? 0;
+  } catch {}
+  return result;
+}
+
+/** Returns { remaining, fraction } for damageable items, or null. */
+function readDurability(item) {
+  try {
+    const comp = item.getComponent("minecraft:durability");
+    if (!comp) return null;
+    const remaining = comp.maxDurability - comp.damage;
+    return { remaining, fraction: remaining / comp.maxDurability };
+  } catch {
+    return null;
+  }
+}
+
+/** Ores that benefit from Fortune (and are wasted by Silk Touch). */
+function isFortuneBlock(id) {
+  return id.endsWith("_ore");
+}
+
+/** Blocks you generally want to collect intact with Silk Touch. */
+function isSilkPreferredBlock(id) {
+  return (
+    id === "glass" ||
+    id.endsWith("_glass") ||
+    id.endsWith("glass_pane") ||
+    /(^|_)ice$/.test(id) ||
+    id === "bookshelf" ||
+    id === "ender_chest"
+  );
+}
+
+/**
+ * Full score for one inventory item against the current job.
+ * @returns {number} Score (can be negative for nearly-broken tools), or -Infinity if not a match.
+ */
+function scoreItem(item, targetCategory, slotIndex, blockId) {
+  const base = evaluateToolScore(item, targetCategory, slotIndex);
+  if (base < 0) return -Infinity;
+
+  let score = base;
+  const ench = readEnchants(item);
+
+  // Efficiency: mines faster. Sharpness: hits harder.
+  score += ench.efficiency;
+  if (targetCategory === ToolCategory.WEAPON) score += ench.sharpness;
+
+  // Silk Touch / Fortune context
+  if (blockId) {
+    if (isSilkPreferredBlock(blockId) && ench.silk > 0) score += 60;
+    if (isFortuneBlock(blockId)) {
+      score += ench.fortune * 1.5;
+      if (ench.silk > 0) score -= 8;
+    }
+  }
+
+  // Durability: avoid nearly broken tools, small bonus for healthier ones
+  const dur = readDurability(item);
+  if (dur) {
+    if (dur.remaining <= LOW_DURABILITY_USES) score -= LOW_DURABILITY_PENALTY;
+    else score += dur.fraction;
+  }
+
+  return score;
 }
 
 /**
@@ -480,75 +572,121 @@ function isCombatTarget(entity) {
 }
 
 /**
- * Equips the highest-tier matching tool or weapon into Slot 1 (hotbar index 0).
+ * Where the player's original Slot 1 item went after we swapped it out,
+ * so we can put it back when they stop mining/fighting.
+ * Key = player.id.
+ * @type {Map<string, { slot: number, typeId: string | undefined, lastActive: number }>}
+ */
+const swapHomes = new Map();
+
+/** Marks the player as still active so we don't swap back mid-work. */
+function touchHome(playerId) {
+  const home = swapHomes.get(playerId);
+  if (home) home.lastActive = system.currentTick;
+}
+
+/** Remembers where the original Slot 1 item was moved to. */
+function recordHome(playerId, fromSlot, originalTypeId) {
+  const home = swapHomes.get(playerId);
+  if (!home) {
+    swapHomes.set(playerId, {
+      slot: fromSlot,
+      typeId: originalTypeId,
+      lastActive: system.currentTick,
+    });
+  } else if (fromSlot === home.slot) {
+    // We just pulled the original item back into Slot 1 - nothing left to restore.
+    swapHomes.delete(playerId);
+  } else {
+    home.lastActive = system.currentTick;
+  }
+}
+
+/** Swaps `fromSlot` into Slot 1 and records where the old Slot 1 item went. */
+function performSwap(player, container, fromSlot) {
+  const apply = () => {
+    const originalTypeId = container.getItem(0)?.typeId;
+    container.swapItems(fromSlot, 0, container);
+    recordHome(player.id, fromSlot, originalTypeId);
+  };
+  try {
+    apply();
+  } catch {
+    // Defer to next tick if the game engine locks the container during event dispatch
+    system.run(() => {
+      try {
+        apply();
+      } catch {}
+    });
+  }
+}
+
+/** Puts the player's original Slot 1 item back (only if it's still where we left it). */
+function swapBackOriginal(player, home) {
+  try {
+    const inv =
+      player.getComponent("minecraft:inventory") ?? player.getComponent("inventory");
+    const container = inv?.container;
+    if (!container) return;
+    const atHome = container.getItem(home.slot);
+    if (atHome?.typeId === home.typeId) {
+      container.swapItems(home.slot, 0, container);
+    }
+  } catch {}
+}
+
+/**
+ * Equips the best matching tool or weapon into Slot 1 (hotbar index 0).
+ * Swaps if Slot 1 holds the wrong kind of tool, OR if a clearly better one
+ * (higher tier / better enchants / healthier durability) exists in the inventory.
  *
  * @param {import("@minecraft/server").Player} player
  * @param {string} targetCategory
+ * @param {string} [blockTypeId] Targeted block, used for Silk Touch / Fortune decisions.
  */
-function switchPlayerSlot1Tool(player, targetCategory) {
+function switchPlayerSlot1Tool(player, targetCategory, blockTypeId) {
   // 1. Slot 1 Activation Rule: Must be selecting Hotbar Slot 1 (index 0)
-  if (player.selectedSlotIndex !== 0) {
-    return;
-  }
+  if (player.selectedSlotIndex !== 0) return;
 
   // 2. Inspect player inventory container
   const inventoryComp =
     player.getComponent("minecraft:inventory") ??
     player.getComponent("inventory");
-
-  if (!inventoryComp || !inventoryComp.container) {
-    return;
-  }
-
+  if (!inventoryComp || !inventoryComp.container) return;
   const container = inventoryComp.container;
 
-  // 3. Check current item in Slot 1 (index 0)
-  const currentSlot1Item = container.getItem(0);
+  const blockId = blockTypeId
+    ? blockTypeId.replace(/^minecraft:/, "").toLowerCase()
+    : "";
 
-  // If Slot 1 already holds a matching tool/weapon for this category, keep it!
-  if (isItemMatchingCategory(currentSlot1Item, targetCategory)) {
-    return;
-  }
+  // 3. Score what's currently in Slot 1 (-Infinity if it's the wrong kind of tool)
+  const currentScore = scoreItem(container.getItem(0), targetCategory, 0, blockId);
 
-  // 4. Scan player's inventory (slots 1..size-1) to find the optimal tool/weapon
+  // 4. Find the best candidate in the rest of the inventory
   let bestSlotIndex = -1;
-  let highestScore = -1;
-
+  let bestScore = -Infinity;
   for (let slot = 1; slot < container.size; slot++) {
     const item = container.getItem(slot);
     if (!item) continue;
-
-    const score = evaluateToolScore(item, targetCategory, slot);
-    if (score > highestScore) {
-      highestScore = score;
+    const score = scoreItem(item, targetCategory, slot, blockId);
+    if (score > bestScore) {
+      bestScore = score;
       bestSlotIndex = slot;
     }
   }
+  if (bestSlotIndex === -1 || bestScore === -Infinity) return;
 
-  // 5. If a matching tool exists in inventory, seamlessly swap into Slot 1
-  if (bestSlotIndex !== -1 && highestScore > 0) {
-    try {
-      container.swapItems(bestSlotIndex, 0, container);
-    } catch {
-      // Defer to next tick if the game engine locks container during event dispatch
-      system.run(() => {
-        try {
-          container.swapItems(bestSlotIndex, 0, container);
-        } catch {}
-      });
-    }
-  }
+  // 5. Keep the current tool unless the candidate is clearly better
+  if (currentScore !== -Infinity && bestScore < currentScore + SWITCH_MARGIN) return;
+
+  performSwap(player, container, bestSlotIndex);
 }
 
 // ==============================================================================
 // 4. EVENT-DRIVEN ACTIVATION + CONTINUOUS MINING TRACKER
 // ==============================================================================
 
-/**
- * How long (ticks) a "mining session" stays alive after the last block hit.
- * 20 ticks = 1 second. Raise it if the swap stops following you while holding
- * the attack button; lower it if you want less activity after you stop mining.
- */
+/** Ticks a "mining session" stays alive after the last block hit (20 ticks = 1 sec). */
 const MINING_SESSION_TICKS = 30;
 
 /** How often (ticks) the tracker re-checks what block you're aiming at. */
@@ -556,6 +694,9 @@ const POLL_INTERVAL_TICKS = 2;
 
 /** Max raycast distance (blocks) - covers survival (5) and creative (6) reach. */
 const RAYCAST_DISTANCE = 6;
+
+/** Ticks of no mining/fighting before your original Slot 1 item is put back. */
+const SWAP_BACK_DELAY_TICKS = 60;
 
 /**
  * Active mining sessions. Key = player.id.
@@ -582,7 +723,7 @@ world.afterEvents.entityHitBlock.subscribe((event) => {
     const hitBlock = event.hitBlock;
     if (!hitBlock) return;
 
-    // Start / refresh the continuous-mining session
+    touchHome(player.id);
     miningSessions.set(player.id, {
       expireTick: system.currentTick + MINING_SESSION_TICKS,
       lastKey: blockKey(hitBlock),
@@ -591,28 +732,26 @@ world.afterEvents.entityHitBlock.subscribe((event) => {
     const requiredCategory = getRequiredToolCategory(hitBlock.typeId);
     if (!requiredCategory) return;
 
-    switchPlayerSlot1Tool(player, requiredCategory);
+    switchPlayerSlot1Tool(player, requiredCategory, hitBlock.typeId);
   } catch {}
 });
 
 /**
- * Continuous-mining tracker.
- * Only runs work for players with a live mining session. While you keep
- * mining, it watches the block you're aiming at; the moment it changes
- * (you broke the block and the next one is now targeted), it re-evaluates
- * the tool - no need to stop and re-hit the block.
- * When no one is mining, the loop does nothing.
+ * Main loop. Does nothing unless someone is mining or has an item waiting to be
+ * swapped back.
+ *  - Mining sessions: watches the aimed block; when it changes, re-picks the tool.
+ *  - Swap-back: after SWAP_BACK_DELAY_TICKS of inactivity, restores the original
+ *    Slot 1 item.
  */
 system.runInterval(() => {
-  if (miningSessions.size === 0) return;
+  if (miningSessions.size === 0 && swapHomes.size === 0) return;
 
   const now = system.currentTick;
   const players = new Map(world.getAllPlayers().map((p) => [p.id, p]));
 
+  // --- Continuous mining detection ---
   for (const [id, session] of miningSessions) {
     const player = players.get(id);
-
-    // Player left, or session timed out
     if (!player || now > session.expireTick) {
       miningSessions.delete(id);
       continue;
@@ -633,19 +772,33 @@ system.runInterval(() => {
       }
 
       const key = blockKey(hit.block);
-      if (key === session.lastKey) continue; // same block, nothing to do
+      if (key === session.lastKey) continue;
       session.lastKey = key;
 
       const requiredCategory = getRequiredToolCategory(hit.block.typeId);
       if (!requiredCategory) continue;
 
-      switchPlayerSlot1Tool(player, requiredCategory);
+      switchPlayerSlot1Tool(player, requiredCategory, hit.block.typeId);
     } catch {}
+  }
+
+  // --- Swap original Slot 1 item back after inactivity ---
+  for (const [id, home] of swapHomes) {
+    const player = players.get(id);
+    if (!player || player.selectedSlotIndex !== 0) {
+      swapHomes.delete(id); // left, or moved to another slot - don't touch their inventory
+      continue;
+    }
+    if (now - home.lastActive < SWAP_BACK_DELAY_TICKS) continue;
+
+    swapBackOriginal(player, home);
+    swapHomes.delete(id);
   }
 }, POLL_INTERVAL_TICKS);
 
 world.afterEvents.playerLeave.subscribe((event) => {
   miningSessions.delete(event.playerId);
+  swapHomes.delete(event.playerId);
 });
 
 /**
@@ -663,9 +816,10 @@ world.afterEvents.entityHitEntity.subscribe((event) => {
 
     // Fighting, not mining - end any mining session
     miningSessions.delete(player.id);
+    touchHome(player.id);
 
     switchPlayerSlot1Tool(player, ToolCategory.WEAPON);
   } catch {}
 });
 
-console.warn("[Passive Auto-Switch Tools v1.2.0] Event-driven engine + continuous mining tracker initialized.");
+console.warn("[Passive Auto-Switch Tools v1.3.0] Smart tool scoring, continuous mining and swap-back initialized.");
