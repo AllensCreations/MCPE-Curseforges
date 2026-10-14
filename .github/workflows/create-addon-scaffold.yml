@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
     inputs:
       addon_name:
-        description: 'Addon folder name (hyphens/underscores, no spaces) e.g. My-Cool-Addon'
+        description: 'Addon folder name (hyphens/underscores, no spaces)'
         required: true
         type: string
       addon_description:
@@ -18,40 +18,15 @@ on:
         default: '1.21.0'
         type: string
       server_api_version:
-        description: '@minecraft/server version for the manifest'
+        description: '@minecraft/server version (e.g. 1.13.0)'
         required: false
         default: '1.13.0'
         type: string
-      extra_dependencies:
-        description: 'Extra script modules, comma separated name:version (e.g. @minecraft/server-ui:1.3.0)'
+      main_js:
+        description: 'FULL main.js code. Tip: prefix with "base64:" if pasting multi-line code. Leave empty to use _incoming/main.js or the default template.'
         required: false
         default: ''
         type: string
-      main_js_path:
-        description: 'EASIEST: path to a .js file already in the repo (e.g. MCPEDL/incoming/main.js)'
-        required: false
-        default: ''
-        type: string
-      main_js_base64:
-        description: 'ALTERNATIVE: your full main.js encoded as base64 (used if no path given)'
-        required: false
-        default: ''
-        type: string
-      delete_source_js:
-        description: 'Delete the source .js file (main_js_path) after it is moved into the addon'
-        required: false
-        default: true
-        type: boolean
-      include_resource_pack:
-        description: 'Also create a resource_pack (RP) and link it to the BP'
-        required: false
-        default: false
-        type: boolean
-      commit_and_push:
-        description: 'Commit and push the scaffold + built packs to the repo'
-        required: false
-        default: true
-        type: boolean
 
 permissions:
   contents: write
@@ -64,333 +39,232 @@ jobs:
   scaffold:
     runs-on: ubuntu-latest
 
+    # Inputs are passed through env vars (never interpolated into shell)
+    # to prevent script injection.
+    env:
+      ADDON: ${{ github.event.inputs.addon_name }}
+      DESC: ${{ github.event.inputs.addon_description }}
+      ENGINE: ${{ github.event.inputs.min_engine_version }}
+      API_VER: ${{ github.event.inputs.server_api_version }}
+      MAIN_JS_INPUT: ${{ github.event.inputs.main_js }}
+
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
-          token: ${{ secrets.GITHUB_TOKEN }}
 
-      # ── 1. Validate every input (passed via env, never interpolated into shell) ──
       - name: Validate inputs
-        env:
-          ADDON: ${{ inputs.addon_name }}
-          ENGINE: ${{ inputs.min_engine_version }}
-          SERVER_VER: ${{ inputs.server_api_version }}
-          JS_PATH: ${{ inputs.main_js_path }}
         run: |
-          fail() { echo "::error::$1"; exit 1; }
-
-          [[ -n "$ADDON" ]] || fail "Addon name cannot be empty."
-          [[ "$ADDON" =~ ^[a-zA-Z0-9_-]+$ ]] || fail "Addon name '$ADDON' may only contain letters, numbers, hyphens and underscores."
-          [[ ! -d "MCPEDL/addons/$ADDON" ]] || fail "Addon folder 'MCPEDL/addons/$ADDON' already exists. Choose a different name."
-
-          [[ "$ENGINE" =~ ^[0-9]+\.[0-9]+\.[0-9]+$ ]] || fail "min_engine_version must look like 1.21.0"
-          [[ "$SERVER_VER" =~ ^[0-9]+\.[0-9]+\.[0-9]+(-[a-zA-Z0-9.]+)?$ ]] || fail "server_api_version must look like 1.13.0 (or 2.0.0-beta)"
-
-          if [[ -n "$JS_PATH" ]]; then
-            [[ "$JS_PATH" != /* && "$JS_PATH" != *..* ]] || fail "main_js_path must be a relative path inside the repo."
-            [[ "$JS_PATH" == *.js ]] || fail "main_js_path must end in .js"
-            [[ -f "$JS_PATH" ]] || fail "main_js_path '$JS_PATH' was not found in the repo."
-          fi
-          echo "✅ Inputs look good: $ADDON"
-
-      # ── 2. Resolve main.js (repo file > base64 > built-in template) ─────────────
-      - name: Resolve main.js
-        id: js
-        env:
-          JS_PATH: ${{ inputs.main_js_path }}
-          JS_B64: ${{ inputs.main_js_base64 }}
-        run: |
-          OUT="$RUNNER_TEMP/custom_main.js"
-          if [[ -n "$JS_PATH" ]]; then
-            cp "$JS_PATH" "$OUT"
-            echo "📄 Using main.js from repo path: $JS_PATH"
-          elif [[ -n "$JS_B64" ]]; then
-            echo "$JS_B64" | tr -d ' \n\r' | base64 -d > "$OUT" \
-              || { echo "::error::main_js_base64 is not valid base64."; exit 1; }
-            echo "📄 Using main.js decoded from base64 input"
-          else
-            echo "📝 No custom script supplied — the starter template will be used."
-            echo "path=" >> "$GITHUB_OUTPUT"
-            exit 0
-          fi
-
-          [[ -s "$OUT" ]] || { echo "::error::Supplied main.js is empty."; exit 1; }
-
-          # Syntax check (scripts are ES modules, so check as .mjs)
-          cp "$OUT" "$RUNNER_TEMP/check.mjs"
-          if ! node --check "$RUNNER_TEMP/check.mjs"; then
-            echo "::error::main.js has a JavaScript syntax error (see log above)."
+          if [[ ! "$ADDON" =~ ^[A-Za-z0-9_-]+$ ]]; then
+            echo "❌ Addon name '$ADDON' is invalid. Use letters, numbers, hyphens, or underscores only."
             exit 1
           fi
-          echo "✅ main.js syntax OK ($(wc -l < "$OUT") lines)"
-          echo "path=$OUT" >> "$GITHUB_OUTPUT"
+          for V in "$ENGINE" "$API_VER"; do
+            if [[ ! "$V" =~ ^[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
+              echo "❌ Version '$V' must look like 1.21.0"
+              exit 1
+            fi
+          done
+          if [ -d "MCPEDL/addons/$ADDON" ]; then
+            echo "❌ Addon folder 'MCPEDL/addons/$ADDON' already exists. Choose a different name."
+            exit 1
+          fi
+          echo "✅ Inputs valid: $ADDON"
 
-      # ── 3. Build the scaffold ───────────────────────────────────────────────────
-      - name: Create addon scaffold
-        env:
-          ADDON: ${{ inputs.addon_name }}
-          DESC: ${{ inputs.addon_description }}
-          ENGINE: ${{ inputs.min_engine_version }}
-          SERVER_VER: ${{ inputs.server_api_version }}
-          EXTRA_DEPS: ${{ inputs.extra_dependencies }}
-          INCLUDE_RP: ${{ inputs.include_resource_pack }}
-          CUSTOM_JS: ${{ steps.js.outputs.path }}
+      - name: Create folders, manifest and README
         run: |
           python3 - <<'PY'
-          import datetime, json, os, pathlib, re, shutil, struct, uuid, zlib
+          import json, os, uuid
 
           addon   = os.environ["ADDON"]
-          desc    = os.environ["DESC"] or "A new Minecraft Bedrock addon by AllensCreations."
+          desc    = os.environ["DESC"]
           engine  = [int(x) for x in os.environ["ENGINE"].split(".")]
-          server  = os.environ["SERVER_VER"]
-          use_rp  = os.environ["INCLUDE_RP"].lower() == "true"
-          custom  = os.environ.get("CUSTOM_JS", "")
-          today   = datetime.datetime.utcnow().strftime("%Y-%m-%d")
+          api_ver = os.environ["API_VER"]
 
-          root = pathlib.Path("MCPEDL/addons") / addon
-          bp   = root / "behavior_pack"
-          rp   = root / "resource_pack"
-          (bp / "scripts").mkdir(parents=True)
-          if use_rp:
-              rp.mkdir(parents=True)
+          root = f"MCPEDL/addons/{addon}"
+          os.makedirs(f"{root}/behavior_pack/scripts", exist_ok=True)
 
-          new = lambda: str(uuid.uuid4())
-          bp_header, bp_data, bp_script = new(), new(), new()
-          rp_header, rp_res = new(), new()
-
-          def write_json(path, data):
-              path.write_text(json.dumps(data, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
-
-          def write_png(path, size=128, rgb=(46, 160, 67)):
-              raw = b"".join(b"\x00" + bytes(rgb) * size for _ in range(size))
-              def chunk(tag, data):
-                  body = tag + data
-                  return struct.pack(">I", len(data)) + body + struct.pack(">I", zlib.crc32(body) & 0xFFFFFFFF)
-              path.write_bytes(
-                  b"\x89PNG\r\n\x1a\n"
-                  + chunk(b"IHDR", struct.pack(">IIBBBBB", size, size, 8, 2, 0, 0, 0))
-                  + chunk(b"IDAT", zlib.compress(raw))
-                  + chunk(b"IEND", b"")
-              )
-
-          # ── dependencies ──
-          deps = [{"module_name": "@minecraft/server", "version": server}]
-          for item in filter(None, (s.strip() for s in os.environ.get("EXTRA_DEPS", "").split(","))):
-              name, _, ver = item.rpartition(":")
-              if not name or not ver:
-                  raise SystemExit(f"::error::Bad extra_dependencies entry '{item}' (use name:version)")
-              deps.append({"module_name": name, "version": ver})
-          if use_rp:
-              deps.append({"uuid": rp_header, "version": [1, 0, 0]})
-
-          # ── behavior_pack/manifest.json ──
-          write_json(bp / "manifest.json", {
+          manifest = {
               "format_version": 2,
               "header": {
                   "name": f"{addon} BP by AllensCreations",
                   "description": desc,
-                  "uuid": bp_header,
+                  "uuid": str(uuid.uuid4()),
                   "version": [1, 0, 0],
                   "min_engine_version": engine,
               },
               "modules": [
-                  {"description": f"{addon} Behavior Module", "type": "data",
-                   "uuid": bp_data, "version": [1, 0, 0]},
-                  {"description": f"{addon} Script Module", "type": "script", "language": "javascript",
-                   "uuid": bp_script, "version": [1, 0, 0], "entry": "scripts/main.js"},
-              ],
-              "dependencies": deps,
-          })
-          write_png(bp / "pack_icon.png")
-
-          # ── resource_pack/manifest.json ──
-          if use_rp:
-              write_json(rp / "manifest.json", {
-                  "format_version": 2,
-                  "header": {
-                      "name": f"{addon} RP by AllensCreations",
-                      "description": desc,
-                      "uuid": rp_header,
+                  {
+                      "description": f"{addon} Behavior Module",
+                      "type": "data",
+                      "uuid": str(uuid.uuid4()),
                       "version": [1, 0, 0],
-                      "min_engine_version": engine,
                   },
-                  "modules": [
-                      {"description": f"{addon} Resource Module", "type": "resources",
-                       "uuid": rp_res, "version": [1, 0, 0]},
-                  ],
-                  "dependencies": [{"uuid": bp_header, "version": [1, 0, 0]}],
-              })
-              write_png(rp / "pack_icon.png")
+                  {
+                      "description": f"{addon} Script Module",
+                      "type": "script",
+                      "language": "javascript",
+                      "uuid": str(uuid.uuid4()),
+                      "version": [1, 0, 0],
+                      "entry": "scripts/main.js",
+                  },
+              ],
+              "dependencies": [
+                  {"module_name": "@minecraft/server", "version": api_ver}
+              ],
+          }
 
-          # ── behavior_pack/scripts/main.js ──
-          main_js = bp / "scripts" / "main.js"
-          if custom:
-              shutil.copyfile(custom, main_js)
-          else:
-              main_js.write_text("""// __ADDON__ — main.js
-          // Created: __DATE__
-          // Author : AllensCreations
-          //
-          // TODO: Add your script logic here.
+          with open(f"{root}/behavior_pack/manifest.json", "w", encoding="utf-8") as f:
+              json.dump(manifest, f, indent=2)
+              f.write("\n")
 
-          import { world } from "@minecraft/server";
-
-          world.afterEvents.playerSpawn.subscribe((event) => {
-            if (event.initialSpawn) {
-              event.player.sendMessage("§a[__ADDON__] §rAddon loaded successfully!");
-            }
-          });
-          """.replace("__ADDON__", addon).replace("__DATE__", today), encoding="utf-8")
-
-          # ── warn about imports missing from the manifest ──
-          declared = {d["module_name"] for d in deps if "module_name" in d}
-          used = set(re.findall(r"""from\s+['"](@minecraft/[\w-]+)['"]""", main_js.read_text(encoding="utf-8")))
-          for mod in sorted(used - declared):
-              print(f"::warning::main.js imports '{mod}' but it is not in the manifest. "
-                    f"Re-run with extra_dependencies='{mod}:<version>'.")
-
-          # ── README.md ──
-          pack_note = "**{0} BP** and **{0} RP**".format(addon) if use_rp else f"**{addon} BP**"
-          readme = """# __ADDON__ — Minecraft Bedrock Addon
-
-          [![Minecraft Bedrock](https://img.shields.io/badge/Minecraft%20Bedrock-__ENG__%2B-brightgreen?style=flat-square&logo=minecraft)](https://github.com/AllensCreations/MCPE-Curseforges)
-          [![Release](https://img.shields.io/badge/Release-v1.0.0-blue?style=flat-square)](../README.md#available-source-add-ons)
-          [![Format](https://img.shields.io/badge/Format-.MCADDON-orange?style=flat-square)](../README.md#available-source-add-ons)
-          [![Platform](https://img.shields.io/badge/Platform-Mobile%20%7C%20PC%20%7C%20Console%20%7C%20Realms-yellow?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges)
-
-          Creator: AllensCreations
-          Description: __DESC__
-
-          ---
-
-          ## Overview
-
-          <!-- TODO: Describe what this addon does. -->
-
-          ---
-
-          ## Features
-
-          <!-- TODO: List features here. -->
-
-          ---
-
-          ## Installation
-
-          1. Download `__ADDON__.mcaddon` from the [`downloads`](downloads/) folder.
-          2. Double-tap / open the file to auto-import into Minecraft.
-          3. Apply __PACKS__ to your world.
-
-          ---
-
-          ## Guidelines and Attribution
-
-          - Creator: AllensCreations
-          - Video & Showcase: Content creators may feature this addon with credit to AllensCreations.
-          - Redistribution: Do not re-upload or provide direct monetized download bypasses.
-          - Rights: All rights reserved for AllensCreations.
-
-          ---
-
-          © All rights reserved for AllensCreations.
-          """
-          readme = (readme.replace("__ADDON__", addon).replace("__DESC__", desc)
-                    .replace("__ENG__", os.environ["ENGINE"]).replace("__PACKS__", pack_note))
-          (root / "README.md").write_text(readme, encoding="utf-8")
-          print(f"✅ Scaffold created at {root}")
+          eng = os.environ["ENGINE"]
+          lines = [
+              f"# {addon} — Minecraft Bedrock Addon",
+              "",
+              f"[![Minecraft Bedrock](https://img.shields.io/badge/Minecraft%20Bedrock-{eng}%2B-brightgreen?style=flat-square&logo=minecraft)](https://github.com/AllensCreations/MCPE-Curseforges)",
+              "[![Release](https://img.shields.io/badge/Release-v1.0.0-blue?style=flat-square)](../README.md#available-source-add-ons)",
+              "[![Format](https://img.shields.io/badge/Format-.MCPACK-orange?style=flat-square)](../README.md#available-source-add-ons)",
+              "[![Platform](https://img.shields.io/badge/Platform-Mobile%20%7C%20PC%20%7C%20Console%20%7C%20Realms-yellow?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges)",
+              "",
+              "Creator: AllensCreations  ",
+              f"Description: {desc}",
+              "",
+              "---",
+              "",
+              "## Overview",
+              "",
+              "<!-- TODO: Describe what this addon does. -->",
+              "",
+              "---",
+              "",
+              "## Features",
+              "",
+              "<!-- TODO: List features here. -->",
+              "",
+              "---",
+              "",
+              "## Installation",
+              "",
+              f"1. Download `{addon}.mcpack` from this folder.",
+              "2. Open the file to auto-import into Minecraft.",
+              f"3. Apply **{addon} BP** to your world's behavior packs.",
+              "",
+              "---",
+              "",
+              "## Guidelines and Attribution",
+              "",
+              "- Creator: AllensCreations",
+              "- Video & Showcase: Content creators may feature this addon with credit to AllensCreations.",
+              "- Redistribution: Do not re-upload or provide direct monetized download bypasses.",
+              "- Rights: All rights reserved for AllensCreations.",
+              "",
+              "---",
+              "",
+              "© All rights reserved for AllensCreations.",
+              "",
+          ]
+          with open(f"{root}/README.md", "w", encoding="utf-8") as f:
+              f.write("\n".join(lines))
           PY
 
-      # ── 4. Package .mcpack files + .mcaddon bundle ──────────────────────────────
-      - name: Build .mcpack / .mcaddon
-        env:
-          ADDON: ${{ inputs.addon_name }}
-          INCLUDE_RP: ${{ inputs.include_resource_pack }}
+      - name: Write main.js
         run: |
-          ROOT="MCPEDL/addons/$ADDON"
-          OUT="$PWD/$ROOT/downloads"
-          mkdir -p "$OUT"
+          OUT="MCPEDL/addons/$ADDON/behavior_pack/scripts/main.js"
+          USED_INCOMING=false
 
-          # manifest.json must sit at the root of each pack zip
-          (cd "$ROOT/behavior_pack" && zip -qr "$OUT/${ADDON}_BP.mcpack" .)
-          FOLDERS="behavior_pack"
+          if [ -n "$MAIN_JS_INPUT" ]; then
+            echo "📝 Using main.js from workflow input"
+            if [[ "$MAIN_JS_INPUT" == base64:* ]]; then
+              printf '%s' "${MAIN_JS_INPUT#base64:}" | base64 -d > "$OUT"
+            else
+              printf '%s\n' "$MAIN_JS_INPUT" > "$OUT"
+            fi
+          elif [ -f "_incoming/main.js" ]; then
+            echo "📝 Using main.js from _incoming/main.js"
+            cp "_incoming/main.js" "$OUT"
+            USED_INCOMING=true
+          else
+            echo "📝 No script provided — using default template"
+            cat > "$OUT" <<EOF
+          // $ADDON — main.js
+          // Created: $(date -u +"%Y-%m-%d")
+          // Author : AllensCreations
 
-          if [[ "$INCLUDE_RP" == "true" ]]; then
-            (cd "$ROOT/resource_pack" && zip -qr "$OUT/${ADDON}_RP.mcpack" .)
-            FOLDERS="behavior_pack resource_pack"
+          import * as mc from "@minecraft/server";
+
+          mc.world.afterEvents.worldInitialize.subscribe(() => {
+            mc.world.sendMessage("§a[$ADDON] §rAddon loaded successfully!");
+          });
+          EOF
           fi
 
-          # .mcaddon = both pack folders zipped together
-          (cd "$ROOT" && zip -qr "$OUT/${ADDON}.mcaddon" $FOLDERS)
+          echo "USED_INCOMING=$USED_INCOMING" >> "$GITHUB_ENV"
 
+          if [ ! -s "$OUT" ]; then
+            echo "❌ main.js is empty (bad base64?)."
+            exit 1
+          fi
+
+      - name: Syntax-check main.js
+        run: |
+          cp "MCPEDL/addons/$ADDON/behavior_pack/scripts/main.js" /tmp/check.mjs
+          node --check /tmp/check.mjs && echo "✅ main.js syntax OK"
+
+      - name: Build .mcpack
+        run: |
+          ROOT="MCPEDL/addons/$ADDON"
+          (cd "$ROOT/behavior_pack" && zip -r -X "../$ADDON.mcpack" . -x "*.DS_Store")
           echo "📦 Built:"
-          ls -lh "$OUT"
+          unzip -l "$ROOT/$ADDON.mcpack"
 
-      # ── 5. Commit + push ────────────────────────────────────────────────────────
       - name: Commit and push
-        if: ${{ inputs.commit_and_push }}
-        env:
-          ADDON: ${{ inputs.addon_name }}
-          JS_PATH: ${{ inputs.main_js_path }}
-          DELETE_SRC: ${{ inputs.delete_source_js }}
         run: |
           git config user.name  "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
 
           git add "MCPEDL/addons/$ADDON"
-          if [[ -n "$JS_PATH" && "$DELETE_SRC" == "true" ]]; then
-            git rm -q --ignore-unmatch -- "$JS_PATH"
+          if [ "$USED_INCOMING" = "true" ]; then
+            git rm -q --ignore-unmatch "_incoming/main.js"
           fi
 
-          git commit -m "feat(addon): scaffold $ADDON with built .mcpack/.mcaddon [skip ci]"
+          if git diff --cached --quiet; then
+            echo "Nothing to commit."
+            exit 0
+          fi
 
-          for attempt in 1 2 3; do
-            if git push; then
-              echo "🚀 Pushed on attempt $attempt"
-              exit 0
-            fi
-            echo "⚠️ Push failed (attempt $attempt) — rebasing and retrying..."
-            git pull --rebase
+          git commit -m "feat(addon): scaffold $ADDON and build .mcpack"
+
+          for i in 1 2 3; do
+            git pull --rebase origin "$GITHUB_REF_NAME" && git push origin "HEAD:$GITHUB_REF_NAME" && break
+            echo "Push failed, retrying ($i/3)..."
+            sleep 3
           done
-          echo "::error::Could not push after 3 attempts. If the branch is protected, run with commit_and_push=false and download the artifact."
-          exit 1
 
-      # ── 6. Summary ──────────────────────────────────────────────────────────────
       - name: Summary
-        env:
-          ADDON: ${{ inputs.addon_name }}
-          DESC: ${{ inputs.addon_description }}
-          ENGINE: ${{ inputs.min_engine_version }}
-          COMMITTED: ${{ inputs.commit_and_push }}
-          CUSTOM_JS: ${{ steps.js.outputs.path }}
         run: |
           {
-            echo "### ✅ Addon Scaffold Created"
+            echo "### ✅ Addon Created, Packed & Pushed"
             echo ""
             echo "| Field | Value |"
             echo "|---|---|"
-            echo "| **Addon Name** | \`$ADDON\` |"
+            echo "| **Addon** | \`$ADDON\` |"
             echo "| **Location** | \`MCPEDL/addons/$ADDON/\` |"
-            echo "| **Description** | $DESC |"
             echo "| **Min Engine** | $ENGINE |"
-            echo "| **main.js** | $([[ -n "$CUSTOM_JS" ]] && echo 'custom script' || echo 'starter template') |"
-            echo "| **Committed & pushed** | $COMMITTED |"
+            echo "| **@minecraft/server** | $API_VER |"
+            echo "| **Pack** | \`$ADDON.mcpack\` |"
             echo ""
             echo "**Files:**"
             echo '```'
             find "MCPEDL/addons/$ADDON" -type f | sort
             echo '```'
-            if [[ "$COMMITTED" != "true" ]]; then
-              echo ""
-              echo "> ⚠️ Nothing was committed. Download the artifact below to get your files."
-            fi
           } >> "$GITHUB_STEP_SUMMARY"
 
-      - name: Upload scaffold as artifact
+      - name: Upload .mcpack artifact
         uses: actions/upload-artifact@v4
         with:
-          name: ${{ inputs.addon_name }}-scaffold
-          path: MCPEDL/addons/${{ inputs.addon_name }}/
+          name: ${{ github.event.inputs.addon_name }}-mcpack
+          path: MCPEDL/addons/${{ github.event.inputs.addon_name }}/${{ github.event.inputs.addon_name }}.mcpack
           if-no-files-found: error
           retention-days: 7
