@@ -3,33 +3,9 @@ name: "Create New Addon Scaffold"
 on:
   workflow_dispatch:
     inputs:
-      addon_name:
-        description: 'Addon folder name (letters, numbers, hyphens, underscores)'
-        required: true
-        type: string
-
-      addon_description:
-        description: "Fallback description (maximum 256 characters)"
-        required: false
-        default: "A new Minecraft Bedrock addon by AllensCreations."
-        type: string
-
-      min_engine_version:
-        description: "Minimum Minecraft engine version"
-        required: false
-        default: "1.26.0"
-        type: string
-
-      server_api_version:
-        description: "@minecraft/server dependency version"
-        required: false
-        default: "2.0.0"
-        type: string
-
       payload_b64:
-        description: "Base64-encoded payload containing DESCRIPTION, OVERVIEW, FEATURES, LIMITATIONS and MAIN_JS sections. Empty uses _incoming/addon_payload.txt or defaults."
-        required: false
-        default: ""
+        description: "Paste the Base64-encoded add-on payload. Everything else is automatic."
+        required: true
         type: string
 
 permissions:
@@ -44,10 +20,6 @@ jobs:
     runs-on: ubuntu-latest
 
     env:
-      ADDON: ${{ inputs.addon_name }}
-      DESC_INPUT: ${{ inputs.addon_description }}
-      ENGINE: ${{ inputs.min_engine_version }}
-      API_VER: ${{ inputs.server_api_version }}
       PAYLOAD_B64: ${{ inputs.payload_b64 }}
 
     steps:
@@ -62,234 +34,254 @@ jobs:
         with:
           python-version: "3.x"
 
-      - name: Validate inputs
+      - name: Validate and decode payload
+        id: payload
         shell: bash
         run: |
           set -euo pipefail
 
-          if [[ ! "$ADDON" =~ ^[A-Za-z0-9_-]+$ ]]; then
-            echo "::error::Invalid add-on name. Use letters, numbers, hyphens, and underscores."
-            exit 1
-          fi
-
-          for VERSION in "$ENGINE" "$API_VER"; do
-            if [[ ! "$VERSION" =~ ^[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
-              echo "::error::Invalid version format: $VERSION"
-              exit 1
-            fi
-          done
-
-          if [ "${#DESC_INPUT}" -gt 256 ]; then
-            echo "::error::Fallback description exceeds 256 characters."
-            exit 1
-          fi
-
-          if [ -d "MCPEDL/addons/$ADDON" ]; then
-            echo "::error::Add-on folder already exists: MCPEDL/addons/$ADDON"
-            exit 1
-          fi
-
-          if [ ! -f scripts/auto_bump_and_build.py ]; then
-            echo "::error::Missing scripts/auto_bump_and_build.py"
-            exit 1
-          fi
-
-          echo "Input format validation passed."
-
-      - name: Create add-on scaffold
-        shell: bash
-        run: |
-          set -euo pipefail
           python3 - <<'PY'
           import base64
           import json
           import os
           import re
           import sys
-          import uuid
-
-          MAX_PAYLOAD_BYTES = 2 * 1024 * 1024
 
           def fail(message):
               print(f"::error::{message}")
               sys.exit(1)
 
-          addon = os.environ["ADDON"]
-          engine_s = os.environ["ENGINE"]
-          api_ver = os.environ["API_VER"]
-          engine = [int(part) for part in engine_s.split(".")]
-          incoming = "_incoming/addon_payload.txt"
+          MAX_PAYLOAD_BYTES = 2 * 1024 * 1024
 
-          b64 = re.sub(r"\s+", "", os.environ.get("PAYLOAD_B64", ""))
-          raw = ""
-          used_incoming = False
+          encoded = re.sub(r"\s+", "", os.environ.get("PAYLOAD_B64", ""))
 
-          # Load the submitted payload or repository fallback.
-          if b64:
-              if b64.lower().startswith("base64:"):
-                  b64 = b64[7:]
+          if encoded.lower().startswith("base64:"):
+              encoded = encoded[7:]
 
-              if len(b64) > MAX_PAYLOAD_BYTES * 2:
-                  fail("Encoded payload exceeds the configured size limit.")
+          if not encoded:
+              fail("Base64 payload is required.")
 
-              try:
-                  raw_bytes = base64.b64decode(
-                      b64 + "=" * (-len(b64) % 4),
-                      validate=True
-                  )
-                  if len(raw_bytes) > MAX_PAYLOAD_BYTES:
-                      fail("Decoded payload exceeds the 2 MiB limit.")
-                  raw = raw_bytes.decode("utf-8")
-              except Exception as exc:
-                  fail(f"Invalid Base64 or UTF-8 payload: {exc}")
+          if len(encoded) > MAX_PAYLOAD_BYTES * 2:
+              fail("Encoded payload exceeds the size limit.")
 
-              print("Loaded workflow payload.")
+          try:
+              decoded = base64.b64decode(
+                  encoded + "=" * (-len(encoded) % 4),
+                  validate=True
+              )
+              if len(decoded) > MAX_PAYLOAD_BYTES:
+                  fail("Decoded payload exceeds the 2 MiB limit.")
 
-          elif os.path.isfile(incoming):
-              if os.path.getsize(incoming) > MAX_PAYLOAD_BYTES:
-                  fail("Incoming payload exceeds the 2 MiB limit.")
+              text = decoded.decode("utf-8")
+          except Exception as exc:
+              fail(f"Unable to decode Base64 payload: {exc}")
 
-              with open(incoming, encoding="utf-8") as file:
-                  raw = file.read()
-
-              used_incoming = True
-              print(f"Loaded {incoming}.")
-
-          else:
-              print("No payload supplied. Using the default script.")
-
-          # Parse sections.
           sections = {}
 
-          if raw:
-              text = raw.replace("\r\n", "\n").replace("\r", "\n").strip()
+          if text.lstrip().startswith("{"):
+              try:
+                  data = json.loads(text)
+              except json.JSONDecodeError as exc:
+                  fail(f"Invalid JSON payload: {exc}")
 
-              if text.startswith("{"):
-                  try:
-                      data = json.loads(text)
-                  except json.JSONDecodeError as exc:
-                      fail(f"Invalid JSON payload: {exc}")
+              if not isinstance(data, dict):
+                  fail("JSON payload must be an object.")
 
-                  if not isinstance(data, dict):
-                      fail("JSON payload must be an object.")
+              aliases = {
+                  "addon_name": "addon_name",
+                  "name": "addon_name",
+                  "description": "description",
+                  "overview": "overview",
+                  "features": "features",
+                  "limitations": "limitations",
+                  "main_js": "main_js",
+                  "min_engine_version": "min_engine_version",
+                  "server_api_version": "server_api_version",
+              }
 
-                  allowed = {
-                      "description",
-                      "overview",
-                      "features",
-                      "limitations",
-                      "main_js",
-                  }
+              for key, value in data.items():
+                  normalized = aliases.get(key.lower())
 
-                  for key, value in data.items():
-                      normalized = key.lower()
-                      if normalized not in allowed:
-                          fail(f"Unknown JSON payload field: {key}")
+                  if normalized is None:
+                      fail(f"Unknown payload field: {key}")
 
-                      if not isinstance(value, str):
-                          fail(f"Payload field '{key}' must be a string.")
+                  if normalized in sections:
+                      fail(f"Duplicate payload field: {normalized}")
 
-                      sections[normalized] = value
+                  if not isinstance(value, str):
+                      fail(f"Payload field '{key}' must be a string.")
 
-              else:
-                  allowed = {
-                      "description",
-                      "overview",
-                      "features",
-                      "limitations",
-                      "main_js",
-                  }
+                  sections[normalized] = value
 
-                  current = None
-                  buffers = {}
+          else:
+              allowed = {
+                  "addon_name",
+                  "description",
+                  "overview",
+                  "features",
+                  "limitations",
+                  "main_js",
+                  "min_engine_version",
+                  "server_api_version",
+              }
 
-                  for line_number, line in enumerate(text.split("\n"), 1):
-                      match = re.fullmatch(
-                          r"===([A-Za-z_]+)===",
-                          line.strip()
-                      )
+              aliases = {
+                  "name": "addon_name",
+                  "addon": "addon_name",
+              }
 
-                      if match:
-                          key = match.group(1).lower()
+              current = None
+              buffers = {}
 
-                          if key not in allowed:
-                              fail(
-                                  f"Unknown section '{key}' "
-                                  f"on line {line_number}."
-                              )
+              for line_number, line in enumerate(text.splitlines(), 1):
+                  match = re.fullmatch(
+                      r"===([A-Za-z_]+)===",
+                      line.strip()
+                  )
 
-                          if key in buffers:
-                              fail(f"Duplicate payload section: {key}")
+                  if match:
+                      key = match.group(1).lower()
+                      key = aliases.get(key, key)
 
-                          current = key
-                          buffers[key] = []
-                          continue
+                      if key not in allowed:
+                          fail(
+                              f"Unknown section '{key}' "
+                              f"on line {line_number}."
+                          )
 
-                      if current is None:
-                          if line.strip():
-                              fail(
-                                  "Text found before the first section "
-                                  "marker."
-                              )
-                          continue
+                      if key in buffers:
+                          fail(f"Duplicate section: {key}")
 
-                      buffers[current].append(line)
+                      buffers[key] = []
+                      current = key
+                      continue
 
-                  if not buffers:
-                      fail("Payload contains no valid section markers.")
+                  if current is None:
+                      if line.strip():
+                          fail(
+                              "Unexpected text before the first section marker."
+                          )
+                      continue
 
-                  sections = {
-                      key: "\n".join(lines).strip("\n")
-                      for key, lines in buffers.items()
-                  }
+                  buffers[current].append(line)
 
-          # Validate the description.
-          fallback = os.environ.get("DESC_INPUT", "")
-          desc = " ".join(
-              (sections.get("description") or fallback).split()
+              sections = {
+                  key: "\n".join(lines).strip("\n")
+                  for key, lines in buffers.items()
+              }
+
+          addon = sections.get("addon_name", "").strip()
+
+          if not addon:
+              fail("Missing required ADDON_NAME section.")
+
+          if not re.fullmatch(r"[A-Za-z0-9_-]+", addon):
+              fail(
+                  "Invalid add-on name. Use letters, numbers, "
+                  "hyphens, and underscores only."
+              )
+
+          description = " ".join(
+              sections.get("description", "").split()
           )
 
-          if not desc:
-              fail("Description cannot be empty.")
+          if not description:
+              fail("Missing required DESCRIPTION section.")
 
-          if len(desc) > 256:
+          if len(description) > 256:
               fail("Description exceeds 256 characters.")
 
-          # Prepare the script.
           main_js = sections.get("main_js", "").strip("\n")
 
-          if not main_js:
-              main_js = f'''// {addon} - main.js
-          // Author: AllensCreations
+          if not main_js.strip():
+              fail("Missing required MAIN_JS section.")
 
-          import {{ world }} from "@minecraft/server";
-
-          world.afterEvents.worldLoad.subscribe(() => {{
-            world.sendMessage("§a[{addon}] §rAddon loaded successfully!");
-          }});
-          '''
-
-          # Require the standard script dependency when importing Minecraft APIs.
-          imports = set(
-              re.findall(
-                  r'''from\s*["'](@minecraft/[A-Za-z0-9_-]+)["']''',
-                  main_js
-              )
+          engine = (
+              sections.get("min_engine_version", "").strip() or "1.26.0"
+          )
+          api_version = (
+              sections.get("server_api_version", "").strip() or "2.0.0"
           )
 
-          if "@minecraft/server" not in imports:
-              print(
-                  "::warning::No static @minecraft/server import detected. "
-                  "Verify script dependencies manually."
-              )
+          for label, version in [
+              ("Minimum engine version", engine),
+              ("Script API version", api_version),
+          ]:
+              if not re.fullmatch(r"[0-9]+\.[0-9]+\.[0-9]+", version):
+                  fail(f"Invalid {label}: {version}")
 
-          for module in sorted(imports - {"@minecraft/server"}):
-              print(
-                  f"::warning::Additional API dependency detected: {module}. "
-                  "Verify and add its matching manifest dependency."
-              )
+          output_path = "_incoming/decoded_addon_payload.json"
+          os.makedirs("_incoming", exist_ok=True)
 
-          # Create the add-on directory.
+          normalized = {
+              "addon_name": addon,
+              "description": description,
+              "overview": sections.get("overview", "").strip(),
+              "features": sections.get("features", ""),
+              "limitations": sections.get("limitations", ""),
+              "main_js": main_js,
+              "min_engine_version": engine,
+              "server_api_version": api_version,
+          }
+
+          with open(output_path, "w", encoding="utf-8") as file:
+              json.dump(normalized, file, ensure_ascii=False, indent=2)
+              file.write("\n")
+
+          with open(os.environ["GITHUB_ENV"], "a", encoding="utf-8") as file:
+              file.write(f"ADDON={addon}\n")
+              file.write(f"ENGINE={engine}\n")
+              file.write(f"API_VER={api_version}\n")
+
+          with open(os.environ["GITHUB_OUTPUT"], "a", encoding="utf-8") as file:
+              file.write(f"addon_name={addon}\n")
+
+          print("Payload validated.")
+          print(f"Add-on: {addon}")
+          print(f"Minimum engine: {engine}")
+          print(f"Script API: {api_version}")
+          PY
+
+      - name: Check repository and prepare files
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          if [ -d "MCPEDL/addons/$ADDON" ]; then
+            echo "::error::Add-on already exists: MCPEDL/addons/$ADDON"
+            exit 1
+          fi
+
+          if [ ! -f "scripts/auto_bump_and_build.py" ]; then
+            echo "::error::Missing scripts/auto_bump_and_build.py"
+            exit 1
+          fi
+
+      - name: Generate behavior pack, manifest, and README
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          python3 - <<'PY'
+          import json
+          import os
+          import re
+          import sys
+          import uuid
+
+          addon = os.environ["ADDON"]
+          engine = [
+              int(part)
+              for part in os.environ["ENGINE"].split(".")
+          ]
+          api_version = os.environ["API_VER"]
+
+          with open(
+              "_incoming/decoded_addon_payload.json",
+              encoding="utf-8"
+          ) as file:
+              data = json.load(file)
+
           root = f"MCPEDL/addons/{addon}"
           bp = f"{root}/behavior_pack"
           scripts = f"{bp}/scripts"
@@ -299,22 +291,16 @@ jobs:
           with open(
               f"{scripts}/main.js",
               "w",
-              encoding="utf-8",
-              newline="\n"
+              encoding="utf-8"
           ) as file:
-              file.write(main_js.rstrip("\n") + "\n")
-
-          # Generate the manifest.
-          header_uuid = str(uuid.uuid4())
-          data_uuid = str(uuid.uuid4())
-          script_uuid = str(uuid.uuid4())
+              file.write(data["main_js"].rstrip("\n") + "\n")
 
           manifest = {
               "format_version": 2,
               "header": {
                   "name": f"{addon} BP by AllensCreations",
-                  "description": desc,
-                  "uuid": header_uuid,
+                  "description": data["description"],
+                  "uuid": str(uuid.uuid4()),
                   "version": [1, 0, 0],
                   "min_engine_version": engine,
               },
@@ -322,14 +308,14 @@ jobs:
                   {
                       "description": f"{addon} Behavior Module",
                       "type": "data",
-                      "uuid": data_uuid,
+                      "uuid": str(uuid.uuid4()),
                       "version": [1, 0, 0],
                   },
                   {
                       "description": f"{addon} Script Module",
                       "type": "script",
                       "language": "javascript",
-                      "uuid": script_uuid,
+                      "uuid": str(uuid.uuid4()),
                       "version": [1, 0, 0],
                       "entry": "scripts/main.js",
                   },
@@ -337,106 +323,105 @@ jobs:
               "dependencies": [
                   {
                       "module_name": "@minecraft/server",
-                      "version": api_ver,
+                      "version": api_version,
                   }
               ],
           }
 
-          all_uuids = [
+          uuids = [
               manifest["header"]["uuid"],
-              *[module["uuid"] for module in manifest["modules"]],
+              *[
+                  module["uuid"]
+                  for module in manifest["modules"]
+              ],
           ]
 
-          if len(all_uuids) != len(set(all_uuids)):
-              fail("Generated manifest contains duplicate UUIDs.")
+          if len(uuids) != len(set(uuids)):
+              sys.exit("Generated manifest contains duplicate UUIDs.")
 
-          manifest_path = f"{bp}/manifest.json"
-
-          with open(manifest_path, "w", encoding="utf-8") as file:
+          with open(
+              f"{bp}/manifest.json",
+              "w",
+              encoding="utf-8"
+          ) as file:
               json.dump(manifest, file, indent=2, ensure_ascii=False)
               file.write("\n")
 
-          # Verify the generated manifest.
-          with open(manifest_path, encoding="utf-8") as file:
-              checked = json.load(file)
-
-          if len(checked.get("modules", [])) != 2:
-              fail("Generated manifest has an unexpected module count.")
-
-          # README generation.
-          title = addon.replace("-", " ").replace("_", " ")
-
           def markdown_escape(value):
-              return value.replace("\\", "\\\\").replace("|", "\\|").replace("\n", " ")
+              return (
+                  value.replace("\\", "\\\\")
+                  .replace("|", "\\|")
+                  .replace("\n", " ")
+              )
 
-          def bullet_items(key):
-              value = sections.get(key, "")
-              if not value.strip():
-                  return []
-
+          def list_items(value):
               return [
                   re.sub(r"^\s*[-*]\s+", "", line).strip()
                   for line in value.splitlines()
                   if line.strip()
               ]
 
-          overview = sections.get("overview", "").strip()
-          features = bullet_items("features")
-          limitations = bullet_items("limitations")
+          title = addon.replace("-", " ").replace("_", " ")
+          features = list_items(data["features"])
+          limitations = list_items(data["limitations"])
 
-          md = [
+          readme = [
               f"# {title} - Add-on for Minecraft Bedrock",
               "",
               "Creator: AllensCreations",
               "",
-              f"Description: {markdown_escape(desc)}",
+              f"Description: {markdown_escape(data['description'])}",
               "",
           ]
 
-          if overview:
-              md += ["## Overview", "", overview, ""]
+          if data["overview"]:
+              readme += [
+                  "## Overview",
+                  "",
+                  data["overview"],
+                  "",
+              ]
 
           if features:
-              md += ["## Features", ""]
-              md += [f"- {item}" for item in features]
-              md += [""]
+              readme += ["## Features", ""]
+              readme += [f"- {item}" for item in features]
+              readme += [""]
 
-          md += [
+          readme += [
               "## Requirements",
               "",
               "| Requirement | Value |",
               "| --- | --- |",
               f"| Behavior pack | `{addon} BP by AllensCreations` |",
-              f"| Script API | `@minecraft/server` {api_ver} |",
-              "| Script entry point | `scripts/main.js` |",
-              f"| Minimum engine version | {engine_s} |",
+              f"| Script API | `@minecraft/server` {api_version} |",
+              "| Entry point | `scripts/main.js` |",
+              f"| Minimum engine | {'.'.join(map(str, engine))} |",
               "",
               "## Installation",
               "",
-              "1. Download the add-on package from the repository's release or catalog.",
+              "1. Download the generated package from the repository catalog.",
               "2. Open the package with Minecraft to import it.",
               f"3. Activate `{addon} BP by AllensCreations` in the world's Behavior Packs settings.",
-              "4. Enable any required experimental features if the add-on documentation specifies them.",
+              "4. Enable any additional requirements documented for this add-on.",
               "",
               "## Compatibility and known limitations",
               "",
-              f"- Declared minimum engine version: {engine_s}.",
-              f"- Declared Script API dependency: {api_ver}.",
-              "- Runtime compatibility must be verified in the target Minecraft version.",
-              "- Only features documented and implemented in the script are supported.",
+              f"- Declared minimum engine version: {'.'.join(map(str, engine))}.",
+              f"- Declared Script API dependency: {api_version}.",
+              "- Runtime compatibility must be verified in the target game version.",
               "",
           ]
 
           if limitations:
-              md += [f"- {item}" for item in limitations]
-              md += [""]
+              readme += [f"- {item}" for item in limitations]
+              readme += [""]
 
-          md += [
+          readme += [
               "## Credits and permissions",
               "",
               "- Creator: AllensCreations.",
-              "- Showcase videos may feature this add-on with credit to AllensCreations.",
-              "- Do not redistribute modified or unmodified copies without authorization.",
+              "- Give credit when showcasing this add-on.",
+              "- Do not redistribute without authorization.",
               "",
               "All rights reserved for AllensCreations.",
               "",
@@ -445,28 +430,14 @@ jobs:
           with open(
               f"{root}/README.md",
               "w",
-              encoding="utf-8",
-              newline="\n"
+              encoding="utf-8"
           ) as file:
-              file.write("\n".join(md))
+              file.write("\n".join(readme))
 
-          # Export values safely using GitHub Actions environment-file syntax.
-          with open(os.environ["GITHUB_ENV"], "a", encoding="utf-8") as file:
-              file.write(
-                  f"USED_INCOMING={'true' if used_incoming else 'false'}\n"
-              )
-
-          with open(os.environ["GITHUB_OUTPUT"], "a", encoding="utf-8") as file:
-              file.write(f"addon_root={root}\n")
-
-          print("Scaffold created successfully.")
-
-          for directory, _, filenames in os.walk(root):
-              for filename in sorted(filenames):
-                  print(os.path.join(directory, filename))
+          print(f"Generated scaffold for {addon}.")
           PY
 
-      - name: Validate manifest and JavaScript
+      - name: Validate manifest and JavaScript syntax
         shell: bash
         run: |
           set -euo pipefail
@@ -477,42 +448,30 @@ jobs:
           import sys
 
           root = f"MCPEDL/addons/{os.environ['ADDON']}/behavior_pack"
-          path = os.path.join(root, "manifest.json")
 
-          with open(path, encoding="utf-8") as file:
+          with open(
+              f"{root}/manifest.json",
+              encoding="utf-8"
+          ) as file:
               manifest = json.load(file)
 
-          required = ["header", "modules", "format_version"]
+          if manifest.get("format_version") != 2:
+              sys.exit("Unsupported manifest format.")
 
-          for key in required:
-              if key not in manifest:
-                  sys.exit(f"Missing manifest field: {key}")
+          if not manifest.get("header", {}).get("uuid"):
+              sys.exit("Missing header UUID.")
 
-          if not manifest["header"].get("uuid"):
-              sys.exit("Manifest header UUID is missing.")
+          modules = manifest.get("modules", [])
 
-          for module in manifest["modules"]:
-              if not module.get("uuid"):
-                  sys.exit("Manifest module UUID is missing.")
+          if not any(
+              module.get("type") == "script"
+              and module.get("entry") == "scripts/main.js"
+              for module in modules
+          ):
+              sys.exit("Missing valid script module.")
 
-          script_module = next(
-              (module for module in manifest["modules"]
-               if module.get("type") == "script"),
-              None
-          )
-
-          if not script_module:
-              sys.exit("Manifest script module is missing.")
-
-          entry = script_module.get("entry")
-
-          if not entry:
-              sys.exit("Manifest script entry point is missing.")
-
-          script_path = os.path.join(root, entry)
-
-          if not os.path.isfile(script_path):
-              sys.exit(f"Script entry point does not exist: {entry}")
+          if not os.path.isfile(f"{root}/scripts/main.js"):
+              sys.exit("Missing main.js.")
 
           print("Manifest validation passed.")
           PY
@@ -522,7 +481,7 @@ jobs:
 
           echo "JavaScript syntax validation passed."
 
-      - name: Build packages and update catalogs
+      - name: Build packages and register catalogs
         shell: bash
         run: |
           set -euo pipefail
@@ -531,17 +490,13 @@ jobs:
             --project "$ADDON" \
             --no-bump
 
-      - name: Verify build output
+      - name: Verify generated package
         shell: bash
         run: |
           set -euo pipefail
 
-          test -f "MCPEDL/addons/$ADDON/behavior_pack/manifest.json"
-          test -f "MCPEDL/addons/$ADDON/behavior_pack/scripts/main.js"
-          test -f "MCPEDL/addons/$ADDON/README.md"
-
           if [ ! -d "builds/$ADDON" ]; then
-            echo "::error::Build output directory was not created."
+            echo "::error::Build directory not found."
             exit 1
           fi
 
@@ -550,7 +505,7 @@ jobs:
             -print -quit)
 
           if [ -z "$PACKAGE" ]; then
-            echo "::error::No distributable package was found."
+            echo "::error::No distributable package found."
             exit 1
           fi
 
@@ -561,18 +516,16 @@ jobs:
           path = sys.argv[1]
 
           if not zipfile.is_zipfile(path):
-              sys.exit(f"Package is not a valid ZIP archive: {path}")
+              sys.exit(f"Invalid package archive: {path}")
 
           with zipfile.ZipFile(path) as archive:
-              bad = archive.testzip()
+              corrupt = archive.testzip()
 
-              if bad:
-                  sys.exit(f"Corrupt package entry: {bad}")
+              if corrupt:
+                  sys.exit(f"Corrupt archive entry: {corrupt}")
 
-          print(f"Package archive integrity passed: {path}")
+          print(f"Package archive verified: {path}")
           PY
-
-          echo "Build verification passed."
 
       - name: Commit and push changes
         shell: bash
@@ -589,12 +542,10 @@ jobs:
           [ -f builds/README.md ] && git add builds/README.md || true
           [ -f MCPEDL/addons/README.md ] && git add MCPEDL/addons/README.md || true
 
-          if [ "$USED_INCOMING" = "true" ]; then
-            git rm -q --ignore-unmatch "_incoming/addon_payload.txt"
-          fi
+          git add -f _incoming/decoded_addon_payload.json
 
           if git diff --cached --quiet; then
-            echo "::error::No generated changes are available to commit."
+            echo "::error::No generated changes to commit."
             exit 1
           fi
 
@@ -606,7 +557,6 @@ jobs:
             if git pull --rebase origin "$GITHUB_REF_NAME" &&
                git push origin "HEAD:$GITHUB_REF_NAME"; then
               PUSHED=true
-              echo "Changes pushed successfully."
               break
             fi
 
@@ -632,15 +582,14 @@ jobs:
         shell: bash
         run: |
           {
-            echo "## Add-on Scaffold"
+            echo "## Add-on Scaffold Results"
             echo ""
             echo "| Field | Value |"
             echo "| --- | --- |"
-            echo "| Add-on | \`$ADDON\` |"
-            echo "| Source | \`MCPEDL/addons/$ADDON\` |"
-            echo "| Minimum engine | $ENGINE |"
-            echo "| Script API | $API_VER |"
+            echo "| Add-on | \`${ADDON:-Not generated}\` |"
+            echo "| Engine | \`${ENGINE:-Unknown}\` |"
+            echo "| Script API | \`${API_VER:-Unknown}\` |"
             echo "| Initial version | 1.0.0 |"
             echo ""
-            echo "Check the individual workflow steps for validation, build, and push results."
+            echo "Review the workflow steps for validation, build, and push results."
           } >> "$GITHUB_STEP_SUMMARY"
