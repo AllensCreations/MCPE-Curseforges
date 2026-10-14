@@ -29,14 +29,12 @@
       "geometry": "query.variant == 0 ? Geometry.default : Geometry.head",
       "materials": [
         {
-          "*": "Material.default"
+          "*": "query.variant == 0 ? Material.default : Material.head"
         }
       ],
       "part_visibility": [
         {
           "tentacles_*": "query.variant == 0",
-          "tentacle*": "query.variant == 0",
-          "body": true,
           "hat": "query.variant != 0",
           "piglin_snout": "query.variant == 6",
           "piglin_ear_left": "query.variant == 6",
@@ -44,7 +42,7 @@
         }
       ],
       "textures": [
-        "query.is_charging ? Array.charging[query.variant] : Array.idle[query.variant]"
+        "(query.is_charging || variable.ischarging) ? Array.charging[query.variant] : Array.idle[query.variant]"
       ]
     }
   }

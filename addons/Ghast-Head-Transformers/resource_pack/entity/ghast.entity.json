@@ -1,10 +1,11 @@
 {
-  "format_version": "1.8.0",
+  "format_version": "1.10.0",
   "minecraft:client_entity": {
     "description": {
       "identifier": "minecraft:ghast",
       "materials": {
-        "default": "ghast"
+        "default": "ghast",
+        "head": "entity_alphatest"
       },
       "textures": {
         "default": "textures/entity/ghast/ghast",

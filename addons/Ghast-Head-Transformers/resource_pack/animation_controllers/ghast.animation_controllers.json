@@ -7,22 +7,22 @@
         "idle": {
           "transitions": [
             {
-              "creeper_charge": "query.is_charging && query.variant == 5"
+              "creeper_charge": "(query.is_charging || variable.ischarging) && query.variant == 5"
             },
             {
-              "piglin_charge": "query.is_charging && query.variant == 6"
+              "piglin_charge": "(query.is_charging || variable.ischarging) && query.variant == 6"
             },
             {
-              "skeleton_charge": "query.is_charging && query.variant == 1"
+              "skeleton_charge": "(query.is_charging || variable.ischarging) && query.variant == 1"
             },
             {
-              "wither_charge": "query.is_charging && query.variant == 2"
+              "wither_charge": "(query.is_charging || variable.ischarging) && query.variant == 2"
             },
             {
-              "zombie_charge": "query.is_charging && query.variant == 3"
+              "zombie_charge": "(query.is_charging || variable.ischarging) && query.variant == 3"
             },
             {
-              "dragon_charge": "query.is_charging && query.variant == 7"
+              "dragon_charge": "(query.is_charging || variable.ischarging) && query.variant == 7"
             },
             {
               "skeleton_hurt": "query.hurt_time > 0 && query.variant == 1"
@@ -55,7 +55,7 @@
           ],
           "transitions": [
             {
-              "idle": "!query.is_charging"
+              "idle": "!query.is_charging && !variable.ischarging"
             }
           ]
         },
@@ -67,7 +67,7 @@
           ],
           "transitions": [
             {
-              "idle": "!query.is_charging"
+              "idle": "!query.is_charging && !variable.ischarging"
             }
           ]
         },
@@ -79,7 +79,7 @@
           ],
           "transitions": [
             {
-              "idle": "!query.is_charging"
+              "idle": "!query.is_charging && !variable.ischarging"
             }
           ]
         },
@@ -91,7 +91,7 @@
           ],
           "transitions": [
             {
-              "idle": "!query.is_charging"
+              "idle": "!query.is_charging && !variable.ischarging"
             }
           ]
         },
@@ -103,7 +103,7 @@
           ],
           "transitions": [
             {
-              "idle": "!query.is_charging"
+              "idle": "!query.is_charging && !variable.ischarging"
             }
           ]
         },
@@ -115,7 +115,7 @@
           ],
           "transitions": [
             {
-              "idle": "!query.is_charging"
+              "idle": "!query.is_charging && !variable.ischarging"
             }
           ]
         },
