@@ -60,35 +60,18 @@ Every pack and map README.md must conclude with this standardized section:
 
 ---
 
-## 5. MCPEDL and CurseForge Distribution Prerequisites
-
-Before importing or synchronizing any project from CurseForge to MCPEDL (to prevent the `[mod_id:...] Missing MCPEDL image. - removed from ES` error), ensure that:
-- You have connected your CurseForge Account.
-- Your project has an image with the title MCPEDL (no quotes).
-  - In CurseForge Dashboard: Go to the **Images** tab of your project, upload the official MCPEDL logo/thumbnail (`assets/mcpedl.png`), and set its **Title** to `MCPEDL` (no quotes).
-  - In Markdown / HTML descriptions: Embed the official MCPEDL asset sized cleanly without overwhelming the page:
-    ```html
-    <div align="center">
-      <img src="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/assets/mcpedl.png" alt="MCPEDL" title="MCPEDL" width="150" />
-    </div>
-    ```
-- Your project files are already approved on CurseForge.
-- Your project has the third party sharing option enabled in CurseForge project settings.
-
----
-
-## 6. Visual Assets and Images
+## 5. Visual Assets and Images
 
 Whenever visual assets (promotional banners, artwork, item previews, recipe infographics) are stored in the repository, incorporate them directly into the pack description:
 
-1. Hero Banner: Placed near the top below the main title with title `MCPEDL`.
+1. Hero Banner: Placed near the top below the main title.
 2. Pack Artwork: Displayed in the Overview or Features section.
 3. Recipe Infographics: Placed in the Crafting Recipes section as pre-rendered standalone PNG images.
 4. Item Sprites: Displayed alongside item specifications.
 
 ---
 
-## 7. Repository Organization
+## 6. Repository Organization
 
 ```
 MCPE-Curseforges/

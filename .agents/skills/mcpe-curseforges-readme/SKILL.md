@@ -164,7 +164,18 @@ Follow these conventions:
 - Use sentence case for ordinary headings.
 - Use exact identifier spelling and capitalization from the source files.
 
-Do not rename identifiers for readability if doing so would make them technically incorrect.
+### 2.7. No Internal Publisher or Distribution Checklists
+
+Never include publisher checklists, developer account prerequisites, or internal platform distribution instructions in customer- or player-facing documentation.
+
+Prohibited in README.md:
+- Creator account connection reminders (e.g., "Connected your Curseforge Account").
+- Platform prerequisite checklists (e.g., "MCPEDL and CurseForge Distribution Checklist").
+- Internal image title or tagging instructions (e.g., "Your project has an image with the title MCPEDL").
+- Dashboard or platform toggle requirements (e.g., "third party sharing option enabled", "files are approved").
+- Any internal deployment, synchronization, or submission tasks intended for creators rather than players.
+
+README files are designed exclusively for end-users, players, and server operators. All internal publishing checklists and store upload procedures must remain completely outside player-facing documents.
 
 ---
 
@@ -891,6 +902,7 @@ Before publishing or completing a README, verify the following.
 - [ ] Existing project information is preserved where appropriate.
 - [ ] Project-type requirements are respected.
 - [ ] No unrelated implementation files were modified.
+- [ ] No internal publisher checklists, creator account requirements, or distribution prerequisite notes.
 - [ ] Attribution and redistribution terms are accurate.
 - [ ] The copyright footer is included when applicable.
 
