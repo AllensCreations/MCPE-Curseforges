@@ -112,3 +112,8 @@ Players who crafted the Torch Mining Helmet can upgrade it directly to the Level
 - Creator: AllensCreations
 - Video & Showcase: Content creators are permitted to feature this add-on in videos and streams with credit to AllensCreations.
 - Redistribution: Do not re-upload the pack or provide direct monetized download bypasses. Link directly to the official repository page.
+- Rights: All rights reserved for AllensCreations.
+
+---
+
+© All rights reserved for AllensCreations.

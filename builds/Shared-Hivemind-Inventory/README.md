@@ -19,3 +19,8 @@ This directory contains compiled release packages for **Shared Hivemind Inventor
 2. Activate the Behavior Pack in your World Settings.
 3. Under **Experiments**, turn **ON** the **Beta APIs** toggle.
 4. Launch the world and connect with friends!
+
+---
+
+© All rights reserved for AllensCreations.
+

@@ -83,5 +83,8 @@ Every pack `README.md` must follow this order:
 
 ### 7. Guidelines & Attribution
 - Creator attribution: AllensCreations.
+- Rights and reservation: All rights reserved for AllensCreations.
 - Content creator / video recording policy.
 - Strict no-reupload / direct download bypass policy.
+- Standard copyright footer: `© All rights reserved for AllensCreations.`
+

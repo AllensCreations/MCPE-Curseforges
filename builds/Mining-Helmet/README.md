@@ -35,3 +35,8 @@ Custom 16 x 16 Bedrock Item Icon (`custom:mining_helmet`).
 ## Source Files
 To inspect uncompressed JSON files, items, recipes, and scripts:
 - [View Source Pack Files](../../packs/Mining-Helmet/)
+
+---
+
+© All rights reserved for AllensCreations.
+

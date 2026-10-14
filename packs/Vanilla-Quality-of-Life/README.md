@@ -188,6 +188,7 @@ Vanilla Quality of Life modifies entity behaviors, recipes, and loot tables. It 
 ## 📜 Terms of Use & Guidelines
 
 - **Creator Attribution:** Created by **AllensCreations**.
+- **Rights & Reservation:** All rights reserved for AllensCreations.
 - **Content Creators (YouTube, TikTok, Twitch):** You are 100% welcome to showcase this pack in videos, live streams, and reviews! Please include credit to **AllensCreations** and link to the official download page or this GitHub repository.
 - **No Direct Re-uploading:** Do not re-upload this pack, its individual files, or modified copies to any website, app store, or file-sharing service.
 - **No Paywalls or Link Shorteners:** It is strictly prohibited to distribute this pack behind paywalls, ad-gate links (e.g., AdFly, Linkvertise, Boost.ink), or paid monetization walls.
@@ -199,3 +200,8 @@ Vanilla Quality of Life modifies entity behaviors, recipes, and loot tables. It 
 
 - **Direct Download (.mcaddon):** [Vanilla_QoL_AllensCreations.mcaddon](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Vanilla-Quality-of-Life/Vanilla_QoL_AllensCreations.mcaddon)
 - **Source Code Repository:** [GitHub - AllensCreations/MCPE-Curseforges](https://github.com/AllensCreations/MCPE-Curseforges)
+
+---
+
+© All rights reserved for AllensCreations.
+

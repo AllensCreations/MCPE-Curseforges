@@ -28,3 +28,8 @@ This folder contains the compiled, ready-to-install `.mcaddon` builds for **Vani
 ## 📂 Source Code
 To inspect the uncompressed source JSON files, entities, recipes, scripts, and resource pack definitions:
 - 📁 [View Source Pack Files](../../packs/Vanilla-Quality-of-Life/)
+
+---
+
+© All rights reserved for AllensCreations.
+

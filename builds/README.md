@@ -27,3 +27,8 @@ This directory stores all compiled releases (behavior packs, resource packs, add
 1. Navigate to the pack or map folder above or click the direct download link.
 2. Transfer or double-click the `.mcaddon`, `.mcpack`, or `.mcworld` file on your device (Windows, Android, iOS).
 3. Minecraft Bedrock will open automatically and import the content into your game.
+
+---
+
+© All rights reserved for AllensCreations.
+

@@ -34,3 +34,8 @@ This folder contains the compiled, ready-to-install releases for **Monster Compa
 ## 📂 Source Code
 To inspect the uncompressed source JSON files, entities, textures, and recipes:
 - 📁 [View Source Pack Files](../../packs/Monster-Companions/)
+
+---
+
+© All rights reserved for AllensCreations.
+

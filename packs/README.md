@@ -21,3 +21,17 @@ Each folder inside `packs/` is structured as a standard Minecraft Bedrock pack:
 - `behavior_pack/` or root: Entities, functions, scripts, recipes, and loot tables.
 - `resource_pack/`: Textures, client entity definitions, geometry, and language files.
 - `manifest.json`: Pack UUIDs, engine versions, and module headers.
+
+---
+
+## 📜 Terms of Use & Guidelines
+
+- **Creator Attribution:** Created by **AllensCreations**.
+- **Rights & Reservation:** All rights reserved for AllensCreations.
+- **Content Creators (YouTube, TikTok, Twitch):** You are 100% welcome to showcase these packs in videos, live streams, and reviews! Please include credit to **AllensCreations** and link to the official download page or this GitHub repository.
+- **No Direct Re-uploading:** Do not re-upload these packs, their individual files, or modified copies to any website, app store, or file-sharing service.
+
+---
+
+© All rights reserved for AllensCreations.
+
