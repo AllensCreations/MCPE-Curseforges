@@ -63,8 +63,11 @@ jobs:
           MAX_BYTES = 8 * 1024 * 1024
           MAX_FILES = 500
 
-          encoded = os.environ.get("PAYLOAD_B64", "")
-          encoded = re.sub(r"\s+", "", encoded)
+          encoded = re.sub(
+              r"\s+",
+              "",
+              os.environ.get("PAYLOAD_B64", "")
+          )
 
           if encoded.lower().startswith("base64:"):
               encoded = encoded[7:]
@@ -76,8 +79,10 @@ jobs:
               fail("Encoded payload exceeds the size limit.")
 
           try:
-              padded = encoded + "=" * (-len(encoded) % 4)
-              decoded = base64.b64decode(padded, validate=True)
+              decoded = base64.b64decode(
+                  encoded + "=" * (-len(encoded) % 4),
+                  validate=True
+              )
 
               if len(decoded) > MAX_BYTES:
                   fail("Decoded payload exceeds the 8 MiB limit.")
@@ -183,7 +188,7 @@ jobs:
               if pure.parts[0] == "_incoming":
                   fail("The _incoming directory is reserved.")
 
-              if path == "README.md" or path.endswith("/README.md"):
+              if pure.name == "README.md":
                   fail("README.md is generated automatically.")
 
               if path in normalized:
@@ -191,19 +196,20 @@ jobs:
 
               normalized[path] = content
 
-          manifests = [
-              path for path in normalized
-              if PurePosixPath(path).name == "manifest.json"
-          ]
-
-          if not manifests:
+          if not any(
+              PurePosixPath(path).name == "manifest.json"
+              for path in normalized
+          ):
               fail("Payload must contain at least one manifest.json.")
 
           os.makedirs("_incoming", exist_ok=True)
 
-          payload_path = "_incoming/decoded_addon_payload.json"
-
-          with open(payload_path, "w", encoding="utf-8", newline="\n") as output:
+          with open(
+              "_incoming/decoded_addon_payload.json",
+              "w",
+              encoding="utf-8",
+              newline="\n"
+          ) as output:
               json.dump(
                   {"slug": slug, "files": normalized},
                   output,
@@ -267,7 +273,6 @@ jobs:
               sys.exit("Payload contains no files.")
 
           os.makedirs(root, exist_ok=False)
-
           root_real = os.path.realpath(root)
 
           for relative_path, content in files.items():
@@ -300,7 +305,7 @@ jobs:
 
           ## Project files
 
-          This project was generated from the supplied add-on payload. Review the included manifests, behavior pack files, resource pack files, and scripts before publishing.
+          This project was generated from the supplied payload. Review the included manifests, behavior pack files, resource pack files, and scripts before publishing.
           """
 
           with open(
@@ -378,8 +383,6 @@ jobs:
 
                       seen_uuids.add(parsed)
 
-                  validate_uuid(header.get("uuid"), "header")
-
                   def validate_version(value, description):
                       if (
                           not isinstance(value, list)
@@ -388,6 +391,7 @@ jobs:
                       ):
                           sys.exit(f"Invalid {description} in {path}")
 
+                  validate_uuid(header.get("uuid"), "header")
                   validate_version(header.get("version"), "header version")
                   validate_version(
                       header.get("min_engine_version"),
@@ -475,7 +479,6 @@ jobs:
 
           addon = sys.argv[1]
           build_root = os.path.join("builds", addon)
-
           packages = []
 
           for current_root, _, filenames in os.walk(build_root):
@@ -483,9 +486,7 @@ jobs:
                   if filename.lower().endswith(
                       (".mcpack", ".mcaddon", ".zip")
                   ):
-                      packages.append(
-                          os.path.join(current_root, filename)
-                      )
+                      packages.append(os.path.join(current_root, filename))
 
           if not packages:
               sys.exit("No distributable packages found.")
@@ -498,16 +499,12 @@ jobs:
                   bad_entry = archive.testzip()
 
                   if bad_entry:
-                      sys.exit(
-                          f"Corrupt archive entry in {path}: {bad_entry}"
-                      )
-
-                  names = set(archive.namelist())
+                      sys.exit(f"Corrupt archive entry in {path}: {bad_entry}")
 
                   if not any(
                       name == "manifest.json"
                       or name.endswith("/manifest.json")
-                      for name in names
+                      for name in archive.namelist()
                   ):
                       sys.exit(f"Package contains no manifest.json: {path}")
 
@@ -525,29 +522,6 @@ jobs:
           git config user.email \
             "41898282+github-actions[bot]@users.noreply.github.com"
 
-          git add -- "MCPEDL/addons/$ADDON"
-          git add -f -- "builds/$ADDON"
-
-          if [ -f README.md ]; then
-            git add -- README.md
-          fi
-
-          if [ -f builds/README.md ]; then
-            git add -- builds/README.md
-          fi
-
-          if [ -f MCPEDL/addons/README.md ]; then
-            git add -- MCPEDL/addons/README.md
-          fi
-
-          if git diff --cached --quiet; then
-            echo "::error::No generated changes to commit."
-            exit 1
-          fi
-
-          git commit \
-            -m "feat(addon): generate $ADDON packages [skip ci]"
-
           branch="${GITHUB_REF_NAME}"
 
           if [ -z "$branch" ]; then
@@ -555,16 +529,79 @@ jobs:
             exit 1
           fi
 
+          # Stage all intended add-on outputs and repository catalog updates.
+          git add -- "MCPEDL/addons/$ADDON"
+          git add -f -- "builds/$ADDON"
+
+          for path in \
+            README.md \
+            builds/README.md \
+            MCPEDL/addons/README.md
+          do
+            if [ -f "$path" ]; then
+              git add -- "$path"
+            fi
+          done
+
+          # Include tracked files changed by the build script.
+          git add -u
+
+          # Exclude temporary payload data from the commit.
+          git reset -q -- _incoming 2>/dev/null || true
+
+          if ! git diff --cached --quiet; then
+            git commit \
+              -m "feat(addon): generate $ADDON packages [skip ci]"
+          else
+            echo "No staged changes to commit."
+          fi
+
+          # Remove temporary workflow data before checking repository status.
+          rm -rf _incoming
+
+          # Build scripts may leave generated or unrelated changes.
+          # Stage only the intended output paths and known catalog files.
+          git add -- "MCPEDL/addons/$ADDON"
+          git add -f -- "builds/$ADDON"
+
+          for path in \
+            README.md \
+            builds/README.md \
+            MCPEDL/addons/README.md
+          do
+            if [ -f "$path" ]; then
+              git add -- "$path"
+            fi
+          done
+
+          git add -u
+
+          if ! git diff --cached --quiet; then
+            git commit \
+              -m "chore(addon): include generated catalog updates [skip ci]"
+          fi
+
+          # Fail rather than silently discarding changes required for the push.
+          if ! git diff --quiet || [ -n "$(git ls-files --others --exclude-standard)" ]; then
+            echo "::error::Uncommitted changes remain after staging."
+            git status --short
+            exit 1
+          fi
+
           for attempt in 1 2 3; do
+            echo "Push attempt $attempt of 3."
+
             git fetch origin "$branch"
 
-            if git rebase "origin/$branch"; then
-              if git push origin "HEAD:refs/heads/$branch"; then
-                echo "Changes pushed successfully."
-                exit 0
-              fi
-            else
+            if ! git rebase "origin/$branch"; then
+              echo "::error::Rebase failed."
               git rebase --abort || true
+              exit 1
+            fi
+
+            if git push origin "HEAD:refs/heads/$branch"; then
+              echo "Changes pushed successfully."
+              exit 0
             fi
 
             echo "::warning::Push attempt $attempt failed."
