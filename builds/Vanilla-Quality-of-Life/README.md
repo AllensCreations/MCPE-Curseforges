@@ -24,7 +24,7 @@ This folder contains compiled release packages for Vanilla Quality of Life by Al
 
 ## Source Code
 To inspect the uncompressed source JSON files, entities, recipes, scripts, and resource pack definitions:
-- [View Source Pack Files](../../packs/Vanilla-Quality-of-Life/)
+- [View Source Add-on Files](../../addons/Vanilla-Quality-of-Life/)
 
 ---
 

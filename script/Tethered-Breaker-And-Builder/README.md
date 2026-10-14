@@ -1,14 +1,14 @@
 # Tethered: Breaker & Builder
 
-![MCPEDL](https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/minigames/Tethered-Breaker-And-Builder/pack_icon.png "MCPEDL")
+![MCPEDL](https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/script/Tethered-Breaker-And-Builder/pack_icon.png "MCPEDL")
 
 [![Minecraft Bedrock](https://img.shields.io/badge/Minecraft%20Bedrock-1.21%20--%201.26+-brightgreen?style=flat-square&logo=minecraft)](https://github.com/AllensCreations/MCPE-Curseforges)
 [![Release](https://img.shields.io/badge/Release-v1.0.0-blue?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Tethered-Breaker-And-Builder/Tethered_Breaker_And_Builder_AllensCreations.mcaddon)
 [![Format](https://img.shields.io/badge/Format-.MCPACK%20%7C%20.MCADDON-orange?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Tethered-Breaker-And-Builder/Tethered_Breaker_And_Builder_AllensCreations.mcaddon)
 [![Platform](https://img.shields.io/badge/Platform-Mobile%20%7C%20PC%20%7C%20Console%20%7C%20Realms-yellow?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges)
 
-> **Created by AllensCreations**  
-> *An intense 2-player asymmetric co-op challenge where two partners are physically bound by an elastic energy leash with strictly separated abilities!*
+Creator: AllensCreations  
+Description: Two-player asymmetric co-op challenge where partners are tethered by an elastic energy leash with separated mining and building abilities.
 
 ---
 

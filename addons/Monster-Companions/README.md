@@ -1,6 +1,6 @@
 # Monster Companions - Tameable Hostile Mobs and Mounts for Minecraft Bedrock
 
-![MCPEDL](https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/packs/Monster-Companions/1791889944961.jpg "MCPEDL")
+![MCPEDL](https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/addons/Monster-Companions/1791889944961.jpg "MCPEDL")
 
 [![Minecraft Bedrock](https://img.shields.io/badge/Minecraft%20Bedrock-1.21%20--%201.26+-brightgreen?style=flat-square&logo=minecraft)](https://github.com/AllensCreations/MCPE-Curseforges)
 [![Release](https://img.shields.io/badge/Release-v1.0.0-blue?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Monster-Companions/Monster_Companions_AllensCreations.mcaddon)
@@ -18,7 +18,7 @@ Monster Companions is a data-driven Minecraft Bedrock add-on that enables player
 
 The pack is built entirely using standard Bedrock entity component definitions and requires zero experimental toggles and zero scripting APIs. It operates safely in long-term survival worlds, multiplayer servers, and Realms.
 
-![Monster Companions Banner](https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/packs/Monster-Companions/1791889996745.jpg)
+![Monster Companions Banner](https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/addons/Monster-Companions/1791889996745.jpg)
 
 ---
 
@@ -69,7 +69,7 @@ Equipping a Saddle onto supported large companions enables manual mounting and d
 
 ### Primal Beast Biscuit
 
-![Primal Beast Biscuit Item](https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/packs/Monster-Companions/beast_biscuit_preview.png)
+![Primal Beast Biscuit Item](https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/addons/Monster-Companions/beast_biscuit_preview.png)
 
 | Attribute | Specification |
 | :--- | :--- |
@@ -85,7 +85,7 @@ Equipping a Saddle onto supported large companions enables manual mounting and d
 
 ### Primal Beast Biscuit Recipe
 
-![Crafting Recipe: Primal Beast Biscuit](https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/packs/Monster-Companions/1791890109719.jpg)
+![Crafting Recipe: Primal Beast Biscuit](https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/addons/Monster-Companions/1791890109719.jpg)
 
 - Type: Shapeless Crafting Table Recipe
 - Ingredients: 1 Rotten Flesh, 1 Bone, 1 Sweet Berries, 1 Honey Bottle

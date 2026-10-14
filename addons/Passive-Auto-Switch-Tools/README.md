@@ -20,7 +20,7 @@ Passive Auto-Switch Tools is a Script API behavior pack that automates tool sele
 
 Hotbar slots 2 through 9 remain unmanaged, ensuring uninterrupted block placement, combat, and consumable item usage.
 
-![Passive Auto-Switch Tools Icon](https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/packs/Passive-Auto-Switch-Tools/pack_icon.png)
+![Passive Auto-Switch Tools Icon](https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/addons/Passive-Auto-Switch-Tools/pack_icon.png)
 
 ---
 

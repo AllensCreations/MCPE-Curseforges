@@ -21,9 +21,9 @@ This directory stores all compiled releases (behavior packs, resource packs, add
 | **OneBlock Void Survival** | `v1.2.0` | Survival World (`.mcworld`) | [Download (.mcworld)](OneBlock-Void-Survival/OneBlock_Void_Survival.mcworld) | [`OneBlock-Void-Survival/`](OneBlock-Void-Survival/) |
 | **OneBlock Void (Admin Studio)** | `v1.2.0` | Testing World (`.mcworld`) | [Download (.mcworld)](OneBlock-Void-Survival/OneBlock_Void_Survival_Admin.mcworld) | [`OneBlock-Void-Survival/`](OneBlock-Void-Survival/) |
 
-### Challenge Minigames
+### Script Projects & Challenges
 
-| Minigame | Version | Type | Download Link | Build Folder |
+| Project Name | Version | Type | Download Link | Build Folder |
 | :--- | :--- | :--- | :--- | :--- |
 | **Alphabet Scavenger Hunt** | `v1.0.0` | Complete Pack (`.mcaddon`) | [Download (.mcaddon)](Alphabet-Scavenger-Hunt/Alphabet_Scavenger_Hunt_AllensCreations.mcaddon) | [`Alphabet-Scavenger-Hunt/`](Alphabet-Scavenger-Hunt/) |
 | **Shared Hivemind Inventory** | `v1.0.0` | Complete Pack (`.mcaddon`) | [Download (.mcaddon)](Shared-Hivemind-Inventory/Shared_Hivemind_Inventory_AllensCreations.mcaddon) | [`Shared-Hivemind-Inventory/`](Shared-Hivemind-Inventory/) |

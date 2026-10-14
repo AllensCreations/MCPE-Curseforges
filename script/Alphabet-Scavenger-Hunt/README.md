@@ -1,20 +1,20 @@
 # Alphabet Scavenger Hunt Challenge
 
-![MCPEDL](https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/minigames/Alphabet-Scavenger-Hunt/1791906906852.jpg "MCPEDL")
+![MCPEDL](https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/script/Alphabet-Scavenger-Hunt/1791906906852.jpg "MCPEDL")
 
 [![Minecraft Bedrock](https://img.shields.io/badge/Minecraft%20Bedrock-1.21%20--%201.26+-brightgreen?style=flat-square&logo=minecraft)](https://github.com/AllensCreations/MCPE-Curseforges)
 [![Release](https://img.shields.io/badge/Release-v1.0.0-blue?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Alphabet-Scavenger-Hunt/Alphabet_Scavenger_Hunt_AllensCreations.mcaddon)
 [![Format](https://img.shields.io/badge/Format-.MCPACK%20%7C%20.MCADDON-orange?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Alphabet-Scavenger-Hunt/Alphabet_Scavenger_Hunt_AllensCreations.mcaddon)
 [![Platform](https://img.shields.io/badge/Platform-Mobile%20%7C%20PC%20%7C%20Console%20%7C%20Realms-yellow?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges)
 
-> **Created by AllensCreations**  
-> *A high-stakes 20-round survival scavenger challenge! Find items matching the target letter before the 60-second timer expires or suffer permanent maximum health decay!*
+Creator: AllensCreations  
+Description: High-stakes 20-round survival challenge to find items matching the target letter before the 60-second timer expires or suffer permanent max health loss.
 
 ---
 
 ## About The Challenge
 
-![Alphabet Scavenger Hunt Banner](https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/minigames/Alphabet-Scavenger-Hunt/1791906974481.jpg)
+![Alphabet Scavenger Hunt Banner](https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/script/Alphabet-Scavenger-Hunt/1791906974481.jpg)
 
 Can you think on your feet and scavenge your surroundings under immense pressure?
 

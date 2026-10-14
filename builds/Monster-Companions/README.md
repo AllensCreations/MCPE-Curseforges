@@ -25,7 +25,7 @@ This folder contains compiled release packages for Monster Companions by AllensC
 
 ## Source Code
 To inspect the uncompressed source JSON files, entities, textures, and recipes:
-- [View Source Pack Files](../../packs/Monster-Companions/)
+- [View Source Add-on Files](../../addons/Monster-Companions/)
 
 ---
 

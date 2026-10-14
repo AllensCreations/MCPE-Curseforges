@@ -76,17 +76,17 @@ Whenever visual assets (promotional banners, artwork, item previews, recipe info
 ```
 MCPE-Curseforges/
 ├── INSTRUCTIONS.md                # This standards file
-├── README.md                      # Catalog of all active packs, maps & minigames
+├── README.md                      # Catalog of all active addons, maps & scripts
 ├── banner.jpg                     # Master repository banner
-├── packs/                         # Source folders for packs & addons
-│   ├── <Pack-Name>/
+├── addons/                        # Source folders for add-ons & packs
+│   ├── <Addon-Name>/
 │   │   ├── behavior_pack/         # BP source code
 │   │   ├── resource_pack/         # RP source code
 │   │   ├── README.md              # Documentation
 │   │   └── <images>               # Banners, infographics, previews
 │   └── README.md
-├── minigames/                     # Source folders for minigames & challenges
-│   ├── <Game-Name>/
+├── script/                        # Source folders for scripts, minigames & challenges
+│   ├── <Project-Name>/
 │   │   ├── behavior_pack/         # BP source code & game scripts
 │   │   ├── pack_icon.png          # 1:1 square icon
 │   │   └── README.md              # Documentation
@@ -98,7 +98,7 @@ MCPE-Curseforges/
 │   │   └── README.md              # Documentation
 │   └── README.md
 └── builds/                        # Compiled distribution archives
-    ├── <Pack-Name>/               # .mcaddon / .mcpack binaries
-    ├── <Game-Name>/               # .mcaddon / .mcpack binaries
+    ├── <Addon-Name>/              # .mcaddon / .mcpack binaries
+    ├── <Project-Name>/            # .mcaddon / .mcpack binaries
     └── <Map-Name>/                # .mcworld binaries
 ```

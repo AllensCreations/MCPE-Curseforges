@@ -229,11 +229,11 @@ When a file is located in another directory, calculate its path relative to the 
 
 For example, a README at:
 
-`packs/Mining-Helmet/README.md`
+`addons/Mining-Helmet/README.md`
 
 can reference an image in:
 
-`packs/Mining-Helmet/assets/helmet.png`
+`addons/Mining-Helmet/assets/helmet.png`
 
 using:
 
@@ -363,7 +363,7 @@ Use this format:
 Creator: AllensCreations  
 Description: <One-sentence factual description of the project's functionality>
 
-The description must be concise, specific, and technically accurate.
+The description must be concise, specific, technically accurate, and a maximum of 256 characters (strictly enforced across README summaries and manifest metadata).
 
 Do not include unsupported compatibility or performance claims.
 

@@ -18,7 +18,7 @@ Vanilla Quality of Life is a lightweight, pure data-driven behavior pack that ad
 
 The pack modifies entity definitions, loot tables, and recipes using standard Bedrock components. It requires zero experimental toggles, making it safe for long-term survival worlds, multiplayer servers, and Bedrock Dedicated Servers (BDS).
 
-![Vanilla QoL Banner](https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/packs/Vanilla-Quality-of-Life/banner.jpg)
+![Vanilla QoL Banner](https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/addons/Vanilla-Quality-of-Life/banner.jpg)
 
 ---
 
