@@ -124,6 +124,10 @@ Because this challenge is powered by the modern Bedrock Script API (`@minecraft/
 
 ## MCPEDL and CurseForge Distribution Checklist
 
+<div align="center">
+  <img src="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/assets/mcpedl.png" alt="MCPEDL" title="MCPEDL" width="150" />
+</div>
+
 Ensure that you have already:
 - Connected your Curseforge Account.
 - Your project has an image with the title MCPEDL (no quotes).

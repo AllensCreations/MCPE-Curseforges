@@ -1,7 +1,7 @@
 # Vanilla Quality of Life - Survival Mechanics and Enhancements for Minecraft Bedrock
-
-![MCPEDL](https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/packs/Vanilla-Quality-of-Life/pack_icon.png "MCPEDL")
-
+<div align="center">
+  <img src="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/assets/mcpedl.png" alt="MCPEDL" title="MCPEDL" width="150" />
+</div>
 [![Minecraft Bedrock](https://img.shields.io/badge/Minecraft%20Bedrock-1.21%20--%201.26+-brightgreen?style=flat-square&logo=minecraft)](https://github.com/AllensCreations/MCPE-Curseforges)
 [![Release](https://img.shields.io/badge/Release-v1.2.0-blue?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Vanilla-Quality-of-Life/Vanilla_QoL_AllensCreations.mcaddon)
 [![Format](https://img.shields.io/badge/Format-.MCADDON-orange?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Vanilla-Quality-of-Life/Vanilla_QoL_AllensCreations.mcaddon)
@@ -143,6 +143,10 @@ The pack modifies entity definitions, loot tables, and recipes using standard Be
 ---
 
 ## MCPEDL and CurseForge Distribution Checklist
+
+<div align="center">
+  <img src="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/assets/mcpedl.png" alt="MCPEDL" title="MCPEDL" width="150" />
+</div>
 
 Ensure that you have already:
 - Connected your Curseforge Account.
