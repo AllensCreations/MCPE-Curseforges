@@ -30,7 +30,7 @@ Explore the full [Maps Directory](maps/README.md).
 | **Vanilla Quality of Life** | `v1.2.0` | Complete Pack (`.mcaddon`) | [Download (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Vanilla-Quality-of-Life/Vanilla_QoL_AllensCreations.mcaddon) | [`addons/Vanilla-Quality-of-Life/`](addons/Vanilla-Quality-of-Life/) | Universal Leashes (101 mobs), Spider Leash Fix, Fast Leaf Decay, Woodcutter, 16x Potions, Offhand Quick-Swap, Mob Heads. |
 | **Monster Companions** | `v1.0.0` | Complete Pack (`.mcaddon`) | [Download (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Monster-Companions/Monster_Companions_AllensCreations.mcaddon) | [`addons/Monster-Companions/`](addons/Monster-Companions/) | Tame 32 monsters into bodyguards and rideable mounts with Beast Biscuits. Combat pacification below 50% HP, wall-climbing spiders. |
 | **Mining Helmet** | `v1.0.0` | Complete Pack (`.mcaddon`) | [Download (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Mining-Helmet/Mining_Helmet_AllensCreations.mcaddon) | [`addons/Mining-Helmet/`](addons/Mining-Helmet/) | Wearable Mining Helmet with real-time level 15 dynamic following light, zero-residue block cleanup, and gold helmet model styling. |
-| **Passive Auto-Switch Tools** | `v1.0.0` | Behavior Pack (`.mcpack` / `.mcaddon`) | [Download (.mcpack)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Passive-Auto-Switch-Tools/Passive_Auto_Switch_Tools_AllensCreations.mcpack) | [`addons/Passive-Auto-Switch-Tools/`](addons/Passive-Auto-Switch-Tools/) | Zero-configuration tool auto-switcher when holding Slot 1. Dynamically raycasts target blocks and swaps optimal tools seamlessly. |
+| **Passive Auto-Switch Tools** | `v1.1.0` | Behavior Pack (`.mcpack` / `.mcaddon`) | [Download (.mcpack)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Passive-Auto-Switch-Tools/Passive_Auto_Switch_Tools_AllensCreations.mcpack) | [`addons/Passive-Auto-Switch-Tools/`](addons/Passive-Auto-Switch-Tools/) | Event-driven tool & weapon switcher when holding Slot 1. Swaps optimal tools upon breaking and equips axe/sword for mobs. |
 | **Ghast Mob Head Transformers** | `v1.0.0` | Complete Pack (`.mcaddon`) | [Download (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Ghast-Head-Transformers/Ghast_Head_Transformers_AllensCreations.mcaddon) | [`addons/Ghast-Head-Transformers/`](addons/Ghast-Head-Transformers/) | Transform vanilla Ghasts into giant flying mob heads by equipping skulls, with charging faces and shearing drops. |
 
 Explore the full [Add-ons Directory](addons/README.md).
@@ -118,18 +118,19 @@ Dynamic following light headgear for mining and cave exploration.
 
 ---
 
-### Add-on 4: Passive Auto-Switch Tools (v1.0.0)
+### Add-on 4: Passive Auto-Switch Tools (v1.1.0)
 
 ![Passive Auto-Switch Tools Icon](https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/addons/Passive-Auto-Switch-Tools/pack_icon.png)
 
-Zero-configuration passive tool auto-switcher when holding Slot 1.
+Event-driven tool and weapon auto-switcher when holding Slot 1.
 
-- Passive Raycast Engine: Checks targeted blocks up to 6 blocks away every 2 ticks (10Hz) passively in the background.
-- Slot 1 Activation Rule: Auto-switch triggers exclusively when holding Hotbar Slot 1 (`selectedSlotIndex === 0`). Holding slots 2 through 9 leaves hands free to eat, build, or fight without unexpected tool swapping.
-- Comprehensive Block Classification: Intelligently categorizes hundreds of blocks into Pickaxes, Axes, Shovels, Shears/Swords, and Hoes.
+- Event-Driven Break Activation: Tools only switch when you actively start breaking/hitting a block. Zero unwanted switching when merely looking around or walking.
+- Combat Mob Auto-Switch: Automatically equips the best weapon (Sword or Axe) from inventory when attacking a mob or combat target.
+- Slot 1 Activation Rule: Auto-switch triggers exclusively when holding Hotbar Slot 1 (`selectedSlotIndex === 0`). Holding slots 2 through 9 leaves hands free to eat, build, or manually choose items without unexpected swaps.
+- Comprehensive Classification: Intelligently categorizes blocks into Pickaxes, Axes, Shovels, Shears/Swords, and Hoes, with combat weapon scoring for mobs.
 - Tier Priority & Hotbar Affinity: Automatically selects highest tier tool (`Netherite -> Diamond -> Iron -> Stone -> Wood/Golden`) with preference for tools already on the hotbar.
 - 100% Item Safety: Swaps items directly in-place with zero duplication risk, preserving all enchantments, durability, and anvil rename tags.
-- Stable Bedrock API: Built strictly on `@minecraft/server` v1.13.0+ with zero experimental flags or beta APIs required.
+- Stable Bedrock API & Zero Polling: Built strictly on `@minecraft/server` v1.13.0+ event listeners (`entityHitBlock`, `entityHitEntity`) with 0% idle tick overhead.
 
 [Read Full Passive Auto-Switch Tools Documentation](addons/Passive-Auto-Switch-Tools/README.md)
 

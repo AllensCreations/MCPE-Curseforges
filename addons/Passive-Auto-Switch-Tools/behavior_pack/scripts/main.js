@@ -2,24 +2,30 @@
  * ==============================================================================
  * PASSIVE AUTO-SWITCH TOOLS -- MINECRAFT BEDROCK SCRIPT API
  * ==============================================================================
- * Version: 1.0.0
+ * Version: 1.1.0
  * Target Engine: Minecraft Bedrock 1.21.0+ / v1.26 Standards
  * API Module: @minecraft/server v1.13.0+ (STABLE)
  * Author: AllensCreations
  *
  * System Architecture:
- * 1. Passive Background Raycast Loop:
- *    - Runs every 2 ticks (10Hz) via system.runInterval.
- *    - Uses player.getBlockFromViewDirection({ maxDistance: 6 }) to trace
- *      the block the player is actively targeting.
+ * 1. Event-Driven Block Breaking Activation:
+ *    - Listens to world.afterEvents.entityHitBlock to trigger tool selection ONLY
+ *      when the player actively starts hitting / breaking a block.
+ *    - Completely eliminates passive looking-at-block auto-switch, preventing
+ *      unwanted hotbar swapping when merely looking around or walking.
  *
- * 2. Slot 1 Activation Rule:
+ * 2. Mob Combat Auto-Switch:
+ *    - Listens to world.afterEvents.entityHitEntity to auto-switch to a combat
+ *      weapon (Sword or Axe) whenever the player attacks a mob or combat target.
+ *    - Retains the player's active weapon if Slot 1 already holds a sword or axe.
+ *
+ * 3. Slot 1 Activation Rule:
  *    - Hotbar index 0 corresponds to Slot 1 in the player's HUD.
  *    - The auto-switch engine ONLY activates when player.selectedSlotIndex === 0.
  *    - When holding slots 1 through 8 (food, building blocks, torches, weapons),
  *      the script remains 100% idle and transparent.
  *
- * 3. Intelligent Block-to-Tool Classification:
+ * 4. Intelligent Block-to-Tool Classification:
  *    - Pickaxe: Stones, deepslate, ores, obsidian, netherrack, bricks, terracotta,
  *      concrete, mineral blocks, metal containers, anvils, hoppers, furnaces.
  *    - Axe: Logs, wood, planks, fences, gates, wooden doors/trapdoors, chests,
@@ -27,10 +33,11 @@
  *    - Shovel: Dirt, grass, sand, gravel, clay, soul sand, mud, snow, concrete powder.
  *    - Shears / Sword: Leaves, cobwebs, wool, vines. Shears prioritized for wool/leaves.
  *    - Hoe: Hay blocks, target blocks, sculk blocks, sponges, moss, wart blocks.
+ *    - Weapon (Combat): Highest tier Sword or Axe when attacking entities.
  *
- * 4. Safe In-Place Inventory Swapping:
- *    - If Slot 1 already holds a matching tool, no action is taken (preserves
- *      the player's active tool selection, e.g., Silk Touch vs. Fortune).
+ * 5. Safe In-Place Inventory Swapping:
+ *    - If Slot 1 already holds a matching tool/weapon, no action is taken (preserves
+ *      the player's active selection, e.g., Silk Touch vs. Fortune, or Axe vs. Sword).
  *    - If a different tool category is needed, scans inventory (0..35) for the
  *      highest-tier tool (Netherite > Diamond > Iron > Stone > Wood/Golden).
  *    - Executes container.swapItems(bestSlot, 0, container) to seamlessly swap
@@ -55,6 +62,7 @@ const ToolCategory = {
   SHOVEL: "shovel",
   SHEARS_OR_SWORD: "shears_or_sword",
   HOE: "hoe",
+  WEAPON: "weapon",
 };
 
 /**
@@ -130,6 +138,18 @@ function evaluateToolScore(item, targetCategory, slotIndex) {
     return score;
   }
 
+  // Weapon evaluation (Sword or Axe for mob combat)
+  if (targetCategory === ToolCategory.WEAPON) {
+    const isSword = rawId.includes("sword");
+    const isAxe = rawId.includes("axe") && !rawId.includes("pickaxe");
+    if (!isSword && !isAxe) return -1;
+
+    let score = getMaterialTier(rawId);
+    if (isSword) score += 2; // Slight Bedrock preference for swords due to base damage
+    if (slotIndex >= 1 && slotIndex <= 8) score += 1;
+    return score;
+  }
+
   return -1;
 }
 
@@ -168,6 +188,8 @@ function isItemMatchingCategory(item, targetCategory) {
       return rawId.includes("shears") || rawId.includes("sword");
     case ToolCategory.HOE:
       return rawId.includes("hoe");
+    case ToolCategory.WEAPON:
+      return rawId.includes("sword") || (rawId.includes("axe") && !rawId.includes("pickaxe"));
     default:
       return false;
   }
@@ -401,41 +423,75 @@ function getRequiredToolCategory(blockTypeId) {
 }
 
 // ==============================================================================
-// 3. PASSIVE EXECUTION & INVENTORY SWAP LOGIC
+// 3. COMBAT TARGET FILTER & TOOL SWAP EXECUTION
 // ==============================================================================
 
 /**
- * Processes a single player's view direction and performs auto-switch if needed.
+ * Entities that should not trigger combat tool auto-switch (non-mobs/projectiles).
+ */
+const NON_COMBAT_ENTITIES = new Set([
+  "item",
+  "arrow",
+  "xp_orb",
+  "experience_orb",
+  "snowball",
+  "egg",
+  "splash_potion",
+  "lingering_potion",
+  "ender_pearl",
+  "eye_of_ender_signal",
+  "lightning_bolt",
+  "armor_stand",
+  "painting",
+  "item_frame",
+  "glow_item_frame",
+  "leash_knot",
+  "boat",
+  "chest_boat",
+  "minecart",
+  "chest_minecart",
+  "hopper_minecart",
+  "tnt_minecart",
+  "command_block_minecart",
+  "tnt",
+  "falling_block",
+]);
+
+/**
+ * Determines whether an entity is a valid combat target (living mob or player).
+ *
+ * @param {import("@minecraft/server").Entity} entity
+ * @returns {boolean}
+ */
+function isCombatTarget(entity) {
+  if (!entity || !entity.typeId) return false;
+  const rawId = entity.typeId.replace(/^minecraft:/, "").toLowerCase();
+  if (NON_COMBAT_ENTITIES.has(rawId)) return false;
+
+  try {
+    return (
+      rawId === "player" ||
+      entity.hasComponent("minecraft:health") ||
+      entity.hasComponent("health")
+    );
+  } catch {
+    return true;
+  }
+}
+
+/**
+ * Equips the highest-tier matching tool or weapon into Slot 1 (hotbar index 0).
  *
  * @param {import("@minecraft/server").Player} player
+ * @param {string} targetCategory
  */
-function processPlayerAutoSwitch(player) {
+function switchPlayerSlot1Tool(player, targetCategory) {
   // 1. Slot 1 Activation Rule: Must be selecting Hotbar Slot 1 (index 0)
   if (player.selectedSlotIndex !== 0) {
     return;
   }
 
-  // 2. Block Raycasting: Check what block the player is actively targeting (up to 6 blocks)
-  let hitResult;
-  try {
-    hitResult = player.getBlockFromViewDirection({ maxDistance: 6 });
-  } catch {
-    return;
-  }
-
-  if (!hitResult || !hitResult.block) {
-    return;
-  }
-
-  const targetBlock = hitResult.block;
-  const requiredCategory = getRequiredToolCategory(targetBlock.typeId);
-
-  // If targeted block does not require a tool (e.g., air, fluid, void), exit
-  if (!requiredCategory) {
-    return;
-  }
-
-  // 3. Inspect player inventory container
+  // 2. Inspect player inventory container
   const inventoryComp =
     player.getComponent("minecraft:inventory") ??
     player.getComponent("inventory");
@@ -446,15 +502,15 @@ function processPlayerAutoSwitch(player) {
 
   const container = inventoryComp.container;
 
-  // 4. Check current item in Slot 1 (index 0)
+  // 3. Check current item in Slot 1 (index 0)
   const currentSlot1Item = container.getItem(0);
 
-  // If Slot 1 already holds a matching tool for this category, keep it!
-  if (isItemMatchingCategory(currentSlot1Item, requiredCategory)) {
+  // If Slot 1 already holds a matching tool/weapon for this category, keep it!
+  if (isItemMatchingCategory(currentSlot1Item, targetCategory)) {
     return;
   }
 
-  // 5. Scan player's inventory (slots 1..size-1) to find the optimal tool
+  // 4. Scan player's inventory (slots 1..size-1) to find the optimal tool/weapon
   let bestSlotIndex = -1;
   let highestScore = -1;
 
@@ -462,37 +518,68 @@ function processPlayerAutoSwitch(player) {
     const item = container.getItem(slot);
     if (!item) continue;
 
-    const score = evaluateToolScore(item, requiredCategory, slot);
+    const score = evaluateToolScore(item, targetCategory, slot);
     if (score > highestScore) {
       highestScore = score;
       bestSlotIndex = slot;
     }
   }
 
-  // 6. If a matching tool exists in inventory, seamlessly swap into Slot 1
+  // 5. If a matching tool exists in inventory, seamlessly swap into Slot 1
   if (bestSlotIndex !== -1 && highestScore > 0) {
     try {
       container.swapItems(bestSlotIndex, 0, container);
     } catch {
-      // Graceful fallback if container is temporarily locked by another system
+      // Defer to next tick if the game engine locks container during event dispatch
+      system.run(() => {
+        try {
+          container.swapItems(bestSlotIndex, 0, container);
+        } catch {}
+      });
     }
   }
 }
 
 // ==============================================================================
-// 4. MAIN ENGINE TICK LOOP
+// 4. EVENT-DRIVEN ACTIVATION (ZERO-POLLING)
 // ==============================================================================
 
 /**
- * Periodic check loop: Runs every 2 ticks (10 times per second)
- * completely passively in the background.
+ * Event 1: Block Hit / Start Break
+ * Auto-switches tool ONLY when player starts hitting/breaking a block.
+ * Eliminates background raycast polling and prevents swapping while just looking.
  */
-system.runInterval(() => {
-  for (const player of world.getAllPlayers()) {
-    try {
-      processPlayerAutoSwitch(player);
-    } catch {}
-  }
-}, 2);
+world.afterEvents.entityHitBlock.subscribe((event) => {
+  try {
+    const player = event.damagingEntity;
+    if (!player || player.typeId !== "minecraft:player") return;
+    if (player.selectedSlotIndex !== 0) return;
 
-console.warn("[Passive Auto-Switch Tools] Engine initialized on stable @minecraft/server.");
+    const hitBlock = event.hitBlock;
+    if (!hitBlock) return;
+
+    const requiredCategory = getRequiredToolCategory(hitBlock.typeId);
+    if (!requiredCategory) return;
+
+    switchPlayerSlot1Tool(player, requiredCategory);
+  } catch {}
+});
+
+/**
+ * Event 2: Entity / Mob Combat Attack
+ * Auto-switches to best weapon (axe or sword) when attacking a mob or combat target.
+ */
+world.afterEvents.entityHitEntity.subscribe((event) => {
+  try {
+    const player = event.damagingEntity;
+    if (!player || player.typeId !== "minecraft:player") return;
+    if (player.selectedSlotIndex !== 0) return;
+
+    const targetEntity = event.hitEntity;
+    if (!targetEntity || !isCombatTarget(targetEntity)) return;
+
+    switchPlayerSlot1Tool(player, ToolCategory.WEAPON);
+  } catch {}
+});
+
+console.warn("[Passive Auto-Switch Tools v1.1.0] Event-driven engine initialized on stable @minecraft/server.");

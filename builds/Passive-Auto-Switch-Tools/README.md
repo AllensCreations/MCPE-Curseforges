@@ -18,7 +18,7 @@ This directory contains compiled release packages for **Passive Auto-Switch Tool
 1. Open either downloaded file on your device (Mobile, Windows PC, or Console) to automatically import into Minecraft Bedrock.
 2. Activate the Behavior Pack under your World Settings or Realm Settings.
 3. No experimental toggles needed! The pack runs strictly on stable Bedrock script APIs.
-4. Launch the world, hold **Hotbar Slot 1**, and watch your tools intelligently swap to match whatever block you look at!
+4. Launch the world, hold **Hotbar Slot 1**, and your tools will intelligently swap when you start breaking blocks, and automatically switch to an axe or sword when attacking mobs!
 
 ---
 

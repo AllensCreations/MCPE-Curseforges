@@ -13,7 +13,7 @@ This directory stores all compiled releases (behavior packs, resource packs, add
 | **Vanilla Quality of Life** | `v1.2.0` | Behavior Pack (`.mcpack`) | [Download (.mcpack)](Vanilla-Quality-of-Life/Vanilla_QoL_AllensCreations.mcpack) | [`Vanilla-Quality-of-Life/`](Vanilla-Quality-of-Life/) |
 | **Monster Companions** | `v1.0.0` | Complete Pack (`.mcaddon`) | [Download (.mcaddon)](Monster-Companions/Monster_Companions_AllensCreations.mcaddon) | [`Monster-Companions/`](Monster-Companions/) |
 | **Mining Helmet** | `v1.0.0` | Complete Pack (`.mcaddon`) | [Download (.mcaddon)](Mining-Helmet/Mining_Helmet_AllensCreations.mcaddon) | [`Mining-Helmet/`](Mining-Helmet/) |
-| **Passive Auto-Switch Tools** | `v1.0.0` | Complete Pack (`.mcaddon`) | [Download (.mcaddon)](Passive-Auto-Switch-Tools/Passive_Auto_Switch_Tools_AllensCreations.mcaddon) | [`Passive-Auto-Switch-Tools/`](Passive-Auto-Switch-Tools/) |
+| **Passive Auto-Switch Tools** | `v1.1.0` | Complete Pack (`.mcaddon`) | [Download (.mcaddon)](Passive-Auto-Switch-Tools/Passive_Auto_Switch_Tools_AllensCreations.mcaddon) | [`Passive-Auto-Switch-Tools/`](Passive-Auto-Switch-Tools/) |
 | **Ghast Mob Head Transformers** | `v1.0.0` | Complete Pack (`.mcaddon`) | [Download (.mcaddon)](Ghast-Head-Transformers/Ghast_Head_Transformers_AllensCreations.mcaddon) | [`Ghast-Head-Transformers/`](Ghast-Head-Transformers/) |
 
 ### Worlds and Maps

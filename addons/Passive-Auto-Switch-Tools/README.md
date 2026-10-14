@@ -5,20 +5,20 @@
 </div>
 
 [![Minecraft Bedrock](https://img.shields.io/badge/Minecraft%20Bedrock-1.21%20--%201.26+-brightgreen?style=flat-square&logo=minecraft)](https://github.com/AllensCreations/MCPE-Curseforges)
-[![Release](https://img.shields.io/badge/Release-v1.0.0-blue?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Passive-Auto-Switch-Tools/Passive_Auto_Switch_Tools_AllensCreations.mcpack)
+[![Release](https://img.shields.io/badge/Release-v1.1.0-blue?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Passive-Auto-Switch-Tools/Passive_Auto_Switch_Tools_AllensCreations.mcpack)
 [![Format](https://img.shields.io/badge/Format-.MCPACK%20%7C%20.MCADDON-orange?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Passive-Auto-Switch-Tools/Passive_Auto_Switch_Tools_AllensCreations.mcpack)
 [![Platform](https://img.shields.io/badge/Platform-Mobile%20%7C%20PC%20%7C%20Console%20%7C%20Realms-yellow?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges)
 
 Creator: AllensCreations  
-Description: Background tool selection utility for Minecraft Bedrock that equips the optimal tool from player inventory when targeting blocks.
+Description: Event-driven tool and weapon auto-switcher for Minecraft Bedrock that equips optimal tools upon starting to break blocks, and auto-switches to an axe or sword when attacking mobs.
 
 ---
 
 ## Overview
 
-Passive Auto-Switch Tools is a Script API behavior pack that automates tool selection in Minecraft Bedrock Edition. When targeting a block within reach distance while holding hotbar slot 1, the script scans the player inventory and equips the highest-tier matching tool into the active hand.
+Passive Auto-Switch Tools is a Script API behavior pack that automates tool and weapon selection in Minecraft Bedrock Edition. When holding hotbar slot 1, the script activates exclusively when you **start to break/hit a block** (avoiding annoying swaps when merely looking around), and **when attacking a mob** by automatically equipping your highest-tier axe or sword.
 
-Hotbar slots 2 through 9 remain unmanaged, ensuring uninterrupted block placement, combat, and consumable item usage.
+Hotbar slots 2 through 9 remain completely unmanaged, ensuring uninterrupted building, offhand usage, and consumable item management.
 
 ![Passive Auto-Switch Tools Icon](https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/addons/Passive-Auto-Switch-Tools/pack_icon.png)
 
@@ -29,35 +29,36 @@ Hotbar slots 2 through 9 remain unmanaged, ensuring uninterrupted block placemen
 ### Hotbar Slot 1 Activation
 
 The automation engine operates exclusively when the player selects hotbar slot 1:
-- Hotbar Slot 1: Active auto-switch slot. Targeting blocks triggers automatic tool selection.
+- Hotbar Slot 1: Active auto-switch slot. Striking blocks triggers tool selection; attacking mobs triggers weapon selection.
 - Hotbar Slots 2 through 9: Standard manual operation. The script performs no item swaps while these slots are selected.
 
-### Block-to-Tool Type Matching
+### Block-to-Tool & Combat Matching
 
-Targeting a block within 6 blocks determines the required tool class:
-- Pickaxe: Stone, deepslate, ores, obsidian, terracotta, cobblestone, and metal blocks.
-- Axe: Logs, wood, planks, fences, fence gates, chests, crafting tables, melons, and pumpkins.
-- Shovel: Dirt, grass, sand, gravel, clay, mud, soul sand, snow, and concrete powder.
-- Shears / Sword: Leaves, wool, cobwebs, and vines.
-- Hoe: Hay bales, target blocks, sponges, sculk, moss, and nether wart blocks.
+- **Pickaxe**: Stone, deepslate, ores, obsidian, terracotta, cobblestone, and metal blocks.
+- **Axe**: Logs, wood, planks, fences, fence gates, chests, crafting tables, melons, and pumpkins.
+- **Shovel**: Dirt, grass, sand, gravel, clay, mud, soul sand, snow, and concrete powder.
+- **Shears / Sword**: Leaves, wool, cobwebs, and vines.
+- **Hoe**: Hay bales, target blocks, sponges, sculk, moss, and nether wart blocks.
+- **Combat (Sword or Axe)**: When attacking any mob or combat entity, automatically equips the best available sword or axe.
 
 ### Tier Priority Hierarchy
 
-When multiple matching tools are present in inventory, the system selects the highest tier available:
+When multiple matching tools or weapons are present in inventory, the system selects the highest tier available:
 
 ```text
 Netherite > Diamond > Iron > Stone > Golden / Wooden
 ```
 
-If tools of equal tier exist across hotbar and main inventory, the item already present in the hotbar is given priority.
+If items of equal tier exist across hotbar and main inventory, the item already present in the hotbar is given priority. For combat, swords have a slight damage preference in Bedrock, while existing axes or swords already in Slot 1 are retained.
 
 ### Item Integrity and Preservation
 
 Item components are preserved during swaps:
 - Durability damage values remain exact.
 - Custom anvil names and lore strings are preserved.
-- Enchantments (Efficiency, Fortune, Silk Touch, Unbreaking, Mending) are preserved intact.
-- Active tool locking: If the currently held tool is already valid for the targeted block class, no redundant inventory swaps occur.
+- Enchantments (Efficiency, Fortune, Silk Touch, Unbreaking, Mending, Sharpness, etc.) are preserved intact.
+- Active tool locking: If the currently held tool or weapon is already valid for the target block or combat, no redundant inventory swaps occur.
+- No looking-at-block jitter: Tools only switch when you actually start breaking, never while simply looking around.
 
 ---
 
@@ -65,19 +66,21 @@ Item components are preserved during swaps:
 
 | Parameter | Value | Reference / Notes |
 | :--- | :--- | :--- |
-| **Script Module** | `@minecraft/server` | `1.13.0` |
+| **Script Module** | `@minecraft/server` | `1.13.0` (STABLE) |
 | **Minimum Engine Version** | `1.21.0` | `manifest.json` |
-| **Targeting Range** | 6.0 blocks | Player raycast distance |
-| **Execution Tick Rate** | Real-time raycast | Script tick loop |
+| **Execution Trigger** | Event-Driven | `entityHitBlock` & `entityHitEntity` |
+| **Idle Overhead** | 0% (Zero-polling) | No background interval or raycast loops |
 | **Experimental Toggles** | Beta APIs enabled | Required for Script API execution |
 
 ---
 
 ## Comparison Table
 
-| Feature | Vanilla Bedrock | With Passive Auto-Switch Tools |
+| Feature | Vanilla Bedrock | With Passive Auto-Switch Tools v1.1.0 |
 | :--- | :--- | :--- |
-| **Tool Swapping** | Manual hotbar selection | Automatic tool selection upon block raycast |
+| **Tool Swapping** | Manual hotbar selection | Automatic tool selection upon hitting/starting to break |
+| **Combat Swapping** | Manual weapon selection | Automatic switch to axe or sword when hitting mobs |
+| **Look-Around Stability** | Static | Clean & stable (no unwanted swaps while looking) |
 | **Tool Wear Protection** | Manual caution required | Matches optimal tool type directly |
 | **Building and Off-Hand Usage** | Unaffected | Hotbar slots 2 to 9 remain completely manual |
 | **Touch Controls Usability** | Frequent manual hotbar tapping | Automated selection reduces input overhead |

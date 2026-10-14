@@ -4,7 +4,7 @@
     "name": "Passive Auto-Switch Tools BP",
     "description": "Zero-configuration passive tool auto-switcher when holding Hotbar Slot 1. By AllensCreations.",
     "uuid": "030580a5-3472-418c-82bd-656a52728134",
-    "version": [1, 0, 0],
+    "version": [1, 1, 0],
     "min_engine_version": [1, 21, 0]
   },
   "modules": [
@@ -13,7 +13,7 @@
       "type": "script",
       "language": "javascript",
       "uuid": "256fecc9-3258-42da-8ace-aab8fdf1ec0f",
-      "version": [1, 0, 0],
+      "version": [1, 1, 0],
       "entry": "scripts/main.js"
     }
   ],
