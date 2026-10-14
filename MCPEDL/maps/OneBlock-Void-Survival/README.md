@@ -3,7 +3,7 @@
 ![MCPEDL](https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/MCPEDL/maps/OneBlock-Void-Survival/behavior_pack/pack_icon.png "MCPEDL")
 
 [![Minecraft Bedrock](https://img.shields.io/badge/Minecraft%20Bedrock-1.21.x%2B-brightgreen?style=flat-square&logo=minecraft)](https://github.com/AllensCreations/MCPE-Curseforges)
-[![Version](https://img.shields.io/badge/Map%20Version-v1.2.1-blue?style=flat-square)](../README.md#available-maps-catalog)
+[![Version](https://img.shields.io/badge/Map%20Version-v1.2.2-blue?style=flat-square)](../README.md#available-maps-catalog)
 [![Format](https://img.shields.io/badge/Format-.MCWORLD-orange?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges)
 [![Experiments](https://img.shields.io/badge/Experiments-None%20%28Pure%20Vanilla%29-brightgreen?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges)
 

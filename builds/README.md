@@ -10,26 +10,26 @@ This directory stores all compiled releases (behavior packs, resource packs, add
 
 | Pack Name | Version | Type | Download Link | Build Folder |
 | :--- | :--- | :--- | :--- | :--- |
-| **Vanilla Quality of Life** | `v1.2.1` | Complete Add-on (`.mcaddon`) | [Download (.mcaddon)](Vanilla-Quality-of-Life/Vanilla_QoL_AllensCreations.mcaddon) | [`Vanilla-Quality-of-Life/`](Vanilla-Quality-of-Life/) |
-| **Monster Companions** | `v1.0.1` | Complete Add-on (`.mcaddon`) | [Download (.mcaddon)](Monster-Companions/Monster_Companions_AllensCreations.mcaddon) | [`Monster-Companions/`](Monster-Companions/) |
-| **Mining Helmet** | `v1.0.1` | Complete Add-on (`.mcaddon`) | [Download (.mcaddon)](Mining-Helmet/Mining_Helmet_AllensCreations.mcaddon) | [`Mining-Helmet/`](Mining-Helmet/) |
-| **Passive Auto-Switch Tools** | `v1.1.2` | Script Behavior Pack (`.mcpack`) | [Download (.mcpack)](Passive-Auto-Switch-Tools/Passive_Auto_Switch_Tools_AllensCreations.mcpack) | [`Passive-Auto-Switch-Tools/`](Passive-Auto-Switch-Tools/) |
+| **Vanilla Quality of Life** | `v1.2.2` | Complete Add-on (`.mcaddon`) | [Download (.mcaddon)](Vanilla-Quality-of-Life/Vanilla_QoL_AllensCreations.mcaddon) | [`Vanilla-Quality-of-Life/`](Vanilla-Quality-of-Life/) |
+| **Monster Companions** | `v1.0.2` | Complete Add-on (`.mcaddon`) | [Download (.mcaddon)](Monster-Companions/Monster_Companions_AllensCreations.mcaddon) | [`Monster-Companions/`](Monster-Companions/) |
+| **Mining Helmet** | `v1.0.2` | Complete Add-on (`.mcaddon`) | [Download (.mcaddon)](Mining-Helmet/Mining_Helmet_AllensCreations.mcaddon) | [`Mining-Helmet/`](Mining-Helmet/) |
+| **Passive Auto-Switch Tools** | `v1.1.3` | Script Behavior Pack (`.mcpack`) | [Download (.mcpack)](Passive-Auto-Switch-Tools/Passive_Auto_Switch_Tools_AllensCreations.mcpack) | [`Passive-Auto-Switch-Tools/`](Passive-Auto-Switch-Tools/) |
 | **Ghast Mob Head Transformers** | `v1.0.1` | Complete Add-on (`.mcaddon`) | [Download (.mcaddon)](Ghast-Head-Transformers/Ghast_Head_Transformers_AllensCreations.mcaddon) | [`Ghast-Head-Transformers/`](Ghast-Head-Transformers/) |
 
 ### Worlds and Maps
 
 | Map Name | Version | Type | Download Link | Build Folder |
 | :--- | :--- | :--- | :--- | :--- |
-| **OneBlock Void Survival** | `v1.2.1` | Survival World (`.mcworld`) | [Download (.mcworld)](OneBlock-Void-Survival/OneBlock_Void_Survival.mcworld) | [`OneBlock-Void-Survival/`](OneBlock-Void-Survival/) |
-| **OneBlock Void (Admin Studio)** | `v1.2.1` | Testing World (`.mcworld`) | [Download (.mcworld)](OneBlock-Void-Survival/OneBlock_Void_Survival_Admin.mcworld) | [`OneBlock-Void-Survival/`](OneBlock-Void-Survival/) |
+| **OneBlock Void Survival** | `v1.2.2` | Survival World (`.mcworld`) | [Download (.mcworld)](OneBlock-Void-Survival/OneBlock_Void_Survival.mcworld) | [`OneBlock-Void-Survival/`](OneBlock-Void-Survival/) |
+| **OneBlock Void (Admin Studio)** | `v1.2.2` | Testing World (`.mcworld`) | [Download (.mcworld)](OneBlock-Void-Survival/OneBlock_Void_Survival_Admin.mcworld) | [`OneBlock-Void-Survival/`](OneBlock-Void-Survival/) |
 
 ### Script Projects & Challenges
 
 | Project Name | Version | Type | Download Link | Build Folder |
 | :--- | :--- | :--- | :--- | :--- |
-| **Alphabet Scavenger Hunt** | `v1.0.1` | Script Behavior Pack (`.mcpack`) | [Download (.mcpack)](Alphabet-Scavenger-Hunt/Alphabet_Scavenger_Hunt_AllensCreations.mcpack) | [`Alphabet-Scavenger-Hunt/`](Alphabet-Scavenger-Hunt/) |
-| **Shared Hivemind Inventory** | `v1.0.1` | Script Behavior Pack (`.mcpack`) | [Download (.mcpack)](Shared-Hivemind-Inventory/Shared_Hivemind_Inventory_AllensCreations.mcpack) | [`Shared-Hivemind-Inventory/`](Shared-Hivemind-Inventory/) |
-| **Tethered: Breaker & Builder** | `v1.0.1` | Script Behavior Pack (`.mcpack`) | [Download (.mcpack)](Tethered-Breaker-And-Builder/Tethered_Breaker_And_Builder_AllensCreations.mcpack) | [`Tethered-Breaker-And-Builder/`](Tethered-Breaker-And-Builder/) |
+| **Alphabet Scavenger Hunt** | `v1.0.2` | Script Behavior Pack (`.mcpack`) | [Download (.mcpack)](Alphabet-Scavenger-Hunt/Alphabet_Scavenger_Hunt_AllensCreations.mcpack) | [`Alphabet-Scavenger-Hunt/`](Alphabet-Scavenger-Hunt/) |
+| **Shared Hivemind Inventory** | `v1.0.2` | Script Behavior Pack (`.mcpack`) | [Download (.mcpack)](Shared-Hivemind-Inventory/Shared_Hivemind_Inventory_AllensCreations.mcpack) | [`Shared-Hivemind-Inventory/`](Shared-Hivemind-Inventory/) |
+| **Tethered: Breaker & Builder** | `v1.0.2` | Script Behavior Pack (`.mcpack`) | [Download (.mcpack)](Tethered-Breaker-And-Builder/Tethered_Breaker_And_Builder_AllensCreations.mcpack) | [`Tethered-Breaker-And-Builder/`](Tethered-Breaker-And-Builder/) |
 
 ---
 

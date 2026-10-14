@@ -18,8 +18,8 @@ Description: Curated collection of modular, production-ready Minecraft Bedrock b
 
 | Map Name | Version | Category | Download (.mcworld) | World Files | Highlights |
 | :--- | :--- | :--- | :--- | :--- | :--- |
-| **OneBlock Void Survival** | `v1.2.1` | Void Survival & RPG | [Download (.mcworld)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/OneBlock-Void-Survival/OneBlock_Void_Survival.mcworld) | [`MCPEDL/maps/OneBlock-Void-Survival/`](MCPEDL/maps/OneBlock-Void-Survival/) | 43 Themed Secret Void Islands, 1-tick auto-renewing OneBlock, 3-tier progressive scaling, Dimension Shifter merchant, Hardcore death mode, Zero experimental flags needed. |
-| **OneBlock Void (Admin Studio)** | `v1.2.1` | Testing & Photography | [Download (.mcworld)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/OneBlock-Void-Survival/OneBlock_Void_Survival_Admin.mcworld) | [`MCPEDL/maps/OneBlock-Void-Survival/`](MCPEDL/maps/OneBlock-Void-Survival/) | Pre-manifested 43 islands, double-sneak photo studio GUI, 3/4 isometric panoramic camera angles, lighting controls, zero-item auto-break runner. |
+| **OneBlock Void Survival** | `v1.2.2` | Void Survival & RPG | [Download (.mcworld)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/OneBlock-Void-Survival/OneBlock_Void_Survival.mcworld) | [`MCPEDL/maps/OneBlock-Void-Survival/`](MCPEDL/maps/OneBlock-Void-Survival/) | 43 Themed Secret Void Islands, 1-tick auto-renewing OneBlock, 3-tier progressive scaling, Dimension Shifter merchant, Hardcore death mode, Zero experimental flags needed. |
+| **OneBlock Void (Admin Studio)** | `v1.2.2` | Testing & Photography | [Download (.mcworld)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/OneBlock-Void-Survival/OneBlock_Void_Survival_Admin.mcworld) | [`MCPEDL/maps/OneBlock-Void-Survival/`](MCPEDL/maps/OneBlock-Void-Survival/) | Pre-manifested 43 islands, double-sneak photo studio GUI, 3/4 isometric panoramic camera angles, lighting controls, zero-item auto-break runner. |
 
 Explore the full [Maps Directory](MCPEDL/maps/README.md).
 
@@ -29,10 +29,10 @@ Explore the full [Maps Directory](MCPEDL/maps/README.md).
 
 | Add-on Name | Version | Type | Download | Source Code | Highlights |
 | :--- | :--- | :--- | :--- | :--- | :--- |
-| **Vanilla Quality of Life** | `v1.2.1` | Complete Pack (`.mcaddon`) | [Download (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Vanilla-Quality-of-Life/Vanilla_QoL_AllensCreations.mcaddon) | [`MCPEDL/addons/Vanilla-Quality-of-Life/`](MCPEDL/addons/Vanilla-Quality-of-Life/) | Universal Leashes (101 mobs), Spider Leash Fix, Fast Leaf Decay, Woodcutter, 16x Potions, Offhand Quick-Swap, Mob Heads. |
-| **Monster Companions** | `v1.0.1` | Complete Pack (`.mcaddon`) | [Download (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Monster-Companions/Monster_Companions_AllensCreations.mcaddon) | [`MCPEDL/addons/Monster-Companions/`](MCPEDL/addons/Monster-Companions/) | Tame 32 monsters into bodyguards and rideable mounts with Beast Biscuits. Combat pacification below 50% HP, wall-climbing spiders. |
-| **Mining Helmet** | `v1.0.1` | Complete Pack (`.mcaddon`) | [Download (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Mining-Helmet/Mining_Helmet_AllensCreations.mcaddon) | [`MCPEDL/addons/Mining-Helmet/`](MCPEDL/addons/Mining-Helmet/) | Wearable Mining Helmet with real-time level 15 dynamic following light, zero-residue block cleanup, and gold helmet model styling. |
-| **Passive Auto-Switch Tools** | `v1.1.2` | Script Behavior Pack (`.mcpack`) | [Download (.mcpack)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Passive-Auto-Switch-Tools/Passive_Auto_Switch_Tools_AllensCreations.mcpack) | [`MCPEDL/addons/Passive-Auto-Switch-Tools/`](MCPEDL/addons/Passive-Auto-Switch-Tools/) | Event-driven tool & weapon switcher when holding Slot 1. Swaps optimal tools upon breaking and equips axe/sword for mobs. |
+| **Vanilla Quality of Life** | `v1.2.2` | Complete Pack (`.mcaddon`) | [Download (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Vanilla-Quality-of-Life/Vanilla_QoL_AllensCreations.mcaddon) | [`MCPEDL/addons/Vanilla-Quality-of-Life/`](MCPEDL/addons/Vanilla-Quality-of-Life/) | Universal Leashes (101 mobs), Spider Leash Fix, Fast Leaf Decay, Woodcutter, 16x Potions, Offhand Quick-Swap, Mob Heads. |
+| **Monster Companions** | `v1.0.2` | Complete Pack (`.mcaddon`) | [Download (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Monster-Companions/Monster_Companions_AllensCreations.mcaddon) | [`MCPEDL/addons/Monster-Companions/`](MCPEDL/addons/Monster-Companions/) | Tame 32 monsters into bodyguards and rideable mounts with Beast Biscuits. Combat pacification below 50% HP, wall-climbing spiders. |
+| **Mining Helmet** | `v1.0.2` | Complete Pack (`.mcaddon`) | [Download (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Mining-Helmet/Mining_Helmet_AllensCreations.mcaddon) | [`MCPEDL/addons/Mining-Helmet/`](MCPEDL/addons/Mining-Helmet/) | Wearable Mining Helmet with real-time level 15 dynamic following light, zero-residue block cleanup, and gold helmet model styling. |
+| **Passive Auto-Switch Tools** | `v1.1.3` | Script Behavior Pack (`.mcpack`) | [Download (.mcpack)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Passive-Auto-Switch-Tools/Passive_Auto_Switch_Tools_AllensCreations.mcpack) | [`MCPEDL/addons/Passive-Auto-Switch-Tools/`](MCPEDL/addons/Passive-Auto-Switch-Tools/) | Event-driven tool & weapon switcher when holding Slot 1. Swaps optimal tools upon breaking and equips axe/sword for mobs. |
 | **Ghast Mob Head Transformers** | `v1.0.1` | Complete Pack (`.mcaddon`) | [Download (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Ghast-Head-Transformers/Ghast_Head_Transformers_AllensCreations.mcaddon) | [`MCPEDL/addons/Ghast-Head-Transformers/`](MCPEDL/addons/Ghast-Head-Transformers/) | Transform vanilla Ghasts into giant flying mob heads by equipping skulls, with charging faces and shearing drops. |
 
 Explore the full [Add-ons Directory](MCPEDL/addons/README.md).
@@ -43,9 +43,9 @@ Explore the full [Add-ons Directory](MCPEDL/addons/README.md).
 
 | Project Name | Version | Category | Download (.mcpack) | Source Code | Highlights |
 | :--- | :--- | :--- | :--- | :--- | :--- |
-| **Alphabet Scavenger Hunt** | `v1.0.1` | Survival Challenge | [Download (.mcpack)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Alphabet-Scavenger-Hunt/Alphabet_Scavenger_Hunt_AllensCreations.mcpack) | [`MCPEDL/script/Alphabet-Scavenger-Hunt/`](MCPEDL/script/Alphabet-Scavenger-Hunt/) | 20-Round survival challenge. Scavenge items matching the target letter within 60s or suffer permanent max health loss. PrismarineJS item verification engine. |
-| **Shared Hivemind Inventory** | `v1.0.1` | Multiplayer Challenge | [Download (.mcpack)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Shared-Hivemind-Inventory/Shared_Hivemind_Inventory_AllensCreations.mcpack) | [`MCPEDL/script/Shared-Hivemind-Inventory/`](MCPEDL/script/Shared-Hivemind-Inventory/) | All online players share the exact same 36 inventory slots and offhand in real-time. Single death spot drops and anti-duplication engine. |
-| **Tethered: Breaker & Builder** | `v1.0.1` | Asymmetric Co-op | [Download (.mcpack)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Tethered-Breaker-And-Builder/Tethered_Breaker_And_Builder_AllensCreations.mcpack) | [`MCPEDL/script/Tethered-Breaker-And-Builder/`](MCPEDL/script/Tethered-Breaker-And-Builder/) | 2-Player asymmetric co-op challenge. 15m dynamic elastic energy leash, anchor physics, strict mining/building separation, and live tension HUD. |
+| **Alphabet Scavenger Hunt** | `v1.0.2` | Survival Challenge | [Download (.mcpack)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Alphabet-Scavenger-Hunt/Alphabet_Scavenger_Hunt_AllensCreations.mcpack) | [`MCPEDL/script/Alphabet-Scavenger-Hunt/`](MCPEDL/script/Alphabet-Scavenger-Hunt/) | 20-Round survival challenge. Scavenge items matching the target letter within 60s or suffer permanent max health loss. PrismarineJS item verification engine. |
+| **Shared Hivemind Inventory** | `v1.0.2` | Multiplayer Challenge | [Download (.mcpack)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Shared-Hivemind-Inventory/Shared_Hivemind_Inventory_AllensCreations.mcpack) | [`MCPEDL/script/Shared-Hivemind-Inventory/`](MCPEDL/script/Shared-Hivemind-Inventory/) | All online players share the exact same 36 inventory slots and offhand in real-time. Single death spot drops and anti-duplication engine. |
+| **Tethered: Breaker & Builder** | `v1.0.2` | Asymmetric Co-op | [Download (.mcpack)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Tethered-Breaker-And-Builder/Tethered_Breaker_And_Builder_AllensCreations.mcpack) | [`MCPEDL/script/Tethered-Breaker-And-Builder/`](MCPEDL/script/Tethered-Breaker-And-Builder/) | 2-Player asymmetric co-op challenge. 15m dynamic elastic energy leash, anchor physics, strict mining/building separation, and live tension HUD. |
 
 Explore the full [Script Directory](MCPEDL/script/README.md).
 
@@ -53,7 +53,7 @@ Explore the full [Script Directory](MCPEDL/script/README.md).
 
 ## Detailed Project Overviews
 
-### Map: OneBlock Void Survival (v1.2.1)
+### Map: OneBlock Void Survival (v1.2.2)
 
 Single-block void survival map with procedural island generation across dimensions.
 
@@ -67,7 +67,7 @@ Single-block void survival map with procedural island generation across dimensio
 
 ---
 
-### Add-on 1: Vanilla Quality of Life (v1.2.1)
+### Add-on 1: Vanilla Quality of Life (v1.2.2)
 
 ![Vanilla QoL Icon](https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/MCPEDL/addons/Vanilla-Quality-of-Life/pack_icon.png)
 
@@ -86,7 +86,7 @@ Lightweight data-driven vanilla enhancement pack for Minecraft Bedrock.
 
 ---
 
-### Add-on 2: Monster Companions (v1.0.1)
+### Add-on 2: Monster Companions (v1.0.2)
 
 ![Monster Companions Icon](https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/MCPEDL/addons/Monster-Companions/1791889944961.jpg)
 
@@ -103,7 +103,7 @@ Data-driven pacification and bodyguard system for hostile monsters.
 
 ---
 
-### Add-on 3: Mining Helmet (v1.0.1)
+### Add-on 3: Mining Helmet (v1.0.2)
 
 ![Mining Helmet Banner](https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/MCPEDL/addons/Mining-Helmet/1791946330457.jpg)
 
@@ -154,7 +154,7 @@ Transform vanilla Ghasts into giant flying mob heads by equipping skulls.
 
 ---
 
-### Script 1: Alphabet Scavenger Hunt (v1.0.1)
+### Script 1: Alphabet Scavenger Hunt (v1.0.2)
 
 ![Alphabet Scavenger Hunt Banner](https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/MCPEDL/script/Alphabet-Scavenger-Hunt/1791906974481.jpg)
 
@@ -169,7 +169,7 @@ Transform vanilla Ghasts into giant flying mob heads by equipping skulls.
 
 ---
 
-### Script 2: Shared Hivemind Inventory (v1.0.1)
+### Script 2: Shared Hivemind Inventory (v1.0.2)
 
 ![Shared Hivemind Inventory Icon](https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/MCPEDL/script/Shared-Hivemind-Inventory/pack_icon.png)
 
