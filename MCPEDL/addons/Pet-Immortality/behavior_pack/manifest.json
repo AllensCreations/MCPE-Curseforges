@@ -1,0 +1,48 @@
+{
+  "format_version": 2,
+  "header": {
+    "name": "Pet-Immortality BP by AllensCreations",
+    "description": "Configurable immortality for cats, wolves, parrots, horses, and all tamed pets.",
+    "uuid": "8b5512d2-9c31-4282-a715-cf29e965f6b7",
+    "version": [
+      1,
+      0,
+      0
+    ],
+    "min_engine_version": [
+      1,
+      26,
+      0
+    ]
+  },
+  "modules": [
+    {
+      "description": "Pet-Immortality Behavior Module",
+      "type": "data",
+      "uuid": "71c80da9-e3b8-42ce-ab4d-e8815778ccb6",
+      "version": [
+        1,
+        0,
+        0
+      ]
+    },
+    {
+      "description": "Pet-Immortality Script Module",
+      "type": "script",
+      "language": "javascript",
+      "uuid": "9a3eca73-2546-4fb3-8917-42d08b0447c9",
+      "version": [
+        1,
+        0,
+        0
+      ],
+      "entry": "scripts/main.js"
+    }
+  ],
+  "dependencies": [
+    {
+      "module_name": "@minecraft/server",
+      "version": "1.17.0"
+    }
+  ]
+}

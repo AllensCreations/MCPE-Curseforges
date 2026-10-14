@@ -17,6 +17,7 @@ This directory stores all compiled releases (behavior packs, resource packs, add
 | **Ghast Mob Head Transformers** | `v1.0.1` | Complete Add-on (`.mcaddon`) | [Download (.mcaddon)](Ghast-Head-Transformers/Ghast_Head_Transformers_AllensCreations.mcaddon) | [`Ghast-Head-Transformers/`](Ghast-Head-Transformers/) |
 | **Pet Immortality** | `v1.0.1` | Script Behavior Pack (`.mcpack`) | [Download (.mcpack)](Pet-immortality/Pet_immortality_AllensCreations.mcpack) | [`Pet-immortality/`](Pet-immortality/) |
 | **Tameable Fox Companion** | `v1.0.0` | Complete Pack (`.mcaddon`) | [Download (.mcaddon)](Tameable-Fox-Companion/Tameable_Fox_Companion_AllensCreations.mcaddon) | [`Tameable-Fox-Companion/`](Tameable-Fox-Companion/) |
+| **Pet Immortality** | `v1.0.0` | Script Behavior Pack (`.mcpack`) | [Download (.mcpack)](Pet-Immortality/Pet_Immortality_AllensCreations.mcpack) | [`Pet-Immortality/`](Pet-Immortality/) |
 
 ### Worlds and Maps
 
