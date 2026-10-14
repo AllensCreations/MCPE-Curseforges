@@ -1,4 +1,6 @@
 item.custom:custom_head=Custom Mob Head
-action.interact.equip_head=Equip Mob Head
-action.interact.shear=Shear Mob Head
+action.interact.armorstand.equip=Equip
+action.interact.equip=Equip
+action.interact.equip_head=Equip
+action.interact.shear=Shear
 entity.ghast.name=Ghast
