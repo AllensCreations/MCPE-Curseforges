@@ -24,20 +24,20 @@ Using a pair of **Shears** on a transformed Ghast removes the equipped head, pla
 
 ---
 
-## Transformation Variants
+## Transformation Variants & Combat Abilities
 
 Interact with any Ghast while holding one of the following items to initiate the transformation:
 
-| Variant | Item Required | Transformed Entity | Charging State Expression | Shearing Drop |
-| :---: | :--- | :--- | :--- | :--- |
-| **0** | *(Default)* | Classic Vanilla Ghast | Classic red-eyed crying / shooting face | None |
-| **1** | `minecraft:skeleton_skull` | Giant Skeleton Head | Flaming red eye sockets & open jaw cavity | `minecraft:skeleton_skull` |
-| **2** | `minecraft:wither_skeleton_skull` | Giant Wither Skeleton Head | Blazing cyan soul-fire eyes & open maw | `minecraft:wither_skeleton_skull` |
-| **3** | `minecraft:zombie_head` | Giant Zombie Head | Bloodshot crimson eyes & snarling fangs | `minecraft:zombie_head` |
-| **4** | `minecraft:player_head` | Giant Steve / Human Head | Furrowed angry eyebrows & screaming mouth | `minecraft:player_head` |
-| **5** | `minecraft:creeper_head` | Giant Creeper Head | Flashing white sizzle & glowing red mouth | `minecraft:creeper_head` |
-| **6** | `minecraft:piglin_head` | Giant Piglin Head | Crimson battle eyes, tusks & flared snout | `minecraft:piglin_head` |
-| **7** | `custom:custom_head` | Giant Custom Head | Neon cyan matrix overload & energy roar | `custom:custom_head` |
+| Variant | Item Required | Transformed Entity | Attack Projectile & Fire Rate | Sound Cues (Equip, Charge & Hurt) | Shearing Drop |
+| :---: | :--- | :--- | :--- | :--- | :--- |
+| **0** | *(Default)* | Classic Vanilla Ghast | Giant Fireball (`minecraft:fireball`) [2.0s] | Classic Ghast scream & moan | None |
+| **1** | `minecraft:skeleton_skull` | Giant Skeleton Head | Rapid Piercing Arrow (`minecraft:arrow`) [1.0s] | Skeleton rattle & bone snap | `minecraft:skeleton_skull` |
+| **2** | `minecraft:wither_skeleton_skull` | Giant Wither Skeleton Head | Explosive Wither Skull (`minecraft:wither_skull`) [2.2s] | Deep soul rattle & wither launch | `minecraft:wither_skeleton_skull` |
+| **3** | `minecraft:zombie_head` | Giant Zombie Head | Splash Poison Potion (`minecraft:splash_potion`) [1.6s] | Undead groans & zombie grunts | `minecraft:zombie_head` |
+| **4** | `minecraft:player_head` | Giant Steve / Human Head | Knockback Wind Charge (`minecraft:wind_charge_projectile`) [1.4s] | Player hurt cue & wind burst | `minecraft:player_head` |
+| **5** | `minecraft:creeper_head` | Giant Creeper Head | High-Explosive Fireball (`minecraft:fireball`) [2.5s] | **Terrifying Fuse Hiss (`random.fuse`)** | `minecraft:creeper_head` |
+| **6** | `minecraft:piglin_head` | Giant Piglin Head | Rapid Blazing Fireballs (`minecraft:small_fireball`) [0.8s] | Angry Piglin snorts & grunts | `minecraft:piglin_head` |
+| **7** | `custom:custom_head` | Giant Custom Head | Dragon Breath Fireball (`minecraft:dragon_fireball`) [3.0s] | Ender Dragon roar & dragon hit | `custom:custom_head` |
 
 ---
 
@@ -46,17 +46,21 @@ Interact with any Ghast while holding one of the following items to initiate the
 ### 1. Equipping a Head
 - Approach any Ghast and right-click or tap the **Equip Mob Head** interact button while holding a valid skull.
 - Consumes 1 skull item from your hand.
-- Triggers a loud Ghast screech audio cue (`mob.ghast.scream`) and white smoke burst.
-- Replaces the Ghast model with a clean 16x16x16 giant head cube, cleanly hiding all dangling tentacles (`tentacle0` through `tentacle8`).
+- Triggers that specific mob's authentic audio cue and white smoke burst.
+- Replaces the Ghast model with a full 3D head model (featuring 3D hat overlays, 3D Piglin snout, and 3D ears), cleanly hiding all dangling tentacles (`tentacle0` through `tentacle8`).
 
-### 2. Shearing and Resetting
+### 2. Mob Combat & Dynamic Sound Cues
+- **Combat Identity:** Transformed Ghasts use custom attack behaviors matching their mob. Piglins unleash rapid small fireballs every 0.8s; Skeletons snipe with rapid high-velocity arrows; Creeper-Ghasts charge up with a chilling **TSSSSSssss...** fuse hiss before blasting devastating fireballs!
+- **Mob Audio Cues:** Each variant has dedicated client sound triggers for charging, taking damage, and dying.
+
+### 3. Shearing and Resetting
 - Approach any transformed Ghast with **Shears** and interact.
 - Damages shears durability by 1 point.
 - Triggers the shears snip audio cue (`mob.sheep.shear`).
 - Drops the exact equipped skull item on the ground as an entity loot drop, ensuring no lost resources in Survival mode.
 - Restores the Ghast back to Variant 0 with classic tentacles.
 
-### 3. Custom Head Template (`custom:custom_head`)
+### 4. Custom Head Template (`custom:custom_head`)
 - The add-on includes a custom item identifier (`custom:custom_head`) designed as an easily extensible template for creators and players.
 - Obtainable via commands: `/give @s custom:custom_head`.
 - Retexturing: Replace `textures/entity/ghast/heads/custom_head.png` (idle) and `custom_head_charging.png` (charging) in the resource pack to load any custom skin, YouTuber face, or custom mob design.

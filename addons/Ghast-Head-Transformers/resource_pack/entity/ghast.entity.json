@@ -35,11 +35,35 @@
         "move": "animation.ghast.move",
         "scale": "animation.ghast.scale"
       },
+      "sound_effects": {
+        "skeleton_charge": "mob.skeleton.say",
+        "skeleton_hurt": "mob.skeleton.hurt",
+        "wither_charge": "mob.wither.shoot",
+        "wither_hurt": "entity.wither_skeleton.hurt",
+        "zombie_charge": "mob.zombie.say",
+        "zombie_hurt": "mob.zombie.hurt",
+        "steve_hurt": "game.player.hurt",
+        "creeper_charge": "random.fuse",
+        "creeper_hurt": "mob.creeper.say",
+        "piglin_charge": "mob.piglin.angry",
+        "piglin_hurt": "mob.piglin.hurt",
+        "dragon_charge": "mob.enderdragon.growl",
+        "dragon_hurt": "mob.enderdragon.hit"
+      },
       "animation_controllers": [
         {
           "move": "controller.animation.ghast.move"
+        },
+        {
+          "sound": "controller.animation.ghast.sound"
         }
       ],
+      "scripts": {
+        "animate": [
+          "move",
+          "sound"
+        ]
+      },
       "render_controllers": [
         "controller.render.ghast"
       ]
