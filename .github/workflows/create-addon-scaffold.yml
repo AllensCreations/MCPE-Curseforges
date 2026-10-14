@@ -1,0 +1,221 @@
+name: 🧱 Create New Addon Scaffold
+
+on:
+  workflow_dispatch:
+    inputs:
+      addon_name:
+        description: 'Addon folder name (e.g. "My-Cool-Addon" — use hyphens, no spaces)'
+        required: true
+        type: string
+      addon_description:
+        description: 'Short description of the addon'
+        required: false
+        default: 'A new Minecraft Bedrock addon by AllensCreations.'
+        type: string
+      min_engine_version:
+        description: 'Minimum Minecraft engine version (e.g. 1.21.0)'
+        required: false
+        default: '1.21.0'
+        type: string
+
+permissions:
+  contents: write
+
+jobs:
+  scaffold:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Validate addon name
+        run: |
+          ADDON="${{ github.event.inputs.addon_name }}"
+          if [[ -z "$ADDON" ]]; then
+            echo "❌ Addon name cannot be empty."
+            exit 1
+          fi
+          if [[ "$ADDON" =~ [^a-zA-Z0-9_\-] ]]; then
+            echo "❌ Addon name '$ADDON' contains invalid characters. Use letters, numbers, hyphens, or underscores only."
+            exit 1
+          fi
+          TARGET="MCPEDL/addons/$ADDON"
+          if [ -d "$TARGET" ]; then
+            echo "❌ Addon folder '$TARGET' already exists. Choose a different name."
+            exit 1
+          fi
+          echo "✅ Addon name is valid: $ADDON"
+
+      - name: Generate UUIDs
+        id: uuids
+        run: |
+          UUID_HEADER=$(python3 -c "import uuid; print(str(uuid.uuid4()))")
+          UUID_DATA_MODULE=$(python3 -c "import uuid; print(str(uuid.uuid4()))")
+          UUID_SCRIPT_MODULE=$(python3 -c "import uuid; print(str(uuid.uuid4()))")
+          echo "header=$UUID_HEADER"         >> $GITHUB_OUTPUT
+          echo "data_module=$UUID_DATA_MODULE"   >> $GITHUB_OUTPUT
+          echo "script_module=$UUID_SCRIPT_MODULE" >> $GITHUB_OUTPUT
+
+      - name: Parse min engine version
+        id: engine
+        run: |
+          VERSION="${{ github.event.inputs.min_engine_version }}"
+          MAJOR=$(echo "$VERSION" | cut -d. -f1)
+          MINOR=$(echo "$VERSION" | cut -d. -f2)
+          PATCH=$(echo "$VERSION" | cut -d. -f3)
+          echo "major=$MAJOR" >> $GITHUB_OUTPUT
+          echo "minor=$MINOR" >> $GITHUB_OUTPUT
+          echo "patch=$PATCH" >> $GITHUB_OUTPUT
+
+      - name: Create addon scaffold
+        run: |
+          ADDON="${{ github.event.inputs.addon_name }}"
+          DESC="${{ github.event.inputs.addon_description }}"
+          ROOT="MCPEDL/addons/$ADDON"
+
+          UUID_HEADER="${{ steps.uuids.outputs.header }}"
+          UUID_DATA="${{ steps.uuids.outputs.data_module }}"
+          UUID_SCRIPT="${{ steps.uuids.outputs.script_module }}"
+
+          ENG_MAJOR="${{ steps.engine.outputs.major }}"
+          ENG_MINOR="${{ steps.engine.outputs.minor }}"
+          ENG_PATCH="${{ steps.engine.outputs.patch }}"
+
+          echo "📁 Creating folder structure at $ROOT ..."
+
+          # ── Folders ────────────────────────────────────────────────
+          mkdir -p "$ROOT/behavior_pack/scripts"
+
+          # ── behavior_pack/manifest.json ────────────────────────────
+          cat > "$ROOT/behavior_pack/manifest.json" <<EOF
+          {
+            "format_version": 2,
+            "header": {
+              "name": "$ADDON BP by AllensCreations",
+              "description": "$DESC",
+              "uuid": "$UUID_HEADER",
+              "version": [1, 0, 0],
+              "min_engine_version": [$ENG_MAJOR, $ENG_MINOR, $ENG_PATCH]
+            },
+            "modules": [
+              {
+                "description": "$ADDON Behavior Module",
+                "type": "data",
+                "uuid": "$UUID_DATA",
+                "version": [1, 0, 0]
+              },
+              {
+                "description": "$ADDON Script Module",
+                "type": "script",
+                "language": "javascript",
+                "uuid": "$UUID_SCRIPT",
+                "version": [1, 0, 0],
+                "entry": "scripts/main.js"
+              }
+            ],
+            "dependencies": [
+              {
+                "module_name": "@minecraft/server",
+                "version": "1.13.0"
+              }
+            ]
+          }
+          EOF
+
+          # ── behavior_pack/scripts/main.js ──────────────────────────
+          cat > "$ROOT/behavior_pack/scripts/main.js" <<EOF
+          // $ADDON — main.js
+          // Created: $(date -u +"%Y-%m-%d")
+          // Author : AllensCreations
+          //
+          // TODO: Add your script logic here.
+
+          import * as mc from "@minecraft/server";
+
+          mc.world.afterEvents.worldInitialize.subscribe(() => {
+            mc.world.sendMessage("§a[$ADDON] §rAddon loaded successfully!");
+          });
+          EOF
+
+          # ── README.md ──────────────────────────────────────────────
+          cat > "$ROOT/README.md" <<EOF
+          # $ADDON — Minecraft Bedrock Addon
+
+          [![Minecraft Bedrock](https://img.shields.io/badge/Minecraft%20Bedrock-$ENG_MAJOR.$ENG_MINOR.$ENG_PATCH%2B-brightgreen?style=flat-square&logo=minecraft)](https://github.com/AllensCreations/MCPE-Curseforges)
+          [![Release](https://img.shields.io/badge/Release-v1.0.0-blue?style=flat-square)](../README.md#available-source-add-ons)
+          [![Format](https://img.shields.io/badge/Format-.MCADDON-orange?style=flat-square)](../README.md#available-source-add-ons)
+          [![Platform](https://img.shields.io/badge/Platform-Mobile%20%7C%20PC%20%7C%20Console%20%7C%20Realms-yellow?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges)
+
+          Creator: AllensCreations
+          Description: $DESC
+
+          ---
+
+          ## Overview
+
+          <!-- TODO: Describe what this addon does. -->
+
+          ---
+
+          ## Features
+
+          <!-- TODO: List features here. -->
+
+          ---
+
+          ## Installation
+
+          1. Download the \`.mcaddon\` file from the [releases](../README.md).
+          2. Double-tap / open the file to auto-import into Minecraft.
+          3. Apply the **$ADDON BP** to your world's behavior packs.
+
+          ---
+
+          ## Guidelines and Attribution
+
+          - Creator: AllensCreations
+          - Video & Showcase: Content creators may feature this addon with credit to AllensCreations.
+          - Redistribution: Do not re-upload or provide direct monetized download bypasses.
+          - Rights: All rights reserved for AllensCreations.
+
+          ---
+
+          © All rights reserved for AllensCreations.
+          EOF
+
+          echo ""
+          echo "✅ Scaffold created successfully!"
+          echo ""
+          echo "📂 Files generated:"
+          find "$ROOT" -type f | sort
+
+      - name: Summary
+        run: |
+          ADDON="${{ github.event.inputs.addon_name }}"
+          echo "### ✅ Addon Scaffold Created" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "| Field | Value |" >> $GITHUB_STEP_SUMMARY
+          echo "|---|---|" >> $GITHUB_STEP_SUMMARY
+          echo "| **Addon Name** | \`$ADDON\` |" >> $GITHUB_STEP_SUMMARY
+          echo "| **Location** | \`MCPEDL/addons/$ADDON/\` |" >> $GITHUB_STEP_SUMMARY
+          echo "| **Description** | ${{ github.event.inputs.addon_description }} |" >> $GITHUB_STEP_SUMMARY
+          echo "| **Min Engine** | ${{ github.event.inputs.min_engine_version }} |" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "**Files created:**" >> $GITHUB_STEP_SUMMARY
+          echo "\`\`\`" >> $GITHUB_STEP_SUMMARY
+          find "MCPEDL/addons/$ADDON" -type f | sort >> $GITHUB_STEP_SUMMARY
+          echo "\`\`\`" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "> ⚠️ Files are NOT committed. Pull the branch or download the artifact to get your files." >> $GITHUB_STEP_SUMMARY
+
+      - name: Upload scaffold as artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ github.event.inputs.addon_name }}-scaffold
+          path: MCPEDL/addons/${{ github.event.inputs.addon_name }}/
+          if-no-files-found: error
+          retention-days: 7
