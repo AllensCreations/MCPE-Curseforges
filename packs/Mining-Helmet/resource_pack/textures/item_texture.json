@@ -4,6 +4,9 @@
   "texture_data": {
     "mining_helmet": {
       "textures": "textures/items/mining_helmet"
+    },
+    "torch_mining_helmet": {
+      "textures": "textures/items/torch_mining_helmet"
     }
   }
 }

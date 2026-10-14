@@ -41,17 +41,25 @@ The add-on features tiered light emission based on the light source used to craf
 
 ## Item Specifications
 
-![Mining Helmet Item Texture](mining_helmet_preview.png)
+### Lantern Version (`custom:mining_helmet`) - Light Power: Level 15
+![Mining Helmet Lantern Texture](mining_helmet_preview.png)
 
-| Attribute | Specification |
-| :--- | :--- |
-| **Identifiers** | `custom:mining_helmet` (Lantern), `custom:torch_mining_helmet` (Torch) |
-| **Item Texture File** | `resource_pack/textures/items/mining_helmet.png` |
-| **Model Texture File** | `resource_pack/textures/models/armor/mining_helmet_1.png` |
-| **Texture Resolution** | 16 x 16 (Item Icon) / 64 x 32 (Humanoid Armor Model) |
-| **Equipment Slot** | Head Armor (slot.armor.head) |
-| **Repair Item** | Gold Ingot (minecraft:gold_ingot) |
-| **Enchantability Value** | 15 |
+Features a front-mounted metallic alloy lantern bracket with an intense electric white-hot glowing headlamp.
+
+### Torch Version (`custom:torch_mining_helmet`) - Light Power: Level 10
+![Mining Helmet Torch Texture](torch_mining_helmet_preview.png)
+
+Features a front-mounted wooden torch stalk held by an iron bracket with an active flickering orange-yellow flame.
+
+| Attribute | Lantern Version | Torch Version |
+| :--- | :--- | :--- |
+| **Identifier** | `custom:mining_helmet` | `custom:torch_mining_helmet` |
+| **Light Power** | Level 15 (Daylight Maximum) | Level 10 (Warm Atmospheric Glow) |
+| **Item Texture** | `textures/items/mining_helmet.png` | `textures/items/torch_mining_helmet.png` |
+| **Armor Model Texture** | `textures/models/armor/mining_helmet_1.png` | `textures/models/armor/torch_mining_helmet_1.png` |
+| **Equipment Slot** | Head Armor (`slot.armor.head`) | Head Armor (`slot.armor.head`) |
+| **Defense / Durability** | 2 Armor Points / 165 Uses | 2 Armor Points / 165 Uses |
+| **Repair Item** | Gold Ingot (`minecraft:gold_ingot`) | Gold Ingot (`minecraft:gold_ingot`) |
 
 ---
 

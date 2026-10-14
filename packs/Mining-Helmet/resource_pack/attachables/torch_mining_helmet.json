@@ -8,7 +8,7 @@
         "enchanted": "armor_enchanted"
       },
       "textures": {
-        "default": "textures/models/armor/mining_helmet_1",
+        "default": "textures/models/armor/torch_mining_helmet_1",
         "enchanted": "textures/misc/enchanted_actor_glint"
       },
       "geometry": {

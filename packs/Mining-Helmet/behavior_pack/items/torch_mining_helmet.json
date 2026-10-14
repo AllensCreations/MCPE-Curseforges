@@ -10,9 +10,9 @@
     },
     "components": {
       "minecraft:display_name": {
-        "value": "Torch Mining Helmet"
+        "value": "Mining Helmet (Torch)"
       },
-      "minecraft:icon": "mining_helmet",
+      "minecraft:icon": "torch_mining_helmet",
       "minecraft:max_stack_size": 1,
       "minecraft:wearable": {
         "slot": "slot.armor.head",
