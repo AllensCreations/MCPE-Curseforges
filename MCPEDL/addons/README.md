@@ -15,6 +15,7 @@ This directory stores the uncompressed development source trees (entities, funct
 | **Ghast Mob Head Transformers** | Transform vanilla Ghasts into giant flying mob heads by equipping skulls, with charging faces and shearing drops. | [`Ghast-Head-Transformers/`](Ghast-Head-Transformers/) | [Download (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Ghast-Head-Transformers/Ghast_Head_Transformers_AllensCreations.mcaddon) | v1.0.1 |
 | **Tameable Fox Companion** | Tame foxes with sweet berries, command curl-up sitting, and equip weapons into t... | [`Tameable-Fox-Companion/`](Tameable-Fox-Companion/) | [Download (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Tameable-Fox-Companion/Tameable_Fox_Companion_AllensCreations.mcaddon) | v1.0.0 |
 | **Pet Immortality** | Configurable immortality for cats, wolves, parrots, horses, and all tamed pets. | [`Pet-Immortality/`](Pet-Immortality/) | [Download (.mcpack)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Pet-Immortality/Pet_Immortality_AllensCreations.mcpack) | v1.0.0 |
+| **Pet Immortality** | Protect selected tamed pets from damage. | [`pet-immortality/`](pet-immortality/) | [Download (.mcpack)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/pet-immortality/pet_immortality_AllensCreations.mcpack) | v1.0.0 |
 
 Looking for Challenge Scripts & Minigames? Explore the [Script Directory](../MCPEDL/script/README.md).
 
