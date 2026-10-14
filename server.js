@@ -192,6 +192,16 @@ const server = http.createServer((req, res) => {
   let reqUrl = decodeURIComponent(req.url.split('?')[0]);
   let filePath = path.join(ROOT_DIR, reqUrl);
 
+  // If root '/', serve branding.html by default
+  if (reqUrl === '/' || reqUrl === '') {
+    const brandingPath = path.join(ROOT_DIR, 'branding.html');
+    if (fs.existsSync(brandingPath)) {
+      res.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8' });
+      fs.createReadStream(brandingPath).pipe(res);
+      return;
+    }
+  }
+
   // Security check: prevent directory traversal
   if (!filePath.startsWith(ROOT_DIR)) {
     res.writeHead(403, { 'Content-Type': 'text/plain' });
@@ -214,7 +224,14 @@ const server = http.createServer((req, res) => {
         return;
       }
 
-      // Check if directory has index.html or README.md
+      // Check if directory has index.html or branding.html
+      const indexCandidate = path.join(filePath, 'index.html');
+      if (fs.existsSync(indexCandidate)) {
+        res.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8' });
+        fs.createReadStream(indexCandidate).pipe(res);
+        return;
+      }
+
       res.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8' });
       res.end(renderDirectoryListing(filePath, reqUrl));
       return;

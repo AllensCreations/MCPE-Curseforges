@@ -54,8 +54,9 @@ def get_projects():
         "readmeExists": os.path.exists(os.path.join(BASE_DIR, "README.md")),
     })
 
-    # 2. Addons
-    addons_dir = os.path.join(BASE_DIR, "addons")
+    # 2. Addons (check MCPEDL/addons or addons)
+    addons_dir = os.path.join(BASE_DIR, "MCPEDL", "addons") if os.path.exists(os.path.join(BASE_DIR, "MCPEDL", "addons")) else os.path.join(BASE_DIR, "addons")
+    addons_rel = "MCPEDL/addons" if "MCPEDL" in addons_dir else "addons"
     if os.path.exists(addons_dir):
         for name in sorted(os.listdir(addons_dir)):
             full = os.path.join(addons_dir, name)
@@ -63,31 +64,31 @@ def get_projects():
                 banner_cand = None
                 for b in ["banner.jpg", "banner.png"]:
                     if os.path.exists(os.path.join(full, b)):
-                        banner_cand = os.path.join("addons", name, b)
+                        banner_cand = os.path.join(addons_rel, name, b)
                         break
                 if not banner_cand:
                     # check for timestamped or preview images
                     for f in os.listdir(full):
                         if (f.endswith(".jpg") or f.endswith(".png")) and not f.startswith("pack_icon") and not f.startswith("mcpedl"):
-                            banner_cand = os.path.join("addons", name, f)
+                            banner_cand = os.path.join(addons_rel, name, f)
                             break
                 if not banner_cand:
-                    banner_cand = os.path.join("addons", name, "banner.jpg")
+                    banner_cand = os.path.join(addons_rel, name, "banner.jpg")
 
                 logo_cand = None
                 for l in ["pack_icon.png", "mcpedl.png", "mcpedl.jpg"]:
                     if os.path.exists(os.path.join(full, l)):
-                        logo_cand = os.path.join("addons", name, l)
+                        logo_cand = os.path.join(addons_rel, name, l)
                         break
                 if not logo_cand:
-                    logo_cand = os.path.join("addons", name, "pack_icon.png")
+                    logo_cand = os.path.join(addons_rel, name, "pack_icon.png")
 
-                readme_path = os.path.join("addons", name, "README.md")
+                readme_path = os.path.join(addons_rel, name, "README.md")
                 projects.append({
-                    "id": f"addons/{name}",
+                    "id": f"{addons_rel}/{name}",
                     "name": name.replace("-", " "),
                     "category": "addon",
-                    "dir": os.path.join("addons", name),
+                    "dir": os.path.join(addons_rel, name),
                     "readmePath": readme_path,
                     "bannerPath": banner_cand,
                     "logoPath": logo_cand,
@@ -96,49 +97,51 @@ def get_projects():
                     "readmeExists": os.path.exists(os.path.join(BASE_DIR, readme_path)),
                 })
 
-    # 3. Maps
-    maps_dir = os.path.join(BASE_DIR, "maps")
+    # 3. Maps (check MCPEDL/maps or maps)
+    maps_dir = os.path.join(BASE_DIR, "MCPEDL", "maps") if os.path.exists(os.path.join(BASE_DIR, "MCPEDL", "maps")) else os.path.join(BASE_DIR, "maps")
+    maps_rel = "MCPEDL/maps" if "MCPEDL" in maps_dir else "maps"
     if os.path.exists(maps_dir):
         for name in sorted(os.listdir(maps_dir)):
             full = os.path.join(maps_dir, name)
             if os.path.isdir(full) and not name.startswith("."):
-                readme_path = os.path.join("maps", name, "README.md")
-                icon_path = os.path.join("maps", name, "mcpedl.png")
+                readme_path = os.path.join(maps_rel, name, "README.md")
+                icon_path = os.path.join(maps_rel, name, "mcpedl.png")
                 if not os.path.exists(os.path.join(BASE_DIR, icon_path)):
-                    icon_path = os.path.join("maps", name, "behavior_pack/pack_icon.png")
+                    icon_path = os.path.join(maps_rel, name, "behavior_pack/pack_icon.png")
                 projects.append({
-                    "id": f"maps/{name}",
+                    "id": f"{maps_rel}/{name}",
                     "name": name.replace("-", " "),
                     "category": "map",
-                    "dir": os.path.join("maps", name),
+                    "dir": os.path.join(maps_rel, name),
                     "readmePath": readme_path,
-                    "bannerPath": os.path.join("maps", name, "banner.jpg"),
+                    "bannerPath": os.path.join(maps_rel, name, "banner.jpg"),
                     "logoPath": icon_path,
-                    "bannerExists": os.path.exists(os.path.join(BASE_DIR, "maps", name, "banner.jpg")),
+                    "bannerExists": os.path.exists(os.path.join(BASE_DIR, maps_rel, name, "banner.jpg")),
                     "logoExists": os.path.exists(os.path.join(BASE_DIR, icon_path)),
                     "readmeExists": os.path.exists(os.path.join(BASE_DIR, readme_path)),
                 })
 
-    # 4. Scripts
-    scripts_dir = os.path.join(BASE_DIR, "script")
+    # 4. Scripts (check MCPEDL/script or script)
+    scripts_dir = os.path.join(BASE_DIR, "MCPEDL", "script") if os.path.exists(os.path.join(BASE_DIR, "MCPEDL", "script")) else os.path.join(BASE_DIR, "script")
+    scripts_rel = "MCPEDL/script" if "MCPEDL" in scripts_dir else "script"
     if os.path.exists(scripts_dir):
         for name in sorted(os.listdir(scripts_dir)):
             full = os.path.join(scripts_dir, name)
             if os.path.isdir(full) and not name.startswith("."):
-                banner_cand = os.path.join("script", name, "banner.jpg")
+                banner_cand = os.path.join(scripts_rel, name, "banner.jpg")
                 for f in os.listdir(full):
                     if (f.endswith(".jpg") or f.endswith(".png")) and not f.startswith("pack_icon") and not f.startswith("mcpedl"):
-                        banner_cand = os.path.join("script", name, f)
+                        banner_cand = os.path.join(scripts_rel, name, f)
                         break
-                icon_path = os.path.join("script", name, "pack_icon.png")
+                icon_path = os.path.join(scripts_rel, name, "pack_icon.png")
                 if not os.path.exists(os.path.join(BASE_DIR, icon_path)):
-                    icon_path = os.path.join("script", name, "mcpedl.png")
-                readme_path = os.path.join("script", name, "README.md")
+                    icon_path = os.path.join(scripts_rel, name, "mcpedl.png")
+                readme_path = os.path.join(scripts_rel, name, "README.md")
                 projects.append({
-                    "id": f"script/{name}",
+                    "id": f"{scripts_rel}/{name}",
                     "name": name.replace("-", " "),
                     "category": "script",
-                    "dir": os.path.join("script", name),
+                    "dir": os.path.join(scripts_rel, name),
                     "readmePath": readme_path,
                     "bannerPath": banner_cand,
                     "logoPath": icon_path,
