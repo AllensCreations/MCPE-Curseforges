@@ -19,3 +19,7 @@ This directory contains compiled release packages for **Passive Auto-Switch Tool
 2. Activate the Behavior Pack under your World Settings or Realm Settings.
 3. No experimental toggles needed! The pack runs strictly on stable Bedrock script APIs.
 4. Launch the world, hold **Hotbar Slot 1**, and watch your tools intelligently swap to match whatever block you look at!
+
+---
+
+© All rights reserved for AllensCreations.

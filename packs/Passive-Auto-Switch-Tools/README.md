@@ -1,79 +1,120 @@
-# ⚡ Passive Auto-Switch Tools
+# Passive Auto-Switch Tools - Automatic Tool Selection for Minecraft Bedrock
 
-![Passive Auto-Switch Tools Icon](https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/packs/Passive-Auto-Switch-Tools/pack_icon.png)
+<div align="center">
+  <img src="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/assets/mcpedl.png" alt="MCPEDL" title="MCPEDL" width="150" />
+</div>
 
 [![Minecraft Bedrock](https://img.shields.io/badge/Minecraft%20Bedrock-1.21%20--%201.26+-brightgreen?style=flat-square&logo=minecraft)](https://github.com/AllensCreations/MCPE-Curseforges)
 [![Release](https://img.shields.io/badge/Release-v1.0.0-blue?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Passive-Auto-Switch-Tools/Passive_Auto_Switch_Tools_AllensCreations.mcpack)
 [![Format](https://img.shields.io/badge/Format-.MCPACK%20%7C%20.MCADDON-orange?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Passive-Auto-Switch-Tools/Passive_Auto_Switch_Tools_AllensCreations.mcpack)
 [![Platform](https://img.shields.io/badge/Platform-Mobile%20%7C%20PC%20%7C%20Console%20%7C%20Realms-yellow?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges)
 
-> **Created by AllensCreations**  
-> *The ultimate zero-configuration tool auto-switcher for Minecraft Bedrock.*
+Creator: AllensCreations  
+Description: Background tool selection utility for Minecraft Bedrock that equips the optimal tool from player inventory when targeting blocks.
 
 ---
 
-## 📖 About The Pack
+## Overview
 
-Tired of constantly stopping to manually scroll through your hotbar just to chop a single log, dig a patch of gravel, or mine an ore vein?
+Passive Auto-Switch Tools is a Script API behavior pack that automates tool selection in Minecraft Bedrock Edition. When targeting a block within reach distance while holding hotbar slot 1, the script scans the player inventory and equips the highest-tier matching tool into the active hand.
 
-**Passive Auto-Switch Tools** brings intelligent, instantaneous tool swapping to Minecraft Bedrock. As soon as you look at any block, your hand automatically equips the ideal tool from your inventory. 
+Hotbar slots 2 through 9 remain unmanaged, ensuring uninterrupted block placement, combat, and consumable item usage.
 
-Best of all, it works **passively and silently** in the background with zero setup, zero commands, and zero complex menus.
-
----
-
-## 🎮 How It Works
-
-### 1. The Slot 1 Activation Rule
-To give you complete, effortless control without needing confusing settings toggles:
-- **Active in Slot 1:** The auto-switch feature **only activates when you are holding Hotbar Slot 1**.
-- **Transparent in Slots 2 through 9:** Whenever you switch to any other hotbar slot (Slots 2–9), auto-switch completely steps aside. You can eat food, place building blocks, hold your sword, or carry a torch without any unexpected tool swapping!
-
-### 2. Instant Block Targeting
-When holding Slot 1, looking at any block within 6 blocks immediately equips the proper tool:
-- **Stone, Ores, Deepslate, Netherrack, Obsidian, Terracotta, Metal:** Swaps to your best **Pickaxe**.
-- **Logs, Wood, Planks, Fences, Gates, Chests, Crafting Tables, Melons, Pumpkins:** Swaps to your best **Axe**.
-- **Dirt, Grass, Sand, Gravel, Clay, Mud, Soul Sand, Snow, Concrete Powder:** Swaps to your best **Shovel**.
-- **Leaves, Wool, Cobwebs, Vines:** Swaps to your **Shears** or sword.
-- **Hay Bales, Target Blocks, Sponges, Sculk, Moss, Wart Blocks:** Swaps to your best **Hoe**.
-
-### 3. Tool Tier Priority
-The pack intelligently scans your entire hotbar and inventory, automatically selecting your highest-tier tool:
-- `Netherite → Diamond → Iron → Stone → Wood / Golden`
-- If you have tools of the same tier in both your hotbar and backpack, it naturally prioritizes the one already on your hotbar.
-
-### 4. Seamless & Safe Item Swapping
-- **Durability Preserved:** Your tools retain their exact wear and tear.
-- **Enchantments & Renames 100% Intact:** Custom names from anvils and powerful enchantments (Efficiency, Fortune, Silk Touch, Unbreaking, Mending) are preserved without risk of duplication or loss.
-- **Smart Active Hold:** If you are already holding a valid tool (for instance, a Silk Touch Pickaxe), looking at other stone blocks will never needlessly swap it out.
+![Passive Auto-Switch Tools Icon](https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/packs/Passive-Auto-Switch-Tools/pack_icon.png)
 
 ---
 
-## ⚡ Quick Comparison
+## Mechanics and Operation
+
+### Hotbar Slot 1 Activation
+
+The automation engine operates exclusively when the player selects hotbar slot 1:
+- Hotbar Slot 1: Active auto-switch slot. Targeting blocks triggers automatic tool selection.
+- Hotbar Slots 2 through 9: Standard manual operation. The script performs no item swaps while these slots are selected.
+
+### Block-to-Tool Type Matching
+
+Targeting a block within 6 blocks determines the required tool class:
+- Pickaxe: Stone, deepslate, ores, obsidian, terracotta, cobblestone, and metal blocks.
+- Axe: Logs, wood, planks, fences, fence gates, chests, crafting tables, melons, and pumpkins.
+- Shovel: Dirt, grass, sand, gravel, clay, mud, soul sand, snow, and concrete powder.
+- Shears / Sword: Leaves, wool, cobwebs, and vines.
+- Hoe: Hay bales, target blocks, sponges, sculk, moss, and nether wart blocks.
+
+### Tier Priority Hierarchy
+
+When multiple matching tools are present in inventory, the system selects the highest tier available:
+
+```text
+Netherite > Diamond > Iron > Stone > Golden / Wooden
+```
+
+If tools of equal tier exist across hotbar and main inventory, the item already present in the hotbar is given priority.
+
+### Item Integrity and Preservation
+
+Item components are preserved during swaps:
+- Durability damage values remain exact.
+- Custom anvil names and lore strings are preserved.
+- Enchantments (Efficiency, Fortune, Silk Touch, Unbreaking, Mending) are preserved intact.
+- Active tool locking: If the currently held tool is already valid for the targeted block class, no redundant inventory swaps occur.
+
+---
+
+## Technical Specifications
+
+| Parameter | Value | Reference / Notes |
+| :--- | :--- | :--- |
+| **Script Module** | `@minecraft/server` | `1.13.0` |
+| **Minimum Engine Version** | `1.21.0` | `manifest.json` |
+| **Targeting Range** | 6.0 blocks | Player raycast distance |
+| **Execution Tick Rate** | Real-time raycast | Script tick loop |
+| **Experimental Toggles** | Beta APIs enabled | Required for Script API execution |
+
+---
+
+## Comparison Table
 
 | Feature | Vanilla Bedrock | With Passive Auto-Switch Tools |
 | :--- | :--- | :--- |
-| **Tool Swapping** | ⏳ Manual hotbar scrolling every time block changes | ⚡ **Instant, automatic tool matching as you look!** |
-| **Accidental Tool Waste** | ❌ Easy to accidentally break wood with your pickaxe | ✅ **Always mines with the correct tool!** |
-| **Building & Eating Freedom** | ⚠️ Tool switchers often interrupt eating/building | ✅ **Slots 2–9 are 100% untouched for full building freedom!** |
-| **Mobile & Touch Usability** | 📱 Clumsy hotbar tapping on touch screens | 📱 **Effortless mining on Mobile, PC, and Console!** |
-| **Setup & Commands** | ❌ Complex scoreboard or tag setup required | ✅ **100% Plug-and-Play zero-configuration!** |
+| **Tool Swapping** | Manual hotbar selection | Automatic tool selection upon block raycast |
+| **Tool Wear Protection** | Manual caution required | Matches optimal tool type directly |
+| **Building and Off-Hand Usage** | Unaffected | Hotbar slots 2 to 9 remain completely manual |
+| **Touch Controls Usability** | Frequent manual hotbar tapping | Automated selection reduces input overhead |
+| **Configuration Requirements** | Not applicable | Zero scoreboard or command setup required |
 
 ---
 
-## 📥 Downloads
+## Direct Downloads
 
 | Package | Format | Description | Download Link |
 | :--- | :--- | :--- | :--- |
-| **Passive Auto-Switch Tools Pack** | `.mcpack` | Ready-to-import Behavior Pack for Mobile, PC, Console & Realms | [⬇️ Download (.mcpack)](https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/builds/Passive-Auto-Switch-Tools/Passive_Auto_Switch_Tools_AllensCreations.mcpack) |
-| **Passive Auto-Switch Tools Addon** | `.mcaddon` | All-in-One Addon archive | [⬇️ Download (.mcaddon)](https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/builds/Passive-Auto-Switch-Tools/Passive_Auto_Switch_Tools_AllensCreations.mcaddon) |
+| **Passive Auto-Switch Tools Pack** | `.mcpack` | Behavior Pack archive for Minecraft Bedrock | [Download (.mcpack)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Passive-Auto-Switch-Tools/Passive_Auto_Switch_Tools_AllensCreations.mcpack) |
+| **Passive Auto-Switch Tools Addon** | `.mcaddon` | All-In-One add-on archive | [Download (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Passive-Auto-Switch-Tools/Passive_Auto_Switch_Tools_AllensCreations.mcaddon) |
 
 ---
 
-## 📜 Terms of Use & Guidelines
+## MCPEDL and CurseForge Distribution Checklist
 
-- **Creator Attribution:** Created by **AllensCreations**.
-- **Content Creators (YouTube, TikTok, Twitch):** You are 100% welcome to showcase this pack in videos, live streams, and reviews! Please include credit to **AllensCreations** and link to the official download page or this GitHub repository.
-- **No Direct Re-uploading:** Do not re-upload this pack, its individual files, or modified copies to any website, app store, or file-sharing service.
-- **No Paywalls or Link Shorteners:** It is strictly prohibited to distribute this pack behind paywalls, ad-gate links (e.g., AdFly, Linkvertise, Boost.ink), or paid monetization walls.
-- **Server & Realm Use:** You are free to use this pack on your personal worlds, private servers, and Bedrock Realms.
+<div align="center">
+  <img src="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/assets/mcpedl.png" alt="MCPEDL" title="MCPEDL" width="150" />
+</div>
+
+Ensure that you have already:
+- Connected your Curseforge Account.
+- Your project has an image with the title MCPEDL (no quotes).
+- Your project files are already approved.
+- Your project has the third party sharing option enabled.
+
+---
+
+## Guidelines and Attribution
+
+- Creator: AllensCreations
+- Rights & Reservation: All rights reserved for AllensCreations.
+- Content Creators: Content creators are permitted to feature this pack in videos and streams with credit to AllensCreations.
+- Redistribution: Do not re-upload this pack or provide direct monetized download bypasses. Link directly to the official repository page.
+
+---
+
+© All rights reserved for AllensCreations.
