@@ -2,7 +2,7 @@
  * ==============================================================================
  * PASSIVE AUTO-SWITCH TOOLS -- MINECRAFT BEDROCK SCRIPT API
  * ==============================================================================
- * Version: 1.1.0
+ * Version: 1.2.0
  * Target Engine: Minecraft Bedrock 1.21.0+ / v1.26 Standards
  * API Module: @minecraft/server v1.13.0+ (STABLE)
  * Author: AllensCreations
@@ -541,13 +541,37 @@ function switchPlayerSlot1Tool(player, targetCategory) {
 }
 
 // ==============================================================================
-// 4. EVENT-DRIVEN ACTIVATION (ZERO-POLLING)
+// 4. EVENT-DRIVEN ACTIVATION + CONTINUOUS MINING TRACKER
 // ==============================================================================
 
 /**
+ * How long (ticks) a "mining session" stays alive after the last block hit.
+ * 20 ticks = 1 second. Raise it if the swap stops following you while holding
+ * the attack button; lower it if you want less activity after you stop mining.
+ */
+const MINING_SESSION_TICKS = 30;
+
+/** How often (ticks) the tracker re-checks what block you're aiming at. */
+const POLL_INTERVAL_TICKS = 2;
+
+/** Max raycast distance (blocks) - covers survival (5) and creative (6) reach. */
+const RAYCAST_DISTANCE = 6;
+
+/**
+ * Active mining sessions. Key = player.id.
+ * @type {Map<string, { expireTick: number, lastKey: string | null }>}
+ */
+const miningSessions = new Map();
+
+/** Unique key for a block (type + position) so we can detect block changes. */
+function blockKey(block) {
+  const { x, y, z } = block.location;
+  return `${block.typeId}@${x},${y},${z}`;
+}
+
+/**
  * Event 1: Block Hit / Start Break
- * Auto-switches tool ONLY when player starts hitting/breaking a block.
- * Eliminates background raycast polling and prevents swapping while just looking.
+ * Starts (or refreshes) a mining session and switches tools for the hit block.
  */
 world.afterEvents.entityHitBlock.subscribe((event) => {
   try {
@@ -558,11 +582,70 @@ world.afterEvents.entityHitBlock.subscribe((event) => {
     const hitBlock = event.hitBlock;
     if (!hitBlock) return;
 
+    // Start / refresh the continuous-mining session
+    miningSessions.set(player.id, {
+      expireTick: system.currentTick + MINING_SESSION_TICKS,
+      lastKey: blockKey(hitBlock),
+    });
+
     const requiredCategory = getRequiredToolCategory(hitBlock.typeId);
     if (!requiredCategory) return;
 
     switchPlayerSlot1Tool(player, requiredCategory);
   } catch {}
+});
+
+/**
+ * Continuous-mining tracker.
+ * Only runs work for players with a live mining session. While you keep
+ * mining, it watches the block you're aiming at; the moment it changes
+ * (you broke the block and the next one is now targeted), it re-evaluates
+ * the tool - no need to stop and re-hit the block.
+ * When no one is mining, the loop does nothing.
+ */
+system.runInterval(() => {
+  if (miningSessions.size === 0) return;
+
+  const now = system.currentTick;
+  const players = new Map(world.getAllPlayers().map((p) => [p.id, p]));
+
+  for (const [id, session] of miningSessions) {
+    const player = players.get(id);
+
+    // Player left, or session timed out
+    if (!player || now > session.expireTick) {
+      miningSessions.delete(id);
+      continue;
+    }
+
+    try {
+      if (player.selectedSlotIndex !== 0) continue;
+
+      const hit = player.getBlockFromViewDirection({
+        maxDistance: RAYCAST_DISTANCE,
+        includeLiquidBlocks: false,
+        includePassableBlocks: false,
+      });
+
+      if (!hit || !hit.block) {
+        session.lastKey = null;
+        continue;
+      }
+
+      const key = blockKey(hit.block);
+      if (key === session.lastKey) continue; // same block, nothing to do
+      session.lastKey = key;
+
+      const requiredCategory = getRequiredToolCategory(hit.block.typeId);
+      if (!requiredCategory) continue;
+
+      switchPlayerSlot1Tool(player, requiredCategory);
+    } catch {}
+  }
+}, POLL_INTERVAL_TICKS);
+
+world.afterEvents.playerLeave.subscribe((event) => {
+  miningSessions.delete(event.playerId);
 });
 
 /**
@@ -578,8 +661,11 @@ world.afterEvents.entityHitEntity.subscribe((event) => {
     const targetEntity = event.hitEntity;
     if (!targetEntity || !isCombatTarget(targetEntity)) return;
 
+    // Fighting, not mining - end any mining session
+    miningSessions.delete(player.id);
+
     switchPlayerSlot1Tool(player, ToolCategory.WEAPON);
   } catch {}
 });
 
-console.warn("[Passive Auto-Switch Tools v1.1.0] Event-driven engine initialized on stable @minecraft/server.");
+console.warn("[Passive Auto-Switch Tools v1.2.0] Event-driven engine + continuous mining tracker initialized.");
