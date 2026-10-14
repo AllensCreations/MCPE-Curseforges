@@ -1,6 +1,6 @@
 # 🎨 Mining Helmet — Texture Modification & UV Mapping Guide
 
-![Mining Helmet Banner](https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/packs/Mining-Helmet/1791946330457.jpg)
+![Mining Helmet Banner](1791946330457.jpg)
 
 This technical guide details the exact pixel mapping, palette structure, and UV offsets used to transform the vanilla **Golden Helmet** texture into the custom **Mining Helmet** (`custom:mining_helmet`).
 

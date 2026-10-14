@@ -1,6 +1,6 @@
 # 🎮 Vanilla Quality of Life
 
-![Vanilla QoL Icon](https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/packs/Vanilla-Quality-of-Life/pack_icon.png)
+![Vanilla QoL Icon](pack_icon.png)
 
 [![Minecraft Bedrock](https://img.shields.io/badge/Minecraft%20Bedrock-1.21%20--%201.26+-brightgreen?style=flat-square&logo=minecraft)](https://github.com/AllensCreations/MCPE-Curseforges)
 [![Release](https://img.shields.io/badge/Release-v1.2.0-blue?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Vanilla-Quality-of-Life/Vanilla_QoL_AllensCreations.mcaddon)
@@ -14,7 +14,7 @@
 
 ## 📖 About The Pack
 
-![Vanilla QoL Banner](https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/banner.jpg)
+![Vanilla QoL Banner](banner.jpg)
 
 Tired of accidentally slicing your favorite pet dog during a mob fight? Frustrated by moving Villagers through miles of clumsy minecart rails? Sick of waiting 20 minutes for giant oak tree leaves to decay?
 

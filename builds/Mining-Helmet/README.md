@@ -1,6 +1,6 @@
 # 📦 Mining Helmet — Downloads & Releases
 
-![Mining Helmet Banner](https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/packs/Mining-Helmet/1791946330457.jpg)
+![Mining Helmet Banner](../../packs/Mining-Helmet/1791946330457.jpg)
 
 This folder contains the compiled, ready-to-install releases for **Mining Helmet by AllensCreations**.
 
@@ -18,7 +18,7 @@ This folder contains the compiled, ready-to-install releases for **Mining Helmet
 
 ## ⛑️ Item Texture Preview
 
-![Mining Helmet Item Texture](https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/packs/Mining-Helmet/mining_helmet_preview.png)
+![Mining Helmet Item Texture](../../packs/Mining-Helmet/mining_helmet_preview.png)
 
 *Custom 16×16 Bedrock Item Icon (`custom:mining_helmet`) with Level 15 dynamic following light.*
 

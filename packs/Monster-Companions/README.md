@@ -1,6 +1,6 @@
 # 🧟 Monster Companions by AllensCreations
 
-![Monster Companions Icon](https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/packs/Monster-Companions/1791889944961.jpg)
+![Monster Companions Icon](1791889944961.jpg)
 
 [![Minecraft Bedrock](https://img.shields.io/badge/Minecraft%20Bedrock-1.21%20--%201.26+-brightgreen?style=flat-square&logo=minecraft)](https://github.com/AllensCreations/MCPE-Curseforges)
 [![Release](https://img.shields.io/badge/Release-v1.0.0-blue?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Monster-Companions/Monster_Companions_AllensCreations.mcaddon)
@@ -20,7 +20,7 @@ Ever wanted a pet Creeper to guard your house? An army of Skeleton archers defen
 
 **100% Data-Driven & Script-Free.** No experimental toggles needed!
 
-![Monster Companions Banner](https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/packs/Monster-Companions/1791889996745.jpg)
+![Monster Companions Banner](1791889996745.jpg)
 
 ---
 
@@ -28,9 +28,9 @@ Ever wanted a pet Creeper to guard your house? An army of Skeleton archers defen
 
 ### 🍖 1. Craft the Primal Beast Biscuit
 
-![Craft the Primal Beast Biscuit Recipe](https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/packs/Monster-Companions/1791890109719.jpg)
+![Craft the Primal Beast Biscuit Recipe](1791890109719.jpg)
 
-![Primal Beast Biscuit Item](https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/packs/Monster-Companions/beast_biscuit_preview.png)
+![Primal Beast Biscuit Item](beast_biscuit_preview.png)
 
 > **Custom Item:** Baked into a golden honey-glazed cookie with a sweet-berry beast paw print in the center and crunchy bone shards embedded throughout!
 

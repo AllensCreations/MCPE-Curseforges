@@ -1,6 +1,6 @@
 # Alphabet Scavenger Hunt Challenge
 
-![Alphabet Scavenger Hunt Icon](https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/minigames/Alphabet-Scavenger-Hunt/1791906906852.jpg)
+![Alphabet Scavenger Hunt Icon](1791906906852.jpg)
 
 [![Minecraft Bedrock](https://img.shields.io/badge/Minecraft%20Bedrock-1.21%20--%201.26+-brightgreen?style=flat-square&logo=minecraft)](https://github.com/AllensCreations/MCPE-Curseforges)
 [![Release](https://img.shields.io/badge/Release-v1.0.0-blue?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Alphabet-Scavenger-Hunt/Alphabet_Scavenger_Hunt_AllensCreations.mcaddon)
@@ -14,7 +14,7 @@
 
 ## About The Challenge
 
-![Alphabet Scavenger Hunt Banner](https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/minigames/Alphabet-Scavenger-Hunt/1791906974481.jpg)
+![Alphabet Scavenger Hunt Banner](1791906974481.jpg)
 
 Can you think on your feet and scavenge your surroundings under immense pressure?
 

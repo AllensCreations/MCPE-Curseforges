@@ -1,6 +1,6 @@
 # 🎮 MCPE Curseforges — Addons & Maps Collection
 
-![MCPE Curseforges Banner](https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/banner.jpg)
+![MCPE Curseforges Banner](banner.jpg)
 
 [![Minecraft Bedrock](https://img.shields.io/badge/Minecraft%20Bedrock-1.21%20--%201.26+-brightgreen?style=flat-square&logo=minecraft)](https://github.com/AllensCreations/MCPE-Curseforges)
 [![Platform](https://img.shields.io/badge/Platform-Mobile%20%7C%20PC%20%7C%20Console%20%7C%20Realms-yellow?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges)
@@ -63,7 +63,7 @@
 
 ## 🌟 Pack 1: Vanilla Quality of Life (v1.2.0)
 
-![Vanilla QoL Icon](https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/packs/Vanilla-Quality-of-Life/pack_icon.png)
+![Vanilla QoL Icon](packs/Vanilla-Quality-of-Life/pack_icon.png)
 
 > *"The definitive Vanilla+ upgrade for Bedrock. No clunky scripts, no bloated custom items—just pure, polished Minecraft the way it was meant to be played."*
 
@@ -85,7 +85,7 @@
 
 ## 🌟 Pack 2: Monster Companions (v1.0.0)
 
-![Monster Companions Icon](https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/packs/Monster-Companions/1791889944961.jpg)
+![Monster Companions Icon](packs/Monster-Companions/1791889944961.jpg)
 
 > *"Turn hostile monsters into loyal combat bodyguards and rideable wall-climbing mounts!"*
 
@@ -102,11 +102,11 @@
 
 ## 🌟 Pack 3: Mining Helmet (v1.0.0)
 
-![Mining Helmet Banner](https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/packs/Mining-Helmet/1791946330457.jpg)
+![Mining Helmet Banner](packs/Mining-Helmet/1791946330457.jpg)
 
 > *"Hands-free Level 15 dynamic following light for deep cave spelunking and night survival!"*
 
-![Mining Helmet Item](https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/packs/Mining-Helmet/mining_helmet_preview.png)
+![Mining Helmet Item](packs/Mining-Helmet/mining_helmet_preview.png)
 
 - **💡 Hands-Free Level 15 Light:** Equipping the Mining Helmet in your head slot projects maximum brightness wherever you walk, leaving both hands free for tools and shields.
 - **🧹 Fail-Proof Zero Residue:** Temporary `minecraft:light_block` updates automatically restore to air upon movement, unequip, death, or disconnect.
@@ -120,11 +120,11 @@
 
 ## Minigame 1: Alphabet Scavenger Hunt (v1.0.0)
 
-![Alphabet Scavenger Hunt Icon](https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/minigames/Alphabet-Scavenger-Hunt/1791906906852.jpg)
+![Alphabet Scavenger Hunt Icon](minigames/Alphabet-Scavenger-Hunt/1791906906852.jpg)
 
 > *"A high-stakes 20-round survival challenge! Scavenge items matching the target letter before the 60-second timer expires or suffer permanent max health loss!"*
 
-![Alphabet Scavenger Hunt Banner](https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/minigames/Alphabet-Scavenger-Hunt/1791906974481.jpg)
+![Alphabet Scavenger Hunt Banner](minigames/Alphabet-Scavenger-Hunt/1791906974481.jpg)
 
 - **20-Round Gauntlet:** Conquer 20 progressive rounds featuring balanced survival letter selection.
 - **Top-Screen Objective Bar:** Live tracking of round, target letter, countdown timer, and health penalty status strictly at the top of your screen via native Bossbar and Action Bar.
@@ -138,7 +138,7 @@
 
 ## Minigame 2: Shared Hivemind Inventory (v1.0.0)
 
-![Shared Hivemind Inventory Icon](https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/minigames/Shared-Hivemind-Inventory/pack_icon.png)
+![Shared Hivemind Inventory Icon](minigames/Shared-Hivemind-Inventory/pack_icon.png)
 
 > *"All online players share the exact same 36 inventory slots and offhand in real-time! Mine, craft, eat, and fight as one unified collective consciousness."*
 
@@ -153,7 +153,7 @@
 
 ## Minigame 3: Tethered: Breaker & Builder (v1.0.0)
 
-![Tethered Icon](https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/minigames/Tethered-Breaker-And-Builder/pack_icon.png)
+![Tethered Icon](minigames/Tethered-Breaker-And-Builder/pack_icon.png)
 
 > *"An intense 2-player asymmetric co-op challenge where two partners are physically bound by an elastic energy leash with strictly separated abilities!"*
 

@@ -1,6 +1,6 @@
 # Minigames Directory -- MCPE Curseforges
 
-![Minigames Banner](https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/minigames/Alphabet-Scavenger-Hunt/1791906974481.jpg)
+![Minigames Banner](Alphabet-Scavenger-Hunt/1791906974481.jpg)
 
 This directory stores the source code, game logic, and documentation for custom **Minecraft Bedrock Minigames and Challenges** in the **MCPE Curseforges** collection by AllensCreations.
 

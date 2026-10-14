@@ -1,6 +1,6 @@
 # ⛑️ Mining Helmet — Dynamic Hands-Free Lighting Add-on [Bedrock / MCPE]
 
-![Mining Helmet Banner](https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/packs/Mining-Helmet/1791946330457.jpg)
+![Mining Helmet Banner](1791946330457.jpg)
 
 [![Minecraft Bedrock](https://img.shields.io/badge/Minecraft%20Bedrock-1.20.80%20--%201.26+-brightgreen?style=flat-square&logo=minecraft)](https://github.com/AllensCreations/MCPE-Curseforges)
 [![Release](https://img.shields.io/badge/Release-v1.0.0-blue?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Mining-Helmet/Mining_Helmet_AllensCreations.mcaddon)
@@ -71,7 +71,7 @@ The **Mining Helmet Add-on** completely solves this problem with an authentic va
 
 ### ⛑️ Custom Item: Mining Helmet (`custom:mining_helmet`)
 
-![Mining Helmet Item Texture](https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/packs/Mining-Helmet/mining_helmet_preview.png)
+![Mining Helmet Item Texture](mining_helmet_preview.png)
 
 > **Custom Item Icon:** Handcrafted 16×16 Bedrock pixel art featuring an industrial gold miner hard hat with reinforced crown deflection ridges, vulcanized dark rubber rim gasket, and a front-mounted metallic bracket containing an electric white-hot glowing headlamp.
 
