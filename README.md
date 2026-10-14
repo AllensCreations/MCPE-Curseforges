@@ -1,7 +1,7 @@
 # MCPE Curseforges - Add-ons, Maps, and Minigames Collection
 
 <p align="center">
-  <img src="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/banner.jpg" alt="MCPEDL" width="540" />
+  <img src="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/banner.jpg" alt="MCPEDL" width="100%" style="max-width: 540px;" />
 </p>
 
 [![Minecraft Bedrock](https://img.shields.io/badge/Minecraft%20Bedrock-1.21%20--%201.26%2B-brightgreen?style=flat-square&logo=minecraft)](https://github.com/AllensCreations/MCPE-Curseforges)

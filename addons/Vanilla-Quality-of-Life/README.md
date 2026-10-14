@@ -1,7 +1,6 @@
 # Vanilla Quality of Life - Survival Mechanics and Enhancements for Minecraft Bedrock
-<div align="center">
-  <img src="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/assets/mcpedl.png" alt="MCPEDL" title="MCPEDL" width="150" />
-</div>
+![MCPEDL](https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/addons/Vanilla-Quality-of-Life/banner.jpg "MCPEDL")
+
 [![Minecraft Bedrock](https://img.shields.io/badge/Minecraft%20Bedrock-1.21%20--%201.26%2B-brightgreen?style=flat-square&logo=minecraft)](https://github.com/AllensCreations/MCPE-Curseforges)
 [![Release](https://img.shields.io/badge/Release-v1.2.0-blue?style=flat-square)](../README.md#available-source-add-ons)
 [![Format](https://img.shields.io/badge/Format-.MCADDON-orange?style=flat-square)](../README.md#available-source-add-ons)

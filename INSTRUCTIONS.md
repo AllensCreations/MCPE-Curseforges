@@ -6,17 +6,21 @@ All documentation files (README.md across repository root, packs, and maps) must
 
 ---
 
-## 1. Pure Markdown Compatibility (No Raw HTML)
+## 1. Markdown and CurseForge / MCPEDL Compatibility
 
-CurseForge and several Minecraft add-on platforms use strict Markdown parsers that strip, break, or misalign raw HTML tags.
+All documentation must render cleanly across GitHub, CurseForge, and synced MCPEDL pages.
 
 ### Rules:
-- NO Raw HTML Tags: Never use `<p>`, `<p align="center">`, `<div>`, `<img ...>`, `<br/>`, `<details>`, or `<summary>`.
-- Standard Image Syntax Only: Always embed images using pure Markdown:
+- **Standard Image Syntax:** Always embed images using pure Markdown:
   `![MCPEDL](image.jpg "MCPEDL")`
-- Relative Paths: Use clean, relative paths for local assets (e.g., `banner.jpg`, `1791889944961.jpg`, `recipe_lantern.png`).
-- Clean Formatting: Avoid LaTeX notation like `$\rightarrow$`. Use clean arrows (`->` or unicode arrows) and standard bullet points.
-- No Emojis: Do not include emojis in headings, titles, bullet points, or body text.
+- **Relative Image Sizing for HTML Editor (`</>`):** When formatting rich descriptions in CurseForge's `</>` code editor, always use relative widths (e.g. `width="100%"` or `width="50%"`). Always **omit the `height` attribute** so the image auto-scales responsively without overflowing mobile screens or distorting aspect ratios.
+- **Spoiler Markup:** When adding collapsible spoilers (crafting recipes, detailed tables, changelogs), use the official markup in CurseForge's `</>` editor:
+  `<h2>Spoiler Title</h2><div class="spoiler">spoiler content...</div>`
+  Both CurseForge and MCPEDL automatically parse this into interactive, collapsible dropdown sections.
+- **No Raw Blind Copying:** Never copy an entire legacy MCPEDL description to CurseForge and expect it to transfer flawlessly. CurseForge and MCPEDL run on different backends; adjust formatting in the `</>` code editor.
+- **Relative Paths:** Use clean, relative paths for local assets (e.g., `banner.jpg`, `1791889944961.jpg`, `recipe_lantern.png`).
+- **Clean Formatting:** Avoid LaTeX notation like `$\rightarrow$`. Use clean arrows (`->` or unicode arrows) and standard bullet points.
+- **No Emojis:** Do not include emojis in headings, titles, bullet points, or body text.
 
 ---
 
@@ -31,17 +35,34 @@ Pack descriptions must be direct, technical, and focused on gameplay and mechani
 
 ---
 
-## 3. Direct Downloads
+## 3. Downloads Routed via Semi-Root Catalogs
 
-Present available packages cleanly in a standard Markdown table:
-
-| Package | Format | Description | Download Link |
-| :--- | :--- | :--- | :--- |
-| **All-In-One Pack** | `.mcaddon` | Complete Behavior and Resource Pack | [Download (.mcaddon)](../../builds/<Pack-Name>/<filename>.mcaddon) |
+To keep documentation clean and prevent dead download links across individual sub-projects:
+- **No "Download & Installation" Sections in Individual READMEs:** Individual add-on, map, and script `README.md` files must not contain redundant download sections.
+- **Semi-Root Catalogs as Source of Truth:** All download links (`.mcaddon`, `.mcpack`, `.mcworld`) are centralized in the semi-root directory READMEs:
+  - Add-ons: [`addons/README.md`](addons/README.md#available-source-add-ons)
+  - Maps: [`maps/README.md`](maps/README.md#available-maps-catalog)
+  - Scripts & Challenges: [`script/README.md`](script/README.md#available-challenge-scripts)
+  - Master Compiled Builds: [`builds/README.md`](builds/README.md#available-pack-and-map-builds)
+- **Badge Links:** Badges in individual READMEs link directly to their corresponding semi-root catalog anchor.
 
 ---
 
-## 4. Mandatory Guidelines and Attribution Section
+## 4. CurseForge <-> MCPEDL Synchronization Protocol
+
+When publishing and synchronizing projects between CurseForge and MCPEDL:
+1. **Match Project Slug:** Ensure the CurseForge project slug exactly matches the slug in your MCPEDL URL (e.g., `https://mcpedl.com/<project-slug>/` <-> `curseforge.com/minecraft/mc-addons/<project-slug>`).
+2. **Upload Thumbnail Labeled "MCPEDL":**
+   - Navigate to the **Images** tab in your CurseForge project dashboard.
+   - Upload the project banner/thumbnail (recommended ~720x340px).
+   - Edit the image title/caption strictly to **`MCPEDL`** (exact case-sensitive text).
+   - Ensure it is within the **first 20 images** uploaded to the project.
+3. **Enable 3rd Party Sharing:**
+   - In CurseForge project settings, toggle **"Allow 3rd party distribution / sharing"** to **ON**. This allows the MCPEDL sync bot to fetch files, thumbnails, and descriptions.
+
+---
+
+## 5. Mandatory Guidelines and Attribution Section
 
 Every pack and map README.md must conclude with this standardized section:
 
@@ -60,7 +81,7 @@ Every pack and map README.md must conclude with this standardized section:
 
 ---
 
-## 5. Visual Assets and Images
+## 6. Visual Assets and Images
 
 Whenever visual assets (promotional banners, artwork, item previews, recipe infographics) are stored in the repository, incorporate them directly into the pack description:
 
@@ -71,7 +92,7 @@ Whenever visual assets (promotional banners, artwork, item previews, recipe info
 
 ---
 
-## 6. Repository Organization
+## 7. Repository Organization
 
 ```
 MCPE-Curseforges/

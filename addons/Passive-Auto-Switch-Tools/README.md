@@ -1,8 +1,6 @@
 # Passive Auto-Switch Tools - Automatic Tool Selection for Minecraft Bedrock
 
-<div align="center">
-  <img src="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/assets/mcpedl.png" alt="MCPEDL" title="MCPEDL" width="150" />
-</div>
+![MCPEDL](https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/addons/Passive-Auto-Switch-Tools/pack_icon.png "MCPEDL")
 
 [![Minecraft Bedrock](https://img.shields.io/badge/Minecraft%20Bedrock-1.21%20--%201.26%2B-brightgreen?style=flat-square&logo=minecraft)](https://github.com/AllensCreations/MCPE-Curseforges)
 [![Release](https://img.shields.io/badge/Release-v1.1.0-blue?style=flat-square)](../README.md#available-source-add-ons)
