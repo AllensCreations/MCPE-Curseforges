@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
     inputs:
       payload_b64:
-        description: "Paste the Base64-encoded plain-text add-on payload."
+        description: "Paste the Base64-encoded add-on payload."
         required: true
         type: string
 
@@ -22,6 +22,7 @@ jobs:
     env:
       PAYLOAD_B64: ${{ inputs.payload_b64 }}
       PYTHONDONTWRITEBYTECODE: "1"
+      PYTHONUNBUFFERED: "1"
 
     steps:
       - name: Checkout repository
@@ -35,6 +36,11 @@ jobs:
         with:
           python-version: "3.x"
 
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+
       - name: Validate and decode Base64 payload
         id: payload
         shell: bash
@@ -43,21 +49,22 @@ jobs:
 
           python3 - <<'PY'
           import base64
+          import binascii
+          import json
           import os
           import re
           import sys
+          from pathlib import PurePosixPath
 
           def fail(message):
               print(f"::error::{message}")
               sys.exit(1)
 
           MAX_BYTES = 8 * 1024 * 1024
+          MAX_FILES = 500
 
-          encoded = re.sub(
-              r"\s+",
-              "",
-              os.environ.get("PAYLOAD_B64", "")
-          )
+          encoded = os.environ.get("PAYLOAD_B64", "")
+          encoded = re.sub(r"\s+", "", encoded)
 
           if encoded.lower().startswith("base64:"):
               encoded = encoded[7:]
@@ -65,174 +72,153 @@ jobs:
           if not encoded:
               fail("Base64 payload is required.")
 
-          if len(encoded) > MAX_BYTES * 2:
+          if len(encoded) > ((MAX_BYTES + 2) // 3) * 4 + 8:
               fail("Encoded payload exceeds the size limit.")
 
           try:
-              decoded = base64.b64decode(
-                  encoded + "=" * (-len(encoded) % 4),
-                  validate=True
-              )
+              padded = encoded + "=" * (-len(encoded) % 4)
+              decoded = base64.b64decode(padded, validate=True)
 
               if len(decoded) > MAX_BYTES:
                   fail("Decoded payload exceeds the 8 MiB limit.")
 
-              text = decoded.decode("utf-8")
+              text = decoded.decode("utf-8-sig")
 
-          except Exception as exc:
+          except (binascii.Error, UnicodeDecodeError, ValueError) as exc:
               fail(f"Unable to decode Base64 payload: {exc}")
 
-          lines = text.splitlines()
           slug = None
           files = {}
           current_path = None
           buffer = []
+          reading_slug = False
 
-          def finish_file():
-              global current_path, buffer
+          def finish_section():
+              global current_path, buffer, reading_slug, slug
 
-              if current_path is None:
-                  return
-
-              if current_path in files:
-                  fail(f"Duplicate file path: {current_path}")
-
-              files[current_path] = "\n".join(buffer)
-
-          for line_number, line in enumerate(lines, 1):
-              marker = line.strip()
-
-              if marker == "===SLUG===":
-                  finish_file()
-                  current_path = None
-                  buffer = []
+              if reading_slug:
+                  value = "\n".join(buffer).strip()
 
                   if slug is not None:
                       fail("Duplicate SLUG section.")
 
-                  slug = "__reading_slug__"
-                  current_path = "__slug__"
-                  continue
+                  slug = value
+                  reading_slug = False
+                  buffer = []
+                  return
 
-              file_match = re.fullmatch(
-                  r"===FILE:(.+)===",
-                  marker
-              )
+              if current_path is not None:
+                  if current_path in files:
+                      fail(f"Duplicate file path: {current_path}")
 
-              if file_match:
-                  finish_file()
-
-                  current_path = file_match.group(1).strip()
+                  files[current_path] = "\n".join(buffer)
+                  current_path = None
                   buffer = []
 
-                  if current_path == "__slug__":
-                      fail("Reserved path.")
+          for line_number, line in enumerate(text.splitlines(), 1):
+              marker = line.strip()
 
+              if marker == "===SLUG===":
+                  finish_section()
+
+                  if slug is not None:
+                      fail("Duplicate SLUG section.")
+
+                  reading_slug = True
+                  buffer = []
                   continue
 
-              if current_path is None:
+              match = re.fullmatch(r"===FILE:(.+)===", marker)
+
+              if match:
+                  finish_section()
+
+                  if reading_slug:
+                      fail("Missing slug value.")
+
+                  current_path = match.group(1).strip()
+                  buffer = []
+                  continue
+
+              if current_path is None and not reading_slug:
                   if marker:
-                      fail(
-                          f"Unexpected content on line {line_number}."
-                      )
+                      fail(f"Unexpected content on line {line_number}.")
                   continue
 
               buffer.append(line)
 
-          finish_file()
-
-          if slug == "__reading_slug__":
-              slug = files.pop("__slug__", "").strip()
+          finish_section()
 
           if not slug:
               fail("Missing SLUG section.")
 
           if not re.fullmatch(r"[A-Za-z0-9_-]+", slug):
-              fail(
-                  "Invalid slug. Use letters, numbers, "
-                  "hyphens, and underscores."
-              )
+              fail("Invalid slug. Use letters, numbers, hyphens, and underscores.")
 
           if not files:
               fail("No FILE sections were supplied.")
 
-          from pathlib import PurePosixPath
+          if len(files) > MAX_FILES:
+              fail(f"Too many files. Maximum allowed: {MAX_FILES}.")
 
-          normalized_files = {}
+          normalized = {}
 
           for path, content in files.items():
-              if not path or "\\" in path:
-                  fail(f"Invalid file path: {path}")
+              if not path or "\\" in path or "\x00" in path:
+                  fail(f"Invalid file path: {path!r}")
 
               pure = PurePosixPath(path)
 
               if (
                   pure.is_absolute()
-                  or any(part in ("", ".", "..") for part in pure.parts)
+                  or path.startswith("/")
+                  or any(part in ("", ".", "..") for part in path.split("/"))
                   or ":" in path
-                  or "\x00" in path
               ):
                   fail(f"Unsafe file path: {path}")
 
-              if path.startswith(".git/") or path == ".git":
+              if pure.parts[0] == ".git":
                   fail("Git metadata cannot be included in the payload.")
 
-              if path == "README.md":
-                  fail(
-                      "README.md is generated automatically. "
-                      "Remove it from the payload."
-                  )
+              if pure.parts[0] == "_incoming":
+                  fail("The _incoming directory is reserved.")
 
-              if path in normalized_files:
+              if path == "README.md" or path.endswith("/README.md"):
+                  fail("README.md is generated automatically.")
+
+              if path in normalized:
                   fail(f"Duplicate normalized path: {path}")
 
-              normalized_files[path] = content
+              normalized[path] = content
 
-          if not any(
-              path.endswith("/manifest.json")
-              or path == "manifest.json"
-              for path in normalized_files
-          ):
+          manifests = [
+              path for path in normalized
+              if PurePosixPath(path).name == "manifest.json"
+          ]
+
+          if not manifests:
               fail("Payload must contain at least one manifest.json.")
 
-          output_dir = "_incoming"
-          os.makedirs(output_dir, exist_ok=True)
+          os.makedirs("_incoming", exist_ok=True)
 
-          output_path = os.path.join(
-              output_dir,
-              "decoded_addon_payload.txt"
-          )
+          payload_path = "_incoming/decoded_addon_payload.json"
 
-          with open(
-              output_path,
-              "w",
-              encoding="utf-8",
-              newline="\n"
-          ) as output:
-              output.write(f"SLUG={slug}\n")
+          with open(payload_path, "w", encoding="utf-8", newline="\n") as output:
+              json.dump(
+                  {"slug": slug, "files": normalized},
+                  output,
+                  ensure_ascii=False
+              )
 
-              for path, content in normalized_files.items():
-                  output.write(f"\n===FILE:{path}===\n")
-                  output.write(content)
-                  output.write("\n")
-
-          with open(
-              os.environ["GITHUB_ENV"],
-              "a",
-              encoding="utf-8"
-          ) as env:
+          with open(os.environ["GITHUB_ENV"], "a", encoding="utf-8") as env:
               env.write(f"ADDON={slug}\n")
 
-          with open(
-              os.environ["GITHUB_OUTPUT"],
-              "a",
-              encoding="utf-8"
-          ) as output:
+          with open(os.environ["GITHUB_OUTPUT"], "a", encoding="utf-8") as output:
               output.write(f"addon_name={slug}\n")
 
           print("Base64 payload decoded and validated.")
           print(f"Slug: {slug}")
-          print(f"Files: {len(normalized_files)}")
+          print(f"Files: {len(normalized)}")
           PY
 
       - name: Check repository and existing project
@@ -250,116 +236,12 @@ jobs:
             exit 1
           fi
 
+          if [ ! -d "MCPEDL/addons" ]; then
+            echo "::error::Missing MCPEDL/addons directory."
+            exit 1
+          fi
+
       - name: Generate add-on files and placeholder README
-        shell: bash
-        run: |
-          set -euo pipefail
-
-          python3 - <<'PY'
-          import os
-          import re
-          import sys
-          import uuid
-
-          addon = os.environ["ADDON"]
-
-          payload_path = "_incoming/decoded_addon_payload.txt"
-          root = f"MCPEDL/addons/{addon}"
-
-          files = {}
-          current_path = None
-          buffer = []
-
-          with open(
-              payload_path,
-              encoding="utf-8"
-          ) as source:
-              for line in source:
-                  line = line.rstrip("\n")
-
-                  match = re.fullmatch(
-                      r"===FILE:(.+)===",
-                      line.strip()
-                  )
-
-                  if match:
-                      if current_path is not None:
-                          files[current_path] = "\n".join(buffer)
-
-                      current_path = match.group(1).strip()
-                      buffer = []
-                      continue
-
-                  if current_path is not None:
-                      buffer.append(line)
-
-          if current_path is not None:
-              files[current_path] = "\n".join(buffer)
-
-          if not files:
-              sys.exit("No files found in decoded payload.")
-
-          os.makedirs(root, exist_ok=False)
-
-          for relative_path, content in files.items():
-              destination = os.path.join(root, relative_path)
-
-              resolved_root = os.path.realpath(root)
-              resolved_destination = os.path.realpath(destination)
-
-              if not (
-                  resolved_destination == resolved_root
-                  or resolved_destination.startswith(
-                      resolved_root + os.sep
-                  )
-              ):
-                  sys.exit(f"Unsafe output path: {relative_path}")
-
-              os.makedirs(
-                  os.path.dirname(destination),
-                  exist_ok=True
-              )
-
-              with open(
-                  destination,
-                  "w",
-                  encoding="utf-8",
-                  newline="\n"
-              ) as output:
-                  output.write(content)
-
-                  if content and not content.endswith("\n"):
-                      output.write("\n")
-
-          readme = f"""# {addon}
-
-This add-on was generated automatically by the AllensCreations add-on workflow.
-
-## Documentation status
-
-- Actual README documentation: Missing.
-- Logo: Missing.
-- Banner: Missing.
-
-These assets have not been supplied or generated by this workflow. Replace this placeholder README and add the missing branding assets before publishing the add-on.
-
-## Project files
-
-The project files are generated from the supplied Base64 payload. Refer to the included manifests and pack contents for the add-on configuration.
-"""
-
-          with open(
-              os.path.join(root, "README.md"),
-              "w",
-              encoding="utf-8"
-          ) as output:
-              output.write(readme)
-
-          print(f"Generated {len(files)} supplied files.")
-          print(f"Generated placeholder README for {addon}.")
-          PY
-
-      - name: Validate manifests, UUIDs, paths, and JavaScript
         shell: bash
         run: |
           set -euo pipefail
@@ -367,15 +249,89 @@ The project files are generated from the supplied Base64 payload. Refer to the i
           python3 - <<'PY'
           import json
           import os
-          import re
+          import sys
+
+          addon = os.environ["ADDON"]
+          payload_path = "_incoming/decoded_addon_payload.json"
+          root = os.path.join("MCPEDL", "addons", addon)
+
+          with open(payload_path, encoding="utf-8") as source:
+              payload = json.load(source)
+
+          if payload.get("slug") != addon:
+              sys.exit("Payload slug does not match the validated add-on name.")
+
+          files = payload.get("files")
+
+          if not isinstance(files, dict) or not files:
+              sys.exit("Payload contains no files.")
+
+          os.makedirs(root, exist_ok=False)
+
+          root_real = os.path.realpath(root)
+
+          for relative_path, content in files.items():
+              destination = os.path.join(root, *relative_path.split("/"))
+              destination_real = os.path.realpath(destination)
+
+              if not destination_real.startswith(root_real + os.sep):
+                  sys.exit(f"Unsafe output path: {relative_path}")
+
+              if not isinstance(content, str):
+                  sys.exit(f"Invalid file content: {relative_path}")
+
+              os.makedirs(os.path.dirname(destination), exist_ok=True)
+
+              with open(destination, "w", encoding="utf-8", newline="\n") as output:
+                  output.write(content)
+
+                  if content and not content.endswith("\n"):
+                      output.write("\n")
+
+          readme = f"""# {addon}
+
+          This add-on was generated by the AllensCreations add-on workflow.
+
+          ## Documentation status
+
+          - Full project documentation: Not yet written.
+          - Logo: Not supplied.
+          - Banner: Not supplied.
+
+          ## Project files
+
+          This project was generated from the supplied add-on payload. Review the included manifests, behavior pack files, resource pack files, and scripts before publishing.
+          """
+
+          with open(
+              os.path.join(root, "README.md"),
+              "w",
+              encoding="utf-8",
+              newline="\n"
+          ) as output:
+              output.write(readme)
+
+          print(f"Generated {len(files)} supplied files.")
+          print(f"Generated placeholder README for {addon}.")
+          PY
+
+      - name: Validate manifests, UUIDs, paths, and JSON
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          python3 - <<'PY'
+          import json
+          import os
           import sys
           import uuid
 
-          root = f"MCPEDL/addons/{os.environ['ADDON']}"
+          root = os.path.realpath(
+              os.path.join("MCPEDL", "addons", os.environ["ADDON"])
+          )
 
           manifest_count = 0
           seen_uuids = set()
-          script_files = []
 
           for current_root, directories, filenames in os.walk(root):
               directories[:] = [
@@ -386,138 +342,90 @@ The project files are generated from the supplied Base64 payload. Refer to the i
               for filename in filenames:
                   path = os.path.join(current_root, filename)
 
-                  if filename == "manifest.json":
-                      manifest_count += 1
+                  if not filename.endswith(".json"):
+                      continue
 
+                  try:
+                      with open(path, encoding="utf-8") as source:
+                          data = json.load(source)
+                  except Exception as exc:
+                      sys.exit(f"Invalid JSON file {path}: {exc}")
+
+                  if filename != "manifest.json":
+                      continue
+
+                  manifest_count += 1
+
+                  if not isinstance(data, dict):
+                      sys.exit(f"Manifest must be a JSON object: {path}")
+
+                  header = data.get("header")
+
+                  if not isinstance(header, dict):
+                      sys.exit(f"Missing manifest header: {path}")
+
+                  if not isinstance(header.get("name"), str) or not header["name"].strip():
+                      sys.exit(f"Missing header name: {path}")
+
+                  def validate_uuid(value, description):
                       try:
-                          with open(
-                              path,
-                              encoding="utf-8"
-                          ) as source:
-                              manifest = json.load(source)
-                      except Exception as exc:
-                          sys.exit(
-                              f"Invalid manifest {path}: {exc}"
+                          parsed = str(uuid.UUID(value))
+                      except (ValueError, TypeError, AttributeError):
+                          sys.exit(f"Invalid {description} UUID in {path}")
+
+                      if parsed in seen_uuids:
+                          sys.exit(f"Duplicate UUID: {parsed}")
+
+                      seen_uuids.add(parsed)
+
+                  validate_uuid(header.get("uuid"), "header")
+
+                  def validate_version(value, description):
+                      if (
+                          not isinstance(value, list)
+                          or len(value) != 3
+                          or any(type(part) is not int or part < 0 for part in value)
+                      ):
+                          sys.exit(f"Invalid {description} in {path}")
+
+                  validate_version(header.get("version"), "header version")
+                  validate_version(
+                      header.get("min_engine_version"),
+                      "minimum engine version"
+                  )
+
+                  modules = data.get("modules")
+
+                  if not isinstance(modules, list) or not modules:
+                      sys.exit(f"Missing manifest modules: {path}")
+
+                  pack_root = os.path.dirname(path)
+
+                  for module in modules:
+                      if not isinstance(module, dict):
+                          sys.exit(f"Invalid module in {path}")
+
+                      validate_uuid(module.get("uuid"), "module")
+                      validate_version(module.get("version"), "module version")
+
+                      if module.get("type") == "script":
+                          entry = module.get("entry")
+
+                          if not isinstance(entry, str) or not entry:
+                              sys.exit(f"Script module missing entry: {path}")
+
+                          if "\\" in entry or entry.startswith("/"):
+                              sys.exit(f"Unsafe script entry: {entry}")
+
+                          entry_path = os.path.realpath(
+                              os.path.join(pack_root, entry)
                           )
 
-                      if not isinstance(manifest, dict):
-                          sys.exit(
-                              f"Manifest must be an object: {path}"
-                          )
+                          if not entry_path.startswith(pack_root + os.sep):
+                              sys.exit(f"Unsafe script entry: {entry}")
 
-                      header = manifest.get("header")
-
-                      if not isinstance(header, dict):
-                          sys.exit(
-                              f"Missing manifest header: {path}"
-                          )
-
-                      if not header.get("name"):
-                          sys.exit(
-                              f"Missing header name: {path}"
-                          )
-
-                      try:
-                          header_uuid = str(
-                              uuid.UUID(header["uuid"])
-                          )
-                      except Exception:
-                          sys.exit(
-                              f"Invalid header UUID: {path}"
-                          )
-
-                      if header_uuid in seen_uuids:
-                          sys.exit(
-                              f"Duplicate UUID: {header_uuid}"
-                          )
-
-                      seen_uuids.add(header_uuid)
-
-                      if not isinstance(
-                          header.get("version"),
-                          list
-                      ) or len(header["version"]) != 3:
-                          sys.exit(
-                              f"Invalid header version: {path}"
-                          )
-
-                      if not isinstance(
-                          header.get("min_engine_version"),
-                          list
-                      ) or len(header["min_engine_version"]) != 3:
-                          sys.exit(
-                              f"Invalid minimum engine version: {path}"
-                          )
-
-                      modules = manifest.get("modules", [])
-
-                      if not isinstance(modules, list) or not modules:
-                          sys.exit(
-                              f"Missing manifest modules: {path}"
-                          )
-
-                      for module in modules:
-                          if not isinstance(module, dict):
-                              sys.exit(
-                                  f"Invalid module in {path}"
-                              )
-
-                          try:
-                              module_uuid = str(
-                                  uuid.UUID(module["uuid"])
-                              )
-                          except Exception:
-                              sys.exit(
-                                  f"Invalid module UUID: {path}"
-                              )
-
-                          if module_uuid in seen_uuids:
-                              sys.exit(
-                                  f"Duplicate UUID: {module_uuid}"
-                              )
-
-                          seen_uuids.add(module_uuid)
-
-                          if module.get("type") == "script":
-                              entry = module.get("entry")
-
-                              if not isinstance(entry, str):
-                                  sys.exit(
-                                      f"Script module missing entry: {path}"
-                                  )
-
-                              pack_root = os.path.dirname(path)
-                              entry_path = os.path.realpath(
-                                  os.path.join(pack_root, entry)
-                              )
-
-                              if not entry_path.startswith(
-                                  os.path.realpath(pack_root) + os.sep
-                              ):
-                                  sys.exit(
-                                      f"Unsafe script entry: {entry}"
-                                  )
-
-                              if not os.path.isfile(entry_path):
-                                  sys.exit(
-                                      f"Script entry does not exist: "
-                                      f"{entry_path}"
-                                  )
-
-                              if entry_path.endswith(".js"):
-                                  script_files.append(entry_path)
-
-                  elif filename.endswith(".json"):
-                      try:
-                          with open(
-                              path,
-                              encoding="utf-8"
-                          ) as source:
-                              json.load(source)
-                      except Exception as exc:
-                          sys.exit(
-                              f"Invalid JSON file {path}: {exc}"
-                          )
+                          if not os.path.isfile(entry_path):
+                              sys.exit(f"Script entry does not exist: {entry}")
 
           if manifest_count == 0:
               sys.exit("No manifests found.")
@@ -526,6 +434,11 @@ The project files are generated from the supplied Base64 payload. Refer to the i
           print(f"Validated {len(seen_uuids)} unique UUID(s).")
           print("All JSON files are valid.")
           PY
+
+      - name: Validate JavaScript syntax
+        shell: bash
+        run: |
+          set -euo pipefail
 
           while IFS= read -r -d '' file; do
             node --check "$file"
@@ -551,7 +464,7 @@ The project files are generated from the supplied Base64 payload. Refer to the i
           set -euo pipefail
 
           if [ ! -d "builds/$ADDON" ]; then
-            echo "::error::Build directory not found."
+            echo "::error::Build directory not found: builds/$ADDON"
             exit 1
           fi
 
@@ -561,17 +474,17 @@ The project files are generated from the supplied Base64 payload. Refer to the i
           import zipfile
 
           addon = sys.argv[1]
-          build_root = f"builds/{addon}"
+          build_root = os.path.join("builds", addon)
 
           packages = []
 
-          for root, _, filenames in os.walk(build_root):
+          for current_root, _, filenames in os.walk(build_root):
               for filename in filenames:
-                  if filename.endswith(
+                  if filename.lower().endswith(
                       (".mcpack", ".mcaddon", ".zip")
                   ):
                       packages.append(
-                          os.path.join(root, filename)
+                          os.path.join(current_root, filename)
                       )
 
           if not packages:
@@ -586,9 +499,17 @@ The project files are generated from the supplied Base64 payload. Refer to the i
 
                   if bad_entry:
                       sys.exit(
-                          f"Corrupt archive entry in {path}: "
-                          f"{bad_entry}"
+                          f"Corrupt archive entry in {path}: {bad_entry}"
                       )
+
+                  names = set(archive.namelist())
+
+                  if not any(
+                      name == "manifest.json"
+                      or name.endswith("/manifest.json")
+                      for name in names
+                  ):
+                      sys.exit(f"Package contains no manifest.json: {path}")
 
               print(f"Verified: {path}")
 
@@ -604,12 +525,20 @@ The project files are generated from the supplied Base64 payload. Refer to the i
           git config user.email \
             "41898282+github-actions[bot]@users.noreply.github.com"
 
-          git add "MCPEDL/addons/$ADDON"
-          git add -f "builds/$ADDON"
+          git add -- "MCPEDL/addons/$ADDON"
+          git add -f -- "builds/$ADDON"
 
-          [ -f README.md ] && git add README.md || true
-          [ -f builds/README.md ] && git add builds/README.md || true
-          [ -f MCPEDL/addons/README.md ] && git add MCPEDL/addons/README.md || true
+          if [ -f README.md ]; then
+            git add -- README.md
+          fi
+
+          if [ -f builds/README.md ]; then
+            git add -- builds/README.md
+          fi
+
+          if [ -f MCPEDL/addons/README.md ]; then
+            git add -- MCPEDL/addons/README.md
+          fi
 
           if git diff --cached --quiet; then
             echo "::error::No generated changes to commit."
@@ -619,31 +548,34 @@ The project files are generated from the supplied Base64 payload. Refer to the i
           git commit \
             -m "feat(addon): generate $ADDON packages [skip ci]"
 
-          PUSHED=false
+          branch="${GITHUB_REF_NAME}"
+
+          if [ -z "$branch" ]; then
+            echo "::error::Unable to determine target branch."
+            exit 1
+          fi
 
           for attempt in 1 2 3; do
-            if git pull --rebase origin "$GITHUB_REF_NAME" &&
-               git push origin "HEAD:$GITHUB_REF_NAME"; then
-              PUSHED=true
-              break
+            git fetch origin "$branch"
+
+            if git rebase "origin/$branch"; then
+              if git push origin "HEAD:refs/heads/$branch"; then
+                echo "Changes pushed successfully."
+                exit 0
+              fi
+            else
+              git rebase --abort || true
             fi
 
             echo "::warning::Push attempt $attempt failed."
 
             if [ "$attempt" -lt 3 ]; then
-              if [ -d "$(git rev-parse --git-dir)/rebase-merge" ] ||
-                 [ -d "$(git rev-parse --git-dir)/rebase-apply" ]; then
-                git rebase --abort || true
-              fi
-
               sleep 3
             fi
           done
 
-          if [ "$PUSHED" != "true" ]; then
-            echo "::error::Failed to push changes after three attempts."
-            exit 1
-          fi
+          echo "::error::Failed to push changes after three attempts."
+          exit 1
 
       - name: Job summary
         if: always()
