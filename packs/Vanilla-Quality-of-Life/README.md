@@ -1,10 +1,10 @@
 # Vanilla Quality of Life - Survival Mechanics and Enhancements for Minecraft Bedrock
 
-![MCPEDL](pack_icon.png "MCPEDL")
+![MCPEDL](https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/packs/Vanilla-Quality-of-Life/pack_icon.png "MCPEDL")
 
 [![Minecraft Bedrock](https://img.shields.io/badge/Minecraft%20Bedrock-1.21%20--%201.26+-brightgreen?style=flat-square&logo=minecraft)](https://github.com/AllensCreations/MCPE-Curseforges)
-[![Release](https://img.shields.io/badge/Release-v1.2.0-blue?style=flat-square)](../../builds/Vanilla-Quality-of-Life/Vanilla_QoL_AllensCreations.mcaddon)
-[![Format](https://img.shields.io/badge/Format-.MCADDON-orange?style=flat-square)](../../builds/Vanilla-Quality-of-Life/Vanilla_QoL_AllensCreations.mcaddon)
+[![Release](https://img.shields.io/badge/Release-v1.2.0-blue?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Vanilla-Quality-of-Life/Vanilla_QoL_AllensCreations.mcaddon)
+[![Format](https://img.shields.io/badge/Format-.MCADDON-orange?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Vanilla-Quality-of-Life/Vanilla_QoL_AllensCreations.mcaddon)
 [![Platform](https://img.shields.io/badge/Platform-Mobile%20%7C%20PC%20%7C%20Console%20%7C%20Realms-yellow?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges)
 
 Creator: AllensCreations  
@@ -18,7 +18,7 @@ Vanilla Quality of Life is a lightweight, pure data-driven behavior pack that ad
 
 The pack modifies entity definitions, loot tables, and recipes using standard Bedrock components. It requires zero experimental toggles, making it safe for long-term survival worlds, multiplayer servers, and Bedrock Dedicated Servers (BDS).
 
-![Vanilla QoL Banner](banner.jpg)
+![Vanilla QoL Banner](https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/packs/Vanilla-Quality-of-Life/banner.jpg)
 
 ---
 
@@ -137,8 +137,8 @@ The pack modifies entity definitions, loot tables, and recipes using standard Be
 
 | Package | Format | Description | Download Link |
 | :--- | :--- | :--- | :--- |
-| **Complete Pack** | `.mcaddon` | All-in-one bundle containing Behavior Pack and Resource Pack | [Download (.mcaddon)](../../builds/Vanilla-Quality-of-Life/Vanilla_QoL_AllensCreations.mcaddon) |
-| **Behavior Pack** | `.mcpack` | Standalone Behavior Pack archive | [Download BP (.mcpack)](../../builds/Vanilla-Quality-of-Life/Vanilla_QoL_AllensCreations.mcpack) |
+| **Complete Pack** | `.mcaddon` | All-in-one bundle containing Behavior Pack and Resource Pack | [Download (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Vanilla-Quality-of-Life/Vanilla_QoL_AllensCreations.mcaddon) |
+| **Behavior Pack** | `.mcpack` | Standalone Behavior Pack archive | [Download BP (.mcpack)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Vanilla-Quality-of-Life/Vanilla_QoL_AllensCreations.mcpack) |
 
 ---
 

@@ -1,10 +1,10 @@
 # Mining Helmet - Dynamic Lighting Add-on for Minecraft Bedrock
 
-![MCPEDL](1791946330457.jpg "MCPEDL")
+![MCPEDL](https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/packs/Mining-Helmet/1791946330457.jpg "MCPEDL")
 
 [![Minecraft Bedrock](https://img.shields.io/badge/Minecraft%20Bedrock-1.20.80%20--%201.26+-brightgreen?style=flat-square&logo=minecraft)](https://github.com/AllensCreations/MCPE-Curseforges)
-[![Release](https://img.shields.io/badge/Release-v1.0.0-blue?style=flat-square)](../../builds/Mining-Helmet/Mining_Helmet_AllensCreations.mcaddon)
-[![Format](https://img.shields.io/badge/Format-.MCADDON-orange?style=flat-square)](../../builds/Mining-Helmet/Mining_Helmet_AllensCreations.mcaddon)
+[![Release](https://img.shields.io/badge/Release-v1.0.0-blue?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Mining-Helmet/Mining_Helmet_AllensCreations.mcaddon)
+[![Format](https://img.shields.io/badge/Format-.MCADDON-orange?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Mining-Helmet/Mining_Helmet_AllensCreations.mcaddon)
 [![Platform](https://img.shields.io/badge/Platform-Mobile%20%7C%20PC%20%7C%20Console%20%7C%20Realms-yellow?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges)
 
 Creator: AllensCreations  
@@ -42,12 +42,12 @@ The add-on features tiered light emission based on the light source used to craf
 ## Item Specifications
 
 ### Lantern Version (`custom:mining_helmet`) - Light Power: Level 15
-![Mining Helmet Lantern Texture](mining_helmet_preview.png)
+![Mining Helmet Lantern Texture](https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/packs/Mining-Helmet/mining_helmet_preview.png)
 
 Features a front-mounted metallic alloy lantern bracket with an intense electric white-hot glowing headlamp.
 
 ### Torch Version (`custom:torch_mining_helmet`) - Light Power: Level 10
-![Mining Helmet Torch Texture](torch_mining_helmet_preview.png)
+![Mining Helmet Torch Texture](https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/packs/Mining-Helmet/torch_mining_helmet_preview.png)
 
 Features a front-mounted wooden torch stalk held by an iron bracket with an active flickering orange-yellow flame.
 
@@ -69,7 +69,7 @@ Features a front-mounted wooden torch stalk held by an iron bracket with an acti
 
 Combines a standard Lantern with a Golden Helmet to produce the Level 15 Mining Helmet.
 
-![Crafting Recipe: Lantern Mining Helmet](recipe_lantern.png)
+![Crafting Recipe: Lantern Mining Helmet](https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/packs/Mining-Helmet/recipe_lantern.png)
 
 - Pattern: Row 1 = [Empty, Lantern, Empty], Row 2 = [Empty, Golden Helmet, Empty]
 - Result: 1x Mining Helmet (Lantern)
@@ -79,7 +79,7 @@ Combines a standard Lantern with a Golden Helmet to produce the Level 15 Mining 
 
 Combines a standard Torch with a Golden Helmet to produce the Level 10 Mining Helmet for early survival.
 
-![Crafting Recipe: Torch Mining Helmet](recipe_torch.png)
+![Crafting Recipe: Torch Mining Helmet](https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/packs/Mining-Helmet/recipe_torch.png)
 
 - Pattern: Row 1 = [Empty, Torch, Empty], Row 2 = [Empty, Golden Helmet, Empty]
 - Result: 1x Mining Helmet (Torch)
@@ -104,6 +104,14 @@ Players who crafted the Torch Mining Helmet can upgrade it directly to the Level
 
 ### Required Experimental Toggles
 - **Beta APIs**: ENABLED (Required for Script API dynamic light updates)
+
+---
+
+## Direct Downloads
+
+| Package | Format | Description | Download Link |
+| :--- | :--- | :--- | :--- |
+| **All-In-One Pack** | `.mcaddon` | Complete Behavior and Resource Pack | [Download (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Mining-Helmet/Mining_Helmet_AllensCreations.mcaddon) |
 
 ---
 

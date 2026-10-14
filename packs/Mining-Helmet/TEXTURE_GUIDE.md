@@ -1,6 +1,6 @@
 # Mining Helmet - Texture Modification and UV Mapping Guide
 
-![Mining Helmet Banner](1791946330457.jpg)
+![Mining Helmet Banner](https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/packs/Mining-Helmet/1791946330457.jpg)
 
 This technical guide details the exact pixel mapping, palette structure, and UV offsets used to transform the vanilla Golden Helmet texture into the custom Mining Helmet (`custom:mining_helmet`).
 
@@ -61,7 +61,7 @@ Unlike full bucket helmets that enclose the jaw and cheeks, the Mining Helmet ad
 
 ### 2. Item Icon (`textures/items/mining_helmet.png` - 16 x 16)
 
-![Mining Helmet Item Texture](mining_helmet_preview.png)
+![Mining Helmet Item Texture](https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/packs/Mining-Helmet/mining_helmet_preview.png)
 
 - Hard Hat Silhouette: Modeled with an open hard hat dome, raised central crown ridge, and dark lower brim.
 - Center Headlamp:

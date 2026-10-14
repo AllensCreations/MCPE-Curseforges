@@ -1,10 +1,10 @@
 # Monster Companions - Tameable Hostile Mobs and Mounts for Minecraft Bedrock
 
-![MCPEDL](1791889944961.jpg "MCPEDL")
+![MCPEDL](https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/packs/Monster-Companions/1791889944961.jpg "MCPEDL")
 
 [![Minecraft Bedrock](https://img.shields.io/badge/Minecraft%20Bedrock-1.21%20--%201.26+-brightgreen?style=flat-square&logo=minecraft)](https://github.com/AllensCreations/MCPE-Curseforges)
-[![Release](https://img.shields.io/badge/Release-v1.0.0-blue?style=flat-square)](../../builds/Monster-Companions/Monster_Companions_AllensCreations.mcaddon)
-[![Format](https://img.shields.io/badge/Format-.MCADDON%20%7C%20.MCPACK-orange?style=flat-square)](../../builds/Monster-Companions/Monster_Companions_AllensCreations.mcaddon)
+[![Release](https://img.shields.io/badge/Release-v1.0.0-blue?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Monster-Companions/Monster_Companions_AllensCreations.mcaddon)
+[![Format](https://img.shields.io/badge/Format-.MCADDON%20%7C%20.MCPACK-orange?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Monster-Companions/Monster_Companions_AllensCreations.mcaddon)
 [![Platform](https://img.shields.io/badge/Platform-Mobile%20%7C%20PC%20%7C%20Console%20%7C%20Realms-yellow?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges)
 
 Creator: AllensCreations  
@@ -18,7 +18,7 @@ Monster Companions is a data-driven Minecraft Bedrock add-on that enables player
 
 The pack is built entirely using standard Bedrock entity component definitions and requires zero experimental toggles and zero scripting APIs. It operates safely in long-term survival worlds, multiplayer servers, and Realms.
 
-![Monster Companions Banner](1791889996745.jpg)
+![Monster Companions Banner](https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/packs/Monster-Companions/1791889996745.jpg)
 
 ---
 
@@ -69,7 +69,7 @@ Equipping a Saddle onto supported large companions enables manual mounting and d
 
 ### Primal Beast Biscuit
 
-![Primal Beast Biscuit Item](beast_biscuit_preview.png)
+![Primal Beast Biscuit Item](https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/packs/Monster-Companions/beast_biscuit_preview.png)
 
 | Attribute | Specification |
 | :--- | :--- |
@@ -85,7 +85,7 @@ Equipping a Saddle onto supported large companions enables manual mounting and d
 
 ### Primal Beast Biscuit Recipe
 
-![Crafting Recipe: Primal Beast Biscuit](1791890109719.jpg)
+![Crafting Recipe: Primal Beast Biscuit](https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/packs/Monster-Companions/1791890109719.jpg)
 
 - Type: Shapeless Crafting Table Recipe
 - Ingredients: 1 Rotten Flesh, 1 Bone, 1 Sweet Berries, 1 Honey Bottle
@@ -97,9 +97,9 @@ Equipping a Saddle onto supported large companions enables manual mounting and d
 
 | Package | Format | Description | Download Link |
 | :--- | :--- | :--- | :--- |
-| **All-In-One Pack** | `.mcaddon` | Installs Behavior Pack and Resource Pack in one file | [Download (.mcaddon)](../../builds/Monster-Companions/Monster_Companions_AllensCreations.mcaddon) |
-| **Behavior Pack Only** | `.mcpack` | Mob behaviors, taming components, mounts, and recipes | [Download BP (.mcpack)](../../builds/Monster-Companions/Monster_Companions_BP.mcpack) |
-| **Resource Pack Only** | `.mcpack` | Custom item textures, icons, and localized names | [Download RP (.mcpack)](../../builds/Monster-Companions/Monster_Companions_RP.mcpack) |
+| **All-In-One Pack** | `.mcaddon` | Installs Behavior Pack and Resource Pack in one file | [Download (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Monster-Companions/Monster_Companions_AllensCreations.mcaddon) |
+| **Behavior Pack Only** | `.mcpack` | Mob behaviors, taming components, mounts, and recipes | [Download BP (.mcpack)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Monster-Companions/Monster_Companions_BP.mcpack) |
+| **Resource Pack Only** | `.mcpack` | Custom item textures, icons, and localized names | [Download RP (.mcpack)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Monster-Companions/Monster_Companions_RP.mcpack) |
 
 ---
 

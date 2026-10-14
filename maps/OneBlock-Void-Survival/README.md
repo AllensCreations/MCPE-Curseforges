@@ -1,6 +1,6 @@
 # OneBlock Void Survival - Progressive Void World for Minecraft Bedrock
 
-![MCPEDL](behavior_pack/pack_icon.png "MCPEDL")
+![MCPEDL](https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/maps/OneBlock-Void-Survival/behavior_pack/pack_icon.png "MCPEDL")
 
 [![Minecraft Bedrock](https://img.shields.io/badge/Minecraft%20Bedrock-1.21.x+-brightgreen?style=flat-square&logo=minecraft)](https://github.com/AllensCreations/MCPE-Curseforges)
 [![Version](https://img.shields.io/badge/Map%20Version-v1.2.0-blue?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges)
@@ -80,9 +80,9 @@ The map package includes an Admin Edition (`OneBlock_Void_Survival_Admin.mcworld
 
 | File | Type | Description | Download Link |
 | :--- | :--- | :--- | :--- |
-| **`OneBlock_Void_Survival.mcworld`** | World | Standard Survival Experience | [Download Survival (.mcworld)](../../builds/OneBlock-Void-Survival/OneBlock_Void_Survival.mcworld) |
-| **`OneBlock_Void_Survival_Admin.mcworld`** | World | Testing and Photography Studio Edition | [Download Admin (.mcworld)](../../builds/OneBlock-Void-Survival/OneBlock_Void_Survival_Admin.mcworld) |
-| **`OneBlock_Void_Survival.mcpack`** | Behavior Pack | Standalone Behavior Pack for Custom Worlds | [Download BP (.mcpack)](../../builds/OneBlock-Void-Survival/OneBlock_Void_Survival.mcpack) |
+| **`OneBlock_Void_Survival.mcworld`** | World | Standard Survival Experience | [Download Survival (.mcworld)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/OneBlock-Void-Survival/OneBlock_Void_Survival.mcworld) |
+| **`OneBlock_Void_Survival_Admin.mcworld`** | World | Testing and Photography Studio Edition | [Download Admin (.mcworld)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/OneBlock-Void-Survival/OneBlock_Void_Survival_Admin.mcworld) |
+| **`OneBlock_Void_Survival.mcpack`** | Behavior Pack | Standalone Behavior Pack for Custom Worlds | [Download BP (.mcpack)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/OneBlock-Void-Survival/OneBlock_Void_Survival.mcpack) |
 
 ---
 

@@ -1,6 +1,6 @@
 # Mining Helmet - Releases and Downloads
 
-![MCPEDL](../../packs/Mining-Helmet/1791946330457.jpg "MCPEDL")
+![MCPEDL](https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/packs/Mining-Helmet/1791946330457.jpg "MCPEDL")
 
 This folder contains compiled releases for Mining Helmet by AllensCreations.
 
@@ -10,13 +10,13 @@ This folder contains compiled releases for Mining Helmet by AllensCreations.
 
 | File Name | Format | Size | Description | Download Link |
 | :--- | :--- | :--- | :--- | :--- |
-| **`Mining_Helmet_AllensCreations.mcaddon`** | `.mcaddon` | ~750 KB | All-in-one bundle containing Behavior Pack and Resource Pack with tiered dynamic lighting (Lantern: Level 15, Torch: Level 10). | [Download (.mcaddon)](Mining_Helmet_AllensCreations.mcaddon) |
+| **`Mining_Helmet_AllensCreations.mcaddon`** | `.mcaddon` | ~750 KB | All-in-one bundle containing Behavior Pack and Resource Pack with tiered dynamic lighting (Lantern: Level 15, Torch: Level 10). | [Download (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Mining-Helmet/Mining_Helmet_AllensCreations.mcaddon) |
 
 ---
 
 ## Item Texture Preview
 
-![Mining Helmet Item Texture](../../packs/Mining-Helmet/mining_helmet_preview.png)
+![Mining Helmet Item Texture](https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/packs/Mining-Helmet/mining_helmet_preview.png)
 
 Custom 16 x 16 Bedrock Item Icon (`custom:mining_helmet`).
 

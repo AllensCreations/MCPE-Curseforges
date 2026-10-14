@@ -1,6 +1,6 @@
 # MCPE Curseforges - Add-ons, Maps, and Minigames Collection
 
-![MCPEDL](banner.jpg "MCPEDL")
+![MCPEDL](https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/banner.jpg "MCPEDL")
 
 [![Minecraft Bedrock](https://img.shields.io/badge/Minecraft%20Bedrock-1.21%20--%201.26+-brightgreen?style=flat-square&logo=minecraft)](https://github.com/AllensCreations/MCPE-Curseforges)
 [![Platform](https://img.shields.io/badge/Platform-Mobile%20%7C%20PC%20%7C%20Console%20%7C%20Realms-yellow?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges)
@@ -16,8 +16,8 @@ Description: Curated collection of modular, production-ready Minecraft Bedrock b
 
 | Map Name | Version | Category | Download (.mcworld) | World Files | Highlights |
 | :--- | :--- | :--- | :--- | :--- | :--- |
-| **OneBlock Void Survival** | `v1.2.0` | Void Survival & RPG | [Download (.mcworld)](builds/OneBlock-Void-Survival/OneBlock_Void_Survival.mcworld) | [`maps/OneBlock-Void-Survival/`](maps/OneBlock-Void-Survival/) | 43 Themed Secret Void Islands, 1-tick auto-renewing OneBlock, 3-tier progressive scaling, Dimension Shifter merchant, Hardcore death mode, Zero experimental flags needed. |
-| **OneBlock Void (Admin Studio)** | `v1.2.0` | Testing & Photography | [Download (.mcworld)](builds/OneBlock-Void-Survival/OneBlock_Void_Survival_Admin.mcworld) | [`maps/OneBlock-Void-Survival/`](maps/OneBlock-Void-Survival/) | Pre-manifested 43 islands, double-sneak photo studio GUI, 3/4 isometric panoramic camera angles, lighting controls, zero-item auto-break runner. |
+| **OneBlock Void Survival** | `v1.2.0` | Void Survival & RPG | [Download (.mcworld)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/OneBlock-Void-Survival/OneBlock_Void_Survival.mcworld) | [`maps/OneBlock-Void-Survival/`](maps/OneBlock-Void-Survival/) | 43 Themed Secret Void Islands, 1-tick auto-renewing OneBlock, 3-tier progressive scaling, Dimension Shifter merchant, Hardcore death mode, Zero experimental flags needed. |
+| **OneBlock Void (Admin Studio)** | `v1.2.0` | Testing & Photography | [Download (.mcworld)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/OneBlock-Void-Survival/OneBlock_Void_Survival_Admin.mcworld) | [`maps/OneBlock-Void-Survival/`](maps/OneBlock-Void-Survival/) | Pre-manifested 43 islands, double-sneak photo studio GUI, 3/4 isometric panoramic camera angles, lighting controls, zero-item auto-break runner. |
 
 Explore the full [Maps Directory](maps/README.md).
 
@@ -27,9 +27,9 @@ Explore the full [Maps Directory](maps/README.md).
 
 | Pack Name | Version | Type | Download | Source Code | Highlights |
 | :--- | :--- | :--- | :--- | :--- | :--- |
-| **Vanilla Quality of Life** | `v1.2.0` | Complete Pack (`.mcaddon`) | [Download (.mcaddon)](builds/Vanilla-Quality-of-Life/Vanilla_QoL_AllensCreations.mcaddon) | [`packs/Vanilla-Quality-of-Life/`](packs/Vanilla-Quality-of-Life/) | Universal Leashes (101 mobs), Spider Leash Fix, Fast Leaf Decay, Woodcutter, 16x Potions, Offhand Quick-Swap, Mob Heads. |
-| **Monster Companions** | `v1.0.0` | Complete Pack (`.mcaddon`) | [Download (.mcaddon)](builds/Monster-Companions/Monster_Companions_AllensCreations.mcaddon) | [`packs/Monster-Companions/`](packs/Monster-Companions/) | Tame 32 monsters into bodyguards and rideable mounts with Beast Biscuits. Combat pacification below 50% HP, wall-climbing spiders. |
-| **Mining Helmet** | `v1.0.0` | Complete Pack (`.mcaddon`) | [Download (.mcaddon)](builds/Mining-Helmet/Mining_Helmet_AllensCreations.mcaddon) | [`packs/Mining-Helmet/`](packs/Mining-Helmet/) | Wearable Mining Helmet with real-time level 15 dynamic following light, zero-residue block cleanup, and gold helmet model styling. |
+| **Vanilla Quality of Life** | `v1.2.0` | Complete Pack (`.mcaddon`) | [Download (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Vanilla-Quality-of-Life/Vanilla_QoL_AllensCreations.mcaddon) | [`packs/Vanilla-Quality-of-Life/`](packs/Vanilla-Quality-of-Life/) | Universal Leashes (101 mobs), Spider Leash Fix, Fast Leaf Decay, Woodcutter, 16x Potions, Offhand Quick-Swap, Mob Heads. |
+| **Monster Companions** | `v1.0.0` | Complete Pack (`.mcaddon`) | [Download (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Monster-Companions/Monster_Companions_AllensCreations.mcaddon) | [`packs/Monster-Companions/`](packs/Monster-Companions/) | Tame 32 monsters into bodyguards and rideable mounts with Beast Biscuits. Combat pacification below 50% HP, wall-climbing spiders. |
+| **Mining Helmet** | `v1.0.0` | Complete Pack (`.mcaddon`) | [Download (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Mining-Helmet/Mining_Helmet_AllensCreations.mcaddon) | [`packs/Mining-Helmet/`](packs/Mining-Helmet/) | Wearable Mining Helmet with real-time level 15 dynamic following light, zero-residue block cleanup, and gold helmet model styling. |
 
 Explore the full [Packs Directory](packs/README.md).
 
@@ -39,9 +39,9 @@ Explore the full [Packs Directory](packs/README.md).
 
 | Minigame | Version | Category | Download (.mcaddon) | Source Code | Highlights |
 | :--- | :--- | :--- | :--- | :--- | :--- |
-| **Alphabet Scavenger Hunt** | `v1.0.0` | Survival Challenge | [Download (.mcaddon)](builds/Alphabet-Scavenger-Hunt/Alphabet_Scavenger_Hunt_AllensCreations.mcaddon) | [`minigames/Alphabet-Scavenger-Hunt/`](minigames/Alphabet-Scavenger-Hunt/) | 20-Round survival challenge. Scavenge items matching the target letter within 60s or suffer permanent max health loss. PrismarineJS item verification engine. |
-| **Shared Hivemind Inventory** | `v1.0.0` | Multiplayer Challenge | [Download (.mcaddon)](builds/Shared-Hivemind-Inventory/Shared_Hivemind_Inventory_AllensCreations.mcaddon) | [`minigames/Shared-Hivemind-Inventory/`](minigames/Shared-Hivemind-Inventory/) | All online players share the exact same 36 inventory slots and offhand in real-time. Single death spot drops and anti-duplication engine. |
-| **Tethered: Breaker & Builder** | `v1.0.0` | Asymmetric Co-op | [Download (.mcaddon)](builds/Tethered-Breaker-And-Builder/Tethered_Breaker_And_Builder_AllensCreations.mcaddon) | [`minigames/Tethered-Breaker-And-Builder/`](minigames/Tethered-Breaker-And-Builder/) | 2-Player asymmetric co-op challenge. 15m dynamic elastic energy leash, anchor physics, strict mining/building separation, and live tension HUD. |
+| **Alphabet Scavenger Hunt** | `v1.0.0` | Survival Challenge | [Download (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Alphabet-Scavenger-Hunt/Alphabet_Scavenger_Hunt_AllensCreations.mcaddon) | [`minigames/Alphabet-Scavenger-Hunt/`](minigames/Alphabet-Scavenger-Hunt/) | 20-Round survival challenge. Scavenge items matching the target letter within 60s or suffer permanent max health loss. PrismarineJS item verification engine. |
+| **Shared Hivemind Inventory** | `v1.0.0` | Multiplayer Challenge | [Download (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Shared-Hivemind-Inventory/Shared_Hivemind_Inventory_AllensCreations.mcaddon) | [`minigames/Shared-Hivemind-Inventory/`](minigames/Shared-Hivemind-Inventory/) | All online players share the exact same 36 inventory slots and offhand in real-time. Single death spot drops and anti-duplication engine. |
+| **Tethered: Breaker & Builder** | `v1.0.0` | Asymmetric Co-op | [Download (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Tethered-Breaker-And-Builder/Tethered_Breaker_And_Builder_AllensCreations.mcaddon) | [`minigames/Tethered-Breaker-And-Builder/`](minigames/Tethered-Breaker-And-Builder/) | 2-Player asymmetric co-op challenge. 15m dynamic elastic energy leash, anchor physics, strict mining/building separation, and live tension HUD. |
 
 Explore the full [Minigames Directory](minigames/README.md).
 
@@ -65,7 +65,7 @@ Single-block void survival map with procedural island generation across dimensio
 
 ### Pack 1: Vanilla Quality of Life (v1.2.0)
 
-![Vanilla QoL Icon](packs/Vanilla-Quality-of-Life/pack_icon.png)
+![Vanilla QoL Icon](https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/packs/Vanilla-Quality-of-Life/pack_icon.png)
 
 Lightweight data-driven vanilla enhancement pack for Minecraft Bedrock.
 
@@ -84,7 +84,7 @@ Lightweight data-driven vanilla enhancement pack for Minecraft Bedrock.
 
 ### Pack 2: Monster Companions (v1.0.0)
 
-![Monster Companions Icon](packs/Monster-Companions/1791889944961.jpg)
+![Monster Companions Icon](https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/packs/Monster-Companions/1791889944961.jpg)
 
 Data-driven pacification and bodyguard system for hostile monsters.
 
@@ -101,11 +101,11 @@ Data-driven pacification and bodyguard system for hostile monsters.
 
 ### Pack 3: Mining Helmet (v1.0.0)
 
-![Mining Helmet Banner](packs/Mining-Helmet/1791946330457.jpg)
+![Mining Helmet Banner](https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/packs/Mining-Helmet/1791946330457.jpg)
 
 Dynamic following light headgear for mining and cave exploration.
 
-![Mining Helmet Item](packs/Mining-Helmet/mining_helmet_preview.png)
+![Mining Helmet Item](https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/packs/Mining-Helmet/mining_helmet_preview.png)
 
 - Dynamic Following Light: Hands-free real-time lighting with tiered power levels (Lantern: Level 15, Torch: Level 10).
 - Automatic Coordinate Cleanup: Light blocks clear automatically on movement, unequip, death, or disconnect.
@@ -118,7 +118,7 @@ Dynamic following light headgear for mining and cave exploration.
 
 ### Minigame 1: Alphabet Scavenger Hunt (v1.0.0)
 
-![Alphabet Scavenger Hunt Banner](minigames/Alphabet-Scavenger-Hunt/1791906974481.jpg)
+![Alphabet Scavenger Hunt Banner](https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/minigames/Alphabet-Scavenger-Hunt/1791906974481.jpg)
 
 20-Round survival scavenger challenge.
 
@@ -133,7 +133,7 @@ Dynamic following light headgear for mining and cave exploration.
 
 ### Minigame 2: Shared Hivemind Inventory (v1.0.0)
 
-![Shared Hivemind Inventory Icon](minigames/Shared-Hivemind-Inventory/pack_icon.png)
+![Shared Hivemind Inventory Icon](https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/minigames/Shared-Hivemind-Inventory/pack_icon.png)
 
 Multiplayer challenge synchronizing player inventories.
 
@@ -148,7 +148,7 @@ Multiplayer challenge synchronizing player inventories.
 
 ### Minigame 3: Tethered: Breaker & Builder (v1.0.0)
 
-![Tethered Icon](minigames/Tethered-Breaker-And-Builder/pack_icon.png)
+![Tethered Icon](https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/minigames/Tethered-Breaker-And-Builder/pack_icon.png)
 
 2-Player asymmetric co-op challenge.
 

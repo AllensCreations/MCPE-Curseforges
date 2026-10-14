@@ -8,9 +8,9 @@ This directory stores the uncompressed development source trees (entities, funct
 
 | Pack Name | Description | Source Directory | Compiled Build (.mcpack / .mcaddon) | Status |
 | :--- | :--- | :--- | :--- | :--- |
-| **Vanilla Quality of Life** | Lightweight vanilla-plus pack with universal leashing, spider leash fix, woodcutter, offhand swap, mob head drops and recipes. | [`Vanilla-Quality-of-Life/`](Vanilla-Quality-of-Life/) | [Download (.mcaddon)](../builds/Vanilla-Quality-of-Life/Vanilla_QoL_AllensCreations.mcaddon) | v1.2.0 |
-| **Monster Companions** | Tame 32 hostile monsters into defensive bodyguards and rideable wall-climbing mounts using Beast Biscuits. | [`Monster-Companions/`](Monster-Companions/) | [Download (.mcaddon)](../builds/Monster-Companions/Monster_Companions_AllensCreations.mcaddon) | v1.0.0 |
-| **Mining Helmet** | Wearable headlamp with real-time level 15 dynamic following light and zero residue cleanup. | [`Mining-Helmet/`](Mining-Helmet/) | [Download (.mcaddon)](../builds/Mining-Helmet/Mining_Helmet_AllensCreations.mcaddon) | v1.0.0 |
+| **Vanilla Quality of Life** | Lightweight vanilla-plus pack with universal leashing, spider leash fix, woodcutter, offhand swap, mob head drops and recipes. | [`Vanilla-Quality-of-Life/`](Vanilla-Quality-of-Life/) | [Download (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Vanilla-Quality-of-Life/Vanilla_QoL_AllensCreations.mcaddon) | v1.2.0 |
+| **Monster Companions** | Tame 32 hostile monsters into defensive bodyguards and rideable wall-climbing mounts using Beast Biscuits. | [`Monster-Companions/`](Monster-Companions/) | [Download (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Monster-Companions/Monster_Companions_AllensCreations.mcaddon) | v1.0.0 |
+| **Mining Helmet** | Wearable headlamp with real-time level 15 dynamic following light and zero residue cleanup. | [`Mining-Helmet/`](Mining-Helmet/) | [Download (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Mining-Helmet/Mining_Helmet_AllensCreations.mcaddon) | v1.0.0 |
 
 Looking for Challenge Minigames? Explore the [Minigames Directory](../minigames/README.md).
 
