@@ -1,0 +1,187 @@
+{
+  "format_version": "1.21.0",
+  "minecraft:entity": {
+    "description": {
+      "identifier": "minecraft:fox",
+      "is_spawnable": true,
+      "is_summonable": true,
+      "is_experimental": false
+    },
+    "component_groups": {
+      "fox:wild": {
+        "minecraft:tameable": {
+          "probfailure": 0.25,
+          "tame_items": ["minecraft:sweet_berries", "minecraft:glow_berries"],
+          "tame_event": {
+            "event": "minecraft:on_tame",
+            "target": "self"
+          }
+        },
+        "minecraft:behavior.panic": {
+          "priority": 1,
+          "speed_multiplier": 1.25
+        }
+      },
+      "fox:tamed": {
+        "minecraft:is_tamed": {},
+        "minecraft:health": {
+          "value": 30,
+          "max": 30
+        },
+        "minecraft:nametag": {
+          "always_show_for_tamed": true
+        },
+        "minecraft:behavior.follow_owner": {
+          "priority": 5,
+          "speed_multiplier": 1.0,
+          "start_distance": 10,
+          "stop_distance": 2
+        },
+        "minecraft:behavior.owner_hurt_target": {
+          "priority": 2
+        },
+        "minecraft:behavior.owner_hurt_by_target": {
+          "priority": 3
+        }
+      },
+      "fox:standing": {
+        "minecraft:interact": {
+          "interactions": [
+            {
+              "on_interact": {
+                "event": "fox:sit_down",
+                "target": "self"
+              },
+              "use_empty_hand": true,
+              "interact_text": "action.interact.sit"
+            },
+            {
+              "on_interact": {
+                "event": "fox:equip_sword",
+                "target": "self"
+              },
+              "table": "",
+              "interact_text": "action.interact.equip",
+              "swing": true,
+              "equip_item_slot": "slot.weapon.mainhand",
+              "item": "minecraft:is_sword"
+            },
+            {
+              "on_interact": {
+                "event": "fox:equip_axe",
+                "target": "self"
+              },
+              "table": "",
+              "interact_text": "action.interact.equip",
+              "swing": true,
+              "equip_item_slot": "slot.weapon.mainhand",
+              "item": "minecraft:is_axe"
+            }
+          ]
+        }
+      },
+      "fox:sitting": {
+        "minecraft:sit": {},
+        "minecraft:behavior.sit": {
+          "priority": 0
+        },
+        "minecraft:pushable": {
+          "is_pushable": false,
+          "is_pushable_by_piston": true
+        },
+        "minecraft:interact": {
+          "interactions": [
+            {
+              "on_interact": {
+                "event": "fox:stand_up",
+                "target": "self"
+              },
+              "use_empty_hand": true,
+              "interact_text": "action.interact.stand"
+            }
+          ]
+        }
+      }
+    },
+    "components": {
+      "minecraft:collision_box": {
+        "width": 0.6,
+        "height": 0.7
+      },
+      "minecraft:health": {
+        "value": 20,
+        "max": 20
+      },
+      "minecraft:movement": {
+        "value": 0.3
+      },
+      "minecraft:navigation.walk": {
+        "can_patharound_water": true,
+        "avoids_sun": false
+      },
+      "minecraft:movement.stroll": {},
+      "minecraft:attack": {
+        "damage": 4
+      },
+      "minecraft:behavior.melee_attack": {
+        "priority": 4,
+        "speed_multiplier": 1.25,
+        "track_target": true
+      },
+      "minecraft:behavior.leap_at_target": {
+        "prority": 3,
+        "yd": 0.4,
+        "must_be_on_ground": true
+      },
+      "minecraft:behavior.random_stroll": {
+        "priority": 6,
+        "speed_multiplier": 1.0
+      },
+      "minecraft:behavior.look_at_player": {
+        "priority": 7,
+        "look_distance": 6.0
+      },
+      "minecraft:equippment": {
+        "slot_drop_chance": [
+          {
+            "slot": "slot.weapon.mainhand",
+            "drop_chance": 1.0
+          }
+        ]
+      }
+    },
+    "events": {
+      "minecraft:entity_spawned": {
+        "add": {
+          "component_groups": ["fox:wild"]
+        }
+      },
+      "minecraft:on_tame": {
+        "remove": {
+          "component_groups": ["fox:wild"]
+        },
+        "add": {
+          "component_groups": ["fox:tamed", "fox:standing"]
+        }
+      },
+      "fox:sit_down": {
+        "remove": {
+          "component_groups": ["fox:standing"]
+        },
+        "add": {
+          "component_groups": ["fox:sitting"]
+        }
+      },
+      "fox:stand_up": {
+        "remove": {
+          "component_groups": ["fox:sitting"]
+        },
+        "add": {
+          "component_groups": ["fox:standing"]
+        }
+      },
+      "fox:equip_sword": {},
+      "fox:equip_axe": {}
+    }
+  }
+}

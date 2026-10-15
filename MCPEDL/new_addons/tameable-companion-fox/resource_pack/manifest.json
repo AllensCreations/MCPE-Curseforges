@@ -1,0 +1,35 @@
+{
+  "format_version": 2,
+  "header": {
+    "name": "Tameable Companion Fox RP",
+    "description": "Resource pack for Tameable Companion Fox. by AllensCreations",
+    "uuid": "996c09c4-1460-4a46-b37c-3a164534b33f",
+    "version": [
+      1,
+      0,
+      0
+    ],
+    "min_engine_version": [
+      1,
+      21,
+      0
+    ]
+  },
+  "modules": [
+    {
+      "type": "resources",
+      "uuid": "e9c739ea-d2b3-4984-aab2-f995b137ce69",
+      "version": [
+        1,
+        0,
+        0
+      ]
+    }
+  ],
+  "metadata": {
+    "authors": [
+      "AllensCreations"
+    ],
+    "product_type": "addon"
+  }
+}

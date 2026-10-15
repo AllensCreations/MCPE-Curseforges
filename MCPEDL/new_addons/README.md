@@ -8,7 +8,8 @@ This directory stores the uncompressed development source files for newly genera
 
 | Add-on Name | Description | Source Directory | Compiled Build | Version |
 | :--- | :--- | :--- | :--- | :--- |
-| **Immortal Pets BP by AllensCreations** | Protects tamed cats, wolves, parrots, horses, donkeys, mules, skeleton horses and zombie horses from death. Pick the protected pets with the subpack selector. A protected pet named EID is killed. | [`Immortal-Pets/`](Immortal-Pets/) | [Immortal_Pets_AllensCreations.mcaddon](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Immortal-Pets/Immortal_Pets_AllensCreations.mcaddon), [Immortal_Pets_AllensCreations.mcpack](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Immortal-Pets/Immortal_Pets_AllensCreations.mcpack) | 1.1.0 |
+| **Immortal Pets BP by AllensCreations** | Protects tamed cats, wolves, parrots, horses, donkeys, mules, skeleton horses and zombie horses from death. Pick the protected pets with the subpack selector. A protected pet named EID is killed. | [`Immortal-Pets/`](Immortal-Pets/) | [Immortal_Pets_AllensCreations.mcaddon](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Immortal-Pets/Immortal_Pets_AllensCreations.mcaddon), [Immortal_Pets_AllensCreations.mcpack](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Immortal-Pets/Immortal_Pets_AllensCreations.mcpack) | 1.1.2 |
+| **Tameable Companion Fox BP** | Tameable foxes with sitting and equip interactions. By AllensCreations | [`tameable-companion-fox/`](tameable-companion-fox/) | [tameable_companion_fox_AllensCreations.mcaddon](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/tameable-companion-fox/tameable_companion_fox_AllensCreations.mcaddon) | 1.0.0 |
 
 The catalog is updated automatically by the add-on generation workflow.
 

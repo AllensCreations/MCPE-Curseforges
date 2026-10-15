@@ -1,0 +1,35 @@
+{
+  "format_version": 2,
+  "header": {
+    "name": "Tameable Companion Fox BP",
+    "description": "Tameable foxes with sitting and equip interactions. By AllensCreations",
+    "uuid": "d34a1439-f03d-4e88-b31e-982a2fc4a347",
+    "version": [
+      1,
+      0,
+      0
+    ],
+    "min_engine_version": [
+      1,
+      21,
+      0
+    ]
+  },
+  "modules": [
+    {
+      "type": "data",
+      "uuid": "e868e811-abc0-44a8-a4f2-bae3143f138d",
+      "version": [
+        1,
+        0,
+        0
+      ]
+    }
+  ],
+  "metadata": {
+    "authors": [
+      "AllensCreations"
+    ],
+    "product_type": "addon"
+  }
+}

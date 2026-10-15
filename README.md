@@ -6,7 +6,7 @@
 
 [![Minecraft Bedrock](https://img.shields.io/badge/Minecraft%20Bedrock-1.21%20--%201.26%2B-brightgreen?style=flat-square&logo=minecraft)](https://github.com/AllensCreations/MCPE-Curseforges)
 [![Platform](https://img.shields.io/badge/Platform-Mobile%20%7C%20PC%20%7C%20Console%20%7C%20Realms-yellow?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges)
-[![Collection Size](https://img.shields.io/badge/Collection-7%20Add--ons%20%7C%201%20Map%20%7C%203%20Scripts-orange?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges)
+[![Collection Size](https://img.shields.io/badge/Collection-8%20Add--ons%20%7C%201%20Map%20%7C%203%20Scripts-orange?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges)
 [![Format](https://img.shields.io/badge/Format-.MCPACK%20%7C%20.MCADDON%20%7C%20.MCWORLD-blue?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges)
 
 Creator: AllensCreations  
@@ -37,6 +37,7 @@ Explore the full [Maps Directory](MCPEDL/maps/README.md).
 | **Pet Immortality** | `v1.0.2` | Script Behavior Pack (`.mcpack`) | [Download (.mcpack)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/pet-immortality/pet_immortality_AllensCreations.mcpack) | [`MCPEDL/addons/pet-immortality/`](MCPEDL/addons/pet-immortality/) | Prevents damage to selected tamed pets. |
 | **Tameable Fox Companion** | `v1.0.1` | Complete Pack (`.mcaddon`) | [Download (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Tameable-Fox-Companion/Tameable_Fox_Companion_AllensCreations.mcaddon) | [`MCPEDL/addons/Tameable-Fox-Companion/`](MCPEDL/addons/Tameable-Fox-Companion/) | Tame foxes with sweet berries, command curl-up sitting, and ... |
 | **Immortal Pets** | `v1.0.0` | Script Behavior Pack (`.mcpack`) | [Download (.mcpack)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Immortal-Pets/Immortal_Pets_AllensCreations.mcpack) | [`MCPEDL/new_addons/Immortal-Pets/`](MCPEDL/new_addons/Immortal-Pets/) | Makes tamed cats, wolves, parrots and horses immortal. Choos... |
+| **Tameable Companion Fox** | `v1.0.0` | Complete Pack (`.mcaddon`) | [Download (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/tameable-companion-fox/tameable_companion_fox_AllensCreations.mcaddon) | [`MCPEDL/new_addons/tameable-companion-fox/`](MCPEDL/new_addons/tameable-companion-fox/) | Tameable foxes with sitting and equip interactions. By Allen... |
 
 Explore the full [Add-ons Directory](MCPEDL/addons/README.md).
 

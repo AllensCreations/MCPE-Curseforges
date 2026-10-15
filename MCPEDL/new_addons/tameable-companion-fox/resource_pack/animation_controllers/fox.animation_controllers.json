@@ -1,0 +1,25 @@
+{
+  "format_version": "1.10.0",
+  "animation_controllers": {
+    "controller.animation.fox.movement": {
+      "initial_state": "default",
+      "states": {
+        "default": {
+          "animations": [
+            { "walk": "query.modified_move_speed" }
+          ],
+          "transitions": [
+            { "sitting": "query.is_sitting" }
+          ]
+        },
+        "sitting": {
+          "animations": ["sleep"],
+          "blend_time": 0.25,
+          "transitions": [
+            { "default": "!query.is_sitting" }
+          ]
+        }
+      }
+    }
+  }
+}
