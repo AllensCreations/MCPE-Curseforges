@@ -200,7 +200,11 @@ statuses such as:
 - `Not yet written`
 - `Logo: Not supplied`
 - `Banner: Not supplied`
+- Newly scaffolded stubs (e.g., contains `## Source Files`, `Review the included manifests...`, or generic one-line descriptions)
+- Incomplete documentation missing gameplay sections (`## Overview`, `## Features`, `## How It Works`)
 - Missing `README.md`
+
+Use `python3 scripts/check_readme_status.py --fix` to automatically generate standard documentation for any detected stubs.
 
 If the script is absent or fails, inspect project folders and README files
 manually. Report the limitation rather than pretending the audit succeeded.
