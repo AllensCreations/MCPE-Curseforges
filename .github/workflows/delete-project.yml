@@ -72,17 +72,18 @@ concurrency:
 
 jobs:
   delete-and-clean:
+    name: Delete Project and Clean Repository
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
         with:
           fetch-depth: 0
-          token: ${{ secrets.GITHUB_TOKEN }}
+          persist-credentials: true
 
       - name: Set up Python
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@v6
         with:
           python-version: "3.x"
 
@@ -98,8 +99,10 @@ jobs:
         run: |
           set -euo pipefail
 
+          echo "cancelled=false" >> "$GITHUB_OUTPUT"
+
           if [ "$CONFIRM" != "yes" ]; then
-            echo "Deletion cancelled. Confirmation was not set to yes."
+            echo "Deletion cancelled because confirmation was not set to yes."
             echo "cancelled=true" >> "$GITHUB_OUTPUT"
             exit 0
           fi
@@ -118,20 +121,20 @@ jobs:
               TARGET="$SCRIPT_TARGET"
               ;;
             *)
-              echo "::error::Invalid project category."
+              echo "::error::Invalid project category: $TARGET_TYPE"
               exit 1
               ;;
           esac
 
           if [ -z "$TARGET" ] || [ "$TARGET" = "none" ]; then
-            echo "::error::No project was selected for category '$TARGET_TYPE'."
+            echo "::error::No project selected for category '$TARGET_TYPE'."
             exit 1
           fi
 
-          echo "cancelled=false" >> "$GITHUB_OUTPUT"
-          echo "Validated deletion request: $TARGET_TYPE / $TARGET"
+          echo "Selected category: $TARGET_TYPE"
+          echo "Selected project: $TARGET"
 
-      - name: Process Project Deletion & Catalog Cleanup
+      - name: Process Project Deletion and Catalog Cleanup
         id: delete
         if: steps.validate.outputs.cancelled == 'false'
         env:
@@ -155,67 +158,87 @@ jobs:
       - name: Commit and push changes
         if: steps.validate.outputs.cancelled == 'false' && steps.delete.outcome == 'success'
         env:
-          TARGET_TYPE: ${{ inputs.target_type }}
           BRANCH: ${{ github.ref_name }}
           DELETED_SLUG: ${{ steps.delete.outputs.deleted_slug }}
           DELETED_TYPE: ${{ steps.delete.outputs.deleted_type }}
         run: |
-          set -euo pipefail
+          set -Eeuo pipefail
 
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
 
-          stage_changes() {
-            for dir in MCPEDL builds; do
-              if [ -d "$dir" ]; then
-                git add "$dir"
-              fi
-            done
+          echo "Staging project deletion and catalog changes..."
 
-            if [ -f "README.md" ]; then
-              git add README.md
+          for dir in MCPEDL builds; do
+            if [ -d "$dir" ]; then
+              git add -A -- "$dir"
             fi
+          done
 
-            if [ -f ".github/workflows/delete-project.yml" ]; then
-              git add ".github/workflows/delete-project.yml"
-            fi
-          }
+          if [ -f "README.md" ]; then
+            git add README.md
+          fi
 
-          stage_changes
+          if [ -f ".github/workflows/delete-project.yml" ]; then
+            git add ".github/workflows/delete-project.yml"
+          fi
 
           if git diff --cached --quiet; then
             echo "No changes to commit."
             exit 0
           fi
 
-          git commit -m "chore(delete): remove ${DELETED_SLUG:-project} from ${DELETED_TYPE:-$TARGET_TYPE} [skip ci]"
+          git commit \
+            -m "chore(delete): remove ${DELETED_SLUG:-project} from ${DELETED_TYPE:-project} [skip ci]"
 
           PUSHED=false
 
           for attempt in 1 2 3; do
-            echo "Push attempt $attempt of 3..."
+            echo "::group::Push attempt $attempt of 3"
 
-            git fetch origin "$BRANCH"
-
-            if ! git rebase "origin/$BRANCH"; then
-              echo "::warning::Rebase failed. Aborting rebase."
-              git rebase --abort || true
+            if ! git fetch origin "$BRANCH"; then
+              echo "::warning::Unable to fetch the remote branch."
+              echo "::endgroup::"
               sleep 3
               continue
             fi
 
-            if git push origin "HEAD:refs/heads/$BRANCH"; then
-              echo "Changes pushed successfully."
+            if git merge-base --is-ancestor HEAD "origin/$BRANCH"; then
+              echo "Remote already contains the commit."
               PUSHED=true
+              echo "::endgroup::"
               break
             fi
 
-            echo "Push failed. Retrying..."
+            if ! git rebase "origin/$BRANCH"; then
+              echo "::error::Rebase failed."
+              git status --short || true
+
+              if [ -d "$(git rev-parse --git-path rebase-merge)" ] || \
+                 [ -d "$(git rev-parse --git-path rebase-apply)" ]; then
+                git rebase --abort || true
+              fi
+
+              echo "::endgroup::"
+              exit 1
+            fi
+
+            if git push origin "HEAD:refs/heads/$BRANCH"; then
+              echo "Push succeeded."
+              PUSHED=true
+              echo "::endgroup::"
+              break
+            else
+              echo "::warning::Push failed. See Git output above."
+            fi
+
+            echo "::endgroup::"
             sleep 3
           done
 
           if [ "$PUSHED" != "true" ]; then
-            echo "::error::Unable to push deletion changes after 3 attempts."
+            echo "::error::Unable to push after 3 attempts."
+            echo "Check the Git errors above for permission, branch protection, or synchronization issues."
             exit 1
           fi
 
@@ -232,26 +255,48 @@ jobs:
           DELETE_OUTCOME: ${{ steps.delete.outcome }}
           DELETED_SLUG: ${{ steps.delete.outputs.deleted_slug }}
           DELETED_TYPE: ${{ steps.delete.outputs.deleted_type }}
+          PUSH_OUTCOME: ${{ job.status }}
         run: |
           {
             echo "## Project Deletion Summary"
             echo ""
             echo "| Parameter | Value |"
             echo "| :--- | :--- |"
-            echo "| Target Category | \`${TARGET_TYPE:-unknown}\` |"
-            echo "| Selected Project | \`${ADDON_TARGET:-none}\` \`${NEW_ADDON_TARGET:-none}\` \`${MAP_TARGET:-none}\` \`${SCRIPT_TARGET:-none}\` |"
+            echo "| Category | \`${TARGET_TYPE:-unknown}\` |"
+
+            case "${TARGET_TYPE:-}" in
+              addons)
+                SELECTED="$ADDON_TARGET"
+                ;;
+              new_addons)
+                SELECTED="$NEW_ADDON_TARGET"
+                ;;
+              maps)
+                SELECTED="$MAP_TARGET"
+                ;;
+              script)
+                SELECTED="$SCRIPT_TARGET"
+                ;;
+              *)
+                SELECTED="unknown"
+                ;;
+            esac
+
+            echo "| Selected Project | \`${SELECTED:-none}\` |"
             echo "| Deleted Project | \`${DELETED_SLUG:-not reported}\` |"
             echo "| Project Type | \`${DELETED_TYPE:-not reported}\` |"
             echo "| Confirmation | \`${CONFIRM:-unknown}\` |"
+            echo "| Deletion Script | \`${DELETE_OUTCOME:-not run}\` |"
+            echo "| Job Status | \`${PUSH_OUTCOME:-unknown}\` |"
             echo ""
 
             if [ "${CANCELLED:-}" = "true" ]; then
-              echo "Deletion was cancelled because confirmation was not set to yes."
-            elif [ "${DELETE_OUTCOME:-}" = "success" ]; then
-              echo "The deletion script completed successfully."
-              echo ""
-              echo "Check the deletion script output and commit step for the final repository status."
+              echo "Deletion was cancelled. No deletion was requested."
+            elif [ "${DELETE_OUTCOME:-}" != "success" ]; then
+              echo "The deletion script did not complete successfully. Check the workflow logs."
+            elif [ "${PUSH_OUTCOME:-}" = "success" ]; then
+              echo "The workflow completed successfully. Check the commit step to confirm whether changes were pushed."
             else
-              echo "Deletion did not complete successfully. Check the workflow logs."
+              echo "The workflow did not complete successfully. Review the failed step above."
             fi
           } >> "$GITHUB_STEP_SUMMARY"
