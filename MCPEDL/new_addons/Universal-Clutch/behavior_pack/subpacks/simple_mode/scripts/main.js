@@ -51,6 +51,18 @@ const CLUTCH_REGISTRY = {
     placeSound: "bucket.empty_water",
     scoopSound: "bucket.fill_water"
   },
+  "minecraft:powder_snow_bucket": {
+    name: "Powder Snow Bucket",
+    category: "powder_snow",
+    placeSound: "bucket.empty_powder_snow",
+    scoopSound: "bucket.fill_powder_snow"
+  },
+  "minecraft:twisted_vines": {
+    name: "Twisted Vines",
+    category: "vines",
+    blockId: "minecraft:twisted_vines",
+    placeSound: "dig.grass"
+  },
   "minecraft:hay_block": {
     name: "Hay Bale",
     category: "block",
@@ -75,6 +87,12 @@ const CLUTCH_REGISTRY = {
     blockId: "minecraft:ladder",
     placeSound: "block.ladder.place"
   },
+  "minecraft:scaffolding": {
+    name: "Scaffolding",
+    category: "block",
+    blockId: "minecraft:scaffolding",
+    placeSound: "block.scaffolding.place"
+  },
   "minecraft:sweet_berries": {
     name: "Sweet Berries",
     category: "sweet_berries",
@@ -84,17 +102,42 @@ const CLUTCH_REGISTRY = {
 };
 
 /**
- * Priority order when searching inventory in Full Mode.
+ * Priority order for Overworld and The End dimensions.
  */
-const CLUTCH_PRIORITY = [
+const OVERWORLD_CLUTCH_PRIORITY = [
   "minecraft:water_bucket",
   "minecraft:slime",
   "minecraft:web",
   "minecraft:hay_block",
+  "minecraft:powder_snow_bucket",
+  "minecraft:twisted_vines",
   "boat",
   "minecraft:ladder",
+  "minecraft:scaffolding",
   "minecraft:sweet_berries"
 ];
+
+/**
+ * Priority order for the Nether dimension (water bucket is excluded).
+ * Twisted Vines > Powder Snow Bucket > Hay Bale > Slime Block > Cobweb > Boat > Ladder > Scaffolding
+ */
+const NETHER_CLUTCH_PRIORITY = [
+  "minecraft:twisted_vines",
+  "minecraft:powder_snow_bucket",
+  "minecraft:hay_block",
+  "minecraft:slime",
+  "minecraft:web",
+  "boat",
+  "minecraft:ladder",
+  "minecraft:scaffolding"
+];
+
+function getClutchPriority(dimensionId) {
+  if (dimensionId === "minecraft:nether") {
+    return NETHER_CLUTCH_PRIORITY;
+  }
+  return OVERWORLD_CLUTCH_PRIORITY;
+}
 
 /**
  * Passable foliage/air blocks that a falling player traverses.
@@ -131,6 +174,10 @@ const PASSABLE_OR_AIR_BLOCKS = new Set([
 // Map of active water clutches awaiting player touchdown & auto-scoop
 // Key: player.id -> ClutchRecord
 const activeWaterClutches = new Map();
+
+// Map of active powder snow clutches awaiting player touchdown & auto-scoop
+// Key: player.id -> ClutchRecord
+const activePowderSnowClutches = new Map();
 
 // Map tracking recent clutch trigger ticks to debounce per player
 // Key: player.id -> number (tick)
@@ -244,10 +291,14 @@ function itemMatchesPriority(itemStack, priorityKey) {
 /**
  * Searches player container for the best available clutch item.
  */
-function findBestClutchItemInInventory(container) {
+/**
+ * Searches player container for the best available clutch item based on dimension.
+ */
+function findBestClutchItemInInventory(container, dimensionId) {
   if (!container) return null;
+  const priorityList = getClutchPriority(dimensionId);
 
-  for (const pKey of CLUTCH_PRIORITY) {
+  for (const pKey of priorityList) {
     // 1. Check hotbar first (slots 0 to 8)
     for (let slot = 0; slot < 9 && slot < container.size; slot++) {
       const item = container.getItem(slot);
@@ -270,16 +321,18 @@ function findBestClutchItemInInventory(container) {
 /**
  * Fast check to verify if the player possesses any valid clutch item
  * in mainhand, offhand, hotbar, or upper inventory.
- * Used for Extreme Mode doom condition detection.
+ * Dimension-aware: Water Buckets are disregarded in the Nether.
  */
 function hasAnyClutchItem(player) {
   try {
+    const isNether = player.dimension?.id === "minecraft:nether";
+
     const equippable = player.getComponent("minecraft:equippable");
     if (equippable) {
       const main = equippable.getEquipment("Mainhand");
-      if (resolveClutchItem(main)) return true;
+      if (main && (!isNether || main.typeId !== "minecraft:water_bucket") && resolveClutchItem(main)) return true;
       const off = equippable.getEquipment("Offhand");
-      if (resolveClutchItem(off)) return true;
+      if (off && (!isNether || off.typeId !== "minecraft:water_bucket") && resolveClutchItem(off)) return true;
     }
 
     const inventory = player.getComponent("minecraft:inventory");
@@ -287,7 +340,9 @@ function hasAnyClutchItem(player) {
     if (container) {
       for (let i = 0; i < container.size; i++) {
         const item = container.getItem(i);
-        if (resolveClutchItem(item)) return true;
+        if (item && (!isNether || item.typeId !== "minecraft:water_bucket") && resolveClutchItem(item)) {
+          return true;
+        }
       }
     }
   } catch {}
@@ -295,39 +350,133 @@ function hasAnyClutchItem(player) {
 }
 
 /**
+ * Fast check to verify if the player possesses a Totem of Undying
+ * in hands or anywhere in inventory.
+ */
+function hasTotemOfUndying(player) {
+  try {
+    const equippable = player.getComponent("minecraft:equippable");
+    if (equippable) {
+      if (equippable.getEquipment("Offhand")?.typeId === "minecraft:totem_of_undying") return true;
+      if (equippable.getEquipment("Mainhand")?.typeId === "minecraft:totem_of_undying") return true;
+    }
+
+    const inventory = player.getComponent("minecraft:inventory");
+    const container = inventory?.container;
+    if (container) {
+      for (let i = 0; i < container.size; i++) {
+        if (container.getItem(i)?.typeId === "minecraft:totem_of_undying") return true;
+      }
+    }
+  } catch {}
+  return false;
+}
+
+/**
+ * Totem of Undying Fail-Safe:
+ * If the player has no clutch item and is about to hit the ground,
+ * searches the inventory for a Totem of Undying and safely equips it into the Offhand slot,
+ * swapping any existing offhand item into the inventory slot that held the Totem.
+ */
+function tryTriggerTotemFailSafe(player) {
+  try {
+    const equippable = player.getComponent("minecraft:equippable");
+    if (!equippable) return false;
+
+    // Check if player is already holding a Totem in Offhand or Mainhand
+    const currentOffhand = equippable.getEquipment("Offhand");
+    if (currentOffhand && currentOffhand.typeId === "minecraft:totem_of_undying") {
+      return true;
+    }
+    const currentMainhand = equippable.getEquipment("Mainhand");
+    if (currentMainhand && currentMainhand.typeId === "minecraft:totem_of_undying") {
+      return true;
+    }
+
+    // Search inventory for Totem of Undying
+    const inventory = player.getComponent("minecraft:inventory");
+    const container = inventory?.container;
+    if (!container) return false;
+
+    let totemSlot = -1;
+    for (let slot = 0; slot < container.size; slot++) {
+      const item = container.getItem(slot);
+      if (item && item.typeId === "minecraft:totem_of_undying") {
+        totemSlot = slot;
+        break;
+      }
+    }
+
+    if (totemSlot === -1) return false;
+
+    // Swap existing offhand item into the inventory slot that held the Totem
+    const totemItem = container.getItem(totemSlot);
+
+    if (currentOffhand) {
+      container.setItem(totemSlot, currentOffhand);
+    } else {
+      if (totemItem.amount > 1) {
+        totemItem.amount -= 1;
+        container.setItem(totemSlot, totemItem);
+      } else {
+        container.setItem(totemSlot, undefined);
+      }
+    }
+
+    // Equip Totem of Undying into Offhand
+    equippable.setEquipment("Offhand", new ItemStack("minecraft:totem_of_undying", 1));
+
+    // Arm swing animation & subtle armor equip sound
+    try {
+      player.playAnimation("animation.player.attack_bare_hand");
+      player.dimension.playSound("armor.equip_generic", player.location, { volume: 1.0, pitch: 1.0 });
+    } catch {}
+
+    return true;
+  } catch {
+    return false;
+  }
+}
+
+/**
  * Acquires a clutch item.
  * - Simple Mode: only checks mainhand & offhand.
- * - Full Mode: checks hands first; if none, auto-switches hotbar or swaps directly from inventory.
+ * - Full / Extreme Mode: checks hands first; if none, auto-switches hotbar or swaps directly from inventory.
  */
 function acquireClutchItem(player, mode) {
   const equippable = player.getComponent("minecraft:equippable");
   const invComp = player.getComponent("minecraft:inventory");
   const container = invComp?.container;
+  const isNether = player.dimension?.id === "minecraft:nether";
 
   // 1. Check Mainhand
   const mainhand = equippable?.getEquipment("Mainhand");
-  const mainDef = resolveClutchItem(mainhand);
-  if (mainDef && mainhand) {
-    return {
-      itemStack: mainhand,
-      isOffhand: false,
-      containerSlot: player.selectedSlotIndex,
-      definition: mainDef,
-      autoSwitched: null
-    };
+  if (mainhand && (!isNether || mainhand.typeId !== "minecraft:water_bucket")) {
+    const mainDef = resolveClutchItem(mainhand);
+    if (mainDef) {
+      return {
+        itemStack: mainhand,
+        isOffhand: false,
+        containerSlot: player.selectedSlotIndex,
+        definition: mainDef,
+        autoSwitched: null
+      };
+    }
   }
 
   // 2. Check Offhand
   const offhand = equippable?.getEquipment("Offhand");
-  const offDef = resolveClutchItem(offhand);
-  if (offDef && offhand) {
-    return {
-      itemStack: offhand,
-      isOffhand: true,
-      containerSlot: null,
-      definition: offDef,
-      autoSwitched: null
-    };
+  if (offhand && (!isNether || offhand.typeId !== "minecraft:water_bucket")) {
+    const offDef = resolveClutchItem(offhand);
+    if (offDef) {
+      return {
+        itemStack: offhand,
+        isOffhand: true,
+        containerSlot: null,
+        definition: offDef,
+        autoSwitched: null
+      };
+    }
   }
 
   // If Simple Mode, no inventory search
@@ -335,8 +484,8 @@ function acquireClutchItem(player, mode) {
     return null;
   }
 
-  // 3. Full Mode: Auto-switch from inventory
-  const match = findBestClutchItemInInventory(container);
+  // 3. Full / Extreme Mode: Auto-switch from inventory using dimension priority
+  const match = findBestClutchItemInInventory(container, player.dimension?.id);
   if (!match) return null;
 
   const originalHotbarSlot = player.selectedSlotIndex;
@@ -592,6 +741,59 @@ function restoreWaterBucket(player, clutchData) {
   } catch {}
 }
 
+/**
+ * Restores 1 powder snow bucket to player inventory or equipment after auto-scooping.
+ */
+function restorePowderSnowBucket(player, clutchData) {
+  try {
+    let isCreative = false;
+    try {
+      isCreative = player.matches({ gameMode: "creative" });
+    } catch {}
+    if (isCreative) return;
+
+    if (clutchData.isOffhand) {
+      const equippable = player.getComponent("minecraft:equippable");
+      if (equippable) {
+        const off = equippable.getEquipment("Offhand");
+        if (off && off.typeId === "minecraft:bucket") {
+          equippable.setEquipment("Offhand", new ItemStack("minecraft:powder_snow_bucket", 1));
+          return;
+        }
+      }
+    } else {
+      const inventory = player.getComponent("minecraft:inventory");
+      const container = inventory?.container;
+      if (container && clutchData.containerSlot !== null) {
+        const item = container.getItem(clutchData.containerSlot);
+        if (item && item.typeId === "minecraft:bucket") {
+          container.setItem(clutchData.containerSlot, new ItemStack("minecraft:powder_snow_bucket", 1));
+          return;
+        }
+      }
+    }
+
+    // General fallback: search inventory for first bucket
+    const inventory = player.getComponent("minecraft:inventory");
+    const container = inventory?.container;
+    if (container) {
+      for (let i = 0; i < container.size; i++) {
+        const item = container.getItem(i);
+        if (item && item.typeId === "minecraft:bucket") {
+          if (item.amount === 1) {
+            container.setItem(i, new ItemStack("minecraft:powder_snow_bucket", 1));
+          } else {
+            item.amount -= 1;
+            container.setItem(i, item);
+            container.addItem(new ItemStack("minecraft:powder_snow_bucket", 1));
+          }
+          return;
+        }
+      }
+    }
+  } catch {}
+}
+
 // =============================================================================
 // Clutch Execution Logic
 // =============================================================================
@@ -706,6 +908,50 @@ function executeAutoScoop(clutch) {
   }
 }
 
+function executeAutoScoopPowderSnow(clutch) {
+  try {
+    const { player, targetPos, dimension, clutchData } = clutch;
+
+    if (!player || !player.isValid()) return;
+
+    // Do NOT scoop if the player died
+    let health = 20;
+    try {
+      health = player.getComponent("minecraft:health")?.currentValue ?? 20;
+    } catch {}
+    if (health <= 0) return;
+
+    let isStillPowderSnow = false;
+    try {
+      const block = dimension.getBlock(targetPos);
+      if (block && block.typeId === "minecraft:powder_snow") {
+        isStillPowderSnow = true;
+        block.setType("minecraft:air");
+      }
+    } catch {}
+
+    // Only restore powder snow bucket if the block was NOT melted/extinguished by fire
+    if (isStillPowderSnow) {
+      try {
+        dimension.playSound("bucket.fill_powder_snow", player.location, { volume: 1.0, pitch: 1.0 });
+      } catch {}
+
+      try {
+        player.playAnimation("animation.player.attack_bare_hand");
+      } catch {}
+
+      restorePowderSnowBucket(player, clutchData);
+    }
+
+    // If auto-switched, restore previous item / hotbar slot
+    if (clutchData.autoSwitched) {
+      restoreAutoSwitched(player, clutchData.autoSwitched);
+    }
+  } finally {
+    activePowderSnowClutches.delete(clutch.player.id);
+  }
+}
+
 function executeClutch(player, velocity, clutchData, ground) {
   const { definition, autoSwitched } = clutchData;
   const { surfaceBlock, airBlockAbove } = ground;
@@ -771,6 +1017,48 @@ function executeClutch(player, velocity, clutchData, ground) {
           clutchData
         });
       }
+      break;
+    }
+
+    case "powder_snow": {
+      try {
+        airBlockAbove.setType("minecraft:powder_snow");
+        placementSuccess = true;
+
+        try {
+          player.clearVelocity();
+        } catch {}
+
+        consumeClutchItem(player, clutchData, "minecraft:bucket");
+
+        activePowderSnowClutches.set(player.id, {
+          player,
+          targetPos: airBlockAbove.location,
+          dimension,
+          deployedTick: system.currentTick,
+          scheduled: false,
+          clutchData
+        });
+      } catch {}
+      break;
+    }
+
+    case "vines": {
+      try {
+        airBlockAbove.setType(definition.blockId);
+        if (airBlockAbove.typeId === definition.blockId) {
+          consumeClutchItem(player, clutchData);
+          placementSuccess = true;
+
+          try {
+            player.clearVelocity();
+          } catch {}
+
+          if (autoSwitched) {
+            system.runTimeout(() => restoreAutoSwitched(player, autoSwitched), 4);
+          }
+        }
+      } catch {}
       break;
     }
 
@@ -863,7 +1151,32 @@ system.runInterval(() => {
     }
   }
 
-  // 2. Scan all players for clutch conditions
+  // 2. Process active powder snow clutches awaiting player touchdown
+  for (const [playerId, clutch] of activePowderSnowClutches.entries()) {
+    const player = clutch.player;
+    if (!player || !player.isValid()) {
+      activePowderSnowClutches.delete(playerId);
+      continue;
+    }
+
+    if (!clutch.scheduled) {
+      let vel = { x: 0, y: 0, z: 0 };
+      try {
+        vel = player.getVelocity();
+      } catch {}
+
+      const hasLanded = player.isOnGround === true || Math.abs(vel.y) < 0.1 || (currentTick - clutch.deployedTick > 15);
+
+      if (hasLanded) {
+        clutch.scheduled = true;
+        system.runTimeout(() => {
+          executeAutoScoopPowderSnow(clutch);
+        }, 3);
+      }
+    }
+  }
+
+  // 3. Scan all players for clutch conditions & Totem fail-safe
   for (const player of world.getAllPlayers()) {
     try {
       if (!player.isValid()) continue;
@@ -911,22 +1224,26 @@ system.runInterval(() => {
 
       // Extreme Mode: Auto smooth look-down & doom condition
       if (mode === "extreme") {
-        const hasItem = hasAnyClutchItem(player);
-        if (!hasItem) {
-          // Doom condition: no clutch item anywhere in hands or inventory.
+        const hasClutch = hasAnyClutchItem(player);
+        const hasTotem = hasTotemOfUndying(player);
+
+        if (!hasClutch && !hasTotem) {
+          // Doom condition: no clutch item and no totem anywhere.
           // Do not adjust camera, do not intervene. Player falls to their doom.
           continue;
         }
 
-        // Auto smooth look-down: smoothly tilt camera pitch downward towards impact surface
-        const currentRot = player.getRotation();
-        const TARGET_PITCH = 82; // optimal placement pitch directly at feet
-        if (currentRot.x < TARGET_PITCH) {
-          const step = Math.min(TARGET_PITCH - currentRot.x, Math.max(12, (TARGET_PITCH - currentRot.x) * 0.5));
-          const newPitch = Math.min(TARGET_PITCH, currentRot.x + step);
-          try {
-            player.setRotation({ x: newPitch, y: currentRot.y });
-          } catch {}
+        if (hasClutch) {
+          // Auto smooth look-down: smoothly tilt camera pitch downward towards impact surface
+          const currentRot = player.getRotation();
+          const TARGET_PITCH = 82; // optimal placement pitch directly at feet
+          if (currentRot.x < TARGET_PITCH) {
+            const step = Math.min(TARGET_PITCH - currentRot.x, Math.max(12, (TARGET_PITCH - currentRot.x) * 0.5));
+            const newPitch = Math.min(TARGET_PITCH, currentRot.x + step);
+            try {
+              player.setRotation({ x: newPitch, y: currentRot.y });
+            } catch {}
+          }
         }
       }
 
@@ -954,10 +1271,13 @@ system.runInterval(() => {
 
       // Acquire clutch item (from hands or auto-switched from inventory)
       const clutchData = acquireClutchItem(player, mode);
-      if (!clutchData) continue;
-
-      // Execute clutch!
-      executeClutch(player, vel, clutchData, ground);
+      if (clutchData) {
+        // Execute clutch!
+        executeClutch(player, vel, clutchData, ground);
+      } else {
+        // Clutch item unavailable or placement impossible -> Totem of Undying Fail-Safe!
+        tryTriggerTotemFailSafe(player);
+      }
     } catch {}
   }
 }, 1);
