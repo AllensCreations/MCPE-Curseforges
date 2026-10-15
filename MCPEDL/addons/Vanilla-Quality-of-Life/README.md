@@ -7,6 +7,7 @@
 [![Achievement Friendly](https://img.shields.io/badge/Achievements-Friendly-brightgreen?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges)
 [![No Experiments Required](https://img.shields.io/badge/Experimental%20Features-NOT%20REQUIRED-success?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges)
 [![Release](https://img.shields.io/badge/Release-v1.3.0-blue?style=flat-square)](../README.md#available-source-add-ons)
+[![Changelog](https://img.shields.io/badge/Changelog-v1.3.0-purple?style=flat-square)](CHANGELOG.md)
 [![Format](https://img.shields.io/badge/Format-.MCADDON-orange?style=flat-square)](../README.md#available-source-add-ons)
 [![Platform](https://img.shields.io/badge/Platform-Mobile%20%7C%20PC%20%7C%20Console%20%7C%20Realms-yellow?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges)
 
@@ -168,6 +169,12 @@ Built on `@minecraft/server` v1.13.0 with standard Bedrock components. Requires 
 - No experimental features required
 - Complete `.MCADDON` (Behavior Pack + Resource Pack) format
 - Compatible with Mobile, Windows, Console, and Realms
+
+---
+
+## Version History and Changelog
+
+Detailed release notes and historical changes for all major versions are documented in the [CHANGELOG.md](CHANGELOG.md).
 
 ---
 

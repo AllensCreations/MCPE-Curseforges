@@ -2,7 +2,7 @@
   "format_version": 2,
   "header": {
     "name": "Vanilla Quality of Life BP by AllensCreations",
-    "description": "Clean, data-driven Quality of Life improvements for Minecraft Bedrock. By AllensCreations.",
+    "description": "Comprehensive survival Quality of Life suite with dynamic light, offhand quick-swap, passive auto-switch tools, tree capitator, and domino ore miner. By AllensCreations.",
     "uuid": "5461534c-a7c4-4c5b-9269-8be52d2b761b",
     "version": [
       1,
@@ -11,8 +11,8 @@
     ],
     "min_engine_version": [
       1,
-      26,
-      50
+      21,
+      0
     ]
   },
   "modules": [
@@ -22,8 +22,8 @@
       "uuid": "81382d42-b64c-4759-8c05-0e4e3e8436e8",
       "version": [
         1,
-        2,
-        6
+        3,
+        0
       ]
     },
     {
@@ -33,8 +33,8 @@
       "uuid": "880944f5-3d04-401d-a5d5-011d89c969b6",
       "version": [
         1,
-        2,
-        6
+        3,
+        0
       ],
       "entry": "scripts/main.js"
     }
@@ -48,8 +48,8 @@
       "uuid": "fd036566-d0b1-4f92-9b28-9dd45a376d44",
       "version": [
         1,
-        2,
-        6
+        3,
+        0
       ]
     }
   ],

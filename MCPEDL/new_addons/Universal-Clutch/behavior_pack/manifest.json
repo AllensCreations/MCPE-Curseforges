@@ -1,0 +1,94 @@
+{
+  "format_version": 2,
+  "header": {
+    "name": "Universal Clutch BP by AllensCreations",
+    "description": "Vanilla-faithful automatic clutch placements when falling from dangerous heights. Full Mode (auto-switch inventory) and Simple Mode (held item only), with configurable height thresholds.",
+    "uuid": "a452fcb1-dd72-41b0-aed0-273201968225",
+    "version": [
+      1,
+      0,
+      0
+    ],
+    "min_engine_version": [
+      1,
+      21,
+      0
+    ]
+  },
+  "modules": [
+    {
+      "description": "Universal Clutch Data Module",
+      "type": "data",
+      "uuid": "4b007efc-0319-422a-b56e-3abcfbb0d82e",
+      "version": [
+        1,
+        0,
+        0
+      ]
+    },
+    {
+      "description": "Universal Clutch Script Module",
+      "type": "script",
+      "language": "javascript",
+      "uuid": "95d7461f-8e92-498c-8748-6952e4266dcd",
+      "version": [
+        1,
+        0,
+        0
+      ],
+      "entry": "scripts/main.js"
+    }
+  ],
+  "dependencies": [
+    {
+      "uuid": "1e507ca3-3c39-405d-aa7f-2a414fb0544e",
+      "version": [
+        1,
+        0,
+        0
+      ]
+    },
+    {
+      "module_name": "@minecraft/server",
+      "version": "1.13.0"
+    }
+  ],
+  "subpacks": [
+    {
+      "folder_name": "full_default",
+      "name": "Full Mode (Auto-Switch Inventory - 8+ Blocks)",
+      "memory_tier": 1
+    },
+    {
+      "folder_name": "simple_default",
+      "name": "Simple Mode (Held Item Only - 8+ Blocks)",
+      "memory_tier": 2
+    },
+    {
+      "folder_name": "full_careful",
+      "name": "Full Mode - Careful (Auto-Switch - 12+ Blocks)",
+      "memory_tier": 3
+    },
+    {
+      "folder_name": "simple_careful",
+      "name": "Simple Mode - Careful (Held Item Only - 12+ Blocks)",
+      "memory_tier": 4
+    },
+    {
+      "folder_name": "full_extreme",
+      "name": "Full Mode - Extreme (Auto-Switch - 20+ Blocks)",
+      "memory_tier": 5
+    },
+    {
+      "folder_name": "simple_extreme",
+      "name": "Simple Mode - Extreme (Held Item Only - 20+ Blocks)",
+      "memory_tier": 6
+    }
+  ],
+  "metadata": {
+    "authors": [
+      "AllensCreations"
+    ],
+    "product_type": "addon"
+  }
+}

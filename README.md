@@ -6,7 +6,7 @@
 
 [![Minecraft Bedrock](https://img.shields.io/badge/Minecraft%20Bedrock-1.21%20--%201.26%2B-brightgreen?style=flat-square&logo=minecraft)](https://github.com/AllensCreations/MCPE-Curseforges)
 [![Platform](https://img.shields.io/badge/Platform-Mobile%20%7C%20PC%20%7C%20Console%20%7C%20Realms-yellow?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges)
-[![Collection Size](https://img.shields.io/badge/Collection-9%20Add--ons%20%7C%201%20Map%20%7C%203%20Scripts-orange?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges)
+[![Collection Size](https://img.shields.io/badge/Collection-10%20Add--ons%20%7C%201%20Map%20%7C%203%20Scripts-orange?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges)
 [![Format](https://img.shields.io/badge/Format-.MCPACK%20%7C%20.MCADDON%20%7C%20.MCWORLD-blue?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges)
 
 Creator: AllensCreations  
@@ -39,6 +39,7 @@ Explore the full [Maps Directory](MCPEDL/maps/README.md).
 | **Tameable Companion Fox** | `v1.0.3` | Complete Pack (`.mcaddon`) | [Download (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/tameable-companion-fox/Tameable%20Companion%20Fox%20by%20AllensCreations%20%28V1.0.3%29.mcaddon) | [`MCPEDL/addons/tameable-companion-fox/`](MCPEDL/addons/tameable-companion-fox/) | Tameable foxes with sitting and equip interactions. By Allen... |
 | **Magnetic Satchel** | `v1.0.2` | Complete Pack (`.mcaddon`) | [Download (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Magnetic-Satchel/Magnetic%20Satchel%20by%20AllensCreations%20%28V1.0.2%29.mcaddon) | [`MCPEDL/new_addons/Magnetic-Satchel/`](MCPEDL/new_addons/Magnetic-Satchel/) | Adds the Magnetic Satchel. Hold it in your offhand to pull nearby dropped items toward you. |
 | **Smart Tree Capitator & Domino Ore Miner** | `v1.0.4` | Complete Pack (`.mcaddon`) | [Download (.mcpack)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/smart-tree-capitator-domino-ore-miner/Smart%20Tree%20Capitator%20and%20Domino%20Ore%20Miner%20by%20AllensCreations%20%28V1.0.4%29.mcpack) | [`MCPEDL/new_addons/smart-tree-capitator-domino-ore-miner/`](MCPEDL/new_addons/smart-tree-capitator-domino-ore-miner/) | Sneak-activated tree capitator and domino ore miner with durability safety protection. |
+| **Universal Clutch** | `v1.0.0` | Complete Pack (`.mcaddon`) | [Download (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Universal-Clutch/Universal%20Clutch%20by%20AllensCreations%20%28V1.0.0%29.mcaddon) | [`MCPEDL/new_addons/Universal-Clutch/`](MCPEDL/new_addons/Universal-Clutch/) | Vanilla-faithful automatic clutch placements when falling fr... |
 
 Explore the full [Add-ons Directory](MCPEDL/addons/README.md).
 
