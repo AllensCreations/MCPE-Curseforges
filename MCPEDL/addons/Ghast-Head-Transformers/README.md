@@ -1,76 +1,64 @@
-# Ghast Mob Head Transformers - Giant Flying Mob Heads Add-on
+# Ghast Mob Head Transformers — Giant Flying Mob Heads for Minecraft Bedrock
 
 ![MCPEDL](https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/MCPEDL/addons/Ghast-Head-Transformers/1791965821315.jpg?v=1791967147 "MCPEDL")
 
 [![Minecraft Bedrock](https://img.shields.io/badge/Minecraft%20Bedrock-1.21%20--%201.26%2B-brightgreen?style=flat-square&logo=minecraft)](https://github.com/AllensCreations/MCPE-Curseforges)
-[![Release](https://img.shields.io/badge/Release-v1.1.3-blue?style=flat-square)](../README.md#available-source-add-ons)
+[![Achievement Friendly](https://img.shields.io/badge/Achievements-Friendly-brightgreen?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges)
+[![No Experiments Required](https://img.shields.io/badge/Experimental%20Features-NOT%20REQUIRED-success?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges)
 [![Format](https://img.shields.io/badge/Format-.MCADDON%20%7C%20.MCPACK-orange?style=flat-square)](../README.md#available-source-add-ons)
-[![Platform](https://img.shields.io/badge/Platform-Mobile%20%7C%20PC%20%7C%20Console%20%7C%20Realms-yellow?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges)
 
-Creator: AllensCreations  
-Description: Transform vanilla Ghasts into giant flying mob heads by equipping vanilla skulls or custom heads, with charging faces and shearing drops.
+**By AllensCreations**
+
+**NO EXPERIMENTAL NEED & ACHIEVEMENT FRIENDLY**
+
+Transform vanilla Ghasts into colossal flying mob heads with custom combat attacks and shearing mechanics.
 
 ---
 
 ## Overview
 
-**Ghast Mob Head Transformers** allows players to interact with any vanilla Ghast while holding a mob skull or custom head item, instantly transforming the Ghast into a colossal, floating version of that mob's head.
+Transform the skies of your world with colossal floating mob heads.
 
-The add-on retains 100% of the vanilla Ghast's survival hostility and flying combat mechanics: transformed Ghasts continue to roam the Nether skies, target players, and shoot explosive fireballs. When a transformed Ghast prepares to fire, its facial texture dynamically shifts into an angry, glowing, mouth-open charging expression.
+**Ghast Mob Head Transformers** allows you to interact with any Ghast while holding a mob head or skull to instantly convert it into a giant, floating version of that mob. 
 
-Using a pair of **Shears** on a transformed Ghast removes the equipped head, plays the shears snip audio cue, drops the original skull item on the ground, and restores the Ghast back to its classic white tentacled form.
+Each transformed variant features unique attack projectiles, dynamic facial animations, authentic sound effects, and full survival shearing support so you can reclaim your skulls at any time.
+
+No experimental features required. Designed to keep achievements available while enhancing your survival experience across worlds and Realms.
 
 ---
 
 ## Transformation Variants & Combat Abilities
 
-Interact with any Ghast while holding one of the following items to initiate the transformation:
+Interact with any Ghast while holding a skull to trigger the transformation:
 
-| Variant | Item Required | Transformed Entity | Attack Projectile & Fire Rate | Sound Cues (Equip, Charge & Hurt) | Shearing Drop |
+| Variant | Item Required | Transformed Creature | Attack Type & Fire Rate | Sound Cues | Shearing Reclaim |
 | :---: | :--- | :--- | :--- | :--- | :--- |
-| **0** | *(Default)* | Classic Vanilla Ghast | Giant Fireball (`minecraft:fireball`) [2.0s] | Classic Ghast scream & moan | None |
-| **1** | `minecraft:skeleton_skull` | Giant Skeleton Head | Rapid Piercing Arrow (`minecraft:arrow`) [1.0s] | Skeleton rattle & bone snap | `minecraft:skeleton_skull` |
-| **2** | `minecraft:wither_skeleton_skull` | Giant Wither Skeleton Head | Explosive Wither Skull (`minecraft:wither_skull`) [2.2s] | Deep soul rattle & wither launch | `minecraft:wither_skeleton_skull` |
-| **3** | `minecraft:zombie_head` | Giant Zombie Head | Splash Poison Potion (`minecraft:splash_potion`) [1.6s] | Undead groans & zombie grunts | `minecraft:zombie_head` |
-| **4** | `minecraft:player_head` | Giant Steve / Human Head | Knockback Wind Charge (`minecraft:wind_charge_projectile`) [1.4s] | Player hurt cue & wind burst | `minecraft:player_head` |
-| **5** | `minecraft:creeper_head` | Giant Creeper Head | High-Explosive Fireball (`minecraft:fireball`) [2.5s] | **Terrifying Fuse Hiss (`random.fuse`)** | `minecraft:creeper_head` |
-| **6** | `minecraft:piglin_head` | Giant Piglin Head | Rapid Blazing Fireballs (`minecraft:small_fireball`) [0.8s] | Angry Piglin snorts & grunts | `minecraft:piglin_head` |
+| **0** | *(Default)* | Classic Ghast | Giant Explosive Fireball (2.0s) | Classic Ghast screams | None |
+| **1** | Skeleton Skull | Giant Skeleton Head | Rapid Piercing Arrow (1.0s) | Bone rattles and snaps | Skeleton Skull |
+| **2** | Wither Skeleton Skull | Giant Wither Skeleton | Explosive Wither Skull (2.2s) | Deep soul rattle | Wither Skeleton Skull |
+| **3** | Zombie Head | Giant Zombie Head | Splash Poison Potion (1.6s) | Undead zombie groans | Zombie Head |
+| **4** | Steve / Player Head | Giant Steve Head | Knockback Wind Charge (1.4s) | Wind charge burst | Player Head |
+| **5** | Creeper Head | Giant Creeper Head | High-Explosive Fireball (2.5s) | Terrifying fuse hiss | Creeper Head |
+| **6** | Piglin Head | Giant Piglin Head | Rapid Blazing Fireballs (0.8s) | Aggressive piglin snorts | Piglin Head |
 
 ---
 
-## Gameplay Mechanics
+## Gameplay Highlights
 
-### 1. Equipping a Head
-- Approach any Ghast and right-click or tap the **Equip Mob Head** interact button while holding a valid skull.
-- Consumes 1 skull item from your hand.
-- Triggers that specific mob's authentic audio cue and white smoke burst.
-- Replaces the Ghast model with a full 3D head model (featuring 3D hat overlays, 3D Piglin snout, and 3D ears), cleanly hiding all dangling tentacles (`tentacles_0` through `tentacles_8`).
-
-### 2. Mob Combat & Dynamic Sound Cues
-- **Combat Identity:** Transformed Ghasts use custom attack behaviors matching their mob. Piglins unleash rapid small fireballs every 0.8s; Skeletons snipe with rapid high-velocity arrows; Creeper-Ghasts charge up with a chilling **TSSSSSssss...** fuse hiss before blasting devastating fireballs!
-- **Mob Audio Cues:** Each variant has dedicated client sound triggers for charging, taking damage, and dying.
-
-### 3. Shearing and Resetting
-- Approach any transformed Ghast with **Shears** and interact.
-- Damages shears durability by 1 point.
-- Triggers the shears snip audio cue (`mob.sheep.shear`).
-- Drops the exact equipped skull item on the ground as an entity loot drop, ensuring no lost resources in Survival mode.
-- Restores the Ghast back to Variant 0 with classic tentacles.
-
-### 4. Behavior Pack Slider Settings (Subpacks)
-Configure natural mob head spawn behavior directly from the world settings using the Behavior Pack's gear icon slider:
-- **Option 1: `Natural Ghast Spawn with Mob Heads` (Default):** Ghasts naturally spawning in the Nether have an 80% chance to spawn wearing one of the mob heads (Skeleton, Wither Skeleton, Zombie, Steve, Creeper, or Piglin) with their matching custom attack projectiles and audio cues!
-- **Option 2: `Manual Equip Only (No Natural Spawn)`:** Ghasts spawn strictly as classic vanilla Ghasts. They only transform when a player manually equips a mob head by interacting with them!
+- **Dynamic Charging Expressions**: When preparing to fire, transformed heads shift dynamically into angry, glowing, mouth-open attack expressions.
+- **Resource Recovery**: Use Shears on any transformed Ghast to safely reclaim your equipped skull with zero item loss.
+- **3D Hat and Ear Geometry**: Features authentic 3D mob head modeling including Piglin snouts and 3D ears.
+- **Clean Animations**: Tentacles tuck away smoothly while heads are equipped, restoring naturally upon shearing.
 
 ---
 
-## Technical Specifications
+## Compatibility
 
-- **Target Engine:** Minecraft Bedrock 1.21.0 through 1.26.0+ (Preview, Beta & Release).
-- **Experimental Toggles:** Zero experimental gameplay toggles required.
-- **Multiplayer & Realms:** 100% compatible with Realms, Dedicated Servers (BDS), and LAN multiplayer.
-- **Geometry Architecture:** Custom dual-geometry setup (`geometry.ghast` for default; `geometry.ghast.head` with native 64x64 mob head UV coordinates for transformed states).
-- **Render Controllers:** Dynamic Molang texture switching based on `query.variant` and `query.is_charging`.
+- Minecraft Bedrock Edition 1.21.0 - 1.26+
+- No experimental features required
+- Designed to preserve achievement eligibility
+- Complete Add-on (.mcaddon) and Modular Pack (.mcpack) format
+- Compatible with Mobile, Windows, Console, and Realms
 
 ---
 

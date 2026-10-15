@@ -1,105 +1,84 @@
-# Mining Helmet - Dynamic Lighting Add-on for Minecraft Bedrock
+# Mining Helmet — Dynamic Lighting Add-on for Minecraft Bedrock
 
 ![MCPEDL](https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/MCPEDL/addons/Mining-Helmet/1791946330457.jpg "MCPEDL")
 
 [![Minecraft Bedrock](https://img.shields.io/badge/Minecraft%20Bedrock-1.20.80%20--%201.26%2B-brightgreen?style=flat-square&logo=minecraft)](https://github.com/AllensCreations/MCPE-Curseforges)
-[![Release](https://img.shields.io/badge/Release-v1.0.3-blue?style=flat-square)](../README.md#available-source-add-ons)
+[![Achievement Friendly](https://img.shields.io/badge/Achievements-Friendly-brightgreen?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges)
+[![No Experiments Required](https://img.shields.io/badge/Experimental%20Features-NOT%20REQUIRED-success?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges)
 [![Format](https://img.shields.io/badge/Format-.MCADDON-orange?style=flat-square)](../README.md#available-source-add-ons)
-[![Platform](https://img.shields.io/badge/Platform-Mobile%20%7C%20PC%20%7C%20Console%20%7C%20Realms-yellow?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges)
 
-Creator: AllensCreations  
-Description: Hands-free dynamic following light system for cave mining and night exploration.
+**By AllensCreations**
+
+**NO EXPERIMENTAL NEED & ACHIEVEMENT FRIENDLY**
+
+Hands-free dynamic following light system for cave mining and night exploration.
 
 ---
 
 ## Overview
 
-The Mining Helmet add-on adds wearable headgear with dynamic following light to Minecraft Bedrock Edition. When equipped in the head armor slot, it illuminates the player's immediate surroundings in real time, freeing both hands for mining tools, weapons, and shields.
+Illuminate your mining expeditions without placing hundreds of torches.
 
-The lighting engine is powered by the Bedrock Script API (@minecraft/server). It places temporary native Minecraft light blocks at the player's position and restores them back to air upon movement, unequip, dimension change, player death, or disconnect.
+**Mining Helmet** adds wearable headgear with real-time dynamic following light to Minecraft Bedrock Edition. Equipped in your head armor slot, it continuously lights up your surroundings as you walk, run, and dig, leaving both hands free for your pickaxe, weapon, or shield.
+
+No experimental features required. Designed to keep achievements enabled while providing lag-free dynamic illumination across your worlds and Realms.
 
 ---
 
 ## Features and Light Power Ratings
 
-The add-on features tiered light emission based on the light source used to craft or power the helmet:
-
 | Equipment / Item | Light Power Level | Illumination Type | Description |
 | :--- | :---: | :--- | :--- |
 | **Mining Helmet (Lantern)** | **15** | High-Intensity Beam | Full daylight-equivalent illumination. Maximum light level in Minecraft Bedrock. |
 | **Mining Helmet (Torch)** | **10** | Medium Warm Glow | Atmospheric survival light suitable for early-game spelunking. |
-| **Handheld / Offhand Lantern** | **15** | Portable Floodlight | Dynamic light emitted when holding a standard Lantern in mainhand or offhand. |
-| **Handheld / Offhand Torch** | **10** | Portable Torch Light | Dynamic light emitted when holding a standard Torch in mainhand or offhand. |
-
-### Technical Mechanics
-- Dynamic cleanup: Light blocks automatically clear when moving to a new block coordinate, leaving zero residual light blocks in the world.
-- Armor protection: 2 defense points (equivalent to standard Golden/Iron helmet grade).
-- Durability: 165 uses, repairable on an anvil using Gold Ingots (minecraft:gold_ingot).
-- Enchantment support: Fully compatible with Enchanting Tables and Anvils for Protection, Unbreaking, Mending, Aqua Affinity, and Respiration.
+| **Handheld / Offhand Lantern** | **15** | Portable Floodlight | Dynamic light emitted when holding a standard Lantern in your main hand or offhand. |
+| **Handheld / Offhand Torch** | **10** | Portable Torch Light | Dynamic light emitted when holding a standard Torch in your main hand or offhand. |
 
 ---
 
-## Item Specifications
-
-### Lantern Version (`custom:mining_helmet`) - Light Power: Level 15
-![Mining Helmet Lantern Texture](https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/MCPEDL/addons/Mining-Helmet/mining_helmet_preview.png)
-
-Features a front-mounted metallic alloy lantern bracket with an intense electric white-hot glowing headlamp.
-
-### Torch Version (`custom:torch_mining_helmet`) - Light Power: Level 10
-![Mining Helmet Torch Texture](https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/MCPEDL/addons/Mining-Helmet/torch_mining_helmet_preview.png)
-
-Features a front-mounted wooden torch stalk held by an iron bracket with an active flickering orange-yellow flame.
+## Equipment Specifications
 
 | Attribute | Lantern Version | Torch Version |
 | :--- | :--- | :--- |
-| **Identifier** | `custom:mining_helmet` | `custom:torch_mining_helmet` |
-| **Light Power** | Level 15 (Daylight Maximum) | Level 10 (Warm Atmospheric Glow) |
-| **Item Texture** | `textures/items/mining_helmet.png` | `textures/items/torch_mining_helmet.png` |
-| **Armor Model Texture** | `textures/models/armor/mining_helmet_1.png` | `textures/models/armor/torch_mining_helmet_1.png` |
-| **Equipment Slot** | Head Armor (`slot.armor.head`) | Head Armor (`slot.armor.head`) |
-| **Defense / Durability** | 2 Armor Points / 165 Uses | 2 Armor Points / 165 Uses |
-| **Repair Item** | Gold Ingot (`minecraft:gold_ingot`) | Gold Ingot (`minecraft:gold_ingot`) |
+| **Light Power** | Level 15 (Daylight Maximum) | Level 10 (Warm Glow) |
+| **Equipment Slot** | Head Armor | Head Armor |
+| **Armor Defense** | 2 Armor Points | 2 Armor Points |
+| **Durability** | 165 Uses | 165 Uses |
+| **Repair Item** | Gold Ingot | Gold Ingot |
+| **Enchantability** | Protection, Unbreaking, Mending, Aqua Affinity, Respiration | Protection, Unbreaking, Mending, Aqua Affinity, Respiration |
 
 ---
 
 ## Crafting Recipes
 
-### 1. Lantern Recipe (Light Power Level 15)
-
-Combines a standard Lantern with a Golden Helmet to produce the Level 15 Mining Helmet.
+### 1. Lantern Recipe (Level 15)
+Combine a standard **Lantern** with a **Golden Helmet** in a crafting table to produce the Level 15 Mining Helmet.
 
 ![Crafting Recipe: Lantern Mining Helmet](https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/MCPEDL/addons/Mining-Helmet/recipe_lantern.png)
 
-- Pattern: Row 1 = [Empty, Lantern, Empty], Row 2 = [Empty, Golden Helmet, Empty]
-- Result: 1x Mining Helmet (Lantern)
-- Light Power: Level 15
-
-### 2. Torch Recipe (Light Power Level 10)
-
-Combines a standard Torch with a Golden Helmet to produce the Level 10 Mining Helmet for early survival.
+### 2. Torch Recipe (Level 10)
+Combine a standard **Torch** with a **Golden Helmet** to craft the Level 10 Mining Helmet for early survival.
 
 ![Crafting Recipe: Torch Mining Helmet](https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/MCPEDL/addons/Mining-Helmet/recipe_torch.png)
 
-- Pattern: Row 1 = [Empty, Torch, Empty], Row 2 = [Empty, Golden Helmet, Empty]
-- Result: 1x Mining Helmet (Torch)
-- Light Power: Level 10
+---
 
-### 3. Helmet Upgrade Recipe
+## Compatibility
 
-Players who crafted the Torch Mining Helmet can upgrade it directly to the Level 15 Lantern version on a crafting table:
-- Pattern: Row 1 = [Empty, Lantern, Empty], Row 2 = [Empty, Mining Helmet (Torch), Empty]
-- Result: 1x Mining Helmet (Lantern)
-- Light Power: Level 15
+- Minecraft Bedrock Edition 1.20.80 - 1.26+
+- No experimental features required
+- Designed to preserve achievement eligibility
+- Complete Add-on (.mcaddon) format
+- Compatible with Mobile, Windows, Console, and Realms
 
 ---
 
 ## Guidelines and Attribution
 
 - Creator: AllensCreations
-- Video & Showcase: Content creators are permitted to feature this add-on in videos and streams with credit to AllensCreations.
-- Redistribution: Do not re-upload the pack or provide direct monetized download bypasses. Link directly to the official repository page.
-- Rights: All rights reserved for AllensCreations.
+- Rights & Reservation: All rights reserved for AllensCreations.
+- Content Creators: Content creators are permitted to feature this creation in videos and streams with credit to AllensCreations.
+- Redistribution: Do not re-upload this pack or provide direct monetized download bypasses. Link directly to the official repository page.
 
 ---
 

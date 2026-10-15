@@ -1,10 +1,10 @@
 {
-  "format_version": "1.10.0",
+  "format_version": "1.8.0",
   "minecraft:client_entity": {
     "description": {
       "identifier": "minecraft:ghast",
       "materials": {
-        "default": "entity_alphatest"
+        "default": "ghast"
       },
       "textures": {
         "default": "textures/entity/ghast/ghast",
@@ -48,15 +48,12 @@
       },
       "animation_controllers": [
         {
+          "move": "controller.animation.ghast.move"
+        },
+        {
           "sound": "controller.animation.ghast.sound"
         }
       ],
-      "scripts": {
-        "animate": [
-          "move",
-          "sound"
-        ]
-      },
       "render_controllers": [
         "controller.render.ghast"
       ]
