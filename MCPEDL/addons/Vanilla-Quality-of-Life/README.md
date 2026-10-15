@@ -1,26 +1,30 @@
-# Vanilla Quality of Life - Survival Mechanics and Enhancements for Minecraft Bedrock
+# Vanilla Quality of Life — Survival Mechanics and Enhancements for Minecraft Bedrock
+
 ![MCPEDL](https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/MCPEDL/addons/Vanilla-Quality-of-Life/banner.jpg "MCPEDL")
 
-[![Minecraft Bedrock](https://img.shields.io/badge/Minecraft%20Bedrock-1.21%20--%201.26%2B-brightgreen?style=flat-square&logo=minecraft)](https://github.com/AllensCreations/MCPE-Curseforges)
+[![Minecraft Bedrock](https://img.shields.io/badge/Minecraft%20Bedrock-1.21.0%2B-brightgreen?style=flat-square&logo=minecraft)](https://github.com/AllensCreations/MCPE-Curseforges)
+[![Script API](https://img.shields.io/badge/Script%20API-%40minecraft%2Fserver%201.13.0%2B-blue?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges)
 [![Achievement Friendly](https://img.shields.io/badge/Achievements-Friendly-brightgreen?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges)
 [![No Experiments Required](https://img.shields.io/badge/Experimental%20Features-NOT%20REQUIRED-success?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges)
-[![Release](https://img.shields.io/badge/Release-v1.2.6-blue?style=flat-square)](../README.md#available-source-add-ons)
+[![Release](https://img.shields.io/badge/Release-v1.3.0-blue?style=flat-square)](../README.md#available-source-add-ons)
 [![Format](https://img.shields.io/badge/Format-.MCADDON-orange?style=flat-square)](../README.md#available-source-add-ons)
 [![Platform](https://img.shields.io/badge/Platform-Mobile%20%7C%20PC%20%7C%20Console%20%7C%20Realms-yellow?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges)
 
 **By AllensCreations**
 
-**NO EXPERIMENTAL NEED & ACHIEVEMENT FRIENDLY**
+**THE ALL-IN-ONE SURVIVAL QUALITY OF LIFE SUITE FOR MINECRAFT BEDROCK**
 
-Lightweight vanilla-plus survival enhancements, universal leashing, and fast leaf decay.
+Comprehensive vanilla-plus survival enhancements: dynamic lighting, offhand quick-swap, passive auto-switch tools, smart tree capitator, domino ore miner, and universal leashing.
 
 ---
 
 ## Overview
 
-Vanilla Quality of Life is a lightweight, pure data-driven behavior pack that addresses common survival gameplay friction points while preserving core vanilla game balance.
+**Vanilla Quality of Life** is the ultimate all-in-one survival quality of life pack for Minecraft Bedrock Edition. It resolves everyday survival friction points while maintaining complete game balance and pure vanilla feel.
 
-The pack modifies entity definitions, loot tables, and recipes using standard Bedrock components. It requires zero experimental toggles, making it safe for long-term survival worlds, multiplayer servers, and Bedrock Dedicated Servers (BDS).
+From dynamic torch lighting and double-sneak offhand item swapping to automatic tool switching on Slot 1, sneak-activated tree capitation with 5×5 branch following, and 26-neighbor domino ore mining with durability safety guards—everything works seamlessly together.
+
+Built on `@minecraft/server` v1.13.0 with standard Bedrock components. Requires zero experimental toggles, making it safe for long-term survival worlds, multiplayer Realms, and Bedrock Dedicated Servers (BDS).
 
 ![Vanilla QoL Banner](https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/MCPEDL/addons/Vanilla-Quality-of-Life/banner.jpg)
 
@@ -30,56 +34,85 @@ The pack modifies entity definitions, loot tables, and recipes using standard Be
 
 ### Comparison Table
 
-| Feature | Vanilla Bedrock | With Vanilla QoL |
+| Feature | Vanilla Bedrock | With Vanilla QoL v1.3.0 |
 | :--- | :--- | :--- |
+| **Tool & Weapon Switching** | Manual hotbar selection | Automatic optimal tool/weapon swap when holding Slot 1 |
+| **Tree Harvesting** | 1 log at a time | Sneak-axe fells entire tree up to 128 logs with 5×5 branch scan |
+| **Ore Vein Mining** | 1 ore block at a time | Sneak-pickaxe domino mines contiguous veins across 26 neighbors |
+| **Tool Durability Safety** | Tools break unexpectedly | Auto-halts chain mining at 5 durability with alert sounds |
+| **Offhand Utilities & Lighting** | Shield and Totem only | Double-sneak offhand swap + real-time moving torch/lantern light |
 | **Leashing Mobs** | Passive mobs only | All 101 mobs (Villagers, Golems, Hostiles) |
 | **Hostile Mob Aggro on Leads** | Hostile attacks continue | Pacified while attached to a lead |
-| **Pet Friendly-Fire** | Pets damaged by player weapons | Immune to player sweeps, arrows, and explosions |
+| **Pet Friendly-Fire** | Pets damaged by player attacks | Immune to player melee sweeps, arrows, and explosions |
 | **Leaf Decay Speed** | 10 to 30 seconds | 1 to 2 seconds |
-| **Woodcutting in Stonecutter** | Not supported (stone only) | All 11 wood types supported at 1:1 ratios |
-| **Potion and Milk Stacking** | 1 per inventory slot | Stacks up to 16 |
-| **Offhand Utilities and Dynamic Light** | Shield and Totem only | Double-sneak swap with real-time moving light |
+| **Woodcutting in Stonecutter** | Not supported (stone only) | All 11 wood types supported at fair 1:1 ratios |
+| **Potion & Milk Stacking** | 1 per inventory slot | Stacks up to 16 |
 | **Shulker Shell Yield** | 0 to 1 shell per mob | Guaranteed 2 shells per Shulker kill |
 | **Multiplayer Sleep** | All online players must sleep | 1 player sleeping skips the night |
-| **Mob Head Drops** | Requires Charged Creeper kill | 2.5% base drop chance on player kills |
+| **Mob Head Trophy Drops** | Requires Charged Creeper kill | 2.5% base drop chance on player kills |
 
 ---
 
-### Detailed Mechanics
+### Key Gameplay Mechanics
 
-#### Universal Leashing (101 Mobs)
-- Leash any entity: Villagers, Wandering Traders, Iron Golems, Turtles, Zombies, Skeletons, Creepers, Endermen, Wardens, Withers, and Ghasts.
-- Spider lead alignment: Custom client locators ensure leashes connect naturally to the spider torso.
+#### 1. Passive Auto-Switch Tools (Slot 1)
+- Hold Slot 1 (hotbar index 0) to activate auto tool selection:
+  - Hit stone, ores, or brick -> Equips best Pickaxe (evaluating tier, efficiency, and durability).
+  - Hit logs, wood, or planks -> Equips best Axe.
+  - Hit dirt, sand, gravel, or clay -> Equips best Shovel.
+  - Hit leaves or cobwebs -> Equips Shears.
+  - Attack hostile or passive mobs -> Equips best melee Weapon (Sword or Axe).
+- Low durability penalty: Automatically favors healthy tools so nearly-broken tools aren't worn down.
+
+#### 2. Smart Tree Capitator (Sneak + Axe)
+- Sneak while chopping any tree log with an axe to fell the entire tree in a single tick:
+  - **5×5 Footprint Scan (`~2` to `~-2`)**: Seamlessly tracks curved and diagonal branches (Acacia, Cherry, Large Oak).
+  - **Downward Stump Sweep (`dy: -1..-2`)**: Clears the bottom stump and roots when cutting at eye level.
+  - **Species Matching**: Enforces wood species matching (Oak only fells Oak) to prevent chain reactions into adjacent trees.
+  - **Natural Leaf Decay**: Preserves leaf canopies for authentic leaf decay drops (saplings, sticks, apples).
+  - **Capacity Limit**: Up to 128 logs per tree operation.
+
+#### 3. Domino Ore Miner (Sneak + Pickaxe)
+- Sneak while mining any mineral ore with a pickaxe to harvest the connected ore vein:
+  - **26-Neighbor Detection**: Sweeps faces, edges, and corners across all 3 spatial dimensions.
+  - **Category Normalization**: Normalizes stone and deepslate variants (e.g. Coal Ore and Deepslate Coal Ore chain together).
+  - **Fortune & Silk Touch**: Honors Silk Touch block drops and vanilla Fortune item multipliers.
+  - **Capacity Limit**: Up to 64 ore blocks per vein cluster.
+
+#### 4. Durability Safety Guard
+- Automatically halts Tree Capitator and Domino Ore Miner operations if your tool reaches **5 durability points remaining**.
+- Plays a warning bass sound and flashes an action bar alert, ensuring your valuable enchanted gear never accidentally breaks.
+
+#### 5. Offhand Quick-Swap & Dynamic Handheld Lighting
+- Supported items: Torches, Soul Torches, Lanterns, Soul Lanterns, Clocks, Compasses, Recovery Compasses.
+- Quick-swap gestures:
+  - **Double-sneak** (crouch twice within 0.7 seconds) to swap held item into offhand.
+  - **Sneak + Use/Tap in air** to swap held item into offhand.
+  - Run `/scriptevent qol:swap` command.
+- Real-time dynamic light: Handheld or offhand torches emit Light Level 14; lanterns emit Light Level 15 as you move.
+
+#### 6. Universal Leashing (101 Mobs)
+- Leash any entity: Villagers, Iron Golems, Hostiles, Creepers, Endermen, Wardens, Withers, and Ghasts.
 - Pacification on leads: Hostile mobs attached to leads do not attack players, allowing safe relocation.
-- Villager interaction controls:
-  - Primary interaction (tap/right-click): Opens standard trading menu.
-  - Sneak interaction with lead: Attaches leash without opening the trade interface.
+- Sneak-interaction on Villagers attaches leads without opening the trading UI.
 
-#### Friendly-Fire Immunity for Pets and Mounts
+#### 7. Friendly-Fire Immunity for Pets and Mounts
 - Tamed Wolves, Cats, Parrots, Horses, Donkeys, Mules, and Llamas take zero damage from player melee attacks, sweeping strikes, and projectile fire.
 - Tamed entities are immune to Creeper and TNT explosion damage.
 
-#### Fast Leaf Decay
+#### 8. Fast Leaf Decay
 - Floating leaves from chopped trees decay within 1 to 2 seconds.
 - Normal drop rates for saplings, sticks, and apples are preserved without world lag.
 
-#### Stonecutter Woodcutter Integration
+#### 9. Stonecutter Woodcutter Integration
 - Cut all 11 wood types (Oak, Spruce, Birch, Jungle, Acacia, Dark Oak, Mangrove, Cherry, Bamboo, Crimson, Warped):
   - Logs -> 4 Planks, 8 Slabs, 4 Stairs
   - Planks -> 2 Slabs, 1 Stair, 1 Trapdoor, 1 Fence, 1 Fence Gate
 
-#### Stackable Potions and Buckets
+#### 10. Stackable Potions and Buckets
 - Standard Potions, Splash Potions, Lingering Potions, and Milk Buckets stack up to 16 per slot.
 
-#### Offhand Quick-Swap and Dynamic Lighting
-- Supported utility items: Torches, Soul Torches, Lanterns, Soul Lanterns, Clocks, Compasses, Recovery Compasses.
-- Equip controls:
-  - Double-sneak (crouch twice within 0.7 seconds) while holding the item in mainhand to swap into offhand.
-  - Sneak and tap/right-click in air to swap into offhand.
-  - Double-sneak again to retrieve the item back to the mainhand.
-- Dynamic lighting: Equipped Torches emit Light Level 14; equipped Lanterns emit Light Level 15 in real time.
-
-#### Mob Head Trophy System
+#### 11. Mob Head Trophy System
 - Slain mobs have a 2.5% base drop chance (+1% per Looting level) on player kills:
   - Zombie, Husk, Drowned -> Zombie Head
   - Skeleton, Stray, Bogged -> Skeleton Skull
@@ -89,8 +122,8 @@ The pack modifies entity definitions, loot tables, and recipes using standard Be
   - Ender Dragon -> Guaranteed 1 Dragon Head + 1 Elytra
   - PvP Player Kills -> Slain players drop their Player Head
 
-#### Wandering Trader Collector Trades
-- Exchange 1 Diamond Block for rare heads: Zombie, Skeleton, Creeper, Wither Skeleton, Piglin, Player, or Dragon Head.
+#### 12. Wandering Trader Collector Trades
+- Exchange 1 Diamond Block for rare mob heads.
 - Biome flora trades: Spore Blossoms, Wither Roses, Nautilus Shells, Bundles, and Heart of the Sea.
 
 ---
@@ -125,6 +158,16 @@ The pack modifies entity definitions, loot tables, and recipes using standard Be
 - 1 Blast Furnace or Smoker -> 1 Furnace
 - Repeaters and Comparators accept Cobblestone, Deepslate, or Blackstone
 - Uncrafting support: Amethyst Blocks (4 shards), Quartz Blocks (4 quartz), Clay Blocks (4 clay balls), Glowstone Blocks (4 dust), Magma Blocks (4 cream), Honeycomb Blocks (4 honeycombs), Melons (9 slices), Nether Wart Blocks (9 nether wart)
+
+---
+
+## Compatibility
+
+- Minecraft Bedrock Edition 1.21.0+
+- Script API `@minecraft/server` 1.13.0+
+- No experimental features required
+- Complete `.MCADDON` (Behavior Pack + Resource Pack) format
+- Compatible with Mobile, Windows, Console, and Realms
 
 ---
 
