@@ -12,12 +12,9 @@ This directory contains compiled release packages for **Shared Hivemind Inventor
 
 ---
 
-## How to Apply
+## Installation Guide
 
-1. Open either downloaded file on your device to import into Minecraft Bedrock.
-2. Activate the Behavior Pack in your World Settings.
-3. Under **Experiments**, turn **ON** the **Beta APIs** toggle.
-4. Launch the world and connect with friends!
+For general import instructions, refer to the centralized [Download and Installation Guide](../README.md#download-and-installation-guide).
 
 ---
 

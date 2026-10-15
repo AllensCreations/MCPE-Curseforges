@@ -14,13 +14,9 @@ This folder contains compiled release packages for **Ghast Mob Head Transformers
 
 ---
 
-## Installation Instructions
+## Installation Guide
 
-1. Download `Ghast_Head_Transformers_AllensCreations.mcaddon` or the individual `.mcpack` files.
-2. Tap or double-click the downloaded file on your device (Windows, Android, iOS, Console) to automatically import into Minecraft Bedrock.
-3. In your World Settings, activate **Ghast Mob Head Transformers BP** under Behavior Packs.
-4. Ensure **Ghast Mob Head Transformers RP** is active under Resource Packs.
-5. Launch the world and interact with any Ghast while holding a mob head or skull!
+For general import instructions, refer to the centralized [Download and Installation Guide](../README.md#download-and-installation-guide).
 
 ---
 

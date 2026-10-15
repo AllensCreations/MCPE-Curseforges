@@ -13,12 +13,9 @@ This folder contains compiled release packages for Vanilla Quality of Life by Al
 
 ---
 
-## Installation Instructions
+## Installation Guide
 
-1. Download `Vanilla_QoL_AllensCreations.mcaddon`.
-2. Open or tap the file to import into Minecraft Bedrock.
-3. In World Settings, navigate to Behavior Packs and activate Vanilla Quality of Life BP by AllensCreations.
-4. Ensure Vanilla Quality of Life RP by AllensCreations is active under Resource Packs.
+For general import instructions, refer to the centralized [Download and Installation Guide](../README.md#download-and-installation-guide).
 
 ---
 

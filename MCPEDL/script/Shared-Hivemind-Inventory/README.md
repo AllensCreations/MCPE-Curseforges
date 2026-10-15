@@ -1,95 +1,85 @@
-# Shared Hivemind Inventory
+# Shared Hivemind Inventory — Synchronized Team Co-op Minigame
 
 ![MCPEDL](https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/MCPEDL/script/Shared-Hivemind-Inventory/pack_icon.png "MCPEDL")
 
 [![Minecraft Bedrock](https://img.shields.io/badge/Minecraft%20Bedrock-1.21%20--%201.26%2B-brightgreen?style=flat-square&logo=minecraft)](https://github.com/AllensCreations/MCPE-Curseforges)
+[![Achievement Friendly](https://img.shields.io/badge/Achievements-Friendly-brightgreen?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges)
+[![No Experiments Required](https://img.shields.io/badge/Experimental%20Features-NOT%20REQUIRED-success?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges)
 [![Release](https://img.shields.io/badge/Release-v1.0.3-blue?style=flat-square)](../README.md#available-challenge-scripts)
 [![Format](https://img.shields.io/badge/Format-.MCPACK-orange?style=flat-square)](../README.md#available-challenge-scripts)
 [![Platform](https://img.shields.io/badge/Platform-Mobile%20%7C%20PC%20%7C%20Console%20%7C%20Realms-yellow?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges)
 
-Creator: AllensCreations  
-Description: Real-time multiplayer synchronization challenge where all connected players share the exact same 36 inventory slots and offhand.
+**By AllensCreations**
+
+**NO EXPERIMENTAL NEED & ACHIEVEMENT FRIENDLY**
+
+Real-time multiplayer synchronization challenge where all connected players share one unified inventory.
 
 ---
 
-## About The Minigame
+## Overview
 
-What happens when your entire team shares a single brain and a single backpack?
+What happens when your entire survival team shares a single brain and a single backpack?
 
-**Shared Hivemind Inventory** synchronizes all 36 main inventory slots, hotbar selections, and offhand slots across every player in your world. If Player A mines diamond ore, it appears instantly in Player B's inventory. If Player B eats bread, the stack depletes for everyone. If Player C crafts an iron sword, any player can immediately wield it!
+**Shared Hivemind Inventory** synchronizes all 36 main inventory slots, hotbar selections, and offhand slots across every player in your world in real-time. When one player mines diamond ore, it appears instantly in every teammate's inventory. When someone eats food, the stack depletes for the whole party. When an ally crafts new gear, anyone can immediately equip it.
 
-Built with an authoritative Master State engine on the modern Bedrock Script API, the pack guarantees 1-tick real-time updates while eliminating circular update loops and duplication exploits.
+Engineered with built-in loop protection and duplication safeguards, the pack delivers instant synchronization without item duplication or inventory desync.
+
+No experimental features required. Designed to keep achievements available while testing your team's co-op communication across worlds and Realms.
 
 ---
 
 ## Core System Mechanics
 
 ### 1. Real-Time Inventory Synchronization
-- **Complete Slot Mirroring:** Synchronizes all 36 main inventory slots (hotbar 0 to 8 and main storage 9 to 35) plus the offhand shield/totem slot.
-- **1-Tick Delta Engine:** Scans inventory slots every 50ms (1 tick) using an authoritative Master State array to mirror item changes across all online players without delay.
-- **Loop Mutex Lock:** Employs an internal lock flag to completely eliminate circular sync loops and infinite replication bugs.
-- **Component Preservation:** Clones item counts, custom anvil names, durability damage, lore lines, and enchantments with full fidelity.
+- **Complete Slot Mirroring**: Synchronizes all 36 main storage slots (hotbars and main inventory) plus offhand shield and totem slots.
+- **Instant Mirroring**: Changes made by any player mirror across all online teammates with zero perceived delay.
+- **Loop Protection**: Built-in update safeguards prevent circular syncing and duplication exploits.
+- **Item Preservation**: Retains exact durability damage, custom anvil names, lore text, and enchantments across transfers.
 
----
+### 2. Drop Safety and Anti-Duplication
+- **Immediate Item Deduction**: Dropping or throwing an item instantly updates the shared inventory so teammates cannot produce ghost duplicates.
+- **Conflict Resolution**: Simultaneous actions on the same slot resolve cleanly, preventing lost or corrupted items.
+- **Smooth Reconnection**: Teammates joining or reconnecting are immediately synced to the team inventory state.
 
-### 2. Anti-Duplication and Drop Safety
-- **Instant Subtraction:** When any player drops or throws an item, it is immediately subtracted from the Master State so other players cannot drop duplicate phantom copies.
-- **Fast-Click Protection:** Simultaneous modifications on the same slot are safely resolved; the first action commits to the hivemind, and conflicting items are dropped safely at the player's feet rather than voided or duplicated.
-- **Seamless Reconnection:** Newly joined or returning players are automatically synchronized to the current Master State upon joining.
-
----
-
-### 3. Single Death Spot Drop
-- **Gamerule Enforcement:** Automatically sets `keepInventory` to `true` to stop vanilla Minecraft from spawning redundant duplicate drops for each player upon death.
-- **Physical Spot Drop:** When any player dies, all 36 shared inventory slots and offhand items are deposited as physical drop entities at that exact death coordinate and dimension.
-- **Instant Team Wipe:** Clears the inventory of all living teammates simultaneously, plays an item shatter sound cue, and alerts everyone with exact death coordinates.
-- **Coordinate Warning:** Displays an on-screen warning and broadcast message showing the exact dimension and coordinates where all shared items were dropped.
-
----
+### 3. Unified Team Wipe Mechanic
+- **Physical Spot Drop**: When any teammate dies, the shared inventory drops at that exact coordinate and dimension.
+- **On-Screen Coordinate Alert**: Alerts the entire team with on-screen notifications displaying the dimension and coordinates where the loot dropped.
+- **Clear Resets**: Prevents confusing duplicate item spawns on death.
 
 ### 4. Top-Of-Screen HUD Indicator
-- Displays a persistent status indicator at the top of the screen:
+- Displays a clean status indicator at the top of your screen:
   `[ HIVEMIND ACTIVE ] Shared Slots: Synchronized`
-- During a teammate death, the indicator dynamically switches to display the death coordinates for 6 seconds before resuming normal status.
-
----
-
-## How to Apply and Activate (Experiments Guide)
-
-Because this minigame utilizes the Bedrock Script API (`@minecraft/server`), follow these simple activation steps:
-
-### 1. Apply the Behavior Pack
-1. In Minecraft Bedrock, open your World Settings (or create a New World).
-2. Scroll down on the left menu to **Behavior Packs**.
-3. Under **Available**, locate **Shared Hivemind Inventory BP by AllensCreations** and click **Activate**.
-
-### 2. Enable Experimental Toggles
-4. Scroll down on the left menu to **Experiments**.
-5. Toggle **ON** the following switch:
-   - **Beta APIs** -> **Turn ON** *(Required to enable the Script API JavaScript engine)*.
-6. Click **Play** or **Create**! The hivemind engine will automatically initialize and begin synchronizing all players.
+- During a teammate death, dynamically indicates the recovery coordinates so the team can quickly regroup.
 
 ---
 
 ## Admin Commands
 
-Admins and operators can use native script commands via `/scriptevent`:
-- `/scriptevent hivemind:sync` -- Force resynchronizes all online players to the Master State.
-- `/scriptevent hivemind:status` -- Displays online player count, occupied slot count, and offhand item.
-- `/scriptevent hivemind:clear` -- Wipes the shared inventory across all players.
+Operators can manage the shared inventory using native commands:
+- `/scriptevent hivemind:sync` - Force resynchronizes all online players to the current shared state.
+- `/scriptevent hivemind:status` - Displays online player count and shared storage status.
+- `/scriptevent hivemind:clear` - Wipes the shared inventory across all players.
 
 ---
 
-## Terms of Use and Guidelines
+## Compatibility
 
-- **Creator Attribution:** Created by **AllensCreations**.
-- **Rights & Reservation:** All rights reserved for AllensCreations.
-- **Content Creators (YouTube, TikTok, Twitch):** You are 100% welcome to showcase this pack in videos, live streams, and reviews! Please include credit to **AllensCreations** and link to the official download page or this GitHub repository.
-- **No Direct Re-uploading:** Do not re-upload this pack, its individual files, or modified copies to any website, app store, or file-sharing service.
-- **No Paywalls or Link Shorteners:** It is strictly prohibited to distribute this pack behind paywalls, ad-gate links (e.g., AdFly, Linkvertise, Boost.ink), or paid monetization walls.
-- **Server and Realm Use:** You are free to use this challenge pack on your personal worlds, private servers, and Bedrock Realms.
+- Minecraft Bedrock Edition 1.21.0 - 1.26+
+- No experimental features required
+- Designed to preserve achievement eligibility
+- Script Behavior Pack (.mcpack) format
+- Compatible with Mobile, Windows, Console, and Realms
+
+---
+
+## Guidelines and Attribution
+
+- Creator: AllensCreations
+- Rights & Reservation: All rights reserved for AllensCreations.
+- Content Creators: Content creators are permitted to feature this creation in videos and streams with credit to AllensCreations.
+- Redistribution: Do not re-upload this pack or provide direct monetized download bypasses. Link directly to the official repository page.
 
 ---
 
 © All rights reserved for AllensCreations.
-

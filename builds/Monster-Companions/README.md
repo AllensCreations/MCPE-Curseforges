@@ -14,12 +14,9 @@ This folder contains compiled release packages for Monster Companions by AllensC
 
 ---
 
-## Installation Instructions
+## Installation Guide
 
-1. Download `Monster_Companions_AllensCreations.mcaddon` or the individual packs above.
-2. Open or tap the file to import into Minecraft Bedrock.
-3. In World Settings, navigate to Behavior Packs and activate Monster Companions by AllensCreations.
-4. Ensure the dependent Resource Pack is activated under Resource Packs.
+For general import instructions, refer to the centralized [Download and Installation Guide](../README.md#download-and-installation-guide).
 
 ---
 

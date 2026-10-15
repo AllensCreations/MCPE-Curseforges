@@ -22,13 +22,9 @@ Custom 16 x 16 Bedrock Item Icon (`custom:mining_helmet`).
 
 ---
 
-## Quick Installation Instructions
+## Installation Guide
 
-1. Download `Mining_Helmet_AllensCreations.mcaddon`.
-2. Tap or double-click the file to import into Minecraft Bedrock.
-3. In World Settings, activate `Mining Helmet BP by AllensCreations` under Behavior Packs.
-4. Ensure `Mining Helmet RP by AllensCreations` is active under Resource Packs.
-5. Enable Beta APIs in World Settings.
+For general import instructions, refer to the centralized [Download and Installation Guide](../README.md#download-and-installation-guide).
 
 ---
 

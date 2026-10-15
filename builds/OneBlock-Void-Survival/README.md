@@ -13,10 +13,9 @@ This directory contains compiled releases for OneBlock Void Survival v1.2 by All
 
 ---
 
-## Installation
+## Installation Guide
 
-1. Tap or double-click the `.mcworld` file to import directly into Minecraft Bedrock.
-2. The world will appear in your Worlds menu ready to play.
+For general import instructions, refer to the centralized [Download and Installation Guide](../README.md#download-and-installation-guide).
 
 ---
 
