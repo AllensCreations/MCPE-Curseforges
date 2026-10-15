@@ -1,0 +1,70 @@
+{
+  "format_version": 2,
+  "header": {
+    "name": "Immortal Pets BP by AllensCreations",
+    "description": "Makes tamed cats, wolves, parrots and horses immortal. Choose which pets are protected using the subpack slider in the behavior pack settings.",
+    "uuid": "5c43d7bf-608b-46a3-8261-86492918edf4",
+    "version": [
+      1,
+      0,
+      0
+    ],
+    "min_engine_version": [
+      1,
+      21,
+      0
+    ]
+  },
+  "modules": [
+    {
+      "type": "script",
+      "language": "javascript",
+      "uuid": "3ef5a0f1-cd0a-48ae-909e-412e40855acd",
+      "version": [
+        1,
+        0,
+        0
+      ],
+      "entry": "scripts/main.js"
+    }
+  ],
+  "dependencies": [
+    {
+      "module_name": "@minecraft/server",
+      "version": "1.13.0"
+    }
+  ],
+  "subpacks": [
+    {
+      "folder_name": "cat",
+      "name": "1 - Cat",
+      "memory_tier": 1
+    },
+    {
+      "folder_name": "wolf",
+      "name": "2 - Wolf",
+      "memory_tier": 2
+    },
+    {
+      "folder_name": "parrot",
+      "name": "3 - Parrot",
+      "memory_tier": 3
+    },
+    {
+      "folder_name": "horse",
+      "name": "4 - Horse",
+      "memory_tier": 4
+    },
+    {
+      "folder_name": "all",
+      "name": "5 - All Tamed Pets",
+      "memory_tier": 5
+    }
+  ],
+  "metadata": {
+    "authors": [
+      "AllensCreations"
+    ],
+    "product_type": "addon"
+  }
+}

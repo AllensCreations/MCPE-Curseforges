@@ -8,6 +8,7 @@ This directory stores uncompressed development source trees for newly created ad
 
 | Add-on Name | Description | Source Directory | Compiled Build (.mcpack / .mcaddon) | Status |
 | :--- | :--- | :--- | :--- | :--- |
+| **Immortal Pets** | Makes tamed cats, wolves, parrots and horses immortal. Choose which pets are pro... | [`Immortal-Pets/`](Immortal-Pets/) | [Download (.mcpack)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Immortal-Pets/Immortal_Pets_AllensCreations.mcpack) | v1.0.0 |
 
 ---
 
