@@ -8,9 +8,10 @@ This directory stores the uncompressed development source files for newly genera
 
 | Add-on Name | Description | Source Directory | Compiled Build | Version |
 | :--- | :--- | :--- | :--- | :--- |
-| **Tameable Companion Fox BP** | Tameable foxes with sitting and equip interactions. By AllensCreations | [`tameable-companion-fox/`](tameable-companion-fox/) | [tameable_companion_fox_AllensCreations.mcaddon](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/tameable-companion-fox/tameable_companion_fox_AllensCreations.mcaddon) | 1.0.1 |
+| **Magnetic Satchel BP by AllensCreations** | Adds the Magnetic Satchel. Hold it in your offhand to pull nearby dropped items toward you. Sneak and use it in the main hand to toggle magnetism on or off. | [`Magnetic-Satchel/`](Magnetic-Satchel/) | [Magnetic-Satchel BP by AllensCreations (V1.0.0).mcpack](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Magnetic-Satchel/Magnetic-Satchel BP by AllensCreations (V1.0.0).mcpack), [Magnetic-Satchel RP by AllensCreations (V1.0.0).mcpack](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Magnetic-Satchel/Magnetic-Satchel RP by AllensCreations (V1.0.0).mcpack), [Magnetic-Satchel by AllensCreations (V1.0.0).mcaddon](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Magnetic-Satchel/Magnetic-Satchel by AllensCreations (V1.0.0).mcaddon) | 1.0.0 |
+| **Tameable Companion Fox BP** | Tameable foxes with sitting and equip interactions. By AllensCreations | [`tameable-companion-fox/`](tameable-companion-fox/) | [Tameable Companion Fox BP by AllensCreations (V1.0.2).mcpack](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/tameable-companion-fox/Tameable Companion Fox BP by AllensCreations (V1.0.2).mcpack), [Tameable Companion Fox RP by AllensCreations (V1.0.2).mcpack](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/tameable-companion-fox/Tameable Companion Fox RP by AllensCreations (V1.0.2).mcpack), [Tameable Companion Fox by AllensCreations (V1.0.2).mcaddon](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/tameable-companion-fox/Tameable Companion Fox by AllensCreations (V1.0.2).mcaddon) | 1.0.2 |
 
-The catalog is updated automatically by the add-on generation and promotion workflows.
+The catalog is updated automatically by the add-on generation workflow.
 
 ---
 
