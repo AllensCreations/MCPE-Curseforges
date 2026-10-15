@@ -19,7 +19,7 @@ This directory stores all compiled releases (behavior packs, resource packs, add
 | **Immortal Pets** | `v1.1.4` | Script Behavior Pack (`.mcpack`) | [Download (.mcpack)](Immortal-Pets/Immortal%20Pets%20by%20AllensCreations%20%28V1.1.4%29.mcpack) | [`Immortal-Pets/`](Immortal-Pets/) |
 | **Tameable Companion Fox** | `v1.0.3` | Complete Pack (`.mcaddon`) | [Download (.mcaddon)](tameable-companion-fox/Tameable%20Companion%20Fox%20by%20AllensCreations%20%28V1.0.3%29.mcaddon) | [`tameable-companion-fox/`](tameable-companion-fox/) |
 | **Magnetic Satchel** | `v1.0.2` | Complete Pack (`.mcaddon`) | [Download (.mcaddon)](Magnetic-Satchel/Magnetic%20Satchel%20by%20AllensCreations%20%28V1.0.2%29.mcaddon) | [`Magnetic-Satchel/`](Magnetic-Satchel/) |
-| **Smart Tree Capitator & Domino Ore Miner** | `v1.0.2` | Complete Pack (`.mcaddon`) | [Download (.mcpack)](smart-tree-capitator-domino-ore-miner/Smart%20Tree%20Capitator%20%26%20Domino%20Ore%20Miner%20by%20AllensCreations%20%28V1.0.2%29.mcpack) | [`smart-tree-capitator-domino-ore-miner/`](smart-tree-capitator-domino-ore-miner/) |
+| **Smart Tree Capitator & Domino Ore Miner** | `v1.0.3` | Complete Pack (`.mcaddon`) | [Download (.mcpack)](smart-tree-capitator-domino-ore-miner/Smart%20Tree%20Capitator%20%26%20Domino%20Ore%20Miner%20by%20AllensCreations%20%28V1.0.3%29.mcpack) | [`smart-tree-capitator-domino-ore-miner/`](smart-tree-capitator-domino-ore-miner/) |
 
 ### Worlds and Maps
 

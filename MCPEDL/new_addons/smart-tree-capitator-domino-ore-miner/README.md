@@ -3,7 +3,7 @@
 [![Minecraft Bedrock](https://img.shields.io/badge/Minecraft%20Bedrock-1.21.0%2B-brightgreen?style=flat-square&logo=minecraft)](https://github.com/AllensCreations/MCPE-Curseforges)
 [![Script API](https://img.shields.io/badge/Script%20API-%40minecraft%2Fserver%201.13.0%2B-blue?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges)
 [![Format](https://img.shields.io/badge/Format-.MCPACK%20%2F%20.MCADDON-orange?style=flat-square)](../README.md#available-source-add-ons)
-[![Release](https://img.shields.io/badge/Release-v1.0.2-blue?style=flat-square)](../README.md#available-source-add-ons)
+[![Release](https://img.shields.io/badge/Release-v1.0.3-blue?style=flat-square)](../README.md#available-source-add-ons)
 
 **By AllensCreations**
 
@@ -106,7 +106,7 @@ Domino Ore Miner checks all 26 spatial neighbors (faces, edges, and corners) usi
 
 ## Configuration
 
-Settings can be customized in [`behavior_pack/scripts/config.js`](behavior_pack/scripts/config.js):
+Settings can be customized directly in [`behavior_pack/scripts/main.js`](behavior_pack/scripts/main.js):
 
 ```javascript
 export const CONFIG = {

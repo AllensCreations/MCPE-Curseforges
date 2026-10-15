@@ -1,13 +1,13 @@
 {
   "format_version": 2,
   "header": {
-    "name": "Smart Tree Capitator & Domino Ore Miner BP by AllensCreations",
+    "name": "Smart Tree Capitator and Domino Ore Miner BP",
     "description": "Sneak-activated tree capitator and domino ore miner with durability safety protection. By AllensCreations.",
-    "uuid": "75353338-3b65-451c-b09d-54f2479de510",
+    "uuid": "ef39f6be-af95-4f78-a3e3-8a60db20d47c",
     "version": [
       1,
       0,
-      2
+      3
     ],
     "min_engine_version": [
       1,
@@ -17,14 +17,14 @@
   },
   "modules": [
     {
-      "description": "Smart Tree Capitator & Domino Ore Miner Script Module",
+      "description": "Smart Tree Capitator and Domino Ore Miner Script Module",
       "type": "script",
       "language": "javascript",
-      "uuid": "3783c28c-d767-4233-8601-20d57dfcbf64",
+      "uuid": "57942b7b-5681-4794-addf-4a6ba0e1a436",
       "version": [
         1,
         0,
-        2
+        3
       ],
       "entry": "scripts/main.js"
     }
