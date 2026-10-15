@@ -1,0 +1,1 @@
+{"format_version":"1.20.80","minecraft:item":{"description":{"identifier":"custom:tome_zephyr","menu_category":{"category":"equipment"}},"components":{"minecraft:max_stack_size":1,"minecraft:allow_off_hand":true,"minecraft:icon":{"textures":{"default":"tome_zephyr"}},"minecraft:display_name":{"value":"§dTome: Zephyr Wind"}}}}

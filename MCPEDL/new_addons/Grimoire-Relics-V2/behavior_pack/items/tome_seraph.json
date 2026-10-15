@@ -1,0 +1,1 @@
+{"format_version":"1.20.80","minecraft:item":{"description":{"identifier":"custom:tome_seraph","menu_category":{"category":"equipment"}},"components":{"minecraft:max_stack_size":1,"minecraft:allow_off_hand":true,"minecraft:icon":{"textures":{"default":"tome_seraph"}},"minecraft:display_name":{"value":"§dTome: Radiant Seraph"}}}}
