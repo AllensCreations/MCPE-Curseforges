@@ -11,13 +11,15 @@ Features:
    - modules[*].version: [x, y, z + 1]
    - cross-pack dependencies[*].version (matching sibling BP/RP UUIDs)
    - world_behavior_packs.json (if map)
-4. Synchronizes version numbers in README.md files (pack, category, and root).
-5. Rebuilds corresponding .mcpack, .mcaddon, and .mcworld distribution packages in builds/.
-6. Injects new projects into catalog tables in:
-   - Category README (MCPEDL/addons/, MCPEDL/maps/, MCPEDL/script/)
-   - Root README.md (catalog table + Detailed Project Overview section)
-   - builds/README.md
-   - Updates the Collection Size badge in root README.md
+4. Synchronizes version numbers in README.md files across:
+   - Project Directory: <project_path>/README.md (Release badge & title)
+   - Category Directory: MCPEDL/<category>/README.md (Catalog table row & download link)
+   - Project Build Directory: builds/<project_name>/README.md (Direct downloads table)
+   - Master Builds Directory: builds/README.md (Catalog table row & download link)
+   - Root Catalog: README.md (Catalog tables, overview header & download links)
+5. Standardizes output package filenames:
+   "<Filename> by AllensCreations (V#.#.#).<ext>"
+6. Injects new projects into catalog tables and updates Collection Size badge.
 """
 
 import os
@@ -29,6 +31,7 @@ import zipfile
 import subprocess
 import shutil
 import argparse
+import urllib.parse
 
 REPO_ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
 GITHUB_RAW = "https://github.com/AllensCreations/MCPE-Curseforges/raw/main"
@@ -71,7 +74,6 @@ def find_target_project_dirs():
     projects = {}
     categories = [
         "MCPEDL/addons", "MCPEDL/new_addons", "MCPEDL/script", "MCPEDL/maps",
-        "packs", "minigames", "maps", "addons", "script",
     ]
     mcpedl_dir = os.path.join(REPO_ROOT, "MCPEDL")
     if os.path.isdir(mcpedl_dir):
@@ -169,6 +171,66 @@ def get_manifest_info(project_path):
 
 
 # ─────────────────────────────────────────────────────────────────────────────
+# Display Name & Title helpers
+# ─────────────────────────────────────────────────────────────────────────────
+
+def _display_name(project_name):
+    """'pet-immortality' → 'Pet Immortality'"""
+    return project_name.replace("-", " ").replace("_", " ").title()
+
+
+def get_project_title(project_path):
+    """
+    Extracts the official clean display title from project README or folder name.
+    e.g. '# Ghast Mob Head Transformers — Giant Flying Mob Heads' -> 'Ghast Mob Head Transformers'
+    """
+    rm = os.path.join(project_path, "README.md")
+    if os.path.isfile(rm):
+        try:
+            with open(rm, encoding="utf-8") as f:
+                for line in f:
+                    line = line.strip()
+                    if line.startswith("# "):
+                        title_part = line[2:].strip()
+                        for sep in (" — ", " - ", " -- "):
+                            if sep in title_part:
+                                title_part = title_part.split(sep)[0].strip()
+                        title_part = title_part.replace(" Challenge", "")
+                        title_clean = re.sub(r'[\\/*?:"<>|]', "", title_part).strip()
+                        if title_clean:
+                            return title_clean
+        except Exception:
+            pass
+    return _display_name(os.path.basename(project_path))
+
+
+def _format_size(filepath):
+    """Formats file size into human-readable string like '~250 KB' or '~1.2 MB'."""
+    try:
+        sz = os.path.getsize(filepath)
+        if sz < 1024 * 1024:
+            return f"~{max(1, round(sz / 1024))} KB"
+        return f"~{round(sz / (1024 * 1024), 1)} MB"
+    except Exception:
+        return "~100 KB"
+
+
+def _get_pack_type(project_path, category, version_str="1.0.0"):
+    """Returns (type_label, primary_ext, build_filename)."""
+    bp_dir = os.path.join(project_path, "behavior_pack")
+    rp_dir = os.path.join(project_path, "resource_pack")
+    world_dir = os.path.join(project_path, "world")
+    title = get_project_title(project_path)
+
+    if "maps" in category and os.path.isdir(world_dir):
+        return "Custom Map (`.mcworld`)", "mcworld", f"{title} by AllensCreations (V{version_str}).mcworld"
+    elif os.path.isdir(bp_dir) and os.path.isdir(rp_dir):
+        return "Complete Pack (`.mcaddon`)", "mcaddon", f"{title} by AllensCreations (V{version_str}).mcaddon"
+    else:
+        return "Script Behavior Pack (`.mcpack`)", "mcpack", f"{title} by AllensCreations (V{version_str}).mcpack"
+
+
+# ─────────────────────────────────────────────────────────────────────────────
 # Manifest bumping
 # ─────────────────────────────────────────────────────────────────────────────
 
@@ -244,54 +306,6 @@ def update_manifests_for_project(project_path):
 
 
 # ─────────────────────────────────────────────────────────────────────────────
-# README version sync (existing projects)
-# ─────────────────────────────────────────────────────────────────────────────
-
-def update_readmes(project_path, category, old_ver_str, new_ver_str):
-    """
-    Replaces old version string with new version string in pack, category,
-    root, and builds README files.
-    """
-    project_name = os.path.basename(project_path)
-    readmes_to_check = [
-        os.path.join(project_path, "README.md"),
-        os.path.join(REPO_ROOT, category, "README.md"),
-        os.path.join(REPO_ROOT, "README.md"),
-        os.path.join(REPO_ROOT, "builds", "README.md"),
-        os.path.join(REPO_ROOT, "builds", project_name, "README.md"),
-    ]
-
-    for rm in readmes_to_check:
-        if not os.path.isfile(rm):
-            continue
-        with open(rm, encoding="utf-8") as f:
-            content = f.read()
-
-        if rm in (
-            os.path.join(project_path, "README.md"),
-            os.path.join(REPO_ROOT, "builds", project_name, "README.md"),
-        ):
-            updated = content.replace(f"v{old_ver_str}", f"v{new_ver_str}")
-            updated = updated.replace(f"`v{old_ver_str}`", f"`v{new_ver_str}`")
-            updated = updated.replace(f"Version: {old_ver_str}", f"Version: {new_ver_str}")
-        else:
-            lines = content.splitlines(keepends=True)
-            slug_key = project_name.replace("-", " ")
-            new_lines = []
-            for line in lines:
-                if project_name in line or slug_key.lower() in line.lower():
-                    line = line.replace(f"v{old_ver_str}", f"v{new_ver_str}")
-                    line = line.replace(f"`v{old_ver_str}`", f"`v{new_ver_str}`")
-                new_lines.append(line)
-            updated = "".join(new_lines)
-
-        if updated != content:
-            with open(rm, "w", encoding="utf-8") as f:
-                f.write(updated)
-            print(f"  Updated version in {os.path.relpath(rm, REPO_ROOT)}")
-
-
-# ─────────────────────────────────────────────────────────────────────────────
 # Package builder
 # ─────────────────────────────────────────────────────────────────────────────
 
@@ -306,13 +320,28 @@ def zip_directory_contents(src_dir, zip_dest):
                 zf.write(full_path, rel_path)
 
 
-def rebuild_project_packages(project_path, category):
+def rebuild_project_packages(project_path, category, version_str=None):
     """
     Rebuilds .mcaddon / .mcpack / .mcworld binaries in builds/<project_name>/.
+    Format: '<Filename> by AllensCreations (V#.#.#).<ext>'
+    Returns (primary_filename, list_of_built_files_tuples).
     """
     project_name = os.path.basename(project_path)
+    title = get_project_title(project_path)
+    if not version_str:
+        info = get_manifest_info(project_path)
+        version_str = info["version_str"]
+
     build_dir = os.path.join(REPO_ROOT, "builds", project_name)
     os.makedirs(build_dir, exist_ok=True)
+
+    # Clean old binaries in build_dir
+    for ext in ("*.mcaddon", "*.mcpack", "*.mcworld"):
+        for old_f in glob.glob(os.path.join(build_dir, ext)):
+            try:
+                os.remove(old_f)
+            except OSError:
+                pass
 
     bp_dir = os.path.join(project_path, "behavior_pack")
     rp_dir = os.path.join(project_path, "resource_pack")
@@ -322,16 +351,31 @@ def rebuild_project_packages(project_path, category):
     has_rp = os.path.isdir(rp_dir)
     has_world = os.path.isdir(world_dir)
 
+    built_files = []
+    primary_file = None
+
     # 1. Custom Map
     if "maps" in category and has_world:
+        # Clean any old binaries inside project directory as well
+        for ext in ("*.mcworld", "*.mcpack"):
+            for old_map in glob.glob(os.path.join(project_path, ext)):
+                try:
+                    os.remove(old_map)
+                except OSError:
+                    pass
+
+        mcworld_name = f"{title} by AllensCreations (V{version_str}).mcworld"
+        admin_world_name = f"{title} Admin by AllensCreations (V{version_str}).mcworld"
+        bp_pack_name = f"{title} BP by AllensCreations (V{version_str}).mcpack"
+
         if has_bp:
-            mcpack_path = os.path.join(
-                build_dir, f"{project_name.replace('-', '_')}.mcpack"
-            )
+            mcpack_path = os.path.join(build_dir, bp_pack_name)
             zip_directory_contents(bp_dir, mcpack_path)
-            shutil.copy2(
-                mcpack_path, os.path.join(project_path, f"{project_name.replace('-', '_')}.mcpack")
-            )
+            shutil.copy2(mcpack_path, os.path.join(project_path, bp_pack_name))
+            built_files.append((
+                bp_pack_name, "mcpack", _format_size(mcpack_path),
+                "Standalone Behavior Pack archive for custom map logic."
+            ))
             print(f"  Built: {os.path.relpath(mcpack_path, REPO_ROOT)}")
 
         dest_world_bp = os.path.join(world_dir, "behavior_packs", "OneBlockVoid")
@@ -344,37 +388,39 @@ def rebuild_project_packages(project_path, category):
                 else:
                     shutil.copy2(s, d)
 
-        for mcworld_name in [
-            f"{project_name.replace('-', '_')}.mcworld",
-            f"{project_name.replace('-', '_')}_Admin.mcworld",
-        ]:
-            target_build = os.path.join(build_dir, mcworld_name)
-            target_map = os.path.join(project_path, mcworld_name)
-            zip_directory_contents(world_dir, target_build)
-            shutil.copy2(target_build, target_map)
-            print(f"  Built: {os.path.relpath(target_build, REPO_ROOT)}")
+        # Primary world
+        target_build = os.path.join(build_dir, mcworld_name)
+        target_map = os.path.join(project_path, mcworld_name)
+        zip_directory_contents(world_dir, target_build)
+        shutil.copy2(target_build, target_map)
+        primary_file = mcworld_name
+        built_files.append((
+            mcworld_name, "mcworld", _format_size(target_build),
+            "Complete Survival World archive ready for one-click import."
+        ))
+        print(f"  Built: {os.path.relpath(target_build, REPO_ROOT)}")
+
+        # Admin world
+        admin_target_build = os.path.join(build_dir, admin_world_name)
+        admin_target_map = os.path.join(project_path, admin_world_name)
+        zip_directory_contents(world_dir, admin_target_build)
+        shutil.copy2(admin_target_build, admin_target_map)
+        built_files.append((
+            admin_world_name, "mcworld", _format_size(admin_target_build),
+            "Admin / Studio World archive pre-configured with testing tools."
+        ))
+        print(f"  Built: {os.path.relpath(admin_target_build, REPO_ROOT)}")
 
     # 2. Combined BP + RP Add-on
     elif has_bp and has_rp:
-        existing_mcaddons = glob.glob(os.path.join(build_dir, "*.mcaddon"))
-        addon_name = (
-            os.path.basename(existing_mcaddons[0])
-            if existing_mcaddons
-            else f"{project_name.replace('-', '_')}_AllensCreations.mcaddon"
-        )
-        mcaddon_path = os.path.join(build_dir, addon_name)
+        addon_name = f"{title} by AllensCreations (V{version_str}).mcaddon"
+        bp_pack_name = f"{title} BP by AllensCreations (V{version_str}).mcpack"
+        rp_pack_name = f"{title} RP by AllensCreations (V{version_str}).mcpack"
 
-        bp_folder_name = "behavior_pack"
-        rp_folder_name = "resource_pack"
-        if existing_mcaddons:
-            with zipfile.ZipFile(existing_mcaddons[0], "r") as zf:
-                for n in zf.namelist():
-                    if "/" in n:
-                        top = n.split("/")[0]
-                        if top.endswith("_BP"):
-                            bp_folder_name = top
-                        if top.endswith("_RP"):
-                            rp_folder_name = top
+        mcaddon_path = os.path.join(build_dir, addon_name)
+        slug = project_name.replace("-", "_")
+        bp_folder_name = f"{slug}_BP"
+        rp_folder_name = f"{slug}_RP"
 
         with zipfile.ZipFile(mcaddon_path, "w", zipfile.ZIP_DEFLATED) as zf:
             for root, _, files in os.walk(bp_dir):
@@ -385,101 +431,307 @@ def rebuild_project_packages(project_path, category):
                 for file in sorted(files):
                     fp = os.path.join(root, file)
                     zf.write(fp, os.path.join(rp_folder_name, os.path.relpath(fp, rp_dir)))
+
+        primary_file = addon_name
+        built_files.append((
+            addon_name, "mcaddon", _format_size(mcaddon_path),
+            "Complete bundle containing both Behavior Pack and Resource Pack."
+        ))
         print(f"  Built: {os.path.relpath(mcaddon_path, REPO_ROOT)}")
 
-        for mcpack_file in glob.glob(os.path.join(build_dir, "*.mcpack")):
-            base_mcpack = os.path.basename(mcpack_file)
-            src = rp_dir if "_RP" in base_mcpack else bp_dir
-            zip_directory_contents(src, mcpack_file)
-            print(f"  Built: {os.path.relpath(mcpack_file, REPO_ROOT)}")
+        # Build standalone BP mcpack
+        bp_mcpack_path = os.path.join(build_dir, bp_pack_name)
+        zip_directory_contents(bp_dir, bp_mcpack_path)
+        built_files.append((
+            bp_pack_name, "mcpack", _format_size(bp_mcpack_path),
+            "Behavior Pack: Custom entities, components, and gameplay mechanics."
+        ))
+        print(f"  Built: {os.path.relpath(bp_mcpack_path, REPO_ROOT)}")
+
+        # Build standalone RP mcpack
+        rp_mcpack_path = os.path.join(build_dir, rp_pack_name)
+        zip_directory_contents(rp_dir, rp_mcpack_path)
+        built_files.append((
+            rp_pack_name, "mcpack", _format_size(rp_mcpack_path),
+            "Resource Pack: Custom models, geometry, textures, and sounds."
+        ))
+        print(f"  Built: {os.path.relpath(rp_mcpack_path, REPO_ROOT)}")
 
     # 3. BP-only (Scripts / Addon without RP)
     elif has_bp and not has_rp:
-        slug = project_name.replace("-", "_")
-        existing_mcaddons = glob.glob(os.path.join(build_dir, "*.mcaddon"))
-        existing_mcpacks = glob.glob(os.path.join(build_dir, "*.mcpack"))
+        pack_name = f"{title} by AllensCreations (V{version_str}).mcpack"
+        addon_name = f"{title} by AllensCreations (V{version_str}).mcaddon"
 
-        addon_name = (
-            os.path.basename(existing_mcaddons[0])
-            if existing_mcaddons
-            else f"{slug}_AllensCreations.mcaddon"
-        )
-        pack_name = (
-            os.path.basename(existing_mcpacks[0])
-            if existing_mcpacks
-            else f"{slug}_AllensCreations.mcpack"
-        )
-
-        mcaddon_path = os.path.join(build_dir, addon_name)
         mcpack_path = os.path.join(build_dir, pack_name)
+        zip_directory_contents(bp_dir, mcpack_path)
+        primary_file = pack_name
+        built_files.append((
+            pack_name, "mcpack", _format_size(mcpack_path),
+            "Script Behavior Pack archive ready for import."
+        ))
+        print(f"  Built: {os.path.relpath(mcpack_path, REPO_ROOT)}")
 
-        if existing_mcaddons or not existing_mcpacks:
-            zip_directory_contents(bp_dir, mcaddon_path)
-            print(f"  Built: {os.path.relpath(mcaddon_path, REPO_ROOT)}")
-        if existing_mcpacks or not existing_mcaddons:
-            zip_directory_contents(bp_dir, mcpack_path)
-            print(f"  Built: {os.path.relpath(mcpack_path, REPO_ROOT)}")
+        # Also provide .mcaddon
+        mcaddon_path = os.path.join(build_dir, addon_name)
+        zip_directory_contents(bp_dir, mcaddon_path)
+        built_files.append((
+            addon_name, "mcaddon", _format_size(mcaddon_path),
+            "Complete Add-on package archive."
+        ))
+        print(f"  Built: {os.path.relpath(mcaddon_path, REPO_ROOT)}")
+
+    return primary_file, built_files
+
+
+# ─────────────────────────────────────────────────────────────────────────────
+# README synchronization
+# ─────────────────────────────────────────────────────────────────────────────
+
+def generate_build_readme(project_path, category, version_str, built_files):
+    """Generates / updates builds/<project_name>/README.md with download table."""
+    project_name = os.path.basename(project_path)
+    title = get_project_title(project_path)
+    build_dir = os.path.join(REPO_ROOT, "builds", project_name)
+    readme_path = os.path.join(build_dir, "README.md")
+
+    rows = []
+    for fname, ext, size_str, desc in built_files:
+        quoted = urllib.parse.quote(fname)
+        dl_url = f"{GITHUB_RAW}/builds/{project_name}/{quoted}"
+        rows.append(
+            f"| **`{fname}`** | `.{ext}` | {size_str} | {desc} | [Download (.{ext})]({dl_url}) |"
+        )
+    table_content = "\n".join(rows)
+
+    try:
+        source_rel = os.path.relpath(project_path, build_dir)
+    except ValueError:
+        source_rel = f"../../{category}/{project_name}"
+
+    content = f"""# {title} - Downloads and Releases
+
+This folder contains compiled release packages for **{title}** by AllensCreations.
+
+---
+
+## Direct Download Links
+
+| File Name | Format | Size | Description | Download Link |
+| :--- | :--- | :--- | :--- | :--- |
+{table_content}
+
+---
+
+## Installation Guide
+
+For general import instructions, refer to the centralized [Download and Installation Guide](../README.md#download-and-installation-guide).
+
+---
+
+## Source Files
+To inspect uncompressed JSON files, geometry, render controllers, and textures:
+- [View Source Files]({source_rel}/)
+
+---
+
+© All rights reserved for AllensCreations.
+"""
+    with open(readme_path, "w", encoding="utf-8") as f:
+        f.write(content)
+    print(f"  Updated {os.path.relpath(readme_path, REPO_ROOT)}")
+
+
+def update_project_readme(project_path, category, new_ver_str):
+    """Updates Release badge and title version in the project's own README.md."""
+    readme_path = os.path.join(project_path, "README.md")
+    if not os.path.isfile(readme_path):
+        return
+    with open(readme_path, encoding="utf-8") as f:
+        content = f.read()
+
+    cat_anchor = "#available-source-add-ons"
+    if "maps" in category:
+        cat_anchor = "#available-maps-catalog"
+    elif "script" in category:
+        cat_anchor = "#available-challenge-scripts"
+
+    release_badge = f"[![Release](https://img.shields.io/badge/Release-v{new_ver_str}-blue?style=flat-square)](../README.md{cat_anchor})"
+
+    if re.search(r"\[!\[Release\]\(https://img\.shields\.io/badge/Release-[^)]+\)\]\([^)]+\)", content):
+        content = re.sub(
+            r"\[!\[Release\]\(https://img\.shields\.io/badge/Release-[^)]+\)\]\([^)]+\)",
+            release_badge,
+            content
+        )
+    else:
+        format_match = re.search(r"(\[!\[Format\]\([^)]+\)\]\([^)]+\))", content)
+        if format_match:
+            content = content.replace(format_match.group(1), f"{format_match.group(1)}\n{release_badge}")
+        else:
+            first_badge = re.search(r"(\[!\[[^\]]+\]\([^)]+\)\]\([^)]+\))", content)
+            if first_badge:
+                content = content.replace(first_badge.group(1), f"{first_badge.group(1)}\n{release_badge}")
+
+    lines = content.splitlines(keepends=True)
+    new_lines = []
+    for i, line in enumerate(lines):
+        if i < 5 and line.startswith("#"):
+            line = re.sub(r"\([vV]\d+\.\d+\.\d+\)", f"(v{new_ver_str})", line)
+        new_lines.append(line)
+    content = "".join(new_lines)
+
+    with open(readme_path, "w", encoding="utf-8") as f:
+        f.write(content)
+    print(f"  Updated version in {os.path.relpath(readme_path, REPO_ROOT)}")
+
+
+def update_category_readme(category, project_name, new_ver_str, primary_file):
+    """Updates table row in MCPEDL/<category>/README.md with new version and download link."""
+    cat_readme = os.path.join(REPO_ROOT, category, "README.md")
+    if not os.path.isfile(cat_readme):
+        return
+    with open(cat_readme, encoding="utf-8") as f:
+        lines = f.readlines()
+
+    quoted_file = urllib.parse.quote(primary_file)
+    dl_url = f"{GITHUB_RAW}/builds/{project_name}/{quoted_file}"
+    slug_key = project_name.replace("-", " ").lower()
+
+    updated_lines = []
+    for line in lines:
+        if line.strip().startswith("|") and (project_name in line or slug_key in line.lower()):
+            line = re.sub(r"`?v\d+\.\d+\.\d+`?", f"v{new_ver_str}", line)
+            ext = primary_file.split(".")[-1]
+            line = re.sub(
+                r"\[Download \([^)]+\)\]\([^)]+\)",
+                f"[Download (.{ext})]({dl_url})",
+                line
+            )
+        updated_lines.append(line)
+
+    with open(cat_readme, "w", encoding="utf-8") as f:
+        f.writelines(updated_lines)
+    print(f"  Updated {os.path.relpath(cat_readme, REPO_ROOT)}")
+
+
+def update_builds_master_readme(project_name, new_ver_str, primary_file):
+    """Updates table row in builds/README.md with new version and download link."""
+    builds_readme = os.path.join(REPO_ROOT, "builds", "README.md")
+    if not os.path.isfile(builds_readme):
+        return
+    with open(builds_readme, encoding="utf-8") as f:
+        lines = f.readlines()
+
+    quoted_file = urllib.parse.quote(primary_file)
+    rel_dl = f"{project_name}/{quoted_file}"
+    slug_key = project_name.replace("-", " ").lower()
+
+    updated_lines = []
+    for line in lines:
+        if line.strip().startswith("|") and (project_name in line or slug_key in line.lower()):
+            line = re.sub(r"`v\d+\.\d+\.\d+`", f"`v{new_ver_str}`", line)
+            ext = primary_file.split(".")[-1]
+            line = re.sub(
+                r"\[Download \([^)]+\)\]\([^)]+\)",
+                f"[Download (.{ext})]({rel_dl})",
+                line
+            )
+        updated_lines.append(line)
+
+    with open(builds_readme, "w", encoding="utf-8") as f:
+        f.writelines(updated_lines)
+    print(f"  Updated {os.path.relpath(builds_readme, REPO_ROOT)}")
+
+
+def update_root_readme(project_name, new_ver_str, primary_file):
+    """Updates catalog table rows and detailed overview headers in root README.md."""
+    root_readme = os.path.join(REPO_ROOT, "README.md")
+    if not os.path.isfile(root_readme):
+        return
+    with open(root_readme, encoding="utf-8") as f:
+        content = f.read()
+
+    quoted_file = urllib.parse.quote(primary_file)
+    dl_url = f"{GITHUB_RAW}/builds/{project_name}/{quoted_file}"
+    slug_key = project_name.replace("-", " ").lower()
+
+    lines = content.splitlines(keepends=True)
+    new_lines = []
+
+    for line in lines:
+        if line.strip().startswith("|") and (project_name in line or slug_key in line.lower()):
+            line = re.sub(r"`v\d+\.\d+\.\d+`", f"`v{new_ver_str}`", line)
+            ext = primary_file.split(".")[-1]
+            line = re.sub(
+                r"\[Download \([^)]+\)\]\([^)]+\)",
+                f"[Download (.{ext})]({dl_url})",
+                line
+            )
+        elif line.startswith("### ") and (project_name in line or slug_key in line.lower()):
+            line = re.sub(r"\(v\d+\.\d+\.\d+\)", f"(v{new_ver_str})", line)
+        new_lines.append(line)
+
+    with open(root_readme, "w", encoding="utf-8") as f:
+        f.writelines(new_lines)
+    print(f"  Updated {os.path.relpath(root_readme, REPO_ROOT)}")
+
+
+def update_readmes(project_path, category, old_ver_str, new_ver_str, primary_file=None, built_files=None):
+    """
+    Coordinates updating all relevant README files for the project:
+      1. Project Directory README
+      2. Category Directory README
+      3. Project Build README
+      4. Master Builds README
+      5. Repository Root README
+    """
+    project_name = os.path.basename(project_path)
+
+    # 1. Update project directory README
+    update_project_readme(project_path, category, new_ver_str)
+
+    # 2. Update category directory README
+    if primary_file:
+        update_category_readme(category, project_name, new_ver_str, primary_file)
+
+    # 3. Update build directory README
+    if built_files:
+        generate_build_readme(project_path, category, new_ver_str, built_files)
+
+    # 4. Update master builds README
+    if primary_file:
+        update_builds_master_readme(project_name, new_ver_str, primary_file)
+
+    # 5. Update root README
+    if primary_file:
+        update_root_readme(project_name, new_ver_str, primary_file)
 
 
 # ─────────────────────────────────────────────────────────────────────────────
 # README catalog registration (new projects)
 # ─────────────────────────────────────────────────────────────────────────────
 
-def _display_name(project_name):
-    """'Pet-immortality' → 'Pet Immortality'"""
-    return project_name.replace("-", " ").replace("_", " ").title()
-
-
-def _get_pack_type(project_path, category):
-    """Returns (type_label, primary_ext, build_filename)."""
-    bp_dir = os.path.join(project_path, "behavior_pack")
-    rp_dir = os.path.join(project_path, "resource_pack")
-    world_dir = os.path.join(project_path, "world")
-    slug = os.path.basename(project_path).replace("-", "_")
-
-    if "maps" in category and os.path.isdir(world_dir):
-        return "Custom Map (`.mcworld`)", "mcworld", f"{slug}.mcworld"
-    elif os.path.isdir(bp_dir) and os.path.isdir(rp_dir):
-        return "Complete Pack (`.mcaddon`)", "mcaddon", f"{slug}_AllensCreations.mcaddon"
-    else:
-        # Prefer .mcaddon; fall back to .mcpack for display
-        return "Script Behavior Pack (`.mcpack`)", "mcpack", f"{slug}_AllensCreations.mcpack"
-
-
 def _insert_table_row(readme_path, section_marker, new_row, skip_if_contains=None):
-    """
-    Appends new_row after the last data row of the markdown table found under
-    section_marker. Returns True if inserted.
-    """
     if not os.path.isfile(readme_path):
         return False
 
     with open(readme_path, encoding="utf-8") as f:
         lines = f.readlines()
 
-    if skip_if_contains:
-        if skip_if_contains in "".join(lines):
-            return False
+    if skip_if_contains and skip_if_contains in "".join(lines):
+        return False
 
-    # Find the section
-    sec_idx = next(
-        (i for i, l in enumerate(lines) if section_marker in l), -1
-    )
+    sec_idx = next((i for i, l in enumerate(lines) if section_marker in l), -1)
     if sec_idx == -1:
         return False
 
-    # Find the header separator row (| :--- | ...)
     sep_idx = next(
-        (
-            i for i in range(sec_idx, len(lines))
-            if re.match(r"\|\s*:?-+:?\s*\|", lines[i])
-        ),
+        (i for i in range(sec_idx, len(lines)) if re.match(r"\|\s*:?-+:?\s*\|", lines[i])),
         -1,
     )
     if sep_idx == -1:
         return False
 
-    # Find the last consecutive table data row
     last_row_idx = sep_idx
     for i in range(sep_idx + 1, len(lines)):
         stripped = lines[i].strip()
@@ -498,10 +750,6 @@ def _insert_table_row(readme_path, section_marker, new_row, skip_if_contains=Non
 
 
 def _insert_before_section(readme_path, before_marker, new_block, skip_if_contains=None):
-    """
-    Inserts new_block immediately before the first occurrence of before_marker.
-    Falls back to appending at EOF if marker not found.
-    """
     if not os.path.isfile(readme_path):
         return False
 
@@ -565,25 +813,19 @@ def _update_collection_badge(root_readme):
         )
 
 
-def register_new_project(project_path, category, version_str=None):
-    """
-    Injects a brand-new project into all catalog READMEs:
-      - MCPEDL/<category>/README.md  (catalog table row)
-      - README.md                    (catalog table row + Detailed section)
-      - builds/README.md             (builds table row)
-    Also updates the Collection Size badge.
-    """
+def register_new_project(project_path, category, version_str=None, primary_file=None):
+    """Injects a brand-new project into all catalog READMEs."""
     project_name = os.path.basename(project_path)
-    display      = _display_name(project_name)
+    title        = get_project_title(project_path)
     info         = get_manifest_info(project_path)
     desc         = info["description"] or f"A Minecraft Bedrock addon by AllensCreations."
     ver          = version_str or info["version_str"]
-    type_label, primary_ext, build_file = _get_pack_type(project_path, category)
-    slug         = project_name.replace("-", "_")
+    type_label, primary_ext, default_build_file = _get_pack_type(project_path, category, ver)
+    build_file   = primary_file or default_build_file
 
-    gh_dl = f"{GITHUB_RAW}/builds/{project_name}/{build_file}"
+    quoted_file  = urllib.parse.quote(build_file)
+    gh_dl        = f"{GITHUB_RAW}/builds/{project_name}/{quoted_file}"
 
-    # Relative source path for links inside root README
     try:
         source_rel = "MCPEDL/" + os.path.relpath(
             project_path, os.path.join(REPO_ROOT, "MCPEDL")
@@ -597,13 +839,12 @@ def register_new_project(project_path, category, version_str=None):
     root_readme    = os.path.join(REPO_ROOT, "README.md")
     builds_readme  = os.path.join(REPO_ROOT, "builds", "README.md")
 
-    # ── 1. Category README table ───────────────────────────────────────────
+    # 1. Category README table
     cat_readme = os.path.join(REPO_ROOT, category, "README.md")
-
     if "addons" in category:
         cat_section = "## Available Source"
         cat_row = (
-            f"| **{display}** | {short_desc} "
+            f"| **{title}** | {short_desc} "
             f"| [`{project_name}/`]({project_name}/) "
             f"| [Download (.{primary_ext})]({gh_dl}) "
             f"| v{ver} |"
@@ -611,7 +852,7 @@ def register_new_project(project_path, category, version_str=None):
     elif "maps" in category:
         cat_section = "## Available Maps Catalog"
         cat_row = (
-            f"| **{display}** | `v{ver}` | Custom Map "
+            f"| **{title}** | `v{ver}` | Custom Map "
             f"| [Download (.mcworld)]({gh_dl}) "
             f"| [`{project_name}/`]({project_name}/) "
             f"| {short_desc} |"
@@ -619,7 +860,7 @@ def register_new_project(project_path, category, version_str=None):
     else:  # script
         cat_section = "## Available Script Projects Catalog"
         cat_row = (
-            f"| **{display}** | `v{ver}` | Script "
+            f"| **{title}** | `v{ver}` | Script "
             f"| [`{project_name}/`]({project_name}/) "
             f"| [Download (.{primary_ext})]({gh_dl}) "
             f"| {short_desc} |"
@@ -627,11 +868,11 @@ def register_new_project(project_path, category, version_str=None):
 
     _insert_table_row(cat_readme, cat_section, cat_row, skip_if_contains=project_name)
 
-    # ── 2. Root README catalog table ──────────────────────────────────────
+    # 2. Root README catalog table
     if "addons" in category:
         root_section = "## Active Add-ons Catalog"
         root_row = (
-            f"| **{display}** | `v{ver}` | {type_label} "
+            f"| **{title}** | `v{ver}` | {type_label} "
             f"| [Download (.{primary_ext})]({gh_dl}) "
             f"| [`{source_rel}/`]({source_rel}/) "
             f"| {tiny_desc} |"
@@ -640,16 +881,16 @@ def register_new_project(project_path, category, version_str=None):
             existing = f.read()
         n = existing.count("### Add-on ") + 1
         detail_section = (
-            f"\n### Add-on {n}: {display} (v{ver})\n\n"
+            f"\n### Add-on {n}: {title} (v{ver})\n\n"
             f"{desc}\n\n"
             f"- *Add features and details here.*\n\n"
-            f"[Read Full {display} Documentation]({source_rel}/README.md)\n\n---\n\n"
+            f"[Read Full {title} Documentation]({source_rel}/README.md)\n\n---\n\n"
         )
 
     elif "maps" in category:
         root_section = "## Maps Catalog"
         root_row = (
-            f"| **{display}** | `v{ver}` | Custom Map "
+            f"| **{title}** | `v{ver}` | Custom Map "
             f"| [Download (.mcworld)]({gh_dl}) "
             f"| [`{source_rel}/`]({source_rel}/) "
             f"| {tiny_desc} |"
@@ -658,16 +899,16 @@ def register_new_project(project_path, category, version_str=None):
             existing = f.read()
         n = existing.count("### Map: ") + existing.count("### Map ") + 1
         detail_section = (
-            f"\n### Map {n}: {display} (v{ver})\n\n"
+            f"\n### Map {n}: {title} (v{ver})\n\n"
             f"{desc}\n\n"
             f"- *Add features and details here.*\n\n"
-            f"[Read Full {display} Documentation]({source_rel}/README.md)\n\n---\n\n"
+            f"[Read Full {title} Documentation]({source_rel}/README.md)\n\n---\n\n"
         )
 
     else:  # script
         root_section = "## Scripts and Challenges Catalog"
         root_row = (
-            f"| **{display}** | `v{ver}` | Script "
+            f"| **{title}** | `v{ver}` | Script "
             f"| [Download (.{primary_ext})]({gh_dl}) "
             f"| [`{source_rel}/`]({source_rel}/) "
             f"| {tiny_desc} |"
@@ -676,10 +917,10 @@ def register_new_project(project_path, category, version_str=None):
             existing = f.read()
         n = existing.count("### Script ") + 1
         detail_section = (
-            f"\n### Script {n}: {display} (v{ver})\n\n"
+            f"\n### Script {n}: {title} (v{ver})\n\n"
             f"{desc}\n\n"
             f"- *Add features and details here.*\n\n"
-            f"[Read Full {display} Documentation]({source_rel}/README.md)\n\n---\n\n"
+            f"[Read Full {title} Documentation]({source_rel}/README.md)\n\n---\n\n"
         )
 
     _insert_table_row(root_readme, root_section, root_row, skip_if_contains=project_name)
@@ -690,7 +931,7 @@ def register_new_project(project_path, category, version_str=None):
         skip_if_contains=project_name,
     )
 
-    # ── 3. builds/README table ────────────────────────────────────────────
+    # 3. builds/README table
     if "addons" in category:
         builds_section = "### Add-on Packs"
     elif "maps" in category:
@@ -699,16 +940,16 @@ def register_new_project(project_path, category, version_str=None):
         builds_section = "### Script Projects"
 
     builds_row = (
-        f"| **{display}** | `v{ver}` | {type_label} "
-        f"| [Download (.{primary_ext})]({project_name}/{build_file}) "
+        f"| **{title}** | `v{ver}` | {type_label} "
+        f"| [Download (.{primary_ext})]({project_name}/{quoted_file}) "
         f"| [`{project_name}/`]({project_name}/) |"
     )
     _insert_table_row(builds_readme, builds_section, builds_row, skip_if_contains=project_name)
 
-    # ── 4. Collection badge ───────────────────────────────────────────────
+    # 4. Collection badge
     _update_collection_badge(root_readme)
 
-    print(f"  ✅ '{display}' registered in all catalog READMEs.")
+    print(f"  ✅ '{title}' registered in all catalog READMEs.")
 
 
 # ─────────────────────────────────────────────────────────────────────────────
@@ -741,7 +982,7 @@ def main():
 
     project_dirs = find_target_project_dirs()
 
-    # ── Determine which projects to process ───────────────────────────────
+    # Determine which projects to process
     if args.all:
         print("[Auto-Version] Mode: ALL — processing every project in repository...")
         changed_projects = sorted(list(project_dirs.keys()))
@@ -759,7 +1000,7 @@ def main():
         changed_files = get_git_diff_files(args.base)
         changed_projects = detect_changed_projects(changed_files, project_dirs)
 
-    # ── Always auto-detect unregistered NEW projects and fold them in ─────
+    # Always auto-detect unregistered NEW projects
     unregistered = detect_unregistered_projects(project_dirs)
     for proj_path, _cat in unregistered:
         if proj_path not in changed_projects:
@@ -801,19 +1042,24 @@ def main():
                 print(f"  No manifest found for {proj_name}, skipping.")
                 continue
             print(f"  Version: v{old_v} → v{new_v}")
-            update_readmes(cp, cat, old_v, new_v)
 
-        # ── Build packages ─────────────────────────────────────────────────
-        rebuild_project_packages(cp, cat)
+        # ── Build packages with standardized filename format ───────────────
+        primary_file, built_files = rebuild_project_packages(cp, cat, new_v)
+
+        # ── Synchronize all Directory README files & links ─────────────────
+        update_readmes(cp, cat, old_v, new_v, primary_file, built_files)
 
         # ── Register if new ───────────────────────────────────────────────
         if is_new:
-            register_new_project(cp, cat, new_v)
+            register_new_project(cp, cat, new_v, primary_file)
 
         updated_summary.append(
             f"{proj_name}: v{old_v} → v{new_v}"
             + (" [NEW — registered in catalogs]" if is_new else "")
         )
+
+    # Always ensure collection badge is synced with current project counts
+    _update_collection_badge(os.path.join(REPO_ROOT, "README.md"))
 
     print("\n[Auto-Version] Completed successfully!")
     for s in updated_summary:

@@ -1,21 +1,28 @@
-# OneBlock Void Survival - Builds
+# OneBlock Void Survival - Downloads and Releases
 
-This directory contains compiled releases for OneBlock Void Survival v1.2 by AllensCreations.
+This folder contains compiled release packages for **OneBlock Void Survival** by AllensCreations.
 
 ---
 
-## Download Links
+## Direct Download Links
 
-| File | Size | Type | Download Link |
-| :--- | :--- | :--- | :--- |
-| **`OneBlock_Void_Survival.mcworld`** | ~273 KB | Hardcore Survival World | [Download Survival World](OneBlock_Void_Survival.mcworld) |
-| **`OneBlock_Void_Survival_Admin.mcworld`** | ~273 KB | Photo Studio and Admin Testing World | [Download Admin World](OneBlock_Void_Survival_Admin.mcworld) |
+| File Name | Format | Size | Description | Download Link |
+| :--- | :--- | :--- | :--- | :--- |
+| **`OneBlock Void Survival BP by AllensCreations (V1.2.3).mcpack`** | `.mcpack` | ~150 KB | Standalone Behavior Pack archive for custom map logic. | [Download (.mcpack)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/OneBlock-Void-Survival/OneBlock%20Void%20Survival%20BP%20by%20AllensCreations%20%28V1.2.3%29.mcpack) |
+| **`OneBlock Void Survival by AllensCreations (V1.2.3).mcworld`** | `.mcworld` | ~266 KB | Complete Survival World archive ready for one-click import. | [Download (.mcworld)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/OneBlock-Void-Survival/OneBlock%20Void%20Survival%20by%20AllensCreations%20%28V1.2.3%29.mcworld) |
+| **`OneBlock Void Survival Admin by AllensCreations (V1.2.3).mcworld`** | `.mcworld` | ~266 KB | Admin / Studio World archive pre-configured with testing tools. | [Download (.mcworld)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/OneBlock-Void-Survival/OneBlock%20Void%20Survival%20Admin%20by%20AllensCreations%20%28V1.2.3%29.mcworld) |
 
 ---
 
 ## Installation Guide
 
 For general import instructions, refer to the centralized [Download and Installation Guide](../README.md#download-and-installation-guide).
+
+---
+
+## Source Files
+To inspect uncompressed JSON files, geometry, render controllers, and textures:
+- [View Source Files](../../MCPEDL/maps/OneBlock-Void-Survival/)
 
 ---
 

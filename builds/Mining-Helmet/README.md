@@ -1,8 +1,6 @@
-# Mining Helmet - Releases and Downloads
+# Mining Helmet - Downloads and Releases
 
-![MCPEDL](https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/MCPEDL/addons/Mining-Helmet/1791946330457.jpg "MCPEDL")
-
-This folder contains compiled releases for Mining Helmet by AllensCreations.
+This folder contains compiled release packages for **Mining Helmet** by AllensCreations.
 
 ---
 
@@ -10,15 +8,9 @@ This folder contains compiled releases for Mining Helmet by AllensCreations.
 
 | File Name | Format | Size | Description | Download Link |
 | :--- | :--- | :--- | :--- | :--- |
-| **`Mining_Helmet_AllensCreations.mcaddon`** | `.mcaddon` | ~750 KB | All-in-one bundle containing Behavior Pack and Resource Pack with tiered dynamic lighting (Lantern: Level 15, Torch: Level 10). | [Download (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Mining-Helmet/Mining_Helmet_AllensCreations.mcaddon) |
-
----
-
-## Item Texture Preview
-
-![Mining Helmet Item Texture](https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/MCPEDL/addons/Mining-Helmet/mining_helmet_preview.png)
-
-Custom 16 x 16 Bedrock Item Icon (`custom:mining_helmet`).
+| **`Mining Helmet by AllensCreations (V1.0.4).mcaddon`** | `.mcaddon` | ~755 KB | Complete bundle containing both Behavior Pack and Resource Pack. | [Download (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Mining-Helmet/Mining%20Helmet%20by%20AllensCreations%20%28V1.0.4%29.mcaddon) |
+| **`Mining Helmet BP by AllensCreations (V1.0.4).mcpack`** | `.mcpack` | ~378 KB | Behavior Pack: Custom entities, components, and gameplay mechanics. | [Download (.mcpack)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Mining-Helmet/Mining%20Helmet%20BP%20by%20AllensCreations%20%28V1.0.4%29.mcpack) |
+| **`Mining Helmet RP by AllensCreations (V1.0.4).mcpack`** | `.mcpack` | ~377 KB | Resource Pack: Custom models, geometry, textures, and sounds. | [Download (.mcpack)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Mining-Helmet/Mining%20Helmet%20RP%20by%20AllensCreations%20%28V1.0.4%29.mcpack) |
 
 ---
 
@@ -29,10 +21,9 @@ For general import instructions, refer to the centralized [Download and Installa
 ---
 
 ## Source Files
-To inspect uncompressed JSON files, items, recipes, and scripts:
-- [View Source Add-on Files](../../MCPEDL/addons/Mining-Helmet/)
+To inspect uncompressed JSON files, geometry, render controllers, and textures:
+- [View Source Files](../../MCPEDL/addons/Mining-Helmet/)
 
 ---
 
 © All rights reserved for AllensCreations.
-

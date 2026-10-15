@@ -1,14 +1,15 @@
-# Alphabet Scavenger Hunt -- Distribution Builds
+# Alphabet Scavenger Hunt - Downloads and Releases
 
-This directory contains compiled release packages for **Alphabet Scavenger Hunt** by AllensCreations.
+This folder contains compiled release packages for **Alphabet Scavenger Hunt** by AllensCreations.
 
 ---
 
-## Available Packages
+## Direct Download Links
 
-| Package | Format | Description | Download Link |
-| :--- | :--- | :--- | :--- |
-| **`Alphabet_Scavenger_Hunt_AllensCreations.mcpack`** | `.mcpack` | Script Behavior Pack archive | [Download .mcpack](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Alphabet-Scavenger-Hunt/Alphabet_Scavenger_Hunt_AllensCreations.mcpack) |
+| File Name | Format | Size | Description | Download Link |
+| :--- | :--- | :--- | :--- | :--- |
+| **`Alphabet Scavenger Hunt by AllensCreations (V1.0.3).mcpack`** | `.mcpack` | ~1.4 MB | Script Behavior Pack archive ready for import. | [Download (.mcpack)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Alphabet-Scavenger-Hunt/Alphabet%20Scavenger%20Hunt%20by%20AllensCreations%20%28V1.0.3%29.mcpack) |
+| **`Alphabet Scavenger Hunt by AllensCreations (V1.0.3).mcaddon`** | `.mcaddon` | ~1.4 MB | Complete Add-on package archive. | [Download (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Alphabet-Scavenger-Hunt/Alphabet%20Scavenger%20Hunt%20by%20AllensCreations%20%28V1.0.3%29.mcaddon) |
 
 ---
 
@@ -18,5 +19,10 @@ For general import instructions, refer to the centralized [Download and Installa
 
 ---
 
-© All rights reserved for AllensCreations.
+## Source Files
+To inspect uncompressed JSON files, geometry, render controllers, and textures:
+- [View Source Files](../../MCPEDL/script/Alphabet-Scavenger-Hunt/)
 
+---
+
+© All rights reserved for AllensCreations.
