@@ -116,7 +116,27 @@ export function executeTreeCapitator(player, dimension, startLoc, startBlockId, 
     return;
   }
 
-  // Paced execution: process blocks across ticks to maintain smooth 20 TPS
+  // Instantaneous single-tick burst execution
+  if (CONFIG.INSTANT_BURST) {
+    for (const pos of blocksToBreak) {
+      if (!player || !player.isValid()) break;
+
+      const safety = checkToolSafety(player, "axe");
+      if (!safety.safe) {
+        notifyToolProtection(player, safety.remaining);
+        break;
+      }
+
+      try {
+        dimension.runCommand(`setblock ${pos.x} ${pos.y} ${pos.z} air destroy`);
+        applyToolDurabilityDamage(player);
+      } catch (err) {}
+    }
+    if (onComplete) onComplete();
+    return;
+  }
+
+  // Paced execution fallback
   let index = 0;
   const intervalId = system.runInterval(() => {
     // Re-verify player validity
@@ -126,7 +146,7 @@ export function executeTreeCapitator(player, dimension, startLoc, startBlockId, 
       return;
     }
 
-    const batchLimit = Math.min(index + CONFIG.BLOCKS_PER_TICK, blocksToBreak.length);
+    const batchLimit = Math.min(index + (CONFIG.BLOCKS_PER_TICK || 6), blocksToBreak.length);
 
     while (index < batchLimit) {
       const pos = blocksToBreak[index++];

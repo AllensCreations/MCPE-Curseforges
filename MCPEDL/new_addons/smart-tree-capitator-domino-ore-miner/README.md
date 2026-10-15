@@ -36,7 +36,9 @@ No extra hunger penalties. Normal single-block mining is preserved whenever you 
 | **Unbreaking Respect** | Accurately factors in the vanilla Unbreaking enchantment formula (`100 / (level + 1)%` damage chance). |
 | **Fortune & Silk Touch Support** | Silk Touch drops whole ore blocks; Fortune rolls authentic multi-drop quantities. |
 | **Zero Hunger Penalties** | Applies no additional exhaustion or hunger drain beyond the normal block break. |
-| **Paced 20-TPS Execution** | Processes blocks in controlled batches (6 per tick) to maintain smooth server tick rates without freezing. |
+| **Instantaneous Burst Mode** | Breaks the entire cluster or felled tree in the exact same tick with zero delay. |
+| **Natural Drops** | Drops items naturally at each block's location with authentic survival physics. |
+| **Vanilla Leaf Decay** | Leaves natural gradual leaf decay intact so canopies drop saplings and apples gradually. |
 
 ---
 
@@ -56,7 +58,7 @@ Tree Capitator utilizes a vertical footprint scan designed specifically for Bedr
 
 1. **Layer 0 (Base Level)**: Scans the 8 horizontal perimeter neighbors around the broken block to detect 2×2 mega trunks (e.g. Dark Oak, Jungle, Spruce).
 2. **Ascending Layers (y + 1 to y + 36)**: Evaluates a 3×3 footprint centered at every active trunk and branch coordinate found at the previous layer.
-3. **Safety Caps**: Limits maximum blocks to 128 and maximum vertical distance to 36 blocks, preventing adjacent trees from chaining uncontrollably.
+3. **Safety Caps**: Limits maximum blocks to 128 logs per operation to prevent excessive processing, adhering to world build boundaries.
 
 ### Supported Tree Types
 - **Overworld**: Oak, Spruce, Birch, Jungle, Acacia, Dark Oak, Mangrove (including roots), Cherry, and Pale Oak.
@@ -67,7 +69,7 @@ Tree Capitator utilizes a vertical footprint scan designed specifically for Bedr
 
 ## Domino Ore Miner & Mineral Categories
 
-Domino Ore Miner checks all 26 spatial neighbors (faces, edges, and vertices) using iterative breadth-first search (BFS). Ore blocks are normalized into mineral categories so stone and deepslate variants seamlessly connect:
+Domino Ore Miner checks all 26 spatial neighbors (faces, edges, and vertices) using iterative breadth-first search (BFS). There is no arbitrary distance limit: it traverses purely contiguous connected ores up to the 64-block cluster ceiling. Ore blocks are normalized into mineral categories so stone and deepslate variants seamlessly connect:
 
 | Mineral Category | Supported Block Identifiers | Min Tool Tier | Default Drops |
 | :--- | :--- | :--- | :--- |

@@ -92,14 +92,8 @@ export function executeDominoOreMiner(player, dimension, startLoc, startBlockId,
       if (visited.has(key)) continue;
       visited.add(key);
 
-      // Distance limit from origin
-      if (
-        Math.abs(nx - startLoc.x) > CONFIG.MAX_ORE_SEARCH_DISTANCE ||
-        Math.abs(ny - startLoc.y) > CONFIG.MAX_ORE_SEARCH_DISTANCE ||
-        Math.abs(nz - startLoc.z) > CONFIG.MAX_ORE_SEARCH_DISTANCE
-      ) {
-        continue;
-      }
+      // Bound search within valid Minecraft world building limits
+      if (ny < -64 || ny > 320) continue;
 
       try {
         const neighborBlock = dimension.getBlock({ x: nx, y: ny, z: nz });
@@ -128,7 +122,83 @@ export function executeDominoOreMiner(player, dimension, startLoc, startBlockId,
     return;
   }
 
-  // Paced domino mining
+  /**
+   * Helper to break a single ore block in the cluster.
+   * @param {{ x: number, y: number, z: number, blockId: string, oreInfo: any }} target
+   * @returns {boolean} True if can continue, false if stopped due to tool safety/tier
+   */
+  const breakTargetOre = (target) => {
+    // Revalidate tool safety before each secondary break
+    const safety = checkToolSafety(player, "pickaxe");
+    if (!safety.safe) {
+      notifyToolProtection(player, safety.remaining);
+      return false;
+    }
+
+    const currentTool = safety.tool;
+    const currentTier = getPickaxeTier(currentTool?.typeId);
+    if (currentTier < target.oreInfo.minTier) {
+      return false;
+    }
+
+    // Check tool enchantments (Silk Touch & Fortune)
+    let silkTouch = false;
+    let fortuneLevel = 0;
+
+    try {
+      const enchantable = currentTool.getComponent("minecraft:enchantable");
+      if (enchantable) {
+        silkTouch = Boolean(enchantable.getEnchantment("silk_touch"));
+        const fortune = enchantable.getEnchantment("fortune");
+        if (fortune && typeof fortune.level === "number") {
+          fortuneLevel = fortune.level;
+        }
+      }
+    } catch (e) {}
+
+    // Break block and drop items at block coordinate
+    try {
+      const centerPos = { x: target.x + 0.5, y: target.y + 0.5, z: target.z + 0.5 };
+
+      if (silkTouch) {
+        dimension.spawnItem(new ItemStack(target.blockId, 1), centerPos);
+        dimension.getBlock({ x: target.x, y: target.y, z: target.z })?.setType("minecraft:air");
+        try {
+          dimension.playSound("dig.stone", centerPos, { volume: 0.8, pitch: 1.0 });
+        } catch (pe) {}
+      } else if (fortuneLevel > 0 && target.oreInfo.dropItem && target.oreInfo.dropItem !== target.blockId) {
+        const minDrop = target.oreInfo.minDrop || 1;
+        const maxDrop = target.oreInfo.maxDrop || 1;
+        const count = calculateFortuneDropCount(fortuneLevel, minDrop, maxDrop);
+
+        dimension.spawnItem(new ItemStack(target.oreInfo.dropItem, count), centerPos);
+        dimension.getBlock({ x: target.x, y: target.y, z: target.z })?.setType("minecraft:air");
+        try {
+          dimension.playSound("dig.stone", centerPos, { volume: 0.8, pitch: 1.0 });
+        } catch (pe) {}
+      } else {
+        dimension.runCommand(`setblock ${target.x} ${target.y} ${target.z} air destroy`);
+      }
+
+      applyToolDurabilityDamage(player);
+      return true;
+    } catch (err) {
+      return true;
+    }
+  };
+
+  // Instantaneous single-tick burst execution
+  if (CONFIG.INSTANT_BURST) {
+    for (const target of cluster) {
+      if (!player || !player.isValid()) break;
+      const ok = breakTargetOre(target);
+      if (!ok) break;
+    }
+    if (onComplete) onComplete();
+    return;
+  }
+
+  // Paced fallback execution
   let index = 0;
   const intervalId = system.runInterval(() => {
     if (!player || !player.isValid()) {
@@ -137,73 +207,15 @@ export function executeDominoOreMiner(player, dimension, startLoc, startBlockId,
       return;
     }
 
-    const batchLimit = Math.min(index + CONFIG.BLOCKS_PER_TICK, cluster.length);
-
+    const batchLimit = Math.min(index + (CONFIG.BLOCKS_PER_TICK || 6), cluster.length);
     while (index < batchLimit) {
       const target = cluster[index++];
-
-      // Revalidate tool safety
-      const safety = checkToolSafety(player, "pickaxe");
-      if (!safety.safe) {
-        notifyToolProtection(player, safety.remaining);
+      const ok = breakTargetOre(target);
+      if (!ok) {
         system.clearRun(intervalId);
         if (onComplete) onComplete();
         return;
       }
-
-      const currentTool = safety.tool;
-      const currentTier = getPickaxeTier(currentTool?.typeId);
-      if (currentTier < target.oreInfo.minTier) {
-        // Player swapped to a lower-tier tool during mining
-        system.clearRun(intervalId);
-        if (onComplete) onComplete();
-        return;
-      }
-
-      // Check tool enchantments (Silk Touch & Fortune)
-      let silkTouch = false;
-      let fortuneLevel = 0;
-
-      try {
-        const enchantable = currentTool.getComponent("minecraft:enchantable");
-        if (enchantable) {
-          silkTouch = Boolean(enchantable.getEnchantment("silk_touch"));
-          const fortune = enchantable.getEnchantment("fortune");
-          if (fortune && typeof fortune.level === "number") {
-            fortuneLevel = fortune.level;
-          }
-        }
-      } catch (e) {}
-
-      // Break block and spawn drops
-      try {
-        const centerPos = { x: target.x + 0.5, y: target.y + 0.5, z: target.z + 0.5 };
-
-        if (silkTouch) {
-          // Silk Touch: Drop the exact ore block
-          dimension.spawnItem(new ItemStack(target.blockId, 1), centerPos);
-          dimension.getBlock({ x: target.x, y: target.y, z: target.z })?.setType("minecraft:air");
-          try {
-            dimension.playSound("dig.stone", centerPos, { volume: 0.8, pitch: 1.0 });
-          } catch (pe) {}
-        } else if (fortuneLevel > 0 && target.oreInfo.dropItem && target.oreInfo.dropItem !== target.blockId) {
-          // Fortune on mineral drops (coal, diamond, redstone, raw iron, etc.)
-          const minDrop = target.oreInfo.minDrop || 1;
-          const maxDrop = target.oreInfo.maxDrop || 1;
-          const count = calculateFortuneDropCount(fortuneLevel, minDrop, maxDrop);
-
-          dimension.spawnItem(new ItemStack(target.oreInfo.dropItem, count), centerPos);
-          dimension.getBlock({ x: target.x, y: target.y, z: target.z })?.setType("minecraft:air");
-          try {
-            dimension.playSound("dig.stone", centerPos, { volume: 0.8, pitch: 1.0 });
-          } catch (pe) {}
-        } else {
-          // Standard vanilla destruction with sound, particles, and default drops
-          dimension.runCommand(`setblock ${target.x} ${target.y} ${target.z} air destroy`);
-        }
-
-        applyToolDurabilityDamage(player);
-      } catch (err) {}
     }
 
     if (index >= cluster.length) {

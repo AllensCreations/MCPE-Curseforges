@@ -10,12 +10,11 @@ export const CONFIG = {
 
   // Search limits
   MAX_TREE_BLOCKS: 128,
-  MAX_TREE_HEIGHT: 36,
-  MAX_ORE_CLUSTER_SIZE: 64,
-  MAX_ORE_SEARCH_DISTANCE: 16,
+  MAX_TREE_HEIGHT: 320, // World build height boundary
+  MAX_ORE_CLUSTER_SIZE: 64, // Strictly capped at 64 blocks with no arbitrary distance limit
 
-  // Processing pacing (blocks processed per tick to prevent server lag)
-  BLOCKS_PER_TICK: 6,
+  // Execution: Instantaneous single-tick burst for immediate chain breaking
+  INSTANT_BURST: true,
 
   // Durability safety: stops secondary mining if tool drops to or below this remaining durability
   DURABILITY_SAFETY_THRESHOLD: 5,
