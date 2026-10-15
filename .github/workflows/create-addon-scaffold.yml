@@ -7,11 +7,6 @@ on:
         description: "Paste the Base64-encoded add-on payload."
         required: true
         type: string
-      target_folder:
-        description: "Target subfolder under MCPEDL (default: 'new_addons' or customize e.g. 'addons')."
-        required: false
-        default: "new_addons"
-        type: string
 
 permissions:
   contents: write
@@ -26,7 +21,7 @@ jobs:
 
     env:
       PAYLOAD_B64: ${{ inputs.payload_b64 }}
-      TARGET_FOLDER: ${{ inputs.target_folder || 'new_addons' }}
+      TARGET_FOLDER: "new_addons"
       PYTHONDONTWRITEBYTECODE: "1"
       PYTHONUNBUFFERED: "1"
 
@@ -95,7 +90,11 @@ jobs:
 
               text = decoded.decode("utf-8-sig")
 
-          except (binascii.Error, UnicodeDecodeError, ValueError) as exc:
+          except (
+              binascii.Error,
+              UnicodeDecodeError,
+              ValueError
+          ) as exc:
               fail(f"Unable to decode Base64 payload: {exc}")
 
           slug = None
@@ -126,9 +125,8 @@ jobs:
                   current_path = None
                   buffer = []
 
-          # Split on "\n" only. str.splitlines() would also split on U+2028,
-          # form feed, etc., which can silently alter script content.
           lines = text.replace("\r\n", "\n").split("\n")
+
           if lines and lines[-1] == "":
               lines.pop()
 
@@ -159,7 +157,9 @@ jobs:
 
               if current_path is None and not reading_slug:
                   if marker:
-                      fail(f"Unexpected content on line {line_number}.")
+                      fail(
+                          f"Unexpected content on line {line_number}."
+                      )
                   continue
 
               buffer.append(line)
@@ -170,7 +170,10 @@ jobs:
               fail("Missing SLUG section.")
 
           if not re.fullmatch(r"[A-Za-z0-9_-]+", slug):
-              fail("Invalid slug. Use letters, numbers, hyphens, and underscores.")
+              fail(
+                  "Invalid slug. Use letters, numbers, hyphens, "
+                  "and underscores."
+              )
 
           if not files:
               fail("No FILE sections were supplied.")
@@ -189,16 +192,16 @@ jobs:
               if (
                   pure.is_absolute()
                   or path.startswith("/")
-                  or any(part in ("", ".", "..") for part in path.split("/"))
+                  or any(
+                      part in ("", ".", "..")
+                      for part in path.split("/")
+                  )
                   or ":" in path
               ):
                   fail(f"Unsafe file path: {path}")
 
-              if pure.parts[0] == ".git":
-                  fail("Git metadata cannot be included in the payload.")
-
-              if pure.parts[0] == "_incoming":
-                  fail("The _incoming directory is reserved.")
+              if pure.parts[0] in (".git", "_incoming"):
+                  fail(f"Reserved directory in payload path: {path}")
 
               if pure.name == "README.md":
                   fail("README.md is generated automatically.")
@@ -228,28 +231,24 @@ jobs:
                   ensure_ascii=False
               )
 
-          # Normalize and strictly validate the target folder. It ends up in
-          # filesystem paths and in GITHUB_ENV, so only safe segments are allowed.
-          folder_raw = os.environ.get("TARGET_FOLDER", "new_addons").strip()
-          target_folder = re.sub(r"^MCPEDL(?:[/\\]|$)", "", folder_raw)
-          target_folder = target_folder.replace("\\", "/").strip("/") or "new_addons"
-
-          if not re.fullmatch(r"[A-Za-z0-9_-]+(?:/[A-Za-z0-9_-]+)*", target_folder):
-              fail(
-                  "Invalid target_folder. Use letters, numbers, hyphens, and "
-                  "underscores (optionally separated by single slashes)."
-              )
-
-          with open(os.environ["GITHUB_ENV"], "a", encoding="utf-8") as env:
+          with open(
+              os.environ["GITHUB_ENV"],
+              "a",
+              encoding="utf-8"
+          ) as env:
               env.write(f"ADDON={slug}\n")
-              env.write(f"TARGET_FOLDER={target_folder}\n")
+              env.write("TARGET_FOLDER=new_addons\n")
 
-          with open(os.environ["GITHUB_OUTPUT"], "a", encoding="utf-8") as output:
+          with open(
+              os.environ["GITHUB_OUTPUT"],
+              "a",
+              encoding="utf-8"
+          ) as output:
               output.write(f"addon_name={slug}\n")
 
           print("Base64 payload decoded and validated.")
           print(f"Slug: {slug}")
-          print(f"Target folder: {target_folder}")
+          print("Target folder: MCPEDL/new_addons")
           print(f"Files: {len(normalized)}")
           PY
 
@@ -258,8 +257,8 @@ jobs:
         run: |
           set -euo pipefail
 
-          if [ -d "MCPEDL/$TARGET_FOLDER/$ADDON" ]; then
-            echo "::error::Add-on already exists: MCPEDL/$TARGET_FOLDER/$ADDON"
+          if [ -d "MCPEDL/new_addons/$ADDON" ]; then
+            echo "::error::Add-on already exists: MCPEDL/new_addons/$ADDON"
             exit 1
           fi
 
@@ -268,7 +267,7 @@ jobs:
             exit 1
           fi
 
-          mkdir -p "MCPEDL/$TARGET_FOLDER"
+          mkdir -p MCPEDL/new_addons
 
       - name: Generate add-on files and placeholder README
         shell: bash
@@ -281,9 +280,8 @@ jobs:
           import sys
 
           addon = os.environ["ADDON"]
-          target_folder = os.environ.get("TARGET_FOLDER", "new_addons")
+          root = os.path.join("MCPEDL", "new_addons", addon)
           payload_path = "_incoming/decoded_addon_payload.json"
-          root = os.path.join("MCPEDL", target_folder, addon)
 
           with open(payload_path, encoding="utf-8") as source:
               payload = json.load(source)
@@ -300,7 +298,10 @@ jobs:
           root_real = os.path.realpath(root)
 
           for relative_path, content in files.items():
-              destination = os.path.join(root, *relative_path.split("/"))
+              destination = os.path.join(
+                  root,
+                  *relative_path.split("/")
+              )
               destination_real = os.path.realpath(destination)
 
               if not destination_real.startswith(root_real + os.sep):
@@ -309,9 +310,17 @@ jobs:
               if not isinstance(content, str):
                   sys.exit(f"Invalid file content: {relative_path}")
 
-              os.makedirs(os.path.dirname(destination), exist_ok=True)
+              os.makedirs(
+                  os.path.dirname(destination),
+                  exist_ok=True
+              )
 
-              with open(destination, "w", encoding="utf-8", newline="\n") as output:
+              with open(
+                  destination,
+                  "w",
+                  encoding="utf-8",
+                  newline="\n"
+              ) as output:
                   output.write(content)
 
                   if content and not content.endswith("\n"):
@@ -319,18 +328,30 @@ jobs:
 
           readme = f"""# {addon}
 
-          This add-on was generated by the AllensCreations add-on workflow.
+          ## Description
 
-          ## Documentation status
+          Minecraft Bedrock add-on by AllensCreations.
 
-          - Full project documentation: Not yet written.
-          - Logo: Not supplied.
-          - Banner: Not supplied.
+          ## Source Files
 
-          ## Project files
+          This directory contains the uncompressed source files used to build this add-on.
 
-          This project was generated from the supplied payload. Review the included manifests, behavior pack files, resource pack files, and scripts before publishing.
+          Review the included manifests, behavior packs, resource packs, and scripts before publishing.
+
+          ## Attribution
+
+          - Creator: AllensCreations.
+          - Content creators may feature this add-on in videos and streams with credit to AllensCreations.
+          - Do not re-upload this add-on or modified copies to other websites, app stores, or file-sharing services.
+
+          ---
+          
+          © All rights reserved for AllensCreations.
           """
+
+          import textwrap
+
+          readme = textwrap.dedent(readme).lstrip()
 
           with open(
               os.path.join(root, "README.md"),
@@ -341,7 +362,7 @@ jobs:
               output.write(readme)
 
           print(f"Generated {len(files)} supplied files.")
-          print(f"Generated placeholder README for {addon}.")
+          print(f"Generated README for {addon}.")
           PY
 
       - name: Validate manifests, UUIDs, paths, and JSON
@@ -355,13 +376,46 @@ jobs:
           import sys
           import uuid
 
-          target_folder = os.environ.get("TARGET_FOLDER", "new_addons")
           root = os.path.realpath(
-              os.path.join("MCPEDL", target_folder, os.environ["ADDON"])
+              os.path.join("MCPEDL", "new_addons", os.environ["ADDON"])
           )
 
           manifest_count = 0
           seen_uuids = set()
+
+          def validate_uuid(value, description, path):
+              try:
+                  parsed = str(uuid.UUID(value))
+              except (ValueError, TypeError, AttributeError):
+                  sys.exit(f"Invalid {description} UUID in {path}")
+
+              if parsed in seen_uuids:
+                  sys.exit(f"Duplicate UUID: {parsed}")
+
+              seen_uuids.add(parsed)
+
+          def validate_version(value, description, path):
+              if (
+                  not isinstance(value, list)
+                  or len(value) != 3
+                  or any(
+                      type(part) is not int or part < 0
+                      for part in value
+                  )
+              ):
+                  sys.exit(f"Invalid {description} in {path}")
+
+          def check_description(value, where, path):
+              if value is None:
+                  return
+
+              if not isinstance(value, str):
+                  sys.exit(f"Invalid {where} description in {path}")
+
+              if len(value) > 256:
+                  sys.exit(
+                      f"{where} description exceeds 256 characters in {path}"
+                  )
 
           for current_root, directories, filenames in os.walk(root):
               directories[:] = [
@@ -389,61 +443,51 @@ jobs:
                   if not isinstance(data, dict):
                       sys.exit(f"Manifest must be a JSON object: {path}")
 
-                  # Ensure standardized Bedrock add-on root metadata
-                  if "metadata" not in data or not isinstance(data.get("metadata"), dict):
-                      data["metadata"] = {}
-                  data["metadata"]["authors"] = ["AllensCreations"]
-                  data["metadata"]["product_type"] = "addon"
-                  with open(path, "w", encoding="utf-8") as out:
-                      json.dump(data, out, indent=2, ensure_ascii=False)
-                      out.write("\n")
+                  metadata = data.get("metadata")
+
+                  if not isinstance(metadata, dict):
+                      metadata = {}
+                      data["metadata"] = metadata
+
+                  metadata["authors"] = ["AllensCreations"]
+                  metadata["product_type"] = "addon"
+
+                  with open(path, "w", encoding="utf-8") as output:
+                      json.dump(
+                          data,
+                          output,
+                          indent=2,
+                          ensure_ascii=False
+                      )
+                      output.write("\n")
 
                   header = data.get("header")
 
                   if not isinstance(header, dict):
                       sys.exit(f"Missing manifest header: {path}")
 
-                  if not isinstance(header.get("name"), str) or not header["name"].strip():
+                  if (
+                      not isinstance(header.get("name"), str)
+                      or not header["name"].strip()
+                  ):
                       sys.exit(f"Missing header name: {path}")
 
-                  def check_description(value, where):
-                      if value is None:
-                          return
+                  check_description(
+                      header.get("description"),
+                      "header",
+                      path
+                  )
 
-                      if not isinstance(value, str):
-                          sys.exit(f"Invalid {where} description in {path}")
-
-                      if len(value) > 256:
-                          sys.exit(
-                              f"{where} description is {len(value)} characters "
-                              f"(max 256) in {path}"
-                          )
-
-                  def validate_uuid(value, description):
-                      try:
-                          parsed = str(uuid.UUID(value))
-                      except (ValueError, TypeError, AttributeError):
-                          sys.exit(f"Invalid {description} UUID in {path}")
-
-                      if parsed in seen_uuids:
-                          sys.exit(f"Duplicate UUID: {parsed}")
-
-                      seen_uuids.add(parsed)
-
-                  def validate_version(value, description):
-                      if (
-                          not isinstance(value, list)
-                          or len(value) != 3
-                          or any(type(part) is not int or part < 0 for part in value)
-                      ):
-                          sys.exit(f"Invalid {description} in {path}")
-
-                  check_description(header.get("description"), "header")
-                  validate_uuid(header.get("uuid"), "header")
-                  validate_version(header.get("version"), "header version")
+                  validate_uuid(header.get("uuid"), "header", path)
+                  validate_version(
+                      header.get("version"),
+                      "header version",
+                      path
+                  )
                   validate_version(
                       header.get("min_engine_version"),
-                      "minimum engine version"
+                      "minimum engine version",
+                      path
                   )
 
                   modules = data.get("modules")
@@ -457,15 +501,31 @@ jobs:
                       if not isinstance(module, dict):
                           sys.exit(f"Invalid module in {path}")
 
-                      check_description(module.get("description"), "module")
-                      validate_uuid(module.get("uuid"), "module")
-                      validate_version(module.get("version"), "module version")
+                      check_description(
+                          module.get("description"),
+                          "module",
+                          path
+                      )
+
+                      validate_uuid(
+                          module.get("uuid"),
+                          "module",
+                          path
+                      )
+
+                      validate_version(
+                          module.get("version"),
+                          "module version",
+                          path
+                      )
 
                       if module.get("type") == "script":
                           entry = module.get("entry")
 
                           if not isinstance(entry, str) or not entry:
-                              sys.exit(f"Script module missing entry: {path}")
+                              sys.exit(
+                                  f"Script module missing entry: {path}"
+                              )
 
                           if "\\" in entry or entry.startswith("/"):
                               sys.exit(f"Unsafe script entry: {entry}")
@@ -478,7 +538,9 @@ jobs:
                               sys.exit(f"Unsafe script entry: {entry}")
 
                           if not os.path.isfile(entry_path):
-                              sys.exit(f"Script entry does not exist: {entry}")
+                              sys.exit(
+                                  f"Script entry does not exist: {entry}"
+                              )
 
           if manifest_count == 0:
               sys.exit("No manifests found.")
@@ -493,9 +555,8 @@ jobs:
         run: |
           set -euo pipefail
 
-          # Bedrock scripts are ES modules. Checking a copy named .mjs makes
-          # Node parse "import"/"export" correctly regardless of package.json.
           tmp="$(mktemp -d)"
+          trap 'rm -rf "$tmp"' EXIT
           count=0
 
           while IFS= read -r -d '' file; do
@@ -508,11 +569,10 @@ jobs:
 
             count=$((count + 1))
           done < <(
-            find "MCPEDL/$TARGET_FOLDER/$ADDON" \
+            find "MCPEDL/new_addons/$ADDON" \
               -type f -name '*.js' -print0
           )
 
-          rm -rf "$tmp"
           echo "JavaScript syntax validation passed ($count file(s))."
 
       - name: Build packages and register catalogs
@@ -523,6 +583,164 @@ jobs:
           python3 scripts/auto_bump_and_build.py \
             --project "$ADDON" \
             --no-bump
+
+      - name: Update new_addons source catalog
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          python3 - <<'PY'
+          import json
+          import textwrap
+          from pathlib import Path
+
+          root = Path("MCPEDL/new_addons")
+          builds = Path("builds")
+          readme = root / "README.md"
+
+          root.mkdir(parents=True, exist_ok=True)
+          rows = []
+
+          def clean(value):
+              return (
+                  str(value)
+                  .replace("|", "\\|")
+                  .replace("\r", " ")
+                  .replace("\n", " ")
+              )
+
+          for addon_dir in sorted(root.iterdir()):
+              if not addon_dir.is_dir():
+                  continue
+
+              slug = addon_dir.name
+              manifests = sorted(addon_dir.rglob("manifest.json"))
+
+              if not manifests:
+                  continue
+
+              name = slug
+              description = "Minecraft Bedrock add-on."
+              version = "Unknown"
+
+              for manifest in manifests:
+                  try:
+                      data = json.loads(
+                          manifest.read_text(encoding="utf-8")
+                      )
+                  except (OSError, json.JSONDecodeError):
+                      continue
+
+                  header = data.get("header", {})
+
+                  if header.get("name"):
+                      name = header["name"]
+
+                  if header.get("description"):
+                      description = header["description"]
+
+                  if isinstance(header.get("version"), list):
+                      version = ".".join(
+                          str(part)
+                          for part in header["version"]
+                      )
+
+                  break
+
+              package_links = []
+              build_dir = builds / slug
+
+              if build_dir.exists():
+                  for package in sorted(build_dir.rglob("*")):
+                      if package.suffix.lower() in (
+                          ".mcpack",
+                          ".mcaddon",
+                          ".zip",
+                      ):
+                          relative = package.as_posix()
+
+                          url = (
+                              "https://github.com/AllensCreations/"
+                              "MCPE-Curseforges/raw/main/"
+                              + relative
+                          )
+
+                          package_links.append(
+                              f"[{package.name}]({url})"
+                          )
+
+              package_text = (
+                  ", ".join(package_links)
+                  if package_links
+                  else "Not built"
+              )
+
+              rows.append(
+                  "| "
+                  + " | ".join([
+                      f"**{clean(name)}**",
+                      clean(description),
+                      f"[`{slug}/`]({slug}/)",
+                      package_text,
+                      clean(version),
+                  ])
+                  + " |"
+              )
+
+          table = "\n".join(rows) if rows else (
+              "| No add-ons registered yet. | | | | |"
+          )
+
+          content = f"""# Add-ons Source Directory - New Add-ons
+
+          This directory stores the uncompressed development source files for newly generated Minecraft Bedrock add-ons in the MCPE Curseforges collection by AllensCreations.
+
+          ---
+
+          ## Available Source Add-ons
+
+          | Add-on Name | Description | Source Directory | Compiled Build | Version |
+          | :--- | :--- | :--- | :--- | :--- |
+          {table}
+
+          The catalog is updated automatically by the add-on generation workflow.
+
+          ---
+
+          ## Directory Structure
+
+          Each add-on has its own directory named after its slug.
+
+          - `behavior_pack/`: Behavior pack definitions, entities, functions, items, recipes, loot tables, and scripts.
+          - `resource_pack/`: Textures, client entity definitions, geometry, animations, and language files.
+          - `manifest.json`: Pack metadata, UUIDs, module definitions, and engine compatibility.
+          - `README.md`: Individual add-on documentation.
+
+          The actual contents depend on the supplied add-on payload.
+
+          ---
+
+          ## Contributing and Attribution
+
+          - Creator: AllensCreations.
+          - Rights and reservation: All rights reserved for AllensCreations.
+          - Content creators may feature these add-ons in videos and streams with credit to AllensCreations.
+          - Do not re-upload these add-ons, their individual files, or modified copies to any website, app store, or file-sharing service.
+
+          For existing add-ons, see the [Add-ons Source Directory](../addons/README.md).
+
+          For challenge scripts and minigames, see the [Script Directory](../script/README.md).
+
+          ---
+
+          © All rights reserved for AllensCreations.
+          """
+
+          content = textwrap.dedent(content).lstrip()
+          readme.write_text(content, encoding="utf-8")
+
+          print(f"Updated {readme} with {len(rows)} add-on(s).")
+          PY
 
       - name: Verify generated packages
         shell: bash
@@ -548,7 +766,9 @@ jobs:
                   if filename.lower().endswith(
                       (".mcpack", ".mcaddon", ".zip")
                   ):
-                      packages.append(os.path.join(current_root, filename))
+                      packages.append(
+                          os.path.join(current_root, filename)
+                      )
 
           if not packages:
               sys.exit("No distributable packages found.")
@@ -561,14 +781,18 @@ jobs:
                   bad_entry = archive.testzip()
 
                   if bad_entry:
-                      sys.exit(f"Corrupt archive entry in {path}: {bad_entry}")
+                      sys.exit(
+                          f"Corrupt archive entry in {path}: {bad_entry}"
+                      )
 
                   if not any(
                       name == "manifest.json"
                       or name.endswith("/manifest.json")
                       for name in archive.namelist()
                   ):
-                      sys.exit(f"Package contains no manifest.json: {path}")
+                      sys.exit(
+                          f"Package contains no manifest.json: {path}"
+                      )
 
               print(f"Verified: {path}")
 
@@ -591,62 +815,42 @@ jobs:
             exit 1
           fi
 
-          # Stage all intended add-on outputs and repository catalog updates.
-          git add -- "MCPEDL/$TARGET_FOLDER/$ADDON"
-          git add -f -- "builds/$ADDON"
-
-          for path in \
-            README.md \
-            builds/README.md \
-            "MCPEDL/$TARGET_FOLDER/README.md" \
-            MCPEDL/addons/README.md
-          do
-            if [ -f "$path" ]; then
-              git add -- "$path"
-            fi
-          done
-
-          # Include tracked files changed by the build script.
-          git add -u
-
-          # Exclude temporary payload data from the commit.
-          git reset -q -- _incoming 2>/dev/null || true
-
-          if ! git diff --cached --quiet; then
-            git commit \
-              -m "feat(addon): generate $ADDON packages [skip ci]"
-          else
-            echo "No staged changes to commit."
-          fi
-
-          # Remove temporary workflow data before checking repository status.
+          # Remove temporary payload data before staging.
           rm -rf _incoming
 
-          # Build scripts may leave generated or unrelated changes.
-          # Stage only the intended output paths and known catalog files.
-          git add -- "MCPEDL/$TARGET_FOLDER/$ADDON"
+          # Stage only the generated add-on, build, and known catalogs.
+          git add -- "MCPEDL/new_addons/$ADDON"
+          git add -- "MCPEDL/new_addons/README.md"
           git add -f -- "builds/$ADDON"
 
           for path in \
             README.md \
             builds/README.md \
-            "MCPEDL/$TARGET_FOLDER/README.md" \
-            MCPEDL/addons/README.md
+            MCPEDL/README.md \
+            MCPEDL/addons/README.md \
+            MCPEDL/script/README.md
           do
             if [ -f "$path" ]; then
               git add -- "$path"
             fi
           done
 
-          git add -u
+          # Include tracked catalog updates from the build script.
+          git add -u -- \
+            README.md \
+            builds \
+            MCPEDL
 
-          if ! git diff --cached --quiet; then
-            git commit \
-              -m "chore(addon): include generated catalog updates [skip ci]"
+          if git diff --cached --quiet; then
+            echo "::error::No changes staged for commit."
+            exit 1
           fi
 
-          # Fail rather than silently discarding changes required for the push.
-          if ! git diff --quiet || [ -n "$(git ls-files --others --exclude-standard)" ]; then
+          git commit \
+            -m "feat(addon): generate $ADDON packages [skip ci]"
+
+          if ! git diff --quiet || \
+             [ -n "$(git ls-files --others --exclude-standard)" ]; then
             echo "::error::Uncommitted changes remain after staging."
             git status --short
             exit 1
@@ -685,8 +889,16 @@ jobs:
           JOB_STATUS: ${{ job.status }}
         run: |
           README_STATE="Not generated"
-          if [ -n "${ADDON:-}" ] && [ -f "MCPEDL/${TARGET_FOLDER}/${ADDON}/README.md" ]; then
-            README_STATE="Placeholder generated"
+
+          if [ -n "${ADDON:-}" ] && \
+             [ -f "MCPEDL/new_addons/${ADDON}/README.md" ]; then
+            README_STATE="Generated"
+          fi
+
+          CATALOG_STATE="Not generated"
+
+          if [ -f "MCPEDL/new_addons/README.md" ]; then
+            CATALOG_STATE="Available"
           fi
 
           {
@@ -696,9 +908,9 @@ jobs:
             echo "| --- | --- |"
             echo "| Status | ${JOB_STATUS} |"
             echo "| Slug | \`${ADDON:-Not generated}\` |"
-            echo "| README | ${README_STATE} |"
-            echo "| Logo | Not supplied |"
-            echo "| Banner | Not supplied |"
+            echo "| Source Directory | \`MCPEDL/new_addons/\` |"
+            echo "| Add-on README | ${README_STATE} |"
+            echo "| Source Catalog | ${CATALOG_STATE} |"
             echo ""
             echo "Review the preceding steps for validation, build, and push results."
           } >> "$GITHUB_STEP_SUMMARY"
