@@ -15,10 +15,10 @@ This directory stores all compiled releases (behavior packs, resource packs, add
 | **Mining Helmet** | `v1.0.3` | Complete Add-on (`.mcaddon`) | [Download (.mcaddon)](Mining-Helmet/Mining_Helmet_AllensCreations.mcaddon) | [`Mining-Helmet/`](Mining-Helmet/) |
 | **Passive Auto-Switch Tools** | `v1.1.4` | Script Behavior Pack (`.mcpack`) | [Download (.mcpack)](Passive-Auto-Switch-Tools/Passive_Auto_Switch_Tools_AllensCreations.mcpack) | [`Passive-Auto-Switch-Tools/`](Passive-Auto-Switch-Tools/) |
 | **Ghast Mob Head Transformers** | `v1.0.1` | Complete Add-on (`.mcaddon`) | [Download (.mcaddon)](Ghast-Head-Transformers/Ghast_Head_Transformers_AllensCreations.mcaddon) | [`Ghast-Head-Transformers/`](Ghast-Head-Transformers/) |
-| **Pet Immortality** | `v1.0.1` | Script Behavior Pack (`.mcpack`) | [Download (.mcpack)](Pet-immortality/Pet_immortality_AllensCreations.mcpack) | [`Pet-immortality/`](Pet-immortality/) |
+| **Pet Immortality** | `v1.0.2` | Script Behavior Pack (`.mcpack`) | [Download (.mcpack)](Pet-immortality/Pet_immortality_AllensCreations.mcpack) | [`Pet-immortality/`](Pet-immortality/) |
 | **Tameable Fox Companion** | `v1.0.1` | Complete Pack (`.mcaddon`) | [Download (.mcaddon)](Tameable-Fox-Companion/Tameable_Fox_Companion_AllensCreations.mcaddon) | [`Tameable-Fox-Companion/`](Tameable-Fox-Companion/) |
-| **Pet Immortality** | `v1.0.1` | Script Behavior Pack (`.mcpack`) | [Download (.mcpack)](Pet-Immortality/Pet_Immortality_AllensCreations.mcpack) | [`Pet-Immortality/`](Pet-Immortality/) |
-| **Pet Immortality** | `v1.0.1` | Script Behavior Pack (`.mcpack`) | [Download (.mcpack)](pet-immortality/pet_immortality_AllensCreations.mcpack) | [`pet-immortality/`](pet-immortality/) |
+| **Pet Immortality** | `v1.0.2` | Script Behavior Pack (`.mcpack`) | [Download (.mcpack)](Pet-Immortality/Pet_Immortality_AllensCreations.mcpack) | [`Pet-Immortality/`](Pet-Immortality/) |
+| **Pet Immortality** | `v1.0.2` | Script Behavior Pack (`.mcpack`) | [Download (.mcpack)](pet-immortality/pet_immortality_AllensCreations.mcpack) | [`pet-immortality/`](pet-immortality/) |
 
 ### Worlds and Maps
 

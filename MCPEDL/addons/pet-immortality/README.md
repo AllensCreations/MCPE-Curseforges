@@ -1,7 +1,7 @@
 # Pet Immortality — Damage Immunity Add-on for Minecraft Bedrock
 
 [![Minecraft Bedrock](https://img.shields.io/badge/Minecraft%20Bedrock-1.21.0%2B-brightgreen?style=flat-square&logo=minecraft)](https://github.com/AllensCreations/MCPE-Curseforges)
-[![Release](https://img.shields.io/badge/Release-v1.0.1-blue?style=flat-square)](../README.md#available-source-add-ons)
+[![Release](https://img.shields.io/badge/Release-v1.0.2-blue?style=flat-square)](../README.md#available-source-add-ons)
 [![Format](https://img.shields.io/badge/Format-.MCPACK-orange?style=flat-square)](../README.md#available-source-add-ons)
 [![Platform](https://img.shields.io/badge/Platform-Mobile%20%7C%20PC%20%7C%20Console%20%7C%20Realms-yellow?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges)
 
