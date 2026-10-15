@@ -7,6 +7,11 @@ on:
         description: "Paste the Base64-encoded add-on payload."
         required: true
         type: string
+      target_folder:
+        description: "Target subfolder under MCPEDL (default: 'new_addons' or customize e.g. 'addons')."
+        required: false
+        default: "new_addons"
+        type: string
 
 permissions:
   contents: write
@@ -21,6 +26,7 @@ jobs:
 
     env:
       PAYLOAD_B64: ${{ inputs.payload_b64 }}
+      TARGET_FOLDER: ${{ inputs.target_folder || 'new_addons' }}
       PYTHONDONTWRITEBYTECODE: "1"
       PYTHONUNBUFFERED: "1"
 
@@ -216,8 +222,12 @@ jobs:
                   ensure_ascii=False
               )
 
+          folder_raw = os.environ.get("TARGET_FOLDER", "new_addons")
+          target_folder = re.sub(r"^MCPEDL[/\\]?", "", folder_raw).strip("/\\") or "new_addons"
+
           with open(os.environ["GITHUB_ENV"], "a", encoding="utf-8") as env:
               env.write(f"ADDON={slug}\n")
+              env.write(f"TARGET_FOLDER={target_folder}\n")
 
           with open(os.environ["GITHUB_OUTPUT"], "a", encoding="utf-8") as output:
               output.write(f"addon_name={slug}\n")
@@ -232,8 +242,8 @@ jobs:
         run: |
           set -euo pipefail
 
-          if [ -d "MCPEDL/addons/$ADDON" ]; then
-            echo "::error::Add-on already exists: MCPEDL/addons/$ADDON"
+          if [ -d "MCPEDL/$TARGET_FOLDER/$ADDON" ]; then
+            echo "::error::Add-on already exists: MCPEDL/$TARGET_FOLDER/$ADDON"
             exit 1
           fi
 
@@ -242,10 +252,7 @@ jobs:
             exit 1
           fi
 
-          if [ ! -d "MCPEDL/addons" ]; then
-            echo "::error::Missing MCPEDL/addons directory."
-            exit 1
-          fi
+          mkdir -p "MCPEDL/$TARGET_FOLDER" 
 
       - name: Generate add-on files and placeholder README
         shell: bash
@@ -258,8 +265,9 @@ jobs:
           import sys
 
           addon = os.environ["ADDON"]
+          target_folder = os.environ.get("TARGET_FOLDER", "new_addons")
           payload_path = "_incoming/decoded_addon_payload.json"
-          root = os.path.join("MCPEDL", "addons", addon)
+          root = os.path.join("MCPEDL", target_folder, addon)
 
           with open(payload_path, encoding="utf-8") as source:
               payload = json.load(source)
@@ -331,8 +339,9 @@ jobs:
           import sys
           import uuid
 
+          target_folder = os.environ.get("TARGET_FOLDER", "new_addons")
           root = os.path.realpath(
-              os.path.join("MCPEDL", "addons", os.environ["ADDON"])
+              os.path.join("MCPEDL", target_folder, os.environ["ADDON"])
           )
 
           manifest_count = 0
@@ -363,6 +372,15 @@ jobs:
 
                   if not isinstance(data, dict):
                       sys.exit(f"Manifest must be a JSON object: {path}")
+
+                  # Ensure standardized Bedrock add-on root metadata
+                  if "metadata" not in data or not isinstance(data.get("metadata"), dict):
+                      data["metadata"] = {}
+                  data["metadata"]["authors"] = ["AllensCreations"]
+                  data["metadata"]["product_type"] = "addon"
+                  with open(path, "w", encoding="utf-8") as out:
+                      json.dump(data, out, indent=2)
+                      out.write("\n")
 
                   header = data.get("header")
 
@@ -447,7 +465,7 @@ jobs:
           while IFS= read -r -d '' file; do
             node --check "$file"
           done < <(
-            find "MCPEDL/addons/$ADDON" \
+            find "MCPEDL/$TARGET_FOLDER/$ADDON" \
               -type f -name '*.js' -print0
           )
 
@@ -530,12 +548,13 @@ jobs:
           fi
 
           # Stage all intended add-on outputs and repository catalog updates.
-          git add -- "MCPEDL/addons/$ADDON"
+          git add -- "MCPEDL/$TARGET_FOLDER/$ADDON"
           git add -f -- "builds/$ADDON"
 
           for path in \
             README.md \
             builds/README.md \
+            "MCPEDL/$TARGET_FOLDER/README.md" \
             MCPEDL/addons/README.md
           do
             if [ -f "$path" ]; then
@@ -561,12 +580,13 @@ jobs:
 
           # Build scripts may leave generated or unrelated changes.
           # Stage only the intended output paths and known catalog files.
-          git add -- "MCPEDL/addons/$ADDON"
+          git add -- "MCPEDL/$TARGET_FOLDER/$ADDON"
           git add -f -- "builds/$ADDON"
 
           for path in \
             README.md \
             builds/README.md \
+            "MCPEDL/$TARGET_FOLDER/README.md" \
             MCPEDL/addons/README.md
           do
             if [ -f "$path" ]; then

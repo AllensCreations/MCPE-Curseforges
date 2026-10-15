@@ -52,5 +52,11 @@
         2
       ]
     }
-  ]
+  ],
+  "metadata": {
+    "authors": [
+      "AllensCreations"
+    ],
+    "product_type": "addon"
+  }
 }

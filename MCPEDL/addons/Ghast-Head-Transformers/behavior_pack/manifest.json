@@ -48,5 +48,11 @@
       "name": "Manual Equip Only (No Natural Spawn)",
       "memory_tier": 1
     }
-  ]
+  ],
+  "metadata": {
+    "authors": [
+      "AllensCreations"
+    ],
+    "product_type": "addon"
+  }
 }

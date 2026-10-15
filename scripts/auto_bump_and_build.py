@@ -70,9 +70,17 @@ def find_target_project_dirs():
     """Returns dict of project_dir -> category_path for all known categories."""
     projects = {}
     categories = [
-        "MCPEDL/addons", "MCPEDL/script", "MCPEDL/maps",
+        "MCPEDL/addons", "MCPEDL/new_addons", "MCPEDL/script", "MCPEDL/maps",
         "packs", "minigames", "maps", "addons", "script",
     ]
+    mcpedl_dir = os.path.join(REPO_ROOT, "MCPEDL")
+    if os.path.isdir(mcpedl_dir):
+        for sub in sorted(os.listdir(mcpedl_dir)):
+            subpath = os.path.join(mcpedl_dir, sub)
+            if os.path.isdir(subpath):
+                rel_cat = f"MCPEDL/{sub}"
+                if rel_cat not in categories:
+                    categories.append(rel_cat)
     for cat in categories:
         cat_path = os.path.join(REPO_ROOT, cat)
         if os.path.isdir(cat_path):
@@ -207,6 +215,10 @@ def update_manifests_for_project(project_path):
             for dep in data["dependencies"]:
                 if "uuid" in dep and dep["uuid"] in uuid_to_version:
                     dep["version"] = uuid_to_version[dep["uuid"]]
+        if "metadata" not in data or not isinstance(data.get("metadata"), dict):
+            data["metadata"] = {}
+        data["metadata"]["authors"] = ["AllensCreations"]
+        data["metadata"]["product_type"] = "addon"
         with open(mp, "w", encoding="utf-8") as f:
             json.dump(data, f, indent=2)
             f.write("\n")
@@ -514,11 +526,17 @@ def _insert_before_section(readme_path, before_marker, new_block, skip_if_contai
 
 def _update_collection_badge(root_readme):
     """Rewrites the Collection Size badge to reflect current project counts."""
-    addons_dir = os.path.join(REPO_ROOT, "MCPEDL", "addons")
     maps_dir   = os.path.join(REPO_ROOT, "MCPEDL", "maps")
     script_dir = os.path.join(REPO_ROOT, "MCPEDL", "script")
 
-    n_addons  = len([d for d in glob.glob(os.path.join(addons_dir, "*")) if os.path.isdir(d)])
+    addon_dirs = [
+        d for d in glob.glob(os.path.join(REPO_ROOT, "MCPEDL", "*"))
+        if os.path.isdir(d) and os.path.basename(d) not in ("maps", "script")
+    ]
+    n_addons  = sum(
+        len([p for p in glob.glob(os.path.join(ad, "*")) if os.path.isdir(p)])
+        for ad in addon_dirs
+    )
     n_maps    = len([d for d in glob.glob(os.path.join(maps_dir,   "*")) if os.path.isdir(d)])
     n_scripts = len([d for d in glob.glob(os.path.join(script_dir, "*")) if os.path.isdir(d)])
 
