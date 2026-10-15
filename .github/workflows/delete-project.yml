@@ -65,6 +65,7 @@ on:
 
 permissions:
   contents: write
+  workflows: write
 
 concurrency:
   group: delete-project-${{ github.ref }}
@@ -235,6 +236,38 @@ jobs:
             echo "::endgroup::"
             sleep 3
           done
+
+          if [ "$PUSHED" != "true" ]; then
+            echo "::warning::Push failed. Attempting fallback: committing project deletions without workflow changes..."
+            git reset HEAD~1
+            for dir in MCPEDL builds; do
+              if [ -d "$dir" ]; then
+                git add -A -- "$dir"
+              fi
+            done
+            if [ -f "README.md" ]; then
+              git add README.md
+            fi
+            git checkout -- .github/workflows/delete-project.yml || true
+
+            if ! git diff --cached --quiet; then
+              git commit -m "chore(delete): remove ${DELETED_SLUG:-project} from ${DELETED_TYPE:-project} [skip ci]"
+              for attempt in 1 2 3; do
+                echo "::group::Fallback push attempt $attempt of 3"
+                git fetch origin "$BRANCH" || true
+                if git rebase "origin/$BRANCH"; then
+                  if git push origin "HEAD:refs/heads/$BRANCH"; then
+                    echo "Fallback push succeeded."
+                    PUSHED=true
+                    echo "::endgroup::"
+                    break
+                  fi
+                fi
+                echo "::endgroup::"
+                sleep 3
+              done
+            fi
+          fi
 
           if [ "$PUSHED" != "true" ]; then
             echo "::error::Unable to push after 3 attempts."
