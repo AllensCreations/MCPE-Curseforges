@@ -61,7 +61,6 @@ jobs:
             [ -d "$dir" ] && git add "$dir"
           done
           [ -f "README.md" ] && git add README.md
-          [ -f ".github/workflows/manage-addon-status.yml" ] && git add .github/workflows/manage-addon-status.yml
 
           if git diff --staged --quiet; then
             echo "No changes staged to commit."

@@ -302,6 +302,10 @@ def update_addon_inner_readme(addon_target_dir):
 
 def sync_workflow_choices():
     """Keeps the choice options in .github/workflows/manage-addon-status.yml synchronized with new_addons."""
+    if os.environ.get("GITHUB_ACTIONS"):
+        # Never mutate workflow files within a GitHub Actions runner to prevent permission errors
+        return
+
     workflow_path = os.path.join(REPO_ROOT, ".github", "workflows", "manage-addon-status.yml")
     if not os.path.isfile(workflow_path):
         return
@@ -367,12 +371,11 @@ def handle_finished(slug, dry_run=False):
     shutil.move(src_dir, dst_dir)
     print(f"  [Move] Moved {slug} to MCPEDL/addons/{slug}")
 
-    # Update catalogs and workflow choices
+    # Update catalogs
     rebuild_new_addons_readme()
     update_addons_catalog(meta)
     update_root_readme(slug)
     update_addon_inner_readme(dst_dir)
-    sync_workflow_choices()
 
     # Sync package and check README status
     auto_bump_script = os.path.join(REPO_ROOT, "scripts", "auto_bump_and_build.py")
