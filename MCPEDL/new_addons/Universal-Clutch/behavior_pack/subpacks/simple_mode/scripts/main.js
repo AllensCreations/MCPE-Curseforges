@@ -7,7 +7,8 @@
  * Automatically performs clutch placements when falling from dangerous heights,
  * featuring 1-2 tick impact prediction, authentic arm swing animations,
  * placement sounds, native waterlogged block handling, automatic water scooping,
- * and Full / Simple mode support.
+ * auto-ride & auto-exit boat clutching, and Full / Simple mode support.
+ * Zero HUD text displays for authentic vanilla gameplay feel.
  * 
  * Modes:
  * - Full Mode (Default): Automatically scans hotbar & inventory for clutch items,
@@ -129,6 +130,10 @@ const PASSABLE_OR_AIR_BLOCKS = new Set([
 // Key: player.id -> ClutchRecord
 const activeWaterClutches = new Map();
 
+// Map of active boat clutches awaiting touchdown & auto-exit
+// Key: player.id -> BoatClutchRecord
+const activeBoatClutches = new Map();
+
 // Map tracking recent clutch trigger ticks to debounce per player
 // Key: player.id -> number (tick)
 const lastClutchTick = new Map();
@@ -190,7 +195,6 @@ function trackPlayerFall(player, vel) {
       tracker = { startY: loc.y, lastY: loc.y, fallDist: 0 };
       fallTrackers.set(player.id, tracker);
     } else {
-      // If player jumped upward before falling, reset apex startY
       if (loc.y > tracker.startY) {
         tracker.startY = loc.y;
       }
@@ -199,7 +203,6 @@ function trackPlayerFall(player, vel) {
     }
     return tracker.fallDist;
   } else {
-    // Player landed or is stationary
     fallTrackers.delete(player.id);
     return 0;
   }
@@ -382,7 +385,7 @@ function findGroundBelow(dimension, location) {
   for (let y = startY; y >= minY; y--) {
     let block;
     try {
-      block = dimension.getBlock({ x: px, y: y, z: pz });
+      block = dimension.getBlock({ x: px, y, z: pz });
     } catch {
       break;
     }
@@ -445,7 +448,6 @@ function isWaterloggableBlock(block) {
  */
 function consumeHeldItem(player, slot, replacementTypeId) {
   try {
-    // Check creative mode safely
     let isCreative = false;
     try {
       isCreative = player.matches({ gameMode: "creative" });
@@ -550,17 +552,63 @@ function placeLadderClutch(dimension, airBlock, player) {
   return false;
 }
 
-function placeBoatClutch(dimension, airBlock, entityType) {
+/**
+ * Places boat, auto-rides player to absorb fall, and registers for auto-exit on touchdown.
+ */
+function placeBoatClutch(dimension, airBlock, entityType, player, autoSwitched) {
   try {
     const spawnPos = {
       x: airBlock.location.x + 0.5,
       y: airBlock.location.y,
       z: airBlock.location.z + 0.5
     };
-    dimension.spawnEntity(entityType, spawnPos);
+    const boat = dimension.spawnEntity(entityType, spawnPos);
+    if (!boat) return false;
+
+    // Auto-ride: immediately seat the player inside the boat to absorb fall damage
+    try {
+      const rideable = boat.getComponent("minecraft:rideable");
+      if (rideable) {
+        rideable.addRider(player);
+      }
+    } catch {}
+
+    // Register active boat clutch for auto-exit upon touchdown
+    activeBoatClutches.set(player.id, {
+      player,
+      boat,
+      deployedTick: system.currentTick,
+      scheduled: false,
+      autoSwitched
+    });
+
     return true;
   } catch {
     return false;
+  }
+}
+
+/**
+ * Automatically ejects the player from the boat after landing and restores previous hotbar item.
+ */
+function executeAutoExitBoat(clutch) {
+  try {
+    const { player, boat, autoSwitched } = clutch;
+
+    if (boat && boat.isValid()) {
+      try {
+        const rideable = boat.getComponent("minecraft:rideable");
+        if (rideable) {
+          rideable.ejectRiders();
+        }
+      } catch {}
+    }
+
+    if (autoSwitched && player && player.isValid()) {
+      restoreAutoSwitched(player, autoSwitched);
+    }
+  } finally {
+    activeBoatClutches.delete(clutch.player.id);
   }
 }
 
@@ -603,10 +651,6 @@ function executeAutoScoop(clutch) {
     if (autoSwitched) {
       restoreAutoSwitched(player, autoSwitched);
     }
-
-    try {
-      player.onScreenDisplay.setActionBar("§b✦ Water Clutch: Auto-Scooped!§r");
-    } catch {}
   } finally {
     activeWaterClutches.delete(clutch.player.id);
   }
@@ -667,11 +711,6 @@ function executeClutch(player, velocity, clutchData, ground) {
           heldSlot: slot,
           autoSwitched
         });
-
-        const prefix = autoSwitched ? "§e✦ [Auto-Switch] " : "§9✦ ";
-        try {
-          player.onScreenDisplay.setActionBar(`${prefix}Water Clutch Deployed!§r`);
-        } catch {}
       }
       break;
     }
@@ -685,11 +724,6 @@ function executeClutch(player, velocity, clutchData, ground) {
         if (autoSwitched) {
           system.runTimeout(() => restoreAutoSwitched(player, autoSwitched), 4);
         }
-
-        const prefix = autoSwitched ? "§e✦ [Auto-Switch] " : "§a✦ ";
-        try {
-          player.onScreenDisplay.setActionBar(`${prefix}${definition.name} Clutch Deployed!§r`);
-        } catch {}
       } catch {}
       break;
     }
@@ -702,28 +736,14 @@ function executeClutch(player, velocity, clutchData, ground) {
         if (autoSwitched) {
           system.runTimeout(() => restoreAutoSwitched(player, autoSwitched), 4);
         }
-
-        const prefix = autoSwitched ? "§e✦ [Auto-Switch] " : "§6✦ ";
-        try {
-          player.onScreenDisplay.setActionBar(`${prefix}Ladder Clutch Deployed!§r`);
-        } catch {}
       }
       break;
     }
 
     case "boat": {
-      if (placeBoatClutch(dimension, airBlockAbove, definition.entityType)) {
+      if (placeBoatClutch(dimension, airBlockAbove, definition.entityType, player, autoSwitched)) {
         consumeHeldItem(player, slot);
         placementSuccess = true;
-
-        if (autoSwitched) {
-          system.runTimeout(() => restoreAutoSwitched(player, autoSwitched), 4);
-        }
-
-        const prefix = autoSwitched ? "§e✦ [Auto-Switch] " : "§e✦ ";
-        try {
-          player.onScreenDisplay.setActionBar(`${prefix}Boat Clutch Deployed!§r`);
-        } catch {}
       }
       break;
     }
@@ -737,11 +757,6 @@ function executeClutch(player, velocity, clutchData, ground) {
         if (autoSwitched) {
           system.runTimeout(() => restoreAutoSwitched(player, autoSwitched), 4);
         }
-
-        const prefix = autoSwitched ? "§e✦ [Auto-Switch] " : "§c✦ ";
-        try {
-          player.onScreenDisplay.setActionBar(`${prefix}Sweet Berry Bush Clutch Deployed!§r`);
-        } catch {}
       } catch {}
       break;
     }
@@ -784,7 +799,38 @@ system.runInterval(() => {
     }
   }
 
-  // 2. Scan all players for clutch conditions
+  // 2. Process active boat clutches awaiting touchdown & auto-exit
+  for (const [playerId, clutch] of activeBoatClutches.entries()) {
+    const player = clutch.player;
+    const boat = clutch.boat;
+
+    if (!player || !player.isValid()) {
+      activeBoatClutches.delete(playerId);
+      continue;
+    }
+
+    if (!clutch.scheduled) {
+      let vel = { x: 0, y: 0, z: 0 };
+      try {
+        vel = player.getVelocity();
+      } catch {}
+
+      const hasLanded =
+        player.isOnGround === true ||
+        (boat && boat.isValid() && boat.isOnGround === true) ||
+        Math.abs(vel.y) < 0.1 ||
+        (currentTick - clutch.deployedTick > 8);
+
+      if (hasLanded) {
+        clutch.scheduled = true;
+        system.runTimeout(() => {
+          executeAutoExitBoat(clutch);
+        }, 3);
+      }
+    }
+  }
+
+  // 3. Scan all players for clutch conditions
   for (const player of world.getAllPlayers()) {
     try {
       if (!player.isValid()) continue;
@@ -803,7 +849,7 @@ system.runInterval(() => {
       } catch {}
       if (isSwimmingOrGliding) continue;
 
-      // Track fall distance manually (entity.fallDistance is not available in 1.13.0)
+      // Track fall distance manually
       const currentFallDist = trackPlayerFall(player, vel);
 
       // Debounce: prevent multiple clutches within the same 25 ticks
@@ -857,5 +903,5 @@ system.runInterval(() => {
 
 // Startup notification
 world.afterEvents.worldInitialize.subscribe(() => {
-  console.warn(`[Universal Clutch] Initialized successfully. Default Mode: ${DEFAULT_MODE} | Fall Threshold: ${DEFAULT_THRESHOLD} blocks.`);
+  console.warn(`[Universal Clutch] Initialized. Default Mode: ${DEFAULT_MODE} | Fall Threshold: ${DEFAULT_THRESHOLD} blocks.`);
 });
