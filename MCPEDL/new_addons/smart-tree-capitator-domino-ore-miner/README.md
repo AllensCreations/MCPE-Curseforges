@@ -1,4 +1,4 @@
-# Smart Tree Capitator & Domino Ore Miner
+# Smart Tree Capitator & Domino Ore Miner — Vein & Tree Miner for Minecraft Bedrock
 
 [![Minecraft Bedrock](https://img.shields.io/badge/Minecraft%20Bedrock-1.21.0%2B-brightgreen?style=flat-square&logo=minecraft)](https://github.com/AllensCreations/MCPE-Curseforges)
 [![Script API](https://img.shields.io/badge/Script%20API-%40minecraft%2Fserver%201.13.0%2B-blue?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges)
@@ -7,7 +7,9 @@
 
 **By AllensCreations**
 
-Sneak-activated vein mining and tree felling with built-in tool durability protection for Minecraft Bedrock Edition.
+**SNEAK-ACTIVATED VEIN MINING & BUILT-IN TOOL PROTECTION**
+
+Fell entire trees and mine contiguous ore veins in a single sneak-break, protected by automated durability safety stops.
 
 ---
 
@@ -21,52 +23,40 @@ Standing upright leaves standard vanilla single-block mining untouched. The add-
 
 ---
 
-## Installation & World Setup
+## Key Features
 
-This add-on uses the Bedrock Script API and requires the **Beta APIs** experimental toggle.
-
-### 1. Import the Pack
-- **Windows / PC**: Double-click the downloaded `.mcpack` or `.mcaddon` file. Minecraft Bedrock will open and import the pack automatically.
-- **Android / iOS**: Tap the downloaded file in your file browser or downloads menu and select **Open in Minecraft**.
-- **Dedicated Server / Realm**: Upload the pack folder or `.mcpack` to the server's `behavior_packs/` directory and add the pack UUID to `world_behavior_packs.json`.
-
-### 2. Apply to Your World
-1. Edit an existing world or create a new one.
-2. Navigate to **Behavior Packs** in the left sidebar.
-3. Under **Available**, locate **Smart Tree Capitator & Domino Ore Miner** and click **Activate**.
-
-### 3. Enable Required Experiments
-1. Scroll down to the **Experiments** section in World Settings.
-2. Toggle **Beta APIs** to **On**.
-3. Confirm the prompt to enable experiments.
+| Feature | Description |
+| :--- | :--- |
+| Sneak-Activated Mining | Chains only while sneaking, keeping single-block mining intact when upright. |
+| Footprint Tree Capitator | Layer-by-layer 3x3 footprint scan captures straight trunks, diagonal branches, and 2x2 mega trees. |
+| 26-Neighbor Domino Ore Miner | True 3D breadth-first search connects full clusters through face, edge, and corner connections up to 64 blocks. |
+| Mineral Category Normalization | Groups regular and deepslate ore variants so veins crossing stone layers mine together. |
+| Durability Safety Guard | Automatically stops chain mining when tool durability reaches 5 points remaining. |
+| Unbreaking Respect | Factors in vanilla Unbreaking enchantment probabilities (`100 / (level + 1)%`). |
+| Fortune & Silk Touch Support | Honors Silk Touch drops and vanilla Fortune item multipliers. |
+| Zero Hunger Penalties | Applies no extra exhaustion or hunger drain beyond standard block breaking. |
+| Instant Burst Mode | Breaks the full cluster or felled tree in the exact same tick with zero delay. |
+| Natural Drops | Drops items at each block's location with authentic survival physics. |
+| Vanilla Leaf Decay | Leaves canopies intact so leaves naturally decay into saplings and apples. |
 
 ---
 
-## Controls
+## How It Works
 
-Both mechanics trigger only while crouching (sneaking). When standing, all blocks mine normally.
-
-| Platform | Sneak Input | Mining Action |
+| Action | Requirement | What Happens |
 | :--- | :--- | :--- |
-| **Keyboard & Mouse (PC)** | Hold `Shift` | Mine log with axe or ore with pickaxe |
-| **Touch Controls (Mobile)** | Double-tap or toggle crouch button | Mine log with axe or ore with pickaxe |
-| **Controller (Console / PC)** | Press right stick or crouch button | Mine log with axe or ore with pickaxe |
-
-### Mining Rules
-
-| Stance | Tool | Target Block | Result |
-| :--- | :--- | :--- | :--- |
-| Standing / Walking | Any | Any block | Normal vanilla single-block break |
-| **Sneaking** | Axe | Log, Wood, Stem, or Hyphae | Fells trunk and connected branches upward |
-| **Sneaking** | Pickaxe | Supported Ore Block | Mines entire connected ore cluster |
+| Standard Mining | Standing or walking | Breaks single block with standard vanilla drops. |
+| Tree Capitation | Sneak with an Axe | Fells connected trunk logs and branches upward up to 128 blocks in one tick. |
+| Domino Ore Mining | Sneak with a Pickaxe | Sweeps contiguous ore veins across 26 spatial neighbors up to 64 blocks. |
+| Durability Protection | Tool hits 5 durability | Halts chain break immediately, preserves tool, and plays alert sound. |
+| Tool Switch Safety | Switch or unequip tool | Terminates chain process instantly before processing the next block. |
 
 ---
 
-## Tree Capitator
+## Tree Capitator Footprint Pattern
 
-When you break a log while sneaking with an axe in hand, the add-on scans upward through the tree canopy.
+When you break an eligible log while sneaking with an axe, the add-on scans upward through the tree:
 
-### Footprint Scan Pattern
 1. **Base Level**: Scans the 8 horizontal perimeter blocks around the broken log to catch 2x2 mega trunks (Dark Oak, Jungle, Spruce).
 2. **Ascending Layers**: Evaluates a 3x3 footprint centered at every active trunk and branch coordinate found in the layer below.
 3. **Safety Limits**: Capped at 128 logs per tree and bounded by world height (-64 to 320) to prevent runaway chain reactions into adjacent forests.
@@ -79,19 +69,9 @@ When you break a log while sneaking with an axe in hand, the add-on scans upward
 
 ---
 
-## Domino Ore Miner
+## Domino Ore Miner & Mineral Categories
 
-When you mine an ore block while sneaking with a pickaxe, the add-on runs an iterative 3D breadth-first search across all 26 spatial neighbors (faces, edges, and corners).
-
-### Rules & Limits
-- **Connected Only**: Finds contiguous veins without jumping through stone or air pockets.
-- **Cluster Cap**: Up to 64 ore blocks per vein.
-- **Instant Burst**: Breaks the matching cluster in the same tick.
-- **Tier Validation**: Pickaxe tier must meet or exceed the ore requirement. Breaking diamond ore with a stone pickaxe will not trigger a chain.
-
-### Mineral Categories & Drop Rules
-
-Regular stone and deepslate ores share the same mineral category, allowing veins that cross the stone/deepslate layer boundary to mine seamlessly:
+Domino Ore Miner checks all 26 spatial neighbors (faces, edges, and corners) using iterative breadth-first search. Veins are contiguous with no arbitrary distance limits up to the 64-block cluster cap. Regular stone and deepslate ores share the same mineral category, allowing veins that cross stone layers to mine seamlessly:
 
 | Category | Supported Block IDs | Minimum Pickaxe | Drops |
 | :--- | :--- | :--- | :--- |
@@ -107,31 +87,26 @@ Regular stone and deepslate ores share the same mineral category, allowing veins
 | **Nether Quartz** | `minecraft:quartz_ore`, `minecraft:nether_quartz_ore` | Wooden+ | Nether Quartz |
 | **Ancient Debris** | `minecraft:ancient_debris` | Diamond+ | Ancient Debris Block |
 
-*Note: Nether Gold is a separate category from Overworld Gold to prevent unintended cross-mining in custom or glitch scenarios.*
+*Only blocks of the same mineral category are traversed. Pickaxe tier validation ensures lower-tier tools will not trigger higher-tier ore chains.*
 
 ---
 
-## Durability & Enchantment Handling
+## Durability Protection System
 
-### Tool Protection
-- Reads `minecraft:durability` before breaking each secondary block.
-- Halts immediately when remaining durability (`maxDurability - damage`) reaches **5 or less**.
-- Plays a warning sound (`note.bass`) and displays an action bar message:
+- Queries `minecraft:durability` before breaking each secondary block.
+- Halts immediately when remaining durability (`maxDurability - damage`) reaches 5 or less.
+- Plays an audible warning sound (`note.bass`) and displays an action bar alert:
   ```text
   [Tool Protection] Stopped mining to save tool! (5 durability left)
   ```
-- Stops immediately if you swap or unequip the tool during mining.
-
-### Enchantment Compatibility
-- **Silk Touch**: Preserves full ore blocks (such as Diamond Ore or Deepslate Coal Ore) instead of dropping items.
-- **Fortune (I–III)**: Applies standard vanilla Fortune drop multipliers for ores that drop items.
-- **Unbreaking (I–III)**: Uses vanilla probability `100 / (level + 1)%` per secondary block. The tool takes less damage over large clusters.
+- Revalidates the equipped tool before each block break. If the tool is switched or removed, chain mining stops instantly.
+- Applies standard vanilla Unbreaking probabilities (`100 / (level + 1)%`) per block.
 
 ---
 
 ## Configuration
 
-Settings can be modified in [`behavior_pack/scripts/config.js`](behavior_pack/scripts/config.js):
+Settings can be customized in [`behavior_pack/scripts/config.js`](behavior_pack/scripts/config.js):
 
 ```javascript
 export const CONFIG = {
@@ -153,11 +128,12 @@ export const CONFIG = {
 
 ## Compatibility
 
-- Minecraft Bedrock Edition 1.21.0 or newer
-- Requires `@minecraft/server` 1.13.0 or newer
-- Requires **Beta APIs** experimental toggle
-- Pure Behavior Pack (no custom entities, no custom items, no resource pack required)
-- Works on Windows, iOS, Android, Xbox, PlayStation, Nintendo Switch, and dedicated servers / Realms
+- Minecraft Bedrock Edition 1.21.0+
+- Requires `@minecraft/server` 1.13.0+
+- Requires Beta APIs experimental toggle
+- Pure Behavior Pack format (.mcpack and .mcaddon)
+- Compatible with Mobile, Windows, Console, and Realms
+- Multiplayer compatible with isolated per-player recursion guards
 
 ---
 
@@ -165,8 +141,8 @@ export const CONFIG = {
 
 - Creator: AllensCreations
 - Rights & Reservation: All rights reserved for AllensCreations.
-- Content Creators: Free to feature this add-on in videos and streams with credit to AllensCreations.
-- Redistribution: Do not re-upload the pack or mirror downloads behind monetization links. Link to the official repository page.
+- Content Creators: Permitted to feature this add-on in gameplay videos and streams with attribution to AllensCreations.
+- Redistribution: Do not re-upload this pack or provide direct monetized download bypasses. Link directly to the official repository page.
 
 ---
 
