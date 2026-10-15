@@ -2,7 +2,7 @@
  * ==============================================================================
  * PASSIVE AUTO-SWITCH TOOLS -- MINECRAFT BEDROCK SCRIPT API
  * ==============================================================================
- * Version: 1.4.0
+ * Version: 1.4.2
  * Target Engine: Minecraft Bedrock 1.21.0+ / v1.26 Standards
  * API Module: @minecraft/server v1.13.0+ (STABLE)
  * Author: AllensCreations
@@ -665,8 +665,15 @@ function switchPlayerSlot1Tool(player, targetCategory, blockTypeId) {
 // 4. EVENT-DRIVEN ACTIVATION + CONTINUOUS MINING TRACKER
 // ==============================================================================
 
-/** Ticks a "mining session" stays alive after the last block hit (20 ticks = 1 sec). */
-const MINING_SESSION_TICKS = 30;
+/**
+ * Ticks a "mining session" stays alive (20 ticks = 1 sec). It is refreshed by every
+ * block hit AND every time the block you were mining breaks, so long continuous
+ * mining never times out.
+ */
+const MINING_SESSION_TICKS = 60;
+
+/** Max times per block the tracker re-tries a swap that didn't take effect. */
+const MAX_SWAP_RETRIES = 5;
 
 /** How often (ticks) the tracker re-checks what block you're aiming at. */
 const POLL_INTERVAL_TICKS = 2;
@@ -676,7 +683,7 @@ const RAYCAST_DISTANCE = 6;
 
 /**
  * Active mining sessions. Key = player.id.
- * @type {Map<string, { expireTick: number, lastKey: string | null }>}
+ * @type {Map<string, { expireTick: number, lastKey: string | null, lastLoc: import("@minecraft/server").Vector3 | null, retries: number }>}
  */
 const miningSessions = new Map();
 
@@ -702,6 +709,8 @@ world.afterEvents.entityHitBlock.subscribe((event) => {
     miningSessions.set(player.id, {
       expireTick: system.currentTick + MINING_SESSION_TICKS,
       lastKey: blockKey(hitBlock),
+      lastLoc: hitBlock.location,
+      retries: 0,
     });
 
     const requiredCategory = getRequiredToolCategory(hitBlock.typeId);
@@ -744,10 +753,33 @@ system.runInterval(() => {
       }
 
       const key = blockKey(hit.block);
-      if (key === session.lastKey) continue;
-      session.lastKey = key;
-
       const requiredCategory = getRequiredToolCategory(hit.block.typeId);
+
+      // Same block as last check: only act if an earlier swap didn't take effect
+      if (key === session.lastKey) {
+        if (requiredCategory && session.retries < MAX_SWAP_RETRIES) {
+          const inv =
+            player.getComponent("minecraft:inventory") ?? player.getComponent("inventory");
+          const held = inv?.container?.getItem(0);
+          if (evaluateToolScore(held, requiredCategory, 0) < 0) {
+            session.retries++;
+            switchPlayerSlot1Tool(player, requiredCategory, hit.block.typeId);
+          }
+        }
+        continue;
+      }
+
+      // Aimed block changed. If the previous block is now air, it was broken, so
+      // the player is still mining: keep the session alive.
+      if (session.lastLoc) {
+        const prev = player.dimension.getBlock(session.lastLoc);
+        if (prev && prev.isAir) session.expireTick = now + MINING_SESSION_TICKS;
+      }
+
+      session.lastKey = key;
+      session.lastLoc = hit.block.location;
+      session.retries = 0;
+
       if (!requiredCategory) continue;
 
       switchPlayerSlot1Tool(player, requiredCategory, hit.block.typeId);
@@ -756,8 +788,48 @@ system.runInterval(() => {
 
 }, POLL_INTERVAL_TICKS);
 
+/**
+ * Cobweb watcher.
+ * Webs have no collision, so the game doesn't reliably fire the block-hit event
+ * for them - which meant no mining session started and the swap never happened.
+ * This checks what you're aiming at and equips shears for webs without needing
+ * a hit event. Skipped briefly after fighting so it doesn't fight the weapon swap.
+ */
+const WEB_CHECK_INTERVAL_TICKS = 4;
+const WEB_COMBAT_COOLDOWN_TICKS = 40;
+const lastCombatTick = new Map();
+
+system.runInterval(() => {
+  const now = system.currentTick;
+
+  for (const player of world.getAllPlayers()) {
+    try {
+      if (player.selectedSlotIndex !== 0) continue;
+      if (now - (lastCombatTick.get(player.id) ?? -Infinity) < WEB_COMBAT_COOLDOWN_TICKS) continue;
+
+      const hit = player.getBlockFromViewDirection({
+        maxDistance: RAYCAST_DISTANCE,
+        includeLiquidBlocks: false,
+        includePassableBlocks: true,
+      });
+      if (!hit || !hit.block) continue;
+
+      const id = hit.block.typeId.replace(/^minecraft:/, "");
+      if (id !== "web" && !id.includes("cobweb")) continue;
+
+      const inv =
+        player.getComponent("minecraft:inventory") ?? player.getComponent("inventory");
+      const held = inv?.container?.getItem(0);
+      if (held && held.typeId.includes("shears")) continue; // already holding shears
+
+      switchPlayerSlot1Tool(player, ToolCategory.WEB, hit.block.typeId);
+    } catch {}
+  }
+}, WEB_CHECK_INTERVAL_TICKS);
+
 world.afterEvents.playerLeave.subscribe((event) => {
   miningSessions.delete(event.playerId);
+  lastCombatTick.delete(event.playerId);
 });
 
 /**
@@ -775,9 +847,10 @@ world.afterEvents.entityHitEntity.subscribe((event) => {
 
     // Fighting, not mining - end any mining session
     miningSessions.delete(player.id);
+    lastCombatTick.set(player.id, system.currentTick);
 
     switchPlayerSlot1Tool(player, ToolCategory.WEAPON);
   } catch {}
 });
 
-console.warn("[Passive Auto-Switch Tools v1.4.0] Smart scoring, continuous mining and shears support initialized.");
+console.warn("[Passive Auto-Switch Tools v1.4.2] Smart scoring, continuous mining and shears support initialized.");
