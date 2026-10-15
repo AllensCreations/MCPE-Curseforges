@@ -1,79 +1,34 @@
-/**
- * ==============================================================================
- * PASSIVE AUTO-SWITCH TOOLS -- MINECRAFT BEDROCK SCRIPT API
- * ==============================================================================
- * Version: 1.4.4
- * Target Engine: Minecraft Bedrock 1.21.0+ / v1.26 Standards
- * API Module: @minecraft/server v1.13.0+ (STABLE)
- * Author: AllensCreations
- *
- * System Architecture:
- * 1. Event-Driven Block Breaking Activation:
- *    - Listens to world.afterEvents.entityHitBlock to trigger tool selection ONLY
- *      when the player actively starts hitting / breaking a block.
- *    - Completely eliminates passive looking-at-block auto-switch, preventing
- *      unwanted hotbar swapping when merely looking around or walking.
- *
- * 2. Mob Combat Auto-Switch:
- *    - Listens to world.afterEvents.entityHitEntity to auto-switch to a combat
- *      weapon (Sword or Axe) whenever the player attacks a mob or combat target.
- *    - Retains the player's active weapon if Slot 1 already holds a sword or axe.
- *
- * 3. Slot 1 Activation Rule:
- *    - Hotbar index 0 corresponds to Slot 1 in the player's HUD.
- *    - The auto-switch engine ONLY activates when player.selectedSlotIndex === 0.
- *    - When holding slots 1 through 8 (food, building blocks, torches, weapons),
- *      the script remains 100% idle and transparent.
- *
- * 4. Intelligent Block-to-Tool Classification:
- *    - Pickaxe: Stones, deepslate, ores, obsidian, netherrack, bricks, terracotta,
- *      concrete, mineral blocks, metal containers, anvils, hoppers, furnaces.
- *    - Axe: Logs, wood, planks, fences, gates, wooden doors/trapdoors, chests,
- *      crafting tables, pumpkins, melons, bookshelves, ladders, composters.
- *    - Shovel: Dirt, grass, sand, gravel, clay, soul sand, mud, snow, concrete powder.
- *    - Shears / Sword: Leaves, cobwebs, wool, vines. Shears prioritized for wool/leaves.
- *    - Hoe: Hay blocks, target blocks, sculk blocks, sponges, moss, wart blocks.
- *    - Weapon (Combat): Highest tier Sword or Axe when attacking entities.
- *
- * 5. Safe In-Place Inventory Swapping:
- *    - Slot 1 is kept if it already holds a matching tool, UNLESS a clearly better one
- *      exists (higher tier, better enchantments, healthier durability).
- *    - Enchantment aware: Silk Touch for glass/ice/bookshelves, Fortune for ores,
- *      Efficiency / Sharpness as bonuses.
- *    - Nearly broken tools (15 uses or fewer) are avoided when alternatives exist.
- *    - Shears are used for leaves and cobwebs (hoe / sword as fallbacks).
- *    - If a different tool category is needed, scans inventory (0..35) for the
- *      highest-tier tool (Netherite > Diamond > Iron > Stone > Wood/Golden).
- *    - Executes container.swapItems(bestSlot, 0, container) to seamlessly swap
- *      items with zero duplication, preserving all durability, enchantments,
- *      custom name tags, and dynamic properties.
- * ==============================================================================
- */
-
 import { world, system } from "@minecraft/server";
 
-// ==============================================================================
-// 1. TOOL DEFINITIONS & TIER SCORING
-// ==============================================================================
+const VERSION = "1.6.0";
 
-/**
- * Recognized tool categories.
- * @enum {string}
- */
+const CONFIG = {
+  slot: 0,
+  switchMargin: 3,
+  lowDurabilityUses: 15,
+  lowDurabilityPenalty: 100,
+
+  raycastDistance: 6,
+  retryTicks: 2,
+
+  combatCooldownTicks: 10,
+
+  webCheckInterval: 2,
+  webInteractionWindow: 12,
+  webCombatCooldown: 40,
+};
+
 const ToolCategory = {
   PICKAXE: "pickaxe",
   AXE: "axe",
   SHOVEL: "shovel",
+  LEAVES: "leaves",
+  WEB: "web",
   SHEARS_OR_SWORD: "shears_or_sword",
-  LEAVES: "leaves", // shears best, hoe as fallback
-  WEB: "web", // shears best, sword as fallback
   HOE: "hoe",
   WEAPON: "weapon",
 };
 
-/**
- * Base tier priority scoring for tools. Higher score = higher priority.
- */
 const TIER_SCORES = {
   netherite: 50,
   diamond: 40,
@@ -85,243 +40,6 @@ const TIER_SCORES = {
   wood: 10,
 };
 
-/**
- * Evaluates an ItemStack and returns its tool category and tier score.
- *
- * @param {import("@minecraft/server").ItemStack | undefined} item
- * @param {string} targetCategory
- * @param {number} slotIndex
- * @returns {number} Score >= 0 if matching tool, or -1 if invalid/non-matching.
- */
-function evaluateToolScore(item, targetCategory, slotIndex) {
-  if (!item || !item.typeId) return -1;
-
-  const rawId = item.typeId.replace(/^minecraft:/, "").toLowerCase();
-
-  // Pickaxe evaluation
-  if (targetCategory === ToolCategory.PICKAXE) {
-    if (!rawId.includes("pickaxe")) return -1;
-    let score = getMaterialTier(rawId);
-    if (slotIndex >= 1 && slotIndex <= 8) score += 1; // Slight hotbar preference
-    return score;
-  }
-
-  // Axe evaluation
-  if (targetCategory === ToolCategory.AXE) {
-    if (!rawId.includes("axe") || rawId.includes("pickaxe")) return -1;
-    let score = getMaterialTier(rawId);
-    if (slotIndex >= 1 && slotIndex <= 8) score += 1;
-    return score;
-  }
-
-  // Shovel evaluation
-  if (targetCategory === ToolCategory.SHOVEL) {
-    if (!rawId.includes("shovel") && !rawId.includes("spade")) return -1;
-    let score = getMaterialTier(rawId);
-    if (slotIndex >= 1 && slotIndex <= 8) score += 1;
-    return score;
-  }
-
-  // Leaves: shears are best, hoe is the fallback
-  if (targetCategory === ToolCategory.LEAVES) {
-    if (rawId.includes("shears")) return 100 + (slotIndex >= 1 && slotIndex <= 8 ? 1 : 0);
-    if (rawId.includes("hoe")) {
-      let score = getMaterialTier(rawId);
-      if (slotIndex >= 1 && slotIndex <= 8) score += 1;
-      return score;
-    }
-    return -1;
-  }
-
-  // Cobwebs: shears are best, sword is the fallback
-  if (targetCategory === ToolCategory.WEB) {
-    if (rawId.includes("shears")) return 100 + (slotIndex >= 1 && slotIndex <= 8 ? 1 : 0);
-    if (rawId.includes("sword")) {
-      let score = getMaterialTier(rawId);
-      if (slotIndex >= 1 && slotIndex <= 8) score += 1;
-      return score;
-    }
-    return -1;
-  }
-
-  // Shears / Sword evaluation
-  if (targetCategory === ToolCategory.SHEARS_OR_SWORD) {
-    if (rawId.includes("shears")) {
-      // Shears given top priority for leaves, wool, vines, cobwebs
-      return 60 + (slotIndex >= 1 && slotIndex <= 8 ? 1 : 0);
-    }
-    if (rawId.includes("sword")) {
-      let score = getMaterialTier(rawId) - 5; // Swords ranked slightly below shears
-      if (slotIndex >= 1 && slotIndex <= 8) score += 1;
-      return Math.max(score, 5);
-    }
-    return -1;
-  }
-
-  // Hoe evaluation
-  if (targetCategory === ToolCategory.HOE) {
-    if (!rawId.includes("hoe")) return -1;
-    let score = getMaterialTier(rawId);
-    if (slotIndex >= 1 && slotIndex <= 8) score += 1;
-    return score;
-  }
-
-  // Weapon evaluation (Sword or Axe for mob combat)
-  if (targetCategory === ToolCategory.WEAPON) {
-    const isSword = rawId.includes("sword");
-    const isAxe = rawId.includes("axe") && !rawId.includes("pickaxe");
-    if (!isSword && !isAxe) return -1;
-
-    let score = getMaterialTier(rawId);
-    if (isSword) score += 2; // Slight Bedrock preference for swords due to base damage
-    if (slotIndex >= 1 && slotIndex <= 8) score += 1;
-    return score;
-  }
-
-  return -1;
-}
-
-/**
- * Extracts material tier score from tool name.
- *
- * @param {string} rawId
- * @returns {number}
- */
-function getMaterialTier(rawId) {
-  for (const [tier, score] of Object.entries(TIER_SCORES)) {
-    if (rawId.includes(tier)) return score;
-  }
-  return 25; // Default fallback for custom or unlisted addon tools
-}
-
-// ------------------------------------------------------------------------------
-// Smart scoring: tier + enchantments + durability
-// ------------------------------------------------------------------------------
-
-/** A candidate must beat the held tool by this much before we swap (prevents flip-flopping). */
-const SWITCH_MARGIN = 3;
-
-/** Tools with this many uses (or fewer) left are treated as "nearly broken". */
-const LOW_DURABILITY_USES = 15;
-const LOW_DURABILITY_PENALTY = 100;
-
-/** Reads the enchantments we care about from an item (all 0 if none). */
-function readEnchants(item) {
-  const result = { silk: 0, fortune: 0, efficiency: 0, sharpness: 0 };
-  try {
-    const comp = item.getComponent("minecraft:enchantable");
-    if (!comp) return result;
-    result.silk = comp.getEnchantment("silk_touch")?.level ?? 0;
-    result.fortune = comp.getEnchantment("fortune")?.level ?? 0;
-    result.efficiency = comp.getEnchantment("efficiency")?.level ?? 0;
-    result.sharpness = comp.getEnchantment("sharpness")?.level ?? 0;
-  } catch {}
-  return result;
-}
-
-/** Returns { remaining, fraction } for damageable items, or null. */
-function readDurability(item) {
-  try {
-    const comp = item.getComponent("minecraft:durability");
-    if (!comp) return null;
-    const remaining = comp.maxDurability - comp.damage;
-    return { remaining, fraction: remaining / comp.maxDurability };
-  } catch {
-    return null;
-  }
-}
-
-/** Ores that benefit from Fortune (and are wasted by Silk Touch). */
-function isFortuneBlock(id) {
-  return id.endsWith("_ore");
-}
-
-/** Blocks you generally want to collect intact with Silk Touch. */
-function isSilkPreferredBlock(id) {
-  return (
-    id === "glass" ||
-    id.endsWith("_glass") ||
-    id.endsWith("glass_pane") ||
-    /(^|_)ice$/.test(id) ||
-    id === "bookshelf" ||
-    id === "ender_chest"
-  );
-}
-
-/**
- * Full score for one inventory item against the current job.
- * @returns {number} Score (can be negative for nearly-broken tools), or -Infinity if not a match.
- */
-function scoreItem(item, targetCategory, slotIndex, blockId) {
-  const base = evaluateToolScore(item, targetCategory, slotIndex);
-  if (base < 0) return -Infinity;
-
-  let score = base;
-  const ench = readEnchants(item);
-
-  // Efficiency: mines faster. Sharpness: hits harder.
-  score += ench.efficiency;
-  if (targetCategory === ToolCategory.WEAPON) score += ench.sharpness;
-
-  // Silk Touch / Fortune context
-  if (blockId) {
-    if (isSilkPreferredBlock(blockId) && ench.silk > 0) score += 60;
-    if (isFortuneBlock(blockId)) {
-      score += ench.fortune * 1.5;
-      if (ench.silk > 0) score -= 8;
-    }
-  }
-
-  // Durability: avoid nearly broken tools, small bonus for healthier ones
-  const dur = readDurability(item);
-  if (dur) {
-    if (dur.remaining <= LOW_DURABILITY_USES) score -= LOW_DURABILITY_PENALTY;
-    else score += dur.fraction;
-  }
-
-  return score;
-}
-
-/**
- * Checks whether an item already matches the required tool category.
- *
- * @param {import("@minecraft/server").ItemStack | undefined} item
- * @param {string} targetCategory
- * @returns {boolean}
- */
-function isItemMatchingCategory(item, targetCategory) {
-  if (!item || !item.typeId) return false;
-  const rawId = item.typeId.replace(/^minecraft:/, "").toLowerCase();
-
-  switch (targetCategory) {
-    case ToolCategory.PICKAXE:
-      return rawId.includes("pickaxe");
-    case ToolCategory.AXE:
-      return rawId.includes("axe") && !rawId.includes("pickaxe");
-    case ToolCategory.SHOVEL:
-      return rawId.includes("shovel") || rawId.includes("spade");
-    case ToolCategory.SHEARS_OR_SWORD:
-      return rawId.includes("shears") || rawId.includes("sword");
-    case ToolCategory.LEAVES:
-      return rawId.includes("shears") || rawId.includes("hoe");
-    case ToolCategory.WEB:
-      return rawId.includes("shears") || rawId.includes("sword");
-    case ToolCategory.HOE:
-      return rawId.includes("hoe");
-    case ToolCategory.WEAPON:
-      return rawId.includes("sword") || (rawId.includes("axe") && !rawId.includes("pickaxe"));
-    default:
-      return false;
-  }
-}
-
-// ==============================================================================
-// 2. BLOCK-TO-TOOL CLASSIFICATION ENGINE
-// ==============================================================================
-
-/**
- * Fast set of blocks that never require any tool (air, fluids, bedrock, barriers).
- */
 const IGNORED_BLOCKS = new Set([
   "air",
   "cave_air",
@@ -340,219 +58,10 @@ const IGNORED_BLOCKS = new Set([
   "end_gateway",
 ]);
 
-/**
- * Determines which tool category is needed for a targeted block typeId.
- *
- * @param {string} blockTypeId e.g., "minecraft:stone" or "minecraft:oak_log"
- * @returns {string | null} ToolCategory or null if no tool switch needed.
- */
-function getRequiredToolCategory(blockTypeId) {
-  if (!blockTypeId) return null;
-  const id = blockTypeId.replace(/^minecraft:/, "").toLowerCase();
-
-  if (IGNORED_BLOCKS.has(id)) return null;
-
-  // --------------------------------------------------------------------------
-  // A. SHOVEL: Dirt, soils, sands, gravel, mud, snow, concrete powder
-  // --------------------------------------------------------------------------
-  if (
-    id.endsWith("concrete_powder") ||
-    id.includes("sand") || // sand, red_sand, soul_sand, suspicious_sand
-    id.includes("gravel") || // gravel, suspicious_gravel
-    id.includes("clay") ||
-    id.includes("dirt") || // dirt, coarse_dirt, rooted_dirt, dirt_path
-    id.includes("grass") && (id.includes("block") || id.includes("path")) || // grass_block
-    id.includes("podzol") ||
-    id.includes("mycelium") ||
-    id.includes("farmland") ||
-    id.includes("mud") || // mud, packed_mud, muddy_mangrove_roots
-    id.includes("soul_soil") ||
-    id.includes("snow") // snow, snow_layer, powder_snow
-  ) {
-    return ToolCategory.SHOVEL;
-  }
-
-  // --------------------------------------------------------------------------
-  // B. SHEARS / SWORD: Leaves, cobwebs, wool, vines, vegetation
-  // --------------------------------------------------------------------------
-  if (id.includes("leaves")) return ToolCategory.LEAVES; // oak_leaves, azalea_leaves, etc.
-  if (id === "web" || id.includes("cobweb")) return ToolCategory.WEB;
-
-  if (
-    id.includes("wool") || // white_wool, red_wool, etc.
-    id.includes("vine") || // vine, cave_vines, weeping_vines, twisting_vines
-    id.includes("fern") || // fern, large_fern
-    id === "tallgrass" ||
-    id === "seagrass" ||
-    id === "hanging_roots" ||
-    id === "deadbush" ||
-    id === "tripwire"
-  ) {
-    return ToolCategory.SHEARS_OR_SWORD;
-  }
-
-  // --------------------------------------------------------------------------
-  // C. HOE: Hay, target, sculk, sponges, moss, wart blocks
-  // --------------------------------------------------------------------------
-  if (
-    id === "hay_block" ||
-    id === "target" ||
-    id === "sponge" ||
-    id === "wet_sponge" ||
-    id.includes("sculk") || // sculk, sculk_catalyst, sculk_shrieker, sculk_sensor, sculk_vein
-    id.includes("moss_block") ||
-    id.includes("moss_carpet") ||
-    id.includes("wart_block") || // nether_wart_block, warped_wart_block
-    id === "shroomlight"
-  ) {
-    return ToolCategory.HOE;
-  }
-
-  // --------------------------------------------------------------------------
-  // D. AXE: Logs, wood, planks, fences, wooden furniture & workstations
-  // --------------------------------------------------------------------------
-  if (
-    id.endsWith("_log") ||
-    id.endsWith("_wood") ||
-    id.endsWith("_stem") ||
-    id.endsWith("_hyphae") ||
-    id.startsWith("stripped_") ||
-    id.includes("planks") ||
-    id.includes("crafting_table") ||
-    id.includes("cartography_table") ||
-    id.includes("fletching_table") ||
-    id.includes("smithing_table") ||
-    id.includes("loom") ||
-    id.includes("composter") ||
-    id.includes("chest") || // chest, trapped_chest, ender_chest (pickaxe! handle below)
-    id === "barrel" ||
-    id.includes("bookshelf") ||
-    id === "lectern" ||
-    id.includes("pumpkin") || // pumpkin, carved_pumpkin, lit_pumpkin
-    id.includes("melon") ||
-    id === "cocoa" ||
-    id.includes("beehive") ||
-    id === "bee_nest" ||
-    id.includes("ladder") ||
-    id.includes("sign") || // sign, hanging_sign, standing_sign, wall_sign
-    id.includes("mushroom_stem") ||
-    id.includes("mushroom_block") ||
-    id === "jukebox" ||
-    id === "daylight_detector" ||
-    id === "note_block" ||
-    id.includes("bamboo_block") ||
-    id.includes("bamboo_mosaic") ||
-    (id.endsWith("_fence") && !id.includes("nether_brick")) ||
-    id.endsWith("_fence_gate")
-  ) {
-    // Ender chest requires a pickaxe, not an axe!
-    if (id === "ender_chest") return ToolCategory.PICKAXE;
-    return ToolCategory.AXE;
-  }
-
-  // Wooden doors, trapdoors, buttons, pressure plates, stairs, and slabs
-  const isWoodMaterial =
-    id.includes("oak") ||
-    id.includes("spruce") ||
-    id.includes("birch") ||
-    id.includes("jungle") ||
-    id.includes("acacia") ||
-    id.includes("dark_oak") ||
-    id.includes("mangrove") ||
-    id.includes("cherry") ||
-    id.includes("bamboo") ||
-    id.includes("crimson") ||
-    id.includes("warped") ||
-    id.includes("pale_oak");
-
-  if (isWoodMaterial && !id.includes("petrified")) {
-    if (
-      id.endsWith("_door") ||
-      id.endsWith("_trapdoor") ||
-      id.endsWith("_button") ||
-      id.endsWith("_pressure_plate") ||
-      id.endsWith("_stairs") ||
-      id.endsWith("_slab")
-    ) {
-      return ToolCategory.AXE;
-    }
-  }
-
-  // --------------------------------------------------------------------------
-  // E. PICKAXE: All stone, ores, deepslate, nether, end, metal, brick blocks
-  // --------------------------------------------------------------------------
-  if (
-    id.includes("stone") ||
-    id.includes("cobble") ||
-    id.includes("deepslate") ||
-    id.includes("ore") || // coal_ore, iron_ore, diamond_ore, etc.
-    id.includes("granite") ||
-    id.includes("diorite") ||
-    id.includes("andesite") ||
-    id.includes("tuff") ||
-    id.includes("calcite") ||
-    id.includes("basalt") ||
-    id.includes("blackstone") ||
-    id.includes("obsidian") ||
-    id.includes("ancient_debris") ||
-    id.includes("brick") || // stone_bricks, nether_bricks, brick_block, etc.
-    id.includes("terracotta") ||
-    (id.includes("concrete") && !id.endsWith("concrete_powder")) ||
-    id.includes("sandstone") ||
-    id.includes("prismarine") ||
-    id.includes("netherrack") ||
-    id.includes("end_stone") ||
-    id.includes("purpur") ||
-    id.includes("magma") ||
-    id.includes("copper") ||
-    id.includes("iron") ||
-    id.includes("gold") ||
-    id.includes("diamond") ||
-    id.includes("emerald") ||
-    id.includes("lapis") ||
-    id.includes("redstone") ||
-    id.includes("netherite") ||
-    id.includes("amethyst") ||
-    id.includes("dripstone") ||
-    id.includes("furnace") ||
-    id.includes("smoker") ||
-    id.includes("blast_furnace") ||
-    id.includes("hopper") ||
-    id.includes("dispenser") ||
-    id.includes("dropper") ||
-    id.includes("cauldron") ||
-    id.includes("anvil") ||
-    id.includes("enchanting_table") ||
-    id.includes("brewing_stand") ||
-    id.includes("grindstone") ||
-    id.includes("stonecutter") ||
-    id.includes("bell") ||
-    id.includes("lantern") ||
-    id.includes("chain") ||
-    id.includes("spawner") ||
-    id.includes("vault") ||
-    id.includes("crafter") ||
-    id.includes("stairs") ||
-    id.includes("slab") ||
-    id.includes("wall")
-  ) {
-    return ToolCategory.PICKAXE;
-  }
-
-  // Default fallback for any remaining solid mining block
-  return ToolCategory.PICKAXE;
-}
-
-// ==============================================================================
-// 3. COMBAT TARGET FILTER & TOOL SWAP EXECUTION
-// ==============================================================================
-
-/**
- * Entities that should not trigger combat tool auto-switch (non-mobs/projectiles).
- */
 const NON_COMBAT_ENTITIES = new Set([
   "item",
   "arrow",
+  "spectral_arrow",
   "xp_orb",
   "experience_orb",
   "snowball",
@@ -578,360 +87,640 @@ const NON_COMBAT_ENTITIES = new Set([
   "falling_block",
 ]);
 
-/**
- * Determines whether an entity is a valid combat target (living mob or player).
- *
- * @param {import("@minecraft/server").Entity} entity
- * @returns {boolean}
- */
+const recentCombat = new Map();
+const pendingSwaps = new Map();
+const webInteraction = new Map();
+
+function normalizeId(id) {
+  return (id ?? "").replace(/^minecraft:/, "").toLowerCase();
+}
+
+function getMaterialTier(id) {
+  for (const [tier, score] of Object.entries(TIER_SCORES)) {
+    if (id.includes(tier)) return score;
+  }
+
+  return 25;
+}
+
+function readEnchants(item) {
+  const result = {
+    silk: 0,
+    fortune: 0,
+    efficiency: 0,
+    sharpness: 0,
+  };
+
+  try {
+    const component = item.getComponent("minecraft:enchantable");
+
+    if (!component) return result;
+
+    result.silk =
+      component.getEnchantment("silk_touch")?.level ?? 0;
+
+    result.fortune =
+      component.getEnchantment("fortune")?.level ?? 0;
+
+    result.efficiency =
+      component.getEnchantment("efficiency")?.level ?? 0;
+
+    result.sharpness =
+      component.getEnchantment("sharpness")?.level ?? 0;
+  } catch {}
+
+  return result;
+}
+
+function readDurability(item) {
+  try {
+    const component = item.getComponent("minecraft:durability");
+
+    if (!component) return null;
+
+    const remaining =
+      component.maxDurability - component.damage;
+
+    return {
+      remaining,
+      fraction: remaining / component.maxDurability,
+    };
+  } catch {
+    return null;
+  }
+}
+
+function evaluateToolScore(item, category, slotIndex) {
+  if (!item?.typeId) return -1;
+
+  const id = normalizeId(item.typeId);
+  const hotbarBonus = slotIndex >= 0 && slotIndex <= 8 ? 1 : 0;
+
+  if (category === ToolCategory.PICKAXE) {
+    return id.includes("pickaxe")
+      ? getMaterialTier(id) + hotbarBonus
+      : -1;
+  }
+
+  if (category === ToolCategory.AXE) {
+    return id.includes("axe") && !id.includes("pickaxe")
+      ? getMaterialTier(id) + hotbarBonus
+      : -1;
+  }
+
+  if (category === ToolCategory.SHOVEL) {
+    return id.includes("shovel") || id.includes("spade")
+      ? getMaterialTier(id) + hotbarBonus
+      : -1;
+  }
+
+  if (category === ToolCategory.HOE) {
+    return id.includes("hoe")
+      ? getMaterialTier(id) + hotbarBonus
+      : -1;
+  }
+
+  if (category === ToolCategory.LEAVES) {
+    if (id.includes("shears")) return 100 + hotbarBonus;
+
+    return id.includes("hoe")
+      ? getMaterialTier(id) + hotbarBonus
+      : -1;
+  }
+
+  if (category === ToolCategory.WEB) {
+    if (id.includes("shears")) return 100 + hotbarBonus;
+
+    return id.includes("sword")
+      ? getMaterialTier(id) + hotbarBonus
+      : -1;
+  }
+
+  if (category === ToolCategory.SHEARS_OR_SWORD) {
+    if (id.includes("shears")) return 60 + hotbarBonus;
+
+    return id.includes("sword")
+      ? Math.max(5, getMaterialTier(id) - 5) + hotbarBonus
+      : -1;
+  }
+
+  if (category === ToolCategory.WEAPON) {
+    const sword = id.includes("sword");
+    const axe = id.includes("axe") && !id.includes("pickaxe");
+
+    if (!sword && !axe) return -1;
+
+    return (
+      getMaterialTier(id) +
+      (sword ? 2 : 0) +
+      hotbarBonus
+    );
+  }
+
+  return -1;
+}
+
+function scoreItem(item, category, slotIndex, blockId = "") {
+  const base = evaluateToolScore(item, category, slotIndex);
+
+  if (base < 0) return -Infinity;
+
+  let score = base;
+  const enchants = readEnchants(item);
+
+  score += enchants.efficiency;
+
+  if (category === ToolCategory.WEAPON) {
+    score += enchants.sharpness;
+  }
+
+  if (blockId) {
+    const silkPreferred =
+      blockId === "glass" ||
+      blockId.endsWith("_glass") ||
+      blockId.endsWith("glass_pane") ||
+      /(^|_)ice$/.test(blockId) ||
+      blockId === "bookshelf" ||
+      blockId === "ender_chest";
+
+    if (silkPreferred && enchants.silk > 0) {
+      score += 60;
+    }
+
+    if (blockId.endsWith("_ore")) {
+      score += enchants.fortune * 1.5;
+
+      if (enchants.silk > 0) score -= 8;
+    }
+  }
+
+  const durability = readDurability(item);
+
+  if (durability) {
+    if (durability.remaining <= CONFIG.lowDurabilityUses) {
+      score -= CONFIG.lowDurabilityPenalty;
+    } else {
+      score += durability.fraction;
+    }
+  }
+
+  return score;
+}
+
+function getRequiredToolCategory(typeId) {
+  if (!typeId) return null;
+
+  const id = normalizeId(typeId);
+
+  if (IGNORED_BLOCKS.has(id)) return null;
+
+  if (id === "web" || id.includes("cobweb")) {
+    return ToolCategory.WEB;
+  }
+
+  if (
+    id.endsWith("concrete_powder") ||
+    id.includes("sand") ||
+    id.includes("gravel") ||
+    id.includes("clay") ||
+    id.includes("dirt") ||
+    id === "grass_block" ||
+    id.includes("podzol") ||
+    id.includes("mycelium") ||
+    id.includes("farmland") ||
+    id.includes("mud") ||
+    id.includes("soul_soil") ||
+    id.includes("snow")
+  ) {
+    return ToolCategory.SHOVEL;
+  }
+
+  if (id === "ender_chest") {
+    return ToolCategory.PICKAXE;
+  }
+
+  if (id.includes("leaves")) {
+    return ToolCategory.LEAVES;
+  }
+
+  if (
+    id.includes("wool") ||
+    id.includes("vine") ||
+    id.includes("fern") ||
+    id === "tallgrass" ||
+    id === "seagrass" ||
+    id === "hanging_roots" ||
+    id === "deadbush" ||
+    id === "tripwire"
+  ) {
+    return ToolCategory.SHEARS_OR_SWORD;
+  }
+
+  if (
+    id === "hay_block" ||
+    id === "target" ||
+    id === "sponge" ||
+    id === "wet_sponge" ||
+    id.includes("sculk") ||
+    id.includes("moss_block") ||
+    id.includes("moss_carpet") ||
+    id.includes("wart_block") ||
+    id === "shroomlight"
+  ) {
+    return ToolCategory.HOE;
+  }
+
+  if (
+    id.endsWith("_log") ||
+    id.endsWith("_wood") ||
+    id.endsWith("_stem") ||
+    id.endsWith("_hyphae") ||
+    id.startsWith("stripped_") ||
+    id.includes("planks") ||
+    id.includes("crafting_table") ||
+    id.includes("cartography_table") ||
+    id.includes("fletching_table") ||
+    id.includes("smithing_table") ||
+    id.includes("loom") ||
+    id.includes("composter") ||
+    id === "chest" ||
+    id === "trapped_chest" ||
+    id === "barrel" ||
+    id.includes("bookshelf") ||
+    id === "lectern" ||
+    id.includes("pumpkin") ||
+    id.includes("melon") ||
+    id === "cocoa" ||
+    id.includes("beehive") ||
+    id === "bee_nest" ||
+    id.includes("ladder") ||
+    id.includes("sign") ||
+    id.includes("mushroom_stem") ||
+    id.includes("mushroom_block") ||
+    id === "jukebox" ||
+    id === "daylight_detector" ||
+    id === "note_block" ||
+    id.includes("bamboo_block") ||
+    id.includes("bamboo_mosaic") ||
+    (id.endsWith("_fence") && !id.includes("nether_brick")) ||
+    id.endsWith("_fence_gate")
+  ) {
+    return ToolCategory.AXE;
+  }
+
+  const woodMaterials = [
+    "oak",
+    "spruce",
+    "birch",
+    "jungle",
+    "acacia",
+    "dark_oak",
+    "mangrove",
+    "cherry",
+    "bamboo",
+    "crimson",
+    "warped",
+    "pale_oak",
+  ];
+
+  if (
+    woodMaterials.some((material) => id.includes(material)) &&
+    !id.includes("petrified") &&
+    (
+      id.endsWith("_door") ||
+      id.endsWith("_trapdoor") ||
+      id.endsWith("_button") ||
+      id.endsWith("_pressure_plate") ||
+      id.endsWith("_stairs") ||
+      id.endsWith("_slab")
+    )
+  ) {
+    return ToolCategory.AXE;
+  }
+
+  if (
+    id.includes("stone") ||
+    id.includes("cobble") ||
+    id.includes("deepslate") ||
+    id.includes("ore") ||
+    id.includes("granite") ||
+    id.includes("diorite") ||
+    id.includes("andesite") ||
+    id.includes("tuff") ||
+    id.includes("calcite") ||
+    id.includes("basalt") ||
+    id.includes("blackstone") ||
+    id.includes("obsidian") ||
+    id.includes("ancient_debris") ||
+    id.includes("brick") ||
+    id.includes("terracotta") ||
+    (id.includes("concrete") && !id.endsWith("concrete_powder")) ||
+    id.includes("sandstone") ||
+    id.includes("prismarine") ||
+    id.includes("netherrack") ||
+    id.includes("end_stone") ||
+    id.includes("purpur") ||
+    id.includes("magma") ||
+    id.includes("copper") ||
+    id.includes("iron") ||
+    id.includes("gold") ||
+    id.includes("diamond") ||
+    id.includes("emerald") ||
+    id.includes("lapis") ||
+    id.includes("redstone") ||
+    id.includes("netherite") ||
+    id.includes("amethyst") ||
+    id.includes("dripstone") ||
+    id.includes("furnace") ||
+    id.includes("smoker") ||
+    id.includes("hopper") ||
+    id.includes("dispenser") ||
+    id.includes("dropper") ||
+    id.includes("cauldron") ||
+    id.includes("anvil") ||
+    id.includes("enchanting_table") ||
+    id.includes("brewing_stand") ||
+    id.includes("grindstone") ||
+    id.includes("stonecutter") ||
+    id.includes("bell") ||
+    id.includes("lantern") ||
+    id.includes("chain") ||
+    id.includes("spawner") ||
+    id.includes("vault") ||
+    id.includes("crafter") ||
+    id.endsWith("_stairs") ||
+    id.endsWith("_slab") ||
+    id.endsWith("_wall")
+  ) {
+    return ToolCategory.PICKAXE;
+  }
+
+  return ToolCategory.PICKAXE;
+}
+
+function getInventory(player) {
+  try {
+    return player.getComponent("minecraft:inventory")?.container;
+  } catch {
+    return undefined;
+  }
+}
+
+function switchPlayerSlot1Tool(player, category, blockTypeId = "") {
+  if (!player || player.selectedSlotIndex !== CONFIG.slot) {
+    return false;
+  }
+
+  const container = getInventory(player);
+
+  if (!container) return false;
+
+  const blockId = normalizeId(blockTypeId);
+
+  const currentScore = scoreItem(
+    container.getItem(CONFIG.slot),
+    category,
+    CONFIG.slot,
+    blockId
+  );
+
+  let bestSlot = -1;
+  let bestScore = -Infinity;
+
+  for (let slot = 1; slot < container.size; slot++) {
+    const item = container.getItem(slot);
+
+    if (!item) continue;
+
+    const score = scoreItem(item, category, slot, blockId);
+
+    if (score > bestScore) {
+      bestScore = score;
+      bestSlot = slot;
+    }
+  }
+
+  if (bestSlot === -1 || bestScore === -Infinity) {
+    return false;
+  }
+
+  if (
+    currentScore !== -Infinity &&
+    bestScore < currentScore + CONFIG.switchMargin
+  ) {
+    return false;
+  }
+
+  try {
+    container.swapItems(bestSlot, CONFIG.slot, container);
+    return true;
+  } catch {
+    return false;
+  }
+}
+
 function isCombatTarget(entity) {
-  if (!entity || !entity.typeId) return false;
-  const rawId = entity.typeId.replace(/^minecraft:/, "").toLowerCase();
-  if (NON_COMBAT_ENTITIES.has(rawId)) return false;
+  if (!entity?.typeId) return false;
+
+  const id = normalizeId(entity.typeId);
+
+  if (NON_COMBAT_ENTITIES.has(id)) return false;
 
   try {
     return (
-      rawId === "player" ||
-      entity.hasComponent("minecraft:health") ||
-      entity.hasComponent("health")
+      id === "player" ||
+      !!entity.getComponent("minecraft:health")
     );
   } catch {
-    return true;
+    return false;
   }
 }
 
-/** Swaps `fromSlot` into Slot 1 (hotbar index 0). */
-function performSwap(container, fromSlot) {
-  try {
-    container.swapItems(fromSlot, 0, container);
-  } catch {
-    // Defer to next tick if the game engine locks the container during event dispatch
-    system.run(() => {
-      try {
-        container.swapItems(fromSlot, 0, container);
-      } catch {}
-    });
-  }
+function isWeb(block) {
+  if (!block?.typeId) return false;
+
+  const id = normalizeId(block.typeId);
+
+  return id === "web" || id.includes("cobweb");
 }
 
-/**
- * Equips the best matching tool or weapon into Slot 1 (hotbar index 0).
- * Swaps if Slot 1 holds the wrong kind of tool, OR if a clearly better one
- * (higher tier / better enchants / healthier durability) exists in the inventory.
- *
- * @param {import("@minecraft/server").Player} player
- * @param {string} targetCategory
- * @param {string} [blockTypeId] Targeted block, used for Silk Touch / Fortune decisions.
- */
-function switchPlayerSlot1Tool(player, targetCategory, blockTypeId) {
-  // 1. Slot 1 Activation Rule: Must be selecting Hotbar Slot 1 (index 0)
-  if (player.selectedSlotIndex !== 0) return;
-
-  // 2. Inspect player inventory container
-  const inventoryComp =
-    player.getComponent("minecraft:inventory") ??
-    player.getComponent("inventory");
-  if (!inventoryComp || !inventoryComp.container) return;
-  const container = inventoryComp.container;
-
-  const blockId = blockTypeId
-    ? blockTypeId.replace(/^minecraft:/, "").toLowerCase()
-    : "";
-
-  // 3. Score what's currently in Slot 1 (-Infinity if it's the wrong kind of tool)
-  const currentScore = scoreItem(container.getItem(0), targetCategory, 0, blockId);
-
-  // 4. Find the best candidate in the rest of the inventory
-  let bestSlotIndex = -1;
-  let bestScore = -Infinity;
-  for (let slot = 1; slot < container.size; slot++) {
-    const item = container.getItem(slot);
-    if (!item) continue;
-    const score = scoreItem(item, targetCategory, slot, blockId);
-    if (score > bestScore) {
-      bestScore = score;
-      bestSlotIndex = slot;
-    }
-  }
-  if (bestSlotIndex === -1 || bestScore === -Infinity) return;
-
-  // 5. Keep the current tool unless the candidate is clearly better
-  if (currentScore !== -Infinity && bestScore < currentScore + SWITCH_MARGIN) return;
-
-  performSwap(container, bestSlotIndex);
-}
-
-// ==============================================================================
-// 4. EVENT-DRIVEN ACTIVATION + CONTINUOUS MINING TRACKER
-// ==============================================================================
-
-/**
- * Ticks a "mining session" stays alive (20 ticks = 1 sec). It is refreshed by every
- * block hit AND every time the block you were mining breaks, so long continuous
- * mining never times out.
- */
-const MINING_SESSION_TICKS = 60;
-
-/**
- * A single click must NOT swap tools - only actually breaking (holding) does.
- * Mining "starts" once the same block has been hit this many times...
- */
-const HITS_REQUIRED = 2;
-
-/** ...with no more than this many ticks between hits (20 ticks = 1 sec). */
-const HIT_WINDOW_TICKS = 15;
-
-/** Max times per block the tracker re-tries a swap that didn't take effect. */
-const MAX_SWAP_RETRIES = 5;
-
-/** How often (ticks) the tracker re-checks what block you're aiming at. */
-const POLL_INTERVAL_TICKS = 2;
-
-/** Max raycast distance (blocks) - covers survival (5) and creative (6) reach. */
-const RAYCAST_DISTANCE = 6;
-
-/**
- * Active mining sessions. Key = player.id.
- * @type {Map<string, { expireTick: number, lastKey: string | null, lastLoc: import("@minecraft/server").Vector3 | null, retries: number, armed: boolean, hitKey: string, hits: number, lastHitTick: number }>}
- */
-const miningSessions = new Map();
-
-/** Unique key for a block (type + position) so we can detect block changes. */
 function blockKey(block) {
+  if (!block) return "";
+
   const { x, y, z } = block.location;
+
   return `${block.typeId}@${x},${y},${z}`;
 }
 
-/**
- * Event 1: Block Hit / Start Break
- * Starts (or refreshes) a mining session and switches tools for the hit block.
- */
+function clearPendingSwap(playerId) {
+  const runId = pendingSwaps.get(playerId);
+
+  if (runId !== undefined) {
+    system.clearRun(runId);
+    pendingSwaps.delete(playerId);
+  }
+}
+
+function scheduleSwapRetry(player, category, blockTypeId) {
+  clearPendingSwap(player.id);
+
+  const runId = system.runTimeout(() => {
+    pendingSwaps.delete(player.id);
+
+    try {
+      if (player.selectedSlotIndex !== CONFIG.slot) return;
+
+      switchPlayerSlot1Tool(player, category, blockTypeId);
+    } catch {}
+  }, CONFIG.retryTicks);
+
+  pendingSwaps.set(player.id, runId);
+}
+
+function getTargetBlock(player) {
+  try {
+    return player.getBlockFromViewDirection({
+      maxDistance: CONFIG.raycastDistance,
+      includeLiquidBlocks: false,
+      includePassableBlocks: true,
+    })?.block;
+  } catch {
+    return undefined;
+  }
+}
+
+// Ordinary blocks: only switch following an actual block-hit event.
 world.afterEvents.entityHitBlock.subscribe((event) => {
   try {
     const player = event.damagingEntity;
-    if (!player || player.typeId !== "minecraft:player") return;
-    if (player.selectedSlotIndex !== 0) return;
 
-    const hitBlock = event.hitBlock;
-    if (!hitBlock) return;
+    if (!player || player.typeId !== "minecraft:player") return;
+    if (player.selectedSlotIndex !== CONFIG.slot) return;
+
+    const block = event.hitBlock;
+
+    if (!block) return;
+
+    const category = getRequiredToolCategory(block.typeId);
+
+    if (!category) return;
 
     const now = system.currentTick;
-    const key = blockKey(hitBlock);
+    const lastCombat = recentCombat.get(player.id) ?? -Infinity;
 
-    let session = miningSessions.get(player.id);
-    if (!session) {
-      session = {
-        expireTick: now + MINING_SESSION_TICKS,
-        lastKey: key,
-        lastLoc: hitBlock.location,
-        retries: 0,
-        armed: false,
-        hitKey: key,
-        hits: 0,
-        lastHitTick: now,
-      };
-      miningSessions.set(player.id, session);
+    if (now - lastCombat < CONFIG.combatCooldownTicks) {
+      return;
     }
 
-    // Moved onto a different block: stay armed only if the last one was broken
-    let changedBlock = false;
-    if (session.lastKey !== key) {
-      changedBlock = true;
-      let prevBroken = false;
-      if (session.lastLoc) {
-        const prev = player.dimension.getBlock(session.lastLoc);
-        prevBroken = !!(prev && prev.isAir);
-      }
-      session.armed = prevBroken;
-      session.lastKey = key;
-      session.lastLoc = hitBlock.location;
-      session.retries = 0;
+    webInteraction.set(player.id, {
+      key: blockKey(block),
+      lastInteractionTick: now,
+    });
+
+    if (!switchPlayerSlot1Tool(player, category, block.typeId)) {
+      scheduleSwapRetry(player, category, block.typeId);
     }
-
-    // Count repeated hits on the same block (a lone click only counts once)
-    if (session.hitKey === key && now - session.lastHitTick <= HIT_WINDOW_TICKS) {
-      session.hits++;
-    } else {
-      session.hitKey = key;
-      session.hits = 1;
-    }
-    session.lastHitTick = now;
-    session.expireTick = now + MINING_SESSION_TICKS;
-
-    let newlyArmed = false;
-    if (!session.armed && session.hits >= HITS_REQUIRED) {
-      session.armed = true; // you're really breaking it now, so swapping is allowed
-      newlyArmed = true;
-    }
-    if (!session.armed) return; // just a click - don't swap yet
-    if (!newlyArmed && !changedBlock) return; // already handled this block
-
-    const requiredCategory = getRequiredToolCategory(hitBlock.typeId);
-    if (!requiredCategory) return;
-
-    switchPlayerSlot1Tool(player, requiredCategory, hitBlock.typeId);
   } catch {}
 });
 
-/**
- * Continuous mining loop. Does nothing unless someone has a live mining session;
- * watches the aimed block and re-picks the tool when it changes.
- */
+// Cobwebs: watch for interaction, not merely looking at them.
 system.runInterval(() => {
-  if (miningSessions.size === 0) return;
-
-  const now = system.currentTick;
-  const players = new Map(world.getAllPlayers().map((p) => [p.id, p]));
-
-  // --- Continuous mining detection ---
-  for (const [id, session] of miningSessions) {
-    const player = players.get(id);
-    if (!player || now > session.expireTick) {
-      miningSessions.delete(id);
-      continue;
-    }
-
-    try {
-      if (player.selectedSlotIndex !== 0) continue;
-
-      const hit = player.getBlockFromViewDirection({
-        maxDistance: RAYCAST_DISTANCE,
-        includeLiquidBlocks: false,
-        includePassableBlocks: true,
-      });
-
-      if (!hit || !hit.block) {
-        session.lastKey = null;
-        continue;
-      }
-
-      const key = blockKey(hit.block);
-      const requiredCategory = getRequiredToolCategory(hit.block.typeId);
-
-      // Same block as last check: only act if an earlier swap didn't take effect
-      if (key === session.lastKey) {
-        if (requiredCategory && session.armed && session.retries < MAX_SWAP_RETRIES) {
-          const inv =
-            player.getComponent("minecraft:inventory") ?? player.getComponent("inventory");
-          const held = inv?.container?.getItem(0);
-          if (evaluateToolScore(held, requiredCategory, 0) < 0) {
-            session.retries++;
-            switchPlayerSlot1Tool(player, requiredCategory, hit.block.typeId);
-          }
-        }
-        continue;
-      }
-
-      // Aimed block changed. If the previous block is now air, it was broken, so
-      // the player is still mining: keep the session alive.
-      let justBroke = false;
-      if (session.lastLoc) {
-        const prev = player.dimension.getBlock(session.lastLoc);
-        if (prev && prev.isAir) {
-          justBroke = true;
-          session.expireTick = now + MINING_SESSION_TICKS;
-        }
-      }
-
-      session.lastKey = key;
-      session.lastLoc = hit.block.location;
-      session.retries = 0;
-      session.armed = justBroke;
-
-      // Only swap when mining continues onto the next block. Just looking at a
-      // different block does nothing; the swap happens when you start breaking it.
-      if (!justBroke) continue;
-      if (!requiredCategory) continue;
-
-      switchPlayerSlot1Tool(player, requiredCategory, hit.block.typeId);
-    } catch {}
-  }
-
-}, POLL_INTERVAL_TICKS);
-
-/**
- * Cobweb watcher.
- * Webs have no collision, so the game doesn't reliably fire the block-hit event
- * for them - which meant no mining session started and the swap never happened.
- * This checks what you're aiming at and equips shears for webs without needing
- * a hit event. Skipped briefly after fighting so it doesn't fight the weapon swap.
- */
-const WEB_CHECK_INTERVAL_TICKS = 4;
-
-/**
- * Webs don't send a hit event, so the game gives us no "started breaking" signal.
- * The best we can do is wait until you've been aiming at the web for a moment.
- * Set WEB_AIM_SWAP_ENABLED to false to turn the aim-based web swap off entirely
- * (then webs only swap if the game does send a hit event for them).
- */
-const WEB_AIM_SWAP_ENABLED = true;
-const WEB_AIM_DELAY_TICKS = 12; // ~0.6 seconds of steady aim
-const webAimStart = new Map();
-const WEB_COMBAT_COOLDOWN_TICKS = 40;
-const lastCombatTick = new Map();
-
-system.runInterval(() => {
-  if (!WEB_AIM_SWAP_ENABLED) return;
   const now = system.currentTick;
 
   for (const player of world.getAllPlayers()) {
     try {
-      if (player.selectedSlotIndex !== 0) {
-        webAimStart.delete(player.id);
+      if (player.selectedSlotIndex !== CONFIG.slot) {
+        webInteraction.delete(player.id);
         continue;
       }
-      if (now - (lastCombatTick.get(player.id) ?? -Infinity) < WEB_COMBAT_COOLDOWN_TICKS) continue;
 
-      const hit = player.getBlockFromViewDirection({
-        maxDistance: RAYCAST_DISTANCE,
-        includeLiquidBlocks: false,
-        includePassableBlocks: true,
+      const lastCombat = recentCombat.get(player.id) ?? -Infinity;
+
+      if (now - lastCombat < CONFIG.webCombatCooldown) {
+        continue;
+      }
+
+      const block = getTargetBlock(player);
+
+      if (!isWeb(block)) {
+        webInteraction.delete(player.id);
+        continue;
+      }
+
+      const key = blockKey(block);
+      const state = webInteraction.get(player.id);
+
+      if (!state || state.key !== key) {
+        webInteraction.set(player.id, {
+          key,
+          lastInteractionTick: now,
+          initialTick: now,
+        });
+
+        continue;
+      }
+
+      const elapsed = now - state.initialTick;
+
+      if (elapsed < CONFIG.webInteractionWindow) {
+        continue;
+      }
+
+      // Aiming alone is not sufficient: require a recent block interaction.
+      if (
+        now - state.lastInteractionTick >
+        CONFIG.webInteractionWindow
+      ) {
+        webInteraction.delete(player.id);
+        continue;
+      }
+
+      const inventory = getInventory(player);
+      const held = inventory?.getItem(CONFIG.slot);
+
+      if (held && normalizeId(held.typeId).includes("shears")) {
+        continue;
+      }
+
+      switchPlayerSlot1Tool(
+        player,
+        ToolCategory.WEB,
+        block.typeId
+      );
+
+      webInteraction.set(player.id, {
+        key,
+        initialTick: now,
+        lastInteractionTick: now,
       });
-      const id = hit?.block ? hit.block.typeId.replace(/^minecraft:/, "") : "";
-      if (id !== "web" && !id.includes("cobweb")) {
-        webAimStart.delete(player.id);
-        continue;
-      }
-
-      // Wait for steady aim at the web before swapping
-      if (!webAimStart.has(player.id)) webAimStart.set(player.id, now);
-      if (now - webAimStart.get(player.id) < WEB_AIM_DELAY_TICKS) continue;
-
-      const inv =
-        player.getComponent("minecraft:inventory") ?? player.getComponent("inventory");
-      const held = inv?.container?.getItem(0);
-      if (held && held.typeId.includes("shears")) continue; // already holding shears
-
-      switchPlayerSlot1Tool(player, ToolCategory.WEB, hit.block.typeId);
     } catch {}
   }
-}, WEB_CHECK_INTERVAL_TICKS);
+}, CONFIG.webCheckInterval);
 
-world.afterEvents.playerLeave.subscribe((event) => {
-  miningSessions.delete(event.playerId);
-  lastCombatTick.delete(event.playerId);
-  webAimStart.delete(event.playerId);
-});
-
-/**
- * Event 2: Entity / Mob Combat Attack
- * Auto-switches to best weapon (axe or sword) when attacking a mob or combat target.
- */
+// Mob combat: switch to the best sword or axe.
 world.afterEvents.entityHitEntity.subscribe((event) => {
   try {
     const player = event.damagingEntity;
+
     if (!player || player.typeId !== "minecraft:player") return;
-    if (player.selectedSlotIndex !== 0) return;
+    if (player.selectedSlotIndex !== CONFIG.slot) return;
+    if (!isCombatTarget(event.hitEntity)) return;
 
-    const targetEntity = event.hitEntity;
-    if (!targetEntity || !isCombatTarget(targetEntity)) return;
+    recentCombat.set(player.id, system.currentTick);
 
-    // Fighting, not mining - end any mining session
-    miningSessions.delete(player.id);
-    lastCombatTick.set(player.id, system.currentTick);
+    clearPendingSwap(player.id);
+    webInteraction.delete(player.id);
 
     switchPlayerSlot1Tool(player, ToolCategory.WEAPON);
   } catch {}
 });
 
-console.warn("[Passive Auto-Switch Tools v1.4.4] Smart scoring, continuous mining and shears support initialized.");
+world.afterEvents.playerLeave.subscribe((event) => {
+  recentCombat.delete(event.playerId);
+  webInteraction.delete(event.playerId);
+  clearPendingSwap(event.playerId);
+});
+
+console.warn(
+  `[Passive Auto-Switch Tools v${VERSION}] Initialized.`
+);
