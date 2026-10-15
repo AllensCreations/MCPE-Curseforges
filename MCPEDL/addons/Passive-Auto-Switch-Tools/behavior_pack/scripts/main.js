@@ -1,8 +1,8 @@
 /**
- * =============================================================================
+ * ==============================================================================
  * PASSIVE AUTO-SWITCH TOOLS -- MINECRAFT BEDROCK SCRIPT API
- * =============================================================================
- * Version: 1.3.0
+ * ==============================================================================
+ * Version: 1.4.0
  * Target Engine: Minecraft Bedrock 1.21.0+ / v1.26 Standards
  * API Module: @minecraft/server v1.13.0+ (STABLE)
  * Author: AllensCreations
@@ -41,7 +41,7 @@
  *    - Enchantment aware: Silk Touch for glass/ice/bookshelves, Fortune for ores,
  *      Efficiency / Sharpness as bonuses.
  *    - Nearly broken tools (15 uses or fewer) are avoided when alternatives exist.
- *    - Your original Slot 1 item is returned after you stop mining/fighting.
+ *    - Shears are used for leaves and cobwebs (hoe / sword as fallbacks).
  *    - If a different tool category is needed, scans inventory (0..35) for the
  *      highest-tier tool (Netherite > Diamond > Iron > Stone > Wood/Golden).
  *    - Executes container.swapItems(bestSlot, 0, container) to seamlessly swap
@@ -65,6 +65,8 @@ const ToolCategory = {
   AXE: "axe",
   SHOVEL: "shovel",
   SHEARS_OR_SWORD: "shears_or_sword",
+  LEAVES: "leaves", // shears best, hoe as fallback
+  WEB: "web", // shears best, sword as fallback
   HOE: "hoe",
   WEAPON: "weapon",
 };
@@ -118,6 +120,28 @@ function evaluateToolScore(item, targetCategory, slotIndex) {
     let score = getMaterialTier(rawId);
     if (slotIndex >= 1 && slotIndex <= 8) score += 1;
     return score;
+  }
+
+  // Leaves: shears are best, hoe is the fallback
+  if (targetCategory === ToolCategory.LEAVES) {
+    if (rawId.includes("shears")) return 100 + (slotIndex >= 1 && slotIndex <= 8 ? 1 : 0);
+    if (rawId.includes("hoe")) {
+      let score = getMaterialTier(rawId);
+      if (slotIndex >= 1 && slotIndex <= 8) score += 1;
+      return score;
+    }
+    return -1;
+  }
+
+  // Cobwebs: shears are best, sword is the fallback
+  if (targetCategory === ToolCategory.WEB) {
+    if (rawId.includes("shears")) return 100 + (slotIndex >= 1 && slotIndex <= 8 ? 1 : 0);
+    if (rawId.includes("sword")) {
+      let score = getMaterialTier(rawId);
+      if (slotIndex >= 1 && slotIndex <= 8) score += 1;
+      return score;
+    }
+    return -1;
   }
 
   // Shears / Sword evaluation
@@ -278,6 +302,10 @@ function isItemMatchingCategory(item, targetCategory) {
       return rawId.includes("shovel") || rawId.includes("spade");
     case ToolCategory.SHEARS_OR_SWORD:
       return rawId.includes("shears") || rawId.includes("sword");
+    case ToolCategory.LEAVES:
+      return rawId.includes("shears") || rawId.includes("hoe");
+    case ToolCategory.WEB:
+      return rawId.includes("shears") || rawId.includes("sword");
     case ToolCategory.HOE:
       return rawId.includes("hoe");
     case ToolCategory.WEAPON:
@@ -347,10 +375,11 @@ function getRequiredToolCategory(blockTypeId) {
   // --------------------------------------------------------------------------
   // B. SHEARS / SWORD: Leaves, cobwebs, wool, vines, vegetation
   // --------------------------------------------------------------------------
+  if (id.includes("leaves")) return ToolCategory.LEAVES; // oak_leaves, azalea_leaves, etc.
+  if (id === "web" || id.includes("cobweb")) return ToolCategory.WEB;
+
   if (
-    id.includes("leaves") || // oak_leaves, birch_leaves, cherry_leaves, azalea_leaves, etc.
     id.includes("wool") || // white_wool, red_wool, etc.
-    id.includes("web") || // cobweb
     id.includes("vine") || // vine, cave_vines, weeping_vines, twisting_vines
     id.includes("fern") || // fern, large_fern
     id === "tallgrass" ||
@@ -571,68 +600,18 @@ function isCombatTarget(entity) {
   }
 }
 
-/**
- * Where the player's original Slot 1 item went after we swapped it out,
- * so we can put it back when they stop mining/fighting.
- * Key = player.id.
- * @type {Map<string, { slot: number, typeId: string | undefined, lastActive: number }>}
- */
-const swapHomes = new Map();
-
-/** Marks the player as still active so we don't swap back mid-work. */
-function touchHome(playerId) {
-  const home = swapHomes.get(playerId);
-  if (home) home.lastActive = system.currentTick;
-}
-
-/** Remembers where the original Slot 1 item was moved to. */
-function recordHome(playerId, fromSlot, originalTypeId) {
-  const home = swapHomes.get(playerId);
-  if (!home) {
-    swapHomes.set(playerId, {
-      slot: fromSlot,
-      typeId: originalTypeId,
-      lastActive: system.currentTick,
-    });
-  } else if (fromSlot === home.slot) {
-    // We just pulled the original item back into Slot 1 - nothing left to restore.
-    swapHomes.delete(playerId);
-  } else {
-    home.lastActive = system.currentTick;
-  }
-}
-
-/** Swaps `fromSlot` into Slot 1 and records where the old Slot 1 item went. */
-function performSwap(player, container, fromSlot) {
-  const apply = () => {
-    const originalTypeId = container.getItem(0)?.typeId;
-    container.swapItems(fromSlot, 0, container);
-    recordHome(player.id, fromSlot, originalTypeId);
-  };
+/** Swaps `fromSlot` into Slot 1 (hotbar index 0). */
+function performSwap(container, fromSlot) {
   try {
-    apply();
+    container.swapItems(fromSlot, 0, container);
   } catch {
     // Defer to next tick if the game engine locks the container during event dispatch
     system.run(() => {
       try {
-        apply();
+        container.swapItems(fromSlot, 0, container);
       } catch {}
     });
   }
-}
-
-/** Puts the player's original Slot 1 item back (only if it's still where we left it). */
-function swapBackOriginal(player, home) {
-  try {
-    const inv =
-      player.getComponent("minecraft:inventory") ?? player.getComponent("inventory");
-    const container = inv?.container;
-    if (!container) return;
-    const atHome = container.getItem(home.slot);
-    if (atHome?.typeId === home.typeId) {
-      container.swapItems(home.slot, 0, container);
-    }
-  } catch {}
 }
 
 /**
@@ -679,7 +658,7 @@ function switchPlayerSlot1Tool(player, targetCategory, blockTypeId) {
   // 5. Keep the current tool unless the candidate is clearly better
   if (currentScore !== -Infinity && bestScore < currentScore + SWITCH_MARGIN) return;
 
-  performSwap(player, container, bestSlotIndex);
+  performSwap(container, bestSlotIndex);
 }
 
 // ==============================================================================
@@ -694,9 +673,6 @@ const POLL_INTERVAL_TICKS = 2;
 
 /** Max raycast distance (blocks) - covers survival (5) and creative (6) reach. */
 const RAYCAST_DISTANCE = 6;
-
-/** Ticks of no mining/fighting before your original Slot 1 item is put back. */
-const SWAP_BACK_DELAY_TICKS = 60;
 
 /**
  * Active mining sessions. Key = player.id.
@@ -723,7 +699,6 @@ world.afterEvents.entityHitBlock.subscribe((event) => {
     const hitBlock = event.hitBlock;
     if (!hitBlock) return;
 
-    touchHome(player.id);
     miningSessions.set(player.id, {
       expireTick: system.currentTick + MINING_SESSION_TICKS,
       lastKey: blockKey(hitBlock),
@@ -737,14 +712,11 @@ world.afterEvents.entityHitBlock.subscribe((event) => {
 });
 
 /**
- * Main loop. Does nothing unless someone is mining or has an item waiting to be
- * swapped back.
- *  - Mining sessions: watches the aimed block; when it changes, re-picks the tool.
- *  - Swap-back: after SWAP_BACK_DELAY_TICKS of inactivity, restores the original
- *    Slot 1 item.
+ * Continuous mining loop. Does nothing unless someone has a live mining session;
+ * watches the aimed block and re-picks the tool when it changes.
  */
 system.runInterval(() => {
-  if (miningSessions.size === 0 && swapHomes.size === 0) return;
+  if (miningSessions.size === 0) return;
 
   const now = system.currentTick;
   const players = new Map(world.getAllPlayers().map((p) => [p.id, p]));
@@ -782,23 +754,10 @@ system.runInterval(() => {
     } catch {}
   }
 
-  // --- Swap original Slot 1 item back after inactivity ---
-  for (const [id, home] of swapHomes) {
-    const player = players.get(id);
-    if (!player || player.selectedSlotIndex !== 0) {
-      swapHomes.delete(id); // left, or moved to another slot - don't touch their inventory
-      continue;
-    }
-    if (now - home.lastActive < SWAP_BACK_DELAY_TICKS) continue;
-
-    swapBackOriginal(player, home);
-    swapHomes.delete(id);
-  }
 }, POLL_INTERVAL_TICKS);
 
 world.afterEvents.playerLeave.subscribe((event) => {
   miningSessions.delete(event.playerId);
-  swapHomes.delete(event.playerId);
 });
 
 /**
@@ -816,10 +775,9 @@ world.afterEvents.entityHitEntity.subscribe((event) => {
 
     // Fighting, not mining - end any mining session
     miningSessions.delete(player.id);
-    touchHome(player.id);
 
     switchPlayerSlot1Tool(player, ToolCategory.WEAPON);
   } catch {}
 });
 
-console.warn("[Passive Auto-Switch Tools v1.3.0] Smart tool scoring, continuous mining and swap-back initialized.");
+console.warn("[Passive Auto-Switch Tools v1.4.0] Smart scoring, continuous mining and shears support initialized.");
