@@ -81,12 +81,6 @@ const CLUTCH_REGISTRY = {
     blockId: "minecraft:slime",
     placeSound: "block.slime_block.place"
   },
-  "minecraft:ladder": {
-    name: "Ladder",
-    category: "ladder",
-    blockId: "minecraft:ladder",
-    placeSound: "block.ladder.place"
-  },
   "minecraft:scaffolding": {
     name: "Scaffolding",
     category: "block",
@@ -112,14 +106,13 @@ const OVERWORLD_CLUTCH_PRIORITY = [
   "minecraft:powder_snow_bucket",
   "minecraft:twisted_vines",
   "boat",
-  "minecraft:ladder",
   "minecraft:scaffolding",
   "minecraft:sweet_berries"
 ];
 
 /**
  * Priority order for the Nether dimension (water bucket is excluded).
- * Twisted Vines > Powder Snow Bucket > Hay Bale > Slime Block > Cobweb > Boat > Ladder > Scaffolding
+ * Twisted Vines > Powder Snow Bucket > Hay Bale > Slime Block > Cobweb > Boat > Scaffolding
  */
 const NETHER_CLUTCH_PRIORITY = [
   "minecraft:twisted_vines",
@@ -128,7 +121,6 @@ const NETHER_CLUTCH_PRIORITY = [
   "minecraft:slime",
   "minecraft:web",
   "boat",
-  "minecraft:ladder",
   "minecraft:scaffolding"
 ];
 
@@ -458,8 +450,7 @@ function acquireClutchItem(player, mode) {
         itemStack: mainhand,
         isOffhand: false,
         containerSlot: player.selectedSlotIndex,
-        definition: mainDef,
-        autoSwitched: null
+        definition: mainDef
       };
     }
   }
@@ -473,8 +464,7 @@ function acquireClutchItem(player, mode) {
         itemStack: offhand,
         isOffhand: true,
         containerSlot: null,
-        definition: offDef,
-        autoSwitched: null
+        definition: offDef
       };
     }
   }
@@ -501,11 +491,7 @@ function acquireClutchItem(player, mode) {
       itemStack: switchedItem,
       isOffhand: false,
       containerSlot: match.slot,
-      definition,
-      autoSwitched: {
-        type: "hotbar_index",
-        previousSlot: originalHotbarSlot
-      }
+      definition
     };
   } else {
     // Swap item directly between upper inventory and active hotbar slot via container.setItem
@@ -524,39 +510,12 @@ function acquireClutchItem(player, mode) {
         itemStack: switchedItem,
         isOffhand: false,
         containerSlot: originalHotbarSlot,
-        definition,
-        autoSwitched: {
-          type: "inv_swap",
-          originalInvSlot: match.slot,
-          hotbarSlot: originalHotbarSlot
-        }
+        definition
       };
     } catch {
       return null;
     }
   }
-}
-
-/**
- * Restores previous hotbar slot or swaps back inventory item.
- */
-function restoreAutoSwitched(player, autoSwitched) {
-  if (!player || !player.isValid() || !autoSwitched) return;
-
-  try {
-    if (autoSwitched.type === "hotbar_index") {
-      player.selectedSlotIndex = autoSwitched.previousSlot;
-    } else if (autoSwitched.type === "inv_swap") {
-      const inventory = player.getComponent("minecraft:inventory");
-      const container = inventory?.container;
-      if (container) {
-        const currentHotbar = container.getItem(autoSwitched.hotbarSlot);
-        const currentInv = container.getItem(autoSwitched.originalInvSlot);
-        container.setItem(autoSwitched.hotbarSlot, currentInv);
-        container.setItem(autoSwitched.originalInvSlot, currentHotbar);
-      }
-    }
-  } catch {}
 }
 
 /**
@@ -798,37 +757,12 @@ function restorePowderSnowBucket(player, clutchData) {
 // Clutch Execution Logic
 // =============================================================================
 
-function placeLadderClutch(dimension, airBlock, player) {
-  const { x, y, z } = airBlock.location;
-
-  const wallChecks = [
-    { dir: 2, pos: { x, y, z: z - 1 } },
-    { dir: 3, pos: { x, y, z: z + 1 } },
-    { dir: 4, pos: { x: x - 1, y, z } },
-    { dir: 5, pos: { x: x + 1, y, z } }
-  ];
-
-  for (const check of wallChecks) {
-    try {
-      const wall = dimension.getBlock(check.pos);
-      if (wall && !wall.isAir && !wall.isLiquid && !PASSABLE_OR_AIR_BLOCKS.has(wall.typeId)) {
-        const perm = BlockPermutation.resolve("minecraft:ladder", {
-          facing_direction: check.dir
-        });
-        airBlock.setPermutation(perm);
-        return true;
-      }
-    } catch {}
-  }
-
-  return false;
-}
-
 /**
- * Places boat and auto-rides player to absorb fall damage.
- * Note: Player stays in the boat (NO auto-eject).
+ * Places boat at ground surface first at user's max placing length,
+ * then auto-rides player with a slight delay upon touchdown.
+ * Strictly NO teleporting. Player remains seated in the boat after absorbing impact.
  */
-function placeBoatClutch(dimension, airBlock, entityType, player) {
+function placeBoatClutch(dimension, airBlock, entityType, player, distToSurface, fallSpeed) {
   try {
     const spawnPos = {
       x: airBlock.location.x + 0.5,
@@ -838,18 +772,24 @@ function placeBoatClutch(dimension, airBlock, entityType, player) {
     const boat = dimension.spawnEntity(entityType, spawnPos);
     if (!boat) return false;
 
-    // Auto-ride: immediately seat the player inside the boat to absorb 100% of the fall
-    try {
-      const rideable = boat.getComponent("minecraft:rideable");
-      if (rideable) {
-        rideable.addRider(player);
-      }
-    } catch {}
+    // Calculate slight delay (1 to 2 ticks) so boat visibly spawns first before player enters
+    const speed = Math.max(0.5, Math.abs(fallSpeed));
+    const delayTicks = Math.max(1, Math.min(2, Math.round(distToSurface / speed)));
 
-    // Clear velocity so impact is absorbed cleanly by the boat
-    try {
-      player.clearVelocity();
-    } catch {}
+    // Delayed auto-entry: player enters boat natively via rideable component. Strictly NO teleporting!
+    system.runTimeout(() => {
+      try {
+        if (boat.isValid() && player.isValid()) {
+          const rideable = boat.getComponent("minecraft:rideable");
+          if (rideable) {
+            rideable.addRider(player);
+            try {
+              player.clearVelocity();
+            } catch {}
+          }
+        }
+      } catch {}
+    }, delayTicks);
 
     return true;
   } catch {
@@ -898,11 +838,6 @@ function executeAutoScoop(clutch) {
 
     // Restore water bucket in inventory
     restoreWaterBucket(player, clutchData);
-
-    // If auto-switched, restore previous item / hotbar slot
-    if (clutchData.autoSwitched) {
-      restoreAutoSwitched(player, clutchData.autoSwitched);
-    }
   } finally {
     activeWaterClutches.delete(clutch.player.id);
   }
@@ -942,18 +877,13 @@ function executeAutoScoopPowderSnow(clutch) {
 
       restorePowderSnowBucket(player, clutchData);
     }
-
-    // If auto-switched, restore previous item / hotbar slot
-    if (clutchData.autoSwitched) {
-      restoreAutoSwitched(player, clutchData.autoSwitched);
-    }
   } finally {
     activePowderSnowClutches.delete(clutch.player.id);
   }
 }
 
-function executeClutch(player, velocity, clutchData, ground) {
-  const { definition, autoSwitched } = clutchData;
+function executeClutch(player, velocity, clutchData, ground, distToSurface) {
+  const { definition } = clutchData;
   const { surfaceBlock, airBlockAbove } = ground;
   const dimension = player.dimension;
 
@@ -1048,10 +978,6 @@ function executeClutch(player, velocity, clutchData, ground) {
           try {
             player.clearVelocity();
           } catch {}
-
-          if (autoSwitched) {
-            system.runTimeout(() => restoreAutoSwitched(player, autoSwitched), 4);
-          }
         }
       } catch {}
       break;
@@ -1062,35 +988,14 @@ function executeClutch(player, velocity, clutchData, ground) {
         airBlockAbove.setType(definition.blockId);
         consumeClutchItem(player, clutchData);
         placementSuccess = true;
-
-        if (autoSwitched) {
-          system.runTimeout(() => restoreAutoSwitched(player, autoSwitched), 4);
-        }
       } catch {}
       break;
     }
 
-    case "ladder": {
-      if (placeLadderClutch(dimension, airBlockAbove, player)) {
-        consumeClutchItem(player, clutchData);
-        placementSuccess = true;
-
-        if (autoSwitched) {
-          system.runTimeout(() => restoreAutoSwitched(player, autoSwitched), 4);
-        }
-      }
-      break;
-    }
-
     case "boat": {
-      if (placeBoatClutch(dimension, airBlockAbove, definition.entityType, player)) {
+      if (placeBoatClutch(dimension, airBlockAbove, definition.entityType, player, distToSurface, velocity.y)) {
         consumeClutchItem(player, clutchData);
         placementSuccess = true;
-
-        // Restore held hotbar slot 5 ticks later so active slot returns to previous weapon while riding
-        if (autoSwitched) {
-          system.runTimeout(() => restoreAutoSwitched(player, autoSwitched), 5);
-        }
       }
       break;
     }
@@ -1100,10 +1005,6 @@ function executeClutch(player, velocity, clutchData, ground) {
         airBlockAbove.setType(definition.blockId);
         consumeClutchItem(player, clutchData);
         placementSuccess = true;
-
-        if (autoSwitched) {
-          system.runTimeout(() => restoreAutoSwitched(player, autoSwitched), 4);
-        }
       } catch {}
       break;
     }
@@ -1250,12 +1151,18 @@ system.runInterval(() => {
       const rot = player.getRotation();
       if (mode !== "extreme" && rot.x < 55) continue;
 
-      // Speed-based 1-2 tick impact prediction window
-      const fallSpeed = Math.abs(vel.y);
-      const predictionWindow = Math.max(2.2, fallSpeed * 1.6 + 0.4);
+      // Acquire clutch item (from hands or auto-switched from inventory)
+      const clutchData = acquireClutchItem(player, mode);
 
-      // Trigger strictly within 1-2 ticks before ground impact
-      if (distToSurface > predictionWindow) continue;
+      // Trigger distance:
+      // If boat clutch, use user's max placement reach distance (4.5 blocks in vanilla Survival).
+      // For all other clutches, use speed-based 1-2 tick impact prediction window.
+      const fallSpeed = Math.abs(vel.y);
+      const isBoat = clutchData?.definition?.category === "boat";
+      const maxTriggerDistance = isBoat ? 4.5 : Math.max(2.2, fallSpeed * 1.6 + 0.4);
+
+      // Trigger strictly within reaching/prediction distance
+      if (distToSurface > maxTriggerDistance) continue;
 
       // In extreme mode, guarantee downward rotation right at placement
       if (mode === "extreme" && rot.x < 70) {
@@ -1264,11 +1171,9 @@ system.runInterval(() => {
         } catch {}
       }
 
-      // Acquire clutch item (from hands or auto-switched from inventory)
-      const clutchData = acquireClutchItem(player, mode);
       if (clutchData) {
         // Execute clutch!
-        executeClutch(player, vel, clutchData, ground);
+        executeClutch(player, vel, clutchData, ground, distToSurface);
       } else {
         // Clutch item unavailable or placement impossible -> Totem of Undying Fail-Safe!
         tryTriggerTotemFailSafe(player);

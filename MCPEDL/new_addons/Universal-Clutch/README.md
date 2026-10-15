@@ -26,10 +26,11 @@ When aiming down and falling beyond the configured block height threshold, the a
 
 | Feature | Description |
 | :--- | :--- |
-| **Multi-Item Clutch Support** | Automatically identifies and uses Water Buckets, Powder Snow Buckets, Twisted Vines, Hay Bales, Cobwebs, Slime Blocks, Ladders, Scaffolding, Boats/Rafts, or Sweet Berries. |
+| **Multi-Item Clutch Support** | Automatically identifies and uses Water Buckets, Powder Snow Buckets, Twisted Vines, Hay Bales, Cobwebs, Slime Blocks, Scaffolding, Boats/Rafts, or Sweet Berries. |
 | **Dimension-Aware Clutches** | Automatically disables evaporating Water Buckets in the Nether, prioritizing Twisted Vines & Powder Snow Buckets instead. |
 | **Dual Hand & Inventory Detection**| Evaluates mainhand items first, with failover to offhand, hotbar, and upper inventory. |
 | **Totem of Undying Fail-Safe** | When falling to certain death with no clutch item, automatically searches inventory and equips a Totem of Undying into the offhand slot before impact. |
+| **Authentic Boat Placement** | Spawns the boat at maximum player reach distance (~4.5 blocks) first, then seats the player with a slight delay upon touchdown. Strictly no teleportation. |
 | **1-2 Tick Impact Prediction** | Uses velocity-based vertical raycasting to trigger placements 1 to 2 ticks before ground impact rather than snapping prematurely. |
 | **Arm Placement Animation** | Triggers vanilla arm swing animations (`animation.player.attack_bare_hand`) synced directly to placement audio. |
 | **Native Waterlogged Handling** | Detects stairs, slabs, fences, walls, and trapdoors beneath the player and applies native `{ waterlogged: true }` states without destroying structures. |
@@ -47,9 +48,8 @@ When aiming down and falling beyond the configured block height threshold, the a
 | **Hay Bale** | `minecraft:hay_block` | Impact Air Block | Reduces fall damage by 80% upon touchdown | `dig.grass` |
 | **Cobweb** | `minecraft:web` | Impact Air Block | Decelerates player velocity and completely negates fall damage | `dig.cloth` |
 | **Slime Block** | `minecraft:slime` | Impact Air Block | Completely eliminates fall damage and bounces player upward | `block.slime_block.place` |
-| **Ladder** | `minecraft:ladder` | Adjacent Solid Wall | Detects adjacent vertical wall face and mounts facing outward | `block.ladder.place` |
 | **Scaffolding** | `minecraft:scaffolding` | Impact Air Block | Traverses falling entity momentum and absorbs fall damage | `block.scaffolding.place` |
-| **Boat / Raft** | Any `*_boat` / `*_raft` | Impact Air Coordinate | Summons boat entity at target position to absorb impact; auto-seats player | `step.wood` |
+| **Boat / Raft** | Any `*_boat` / `*_raft` | Impact Air Coordinate | Placed at max reach distance (~4.5 blocks) first, auto-riding player with slight delay | `step.wood` |
 | **Sweet Berries** | `minecraft:sweet_berries` | Impact Air Block | Places sweet berry bush to decelerate and cancel fall damage | `block.sweet_berry_bush.place` |
 | **Totem of Undying** | `minecraft:totem_of_undying` | Offhand Slot (Emergency Swap) | Auto-equipped when falling with no clutch items to guarantee survival | `armor.equip_generic` |
 
@@ -73,17 +73,17 @@ Universal Clutch supports three distinct operating modes selectable via subpack 
 ### Operating Modes
 
 - **Full Mode (Auto-Switch Inventory):**
-  If a clutch item is not already held in hand, the system automatically scans your hotbar and upper inventory for available clutch items (Water Bucket > Slime > Cobweb > Hay Bale > Boat > Ladder > Sweet Berries), switches or swaps it directly into your active hand, executes the clutch placement, and automatically restores your previously held item upon landing. Requires the player to aim downward (`pitch >= 55°`).
+  If a clutch item is not already held in hand, the system automatically scans your hotbar and upper inventory for available clutch items, switches or swaps it directly into your active hand, executes the clutch placement, and remains holding the switched item. Requires the player to aim downward (`pitch >= 55°`).
 - **Simple Mode (Held Item Only):**
   Clutch placements only trigger if you are actively holding a supported clutch item in your mainhand or offhand slot. If holding a sword, pickaxe, or empty hand, no placement will occur. Requires the player to aim downward (`pitch >= 55°`).
 - **Extreme Mode (Auto Smooth Look-Down & Auto-Switch):**
-  When falling from dangerous heights, the add-on automatically and smoothly tilts the player's camera pitch downward toward the impact surface, scans and auto-switches to the best available clutch item in inventory, and places it 1–2 ticks before impact. **Doom Condition:** If there is no clutch item available anywhere in your inventory or hands, the system will *not* adjust your camera and will *not* intervene—allowing you to plummet to your doom.
+  When falling from dangerous heights, the add-on automatically and smoothly tilts the player's camera pitch downward toward the impact surface, scans and auto-switches to the best available clutch item in inventory, places it 1–2 ticks before impact, and remains holding the switched item. **Doom Condition:** If there is no clutch item available anywhere in your inventory or hands, the system will *not* adjust your camera and will *not* intervene—allowing you to plummet to your doom.
 
 ### Built-in Subpack Presets
 
 Configurable via the Behavior Pack subpack settings slider in World Settings:
 
-1. **Full Mode (Auto-Switch Inventory):** Recommended default. Automatically detects, equips, and places clutch items from inventory, then restores previous items after landing.
+1. **Full Mode (Auto-Switch Inventory):** Recommended default. Automatically detects, equips, and places clutch items from inventory, keeping the switched item active.
 2. **Simple Mode (Held Item Only):** Traditional manual clutching. Only executes if a supported clutch item is already held in mainhand or offhand.
 3. **Extreme Mode (Auto Smooth Look-Down & Auto-Switch):** Hands-free safety system with auto smooth camera rotation and auto item switching. If inventory has no clutch item, doom is guaranteed.
 

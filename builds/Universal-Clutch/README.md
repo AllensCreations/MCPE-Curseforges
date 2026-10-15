@@ -8,8 +8,8 @@ This folder contains compiled release packages for **Universal Clutch** by Allen
 
 | File Name | Format | Size | Description | Download Link |
 | :--- | :--- | :--- | :--- | :--- |
-| **`Universal Clutch by AllensCreations (V1.0.1).mcpack`** | `.mcpack` | ~55 KB | Script Behavior Pack archive ready for import. | [Download (.mcpack)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Universal-Clutch/Universal%20Clutch%20by%20AllensCreations%20%28V1.0.1%29.mcpack) |
-| **`Universal Clutch by AllensCreations (V1.0.1).mcaddon`** | `.mcaddon` | ~55 KB | Complete Add-on package archive. | [Download (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Universal-Clutch/Universal%20Clutch%20by%20AllensCreations%20%28V1.0.1%29.mcaddon) |
+| **`Universal Clutch by AllensCreations (V1.0.1).mcpack`** | `.mcpack` | ~54 KB | Script Behavior Pack archive ready for import. | [Download (.mcpack)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Universal-Clutch/Universal%20Clutch%20by%20AllensCreations%20%28V1.0.1%29.mcpack) |
+| **`Universal Clutch by AllensCreations (V1.0.1).mcaddon`** | `.mcaddon` | ~54 KB | Complete Add-on package archive. | [Download (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Universal-Clutch/Universal%20Clutch%20by%20AllensCreations%20%28V1.0.1%29.mcaddon) |
 
 ---
 
