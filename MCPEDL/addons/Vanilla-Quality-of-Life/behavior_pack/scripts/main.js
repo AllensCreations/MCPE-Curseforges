@@ -42,8 +42,8 @@ const CONFIG = {
   TREE_CAPITATOR_ENABLED: true,
   MAX_TREE_BLOCKS: 128,
   MAX_TREE_HEIGHT: 320,
-  TREE_HORIZONTAL_RANGE: 2, // 5x5 footprint (~2 to ~-2)
-  TREE_DOWNWARD_RANGE: 0,   // No downward search (24 sides & 25 above)
+  TREE_HORIZONTAL_RANGE: 1, // 3x3 footprint (8 sides & 9 above)
+  TREE_DOWNWARD_RANGE: 0,   // No downward search
   MATCH_TREE_SPECIES: true,
 
   // Domino Ore Miner
@@ -839,8 +839,10 @@ function executeTreeCapitator(player, dimension, startLoc, startBlockId, onCompl
 
   const blocksToBreak = [];
   let currentFootprints = [{ x: startLoc.x, z: startLoc.z }];
+  let topmostLogs = [];
 
-  // Layer 0: Target block 24 sides (~-2 ~ ~-2 to ~2 ~ ~2, excluding center)
+  // Phase 1: 3x3 Trunk Column Search
+  // Layer 0: Target block 8 sides (~-1 ~ ~-1 to ~1 ~ ~1, excluding center)
   for (let dx = -CONFIG.TREE_HORIZONTAL_RANGE; dx <= CONFIG.TREE_HORIZONTAL_RANGE; dx++) {
     for (let dz = -CONFIG.TREE_HORIZONTAL_RANGE; dz <= CONFIG.TREE_HORIZONTAL_RANGE; dz++) {
       if (dx === 0 && dz === 0) continue;
@@ -862,13 +864,14 @@ function executeTreeCapitator(player, dimension, startLoc, startBlockId, onCompl
     if (blocksToBreak.length >= CONFIG.MAX_TREE_BLOCKS) break;
   }
 
-  // Upper Layers: Expanded 5x5 footprint upward (~2 to ~-2)
+  // Upper Layers: 3x3 column climbing directly upward (9 blocks above each trunk log)
   for (let dy = 1; dy <= CONFIG.MAX_TREE_HEIGHT; dy++) {
     if (blocksToBreak.length >= CONFIG.MAX_TREE_BLOCKS) break;
     if (currentFootprints.length === 0) break;
 
     const nextFootprints = [];
     const layerY = startLoc.y + dy;
+    const layerLogs = [];
 
     const uniqueCenters = [];
     const centerKeys = new Set();
@@ -897,7 +900,9 @@ function executeTreeCapitator(player, dimension, startLoc, startBlockId, onCompl
           try {
             const block = dimension.getBlock({ x: bx, y: layerY, z: bz });
             if (block && isMatchingLog(block.typeId, targetSpecies)) {
-              blocksToBreak.push({ x: bx, y: layerY, z: bz });
+              const logEntry = { x: bx, y: layerY, z: bz };
+              blocksToBreak.push(logEntry);
+              layerLogs.push(logEntry);
               nextFootprints.push({ x: bx, z: bz });
               foundInLayer = true;
               if (blocksToBreak.length >= CONFIG.MAX_TREE_BLOCKS) break;
@@ -908,8 +913,51 @@ function executeTreeCapitator(player, dimension, startLoc, startBlockId, onCompl
       }
     }
 
-    if (!foundInLayer) break;
+    if (!foundInLayer) {
+      // Trunk column ended at previous layer
+      break;
+    }
+
+    topmostLogs = layerLogs;
     currentFootprints = nextFootprints;
+  }
+
+  // Phase 2: Top Layer Canopy / Branch "Virus" Flood-Fill
+  // Spreads outward like a virus across contiguous connected logs (dy >= 0) until no trees left
+  const virusQueue = topmostLogs.length > 0 ? [...topmostLogs] : [...blocksToBreak];
+
+  while (virusQueue.length > 0 && blocksToBreak.length < CONFIG.MAX_TREE_BLOCKS) {
+    const cur = virusQueue.shift();
+
+    for (let dx = -1; dx <= 1; dx++) {
+      for (let dz = -1; dz <= 1; dz++) {
+        for (let dy = 0; dy <= 1; dy++) {
+          if (dx === 0 && dy === 0 && dz === 0) continue;
+
+          const vx = cur.x + dx;
+          const vy = cur.y + dy;
+          const vz = cur.z + dz;
+
+          if (vy < startLoc.y) continue;
+
+          const key = `${vx},${vy},${vz}`;
+          if (visited.has(key)) continue;
+          visited.add(key);
+
+          try {
+            const block = dimension.getBlock({ x: vx, y: vy, z: vz });
+            if (block && isMatchingLog(block.typeId, targetSpecies)) {
+              const newLog = { x: vx, y: vy, z: vz };
+              blocksToBreak.push(newLog);
+              virusQueue.push(newLog);
+              if (blocksToBreak.length >= CONFIG.MAX_TREE_BLOCKS) break;
+            }
+          } catch (e) {}
+        }
+        if (blocksToBreak.length >= CONFIG.MAX_TREE_BLOCKS) break;
+      }
+      if (blocksToBreak.length >= CONFIG.MAX_TREE_BLOCKS) break;
+    }
   }
 
   if (blocksToBreak.length === 0) {

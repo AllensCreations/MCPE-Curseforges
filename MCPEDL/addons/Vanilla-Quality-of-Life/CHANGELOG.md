@@ -22,8 +22,8 @@ This major milestone integrates **Passive Auto-Switch Tools**, **Smart Tree Capi
   - Automated cobweb shear interaction loop.
 - **Smart Tree Capitator (Sneak + Axe)**:
   - Sneak while chopping any tree log to fell the entire trunk and connected branches up to **128 logs** in a single tick.
-  - **5×5 Extended Footprint Scan**: Targets 24 side blocks around the cut log (`~-2 ~ ~-2` to `~2 ~ ~2`) and 25 blocks above (`~-2 ~1 ~-2` to `~2 ~1 ~2`) climbing layer-by-layer up the trunk.
-  - **No Downward Search**: Strictly sweeps upward from the cut block without digging down into underlying ground or structures.
+  - **3×3 Trunk Column Scan**: Evaluates 8 side blocks around the cut log (`~-1 ~ ~-1` to `~1 ~ ~1`) and 9 blocks directly above layer-by-layer up the trunk with zero downward digging.
+  - **Canopy / Branch "Virus" Flood-Fill**: Once the trunk column ends, an outward contagion flood-fill infects and fells all contiguous horizontal and upward branch logs (`dy >= 0`) until no connected tree logs remain.
   - **Tree Species Matching**: Ensures Oak only fells Oak and Birch only fells Birch, preventing collateral damage in dense tree farms or forests.
   - Preserves natural leaf canopies for authentic vanilla leaf decay drops (saplings, sticks, apples).
 - **Domino Ore Miner (Sneak + Pickaxe)**:

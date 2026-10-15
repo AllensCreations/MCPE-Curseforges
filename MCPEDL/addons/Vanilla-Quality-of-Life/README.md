@@ -67,8 +67,8 @@ Built on `@minecraft/server` v1.13.0 with standard Bedrock components. Requires 
 
 #### 2. Smart Tree Capitator (Sneak + Axe)
 - Sneak while chopping any tree log with an axe to fell the entire tree in a single tick:
-  - **5×5 Footprint Scan**: Targets 24 side blocks around the cut log (`~-2 ~ ~-2` to `~2 ~ ~2`) and 25 blocks above (`~-2 ~1 ~-2` to `~2 ~1 ~2`), climbing layer-by-layer up the trunk.
-  - **No Downward Digging**: Strictly sweeps upward from the cut level without breaking blocks underneath.
+  - **3×3 Trunk Scan**: Sweeps 8 side blocks around the cut log (`~-1 ~ ~-1` to `~1 ~ ~1`) and 9 blocks above layer-by-layer up the trunk with no downward digging.
+  - **Canopy / Branch "Virus" Flood-Fill**: When the upward trunk scan completes, contiguous horizontal and upward branch logs (`dy >= 0`) are infected and felled like a virus until no connected tree logs remain.
   - **Species Matching**: Enforces wood species matching (Oak only fells Oak) to prevent chain reactions into adjacent trees.
   - **Natural Leaf Decay**: Preserves leaf canopies for authentic leaf decay drops (saplings, sticks, apples).
   - **Capacity Limit**: Up to 128 logs per tree operation.
