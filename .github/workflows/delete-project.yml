@@ -60,6 +60,7 @@ on:
 
 permissions:
   contents: write
+  workflows: write
 
 concurrency:
   group: delete-project-${{ github.ref }}
@@ -113,21 +114,51 @@ jobs:
             target_type="${{ steps.delete.outputs.deleted_type }}"
             git commit -m "chore(delete): remove $target_slug from $target_type [skip ci]"
 
+            pushed=false
             for attempt in 1 2 3; do
               echo "Push attempt $attempt of 3..."
               git fetch origin "$branch"
               if git rebase "origin/$branch"; then
                 if git push origin "HEAD:refs/heads/$branch"; then
                   echo "Pushed successfully."
-                  exit 0
+                  pushed=true
+                  break
                 fi
               fi
               echo "Rebase/push failed, retrying in 3 seconds..."
               sleep 3
             done
 
-            echo "::error::Failed to push deletion changes after 3 attempts."
-            exit 1
+            if [ "$pushed" = "false" ]; then
+              echo "::warning::Push with workflow update failed. Attempting fallback push without workflow changes..."
+              git reset HEAD~1
+              for dir in MCPEDL builds; do
+                [ -d "$dir" ] && git add "$dir"
+              done
+              [ -f "README.md" ] && git add README.md
+              git checkout -- .github/workflows/delete-project.yml || true
+
+              if ! git diff --staged --quiet; then
+                git commit -m "chore(delete): remove $target_slug from $target_type [skip ci]"
+                for attempt in 1 2 3; do
+                  echo "Fallback push attempt $attempt of 3..."
+                  git fetch origin "$branch"
+                  if git rebase "origin/$branch"; then
+                    if git push origin "HEAD:refs/heads/$branch"; then
+                      echo "Pushed deletion changes successfully (skipped workflow dropdown update)."
+                      pushed=true
+                      break
+                    fi
+                  fi
+                  sleep 3
+                done
+              fi
+            fi
+
+            if [ "$pushed" = "false" ]; then
+              echo "::error::Failed to push deletion changes after all attempts."
+              exit 1
+            fi
           fi
 
       - name: Job Summary
