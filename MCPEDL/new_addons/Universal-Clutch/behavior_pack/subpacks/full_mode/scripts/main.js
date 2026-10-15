@@ -7,7 +7,7 @@
  * Automatically performs clutch placements when falling from dangerous heights,
  * featuring 1-2 tick impact prediction, authentic arm swing animations,
  * placement sounds, native waterlogged block handling, automatic water scooping,
- * auto-ride & auto-exit boat clutching, and Full / Simple mode support.
+ * auto-ride boat clutching (without auto-eject), and Full / Simple mode support.
  * Zero HUD text displays for authentic vanilla gameplay feel.
  * 
  * Modes:
@@ -129,10 +129,6 @@ const PASSABLE_OR_AIR_BLOCKS = new Set([
 // Map of active water clutches awaiting player touchdown & auto-scoop
 // Key: player.id -> ClutchRecord
 const activeWaterClutches = new Map();
-
-// Map of active boat clutches awaiting touchdown & auto-exit
-// Key: player.id -> BoatClutchRecord
-const activeBoatClutches = new Map();
 
 // Map tracking recent clutch trigger ticks to debounce per player
 // Key: player.id -> number (tick)
@@ -271,36 +267,45 @@ function findBestClutchItemInInventory(container) {
 /**
  * Acquires a clutch item.
  * - Simple Mode: only checks mainhand & offhand.
- * - Full Mode: checks hands first; if none, auto-switches hotbar or swaps from upper inventory.
+ * - Full Mode: checks hands first; if none, auto-switches hotbar or swaps directly from inventory.
  */
 function acquireClutchItem(player, mode) {
   const equippable = player.getComponent("minecraft:equippable");
-  if (!equippable) return null;
+  const invComp = player.getComponent("minecraft:inventory");
+  const container = invComp?.container;
 
   // 1. Check Mainhand
-  const mainhand = equippable.getEquipment("Mainhand");
+  const mainhand = equippable?.getEquipment("Mainhand");
   const mainDef = resolveClutchItem(mainhand);
   if (mainDef && mainhand) {
-    return { itemStack: mainhand, slot: "Mainhand", definition: mainDef, autoSwitched: null };
+    return {
+      itemStack: mainhand,
+      isOffhand: false,
+      containerSlot: player.selectedSlotIndex,
+      definition: mainDef,
+      autoSwitched: null
+    };
   }
 
   // 2. Check Offhand
-  const offhand = equippable.getEquipment("Offhand");
+  const offhand = equippable?.getEquipment("Offhand");
   const offDef = resolveClutchItem(offhand);
   if (offDef && offhand) {
-    return { itemStack: offhand, slot: "Offhand", definition: offDef, autoSwitched: null };
+    return {
+      itemStack: offhand,
+      isOffhand: true,
+      containerSlot: null,
+      definition: offDef,
+      autoSwitched: null
+    };
   }
 
   // If Simple Mode, no inventory search
-  if (mode === "simple") {
+  if (mode === "simple" || !container) {
     return null;
   }
 
   // 3. Full Mode: Auto-switch from inventory
-  const inventory = player.getComponent("minecraft:inventory");
-  if (!inventory || !inventory.container) return null;
-  const container = inventory.container;
-
   const match = findBestClutchItemInInventory(container);
   if (!match) return null;
 
@@ -315,7 +320,8 @@ function acquireClutchItem(player, mode) {
 
     return {
       itemStack: switchedItem,
-      slot: "Mainhand",
+      isOffhand: false,
+      containerSlot: match.slot,
       definition,
       autoSwitched: {
         type: "hotbar_index",
@@ -323,16 +329,22 @@ function acquireClutchItem(player, mode) {
       }
     };
   } else {
-    // Swap item from upper inventory into the active hotbar slot
+    // Swap item directly between upper inventory and active hotbar slot via container.setItem
     try {
-      container.swapItems(match.slot, originalHotbarSlot, container);
-      const swappedItem = container.getItem(originalHotbarSlot);
-      const definition = resolveClutchItem(swappedItem);
+      const hotbarItem = container.getItem(originalHotbarSlot);
+      const invItem = container.getItem(match.slot);
+
+      container.setItem(originalHotbarSlot, invItem);
+      container.setItem(match.slot, hotbarItem);
+
+      const switchedItem = container.getItem(originalHotbarSlot);
+      const definition = resolveClutchItem(switchedItem);
       if (!definition) return null;
 
       return {
-        itemStack: swappedItem,
-        slot: "Mainhand",
+        itemStack: switchedItem,
+        isOffhand: false,
+        containerSlot: originalHotbarSlot,
         definition,
         autoSwitched: {
           type: "inv_swap",
@@ -357,8 +369,12 @@ function restoreAutoSwitched(player, autoSwitched) {
       player.selectedSlotIndex = autoSwitched.previousSlot;
     } else if (autoSwitched.type === "inv_swap") {
       const inventory = player.getComponent("minecraft:inventory");
-      if (inventory && inventory.container) {
-        inventory.container.swapItems(autoSwitched.originalInvSlot, autoSwitched.hotbarSlot, inventory.container);
+      const container = inventory?.container;
+      if (container) {
+        const currentHotbar = container.getItem(autoSwitched.hotbarSlot);
+        const currentInv = container.getItem(autoSwitched.originalInvSlot);
+        container.setItem(autoSwitched.hotbarSlot, currentInv);
+        container.setItem(autoSwitched.originalInvSlot, currentHotbar);
       }
     }
   } catch {}
@@ -444,9 +460,9 @@ function isWaterloggableBlock(block) {
 }
 
 /**
- * Safely consumes 1 item from the specified equipment slot.
+ * Safely consumes 1 item from the accurate container slot or offhand.
  */
-function consumeHeldItem(player, slot, replacementTypeId) {
+function consumeClutchItem(player, clutchData, replacementTypeId) {
   try {
     let isCreative = false;
     try {
@@ -455,20 +471,39 @@ function consumeHeldItem(player, slot, replacementTypeId) {
 
     if (isCreative) return;
 
-    const equippable = player.getComponent("minecraft:equippable");
-    if (!equippable) return;
+    if (clutchData.isOffhand) {
+      const equippable = player.getComponent("minecraft:equippable");
+      if (!equippable) return;
+      const offhand = equippable.getEquipment("Offhand");
+      if (!offhand) return;
 
-    const currentItem = equippable.getEquipment(slot);
-    if (!currentItem) return;
-
-    if (replacementTypeId) {
-      equippable.setEquipment(slot, new ItemStack(replacementTypeId, 1));
-    } else {
-      if (currentItem.amount > 1) {
-        currentItem.amount -= 1;
-        equippable.setEquipment(slot, currentItem);
+      if (replacementTypeId) {
+        equippable.setEquipment("Offhand", new ItemStack(replacementTypeId, 1));
       } else {
-        equippable.setEquipment(slot, undefined);
+        if (offhand.amount > 1) {
+          offhand.amount -= 1;
+          equippable.setEquipment("Offhand", offhand);
+        } else {
+          equippable.setEquipment("Offhand", undefined);
+        }
+      }
+    } else {
+      const inventory = player.getComponent("minecraft:inventory");
+      const container = inventory?.container;
+      if (!container || clutchData.containerSlot === null) return;
+
+      const currentItem = container.getItem(clutchData.containerSlot);
+      if (!currentItem) return;
+
+      if (replacementTypeId) {
+        container.setItem(clutchData.containerSlot, new ItemStack(replacementTypeId, 1));
+      } else {
+        if (currentItem.amount > 1) {
+          currentItem.amount -= 1;
+          container.setItem(clutchData.containerSlot, currentItem);
+        } else {
+          container.setItem(clutchData.containerSlot, undefined);
+        }
       }
     }
   } catch {}
@@ -477,34 +512,39 @@ function consumeHeldItem(player, slot, replacementTypeId) {
 /**
  * Restores 1 water bucket to player inventory or equipment after auto-scooping.
  */
-function restoreWaterBucket(player, preferredSlot) {
+function restoreWaterBucket(player, clutchData) {
   try {
     let isCreative = false;
     try {
       isCreative = player.matches({ gameMode: "creative" });
     } catch {}
-
     if (isCreative) return;
 
-    const equippable = player.getComponent("minecraft:equippable");
-    if (equippable) {
-      const item = equippable.getEquipment(preferredSlot);
-      if (item && item.typeId === "minecraft:bucket") {
-        equippable.setEquipment(preferredSlot, new ItemStack("minecraft:water_bucket", 1));
-        return;
+    if (clutchData.isOffhand) {
+      const equippable = player.getComponent("minecraft:equippable");
+      if (equippable) {
+        const off = equippable.getEquipment("Offhand");
+        if (off && off.typeId === "minecraft:bucket") {
+          equippable.setEquipment("Offhand", new ItemStack("minecraft:water_bucket", 1));
+          return;
+        }
       }
-
-      const altSlot = preferredSlot === "Mainhand" ? "Offhand" : "Mainhand";
-      const altItem = equippable.getEquipment(altSlot);
-      if (altItem && altItem.typeId === "minecraft:bucket") {
-        equippable.setEquipment(altSlot, new ItemStack("minecraft:water_bucket", 1));
-        return;
+    } else {
+      const inventory = player.getComponent("minecraft:inventory");
+      const container = inventory?.container;
+      if (container && clutchData.containerSlot !== null) {
+        const item = container.getItem(clutchData.containerSlot);
+        if (item && item.typeId === "minecraft:bucket") {
+          container.setItem(clutchData.containerSlot, new ItemStack("minecraft:water_bucket", 1));
+          return;
+        }
       }
     }
 
+    // General fallback: search inventory for first bucket
     const inventory = player.getComponent("minecraft:inventory");
-    if (inventory && inventory.container) {
-      const container = inventory.container;
+    const container = inventory?.container;
+    if (container) {
       for (let i = 0; i < container.size; i++) {
         const item = container.getItem(i);
         if (item && item.typeId === "minecraft:bucket") {
@@ -553,9 +593,10 @@ function placeLadderClutch(dimension, airBlock, player) {
 }
 
 /**
- * Places boat, auto-rides player to absorb fall, and registers for auto-exit on touchdown.
+ * Places boat and auto-rides player to absorb fall damage.
+ * Note: Player stays in the boat (NO auto-eject).
  */
-function placeBoatClutch(dimension, airBlock, entityType, player, autoSwitched) {
+function placeBoatClutch(dimension, airBlock, entityType, player) {
   try {
     const spawnPos = {
       x: airBlock.location.x + 0.5,
@@ -565,7 +606,7 @@ function placeBoatClutch(dimension, airBlock, entityType, player, autoSwitched) 
     const boat = dimension.spawnEntity(entityType, spawnPos);
     if (!boat) return false;
 
-    // Auto-ride: immediately seat the player inside the boat to absorb fall damage
+    // Auto-ride: immediately seat the player inside the boat to absorb 100% of the fall
     try {
       const rideable = boat.getComponent("minecraft:rideable");
       if (rideable) {
@@ -573,14 +614,10 @@ function placeBoatClutch(dimension, airBlock, entityType, player, autoSwitched) 
       }
     } catch {}
 
-    // Register active boat clutch for auto-exit upon touchdown
-    activeBoatClutches.set(player.id, {
-      player,
-      boat,
-      deployedTick: system.currentTick,
-      scheduled: false,
-      autoSwitched
-    });
+    // Clear velocity so impact is absorbed cleanly by the boat
+    try {
+      player.clearVelocity();
+    } catch {}
 
     return true;
   } catch {
@@ -588,35 +625,18 @@ function placeBoatClutch(dimension, airBlock, entityType, player, autoSwitched) 
   }
 }
 
-/**
- * Automatically ejects the player from the boat after landing and restores previous hotbar item.
- */
-function executeAutoExitBoat(clutch) {
-  try {
-    const { player, boat, autoSwitched } = clutch;
-
-    if (boat && boat.isValid()) {
-      try {
-        const rideable = boat.getComponent("minecraft:rideable");
-        if (rideable) {
-          rideable.ejectRiders();
-        }
-      } catch {}
-    }
-
-    if (autoSwitched && player && player.isValid()) {
-      restoreAutoSwitched(player, autoSwitched);
-    }
-  } finally {
-    activeBoatClutches.delete(clutch.player.id);
-  }
-}
-
 function executeAutoScoop(clutch) {
   try {
-    const { player, targetPos, dimension, wasWaterlogged, heldSlot, autoSwitched } = clutch;
+    const { player, targetPos, dimension, wasWaterlogged, clutchData } = clutch;
 
     if (!player || !player.isValid()) return;
+
+    // Do NOT scoop water if the player died
+    let health = 20;
+    try {
+      health = player.getComponent("minecraft:health")?.currentValue ?? 20;
+    } catch {}
+    if (health <= 0) return;
 
     try {
       const block = dimension.getBlock(targetPos);
@@ -645,11 +665,11 @@ function executeAutoScoop(clutch) {
     } catch {}
 
     // Restore water bucket in inventory
-    restoreWaterBucket(player, heldSlot);
+    restoreWaterBucket(player, clutchData);
 
     // If auto-switched, restore previous item / hotbar slot
-    if (autoSwitched) {
-      restoreAutoSwitched(player, autoSwitched);
+    if (clutchData.autoSwitched) {
+      restoreAutoSwitched(player, clutchData.autoSwitched);
     }
   } finally {
     activeWaterClutches.delete(clutch.player.id);
@@ -657,7 +677,7 @@ function executeAutoScoop(clutch) {
 }
 
 function executeClutch(player, velocity, clutchData, ground) {
-  const { slot, definition, autoSwitched } = clutchData;
+  const { definition, autoSwitched } = clutchData;
   const { surfaceBlock, airBlockAbove } = ground;
   const dimension = player.dimension;
 
@@ -699,7 +719,17 @@ function executeClutch(player, velocity, clutchData, ground) {
       }
 
       if (placementSuccess && targetPos) {
-        consumeHeldItem(player, slot, "minecraft:bucket");
+        // Clear velocity to eliminate fatal impact momentum
+        try {
+          player.clearVelocity();
+        } catch {}
+
+        // Momentary 10-tick (0.5s) slow falling to prevent tick-boundary fall damage glitch
+        try {
+          player.addEffect("slow_falling", 10, { amplifier: 0, showParticles: false });
+        } catch {}
+
+        consumeClutchItem(player, clutchData, "minecraft:bucket");
 
         activeWaterClutches.set(player.id, {
           player,
@@ -708,8 +738,7 @@ function executeClutch(player, velocity, clutchData, ground) {
           wasWaterlogged,
           deployedTick: system.currentTick,
           scheduled: false,
-          heldSlot: slot,
-          autoSwitched
+          clutchData
         });
       }
       break;
@@ -718,7 +747,7 @@ function executeClutch(player, velocity, clutchData, ground) {
     case "block": {
       try {
         airBlockAbove.setType(definition.blockId);
-        consumeHeldItem(player, slot);
+        consumeClutchItem(player, clutchData);
         placementSuccess = true;
 
         if (autoSwitched) {
@@ -730,7 +759,7 @@ function executeClutch(player, velocity, clutchData, ground) {
 
     case "ladder": {
       if (placeLadderClutch(dimension, airBlockAbove, player)) {
-        consumeHeldItem(player, slot);
+        consumeClutchItem(player, clutchData);
         placementSuccess = true;
 
         if (autoSwitched) {
@@ -741,9 +770,14 @@ function executeClutch(player, velocity, clutchData, ground) {
     }
 
     case "boat": {
-      if (placeBoatClutch(dimension, airBlockAbove, definition.entityType, player, autoSwitched)) {
-        consumeHeldItem(player, slot);
+      if (placeBoatClutch(dimension, airBlockAbove, definition.entityType, player)) {
+        consumeClutchItem(player, clutchData);
         placementSuccess = true;
+
+        // Restore held hotbar slot 5 ticks later so active slot returns to previous weapon while riding
+        if (autoSwitched) {
+          system.runTimeout(() => restoreAutoSwitched(player, autoSwitched), 5);
+        }
       }
       break;
     }
@@ -751,7 +785,7 @@ function executeClutch(player, velocity, clutchData, ground) {
     case "sweet_berries": {
       try {
         airBlockAbove.setType(definition.blockId);
-        consumeHeldItem(player, slot);
+        consumeClutchItem(player, clutchData);
         placementSuccess = true;
 
         if (autoSwitched) {
@@ -799,38 +833,7 @@ system.runInterval(() => {
     }
   }
 
-  // 2. Process active boat clutches awaiting touchdown & auto-exit
-  for (const [playerId, clutch] of activeBoatClutches.entries()) {
-    const player = clutch.player;
-    const boat = clutch.boat;
-
-    if (!player || !player.isValid()) {
-      activeBoatClutches.delete(playerId);
-      continue;
-    }
-
-    if (!clutch.scheduled) {
-      let vel = { x: 0, y: 0, z: 0 };
-      try {
-        vel = player.getVelocity();
-      } catch {}
-
-      const hasLanded =
-        player.isOnGround === true ||
-        (boat && boat.isValid() && boat.isOnGround === true) ||
-        Math.abs(vel.y) < 0.1 ||
-        (currentTick - clutch.deployedTick > 8);
-
-      if (hasLanded) {
-        clutch.scheduled = true;
-        system.runTimeout(() => {
-          executeAutoExitBoat(clutch);
-        }, 3);
-      }
-    }
-  }
-
-  // 3. Scan all players for clutch conditions
+  // 2. Scan all players for clutch conditions
   for (const player of world.getAllPlayers()) {
     try {
       if (!player.isValid()) continue;
@@ -883,7 +886,7 @@ system.runInterval(() => {
 
       // Speed-based 1-2 tick impact prediction window
       const fallSpeed = Math.abs(vel.y);
-      const predictionWindow = Math.max(2.0, fallSpeed * 1.8 + 0.4);
+      const predictionWindow = Math.max(2.2, fallSpeed * 1.6 + 0.4);
 
       // Trigger strictly within 1-2 ticks before ground impact
       if (distToSurface > predictionWindow) continue;
@@ -901,7 +904,7 @@ system.runInterval(() => {
   }
 }, 1);
 
-// Startup notification
+// Startup notification (server console only)
 world.afterEvents.worldInitialize.subscribe(() => {
   console.warn(`[Universal Clutch] Initialized. Default Mode: ${DEFAULT_MODE} | Fall Threshold: ${DEFAULT_THRESHOLD} blocks.`);
 });
