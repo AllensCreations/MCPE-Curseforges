@@ -8,8 +8,8 @@ This directory contains standalone Minecraft Bedrock Maps created by AllensCreat
 
 | Map Name | Version | Category | Download (.mcworld) | Source & World Files | Highlights |
 | :--- | :--- | :--- | :--- | :--- | :--- |
-| **OneBlock Void Survival** | v1.2.3 | Void Survival & RPG | [Download (.mcworld)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/OneBlock-Void-Survival/OneBlock%20Void%20Survival%20by%20AllensCreations%20%28V1.2.3%29.mcworld) | [`OneBlock-Void-Survival/`](OneBlock-Void-Survival/) | 43 Themed Secret Void Islands, 1-tick failproof auto-renewing OneBlock, 3-tier phase progression, Dimension Shifter merchant, Hardcore death mode, Zero experimental flags needed. |
-| **OneBlock Void (Admin Studio)** | v1.2.3 | Testing & Photography | [Download (.mcworld)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/OneBlock-Void-Survival/OneBlock%20Void%20Survival%20by%20AllensCreations%20%28V1.2.3%29.mcworld) | [`OneBlock-Void-Survival/`](OneBlock-Void-Survival/) | All 43 islands pre-manifested, double-sneak photo studio GUI, 3/4 isometric panoramic camera angles, lighting controls, zero-item auto-break runner. |
+| **OneBlock Void Survival** | v1.2.4 | Void Survival & RPG | [Download (.mcworld)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/OneBlock-Void-Survival/OneBlock%20Void%20Survival%20by%20AllensCreations%20%28V1.2.4%29.mcworld) | [`OneBlock-Void-Survival/`](OneBlock-Void-Survival/) | 43 Themed Secret Void Islands, 1-tick failproof auto-renewing OneBlock, 3-tier phase progression, Dimension Shifter merchant, Hardcore death mode, Zero experimental flags needed. |
+| **OneBlock Void (Admin Studio)** | v1.2.4 | Testing & Photography | [Download (.mcworld)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/OneBlock-Void-Survival/OneBlock%20Void%20Survival%20by%20AllensCreations%20%28V1.2.4%29.mcworld) | [`OneBlock-Void-Survival/`](OneBlock-Void-Survival/) | All 43 islands pre-manifested, double-sneak photo studio GUI, 3/4 isometric panoramic camera angles, lighting controls, zero-item auto-break runner. |
 
 ---
 

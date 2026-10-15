@@ -8,8 +8,8 @@ This folder contains compiled release packages for **Immortal Pets** by AllensCr
 
 | File Name | Format | Size | Description | Download Link |
 | :--- | :--- | :--- | :--- | :--- |
-| **`Immortal Pets by AllensCreations (V1.1.2).mcpack`** | `.mcpack` | ~4 KB | Script Behavior Pack archive ready for import. | [Download (.mcpack)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Immortal-Pets/Immortal%20Pets%20by%20AllensCreations%20%28V1.1.2%29.mcpack) |
-| **`Immortal Pets by AllensCreations (V1.1.2).mcaddon`** | `.mcaddon` | ~4 KB | Complete Add-on package archive. | [Download (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Immortal-Pets/Immortal%20Pets%20by%20AllensCreations%20%28V1.1.2%29.mcaddon) |
+| **`Immortal Pets by AllensCreations (V1.1.3).mcpack`** | `.mcpack` | ~4 KB | Script Behavior Pack archive ready for import. | [Download (.mcpack)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Immortal-Pets/Immortal%20Pets%20by%20AllensCreations%20%28V1.1.3%29.mcpack) |
+| **`Immortal Pets by AllensCreations (V1.1.3).mcaddon`** | `.mcaddon` | ~4 KB | Complete Add-on package archive. | [Download (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Immortal-Pets/Immortal%20Pets%20by%20AllensCreations%20%28V1.1.3%29.mcaddon) |
 
 ---
 

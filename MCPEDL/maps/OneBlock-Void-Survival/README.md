@@ -7,7 +7,7 @@
 [![No Experiments Required](https://img.shields.io/badge/Experimental%20Features-NOT%20REQUIRED-success?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges)
 [![Version](https://img.shields.io/badge/Map%20Version-v1.2.3-blue?style=flat-square)](../README.md#available-maps-catalog)
 [![Format](https://img.shields.io/badge/Format-.MCWORLD-orange?style=flat-square)](../README.md#available-maps-catalog)
-[![Release](https://img.shields.io/badge/Release-v1.2.3-blue?style=flat-square)](../README.md#available-maps-catalog)
+[![Release](https://img.shields.io/badge/Release-v1.2.4-blue?style=flat-square)](../README.md#available-maps-catalog)
 [![Platform](https://img.shields.io/badge/Platform-Mobile%20%7C%20PC%20%7C%20Console%20%7C%20Realms-yellow?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges)
 
 **By AllensCreations**

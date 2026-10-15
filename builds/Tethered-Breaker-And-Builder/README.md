@@ -8,8 +8,8 @@ This folder contains compiled release packages for **Tethered Breaker & Builder*
 
 | File Name | Format | Size | Description | Download Link |
 | :--- | :--- | :--- | :--- | :--- |
-| **`Tethered Breaker & Builder by AllensCreations (V1.0.3).mcpack`** | `.mcpack` | ~24 KB | Script Behavior Pack archive ready for import. | [Download (.mcpack)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Tethered-Breaker-And-Builder/Tethered%20Breaker%20%26%20Builder%20by%20AllensCreations%20%28V1.0.3%29.mcpack) |
-| **`Tethered Breaker & Builder by AllensCreations (V1.0.3).mcaddon`** | `.mcaddon` | ~24 KB | Complete Add-on package archive. | [Download (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Tethered-Breaker-And-Builder/Tethered%20Breaker%20%26%20Builder%20by%20AllensCreations%20%28V1.0.3%29.mcaddon) |
+| **`Tethered Breaker & Builder by AllensCreations (V1.0.4).mcpack`** | `.mcpack` | ~24 KB | Script Behavior Pack archive ready for import. | [Download (.mcpack)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Tethered-Breaker-And-Builder/Tethered%20Breaker%20%26%20Builder%20by%20AllensCreations%20%28V1.0.4%29.mcpack) |
+| **`Tethered Breaker & Builder by AllensCreations (V1.0.4).mcaddon`** | `.mcaddon` | ~24 KB | Complete Add-on package archive. | [Download (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Tethered-Breaker-And-Builder/Tethered%20Breaker%20%26%20Builder%20by%20AllensCreations%20%28V1.0.4%29.mcaddon) |
 
 ---
 
