@@ -13,7 +13,7 @@ This directory contains standalone Minecraft Bedrock Maps created by AllensCreat
 
 ---
 
-## Map Highlights: OneBlock Void Survival (v1.2.3)
+## Map Highlights: OneBlock Void Survival (v1.2.5)
 
 - 1-Tick Failproof Auto-Renewal: The OneBlock at (0, 64, 0) renews within 1 tick (0.05s). Gravity blocks (sand, gravel, concrete powder) are anchored by bedrock at (0, 63, 0) so they never fall into the void.
 - 43 Handcrafted Themed Secret Islands: Generated procedurally in unloaded chunks (140 to 250 blocks away) across Overworld, Nether, and The End. Each island features unique loot vaults, spawners, villagers, and satellite mini-islands.

@@ -34,7 +34,7 @@ This directory stores all compiled releases (behavior packs, resource packs, add
 | :--- | :--- | :--- | :--- | :--- |
 | **Alphabet Scavenger Hunt** | `v1.0.5` | Script Behavior Pack (`.mcpack`) | [Download (.mcpack)](Alphabet-Scavenger-Hunt/Alphabet%20Scavenger%20Hunt%20by%20AllensCreations%20%28V1.0.5%29.mcpack) | [`Alphabet-Scavenger-Hunt/`](Alphabet-Scavenger-Hunt/) |
 | **Shared Hivemind Inventory** | `v1.0.5` | Script Behavior Pack (`.mcpack`) | [Download (.mcpack)](Shared-Hivemind-Inventory/Shared%20Hivemind%20Inventory%20by%20AllensCreations%20%28V1.0.5%29.mcpack) | [`Shared-Hivemind-Inventory/`](Shared-Hivemind-Inventory/) |
-| **Tethered: Breaker & Builder** | `v1.0.5` | Script Behavior Pack (`.mcpack`) | [Download (.mcpack)](Tethered-Breaker-And-Builder/Tethered%20Breaker%20%26%20Builder%20by%20AllensCreations%20%28V1.0.5%29.mcpack) | [`Tethered-Breaker-And-Builder/`](Tethered-Breaker-And-Builder/) |
+| **Tethered: Breaker & Builder** | `v1.0.5` | Script Behavior Pack (`.mcpack`) | [Download (.mcpack)](Tethered-Breaker-And-Builder/Tethered%20Breaker%20and%20Builder%20by%20AllensCreations%20%28V1.0.5%29.mcpack) | [`Tethered-Breaker-And-Builder/`](Tethered-Breaker-And-Builder/) |
 
 ---
 

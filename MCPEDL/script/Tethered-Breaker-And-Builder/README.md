@@ -1,19 +1,20 @@
-# Tethered: Breaker & Builder — Asymmetric Two-Player Co-op Challenge
+# Tethered: Breaker and Builder — Asymmetric Two-Player Co-op Challenge
 
 ![MCPEDL](https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/MCPEDL/script/Tethered-Breaker-And-Builder/pack_icon.png "MCPEDL")
 
-[![Minecraft Bedrock](https://img.shields.io/badge/Minecraft%20Bedrock-1.21%20--%201.26%2B-brightgreen?style=flat-square&logo=minecraft)](https://github.com/AllensCreations/MCPE-Curseforges)
+[![Minecraft Bedrock](https://img.shields.io/badge/Minecraft%20Bedrock-1.21.0%2B-brightgreen?style=flat-square&logo=minecraft)](https://github.com/AllensCreations/MCPE-Curseforges)
+[![Script API](https://img.shields.io/badge/Script%20API-%40minecraft%2Fserver%201.13.0%2B-blue?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges)
 [![Achievement Friendly](https://img.shields.io/badge/Achievements-Friendly-brightgreen?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges)
 [![No Experiments Required](https://img.shields.io/badge/Experimental%20Features-NOT%20REQUIRED-success?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges)
-[![Release](https://img.shields.io/badge/Release-v1.0.5-blue?style=flat-square)](../README.md#available-challenge-scripts)
 [![Format](https://img.shields.io/badge/Format-.MCPACK-orange?style=flat-square)](../README.md#available-challenge-scripts)
+[![Release](https://img.shields.io/badge/Release-v1.0.5-blue?style=flat-square)](../README.md#available-challenge-scripts)
 [![Platform](https://img.shields.io/badge/Platform-Mobile%20%7C%20PC%20%7C%20Console%20%7C%20Realms-yellow?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges)
 
 **By AllensCreations**
 
-**NO EXPERIMENTAL NEED & ACHIEVEMENT FRIENDLY**
+**ASYMMETRIC TWO-PLAYER CO-OP & DYNAMIC ENERGY LEASH CHALLENGE**
 
-Two-player asymmetric co-op challenge where partners are bound by an elastic energy leash with divided abilities.
+Survive as partners bound by a 15-meter elastic energy leash with divided mining and building roles.
 
 ---
 
@@ -25,40 +26,41 @@ Can you and your partner survive when neither of you can play the game alone?
 
 Stray too far, and the elastic tether pulls you back inward. Overstretch past 18 meters, and the strain inflicts continuous damage until you regroup.
 
-No experimental features required. Designed to keep achievements available while challenging your teamwork across worlds and Realms.
+No experimental features required. Designed to keep achievements available while challenging your teamwork across standard worlds and multiplayer Realms.
 
 ---
 
-## Core System Mechanics
+## Key Features
 
-### 1. Dynamic Leash Mechanics
-- **15-Meter Leash Limit**: Partners can explore freely within a 15-meter radius of each other.
-- **Visual Status Cues**:
-  - **Safe Proximity (< 10m)**: Green sparkle effects indicate safe distance.
-  - **Tension Warning (10–15m)**: Golden spark effects signal you are nearing the leash boundary.
-  - **Overstretched (> 15m)**: Flame effects, audio warnings, and elastic spring forces pull partners back together.
-- **Anchor Physics**: If one partner falls off a cliff or is knocked airborne while the other stands on solid ground, the grounded partner acts as an anchor, safely reeling the airborne partner back up.
-- **Strain Damage (> 18m)**: When separated past 18 meters, both partners suffer continuous damage until regrouping.
+| Feature | Description |
+| :--- | :--- |
+| 15-Meter Energy Leash | Connects two players with dynamic elastic physics, tethering movement to a 15-meter operational radius. |
+| Asymmetric Role Division | Distributes survival capabilities strictly between the Breaker (mining/combat) and the Builder (construction/crafting). |
+| Ground Anchor Physics | When one partner falls off cliffs or is thrown airborne, the grounded partner anchors them safely back up. |
+| 4-Tier Tension States | Real-time particle and audio cues signal Slack (<10m), Tense (10-15m), Overstretched (15-18m), and Strain (>18m). |
+| Real-Time Distance HUD | Action bar displays live separation distance in meters with clear color-coded indicators. |
+| Co-op Respawn & Re-anchor | Respawning partners automatically reunite directly with their teammate with temporary protective buffs. |
+| Clean Role Selection GUI | Interactive pop-up dialog opens on world join for instant role assignments without commands. |
 
-### 2. Asymmetric Roles
-- **Interactive Role Dialog**: Upon joining the world, players receive a clean pop-up menu to select their role.
-- **The Breaker**:
-  - Mines, digs, and gathers blocks freely.
-  - Exclusive access to melee weapons, bows, and mob combat.
-  - Cannot place blocks, fluids (water/lava buckets), or light fires.
-- **The Builder**:
-  - Places blocks, building materials, and fluids freely.
-  - Exclusive access to crafting stations, furnaces, and construction.
-  - Cannot break blocks and cannot attack mobs.
+---
 
-### 3. Co-op Respawn & Re-anchor
-- If either partner falls in battle, upon respawning they automatically reunite directly with their surviving teammate with temporary protection buffs to preserve the tether connection.
+## Role Division and Abilities
 
-### 4. Real-Time HUD Indicator
-- Displays live proximity feedback at the top of the screen:
-  - `[LEASH: SLACK] Distance: 5.4m`
-  - `[LEASH: TENSE] Distance: 12.8m`
-  - `[LEASH: OVERSTRETCHED] Distance: 16.3m!`
+| Role | Permitted Actions | Restricted Actions |
+| :--- | :--- | :--- |
+| **The Breaker** | Mining, digging, block harvesting, melee weapon combat, bows, tridents, and mob defense. | Cannot place blocks, cannot place fluids (water/lava), cannot ignite flint & steel. |
+| **The Builder** | Block placement, structure construction, fluid placement, crafting table/furnace management. | Cannot break or mine blocks, cannot attack or damage hostile/passive mobs. |
+
+---
+
+## Leash Distance and Tension States
+
+| Distance | Leash Status | Visual & Audio Effects | In-Game Mechanics |
+| :--- | :--- | :--- | :--- |
+| **< 10 meters** | Slack (Safe) | Green sparkle particles | Unrestricted movement within safe perimeter. |
+| **10 – 15 meters** | Tense (Warning) | Golden spark particles | Warning audio cues signal perimeter boundary. |
+| **15 – 18 meters** | Overstretched (Pull) | Flame particles & tension sound | Elastic spring force reels partners back inward. |
+| **> 18 meters** | Critical Strain | Heavy flame effects & alarm | Continuous strain damage until players regroup. |
 
 ---
 
@@ -74,7 +76,7 @@ Operators can manage role assignments using native commands:
 
 ## Compatibility
 
-- Minecraft Bedrock Edition 1.21.0 - 1.26+
+- Minecraft Bedrock Edition 1.21.0+
 - No experimental features required
 - Designed to preserve achievement eligibility
 - Script Behavior Pack (.mcpack) format
