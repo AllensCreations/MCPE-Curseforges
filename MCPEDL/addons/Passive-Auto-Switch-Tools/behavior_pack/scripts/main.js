@@ -2,7 +2,7 @@
  * ==============================================================================
  * PASSIVE AUTO-SWITCH TOOLS -- MINECRAFT BEDROCK SCRIPT API
  * ==============================================================================
- * Version: 1.4.2
+ * Version: 1.4.4
  * Target Engine: Minecraft Bedrock 1.21.0+ / v1.26 Standards
  * API Module: @minecraft/server v1.13.0+ (STABLE)
  * Author: AllensCreations
@@ -672,6 +672,15 @@ function switchPlayerSlot1Tool(player, targetCategory, blockTypeId) {
  */
 const MINING_SESSION_TICKS = 60;
 
+/**
+ * A single click must NOT swap tools - only actually breaking (holding) does.
+ * Mining "starts" once the same block has been hit this many times...
+ */
+const HITS_REQUIRED = 2;
+
+/** ...with no more than this many ticks between hits (20 ticks = 1 sec). */
+const HIT_WINDOW_TICKS = 15;
+
 /** Max times per block the tracker re-tries a swap that didn't take effect. */
 const MAX_SWAP_RETRIES = 5;
 
@@ -683,7 +692,7 @@ const RAYCAST_DISTANCE = 6;
 
 /**
  * Active mining sessions. Key = player.id.
- * @type {Map<string, { expireTick: number, lastKey: string | null, lastLoc: import("@minecraft/server").Vector3 | null, retries: number }>}
+ * @type {Map<string, { expireTick: number, lastKey: string | null, lastLoc: import("@minecraft/server").Vector3 | null, retries: number, armed: boolean, hitKey: string, hits: number, lastHitTick: number }>}
  */
 const miningSessions = new Map();
 
@@ -706,12 +715,56 @@ world.afterEvents.entityHitBlock.subscribe((event) => {
     const hitBlock = event.hitBlock;
     if (!hitBlock) return;
 
-    miningSessions.set(player.id, {
-      expireTick: system.currentTick + MINING_SESSION_TICKS,
-      lastKey: blockKey(hitBlock),
-      lastLoc: hitBlock.location,
-      retries: 0,
-    });
+    const now = system.currentTick;
+    const key = blockKey(hitBlock);
+
+    let session = miningSessions.get(player.id);
+    if (!session) {
+      session = {
+        expireTick: now + MINING_SESSION_TICKS,
+        lastKey: key,
+        lastLoc: hitBlock.location,
+        retries: 0,
+        armed: false,
+        hitKey: key,
+        hits: 0,
+        lastHitTick: now,
+      };
+      miningSessions.set(player.id, session);
+    }
+
+    // Moved onto a different block: stay armed only if the last one was broken
+    let changedBlock = false;
+    if (session.lastKey !== key) {
+      changedBlock = true;
+      let prevBroken = false;
+      if (session.lastLoc) {
+        const prev = player.dimension.getBlock(session.lastLoc);
+        prevBroken = !!(prev && prev.isAir);
+      }
+      session.armed = prevBroken;
+      session.lastKey = key;
+      session.lastLoc = hitBlock.location;
+      session.retries = 0;
+    }
+
+    // Count repeated hits on the same block (a lone click only counts once)
+    if (session.hitKey === key && now - session.lastHitTick <= HIT_WINDOW_TICKS) {
+      session.hits++;
+    } else {
+      session.hitKey = key;
+      session.hits = 1;
+    }
+    session.lastHitTick = now;
+    session.expireTick = now + MINING_SESSION_TICKS;
+
+    let newlyArmed = false;
+    if (!session.armed && session.hits >= HITS_REQUIRED) {
+      session.armed = true; // you're really breaking it now, so swapping is allowed
+      newlyArmed = true;
+    }
+    if (!session.armed) return; // just a click - don't swap yet
+    if (!newlyArmed && !changedBlock) return; // already handled this block
 
     const requiredCategory = getRequiredToolCategory(hitBlock.typeId);
     if (!requiredCategory) return;
@@ -757,7 +810,7 @@ system.runInterval(() => {
 
       // Same block as last check: only act if an earlier swap didn't take effect
       if (key === session.lastKey) {
-        if (requiredCategory && session.retries < MAX_SWAP_RETRIES) {
+        if (requiredCategory && session.armed && session.retries < MAX_SWAP_RETRIES) {
           const inv =
             player.getComponent("minecraft:inventory") ?? player.getComponent("inventory");
           const held = inv?.container?.getItem(0);
@@ -771,15 +824,23 @@ system.runInterval(() => {
 
       // Aimed block changed. If the previous block is now air, it was broken, so
       // the player is still mining: keep the session alive.
+      let justBroke = false;
       if (session.lastLoc) {
         const prev = player.dimension.getBlock(session.lastLoc);
-        if (prev && prev.isAir) session.expireTick = now + MINING_SESSION_TICKS;
+        if (prev && prev.isAir) {
+          justBroke = true;
+          session.expireTick = now + MINING_SESSION_TICKS;
+        }
       }
 
       session.lastKey = key;
       session.lastLoc = hit.block.location;
       session.retries = 0;
+      session.armed = justBroke;
 
+      // Only swap when mining continues onto the next block. Just looking at a
+      // different block does nothing; the swap happens when you start breaking it.
+      if (!justBroke) continue;
       if (!requiredCategory) continue;
 
       switchPlayerSlot1Tool(player, requiredCategory, hit.block.typeId);
@@ -796,15 +857,29 @@ system.runInterval(() => {
  * a hit event. Skipped briefly after fighting so it doesn't fight the weapon swap.
  */
 const WEB_CHECK_INTERVAL_TICKS = 4;
+
+/**
+ * Webs don't send a hit event, so the game gives us no "started breaking" signal.
+ * The best we can do is wait until you've been aiming at the web for a moment.
+ * Set WEB_AIM_SWAP_ENABLED to false to turn the aim-based web swap off entirely
+ * (then webs only swap if the game does send a hit event for them).
+ */
+const WEB_AIM_SWAP_ENABLED = true;
+const WEB_AIM_DELAY_TICKS = 12; // ~0.6 seconds of steady aim
+const webAimStart = new Map();
 const WEB_COMBAT_COOLDOWN_TICKS = 40;
 const lastCombatTick = new Map();
 
 system.runInterval(() => {
+  if (!WEB_AIM_SWAP_ENABLED) return;
   const now = system.currentTick;
 
   for (const player of world.getAllPlayers()) {
     try {
-      if (player.selectedSlotIndex !== 0) continue;
+      if (player.selectedSlotIndex !== 0) {
+        webAimStart.delete(player.id);
+        continue;
+      }
       if (now - (lastCombatTick.get(player.id) ?? -Infinity) < WEB_COMBAT_COOLDOWN_TICKS) continue;
 
       const hit = player.getBlockFromViewDirection({
@@ -812,10 +887,15 @@ system.runInterval(() => {
         includeLiquidBlocks: false,
         includePassableBlocks: true,
       });
-      if (!hit || !hit.block) continue;
+      const id = hit?.block ? hit.block.typeId.replace(/^minecraft:/, "") : "";
+      if (id !== "web" && !id.includes("cobweb")) {
+        webAimStart.delete(player.id);
+        continue;
+      }
 
-      const id = hit.block.typeId.replace(/^minecraft:/, "");
-      if (id !== "web" && !id.includes("cobweb")) continue;
+      // Wait for steady aim at the web before swapping
+      if (!webAimStart.has(player.id)) webAimStart.set(player.id, now);
+      if (now - webAimStart.get(player.id) < WEB_AIM_DELAY_TICKS) continue;
 
       const inv =
         player.getComponent("minecraft:inventory") ?? player.getComponent("inventory");
@@ -830,6 +910,7 @@ system.runInterval(() => {
 world.afterEvents.playerLeave.subscribe((event) => {
   miningSessions.delete(event.playerId);
   lastCombatTick.delete(event.playerId);
+  webAimStart.delete(event.playerId);
 });
 
 /**
@@ -853,4 +934,4 @@ world.afterEvents.entityHitEntity.subscribe((event) => {
   } catch {}
 });
 
-console.warn("[Passive Auto-Switch Tools v1.4.2] Smart scoring, continuous mining and shears support initialized.");
+console.warn("[Passive Auto-Switch Tools v1.4.4] Smart scoring, continuous mining and shears support initialized.");
