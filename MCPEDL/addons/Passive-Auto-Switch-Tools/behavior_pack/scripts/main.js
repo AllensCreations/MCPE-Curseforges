@@ -735,7 +735,7 @@ system.runInterval(() => {
       const hit = player.getBlockFromViewDirection({
         maxDistance: RAYCAST_DISTANCE,
         includeLiquidBlocks: false,
-        includePassableBlocks: false,
+        includePassableBlocks: true,
       });
 
       if (!hit || !hit.block) {
