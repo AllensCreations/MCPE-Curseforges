@@ -1,20 +1,95 @@
-# Magnetic-Satchel
+# Magnetic Satchel — Offhand Item Vacuum Add-on for Minecraft Bedrock
 
-## Description
+[![Minecraft Bedrock](https://img.shields.io/badge/Minecraft%20Bedrock-1.21.0%2B-brightgreen?style=flat-square&logo=minecraft)](https://github.com/AllensCreations/MCPE-Curseforges)
+[![Achievement Friendly](https://img.shields.io/badge/Achievements-Friendly-brightgreen?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges)
+[![Script API](https://img.shields.io/badge/Script%20API-%40minecraft%2Fserver%201.13.0%2B-blue?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges)
+[![Format](https://img.shields.io/badge/Format-.MCADDON-orange?style=flat-square)](../README.md#available-source-add-ons)
+[![Release](https://img.shields.io/badge/Release-v1.0.0-blue?style=flat-square)](../README.md#available-source-add-ons)
 
-Minecraft Bedrock add-on by AllensCreations.
+**By AllensCreations**
 
-## Source Files
+**HANDS-FREE VACUUM SYSTEM & CONVENIENCE UTILITY**
 
-This directory contains the uncompressed source files used to build this add-on.
+Wearable offhand magnetic vacuum satchel that automatically pulls nearby dropped items directly toward you.
 
-Review the included manifests, behavior packs, resource packs, and scripts before publishing.
+---
 
-## Attribution
+## Overview
 
-- Creator: AllensCreations.
-- Content creators may feature this add-on in videos and streams with credit to AllensCreations.
-- Do not re-upload this add-on or modified copies to other websites, app stores, or file-sharing services.
+Tired of leaving valuable ores behind in lava-adjacent chasms or chasing down scattered mob loot?
+
+**Magnetic Satchel** introduces a crafted utility satchel that equips into your offhand slot. Powered by the modern Bedrock Script API (`@minecraft/server`), it continually scans for nearby dropped items within an 8-block sphere and smoothly pulls them into your pickup radius using realistic vector physics.
+
+Leave your main hand free to hold your pickaxe, weapon, or torches while the satchel gathers all dropped resources directly to your inventory.
+
+---
+
+## Key Features
+
+| Feature | Description |
+| :--- | :--- |
+| **Offhand Equippable** | Equips cleanly in the offhand slot (`slot.weapon.offhand`), keeping your main hand free for tools and weapons. |
+| **8-Block Vacuum Radius** | Detects and pulls all nearby dropped item entities within an 8-block sphere. |
+| **Impulse Physics** | Uses smooth directional velocity impulses with gravity compensation to glide items toward your chest level. |
+| **Particle Trails** | Emits subtle portal particle trails behind moving items as they glide inward. |
+| **Quick Toggle Switch** | Sneak + Right-click / use while holding the satchel in your main hand to instantly toggle magnetism ON or OFF. |
+| **Action Bar Feedback** | Clear action bar HUD indicator displays `§6[SATCHEL] §aMagnetism: ACTIVE` or `§6[SATCHEL] §cMagnetism: DISABLED`. |
+| **Flexible Recipes** | Craftable with either an Ender Pearl or a Compass depending on your survival stage. |
+
+---
+
+## How It Works
+
+| Action | Control / Trigger | Outcome |
+| :--- | :--- | :--- |
+| **Equip in Offhand** | Place into offhand shield slot | Automatically activates the vacuum pull for all items within 8 blocks. |
+| **Toggle Active/Disabled** | Sneak + Right-Click with satchel in main hand | Toggles magnetic pull on/off without needing to unequip. |
+| **Automatic Collection** | Stand within 8 blocks of dropped items | Items are drawn toward your player coordinate until vanilla inventory pickup triggers. |
+| **Safe Inventory Handling** | Normal inventory behavior | When full, items hover safely beside you rather than glitching. |
+
+---
+
+## Crafting Recipes
+
+The Magnetic Satchel can be crafted at any crafting table using either of the following shaped recipes:
+
+### Recipe 1: Ender Pearl Core
+- **Top Row**: Leather, Iron Ingot, Leather
+- **Middle Row**: Leather, Ender Pearl, Leather
+- **Bottom Row**: Empty, Leather, Empty
+
+### Recipe 2: Compass Core (Early-Game)
+- **Top Row**: Leather, Iron Ingot, Leather
+- **Middle Row**: Leather, Compass, Leather
+- **Bottom Row**: Empty, Leather, Empty
+
+---
+
+## Technical Specifications
+
+- **Target Slot**: `slot.weapon.offhand` (`minecraft:equippable`)
+- **Interval Check**: Runs every 2 ticks (10 updates/second) via `system.runInterval`
+- **Impulse Calculation**: 3D normalized vector towards player waist level (+0.5 Y offset)
+- **Script Module**: `@minecraft/server` v1.13.0+
+- **Pack Formats**: Unified `.mcaddon` containing Behavior Pack and Resource Pack
+
+---
+
+## Compatibility
+
+- Minecraft Bedrock Edition 1.21.0+
+- Requires Beta APIs / Script API capability
+- Compatible with Windows, Android, iOS, Xbox, PlayStation, Nintendo Switch, and dedicated servers/Realms
+- Full multiplayer support (per-player offhand detection and individual toggle state tags)
+
+---
+
+## Guidelines and Attribution
+
+- Creator: AllensCreations
+- Rights & Reservation: All rights reserved for AllensCreations.
+- Content Creators: Permitted to feature this add-on in gameplay videos and streams with attribution to AllensCreations.
+- Redistribution: Do not re-upload this pack or provide direct monetized download bypasses. Link directly to the official repository page.
 
 ---
 

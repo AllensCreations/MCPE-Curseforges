@@ -1,0 +1,146 @@
+name: "Delete Addon / Project (MCPEDL)"
+
+on:
+  workflow_dispatch:
+    inputs:
+      target_type:
+        description: "1. Select what type of project to delete"
+        required: true
+        type: choice
+        options:
+          - "addons"
+          - "new_addons"
+          - "maps"
+          - "script"
+      addon_target:
+        description: "2. If type is 'addons', select project"
+        required: false
+        type: choice
+        options:
+          - "none"
+          - "Ghast-Head-Transformers"
+          - "Immortal-Pets"
+          - "Mining-Helmet"
+          - "Monster-Companions"
+          - "Passive-Auto-Switch-Tools"
+          - "Vanilla-Quality-of-Life"
+          - "tameable-companion-fox"
+      new_addon_target:
+        description: "2. If type is 'new_addons', select project"
+        required: false
+        type: choice
+        options:
+          - "none"
+          - "Magnetic-Satchel"
+          - "smart-tree-capitator-domino-ore-miner"
+      map_target:
+        description: "2. If type is 'maps', select project"
+        required: false
+        type: choice
+        options:
+          - "none"
+          - "OneBlock-Void-Survival"
+      script_target:
+        description: "2. If type is 'script', select project"
+        required: false
+        type: choice
+        options:
+          - "none"
+          - "Alphabet-Scavenger-Hunt"
+          - "Shared-Hivemind-Inventory"
+          - "Tethered-Breaker-And-Builder"
+      confirm:
+        description: "Confirm deletion (Safety check)"
+        required: true
+        type: choice
+        options:
+          - "yes"
+          - "no"
+        default: "yes"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: delete-project-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  delete-and-clean:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.x"
+
+      - name: Process Project Deletion & Catalog Cleanup
+        id: delete
+        run: |
+          python3 scripts/delete_project.py \
+            --type "${{ github.event.inputs.target_type }}" \
+            --addon "${{ github.event.inputs.addon_target }}" \
+            --new-addon "${{ github.event.inputs.new_addon_target }}" \
+            --map "${{ github.event.inputs.map_target }}" \
+            --script "${{ github.event.inputs.script_target }}" \
+            --confirm "${{ github.event.inputs.confirm }}"
+
+      - name: Commit and push changes
+        if: "${{ github.event.inputs.confirm == 'yes' }}"
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+
+          branch="${GITHUB_REF_NAME:-main}"
+
+          for dir in MCPEDL builds; do
+            [ -d "$dir" ] && git add "$dir"
+          done
+          [ -f "README.md" ] && git add README.md
+          [ -f ".github/workflows/delete-project.yml" ] && git add .github/workflows/delete-project.yml
+
+          if git diff --staged --quiet; then
+            echo "No changes staged to commit."
+          else
+            target_slug="${{ steps.delete.outputs.deleted_slug }}"
+            target_type="${{ steps.delete.outputs.deleted_type }}"
+            git commit -m "chore(delete): remove $target_slug from $target_type [skip ci]"
+
+            for attempt in 1 2 3; do
+              echo "Push attempt $attempt of 3..."
+              git fetch origin "$branch"
+              if git rebase "origin/$branch"; then
+                if git push origin "HEAD:refs/heads/$branch"; then
+                  echo "Pushed successfully."
+                  exit 0
+                fi
+              fi
+              echo "Rebase/push failed, retrying in 3 seconds..."
+              sleep 3
+            done
+
+            echo "::error::Failed to push deletion changes after 3 attempts."
+            exit 1
+          fi
+
+      - name: Job Summary
+        if: always()
+        run: |
+          {
+            echo "## Project Deletion Summary"
+            echo ""
+            echo "| Parameter | Value |"
+            echo "| :--- | :--- |"
+            echo "| Target Category | \`${{ github.event.inputs.target_type }}\` |"
+            echo "| Deleted Project | \`${{ steps.delete.outputs.deleted_slug }}\` |"
+            echo "| Safety Confirmation | \`${{ github.event.inputs.confirm }}\` |"
+            echo ""
+            echo "All source files, compiled builds, catalog entries, and badges have been cleaned."
+          } >> "$GITHUB_STEP_SUMMARY"

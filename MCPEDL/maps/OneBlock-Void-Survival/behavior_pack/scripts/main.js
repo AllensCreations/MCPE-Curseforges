@@ -965,12 +965,6 @@ function incrementDimensionCount(dimKey, dimension) {
       if (bBedrock) bBedrock.setType("minecraft:bedrock");
     } catch (be) {}
 
-    // Materialize Theme 0 ("sky_oasis" Lush Floral Oasis) as introductory normal island
-    if (!world.getDynamicProperty("island_spawned_sky_oasis")) {
-      world.setDynamicProperty("island_spawned_sky_oasis", true);
-      materializeIsland(dimension, ISLAND_THEMES[0], 0, newCount);
-    }
-
     // Celebrate tutorial completion with celestial title and audio cues
     for (const p of world.getAllPlayers()) {
       try {
@@ -985,6 +979,16 @@ function incrementDimensionCount(dimKey, dimension) {
         p.sendMessage("§bAn introductory floating island §a§lLush Floral Oasis§r §bhas materialized in the distance!\n");
         p.playSound("ui.toast.challenge_complete", { pitch: 1.0, volume: 1.0 });
       } catch (pe) {}
+    }
+
+    // Materialize Theme 0 ("sky_oasis" Lush Floral Oasis) as introductory normal island after tutorial celebration
+    if (!world.getDynamicProperty("island_spawned_sky_oasis")) {
+      world.setDynamicProperty("island_spawned_sky_oasis", true);
+      system.runTimeout(() => {
+        try {
+          materializeIsland(dimension, ISLAND_THEMES[0], 0, newCount);
+        } catch (me) {}
+      }, 70);
     }
   }
 
@@ -1051,7 +1055,6 @@ function incrementDimensionCount(dimKey, dimension) {
 }
 
 const lastKnownOneBlockType = {};
-const blockBrokenByPlayer = {};
 
 // Handles automated block destruction/removal by Pistons, TNT, Creepers, or Environmental causes
 function handleAutomatedBlockDestruction(dimension) {
@@ -1066,9 +1069,6 @@ function handleAutomatedBlockDestruction(dimension) {
 
     const state = getDimensionState(dimKey);
     const phase = state.phase;
-
-    // Advance progression for automated destruction (TNT, Piston, etc.)
-    incrementDimensionCount(dimKey, dimension);
 
     // Roll lucky chest spawn (5% chance) - only after Phase 3 in Overworld
     const isEarlyGame = (dimKey === "overworld" && (state.count < TUTORIAL_BLOCKS.length || state.phaseIndex <= 3));
@@ -1090,8 +1090,6 @@ function handleAutomatedBlockDestruction(dimension) {
     // Determine next block to regenerate
     let nextBlockType;
     if (dimKey === "overworld" && state.count < TUTORIAL_BLOCKS.length) {
-      nextBlockType = TUTORIAL_BLOCKS[state.count].block;
-
       // Automated platform placement for the first 8 Dirts (steps 0 to 7)
       if (state.count < SURROUNDING_OFFSETS.length) {
         const offset = SURROUNDING_OFFSETS[state.count];
@@ -1102,6 +1100,12 @@ function handleAutomatedBlockDestruction(dimension) {
             dimension.spawnParticle("minecraft:villager_happy", { x: offset.x + 0.5, y: 64.5, z: offset.z + 0.5 });
           }
         } catch (err) {}
+      }
+
+      if (state.count + 1 < TUTORIAL_BLOCKS.length) {
+        nextBlockType = TUTORIAL_BLOCKS[state.count + 1].block;
+      } else {
+        nextBlockType = pickWeighted(phase.blocks).id;
       }
     } else {
       nextBlockType = pickWeighted(phase.blocks).id;
@@ -1114,6 +1118,9 @@ function handleAutomatedBlockDestruction(dimension) {
         lastKnownOneBlockType[dimKey] = nextBlockType;
       }
     } catch (pe) {}
+
+    // Advance progression for automated destruction (TNT, Piston, etc.)
+    incrementDimensionCount(dimKey, dimension);
   } catch (err) {}
 }
 
@@ -1275,18 +1282,11 @@ function ensureOneBlock(dimension) {
     const isMissing = !block || block.isAir || block.typeId === "minecraft:air" || isLiquid;
 
     if (isMissing) {
-      // If broken environmentally (TNT, piston, environmental decay) without player break event
-      if (!blockBrokenByPlayer[dimKey] && lastKnownOneBlockType[dimKey]) {
-        handleAutomatedBlockDestruction(dimension);
-      }
       // Guarantee the block is auto-renewed immediately!
       renewOneBlock(dimension);
     } else if (block) {
       lastKnownOneBlockType[dimKey] = block.typeId;
     }
-
-    // Reset player break flag
-    blockBrokenByPlayer[dimKey] = false;
   } catch (err) {}
 }
 
@@ -2018,8 +2018,6 @@ try {
         for (const b of blocks) {
           const loc = b.location;
           if (loc.x === ONEBLOCK_POS.x && loc.y === ONEBLOCK_POS.y && loc.z === ONEBLOCK_POS.z) {
-            const dimKey = getDimKey(event.dimension.id);
-            blockBrokenByPlayer[dimKey] = false;
             // Piston is pushing the OneBlock!
             // Wait 2 ticks for the push animation to complete, then regenerate the next block & advance!
             system.runTimeout(() => {
@@ -2029,6 +2027,22 @@ try {
             }, 2);
             break;
           }
+        }
+      } catch (e) {}
+    });
+  }
+} catch (e) {}
+
+// Explosion Hook: When explosions destroy the OneBlock, advance progression and renew
+try {
+  if (world.afterEvents && world.afterEvents.blockExplode) {
+    world.afterEvents.blockExplode.subscribe((event) => {
+      try {
+        const { block, dimension } = event;
+        if (block && block.location.x === ONEBLOCK_POS.x && block.location.y === ONEBLOCK_POS.y && block.location.z === ONEBLOCK_POS.z) {
+          system.run(() => {
+            handleAutomatedBlockDestruction(dimension);
+          });
         }
       } catch (e) {}
     });
@@ -2046,7 +2060,6 @@ world.afterEvents.playerBreakBlock.subscribe((event) => {
   }
 
   const dimKey = getDimKey(dimension.id);
-  blockBrokenByPlayer[dimKey] = true;
   if (activeCountdowns.get(dimKey)) return;
 
   const state = getDimensionState(dimKey);
@@ -2072,7 +2085,6 @@ world.afterEvents.playerBreakBlock.subscribe((event) => {
   let nextBlockType;
   if (dimKey === "overworld" && state.count < TUTORIAL_BLOCKS.length) {
     const tutorialStep = TUTORIAL_BLOCKS[state.count];
-    nextBlockType = tutorialStep.block;
 
     // Automated platform placement for the first 8 Dirts (steps 0 to 7)
     if (state.count < SURROUNDING_OFFSETS.length) {
@@ -2105,7 +2117,23 @@ world.afterEvents.playerBreakBlock.subscribe((event) => {
         for (const p of world.getAllPlayers()) {
           p.sendMessage("§b[Starter Gift] §aA Starter Gift Chest appeared with 2x Ice Blocks & 1x Lava Bucket! Create infinite water & cobblestone generators!");
         }
+        if (player) {
+          system.run(() => {
+            try {
+              const pLoc = player.location;
+              if (Math.abs(pLoc.x - 0.5) < 0.8 && Math.abs(pLoc.z - 0.5) < 0.8) {
+                player.teleport({ x: 0.5, y: 65.0, z: -1.0 }, { dimension: dimension, checkForBlocks: false });
+              }
+            } catch (err) {}
+          });
+        }
       } catch (err) {}
+    }
+
+    if (state.count + 1 < TUTORIAL_BLOCKS.length) {
+      nextBlockType = TUTORIAL_BLOCKS[state.count + 1].block;
+    } else {
+      nextBlockType = pickWeighted(phase.blocks).id;
     }
   } else if (activeLuckyRush.get(dimKey)) {
     const luckyBlocks = ["minecraft:gold_block", "minecraft:emerald_block", "minecraft:diamond_ore", "minecraft:gold_ore", "minecraft:iron_block"];
@@ -2135,11 +2163,8 @@ world.afterEvents.playerBreakBlock.subscribe((event) => {
 
       const targetBlock = dimension.getBlock(ONEBLOCK_POS);
       if (targetBlock && !activeCountdowns.get(dimKey)) {
-        if (targetBlock.isAir || targetBlock.typeId === "minecraft:air") {
-          renewOneBlock(dimension);
-        } else {
-          lastKnownOneBlockType[dimKey] = targetBlock.typeId;
-        }
+        targetBlock.setType(nextBlockType);
+        lastKnownOneBlockType[dimKey] = nextBlockType;
       }
     } catch (e) {}
   });

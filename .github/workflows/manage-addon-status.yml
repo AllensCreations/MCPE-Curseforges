@@ -8,8 +8,7 @@ on:
         required: true
         type: choice
         options:
-          - "Immortal-Pets"
-          - "tameable-companion-fox"
+          - "none"
       status:
         description: "Lifecycle status label"
         required: true
@@ -21,6 +20,7 @@ on:
 
 permissions:
   contents: write
+  workflows: write
 
 concurrency:
   group: addon-lifecycle-${{ github.ref }}
@@ -50,7 +50,7 @@ jobs:
             --status "${{ github.event.inputs.status }}"
 
       - name: Commit and push changes
-        if: "${{ github.event.inputs.status == 'finished' }}"
+        if: "${{ github.event.inputs.status == 'finished' && github.event.inputs.addon != 'none' }}"
         run: |
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
@@ -61,6 +61,7 @@ jobs:
             [ -d "$dir" ] && git add "$dir"
           done
           [ -f "README.md" ] && git add README.md
+          [ -f ".github/workflows/manage-addon-status.yml" ] && git add .github/workflows/manage-addon-status.yml
 
           if git diff --staged --quiet; then
             echo "No changes staged to commit."
