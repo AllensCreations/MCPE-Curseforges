@@ -1,0 +1,29 @@
+{
+  "format_version": "1.20.80",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "custom:magnetic_satchel"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      "LIL",
+      "LEL"
+    ],
+    "key": {
+      "L": {
+        "item": "minecraft:leather"
+      },
+      "I": {
+        "item": "minecraft:iron_ingot"
+      },
+      "E": {
+        "item": "minecraft:ender_pearl"
+      }
+    },
+    "result": {
+      "item": "custom:magnetic_satchel"
+    }
+  }
+}
