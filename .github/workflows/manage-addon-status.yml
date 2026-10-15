@@ -1,0 +1,101 @@
+name: "Manage Add-on Lifecycle (Testing / Finished)"
+
+on:
+  workflow_dispatch:
+    inputs:
+      addon:
+        description: "Add-on folder name in MCPEDL/new_addons/ (e.g. Immortal-Pets)"
+        required: true
+        type: string
+      status:
+        description: "Lifecycle status label"
+        required: true
+        type: choice
+        options:
+          - testing
+          - finished
+        default: "testing"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: addon-lifecycle-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  manage-lifecycle:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.x"
+
+      - name: Process Add-on Lifecycle Status
+        id: process
+        run: |
+          python3 scripts/manage_addon_status.py \
+            --addon "${{ github.event.inputs.addon }}" \
+            --status "${{ github.event.inputs.status }}"
+
+      - name: Commit and push changes
+        if: "${{ github.event.inputs.status == 'finished' }}"
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+
+          branch="${GITHUB_REF_NAME:-main}"
+
+          for dir in MCPEDL/new_addons MCPEDL/addons builds; do
+            [ -d "$dir" ] && git add "$dir"
+          done
+          [ -f "README.md" ] && git add README.md
+
+          if git diff --staged --quiet; then
+            echo "No changes staged to commit."
+          else
+            git commit -m "feat(addons): promote ${{ github.event.inputs.addon }} to addons folder (finished) [skip ci]"
+
+            for attempt in 1 2 3; do
+              echo "Push attempt $attempt of 3..."
+              git fetch origin "$branch"
+              if git rebase "origin/$branch"; then
+                if git push origin "HEAD:refs/heads/$branch"; then
+                  echo "Pushed successfully."
+                  exit 0
+                fi
+              fi
+              echo "Rebase/push failed, retrying in 3 seconds..."
+              sleep 3
+            done
+
+            echo "::error::Failed to push changes after 3 attempts."
+            exit 1
+          fi
+
+      - name: Job Summary
+        if: always()
+        run: |
+          {
+            echo "## Add-on Lifecycle Action Summary"
+            echo ""
+            echo "| Parameter | Value |"
+            echo "| :--- | :--- |"
+            echo "| Target Add-on | \`${{ github.event.inputs.addon }}\` |"
+            echo "| Selected Label | \`${{ github.event.inputs.status }}\` |"
+            if [ "${{ github.event.inputs.status }}" = "finished" ]; then
+              echo "| Outcome | Promoted from \`MCPEDL/new_addons/\` to \`MCPEDL/addons/\` & catalogs synchronized |"
+            else
+              echo "| Outcome | Retained unchanged in \`MCPEDL/new_addons/\` for active testing |"
+            fi
+            echo ""
+            echo "Run \`python3 scripts/check_readme_status.py\` to verify catalog status."
+          } >> "$GITHUB_STEP_SUMMARY"
