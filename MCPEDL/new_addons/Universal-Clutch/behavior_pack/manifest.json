@@ -1,7 +1,7 @@
 {
   "format_version": 2,
   "header": {
-    "name": "Universal Clutch BP by AllensCreations",
+    "name": "Universal Clutch by AllensCreations",
     "description": "Vanilla-faithful automatic clutch placements when falling from dangerous heights. Choose between Full Mode (auto-switch inventory) and Simple Mode (held item only) in subpack settings.",
     "uuid": "a452fcb1-dd72-41b0-aed0-273201968225",
     "version": [
@@ -40,14 +40,6 @@
     }
   ],
   "dependencies": [
-    {
-      "uuid": "1e507ca3-3c39-405d-aa7f-2a414fb0544e",
-      "version": [
-        1,
-        0,
-        1
-      ]
-    },
     {
       "module_name": "@minecraft/server",
       "version": "1.13.0"
