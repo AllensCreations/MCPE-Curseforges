@@ -229,60 +229,86 @@ def analyze_addon_source(proj_dir):
 
 
 def auto_generate_readme(proj_dir):
-    """Generates standardized professional README without emojis."""
+    """Generates minimized, commercial, promotional README without emojis, dev codes, or installation section."""
     meta = extract_manifest_info(proj_dir)
     features, interactions = analyze_addon_source(proj_dir)
     slug = os.path.basename(proj_dir)
 
     readme_path = os.path.join(proj_dir, "README.md")
 
-    feature_lines = "\n".join(f"- **Feature**: {f}" for f in features)
-
-    interaction_rows = ""
-    if interactions:
-        rows = [f"| {act} | {req} | {res} |" for act, req, res in interactions]
-        interaction_rows = "\n".join(rows)
+    # Format features as clean commercial table
+    feature_rows = []
+    if features:
+        for f in features:
+            parts = f.split(" using ") if " using " in f else (f.split(" with ") if " with " in f else [f, ""])
+            title = parts[0].strip().rstrip(".")
+            desc = f if not parts[1] else f"Includes {parts[1].rstrip('.')} for optimal companion gameplay."
+            feature_rows.append(f"| {title} | {desc} |")
     else:
-        interaction_rows = "| Interact with Companion | Specified Item | Activates custom companion mechanics |"
+        feature_rows.append("| Companion Mechanics | Enhance your survival world with loyal, protective companions. |")
+        feature_rows.append("| Seamless Integration | Built for standard worlds and Realms with zero experimental flags. |")
 
-    content = f"""# {meta['name']} — Minecraft Bedrock Addon
+    feature_table = "\n".join(feature_rows)
+
+    # Format in-game usage table
+    interaction_rows = []
+    if interactions:
+        for act, req, res in interactions:
+            interaction_rows.append(f"| {act} | {req} | {res} |")
+    else:
+        interaction_rows.append("| Interact with Companion | Specified Item | Activates custom companion mechanics |")
+    interaction_table = "\n".join(interaction_rows)
+
+    clean_name = meta['name'].replace(" BP", "").replace(" RP", "").strip()
+
+    content = f"""# {clean_name} — Advanced Companion for Minecraft Bedrock
 
 [![Minecraft Bedrock](https://img.shields.io/badge/Minecraft%20Bedrock-{meta['min_engine']}%2B-brightgreen?style=flat-square&logo=minecraft)](https://github.com/AllensCreations/MCPE-Curseforges)
-[![Release](https://img.shields.io/badge/Release-v{meta['version']}-blue?style=flat-square)](../README.md#available-source-add-ons)
+[![Achievement Friendly](https://img.shields.io/badge/Achievements-Friendly-brightgreen?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges)
+[![No Experiments Required](https://img.shields.io/badge/Experimental%20Features-NOT%20REQUIRED-success?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges)
 [![Format](https://img.shields.io/badge/Format-.{meta['primary_ext'].upper()}-orange?style=flat-square)](../README.md#available-source-add-ons)
-[![Platform](https://img.shields.io/badge/Platform-Mobile%20%7C%20PC%20%7C%20Console%20%7C%20Realms-yellow?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges)
 
-Creator: AllensCreations  
-Description: {meta['description']}
+**By AllensCreations**
+
+**NO EXPERIMENTAL NEED & ACHIEVEMENT FRIENDLY**
+
+Protect your companions. Preserve your adventures. Never leave your friends behind.
 
 ---
 
 ## Overview
 
-{meta['description']} Designed specifically for Minecraft Bedrock, providing seamless survival integration, robust companion mechanics, and zero intrusive experimental flags.
+Your adventures in the wild just got much more exciting.
+
+**{clean_name}** allows you to tame, command, and adventure alongside loyal survival companions. Experience seamless companion mechanics, faithful animations, and rich interactive features built directly for Minecraft Bedrock.
+
+No experimental features required. Designed to keep achievements available while you enjoy your adventures across standard worlds and Realms.
 
 ---
 
-## Features
+## Key Features
 
-{feature_lines}
+| Feature | Description |
+| :--- | :--- |
+{feature_table}
 
 ---
 
-## How It Works & In-Game Usage
+## How It Works
 
-| Interaction / Action | Requirement / Item | In-Game Result |
+| Action | Requirement | What Happens |
 | :--- | :--- | :--- |
-{interaction_rows}
+{interaction_table}
 
 ---
 
-## Installation
+## Compatibility
 
-1. Download the `.{meta['primary_ext']}` file from the [releases](../README.md).
-2. Open or double-tap the file to auto-import into Minecraft Bedrock.
-3. Apply the pack in your world settings under Behavior Packs (and Resource Packs if applicable).
-4. Launch your world and enjoy enhanced survival mechanics.
+- Minecraft Bedrock Edition {meta['min_engine']}+
+- No experimental features required
+- Designed to preserve achievement eligibility
+- {meta['primary_ext'].upper()} package format
+- Compatible with Mobile, Windows, Console, and Realms
 
 ---
 
@@ -299,7 +325,7 @@ Description: {meta['description']}
 """
     with open(readme_path, "w", encoding="utf-8") as f:
         f.write(content)
-    print(f"  [Auto-Fix] Successfully generated standardized README for {slug}")
+    print(f"  [Auto-Fix] Successfully generated commercial README for {slug}")
 
 
 def main():
