@@ -29,12 +29,12 @@ Explore the full [Maps Directory](MCPEDL/maps/README.md).
 
 | Add-on Name | Version | Type | Download | Source Code | Highlights |
 | :--- | :--- | :--- | :--- | :--- | :--- |
-| **Vanilla Quality of Life** | `v1.2.3` | Complete Pack (`.mcaddon`) | [Download (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Vanilla-Quality-of-Life/Vanilla_QoL_AllensCreations.mcaddon) | [`MCPEDL/addons/Vanilla-Quality-of-Life/`](MCPEDL/addons/Vanilla-Quality-of-Life/) | Universal Leashes (101 mobs), Spider Leash Fix, Fast Leaf Decay, Woodcutter, 16x Potions, Offhand Quick-Swap, Mob Heads. |
-| **Monster Companions** | `v1.0.3` | Complete Pack (`.mcaddon`) | [Download (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Monster-Companions/Monster_Companions_AllensCreations.mcaddon) | [`MCPEDL/addons/Monster-Companions/`](MCPEDL/addons/Monster-Companions/) | Tame 32 monsters into bodyguards and rideable mounts with Beast Biscuits. Combat pacification below 50% HP, wall-climbing spiders. |
-| **Mining Helmet** | `v1.0.3` | Complete Pack (`.mcaddon`) | [Download (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Mining-Helmet/Mining_Helmet_AllensCreations.mcaddon) | [`MCPEDL/addons/Mining-Helmet/`](MCPEDL/addons/Mining-Helmet/) | Wearable Mining Helmet with real-time level 15 dynamic following light, zero-residue block cleanup, and gold helmet model styling. |
-| **Passive Auto-Switch Tools** | `v1.1.8` | Script Behavior Pack (`.mcpack`) | [Download (.mcpack)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Passive-Auto-Switch-Tools/Passive_Auto_Switch_Tools_AllensCreations.mcpack) | [`MCPEDL/addons/Passive-Auto-Switch-Tools/`](MCPEDL/addons/Passive-Auto-Switch-Tools/) | Event-driven tool & weapon switcher when holding Slot 1. Swaps optimal tools upon breaking and equips axe/sword for mobs. |
+| **Vanilla Quality of Life** | `v1.2.4` | Complete Pack (`.mcaddon`) | [Download (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Vanilla-Quality-of-Life/Vanilla_QoL_AllensCreations.mcaddon) | [`MCPEDL/addons/Vanilla-Quality-of-Life/`](MCPEDL/addons/Vanilla-Quality-of-Life/) | Universal Leashes (101 mobs), Spider Leash Fix, Fast Leaf Decay, Woodcutter, 16x Potions, Offhand Quick-Swap, Mob Heads. |
+| **Monster Companions** | `v1.0.4` | Complete Pack (`.mcaddon`) | [Download (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Monster-Companions/Monster_Companions_AllensCreations.mcaddon) | [`MCPEDL/addons/Monster-Companions/`](MCPEDL/addons/Monster-Companions/) | Tame 32 monsters into bodyguards and rideable mounts with Beast Biscuits. Combat pacification below 50% HP, wall-climbing spiders. |
+| **Mining Helmet** | `v1.0.4` | Complete Pack (`.mcaddon`) | [Download (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Mining-Helmet/Mining_Helmet_AllensCreations.mcaddon) | [`MCPEDL/addons/Mining-Helmet/`](MCPEDL/addons/Mining-Helmet/) | Wearable Mining Helmet with real-time level 15 dynamic following light, zero-residue block cleanup, and gold helmet model styling. |
+| **Passive Auto-Switch Tools** | `v1.1.9` | Script Behavior Pack (`.mcpack`) | [Download (.mcpack)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Passive-Auto-Switch-Tools/Passive_Auto_Switch_Tools_AllensCreations.mcpack) | [`MCPEDL/addons/Passive-Auto-Switch-Tools/`](MCPEDL/addons/Passive-Auto-Switch-Tools/) | Event-driven tool & weapon switcher when holding Slot 1. Swaps optimal tools upon breaking and equips axe/sword for mobs. |
 | **Ghast Mob Head Transformers** | `v1.0.1` | Complete Pack (`.mcaddon`) | [Download (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Ghast-Head-Transformers/Ghast_Head_Transformers_AllensCreations.mcaddon) | [`MCPEDL/addons/Ghast-Head-Transformers/`](MCPEDL/addons/Ghast-Head-Transformers/) | Transform vanilla Ghasts into giant flying mob heads by equipping skulls, with charging faces and shearing drops. |
-| **Pet Immortality** | `v1.0.2` | Script Behavior Pack (`.mcpack`) | [Download (.mcpack)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/pet-immortality/pet_immortality_AllensCreations.mcpack) | [`MCPEDL/addons/pet-immortality/`](MCPEDL/addons/pet-immortality/) | Prevents damage to selected tamed pets. |
+| **Pet Immortality** | `v1.0.3` | Script Behavior Pack (`.mcpack`) | [Download (.mcpack)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/pet-immortality/pet_immortality_AllensCreations.mcpack) | [`MCPEDL/addons/pet-immortality/`](MCPEDL/addons/pet-immortality/) | Prevents damage to selected tamed pets. |
 | **Tameable Fox Companion** | `v1.0.1` | Complete Pack (`.mcaddon`) | [Download (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Tameable-Fox-Companion/Tameable_Fox_Companion_AllensCreations.mcaddon) | [`MCPEDL/addons/Tameable-Fox-Companion/`](MCPEDL/addons/Tameable-Fox-Companion/) | Tame foxes with sweet berries, command curl-up sitting, and ... |
 | **Immortal Pets** | `v1.0.0` | Script Behavior Pack (`.mcpack`) | [Download (.mcpack)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Immortal-Pets/Immortal_Pets_AllensCreations.mcpack) | [`MCPEDL/addons/Immortal-Pets/`](MCPEDL/addons/Immortal-Pets/) | Makes tamed cats, wolves, parrots and horses immortal. Choos... |
 | **Tameable Companion Fox** | `v1.0.1` | Complete Pack (`.mcaddon`) | [Download (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/tameable-companion-fox/tameable_companion_fox_AllensCreations.mcaddon) | [`MCPEDL/new_addons/tameable-companion-fox/`](MCPEDL/new_addons/tameable-companion-fox/) | Tameable foxes with sitting and equip interactions. By Allen... |
@@ -71,7 +71,7 @@ Single-block void survival map with procedural island generation across dimensio
 
 ---
 
-### Add-on 1: Vanilla Quality of Life (v1.2.3)
+### Add-on 1: Vanilla Quality of Life (v1.2.4)
 
 ![Vanilla QoL Icon](https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/MCPEDL/addons/Vanilla-Quality-of-Life/pack_icon.png)
 
@@ -90,7 +90,7 @@ Lightweight data-driven vanilla enhancement pack for Minecraft Bedrock.
 
 ---
 
-### Add-on 2: Monster Companions (v1.0.3)
+### Add-on 2: Monster Companions (v1.0.4)
 
 ![Monster Companions Icon](https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/MCPEDL/addons/Monster-Companions/1791889944961.jpg)
 
@@ -107,7 +107,7 @@ Data-driven pacification and bodyguard system for hostile monsters.
 
 ---
 
-### Add-on 3: Mining Helmet (v1.0.3)
+### Add-on 3: Mining Helmet (v1.0.4)
 
 ![Mining Helmet Banner](https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/MCPEDL/addons/Mining-Helmet/1791946330457.jpg)
 
