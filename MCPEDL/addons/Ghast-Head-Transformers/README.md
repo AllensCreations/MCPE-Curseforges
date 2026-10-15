@@ -6,7 +6,7 @@
 [![Achievement Friendly](https://img.shields.io/badge/Achievements-Friendly-brightgreen?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges)
 [![No Experiments Required](https://img.shields.io/badge/Experimental%20Features-NOT%20REQUIRED-success?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges)
 [![Format](https://img.shields.io/badge/Format-.MCADDON%20%7C%20.MCPACK-orange?style=flat-square)](../README.md#available-source-add-ons)
-[![Release](https://img.shields.io/badge/Release-v1.1.9-blue?style=flat-square)](../README.md#available-source-add-ons)
+[![Release](https://img.shields.io/badge/Release-v1.1.10-blue?style=flat-square)](../README.md#available-source-add-ons)
 
 **By AllensCreations**
 
@@ -41,14 +41,16 @@ Interact with any Ghast while holding a skull to trigger the transformation:
 | **4** | Steve / Player Head | Giant Steve Head | Knockback Wind Charge (1.4s) | Wind charge burst | Player Head |
 | **5** | Creeper Head | Giant Creeper Head | High-Explosive Fireball (2.5s) | Terrifying fuse hiss | Creeper Head |
 | **6** | Piglin Head | Giant Piglin Head | Rapid Blazing Fireballs (0.8s) | Aggressive piglin snorts | Piglin Head |
+| **7** | Dragon Head | Colossal Ender Dragon Head | Lingering Dragon Fireball (3.0s, 100 HP) | Ender Dragon roar and growl | Dragon Head |
 
 ---
 
 ## Gameplay Highlights
 
 - **Dynamic Charging Expressions**: When preparing to fire, transformed heads shift dynamically into angry, glowing, mouth-open attack expressions.
+- **Colossal Ender Dragon Head**: Equip a Dragon Head to transform the Ghast into an obsidian-scaled boss with 100 HP, 3D snout, horns, and lingering purple Dragon Fireballs.
 - **Resource Recovery**: Use Shears on any transformed Ghast to safely reclaim your equipped skull with zero item loss.
-- **3D Hat and Ear Geometry**: Features authentic 3D mob head modeling including Piglin snouts and 3D ears.
+- **3D Hat, Snout, and Horn Geometry**: Features authentic 3D mob head modeling including Piglin snouts/ears and Ender Dragon snouts/horns.
 - **Clean Animations**: Tentacles tuck away smoothly while heads are equipped, restoring naturally upon shearing.
 
 ---

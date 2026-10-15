@@ -12,6 +12,10 @@
         "minecraft:variant": {
           "value": 0
         },
+        "minecraft:health": {
+          "max": 40,
+          "value": 40
+        },
         "minecraft:shooter": {
           "def": "minecraft:fireball"
         },
@@ -107,6 +111,24 @@
           "attack_radius": 64,
           "charge_charged_trigger": 0.4,
           "charge_shoot_trigger": 0.8
+        }
+      },
+      "ghast:dragon": {
+        "minecraft:variant": {
+          "value": 7
+        },
+        "minecraft:health": {
+          "max": 100,
+          "value": 100
+        },
+        "minecraft:shooter": {
+          "def": "minecraft:dragon_fireball"
+        },
+        "minecraft:behavior.ranged_attack": {
+          "priority": 1,
+          "attack_radius": 64,
+          "charge_charged_trigger": 2.0,
+          "charge_shoot_trigger": 3.0
         }
       }
     },
@@ -448,7 +470,7 @@
                         "domain": "hand",
                         "subject": "other",
                         "test": "has_equipment",
-                        "value": "skull:5"
+                        "value": "skull:6"
                       }
                     ]
                   },
@@ -457,6 +479,47 @@
                     "subject": "self",
                     "test": "is_variant",
                     "value": 6
+                  }
+                ]
+              }
+            }
+          },
+          {
+            "interact_text": "action.interact.armorstand.equip",
+            "use_item": true,
+            "play_sounds": "mob.enderdragon.growl",
+            "on_interact": {
+              "event": "ghast:equip_dragon",
+              "target": "self",
+              "filters": {
+                "all_of": [
+                  {
+                    "any_of": [
+                      {
+                        "domain": "hand",
+                        "subject": "other",
+                        "test": "has_equipment",
+                        "value": "dragon_head"
+                      },
+                      {
+                        "domain": "hand",
+                        "subject": "other",
+                        "test": "has_equipment",
+                        "value": "minecraft:dragon_head"
+                      },
+                      {
+                        "domain": "hand",
+                        "subject": "other",
+                        "test": "has_equipment",
+                        "value": "skull:5"
+                      }
+                    ]
+                  },
+                  {
+                    "operator": "!=",
+                    "subject": "self",
+                    "test": "is_variant",
+                    "value": 7
                   }
                 ]
               }
@@ -695,6 +758,45 @@
                 ]
               }
             }
+          },
+          {
+            "interact_text": "action.interact.shear",
+            "hurt_item": 1,
+            "use_item": false,
+            "play_sounds": "shear",
+            "spawn_items": {
+              "table": "loot_tables/entities/ghast_drop_dragon_head.json"
+            },
+            "on_interact": {
+              "event": "ghast:reset_to_default",
+              "target": "self",
+              "filters": {
+                "all_of": [
+                  {
+                    "any_of": [
+                      {
+                        "domain": "hand",
+                        "subject": "other",
+                        "test": "has_equipment",
+                        "value": "shears"
+                      },
+                      {
+                        "domain": "hand",
+                        "subject": "other",
+                        "test": "has_equipment",
+                        "value": "minecraft:shears"
+                      }
+                    ]
+                  },
+                  {
+                    "operator": "==",
+                    "subject": "self",
+                    "test": "is_variant",
+                    "value": 7
+                  }
+                ]
+              }
+            }
           }
         ]
       }
@@ -773,7 +875,8 @@
             "ghast:zombie",
             "ghast:steve",
             "ghast:creeper",
-            "ghast:piglin"
+            "ghast:piglin",
+            "ghast:dragon"
           ]
         }
       },
@@ -790,7 +893,8 @@
             "ghast:zombie",
             "ghast:steve",
             "ghast:creeper",
-            "ghast:piglin"
+            "ghast:piglin",
+            "ghast:dragon"
           ]
         }
       },
@@ -807,7 +911,8 @@
             "ghast:wither_skeleton",
             "ghast:steve",
             "ghast:creeper",
-            "ghast:piglin"
+            "ghast:piglin",
+            "ghast:dragon"
           ]
         }
       },
@@ -824,7 +929,8 @@
             "ghast:wither_skeleton",
             "ghast:zombie",
             "ghast:creeper",
-            "ghast:piglin"
+            "ghast:piglin",
+            "ghast:dragon"
           ]
         }
       },
@@ -841,7 +947,8 @@
             "ghast:wither_skeleton",
             "ghast:zombie",
             "ghast:steve",
-            "ghast:piglin"
+            "ghast:piglin",
+            "ghast:dragon"
           ]
         }
       },
@@ -858,7 +965,26 @@
             "ghast:wither_skeleton",
             "ghast:zombie",
             "ghast:steve",
-            "ghast:creeper"
+            "ghast:creeper",
+            "ghast:dragon"
+          ]
+        }
+      },
+      "ghast:equip_dragon": {
+        "add": {
+          "component_groups": [
+            "ghast:dragon"
+          ]
+        },
+        "remove": {
+          "component_groups": [
+            "ghast:default",
+            "ghast:skeleton",
+            "ghast:wither_skeleton",
+            "ghast:zombie",
+            "ghast:steve",
+            "ghast:creeper",
+            "ghast:piglin"
           ]
         }
       },
@@ -875,7 +1001,8 @@
             "ghast:zombie",
             "ghast:steve",
             "ghast:creeper",
-            "ghast:piglin"
+            "ghast:piglin",
+            "ghast:dragon"
           ]
         }
       }
