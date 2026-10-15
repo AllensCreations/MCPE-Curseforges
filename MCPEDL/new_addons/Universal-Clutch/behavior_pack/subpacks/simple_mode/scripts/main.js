@@ -1000,11 +1000,6 @@ function executeClutch(player, velocity, clutchData, ground) {
           player.clearVelocity();
         } catch {}
 
-        // Momentary 10-tick (0.5s) slow falling to prevent tick-boundary fall damage glitch
-        try {
-          player.addEffect("slow_falling", 10, { amplifier: 0, showParticles: false });
-        } catch {}
-
         consumeClutchItem(player, clutchData, "minecraft:bucket");
 
         activeWaterClutches.set(player.id, {
