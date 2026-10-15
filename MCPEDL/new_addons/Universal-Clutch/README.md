@@ -63,27 +63,31 @@ All four conditions must be met simultaneously for clutch placement to trigger:
 
 ## Operating Modes & Subpack Configuration
 
-Universal Clutch supports two distinct operating modes selectable via subpack settings or customizable per-player in-game:
+Universal Clutch supports three distinct operating modes selectable via subpack settings slider in World Settings or customizable per-player in-game:
 
 ### Operating Modes
 
 - **Full Mode (Auto-Switch Inventory):**
-  If a clutch item is not already held in hand, the system automatically scans your hotbar and upper inventory for available clutch items (Water Bucket > Slime > Cobweb > Hay Bale > Boat > Ladder > Sweet Berries), switches or swaps it directly into your active hand, executes the clutch placement, and automatically restores your previously held item upon landing.
+  If a clutch item is not already held in hand, the system automatically scans your hotbar and upper inventory for available clutch items (Water Bucket > Slime > Cobweb > Hay Bale > Boat > Ladder > Sweet Berries), switches or swaps it directly into your active hand, executes the clutch placement, and automatically restores your previously held item upon landing. Requires the player to aim downward (`pitch >= 55°`).
 - **Simple Mode (Held Item Only):**
-  Clutch placements only trigger if you are actively holding a supported clutch item in your mainhand or offhand slot. If holding a sword, pickaxe, or empty hand, no placement will occur.
+  Clutch placements only trigger if you are actively holding a supported clutch item in your mainhand or offhand slot. If holding a sword, pickaxe, or empty hand, no placement will occur. Requires the player to aim downward (`pitch >= 55°`).
+- **Extreme Mode (Auto Smooth Look-Down & Auto-Switch):**
+  When falling from dangerous heights, the add-on automatically and smoothly tilts the player's camera pitch downward toward the impact surface, scans and auto-switches to the best available clutch item in inventory, and places it 1–2 ticks before impact. **Doom Condition:** If there is no clutch item available anywhere in your inventory or hands, the system will *not* adjust your camera and will *not* intervene—allowing you to plummet to your doom.
 
 ### Built-in Subpack Presets
 
-Configurable via the Behavior & Resource Pack settings slider in World Settings:
+Configurable via the Behavior Pack subpack settings slider in World Settings:
 
 1. **Full Mode (Auto-Switch Inventory):** Recommended default. Automatically detects, equips, and places clutch items from inventory, then restores previous items after landing.
 2. **Simple Mode (Held Item Only):** Traditional manual clutching. Only executes if a supported clutch item is already held in mainhand or offhand.
+3. **Extreme Mode (Auto Smooth Look-Down & Auto-Switch):** Hands-free safety system with auto smooth camera rotation and auto item switching. If inventory has no clutch item, doom is guaranteed.
 
 ### In-Game Tag Overrides
 
 Individual players can customize their personal settings on multiplayer servers without modifying world settings:
 - Toggle Full Mode: `/tag @s add clutch_mode:full`
 - Toggle Simple Mode: `/tag @s add clutch_mode:simple`
+- Toggle Extreme Mode: `/tag @s add clutch_mode:extreme`
 - Custom Height Threshold: `/tag @s add clutch_threshold:12`
 
 ---

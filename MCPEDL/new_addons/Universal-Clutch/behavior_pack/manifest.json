@@ -2,7 +2,7 @@
   "format_version": 2,
   "header": {
     "name": "Universal Clutch by AllensCreations",
-    "description": "Vanilla-faithful automatic clutch placements when falling from dangerous heights. Choose between Full Mode (auto-switch inventory) and Simple Mode (held item only) in subpack settings.",
+    "description": "Vanilla-faithful automatic clutch placements when falling from dangerous heights. Choose between Full Mode, Simple Mode, and Extreme Mode in subpack settings.",
     "uuid": "a452fcb1-dd72-41b0-aed0-273201968225",
     "version": [
       1,
@@ -55,6 +55,11 @@
       "folder_name": "simple_mode",
       "name": "Simple Mode (Held Item Only)",
       "memory_tier": 2
+    },
+    {
+      "folder_name": "extreme_mode",
+      "name": "Extreme Mode (Auto Smooth Look-Down & Auto-Switch)",
+      "memory_tier": 3
     }
   ],
   "metadata": {

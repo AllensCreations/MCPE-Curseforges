@@ -14,6 +14,8 @@
  * - Full Mode (Default): Automatically scans hotbar & inventory for clutch items,
  *   auto-switches/equips them to clutch, and restores the previous item upon landing.
  * - Simple Mode: Only triggers if a clutch item is actively held in mainhand or offhand.
+ * - Extreme Mode: Automatically smoothly looks down towards the ground and auto-switches
+ *   to any available clutch item in inventory. If no clutch item exists, player faces certain doom.
  */
 
 import {
@@ -29,7 +31,7 @@ import {
 
 /**
  * Default operating mode if not overridden by player tag.
- * Options: "full" (auto-switch inventory) or "simple" (held item only)
+ * Options: "full" (auto-switch inventory), "simple" (held item only), or "extreme" (auto-aim & switch)
  */
 const DEFAULT_MODE = "simple";
 
@@ -143,12 +145,13 @@ const fallTrackers = new Map();
 // =============================================================================
 
 /**
- * Resolves player operating mode ("full" or "simple").
- * Prioritizes tags: "clutch_mode:full", "clutch_mode:simple".
+ * Resolves player operating mode ("full", "simple", or "extreme").
+ * Prioritizes tags: "clutch_mode:extreme", "clutch_mode:full", "clutch_mode:simple".
  */
 function getPlayerMode(player) {
   try {
     const tags = player.getTags();
+    if (tags.includes("clutch_mode:extreme")) return "extreme";
     if (tags.includes("clutch_mode:full")) return "full";
     if (tags.includes("clutch_mode:simple")) return "simple";
   } catch {}
@@ -262,6 +265,33 @@ function findBestClutchItemInInventory(container) {
   }
 
   return null;
+}
+
+/**
+ * Fast check to verify if the player possesses any valid clutch item
+ * in mainhand, offhand, hotbar, or upper inventory.
+ * Used for Extreme Mode doom condition detection.
+ */
+function hasAnyClutchItem(player) {
+  try {
+    const equippable = player.getComponent("minecraft:equippable");
+    if (equippable) {
+      const main = equippable.getEquipment("Mainhand");
+      if (resolveClutchItem(main)) return true;
+      const off = equippable.getEquipment("Offhand");
+      if (resolveClutchItem(off)) return true;
+    }
+
+    const inventory = player.getComponent("minecraft:inventory");
+    const container = inventory?.container;
+    if (container) {
+      for (let i = 0; i < container.size; i++) {
+        const item = container.getItem(i);
+        if (resolveClutchItem(item)) return true;
+      }
+    }
+  } catch {}
+  return false;
 }
 
 /**
@@ -855,14 +885,6 @@ system.runInterval(() => {
       // Track fall distance manually
       const currentFallDist = trackPlayerFall(player, vel);
 
-      // Debounce: prevent multiple clutches within the same 25 ticks
-      const lastTick = lastClutchTick.get(player.id) ?? 0;
-      if (currentTick - lastTick < 25) continue;
-
-      // Pitch Check: player must be looking down towards ground (rot.x >= 55 degrees)
-      const rot = player.getRotation();
-      if (rot.x < 55) continue;
-
       // Downward velocity check: must be actively falling downward
       if (vel.y > -0.5) continue;
 
@@ -884,6 +906,38 @@ system.runInterval(() => {
       // Verify that this fall meets the height requirement
       if (currentFallDist < threshold && totalDropHeight < threshold) continue;
 
+      // Resolve operating mode (full, simple, or extreme)
+      const mode = getPlayerMode(player);
+
+      // Extreme Mode: Auto smooth look-down & doom condition
+      if (mode === "extreme") {
+        const hasItem = hasAnyClutchItem(player);
+        if (!hasItem) {
+          // Doom condition: no clutch item anywhere in hands or inventory.
+          // Do not adjust camera, do not intervene. Player falls to their doom.
+          continue;
+        }
+
+        // Auto smooth look-down: smoothly tilt camera pitch downward towards impact surface
+        const currentRot = player.getRotation();
+        const TARGET_PITCH = 82; // optimal placement pitch directly at feet
+        if (currentRot.x < TARGET_PITCH) {
+          const step = Math.min(TARGET_PITCH - currentRot.x, Math.max(12, (TARGET_PITCH - currentRot.x) * 0.5));
+          const newPitch = Math.min(TARGET_PITCH, currentRot.x + step);
+          try {
+            player.setRotation({ x: newPitch, y: currentRot.y });
+          } catch {}
+        }
+      }
+
+      // Debounce: prevent multiple clutches within the same 25 ticks
+      const lastTick = lastClutchTick.get(player.id) ?? 0;
+      if (currentTick - lastTick < 25) continue;
+
+      // Pitch Check: player must be looking down towards ground (rot.x >= 55 degrees)
+      const rot = player.getRotation();
+      if (mode !== "extreme" && rot.x < 55) continue;
+
       // Speed-based 1-2 tick impact prediction window
       const fallSpeed = Math.abs(vel.y);
       const predictionWindow = Math.max(2.2, fallSpeed * 1.6 + 0.4);
@@ -891,8 +945,12 @@ system.runInterval(() => {
       // Trigger strictly within 1-2 ticks before ground impact
       if (distToSurface > predictionWindow) continue;
 
-      // Resolve operating mode (full vs simple)
-      const mode = getPlayerMode(player);
+      // In extreme mode, guarantee downward rotation right at placement
+      if (mode === "extreme" && rot.x < 70) {
+        try {
+          player.setRotation({ x: 82, y: rot.y });
+        } catch {}
+      }
 
       // Acquire clutch item (from hands or auto-switched from inventory)
       const clutchData = acquireClutchItem(player, mode);
