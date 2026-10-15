@@ -20,7 +20,7 @@ This directory stores all compiled releases (behavior packs, resource packs, add
 | **Pet Immortality** | `v1.0.2` | Script Behavior Pack (`.mcpack`) | [Download (.mcpack)](Pet-Immortality/Pet_Immortality_AllensCreations.mcpack) | [`Pet-Immortality/`](Pet-Immortality/) |
 | **Pet Immortality** | `v1.0.2` | Script Behavior Pack (`.mcpack`) | [Download (.mcpack)](pet-immortality/pet_immortality_AllensCreations.mcpack) | [`pet-immortality/`](pet-immortality/) |
 | **Immortal Pets** | `v1.0.0` | Script Behavior Pack (`.mcpack`) | [Download (.mcpack)](Immortal-Pets/Immortal_Pets_AllensCreations.mcpack) | [`Immortal-Pets/`](Immortal-Pets/) |
-| **Tameable Companion Fox** | `v1.0.0` | Complete Pack (`.mcaddon`) | [Download (.mcaddon)](tameable-companion-fox/tameable_companion_fox_AllensCreations.mcaddon) | [`tameable-companion-fox/`](tameable-companion-fox/) |
+| **Tameable Companion Fox** | `v1.0.1` | Complete Pack (`.mcaddon`) | [Download (.mcaddon)](tameable-companion-fox/tameable_companion_fox_AllensCreations.mcaddon) | [`tameable-companion-fox/`](tameable-companion-fox/) |
 
 ### Worlds and Maps
 
