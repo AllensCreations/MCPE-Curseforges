@@ -8,9 +8,9 @@ This folder contains compiled release packages for **Mining Helmet** by AllensCr
 
 | File Name | Format | Size | Description | Download Link |
 | :--- | :--- | :--- | :--- | :--- |
-| **`Mining Helmet by AllensCreations (V1.0.5).mcaddon`** | `.mcaddon` | ~755 KB | Complete bundle containing both Behavior Pack and Resource Pack. | [Download (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Mining-Helmet/Mining%20Helmet%20by%20AllensCreations%20%28V1.0.5%29.mcaddon) |
-| **`Mining Helmet BP by AllensCreations (V1.0.5).mcpack`** | `.mcpack` | ~378 KB | Behavior Pack: Custom entities, components, and gameplay mechanics. | [Download (.mcpack)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Mining-Helmet/Mining%20Helmet%20BP%20by%20AllensCreations%20%28V1.0.5%29.mcpack) |
-| **`Mining Helmet RP by AllensCreations (V1.0.5).mcpack`** | `.mcpack` | ~377 KB | Resource Pack: Custom models, geometry, textures, and sounds. | [Download (.mcpack)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Mining-Helmet/Mining%20Helmet%20RP%20by%20AllensCreations%20%28V1.0.5%29.mcpack) |
+| **`Mining Helmet by AllensCreations (V1.0.6).mcaddon`** | `.mcaddon` | ~755 KB | Complete bundle containing both Behavior Pack and Resource Pack. | [Download (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Mining-Helmet/Mining%20Helmet%20by%20AllensCreations%20%28V1.0.6%29.mcaddon) |
+| **`Mining Helmet BP by AllensCreations (V1.0.6).mcpack`** | `.mcpack` | ~378 KB | Behavior Pack: Custom entities, components, and gameplay mechanics. | [Download (.mcpack)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Mining-Helmet/Mining%20Helmet%20BP%20by%20AllensCreations%20%28V1.0.6%29.mcpack) |
+| **`Mining Helmet RP by AllensCreations (V1.0.6).mcpack`** | `.mcpack` | ~377 KB | Resource Pack: Custom models, geometry, textures, and sounds. | [Download (.mcpack)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Mining-Helmet/Mining%20Helmet%20RP%20by%20AllensCreations%20%28V1.0.6%29.mcpack) |
 
 ---
 
