@@ -1,77 +1,99 @@
-# Smart Tree Capitator & Domino Ore Miner — Vein & Tree Miner for Minecraft Bedrock
+# Smart Tree Capitator & Domino Ore Miner
 
 [![Minecraft Bedrock](https://img.shields.io/badge/Minecraft%20Bedrock-1.21.0%2B-brightgreen?style=flat-square&logo=minecraft)](https://github.com/AllensCreations/MCPE-Curseforges)
-[![Achievement Friendly](https://img.shields.io/badge/Achievements-Friendly-brightgreen?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges)
 [![Script API](https://img.shields.io/badge/Script%20API-%40minecraft%2Fserver%201.13.0%2B-blue?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges)
-[![Format](https://img.shields.io/badge/Format-.MCPACK-orange?style=flat-square)](../README.md#available-source-add-ons)
+[![Format](https://img.shields.io/badge/Format-.MCPACK%20%2F%20.MCADDON-orange?style=flat-square)](../README.md#available-source-add-ons)
 [![Release](https://img.shields.io/badge/Release-v1.0.0-blue?style=flat-square)](../README.md#available-source-add-ons)
 
 **By AllensCreations**
 
-**SNEAK-ACTIVATED VEIN MINING & BUILT-IN TOOL PROTECTION**
-
-Effortlessly fell entire trees and mine contiguous ore veins with a single sneak-break, protected by automated durability safety stops.
+Sneak-activated vein mining and tree felling with built-in tool durability protection for Minecraft Bedrock Edition.
 
 ---
 
 ## Overview
 
-Mining deep underground veins block-by-block and cutting tall jungle or acacia trees from the canopy down can be tedious.
+Mining large underground ore clusters and chopping tall trees one block at a time takes unnecessary time.
 
-**Smart Tree Capitator & Domino Ore Miner** introduces high-speed sneak-activated vein mining and tree felling to Minecraft Bedrock Edition. Built on the modern Bedrock Script API (`@minecraft/server`), it allows you to topple whole trees and sweep full ore veins in smooth domino sequence—while guaranteeing that your favorite enchanted tools will never break by mistake.
+**Smart Tree Capitator & Domino Ore Miner** adds sneak-activated chain mining to Minecraft Bedrock Edition using the Script API (`@minecraft/server`). Sneak while breaking a log or ore to fell the entire tree or harvest the connected ore vein in a single tick. Tools stop mining when durability drops to 5, preventing accidental breakage.
 
-No extra hunger penalties. Normal single-block mining is preserved whenever you stand upright.
-
----
-
-## Key Features
-
-| Feature | Description |
-| :--- | :--- |
-| **Sneak-Activated** | Only activates while sneaking. Stand upright to mine normal single blocks with zero interference. |
-| **Footprint Tree Capitator** | Layer-by-layer 3×3 vertical footprint scan captures straight trunks, diagonal branches, and 2×2 giant trees without jumping across forest boundaries. |
-| **26-Neighbor Domino Ore Miner** | True 3D breadth-first search connects full clusters through face, edge, and corner connections up to 64 blocks. |
-| **Mineral Category Normalization** | Groups deepslate and regular variants into unified mineral families (e.g. Deepslate Diamond + Diamond Ore). |
-| **Durability Safety Guard** | Automatically stops chain mining when tool durability hits 5 points remaining, playing an alert sound and preserving your gear. |
-| **Unbreaking Respect** | Accurately factors in the vanilla Unbreaking enchantment formula (`100 / (level + 1)%` damage chance). |
-| **Fortune & Silk Touch Support** | Silk Touch drops whole ore blocks; Fortune rolls authentic multi-drop quantities. |
-| **Zero Hunger Penalties** | Applies no additional exhaustion or hunger drain beyond the normal block break. |
-| **Instantaneous Burst Mode** | Breaks the entire cluster or felled tree in the exact same tick with zero delay. |
-| **Natural Drops** | Drops items naturally at each block's location with authentic survival physics. |
-| **Vanilla Leaf Decay** | Leaves natural gradual leaf decay intact so canopies drop saplings and apples gradually. |
+Standing upright leaves standard vanilla single-block mining untouched. The add-on adds no extra hunger or exhaustion penalties.
 
 ---
 
-## Core Activation Rules & Controls
+## Installation & World Setup
 
-| Action | Stance | Held Tool | Target Block | Result |
-| :--- | :--- | :--- | :--- | :--- |
-| **Standard Mining** | Standing / Walking | Any | Any block | Normal vanilla single-block break. |
-| **Tree Capitation** | **Sneaking** | Axe | Any Log, Wood, or Stem | Fells connected trunk and branches upward. |
-| **Domino Ore Mining** | **Sneaking** | Pickaxe | Any Supported Ore | Mines the full contiguous ore cluster. |
+This add-on uses the Bedrock Script API and requires the **Beta APIs** experimental toggle.
+
+### 1. Import the Pack
+- **Windows / PC**: Double-click the downloaded `.mcpack` or `.mcaddon` file. Minecraft Bedrock will open and import the pack automatically.
+- **Android / iOS**: Tap the downloaded file in your file browser or downloads menu and select **Open in Minecraft**.
+- **Dedicated Server / Realm**: Upload the pack folder or `.mcpack` to the server's `behavior_packs/` directory and add the pack UUID to `world_behavior_packs.json`.
+
+### 2. Apply to Your World
+1. Edit an existing world or create a new one.
+2. Navigate to **Behavior Packs** in the left sidebar.
+3. Under **Available**, locate **Smart Tree Capitator & Domino Ore Miner** and click **Activate**.
+
+### 3. Enable Required Experiments
+1. Scroll down to the **Experiments** section in World Settings.
+2. Toggle **Beta APIs** to **On**.
+3. Confirm the prompt to enable experiments.
 
 ---
 
-## Tree Capitator Footprint Pattern
+## Controls
 
-Tree Capitator utilizes a vertical footprint scan designed specifically for Bedrock Edition trees:
+Both mechanics trigger only while crouching (sneaking). When standing, all blocks mine normally.
 
-1. **Layer 0 (Base Level)**: Scans the 8 horizontal perimeter neighbors around the broken block to detect 2×2 mega trunks (e.g. Dark Oak, Jungle, Spruce).
-2. **Ascending Layers (y + 1 to y + 36)**: Evaluates a 3×3 footprint centered at every active trunk and branch coordinate found at the previous layer.
-3. **Safety Caps**: Limits maximum blocks to 128 logs per operation to prevent excessive processing, adhering to world build boundaries.
+| Platform | Sneak Input | Mining Action |
+| :--- | :--- | :--- |
+| **Keyboard & Mouse (PC)** | Hold `Shift` | Mine log with axe or ore with pickaxe |
+| **Touch Controls (Mobile)** | Double-tap or toggle crouch button | Mine log with axe or ore with pickaxe |
+| **Controller (Console / PC)** | Press right stick or crouch button | Mine log with axe or ore with pickaxe |
 
-### Supported Tree Types
+### Mining Rules
+
+| Stance | Tool | Target Block | Result |
+| :--- | :--- | :--- | :--- |
+| Standing / Walking | Any | Any block | Normal vanilla single-block break |
+| **Sneaking** | Axe | Log, Wood, Stem, or Hyphae | Fells trunk and connected branches upward |
+| **Sneaking** | Pickaxe | Supported Ore Block | Mines entire connected ore cluster |
+
+---
+
+## Tree Capitator
+
+When you break a log while sneaking with an axe in hand, the add-on scans upward through the tree canopy.
+
+### Footprint Scan Pattern
+1. **Base Level**: Scans the 8 horizontal perimeter blocks around the broken log to catch 2x2 mega trunks (Dark Oak, Jungle, Spruce).
+2. **Ascending Layers**: Evaluates a 3x3 footprint centered at every active trunk and branch coordinate found in the layer below.
+3. **Safety Limits**: Capped at 128 logs per tree and bounded by world height (-64 to 320) to prevent runaway chain reactions into adjacent forests.
+
+### Supported Trees
 - **Overworld**: Oak, Spruce, Birch, Jungle, Acacia, Dark Oak, Mangrove (including roots), Cherry, and Pale Oak.
-- **Nether Fungi**: Crimson and Warped Stems and Hyphae.
-- **Wood Variants**: All stripped logs and six-sided wood bark blocks.
+- **Nether**: Crimson Stem, Warped Stem, Crimson Hyphae, Warped Hyphae.
+- **Wood Variants**: All stripped logs and all 6-sided bark wood blocks.
+- **Canopy Leaves**: Left intact for natural leaf decay so saplings, sticks, and apples drop normally over time.
 
 ---
 
-## Domino Ore Miner & Mineral Categories
+## Domino Ore Miner
 
-Domino Ore Miner checks all 26 spatial neighbors (faces, edges, and vertices) using iterative breadth-first search (BFS). There is no arbitrary distance limit: it traverses purely contiguous connected ores up to the 64-block cluster ceiling. Ore blocks are normalized into mineral categories so stone and deepslate variants seamlessly connect:
+When you mine an ore block while sneaking with a pickaxe, the add-on runs an iterative 3D breadth-first search across all 26 spatial neighbors (faces, edges, and corners).
 
-| Mineral Category | Supported Block Identifiers | Min Tool Tier | Default Drops |
+### Rules & Limits
+- **Connected Only**: Finds contiguous veins without jumping through stone or air pockets.
+- **Cluster Cap**: Up to 64 ore blocks per vein.
+- **Instant Burst**: Breaks the matching cluster in the same tick.
+- **Tier Validation**: Pickaxe tier must meet or exceed the ore requirement. Breaking diamond ore with a stone pickaxe will not trigger a chain.
+
+### Mineral Categories & Drop Rules
+
+Regular stone and deepslate ores share the same mineral category, allowing veins that cross the stone/deepslate layer boundary to mine seamlessly:
+
+| Category | Supported Block IDs | Minimum Pickaxe | Drops |
 | :--- | :--- | :--- | :--- |
 | **Coal** | `minecraft:coal_ore`, `minecraft:deepslate_coal_ore` | Wooden+ | Coal |
 | **Iron** | `minecraft:iron_ore`, `minecraft:deepslate_iron_ore` | Stone+ | Raw Iron |
@@ -85,40 +107,45 @@ Domino Ore Miner checks all 26 spatial neighbors (faces, edges, and vertices) us
 | **Nether Quartz** | `minecraft:quartz_ore`, `minecraft:nether_quartz_ore` | Wooden+ | Nether Quartz |
 | **Ancient Debris** | `minecraft:ancient_debris` | Diamond+ | Ancient Debris Block |
 
-*Only blocks of the same mineral category are traversed. Tool tier validation ensures wooden or stone pickaxes will not trigger diamond or ancient debris chains.*
+*Note: Nether Gold is a separate category from Overworld Gold to prevent unintended cross-mining in custom or glitch scenarios.*
 
 ---
 
-## Durability Protection System
+## Durability & Enchantment Handling
 
-Never lose a god-pickaxe to an unexpected huge cluster:
+### Tool Protection
+- Reads `minecraft:durability` before breaking each secondary block.
+- Halts immediately when remaining durability (`maxDurability - damage`) reaches **5 or less**.
+- Plays a warning sound (`note.bass`) and displays an action bar message:
+  ```text
+  [Tool Protection] Stopped mining to save tool! (5 durability left)
+  ```
+- Stops immediately if you swap or unequip the tool during mining.
 
-1. **Safety Threshold**: Prior to breaking each secondary block, the script queries `minecraft:durability`.
-2. **Threshold Halt**: If `maxDurability - damage <= 5`, chain mining ceases immediately.
-3. **Audio & Visual Alert**: Plays an audible warning sound (`note.bass`) and displays an action bar alert:
-   ```text
-   [Tool Protection] Stopped mining to save tool! (5 durability left)
-   ```
-4. **Tool Re-Validation**: If the tool is switched or unequipped during mining, processing terminates instantly.
+### Enchantment Compatibility
+- **Silk Touch**: Preserves full ore blocks (such as Diamond Ore or Deepslate Coal Ore) instead of dropping items.
+- **Fortune (I–III)**: Applies standard vanilla Fortune drop multipliers for ores that drop items.
+- **Unbreaking (I–III)**: Uses vanilla probability `100 / (level + 1)%` per secondary block. The tool takes less damage over large clusters.
 
 ---
 
 ## Configuration
 
-All search limits, thresholds, and pacing values can be customized in [`scripts/config.js`](scripts/config.js):
+Settings can be modified in [`behavior_pack/scripts/config.js`](behavior_pack/scripts/config.js):
 
 ```javascript
 export const CONFIG = {
-  TREE_CAPITATOR_ENABLED: true,      // Enable/disable tree capitator
-  DOMINO_ORE_MINER_ENABLED: true,    // Enable/disable domino ore miner
-  MAX_TREE_BLOCKS: 128,              // Maximum logs per tree
-  MAX_TREE_HEIGHT: 36,               // Maximum vertical search blocks
-  MAX_ORE_CLUSTER_SIZE: 64,          // Maximum ores per cluster
-  MAX_ORE_SEARCH_DISTANCE: 16,       // Maximum block radius for ore veins
-  BLOCKS_PER_TICK: 6,                // Blocks broken per tick (6 = smooth 20 TPS)
-  DURABILITY_SAFETY_THRESHOLD: 5,    // Stop threshold for tool durability
-  ALERT_SOUND: "note.bass",          // Protection alert sound cue
-  NETHER_GOLD_POLICY: "nether_gold", // Category policy for Nether gold ore
+  TREE_CAPITATOR_ENABLED: true,      // Enable or disable tree felling
+  DOMINO_ORE_MINER_ENABLED: true,    // Enable or disable ore vein mining
+  MAX_TREE_BLOCKS: 128,              // Maximum logs broken per tree
+  MAX_TREE_HEIGHT: 320,              // Maximum vertical search height
+  MAX_ORE_CLUSTER_SIZE: 64,          // Maximum ores broken per vein
+  INSTANT_BURST: true,               // Break entire cluster in a single tick
+  DURABILITY_SAFETY_THRESHOLD: 5,    // Stop mining when durability hits this number
+  ALERT_SOUND: "note.bass",          // Sound played when tool protection activates
+  ALERT_PITCH: 0.7,                  // Pitch of the protection sound
+  ALERT_VOLUME: 1.0,                 // Volume of the protection sound
+  NETHER_GOLD_POLICY: "nether_gold", // "nether_gold" (distinct) or "gold" (shared)
 };
 ```
 
@@ -126,11 +153,11 @@ export const CONFIG = {
 
 ## Compatibility
 
-- Minecraft Bedrock Edition 1.21.0+ (compatible with 1.26+ standards)
-- Requires `@minecraft/server` 1.13.0+
-- Behavior Pack format (zero custom entities or resource packs required)
-- Compatible with Windows, Android, iOS, Xbox, PlayStation, Nintendo Switch, and dedicated servers/Realms
-- Fully multiplayer compatible with per-player recursion guards
+- Minecraft Bedrock Edition 1.21.0 or newer
+- Requires `@minecraft/server` 1.13.0 or newer
+- Requires **Beta APIs** experimental toggle
+- Pure Behavior Pack (no custom entities, no custom items, no resource pack required)
+- Works on Windows, iOS, Android, Xbox, PlayStation, Nintendo Switch, and dedicated servers / Realms
 
 ---
 
@@ -138,8 +165,8 @@ export const CONFIG = {
 
 - Creator: AllensCreations
 - Rights & Reservation: All rights reserved for AllensCreations.
-- Content Creators: Permitted to feature this add-on in gameplay videos and streams with attribution to AllensCreations.
-- Redistribution: Do not re-upload this pack or provide direct monetized download bypasses. Link directly to the official repository page.
+- Content Creators: Free to feature this add-on in videos and streams with credit to AllensCreations.
+- Redistribution: Do not re-upload the pack or mirror downloads behind monetization links. Link to the official repository page.
 
 ---
 

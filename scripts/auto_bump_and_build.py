@@ -471,9 +471,15 @@ def rebuild_project_packages(project_path, category, version_str=None):
         ))
         print(f"  Built: {os.path.relpath(mcpack_path, REPO_ROOT)}")
 
-        # Also provide .mcaddon
+        # Also provide valid .mcaddon bundle containing the BP pack folder
         mcaddon_path = os.path.join(build_dir, addon_name)
-        zip_directory_contents(bp_dir, mcaddon_path)
+        slug = project_name.replace("-", "_")
+        bp_folder_name = f"{slug}_BP"
+        with zipfile.ZipFile(mcaddon_path, "w", zipfile.ZIP_DEFLATED) as zf:
+            for root, _, files in os.walk(bp_dir):
+                for file in sorted(files):
+                    fp = os.path.join(root, file)
+                    zf.write(fp, os.path.join(bp_folder_name, os.path.relpath(fp, bp_dir)))
         built_files.append((
             addon_name, "mcaddon", _format_size(mcaddon_path),
             "Complete Add-on package archive."
