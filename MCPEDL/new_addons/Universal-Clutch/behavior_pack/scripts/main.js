@@ -1,17 +1,18 @@
 /**
  * Universal Clutch by AllensCreations
  * 
- * Vanilla-faithful Bedrock Script API (@minecraft/server v1.13.0+) Add-on.
+ * Standalone Minecraft Bedrock Script API (@minecraft/server v1.13.0+) Add-on.
+ * Single-file implementation (no external script dependencies or module imports).
+ * 
  * Automatically performs clutch placements when falling from dangerous heights,
- * featuring realistic 1-2 tick impact prediction, authentic arm swing animations,
+ * featuring 1-2 tick impact prediction, authentic arm swing animations,
  * placement sounds, native waterlogged block handling, automatic water scooping,
- * and Full / Simple subpack mode support.
+ * and Full / Simple mode support.
  * 
  * Modes:
- * - Full Mode: Automatically scans hotbar & inventory for clutch items, auto-switches/equips them, and restores previous items after landing.
- * - Simple Mode: Only triggers if a clutch item is actively held in the mainhand or offhand.
- * 
- * Compatible with Minecraft Bedrock 1.21+ / v1.26+ standards.
+ * - Full Mode (Default): Automatically scans hotbar & inventory for clutch items,
+ *   auto-switches/equips them to clutch, and restores the previous item upon landing.
+ * - Simple Mode: Only triggers if a clutch item is actively held in mainhand or offhand.
  */
 
 import {
@@ -21,19 +22,25 @@ import {
   ItemStack
 } from "@minecraft/server";
 
-import {
-  AUTO_SWITCH_INVENTORY,
-  FALL_DISTANCE_THRESHOLD,
-  SUBPACK_NAME
-} from "./config.js";
-
 // =============================================================================
-// Constants & Supported Clutch Items Definition
+// Pack Configuration
 // =============================================================================
 
 /**
- * Registry of supported clutch items with placement properties and sound cues.
+ * Default operating mode if not overridden by player tag.
+ * Options: "full" (auto-switch inventory) or "simple" (held item only)
  */
+const DEFAULT_MODE = "full";
+
+/**
+ * Minimum fall distance (in blocks) required to trigger the clutch system.
+ */
+const DEFAULT_THRESHOLD = 8;
+
+// =============================================================================
+// Registry of Supported Clutch Items
+// =============================================================================
+
 const CLUTCH_REGISTRY = {
   "minecraft:water_bucket": {
     name: "Water Bucket",
@@ -74,7 +81,7 @@ const CLUTCH_REGISTRY = {
 };
 
 /**
- * Selection priority order when searching inventory in Full Mode.
+ * Priority order when searching inventory in Full Mode.
  */
 const CLUTCH_PRIORITY = [
   "minecraft:water_bucket",
@@ -87,7 +94,7 @@ const CLUTCH_PRIORITY = [
 ];
 
 /**
- * Replaceable or passable foliage/air blocks that a falling player traverses.
+ * Passable foliage/air blocks that a falling player traverses.
  */
 const PASSABLE_OR_AIR_BLOCKS = new Set([
   "minecraft:air",
@@ -122,19 +129,21 @@ const PASSABLE_OR_AIR_BLOCKS = new Set([
 // Key: player.id -> ClutchRecord
 const activeWaterClutches = new Map();
 
-// Map tracking recent clutch trigger ticks to debounce and avoid duplicate triggers per fall
-// Key: player.id -> number (system tick)
+// Map tracking recent clutch trigger ticks to debounce per player
+// Key: player.id -> number (tick)
 const lastClutchTick = new Map();
 
+// Map tracking fall start height per player to calculate true fall distance
+// Key: player.id -> { startY: number, lastY: number, fallDist: number }
+const fallTrackers = new Map();
+
 // =============================================================================
-// Helper Functions: Mode, Tags, Inventory, and Vector Raycasting
+// Helper Functions: Mode, Fall Tracking, Inventory, and Raycasting
 // =============================================================================
 
 /**
- * Resolves whether the player operates in "full" or "simple" mode.
- * Supports player tag overrides ("clutch_mode:full", "clutch_mode:simple") or falls back to active subpack config.
- * @param {import("@minecraft/server").Player} player
- * @returns {"full" | "simple"}
+ * Resolves player operating mode ("full" or "simple").
+ * Prioritizes tags: "clutch_mode:full", "clutch_mode:simple".
  */
 function getPlayerMode(player) {
   try {
@@ -142,45 +151,72 @@ function getPlayerMode(player) {
     if (tags.includes("clutch_mode:full")) return "full";
     if (tags.includes("clutch_mode:simple")) return "simple";
   } catch {}
-  return AUTO_SWITCH_INVENTORY ? "full" : "simple";
+  return DEFAULT_MODE;
 }
 
 /**
  * Retrieves the effective fall distance threshold for a player.
- * Supports dynamic player tag overrides (e.g. "clutch_threshold:15") or falls back to active subpack config.
- * @param {import("@minecraft/server").Player} player
- * @returns {number} Threshold in blocks
+ * Supports tag override: "clutch_threshold:<blocks>"
  */
-function getEffectiveThreshold(player) {
+function getPlayerThreshold(player) {
   try {
     const tags = player.getTags();
     for (const tag of tags) {
       if (tag.startsWith("clutch_threshold:")) {
         const val = parseInt(tag.split(":")[1], 10);
-        if (!isNaN(val) && val > 0) {
-          return val;
-        }
+        if (!isNaN(val) && val > 0) return val;
       }
     }
   } catch {}
-  return FALL_DISTANCE_THRESHOLD;
+  return DEFAULT_THRESHOLD;
 }
 
 /**
- * Checks whether an item stack qualifies as a supported clutch item.
- * @param {import("@minecraft/server").ItemStack | undefined} itemStack
- * @returns {object | null} Clutch definition if supported, otherwise null.
+ * Tracks player vertical displacement every tick to calculate accurate fall distance.
+ * Resolves the issue where entity.fallDistance is undefined in Bedrock Script API 1.13.0+.
+ * @param {import("@minecraft/server").Player} player
+ * @param {import("@minecraft/server").Vector3} vel
+ * @returns {number} Fall distance in blocks
+ */
+function trackPlayerFall(player, vel) {
+  const loc = player.location;
+  let tracker = fallTrackers.get(player.id);
+
+  // Consider falling when downward velocity is non-trivial and not standing on ground
+  const isFallingDown = vel.y < -0.15 && !player.isOnGround;
+
+  if (isFallingDown) {
+    if (!tracker) {
+      tracker = { startY: loc.y, lastY: loc.y, fallDist: 0 };
+      fallTrackers.set(player.id, tracker);
+    } else {
+      // If player jumped upward before falling, reset apex startY
+      if (loc.y > tracker.startY) {
+        tracker.startY = loc.y;
+      }
+      tracker.lastY = loc.y;
+      tracker.fallDist = Math.max(0, tracker.startY - loc.y);
+    }
+    return tracker.fallDist;
+  } else {
+    // Player landed or is stationary
+    fallTrackers.delete(player.id);
+    return 0;
+  }
+}
+
+/**
+ * Resolves clutch item definition from an ItemStack.
  */
 function resolveClutchItem(itemStack) {
   if (!itemStack || !itemStack.typeId) return null;
   const typeId = itemStack.typeId;
 
-  // Exact registry lookup
   if (CLUTCH_REGISTRY[typeId]) {
     return { ...CLUTCH_REGISTRY[typeId], typeId };
   }
 
-  // Multi-item Boat / Raft check (e.g. oak_boat, spruce_boat, bamboo_raft, chest_boat)
+  // Any boat or raft
   if (typeId.endsWith("_boat") || typeId.endsWith("_raft")) {
     const isChestBoat = typeId.includes("chest_boat") || typeId.includes("chest_raft");
     return {
@@ -195,9 +231,6 @@ function resolveClutchItem(itemStack) {
   return null;
 }
 
-/**
- * Checks if an item stack matches a priority key.
- */
 function itemMatchesPriority(itemStack, priorityKey) {
   if (!itemStack || !itemStack.typeId) return false;
   if (priorityKey === "boat") {
@@ -207,23 +240,20 @@ function itemMatchesPriority(itemStack, priorityKey) {
 }
 
 /**
- * Searches the player's inventory container for the best available clutch item.
- * Checks hotbar (0-8) first, then upper inventory (9-35).
- * @param {import("@minecraft/server").Container} container
- * @returns {{ slot: number, item: import("@minecraft/server").ItemStack, inHotbar: boolean } | null}
+ * Searches player container for the best available clutch item.
  */
 function findBestClutchItemInInventory(container) {
   if (!container) return null;
 
   for (const pKey of CLUTCH_PRIORITY) {
-    // 1. Search hotbar (0 to 8) first
+    // 1. Check hotbar first (slots 0 to 8)
     for (let slot = 0; slot < 9 && slot < container.size; slot++) {
       const item = container.getItem(slot);
       if (item && itemMatchesPriority(item, pKey)) {
         return { slot, item, inHotbar: true };
       }
     }
-    // 2. Search upper inventory (9 to 35)
+    // 2. Check upper inventory (slots 9 to 35)
     for (let slot = 9; slot < container.size; slot++) {
       const item = container.getItem(slot);
       if (item && itemMatchesPriority(item, pKey)) {
@@ -236,12 +266,9 @@ function findBestClutchItemInInventory(container) {
 }
 
 /**
- * Resolves the clutch item to use for the player.
- * - Simple Mode: Only checks mainhand and offhand.
- * - Full Mode: Checks mainhand/offhand first; if none, automatically switches hotbar or swaps from inventory.
- * @param {import("@minecraft/server").Player} player
- * @param {"full" | "simple"} mode
- * @returns {{ itemStack: import("@minecraft/server").ItemStack, slot: string, definition: object, autoSwitched: object | null } | null}
+ * Acquires a clutch item.
+ * - Simple Mode: only checks mainhand & offhand.
+ * - Full Mode: checks hands first; if none, auto-switches hotbar or swaps from upper inventory.
  */
 function acquireClutchItem(player, mode) {
   const equippable = player.getComponent("minecraft:equippable");
@@ -261,12 +288,12 @@ function acquireClutchItem(player, mode) {
     return { itemStack: offhand, slot: "Offhand", definition: offDef, autoSwitched: null };
   }
 
-  // 3. Simple mode stops here (held items only)
+  // If Simple Mode, no inventory search
   if (mode === "simple") {
     return null;
   }
 
-  // 4. Full Mode: Auto-switch from inventory
+  // 3. Full Mode: Auto-switch from inventory
   const inventory = player.getComponent("minecraft:inventory");
   if (!inventory || !inventory.container) return null;
   const container = inventory.container;
@@ -289,12 +316,11 @@ function acquireClutchItem(player, mode) {
       definition,
       autoSwitched: {
         type: "hotbar_index",
-        previousSlot: originalHotbarSlot,
-        newSlot: match.slot
+        previousSlot: originalHotbarSlot
       }
     };
   } else {
-    // Swap item from upper inventory into the player's active hotbar slot
+    // Swap item from upper inventory into the active hotbar slot
     try {
       container.swapItems(match.slot, originalHotbarSlot, container);
       const swappedItem = container.getItem(originalHotbarSlot);
@@ -318,9 +344,7 @@ function acquireClutchItem(player, mode) {
 }
 
 /**
- * Restores the previous hotbar slot or swaps back inventory items after auto-switching.
- * @param {import("@minecraft/server").Player} player
- * @param {object} autoSwitched
+ * Restores previous hotbar slot or swaps back inventory item.
  */
 function restoreAutoSwitched(player, autoSwitched) {
   if (!player || !player.isValid() || !autoSwitched) return;
@@ -338,9 +362,7 @@ function restoreAutoSwitched(player, autoSwitched) {
 }
 
 /**
- * Checks if a block is air or passable foliage that can be safely occupied/replaced.
- * @param {import("@minecraft/server").Block | null} block
- * @returns {boolean}
+ * Checks if a block is air or passable foliage.
  */
 function isPassableOrAir(block) {
   if (!block) return false;
@@ -349,23 +371,28 @@ function isPassableOrAir(block) {
 }
 
 /**
- * Scans downward along the player's vertical column to find the impact surface block.
- * @param {import("@minecraft/server").Dimension} dimension
- * @param {import("@minecraft/server").Vector3} location
- * @returns {{ surfaceBlock: import("@minecraft/server").Block, airBlockAbove: import("@minecraft/server").Block, surfaceY: number } | null}
+ * Scans downward beneath player to locate the impact surface block.
  */
 function findGroundBelow(dimension, location) {
   const px = Math.floor(location.x);
   const pz = Math.floor(location.z);
   const startY = Math.floor(location.y);
-  const minY = Math.max(dimension.minHeight ?? -64, startY - 12);
+  const minY = Math.max(dimension.minHeight ?? -64, startY - 16);
 
   for (let y = startY; y >= minY; y--) {
-    const block = dimension.getBlock({ x: px, y: y, z: pz });
+    let block;
+    try {
+      block = dimension.getBlock({ x: px, y: y, z: pz });
+    } catch {
+      break;
+    }
     if (!block) break;
 
     if (!isPassableOrAir(block)) {
-      const airAbove = dimension.getBlock({ x: px, y: y + 1, z: pz });
+      let airAbove;
+      try {
+        airAbove = dimension.getBlock({ x: px, y: y + 1, z: pz });
+      } catch {}
       if (airAbove) {
         return {
           surfaceBlock: block,
@@ -381,9 +408,7 @@ function findGroundBelow(dimension, location) {
 }
 
 /**
- * Determines if a surface block natively supports waterlogging.
- * @param {import("@minecraft/server").Block} block
- * @returns {boolean} True if waterloggable and not already waterlogged
+ * Checks if a block natively supports waterlogging.
  */
 function isWaterloggableBlock(block) {
   if (!block || !block.permutation) return false;
@@ -416,15 +441,17 @@ function isWaterloggableBlock(block) {
 }
 
 /**
- * Safely consumes or replaces 1 item from the specified equipment slot in survival/adventure mode.
- * @param {import("@minecraft/server").Player} player
- * @param {string} slot Equipment slot ("Mainhand" or "Offhand")
- * @param {string} [replacementTypeId] Optional replacement item ID (e.g. "minecraft:bucket")
+ * Safely consumes 1 item from the specified equipment slot.
  */
 function consumeHeldItem(player, slot, replacementTypeId) {
   try {
-    const gameMode = player.getGameMode?.();
-    if (gameMode === "creative") return;
+    // Check creative mode safely
+    let isCreative = false;
+    try {
+      isCreative = player.matches({ gameMode: "creative" });
+    } catch {}
+
+    if (isCreative) return;
 
     const equippable = player.getComponent("minecraft:equippable");
     if (!equippable) return;
@@ -447,13 +474,15 @@ function consumeHeldItem(player, slot, replacementTypeId) {
 
 /**
  * Restores 1 water bucket to player inventory or equipment after auto-scooping.
- * @param {import("@minecraft/server").Player} player
- * @param {string} preferredSlot Equipment slot where bucket was originally used
  */
 function restoreWaterBucket(player, preferredSlot) {
   try {
-    const gameMode = player.getGameMode?.();
-    if (gameMode === "creative") return;
+    let isCreative = false;
+    try {
+      isCreative = player.matches({ gameMode: "creative" });
+    } catch {}
+
+    if (isCreative) return;
 
     const equippable = player.getComponent("minecraft:equippable");
     if (equippable) {
@@ -495,13 +524,6 @@ function restoreWaterBucket(player, preferredSlot) {
 // Clutch Execution Logic
 // =============================================================================
 
-/**
- * Performs ladder clutch placement against an adjacent vertical wall at ground level.
- * @param {import("@minecraft/server").Dimension} dimension
- * @param {import("@minecraft/server").Block} airBlock
- * @param {import("@minecraft/server").Player} player
- * @returns {boolean} True if successfully placed
- */
 function placeLadderClutch(dimension, airBlock, player) {
   const { x, y, z } = airBlock.location;
 
@@ -513,28 +535,21 @@ function placeLadderClutch(dimension, airBlock, player) {
   ];
 
   for (const check of wallChecks) {
-    const wall = dimension.getBlock(check.pos);
-    if (wall && !wall.isAir && !wall.isLiquid && !PASSABLE_OR_AIR_BLOCKS.has(wall.typeId)) {
-      try {
+    try {
+      const wall = dimension.getBlock(check.pos);
+      if (wall && !wall.isAir && !wall.isLiquid && !PASSABLE_OR_AIR_BLOCKS.has(wall.typeId)) {
         const perm = BlockPermutation.resolve("minecraft:ladder", {
           facing_direction: check.dir
         });
         airBlock.setPermutation(perm);
         return true;
-      } catch {}
-    }
+      }
+    } catch {}
   }
 
   return false;
 }
 
-/**
- * Performs boat clutch placement by summoning a boat entity at the impact position.
- * @param {import("@minecraft/server").Dimension} dimension
- * @param {import("@minecraft/server").Block} airBlock
- * @param {string} entityType
- * @returns {boolean}
- */
 function placeBoatClutch(dimension, airBlock, entityType) {
   try {
     const spawnPos = {
@@ -549,47 +564,42 @@ function placeBoatClutch(dimension, airBlock, entityType) {
   }
 }
 
-/**
- * Executes the auto-scoop mechanic 3-4 ticks after player touchdown.
- * Restores waterlogged state or removes placed water block, plays sound, returns bucket,
- * and restores previous item slot if auto-switched.
- * @param {object} clutch Clutch record
- */
 function executeAutoScoop(clutch) {
   try {
     const { player, targetPos, dimension, wasWaterlogged, heldSlot, autoSwitched } = clutch;
 
     if (!player || !player.isValid()) return;
 
-    const block = dimension.getBlock(targetPos);
-    if (block) {
-      if (wasWaterlogged) {
-        try {
-          if (block.permutation.getState("waterlogged") === true) {
-            block.setPermutation(block.permutation.withState("waterlogged", false));
+    try {
+      const block = dimension.getBlock(targetPos);
+      if (block) {
+        if (wasWaterlogged) {
+          try {
+            if (block.permutation.getState("waterlogged") === true) {
+              block.setPermutation(block.permutation.withState("waterlogged", false));
+            }
+          } catch {}
+        } else {
+          if (block.typeId === "minecraft:water" || block.typeId === "minecraft:flowing_water") {
+            block.setType("minecraft:air");
           }
-        } catch {}
-      } else {
-        if (block.typeId === "minecraft:water" || block.typeId === "minecraft:flowing_water") {
-          block.setType("minecraft:air");
         }
       }
-    }
+    } catch {}
 
-    // Play authentic scoop sound cue
+    // Sound and animation
     try {
       dimension.playSound("bucket.fill_water", player.location, { volume: 1.0, pitch: 1.0 });
     } catch {}
 
-    // Play arm animation
     try {
       player.playAnimation("animation.player.attack_bare_hand");
     } catch {}
 
-    // Restore water bucket to player inventory
+    // Restore water bucket in inventory
     restoreWaterBucket(player, heldSlot);
 
-    // If auto-switched in Full Mode, restore previously held item / hotbar slot
+    // If auto-switched, restore previous item / hotbar slot
     if (autoSwitched) {
       restoreAutoSwitched(player, autoSwitched);
     }
@@ -602,19 +612,12 @@ function executeAutoScoop(clutch) {
   }
 }
 
-/**
- * Main clutch handler invoked when all activation, pitch, and speed criteria are satisfied.
- * @param {import("@minecraft/server").Player} player
- * @param {import("@minecraft/server").Vector3} velocity
- * @param {object} clutchData Held/acquired clutch item data
- * @param {object} ground Surface and impact block info
- */
 function executeClutch(player, velocity, clutchData, ground) {
   const { slot, definition, autoSwitched } = clutchData;
   const { surfaceBlock, airBlockAbove } = ground;
   const dimension = player.dimension;
 
-  // 1. Natural hand animation 1-2 ticks prior to impact
+  // 1. Arm swing animation 1-2 ticks prior to impact
   try {
     player.playAnimation("animation.player.attack_bare_hand");
   } catch {}
@@ -626,7 +629,7 @@ function executeClutch(player, velocity, clutchData, ground) {
 
   let placementSuccess = false;
 
-  // 3. Category-specific placement mechanics
+  // 3. Category placement
   switch (definition.category) {
     case "water": {
       const canWaterlog = isWaterloggableBlock(surfaceBlock);
@@ -654,14 +657,13 @@ function executeClutch(player, velocity, clutchData, ground) {
       if (placementSuccess && targetPos) {
         consumeHeldItem(player, slot, "minecraft:bucket");
 
-        // Register active water clutch for auto-scoop upon touchdown
         activeWaterClutches.set(player.id, {
           player,
           targetPos,
           dimension,
           wasWaterlogged,
-          placedTick: system.currentTick,
-          landed: false,
+          deployedTick: system.currentTick,
+          scheduled: false,
           heldSlot: slot,
           autoSwitched
         });
@@ -757,7 +759,7 @@ function executeClutch(player, velocity, clutchData, ground) {
 system.runInterval(() => {
   const currentTick = system.currentTick;
 
-  // Process active water clutches awaiting player touchdown
+  // 1. Process active water clutches awaiting player touchdown
   for (const [playerId, clutch] of activeWaterClutches.entries()) {
     const player = clutch.player;
     if (!player || !player.isValid()) {
@@ -765,15 +767,16 @@ system.runInterval(() => {
       continue;
     }
 
-    if (!clutch.landed) {
-      const isLanded =
-        player.isOnGround === true ||
-        (player.fallDistance ?? 0) === 0 ||
-        Math.abs(player.getVelocity().y) < 0.08 ||
-        player.isFalling === false;
+    if (!clutch.scheduled) {
+      let vel = { x: 0, y: 0, z: 0 };
+      try {
+        vel = player.getVelocity();
+      } catch {}
 
-      if (isLanded) {
-        clutch.landed = true;
+      const hasLanded = player.isOnGround === true || Math.abs(vel.y) < 0.1 || (currentTick - clutch.deployedTick > 15);
+
+      if (hasLanded) {
+        clutch.scheduled = true;
         system.runTimeout(() => {
           executeAutoScoop(clutch);
         }, 3);
@@ -781,60 +784,78 @@ system.runInterval(() => {
     }
   }
 
-  // Scan all active players for freefall clutch conditions
+  // 2. Scan all players for clutch conditions
   for (const player of world.getAllPlayers()) {
     try {
-      // 1. Basic Player State Validations
       if (!player.isValid()) continue;
-      if (player.isGliding || player.isInWater || player.isSwimming) continue;
 
-      // 2. Debounce Check: Prevent re-triggering in rapid succession
+      let vel = { x: 0, y: 0, z: 0 };
+      try {
+        vel = player.getVelocity();
+      } catch {
+        continue;
+      }
+
+      // Check gliding / swimming / in-water
+      let isSwimmingOrGliding = false;
+      try {
+        isSwimmingOrGliding = player.isGliding || player.isInWater || player.isSwimming;
+      } catch {}
+      if (isSwimmingOrGliding) continue;
+
+      // Track fall distance manually (entity.fallDistance is not available in 1.13.0)
+      const currentFallDist = trackPlayerFall(player, vel);
+
+      // Debounce: prevent multiple clutches within the same 25 ticks
       const lastTick = lastClutchTick.get(player.id) ?? 0;
       if (currentTick - lastTick < 25) continue;
 
-      // 3. Pitch Check: Player must be looking down towards ground (pitch >= 65 degrees)
-      const rotation = player.getRotation();
-      if (rotation.x < 65) continue;
+      // Pitch Check: player must be looking down towards ground (rot.x >= 55 degrees)
+      const rot = player.getRotation();
+      if (rot.x < 55) continue;
 
-      // 4. Fall State & Velocity Check: Freefall state or downward velocity <= -0.6
-      const velocity = player.getVelocity();
-      const isFreefalling = player.isFalling === true || velocity.y <= -0.6;
-      if (!isFreefalling) continue;
+      // Downward velocity check: must be actively falling downward
+      if (vel.y > -0.5) continue;
 
-      // 5. Dynamic Height Threshold Check
-      const fallDistance = player.fallDistance ?? 0;
-      const threshold = getEffectiveThreshold(player);
-      if (fallDistance < threshold) continue;
+      // Threshold check
+      const threshold = getPlayerThreshold(player);
 
-      // 6. Subpack Mode Resolution (Full Mode vs Simple Mode)
-      const mode = getPlayerMode(player);
-
-      // 7. Clutch Item Resolution (Held or Auto-Switched)
-      const clutchData = acquireClutchItem(player, mode);
-      if (!clutchData) continue;
-
-      // 8. Ground Raycasting & 1-2 Tick Impact Prediction
+      // Raycast downward to find impact surface
       const ground = findGroundBelow(player.dimension, player.location);
       if (!ground) continue;
 
-      const distanceToSurface = player.location.y - (ground.surfaceY + 1);
-      if (distanceToSurface < 0.05) continue;
+      // Distance from player feet to surface face
+      const distToSurface = player.location.y - (ground.surfaceY + 1);
+      if (distToSurface < 0.1) continue;
 
-      const fallSpeed = Math.abs(velocity.y);
-      const predictionWindow = Math.max(1.8, fallSpeed * 1.8 + 0.3);
+      // Total cliff height (apex to ground)
+      const tracker = fallTrackers.get(player.id);
+      const totalDropHeight = tracker ? (tracker.startY - (ground.surfaceY + 1)) : currentFallDist;
 
-      if (distanceToSurface <= predictionWindow) {
-        executeClutch(player, velocity, clutchData, ground);
-      }
-    } catch {
-      // Per-player loop resilience
-    }
+      // Verify that this fall meets the height requirement
+      if (currentFallDist < threshold && totalDropHeight < threshold) continue;
+
+      // Speed-based 1-2 tick impact prediction window
+      const fallSpeed = Math.abs(vel.y);
+      const predictionWindow = Math.max(2.0, fallSpeed * 1.8 + 0.4);
+
+      // Trigger strictly within 1-2 ticks before ground impact
+      if (distToSurface > predictionWindow) continue;
+
+      // Resolve operating mode (full vs simple)
+      const mode = getPlayerMode(player);
+
+      // Acquire clutch item (from hands or auto-switched from inventory)
+      const clutchData = acquireClutchItem(player, mode);
+      if (!clutchData) continue;
+
+      // Execute clutch!
+      executeClutch(player, vel, clutchData, ground);
+    } catch {}
   }
 }, 1);
 
-// Log pack activation
+// Startup notification
 world.afterEvents.worldInitialize.subscribe(() => {
-  console.warn(
-    `[Universal Clutch] Initialized. Subpack: "${SUBPACK_NAME}" | Threshold: ${FALL_DISTANCE_THRESHOLD} blocks | Auto-Switch: ${AUTO_SWITCH_INVENTORY}`
-  );
+  console.warn(`[Universal Clutch] Initialized successfully. Default Mode: ${DEFAULT_MODE} | Fall Threshold: ${DEFAULT_THRESHOLD} blocks.`);
 });

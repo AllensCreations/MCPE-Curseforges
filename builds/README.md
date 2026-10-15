@@ -20,7 +20,7 @@ This directory stores all compiled releases (behavior packs, resource packs, add
 | **Tameable Companion Fox** | `v1.0.3` | Complete Pack (`.mcaddon`) | [Download (.mcaddon)](tameable-companion-fox/Tameable%20Companion%20Fox%20by%20AllensCreations%20%28V1.0.3%29.mcaddon) | [`tameable-companion-fox/`](tameable-companion-fox/) |
 | **Magnetic Satchel** | `v1.0.2` | Complete Pack (`.mcaddon`) | [Download (.mcaddon)](Magnetic-Satchel/Magnetic%20Satchel%20by%20AllensCreations%20%28V1.0.2%29.mcaddon) | [`Magnetic-Satchel/`](Magnetic-Satchel/) |
 | **Smart Tree Capitator & Domino Ore Miner** | `v1.0.4` | Complete Pack (`.mcaddon`) | [Download (.mcpack)](smart-tree-capitator-domino-ore-miner/Smart%20Tree%20Capitator%20and%20Domino%20Ore%20Miner%20by%20AllensCreations%20%28V1.0.4%29.mcpack) | [`smart-tree-capitator-domino-ore-miner/`](smart-tree-capitator-domino-ore-miner/) |
-| **Universal Clutch** | `v1.0.0` | Complete Pack (`.mcaddon`) | [Download (.mcaddon)](Universal-Clutch/Universal%20Clutch%20by%20AllensCreations%20%28V1.0.0%29.mcaddon) | [`Universal-Clutch/`](Universal-Clutch/) |
+| **Universal Clutch** | `v1.0.1` | Complete Pack (`.mcaddon`) | [Download (.mcaddon)](Universal-Clutch/Universal%20Clutch%20by%20AllensCreations%20%28V1.0.1%29.mcaddon) | [`Universal-Clutch/`](Universal-Clutch/) |
 
 ### Worlds and Maps
 

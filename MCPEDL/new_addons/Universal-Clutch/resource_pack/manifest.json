@@ -2,12 +2,12 @@
   "format_version": 2,
   "header": {
     "name": "Universal Clutch RP by AllensCreations",
-    "description": "Client visual assets and mode/height subpack configuration for Universal Clutch by AllensCreations.",
+    "description": "Client visual assets and subpack mode configuration for Universal Clutch by AllensCreations.",
     "uuid": "1e507ca3-3c39-405d-aa7f-2a414fb0544e",
     "version": [
       1,
       0,
-      0
+      1
     ],
     "min_engine_version": [
       1,
@@ -23,7 +23,7 @@
       "version": [
         1,
         0,
-        0
+        1
       ]
     }
   ],
@@ -33,40 +33,20 @@
       "version": [
         1,
         0,
-        0
+        1
       ]
     }
   ],
   "subpacks": [
     {
-      "folder_name": "full_default",
-      "name": "Full Mode (Auto-Switch Inventory - 8+ Blocks)",
+      "folder_name": "full_mode",
+      "name": "Full Mode (Auto-Switch Inventory)",
       "memory_tier": 1
     },
     {
-      "folder_name": "simple_default",
-      "name": "Simple Mode (Held Item Only - 8+ Blocks)",
+      "folder_name": "simple_mode",
+      "name": "Simple Mode (Held Item Only)",
       "memory_tier": 2
-    },
-    {
-      "folder_name": "full_careful",
-      "name": "Full Mode - Careful (Auto-Switch - 12+ Blocks)",
-      "memory_tier": 3
-    },
-    {
-      "folder_name": "simple_careful",
-      "name": "Simple Mode - Careful (Held Item Only - 12+ Blocks)",
-      "memory_tier": 4
-    },
-    {
-      "folder_name": "full_extreme",
-      "name": "Full Mode - Extreme (Auto-Switch - 20+ Blocks)",
-      "memory_tier": 5
-    },
-    {
-      "folder_name": "simple_extreme",
-      "name": "Simple Mode - Extreme (Held Item Only - 20+ Blocks)",
-      "memory_tier": 6
     }
   ],
   "metadata": {

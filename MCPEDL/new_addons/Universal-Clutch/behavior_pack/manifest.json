@@ -2,12 +2,12 @@
   "format_version": 2,
   "header": {
     "name": "Universal Clutch BP by AllensCreations",
-    "description": "Vanilla-faithful automatic clutch placements when falling from dangerous heights. Full Mode (auto-switch inventory) and Simple Mode (held item only), with configurable height thresholds.",
+    "description": "Vanilla-faithful automatic clutch placements when falling from dangerous heights. Choose between Full Mode (auto-switch inventory) and Simple Mode (held item only) in subpack settings.",
     "uuid": "a452fcb1-dd72-41b0-aed0-273201968225",
     "version": [
       1,
       0,
-      0
+      1
     ],
     "min_engine_version": [
       1,
@@ -23,7 +23,7 @@
       "version": [
         1,
         0,
-        0
+        1
       ]
     },
     {
@@ -34,7 +34,7 @@
       "version": [
         1,
         0,
-        0
+        1
       ],
       "entry": "scripts/main.js"
     }
@@ -45,7 +45,7 @@
       "version": [
         1,
         0,
-        0
+        1
       ]
     },
     {
@@ -55,34 +55,14 @@
   ],
   "subpacks": [
     {
-      "folder_name": "full_default",
-      "name": "Full Mode (Auto-Switch Inventory - 8+ Blocks)",
+      "folder_name": "full_mode",
+      "name": "Full Mode (Auto-Switch Inventory)",
       "memory_tier": 1
     },
     {
-      "folder_name": "simple_default",
-      "name": "Simple Mode (Held Item Only - 8+ Blocks)",
+      "folder_name": "simple_mode",
+      "name": "Simple Mode (Held Item Only)",
       "memory_tier": 2
-    },
-    {
-      "folder_name": "full_careful",
-      "name": "Full Mode - Careful (Auto-Switch - 12+ Blocks)",
-      "memory_tier": 3
-    },
-    {
-      "folder_name": "simple_careful",
-      "name": "Simple Mode - Careful (Held Item Only - 12+ Blocks)",
-      "memory_tier": 4
-    },
-    {
-      "folder_name": "full_extreme",
-      "name": "Full Mode - Extreme (Auto-Switch - 20+ Blocks)",
-      "memory_tier": 5
-    },
-    {
-      "folder_name": "simple_extreme",
-      "name": "Simple Mode - Extreme (Held Item Only - 20+ Blocks)",
-      "memory_tier": 6
     }
   ],
   "metadata": {
