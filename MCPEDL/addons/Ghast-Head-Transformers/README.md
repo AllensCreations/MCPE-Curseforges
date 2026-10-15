@@ -35,7 +35,6 @@ Interact with any Ghast while holding one of the following items to initiate the
 | **4** | `minecraft:player_head` | Giant Steve / Human Head | Knockback Wind Charge (`minecraft:wind_charge_projectile`) [1.4s] | Player hurt cue & wind burst | `minecraft:player_head` |
 | **5** | `minecraft:creeper_head` | Giant Creeper Head | High-Explosive Fireball (`minecraft:fireball`) [2.5s] | **Terrifying Fuse Hiss (`random.fuse`)** | `minecraft:creeper_head` |
 | **6** | `minecraft:piglin_head` | Giant Piglin Head | Rapid Blazing Fireballs (`minecraft:small_fireball`) [0.8s] | Angry Piglin snorts & grunts | `minecraft:piglin_head` |
-| **7** | `custom:custom_head` | Giant Custom Head | Dragon Breath Fireball (`minecraft:dragon_fireball`) [3.0s] | Ender Dragon roar & dragon hit | `custom:custom_head` |
 
 ---
 
@@ -45,7 +44,7 @@ Interact with any Ghast while holding one of the following items to initiate the
 - Approach any Ghast and right-click or tap the **Equip Mob Head** interact button while holding a valid skull.
 - Consumes 1 skull item from your hand.
 - Triggers that specific mob's authentic audio cue and white smoke burst.
-- Replaces the Ghast model with a full 3D head model (featuring 3D hat overlays, 3D Piglin snout, and 3D ears), cleanly hiding all dangling tentacles (`tentacle0` through `tentacle8`).
+- Replaces the Ghast model with a full 3D head model (featuring 3D hat overlays, 3D Piglin snout, and 3D ears), cleanly hiding all dangling tentacles (`tentacles_0` through `tentacles_8`).
 
 ### 2. Mob Combat & Dynamic Sound Cues
 - **Combat Identity:** Transformed Ghasts use custom attack behaviors matching their mob. Piglins unleash rapid small fireballs every 0.8s; Skeletons snipe with rapid high-velocity arrows; Creeper-Ghasts charge up with a chilling **TSSSSSssss...** fuse hiss before blasting devastating fireballs!
@@ -58,14 +57,9 @@ Interact with any Ghast while holding one of the following items to initiate the
 - Drops the exact equipped skull item on the ground as an entity loot drop, ensuring no lost resources in Survival mode.
 - Restores the Ghast back to Variant 0 with classic tentacles.
 
-### 4. Custom Head Template (`custom:custom_head`)
-- The add-on includes a custom item identifier (`custom:custom_head`) designed as an easily extensible template for creators and players.
-- Obtainable via commands: `/give @s custom:custom_head`.
-- Retexturing: Replace `textures/entity/ghast/heads/custom_head.png` (idle) and `custom_head_charging.png` (charging) in the resource pack to load any custom skin, YouTuber face, or custom mob design.
-
-### 5. Behavior Pack Slider Settings (Subpacks)
+### 4. Behavior Pack Slider Settings (Subpacks)
 Configure natural mob head spawn behavior directly from the world settings using the Behavior Pack's gear icon slider:
-- **Option 1: `Natural Ghast Spawn with Mob Heads` (Default):** Ghasts naturally spawning in the Nether have an 80% chance to spawn wearing one of the mob heads (Skeleton, Wither Skeleton, Zombie, Steve, Creeper, Piglin, or Custom Head) with their matching custom attack projectiles and audio cues!
+- **Option 1: `Natural Ghast Spawn with Mob Heads` (Default):** Ghasts naturally spawning in the Nether have an 80% chance to spawn wearing one of the mob heads (Skeleton, Wither Skeleton, Zombie, Steve, Creeper, or Piglin) with their matching custom attack projectiles and audio cues!
 - **Option 2: `Manual Equip Only (No Natural Spawn)`:** Ghasts spawn strictly as classic vanilla Ghasts. They only transform when a player manually equips a mob head by interacting with them!
 
 ---

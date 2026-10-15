@@ -22,9 +22,6 @@
               "zombie_charge": "(query.is_charging || variable.ischarging) && query.variant == 3"
             },
             {
-              "dragon_charge": "(query.is_charging || variable.ischarging) && query.variant == 7"
-            },
-            {
               "skeleton_hurt": "query.hurt_time > 0 && query.variant == 1"
             },
             {
@@ -41,9 +38,6 @@
             },
             {
               "piglin_hurt": "query.hurt_time > 0 && query.variant == 6"
-            },
-            {
-              "dragon_hurt": "query.hurt_time > 0 && query.variant == 7"
             }
           ]
         },
@@ -99,18 +93,6 @@
           "sound_effects": [
             {
               "effect": "zombie_charge"
-            }
-          ],
-          "transitions": [
-            {
-              "idle": "!query.is_charging && !variable.ischarging"
-            }
-          ]
-        },
-        "dragon_charge": {
-          "sound_effects": [
-            {
-              "effect": "dragon_charge"
             }
           ],
           "transitions": [
@@ -183,18 +165,6 @@
           "sound_effects": [
             {
               "effect": "piglin_hurt"
-            }
-          ],
-          "transitions": [
-            {
-              "idle": "query.hurt_time <= 0"
-            }
-          ]
-        },
-        "dragon_hurt": {
-          "sound_effects": [
-            {
-              "effect": "dragon_hurt"
             }
           ],
           "transitions": [

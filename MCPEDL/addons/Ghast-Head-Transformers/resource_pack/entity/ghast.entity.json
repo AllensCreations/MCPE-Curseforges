@@ -20,9 +20,7 @@
         "creeper": "textures/entity/ghast/heads/creeper_head",
         "creeper_charging": "textures/entity/ghast/heads/creeper_head_charging",
         "piglin": "textures/entity/ghast/heads/piglin_head",
-        "piglin_charging": "textures/entity/ghast/heads/piglin_head_charging",
-        "custom_head": "textures/entity/ghast/heads/custom_head",
-        "custom_head_charging": "textures/entity/ghast/heads/custom_head_charging"
+        "piglin_charging": "textures/entity/ghast/heads/piglin_head_charging"
       },
       "geometry": {
         "default": "geometry.ghast",
@@ -46,14 +44,9 @@
         "creeper_charge": "random.fuse",
         "creeper_hurt": "mob.creeper.say",
         "piglin_charge": "mob.piglin.angry",
-        "piglin_hurt": "mob.piglin.hurt",
-        "dragon_charge": "mob.enderdragon.growl",
-        "dragon_hurt": "mob.enderdragon.hit"
+        "piglin_hurt": "mob.piglin.hurt"
       },
       "animation_controllers": [
-        {
-          "move": "controller.animation.ghast.move"
-        },
         {
           "sound": "controller.animation.ghast.sound"
         }

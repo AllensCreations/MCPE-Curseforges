@@ -147,11 +147,10 @@ Event-driven tool and weapon auto-switcher when holding Slot 1.
 
 Transform vanilla Ghasts into giant flying mob heads by equipping skulls.
 
-- Mob Head Morphing: Equip Skeleton, Wither Skeleton, Zombie, Steve, Creeper, Piglin, or Custom heads to transform Ghasts into giant flying skull cubes.
+- Mob Head Morphing: Equip Skeleton, Wither Skeleton, Zombie, Steve, Creeper, or Piglin heads to transform Ghasts into giant flying skull cubes.
 - Tentacle Concealment: Hides all dangling tentacles via custom dual-geometry and bone visibility arrays when transformed.
 - Charging Expressions: Dynamic face texture switching when firing fireballs with open jaws, glowing soul flames, and red battle eyes.
 - Shearing Drop System: Use Shears on any transformed Ghast to pop off and recover the equipped skull item and restore the vanilla Ghast.
-- Custom Head Item Template: Includes `custom:custom_head` for creators to retexture and deploy custom giant flying heads.
 
 [Read Full Ghast Mob Head Transformers Documentation](MCPEDL/addons/Ghast-Head-Transformers/README.md)
 

@@ -108,20 +108,6 @@
           "charge_charged_trigger": 0.4,
           "charge_shoot_trigger": 0.8
         }
-      },
-      "ghast:custom_head": {
-        "minecraft:variant": {
-          "value": 7
-        },
-        "minecraft:shooter": {
-          "def": "minecraft:dragon_fireball"
-        },
-        "minecraft:behavior.ranged_attack": {
-          "priority": 1,
-          "attack_radius": 64,
-          "charge_charged_trigger": 1.5,
-          "charge_shoot_trigger": 3.0
-        }
       }
     },
     "components": {
@@ -477,41 +463,6 @@
             }
           },
           {
-            "interact_text": "action.interact.armorstand.equip",
-            "use_item": true,
-            "play_sounds": "mob.enderdragon.growl",
-            "on_interact": {
-              "event": "ghast:equip_custom_head",
-              "target": "self",
-              "filters": {
-                "all_of": [
-                  {
-                    "any_of": [
-                      {
-                        "domain": "hand",
-                        "subject": "other",
-                        "test": "has_equipment",
-                        "value": "custom_head"
-                      },
-                      {
-                        "domain": "hand",
-                        "subject": "other",
-                        "test": "has_equipment",
-                        "value": "custom:custom_head"
-                      }
-                    ]
-                  },
-                  {
-                    "operator": "!=",
-                    "subject": "self",
-                    "test": "is_variant",
-                    "value": 7
-                  }
-                ]
-              }
-            }
-          },
-          {
             "interact_text": "action.interact.shear",
             "hurt_item": 1,
             "use_item": false,
@@ -744,45 +695,6 @@
                 ]
               }
             }
-          },
-          {
-            "interact_text": "action.interact.shear",
-            "hurt_item": 1,
-            "use_item": false,
-            "play_sounds": "shear",
-            "spawn_items": {
-              "table": "loot_tables/entities/ghast_drop_custom_head.json"
-            },
-            "on_interact": {
-              "event": "ghast:reset_to_default",
-              "target": "self",
-              "filters": {
-                "all_of": [
-                  {
-                    "any_of": [
-                      {
-                        "domain": "hand",
-                        "subject": "other",
-                        "test": "has_equipment",
-                        "value": "shears"
-                      },
-                      {
-                        "domain": "hand",
-                        "subject": "other",
-                        "test": "has_equipment",
-                        "value": "minecraft:shears"
-                      }
-                    ]
-                  },
-                  {
-                    "operator": "==",
-                    "subject": "self",
-                    "test": "is_variant",
-                    "value": 7
-                  }
-                ]
-              }
-            }
           }
         ]
       }
@@ -845,14 +757,6 @@
                 "ghast:piglin"
               ]
             }
-          },
-          {
-            "weight": 10,
-            "add": {
-              "component_groups": [
-                "ghast:custom_head"
-              ]
-            }
           }
         ]
       },
@@ -869,8 +773,7 @@
             "ghast:zombie",
             "ghast:steve",
             "ghast:creeper",
-            "ghast:piglin",
-            "ghast:custom_head"
+            "ghast:piglin"
           ]
         }
       },
@@ -887,8 +790,7 @@
             "ghast:zombie",
             "ghast:steve",
             "ghast:creeper",
-            "ghast:piglin",
-            "ghast:custom_head"
+            "ghast:piglin"
           ]
         }
       },
@@ -905,8 +807,7 @@
             "ghast:wither_skeleton",
             "ghast:steve",
             "ghast:creeper",
-            "ghast:piglin",
-            "ghast:custom_head"
+            "ghast:piglin"
           ]
         }
       },
@@ -923,8 +824,7 @@
             "ghast:wither_skeleton",
             "ghast:zombie",
             "ghast:creeper",
-            "ghast:piglin",
-            "ghast:custom_head"
+            "ghast:piglin"
           ]
         }
       },
@@ -941,8 +841,7 @@
             "ghast:wither_skeleton",
             "ghast:zombie",
             "ghast:steve",
-            "ghast:piglin",
-            "ghast:custom_head"
+            "ghast:piglin"
           ]
         }
       },
@@ -959,26 +858,7 @@
             "ghast:wither_skeleton",
             "ghast:zombie",
             "ghast:steve",
-            "ghast:creeper",
-            "ghast:custom_head"
-          ]
-        }
-      },
-      "ghast:equip_custom_head": {
-        "add": {
-          "component_groups": [
-            "ghast:custom_head"
-          ]
-        },
-        "remove": {
-          "component_groups": [
-            "ghast:default",
-            "ghast:skeleton",
-            "ghast:wither_skeleton",
-            "ghast:zombie",
-            "ghast:steve",
-            "ghast:creeper",
-            "ghast:piglin"
+            "ghast:creeper"
           ]
         }
       },
@@ -995,8 +875,7 @@
             "ghast:zombie",
             "ghast:steve",
             "ghast:creeper",
-            "ghast:piglin",
-            "ghast:custom_head"
+            "ghast:piglin"
           ]
         }
       }
