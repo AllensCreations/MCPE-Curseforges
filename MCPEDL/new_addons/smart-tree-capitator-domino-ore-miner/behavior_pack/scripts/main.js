@@ -10,7 +10,7 @@ import { world, system, EquipmentSlot, ItemStack } from "@minecraft/server";
 
 // ─── Configuration ────────────────────────────────────────────────────────────
 
-export const CONFIG = {
+const CONFIG = {
   TREE_CAPITATOR_ENABLED: true,
   DOMINO_ORE_MINER_ENABLED: true,
   MAX_TREE_BLOCKS: 128,
