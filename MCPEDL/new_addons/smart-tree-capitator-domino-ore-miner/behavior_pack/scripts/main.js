@@ -16,7 +16,7 @@ const CONFIG = {
   MAX_TREE_BLOCKS: 128,
   MAX_TREE_HEIGHT: 320,
   TREE_HORIZONTAL_RANGE: 2,
-  TREE_DOWNWARD_RANGE: 2,
+  TREE_DOWNWARD_RANGE: 0,
   MATCH_TREE_SPECIES: true,
   MAX_ORE_CLUSTER_SIZE: 64,
   INSTANT_BURST: true,
@@ -297,34 +297,7 @@ function executeTreeCapitator(player, dimension, startLoc, startBlockId, onCompl
   const blocksToBreak = [];
   let currentFootprints = [{ x: startLoc.x, z: startLoc.z }];
 
-  // Downward search for stumps & roots (dy = -1 down to -CONFIG.TREE_DOWNWARD_RANGE)
-  for (let dy = -1; dy >= -CONFIG.TREE_DOWNWARD_RANGE; dy--) {
-    const layerY = startLoc.y + dy;
-    let foundBelow = false;
-
-    for (let dx = -CONFIG.TREE_HORIZONTAL_RANGE; dx <= CONFIG.TREE_HORIZONTAL_RANGE; dx++) {
-      for (let dz = -CONFIG.TREE_HORIZONTAL_RANGE; dz <= CONFIG.TREE_HORIZONTAL_RANGE; dz++) {
-        const bx = startLoc.x + dx;
-        const bz = startLoc.z + dz;
-        const key = `${bx},${layerY},${bz}`;
-        if (visited.has(key)) continue;
-        visited.add(key);
-
-        try {
-          const block = dimension.getBlock({ x: bx, y: layerY, z: bz });
-          if (block && isMatchingLog(block.typeId, targetSpecies)) {
-            blocksToBreak.push({ x: bx, y: layerY, z: bz });
-            foundBelow = true;
-            if (blocksToBreak.length >= CONFIG.MAX_TREE_BLOCKS) break;
-          }
-        } catch (e) {}
-      }
-      if (blocksToBreak.length >= CONFIG.MAX_TREE_BLOCKS) break;
-    }
-    if (!foundBelow) break;
-  }
-
-  // Layer 0: Horizontal perimeter neighbors (~2 to ~-2 range)
+  // Layer 0: Target block 24 sides (~-2 ~ ~-2 to ~2 ~ ~2, excluding center)
   for (let dx = -CONFIG.TREE_HORIZONTAL_RANGE; dx <= CONFIG.TREE_HORIZONTAL_RANGE; dx++) {
     for (let dz = -CONFIG.TREE_HORIZONTAL_RANGE; dz <= CONFIG.TREE_HORIZONTAL_RANGE; dz++) {
       if (dx === 0 && dz === 0) continue;

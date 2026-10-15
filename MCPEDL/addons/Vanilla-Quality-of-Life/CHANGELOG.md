@@ -22,14 +22,19 @@ This major milestone integrates **Passive Auto-Switch Tools**, **Smart Tree Capi
   - Automated cobweb shear interaction loop.
 - **Smart Tree Capitator (Sneak + Axe)**:
   - Sneak while chopping any tree log to fell the entire trunk and connected branches up to **128 logs** in a single tick.
-  - **5×5 Extended Footprint Scan (`~2` to `~-2`)**: Follows diagonal and curved trunks/branches across Acacia, Cherry, Large Oak, Dark Oak, and Mangrove without leaving floating orphan logs.
-  - **Downward Stump Sweep (`dy: -1..-2`)**: Automatically clears bottom stumps and surface roots when chopping at eye level.
+  - **5×5 Extended Footprint Scan**: Targets 24 side blocks around the cut log (`~-2 ~ ~-2` to `~2 ~ ~2`) and 25 blocks above (`~-2 ~1 ~-2` to `~2 ~1 ~2`) climbing layer-by-layer up the trunk.
+  - **No Downward Search**: Strictly sweeps upward from the cut block without digging down into underlying ground or structures.
   - **Tree Species Matching**: Ensures Oak only fells Oak and Birch only fells Birch, preventing collateral damage in dense tree farms or forests.
   - Preserves natural leaf canopies for authentic vanilla leaf decay drops (saplings, sticks, apples).
 - **Domino Ore Miner (Sneak + Pickaxe)**:
   - Sneak while mining any mineral ore to harvest the entire contiguous vein across **all 26 spatial neighbors** (faces, edges, corners) up to **64 blocks**.
   - **Mineral Category Normalization**: Groups regular and deepslate ore variants so veins crossing stone layers mine seamlessly together.
   - Full Fortune and Silk Touch support: Correctly honors Silk Touch block drops and vanilla Fortune item multipliers.
+- **Offhand Torch Placement (Sneak + Click Block)**:
+  - When holding a Torch, Soul Torch, or Redstone Torch in your offhand, simply **Sneak and Click** on any block to place it directly from your offhand onto the floor or wall.
+  - Automatically determines wall/floor orientation (`top`, `north`, `south`, `east`, `west`) and plays authentic placement sound.
+  - Decrements offhand stack in Survival/Adventure mode (unlimited in Creative).
+  - Cave-mining quality of life: keep your Pickaxe in your mainhand while placing torches without swapping items.
 - **Durability Safety Guard**:
   - Automatically halts chain breaks when tool durability drops to **5 points remaining**.
   - Flashes an on-screen action bar warning and plays an alert sound to protect valuable enchanted tools.

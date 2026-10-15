@@ -67,8 +67,8 @@ Built on `@minecraft/server` v1.13.0 with standard Bedrock components. Requires 
 
 #### 2. Smart Tree Capitator (Sneak + Axe)
 - Sneak while chopping any tree log with an axe to fell the entire tree in a single tick:
-  - **5×5 Footprint Scan (`~2` to `~-2`)**: Seamlessly tracks curved and diagonal branches (Acacia, Cherry, Large Oak).
-  - **Downward Stump Sweep (`dy: -1..-2`)**: Clears the bottom stump and roots when cutting at eye level.
+  - **5×5 Footprint Scan**: Targets 24 side blocks around the cut log (`~-2 ~ ~-2` to `~2 ~ ~2`) and 25 blocks above (`~-2 ~1 ~-2` to `~2 ~1 ~2`), climbing layer-by-layer up the trunk.
+  - **No Downward Digging**: Strictly sweeps upward from the cut level without breaking blocks underneath.
   - **Species Matching**: Enforces wood species matching (Oak only fells Oak) to prevent chain reactions into adjacent trees.
   - **Natural Leaf Decay**: Preserves leaf canopies for authentic leaf decay drops (saplings, sticks, apples).
   - **Capacity Limit**: Up to 128 logs per tree operation.
@@ -84,8 +84,9 @@ Built on `@minecraft/server` v1.13.0 with standard Bedrock components. Requires 
 - Automatically halts Tree Capitator and Domino Ore Miner operations if your tool reaches **5 durability points remaining**.
 - Plays a warning bass sound and flashes an action bar alert, ensuring your valuable enchanted gear never accidentally breaks.
 
-#### 5. Offhand Quick-Swap & Dynamic Handheld Lighting
+#### 5. Offhand Quick-Swap, Torch Placement & Dynamic Handheld Lighting
 - Supported items: Torches, Soul Torches, Lanterns, Soul Lanterns, Clocks, Compasses, Recovery Compasses.
+- **Offhand Torch Placement**: When holding a Torch, Soul Torch, or Redstone Torch in your offhand, simply **Sneak and Click** (right-click / interact) on any block surface to place it from your offhand without swapping items or losing your mainhand tool.
 - Quick-swap gestures:
   - **Double-sneak** (crouch twice within 0.7 seconds) to swap held item into offhand.
   - **Sneak + Use/Tap in air** to swap held item into offhand.

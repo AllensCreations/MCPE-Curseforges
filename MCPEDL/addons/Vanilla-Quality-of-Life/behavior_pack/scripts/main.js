@@ -43,7 +43,7 @@ const CONFIG = {
   MAX_TREE_BLOCKS: 128,
   MAX_TREE_HEIGHT: 320,
   TREE_HORIZONTAL_RANGE: 2, // 5x5 footprint (~2 to ~-2)
-  TREE_DOWNWARD_RANGE: 2,   // dy: -1..-2 stump sweep
+  TREE_DOWNWARD_RANGE: 0,   // No downward search (24 sides & 25 above)
   MATCH_TREE_SPECIES: true,
 
   // Domino Ore Miner
@@ -840,34 +840,7 @@ function executeTreeCapitator(player, dimension, startLoc, startBlockId, onCompl
   const blocksToBreak = [];
   let currentFootprints = [{ x: startLoc.x, z: startLoc.z }];
 
-  // Downward search for stumps & roots (dy = -1 down to -CONFIG.TREE_DOWNWARD_RANGE)
-  for (let dy = -1; dy >= -CONFIG.TREE_DOWNWARD_RANGE; dy--) {
-    const layerY = startLoc.y + dy;
-    let foundBelow = false;
-
-    for (let dx = -CONFIG.TREE_HORIZONTAL_RANGE; dx <= CONFIG.TREE_HORIZONTAL_RANGE; dx++) {
-      for (let dz = -CONFIG.TREE_HORIZONTAL_RANGE; dz <= CONFIG.TREE_HORIZONTAL_RANGE; dz++) {
-        const bx = startLoc.x + dx;
-        const bz = startLoc.z + dz;
-        const key = `${bx},${layerY},${bz}`;
-        if (visited.has(key)) continue;
-        visited.add(key);
-
-        try {
-          const block = dimension.getBlock({ x: bx, y: layerY, z: bz });
-          if (block && isMatchingLog(block.typeId, targetSpecies)) {
-            blocksToBreak.push({ x: bx, y: layerY, z: bz });
-            foundBelow = true;
-            if (blocksToBreak.length >= CONFIG.MAX_TREE_BLOCKS) break;
-          }
-        } catch (e) {}
-      }
-      if (blocksToBreak.length >= CONFIG.MAX_TREE_BLOCKS) break;
-    }
-    if (!foundBelow) break;
-  }
-
-  // Layer 0: Horizontal perimeter neighbors (~2 to ~-2)
+  // Layer 0: Target block 24 sides (~-2 ~ ~-2 to ~2 ~ ~2, excluding center)
   for (let dx = -CONFIG.TREE_HORIZONTAL_RANGE; dx <= CONFIG.TREE_HORIZONTAL_RANGE; dx++) {
     for (let dz = -CONFIG.TREE_HORIZONTAL_RANGE; dz <= CONFIG.TREE_HORIZONTAL_RANGE; dz++) {
       if (dx === 0 && dz === 0) continue;
@@ -1174,7 +1147,141 @@ world.beforeEvents.itemUse.subscribe((event) => {
   });
 });
 
-// 2. Passive Auto-Switch: Ordinary blocks via hit block
+// 2. Offhand Sneak + Click Block Torch Placement
+const TORCH_ITEM_TO_BLOCK = {
+  "minecraft:torch": "minecraft:torch",
+  "minecraft:soul_torch": "minecraft:soul_torch",
+  "minecraft:redstone_torch": "minecraft:redstone_torch",
+};
+
+const REPLACEABLE_BLOCK_IDS = new Set([
+  "minecraft:air",
+  "minecraft:short_grass",
+  "minecraft:grass",
+  "minecraft:tallgrass",
+  "minecraft:tall_grass",
+  "minecraft:fern",
+  "minecraft:large_fern",
+  "minecraft:deadbush",
+  "minecraft:vine",
+  "minecraft:snow_layer",
+  "minecraft:fire",
+  "minecraft:soul_fire",
+]);
+
+function isBlockReplaceable(block) {
+  try {
+    if (!block || !block.isValid()) return false;
+    if (block.isAir) return true;
+    return REPLACEABLE_BLOCK_IDS.has(block.typeId);
+  } catch (e) {
+    return false;
+  }
+}
+
+function getAdjacentBlock(block, face) {
+  try {
+    switch (String(face)) {
+      case "Up": return { target: block.above(), facingDir: "top" };
+      case "North": return { target: block.north(), facingDir: "north" };
+      case "South": return { target: block.south(), facingDir: "south" };
+      case "West": return { target: block.west(), facingDir: "west" };
+      case "East": return { target: block.east(), facingDir: "east" };
+      default: return null;
+    }
+  } catch (e) {
+    return null;
+  }
+}
+
+world.beforeEvents.itemUseOn.subscribe((event) => {
+  try {
+    const player = event.source;
+    if (!player || player.typeId !== "minecraft:player" || !player.isSneaking) return;
+
+    const equipment = getEquipment(player);
+    if (!equipment) return;
+
+    let offhand;
+    try {
+      offhand = equipment.getEquipment(EquipmentSlot.Offhand);
+    } catch (e) {
+      return;
+    }
+    if (!offhand) return;
+
+    const torchBlockId = TORCH_ITEM_TO_BLOCK[offhand.typeId];
+    if (!torchBlockId) return;
+
+    const clickedBlock = event.block;
+    if (!clickedBlock || !clickedBlock.isValid() || clickedBlock.isAir || clickedBlock.isLiquid) return;
+
+    const adj = getAdjacentBlock(clickedBlock, event.blockFace);
+    if (!adj || !adj.target || !adj.target.isValid()) return;
+
+    const targetBlock = adj.target;
+    if (!isBlockReplaceable(targetBlock) || targetBlock.isLiquid) return;
+
+    const state = getQolState(player.id);
+    const now = system.currentTick;
+    if (now - (state.lastTorchPlaceTick || 0) < 4) {
+      event.cancel = true;
+      return;
+    }
+
+    event.cancel = true;
+    state.lastTorchPlaceTick = now;
+
+    const facingDir = adj.facingDir;
+    const offhandTypeId = offhand.typeId;
+
+    system.run(() => {
+      try {
+        if (!player.isValid() || !targetBlock.isValid()) return;
+        if (!isBlockReplaceable(targetBlock) || targetBlock.isLiquid) return;
+
+        let placed = false;
+        try {
+          const perm = BlockPermutation.resolve(torchBlockId, { torch_facing_direction: facingDir });
+          targetBlock.setPermutation(perm);
+          placed = true;
+        } catch (e1) {
+          try {
+            targetBlock.dimension.runCommand(`setblock ${targetBlock.x} ${targetBlock.y} ${targetBlock.z} ${torchBlockId} ["torch_facing_direction"="${facingDir}"]`);
+            placed = true;
+          } catch (e2) {}
+        }
+
+        if (!placed) return;
+
+        try {
+          player.playSound("dig.wood", { pitch: 0.9, volume: 0.8 });
+        } catch (e) {}
+
+        let isCreative = false;
+        try {
+          isCreative = String(player.getGameMode()).toLowerCase() === "creative";
+        } catch (e) {}
+
+        if (!isCreative) {
+          try {
+            const currentOff = equipment.getEquipment(EquipmentSlot.Offhand);
+            if (currentOff && currentOff.typeId === offhandTypeId) {
+              if (currentOff.amount > 1) {
+                const updated = new ItemStack(currentOff.typeId, currentOff.amount - 1);
+                writeOffhand(player, equipment, updated);
+              } else {
+                writeOffhand(player, equipment, undefined);
+              }
+            }
+          } catch (e) {}
+        }
+      } catch (err) {}
+    });
+  } catch (err) {}
+});
+
+// 3. Passive Auto-Switch: Ordinary blocks via hit block
 world.afterEvents.entityHitBlock.subscribe((event) => {
   try {
     const player = event.damagingEntity;
