@@ -365,6 +365,103 @@ jobs:
           print(f"Generated README for {addon}.")
           PY
 
+      - name: Convert pixel textures to PNG
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          python3 - <<'PY'
+          import os
+          import struct
+          import sys
+          import zlib
+
+          root = os.path.join("MCPEDL", "new_addons", os.environ["ADDON"])
+
+
+          def convert(src, dst):
+              palette = {}
+              rows = []
+
+              with open(src, encoding="utf-8") as source:
+                  for line in source:
+                      line = line.strip()
+
+                      if not line:
+                          continue
+
+                      if "=" in line:
+                          key, value = line.split("=", 1)
+                          value = value.strip().lstrip("#")
+
+                          if len(value) == 6:
+                              value += "FF"
+
+                          if len(value) != 8:
+                              sys.exit(f"Invalid palette color in {src}: {line}")
+
+                          palette[int(key)] = tuple(
+                              int(value[i:i + 2], 16) for i in range(0, 8, 2)
+                          )
+                      else:
+                          rows.append([int(v) for v in line.strip(",").split(",")])
+
+              if not rows:
+                  sys.exit(f"No pixel rows in {src}")
+
+              width = len(rows[0])
+              height = len(rows)
+
+              if width > 256 or height > 256:
+                  sys.exit(f"Texture too large in {src}")
+
+              for row in rows:
+                  if len(row) != width:
+                      sys.exit(f"Rows must have equal length in {src}")
+
+                  for index in row:
+                      if index not in palette:
+                          sys.exit(f"Undefined palette index {index} in {src}")
+
+              raw = b"".join(
+                  b"\x00" + b"".join(bytes(palette[i]) for i in row)
+                  for row in rows
+              )
+
+              def chunk(tag, data):
+                  body = tag + data
+                  return (
+                      struct.pack(">I", len(data))
+                      + body
+                      + struct.pack(">I", zlib.crc32(body) & 0xFFFFFFFF)
+                  )
+
+              png = (
+                  b"\x89PNG\r\n\x1a\n"
+                  + chunk(b"IHDR", struct.pack(">IIBBBBB", width, height, 8, 6, 0, 0, 0))
+                  + chunk(b"IDAT", zlib.compress(raw, 9))
+                  + chunk(b"IEND", b"")
+              )
+
+              with open(dst, "wb") as output:
+                  output.write(png)
+
+
+          count = 0
+
+          for current_root, _, filenames in os.walk(root):
+              for filename in filenames:
+                  if filename.lower().endswith(".px"):
+                      source_path = os.path.join(current_root, filename)
+                      target_path = source_path[:-3] + ".png"
+                      convert(source_path, target_path)
+                      os.remove(source_path)
+                      count += 1
+                      print(f"Converted {source_path} -> {target_path}")
+
+          print(f"Converted {count} pixel texture(s).")
+          PY
+
       - name: Validate manifests, UUIDs, paths, and JSON
         shell: bash
         run: |
