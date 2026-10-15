@@ -4,9 +4,12 @@ on:
   workflow_dispatch:
     inputs:
       addon:
-        description: "Add-on folder name in MCPEDL/new_addons/ (e.g. Immortal-Pets)"
+        description: "Select add-on from MCPEDL/new_addons/"
         required: true
-        type: string
+        type: choice
+        options:
+          - "Immortal-Pets"
+          - "tameable-companion-fox"
       status:
         description: "Lifecycle status label"
         required: true
@@ -58,6 +61,7 @@ jobs:
             [ -d "$dir" ] && git add "$dir"
           done
           [ -f "README.md" ] && git add README.md
+          [ -f ".github/workflows/manage-addon-status.yml" ] && git add .github/workflows/manage-addon-status.yml
 
           if git diff --staged --quiet; then
             echo "No changes staged to commit."

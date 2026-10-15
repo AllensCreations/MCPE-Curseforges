@@ -300,6 +300,32 @@ def update_addon_inner_readme(addon_target_dir):
         print(f"  [Addon] Cleaned internal README.md in {os.path.basename(addon_target_dir)}")
 
 
+def sync_workflow_choices():
+    """Keeps the choice options in .github/workflows/manage-addon-status.yml synchronized with new_addons."""
+    workflow_path = os.path.join(REPO_ROOT, ".github", "workflows", "manage-addon-status.yml")
+    if not os.path.isfile(workflow_path):
+        return
+
+    addons = list_new_addons()
+    options_lines = [f"          - \"{a}\"" for a in addons] if addons else ["          - \"none\""]
+    options_block = "\n".join(options_lines)
+
+    with open(workflow_path, "r", encoding="utf-8") as f:
+        content = f.read()
+
+    pattern = re.compile(
+        r"(addon:\s*\n\s*description:[^\n]+\n\s*required:[^\n]+\n\s*type:\s*choice\s*\n\s*options:\s*\n)(?:\s*-\s*[^\n]+\n)+",
+        re.MULTILINE
+    )
+
+    if pattern.search(content):
+        new_content = pattern.sub(r"\g<1>" + options_block + "\n", content)
+        if new_content != content:
+            with open(workflow_path, "w", encoding="utf-8") as f:
+                f.write(new_content)
+            print("  [Workflow] Synchronized add-on choices in manage-addon-status.yml")
+
+
 def handle_testing(slug):
     """Handles 'testing' status label."""
     addon_dir = os.path.join(NEW_ADDONS_DIR, slug)
@@ -341,11 +367,12 @@ def handle_finished(slug, dry_run=False):
     shutil.move(src_dir, dst_dir)
     print(f"  [Move] Moved {slug} to MCPEDL/addons/{slug}")
 
-    # Update catalogs
+    # Update catalogs and workflow choices
     rebuild_new_addons_readme()
     update_addons_catalog(meta)
     update_root_readme(slug)
     update_addon_inner_readme(dst_dir)
+    sync_workflow_choices()
 
     # Sync package and check README status
     auto_bump_script = os.path.join(REPO_ROOT, "scripts", "auto_bump_and_build.py")
