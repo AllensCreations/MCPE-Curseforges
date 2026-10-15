@@ -15,6 +15,9 @@ const CONFIG = {
   DOMINO_ORE_MINER_ENABLED: true,
   MAX_TREE_BLOCKS: 128,
   MAX_TREE_HEIGHT: 320,
+  TREE_HORIZONTAL_RANGE: 2,
+  TREE_DOWNWARD_RANGE: 2,
+  MATCH_TREE_SPECIES: true,
   MAX_ORE_CLUSTER_SIZE: 64,
   INSTANT_BURST: true,
   BLOCKS_PER_TICK: 6,
@@ -90,6 +93,19 @@ function isEligibleLog(blockId) {
   if (!blockId) return false;
   if (ELIGIBLE_LOGS.has(blockId)) return true;
   return /(log|wood|stem|hyphae|mangrove_roots)$/i.test(blockId);
+}
+
+function getWoodSpecies(typeId) {
+  if (!typeId) return null;
+  const match = typeId.match(/(dark_oak|pale_oak|oak|spruce|birch|jungle|acacia|mangrove|cherry|crimson|warped)/i);
+  return match ? match[1].toLowerCase() : null;
+}
+
+function isMatchingLog(blockId, targetSpecies) {
+  if (!isEligibleLog(blockId)) return false;
+  if (!CONFIG.MATCH_TREE_SPECIES || !targetSpecies) return true;
+  const species = getWoodSpecies(blockId);
+  return !species || species === targetSpecies;
 }
 
 const ORE_DEFINITIONS = {
@@ -264,21 +280,53 @@ function calculateFortuneDropCount(fortuneLevel, minBase = 1, maxBase = 1) {
 
 // ─── Tree Capitator Execution ─────────────────────────────────────────────────
 
-function executeTreeCapitator(player, dimension, startLoc, onComplete) {
+function executeTreeCapitator(player, dimension, startLoc, startBlockId, onComplete) {
+  if (typeof startBlockId === "function") {
+    onComplete = startBlockId;
+    startBlockId = null;
+  }
   if (!CONFIG.TREE_CAPITATOR_ENABLED) {
     if (onComplete) onComplete();
     return;
   }
 
+  const targetSpecies = startBlockId ? getWoodSpecies(startBlockId) : null;
   const visited = new Set();
   visited.add(`${startLoc.x},${startLoc.y},${startLoc.z}`);
 
   const blocksToBreak = [];
   let currentFootprints = [{ x: startLoc.x, z: startLoc.z }];
 
-  // Layer 0: 8 horizontal perimeter neighbors
-  for (let dx = -1; dx <= 1; dx++) {
-    for (let dz = -1; dz <= 1; dz++) {
+  // Downward search for stumps & roots (dy = -1 down to -CONFIG.TREE_DOWNWARD_RANGE)
+  for (let dy = -1; dy >= -CONFIG.TREE_DOWNWARD_RANGE; dy--) {
+    const layerY = startLoc.y + dy;
+    let foundBelow = false;
+
+    for (let dx = -CONFIG.TREE_HORIZONTAL_RANGE; dx <= CONFIG.TREE_HORIZONTAL_RANGE; dx++) {
+      for (let dz = -CONFIG.TREE_HORIZONTAL_RANGE; dz <= CONFIG.TREE_HORIZONTAL_RANGE; dz++) {
+        const bx = startLoc.x + dx;
+        const bz = startLoc.z + dz;
+        const key = `${bx},${layerY},${bz}`;
+        if (visited.has(key)) continue;
+        visited.add(key);
+
+        try {
+          const block = dimension.getBlock({ x: bx, y: layerY, z: bz });
+          if (block && isMatchingLog(block.typeId, targetSpecies)) {
+            blocksToBreak.push({ x: bx, y: layerY, z: bz });
+            foundBelow = true;
+            if (blocksToBreak.length >= CONFIG.MAX_TREE_BLOCKS) break;
+          }
+        } catch (e) {}
+      }
+      if (blocksToBreak.length >= CONFIG.MAX_TREE_BLOCKS) break;
+    }
+    if (!foundBelow) break;
+  }
+
+  // Layer 0: Horizontal perimeter neighbors (~2 to ~-2 range)
+  for (let dx = -CONFIG.TREE_HORIZONTAL_RANGE; dx <= CONFIG.TREE_HORIZONTAL_RANGE; dx++) {
+    for (let dz = -CONFIG.TREE_HORIZONTAL_RANGE; dz <= CONFIG.TREE_HORIZONTAL_RANGE; dz++) {
       if (dx === 0 && dz === 0) continue;
       const nx = startLoc.x + dx;
       const nz = startLoc.z + dz;
@@ -288,7 +336,7 @@ function executeTreeCapitator(player, dimension, startLoc, onComplete) {
 
       try {
         const neighborBlock = dimension.getBlock({ x: nx, y: startLoc.y, z: nz });
-        if (neighborBlock && isEligibleLog(neighborBlock.typeId)) {
+        if (neighborBlock && isMatchingLog(neighborBlock.typeId, targetSpecies)) {
           blocksToBreak.push({ x: nx, y: startLoc.y, z: nz });
           currentFootprints.push({ x: nx, z: nz });
           if (blocksToBreak.length >= CONFIG.MAX_TREE_BLOCKS) break;
@@ -298,7 +346,7 @@ function executeTreeCapitator(player, dimension, startLoc, onComplete) {
     if (blocksToBreak.length >= CONFIG.MAX_TREE_BLOCKS) break;
   }
 
-  // Upper Layers: 3x3 footprint upward
+  // Upper Layers: Expanded footprint upward (~2 to ~-2 range)
   for (let dy = 1; dy <= CONFIG.MAX_TREE_HEIGHT; dy++) {
     if (blocksToBreak.length >= CONFIG.MAX_TREE_BLOCKS) break;
     if (currentFootprints.length === 0) break;
@@ -321,8 +369,8 @@ function executeTreeCapitator(player, dimension, startLoc, onComplete) {
     for (const center of uniqueCenters) {
       if (blocksToBreak.length >= CONFIG.MAX_TREE_BLOCKS) break;
 
-      for (let dx = -1; dx <= 1; dx++) {
-        for (let dz = -1; dz <= 1; dz++) {
+      for (let dx = -CONFIG.TREE_HORIZONTAL_RANGE; dx <= CONFIG.TREE_HORIZONTAL_RANGE; dx++) {
+        for (let dz = -CONFIG.TREE_HORIZONTAL_RANGE; dz <= CONFIG.TREE_HORIZONTAL_RANGE; dz++) {
           const bx = center.x + dx;
           const bz = center.z + dz;
           const key = `${bx},${layerY},${bz}`;
@@ -332,7 +380,7 @@ function executeTreeCapitator(player, dimension, startLoc, onComplete) {
 
           try {
             const block = dimension.getBlock({ x: bx, y: layerY, z: bz });
-            if (block && isEligibleLog(block.typeId)) {
+            if (block && isMatchingLog(block.typeId, targetSpecies)) {
               blocksToBreak.push({ x: bx, y: layerY, z: bz });
               nextFootprints.push({ x: bx, z: bz });
               foundInLayer = true;
@@ -524,7 +572,7 @@ world.afterEvents.playerBreakBlock.subscribe((event) => {
   if (isAxe(toolTypeId) && isEligibleLog(brokenTypeId)) {
     activeOperations.add(player.id);
     try {
-      executeTreeCapitator(player, dimension, startLoc, () => {
+      executeTreeCapitator(player, dimension, startLoc, brokenTypeId, () => {
         activeOperations.delete(player.id);
       });
     } catch (err) {
