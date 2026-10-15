@@ -19,6 +19,7 @@ This directory stores all compiled releases (behavior packs, resource packs, add
 | **Immortal Pets** | `v1.1.3` | Script Behavior Pack (`.mcpack`) | [Download (.mcpack)](Immortal-Pets/Immortal%20Pets%20by%20AllensCreations%20%28V1.1.3%29.mcpack) | [`Immortal-Pets/`](Immortal-Pets/) |
 | **Tameable Companion Fox** | `v1.0.2` | Complete Pack (`.mcaddon`) | [Download (.mcaddon)](tameable-companion-fox/Tameable%20Companion%20Fox%20by%20AllensCreations%20%28V1.0.2%29.mcaddon) | [`tameable-companion-fox/`](tameable-companion-fox/) |
 | **Magnetic-Satchel** | `v1.0.1` | Complete Pack (`.mcaddon`) | [Download (.mcaddon)](Magnetic-Satchel/Magnetic-Satchel%20by%20AllensCreations%20%28V1.0.1%29.mcaddon) | [`Magnetic-Satchel/`](Magnetic-Satchel/) |
+| **infinite_item_stacker** | `v1.0.0` | Script Behavior Pack (`.mcpack`) | [Download (.mcpack)](infinite_item_stacker/infinite_item_stacker%20by%20AllensCreations%20%28V1.0.0%29.mcpack) | [`infinite_item_stacker/`](infinite_item_stacker/) |
 
 ### Worlds and Maps
 
