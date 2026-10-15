@@ -1,9 +1,0 @@
-{
-  "resource_pack_name": "magnetic_satchel",
-  "texture_name": "atlas.items",
-  "texture_data": {
-    "magnetic_satchel": {
-      "textures": "textures/items/magnetic_satchel"
-    }
-  }
-}
