@@ -8,8 +8,8 @@ This folder contains compiled release packages for **Passive Auto-Switch Tools**
 
 | File Name | Format | Size | Description | Download Link |
 | :--- | :--- | :--- | :--- | :--- |
-| **`Passive Auto-Switch Tools by AllensCreations (V1.1.11).mcpack`** | `.mcpack` | ~38 KB | Script Behavior Pack archive ready for import. | [Download (.mcpack)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Passive-Auto-Switch-Tools/Passive%20Auto-Switch%20Tools%20by%20AllensCreations%20%28V1.1.11%29.mcpack) |
-| **`Passive Auto-Switch Tools by AllensCreations (V1.1.11).mcaddon`** | `.mcaddon` | ~38 KB | Complete Add-on package archive. | [Download (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Passive-Auto-Switch-Tools/Passive%20Auto-Switch%20Tools%20by%20AllensCreations%20%28V1.1.11%29.mcaddon) |
+| **`Passive Auto-Switch Tools by AllensCreations (V1.1.12).mcpack`** | `.mcpack` | ~33 KB | Script Behavior Pack archive ready for import. | [Download (.mcpack)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Passive-Auto-Switch-Tools/Passive%20Auto-Switch%20Tools%20by%20AllensCreations%20%28V1.1.12%29.mcpack) |
+| **`Passive Auto-Switch Tools by AllensCreations (V1.1.12).mcaddon`** | `.mcaddon` | ~33 KB | Complete Add-on package archive. | [Download (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Passive-Auto-Switch-Tools/Passive%20Auto-Switch%20Tools%20by%20AllensCreations%20%28V1.1.12%29.mcaddon) |
 
 ---
 
