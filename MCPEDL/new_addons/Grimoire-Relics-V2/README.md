@@ -58,7 +58,9 @@ Holding a Grimoire in your offhand dynamically attunes your character:
 
 All 20 tomes are crafted at a standard Crafting Table using a shaped 3x3 pattern surrounding a central Book:
 
-![Grimoire Relics V2 Crafting Recipes](assets/all_recipes_sheet.png)
+<p align="center">
+  <img src="assets/all_recipes_sheet.png" alt="Grimoire Relics V2 Crafting Recipes" width="850">
+</p>
 
 ```
 [ C ] [ E ] [ C ]
