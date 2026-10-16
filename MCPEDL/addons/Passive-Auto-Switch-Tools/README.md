@@ -5,7 +5,6 @@
 [![Minecraft Bedrock](https://img.shields.io/badge/Minecraft%20Bedrock-1.21%20--%201.26%2B-brightgreen?style=flat-square&logo=minecraft)](https://github.com/AllensCreations/MCPE-Curseforges)
 [![Achievement Friendly](https://img.shields.io/badge/Achievements-Friendly-brightgreen?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges)
 [![No Experiments Required](https://img.shields.io/badge/Experimental%20Features-NOT%20REQUIRED-success?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges)
-[![Release](https://img.shields.io/badge/Release-v1.1.12-blue?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/addons#available-add-ons)
 [![Format](https://img.shields.io/badge/Format-.MCPACK-orange?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/addons#available-add-ons)
 [![Platform](https://img.shields.io/badge/Platform-Mobile%20%7C%20PC%20%7C%20Console%20%7C%20Realms-yellow?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges)
 
@@ -73,7 +72,7 @@ Item components are preserved during swaps:
 
 ## Comparison Table
 
-| Feature | Vanilla Bedrock | With Passive Auto-Switch Tools v1.1.0 |
+| Feature | Vanilla Bedrock | With Passive Auto-Switch Tools |
 | :--- | :--- | :--- |
 | **Tool Swapping** | Manual hotbar selection | Automatic tool selection upon hitting/starting to break |
 | **Combat Swapping** | Manual weapon selection | Automatic switch to axe or sword when hitting mobs |

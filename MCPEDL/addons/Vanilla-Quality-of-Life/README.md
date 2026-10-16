@@ -5,8 +5,6 @@
 [![Minecraft Bedrock](https://img.shields.io/badge/Minecraft%20Bedrock-1.21.0%2B-brightgreen?style=flat-square&logo=minecraft)](https://github.com/AllensCreations/MCPE-Curseforges)
 [![Achievement Friendly](https://img.shields.io/badge/Achievements-Friendly-brightgreen?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges)
 [![No Experiments Required](https://img.shields.io/badge/Experimental%20Features-NOT%20REQUIRED-success?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges)
-[![Release](https://img.shields.io/badge/Release-v1.3.1-blue?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/addons#available-add-ons)
-[![Changelog](https://img.shields.io/badge/Changelog-v1.3.0-purple?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges/blob/main/MCPEDL/addons/Vanilla-Quality-of-Life/CHANGELOG.md)
 [![Format](https://img.shields.io/badge/Format-.MCADDON-orange?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/addons#available-add-ons)
 [![Platform](https://img.shields.io/badge/Platform-Mobile%20%7C%20PC%20%7C%20Console%20%7C%20Realms-yellow?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges)
 
@@ -34,7 +32,7 @@ Optimized for smooth survival performance with zero lag. Requires zero experimen
 
 ### Comparison Table
 
-| Feature | Vanilla Bedrock | With Vanilla QoL v1.3.0 |
+| Feature | Vanilla Bedrock | With Vanilla QoL |
 | :--- | :--- | :--- |
 | **Tool & Weapon Switching** | Manual hotbar selection | Automatic optimal tool/weapon swap when holding Slot 1 |
 | **Tree Harvesting** | 1 log at a time | Sneak-axe fells entire tree up to 128 logs with 26-neighbor 3D scan & canopy protection |

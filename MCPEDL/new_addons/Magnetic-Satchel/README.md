@@ -3,7 +3,6 @@
 [![Minecraft Bedrock](https://img.shields.io/badge/Minecraft%20Bedrock-1.21.0%2B-brightgreen?style=flat-square&logo=minecraft)](https://github.com/AllensCreations/MCPE-Curseforges)
 [![Achievement Friendly](https://img.shields.io/badge/Achievements-Friendly-brightgreen?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges)
 [![Format](https://img.shields.io/badge/Format-.MCADDON-orange?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/new_addons#available-add-ons)
-[![Release](https://img.shields.io/badge/Release-v1.0.2-blue?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/new_addons#available-add-ons)
 
 **By AllensCreations**
 
@@ -64,13 +63,11 @@ The Magnetic Satchel can be crafted at any crafting table using either of the fo
 
 ---
 
-## Technical Specifications
+## Highlights & Performance
 
-- **Target Slot**: `slot.weapon.offhand` (`minecraft:equippable`)
-- **Interval Check**: Runs every 2 ticks (10 updates/second) via `system.runInterval`
-- **Impulse Calculation**: 3D normalized vector towards player waist level (+0.5 Y offset)
-- **Script Module**: `@minecraft/server` v1.13.0+
-- **Pack Formats**: Unified `.mcaddon` containing Behavior Pack and Resource Pack
+- **Smooth Item Gliding**: Draws dropped items smoothly toward your character with natural physics.
+- **Visual Feedback**: Subtle sparkle trail shows items flying toward you.
+- **Lag-Free Execution**: Optimized for large item clusters with zero server slowdown.
 
 ---
 

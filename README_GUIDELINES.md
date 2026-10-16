@@ -4,10 +4,12 @@ This document provides guidelines and instructions for writing, formatting, and 
 
 ---
 
-## 1. Core Rule: Zero Developer Clutter
-README files are marketing and player showcase pages. They must not contain internal developer artifacts or source-code jargon:
+## 1. Core Rule: Zero Developer Clutter & Evergreen Content
+README files are marketing and player showcase pages. They must not contain internal developer artifacts, code jargon, or ephemeral version labels:
+- ❌ **No Add-on Versions**: Do not put the add-on version (e.g. `Release-v1.0.3`, `v1.3.1`, or release badges) in the `README.md`. Keep documentation evergreen and decoupled from version bumps.
+- ❌ **No Script API References**: Never mention `Script API` or `@minecraft/server` in badges, text, or tables. Use player-facing terms like "modern Minecraft Bedrock mechanics".
 - ❌ **No Code Blocks**: Do not include markdown code blocks (` ```javascript `, ` ```json `, ` ```text `).
-- ❌ **No Script / API References**: Never mention `@minecraft/server`, `Script API`, `Beta APIs`, `manifest.json`, event handlers (`entityHitBlock`, `entityHurt`), or tick timing logic (`staggered 10-tick interval`).
+- ❌ **No Developer Internal Keywords**: Never mention `Beta APIs`, `manifest.json`, event handlers (`entityHitBlock`, `entityHurt`), or tick timing logic (`staggered 10-tick interval`).
 - ❌ **No Dev Shorthand**: Avoid "BP" and "RP". Use "Behavior Pack", "Resource Pack", or "Complete Pack (.mcaddon)".
 - ❌ **No Code Configuration Tutorials**: Never instruct players to edit JavaScript files. Present configurable behaviors as clean tables or in-game commands/tags.
 
@@ -50,7 +52,6 @@ To ensure the markdown renders identically on external platforms (MCPEDL, CurseF
 [![Achievement Friendly](https://img.shields.io/badge/Achievements-Friendly-brightgreen?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges)
 [![No Experiments Required](https://img.shields.io/badge/Experimental%20Features-NOT%20REQUIRED-success?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges)
 [![Format](https://img.shields.io/badge/Format-.MCADDON-orange?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/addons#available-add-ons)
-[![Release](https://img.shields.io/badge/Release-v1.0.0-blue?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/addons#available-add-ons)
 
 **By AllensCreations**
 
