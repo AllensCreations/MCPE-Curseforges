@@ -257,47 +257,65 @@ const RELICS = {
     end: (p, s) => clearLight(p, s)
   },
   "custom:tome_void": {
-    name: "Void Phantom", info: ["End-only: Phase elevation out of the void", "1 min slow-falling transition | 5m cooldown"],
+    name: "Void Phantom", info: ["End-only: 2s phase elevation out of the void", "Last-moment slow falling on drop | 5m cooldown"],
     particle: "minecraft:basic_portal_particle", ids: [],
     fast: (p, s) => {
       // Void Phantom strictly operates in The End dimension
       if (p.dimension.id !== "minecraft:the_end") return;
       if (p.location.y > -10 || now() - s.lastVoid < 6000) return;
       s.lastVoid = now();
+      s.voidElevating = true;
+      s.voidPeakY = -99999;
 
       // Fast phase elevation: cancel downward fall momentum and launch upward
       try { p.clearVelocity(); } catch (err) {}
       heal(p, 20);
       damageOffhand(p, 10);
       
-      // Fast phase elevation upward: Levitation level 25 (very fast elevation)
-      // for 1 minute (1200 ticks), followed by Slow Falling after 1 minute
-      addFx(p, "levitation", 24, 1200);
+      // Fast phase elevation upward: Levitation level 25 (amplifier 24) for 2 seconds (40 ticks)
+      addFx(p, "levitation", 24, 40);
       p.onScreenDisplay.setActionBar("§5✦ The Void Phantom phases you upward from the abyss! ✦");
       p.playSound("portal.travel");
       p.playSound("mob.phantom.swoop");
 
-      // After 1 minute (1200 ticks = 60s), transition from elevation to Slow Falling
+      // After 2 seconds (40 ticks), remove levitation so player begins downward drop trajectory
       system.runTimeout(() => {
         try {
           dropFx(p, ["levitation"]);
-          addFx(p, "slow_falling", 0, 1200); // 1 minute of safe slow falling
-          p.onScreenDisplay.setActionBar("§d✦ Void Phantom: Elevation complete — Slow Falling engaged ✦");
-          p.playSound("random.orb");
+          s.voidElevating = false;
+          s.voidDropping = true;
+          s.voidPeakY = p.location.y;
         } catch (err) {}
-      }, 1200);
+      }, 40);
+    },
+    tick: (p, s) => {
+      // Monitor drop after elevation: engage Slow Falling only in the last moment before impact
+      if (s.voidDropping) {
+        const y = p.location.y;
+        if (y > s.voidPeakY) s.voidPeakY = y;
+
+        // When falling back down and nearing safe surface altitude or End terrain (Y <= 65 or falling fast toward ground)
+        if (y < s.voidPeakY && y <= 65) {
+          s.voidDropping = false;
+          addFx(p, "slow_falling", 0, 160); // 8 seconds of slow falling at the final moment of descent
+          p.onScreenDisplay.setActionBar("§d✦ Void Phantom: Soft descent engaged ✦");
+          p.playSound("random.orb");
+        }
+      }
     },
     onHurt: (p, ev, a, s) => {
       // In The End, intercept void damage if fall velocity reached threshold
       if (p.dimension.id !== "minecraft:the_end") return;
       if (ev.damageSource.cause === "void" && now() - s.lastVoid >= 6000) {
         s.lastVoid = now();
+        s.voidElevating = true;
+        s.voidPeakY = -99999;
         try { p.clearVelocity(); } catch (err) {}
         heal(p, 20);
         damageOffhand(p, 10);
         
-        // Fast phase elevation upward: Levitation level 25 for 1 minute (1200 ticks)
-        addFx(p, "levitation", 24, 1200);
+        // Fast phase elevation upward: Levitation level 25 for 2 seconds (40 ticks)
+        addFx(p, "levitation", 24, 40);
         p.onScreenDisplay.setActionBar("§5✦ The Void Phantom phases you upward from the abyss! ✦");
         p.playSound("portal.travel");
         p.playSound("mob.phantom.swoop");
@@ -305,11 +323,11 @@ const RELICS = {
         system.runTimeout(() => {
           try {
             dropFx(p, ["levitation"]);
-            addFx(p, "slow_falling", 0, 1200);
-            p.onScreenDisplay.setActionBar("§d✦ Void Phantom: Elevation complete — Slow Falling engaged ✦");
-            p.playSound("random.orb");
+            s.voidElevating = false;
+            s.voidDropping = true;
+            s.voidPeakY = p.location.y;
           } catch (err) {}
-        }, 1200);
+        }, 40);
       }
     }
   },

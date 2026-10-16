@@ -14,14 +14,6 @@
       "geometry": {
         "default": "geometry.grimoire_hip"
       },
-      "animations": {
-        "hip_idle": "animation.grimoire.hip_idle"
-      },
-      "scripts": {
-        "animate": [
-          "hip_idle"
-        ]
-      },
       "render_controllers": [
         "controller.render.item_default"
       ]
