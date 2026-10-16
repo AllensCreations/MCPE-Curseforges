@@ -4,20 +4,22 @@ This document provides guidelines and instructions for writing, formatting, and 
 
 ---
 
-## 1. Core Rule: Zero Developer Clutter & Evergreen Content
-README files are marketing and player showcase pages. They must not contain internal developer artifacts, code jargon, or ephemeral version labels:
+## 1. Core Rules: Zero Developer Clutter & Evergreen Content
+README files are public-facing marketing and player showcase pages. They must not contain internal developer artifacts, code jargon, or ephemeral version labels:
 - ❌ **No Add-on Versions**: Do not put the add-on version (e.g. `Release-v1.0.3`, `v1.3.1`, or release badges) in the `README.md`. Keep documentation evergreen and decoupled from version bumps.
 - ❌ **No Script API References**: Never mention `Script API` or `@minecraft/server` in badges, text, or tables. Use player-facing terms like "modern Minecraft Bedrock mechanics".
 - ❌ **No Code Blocks**: Do not include markdown code blocks (` ```javascript `, ` ```json `, ` ```text `).
+- ❌ **No Markdown Tables in Project READMEs**: Do not use Markdown tables (`| ... | ... |`) in individual project READMEs. Tables break on mobile screens by forcing horizontal overflow and awkward scrolling. Use clean mobile card sections (`### [Feature / Item Name]` with bullet points) instead.
 - ❌ **No Developer Internal Keywords**: Never mention `Beta APIs`, `manifest.json`, event handlers (`entityHitBlock`, `entityHurt`), or tick timing logic (`staggered 10-tick interval`).
 - ❌ **No Dev Shorthand**: Avoid "BP" and "RP". Use "Behavior Pack", "Resource Pack", or "Complete Pack (.mcaddon)".
-- ❌ **No Code Configuration Tutorials**: Never instruct players to edit JavaScript files. Present configurable behaviors as clean tables or in-game commands/tags.
+- ❌ **No Code Configuration Tutorials**: Never instruct players to edit JavaScript files. Present configurable behaviors as clean card highlights or in-game commands/tags.
 
 ---
 
-## 2. Commercial Showcase Writing Style
+## 2. Commercial Showcase & Mobile-First Writing Style
+- **Mobile-First Card Layout**: Highlight features, interactions, equipment stats, and recipes in concise Markdown cards with clear headings (`### [Feature Name]`) and clean bullet points (`- **Description**: ...` or `- **What Happens**: ...`). This renders smoothly on mobile phones, tablets, and desktop displays without horizontal clipping.
 - **Focus on Player Benefits**: Emphasize ease of use, survival convenience, exciting immersion, and multiplayer fun.
-- **Short & Punchy Sections**: Keep paragraphs under 3-4 sentences. Use bullet points and clean tables instead of dense text walls.
+- **Short & Punchy Sections**: Keep paragraphs under 3-4 sentences. Use bullet points and clean mobile cards instead of dense text walls.
 - **Player-Friendly Performance Reassurance**:
   - Instead of technical profiling: *"Zero idle lag—only activates when interacting with blocks or mobs."*
   - Instead of API versions: *"Optimized for smooth survival worlds and multiplayer Realms."*
@@ -25,8 +27,8 @@ README files are marketing and player showcase pages. They must not contain inte
 
 ---
 
-## 3. Formatting & External Platform Compatibility
-To ensure the markdown renders identically on external platforms (MCPEDL, CurseForge, web portals):
+## 3. Formatting, External Readability & SEO
+To ensure the markdown renders identically on external platforms (MCPEDL, CurseForge, web portals, mobile apps):
 1. **Absolute Image URLs**:
    All image embeds (`<img>` or `![]()`) must use absolute raw URLs:
    ```
@@ -37,6 +39,15 @@ To ensure the markdown renders identically on external platforms (MCPEDL, CurseF
    ```
    https://github.com/AllensCreations/MCPE-Curseforges/tree/main/<path>
    https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/<file>
+   ```
+3. **Bottom Search & Discovery Keywords (SEO)**:
+   Every project `README.md` must conclude with a dedicated SEO section:
+   ```markdown
+   ---
+
+   ## Search & Discovery Keywords
+
+   Minecraft Bedrock add-on, [Add-on Name] Bedrock mod, Minecraft PE survival, MCPEDL add-on, CurseForge Bedrock, AllensCreations.
    ```
 
 ---
