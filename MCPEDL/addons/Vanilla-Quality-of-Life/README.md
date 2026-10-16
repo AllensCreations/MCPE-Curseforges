@@ -163,13 +163,16 @@ Built on `@minecraft/server` v1.13.0 with standard Bedrock components. Requires 
 
 ---
 
-## Compatibility
+## Compatibility & Packaging Formats
 
 - Minecraft Bedrock Edition 1.21.0+
 - Script API `@minecraft/server` 1.13.0+
 - No experimental features required
-- Complete `.MCADDON` (Behavior Pack + Resource Pack) format
-- Compatible with Mobile, Windows, Console, and Realms
+- **Available Package Formats**:
+  - **Complete `.MCADDON`**: Bundles both Behavior Pack and Resource Pack for 1-click import.
+  - **Standalone `.MCPACK` (BP)**: Behavior Pack can be run independently without any missing dependency warnings.
+  - **Client `.MCPACK` (RP)**: Resource Pack with client entity locators for lead attachments.
+- Compatible with Mobile (iOS / Android), Windows PC, Consoles (Xbox, PlayStation, Switch), and Multiplayer Realms / BDS
 
 ---
 
