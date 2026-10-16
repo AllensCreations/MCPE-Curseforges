@@ -71,6 +71,9 @@ SCAFFOLD_STUB_MARKERS = [
     "Review the included manifests, behavior packs, resource packs, and scripts before publishing",
     "This directory contains the uncompressed source files used to build this add-on",
     "Minecraft Bedrock add-on by AllensCreations.",
+    "## Description\n\nMinecraft Bedrock add-on by AllensCreations.",
+    "This directory contains the uncompressed source files used to build this add-on.\n\nReview the included manifests",
+    "Do not re-upload this add-on or modified copies to other websites, app stores, or file-sharing services.",
 ]
 
 GAMEPLAY_HEADING_REGEX = re.compile(
