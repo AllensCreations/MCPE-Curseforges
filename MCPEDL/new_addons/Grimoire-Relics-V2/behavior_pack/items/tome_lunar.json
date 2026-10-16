@@ -4,7 +4,8 @@
     "description": {
       "identifier": "custom:tome_lunar",
       "menu_category": {
-        "category": "equipment"
+        "category": "equipment",
+        "group": "itemGroup.name.book"
       }
     },
     "components": {
