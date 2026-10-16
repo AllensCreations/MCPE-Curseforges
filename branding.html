@@ -703,6 +703,75 @@
     @keyframes spin {
       to { transform: rotate(360deg); }
     }
+
+    .btn-download {
+      background: #0284c7;
+      color: #ffffff;
+      box-shadow: 0 2px 10px rgba(2, 132, 199, 0.3);
+    }
+
+    .btn-download:hover {
+      background: #0369a1;
+    }
+
+    /* Modal Dialog */
+    .modal-overlay {
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(0, 0, 0, 0.75);
+      backdrop-filter: blur(8px);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 200;
+      padding: 1.5rem;
+    }
+
+    .modal-overlay.active {
+      display: flex;
+    }
+
+    .modal-card {
+      background: var(--surface-1);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      max-width: 520px;
+      width: 100%;
+      padding: 1.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1.25rem;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.7);
+    }
+
+    .modal-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 0.75rem;
+    }
+
+    .modal-title {
+      font-size: 1.05rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .modal-close-btn {
+      background: none;
+      border: none;
+      color: var(--text-muted);
+      cursor: pointer;
+      font-size: 1.25rem;
+      line-height: 1;
+    }
+
+    .modal-close-btn:hover {
+      color: var(--text);
+    }
   </style>
 </head>
 <body>
@@ -722,6 +791,9 @@
         <span class="status-dot"></span>
         <span id="serverStatusText">Detecting Environment...</span>
       </div>
+      <button class="btn btn-outline" id="patModalBtn" style="font-size: 0.78rem; padding: 0.35rem 0.75rem;" title="Configure GitHub Personal Access Token for Cloud Commits">
+        🔑 GitHub Token
+      </button>
       <button class="btn btn-outline" id="fsConnectBtn" style="font-size: 0.78rem; padding: 0.35rem 0.75rem;" title="Direct folder access via browser">
         📁 Open Local Repo Folder
       </button>
@@ -953,12 +1025,37 @@
     </div>
 
     <div class="dock-actions">
+      <button class="btn btn-download" id="downloadZipBtn" title="Download staged banner, logo, and updated README.md as files">
+        💾 Download Files
+      </button>
       <button class="btn btn-secondary" id="restoreBtn" title="Restores README.md from the last .bak file">
         ↺ Revert to Backup
       </button>
       <button class="btn btn-primary" id="applyBtn">
         <span>🚀 Apply, Commit & Push to GitHub</span>
       </button>
+    </div>
+  </div>
+
+  <!-- GitHub Token Configuration Modal -->
+  <div class="modal-overlay" id="patModal">
+    <div class="modal-card">
+      <div class="modal-header">
+        <div class="modal-title">🔑 GitHub Personal Access Token</div>
+        <button class="modal-close-btn" id="closePatModalBtn">&times;</button>
+      </div>
+      <p style="font-size: 0.85rem; color: var(--text-muted); line-height: 1.5;">
+        When hosted on Vercel or cloud static hosting, you can provide a GitHub Personal Access Token (with <code>repo</code> scope) to commit and push changed banners, logos, and updated READMEs directly to <code>origin/main</code> without running a local server.
+      </p>
+      <div style="display: flex; flex-direction: column; gap: 0.4rem;">
+        <label style="font-size: 0.78rem; font-weight: 600; color: var(--text-muted); text-transform: uppercase;">Personal Access Token (PAT):</label>
+        <input type="password" id="githubPatInput" placeholder="ghp_xxxxxxxxxxxxxxxxxxxx" style="background: var(--surface-2); border: 1px solid var(--border); color: var(--text); padding: 0.55rem 0.85rem; border-radius: var(--radius-sm); font-size: 0.88rem; font-family: var(--font-mono); outline: none;">
+        <span style="font-size: 0.74rem; color: var(--text-dim);">Stored strictly inside your browser's private localStorage. Never sent to any external server other than api.github.com.</span>
+      </div>
+      <div style="display: flex; align-items: center; justify-content: flex-end; gap: 0.75rem; margin-top: 0.5rem;">
+        <button class="btn btn-outline" id="clearPatBtn">Clear Token</button>
+        <button class="btn btn-primary" id="savePatBtn">Save Token</button>
+      </div>
     </div>
   </div>
 
@@ -1041,6 +1138,13 @@
     const dockStatusText = document.getElementById("dockStatusText");
     const applyBtn = document.getElementById("applyBtn");
     const restoreBtn = document.getElementById("restoreBtn");
+    const downloadZipBtn = document.getElementById("downloadZipBtn");
+    const patModalBtn = document.getElementById("patModalBtn");
+    const patModal = document.getElementById("patModal");
+    const closePatModalBtn = document.getElementById("closePatModalBtn");
+    const savePatBtn = document.getElementById("savePatBtn");
+    const clearPatBtn = document.getElementById("clearPatBtn");
+    const githubPatInput = document.getElementById("githubPatInput");
     const toast = document.getElementById("toast");
     const toastMsg = document.getElementById("toastMsg");
 
@@ -1098,10 +1202,66 @@
           return;
         }
       } catch (err) {
-        // Server not reachable -> File System Access Mode
+        // Server not reachable -> Try static targets.json for Vercel / Cloud hosting
       }
 
+      // Check for static targets.json (Vercel / Cloud Static Mode)
+      try {
+        const staticRes = await fetch("./targets.json", { cache: "no-store" });
+        if (staticRes.ok) {
+          const data = await staticRes.json();
+          state.isServerMode = false;
+          state.isVercelMode = true;
+          serverStatusPill.classList.remove("offline");
+          serverStatusPill.style.background = "rgba(59, 130, 246, 0.1)";
+          serverStatusPill.style.borderColor = "rgba(59, 130, 246, 0.3)";
+          serverStatusPill.style.color = "#60a5fa";
+          serverStatusText.textContent = "☁️ Vercel / Cloud Mode Active";
+          document.getElementById("modeNotice").innerHTML = `
+            <span>☁️ <strong>Vercel / Cloud Hosting Mode:</strong> All repository targets loaded! Stage a new banner or logo, then use <strong>"Download Files"</strong> or configure your <strong>"GitHub Token"</strong> to commit directly to GitHub.</span>
+          `;
+
+          state.targets = {};
+          targetSelect.innerHTML = "";
+
+          const groups = { root: [], addon: [], map: [], script: [] };
+          data.targets.forEach(t => {
+            state.targets[t.id] = t;
+            if (groups[t.category]) groups[t.category].push(t);
+          });
+
+          // Build select options
+          if (groups.root.length) {
+            groups.root.forEach(t => {
+              const opt = document.createElement("option");
+              opt.value = t.id;
+              opt.textContent = `📦 ${t.name}`;
+              targetSelect.appendChild(opt);
+            });
+          }
+
+          const groupLabels = { addon: "Add-ons", map: "Maps", script: "Scripts & Minigames" };
+          ['addon', 'map', 'script'].forEach(cat => {
+            if (groups[cat].length) {
+              const grp = document.createElement("optgroup");
+              grp.label = groupLabels[cat];
+              groups[cat].forEach(t => {
+                const opt = document.createElement("option");
+                opt.value = t.id;
+                opt.textContent = `${cat === 'addon' ? '⚡' : cat === 'map' ? '🏝️' : '🎮'} ${t.name}`;
+                targetSelect.appendChild(opt);
+              });
+              targetSelect.appendChild(grp);
+            }
+          });
+
+          onTargetChanged();
+          return;
+        }
+      } catch (err) {}
+
       state.isServerMode = false;
+      state.isVercelMode = false;
       serverStatusPill.classList.add("offline");
       serverStatusText.textContent = "Offline / File Mode";
       document.getElementById("modeNotice").innerHTML = `
@@ -1143,6 +1303,8 @@
       clearStagedLogo();
 
       const timestamp = Date.now();
+      const rawGitHub = "https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/";
+
       if (state.isServerMode) {
         // Reload current images from server API
         currBannerImg.style.display = "block";
@@ -1167,6 +1329,39 @@
             renderDiff();
           }
         } catch {}
+      } else {
+        // Cloud / Vercel / Offline mode: load current images from raw GitHub CDN or relative
+        const bannerUrl = target.bannerExists ? `${rawGitHub}${target.bannerPath}?v=${timestamp}` : target.bannerPath;
+        const logoUrl = target.logoExists ? `${rawGitHub}${target.logoPath}?v=${timestamp}` : target.logoPath;
+
+        currBannerImg.style.display = "block";
+        currBannerImg.src = bannerUrl;
+
+        currLogoImg.style.display = "block";
+        currLogoImg.src = logoUrl;
+
+        avatarPreviewRound.src = logoUrl;
+        avatarPreviewSquare.src = logoUrl;
+
+        liveBannerImg.src = bannerUrl;
+        liveLogoImg.src = logoUrl;
+        liveTitle.textContent = target.name;
+
+        // Fetch README from GitHub raw or local
+        try {
+          const r = await fetch(`${rawGitHub}${target.readmePath}?t=${timestamp}`);
+          if (r.ok) {
+            state.readmeContent = await r.text();
+            renderDiff();
+          } else {
+            // fallback to relative
+            const r2 = await fetch(target.readmePath);
+            if (r2.ok) {
+              state.readmeContent = await r2.text();
+              renderDiff();
+            }
+          }
+        } catch (err) {}
       }
 
       updateImageMetrics();
@@ -1277,8 +1472,50 @@
       applyBtn.addEventListener("click", applyChanges);
       restoreBtn.addEventListener("click", restoreBackup);
 
+      // Download Files button
+      downloadZipBtn.addEventListener("click", downloadStagedFiles);
+
       // File System connect
       fsConnectBtn.addEventListener("click", connectFileSystem);
+
+      // GitHub PAT Modal handlers
+      patModalBtn.addEventListener("click", () => {
+        githubPatInput.value = localStorage.getItem("mcpe_github_pat") || "";
+        patModal.classList.add("active");
+      });
+      closePatModalBtn.addEventListener("click", () => {
+        patModal.classList.remove("active");
+      });
+      patModal.addEventListener("click", (e) => {
+        if (e.target === patModal) patModal.classList.remove("active");
+      });
+      savePatBtn.addEventListener("click", () => {
+        const val = githubPatInput.value.trim();
+        if (val) {
+          localStorage.setItem("mcpe_github_pat", val);
+          showToast("GitHub Personal Access Token saved!");
+          patModalBtn.style.borderColor = "var(--primary)";
+          patModalBtn.style.color = "var(--primary)";
+        } else {
+          localStorage.removeItem("mcpe_github_pat");
+          showToast("GitHub Token cleared");
+        }
+        patModal.classList.remove("active");
+      });
+      clearPatBtn.addEventListener("click", () => {
+        localStorage.removeItem("mcpe_github_pat");
+        githubPatInput.value = "";
+        patModalBtn.style.borderColor = "";
+        patModalBtn.style.color = "";
+        showToast("GitHub Token cleared");
+        patModal.classList.remove("active");
+      });
+
+      // Highlight PAT button if already saved
+      if (localStorage.getItem("mcpe_github_pat")) {
+        patModalBtn.style.borderColor = "var(--primary)";
+        patModalBtn.style.color = "var(--primary)";
+      }
     }
 
     function setupDragDrop(el, handler) {
@@ -1491,6 +1728,8 @@
         ? '<div class="spinner"></div> Applying, Committing & Pushing to GitHub...'
         : '<div class="spinner"></div> Applying Changes...';
 
+      // Check for GitHub Token or Vercel Cloud Mode
+      const githubToken = localStorage.getItem("mcpe_github_pat");
       if (state.isServerMode) {
         try {
           const payload = {
@@ -1539,6 +1778,13 @@
         } catch (err) {
           showToast(`Server communication error: ${err.message}`, true);
         }
+      } else if (githubToken) {
+        // Direct GitHub REST API Commit (Cloud / Vercel Mode)
+        try {
+          await applyViaGitHubAPI(githubToken);
+        } catch (err) {
+          showToast(`GitHub API error: ${err.message}`, true);
+        }
       } else if (state.fsDirHandle) {
         // Direct File System Access API
         try {
@@ -1547,11 +1793,153 @@
           showToast(`File system write error: ${err.message}`, true);
         }
       } else {
-        showToast("Connect to server or click 'Open Local Repo Folder' to write changes", true);
+        // Hosted on Vercel without token: prompt user to download files or enter PAT
+        downloadStagedFiles();
+        showToast("Files downloaded! To push directly from Vercel, click '🔑 GitHub Token' above.");
       }
 
       applyBtn.disabled = false;
       updateApplyButtonLabel();
+    }
+
+    // Helper: Compute updated README markdown text
+    function getUpdatedReadmeContent() {
+      if (!state.readmeContent) return "";
+      const target = state.targets[state.currentTarget];
+      if (!target) return state.readmeContent;
+
+      let text = state.readmeContent;
+      const timestamp = Date.now();
+      const cacheQuery = optCacheBuster.checked ? `?v=${timestamp}` : "";
+      const rawPrefix = "https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/";
+
+      if (optUpdateBanner.checked && state.stagedBanner) {
+        const bannerTargetUrl = `${rawPrefix}${target.bannerPath}${cacheQuery}`;
+        text = text.replace(/!\[.*?\]\((.*?(?:banner|179\d+).*?\.(?:jpg|png|jpeg|webp)[^\)]*)\)/i, 
+          `![MCPEDL](${bannerTargetUrl} "MCPEDL")`);
+      }
+      if (optUpdateLogo.checked && state.stagedLogo) {
+        const logoTargetUrl = `${rawPrefix}${target.logoPath}${cacheQuery}`;
+        if (/<img/i.test(text) && /src=["'][^"']*?(?:mcpedl|logo)[^"']*?["']/i.test(text)) {
+          text = text.replace(/src=["'][^"']*?(?:mcpedl|logo)[^"']*?["']/i, `src="${logoTargetUrl}"`);
+        } else {
+          text = text.replace(/!\[.*?\]\((.*?(?:mcpedl|pack_icon).*?\.(?:png|jpg)[^\)]*\)/i,
+            `![MCPEDL](${logoTargetUrl} "MCPEDL")`);
+        }
+      }
+      return text;
+    }
+
+    // Helper: Download a Data URL or Blob
+    function triggerDownload(dataUrl, filename) {
+      const a = document.createElement("a");
+      a.href = dataUrl;
+      a.download = filename;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+    }
+
+    // Download staged files individually
+    function downloadStagedFiles() {
+      if (!state.stagedBanner && !state.stagedLogo) {
+        showToast("No files staged to download", true);
+        return;
+      }
+      const target = state.targets[state.currentTarget] || { name: "Project", bannerPath: "banner.jpg", logoPath: "assets/mcpedl.png" };
+
+      // 1. Download Banner
+      if (state.stagedBanner) {
+        const bannerFilename = target.bannerPath.split("/").pop() || "banner.jpg";
+        triggerDownload(state.stagedBanner, bannerFilename);
+      }
+
+      // 2. Download Logo
+      if (state.stagedLogo) {
+        const logoFilename = target.logoPath.split("/").pop() || "pack_icon.png";
+        setTimeout(() => triggerDownload(state.stagedLogo, logoFilename), 300);
+      }
+
+      // 3. Download updated README.md
+      const updatedReadme = getUpdatedReadmeContent();
+      if (updatedReadme) {
+        const blob = new Blob([updatedReadme], { type: "text/markdown;charset=utf-8" });
+        const readmeUrl = URL.createObjectURL(blob);
+        setTimeout(() => triggerDownload(readmeUrl, "README.md"), 600);
+      }
+
+      showToast("💾 Started downloading updated files!");
+    }
+
+    // Direct GitHub REST API Commit for Vercel Cloud Mode
+    async function applyViaGitHubAPI(token) {
+      const repo = "AllensCreations/MCPE-Curseforges";
+      const branch = "main";
+      const target = state.targets[state.currentTarget];
+      const headers = {
+        "Authorization": `token ${token}`,
+        "Accept": "application/vnd.github.v3+json",
+        "Content-Type": "application/json"
+      };
+
+      const filesToUpdate = [];
+
+      // 1. Banner
+      if (state.stagedBanner) {
+        const base64Data = state.stagedBanner.split(",")[1];
+        filesToUpdate.push({ path: target.bannerPath, content: base64Data, isBase64: true });
+      }
+
+      // 2. Logo
+      if (state.stagedLogo) {
+        const base64Data = state.stagedLogo.split(",")[1];
+        filesToUpdate.push({ path: target.logoPath, content: base64Data, isBase64: true });
+      }
+
+      // 3. README.md
+      const newReadme = getUpdatedReadmeContent();
+      if (newReadme && (optUpdateBanner.checked || optUpdateLogo.checked)) {
+        filesToUpdate.push({ path: target.readmePath, content: btoa(unescape(encodeURIComponent(newReadme))), isBase64: true });
+      }
+
+      // Commit each file via GitHub Contents API
+      let successCount = 0;
+      for (const item of filesToUpdate) {
+        // Fetch current SHA
+        let sha = null;
+        try {
+          const getRes = await fetch(`https://api.github.com/repos/${repo}/contents/${item.path}?ref=${branch}`, { headers });
+          if (getRes.ok) {
+            const getJson = await getRes.json();
+            sha = getJson.sha;
+          }
+        } catch (err) {}
+
+        const commitMessage = (gitCommitMsgInput && gitCommitMsgInput.value.trim()) || `chore(branding): update ${item.path.split("/").pop()} for ${target.name} [skip ci]`;
+        const body = {
+          message: commitMessage,
+          content: item.content,
+          branch: branch
+        };
+        if (sha) body.sha = sha;
+
+        const putRes = await fetch(`https://api.github.com/repos/${repo}/contents/${item.path}`, {
+          method: "PUT",
+          headers,
+          body: JSON.stringify(body)
+        });
+
+        if (putRes.ok) successCount++;
+      }
+
+      if (successCount > 0) {
+        showToast(`🚀 Successfully committed ${successCount} file(s) to GitHub via API!`);
+        clearStagedBanner();
+        clearStagedLogo();
+        await onTargetChanged();
+      } else {
+        showToast("GitHub commit failed. Verify token permissions (repo scope).", true);
+      }
     }
 
     // Restore Backup
