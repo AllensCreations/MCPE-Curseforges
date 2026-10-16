@@ -2,7 +2,6 @@
 
 [![Minecraft Bedrock](https://img.shields.io/badge/Minecraft%20Bedrock-1.21.0%2B-brightgreen?style=flat-square&logo=minecraft)](https://github.com/AllensCreations/MCPE-Curseforges)
 [![Achievement Friendly](https://img.shields.io/badge/Achievements-Friendly-brightgreen?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges)
-[![Script API](https://img.shields.io/badge/Script%20API-%40minecraft%2Fserver%201.13.0%2B-blue?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges)
 [![Format](https://img.shields.io/badge/Format-.MCPACK-orange?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/new_addons#available-add-ons)
 [![Release](https://img.shields.io/badge/Release-v1.0.0-blue?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/new_addons#available-add-ons)
 
@@ -16,7 +15,7 @@ Race against an escalating, invisible death clock: find a diamond before the Gri
 
 ## Overview
 
-**Sudden Death Roulette: The Diamond Race** transforms ordinary Minecraft survival into a high-stakes psychological thriller. Engineered on the Bedrock Script API (`@minecraft/server` v1.13.0+), every second spent underground or wandering without diamond gear increases the Grim Reaper's lethal odds.
+**Sudden Death Roulette: The Diamond Race** transforms ordinary Minecraft survival into a high-stakes psychological thriller. Engineered on the modern Minecraft Bedrock mechanics, every second spent underground or wandering without diamond gear increases the Grim Reaper's lethal odds.
 
 After an initial 15-second grace period upon spawning, probabilistic death rolls begin executing periodically. Surviving rolls isn't guaranteed—only by mining or acquiring a genuine diamond can a player lift the curse and secure permanent salvation.
 

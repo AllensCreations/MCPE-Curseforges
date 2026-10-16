@@ -2,7 +2,6 @@
 
 [![Minecraft Bedrock](https://img.shields.io/badge/Minecraft%20Bedrock-1.21.0%2B-brightgreen?style=flat-square&logo=minecraft)](https://github.com/AllensCreations/MCPE-Curseforges)
 [![Achievement Friendly](https://img.shields.io/badge/Achievements-Friendly-brightgreen?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges)
-[![Script API](https://img.shields.io/badge/Script%20API-%40minecraft%2Fserver%201.13.0%2B-blue?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges)
 [![Format](https://img.shields.io/badge/Format-.MCPACK-orange?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/new_addons#available-add-ons)
 [![Release](https://img.shields.io/badge/Release-v1.0.1-blue?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/new_addons#available-add-ons)
 
@@ -16,7 +15,7 @@ Dynamic clutch execution system that automatically places lifesavers when fallin
 
 ## Overview
 
-Universal Clutch provides a vanilla-faithful safety mechanic for Minecraft Bedrock players. Powered by the Bedrock Script API (`@minecraft/server` v1.13.0+), the system continuously calculates player trajectory, downward velocity, and pitch angle during freefall.
+Universal Clutch provides a vanilla-faithful safety mechanic for Minecraft Bedrock players. Powered by the modern Minecraft Bedrock mechanics, the system continuously calculates player trajectory, downward velocity, and pitch angle during freefall.
 
 When aiming down and falling beyond the configured block height threshold, the add-on predicts impact 1 to 2 ticks ahead of ground contact, triggers an authentic arm swing animation with placement audio, deploys the appropriate clutch item from your mainhand or offhand, and automatically re-scoops placed water upon touchdown.
 
@@ -97,14 +96,12 @@ Individual players can customize their personal settings on multiplayer servers 
 
 ---
 
-## Technical Specifications
+## Highlights & Performance
 
-- **Script API Version:** `@minecraft/server` v1.13.0+
-- **Update Frequency:** Runs on `system.runInterval` every 1 tick for responsive collision detection.
-- **Debounce Window:** 25-tick cooldown prevents duplicate placements within a single fall trajectory.
-- **Gamemode Integrity:** In Survival and Adventure modes, single-use blocks and boat items are consumed from the active hand stack; in Creative mode, items remain infinite.
-- **Waterlogging Logic:** Natively resolves `BlockPermutation.withState("waterlogged", true)` on compatible blocks.
-- **Package Format:** Unified `.mcaddon` bundle containing Behavior Pack and Resource Pack.
+- **Responsive Clutch Engine**: High-precision impact calculation prevents fatal fall damage right before hitting the ground.
+- **Survival Balanced**: Consumes clutch items faithfully from your inventory or hand in Survival and Adventure modes.
+- **Waterlogging Support**: Perfectly clutches onto waterloggable blocks without awkward water spilling.
+- **Anti-Spam Cooldown**: Built-in placement cooldown guarantees one clean clutch per fall.
 
 ---
 
@@ -112,7 +109,7 @@ Individual players can customize their personal settings on multiplayer servers 
 
 - Minecraft Bedrock Edition 1.21.0+
 - Compatible with Bedrock 1.21.50+ and 1.26.0+ releases
-- Requires Beta APIs / Script API capability enabled in world settings
+- Enable Beta APIs in World Settings
 - Compatible with Windows, Android, iOS, Xbox, PlayStation, and dedicated servers / Realms
 - Multiplayer ready with per-player tracking and isolated execution states
 

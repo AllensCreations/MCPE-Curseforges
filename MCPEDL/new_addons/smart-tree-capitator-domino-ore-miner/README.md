@@ -1,7 +1,6 @@
 # Smart Tree Capitator and Domino Ore Miner — Vein and Tree Miner for Minecraft Bedrock
 
 [![Minecraft Bedrock](https://img.shields.io/badge/Minecraft%20Bedrock-1.21.0%2B-brightgreen?style=flat-square&logo=minecraft)](https://github.com/AllensCreations/MCPE-Curseforges)
-[![Script API](https://img.shields.io/badge/Script%20API-%40minecraft%2Fserver%201.13.0%2B-blue?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges)
 [![Format](https://img.shields.io/badge/Format-.MCPACK%20%2F%20.MCADDON-orange?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/new_addons#available-add-ons)
 [![Release](https://img.shields.io/badge/Release-v1.0.5-blue?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/new_addons#available-add-ons)
 
@@ -17,7 +16,7 @@ Fell entire trees and mine contiguous ore veins in a single sneak-break, protect
 
 Mining large underground ore clusters and chopping tall trees one block at a time takes unnecessary time.
 
-**Smart Tree Capitator & Domino Ore Miner** adds sneak-activated chain mining to Minecraft Bedrock Edition using the Script API (`@minecraft/server`). Sneak while breaking a log or ore to fell the entire tree or harvest the connected ore vein in a single tick. Tools stop mining when durability drops to 5, preventing accidental breakage.
+**Smart Tree Capitator & Domino Ore Miner** adds sneak-activated chain mining to Minecraft Bedrock Edition using the modern Minecraft Bedrock mechanics. Sneak while breaking a log or ore to fell the entire tree or harvest the connected ore vein in a single tick. Tools stop mining when durability drops to 5, preventing accidental breakage.
 
 Standing upright leaves standard vanilla single-block mining untouched. The add-on adds no extra hunger or exhaustion penalties.
 
@@ -97,41 +96,29 @@ Domino Ore Miner checks all 26 spatial neighbors (faces, edges, and corners) usi
 - Queries `minecraft:durability` before breaking each secondary block.
 - Halts immediately when remaining durability (`maxDurability - damage`) reaches 5 or less.
 - Plays an audible warning sound (`note.bass`) and displays an action bar alert:
-  ```text
-  [Tool Protection] Stopped mining to save tool! (5 durability left)
-  ```
+  > **[Tool Protection]** Stopped mining to save tool! (5 durability left)
 - Revalidates the equipped tool before each block break. If the tool is switched or removed, chain mining stops instantly.
 - Applies standard vanilla Unbreaking probabilities (`100 / (level + 1)%`) per block.
 
 ---
 
-## Configuration
+## Default Settings
 
-Settings can be customized directly in [`behavior_pack/scripts/main.js`](https://github.com/AllensCreations/MCPE-Curseforges/blob/main/MCPEDL/new_addons/smart-tree-capitator-domino-ore-miner/behavior_pack/scripts/main.js):
-
-```javascript
-export const CONFIG = {
-  TREE_CAPITATOR_ENABLED: true,      // Enable or disable tree felling
-  DOMINO_ORE_MINER_ENABLED: true,    // Enable or disable ore vein mining
-  MAX_TREE_BLOCKS: 128,              // Maximum logs broken per tree
-  MAX_TREE_HEIGHT: 320,              // Maximum vertical search height
-  MAX_ORE_CLUSTER_SIZE: 64,          // Maximum ores broken per vein
-  INSTANT_BURST: true,               // Break entire cluster in a single tick
-  DURABILITY_SAFETY_THRESHOLD: 5,    // Stop mining when durability hits this number
-  ALERT_SOUND: "note.bass",          // Sound played when tool protection activates
-  ALERT_PITCH: 0.7,                  // Pitch of the protection sound
-  ALERT_VOLUME: 1.0,                 // Volume of the protection sound
-  NETHER_GOLD_POLICY: "nether_gold", // "nether_gold" (distinct) or "gold" (shared)
-};
-```
+| Setting | Default Value | Description |
+| :--- | :--- | :--- |
+| **Tree Capitator** | Enabled | Fells connected trunks and branches up to 128 logs |
+| **Domino Ore Miner** | Enabled | Mines connected ore clusters up to 64 blocks |
+| **Mining Speed** | Instant Burst | Mines the full vein or tree in a single stroke |
+| **Durability Safety Stop** | 5 Durability | Halts automatically to protect rare tools from breaking |
+| **Alert Audio** | Bass Note | Plays an alert sound when safety stop activates |
 
 ---
 
 ## Compatibility
 
 - Minecraft Bedrock Edition 1.21.0+
-- Requires `@minecraft/server` 1.13.0+
-- Requires Beta APIs experimental toggle
+- Simple 1-click import into worlds and Realms
+- Experimental Features toggle enabled in World Settings
 - Pure Behavior Pack format (.mcpack and .mcaddon)
 - Compatible with Mobile, Windows, Console, and Realms
 - Multiplayer compatible with isolated per-player recursion guards

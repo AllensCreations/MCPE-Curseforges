@@ -2,7 +2,6 @@
 
 [![Minecraft Bedrock](https://img.shields.io/badge/Minecraft%20Bedrock-1.21.0%2B-brightgreen?style=flat-square&logo=minecraft)](https://github.com/AllensCreations/MCPE-Curseforges)
 [![Achievement Friendly](https://img.shields.io/badge/Achievements-Friendly-brightgreen?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges)
-[![Script API](https://img.shields.io/badge/Script%20API-%40minecraft%2Fserver%201.13.0%2B-blue?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges)
 [![Format](https://img.shields.io/badge/Format-.MCADDON-orange?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/new_addons#available-add-ons)
 [![Release](https://img.shields.io/badge/Release-v1.0.2-blue?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/new_addons#available-add-ons)
 
@@ -18,7 +17,7 @@ Wearable offhand magnetic vacuum satchel that automatically pulls nearby dropped
 
 Tired of leaving valuable ores behind in lava-adjacent chasms or chasing down scattered mob loot?
 
-**Magnetic Satchel** introduces a crafted utility satchel that equips into your offhand slot. Powered by the modern Bedrock Script API (`@minecraft/server`), it continually scans for nearby dropped items within an 8-block sphere and smoothly pulls them into your pickup radius using realistic vector physics.
+**Magnetic Satchel** introduces a crafted utility satchel that equips into your offhand slot. Powered by the modern modern Minecraft Bedrock mechanics, it continually scans for nearby dropped items within an 8-block sphere and smoothly pulls them into your pickup radius using realistic vector physics.
 
 Leave your main hand free to hold your pickaxe, weapon, or torches while the satchel gathers all dropped resources directly to your inventory.
 
@@ -78,7 +77,7 @@ The Magnetic Satchel can be crafted at any crafting table using either of the fo
 ## Compatibility
 
 - Minecraft Bedrock Edition 1.21.0+
-- Requires Beta APIs / Script API capability
+- Simple 1-click import into worlds and Realms
 - Compatible with Windows, Android, iOS, Xbox, PlayStation, Nintendo Switch, and dedicated servers/Realms
 - Full multiplayer support (per-player offhand detection and individual toggle state tags)
 

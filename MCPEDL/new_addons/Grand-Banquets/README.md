@@ -2,7 +2,6 @@
 
 [![Minecraft Bedrock](https://img.shields.io/badge/Minecraft%20Bedrock-1.21.0%2B-brightgreen?style=flat-square&logo=minecraft)](https://github.com/AllensCreations/MCPE-Curseforges)
 [![Achievement Friendly](https://img.shields.io/badge/Achievements-Friendly-brightgreen?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges)
-[![Script API](https://img.shields.io/badge/Script%20API-%40minecraft%2Fserver%201.13.0%2B-blue?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges)
 [![Format](https://img.shields.io/badge/Format-.MCADDON-orange?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/new_addons#available-add-ons)
 [![Release](https://img.shields.io/badge/Release-v1.0.0-blue?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/new_addons#available-add-ons)
 
@@ -16,7 +15,7 @@
 
 ## Overview
 
-**Grand Banquets** expands Minecraft Bedrock Edition's survival dining experience into a comprehensive culinary progression system. Built using vanilla-compliant items and the Bedrock Script API (`@minecraft/server` v1.13.0+), it rewards farming, foraging, and hunting with unique meal buffs without disabling Xbox achievements.
+**Grand Banquets** expands Minecraft Bedrock Edition's survival dining experience into a comprehensive culinary progression system. Built using vanilla-compliant items and the modern Minecraft Bedrock mechanics, it rewards farming, foraging, and hunting with unique meal buffs without disabling Xbox achievements.
 
 Each banquet meal features customized nutrition values, saturation levels, eating times, and unique buff combinations designed for distinct survival scenarios: mining expeditions, deep sea diving, boss battles, or long-distance exploration.
 

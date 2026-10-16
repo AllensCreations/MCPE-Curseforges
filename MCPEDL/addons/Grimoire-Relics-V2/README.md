@@ -2,7 +2,6 @@
 
 [![Minecraft Bedrock](https://img.shields.io/badge/Minecraft%20Bedrock-1.21.0%2B-brightgreen?style=flat-square&logo=minecraft)](https://github.com/AllensCreations/MCPE-Curseforges)
 [![Achievement Friendly](https://img.shields.io/badge/Achievements-Friendly-brightgreen?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges)
-[![Script API](https://img.shields.io/badge/Script%20API-%40minecraft%2Fserver%201.13.0%2B-blue?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges)
 [![Format](https://img.shields.io/badge/Format-.MCADDON-orange?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/addons#available-add-ons)
 [![Release](https://img.shields.io/badge/Release-v1.0.3-blue?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/addons#available-add-ons)
 
@@ -16,7 +15,7 @@
 
 ## Overview
 
-**Grimoire Relics V2** brings an RPG-style relic progression system to Minecraft Bedrock Edition without requiring experimental toggles or breaking achievement eligibility. Built on Bedrock Script API (`@minecraft/server` v1.13.0+), it monitors your offhand equipment in real-time.
+**Grimoire Relics V2** brings an RPG-style relic progression system to Minecraft Bedrock Edition without requiring experimental toggles or breaking achievement eligibility. Built on modern Minecraft Bedrock mechanics, it monitors your offhand equipment in real-time.
 
 Holding a Grimoire in your offhand dynamically attunes your character:
 1. Displays an attunement actionbar title and lists relic perks.
@@ -91,12 +90,12 @@ Ancient tomes generate naturally inside exploration chests across the world, occ
 
 ---
 
-## Technical Specifications & Performance
+## Performance & Optimization
 
-- **Zero Experimental Flags**: Works in standard vanilla worlds, dedicated servers, and Realms without enabling Beta APIs or experimental toggles.
-- **Strict Offhand Gating**: Un-equipping or hot-swapping a tome instantly clears persistent potion effects, removes temporary light blocks, and stops particle emission.
-- **Optimized Tick Execution**: Passive loop runs on a staggered 10-tick interval, ambient sparkles on 20 ticks (1.0s), and void protection on a lightweight 2-tick check.
-- **Dynamic Lore Injection**: Holding or storing tomes automatically populates full colored perk tooltips in item lore.
+- **Zero Experimental Flags**: Works in standard survival worlds, servers, and Realms with achievements fully preserved.
+- **Instant Offhand Gating**: Un-equipping or switching away immediately removes active buffs and effects.
+- **Lag-Free Engine**: Lightweight background updates ensure smooth multiplayer gameplay without frame drops.
+- **In-Game Tooltips**: Hovering over any Grimoire displays full colored lore and perk descriptions in your inventory.
 
 ---
 

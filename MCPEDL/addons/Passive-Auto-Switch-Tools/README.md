@@ -19,7 +19,7 @@ Automatic intelligent tool and combat equipment selection for survival.
 
 ## Overview
 
-Passive Auto-Switch Tools is a Script API behavior pack that automates tool and weapon selection in Minecraft Bedrock Edition. When holding hotbar slot 1, the script activates exclusively when you **start to break/hit a block** (avoiding annoying swaps when merely looking around), and **when attacking a mob** by automatically equipping your highest-tier axe or sword.
+Passive Auto-Switch Tools is an intelligent survival add-on that automates tool and weapon selection in Minecraft Bedrock Edition. When holding hotbar slot 1, the script activates exclusively when you **start to break/hit a block** (avoiding annoying swaps when merely looking around), and **when attacking a mob** by automatically equipping your highest-tier axe or sword.
 
 Hotbar slots 2 through 9 remain completely unmanaged, ensuring uninterrupted building, offhand usage, and consumable item management.
 
@@ -48,9 +48,7 @@ The automation engine operates exclusively when the player selects hotbar slot 1
 
 When multiple matching tools or weapons are present in inventory, the system selects the highest tier available:
 
-```text
-Netherite > Diamond > Iron > Stone > Golden / Wooden
-```
+**Netherite > Diamond > Iron > Stone > Golden / Wooden**
 
 If items of equal tier exist across hotbar and main inventory, the item already present in the hotbar is given priority. For combat, swords have a slight damage preference in Bedrock, while existing axes or swords already in Slot 1 are retained.
 
@@ -65,15 +63,11 @@ Item components are preserved during swaps:
 
 ---
 
-## Technical Specifications
+## Performance & Optimization
 
-| Parameter | Value | Reference / Notes |
-| :--- | :--- | :--- |
-| **Script Module** | `@minecraft/server` | `1.13.0` (STABLE) |
-| **Minimum Engine Version** | `1.21.0` | `manifest.json` |
-| **Execution Trigger** | Event-Driven | `entityHitBlock` & `entityHitEntity` |
-| **Idle Overhead** | 0% (Zero-polling) | No background interval or raycast loops |
-| **Experimental Toggles** | Beta APIs enabled | Required for Script API execution |
+- **Zero Idle Lag**: Only activates the moment you strike a block or engage a mob.
+- **Smart Item Memory**: Preserves all enchantments, custom anvil names, and durability states without loss.
+- **Instant Response**: Seamless weapon and tool swapping tailored for console, mobile touch, and PC.
 
 ---
 

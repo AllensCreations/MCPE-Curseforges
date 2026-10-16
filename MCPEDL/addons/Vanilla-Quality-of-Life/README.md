@@ -3,7 +3,6 @@
 ![MCPEDL](https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/MCPEDL/addons/Vanilla-Quality-of-Life/banner.jpg "MCPEDL")
 
 [![Minecraft Bedrock](https://img.shields.io/badge/Minecraft%20Bedrock-1.21.0%2B-brightgreen?style=flat-square&logo=minecraft)](https://github.com/AllensCreations/MCPE-Curseforges)
-[![Script API](https://img.shields.io/badge/Script%20API-%40minecraft%2Fserver%201.13.0%2B-blue?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges)
 [![Achievement Friendly](https://img.shields.io/badge/Achievements-Friendly-brightgreen?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges)
 [![No Experiments Required](https://img.shields.io/badge/Experimental%20Features-NOT%20REQUIRED-success?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges)
 [![Release](https://img.shields.io/badge/Release-v1.3.1-blue?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/addons#available-add-ons)
@@ -25,7 +24,7 @@ Comprehensive vanilla-plus survival enhancements: dynamic lighting, offhand quic
 
 From dynamic torch lighting and double-sneak offhand item swapping to automatic tool switching on Slot 1, sneak-activated tree capitation with 5×5 branch following, and 26-neighbor domino ore mining with durability safety guards—everything works seamlessly together.
 
-Built on `@minecraft/server` v1.13.0 with standard Bedrock components. Requires zero experimental toggles, making it safe for long-term survival worlds, multiplayer Realms, and Bedrock Dedicated Servers (BDS).
+Optimized for smooth survival performance with zero lag. Requires zero experimental toggles, making it safe for long-term survival worlds, multiplayer Realms, and Bedrock Dedicated Servers (BDS).
 
 ![Vanilla QoL Banner](https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/MCPEDL/addons/Vanilla-Quality-of-Life/banner.jpg)
 
@@ -166,12 +165,12 @@ Built on `@minecraft/server` v1.13.0 with standard Bedrock components. Requires 
 ## Compatibility & Packaging Formats
 
 - Minecraft Bedrock Edition 1.21.0+
-- Script API `@minecraft/server` 1.13.0+
+- Pure vanilla gameplay mechanics
 - No experimental features required
 - **Available Package Formats**:
-  - **Complete `.MCADDON`**: Bundles both Behavior Pack and Resource Pack for 1-click import.
-  - **Standalone `.MCPACK` (BP)**: Behavior Pack can be run independently without any missing dependency warnings.
-  - **Client `.MCPACK` (RP)**: Resource Pack with client entity locators for lead attachments.
+  - **Complete `.MCADDON`**: 1-click full install with all features and companion visuals.
+  - **Behavior Pack (`.mcpack`)**: Standalone gameplay and survival mechanics.
+  - **Resource Pack (`.mcpack`)**: Visual lead attachments and companion animations.
 - Compatible with Mobile (iOS / Android), Windows PC, Consoles (Xbox, PlayStation, Switch), and Multiplayer Realms / BDS
 
 ---
