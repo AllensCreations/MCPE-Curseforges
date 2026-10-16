@@ -21,7 +21,7 @@
 Holding a Grimoire in your offhand dynamically attunes your character:
 1. Displays an attunement actionbar title and lists relic perks.
 2. Applies continuous passive buffs and status effects.
-3. Generates a distinct 4-point rotating particle aura ring around the player.
+3. Generates a subtle, ambient orbiting sparkle around the player.
 4. Activates reactive combat triggers on hurt (defensive) or hit (offensive).
 5. Automatically strips away active buffs and removes temporary constructs immediately upon un-equipping or switching offhand items.
 
@@ -95,7 +95,7 @@ Ancient tomes generate naturally inside exploration chests across the world, occ
 
 - **Zero Experimental Flags**: Works in standard vanilla worlds, dedicated servers, and Realms without enabling Beta APIs or experimental toggles.
 - **Strict Offhand Gating**: Un-equipping or hot-swapping a tome instantly clears persistent potion effects, removes temporary light blocks, and stops particle emission.
-- **Optimized Tick Execution**: Passive loop runs on a staggered 10-tick interval, particle auras on 8 ticks, and void protection on a lightweight 2-tick check.
+- **Optimized Tick Execution**: Passive loop runs on a staggered 10-tick interval, ambient sparkles on 20 ticks (1.0s), and void protection on a lightweight 2-tick check.
 - **Dynamic Lore Injection**: Holding or storing tomes automatically populates full colored perk tooltips in item lore.
 
 ---
