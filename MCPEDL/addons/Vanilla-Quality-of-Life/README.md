@@ -38,7 +38,7 @@ Built on `@minecraft/server` v1.13.0 with standard Bedrock components. Requires 
 | Feature | Vanilla Bedrock | With Vanilla QoL v1.3.0 |
 | :--- | :--- | :--- |
 | **Tool & Weapon Switching** | Manual hotbar selection | Automatic optimal tool/weapon swap when holding Slot 1 |
-| **Tree Harvesting** | 1 log at a time | Sneak-axe fells entire tree up to 128 logs with 5×5 branch scan |
+| **Tree Harvesting** | 1 log at a time | Sneak-axe fells entire tree up to 128 logs with 26-neighbor 3D scan & canopy protection |
 | **Ore Vein Mining** | 1 ore block at a time | Sneak-pickaxe domino mines contiguous veins across 26 neighbors |
 | **Tool Durability Safety** | Tools break unexpectedly | Auto-halts chain mining at 1 durability with alert sounds |
 | **Offhand Utilities & Lighting** | Shield and Totem only | Double-sneak offhand swap + real-time moving torch/lantern light |
@@ -67,9 +67,9 @@ Built on `@minecraft/server` v1.13.0 with standard Bedrock components. Requires 
 
 #### 2. Smart Tree Capitator (Sneak + Axe)
 - Sneak while chopping any tree log with an axe to fell the entire tree in a single tick:
-  - **3×3 Trunk Scan**: Sweeps 8 side blocks around the cut log (`~-1 ~ ~-1` to `~1 ~ ~1`) and 9 blocks above layer-by-layer up the trunk with no downward digging.
-  - **Canopy / Branch "Virus" Flood-Fill**: When the upward trunk scan completes, contiguous horizontal and upward branch logs (`dy >= 0`) are infected and felled like a virus until no connected tree logs remain.
-  - **Species Matching**: Enforces wood species matching (Oak only fells Oak) to prevent chain reactions into adjacent trees.
+  - **26-Neighbor 3D Flood-Fill**: Sweeps all 26 surrounding block coordinates (`dx, dy, dz ∈ [-1, 0, 1]`) with upward bias (`dy >= 0`), cleanly connecting branches, crooked trunks, and sprawling canopies without digging into terrain beneath the stump.
+  - **Species Matching**: Enforces strict wood species matching (Oak only fells Oak) to prevent chain reactions into adjacent trees.
+  - **House Protection (`isTreeCanopy`)**: Requires leaf, wart block, or shroomlight presence within the connected canopy to protect wooden player homes and cabins from accidental felling.
   - **Natural Leaf Decay**: Preserves leaf canopies for authentic leaf decay drops (saplings, sticks, apples).
   - **Capacity Limit**: Up to 128 logs per tree operation.
 

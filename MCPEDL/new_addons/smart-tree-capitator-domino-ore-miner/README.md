@@ -3,7 +3,7 @@
 [![Minecraft Bedrock](https://img.shields.io/badge/Minecraft%20Bedrock-1.21.0%2B-brightgreen?style=flat-square&logo=minecraft)](https://github.com/AllensCreations/MCPE-Curseforges)
 [![Script API](https://img.shields.io/badge/Script%20API-%40minecraft%2Fserver%201.13.0%2B-blue?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges)
 [![Format](https://img.shields.io/badge/Format-.MCPACK%20%2F%20.MCADDON-orange?style=flat-square)](../README.md#available-source-add-ons)
-[![Release](https://img.shields.io/badge/Release-v1.0.4-blue?style=flat-square)](../README.md#available-source-add-ons)
+[![Release](https://img.shields.io/badge/Release-v1.0.5-blue?style=flat-square)](../README.md#available-source-add-ons)
 
 **By AllensCreations**
 
@@ -28,7 +28,7 @@ Standing upright leaves standard vanilla single-block mining untouched. The add-
 | Feature | Description |
 | :--- | :--- |
 | Sneak-Activated Mining | Chains only while sneaking, keeping single-block mining intact when upright. |
-| Footprint Tree Capitator | Layer-by-layer 5x5 footprint scan (~2 to ~-2 range) with downward stump sweep captures straight trunks, diagonal branches, and 2x2 mega trees. |
+| 26-Neighbor Tree Capitator | Upward-biased 26-neighbor 3D flood-fill scan captures straight trunks, diagonal branches, and mega canopies with species matching and house protection. |
 | 26-Neighbor Domino Ore Miner | True 3D breadth-first search connects full clusters through face, edge, and corner connections up to 64 blocks. |
 | Mineral Category Normalization | Groups regular and deepslate ore variants so veins crossing stone layers mine together. |
 | Durability Safety Guard | Automatically stops chain mining when tool durability reaches 5 points remaining. |
@@ -53,15 +53,14 @@ Standing upright leaves standard vanilla single-block mining untouched. The add-
 
 ---
 
-## Tree Capitator Footprint Pattern
+## Tree Capitator 26-Neighbor Traversal Pattern
 
 When you break an eligible log while sneaking with an axe, the add-on scans upward through the tree:
 
-1. **Downward Stump Sweep**: Scans `dy = -1` to `-2` below the cut to fell remaining stumps and roots when mining at eye level.
-2. **Base Level**: Scans the extended horizontal perimeter (`~2` to `~-2`, dx/dz: -2..2) to catch mega trunks and wide base root systems.
-3. **Ascending Layers**: Evaluates an expanded 5x5 footprint (`dx: -2..2, dz: -2..2`) centered at every active branch coordinate found in the layer below, reliably capturing diagonal branches (Acacia, Cherry, Large Oak).
-4. **Species Matching**: Only connects to logs of matching wood species (e.g. oak only fells oak) to prevent jumping into adjacent different trees.
-5. **Safety Limits**: Capped at 128 logs per tree and bounded by world height (-64 to 320) to prevent runaway chain reactions.
+1. **26-Neighbor Contiguous Search**: Evaluates all 26 surrounding spatial block coordinates (`dx, dy, dz ∈ [-1, 0, 1]`) with upward bias (`dy >= 0`), cleanly connecting branches, crooked trunks, and diagonal logs.
+2. **Species Matching**: Only fells logs of the exact same wood species (e.g. Oak only fells Oak) to prevent jumping into adjacent trees.
+3. **House Protection (`isTreeCanopy`)**: Requires leaf, wart block, or shroomlight presence within the connected canopy before felling to protect log cabins and player builds from accidental destruction.
+4. **Safety Limits**: Capped at 128 logs per tree and bounded by world height (-64 to 320) to prevent runaway chain reactions.
 
 ### Supported Trees
 - **Overworld**: Oak, Spruce, Birch, Jungle, Acacia, Dark Oak, Mangrove (including roots), Cherry, and Pale Oak.
