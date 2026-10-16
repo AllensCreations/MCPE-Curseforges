@@ -6,9 +6,9 @@
 [![Script API](https://img.shields.io/badge/Script%20API-%40minecraft%2Fserver%201.13.0%2B-blue?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges)
 [![Achievement Friendly](https://img.shields.io/badge/Achievements-Friendly-brightgreen?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges)
 [![No Experiments Required](https://img.shields.io/badge/Experimental%20Features-NOT%20REQUIRED-success?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges)
-[![Release](https://img.shields.io/badge/Release-v1.3.1-blue?style=flat-square)](../README.md#available-source-add-ons)
-[![Changelog](https://img.shields.io/badge/Changelog-v1.3.0-purple?style=flat-square)](CHANGELOG.md)
-[![Format](https://img.shields.io/badge/Format-.MCADDON-orange?style=flat-square)](../README.md#available-source-add-ons)
+[![Release](https://img.shields.io/badge/Release-v1.3.1-blue?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/addons#available-add-ons)
+[![Changelog](https://img.shields.io/badge/Changelog-v1.3.0-purple?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges/blob/main/MCPEDL/addons/Vanilla-Quality-of-Life/CHANGELOG.md)
+[![Format](https://img.shields.io/badge/Format-.MCADDON-orange?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/addons#available-add-ons)
 [![Platform](https://img.shields.io/badge/Platform-Mobile%20%7C%20PC%20%7C%20Console%20%7C%20Realms-yellow?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges)
 
 **By AllensCreations**
@@ -178,7 +178,7 @@ Built on `@minecraft/server` v1.13.0 with standard Bedrock components. Requires 
 
 ## Version History and Changelog
 
-Detailed release notes and historical changes for all major versions are documented in the [CHANGELOG.md](CHANGELOG.md).
+Detailed release notes and historical changes for all major versions are documented in the [CHANGELOG.md](https://github.com/AllensCreations/MCPE-Curseforges/blob/main/MCPEDL/addons/Vanilla-Quality-of-Life/CHANGELOG.md).
 
 ---
 

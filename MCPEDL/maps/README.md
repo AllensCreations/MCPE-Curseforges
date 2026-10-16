@@ -6,7 +6,7 @@ Standalone survival maps and custom worlds by AllensCreations.
 
 | Map | Version | Source | Download |
 | :--- | :--- | :--- | :--- |
-| OneBlock Void Survival | 1.2.5 | [Source](OneBlock-Void-Survival/) | [MCWORLD](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/OneBlock-Void-Survival/OneBlock%20Void%20Survival%20by%20AllensCreations%20%28V1.2.5%29.mcworld) |
+| OneBlock Void Survival | 1.2.5 | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/maps/OneBlock-Void-Survival/) | [MCWORLD](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/OneBlock-Void-Survival/OneBlock%20Void%20Survival%20by%20AllensCreations%20%28V1.2.5%29.mcworld) |
 
 The catalog is automatically updated by the add-on generation workflow.
 
@@ -18,6 +18,6 @@ Videos and streams are welcome with credit. Redistribution of original or modifi
 
 ## Related Directories
 
-- [Existing Add-ons](../addons/README.md)
-- [New Add-ons](../new_addons/README.md)
-- [Scripts and Minigames](../script/README.md)
+- [Existing Add-ons](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/addons#available-add-ons)
+- [New Add-ons](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/new_addons#available-add-ons)
+- [Scripts and Minigames](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/script#available-scripts)
