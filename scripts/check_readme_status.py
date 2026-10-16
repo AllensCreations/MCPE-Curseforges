@@ -16,8 +16,44 @@ import re
 import json
 import argparse
 import subprocess
+import urllib.parse
 
 REPO_ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
+
+
+def audit_relative_links():
+    """Audits relative links across all repository README.md files to ensure no dead links exist."""
+    broken = []
+    readme_files = []
+    for root, dirs, files in os.walk(REPO_ROOT):
+        if any(ignored in root for ignored in [".git", "node_modules", "reference/bedrock-samples", "graphify-out"]):
+            continue
+        for f in files:
+            if f.lower() == "readme.md":
+                readme_files.append(os.path.join(root, f))
+
+    for rm in readme_files:
+        try:
+            with open(rm, "r", encoding="utf-8") as f:
+                content = f.read()
+        except Exception:
+            continue
+        dir_path = os.path.dirname(rm)
+        links = re.findall(r"\[([^\]]*)\]\(([^)]+)\)", content)
+        for text, target in links:
+            target = target.strip()
+            if target.startswith("http") or target.startswith("#") or target.startswith("mailto:"):
+                continue
+            target_path = target.split("#")[0]
+            if not target_path:
+                continue
+            unquoted = urllib.parse.unquote(target_path)
+            full_path = os.path.normpath(os.path.join(dir_path, unquoted))
+            if not os.path.exists(full_path):
+                rel_rm = os.path.relpath(rm, REPO_ROOT)
+                broken.append((rel_rm, text, target, unquoted))
+
+    return broken, len(readme_files)
 
 # Markers indicating placeholder or unpopulated documentation
 PLACEHOLDER_MARKERS = [
@@ -357,6 +393,16 @@ def main():
 
     print("-" * 70)
     print(f"Total projects: {len(projects)} | Complete: {len(complete)} | Needs Update: {len(pending)}")
+    print("=" * 70)
+
+    # Relative Link Integrity Check
+    broken_links, total_rms = audit_relative_links()
+    if broken_links:
+        print(f"\n[WARNING] Found {len(broken_links)} broken relative link(s) across {total_rms} README files:")
+        for rel_rm, text, target, unquoted in broken_links:
+            print(f"  - In {rel_rm}: [{text}]({target})")
+    else:
+        print(f"[LINK INTEGRITY] All relative links valid across {total_rms} README files.")
     print("=" * 70)
 
     if args.fix and pending:

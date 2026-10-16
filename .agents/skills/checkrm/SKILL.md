@@ -203,6 +203,9 @@ statuses such as:
 - Newly scaffolded stubs (e.g., contains `## Source Files`, `Review the included manifests...`, or generic one-line descriptions)
 - Incomplete documentation missing gameplay sections (`## Overview`, `## Features`, `## How It Works`)
 - Missing `README.md`
+- Broken relative markdown links or image targets across all repository catalogs and build readmes
+
+The script automatically performs a complete relative link integrity audit across all 37+ repository `README.md` files (catalogs, categories, project source, and builds) and reports any dead links or orphaned build directories.
 
 Use `python3 scripts/check_readme_status.py --fix` to automatically generate standard documentation for any detected stubs.
 
@@ -393,12 +396,13 @@ After editing:
 4. Check that no placeholders remain in finished documentation.
 5. Check that no duplicate catalog entries were introduced.
 6. Check that existing verified content was not accidentally removed.
-7. Run the repository's README status checker, when available:
+7. Run the repository's README status checker, which audits both documentation sections and all relative links across catalogs and builds:
 
 ```bash
 python3 scripts/check_readme_status.py
 ```
 
+Ensure output shows `0` needs update and confirms `[LINK INTEGRITY] All relative links valid`. If any broken link is detected, resolve it immediately before committing.
 8. If the repository has a suitable validation or build command, run it when
    appropriate and safe.
 9. Review the final diff and ensure changes remain within the user's requested
