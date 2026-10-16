@@ -7,6 +7,19 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [1.0.2] - 2026-10-15
+
+### Changed
+- **Grimoire Visual Presentation (Clean Holding Stance)**:
+  - Removed the hip buckle and belt strap attachment elements from the 3D geometry (`geometry.grimoire_hip`).
+  - Replaced the wobble/sway animation with a clean, stable holding presentation.
+- **Void Phantom Mechanic Retuning**:
+  - Restricted emergency void rescue strictly to **The End** dimension.
+  - Replaced abrupt teleportation with an emergency **fast phase elevation** sequence launching the player safely out of the abyss.
+  - Implemented an automated transition after **1 minute** (1200 ticks) from phase elevation into **Slow Falling** for a graceful landing.
+
+---
+
 ## [1.0.1] - 2026-10-15
 
 ### Added

@@ -257,51 +257,59 @@ const RELICS = {
     end: (p, s) => clearLight(p, s)
   },
   "custom:tome_void": {
-    name: "Void Phantom", info: ["Void rescue in Overworld & The End", "5 minute cooldown"],
+    name: "Void Phantom", info: ["End-only: Phase elevation out of the void", "1 min slow-falling transition | 5m cooldown"],
     particle: "minecraft:basic_portal_particle", ids: [],
     fast: (p, s) => {
-      const dim = p.dimension.id;
-      const isOverworld = dim === "minecraft:overworld";
-      const isEnd = dim === "minecraft:the_end";
-      const isNether = dim === "minecraft:nether";
-      const thresh = isOverworld ? -55 : -10;
-      if (p.location.y > thresh || now() - s.lastVoid < 6000) return;
+      // Void Phantom strictly operates in The End dimension
+      if (p.dimension.id !== "minecraft:the_end") return;
+      if (p.location.y > -10 || now() - s.lastVoid < 6000) return;
       s.lastVoid = now();
 
-      if (isEnd) {
-        p.teleport({ x: 100.5, y: 49, z: 0.5 }, { dimension: p.dimension });
-      } else if (isNether) {
-        p.teleport({ x: p.location.x, y: 120, z: p.location.z }, { dimension: p.dimension });
-      } else {
-        let targetY = 70;
-        try {
-          const top = p.dimension.getTopmostBlock({ x: Math.floor(p.location.x), z: Math.floor(p.location.z) });
-          if (top) targetY = Math.max(top.location.y + 1, 64);
-        } catch (err) {}
-        p.teleport({ x: p.location.x, y: targetY, z: p.location.z }, { dimension: p.dimension });
-      }
-      addFx(p, "slow_falling", 0, 160);
+      // Fast phase elevation: cancel downward fall momentum and launch upward
       try { p.clearVelocity(); } catch (err) {}
       heal(p, 20);
       damageOffhand(p, 10);
-      p.onScreenDisplay.setActionBar("§5✦ The Void Phantom pulled you to safety ✦");
+      
+      // Fast phase elevation upward: Levitation level 25 (very fast elevation)
+      // for 1 minute (1200 ticks), followed by Slow Falling after 1 minute
+      addFx(p, "levitation", 24, 1200);
+      p.onScreenDisplay.setActionBar("§5✦ The Void Phantom phases you upward from the abyss! ✦");
       p.playSound("portal.travel");
+      p.playSound("mob.phantom.swoop");
+
+      // After 1 minute (1200 ticks = 60s), transition from elevation to Slow Falling
+      system.runTimeout(() => {
+        try {
+          dropFx(p, ["levitation"]);
+          addFx(p, "slow_falling", 0, 1200); // 1 minute of safe slow falling
+          p.onScreenDisplay.setActionBar("§d✦ Void Phantom: Elevation complete — Slow Falling engaged ✦");
+          p.playSound("random.orb");
+        } catch (err) {}
+      }, 1200);
     },
     onHurt: (p, ev, a, s) => {
+      // In The End, intercept void damage if fall velocity reached threshold
+      if (p.dimension.id !== "minecraft:the_end") return;
       if (ev.damageSource.cause === "void" && now() - s.lastVoid >= 6000) {
         s.lastVoid = now();
-        const dim = p.dimension.id;
-        if (dim === "minecraft:the_end") {
-          p.teleport({ x: 100.5, y: 49, z: 0.5 }, { dimension: p.dimension });
-        } else {
-          p.teleport({ x: p.location.x, y: 70, z: p.location.z }, { dimension: p.dimension });
-        }
-        addFx(p, "slow_falling", 0, 160);
         try { p.clearVelocity(); } catch (err) {}
         heal(p, 20);
         damageOffhand(p, 10);
-        p.onScreenDisplay.setActionBar("§5✦ The Void Phantom pulled you to safety ✦");
+        
+        // Fast phase elevation upward: Levitation level 25 for 1 minute (1200 ticks)
+        addFx(p, "levitation", 24, 1200);
+        p.onScreenDisplay.setActionBar("§5✦ The Void Phantom phases you upward from the abyss! ✦");
         p.playSound("portal.travel");
+        p.playSound("mob.phantom.swoop");
+
+        system.runTimeout(() => {
+          try {
+            dropFx(p, ["levitation"]);
+            addFx(p, "slow_falling", 0, 1200);
+            p.onScreenDisplay.setActionBar("§d✦ Void Phantom: Elevation complete — Slow Falling engaged ✦");
+            p.playSound("random.orb");
+          } catch (err) {}
+        }, 1200);
       }
     }
   },
