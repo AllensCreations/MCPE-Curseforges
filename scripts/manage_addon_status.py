@@ -349,6 +349,10 @@ def update_addon_inner_readme(addon_target_dir):
 
 def sync_workflow_choices():
     """Keeps the choice options in .github/workflows/manage-addon-status.yml synchronized with new_addons."""
+    if os.environ.get("GITHUB_ACTIONS"):
+        # Never mutate workflow files within a GitHub Actions runner to prevent permission errors
+        return
+
     workflow_path = os.path.join(REPO_ROOT, ".github", "workflows", "manage-addon-status.yml")
     if not os.path.isfile(workflow_path):
         return
