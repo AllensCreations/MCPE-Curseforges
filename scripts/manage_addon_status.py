@@ -255,6 +255,8 @@ def update_addons_catalog(meta):
 
     ext = primary_ext.upper()
     clean_display = display.replace(" BP by AllensCreations", "").replace(" RP by AllensCreations", "").replace(" by AllensCreations", "").replace(" BP", "").replace(" RP", "").strip()
+    quoted_file = urllib.parse.quote(build_file)
+    gh_dl = f"https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/{slug}/{quoted_file}"
     new_row = (
         f"| {clean_table_val(clean_display)} | {clean_table_val(ver)} "
         f"| [Source]({slug}/) "

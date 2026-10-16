@@ -1045,6 +1045,13 @@ def main():
     # Always ensure collection badge is synced with current project counts
     _update_collection_badge(os.path.join(REPO_ROOT, "README.md"))
 
+    # Keep dropdown choices in manage-addon-status.yml synced with new_addons
+    try:
+        from scripts.manage_addon_status import sync_workflow_choices
+        sync_workflow_choices()
+    except Exception:
+        pass
+
     print("\n[Auto-Version] Completed successfully!")
     for s in updated_summary:
         print(f"  - {s}")
