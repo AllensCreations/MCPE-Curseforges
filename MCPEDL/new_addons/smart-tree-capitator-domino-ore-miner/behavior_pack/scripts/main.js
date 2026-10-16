@@ -278,6 +278,41 @@ function calculateFortuneDropCount(fortuneLevel, minBase = 1, maxBase = 1) {
   return Math.min(baseCount * multiplier, 64);
 }
 
+function isTreeCanopy(dimension, blocks) {
+  if (!blocks || blocks.length === 0) return false;
+  const candidates = [...blocks].sort((a, b) => b.y - a.y).slice(0, 8);
+  for (const pos of candidates) {
+    for (let dx = -2; dx <= 2; dx++) {
+      for (let dz = -2; dz <= 2; dz++) {
+        for (let dy = -1; dy <= 2; dy++) {
+          try {
+            const b = dimension.getBlock({ x: pos.x + dx, y: pos.y + dy, z: pos.z + dz });
+            if (!b) continue;
+
+            // Nether tree canopies (wart blocks and shroomlights)
+            if (b.typeId.includes("wart_block") || b.typeId.includes("shroomlight")) {
+              return true;
+            }
+
+            // Overworld leaves: ignore player-placed leaves (persistent_bit: true)
+            if (b.typeId.includes("leaves")) {
+              const permutation = b.permutation;
+              const isPersistent = permutation?.getState("persistent_bit");
+              // If persistent_bit is true, the leaves were placed by a player (decorative)
+              if (isPersistent === true) {
+                continue;
+              }
+              // Natural tree leaf detected
+              return true;
+            }
+          } catch (e) {}
+        }
+      }
+    }
+  }
+  return false;
+}
+
 // ─── Tree Capitator Execution ─────────────────────────────────────────────────
 
 function executeTreeCapitator(player, dimension, startLoc, startBlockId, onComplete) {
@@ -335,6 +370,12 @@ function executeTreeCapitator(player, dimension, startLoc, startBlockId, onCompl
   }
 
   if (blocksToBreak.length === 0) {
+    if (onComplete) onComplete();
+    return;
+  }
+
+  // House & build protection: require natural tree canopy (leaves with persistent_bit: false or nether canopy)
+  if (!isTreeCanopy(dimension, blocksToBreak)) {
     if (onComplete) onComplete();
     return;
   }

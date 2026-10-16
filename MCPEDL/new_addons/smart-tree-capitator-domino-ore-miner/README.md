@@ -57,8 +57,9 @@ When you break an eligible log while sneaking with an axe, the add-on scans upwa
 
 1. **26-Neighbor Contiguous Search**: Evaluates all 26 surrounding spatial block coordinates (`dx, dy, dz ∈ [-1, 0, 1]`) with upward bias (`dy >= 0`), cleanly connecting branches, crooked trunks, and diagonal logs.
 2. **Species Matching**: Only fells logs of the exact same wood species (e.g. Oak only fells Oak) to prevent jumping into adjacent trees.
-3. **House Protection (`isTreeCanopy`)**: Requires leaf, wart block, or shroomlight presence within the connected canopy before felling to protect log cabins and player builds from accidental destruction.
-4. **Safety Limits**: Capped at 128 logs per tree and bounded by world height (-64 to 320) to prevent runaway chain reactions.
+3. **The Leaf Scan (Player-Placed Leaves Ignored)**: Ignores player-placed leaves (sheared decorative leaves), ensuring custom hedges, bushes, and decorative roof foliage are never falsely detected as natural tree canopies.
+4. **House Protection (`isTreeCanopy`)**: Requires natural leaf, wart block, or shroomlight presence within the connected canopy before felling to protect log cabins and player builds from accidental destruction.
+5. **Safety Limits**: Capped at 128 logs per tree and bounded by world height (-64 to 320) to prevent runaway chain reactions.
 
 ### Supported Trees
 - **Overworld**: Oak, Spruce, Birch, Jungle, Acacia, Dark Oak, Mangrove (including roots), Cherry, and Pale Oak.

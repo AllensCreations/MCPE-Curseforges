@@ -66,6 +66,7 @@ Optimized for smooth survival performance with zero lag. Requires zero experimen
 - Sneak while chopping any tree log with an axe to fell the entire tree in a single tick:
   - **26-Neighbor 3D Flood-Fill**: Sweeps all 26 surrounding block coordinates (`dx, dy, dz ∈ [-1, 0, 1]`) with upward bias (`dy >= 0`), cleanly connecting branches, crooked trunks, and sprawling canopies without digging into terrain beneath the stump.
   - **Species Matching**: Enforces strict wood species matching (Oak only fells Oak) to prevent chain reactions into adjacent trees.
+  - **The Leaf Scan (Build & Bush Protection)**: Ignores player-placed decorative leaves (harvested with shears), protecting your custom bushes, hedges, and roof designs while exclusively verifying natural tree canopies.
   - **House Protection (`isTreeCanopy`)**: Requires leaf, wart block, or shroomlight presence within the connected canopy to protect wooden player homes and cabins from accidental felling.
   - **Natural Leaf Decay**: Preserves leaf canopies for authentic leaf decay drops (saplings, sticks, apples).
   - **Capacity Limit**: Up to 128 logs per tree operation.

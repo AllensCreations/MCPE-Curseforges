@@ -7,6 +7,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [1.3.2] - 2026-10-16
+
+### Added & Improved
+- **The Leaf Scan (Player-Placed Leaves Ignored)**: Overworld tree canopy detection now evaluates the block permutation state `persistent_bit`. Decorative leaves harvested with shears and placed manually by players have `persistent_bit: true` and are completely ignored, preventing custom hedges, bushes, and decorative roof foliage from falsely triggering tree felling or getting destroyed. Only naturally grown leaves (`persistent_bit: false`) and Nether canopies validate the tree canopy.
+
+---
+
 ## [1.3.1] - 2026-10-15
 
 ### Balance & Compatibility Update

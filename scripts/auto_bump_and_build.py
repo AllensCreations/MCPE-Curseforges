@@ -549,40 +549,22 @@ def update_project_readme(project_path, category, new_ver_str):
     with open(readme_path, encoding="utf-8") as f:
         content = f.read()
 
-    cat_anchor = "#available-source-add-ons"
-    if "maps" in category:
-        cat_anchor = "#available-maps-catalog"
-    elif "script" in category:
-        cat_anchor = "#available-challenge-scripts"
-
-    release_badge = f"[![Release](https://img.shields.io/badge/Release-v{new_ver_str}-blue?style=flat-square)](../README.md{cat_anchor})"
-
-    if re.search(r"\[!\[Release\]\(https://img\.shields\.io/badge/Release-[^)]+\)\]\([^)]+\)", content):
-        content = re.sub(
-            r"\[!\[Release\]\(https://img\.shields\.io/badge/Release-[^)]+\)\]\([^)]+\)",
-            release_badge,
-            content
-        )
-    else:
-        format_match = re.search(r"(\[!\[Format\]\([^)]+\)\]\([^)]+\))", content)
-        if format_match:
-            content = content.replace(format_match.group(1), f"{format_match.group(1)}\n{release_badge}")
-        else:
-            first_badge = re.search(r"(\[!\[[^\]]+\]\([^)]+\)\]\([^)]+\))", content)
-            if first_badge:
-                content = content.replace(first_badge.group(1), f"{first_badge.group(1)}\n{release_badge}")
+    # Per commercial README guidelines: do not put add-on versions or Release badges in README.md
+    # Strip any obsolete Release or Changelog badges if present
+    content = re.sub(r"\[!\[Release\]\([^)]+\)\]\([^)]+\)\n?", "", content)
+    content = re.sub(r"\[!\[Changelog\]\([^)]+\)\]\([^)]+\)\n?", "", content)
 
     lines = content.splitlines(keepends=True)
     new_lines = []
     for i, line in enumerate(lines):
         if i < 5 and line.startswith("#"):
-            line = re.sub(r"\([vV]\d+\.\d+\.\d+\)", f"(v{new_ver_str})", line)
+            line = re.sub(r"\s*\([vV]\d+\.\d+\.\d+\)", "", line)
         new_lines.append(line)
     content = "".join(new_lines)
 
     with open(readme_path, "w", encoding="utf-8") as f:
         f.write(content)
-    print(f"  Updated version in {os.path.relpath(readme_path, REPO_ROOT)}")
+    print(f"  Synchronized commercial documentation in {os.path.relpath(readme_path, REPO_ROOT)}")
 
 
 def update_category_readme(category, project_name, new_ver_str, primary_file):
