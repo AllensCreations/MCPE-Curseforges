@@ -194,62 +194,43 @@ def rebuild_new_addons_readme():
                     package_links.append(f"[{pkg}]({url})")
 
         quoted_build = urllib.parse.quote(meta['build_file'])
-        pkg_text = ", ".join(package_links) if package_links else f"[Download (.{meta['primary_ext']})](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/{slug}/{quoted_build})"
+        ext = meta['primary_ext'].upper()
+        download_url = f"https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/{slug}/{quoted_build}"
+
+        clean_name = meta['name'].replace(" BP by AllensCreations", "").replace(" RP by AllensCreations", "").replace(" by AllensCreations", "").replace(" BP", "").replace(" RP", "").strip()
 
         row = (
-            f"| **{clean_table_val(meta['name'])}** | "
-            f"{clean_table_val(meta['description'])} | "
-            f"[`{slug}/`]({slug}/) | "
-            f"{pkg_text} | "
-            f"{clean_table_val(meta['version'])} |"
+            f"| {clean_table_val(clean_name)} | "
+            f"{clean_table_val(meta['version'])} | "
+            f"[Source]({slug}/) | "
+            f"[{ext}]({download_url}) |"
         )
         rows.append(row)
 
-    table_content = "\n".join(rows) if rows else "| *No add-ons currently in testing.* | | | | |"
+    table_content = "\n".join(rows) if rows else "| *No add-ons currently in testing.* | | | |"
 
-    content = f"""# Add-ons Source Directory - New Add-ons
+    content = f"""# New Add-ons
 
-This directory stores the uncompressed development source files for newly generated Minecraft Bedrock add-ons in the MCPE Curseforges collection by AllensCreations.
+Source files for newly generated Minecraft Bedrock add-ons by AllensCreations.
 
----
+## Available Add-ons
 
-## Available Source Add-ons
-
-| Add-on Name | Description | Source Directory | Compiled Build | Version |
-| :--- | :--- | :--- | :--- | :--- |
+| Add-on | Version | Source | Download |
+| :--- | :--- | :--- | :--- |
 {table_content}
 
-The catalog is updated automatically by the add-on generation and promotion workflows.
+The catalog is automatically updated by the add-on generation workflow.
 
----
+## Attribution
 
-## Directory Structure
+Created by AllensCreations. All rights reserved.
 
-Each add-on has its own directory named after its slug.
+Videos and streams are welcome with credit. Redistribution of original or modified files without permission is prohibited.
 
-- `behavior_pack/`: Behavior pack definitions, entities, functions, items, recipes, loot tables, and scripts.
-- `resource_pack/`: Textures, client entity definitions, geometry, animations, and language files.
-- `manifest.json`: Pack metadata, UUIDs, module definitions, and engine compatibility.
-- `README.md`: Individual add-on documentation.
+## Related Directories
 
-The actual contents depend on the supplied add-on payload.
-
----
-
-## Contributing and Attribution
-
-- Creator: AllensCreations.
-- Rights and reservation: All rights reserved for AllensCreations.
-- Content creators may feature these add-ons in videos and streams with credit to AllensCreations.
-- Do not re-upload these add-ons, their individual files, or modified copies to any website, app store, or file-sharing service.
-
-For existing add-ons, see the [Add-ons Source Directory](../addons/README.md).
-
-For challenge scripts and minigames, see the [Script Directory](../script/README.md).
-
----
-
-© All rights reserved for AllensCreations.
+- [Existing Add-ons](../addons/README.md)
+- [Scripts and Minigames](../script/README.md)
 """
     with open(readme_path, "w", encoding="utf-8") as f:
         f.write(content)
@@ -272,16 +253,15 @@ def update_addons_catalog(meta):
     primary_ext = meta["primary_ext"]
     build_file = meta["build_file"]
 
-    quoted_file = urllib.parse.quote(build_file)
-    gh_dl = f"https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/{slug}/{quoted_file}"
+    ext = primary_ext.upper()
+    clean_display = display.replace(" BP by AllensCreations", "").replace(" RP by AllensCreations", "").replace(" by AllensCreations", "").replace(" BP", "").replace(" RP", "").strip()
     new_row = (
-        f"| **{clean_table_val(display)}** | {clean_table_val(desc)} "
-        f"| [`{slug}/`]({slug}/) "
-        f"| [Download (.{primary_ext})]({gh_dl}) "
-        f"| v{ver} |\n"
+        f"| {clean_table_val(clean_display)} | {clean_table_val(ver)} "
+        f"| [Source]({slug}/) "
+        f"| [{ext}]({gh_dl}) |\n"
     )
 
-    slug_pattern = f"[`{slug}/`]({slug}/)"
+    slug_pattern = f"({slug}/)"
     existing_idx = next((i for i, l in enumerate(lines) if slug_pattern in l), None)
 
     if existing_idx is not None:

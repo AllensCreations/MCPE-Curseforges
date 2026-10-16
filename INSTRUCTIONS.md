@@ -39,11 +39,18 @@ Pack descriptions must be direct, technical, and focused on gameplay and mechani
 
 To keep documentation clean and prevent dead download links across individual sub-projects:
 - **No "Download & Installation" Sections in Individual READMEs:** Individual add-on, map, and script `README.md` files must not contain redundant download sections.
-- **Semi-Root Catalogs as Source of Truth:** All download links (`.mcaddon`, `.mcpack`, `.mcworld`) are centralized in the semi-root directory READMEs:
-  - Add-ons: [`MCPEDL/addons/README.md`](MCPEDL/addons/README.md#available-source-add-ons)
-  - Maps: [`MCPEDL/maps/README.md`](MCPEDL/maps/README.md#available-maps-catalog)
-  - Scripts & Challenges: [`MCPEDL/script/README.md`](MCPEDL/script/README.md#available-challenge-scripts)
+- **Semi-Root Catalogs as Source of Truth:** All download links (`.mcaddon`, `.mcpack`, `.mcworld`) are centralized in simplified semi-root directory READMEs:
+  - Existing Add-ons: [`MCPEDL/addons/README.md`](MCPEDL/addons/README.md#available-add-ons)
+  - New Add-ons: [`MCPEDL/new_addons/README.md`](MCPEDL/new_addons/README.md#available-add-ons)
+  - Maps: [`MCPEDL/maps/README.md`](MCPEDL/maps/README.md#available-maps)
+  - Scripts & Challenges: [`MCPEDL/script/README.md`](MCPEDL/script/README.md#available-scripts)
   - Master Compiled Builds: [`builds/README.md`](builds/README.md#available-pack-and-map-builds)
+- **Simplified Directory Catalog Format:** Directory READMEs must use the clean 4-column layout:
+  ```markdown
+  | Add-on | Version | Source | Download |
+  | :--- | :--- | :--- | :--- |
+  | <Name> | <Version> | [Source](<slug>/) | [MCADDON](<url>) |
+  ```
 - **Badge Links:** Badges in individual READMEs link directly to their corresponding semi-root catalog anchor.
 
 ---

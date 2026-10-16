@@ -744,93 +744,61 @@ jobs:
 
                   break
 
-              package_links = []
+              primary_package = None
               build_dir = builds / slug
 
               if build_dir.exists():
-                  for package in sorted(build_dir.rglob("*")):
-                      if package.suffix.lower() in (
-                          ".mcpack",
-                          ".mcaddon",
-                          ".zip",
-                      ):
-                          relative = package.as_posix()
+                  for ext in (".mcaddon", ".mcpack", ".zip"):
+                      for package in sorted(build_dir.rglob(f"*{ext}"), reverse=True):
+                          primary_package = package
+                          break
+                      if primary_package:
+                          break
 
-                          url = (
-                              "https://github.com/AllensCreations/"
-                              "MCPE-Curseforges/raw/main/"
-                              + relative
-                          )
+              if primary_package:
+                  relative = primary_package.as_posix()
+                  url = (
+                      "https://github.com/AllensCreations/"
+                      "MCPE-Curseforges/raw/main/"
+                      + relative
+                  )
+                  pkg_ext = primary_package.suffix.lstrip(".").upper()
+                  package_text = f"[{pkg_ext}]({url})"
+              else:
+                  package_text = "Not built"
 
-                          package_links.append(
-                              f"[{package.name}]({url})"
-                          )
-
-              package_text = (
-                  ", ".join(package_links)
-                  if package_links
-                  else "Not built"
-              )
+              clean_name = clean(name).replace(" BP by AllensCreations", "").replace(" RP by AllensCreations", "").replace(" by AllensCreations", "").replace(" BP", "").replace(" RP", "").strip()
 
               rows.append(
-                  "| "
-                  + " | ".join([
-                      f"**{clean(name)}**",
-                      clean(description),
-                      f"[`{slug}/`]({slug}/)",
-                      package_text,
-                      clean(version),
-                  ])
-                  + " |"
+                  f"| {clean_name} | {clean(version)} | [Source]({slug}/) | {package_text} |"
               )
 
           table = "\n".join(rows) if rows else (
-              "| No add-ons registered yet. | | | | |"
+              "| No add-ons registered yet. | | | |"
           )
 
-          content = f"""# Add-ons Source Directory - New Add-ons
+          content = f"""# New Add-ons
 
-          This directory stores the uncompressed development source files for newly generated Minecraft Bedrock add-ons in the MCPE Curseforges collection by AllensCreations.
+          Source files for newly generated Minecraft Bedrock add-ons by AllensCreations.
 
-          ---
+          ## Available Add-ons
 
-          ## Available Source Add-ons
-
-          | Add-on Name | Description | Source Directory | Compiled Build | Version |
-          | :--- | :--- | :--- | :--- | :--- |
+          | Add-on | Version | Source | Download |
+          | :--- | :--- | :--- | :--- |
           {table}
 
-          The catalog is updated automatically by the add-on generation workflow.
+          The catalog is automatically updated by the add-on generation workflow.
 
-          ---
+          ## Attribution
 
-          ## Directory Structure
+          Created by AllensCreations. All rights reserved.
 
-          Each add-on has its own directory named after its slug.
+          Videos and streams are welcome with credit. Redistribution of original or modified files without permission is prohibited.
 
-          - `behavior_pack/`: Behavior pack definitions, entities, functions, items, recipes, loot tables, and scripts.
-          - `resource_pack/`: Textures, client entity definitions, geometry, animations, and language files.
-          - `manifest.json`: Pack metadata, UUIDs, module definitions, and engine compatibility.
-          - `README.md`: Individual add-on documentation.
+          ## Related Directories
 
-          The actual contents depend on the supplied add-on payload.
-
-          ---
-
-          ## Contributing and Attribution
-
-          - Creator: AllensCreations.
-          - Rights and reservation: All rights reserved for AllensCreations.
-          - Content creators may feature these add-ons in videos and streams with credit to AllensCreations.
-          - Do not re-upload these add-ons, their individual files, or modified copies to any website, app store, or file-sharing service.
-
-          For existing add-ons, see the [Add-ons Source Directory](../addons/README.md).
-
-          For challenge scripts and minigames, see the [Script Directory](../script/README.md).
-
-          ---
-
-          © All rights reserved for AllensCreations.
+          - [Existing Add-ons](../addons/README.md)
+          - [Scripts and Minigames](../script/README.md)
           """
 
           content = textwrap.dedent(content).lstrip()

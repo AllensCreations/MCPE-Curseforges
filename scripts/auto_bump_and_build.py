@@ -600,11 +600,12 @@ def update_category_readme(category, project_name, new_ver_str, primary_file):
     updated_lines = []
     for line in lines:
         if line.strip().startswith("|") and (project_name in line or slug_key in line.lower()):
-            line = re.sub(r"`?v\d+\.\d+\.\d+`?", f"v{new_ver_str}", line)
-            ext = primary_file.split(".")[-1]
+            line = re.sub(r"\b\d+\.\d+\.\d+\b", new_ver_str, line)
+            ext = primary_file.split(".")[-1].upper()
+            # Handle [MCADDON](url) format
             line = re.sub(
-                r"\[Download \([^)]+\)\]\([^)]+\)",
-                f"[Download (.{ext})]({dl_url})",
+                r"\[(MCADDON|MCPACK|MCWORLD|Download [^]]+)\]\([^)]+\)",
+                f"[{ext}]({dl_url})",
                 line
             )
         updated_lines.append(line)
@@ -841,30 +842,13 @@ def register_new_project(project_path, category, version_str=None, primary_file=
 
     # 1. Category README table
     cat_readme = os.path.join(REPO_ROOT, category, "README.md")
-    if "addons" in category:
-        cat_section = "## Available Source"
-        cat_row = (
-            f"| **{title}** | {short_desc} "
-            f"| [`{project_name}/`]({project_name}/) "
-            f"| [Download (.{primary_ext})]({gh_dl}) "
-            f"| v{ver} |"
-        )
-    elif "maps" in category:
-        cat_section = "## Available Maps Catalog"
-        cat_row = (
-            f"| **{title}** | `v{ver}` | Custom Map "
-            f"| [Download (.mcworld)]({gh_dl}) "
-            f"| [`{project_name}/`]({project_name}/) "
-            f"| {short_desc} |"
-        )
-    else:  # script
-        cat_section = "## Available Script Projects Catalog"
-        cat_row = (
-            f"| **{title}** | `v{ver}` | Script "
-            f"| [`{project_name}/`]({project_name}/) "
-            f"| [Download (.{primary_ext})]({gh_dl}) "
-            f"| {short_desc} |"
-        )
+    ext_upper = primary_ext.upper()
+    cat_section = "## Available"
+    cat_row = (
+        f"| {title} | {ver} "
+        f"| [Source]({project_name}/) "
+        f"| [{ext_upper}]({gh_dl}) |"
+    )
 
     _insert_table_row(cat_readme, cat_section, cat_row, skip_if_contains=project_name)
 
