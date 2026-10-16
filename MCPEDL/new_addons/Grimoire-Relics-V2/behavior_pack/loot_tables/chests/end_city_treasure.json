@@ -334,6 +334,13 @@
             {
               "function": "set_count",
               "count": 1
+            },
+            {
+              "function": "set_damage",
+              "damage": {
+                "min": 0.15,
+                "max": 0.7
+              }
             }
           ]
         }

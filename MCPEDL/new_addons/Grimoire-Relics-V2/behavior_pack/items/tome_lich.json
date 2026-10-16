@@ -20,6 +20,26 @@
       },
       "minecraft:durability": {
         "max_durability": 100
+      },
+      "minecraft:enchantable": {
+        "value": 15,
+        "slot": "all"
+      },
+      "minecraft:repairable": {
+        "repair_items": [
+          {
+            "items": [
+              "custom:tome_lich"
+            ],
+            "repair_amount": "context.other->query.remaining_durability"
+          },
+          {
+            "items": [
+              "minecraft:book"
+            ],
+            "repair_amount": 25
+          }
+        ]
       }
     }
   }

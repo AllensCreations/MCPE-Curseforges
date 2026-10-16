@@ -35,9 +35,11 @@ Initial public release of **Grimoire Relics V2**, an RPG-style magical offhand c
   - **Arcane Scholar**: Triples all experience gained from mob drops, mining, and orbs.
   - **Mirror Trickster**: 25% evasive damage negation with a 3-block backward blink through smoke.
   - **Cataclysm Dragon**: Strength II, Resistance I, and complete immunity to explosions and dragon breath.
-- **Tome Durability System**:
+- **Tome Durability & Maintenance System**:
   - Each relic features **100 Max Durability** (`minecraft:durability`).
   - **Event-Only Wear**: Passive stat buffs do not consume durability. Durability is deducted only when active abilities, combat procs, or emergency rescues trigger.
+  - **Enchanting & Mending**: Compatible with Enchanting Tables and Anvils (`minecraft:enchantable`), supporting **Mending**, **Efficiency**, and **Unbreaking**.
+  - **Anvil Repairing**: Repairable by combining matching tomes or using vanilla **Books** (`minecraft:book`) to restore 25 durability per book (`minecraft:repairable`).
   - **Shatter Audio & Particles**: Plays authentic item breaking sound, spawns break particles, and notifies the player on shatter.
 - **World Chest Loot Generation**:
   - 6 tomes are designated as uncraftable **Ancient Relics** obtainable only through rare exploration chests:
@@ -46,6 +48,7 @@ Initial public release of **Grimoire Relics V2**, an RPG-style magical offhand c
     - End Cities: *Cataclysm Dragon*.
     - Dungeon Monster Rooms: *Blood Vampire* (replaces enchanted golden apple rolls).
   - Additional dungeon distribution for *Deep Delver*, *Arcane Scholar*, *Cursed Alchemist*, and *Abyssal Tide*.
+  - **Relic Antiquity Wear**: Looted tomes generate with realistic ancient wear, spawning with 15% to 70% used durability (`set_damage`).
 - **Authentic Crafting System**:
   - 14 craftable tomes surrounding a central Book in a shaped Crafting Table grid.
   - Generated pixel-art crafting recipe diagrams using vanilla Bedrock sample item textures.

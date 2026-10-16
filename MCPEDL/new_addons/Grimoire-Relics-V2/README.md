@@ -64,18 +64,24 @@ There are **14 craftable tomes** crafted at a standard Crafting Table surroundin
 
 ---
 
-## Durability & World Generation Loot Tables
+## Durability, Enchanting & World Generation
 
-### Relic Durability & Breaking Mechanics
-- Each crafted or discovered Grimoire possesses **100 Max Durability** (`minecraft:durability`).
+### Relic Durability, Enchanting & Repairing
+- **100 Max Durability** (`minecraft:durability`): Each Grimoire possesses a durability health bar.
 - **Event-Only Wear**: Passive stat buffs (such as Water Breathing, Speed, or Haste) do **not** drain durability. Durability is consumed strictly upon active mechanical execution:
   - *Combat triggers* (e.g. Phoenix burn on hit/hurt, Vampire life-steal, Iron Golem absorption & launch, Hydra poison, Lich wither): 1 durability per event.
   - *Environmental abilities* (e.g. Druid crop boost, Frost Weaver water freeze, Stormcaller lightning strike, Mirror Trickster blink): 1 to 2 durability per event.
   - *Emergency Lifesavers* (e.g. Void Phantom surface/End platform rescue): 10 durability.
-- **Shatter**: Once durability depletes completely to 0, the tome shatters (`random.break` audio with item break particles) and is removed from the offhand slot. Tomes are non-repairable, consumable ancient relics.
+- **Enchanting Table & Anvil Compatible**:
+  - Can be enchanted via the Enchanting Table or Anvil with enchantments like **Mending**, **Efficiency**, and **Unbreaking**.
+  - **Mending** restores tome durability automatically as you collect experience orbs.
+- **Anvil Repairing**:
+  - Combine two of the same tomes on an Anvil to restore their remaining durability.
+  - Can also be repaired on an Anvil using standard **Books** (`minecraft:book`) to replenish 25 durability per book.
+- **Shatter**: If durability reaches 0 without being repaired or protected, the tome shatters (`random.break` audio with item break particles) and is removed from your equipment.
 
-### World Chest Distribution
-Select ancient tomes generate naturally inside exploration chests across the world, occasionally replacing rare loot like Enchanted Golden Apples:
+### World Chest Distribution & Found Condition
+Ancient tomes generate naturally inside exploration chests across the world, occasionally replacing rare loot like Enchanted Golden Apples. Due to their age, discovered tomes spawn **partially worn** (15% to 70% used durability):
 - **Ancient Cities**: High chance for **Void Phantom** (`tome_void`) and **Mirror Trickster** (`tome_mirror`).
 - **Bastion Remnants (Treasure)**: **Infernal Phoenix** (`tome_phoenix`) and **Necrotic Lich** (`tome_lich`).
 - **End Cities**: **Cataclysm Dragon** (`tome_dragon`).

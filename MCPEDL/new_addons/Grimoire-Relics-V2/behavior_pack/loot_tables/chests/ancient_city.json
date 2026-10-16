@@ -17,6 +17,13 @@
                 "max": 2.0
               },
               "add": false
+            },
+            {
+              "function": "set_damage",
+              "damage": {
+                "min": 0.15,
+                "max": 0.7
+              }
             }
           ],
           "name": "custom:tome_void",
@@ -397,6 +404,13 @@
             {
               "function": "set_count",
               "count": 1
+            },
+            {
+              "function": "set_damage",
+              "damage": {
+                "min": 0.15,
+                "max": 0.7
+              }
             }
           ]
         }
