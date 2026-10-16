@@ -295,118 +295,35 @@ function executeTreeCapitator(player, dimension, startLoc, startBlockId, onCompl
   visited.add(`${startLoc.x},${startLoc.y},${startLoc.z}`);
 
   const blocksToBreak = [];
-  let currentFootprints = [{ x: startLoc.x, z: startLoc.z }];
-  let topmostLogs = [];
+  const queue = [{ x: startLoc.x, y: startLoc.y, z: startLoc.z }];
 
-  // Phase 1: 3x3 Trunk Column Search
-  // Layer 0: Target block 8 sides (~-1 ~ ~-1 to ~1 ~ ~1, excluding center)
-  for (let dx = -CONFIG.TREE_HORIZONTAL_RANGE; dx <= CONFIG.TREE_HORIZONTAL_RANGE; dx++) {
-    for (let dz = -CONFIG.TREE_HORIZONTAL_RANGE; dz <= CONFIG.TREE_HORIZONTAL_RANGE; dz++) {
-      if (dx === 0 && dz === 0) continue;
-      const nx = startLoc.x + dx;
-      const nz = startLoc.z + dz;
-      const key = `${nx},${startLoc.y},${nz}`;
-      if (visited.has(key)) continue;
-      visited.add(key);
+  // 26-neighbor 3D flood fill (detecting all surrounding connected blocks dx, dy, dz in [-1, 0, 1])
+  // Upward-biased (dy >= 0) to fell entire trunk and branching canopy without digging below broken stump
+  while (queue.length > 0 && blocksToBreak.length < CONFIG.MAX_TREE_BLOCKS) {
+    const cur = queue.shift();
 
-      try {
-        const neighborBlock = dimension.getBlock({ x: nx, y: startLoc.y, z: nz });
-        if (neighborBlock && isMatchingLog(neighborBlock.typeId, targetSpecies)) {
-          blocksToBreak.push({ x: nx, y: startLoc.y, z: nz });
-          currentFootprints.push({ x: nx, z: nz });
-          if (blocksToBreak.length >= CONFIG.MAX_TREE_BLOCKS) break;
-        }
-      } catch (e) {}
-    }
-    if (blocksToBreak.length >= CONFIG.MAX_TREE_BLOCKS) break;
-  }
-
-  // Upper Layers: 3x3 column climbing directly upward (9 blocks above each trunk log)
-  for (let dy = 1; dy <= CONFIG.MAX_TREE_HEIGHT; dy++) {
-    if (blocksToBreak.length >= CONFIG.MAX_TREE_BLOCKS) break;
-    if (currentFootprints.length === 0) break;
-
-    const nextFootprints = [];
-    const layerY = startLoc.y + dy;
-    const layerLogs = [];
-
-    const uniqueCenters = [];
-    const centerKeys = new Set();
-    for (const fp of currentFootprints) {
-      const ck = `${fp.x},${fp.z}`;
-      if (!centerKeys.has(ck)) {
-        centerKeys.add(ck);
-        uniqueCenters.push(fp);
-      }
-    }
-
-    let foundInLayer = false;
-
-    for (const center of uniqueCenters) {
-      if (blocksToBreak.length >= CONFIG.MAX_TREE_BLOCKS) break;
-
-      for (let dx = -CONFIG.TREE_HORIZONTAL_RANGE; dx <= CONFIG.TREE_HORIZONTAL_RANGE; dx++) {
-        for (let dz = -CONFIG.TREE_HORIZONTAL_RANGE; dz <= CONFIG.TREE_HORIZONTAL_RANGE; dz++) {
-          const bx = center.x + dx;
-          const bz = center.z + dz;
-          const key = `${bx},${layerY},${bz}`;
-
-          if (visited.has(key)) continue;
-          visited.add(key);
-
-          try {
-            const block = dimension.getBlock({ x: bx, y: layerY, z: bz });
-            if (block && isMatchingLog(block.typeId, targetSpecies)) {
-              const logEntry = { x: bx, y: layerY, z: bz };
-              blocksToBreak.push(logEntry);
-              layerLogs.push(logEntry);
-              nextFootprints.push({ x: bx, z: bz });
-              foundInLayer = true;
-              if (blocksToBreak.length >= CONFIG.MAX_TREE_BLOCKS) break;
-            }
-          } catch (e) {}
-        }
-        if (blocksToBreak.length >= CONFIG.MAX_TREE_BLOCKS) break;
-      }
-    }
-
-    if (!foundInLayer) {
-      // Trunk column ended at previous layer
-      break;
-    }
-
-    topmostLogs = layerLogs;
-    currentFootprints = nextFootprints;
-  }
-
-  // Phase 2: Top Layer Canopy / Branch "Virus" Flood-Fill
-  // Spreads outward like a virus across contiguous connected logs (dy >= 0) until no trees left
-  const virusQueue = topmostLogs.length > 0 ? [...topmostLogs] : [...blocksToBreak];
-
-  while (virusQueue.length > 0 && blocksToBreak.length < CONFIG.MAX_TREE_BLOCKS) {
-    const cur = virusQueue.shift();
-
-    for (let dx = -1; dx <= 1; dx++) {
-      for (let dz = -1; dz <= 1; dz++) {
-        for (let dy = 0; dy <= 1; dy++) {
+    for (let dy = 0; dy <= 1; dy++) {
+      for (let dx = -1; dx <= 1; dx++) {
+        for (let dz = -1; dz <= 1; dz++) {
           if (dx === 0 && dy === 0 && dz === 0) continue;
 
-          const vx = cur.x + dx;
-          const vy = cur.y + dy;
-          const vz = cur.z + dz;
+          const nx = cur.x + dx;
+          const ny = cur.y + dy;
+          const nz = cur.z + dz;
 
-          if (vy < startLoc.y) continue;
+          if (ny < startLoc.y) continue;
+          if (ny > startLoc.y + CONFIG.MAX_TREE_HEIGHT) continue;
 
-          const key = `${vx},${vy},${vz}`;
+          const key = `${nx},${ny},${nz}`;
           if (visited.has(key)) continue;
           visited.add(key);
 
           try {
-            const block = dimension.getBlock({ x: vx, y: vy, z: vz });
+            const block = dimension.getBlock({ x: nx, y: ny, z: nz });
             if (block && isMatchingLog(block.typeId, targetSpecies)) {
-              const newLog = { x: vx, y: vy, z: vz };
-              blocksToBreak.push(newLog);
-              virusQueue.push(newLog);
+              const logPos = { x: nx, y: ny, z: nz };
+              blocksToBreak.push(logPos);
+              queue.push(logPos);
               if (blocksToBreak.length >= CONFIG.MAX_TREE_BLOCKS) break;
             }
           } catch (e) {}
