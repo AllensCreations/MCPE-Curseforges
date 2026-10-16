@@ -6,7 +6,7 @@
 
 [![Minecraft Bedrock](https://img.shields.io/badge/Minecraft%20Bedrock-1.21%20--%201.26%2B-brightgreen?style=flat-square&logo=minecraft)](https://github.com/AllensCreations/MCPE-Curseforges)
 [![Platform](https://img.shields.io/badge/Platform-Mobile%20%7C%20PC%20%7C%20Console%20%7C%20Realms-yellow?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges)
-[![Collection Size](https://img.shields.io/badge/Collection-12%20Add--ons%20%7C%201%20Map%20%7C%203%20Scripts-orange?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges)
+[![Collection Size](https://img.shields.io/badge/Collection-13%20Add--ons%20%7C%201%20Map%20%7C%203%20Scripts-orange?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges)
 [![Format](https://img.shields.io/badge/Format-.MCPACK%20%7C%20.MCADDON%20%7C%20.MCWORLD-blue?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges)
 
 Creator: AllensCreations  
@@ -41,6 +41,7 @@ Explore the full [Maps Directory](MCPEDL/maps/README.md).
 | **Universal Clutch** | `v1.0.1` | Complete Pack (`.mcaddon`) | [Download (.mcpack)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Universal-Clutch/Universal%20Clutch%20by%20AllensCreations%20%28V1.0.1%29.mcpack) | [`MCPEDL/new_addons/Universal-Clutch/`](MCPEDL/new_addons/Universal-Clutch/) | Vanilla-faithful automatic clutch placements when falling fr... |
 | **Grimoire-Relics-V2** | `v1.0.1` | Complete Pack (`.mcaddon`) | [Download (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Grimoire-Relics-V2/Grimoire%20Relics%20V2%20by%20AllensCreations%20%28V1.0.1%29.mcaddon) | [`MCPEDL/new_addons/Grimoire-Relics-V2/`](MCPEDL/new_addons/Grimoire-Relics-V2/) | Grimoire Relics by AllensCreations. 20 craftable magical tom... |
 | **Grand-Banquets** | `v1.0.0` | Complete Pack (`.mcaddon`) | [Download (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Grand-Banquets/Grand-Banquets%20by%20AllensCreations%20%28V1.0.0%29.mcaddon) | [`MCPEDL/new_addons/Grand-Banquets/`](MCPEDL/new_addons/Grand-Banquets/) | Grand Banquets by AllensCreations. 32 craftable banquet feas... |
+| **Sudden-Death-Roulette** | `v1.0.0` | Script Behavior Pack (`.mcpack`) | [Download (.mcpack)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Sudden-Death-Roulette/Sudden-Death-Roulette%20by%20AllensCreations%20%28V1.0.0%29.mcpack) | [`MCPEDL/new_addons/Sudden-Death-Roulette/`](MCPEDL/new_addons/Sudden-Death-Roulette/) | Sudden Death Roulette: The Diamond Race by AllensCreations. ... |
 
 Explore the full [Add-ons Directory](MCPEDL/addons/README.md).
 
