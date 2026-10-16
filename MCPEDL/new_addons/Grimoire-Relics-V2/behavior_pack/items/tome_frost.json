@@ -1,1 +1,26 @@
-{"format_version":"1.20.80","minecraft:item":{"description":{"identifier":"custom:tome_frost","menu_category":{"category":"equipment"}},"components":{"minecraft:max_stack_size":1,"minecraft:allow_off_hand":true,"minecraft:icon":{"textures":{"default":"tome_frost"}},"minecraft:display_name":{"value":"§dTome: Frost Weaver"}}}}
+{
+  "format_version": "1.20.80",
+  "minecraft:item": {
+    "description": {
+      "identifier": "custom:tome_frost",
+      "menu_category": {
+        "category": "equipment"
+      }
+    },
+    "components": {
+      "minecraft:max_stack_size": 1,
+      "minecraft:allow_off_hand": true,
+      "minecraft:icon": {
+        "textures": {
+          "default": "tome_frost"
+        }
+      },
+      "minecraft:display_name": {
+        "value": "\u00a7dTome: Frost Weaver"
+      },
+      "minecraft:durability": {
+        "max_durability": 100
+      }
+    }
+  }
+}

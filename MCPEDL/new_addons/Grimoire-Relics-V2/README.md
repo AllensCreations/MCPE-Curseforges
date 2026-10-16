@@ -72,6 +72,27 @@ All 20 tomes are crafted at a standard Crafting Table using a shaped 3x3 pattern
 
 ---
 
+## Durability & World Generation Loot Tables
+
+### Relic Durability & Breaking Mechanics
+- Each crafted or discovered Grimoire possesses **100 Max Durability** (`minecraft:durability`).
+- **Event-Only Wear**: Passive stat buffs (such as Water Breathing, Speed, or Haste) do **not** drain durability. Durability is consumed strictly upon active mechanical execution:
+  - *Combat triggers* (e.g. Phoenix burn on hit/hurt, Vampire life-steal, Iron Golem absorption & launch, Hydra poison, Lich wither): 1 durability per event.
+  - *Environmental abilities* (e.g. Druid crop boost, Frost Weaver water freeze, Stormcaller lightning strike, Mirror Trickster blink): 1 to 2 durability per event.
+  - *Emergency Lifesavers* (e.g. Void Phantom surface/End platform rescue): 10 durability.
+- **Shatter**: Once durability depletes completely to 0, the tome shatters (`random.break` audio with item break particles) and is removed from the offhand slot. Tomes are non-repairable, consumable ancient relics.
+
+### World Chest Distribution
+Select ancient tomes generate naturally inside exploration chests across the world, occasionally replacing rare loot like Enchanted Golden Apples:
+- **Ancient Cities**: High chance for **Void Phantom** (`tome_void`) and **Mirror Trickster** (`tome_mirror`).
+- **Bastion Remnants (Treasure)**: **Infernal Phoenix** (`tome_phoenix`) and **Necrotic Lich** (`tome_lich`).
+- **End Cities**: **Cataclysm Dragon** (`tome_dragon`).
+- **Stronghold Libraries**: **Arcane Scholar** (`tome_scholar`) and **Cursed Alchemist** (`tome_alchemist`).
+- **Shipwreck Treasuries**: **Abyssal Tide** (`tome_abyss`).
+- **Monster Rooms / Simple Dungeons**: **Blood Vampire** (`tome_vampire`) and **Deep Delver** (`tome_delver`).
+
+---
+
 ## Technical Specifications & Performance
 
 - **Zero Experimental Flags**: Works in standard vanilla worlds, dedicated servers, and Realms without enabling Beta APIs or experimental toggles.

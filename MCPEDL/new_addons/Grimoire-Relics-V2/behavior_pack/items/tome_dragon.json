@@ -1,1 +1,26 @@
-{"format_version":"1.20.80","minecraft:item":{"description":{"identifier":"custom:tome_dragon","menu_category":{"category":"equipment"}},"components":{"minecraft:max_stack_size":1,"minecraft:allow_off_hand":true,"minecraft:icon":{"textures":{"default":"tome_dragon"}},"minecraft:display_name":{"value":"§dTome: Cataclysm Dragon"}}}}
+{
+  "format_version": "1.20.80",
+  "minecraft:item": {
+    "description": {
+      "identifier": "custom:tome_dragon",
+      "menu_category": {
+        "category": "equipment"
+      }
+    },
+    "components": {
+      "minecraft:max_stack_size": 1,
+      "minecraft:allow_off_hand": true,
+      "minecraft:icon": {
+        "textures": {
+          "default": "tome_dragon"
+        }
+      },
+      "minecraft:display_name": {
+        "value": "\u00a7dTome: Cataclysm Dragon"
+      },
+      "minecraft:durability": {
+        "max_durability": 100
+      }
+    }
+  }
+}

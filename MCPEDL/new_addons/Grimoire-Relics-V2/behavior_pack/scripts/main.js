@@ -90,8 +90,18 @@ const RELICS = {
     name: "Infernal Phoenix", info: ["Permanent Fire Resistance", "Attackers and your targets burn 5s"],
     particle: "minecraft:basic_flame_particle", py: 0.1, ids: ["fire_resistance"],
     effects: () => [["fire_resistance", 0]],
-    onHurt: (p, ev, a) => { if (a && a.id !== p.id && ev.damageSource.cause === MELEE) a.setOnFire(5, true); },
-    onHit: (p, ev, v) => { if (ev.damageSource.cause === MELEE) v.setOnFire(5, true); }
+    onHurt: (p, ev, a) => {
+      if (a && a.id !== p.id && ev.damageSource.cause === MELEE) {
+        a.setOnFire(5, true);
+        damageOffhand(p, 1);
+      }
+    },
+    onHit: (p, ev, v) => {
+      if (ev.damageSource.cause === MELEE) {
+        v.setOnFire(5, true);
+        damageOffhand(p, 1);
+      }
+    }
   },
   "custom:tome_abyss": {
     name: "Abyssal Tide", info: ["Permanent Water Breathing", "Night Vision under water", "Dolphin's Grace while swimming"],
@@ -111,25 +121,43 @@ const RELICS = {
       if (!p.isOnGround && p.getVelocity().y < -0.5) l.push(["slow_falling", 0]);
       return l;
     },
-    onHurt: (p, ev) => { if (ev.damageSource.cause === "fall") heal(p, ev.damage); }
+    onHurt: (p, ev) => {
+      if (ev.damageSource.cause === "fall") {
+        heal(p, ev.damage);
+        damageOffhand(p, 1);
+      }
+    }
   },
   "custom:tome_lich": {
     name: "Necrotic Lich", info: ["Melee strikes inflict Wither II (3s)"],
     particle: "minecraft:soul_particle", ids: [],
-    onHit: (p, ev, v) => { if (ev.damageSource.cause === MELEE) addFx(v, "wither", 1, 60); }
+    onHit: (p, ev, v) => {
+      if (ev.damageSource.cause === MELEE) {
+        addFx(v, "wither", 1, 60);
+        damageOffhand(p, 1);
+      }
+    }
   },
   "custom:tome_titan": {
     name: "Mountain Titan", info: ["Resistance II", "Knockback immunity", "Slowness I"],
     particle: "minecraft:basic_smoke_particle", ids: ["resistance", "slowness"],
     effects: () => [["resistance", 1], ["slowness", 0]],
     onHurt: (p, ev, a) => {
-      if (a) system.run(() => { try { p.clearVelocity(); } catch (err) {} });
+      if (a) {
+        system.run(() => { try { p.clearVelocity(); } catch (err) {} });
+        damageOffhand(p, 1);
+      }
     }
   },
   "custom:tome_vampire": {
     name: "Blood Vampire", info: ["Melee hits heal you 1 heart"],
     particle: "minecraft:heart_particle", ids: [],
-    onHit: (p, ev) => { if (ev.damageSource.cause === MELEE) heal(p, 2); }
+    onHit: (p, ev) => {
+      if (ev.damageSource.cause === MELEE) {
+        heal(p, 2);
+        damageOffhand(p, 1);
+      }
+    }
   },
   "custom:tome_lunar": {
     name: "Lunar Eclipse", info: ["At night: Invisibility + Strength I"],
@@ -149,6 +177,7 @@ const RELICS = {
       if (s.n % 6 !== 0) return;
       const l = p.location;
       const bx = Math.floor(l.x), by = Math.floor(l.y), bz = Math.floor(l.z);
+      let fertilized = false;
       for (let dx = -3; dx <= 3; dx++) for (let dz = -3; dz <= 3; dz++) for (let dy = -1; dy <= 1; dy++) {
         const b = p.dimension.getBlock({ x: bx + dx, y: by + dy, z: bz + dz });
         if (!b) continue;
@@ -156,12 +185,17 @@ const RELICS = {
           const perm = b.permutation;
           if (SOIL_CROPS.includes(b.typeId)) {
             const g = perm.getState("growth");
-            if (typeof g === "number" && g < 7) b.setPermutation(perm.withState("growth", g + 1));
+            if (typeof g === "number" && g < 7) {
+              b.setPermutation(perm.withState("growth", g + 1));
+              fertilized = true;
+            }
           } else if (b.typeId.endsWith("_sapling")) {
             b.setPermutation(perm.withState("age_bit", true));
+            fertilized = true;
           }
         } catch (err) {}
       }
+      if (fertilized) damageOffhand(p, 1);
     }
   },
   "custom:tome_frost": {
@@ -171,20 +205,33 @@ const RELICS = {
       if (p.isSneaking) return;
       const l = p.location;
       const bx = Math.floor(l.x), by = Math.floor(l.y) - 1, bz = Math.floor(l.z);
+      let froze = false;
       for (let dx = -3; dx <= 3; dx++) for (let dz = -3; dz <= 3; dz++) {
         const b = p.dimension.getBlock({ x: bx + dx, y: by, z: bz + dz });
         const up = p.dimension.getBlock({ x: bx + dx, y: by + 1, z: bz + dz });
-        if (b && up && b.typeId === "minecraft:water" && up.isAir) b.setType("minecraft:frosted_ice");
+        if (b && up && b.typeId === "minecraft:water" && up.isAir) {
+          b.setType("minecraft:frosted_ice");
+          froze = true;
+        }
       }
+      if (froze) damageOffhand(p, 1);
     },
-    onHurt: (p, ev) => { if (ev.damageSource.cause === "freezing") heal(p, ev.damage); }
+    onHurt: (p, ev) => {
+      if (ev.damageSource.cause === "freezing") {
+        heal(p, ev.damage);
+        damageOffhand(p, 1);
+      }
+    }
   },
   "custom:tome_storm": {
     name: "Stormcaller", info: ["Speed III outdoors in rain or thunder", "15% lightning on melee attackers"],
     particle: "minecraft:electric_spark_particle", ids: ["speed"],
     effects: (p) => (raining(p.dimension) && outdoors(p) ? [["speed", 2]] : []),
     onHurt: (p, ev, a) => {
-      if (a && a.id !== p.id && ev.damageSource.cause === MELEE && Math.random() < 0.15) a.dimension.spawnEntity("minecraft:lightning_bolt", a.location);
+      if (a && a.id !== p.id && ev.damageSource.cause === MELEE && Math.random() < 0.15) {
+        a.dimension.spawnEntity("minecraft:lightning_bolt", a.location);
+        damageOffhand(p, 2);
+      }
     }
   },
   "custom:tome_delver": {
@@ -231,6 +278,7 @@ const RELICS = {
       }
       addFx(p, "slow_falling", 0, 100);
       try { p.clearVelocity(); } catch (err) {}
+      damageOffhand(p, 10);
       p.onScreenDisplay.setActionBar("§5The Void Phantom pulled you to safety");
     }
   },
@@ -241,29 +289,43 @@ const RELICS = {
       if (now() - s.lastGolem >= 600) {
         s.lastGolem = now();
         addFx(p, "absorption", 1, 640);
+        damageOffhand(p, 1);
       }
     },
-    onHit: (p, ev, v) => { if (ev.damageSource.cause === MELEE) kick(v, 0.5); }
+    onHit: (p, ev, v) => {
+      if (ev.damageSource.cause === MELEE) {
+        kick(v, 0.5);
+        damageOffhand(p, 1);
+      }
+    }
   },
   "custom:tome_hydra": {
     name: "Venom Hydra", info: ["Immune to Poison and Wither", "Your hits inflict Poison II (5s)"],
     particle: "minecraft:mobspell_emitter", ids: [],
     tick: (p) => dropFx(p, ["poison", "fatal_poison", "wither"]),
-    onHit: (p, ev, v) => addFx(v, "poison", 1, 100)
+    onHit: (p, ev, v) => {
+      addFx(v, "poison", 1, 100);
+      damageOffhand(p, 1);
+    }
   },
   "custom:tome_alchemist": {
     name: "Cursed Alchemist", info: ["Refreshes your beneficial potion effects"],
     particle: "minecraft:witchspell_emitter", ids: [],
     tick: (p, s) => {
       const seen = {};
+      let refreshed = false;
       for (const e of p.getEffects()) {
         const id = e.typeId.replace("minecraft:", "");
         if (!GOOD.includes(id) || e.duration < 0) continue;
         seen[id] = true;
         s.peak[id] = Math.max(s.peak[id] || 0, e.duration);
-        if (e.duration < s.peak[id] - 20) addFx(p, id, e.amplifier, s.peak[id]);
+        if (e.duration < s.peak[id] - 20) {
+          addFx(p, id, e.amplifier, s.peak[id]);
+          refreshed = true;
+        }
       }
       for (const id of Object.keys(s.peak)) if (!seen[id]) delete s.peak[id];
+      if (refreshed) damageOffhand(p, 1);
     }
   },
   "custom:tome_seraph": {
@@ -281,6 +343,7 @@ const RELICS = {
       if (s.lastXp !== null && x > s.lastXp) {
         p.addExperience((x - s.lastXp) * 2);
         s.lastXp = p.getTotalXp();
+        damageOffhand(p, 1);
       } else s.lastXp = x;
     }
   },
@@ -290,6 +353,7 @@ const RELICS = {
     onHurt: (p, ev) => {
       if (Math.random() >= 0.25) return;
       heal(p, ev.damage);
+      damageOffhand(p, 2);
       const l = p.location, d = p.getViewDirection();
       const to = { x: l.x - d.x * 3, y: l.y, z: l.z - d.z * 3 };
       for (let i = 0; i < 8; i++) particle(p.dimension, "minecraft:basic_smoke_particle", { x: l.x, y: l.y + 0.3 + i * 0.2, z: l.z });
@@ -304,7 +368,10 @@ const RELICS = {
     effects: () => [["strength", 1], ["resistance", 0]],
     onHurt: (p, ev) => {
       const c = ev.damageSource.cause;
-      if (BLAST.includes(c) || (c === "magic" && p.dimension.id === "minecraft:the_end")) heal(p, ev.damage);
+      if (BLAST.includes(c) || (c === "magic" && p.dimension.id === "minecraft:the_end")) {
+        heal(p, ev.damage);
+        damageOffhand(p, 2);
+      }
     }
   }
 };
@@ -322,6 +389,28 @@ function clearLight(p, s) {
 function offhandItem(p) {
   const eq = p.getComponent("minecraft:equippable");
   return eq ? eq.getEquipment(EquipmentSlot.Offhand) : undefined;
+}
+
+function damageOffhand(p, amount = 1) {
+  try {
+    const eq = p.getComponent("minecraft:equippable");
+    if (!eq) return;
+    const item = eq.getEquipment(EquipmentSlot.Offhand);
+    if (!item) return;
+    const dur = item.getComponent("minecraft:durability");
+    if (!dur) return;
+    
+    if (dur.damage + amount >= dur.maxDurability) {
+      // Break the item
+      eq.setEquipment(EquipmentSlot.Offhand, undefined);
+      p.playSound("random.break");
+      p.dimension.spawnParticle("minecraft:item_break", { x: p.location.x, y: p.location.y + 1, z: p.location.z });
+      p.onScreenDisplay.setActionBar("§cYour Grimoire has shattered!");
+    } else {
+      dur.damage += amount;
+      eq.setEquipment(EquipmentSlot.Offhand, item);
+    }
+  } catch (err) {}
 }
 
 function relicOf(p) {
