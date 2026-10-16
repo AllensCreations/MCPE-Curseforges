@@ -257,7 +257,7 @@ const RELICS = {
     end: (p, s) => clearLight(p, s)
   },
   "custom:tome_void": {
-    name: "Void Phantom", info: ["End-only: 2s phase elevation out of the void", "Ground-detected slow falling | 5m cooldown"],
+    name: "Void Phantom", info: ["End-only: 2s Level 60 phase elevation from void", "Ground-detected slow falling | 5m cooldown"],
     particle: "minecraft:basic_portal_particle", ids: [],
     fast: (p, s) => {
       // Void Phantom strictly operates in The End dimension
@@ -305,8 +305,8 @@ const RELICS = {
       heal(p, 20);
       damageOffhand(p, 10);
       
-      // Fast phase elevation upward: Levitation level 25 (amplifier 24) for 2 seconds (40 ticks)
-      addFx(p, "levitation", 24, 40);
+      // Fast phase elevation upward: Levitation level 60 (amplifier 59) for 2 seconds (40 ticks)
+      addFx(p, "levitation", 59, 40);
       p.onScreenDisplay.setActionBar("§5✦ The Void Phantom phases you upward from the abyss! ✦");
       p.playSound("portal.travel");
       p.playSound("mob.phantom.swoop");
@@ -332,8 +332,8 @@ const RELICS = {
         heal(p, 20);
         damageOffhand(p, 10);
         
-        // Fast phase elevation upward: Levitation level 25 for 2 seconds (40 ticks)
-        addFx(p, "levitation", 24, 40);
+        // Fast phase elevation upward: Levitation level 60 (amplifier 59) for 2 seconds (40 ticks)
+        addFx(p, "levitation", 59, 40);
         p.onScreenDisplay.setActionBar("§5✦ The Void Phantom phases you upward from the abyss! ✦");
         p.playSound("portal.travel");
         p.playSound("mob.phantom.swoop");

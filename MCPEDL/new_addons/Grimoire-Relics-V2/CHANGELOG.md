@@ -13,10 +13,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **Grimoire Handheld Presentation (Vanilla Item In Hand)**:
   - Completely removed custom attachables, 3D entity geometry models, and staying animations.
   - All 20 Grimoires now render directly and cleanly as standard handheld items in both the player's offhand and main hand, utilizing their crisp 2D pixel art icons (`minecraft:icon` mapped via `item_texture.json`) without any hovering, displacement, or awkward positioning.
-- **Void Phantom Retuning (2s Elevation & Ground-Block Detected Slow Falling)**:
+- **Void Phantom Retuning (2s Level 60 Elevation & Ground-Block Detected Slow Falling)**:
   - Restricted emergency void rescue strictly to **The End** dimension (`minecraft:the_end`).
-  - Replaced long elevation with an intense **2-second Level 25 fast phase elevation** (amplifier 24, 40 ticks) that immediately halts void fall velocity.
+  - Tuned phase elevation to an intense **2-second Level 60 fast phase elevation** (amplifier 59, 40 ticks) that immediately halts void fall velocity and rapidly ascends out of the abyss.
   - Replaced coordinate-based drop altitude check with real-time ground block detection: directly scans blocks beneath the player (1–8 blocks) during the descent and activates **Slow Falling** only when solid ground is detected.
+- **HUD Cleanliness (Status Effect UI Suppression)**:
+  - Added clean JSON UI override in `resource_pack/ui/hud_screen.json` targeting `mob_effects_renderer`, completely hiding status effect HUD icons and timers for an uncluttered screen display.
 
 ---
 
