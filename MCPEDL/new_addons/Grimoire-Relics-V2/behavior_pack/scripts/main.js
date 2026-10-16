@@ -263,23 +263,46 @@ const RELICS = {
       const dim = p.dimension.id;
       const isOverworld = dim === "minecraft:overworld";
       const isEnd = dim === "minecraft:the_end";
-      if ((!isOverworld && !isEnd) || p.location.y > -20 || now() - s.lastVoid < 6000) return;
-      if (isOverworld && p.location.y > -60) return;
+      const isNether = dim === "minecraft:nether";
+      const thresh = isOverworld ? -55 : -10;
+      if (p.location.y > thresh || now() - s.lastVoid < 6000) return;
       s.lastVoid = now();
+
       if (isEnd) {
-        p.teleport({ x: 100.5, y: 49, z: 0.5 });
+        p.teleport({ x: 100.5, y: 49, z: 0.5 }, { dimension: p.dimension });
+      } else if (isNether) {
+        p.teleport({ x: p.location.x, y: 120, z: p.location.z }, { dimension: p.dimension });
       } else {
-        let targetY = 65;
+        let targetY = 70;
         try {
           const top = p.dimension.getTopmostBlock({ x: Math.floor(p.location.x), z: Math.floor(p.location.z) });
-          if (top) targetY = top.location.y + 1;
+          if (top) targetY = Math.max(top.location.y + 1, 64);
         } catch (err) {}
-        p.teleport({ x: p.location.x, y: targetY, z: p.location.z });
+        p.teleport({ x: p.location.x, y: targetY, z: p.location.z }, { dimension: p.dimension });
       }
-      addFx(p, "slow_falling", 0, 100);
+      addFx(p, "slow_falling", 0, 160);
       try { p.clearVelocity(); } catch (err) {}
+      heal(p, 20);
       damageOffhand(p, 10);
-      p.onScreenDisplay.setActionBar("§5The Void Phantom pulled you to safety");
+      p.onScreenDisplay.setActionBar("§5✦ The Void Phantom pulled you to safety ✦");
+      p.playSound("portal.travel");
+    },
+    onHurt: (p, ev, a, s) => {
+      if (ev.damageSource.cause === "void" && now() - s.lastVoid >= 6000) {
+        s.lastVoid = now();
+        const dim = p.dimension.id;
+        if (dim === "minecraft:the_end") {
+          p.teleport({ x: 100.5, y: 49, z: 0.5 }, { dimension: p.dimension });
+        } else {
+          p.teleport({ x: p.location.x, y: 70, z: p.location.z }, { dimension: p.dimension });
+        }
+        addFx(p, "slow_falling", 0, 160);
+        try { p.clearVelocity(); } catch (err) {}
+        heal(p, 20);
+        damageOffhand(p, 10);
+        p.onScreenDisplay.setActionBar("§5✦ The Void Phantom pulled you to safety ✦");
+        p.playSound("portal.travel");
+      }
     }
   },
   "custom:tome_golem": {
@@ -493,23 +516,23 @@ system.runInterval(() => {
   }
 }, 2);
 
-/* Aura particles every 8 ticks */
+/* Minimal ambient sparkle: 1 subtle particle every 20 ticks (1.0s) */
 system.runInterval(() => {
   for (const p of world.getAllPlayers()) {
     try {
       const s = states.get(p.id);
       const cfg = s && RELICS[s.relic];
       if (!cfg) continue;
-      s.ring += 0.6;
+      s.ring += 0.5;
       const l = p.location;
-      const y = l.y + (cfg.py === undefined ? 1 : cfg.py);
-      for (let i = 0; i < 4; i++) {
-        const a = s.ring + (i * Math.PI) / 2;
-        particle(p.dimension, cfg.particle, { x: l.x + Math.cos(a) * 0.9, y, z: l.z + Math.sin(a) * 0.9 });
-      }
+      const y = l.y + (cfg.py === undefined ? 1.0 : cfg.py);
+      // Spawn 1 subtle ambient particle with gentle orbit
+      const px = l.x + Math.cos(s.ring) * 0.75;
+      const pz = l.z + Math.sin(s.ring) * 0.75;
+      particle(p.dimension, cfg.particle, { x: px, y, z: pz });
     } catch (err) {}
   }
-}, 8);
+}, 20);
 
 /* Combat triggers (live offhand check, so unequipping stops them at once) */
 world.afterEvents.entityHurt.subscribe((ev) => {
