@@ -262,6 +262,39 @@ const RELICS = {
     fast: (p, s) => {
       // Void Phantom strictly operates in The End dimension
       if (p.dimension.id !== "minecraft:the_end") return;
+
+      // Monitor drop after elevation: detect solid blocks underneath in fast loop for responsive landing
+      if (s.voidDropping) {
+        const y = p.location.y;
+        if (y > s.voidPeakY) s.voidPeakY = y;
+
+        // When falling back down, scan downwards beneath the player for solid ground
+        if (y < s.voidPeakY) {
+          const bx = Math.floor(p.location.x);
+          const by = Math.floor(p.location.y);
+          const bz = Math.floor(p.location.z);
+          let groundFound = false;
+
+          // Check up to 8 blocks directly below the player
+          for (let dy = 1; dy <= 8; dy++) {
+            try {
+              const b = p.dimension.getBlock({ x: bx, y: by - dy, z: bz });
+              if (b && !b.isAir && b.typeId !== "minecraft:air" && !b.isLiquid) {
+                groundFound = true;
+                break;
+              }
+            } catch (err) {}
+          }
+
+          if (groundFound) {
+            s.voidDropping = false;
+            addFx(p, "slow_falling", 0, 160); // 8 seconds slow falling to cushion landing
+            p.onScreenDisplay.setActionBar("§d✦ Void Phantom: Ground detected - Soft descent engaged ✦");
+            p.playSound("random.orb");
+          }
+        }
+      }
+
       if (p.location.y > -10 || now() - s.lastVoid < 6000) return;
       s.lastVoid = now();
       s.voidElevating = true;
@@ -287,21 +320,6 @@ const RELICS = {
           s.voidPeakY = p.location.y;
         } catch (err) {}
       }, 40);
-    },
-    tick: (p, s) => {
-      // Monitor drop after elevation: engage Slow Falling only in the last moment before impact
-      if (s.voidDropping) {
-        const y = p.location.y;
-        if (y > s.voidPeakY) s.voidPeakY = y;
-
-        // When falling back down and nearing safe surface altitude or End terrain (Y <= 65 or falling fast toward ground)
-        if (y < s.voidPeakY && y <= 65) {
-          s.voidDropping = false;
-          addFx(p, "slow_falling", 0, 160); // 8 seconds of slow falling at the final moment of descent
-          p.onScreenDisplay.setActionBar("§d✦ Void Phantom: Soft descent engaged ✦");
-          p.playSound("random.orb");
-        }
-      }
     },
     onHurt: (p, ev, a, s) => {
       // In The End, intercept void damage if fall velocity reached threshold

@@ -14,10 +14,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - Repositioned the 3D Grimoire geometry (`geometry.grimoire_hip`) to a natural hand-held position adjacent to the player's offhand arm (`pivot [6.0, 10.0, 0.0]`).
   - Completely removed the hip belt strap and buckle hardware cubes.
   - Completely removed the old animation file (`grimoire_hip.animation.json`) and stripped animation controllers from all 20 attachables for a clean, natural hand-held item look.
-- **Void Phantom Retuning (2s Elevation & Last-Moment Slow Falling)**:
+- **Void Phantom Retuning (2s Elevation & Ground-Block Detected Slow Falling)**:
   - Restricted emergency void rescue strictly to **The End** dimension (`minecraft:the_end`).
   - Replaced long elevation with an intense **2-second Level 25 fast phase elevation** (amplifier 24, 40 ticks) that immediately halts void fall velocity.
-  - Replaced the premature Slow Falling buff with a dynamic drop tracker that activates **Slow Falling only at the last moment of the drop** (near surface terrain / Y <= 65) for a safe landing.
+  - Replaced coordinate-based drop altitude check with real-time ground block detection: directly scans blocks beneath the player (1–8 blocks) during the descent and activates **Slow Falling** only when solid ground is detected.
 
 ---
 
