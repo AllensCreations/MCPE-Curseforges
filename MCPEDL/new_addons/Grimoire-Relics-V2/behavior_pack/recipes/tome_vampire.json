@@ -1,1 +1,0 @@
-{"format_version":"1.20.80","minecraft:recipe_shaped":{"description":{"identifier":"custom:tome_vampire"},"tags":["crafting_table"],"pattern":["CEC","EBE","CEC"],"key":{"E":{"item":"minecraft:redstone_block"},"C":{"item":"minecraft:fermented_spider_eye"},"B":{"item":"minecraft:book"}},"result":{"item":"custom:tome_vampire"}}}

@@ -181,17 +181,17 @@ for rf in sorted(os.listdir(RECIPES_DIR)):
     out_file = os.path.join(OUT_DIR, f"{tome_name}_recipe.png")
     scaled.save(out_file)
 
-# Re-create sheet
+# Re-create sheet for 14 craftable tomes
 files = [
-    'tome_phoenix_recipe.png', 'tome_abyss_recipe.png', 'tome_zephyr_recipe.png', 'tome_lich_recipe.png',
-    'tome_titan_recipe.png', 'tome_vampire_recipe.png', 'tome_lunar_recipe.png', 'tome_solar_recipe.png',
-    'tome_druid_recipe.png', 'tome_frost_recipe.png', 'tome_storm_recipe.png', 'tome_delver_recipe.png',
-    'tome_void_recipe.png', 'tome_golem_recipe.png', 'tome_hydra_recipe.png', 'tome_alchemist_recipe.png',
-    'tome_seraph_recipe.png', 'tome_scholar_recipe.png', 'tome_mirror_recipe.png', 'tome_dragon_recipe.png'
+    'tome_abyss_recipe.png', 'tome_zephyr_recipe.png', 'tome_titan_recipe.png',
+    'tome_lunar_recipe.png', 'tome_solar_recipe.png', 'tome_druid_recipe.png',
+    'tome_frost_recipe.png', 'tome_storm_recipe.png', 'tome_delver_recipe.png',
+    'tome_golem_recipe.png', 'tome_hydra_recipe.png', 'tome_alchemist_recipe.png',
+    'tome_seraph_recipe.png', 'tome_scholar_recipe.png'
 ]
 
 cols = 4
-rows = 5
+rows = 4
 img_w, img_h = 504, 272
 pad = 12
 
@@ -210,4 +210,4 @@ for i, fn in enumerate(files):
 
 out_path = 'MCPEDL/new_addons/Grimoire-Relics-V2/assets/all_recipes_sheet.png'
 sheet.save(out_path)
-print(f'Montage regenerated with item textures: {out_path}')
+print(f'Montage regenerated for {len(files)} craftable recipes: {out_path}')
