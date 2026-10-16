@@ -10,10 +10,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [1.0.2] - 2026-10-15
 
 ### Changed
-- **Grimoire Visual Presentation (Hand-Holding Stance)**:
-  - Repositioned the 3D Grimoire geometry (`geometry.grimoire_hip`) to a natural hand-held position adjacent to the player's offhand arm (`pivot [6.0, 10.0, 0.0]`).
-  - Completely removed the hip belt strap and buckle hardware cubes.
-  - Completely removed the old animation file (`grimoire_hip.animation.json`) and stripped animation controllers from all 20 attachables for a clean, natural hand-held item look.
+- **Grimoire Handheld Presentation (Vanilla Item In Hand)**:
+  - Completely removed custom attachables, 3D entity geometry models, and staying animations.
+  - All 20 Grimoires now render directly and cleanly as standard handheld items in both the player's offhand and main hand, utilizing their crisp 2D pixel art icons (`minecraft:icon` mapped via `item_texture.json`) without any hovering, displacement, or awkward positioning.
 - **Void Phantom Retuning (2s Elevation & Ground-Block Detected Slow Falling)**:
   - Restricted emergency void rescue strictly to **The End** dimension (`minecraft:the_end`).
   - Replaced long elevation with an intense **2-second Level 25 fast phase elevation** (amplifier 24, 40 ticks) that immediately halts void fall velocity.

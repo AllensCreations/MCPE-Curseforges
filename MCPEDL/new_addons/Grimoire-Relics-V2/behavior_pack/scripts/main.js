@@ -257,7 +257,7 @@ const RELICS = {
     end: (p, s) => clearLight(p, s)
   },
   "custom:tome_void": {
-    name: "Void Phantom", info: ["End-only: 2s phase elevation out of the void", "Last-moment slow falling on drop | 5m cooldown"],
+    name: "Void Phantom", info: ["End-only: 2s phase elevation out of the void", "Ground-detected slow falling | 5m cooldown"],
     particle: "minecraft:basic_portal_particle", ids: [],
     fast: (p, s) => {
       // Void Phantom strictly operates in The End dimension
