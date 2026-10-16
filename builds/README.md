@@ -21,7 +21,7 @@ This directory stores all compiled releases (behavior packs, resource packs, add
 | **Magnetic Satchel** | `v1.0.2` | Complete Pack (`.mcaddon`) | [Download (.mcaddon)](Magnetic-Satchel/Magnetic%20Satchel%20by%20AllensCreations%20%28V1.0.2%29.mcaddon) | [`Magnetic-Satchel/`](Magnetic-Satchel/) |
 | **Smart Tree Capitator & Domino Ore Miner** | `v1.0.4` | Complete Pack (`.mcaddon`) | [Download (.mcpack)](smart-tree-capitator-domino-ore-miner/Smart%20Tree%20Capitator%20and%20Domino%20Ore%20Miner%20by%20AllensCreations%20%28V1.0.4%29.mcpack) | [`smart-tree-capitator-domino-ore-miner/`](smart-tree-capitator-domino-ore-miner/) |
 | **Universal Clutch** | `v1.0.1` | Complete Pack (`.mcaddon`) | [Download (.mcpack)](Universal-Clutch/Universal%20Clutch%20by%20AllensCreations%20%28V1.0.1%29.mcpack) | [`Universal-Clutch/`](Universal-Clutch/) |
-| **Grimoire-Relics-V2** | `v1.0.0` | Complete Pack (`.mcaddon`) | [Download (.mcaddon)](Grimoire-Relics-V2/Grimoire-Relics-V2%20by%20AllensCreations%20%28V1.0.0%29.mcaddon) | [`Grimoire-Relics-V2/`](Grimoire-Relics-V2/) |
+| **Grimoire-Relics-V2** | `v1.0.0` | Complete Pack (`.mcaddon`) | [Download (.mcaddon)](Grimoire-Relics-V2/Grimoire%20Relics%20V2%20by%20AllensCreations%20%28V1.0.0%29.mcaddon) | [`Grimoire-Relics-V2/`](Grimoire-Relics-V2/) |
 
 ### Worlds and Maps
 

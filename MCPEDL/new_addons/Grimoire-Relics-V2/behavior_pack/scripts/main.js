@@ -60,8 +60,12 @@ function raining(dim) {
 }
 
 function outdoors(p) {
-  const top = p.dimension.getTopmostBlock({ x: Math.floor(p.location.x), z: Math.floor(p.location.z) });
-  return !top || top.location.y < p.location.y;
+  try {
+    const top = p.dimension.getTopmostBlock({ x: Math.floor(p.location.x), z: Math.floor(p.location.z) });
+    return !top || top.location.y < p.location.y;
+  } catch (err) {
+    return true;
+  }
 }
 
 const isDay = () => world.getTimeOfDay() < 12000;
@@ -135,7 +139,7 @@ const RELICS = {
   "custom:tome_solar": {
     name: "Solar Dawn", info: ["Daytime under open sky:", "Saturation + Regeneration I"],
     particle: "minecraft:totem_particle", ids: ["saturation", "regeneration"],
-    effects: (p) => (isDay() && outdoors(p) ? [["saturation", 0], ["regeneration", 0]] : [])
+    effects: (p) => (p.dimension.id === "minecraft:overworld" && isDay() && outdoors(p) ? [["saturation", 0], ["regeneration", 0]] : [])
   },
   "custom:tome_druid": {
     name: "Verdant Druid", info: ["Poison immunity", "Fertilizes crops and saplings within 3 blocks"],
@@ -206,13 +210,25 @@ const RELICS = {
     end: (p, s) => clearLight(p, s)
   },
   "custom:tome_void": {
-    name: "Void Phantom", info: ["Below Y -60: teleport to the surface", "5 minute cooldown"],
+    name: "Void Phantom", info: ["Void rescue in Overworld & The End", "5 minute cooldown"],
     particle: "minecraft:basic_portal_particle", ids: [],
     fast: (p, s) => {
-      if (p.dimension.id !== "minecraft:overworld" || p.location.y > -60 || now() - s.lastVoid < 6000) return;
+      const dim = p.dimension.id;
+      const isOverworld = dim === "minecraft:overworld";
+      const isEnd = dim === "minecraft:the_end";
+      if ((!isOverworld && !isEnd) || p.location.y > -20 || now() - s.lastVoid < 6000) return;
+      if (isOverworld && p.location.y > -60) return;
       s.lastVoid = now();
-      const top = p.dimension.getTopmostBlock({ x: Math.floor(p.location.x), z: Math.floor(p.location.z) });
-      p.teleport({ x: p.location.x, y: top ? top.location.y + 1 : 65, z: p.location.z });
+      if (isEnd) {
+        p.teleport({ x: 100.5, y: 49, z: 0.5 });
+      } else {
+        let targetY = 65;
+        try {
+          const top = p.dimension.getTopmostBlock({ x: Math.floor(p.location.x), z: Math.floor(p.location.z) });
+          if (top) targetY = top.location.y + 1;
+        } catch (err) {}
+        p.teleport({ x: p.location.x, y: targetY, z: p.location.z });
+      }
       addFx(p, "slow_falling", 0, 100);
       try { p.clearVelocity(); } catch (err) {}
       p.onScreenDisplay.setActionBar("§5The Void Phantom pulled you to safety");
@@ -423,5 +439,15 @@ world.afterEvents.entityHurt.subscribe((ev) => {
 });
 
 world.afterEvents.playerLeave.subscribe((ev) => {
+  const s = states.get(ev.playerId);
+  if (s && s.light) {
+    try {
+      for (const dimName of ["overworld", "nether", "the_end"]) {
+        const d = world.getDimension(dimName);
+        const b = d && d.getBlock(s.light);
+        if (b && b.typeId.startsWith("minecraft:light_block")) b.setType("minecraft:air");
+      }
+    } catch (err) {}
+  }
   states.delete(ev.playerId);
 });
