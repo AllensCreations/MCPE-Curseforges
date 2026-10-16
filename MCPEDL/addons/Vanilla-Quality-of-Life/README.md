@@ -40,17 +40,17 @@ Built on `@minecraft/server` v1.13.0 with standard Bedrock components. Requires 
 | **Tool & Weapon Switching** | Manual hotbar selection | Automatic optimal tool/weapon swap when holding Slot 1 |
 | **Tree Harvesting** | 1 log at a time | Sneak-axe fells entire tree up to 128 logs with 5×5 branch scan |
 | **Ore Vein Mining** | 1 ore block at a time | Sneak-pickaxe domino mines contiguous veins across 26 neighbors |
-| **Tool Durability Safety** | Tools break unexpectedly | Auto-halts chain mining at 5 durability with alert sounds |
+| **Tool Durability Safety** | Tools break unexpectedly | Auto-halts chain mining at 1 durability with alert sounds |
 | **Offhand Utilities & Lighting** | Shield and Totem only | Double-sneak offhand swap + real-time moving torch/lantern light |
-| **Leashing Mobs** | Passive mobs only | All 101 mobs (Villagers, Golems, Hostiles) |
+| **Leashing Mobs** | Passive mobs only | All non-boss mobs (Villagers, Golems, Hostiles; Warden/Wither/Dragon immune) |
 | **Hostile Mob Aggro on Leads** | Hostile attacks continue | Pacified while attached to a lead |
 | **Pet Friendly-Fire** | Pets damaged by player attacks | Immune to player melee sweeps, arrows, and explosions |
 | **Leaf Decay Speed** | 10 to 30 seconds | 1 to 2 seconds |
 | **Woodcutting in Stonecutter** | Not supported (stone only) | All 11 wood types supported at fair 1:1 ratios |
 | **Potion & Milk Stacking** | 1 per inventory slot | Stacks up to 16 |
-| **Shulker Shell Yield** | 0 to 1 shell per mob | Guaranteed 2 shells per Shulker kill |
+| **Shulker Shell Yield** | 0 to 1 shell per mob | 1 to 2 shells per Shulker kill (+1 with Looting) |
 | **Multiplayer Sleep** | All online players must sleep | 1 player sleeping skips the night |
-| **Mob Head Trophy Drops** | Requires Charged Creeper kill | 2.5% base drop chance on player kills |
+| **Mob Head Trophy Drops** | Requires Charged Creeper kill | 1.0% base drop chance on player kills (+0.5% per Looting) |
 
 ---
 
@@ -115,17 +115,17 @@ Built on `@minecraft/server` v1.13.0 with standard Bedrock components. Requires 
 - Standard Potions, Splash Potions, Lingering Potions, and Milk Buckets stack up to 16 per slot.
 
 #### 11. Mob Head Trophy System
-- Slain mobs have a 2.5% base drop chance (+1% per Looting level) on player kills:
+- Slain mobs have a 1.0% base drop chance (+0.5% per Looting level up to 2.5% max at Looting III) on player kills:
   - Zombie, Husk, Drowned -> Zombie Head
   - Skeleton, Stray, Bogged -> Skeleton Skull
   - Creeper -> Creeper Head
   - Piglin, Zombified Piglin -> Piglin Head
-  - Wither Skeleton -> 10% base drop rate
-  - Ender Dragon -> Guaranteed 1 Dragon Head + 1 Elytra
-  - PvP Player Kills -> Slain players drop their Player Head
+  - Wither Skeleton -> 1.0% base drop rate (+0.5% per Looting level)
+  - Ender Dragon -> 1.0% drop chance (+0.5% per Looting level)
+  - PvP Player Kills -> Slain players have 1.0% drop chance (+0.5% per Looting level) for Player Head
 
 #### 12. Wandering Trader Collector Trades
-- Exchange 1 Diamond Block for rare mob heads.
+- Rare 2% spawn rate collector trades offering mob heads for **1 Diamond Block + 16 Emeralds**.
 - Biome flora trades: Spore Blossoms, Wither Roses, Nautilus Shells, Bundles, and Heart of the Sea.
 
 ---

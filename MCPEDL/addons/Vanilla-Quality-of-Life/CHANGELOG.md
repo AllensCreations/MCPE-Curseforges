@@ -40,6 +40,13 @@ This major milestone integrates **Passive Auto-Switch Tools**, **Smart Tree Capi
   - Flashes an on-screen action bar warning and plays an alert sound to protect valuable enchanted tools.
 
 ### Changed
+- **Mob Head Drops Balanced**: Standardized mob head drops (Zombie, Skeleton, Creeper, Piglin, Wither Skeleton, Ender Dragon, PvP Player) to a balanced 1.0% base drop chance (+0.5% per Looting level up to 2.5% max at Looting III).
+- **Wandering Trader Collector Head Trades**: Adjusted head trade offering probability to a rare 2% spawn rate in collector trade pools, priced at 1 Diamond Block + 16 Emeralds per head.
+- **Shulker Shell Drop Rate**: Adjusted Shulker Shell drops to 1 to 2 shells (yielding 2 to 3 with Looting enchantments).
+- **Boss Leashing Immunity**: Removed leashing capability from the Warden, Wither, and Ender Dragon to maintain boss encounter integrity while preserving universal leashing on all 98 standard entities.
+- **Tree Capitator House Protection**: Integrated intelligent leaf canopy detection (`isTreeCanopy`), requiring leaf, wart, or shroomlight adjacency within the tree structure to prevent accidental felling of wooden log cabins or player builds.
+- **Domino Ore Miner Ancient Debris Cap**: Capped contiguous Ancient Debris chain mining to a maximum of 4 blocks (`MAX_ANCIENT_DEBRIS_CLUSTER_SIZE: 4`) to preserve Netherite vein discovery balance.
+- **Durability Safety Guard Threshold**: Tuned durability safety guard threshold from 5 to 1 durability point, giving players maximum tool usage before emergency protection activates.
 - Synchronized Behavior Pack and Resource Pack manifest dependencies and module versions to `[1, 3, 0]`.
 - Normalized `min_engine_version` to `[1, 21, 0]` across both manifests for flawless Bedrock 1.21+ compatibility without "missing dependencies" warnings.
 

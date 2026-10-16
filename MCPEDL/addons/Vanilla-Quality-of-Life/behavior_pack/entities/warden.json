@@ -197,11 +197,6 @@
       },
       "minecraft:vibration_damper": {},
       "minecraft:vibration_listener": {},
-      "minecraft:leashable": {
-        "soft_distance": 4.0,
-        "hard_distance": 6.0,
-        "max_distance": 10.0
-      },
       "minecraft:leashable_to": {}
     },
     "component_groups": {

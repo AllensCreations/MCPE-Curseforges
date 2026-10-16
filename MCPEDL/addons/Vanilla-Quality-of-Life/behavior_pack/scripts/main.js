@@ -49,11 +49,12 @@ const CONFIG = {
   // Domino Ore Miner
   DOMINO_ORE_MINER_ENABLED: true,
   MAX_ORE_CLUSTER_SIZE: 64,
+  MAX_ANCIENT_DEBRIS_CLUSTER_SIZE: 4,
   INSTANT_BURST: true,
   NETHER_GOLD_POLICY: "nether_gold",
 
   // Durability Safety Guard
-  DURABILITY_SAFETY_THRESHOLD: 5,
+  DURABILITY_SAFETY_THRESHOLD: 1,
   ALERT_SOUND: "note.bass",
   ALERT_PITCH: 0.7,
   ALERT_VOLUME: 1.0,
@@ -823,6 +824,26 @@ function isMatchingLog(blockId, targetSpecies) {
   return !species || species === targetSpecies;
 }
 
+function isTreeCanopy(dimension, blocks) {
+  if (!blocks || blocks.length === 0) return false;
+  const candidates = [...blocks].sort((a, b) => b.y - a.y).slice(0, 8);
+  for (const pos of candidates) {
+    for (let dx = -2; dx <= 2; dx++) {
+      for (let dz = -2; dz <= 2; dz++) {
+        for (let dy = -1; dy <= 2; dy++) {
+          try {
+            const b = dimension.getBlock({ x: pos.x + dx, y: pos.y + dy, z: pos.z + dz });
+            if (b && (b.typeId.includes("leaves") || b.typeId.includes("wart_block") || b.typeId.includes("shroomlight"))) {
+              return true;
+            }
+          } catch (e) {}
+        }
+      }
+    }
+  }
+  return false;
+}
+
 function executeTreeCapitator(player, dimension, startLoc, startBlockId, onComplete) {
   if (typeof startBlockId === "function") {
     onComplete = startBlockId;
@@ -965,6 +986,12 @@ function executeTreeCapitator(player, dimension, startLoc, startBlockId, onCompl
     return;
   }
 
+  // House protection: require tree canopy (leaves/wart/shroomlight) so player log cabins aren't felled
+  if (!isTreeCanopy(dimension, blocksToBreak)) {
+    if (onComplete) onComplete();
+    return;
+  }
+
   // Break felled logs
   for (const pos of blocksToBreak) {
     if (!player || !player.isValid()) break;
@@ -1071,17 +1098,20 @@ function executeDominoOreMiner(player, dimension, startLoc, startBlockId, onComp
   }
 
   const targetCategory = startOreInfo.category;
+  const maxClusterSize = targetCategory === "ancient_debris"
+    ? (CONFIG.MAX_ANCIENT_DEBRIS_CLUSTER_SIZE || 4)
+    : CONFIG.MAX_ORE_CLUSTER_SIZE;
   const queue = [{ x: startLoc.x, y: startLoc.y, z: startLoc.z }];
   const visited = new Set();
   visited.add(`${startLoc.x},${startLoc.y},${startLoc.z}`);
 
   const blocksToBreak = [];
 
-  while (queue.length > 0 && blocksToBreak.length < CONFIG.MAX_ORE_CLUSTER_SIZE) {
+  while (queue.length > 0 && blocksToBreak.length < maxClusterSize) {
     const current = queue.shift();
 
     for (const offset of NEIGHBOR_OFFSETS_26) {
-      if (blocksToBreak.length >= CONFIG.MAX_ORE_CLUSTER_SIZE) break;
+      if (blocksToBreak.length >= maxClusterSize) break;
 
       const nx = current.x + offset.dx;
       const ny = current.y + offset.dy;
