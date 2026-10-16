@@ -1,8 +1,5 @@
 # MCPE Curseforges - Add-ons, Maps, and Minigames Collection
 
-<p align="center">
-  <img src="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/banner.jpg" alt="MCPEDL" width="100%" style="max-width: 540px;" />
-</p>
 
 [![Minecraft Bedrock](https://img.shields.io/badge/Minecraft%20Bedrock-1.21%20--%201.26%2B-brightgreen?style=flat-square&logo=minecraft)](https://github.com/AllensCreations/MCPE-Curseforges)
 [![Platform](https://img.shields.io/badge/Platform-Mobile%20%7C%20PC%20%7C%20Console%20%7C%20Realms-yellow?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges)
@@ -36,12 +33,12 @@ Explore the full [Maps Directory](https://github.com/AllensCreations/MCPE-Cursef
 | **Ghast Mob Head Transformers** | `v1.1.11` | Complete Pack (`.mcaddon`) | [Download (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Ghast-Head-Transformers/Ghast%20Mob%20Head%20Transformers%20by%20AllensCreations%20%28V1.1.11%29.mcaddon) | [`MCPEDL/addons/Ghast-Head-Transformers/`](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/addons/Ghast-Head-Transformers/) | Transform vanilla Ghasts into giant flying mob heads by equipping skulls, with charging faces and shearing drops. |
 | **Immortal Pets** | `v1.1.4` | Script Behavior Pack (`.mcpack`) | [Download (.mcpack)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Immortal-Pets/Immortal%20Pets%20by%20AllensCreations%20%28V1.1.4%29.mcpack) | [`MCPEDL/addons/Immortal-Pets/`](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/addons/Immortal-Pets/) | Makes tamed cats, wolves, parrots and horses immortal. Choos... |
 | **Tameable Companion Fox** | `v1.0.3` | Complete Pack (`.mcaddon`) | [Download (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/tameable-companion-fox/Tameable%20Companion%20Fox%20by%20AllensCreations%20%28V1.0.3%29.mcaddon) | [`MCPEDL/addons/tameable-companion-fox/`](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/addons/tameable-companion-fox/) | Tameable foxes with sitting and equip interactions. By Allen... |
-| **Magnetic Satchel** | `v1.0.2` | Complete Pack (`.mcaddon`) | [Download (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Magnetic-Satchel/Magnetic%20Satchel%20by%20AllensCreations%20%28V1.0.2%29.mcaddon) | [`MCPEDL/new_addons/Magnetic-Satchel/`](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/new_addons/Magnetic-Satchel/) | Adds the Magnetic Satchel. Hold it in your offhand to pull nearby dropped items toward you. |
-| **Smart Tree Capitator & Domino Ore Miner** | `v1.0.6` | Complete Pack (`.mcaddon`) | [Download (.mcpack)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/smart-tree-capitator-domino-ore-miner/Smart%20Tree%20Capitator%20and%20Domino%20Ore%20Miner%20by%20AllensCreations%20%28V1.0.6%29.mcpack) | [`MCPEDL/new_addons/smart-tree-capitator-domino-ore-miner/`](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/new_addons/smart-tree-capitator-domino-ore-miner/) | Sneak-activated tree capitator and domino ore miner with durability safety protection. |
-| **Universal Clutch** | `v1.0.1` | Complete Pack (`.mcaddon`) | [Download (.mcpack)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Universal-Clutch/Universal%20Clutch%20by%20AllensCreations%20%28V1.0.1%29.mcpack) | [`MCPEDL/new_addons/Universal-Clutch/`](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/new_addons/Universal-Clutch/) | Vanilla-faithful automatic clutch placements when falling fr... |
+| **Magnetic Satchel** | `v1.0.2` | Complete Pack (`.mcaddon`) | [Download (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Magnetic-Satchel/Magnetic%20Satchel%20by%20AllensCreations%20%28V1.0.2%29.mcaddon) | [`MCPEDL/addons/Magnetic-Satchel/`](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/addons/Magnetic-Satchel/) | Adds the Magnetic Satchel. Hold it in your offhand to pull nearby dropped items toward you. |
+| **Smart Tree Capitator & Domino Ore Miner** | `v1.0.6` | Complete Pack (`.mcaddon`) | [Download (.mcpack)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/smart-tree-capitator-domino-ore-miner/Smart%20Tree%20Capitator%20and%20Domino%20Ore%20Miner%20by%20AllensCreations%20%28V1.0.6%29.mcpack) | [`MCPEDL/addons/smart-tree-capitator-domino-ore-miner/`](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/addons/smart-tree-capitator-domino-ore-miner/) | Sneak-activated tree capitator and domino ore miner with durability safety protection. |
+| **Universal Clutch** | `v1.0.1` | Complete Pack (`.mcaddon`) | [Download (.mcpack)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Universal-Clutch/Universal%20Clutch%20by%20AllensCreations%20%28V1.0.1%29.mcpack) | [`MCPEDL/addons/Universal-Clutch/`](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/addons/Universal-Clutch/) | Vanilla-faithful automatic clutch placements when falling fr... |
 | **Grimoire-Relics-V2** | `v1.0.3` | Complete Pack (`.mcaddon`) | [Download (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Grimoire-Relics-V2/Grimoire%20Relics%20V2%20by%20AllensCreations%20%28V1.0.3%29.mcaddon) | [`MCPEDL/addons/Grimoire-Relics-V2/`](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/addons/Grimoire-Relics-V2/) | Grimoire Relics by AllensCreations. 20 craftable magical tom... |
-| **Grand-Banquets** | `v1.0.0` | Complete Pack (`.mcaddon`) | [Download (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Grand-Banquets/Grand-Banquets%20by%20AllensCreations%20%28V1.0.0%29.mcaddon) | [`MCPEDL/new_addons/Grand-Banquets/`](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/new_addons/Grand-Banquets/) | Grand Banquets by AllensCreations. 32 craftable banquet feas... |
-| **Sudden-Death-Roulette** | `v1.0.0` | Script Behavior Pack (`.mcpack`) | [Download (.mcpack)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Sudden-Death-Roulette/Sudden-Death-Roulette%20by%20AllensCreations%20%28V1.0.0%29.mcpack) | [`MCPEDL/new_addons/Sudden-Death-Roulette/`](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/new_addons/Sudden-Death-Roulette/) | Sudden Death Roulette: The Diamond Race by AllensCreations. ... |
+| **Grand-Banquets** | `v1.0.0` | Complete Pack (`.mcaddon`) | [Download (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Grand-Banquets/Grand%20Banquets%20by%20AllensCreations%20%28V1.0.0%29.mcaddon) | [`MCPEDL/addons/Grand-Banquets/`](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/addons/Grand-Banquets/) | Grand Banquets by AllensCreations. 32 craftable banquet feas... |
+| **Sudden-Death-Roulette** | `v1.0.0` | Script Behavior Pack (`.mcpack`) | [Download (.mcpack)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Sudden-Death-Roulette/Sudden%20Death%20Roulette%20by%20AllensCreations%20%28V1.0.0%29.mcpack) | [`MCPEDL/addons/Sudden-Death-Roulette/`](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/addons/Sudden-Death-Roulette/) | Sudden Death Roulette: The Diamond Race by AllensCreations. ... |
 
 Explore the full [Add-ons Directory](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/addons/README.md).
 
@@ -77,7 +74,6 @@ Single-block void survival map with procedural island generation across dimensio
 
 ### Add-on 1: Vanilla Quality of Life (v1.3.2)
 
-![Vanilla QoL Icon](https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/MCPEDL/addons/Vanilla-Quality-of-Life/pack_icon.png)
 
 Lightweight data-driven vanilla enhancement pack for Minecraft Bedrock.
 
@@ -96,7 +92,6 @@ Lightweight data-driven vanilla enhancement pack for Minecraft Bedrock.
 
 ### Add-on 2: Monster Companions (v1.0.6)
 
-![Monster Companions Icon](https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/MCPEDL/addons/Monster-Companions/1791889944961.jpg)
 
 Data-driven pacification and bodyguard system for hostile monsters.
 
@@ -113,11 +108,9 @@ Data-driven pacification and bodyguard system for hostile monsters.
 
 ### Add-on 3: Mining Helmet (v1.0.6)
 
-![Mining Helmet Banner](https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/MCPEDL/addons/Mining-Helmet/1791946330457.jpg)
 
 Dynamic following light headgear for mining and cave exploration.
 
-![Mining Helmet Item](https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/MCPEDL/addons/Mining-Helmet/mining_helmet_preview.png)
 
 - Dynamic Following Light: Hands-free real-time lighting with tiered power levels (Lantern: Level 15, Torch: Level 10).
 - Automatic Coordinate Cleanup: Light blocks clear automatically on movement, unequip, death, or disconnect.
@@ -130,7 +123,6 @@ Dynamic following light headgear for mining and cave exploration.
 
 ### Add-on 4: Passive Auto-Switch Tools (v1.1.1)
 
-![Passive Auto-Switch Tools Icon](https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/MCPEDL/addons/Passive-Auto-Switch-Tools/pack_icon.png)
 
 Event-driven tool and weapon auto-switcher when holding Slot 1.
 
@@ -148,7 +140,6 @@ Event-driven tool and weapon auto-switcher when holding Slot 1.
 
 ### Add-on 5: Ghast Mob Head Transformers (v1.0.1)
 
-![Ghast Mob Head Transformers Icon](https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/MCPEDL/addons/Ghast-Head-Transformers/pack_icon.png)
 
 Transform vanilla Ghasts into giant flying mob heads by equipping skulls.
 
@@ -163,7 +154,6 @@ Transform vanilla Ghasts into giant flying mob heads by equipping skulls.
 
 ### Script 1: Alphabet Scavenger Hunt (v1.0.5)
 
-![Alphabet Scavenger Hunt Banner](https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/MCPEDL/script/Alphabet-Scavenger-Hunt/1791906974481.jpg)
 
 20-Round survival scavenger challenge.
 
@@ -178,7 +168,6 @@ Transform vanilla Ghasts into giant flying mob heads by equipping skulls.
 
 ### Script 2: Shared Hivemind Inventory (v1.0.5)
 
-![Shared Hivemind Inventory Icon](https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/MCPEDL/script/Shared-Hivemind-Inventory/pack_icon.png)
 
 Multiplayer challenge synchronizing player inventories.
 
@@ -193,7 +182,6 @@ Multiplayer challenge synchronizing player inventories.
 
 ### Script 3: Tethered: Breaker & Builder (v1.0.1)
 
-![Tethered Icon](https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/MCPEDL/script/Tethered-Breaker-And-Builder/pack_icon.png)
 
 2-Player asymmetric co-op challenge.
 

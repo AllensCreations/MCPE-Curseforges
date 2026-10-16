@@ -8,12 +8,7 @@ on:
         required: true
         type: choice
         options:
-          - "Grand-Banquets"
-          - "Grimoire-Relics-V2"
-          - "Magnetic-Satchel"
-          - "Sudden-Death-Roulette"
-          - "Universal-Clutch"
-          - "smart-tree-capitator-domino-ore-miner"
+          - "none"
       status:
         description: "Lifecycle status label"
         required: true

@@ -1,6 +1,6 @@
-# Sudden-Death-Roulette - Downloads and Releases
+# Sudden Death Roulette - Downloads and Releases
 
-This folder contains compiled release packages for **Sudden-Death-Roulette** by AllensCreations.
+This folder contains compiled release packages for **Sudden Death Roulette** by AllensCreations.
 
 ---
 
@@ -8,8 +8,8 @@ This folder contains compiled release packages for **Sudden-Death-Roulette** by 
 
 | File Name | Format | Size | Description | Download Link |
 | :--- | :--- | :--- | :--- | :--- |
-| **`Sudden-Death-Roulette by AllensCreations (V1.0.0).mcpack`** | `.mcpack` | ~3 KB | Script Behavior Pack archive ready for import. | [Download (.mcpack)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Sudden-Death-Roulette/Sudden-Death-Roulette%20by%20AllensCreations%20%28V1.0.0%29.mcpack) |
-| **`Sudden-Death-Roulette by AllensCreations (V1.0.0).mcaddon`** | `.mcaddon` | ~3 KB | Complete Add-on package archive. | [Download (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Sudden-Death-Roulette/Sudden-Death-Roulette%20by%20AllensCreations%20%28V1.0.0%29.mcaddon) |
+| **`Sudden Death Roulette by AllensCreations (V1.0.0).mcpack`** | `.mcpack` | ~3 KB | Script Behavior Pack archive ready for import. | [Download (.mcpack)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Sudden-Death-Roulette/Sudden%20Death%20Roulette%20by%20AllensCreations%20%28V1.0.0%29.mcpack) |
+| **`Sudden Death Roulette by AllensCreations (V1.0.0).mcaddon`** | `.mcaddon` | ~3 KB | Complete Add-on package archive. | [Download (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Sudden-Death-Roulette/Sudden%20Death%20Roulette%20by%20AllensCreations%20%28V1.0.0%29.mcaddon) |
 
 ---
 
@@ -21,7 +21,7 @@ For general import instructions, refer to the centralized [Download and Installa
 
 ## Source Files
 To inspect uncompressed JSON files, geometry, render controllers, and textures:
-- [View Source Files](../../MCPEDL/new_addons/Sudden-Death-Roulette/)
+- [View Source Files](../../MCPEDL/addons/Sudden-Death-Roulette/)
 
 ---
 

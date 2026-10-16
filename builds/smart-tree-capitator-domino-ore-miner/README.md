@@ -21,7 +21,7 @@ For general import instructions, refer to the centralized [Download and Installa
 
 ## Source Files
 To inspect uncompressed JSON files, geometry, render controllers, and textures:
-- [View Source Files](../../MCPEDL/new_addons/smart-tree-capitator-domino-ore-miner/)
+- [View Source Files](../../MCPEDL/addons/smart-tree-capitator-domino-ore-miner/)
 
 ---
 
