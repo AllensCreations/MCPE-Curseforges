@@ -38,14 +38,21 @@ To ensure the markdown renders identically on external platforms (MCPEDL, CurseF
    https://github.com/AllensCreations/MCPE-Curseforges/tree/main/<path>
    https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/<file>
    ```
-3. **Bottom Search & Discovery Keywords (SEO)**:
-   Every project `README.md` must conclude with a dedicated SEO section:
+3. **Bottom Search & Discovery Keywords (SEO) — Grounded in the Add-on's README**:
+   Every project `README.md` must conclude with a tailored SEO section. **Do NOT use generic placeholder keywords alone.**
+   - **Use the Add-on's README as the Basis**: Extract terms directly from the pack's actual features, mechanics, mob types, item names, commands, and gameplay benefits described across its cards and overview.
+   - **Structure**: Include high-intent player search phrases that directly match what the specific add-on offers.
+   - **Formula**:
+     1. General Bedrock anchors (`Minecraft Bedrock add-on`, `Minecraft PE mod`, `MCPEDL add-on`, `CurseForge Bedrock`, `AllensCreations`).
+     2. Specific feature anchors extracted from the README (e.g. for Mining Helmet: `dynamic lighting add-on`, `wearable lantern Bedrock`, `cave light mod MCPE`; for Monster Companions: `tame hostile mobs`, `pet creeper add-on`, `rideable spider Bedrock`).
+     3. Gameplay keywords (e.g. `survival QoL`, `no experimental features add-on`, `achievement friendly MCPE`).
+
    ```markdown
    ---
 
    ## Search & Discovery Keywords
 
-   Minecraft Bedrock add-on, [Add-on Name] Bedrock mod, Minecraft PE survival, MCPEDL add-on, CurseForge Bedrock, AllensCreations.
+   Minecraft Bedrock add-on, [Add-on Name] Bedrock mod, [Core Feature 1 from README], [Core Feature 2 from README], [Item/Mob Name from README], Minecraft PE survival, MCPEDL add-on, CurseForge Bedrock, AllensCreations.
    ```
 
 ### 4. Standard Project README Template
