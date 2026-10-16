@@ -1,4 +1,4 @@
-# Magnetic Satchel — Offhand Item Vacuum Add-on for Minecraft Bedrock
+# Magnetic Satchel — Offhand Item Vacuum Add-on by AllensCreations
 
 [![Minecraft Bedrock](https://img.shields.io/badge/Minecraft%20Bedrock-1.21.0%2B-brightgreen?style=flat-square&logo=minecraft)](https://github.com/AllensCreations/MCPE-Curseforges)
 [![Achievement Friendly](https://img.shields.io/badge/Achievements-Friendly-brightgreen?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges)

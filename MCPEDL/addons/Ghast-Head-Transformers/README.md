@@ -1,4 +1,4 @@
-# Ghast Mob Head Transformers — Giant Flying Mob Heads for Minecraft Bedrock
+# Ghast Mob Head Transformers — Giant Flying Mob Heads by AllensCreations
 
 ![MCPEDL](https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/MCPEDL/addons/Ghast-Head-Transformers/1791965821315.jpg?v=1791967147 "MCPEDL")
 

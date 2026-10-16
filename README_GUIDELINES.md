@@ -58,7 +58,7 @@ To ensure the markdown renders identically on external platforms (MCPEDL, CurseF
 ### 4. Standard Project README Template
 
 ```markdown
-# [Add-on Name] — [Exciting Promotional Subtitle] for Minecraft Bedrock
+# [Add-on Name] — [Exciting Promotional Subtitle] by AllensCreations
 
 ![MCPEDL](https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/MCPEDL/[category]/[slug]/banner.jpg "MCPEDL")
 

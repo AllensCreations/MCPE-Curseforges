@@ -1,4 +1,4 @@
-# OneBlock Void Survival — Progressive Void World for Minecraft Bedrock
+# OneBlock Void Survival — Progressive Void World by AllensCreations
 
 ![MCPEDL](https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/MCPEDL/maps/OneBlock-Void-Survival/behavior_pack/pack_icon.png "MCPEDL")
 

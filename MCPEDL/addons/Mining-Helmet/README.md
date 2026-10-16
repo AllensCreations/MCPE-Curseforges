@@ -1,4 +1,4 @@
-# Mining Helmet — Dynamic Lighting Add-on for Minecraft Bedrock
+# Mining Helmet — Dynamic Lighting Add-on by AllensCreations
 
 ![MCPEDL](https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/MCPEDL/addons/Mining-Helmet/1791946330457.jpg "MCPEDL")
 

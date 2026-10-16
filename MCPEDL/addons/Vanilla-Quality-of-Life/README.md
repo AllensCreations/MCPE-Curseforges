@@ -1,4 +1,4 @@
-# Vanilla Quality of Life — Survival Mechanics and Enhancements for Minecraft Bedrock
+# Vanilla Quality of Life — Survival Mechanics and Enhancements by AllensCreations
 
 ![MCPEDL](https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/MCPEDL/addons/Vanilla-Quality-of-Life/banner.jpg "MCPEDL")
 
