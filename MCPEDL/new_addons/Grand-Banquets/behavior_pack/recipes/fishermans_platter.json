@@ -1,0 +1,1 @@
+{"format_version":"1.20.80","minecraft:recipe_shapeless":{"description":{"identifier":"custom:fishermans_platter"},"tags":["crafting_table"],"ingredients":[{"item":"minecraft:bowl"},{"item":"minecraft:cooked_cod"},{"item":"minecraft:cooked_salmon"},{"item":"minecraft:baked_potato"},{"item":"minecraft:wheat"}],"result":{"item":"custom:fishermans_platter"}}}

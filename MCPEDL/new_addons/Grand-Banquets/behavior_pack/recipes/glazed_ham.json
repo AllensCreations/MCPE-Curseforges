@@ -1,0 +1,1 @@
+{"format_version":"1.20.80","minecraft:recipe_shapeless":{"description":{"identifier":"custom:glazed_ham"},"tags":["crafting_table"],"ingredients":[{"item":"minecraft:bowl"},{"item":"minecraft:cooked_porkchop"},{"item":"minecraft:cooked_porkchop"},{"item":"minecraft:carrot"},{"item":"minecraft:beetroot"}],"result":{"item":"custom:glazed_ham"}}}
