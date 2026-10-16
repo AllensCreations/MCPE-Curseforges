@@ -7,11 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
-## [1.0.2] - 2026-10-15
+## [1.0.3] - 2026-10-15
 
 ### Changed
 - **Grimoire Handheld Presentation (Vanilla Item In Hand)**:
-  - Completely removed custom attachables, 3D entity geometry models, and staying animations.
+  - Completely removed custom attachables, 3D entity geometry models, and lingering animations.
   - All 20 Grimoires now render directly and cleanly as standard handheld items in both the player's offhand and main hand, utilizing their crisp 2D pixel art icons (`minecraft:icon` mapped via `item_texture.json`) without any hovering, displacement, or awkward positioning.
 - **Void Phantom Retuning (2s Level 60 Elevation & Ground-Block Detected Slow Falling)**:
   - Restricted emergency void rescue strictly to **The End** dimension (`minecraft:the_end`).
@@ -19,6 +19,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - Replaced coordinate-based drop altitude check with real-time ground block detection: directly scans blocks beneath the player (1–8 blocks) during the descent and activates **Slow Falling** only when solid ground is detected.
 - **HUD Cleanliness (Status Effect UI Suppression)**:
   - Added clean JSON UI override in `resource_pack/ui/hud_screen.json` targeting `mob_effects_renderer`, completely hiding status effect HUD icons and timers for an uncluttered screen display.
+
+---
+
+## [1.0.2] - 2026-10-15
+
+### Changed
+- **End Dimension Void Rescue Hardening**:
+  - Confined Void Phantom protection strictly to The End dimension (`minecraft:the_end`).
+  - Initial integration of ground-proximity cushion landing.
 
 ---
 
