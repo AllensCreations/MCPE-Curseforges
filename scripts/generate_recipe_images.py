@@ -4,7 +4,7 @@ import re
 from PIL import Image
 
 ROOT_BEDROCK = "/root/bedrock-samples/resource_pack"
-OUT_DIR = "MCPEDL/new_addons/Grimoire-Relics-V2/assets/recipes"
+OUT_DIR = "MCPEDL/addons/Grimoire-Relics-V2/assets/recipes"
 os.makedirs(OUT_DIR, exist_ok=True)
 
 # Item textures directly from bedrock-samples items/ directory
@@ -144,8 +144,8 @@ def make_crafting_gui():
     draw_slot(96, 23, size=22)
     return bg
 
-RECIPES_DIR = "MCPEDL/new_addons/Grimoire-Relics-V2/behavior_pack/recipes"
-RP_TEXTURES = "MCPEDL/new_addons/Grimoire-Relics-V2/resource_pack/textures/items"
+RECIPES_DIR = "MCPEDL/addons/Grimoire-Relics-V2/behavior_pack/recipes"
+RP_TEXTURES = "MCPEDL/addons/Grimoire-Relics-V2/resource_pack/textures/items"
 
 for rf in sorted(os.listdir(RECIPES_DIR)):
     if not rf.endswith(".json"):
@@ -208,6 +208,6 @@ for i, fn in enumerate(files):
     im = Image.open(os.path.join(OUT_DIR, fn))
     sheet.paste(im, (x, y))
 
-out_path = 'MCPEDL/new_addons/Grimoire-Relics-V2/assets/all_recipes_sheet.png'
+out_path = 'MCPEDL/addons/Grimoire-Relics-V2/assets/all_recipes_sheet.png'
 sheet.save(out_path)
 print(f'Montage regenerated for {len(files)} craftable recipes: {out_path}')

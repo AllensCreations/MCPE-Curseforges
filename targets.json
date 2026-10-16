@@ -109,13 +109,13 @@
       "readmeExists": true
     },
     {
-      "id": "MCPEDL/new_addons/Grimoire-Relics-V2",
+      "id": "MCPEDL/addons/Grimoire-Relics-V2",
       "name": "Grimoire Relics V2",
       "category": "addon",
-      "dir": "MCPEDL/new_addons/Grimoire-Relics-V2",
-      "readmePath": "MCPEDL/new_addons/Grimoire-Relics-V2/README.md",
-      "bannerPath": "MCPEDL/new_addons/Grimoire-Relics-V2/banner.jpg",
-      "logoPath": "MCPEDL/new_addons/Grimoire-Relics-V2/behavior_pack/pack_icon.png",
+      "dir": "MCPEDL/addons/Grimoire-Relics-V2",
+      "readmePath": "MCPEDL/addons/Grimoire-Relics-V2/README.md",
+      "bannerPath": "MCPEDL/addons/Grimoire-Relics-V2/banner.jpg",
+      "logoPath": "MCPEDL/addons/Grimoire-Relics-V2/behavior_pack/pack_icon.png",
       "bannerExists": false,
       "logoExists": true,
       "readmeExists": true
