@@ -12,13 +12,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 - **Grimoire Handheld Presentation (Vanilla Item In Hand)**:
   - Completely removed custom attachables, 3D entity geometry models, and lingering animations.
-  - All 20 Grimoires now render directly and cleanly as standard handheld items in both the player's offhand and main hand, utilizing their crisp 2D pixel art icons (`minecraft:icon` mapped via `item_texture.json`) without any hovering, displacement, or awkward positioning.
+  - All 20 Grimoires now render directly and cleanly as standard handheld items in both the player's offhand and main hand, utilizing their crisp 2D pixel art icons (`minecraft:icon`custom 2D pixel art icons`item_texture.json`) without any hovering, displacement, or awkward positioning.
 - **Void Phantom Retuning (2s Level 60 Elevation & Ground-Block Detected Slow Falling)**:
   - Restricted emergency void rescue strictly to **The End** dimension (`minecraft:the_end`).
   - Tuned phase elevation to an intense **2-second Level 60 fast phase elevation** (amplifier 59, 40 ticks) that immediately halts void fall velocity and rapidly ascends out of the abyss.
-  - Replaced long slow falling with an instantaneous ground detection trigger: probes 1–3 blocks beneath the player during descent, halts downward velocity via `clearVelocity()`, and grants **1 second** (20 ticks) of Level 1 Slow Falling at the final moment of touchdown to cleanly negate all fall damage without floaty delays.
+  - Replaced long slow falling with an instantaneous ground detection trigger: probes 1–3 blocks beneath the player during descent, halts downward velocity smoothly`clearVelocity()`, and grants **1 second** (20 ticks) of Level 1 Slow Falling at the final moment of touchdown to cleanly negate all fall damage without floaty delays.
 - **HUD Cleanliness (Status Effect UI Suppression)**:
-  - Added clean JSON UI override in `resource_pack/ui/hud_screen.json` targeting `mob_effects_renderer`, completely hiding status effect HUD icons and timers for an uncluttered screen display.
+  - Added interface optimization, completely hiding status effect HUD icons and timers for an uncluttered screen display.
 
 ---
 
@@ -66,7 +66,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Initial Release: The Ancient Grimoires
 
-Initial public release of **Grimoire Relics V2**, an RPG-style magical offhand companion system for Minecraft Bedrock Edition (v1.21.0+) powered by `@minecraft/server` Script API. Fully achievement-friendly with zero experimental toggles required.
+Initial public release of **Grimoire Relics V2**, an RPG-style magical offhand companion system for Minecraft Bedrock Edition (v1.21.0+) powered by modern Bedrock gameplay mechanics. Fully achievement-friendly with zero experimental toggles required.
 
 ### Added
 - **20 Magical Offhand Relics**:
@@ -94,7 +94,7 @@ Initial public release of **Grimoire Relics V2**, an RPG-style magical offhand c
   - Each relic features **100 Max Durability** (`minecraft:durability`).
   - **Event-Only Wear**: Passive stat buffs do not consume durability. Durability is deducted only when active abilities, combat procs, or emergency rescues trigger.
   - **Enchanting & Mending**: Compatible with Enchanting Tables and Anvils (`minecraft:enchantable`), supporting **Mending**, **Efficiency**, and **Unbreaking**.
-  - **Anvil Repairing**: Repairable by combining matching tomes or using vanilla **Books** (`minecraft:book`) at a strict 1:1 ratio (1 durability restored per book) via `minecraft:repairable`.
+  - **Anvil Repairing**: Repairable by combining matching tomes or using vanilla **Books** (`minecraft:book`) at a strict 1:1 ratio (1 durability restored per book) smoothly`minecraft:repairable`.
   - **Shatter Audio & Particles**: Plays authentic item breaking sound, spawns break particles, and notifies the player on shatter.
 - **World Chest Loot Generation**:
   - 6 tomes are designated as uncraftable **Ancient Relics** obtainable only through rare exploration chests:
