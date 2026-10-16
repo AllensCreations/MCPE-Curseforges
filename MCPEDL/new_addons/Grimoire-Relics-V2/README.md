@@ -31,26 +31,26 @@ Holding a Grimoire in your offhand dynamically attunes your character:
 
 | Relic Name | Abilities & Mechanics | Acquisition |
 | :--- | :--- | :--- |
-| **Infernal Phoenix** | Permanent Fire Resistance. Attackers that melee hit you are set on fire for 5s; targets you melee hit burn for 5s. | **Ancient Relic (Loot Only)**: Bastion Treasure |
-| **Abyssal Tide** | Permanent Water Breathing. Night Vision while underwater. Dolphin's Grace while swimming. | Craftable |
-| **Zephyr Wind** | Speed II + Jump Boost I. Auto Slow Falling when plunging (downward velocity < -0.5). Full fall damage immunity. | Craftable |
-| **Necrotic Lich** | Melee strikes inflict Wither II for 3s on victims. | **Ancient Relic (Loot Only)**: Bastion Treasure |
-| **Mountain Titan** | Permanent Resistance II and Slowness I. Complete knockback immunity (cancels knockback velocity on damage). | Craftable |
-| **Blood Vampire** | Life Leech: Every successful melee strike restores 1 full heart (2 HP). | **Ancient Relic (Loot Only)**: Dungeon Monster Rooms |
-| **Lunar Eclipse** | Nocturnal Blessing: Invisibility and Strength I during nighttime (13000–23000 ticks) in the Overworld. | Craftable |
-| **Solar Dawn** | Solar Nourishment: Saturation and Regeneration I under open daylight skies in the Overworld. | Craftable |
-| **Verdant Druid** | Poison immunity. Naturally fertilizes crops and advances saplings within a 3-block radius. | Craftable |
-| **Frost Weaver** | Frost Walker II (freezes water underfoot into frosted ice, unless sneaking). Complete immunity to powder snow freezing. | Craftable |
-| **Stormcaller** | Speed III outdoors during rain or thunderstorms. 15% chance to strike melee attackers with real lightning. | Craftable |
-| **Deep Delver** | Permanent Haste II. Automatically manifests an invisible light block at feet when below Y=55 in the dark. | Craftable |
-| **Void Phantom** | Emergency Void Rescue: Falling into the void in the Overworld (below Y=-60) teleports you to the surface; falling into the End void teleports you safely to the End spawn platform (100, 49, 0) with Slow Falling (5 min cooldown). | **Ancient Relic (Loot Only)**: Ancient Cities |
-| **Iron Golem** | Fortified Armor: Grants 4 Absorption hearts every 30s. Melee strikes launch enemies upward into the air. | Craftable |
-| **Venom Hydra** | Full immunity to Poison and Wither. Melee attacks inflict Poison II (5s). | Craftable |
-| **Cursed Alchemist** | Potion Mastery: Permanently preserves and refreshes the duration of active beneficial potion effects. | Craftable |
-| **Radiant Seraph** | Permanent Regeneration II. Complete immunity to Blindness and Nausea. | Craftable |
-| **Arcane Scholar** | Arcane Intellect: Triples all experience gained from mob drops, mining, and orbs. | Craftable |
-| **Mirror Trickster** | Elusive Phase: 25% chance upon taking damage to negate all incoming damage and blink 3 blocks backward through smoke. | **Ancient Relic (Loot Only)**: Ancient Cities |
-| **Cataclysm Dragon** | Strength II and Resistance I. Complete immunity to dragon breath and explosions (recovers damage as health). | **Ancient Relic (Loot Only)**: End Cities |
+| <img src="assets/items/tome_phoenix.png" width="20" height="20" alt="Infernal Phoenix"> **Infernal Phoenix** | Permanent Fire Resistance. Attackers that melee hit you are set on fire for 5s; targets you melee hit burn for 5s. | **Ancient Relic (Loot Only)**: Bastion Treasure |
+| <img src="assets/items/tome_abyss.png" width="20" height="20" alt="Abyssal Tide"> **Abyssal Tide** | Permanent Water Breathing. Night Vision while underwater. Dolphin's Grace while swimming. | Craftable |
+| <img src="assets/items/tome_zephyr.png" width="20" height="20" alt="Zephyr Wind"> **Zephyr Wind** | Speed II + Jump Boost I. Auto Slow Falling when plunging (downward velocity < -0.5). Full fall damage immunity. | Craftable |
+| <img src="assets/items/tome_lich.png" width="20" height="20" alt="Necrotic Lich"> **Necrotic Lich** | Melee strikes inflict Wither II for 3s on victims. | **Ancient Relic (Loot Only)**: Bastion Treasure |
+| <img src="assets/items/tome_titan.png" width="20" height="20" alt="Mountain Titan"> **Mountain Titan** | Permanent Resistance II and Slowness I. Complete knockback immunity (cancels knockback velocity on damage). | Craftable |
+| <img src="assets/items/tome_vampire.png" width="20" height="20" alt="Blood Vampire"> **Blood Vampire** | Life Leech: Every successful melee strike restores 1 full heart (2 HP). | **Ancient Relic (Loot Only)**: Dungeon Monster Rooms |
+| <img src="assets/items/tome_lunar.png" width="20" height="20" alt="Lunar Eclipse"> **Lunar Eclipse** | Nocturnal Blessing: Invisibility and Strength I during nighttime (13000–23000 ticks) in the Overworld. | Craftable |
+| <img src="assets/items/tome_solar.png" width="20" height="20" alt="Solar Dawn"> **Solar Dawn** | Solar Nourishment: Saturation and Regeneration I under open daylight skies in the Overworld. | Craftable |
+| <img src="assets/items/tome_druid.png" width="20" height="20" alt="Verdant Druid"> **Verdant Druid** | Poison immunity. Naturally fertilizes crops and advances saplings within a 3-block radius. | Craftable |
+| <img src="assets/items/tome_frost.png" width="20" height="20" alt="Frost Weaver"> **Frost Weaver** | Frost Walker II (freezes water underfoot into frosted ice, unless sneaking). Complete immunity to powder snow freezing. | Craftable |
+| <img src="assets/items/tome_storm.png" width="20" height="20" alt="Stormcaller"> **Stormcaller** | Speed III outdoors during rain or thunderstorms. 15% chance to strike melee attackers with real lightning. | Craftable |
+| <img src="assets/items/tome_delver.png" width="20" height="20" alt="Deep Delver"> **Deep Delver** | Permanent Haste II. Automatically manifests an invisible light block at feet when below Y=55 in the dark. | Craftable |
+| <img src="assets/items/tome_void.png" width="20" height="20" alt="Void Phantom"> **Void Phantom** | Emergency Void Rescue: Falling into the void in the Overworld (below Y=-60) teleports you to the surface; falling into the End void teleports you safely to the End spawn platform (100, 49, 0) with Slow Falling (5 min cooldown). | **Ancient Relic (Loot Only)**: Ancient Cities |
+| <img src="assets/items/tome_golem.png" width="20" height="20" alt="Iron Golem"> **Iron Golem** | Fortified Armor: Grants 4 Absorption hearts every 30s. Melee strikes launch enemies upward into the air. | Craftable |
+| <img src="assets/items/tome_hydra.png" width="20" height="20" alt="Venom Hydra"> **Venom Hydra** | Full immunity to Poison and Wither. Melee attacks inflict Poison II (5s). | Craftable |
+| <img src="assets/items/tome_alchemist.png" width="20" height="20" alt="Cursed Alchemist"> **Cursed Alchemist** | Potion Mastery: Permanently preserves and refreshes the duration of active beneficial potion effects. | Craftable |
+| <img src="assets/items/tome_seraph.png" width="20" height="20" alt="Radiant Seraph"> **Radiant Seraph** | Permanent Regeneration II. Complete immunity to Blindness and Nausea. | Craftable |
+| <img src="assets/items/tome_scholar.png" width="20" height="20" alt="Arcane Scholar"> **Arcane Scholar** | Arcane Intellect: Triples all experience gained from mob drops, mining, and orbs. | Craftable |
+| <img src="assets/items/tome_mirror.png" width="20" height="20" alt="Mirror Trickster"> **Mirror Trickster** | Elusive Phase: 25% chance upon taking damage to negate all incoming damage and blink 3 blocks backward through smoke. | **Ancient Relic (Loot Only)**: Ancient Cities |
+| <img src="assets/items/tome_dragon.png" width="20" height="20" alt="Cataclysm Dragon"> **Cataclysm Dragon** | Strength II and Resistance I. Complete immunity to dragon breath and explosions (recovers damage as health). | **Ancient Relic (Loot Only)**: End Cities |
 
 ---
 
