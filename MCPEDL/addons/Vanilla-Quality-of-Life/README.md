@@ -46,7 +46,7 @@ Built on `@minecraft/server` v1.13.0 with standard Bedrock components. Requires 
 | **Hostile Mob Aggro on Leads** | Hostile attacks continue | Pacified while attached to a lead |
 | **Pet Friendly-Fire** | Pets damaged by player attacks | Immune to player melee sweeps, arrows, and explosions |
 | **Leaf Decay Speed** | 10 to 30 seconds | 1 to 2 seconds |
-| **Woodcutting in Stonecutter** | Not supported (stone only) | All 11 wood types supported at fair 1:1 ratios |
+| **Woodcutting in Stonecutter** | Not supported (stone only) | All 12 wood types supported at fair 1:1 ratios |
 | **Potion & Milk Stacking** | 1 per inventory slot | Stacks up to 16 |
 | **Shulker Shell Yield** | 0 to 1 shell per mob | 1 to 2 shells per Shulker kill (+1 with Looting) |
 | **Multiplayer Sleep** | All online players must sleep | 1 player sleeping skips the night |
@@ -107,7 +107,7 @@ Built on `@minecraft/server` v1.13.0 with standard Bedrock components. Requires 
 - Normal drop rates for saplings, sticks, and apples are preserved without world lag.
 
 #### 9. Stonecutter Woodcutter Integration
-- Cut all 11 wood types (Oak, Spruce, Birch, Jungle, Acacia, Dark Oak, Mangrove, Cherry, Bamboo, Crimson, Warped):
+- Cut all 12 wood types (Oak, Spruce, Birch, Jungle, Acacia, Dark Oak, Mangrove, Cherry, Pale Oak, Bamboo, Crimson, Warped):
   - Logs -> 4 Planks, 8 Slabs, 4 Stairs
   - Planks -> 2 Slabs, 1 Stair, 1 Trapdoor, 1 Fence, 1 Fence Gate
 
