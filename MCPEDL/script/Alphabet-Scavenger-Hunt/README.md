@@ -34,29 +34,57 @@ No experimental features required. Designed to keep achievements available while
 
 ## Key Features
 
-| Feature | Description |
-| :--- | :--- |
-| 20-Round Gauntlet | Conquer 20 progressive rounds to claim ultimate victory with celebratory fireworks and fanfares. |
-| Balanced Letter Selection | Letter pools exclude impossible early-game letters (e.g., X, Z) to keep survival gameplay fast and fair. |
-| 60-Second Timers | Fast-paced countdown per round with dynamic audio cues signaling urgency. |
-| 30-Second Intermissions | Earned rest period after successful rounds to organize inventory, smelt ores, or explore terrain. |
-| Real-Time Top HUD | Non-intrusive action bar display showing active round, target letter, countdown timer, and penalty state. |
-| Instant Inventory Verification | Scans inventory slots continuously and recognizes colloquial, formal, and compound item names. |
-| Stacking Health Decay | Failing a round penalizes your maximum health by -2 HP (1 full heart) until run reset. |
-| Mobile & Console Friendly | Gesture activation (crouch + interact with compass, clock, or stick) allows controls without typing. |
+### 20-Round Gauntlet
+- **Description**: Conquer 20 progressive rounds to claim ultimate victory with celebratory fireworks and fanfares.
+
+### Balanced Letter Selection
+- **Description**: Letter pools exclude impossible early-game letters (e.g., X, Z) to keep survival gameplay fast and fair.
+
+### 60-Second Timers
+- **Description**: Fast-paced countdown per round with dynamic audio cues signaling urgency.
+
+### 30-Second Intermissions
+- **Description**: Earned rest period after successful rounds to organize inventory, smelt ores, or explore terrain.
+
+### Real-Time Top HUD
+- **Description**: Non-intrusive action bar display showing active round, target letter, countdown timer, and penalty state.
+
+### Instant Inventory Verification
+- **Description**: Scans inventory slots continuously and recognizes colloquial, formal, and compound item names.
+
+### Stacking Health Decay
+- **Description**: Failing a round penalizes your maximum health by -2 HP (1 full heart) until run reset.
+
+### Mobile & Console Friendly
+- **Description**: Gesture activation (crouch + interact with compass, clock, or stick) allows controls without typing.
 
 ---
 
 ## How It Works
 
-| Action / Event | Trigger | In-Game Result |
-| :--- | :--- | :--- |
-| Start Run | World load + 15s or `/scriptevent scavenger:start` | Initializes round 1, announces first letter, and starts 60s timer. |
-| Match Found | Item with target initial in inventory | Plays level-up fanfare, displays chat confirmation, and awards 30s rest. |
-| Timer Depletion | 60 seconds expire without match | Inflicts -2 Max HP penalty, plays failure cue, and advances to next letter. |
-| Intermission End | 30 seconds rest period expires | Announces next target letter and starts fresh 60s countdown. |
-| Victory Run | Complete round 20 | Triggers victory announcement, firework celebrations, and restores max health. |
-| Vitality Depletion | Max HP reaches 0 from failures | Ends challenge run with fail summary and prompts reset. |
+### Start Run
+- **Trigger**: World load + 15s or `/scriptevent scavenger:start`
+- **In-Game Result**: Initializes round 1, announces first letter, and starts 60s timer.
+
+### Match Found
+- **Trigger**: Item with target initial in inventory
+- **In-Game Result**: Plays level-up fanfare, displays chat confirmation, and awards 30s rest.
+
+### Timer Depletion
+- **Trigger**: 60 seconds expire without match
+- **In-Game Result**: Inflicts -2 Max HP penalty, plays failure cue, and advances to next letter.
+
+### Intermission End
+- **Trigger**: 30 seconds rest period expires
+- **In-Game Result**: Announces next target letter and starts fresh 60s countdown.
+
+### Victory Run
+- **Trigger**: Complete round 20
+- **In-Game Result**: Triggers victory announcement, firework celebrations, and restores max health.
+
+### Vitality Depletion
+- **Trigger**: Max HP reaches 0 from failures
+- **In-Game Result**: Ends challenge run with fail summary and prompts reset.
 
 ---
 
@@ -92,3 +120,9 @@ No experimental features required. Designed to keep achievements available while
 ---
 
 © All rights reserved for AllensCreations.
+
+---
+
+## Search & Discovery Keywords
+
+Minecraft Bedrock scavenger hunt, alphabet challenge minigame, survival item hunt, letter race challenge, multiplayer party game Minecraft PE, MCPEDL, CurseForge, AllensCreations.

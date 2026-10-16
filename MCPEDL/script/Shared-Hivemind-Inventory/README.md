@@ -30,28 +30,54 @@ No experimental features required. Designed to keep achievements available while
 
 ## Key Features
 
-| Feature | Description |
-| :--- | :--- |
-| Complete 36-Slot Mirroring | Mirrors all 9 hotbar slots, 27 main inventory slots, and active offhand shield/totem positions across all online teammates. |
-| Zero-Latency Sync | Instant real-time updates as soon as any player picks up, moves, or consumes items. |
-| Anti-Duplication Safeguards | Update verification prevents item ghosting, duplication exploits, or infinite item loops. |
-| Full Item Metadata Preservation | Retains exact item durability, custom anvil names, enchantments, and lore text during sync. |
-| Unified Death Drop Alert | On teammate death, inventory drops at that exact location while on-screen coordinates guide the team to recover loot. |
-| Seamless Player Join Sync | Teammates joining or reconnecting are immediately synced to the active team inventory state. |
-| Non-Intrusive HUD | Action bar displays live status indicators verifying active synchronization. |
+### Complete 36-Slot Mirroring
+- **Description**: Mirrors all 9 hotbar slots, 27 main inventory slots, and active offhand shield/totem positions across all online teammates.
+
+### Zero-Latency Sync
+- **Description**: Instant real-time updates as soon as any player picks up, moves, or consumes items.
+
+### Anti-Duplication Safeguards
+- **Description**: Update verification prevents item ghosting, duplication exploits, or infinite item loops.
+
+### Full Item Metadata Preservation
+- **Description**: Retains exact item durability, custom anvil names, enchantments, and lore text during sync.
+
+### Unified Death Drop Alert
+- **Description**: On teammate death, inventory drops at that exact location while on-screen coordinates guide the team to recover loot.
+
+### Seamless Player Join Sync
+- **Description**: Teammates joining or reconnecting are immediately synced to the active team inventory state.
+
+### Non-Intrusive HUD
+- **Description**: Action bar displays live status indicators verifying active synchronization.
 
 ---
 
 ## How It Works
 
-| Action / Event | Trigger | In-Game Result |
-| :--- | :--- | :--- |
-| Mine or Gather Item | Any player picks up an item | Item appears in the identical slot across all teammates' inventories. |
-| Consume or Place | Any player eats food or places block | Stack count decrements simultaneously for all online players. |
-| Tool & Weapon Usage | Player uses tool in combat or mining | Durability wear accurately updates and reflects for anyone holding it. |
-| Offhand Shield / Totem | Move shield or totem into offhand | Offhand equipment synchronizes across party members. |
-| Teammate Death | Any player falls in battle | Inventory drops at death spot; on-screen HUD displays dimension & coordinates. |
-| Team Regroup | Teammate collects dropped loot | Inventory immediately replenishes across all players. |
+### Mine or Gather Item
+- **Trigger**: Any player picks up an item
+- **In-Game Result**: Item appears in the identical slot across all teammates' inventories.
+
+### Consume or Place
+- **Trigger**: Any player eats food or places block
+- **In-Game Result**: Stack count decrements simultaneously for all online players.
+
+### Tool & Weapon Usage
+- **Trigger**: Player uses tool in combat or mining
+- **In-Game Result**: Durability wear accurately updates and reflects for anyone holding it.
+
+### Offhand Shield / Totem
+- **Trigger**: Move shield or totem into offhand
+- **In-Game Result**: Offhand equipment synchronizes across party members.
+
+### Teammate Death
+- **Trigger**: Any player falls in battle
+- **In-Game Result**: Inventory drops at death spot; on-screen HUD displays dimension & coordinates.
+
+### Team Regroup
+- **Trigger**: Teammate collects dropped loot
+- **In-Game Result**: Inventory immediately replenishes across all players.
 
 ---
 
@@ -84,3 +110,9 @@ Operators can manage the shared inventory using native commands:
 ---
 
 © All rights reserved for AllensCreations.
+
+---
+
+## Search & Discovery Keywords
+
+Minecraft Bedrock shared inventory, hivemind multiplayer challenge, synced inventory slots, co-op survival challenge, Minecraft PE shared items, MCPEDL, CurseForge, AllensCreations.

@@ -24,26 +24,46 @@ Leave your main hand free to hold your pickaxe, weapon, or torches while the sat
 
 ## Key Features
 
-| Feature | Description |
-| :--- | :--- |
-| **Offhand Equippable** | Equips cleanly in the offhand slot (`slot.weapon.offhand`), keeping your main hand free for tools and weapons. |
-| **8-Block Vacuum Radius** | Detects and pulls all nearby dropped item entities within an 8-block sphere. |
-| **Impulse Physics** | Uses smooth directional velocity impulses with gravity compensation to glide items toward your chest level. |
-| **Particle Trails** | Emits subtle portal particle trails behind moving items as they glide inward. |
-| **Quick Toggle Switch** | Sneak + Right-click / use while holding the satchel in your main hand to instantly toggle magnetism ON or OFF. |
-| **Action Bar Feedback** | Clear action bar HUD indicator displays `§6[SATCHEL] §aMagnetism: ACTIVE` or `§6[SATCHEL] §cMagnetism: DISABLED`. |
-| **Flexible Recipes** | Craftable with either an Ender Pearl or a Compass depending on your survival stage. |
+### Offhand Equippable
+- **Description**: Equips cleanly in the offhand slot (`slot.weapon.offhand`), keeping your main hand free for tools and weapons.
+
+### 8-Block Vacuum Radius
+- **Description**: Detects and pulls all nearby dropped item entities within an 8-block sphere.
+
+### Impulse Physics
+- **Description**: Uses smooth directional velocity impulses with gravity compensation to glide items toward your chest level.
+
+### Particle Trails
+- **Description**: Emits subtle portal particle trails behind moving items as they glide inward.
+
+### Quick Toggle Switch
+- **Description**: Sneak + Right-click / use while holding the satchel in your main hand to instantly toggle magnetism ON or OFF.
+
+### Action Bar Feedback
+- **Description**: Clear action bar HUD indicator displays `§6[SATCHEL] §aMagnetism: ACTIVE` or `§6[SATCHEL] §cMagnetism: DISABLED`.
+
+### Flexible Recipes
+- **Description**: Craftable with either an Ender Pearl or a Compass depending on your survival stage.
 
 ---
 
 ## How It Works
 
-| Action | Control / Trigger | Outcome |
-| :--- | :--- | :--- |
-| **Equip in Offhand** | Place into offhand shield slot | Automatically activates the vacuum pull for all items within 8 blocks. |
-| **Toggle Active/Disabled** | Sneak + Right-Click with satchel in main hand | Toggles magnetic pull on/off without needing to unequip. |
-| **Automatic Collection** | Stand within 8 blocks of dropped items | Items are drawn toward your player coordinate until vanilla inventory pickup triggers. |
-| **Safe Inventory Handling** | Normal inventory behavior | When full, items hover safely beside you rather than glitching. |
+### Equip in Offhand
+- **Control / Trigger**: Place into offhand shield slot
+- **Outcome**: Automatically activates the vacuum pull for all items within 8 blocks.
+
+### Toggle Active/Disabled
+- **Control / Trigger**: Sneak + Right-Click with satchel in main hand
+- **Outcome**: Toggles magnetic pull on/off without needing to unequip.
+
+### Automatic Collection
+- **Control / Trigger**: Stand within 8 blocks of dropped items
+- **Outcome**: Items are drawn toward your player coordinate until vanilla inventory pickup triggers.
+
+### Safe Inventory Handling
+- **Control / Trigger**: Normal inventory behavior
+- **Outcome**: When full, items hover safely beside you rather than glitching.
 
 ---
 
@@ -90,3 +110,9 @@ The Magnetic Satchel can be crafted at any crafting table using either of the fo
 ---
 
 © All rights reserved for AllensCreations.
+
+---
+
+## Search & Discovery Keywords
+
+Minecraft Bedrock item magnet, magnetic satchel offhand, vacuum dropped items, item pull utility, hands-free ore pickup, Minecraft PE magnet mod, MCPEDL, CurseForge, AllensCreations.

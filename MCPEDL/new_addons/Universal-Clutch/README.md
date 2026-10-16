@@ -22,34 +22,96 @@ When aiming down and falling beyond the configured block height threshold, the a
 
 ## Key Features
 
-| Feature | Description |
-| :--- | :--- |
-| **Multi-Item Clutch Support** | Automatically identifies and uses Water Buckets, Powder Snow Buckets, Twisted Vines, Hay Bales, Cobwebs, Slime Blocks, Scaffolding, Boats/Rafts, or Sweet Berries. |
-| **Dimension-Aware Clutches** | Automatically disables evaporating Water Buckets in the Nether, prioritizing Twisted Vines & Powder Snow Buckets instead. |
-| **Dual Hand & Inventory Detection**| Evaluates mainhand items first, with failover to offhand, hotbar, and upper inventory. |
-| **Totem of Undying Fail-Safe** | When falling to certain death with no clutch item, automatically searches inventory and equips a Totem of Undying into the offhand slot before impact. |
-| **Authentic Boat Placement** | Spawns the boat at maximum player reach distance (~4.5 blocks) first, then seats the player with a slight delay upon touchdown. Strictly no teleportation. |
-| **1-2 Tick Impact Prediction** | Uses velocity-based vertical raycasting to trigger placements 1 to 2 ticks before ground impact rather than snapping prematurely. |
-| **Arm Placement Animation** | Triggers vanilla arm swing animations (`animation.player.attack_bare_hand`) synced directly to placement audio. |
-| **Native Waterlogged Handling** | Detects stairs, slabs, fences, walls, and trapdoors beneath the player and applies native `{ waterlogged: true }` states without destroying structures. |
-| **Automatic Scoop with Fire Check**| Automatically retrieves placed water or powder snow 3 ticks after touchdown; verifies powder snow wasn't consumed to extinguish fire before re-scooping. |
+### Multi-Item Clutch Support
+- **Description**: Automatically identifies and uses Water Buckets, Powder Snow Buckets, Twisted Vines, Hay Bales, Cobwebs, Slime Blocks, Scaffolding, Boats/Rafts, or Sweet Berries.
+
+### Dimension-Aware Clutches
+- **Description**: Automatically disables evaporating Water Buckets in the Nether, prioritizing Twisted Vines & Powder Snow Buckets instead.
+
+### Dual Hand & Inventory Detection
+- **Description**: Evaluates mainhand items first, with failover to offhand, hotbar, and upper inventory.
+
+### Totem of Undying Fail-Safe
+- **Description**: When falling to certain death with no clutch item, automatically searches inventory and equips a Totem of Undying into the offhand slot before impact.
+
+### Authentic Boat Placement
+- **Description**: Spawns the boat at maximum player reach distance (~4.5 blocks) first, then seats the player with a slight delay upon touchdown. Strictly no teleportation.
+
+### 1-2 Tick Impact Prediction
+- **Description**: Uses velocity-based vertical raycasting to trigger placements 1 to 2 ticks before ground impact rather than snapping prematurely.
+
+### Arm Placement Animation
+- **Description**: Triggers vanilla arm swing animations (`animation.player.attack_bare_hand`) synced directly to placement audio.
+
+### Native Waterlogged Handling
+- **Description**: Detects stairs, slabs, fences, walls, and trapdoors beneath the player and applies native `{ waterlogged: true }` states without destroying structures.
+
+### Automatic Scoop with Fire Check
+- **Description**: Automatically retrieves placed water or powder snow 3 ticks after touchdown; verifies powder snow wasn't consumed to extinguish fire before re-scooping.
 
 ---
 
 ## Supported Clutch Items and Behaviors
 
-| Item | Identifier | Placement Target | Mechanical Effect | Placement Sound |
-| :--- | :--- | :--- | :--- | :--- |
-| **Water Bucket** | `minecraft:water_bucket` | Surface (waterlog) or Impact Air | Negates fall damage; auto-scooped 3 ticks after landing (disabled in Nether) | `bucket.empty_water` |
-| **Powder Snow Bucket** | `minecraft:powder_snow_bucket` | Impact Air Block | Absorbs fall damage; auto-scooped 3 ticks after landing (unless melted by fire) | `bucket.empty_powder_snow` |
-| **Twisted Vines** | `minecraft:twisted_vines` | Top Face of Solid Ground Block | Nether-native climbing vine; resets vertical momentum and absorbs fall damage | `dig.grass` |
-| **Hay Bale** | `minecraft:hay_block` | Impact Air Block | Reduces fall damage by 80% upon touchdown | `dig.grass` |
-| **Cobweb** | `minecraft:web` | Impact Air Block | Decelerates player velocity and completely negates fall damage | `dig.cloth` |
-| **Slime Block** | `minecraft:slime` | Impact Air Block | Completely eliminates fall damage and bounces player upward | `block.slime_block.place` |
-| **Scaffolding** | `minecraft:scaffolding` | Impact Air Block | Traverses falling entity momentum and absorbs fall damage | `block.scaffolding.place` |
-| **Boat / Raft** | Any `*_boat` / `*_raft` | Impact Air Coordinate | Placed at max reach distance (~4.5 blocks) first, auto-riding player with slight delay | `step.wood` |
-| **Sweet Berries** | `minecraft:sweet_berries` | Impact Air Block | Places sweet berry bush to decelerate and cancel fall damage | `block.sweet_berry_bush.place` |
-| **Totem of Undying** | `minecraft:totem_of_undying` | Offhand Slot (Emergency Swap) | Auto-equipped when falling with no clutch items to guarantee survival | `armor.equip_generic` |
+### Water Bucket
+- **Identifier**: `minecraft:water_bucket`
+- **Placement Target**: Surface (waterlog) or Impact Air
+- **Mechanical Effect**: Negates fall damage; auto-scooped 3 ticks after landing (disabled in Nether)
+- **Placement Sound**: `bucket.empty_water`
+
+### Powder Snow Bucket
+- **Identifier**: `minecraft:powder_snow_bucket`
+- **Placement Target**: Impact Air Block
+- **Mechanical Effect**: Absorbs fall damage; auto-scooped 3 ticks after landing (unless melted by fire)
+- **Placement Sound**: `bucket.empty_powder_snow`
+
+### Twisted Vines
+- **Identifier**: `minecraft:twisted_vines`
+- **Placement Target**: Top Face of Solid Ground Block
+- **Mechanical Effect**: Nether-native climbing vine; resets vertical momentum and absorbs fall damage
+- **Placement Sound**: `dig.grass`
+
+### Hay Bale
+- **Identifier**: `minecraft:hay_block`
+- **Placement Target**: Impact Air Block
+- **Mechanical Effect**: Reduces fall damage by 80% upon touchdown
+- **Placement Sound**: `dig.grass`
+
+### Cobweb
+- **Identifier**: `minecraft:web`
+- **Placement Target**: Impact Air Block
+- **Mechanical Effect**: Decelerates player velocity and completely negates fall damage
+- **Placement Sound**: `dig.cloth`
+
+### Slime Block
+- **Identifier**: `minecraft:slime`
+- **Placement Target**: Impact Air Block
+- **Mechanical Effect**: Completely eliminates fall damage and bounces player upward
+- **Placement Sound**: `block.slime_block.place`
+
+### Scaffolding
+- **Identifier**: `minecraft:scaffolding`
+- **Placement Target**: Impact Air Block
+- **Mechanical Effect**: Traverses falling entity momentum and absorbs fall damage
+- **Placement Sound**: `block.scaffolding.place`
+
+### Boat / Raft
+- **Identifier**: Any `*_boat` / `*_raft`
+- **Placement Target**: Impact Air Coordinate
+- **Mechanical Effect**: Placed at max reach distance (~4.5 blocks) first, auto-riding player with slight delay
+- **Placement Sound**: `step.wood`
+
+### Sweet Berries
+- **Identifier**: `minecraft:sweet_berries`
+- **Placement Target**: Impact Air Block
+- **Mechanical Effect**: Places sweet berry bush to decelerate and cancel fall damage
+- **Placement Sound**: `block.sweet_berry_bush.place`
+
+### Totem of Undying
+- **Identifier**: `minecraft:totem_of_undying`
+- **Placement Target**: Offhand Slot (Emergency Swap)
+- **Mechanical Effect**: Auto-equipped when falling with no clutch items to guarantee survival
+- **Placement Sound**: `armor.equip_generic`
 
 ---
 
@@ -124,3 +186,9 @@ Individual players can customize their personal settings on multiplayer servers 
 ---
 
 © All rights reserved for AllensCreations.
+
+---
+
+## Search & Discovery Keywords
+
+Minecraft Bedrock auto clutch, water bucket clutch mod, MLG clutch helper, fall damage saver, boat clutch, powder snow clutch, Minecraft PE clutch add-on, MCPEDL, CurseForge, AllensCreations.

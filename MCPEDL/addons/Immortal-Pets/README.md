@@ -25,35 +25,69 @@ No experimental features required. Designed to keep achievements available while
 
 ## Key Features
 
-| Feature | Description |
-| :--- | :--- |
-| Pet Immortality | Protect selected pets from fatal damage. |
-| Fire & Lava Protection | Help your companions survive fiery environments. |
-| Automatic Healing | Restore health to protected pets. |
-| Drowning Protection | Help prevent underwater deaths. |
-| Explosion Protection | Guard against explosive hazards. |
-| Poison Protection | Help prevent poison-related deaths. |
-| Fall Protection | Reduce the risk of fatal falls. |
-| Custom Pet Selection | Choose which animals receive protection. |
-| Persistent Settings | Retain your selected protection modes across world reloads. |
-| EID Special Rule | A protected pet named exactly `EID` will be eliminated. |
-| Multi-Dimension Support | Adventure in the Overworld, Nether, and End. |
+### Pet Immortality
+- **Description**: Protect selected pets from fatal damage.
+
+### Fire & Lava Protection
+- **Description**: Help your companions survive fiery environments.
+
+### Automatic Healing
+- **Description**: Restore health to protected pets.
+
+### Drowning Protection
+- **Description**: Help prevent underwater deaths.
+
+### Explosion Protection
+- **Description**: Guard against explosive hazards.
+
+### Poison Protection
+- **Description**: Help prevent poison-related deaths.
+
+### Fall Protection
+- **Description**: Reduce the risk of fatal falls.
+
+### Custom Pet Selection
+- **Description**: Choose which animals receive protection.
+
+### Persistent Settings
+- **Description**: Retain your selected protection modes across world reloads.
+
+### EID Special Rule
+- **Description**: A protected pet named exactly `EID` will be eliminated.
+
+### Multi-Dimension Support
+- **Description**: Adventure in the Overworld, Nether, and End.
 
 ## Protect Your Favorite Companions
 
 Choose your preferred protection mode.
 
-| Selection | Supported Animals |
-| :--- | :--- |
-| Cat | Cats |
-| Wolf | Wolves |
-| Parrot | Parrots |
-| Horse | Horses |
-| Donkey | Donkeys |
-| Mule | Mules |
-| Skeleton Horse | Skeleton Horses |
-| Zombie Horse | Zombie Horses |
-| All Supported Pets | All listed animals |
+### Cat
+- **Supported Animals**: Cats
+
+### Wolf
+- **Supported Animals**: Wolves
+
+### Parrot
+- **Supported Animals**: Parrots
+
+### Horse
+- **Supported Animals**: Horses
+
+### Donkey
+- **Supported Animals**: Donkeys
+
+### Mule
+- **Supported Animals**: Mules
+
+### Skeleton Horse
+- **Supported Animals**: Skeleton Horses
+
+### Zombie Horse
+- **Supported Animals**: Zombie Horses
+
+### All Supported Pets
+- **Supported Animals**: All listed animals
 
 Enable protection for specific animals or choose **All Supported Pets** for a complete companion protection setup.
 
@@ -89,3 +123,9 @@ Achievement availability depends on the pack's actual implementation and the wor
 *Your companions deserve another adventure.*
 
 © All rights reserved for AllensCreations.
+
+---
+
+## Search & Discovery Keywords
+
+Minecraft Bedrock immortal pets, pet invulnerability mod, invincible wolves cats, pet health protection, no pet death Bedrock, companion survival add-on, MCPEDL, CurseForge, AllensCreations.

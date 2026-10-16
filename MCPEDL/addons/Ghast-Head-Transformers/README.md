@@ -31,16 +31,61 @@ No experimental features required. Designed to keep achievements available while
 
 Interact with any Ghast while holding a skull to trigger the transformation:
 
-| Variant | Item Required | Transformed Creature | Attack Type & Fire Rate | Sound Cues | Shearing Reclaim |
-| :---: | :--- | :--- | :--- | :--- | :--- |
-| **0** | *(Default)* | Classic Ghast | Giant Explosive Fireball (2.0s) | Classic Ghast screams | None |
-| **1** | Skeleton Skull | Giant Skeleton Head | Rapid Piercing Arrow (1.0s) | Bone rattles and snaps | Skeleton Skull |
-| **2** | Wither Skeleton Skull | Giant Wither Skeleton | Explosive Wither Skull (2.2s) | Deep soul rattle | Wither Skeleton Skull |
-| **3** | Zombie Head | Giant Zombie Head | Splash Poison Potion (1.6s) | Undead zombie groans | Zombie Head |
-| **4** | Steve / Player Head | Giant Steve Head | Knockback Wind Charge (1.4s) | Wind charge burst | Player Head |
-| **5** | Creeper Head | Giant Creeper Head | High-Explosive Fireball (2.5s) | Terrifying fuse hiss | Creeper Head |
-| **6** | Piglin Head | Giant Piglin Head | Rapid Blazing Fireballs (0.8s) | Aggressive piglin snorts | Piglin Head |
-| **7** | Dragon Head | Colossal Ender Dragon Head | Lingering Dragon Fireball (3.0s, 100 HP) | Ender Dragon roar and growl | Dragon Head |
+### 0
+- **Item Required**: *(Default)*
+- **Transformed Creature**: Classic Ghast
+- **Attack Type & Fire Rate**: Giant Explosive Fireball (2.0s)
+- **Sound Cues**: Classic Ghast screams
+- **Shearing Reclaim**: None
+
+### 1
+- **Item Required**: Skeleton Skull
+- **Transformed Creature**: Giant Skeleton Head
+- **Attack Type & Fire Rate**: Rapid Piercing Arrow (1.0s)
+- **Sound Cues**: Bone rattles and snaps
+- **Shearing Reclaim**: Skeleton Skull
+
+### 2
+- **Item Required**: Wither Skeleton Skull
+- **Transformed Creature**: Giant Wither Skeleton
+- **Attack Type & Fire Rate**: Explosive Wither Skull (2.2s)
+- **Sound Cues**: Deep soul rattle
+- **Shearing Reclaim**: Wither Skeleton Skull
+
+### 3
+- **Item Required**: Zombie Head
+- **Transformed Creature**: Giant Zombie Head
+- **Attack Type & Fire Rate**: Splash Poison Potion (1.6s)
+- **Sound Cues**: Undead zombie groans
+- **Shearing Reclaim**: Zombie Head
+
+### 4
+- **Item Required**: Steve / Player Head
+- **Transformed Creature**: Giant Steve Head
+- **Attack Type & Fire Rate**: Knockback Wind Charge (1.4s)
+- **Sound Cues**: Wind charge burst
+- **Shearing Reclaim**: Player Head
+
+### 5
+- **Item Required**: Creeper Head
+- **Transformed Creature**: Giant Creeper Head
+- **Attack Type & Fire Rate**: High-Explosive Fireball (2.5s)
+- **Sound Cues**: Terrifying fuse hiss
+- **Shearing Reclaim**: Creeper Head
+
+### 6
+- **Item Required**: Piglin Head
+- **Transformed Creature**: Giant Piglin Head
+- **Attack Type & Fire Rate**: Rapid Blazing Fireballs (0.8s)
+- **Sound Cues**: Aggressive piglin snorts
+- **Shearing Reclaim**: Piglin Head
+
+### 7
+- **Item Required**: Dragon Head
+- **Transformed Creature**: Colossal Ender Dragon Head
+- **Attack Type & Fire Rate**: Lingering Dragon Fireball (3.0s, 100 HP)
+- **Sound Cues**: Ender Dragon roar and growl
+- **Shearing Reclaim**: Dragon Head
 
 ---
 
@@ -74,3 +119,9 @@ Interact with any Ghast while holding a skull to trigger the transformation:
 ---
 
 © All rights reserved for AllensCreations.
+
+---
+
+## Search & Discovery Keywords
+
+Minecraft Bedrock add-on, giant flying mob heads, Ghast transformer mod, Minecraft PE mob skulls, wearable mob heads, wither skeleton ghast, custom projectiles Bedrock, MCPEDL add-on, CurseForge Bedrock, AllensCreations.

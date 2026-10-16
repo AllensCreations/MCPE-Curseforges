@@ -52,20 +52,53 @@ Equipping a Saddle onto supported large companions enables manual mounting and d
 
 ## Tameable Mob Roster (32 Mobs)
 
-| Category | Supported Mobs | Special Abilities |
-| :--- | :--- | :--- |
-| **Undead** | Zombie, Drowned, Husk, Zombie Villager, Zombified Pigman | Helmet sunlight protection, melee defense |
-| **Skeletons** | Skeleton, Stray, Bogged, Wither Skeleton | Ranged arrow support, Wither effect |
-| **Tricky Trials** | Breeze | Wind Charge projectile launcher |
-| **Nether Beasts** | Hoglin, Zoglin | High knockback, rideable war beast |
-| **Explosives** | Creeper | Targeted single-use defensive explosion |
-| **Arachnids** | Spider, Cave Spider | Vertical wall climbing, rideable mount |
-| **Dimensionals** | Enderman | Teleport interception, heavy melee damage |
-| **Piglins** | Piglin, Piglin Brute | High attack speed, battle axe sweeps |
-| **Occult and Slimes** | Witch, Slime, Magma Cube | Lingering potion effects, crowd control |
-| **Nether and Sky** | Blaze, Ghast, Phantom | Fireball artillery, aerial escort |
-| **Illagers and Spirits**| Ravager, Vindicator, Pillager, Evoker, Vex | Heavy mount, fangs, spirit vex minions |
-| **Golems** | Iron Golem, Snow Golem | Frontline defense, rideable mount |
+### Undead
+- **Supported Mobs**: Zombie, Drowned, Husk, Zombie Villager, Zombified Pigman
+- **Special Abilities**: Helmet sunlight protection, melee defense
+
+### Skeletons
+- **Supported Mobs**: Skeleton, Stray, Bogged, Wither Skeleton
+- **Special Abilities**: Ranged arrow support, Wither effect
+
+### Tricky Trials
+- **Supported Mobs**: Breeze
+- **Special Abilities**: Wind Charge projectile launcher
+
+### Nether Beasts
+- **Supported Mobs**: Hoglin, Zoglin
+- **Special Abilities**: High knockback, rideable war beast
+
+### Explosives
+- **Supported Mobs**: Creeper
+- **Special Abilities**: Targeted single-use defensive explosion
+
+### Arachnids
+- **Supported Mobs**: Spider, Cave Spider
+- **Special Abilities**: Vertical wall climbing, rideable mount
+
+### Dimensionals
+- **Supported Mobs**: Enderman
+- **Special Abilities**: Teleport interception, heavy melee damage
+
+### Piglins
+- **Supported Mobs**: Piglin, Piglin Brute
+- **Special Abilities**: High attack speed, battle axe sweeps
+
+### Occult and Slimes
+- **Supported Mobs**: Witch, Slime, Magma Cube
+- **Special Abilities**: Lingering potion effects, crowd control
+
+### Nether and Sky
+- **Supported Mobs**: Blaze, Ghast, Phantom
+- **Special Abilities**: Fireball artillery, aerial escort
+
+### Illagers and Spirits
+- **Supported Mobs**: Ravager, Vindicator, Pillager, Evoker, Vex
+- **Special Abilities**: Heavy mount, fangs, spirit vex minions
+
+### Golems
+- **Supported Mobs**: Iron Golem, Snow Golem
+- **Special Abilities**: Frontline defense, rideable mount
 
 ---
 
@@ -75,13 +108,20 @@ Equipping a Saddle onto supported large companions enables manual mounting and d
 
 ![Primal Beast Biscuit Item](https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/MCPEDL/addons/Monster-Companions/beast_biscuit_preview.png)
 
-| Attribute | Specification |
-| :--- | :--- |
-| **Identifier** | `custom:beast_biscuit` |
-| **Function** | Pacification item (below 50% HP) / Health restoration item |
-| **Healing Value** | 10 HP (5 Hearts) |
-| **Stack Size** | 64 |
-| **Texture File** | `resource_pack/textures/items/beast_biscuit.png` |
+### Identifier
+- **Specification**: `custom:beast_biscuit`
+
+### Function
+- **Specification**: Pacification item (below 50% HP) / Health restoration item
+
+### Healing Value
+- **Specification**: 10 HP (5 Hearts)
+
+### Stack Size
+- **Specification**: 64
+
+### Texture File
+- **Specification**: `resource_pack/textures/items/beast_biscuit.png`
 
 ---
 
@@ -107,3 +147,9 @@ Equipping a Saddle onto supported large companions enables manual mounting and d
 ---
 
 © All rights reserved for AllensCreations.
+
+---
+
+## Search & Discovery Keywords
+
+Minecraft Bedrock monster companions, tame hostile mobs, rideable spiders creepers, beast biscuit taming, bodyguard mobs Bedrock, companion add-on, MCPEDL, CurseForge, AllensCreations.

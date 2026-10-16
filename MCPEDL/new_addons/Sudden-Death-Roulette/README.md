@@ -22,13 +22,30 @@ After an initial 15-second grace period upon spawning, probabilistic death rolls
 
 ## Escalating Danger Stages
 
-| Stage | Trigger & Frequency | Audio-Visual Warning | Threat Level |
-| :--- | :--- | :--- | :--- |
-| **Grace Period** | First 15 seconds after joining | Peaceful ambient chimes, initial rules toast | Safe |
-| **Stage 1: The Whispers** | Early roll failure | Faint warden heartbeat, unsettling subterranean whisper sounds | Low |
-| **Stage 2: The Shivers** | Moderate roll failure | Sudden screen darkening, shivering sound, cold dread title | High |
-| **Stage 3: The Toll** | Critical roll failure | Resonant bell toll, screeching ghast echo, final warning broadcast | Imminent Death |
-| **Elimination** | Lethal roulette strike | 40-tick cinematic blindness jumpscare, thunder roar, instant lethal damage | Game Over |
+### Grace Period
+- **Trigger & Frequency**: First 15 seconds after joining
+- **Audio-Visual Warning**: Peaceful ambient chimes, initial rules toast
+- **Threat Level**: Safe
+
+### Stage 1: The Whispers
+- **Trigger & Frequency**: Early roll failure
+- **Audio-Visual Warning**: Faint warden heartbeat, unsettling subterranean whisper sounds
+- **Threat Level**: Low
+
+### Stage 2: The Shivers
+- **Trigger & Frequency**: Moderate roll failure
+- **Audio-Visual Warning**: Sudden screen darkening, shivering sound, cold dread title
+- **Threat Level**: High
+
+### Stage 3: The Toll
+- **Trigger & Frequency**: Critical roll failure
+- **Audio-Visual Warning**: Resonant bell toll, screeching ghast echo, final warning broadcast
+- **Threat Level**: Imminent Death
+
+### Elimination
+- **Trigger & Frequency**: Lethal roulette strike
+- **Audio-Visual Warning**: 40-tick cinematic blindness jumpscare, thunder roar, instant lethal damage
+- **Threat Level**: Game Over
 
 ---
 
@@ -49,3 +66,9 @@ After an initial 15-second grace period upon spawning, probabilistic death rolls
 - **Creator**: AllensCreations. All rights reserved.
 - **Content Creators**: You are welcome to feature Sudden Death Roulette in videos, streams, and showcase challenges with credit to AllensCreations.
 - **Redistribution**: Direct re-uploading of original or modified files to third-party marketplaces, APK sites, or file-sharing platforms without explicit permission is strictly prohibited.
+
+---
+
+## Search & Discovery Keywords
+
+Minecraft Bedrock survival challenge, sudden death roulette, find diamond challenge, death countdown minigame, intense survival race, Minecraft PE challenge pack, MCPEDL, CurseForge, AllensCreations.

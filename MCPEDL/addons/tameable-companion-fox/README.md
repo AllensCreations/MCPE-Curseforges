@@ -25,27 +25,51 @@ No experimental features required. Designed to keep achievements enabled while p
 
 ## Key Features
 
-| Feature | Description |
-| :--- | :--- |
-| Berry Taming | Tame wild red and arctic foxes using sweet berries or glow berries. |
-| Bodyguard Protection | Tamed foxes bravely defend you by attacking hostile mobs that target you. |
-| Upgraded Vitality | Companions receive a boosted 30 HP health pool for extra combat resilience. |
-| Sit & Stand Commands | Simply tap with an empty hand to switch between following mode and cozy resting. |
-| Weapon Arming | Hand any sword or axe to your fox to boost its attack power in combat. |
-| Healing Support | Feed berries to your companion at any time to restore its health during battle. |
+### Berry Taming
+- **Description**: Tame wild red and arctic foxes using sweet berries or glow berries.
+
+### Bodyguard Protection
+- **Description**: Tamed foxes bravely defend you by attacking hostile mobs that target you.
+
+### Upgraded Vitality
+- **Description**: Companions receive a boosted 30 HP health pool for extra combat resilience.
+
+### Sit & Stand Commands
+- **Description**: Simply tap with an empty hand to switch between following mode and cozy resting.
+
+### Weapon Arming
+- **Description**: Hand any sword or axe to your fox to boost its attack power in combat.
+
+### Healing Support
+- **Description**: Feed berries to your companion at any time to restore its health during battle.
 
 ---
 
 ## How It Works
 
-| Action | Requirement | What Happens |
-| :--- | :--- | :--- |
-| Tame Fox | Sweet Berries / Glow Berries | Pacifies the wild fox and establishes a permanent companion bond. |
-| Command Sit | Empty Hand (on standing fox) | Commands your fox to sit down and rest in place. |
-| Command Stand | Empty Hand (on sitting fox) | Fox stands up and resumes active bodyguard following. |
-| Equip Sword | Hold Sword & Interact | Arms your fox with the sword held in its mouth for extra damage. |
-| Equip Axe | Hold Axe & Interact | Arms your fox with the axe for heavy-hitting combat strikes. |
-| Restore Health | Feed Berries | Quickly heals your companion when damaged. |
+### Tame Fox
+- **Requirement**: Sweet Berries / Glow Berries
+- **What Happens**: Pacifies the wild fox and establishes a permanent companion bond.
+
+### Command Sit
+- **Requirement**: Empty Hand (on standing fox)
+- **What Happens**: Commands your fox to sit down and rest in place.
+
+### Command Stand
+- **Requirement**: Empty Hand (on sitting fox)
+- **What Happens**: Fox stands up and resumes active bodyguard following.
+
+### Equip Sword
+- **Requirement**: Hold Sword & Interact
+- **What Happens**: Arms your fox with the sword held in its mouth for extra damage.
+
+### Equip Axe
+- **Requirement**: Hold Axe & Interact
+- **What Happens**: Arms your fox with the axe for heavy-hitting combat strikes.
+
+### Restore Health
+- **Requirement**: Feed Berries
+- **What Happens**: Quickly heals your companion when damaged.
 
 ---
 
@@ -69,3 +93,9 @@ No experimental features required. Designed to keep achievements enabled while p
 ---
 
 © All rights reserved for AllensCreations.
+
+---
+
+## Search & Discovery Keywords
+
+Minecraft Bedrock tameable foxes, pet companion fox, tame arctic fox, sweet berry taming, cute companion mod, Minecraft PE foxes, MCPEDL, CurseForge, AllensCreations.

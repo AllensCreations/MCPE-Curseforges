@@ -71,18 +71,19 @@ To ensure the markdown renders identically on external platforms (MCPEDL, CurseF
 
 ## Key Features
 
-| Feature | Description |
-| :--- | :--- |
-| **[Feature Name]** | [Player-focused explanation of what it does] |
-| **[Feature Name]** | [Player-focused explanation of what it does] |
+### [Feature Name]
+- **Description**: [Player-focused explanation of what it does]
+
+### [Feature Name]
+- **Description**: [Player-focused explanation of what it does]
 
 ---
 
 ## How It Works
 
-| Action | Requirement | What Happens |
-| :--- | :--- | :--- |
-| **[Interaction]** | [Required Item / Key] | [In-game result] |
+### [Interaction Name]
+- **Requirement**: [Required Item / Key / Action]
+- **What Happens**: [In-game result and visual feedback]
 
 ---
 
@@ -105,4 +106,10 @@ To ensure the markdown renders identically on external platforms (MCPEDL, CurseF
 ---
 
 © All rights reserved for AllensCreations.
+
+---
+
+## Search & Discovery Keywords
+
+Minecraft Bedrock add-on, [Add-on Name] Bedrock mod, Minecraft PE survival, MCPEDL add-on, CurseForge Bedrock, AllensCreations.
 ```

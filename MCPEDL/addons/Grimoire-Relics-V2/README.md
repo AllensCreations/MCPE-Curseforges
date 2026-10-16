@@ -27,28 +27,85 @@ Holding a Grimoire in your offhand dynamically attunes your character:
 
 ## The 20 Grimoire Relics
 
-| Relic Name | Abilities & Mechanics | Acquisition |
-| :--- | :--- | :--- |
-| <img src="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/MCPEDL/addons/Grimoire-Relics-V2/assets/items/tome_phoenix.png" width="20" height="20" alt="Infernal Phoenix"> **Infernal Phoenix** | Permanent Fire Resistance. Attackers that melee hit you are set on fire for 5s; targets you melee hit burn for 5s. | **Ancient Relic (Loot Only)**: Bastion Treasure |
-| <img src="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/MCPEDL/addons/Grimoire-Relics-V2/assets/items/tome_abyss.png" width="20" height="20" alt="Abyssal Tide"> **Abyssal Tide** | Permanent Water Breathing. Night Vision while underwater. Dolphin's Grace while swimming. | Craftable |
-| <img src="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/MCPEDL/addons/Grimoire-Relics-V2/assets/items/tome_zephyr.png" width="20" height="20" alt="Zephyr Wind"> **Zephyr Wind** | Speed II + Jump Boost I. Auto Slow Falling when plunging (downward velocity < -0.5). Full fall damage immunity. | Craftable |
-| <img src="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/MCPEDL/addons/Grimoire-Relics-V2/assets/items/tome_lich.png" width="20" height="20" alt="Necrotic Lich"> **Necrotic Lich** | Melee strikes inflict Wither II for 3s on victims. | **Ancient Relic (Loot Only)**: Bastion Treasure |
-| <img src="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/MCPEDL/addons/Grimoire-Relics-V2/assets/items/tome_titan.png" width="20" height="20" alt="Mountain Titan"> **Mountain Titan** | Permanent Resistance II and Slowness I. Complete knockback immunity (cancels knockback velocity on damage). | Craftable |
-| <img src="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/MCPEDL/addons/Grimoire-Relics-V2/assets/items/tome_vampire.png" width="20" height="20" alt="Blood Vampire"> **Blood Vampire** | Life Leech: Every successful melee strike restores 1 full heart (2 HP). | **Ancient Relic (Loot Only)**: Dungeon Monster Rooms |
-| <img src="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/MCPEDL/addons/Grimoire-Relics-V2/assets/items/tome_lunar.png" width="20" height="20" alt="Lunar Eclipse"> **Lunar Eclipse** | Nocturnal Blessing: Invisibility and Strength I during nighttime (13000–23000 ticks) in the Overworld. | Craftable |
-| <img src="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/MCPEDL/addons/Grimoire-Relics-V2/assets/items/tome_solar.png" width="20" height="20" alt="Solar Dawn"> **Solar Dawn** | Solar Nourishment: Saturation and Regeneration I under open daylight skies in the Overworld. | Craftable |
-| <img src="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/MCPEDL/addons/Grimoire-Relics-V2/assets/items/tome_druid.png" width="20" height="20" alt="Verdant Druid"> **Verdant Druid** | Poison immunity. Naturally fertilizes crops and advances saplings within a 3-block radius. | Craftable |
-| <img src="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/MCPEDL/addons/Grimoire-Relics-V2/assets/items/tome_frost.png" width="20" height="20" alt="Frost Weaver"> **Frost Weaver** | Frost Walker II (freezes water underfoot into frosted ice, unless sneaking). Complete immunity to powder snow freezing. | Craftable |
-| <img src="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/MCPEDL/addons/Grimoire-Relics-V2/assets/items/tome_storm.png" width="20" height="20" alt="Stormcaller"> **Stormcaller** | Speed III outdoors during rain or thunderstorms. 15% chance to strike melee attackers with real lightning. | Craftable |
-| <img src="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/MCPEDL/addons/Grimoire-Relics-V2/assets/items/tome_delver.png" width="20" height="20" alt="Deep Delver"> **Deep Delver** | Permanent Haste II. Automatically manifests an invisible light block at feet when below Y=55 in the dark. | Craftable |
-| <img src="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/MCPEDL/addons/Grimoire-Relics-V2/assets/items/tome_void.png" width="20" height="20" alt="Void Phantom"> **Void Phantom** | Emergency Void Rescue (The End only): Falling into the void launches you upward with a 2-second Level 60 fast phase elevation out of the abyss, followed by 1-second Slow Falling triggered at ground contact on descent to completely negate fall damage (5 min cooldown). | **Ancient Relic (Loot Only)**: Ancient Cities |
-| <img src="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/MCPEDL/addons/Grimoire-Relics-V2/assets/items/tome_golem.png" width="20" height="20" alt="Iron Golem"> **Iron Golem** | Fortified Armor: Grants 4 Absorption hearts every 30s. Melee strikes launch enemies upward into the air. | Craftable |
-| <img src="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/MCPEDL/addons/Grimoire-Relics-V2/assets/items/tome_hydra.png" width="20" height="20" alt="Venom Hydra"> **Venom Hydra** | Full immunity to Poison and Wither. Melee attacks inflict Poison II (5s). | Craftable |
-| <img src="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/MCPEDL/addons/Grimoire-Relics-V2/assets/items/tome_alchemist.png" width="20" height="20" alt="Cursed Alchemist"> **Cursed Alchemist** | Potion Mastery: Permanently preserves and refreshes the duration of active beneficial potion effects. | Craftable |
-| <img src="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/MCPEDL/addons/Grimoire-Relics-V2/assets/items/tome_seraph.png" width="20" height="20" alt="Radiant Seraph"> **Radiant Seraph** | Permanent Regeneration II. Complete immunity to Blindness and Nausea. | Craftable |
-| <img src="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/MCPEDL/addons/Grimoire-Relics-V2/assets/items/tome_scholar.png" width="20" height="20" alt="Arcane Scholar"> **Arcane Scholar** | Arcane Intellect: Triples all experience gained from mob drops, mining, and orbs. | Craftable |
-| <img src="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/MCPEDL/addons/Grimoire-Relics-V2/assets/items/tome_mirror.png" width="20" height="20" alt="Mirror Trickster"> **Mirror Trickster** | Elusive Phase: 25% chance upon taking damage to negate all incoming damage and blink 3 blocks backward through smoke. | **Ancient Relic (Loot Only)**: Ancient Cities |
-| <img src="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/MCPEDL/addons/Grimoire-Relics-V2/assets/items/tome_dragon.png" width="20" height="20" alt="Cataclysm Dragon"> **Cataclysm Dragon** | Strength II and Resistance I. Complete immunity to dragon breath and explosions (recovers damage as health). | **Ancient Relic (Loot Only)**: End Cities |
+### <img src="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/MCPEDL/addons/Grimoire-Relics-V2/assets/items/tome_phoenix.png" width="20" height="20" alt="Infernal Phoenix"> **Infernal Phoenix**
+- **Abilities & Mechanics**: Permanent Fire Resistance. Attackers that melee hit you are set on fire for 5s; targets you melee hit burn for 5s.
+- **Acquisition**: **Ancient Relic (Loot Only)**: Bastion Treasure
+
+### <img src="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/MCPEDL/addons/Grimoire-Relics-V2/assets/items/tome_abyss.png" width="20" height="20" alt="Abyssal Tide"> **Abyssal Tide**
+- **Abilities & Mechanics**: Permanent Water Breathing. Night Vision while underwater. Dolphin's Grace while swimming.
+- **Acquisition**: Craftable
+
+### <img src="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/MCPEDL/addons/Grimoire-Relics-V2/assets/items/tome_zephyr.png" width="20" height="20" alt="Zephyr Wind"> **Zephyr Wind**
+- **Abilities & Mechanics**: Speed II + Jump Boost I. Auto Slow Falling when plunging (downward velocity < -0.5). Full fall damage immunity.
+- **Acquisition**: Craftable
+
+### <img src="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/MCPEDL/addons/Grimoire-Relics-V2/assets/items/tome_lich.png" width="20" height="20" alt="Necrotic Lich"> **Necrotic Lich**
+- **Abilities & Mechanics**: Melee strikes inflict Wither II for 3s on victims.
+- **Acquisition**: **Ancient Relic (Loot Only)**: Bastion Treasure
+
+### <img src="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/MCPEDL/addons/Grimoire-Relics-V2/assets/items/tome_titan.png" width="20" height="20" alt="Mountain Titan"> **Mountain Titan**
+- **Abilities & Mechanics**: Permanent Resistance II and Slowness I. Complete knockback immunity (cancels knockback velocity on damage).
+- **Acquisition**: Craftable
+
+### <img src="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/MCPEDL/addons/Grimoire-Relics-V2/assets/items/tome_vampire.png" width="20" height="20" alt="Blood Vampire"> **Blood Vampire**
+- **Abilities & Mechanics**: Life Leech: Every successful melee strike restores 1 full heart (2 HP).
+- **Acquisition**: **Ancient Relic (Loot Only)**: Dungeon Monster Rooms
+
+### <img src="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/MCPEDL/addons/Grimoire-Relics-V2/assets/items/tome_lunar.png" width="20" height="20" alt="Lunar Eclipse"> **Lunar Eclipse**
+- **Abilities & Mechanics**: Nocturnal Blessing: Invisibility and Strength I during nighttime (13000–23000 ticks) in the Overworld.
+- **Acquisition**: Craftable
+
+### <img src="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/MCPEDL/addons/Grimoire-Relics-V2/assets/items/tome_solar.png" width="20" height="20" alt="Solar Dawn"> **Solar Dawn**
+- **Abilities & Mechanics**: Solar Nourishment: Saturation and Regeneration I under open daylight skies in the Overworld.
+- **Acquisition**: Craftable
+
+### <img src="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/MCPEDL/addons/Grimoire-Relics-V2/assets/items/tome_druid.png" width="20" height="20" alt="Verdant Druid"> **Verdant Druid**
+- **Abilities & Mechanics**: Poison immunity. Naturally fertilizes crops and advances saplings within a 3-block radius.
+- **Acquisition**: Craftable
+
+### <img src="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/MCPEDL/addons/Grimoire-Relics-V2/assets/items/tome_frost.png" width="20" height="20" alt="Frost Weaver"> **Frost Weaver**
+- **Abilities & Mechanics**: Frost Walker II (freezes water underfoot into frosted ice, unless sneaking). Complete immunity to powder snow freezing.
+- **Acquisition**: Craftable
+
+### <img src="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/MCPEDL/addons/Grimoire-Relics-V2/assets/items/tome_storm.png" width="20" height="20" alt="Stormcaller"> **Stormcaller**
+- **Abilities & Mechanics**: Speed III outdoors during rain or thunderstorms. 15% chance to strike melee attackers with real lightning.
+- **Acquisition**: Craftable
+
+### <img src="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/MCPEDL/addons/Grimoire-Relics-V2/assets/items/tome_delver.png" width="20" height="20" alt="Deep Delver"> **Deep Delver**
+- **Abilities & Mechanics**: Permanent Haste II. Automatically manifests an invisible light block at feet when below Y=55 in the dark.
+- **Acquisition**: Craftable
+
+### <img src="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/MCPEDL/addons/Grimoire-Relics-V2/assets/items/tome_void.png" width="20" height="20" alt="Void Phantom"> **Void Phantom**
+- **Abilities & Mechanics**: Emergency Void Rescue (The End only): Falling into the void launches you upward with a 2-second Level 60 fast phase elevation out of the abyss, followed by 1-second Slow Falling triggered at ground contact on descent to completely negate fall damage (5 min cooldown).
+- **Acquisition**: **Ancient Relic (Loot Only)**: Ancient Cities
+
+### <img src="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/MCPEDL/addons/Grimoire-Relics-V2/assets/items/tome_golem.png" width="20" height="20" alt="Iron Golem"> **Iron Golem**
+- **Abilities & Mechanics**: Fortified Armor: Grants 4 Absorption hearts every 30s. Melee strikes launch enemies upward into the air.
+- **Acquisition**: Craftable
+
+### <img src="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/MCPEDL/addons/Grimoire-Relics-V2/assets/items/tome_hydra.png" width="20" height="20" alt="Venom Hydra"> **Venom Hydra**
+- **Abilities & Mechanics**: Full immunity to Poison and Wither. Melee attacks inflict Poison II (5s).
+- **Acquisition**: Craftable
+
+### <img src="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/MCPEDL/addons/Grimoire-Relics-V2/assets/items/tome_alchemist.png" width="20" height="20" alt="Cursed Alchemist"> **Cursed Alchemist**
+- **Abilities & Mechanics**: Potion Mastery: Permanently preserves and refreshes the duration of active beneficial potion effects.
+- **Acquisition**: Craftable
+
+### <img src="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/MCPEDL/addons/Grimoire-Relics-V2/assets/items/tome_seraph.png" width="20" height="20" alt="Radiant Seraph"> **Radiant Seraph**
+- **Abilities & Mechanics**: Permanent Regeneration II. Complete immunity to Blindness and Nausea.
+- **Acquisition**: Craftable
+
+### <img src="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/MCPEDL/addons/Grimoire-Relics-V2/assets/items/tome_scholar.png" width="20" height="20" alt="Arcane Scholar"> **Arcane Scholar**
+- **Abilities & Mechanics**: Arcane Intellect: Triples all experience gained from mob drops, mining, and orbs.
+- **Acquisition**: Craftable
+
+### <img src="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/MCPEDL/addons/Grimoire-Relics-V2/assets/items/tome_mirror.png" width="20" height="20" alt="Mirror Trickster"> **Mirror Trickster**
+- **Abilities & Mechanics**: Elusive Phase: 25% chance upon taking damage to negate all incoming damage and blink 3 blocks backward through smoke.
+- **Acquisition**: **Ancient Relic (Loot Only)**: Ancient Cities
+
+### <img src="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/MCPEDL/addons/Grimoire-Relics-V2/assets/items/tome_dragon.png" width="20" height="20" alt="Cataclysm Dragon"> **Cataclysm Dragon**
+- **Abilities & Mechanics**: Strength II and Resistance I. Complete immunity to dragon breath and explosions (recovers damage as health).
+- **Acquisition**: **Ancient Relic (Loot Only)**: End Cities
 
 ---
 
@@ -108,3 +165,9 @@ Ancient tomes generate naturally inside exploration chests across the world, occ
 ---
 
 © All rights reserved for AllensCreations.
+
+---
+
+## Search & Discovery Keywords
+
+Minecraft Bedrock RPG add-on, magical offhand grimoires, Bedrock relics system, ancient tomes loot, offhand passive auras, fire resistance tome, void rescue, Minecraft PE magic spells, MCPEDL, CurseForge, AllensCreations.

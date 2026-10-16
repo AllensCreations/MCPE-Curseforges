@@ -27,25 +27,53 @@ No experimental features required. Designed to keep achievements enabled while p
 
 ## Features and Light Power Ratings
 
-| Equipment / Item | Light Power Level | Illumination Type | Description |
-| :--- | :---: | :--- | :--- |
-| **Mining Helmet (Lantern)** | **15** | High-Intensity Beam | Full daylight-equivalent illumination. Maximum light level in Minecraft Bedrock. |
-| **Mining Helmet (Torch)** | **10** | Medium Warm Glow | Atmospheric survival light suitable for early-game spelunking. |
-| **Handheld / Offhand Lantern** | **15** | Portable Floodlight | Dynamic light emitted when holding a standard Lantern in your main hand or offhand. |
-| **Handheld / Offhand Torch** | **10** | Portable Torch Light | Dynamic light emitted when holding a standard Torch in your main hand or offhand. |
+### Mining Helmet (Lantern)
+- **Light Power Level**: **15**
+- **Illumination Type**: High-Intensity Beam
+- **Description**: Full daylight-equivalent illumination. Maximum light level in Minecraft Bedrock.
+
+### Mining Helmet (Torch)
+- **Light Power Level**: **10**
+- **Illumination Type**: Medium Warm Glow
+- **Description**: Atmospheric survival light suitable for early-game spelunking.
+
+### Handheld / Offhand Lantern
+- **Light Power Level**: **15**
+- **Illumination Type**: Portable Floodlight
+- **Description**: Dynamic light emitted when holding a standard Lantern in your main hand or offhand.
+
+### Handheld / Offhand Torch
+- **Light Power Level**: **10**
+- **Illumination Type**: Portable Torch Light
+- **Description**: Dynamic light emitted when holding a standard Torch in your main hand or offhand.
 
 ---
 
 ## Equipment Specifications
 
-| Attribute | Lantern Version | Torch Version |
-| :--- | :--- | :--- |
-| **Light Power** | Level 15 (Daylight Maximum) | Level 10 (Warm Glow) |
-| **Equipment Slot** | Head Armor | Head Armor |
-| **Armor Defense** | 2 Armor Points | 2 Armor Points |
-| **Durability** | 165 Uses | 165 Uses |
-| **Repair Item** | Gold Ingot | Gold Ingot |
-| **Enchantability** | Protection, Unbreaking, Mending, Aqua Affinity, Respiration | Protection, Unbreaking, Mending, Aqua Affinity, Respiration |
+### Light Power
+- **Lantern Version**: Level 15 (Daylight Maximum)
+- **Torch Version**: Level 10 (Warm Glow)
+
+### Equipment Slot
+- **Lantern Version**: Head Armor
+- **Torch Version**: Head Armor
+
+### Armor Defense
+- **Lantern Version**: 2 Armor Points
+- **Torch Version**: 2 Armor Points
+
+### Durability
+- **Lantern Version**: 165 Uses
+- **Torch Version**: 165 Uses
+
+### Repair Item
+- **Lantern Version**: Gold Ingot
+- **Torch Version**: Gold Ingot
+
+### Enchantability
+- **Lantern Version**: Protection, Unbreaking, Mending, Aqua Affinity, Respiration
+- **Torch Version**: Protection, Unbreaking, Mending, Aqua Affinity, Respiration
 
 ---
 
@@ -83,3 +111,9 @@ Combine a standard **Torch** with a **Golden Helmet** to craft the Level 10 Mini
 ---
 
 © All rights reserved for AllensCreations.
+
+---
+
+## Search & Discovery Keywords
+
+Minecraft Bedrock dynamic lighting, wearable mining helmet, moving light source, Bedrock lantern helmet, cave exploration mod, hands-free torch light, MCPEDL, CurseForge, AllensCreations.

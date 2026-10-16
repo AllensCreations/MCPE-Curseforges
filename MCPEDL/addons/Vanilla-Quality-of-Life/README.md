@@ -30,24 +30,63 @@ Optimized for smooth survival performance with zero lag. Requires zero experimen
 
 ## Features and Specifications
 
-### Comparison Table
+### Feature Comparison Highlights
 
-| Feature | Vanilla Bedrock | With Vanilla QoL |
-| :--- | :--- | :--- |
-| **Tool & Weapon Switching** | Manual hotbar selection | Automatic optimal tool/weapon swap when holding Slot 1 |
-| **Tree Harvesting** | 1 log at a time | Sneak-axe fells entire tree up to 128 logs with 26-neighbor 3D scan & canopy protection |
-| **Ore Vein Mining** | 1 ore block at a time | Sneak-pickaxe domino mines contiguous veins across 26 neighbors |
-| **Tool Durability Safety** | Tools break unexpectedly | Auto-halts chain mining at 1 durability with alert sounds |
-| **Offhand Utilities & Lighting** | Shield and Totem only | Double-sneak offhand swap + real-time moving torch/lantern light |
-| **Leashing Mobs** | Passive mobs only | All non-boss mobs (Villagers, Golems, Hostiles; Warden/Wither/Dragon immune) |
-| **Hostile Mob Aggro on Leads** | Hostile attacks continue | Pacified while attached to a lead |
-| **Pet Friendly-Fire** | Pets damaged by player attacks | Immune to player melee sweeps, arrows, and explosions |
-| **Leaf Decay Speed** | 10 to 30 seconds | 1 to 2 seconds |
-| **Woodcutting in Stonecutter** | Not supported (stone only) | All 12 wood types supported at fair 1:1 ratios |
-| **Potion & Milk Stacking** | 1 per inventory slot | Stacks up to 16 |
-| **Shulker Shell Yield** | 0 to 1 shell per mob | 1 to 2 shells per Shulker kill (+1 with Looting) |
-| **Multiplayer Sleep** | All online players must sleep | 1 player sleeping skips the night |
-| **Mob Head Trophy Drops** | Requires Charged Creeper kill | 1.0% base drop chance on player kills (+0.5% per Looting) |
+### Tool & Weapon Switching
+- **Vanilla Bedrock**: Manual hotbar selection
+- **With Vanilla QoL**: Automatic optimal tool/weapon swap when holding Slot 1
+
+### Tree Harvesting
+- **Vanilla Bedrock**: 1 log at a time
+- **With Vanilla QoL**: Sneak-axe fells entire tree up to 128 logs with 26-neighbor 3D scan & canopy protection
+
+### Ore Vein Mining
+- **Vanilla Bedrock**: 1 ore block at a time
+- **With Vanilla QoL**: Sneak-pickaxe domino mines contiguous veins across 26 neighbors
+
+### Tool Durability Safety
+- **Vanilla Bedrock**: Tools break unexpectedly
+- **With Vanilla QoL**: Auto-halts chain mining at 1 durability with alert sounds
+
+### Offhand Utilities & Lighting
+- **Vanilla Bedrock**: Shield and Totem only
+- **With Vanilla QoL**: Double-sneak offhand swap + real-time moving torch/lantern light
+
+### Leashing Mobs
+- **Vanilla Bedrock**: Passive mobs only
+- **With Vanilla QoL**: All non-boss mobs (Villagers, Golems, Hostiles; Warden/Wither/Dragon immune)
+
+### Hostile Mob Aggro on Leads
+- **Vanilla Bedrock**: Hostile attacks continue
+- **With Vanilla QoL**: Pacified while attached to a lead
+
+### Pet Friendly-Fire
+- **Vanilla Bedrock**: Pets damaged by player attacks
+- **With Vanilla QoL**: Immune to player melee sweeps, arrows, and explosions
+
+### Leaf Decay Speed
+- **Vanilla Bedrock**: 10 to 30 seconds
+- **With Vanilla QoL**: 1 to 2 seconds
+
+### Woodcutting in Stonecutter
+- **Vanilla Bedrock**: Not supported (stone only)
+- **With Vanilla QoL**: All 12 wood types supported at fair 1:1 ratios
+
+### Potion & Milk Stacking
+- **Vanilla Bedrock**: 1 per inventory slot
+- **With Vanilla QoL**: Stacks up to 16
+
+### Shulker Shell Yield
+- **Vanilla Bedrock**: 0 to 1 shell per mob
+- **With Vanilla QoL**: 1 to 2 shells per Shulker kill (+1 with Looting)
+
+### Multiplayer Sleep
+- **Vanilla Bedrock**: All online players must sleep
+- **With Vanilla QoL**: 1 player sleeping skips the night
+
+### Mob Head Trophy Drops
+- **Vanilla Bedrock**: Requires Charged Creeper kill
+- **With Vanilla QoL**: 1.0% base drop chance on player kills (+0.5% per Looting)
 
 ---
 
@@ -190,3 +229,9 @@ Detailed release notes and historical changes for all major versions are documen
 ---
 
 © All rights reserved for AllensCreations.
+
+---
+
+## Search & Discovery Keywords
+
+Minecraft Bedrock survival quality of life, MCPE QoL mod, Bedrock auto tool switcher, sneak tree capitator, domino ore vein miner, dynamic lighting torch, offhand quick swap Minecraft, universal mob lead leashing, friendly fire pet protection, fast leaf decay, woodcutter stonecutter recipe, potion stacking 16x, MCPEDL add-ons, CurseForge Minecraft Bedrock, Realms compatible QoL, achievements friendly add-on, AllensCreations.

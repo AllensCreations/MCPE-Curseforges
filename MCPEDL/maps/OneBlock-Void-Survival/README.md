@@ -28,30 +28,60 @@ No experimental features required. Designed to keep achievements available while
 
 ## Key Features
 
-| Feature | Description |
-| :--- | :--- |
-| 1-Tick Auto-Renewal | The central block at `(0, 64, 0)` instantly regenerates in 1 tick (0.05s) upon breaking with any tool, fist, or explosive. |
-| Bedrock Foundation | Solid bedrock at `(0, 63, 0)` prevents gravity blocks (sand, gravel, concrete powder) from falling into the void. |
-| 3-Tier Phase Scaling | 50 blocks/phase for early starter biomes, 100 blocks/phase for mid-tier biomes, and 150 blocks/phase for dimension biomes. |
-| 43 Mystery Islands | Handcrafted islands across Overworld (28), Nether (8), and The End (7) unlock progressively as you hit mining milestones. |
-| Starter Platform Assist | Mining the first 8 blocks automatically constructs a protective 3x3 platform around the central block. |
-| Starter Resource Chest | Milestone 15 spawns a bonus supply chest containing water and lava to create your cobblestone generator. |
-| Supply Chests & Lucky Rush | Random bonus chests with phase loot and temporary 10-second surges of accelerated mineral generation. |
-| Dimension Shifter Merchant | Wandering merchant periodically arrives offering exclusive survival trades for rare saplings, seeds, and artifacts. |
-| Admin Photography Studio | Admin Edition includes a double-sneak photo studio GUI, 3/4 isometric panoramic camera coordinates, and lighting toggles. |
+### 1-Tick Auto-Renewal
+- **Description**: The central block at `(0, 64, 0)` instantly regenerates in 1 tick (0.05s) upon breaking with any tool, fist, or explosive.
+
+### Bedrock Foundation
+- **Description**: Solid bedrock at `(0, 63, 0)` prevents gravity blocks (sand, gravel, concrete powder) from falling into the void.
+
+### 3-Tier Phase Scaling
+- **Description**: 50 blocks/phase for early starter biomes, 100 blocks/phase for mid-tier biomes, and 150 blocks/phase for dimension biomes.
+
+### 43 Mystery Islands
+- **Description**: Handcrafted islands across Overworld (28), Nether (8), and The End (7) unlock progressively as you hit mining milestones.
+
+### Starter Platform Assist
+- **Description**: Mining the first 8 blocks automatically constructs a protective 3x3 platform around the central block.
+
+### Starter Resource Chest
+- **Description**: Milestone 15 spawns a bonus supply chest containing water and lava to create your cobblestone generator.
+
+### Supply Chests & Lucky Rush
+- **Description**: Random bonus chests with phase loot and temporary 10-second surges of accelerated mineral generation.
+
+### Dimension Shifter Merchant
+- **Description**: Wandering merchant periodically arrives offering exclusive survival trades for rare saplings, seeds, and artifacts.
+
+### Admin Photography Studio
+- **Description**: Admin Edition includes a double-sneak photo studio GUI, 3/4 isometric panoramic camera coordinates, and lighting toggles.
 
 ---
 
 ## How It Works
 
-| Action / Stage | Trigger | In-Game Result |
-| :--- | :--- | :--- |
-| Mine OneBlock | Break block at `(0, 64, 0)` | Instantly drops resources and replaces with next phase block. |
-| Platform Formation | First 8 blocks broken | Expands safe 3x3 platform to secure player footing. |
-| Cobblestone Setup | Mine 15 blocks | Spawns starter chest with water and lava buckets. |
-| Biome Progression | Complete phase block quota | Advances phase with visual sound cues and higher-tier resources. |
-| Island Discovery | Milestone block thresholds | Procedurally manifests floating theme islands 140–250 blocks away in the void. |
-| Admin Studio | Double-sneak (Admin Edition) | Opens inspection GUI for instant island teleportation and panoramic camera views. |
+### Mine OneBlock
+- **Trigger**: Break block at `(0, 64, 0)`
+- **In-Game Result**: Instantly drops resources and replaces with next phase block.
+
+### Platform Formation
+- **Trigger**: First 8 blocks broken
+- **In-Game Result**: Expands safe 3x3 platform to secure player footing.
+
+### Cobblestone Setup
+- **Trigger**: Mine 15 blocks
+- **In-Game Result**: Spawns starter chest with water and lava buckets.
+
+### Biome Progression
+- **Trigger**: Complete phase block quota
+- **In-Game Result**: Advances phase with visual sound cues and higher-tier resources.
+
+### Island Discovery
+- **Trigger**: Milestone block thresholds
+- **In-Game Result**: Procedurally manifests floating theme islands 140–250 blocks away in the void.
+
+### Admin Studio
+- **Trigger**: Double-sneak (Admin Edition)
+- **In-Game Result**: Opens inspection GUI for instant island teleportation and panoramic camera views.
 
 ---
 
@@ -59,11 +89,17 @@ No experimental features required. Designed to keep achievements available while
 
 As you hit mining milestones, handcrafted mystery islands appear in the distant void across three dimensions:
 
-| Dimension | Island Count | Biomes and Structures |
-| :--- | :---: | :--- |
-| **Overworld** | 28 | Plains Oasis, Desert Temple, Lush Caves, Deep Dark Shrine, Trial Chamber, Mushroom Field, Cherry Grove, Badlands Mesa, Mangrove Swamp, Ice Spikes |
-| **The Nether** | 8 | Crimson Forest, Warped Grove, Soul Sand Valley, Piglin Bastion Treasury, Nether Fortress Outpost, Basalt Deltas |
-| **The End** | 7 | End City Outpost, Chorus Orchard, Purpur Citadel, Void Dragon Altar, Shulker Spire |
+### Overworld
+- **Island Count**: 28
+- **Biomes and Structures**: Plains Oasis, Desert Temple, Lush Caves, Deep Dark Shrine, Trial Chamber, Mushroom Field, Cherry Grove, Badlands Mesa, Mangrove Swamp, Ice Spikes
+
+### The Nether
+- **Island Count**: 8
+- **Biomes and Structures**: Crimson Forest, Warped Grove, Soul Sand Valley, Piglin Bastion Treasury, Nether Fortress Outpost, Basalt Deltas
+
+### The End
+- **Island Count**: 7
+- **Biomes and Structures**: End City Outpost, Chorus Orchard, Purpur Citadel, Void Dragon Altar, Shulker Spire
 
 All islands feature lantern beacons, custom treasure chests, and perimeter buffers.
 
@@ -99,3 +135,9 @@ The map package includes an Admin Edition (`OneBlock_Void_Survival_Admin.mcworld
 ---
 
 © All rights reserved for AllensCreations.
+
+---
+
+## Search & Discovery Keywords
+
+Minecraft Bedrock OneBlock map, OneBlock void survival, renewing block world, 43 void islands, RPG void progression, Dimension Shifter merchant, Minecraft PE custom map, MCPEDL world, CurseForge, AllensCreations.

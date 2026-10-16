@@ -275,28 +275,28 @@ def auto_generate_readme(proj_dir):
 
     readme_path = os.path.join(proj_dir, "README.md")
 
-    # Format features as clean commercial table
-    feature_rows = []
+    # Format features as clean mobile cards
+    feature_cards = []
     if features:
         for f in features:
             parts = f.split(" using ") if " using " in f else (f.split(" with ") if " with " in f else [f, ""])
             title = parts[0].strip().rstrip(".")
             desc = f if not parts[1] else f"Includes {parts[1].rstrip('.')} for optimal companion gameplay."
-            feature_rows.append(f"| {title} | {desc} |")
+            feature_cards.append(f"### {title}\n- **Description**: {desc}")
     else:
-        feature_rows.append("| Companion Mechanics | Enhance your survival world with loyal, protective companions. |")
-        feature_rows.append("| Seamless Integration | Built for standard worlds and Realms with zero experimental flags. |")
+        feature_cards.append("### Companion Mechanics\n- **Description**: Enhance your survival world with loyal, protective companions.")
+        feature_cards.append("### Seamless Integration\n- **Description**: Built for standard worlds and Realms with zero experimental flags.")
 
-    feature_table = "\n".join(feature_rows)
+    feature_section = "\n\n".join(feature_cards)
 
-    # Format in-game usage table
-    interaction_rows = []
+    # Format in-game usage as clean mobile cards
+    interaction_cards = []
     if interactions:
         for act, req, res in interactions:
-            interaction_rows.append(f"| {act} | {req} | {res} |")
+            interaction_cards.append(f"### {act}\n- **Requirement**: {req}\n- **What Happens**: {res}")
     else:
-        interaction_rows.append("| Interact with Companion | Specified Item | Activates custom companion mechanics |")
-    interaction_table = "\n".join(interaction_rows)
+        interaction_cards.append("### Interact with Companion\n- **Requirement**: Specified Item\n- **What Happens**: Activates custom companion mechanics.")
+    interaction_section = "\n\n".join(interaction_cards)
 
     clean_name = meta['name'].replace(" BP", "").replace(" RP", "").strip()
 
@@ -327,17 +327,13 @@ No experimental features required. Designed to keep achievements available while
 
 ## Key Features
 
-| Feature | Description |
-| :--- | :--- |
-{feature_table}
+{feature_section}
 
 ---
 
 ## How It Works
 
-| Action | Requirement | What Happens |
-| :--- | :--- | :--- |
-{interaction_table}
+{interaction_section}
 
 ---
 
@@ -361,6 +357,12 @@ No experimental features required. Designed to keep achievements available while
 ---
 
 © All rights reserved for AllensCreations.
+
+---
+
+## Search & Discovery Keywords
+
+Minecraft Bedrock add-on, {clean_name.lower()} Bedrock mod, Minecraft PE companions, companion animal protection, survival companion add-on, MCPEDL add-on, CurseForge Bedrock, AllensCreations.
 """
     with open(readme_path, "w", encoding="utf-8") as f:
         f.write(content)

@@ -70,17 +70,35 @@ Item components are preserved during swaps:
 
 ---
 
-## Comparison Table
+## Feature Comparison Highlights
 
-| Feature | Vanilla Bedrock | With Passive Auto-Switch Tools |
-| :--- | :--- | :--- |
-| **Tool Swapping** | Manual hotbar selection | Automatic tool selection upon hitting/starting to break |
-| **Combat Swapping** | Manual weapon selection | Automatic switch to axe or sword when hitting mobs |
-| **Look-Around Stability** | Static | Clean & stable (no unwanted swaps while looking) |
-| **Tool Wear Protection** | Manual caution required | Matches optimal tool type directly |
-| **Building and Off-Hand Usage** | Unaffected | Hotbar slots 2 to 9 remain completely manual |
-| **Touch Controls Usability** | Frequent manual hotbar tapping | Automated selection reduces input overhead |
-| **Configuration Requirements** | Not applicable | Zero scoreboard or command setup required |
+### Tool Swapping
+- **Vanilla Bedrock**: Manual hotbar selection
+- **With Passive Auto-Switch Tools**: Automatic tool selection upon hitting/starting to break
+
+### Combat Swapping
+- **Vanilla Bedrock**: Manual weapon selection
+- **With Passive Auto-Switch Tools**: Automatic switch to axe or sword when hitting mobs
+
+### Look-Around Stability
+- **Vanilla Bedrock**: Static
+- **With Passive Auto-Switch Tools**: Clean & stable (no unwanted swaps while looking)
+
+### Tool Wear Protection
+- **Vanilla Bedrock**: Manual caution required
+- **With Passive Auto-Switch Tools**: Matches optimal tool type directly
+
+### Building and Off-Hand Usage
+- **Vanilla Bedrock**: Unaffected
+- **With Passive Auto-Switch Tools**: Hotbar slots 2 to 9 remain completely manual
+
+### Touch Controls Usability
+- **Vanilla Bedrock**: Frequent manual hotbar tapping
+- **With Passive Auto-Switch Tools**: Automated selection reduces input overhead
+
+### Configuration Requirements
+- **Vanilla Bedrock**: Not applicable
+- **With Passive Auto-Switch Tools**: Zero scoreboard or command setup required
 
 ---
 
@@ -94,3 +112,9 @@ Item components are preserved during swaps:
 ---
 
 © All rights reserved for AllensCreations.
+
+---
+
+## Search & Discovery Keywords
+
+Minecraft Bedrock auto switch tools, intelligent tool switcher, Slot 1 auto equip, Bedrock weapon auto swap, survival tool selector, touch controls optimization, MCPEDL, CurseForge, AllensCreations.

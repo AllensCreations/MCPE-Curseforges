@@ -22,12 +22,25 @@ Each banquet meal features customized nutrition values, saturation levels, eatin
 
 ## Feast Tiers & Buff Categories
 
-| Tier | Category | Sample Dishes | Typical Buffs & Effects |
-| :--- | :--- | :--- | :--- |
-| **Tier I** | **Rustic Sustenance** | Potato Loaf, Harvest Loaf, Roasted Roots, Kelp Fish Broth | High saturation, fast eating time, foundational survival replenishment |
-| **Tier II** | **Hearty Provisions** | Bacon & Eggs, Veggie Skillet, Sausage Pan, Hunters Stew | Sustained Saturation, Speed I, Jump Boost I |
-| **Tier III** | **Explorer's Banquets** | Miners Roast, Mariners Pot, Highland Venison, Lumberjacks Ham | Haste II, Night Vision, Dolphins Grace, Water Breathing |
-| **Tier IV** | **Mythic & Imperial Feasts** | Dragonlords Galantine, Sovereign Platter, Celestial Roast, Imperial Feast | Regeneration II, Absorption IV, Strength II, Resistance II, Fire Resistance |
+### Tier I
+- **Category**: **Rustic Sustenance**
+- **Sample Dishes**: Potato Loaf, Harvest Loaf, Roasted Roots, Kelp Fish Broth
+- **Typical Buffs & Effects**: High saturation, fast eating time, foundational survival replenishment
+
+### Tier II
+- **Category**: **Hearty Provisions**
+- **Sample Dishes**: Bacon & Eggs, Veggie Skillet, Sausage Pan, Hunters Stew
+- **Typical Buffs & Effects**: Sustained Saturation, Speed I, Jump Boost I
+
+### Tier III
+- **Category**: **Explorer's Banquets**
+- **Sample Dishes**: Miners Roast, Mariners Pot, Highland Venison, Lumberjacks Ham
+- **Typical Buffs & Effects**: Haste II, Night Vision, Dolphins Grace, Water Breathing
+
+### Tier IV
+- **Category**: **Mythic & Imperial Feasts**
+- **Sample Dishes**: Dragonlords Galantine, Sovereign Platter, Celestial Roast, Imperial Feast
+- **Typical Buffs & Effects**: Regeneration II, Absorption IV, Strength II, Resistance II, Fire Resistance
 
 ---
 
@@ -45,3 +58,9 @@ Each banquet meal features customized nutrition values, saturation levels, eatin
 - **Creator**: AllensCreations. All rights reserved.
 - **Content Creators**: You are welcome to feature Grand Banquets in videos, streams, and showcase packs with credit to AllensCreations.
 - **Redistribution**: Direct re-uploading of unmodified or modified files to third-party marketplaces, APK sites, or file-sharing platforms without explicit permission is strictly prohibited.
+
+---
+
+## Search & Discovery Keywords
+
+Minecraft Bedrock cooking add-on, culinary progression system, custom food recipes, Minecraft PE banquet feasts, food buffs potion saturation, farming cooking mod, MCPEDL, CurseForge, AllensCreations.
