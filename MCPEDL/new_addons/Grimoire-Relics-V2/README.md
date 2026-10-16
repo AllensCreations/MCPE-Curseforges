@@ -77,7 +77,7 @@ There are **14 craftable tomes** crafted at a standard Crafting Table surroundin
   - **Mending** restores tome durability automatically as you collect experience orbs.
 - **Anvil Repairing**:
   - Combine two of the same tomes on an Anvil to restore their remaining durability.
-  - Can also be repaired on an Anvil using standard **Books** (`minecraft:book`) to replenish 25 durability per book.
+  - Can also be repaired on an Anvil using standard **Books** (`minecraft:book`) at a strict **1:1 ratio** (1 book restores 1 durability point).
 - **Shatter**: If durability reaches 0 without being repaired or protected, the tome shatters (`random.break` audio with item break particles) and is removed from your equipment.
 
 ### World Chest Distribution & Found Condition

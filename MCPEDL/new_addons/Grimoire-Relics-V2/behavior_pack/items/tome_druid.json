@@ -37,7 +37,7 @@
             "items": [
               "minecraft:book"
             ],
-            "repair_amount": 25
+            "repair_amount": 1
           }
         ]
       }

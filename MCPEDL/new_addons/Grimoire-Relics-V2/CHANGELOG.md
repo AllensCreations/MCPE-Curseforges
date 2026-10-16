@@ -39,7 +39,7 @@ Initial public release of **Grimoire Relics V2**, an RPG-style magical offhand c
   - Each relic features **100 Max Durability** (`minecraft:durability`).
   - **Event-Only Wear**: Passive stat buffs do not consume durability. Durability is deducted only when active abilities, combat procs, or emergency rescues trigger.
   - **Enchanting & Mending**: Compatible with Enchanting Tables and Anvils (`minecraft:enchantable`), supporting **Mending**, **Efficiency**, and **Unbreaking**.
-  - **Anvil Repairing**: Repairable by combining matching tomes or using vanilla **Books** (`minecraft:book`) to restore 25 durability per book (`minecraft:repairable`).
+  - **Anvil Repairing**: Repairable by combining matching tomes or using vanilla **Books** (`minecraft:book`) at a strict 1:1 ratio (1 durability restored per book) via `minecraft:repairable`.
   - **Shatter Audio & Particles**: Plays authentic item breaking sound, spawns break particles, and notifies the player on shatter.
 - **World Chest Loot Generation**:
   - 6 tomes are designated as uncraftable **Ancient Relics** obtainable only through rare exploration chests:
