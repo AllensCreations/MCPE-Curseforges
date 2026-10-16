@@ -7,6 +7,21 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [1.3.1] - 2026-10-15
+
+### Balance & Compatibility Update
+- **Mob Head Drops Balanced**: Standardized mob head drops (Zombie, Skeleton, Creeper, Piglin, Wither Skeleton, Ender Dragon, PvP Player) to a balanced 1.0% base drop chance (+0.5% per Looting level up to 2.5% max at Looting III).
+- **Wandering Trader Collector Head Trades**: Adjusted head trade offering probability to a rare 2% spawn rate in collector trade pools, priced at 1 Diamond Block + 16 Emeralds per head.
+- **Shulker Shell Drop Rate**: Adjusted Shulker Shell drops to 1 to 2 shells (yielding 2 to 3 with Looting enchantments).
+- **Boss Leashing Immunity**: Removed leashing capability from the Warden, Wither, and Ender Dragon to maintain boss encounter integrity while preserving universal leashing on all 98 standard entities.
+- **Tree Capitator House Protection**: Integrated intelligent leaf canopy detection (`isTreeCanopy`), requiring leaf, wart, or shroomlight adjacency within the tree structure to prevent accidental felling of wooden log cabins or player builds.
+- **Domino Ore Miner Ancient Debris Cap**: Capped contiguous Ancient Debris chain mining to a maximum of 4 blocks (`MAX_ANCIENT_DEBRIS_CLUSTER_SIZE: 4`) to preserve Netherite vein discovery balance.
+- **Durability Safety Guard Threshold**: Tuned durability safety guard threshold from 5 to 1 durability point, giving players maximum tool usage before emergency protection activates.
+- **Stonecutter Woodcutter All 12 Woods**: Added full Stonecutter recipe support for Pale Oak (Logs to Planks, Slabs, Stairs, Fences, Fence Gates, and Trapdoors), completing support for all 12 wood variants in Minecraft Bedrock.
+- **Standalone BP Compatibility**: Decoupled the Resource Pack UUID dependency from `behavior_pack/manifest.json`, allowing the Behavior Pack (`.mcpack`) to run independently without "missing pack" warnings, while still bundling seamlessly in the `.mcaddon`.
+
+---
+
 ## [1.3.0] - 2026-10-15
 
 ### Major Integration Update: The Survival Powerhouse
@@ -36,19 +51,10 @@ This major milestone integrates **Passive Auto-Switch Tools**, **Smart Tree Capi
   - Decrements offhand stack in Survival/Adventure mode (unlimited in Creative).
   - Cave-mining quality of life: keep your Pickaxe in your mainhand while placing torches without swapping items.
 - **Durability Safety Guard**:
-  - Automatically halts chain breaks when tool durability drops to **5 points remaining**.
+  - Automatically halts chain breaks when tool durability drops to **1 point remaining**.
   - Flashes an on-screen action bar warning and plays an alert sound to protect valuable enchanted tools.
 
 ### Changed
-- **Mob Head Drops Balanced**: Standardized mob head drops (Zombie, Skeleton, Creeper, Piglin, Wither Skeleton, Ender Dragon, PvP Player) to a balanced 1.0% base drop chance (+0.5% per Looting level up to 2.5% max at Looting III).
-- **Wandering Trader Collector Head Trades**: Adjusted head trade offering probability to a rare 2% spawn rate in collector trade pools, priced at 1 Diamond Block + 16 Emeralds per head.
-- **Shulker Shell Drop Rate**: Adjusted Shulker Shell drops to 1 to 2 shells (yielding 2 to 3 with Looting enchantments).
-- **Boss Leashing Immunity**: Removed leashing capability from the Warden, Wither, and Ender Dragon to maintain boss encounter integrity while preserving universal leashing on all 98 standard entities.
-- **Tree Capitator House Protection**: Integrated intelligent leaf canopy detection (`isTreeCanopy`), requiring leaf, wart, or shroomlight adjacency within the tree structure to prevent accidental felling of wooden log cabins or player builds.
-- **Domino Ore Miner Ancient Debris Cap**: Capped contiguous Ancient Debris chain mining to a maximum of 4 blocks (`MAX_ANCIENT_DEBRIS_CLUSTER_SIZE: 4`) to preserve Netherite vein discovery balance.
-- **Durability Safety Guard Threshold**: Tuned durability safety guard threshold from 5 to 1 durability point, giving players maximum tool usage before emergency protection activates.
-- **Stonecutter Woodcutter All 12 Woods**: Added full Stonecutter recipe support for Pale Oak (Logs to Planks, Slabs, Stairs, Fences, Fence Gates, and Trapdoors), completing support for all 12 wood variants in Minecraft Bedrock.
-- **Standalone BP Compatibility**: Decoupled the Resource Pack UUID dependency from `behavior_pack/manifest.json`, allowing the Behavior Pack (`.mcpack`) to run independently without "missing pack" warnings, while still bundling seamlessly in the `.mcaddon`.
 - Synchronized Behavior Pack and Resource Pack manifest dependencies and module versions to `[1, 3, 0]`.
 - Normalized `min_engine_version` to `[1, 21, 0]` across both manifests for flawless Bedrock 1.21+ compatibility without "missing dependencies" warnings.
 
