@@ -16,7 +16,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **Void Phantom Retuning (2s Level 60 Elevation & Ground-Block Detected Slow Falling)**:
   - Restricted emergency void rescue strictly to **The End** dimension (`minecraft:the_end`).
   - Tuned phase elevation to an intense **2-second Level 60 fast phase elevation** (amplifier 59, 40 ticks) that immediately halts void fall velocity and rapidly ascends out of the abyss.
-  - Replaced coordinate-based drop altitude check with real-time ground block detection: directly scans blocks beneath the player (1–8 blocks) during the descent and activates **Slow Falling** only when solid ground is detected.
+  - Replaced long slow falling with an instantaneous ground detection trigger: probes 1–3 blocks beneath the player during descent, halts downward velocity via `clearVelocity()`, and grants **1 second** (20 ticks) of Level 1 Slow Falling at the final moment of touchdown to cleanly negate all fall damage without floaty delays.
 - **HUD Cleanliness (Status Effect UI Suppression)**:
   - Added clean JSON UI override in `resource_pack/ui/hud_screen.json` targeting `mob_effects_renderer`, completely hiding status effect HUD icons and timers for an uncluttered screen display.
 

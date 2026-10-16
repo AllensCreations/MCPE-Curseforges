@@ -257,7 +257,7 @@ const RELICS = {
     end: (p, s) => clearLight(p, s)
   },
   "custom:tome_void": {
-    name: "Void Phantom", info: ["End-only: 2s Level 60 phase elevation from void", "Ground-detected slow falling | 5m cooldown"],
+    name: "Void Phantom", info: ["End-only: 2s Level 60 phase elevation from void", "Touchdown 1s slow falling | 5m cooldown"],
     particle: "minecraft:basic_portal_particle", ids: [],
     fast: (p, s) => {
       // Void Phantom strictly operates in The End dimension
@@ -275,8 +275,8 @@ const RELICS = {
           const bz = Math.floor(p.location.z);
           let groundFound = false;
 
-          // Check up to 8 blocks directly below the player
-          for (let dy = 1; dy <= 8; dy++) {
+          // Check within 3 blocks directly below the player for last-second touchdown
+          for (let dy = 1; dy <= 3; dy++) {
             try {
               const b = p.dimension.getBlock({ x: bx, y: by - dy, z: bz });
               if (b && !b.isAir && b.typeId !== "minecraft:air" && !b.isLiquid) {
@@ -288,8 +288,9 @@ const RELICS = {
 
           if (groundFound) {
             s.voidDropping = false;
-            addFx(p, "slow_falling", 0, 160); // 8 seconds slow falling to cushion landing
-            p.onScreenDisplay.setActionBar("§d✦ Void Phantom: Ground detected - Soft descent engaged ✦");
+            try { p.clearVelocity(); } catch (err) {}
+            addFx(p, "slow_falling", 0, 20); // 1 second (20 ticks) Level 1 effect to negate fall damage
+            p.onScreenDisplay.setActionBar("§d✦ Void Phantom: Touchdown cushioned ✦");
             p.playSound("random.orb");
           }
         }
