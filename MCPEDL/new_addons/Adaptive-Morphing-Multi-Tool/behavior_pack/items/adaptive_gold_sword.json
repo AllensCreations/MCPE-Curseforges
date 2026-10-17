@@ -1,0 +1,23 @@
+{
+  "format_version": "1.21.0",
+  "minecraft:item": {
+    "description": {
+      "identifier": "allenscreations:adaptive_gold_sword",
+      "menu_category": {
+        "category": "equipment"
+      }
+    },
+    "components": {
+      "minecraft:icon": "adaptive_morphing_tool",
+      "minecraft:display_name": {
+        "value": "Adaptive Gold Sword"
+      },
+      "minecraft:max_stack_size": 1,
+      "minecraft:hand_equipped": true,
+      "minecraft:durability": {
+        "max_durability": 32
+      },
+      "minecraft:damage": 3
+    }
+  }
+}
