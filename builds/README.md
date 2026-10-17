@@ -33,7 +33,7 @@ This directory stores all compiled releases (behavior packs, resource packs, add
 | :--- | :--- | :--- | :--- | :--- |
 | **OneBlock Void Survival** | `v1.2.5` | Survival World (`.mcworld`) | [Download (.mcworld)](OneBlock-Void-Survival/OneBlock%20Void%20Survival%20by%20AllensCreations%20%28V1.2.5%29.mcworld) | [`OneBlock-Void-Survival/`](OneBlock-Void-Survival/) |
 | **OneBlock Void (Admin Studio)** | `v1.2.5` | Testing World (`.mcworld`) | [Download (.mcworld)](OneBlock-Void-Survival/OneBlock%20Void%20Survival%20by%20AllensCreations%20%28V1.2.5%29.mcworld) | [`OneBlock-Void-Survival/`](OneBlock-Void-Survival/) |
-| **OneBlock Economy** | `v1.0.1` | Custom Map (`.mcworld`) | [Download (.mcworld)](OneBlock-Economy/OneBlock%20Economy%20by%20AllensCreations%20%28V1.0.1%29.mcworld) | [`OneBlock-Economy/`](OneBlock-Economy/) |
+| **OneBlock Economy** | `v1.0.2` | Custom Map (`.mcworld`) | [Download (.mcworld)](OneBlock-Economy/OneBlock%20Economy%20by%20AllensCreations%20%28V1.0.2%29.mcworld) | [`OneBlock-Economy/`](OneBlock-Economy/) |
 
 ### Script Projects & Challenges
 
