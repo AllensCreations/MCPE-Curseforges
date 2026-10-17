@@ -4,10 +4,12 @@ import { PHASE_COUNT, phaseName, phaseIndexFor, pickBlock } from "./phases.js";
 /* ------------------------------ Configuration ------------------------------ */
 const ORIGIN = { x: 0, y: 50, z: 0 };             // the central block
 const ABOVE_ORIGIN = { x: 0.5, y: 51, z: 0.5 };   // merchant spawn point
+const HOLOGRAM_POS = { x: 0.5, y: 51.25, z: 0.5 }; // floating text anchor position
 const COUNT_KEY = "total_blocks_broken";
 const MERCHANT_EVERY = 250;
 const MERCHANT_TICKS = 1200;                       // 60 seconds
 const MERCHANT_TAG = "ob_merchant";
+const HOLOGRAM_TAG = "ob_floating_text";
 
 // 8 perimeter positions around (0, 50, 0) for starter platform expansion
 const SURROUNDING_OFFSETS = [
@@ -56,6 +58,42 @@ function handleStarterPlatform(blockIndex) {
       }
     } catch (e) {}
   }
+}
+
+/* ----------------------- Floating Text in the Block ----------------------- */
+// Renders dynamic holographic text floating directly on and above the active OneBlock altar
+function updateHologram() {
+  try {
+    const index = phaseIndexFor(total);
+    const holoText =
+      "§e★ §6§lONEBLOCK ECONOMY §e★\n§fPhase " +
+      (index + 1) +
+      "/" +
+      PHASE_COUNT +
+      ": §b" +
+      phaseName(index) +
+      "\n§aBlocks Mined: §f" +
+      total;
+
+    const existing = overworld().getEntities({ tags: [HOLOGRAM_TAG] });
+    let found = false;
+    for (const ent of existing) {
+      if (!found) {
+        ent.nameTag = holoText;
+        found = true;
+      } else {
+        ent.remove();
+      }
+    }
+    if (!found) {
+      const ent = overworld().spawnEntity("minecraft:armor_stand", HOLOGRAM_POS);
+      ent.addTag(HOLOGRAM_TAG);
+      ent.nameTag = holoText;
+      try {
+        ent.addEffect("invisibility", 20000000, { amplifier: 1, showParticles: false });
+      } catch (e) {}
+    }
+  } catch (err) {}
 }
 
 /* ----------------------- Regeneration and progression ----------------------- */
@@ -109,10 +147,32 @@ world.afterEvents.playerBreakBlock.subscribe((event) => {
 
   const currentCount = total;
 
-  // 1. Immediately place next block synchronously in this tick (no air gap)
+  // 1. Immediately place next block synchronously in this tick (1-tick renewal, no air gap)
   placeNext();
 
-  // 2. Starter Platform Assist: builds 3x3 dirt foundation around center on blocks 0-7
+  // 2. Active Player Auto-Elevation Snap & Velocity Cancel (prevents downward clipping)
+  const player = event.player;
+  if (player) {
+    const pLoc = player.location;
+    if (
+      Math.abs(pLoc.x - (ORIGIN.x + 0.5)) < 0.9 &&
+      Math.abs(pLoc.z - (ORIGIN.z + 0.5)) < 0.9 &&
+      pLoc.y < ORIGIN.y + 1.1 &&
+      pLoc.y >= ORIGIN.y - 0.2
+    ) {
+      system.run(() => {
+        try {
+          player.teleport(
+            { x: pLoc.x, y: ORIGIN.y + 1.0, z: pLoc.z },
+            { dimension: overworld(), checkForBlocks: false }
+          );
+          player.clearVelocity();
+        } catch (err) {}
+      });
+    }
+  }
+
+  // 3. Starter Platform Assist: builds 3x3 dirt foundation around center on blocks 0-7
   handleStarterPlatform(currentCount);
 
   const before = phaseIndexFor(total);
@@ -120,11 +180,14 @@ world.afterEvents.playerBreakBlock.subscribe((event) => {
   saveTotal();
   const after = phaseIndexFor(total);
 
+  // 4. Update the Floating Text in the Block
+  updateHologram();
+
   if (total % MERCHANT_EVERY === 0) spawnMerchant();
   if (after !== before) announcePhase(after);
 });
 
-/* ----------------------------- HUD and origin check (20 ticks) ----------------------------- */
+/* ----------------------------- HUD, Hologram, and origin check (20 ticks) ----------------------------- */
 system.runInterval(() => {
   if (!ready) return;
 
@@ -136,11 +199,21 @@ system.runInterval(() => {
     if (block && block.isAir) placeNext();
   } catch (e) {}
 
+  // Keep floating text hologram synced and active
+  updateHologram();
+
   if (system.currentTick < hudQuiet) return;
 
   const index = phaseIndexFor(total);
   const text =
-    "§6[ ONE-BLOCK ECONOMY ] §fBlocks: " + total + " §8| §ePhase " + (index + 1) + "/" + PHASE_COUNT + " §8| §b" + phaseName(index);
+    "§6[ ONE-BLOCK ECONOMY ] §fBlocks: " +
+    total +
+    " §8| §ePhase " +
+    (index + 1) +
+    "/" +
+    PHASE_COUNT +
+    " §8| §b" +
+    phaseName(index);
   for (const player of world.getAllPlayers()) {
     try {
       player.onScreenDisplay.setActionBar(text);
@@ -164,5 +237,6 @@ system.run(() => {
   try {
     for (const e of overworld().getEntities({ tags: [MERCHANT_TAG] })) e.remove();
   } catch (e) {}
+  updateHologram();
   ready = true;
 });
