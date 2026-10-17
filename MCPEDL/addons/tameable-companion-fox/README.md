@@ -15,7 +15,7 @@ Your adventures in the wild just got much more exciting.
 
 **Tameable Companion Fox** allows you to tame wild foxes into loyal, protective companions. Feed them sweet berries or glow berries to bond with them, command them to sit down with authentic curl-up resting animations, and even equip swords or axes directly into their mouths to turn them into powerful survival allies.
 
-No experimental features required. Designed to keep achievements enabled while providing a rich companion experience across your worlds and Realms.
+Adds a tameable fox companion with the behaviors described below.
 
 ---
 
