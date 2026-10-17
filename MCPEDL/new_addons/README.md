@@ -7,6 +7,7 @@ Source files for newly generated Minecraft Bedrock add-ons by AllensCreations.
 | Add-on | Version | Source | Download |
 | :--- | :--- | :--- | :--- |
 | *No add-ons currently in testing.* | | | |
+| Selective Mob Controller by AllensCreations | 1.0.1 | [Source](Selective-Mob-Controller/) | [MCPACK](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Selective-Mob-Controller/Selective%20Mob%20Controller%20by%20AllensCreations%20by%20AllensCreations%20%28V1.0.1%29.mcpack) |
 
 The catalog is automatically updated by the add-on generation workflow.
 
