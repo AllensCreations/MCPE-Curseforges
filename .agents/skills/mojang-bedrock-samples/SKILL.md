@@ -16,7 +16,7 @@ The full repository is cloned locally at `/root/bedrock-samples/` (containing al
 
 ## 1. Overview of Bedrock Samples
 
-The repository contains upstream vanilla Minecraft Bedrock data and assets updated with every release:
+The repository contains upstream vanilla Minecraft Bedrock data and assets that change between releases. Verify the checked-out sample version and confirm each referenced path exists before relying on a file or copying a value:
 
 - **`resource_pack/`**: Complete vanilla client assets:
   - `textures/items/`: Item icons (e.g., `gold_helmet.png`, `lantern.png`, `iron_ingot.png`).
@@ -69,5 +69,5 @@ pixel_scaled = vanilla_icon.resize(slot_size, Image.Resampling.NEAREST)
 ## 3. Best Practices for Add-on Development
 
 1. **Vanilla Parity:** Inspect vanilla recipes in `behavior_pack/recipes/` to match formatting version, group tags, and ingredient identifiers.
-2. **Durability and Defense:** Match armor values to vanilla benchmarks in `behavior_pack/items/` (e.g., Gold helmet = 2 protection, 165 durability; Iron helmet = 2 protection, 165 durability; Diamond helmet = 3 protection, 363 durability).
-3. **Texture Sourcing:** Never draw placeholder textures for vanilla items when generating promotional materials; always pull directly from the full `/root/bedrock-samples/` local repository.
+2. **Durability and Defense:** Match armor values to the vanilla benchmark in the checked-out sample version. Inspect actual item definitions and relevant documentation before using values; do not rely on hardcoded examples here because vanilla values and schemas may change.
+3. **Texture Sourcing:** Prefer official vanilla textures for vanilla items in promotional materials. First verify that `/root/bedrock-samples/` exists and contains the required asset; if unavailable, report the limitation and do not pretend the asset was sourced.
