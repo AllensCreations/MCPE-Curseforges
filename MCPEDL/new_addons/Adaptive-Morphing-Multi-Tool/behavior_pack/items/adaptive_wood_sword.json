@@ -21,6 +21,13 @@
       "minecraft:enchantable": {
         "slot": "sword",
         "value": 15
+      },
+      "minecraft:tags": {
+        "tags": [
+          "minecraft:is_tool",
+          "minecraft:is_sword",
+          "minecraft:wooden_tier"
+        ]
       }
     }
   }
