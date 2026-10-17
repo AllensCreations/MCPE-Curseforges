@@ -17,11 +17,11 @@ const ROLES = {
   shears: { label: "Shears", particle: "minecraft:basic_flame_particle" }
 };
 const notices = new Map();
+const reportedErrors = new Set();
 
 function parseTool(item) {
   if (!item?.typeId?.startsWith(NS)) return undefined;
 
-  // The original all-in-one item starts as a diamond-tier pickaxe.
   if (item.typeId === "allenscreations:adaptive_morphing_tool") {
     return { tier: "diamond", role: "pickaxe" };
   }
@@ -39,20 +39,47 @@ function roleForBlock(blockId) {
   return undefined;
 }
 
+function preserveEnchantments(held, next) {
+  const oldEnchantable = held.getComponent("minecraft:enchantable");
+  const newEnchantable = next.getComponent("minecraft:enchantable");
+  if (!oldEnchantable || !newEnchantable) return;
+
+  for (const enchantment of oldEnchantable.getEnchantments()) {
+    try {
+      if (newEnchantable.canAddEnchantment(enchantment)) {
+        newEnchantable.addEnchantment(enchantment);
+      }
+    } catch {
+      // Incompatible enchantments are intentionally skipped for the new tool role.
+    }
+  }
+}
+
 function morph(player, nextRole) {
   try {
     const equipment = player.getComponent("minecraft:equippable");
     const held = equipment?.getEquipment("Mainhand");
     const parsed = parseTool(held);
     if (!parsed || parsed.role === nextRole) return;
+
     const next = new ItemStack(`${NS}${parsed.tier}_${nextRole}`, 1);
-    next.nameTag = `Adaptive ${TIERS[parsed.tier].label} ${ROLES[nextRole].label}`;
+    const defaultOldName = `Adaptive ${TIERS[parsed.tier].label} ${ROLES[parsed.role].label}`;
+    const defaultNextName = `Adaptive ${TIERS[parsed.tier].label} ${ROLES[nextRole].label}`;
+    const oldName = held.nameTag;
+    next.nameTag = !oldName || oldName === defaultOldName ? defaultNextName : oldName;
+
     const oldDurability = held.getComponent("minecraft:durability");
     const newDurability = next.getComponent("minecraft:durability");
     if (oldDurability && newDurability) {
-      newDurability.damage = Math.min(oldDurability.damage, newDurability.maxDurability - 1);
+      newDurability.damage = Math.max(
+        0,
+        Math.min(oldDurability.damage, newDurability.maxDurability - 1)
+      );
     }
+
+    preserveEnchantments(held, next);
     equipment.setEquipment("Mainhand", next);
+
     const now = system.currentTick;
     const previous = notices.get(player.id) ?? -100;
     if (now - previous >= 10) {
@@ -64,7 +91,13 @@ function morph(player, nextRole) {
         z: player.location.z
       });
     }
-  } catch {}
+  } catch (error) {
+    const key = String(error);
+    if (!reportedErrors.has(key)) {
+      reportedErrors.add(key);
+      console.warn(`[Adaptive Morphing Multi-Tool] Morph failed: ${key}`);
+    }
+  }
 }
 
 world.afterEvents.playerBreakBlock.subscribe((event) => {
