@@ -3,9 +3,9 @@
 Auto Version Bumper, Package Builder, and Catalog Registrar for MCPE-Curseforges.
 
 Features:
-1. Detects modified directories across MCPEDL/addons/, MCPEDL/script/, MCPEDL/maps/
-   (with backward compatibility for packs/, minigames/, maps/).
-2. Auto-detects brand-new projects not yet registered in READMEs or builds/ and registers them.
+1. Detects release-worthy source/config/asset changes inside MCPEDL project directories.
+2. Registers newly added projects when their source files are changed; does not sweep
+   unrelated unregistered projects on ordinary pushes.
 3. Increments semantic patch version (+0.0.1) in:
    - header.version: [x, y, z + 1]
    - modules[*].version: [x, y, z + 1]
@@ -92,17 +92,55 @@ def find_target_project_dirs():
     return projects
 
 
+def is_version_worthy_source_file(project_path, changed_file):
+    """
+    Return True only for project source/config/assets that should trigger a release.
+
+    Documentation, pack manifests, and generated archives are deliberately excluded:
+    manifest versions are managed by this script, and README/changelog edits must
+    never cause a release version to increment.
+    """
+    normalized = os.path.normpath(changed_file)
+    absolute = os.path.abspath(os.path.join(REPO_ROOT, normalized))
+    project_abs = os.path.abspath(project_path)
+
+    try:
+        relative = os.path.relpath(absolute, project_abs)
+    except ValueError:
+        return False
+
+    if relative == os.pardir or relative.startswith(os.pardir + os.sep):
+        return False
+
+    basename = os.path.basename(relative).lower()
+    if basename == "manifest.json":
+        return False
+
+    # Markdown and common project documentation are not runtime source.
+    if basename.endswith(".md") or basename in {
+        "license", "license.txt", "license.md", "notice", "notice.txt",
+        "contributing", "contributing.md", "security.md",
+    }:
+        return False
+
+    # These are generated release artifacts, not source inputs.
+    if os.path.splitext(basename)[1] in {".mcpack", ".mcaddon", ".mcworld", ".zip"}:
+        return False
+
+    # Files such as JS/TS, functions, JSON definitions, textures, models,
+    # localization, structures, and other pack assets are source inputs.
+    return True
+
+
 def detect_changed_projects(changed_files, project_dirs):
-    """Finds which projects have source changes (excluding auto-generated builds)."""
+    """Find projects with release-worthy source/config/asset changes only."""
     changed_projects = set()
-    for f in changed_files:
-        norm_f = os.path.normpath(f)
-        for p in project_dirs:
-            rel = os.path.relpath(os.path.join(REPO_ROOT, norm_f), p)
-            if not rel.startswith(".."):
-                changed_projects.add(p)
+    for changed_file in changed_files:
+        for project_path in project_dirs:
+            if is_version_worthy_source_file(project_path, changed_file):
+                changed_projects.add(project_path)
                 break
-    return sorted(list(changed_projects))
+    return sorted(changed_projects)
 
 
 def detect_unregistered_projects(project_dirs):
@@ -950,9 +988,10 @@ def main():
 
     # Determine which projects to process
     if args.all:
-        print("[Auto-Version] Mode: ALL — processing every project in repository...")
+        print("[Auto-Version] Mode: ALL (explicit override) — processing every project in repository...")
         changed_projects = sorted(list(project_dirs.keys()))
     elif args.project:
+        print(f"[Auto-Version] Mode: EXPLICIT PROJECT — {args.project}")
         matched = [
             p for p in project_dirs
             if args.project in (p, os.path.basename(p)) or args.project in p
@@ -964,16 +1003,19 @@ def main():
     else:
         print(f"[Auto-Version] Checking changed files (base: {args.base or 'auto'})...")
         changed_files = get_git_diff_files(args.base)
+        print(f"[Auto-Version] Diff contains {len(changed_files)} changed file(s).")
         changed_projects = detect_changed_projects(changed_files, project_dirs)
+        ignored_files = [
+            f for f in changed_files
+            if any(is_version_worthy_source_file(p, f) for p in project_dirs)
+        ]
+        print(f"[Auto-Version] Release-worthy project source changes: {len(ignored_files)} file(s).")
 
-    # Always auto-detect unregistered NEW projects
-    unregistered = detect_unregistered_projects(project_dirs)
-    for proj_path, _cat in unregistered:
-        if proj_path not in changed_projects:
-            print(f"[Auto-Version] Detected new unregistered project: "
-                  f"{os.path.relpath(proj_path, REPO_ROOT)}")
-            changed_projects.append(proj_path)
-
+    # Do not sweep every unregistered project on ordinary pushes. That behavior
+    # caused unrelated/legacy projects to be bumped unexpectedly. New projects are
+    # discovered naturally when their source files change; --project and --all remain
+    # explicit operator overrides for intentional processing.
+    
     if not changed_projects:
         print("[Auto-Version] No pack/map/script changes or new projects detected.")
         sys.exit(0)
