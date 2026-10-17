@@ -1,0 +1,71 @@
+{
+  "format_version": 2,
+  "header": {
+    "name": "Swarm Mob Booster by AllensCreations",
+    "description": "Massively multiplies spawn rates and cluster sizes for all vanilla mobs across the Overworld, Nether, and The End.",
+    "uuid": "9ffb98b0-154b-45f6-8955-d23ae9213a21",
+    "version": [
+      1,
+      0,
+      0
+    ],
+    "min_engine_version": [
+      1,
+      21,
+      0
+    ]
+  },
+  "modules": [
+    {
+      "description": "Swarm Mob Booster Data Module",
+      "type": "data",
+      "uuid": "e3244636-8ff6-4ae7-b2ae-69788069418b",
+      "version": [
+        1,
+        0,
+        0
+      ]
+    },
+    {
+      "description": "Swarm Mob Booster Anti-Lag Script Module",
+      "type": "script",
+      "language": "javascript",
+      "uuid": "b45d85a7-6c61-4bbe-b1ea-6fa23e55d20e",
+      "version": [
+        1,
+        0,
+        0
+      ],
+      "entry": "scripts/main.js"
+    }
+  ],
+  "dependencies": [
+    {
+      "module_name": "@minecraft/server",
+      "version": "1.13.0"
+    }
+  ],
+  "subpacks": [
+    {
+      "folder_name": "insane_5x",
+      "name": "Insane Multiplier (5x Density & 8-16 Cluster Sizes)",
+      "memory_tier": 1
+    },
+    {
+      "folder_name": "ludicrous_10x",
+      "name": "Ludicrous Swarm (10x Density & 16-32 Cluster Sizes)",
+      "memory_tier": 2
+    },
+    {
+      "folder_name": "balanced_2x",
+      "name": "Balanced Double (2x Density & 4-8 Cluster Sizes)",
+      "memory_tier": 3
+    }
+  ],
+  "metadata": {
+    "authors": [
+      "AllensCreations"
+    ],
+    "product_type": "addon"
+  }
+}
