@@ -16,7 +16,7 @@
 import { world, system, EquipmentSlot, ItemStack, BlockPermutation } from "@minecraft/server";
 import { MINING_OPTIONS } from "./mining-options.js";
 
-const VERSION = "1.3.6";
+const VERSION = "1.3.9";
 const LOG_PREFIX = "[Vanilla QoL]";
 
 // ─── Configuration ────────────────────────────────────────────────────────────
@@ -1341,7 +1341,11 @@ world.afterEvents.playerBreakBlock.subscribe((event) => {
   const { block, brokenBlockPermutation, player, dimension, itemStackBeforeBreak } = event;
 
   if (!player || !player.isValid()) return;
-  if (!player.isSneaking) return;
+  if (MINING_OPTIONS.REQUIRE_SNEAK_FOR_CHAIN_MINING) {
+    if (!player.isSneaking) return;
+  } else if (player.selectedSlotIndex !== CONFIG.AUTO_SWITCH_SLOT) {
+    return;
+  }
   if (activeMiningOperations.has(player.id)) return;
 
   const startLoc = {
