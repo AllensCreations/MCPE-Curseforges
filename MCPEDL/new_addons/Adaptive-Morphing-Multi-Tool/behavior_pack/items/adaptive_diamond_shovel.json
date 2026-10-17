@@ -73,6 +73,13 @@
       "minecraft:enchantable": {
         "slot": "shovel",
         "value": 10
+      },
+      "minecraft:tags": {
+        "tags": [
+          "minecraft:is_tool",
+          "minecraft:is_shovel",
+          "minecraft:diamond_tier"
+        ]
       }
     }
   }
