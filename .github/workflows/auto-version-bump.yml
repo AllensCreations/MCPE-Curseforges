@@ -17,6 +17,11 @@ on:
 permissions:
   contents: write
 
+# Prevent overlapping release jobs from racing while writing versions and packages.
+concurrency:
+  group: auto-version-bump-${{ github.ref }}
+  cancel-in-progress: false
+
 jobs:
   bump-build-register:
     runs-on: ubuntu-latest
