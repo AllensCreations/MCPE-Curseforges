@@ -1,75 +1,52 @@
-# Swarm Mob Booster — Massive Mob Horde Multiplier for Minecraft Bedrock
+# Swarm Mob Booster — Configurable Mob Spawn Density
 
 ![MCPEDL](https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/MCPEDL/new_addons/Swarm-Mob-Booster/behavior_pack/pack_icon.png "MCPEDL")
 
 [![Minecraft Bedrock](https://img.shields.io/badge/Minecraft%20Bedrock-1.21.0%2B-brightgreen?style=flat-square&logo=minecraft)](https://github.com/AllensCreations/MCPE-Curseforges)
-[![Format](https://img.shields.io/badge/Format-.MCADDON-orange?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/addons#available-add-ons)
+[![Format](https://img.shields.io/badge/Format-.MCPACK-orange?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/new_addons#available-add-ons)
 
 **By AllensCreations**
 
-**TRANSFORM YOUR MINECRAFT WORLD INTO A PACKED, ACTION-FILLED SWARM**
-
-Supercharge natural spawn rates, cluster sizes, and mob density across the Overworld, Nether, and The End tuned to an optimal 30–40 density cap with live HUD radar.
-
----
-
-## Overview
-
-Swarm Mob Booster revolutionizes Bedrock mob generation by multiplying spawn weights and pack cluster sizes for all creatures in the game. Tuned to an ideal 30–40 density cap, your wilderness comes alive with vibrant animal herds and intense nighttime survival battles without overwhelming device memory.
-
-The add-on includes three selectable subpack tiers, real-time Swarm Density HUD tracking, and ground-item throttling for configurable swarm encounters.
+Increase spawn weights and group sizes for supported vanilla mobs across the Overworld, Nether, and End. Three selectable presets adjust density caps and group sizes, and an action-bar display tracks nearby mobs.
 
 ---
 
 ## Key Features
 
-### Universal Mob Boosting
-- **Description**: Applies boosted spawn weights and increased cluster limits to all core Overworld, Nether, and End mobs.
+### Supported Mob Spawn Rules
+- **Description**: Adjusts spawn weights and group sizes for the vanilla mobs included in the pack's spawn rules.
 
-### Perfectly Balanced 30–40 Density
-- **Description**: Tuned for maximum action without lag, keeping active mobs clustered in smooth, high-octane 30–40 population waves.
+### Three Density Presets
+- **Lite Swarm**: 25-mob density cap with groups of 4–8.
+- **Balanced Swarm**: 38-mob density cap with groups of 6–12.
+- **Maximum Swarm**: 50-mob density cap with groups of 10–18.
 
-### Live Swarm Density HUD
-- **Description**: Displays a real-time action bar radar showing total nearby mob counts alongside separate tallies for hostile monsters and friendly passives.
+### Nearby Mob HUD
+- **Description**: Displays the nearby mob count, with separate counts for hostile and passive mobs.
 
-### Three Configurable Multiplier Tiers
-- **Description**: Choose between Lite Swarm (25-Cap), Balanced Swarm (38-Cap), and Maximum Swarm (50-Cap) directly from your pack settings before starting your world.
-
-### Natural Herd Clusters
-- **Description**: Mobs spawn in cohesive natural groups ranging from 4 to 8, 6 to 12, or 10 to 18 creatures per spawn event.
-
-### Built-In Anti-Lag Drop Balancing
-- **Description**: High-density horde battles automatically balance ground item drops, ensuring your game remains ultra-smooth during massive combat encounters.
-
-### Safe Survival Mechanics
-- **Description**: Player inventory, named pets, tamed companions, and important bosses are completely safe and untouched.
-
----
+### Ground-Item Handling
+- **Description**: Includes ground-item handling intended for high-density gameplay. Performance can vary with device, world settings, and the number of active entities.
 
 ## How It Works
 
-### Selecting Your Density Tier
-- **Requirement**: World Resource/Behavior Pack Settings slider.
-- **What Happens**: Select your preferred swarm intensity (Lite Swarm, Balanced Swarm, or Maximum Swarm). The world immediately adopts the chosen horde density.
+### Select a Density Preset
+- **Requirement**: Choose a preset in the world's pack settings.
+- **What Happens**: The selected spawn rules determine the density cap and group-size range.
 
-### Tracking Nearby Swarms
-- **Requirement**: Normal gameplay and exploration.
-- **What Happens**: The live action bar HUD continuously updates with the exact number of active mobs in your immediate vicinity.
-
----
+### Track Nearby Mobs
+- **Requirement**: Normal gameplay.
+- **What Happens**: The action bar updates with nearby mob counts.
 
 ## Compatibility
 
-- Minecraft Bedrock Edition 1.21.0+
-
----
+- Minimum Minecraft Bedrock version: 1.21.0.
+- Actual spawn counts depend on world conditions and the selected preset.
 
 ## Guidelines and Attribution
 
-- Creator: AllensCreations
-- Rights & Reservation: All rights reserved for AllensCreations.
-- Content Creators: Permitted to feature this creation in videos and streams with credit to AllensCreations.
-- Redistribution: Do not re-upload this pack or provide direct monetized download bypasses. Link directly to the official repository page.
+- Creator: AllensCreations.
+- Videos and streams may feature this add-on with credit to AllensCreations.
+- Do not re-upload this pack or modified copies as your own. Link to the official repository instead.
 
 ---
 
@@ -79,4 +56,4 @@ The add-on includes three selectable subpack tiers, real-time Swarm Density HUD 
 
 ## Search & Discovery Keywords
 
-Minecraft Bedrock add-on, Swarm Mob Booster Bedrock mod, mob spawn multiplier Minecraft PE, horde survival Bedrock, 30-40 mob cap Bedrock, high density mob spawns, MCPEDL add-on, CurseForge Bedrock, AllensCreations.
+Minecraft Bedrock mob spawn add-on, Swarm Mob Booster, mob density presets, increased mob spawn groups, 25 mob cap, 38 mob cap, 50 mob cap, nearby mob HUD, Minecraft PE survival add-on, AllensCreations.

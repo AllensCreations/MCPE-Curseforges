@@ -147,7 +147,6 @@ Ancient tomes generate naturally inside exploration chests across the world, occ
 
 ## Performance & Optimization
 
-
 - **Instant Offhand Gating**: Un-equipping or switching away immediately removes active buffs and effects.
 - **Background Updates**: Lightweight updates monitor offhand equipment and relic effects.
 - **In-Game Tooltips**: Hovering over any Grimoire displays full colored lore and perk descriptions in your inventory.

@@ -19,8 +19,6 @@ Comprehensive vanilla-plus survival enhancements: dynamic lighting, offhand quic
 
 From dynamic torch lighting and double-sneak offhand item swapping to automatic tool switching on Slot 1, selectable tree capitator and 26-neighbor domino ore mining with durability safety guards—everything works seamlessly together.
 
-Optimized for smooth survival performance with zero lag. Requires zero experimental toggles, making it safe for long-term survival worlds, multiplayer Realms, and Bedrock Dedicated Servers (BDS).
-
 ![Vanilla QoL Banner](https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/MCPEDL/addons/Vanilla-Quality-of-Life/banner.jpg)
 
 ---
@@ -228,4 +226,4 @@ Optimized for smooth survival performance with zero lag. Requires zero experimen
 
 ## Search & Discovery Keywords
 
-Minecraft Bedrock survival quality of life, MCPE QoL mod, Bedrock auto tool switcher, sneak tree capitator, domino ore vein miner, dynamic lighting torch, offhand quick swap Minecraft, universal mob lead leashing, friendly fire pet protection, fast leaf decay, woodcutter stonecutter recipe, potion stacking 16x, MCPEDL add-ons, CurseForge Minecraft Bedrock, Realms compatible QoL, achievements friendly add-on, AllensCreations.
+Minecraft Bedrock survival quality of life, MCPE QoL mod, Bedrock auto tool switcher, sneak tree capitator, domino ore vein miner, dynamic lighting torch, offhand quick swap Minecraft, universal mob lead leashing, friendly fire pet protection, fast leaf decay, woodcutter stonecutter recipe, potion stacking 16x, MCPEDL add-ons, CurseForge Minecraft Bedrock, AllensCreations.

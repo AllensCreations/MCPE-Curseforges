@@ -4,7 +4,7 @@
 [![Format](https://img.shields.io/badge/Format-.MCPACK%20%7C%20.MCADDON%20%7C%20.MCWORLD-blue?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges)
 
 Creator: AllensCreations
-Description: Curated collection of modular, production-ready Minecraft Bedrock behavior packs, add-ons, and custom survival maps.
+Description: A collection of Minecraft Bedrock add-ons, maps, scripts, and survival challenges by AllensCreations.
 
 ---
 
@@ -12,7 +12,7 @@ Description: Curated collection of modular, production-ready Minecraft Bedrock b
 
 | Map Name | Version | Category | Download (.mcworld) | World Files | Highlights |
 | :--- | :--- | :--- | :--- | :--- | :--- |
-| **OneBlock Void Survival** | `v1.2.5` | Void Survival & RPG | [Download (.mcworld)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/OneBlock-Void-Survival/OneBlock%20Void%20Survival%20by%20AllensCreations%20%28V1.2.5%29.mcworld) | [`MCPEDL/maps/OneBlock-Void-Survival/`](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/maps/OneBlock-Void-Survival/) | 43 Themed Secret Void Islands, 1-tick auto-renewing OneBlock, 3-tier progressive scaling, Dimension Shifter merchant, Hardcore death mode, Zero experimental flags needed. |
+| **OneBlock Void Survival** | `v1.2.5` | Void Survival & RPG | [Download (.mcworld)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/OneBlock-Void-Survival/OneBlock%20Void%20Survival%20by%20AllensCreations%20%28V1.2.5%29.mcworld) | [`MCPEDL/maps/OneBlock-Void-Survival/`](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/maps/OneBlock-Void-Survival/) | 43 Themed Secret Void Islands, 1-tick auto-renewing OneBlock, 3-tier progressive scaling, Dimension Shifter merchant, Hardcore death mode |
 | **OneBlock Void (Admin Studio)** | `v1.2.5` | Testing & Photography | [Download (.mcworld)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/OneBlock-Void-Survival/OneBlock%20Void%20Survival%20by%20AllensCreations%20%28V1.2.5%29.mcworld) | [`MCPEDL/maps/OneBlock-Void-Survival/`](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/maps/OneBlock-Void-Survival/) | Pre-manifested 43 islands, double-sneak photo studio GUI, 3/4 isometric panoramic camera angles, lighting controls, zero-item auto-break runner. |
 | **OneBlock Economy** | `v1.0.6` | Custom Map | [Download (.mcworld)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/OneBlock-Economy/OneBlock%20Economy%20by%20AllensCreations%20%28V1.0.6%29.mcworld) | [`MCPEDL/maps/OneBlock-Economy/`](MCPEDL/maps/OneBlock-Economy/) | OneBlock Hardcore Survival Economy by AllensCreations — 20-p... |
 
@@ -66,7 +66,6 @@ Single-block void survival map with procedural island generation across dimensio
 
 - 1-Tick Failproof Auto-Renewal: OneBlock at `(0, 64, 0)` renews within 1 tick (0.05s). Solid bedrock at `(0, 63, 0)` anchors gravity blocks.
 - 43 Handcrafted Secret Islands: 28 Overworld islands, 8 Nether islands, and 7 End islands with custom loot chests, spawners, and satellite formations.
-- Pure Vanilla Compatibility: Built on `@minecraft/server` v1.13.0 with zero experimental toggles required (`experiments_ever_used: 0`).
 - Dimension Shifter Merchant: Wandering trader arrives with exclusive trades for saplings, seeds, and ancient artifacts.
 - Hardcore Survival Mode: High-stakes void survival where falling turns players into Spectators.
 
@@ -85,7 +84,7 @@ Lightweight data-driven vanilla enhancement pack for Minecraft Bedrock.
 - 16x Potion and Milk Stacking: Potions, splash potions, lingering potions, and milk buckets stack up to 16.
 - Offhand Utility Items and Dynamic Light: Equip torches, lanterns, clocks, and compasses into offhand via double-sneak quick-swap with real-time dynamic light.
 - Mob Head Trophy Drops: 2.5% base drop chance on player kills for Zombie, Skeleton, Creeper, and Piglin heads; guaranteed Dragon Head + Elytra; PvP player heads.
-- Automatic One-Player Sleep: 1 player sleeping skips the night on Realms without cheats.
+- Automatic One-Player Sleep: One player sleeping skips the night without requiring cheats.
 
 [Read Full Vanilla QoL Documentation](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/addons/Vanilla-Quality-of-Life/README.md)
 
@@ -191,7 +190,6 @@ Multiplayer challenge synchronizing player inventories.
 
 - Minecraft Bedrock: 1.21.x through 1.26.x+ (Preview & Beta compatible).
 - Supported Platforms: Windows 10/11, Android, iOS, iPadOS, Xbox, PlayStation, Nintendo Switch.
-- Multiplayer: 100% compatible with Realms, Bedrock Dedicated Server (BDS), and LAN games.
 - Installation: Download any `.mcpack`, `.mcaddon`, or `.mcworld` file from the catalog above and open it to import into Minecraft.
 
 ---

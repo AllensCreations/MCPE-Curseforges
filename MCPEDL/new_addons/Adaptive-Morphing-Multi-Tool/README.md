@@ -1,31 +1,42 @@
-# Adaptive Morphing Multi-Tool
+# Adaptive Morphing Multi-Tool — Five Tool Roles in One
 
-Adaptive tool variants for Minecraft Bedrock by AllensCreations. The tool changes its role after a block is broken or an entity is hit.
+Adaptive Morphing Multi-Tool is a Minecraft Bedrock add-on prototype that combines five tool roles in one item and changes roles after a block is broken or an entity is hit.
 
 ## Features
 
-- Five roles: axe, pickaxe, shovel, sword, and shears.
-- Six material tiers: wood, copper, iron, gold, diamond, and netherite.
-- Custom pixel-art icons for each tool role.
-- Tier-specific durability settings.
-- Durability damage carries over when the tool changes roles.
-- Compatible enchantments are applied to the new role. Enchantments incompatible with the current role are stored and retried when a later role supports them.
-- Custom names, lore, adventure-mode Can Destroy/Can Place On restrictions, and item dynamic properties are carried across morphs where the API permits.
-- Vanilla tool and material-tier tags improve compatibility with blocks and systems that check tool tags.
-- Sword, axe, and shovel melee damage is configured by material tier.
-- Expanded block-family detection for common wood, stone, soil, and shearable blocks.
-- Tier give-functions are included in the behavior pack.
-- Action-bar and particle feedback when the role changes.
+- **Five tool roles**: Axe, pickaxe, shovel, sword, and shears.
+- **Six material tiers**: Wood, copper, iron, gold, diamond, and netherite.
+- **Custom icons**: Each role has its own pixel-art icon.
+- **Durability carryover**: Tool damage carries across role changes.
+- **Enchantments**: Compatible enchantments can be applied to a new role when supported. Some enchantments may remain inactive while the current role is incompatible.
+- **Combat and block feedback**: Action-bar messages and particles indicate role changes.
 
-## Prototype Limitations
+## How It Works
 
-Role changes happen after the triggering action. A block is broken before the script can react, and the sword role is selected after an entity is hit. As a result, the first block break or attack may use the previous role's behavior. Tool tags can improve compatibility with tag-aware blocks, but they do not guarantee correct drops for every vanilla or add-on block. Stored incompatible enchantments are metadata until a compatible role can accept them. Mining speed, sword damage, enchantment restoration, and drops still need in-game testing on the target Bedrock version.
+The tool changes role after the triggering action. A block is broken before the tool can react, and the sword role is selected after an entity is hit. The first block break or attack may therefore use the previous role.
 
-## Attribution
+## Current Limitations
 
-- Creator: AllensCreations
-- All rights reserved for AllensCreations.
+- Tool tags improve compatibility with blocks that check tool tags, but do not guarantee correct drops for every vanilla or add-on block.
+- Mining speed, combat damage, enchantment restoration, and block drops still require in-game testing on the target Bedrock version.
+
+## Compatibility
+
+- Minecraft Bedrock Edition: Check the release package and current game version before use.
+- Prototype status: Some behaviors are not yet fully verified.
+
+## Guidelines and Attribution
+
+- Creator: AllensCreations.
 - Videos and streams may feature this add-on with credit to AllensCreations.
-- Do not re-upload or redistribute this pack as your own. Link to the official repository instead.
+- Do not re-upload this pack or modified copies as your own. Link to the official repository instead.
 
-© AllensCreations
+---
+
+© All rights reserved for AllensCreations.
+
+---
+
+## Search & Discovery Keywords
+
+Minecraft Bedrock multi-tool add-on, Adaptive Morphing Multi-Tool, Minecraft PE axe pickaxe shovel sword shears, morphing tool prototype, tiered multi-tool, tool durability carryover, AllensCreations.

@@ -1,21 +1,45 @@
-# One-Block-Economy
+# One-Block Hardcore Survival Economy — 20-Phase Progression Add-on
 
-## Description
+This Minecraft Bedrock add-on adds a block-breaking progression loop, a recurring Wandering Trader, and a void rescue mechanic to a compatible OneBlock world.
 
-Minecraft Bedrock add-on by AllensCreations.
+## Features
 
-## Source Files
+### OneBlock Regeneration
+- The central block returns after it is broken.
+- Each break advances the saved block counter and can unlock a new phase.
 
-This directory contains the uncompressed source files used to build this add-on.
+### 20 Progression Phases
+- The block pool changes as the total number of blocks broken increases.
+- An action-bar display shows the total, current phase, and phase name.
 
-Review the included manifests, behavior packs, resource packs, and scripts before publishing.
+### Wandering Trader
+- A Wandering Trader arrives every 250 blocks broken.
+- Each visit lasts about 60 seconds.
 
-## Attribution
+### Void Rescue
+- Players who fall below Y = -50 are teleported back above the OneBlock.
+- The rescue applies damage but is designed to leave at least one health point.
+
+## Important World Requirement
+
+This add-on does not generate a complete OneBlock world. Use it in a world with the central block at **(0, 64, 0)** in the Overworld.
+
+## Compatibility
+
+- Minimum Minecraft Bedrock version: 1.21.0.
+
+## Guidelines and Attribution
 
 - Creator: AllensCreations.
-- Content creators may feature this add-on in videos and streams with credit to AllensCreations.
-- Do not re-upload this add-on or modified copies to other websites, app stores, or file-sharing services.
+- Videos and streams may feature this add-on with credit to AllensCreations.
+- Do not re-upload this add-on or modified copies as your own. Link to the official repository instead.
 
 ---
 
 © All rights reserved for AllensCreations.
+
+---
+
+## Search & Discovery Keywords
+
+Minecraft Bedrock OneBlock add-on, One-Block Hardcore Survival Economy, 20-phase OneBlock progression, regenerating OneBlock, Wandering Trader every 250 blocks, void rescue mechanic, Minecraft PE survival add-on, AllensCreations.

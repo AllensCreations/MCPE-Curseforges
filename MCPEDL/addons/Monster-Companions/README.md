@@ -15,7 +15,7 @@ Tame 32 hostile monsters into defensive bodyguards and controllable mounts.
 
 Monster Companions is a data-driven Minecraft Bedrock add-on that enables players to pacify and tame 32 hostile mob types into defensive bodyguards and controllable mounts.
 
-The pack is built entirely using standard Bedrock entity component definitions and requires zero experimental toggles and zero scripting APIs. It operates safely in long-term survival worlds, multiplayer servers, and Realms.
+The pack adds tamable companion behavior and mount interactions to selected hostile mobs.
 
 ![Monster Companions Banner](https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/MCPEDL/addons/Monster-Companions/1791889996745.jpg)
 
