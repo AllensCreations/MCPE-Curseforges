@@ -1,0 +1,75 @@
+{
+  "format_version": "1.21.0",
+  "minecraft:item": {
+    "description": {
+      "identifier": "allenscreations:adaptive_netherite_pickaxe",
+      "menu_category": {
+        "category": "equipment"
+      }
+    },
+    "components": {
+      "minecraft:icon": "adaptive_morphing_tool",
+      "minecraft:display_name": {
+        "value": "Adaptive Netherite Pickaxe"
+      },
+      "minecraft:max_stack_size": 1,
+      "minecraft:hand_equipped": true,
+      "minecraft:durability": {
+        "max_durability": 2031
+      },
+      "minecraft:digger": {
+        "use_efficiency": true,
+        "destroy_speeds": [
+          {
+            "block": "minecraft:stone",
+            "speed": 9
+          },
+          {
+            "block": "minecraft:cobblestone",
+            "speed": 9
+          },
+          {
+            "block": "minecraft:deepslate",
+            "speed": 9
+          },
+          {
+            "block": "minecraft:coal_ore",
+            "speed": 9
+          },
+          {
+            "block": "minecraft:iron_ore",
+            "speed": 9
+          },
+          {
+            "block": "minecraft:gold_ore",
+            "speed": 9
+          },
+          {
+            "block": "minecraft:diamond_ore",
+            "speed": 9
+          },
+          {
+            "block": "minecraft:emerald_ore",
+            "speed": 9
+          },
+          {
+            "block": "minecraft:redstone_ore",
+            "speed": 9
+          },
+          {
+            "block": "minecraft:copper_ore",
+            "speed": 9
+          },
+          {
+            "block": "minecraft:obsidian",
+            "speed": 9
+          },
+          {
+            "block": "minecraft:netherrack",
+            "speed": 9
+          }
+        ]
+      }
+    }
+  }
+}
