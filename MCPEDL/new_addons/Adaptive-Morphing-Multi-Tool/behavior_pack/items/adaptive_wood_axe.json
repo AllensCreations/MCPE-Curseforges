@@ -84,7 +84,8 @@
           "minecraft:is_axe",
           "minecraft:wooden_tier"
         ]
-      }
+      },
+      "minecraft:damage": 3
     }
   }
 }
