@@ -20,7 +20,7 @@ Comprehensive vanilla-plus survival enhancements: dynamic lighting, offhand quic
 
 **Vanilla Quality of Life** is the ultimate all-in-one survival quality of life pack for Minecraft Bedrock Edition. It resolves everyday survival friction points while maintaining complete game balance and pure vanilla feel.
 
-From dynamic torch lighting and double-sneak offhand item swapping to automatic tool switching on Slot 1, sneak-activated tree capitation with 5×5 branch following, and 26-neighbor domino ore mining with durability safety guards—everything works seamlessly together.
+From dynamic torch lighting and double-sneak offhand item swapping to automatic tool switching on Slot 1, selectable tree capitator and 26-neighbor domino ore mining with durability safety guards—everything works seamlessly together.
 
 Optimized for smooth survival performance with zero lag. Requires zero experimental toggles, making it safe for long-term survival worlds, multiplayer Realms, and Bedrock Dedicated Servers (BDS).
 
@@ -38,19 +38,17 @@ Optimized for smooth survival performance with zero lag. Requires zero experimen
 
 ### Tree Harvesting
 - **Vanilla Bedrock**: 1 log at a time
-- **With Vanilla QoL**: Sneak-axe fells entire tree up to 128 logs with 26-neighbor 3D scan & canopy protection
+- **With Vanilla QoL**: Fells entire trees up to 128 logs; the No Sneak subpack works without sneaking while an axe is held in selected hotbar slot 1
 
 ### Ore Vein Mining
 - **Vanilla Bedrock**: 1 ore block at a time
-- **With Vanilla QoL**: Sneak-pickaxe domino mines contiguous veins across 26 neighbors
+- **With Vanilla QoL**: Domino mines contiguous ore veins across 26 neighbors; the No Sneak subpack works without sneaking while a pickaxe is held in selected hotbar slot 1
 
 ### Optional Mining Subpacks
-- **All Features (default)**: Tree Capitator and Vein Miner enabled.
-- **Tree Capitator Only**: Tree Capitator enabled; Vein Miner disabled
-- **Vein Miner Only**: Vein Miner enabled; Tree Capitator disabled; sneak is required.
-- **Vanilla Mining**: Both chain-mining features disabled while the rest of Vanilla QoL remains active.
-- Choose a preset from the Behavior Pack's subpack settings. Changes may require reactivating the pack or reloading the world.
-
+- **No Sneak (Slot 1 Required)**: Tree Capitator and Domino Ore Miner work without sneaking, only while the required axe or pickaxe is held in the selected first hotbar slot.
+- **Both Off**: Disables Tree Capitator and Domino Ore Miner while keeping the rest of Vanilla QoL active.
+- **Default (Sneak Required)**: Both mining features remain enabled and require sneaking, preserving the usual behavior.
+- Choose one preset in the Behavior Pack's subpack settings. Changes may require reactivating the pack or reloading the world.
 ### Tool Durability Safety
 - **Vanilla Bedrock**: Tools break unexpectedly
 - **With Vanilla QoL**: Auto-halts chain mining at 1 durability with alert sounds
@@ -108,8 +106,8 @@ Optimized for smooth survival performance with zero lag. Requires zero experimen
   - Attack hostile or passive mobs -> Equips best melee Weapon (Sword or Axe).
 - Low durability penalty: Automatically favors healthy tools so nearly-broken tools aren't worn down.
 
-#### 2. Smart Tree Capitator (Sneak + Axe)
-- Sneak while chopping any tree log with an axe to fell the entire tree in a single tick:
+#### 2. Smart Tree Capitator (Axe; sneak requirement depends on selected subpack)
+- With Default, sneak while chopping any tree log with an axe to fell the entire tree. No Sneak removes this requirement while the axe is held in selected hotbar slot 1:
   - **26-Neighbor 3D Flood-Fill**: Sweeps all 26 surrounding block coordinates (`dx, dy, dz ∈ [-1, 0, 1]`) with upward bias (`dy >= 0`), cleanly connecting branches, crooked trunks, and sprawling canopies without digging into terrain beneath the stump.
   - **Species Matching**: Enforces strict wood species matching (Oak only fells Oak) to prevent chain reactions into adjacent trees.
   - **The Leaf Scan (Build & Bush Protection)**: Ignores player-placed decorative leaves (harvested with shears), protecting your custom bushes, hedges, and roof designs while exclusively verifying natural tree canopies.
@@ -117,8 +115,8 @@ Optimized for smooth survival performance with zero lag. Requires zero experimen
   - **Natural Leaf Decay**: Preserves leaf canopies for authentic leaf decay drops (saplings, sticks, apples).
   - **Capacity Limit**: Up to 128 logs per tree operation.
 
-#### 3. Domino Ore Miner (Sneak + Pickaxe)
-- Sneak while mining any mineral ore with a pickaxe to harvest the connected ore vein:
+#### 3. Domino Ore Miner (Pickaxe; sneak requirement depends on selected subpack)
+- With Default, sneak while mining any mineral ore with a pickaxe to harvest the connected ore vein. No Sneak removes this requirement while the pickaxe is held in selected hotbar slot 1:
   - **26-Neighbor Detection**: Sweeps faces, edges, and corners across all 3 spatial dimensions.
   - **Category Normalization**: Normalizes stone and deepslate variants (e.g. Coal Ore and Deepslate Coal Ore chain together).
   - **Fortune & Silk Touch**: Honors Silk Touch block drops and vanilla Fortune item multipliers.
