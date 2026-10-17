@@ -1,0 +1,79 @@
+{
+  "format_version": "1.21.0",
+  "minecraft:item": {
+    "description": {
+      "identifier": "allenscreations:adaptive_diamond_axe",
+      "menu_category": {
+        "category": "equipment"
+      }
+    },
+    "components": {
+      "minecraft:icon": "adaptive_morphing_tool",
+      "minecraft:display_name": {
+        "value": "Adaptive Diamond Axe"
+      },
+      "minecraft:max_stack_size": 1,
+      "minecraft:hand_equipped": true,
+      "minecraft:durability": {
+        "max_durability": 1561
+      },
+      "minecraft:digger": {
+        "use_efficiency": true,
+        "destroy_speeds": [
+          {
+            "block": "minecraft:oak_log",
+            "speed": 9
+          },
+          {
+            "block": "minecraft:birch_log",
+            "speed": 9
+          },
+          {
+            "block": "minecraft:spruce_log",
+            "speed": 9
+          },
+          {
+            "block": "minecraft:jungle_log",
+            "speed": 9
+          },
+          {
+            "block": "minecraft:acacia_log",
+            "speed": 9
+          },
+          {
+            "block": "minecraft:dark_oak_log",
+            "speed": 9
+          },
+          {
+            "block": "minecraft:mangrove_log",
+            "speed": 9
+          },
+          {
+            "block": "minecraft:cherry_log",
+            "speed": 9
+          },
+          {
+            "block": "minecraft:crimson_stem",
+            "speed": 9
+          },
+          {
+            "block": "minecraft:warped_stem",
+            "speed": 9
+          },
+          {
+            "block": "minecraft:oak_planks",
+            "speed": 9
+          },
+          {
+            "block": "minecraft:chest",
+            "speed": 9
+          },
+          {
+            "block": "minecraft:crafting_table",
+            "speed": 9
+          }
+        ]
+      }
+    }
+  }
+}
