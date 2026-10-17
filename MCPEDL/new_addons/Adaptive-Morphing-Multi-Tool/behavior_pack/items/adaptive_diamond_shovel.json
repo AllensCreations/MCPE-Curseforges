@@ -80,7 +80,8 @@
           "minecraft:is_shovel",
           "minecraft:diamond_tier"
         ]
-      }
+      },
+      "minecraft:damage": 4
     }
   }
 }
