@@ -73,6 +73,10 @@
             "speed": 4
           }
         ]
+      },
+      "minecraft:enchantable": {
+        "slot": "axe",
+        "value": 15
       }
     }
   }
