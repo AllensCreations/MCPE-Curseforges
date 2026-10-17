@@ -31,11 +31,25 @@ function parseTool(item) {
 }
 
 function roleForBlock(blockId) {
-  const id = String(blockId).toLowerCase();
-  if (/(log|wood|stem|hyphae|planks|crafting_table|chest)/.test(id)) return "axe";
-  if (/(stone|ore|deepslate|cobblestone|bricks|terracotta|concrete|netherrack|blackstone|prismarine|end_stone)/.test(id)) return "pickaxe";
-  if (/(dirt|grass_block|sand|gravel|clay|snow|mud|soul_sand|soul_soil|podzol|mycelium|farmland)/.test(id)) return "shovel";
-  if (/(leaves|wool|web|vine|coral|seagrass|hanging_roots|glow_lichen)/.test(id)) return "shears";
+  const id = String(blockId).toLowerCase().replace(/^minecraft:/, "");
+
+  // Check specific block families before falling back to the generic patterns.
+  if (/(leaves|wool|cobweb|web|vine|coral|seagrass|hanging_roots|glow_lichen|deadbush|tall_grass|short_grass|fern|azalea|dripleaf|moss_carpet|carpet|nether_sprouts|pink_petals|spore_blossom)/.test(id)) {
+    return "shears";
+  }
+
+  if (/(log|wood|stem|hyphae|planks|bamboo_block|bamboo_mosaic|crafting_table|chest|barrel|bookshelf|lectern|fence|fence_gate|door|trapdoor|sign|hanging_sign|pumpkin|melon|hay_block|target|composter|note_block|jukebox|loom|cartography_table|fletching_table|smithing_table|roots)/.test(id)) {
+    return "axe";
+  }
+
+  if (/(stone|ore|deepslate|cobblestone|bricks|terracotta|concrete|netherrack|blackstone|prismarine|end_stone|obsidian|quartz_block|copper_block|iron_block|gold_block|diamond_block|emerald_block|redstone_block|lapis_block)/.test(id)) {
+    return "pickaxe";
+  }
+
+  if (/(dirt|grass_block|sand|gravel|clay|snow|mud|soul_sand|soul_soil|podzol|mycelium|farmland|powder_snow|dirt_path|suspicious_sand|suspicious_gravel)/.test(id)) {
+    return "shovel";
+  }
+
   return undefined;
 }
 
