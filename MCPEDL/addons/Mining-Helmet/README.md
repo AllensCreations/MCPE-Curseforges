@@ -17,7 +17,7 @@ Illuminate your mining expeditions without placing hundreds of torches.
 
 **Mining Helmet** adds wearable headgear with real-time dynamic following light to Minecraft Bedrock Edition. Equipped in your head armor slot, it continuously lights up your surroundings as you walk, run, and dig, leaving both hands free for your pickaxe, weapon, or shield.
 
-No experimental features required. Designed to keep achievements enabled while providing lag-free dynamic illumination across your worlds and Realms.
+Adds dynamic illumination to help improve visibility in dark areas.
 
 ---
 
