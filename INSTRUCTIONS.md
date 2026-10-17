@@ -105,7 +105,12 @@ Whenever visual assets (promotional banners, artwork, item previews, recipe info
 MCPE-Curseforges/
 ├── INSTRUCTIONS.md                # This standards file
 ├── README.md                      # Catalog of all active addons, maps & scripts
-├── banner.jpg                     # Master repository banner
+├── assets/                        # Master media and configuration assets
+│   ├── banner.jpg                 # Master repository banner
+│   ├── mcpedl.png                 # Master brand logo
+│   └── oneblock-assets/           # Authoritative OneBlock reference modules
+│       ├── catalog.json           # Catalog manifest of all 24 curated assets
+│       ├── *.json                 # Settings, HUD, mechanics, and phases (1-15)
 ├── MCPEDL/                        # Consolidated projects directory (Addons, Scripts, Maps)
 │   ├── addons/                    # Source folders for add-ons & packs
 │   │   ├── <Addon-Name>/
@@ -131,3 +136,17 @@ MCPE-Curseforges/
     ├── <Project-Name>/            # .mcaddon / .mcpack binaries
     └── <Map-Name>/                # .mcworld binaries
 ```
+
+---
+
+## 8. OneBlock Game Standards and Reference Assets
+
+When developing, updating, or generating any OneBlock maps, add-ons, or minigames in this repository, you **MUST** reference [`assets/oneblock-assets/`](assets/oneblock-assets/catalog.json) as the official single source of truth:
+
+1. **Pure Reference Baseline (Zero Image Clutter):**
+   - The reference folder [`assets/oneblock-assets/`](assets/oneblock-assets/) contains strictly non-image assets. It houses only the two definitive core assets for OneBlock maps:
+     - **[`text_in_the_block.json`](assets/oneblock-assets/text_in_the_block.json)**: The authoritative configuration, offset, template, and interval specifications for the floating holographic text rendered directly on/above the OneBlock altar.
+     - **[`level.dat`](assets/oneblock-assets/level.dat)**: The official Minecraft Bedrock world level data containing the master world generator, gamerules, spawn coordinates, and difficulty settings.
+   - All OneBlock world builds and scripts must use these two files as their foundational baseline.
+
+

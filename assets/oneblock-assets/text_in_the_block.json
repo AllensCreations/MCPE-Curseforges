@@ -1,0 +1,19 @@
+{
+  "id": "text_in_the_block",
+  "name": "OneBlock Floating Text In The Block",
+  "category": "display_hud",
+  "version": "1.0.0",
+  "description": "Floating holographic title and stats text rendered directly on/above the OneBlock altar.",
+  "config": {
+    "enabled": true,
+    "anchor_offset": {
+      "x": 0.5,
+      "y": 1.85,
+      "z": 0.5
+    },
+    "text_template": "\u00a7e\u2605 \u00a76\u00a7lONEBLOCK SURVIVAL \u00a7e\u2605\n\u00a7fPhase {phase_number}: \u00a7b{phase_name}\n\u00a7aProgress: \u00a7f{blocks_broken}/{phase_blocks}",
+    "update_interval_ticks": 1,
+    "render_distance_blocks": 16,
+    "face_nearest_player": true
+  }
+}

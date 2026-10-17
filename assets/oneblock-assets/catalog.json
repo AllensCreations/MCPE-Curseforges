@@ -1,0 +1,20 @@
+{
+  "name": "OneBlock Core Assets",
+  "creator": "AllensCreations",
+  "version": "1.0.0",
+  "description": "The exact minimal OneBlock reference assets: The Text in the Block configuration and the official OneBlock world level.dat.",
+  "assets": [
+    {
+      "id": "text_in_the_block",
+      "name": "Floating Text in the Block",
+      "file": "text_in_the_block.json",
+      "description": "Floating text / holographic guide rendered directly on and above the active OneBlock."
+    },
+    {
+      "id": "level_dat",
+      "name": "OneBlock World Level Data",
+      "file": "level.dat",
+      "description": "Official Minecraft Bedrock level.dat containing world gamerules, generator settings, and player spawn coordinates."
+    }
+  ]
+}
