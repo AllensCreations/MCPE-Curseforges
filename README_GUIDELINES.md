@@ -95,10 +95,10 @@ To ensure the markdown renders identically on external platforms (MCPEDL, CurseF
 
 ## Compatibility
 
-- Minecraft Bedrock Edition 1.21.0+
-- No experimental features required
-- Preserves Xbox achievements
-- Compatible with Mobile, Windows PC, Consoles, and Realms
+- Minecraft Bedrock Edition: [verified minimum version]
+- Experimental features: [state only after checking the project]
+- Achievements: [state only when supported by evidence or testing]
+- Supported platforms and multiplayer: [list only verified targets]
 
 ---
 
