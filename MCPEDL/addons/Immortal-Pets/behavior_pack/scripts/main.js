@@ -2,10 +2,10 @@ import { world, system, ItemTypes } from "@minecraft/server";
 
 const MARKER_PREFIX = "immortalpets:mode_";
 const STORAGE_KEY = "immortalpets:selected_mode";
+const PROTECTED_TAG = "immortalpets:protected";
 const TRIGGER_NAME = "EID";
 const DIMENSIONS = ["overworld", "nether", "the_end"];
-const EFFECT_TICKS = 100;
-const CHECK_INTERVAL = 20;
+const FALLBACK_INTERVAL = 200; // 10 seconds at 20 ticks per second.
 
 const TARGETS = {
   cat: ["minecraft:cat"],
@@ -16,6 +16,7 @@ const TARGETS = {
   mule: ["minecraft:mule"],
   skeleton_horse: ["minecraft:skeleton_horse"],
   zombie_horse: ["minecraft:zombie_horse"],
+  llamas: ["minecraft:llama", "minecraft:trader_llama"],
   all: [
     "minecraft:cat",
     "minecraft:wolf",
@@ -24,15 +25,11 @@ const TARGETS = {
     "minecraft:donkey",
     "minecraft:mule",
     "minecraft:skeleton_horse",
-    "minecraft:zombie_horse"
+    "minecraft:zombie_horse",
+    "minecraft:llama",
+    "minecraft:trader_llama"
   ]
 };
-
-const PROTECTION_EFFECTS = [
-  ["resistance", 255],
-  ["fire_resistance", 0],
-  ["water_breathing", 0]
-];
 
 const CLEARED_EFFECTS = ["poison", "fatal_poison"];
 
@@ -43,7 +40,7 @@ function readSavedMode() {
   try {
     const saved = world.getDynamicProperty(STORAGE_KEY);
     if (typeof saved === "string" && TARGETS[saved]) return saved;
-  } catch (e) {}
+  } catch {}
   return null;
 }
 
@@ -52,7 +49,7 @@ function saveMode(mode) {
     if (world.getDynamicProperty(STORAGE_KEY) !== mode) {
       world.setDynamicProperty(STORAGE_KEY, mode);
     }
-  } catch (e) {}
+  } catch {}
 }
 
 function applyMode(mode) {
@@ -61,77 +58,143 @@ function applyMode(mode) {
 }
 
 function resolveMode() {
-  if (activeTypes) return true;
-  const found = Object.keys(TARGETS).filter((mode) => ItemTypes.get(MARKER_PREFIX + mode));
+  if (activeTypes) return;
+
+  let found = [];
+  try {
+    found = Object.keys(TARGETS).filter((mode) =>
+      ItemTypes.get(MARKER_PREFIX + mode)
+    );
+  } catch {}
+
   if (found.length === 1) {
     saveMode(found[0]);
     applyMode(found[0]);
-    return true;
+    return;
   }
-  const saved = readSavedMode();
-  if (saved) {
-    applyMode(saved);
-    return true;
-  }
-  activeTypes = TARGETS.all;
-  activeSet = new Set(activeTypes);
-  return true;
+
+  applyMode(readSavedMode() || "all");
 }
 
-function isProtected(entity) {
+function isSelectedTamedPet(entity) {
   if (!activeSet || !activeSet.has(entity.typeId)) return false;
-  return !!entity.getComponent("minecraft:is_tamed");
+  try {
+    return !!entity.getComponent("minecraft:is_tamed");
+  } catch {
+    return false;
+  }
 }
 
-function protect(entity) {
-  for (const [effect, amplifier] of PROTECTION_EFFECTS) {
-    try {
-      entity.addEffect(effect, EFFECT_TICKS, { amplifier, showParticles: false });
-    } catch (e) {}
-  }
+function runProtectionFunction(entity) {
+  try {
+    entity.dimension.runCommand("function immortalpets/protect_pet");
+  } catch {}
+}
+
+function clearPoison(entity) {
   for (const effect of CLEARED_EFFECTS) {
     try {
       entity.removeEffect(effect);
-    } catch (e) {}
-  }
-  const health = entity.getComponent("minecraft:health");
-  if (health && health.currentValue < health.effectiveMax) {
-    health.resetToMaxValue();
+    } catch {}
   }
 }
 
-function process(entity) {
-  if (!isProtected(entity)) return;
-  if (entity.nameTag === TRIGGER_NAME) {
-    entity.kill();
-    return;
-  }
-  protect(entity);
+function restoreHealth(entity) {
+  try {
+    const health = entity.getComponent("minecraft:health");
+    if (health && health.currentValue < health.effectiveMax) {
+      health.resetToMaxValue();
+    }
+  } catch {}
 }
+
+function registerPet(entity, applyEffects = true) {
+  if (!isSelectedTamedPet(entity)) return false;
+
+  if (entity.nameTag === TRIGGER_NAME) {
+    try {
+      entity.kill();
+    } catch {}
+    return false;
+  }
+
+  try {
+    if (!entity.hasTag(PROTECTED_TAG)) entity.addTag(PROTECTED_TAG);
+  } catch {}
+
+  clearPoison(entity);
+  // Event-driven registrations receive protection immediately. The fallback
+  // scan batches one function call per dimension to avoid per-entity commands.
+  if (applyEffects) runProtectionFunction(entity);
+  return true;
+}
+
+function handleDamage(entity) {
+  if (!registerPet(entity)) return;
+  clearPoison(entity);
+  restoreHealth(entity);
+}
+
+world.afterEvents.entityTamed.subscribe((event) => {
+  try {
+    resolveMode();
+    registerPet(event.entity);
+  } catch {}
+});
+
+world.afterEvents.entitySpawn.subscribe((event) => {
+  // Spawn events can fire before taming. This catches already-tamed entities
+  // when their chunk reloads; the fallback scan catches missed registrations.
+  try {
+    resolveMode();
+    registerPet(event.entity);
+  } catch {}
+});
 
 world.afterEvents.entityHurt.subscribe((event) => {
   try {
     resolveMode();
-    process(event.hurtEntity);
-  } catch (e) {}
+    handleDamage(event.hurtEntity);
+  } catch {}
 });
 
-system.runInterval(() => {
+function scanForExistingPets() {
   resolveMode();
+
   for (const dimId of DIMENSIONS) {
-    const dimension = world.getDimension(dimId);
+    let dimension;
+    try {
+      dimension = world.getDimension(dimId);
+    } catch {
+      continue;
+    }
+
+    let hasProtectedPet = false;
+
     for (const type of activeTypes) {
       let entities;
       try {
         entities = dimension.getEntities({ type });
-      } catch (e) {
+      } catch {
         continue;
       }
+
       for (const entity of entities) {
         try {
-          process(entity);
-        } catch (e) {}
+          if (registerPet(entity, false)) hasProtectedPet = true;
+        } catch {}
       }
     }
+
+    // One function call per dimension per fallback scan, not one per entity.
+    if (hasProtectedPet) {
+      try {
+        dimension.runCommand("function immortalpets/protect_pet");
+      } catch {}
+    }
   }
-}, CHECK_INTERVAL);
+}
+
+// Run once after startup, then every 10 seconds as a low-frequency fallback.
+system.runTimeout(scanForExistingPets, 1);
+system.runInterval(scanForExistingPets, FALLBACK_INTERVAL);
