@@ -1,0 +1,45 @@
+{
+  "format_version": 2,
+  "header": {
+    "name": "DtA One Block by DTA MC & ONS",
+    "description": "This is a addon for one block! If you are a creator so promote this map! i need your help! also subscribe to DtA_MC",
+    "uuid": "34d0e950-a306-b8f3-765b-d6df5322b625",
+    "version": [
+      1,
+      7,
+      2
+    ],
+    "min_engine_version": [
+      1,
+      21,
+      0
+    ]
+  },
+  "modules": [
+    {
+      "type": "data",
+      "uuid": "0362166b-fc7a-ce81-318d-f994414b7304",
+      "version": [
+        1,
+        7,
+        2
+      ]
+    }
+  ],
+  "dependencies": [
+    {
+      "uuid": "96cc8a90-1beb-eaa2-cfbf-ad27d522513d",
+      "version": [
+        1,
+        16,
+        0
+      ]
+    }
+  ],
+  "metadata": {
+    "authors": [
+      "DtA_MC & ONS"
+    ],
+    "url": "https://www.youtube.com/@DtA_MC"
+  }
+}
