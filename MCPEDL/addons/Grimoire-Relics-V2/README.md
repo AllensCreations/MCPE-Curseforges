@@ -13,7 +13,7 @@
 
 ## Overview
 
-**Grimoire Relics V2** brings an RPG-style relic progression system to Minecraft Bedrock Edition without requiring experimental toggles or breaking achievement eligibility. Built on modern Minecraft Bedrock mechanics, it monitors your offhand equipment in real-time.
+**Grimoire Relics V2** brings an RPG-style relic progression system to Minecraft Bedrock Edition. It monitors your offhand equipment in real time.
 
 Holding a Grimoire in your offhand dynamically attunes your character:
 1. Displays an attunement actionbar title and lists relic perks.
@@ -147,9 +147,9 @@ Ancient tomes generate naturally inside exploration chests across the world, occ
 
 ## Performance & Optimization
 
-- **Zero Experimental Flags**: Works in standard survival worlds, servers, and Realms with achievements fully preserved.
+
 - **Instant Offhand Gating**: Un-equipping or switching away immediately removes active buffs and effects.
-- **Lag-Free Engine**: Lightweight background updates ensure smooth multiplayer gameplay without frame drops.
+- **Background Updates**: Lightweight updates monitor offhand equipment and relic effects.
 - **In-Game Tooltips**: Hovering over any Grimoire displays full colored lore and perk descriptions in your inventory.
 
 ---
