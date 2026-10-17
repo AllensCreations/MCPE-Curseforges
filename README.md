@@ -3,7 +3,7 @@
 
 [![Minecraft Bedrock](https://img.shields.io/badge/Minecraft%20Bedrock-1.21%20--%201.26%2B-brightgreen?style=flat-square&logo=minecraft)](https://github.com/AllensCreations/MCPE-Curseforges)
 [![Platform](https://img.shields.io/badge/Platform-Mobile%20%7C%20PC%20%7C%20Console%20%7C%20Realms-yellow?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges)
-[![Collection Size](https://img.shields.io/badge/Collection-15%20Add--ons%20%7C%201%20Map%20%7C%203%20Scripts-orange?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges)
+[![Collection Size](https://img.shields.io/badge/Collection-15%20Add--ons%20%7C%202%20Map%20%7C%203%20Scripts-orange?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges)
 [![Format](https://img.shields.io/badge/Format-.MCPACK%20%7C%20.MCADDON%20%7C%20.MCWORLD-blue?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges)
 
 Creator: AllensCreations  
@@ -17,6 +17,7 @@ Description: Curated collection of modular, production-ready Minecraft Bedrock b
 | :--- | :--- | :--- | :--- | :--- | :--- |
 | **OneBlock Void Survival** | `v1.2.5` | Void Survival & RPG | [Download (.mcworld)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/OneBlock-Void-Survival/OneBlock%20Void%20Survival%20by%20AllensCreations%20%28V1.2.5%29.mcworld) | [`MCPEDL/maps/OneBlock-Void-Survival/`](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/maps/OneBlock-Void-Survival/) | 43 Themed Secret Void Islands, 1-tick auto-renewing OneBlock, 3-tier progressive scaling, Dimension Shifter merchant, Hardcore death mode, Zero experimental flags needed. |
 | **OneBlock Void (Admin Studio)** | `v1.2.5` | Testing & Photography | [Download (.mcworld)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/OneBlock-Void-Survival/OneBlock%20Void%20Survival%20by%20AllensCreations%20%28V1.2.5%29.mcworld) | [`MCPEDL/maps/OneBlock-Void-Survival/`](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/maps/OneBlock-Void-Survival/) | Pre-manifested 43 islands, double-sneak photo studio GUI, 3/4 isometric panoramic camera angles, lighting controls, zero-item auto-break runner. |
+| **OneBlock Economy** | `v1.0.1` | Custom Map | [Download (.mcworld)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/OneBlock-Economy/OneBlock%20Economy%20by%20AllensCreations%20%28V1.0.1%29.mcworld) | [`MCPEDL/maps/OneBlock-Economy/`](MCPEDL/maps/OneBlock-Economy/) | OneBlock Hardcore Survival Economy by AllensCreations — 20-p... |
 
 Explore the full [Maps Directory](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/maps/README.md).
 

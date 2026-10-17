@@ -5,9 +5,9 @@
     "description": "OneBlock Void Survival core client resources by AllensCreations",
     "uuid": "b4ac62e9-fc12-4e0e-8176-ae8374b4f1b3",
     "version": [
-      2,
+      1,
       0,
-      0
+      1
     ],
     "min_engine_version": [
       1,
@@ -20,9 +20,9 @@
       "type": "resources",
       "uuid": "25849819-112c-45bc-972f-3a6d31948861",
       "version": [
-        2,
+        1,
         0,
-        0
+        1
       ]
     }
   ],
@@ -40,6 +40,7 @@
     "authors": [
       "AllensCreations"
     ],
-    "url": "https://github.com/AllensCreations/MCPE-Curseforges"
+    "url": "https://github.com/AllensCreations/MCPE-Curseforges",
+    "product_type": "addon"
   }
 }
