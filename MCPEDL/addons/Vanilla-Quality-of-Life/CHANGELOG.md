@@ -1,5 +1,12 @@
 # Changelog — Vanilla Quality of Life
 
+## [1.3.6] - 2026-10-17
+
+### Fixed
+- Added the missing **Default (All Features)** subpack choice so all four mining presets are explicitly selectable.
+- Kept the default configuration enabled for both Tree Capitator and Vein Miner.
+
+
 ## [1.3.3] - 2026-10-17
 
 ### Added
