@@ -45,9 +45,8 @@ Optimized for smooth survival performance with zero lag. Requires zero experimen
 - **With Vanilla QoL**: Sneak-pickaxe domino mines contiguous veins across 26 neighbors
 
 ### Optional Mining Subpacks
-- **No Sneak (Slot 1 Required)**: Tree Capitator and Vein Miner enabled without sneaking, but only while hotbar Slot 1 is selected.
-- **All Features (default)**: Tree Capitator and Vein Miner enabled; sneak is required.
-- **Tree Capitator Only**: Tree Capitator enabled; Vein Miner disabled; sneak is required.
+- **All Features (default)**: Tree Capitator and Vein Miner enabled.
+- **Tree Capitator Only**: Tree Capitator enabled; Vein Miner disabled
 - **Vein Miner Only**: Vein Miner enabled; Tree Capitator disabled; sneak is required.
 - **Vanilla Mining**: Both chain-mining features disabled while the rest of Vanilla QoL remains active.
 - Choose a preset from the Behavior Pack's subpack settings. Changes may require reactivating the pack or reloading the world.
@@ -109,7 +108,7 @@ Optimized for smooth survival performance with zero lag. Requires zero experimen
   - Attack hostile or passive mobs -> Equips best melee Weapon (Sword or Axe).
 - Low durability penalty: Automatically favors healthy tools so nearly-broken tools aren't worn down.
 
-#### 2. Smart Tree Capitator (Axe)
+#### 2. Smart Tree Capitator (Sneak + Axe)
 - In the default preset, sneak while chopping any tree log with an axe to fell the entire tree in a single tick. The **No Sneak (Slot 1 Required)** preset removes the sneak requirement while Slot 1 is selected:
   - **26-Neighbor 3D Flood-Fill**: Sweeps all 26 surrounding block coordinates (`dx, dy, dz ∈ [-1, 0, 1]`) with upward bias (`dy >= 0`), cleanly connecting branches, crooked trunks, and sprawling canopies without digging into terrain beneath the stump.
   - **Species Matching**: Enforces strict wood species matching (Oak only fells Oak) to prevent chain reactions into adjacent trees.
@@ -118,7 +117,7 @@ Optimized for smooth survival performance with zero lag. Requires zero experimen
   - **Natural Leaf Decay**: Preserves leaf canopies for authentic leaf decay drops (saplings, sticks, apples).
   - **Capacity Limit**: Up to 128 logs per tree operation.
 
-#### 3. Domino Ore Miner (Pickaxe)
+#### 3. Domino Ore Miner (Sneak + Pickaxe)
 - In the default preset, sneak while mining any mineral ore with a pickaxe to harvest the connected ore vein. The **No Sneak (Slot 1 Required)** preset removes the sneak requirement while Slot 1 is selected:
   - **26-Neighbor Detection**: Sweeps faces, edges, and corners across all 3 spatial dimensions.
   - **Category Normalization**: Normalizes stone and deepslate variants (e.g. Coal Ore and Deepslate Coal Ore chain together).
