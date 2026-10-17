@@ -8,6 +8,9 @@ Adaptive tool variants for Minecraft Bedrock by AllensCreations. The tool change
 - Six material tiers: wood, copper, iron, gold, diamond, and netherite.
 - Custom pixel-art icons for each tool role.
 - Tier-specific durability settings.
+- Durability damage carries over when the tool changes roles.
+- Compatible enchantments are retained when switching roles; incompatible enchantments are skipped.
+- Custom item names are retained while default names update to match the new role.
 - Tier give-functions are included in the behavior pack.
 - Action-bar and particle feedback when the role changes.
 
