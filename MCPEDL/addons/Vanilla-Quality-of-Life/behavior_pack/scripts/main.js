@@ -14,8 +14,9 @@
  */
 
 import { world, system, EquipmentSlot, ItemStack, BlockPermutation } from "@minecraft/server";
+import { MINING_OPTIONS } from "./mining-options.js";
 
-const VERSION = "1.3.0";
+const VERSION = "1.3.3";
 const LOG_PREFIX = "[Vanilla QoL]";
 
 // ─── Configuration ────────────────────────────────────────────────────────────
@@ -39,7 +40,7 @@ const CONFIG = {
   WEB_COMBAT_COOLDOWN: 40,
 
   // Smart Tree Capitator
-  TREE_CAPITATOR_ENABLED: true,
+  TREE_CAPITATOR_ENABLED: MINING_OPTIONS.TREE_CAPITATOR_ENABLED,
   MAX_TREE_BLOCKS: 128,
   MAX_TREE_HEIGHT: 320,
   TREE_HORIZONTAL_RANGE: 1, // 3x3 footprint (8 sides & 9 above)
@@ -47,7 +48,7 @@ const CONFIG = {
   MATCH_TREE_SPECIES: true,
 
   // Domino Ore Miner
-  DOMINO_ORE_MINER_ENABLED: true,
+  DOMINO_ORE_MINER_ENABLED: MINING_OPTIONS.DOMINO_ORE_MINER_ENABLED,
   MAX_ORE_CLUSTER_SIZE: 64,
   MAX_ANCIENT_DEBRIS_CLUSTER_SIZE: 4,
   INSTANT_BURST: true,
@@ -1515,4 +1516,4 @@ system.afterEvents.scriptEventReceive.subscribe((event) => {
   } catch (e) {}
 });
 
-console.warn(`${LOG_PREFIX} v${VERSION} Initialized. All QoL, Auto-Switch, Tree Capitator & Domino Ore Miner systems active.`);
+console.warn(`${LOG_PREFIX} v${VERSION} Initialized. Tree Capitator: ${CONFIG.TREE_CAPITATOR_ENABLED ? "ON" : "OFF"}; Vein Miner: ${CONFIG.DOMINO_ORE_MINER_ENABLED ? "ON" : "OFF"}.`);
