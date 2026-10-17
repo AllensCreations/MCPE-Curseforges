@@ -1,6 +1,6 @@
 # Commercial & Promotional README and Changelog Guidelines
 
-This document provides strict rules, writing guidelines, and templates for creating and maintaining `README.md` and `CHANGELOG.md` files across **MCPE-Curseforges**. All documentation must be clean, evergreen, player-focused, and tailored for commercial presentation and promotion on platforms like MCPEDL, CurseForge, PlanetMinecraft, and web showcases.
+This document provides strict rules, writing guidelines, and templates for creating and maintaining `README.md` and `CHANGELOG.md` files across **MCPE-Curseforges**. All documentation must be clean, player-focused, commercially presentable, and factual for platforms like MCPEDL, CurseForge, PlanetMinecraft, and web showcases. Source accuracy and the user's explicit scope override any template.
 
 ---
 
@@ -8,7 +8,7 @@ This document provides strict rules, writing guidelines, and templates for creat
 
 ### 1. Strictly Forbidden (Zero Developer Clutter)
 README files are player showcase pages. They must NEVER contain internal developer artifacts, code jargon, or ephemeral version labels:
-- ❌ **No Add-on Versions**: Do not put the add-on version (e.g. `Release-v1.0.3`, `v1.3.1`, or release badges) in the `README.md`. Keep documentation evergreen and decoupled from version bumps.
+- **Version information:** Omit version numbers and release badges by default to keep project READMEs evergreen. Include them only when requested or required by the publishing context, and verify the value.
 - ❌ **No Script API References**: Never mention `Script API` or `@minecraft/server` in badges, text, or tables. Use player-facing terms like "modern Minecraft Bedrock mechanics".
 - ❌ **No Code Blocks**: Do not include markdown code blocks (` ```javascript `, ` ```json `, ` ```text `).
 - ❌ **No Markdown Tables in Project READMEs**: Do not use Markdown tables (`| ... | ... |`) in individual project READMEs. Tables break on mobile screens by forcing horizontal overflow and awkward scrolling. Use clean mobile card sections (`### [Feature / Item Name]` with bullet points) instead.
@@ -20,26 +20,23 @@ README files are player showcase pages. They must NEVER contain internal develop
 - **Mobile-First Card Layout**: Highlight features, interactions, equipment stats, and recipes in concise Markdown cards with clear headings (`### [Feature Name]`) and clean bullet points (`- **Description**: ...` or `- **What Happens**: ...`). This renders smoothly on mobile phones, tablets, and desktop displays without horizontal clipping.
 - **Focus on Player Benefits**: Emphasize ease of use, survival convenience, exciting immersion, and multiplayer fun.
 - **Short & Punchy Sections**: Keep paragraphs under 3-4 sentences. Use bullet points and clean mobile cards instead of dense text walls.
-- **Player-Friendly Performance Reassurance**:
-  - Instead of technical profiling: *"Zero idle lag—only activates when interacting with blocks or mobs."*
-  - Instead of API versions: *"Optimized for smooth survival worlds and multiplayer Realms."*
-  - Instead of item serialization: *"Preserves all tool enchantments, custom anvil names, and durability."*
+- **Evidence-based benefits:** Describe performance, multiplayer, durability, enchantment, and compatibility behavior only when confirmed by source inspection or tests. Do not use blanket claims such as "zero lag," "smooth on all devices," "Realms compatible," or "preserves all enchantments" without specific evidence. Prefer precise descriptions of what was actually verified.
 
 ### 3. Formatting, External Readability & SEO
 To ensure the markdown renders identically on external platforms (MCPEDL, CurseForge, web portals, mobile apps):
-1. **Absolute Image URLs**:
-   All image embeds (`<img>` or `![]()`) must use absolute raw URLs:
+1. **Absolute Image URLs for Published READMEs**:
+   Image embeds (`<img>` or `![]()`) in published project READMEs must use verified absolute raw URLs:
    ```
    https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/<path-to-image>
    ```
-2. **Absolute Navigation & Download Links**:
-   All markdown links pointing to directories, files, or downloads must use full GitHub URLs:
+2. **Navigation & Download Links**:
+   For published project READMEs, use verified full GitHub URLs for directory, source, and download links so they work outside GitHub. Relative links remain appropriate for internal repository documentation when useful:
    ```
    https://github.com/AllensCreations/MCPE-Curseforges/tree/main/<path>
    https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/<file>
    ```
 3. **Bottom Search & Discovery Keywords (SEO) — Grounded in the Add-on's README**:
-   Every project `README.md` must conclude with a tailored SEO section. **Do NOT use generic placeholder keywords alone.**
+   Every individual project `README.md` should end with a tailored SEO section, with attribution/copyright immediately before it. Do not force SEO into directory catalogs or generic repository documentation. **Do NOT use generic placeholder keywords alone.**
    - **Use the Add-on's README as the Basis**: Extract terms directly from the pack's actual features, mechanics, mob types, item names, commands, and gameplay benefits described across its cards and overview.
    - **Structure**: Include high-intent player search phrases that directly match what the specific add-on offers.
    - **Formula**:
@@ -58,28 +55,23 @@ To ensure the markdown renders identically on external platforms (MCPEDL, CurseF
 ### 4. Standard Project README Template
 
 ```markdown
-# [Add-on Name] — [Exciting Promotional Subtitle] by AllensCreations
+# [Add-on Name] — [Clear, factual subtitle] by AllensCreations
 
 ![MCPEDL](https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/MCPEDL/[category]/[slug]/banner.jpg "MCPEDL")
 
 [![Minecraft Bedrock](https://img.shields.io/badge/Minecraft%20Bedrock-1.21.0%2B-brightgreen?style=flat-square&logo=minecraft)](https://github.com/AllensCreations/MCPE-Curseforges)
-[![Achievement Friendly](https://img.shields.io/badge/Achievements-Friendly-brightgreen?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges)
-[![No Experiments Required](https://img.shields.io/badge/Experimental%20Features-NOT%20REQUIRED-success?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges)
+<!-- Add achievement or no-experiments badges only after verifying each claim for this project. -->
 [![Format](https://img.shields.io/badge/Format-.MCADDON-orange?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/addons#available-add-ons)
 
 **By AllensCreations**
 
-**[HIGH IMPACT TAGLINE IN ALL CAPS]**
-
-[One-sentence punchy summary of what the add-on delivers for players.]
+[One-sentence, appealing but factual summary of what the add-on delivers for players.]
 
 ---
 
 ## Overview
 
-[2-3 engaging, descriptive sentences explaining what the add-on does in survival.]
-
-[Mention achievement friendliness, zero setup required, and smooth multiplayer experience.]
+[Two or three concise sentences explaining the verified gameplay purpose, expected use, and relevant limitations. Mention achievement support, setup requirements, or multiplayer only when verified.]
 
 ---
 
@@ -156,7 +148,7 @@ CHANGELOG files communicate updates directly to players and community users. The
 ```markdown
 # Changelog — [Add-on Name]
 
-All notable updates and improvements to the **[Add-on Name]** add-on by AllensCreations are documented in this file.
+Record notable player-visible updates to **[Add-on Name]** by AllensCreations here. Do not list planned or unverified behavior as completed.
 
 ---
 
