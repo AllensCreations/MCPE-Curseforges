@@ -20,6 +20,12 @@ const notices = new Map();
 
 function parseTool(item) {
   if (!item?.typeId?.startsWith(NS)) return undefined;
+
+  // The original all-in-one item starts as a diamond-tier pickaxe.
+  if (item.typeId === "allenscreations:adaptive_morphing_tool") {
+    return { tier: "diamond", role: "pickaxe" };
+  }
+
   const match = item.typeId.match(/^allenscreations:adaptive_(wood|copper|iron|gold|diamond|netherite)_(axe|pickaxe|shovel|sword|shears)$/);
   return match ? { tier: match[1], role: match[2] } : undefined;
 }
