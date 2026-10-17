@@ -69,6 +69,10 @@
             "speed": 6
           }
         ]
+      },
+      "minecraft:enchantable": {
+        "slot": "shovel",
+        "value": 14
       }
     }
   }
