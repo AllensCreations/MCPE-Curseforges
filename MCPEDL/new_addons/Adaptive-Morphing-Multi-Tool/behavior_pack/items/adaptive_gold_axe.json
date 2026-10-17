@@ -84,7 +84,8 @@
           "minecraft:is_axe",
           "minecraft:golden_tier"
         ]
-      }
+      },
+      "minecraft:damage": 3
     }
   }
 }
