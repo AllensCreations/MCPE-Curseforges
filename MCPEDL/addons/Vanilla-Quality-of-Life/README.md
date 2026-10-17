@@ -109,7 +109,7 @@ Optimized for smooth survival performance with zero lag. Requires zero experimen
 - Low durability penalty: Automatically favors healthy tools so nearly-broken tools aren't worn down.
 
 #### 2. Smart Tree Capitator (Sneak + Axe)
-- In the default preset, sneak while chopping any tree log with an axe to fell the entire tree in a single tick. The **No Sneak (Slot 1 Required)** preset removes the sneak requirement while Slot 1 is selected:
+- Sneak while chopping any tree log with an axe to fell the entire tree in a single tick:
   - **26-Neighbor 3D Flood-Fill**: Sweeps all 26 surrounding block coordinates (`dx, dy, dz ∈ [-1, 0, 1]`) with upward bias (`dy >= 0`), cleanly connecting branches, crooked trunks, and sprawling canopies without digging into terrain beneath the stump.
   - **Species Matching**: Enforces strict wood species matching (Oak only fells Oak) to prevent chain reactions into adjacent trees.
   - **The Leaf Scan (Build & Bush Protection)**: Ignores player-placed decorative leaves (harvested with shears), protecting your custom bushes, hedges, and roof designs while exclusively verifying natural tree canopies.
@@ -118,7 +118,7 @@ Optimized for smooth survival performance with zero lag. Requires zero experimen
   - **Capacity Limit**: Up to 128 logs per tree operation.
 
 #### 3. Domino Ore Miner (Sneak + Pickaxe)
-- In the default preset, sneak while mining any mineral ore with a pickaxe to harvest the connected ore vein. The **No Sneak (Slot 1 Required)** preset removes the sneak requirement while Slot 1 is selected:
+- Sneak while mining any mineral ore with a pickaxe to harvest the connected ore vein:
   - **26-Neighbor Detection**: Sweeps faces, edges, and corners across all 3 spatial dimensions.
   - **Category Normalization**: Normalizes stone and deepslate variants (e.g. Coal Ore and Deepslate Coal Ore chain together).
   - **Fortune & Silk Touch**: Honors Silk Touch block drops and vanilla Fortune item multipliers.
