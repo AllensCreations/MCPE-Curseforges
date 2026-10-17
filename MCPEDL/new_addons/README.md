@@ -8,7 +8,7 @@ Source files for newly generated Minecraft Bedrock add-ons by AllensCreations.
 | :--- | :--- | :--- | :--- |
 | One-Block Hardcore Survival Economy | 1.0.0 | [Source](One-Block-Economy/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/One-Block-Economy/One-Block-Economy by AllensCreations (V1.0.0).mcaddon) |
 | Swarm Mob Booster | 1.0.4 | [Source](Swarm-Mob-Booster/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Swarm-Mob-Booster/Swarm Mob Booster by AllensCreations (V1.0.4).mcaddon) |
-| Adaptive Morphing Multi-Tool | 1.0.6 | [Source](Adaptive-Morphing-Multi-Tool/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Adaptive-Morphing-Multi-Tool/Adaptive%20Morphing%20Multi-Tool%20by%20AllensCreations%20%28V1.0.6%29.mcaddon) |
+| Adaptive Morphing Multi-Tool | 1.0.7 | [Source](Adaptive-Morphing-Multi-Tool/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Adaptive-Morphing-Multi-Tool/Adaptive%20Morphing%20Multi-Tool%20by%20AllensCreations%20%28V1.0.7%29.mcaddon) |
 
 The catalog is automatically updated by the add-on generation workflow.
 
