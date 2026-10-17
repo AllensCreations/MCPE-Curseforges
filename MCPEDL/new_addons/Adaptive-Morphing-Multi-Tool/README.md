@@ -1,26 +1,25 @@
 # Adaptive Morphing Multi-Tool
 
-A single custom tool that changes its displayed role after mining or attacking.
+Adaptive tool variants for Minecraft Bedrock by AllensCreations. The tool changes its role after a block is broken or an entity is hit.
 
 ## Features
 
-- One inventory item for axe, pickaxe, shovel, shears, and sword roles.
-- Recognizes common block-name patterns after a block is broken.
-- Switches to a sword role after hitting an entity.
-- Brief flame-particle feedback with a throttled action-bar message.
-- Behavior and resource packs are separated for Bedrock packaging.
+- Five roles: axe, pickaxe, shovel, sword, and shears.
+- Six material tiers: wood, copper, iron, gold, diamond, and netherite.
+- Custom pixel-art icons for each tool role.
+- Tier-specific durability settings.
+- Tier give-functions are included in the behavior pack.
+- Action-bar and particle feedback when the role changes.
 
-## Current Prototype Notes
+## Prototype Limitations
 
-The role label and feedback adapt after the action; this prototype does not yet replace the underlying item model or guarantee vanilla tool-specific drops, mining speeds, or combat damage for every block and entity. Bedrock's block-break event fires after the block is broken, so it cannot change the tool before that same block's mining calculation.
+Role changes happen after the triggering action. A block is broken before the script can react, and the sword role is selected after an entity is hit. This prototype does not guarantee vanilla-equivalent mining speed, combat damage, or tool-specific drops for every block and entity. The add-on still needs in-game testing on the target Bedrock version.
 
-## Guidelines and Attribution
+## Attribution
 
 - Creator: AllensCreations
-- Rights & Reservation: All rights reserved for AllensCreations.
-- Content Creators: Content creators are permitted to feature this creation in videos and streams with credit to AllensCreations.
-- Redistribution: Do not re-upload this pack or provide direct monetized download bypasses. Link directly to the official repository page.
+- All rights reserved for AllensCreations.
+- Videos and streams may feature this add-on with credit to AllensCreations.
+- Do not re-upload or redistribute this pack as your own. Link to the official repository instead.
 
----
-
-© All rights reserved for AllensCreations.
+© AllensCreations
