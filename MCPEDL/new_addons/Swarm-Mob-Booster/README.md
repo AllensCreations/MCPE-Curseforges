@@ -17,7 +17,7 @@ Supercharge natural spawn rates, cluster sizes, and mob density across the Overw
 
 Swarm Mob Booster revolutionizes Bedrock mob generation by multiplying spawn weights and pack cluster sizes for all creatures in the game. Tuned to an ideal 30–40 density cap, your wilderness comes alive with vibrant animal herds and intense nighttime survival battles without overwhelming device memory.
 
-Equipped with three selectable subpack tiers, real-time Swarm Density HUD tracking, and intelligent ground item throttling, battles against horde swarms remain smooth, stable, and lag-free on all devices and multiplayer Realms.
+The add-on includes three selectable subpack tiers, real-time Swarm Density HUD tracking, and ground-item throttling for configurable swarm encounters.
 
 ---
 
@@ -61,7 +61,6 @@ Equipped with three selectable subpack tiers, real-time Swarm Density HUD tracki
 ## Compatibility
 
 - Minecraft Bedrock Edition 1.21.0+
-- Preserves Xbox achievements
 
 ---
 
