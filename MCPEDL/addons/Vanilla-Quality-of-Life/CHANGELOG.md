@@ -1,5 +1,13 @@
 # Changelog — Vanilla Quality of Life
 
+## [1.3.9] - 2026-10-17
+
+### Changed
+- Simplified mining presets to three choices: No Sneak (Slot 1 Required), Both Off, and Default (Sneak Required).
+- Added a No Sneak preset for Tree Capitator and Domino Ore Miner; it only activates when the required tool is held in the selected first hotbar slot.
+- Kept the sneak requirement for mining in the Default preset and left other add-on features unchanged.
+- Synchronized Behavior Pack, Resource Pack, and script version numbers to 1.3.9.
+
 
 ## [1.3.6] - 2026-10-17
 
