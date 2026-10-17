@@ -1,0 +1,54 @@
+{
+  "format_version": 2,
+  "header": {
+    "name": "Adaptive Morphing Multi-Tool BP",
+    "description": "Adaptive multi-tool behavior pack by AllensCreations.",
+    "uuid": "aeb7e8e6-0d3b-4e12-a3bd-66c49a6a21a1",
+    "version": [
+      1,
+      0,
+      0
+    ],
+    "min_engine_version": [
+      1,
+      21,
+      0
+    ]
+  },
+  "modules": [
+    {
+      "type": "data",
+      "uuid": "1b74c809-3bb8-4d40-8d68-2d51c3d4b8a2",
+      "version": [
+        1,
+        0,
+        0
+      ]
+    },
+    {
+      "type": "script",
+      "language": "javascript",
+      "uuid": "7cebb87d-81aa-48c0-9b64-cb8745a0d34d",
+      "version": [
+        1,
+        0,
+        0
+      ],
+      "entry": "scripts/main.js"
+    }
+  ],
+  "dependencies": [
+    {
+      "module_name": "@minecraft/server",
+      "version": "1.13.0"
+    },
+    {
+      "uuid": "a1f4dcd4-bfa2-4b79-8a38-8c2c8d7a4b17",
+      "version": [
+        1,
+        0,
+        0
+      ]
+    }
+  ]
+}
