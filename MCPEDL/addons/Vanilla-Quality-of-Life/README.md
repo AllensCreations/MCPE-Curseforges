@@ -44,6 +44,13 @@ Optimized for smooth survival performance with zero lag. Requires zero experimen
 - **Vanilla Bedrock**: 1 ore block at a time
 - **With Vanilla QoL**: Sneak-pickaxe domino mines contiguous veins across 26 neighbors
 
+### Optional Mining Subpacks
+- **All Features (default)**: Tree Capitator and Vein Miner enabled.
+- **Tree Capitator Only**: Tree Capitator enabled; Vein Miner disabled.
+- **Vein Miner Only**: Vein Miner enabled; Tree Capitator disabled.
+- **Vanilla Mining**: Both chain-mining features disabled while the rest of Vanilla QoL remains active.
+- Choose a preset from the Behavior Pack's subpack settings. Changes may require reactivating the pack or reloading the world.
+
 ### Tool Durability Safety
 - **Vanilla Bedrock**: Tools break unexpectedly
 - **With Vanilla QoL**: Auto-halts chain mining at 1 durability with alert sounds
