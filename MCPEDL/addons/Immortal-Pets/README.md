@@ -2,104 +2,49 @@
 
 [![Minecraft Bedrock](https://img.shields.io/badge/Minecraft%20Bedrock-1.26.x-brightgreen?style=flat-square&logo=minecraft)](https://github.com/AllensCreations/MCPE-Curseforges)
 [![Format](https://img.shields.io/badge/Format-.MCPACK-orange?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/addons#available-add-ons)
+[![Achievement Friendly](https://img.shields.io/badge/Achievement-Friendly-blue?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges)
+[![Experimental Features](https://img.shields.io/badge/Experimental%20Features-Not%20Required-brightgreen?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges)
 
 **By AllensCreations**
 
-Protect your pets. Preserve your adventures. Never leave your companions behind.
-
----
-
 ## Overview
 
-Your pets deserve to survive every adventure.
+Immortal Pets automatically protects selected tamed companions in the Overworld, Nether, and End. Protection starts when a supported pet is tamed and is restored for existing pets as the world loads.
 
-**Immortal Pets** is a Minecraft Bedrock add-on that protects your selected companions from dangerous situations, including hostile mobs, fire, lava, drowning, explosions, poison, and fatal falls.
+## Features
 
-From loyal wolves and adorable cats to parrots and powerful horses, choose which animals receive protection and explore your world with greater peace of mind.
+- Infinite Resistance, Fire Resistance, and Water Breathing effects.
+- Automatic health recovery and poison-effect removal.
+- Event-driven registration with a low-frequency fallback scan.
+- Protection recovery when entities spawn or chunks reload.
+- Selective protection for cats, wolves, parrots, horses, donkeys, mules, skeleton horses, zombie horses, and llamas.
+- The exact-case `EID` exception: a selected, tamed pet named `EID` is killed.
+- No custom gameplay items or player-run commands.
 
-## Key Features
+## Protection Modes
 
-### Pet Immortality
-- **Description**: Protect selected pets from fatal damage.
+Choose one subpack in Behavior Pack settings:
 
-### Fire & Lava Protection
-- **Description**: Help your companions survive fiery environments.
-
-### Automatic Healing
-- **Description**: Restore health to protected pets.
-
-### Drowning Protection
-- **Description**: Help prevent underwater deaths.
-
-### Explosion Protection
-- **Description**: Guard against explosive hazards.
-
-### Poison Protection
-- **Description**: Help prevent poison-related deaths.
-
-### Fall Protection
-- **Description**: Reduce the risk of fatal falls.
-
-### Custom Pet Selection
-- **Description**: Choose which animals receive protection.
-
-### Persistent Settings
-- **Description**: Retain your selected protection modes across world reloads.
-
-### EID Special Rule
-- **Description**: A protected pet named exactly `EID` will be eliminated.
-
-### Multi-Dimension Support
-- **Description**: Adventure in the Overworld, Nether, and End.
-
-## Protect Your Favorite Companions
-
-Choose your preferred protection mode.
-
-### Cat
-- **Supported Animals**: Cats
-
-### Wolf
-- **Supported Animals**: Wolves
-
-### Parrot
-- **Supported Animals**: Parrots
-
-### Horse
-- **Supported Animals**: Horses
-
-### Donkey
-- **Supported Animals**: Donkeys
-
-### Mule
-- **Supported Animals**: Mules
-
-### Skeleton Horse
-- **Supported Animals**: Skeleton Horses
-
-### Zombie Horse
-- **Supported Animals**: Zombie Horses
-
-### All Supported Pets
-- **Supported Animals**: All listed animals
-
-Enable protection for specific animals or choose **All Supported Pets** for a complete companion protection setup.
-
-## Designed for Survival
-
-**Explore with confidence.**
-
-Travel through dangerous caves, cross lava-filled landscapes, battle hostile mobs, and venture into unfamiliar dimensions without constantly worrying about your protected companions.
-
-**Your pets. Your choice. Your adventure.**
+1. Cat
+2. Wolf
+3. Parrot
+4. Horse
+5. Donkey
+6. Mule
+7. Skeleton Horse
+8. Zombie Horse
+9. All Supported Pets
+10. Llamas
 
 ## Compatibility
 
 - Minecraft Bedrock Edition 1.26.x
-- Behavior Pack format
-- Mobile, Windows, and other supported Bedrock platforms
+- Behavior Pack (`.mcpack`)
+- Declared Script API dependency: `@minecraft/server` 1.13.0
+- Experimental Features: Not required by the declared API dependency.
+- Achievement Friendly: Designed without cheats or experimental toggles. Actual achievement availability can still depend on Minecraft version, platform, and world settings.
 
-Achievement availability depends on the pack's actual implementation and the world's configuration. Compatibility may vary by platform.
+Protection cannot guarantee survival against every possible game mechanic, command, despawn, or API event. Test environmental damage and reload behavior in the target Bedrock version before relying on it for a permanent world.
 
 ## Credits & Usage
 
@@ -109,15 +54,4 @@ Achievement availability depends on the pack's actual implementation and the wor
 - Do not re-upload or redistribute the add-on without authorization.
 - Do not bypass original download sources through monetized redistribution.
 
----
-
-**Immortal Pets**
-*Your companions deserve another adventure.*
-
 © All rights reserved for AllensCreations.
-
----
-
-## Search & Discovery Keywords
-
-Minecraft Bedrock immortal pets, pet invulnerability mod, invincible wolves cats, pet health protection, no pet death Bedrock, companion survival add-on, MCPEDL, CurseForge, AllensCreations.
