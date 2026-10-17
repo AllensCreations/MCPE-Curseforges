@@ -12,7 +12,7 @@ Adaptive tool variants for Minecraft Bedrock by AllensCreations. The tool change
 - Compatible enchantments are retained when switching roles; incompatible enchantments are skipped.
 - Custom item names are retained while default names update to match the new role.
 - Vanilla tool and material-tier tags improve compatibility with blocks and systems that check tool tags.
-- Sword attack damage is configured by material tier.
+- Sword, axe, and shovel melee damage is configured by material tier.
 - Expanded block-family detection for common wood, stone, soil, and shearable blocks.
 - Tier give-functions are included in the behavior pack.
 - Action-bar and particle feedback when the role changes.
