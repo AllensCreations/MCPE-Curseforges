@@ -77,6 +77,13 @@
       "minecraft:enchantable": {
         "slot": "axe",
         "value": 10
+      },
+      "minecraft:tags": {
+        "tags": [
+          "minecraft:is_tool",
+          "minecraft:is_axe",
+          "minecraft:diamond_tier"
+        ]
       }
     }
   }
