@@ -1,6 +1,5 @@
-// Tree Capitator Only subpack; sneak is required.
+// Tree Capitator Only subpack.
 export const MINING_OPTIONS = Object.freeze({
   TREE_CAPITATOR_ENABLED: true,
   DOMINO_ORE_MINER_ENABLED: false,
-  REQUIRE_SNEAK: true,
 });
