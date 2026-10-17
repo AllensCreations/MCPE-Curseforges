@@ -8,7 +8,7 @@
       }
     },
     "components": {
-      "minecraft:icon": "adaptive_morphing_tool",
+      "minecraft:icon": "adaptive_axe",
       "minecraft:display_name": {
         "value": "Adaptive Netherite Axe"
       },
