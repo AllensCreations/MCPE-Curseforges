@@ -54,9 +54,7 @@ files, manifests, assets, scripts, workflows, or pack configuration.
 
 ## README Structure and Reference Standards
 
-The README template in this skill is the fallback standard. When repository
-files are accessible, inspect existing documentation to learn the repository's
-current conventions.
+`INSTRUCTIONS.md` defines shared policy and `README_GUIDELINES.md` is the canonical README/CHANGELOG style guide. This skill defines the audit workflow. Its template is a fallback only and must not override either document or the user's explicit instructions. Inspect existing documentation to learn current conventions.
 
 Before creating or substantially rewriting a README:
 
@@ -296,10 +294,11 @@ requirements, and known limitations when supported by evidence.
 For any project:
 
 - Use the actual project name and correct project type.
-- Keep descriptions concise and factual.
+- Keep descriptions concise, polished, player-focused, and factual; avoid hype and filler.
 - Explain meaningful features rather than listing unsupported claims.
-- Use relative image paths that resolve from the README location.
-- Use working links only.
+- Never claim achievement support, no experimental features, compatibility, performance, or testing status without evidence.
+- For published project README image embeds, use verified absolute raw GitHub URLs so they render on external platforms. Use relative links for internal repository references when appropriate.
+- Verify that every link and image destination exists.
 - Keep formatting consistent with verified repository conventions.
 - Do not include internal analysis or instructions to the assistant in the
   published README.
@@ -445,6 +444,10 @@ When the user requests a single project update:
 8. Run applicable validation commands.
 9. Review the final diff.
 10. Report the files changed and any remaining uncertainty.
+
+## Clarify Material Ambiguities
+
+If source files or existing rules leave a decision unresolved that could materially affect gameplay, compatibility, user data, release/version behavior, or distribution, ask the user before implementing that decision. For ordinary documentation choices, apply `INSTRUCTIONS.md` and `README_GUIDELINES.md` and proceed.
 
 ## Change Boundaries and Safety
 
