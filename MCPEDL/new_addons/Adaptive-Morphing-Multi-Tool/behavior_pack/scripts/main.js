@@ -66,7 +66,8 @@ function morph(player, nextRole) {
     const defaultOldName = `Adaptive ${TIERS[parsed.tier].label} ${ROLES[parsed.role].label}`;
     const defaultNextName = `Adaptive ${TIERS[parsed.tier].label} ${ROLES[nextRole].label}`;
     const oldName = held.nameTag;
-    next.nameTag = !oldName || oldName === defaultOldName ? defaultNextName : oldName;
+    const isBaseDefaultName = held.typeId === "allenscreations:adaptive_morphing_tool" && oldName === "Adaptive Morphing Multi-Tool";
+    next.nameTag = !oldName || oldName === defaultOldName || isBaseDefaultName ? defaultNextName : oldName;
 
     const oldDurability = held.getComponent("minecraft:durability");
     const newDurability = next.getComponent("minecraft:durability");
