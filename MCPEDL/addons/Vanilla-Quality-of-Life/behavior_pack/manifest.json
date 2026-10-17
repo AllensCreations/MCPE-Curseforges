@@ -7,7 +7,7 @@
     "version": [
       1,
       3,
-      2
+      3
     ],
     "min_engine_version": [
       1,
@@ -23,7 +23,7 @@
       "version": [
         1,
         3,
-        2
+        3
       ]
     },
     {
@@ -34,7 +34,7 @@
       "version": [
         1,
         3,
-        2
+        3
       ],
       "entry": "scripts/main.js"
     }
@@ -50,5 +50,22 @@
       "AllensCreations"
     ],
     "product_type": "addon"
-  }
+  },
+  "subpacks": [
+    {
+      "folder_name": "tree_only",
+      "name": "Tree Capitator Only",
+      "memory_tier": 0
+    },
+    {
+      "folder_name": "vein_only",
+      "name": "Vein Miner Only",
+      "memory_tier": 0
+    },
+    {
+      "folder_name": "vanilla_mining",
+      "name": "Vanilla Mining (Both Off)",
+      "memory_tier": 0
+    }
+  ]
 }
