@@ -1,7 +1,6 @@
 # Magnetic Satchel — Offhand Item Vacuum Add-on by AllensCreations
 
 [![Minecraft Bedrock](https://img.shields.io/badge/Minecraft%20Bedrock-1.21.0%2B-brightgreen?style=flat-square&logo=minecraft)](https://github.com/AllensCreations/MCPE-Curseforges)
-[![Achievement Friendly](https://img.shields.io/badge/Achievements-Friendly-brightgreen?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges)
 [![Format](https://img.shields.io/badge/Format-.MCADDON-orange?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/addons#available-add-ons)
 
 **By AllensCreations**
@@ -87,15 +86,13 @@ The Magnetic Satchel can be crafted at any crafting table using either of the fo
 
 - **Smooth Item Gliding**: Draws dropped items smoothly toward your character with natural physics.
 - **Visual Feedback**: Subtle sparkle trail shows items flying toward you.
-- **Lag-Free Execution**: Optimized for large item clusters with zero server slowdown.
+- **Item Collection**: Collects dropped items within the configured radius.
 
 ---
 
 ## Compatibility
 
 - Minecraft Bedrock Edition 1.21.0+
-- Simple 1-click import into worlds and Realms
-- Compatible with Windows, Android, iOS, Xbox, PlayStation, Nintendo Switch, and dedicated servers/Realms
 - Full multiplayer support (per-player offhand detection and individual toggle state tags)
 
 ---

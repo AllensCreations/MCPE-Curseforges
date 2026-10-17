@@ -3,10 +3,7 @@
 ![MCPEDL](https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/MCPEDL/addons/Vanilla-Quality-of-Life/banner.jpg "MCPEDL")
 
 [![Minecraft Bedrock](https://img.shields.io/badge/Minecraft%20Bedrock-1.21.0%2B-brightgreen?style=flat-square&logo=minecraft)](https://github.com/AllensCreations/MCPE-Curseforges)
-[![Achievement Friendly](https://img.shields.io/badge/Achievements-Friendly-brightgreen?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges)
-[![No Experiments Required](https://img.shields.io/badge/Experimental%20Features-NOT%20REQUIRED-success?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges)
 [![Format](https://img.shields.io/badge/Format-.MCADDON-orange?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/addons#available-add-ons)
-[![Platform](https://img.shields.io/badge/Platform-Mobile%20%7C%20PC%20%7C%20Console%20%7C%20Realms-yellow?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges)
 
 **By AllensCreations**
 
@@ -209,12 +206,10 @@ Optimized for smooth survival performance with zero lag. Requires zero experimen
 
 - Minecraft Bedrock Edition 1.21.0+
 - Pure vanilla gameplay mechanics
-- No experimental features required
 - **Available Package Formats**:
   - **Complete `.MCADDON`**: 1-click full install with all features and companion visuals.
   - **Behavior Pack (`.mcpack`)**: Standalone gameplay and survival mechanics.
   - **Resource Pack (`.mcpack`)**: Visual lead attachments and companion animations.
-- Compatible with Mobile (iOS / Android), Windows PC, Consoles (Xbox, PlayStation, Switch), and Multiplayer Realms / BDS
 
 ---
 

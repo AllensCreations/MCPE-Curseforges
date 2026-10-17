@@ -3,10 +3,7 @@
 ![MCPEDL](https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/MCPEDL/script/Alphabet-Scavenger-Hunt/1791906906852.jpg "MCPEDL")
 
 [![Minecraft Bedrock](https://img.shields.io/badge/Minecraft%20Bedrock-1.21.0%2B-brightgreen?style=flat-square&logo=minecraft)](https://github.com/AllensCreations/MCPE-Curseforges)
-[![Achievement Friendly](https://img.shields.io/badge/Achievements-Friendly-brightgreen?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges)
-[![No Experiments Required](https://img.shields.io/badge/Experimental%20Features-NOT%20REQUIRED-success?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges)
 [![Format](https://img.shields.io/badge/Format-.MCPACK-orange?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/script#available-scripts)
-[![Platform](https://img.shields.io/badge/Platform-Mobile%20%7C%20PC%20%7C%20Console%20%7C%20Realms-yellow?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges)
 
 **By AllensCreations**
 
@@ -27,8 +24,6 @@ Can you think on your feet and scavenge your surroundings under immense pressure
 Items are verified automatically in real-time, recognizing both common and formal item names (such as Cooked Beef matching both B for Beef and S for Steak).
 
 Succeed, and you earn an intermission to prepare for the next round. Fail, and you suffer an un-regenerable maximum health penalty that stacks with each failure until your vitality is depleted.
-
-No experimental features required. Designed to keep achievements available while challenging your survival skills across solo worlds and multiplayer Realms.
 
 ---
 
@@ -103,10 +98,7 @@ No experimental features required. Designed to keep achievements available while
 ## Compatibility
 
 - Minecraft Bedrock Edition 1.21.0+
-- No experimental features required
-- Designed to preserve achievement eligibility
 - Script Behavior Pack (.mcpack) format
-- Compatible with Mobile, Windows, Console, and Realms
 
 ---
 

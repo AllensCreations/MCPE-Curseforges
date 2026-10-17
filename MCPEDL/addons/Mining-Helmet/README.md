@@ -3,13 +3,9 @@
 ![MCPEDL](https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/MCPEDL/addons/Mining-Helmet/1791946330457.jpg "MCPEDL")
 
 [![Minecraft Bedrock](https://img.shields.io/badge/Minecraft%20Bedrock-1.20.80%20--%201.26%2B-brightgreen?style=flat-square&logo=minecraft)](https://github.com/AllensCreations/MCPE-Curseforges)
-[![Achievement Friendly](https://img.shields.io/badge/Achievements-Friendly-brightgreen?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges)
-[![No Experiments Required](https://img.shields.io/badge/Experimental%20Features-NOT%20REQUIRED-success?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges)
 [![Format](https://img.shields.io/badge/Format-.MCADDON-orange?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/addons#available-add-ons)
 
 **By AllensCreations**
-
-**NO EXPERIMENTAL NEED & ACHIEVEMENT FRIENDLY**
 
 Hands-free dynamic following light system for cave mining and night exploration.
 
@@ -94,10 +90,7 @@ Combine a standard **Torch** with a **Golden Helmet** to craft the Level 10 Mini
 ## Compatibility
 
 - Minecraft Bedrock Edition 1.20.80 - 1.26+
-- No experimental features required
-- Designed to preserve achievement eligibility
 - Complete Add-on (.mcaddon) format
-- Compatible with Mobile, Windows, Console, and Realms
 
 ---
 

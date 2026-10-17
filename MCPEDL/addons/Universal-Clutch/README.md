@@ -1,7 +1,6 @@
 # Universal Clutch — Intelligent Fall Mitigation Add-on by AllensCreations
 
 [![Minecraft Bedrock](https://img.shields.io/badge/Minecraft%20Bedrock-1.21.0%2B-brightgreen?style=flat-square&logo=minecraft)](https://github.com/AllensCreations/MCPE-Curseforges)
-[![Achievement Friendly](https://img.shields.io/badge/Achievements-Friendly-brightgreen?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges)
 [![Format](https://img.shields.io/badge/Format-.MCPACK-orange?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/addons#available-add-ons)
 
 **By AllensCreations**
@@ -161,7 +160,7 @@ Individual players can customize their personal settings on multiplayer servers 
 
 - **Responsive Clutch Engine**: High-precision impact calculation prevents fatal fall damage right before hitting the ground.
 - **Survival Balanced**: Consumes clutch items faithfully from your inventory or hand in Survival and Adventure modes.
-- **Waterlogging Support**: Perfectly clutches onto waterloggable blocks without awkward water spilling.
+- **Waterlogging Support**: Supports clutching onto waterloggable blocks without awkward water spilling.
 - **Anti-Spam Cooldown**: Built-in placement cooldown guarantees one clean clutch per fall.
 
 ---
@@ -171,7 +170,6 @@ Individual players can customize their personal settings on multiplayer servers 
 - Minecraft Bedrock Edition 1.21.0+
 - Compatible with Bedrock 1.21.50+ and 1.26.0+ releases
 - Enable Beta APIs in World Settings
-- Compatible with Windows, Android, iOS, Xbox, PlayStation, and dedicated servers / Realms
 - Multiplayer ready with per-player tracking and isolated execution states
 
 ---

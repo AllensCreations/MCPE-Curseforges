@@ -1,10 +1,10 @@
-# 📚 Minecraft Bedrock Developer Reference Suite
+# Minecraft Bedrock Developer Reference Suite
 
 This directory contains official development references and schema assets extracted from **Mojang's official [`bedrock-samples`](https://github.com/mojang/bedrock-samples) (Minimal Edition - v1.26.50+)** to serve as a fast, offline lookup for pack development.
 
 ---
 
-## 🗂️ Directory Structure
+## Directory Structure
 
 ```
 reference/
@@ -44,7 +44,7 @@ reference/
 
 ---
 
-## 🛠️ Complete Bedrock Tools Reference
+## Complete Bedrock Tools Reference
 
 All canonical tool identifiers derived from [`metadata/vanilladata_modules/mojang-items.json`](bedrock-samples/metadata/vanilladata_modules/mojang-items.json):
 
@@ -81,11 +81,11 @@ All canonical tool identifiers derived from [`metadata/vanilladata_modules/mojan
 
 ---
 
-## 🔍 How to Use in Development
+## How to Use in Development
 
-1. **Looking up an entity component:**  
+1. **Looking up an entity component:**
    Inspect [`bedrock-samples/behavior_pack/entities/<entity>.json`](bedrock-samples/behavior_pack/entities/) to see exact vanilla components (e.g., `minecraft:rideable`, `minecraft:leashable`, `minecraft:health`).
-2. **Looking up valid item/block IDs:**  
+2. **Looking up valid item/block IDs:**
    Search [`bedrock-samples/metadata/vanilladata_modules/mojang-items.json`](bedrock-samples/metadata/vanilladata_modules/mojang-items.json) for exact namespaces.
-3. **Validating JSON with Schemas:**  
+3. **Validating JSON with Schemas:**
    Configure your editor (VS Code, Bridge) to use the schemas in [`bedrock-samples/metadata/json_schemas/`](bedrock-samples/metadata/json_schemas/).

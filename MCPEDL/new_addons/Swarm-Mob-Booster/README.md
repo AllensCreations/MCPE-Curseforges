@@ -3,8 +3,6 @@
 ![MCPEDL](https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/MCPEDL/new_addons/Swarm-Mob-Booster/behavior_pack/pack_icon.png "MCPEDL")
 
 [![Minecraft Bedrock](https://img.shields.io/badge/Minecraft%20Bedrock-1.21.0%2B-brightgreen?style=flat-square&logo=minecraft)](https://github.com/AllensCreations/MCPE-Curseforges)
-[![Achievement Friendly](https://img.shields.io/badge/Achievements-Friendly-brightgreen?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges)
-[![No Experiments Required](https://img.shields.io/badge/Experimental%20Features-NOT%20REQUIRED-success?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges)
 [![Format](https://img.shields.io/badge/Format-.MCADDON-orange?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/addons#available-add-ons)
 
 **By AllensCreations**
@@ -63,9 +61,7 @@ Equipped with three selectable subpack tiers, real-time Swarm Density HUD tracki
 ## Compatibility
 
 - Minecraft Bedrock Edition 1.21.0+
-- No experimental features required
 - Preserves Xbox achievements
-- Compatible with Mobile (iOS / Android), Windows 10/11, Consoles (Xbox / PlayStation / Nintendo Switch), and Realms
 
 ---
 

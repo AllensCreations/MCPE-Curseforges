@@ -1,12 +1,9 @@
 # MCPE Curseforges - Add-ons, Maps, and Minigames Collection
 
-
 [![Minecraft Bedrock](https://img.shields.io/badge/Minecraft%20Bedrock-1.21%20--%201.26%2B-brightgreen?style=flat-square&logo=minecraft)](https://github.com/AllensCreations/MCPE-Curseforges)
-[![Platform](https://img.shields.io/badge/Platform-Mobile%20%7C%20PC%20%7C%20Console%20%7C%20Realms-yellow?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges)
-[![Collection Size](https://img.shields.io/badge/Collection-16%20Add--ons%20%7C%202%20Map%20%7C%203%20Scripts-orange?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges)
 [![Format](https://img.shields.io/badge/Format-.MCPACK%20%7C%20.MCADDON%20%7C%20.MCWORLD-blue?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges)
 
-Creator: AllensCreations  
+Creator: AllensCreations
 Description: Curated collection of modular, production-ready Minecraft Bedrock behavior packs, add-ons, and custom survival maps.
 
 ---
@@ -79,7 +76,6 @@ Single-block void survival map with procedural island generation across dimensio
 
 ### Add-on 1: Vanilla Quality of Life (v1.3.14)
 
-
 Lightweight data-driven vanilla enhancement pack for Minecraft Bedrock.
 
 - Universal Leashing: Leash any of the 101 mobs. Hostiles attached to a lead are pacified. Sneak-interact Villagers to leash without opening trade interface.
@@ -97,7 +93,6 @@ Lightweight data-driven vanilla enhancement pack for Minecraft Bedrock.
 
 ### Add-on 2: Monster Companions (v1.0.6)
 
-
 Data-driven pacification and bodyguard system for hostile monsters.
 
 - Primal Beast Biscuit: Craftable treat made from 1 Rotten Flesh + 1 Bone + 1 Sweet Berries + 1 Honey Bottle -> 4 Biscuits.
@@ -113,9 +108,7 @@ Data-driven pacification and bodyguard system for hostile monsters.
 
 ### Add-on 3: Mining Helmet (v1.0.8)
 
-
 Dynamic following light headgear for mining and cave exploration.
-
 
 - Dynamic Following Light: Hands-free real-time lighting with tiered power levels (Lantern: Level 15, Torch: Level 10).
 - Automatic Coordinate Cleanup: Light blocks clear automatically on movement, unequip, death, or disconnect.
@@ -127,7 +120,6 @@ Dynamic following light headgear for mining and cave exploration.
 ---
 
 ### Add-on 4: Passive Auto-Switch Tools (v1.1.1)
-
 
 Event-driven tool and weapon auto-switcher when holding Slot 1.
 
@@ -145,7 +137,6 @@ Event-driven tool and weapon auto-switcher when holding Slot 1.
 
 ### Add-on 5: Ghast Mob Head Transformers (v1.0.1)
 
-
 Transform vanilla Ghasts into giant flying mob heads by equipping skulls.
 
 - Mob Head Morphing: Equip Skeleton, Wither Skeleton, Zombie, Steve, Creeper, or Piglin heads to transform Ghasts into giant flying skull cubes.
@@ -158,7 +149,6 @@ Transform vanilla Ghasts into giant flying mob heads by equipping skulls.
 ---
 
 ### Script 1: Alphabet Scavenger Hunt (v1.0.5)
-
 
 20-Round survival scavenger challenge.
 
@@ -173,7 +163,6 @@ Transform vanilla Ghasts into giant flying mob heads by equipping skulls.
 
 ### Script 2: Shared Hivemind Inventory (v1.0.5)
 
-
 Multiplayer challenge synchronizing player inventories.
 
 - Authoritative Real-Time Sync: 1-tick delta synchronization mirrors all 36 main inventory slots and offhand across all online players.
@@ -186,7 +175,6 @@ Multiplayer challenge synchronizing player inventories.
 ---
 
 ### Script 3: Tethered: Breaker & Builder (v1.0.1)
-
 
 2-Player asymmetric co-op challenge.
 

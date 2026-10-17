@@ -3,10 +3,7 @@
 ![MCPEDL](https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/MCPEDL/script/Shared-Hivemind-Inventory/pack_icon.png "MCPEDL")
 
 [![Minecraft Bedrock](https://img.shields.io/badge/Minecraft%20Bedrock-1.21.0%2B-brightgreen?style=flat-square&logo=minecraft)](https://github.com/AllensCreations/MCPE-Curseforges)
-[![Achievement Friendly](https://img.shields.io/badge/Achievements-Friendly-brightgreen?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges)
-[![No Experiments Required](https://img.shields.io/badge/Experimental%20Features-NOT%20REQUIRED-success?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges)
 [![Format](https://img.shields.io/badge/Format-.MCPACK-orange?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/script#available-scripts)
-[![Platform](https://img.shields.io/badge/Platform-Mobile%20%7C%20PC%20%7C%20Console%20%7C%20Realms-yellow?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges)
 
 **By AllensCreations**
 
@@ -24,8 +21,6 @@ What happens when your entire survival team shares a single brain and a single b
 
 Engineered with built-in loop protection and duplication safeguards, the pack delivers instant synchronization without item duplication or inventory desync.
 
-No experimental features required. Designed to keep achievements available while testing your team's co-op communication across standard worlds and multiplayer Realms.
-
 ---
 
 ## Key Features
@@ -33,7 +28,7 @@ No experimental features required. Designed to keep achievements available while
 ### Complete 36-Slot Mirroring
 - **Description**: Mirrors all 9 hotbar slots, 27 main inventory slots, and active offhand shield/totem positions across all online teammates.
 
-### Zero-Latency Sync
+### Inventory Synchronization
 - **Description**: Instant real-time updates as soon as any player picks up, moves, or consumes items.
 
 ### Anti-Duplication Safeguards
@@ -93,10 +88,7 @@ Operators can manage the shared inventory using native commands:
 ## Compatibility
 
 - Minecraft Bedrock Edition 1.21.0+
-- No experimental features required
-- Designed to preserve achievement eligibility
 - Script Behavior Pack (.mcpack) format
-- Compatible with Mobile, Windows, Console, and Realms
 
 ---
 

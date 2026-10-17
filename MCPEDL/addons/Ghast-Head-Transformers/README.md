@@ -3,13 +3,9 @@
 ![MCPEDL](https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/MCPEDL/addons/Ghast-Head-Transformers/1791965821315.jpg?v=1791967147 "MCPEDL")
 
 [![Minecraft Bedrock](https://img.shields.io/badge/Minecraft%20Bedrock-1.21%20--%201.26%2B-brightgreen?style=flat-square&logo=minecraft)](https://github.com/AllensCreations/MCPE-Curseforges)
-[![Achievement Friendly](https://img.shields.io/badge/Achievements-Friendly-brightgreen?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges)
-[![No Experiments Required](https://img.shields.io/badge/Experimental%20Features-NOT%20REQUIRED-success?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges)
 [![Format](https://img.shields.io/badge/Format-.MCADDON%20%7C%20.MCPACK-orange?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/addons#available-add-ons)
 
 **By AllensCreations**
-
-**NO EXPERIMENTAL NEED & ACHIEVEMENT FRIENDLY**
 
 Transform vanilla Ghasts into colossal flying mob heads with custom combat attacks and shearing mechanics.
 
@@ -19,11 +15,9 @@ Transform vanilla Ghasts into colossal flying mob heads with custom combat attac
 
 Transform the skies of your world with colossal floating mob heads.
 
-**Ghast Mob Head Transformers** allows you to interact with any Ghast while holding a mob head or skull to instantly convert it into a giant, floating version of that mob. 
+**Ghast Mob Head Transformers** allows you to interact with any Ghast while holding a mob head or skull to instantly convert it into a giant, floating version of that mob.
 
 Each transformed variant features unique attack projectiles, dynamic facial animations, authentic sound effects, and full survival shearing support so you can reclaim your skulls at any time.
-
-No experimental features required. Designed to keep achievements available while enhancing your survival experience across worlds and Realms.
 
 ---
 
@@ -102,10 +96,7 @@ Interact with any Ghast while holding a skull to trigger the transformation:
 ## Compatibility
 
 - Minecraft Bedrock Edition 1.21.0 - 1.26+
-- No experimental features required
-- Designed to preserve achievement eligibility
 - Complete Add-on (.mcaddon) and Modular Pack (.mcpack) format
-- Compatible with Mobile, Windows, Console, and Realms
 
 ---
 

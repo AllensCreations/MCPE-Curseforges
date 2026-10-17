@@ -201,10 +201,8 @@ Domino Ore Miner checks all 26 spatial neighbors (faces, edges, and corners) usi
 ## Compatibility
 
 - Minecraft Bedrock Edition 1.21.0+
-- Simple 1-click import into worlds and Realms
 - Experimental Features toggle enabled in World Settings
 - Pure Behavior Pack format (.mcpack and .mcaddon)
-- Compatible with Mobile, Windows, Console, and Realms
 - Multiplayer compatible with isolated per-player recursion guards
 
 ---

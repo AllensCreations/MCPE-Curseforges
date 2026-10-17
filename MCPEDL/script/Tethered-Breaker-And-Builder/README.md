@@ -3,10 +3,7 @@
 ![MCPEDL](https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/MCPEDL/script/Tethered-Breaker-And-Builder/pack_icon.png "MCPEDL")
 
 [![Minecraft Bedrock](https://img.shields.io/badge/Minecraft%20Bedrock-1.21.0%2B-brightgreen?style=flat-square&logo=minecraft)](https://github.com/AllensCreations/MCPE-Curseforges)
-[![Achievement Friendly](https://img.shields.io/badge/Achievements-Friendly-brightgreen?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges)
-[![No Experiments Required](https://img.shields.io/badge/Experimental%20Features-NOT%20REQUIRED-success?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges)
 [![Format](https://img.shields.io/badge/Format-.MCPACK-orange?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/script#available-scripts)
-[![Platform](https://img.shields.io/badge/Platform-Mobile%20%7C%20PC%20%7C%20Console%20%7C%20Realms-yellow?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges)
 
 **By AllensCreations**
 
@@ -23,8 +20,6 @@ Can you and your partner survive when neither of you can play the game alone?
 **Tethered: Breaker & Builder** connects two players with a dynamic energy leash that limits your separation to **15 meters**. One player is the **Breaker**, possessing the exclusive ability to mine blocks and fight off hostile mobs, but completely forbidden from placing blocks or fluids. The other is the **Builder**, possessing the exclusive power to construct structures, place fluids, and craft utilities, but unable to break a single block or strike an enemy.
 
 Stray too far, and the elastic tether pulls you back inward. Overstretch past 18 meters, and the strain inflicts continuous damage until you regroup.
-
-No experimental features required. Designed to keep achievements available while challenging your teamwork across standard worlds and multiplayer Realms.
 
 ---
 
@@ -102,10 +97,7 @@ Operators can manage role assignments using native commands:
 ## Compatibility
 
 - Minecraft Bedrock Edition 1.21.0+
-- No experimental features required
-- Designed to preserve achievement eligibility
 - Script Behavior Pack (.mcpack) format
-- Compatible with Mobile, Windows, Console, and Realms
 
 ---
 

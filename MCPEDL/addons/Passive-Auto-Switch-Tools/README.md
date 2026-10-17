@@ -3,14 +3,9 @@
 ![MCPEDL](https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/MCPEDL/addons/Passive-Auto-Switch-Tools/pack_icon.png "MCPEDL")
 
 [![Minecraft Bedrock](https://img.shields.io/badge/Minecraft%20Bedrock-1.21%20--%201.26%2B-brightgreen?style=flat-square&logo=minecraft)](https://github.com/AllensCreations/MCPE-Curseforges)
-[![Achievement Friendly](https://img.shields.io/badge/Achievements-Friendly-brightgreen?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges)
-[![No Experiments Required](https://img.shields.io/badge/Experimental%20Features-NOT%20REQUIRED-success?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges)
 [![Format](https://img.shields.io/badge/Format-.MCPACK-orange?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/addons#available-add-ons)
-[![Platform](https://img.shields.io/badge/Platform-Mobile%20%7C%20PC%20%7C%20Console%20%7C%20Realms-yellow?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges)
 
 **By AllensCreations**
-
-**NO EXPERIMENTAL NEED & ACHIEVEMENT FRIENDLY**
 
 Automatic intelligent tool and combat equipment selection for survival.
 
@@ -65,7 +60,6 @@ Item components are preserved during swaps:
 ## Performance & Optimization
 
 - **Zero Idle Lag**: Only activates the moment you strike a block or engage a mob.
-- **Smart Item Memory**: Preserves all enchantments, custom anvil names, and durability states without loss.
 - **Instant Response**: Seamless weapon and tool swapping tailored for console, mobile touch, and PC.
 
 ---

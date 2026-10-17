@@ -3,10 +3,7 @@
 ![MCPEDL](https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/MCPEDL/maps/OneBlock-Economy/behavior_pack/pack_icon.png "MCPEDL")
 
 [![Minecraft Bedrock](https://img.shields.io/badge/Minecraft%20Bedrock-1.21.0%2B-brightgreen?style=flat-square&logo=minecraft)](https://github.com/AllensCreations/MCPE-Curseforges)
-[![Achievement Friendly](https://img.shields.io/badge/Achievements-Friendly-brightgreen?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges)
-[![No Experiments Required](https://img.shields.io/badge/Experimental%20Features-NOT%20REQUIRED-success?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges)
 [![Format](https://img.shields.io/badge/Format-.MCWORLD-orange?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/maps#available-maps)
-[![Platform](https://img.shields.io/badge/Platform-Mobile%20%7C%20PC%20%7C%20Console%20%7C%20Realms-yellow?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges)
 
 **By AllensCreations**
 
@@ -136,10 +133,7 @@ A Wandering Trader arrives every 250 blocks broken, staying for 60 seconds to of
 ## Compatibility
 
 - Minecraft Bedrock Edition 1.21.0+
-- No experimental features required
-- Designed to preserve achievement eligibility
 - Complete Bedrock World (.mcworld) format
-- Compatible with Mobile, Windows PC, Consoles, and Realms
 
 ---
 
