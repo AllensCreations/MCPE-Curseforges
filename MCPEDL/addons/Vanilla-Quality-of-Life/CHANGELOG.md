@@ -1,5 +1,12 @@
 # Changelog — Vanilla Quality of Life
 
+## [1.3.8] - 2026-10-17
+
+### Added
+- **No Sneak (Slot 1 Required) subpack**: Tree Capitator and Domino Ore Miner can activate without sneaking, but only while the player has hotbar Slot 1 selected. Other subpacks retain their existing sneak requirement.
+- Added a `REQUIRE_SNEAK` subpack setting and synchronized pack versions to 1.3.8.
+
+
 ## [1.3.6] - 2026-10-17
 
 ### Fixed
