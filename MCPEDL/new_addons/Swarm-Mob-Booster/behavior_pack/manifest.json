@@ -2,12 +2,12 @@
   "format_version": 2,
   "header": {
     "name": "Swarm Mob Booster by AllensCreations",
-    "description": "Massively multiplies spawn rates and cluster sizes for all vanilla mobs across the Overworld, Nether, and The End.",
+    "description": "Massively multiplies spawn rates and cluster sizes for all vanilla mobs with balanced 30-40 density caps and live HUD radar.",
     "uuid": "9ffb98b0-154b-45f6-8955-d23ae9213a21",
     "version": [
       1,
       0,
-      2
+      3
     ],
     "min_engine_version": [
       1,
@@ -23,18 +23,18 @@
       "version": [
         1,
         0,
-        2
+        3
       ]
     },
     {
-      "description": "Swarm Mob Booster Anti-Lag Script Module",
+      "description": "Swarm Mob Booster Anti-Lag & HUD Script Module",
       "type": "script",
       "language": "javascript",
       "uuid": "b45d85a7-6c61-4bbe-b1ea-6fa23e55d20e",
       "version": [
         1,
         0,
-        2
+        3
       ],
       "entry": "scripts/main.js"
     }
@@ -47,18 +47,18 @@
   ],
   "subpacks": [
     {
-      "folder_name": "insane_5x",
-      "name": "Insane Multiplier (5x Density & 8-16 Cluster Sizes)",
+      "folder_name": "balanced_35x",
+      "name": "Balanced Swarm (38 Density Cap & 6-12 Herd Size)",
       "memory_tier": 1
     },
     {
-      "folder_name": "ludicrous_10x",
-      "name": "Ludicrous Swarm (10x Density & 16-32 Cluster Sizes)",
+      "folder_name": "max_swarm_50x",
+      "name": "Maximum Swarm (50 Density Cap & 10-18 Herd Size)",
       "memory_tier": 2
     },
     {
-      "folder_name": "balanced_2x",
-      "name": "Balanced Double (2x Density & 4-8 Cluster Sizes)",
+      "folder_name": "lite_25x",
+      "name": "Lite Swarm (25 Density Cap & 4-8 Herd Size)",
       "memory_tier": 3
     }
   ],

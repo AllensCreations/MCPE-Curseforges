@@ -11,15 +11,15 @@
 
 **TRANSFORM YOUR MINECRAFT WORLD INTO A PACKED, ACTION-FILLED SWARM**
 
-Supercharge natural spawn rates, cluster sizes, and mob density across the Overworld, Nether, and The End with live density HUD tracking.
+Supercharge natural spawn rates, cluster sizes, and mob density across the Overworld, Nether, and The End tuned to an optimal 30–40 density cap with live HUD radar.
 
 ---
 
 ## Overview
 
-Swarm Mob Booster revolutionizes Bedrock mob generation by multiplying spawn weights and pack cluster sizes for all creatures in the game. Whether you want sprawling pastures packed with livestock or relentless nighttime zombie sieges, this add-on fills the wilderness with life.
+Swarm Mob Booster revolutionizes Bedrock mob generation by multiplying spawn weights and pack cluster sizes for all creatures in the game. Tuned to an ideal 30–40 density cap, your wilderness comes alive with vibrant animal herds and intense nighttime survival battles without overwhelming device memory.
 
-Equipped with three selectable subpack tiers, real-time Swarm Density HUD tracking, and intelligent ground item throttling, battles against massive horde swarms remain smooth, stable, and lag-free on all devices and multiplayer Realms.
+Equipped with three selectable subpack tiers, real-time Swarm Density HUD tracking, and intelligent ground item throttling, battles against horde swarms remain smooth, stable, and lag-free on all devices and multiplayer Realms.
 
 ---
 
@@ -28,14 +28,17 @@ Equipped with three selectable subpack tiers, real-time Swarm Density HUD tracki
 ### Universal Mob Boosting
 - **Description**: Applies boosted spawn weights and increased cluster limits to all core Overworld, Nether, and End mobs.
 
+### Perfectly Balanced 30–40 Density
+- **Description**: Tuned for maximum action without lag, keeping active mobs clustered in smooth, high-octane 30–40 population waves.
+
 ### Live Swarm Density HUD
 - **Description**: Displays a real-time action bar radar showing total nearby mob counts alongside separate tallies for hostile monsters and friendly passives.
 
 ### Three Configurable Multiplier Tiers
-- **Description**: Choose between Balanced Double (2x), Insane Multiplier (5x), and Ludicrous Swarm (10x) directly from your pack settings before starting your world.
+- **Description**: Choose between Lite Swarm (25-Cap), Balanced Swarm (38-Cap), and Maximum Swarm (50-Cap) directly from your pack settings before starting your world.
 
-### Colossal Herd Clusters
-- **Description**: Mobs spawn in massive natural groups ranging from 4 to 8 up to 16 to 32 creatures per spawn event.
+### Natural Herd Clusters
+- **Description**: Mobs spawn in cohesive natural groups ranging from 4 to 8, 6 to 12, or 10 to 18 creatures per spawn event.
 
 ### Built-In Anti-Lag Drop Balancing
 - **Description**: High-density horde battles automatically balance ground item drops, ensuring your game remains ultra-smooth during massive combat encounters.
@@ -49,7 +52,7 @@ Equipped with three selectable subpack tiers, real-time Swarm Density HUD tracki
 
 ### Selecting Your Density Tier
 - **Requirement**: World Resource/Behavior Pack Settings slider.
-- **What Happens**: Select your preferred swarm intensity (Balanced Double, Insane Multiplier, or Ludicrous Swarm). The world immediately adopts the chosen horde density.
+- **What Happens**: Select your preferred swarm intensity (Lite Swarm, Balanced Swarm, or Maximum Swarm). The world immediately adopts the chosen horde density.
 
 ### Tracking Nearby Swarms
 - **Requirement**: Normal gameplay and exploration.
@@ -81,4 +84,4 @@ Equipped with three selectable subpack tiers, real-time Swarm Density HUD tracki
 
 ## Search & Discovery Keywords
 
-Minecraft Bedrock add-on, Swarm Mob Booster Bedrock mod, mob spawn multiplier Minecraft PE, horde survival Bedrock, mob cap HUD Bedrock, high density mob spawns, MCPEDL add-on, CurseForge Bedrock, AllensCreations.
+Minecraft Bedrock add-on, Swarm Mob Booster Bedrock mod, mob spawn multiplier Minecraft PE, horde survival Bedrock, 30-40 mob cap Bedrock, high density mob spawns, MCPEDL add-on, CurseForge Bedrock, AllensCreations.
