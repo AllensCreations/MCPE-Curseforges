@@ -80,7 +80,8 @@
           "minecraft:is_shovel",
           "minecraft:iron_tier"
         ]
-      }
+      },
+      "minecraft:damage": 3
     }
   }
 }
