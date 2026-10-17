@@ -9,6 +9,13 @@ const MERCHANT_EVERY = 250;
 const MERCHANT_TICKS = 1200;                       // 60 seconds
 const MERCHANT_TAG = "ob_merchant";
 
+// 8 perimeter positions around (0, 50, 0) for starter platform expansion
+const SURROUNDING_OFFSETS = [
+  { x: -1, z: -1 }, { x: 0, z: -1 }, { x: 1, z: -1 },
+  { x: -1, z: 0 },                    { x: 1, z: 0 },
+  { x: -1, z: 1 },  { x: 0, z: 1 },  { x: 1, z: 1 }
+];
+
 /* --------------------------------- State ----------------------------------- */
 let total = 0;
 let ready = false;
@@ -22,9 +29,9 @@ function saveTotal() {
   } catch (e) {}
 }
 
-/* ----------------------- Foundation & Anti-Phasing ----------------------- */
+/* ----------------------- Foundation & Platform ----------------------- */
 // Guarantees bedrock foundation directly beneath the OneBlock so gravity blocks
-// (gravel, sand) don't fall into the void, and creates an unpenetrable floor.
+// (gravel, sand) don't fall into the void, and creates an impenetrable base.
 function ensureBedrockFoundation() {
   try {
     const floor = overworld().getBlock({ x: ORIGIN.x, y: ORIGIN.y - 1, z: ORIGIN.z });
@@ -34,22 +41,21 @@ function ensureBedrockFoundation() {
   } catch (e) {}
 }
 
-// Elevates player standing directly on the OneBlock to prevent clipping/phasing through
-function stabilizePlayer(player) {
-  if (!player) return;
-  try {
-    const loc = player.location;
-    // Check if player is on top of or slightly inside the OneBlock column
-    if (Math.abs(loc.x - 0.5) < 0.9 && Math.abs(loc.z - 0.5) < 0.9 && loc.y >= ORIGIN.y - 0.2 && loc.y < ORIGIN.y + 1.5) {
-      player.teleport(
-        { x: loc.x, y: ORIGIN.y + 1.0, z: loc.z },
-        { dimension: overworld(), checkForBlocks: false }
-      );
-      try {
-        player.clearVelocity();
-      } catch (ve) {}
-    }
-  } catch (e) {}
+// Starter Platform Assist: automatically expands a 3x3 platform around the central block
+// during the first 8 blocks mined so players don't have to balance on 1 block or fall into the void.
+function handleStarterPlatform(blockIndex) {
+  if (blockIndex < SURROUNDING_OFFSETS.length) {
+    const offset = SURROUNDING_OFFSETS[blockIndex];
+    try {
+      const targetPos = { x: ORIGIN.x + offset.x, y: ORIGIN.y, z: ORIGIN.z + offset.z };
+      const sideBlock = overworld().getBlock(targetPos);
+      if (sideBlock && sideBlock.isAir) {
+        sideBlock.setType("minecraft:dirt");
+        overworld().spawnParticle("minecraft:villager_happy", { x: targetPos.x + 0.5, y: targetPos.y + 0.5, z: targetPos.z + 0.5 });
+        overworld().playSound("dig.gravel", targetPos, { volume: 0.8, pitch: 1.2 });
+      }
+    } catch (e) {}
+  }
 }
 
 /* ----------------------- Regeneration and progression ----------------------- */
@@ -101,37 +107,20 @@ world.afterEvents.playerBreakBlock.subscribe((event) => {
   const b = event.block;
   if (b.dimension.id !== "minecraft:overworld" || b.x !== ORIGIN.x || b.y !== ORIGIN.y || b.z !== ORIGIN.z) return;
 
-  const player = event.player;
+  const currentCount = total;
 
-  // 1. Immediately place next block synchronously in this tick (no 1-tick air gap)
+  // 1. Immediately place next block synchronously in this tick (no air gap)
   placeNext();
 
-  // 2. Teleport player up to y=51 if standing on the block so they don't clip/phase through
-  stabilizePlayer(player);
+  // 2. Starter Platform Assist: builds 3x3 dirt foundation around center on blocks 0-7
+  handleStarterPlatform(currentCount);
 
   const before = phaseIndexFor(total);
   total += 1;
   saveTotal();
   const after = phaseIndexFor(total);
 
-  // 3. Teleport drops safely hovering above the block so they don't drop into void
-  system.run(() => {
-    try {
-      stabilizePlayer(player);
-      if (total % MERCHANT_EVERY === 0) spawnMerchant();
-
-      const nearbyItems = overworld().getEntities({
-        type: "minecraft:item",
-        location: ABOVE_ORIGIN,
-        maxDistance: 2.0
-      });
-      for (const item of nearbyItems) {
-        item.teleport({ x: 0.5, y: ORIGIN.y + 1.2, z: 0.5 });
-        try { item.clearVelocity(); } catch (ve) {}
-      }
-    } catch (e) {}
-  });
-
+  if (total % MERCHANT_EVERY === 0) spawnMerchant();
   if (after !== before) announcePhase(after);
 });
 
@@ -154,9 +143,6 @@ system.runInterval(() => {
     "§6[ ONE-BLOCK ECONOMY ] §fBlocks: " + total + " §8| §ePhase " + (index + 1) + "/" + PHASE_COUNT + " §8| §b" + phaseName(index);
   for (const player of world.getAllPlayers()) {
     try {
-      if (Math.abs(player.location.x - 0.5) < 0.9 && Math.abs(player.location.z - 0.5) < 0.9 && player.location.y < ORIGIN.y + 0.5) {
-        stabilizePlayer(player);
-      }
       player.onScreenDisplay.setActionBar(text);
     } catch (e) {}
   }

@@ -41,6 +41,9 @@ A Wandering Trader arrives every 250 blocks broken, staying for 60 seconds to of
 ### Phase Unlock Announcements
 - **Description**: Every time you enter a new phase, a title announcement and level-up sound celebrate your progress. Track your blocks broken and current phase on the action bar HUD.
 
+### Starter Platform Assist
+- **Description**: Mining the first 8 blocks automatically constructs a protective 3x3 dirt platform around the central block so you never slip off while establishing your footing.
+
 ### Self-Healing Origin Block
 - **Description**: If the origin block is destroyed by an explosion, piston, or any other means, it automatically regenerates without counting toward your total — keeping your world intact.
 
