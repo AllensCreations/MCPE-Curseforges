@@ -3,7 +3,7 @@
 
 [![Minecraft Bedrock](https://img.shields.io/badge/Minecraft%20Bedrock-1.21%20--%201.26%2B-brightgreen?style=flat-square&logo=minecraft)](https://github.com/AllensCreations/MCPE-Curseforges)
 [![Platform](https://img.shields.io/badge/Platform-Mobile%20%7C%20PC%20%7C%20Console%20%7C%20Realms-yellow?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges)
-[![Collection Size](https://img.shields.io/badge/Collection-14%20Add--ons%20%7C%201%20Map%20%7C%203%20Scripts-orange?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges)
+[![Collection Size](https://img.shields.io/badge/Collection-15%20Add--ons%20%7C%201%20Map%20%7C%203%20Scripts-orange?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges)
 [![Format](https://img.shields.io/badge/Format-.MCPACK%20%7C%20.MCADDON%20%7C%20.MCWORLD-blue?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges)
 
 Creator: AllensCreations  
@@ -41,6 +41,7 @@ Explore the full [Maps Directory](https://github.com/AllensCreations/MCPE-Cursef
 | **Sudden-Death-Roulette** | `v1.0.0` | Script Behavior Pack (`.mcpack`) | [Download (.mcpack)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Sudden-Death-Roulette/Sudden%20Death%20Roulette%20by%20AllensCreations%20%28V1.0.0%29.mcpack) | [`MCPEDL/addons/Sudden-Death-Roulette/`](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/addons/Sudden-Death-Roulette/) | Sudden Death Roulette: The Diamond Race by AllensCreations. ... |
 | **Selective Mob Controller by AllensCreations** | `v1.0.2` | Script Behavior Pack (`.mcpack`) | [Download (.mcpack)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Selective-Mob-Controller/Selective%20Mob%20Controller%20by%20AllensCreations%20%28V1.0.2%29.mcpack) | [`MCPEDL/new_addons/Selective-Mob-Controller/`](MCPEDL/new_addons/Selective-Mob-Controller/) | Strictly filter allowed mob spawns with two-layer script pur... |
 | **Swarm Mob Booster** | `v1.0.4` | Script Behavior Pack (`.mcpack`) | [Download (.mcpack)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Swarm-Mob-Booster/Swarm%20Mob%20Booster%20by%20AllensCreations%20%28V1.0.4%29.mcpack) | [`MCPEDL/new_addons/Swarm-Mob-Booster/`](MCPEDL/new_addons/Swarm-Mob-Booster/) | Massively multiplies spawn rates and cluster sizes for all v... |
+| **One-Block-Economy** | `v1.0.0` | Script Behavior Pack (`.mcpack`) | [Download (.mcpack)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/One-Block-Economy/One-Block-Economy%20by%20AllensCreations%20%28V1.0.0%29.mcpack) | [`MCPEDL/new_addons/One-Block-Economy/`](MCPEDL/new_addons/One-Block-Economy/) | One-Block: Hardcore Survival Economy by AllensCreations. A 2... |
 
 Explore the full [Add-ons Directory](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/addons/README.md).
 

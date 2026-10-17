@@ -25,6 +25,7 @@ This directory stores all compiled releases (behavior packs, resource packs, add
 | **Sudden-Death-Roulette** | `v1.0.0` | Script Behavior Pack (`.mcpack`) | [Download (.mcpack)](Sudden-Death-Roulette/Sudden%20Death%20Roulette%20by%20AllensCreations%20%28V1.0.0%29.mcpack) | [`Sudden-Death-Roulette/`](Sudden-Death-Roulette/) |
 | **Selective Mob Controller by AllensCreations** | `v1.0.2` | Script Behavior Pack (`.mcpack`) | [Download (.mcpack)](Selective-Mob-Controller/Selective%20Mob%20Controller%20by%20AllensCreations%20%28V1.0.2%29.mcpack) | [`Selective-Mob-Controller/`](Selective-Mob-Controller/) |
 | **Swarm Mob Booster** | `v1.0.4` | Script Behavior Pack (`.mcpack`) | [Download (.mcpack)](Swarm-Mob-Booster/Swarm%20Mob%20Booster%20by%20AllensCreations%20%28V1.0.4%29.mcpack) | [`Swarm-Mob-Booster/`](Swarm-Mob-Booster/) |
+| **One-Block-Economy** | `v1.0.0` | Script Behavior Pack (`.mcpack`) | [Download (.mcpack)](One-Block-Economy/One-Block-Economy%20by%20AllensCreations%20%28V1.0.0%29.mcpack) | [`One-Block-Economy/`](One-Block-Economy/) |
 
 ### Worlds and Maps
 
