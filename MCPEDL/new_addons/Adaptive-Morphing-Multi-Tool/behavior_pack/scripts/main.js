@@ -3,7 +3,9 @@ import { world, system, ItemStack } from "@minecraft/server";
 const NS = "allenscreations:adaptive_";
 const TIERS = {
   wood: { label: "Wood", durability: 59 },
-  copper: { label: "Copper", durability: 190 }
+  copper: { label: "Copper", durability: 190 },
+  iron: { label: "Iron", durability: 250 },
+  gold: { label: "Gold", durability: 32 }
 };
 const ROLES = {
   axe: { label: "Axe", particle: "minecraft:basic_flame_particle" },
@@ -16,7 +18,7 @@ const notices = new Map();
 
 function parseTool(item) {
   if (!item?.typeId?.startsWith(NS)) return undefined;
-  const match = item.typeId.match(/^allenscreations:adaptive_(wood|copper)_(axe|pickaxe|shovel|sword|shears)$/);
+  const match = item.typeId.match(/^allenscreations:adaptive_(wood|copper|iron|gold)_(axe|pickaxe|shovel|sword|shears)$/);
   return match ? { tier: match[1], role: match[2] } : undefined;
 }
 
