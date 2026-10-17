@@ -1,6 +1,13 @@
 # Repository Guidelines and Markdown Standards
 
-This document establishes the official documentation and packaging standards for all add-ons, behavior packs, resource packs, and custom maps in the MCPE Curseforges repository by AllensCreations.
+This document establishes repository-wide documentation standards for AllensCreations/MCPE-Curseforges.
+
+## Instruction Precedence and Accuracy
+
+- This file defines shared policy. `README_GUIDELINES.md` defines detailed README/CHANGELOG style; `.agents/skills/checkrm/SKILL.md` defines audit workflow; `.agents/skills/mcpe-readme/SKILL.md` defines commercial-but-factual writing; the Mojang samples skill covers vanilla reference assets.
+- Apply these documents together. Factual accuracy and the user's requested scope take priority over any template. Use this shared policy plus the relevant specialized skill; do not follow conflicting examples blindly.
+- Inspect source files before making claims. Ask the user when an unresolved choice could materially affect gameplay, compatibility, distribution, data loss, or release/version behavior. For ordinary style choices, apply these defaults and proceed.
+- Never invent features, versions, links, assets, test results, compatibility, achievement support, performance guarantees, or platform behavior. Distinguish verified facts from assumptions and untested claims.
 
 All documentation files (README.md across repository root, packs, and maps) must strictly follow these rules to ensure seamless rendering across CurseForge, MCPEDL, Planet Minecraft, and GitHub.
 
@@ -11,27 +18,29 @@ All documentation files (README.md across repository root, packs, and maps) must
 All documentation must render cleanly across GitHub, CurseForge, and synced MCPEDL pages.
 
 ### Rules:
-- **Standard Image Syntax:** Always embed images using pure Markdown:
-  `![MCPEDL](image.jpg "MCPEDL")`
-- **Relative Image Sizing for HTML Editor (`</>`):** When formatting rich descriptions in CurseForge's `</>` code editor, always use relative widths (e.g. `width="100%"` or `width="50%"`). Always **omit the `height` attribute** so the image auto-scales responsively without overflowing mobile screens or distorting aspect ratios.
+- **Published project README images:** Use verified absolute raw GitHub URLs so images render on external platforms. Example: `![Project banner](https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/MCPEDL/addons/<project>/banner.jpg)`.
+- **Internal references:** Relative paths are appropriate for links between repository files where useful; avoid relative image embeds in published READMEs intended for external platforms.
+- **CurseForge HTML editor:** If HTML image sizing is explicitly needed, use relative widths and omit fixed height so images can scale proportionally.
 - **Spoiler Markup:** When adding collapsible spoilers (crafting recipes, detailed tables, changelogs), use the official markup in CurseForge's `</>` editor:
   `<h2>Spoiler Title</h2><div class="spoiler">spoiler content...</div>`
   Both CurseForge and MCPEDL automatically parse this into interactive, collapsible dropdown sections.
 - **No Raw Blind Copying:** Never copy an entire legacy MCPEDL description to CurseForge and expect it to transfer flawlessly. CurseForge and MCPEDL run on different backends; adjust formatting in the `</>` code editor.
 - **Relative Paths:** Use clean, relative paths for local assets (e.g., `banner.jpg`, `1791889944961.jpg`, `recipe_lantern.png`).
 - **Clean Formatting:** Avoid LaTeX notation like `$\rightarrow$`. Use clean arrows (`->` or unicode arrows) and standard bullet points.
+- **Writing style:** Use polished, player-focused commercial writing that remains factual. Avoid hype, clickbait, rhetorical questions, and filler.
 - **No Emojis:** Do not include emojis in headings, titles, bullet points, or body text.
 
 ---
 
 ## 2. Technical and Factual Descriptions (Zero Marketing Slop)
 
-Pack descriptions must be direct, technical, and focused on gameplay and mechanics.
+Pack descriptions must be polished, player-focused, and commercially presentable without sacrificing accuracy.
 
 ### Rules:
 - No Developer Jargon in Player Guides: Translate internal JSON components into clear player mechanics.
-- No AI Slop or Marketing Hype: Avoid rhetorical questions, buzzwords, and promotional hype (e.g., "Tired of holding torches?", "Meet your new best friend!", "revolutionary").
-- Clear Gameplay Highlights: Focus on exact values, light levels, durability points, crafting recipes, and technical specifications.
+- No AI Slop or Marketing Hype: Avoid rhetorical questions, buzzwords, exaggerated superlatives, and filler.
+- Clear Gameplay Highlights: Include exact values, recipes, requirements, and specifications only when verified from project sources or reliable tests.
+- Do not claim "zero lag," universal multiplayer/Realms compatibility, achievement preservation, or no experimental features unless evidence supports that exact claim.
 
 ---
 
@@ -71,7 +80,7 @@ When publishing and synchronizing projects between CurseForge and MCPEDL:
 
 ## 5. Mandatory Guidelines and Attribution Section
 
-Every pack and map README.md must conclude with this standardized section:
+Every individual project README that includes attribution must place that section immediately before its final Search & Discovery Keywords section. Catalog READMEs do not need project-specific SEO or attribution boilerplate.
 
 ```markdown
 ## Guidelines and Attribution
@@ -90,7 +99,7 @@ Every pack and map README.md must conclude with this standardized section:
 
 ## 6. Visual Assets and Images
 
-Whenever visual assets (promotional banners, artwork, item previews, recipe infographics) are stored in the repository, incorporate them directly into the pack description:
+When relevant visual assets (promotional banners, artwork, item previews, recipe infographics) exist in the repository, consider incorporating them into the project description. Do not force irrelevant images into a README:
 
 1. Hero Banner: Placed near the top below the main title.
 2. Pack Artwork: Displayed in the Overview or Features section.
