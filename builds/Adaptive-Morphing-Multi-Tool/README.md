@@ -8,9 +8,9 @@ This folder contains compiled release packages for **Adaptive Morphing Multi-Too
 
 | File Name | Format | Size | Description | Download Link |
 | :--- | :--- | :--- | :--- | :--- |
-| **`Adaptive Morphing Multi-Tool by AllensCreations (V1.0.12).mcaddon`** | `.mcaddon` | ~24 KB | Complete bundle containing both Behavior Pack and Resource Pack. | [Download (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Adaptive-Morphing-Multi-Tool/Adaptive%20Morphing%20Multi-Tool%20by%20AllensCreations%20%28V1.0.12%29.mcaddon) |
-| **`Adaptive Morphing Multi-Tool BP by AllensCreations (V1.0.12).mcpack`** | `.mcpack` | ~20 KB | Behavior Pack: Custom entities, components, and gameplay mechanics. | [Download (.mcpack)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Adaptive-Morphing-Multi-Tool/Adaptive%20Morphing%20Multi-Tool%20BP%20by%20AllensCreations%20%28V1.0.12%29.mcpack) |
-| **`Adaptive Morphing Multi-Tool RP by AllensCreations (V1.0.12).mcpack`** | `.mcpack` | ~2 KB | Resource Pack: Custom models, geometry, textures, and sounds. | [Download (.mcpack)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Adaptive-Morphing-Multi-Tool/Adaptive%20Morphing%20Multi-Tool%20RP%20by%20AllensCreations%20%28V1.0.12%29.mcpack) |
+| **`Adaptive Morphing Multi-Tool by AllensCreations (V1.0.13).mcaddon`** | `.mcaddon` | ~25 KB | Complete bundle containing both Behavior Pack and Resource Pack. | [Download (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Adaptive-Morphing-Multi-Tool/Adaptive%20Morphing%20Multi-Tool%20by%20AllensCreations%20%28V1.0.13%29.mcaddon) |
+| **`Adaptive Morphing Multi-Tool BP by AllensCreations (V1.0.13).mcpack`** | `.mcpack` | ~20 KB | Behavior Pack: Custom entities, components, and gameplay mechanics. | [Download (.mcpack)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Adaptive-Morphing-Multi-Tool/Adaptive%20Morphing%20Multi-Tool%20BP%20by%20AllensCreations%20%28V1.0.13%29.mcpack) |
+| **`Adaptive Morphing Multi-Tool RP by AllensCreations (V1.0.13).mcpack`** | `.mcpack` | ~2 KB | Resource Pack: Custom models, geometry, textures, and sounds. | [Download (.mcpack)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Adaptive-Morphing-Multi-Tool/Adaptive%20Morphing%20Multi-Tool%20RP%20by%20AllensCreations%20%28V1.0.13%29.mcpack) |
 
 ---
 
