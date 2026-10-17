@@ -11,7 +11,7 @@
 
 **TRANSFORM YOUR MINECRAFT WORLD INTO A PACKED, ACTION-FILLED SWARM**
 
-Supercharge natural spawn rates, cluster sizes, and mob density across the Overworld, Nether, and The End with three customizable multipliers.
+Supercharge natural spawn rates, cluster sizes, and mob density across the Overworld, Nether, and The End with live density HUD tracking.
 
 ---
 
@@ -19,7 +19,7 @@ Supercharge natural spawn rates, cluster sizes, and mob density across the Overw
 
 Swarm Mob Booster revolutionizes Bedrock mob generation by multiplying spawn weights and pack cluster sizes for all creatures in the game. Whether you want sprawling pastures packed with livestock or relentless nighttime zombie sieges, this add-on fills the wilderness with life.
 
-Equipped with three selectable subpack tiers and intelligent ground item throttling, battles against massive horde swarms remain smooth, stable, and lag-free on all devices and multiplayer Realms.
+Equipped with three selectable subpack tiers, real-time Swarm Density HUD tracking, and intelligent ground item throttling, battles against massive horde swarms remain smooth, stable, and lag-free on all devices and multiplayer Realms.
 
 ---
 
@@ -27,6 +27,9 @@ Equipped with three selectable subpack tiers and intelligent ground item throttl
 
 ### Universal Mob Boosting
 - **Description**: Applies boosted spawn weights and increased cluster limits to all core Overworld, Nether, and End mobs.
+
+### Live Swarm Density HUD
+- **Description**: Displays a real-time action bar radar showing total nearby mob counts alongside separate tallies for hostile monsters and friendly passives.
 
 ### Three Configurable Multiplier Tiers
 - **Description**: Choose between Balanced Double (2x), Insane Multiplier (5x), and Ludicrous Swarm (10x) directly from your pack settings before starting your world.
@@ -48,9 +51,9 @@ Equipped with three selectable subpack tiers and intelligent ground item throttl
 - **Requirement**: World Resource/Behavior Pack Settings slider.
 - **What Happens**: Select your preferred swarm intensity (Balanced Double, Insane Multiplier, or Ludicrous Swarm). The world immediately adopts the chosen horde density.
 
-### Encountering Swarms
-- **Requirement**: Roaming through biomes, caves, or other dimensions.
-- **What Happens**: Mobs naturally emerge in large, lively clusters without requiring commands or manual setup.
+### Tracking Nearby Swarms
+- **Requirement**: Normal gameplay and exploration.
+- **What Happens**: The live action bar HUD continuously updates with the exact number of active mobs in your immediate vicinity.
 
 ---
 
@@ -78,4 +81,4 @@ Equipped with three selectable subpack tiers and intelligent ground item throttl
 
 ## Search & Discovery Keywords
 
-Minecraft Bedrock add-on, Swarm Mob Booster Bedrock mod, mob spawn multiplier Minecraft PE, horde survival Bedrock, high density mob spawns, MCPEDL add-on, CurseForge Bedrock, AllensCreations.
+Minecraft Bedrock add-on, Swarm Mob Booster Bedrock mod, mob spawn multiplier Minecraft PE, horde survival Bedrock, mob cap HUD Bedrock, high density mob spawns, MCPEDL add-on, CurseForge Bedrock, AllensCreations.
