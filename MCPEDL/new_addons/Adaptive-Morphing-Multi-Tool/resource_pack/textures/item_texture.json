@@ -2,8 +2,20 @@
   "resource_pack_name": "adaptive_morphing_multi_tool",
   "texture_name": "atlas.items",
   "texture_data": {
-    "adaptive_morphing_tool": {
-      "textures": "textures/items/diamond_pickaxe"
+    "adaptive_axe": {
+      "textures": "textures/items/adaptive_axe"
+    },
+    "adaptive_pickaxe": {
+      "textures": "textures/items/adaptive_pickaxe"
+    },
+    "adaptive_shovel": {
+      "textures": "textures/items/adaptive_shovel"
+    },
+    "adaptive_sword": {
+      "textures": "textures/items/adaptive_sword"
+    },
+    "adaptive_shears": {
+      "textures": "textures/items/adaptive_shears"
     }
   }
 }
