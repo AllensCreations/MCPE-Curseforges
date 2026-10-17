@@ -1,0 +1,79 @@
+{
+  "format_version": "1.21.0",
+  "minecraft:item": {
+    "description": {
+      "identifier": "allenscreations:adaptive_gold_axe",
+      "menu_category": {
+        "category": "equipment"
+      }
+    },
+    "components": {
+      "minecraft:icon": "adaptive_morphing_tool",
+      "minecraft:display_name": {
+        "value": "Adaptive Gold Axe"
+      },
+      "minecraft:max_stack_size": 1,
+      "minecraft:hand_equipped": true,
+      "minecraft:durability": {
+        "max_durability": 32
+      },
+      "minecraft:digger": {
+        "use_efficiency": true,
+        "destroy_speeds": [
+          {
+            "block": "minecraft:oak_log",
+            "speed": 12
+          },
+          {
+            "block": "minecraft:birch_log",
+            "speed": 12
+          },
+          {
+            "block": "minecraft:spruce_log",
+            "speed": 12
+          },
+          {
+            "block": "minecraft:jungle_log",
+            "speed": 12
+          },
+          {
+            "block": "minecraft:acacia_log",
+            "speed": 12
+          },
+          {
+            "block": "minecraft:dark_oak_log",
+            "speed": 12
+          },
+          {
+            "block": "minecraft:mangrove_log",
+            "speed": 12
+          },
+          {
+            "block": "minecraft:cherry_log",
+            "speed": 12
+          },
+          {
+            "block": "minecraft:crimson_stem",
+            "speed": 12
+          },
+          {
+            "block": "minecraft:warped_stem",
+            "speed": 12
+          },
+          {
+            "block": "minecraft:oak_planks",
+            "speed": 12
+          },
+          {
+            "block": "minecraft:chest",
+            "speed": 12
+          },
+          {
+            "block": "minecraft:crafting_table",
+            "speed": 12
+          }
+        ]
+      }
+    }
+  }
+}
