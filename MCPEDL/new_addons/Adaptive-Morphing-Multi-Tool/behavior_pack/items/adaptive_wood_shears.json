@@ -57,6 +57,10 @@
             "speed": 4
           }
         ]
+      },
+      "minecraft:enchantable": {
+        "slot": "shears",
+        "value": 15
       }
     }
   }
