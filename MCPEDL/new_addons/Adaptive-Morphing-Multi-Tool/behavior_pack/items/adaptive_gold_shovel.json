@@ -80,7 +80,8 @@
           "minecraft:is_shovel",
           "minecraft:golden_tier"
         ]
-      }
+      },
+      "minecraft:damage": 1
     }
   }
 }
