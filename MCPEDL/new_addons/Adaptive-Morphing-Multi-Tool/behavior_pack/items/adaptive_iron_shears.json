@@ -61,6 +61,13 @@
       "minecraft:enchantable": {
         "slot": "shears",
         "value": 14
+      },
+      "minecraft:tags": {
+        "tags": [
+          "minecraft:is_tool",
+          "minecraft:is_shears",
+          "minecraft:iron_tier"
+        ]
       }
     }
   }
