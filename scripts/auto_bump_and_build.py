@@ -1005,11 +1005,11 @@ def main():
         changed_files = get_git_diff_files(args.base)
         print(f"[Auto-Version] Diff contains {len(changed_files)} changed file(s).")
         changed_projects = detect_changed_projects(changed_files, project_dirs)
-        ignored_files = [
+        source_files = [
             f for f in changed_files
             if any(is_version_worthy_source_file(p, f) for p in project_dirs)
         ]
-        print(f"[Auto-Version] Release-worthy project source changes: {len(ignored_files)} file(s).")
+        print(f"[Auto-Version] Release-worthy project source changes: {len(source_files)} file(s).")
 
     # Do not sweep every unregistered project on ordinary pushes. That behavior
     # caused unrelated/legacy projects to be bumped unexpectedly. New projects are
