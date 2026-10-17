@@ -1,5 +1,10 @@
 # Changelog — Vanilla Quality of Life
 
+## [1.3.10] - 2026-10-17
+
+### Fixed
+- Synchronized the script version with the Behavior Pack and Resource Pack manifests after the repository version bump.
+
 ## [1.3.9] - 2026-10-17
 
 ### Changed
