@@ -53,6 +53,10 @@
             "speed": 7
           }
         ]
+      },
+      "minecraft:enchantable": {
+        "slot": "pickaxe",
+        "value": 10
       }
     }
   }
