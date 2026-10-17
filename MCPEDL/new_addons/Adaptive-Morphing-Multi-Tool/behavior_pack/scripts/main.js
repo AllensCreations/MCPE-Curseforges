@@ -5,7 +5,9 @@ const TIERS = {
   wood: { label: "Wood", durability: 59 },
   copper: { label: "Copper", durability: 190 },
   iron: { label: "Iron", durability: 250 },
-  gold: { label: "Gold", durability: 32 }
+  gold: { label: "Gold", durability: 32 },
+  diamond: { label: "Diamond", durability: 1561 },
+  netherite: { label: "Netherite", durability: 2031 }
 };
 const ROLES = {
   axe: { label: "Axe", particle: "minecraft:basic_flame_particle" },
@@ -18,7 +20,7 @@ const notices = new Map();
 
 function parseTool(item) {
   if (!item?.typeId?.startsWith(NS)) return undefined;
-  const match = item.typeId.match(/^allenscreations:adaptive_(wood|copper|iron|gold)_(axe|pickaxe|shovel|sword|shears)$/);
+  const match = item.typeId.match(/^allenscreations:adaptive_(wood|copper|iron|gold|diamond|netherite)_(axe|pickaxe|shovel|sword|shears)$/);
   return match ? { tier: match[1], role: match[2] } : undefined;
 }
 
