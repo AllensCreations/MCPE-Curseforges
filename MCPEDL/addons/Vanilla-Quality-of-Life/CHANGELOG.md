@@ -1,5 +1,13 @@
 # Changelog — Vanilla Quality of Life
 
+## [1.3.13] - 2026-10-17
+
+### Changed
+- Standardized the mining subpacks to No Sneak (Slot 1 Required), Both Off, and Default (Sneak Required).
+- Kept the no-sneak behavior limited to Tree Capitator and Domino Ore Miner; the required tool must be held in selected hotbar slot 1.
+- Removed the obsolete Tree-Only and Vein-Only subpack configurations.
+- Kept release notes in CHANGELOG.md rather than README.md.
+
 ## [1.3.10] - 2026-10-17
 
 ### Fixed
