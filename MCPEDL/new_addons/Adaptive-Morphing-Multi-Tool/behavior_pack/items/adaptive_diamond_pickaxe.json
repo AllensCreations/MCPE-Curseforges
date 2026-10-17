@@ -73,6 +73,13 @@
       "minecraft:enchantable": {
         "slot": "pickaxe",
         "value": 10
+      },
+      "minecraft:tags": {
+        "tags": [
+          "minecraft:is_tool",
+          "minecraft:is_pickaxe",
+          "minecraft:diamond_tier"
+        ]
       }
     }
   }
