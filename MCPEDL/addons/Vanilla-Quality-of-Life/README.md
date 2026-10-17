@@ -218,12 +218,6 @@ Optimized for smooth survival performance with zero lag. Requires zero experimen
 
 ---
 
-## Version History and Changelog
-
-Detailed release notes and historical changes for all major versions are documented in the [CHANGELOG.md](https://github.com/AllensCreations/MCPE-Curseforges/blob/main/MCPEDL/addons/Vanilla-Quality-of-Life/CHANGELOG.md).
-
----
-
 ## Guidelines and Attribution
 
 - Creator: AllensCreations
