@@ -1015,6 +1015,7 @@ const NEIGHBOR_OFFSETS_26 = (() => {
   return offsets;
 })();
 
+// Fortune multiplies eligible item drops; raw iron, raw gold, and ancient debris are excluded.
 const FORTUNE_AFFECTED_ORE_CATEGORIES = new Set([
   "coal", "copper", "lapis", "nether_gold", "redstone", "diamond", "emerald", "quartz",
 ]);
