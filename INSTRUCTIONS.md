@@ -216,3 +216,11 @@ Jayly's documentation is a useful secondary reference for API exploration and ex
 - **Use the highest stable Script API module version supported by the Minecraft Bedrock version being targeted.** This is the preferred default, not simply the highest version published overall.
 - Verify compatibility for every dependency independently, including modules such as `@minecraft/server` and `@minecraft/server-ui`. Do not select a version that the target game version or the pack's minimum engine version does not support.
 - Confirm the choice against Microsoft's official Minecraft Creator documentation and release information, then use Jayly's references to verify the API members and signatures. If the highest stable version supported by the target is unclear, investigate further rather than guessing.
+
+## Community Feedback and Add-on Suggestions
+
+- In player-facing project descriptions or READMEs, invite players to leave a comment or report if they find a bug, a feature that does not work as expected, or another issue.
+- Also welcome add-on ideas and feature suggestions; make it clear that AllensCreations is open to community suggestions.
+- Keep the note friendly, concise, and natural. Suggested wording: "Found a bug or a feature that isn't working? Please leave a comment and let me know. Have an idea for another add-on or a new feature? Suggestions are always welcome!"
+- Do not imply that every suggestion will be implemented or that every reported issue will be fixed immediately.
+- Add this note to player-facing descriptions where appropriate; do not insert it into technical files, manifests, or catalog pages where it would be out of place.
