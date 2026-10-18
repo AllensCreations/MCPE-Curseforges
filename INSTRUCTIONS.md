@@ -288,3 +288,33 @@ At handoff, summarize:
 - The commit and branch, and whether changes were pushed, when applicable.
 
 Never report unfinished work as complete. If a build, test, commit, or push fails, state the failure and what remains to be done.
+
+## AI Agent Pixel-Art Asset Generation Standard
+
+When an AI agent creates or edits pixel-art assets for an add-on—including item textures, entity textures, block textures, icons, particles, or other pixel-based artwork—prefer a structured, palette-indexed pixel-data workflow like the user's supplied JSON example when it is suitable for the task.
+
+### Preferred source format
+
+- Represent each asset as an object with a descriptive `name`, a square `size` (for example, 16 or 32), a `palette` mapping integer IDs to hex colors, and a `pixels` two-dimensional array of palette IDs.
+- Reserve palette ID `0` for transparency, using `#00000000`, unless the target format has a documented reason to use a different convention.
+- Keep palette colors deliberate and limited where practical. Use contrast, shading, outlines, and highlights to create readable Minecraft-style pixel art at the target resolution.
+- Every pixel value must reference a key that exists in the palette. Each row must contain exactly `size` values, and the `pixels` array must contain exactly `size` rows.
+- Keep names unique and descriptive when defining multiple assets in one JSON document. Use valid JSON: double-quoted strings, no comments, and no trailing commas.
+- Treat this JSON as an editable source representation, not automatically as a Minecraft-native asset. Convert or export it to the actual required PNG/texture/model/animation format and place it at the correct resource-pack path before claiming the asset is integrated.
+
+### Asset-specific requirements
+
+- **Item/block textures:** Match the intended pixel dimensions and transparent-background requirements. Check the in-game item/block rendering context and preserve Minecraft's pixel-art style.
+- **Entity textures:** Confirm the target entity's expected texture dimensions, UV layout, and model mapping before drawing. A square palette grid alone does not guarantee compatibility with the entity model.
+- **Icons and other assets:** Follow the target file format's dimensions, alpha, and layout requirements. Use the indexed pixel workflow when it fits; use a different appropriate structured or image workflow when the asset requires it.
+- Do not invent or assume that a texture, UV map, model, or animation is compatible. Inspect existing pack assets or authoritative references where available.
+
+### Validation before integration
+
+1. Validate JSON syntax and the schema expected by the pixel-art generator.
+2. Verify palette references, row count, and row widths programmatically where possible.
+3. Export the asset and confirm the resulting image dimensions and transparency.
+4. Check the resource-pack references and file paths, then run available pack/build validation.
+5. Report what was generated and validated. Do not claim visual or in-game testing unless it actually occurred.
+
+Use this approach as the preferred editable workflow, not an absolute restriction: prioritize a valid, maintainable asset that works with the target Minecraft Bedrock format.
