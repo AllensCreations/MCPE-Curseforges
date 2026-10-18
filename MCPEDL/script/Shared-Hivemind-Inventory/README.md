@@ -1,4 +1,4 @@
-# Team Inventory (v1.0.10)
+# Team Inventory
 
 ![Team Inventory](https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/MCPEDL/script/Shared-Hivemind-Inventory/pack_icon.png)
 
