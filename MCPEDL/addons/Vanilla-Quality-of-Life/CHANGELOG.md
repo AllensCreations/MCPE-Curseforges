@@ -1,6 +1,6 @@
 # Changelog — Vanilla Quality of Life
 
-## [1.3.16] - 2026-10-18
+## [1.3.17] - 2026-10-18
 
 ### Fixed
 - Corrected offhand torch stack updates so placing any supported torch consumes exactly one item in Survival and Adventure modes.
