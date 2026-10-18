@@ -8,8 +8,8 @@ This folder contains compiled release packages for **Swarm Mob Booster** by Alle
 
 | File Name | Format | Size | Description | Download Link |
 | :--- | :--- | :--- | :--- | :--- |
-| **`Swarm Mob Booster by AllensCreations (V1.0.4).mcpack`** | `.mcpack` | ~66 KB | Script Behavior Pack archive ready for import. | [Download (.mcpack)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Swarm-Mob-Booster/Swarm%20Mob%20Booster%20by%20AllensCreations%20%28V1.0.4%29.mcpack) |
-| **`Swarm Mob Booster by AllensCreations (V1.0.4).mcaddon`** | `.mcaddon` | ~66 KB | Complete Add-on package archive. | [Download (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Swarm-Mob-Booster/Swarm%20Mob%20Booster%20by%20AllensCreations%20%28V1.0.4%29.mcaddon) |
+| **`Swarm Mob Booster by AllensCreations (V1.0.5).mcpack`** | `.mcpack` | ~67 KB | Script Behavior Pack archive ready for import. | [Download (.mcpack)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Swarm-Mob-Booster/Swarm%20Mob%20Booster%20by%20AllensCreations%20%28V1.0.5%29.mcpack) |
+| **`Swarm Mob Booster by AllensCreations (V1.0.5).mcaddon`** | `.mcaddon` | ~67 KB | Complete Add-on package archive. | [Download (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Swarm-Mob-Booster/Swarm%20Mob%20Booster%20by%20AllensCreations%20%28V1.0.5%29.mcaddon) |
 
 ---
 
