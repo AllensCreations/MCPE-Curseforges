@@ -24,7 +24,7 @@ Explore the full [Maps Directory](https://github.com/AllensCreations/MCPE-Cursef
 
 | Add-on Name | Version | Type | Download | Source Code | Highlights |
 | :--- | :--- | :--- | :--- | :--- | :--- |
-| **Vanilla Quality of Life** | `v1.3.14` | Complete Pack (`.mcaddon`) | [Download (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Vanilla-Quality-of-Life/Vanilla%20Quality%20of%20Life%20by%20AllensCreations%20%28V1.3.14%29.mcaddon) | [`MCPEDL/addons/Vanilla-Quality-of-Life/`](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/addons/Vanilla-Quality-of-Life/) | Universal Leashes (101 mobs), Spider Leash Fix, Fast Leaf Decay, Woodcutter, 16x Potions, Offhand Quick-Swap, Mob Heads. |
+| **Vanilla Quality of Life** | `v1.3.15` | Complete Pack (`.mcaddon`) | [Download (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Vanilla-Quality-of-Life/Vanilla%20Quality%20of%20Life%20by%20AllensCreations%20%28V1.3.15%29.mcaddon) | [`MCPEDL/addons/Vanilla-Quality-of-Life/`](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/addons/Vanilla-Quality-of-Life/) | Universal Leashes (101 mobs), Spider Leash Fix, Fast Leaf Decay, Woodcutter, 16x Potions, Offhand Quick-Swap, Mob Heads. |
 | **Monster Companions** | `v1.0.6` | Complete Pack (`.mcaddon`) | [Download (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Monster-Companions/Monster%20Companions%20by%20AllensCreations%20%28V1.0.6%29.mcaddon) | [`MCPEDL/addons/Monster-Companions/`](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/addons/Monster-Companions/) | Tame 32 monsters into bodyguards and rideable mounts with Beast Biscuits. Combat pacification below 50% HP, wall-climbing spiders. |
 | **Mining Helmet** | `v1.0.8` | Complete Pack (`.mcaddon`) | [Download (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Mining-Helmet/Mining%20Helmet%20by%20AllensCreations%20%28V1.0.8%29.mcaddon) | [`MCPEDL/addons/Mining-Helmet/`](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/addons/Mining-Helmet/) | Wearable Mining Helmet with real-time level 15 dynamic following light, zero-residue block cleanup, and gold helmet model styling. |
 | **Passive Auto-Switch Tools** | `v1.1.12` | Script Behavior Pack (`.mcpack`) | [Download (.mcpack)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Passive-Auto-Switch-Tools/Passive%20Auto-Switch%20Tools%20by%20AllensCreations%20%28V1.1.12%29.mcpack) | [`MCPEDL/addons/Passive-Auto-Switch-Tools/`](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/addons/Passive-Auto-Switch-Tools/) | Event-driven tool & weapon switcher when holding Slot 1. Swaps optimal tools upon breaking and equips axe/sword for mobs. |
@@ -72,7 +72,7 @@ Single-block void survival map with procedural island generation across dimensio
 
 ---
 
-### Add-on 1: Vanilla Quality of Life (v1.3.14)
+### Add-on 1: Vanilla Quality of Life (v1.3.15)
 
 Lightweight data-driven vanilla enhancement pack for Minecraft Bedrock.
 
