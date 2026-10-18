@@ -4,7 +4,7 @@
 
 - Add-on: Harvest Intelligence by AllensCreations
 - Initial pack version: 1.0.0
-- Minimum engine target: Minecraft Bedrock 1.26.0+
+- Minimum engine target: Minecraft Bedrock 26.50+
 - Script dependency: `@minecraft/server` 2.10.0, stable
 - Experimental toggles: none required by the planned implementation
 
