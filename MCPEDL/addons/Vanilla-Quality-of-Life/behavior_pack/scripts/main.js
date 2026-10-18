@@ -16,7 +16,7 @@
 import { world, system, EquipmentSlot, ItemStack, BlockPermutation } from "@minecraft/server";
 import { MINING_OPTIONS } from "./mining-options.js";
 
-const VERSION = "1.3.14";
+const VERSION = "1.3.15";
 const LOG_PREFIX = "[Vanilla QoL]";
 
 // ─── Configuration ────────────────────────────────────────────────────────────
