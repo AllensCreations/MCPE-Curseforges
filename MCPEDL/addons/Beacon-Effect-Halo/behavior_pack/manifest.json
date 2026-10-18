@@ -1,0 +1,58 @@
+{
+  "format_version": 2,
+  "header": {
+    "name": "Beacon Effect Halo (v1.0.0)",
+    "description": "Wearable effect halos charged at Beacons. by AllensCreations",
+    "uuid": "d2f56a8d-0a4d-4df3-99b2-91e03bd9c3b1",
+    "version": [
+      1,
+      0,
+      0
+    ],
+    "min_engine_version": [
+      1,
+      26,
+      30
+    ]
+  },
+  "modules": [
+    {
+      "description": "Beacon Effect Halo Behavior Module",
+      "type": "data",
+      "uuid": "1a6e5b1a-947b-4d0e-8a7a-1dd0c3a4e5f2",
+      "version": [
+        1,
+        0,
+        0
+      ]
+    },
+    {
+      "description": "Beacon Effect Halo Script Module",
+      "type": "script",
+      "language": "javascript",
+      "uuid": "6c0d73d2-cd91-4f72-aab4-ccf38a1e6c13",
+      "version": [
+        1,
+        0,
+        0
+      ],
+      "entry": "scripts/main.js"
+    }
+  ],
+  "dependencies": [
+    {
+      "module_name": "@minecraft/server",
+      "version": "2.8.0"
+    },
+    {
+      "module_name": "@minecraft/server-ui",
+      "version": "2.1.0"
+    }
+  ],
+  "metadata": {
+    "authors": [
+      "AllensCreations"
+    ],
+    "product_type": "addon"
+  }
+}

@@ -1,0 +1,9 @@
+{
+  "resource_pack_name": "beacon_effect_halo",
+  "texture_name": "atlas.items",
+  "texture_data": {
+    "beaconhalo_halo": {
+      "textures": "textures/items/gold_ingot"
+    }
+  }
+}

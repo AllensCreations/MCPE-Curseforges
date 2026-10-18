@@ -1,0 +1,36 @@
+{
+  "format_version": 2,
+  "header": {
+    "name": "Beacon Effect Halo (v1.0.0)",
+    "description": "Visual models and textures for Beacon Effect Halo. by AllensCreations",
+    "uuid": "b1d7a9a3-f65d-4c25-8b4e-8f31f56e5d72",
+    "version": [
+      1,
+      0,
+      0
+    ],
+    "min_engine_version": [
+      1,
+      26,
+      30
+    ]
+  },
+  "modules": [
+    {
+      "description": "Beacon Effect Halo Resource Module",
+      "type": "resources",
+      "uuid": "f52b73d8-70b8-47e7-91f2-1a3c6e4b5d80",
+      "version": [
+        1,
+        0,
+        0
+      ]
+    }
+  ],
+  "metadata": {
+    "authors": [
+      "AllensCreations"
+    ],
+    "product_type": "addon"
+  }
+}
