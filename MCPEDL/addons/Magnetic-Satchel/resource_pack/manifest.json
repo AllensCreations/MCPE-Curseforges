@@ -1,13 +1,13 @@
 {
   "format_version": 2,
   "header": {
-    "name": "Magnetic Satchel (v1.0.3)",
+    "name": "Magnetic Satchel (v1.0.2)",
     "description": "Resource pack for the Magnetic Satchel item icon. by AllensCreations",
     "uuid": "1f3e564d-f82d-4dc5-b26b-53f7b5bbf451",
     "version": [
       1,
       0,
-      3
+      2
     ],
     "min_engine_version": [
       1,
@@ -22,7 +22,7 @@
       "version": [
         1,
         0,
-        3
+        2
       ]
     }
   ],
@@ -32,7 +32,7 @@
       "version": [
         1,
         0,
-        3
+        2
       ]
     }
   ],

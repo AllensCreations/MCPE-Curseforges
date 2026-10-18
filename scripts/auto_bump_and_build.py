@@ -113,7 +113,8 @@ def is_version_worthy_source_file(project_path, changed_file):
         return False
 
     basename = os.path.basename(relative).lower()
-    if basename == "manifest.json":
+    # Repository protection markers are metadata, not runtime source changes.
+    if basename in {"manifest.json", "lock"}:
         return False
 
     # Markdown and common project documentation are not runtime source.
