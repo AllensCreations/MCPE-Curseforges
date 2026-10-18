@@ -154,7 +154,7 @@ function handleCropBreak(event) {
 
   try {
     const mode = player.getGameMode();
-    if (mode === GameMode.creative || mode === GameMode.spectator) return;
+    if (mode === GameMode.Creative || mode === GameMode.Spectator) return;
   } catch {}
 
   const block = event.block;
