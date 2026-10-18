@@ -113,8 +113,9 @@ def is_version_worthy_source_file(project_path, changed_file):
         return False
 
     basename = os.path.basename(relative).lower()
-    # Repository protection markers are metadata, not runtime source changes.
-    if basename in {"manifest.json", "lock"}:
+    # Manifests are handled separately by the pack builder. Keep pack-level
+    # LOCK markers as distributable files so they are copied into exported packs.
+    if basename == "manifest.json":
         return False
 
     # Markdown and common project documentation are not runtime source.
