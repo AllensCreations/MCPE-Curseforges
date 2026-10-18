@@ -1,4 +1,4 @@
-# Harvest Intelligence (v1.0.1) — Smarter Vanilla Farming
+# Harvest Intelligence (v1.0.2) — Smarter Vanilla Farming
 
 [![Minecraft Bedrock](https://img.shields.io/badge/Minecraft%20Bedrock-1.21.20%2B-brightgreen?style=flat-square&logo=minecraft)](https://github.com/AllensCreations/MCPE-Curseforges)
 [![Format](https://img.shields.io/badge/Format-.MCPACK-orange?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/addons#available-add-ons)

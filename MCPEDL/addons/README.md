@@ -19,7 +19,7 @@ Source files for established Minecraft Bedrock add-ons by AllensCreations.
 | Sudden Death Roulette The Diamond Race | 1.0.0 | [Source](Sudden-Death-Roulette/) | [MCPACK](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Sudden-Death-Roulette/Sudden%20Death%20Roulette%20by%20AllensCreations%20%28V1.0.0%29.mcpack) |
 | Universal Clutch | 1.0.1 | [Source](Universal-Clutch/) | [MCPACK](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Universal-Clutch/Universal%20Clutch%20by%20AllensCreations%20%28V1.0.1%29.mcpack) |
 | Smart Tree Capitator and Domino Ore Miner | 1.0.7 | [Source](Smart-Tree-Capitator-and-Domino-Ore-Miner/) | [MCPACK](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Smart-Tree-Capitator-and-Domino-Ore-Miner/Smart%20Tree%20Capitator%20and%20Domino%20Ore%20Miner%20by%20AllensCreations%20%28V1.0.7%29.mcpack) |
-| Harvest Intelligence | 1.0.1 | [Source](Harvest-Intelligence/) | [MCPACK](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Harvest-Intelligence/Harvest%20Intelligence%20by%20AllensCreations%20%28V1.0.1%29.mcpack) |
+| Harvest Intelligence | 1.0.2 | [Source](Harvest-Intelligence/) | [MCPACK](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Harvest-Intelligence/Harvest%20Intelligence%20by%20AllensCreations%20%28V1.0.2%29.mcpack) |
 
 The catalog is automatically updated by the add-on generation workflow.
 
