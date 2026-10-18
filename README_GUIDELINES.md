@@ -8,7 +8,7 @@ This document provides strict rules, writing guidelines, and templates for creat
 
 ### 1. Strictly Forbidden (Zero Developer Clutter)
 README files are player showcase pages. They must NEVER contain internal developer artifacts, code jargon, or ephemeral version labels:
-- **Version information:** Omit version numbers and release badges by default to keep project READMEs evergreen. Include them only when requested or required by the publishing context, and verify the value.
+- **Version information:** The in-game add-on title in each pack manifest must always use `Add-on Name (vX.Y.Z)` and match the release version. Put `by AllensCreations` in the manifest description, not in the title. README headings for add-ons should also include the verified version when maintained as part of a release; do not add redundant version badges or unverified values.
 - ❌ **No Script API References**: Never mention `Script API` or `@minecraft/server` in badges, text, or tables. Use player-facing terms like "modern Minecraft Bedrock mechanics".
 - ❌ **No Code Blocks**: Do not include markdown code blocks (` ```javascript `, ` ```json `, ` ```text `).
 - ❌ **No Markdown Tables in Project READMEs**: Do not use Markdown tables (`| ... | ... |`) in individual project READMEs. Tables break on mobile screens by forcing horizontal overflow and awkward scrolling. Use clean mobile card sections (`### [Feature / Item Name]` with bullet points) instead.
