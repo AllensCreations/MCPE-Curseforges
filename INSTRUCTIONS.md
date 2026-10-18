@@ -13,6 +13,15 @@ All documentation files (README.md across repository root, packs, and maps) must
 
 ---
 
+## Default Minecraft Bedrock Target
+
+- From now on, target **Minecraft Bedrock 1.26+** for new add-ons and features unless the user explicitly requests another target.
+- Treat 1.26+ as the minimum target family, not a promise that every later retail release is identical. Set each pack's `min_engine_version` to the lowest version its actual features support.
+- For Script API projects, follow [SCRIPT_API_COMPATIBILITY.md](SCRIPT_API_COMPATIBILITY.md) as the central reference. Recheck the official stable API documentation when choosing dependencies; its dated version snapshot must not be treated as permanently current.
+- Prefer stable APIs and the highest stable module versions supported by the actual target game. Do not use preview/RC dependencies by default.
+
+---
+
 ## Graphify Repository Reference
 
 - Reference repository: https://github.com/Graphify-Labs/graphify
@@ -200,6 +209,8 @@ When developing, updating, or generating any OneBlock maps, add-ons, or minigame
 
 Use [Jayly's Script API References](https://github.com/JaylyDev/scriptapi-docs) and its [published documentation](https://jaylydev.github.io/scriptapi-docs/) as a practical reference for Script API classes, methods, events, examples, and usage patterns.
 
+The default target for new work is Minecraft Bedrock **1.26+**. Use [SCRIPT_API_COMPATIBILITY.md](SCRIPT_API_COMPATIBILITY.md) as the repository's central compatibility reference and dated version snapshot. Always recheck the linked official stable pages when selecting API dependencies.
+
 ### Required API research workflow
 
 1. **Inspect the target pack first.** Read its `manifest.json`, script entry points, imports, and current `min_engine_version` before changing dependencies. Record each module independently, such as `@minecraft/server` and `@minecraft/server-ui`; they have separate version numbers and do not require separate JavaScript files.
@@ -227,12 +238,13 @@ Jayly's documentation is a useful secondary reference for API exploration and ex
 
 ## Development Quality, Safety, and Definition of Done
 
-### 1. Testing and Validation
+### 1. Checks and Honest Reporting
 
-- Run the relevant checks before declaring a change complete: JSON parsing, JavaScript syntax checks, manifest/dependency validation, repository-specific validators, and build checks when applicable.
-- For Script API changes, verify imported modules and API members against the target Bedrock version and the Script API research policy above.
-- Distinguish automated validation from actual Minecraft in-game testing. Never claim in-game behavior was tested unless it was actually tested in-game.
-- Report failed, skipped, unavailable, or inconclusive checks clearly, including any testing the user still needs to perform.
+- **Create the requested pack first. Do not make routine validation a prerequisite or stop to present a validation plan.** Use the repository's existing build/check workflow only when it is needed to produce the requested package or resolve an obvious implementation blocker.
+- Apply essential compatibility knowledge while creating the files; do not knowingly add malformed required files or dependencies that the target game cannot support.
+- For Script API changes, use the official documentation and the central [SCRIPT_API_COMPATIBILITY.md](SCRIPT_API_COMPATIBILITY.md) reference to choose compatible stable modules.
+- Distinguish source creation, package creation, automated checks, and actual Minecraft in-game testing. Never claim a build, check, or in-game test occurred unless it actually did.
+- Keep the handoff concise. Mention a failed or unavailable check only when it affects delivery, compatibility, or the user's next step.
 
 ### 2. Git and Branch Safety
 
@@ -309,13 +321,11 @@ When an AI agent creates or edits pixel-art assets for an add-on—including ite
 - **Icons and other assets:** Follow the target file format's dimensions, alpha, and layout requirements. Use the indexed pixel workflow when it fits; use a different appropriate structured or image workflow when the asset requires it.
 - Do not invent or assume that a texture, UV map, model, or animation is compatible. Inspect existing pack assets or authoritative references where available.
 
-### Validation before integration
+### Integration notes
 
-1. Validate JSON syntax and the schema expected by the pixel-art generator.
-2. Verify palette references, row count, and row widths programmatically where possible.
-3. Export the asset and confirm the resulting image dimensions and transparency.
-4. Check the resource-pack references and file paths, then run available pack/build validation.
-5. Report what was generated and validated. Do not claim visual or in-game testing unless it actually occurred.
+- Generate and integrate the asset as part of pack creation; do not stop the workflow for a separate routine validation stage.
+- Keep the pixel data, palette references, row dimensions, exported image dimensions, transparency, and resource-pack paths consistent with the target format while implementing.
+- Use existing checks only when needed to resolve a clear issue or produce the requested package. Do not claim visual or in-game testing unless it actually occurred.
 
 Use this approach as the preferred editable workflow, not an absolute restriction: prioritize a valid, maintainable asset that works with the target Minecraft Bedrock format.
 
