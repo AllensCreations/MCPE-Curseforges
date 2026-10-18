@@ -1,8 +1,8 @@
 {
   "format_version": 2,
   "header": {
-    "name": "Passive Auto-Switch Tools BP",
-    "description": "Zero-configuration passive tool auto-switcher when holding Hotbar Slot 1. By AllensCreations.",
+    "name": "Passive Auto-Switch Tools (v1.1.12)",
+    "description": "Zero-configuration passive tool auto-switcher when holding Hotbar Slot 1. by AllensCreations",
     "uuid": "030580a5-3472-418c-82bd-656a52728134",
     "version": [
       1,
