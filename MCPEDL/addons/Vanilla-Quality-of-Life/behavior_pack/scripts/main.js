@@ -8,7 +8,7 @@
  * 3. Passive Auto-Switch Tools (Intelligent Slot 1 tool & weapon switcher)
  * 4. Smart Tree Capitator (Sneak-axe felling with 5x5 footprint & downward stump sweep)
  * 5. Domino Ore Miner (Sneak-pickaxe contiguous 26-neighbor ore vein mining)
- * 6. Durability Safety Guard (Automatic tool protection stopping at 5 durability)
+ * 6. Durability Safety Guard (Automatic tool protection stopping at 1 durability)
  *
  * Target: Minecraft Bedrock 1.21+ / Script API @minecraft/server 1.13.0+
  */
@@ -16,7 +16,7 @@
 import { world, system, EquipmentSlot, ItemStack, BlockPermutation } from "@minecraft/server";
 import { MINING_OPTIONS } from "./mining-options.js";
 
-const VERSION = "1.3.13";
+const VERSION = "1.3.14";
 const LOG_PREFIX = "[Vanilla QoL]";
 
 // ─── Configuration ────────────────────────────────────────────────────────────
@@ -66,6 +66,7 @@ const CONFIG = {
 const SUPPORTED_OFFHAND_ITEMS = new Set([
   "minecraft:torch",
   "minecraft:soul_torch",
+  "minecraft:redstone_torch",
   "minecraft:lantern",
   "minecraft:soul_lantern",
   "minecraft:clock",
@@ -76,6 +77,7 @@ const SUPPORTED_OFFHAND_ITEMS = new Set([
 const LIGHT_LEVELS = {
   "minecraft:torch": 14,
   "minecraft:soul_torch": 10,
+  "minecraft:redstone_torch": 7,
   "minecraft:lantern": 15,
   "minecraft:soul_lantern": 10,
 };
@@ -398,6 +400,7 @@ const IGNORED_BLOCKS = new Set([
   "air", "cave_air", "void_air", "water", "flowing_water", "lava", "flowing_lava",
   "bedrock", "barrier", "structure_void", "light_block", "portal", "end_portal",
   "end_portal_frame", "end_gateway",
+  "redstone_torch", "unlit_redstone_torch", "redstone_wire",
 ]);
 
 const NON_COMBAT_ENTITIES = new Set([
@@ -531,6 +534,10 @@ function getRequiredToolCategory(typeId) {
   if (IGNORED_BLOCKS.has(id)) return null;
 
   if (id === "web" || id.includes("cobweb")) return ToolCategory.WEB;
+
+  // Specific families before broad substring checks: sandstone is mined with a pickaxe;
+  // ordinary sand/red sand and plain mud remain shovel blocks.
+  if (id.includes("sandstone") || id.includes("mud_brick")) return ToolCategory.PICKAXE;
 
   if (
     id.endsWith("concrete_powder") || id.includes("sand") || id.includes("gravel") ||
@@ -825,19 +832,20 @@ function isMatchingLog(blockId, targetSpecies) {
   return !species || species === targetSpecies;
 }
 
-function isTreeCanopy(dimension, blocks) {
+function isTreeCanopy(dimension, blocks, targetSpecies) {
   if (!blocks || blocks.length === 0) return false;
   const candidates = [...blocks].sort((a, b) => b.y - a.y).slice(0, 8);
   for (const pos of candidates) {
     for (let dx = -2; dx <= 2; dx++) {
       for (let dz = -2; dz <= 2; dz++) {
-        for (let dy = -1; dy <= 2; dy++) {
+        for (let dy = 0; dy <= 2; dy++) {
           try {
             const b = dimension.getBlock({ x: pos.x + dx, y: pos.y + dy, z: pos.z + dz });
             if (!b) continue;
 
             // Nether tree canopies (wart blocks and shroomlights)
-            if (b.typeId.includes("wart_block") || b.typeId.includes("shroomlight")) {
+            if ((targetSpecies === "crimson" || targetSpecies === "warped") &&
+                (b.typeId.includes("wart_block") || b.typeId.includes("shroomlight"))) {
               return true;
             }
 
@@ -920,7 +928,7 @@ function executeTreeCapitator(player, dimension, startLoc, startBlockId, onCompl
   }
 
   // House protection: require tree canopy (leaves/wart/shroomlight) so player log cabins aren't felled
-  if (!isTreeCanopy(dimension, blocksToBreak)) {
+  if (!isTreeCanopy(dimension, blocksToBreak, targetSpecies)) {
     if (onComplete) onComplete();
     return;
   }
@@ -947,8 +955,6 @@ function executeTreeCapitator(player, dimension, startLoc, startBlockId, onCompl
 // ─── Domino Ore Miner Engine ──────────────────────────────────────────────────
 
 const PICKAXE_TIERS = {
-  "minecraft:wooden_axe": 1,
-  "minecraft:golden_axe": 1,
   "minecraft:wooden_pickaxe": 1,
   "minecraft:golden_pickaxe": 1,
   "minecraft:stone_pickaxe": 2,
@@ -1009,11 +1015,15 @@ const NEIGHBOR_OFFSETS_26 = (() => {
   return offsets;
 })();
 
-function calculateFortuneDropCount(fortuneLevel, minBase = 1, maxBase = 1) {
+const FORTUNE_AFFECTED_ORE_CATEGORIES = new Set([
+  "coal", "copper", "lapis", "gold", "nether_gold", "redstone", "diamond", "emerald", "quartz",
+]);
+
+function calculateFortuneDropCount(fortuneLevel, minBase = 1, maxBase = 1, fortuneApplies = true) {
   const baseCount = minBase === maxBase
     ? minBase
     : Math.floor(Math.random() * (maxBase - minBase + 1)) + minBase;
-  if (fortuneLevel <= 0) return baseCount;
+  if (fortuneLevel <= 0 || !fortuneApplies) return baseCount;
   const multiplier = Math.max(1, Math.floor(Math.random() * (fortuneLevel + 2)));
   return Math.min(baseCount * multiplier, 64);
 }
@@ -1077,6 +1087,10 @@ function executeDominoOreMiner(player, dimension, startLoc, startBlockId, onComp
 
   const tool = getMainhandTool(player);
   const toolTypeId = tool?.typeId;
+  if (!isPickaxe(toolTypeId)) {
+    if (onComplete) onComplete();
+    return;
+  }
   const toolTier = getPickaxeTier(toolTypeId);
 
   let hasSilkTouch = false;
@@ -1121,7 +1135,8 @@ function executeDominoOreMiner(player, dimension, startLoc, startBlockId, onComp
           const count = calculateFortuneDropCount(
             fortuneLevel,
             oreInfo.minDrop || 1,
-            oreInfo.maxDrop || 1
+            oreInfo.maxDrop || 1,
+            FORTUNE_AFFECTED_ORE_CATEGORIES.has(oreInfo.category)
           );
           dimension.runCommand(`setblock ${blockData.x} ${blockData.y} ${blockData.z} air`);
           dimension.spawnItem(new ItemStack(dropId, count), {
