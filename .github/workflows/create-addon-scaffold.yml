@@ -361,8 +361,16 @@ jobs:
           ) as output:
               output.write(readme)
 
+          with open(os.path.join(root, "LOCK"), "w", encoding="utf-8", newline="\\n") as output:
+              output.write(
+                  "AllensCreations Add-on Lock v1\\n\\n"
+                  "Required repository marker for build validation.\\n"
+                  "This marker does not encrypt source files or prevent extraction of distributable packages.\\n"
+              )
+
           print(f"Generated {len(files)} supplied files.")
           print(f"Generated README for {addon}.")
+          print(f"Generated LOCK marker for {addon}.")
           PY
 
       - name: Convert pixel textures to PNG

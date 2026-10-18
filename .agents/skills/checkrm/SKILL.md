@@ -481,3 +481,8 @@ After the work, provide a concise factual summary that includes:
 
 Never report a successful check, build, synchronization, or test unless its
 result confirms success.
+
+## Add-on LOCK Marker Audit
+
+For projects under `MCPEDL/addons/` and `MCPEDL/new_addons/`, verify that the project root contains a `LOCK` file beginning with `AllensCreations Add-on Lock v1`. Missing or invalid markers are release-blocking: report the exact project path and do not claim the project is build-ready. Confirm the scaffold workflow creates the marker and the build script enforces it. The marker is only a repository/build safeguard; it does not encrypt source, stop source edits, or prevent extraction of a distributable package.
+

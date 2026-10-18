@@ -1048,6 +1048,19 @@ def main():
             print(f"\nSkipping {cp}: not in known category.")
             continue
 
+        # Required marker prevents accidental packaging of unprotected add-ons.
+        normalized_category = cat.replace("\\", "/").strip("/")
+        if normalized_category in {"MCPEDL/addons", "MCPEDL/new_addons"}:
+            lock_path = os.path.join(cp, "LOCK")
+            try:
+                with open(lock_path, encoding="utf-8") as lock_file:
+                    lock_content = lock_file.read()
+            except OSError:
+                lock_content = ""
+            if not lock_content.startswith("AllensCreations Add-on Lock v1"):
+                print(f"[Auto-Version] ERROR: Missing or invalid LOCK marker: {os.path.relpath(lock_path, REPO_ROOT)}")
+                sys.exit(1)
+
         proj_name = os.path.basename(cp)
         is_new    = not (os.path.join(REPO_ROOT, "README.md") and
                          proj_name in open(os.path.join(REPO_ROOT, "README.md")).read())

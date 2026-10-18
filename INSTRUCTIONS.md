@@ -185,5 +185,11 @@ When developing, updating, or generating any OneBlock maps, add-ons, or minigame
      - **[`player_elevation_snap.json`](assets/oneblock-assets/player_elevation_snap.json)**: Active player anti-fall protection that monitors vertical coordinates, snaps the player back to y=65.0, and runs `clearVelocity()` to neutralize downward falling momentum.
    - All OneBlock world builds and scripts must use these reference files as their foundational baseline.
 
+## Add-on LOCK Marker and Build Safeguards
 
+- Every project folder under `MCPEDL/addons/` and `MCPEDL/new_addons/` must contain a root-level `LOCK` file beginning with `AllensCreations Add-on Lock v1`.
+- The Base64 scaffold workflow creates the marker automatically for every new add-on.
+- `scripts/auto_bump_and_build.py` must stop with a clear error when an add-on lacks the valid marker; do not bypass this validation for routine or explicit builds.
+- Keep source files editable in GitHub. `LOCK` is a repository/build safeguard, not encryption, access control, or DRM; it cannot prevent source edits or extraction of distributed packages.
+- Do not claim that the marker prevents copying. Any optional JavaScript minification or obfuscation must be separately tested and must not replace editable source.
 
