@@ -13,7 +13,8 @@ This skill defines commercial-but-factual README and CHANGELOG style for Minecra
 
 ### 1. Strictly Forbidden (Zero Developer Clutter)
 README files are player showcase pages. They must NEVER contain internal developer artifacts, code jargon, or ephemeral version labels:
-- **Version information:** Omit version numbers and release badges by default. Include them only when requested or required by the publishing context, and verify the value.
+- **Version information:** For add-on project README headings, include the verified release version as `# Add-on Name (vX.Y.Z)` and keep it synchronized with the pack manifest. Never omit a required version or duplicate the suffix. Put `by AllensCreations` in the manifest description, not the title.
+- **Creator profile links:** Include [CurseForge](https://www.curseforge.com/members/allenscreations/projects) and [MCPEDL](https://mcpedl.com/user/allenscreations/) in the published project README description or creator/attribution section. Do not put these links in the short in-game manifest description.
 - ❌ **No Script API References**: Never mention `Script API` or `@minecraft/server` in badges, text, or tables. Use player-facing terms like "modern Minecraft Bedrock mechanics".
 - ❌ **No Code Blocks**: Do not include markdown code blocks (` ```javascript `, ` ```json `, ` ```text `).
 - ❌ **No Markdown Tables in Project READMEs**: Do not use Markdown tables (`| ... | ... |`) in individual project READMEs. Tables break on mobile screens by forcing horizontal overflow and awkward scrolling. Use clean mobile card sections (`### [Feature / Item Name]` with bullet points) instead.

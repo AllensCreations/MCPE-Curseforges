@@ -56,6 +56,8 @@ files, manifests, assets, scripts, workflows, or pack configuration.
 
 `INSTRUCTIONS.md` defines shared policy and `README_GUIDELINES.md` is the canonical README/CHANGELOG style guide. This skill defines the audit workflow. Its template is a fallback only and must not override either document or the user's explicit instructions. Inspect existing documentation to learn current conventions.
 
+Before finishing a README audit, verify the project's manifest titles and creator attribution with `python3 scripts/validate_manifest_titles.py --project <project-path>` when applicable. Confirm each title has exactly one `(vX.Y.Z)` suffix matching `header.version`, the manifest description contains `by AllensCreations` exactly once, and paired Behavior Pack/Resource Pack displayed versions match. Include the official [CurseForge](https://www.curseforge.com/members/allenscreations/projects) and [MCPEDL](https://mcpedl.com/user/allenscreations/) profile links in the published README description or attribution section.
+
 Before creating or substantially rewriting a README:
 
 1. Inspect the repository root `README.md`, if present.
