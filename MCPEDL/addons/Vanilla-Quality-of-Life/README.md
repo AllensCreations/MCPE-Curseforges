@@ -103,10 +103,10 @@ From dynamic torch lighting and double-sneak offhand item swapping to automatic 
 
 #### 2. Smart Tree Capitator (Axe; sneak requirement depends on selected subpack)
 - With Default, sneak while chopping any tree log with an axe to fell the entire tree. No Sneak removes this requirement while the axe is held in selected hotbar slot 1:
-  - **26-Neighbor 3D Flood-Fill**: Sweeps all 26 surrounding block coordinates (`dx, dy, dz ∈ [-1, 0, 1]`) with upward bias (`dy >= 0`), cleanly connecting branches, crooked trunks, and sprawling canopies without digging into terrain beneath the stump.
+  - **Upward-Biased 3D Flood-Fill**: Connects same-level and upward logs, including diagonal branches, without searching below the stump.
   - **Species Matching**: Enforces strict wood species matching (Oak only fells Oak) to prevent chain reactions into adjacent trees.
   - **The Leaf Scan (Build & Bush Protection)**: Ignores player-placed decorative leaves (harvested with shears), protecting your custom bushes, hedges, and roof designs while exclusively verifying natural tree canopies.
-  - **House Protection (`isTreeCanopy`)**: Requires leaf, wart block, or shroomlight presence within the connected canopy to protect wooden player homes and cabins from accidental felling.
+  - **House Protection (`isTreeCanopy`)**: Requires natural-looking leaf canopy evidence for Overworld trees; wart blocks and shroomlights count only for crimson/warped fungi. This reduces false positives but cannot guarantee protection for every custom build.
   - **Natural Leaf Decay**: Preserves leaf canopies for authentic leaf decay drops (saplings, sticks, apples).
   - **Capacity Limit**: Up to 128 logs per tree operation.
 
@@ -118,17 +118,17 @@ From dynamic torch lighting and double-sneak offhand item swapping to automatic 
   - **Capacity Limit**: Up to 64 ore blocks per vein cluster.
 
 #### 4. Durability Safety Guard
-- Automatically halts Tree Capitator and Domino Ore Miner operations if your tool reaches **5 durability points remaining**.
+- Automatically halts Tree Capitator and Domino Ore Miner operations if your tool reaches **1 durability point remaining**.
 - Plays a warning bass sound and flashes an action bar alert, ensuring your valuable enchanted gear never accidentally breaks.
 
 #### 5. Offhand Quick-Swap, Torch Placement & Dynamic Handheld Lighting
-- Supported items: Torches, Soul Torches, Lanterns, Soul Lanterns, Clocks, Compasses, Recovery Compasses.
+- Supported quick-swap items: Torches, Soul Torches, Redstone Torches, Lanterns, Soul Lanterns, Clocks, Compasses, Recovery Compasses.
 - **Offhand Torch Placement**: When holding a Torch, Soul Torch, or Redstone Torch in your offhand, simply **Sneak and Click** (right-click / interact) on any block surface to place it from your offhand without swapping items or losing your mainhand tool.
 - Quick-swap gestures:
   - **Double-sneak** (crouch twice within 0.7 seconds) to swap held item into offhand.
   - **Sneak + Use/Tap in air** to swap held item into offhand.
   - Run `/scriptevent qol:swap` command.
-- Real-time dynamic light: Handheld or offhand torches emit Light Level 14; lanterns emit Light Level 15 as you move.
+- Real-time dynamic light: Torches emit Light Level 14, Soul Torches and Soul Lanterns Level 10, Redstone Torches Level 7, and Lanterns Level 15 as you move.
 
 #### 6. Universal Leashing (101 Mobs)
 - Leash any entity: Villagers, Iron Golems, Hostiles, Creepers, Endermen, Wardens, Withers, and Ghasts.
