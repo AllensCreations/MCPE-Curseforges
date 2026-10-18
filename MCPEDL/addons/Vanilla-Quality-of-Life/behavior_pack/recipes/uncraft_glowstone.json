@@ -1,0 +1,20 @@
+{
+  "format_version": "1.20.10",
+  "minecraft:recipe_shapeless": {
+    "description": {
+      "identifier": "allenscreations:uncraft_glowstone"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "ingredients": [
+      {
+        "item": "minecraft:glowstone"
+      }
+    ],
+    "result": {
+      "item": "minecraft:glowstone_dust",
+      "count": 4
+    }
+  }
+}

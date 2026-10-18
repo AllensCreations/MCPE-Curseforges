@@ -1,0 +1,28 @@
+{
+  "format_version": "1.20.10",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "allenscreations:craftable_name_tag"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      "  S",
+      " P ",
+      "P  "
+    ],
+    "key": {
+      "S": {
+        "item": "minecraft:string"
+      },
+      "P": {
+        "item": "minecraft:paper"
+      }
+    },
+    "result": {
+      "item": "minecraft:name_tag",
+      "count": 1
+    }
+  }
+}

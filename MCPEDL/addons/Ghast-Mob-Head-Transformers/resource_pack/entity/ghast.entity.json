@@ -1,0 +1,66 @@
+{
+  "format_version": "1.8.0",
+  "minecraft:client_entity": {
+    "description": {
+      "identifier": "minecraft:ghast",
+      "materials": {
+        "default": "ghast"
+      },
+      "textures": {
+        "default": "textures/entity/ghast/ghast",
+        "shooting": "textures/entity/ghast/ghast_shooting",
+        "skeleton": "textures/entity/ghast/heads/skeleton_head",
+        "skeleton_charging": "textures/entity/ghast/heads/skeleton_head_charging",
+        "wither_skeleton": "textures/entity/ghast/heads/wither_skeleton_head",
+        "wither_skeleton_charging": "textures/entity/ghast/heads/wither_skeleton_head_charging",
+        "zombie": "textures/entity/ghast/heads/zombie_head",
+        "zombie_charging": "textures/entity/ghast/heads/zombie_head_charging",
+        "steve": "textures/entity/ghast/heads/steve_head",
+        "steve_charging": "textures/entity/ghast/heads/steve_head_charging",
+        "creeper": "textures/entity/ghast/heads/creeper_head",
+        "creeper_charging": "textures/entity/ghast/heads/creeper_head_charging",
+        "piglin": "textures/entity/ghast/heads/piglin_head",
+        "piglin_charging": "textures/entity/ghast/heads/piglin_head_charging",
+        "dragon": "textures/entity/ghast/heads/dragon_head",
+        "dragon_charging": "textures/entity/ghast/heads/dragon_head_charging"
+      },
+      "geometry": {
+        "default": "geometry.ghast",
+        "head": "geometry.ghast.head"
+      },
+      "spawn_egg": {
+        "texture": "spawn_egg_ghast"
+      },
+      "animations": {
+        "move": "animation.ghast.move",
+        "scale": "animation.ghast.scale"
+      },
+      "sound_effects": {
+        "skeleton_charge": "mob.skeleton.say",
+        "skeleton_hurt": "mob.skeleton.hurt",
+        "wither_charge": "mob.wither.shoot",
+        "wither_hurt": "entity.wither_skeleton.hurt",
+        "zombie_charge": "mob.zombie.say",
+        "zombie_hurt": "mob.zombie.hurt",
+        "steve_hurt": "game.player.hurt",
+        "creeper_charge": "random.fuse",
+        "creeper_hurt": "mob.creeper.say",
+        "piglin_charge": "mob.piglin.angry",
+        "piglin_hurt": "mob.piglin.hurt",
+        "dragon_charge": "mob.enderdragon.growl",
+        "dragon_hurt": "mob.enderdragon.hit"
+      },
+      "animation_controllers": [
+        {
+          "move": "controller.animation.ghast.move"
+        },
+        {
+          "sound": "controller.animation.ghast.sound"
+        }
+      ],
+      "render_controllers": [
+        "controller.render.ghast"
+      ]
+    }
+  }
+}

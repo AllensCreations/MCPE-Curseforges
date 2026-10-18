@@ -1,0 +1,14 @@
+{
+  "format_version": "1.12.0",
+  "minecraft:recipe_shapeless": {
+    "description": {
+      "identifier": "oneblock:gravel_to_sand"
+    },
+    "tags": [ "crafting_table" ],
+    "ingredients": [
+      { "item": "minecraft:gravel" },
+      { "item": "minecraft:gravel" }
+    ],
+    "result": { "item": "minecraft:sand", "count": 2 }
+  }
+}

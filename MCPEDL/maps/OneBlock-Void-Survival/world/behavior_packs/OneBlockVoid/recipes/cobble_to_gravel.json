@@ -1,0 +1,14 @@
+{
+  "format_version": "1.12.0",
+  "minecraft:recipe_shapeless": {
+    "description": {
+      "identifier": "oneblock:cobble_to_gravel"
+    },
+    "tags": [ "crafting_table" ],
+    "ingredients": [
+      { "item": "minecraft:cobblestone" },
+      { "item": "minecraft:cobblestone" }
+    ],
+    "result": { "item": "minecraft:gravel", "count": 2 }
+  }
+}

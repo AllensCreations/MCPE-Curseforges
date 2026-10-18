@@ -1,0 +1,219 @@
+{
+  "format_version": "1.10.0",
+  "animation_controllers": {
+    "controller.animation.ghast.sound": {
+      "initial_state": "idle",
+      "states": {
+        "idle": {
+          "transitions": [
+            {
+              "creeper_charge": "(query.is_charging || variable.ischarging) && query.variant == 5"
+            },
+            {
+              "piglin_charge": "(query.is_charging || variable.ischarging) && query.variant == 6"
+            },
+            {
+              "dragon_charge": "(query.is_charging || variable.ischarging) && query.variant == 7"
+            },
+            {
+              "skeleton_charge": "(query.is_charging || variable.ischarging) && query.variant == 1"
+            },
+            {
+              "wither_charge": "(query.is_charging || variable.ischarging) && query.variant == 2"
+            },
+            {
+              "zombie_charge": "(query.is_charging || variable.ischarging) && query.variant == 3"
+            },
+            {
+              "skeleton_hurt": "query.hurt_time > 0 && query.variant == 1"
+            },
+            {
+              "wither_hurt": "query.hurt_time > 0 && query.variant == 2"
+            },
+            {
+              "zombie_hurt": "query.hurt_time > 0 && query.variant == 3"
+            },
+            {
+              "steve_hurt": "query.hurt_time > 0 && query.variant == 4"
+            },
+            {
+              "creeper_hurt": "query.hurt_time > 0 && query.variant == 5"
+            },
+            {
+              "piglin_hurt": "query.hurt_time > 0 && query.variant == 6"
+            },
+            {
+              "dragon_hurt": "query.hurt_time > 0 && query.variant == 7"
+            }
+          ]
+        },
+        "creeper_charge": {
+          "sound_effects": [
+            {
+              "effect": "creeper_charge"
+            }
+          ],
+          "transitions": [
+            {
+              "idle": "!query.is_charging && !variable.ischarging"
+            }
+          ]
+        },
+        "piglin_charge": {
+          "sound_effects": [
+            {
+              "effect": "piglin_charge"
+            }
+          ],
+          "transitions": [
+            {
+              "idle": "!query.is_charging && !variable.ischarging"
+            }
+          ]
+        },
+        "skeleton_charge": {
+          "sound_effects": [
+            {
+              "effect": "skeleton_charge"
+            }
+          ],
+          "transitions": [
+            {
+              "idle": "!query.is_charging && !variable.ischarging"
+            }
+          ]
+        },
+        "wither_charge": {
+          "sound_effects": [
+            {
+              "effect": "wither_charge"
+            }
+          ],
+          "transitions": [
+            {
+              "idle": "!query.is_charging && !variable.ischarging"
+            }
+          ]
+        },
+        "zombie_charge": {
+          "sound_effects": [
+            {
+              "effect": "zombie_charge"
+            }
+          ],
+          "transitions": [
+            {
+              "idle": "!query.is_charging && !variable.ischarging"
+            }
+          ]
+        },
+        "skeleton_hurt": {
+          "sound_effects": [
+            {
+              "effect": "skeleton_hurt"
+            }
+          ],
+          "transitions": [
+            {
+              "idle": "query.hurt_time <= 0"
+            }
+          ]
+        },
+        "wither_hurt": {
+          "sound_effects": [
+            {
+              "effect": "wither_hurt"
+            }
+          ],
+          "transitions": [
+            {
+              "idle": "query.hurt_time <= 0"
+            }
+          ]
+        },
+        "zombie_hurt": {
+          "sound_effects": [
+            {
+              "effect": "zombie_hurt"
+            }
+          ],
+          "transitions": [
+            {
+              "idle": "query.hurt_time <= 0"
+            }
+          ]
+        },
+        "steve_hurt": {
+          "sound_effects": [
+            {
+              "effect": "steve_hurt"
+            }
+          ],
+          "transitions": [
+            {
+              "idle": "query.hurt_time <= 0"
+            }
+          ]
+        },
+        "creeper_hurt": {
+          "sound_effects": [
+            {
+              "effect": "creeper_hurt"
+            }
+          ],
+          "transitions": [
+            {
+              "idle": "query.hurt_time <= 0"
+            }
+          ]
+        },
+        "piglin_hurt": {
+          "sound_effects": [
+            {
+              "effect": "piglin_hurt"
+            }
+          ],
+          "transitions": [
+            {
+              "idle": "query.hurt_time <= 0"
+            }
+          ]
+        },
+        "dragon_charge": {
+          "sound_effects": [
+            {
+              "effect": "dragon_charge"
+            }
+          ],
+          "transitions": [
+            {
+              "idle": "!query.is_charging && !variable.ischarging"
+            }
+          ]
+        },
+        "dragon_hurt": {
+          "sound_effects": [
+            {
+              "effect": "dragon_hurt"
+            }
+          ],
+          "transitions": [
+            {
+              "idle": "query.hurt_time <= 0"
+            }
+          ]
+        }
+      }
+    },
+    "controller.animation.ghast.move": {
+      "initial_state": "default",
+      "states": {
+        "default": {
+          "animations": [
+            "move"
+          ]
+        }
+      }
+    }
+  }
+}

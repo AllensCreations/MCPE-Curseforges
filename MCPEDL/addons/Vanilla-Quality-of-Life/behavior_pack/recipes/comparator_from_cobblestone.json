@@ -1,0 +1,31 @@
+{
+  "format_version": "1.20.10",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "allenscreations:comparator_from_cobblestone"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      " T ",
+      "TQT",
+      "SSS"
+    ],
+    "key": {
+      "T": {
+        "item": "minecraft:redstone_torch"
+      },
+      "Q": {
+        "item": "minecraft:quartz"
+      },
+      "S": {
+        "item": "minecraft:cobblestone"
+      }
+    },
+    "result": {
+      "item": "minecraft:comparator",
+      "count": 1
+    }
+  }
+}

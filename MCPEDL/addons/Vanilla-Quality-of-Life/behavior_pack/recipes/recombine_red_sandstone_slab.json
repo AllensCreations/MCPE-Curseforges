@@ -1,0 +1,23 @@
+{
+  "format_version": "1.20.10",
+  "minecraft:recipe_shapeless": {
+    "description": {
+      "identifier": "allenscreations:recombine_red_sandstone_slab"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "ingredients": [
+      {
+        "item": "minecraft:red_sandstone_slab"
+      },
+      {
+        "item": "minecraft:red_sandstone_slab"
+      }
+    ],
+    "result": {
+      "item": "minecraft:red_sandstone",
+      "count": 1
+    }
+  }
+}

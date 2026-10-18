@@ -1,0 +1,32 @@
+{
+  "name": "OneBlock Core Assets",
+  "creator": "AllensCreations",
+  "version": "1.1.0",
+  "description": "Curated OneBlock reference assets containing the master level.dat, in-block holographic text, 1-tick instant renewal, and player anti-fall elevation snap mechanics.",
+  "assets": [
+    {
+      "id": "text_in_the_block",
+      "name": "Floating Text in the Block",
+      "file": "text_in_the_block.json",
+      "description": "Floating text / holographic guide rendered directly on and above the active OneBlock."
+    },
+    {
+      "id": "level_dat",
+      "name": "OneBlock World Level Data",
+      "file": "level.dat",
+      "description": "Official Minecraft Bedrock level.dat containing world gamerules, generator settings, and player spawn coordinates."
+    },
+    {
+      "id": "instant_block_renewal",
+      "name": "1-Tick Instant Auto-Renewal Mechanism",
+      "file": "instant_block_renewal.json",
+      "description": "Event-driven 1-tick block regeneration that spawns the next block faster than player gravity acceleration."
+    },
+    {
+      "id": "player_elevation_snap",
+      "name": "Player Auto-Elevation Snap & Velocity Cancel",
+      "file": "player_elevation_snap.json",
+      "description": "Active anti-fall protection snapping player vertical position back to y=65.0 with clearVelocity() to freeze downward momentum."
+    }
+  ]
+}

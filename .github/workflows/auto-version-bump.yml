@@ -1,0 +1,80 @@
+name: Auto-Bump Pack Version, Rebuild & Register New Projects
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'MCPEDL/**'
+  workflow_dispatch:
+    inputs:
+      target:
+        description: 'Project to process: "all" for every pack, or a name like "Mining-Helmet"'
+        required: true
+        default: 'choose-target'
+        type: string
+
+permissions:
+  contents: write
+
+# Prevent overlapping release jobs from racing while writing versions and packages.
+concurrency:
+  group: auto-version-bump-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  bump-build-register:
+    runs-on: ubuntu-latest
+    if: "!contains(github.event.head_commit.message, '[skip ci]')"
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
+
+      - name: Bump versions, rebuild packages & register new projects
+        id: process
+        run: |
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+            TARGET="${{ github.event.inputs.target }}"
+            if [ "$TARGET" = "choose-target" ] || [ -z "$TARGET" ]; then
+              echo "Choose a project name or explicitly enter 'all' to process every project."
+              exit 1
+            elif [ "$TARGET" = "all" ]; then
+              python3 scripts/auto_bump_and_build.py --all
+            else
+              python3 scripts/auto_bump_and_build.py --project "$TARGET"
+            fi
+          elif [ "${{ github.event.before }}" != "" ] && \
+               [ "${{ github.event.before }}" != "0000000000000000000000000000000000000000" ]; then
+            python3 scripts/auto_bump_and_build.py --base "${{ github.event.before }}"
+          else
+            python3 scripts/auto_bump_and_build.py --base "HEAD~1"
+          fi
+
+      - name: Validate manifest titles and creator attribution
+        run: python3 scripts/validate_manifest_titles.py
+
+      - name: Commit and push changes
+        run: |
+          git config --global user.name  "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+
+          for dir in MCPEDL packs minigames maps builds; do
+            [ -d "$dir" ] && git add "$dir"
+          done
+          [ -f "README.md" ] && git add README.md
+
+          if git diff --staged --quiet; then
+            echo "No changes to commit."
+          else
+            git commit -m "chore(release): auto-bump versions, rebuild packages & register new projects [skip ci]"
+            git push origin main
+          fi

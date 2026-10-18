@@ -1,0 +1,335 @@
+name: "Delete Addon / Project (MCPEDL)"
+
+on:
+  workflow_dispatch:
+    inputs:
+      target_type:
+        description: "1. Select what type of project to delete"
+        required: true
+        type: choice
+        options:
+          - "addons"
+          - "new_addons"
+          - "maps"
+          - "script"
+
+      addon_target:
+        description: "2. If type is 'addons', select project"
+        required: false
+        type: choice
+        options:
+          - "none"
+          - "Ghast-Mob-Head-Transformers"
+          - "Immortal-Pets"
+          - "Mining-Helmet"
+          - "Monster-Companions"
+          - "Passive-Auto-Switch-Tools"
+          - "Vanilla-Quality-of-Life"
+          - "Tameable-Companion-Fox"
+
+      new_addon_target:
+        description: "2. If type is 'new_addons', select project"
+        required: false
+        type: choice
+        options:
+          - "none"
+          - "Magnetic-Satchel"
+          - "Smart-Tree-Capitator-and-Domino-Ore-Miner"
+
+      map_target:
+        description: "2. If type is 'maps', select project"
+        required: false
+        type: choice
+        options:
+          - "none"
+          - "OneBlock-Void-Survival"
+
+      script_target:
+        description: "2. If type is 'script', select project"
+        required: false
+        type: choice
+        options:
+          - "none"
+          - "Alphabet-Scavenger-Hunt"
+          - "Shared-Hivemind-Inventory"
+          - "Tethered-Breaker-And-Builder"
+
+      confirm:
+        description: "Confirm deletion (Safety check)"
+        required: true
+        type: choice
+        options:
+          - "no"
+          - "yes"
+        default: "no"
+
+permissions:
+  contents: write
+  workflows: write
+
+concurrency:
+  group: delete-project-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  delete-and-clean:
+    name: Delete Project and Clean Repository
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+          persist-credentials: true
+
+      - name: Set up Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: "3.x"
+
+      - name: Validate deletion request
+        id: validate
+        env:
+          TARGET_TYPE: ${{ inputs.target_type }}
+          ADDON_TARGET: ${{ inputs.addon_target }}
+          NEW_ADDON_TARGET: ${{ inputs.new_addon_target }}
+          MAP_TARGET: ${{ inputs.map_target }}
+          SCRIPT_TARGET: ${{ inputs.script_target }}
+          CONFIRM: ${{ inputs.confirm }}
+        run: |
+          set -euo pipefail
+
+          echo "cancelled=false" >> "$GITHUB_OUTPUT"
+
+          if [ "$CONFIRM" != "yes" ]; then
+            echo "Deletion cancelled because confirmation was not set to yes."
+            echo "cancelled=true" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+
+          case "$TARGET_TYPE" in
+            addons)
+              TARGET="$ADDON_TARGET"
+              ;;
+            new_addons)
+              TARGET="$NEW_ADDON_TARGET"
+              ;;
+            maps)
+              TARGET="$MAP_TARGET"
+              ;;
+            script)
+              TARGET="$SCRIPT_TARGET"
+              ;;
+            *)
+              echo "::error::Invalid project category: $TARGET_TYPE"
+              exit 1
+              ;;
+          esac
+
+          if [ -z "$TARGET" ] || [ "$TARGET" = "none" ]; then
+            echo "::error::No project selected for category '$TARGET_TYPE'."
+            exit 1
+          fi
+
+          echo "Selected category: $TARGET_TYPE"
+          echo "Selected project: $TARGET"
+
+      - name: Process Project Deletion and Catalog Cleanup
+        id: delete
+        if: steps.validate.outputs.cancelled == 'false'
+        env:
+          TARGET_TYPE: ${{ inputs.target_type }}
+          ADDON_TARGET: ${{ inputs.addon_target }}
+          NEW_ADDON_TARGET: ${{ inputs.new_addon_target }}
+          MAP_TARGET: ${{ inputs.map_target }}
+          SCRIPT_TARGET: ${{ inputs.script_target }}
+          CONFIRM: ${{ inputs.confirm }}
+        run: |
+          set -euo pipefail
+
+          python3 scripts/delete_project.py \
+            --type "$TARGET_TYPE" \
+            --addon "$ADDON_TARGET" \
+            --new-addon "$NEW_ADDON_TARGET" \
+            --map "$MAP_TARGET" \
+            --script "$SCRIPT_TARGET" \
+            --confirm "$CONFIRM"
+
+      - name: Commit and push changes
+        if: steps.validate.outputs.cancelled == 'false' && steps.delete.outcome == 'success'
+        env:
+          BRANCH: ${{ github.ref_name }}
+          DELETED_SLUG: ${{ steps.delete.outputs.deleted_slug }}
+          DELETED_TYPE: ${{ steps.delete.outputs.deleted_type }}
+        run: |
+          set -Eeuo pipefail
+
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+          echo "Staging project deletion and catalog changes..."
+
+          for dir in MCPEDL builds; do
+            if [ -d "$dir" ]; then
+              git add -A -- "$dir"
+            fi
+          done
+
+          if [ -f "README.md" ]; then
+            git add README.md
+          fi
+
+          if [ -f ".github/workflows/delete-project.yml" ]; then
+            git add ".github/workflows/delete-project.yml"
+          fi
+
+          if git diff --cached --quiet; then
+            echo "No changes to commit."
+            exit 0
+          fi
+
+          git commit \
+            -m "chore(delete): remove ${DELETED_SLUG:-project} from ${DELETED_TYPE:-project} [skip ci]"
+
+          PUSHED=false
+
+          for attempt in 1 2 3; do
+            echo "::group::Push attempt $attempt of 3"
+
+            if ! git fetch origin "$BRANCH"; then
+              echo "::warning::Unable to fetch the remote branch."
+              echo "::endgroup::"
+              sleep 3
+              continue
+            fi
+
+            if git merge-base --is-ancestor HEAD "origin/$BRANCH"; then
+              echo "Remote already contains the commit."
+              PUSHED=true
+              echo "::endgroup::"
+              break
+            fi
+
+            if ! git rebase "origin/$BRANCH"; then
+              echo "::error::Rebase failed."
+              git status --short || true
+
+              if [ -d "$(git rev-parse --git-path rebase-merge)" ] || \
+                 [ -d "$(git rev-parse --git-path rebase-apply)" ]; then
+                git rebase --abort || true
+              fi
+
+              echo "::endgroup::"
+              exit 1
+            fi
+
+            if git push origin "HEAD:refs/heads/$BRANCH"; then
+              echo "Push succeeded."
+              PUSHED=true
+              echo "::endgroup::"
+              break
+            else
+              echo "::warning::Push failed. See Git output above."
+            fi
+
+            echo "::endgroup::"
+            sleep 3
+          done
+
+          if [ "$PUSHED" != "true" ]; then
+            echo "::warning::Push failed. Attempting fallback: committing project deletions without workflow changes..."
+            git reset HEAD~1
+            for dir in MCPEDL builds; do
+              if [ -d "$dir" ]; then
+                git add -A -- "$dir"
+              fi
+            done
+            if [ -f "README.md" ]; then
+              git add README.md
+            fi
+            git checkout -- .github/workflows/delete-project.yml || true
+
+            if ! git diff --cached --quiet; then
+              git commit -m "chore(delete): remove ${DELETED_SLUG:-project} from ${DELETED_TYPE:-project} [skip ci]"
+              for attempt in 1 2 3; do
+                echo "::group::Fallback push attempt $attempt of 3"
+                git fetch origin "$BRANCH" || true
+                if git rebase "origin/$BRANCH"; then
+                  if git push origin "HEAD:refs/heads/$BRANCH"; then
+                    echo "Fallback push succeeded."
+                    PUSHED=true
+                    echo "::endgroup::"
+                    break
+                  fi
+                fi
+                echo "::endgroup::"
+                sleep 3
+              done
+            fi
+          fi
+
+          if [ "$PUSHED" != "true" ]; then
+            echo "::error::Unable to push after 3 attempts."
+            echo "Check the Git errors above for permission, branch protection, or synchronization issues."
+            exit 1
+          fi
+
+      - name: Job Summary
+        if: always()
+        env:
+          TARGET_TYPE: ${{ inputs.target_type }}
+          ADDON_TARGET: ${{ inputs.addon_target }}
+          NEW_ADDON_TARGET: ${{ inputs.new_addon_target }}
+          MAP_TARGET: ${{ inputs.map_target }}
+          SCRIPT_TARGET: ${{ inputs.script_target }}
+          CONFIRM: ${{ inputs.confirm }}
+          CANCELLED: ${{ steps.validate.outputs.cancelled }}
+          DELETE_OUTCOME: ${{ steps.delete.outcome }}
+          DELETED_SLUG: ${{ steps.delete.outputs.deleted_slug }}
+          DELETED_TYPE: ${{ steps.delete.outputs.deleted_type }}
+          PUSH_OUTCOME: ${{ job.status }}
+        run: |
+          {
+            echo "## Project Deletion Summary"
+            echo ""
+            echo "| Parameter | Value |"
+            echo "| :--- | :--- |"
+            echo "| Category | \`${TARGET_TYPE:-unknown}\` |"
+
+            case "${TARGET_TYPE:-}" in
+              addons)
+                SELECTED="$ADDON_TARGET"
+                ;;
+              new_addons)
+                SELECTED="$NEW_ADDON_TARGET"
+                ;;
+              maps)
+                SELECTED="$MAP_TARGET"
+                ;;
+              script)
+                SELECTED="$SCRIPT_TARGET"
+                ;;
+              *)
+                SELECTED="unknown"
+                ;;
+            esac
+
+            echo "| Selected Project | \`${SELECTED:-none}\` |"
+            echo "| Deleted Project | \`${DELETED_SLUG:-not reported}\` |"
+            echo "| Project Type | \`${DELETED_TYPE:-not reported}\` |"
+            echo "| Confirmation | \`${CONFIRM:-unknown}\` |"
+            echo "| Deletion Script | \`${DELETE_OUTCOME:-not run}\` |"
+            echo "| Job Status | \`${PUSH_OUTCOME:-unknown}\` |"
+            echo ""
+
+            if [ "${CANCELLED:-}" = "true" ]; then
+              echo "Deletion was cancelled. No deletion was requested."
+            elif [ "${DELETE_OUTCOME:-}" != "success" ]; then
+              echo "The deletion script did not complete successfully. Check the workflow logs."
+            elif [ "${PUSH_OUTCOME:-}" = "success" ]; then
+              echo "The workflow completed successfully. Check the commit step to confirm whether changes were pushed."
+            else
+              echo "The workflow did not complete successfully. Review the failed step above."
+            fi
+          } >> "$GITHUB_STEP_SUMMARY"

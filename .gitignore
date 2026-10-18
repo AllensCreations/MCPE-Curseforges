@@ -1,0 +1,12 @@
+# OS Files
+.DS_Store
+Thumbs.db
+
+# Temp Files
+*.tmp
+*.log
+*.bak
+graphify-out/
+__pycache__/
+*.pyc
+

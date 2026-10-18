@@ -1,0 +1,12 @@
+{
+  "resource_pack_name": "monster_companions_rp",
+  "texture_name": "atlas.items",
+  "texture_data": {
+    "allenscreations_beast_biscuit": {
+      "textures": "textures/items/beast_biscuit"
+    },
+    "beast_biscuit": {
+      "textures": "textures/items/beast_biscuit"
+    }
+  }
+}

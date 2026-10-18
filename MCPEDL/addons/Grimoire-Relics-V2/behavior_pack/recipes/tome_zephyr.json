@@ -1,0 +1,1 @@
+{"format_version":"1.20.80","minecraft:recipe_shaped":{"description":{"identifier":"custom:tome_zephyr"},"tags":["crafting_table"],"pattern":["CEC","EBE","CEC"],"key":{"E":{"item":"minecraft:feather"},"C":{"item":"minecraft:phantom_membrane"},"B":{"item":"minecraft:book"}},"result":{"item":"custom:tome_zephyr"}}}

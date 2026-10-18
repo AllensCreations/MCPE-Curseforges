@@ -1,0 +1,1 @@
+{"format_version":"1.20.80","minecraft:recipe_shapeless":{"description":{"identifier":"custom:highland_venison"},"tags":["crafting_table"],"ingredients":[{"item":"minecraft:cooked_mutton"},{"item":"minecraft:cooked_mutton"},{"item":"minecraft:sweet_berries"},{"item":"minecraft:cocoa_beans"},{"item":"minecraft:baked_potato"}],"result":{"item":"custom:highland_venison"}}}

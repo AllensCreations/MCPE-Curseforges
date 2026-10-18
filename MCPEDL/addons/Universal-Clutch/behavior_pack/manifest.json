@@ -1,0 +1,71 @@
+{
+  "format_version": 2,
+  "header": {
+    "name": "Universal Clutch (v1.0.1)",
+    "description": "Vanilla-faithful automatic clutch placements when falling from dangerous heights. Choose between Full Mode, Simple Mode, and Extreme Mode in subpack settings. by AllensCreations",
+    "uuid": "a452fcb1-dd72-41b0-aed0-273201968225",
+    "version": [
+      1,
+      0,
+      1
+    ],
+    "min_engine_version": [
+      1,
+      21,
+      0
+    ]
+  },
+  "modules": [
+    {
+      "description": "Universal Clutch Data Module",
+      "type": "data",
+      "uuid": "4b007efc-0319-422a-b56e-3abcfbb0d82e",
+      "version": [
+        1,
+        0,
+        1
+      ]
+    },
+    {
+      "description": "Universal Clutch Script Module",
+      "type": "script",
+      "language": "javascript",
+      "uuid": "95d7461f-8e92-498c-8748-6952e4266dcd",
+      "version": [
+        1,
+        0,
+        1
+      ],
+      "entry": "scripts/main.js"
+    }
+  ],
+  "dependencies": [
+    {
+      "module_name": "@minecraft/server",
+      "version": "1.13.0"
+    }
+  ],
+  "subpacks": [
+    {
+      "folder_name": "full_mode",
+      "name": "Full Mode (Auto-Switch Inventory)",
+      "memory_tier": 1
+    },
+    {
+      "folder_name": "simple_mode",
+      "name": "Simple Mode (Held Item Only)",
+      "memory_tier": 2
+    },
+    {
+      "folder_name": "extreme_mode",
+      "name": "Extreme Mode (Auto Smooth Look-Down & Auto-Switch)",
+      "memory_tier": 3
+    }
+  ],
+  "metadata": {
+    "authors": [
+      "AllensCreations"
+    ],
+    "product_type": "addon"
+  }
+}
