@@ -193,3 +193,20 @@ When developing, updating, or generating any OneBlock maps, add-ons, or minigame
 - Keep source files editable in GitHub. `LOCK` is a repository/build safeguard, not encryption, access control, or DRM; it cannot prevent source edits or extraction of distributed packages.
 - Do not claim that the marker prevents copying. Any optional JavaScript minification or obfuscation must be separately tested and must not replace editable source.
 
+
+---
+
+## Script API Version and Documentation Guide
+
+Use [Jayly's Script API References](https://github.com/JaylyDev/scriptapi-docs) and its [published documentation](https://jaylydev.github.io/scriptapi-docs/) as a practical reference for Script API classes, methods, events, examples, and usage patterns.
+
+### Required API research workflow
+
+1. **Inspect the target pack first.** Read its `manifest.json`, script entry points, imports, and current `min_engine_version` before changing dependencies. Record each module independently, such as `@minecraft/server` and `@minecraft/server-ui`; they have separate version numbers and do not require separate JavaScript files.
+2. **Check current stable versions instead of guessing.** Verify the latest stable module versions and their Minecraft compatibility using the official [Minecraft Creator Script API documentation](https://learn.microsoft.com/en-us/minecraft/creator/scriptapi/) and current official release/changelog information. Use Jayly's references to investigate available API members and examples. Do not treat a documentation repository's newest generated page, a version found in local metadata, or a remembered version number as proof that it is the newest stable release.
+3. **Choose compatible versions, not blindly the numerically highest versions.** Select module versions supported by the target Bedrock release and the pack's minimum engine version. Check each dependency independently. Do not use beta/preview APIs for stable, achievement-friendly packs unless the requested feature requires them and the compatibility impact is made clear.
+4. **Verify every API call.** Confirm imported names, event availability, method signatures, argument types, return values, and version availability in the references. Prefer documented event-driven APIs over polling or per-tick loops when appropriate. Use `.mcfunction` for suitable command-based or scheduled behavior when it is simpler and reliable; do not replace Script API logic without checking behavior and compatibility.
+5. **Upgrade deliberately.** Do not automatically bump every existing add-on whenever a newer API is found. Check breaking changes and test the affected pack first. Keep compatible existing dependencies until an upgrade is validated; apply the current compatible stable versions to new projects.
+6. **Report evidence accurately.** When recommending or changing API versions, state the module name, selected version, target Bedrock compatibility, and references checked. Distinguish verified current versions from versions merely present in repository metadata. Never claim an API is latest or compatible unless the relevant source confirms it.
+
+Jayly's documentation is a useful secondary reference for API exploration and examples, not a substitute for checking official version/compatibility information or testing the actual add-on.
