@@ -38,6 +38,13 @@ All documentation must render cleanly across GitHub, CurseForge, and synced MCPE
 - Keep the creator attribution out of the title. Put the phrase `by AllensCreations` in the manifest `header.description`.
 - When the release version changes, update the manifest title to the same version. The release automation must preserve this rule.
 - Apply this rule to newly created and updated add-ons; do not change pack UUIDs or world storage keys just to rename a title.
+- Manifest `header.description` must contain `by AllensCreations` exactly once. Preserve the existing description and normalize attribution instead of appending duplicates.
+- A title validator must check every project manifest under `MCPEDL/`: require exactly one terminal `(vX.Y.Z)` suffix, require that version to match `header.version`, and reject malformed or duplicated version suffixes. For an add-on with both `behavior_pack/` and `resource_pack/` manifests, their displayed release versions must match.
+- Run the validator in the release workflow and fail the job on any violation. The validator must report errors rather than silently rewriting titles.
+- **Creator profile links for published project descriptions:** Include both official profiles in the project's README description or creator/attribution section:
+  - CurseForge: https://www.curseforge.com/members/allenscreations/projects
+  - MCPEDL: https://mcpedl.com/user/allenscreations/
+  Keep these public profile links in player-facing documentation, not in the short in-game manifest description.
 
 ---
 
