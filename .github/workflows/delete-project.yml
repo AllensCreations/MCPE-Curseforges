@@ -19,13 +19,13 @@ on:
         type: choice
         options:
           - "none"
-          - "Ghast-Head-Transformers"
+          - "Ghast-Mob-Head-Transformers"
           - "Immortal-Pets"
           - "Mining-Helmet"
           - "Monster-Companions"
           - "Passive-Auto-Switch-Tools"
           - "Vanilla-Quality-of-Life"
-          - "tameable-companion-fox"
+          - "Tameable-Companion-Fox"
 
       new_addon_target:
         description: "2. If type is 'new_addons', select project"
@@ -34,7 +34,7 @@ on:
         options:
           - "none"
           - "Magnetic-Satchel"
-          - "smart-tree-capitator-domino-ore-miner"
+          - "Smart-Tree-Capitator-and-Domino-Ore-Miner"
 
       map_target:
         description: "2. If type is 'maps', select project"

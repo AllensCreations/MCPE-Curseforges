@@ -13,13 +13,13 @@
       "readmeExists": true
     },
     {
-      "id": "MCPEDL/addons/Ghast-Head-Transformers",
-      "name": "Ghast Head Transformers",
+      "id": "MCPEDL/addons/Ghast-Mob-Head-Transformers",
+      "name": "Ghast Mob Head Transformers",
       "category": "addon",
-      "dir": "MCPEDL/addons/Ghast-Head-Transformers",
-      "readmePath": "MCPEDL/addons/Ghast-Head-Transformers/README.md",
-      "bannerPath": "MCPEDL/addons/Ghast-Head-Transformers/1791965821315.jpg",
-      "logoPath": "MCPEDL/addons/Ghast-Head-Transformers/pack_icon.png",
+      "dir": "MCPEDL/addons/Ghast-Mob-Head-Transformers",
+      "readmePath": "MCPEDL/addons/Ghast-Mob-Head-Transformers/README.md",
+      "bannerPath": "MCPEDL/addons/Ghast-Mob-Head-Transformers/1791965821315.jpg",
+      "logoPath": "MCPEDL/addons/Ghast-Mob-Head-Transformers/pack_icon.png",
       "bannerExists": true,
       "logoExists": true,
       "readmeExists": true
@@ -85,13 +85,13 @@
       "readmeExists": true
     },
     {
-      "id": "MCPEDL/addons/tameable-companion-fox",
-      "name": "tameable companion fox",
+      "id": "MCPEDL/addons/Tameable-Companion-Fox",
+      "name": "Tameable Companion Fox",
       "category": "addon",
-      "dir": "MCPEDL/addons/tameable-companion-fox",
-      "readmePath": "MCPEDL/addons/tameable-companion-fox/README.md",
-      "bannerPath": "MCPEDL/addons/tameable-companion-fox/banner.jpg",
-      "logoPath": "MCPEDL/addons/tameable-companion-fox/pack_icon.png",
+      "dir": "MCPEDL/addons/Tameable-Companion-Fox",
+      "readmePath": "MCPEDL/addons/Tameable-Companion-Fox/README.md",
+      "bannerPath": "MCPEDL/addons/Tameable-Companion-Fox/banner.jpg",
+      "logoPath": "MCPEDL/addons/Tameable-Companion-Fox/pack_icon.png",
       "bannerExists": false,
       "logoExists": false,
       "readmeExists": true
@@ -157,13 +157,13 @@
       "readmeExists": true
     },
     {
-      "id": "MCPEDL/addons/smart-tree-capitator-domino-ore-miner",
-      "name": "smart tree capitator domino ore miner",
+      "id": "MCPEDL/addons/Smart-Tree-Capitator-and-Domino-Ore-Miner",
+      "name": "Smart Tree Capitator and Domino Ore Miner",
       "category": "addon",
-      "dir": "MCPEDL/addons/smart-tree-capitator-domino-ore-miner",
-      "readmePath": "MCPEDL/addons/smart-tree-capitator-domino-ore-miner/README.md",
-      "bannerPath": "MCPEDL/addons/smart-tree-capitator-domino-ore-miner/banner.jpg",
-      "logoPath": "MCPEDL/addons/smart-tree-capitator-domino-ore-miner/pack_icon.png",
+      "dir": "MCPEDL/addons/Smart-Tree-Capitator-and-Domino-Ore-Miner",
+      "readmePath": "MCPEDL/addons/Smart-Tree-Capitator-and-Domino-Ore-Miner/README.md",
+      "bannerPath": "MCPEDL/addons/Smart-Tree-Capitator-and-Domino-Ore-Miner/banner.jpg",
+      "logoPath": "MCPEDL/addons/Smart-Tree-Capitator-and-Domino-Ore-Miner/pack_icon.png",
       "bannerExists": false,
       "logoExists": true,
       "readmeExists": true
