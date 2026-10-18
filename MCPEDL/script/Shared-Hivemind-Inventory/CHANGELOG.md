@@ -1,7 +1,12 @@
 # Changelog
 
-## Naming Update
-- Renamed the add-on display name to Team Inventory; existing v1.0.6 behavior and storage key remain unchanged.
+## 1.0.8
+- Align the script's internal version and player-facing messages with Team Inventory branding.
+- Update the root project overview to match the current synchronization interval, persistence, equipment sharing, and death-drop caveats.
+- No inventory behavior changes are intended in this release.
+
+## 1.0.7
+- Renamed the add-on display name to Team Inventory; the existing world storage key remains unchanged.
 
 ## 1.0.6
 - Synchronize every two game ticks.

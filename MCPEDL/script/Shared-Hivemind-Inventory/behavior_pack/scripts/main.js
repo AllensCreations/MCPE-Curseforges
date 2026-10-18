@@ -1,10 +1,10 @@
-/** Team Inventory v1.0.6 — AllensCreations
+/** Team Inventory v1.0.8 — AllensCreations
  * Shared main inventory, offhand, armor, and selected hotbar slot.
  * Persistent world dynamic property storage; two-tick change detection.
  */
 import { world, system, ItemStack, EquipmentSlot, EnchantmentTypes } from "@minecraft/server";
 
-const VERSION = "1.0.6";
+const VERSION = "1.0.8";
 const STORAGE_KEY = "allenscreations:hivemind_v106";
 const SLOT_COUNT = 36;
 const SCAN_INTERVAL = 2;
@@ -100,7 +100,7 @@ function emptyState() {
 }
 function slotName(i) { return i < 9 ? `hotbar ${i + 1}` : `inventory slot ${i + 1}`; }
 function warnConflict(player, description) {
-  safe(() => player.sendMessage(`§e[Hivemind] Inventory conflict in ${description}; both item changes were preserved when possible.`));
+  safe(() => player.sendMessage(`§e[Team Inventory] Inventory conflict in ${description}; both item changes were preserved when possible.`));
 }
 function spawnSafely(player, item) {
   if (!item) return false;
@@ -204,7 +204,7 @@ world.afterEvents.entityDie.subscribe(event => {
     master = emptyState();
     for (const p of world.getAllPlayers()) applyState(p, master);
     persist();
-    world.sendMessage(`§c[Hivemind] ${dead.name ?? "A player"} died at ${coords}. Shared inventory dropped once (${dropped} stacks).`);
+    world.sendMessage(`§c[Team Inventory] ${dead.name ?? "A player"} died at ${coords}. Shared inventory dropped once (${dropped} stacks).`);
   } finally {
     syncing = false;
     system.runTimeout(() => pendingDeath.delete(id), 40);
@@ -223,6 +223,6 @@ system.runInterval(() => {
   try { syncTick(); }
   catch (error) {
     syncing = false;
-    safe(() => world.sendMessage("§c[Hivemind] Sync paused for this check after an internal error."));
+    safe(() => world.sendMessage("§c[Team Inventory] Sync paused for this check after an internal error."));
   }
 }, SCAN_INTERVAL);

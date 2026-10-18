@@ -159,18 +159,19 @@ Transform vanilla Ghasts into giant flying mob heads by equipping skulls.
 
 ---
 
-### Script 2: Team Inventory (v1.0.6)
+### Script 2: Team Inventory (v1.0.8)
 
-Multiplayer challenge synchronizing player inventories.
+Multiplayer challenge synchronizing one shared inventory across online players.
 
-- Authoritative Real-Time Sync: 1-tick delta synchronization mirrors all 36 main inventory slots and offhand across all online players.
-- Anti-Duplication Protection: Simultaneous-click protections deduct items in the Master State, preventing phantom items.
-- Single Death Spot Drop: Drops shared inventory at the death coordinate and clears teammates' inventories.
-- Persistent HUD Indicator: Displays live synchronization status on top screen.
+- Shared Inventory: Synchronizes all 36 main inventory slots, armor, offhand, and selected hotbar slot.
+- Persistent State: Stores the shared inventory in world dynamic properties so it can be restored after a world restart.
+- Two-Tick Detection: Checks for inventory changes every two game ticks.
+- Conflict Feedback: Detects competing edits and attempts to preserve conflicting item changes as world drops.
+- Shared Death Drops: Drops the authoritative shared inventory once and clears it for the team.
+- World Settings: Does not force the world's `keepInventory` gamerule.
+- Compatibility Note: Exact item metadata restoration and death-drop interactions depend on the Minecraft Bedrock Script API and world settings.
 
 [Read Full Team Inventory Documentation](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/script/Shared-Hivemind-Inventory/README.md)
-
----
 
 ### Script 3: Tethered: Breaker & Builder (v1.0.1)
 
