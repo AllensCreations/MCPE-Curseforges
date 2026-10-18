@@ -1,4 +1,4 @@
-# Tameable Companion Fox (v1.0.5) — Advanced Fox Companion by AllensCreations
+# Tameable Companion Fox (v1.0.4) — Advanced Fox Companion by AllensCreations
 
 [![Minecraft Bedrock](https://img.shields.io/badge/Minecraft%20Bedrock-1.21.0%2B-brightgreen?style=flat-square&logo=minecraft)](https://github.com/AllensCreations/MCPE-Curseforges)
 [![Format](https://img.shields.io/badge/Format-.MCADDON-orange?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/addons#available-add-ons)

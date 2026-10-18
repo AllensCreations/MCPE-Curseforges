@@ -1,13 +1,13 @@
 {
   "format_version": 2,
   "header": {
-    "name": "OneBlock Economy (v1.0.7)",
-    "description": "OneBlock Hardcore Survival Economy \u2014 20-phase block progression with Wandering Trader milestones. by AllensCreations",
+    "name": "OneBlock Economy (v1.0.6)",
+    "description": "OneBlock Hardcore Survival Economy — 20-phase block progression with Wandering Trader milestones. by AllensCreations",
     "uuid": "fbb06532-e2e4-4e34-8588-7f629295fc64",
     "version": [
       1,
       0,
-      7
+      6
     ],
     "min_engine_version": [
       1,
@@ -23,7 +23,7 @@
       "version": [
         1,
         0,
-        7
+        6
       ],
       "entry": "scripts/main.js"
     }

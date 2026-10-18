@@ -1,4 +1,4 @@
-# Alphabet Scavenger Hunt Challenge (v1.0.6) — Fast-Paced Survival Minigame
+# Alphabet Scavenger Hunt Challenge — Fast-Paced Survival Minigame
 
 ![MCPEDL](https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/MCPEDL/script/Alphabet-Scavenger-Hunt/1791906906852.jpg "MCPEDL")
 

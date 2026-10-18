@@ -1,13 +1,13 @@
 {
   "format_version": 2,
   "header": {
-    "name": "Grand Banquets (v1.0.1)",
+    "name": "Grand Banquets (v1.0.0)",
     "description": "Grand Banquets. 32 craftable banquet feasts in four tiers, from rustic saturation meals to mythic imperial feasts with powerful buffs. by AllensCreations",
     "uuid": "485dca7d-bdc8-4fce-bc51-6b7d459907d1",
     "version": [
       1,
       0,
-      1
+      0
     ],
     "min_engine_version": [
       1,
@@ -22,7 +22,7 @@
       "version": [
         1,
         0,
-        1
+        0
       ]
     },
     {
@@ -32,7 +32,7 @@
       "version": [
         1,
         0,
-        1
+        0
       ],
       "entry": "scripts/main.js"
     }
@@ -43,7 +43,7 @@
       "version": [
         1,
         0,
-        1
+        0
       ]
     },
     {

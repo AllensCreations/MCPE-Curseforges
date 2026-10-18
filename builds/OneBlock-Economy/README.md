@@ -8,9 +8,9 @@ This folder contains compiled release packages for **OneBlock Economy** by Allen
 
 | File Name | Format | Size | Description | Download Link |
 | :--- | :--- | :--- | :--- | :--- |
-| **`OneBlock Economy BP by AllensCreations (V1.0.7).mcpack`** | `.mcpack` | ~88 KB | Standalone Behavior Pack archive for custom map logic. | [Download (.mcpack)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/OneBlock-Economy/OneBlock%20Economy%20BP%20by%20AllensCreations%20%28V1.0.7%29.mcpack) |
-| **`OneBlock Economy by AllensCreations (V1.0.7).mcworld`** | `.mcworld` | ~291 KB | Complete Survival World archive ready for one-click import. | [Download (.mcworld)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/OneBlock-Economy/OneBlock%20Economy%20by%20AllensCreations%20%28V1.0.7%29.mcworld) |
-| **`OneBlock Economy Admin by AllensCreations (V1.0.7).mcworld`** | `.mcworld` | ~291 KB | Admin / Studio World archive pre-configured with testing tools. | [Download (.mcworld)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/OneBlock-Economy/OneBlock%20Economy%20Admin%20by%20AllensCreations%20%28V1.0.7%29.mcworld) |
+| **`OneBlock Economy BP by AllensCreations (V1.0.6).mcpack`** | `.mcpack` | ~88 KB | Standalone Behavior Pack archive for custom map logic. | [Download (.mcpack)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/OneBlock-Economy/OneBlock%20Economy%20BP%20by%20AllensCreations%20%28V1.0.6%29.mcpack) |
+| **`OneBlock Economy by AllensCreations (V1.0.6).mcworld`** | `.mcworld` | ~291 KB | Complete Survival World archive ready for one-click import. | [Download (.mcworld)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/OneBlock-Economy/OneBlock%20Economy%20by%20AllensCreations%20%28V1.0.6%29.mcworld) |
+| **`OneBlock Economy Admin by AllensCreations (V1.0.6).mcworld`** | `.mcworld` | ~291 KB | Admin / Studio World archive pre-configured with testing tools. | [Download (.mcworld)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/OneBlock-Economy/OneBlock%20Economy%20Admin%20by%20AllensCreations%20%28V1.0.6%29.mcworld) |
 
 ---
 

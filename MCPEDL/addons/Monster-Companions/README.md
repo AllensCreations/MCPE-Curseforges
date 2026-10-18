@@ -1,4 +1,4 @@
-# Monster Companions (v1.0.7) - Tameable Hostile Mobs and Mounts by AllensCreations
+# Monster Companions - Tameable Hostile Mobs and Mounts by AllensCreations
 
 ![MCPEDL](https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/MCPEDL/addons/Monster-Companions/1791889944961.jpg "MCPEDL")
 

@@ -1,13 +1,13 @@
 {
   "format_version": 2,
   "header": {
-    "name": "Team Inventory (v1.0.13)",
+    "name": "Team Inventory (v1.0.12)",
     "description": "Persistent shared inventory, armor, offhand, and hotbar selection for multiplayer. by AllensCreations",
     "uuid": "ea58a63d-0e39-4d06-b07e-07c0a98ac0e3",
     "version": [
       1,
       0,
-      13
+      12
     ],
     "min_engine_version": [
       1,
@@ -24,7 +24,7 @@
       "version": [
         1,
         0,
-        13
+        12
       ],
       "entry": "scripts/main.js"
     }

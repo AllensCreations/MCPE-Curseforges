@@ -1,13 +1,13 @@
 {
   "format_version": 2,
   "header": {
-    "name": "Swarm Mob Booster (v1.0.5)",
+    "name": "Swarm Mob Booster (v1.0.4)",
     "description": "Massively multiplies spawn rates and cluster sizes for all vanilla mobs with balanced 30-40 density caps and live HUD radar. by AllensCreations",
     "uuid": "9ffb98b0-154b-45f6-8955-d23ae9213a21",
     "version": [
       1,
       0,
-      5
+      4
     ],
     "min_engine_version": [
       1,
@@ -23,7 +23,7 @@
       "version": [
         1,
         0,
-        5
+        4
       ]
     },
     {
@@ -34,7 +34,7 @@
       "version": [
         1,
         0,
-        5
+        4
       ],
       "entry": "scripts/main.js"
     }

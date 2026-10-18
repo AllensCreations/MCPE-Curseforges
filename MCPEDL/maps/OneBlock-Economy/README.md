@@ -1,4 +1,4 @@
-# OneBlock Economy (v1.0.7) — Hardcore Void Survival with 20-Phase Progression for Minecraft Bedrock
+# OneBlock Economy — Hardcore Void Survival with 20-Phase Progression for Minecraft Bedrock
 
 ![MCPEDL](https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/MCPEDL/maps/OneBlock-Economy/behavior_pack/pack_icon.png "MCPEDL")
 

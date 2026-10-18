@@ -6,8 +6,8 @@ Source files for newly generated Minecraft Bedrock add-ons by AllensCreations.
 
 | Add-on | Version | Source | Download |
 | :--- | :--- | :--- | :--- |
-| One-Block Hardcore Survival Economy | 1.0.1 | [Source](One-Block-Economy/) | [MCPACK](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/One-Block-Economy/One-Block%20Hardcore%20Survival%20Economy%20by%20AllensCreations%20%28V1.0.1%29.mcpack) |
-| Swarm Mob Booster | 1.0.5 | [Source](Swarm-Mob-Booster/) | [MCPACK](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Swarm-Mob-Booster/Swarm%20Mob%20Booster%20by%20AllensCreations%20%28V1.0.5%29.mcpack) |
+| One-Block Hardcore Survival Economy | 1.0.0 | [Source](One-Block-Economy/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/One-Block-Economy/One-Block-Economy%20by%20AllensCreations%20%28V1.0.0%29.mcaddon) |
+| Swarm Mob Booster | 1.0.4 | [Source](Swarm-Mob-Booster/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Swarm-Mob-Booster/Swarm%20Mob%20Booster%20by%20AllensCreations%20%28V1.0.4%29.mcaddon) |
 
 The catalog is automatically updated by the add-on generation workflow.
 

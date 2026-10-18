@@ -1,13 +1,13 @@
 {
   "format_version": 2,
   "header": {
-    "name": "OneBlock Economy (v1.0.7)",
+    "name": "OneBlock Economy (v1.0.6)",
     "description": "OneBlock Void Survival core client resources. by AllensCreations",
     "uuid": "b4ac62e9-fc12-4e0e-8176-ae8374b4f1b3",
     "version": [
       1,
       0,
-      7
+      6
     ],
     "min_engine_version": [
       1,
@@ -22,7 +22,7 @@
       "version": [
         1,
         0,
-        7
+        6
       ]
     }
   ],
