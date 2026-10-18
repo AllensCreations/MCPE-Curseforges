@@ -1,6 +1,6 @@
 # Changelog — Vanilla Quality of Life
 
-## [1.3.14] - 2026-10-18
+## [1.3.15] - 2026-10-18
 
 ### Improved & Balanced
 - Added Redstone Torch to offhand quick-swap and dynamic handheld lighting, using light level 7.
