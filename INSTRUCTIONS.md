@@ -318,3 +318,13 @@ When an AI agent creates or edits pixel-art assets for an add-on—including ite
 5. Report what was generated and validated. Do not claim visual or in-game testing unless it actually occurred.
 
 Use this approach as the preferred editable workflow, not an absolute restriction: prioritize a valid, maintainable asset that works with the target Minecraft Bedrock format.
+
+## AI Agent Workflow: Build the Pack First
+
+- **Default to creating the complete pack immediately.** When the user requests a new add-on or feature, proceed with implementation using repository conventions rather than stopping to present a design or validation plan first, unless a material decision is genuinely unclear or the user explicitly asks for planning only.
+- Generate and integrate the necessary pack files, including manifests, JSON, JavaScript, `.mcfunction` files, textures, and other assets as required by the requested feature.
+- For pixel-art assets, prefer the palette-indexed JSON workflow described in the AI Agent Pixel-Art Asset Generation Standard when suitable, and export it to the actual required game asset format.
+- **Do not make routine validation a separate gate before creating the pack.** Prioritize implementation and packaging. Use existing build workflows or checks when needed to produce the requested deliverable, resolve clear blockers as part of the work, and avoid unnecessary back-and-forth over routine implementation details.
+- Keep essential compatibility safeguards: inspect the target pack and follow its supported Bedrock/API conventions; do not knowingly introduce incompatible versions or malformed required files. If a genuine blocker prevents implementation, explain it briefly and continue with any useful work that can be completed.
+- Do not claim that a pack was built, tested in-game, committed, or pushed unless that action actually succeeded. Clearly distinguish a created source pack from a successfully compiled or in-game-tested pack.
+- Keep responses concise and focus on the created or changed files and the result. Provide testing notes only when relevant to a blocker, an important limitation, or the user's next step.
