@@ -1,5 +1,18 @@
 # Changelog — Vanilla Quality of Life
 
+## [1.3.14] - 2026-10-18
+
+### Improved & Balanced
+- Added Redstone Torch to offhand quick-swap and dynamic handheld lighting, using light level 7.
+- Kept chain-mining durability protection aligned with the configured one-durability-point threshold.
+
+### Fixed
+- Corrected tool selection for sandstone, red sandstone, and mud-brick blocks.
+- Prevented axes from qualifying as pickaxes for ore-chain mining.
+- Restricted Fortune multipliers to eligible ore categories, excluding raw iron, raw gold, and ancient debris.
+- Tightened tree-canopy checks to reduce false positives from blocks below the trunk and unrelated Nether canopy blocks.
+- Updated the player-facing README to match the current source and repository documentation standards.
+
 ## [1.3.13] - 2026-10-17
 
 ### Changed
