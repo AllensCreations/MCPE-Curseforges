@@ -1016,7 +1016,7 @@ const NEIGHBOR_OFFSETS_26 = (() => {
 })();
 
 const FORTUNE_AFFECTED_ORE_CATEGORIES = new Set([
-  "coal", "copper", "lapis", "gold", "nether_gold", "redstone", "diamond", "emerald", "quartz",
+  "coal", "copper", "lapis", "nether_gold", "redstone", "diamond", "emerald", "quartz",
 ]);
 
 function calculateFortuneDropCount(fortuneLevel, minBase = 1, maxBase = 1, fortuneApplies = true) {
