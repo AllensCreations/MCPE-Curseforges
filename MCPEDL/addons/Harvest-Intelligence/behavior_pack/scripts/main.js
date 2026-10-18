@@ -1,6 +1,5 @@
 import { world, system } from "@minecraft/server";
 
-const VERSION = "1.0.0";
 const MESSAGE_NO_SEED = "Harvest Intelligence: No planting item available; crop harvested normally.";
 
 // Only crops with known, supported vanilla block states are handled here.
@@ -17,7 +16,7 @@ const REPLANT_RULES = new Map([
   ["minecraft:attached_pumpkin_stem", { item: "minecraft:pumpkin_seeds", alwaysMature: true, plant: "minecraft:pumpkin_stem", plantState: "growth", plantAge: 0, soil: "farmland" }],
   ["minecraft:torchflower_crop", { item: "minecraft:torchflower_seeds", state: "growth", mature: 1, plant: "minecraft:torchflower_crop", soil: "farmland" }],
   ["minecraft:pitcher_crop", { item: "minecraft:pitcher_pod", state: "growth", mature: 4, plant: "minecraft:pitcher_crop", soil: "farmland", multiBlock: true }],
-  ["minecraft:sweet_berry_bush", { item: "minecraft:sweet_berries", state: "age", mature: 3, plant: "minecraft:sweet_berry_bush", soil: "plantable" }],
+  ["minecraft:sweet_berry_bush", { item: "minecraft:sweet_berries", state: "growth", mature: 3, plant: "minecraft:sweet_berry_bush", soil: "plantable" }],
   ["minecraft:cocoa", { item: "minecraft:cocoa_beans", state: "age", mature: 2, plant: "minecraft:cocoa", soil: "attached" }],
 ]);
 
@@ -362,4 +361,4 @@ world.afterEvents.playerInteractWithBlock.subscribe((event) => {
 
 system.runInterval(protectCropsFromTrampling, PROTECTION_SCAN_INTERVAL);
 
-console.warn("[Harvest Intelligence] v" + VERSION + " initialized.");
+console.warn("[Harvest Intelligence] initialized.");

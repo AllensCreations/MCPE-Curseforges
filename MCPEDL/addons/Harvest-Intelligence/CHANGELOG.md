@@ -1,5 +1,10 @@
 # Changelog
 
+## v1.0.2
+
+- Corrected sweet berry bush growth-state detection for automatic replanting.
+- Made startup logging independent of the release version.
+
 ## v1.0.0
 
 - Added normal-break harvesting support for selected vanilla crops.
