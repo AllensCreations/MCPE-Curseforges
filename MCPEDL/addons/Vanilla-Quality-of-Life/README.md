@@ -1,4 +1,6 @@
-# Vanilla Quality of Life — Survival Mechanics and Enhancements by AllensCreations
+# Vanilla Quality of Life (v1.3.14)
+
+Survival Mechanics and Enhancements by AllensCreations
 
 ![MCPEDL](https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/MCPEDL/addons/Vanilla-Quality-of-Life/banner.jpg "MCPEDL")
 
@@ -7,19 +9,15 @@
 
 **By AllensCreations**
 
-**THE ALL-IN-ONE SURVIVAL QUALITY OF LIFE SUITE FOR MINECRAFT BEDROCK**
+**Survival convenience features for Minecraft Bedrock Edition**
 
-Comprehensive vanilla-plus survival enhancements: dynamic lighting, offhand quick-swap, passive auto-switch tools, smart tree capitator, domino ore miner, and universal leashing.
+Combines dynamic lighting, offhand quick-swap, automatic tool selection, tree capitator, ore-vein mining, mob interactions, and crafting adjustments in one add-on.
 
 ---
 
 ## Overview
 
-**Vanilla Quality of Life** is the ultimate all-in-one survival quality of life pack for Minecraft Bedrock Edition. It resolves everyday survival friction points while maintaining complete game balance and pure vanilla feel.
-
-From dynamic torch lighting and double-sneak offhand item swapping to automatic tool switching on Slot 1, selectable tree capitator and 26-neighbor domino ore mining with durability safety guards—everything works seamlessly together.
-
-![Vanilla QoL Banner](https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/MCPEDL/addons/Vanilla-Quality-of-Life/banner.jpg)
+**Vanilla Quality of Life** adds survival conveniences to Minecraft Bedrock Edition, including tool switching, tree and ore chain mining, offhand utilities, mob interactions, and crafting adjustments. Mining behavior can be selected through the pack’s subpack settings, including a preset that disables both mining features.
 
 ---
 
@@ -119,7 +117,7 @@ From dynamic torch lighting and double-sneak offhand item swapping to automatic 
 
 #### 4. Durability Safety Guard
 - Automatically halts Tree Capitator and Domino Ore Miner operations if your tool reaches **1 durability point remaining**.
-- Plays a warning bass sound and flashes an action bar alert, ensuring your valuable enchanted gear never accidentally breaks.
+- Plays a warning sound and displays an action-bar alert when the durability threshold is reached. This reduces the risk of breaking tools during chain-mining but does not guarantee that tools can never break.
 
 #### 5. Offhand Quick-Swap, Torch Placement & Dynamic Handheld Lighting
 - Supported quick-swap items: Torches, Soul Torches, Redstone Torches, Lanterns, Soul Lanterns, Clocks, Compasses, Recovery Compasses.
@@ -141,7 +139,7 @@ From dynamic torch lighting and double-sneak offhand item swapping to automatic 
 
 #### 8. Fast Leaf Decay
 - Floating leaves from chopped trees decay within 1 to 2 seconds.
-- Normal drop rates for saplings, sticks, and apples are preserved without world lag.
+- Natural leaf drops such as saplings, sticks, and apples remain available as leaves decay.
 
 #### 9. Stonecutter Woodcutter Integration
 - Cut all 12 wood types (Oak, Spruce, Birch, Jungle, Acacia, Dark Oak, Mangrove, Cherry, Pale Oak, Bamboo, Crimson, Warped):
@@ -214,6 +212,8 @@ From dynamic torch lighting and double-sneak offhand item swapping to automatic 
 ## Guidelines and Attribution
 
 - Creator: AllensCreations
+- CurseForge: https://www.curseforge.com/members/allenscreations/projects
+- MCPEDL: https://mcpedl.com/user/allenscreations/
 - Rights & Reservation: All rights reserved for AllensCreations.
 - Content Creators: Content creators are permitted to feature this pack in videos and streams with credit to AllensCreations.
 - Redistribution: Do not re-upload this pack or provide direct monetized download bypasses. Link directly to the official repository page.
