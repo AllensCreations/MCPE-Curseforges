@@ -370,7 +370,17 @@ jobs:
 
           print(f"Generated {len(files)} supplied files.")
           print(f"Generated README for {addon}.")
-          print(f"Generated LOCK marker for {addon}.")
+          for pack_name in ("behavior_pack", "resource_pack"):
+              pack_dir = os.path.join(root, pack_name)
+              if os.path.isdir(pack_dir) and os.path.isfile(os.path.join(pack_dir, "manifest.json")):
+                  with open(os.path.join(pack_dir, "LOCK"), "w", encoding="utf-8", newline="\n") as output:
+                      output.write(
+                          "AllensCreations Add-on Lock v1\n\n"
+                          "Pack marker included in the exported Minecraft Bedrock pack.\n"
+                          "This marker does not encrypt the pack or prevent extraction or editing.\n"
+                      )
+
+          print(f"Generated LOCK marker for {addon} and its valid packs.")
           PY
 
       - name: Convert pixel textures to PNG
