@@ -13,6 +13,15 @@ All documentation files (README.md across repository root, packs, and maps) must
 
 ---
 
+## Graphify Repository Reference
+
+- Reference repository: https://github.com/Graphify-Labs/graphify
+- Use Graphify as an optional reference for graph-based codebase exploration and dependency/relationship mapping when relevant to repository analysis.
+- Before adopting or integrating it into a workflow, inspect its current documentation and supported setup; do not assume it is installed or available in every environment.
+- Treat generated graphs as navigation aids, not as authoritative proof. Verify behavior against source files, manifests, tests, and workflow definitions.
+
+---
+
 ## 1. Markdown and CurseForge / MCPEDL Compatibility
 
 All documentation must render cleanly across GitHub, CurseForge, and synced MCPEDL pages.
