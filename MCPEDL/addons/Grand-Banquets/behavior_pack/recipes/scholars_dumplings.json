@@ -1,1 +1,0 @@
-{"format_version":"1.20.80","minecraft:recipe_shapeless":{"description":{"identifier":"custom:scholars_dumplings"},"tags":["crafting_table"],"ingredients":[{"item":"minecraft:lapis_lazuli"},{"item":"minecraft:wheat"},{"item":"minecraft:cooked_chicken"},{"item":"minecraft:cocoa_beans"},{"item":"minecraft:glow_berries"}],"result":{"item":"custom:scholars_dumplings"}}}

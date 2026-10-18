@@ -1,1 +1,0 @@
-{"format_version":"1.20.80","minecraft:recipe_shaped":{"description":{"identifier":"custom:tome_titan"},"tags":["crafting_table"],"pattern":["CEC","EBE","CEC"],"key":{"E":{"item":"minecraft:obsidian"},"C":{"item":"minecraft:iron_block"},"B":{"item":"minecraft:book"}},"result":{"item":"custom:tome_titan"}}}

@@ -1,1 +1,0 @@
-{"format_version":"1.20.80","minecraft:recipe_shaped":{"description":{"identifier":"custom:tome_storm"},"tags":["crafting_table"],"pattern":["CEC","EBE","CEC"],"key":{"E":{"item":"minecraft:copper_ingot"},"C":{"item":"minecraft:lightning_rod"},"B":{"item":"minecraft:book"}},"result":{"item":"custom:tome_storm"}}}

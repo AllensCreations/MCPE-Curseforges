@@ -1,1 +1,0 @@
-{"format_version":"1.20.80","minecraft:recipe_shapeless":{"description":{"identifier":"custom:kelp_fish_broth"},"tags":["crafting_table"],"ingredients":[{"item":"minecraft:bowl"},{"item":"minecraft:dried_kelp"},{"item":"minecraft:cooked_cod"},{"item":"minecraft:carrot"},{"item":"minecraft:baked_potato"}],"result":{"item":"custom:kelp_fish_broth"}}}

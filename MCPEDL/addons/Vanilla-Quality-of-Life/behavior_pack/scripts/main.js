@@ -148,7 +148,13 @@ function cloneStack(item) {
 function offhandMatches(equipment, item) {
   const readBack = equipment.getEquipment(EquipmentSlot.Offhand);
   if (!item) return !readBack;
-  return !!(readBack && readBack.typeId === item.typeId);
+  // Type-only checks can incorrectly accept a stale stack and skip count updates.
+  return !!(
+    readBack &&
+    readBack.typeId === item.typeId &&
+    readBack.amount === item.amount &&
+    (readBack.nameTag || "") === (item.nameTag || "")
+  );
 }
 
 function forceOffhand(player, item) {
@@ -1210,10 +1216,11 @@ function getAdjacentBlock(block, face) {
   try {
     switch (String(face)) {
       case "Up": return { target: block.above(), facingDir: "top" };
-      case "North": return { target: block.north(), facingDir: "north" };
-      case "South": return { target: block.south(), facingDir: "south" };
-      case "West": return { target: block.west(), facingDir: "west" };
-      case "East": return { target: block.east(), facingDir: "east" };
+      // The state points the torch toward its supporting block, opposite the clicked face.
+      case "North": return { target: block.north(), facingDir: "south" };
+      case "South": return { target: block.south(), facingDir: "north" };
+      case "West": return { target: block.west(), facingDir: "east" };
+      case "East": return { target: block.east(), facingDir: "west" };
       default: return null;
     }
   } catch (e) {

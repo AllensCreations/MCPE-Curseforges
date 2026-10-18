@@ -1,7 +1,0 @@
-{
-  "namespace": "hud",
-  "mob_effects_renderer@mob_effects_renderer": {
-    "ignored": true,
-    "size": [ 0, 0 ]
-  }
-}

@@ -1,1 +1,0 @@
-{"format_version":"1.20.80","minecraft:recipe_shapeless":{"description":{"identifier":"custom:strider_gumbo"},"tags":["crafting_table"],"ingredients":[{"item":"minecraft:bowl"},{"item":"minecraft:crimson_fungus"},{"item":"minecraft:warped_fungus"},{"item":"minecraft:cooked_porkchop"},{"item":"minecraft:nether_wart"}],"result":{"item":"custom:strider_gumbo"}}}

@@ -1,1 +1,0 @@
-{"format_version":"1.20.80","minecraft:recipe_shaped":{"description":{"identifier":"custom:warlords_steak"},"tags":["crafting_table"],"pattern":["AAB","CD "],"key":{"A":{"item":"minecraft:cooked_beef"},"B":{"item":"minecraft:blaze_powder"},"C":{"item":"minecraft:golden_carrot"},"D":{"item":"minecraft:gold_ingot"}},"result":{"item":"custom:warlords_steak"}}}

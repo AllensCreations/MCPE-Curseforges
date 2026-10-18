@@ -1,5 +1,11 @@
 # Changelog — Vanilla Quality of Life
 
+## [1.3.16] - 2026-10-18
+
+### Fixed
+- Corrected offhand torch stack updates so placing any supported torch consumes exactly one item in Survival and Adventure modes.
+- Corrected wall-mounted orientation for regular torches, Soul Torches, and Redstone Torches so they face their supporting block instead of breaking immediately.
+
 ## [1.3.15] - 2026-10-18
 
 ### Improved & Balanced

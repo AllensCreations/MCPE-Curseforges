@@ -1,1 +1,0 @@
-{"format_version":"1.20.80","minecraft:recipe_shapeless":{"description":{"identifier":"custom:glazed_wings"},"tags":["crafting_table"],"ingredients":[{"item":"minecraft:honey_bottle"},{"item":"minecraft:cooked_chicken"},{"item":"minecraft:cooked_chicken"},{"item":"minecraft:feather"},{"item":"minecraft:phantom_membrane"}],"result":{"item":"custom:glazed_wings"}}}
