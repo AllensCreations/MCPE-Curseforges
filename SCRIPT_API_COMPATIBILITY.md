@@ -29,6 +29,31 @@ The official stable reference pages showed the following module versions when ch
 
 These are a dated reference snapshot, **not permanent defaults** and not proof that every retail 1.26+ game build supports every listed module version. Recheck the official stable pages when creating a pack or changing a dependency. Select the highest stable version supported by the actual target retail game and all dependencies used by the pack. Do not substitute a preview/RC version for a stable release.
 
+## Achievement friendliness and experiment detection
+
+Use this assessment for every new pack and meaningful update. It complements API version selection: a compatible Script API dependency does not by itself establish achievement compatibility or experiment requirements.
+
+### How to classify
+
+- Inspect the pack manifests and dependencies, stable versus preview/beta API imports, content JSON, component usage, scripts, functions, and any included world/template settings.
+- Search for documented experimental features and explicit experiment requirements. Confirm any suspected requirement against current official Minecraft Creator documentation rather than relying only on a keyword match.
+- Do not treat JavaScript or stable Script API usage alone as proof that experiments are required or achievements are disabled.
+- If no requirement is found in the files examined, state **“No experiment requirement detected in the inspected files.”** Do not claim this proves that every world setting or future game version is safe.
+- Classify achievement status as:
+  - **Likely achievement-friendly:** no known disabling condition found in the inspected implementation, which uses supported stable features.
+  - **Not achievement-friendly / achievements may be disabled:** a known requirement or requested setup includes cheats, experiments, preview-only features, or another documented condition that disables achievements.
+  - **Unknown / needs confirmation:** source or world settings are incomplete, or platform behavior is uncertain.
+- When the actual world/template settings are available, inspect experiment toggles and cheats/achievement-related settings separately. Pack files alone cannot establish the settings of an existing player world.
+- Prefer a stable, non-experimental implementation when it preserves the requested behavior. Do not silently weaken the feature to avoid an experiment.
+- Report the findings and evidence briefly. Never promise achievements will remain enabled unless the exact target game, pack, and world setup have been verified.
+
+### Handoff summary
+
+- **Achievement status:** Likely achievement-friendly / Not achievement-friendly or may disable achievements / Unknown.
+- **Experiments:** None detected / Required (name the specific toggle or feature) / Unknown.
+- **Evidence:** The relevant manifest, dependency, API, JSON, script, or world-setting findings.
+- **Scope:** Which files/settings were inspected and whether the actual world settings were available.
+
 ## Per-pack compatibility record
 
 For every new scripted pack, record these values in its development notes or handoff:
