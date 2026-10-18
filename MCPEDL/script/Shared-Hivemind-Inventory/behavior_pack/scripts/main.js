@@ -1,10 +1,10 @@
-/** Team Inventory v1.0.8 — AllensCreations
+/** Team Inventory v1.0.9 — AllensCreations
  * Shared main inventory, offhand, armor, and selected hotbar slot.
  * Persistent world dynamic property storage; two-tick change detection.
  */
 import { world, system, ItemStack, EquipmentSlot, EnchantmentTypes } from "@minecraft/server";
 
-const VERSION = "1.0.8";
+const VERSION = "1.0.9";
 const STORAGE_KEY = "allenscreations:hivemind_v106";
 const SLOT_COUNT = 36;
 const SCAN_INTERVAL = 2;
@@ -217,6 +217,11 @@ world.afterEvents.playerSpawn.subscribe(event => {
   syncing = true;
   try { applyState(event.player, master); }
   finally { syncing = false; }
+
+  // Show the join message only on a fresh login, not after every death respawn.
+  if (event.initialSpawn) {
+    system.run(() => safe(() => event.player.runCommand("function team_inventory/join_message")));
+  }
 });
 
 system.runInterval(() => {
