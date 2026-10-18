@@ -2,7 +2,7 @@
 
 Vanilla Farming Utility by AllensCreations
 
-[![Minecraft Bedrock](https://img.shields.io/badge/Minecraft%20Bedrock-1.26.0%2B-brightgreen?style=flat-square&logo=minecraft)](https://github.com/AllensCreations/MCPE-Curseforges)
+[![Minecraft Bedrock](https://img.shields.io/badge/Minecraft%20Bedrock-26.50%2B-brightgreen?style=flat-square&logo=minecraft)](https://github.com/AllensCreations/MCPE-Curseforges)
 [![Format](https://img.shields.io/badge/Format-.MCPACK-orange?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/addons#available-add-ons)
 
 **By AllensCreations**
@@ -47,7 +47,7 @@ Harvest crops with their normal drops, then let Harvest Intelligence replant mat
 
 ## Compatibility Notes
 
-Designed for Minecraft Bedrock 1.26.0 and later. Achievement compatibility is not guaranteed and must be verified in the target game version and world settings.
+Designed for Minecraft Bedrock 26.50 and later. Achievement compatibility is not guaranteed and must be verified in the target game version and world settings.
 
 ## Guidelines and Attribution
 
