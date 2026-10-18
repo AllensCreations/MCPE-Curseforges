@@ -22,7 +22,7 @@ For general import instructions, refer to the centralized [Download and Installa
 
 ## Source Files
 To inspect uncompressed JSON files, geometry, render controllers, and textures:
-- [View Source Files](../../MCPEDL/addons/Ghast-Head-Transformers/)
+- [View Source Files](../../MCPEDL/addons/Ghast-Mob-Head-Transformers/)
 
 ---
 

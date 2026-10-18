@@ -22,7 +22,7 @@ For general import instructions, refer to the centralized [Download and Installa
 
 ## Source Files
 To inspect uncompressed JSON files, geometry, render controllers, and textures:
-- [View Source Files](../../MCPEDL/addons/tameable-companion-fox/)
+- [View Source Files](../../MCPEDL/addons/Tameable-Companion-Fox/)
 
 ---
 
