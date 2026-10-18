@@ -1,0 +1,39 @@
+name: Build Beacon Effect Halo
+
+on:
+  push:
+    branches:
+      - feature/beacon-effect-halo-catalog
+    paths:
+      - "MCPEDL/addons/Beacon-Effect-Halo/**"
+      - ".github/workflows/build-beacon-effect-halo.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  package:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      - name: Package Minecraft add-on
+        shell: bash
+        run: |
+          set -euo pipefail
+          PACK="MCPEDL/addons/Beacon-Effect-Halo"
+          mkdir -p dist
+          zip -qr "$RUNNER_TEMP/Beacon-Effect-Halo-Behavior.mcpack" -j /dev/null 2>/dev/null || true
+          (cd "$PACK/behavior_pack" && zip -qr "$RUNNER_TEMP/Beacon-Effect-Halo-Behavior.mcpack" .)
+          (cd "$PACK/resource_pack" && zip -qr "$RUNNER_TEMP/Beacon-Effect-Halo-Resources.mcpack" .)
+          cp "$RUNNER_TEMP/Beacon-Effect-Halo-Behavior.mcpack" dist/
+          cp "$RUNNER_TEMP/Beacon-Effect-Halo-Resources.mcpack" dist/
+          (cd dist && zip -q Beacon-Effect-Halo.mcaddon Beacon-Effect-Halo-Behavior.mcpack Beacon-Effect-Halo-Resources.mcpack)
+      - name: Upload .mcaddon
+        uses: actions/upload-artifact@v4
+        with:
+          name: Beacon-Effect-Halo-mcaddon
+          path: dist/Beacon-Effect-Halo.mcaddon
+          if-no-files-found: error
+          retention-days: 14
