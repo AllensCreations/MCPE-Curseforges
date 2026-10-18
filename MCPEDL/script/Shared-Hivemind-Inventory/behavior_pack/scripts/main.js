@@ -213,15 +213,15 @@ world.afterEvents.entityDie.subscribe(event => {
 
 world.beforeEvents.playerLeave.subscribe(event => snapshots.delete(event.player.id));
 world.afterEvents.playerSpawn.subscribe(event => {
+  // Show the join message even if this is the world's first player and sync has not initialized yet.
+  if (event.initialSpawn) {
+    system.run(() => safe(() => event.player.runCommand("function team_inventory/join_message")));
+  }
+
   if (!initialized || !master) return;
   syncing = true;
   try { applyState(event.player, master); }
   finally { syncing = false; }
-
-  // Show the join message only on a fresh login, not after every death respawn.
-  if (event.initialSpawn) {
-    system.run(() => safe(() => event.player.runCommand("function team_inventory/join_message")));
-  }
 });
 
 system.runInterval(() => {
