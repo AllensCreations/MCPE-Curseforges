@@ -224,3 +224,67 @@ Jayly's documentation is a useful secondary reference for API exploration and ex
 - Keep the note friendly, concise, and natural. Suggested wording: "Found a bug or a feature that isn't working? Please leave a comment and let me know. Have an idea for another add-on or a new feature? Suggestions are always welcome!"
 - Do not imply that every suggestion will be implemented or that every reported issue will be fixed immediately.
 - Add this note to player-facing descriptions where appropriate; do not insert it into technical files, manifests, or catalog pages where it would be out of place.
+
+## Development Quality, Safety, and Definition of Done
+
+### 1. Testing and Validation
+
+- Run the relevant checks before declaring a change complete: JSON parsing, JavaScript syntax checks, manifest/dependency validation, repository-specific validators, and build checks when applicable.
+- For Script API changes, verify imported modules and API members against the target Bedrock version and the Script API research policy above.
+- Distinguish automated validation from actual Minecraft in-game testing. Never claim in-game behavior was tested unless it was actually tested in-game.
+- Report failed, skipped, unavailable, or inconclusive checks clearly, including any testing the user still needs to perform.
+
+### 2. Git and Branch Safety
+
+- Confirm the repository, target branch, and working-tree state before editing or committing. Follow the user's explicit repository and branch instructions.
+- Prefer an isolated working branch for substantial or risky changes. Work directly on `main` when the user explicitly requests it or the established task instructions require it.
+- Review the diff before committing and keep changes scoped to the requested task. Do not overwrite unrelated user changes.
+- Never force-push, discard uncommitted work, rewrite shared history, or delete a branch without explicit authorization.
+- Commit and push only when authorized by the user's request or established task instructions. Report the actual commit and push result; do not imply a remote push succeeded if it did not.
+
+### 3. Bug-Fix Protocol and Regression Checks
+
+- For reported bugs, trace the relevant source, reproduce the issue when possible, and identify the likely root cause before changing code.
+- Fix the underlying cause rather than masking symptoms. If reproduction is not possible, state that limitation and validate the fix through available static checks or targeted tests.
+- Check related behavior for regressions, especially shared scripts, item interactions, inventory behavior, multiplayer-sensitive logic, and other features that use the same events or APIs.
+- Preserve existing working mechanics and user-facing behavior unless changing them is necessary for the requested fix. Do not introduce unrelated features or refactor unrelated files.
+
+### 4. Release and Package Consistency
+
+- When a release changes, synchronize applicable pack manifest versions and titles, README version references, changelogs, compiled packages, and catalog entries.
+- Preserve pack UUIDs, world/storage identifiers, player data, and other persistent identifiers unless the user explicitly requests a migration and its risks are addressed.
+- Preserve required root-level `LOCK` markers and follow the repository's build safeguards. A lock marker is not encryption or protection against source extraction.
+- Validate the final package structure and ensure compiled outputs correspond to the intended source revision. Do not describe a package as rebuilt or updated unless that action actually succeeded.
+
+### 5. Design Before Substantial Implementation
+
+- For substantial new features, first establish intended behavior, activation conditions, scope, edge cases, compatibility requirements, and acceptance criteria.
+- Assess Script API feasibility and version support before implementation. Consider vanilla JSON components, events, and `.mcfunction` files where appropriate; choose the simplest reliable compatible approach.
+- Identify likely performance costs, multiplayer implications, and potential conflicts with existing add-on mechanics before implementation.
+- Ask the user only when a material gameplay, compatibility, data-loss, distribution, or release decision remains unresolved. Otherwise use repository conventions and proceed with reasonable defaults.
+
+### 6. Performance and Compatibility
+
+- Prefer event-driven behavior when appropriate over unnecessary per-tick polling, repeated broad entity queries, or expensive block scans.
+- Keep loops and scheduled work bounded. Avoid repeated work when state can be cached safely, and account for cleanup and player/entity lifecycle changes.
+- Test edge cases relevant to the feature, such as unavailable items, broken tools, full inventories, unloaded areas, multiplayer interactions, and invalid or missing entities, when applicable.
+- Do not claim zero lag, universal compatibility, achievement friendliness, or multiplayer/Realms support without evidence for the specific implementation and target version.
+
+### 7. Minimal, Focused Changes
+
+- Change only the files necessary to fulfill the request. Follow existing repository conventions and preserve unrelated formatting, comments, behavior, and features.
+- Avoid broad rewrites, duplicate documentation, unnecessary dependencies, and new custom items or commands unless requested or clearly necessary.
+- Update only the affected instruction or documentation sections when possible; do not rewrite the entire documentation set for a narrow change.
+- Keep player-facing writing concise and factual, following the repository's README and commercial-description standards.
+
+### 8. Definition of Done and Handoff
+
+A task may be reported as complete when the requested changes are implemented, relevant available checks have been run, affected documentation and version metadata are updated when needed, and the requested commit/push actions have actually succeeded.
+
+At handoff, summarize:
+- What changed and which projects/files were affected.
+- Which checks were run and their results.
+- What was not tested or remains uncertain, including any in-game tests the user should perform.
+- The commit and branch, and whether changes were pushed, when applicable.
+
+Never report unfinished work as complete. If a build, test, commit, or push fails, state the failure and what remains to be done.
