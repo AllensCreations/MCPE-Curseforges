@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.0.10
+- Fix the join notification with a direct player-message fallback if the mcfunction command cannot run.
+- Show the version in the add-on title and keep “by AllensCreations” in the manifest description.
+
 ## 1.0.9
 - Display a private “Syncing shared inventory...” message when a player joins.
 - Use a dedicated mcfunction for the message; the Script API only detects the join and invokes the function.
