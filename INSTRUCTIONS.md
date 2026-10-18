@@ -210,3 +210,9 @@ Use [Jayly's Script API References](https://github.com/JaylyDev/scriptapi-docs) 
 6. **Report evidence accurately.** When recommending or changing API versions, state the module name, selected version, target Bedrock compatibility, and references checked. Distinguish verified current versions from versions merely present in repository metadata. Never claim an API is latest or compatible unless the relevant source confirms it.
 
 Jayly's documentation is a useful secondary reference for API exploration and examples, not a substitute for checking official version/compatibility information or testing the actual add-on.
+
+### Stable API Version Policy (Microsoft Recommendation)
+
+- **Use the highest stable Script API module version supported by the Minecraft Bedrock version being targeted.** This is the preferred default, not simply the highest version published overall.
+- Verify compatibility for every dependency independently, including modules such as `@minecraft/server` and `@minecraft/server-ui`. Do not select a version that the target game version or the pack's minimum engine version does not support.
+- Confirm the choice against Microsoft's official Minecraft Creator documentation and release information, then use Jayly's references to verify the API members and signatures. If the highest stable version supported by the target is unclear, investigate further rather than guessing.
