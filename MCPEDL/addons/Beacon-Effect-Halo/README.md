@@ -23,7 +23,7 @@ Wear an effect-specific angel halo in the helmet slot. Charge a halo through the
 
 ## Compatibility and Testing
 
-Designed for Minecraft Bedrock Edition 1.26.30+ with stable `@minecraft/server` 2.8.0 and `@minecraft/server-ui` 2.1.0 dependencies. Beacon detection uses the stable Script API block-volume query to find nearby Beacons within a 50-block cube, then checks pyramid tiers and a short section of the beam. Only loaded chunks are searched; active-state detection still needs in-game validation. The visual halo fit, multiplayer visibility, charging behavior, and performance have not been tested in-game. Achievement compatibility is not guaranteed.
+Designed for Minecraft Bedrock Edition 1.26.30+ with stable `@minecraft/server` 2.8.0 and `@minecraft/server-ui` 2.1.0 dependencies. Beacon detection uses the stable Script API block-volume query to find nearby Beacons within a 50-block cube, then checks pyramid tiers and a short section of the beam. Only loaded chunks are searched; active-state detection still needs in-game validation. Halo item icons and wearable textures use editable 32×32 pixel-art JSON sources in `resource_pack/pixel_sources/`. The visual halo fit, multiplayer visibility, charging behavior, and performance have not been tested in-game. Achievement compatibility is not guaranteed.
 
 Found a bug or a feature that isn't working? Please leave a comment and let me know. Have an idea for another add-on or a new feature? Suggestions are always welcome!
 

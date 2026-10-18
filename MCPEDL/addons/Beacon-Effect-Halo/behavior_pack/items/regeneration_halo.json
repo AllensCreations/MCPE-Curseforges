@@ -12,7 +12,7 @@
         "value": "Regeneration Halo"
       },
       "minecraft:icon": {
-        "texture": "beaconhalo_halo"
+        "texture": "beaconhalo_regeneration"
       },
       "minecraft:max_stack_size": 1,
       "minecraft:wearable": {

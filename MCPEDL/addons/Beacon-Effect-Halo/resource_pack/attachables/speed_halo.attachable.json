@@ -11,7 +11,7 @@
         "enchanted": "entity_alphatest_glint"
       },
       "textures": {
-        "default": "textures/items/gold_ingot",
+        "default": "textures/items/speed_halo",
         "enchanted": "textures/misc/enchanted_item_glint"
       },
       "geometry": {
