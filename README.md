@@ -50,7 +50,7 @@ Explore the full [Add-ons Directory](https://github.com/AllensCreations/MCPE-Cur
 | Project Name | Version | Category | Download (.mcpack) | Source Code | Highlights |
 | :--- | :--- | :--- | :--- | :--- | :--- |
 | **Alphabet Scavenger Hunt** | `v1.0.5` | Survival Challenge | [Download (.mcpack)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Alphabet-Scavenger-Hunt/Alphabet%20Scavenger%20Hunt%20by%20AllensCreations%20%28V1.0.5%29.mcpack) | [`MCPEDL/script/Alphabet-Scavenger-Hunt/`](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/script/Alphabet-Scavenger-Hunt/) | 20-Round survival challenge. Scavenge items matching the target letter within 60s or suffer permanent max health loss. PrismarineJS item verification engine. |
-| **Shared Hivemind Inventory** | `v1.0.6` | Multiplayer Challenge | [Download (.mcpack)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Shared-Hivemind-Inventory/Shared%20Hivemind%20Inventory%20by%20AllensCreations%20%28V1.0.6%29.mcpack) | [`MCPEDL/script/Shared-Hivemind-Inventory/`](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/script/Shared-Hivemind-Inventory/) | All online players share the exact same 36 inventory slots and offhand in real-time. Single death spot drops and anti-duplication engine. |
+| **Team Inventory** | `v1.0.6` | Multiplayer Challenge | [Download (.mcpack)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Shared-Hivemind-Inventory/Team%20Inventory%20by%20AllensCreations%20%28V1.0.6%29.mcpack) | [`MCPEDL/script/Shared-Hivemind-Inventory/`](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/script/Shared-Hivemind-Inventory/) | All online players share the exact same 36 inventory slots and offhand in real-time. Single death spot drops and anti-duplication engine. |
 | **Tethered: Breaker & Builder** | `v1.0.5` | Asymmetric Co-op | [Download (.mcpack)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Tethered-Breaker-And-Builder/Tethered%20Breaker%20and%20Builder%20by%20AllensCreations%20%28V1.0.5%29.mcpack) | [`MCPEDL/script/Tethered-Breaker-And-Builder/`](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/script/Tethered-Breaker-And-Builder/) | 2-Player asymmetric co-op challenge. 15m dynamic elastic energy leash, anchor physics, strict mining/building separation, and live tension HUD. |
 
 Explore the full [Script Directory](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/script/README.md).
@@ -159,7 +159,7 @@ Transform vanilla Ghasts into giant flying mob heads by equipping skulls.
 
 ---
 
-### Script 2: Shared Hivemind Inventory (v1.0.6)
+### Script 2: Team Inventory (v1.0.6)
 
 Multiplayer challenge synchronizing player inventories.
 
@@ -168,7 +168,7 @@ Multiplayer challenge synchronizing player inventories.
 - Single Death Spot Drop: Drops shared inventory at the death coordinate and clears teammates' inventories.
 - Persistent HUD Indicator: Displays live synchronization status on top screen.
 
-[Read Full Shared Hivemind Inventory Documentation](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/script/Shared-Hivemind-Inventory/README.md)
+[Read Full Team Inventory Documentation](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/script/Shared-Hivemind-Inventory/README.md)
 
 ---
 

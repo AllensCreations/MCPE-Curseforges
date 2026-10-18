@@ -194,7 +194,7 @@
     },
     {
       "id": "MCPEDL/script/Shared-Hivemind-Inventory",
-      "name": "Shared Hivemind Inventory",
+      "name": "Team Inventory",
       "category": "script",
       "dir": "MCPEDL/script/Shared-Hivemind-Inventory",
       "readmePath": "MCPEDL/script/Shared-Hivemind-Inventory/README.md",

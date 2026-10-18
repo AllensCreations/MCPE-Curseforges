@@ -1,6 +1,6 @@
-# Shared Hivemind Inventory
+# Team Inventory
 
-![Shared Hivemind Inventory](https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/MCPEDL/script/Shared-Hivemind-Inventory/pack_icon.png)
+![Team Inventory](https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/MCPEDL/script/Shared-Hivemind-Inventory/pack_icon.png)
 
 **By AllensCreations**
 

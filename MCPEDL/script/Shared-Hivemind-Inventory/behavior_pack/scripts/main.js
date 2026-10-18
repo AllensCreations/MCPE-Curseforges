@@ -1,4 +1,4 @@
-/** Shared Hivemind Inventory v1.0.6 — AllensCreations
+/** Team Inventory v1.0.6 — AllensCreations
  * Shared main inventory, offhand, armor, and selected hotbar slot.
  * Persistent world dynamic property storage; two-tick change detection.
  */
