@@ -1,110 +1,35 @@
-# Shared Hivemind Inventory — Synchronized Team Co-op Minigame
+# Shared Hivemind Inventory
 
-![MCPEDL](https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/MCPEDL/script/Shared-Hivemind-Inventory/pack_icon.png "MCPEDL")
-
-[![Minecraft Bedrock](https://img.shields.io/badge/Minecraft%20Bedrock-1.21.0%2B-brightgreen?style=flat-square&logo=minecraft)](https://github.com/AllensCreations/MCPE-Curseforges)
-[![Format](https://img.shields.io/badge/Format-.MCPACK-orange?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/script#available-scripts)
+![Shared Hivemind Inventory](https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/MCPEDL/script/Shared-Hivemind-Inventory/pack_icon.png)
 
 **By AllensCreations**
 
-**REAL-TIME MULTIPLAYER INVENTORY SYNCHRONIZATION & TEAM CO-OP**
+All players in a world share one inventory state. Item counts, slot changes, equipment, and selected hotbar slot are synchronized to other online players.
 
-Synchronize all 36 inventory storage slots and offhand in real-time across your entire multiplayer team.
+## Features
 
----
+- Shares all 36 main inventory slots, armor, offhand, and selected hotbar slot.
+- Detects inventory changes every two game ticks.
+- Saves the shared state in world dynamic properties for world restarts.
+- New and returning players receive the existing shared inventory.
+- Preserves supported item metadata, including names, lore, durability, and enchantments where the Script API exposes them.
+- Detects competing edits and attempts to preserve conflicting items as world drops, with brief player feedback.
+- Death drops the authoritative shared inventory once and clears it for the team.
+- Does not force the `keepInventory` gamerule.
 
-## Overview
+## Compatibility and Settings
 
-What happens when your entire survival team shares a single brain and a single backpack?
+- **Minecraft Bedrock:** 1.21.0+
+- **Format:** Script Behavior Pack (`.mcpack`)
+- **Achievement Friendly:** No guarantee; behavior packs using Script API may require world settings that affect achievements.
+- **Experimental Features:** No experimental toggle is intentionally required beyond the declared Script API dependency.
 
-**Shared Hivemind Inventory** synchronizes all 36 main inventory slots, hotbar selections, and offhand slots across every player in your world in real-time. When one player mines diamond ore, it appears instantly in every teammate's inventory. When someone eats food, the stack depletes for the whole party. When an ally crafts new gear, anyone can immediately equip it.
+## Notes
 
-Engineered with built-in loop protection and duplication safeguards, the pack delivers instant synchronization without item duplication or inventory desync.
+Inventory changes are detected by polling, so updates occur on the next synchronization check. The game engine and available Script API determine whether every item component can be serialized and restored exactly. If vanilla `keepInventory` is disabled, vanilla death-drop behavior may overlap with scripted shared drops; the pack deliberately leaves the world's gamerule unchanged.
 
----
+## Attribution
 
-## Key Features
-
-### Complete 36-Slot Mirroring
-- **Description**: Mirrors all 9 hotbar slots, 27 main inventory slots, and active offhand shield/totem positions across all online teammates.
-
-### Inventory Synchronization
-- **Description**: Instant real-time updates as soon as any player picks up, moves, or consumes items.
-
-### Anti-Duplication Safeguards
-- **Description**: Update verification prevents item ghosting, duplication exploits, or infinite item loops.
-
-### Full Item Metadata Preservation
-- **Description**: Retains exact item durability, custom anvil names, enchantments, and lore text during sync.
-
-### Unified Death Drop Alert
-- **Description**: On teammate death, inventory drops at that exact location while on-screen coordinates guide the team to recover loot.
-
-### Seamless Player Join Sync
-- **Description**: Teammates joining or reconnecting are immediately synced to the active team inventory state.
-
-### Non-Intrusive HUD
-- **Description**: Action bar displays live status indicators verifying active synchronization.
-
----
-
-## How It Works
-
-### Mine or Gather Item
-- **Trigger**: Any player picks up an item
-- **In-Game Result**: Item appears in the identical slot across all teammates' inventories.
-
-### Consume or Place
-- **Trigger**: Any player eats food or places block
-- **In-Game Result**: Stack count decrements simultaneously for all online players.
-
-### Tool & Weapon Usage
-- **Trigger**: Player uses tool in combat or mining
-- **In-Game Result**: Durability wear accurately updates and reflects for anyone holding it.
-
-### Offhand Shield / Totem
-- **Trigger**: Move shield or totem into offhand
-- **In-Game Result**: Offhand equipment synchronizes across party members.
-
-### Teammate Death
-- **Trigger**: Any player falls in battle
-- **In-Game Result**: Inventory drops at death spot; on-screen HUD displays dimension & coordinates.
-
-### Team Regroup
-- **Trigger**: Teammate collects dropped loot
-- **In-Game Result**: Inventory immediately replenishes across all players.
-
----
-
-## Admin Commands
-
-Operators can manage the shared inventory using native commands:
-- `/scriptevent hivemind:sync` - Force resynchronizes all online players to the current shared state.
-- `/scriptevent hivemind:status` - Displays online player count and shared storage status.
-- `/scriptevent hivemind:clear` - Wipes the shared inventory across all players.
-
----
-
-## Compatibility
-
-- Minecraft Bedrock Edition 1.21.0+
-- Script Behavior Pack (.mcpack) format
-
----
-
-## Guidelines and Attribution
-
-- Creator: AllensCreations
-- Rights & Reservation: All rights reserved for AllensCreations.
-- Content Creators: Content creators are permitted to feature this creation in videos and streams with credit to AllensCreations.
-- Redistribution: Do not re-upload this pack or provide direct monetized download bypasses. Link directly to the official repository page.
-
----
+Created by AllensCreations. Do not re-upload or redistribute this pack as your own. Link to the official repository when featuring it.
 
 © All rights reserved for AllensCreations.
-
----
-
-## Search & Discovery Keywords
-
-Minecraft Bedrock shared inventory, hivemind multiplayer challenge, synced inventory slots, co-op survival challenge, Minecraft PE shared items, MCPEDL, CurseForge, AllensCreations.
