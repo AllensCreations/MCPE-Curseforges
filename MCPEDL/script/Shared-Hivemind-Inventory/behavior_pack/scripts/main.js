@@ -1,10 +1,9 @@
-/** Team Inventory v1.0.10 — AllensCreations
+/** Team Inventory — AllensCreations
  * Shared main inventory, offhand, armor, and selected hotbar slot.
  * Persistent world dynamic property storage; two-tick change detection.
  */
 import { world, system, ItemStack, EquipmentSlot, EnchantmentTypes } from "@minecraft/server";
 
-const VERSION = "1.0.10";
 const STORAGE_KEY = "allenscreations:hivemind_v106";
 const SLOT_COUNT = 36;
 const SCAN_INTERVAL = 2;
