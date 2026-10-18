@@ -32,6 +32,15 @@ All documentation must render cleanly across GitHub, CurseForge, and synced MCPE
 
 ---
 
+## Add-on Display Title and Creator Attribution (Required)
+
+- Every Behavior Pack and Resource Pack manifest display title must include the exact release version in this format: `Add-on Name (vX.Y.Z)`, for example `Vanilla Quality of Life (v1.3.0)`.
+- Keep the creator attribution out of the title. Put the phrase `by AllensCreations` in the manifest `header.description`.
+- When the release version changes, update the manifest title to the same version. The release automation must preserve this rule.
+- Apply this rule to newly created and updated add-ons; do not change pack UUIDs or world storage keys just to rename a title.
+
+---
+
 ## 2. Technical and Factual Descriptions (Zero Marketing Slop)
 
 Pack descriptions must be polished, player-focused, and commercially presentable without sacrificing accuracy.
