@@ -236,6 +236,33 @@ Jayly's documentation is a useful secondary reference for API exploration and ex
 - Do not imply that every suggestion will be implemented or that every reported issue will be fixed immediately.
 - Add this note to player-facing descriptions where appropriate; do not insert it into technical files, manifests, or catalog pages where it would be out of place.
 
+## Automatic Achievement and Experiment Compatibility Assessment
+
+For every new pack and every meaningful update, automatically inspect the actual source files and classify both achievement friendliness and experiment requirements. Do this as part of pack creation; do not stop pack creation for a separate validation stage.
+
+### Required assessment
+
+- Inspect all relevant pack manifests, `min_engine_version`, `dependencies`, Script API module versions, item/block/entity JSON, component and feature usage, scripts, functions, and any supplied world/template settings.
+- Detect explicit preview/beta module dependencies, preview-only APIs, experimental content features, required world experiment toggles, and features whose documented behavior depends on experiments.
+- Distinguish **pack-level evidence** from **world-level settings**. A pack's files may reveal that an experiment is required, but cannot prove which toggles are enabled in a player's existing world unless that world configuration is available and actually inspected.
+- Treat stable Script API usage alone as neither automatic proof that achievements are disabled nor proof that they remain enabled. Determine the classification from the complete feature set and current official Minecraft Creator documentation.
+- If no experimental dependency or feature is found, report **“No experiment requirement detected in the inspected files”**, not an absolute guarantee. If evidence is incomplete, report **“Unknown / needs confirmation”**.
+- Classify achievement compatibility conservatively:
+  - **Likely achievement-friendly:** inspected implementation uses supported stable features and no known achievement-disabling requirement was identified.
+  - **Not achievement-friendly / achievements may be disabled:** the pack or requested setup explicitly requires cheats, experiments, preview-only features, or another documented achievement-disabling condition.
+  - **Unknown / needs confirmation:** evidence is incomplete, the world settings were not inspected, or current platform rules are unclear.
+- Do not infer that an add-on is achievement-friendly just because it uses no experiments, or infer that it needs experiments just because it contains JavaScript. Check the specific features and current documentation.
+- Where an experiment is avoidable, prefer a compatible stable alternative if it can deliver the requested behavior without undermining the feature. Do not silently remove or weaken requested functionality just to avoid experiments.
+- Include a concise assessment in the handoff and, when relevant to players, the README. State the evidence and limitations; never promise achievement preservation unless that exact setup is verified.
+- When world settings are available, inspect experiment toggles and cheats/achievement-related settings separately from the pack source. Do not change a user's world settings without explicit permission.
+
+### Handoff format
+
+- **Achievement status:** Likely achievement-friendly / Not achievement-friendly or may disable achievements / Unknown.
+- **Experiments:** None detected / Required (name the specific toggle or feature) / Unknown.
+- **Evidence:** Short list of the manifest, API, JSON, script, or world-setting findings that support the result.
+- **Scope:** Pack files inspected and whether the actual world settings were available.
+
 ## Development Quality, Safety, and Definition of Done
 
 ### 1. Checks and Honest Reporting
