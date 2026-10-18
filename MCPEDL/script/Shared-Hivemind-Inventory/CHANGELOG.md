@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.0.12
+- Improve the join notification so players receive “Syncing shared inventory...” even if the mcfunction command cannot run.
+- Keep the in-game title and project README title aligned with the release version.
+- Keep creator attribution in the pack description instead of the title.
+
+## 1.0.11
+- Apply the versioned title and creator-description format to the release package.
+
 ## 1.0.10
 - Fix the join notification with a direct player-message fallback if the mcfunction command cannot run.
 - Show the version in the add-on title and keep “by AllensCreations” in the manifest description.
