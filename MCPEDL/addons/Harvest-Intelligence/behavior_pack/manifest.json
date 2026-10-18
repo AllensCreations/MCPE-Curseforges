@@ -5,7 +5,7 @@
     "description": "Vanilla-friendly mature crop replanting with inventory-aware seed use and harvest notifications. by AllensCreations",
     "uuid": "1d6e6a58-3d94-4b64-8f1a-7f1f1d8e6c21",
     "version": [1, 0, 0],
-    "min_engine_version": [1, 26, 0]
+    "min_engine_version": [1, 26, 50]
   },
   "modules": [
     {
