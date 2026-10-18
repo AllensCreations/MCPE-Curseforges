@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.0.9
+- Display a private “Syncing shared inventory...” message when a player joins.
+- Use a dedicated mcfunction for the message; the Script API only detects the join and invokes the function.
+- Do not repeat the join message on death respawns.
+
 ## 1.0.8
 - Align the script's internal version and player-facing messages with Team Inventory branding.
 - Update the root project overview to match the current synchronization interval, persistence, equipment sharing, and death-drop caveats.
