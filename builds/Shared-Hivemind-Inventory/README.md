@@ -8,8 +8,8 @@ This folder contains compiled release packages for **Team Inventory** by AllensC
 
 | File Name | Format | Size | Description | Download Link |
 | :--- | :--- | :--- | :--- | :--- |
-| **`Team Inventory by AllensCreations (V1.0.9).mcpack`** | `.mcpack` | ~19 KB | Script Behavior Pack archive ready for import. | [Download (.mcpack)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Shared-Hivemind-Inventory/Team%20Inventory%20by%20AllensCreations%20%28V1.0.9%29.mcpack) |
-| **`Team Inventory by AllensCreations (V1.0.9).mcaddon`** | `.mcaddon` | ~19 KB | Complete Add-on package archive. | [Download (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Shared-Hivemind-Inventory/Team%20Inventory%20by%20AllensCreations%20%28V1.0.9%29.mcaddon) |
+| **`Team Inventory by AllensCreations (V1.0.10).mcpack`** | `.mcpack` | ~19 KB | Script Behavior Pack archive ready for import. | [Download (.mcpack)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Shared-Hivemind-Inventory/Team%20Inventory%20by%20AllensCreations%20%28V1.0.10%29.mcpack) |
+| **`Team Inventory by AllensCreations (V1.0.10).mcaddon`** | `.mcaddon` | ~19 KB | Complete Add-on package archive. | [Download (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Shared-Hivemind-Inventory/Team%20Inventory%20by%20AllensCreations%20%28V1.0.10%29.mcaddon) |
 
 ---
 
