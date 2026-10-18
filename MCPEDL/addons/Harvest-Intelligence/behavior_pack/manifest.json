@@ -1,0 +1,44 @@
+{
+  "format_version": 2,
+  "header": {
+    "name": "Harvest Intelligence (v1.0.0)",
+    "description": "Smart vanilla crop replanting and crop trampling protection. by AllensCreations",
+    "uuid": "db1bedad-4d0b-409e-b54f-b9ed17b6ba0c",
+    "version": [
+      1,
+      0,
+      0
+    ],
+    "min_engine_version": [
+      1,
+      21,
+      20
+    ]
+  },
+  "modules": [
+    {
+      "description": "Harvest Intelligence Script Module",
+      "type": "script",
+      "language": "javascript",
+      "uuid": "d491096a-5370-4547-bf9a-c65f804166fe",
+      "version": [
+        1,
+        0,
+        0
+      ],
+      "entry": "scripts/main.js"
+    }
+  ],
+  "dependencies": [
+    {
+      "module_name": "@minecraft/server",
+      "version": "1.13.0"
+    }
+  ],
+  "metadata": {
+    "authors": [
+      "AllensCreations"
+    ],
+    "product_type": "addon"
+  }
+}
