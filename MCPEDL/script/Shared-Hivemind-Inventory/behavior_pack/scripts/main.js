@@ -215,7 +215,13 @@ world.beforeEvents.playerLeave.subscribe(event => snapshots.delete(event.player.
 world.afterEvents.playerSpawn.subscribe(event => {
   // Show the join message even if this is the world's first player and sync has not initialized yet.
   if (event.initialSpawn) {
-    system.run(() => safe(() => event.player.runCommand("function team_inventory/join_message")));
+    system.run(() => {
+      // Prefer the mcfunction message; fall back to the Script API if command execution is unavailable.
+      const result = safe(() => event.player.runCommand("function team_inventory/join_message"), null);
+      if (!result || result.successCount < 1) {
+        safe(() => event.player.sendMessage("§a[Team Inventory] §fSyncing shared inventory..."));
+      }
+    });
   }
 
   if (!initialized || !master) return;
