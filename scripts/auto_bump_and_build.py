@@ -596,22 +596,22 @@ def update_project_readme(project_path, category, new_ver_str):
         content = f.read()
 
     # Keep the README title aligned with the in-game manifest title.
-    content = re.sub(r"\\[!\\[Release\\]\\([^)]+\\)\\]\\([^)]+\\)\\n?", "", content)
-    content = re.sub(r"\\[!\\[Changelog\\]\\([^)]+\\)\\]\\([^)]+\\)\\n?", "", content)
+    content = re.sub(r"\[!\[Release\]\([^)]+\)\]\([^)]+\)\n?", "", content)
+    content = re.sub(r"\[!\[Changelog\]\([^)]+\)\]\([^)]+\)\n?", "", content)
 
     lines = content.splitlines(keepends=True)
     for i, line in enumerate(lines):
         if i >= 5 or not line.startswith("# "):
             continue
-        newline = "\\n" if line.endswith("\\n") else ""
-        title = line.rstrip("\\r\\n")[2:].strip()
+        newline = "\n" if line.endswith("\n") else ""
+        title = line.rstrip("\r\n")[2:].strip()
         suffix = ""
         for sep in (" — ", " - ", " -- "):
             if sep in title:
                 title, rest = title.split(sep, 1)
                 suffix = sep + rest
                 break
-        title = re.sub(r"\\s*\\([vV]\\d+\\.\\d+\\.\\d+\\)\\s*$", "", title).strip()
+        title = re.sub(r"\s*\([vV]\d+\.\d+\.\d+\)\s*$", "", title).strip()
         line = f"# {title} (v{new_ver_str}){suffix}{newline}"
         lines[i] = line
         break
