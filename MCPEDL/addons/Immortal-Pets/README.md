@@ -1,4 +1,4 @@
-# Immortal Pets — Advanced Pet Protection by AllensCreations
+# Immortal Pets (v1.1.7) — Advanced Pet Protection by AllensCreations
 
 [![Minecraft Bedrock](https://img.shields.io/badge/Minecraft%20Bedrock-1.26.x-brightgreen?style=flat-square&logo=minecraft)](https://github.com/AllensCreations/MCPE-Curseforges)
 [![Format](https://img.shields.io/badge/Format-.MCPACK-orange?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/addons#available-add-ons)

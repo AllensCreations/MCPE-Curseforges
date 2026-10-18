@@ -1,6 +1,6 @@
-# One-Block-Economy - Downloads and Releases
+# One-Block Hardcore Survival Economy - Downloads and Releases
 
-This folder contains compiled release packages for **One-Block-Economy** by AllensCreations.
+This folder contains compiled release packages for **One-Block Hardcore Survival Economy** by AllensCreations.
 
 ---
 
@@ -8,8 +8,8 @@ This folder contains compiled release packages for **One-Block-Economy** by Alle
 
 | File Name | Format | Size | Description | Download Link |
 | :--- | :--- | :--- | :--- | :--- |
-| **`One-Block-Economy by AllensCreations (V1.0.0).mcpack`** | `.mcpack` | ~4 KB | Script Behavior Pack archive ready for import. | [Download (.mcpack)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/One-Block-Economy/One-Block-Economy%20by%20AllensCreations%20%28V1.0.0%29.mcpack) |
-| **`One-Block-Economy by AllensCreations (V1.0.0).mcaddon`** | `.mcaddon` | ~4 KB | Complete Add-on package archive. | [Download (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/One-Block-Economy/One-Block-Economy%20by%20AllensCreations%20%28V1.0.0%29.mcaddon) |
+| **`One-Block Hardcore Survival Economy by AllensCreations (V1.0.1).mcpack`** | `.mcpack` | ~4 KB | Script Behavior Pack archive ready for import. | [Download (.mcpack)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/One-Block-Economy/One-Block%20Hardcore%20Survival%20Economy%20by%20AllensCreations%20%28V1.0.1%29.mcpack) |
+| **`One-Block Hardcore Survival Economy by AllensCreations (V1.0.1).mcaddon`** | `.mcaddon` | ~4 KB | Complete Add-on package archive. | [Download (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/One-Block-Economy/One-Block%20Hardcore%20Survival%20Economy%20by%20AllensCreations%20%28V1.0.1%29.mcaddon) |
 
 ---
 
