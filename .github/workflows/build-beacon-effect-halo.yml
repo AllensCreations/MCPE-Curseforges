@@ -24,7 +24,6 @@ jobs:
           set -euo pipefail
           PACK="MCPEDL/addons/Beacon-Effect-Halo"
           mkdir -p dist
-          zip -qr "$RUNNER_TEMP/Beacon-Effect-Halo-Behavior.mcpack" -j /dev/null 2>/dev/null || true
           (cd "$PACK/behavior_pack" && zip -qr "$RUNNER_TEMP/Beacon-Effect-Halo-Behavior.mcpack" .)
           (cd "$PACK/resource_pack" && zip -qr "$RUNNER_TEMP/Beacon-Effect-Halo-Resources.mcpack" .)
           cp "$RUNNER_TEMP/Beacon-Effect-Halo-Behavior.mcpack" dist/
