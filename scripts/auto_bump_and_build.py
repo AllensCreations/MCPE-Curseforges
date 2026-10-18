@@ -234,6 +234,8 @@ def get_project_title(project_path):
                             if sep in title_part:
                                 title_part = title_part.split(sep)[0].strip()
                         title_part = title_part.replace(" Challenge", "")
+                        # A version suffix is metadata, not part of the stable base title.
+                        title_part = re.sub(r"\\s*\\(v\\d+\\.\\d+\\.\\d+\\)\\s*$", "", title_part, flags=re.IGNORECASE)
                         title_clean = re.sub(r'[\\/*?:"<>|]', "", title_part).strip()
                         if title_clean:
                             return title_clean
@@ -305,9 +307,15 @@ def update_manifests_for_project(project_path):
         if "header" in data and "uuid" in data["header"]:
             uuid_to_version[data["header"]["uuid"]] = new_ver
 
+    base_title = get_project_title(project_path)
     for mp, data in manifest_data.items():
         if "header" in data:
             data["header"]["version"] = new_ver
+            # Keep every pack's in-game display title aligned with the bumped release.
+            data["header"]["name"] = f"{base_title} (v{new_ver_str})"
+            description = str(data["header"].get("description", "")).strip()
+            description = re.sub(r"\\s*(?:created\\s+)?by\\s+AllensCreations\\.?\\s*$", "", description, flags=re.IGNORECASE).rstrip(" .")
+            data["header"]["description"] = f"{description}. by AllensCreations" if description else "by AllensCreations"
         if "modules" in data and isinstance(data["modules"], list):
             for mod in data["modules"]:
                 mod["version"] = new_ver
