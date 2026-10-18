@@ -1,8 +1,8 @@
 {
   "format_version": 2,
   "header": {
-    "name": "Team Inventory BP",
-    "description": "Persistent shared inventory, armor, offhand, and hotbar selection for multiplayer. Created by AllensCreations",
+    "name": "Team Inventory (v1.0.10)",
+    "description": "Persistent shared inventory, armor, offhand, and hotbar selection for multiplayer. by AllensCreations",
     "uuid": "ea58a63d-0e39-4d06-b07e-07c0a98ac0e3",
     "version": [
       1,
