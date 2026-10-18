@@ -114,19 +114,24 @@ function takeOne(container, slot) {
   return originalStack;
 }
 
-function notifyNoSupply(player, crop) {
+function notify(player, message) {
   if (lastNoticeByPlayer.has(player.id)) return;
 
   lastNoticeByPlayer.set(player.id, true);
   try {
-    player.sendMessage(
-      `§e[Harvest Intelligence] No ${crop.itemLabel} available. ${crop.cropLabel} harvested normally; replanting skipped.`
-    );
+    player.sendMessage(`§e[Harvest Intelligence] ${message}`);
   } catch {}
 
   system.runTimeout(() => {
     lastNoticeByPlayer.delete(player.id);
   }, NOTICE_COOLDOWN_TICKS);
+}
+
+function notifyNoSupply(player, crop) {
+  notify(
+    player,
+    `No ${crop.itemLabel} available. ${crop.cropLabel} harvested normally; replanting skipped.`
+  );
 }
 
 function isAir(block) {
@@ -162,7 +167,7 @@ function handleCropBreak(event) {
 
   const container = getInventoryContainer(player);
   if (!container) {
-    notifyNoSupply(player, crop);
+    notify(player, `Could not access inventory. ${crop.cropLabel} harvested normally; replanting skipped.`);
     return;
   }
 
@@ -176,10 +181,14 @@ function handleCropBreak(event) {
   try {
     originalStack = takeOne(container, slot);
   } catch {
+    notify(player, `Could not update inventory safely. ${crop.cropLabel} harvested normally; replanting skipped.`);
     return;
   }
 
-  if (!originalStack) return;
+  if (!originalStack) {
+    notifyNoSupply(player, crop);
+    return;
+  }
 
   try {
     block.setType(crop.blockId);
@@ -187,7 +196,7 @@ function handleCropBreak(event) {
     try {
       container.setItem(slot, originalStack);
     } catch {}
-    notifyNoSupply(player, crop);
+    notify(player, `Replanting failed; ${crop.itemLabel} was returned to your inventory.`);
   }
 }
 
