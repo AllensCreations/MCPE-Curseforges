@@ -1,0 +1,30 @@
+{
+  "format_version": 2,
+  "header": {
+    "name": "Harvest Intelligence (v1.0.0)",
+    "description": "Vanilla-friendly mature crop replanting with inventory-aware seed use and harvest notifications. by AllensCreations",
+    "uuid": "1d6e6a58-3d94-4b64-8f1a-7f1f1d8e6c21",
+    "version": [1, 0, 0],
+    "min_engine_version": [1, 26, 0]
+  },
+  "modules": [
+    {
+      "description": "Harvest Intelligence Script Module",
+      "type": "script",
+      "language": "javascript",
+      "uuid": "9c4d2b73-5f21-4d8a-9e6c-2a0f7b31d845",
+      "version": [1, 0, 0],
+      "entry": "scripts/main.js"
+    }
+  ],
+  "dependencies": [
+    {
+      "module_name": "@minecraft/server",
+      "version": "2.10.0"
+    }
+  ],
+  "metadata": {
+    "authors": ["AllensCreations"],
+    "product_type": "addon"
+  }
+}
