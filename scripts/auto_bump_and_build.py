@@ -588,30 +588,38 @@ To inspect uncompressed JSON files, geometry, render controllers, and textures:
 
 
 def update_project_readme(project_path, category, new_ver_str):
-    """Updates Release badge and title version in the project's own README.md."""
+    """Updates the project's README title to match the current release version."""
     readme_path = os.path.join(project_path, "README.md")
     if not os.path.isfile(readme_path):
         return
     with open(readme_path, encoding="utf-8") as f:
         content = f.read()
 
-    # Per commercial README guidelines: do not put add-on versions or Release badges in README.md
-    # Strip any obsolete Release or Changelog badges if present
-    content = re.sub(r"\[!\[Release\]\([^)]+\)\]\([^)]+\)\n?", "", content)
-    content = re.sub(r"\[!\[Changelog\]\([^)]+\)\]\([^)]+\)\n?", "", content)
+    # Keep the README title aligned with the in-game manifest title.
+    content = re.sub(r"\\[!\\[Release\\]\\([^)]+\\)\\]\\([^)]+\\)\\n?", "", content)
+    content = re.sub(r"\\[!\\[Changelog\\]\\([^)]+\\)\\]\\([^)]+\\)\\n?", "", content)
 
     lines = content.splitlines(keepends=True)
-    new_lines = []
     for i, line in enumerate(lines):
-        if i < 5 and line.startswith("#"):
-            line = re.sub(r"\s*\([vV]\d+\.\d+\.\d+\)", "", line)
-        new_lines.append(line)
-    content = "".join(new_lines)
+        if i >= 5 or not line.startswith("# "):
+            continue
+        newline = "\\n" if line.endswith("\\n") else ""
+        title = line.rstrip("\\r\\n")[2:].strip()
+        suffix = ""
+        for sep in (" — ", " - ", " -- "):
+            if sep in title:
+                title, rest = title.split(sep, 1)
+                suffix = sep + rest
+                break
+        title = re.sub(r"\\s*\\([vV]\\d+\\.\\d+\\.\\d+\\)\\s*$", "", title).strip()
+        line = f"# {title} (v{new_ver_str}){suffix}{newline}"
+        lines[i] = line
+        break
+    content = "".join(lines)
 
     with open(readme_path, "w", encoding="utf-8") as f:
         f.write(content)
-    print(f"  Synchronized commercial documentation in {os.path.relpath(readme_path, REPO_ROOT)}")
-
+    print(f"  Synchronized versioned project title in {os.path.relpath(readme_path, REPO_ROOT)}")
 
 def update_category_readme(category, project_name, new_ver_str, primary_file):
     """Updates table row in MCPEDL/<category>/README.md with new version and download link."""
