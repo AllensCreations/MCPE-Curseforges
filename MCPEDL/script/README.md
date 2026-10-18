@@ -7,7 +7,7 @@ Source files for survival challenges, minigames, and script modules by AllensCre
 | Project | Version | Source | Download |
 | :--- | :--- | :--- | :--- |
 | Alphabet Scavenger Hunt | 1.0.5 | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/script/Alphabet-Scavenger-Hunt/) | [MCPACK](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Alphabet-Scavenger-Hunt/Alphabet%20Scavenger%20Hunt%20by%20AllensCreations%20%28V1.0.5%29.mcpack) |
-| Team Inventory | 1.0.8 | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/script/Shared-Hivemind-Inventory/) | [MCPACK](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Shared-Hivemind-Inventory/Team%20Inventory%20by%20AllensCreations%20%28V1.0.8%29.mcpack) |
+| Team Inventory | 1.0.9 | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/script/Shared-Hivemind-Inventory/) | [MCPACK](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Shared-Hivemind-Inventory/Team%20Inventory%20by%20AllensCreations%20%28V1.0.9%29.mcpack) |
 | Tethered: Breaker & Builder | 1.0.5 | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/script/Tethered-Breaker-And-Builder/) | [MCPACK](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Tethered-Breaker-And-Builder/Tethered%20Breaker%20and%20Builder%20by%20AllensCreations%20%28V1.0.5%29.mcpack) |
 
 The catalog is automatically updated by the add-on generation workflow.
