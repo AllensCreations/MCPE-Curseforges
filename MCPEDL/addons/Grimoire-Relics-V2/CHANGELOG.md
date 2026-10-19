@@ -7,6 +7,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [1.0.5] - 2026-10-19
+
+### Changed
+- Refreshed the README to match the current published pack version and the project's Minecraft 1.26+ target.
+- Clarified that the collection contains 14 craftable tomes and 6 exploration-only Ancient Relics.
+- Clarified recipe unlock expectations and softened blanket compatibility/achievement claims so they are not presented as guaranteed across every Minecraft version.
+
+---
+
 ## [1.0.3] - 2026-10-15
 
 ### Changed
