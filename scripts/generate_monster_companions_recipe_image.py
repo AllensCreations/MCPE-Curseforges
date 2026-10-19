@@ -36,15 +36,6 @@ def load_icon(path: Path) -> Image.Image:
     return Image.open(path).convert("RGBA").resize((16, 16), Image.Resampling.NEAREST)
 
 
-def draw_slot(draw: ImageDraw.ImageDraw, image: Image.Image, x: int, y: int, size: int = 18) -> None:
-    draw.rectangle((x, y, x + size - 1, y + size - 1), fill=(139, 139, 139, 255))
-    draw.line((x, y, x + size - 1, y), fill=(55, 55, 55, 255))
-    draw.line((x, y, x, y + size - 1), fill=(55, 55, 55, 255))
-    draw.line((x, y + size - 1, x + size - 1, y + size - 1), fill=(255, 255, 255, 255))
-    draw.line((x + size - 1, y, x + size - 1, y + size - 1), fill=(255, 255, 255, 255))
-    image.alpha_composite(icon_cache[current_item], (x + 1, y + 1))
-
-
 if not RECIPE_FILE.is_file():
     raise FileNotFoundError(f"Recipe JSON not found: {RECIPE_FILE}")
 if not RESULT_TEXTURE.is_file():
