@@ -7,6 +7,7 @@
     "tags": [
       "crafting_table"
     ],
+    "group": "monster_companions:beast_biscuit",
     "ingredients": [
       {
         "item": "minecraft:rotten_flesh"
@@ -24,6 +25,11 @@
     "result": {
       "item": "allenscreations:beast_biscuit",
       "count": 4
-    }
+    },
+    "unlock": [
+      {
+        "context": "AlwaysUnlocked"
+      }
+    ]
   }
 }
