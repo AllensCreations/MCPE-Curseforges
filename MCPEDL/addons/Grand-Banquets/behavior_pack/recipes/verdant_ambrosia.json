@@ -31,10 +31,8 @@
     "result": {
       "item": "custom:verdant_ambrosia"
     },
-    "unlock": [
-      {
-        "context": "AlwaysUnlocked"
-      }
-    ]
+    "unlock": {
+      "context": "AlwaysUnlocked"
+    }
   }
 }

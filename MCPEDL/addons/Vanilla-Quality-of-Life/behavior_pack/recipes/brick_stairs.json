@@ -17,11 +17,9 @@
         "item": "minecraft:brick_block"
       }
     },
-    "unlock": [
-      {
-        "context": "AlwaysUnlocked"
-      }
-    ],
+    "unlock": {
+      "context": "AlwaysUnlocked"
+    },
     "result": {
       "item": "minecraft:brick_stairs",
       "count": 8

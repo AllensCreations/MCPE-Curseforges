@@ -17,11 +17,9 @@
         "item": "minecraft:green_wool"
       }
     },
-    "unlock": [
-      {
-        "context": "AlwaysUnlocked"
-      }
-    ],
+    "unlock": {
+      "context": "AlwaysUnlocked"
+    },
     "result": {
       "item": "minecraft:green_wool_stairs",
       "count": 8

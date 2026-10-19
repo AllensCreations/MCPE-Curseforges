@@ -17,11 +17,9 @@
         "item": "minecraft:gray_wool"
       }
     },
-    "unlock": [
-      {
-        "context": "AlwaysUnlocked"
-      }
-    ],
+    "unlock": {
+      "context": "AlwaysUnlocked"
+    },
     "result": {
       "item": "minecraft:gray_wool_stairs",
       "count": 8

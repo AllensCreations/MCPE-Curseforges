@@ -18,11 +18,9 @@
         "data": 0
       }
     },
-    "unlock": [
-      {
-        "context": "AlwaysUnlocked"
-      }
-    ],
+    "unlock": {
+      "context": "AlwaysUnlocked"
+    },
     "result": {
       "item": "minecraft:normal_stone_stairs",
       "count": 8

@@ -31,10 +31,8 @@
     "result": {
       "item": "custom:imperial_feast"
     },
-    "unlock": [
-      {
-        "context": "AlwaysUnlocked"
-      }
-    ]
+    "unlock": {
+      "context": "AlwaysUnlocked"
+    }
   }
 }

@@ -17,11 +17,9 @@
         "item": "minecraft:mossy_cobblestone"
       }
     },
-    "unlock": [
-      {
-        "context": "AlwaysUnlocked"
-      }
-    ],
+    "unlock": {
+      "context": "AlwaysUnlocked"
+    },
     "result": {
       "item": "minecraft:mossy_cobblestone_stairs",
       "count": 8

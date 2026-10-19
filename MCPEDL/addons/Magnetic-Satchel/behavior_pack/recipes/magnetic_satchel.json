@@ -25,10 +25,8 @@
     "result": {
       "item": "custom:magnetic_satchel"
     },
-    "unlock": [
-      {
-        "context": "AlwaysUnlocked"
-      }
-    ]
+    "unlock": {
+      "context": "AlwaysUnlocked"
+    }
   }
 }

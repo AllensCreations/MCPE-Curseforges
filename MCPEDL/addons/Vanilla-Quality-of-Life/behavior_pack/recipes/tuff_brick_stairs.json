@@ -17,11 +17,9 @@
         "item": "minecraft:tuff_bricks"
       }
     },
-    "unlock": [
-      {
-        "context": "AlwaysUnlocked"
-      }
-    ],
+    "unlock": {
+      "context": "AlwaysUnlocked"
+    },
     "result": {
       "item": "minecraft:tuff_brick_stairs",
       "count": 8

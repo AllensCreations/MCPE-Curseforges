@@ -17,11 +17,9 @@
         "item": "minecraft:diorite"
       }
     },
-    "unlock": [
-      {
-        "context": "AlwaysUnlocked"
-      }
-    ],
+    "unlock": {
+      "context": "AlwaysUnlocked"
+    },
     "result": {
       "item": "minecraft:diorite_stairs",
       "count": 8

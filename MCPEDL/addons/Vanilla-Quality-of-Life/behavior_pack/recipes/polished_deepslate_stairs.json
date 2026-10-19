@@ -19,11 +19,9 @@
       "count": 8,
       "item": "minecraft:polished_deepslate_stairs"
     },
-    "unlock": [
-      {
-        "context": "AlwaysUnlocked"
-      }
-    ],
+    "unlock": {
+      "context": "AlwaysUnlocked"
+    },
     "tags": [
       "crafting_table"
     ]

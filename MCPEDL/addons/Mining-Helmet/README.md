@@ -1,4 +1,4 @@
-# Mining Helmet (v1.0.9) — Dynamic Lighting Add-on by AllensCreations
+# Mining Helmet (v1.0.10) — Dynamic Lighting Add-on by AllensCreations
 
 ![MCPEDL](https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/MCPEDL/addons/Mining-Helmet/1791946330457.jpg "MCPEDL")
 

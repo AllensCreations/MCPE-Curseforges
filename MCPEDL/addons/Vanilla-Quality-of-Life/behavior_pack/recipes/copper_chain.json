@@ -24,10 +24,8 @@
       "item": "minecraft:copper_chain",
       "count": 4
     },
-    "unlock": [
-      {
-        "context": "AlwaysUnlocked"
-      }
-    ]
+    "unlock": {
+      "context": "AlwaysUnlocked"
+    }
   }
 }

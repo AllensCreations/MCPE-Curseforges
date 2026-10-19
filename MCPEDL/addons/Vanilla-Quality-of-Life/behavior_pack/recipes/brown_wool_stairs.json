@@ -17,11 +17,9 @@
         "item": "minecraft:brown_wool"
       }
     },
-    "unlock": [
-      {
-        "context": "AlwaysUnlocked"
-      }
-    ],
+    "unlock": {
+      "context": "AlwaysUnlocked"
+    },
     "result": {
       "item": "minecraft:brown_wool_stairs",
       "count": 8

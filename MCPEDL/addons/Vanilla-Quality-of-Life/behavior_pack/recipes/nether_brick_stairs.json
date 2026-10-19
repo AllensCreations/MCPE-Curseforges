@@ -17,11 +17,9 @@
         "item": "minecraft:nether_brick"
       }
     },
-    "unlock": [
-      {
-        "context": "AlwaysUnlocked"
-      }
-    ],
+    "unlock": {
+      "context": "AlwaysUnlocked"
+    },
     "result": {
       "item": "minecraft:nether_brick_stairs",
       "count": 8

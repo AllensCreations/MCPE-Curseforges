@@ -26,10 +26,8 @@
     "result": {
       "item": "custom:tome_solar"
     },
-    "unlock": [
-      {
-        "context": "AlwaysUnlocked"
-      }
-    ]
+    "unlock": {
+      "context": "AlwaysUnlocked"
+    }
   }
 }

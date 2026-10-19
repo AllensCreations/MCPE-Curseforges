@@ -20,10 +20,8 @@
       "item": "minecraft:red_glass",
       "count": 2
     },
-    "unlock": [
-      {
-        "context": "AlwaysUnlocked"
-      }
-    ]
+    "unlock": {
+      "context": "AlwaysUnlocked"
+    }
   }
 }

@@ -17,11 +17,9 @@
         "item": "minecraft:polished_diorite"
       }
     },
-    "unlock": [
-      {
-        "context": "AlwaysUnlocked"
-      }
-    ],
+    "unlock": {
+      "context": "AlwaysUnlocked"
+    },
     "result": {
       "item": "minecraft:polished_diorite_stairs",
       "count": 8

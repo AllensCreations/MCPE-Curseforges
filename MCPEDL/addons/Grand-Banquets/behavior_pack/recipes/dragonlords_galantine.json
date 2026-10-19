@@ -31,10 +31,8 @@
     "result": {
       "item": "custom:dragonlords_galantine"
     },
-    "unlock": [
-      {
-        "context": "AlwaysUnlocked"
-      }
-    ]
+    "unlock": {
+      "context": "AlwaysUnlocked"
+    }
   }
 }

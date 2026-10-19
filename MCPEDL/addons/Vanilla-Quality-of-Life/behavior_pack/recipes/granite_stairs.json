@@ -17,11 +17,9 @@
         "item": "minecraft:granite"
       }
     },
-    "unlock": [
-      {
-        "context": "AlwaysUnlocked"
-      }
-    ],
+    "unlock": {
+      "context": "AlwaysUnlocked"
+    },
     "result": {
       "item": "minecraft:granite_stairs",
       "count": 8

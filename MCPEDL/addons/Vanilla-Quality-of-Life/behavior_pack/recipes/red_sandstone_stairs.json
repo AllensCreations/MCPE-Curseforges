@@ -18,11 +18,9 @@
         "data": 0
       }
     },
-    "unlock": [
-      {
-        "context": "AlwaysUnlocked"
-      }
-    ],
+    "unlock": {
+      "context": "AlwaysUnlocked"
+    },
     "result": {
       "item": "minecraft:red_sandstone_stairs",
       "count": 8

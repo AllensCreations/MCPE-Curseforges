@@ -17,11 +17,9 @@
         "item": "minecraft:blue_wool"
       }
     },
-    "unlock": [
-      {
-        "context": "AlwaysUnlocked"
-      }
-    ],
+    "unlock": {
+      "context": "AlwaysUnlocked"
+    },
     "result": {
       "item": "minecraft:blue_wool_stairs",
       "count": 8

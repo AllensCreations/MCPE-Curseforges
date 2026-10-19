@@ -1,13 +1,13 @@
 {
   "format_version": 2,
   "header": {
-    "name": "Grand Banquets (v1.0.1)",
+    "name": "Grand Banquets (v1.0.2)",
     "description": "Grand Banquets [RP]. Icons and names for the 32 banquet feasts. by AllensCreations",
     "uuid": "77eb5486-758d-4a9f-9949-4eba0b900d30",
     "version": [
       1,
       0,
-      1
+      2
     ],
     "min_engine_version": [
       1,
@@ -22,7 +22,7 @@
       "version": [
         1,
         0,
-        1
+        2
       ]
     }
   ],
@@ -32,7 +32,7 @@
       "version": [
         1,
         0,
-        1
+        2
       ]
     }
   ],

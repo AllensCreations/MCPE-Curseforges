@@ -17,11 +17,9 @@
         "item": "minecraft:blackstone"
       }
     },
-    "unlock": [
-      {
-        "context": "AlwaysUnlocked"
-      }
-    ],
+    "unlock": {
+      "context": "AlwaysUnlocked"
+    },
     "result": {
       "item": "minecraft:blackstone_stairs",
       "count": 8

@@ -28,10 +28,8 @@
     "result": {
       "item": "custom:warlords_steak"
     },
-    "unlock": [
-      {
-        "context": "AlwaysUnlocked"
-      }
-    ]
+    "unlock": {
+      "context": "AlwaysUnlocked"
+    }
   }
 }

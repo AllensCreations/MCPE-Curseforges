@@ -17,11 +17,9 @@
         "item": "minecraft:andesite"
       }
     },
-    "unlock": [
-      {
-        "context": "AlwaysUnlocked"
-      }
-    ],
+    "unlock": {
+      "context": "AlwaysUnlocked"
+    },
     "result": {
       "item": "minecraft:andesite_stairs",
       "count": 8

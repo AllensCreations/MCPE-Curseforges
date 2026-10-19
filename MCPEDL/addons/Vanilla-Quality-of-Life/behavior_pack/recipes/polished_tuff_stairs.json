@@ -17,11 +17,9 @@
         "item": "minecraft:polished_tuff"
       }
     },
-    "unlock": [
-      {
-        "context": "AlwaysUnlocked"
-      }
-    ],
+    "unlock": {
+      "context": "AlwaysUnlocked"
+    },
     "result": {
       "item": "minecraft:polished_tuff_stairs",
       "count": 8

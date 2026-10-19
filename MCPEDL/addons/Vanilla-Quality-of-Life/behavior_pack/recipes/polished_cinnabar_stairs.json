@@ -17,11 +17,9 @@
         "item": "minecraft:polished_cinnabar"
       }
     },
-    "unlock": [
-      {
-        "context": "AlwaysUnlocked"
-      }
-    ],
+    "unlock": {
+      "context": "AlwaysUnlocked"
+    },
     "result": {
       "item": "minecraft:polished_cinnabar_stairs",
       "count": 8

@@ -18,11 +18,9 @@
         "item": "minecraft:crimson_planks"
       }
     },
-    "unlock": [
-      {
-        "context": "AlwaysUnlocked"
-      }
-    ],
+    "unlock": {
+      "context": "AlwaysUnlocked"
+    },
     "result": {
       "item": "minecraft:crimson_stairs",
       "count": 8
