@@ -1,0 +1,66 @@
+name: Refresh Add-ons and Rebuild Packs
+
+on:
+  # Refresh packages automatically every day, even when no source files changed.
+  schedule:
+    - cron: "17 2 * * *"
+  # Allow an immediate refresh of every project or one selected project.
+  workflow_dispatch:
+    inputs:
+      target:
+        description: 'Project folder name, or "all" to refresh every project'
+        required: true
+        default: all
+        type: string
+
+permissions:
+  contents: write
+
+concurrency:
+  group: refresh-and-build-packs
+  cancel-in-progress: false
+
+jobs:
+  refresh-build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout main
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.x"
+
+      - name: Refresh projects and rebuild distributable packs
+        env:
+          TARGET: ${{ github.event.inputs.target || 'all' }}
+        run: |
+          set -euo pipefail
+          if [ "$TARGET" = "all" ]; then
+            python3 scripts/auto_bump_and_build.py --all --no-bump
+          else
+            python3 scripts/auto_bump_and_build.py --project "$TARGET" --no-bump
+          fi
+
+      - name: Commit and push refreshed packs and catalogs
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+          for dir in MCPEDL packs minigames maps builds; do
+            if [ -d "$dir" ]; then git add "$dir"; fi
+          done
+          if [ -f README.md ]; then git add README.md; fi
+
+          if git diff --cached --quiet; then
+            echo "All packages and catalogs are already up to date."
+          else
+            git commit -m "chore(build): refresh project packages and catalogs [skip ci]"
+            git push origin main
+          fi
