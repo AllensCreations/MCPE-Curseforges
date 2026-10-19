@@ -7,6 +7,7 @@ ROOT = Path(__file__).resolve().parents[1]
 SEARCH_ROOTS = (ROOT / "MCPEDL" / "addons", ROOT / "MCPEDL" / "new_addons")
 RECIPE_TYPES = {"minecraft:recipe_shaped", "minecraft:recipe_shapeless"}
 changed = 0
+already_correct = 0
 skipped = 0
 
 for search_root in SEARCH_ROOTS:
@@ -22,11 +23,13 @@ for search_root in SEARCH_ROOTS:
             skipped += 1
             continue
         recipe = data[recipe_type]
-        desired = [{"context": "AlwaysUnlocked"}]
+        # Bedrock uses a single unlock object for shaped recipes and an array for shapeless recipes.
+        desired = {"context": "AlwaysUnlocked"} if recipe_type == "minecraft:recipe_shaped" else [{"context": "AlwaysUnlocked"}]
         if recipe.get("unlock") == desired:
+            already_correct += 1
             continue
         recipe["unlock"] = desired
         path.write_text(json.dumps(data, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
         changed += 1
 
-print(f"AlwaysUnlocked recipes updated: {changed}; already correct: {sum(1 for _ in [])}; non-shaped/shapeless recipes skipped: {skipped}")
+print(f"AlwaysUnlocked recipes updated: {changed}; already correct: {already_correct}; non-shaped/shapeless recipes skipped: {skipped}")
