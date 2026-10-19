@@ -1,4 +1,6 @@
-# Monster Companions (v1.0.7) - Tameable Hostile Mobs and Mounts by AllensCreations
+# Monster Companions (v1.0.7)
+
+*Tameable Hostile Mobs and Mounts by AllensCreations*
 
 ![MCPEDL](https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/MCPEDL/addons/Monster-Companions/1791889944961.jpg "MCPEDL")
 
@@ -6,6 +8,8 @@
 [![Format](https://img.shields.io/badge/Format-.MCADDON%20%7C%20.MCPACK-orange?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/addons#available-add-ons)
 
 **By AllensCreations**
+
+Explore more creations: [CurseForge Profile](https://www.curseforge.com/members/allenscreations/projects) · [MCPEDL Profile](https://mcpedl.com/user/allenscreations/)
 
 Tame 32 hostile monsters into defensive bodyguards and controllable mounts.
 
@@ -24,8 +28,8 @@ The pack adds tamable companion behavior and mount interactions to selected host
 
 - **Minecraft Version:** Minecraft Bedrock 1.26+
 - **Format:** Behavior Pack and Resource Pack (`.mcaddon` / `.mcpack`)
-- **Achievement Friendly:** Expected to be compatible with achievements because the current Behavior Pack manifest has no script module; actual status can still depend on the world and Minecraft version.
-- **Experimental Features:** No experiment toggle is declared as required by the current pack configuration. Entity component compatibility may change in future Minecraft versions.
+- **Achievement Status:** Likely achievement-friendly based on the inspected pack manifests and data-driven setup; this is not a guarantee for every world or game version.
+- **Experimental Features:** No experiment requirement detected in the inspected pack files. The actual world settings were not inspected, and compatibility may change with future Minecraft updates.
 - **Offline Play:** The recipe is included in the Behavior Pack and does not need an internet connection after the pack is imported and enabled locally.
 
 ---
@@ -149,6 +153,7 @@ Equipping a Saddle onto supported large companions enables manual mounting and d
 - Rights & Reservation: All rights reserved for AllensCreations.
 - Content Creators: Content creators are permitted to feature this pack in videos and streams with credit to AllensCreations.
 - Redistribution: Do not re-upload this pack or provide direct monetized download bypasses. Link directly to the official repository page.
+- Community feedback: Found a bug or a feature that isn't working? Please leave a comment and let me know. Add-on ideas and feature suggestions are always welcome.
 
 ---
 
