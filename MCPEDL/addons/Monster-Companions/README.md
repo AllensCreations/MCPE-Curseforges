@@ -1,4 +1,4 @@
-# Monster Companions (v1.0.7)
+# Monster Companions (v1.0.8)
 
 *Tameable Hostile Mobs and Mounts by AllensCreations*
 
@@ -143,6 +143,7 @@ Equipping a Saddle onto supported large companions enables manual mounting and d
 - Ingredients: 1 Rotten Flesh, 1 Bone, 1 Sweet Berries, 1 Honey Bottle
 - Yield: 4x Primal Beast Biscuits
 - Recipe Identifier: `allenscreations:beast_biscuit_recipe`
+- Recipe book: The recipe is configured as always unlocked so it can appear in the crafting recipe list.
 - Offline crafting: The recipe is bundled in the Behavior Pack; internet access is not needed during local gameplay.
 
 ---
