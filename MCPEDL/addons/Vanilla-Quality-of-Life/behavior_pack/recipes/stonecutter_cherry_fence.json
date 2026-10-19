@@ -16,6 +16,11 @@
     "result": {
       "item": "minecraft:cherry_fence",
       "count": 1
-    }
+    },
+    "unlock": [
+      {
+        "context": "AlwaysUnlocked"
+      }
+    ]
   }
 }

@@ -19,7 +19,7 @@
     },
     "unlock": [
       {
-        "item": "minecraft:cyan_concrete"
+        "context": "AlwaysUnlocked"
       }
     ],
     "result": {

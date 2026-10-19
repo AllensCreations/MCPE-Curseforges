@@ -1,1 +1,36 @@
-{"format_version":"1.20.80","minecraft:recipe_shapeless":{"description":{"identifier":"custom:hunters_stew"},"tags":["crafting_table"],"ingredients":[{"item":"minecraft:bowl"},{"item":"minecraft:cooked_beef"},{"item":"minecraft:carrot"},{"item":"minecraft:brown_mushroom"},{"item":"minecraft:baked_potato"}],"result":{"item":"custom:hunters_stew"}}}
+{
+  "format_version": "1.20.80",
+  "minecraft:recipe_shapeless": {
+    "description": {
+      "identifier": "custom:hunters_stew"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "ingredients": [
+      {
+        "item": "minecraft:bowl"
+      },
+      {
+        "item": "minecraft:cooked_beef"
+      },
+      {
+        "item": "minecraft:carrot"
+      },
+      {
+        "item": "minecraft:brown_mushroom"
+      },
+      {
+        "item": "minecraft:baked_potato"
+      }
+    ],
+    "result": {
+      "item": "custom:hunters_stew"
+    },
+    "unlock": [
+      {
+        "context": "AlwaysUnlocked"
+      }
+    ]
+  }
+}

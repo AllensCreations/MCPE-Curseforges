@@ -19,7 +19,7 @@
     },
     "unlock": [
       {
-        "item": "minecraft:sulfur_bricks"
+        "context": "AlwaysUnlocked"
       }
     ],
     "result": {

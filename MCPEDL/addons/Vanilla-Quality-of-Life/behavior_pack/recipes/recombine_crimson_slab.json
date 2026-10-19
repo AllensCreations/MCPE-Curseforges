@@ -18,6 +18,11 @@
     "result": {
       "item": "minecraft:crimson_planks",
       "count": 1
-    }
+    },
+    "unlock": [
+      {
+        "context": "AlwaysUnlocked"
+      }
+    ]
   }
 }

@@ -24,6 +24,11 @@
     "result": {
       "item": "minecraft:blackstone",
       "count": 3
-    }
+    },
+    "unlock": [
+      {
+        "context": "AlwaysUnlocked"
+      }
+    ]
   }
 }

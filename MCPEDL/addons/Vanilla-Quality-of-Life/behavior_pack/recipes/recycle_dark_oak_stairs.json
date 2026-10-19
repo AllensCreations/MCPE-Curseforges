@@ -24,6 +24,11 @@
     "result": {
       "item": "minecraft:dark_oak_planks",
       "count": 3
-    }
+    },
+    "unlock": [
+      {
+        "context": "AlwaysUnlocked"
+      }
+    ]
   }
 }

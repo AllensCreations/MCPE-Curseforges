@@ -16,6 +16,11 @@
     "result": {
       "item": "minecraft:oak_slab",
       "count": 2
-    }
+    },
+    "unlock": [
+      {
+        "context": "AlwaysUnlocked"
+      }
+    ]
   }
 }

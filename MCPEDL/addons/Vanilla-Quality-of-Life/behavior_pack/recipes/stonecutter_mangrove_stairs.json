@@ -16,6 +16,11 @@
     "result": {
       "item": "minecraft:mangrove_stairs",
       "count": 1
-    }
+    },
+    "unlock": [
+      {
+        "context": "AlwaysUnlocked"
+      }
+    ]
   }
 }

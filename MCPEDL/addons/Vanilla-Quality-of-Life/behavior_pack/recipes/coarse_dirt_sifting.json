@@ -24,6 +24,11 @@
     "result": {
       "item": "minecraft:dirt",
       "count": 2
-    }
+    },
+    "unlock": [
+      {
+        "context": "AlwaysUnlocked"
+      }
+    ]
   }
 }

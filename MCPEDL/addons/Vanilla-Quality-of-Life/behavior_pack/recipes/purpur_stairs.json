@@ -19,7 +19,7 @@
     },
     "unlock": [
       {
-        "item": "minecraft:purpur_block"
+        "context": "AlwaysUnlocked"
       }
     ],
     "result": {

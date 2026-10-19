@@ -20,8 +20,7 @@
     },
     "unlock": [
       {
-        "item": "minecraft:prismarine",
-        "data": 0
+        "context": "AlwaysUnlocked"
       }
     ],
     "result": {

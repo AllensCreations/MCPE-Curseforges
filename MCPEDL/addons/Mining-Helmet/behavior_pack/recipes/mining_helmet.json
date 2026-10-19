@@ -22,6 +22,11 @@
     "result": {
       "item": "custom:mining_helmet",
       "count": 1
-    }
+    },
+    "unlock": [
+      {
+        "context": "AlwaysUnlocked"
+      }
+    ]
   }
 }

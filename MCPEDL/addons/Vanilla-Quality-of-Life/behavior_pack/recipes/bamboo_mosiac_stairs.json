@@ -20,7 +20,7 @@
     },
     "unlock": [
       {
-        "item": "minecraft:bamboo_mosaic"
+        "context": "AlwaysUnlocked"
       }
     ],
     "result": {

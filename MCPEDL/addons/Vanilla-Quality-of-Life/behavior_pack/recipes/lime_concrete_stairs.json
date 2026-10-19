@@ -19,7 +19,7 @@
     },
     "unlock": [
       {
-        "item": "minecraft:lime_concrete"
+        "context": "AlwaysUnlocked"
       }
     ],
     "result": {

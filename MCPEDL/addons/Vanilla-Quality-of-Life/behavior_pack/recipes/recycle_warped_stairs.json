@@ -24,6 +24,11 @@
     "result": {
       "item": "minecraft:warped_planks",
       "count": 3
-    }
+    },
+    "unlock": [
+      {
+        "context": "AlwaysUnlocked"
+      }
+    ]
   }
 }

@@ -16,6 +16,11 @@
     "result": {
       "item": "minecraft:birch_fence",
       "count": 1
-    }
+    },
+    "unlock": [
+      {
+        "context": "AlwaysUnlocked"
+      }
+    ]
   }
 }

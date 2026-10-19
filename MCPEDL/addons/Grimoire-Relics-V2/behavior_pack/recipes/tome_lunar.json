@@ -1,1 +1,35 @@
-{"format_version":"1.20.80","minecraft:recipe_shaped":{"description":{"identifier":"custom:tome_lunar"},"tags":["crafting_table"],"pattern":["CEC","EBE","CEC"],"key":{"E":{"item":"minecraft:amethyst_shard"},"C":{"item":"minecraft:lapis_lazuli"},"B":{"item":"minecraft:book"}},"result":{"item":"custom:tome_lunar"}}}
+{
+  "format_version": "1.20.80",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "custom:tome_lunar"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      "CEC",
+      "EBE",
+      "CEC"
+    ],
+    "key": {
+      "E": {
+        "item": "minecraft:amethyst_shard"
+      },
+      "C": {
+        "item": "minecraft:lapis_lazuli"
+      },
+      "B": {
+        "item": "minecraft:book"
+      }
+    },
+    "result": {
+      "item": "custom:tome_lunar"
+    },
+    "unlock": [
+      {
+        "context": "AlwaysUnlocked"
+      }
+    ]
+  }
+}

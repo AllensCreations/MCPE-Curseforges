@@ -20,7 +20,7 @@
     },
     "unlock": [
       {
-        "item": "minecraft:dark_oak_planks"
+        "context": "AlwaysUnlocked"
       }
     ],
     "result": {

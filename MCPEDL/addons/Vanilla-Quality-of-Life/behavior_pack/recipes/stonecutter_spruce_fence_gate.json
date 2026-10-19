@@ -16,6 +16,11 @@
     "result": {
       "item": "minecraft:spruce_fence_gate",
       "count": 1
-    }
+    },
+    "unlock": [
+      {
+        "context": "AlwaysUnlocked"
+      }
+    ]
   }
 }

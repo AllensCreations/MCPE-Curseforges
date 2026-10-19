@@ -15,6 +15,11 @@
     "result": {
       "item": "minecraft:glowstone_dust",
       "count": 4
-    }
+    },
+    "unlock": [
+      {
+        "context": "AlwaysUnlocked"
+      }
+    ]
   }
 }

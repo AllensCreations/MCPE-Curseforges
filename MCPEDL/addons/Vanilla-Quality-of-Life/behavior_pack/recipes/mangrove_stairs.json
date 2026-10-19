@@ -20,7 +20,7 @@
     },
     "unlock": [
       {
-        "item": "minecraft:mangrove_planks"
+        "context": "AlwaysUnlocked"
       }
     ],
     "result": {

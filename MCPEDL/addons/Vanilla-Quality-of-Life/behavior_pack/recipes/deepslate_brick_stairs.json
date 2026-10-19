@@ -21,7 +21,7 @@
     },
     "unlock": [
       {
-        "item": "minecraft:deepslate_bricks"
+        "context": "AlwaysUnlocked"
       }
     ],
     "tags": [

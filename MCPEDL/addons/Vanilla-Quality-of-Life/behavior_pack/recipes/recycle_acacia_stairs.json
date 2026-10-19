@@ -24,6 +24,11 @@
     "result": {
       "item": "minecraft:acacia_planks",
       "count": 3
-    }
+    },
+    "unlock": [
+      {
+        "context": "AlwaysUnlocked"
+      }
+    ]
   }
 }

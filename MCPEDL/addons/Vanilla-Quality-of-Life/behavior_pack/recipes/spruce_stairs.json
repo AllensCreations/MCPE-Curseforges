@@ -20,7 +20,7 @@
     },
     "unlock": [
       {
-        "item": "minecraft:spruce_planks"
+        "context": "AlwaysUnlocked"
       }
     ],
     "result": {

@@ -19,7 +19,7 @@
     },
     "unlock": [
       {
-        "item": "minecraft:mud_bricks"
+        "context": "AlwaysUnlocked"
       }
     ],
     "result": {

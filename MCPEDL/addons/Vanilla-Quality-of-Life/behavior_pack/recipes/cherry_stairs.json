@@ -20,7 +20,7 @@
     },
     "unlock": [
       {
-        "item": "minecraft:cherry_planks"
+        "context": "AlwaysUnlocked"
       }
     ],
     "result": {

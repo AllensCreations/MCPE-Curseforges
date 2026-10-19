@@ -18,6 +18,11 @@
     "result": {
       "item": "minecraft:mangrove_planks",
       "count": 1
-    }
+    },
+    "unlock": [
+      {
+        "context": "AlwaysUnlocked"
+      }
+    ]
   }
 }

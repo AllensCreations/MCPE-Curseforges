@@ -16,6 +16,11 @@
     "result": {
       "item": "minecraft:oak_trapdoor",
       "count": 1
-    }
+    },
+    "unlock": [
+      {
+        "context": "AlwaysUnlocked"
+      }
+    ]
   }
 }

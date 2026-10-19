@@ -24,6 +24,11 @@
     "result": {
       "item": "minecraft:quartz_block",
       "count": 3
-    }
+    },
+    "unlock": [
+      {
+        "context": "AlwaysUnlocked"
+      }
+    ]
   }
 }

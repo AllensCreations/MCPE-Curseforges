@@ -19,7 +19,7 @@
     },
     "unlock": [
       {
-        "item": "minecraft:smooth_quartz"
+        "context": "AlwaysUnlocked"
       }
     ],
     "result": {

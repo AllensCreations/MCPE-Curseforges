@@ -15,6 +15,11 @@
     "result": {
       "item": "minecraft:melon_slice",
       "count": 9
-    }
+    },
+    "unlock": [
+      {
+        "context": "AlwaysUnlocked"
+      }
+    ]
   }
 }

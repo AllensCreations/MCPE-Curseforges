@@ -19,7 +19,7 @@
     },
     "unlock": [
       {
-        "item": "minecraft:polished_sulfur"
+        "context": "AlwaysUnlocked"
       }
     ],
     "result": {

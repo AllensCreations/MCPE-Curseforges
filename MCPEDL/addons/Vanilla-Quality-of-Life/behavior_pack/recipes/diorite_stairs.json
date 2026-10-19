@@ -19,7 +19,7 @@
     },
     "unlock": [
       {
-        "item": "minecraft:diorite"
+        "context": "AlwaysUnlocked"
       }
     ],
     "result": {

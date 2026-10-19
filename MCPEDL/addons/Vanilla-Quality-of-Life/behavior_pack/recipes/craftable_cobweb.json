@@ -27,6 +27,11 @@
     "result": {
       "item": "minecraft:web",
       "count": 1
-    }
+    },
+    "unlock": [
+      {
+        "context": "AlwaysUnlocked"
+      }
+    ]
   }
 }

@@ -19,7 +19,7 @@
     },
     "unlock": [
       {
-        "item": "minecraft:cut_copper"
+        "context": "AlwaysUnlocked"
       }
     ],
     "result": {

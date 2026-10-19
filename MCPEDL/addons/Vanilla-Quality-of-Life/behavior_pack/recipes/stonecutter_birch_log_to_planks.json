@@ -16,6 +16,11 @@
     "result": {
       "item": "minecraft:birch_planks",
       "count": 4
-    }
+    },
+    "unlock": [
+      {
+        "context": "AlwaysUnlocked"
+      }
+    ]
   }
 }

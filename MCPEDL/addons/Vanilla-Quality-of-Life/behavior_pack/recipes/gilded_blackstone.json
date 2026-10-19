@@ -27,6 +27,11 @@
     "result": {
       "item": "minecraft:gilded_blackstone",
       "count": 1
-    }
+    },
+    "unlock": [
+      {
+        "context": "AlwaysUnlocked"
+      }
+    ]
   }
 }

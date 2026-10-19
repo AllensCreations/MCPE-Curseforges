@@ -16,6 +16,11 @@
     "result": {
       "item": "minecraft:acacia_stairs",
       "count": 1
-    }
+    },
+    "unlock": [
+      {
+        "context": "AlwaysUnlocked"
+      }
+    ]
   }
 }

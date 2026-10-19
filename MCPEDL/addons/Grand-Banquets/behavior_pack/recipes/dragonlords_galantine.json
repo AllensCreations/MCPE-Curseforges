@@ -1,1 +1,40 @@
-{"format_version":"1.20.80","minecraft:recipe_shaped":{"description":{"identifier":"custom:dragonlords_galantine"},"tags":["crafting_table"],"pattern":["ABC","DE "],"key":{"A":{"item":"minecraft:dragon_breath"},"B":{"item":"minecraft:netherite_scrap"},"C":{"item":"minecraft:cooked_beef"},"D":{"item":"minecraft:cooked_porkchop"},"E":{"item":"minecraft:golden_apple"}},"result":{"item":"custom:dragonlords_galantine"}}}
+{
+  "format_version": "1.20.80",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "custom:dragonlords_galantine"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      "ABC",
+      "DE "
+    ],
+    "key": {
+      "A": {
+        "item": "minecraft:dragon_breath"
+      },
+      "B": {
+        "item": "minecraft:netherite_scrap"
+      },
+      "C": {
+        "item": "minecraft:cooked_beef"
+      },
+      "D": {
+        "item": "minecraft:cooked_porkchop"
+      },
+      "E": {
+        "item": "minecraft:golden_apple"
+      }
+    },
+    "result": {
+      "item": "custom:dragonlords_galantine"
+    },
+    "unlock": [
+      {
+        "context": "AlwaysUnlocked"
+      }
+    ]
+  }
+}

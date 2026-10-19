@@ -21,7 +21,7 @@
     },
     "unlock": [
       {
-        "item": "minecraft:cobbled_deepslate"
+        "context": "AlwaysUnlocked"
       }
     ],
     "tags": [

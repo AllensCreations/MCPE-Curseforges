@@ -1,1 +1,37 @@
-{"format_version":"1.20.80","minecraft:recipe_shaped":{"description":{"identifier":"custom:phoenix_roast"},"tags":["crafting_table"],"pattern":["AAB","CD "],"key":{"A":{"item":"minecraft:cooked_chicken"},"B":{"item":"minecraft:blaze_powder"},"C":{"item":"minecraft:magma_cream"},"D":{"item":"minecraft:gold_ingot"}},"result":{"item":"custom:phoenix_roast"}}}
+{
+  "format_version": "1.20.80",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "custom:phoenix_roast"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      "AAB",
+      "CD "
+    ],
+    "key": {
+      "A": {
+        "item": "minecraft:cooked_chicken"
+      },
+      "B": {
+        "item": "minecraft:blaze_powder"
+      },
+      "C": {
+        "item": "minecraft:magma_cream"
+      },
+      "D": {
+        "item": "minecraft:gold_ingot"
+      }
+    },
+    "result": {
+      "item": "custom:phoenix_roast"
+    },
+    "unlock": [
+      {
+        "context": "AlwaysUnlocked"
+      }
+    ]
+  }
+}

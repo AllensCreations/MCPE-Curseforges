@@ -23,6 +23,11 @@
     "result": {
       "item": "minecraft:chain",
       "count": 4
-    }
+    },
+    "unlock": [
+      {
+        "context": "AlwaysUnlocked"
+      }
+    ]
   }
 }

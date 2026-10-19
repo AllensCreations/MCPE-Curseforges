@@ -19,7 +19,7 @@
     },
     "unlock": [
       {
-        "item": "minecraft:brown_concrete"
+        "context": "AlwaysUnlocked"
       }
     ],
     "result": {

@@ -25,6 +25,11 @@
     "result": {
       "item": "minecraft:repeater",
       "count": 1
-    }
+    },
+    "unlock": [
+      {
+        "context": "AlwaysUnlocked"
+      }
+    ]
   }
 }

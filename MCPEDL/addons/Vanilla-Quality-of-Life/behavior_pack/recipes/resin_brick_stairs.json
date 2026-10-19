@@ -19,7 +19,7 @@
     },
     "unlock": [
       {
-        "item": "minecraft:resin_bricks"
+        "context": "AlwaysUnlocked"
       }
     ],
     "result": {

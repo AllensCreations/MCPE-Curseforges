@@ -15,6 +15,11 @@
     "result": {
       "item": "minecraft:netherbrick",
       "count": 4
-    }
+    },
+    "unlock": [
+      {
+        "context": "AlwaysUnlocked"
+      }
+    ]
   }
 }

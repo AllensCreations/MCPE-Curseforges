@@ -16,6 +16,11 @@
     "result": {
       "item": "minecraft:spruce_planks",
       "count": 4
-    }
+    },
+    "unlock": [
+      {
+        "context": "AlwaysUnlocked"
+      }
+    ]
   }
 }

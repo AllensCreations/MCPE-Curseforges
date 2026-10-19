@@ -20,8 +20,7 @@
     },
     "unlock": [
       {
-        "item": "minecraft:red_sandstone",
-        "data": 0
+        "context": "AlwaysUnlocked"
       }
     ],
     "result": {

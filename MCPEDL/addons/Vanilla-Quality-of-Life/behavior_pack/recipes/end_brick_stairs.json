@@ -19,7 +19,7 @@
     },
     "unlock": [
       {
-        "item": "minecraft:end_bricks"
+        "context": "AlwaysUnlocked"
       }
     ],
     "result": {

@@ -1,1 +1,40 @@
-{"format_version":"1.20.80","minecraft:recipe_shaped":{"description":{"identifier":"custom:verdant_ambrosia"},"tags":["crafting_table"],"pattern":["ABC","DE "],"key":{"A":{"item":"minecraft:golden_apple"},"B":{"item":"minecraft:golden_carrot"},"C":{"item":"minecraft:glow_berries"},"D":{"item":"minecraft:blaze_powder"},"E":{"item":"minecraft:gold_ingot"}},"result":{"item":"custom:verdant_ambrosia"}}}
+{
+  "format_version": "1.20.80",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "custom:verdant_ambrosia"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      "ABC",
+      "DE "
+    ],
+    "key": {
+      "A": {
+        "item": "minecraft:golden_apple"
+      },
+      "B": {
+        "item": "minecraft:golden_carrot"
+      },
+      "C": {
+        "item": "minecraft:glow_berries"
+      },
+      "D": {
+        "item": "minecraft:blaze_powder"
+      },
+      "E": {
+        "item": "minecraft:gold_ingot"
+      }
+    },
+    "result": {
+      "item": "custom:verdant_ambrosia"
+    },
+    "unlock": [
+      {
+        "context": "AlwaysUnlocked"
+      }
+    ]
+  }
+}

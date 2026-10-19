@@ -20,7 +20,7 @@
     },
     "unlock": [
       {
-        "item": "minecraft:jungle_planks"
+        "context": "AlwaysUnlocked"
       }
     ],
     "result": {

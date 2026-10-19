@@ -19,7 +19,7 @@
     },
     "unlock": [
       {
-        "item": "minecraft:magenta_concrete"
+        "context": "AlwaysUnlocked"
       }
     ],
     "result": {

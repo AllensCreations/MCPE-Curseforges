@@ -19,7 +19,7 @@
     },
     "unlock": [
       {
-        "item": "minecraft:mossy_stone_bricks"
+        "context": "AlwaysUnlocked"
       }
     ],
     "result": {

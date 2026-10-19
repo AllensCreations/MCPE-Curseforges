@@ -19,7 +19,7 @@
     },
     "unlock": [
       {
-        "item": "minecraft:andesite"
+        "context": "AlwaysUnlocked"
       }
     ],
     "result": {

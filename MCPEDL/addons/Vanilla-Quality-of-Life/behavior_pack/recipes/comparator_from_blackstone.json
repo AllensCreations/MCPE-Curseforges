@@ -26,6 +26,11 @@
     "result": {
       "item": "minecraft:comparator",
       "count": 1
-    }
+    },
+    "unlock": [
+      {
+        "context": "AlwaysUnlocked"
+      }
+    ]
   }
 }

@@ -19,7 +19,7 @@
     },
     "unlock": [
       {
-        "item": "minecraft:gray_wool"
+        "context": "AlwaysUnlocked"
       }
     ],
     "result": {

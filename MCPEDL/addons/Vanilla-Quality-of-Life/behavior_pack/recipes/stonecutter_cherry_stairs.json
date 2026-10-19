@@ -16,6 +16,11 @@
     "result": {
       "item": "minecraft:cherry_stairs",
       "count": 1
-    }
+    },
+    "unlock": [
+      {
+        "context": "AlwaysUnlocked"
+      }
+    ]
   }
 }

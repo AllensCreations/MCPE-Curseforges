@@ -19,7 +19,7 @@
     },
     "unlock": [
       {
-        "item": "minecraft:cinnabar_bricks"
+        "context": "AlwaysUnlocked"
       }
     ],
     "result": {

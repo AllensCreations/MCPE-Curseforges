@@ -20,7 +20,7 @@
     },
     "unlock": [
       {
-        "item": "minecraft:birch_planks"
+        "context": "AlwaysUnlocked"
       }
     ],
     "result": {

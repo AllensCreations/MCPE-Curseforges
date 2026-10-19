@@ -1,1 +1,37 @@
-{"format_version":"1.20.80","minecraft:recipe_shaped":{"description":{"identifier":"custom:sovereign_platter"},"tags":["crafting_table"],"pattern":["AAB","CD "],"key":{"A":{"item":"minecraft:cooked_salmon"},"B":{"item":"minecraft:nautilus_shell"},"C":{"item":"minecraft:golden_carrot"},"D":{"item":"minecraft:blaze_powder"}},"result":{"item":"custom:sovereign_platter"}}}
+{
+  "format_version": "1.20.80",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "custom:sovereign_platter"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      "AAB",
+      "CD "
+    ],
+    "key": {
+      "A": {
+        "item": "minecraft:cooked_salmon"
+      },
+      "B": {
+        "item": "minecraft:nautilus_shell"
+      },
+      "C": {
+        "item": "minecraft:golden_carrot"
+      },
+      "D": {
+        "item": "minecraft:blaze_powder"
+      }
+    },
+    "result": {
+      "item": "custom:sovereign_platter"
+    },
+    "unlock": [
+      {
+        "context": "AlwaysUnlocked"
+      }
+    ]
+  }
+}

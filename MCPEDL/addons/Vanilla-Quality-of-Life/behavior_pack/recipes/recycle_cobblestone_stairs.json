@@ -24,6 +24,11 @@
     "result": {
       "item": "minecraft:cobblestone",
       "count": 3
-    }
+    },
+    "unlock": [
+      {
+        "context": "AlwaysUnlocked"
+      }
+    ]
   }
 }

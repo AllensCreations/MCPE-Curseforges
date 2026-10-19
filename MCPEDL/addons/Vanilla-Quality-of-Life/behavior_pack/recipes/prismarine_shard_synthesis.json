@@ -24,6 +24,11 @@
     "result": {
       "item": "minecraft:prismarine_shard",
       "count": 2
-    }
+    },
+    "unlock": [
+      {
+        "context": "AlwaysUnlocked"
+      }
+    ]
   }
 }

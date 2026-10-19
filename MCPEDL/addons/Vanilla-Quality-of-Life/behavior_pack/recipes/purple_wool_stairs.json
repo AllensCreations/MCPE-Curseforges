@@ -19,7 +19,7 @@
     },
     "unlock": [
       {
-        "item": "minecraft:purple_wool"
+        "context": "AlwaysUnlocked"
       }
     ],
     "result": {

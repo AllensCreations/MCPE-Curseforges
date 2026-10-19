@@ -19,6 +19,11 @@
     "result": {
       "item": "minecraft:brown_glass",
       "count": 2
-    }
+    },
+    "unlock": [
+      {
+        "context": "AlwaysUnlocked"
+      }
+    ]
   }
 }

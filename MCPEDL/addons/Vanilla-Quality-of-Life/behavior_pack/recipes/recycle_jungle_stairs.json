@@ -24,6 +24,11 @@
     "result": {
       "item": "minecraft:jungle_planks",
       "count": 3
-    }
+    },
+    "unlock": [
+      {
+        "context": "AlwaysUnlocked"
+      }
+    ]
   }
 }

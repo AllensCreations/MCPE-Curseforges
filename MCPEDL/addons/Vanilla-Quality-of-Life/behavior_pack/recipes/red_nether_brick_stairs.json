@@ -19,7 +19,7 @@
     },
     "unlock": [
       {
-        "item": "minecraft:red_nether_brick"
+        "context": "AlwaysUnlocked"
       }
     ],
     "result": {

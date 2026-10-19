@@ -23,6 +23,11 @@
     "result": {
       "item": "minecraft:diamond_horse_armor",
       "count": 1
-    }
+    },
+    "unlock": [
+      {
+        "context": "AlwaysUnlocked"
+      }
+    ]
   }
 }

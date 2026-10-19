@@ -24,6 +24,11 @@
     "result": {
       "item": "minecraft:cobbled_deepslate",
       "count": 3
-    }
+    },
+    "unlock": [
+      {
+        "context": "AlwaysUnlocked"
+      }
+    ]
   }
 }

@@ -39,6 +39,11 @@
     "result": {
       "item": "minecraft:pink_concrete",
       "count": 8
-    }
+    },
+    "unlock": [
+      {
+        "context": "AlwaysUnlocked"
+      }
+    ]
   }
 }

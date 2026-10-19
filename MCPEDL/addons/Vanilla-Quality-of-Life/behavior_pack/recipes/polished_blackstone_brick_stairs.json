@@ -19,7 +19,7 @@
     },
     "unlock": [
       {
-        "item": "minecraft:polished_blackstone_bricks"
+        "context": "AlwaysUnlocked"
       }
     ],
     "result": {

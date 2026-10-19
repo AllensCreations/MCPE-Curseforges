@@ -19,7 +19,7 @@
     },
     "unlock": [
       {
-        "item": "minecraft:brick_block"
+        "context": "AlwaysUnlocked"
       }
     ],
     "result": {

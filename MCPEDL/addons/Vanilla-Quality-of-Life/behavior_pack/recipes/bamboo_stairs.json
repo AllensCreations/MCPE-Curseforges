@@ -20,7 +20,7 @@
     },
     "unlock": [
       {
-        "item": "minecraft:bamboo_planks"
+        "context": "AlwaysUnlocked"
       }
     ],
     "result": {

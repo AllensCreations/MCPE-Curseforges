@@ -19,7 +19,7 @@
     },
     "unlock": [
       {
-        "item": "minecraft:magenta_wool"
+        "context": "AlwaysUnlocked"
       }
     ],
     "result": {

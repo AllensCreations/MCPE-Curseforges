@@ -19,6 +19,11 @@
     "result": {
       "item": "minecraft:purple_glass",
       "count": 2
-    }
+    },
+    "unlock": [
+      {
+        "context": "AlwaysUnlocked"
+      }
+    ]
   }
 }
