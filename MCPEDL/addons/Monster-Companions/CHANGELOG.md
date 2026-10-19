@@ -4,6 +4,14 @@ Player-facing updates for **Monster Companions** by AllensCreations.
 
 ---
 
+## [1.0.8] - 2026-10-19
+
+### Fixed
+- **Recipe book visibility:** The Primal Beast Biscuit recipe is now configured as always unlocked, addressing the issue where the recipe did not appear in the crafting recipe list.
+- **Recipe organization:** Added a recipe-book group for the biscuit recipe to help Minecraft organize it consistently.
+
+---
+
 ## [1.0.7] - 2026-10-19
 
 ### Improved & Balanced
