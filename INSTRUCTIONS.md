@@ -142,6 +142,19 @@ When relevant visual assets (promotional banners, artwork, item previews, recipe
 
 ---
 
+
+
+## 6A. Minecraft Bedrock Recipe Images — Mandatory Source-Based Workflow
+
+- **Never use AI image generation** for crafting recipe diagrams, item previews, or other Minecraft pack visuals unless the user explicitly asks for AI-generated artwork. The default is **no generated artwork**.
+- For crafting recipe diagrams, build the image programmatically from the actual recipe JSON, the add-on's real result-item texture, and vanilla ingredient textures from Mojang's official [Bedrock Samples](https://github.com/Mojang/bedrock-samples) repository.
+- Source vanilla item textures from `/root/bedrock-samples/resource_pack/textures/`. Confirm every file exists in the checked-out sample version before using it. Do not redraw, approximate, or substitute unrelated icons.
+- Read the actual recipe JSON first. Render shaped recipes in their declared pattern; render shapeless recipes with a clear unordered ingredient layout so the image does not imply fixed ingredient positions. Show the correct output item and output count.
+- Use nearest-neighbor scaling for pixel art. Keep the crafting interface Minecraft Bedrock-style and readable, with transparent ingredient icons composited cleanly into slots.
+- Save the final standalone PNG in the relevant add-on folder and update its README to embed the verified image using the repository's raw GitHub URL. Do not reference a missing image or leave an outdated recipe screenshot in place.
+- Keep a reusable Python generator under `scripts/` where practical. It must read the real recipe data and fail clearly if the sample texture pack, ingredient texture, result texture, or recipe file is missing. Do not claim an image was sourced from Bedrock Samples unless the texture paths and assets were actually checked.
+- Do not change recipe ingredients, result count, or shaped/shapeless behavior just to match an image. The recipe JSON is authoritative; update the diagram to match it.
+
 ## 7. Repository Organization
 
 ```
