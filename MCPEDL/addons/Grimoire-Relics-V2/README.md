@@ -1,13 +1,13 @@
-# Grimoire Relics V2 (v1.0.5) — Magical Offhand Grimoires by AllensCreations
+# Grimoire Relics V2 (v1.0.5) — Magical Offhand Grimoires
 
-[![Minecraft Bedrock](https://img.shields.io/badge/Minecraft%20Bedrock-1.21.0%2B-brightgreen?style=flat-square&logo=minecraft)](https://github.com/AllensCreations/MCPE-Curseforges)
+[![Minecraft Bedrock](https://img.shields.io/badge/Minecraft%20Bedrock-1.26%2B-brightgreen?style=flat-square&logo=minecraft)](https://github.com/AllensCreations/MCPE-Curseforges)
 [![Format](https://img.shields.io/badge/Format-.MCADDON-orange?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/addons#available-add-ons)
 
-**By AllensCreations**
+**Created by AllensCreations**
 
 **MAGICAL OFFHAND RELICS SYSTEM & PASSIVE AURA ENGINE**
 
-20 craftable ancient grimoires granting unique passive blessings, dynamic defensive reactive triggers, and orbiting particle auras—active strictly and only while equipped in your offhand slot.
+20 ancient grimoires, including 14 craftable tomes and 6 exploration-only Ancient Relics, granting unique passive blessings, dynamic defensive reactive triggers, and orbiting particle auras—active strictly and only while equipped in your offhand slot.
 
 ---
 
@@ -110,7 +110,7 @@ Holding a Grimoire in your offhand dynamically attunes your character:
 
 ## Crafting Pattern
 
-There are **14 craftable tomes** crafted at a standard Crafting Table surrounding a central Book. The **6 Ancient tomes** (Void Phantom, Cataclysm Dragon, Necrotic Lich, Mirror Trickster, Blood Vampire, and Infernal Phoenix) cannot be crafted and must be uncovered by exploring rare world structures:
+There are **14 craftable tomes** made at a standard Crafting Table using shaped recipes arranged around a central Book. Recipe unlocks should be available through the vanilla recipe system. The **6 Ancient tomes** (Void Phantom, Cataclysm Dragon, Necrotic Lich, Mirror Trickster, Blood Vampire, and Infernal Phoenix) cannot be crafted and must be uncovered by exploring rare world structures:
 
 <p align="center">
   <img src="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/MCPEDL/addons/Grimoire-Relics-V2/assets/all_recipes_sheet.png" alt="Grimoire Relics V2 Crafting Recipes" width="850">
@@ -168,4 +168,4 @@ Ancient tomes generate naturally inside exploration chests across the world, occ
 
 ## Search & Discovery Keywords
 
-Minecraft Bedrock RPG add-on, magical offhand grimoires, Bedrock relics system, ancient tomes loot, offhand passive auras, fire resistance tome, void rescue, Minecraft PE magic spells, MCPEDL, CurseForge, AllensCreations.
+Minecraft Bedrock 1.26+ RPG add-on, magical offhand grimoires, Bedrock relics system, ancient tomes loot, offhand passive auras, fire resistance tome, void rescue, Minecraft PE magic spells, MCPEDL, CurseForge, AllensCreations.
