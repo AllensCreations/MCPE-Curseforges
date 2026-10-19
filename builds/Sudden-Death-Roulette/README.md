@@ -8,8 +8,8 @@ This folder contains compiled release packages for **Sudden Death Roulette** by 
 
 | File Name | Format | Size | Description | Download Link |
 | :--- | :--- | :--- | :--- | :--- |
-| **`Sudden Death Roulette by AllensCreations (V1.0.0).mcpack`** | `.mcpack` | ~3 KB | Script Behavior Pack archive ready for import. | [Download (.mcpack)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Sudden-Death-Roulette/Sudden%20Death%20Roulette%20by%20AllensCreations%20%28V1.0.0%29.mcpack) |
-| **`Sudden Death Roulette by AllensCreations (V1.0.0).mcaddon`** | `.mcaddon` | ~3 KB | Complete Add-on package archive. | [Download (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Sudden-Death-Roulette/Sudden%20Death%20Roulette%20by%20AllensCreations%20%28V1.0.0%29.mcaddon) |
+| **`Sudden Death Roulette by AllensCreations (V1.0.0).mcpack`** | `.mcpack` | ~4 KB | Script Behavior Pack archive ready for import. | [Download (.mcpack)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Sudden-Death-Roulette/Sudden%20Death%20Roulette%20by%20AllensCreations%20%28V1.0.0%29.mcpack) |
+| **`Sudden Death Roulette by AllensCreations (V1.0.0).mcaddon`** | `.mcaddon` | ~4 KB | Complete Add-on package archive. | [Download (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Sudden-Death-Roulette/Sudden%20Death%20Roulette%20by%20AllensCreations%20%28V1.0.0%29.mcaddon) |
 
 ---
 

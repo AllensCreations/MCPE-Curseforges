@@ -1,4 +1,4 @@
-# Swarm Mob Booster — Configurable Mob Spawn Density
+# Swarm Mob Booster (v1.0.4) — Configurable Mob Spawn Density
 
 ![MCPEDL](https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/MCPEDL/new_addons/Swarm-Mob-Booster/behavior_pack/pack_icon.png "MCPEDL")
 

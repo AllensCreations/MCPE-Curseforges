@@ -1,4 +1,4 @@
-# Universal Clutch — Intelligent Fall Mitigation Add-on by AllensCreations
+# Universal Clutch (v1.0.1) — Intelligent Fall Mitigation Add-on by AllensCreations
 
 [![Minecraft Bedrock](https://img.shields.io/badge/Minecraft%20Bedrock-1.21.0%2B-brightgreen?style=flat-square&logo=minecraft)](https://github.com/AllensCreations/MCPE-Curseforges)
 [![Format](https://img.shields.io/badge/Format-.MCPACK-orange?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/addons#available-add-ons)

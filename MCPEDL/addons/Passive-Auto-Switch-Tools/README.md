@@ -1,4 +1,4 @@
-# Passive Auto-Switch Tools - Automatic Tool Selection by AllensCreations
+# Passive Auto-Switch Tools (v1.1.12) - Automatic Tool Selection by AllensCreations
 
 ![MCPEDL](https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/MCPEDL/addons/Passive-Auto-Switch-Tools/pack_icon.png "MCPEDL")
 

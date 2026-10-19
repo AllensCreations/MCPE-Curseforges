@@ -1,4 +1,4 @@
-# Tethered: Breaker and Builder — Asymmetric Two-Player Co-op Challenge
+# Tethered: Breaker and Builder (v1.0.5) — Asymmetric Two-Player Co-op Challenge
 
 ![MCPEDL](https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/MCPEDL/script/Tethered-Breaker-And-Builder/pack_icon.png "MCPEDL")
 
