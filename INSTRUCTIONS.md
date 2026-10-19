@@ -155,6 +155,19 @@ When relevant visual assets (promotional banners, artwork, item previews, recipe
 - Keep a reusable Python generator under `scripts/` where practical. It must read the real recipe data and fail clearly if the sample texture pack, ingredient texture, result texture, or recipe file is missing. Do not claim an image was sourced from Bedrock Samples unless the texture paths and assets were actually checked.
 - Do not change recipe ingredients, result count, or shaped/shapeless behavior just to match an image. The recipe JSON is authoritative; update the diagram to match it.
 
+## Minecraft Bedrock Crafting Recipe Unlock Rule — Mandatory
+
+- **Every custom crafting recipe must be explicitly unlocked by default.** Include the Bedrock recipe unlock component:
+  `"unlock": { "context": "AlwaysUnlocked" }`
+  in every applicable recipe JSON, following the exact schema supported by the target recipe type and Minecraft version.
+- For recipe formats that use an array of unlock entries, use the equivalent supported form, for example `"unlock": [{ "context": "AlwaysUnlocked" }]`, only when that is the schema required by that recipe format. Do not mix schemas or copy the wrong unlock structure.
+- Do not rely on recipe discovery, item pickup, recipe-book progression, or experimental unlock behavior for custom recipes unless the user explicitly requests that behavior.
+- Preserve the recipe's correct ingredients, result item and count, crafting station/tags, and shaped or shapeless structure. Add the unlock rule without changing gameplay balance.
+- When editing an existing recipe, inspect its actual recipe type and compare its structure with the repository's Bedrock Samples reference before choosing the unlock syntax.
+- Apply this rule to all new recipes and when touching existing recipes. Do not claim the recipe was tested in-game unless it was actually tested.
+
+---
+
 ## 7. Repository Organization
 
 ```
