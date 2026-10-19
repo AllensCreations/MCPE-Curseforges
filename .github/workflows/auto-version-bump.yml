@@ -6,6 +6,8 @@ on:
       - main
     paths:
       - 'MCPEDL/**'
+      - 'scripts/ensure_recipe_unlocks.py'
+      - '.github/workflows/auto-version-bump.yml'
   workflow_dispatch:
     inputs:
       target:
@@ -38,6 +40,9 @@ jobs:
         uses: actions/setup-python@v5
         with:
           python-version: '3.x'
+
+      - name: Ensure custom crafting recipes are always unlocked
+        run: python3 scripts/ensure_recipe_unlocks.py
 
       - name: Bump versions, rebuild packages & register new projects
         id: process
