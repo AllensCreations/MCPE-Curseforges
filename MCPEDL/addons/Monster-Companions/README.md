@@ -9,6 +9,7 @@
 
 Tame 32 hostile monsters into defensive bodyguards and controllable mounts.
 
+
 ---
 
 ## Overview
@@ -19,6 +20,14 @@ The pack adds tamable companion behavior and mount interactions to selected host
 
 ![Monster Companions Banner](https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/MCPEDL/addons/Monster-Companions/1791889996745.jpg)
 
+## Compatibility and World Settings
+
+- **Minecraft Version:** Minecraft Bedrock 1.26+
+- **Format:** Behavior Pack and Resource Pack (`.mcaddon` / `.mcpack`)
+- **Achievement Friendly:** Expected to be compatible with achievements because the current Behavior Pack manifest has no script module; actual status can still depend on the world and Minecraft version.
+- **Experimental Features:** No experiment toggle is declared as required by the current pack configuration. Entity component compatibility may change in future Minecraft versions.
+- **Offline Play:** The recipe is included in the Behavior Pack and does not need an internet connection after the pack is imported and enabled locally.
+
 ---
 
 ## Features and Mechanics
@@ -28,7 +37,7 @@ Wild hostile mobs cannot be tamed immediately. The player must engage the target
 
 ### Companion Squad Mechanics
 - Perimeter buffer: Companions follow the player while keeping a buffer distance to prevent obstructing the player camera or mining path. If the player sprints ahead, companions teleport behind the player safely.
-- Friendly-fire immunity: Companions are completely immune to player sword sweeps, teammate arrows, splash potions, and explosions. Companions also exclude teammates from their attack targeting.
+- Friendly-fire immunity: Companions are configured to avoid friendly-fire damage and exclude teammates from their attack targeting. Companions also exclude teammates from their attack targeting.
 - Visual status indicators: Tamed companions display an always-visible floating nameplate above their head. Custom name tags can be applied directly without an anvil.
 - In-combat healing: Feeding a wounded companion a Primal Beast Biscuit restores 10 HP (5 hearts).
 - Sunlight protection: Tamed Zombies, Skeletons, and Phantoms can wear helmets to prevent burning in direct sunlight.
@@ -104,7 +113,7 @@ Equipping a Saddle onto supported large companions enables manual mounting and d
 ![Primal Beast Biscuit Item](https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/MCPEDL/addons/Monster-Companions/beast_biscuit_preview.png)
 
 ### Identifier
-- **Specification**: `custom:beast_biscuit`
+- **Specification**: `allenscreations:beast_biscuit`
 
 ### Function
 - **Specification**: Pacification item (below 50% HP) / Health restoration item
@@ -129,6 +138,8 @@ Equipping a Saddle onto supported large companions enables manual mounting and d
 - Type: Shapeless Crafting Table Recipe
 - Ingredients: 1 Rotten Flesh, 1 Bone, 1 Sweet Berries, 1 Honey Bottle
 - Yield: 4x Primal Beast Biscuits
+- Recipe Identifier: `allenscreations:beast_biscuit_recipe`
+- Offline crafting: The recipe is bundled in the Behavior Pack; internet access is not needed during local gameplay.
 
 ---
 
