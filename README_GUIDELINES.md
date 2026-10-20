@@ -1,6 +1,6 @@
 # Commercial & Promotional README and Changelog Guidelines
 
-This document provides strict rules, writing guidelines, and templates for creating and maintaining `README.md` and `CHANGELOG.md` files across **MCPE-Curseforges**. All documentation must be clean, player-focused, commercially presentable, and factual for platforms like MCPEDL, CurseForge, PlanetMinecraft, and web showcases. Source accuracy and the user's explicit scope override any template.
+This document provides strict rules, writing guidelines, and templates for `README.md`, `DESCRIPTION.md`, and `CHANGELOG.md` across **MCPE-Curseforges**. Individual add-on README.md files are download-link-only; DESCRIPTION.md is the full player-facing product page. All published content must be clean, commercially presentable, and factual.
 
 ---
 
@@ -19,7 +19,7 @@ This document provides strict rules, writing guidelines, and templates for creat
 
 #### Customer-Facing Product Language — Mandatory
 
-Write every published README and changelog as a polished, player/customer-facing product page. The reader should understand the in-game experience, not see implementation details.
+Write every DESCRIPTION.md and changelog as polished, player/customer-facing content. The reader should understand the in-game experience, not see implementation details. Individual add-on README.md files contain only the product title/version and download link.
 
 - Use familiar Minecraft display names, never internal item identifiers such as `minecraft:diamond`, `minecraft:iron_pickaxe`, `minecraft:totem_of_undying`, or similar namespace-prefixed, underscore-separated IDs. Write “Diamond,” “Iron Pickaxe,” and “Totem of Undying” instead.
 - Apply the same rule to block, mob, effect, enchantment, and other Minecraft names: use readable in-game names in public prose, headings, captions, recipes, and changelog entries.
@@ -48,12 +48,12 @@ README files are player showcase pages. They must NEVER contain internal develop
 ### 3. Formatting, External Readability & SEO
 To ensure the markdown renders identically on external platforms (MCPEDL, CurseForge, web portals, mobile apps), apply product-page rules to DESCRIPTION.md and download-link rules to individual README.md files:
 1. **Absolute Image URLs for Published READMEs**:
-   Image embeds (`<img>` or `![]()`) in published project READMEs must use verified absolute raw URLs:
+   Image embeds (`<img>` or `![]()`) in published project DESCRIPTION.md files must use verified absolute raw URLs. Individual add-on README.md files must not embed images:
    ```
    https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/<path-to-image>
    ```
 2. **Navigation & Download Links**:
-   For published project READMEs, use verified full GitHub URLs for directory, source, and download links so they work outside GitHub. Relative links remain appropriate for internal repository documentation when useful:
+   For individual add-on README.md files, use a verified direct package URL when available, or link only to the official download catalog. Put source navigation and all other links in DESCRIPTION.md. Use verified full GitHub URLs for published links so they work outside GitHub. Relative links remain appropriate for internal repository documentation when useful:
    ```
    https://github.com/AllensCreations/MCPE-Curseforges/tree/main/<path>
    https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/<file>
