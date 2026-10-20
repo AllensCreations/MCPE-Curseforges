@@ -2,6 +2,11 @@
 
 ---
 
+## [1.0.8] - 2026-10-21
+
+### Fixed
+- Rebuilt the block texture asset and released the corrected package with the custom figurine model and inventory icon.
+
 ## [1.0.7] - 2026-10-21
 
 ### Fixed
