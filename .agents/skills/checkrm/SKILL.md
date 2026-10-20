@@ -56,7 +56,7 @@ files, manifests, assets, scripts, workflows, or pack configuration.
 
 `INSTRUCTIONS.md` defines shared policy and `README_GUIDELINES.md` is the canonical README/CHANGELOG style guide. This skill defines the audit workflow. Its template is a fallback only and must not override either document or the user's explicit instructions. Inspect existing documentation to learn current conventions.
 
-For individual add-ons, audit both README.md (download link only) and DESCRIPTION.md (complete customer-facing product information). When migrating an existing project, move the full verified product content into DESCRIPTION.md before replacing README.md with the short download link. Before finishing a documentation audit, verify the project's manifest titles and creator attribution with `python3 scripts/validate_manifest_titles.py --project <project-path>` when applicable. Confirm each title has exactly one `(vX.Y.Z)` suffix matching `header.version`, the manifest description contains `by AllensCreations` exactly once, and paired Behavior Pack/Resource Pack displayed versions match. Include the official [CurseForge](https://www.curseforge.com/members/allenscreations/projects) and [MCPEDL](https://mcpedl.com/user/allenscreations/) profile links in DESCRIPTION.md only.
+For individual add-ons, audit both README.md (download-focused landing page) and DESCRIPTION.md (complete customer-facing product information). README.md should include release/download details, package format, generic import steps, and a link to DESCRIPTION.md. When migrating an existing project, move full verified product content into DESCRIPTION.md. Before finishing a documentation audit, verify the project's manifest titles and creator attribution with `python3 scripts/validate_manifest_titles.py --project <project-path>` when applicable. Confirm each title has exactly one `(vX.Y.Z)` suffix matching `header.version`, the manifest description contains `by AllensCreations` exactly once, and paired Behavior Pack/Resource Pack displayed versions match. Include the official [CurseForge](https://www.curseforge.com/members/allenscreations/projects) and [MCPEDL](https://mcpedl.com/user/allenscreations/) profile links in DESCRIPTION.md only.
 
 Before creating or substantially rewriting README.md or DESCRIPTION.md:
 
@@ -93,19 +93,35 @@ must not override the accuracy and style rules below.
   testing status without evidence.
 - Do not invent release versions, download links, screenshots, assets, credits,
   dependencies, or project details.
-- Preserve useful verified content in DESCRIPTION.md for add-ons; keep individual add-on README.md files download-only.
+- Preserve useful verified content in DESCRIPTION.md for add-ons; keep individual add-on README.md files focused on downloading/importing and linking to DESCRIPTION.md.
 - Avoid duplicate sections and duplicate catalog entries.
 - Do not add raw HTML to README files unless the repository's established
   format or a specific user request requires it.
 - Do not include installation instructions when the user explicitly asks to omit
   them.
 
-## Default Add-on README.md Template (Download Only)
+## Default Add-on README.md Template (Download Focus)
 
 ```markdown
 # [Add-on Name] (vX.Y.Z)
 
-**Download:** [Download the add-on (.mcaddon)](verified-direct-download-link)
+Download the current release of **[Add-on Name]** for Minecraft Bedrock Edition.
+
+## Download
+
+- **Version:** X.Y.Z
+- **Package format:** `.mcaddon`
+- **Direct download:** [Download [Add-on Name] (.mcaddon)](verified-direct-download-link)
+
+## Installation
+
+1. Download the package using the link above.
+2. Open the downloaded file with Minecraft to import it.
+3. If the package contains a pack that must be enabled separately, activate it in your world's settings.
+
+## Add-on Information
+
+For gameplay features, usage details, recipes, compatibility notes, and other project information, read the [full description](verified-DESCRIPTION-link).
 ```
 
 If no direct release file exists, link only to the relevant official download catalog.
