@@ -6,13 +6,13 @@ Download the current release of **One-Block Hardcore Survival Economy** for Mine
 
 - **Version:** 1.0.0
 - **Package format:** `.mcpack`
-- **Direct download:** [Download One-Block Hardcore Survival Economy (.mcpack)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/One-Block-Economy/One-Block%20Hardcore%20Survival%20Economy%20by%20AllensCreations%20%28V1.0.0%29.mcpack)
+- **Direct download:** [Download the add-on (.mcpack)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/One-Block-Economy/One-Block%20Hardcore%20Survival%20Economy%20by%20AllensCreations%20%28V1.0.0%29.mcpack)
 
 ## Installation
 
 1. Download the package using the link above.
 2. Open the downloaded file with Minecraft to import it.
-3. If the package contains a pack that must be enabled separately, open your world's settings and activate it under the relevant pack section.
+3. If the package contains a pack that must be enabled separately, activate it in your world's settings.
 
 ## Add-on Information
 

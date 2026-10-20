@@ -6,13 +6,13 @@ Download the current release of **Harvest Intelligence** for Minecraft Bedrock E
 
 - **Version:** 1.0.2
 - **Package format:** `.mcpack`
-- **Direct download:** [Download Harvest Intelligence (.mcpack)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Harvest-Intelligence/Harvest%20Intelligence%20by%20AllensCreations%20%28V1.0.2%29.mcpack)
+- **Direct download:** [Download the add-on (.mcpack)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Harvest-Intelligence/Harvest%20Intelligence%20by%20AllensCreations%20%28V1.0.2%29.mcpack)
 
 ## Installation
 
 1. Download the package using the link above.
 2. Open the downloaded file with Minecraft to import it.
-3. If the package contains a pack that must be enabled separately, open your world's settings and activate it under the relevant pack section.
+3. If the package contains a pack that must be enabled separately, activate it in your world's settings.
 
 ## Add-on Information
 

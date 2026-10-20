@@ -6,13 +6,13 @@ Download the current release of **Vanilla Quality of Life** for Minecraft Bedroc
 
 - **Version:** 1.3.19
 - **Package format:** `.mcaddon`
-- **Direct download:** [Download Vanilla Quality of Life (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Vanilla-Quality-of-Life/Vanilla%20Quality%20of%20Life%20by%20AllensCreations%20%28V1.3.19%29.mcaddon)
+- **Direct download:** [Download the add-on (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Vanilla-Quality-of-Life/Vanilla%20Quality%20of%20Life%20by%20AllensCreations%20%28V1.3.19%29.mcaddon)
 
 ## Installation
 
 1. Download the package using the link above.
 2. Open the downloaded file with Minecraft to import it.
-3. If the package contains a pack that must be enabled separately, open your world's settings and activate it under the relevant pack section.
+3. If the package contains a pack that must be enabled separately, activate it in your world's settings.
 
 ## Add-on Information
 

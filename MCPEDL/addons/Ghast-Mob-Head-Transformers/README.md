@@ -6,13 +6,13 @@ Download the current release of **Ghast Mob Head Transformers** for Minecraft Be
 
 - **Version:** 1.1.12
 - **Package format:** `.mcaddon`
-- **Direct download:** [Download Ghast Mob Head Transformers (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Ghast-Mob-Head-Transformers/Ghast%20Mob%20Head%20Transformers%20by%20AllensCreations%20%28V1.1.12%29.mcaddon)
+- **Direct download:** [Download the add-on (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Ghast-Mob-Head-Transformers/Ghast%20Mob%20Head%20Transformers%20by%20AllensCreations%20%28V1.1.12%29.mcaddon)
 
 ## Installation
 
 1. Download the package using the link above.
 2. Open the downloaded file with Minecraft to import it.
-3. If the package contains a pack that must be enabled separately, open your world's settings and activate it under the relevant pack section.
+3. If the package contains a pack that must be enabled separately, activate it in your world's settings.
 
 ## Add-on Information
 
