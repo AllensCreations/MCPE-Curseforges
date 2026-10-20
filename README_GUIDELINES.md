@@ -47,8 +47,8 @@ README files are player showcase pages. They must NEVER contain internal develop
 
 ### 3. Formatting, External Readability & SEO
 To ensure the markdown renders identically on external platforms (MCPEDL, CurseForge, web portals, mobile apps), apply product-page rules to DESCRIPTION.md and download-link rules to individual README.md files:
-1. **No Images in Add-on Documentation**:
-   Individual add-on `DESCRIPTION.md` and `README.md` files must be text-only. Do not embed banners, screenshots, item sprites, recipe diagrams, artwork, or other images. Do not create image assets solely for these pages. This restriction does not automatically apply to root/category catalogs or other project types.
+1. **Controlled Images in Add-on Documentation**:
+   Individual add-on `README.md` files must not embed images. Add-on `DESCRIPTION.md` files may include item sprites and crafting recipe diagrams only, using verified absolute raw GitHub URLs. Do not include promotional banners, general screenshots, or unrelated artwork. Crafting diagrams must follow the source-based workflow in `INSTRUCTIONS.md`.
 2. **Navigation & Download Links**:
    For individual add-on README.md files, use a verified direct package URL when available (or the official download catalog), plus a link to the matching DESCRIPTION.md. Keep source navigation and detailed product links in DESCRIPTION.md. Use verified full GitHub URLs for published links so they work outside GitHub. Relative links remain appropriate for internal repository documentation when useful:
    ```
