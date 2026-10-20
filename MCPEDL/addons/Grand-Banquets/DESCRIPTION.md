@@ -12,27 +12,11 @@ Cook a wider range of meals using familiar Minecraft ingredients. Each dish has 
 
 The collection includes dishes such as Shepherd's Pie, Hunter's Stew, Roast Turkey, Glazed Wings, Miner's Roast, Mariner's Pot, Dragonlord's Abyssal Galantine, Celestial Echo Roast, Sovereign Platter, and Imperial Hero's Crown Feast.
 
-![Grand Banquets custom food item previews](https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/MCPEDL/addons/Grand-Banquets/assets/recipes/item_previews.png)
 
 ## Crafting Recipes
 
-Each compact diagram uses the regular 3x3 Minecraft crafting-table layout. Shaped recipes preserve their ingredient positions, while shapeless recipes place ingredients into separate grid cells. The finished dish appears in the output slot. Within each tier gallery, recipes are presented in a single vertical column with one recipe per row. These images explain the recipes visually; the in-game recipe definitions remain authoritative for ingredients, output counts, and crafting behavior.
+Recipes are available in the crafting table. Use the ingredients for the dish you want to prepare.
 
-### Tier I — Rustic Sustenance
-
-![Tier I crafting recipes](https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/MCPEDL/addons/Grand-Banquets/assets/recipes/tier_1_recipes.png)
-
-### Tier II — Hearty Provisions
-
-![Tier II crafting recipes](https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/MCPEDL/addons/Grand-Banquets/assets/recipes/tier_2_recipes.png)
-
-### Tier III — Explorer's Banquets
-
-![Tier III crafting recipes](https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/MCPEDL/addons/Grand-Banquets/assets/recipes/tier_3_recipes.png)
-
-### Tier IV — Mythic and Imperial Feasts
-
-![Tier IV crafting recipes](https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/MCPEDL/addons/Grand-Banquets/assets/recipes/tier_4_recipes.png)
 
 ## Featured Food Effects
 
