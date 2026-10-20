@@ -13,7 +13,7 @@ ROOT = Path(__file__).resolve().parents[1]
 ASSETS = ROOT / "assets"
 
 def embed_remote_images(svg: str) -> str:
-    pattern = re.compile(r'(<image\\b[^>]*?\\b(?:href|xlink:href)=["\'])(https?://[^"\']+)(["\'][^>]*>)', re.I)
+    pattern = re.compile(r'(<image\b[^>]*?\b(?:href|xlink:href)=["\'])(https?://[^"\']+)(["\'][^>]*>)', re.I)
     def replace(match):
         url = match.group(2)
         request = Request(url, headers={"User-Agent": "AllensCreations-RecipeImageBuilder/1.0"})
