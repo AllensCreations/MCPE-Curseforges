@@ -16,7 +16,7 @@ The collection includes dishes such as Shepherd's Pie, Hunter's Stew, Roast Turk
 
 ## Crafting Recipes
 
-Each diagram uses the regular 3x3 Minecraft crafting-table layout. Shaped recipes preserve their ingredient positions, while shapeless recipes place ingredients into separate grid cells. The finished dish appears in the output slot; the recipe JSON remains the source of truth for recipe requirements and crafting behavior.
+Each compact diagram uses the regular 3x3 Minecraft crafting-table layout. Shaped recipes preserve their ingredient positions, while shapeless recipes place ingredients into separate grid cells. The finished dish appears in the output slot. Within each tier gallery, recipes are presented in a single vertical column with one recipe per row. These images explain the recipes visually; the in-game recipe definitions remain authoritative for ingredients, output counts, and crafting behavior.
 
 ### Tier I — Rustic Sustenance
 
