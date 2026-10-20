@@ -4,9 +4,9 @@ const FIGURINE_BLOCK = "melody:melody_figurine";
 const SOUND_ID = "melody:melody_song";
 const DANCE_RADIUS = 20;
 
-// Update this value to match the duration of the .ogg song you add to the resource pack.
-// 1200 ticks = 60 seconds. The sound itself is non-looping and ends naturally.
-const SONG_DURATION_TICKS = 1200;
+// The bundled OGG is about 66.27 seconds long. The dance loop checks every 10 ticks,
+// so 1330 ticks (66.5 seconds) ends the effects within about a quarter-second of the song.
+const SONG_DURATION_TICKS = 1330;
 const UPDATE_INTERVAL_TICKS = 10;
 
 const EXCLUDED_TYPES = new Set([
