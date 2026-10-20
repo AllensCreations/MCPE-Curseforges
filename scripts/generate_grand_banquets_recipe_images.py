@@ -1,10 +1,9 @@
 #!/usr/bin/env python3
 """Generate recipe diagrams and texture previews for Grand Banquets."""
 import json, os
-from io import BytesIO
 from pathlib import Path
-import cairosvg
 from PIL import Image, ImageDraw, ImageFont
+from crafting_template import render_crafting_table_svg
 
 ROOT=Path(__file__).resolve().parents[1]
 ADDON=ROOT/"MCPEDL/addons/Grand-Banquets"
@@ -190,13 +189,8 @@ def recipe(path):
     raise ValueError(f"Unsupported recipe type: {path}")
 # The SVG itself is the sole crafting-board reference. Render it directly;
 # never read another PNG or board image as a substitute.
-BOARD_SVG_PATH = ROOT / "assets/CRAFTING_TABLE.svg"
-if not BOARD_SVG_PATH.is_file():
-    raise FileNotFoundError(f"Required crafting template SVG is missing: {BOARD_SVG_PATH}")
-svg_source = BOARD_SVG_PATH.read_bytes()
-BOARD = Image.open(BytesIO(cairosvg.svg2png(bytestring=svg_source, output_width=400))).convert("RGBA")
-if BOARD.size != (400, 222):
-    raise ValueError(f"Unexpected rendered CRAFTING_TABLE.svg dimensions {BOARD.size}; expected 400x222")
+# The shared renderer reads only assets/CRAFTING_TABLE.svg; no raster fallback is allowed.
+BOARD = render_crafting_table_svg()
 
 # Crop the slot and arrow artwork from the directly rendered CRAFTING_TABLE.svg template.
 # The ingredient slot is reused vertically so every recipe uses one column.
