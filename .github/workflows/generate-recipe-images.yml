@@ -50,12 +50,16 @@ jobs:
       - name: Generate Grimoire Relics recipe images
         run: python scripts/generate_recipe_images.py
 
+      - name: Generate Grand Banquets item previews and recipe images
+        run: python scripts/generate_grand_banquets_recipe_images.py
+
       - name: Commit generated images
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add MCPEDL/addons/Monster-Companions/beast_biscuit_recipe.png
           git add MCPEDL/addons/Grimoire-Relics-V2/assets/recipes MCPEDL/addons/Grimoire-Relics-V2/assets/all_recipes_sheet.png
+          git add MCPEDL/addons/Grand-Banquets/assets/recipes
           if git diff --cached --quiet; then
             echo "Recipe images are already up to date."
           else
