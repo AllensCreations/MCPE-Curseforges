@@ -1,12 +1,12 @@
-# Melody Figurine (v1.0.6) — A Musical Mob Dance
+# Melody Figurine (v1.0.7) — A Musical Mob Dance
 
 **By AllensCreations**
 
-Place the Melody Figurine and interact with it to start its included song. Nearby mobs within 20 blocks spin and hop with colorful particles while the music plays.
+The Melody Figurine is a small decorative statue that starts its included song when interacted with. Nearby mobs within 20 blocks spin and hop with colorful particles while the music plays.
 
 ## Overview
 
-Melody Figurine adds a placeable musical block with a bundled, non-looping soundtrack. The current block and inventory icon use the vanilla Note Block texture as a placeholder; a custom figurine appearance has not been added yet.
+Place the figurine on the ground and interact with it to begin the soundtrack. The updated model uses a small colorful statue instead of a full cube, with a matching inventory icon.
 
 ## Key Features
 
@@ -18,7 +18,11 @@ Melody Figurine adds a placeable musical block with a bundled, non-looping sound
 - Mobs within a 20-block radius spin and hop while the song plays.
 - Colorful particle effects appear around nearby mobs.
 - Players, dropped items, projectiles, armor stands, and vehicles are excluded from the dance effects.
-- The dance effects stop at approximately the end of the included song (about 66 seconds).
+- The dance session is set to end at approximately the end of the soundtrack (about 66 seconds).
+
+### Decorative Figurine
+- A colorful statue model appears both as an inventory icon and when placed.
+- The figurine is designed as a small floor decoration.
 
 ## How to Use
 
@@ -54,4 +58,4 @@ Melody Figurine adds a placeable musical block with a bundled, non-looping sound
 
 ## Search & Discovery Keywords
 
-Minecraft Bedrock Melody Figurine add-on, Minecraft PE music add-on, dancing mobs add-on, mob dance particles, placeable musical block, custom soundtrack Bedrock, Minecraft Bedrock decorations, MCPEDL add-on, CurseForge Bedrock, AllensCreations.
+Minecraft Bedrock Melody Figurine add-on, Minecraft PE music add-on, dancing mobs add-on, mob dance particles, placeable musical figurine, custom soundtrack Bedrock, Minecraft Bedrock decorations, MCPEDL add-on, CurseForge Bedrock, AllensCreations.

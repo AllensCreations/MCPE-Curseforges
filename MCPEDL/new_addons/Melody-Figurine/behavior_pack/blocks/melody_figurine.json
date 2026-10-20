@@ -1,5 +1,5 @@
 {
-  "format_version": "1.21.0",
+  "format_version": "1.21.80",
   "minecraft:block": {
     "description": {
       "identifier": "melody:melody_figurine",
@@ -17,29 +17,31 @@
       },
       "minecraft:collision_box": {
         "origin": [
-          -8,
+          -6,
           0,
-          -8
+          -6
         ],
         "size": [
+          12,
           16,
-          16,
-          16
+          12
         ]
       },
       "minecraft:selection_box": {
         "origin": [
-          -8,
+          -6,
           0,
-          -8
+          -6
         ],
         "size": [
-          16,
-          16,
-          16
+          12,
+          20,
+          12
         ]
       },
-      "minecraft:geometry": "minecraft:geometry.full_block",
+      "minecraft:geometry": {
+        "identifier": "geometry.melody_figurine"
+      },
       "minecraft:material_instances": {
         "*": {
           "texture": "melody_figurine",
