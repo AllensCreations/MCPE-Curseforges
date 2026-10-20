@@ -75,7 +75,7 @@ Holding a Grimoire in your offhand dynamically attunes your character:
 - **Acquisition**: Craftable
 
 ### <img src="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/MCPEDL/addons/Grimoire-Relics-V2/assets/items/tome_void.png" width="20" height="20" alt="Void Phantom"> **Void Phantom**
-- **Abilities & Mechanics**: Emergency Void Rescue (The End only): Falling into the void launches you upward with a 2-second Level 60 fast phase elevation out of the abyss, followed by 1-second Slow Falling triggered at ground contact on descent to completely negate fall damage (5 min cooldown).
+- **Abilities & Mechanics**: Single-use Emergency Void Rescue (The End only): The first void fall launches you upward with a 2-second Level 60 phase elevation, followed by 1-second Slow Falling at touchdown. Activating it consumes and breaks the Void Phantom; there is no cooldown because it cannot be used again.
 - **Acquisition**: **Ancient Relic (Loot Only)**: Ancient Cities
 
 ### <img src="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/MCPEDL/addons/Grimoire-Relics-V2/assets/items/tome_golem.png" width="20" height="20" alt="Iron Golem"> **Iron Golem**
