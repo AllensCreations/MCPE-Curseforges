@@ -631,22 +631,22 @@ def update_project_readme(project_path, category, new_ver_str, primary_file=None
     with open(readme_path, encoding="utf-8") as f:
         content = f.read()
 
-    content = re.sub(r"\\[!\\[Release\\]\\([^)]+\\)\\]\\([^)]+\\)\\n?", "", content)
-    content = re.sub(r"\\[!\\[Changelog\\]\\([^)]+\\)\\]\\([^)]+\\)\\n?", "", content)
+    content = re.sub(r"\[!\[Release\]\([^)]+\)\]\([^)]+\)\n?", "", content)
+    content = re.sub(r"\[!\[Changelog\]\([^)]+\)\]\([^)]+\)\n?", "", content)
 
     lines = content.splitlines(keepends=True)
     for i, line in enumerate(lines):
         if i >= 5 or not line.startswith("# "):
             continue
-        newline = "\\n" if line.endswith("\\n") else ""
-        title = line.rstrip("\\r\\n")[2:].strip()
+        newline = "\n" if line.endswith("\n") else ""
+        title = line.rstrip("\r\n")[2:].strip()
         suffix = ""
         for sep in (" — ", " - ", " -- "):
             if sep in title:
                 title, rest = title.split(sep, 1)
                 suffix = sep + rest
                 break
-        title = re.sub(r"\\s*\\([vV]\\d+\\.\\d+\\.\\d+\\)\\s*$", "", title).strip()
+        title = re.sub(r"\s*\([vV]\d+\.\d+\.\d+\)\s*$", "", title).strip()
         lines[i] = f"# {title} (v{new_ver_str}){suffix}{newline}"
         break
     content = "".join(lines)
