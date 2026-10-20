@@ -72,7 +72,7 @@ To ensure the markdown renders identically on external platforms (MCPEDL, CurseF
 
    ## Search & Discovery Keywords
 
-   Minecraft Bedrock add-on, [Add-on Name] Bedrock mod, [Core Feature 1 from DESCRIPTION.md], [Core Feature 2 from DESCRIPTION.md], [Item/Mob Name from README], Minecraft PE survival, MCPEDL add-on, CurseForge Bedrock, AllensCreations.
+   Minecraft Bedrock add-on, [Add-on Name] Bedrock mod, [Core Feature 1 from DESCRIPTION.md], [Core Feature 2 from DESCRIPTION.md], [Item/Mob Name from DESCRIPTION.md], Minecraft PE survival, MCPEDL add-on, CurseForge Bedrock, AllensCreations.
    ```
 
 ### 4. Standard Project README.md Template
