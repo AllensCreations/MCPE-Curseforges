@@ -71,3 +71,12 @@ pixel_scaled = vanilla_icon.resize(slot_size, Image.Resampling.NEAREST)
 1. **Vanilla Parity:** Inspect vanilla recipes in `behavior_pack/recipes/` to match formatting version, group tags, and ingredient identifiers.
 2. **Durability and Defense:** Match armor values to the vanilla benchmark in the checked-out sample version. Inspect actual item definitions and relevant documentation before using values; do not rely on hardcoded examples here because vanilla values and schemas may change.
 3. **Texture Sourcing:** Prefer official vanilla textures for vanilla items in promotional materials. First verify that `/root/bedrock-samples/` exists and contains the required asset; if unavailable, report the limitation and do not pretend the asset was sourced.
+
+
+## 4. Mandatory Reference-First Workflow
+
+- Treat the current official Samples checkout as the source of truth for vanilla Bedrock content. Use it for all add-on work that depends on vanilla identifiers, textures, recipes, components, entity definitions, or data formats.
+- Inspect actual relevant files and the checked-out version before relying on a path or schema. Do not assume item identifiers correspond directly to PNG filenames.
+- For recipe-image generation, inventory all recipes first and resolve every vanilla ingredient against real Samples texture files and official texture atlas/index metadata when useful. Verify aliases and paths before rendering.
+- Pre-resolve all ingredient textures and report unresolved items together where practical. Fail clearly instead of using an unrelated placeholder or silently substituting a texture. Use the add-on's own resource-pack textures for custom items.
+- In CI, clone/fetch Samples and set the checkout root explicitly. Do not report success until generation finishes, the expected PNGs are committed, and image references resolve.
