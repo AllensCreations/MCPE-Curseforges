@@ -11,28 +11,59 @@ TEXTURES=ADDON/"resource_pack/textures/items/banquet"
 OUT=ADDON/"assets/recipes"
 SAMPLES=Path(os.environ.get("BEDROCK_SAMPLES_ROOT","/root/bedrock-samples"))/"resource_pack"
 OUT.mkdir(parents=True,exist_ok=True)
+# Explicit, source-verified texture filenames, following the Monster Companions
+# generator's direct item-ID-to-texture mapping approach. Keep each item mapped once.
 ALIASES={
-"apple_golden":"apple_golden","cocoa_beans":"dye_powder_brown","cooked_salmon":"fish_salmon_cooked","golden_carrot":"carrot_golden","pumpkin":"pumpkin_side","enchanted_golden_apple":"apple_golden","baked_potato":"potato_baked","cooked_beef":"beef_cooked",
-"cooked_chicken":"chicken_cooked","cooked_cod":"fish_cooked","cooked_mutton":"mutton_cooked",
-"cooked_porkchop":"porkchop_cooked","cooked_rabbit":"rabbit_cooked","cooked_salmon":"fish_salmon_cooked",
-"golden_apple":"apple_golden","lapis_lazuli":"dye_powder_blue","milk_bucket":"bucket_milk","raw_beef":"beef",
-"raw_chicken":"chicken","raw_cod":"fish","raw_mutton":"mutton_raw","raw_porkchop":"porkchop_raw",
-"raw_rabbit":"rabbit","raw_salmon":"salmon","red_mushroom":"mushroom_red",
-"brown_mushroom":"mushroom_brown","dragon_breath":"dragons_breath","wheat_seeds":"seeds_wheat","totem_of_undying":"totem",
-"bone_meal":"dye_powder_white","nautilus_shell":"nautilus","tropical_fish":"clownfish",
-"pufferfish":"fish_pufferfish_raw","porkchop":"porkchop_raw","cod":"fish","mutton":"mutton_raw"
+"apple_golden":"items/apple_golden.png",
+"enchanted_golden_apple":"items/apple_golden.png",
+"baked_potato":"items/potato_baked.png",
+"cooked_beef":"items/beef_cooked.png",
+"cooked_chicken":"items/chicken_cooked.png",
+"cooked_cod":"items/fish_cooked.png",
+"cooked_mutton":"items/mutton_cooked.png",
+"cooked_porkchop":"items/porkchop_cooked.png",
+"cooked_rabbit":"items/rabbit_cooked.png",
+"cooked_salmon":"items/fish_salmon_cooked.png",
+"cocoa_beans":"items/dye_powder_brown.png",
+"golden_apple":"items/apple_golden.png",
+"golden_carrot":"items/carrot_golden.png",
+"lapis_lazuli":"items/dye_powder_blue.png",
+"milk_bucket":"items/bucket_milk.png",
+"raw_beef":"items/beef.png",
+"raw_chicken":"items/chicken.png",
+"raw_cod":"items/fish.png",
+"raw_mutton":"items/mutton_raw.png",
+"raw_porkchop":"items/porkchop_raw.png",
+"raw_rabbit":"items/rabbit.png",
+"raw_salmon":"items/salmon.png",
+"red_mushroom":"items/mushroom_red.png",
+"brown_mushroom":"items/mushroom_brown.png",
+"dragon_breath":"items/dragons_breath.png",
+"wheat_seeds":"items/seeds_wheat.png",
+"totem_of_undying":"items/totem.png",
+"bone_meal":"items/dye_powder_white.png",
+"nautilus_shell":"items/nautilus.png",
+"tropical_fish":"items/clownfish.png",
+"pufferfish":"items/fish_pufferfish_raw.png",
+"porkchop":"items/porkchop_raw.png",
+"cod":"items/fish.png",
+"mutton":"items/mutton_raw.png",
+"pumpkin":"blocks/pumpkin_side.png",
 }
+
 def font(n):
     p=Path("/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf")
     return ImageFont.truetype(str(p),n) if p.exists() else ImageFont.load_default()
 def vanilla(item):
     short=item.split(":")[-1]
-    names=[ALIASES.get(short,short),short]
-    for name in dict.fromkeys(names):
-        for folder in ("items","blocks"):
-            p=SAMPLES/"textures"/folder/(name+".png")
-            if p.is_file():
-                return Image.open(p).convert("RGBA").resize((32,32),Image.Resampling.NEAREST)
+    mapped=ALIASES.get(short)
+    candidates=[SAMPLES/"textures"/mapped] if mapped else [
+        SAMPLES/"textures"/"items"/(short+".png"),
+        SAMPLES/"textures"/"blocks"/(short+".png"),
+    ]
+    for path in candidates:
+        if path.is_file():
+            return Image.open(path).convert("RGBA").resize((32,32),Image.Resampling.NEAREST)
     raise FileNotFoundError(f"No verified Bedrock Samples texture mapping/file for ingredient {item}")
 def recipe(path):
     d=json.loads(path.read_text(encoding="utf-8"))
