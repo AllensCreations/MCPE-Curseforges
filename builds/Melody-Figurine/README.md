@@ -8,9 +8,9 @@ This folder contains compiled release packages for **Melody Figurine** by Allens
 
 | File Name | Format | Size | Description | Download Link |
 | :--- | :--- | :--- | :--- | :--- |
-| **`Melody Figurine by AllensCreations (V1.0.6).mcaddon`** | `.mcaddon` | ~844 KB | Complete bundle containing both Behavior Pack and Resource Pack. | [Download (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Melody-Figurine/Melody%20Figurine%20by%20AllensCreations%20%28V1.0.6%29.mcaddon) |
-| **`Melody Figurine BP by AllensCreations (V1.0.6).mcpack`** | `.mcpack` | ~3 KB | Behavior Pack: Custom entities, components, and gameplay mechanics. | [Download (.mcpack)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Melody-Figurine/Melody%20Figurine%20BP%20by%20AllensCreations%20%28V1.0.6%29.mcpack) |
-| **`Melody Figurine RP by AllensCreations (V1.0.6).mcpack`** | `.mcpack` | ~840 KB | Resource Pack: Custom models, geometry, textures, and sounds. | [Download (.mcpack)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Melody-Figurine/Melody%20Figurine%20RP%20by%20AllensCreations%20%28V1.0.6%29.mcpack) |
+| **`Melody Figurine by AllensCreations (V1.0.7).mcaddon`** | `.mcaddon` | ~845 KB | Complete bundle containing both Behavior Pack and Resource Pack. | [Download (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Melody-Figurine/Melody%20Figurine%20by%20AllensCreations%20%28V1.0.7%29.mcaddon) |
+| **`Melody Figurine BP by AllensCreations (V1.0.7).mcpack`** | `.mcpack` | ~3 KB | Behavior Pack: Custom entities, components, and gameplay mechanics. | [Download (.mcpack)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Melody-Figurine/Melody%20Figurine%20BP%20by%20AllensCreations%20%28V1.0.7%29.mcpack) |
+| **`Melody Figurine RP by AllensCreations (V1.0.7).mcpack`** | `.mcpack` | ~841 KB | Resource Pack: Custom models, geometry, textures, and sounds. | [Download (.mcpack)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Melody-Figurine/Melody%20Figurine%20RP%20by%20AllensCreations%20%28V1.0.7%29.mcpack) |
 
 ---
 
