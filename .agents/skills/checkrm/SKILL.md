@@ -160,8 +160,9 @@ statuses such as:
 - `Logo: Not supplied`
 - `Banner: Not supplied`
 - Newly scaffolded stubs (e.g., contains `## Source Files`, `Review the included manifests...`, or generic one-line descriptions)
-- Incomplete documentation missing gameplay sections (`## Overview`, `## Features`, `## How It Works`)
-- Missing `README.md`
+- Incomplete DESCRIPTION.md files missing gameplay sections (`## Overview`, `## Features`, `## How It Works`)
+- Missing `README.md` or `DESCRIPTION.md` for an individual add-on
+- Individual add-on README.md files containing product information instead of only a download link
 - Broken relative markdown links or image targets across all repository catalogs and build readmes
 
 The script automatically performs a complete relative link integrity audit across all 37+ repository `README.md` files (catalogs, categories, project source, and builds) and reports any dead links or orphaned build directories.
