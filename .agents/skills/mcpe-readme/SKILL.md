@@ -30,11 +30,8 @@ Individual add-on README.md files are download-focused landing pages; detailed p
 
 ### 3. Formatting, External Readability & SEO
 To ensure the markdown renders identically on external platforms (MCPEDL, CurseForge, web portals, mobile apps):
-1. **Absolute Image URLs**:
-   All image embeds (`<img>` or `![]()`) in published project DESCRIPTION.md files must use verified absolute raw URLs. Do not embed images in individual add-on README.md files:
-   ```
-   https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/<path-to-image>
-   ```
+1. **No Images in Add-on Documentation**:
+   Individual add-on `DESCRIPTION.md` and `README.md` files must be text-only. Do not embed banners, screenshots, item sprites, recipe diagrams, artwork, or other images. Do not create image assets solely for these pages. This restriction does not automatically apply to root/category catalogs or other project types.
 2. **Absolute Navigation & Download Links**:
    For individual add-on README.md files, use a verified direct package download URL when available, or link only to the official download catalog. Put source navigation and all other links in DESCRIPTION.md. Use verified full GitHub URLs for published links. Relative links are appropriate for internal repository references where useful:
    ```
