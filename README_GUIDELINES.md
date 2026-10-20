@@ -1,4 +1,4 @@
-# Commercial & Promotional README and Changelog Guidelines
+# Commercial Product Description and Changelog Guidelines
 
 This document provides strict rules, writing guidelines, and templates for `README.md`, `DESCRIPTION.md`, and `CHANGELOG.md` across **MCPE-Curseforges**. Individual add-on README.md files are download-link-only; DESCRIPTION.md is the full player-facing product page. All published content must be clean, commercially presentable, and factual.
 
