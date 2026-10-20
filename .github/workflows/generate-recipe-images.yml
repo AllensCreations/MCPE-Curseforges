@@ -11,6 +11,9 @@ on:
       - 'scripts/generate_recipe_images.py'
       - 'scripts/generate_grand_banquets_recipe_images.py'
       - 'scripts/generate_monster_companions_recipe_image.py'
+      - 'scripts/convert_crafting_recipe_svgs_to_png.py'
+      - 'assets/CRAFTING_TABLE.svg'
+      - 'assets/CRAFTING_RECIPE*.svg'
       - '.github/workflows/generate-recipe-images.yml'
   workflow_dispatch:
 
@@ -40,6 +43,12 @@ jobs:
       - name: Install image library
         run: python -m pip install --disable-pip-version-check Pillow
 
+      - name: Install SVG to PNG converter
+        run: python -m pip install --disable-pip-version-check CairoSVG
+
+      - name: Export crafting recipe SVGs as PNGs
+        run: python scripts/convert_crafting_recipe_svgs_to_png.py
+
       - name: Get official Mojang Bedrock Samples textures
         run: |
           git clone --depth 1 https://github.com/Mojang/bedrock-samples.git /tmp/bedrock-samples
@@ -61,6 +70,7 @@ jobs:
           git add MCPEDL/addons/Monster-Companions/beast_biscuit_recipe.png
           git add MCPEDL/addons/Grimoire-Relics-V2/assets/recipes MCPEDL/addons/Grimoire-Relics-V2/assets/all_recipes_sheet.png
           git add MCPEDL/addons/Grand-Banquets/assets/recipes
+          git add assets/CRAFTING_TABLE.png assets/CRAFTING_RECIPE*.png
           if git diff --cached --quiet; then
             echo "Recipe images are already up to date."
           else
