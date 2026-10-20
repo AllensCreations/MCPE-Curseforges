@@ -249,17 +249,17 @@ def analyze_addon_source(proj_dir):
             with open(sf, "r", encoding="utf-8") as f:
                 content = f.read()
             if "world.beforeEvents.entityHurt" in content:
-                features.append("Real-time fatal damage cancellation protecting companion health.")
+                features.append("Protects companion health during damaging encounters.")
             if "world.afterEvents.playerInteractWithEntity" in content:
-                features.append("Interactive player entity management via Script API.")
+                features.append("Supports in-game interactions with selected entities.")
             if "system.runInterval" in content:
-                features.append("Continuous background monitoring ensuring persistent buffs.")
+                features.append("Maintains supported effects while their activation conditions are met.")
         except Exception:
             continue
 
     if not features:
-        features.append("Optimized Minecraft Bedrock mechanics built for smooth multiplayer and survival gameplay.")
-        features.append("Modular data-driven architecture compatible with standard worlds and Realms.")
+        features.append("Additional gameplay behavior is included in the project files.")
+        features.append("Check the project description and world settings for compatibility details.")
 
     return features, interactions
 
