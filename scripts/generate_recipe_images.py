@@ -151,7 +151,7 @@ files = [
 
 cols = 4
 rows = 4
-img_w, img_h = 800, 440
+img_w, img_h = 800, 444
 pad = 12
 
 sheet_w = cols * img_w + (cols + 1) * pad
