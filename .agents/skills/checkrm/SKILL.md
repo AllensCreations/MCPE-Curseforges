@@ -268,7 +268,7 @@ For any project:
 - Keep descriptions concise, polished, player-focused, and factual; avoid hype and filler.
 - Explain meaningful features rather than listing unsupported claims.
 - Never claim achievement support, no experimental features, compatibility, performance, or testing status without evidence.
-- Individual add-on README.md files must be image-free. DESCRIPTION.md may embed item sprites and crafting recipe diagrams only; verify those assets exist and use absolute raw GitHub URLs. Other project categories and catalogs may follow their own image rules.
+- Individual add-on README.md files must be image-free. Images in DESCRIPTION.md are optional, not mandatory. Do not create or embed item sprites or crafting recipe diagrams unless the user explicitly requests them or project-specific instructions require them. When included, verify the assets exist and use absolute raw GitHub URLs. Other project categories and catalogs may follow their own image rules.
 - Verify that every link destination exists.
 - Keep formatting consistent with verified repository conventions.
 - Do not include internal analysis or instructions to the assistant in the
@@ -410,7 +410,7 @@ When the user requests a single project update:
 3. Inspect relevant reference READMEs and catalogs.
 4. Identify missing, stale, or inaccurate documentation.
 5. Create or update the README.
-6. Verify badges, links, and claims; keep README.md image-free and limit DESCRIPTION.md images to item sprites and crafting recipe diagrams.
+6. Verify badges, links, and claims; keep README.md image-free. Only include item sprites or crafting recipe diagrams in DESCRIPTION.md when explicitly requested or required by project-specific instructions.
 7. Update relevant catalogs only when necessary.
 8. Run applicable validation commands.
 9. Review the final diff.
