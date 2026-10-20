@@ -4,9 +4,18 @@ This document provides strict rules, writing guidelines, and templates for creat
 
 ---
 
-## Part 1: README.md Guidelines
+## Part 1: README.md and DESCRIPTION.md Guidelines
 
 ### 1. Strictly Forbidden (Zero Developer Clutter)
+
+#### Mandatory File Separation: Download README vs. Product Description
+
+- For every individual add-on folder, `README.md` is **download-link only**. It may contain the add-on name/version and a direct downloadable `.mcaddon`/`.mcpack` link. If a direct link is unavailable, link only to the appropriate official download catalog.
+- Do not put the overview, feature list, recipes, how-to-use instructions, compatibility, achievement/experimental notes, screenshots, banners, attribution/profile links, SEO keywords, or changelog content in an individual add-on README.
+- Put all customer-facing product information in `DESCRIPTION.md`. Preserve existing verified content when moving it out of README.md; do not discard features or important usage/compatibility notes.
+- New add-ons must have both files: a short download-only README.md and a detailed DESCRIPTION.md written in polished, factual, player-facing language.
+- This restriction applies to individual project README files, not root/category download catalogs whose purpose is listing downloads. Other project categories should follow the user's latest explicit direction when they are updated.
+
 
 #### Customer-Facing Product Language — Mandatory
 
@@ -22,7 +31,7 @@ Write every published README and changelog as a polished, player/customer-facing
 
 README files are player showcase pages. They must NEVER contain internal developer artifacts, code jargon, or ephemeral version labels:
 - **Version information:** The in-game add-on title in each pack manifest must always use `Add-on Name (vX.Y.Z)` and match the release version. Put `by AllensCreations` in the manifest description, not in the title. README headings for add-ons should also include the verified version when maintained as part of a release; do not add redundant version badges or unverified values. Never allow duplicate suffixes such as `(v1.2.0) (v1.2.1)`.
-- **Creator profile links:** Include both official creator profiles in the published project README description or creator/attribution section: [CurseForge](https://www.curseforge.com/members/allenscreations/projects) and [MCPEDL](https://mcpedl.com/user/allenscreations/). Keep links out of the short in-game manifest description.
+- **Creator profile links:** Include both official creator profiles in the published project DESCRIPTION.md description or creator/attribution section, never in the download-only project README: [CurseForge](https://www.curseforge.com/members/allenscreations/projects) and [MCPEDL](https://mcpedl.com/user/allenscreations/). Keep links out of the short in-game manifest description.
 - ❌ **No Script API References**: Never mention `Script API` or `@minecraft/server` in badges, text, or tables. Use player-facing terms like "modern Minecraft Bedrock mechanics".
 - ❌ **No Code Blocks**: Do not include markdown code blocks (` ```javascript `, ` ```json `, ` ```text `).
 - ❌ **No Markdown Tables in Project READMEs**: Do not use Markdown tables (`| ... | ... |`) in individual project READMEs. Tables break on mobile screens by forcing horizontal overflow and awkward scrolling. Use clean mobile card sections (`### [Feature / Item Name]` with bullet points) instead.
@@ -50,8 +59,8 @@ To ensure the markdown renders identically on external platforms (MCPEDL, CurseF
    https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/<file>
    ```
 3. **Bottom Search & Discovery Keywords (SEO) — Grounded in the Add-on's README**:
-   Every individual project `README.md` should end with a tailored SEO section, with attribution/copyright immediately before it. Do not force SEO into directory catalogs or generic repository documentation. **Do NOT use generic placeholder keywords alone.**
-   - **Use the Add-on's README as the Basis**: Extract terms directly from the pack's actual features, mechanics, mob types, item names, commands, and gameplay benefits described across its cards and overview.
+   Every individual project `DESCRIPTION.md` should end with a tailored SEO section, with attribution/copyright immediately before it. Do not force SEO into directory catalogs or generic repository documentation. **Do NOT use generic placeholder keywords alone.**
+   - **Use the Add-on's DESCRIPTION.md as the Basis**: Extract terms directly from the pack's actual features, mechanics, mob types, item names, commands, and gameplay benefits described across its cards and overview.
    - **Structure**: Include high-intent player search phrases that directly match what the specific add-on offers.
    - **Formula**:
      1. General Bedrock anchors (`Minecraft Bedrock add-on`, `Minecraft PE mod`, `MCPEDL add-on`, `CurseForge Bedrock`, `AllensCreations`).
@@ -63,75 +72,55 @@ To ensure the markdown renders identically on external platforms (MCPEDL, CurseF
 
    ## Search & Discovery Keywords
 
-   Minecraft Bedrock add-on, [Add-on Name] Bedrock mod, [Core Feature 1 from README], [Core Feature 2 from README], [Item/Mob Name from README], Minecraft PE survival, MCPEDL add-on, CurseForge Bedrock, AllensCreations.
+   Minecraft Bedrock add-on, [Add-on Name] Bedrock mod, [Core Feature 1 from DESCRIPTION.md], [Core Feature 2 from DESCRIPTION.md], [Item/Mob Name from README], Minecraft PE survival, MCPEDL add-on, CurseForge Bedrock, AllensCreations.
    ```
 
-### 4. Standard Project README Template
+### 4. Standard Project README.md Template
 
 ```markdown
-# [Add-on Name] — [Clear, factual subtitle] by AllensCreations
+# [Add-on Name] (vX.Y.Z)
 
-![MCPEDL](https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/MCPEDL/[category]/[slug]/banner.jpg "MCPEDL")
+**Download:** [Download the add-on (.mcaddon)](verified-direct-download-link)
+```
 
-[![Minecraft Bedrock](https://img.shields.io/badge/Minecraft%20Bedrock-1.21.0%2B-brightgreen?style=flat-square&logo=minecraft)](https://github.com/AllensCreations/MCPE-Curseforges)
-<!-- Add achievement or no-experiments badges only after verifying each claim for this project. -->
-[![Format](https://img.shields.io/badge/Format-.MCADDON-orange?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/addons#available-add-ons)
+If the direct release file is not available yet, use only a link to the appropriate official download catalog. Do not add product information to this file.
+
+### 5. Standard Project DESCRIPTION.md Template
+
+```markdown
+# [Add-on Name] (vX.Y.Z) — [Clear, factual subtitle]
+
+[Verified banner image if available]
 
 **By AllensCreations**
 
-[One-sentence, appealing but factual summary of what the add-on delivers for players.]
-
----
+[Concise customer-facing summary.]
 
 ## Overview
 
-[Two or three concise sentences explaining the verified gameplay purpose, expected use, and relevant limitations. Mention achievement support, setup requirements, or multiplayer only when verified.]
-
----
+[Verified description of the in-game experience.]
 
 ## Key Features
 
-### [Feature Name]
-- **Description**: [Player-focused explanation of what it does]
+[Player-focused feature cards using normal Minecraft display names, never internal identifiers.]
 
-### [Feature Name]
-- **Description**: [Player-focused explanation of what it does]
+## How to Use
 
----
-
-## How It Works
-
-### [Interaction Name]
-- **Requirement**: [Required Item / Key / Action]
-- **What Happens**: [In-game result and visual feedback]
-
----
+[Verified player actions, requirements, crafting, and in-game behavior.]
 
 ## Compatibility
 
 - Minecraft Bedrock Edition: [verified minimum version]
-- Experimental features: [state only after checking the project]
-- Achievements: [state only when supported by evidence or testing]
-- Supported platforms and multiplayer: [list only verified targets]
+- Experimental features: [verified status]
+- Achievements: [verified status; do not promise without evidence]
 
----
+## Creator and Permissions
 
-## Guidelines and Attribution
-
-- Creator: AllensCreations
-- Rights & Reservation: All rights reserved for AllensCreations.
-- Content Creators: Permitted to feature this creation in videos and streams with credit to AllensCreations.
-- Redistribution: Do not re-upload this pack or provide direct monetized download bypasses. Link directly to the official repository page.
-
----
-
-© All rights reserved for AllensCreations.
-
----
+[Creator profiles, credit, and redistribution terms.]
 
 ## Search & Discovery Keywords
 
-Minecraft Bedrock add-on, [Add-on Name] Bedrock mod, Minecraft PE survival, MCPEDL add-on, CurseForge Bedrock, AllensCreations.
+[Relevant terms grounded in the actual features.]
 ```
 
 ---
