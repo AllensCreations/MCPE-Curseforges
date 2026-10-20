@@ -7,6 +7,19 @@ This document provides strict rules, writing guidelines, and templates for creat
 ## Part 1: README.md Guidelines
 
 ### 1. Strictly Forbidden (Zero Developer Clutter)
+
+#### Customer-Facing Product Language — Mandatory
+
+Write every published README and changelog as a polished, player/customer-facing product page. The reader should understand the in-game experience, not see implementation details.
+
+- Use familiar Minecraft display names, never internal item identifiers such as `minecraft:diamond`, `minecraft:iron_pickaxe`, `minecraft:totem_of_undying`, or similar namespace-prefixed, underscore-separated IDs. Write “Diamond,” “Iron Pickaxe,” and “Totem of Undying” instead.
+- Apply the same rule to block, mob, effect, enchantment, and other Minecraft names: use readable in-game names in public prose, headings, captions, recipes, and changelog entries.
+- Do not put raw source identifiers, variable/function names, event names, JSON keys/components, API module names, file paths, tick intervals, code snippets, stack traces, commit hashes, or build-pipeline details in player-facing documentation.
+- Explain what the player does, what happens in-game, what requirements apply, and what the practical benefit is. Do not explain the internal code path.
+- Keep technical identifiers in the actual implementation files where Minecraft requires them. This rule changes public wording, not valid code, recipe identifiers, or resource paths.
+- Exceptions are allowed only when the user explicitly requests technical documentation or a specific technical detail is essential for the reader. Explain it in plain language wherever possible.
+- Keep the tone commercial and professional, but factual: no hype, clickbait, filler, or unsupported promises.
+
 README files are player showcase pages. They must NEVER contain internal developer artifacts, code jargon, or ephemeral version labels:
 - **Version information:** The in-game add-on title in each pack manifest must always use `Add-on Name (vX.Y.Z)` and match the release version. Put `by AllensCreations` in the manifest description, not in the title. README headings for add-ons should also include the verified version when maintained as part of a release; do not add redundant version badges or unverified values. Never allow duplicate suffixes such as `(v1.2.0) (v1.2.1)`.
 - **Creator profile links:** Include both official creator profiles in the published project README description or creator/attribution section: [CurseForge](https://www.curseforge.com/members/allenscreations/projects) and [MCPEDL](https://mcpedl.com/user/allenscreations/). Keep links out of the short in-game manifest description.
