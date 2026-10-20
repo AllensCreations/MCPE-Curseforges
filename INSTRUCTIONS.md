@@ -442,12 +442,14 @@ Use this approach as the preferred editable workflow, not an absolute restrictio
 
 ## Crafting Recipe Image Format (Current Rule)
 
-- Use `assets/CRAFTING_TABLE.png` as the mandatory crafting-recipe base template for all future crafting recipe diagrams. Do not use or embed an SVG version as the final recipe image.
-- Save completed crafting recipe diagrams as PNG files so the image displays reliably on GitHub and external publishing platforms. Embed PNGs, not SVGs, in descriptions and documentation.
-- The `.github/workflows/generate-recipe-images.yml` workflow must convert `assets/CRAFTING_TABLE.svg` and `assets/CRAFTING_RECIPE*.svg` to PNG automatically using `scripts/convert_crafting_recipe_svgs_to_png.py`, and commit the generated PNG outputs.
-- The conversion script must embed remote `<image>` texture URLs as data URIs before rasterizing, so the final PNG does not depend on remote images and cannot inherit broken external image links.
-- Preserve the template's proportions, ingredient slots, arrow, and output slot. Keep ingredient placement spaces `#8A8A8A` and the output slot `#8B8B8B`, unless the approved PNG template itself is deliberately revised.
-- Flatten/compose the template and all recipe icons into the final PNG; do not depend on remote image URLs or external SVG image references, which can render as broken images.
-- Use inventory-style Minecraft Bedrock item icons for ingredients and results. Verify source assets in the official Mojang Bedrock Samples repository where possible, then embed the actual image pixels in the final PNG.
-- Match the real recipe layout and output count. Use one vertical column for recipe presentation when the recipe arrangement allows it, as requested by the user.
-- Keep the PNG recipe asset in the repository's `assets/` directory and link/embed that PNG where needed.
+- **The only crafting-interface reference is `assets/CRAFTING_TABLE.svg`.** This is a strict repository-wide rule for every add-on and every crafting-recipe generator. Read and render this exact SVG directly whenever a crafting board, slot, border, arrow, output area, proportions, or interface color is needed.
+- **Never use any other crafting reference.** Do not use `assets/CRAFTING_TABLE.png` as a design reference, `CRAFTINGBOARD.PNG`, other PNGs, screenshots, hand-drawn interfaces, remembered Minecraft GUIs, or an independently recreated board. If `assets/CRAFTING_TABLE.svg` is missing or unreadable, stop and report the problem; never substitute another image.
+- `assets/CRAFTING_TABLE.png` may exist only as an automatically generated raster export of the SVG for preview, delivery, or tooling that explicitly requires a PNG. It must never be read as the source for board design, slot cropping, colors, dimensions, or layout. Generators must load/render `assets/CRAFTING_TABLE.svg` directly (for example, rasterize it in memory) and derive interface artwork from that render.
+- Save completed recipe diagrams as PNG files so they display reliably on GitHub and external publishing platforms. Embed PNG outputs, not the template SVG, in descriptions and documentation.
+- The `.github/workflows/generate-recipe-images.yml` workflow must convert `assets/CRAFTING_TABLE.svg` and `assets/CRAFTING_RECIPE*.svg` to PNG automatically using `scripts/convert_crafting_recipe_svgs_to_png.py`, and commit generated PNG outputs.
+- The conversion script must embed remote `<image>` texture URLs as data URIs before rasterizing, so final PNGs do not depend on remote images or inherit broken external image links.
+- Preserve the SVG's proportions, ingredient slots, borders, arrow, output slot, and colors. Ingredient placement spaces use `#8A8A8A`; the output slot uses `#8B8B8B`, unless the SVG itself is deliberately revised by the user.
+- Compose the actual recipe icons and labels over source-derived SVG artwork; do not redraw or replace the interface elements. Do not depend on remote image URLs or external SVG image references in final PNGs.
+- Use inventory-style Minecraft Bedrock item icons for ingredients and results. Verify vanilla source assets in the official Mojang Bedrock Samples repository and embed the actual image pixels in the final PNG.
+- Read the real recipe JSON and preserve ingredient identities, quantities, result, and output count. Present ingredients in one vertical column as requested, unless the user explicitly changes this rule. The diagram is a visual guide; the recipe JSON remains authoritative.
+- Keep published recipe assets as PNGs in the project's asset directory and link/embed those PNGs where needed.
