@@ -150,6 +150,7 @@ CHANGELOG files communicate updates directly to players and community users. The
 
 ### 2. Player-First Language in Changelogs
 - **No links in changelogs — mandatory:** Never add hyperlinks, raw URLs, Markdown links, linked project names, badges, or link references anywhere in `CHANGELOG.md`. Keep changelogs focused on player-visible changes only. README link requirements do not apply to changelogs.
+- **No changelog boilerplate:** Do not add introductory prose stating that notable changes will be documented, or paragraphs explaining Keep a Changelog or Semantic Versioning. Do not include links to those standards. After the changelog title, go directly to the dated release entries (an optional horizontal rule is allowed).
 - ✅ **DO explain player impact**:
   - *"Decorative leaf protection: Custom player-placed hedges and bushes are now safely ignored by the tree capitator."*
   - *"Smooth dynamic lighting: Equipping or holding torches now illuminates dark caverns with zero stutter."*
@@ -162,8 +163,6 @@ CHANGELOG files communicate updates directly to players and community users. The
 
 ```markdown
 # Changelog — [Add-on Name]
-
-Record notable player-visible updates to **[Add-on Name]** by AllensCreations here. Do not list planned or unverified behavior as completed.
 
 ---
 
