@@ -5,7 +5,7 @@
   "num_mip_levels": 4,
   "texture_data": {
     "melody_figurine": {
-      "textures": "textures/blocks/noteblock"
+      "textures": "textures/blocks/melody_figurine"
     }
   }
 }
