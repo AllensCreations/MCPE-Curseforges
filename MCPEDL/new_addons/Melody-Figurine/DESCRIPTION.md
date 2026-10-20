@@ -1,36 +1,54 @@
-# Melody Figurine (v1.0.9) — A Musical Mob Dance
+# Melody Figurine (v1.0.10) — A Musical Mob Dance
 
 **By AllensCreations**
 
-Place the Melody Figurine and interact with it to start its included soundtrack. Nearby mobs within 20 blocks spin, hop, and sparkle with colorful particles. Nearby players see continuously shifting rainbow color fades, and the figurine gains a small orbiting musical sparkle effect while the song plays.
+Place the Melody Figurine and interact with it to start its included soundtrack. Nearby mobs within 20 blocks dance with different movement styles, colorful particles, and a short finale. The figurine gains orbiting musical sparkles while the song plays.
 
 ## Overview
 
-The Melody Figurine is a small decorative statue with a matching inventory icon. Interact with it to start one song-length dance session, with lively mob movement and soft, changing color fades.
+The Melody Figurine is a small decorative statue with a matching inventory icon and placed-block texture. Choose from four party modes to set the mood for each activation.
 
 ## Key Features
 
 ### Included Song
 - Interacting with the figurine starts its bundled soundtrack.
 - The song is intended to play once rather than loop.
+- The dance session is configured for approximately 66 seconds to match the current soundtrack timing.
+
+### Four Party Modes
+- **Party Mode:** Frequent spins, hops, colorful particles, and rainbow screen fades.
+- **Chill Mode:** Gentler movement with less frequent particles and screen fades.
+- **Dance Battle:** Faster turns, more frequent visual effects, and a stronger finale.
+- **Music Only:** Plays the song and figurine sparkle effect without forcing nearby mobs to dance or applying screen-color effects.
+
+### Selecting a Mode
+- Sneak-interact with the figurine to cycle through the four modes.
+- The selected mode is used the next time you activate the figurine.
+- Interact normally to start the song and selected mode.
 
 ### Nearby Mob Dance
-- Nearby mobs within a 20-block radius spin and hop more frequently while the session is active.
-- Colorful particles appear more frequently around nearby mobs.
-- Nearby players receive ongoing rainbow-colored screen fades with no solid-color hold, so the view transitions back toward normal between colors.
+- Nearby mobs within a 20-block radius can join while the session is active.
+- Hopping mobs, animals, flying mobs, and many hostile mobs use different simulated movement styles.
+- Colorful particles appear around dancing mobs.
+- Surviving mobs are returned to their original facing direction when the session ends.
 - Players, dropped items, projectiles, armor stands, and vehicles are excluded from mob dance effects.
-- The session is configured to end at approximately the end of the soundtrack (about 66 seconds).
+
+### Rainbow Screen Effects
+- Party Mode and Dance Battle use brief, changing rainbow screen fades; Chill Mode uses them less often.
+- The screen-fade effect does not provide true transparency or a direct opacity control. Short fades are used to limit how long the color obscures the view, but the effect is not a genuinely transparent overlay.
+- Music Only does not apply screen-color effects.
 
 ### Animated Musical Figurine
-- During the song, musical sparkles orbit near the figurine to give it a small, lively animation effect.
-- The placed statue model itself remains a block; the animation is created with particles around it.
+- Musical sparkles orbit near the figurine while the song plays.
+- During the final five seconds, the figurine gains a more energetic particle burst.
+- The placed statue model itself remains stationary; the small animation is created with particles around it.
 
 ## How to Use
 
 1. Import the add-on and enable both packs in your world settings.
-2. Obtain the Melody Figurine from the Creative inventory or with cheats enabled using the command /give @s melody:melody_figurine 1.
+2. Obtain the Melody Figurine from the Creative inventory or, with cheats enabled, use the command /give @s melody:melody_figurine 1.
 3. Place it on the ground.
-4. Interact with it to start the song, dance effects, particles, and screen-color fades.
+4. Sneak-interact to choose a mode, then interact normally to start the song and effects.
 
 ## Compatibility
 
@@ -60,4 +78,4 @@ The Melody Figurine is a small decorative statue with a matching inventory icon.
 
 ## Search & Discovery Keywords
 
-Minecraft Bedrock Melody Figurine add-on, Minecraft PE music add-on, dancing mobs add-on, mob dance particles, placeable musical figurine, custom soundtrack Bedrock, Minecraft Bedrock decorations, MCPEDL add-on, CurseForge Bedrock, AllensCreations.
+Minecraft Bedrock Melody Figurine add-on, Minecraft PE music add-on, dancing mobs add-on, mob dance particles, placeable musical figurine, custom soundtrack Bedrock, Minecraft Bedrock party modes, dancing hostile mobs, rainbow screen effects, MCPEDL add-on, CurseForge Bedrock, AllensCreations.
