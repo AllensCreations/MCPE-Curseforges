@@ -439,3 +439,13 @@ Use this approach as the preferred editable workflow, not an absolute restrictio
 - Build a complete ingredient-to-texture mapping before rendering any images. Report all unresolved ingredients together before generation where practical, instead of repeatedly failing on one missing item per run. Add documented aliases only after verifying the target texture exists and represents the correct vanilla item. Never silently substitute an unrelated texture.
 - Confirm custom ingredients/results against the add-on's own resource pack and vanilla ingredients against Mojang Samples. If a correct asset is absent or ambiguous, stop with a clear error or use another verified official reference; never create a misleading image.
 - Workflows that use Samples must fetch/clone it reproducibly, set its root path explicitly, and run the generator against that checkout. Update the relevant workflow whenever new generators or output paths are added, and do not claim images are published until generated files are committed and their links resolve.
+
+## Crafting Recipe Image Format (Current Rule)
+
+- Use `assets/CRAFTING_TABLE.png` as the mandatory crafting-recipe base template for all future crafting recipe diagrams. Do not use or embed an SVG version as the final recipe image.
+- Save completed crafting recipe diagrams as PNG files so the image displays reliably on GitHub and external publishing platforms. Embed PNGs, not SVGs, in descriptions and documentation.
+- Preserve the template's proportions, ingredient slots, arrow, and output slot. Keep ingredient placement spaces `#8A8A8A` and the output slot `#8B8B8B`, unless the approved PNG template itself is deliberately revised.
+- Flatten/compose the template and all recipe icons into the final PNG; do not depend on remote image URLs or external SVG image references, which can render as broken images.
+- Use inventory-style Minecraft Bedrock item icons for ingredients and results. Verify source assets in the official Mojang Bedrock Samples repository where possible, then embed the actual image pixels in the final PNG.
+- Match the real recipe layout and output count. Use one vertical column for recipe presentation when the recipe arrangement allows it, as requested by the user.
+- Keep the PNG recipe asset in the repository's `assets/` directory and link/embed that PNG where needed.
