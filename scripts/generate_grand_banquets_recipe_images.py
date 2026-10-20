@@ -196,7 +196,15 @@ if not BOARD_PATH.is_file():
     )
 BOARD = Image.open(BOARD_PATH).convert("RGBA")
 if BOARD.size != (400, 222):
-    raise ValueError(f"Unexpected crafting template dimensions {BOARD.size}; expected 400x222")
+    aspect_ratio = BOARD.width / BOARD.height
+    if abs(aspect_ratio - (400 / 222)) > 0.005:
+        raise ValueError(
+            f"Unexpected crafting template dimensions {BOARD.size}; "
+            "expected the 400x222 template proportions."
+        )
+    # The SVG converter exports at 800px wide. Normalize the rasterized
+    # template to the generator's coordinate system before cropping its slots.
+    BOARD = BOARD.resize((400, 222), Image.Resampling.LANCZOS)
 
 # Crop the slot and arrow artwork from the current SVG-derived template.
 # The ingredient slot is reused vertically so every recipe uses one column.
