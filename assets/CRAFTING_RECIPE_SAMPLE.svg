@@ -1,25 +1,54 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="720" height="520" viewBox="0 0 720 520">
-  <title>Crafting Recipe Diagram Sample</title>
-  <desc>Template showing nine ingredient placement spaces in one vertical column and a separate output slot marked 1. Background is #8B8B8B.</desc>
-  <rect width="720" height="520" fill="#8B8B8B"/>
-  <rect x="28" y="28" width="664" height="464" rx="12" fill="#373737" stroke="#202020" stroke-width="5"/>
-  <rect x="40" y="40" width="640" height="440" rx="8" fill="#C6C6C6" stroke="#EEEEEE" stroke-width="3"/>
-  <text x="360" y="76" font-family="Arial, sans-serif" font-size="24" font-weight="bold" text-anchor="middle" fill="#303030">CRAFTING RECIPE SAMPLE</text>
-  <text x="176" y="110" font-family="Arial, sans-serif" font-size="16" font-weight="bold" text-anchor="middle" fill="#303030">INGREDIENT PLACEMENT</text>
-  <text x="536" y="110" font-family="Arial, sans-serif" font-size="16" font-weight="bold" text-anchor="middle" fill="#303030">OUTPUT</text>
-  <g><rect x="140" y="124" width="72" height="30" fill="#8B8B8B" stroke="#555555" stroke-width="2"/><text x="176" y="145" font-family="Arial, sans-serif" font-size="13" text-anchor="middle" fill="#333333">1</text></g>
-  <g><rect x="140" y="160" width="72" height="30" fill="#8B8B8B" stroke="#555555" stroke-width="2"/><text x="176" y="181" font-family="Arial, sans-serif" font-size="13" text-anchor="middle" fill="#333333">2</text></g>
-  <g><rect x="140" y="196" width="72" height="30" fill="#8B8B8B" stroke="#555555" stroke-width="2"/><text x="176" y="217" font-family="Arial, sans-serif" font-size="13" text-anchor="middle" fill="#333333">3</text></g>
-  <g><rect x="140" y="232" width="72" height="30" fill="#8B8B8B" stroke="#555555" stroke-width="2"/><text x="176" y="253" font-family="Arial, sans-serif" font-size="13" text-anchor="middle" fill="#333333">4</text></g>
-  <g><rect x="140" y="268" width="72" height="30" fill="#8B8B8B" stroke="#555555" stroke-width="2"/><text x="176" y="289" font-family="Arial, sans-serif" font-size="13" text-anchor="middle" fill="#333333">5</text></g>
-  <g><rect x="140" y="304" width="72" height="30" fill="#8B8B8B" stroke="#555555" stroke-width="2"/><text x="176" y="325" font-family="Arial, sans-serif" font-size="13" text-anchor="middle" fill="#333333">6</text></g>
-  <g><rect x="140" y="340" width="72" height="30" fill="#8B8B8B" stroke="#555555" stroke-width="2"/><text x="176" y="361" font-family="Arial, sans-serif" font-size="13" text-anchor="middle" fill="#333333">7</text></g>
-  <g><rect x="140" y="376" width="72" height="30" fill="#8B8B8B" stroke="#555555" stroke-width="2"/><text x="176" y="397" font-family="Arial, sans-serif" font-size="13" text-anchor="middle" fill="#333333">8</text></g>
-  <g><rect x="140" y="412" width="72" height="30" fill="#8B8B8B" stroke="#555555" stroke-width="2"/><text x="176" y="433" font-family="Arial, sans-serif" font-size="13" text-anchor="middle" fill="#333333">9</text></g>
-  <path d="M250 284 H410" stroke="#555555" stroke-width="7" stroke-linecap="round"/>
-  <path d="M390 264 L412 284 L390 304" fill="none" stroke="#555555" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
-  <rect x="484" y="246" width="104" height="76" fill="#8B8B8B" stroke="#555555" stroke-width="3"/>
-  <text x="536" y="276" font-family="Arial, sans-serif" font-size="26" font-weight="bold" text-anchor="middle" fill="#222222">1</text>
-  <text x="536" y="300" font-family="Arial, sans-serif" font-size="13" text-anchor="middle" fill="#333333">ITEM</text>
-  <text x="360" y="472" font-family="Arial, sans-serif" font-size="14" text-anchor="middle" fill="#303030">Transparent areas filled with #8B8B8B • Example layout only</text>
+<svg xmlns="http://www.w3.org/2000/svg" width="720" height="520" viewBox="0 0 720 520" shape-rendering="crispEdges">
+<title>Wooden Pickaxe Crafting Recipe Sample</title>
+<desc>Single-column ingredient reference with Minecraft-style pixel-art oak planks and sticks, and a wooden pickaxe output. Ingredient list: 3 oak planks and 2 sticks. Background #8B8B8B.</desc>
+<rect width="720" height="520" fill="#8B8B8B"/>
+<rect x="28" y="28" width="664" height="464" rx="10" fill="#373737" stroke="#202020" stroke-width="5"/>
+<rect x="40" y="40" width="640" height="440" rx="6" fill="#C6C6C6" stroke="#EEEEEE" stroke-width="3"/>
+<text x="360" y="76" font-family="Arial,sans-serif" font-size="24" font-weight="bold" text-anchor="middle" fill="#303030">WOODEN PICKAXE</text>
+<text x="176" y="110" font-family="Arial,sans-serif" font-size="16" font-weight="bold" text-anchor="middle" fill="#303030">INGREDIENTS</text>
+<text x="536" y="110" font-family="Arial,sans-serif" font-size="16" font-weight="bold" text-anchor="middle" fill="#303030">OUTPUT</text>
+<rect x="122" y="122" width="108" height="32" fill="#8B8B8B" stroke="#555" stroke-width="2"/>
+<rect x="122" y="158" width="108" height="32" fill="#8B8B8B" stroke="#555" stroke-width="2"/>
+<rect x="122" y="194" width="108" height="32" fill="#8B8B8B" stroke="#555" stroke-width="2"/>
+<rect x="122" y="230" width="108" height="32" fill="#8B8B8B" stroke="#555" stroke-width="2"/>
+<rect x="122" y="266" width="108" height="32" fill="#8B8B8B" stroke="#555" stroke-width="2"/>
+<rect x="122" y="302" width="108" height="32" fill="#8B8B8B" stroke="#555" stroke-width="2"/>
+<rect x="122" y="338" width="108" height="32" fill="#8B8B8B" stroke="#555" stroke-width="2"/>
+<rect x="122" y="374" width="108" height="32" fill="#8B8B8B" stroke="#555" stroke-width="2"/>
+<rect x="122" y="410" width="108" height="32" fill="#8B8B8B" stroke="#555" stroke-width="2"/>
+<!-- Oak planks sprite -->
+<g transform="translate(160 125)">
+<rect x="0" y="0" width="32" height="24" fill="#B9824A" stroke="#6E4829" stroke-width="2"/>
+<rect x="2" y="2" width="28" height="5" fill="#D5A66A"/><rect x="2" y="10" width="28" height="4" fill="#A66C38"/><rect x="2" y="17" width="28" height="5" fill="#C18B50"/>
+<path d="M8 2v5 M22 10v4 M12 17v5" stroke="#8B5A31" stroke-width="2"/>
+</g>
+<text x="198" y="145" font-family="Arial,sans-serif" font-size="13" font-weight="bold" fill="#222">×3</text>
+<!-- stick sprite -->
+<g transform="translate(169 163) rotate(-25 8 12)">
+<rect x="3" y="0" width="8" height="25" fill="#A87545" stroke="#69472A" stroke-width="2"/>
+<rect x="5" y="2" width="2" height="20" fill="#D0A16A"/>
+</g>
+<text x="198" y="181" font-family="Arial,sans-serif" font-size="13" font-weight="bold" fill="#222">×2</text>
+<text x="176" y="217" font-family="Arial,sans-serif" font-size="12" text-anchor="middle" fill="#555">Remaining slots</text>
+<text x="176" y="253" font-family="Arial,sans-serif" font-size="12" text-anchor="middle" fill="#555">left empty</text>
+<text x="176" y="289" font-family="Arial,sans-serif" font-size="12" text-anchor="middle" fill="#555">left empty</text>
+<text x="176" y="325" font-family="Arial,sans-serif" font-size="12" text-anchor="middle" fill="#555">left empty</text>
+<text x="176" y="361" font-family="Arial,sans-serif" font-size="12" text-anchor="middle" fill="#555">left empty</text>
+<text x="176" y="397" font-family="Arial,sans-serif" font-size="12" text-anchor="middle" fill="#555">left empty</text>
+<text x="176" y="433" font-family="Arial,sans-serif" font-size="12" text-anchor="middle" fill="#555">left empty</text>
+<path d="M260 284 H408" stroke="#555" stroke-width="7" stroke-linecap="round"/>
+<path d="M389 264 L411 284 L389 304" fill="none" stroke="#555" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+<rect x="470" y="224" width="132" height="120" fill="#8B8B8B" stroke="#555" stroke-width="3"/>
+<!-- Pixel-art wooden pickaxe icon -->
+<g transform="translate(492 239)">
+<!-- handle -->
+<path d="M36 24h12v12H36v12H24v12H12v12H0V60h12V48h12V36h12z" fill="#8A5A32" stroke="#56371F" stroke-width="2"/>
+<path d="M36 28h6v8h-6v12h-8v12h-8v8h-8v-6h8v-8h8V42h8z" fill="#C28A4F"/>
+<!-- pickaxe head -->
+<path d="M0 12h12V0h60v12H60v12H48V12H24v12H12v12H0z" fill="#B9824A" stroke="#674525" stroke-width="3"/>
+<path d="M12 6h48v6H24v6H12z" fill="#D6A36A"/>
+<path d="M6 18h12v6H6z M48 18h12v6H48z" fill="#8E5D32"/>
+</g>
+<text x="536" y="326" font-family="Arial,sans-serif" font-size="12" font-weight="bold" text-anchor="middle" fill="#222">WOODEN PICKAXE</text>
+<text x="360" y="468" font-family="Arial,sans-serif" font-size="13" text-anchor="middle" fill="#303030">Sample ingredient list • Background: #8B8B8B</text>
 </svg>
