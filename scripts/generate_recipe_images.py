@@ -1,6 +1,5 @@
 import os
 import json
-import re
 from pathlib import Path
 from PIL import Image
 from crafting_template import compose_recipe_diagram
@@ -103,10 +102,6 @@ def get_ingredient_icon(item_id):
         if im.size != (16, 16):
             im = im.resize((16, 16), Image.Resampling.NEAREST)
         return im
-
-def make_crafting_gui():
-    """Render the one authorized source, assets/CRAFTING_TABLE.svg."""
-    return render_crafting_table_svg()
 
 RECIPES_DIR = "MCPEDL/addons/Grimoire-Relics-V2/behavior_pack/recipes"
 RP_TEXTURES = "MCPEDL/addons/Grimoire-Relics-V2/resource_pack/textures/items"
