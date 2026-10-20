@@ -13,8 +13,6 @@ on:
       - 'scripts/generate_monster_companions_recipe_image.py'
       - 'scripts/convert_crafting_recipe_svgs_to_png.py'
       - 'assets/CRAFTING_TABLE.svg'
-      - 'assets/CRAFTINGBOARD.PNG'
-      - 'assets/CRAFTINGBOARD.png'
       - 'assets/CRAFTING_RECIPE*.svg'
       - '.github/workflows/generate-recipe-images.yml'
   workflow_dispatch:
