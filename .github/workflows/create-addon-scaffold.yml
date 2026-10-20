@@ -203,8 +203,8 @@ jobs:
               if pure.parts[0] in (".git", "_incoming"):
                   fail(f"Reserved directory in payload path: {path}")
 
-              if pure.name == "README.md":
-                  fail("README.md is generated automatically.")
+              if pure.name in ("README.md", "DESCRIPTION.md"):
+                  fail(f"{pure.name} is generated automatically.")
 
               if path in normalized:
                   fail(f"Duplicate normalized path: {path}")
