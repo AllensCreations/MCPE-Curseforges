@@ -36,7 +36,7 @@ Repository documentation must render cleanly across CurseForge, MCPEDL, Planet M
 All documentation must render cleanly across GitHub, CurseForge, and synced MCPEDL pages.
 
 ### Rules:
-- **Published project DESCRIPTION.md images:** Use verified absolute raw GitHub URLs so images render on external platforms. Individual add-on README.md files must not contain images. Example: `![Project banner](https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/MCPEDL/addons/<project>/banner.jpg)`.
+- **No images in add-on descriptions:** Individual add-on `DESCRIPTION.md` and `README.md` files must not embed images, banners, screenshots, item sprites, or recipe diagrams. Keep descriptions text-only. Do not create or add image assets for add-on descriptions unless the user explicitly reverses this rule. Image use in unrelated catalogs or non-add-on project categories is governed by their own instructions.
 - **Internal references:** Relative paths are appropriate for links between repository files where useful; avoid relative image embeds in published READMEs intended for external platforms.
 - **CurseForge HTML editor:** If HTML image sizing is explicitly needed, use relative widths and omit fixed height so images can scale proportionally.
 - **Spoiler Markup:** When adding collapsible spoilers (crafting recipes, detailed tables, changelogs), use the official markup in CurseForge's `</>` editor:
@@ -96,7 +96,7 @@ Pack descriptions must be polished, player-focused, and commercially presentable
 ## 3. README.md and DESCRIPTION.md Responsibilities
 
 - **Individual add-on `README.md` files are download-focused landing pages.** Include the add-on name and verified version, direct `.mcaddon`/`.mcpack` download or official catalog link, package format, short generic import instructions, and a link to the project's `DESCRIPTION.md`. Do not duplicate feature lists, recipes, detailed usage, compatibility claims, screenshots, banners, creator bios, SEO keywords, or changelog content in README; those belong in `DESCRIPTION.md`.
-- **Move all player-facing add-on information to `DESCRIPTION.md`.** This is the customer-facing product page. It contains the commercial-but-factual overview, features, usage, recipes, compatibility, achievement/experimental status, images, creator attribution, profile links, permissions, and search keywords where appropriate. Never lose existing verified information when migrating from README.md.
+- **Move all player-facing add-on information to `DESCRIPTION.md`.** This is the text-only customer-facing product page. It contains the commercial-but-factual overview, features, usage, recipes, compatibility, achievement/experimental status, creator attribution, profile links, permissions, and search keywords where appropriate. Do not embed images or create image assets for this page. Never lose existing verified information when migrating from README.md.
 - **Do not confuse project pages with directory catalogs.** Root and category catalog README files may continue listing available projects, versions, and download links as their purpose requires. The download-only rule applies to individual project README files.
 - **Apply the same split to existing add-ons when updating them:** preserve/move the current informative README content into `DESCRIPTION.md`, then replace the individual README with the short download-link page. Avoid duplicate full descriptions across both files.
 - **New add-on scaffold:** create both files. Generate a download-only README and a DESCRIPTION.md starter that the add-on documentation workflow/agent fills with verified, player-facing details.
@@ -143,29 +143,23 @@ Every individual add-on DESCRIPTION.md that includes attribution must place that
 
 ---
 
-## 6. Visual Assets and Images
+## 6. Add-on Description Image Restriction
 
-When relevant visual assets (promotional banners, artwork, item previews, recipe infographics) exist in the repository, consider incorporating them into the project's DESCRIPTION.md. Do not place product images or artwork in a download-only project README:
-
-1. Hero Banner: Placed near the top of DESCRIPTION.md below the main title.
-2. Pack Artwork: Displayed in the Overview or Features section of DESCRIPTION.md.
-3. Recipe Infographics: Placed in the Crafting Recipes section of DESCRIPTION.md as pre-rendered standalone PNG images.
-4. Item Sprites: Displayed alongside item specifications in DESCRIPTION.md.
+- Individual add-on `DESCRIPTION.md` and `README.md` files must remain text-only. Do not embed banners, screenshots, artwork, recipe diagrams, item sprites, or other images.
+- Do not create new image assets for the purpose of displaying them in an add-on description.
+- Existing image assets may remain in the repository for other approved uses, but do not reference them from add-on `DESCRIPTION.md` files.
+- This rule applies to add-on documentation; follow the relevant instructions for root/category catalogs, maps, and other project types.
 
 ---
 
 
 
-## 6A. Minecraft Bedrock Recipe Images — Mandatory Source-Based Workflow
+## 6A. Recipe Documentation Without Images
 
-- **Never use AI image generation** for crafting recipe diagrams, item previews, or other Minecraft pack visuals unless the user explicitly asks for AI-generated artwork. The default is **no generated artwork**.
-- For crafting recipe diagrams, build the image programmatically from the actual recipe JSON, the add-on's real result-item texture, and vanilla ingredient textures from Mojang's official [Bedrock Samples](https://github.com/Mojang/bedrock-samples) repository.
-- Source vanilla item textures from `/root/bedrock-samples/resource_pack/textures/`. Confirm every file exists in the checked-out sample version before using it. Do not redraw, approximate, or substitute unrelated icons.
-- Read the actual recipe JSON first. Render shaped recipes in their declared pattern; render shapeless recipes with a clear unordered ingredient layout so the image does not imply fixed ingredient positions. Show the correct output item and output count.
-- Use nearest-neighbor scaling for pixel art. Keep the crafting interface Minecraft Bedrock-style and readable, with transparent ingredient icons composited cleanly into slots.
-- Save the final standalone PNG in the relevant add-on folder and update its DESCRIPTION.md to embed the verified image using the repository's raw GitHub URL. Do not reference a missing image or leave an outdated recipe screenshot in place.
-- Keep a reusable Python generator under `scripts/` where practical. It must read the real recipe data and fail clearly if the sample texture pack, ingredient texture, result texture, or recipe file is missing. Do not claim an image was sourced from Bedrock Samples unless the texture paths and assets were actually checked.
-- Do not change recipe ingredients, result count, or shaped/shapeless behavior just to match an image. The recipe JSON is authoritative; update the diagram to match it.
+- Do not create or embed crafting recipe diagrams, item previews, banners, or other images in individual add-on `DESCRIPTION.md` files.
+- Explain crafting recipes in readable text using verified ingredient names, quantities, output counts, and shaped/shapeless behavior where relevant.
+- The actual recipe JSON is authoritative. Never change ingredients, output count, or recipe behavior to fit documentation.
+- Do not create image assets solely for display in an add-on description. If the user later requests recipe images for another approved destination, follow the source-based asset rules and inspect the actual recipe and vanilla textures first.
 
 ## Minecraft Bedrock Crafting Recipe Unlock Rule — Mandatory
 
