@@ -1,3 +1,3 @@
-# Sudden-Death-Roulette
+# Sudden Death Roulette (v1.0.0)
 
-**Download:** [Open the official Existing Add-ons download catalog](https://github.com/AllensCreations/MCPE-Curseforges/blob/main/MCPEDL/addons/README.md#available-add-ons)
+**Download:** [Download the add-on (.mcpack)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Sudden-Death-Roulette/Sudden%20Death%20Roulette%20by%20AllensCreations%20%28V1.0.0%29.mcpack)
