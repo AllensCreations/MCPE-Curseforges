@@ -78,7 +78,7 @@ Treat every public-facing add-on page as a polished product listing written for 
 - **Keep internal identifiers inside implementation files only.** Technical IDs may be used where the game requires them in JSON, JavaScript, functions, recipes, localization keys, manifests, and other source files. Do not alter valid source identifiers just to make them look customer-friendly; change only public-facing prose and display text when appropriate.
 - **Describe mechanics, not code.** For example, write “The ability activates when you use the relic” instead of describing an event handler, script callback, component, or tick interval. Explain controls and requirements from the player's perspective.
 - **Use customer-friendly names consistently.** Prefer the in-game display name or a clear, readable feature name. Avoid snake_case, namespace prefixes, file extensions, raw enum values, and developer abbreviations in headings, bullets, tables, badges, and captions.
-- **Changelog links — forbidden.** Do not add hyperlinks, raw URLs, linked project names, badges, or link references anywhere in a project's `CHANGELOG.md`. Changelogs must contain only concise, player-facing descriptions of changes. This rule applies even when README files are required to include creator profiles or download/source links.
+- **Changelog links — forbidden.** Do not add hyperlinks, raw URLs, linked project names, badges, or link references anywhere in a project's `CHANGELOG.md`. Changelogs must contain only concise, player-facing descriptions of changes. README download-link rules do not apply to DESCRIPTION.md.
 - **Commercial does not mean exaggerated.** Keep the presentation polished and appealing but factual. Do not invent benefits, use clickbait, add filler, or promise unverified compatibility, performance, achievements, or features.
 - **Exceptions:** Keep technical details in source code, internal developer notes, or a technical document when the user explicitly asks for them. When a public-facing guide must mention a requirement, translate it into clear player language and include only what the player needs to know.
 
@@ -126,7 +126,7 @@ When publishing and synchronizing projects between CurseForge and MCPEDL:
 
 ## 5. Mandatory Guidelines and Attribution Section
 
-Every individual project README that includes attribution must place that section immediately before its final Search & Discovery Keywords section. Catalog READMEs do not need project-specific SEO or attribution boilerplate.
+Every individual add-on DESCRIPTION.md that includes attribution must place that section immediately before its final Search & Discovery Keywords section. Download-only project READMEs and catalog READMEs do not need project-specific SEO or attribution boilerplate.
 
 ```markdown
 ## Guidelines and Attribution
