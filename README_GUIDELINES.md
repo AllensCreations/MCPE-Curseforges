@@ -1,6 +1,6 @@
 # Commercial Product Description and Changelog Guidelines
 
-This document provides strict rules, writing guidelines, and templates for `README.md`, `DESCRIPTION.md`, and `CHANGELOG.md` across **MCPE-Curseforges**. Individual add-on README.md files are download-link-only; DESCRIPTION.md is the full player-facing product page. All published content must be clean, commercially presentable, and factual.
+This document provides strict rules, writing guidelines, and templates for `README.md`, `DESCRIPTION.md`, and `CHANGELOG.md` across **MCPE-Curseforges**. Individual add-on README.md files are download-focused landing pages; DESCRIPTION.md is the full player-facing product page. All published content must be clean, commercially presentable, and factual.
 
 ---
 
@@ -10,8 +10,8 @@ This document provides strict rules, writing guidelines, and templates for `READ
 
 #### Mandatory File Separation: Download README vs. Product Description
 
-- For every individual add-on folder, `README.md` is **download-link only**. It may contain the add-on name/version and a direct downloadable `.mcaddon`/`.mcpack` link. If a direct link is unavailable, link only to the appropriate official download catalog.
-- Do not put the overview, feature list, recipes, how-to-use instructions, compatibility, achievement/experimental notes, screenshots, banners, attribution/profile links, SEO keywords, or changelog content in an individual add-on README.
+- For every individual add-on folder, `README.md` is a **download-focused landing page**. Include the add-on name/version, direct downloadable `.mcaddon`/`.mcpack` link (or official download catalog if no direct file is available), package format, short generic import instructions, and a link to `DESCRIPTION.md`.
+- Keep detailed product content in `DESCRIPTION.md`. Do not duplicate feature lists, recipes, detailed usage, compatibility claims, screenshots, banners, creator profile links, SEO keywords, or changelog content in README.
 - Put all customer-facing product information in `DESCRIPTION.md`. Preserve existing verified content when moving it out of README.md; do not discard features or important usage/compatibility notes.
 - New add-ons must have both files: a short download-only README.md and a detailed DESCRIPTION.md written in polished, factual, player-facing language.
 - This restriction applies to individual project README files, not root/category download catalogs whose purpose is listing downloads. Other project categories should follow the user's latest explicit direction when they are updated.
@@ -19,7 +19,7 @@ This document provides strict rules, writing guidelines, and templates for `READ
 
 #### Customer-Facing Product Language — Mandatory
 
-Write every DESCRIPTION.md and changelog as polished, player/customer-facing content. The reader should understand the in-game experience, not see implementation details. Individual add-on README.md files contain only the product title/version and download link.
+Write every DESCRIPTION.md and changelog as polished, player/customer-facing content. The reader should understand the in-game experience, not see implementation details. Individual add-on README.md files focus on release/download details, basic import steps, and a link to DESCRIPTION.md.
 
 - Use familiar Minecraft display names, never internal item identifiers such as `minecraft:diamond`, `minecraft:iron_pickaxe`, `minecraft:totem_of_undying`, or similar namespace-prefixed, underscore-separated IDs. Write “Diamond,” “Iron Pickaxe,” and “Totem of Undying” instead.
 - Apply the same rule to block, mob, effect, enchantment, and other Minecraft names: use readable in-game names in public prose, headings, captions, recipes, and changelog entries.
@@ -53,7 +53,7 @@ To ensure the markdown renders identically on external platforms (MCPEDL, CurseF
    https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/<path-to-image>
    ```
 2. **Navigation & Download Links**:
-   For individual add-on README.md files, use a verified direct package URL when available, or link only to the official download catalog. Put source navigation and all other links in DESCRIPTION.md. Use verified full GitHub URLs for published links so they work outside GitHub. Relative links remain appropriate for internal repository documentation when useful:
+   For individual add-on README.md files, use a verified direct package URL when available (or the official download catalog), plus a link to the matching DESCRIPTION.md. Keep source navigation and detailed product links in DESCRIPTION.md. Use verified full GitHub URLs for published links so they work outside GitHub. Relative links remain appropriate for internal repository documentation when useful:
    ```
    https://github.com/AllensCreations/MCPE-Curseforges/tree/main/<path>
    https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/<file>
