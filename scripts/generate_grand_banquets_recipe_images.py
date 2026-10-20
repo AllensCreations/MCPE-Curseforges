@@ -48,7 +48,8 @@ ALIASES={
 "porkchop":"items/porkchop_raw.png",
 "cod":"items/fish.png",
 "mutton":"items/mutton_raw.png",
-"emerald":"items/emerald.png",
+"emerald":"items/emerald.png",  # inventory sprite, not a block texture
+"emerald_block":"blocks/emerald_block.png",  # only for the Emerald Block ingredient
 "pumpkin":"blocks/pumpkin_side.png",  # rendered as a small 3D block icon below
 "bowl":"items/bowl.png",
 "egg":"items/egg.png",
@@ -63,7 +64,6 @@ ALIASES={
 "phantom_membrane":"items/phantom_membrane.png",
 "sweet_berries":"items/sweet_berries.png",
 "glow_berries":"items/glow_berries.png",
-"emerald_block":"blocks/emerald_block.png",
 "dried_kelp":"items/dried_kelp.png",
 "warped_fungus":"blocks/warped_fungus.png",
 "beetroot":"items/beetroot.png",
