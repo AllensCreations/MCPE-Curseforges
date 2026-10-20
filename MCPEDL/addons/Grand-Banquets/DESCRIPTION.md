@@ -21,7 +21,7 @@ Preview all 32 custom dishes included in the add-on.
 
 ## Crafting Recipes
 
-These diagrams are generated from the actual recipe files and the add-on's food textures. Shaped recipes preserve ingredient positions; shapeless recipes show ingredients without implying fixed positions.
+Each diagram uses the repository's crafting-board reference and Minecraft inventory-style item icons. Ingredients are listed in one vertical column, with repeated ingredients counted and the finished dish shown separately. These images are simplified guides, not literal crafting-grid patterns; use the recipe unlocks and actual in-game recipe behavior as the source of truth.
 
 ### Tier I — Rustic Sustenance
 
@@ -55,8 +55,13 @@ These diagrams are generated from the actual recipe files and the add-on's food 
 
 ## Compatibility
 
-- **Minecraft Bedrock Edition:** The current project description lists 1.21.0+.
-- **Experiments and achievements:** Check the current world and pack settings; this description does not claim achievement compatibility.
+- **Minecraft Bedrock Edition:** The pack manifests declare 1.21.0 as the minimum engine version.
+- **Experiments:** No experiment requirement has been confirmed from this documentation update. Check the current pack and world setup for your specific release.
+- **Achievements:** Unknown. The pack files alone do not establish achievement status for every world or platform.
+
+## Feedback and Suggestions
+
+Found a bug or a feature that is not working as expected? Please leave a comment and let me know. Ideas for another add-on or a new feature are welcome.
 
 ## Creator and Permissions
 
