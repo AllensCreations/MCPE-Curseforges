@@ -59,7 +59,7 @@ All documentation must render cleanly across GitHub, CurseForge, and synced MCPE
 - Manifest `header.description` must contain `by AllensCreations` exactly once. Preserve the existing description and normalize attribution instead of appending duplicates.
 - A title validator must check every project manifest under `MCPEDL/`: require exactly one terminal `(vX.Y.Z)` suffix, require that version to match `header.version`, and reject malformed or duplicated version suffixes. For an add-on with both `behavior_pack/` and `resource_pack/` manifests, their displayed release versions must match.
 - Run the validator in the release workflow and fail the job on any violation. The validator must report errors rather than silently rewriting titles.
-- **Creator profile links for published project descriptions:** Include both official profiles in the project's README description or creator/attribution section as clickable, descriptive titles instead of displaying the raw URLs:
+- **Creator profile links for published project descriptions:** Include both official profiles in `DESCRIPTION.md` (not the download-only project `README.md`) as clickable, descriptive titles instead of displaying the raw URLs:
   - [CurseForge Profile](https://www.curseforge.com/members/allenscreations/projects)
   - [MCPEDL Profile](https://mcpedl.com/user/allenscreations/)
   Use standard Markdown links so the title is clickable on supported platforms. Keep these links in player-facing documentation, not in the short in-game manifest description.
@@ -93,23 +93,20 @@ Pack descriptions must be polished, player-focused, and commercially presentable
 
 ---
 
-## 3. Downloads Routed via Semi-Root Catalogs
+## 3. README.md and DESCRIPTION.md Responsibilities
 
-To keep documentation clean and prevent dead download links across individual sub-projects:
-- **No "Download & Installation" Sections in Individual READMEs:** Individual add-on, map, and script `README.md` files must not contain redundant download sections.
-- **Semi-Root Catalogs as Source of Truth:** All download links (`.mcaddon`, `.mcpack`, `.mcworld`) are centralized in simplified semi-root directory READMEs:
+- **Individual add-on `README.md` files are download-link pages only.** Keep them short: the add-on name and verified version, followed by the direct downloadable `.mcaddon` or `.mcpack` link when available. If the direct build link is not available, link only to the relevant official download catalog. Do not place feature descriptions, gameplay details, recipes, setup guides, compatibility notes, screenshots, banners, creator bios, SEO keywords, or changelogs in an individual add-on README.
+- **Move all player-facing add-on information to `DESCRIPTION.md`.** This is the customer-facing product page. It contains the commercial-but-factual overview, features, usage, recipes, compatibility, achievement/experimental status, images, creator attribution, profile links, permissions, and search keywords where appropriate. Never lose existing verified information when migrating from README.md.
+- **Do not confuse project pages with directory catalogs.** Root and category catalog README files may continue listing available projects, versions, and download links as their purpose requires. The download-only rule applies to individual project README files.
+- **Apply the same split to existing add-ons when updating them:** preserve/move the current informative README content into `DESCRIPTION.md`, then replace the individual README with the short download-link page. Avoid duplicate full descriptions across both files.
+- **New add-on scaffold:** create both files. Generate a download-only README and a DESCRIPTION.md starter that the add-on documentation workflow/agent fills with verified, player-facing details.
+- **Semi-root catalogs as download source of truth:** centralize release links in these catalogs:
   - Existing Add-ons: [`MCPEDL/addons/README.md`](MCPEDL/addons/README.md#available-add-ons)
   - New Add-ons: [`MCPEDL/new_addons/README.md`](MCPEDL/new_addons/README.md#available-add-ons)
   - Maps: [`MCPEDL/maps/README.md`](MCPEDL/maps/README.md#available-maps)
   - Scripts & Challenges: [`MCPEDL/script/README.md`](MCPEDL/script/README.md#available-scripts)
   - Master Compiled Builds: [`builds/README.md`](builds/README.md#available-pack-and-map-builds)
-- **Simplified Directory Catalog Format:** Directory READMEs must use the clean 4-column layout:
-  ```markdown
-  | Add-on | Version | Source | Download |
-  | :--- | :--- | :--- | :--- |
-  | <Name> | <Version> | [Source](<slug>/) | [MCADDON](<url>) |
-  ```
-- **Badge Links:** Badges in individual READMEs link directly to their corresponding semi-root catalog anchor.
+- Directory catalogs may use a compact table with project name, version, source, and download. Keep those catalog tables separate from individual DESCRIPTION.md product pages.
 
 ---
 
