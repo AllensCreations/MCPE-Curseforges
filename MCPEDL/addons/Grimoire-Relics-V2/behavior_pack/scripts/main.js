@@ -284,9 +284,9 @@ const RELICS = {
             s.voidDropping = false;
             try { p.clearVelocity(); } catch (err) {}
             addFx(p, "slow_falling", 0, 20);
-            // Consume the relic only after the rescue reaches a safe touchdown.
-            const item = offhandItem(p);
-            if (item && item.typeId === "custom:tome_void") damageOffhand(p, 100);
+            // Consume the activated relic after safe touchdown, even if it was moved from offhand.
+            consumeVoidRelic(p, s);
+            s.voidRescueActive = false;
             p.onScreenDisplay.setActionBar("§d✦ Void Phantom: Touchdown cushioned ✦");
             p.playSound("random.orb");
           }
@@ -399,6 +399,7 @@ function activateVoidPhantom(p, s) {
   // This relic is single-use: no cooldown and no second rescue after activation.
   if (s.voidUsed || p.dimension.id !== "minecraft:the_end") return;
   s.voidUsed = true;
+  s.voidRescueActive = true;
   s.voidElevating = true;
   s.voidPeakY = -99999;
 
@@ -417,6 +418,40 @@ function activateVoidPhantom(p, s) {
       s.voidPeakY = p.location.y;
     } catch (err) {}
   }, 40);
+}
+
+function consumeVoidRelic(p, s) {
+  if (s.voidRelicConsumed) return;
+  s.voidRelicConsumed = true;
+
+  try {
+    const eq = p.getComponent("minecraft:equippable");
+    const off = eq && eq.getEquipment(EquipmentSlot.Offhand);
+    if (off && off.typeId === "custom:tome_void") {
+      eq.setEquipment(EquipmentSlot.Offhand, undefined);
+      p.playSound("random.break");
+      p.onScreenDisplay.setActionBar("§cYour Void Phantom has shattered!");
+      return;
+    }
+
+    const inventory = p.getComponent("minecraft:inventory");
+    const container = inventory && inventory.container;
+    if (container) {
+      for (let i = 0; i < container.size; i++) {
+        const item = container.getItem(i);
+        if (!item || item.typeId !== "custom:tome_void") continue;
+        if (item.amount > 1) {
+          item.amount -= 1;
+          container.setItem(i, item);
+        } else {
+          container.setItem(i, undefined);
+        }
+        p.playSound("random.break");
+        p.onScreenDisplay.setActionBar("§cYour Void Phantom has shattered!");
+        return;
+      }
+    }
+  } catch (err) {}
 }
 
 function clearLight(p, s) {
@@ -530,6 +565,10 @@ system.runInterval(() => {
   for (const p of world.getAllPlayers()) {
     try {
       const s = states.get(p.id);
+      if (s && s.voidRescueActive) {
+        RELICS["custom:tome_void"].fast(p, s);
+        continue;
+      }
       const cfg = s && RELICS[s.relic];
       if (cfg && cfg.fast && relicOf(p) === cfg) cfg.fast(p, s);
     } catch (err) {}
