@@ -64,9 +64,9 @@ Before creating or substantially rewriting README.md or DESCRIPTION.md:
 2. Inspect two or three relevant, well-documented project DESCRIPTION.md files for add-on product content, and README.md files for download-link conventions.
 3. Prefer reference projects from the same category as the target.
 4. Inspect the relevant category catalog and the builds README, if present.
-5. Identify the established badge formats, title style, banner placement,
-   section order, image-link conventions, feature tables, compatibility wording,
-   attribution, and formatting.
+5. Identify established title style, section order, feature-card conventions,
+   compatibility wording, attribution, and formatting. For add-on descriptions,
+   do not embed or create images.
 6. Reuse appropriate repository conventions without copying project-specific
    features or unsupported claims.
 7. If no references are accessible, use the templates and rules in this skill.
@@ -227,17 +227,11 @@ reliable documentation.
 
 ## Step 5 — Check Logos, Banners, and Preview Images
 
-Look for existing project logos, banners, screenshots, and previews in the
-repository.
-
-- Reuse existing relevant assets when appropriate.
-- Verify each relative path and filename.
-- Do not invent an asset path or use a broken image link.
-- Do not label a logo or banner as supplied unless the asset exists.
-- Do not create or replace image assets unless the user asks for that work.
-- If no image is available, omit the image or use the repository's established
-  missing-image convention, if one exists.
-- Use only images relevant to the target project.
+Do not add images to individual add-on README.md or DESCRIPTION.md files.
+Keep these add-on documentation files text-only, even when banners, screenshots,
+previews, item sprites, or recipe images exist in the repository. Do not create
+new image assets for add-on descriptions. Existing assets may remain for other
+approved uses or project categories.
 
 ## Step 6 — Create or Update Project Documentation
 
@@ -274,8 +268,8 @@ For any project:
 - Keep descriptions concise, polished, player-focused, and factual; avoid hype and filler.
 - Explain meaningful features rather than listing unsupported claims.
 - Never claim achievement support, no experimental features, compatibility, performance, or testing status without evidence.
-- For published project DESCRIPTION.md image embeds, use verified absolute raw GitHub URLs so they render on external platforms. Individual add-on README.md files must not contain images; use direct package links there and relative links only for internal catalog references when appropriate.
-- Verify that every link and image destination exists.
+- Individual add-on README.md and DESCRIPTION.md files must be text-only; do not embed or create images for them. Other project categories and catalogs may follow their own image rules.
+- Verify that every link destination exists.
 - Keep formatting consistent with verified repository conventions.
 - Do not include internal analysis or instructions to the assistant in the
   published README.
@@ -367,7 +361,7 @@ was not run.
 After editing:
 
 1. Re-read the complete target README.
-2. Check headings, lists, tables, badges, image paths, and links.
+2. Check headings, lists, tables, badges, and links; confirm add-on README.md and DESCRIPTION.md files contain no image embeds.
 3. Check that each documented feature is supported by project evidence.
 4. Check that no placeholders remain in finished documentation.
 5. Check that no duplicate catalog entries were introduced.
@@ -397,7 +391,7 @@ When the user requests `/checkrm` or a repository-wide audit:
 4. Inspect each affected project and its actual implementation.
 5. Inspect reference READMEs to confirm current repository conventions.
 6. Create or repair each README using verified project information.
-7. Check logos, banners, badges, and image paths.
+7. Check badges and links; confirm add-on descriptions contain no images.
 8. Synchronize relevant catalogs and generated documentation.
 9. Run appropriate repository scripts without unintended version changes.
 10. Run the status checker again.
@@ -416,7 +410,7 @@ When the user requests a single project update:
 3. Inspect relevant reference READMEs and catalogs.
 4. Identify missing, stale, or inaccurate documentation.
 5. Create or update the README.
-6. Verify images, badges, links, and claims.
+6. Verify badges, links, and claims; keep add-on descriptions text-only.
 7. Update relevant catalogs only when necessary.
 8. Run applicable validation commands.
 9. Review the final diff.
