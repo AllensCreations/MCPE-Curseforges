@@ -1,25 +1,41 @@
 {
   "format_version": 2,
   "header": {
-    "name": "Melody Figurine (v1.0.8)",
+    "name": "Melody Figurine (v1.0.9)",
     "description": "A musical figurine that starts a custom song and makes nearby mobs dance. by AllensCreations",
     "uuid": "f14c8c2b-4e57-4a4b-8c1d-9c40c40a1101",
-    "version": [1, 0, 8],
-    "min_engine_version": [1, 26, 0]
+    "version": [
+      1,
+      0,
+      9
+    ],
+    "min_engine_version": [
+      1,
+      26,
+      0
+    ]
   },
   "modules": [
     {
       "description": "Melody Figurine gameplay data",
       "type": "data",
       "uuid": "b7f9a6f4-8b12-4f4b-8a8a-5f6b2d001102",
-      "version": [1, 0, 8]
+      "version": [
+        1,
+        0,
+        9
+      ]
     },
     {
       "description": "Melody Figurine gameplay",
       "type": "script",
       "language": "javascript",
       "uuid": "c8a0b7e5-9c23-4a5c-9b9b-6a7c3e001103",
-      "version": [1, 0, 8],
+      "version": [
+        1,
+        0,
+        9
+      ],
       "entry": "scripts/main.js"
     }
   ],
@@ -30,11 +46,17 @@
     },
     {
       "uuid": "d9b1c8f6-ad34-4b6d-8c0c-7b8d4f001104",
-      "version": [1, 0, 8]
+      "version": [
+        1,
+        0,
+        9
+      ]
     }
   ],
   "metadata": {
-    "authors": ["AllensCreations"],
+    "authors": [
+      "AllensCreations"
+    ],
     "product_type": "addon"
   }
 }
