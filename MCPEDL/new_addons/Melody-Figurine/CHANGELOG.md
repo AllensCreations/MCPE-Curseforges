@@ -4,9 +4,13 @@
 
 ## [1.0.9] - 2026-10-21
 
+### Improved & Balanced
+- Nearby mobs spin and hop more frequently, with more frequent musical particles during the song.
+- Rainbow screen colors transition continuously with gentle fades and no solid-color hold, helping keep the world visible between color changes.
+- Added a small orbiting musical sparkle effect around the figurine while the song plays.
+
 ### Fixed
 - Reworked the dance loop to add visible hopping and more reliable mob validity checks.
-- Added short rainbow-colored screen flashes for nearby players during the music session.
 - Updated the stable Script API dependency and linked the Behavior Pack to its Resource Pack.
 - Simplified the inventory icon reference and corrected the pack dependency direction so textures and custom audio can load together.
 - Added clearer in-game feedback if the soundtrack cannot start.
@@ -28,7 +32,7 @@
 ### Fixed
 - **Reliable Placement**: Updated the figurine item so it can place its block correctly.
 - **Visible Texture**: Added a texture for the item icon and placed block.
-- **Song Timing**: Adjusted the dance effects to stop at approximately the end of the included song.
+- **Song Timing**: Adjusted the dance effects to stop at approximately the end of the soundtrack.
 
 ## [1.0.5] - 2026-10-20
 

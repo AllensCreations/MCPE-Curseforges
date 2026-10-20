@@ -4,8 +4,8 @@ const FIGURINE_BLOCK = "melody:melody_figurine";
 const SOUND_ID = "melody:melody_song";
 const DANCE_RADIUS = 20;
 const SONG_DURATION_TICKS = 1330;
-const UPDATE_INTERVAL_TICKS = 10;
-const COLOR_FLASH_INTERVAL_STEPS = 10;
+const UPDATE_INTERVAL_TICKS = 4;
+const COLOR_PULSE_INTERVAL_STEPS = 2;
 
 const EXCLUDED_TYPES = new Set([
   "minecraft:player",
@@ -64,13 +64,39 @@ function isDanceable(entity) {
   }
 }
 
-function flashPlayer(player, step) {
+function pulsePlayer(player, step) {
   try {
+    // The stable camera fade API does not expose alpha/opacity. A zero-hold,
+    // gradual fade keeps the tint moving instead of covering the view with a solid color.
     player.camera.fade({
-      fadeTime: { fadeInTime: 0.12, holdTime: 0.04, fadeOutTime: 0.28 },
+      fadeTime: { fadeInTime: 0.18, holdTime: 0, fadeOutTime: 0.38 },
       fadeColor: RAINBOW[step % RAINBOW.length]
     });
   } catch {}
+}
+
+function animateFigurine(dimension, location, step) {
+  // Orbiting musical sparkles give the placed statue a lively active-session effect.
+  const angle = step * 0.72;
+  const sparkleLocation = {
+    x: location.x + Math.cos(angle) * 0.28,
+    y: location.y + 0.55 + Math.sin(angle * 0.8) * 0.12,
+    z: location.z + Math.sin(angle) * 0.28
+  };
+
+  try {
+    dimension.spawnParticle("minecraft:note_particle", sparkleLocation);
+  } catch {}
+
+  if (step % 2 === 0) {
+    try {
+      dimension.spawnParticle("minecraft:enchanting_table_particle", {
+        x: location.x + Math.cos(angle + Math.PI) * 0.2,
+        y: location.y + 0.35,
+        z: location.z + Math.sin(angle + Math.PI) * 0.2
+      });
+    } catch {}
+  }
 }
 
 world.afterEvents.playerInteractWithBlock.subscribe((event) => {
@@ -93,7 +119,6 @@ world.afterEvents.playerInteractWithBlock.subscribe((event) => {
 
   const session = { elapsed: 0, step: 0, runId: undefined };
   activeSessions.set(key, session);
-  flashPlayer(player, 0);
 
   try {
     dimension.playSound(SOUND_ID, location, { volume: 1.0, pitch: 1.0 });
@@ -120,25 +145,25 @@ world.afterEvents.playerInteractWithBlock.subscribe((event) => {
 
       try {
         const rotation = entity.getRotation();
-        const yaw = rotation.y + (session.step % 2 ? 32 : -32);
         entity.teleport(entity.location, {
-          rotation: { x: rotation.x, y: yaw },
+          rotation: { x: rotation.x, y: rotation.y + 28 },
           keepVelocity: true
         });
 
-        if (session.step % 5 === 0) {
-          entity.applyImpulse({ x: 0, y: 0.16, z: 0 });
+        // Frequent, small hops make the dance easy to notice without launching mobs high into the air.
+        if (session.step % 2 === 0) {
+          entity.applyImpulse({ x: 0, y: 0.22, z: 0 });
         }
 
         if (session.step % 4 === 0) {
-          entity.addEffect("jump_boost", 14, {
+          entity.addEffect("jump_boost", 10, {
             amplifier: 1,
             showParticles: false
           });
         }
       } catch {}
 
-      if (session.step % 3 === 0) {
+      if (session.step % 2 === 0) {
         try {
           const particle = PARTICLES[session.step % PARTICLES.length];
           dimension.spawnParticle(particle, {
@@ -150,12 +175,14 @@ world.afterEvents.playerInteractWithBlock.subscribe((event) => {
       }
     }
 
-    if (session.step % COLOR_FLASH_INTERVAL_STEPS === 0) {
+    animateFigurine(dimension, location, session.step);
+
+    if (session.step % COLOR_PULSE_INTERVAL_STEPS === 0) {
       let nearbyPlayers = [];
       try {
         nearbyPlayers = dimension.getPlayers({ location, maxDistance: DANCE_RADIUS });
       } catch {}
-      for (const nearbyPlayer of nearbyPlayers) flashPlayer(nearbyPlayer, session.step);
+      for (const nearbyPlayer of nearbyPlayers) pulsePlayer(nearbyPlayer, session.step);
     }
 
     if (session.elapsed >= SONG_DURATION_TICKS) {
