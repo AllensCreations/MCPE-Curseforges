@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="720" height="520" viewBox="0 0 720 520">
+  <title>Crafting Recipe Diagram Sample</title>
+  <desc>Template showing nine ingredient placement spaces in one vertical column and a separate output slot marked 1. Background is #8B8B8B.</desc>
+  <rect width="720" height="520" fill="#8B8B8B"/>
+  <rect x="28" y="28" width="664" height="464" rx="12" fill="#373737" stroke="#202020" stroke-width="5"/>
+  <rect x="40" y="40" width="640" height="440" rx="8" fill="#C6C6C6" stroke="#EEEEEE" stroke-width="3"/>
+  <text x="360" y="76" font-family="Arial, sans-serif" font-size="24" font-weight="bold" text-anchor="middle" fill="#303030">CRAFTING RECIPE SAMPLE</text>
+  <text x="176" y="110" font-family="Arial, sans-serif" font-size="16" font-weight="bold" text-anchor="middle" fill="#303030">INGREDIENT PLACEMENT</text>
+  <text x="536" y="110" font-family="Arial, sans-serif" font-size="16" font-weight="bold" text-anchor="middle" fill="#303030">OUTPUT</text>
+  <g><rect x="140" y="124" width="72" height="30" fill="#8B8B8B" stroke="#555555" stroke-width="2"/><text x="176" y="145" font-family="Arial, sans-serif" font-size="13" text-anchor="middle" fill="#333333">1</text></g>
+  <g><rect x="140" y="160" width="72" height="30" fill="#8B8B8B" stroke="#555555" stroke-width="2"/><text x="176" y="181" font-family="Arial, sans-serif" font-size="13" text-anchor="middle" fill="#333333">2</text></g>
+  <g><rect x="140" y="196" width="72" height="30" fill="#8B8B8B" stroke="#555555" stroke-width="2"/><text x="176" y="217" font-family="Arial, sans-serif" font-size="13" text-anchor="middle" fill="#333333">3</text></g>
+  <g><rect x="140" y="232" width="72" height="30" fill="#8B8B8B" stroke="#555555" stroke-width="2"/><text x="176" y="253" font-family="Arial, sans-serif" font-size="13" text-anchor="middle" fill="#333333">4</text></g>
+  <g><rect x="140" y="268" width="72" height="30" fill="#8B8B8B" stroke="#555555" stroke-width="2"/><text x="176" y="289" font-family="Arial, sans-serif" font-size="13" text-anchor="middle" fill="#333333">5</text></g>
+  <g><rect x="140" y="304" width="72" height="30" fill="#8B8B8B" stroke="#555555" stroke-width="2"/><text x="176" y="325" font-family="Arial, sans-serif" font-size="13" text-anchor="middle" fill="#333333">6</text></g>
+  <g><rect x="140" y="340" width="72" height="30" fill="#8B8B8B" stroke="#555555" stroke-width="2"/><text x="176" y="361" font-family="Arial, sans-serif" font-size="13" text-anchor="middle" fill="#333333">7</text></g>
+  <g><rect x="140" y="376" width="72" height="30" fill="#8B8B8B" stroke="#555555" stroke-width="2"/><text x="176" y="397" font-family="Arial, sans-serif" font-size="13" text-anchor="middle" fill="#333333">8</text></g>
+  <g><rect x="140" y="412" width="72" height="30" fill="#8B8B8B" stroke="#555555" stroke-width="2"/><text x="176" y="433" font-family="Arial, sans-serif" font-size="13" text-anchor="middle" fill="#333333">9</text></g>
+  <path d="M250 284 H410" stroke="#555555" stroke-width="7" stroke-linecap="round"/>
+  <path d="M390 264 L412 284 L390 304" fill="none" stroke="#555555" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+  <rect x="484" y="246" width="104" height="76" fill="#8B8B8B" stroke="#555555" stroke-width="3"/>
+  <text x="536" y="276" font-family="Arial, sans-serif" font-size="26" font-weight="bold" text-anchor="middle" fill="#222222">1</text>
+  <text x="536" y="300" font-family="Arial, sans-serif" font-size="13" text-anchor="middle" fill="#333333">ITEM</text>
+  <text x="360" y="472" font-family="Arial, sans-serif" font-size="14" text-anchor="middle" fill="#303030">Transparent areas filled with #8B8B8B • Example layout only</text>
+</svg>
