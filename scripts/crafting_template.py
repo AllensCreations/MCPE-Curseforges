@@ -58,3 +58,68 @@ def render_crafting_table_svg() -> Image.Image:
             f"its declared native dimensions {expected}."
         )
     return image
+
+
+def compose_recipe_diagram(recipe_type: str, recipe_data: dict, ingredient_icon, result_icon: Image.Image, output_count: int = 1, scale: int = 2) -> Image.Image:
+    """Overlay recipe icons onto the real 3x3 grid in CRAFTING_TABLE.svg.
+
+    Shaped recipes retain their exact pattern positions. Shapeless ingredients
+    fill grid cells in row-major order. The SVG-rendered board is never rebuilt.
+    """
+    board = render_crafting_table_svg()
+    if board.size != (400, 222):
+        raise ValueError(f"Expected native 400x222 crafting SVG, got {board.size}")
+
+    grid = [[None for _ in range(3)] for _ in range(3)]
+    if recipe_type == "minecraft:recipe_shaped":
+        pattern = recipe_data.get("pattern", [])
+        key = recipe_data.get("key", {})
+        if len(pattern) > 3 or any(len(row) > 3 for row in pattern):
+            raise ValueError("Shaped recipe pattern exceeds the 3x3 crafting grid")
+        for row, pattern_row in enumerate(pattern):
+            for col, symbol in enumerate(pattern_row):
+                if symbol == " ":
+                    continue
+                if symbol not in key or not key[symbol].get("item"):
+                    raise ValueError(f"Missing item mapping for shaped recipe symbol {symbol!r}")
+                grid[row][col] = key[symbol]["item"]
+    elif recipe_type == "minecraft:recipe_shapeless":
+        ingredients = recipe_data.get("ingredients", [])
+        if len(ingredients) > 9:
+            raise ValueError(f"Shapeless recipe has {len(ingredients)} ingredients; crafting grid holds 9")
+        for index, entry in enumerate(ingredients):
+            item_id = entry.get("item") if isinstance(entry, dict) else None
+            if not item_id:
+                raise ValueError(f"Unsupported shapeless ingredient entry: {entry!r}")
+            grid[index // 3][index % 3] = item_id
+    else:
+        raise ValueError(f"Unsupported recipe type: {recipe_type}")
+
+    # Centers follow the three rows and columns visibly drawn in the source SVG.
+    slot_left = (46, 101, 157)
+    slot_top = (43, 98, 153)
+    for row in range(3):
+        for col in range(3):
+            item_id = grid[row][col]
+            if item_id is None:
+                continue
+            icon = ingredient_icon(item_id).convert("RGBA").resize((32, 32), Image.Resampling.NEAREST)
+            board.alpha_composite(icon, (slot_left[col], slot_top[row]))
+
+    result = result_icon.convert("RGBA").resize((38, 38), Image.Resampling.NEAREST)
+    board.alpha_composite(result, (319, 94))
+    if output_count > 1:
+        try:
+            from PIL import ImageDraw, ImageFont
+            draw = ImageDraw.Draw(board)
+            font_path = Path("/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf")
+            font = ImageFont.truetype(str(font_path), 10) if font_path.is_file() else ImageFont.load_default()
+            label = str(output_count)
+            draw.rectangle((355, 128, 369, 141), fill=(139, 139, 139, 255))
+            draw.text((357, 128), label, font=font, fill=(255, 255, 255, 255), stroke_width=1, stroke_fill=(35, 35, 35, 255))
+        except Exception as exc:
+            raise RuntimeError("Unable to render recipe output count") from exc
+
+    if scale != 1:
+        board = board.resize((board.width * scale, board.height * scale), Image.Resampling.NEAREST)
+    return board
