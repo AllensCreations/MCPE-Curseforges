@@ -9,7 +9,7 @@ This document establishes repository-wide documentation standards for AllensCrea
 - Inspect source files before making claims. Ask the user when an unresolved choice could materially affect gameplay, compatibility, distribution, data loss, or release/version behavior. For ordinary style choices, apply these defaults and proceed.
 - Never invent features, versions, links, assets, test results, compatibility, achievement support, performance guarantees, or platform behavior. Distinguish verified facts from assumptions and untested claims.
 
-Repository documentation must render cleanly across CurseForge, MCPEDL, Planet Minecraft, and GitHub. Individual add-on README.md files are download-link-only; DESCRIPTION.md contains the full player-facing product information. Root and category catalog README.md files remain catalogs.
+Repository documentation must render cleanly across CurseForge, MCPEDL, Planet Minecraft, and GitHub. Individual add-on README.md files are download-focused landing pages with release details, a direct download, basic import instructions, and a link to DESCRIPTION.md. DESCRIPTION.md contains the full player-facing product information. Root and category catalog README.md files remain catalogs.
 
 ---
 
@@ -70,7 +70,7 @@ All documentation must render cleanly across GitHub, CurseForge, and synced MCPE
 
 ### Mandatory Customer-Facing / Commercial Presentation
 
-Treat every public-facing add-on product description as a polished product listing written for a Minecraft player or customer, not for another developer. This applies to DESCRIPTION.md, changelogs, catalog descriptions, feature lists, crafting explanations, promotional copy, and player-facing notices. Individual add-on README.md files remain download-link-only.
+Treat every public-facing add-on product description as a polished product listing written for a Minecraft player or customer, not for another developer. This applies to DESCRIPTION.md, changelogs, catalog descriptions, feature lists, crafting explanations, promotional copy, and player-facing notices. Individual add-on README.md files remain focused on downloading and importing the package; detailed product information belongs in DESCRIPTION.md.
 
 - **Lead with the player experience.** Explain what players can do, how a feature behaves in-game, what they need, and what benefit it provides. Use natural customer language rather than implementation notes.
 - **Do not expose developer-looking details in public descriptions.** Avoid source-code terminology, internal file names, variable/function names, event names, API/module names, JSON component names, raw configuration keys, technical identifiers, code snippets, stack traces, commit hashes, and build-workflow details unless the user specifically requests technical documentation.
@@ -95,7 +95,7 @@ Pack descriptions must be polished, player-focused, and commercially presentable
 
 ## 3. README.md and DESCRIPTION.md Responsibilities
 
-- **Individual add-on `README.md` files are download-link pages only.** Keep them short: the add-on name and verified version, followed by the direct downloadable `.mcaddon` or `.mcpack` link when available. If the direct build link is not available, link only to the relevant official download catalog. Do not place feature descriptions, gameplay details, recipes, setup guides, compatibility notes, screenshots, banners, creator bios, SEO keywords, or changelogs in an individual add-on README.
+- **Individual add-on `README.md` files are download-focused landing pages.** Include the add-on name and verified version, direct `.mcaddon`/`.mcpack` download or official catalog link, package format, short generic import instructions, and a link to the project's `DESCRIPTION.md`. Do not duplicate feature lists, recipes, detailed usage, compatibility claims, screenshots, banners, creator bios, SEO keywords, or changelog content in README; those belong in `DESCRIPTION.md`.
 - **Move all player-facing add-on information to `DESCRIPTION.md`.** This is the customer-facing product page. It contains the commercial-but-factual overview, features, usage, recipes, compatibility, achievement/experimental status, images, creator attribution, profile links, permissions, and search keywords where appropriate. Never lose existing verified information when migrating from README.md.
 - **Do not confuse project pages with directory catalogs.** Root and category catalog README files may continue listing available projects, versions, and download links as their purpose requires. The download-only rule applies to individual project README files.
 - **Apply the same split to existing add-ons when updating them:** preserve/move the current informative README content into `DESCRIPTION.md`, then replace the individual README with the short download-link page. Avoid duplicate full descriptions across both files.
