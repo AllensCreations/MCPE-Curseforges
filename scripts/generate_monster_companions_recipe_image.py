@@ -1,8 +1,9 @@
 #!/usr/bin/env python3
-"""Render Monster Companions' Beast Biscuit recipe from real Bedrock textures.
+"""Render Beast Biscuit recipe art using CRAFTING_TABLE.svg as the sole board reference.
 
-No AI artwork is used. Vanilla ingredient sprites come from Mojang's bedrock-samples
-resource pack; the output sprite comes from this add-on's own resource pack.
+Vanilla ingredient icons come from Mojang's Bedrock Samples resource pack.
+The output icon comes from Monster Companions' own resource pack. The crafting
+board, slot, and arrow artwork are rendered directly from assets/CRAFTING_TABLE.svg.
 """
 from __future__ import annotations
 
@@ -10,6 +11,7 @@ import json
 import os
 from io import BytesIO
 from pathlib import Path
+
 import cairosvg
 from PIL import Image, ImageDraw, ImageFont
 
@@ -20,6 +22,7 @@ ADDON = ROOT / "MCPEDL" / "addons" / "Monster-Companions"
 RECIPE_FILE = ADDON / "behavior_pack" / "recipes" / "beast_biscuit.json"
 RESULT_TEXTURE = ADDON / "resource_pack" / "textures" / "items" / "beast_biscuit.png"
 OUTPUT_FILE = ADDON / "beast_biscuit_recipe.png"
+BOARD_SVG = ROOT / "assets" / "CRAFTING_TABLE.svg"
 
 TEXTURES = {
     "minecraft:rotten_flesh": VANILLA_TEXTURES / "rotten_flesh.png",
@@ -29,19 +32,42 @@ TEXTURES = {
 }
 
 
-def load_icon(path: Path) -> Image.Image:
+def load_icon(path: Path, size: tuple[int, int] = (32, 32)) -> Image.Image:
     if not path.is_file():
-        raise FileNotFoundError(
-            f"Required texture not found: {path}\n"
-            "Check out Mojang's bedrock-samples repository and confirm the texture path."
-        )
-    return Image.open(path).convert("RGBA").resize((16, 16), Image.Resampling.NEAREST)
+        raise FileNotFoundError(f"Required texture not found: {path}")
+    return Image.open(path).convert("RGBA").resize(size, Image.Resampling.NEAREST)
 
 
+def font(size: int) -> ImageFont.ImageFont:
+    path = Path("/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf")
+    return ImageFont.truetype(str(path), size) if path.is_file() else ImageFont.load_default()
+
+
+if not BOARD_SVG.is_file():
+    raise FileNotFoundError(
+        f"Required crafting reference is missing: {BOARD_SVG}. "
+        "No PNG or alternative board image may be used as a substitute."
+    )
 if not RECIPE_FILE.is_file():
     raise FileNotFoundError(f"Recipe JSON not found: {RECIPE_FILE}")
 if not RESULT_TEXTURE.is_file():
     raise FileNotFoundError(f"Add-on result texture not found: {RESULT_TEXTURE}")
+
+# Render the exact SVG directly in memory. Do not load CRAFTING_TABLE.png or
+# any other raster board as a source/reference.
+board_bytes = cairosvg.svg2png(
+    bytestring=BOARD_SVG.read_bytes(),
+    output_width=400,
+    output_height=222,
+)
+board = Image.open(BytesIO(board_bytes)).convert("RGBA")
+if board.size != (400, 222):
+    raise ValueError(f"Unexpected CRAFTING_TABLE.svg dimensions after rendering: {board.size}")
+
+# All GUI artwork is cropped from the SVG render, never redrawn.
+ingredient_slot = board.crop((35, 32, 89, 87))
+output_slot = board.crop((306, 81, 370, 148))
+arrow = board.crop((230, 97, 285, 122))
 
 recipe_root = json.loads(RECIPE_FILE.read_text(encoding="utf-8"))
 recipe = recipe_root.get("minecraft:recipe_shapeless")
@@ -60,47 +86,40 @@ result_id = result.get("item")
 result_count = int(result.get("count", 1))
 if result_id != "allenscreations:beast_biscuit":
     raise ValueError(f"Unexpected recipe result: {result_id}")
+if not ingredients:
+    raise ValueError("The Beast Biscuit recipe has no ingredients.")
 
-result_icon = load_icon(RESULT_TEXTURE)
-if len(ingredients) > 9:
-    raise ValueError("A 3x3 crafting grid cannot display more than 9 ingredients.")
+result_icon = load_icon(RESULT_TEXTURE, (40, 40))
 
-# Render the sole authorized crafting-board reference directly from its SVG.
-# No hand-drawn grid, alternate image, or fallback board is allowed.
-BOARD_SVG = ROOT / "assets" / "CRAFTING_TABLE.svg"
-if not BOARD_SVG.is_file():
-    raise FileNotFoundError(
-        f"Required crafting template SVG is missing: {BOARD_SVG}. "
-        "No alternative crafting board may be used."
+# Keep the user's single-column recipe presentation. Each slot, the arrow, and
+# output slot originate from the one authorized SVG; only the diagram canvas and
+# text labels are composed around those source-derived elements.
+slot_step = 58
+top = 42
+height = max(204, top + len(ingredients) * slot_step + 30)
+canvas = Image.new("RGBA", (500, height), (139, 139, 139, 255))
+draw = ImageDraw.Draw(canvas)
+draw.text((14, 10), "Beast Biscuit", font=font(18), fill=(35, 35, 35))
+
+for index, (item_id, icon) in enumerate(ingredients):
+    y = top + index * slot_step
+    canvas.alpha_composite(
+        ingredient_slot.resize((50, 52), Image.Resampling.NEAREST),
+        (22, y),
     )
-canvas = Image.open(
-    BytesIO(cairosvg.svg2png(bytestring=BOARD_SVG.read_bytes(), output_width=400))
-).convert("RGBA")
-if canvas.size != (400, 222):
-    raise ValueError(f"Unexpected CRAFTING_TABLE.svg dimensions: {canvas.size}")
+    canvas.alpha_composite(icon, (31, y + 10))
+    label = item_id.split(":")[-1].replace("_", " ").title()
+    draw.text((82, y + 17), label, font=font(12), fill=(35, 35, 35))
 
-# Ingredient slot coordinates are taken from CRAFTING_TABLE.svg.
-slot_x = [35, 90, 146]
-slot_y = [32, 90, 145]
-for index, (_, icon) in enumerate(ingredients):
-    row, col = divmod(index, 3)
-    if row >= 3:
-        raise ValueError("A 3x3 crafting grid cannot display more than 9 ingredients.")
-    icon = icon.resize((32, 32), Image.Resampling.NEAREST)
-    x = slot_x[col] + 9
-    y = slot_y[row] + 9
-    canvas.alpha_composite(icon, (x, y))
-
-# Place the custom result in the SVG's existing output slot.
-result_icon = load_icon(RESULT_TEXTURE).resize((40, 40), Image.Resampling.NEAREST)
-canvas.alpha_composite(result_icon, (318, 94))
-if result_count > 1:
-    draw = ImageDraw.Draw(canvas)
-    font = ImageFont.load_default()
-    count_text = str(result_count)
-    draw.text((360 - 6 * len(count_text), 132), count_text, font=font,
-              fill=(255, 255, 255, 255), stroke_width=1, stroke_fill=(45, 45, 45, 255))
+mid_y = top + (len(ingredients) - 1) * slot_step // 2
+canvas.alpha_composite(arrow.resize((46, 26), Image.Resampling.NEAREST), (300, mid_y + 10))
+output_y = max(top, mid_y - 8)
+canvas.alpha_composite(output_slot.resize((62, 62), Image.Resampling.NEAREST), (408, output_y))
+canvas.alpha_composite(result_icon, (419, output_y + 11))
+draw.text((402, output_y + 66), f"Output x{result_count}", font=font(11), fill=(35, 35, 35))
+draw.text((22, height - 18), "Shapeless recipe — ingredients listed in one column",
+          font=font(10), fill=(55, 55, 55))
 
 OUTPUT_FILE.parent.mkdir(parents=True, exist_ok=True)
-canvas.resize((800, 444), Image.Resampling.NEAREST).save(OUTPUT_FILE)
-print(f"Generated recipe image from Bedrock Samples textures: {OUTPUT_FILE}")
+canvas.save(OUTPUT_FILE)
+print(f"Generated recipe image directly from CRAFTING_TABLE.svg: {OUTPUT_FILE}")
