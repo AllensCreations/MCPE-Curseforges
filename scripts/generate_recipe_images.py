@@ -3,7 +3,7 @@ import json
 import re
 from pathlib import Path
 from PIL import Image
-from crafting_template import render_crafting_table_svg
+from crafting_template import compose_recipe_diagram
 
 ROOT_BEDROCK = os.path.join(os.environ.get("BEDROCK_SAMPLES_ROOT", "/root/bedrock-samples"), "resource_pack")
 OUT_DIR = "MCPEDL/addons/Grimoire-Relics-V2/assets/recipes"
@@ -126,26 +126,16 @@ for rf in sorted(os.listdir(RECIPES_DIR)):
     out_tex_path = os.path.join(RP_TEXTURES, f"{tome_name}.png")
     out_tex = Image.open(out_tex_path).convert("RGBA").resize((40, 40), Image.Resampling.NEAREST)
 
-    canvas = make_crafting_gui()
-    # Slot coordinates come from assets/CRAFTING_TABLE.svg. Never construct
-    # a replacement grid or use a different board reference.
-    slot_x = [34, 90, 146]
-    slot_y = [30, 86, 140]
-
-    for row_idx, row in enumerate(grid_pattern):
-        for col_idx, ch in enumerate(row):
-            if ch in key_map:
-                item_id = key_map[ch]["item"]
-                tex = get_ingredient_icon(item_id).resize((32, 32), Image.Resampling.NEAREST)
-                x = slot_x[col_idx] + 9
-                y = slot_y[row_idx] + 9
-                canvas.paste(tex, (x, y), tex)
-
-    if out_tex:
-        canvas.paste(out_tex, (318, 92), out_tex)
-
-    scale_factor = 2
-    scaled = canvas.resize((canvas.width * scale_factor, canvas.height * scale_factor), Image.Resampling.NEAREST)
+    result_count = int(rdata.get("result", {}).get("count", 1))
+    canvas = compose_recipe_diagram(
+        "minecraft:recipe_shaped",
+        rdata,
+        get_ingredient_icon,
+        out_tex,
+        result_count,
+        scale=2,
+    )
+    scaled = canvas
     
     out_file = os.path.join(OUT_DIR, f"{tome_name}_recipe.png")
     scaled.save(out_file)
