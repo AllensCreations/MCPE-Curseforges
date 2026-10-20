@@ -46,7 +46,7 @@ README files are player showcase pages. They must NEVER contain internal develop
 - **Evidence-based benefits:** Describe performance, multiplayer, durability, enchantment, and compatibility behavior only when confirmed by source inspection or tests. Do not use blanket claims such as "zero lag," "smooth on all devices," "Realms compatible," or "preserves all enchantments" without specific evidence. Prefer precise descriptions of what was actually verified.
 
 ### 3. Formatting, External Readability & SEO
-To ensure the markdown renders identically on external platforms (MCPEDL, CurseForge, web portals, mobile apps):
+To ensure the markdown renders identically on external platforms (MCPEDL, CurseForge, web portals, mobile apps), apply product-page rules to DESCRIPTION.md and download-link rules to individual README.md files:
 1. **Absolute Image URLs for Published READMEs**:
    Image embeds (`<img>` or `![]()`) in published project READMEs must use verified absolute raw URLs:
    ```
@@ -58,7 +58,7 @@ To ensure the markdown renders identically on external platforms (MCPEDL, CurseF
    https://github.com/AllensCreations/MCPE-Curseforges/tree/main/<path>
    https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/<file>
    ```
-3. **Bottom Search & Discovery Keywords (SEO) — Grounded in the Add-on's README**:
+3. **Bottom Search & Discovery Keywords (SEO) — Grounded in the Add-on's DESCRIPTION.md**:
    Every individual project `DESCRIPTION.md` should end with a tailored SEO section, with attribution/copyright immediately before it. Do not force SEO into directory catalogs or generic repository documentation. **Do NOT use generic placeholder keywords alone.**
    - **Use the Add-on's DESCRIPTION.md as the Basis**: Extract terms directly from the pack's actual features, mechanics, mob types, item names, commands, and gameplay benefits described across its cards and overview.
    - **Structure**: Include high-intent player search phrases that directly match what the specific add-on offers.
