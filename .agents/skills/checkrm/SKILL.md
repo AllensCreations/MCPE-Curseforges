@@ -204,7 +204,7 @@ Determine, when evidence permits:
 - Supported version information.
 - Known limitations.
 - Whether achievement-friendly behavior is supported.
-- What assets are available for the README.
+- What assets are available for DESCRIPTION.md.
 
 Do not infer a feature from a name alone. Confirm it from implementation or
 reliable documentation.
@@ -258,7 +258,7 @@ For any project:
 - Keep descriptions concise, polished, player-focused, and factual; avoid hype and filler.
 - Explain meaningful features rather than listing unsupported claims.
 - Never claim achievement support, no experimental features, compatibility, performance, or testing status without evidence.
-- For published project README image embeds, use verified absolute raw GitHub URLs so they render on external platforms. Use relative links for internal repository references when appropriate.
+- For published project DESCRIPTION.md image embeds, use verified absolute raw GitHub URLs so they render on external platforms. Individual add-on README.md files must not contain images; use direct package links there and relative links only for internal catalog references when appropriate.
 - Verify that every link and image destination exists.
 - Keep formatting consistent with verified repository conventions.
 - Do not include internal analysis or instructions to the assistant in the
@@ -316,7 +316,7 @@ Do not invent download locations, file names, or installation steps.
 
 ## Step 10 — Synchronize Catalogs and Build Documentation
 
-After updating a project's README, inspect the repository to determine whether
+After updating a project's README.md and/or DESCRIPTION.md, inspect the repository to determine whether
 the project is listed in:
 
 - Its category catalog.
