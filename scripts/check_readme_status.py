@@ -87,7 +87,6 @@ def scan_projects(target_project=None):
     categories = [
         "MCPEDL/addons", "MCPEDL/new_addons", "MCPEDL/script", "MCPEDL/maps"
     ]
-    # Include all subdirectories under MCPEDL/
     mcpedl_dir = os.path.join(REPO_ROOT, "MCPEDL")
     if os.path.isdir(mcpedl_dir):
         for sub in sorted(os.listdir(mcpedl_dir)):
@@ -98,7 +97,6 @@ def scan_projects(target_project=None):
                     categories.append(rel)
 
     results = []
-
     for cat in categories:
         cat_path = os.path.join(REPO_ROOT, cat)
         if not os.path.isdir(cat_path):
@@ -112,28 +110,37 @@ def scan_projects(target_project=None):
 
             is_addon = cat in ("MCPEDL/addons", "MCPEDL/new_addons")
             readme_path = os.path.join(proj, "README.md")
-            documentation_path = os.path.join(proj, "DESCRIPTION.md") if is_addon else readme_path
+            description_path = os.path.join(proj, "DESCRIPTION.md")
+            documentation_path = description_path if is_addon else readme_path
             rel_path = os.path.relpath(proj, REPO_ROOT)
 
             if not os.path.isfile(readme_path):
                 results.append({
-                    "name": proj_name,
-                    "path": rel_path,
-                    "proj_dir": proj,
-                    "status": "MISSING_README",
-                    "details": "README.md does not exist."
+                    "name": proj_name, "path": rel_path, "proj_dir": proj,
+                    "status": "MISSING_README", "details": "README.md does not exist."
                 })
                 continue
 
-            if is_addon and not os.path.isfile(documentation_path):
+            if is_addon and not os.path.isfile(description_path):
                 results.append({
-                    "name": proj_name,
-                    "path": rel_path,
-                    "proj_dir": proj,
+                    "name": proj_name, "path": rel_path, "proj_dir": proj,
                     "status": "MISSING_DESCRIPTION",
                     "details": "DESCRIPTION.md does not exist for this add-on."
                 })
                 continue
+
+            if is_addon:
+                with open(readme_path, "r", encoding="utf-8") as f:
+                    readme_content = f.read()
+                readme_lines = [line.strip() for line in readme_content.splitlines() if line.strip()]
+                has_download_link = bool(re.search(r"\*\*Download:\*\*\s*\[[^]]+\]\([^)]+\)", readme_content))
+                if len(readme_lines) > 4 or not readme_lines or not readme_lines[0].startswith("# ") or not has_download_link:
+                    results.append({
+                        "name": proj_name, "path": rel_path, "proj_dir": proj,
+                        "status": "README_NOT_DOWNLOAD_ONLY",
+                        "details": "Individual add-on README.md must contain only its title/version and download link."
+                    })
+                    continue
 
             with open(documentation_path, "r", encoding="utf-8") as f:
                 content = f.read()
@@ -143,41 +150,19 @@ def scan_projects(target_project=None):
             has_gameplay_sections = bool(GAMEPLAY_HEADING_REGEX.search(content))
             lines = [line.strip() for line in content.splitlines() if line.strip()]
 
-            # 1. Direct placeholder markers
             if matched_placeholders:
-                results.append({
-                    "name": proj_name,
-                    "path": rel_path,
-                    "proj_dir": proj,
-                    "status": "PLACEHOLDER",
-                    "details": f"Contains markers: {', '.join(matched_placeholders)}"
-                })
-            # 2. Scaffold stub markers
+                status, details = "PLACEHOLDER", f"Contains markers: {', '.join(matched_placeholders)}"
             elif matched_scaffold:
-                results.append({
-                    "name": proj_name,
-                    "path": rel_path,
-                    "proj_dir": proj,
-                    "status": "SCAFFOLD_STUB",
-                    "details": f"Unpopulated scaffold stub (found '{matched_scaffold[0]}')."
-                })
-            # 3. Missing essential gameplay documentation or too brief
+                status, details = "SCAFFOLD_STUB", f"Unpopulated scaffold stub (found '{matched_scaffold[0]}')."
             elif not has_gameplay_sections or len(lines) < 25:
-                results.append({
-                    "name": proj_name,
-                    "path": rel_path,
-                    "proj_dir": proj,
-                    "status": "INCOMPLETE",
-                    "details": "Incomplete documentation (missing Overview/Features gameplay sections)."
-                })
+                status, details = "INCOMPLETE", "Incomplete product documentation (missing Overview/Features gameplay sections)."
             else:
-                results.append({
-                    "name": proj_name,
-                    "path": rel_path,
-                    "proj_dir": proj,
-                    "status": "COMPLETE",
-                    "details": "Documentation is populated."
-                })
+                status, details = "COMPLETE", "Product documentation is populated."
+
+            results.append({
+                "name": proj_name, "path": rel_path, "proj_dir": proj,
+                "status": status, "details": details
+            })
 
     return results
 
@@ -280,94 +265,111 @@ def analyze_addon_source(proj_dir):
 
 
 def auto_generate_readme(proj_dir):
-    """Generates product documentation in DESCRIPTION.md for add-ons and README.md for other project types."""
+    """Creates DESCRIPTION.md for add-ons and keeps their README.md download-only."""
     meta = extract_manifest_info(proj_dir)
     features, interactions = analyze_addon_source(proj_dir)
     slug = os.path.basename(proj_dir)
-
     readme_path = os.path.join(proj_dir, "README.md")
+    description_path = os.path.join(proj_dir, "DESCRIPTION.md")
     category = os.path.basename(os.path.dirname(proj_dir))
     is_addon = category in ("addons", "new_addons")
-    output_path = os.path.join(proj_dir, "DESCRIPTION.md") if is_addon else readme_path
+    output_path = description_path if is_addon else readme_path
 
-    # Format features as clean mobile cards
+    clean_name = meta["name"].replace(" BP", "").replace(" RP", "").strip()
+    clean_name = re.sub(r"\s*\(v\d+\.\d+\.\d+\)\s*$", "", clean_name).strip()
+    version = meta["version"]
+
+    def write_download_readme():
+        catalog = "new_addons" if category == "new_addons" else "addons"
+        build_dir = os.path.join(REPO_ROOT, "builds", slug)
+        candidates = []
+        for ext in (meta["primary_ext"], "mcaddon", "mcpack"):
+            candidates.extend(sorted(glob.glob(os.path.join(build_dir, f"*.{ext}"))))
+        if candidates:
+            package = candidates[0]
+            package_rel = os.path.relpath(package, REPO_ROOT).replace(os.sep, "/")
+            url = "https://github.com/AllensCreations/MCPE-Curseforges/raw/main/" + urllib.parse.quote(package_rel, safe="/")
+            label = f"Download the add-on (.{os.path.splitext(package)[1].lstrip('.')})"
+        else:
+            url = (
+                "https://github.com/AllensCreations/MCPE-Curseforges/blob/main/"
+                f"MCPEDL/{catalog}/README.md#available-add-ons"
+            )
+            label = "Open the official download catalog"
+        content = f"# {clean_name} (v{version})\n\n**Download:** [{label}]({url})\n"
+        with open(readme_path, "w", encoding="utf-8") as f:
+            f.write(content)
+
+    if is_addon:
+        # Preserve an existing complete DESCRIPTION.md rather than regenerating it.
+        if os.path.isfile(description_path):
+            with open(description_path, "r", encoding="utf-8") as f:
+                existing_description = f.read()
+            existing_lines = [line.strip() for line in existing_description.splitlines() if line.strip()]
+            if (
+                len(existing_lines) >= 25
+                and GAMEPLAY_HEADING_REGEX.search(existing_description)
+                and not any(marker in existing_description for marker in PLACEHOLDER_MARKERS + SCAFFOLD_STUB_MARKERS)
+            ):
+                write_download_readme()
+                print(f"  [Auto-Fix] Preserved DESCRIPTION.md and refreshed download-only README for {slug}")
+                return
+        elif os.path.isfile(readme_path):
+            # Migrate existing product information instead of discarding it.
+            with open(readme_path, "r", encoding="utf-8") as f:
+                old_readme = f.read()
+            if len(old_readme.strip()) > 500 and GAMEPLAY_HEADING_REGEX.search(old_readme):
+                with open(description_path, "w", encoding="utf-8") as f:
+                    f.write(old_readme if old_readme.endswith("\n") else old_readme + "\n")
+                write_download_readme()
+                print(f"  [Auto-Fix] Moved existing product information into DESCRIPTION.md for {slug}")
+                return
+
     feature_cards = []
-    if features:
-        for f in features:
-            parts = f.split(" using ") if " using " in f else (f.split(" with ") if " with " in f else [f, ""])
-            title = parts[0].strip().rstrip(".")
-            desc = f if not parts[1] else f"Includes {parts[1].rstrip('.')} for optimal companion gameplay."
-            feature_cards.append(f"### {title}\n- **Description**: {desc}")
-    else:
-        feature_cards.append("### Companion Mechanics\n- **Description**: Enhance your survival world with loyal, protective companions.")
-        feature_cards.append("### Seamless Integration\n- **Description**: Built for standard worlds and Realms with zero experimental flags.")
+    for feature in features:
+        feature = re.sub(r"\bminecraft:[a-z0-9_]+", lambda m: m.group(0).split(":", 1)[1].replace("_", " ").title(), feature, flags=re.IGNORECASE)
+        feature = feature.replace("Script API", "in-game interactions")
+        title = feature.strip().rstrip(".")
+        feature_cards.append(f"### {title}\n- **Description**: {feature}")
+    if not feature_cards:
+        feature_cards.append("### Included Gameplay\n- **Description**: Review the included features and pack settings for the exact behavior provided.")
 
     feature_section = "\n\n".join(feature_cards)
-
-    # Format in-game usage as clean mobile cards
     interaction_cards = []
-    if interactions:
-        for act, req, res in interactions:
-            interaction_cards.append(f"### {act}\n- **Requirement**: {req}\n- **What Happens**: {res}")
-    else:
-        interaction_cards.append("### Interact with Companion\n- **Requirement**: Specified Item\n- **What Happens**: Activates custom companion mechanics.")
-    interaction_section = "\n\n".join(interaction_cards)
+    for action, requirement, result in interactions:
+        requirement = re.sub(r"\bminecraft:[a-z0-9_]+", lambda m: m.group(0).split(":", 1)[1].replace("_", " ").title(), requirement, flags=re.IGNORECASE)
+        interaction_cards.append(f"### {action}\n- **Requirement**: {requirement}\n- **What Happens**: {result}")
+    interaction_section = "\n\n".join(interaction_cards) if interaction_cards else "Use the in-game interactions provided by the add-on. Refer to the included pack settings and item descriptions for supported controls."
 
-    clean_name = meta['name'].replace(" BP", "").replace(" RP", "").strip()
-
-    content = f"""# {clean_name} — Advanced Companion for Minecraft Bedrock
-
-[![Minecraft Bedrock](https://img.shields.io/badge/Minecraft%20Bedrock-{meta['min_engine']}%2B-brightgreen?style=flat-square&logo=minecraft)](https://github.com/AllensCreations/MCPE-Curseforges)
-[![Achievement Friendly](https://img.shields.io/badge/Achievements-Friendly-brightgreen?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges)
-[![No Experiments Required](https://img.shields.io/badge/Experimental%20Features-NOT%20REQUIRED-success?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges)
-[![Format](https://img.shields.io/badge/Format-.{meta['primary_ext'].upper()}-orange?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/addons#available-add-ons)
+    content = f"""# {clean_name} (v{version})
 
 **By AllensCreations**
 
-**NO EXPERIMENTAL NEED & ACHIEVEMENT FRIENDLY**
-
-Protect your companions. Preserve your adventures. Never leave your friends behind.
-
----
-
 ## Overview
 
-Your adventures in the wild just got much more exciting.
-
-**{clean_name}** allows you to tame, command, and adventure alongside loyal survival companions. Experience seamless companion mechanics, faithful animations, and rich interactive features built directly for Minecraft Bedrock.
-
-No experimental features required. Designed to keep achievements available while you enjoy your adventures across standard worlds and Realms.
-
----
+{clean_name} adds gameplay behavior to Minecraft Bedrock Edition. The included features below are based on the files present in this project; confirm any world-specific requirements in the target game.
 
 ## Key Features
 
 {feature_section}
 
----
-
-## How It Works
+## How to Use
 
 {interaction_section}
 
----
-
 ## Compatibility
 
-- Minecraft Bedrock Edition {meta['min_engine']}+
-- No experimental features required
-- Designed to preserve achievement eligibility
-- {meta['primary_ext'].upper()} package format
-- Compatible with Mobile, Windows, Console, and Realms
+- Minecraft Bedrock Edition: {meta["min_engine"]} or newer.
+- Package format: {meta["primary_ext"].upper()}.
+- Achievement support: not confirmed through in-game testing.
+- Experimental-feature requirements: check the target game's world settings and pack behavior.
 
----
-
-## Guidelines and Attribution
+## Creator and Permissions
 
 - Creator: AllensCreations
-- Rights & Reservation: All rights reserved for AllensCreations.
-- Content Creators: Content creators are permitted to feature this creation in videos and streams with credit to AllensCreations.
-- Redistribution: Do not re-upload this pack or provide direct monetized download bypasses. Link directly to the official repository page.
+- Profiles: [CurseForge Profile](https://www.curseforge.com/members/allenscreations/projects) · [MCPEDL Profile](https://mcpedl.com/user/allenscreations/)
+- Content creators may feature this add-on in videos and streams with credit to AllensCreations.
+- Do not re-upload this pack or provide direct monetized download bypasses.
 
 ---
 
@@ -377,21 +379,13 @@ No experimental features required. Designed to keep achievements available while
 
 ## Search & Discovery Keywords
 
-Minecraft Bedrock add-on, {clean_name.lower()} Bedrock mod, Minecraft PE companions, companion animal protection, survival companion add-on, MCPEDL add-on, CurseForge Bedrock, AllensCreations.
+Minecraft Bedrock add-on, {clean_name.lower()} Bedrock mod, Minecraft PE survival, MCPEDL add-on, CurseForge Bedrock, AllensCreations.
 """
     with open(output_path, "w", encoding="utf-8") as f:
         f.write(content)
 
     if is_addon:
-        catalog = "new_addons" if category == "new_addons" else "addons"
-        readme_content = (
-            f"# {slug}\n\n"
-            f"**Download:** [Open the official download catalog]"
-            f"(https://github.com/AllensCreations/MCPE-Curseforges/blob/main/"
-            f"MCPEDL/{catalog}/README.md#available-add-ons)\n"
-        )
-        with open(readme_path, "w", encoding="utf-8") as f:
-            f.write(readme_content)
+        write_download_readme()
 
     print(f"  [Auto-Fix] Successfully generated product documentation for {slug}")
 
