@@ -2,6 +2,18 @@
 
 ---
 
+## [1.0.6] - 2026-10-20
+
+### Fixed
+- **Reliable Placement**: Fixed the figurine item so it can place its block correctly.
+- **Visible Texture**: Added a valid texture for the item icon and placed block.
+- **Song Timing**: Adjusted the dance effects to stop at approximately the end of the included song.
+
+## [1.0.5] - 2026-10-20
+
+### Improved & Balanced
+- **Included Soundtrack**: Updated the music folder instructions to reflect that the custom song is included in the pack.
+
 ## [1.0.1] - 2026-10-20
 
 ### Added
@@ -9,5 +21,5 @@
 - **Mob Dance Effects**: Nearby mobs spin and hop within a 20-block radius with colorful particle effects.
 
 ### Notes
-- The custom OGG song must be added by the project owner before music playback can be tested.
-- The dance session defaults to 60 seconds and should be matched to the uploaded song's duration.
+- The initial release expected the song to be supplied separately.
+- The initial dance session defaulted to 60 seconds.
