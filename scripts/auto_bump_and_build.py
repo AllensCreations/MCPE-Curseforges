@@ -221,26 +221,33 @@ def _display_name(project_name):
 
 def get_project_title(project_path):
     """
-    Extracts the official clean display title from project README or folder name.
-    e.g. '# Ghast Mob Head Transformers — Giant Flying Mob Heads' -> 'Ghast Mob Head Transformers'
+    Extract the canonical player-facing title from DESCRIPTION.md first.
+    README.md is download-only and must not be the source of product details.
     """
-    rm = os.path.join(project_path, "README.md")
-    if os.path.isfile(rm):
+    for filename in ("DESCRIPTION.md", "README.md"):
+        doc_path = os.path.join(project_path, filename)
+        if not os.path.isfile(doc_path):
+            continue
         try:
-            with open(rm, encoding="utf-8") as f:
+            with open(doc_path, encoding="utf-8") as f:
                 for line in f:
                     line = line.strip()
-                    if line.startswith("# "):
-                        title_part = line[2:].strip()
-                        for sep in (" — ", " - ", " -- "):
-                            if sep in title_part:
-                                title_part = title_part.split(sep)[0].strip()
-                        title_part = title_part.replace(" Challenge", "")
-                        # A version suffix is metadata, not part of the stable base title.
-                        title_part = re.sub(r"\s*\(v\d+\.\d+\.\d+\)\s*$", "", title_part, flags=re.IGNORECASE)
-                        title_clean = re.sub(r'[\\/*?:"<>|]', "", title_part).strip()
-                        if title_clean:
-                            return title_clean
+                    if not line.startswith("# "):
+                        continue
+                    title_part = line[2:].strip()
+                    for sep in (" — ", " - ", " -- "):
+                        if sep in title_part:
+                            title_part = title_part.split(sep)[0].strip()
+                    title_part = title_part.replace(" Challenge", "")
+                    title_part = re.sub(
+                        r"\s*\([vV]\d+\.\d+\.\d+\)\s*$",
+                        "",
+                        title_part,
+                        flags=re.IGNORECASE,
+                    )
+                    title_clean = re.sub(r'[\\/*?:"<>|]', "", title_part).strip()
+                    if title_clean:
+                        return title_clean
         except Exception:
             pass
     return _display_name(os.path.basename(project_path))
@@ -589,39 +596,65 @@ To inspect uncompressed JSON files, geometry, render controllers, and textures:
     print(f"  Updated {os.path.relpath(readme_path, REPO_ROOT)}")
 
 
-def update_project_readme(project_path, category, new_ver_str):
-    """Updates the project's README title to match the current release version."""
+def update_project_readme(project_path, category, new_ver_str, primary_file=None):
+    """Keep individual add-on READMEs download-only; preserve other category formats."""
     readme_path = os.path.join(project_path, "README.md")
     if not os.path.isfile(readme_path):
         return
+
+    if category in ("MCPEDL/addons", "MCPEDL/new_addons"):
+        title = get_project_title(project_path)
+        project_name = os.path.basename(project_path)
+        if primary_file:
+            quoted_file = urllib.parse.quote(primary_file)
+            download_url = f"{GITHUB_RAW}/builds/{project_name}/{quoted_file}"
+            extension = os.path.splitext(primary_file)[1].lower()
+            download_label = f"Download the add-on ({extension})"
+        else:
+            catalog = "new_addons" if category.endswith("new_addons") else "addons"
+            download_url = (
+                "https://github.com/AllensCreations/MCPE-Curseforges/blob/main/"
+                f"MCPEDL/{catalog}/README.md#available-add-ons"
+            )
+            download_label = "Open the official download catalog"
+
+        content = (
+            f"# {title} (v{new_ver_str})\n\n"
+            f"**Download:** [{download_label}]({download_url})\n"
+        )
+        with open(readme_path, "w", encoding="utf-8") as f:
+            f.write(content)
+        print(f"  Updated download-only project README: {os.path.relpath(readme_path, REPO_ROOT)}")
+        return
+
+    # Preserve the established README format for maps, scripts, and other categories.
     with open(readme_path, encoding="utf-8") as f:
         content = f.read()
 
-    # Keep the README title aligned with the in-game manifest title.
-    content = re.sub(r"\[!\[Release\]\([^)]+\)\]\([^)]+\)\n?", "", content)
-    content = re.sub(r"\[!\[Changelog\]\([^)]+\)\]\([^)]+\)\n?", "", content)
+    content = re.sub(r"\\[!\\[Release\\]\\([^)]+\\)\\]\\([^)]+\\)\\n?", "", content)
+    content = re.sub(r"\\[!\\[Changelog\\]\\([^)]+\\)\\]\\([^)]+\\)\\n?", "", content)
 
     lines = content.splitlines(keepends=True)
     for i, line in enumerate(lines):
         if i >= 5 or not line.startswith("# "):
             continue
-        newline = "\n" if line.endswith("\n") else ""
-        title = line.rstrip("\r\n")[2:].strip()
+        newline = "\\n" if line.endswith("\\n") else ""
+        title = line.rstrip("\\r\\n")[2:].strip()
         suffix = ""
         for sep in (" — ", " - ", " -- "):
             if sep in title:
                 title, rest = title.split(sep, 1)
                 suffix = sep + rest
                 break
-        title = re.sub(r"\s*\([vV]\d+\.\d+\.\d+\)\s*$", "", title).strip()
-        line = f"# {title} (v{new_ver_str}){suffix}{newline}"
-        lines[i] = line
+        title = re.sub(r"\\s*\\([vV]\\d+\\.\\d+\\.\\d+\\)\\s*$", "", title).strip()
+        lines[i] = f"# {title} (v{new_ver_str}){suffix}{newline}"
         break
     content = "".join(lines)
 
     with open(readme_path, "w", encoding="utf-8") as f:
         f.write(content)
     print(f"  Synchronized versioned project title in {os.path.relpath(readme_path, REPO_ROOT)}")
+
 
 def update_category_readme(category, project_name, new_ver_str, primary_file):
     """Updates table row in MCPEDL/<category>/README.md with new version and download link."""
@@ -727,7 +760,7 @@ def update_readmes(project_path, category, old_ver_str, new_ver_str, primary_fil
     project_name = os.path.basename(project_path)
 
     # 1. Update project directory README
-    update_project_readme(project_path, category, new_ver_str)
+    update_project_readme(project_path, category, new_ver_str, primary_file)
 
     # 2. Update category directory README
     if primary_file:
