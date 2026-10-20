@@ -1,0 +1,60 @@
+{
+  "format_version": 2,
+  "header": {
+    "name": "Dancing Figurine (v1.0.0)",
+    "description": "Interactive dancing figurine, party music, and colorful visual effects by AllensCreations",
+    "uuid": "b7628c7d-04e8-45df-9231-91f4c7d3e101",
+    "version": [
+      1,
+      0,
+      0
+    ],
+    "min_engine_version": [
+      1,
+      26,
+      0
+    ]
+  },
+  "modules": [
+    {
+      "type": "data",
+      "uuid": "c8301df2-7c83-4a94-a0c6-6c5c64bbd102",
+      "version": [
+        1,
+        0,
+        0
+      ]
+    },
+    {
+      "type": "script",
+      "language": "javascript",
+      "uuid": "d9412ef3-8d94-4ba5-b1d7-7d6d75cce103",
+      "version": [
+        1,
+        0,
+        0
+      ],
+      "entry": "scripts/main.js"
+    }
+  ],
+  "dependencies": [
+    {
+      "module_name": "@minecraft/server",
+      "version": "2.10.0"
+    },
+    {
+      "uuid": "e0523f04-9ea5-4cb6-82e8-8e7e86dde104",
+      "version": [
+        1,
+        0,
+        0
+      ]
+    }
+  ],
+  "metadata": {
+    "authors": [
+      "AllensCreations"
+    ],
+    "product_type": "addon"
+  }
+}

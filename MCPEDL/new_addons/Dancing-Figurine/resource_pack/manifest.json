@@ -1,0 +1,35 @@
+{
+  "format_version": 2,
+  "header": {
+    "name": "Dancing Figurine (v1.0.0)",
+    "description": "Figurine textures, geometry, and dance music by AllensCreations",
+    "uuid": "e0523f04-9ea5-4cb6-82e8-8e7e86dde104",
+    "version": [
+      1,
+      0,
+      0
+    ],
+    "min_engine_version": [
+      1,
+      26,
+      0
+    ]
+  },
+  "modules": [
+    {
+      "type": "resources",
+      "uuid": "f1634a15-afb6-4dc7-93f9-9f8f97eef105",
+      "version": [
+        1,
+        0,
+        0
+      ]
+    }
+  ],
+  "metadata": {
+    "authors": [
+      "AllensCreations"
+    ],
+    "product_type": "addon"
+  }
+}

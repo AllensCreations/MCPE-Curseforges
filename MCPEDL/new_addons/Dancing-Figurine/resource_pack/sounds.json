@@ -1,0 +1,12 @@
+{
+  "music.cute_dance_song": {
+    "category": "record",
+    "sounds": [
+      {
+        "name": "sounds/music/cute_dance_song",
+        "stream": true,
+        "volume": 1
+      }
+    ]
+  }
+}

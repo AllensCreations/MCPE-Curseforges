@@ -1,0 +1,9 @@
+{
+  "resource_pack_name": "Dancing Figurine",
+  "texture_name": "atlas.items",
+  "texture_data": {
+    "cute_figurine": {
+      "textures": "textures/items/cute_figurine"
+    }
+  }
+}

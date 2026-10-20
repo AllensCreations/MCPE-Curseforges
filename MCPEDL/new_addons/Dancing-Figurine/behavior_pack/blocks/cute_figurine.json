@@ -1,0 +1,61 @@
+{
+  "format_version": "1.21.80",
+  "minecraft:block": {
+    "description": {
+      "identifier": "custom:cute_figurine",
+      "menu_category": {
+        "category": "construction",
+        "group": "itemGroup.name.decoration"
+      }
+    },
+    "components": {
+      "minecraft:geometry": "geometry.custom.cute_figurine",
+      "minecraft:material_instances": {
+        "*": {
+          "texture": "cute_figurine",
+          "render_method": "opaque"
+        }
+      },
+      "minecraft:collision_box": {
+        "origin": [
+          -4,
+          0,
+          -4
+        ],
+        "size": [
+          8,
+          10,
+          8
+        ]
+      },
+      "minecraft:selection_box": {
+        "origin": [
+          -4,
+          0,
+          -4
+        ],
+        "size": [
+          8,
+          10,
+          8
+        ]
+      },
+      "minecraft:destructible_by_mining": {
+        "seconds_to_destroy": 0.8
+      },
+      "minecraft:destructible_by_explosion": {
+        "explosion_resistance": 1
+      },
+      "minecraft:loot": "loot_tables/blocks/cute_figurine.json",
+      "minecraft:placement_filter": {
+        "conditions": [
+          {
+            "allowed_faces": [
+              "up"
+            ]
+          }
+        ]
+      }
+    }
+  }
+}
