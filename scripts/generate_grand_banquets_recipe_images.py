@@ -48,6 +48,7 @@ ALIASES={
 "porkchop":"items/porkchop_raw.png",
 "cod":"items/fish.png",
 "mutton":"items/mutton_raw.png",
+"emerald":"items/emerald.png",
 "pumpkin":"blocks/pumpkin_side.png",
 "bowl":"items/bowl.png",
 "egg":"items/egg.png",
@@ -113,14 +114,21 @@ def font(n):
 def vanilla(item):
     short=item.split(":")[-1]
     mapped=ALIASES.get(short)
-    candidates=[SAMPLES/"textures"/mapped] if mapped else [
-        SAMPLES/"textures"/"items"/(short+".png"),
-        SAMPLES/"textures"/"blocks"/(short+".png"),
-    ]
-    for path in candidates:
-        if path.is_file():
-            return Image.open(path).convert("RGBA").resize((32,32),Image.Resampling.NEAREST)
-    raise FileNotFoundError(f"No verified Bedrock Samples texture mapping/file for ingredient {item}")
+    # Prefer inventory-item art. Block textures are used only for IDs explicitly
+    # mapped above when Bedrock has no separate flat item texture (for example,
+    # Pumpkin and Block of Emerald). Never guess a block texture from an item ID.
+    if mapped:
+        path=SAMPLES/"textures"/mapped
+        if not path.is_file():
+            raise FileNotFoundError(f"Mapped official Bedrock Samples texture is missing for {item}: {path}")
+    else:
+        path=SAMPLES/"textures"/"items"/(short+".png")
+        if not path.is_file():
+            raise FileNotFoundError(
+                f"No verified inventory-item texture mapping in Bedrock Samples for {item}. "
+                "Add an explicit, source-verified ALIASES entry; do not guess a block texture."
+            )
+    return Image.open(path).convert("RGBA").resize((32,32),Image.Resampling.NEAREST)
 def recipe(path):
     d=json.loads(path.read_text(encoding="utf-8"))
     for k in ("minecraft:recipe_shaped","minecraft:recipe_shapeless"):
