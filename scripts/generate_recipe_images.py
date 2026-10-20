@@ -117,10 +117,10 @@ def make_crafting_gui():
     board = Image.open(
         BytesIO(cairosvg.svg2png(bytestring=svg_source, output_width=400))
     ).convert("RGBA")
-    if board.size != (400, 220):
+    if board.size != (400, 222):
         raise ValueError(
             f"Unexpected rendered CRAFTING_TABLE.svg dimensions {board.size}; "
-            "expected 400x220."
+            "expected 400x222."
         )
     return board
 
