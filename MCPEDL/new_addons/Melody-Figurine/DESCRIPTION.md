@@ -1,21 +1,21 @@
-# Melody Figurine (v1.0.0) — A Musical Mob Dance
+# Melody Figurine (v1.0.1) — A Musical Mob Dance
 
 **By AllensCreations**
 
-Place the Melody Figurine and interact with it to start a custom song. Nearby mobs within 20 blocks spin and hop with colorful particles while the music plays.
+Place the Melody Figurine and interact with it to start a custom song. Nearby mobs within 20 blocks spin and hop with colorful particles while the dance session is active.
 
 ## Overview
 
-The figurine is a decorative placeable block that starts a custom song from the included Resource Pack. The song file is supplied separately by the project owner, so music playback is not complete until the OGG file is added.
+The figurine is a decorative placeable block configured to play a custom song from the Resource Pack. The song file is supplied separately by the project owner, so music playback cannot be tested until the OGG file is added.
 
 ## Key Features
 
 ### Custom Song
 - Interact with the figurine to play the custom song.
-- The audio is configured as a non-looping music sound.
+- The sound is configured as non-looping music and ends naturally when the audio finishes.
 
 ### Nearby Mob Dance
-- Mobs within a 20-block radius spin and hop while the session is active.
+- Mobs within a 20-block radius spin and hop while the dance session is active.
 - Colorful particle effects appear around nearby mobs.
 - Players, dropped items, projectiles, and vehicles are excluded from the dance effects.
 
@@ -25,7 +25,7 @@ The figurine is a decorative placeable block that starts a custom song from the 
 2. Place the Melody Figurine.
 3. Interact with it to start the song and dance effects.
 
-The current source uses a 60-second dance session. Once the song file is added, update the session duration to match the song length so the dance effects stop at the same time.
+The current source uses a 60-second dance session. After adding the song, adjust the session duration to match its length so the dance effects end at the same time as the song.
 
 ## Compatibility
 
