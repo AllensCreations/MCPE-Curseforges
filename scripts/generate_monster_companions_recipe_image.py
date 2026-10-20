@@ -8,7 +8,9 @@ from __future__ import annotations
 
 import json
 import os
+from io import BytesIO
 from pathlib import Path
+import cairosvg
 from PIL import Image, ImageDraw, ImageFont
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -63,44 +65,42 @@ result_icon = load_icon(RESULT_TEXTURE)
 if len(ingredients) > 9:
     raise ValueError("A 3x3 crafting grid cannot display more than 9 ingredients.")
 
-# Build a compact Bedrock-style crafting interface. Shapeless ingredients are
-# displayed in a simple unordered grid, not as a fixed pattern.
-width, height = 126, 68
-canvas = Image.new("RGBA", (width, height), (198, 198, 198, 255))
-draw = ImageDraw.Draw(canvas)
-draw.line((0, 0, width - 1, 0), fill=(255, 255, 255, 255), width=2)
-draw.line((0, 0, 0, height - 1), fill=(255, 255, 255, 255), width=2)
-draw.line((0, height - 1, width - 1, height - 1), fill=(85, 85, 85, 255), width=2)
-draw.line((width - 1, 0, width - 1, height - 1), fill=(85, 85, 85, 255), width=2)
+# Render the sole authorized crafting-board reference directly from its SVG.
+# No hand-drawn grid, alternate image, or fallback board is allowed.
+BOARD_SVG = ROOT / "assets" / "CRAFTING_TABLE.svg"
+if not BOARD_SVG.is_file():
+    raise FileNotFoundError(
+        f"Required crafting template SVG is missing: {BOARD_SVG}. "
+        "No alternative crafting board may be used."
+    )
+canvas = Image.open(
+    BytesIO(cairosvg.svg2png(bytestring=BOARD_SVG.read_bytes(), output_width=400))
+).convert("RGBA")
+if canvas.size != (400, 222):
+    raise ValueError(f"Unexpected CRAFTING_TABLE.svg dimensions: {canvas.size}")
 
-positions = [(8, 7), (26, 7), (8, 25), (26, 25), (44, 7), (44, 25), (8, 43), (26, 43), (44, 43)]
-for (item_id, icon), (x, y) in zip(ingredients, positions):
-    draw.rectangle((x, y, x + 17, y + 17), fill=(139, 139, 139, 255))
-    draw.line((x, y, x + 17, y), fill=(55, 55, 55, 255))
-    draw.line((x, y, x, y + 17), fill=(55, 55, 55, 255))
-    draw.line((x, y + 17, x + 17, y + 17), fill=(255, 255, 255, 255))
-    draw.line((x + 17, y, x + 17, y + 17), fill=(255, 255, 255, 255))
-    canvas.alpha_composite(icon, (x + 1, y + 1))
+# Ingredient slot coordinates are taken from CRAFTING_TABLE.svg.
+slot_x = [35, 90, 146]
+slot_y = [32, 90, 145]
+for index, (_, icon) in enumerate(ingredients):
+    row, col = divmod(index, 3)
+    if row >= 3:
+        raise ValueError("A 3x3 crafting grid cannot display more than 9 ingredients.")
+    icon = icon.resize((32, 32), Image.Resampling.NEAREST)
+    x = slot_x[col] + 9
+    y = slot_y[row] + 9
+    canvas.alpha_composite(icon, (x, y))
 
-# Pixel-style crafting arrow.
-for y in (30, 31, 32):
-    draw.line((66, y, 78, y), fill=(125, 125, 125, 255))
-draw.line((76, 28, 81, 31), fill=(125, 125, 125, 255), width=2)
-draw.line((76, 34, 81, 31), fill=(125, 125, 125, 255), width=2)
-
-# Result slot and item count.
-draw.rectangle((94, 23, 115, 44), fill=(139, 139, 139, 255))
-draw.line((94, 23, 115, 23), fill=(55, 55, 55, 255))
-draw.line((94, 23, 94, 44), fill=(55, 55, 55, 255))
-draw.line((94, 44, 115, 44), fill=(255, 255, 255, 255))
-draw.line((115, 23, 115, 44), fill=(255, 255, 255, 255))
-canvas.alpha_composite(result_icon, (97, 26))
+# Place the custom result in the SVG's existing output slot.
+result_icon = load_icon(RESULT_TEXTURE).resize((40, 40), Image.Resampling.NEAREST)
+canvas.alpha_composite(result_icon, (318, 94))
 if result_count > 1:
+    draw = ImageDraw.Draw(canvas)
     font = ImageFont.load_default()
     count_text = str(result_count)
-    draw.text((109 - 3 * (len(count_text) - 1), 36), count_text, font=font,
+    draw.text((360 - 6 * len(count_text), 132), count_text, font=font,
               fill=(255, 255, 255, 255), stroke_width=1, stroke_fill=(45, 45, 45, 255))
 
 OUTPUT_FILE.parent.mkdir(parents=True, exist_ok=True)
-canvas.resize((504, 272), Image.Resampling.NEAREST).save(OUTPUT_FILE)
+canvas.resize((800, 444), Image.Resampling.NEAREST).save(OUTPUT_FILE)
 print(f"Generated recipe image from Bedrock Samples textures: {OUTPUT_FILE}")
