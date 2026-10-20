@@ -195,14 +195,14 @@ if not BOARD_SVG_PATH.is_file():
     raise FileNotFoundError(f"Required crafting template SVG is missing: {BOARD_SVG_PATH}")
 svg_source = BOARD_SVG_PATH.read_bytes()
 BOARD = Image.open(BytesIO(cairosvg.svg2png(bytestring=svg_source, output_width=400))).convert("RGBA")
-if BOARD.size != (400, 222):
-    raise ValueError(f"Unexpected rendered SVG dimensions {BOARD.size}; expected 400x222")
+if BOARD.size != (400, 220):
+    raise ValueError(f"Unexpected rendered CRAFTING_TABLE.svg dimensions {BOARD.size}; expected 400x220")
 
 # Crop the slot and arrow artwork from the directly rendered CRAFTING_TABLE.svg template.
 # The ingredient slot is reused vertically so every recipe uses one column.
-INGREDIENT_SLOT = BOARD.crop((35, 32, 89, 87))
-OUTPUT_SLOT = BOARD.crop((306, 81, 370, 148))
-ARROW = BOARD.crop((230, 97, 285, 122))
+INGREDIENT_SLOT = BOARD.crop((34, 30, 86, 84))
+OUTPUT_SLOT = BOARD.crop((306, 80, 370, 146))
+ARROW = BOARD.crop((252, 96, 284, 122))
 
 def recipe_ingredients(kind, data, path):
     """Return ingredient IDs in recipe order, counting repeated ingredients."""
