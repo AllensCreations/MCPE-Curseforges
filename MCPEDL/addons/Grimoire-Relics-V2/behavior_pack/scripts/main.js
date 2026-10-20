@@ -285,8 +285,12 @@ const RELICS = {
             try { p.clearVelocity(); } catch (err) {}
             addFx(p, "slow_falling", 0, 20);
             // Consume the activated relic after safe touchdown, even if it was moved from offhand.
-            consumeVoidRelic(p, s);
+            const consumed = consumeVoidRelic(p, s);
             s.voidRescueActive = false;
+            if (consumed) {
+              s.voidUsed = false;
+              s.voidRelicConsumed = false;
+            }
             p.onScreenDisplay.setActionBar("§d✦ Void Phantom: Touchdown cushioned ✦");
             p.playSound("random.orb");
           }
@@ -421,7 +425,7 @@ function activateVoidPhantom(p, s) {
 }
 
 function consumeVoidRelic(p, s) {
-  if (s.voidRelicConsumed) return;
+  if (s.voidRelicConsumed) return false;
   s.voidRelicConsumed = true;
 
   try {
@@ -431,7 +435,7 @@ function consumeVoidRelic(p, s) {
       eq.setEquipment(EquipmentSlot.Offhand, undefined);
       p.playSound("random.break");
       p.onScreenDisplay.setActionBar("§cYour Void Phantom has shattered!");
-      return;
+      return true;
     }
 
     const inventory = p.getComponent("minecraft:inventory");
@@ -448,10 +452,11 @@ function consumeVoidRelic(p, s) {
         }
         p.playSound("random.break");
         p.onScreenDisplay.setActionBar("§cYour Void Phantom has shattered!");
-        return;
+        return true;
       }
     }
   } catch (err) {}
+  return false;
 }
 
 function clearLight(p, s) {
