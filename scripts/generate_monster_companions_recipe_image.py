@@ -12,7 +12,7 @@ import os
 from pathlib import Path
 
 from PIL import Image, ImageDraw, ImageFont
-from crafting_template import render_crafting_table_svg
+from crafting_template import compose_recipe_diagram
 
 ROOT = Path(__file__).resolve().parents[1]
 SAMPLES_ROOT = Path(os.environ.get("BEDROCK_SAMPLES_ROOT", "/root/bedrock-samples"))
@@ -46,64 +46,27 @@ if not RECIPE_FILE.is_file():
 if not RESULT_TEXTURE.is_file():
     raise FileNotFoundError(f"Add-on result texture not found: {RESULT_TEXTURE}")
 
-# Render only the canonical SVG through the shared renderer.
-board = render_crafting_table_svg()
-
-# All GUI artwork is cropped from the SVG render, never redrawn.
-ingredient_slot = board.crop((34, 30, 86, 84))
-output_slot = board.crop((306, 80, 370, 146))
-arrow = board.crop((252, 96, 284, 122))
-
 recipe_root = json.loads(RECIPE_FILE.read_text(encoding="utf-8"))
-recipe = recipe_root.get("minecraft:recipe_shapeless")
+recipe_type = "minecraft:recipe_shapeless"
+recipe = recipe_root.get(recipe_type)
 if not recipe:
     raise ValueError("Expected minecraft:recipe_shapeless in the Beast Biscuit recipe JSON.")
-
-ingredients = []
-for entry in recipe.get("ingredients", []):
-    item_id = entry.get("item")
-    if item_id not in TEXTURES:
-        raise ValueError(f"No official Bedrock Samples texture mapping for ingredient: {item_id}")
-    ingredients.append((item_id, load_icon(TEXTURES[item_id])))
 
 result = recipe.get("result", {})
 result_id = result.get("item")
 result_count = int(result.get("count", 1))
 if result_id != "allenscreations:beast_biscuit":
     raise ValueError(f"Unexpected recipe result: {result_id}")
-if not ingredients:
-    raise ValueError("The Beast Biscuit recipe has no ingredients.")
 
-result_icon = load_icon(RESULT_TEXTURE, (40, 40))
+def ingredient_icon(item_id: str) -> Image.Image:
+    if item_id not in TEXTURES:
+        raise ValueError(f"No official Bedrock Samples texture mapping for ingredient: {item_id}")
+    return load_icon(TEXTURES[item_id])
 
-# Keep the user's single-column recipe presentation. Each slot, the arrow, and
-# output slot originate from the one authorized SVG; only the diagram canvas and
-# text labels are composed around those source-derived elements.
-slot_step = 58
-top = 42
-height = max(204, top + len(ingredients) * slot_step + 30)
-canvas = Image.new("RGBA", (500, height), (139, 139, 139, 255))
-draw = ImageDraw.Draw(canvas)
-draw.text((14, 10), "Beast Biscuit", font=font(18), fill=(35, 35, 35))
-
-for index, (item_id, icon) in enumerate(ingredients):
-    y = top + index * slot_step
-    canvas.alpha_composite(
-        ingredient_slot.resize((50, 52), Image.Resampling.NEAREST),
-        (22, y),
-    )
-    canvas.alpha_composite(icon, (31, y + 10))
-    label = item_id.split(":")[-1].replace("_", " ").title()
-    draw.text((82, y + 17), label, font=font(12), fill=(35, 35, 35))
-
-mid_y = top + (len(ingredients) - 1) * slot_step // 2
-canvas.alpha_composite(arrow.resize((46, 26), Image.Resampling.NEAREST), (300, mid_y + 10))
-output_y = max(top, mid_y - 8)
-canvas.alpha_composite(output_slot.resize((62, 62), Image.Resampling.NEAREST), (408, output_y))
-canvas.alpha_composite(result_icon, (419, output_y + 11))
-draw.text((402, output_y + 66), f"Output x{result_count}", font=font(11), fill=(35, 35, 35))
-draw.text((22, height - 18), "Shapeless recipe — ingredients listed in one column",
-          font=font(10), fill=(55, 55, 55))
+result_icon = load_icon(RESULT_TEXTURE, (38, 38))
+canvas = compose_recipe_diagram(
+    recipe_type, recipe, ingredient_icon, result_icon, result_count, scale=2
+)
 
 OUTPUT_FILE.parent.mkdir(parents=True, exist_ok=True)
 canvas.save(OUTPUT_FILE)
