@@ -419,3 +419,13 @@ Use this approach as the preferred editable workflow, not an absolute restrictio
 - Keep essential compatibility safeguards: inspect the target pack and follow its supported Bedrock/API conventions; do not knowingly introduce incompatible versions or malformed required files. If a genuine blocker prevents implementation, explain it briefly and continue with any useful work that can be completed.
 - Do not claim that a pack was built, tested in-game, committed, or pushed unless that action actually succeeded. Clearly distinguish a created source pack from a successfully compiled or in-game-tested pack.
 - Keep responses concise and focus on the created or changed files and the result. Provide testing notes only when relevant to a blocker, an important limitation, or the user's next step.
+
+
+## Mandatory Mojang Bedrock Samples Reference
+
+- Always use the official Mojang Bedrock Samples repository as the primary reference for vanilla Minecraft Bedrock assets, item/block identifiers, texture paths, recipes, entity definitions, components, and supported data formats. This applies to all add-on creation, updates, recipe diagrams, and other tasks involving vanilla Minecraft content.
+- Before implementing, inspect the checked-out Samples version and actual files relevant to the task. Do not rely only on remembered filenames, guessed aliases, old examples, or third-party texture lists.
+- For recipe images, inspect the add-on's complete recipe set first, then resolve every vanilla ingredient through the current Samples texture assets and, where useful, the official texture atlas/index metadata. Resolve namespace IDs to real texture filenames deliberately; item IDs and PNG filenames do not always match.
+- Build a complete ingredient-to-texture mapping before rendering any images. Report all unresolved ingredients together before generation where practical, instead of repeatedly failing on one missing item per run. Add documented aliases only after verifying the target texture exists and represents the correct vanilla item. Never silently substitute an unrelated texture.
+- Confirm custom ingredients/results against the add-on's own resource pack and vanilla ingredients against Mojang Samples. If a correct asset is absent or ambiguous, stop with a clear error or use another verified official reference; never create a misleading image.
+- Workflows that use Samples must fetch/clone it reproducibly, set its root path explicitly, and run the generator against that checkout. Update the relevant workflow whenever new generators or output paths are added, and do not claim images are published until generated files are committed and their links resolve.
