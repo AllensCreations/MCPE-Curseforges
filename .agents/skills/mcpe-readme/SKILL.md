@@ -41,7 +41,7 @@ To ensure the markdown renders identically on external platforms (MCPEDL, CurseF
    https://github.com/AllensCreations/MCPE-Curseforges/tree/main/<path>
    https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/<file>
    ```
-3. **Bottom Search & Discovery Keywords (SEO) — Grounded in the Add-on's README**:
+3. **Bottom Search & Discovery Keywords (SEO) — Grounded in DESCRIPTION.md**:
    Every individual project `DESCRIPTION.md` should end with a tailored SEO section, with attribution/copyright immediately before it. Do not force SEO into directory catalogs or generic repository documentation. **Do NOT use generic placeholder keywords alone.**
    - **Use the Add-on's DESCRIPTION.md as the Basis**: Extract terms directly from the pack's actual features, mechanics, mob types, item names, commands, and gameplay benefits described across its cards and overview.
    - **Structure**: Include high-intent player search phrases that directly match what the specific add-on offers.
@@ -55,7 +55,7 @@ To ensure the markdown renders identically on external platforms (MCPEDL, CurseF
 
    ## Search & Discovery Keywords
 
-   Minecraft Bedrock add-on, [Add-on Name] Bedrock mod, [Core Feature 1 from README], [Core Feature 2 from README], [Item/Mob Name from README], Minecraft PE survival, MCPEDL add-on, CurseForge Bedrock, AllensCreations.
+   Minecraft Bedrock add-on, [Add-on Name] Bedrock mod, [Core Feature 1 from DESCRIPTION.md], [Core Feature 2 from DESCRIPTION.md], [Item/Mob Name from DESCRIPTION.md], Minecraft PE survival, MCPEDL add-on, CurseForge Bedrock, AllensCreations.
    ```
 
 ### 4. Standard Project README Template
@@ -140,6 +140,7 @@ CHANGELOG files communicate updates directly to players and community users. The
   - `### Fixed` — Bug fixes described in terms of in-game experience (not line numbers or stack traces).
 
 ### 2. Player-First Language in Changelogs
+- **No links in changelogs:** Never add hyperlinks, raw URLs, Markdown links, linked project names, badges, or link references anywhere in CHANGELOG.md.
 - ✅ **DO explain player impact**:
   - *"Decorative leaf protection: Custom player-placed hedges and bushes are now safely ignored by the tree capitator."*
   - *"Smooth dynamic lighting: Equipping or holding torches now illuminates dark caverns with zero stutter."*
