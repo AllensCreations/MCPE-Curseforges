@@ -117,10 +117,10 @@ def make_crafting_gui():
     board = Image.open(
         BytesIO(cairosvg.svg2png(bytestring=svg_source, output_width=400))
     ).convert("RGBA")
-    if board.size != (400, 222):
+    if board.size != (400, 220):
         raise ValueError(
             f"Unexpected rendered CRAFTING_TABLE.svg dimensions {board.size}; "
-            "expected 400x222."
+            "expected 400x220."
         )
     return board
 
@@ -145,8 +145,8 @@ for rf in sorted(os.listdir(RECIPES_DIR)):
     canvas = make_crafting_gui()
     # Slot coordinates come from assets/CRAFTING_TABLE.svg. Never construct
     # a replacement grid or use a different board reference.
-    slot_x = [35, 90, 146]
-    slot_y = [32, 90, 145]
+    slot_x = [34, 90, 146]
+    slot_y = [30, 86, 140]
 
     for row_idx, row in enumerate(grid_pattern):
         for col_idx, ch in enumerate(row):
@@ -158,7 +158,7 @@ for rf in sorted(os.listdir(RECIPES_DIR)):
                 canvas.paste(tex, (x, y), tex)
 
     if out_tex:
-        canvas.paste(out_tex, (318, 94), out_tex)
+        canvas.paste(out_tex, (318, 92), out_tex)
 
     scale_factor = 2
     scaled = canvas.resize((canvas.width * scale_factor, canvas.height * scale_factor), Image.Resampling.NEAREST)
@@ -177,7 +177,7 @@ files = [
 
 cols = 4
 rows = 4
-img_w, img_h = 800, 444
+img_w, img_h = 800, 440
 pad = 12
 
 sheet_w = cols * img_w + (cols + 1) * pad
