@@ -170,6 +170,18 @@ Every individual add-on DESCRIPTION.md that includes attribution must place that
 - Use `.github/workflows/generate-recipe-images.yml` to regenerate registered recipe diagrams when their recipes, source textures, or generators change. The workflow checks out Mojang Bedrock Samples, installs Pillow, runs the registered generators, and commits updated PNGs. When adding a generator for another add-on, register it in that workflow and ensure its DESCRIPTION.md points to the generated PNG with a verified absolute raw GitHub URL. Workflow-generated commits use `[skip ci]` to prevent loops.
 - Do not change recipe ingredients, result count, or shaped/shapeless behavior just to match an image. The recipe JSON is authoritative; update the diagram to match it.
 
+### Recipe Generator Reliability and Workflow Registration
+
+- Before adding or changing a recipe-image generator, inspect the add-on's complete recipe directory and collect every ingredient item ID used by all supported recipes. Build and review an explicit texture mapping for every ingredient rather than fixing only the first reported missing texture.
+- Vanilla item IDs do not always match Bedrock Samples texture filenames. Maintain explicit, source-verified aliases where needed (for example, `minecraft:enchanted_golden_apple` uses the vanilla golden-apple texture asset). Resolve aliases against the checked-out Bedrock Samples tree and fail clearly if no correct texture exists; never substitute an unrelated item icon or silently skip an ingredient.
+- Confirm the expected Bedrock Samples texture path for each mapped ingredient in the currently checked-out sample repository. Some textures may be under `textures/items/` and others under `textures/blocks/`; only use a path after verifying the file exists and depicts the correct ingredient.
+- Register every generator in `.github/workflows/generate-recipe-images.yml` in both places: add the script path to the workflow's `push.paths` filter so edits trigger the workflow, and add an explicit generation step. Also stage every generated image directory/file in the commit step.
+- The workflow must regenerate images when relevant recipe JSON, source textures, generator scripts, or the workflow itself changes. Keep `workflow_dispatch` enabled for manual reruns after a failure.
+- When a generator fails, use the first missing/unmapped ingredient as a diagnostic, fix the mapping or path in source, and rerun the workflow. Do not report the image set as generated until the workflow completes successfully and the expected output PNGs exist.
+- Recipe diagrams and item-preview sheets must be based on the real recipe definitions and texture assets. Confirm that output item IDs map to the correct custom texture, the rendered count matches the recipe, and all referenced output filenames are produced. Keep published `DESCRIPTION.md` image URLs aligned with the generated filenames.
+- Keep generated image files in the repository so published raw GitHub URLs resolve. A correct Markdown image URL alone is not proof that the PNG exists or that the generator succeeded.
+
+
 ## Minecraft Bedrock Crafting Recipe Unlock Rule — Mandatory
 
 - **Every custom crafting recipe must be explicitly unlocked by default.** Include the Bedrock recipe unlock component:
