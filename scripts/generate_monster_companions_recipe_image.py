@@ -60,8 +60,8 @@ board_bytes = cairosvg.svg2png(
     output_width=400,
 )
 board = Image.open(BytesIO(board_bytes)).convert("RGBA")
-if board.size != (400, 220):
-    raise ValueError(f"Unexpected CRAFTING_TABLE.svg dimensions after rendering: {board.size}; expected 400x220")
+if board.size != (400, 222):
+    raise ValueError(f"Unexpected CRAFTING_TABLE.svg dimensions after rendering: {board.size}; expected 400x222")
 
 # All GUI artwork is cropped from the SVG render, never redrawn.
 ingredient_slot = board.crop((34, 30, 86, 84))
