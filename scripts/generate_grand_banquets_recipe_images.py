@@ -29,15 +29,15 @@ ALIASES={
 "golden_carrot":"items/carrot_golden.png",
 "lapis_lazuli":"items/dye_powder_blue.png",
 "milk_bucket":"items/bucket_milk.png",
-"raw_beef":"items/beef.png",
+"raw_beef":"items/beef_raw.png",
 "raw_chicken":"items/chicken.png",
 "raw_cod":"items/fish.png",
 "raw_mutton":"items/mutton_raw.png",
 "raw_porkchop":"items/porkchop_raw.png",
 "raw_rabbit":"items/rabbit.png",
-"raw_salmon":"items/salmon.png",
-"red_mushroom":"items/mushroom_red.png",
-"brown_mushroom":"items/mushroom_brown.png",
+"raw_salmon":"items/fish_salmon_raw.png",
+"red_mushroom":"blocks/mushroom_red.png",
+"brown_mushroom":"blocks/mushroom_brown.png",
 "dragon_breath":"items/dragons_breath.png",
 "wheat_seeds":"items/seeds_wheat.png",
 "totem_of_undying":"items/totem.png",
@@ -126,8 +126,8 @@ for path in recipes:
         missing.add(f"custom result texture: {result}.png")
 if missing:
     raise FileNotFoundError(
-        "Unresolved recipe assets (checked official Bedrock Samples and add-on textures):\\n- "
-        + "\\n- ".join(sorted(missing))
+        "Unresolved recipe assets (checked official Bedrock Samples and add-on textures):\n- "
+        + "\n- ".join(sorted(missing))
     )
 
 entries=[render(p) for p in recipes]
