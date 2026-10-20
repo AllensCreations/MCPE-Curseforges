@@ -12,7 +12,7 @@ OUT=ADDON/"assets/recipes"
 SAMPLES=Path(os.environ.get("BEDROCK_SAMPLES_ROOT","/root/bedrock-samples"))/"resource_pack"
 OUT.mkdir(parents=True,exist_ok=True)
 ALIASES={
-"apple_golden":"apple_golden","enchanted_golden_apple":"apple_golden","baked_potato":"potato_baked","cooked_beef":"beef_cooked",
+"apple_golden":"apple_golden","cocoa_beans":"dye_powder_brown","cooked_salmon":"fish_salmon_cooked","golden_carrot":"carrot_golden","pumpkin":"pumpkin_side","enchanted_golden_apple":"apple_golden","baked_potato":"potato_baked","cooked_beef":"beef_cooked",
 "cooked_chicken":"chicken_cooked","cooked_cod":"fish_cooked","cooked_mutton":"mutton_cooked",
 "cooked_porkchop":"porkchop_cooked","cooked_rabbit":"rabbit_cooked","cooked_salmon":"salmon_cooked",
 "golden_apple":"apple_golden","lapis_lazuli":"dye_powder_blue","milk_bucket":"bucket_milk","raw_beef":"beef",
