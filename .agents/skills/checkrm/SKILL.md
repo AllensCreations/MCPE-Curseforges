@@ -6,7 +6,7 @@ description: >-
   repository-wide scans across MCPEDL/addons, MCPEDL/new_addons, MCPEDL/script,
   and MCPEDL/maps. Inspects scripts, manifests, entities, animation controllers,
   language files, recipes, presets, assets, and gameplay mechanics. Creates or
-  updates README.md files, checks logos and banners, synchronizes parent
+  updates README.md and DESCRIPTION.md files, checks logos and banners, synchronizes parent
   catalogs and build references, and verifies the final documentation status.
   Trigger with /checkrm or requests to create, update, audit, or repair project
   documentation.
@@ -56,12 +56,12 @@ files, manifests, assets, scripts, workflows, or pack configuration.
 
 `INSTRUCTIONS.md` defines shared policy and `README_GUIDELINES.md` is the canonical README/CHANGELOG style guide. This skill defines the audit workflow. Its template is a fallback only and must not override either document or the user's explicit instructions. Inspect existing documentation to learn current conventions.
 
-For individual add-ons, audit both README.md (download link only) and DESCRIPTION.md (complete customer-facing product information). When migrating an existing project, move the full verified product content into DESCRIPTION.md before replacing README.md with the short download link. Before finishing a documentation audit, verify the project's manifest titles and creator attribution with `python3 scripts/validate_manifest_titles.py --project <project-path>` when applicable. Confirm each title has exactly one `(vX.Y.Z)` suffix matching `header.version`, the manifest description contains `by AllensCreations` exactly once, and paired Behavior Pack/Resource Pack displayed versions match. Include the official [CurseForge](https://www.curseforge.com/members/allenscreations/projects) and [MCPEDL](https://mcpedl.com/user/allenscreations/) profile links in the published README description or attribution section.
+For individual add-ons, audit both README.md (download link only) and DESCRIPTION.md (complete customer-facing product information). When migrating an existing project, move the full verified product content into DESCRIPTION.md before replacing README.md with the short download link. Before finishing a documentation audit, verify the project's manifest titles and creator attribution with `python3 scripts/validate_manifest_titles.py --project <project-path>` when applicable. Confirm each title has exactly one `(vX.Y.Z)` suffix matching `header.version`, the manifest description contains `by AllensCreations` exactly once, and paired Behavior Pack/Resource Pack displayed versions match. Include the official [CurseForge](https://www.curseforge.com/members/allenscreations/projects) and [MCPEDL](https://mcpedl.com/user/allenscreations/) profile links in DESCRIPTION.md only.
 
 Before creating or substantially rewriting README.md or DESCRIPTION.md:
 
 1. Inspect the repository root `README.md`, if present.
-2. Inspect two or three relevant, well-documented project READMEs, if available.
+2. Inspect two or three relevant, well-documented project DESCRIPTION.md files for add-on product content, and README.md files for download-link conventions.
 3. Prefer reference projects from the same category as the target.
 4. Inspect the relevant category catalog and the builds README, if present.
 5. Identify the established badge formats, title style, banner placement,
@@ -93,7 +93,7 @@ must not override the accuracy and style rules below.
   testing status without evidence.
 - Do not invent release versions, download links, screenshots, assets, credits,
   dependencies, or project details.
-- Preserve useful verified content in an existing README.
+- Preserve useful verified content in DESCRIPTION.md for add-ons; keep individual add-on README.md files download-only.
 - Avoid duplicate sections and duplicate catalog entries.
 - Do not add raw HTML to README files unless the repository's established
   format or a specific user request requires it.
@@ -223,9 +223,9 @@ repository.
   missing-image convention, if one exists.
 - Use only images relevant to the target project.
 
-## Step 6 — Create or Update the README
+## Step 6 — Create or Update Project Documentation
 
-Write a README that fits the project category and repository style.
+For add-ons, write product information to DESCRIPTION.md and keep README.md limited to the download link. For other project categories, follow the user's latest explicit direction and repository standards.
 
 For add-ons, include relevant sections from the following list:
 
