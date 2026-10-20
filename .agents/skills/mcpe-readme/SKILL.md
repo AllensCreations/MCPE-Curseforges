@@ -5,14 +5,14 @@ description: Download-only README, commercial DESCRIPTION, and link-free CHANGEL
 
 # Commercial DESCRIPTION and Changelog Guidelines for Minecraft Bedrock
 
-This skill defines download-only README.md, commercial DESCRIPTION.md, and link-free CHANGELOG.md rules for Minecraft Bedrock add-ons, maps, and scripts. Follow repository `INSTRUCTIONS.md` for shared policy and `README_GUIDELINES.md` for canonical rules. Source accuracy and the user's requested scope override any template.
+This skill defines download-focused README.md, commercial DESCRIPTION.md, and link-free CHANGELOG.md rules for Minecraft Bedrock add-ons, maps, and scripts. Follow repository `INSTRUCTIONS.md` for shared policy and `README_GUIDELINES.md` for canonical rules. Source accuracy and the user's requested scope override any template.
 
 ---
 
 ## Part 1: README.md and DESCRIPTION.md Guidelines
 
 ### 1. Strictly Forbidden (Zero Developer Clutter)
-Individual add-on README.md files are download-link-only pages; product information belongs in DESCRIPTION.md. Keep the README limited to the add-on name/version and direct download link (or the official download catalog if no direct file is available). Never place feature details, recipes, compatibility, images, attribution, SEO, or changelog content there. DESCRIPTION.md is the player-facing product page and follows the rules below:
+Individual add-on README.md files are download-focused landing pages; detailed product information belongs in DESCRIPTION.md. Include the add-on name/version, direct download link (or official download catalog if no direct file is available), package format, concise generic import steps, and a link to DESCRIPTION.md. Do not duplicate feature details, recipes, compatibility claims, images, attribution, SEO, or changelog content there. DESCRIPTION.md is the player-facing product page and follows the rules below:
 - **Version information:** For add-on project README headings, include the verified release version as `# Add-on Name (vX.Y.Z)` and keep it synchronized with the pack manifest. Never omit a required version or duplicate the suffix. Put `by AllensCreations` in the manifest description, not the title.
 - **Creator profile links:** Include [CurseForge](https://www.curseforge.com/members/allenscreations/projects) and [MCPEDL](https://mcpedl.com/user/allenscreations/) in DESCRIPTION.md, never in the download-only README.md. Do not put these links in the short in-game manifest description.
 - ❌ **No Script API References**: Never mention `Script API` or `@minecraft/server` in badges, text, or tables. Use player-facing terms like "modern Minecraft Bedrock mechanics".
@@ -63,10 +63,26 @@ To ensure the markdown renders identically on external platforms (MCPEDL, CurseF
 ```markdown
 # [Add-on Name] (vX.Y.Z)
 
-**Download:** [Download the add-on (.mcaddon)](verified-direct-download-link)
+Download the current release of **[Add-on Name]** for Minecraft Bedrock Edition.
+
+## Download
+
+- **Version:** X.Y.Z
+- **Package format:** `.mcaddon`
+- **Direct download:** [Download [Add-on Name] (.mcaddon)](verified-direct-download-link)
+
+## Installation
+
+1. Download the package using the link above.
+2. Open the downloaded file with Minecraft to import it.
+3. If the package contains a pack that must be enabled separately, activate it in your world's settings.
+
+## Add-on Information
+
+For gameplay features, usage details, recipes, compatibility notes, and other project information, read the [full description](verified-DESCRIPTION-link).
 ```
 
-README.md contains download information only. Put all customer-facing product details in DESCRIPTION.md.
+Keep README focused on downloading and importing. Put detailed customer-facing product information in DESCRIPTION.md.
 
 ### 5. Standard Project DESCRIPTION.md Template
 
