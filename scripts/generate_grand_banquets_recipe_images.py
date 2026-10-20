@@ -196,7 +196,7 @@ def render(path):
         raise FileNotFoundError(f"Missing custom result texture: {result_path}")
     result_icon = Image.open(result_path).convert("RGBA")
     diagram = compose_recipe_diagram(
-        kind, data, vanilla, result_icon, int(result.get("count", 1)), scale=2
+        kind, data, vanilla, result_icon, int(result.get("count", 1)), scale=1
     )
     output_path = OUT / (slug + "_recipe.png")
     diagram.save(output_path)
@@ -230,10 +230,10 @@ if missing:
 
 entries=[render(p) for p in recipes]
 # Texture preview sheet
-sheet=Image.new("RGBA",(872,64+8*64),(35,35,38,255)); dr=ImageDraw.Draw(sheet)
+sheet=Image.new("RGBA",(872,48+len(entries)*64),(35,35,38,255)); dr=ImageDraw.Draw(sheet)
 dr.text((16,10),"Grand Banquets — Custom Food Items",font=font(24),fill="white")
 for i,(slug,icon,_) in enumerate(entries):
-    x=16+(i%4)*210; y=48+(i//4)*64
+    x=16; y=48+i*64
     sheet.alpha_composite(icon.resize((48,48),Image.Resampling.NEAREST),(x,y))
     dr.text((x+54,y+15),slug.replace("_"," ").title(),font=font(12),fill="white")
 sheet.save(OUT/"item_previews.png")
@@ -248,13 +248,13 @@ for filename, slugs in tiers:
         raise RuntimeError(f"Missing recipe for {filename}")
     cards = [(slug, icon, path, Image.open(path).convert("RGBA")) for slug, icon, path in selected]
     tile_height = max(card.height for _, _, _, card in cards)
-    board = Image.new("RGBA", (1012, 48 + 4 * tile_height), (139, 139, 139, 255))
+    board = Image.new("RGBA", (400, 48 + len(cards) * tile_height), (139, 139, 139, 255))
     dr = ImageDraw.Draw(board)
     dr.text((16, 8), filename.replace("_", " ").replace(".png", "").title(),
             font=font(22), fill=(35, 35, 35))
     for i, (_, _, _, card) in enumerate(cards):
-        x = 6 + (i % 2) * 506
-        y = 48 + (i // 2) * tile_height
+        x = 0
+        y = 48 + i * tile_height
         board.alpha_composite(card, (x, y))
     board.save(OUT / filename)
 print("Generated 32 recipe diagrams, item preview sheet, and four tier sheets.")
