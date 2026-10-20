@@ -60,7 +60,7 @@ def ingredient_icon(item_id: str) -> Image.Image:
 
 result_icon = load_icon(RESULT_TEXTURE, (38, 38))
 canvas = compose_recipe_diagram(
-    recipe_type, recipe, ingredient_icon, result_icon, result_count, scale=2
+    recipe_type, recipe, ingredient_icon, result_icon, result_count, scale=1
 )
 
 OUTPUT_FILE.parent.mkdir(parents=True, exist_ok=True)
