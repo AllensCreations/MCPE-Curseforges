@@ -9,11 +9,10 @@ from __future__ import annotations
 
 import json
 import os
-from io import BytesIO
 from pathlib import Path
 
-import cairosvg
 from PIL import Image, ImageDraw, ImageFont
+from crafting_template import render_crafting_table_svg
 
 ROOT = Path(__file__).resolve().parents[1]
 SAMPLES_ROOT = Path(os.environ.get("BEDROCK_SAMPLES_ROOT", "/root/bedrock-samples"))
@@ -22,7 +21,6 @@ ADDON = ROOT / "MCPEDL" / "addons" / "Monster-Companions"
 RECIPE_FILE = ADDON / "behavior_pack" / "recipes" / "beast_biscuit.json"
 RESULT_TEXTURE = ADDON / "resource_pack" / "textures" / "items" / "beast_biscuit.png"
 OUTPUT_FILE = ADDON / "beast_biscuit_recipe.png"
-BOARD_SVG = ROOT / "assets" / "CRAFTING_TABLE.svg"
 
 TEXTURES = {
     "minecraft:rotten_flesh": VANILLA_TEXTURES / "rotten_flesh.png",
@@ -43,25 +41,13 @@ def font(size: int) -> ImageFont.ImageFont:
     return ImageFont.truetype(str(path), size) if path.is_file() else ImageFont.load_default()
 
 
-if not BOARD_SVG.is_file():
-    raise FileNotFoundError(
-        f"Required crafting reference is missing: {BOARD_SVG}. "
-        "No PNG or alternative board image may be used as a substitute."
-    )
 if not RECIPE_FILE.is_file():
     raise FileNotFoundError(f"Recipe JSON not found: {RECIPE_FILE}")
 if not RESULT_TEXTURE.is_file():
     raise FileNotFoundError(f"Add-on result texture not found: {RESULT_TEXTURE}")
 
-# Render the exact SVG directly in memory. Do not load CRAFTING_TABLE.png or
-# any other raster board as a source/reference.
-board_bytes = cairosvg.svg2png(
-    bytestring=BOARD_SVG.read_bytes(),
-    output_width=400,
-)
-board = Image.open(BytesIO(board_bytes)).convert("RGBA")
-if board.size != (400, 222):
-    raise ValueError(f"Unexpected CRAFTING_TABLE.svg dimensions after rendering: {board.size}; expected 400x222")
+# Render only the canonical SVG through the shared renderer.
+board = render_crafting_table_svg()
 
 # All GUI artwork is cropped from the SVG render, never redrawn.
 ingredient_slot = board.crop((34, 30, 86, 84))
