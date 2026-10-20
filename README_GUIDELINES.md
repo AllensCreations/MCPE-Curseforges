@@ -80,10 +80,26 @@ To ensure the markdown renders identically on external platforms (MCPEDL, CurseF
 ```markdown
 # [Add-on Name] (vX.Y.Z)
 
-**Download:** [Download the add-on (.mcaddon)](verified-direct-download-link)
+Download the current release of **[Add-on Name]** for Minecraft Bedrock Edition.
+
+## Download
+
+- **Version:** X.Y.Z
+- **Package format:** `.mcaddon`
+- **Direct download:** [Download [Add-on Name] (.mcaddon)](verified-direct-download-link)
+
+## Installation
+
+1. Download the package using the link above.
+2. Open the downloaded file with Minecraft to import it.
+3. If the package contains a pack that must be enabled separately, activate it in your world's settings.
+
+## Add-on Information
+
+For gameplay features, usage details, recipes, compatibility notes, and other project information, read the [full description](verified-DESCRIPTION-link).
 ```
 
-If the direct release file is not available yet, use only a link to the appropriate official download catalog. Do not add product information to this file.
+If the direct release file is not available yet, use the appropriate official download catalog in the download line. README.md is for download and basic import information; put full product information in DESCRIPTION.md.
 
 ### 5. Standard Project DESCRIPTION.md Template
 
