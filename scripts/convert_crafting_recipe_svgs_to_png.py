@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Convert crafting-recipe SVGs to reliable PNGs, embedding remote image assets first."""
+"""Export SVG assets to PNG. Crafting-table PNG is a derivative of CRAFTING_TABLE.svg, never a separate reference."""
 from pathlib import Path
 from urllib.request import Request, urlopen
 from urllib.parse import urlparse
@@ -40,7 +40,7 @@ def main():
         output = source.with_suffix(".png")
         svg = source.read_text(encoding="utf-8")
         svg = embed_remote_images(svg)
-        cairosvg.svg2png(bytestring=svg.encode("utf-8"), write_to=str(output), output_width=800)
+        cairosvg.svg2png(bytestring=svg.encode("utf-8"), write_to=str(output), output_width=400 if source == template_svg else 800)
         print(f"Generated {output.relative_to(ROOT)}")
 if __name__ == "__main__":
     main()
