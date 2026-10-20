@@ -167,8 +167,6 @@ CHANGELOG files communicate updates directly to players and community users. The
 ```markdown
 # Changelog — [Add-on Name]
 
-All notable updates and improvements to the **[Add-on Name]** add-on by AllensCreations are documented in this file.
-
 ---
 
 ## [1.0.0] - YYYY-MM-DD
