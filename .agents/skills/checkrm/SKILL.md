@@ -227,11 +227,11 @@ reliable documentation.
 
 ## Step 5 — Check Logos, Banners, and Preview Images
 
-Do not add images to individual add-on README.md or DESCRIPTION.md files.
-Keep these add-on documentation files text-only, even when banners, screenshots,
-previews, item sprites, or recipe images exist in the repository. Do not create
-new image assets for add-on descriptions. Existing assets may remain for other
-approved uses or project categories.
+Keep individual add-on README.md files image-free. In add-on DESCRIPTION.md,
+allow only item sprites and crafting recipe diagrams as images. Do not add
+promotional banners, generic screenshots, or unrelated artwork. Verify all
+image targets and use absolute raw GitHub URLs for published embeds. Crafting
+diagrams must follow the source-based workflow in INSTRUCTIONS.md.
 
 ## Step 6 — Create or Update Project Documentation
 
@@ -268,7 +268,7 @@ For any project:
 - Keep descriptions concise, polished, player-focused, and factual; avoid hype and filler.
 - Explain meaningful features rather than listing unsupported claims.
 - Never claim achievement support, no experimental features, compatibility, performance, or testing status without evidence.
-- Individual add-on README.md and DESCRIPTION.md files must be text-only; do not embed or create images for them. Other project categories and catalogs may follow their own image rules.
+- Individual add-on README.md files must be image-free. DESCRIPTION.md may embed item sprites and crafting recipe diagrams only; verify those assets exist and use absolute raw GitHub URLs. Other project categories and catalogs may follow their own image rules.
 - Verify that every link destination exists.
 - Keep formatting consistent with verified repository conventions.
 - Do not include internal analysis or instructions to the assistant in the
@@ -361,7 +361,7 @@ was not run.
 After editing:
 
 1. Re-read the complete target README.
-2. Check headings, lists, tables, badges, and links; confirm add-on README.md and DESCRIPTION.md files contain no image embeds.
+2. Check headings, lists, tables, badges, and links; confirm README.md files contain no images and DESCRIPTION.md images are limited to item sprites and crafting recipe diagrams.
 3. Check that each documented feature is supported by project evidence.
 4. Check that no placeholders remain in finished documentation.
 5. Check that no duplicate catalog entries were introduced.
@@ -391,7 +391,7 @@ When the user requests `/checkrm` or a repository-wide audit:
 4. Inspect each affected project and its actual implementation.
 5. Inspect reference READMEs to confirm current repository conventions.
 6. Create or repair each README using verified project information.
-7. Check badges and links; confirm add-on descriptions contain no images.
+7. Check badges and links; confirm add-on descriptions use only permitted item sprites and crafting recipe diagrams.
 8. Synchronize relevant catalogs and generated documentation.
 9. Run appropriate repository scripts without unintended version changes.
 10. Run the status checker again.
@@ -410,7 +410,7 @@ When the user requests a single project update:
 3. Inspect relevant reference READMEs and catalogs.
 4. Identify missing, stale, or inaccurate documentation.
 5. Create or update the README.
-6. Verify badges, links, and claims; keep add-on descriptions text-only.
+6. Verify badges, links, and claims; keep README.md image-free and limit DESCRIPTION.md images to item sprites and crafting recipe diagrams.
 7. Update relevant catalogs only when necessary.
 8. Run applicable validation commands.
 9. Review the final diff.
