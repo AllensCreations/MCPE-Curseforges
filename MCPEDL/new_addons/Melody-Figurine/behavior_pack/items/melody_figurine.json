@@ -8,11 +8,7 @@
       }
     },
     "components": {
-      "minecraft:icon": {
-        "textures": {
-          "default": "melody_figurine"
-        }
-      },
+      "minecraft:icon": "melody_figurine",
       "minecraft:display_name": {
         "value": "Melody Figurine"
       },
