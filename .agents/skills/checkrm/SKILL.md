@@ -66,7 +66,8 @@ Before creating or substantially rewriting README.md or DESCRIPTION.md:
 4. Inspect the relevant category catalog and the builds README, if present.
 5. Identify established title style, section order, feature-card conventions,
    compatibility wording, attribution, and formatting. For add-on descriptions,
-   do not embed or create images.
+   do not create or embed images unless the user explicitly requests them or
+   project-specific instructions require them.
 6. Reuse appropriate repository conventions without copying project-specific
    features or unsupported claims.
 7. If no references are accessible, use the templates and rules in this skill.
