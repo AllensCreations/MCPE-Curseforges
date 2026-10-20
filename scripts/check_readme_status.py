@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Scanner and Updater for project README documentation status across MCPE-Curseforges.
+Scanner and Updater for add-on README.md and DESCRIPTION.md documentation status across MCPE-Curseforges.
 
 Identifies:
 1. Missing README.md files.
@@ -29,7 +29,7 @@ def audit_relative_links():
         if any(ignored in root for ignored in [".git", "node_modules", "reference/bedrock-samples", "graphify-out"]):
             continue
         for f in files:
-            if f.lower() == "readme.md":
+            if f.lower() in ("readme.md", "description.md"):
                 readme_files.append(os.path.join(root, f))
 
     for rm in readme_files:
@@ -73,7 +73,6 @@ SCAFFOLD_STUB_MARKERS = [
     "Minecraft Bedrock add-on by AllensCreations.",
     "## Description\n\nMinecraft Bedrock add-on by AllensCreations.",
     "This directory contains the uncompressed source files used to build this add-on.\n\nReview the included manifests",
-    "Do not re-upload this add-on or modified copies to other websites, app stores, or file-sharing services.",
 ]
 
 GAMEPLAY_HEADING_REGEX = re.compile(
@@ -392,7 +391,7 @@ Minecraft Bedrock add-on, {clean_name.lower()} Bedrock mod, Minecraft PE surviva
 
 def main():
     parser = argparse.ArgumentParser(
-        description="MCPE-Curseforges — README Documentation Status Audit & Generator (/checkrm)"
+        description="MCPE-Curseforges — README/DESCRIPTION Documentation Status Audit & Generator (/checkrm)"
     )
     parser.add_argument(
         "--project",
@@ -407,7 +406,7 @@ def main():
 
     projects = scan_projects(target_project=args.project)
     print("=" * 70)
-    print("MCPE-Curseforges — README Documentation Status Audit (/checkrm)")
+    print("MCPE-Curseforges — README/DESCRIPTION Documentation Status Audit (/checkrm)")
     print("=" * 70)
 
     pending = [p for p in projects if p["status"] != "COMPLETE"]
@@ -424,11 +423,11 @@ def main():
     # Relative Link Integrity Check
     broken_links, total_rms = audit_relative_links()
     if broken_links:
-        print(f"\n[WARNING] Found {len(broken_links)} broken relative link(s) across {total_rms} README files:")
+        print(f"\n[WARNING] Found {len(broken_links)} broken relative link(s) across {total_rms} README/DESCRIPTION files:")
         for rel_rm, text, target, unquoted in broken_links:
             print(f"  - In {rel_rm}: [{text}]({target})")
     else:
-        print(f"[LINK INTEGRITY] All relative links valid across {total_rms} README files.")
+        print(f"[LINK INTEGRITY] All relative links valid across {total_rms} README/DESCRIPTION files.")
     print("=" * 70)
 
     if args.fix and pending:
