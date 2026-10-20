@@ -186,19 +186,23 @@ def recipe(path):
     for k in ("minecraft:recipe_shaped","minecraft:recipe_shapeless"):
         if k in d:return k,d[k]
     raise ValueError(f"Unsupported recipe type: {path}")
-# Use the user's reference board for the exact slot, output-slot, and arrow styling.
-BOARD_PATH = ROOT / "assets/CRAFTINGBOARD.PNG"
+# Use the user's current SVG crafting-table template, exported to PNG by the
+# workflow before this generator runs. Never fall back to the retired PNG board.
+BOARD_PATH = ROOT / "assets/CRAFTING_TABLE.png"
 if not BOARD_PATH.is_file():
-    raise FileNotFoundError(f"Required crafting-board reference is missing: {BOARD_PATH}")
+    raise FileNotFoundError(
+        f"Required crafting template PNG is missing: {BOARD_PATH}. "
+        "Export assets/CRAFTING_TABLE.svg first."
+    )
 BOARD = Image.open(BOARD_PATH).convert("RGBA")
-if BOARD.size != (399, 222):
-    raise ValueError(f"Unexpected crafting-board reference dimensions {BOARD.size}; expected 399x222")
+if BOARD.size != (400, 222):
+    raise ValueError(f"Unexpected crafting template dimensions {BOARD.size}; expected 400x222")
 
-# Crop the visual components from the supplied reference instead of inventing a
-# different interface. The ingredient slot is reused vertically (one column).
+# Crop the slot and arrow artwork from the current SVG-derived template.
+# The ingredient slot is reused vertically so every recipe uses one column.
 INGREDIENT_SLOT = BOARD.crop((35, 32, 89, 87))
-OUTPUT_SLOT = BOARD.crop((304, 80, 372, 149))
-ARROW = BOARD.crop((230, 97, 270, 119))
+OUTPUT_SLOT = BOARD.crop((306, 81, 370, 148))
+ARROW = BOARD.crop((230, 97, 285, 122))
 
 def recipe_ingredients(kind, data, path):
     """Return ingredient IDs in recipe order, counting repeated ingredients."""
