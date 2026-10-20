@@ -597,7 +597,7 @@ To inspect uncompressed JSON files, geometry, render controllers, and textures:
 
 
 def update_project_readme(project_path, category, new_ver_str, primary_file=None):
-    """Keep individual add-on READMEs download-only; preserve other category formats."""
+    """Keep individual add-on READMEs focused on download/import details; preserve other category formats."""
     readme_path = os.path.join(project_path, "README.md")
     if not os.path.isfile(readme_path):
         return
@@ -618,9 +618,25 @@ def update_project_readme(project_path, category, new_ver_str, primary_file=None
             )
             download_label = "Open the official download catalog"
 
+        description_path = os.path.join(project_path, "DESCRIPTION.md")
+        description_url = (
+            "https://github.com/AllensCreations/MCPE-Curseforges/blob/main/"
+            f"{os.path.relpath(description_path, REPO_ROOT).replace(os.sep, '/')}"
+        )
+        package_ext = os.path.splitext(primary_file)[1].lower() if primary_file else "not available"
         content = (
             f"# {title} (v{new_ver_str})\n\n"
-            f"**Download:** [{download_label}]({download_url})\n"
+            f"Download the current release of **{title}** for Minecraft Bedrock Edition.\n\n"
+            f"## Download\n\n"
+            f"- **Version:** {new_ver_str}\n"
+            f"- **Package format:** `{package_ext}`\n"
+            f"- **Direct download:** [{download_label}]({download_url})\n\n"
+            f"## Installation\n\n"
+            f"1. Download the package using the link above.\n"
+            f"2. Open the downloaded file with Minecraft to import it.\n"
+            f"3. If the package contains a pack that must be enabled separately, activate it in your world's settings.\n\n"
+            f"## Add-on Information\n\n"
+            f"For gameplay features, usage details, recipes, compatibility notes, and other project information, read the [full description]({description_url}).\n"
         )
         with open(readme_path, "w", encoding="utf-8") as f:
             f.write(content)
