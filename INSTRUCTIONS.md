@@ -444,6 +444,8 @@ Use this approach as the preferred editable workflow, not an absolute restrictio
 
 - Use `assets/CRAFTING_TABLE.png` as the mandatory crafting-recipe base template for all future crafting recipe diagrams. Do not use or embed an SVG version as the final recipe image.
 - Save completed crafting recipe diagrams as PNG files so the image displays reliably on GitHub and external publishing platforms. Embed PNGs, not SVGs, in descriptions and documentation.
+- The `.github/workflows/generate-recipe-images.yml` workflow must convert `assets/CRAFTING_TABLE.svg` and `assets/CRAFTING_RECIPE*.svg` to PNG automatically using `scripts/convert_crafting_recipe_svgs_to_png.py`, and commit the generated PNG outputs.
+- The conversion script must embed remote `<image>` texture URLs as data URIs before rasterizing, so the final PNG does not depend on remote images and cannot inherit broken external image links.
 - Preserve the template's proportions, ingredient slots, arrow, and output slot. Keep ingredient placement spaces `#8A8A8A` and the output slot `#8B8B8B`, unless the approved PNG template itself is deliberately revised.
 - Flatten/compose the template and all recipe icons into the final PNG; do not depend on remote image URLs or external SVG image references, which can render as broken images.
 - Use inventory-style Minecraft Bedrock item icons for ingredients and results. Verify source assets in the official Mojang Bedrock Samples repository where possible, then embed the actual image pixels in the final PNG.
