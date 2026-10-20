@@ -5,7 +5,7 @@ description: Commercial and promotional README and CHANGELOG standards for Minec
 
 # Commercial & Promotional README and Changelog Guidelines for Minecraft Bedrock
 
-This skill defines commercial-but-factual README and CHANGELOG style for Minecraft Bedrock add-ons, maps, and scripts. Follow repository `INSTRUCTIONS.md` for shared policy and `README_GUIDELINES.md` for canonical rules. Source accuracy and the user's requested scope override any template.
+This skill defines download-only README.md, commercial DESCRIPTION.md, and link-free CHANGELOG.md rules for Minecraft Bedrock add-ons, maps, and scripts. Follow repository `INSTRUCTIONS.md` for shared policy and `README_GUIDELINES.md` for canonical rules. Source accuracy and the user's requested scope override any template.
 
 ---
 
@@ -31,12 +31,12 @@ Individual add-on README.md files are download-link-only pages; product informat
 ### 3. Formatting, External Readability & SEO
 To ensure the markdown renders identically on external platforms (MCPEDL, CurseForge, web portals, mobile apps):
 1. **Absolute Image URLs**:
-   All image embeds (`<img>` or `![]()`) in published project READMEs must use verified absolute raw URLs:
+   All image embeds (`<img>` or `![]()`) in published project DESCRIPTION.md files must use verified absolute raw URLs. Do not embed images in individual add-on README.md files:
    ```
    https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/<path-to-image>
    ```
 2. **Absolute Navigation & Download Links**:
-   For published project READMEs, links to directories, source files, and downloads should use verified full GitHub URLs. Relative links are appropriate for internal repository references where useful:
+   For individual add-on README.md files, use a verified direct package download URL when available, or link only to the official download catalog. Put source navigation and all other links in DESCRIPTION.md. Use verified full GitHub URLs for published links. Relative links are appropriate for internal repository references where useful:
    ```
    https://github.com/AllensCreations/MCPE-Curseforges/tree/main/<path>
    https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/<file>
