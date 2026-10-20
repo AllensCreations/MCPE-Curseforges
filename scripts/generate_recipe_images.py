@@ -128,7 +128,7 @@ for rf in sorted(os.listdir(RECIPES_DIR)):
         get_ingredient_icon,
         out_tex,
         result_count,
-        scale=2,
+        scale=1,
     )
     scaled = canvas
     
@@ -144,20 +144,20 @@ files = [
     'tome_seraph_recipe.png', 'tome_scholar_recipe.png'
 ]
 
-cols = 4
-rows = 4
-img_w, img_h = 800, 444
-pad = 12
+cols = 1
+rows = len(files)
+img_w, img_h = 400, 222
+pad = 8
 
-sheet_w = cols * img_w + (cols + 1) * pad
+sheet_w = img_w + 2 * pad
 sheet_h = rows * img_h + (rows + 1) * pad
 
 sheet = Image.new('RGBA', (sheet_w, sheet_h), (35, 35, 38, 255))
 
 for i, fn in enumerate(files):
-    r = i // cols
-    c = i % cols
-    x = pad + c * (img_w + pad)
+    r = i
+    c = 0
+    x = pad
     y = pad + r * (img_h + pad)
     im = Image.open(os.path.join(OUT_DIR, fn))
     sheet.paste(im, (x, y))
