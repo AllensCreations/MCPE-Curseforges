@@ -1,0 +1,64 @@
+name: Generate Crafting Recipe Images
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'MCPEDL/**/behavior_pack/recipes/**/*.json'
+      - 'MCPEDL/**/behavior_pack/recipes/*.json'
+      - 'MCPEDL/**/resource_pack/textures/**'
+      - 'scripts/generate_recipe_images.py'
+      - 'scripts/generate_monster_companions_recipe_image.py'
+      - '.github/workflows/generate-recipe-images.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: generate-recipe-images-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+    if: "!contains(github.event.head_commit.message, '[skip ci]')"
+    steps:
+      - name: Checkout add-on repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
+
+      - name: Install image library
+        run: python -m pip install --disable-pip-version-check Pillow
+
+      - name: Get official Mojang Bedrock Samples textures
+        run: |
+          git clone --depth 1 https://github.com/Mojang/bedrock-samples.git /tmp/bedrock-samples
+          echo "BEDROCK_SAMPLES_ROOT=/tmp/bedrock-samples" >> "$GITHUB_ENV"
+
+      - name: Generate Monster Companions recipe image
+        run: python scripts/generate_monster_companions_recipe_image.py
+
+      - name: Generate Grimoire Relics recipe images
+        run: python scripts/generate_recipe_images.py
+
+      - name: Commit generated images
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add MCPEDL/addons/Monster-Companions/beast_biscuit_recipe.png
+          git add MCPEDL/addons/Grimoire-Relics-V2/assets/recipes MCPEDL/addons/Grimoire-Relics-V2/assets/all_recipes_sheet.png
+          if git diff --cached --quiet; then
+            echo "Recipe images are already up to date."
+          else
+            git commit -m "docs: regenerate source-based crafting recipe images [skip ci]"
+            git push origin HEAD:main
+          fi
