@@ -3,7 +3,7 @@
 import json, os
 from pathlib import Path
 from PIL import Image, ImageDraw, ImageFont
-from crafting_template import render_crafting_table_svg
+from crafting_template import compose_recipe_diagram
 
 ROOT=Path(__file__).resolve().parents[1]
 ADDON=ROOT/"MCPEDL/addons/Grand-Banquets"
@@ -187,19 +187,6 @@ def recipe(path):
     for k in ("minecraft:recipe_shaped","minecraft:recipe_shapeless"):
         if k in d:return k,d[k]
     raise ValueError(f"Unsupported recipe type: {path}")
-# The SVG itself is the sole crafting-board reference. Render it directly;
-# never read another PNG or board image as a substitute.
-# The shared renderer reads only assets/CRAFTING_TABLE.svg; no raster fallback is allowed.
-BOARD = render_crafting_table_svg()
-
-# All GUI artwork is cropped from the directly rendered sole SVG reference.
-# Keep source crop dimensions and proportions unchanged when composing the diagram.
-if BOARD.size != (400, 222):
-    raise ValueError(f"CRAFTING_TABLE.svg must render at its declared 400x222 dimensions; got {BOARD.size}")
-INGREDIENT_SLOT = BOARD.crop((34, 30, 86, 84))
-OUTPUT_SLOT = BOARD.crop((306, 80, 370, 146))
-ARROW = BOARD.crop((252, 96, 284, 122))
-
 def recipe_ingredients(kind, data, path):
     """Return ingredient IDs in recipe order, counting repeated ingredients."""
     found = []
@@ -239,49 +226,17 @@ def render(path):
     kind, data = recipe(path)
     result = data.get("result", {})
     slug = result.get("item", "").split(":")[-1]
-    rp = TEXTURES / (slug + ".png")
-    if not rp.is_file():
-        raise FileNotFoundError(f"Missing custom result texture: {rp}")
-    outicon = Image.open(rp).convert("RGBA").resize((40, 40), Image.Resampling.NEAREST)
-    ingredients = recipe_ingredients(kind, data, path)
-
-    # A single vertical ingredient column; the diagram is a guide, not a literal
-    # crafting-grid pattern. Its dimensions grow with the ingredient count.
-    slot_step = 58
-    top = 48
-    height = max(204, top + len(ingredients) * slot_step + 26)
-    im = Image.new("RGBA", (500, height), (139, 139, 139, 255))
-    dr = ImageDraw.Draw(im)
-    title = DISPLAY_NAMES.get(slug, slug.replace("_", " ").title())
-    dr.text((14, 10), title, font=font(18), fill=(35, 35, 35))
-
-    for index, (ingredient, count) in enumerate(ingredients):
-        y = top + index * slot_step
-        # Paste crops at their exact SVG-rendered dimensions; never stretch or
-        # redraw the slot artwork from a raster reference.
-        im.alpha_composite(INGREDIENT_SLOT, (22, y))
-        icon = vanilla(ingredient)
-        im.alpha_composite(icon.resize((32, 32), Image.Resampling.NEAREST), (32, y + 11))
-        dr.text((82, y + 17), ingredient.split(":")[-1].replace("_", " ").title(),
-                font=font(12), fill=(35, 35, 35))
-        if count > 1:
-            dr.text((82, y + 33), f"Quantity: {count}", font=font(10), fill=(55, 55, 55))
-
-    mid_y = top + (len(ingredients) - 1) * slot_step // 2
-    im.alpha_composite(ARROW, (300, mid_y + 10))
-    output_y = max(top, mid_y - 8)
-    im.alpha_composite(OUTPUT_SLOT, (408, output_y))
-    im.alpha_composite(outicon, (420, output_y + 13))
-    dr.text((402, output_y + 66), f"Output x{result.get('count', 1)}",
-            font=font(11), fill=(35, 35, 35))
-    dr.text((22, height - 18),
-            "Shaped recipe — ingredients listed in one column" if kind == "minecraft:recipe_shaped"
-            else "Shapeless recipe — ingredients listed in one column",
-            font=font(10), fill=(55, 55, 55))
-
+    result_path = TEXTURES / (slug + ".png")
+    if not result_path.is_file():
+        raise FileNotFoundError(f"Missing custom result texture: {result_path}")
+    result_icon = Image.open(result_path).convert("RGBA")
+    diagram = compose_recipe_diagram(
+        kind, data, vanilla, result_icon, int(result.get("count", 1)), scale=2
+    )
     output_path = OUT / (slug + "_recipe.png")
-    im.save(output_path)
-    return slug, outicon, output_path
+    diagram.save(output_path)
+    preview_icon = result_icon.resize((40, 40), Image.Resampling.NEAREST)
+    return slug, preview_icon, output_path
 
 recipes=sorted(RECIPES.glob("*.json"))
 if len(recipes)!=32:raise RuntimeError(f"Expected 32 recipes, found {len(recipes)}")
