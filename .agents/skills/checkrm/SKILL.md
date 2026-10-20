@@ -56,9 +56,9 @@ files, manifests, assets, scripts, workflows, or pack configuration.
 
 `INSTRUCTIONS.md` defines shared policy and `README_GUIDELINES.md` is the canonical README/CHANGELOG style guide. This skill defines the audit workflow. Its template is a fallback only and must not override either document or the user's explicit instructions. Inspect existing documentation to learn current conventions.
 
-Before finishing a README audit, verify the project's manifest titles and creator attribution with `python3 scripts/validate_manifest_titles.py --project <project-path>` when applicable. Confirm each title has exactly one `(vX.Y.Z)` suffix matching `header.version`, the manifest description contains `by AllensCreations` exactly once, and paired Behavior Pack/Resource Pack displayed versions match. Include the official [CurseForge](https://www.curseforge.com/members/allenscreations/projects) and [MCPEDL](https://mcpedl.com/user/allenscreations/) profile links in the published README description or attribution section.
+For individual add-ons, audit both README.md (download link only) and DESCRIPTION.md (complete customer-facing product information). When migrating an existing project, move the full verified product content into DESCRIPTION.md before replacing README.md with the short download link. Before finishing a documentation audit, verify the project's manifest titles and creator attribution with `python3 scripts/validate_manifest_titles.py --project <project-path>` when applicable. Confirm each title has exactly one `(vX.Y.Z)` suffix matching `header.version`, the manifest description contains `by AllensCreations` exactly once, and paired Behavior Pack/Resource Pack displayed versions match. Include the official [CurseForge](https://www.curseforge.com/members/allenscreations/projects) and [MCPEDL](https://mcpedl.com/user/allenscreations/) profile links in the published README description or attribution section.
 
-Before creating or substantially rewriting a README:
+Before creating or substantially rewriting README.md or DESCRIPTION.md:
 
 1. Inspect the repository root `README.md`, if present.
 2. Inspect two or three relevant, well-documented project READMEs, if available.
@@ -100,60 +100,19 @@ must not override the accuracy and style rules below.
 - Do not include installation instructions when the user explicitly asks to omit
   them.
 
-## Default Add-on README Template
-
-Use this template when no suitable repository reference exists. Replace
-placeholders with verified information. Remove optional badges or sections when
-their destinations or claims cannot be verified.
+## Default Add-on README.md Template (Download Only)
 
 ```markdown
-# [Project Name] — [Project Type]
+# [Add-on Name] (vX.Y.Z)
 
-![Project Banner](verified-relative-banner-path)
-
-[![Minecraft Bedrock](verified-version-badge)](verified-destination)
-[![Achievement Friendly](verified-achievement-badge)](verified-destination)
-[![Release](verified-release-badge)](verified-destination)
-[![Format](verified-format-badge)](verified-destination)
-
-Creator: AllensCreations
-
-[Concise factual description of the project.]
-
----
-
-## Overview
-
-Explain what the project does and what players can expect.
-
-## Features
-
-List only verified features.
-
-## How It Works
-
-Explain actual gameplay mechanics, controls, interactions, and configuration.
-
-## Compatibility
-
-Document verified requirements and known limitations. Do not guess the
-Minecraft version or claim achievement compatibility without evidence.
-
-## Credits and Permissions
-
-- Creator: AllensCreations.
-- Give appropriate credit when featuring the project.
-- Do not re-upload the project or bypass its official distribution channels.
-- All rights reserved for AllensCreations.
-
----
-
-Copyright AllensCreations.
+**Download:** [Download the add-on (.mcaddon)](verified-direct-download-link)
 ```
 
-The template is a baseline, not a requirement to keep sections that do not fit a
-project. For scripts, maps, tools, and other non-add-on projects, adapt the
-sections to describe the actual project type.
+If no direct release file exists, link only to the relevant official download catalog.
+
+## DESCRIPTION.md Product Page
+
+Use `README_GUIDELINES.md` to create a complete, polished, player-facing product description in DESCRIPTION.md. Preserve verified existing details during migration. Keep source identifiers and developer internals out of public prose.
 
 ## Step 1 — Discover the Repository
 
