@@ -1,26 +1,17 @@
-# Grimoire Relics V2 (v1.0.7) — Magical Offhand Grimoires
+# Grimoire Relics V2 (v1.0.7)
 
 [![Minecraft Bedrock](https://img.shields.io/badge/Minecraft%20Bedrock-1.26%2B-brightgreen?style=flat-square&logo=minecraft)](https://github.com/AllensCreations/MCPE-Curseforges)
 [![Format](https://img.shields.io/badge/Format-.MCADDON-orange?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/addons#available-add-ons)
 
-**Created by AllensCreations**
+**By AllensCreations**
 
-**MAGICAL OFFHAND RELICS SYSTEM & PASSIVE AURA ENGINE**
-
-20 ancient grimoires, including 14 craftable tomes and 6 exploration-only Ancient Relics, granting unique passive blessings, dynamic defensive reactive triggers, and orbiting particle auras—active strictly and only while equipped in your offhand slot.
+Equip one of 20 magical grimoires in your offhand to gain its distinct passive effects, combat abilities, environmental powers, or subtle particle aura. Fourteen tomes are craftable; six Ancient Relics are found through exploration.
 
 ---
 
 ## Overview
 
-**Grimoire Relics V2** brings an RPG-style relic progression system to Minecraft Bedrock Edition. It monitors your offhand equipment in real time.
-
-Holding a Grimoire in your offhand dynamically attunes your character:
-1. Displays an attunement actionbar title and lists relic perks.
-2. Applies continuous passive buffs and status effects.
-3. Generates a subtle, ambient orbiting sparkle around the player.
-4. Activates reactive combat triggers on hurt (defensive) or hit (offensive).
-5. Automatically strips away active buffs and removes temporary constructs immediately upon un-equipping or switching offhand items.
+Grimoire Relics V2 adds a collection of magical tomes to Minecraft Bedrock Edition. Each tome has its own effect and is active while equipped in the offhand. Switching away from a tome stops its relic-specific effects.
 
 ---
 
@@ -75,7 +66,7 @@ Holding a Grimoire in your offhand dynamically attunes your character:
 - **Acquisition**: Craftable
 
 ### <img src="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/MCPEDL/addons/Grimoire-Relics-V2/assets/items/tome_void.png" width="20" height="20" alt="Void Phantom"> **Void Phantom**
-- **Abilities & Mechanics**: Single-use Emergency Void Rescue (The End only): The first void fall launches you upward with a 2-second Level 60 phase elevation, followed by 1-second Slow Falling at touchdown. Activating it consumes and breaks the Void Phantom; there is no cooldown because it cannot be used again.
+- **Abilities & Mechanics**: In The End, the first void rescue triggers a 2-second Level 60 elevation, followed by a 1-second Slow Falling cushion when safe ground is detected during descent. The rescue continues if you remove the tome from your offhand. After safe touchdown, the activated Void Phantom is consumed from your offhand or inventory if it can be found. The rescue is locked after activation for the current player session.
 - **Acquisition**: **Ancient Relic (Loot Only)**: Ancient Cities
 
 ### <img src="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/MCPEDL/addons/Grimoire-Relics-V2/assets/items/tome_golem.png" width="20" height="20" alt="Iron Golem"> **Iron Golem**
@@ -110,7 +101,7 @@ Holding a Grimoire in your offhand dynamically attunes your character:
 
 ## Crafting Pattern
 
-There are **14 craftable tomes** made at a standard Crafting Table using shaped recipes arranged around a central Book. Recipe unlocks should be available through the vanilla recipe system. The **6 Ancient tomes** (Void Phantom, Cataclysm Dragon, Necrotic Lich, Mirror Trickster, Blood Vampire, and Infernal Phoenix) cannot be crafted and must be uncovered by exploring rare world structures:
+There are **14 craftable tomes** made at a standard Crafting Table using shaped recipes arranged around a central Book. The recipes use the vanilla recipe system and include recipe unlock entries. The **6 Ancient Relics** (Void Phantom, Cataclysm Dragon, Necrotic Lich, Mirror Trickster, Blood Vampire, and Infernal Phoenix) are not craftable and are intended to be found in exploration loot:
 
 <p align="center">
   <img src="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/MCPEDL/addons/Grimoire-Relics-V2/assets/all_recipes_sheet.png" alt="Grimoire Relics V2 Crafting Recipes" width="850">
@@ -134,8 +125,8 @@ There are **14 craftable tomes** made at a standard Crafting Table using shaped 
   - Can also be repaired on an Anvil using standard **Books** (`minecraft:book`) at a strict **1:1 ratio** (1 book restores 1 durability point).
 - **Shatter**: If durability reaches 0 without being repaired or protected, the tome shatters (`random.break` audio with item break particles) and is removed from your equipment.
 
-### World Chest Distribution & Found Condition
-Ancient tomes generate naturally inside exploration chests across the world, occasionally replacing rare loot like Enchanted Golden Apples. Due to their age, discovered tomes spawn **partially worn** (15% to 70% used durability):
+### World Chest Distribution
+The pack includes exploration loot entries for Ancient Relics. Their intended locations are:
 - **Ancient Cities**: High chance for **Void Phantom** (`tome_void`) and **Mirror Trickster** (`tome_mirror`).
 - **Bastion Remnants (Treasure)**: **Infernal Phoenix** (`tome_phoenix`) and **Necrotic Lich** (`tome_lich`).
 - **End Cities**: **Cataclysm Dragon** (`tome_dragon`).
@@ -145,17 +136,30 @@ Ancient tomes generate naturally inside exploration chests across the world, occ
 
 ---
 
-## Performance & Optimization
+## In-Game Information
 
-- **Instant Offhand Gating**: Un-equipping or switching away immediately removes active buffs and effects.
-- **Background Updates**: Lightweight updates monitor offhand equipment and relic effects.
-- **In-Game Tooltips**: Hovering over any Grimoire displays full colored lore and perk descriptions in your inventory.
+- **Offhand use**: Equip a tome in your offhand to activate its abilities.
+- **Item descriptions**: Tome lore describes its main abilities and conditions.
+- **Recipe guide**: The image above shows the crafting patterns for craftable tomes.
 
 ---
+
+## Compatibility and Setup
+
+- **Minecraft Bedrock Edition**: Intended target is 1.26+; the pack manifests list a minimum engine version of 1.21.0.
+- **Format**: Complete Pack (.mcaddon), containing a Behavior Pack and Resource Pack.
+- **Experimental Features**: No experimental toggles are declared in the pack manifests. Requirements can vary by Minecraft version and world settings.
+- **Achievements**: Likely achievement-friendly based on the pack setup; this has not been confirmed through in-game testing.
+- **Use**: Activate both included packs in your world and equip a tome in your offhand.
+
+## Help and Suggestions
+
+If a feature is broken or does not work as described, please leave a comment on the project page. Add-on suggestions and ideas are welcome.
 
 ## Guidelines and Attribution
 
 - **Creator**: AllensCreations
+- **More projects**: [CurseForge](https://www.curseforge.com/members/allenscreations/projects) | [MCPEDL](https://mcpedl.com/user/allenscreations/)
 - **Rights & Reservation**: All rights reserved for AllensCreations.
 - **Content Creators**: Content creators are permitted to feature this creation in videos and streams with credit to AllensCreations.
 - **Redistribution**: Do not re-upload this pack or provide direct monetized download bypasses. Link directly to the official repository page.
@@ -168,4 +172,4 @@ Ancient tomes generate naturally inside exploration chests across the world, occ
 
 ## Search & Discovery Keywords
 
-Minecraft Bedrock 1.26+ RPG add-on, magical offhand grimoires, Bedrock relics system, ancient tomes loot, offhand passive auras, fire resistance tome, void rescue, Minecraft PE magic spells, MCPEDL, CurseForge, AllensCreations.
+Minecraft Bedrock 1.26+ add-on, Grimoire Relics V2, magical offhand tomes, RPG relic progression, passive offhand effects, Void Phantom void rescue, End dimension rescue, craftable magical books, Ancient Relic loot, Minecraft PE magic add-on, MCPEDL, CurseForge Bedrock, AllensCreations.
