@@ -1,9 +1,9 @@
 ---
 name: mcpe-readme
-description: Commercial and promotional README and CHANGELOG standards for Minecraft Bedrock (MCPE) packs, add-ons, maps, and scripts. Enforces player-first showcase styling, mobile cards, absolute URLs, and zero developer clutter.
+description: Download-only README, commercial DESCRIPTION, and link-free CHANGELOG standards for Minecraft Bedrock packs, add-ons, maps, and scripts. Enforces player-first writing and zero developer clutter.
 ---
 
-# Commercial & Promotional README and Changelog Guidelines for Minecraft Bedrock
+# Commercial DESCRIPTION and Changelog Guidelines for Minecraft Bedrock
 
 This skill defines download-only README.md, commercial DESCRIPTION.md, and link-free CHANGELOG.md rules for Minecraft Bedrock add-ons, maps, and scripts. Follow repository `INSTRUCTIONS.md` for shared policy and `README_GUIDELINES.md` for canonical rules. Source accuracy and the user's requested scope override any template.
 
