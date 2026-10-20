@@ -15,7 +15,7 @@ ALIASES={
 "apple_golden":"apple_golden","enchanted_golden_apple":"apple_golden","baked_potato":"potato_baked","cooked_beef":"beef_cooked",
 "cooked_chicken":"chicken_cooked","cooked_cod":"fish_cooked","cooked_mutton":"mutton_cooked",
 "cooked_porkchop":"porkchop_cooked","cooked_rabbit":"rabbit_cooked","cooked_salmon":"salmon_cooked",
-"golden_apple":"apple_golden","lapis_lazuli":"dye_powder_blue","raw_beef":"beef",
+"golden_apple":"apple_golden","lapis_lazuli":"dye_powder_blue","milk_bucket":"bucket_milk","raw_beef":"beef",
 "raw_chicken":"chicken","raw_cod":"fish","raw_mutton":"mutton_raw","raw_porkchop":"porkchop_raw",
 "raw_rabbit":"rabbit","raw_salmon":"salmon","red_mushroom":"mushroom_red",
 "brown_mushroom":"mushroom_brown","wheat_seeds":"seeds_wheat","totem_of_undying":"totem",
