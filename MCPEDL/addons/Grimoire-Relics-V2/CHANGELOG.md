@@ -1,5 +1,13 @@
 # Changelog — Grimoire Relics V2
 
+## [1.0.6] - 2026-10-20
+
+### Changed
+- **Void Phantom is now single-use**: removed the five-minute cooldown and made the first rescue consume and break the relic, preventing repeated activations.
+- Kept the End-only rescue, 2-second phase elevation, and touchdown slow-falling cushion.
+
+---
+
 All notable changes to the **Grimoire Relics V2** add-on by AllensCreations will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
