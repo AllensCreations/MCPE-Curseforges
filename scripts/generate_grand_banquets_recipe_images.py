@@ -250,7 +250,7 @@ def render(path):
     slot_step = 58
     top = 48
     height = max(204, top + len(ingredients) * slot_step + 26)
-    im = Image.new("RGBA", (500, height), (198, 198, 198, 255))
+    im = Image.new("RGBA", (500, height), (139, 139, 139, 255))
     dr = ImageDraw.Draw(im)
     title = DISPLAY_NAMES.get(slug, slug.replace("_", " ").title())
     dr.text((14, 10), title, font=font(18), fill=(35, 35, 35))
@@ -326,7 +326,7 @@ for filename, slugs in tiers:
         raise RuntimeError(f"Missing recipe for {filename}")
     cards = [(slug, icon, path, Image.open(path).convert("RGBA")) for slug, icon, path in selected]
     tile_height = max(card.height for _, _, _, card in cards)
-    board = Image.new("RGBA", (1012, 48 + 4 * tile_height), (198, 198, 198, 255))
+    board = Image.new("RGBA", (1012, 48 + 4 * tile_height), (139, 139, 139, 255))
     dr = ImageDraw.Draw(board)
     dr.text((16, 8), filename.replace("_", " ").replace(".png", "").title(),
             font=font(22), fill=(35, 35, 35))
