@@ -2,44 +2,26 @@
   "format_version": 2,
   "header": {
     "name": "Grand Banquets (v1.0.2)",
-    "description": "Grand Banquets [RP]. Icons and names for the 32 banquet feasts. by AllensCreations",
+    "description": "Provides item icons and display names for the 32 custom banquet dishes. by AllensCreations",
     "uuid": "77eb5486-758d-4a9f-9949-4eba0b900d30",
-    "version": [
-      1,
-      0,
-      2
-    ],
-    "min_engine_version": [
-      1,
-      21,
-      0
-    ]
+    "version": [1, 0, 2],
+    "min_engine_version": [1, 21, 0]
   },
   "modules": [
     {
       "type": "resources",
       "uuid": "e2a0c21d-77d1-4633-8182-5c7434844b14",
-      "version": [
-        1,
-        0,
-        2
-      ]
+      "version": [1, 0, 2]
     }
   ],
   "dependencies": [
     {
       "uuid": "485dca7d-bdc8-4fce-bc51-6b7d459907d1",
-      "version": [
-        1,
-        0,
-        2
-      ]
+      "version": [1, 0, 2]
     }
   ],
   "metadata": {
-    "authors": [
-      "AllensCreations"
-    ],
+    "authors": ["AllensCreations"],
     "product_type": "addon"
   }
 }
