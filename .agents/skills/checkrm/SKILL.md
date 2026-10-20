@@ -165,7 +165,7 @@ statuses such as:
 - Individual add-on README.md files containing product information instead of only a download link
 - Broken relative markdown links or image targets across all repository catalogs and build readmes
 
-The script automatically performs a complete relative link integrity audit across all 37+ repository `README.md` files (catalogs, categories, project source, and builds) and reports any dead links or orphaned build directories.
+The script automatically audits relative links in repository README.md and DESCRIPTION.md files and reports dead links or orphaned build directories.
 
 Use `python3 scripts/check_readme_status.py --fix` to automatically generate standard documentation for any detected stubs.
 
@@ -357,7 +357,7 @@ After editing:
 4. Check that no placeholders remain in finished documentation.
 5. Check that no duplicate catalog entries were introduced.
 6. Check that existing verified content was not accidentally removed.
-7. Run the repository's README status checker, which audits both documentation sections and all relative links across catalogs and builds:
+7. Run the repository's documentation status checker, which audits README/DESCRIPTION status and relative links across product pages, catalogs, and builds:
 
 ```bash
 python3 scripts/check_readme_status.py
@@ -433,7 +433,8 @@ match the README.
 After the work, provide a concise factual summary that includes:
 
 - Projects audited or updated.
-- README files created or changed.
+- README.md files created or changed.
+- DESCRIPTION.md files created or changed.
 - Catalog or build documentation files changed.
 - Validation commands run and their results.
 - Missing assets, unresolved links, or information that could not be verified.
