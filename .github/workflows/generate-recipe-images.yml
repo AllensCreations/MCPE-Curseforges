@@ -65,5 +65,8 @@ jobs:
             echo "Recipe images are already up to date."
           else
             git commit -m "docs: regenerate source-based crafting recipe images [skip ci]"
+            # Another repository edit may land while images are being generated.
+            # Rebase the generated assets onto the latest main before pushing.
+            git pull --rebase origin main
             git push origin HEAD:main
           fi
