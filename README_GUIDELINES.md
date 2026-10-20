@@ -149,6 +149,7 @@ CHANGELOG files communicate updates directly to players and community users. The
   - `### Fixed` — Bug fixes described in terms of in-game experience (not line numbers or stack traces).
 
 ### 2. Player-First Language in Changelogs
+- **No links in changelogs — mandatory:** Never add hyperlinks, raw URLs, Markdown links, linked project names, badges, or link references anywhere in `CHANGELOG.md`. Keep changelogs focused on player-visible changes only. README link requirements do not apply to changelogs.
 - ✅ **DO explain player impact**:
   - *"Decorative leaf protection: Custom player-placed hedges and bushes are now safely ignored by the tree capitator."*
   - *"Smooth dynamic lighting: Equipping or holding torches now illuminates dark caverns with zero stutter."*
