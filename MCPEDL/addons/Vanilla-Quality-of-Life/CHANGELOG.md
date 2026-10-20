@@ -40,25 +40,17 @@
 - Kept the sneak requirement for mining in the Default preset and left other add-on features unchanged.
 - Synchronized Behavior Pack, Resource Pack, and script version numbers to 1.3.9.
 
-
 ## [1.3.6] - 2026-10-17
 
 ### Fixed
 - Added the missing **Default (All Features)** subpack choice so all four mining presets are explicitly selectable.
 - Kept the default configuration enabled for both Tree Capitator and Vein Miner.
 
-
 ## [1.3.3] - 2026-10-17
 
 ### Added
 - **Optional Mining Subpacks**: Added selectable Behavior Pack presets for Tree Capitator Only, Vein Miner Only, and Vanilla Mining (both disabled). The default pack keeps both features enabled. Other QoL features remain active in every preset.
 - **Subpack-aware mining configuration**: Tree Capitator and Vein Miner can be independently enabled or disabled through a small configuration module overridden by each subpack.
-
-
-All notable changes to the **Vanilla Quality of Life** add-on by AllensCreations will be documented in this file.
-
-The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
-and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ---
 
