@@ -192,8 +192,10 @@ def recipe(path):
 # The shared renderer reads only assets/CRAFTING_TABLE.svg; no raster fallback is allowed.
 BOARD = render_crafting_table_svg()
 
-# Crop the slot and arrow artwork from the directly rendered CRAFTING_TABLE.svg template.
-# The ingredient slot is reused vertically so every recipe uses one column.
+# All GUI artwork is cropped from the directly rendered sole SVG reference.
+# Keep source crop dimensions and proportions unchanged when composing the diagram.
+if BOARD.size != (400, 222):
+    raise ValueError(f"CRAFTING_TABLE.svg must render at its declared 400x222 dimensions; got {BOARD.size}")
 INGREDIENT_SLOT = BOARD.crop((34, 30, 86, 84))
 OUTPUT_SLOT = BOARD.crop((306, 80, 370, 146))
 ARROW = BOARD.crop((252, 96, 284, 122))
@@ -255,19 +257,21 @@ def render(path):
 
     for index, (ingredient, count) in enumerate(ingredients):
         y = top + index * slot_step
-        im.alpha_composite(INGREDIENT_SLOT.resize((50, 52), Image.Resampling.NEAREST), (22, y))
+        # Paste crops at their exact SVG-rendered dimensions; never stretch or
+        # redraw the slot artwork from a raster reference.
+        im.alpha_composite(INGREDIENT_SLOT, (22, y))
         icon = vanilla(ingredient)
-        im.alpha_composite(icon.resize((32, 32), Image.Resampling.NEAREST), (31, y + 10))
+        im.alpha_composite(icon.resize((32, 32), Image.Resampling.NEAREST), (32, y + 11))
         dr.text((82, y + 17), ingredient.split(":")[-1].replace("_", " ").title(),
                 font=font(12), fill=(35, 35, 35))
         if count > 1:
             dr.text((82, y + 33), f"Quantity: {count}", font=font(10), fill=(55, 55, 55))
 
     mid_y = top + (len(ingredients) - 1) * slot_step // 2
-    im.alpha_composite(ARROW.resize((46, 26), Image.Resampling.NEAREST), (300, mid_y + 10))
+    im.alpha_composite(ARROW, (300, mid_y + 10))
     output_y = max(top, mid_y - 8)
-    im.alpha_composite(OUTPUT_SLOT.resize((62, 62), Image.Resampling.NEAREST), (408, output_y))
-    im.alpha_composite(outicon, (419, output_y + 11))
+    im.alpha_composite(OUTPUT_SLOT, (408, output_y))
+    im.alpha_composite(outicon, (420, output_y + 13))
     dr.text((402, output_y + 66), f"Output x{result.get('count', 1)}",
             font=font(11), fill=(35, 35, 35))
     dr.text((22, height - 18),
