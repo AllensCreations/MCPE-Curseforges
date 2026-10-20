@@ -9,12 +9,12 @@ This skill defines commercial-but-factual README and CHANGELOG style for Minecra
 
 ---
 
-## Part 1: README.md Guidelines
+## Part 1: README.md and DESCRIPTION.md Guidelines
 
 ### 1. Strictly Forbidden (Zero Developer Clutter)
-README files are player showcase pages. They must NEVER contain internal developer artifacts, code jargon, or ephemeral version labels:
+Individual add-on README.md files are download-link-only pages; product information belongs in DESCRIPTION.md. Keep the README limited to the add-on name/version and direct download link (or the official download catalog if no direct file is available). Never place feature details, recipes, compatibility, images, attribution, SEO, or changelog content there. DESCRIPTION.md is the player-facing product page and follows the rules below:
 - **Version information:** For add-on project README headings, include the verified release version as `# Add-on Name (vX.Y.Z)` and keep it synchronized with the pack manifest. Never omit a required version or duplicate the suffix. Put `by AllensCreations` in the manifest description, not the title.
-- **Creator profile links:** Include [CurseForge](https://www.curseforge.com/members/allenscreations/projects) and [MCPEDL](https://mcpedl.com/user/allenscreations/) in the published project README description or creator/attribution section. Do not put these links in the short in-game manifest description.
+- **Creator profile links:** Include [CurseForge](https://www.curseforge.com/members/allenscreations/projects) and [MCPEDL](https://mcpedl.com/user/allenscreations/) in DESCRIPTION.md, never in the download-only README.md. Do not put these links in the short in-game manifest description.
 - ❌ **No Script API References**: Never mention `Script API` or `@minecraft/server` in badges, text, or tables. Use player-facing terms like "modern Minecraft Bedrock mechanics".
 - ❌ **No Code Blocks**: Do not include markdown code blocks (` ```javascript `, ` ```json `, ` ```text `).
 - ❌ **No Markdown Tables in Project READMEs**: Do not use Markdown tables (`| ... | ... |`) in individual project READMEs. Tables break on mobile screens by forcing horizontal overflow and awkward scrolling. Use clean mobile card sections (`### [Feature / Item Name]` with bullet points) instead.
@@ -42,8 +42,8 @@ To ensure the markdown renders identically on external platforms (MCPEDL, CurseF
    https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/<file>
    ```
 3. **Bottom Search & Discovery Keywords (SEO) — Grounded in the Add-on's README**:
-   Every individual project `README.md` should end with a tailored SEO section, with attribution/copyright immediately before it. Do not force SEO into directory catalogs or generic repository documentation. **Do NOT use generic placeholder keywords alone.**
-   - **Use the Add-on's README as the Basis**: Extract terms directly from the pack's actual features, mechanics, mob types, item names, commands, and gameplay benefits described across its cards and overview.
+   Every individual project `DESCRIPTION.md` should end with a tailored SEO section, with attribution/copyright immediately before it. Do not force SEO into directory catalogs or generic repository documentation. **Do NOT use generic placeholder keywords alone.**
+   - **Use the Add-on's DESCRIPTION.md as the Basis**: Extract terms directly from the pack's actual features, mechanics, mob types, item names, commands, and gameplay benefits described across its cards and overview.
    - **Structure**: Include high-intent player search phrases that directly match what the specific add-on offers.
    - **Formula**:
      1. General Bedrock anchors (`Minecraft Bedrock add-on`, `Minecraft PE mod`, `MCPEDL add-on`, `CurseForge Bedrock`, `AllensCreations`).
@@ -61,17 +61,16 @@ To ensure the markdown renders identically on external platforms (MCPEDL, CurseF
 ### 4. Standard Project README Template
 
 ```markdown
-# [Add-on Name] — [Clear, factual subtitle] by AllensCreations
+# [Add-on Name] (vX.Y.Z)
 
-![MCPEDL](https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/MCPEDL/[category]/[slug]/banner.jpg "MCPEDL")
+**Download:** [Download the add-on (.mcaddon)](verified-direct-download-link)
+```
 
-[![Minecraft Bedrock](https://img.shields.io/badge/Minecraft%20Bedrock-1.21.0%2B-brightgreen?style=flat-square&logo=minecraft)](https://github.com/AllensCreations/MCPE-Curseforges)
-<!-- Add achievement or no-experiments badges only after verifying each claim for this project. -->
-[![Format](https://img.shields.io/badge/Format-.MCADDON-orange?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/addons#available-add-ons)
+README.md contains download information only. Put all customer-facing product details in DESCRIPTION.md.
 
-**By AllensCreations**
+### 5. Standard Project DESCRIPTION.md Template
 
-[One-sentence, appealing but factual summary of what the add-on delivers for players.]
+Use the existing product-page template in `README_GUIDELINES.md` for overview, features, usage, compatibility, attribution, and search keywords.
 
 ---
 
