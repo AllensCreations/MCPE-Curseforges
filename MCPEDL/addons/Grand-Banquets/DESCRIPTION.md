@@ -5,61 +5,70 @@
 
 **By AllensCreations**
 
-**CULINARY CRAFTING SYSTEM & GASTRONOMIC FEASTS ENGINE**
-
-32 craftable culinary dishes organized into four distinct gastronomic tiers, ranging from hearty rustic saturation meals to mythic imperial banquets granting powerful sustained potion blessings.
+Grand Banquets adds 32 craftable dishes across four culinary tiers, from practical survival meals to elaborate feasts that provide status effects.
 
 ---
 
 ## Overview
 
-**Grand Banquets** expands Minecraft Bedrock Edition's survival dining experience into a comprehensive culinary progression system. Built using vanilla-compliant items and the modern Minecraft Bedrock mechanics, it rewards farming, foraging, and hunting with unique meal buffs for survival gameplay.
+Grand Banquets expands survival cooking with custom meals made from familiar Minecraft ingredients. Each dish has its own food values, eating time, and effects, offering options for mining, underwater travel, exploration, and combat.
 
-Each banquet meal features customized nutrition values, saturation levels, eating times, and unique buff combinations designed for distinct survival scenarios: mining expeditions, deep sea diving, boss battles, or long-distance exploration.
+## Custom Food Items
 
----
+Preview all 32 custom dishes included in the add-on.
 
-## Feast Tiers & Buff Categories
+![Grand Banquets custom food item previews](https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/MCPEDL/addons/Grand-Banquets/assets/recipes/item_previews.png)
 
-### Tier I
-- **Category**: **Rustic Sustenance**
-- **Sample Dishes**: Potato Loaf, Harvest Loaf, Roasted Roots, Kelp Fish Broth
-- **Typical Buffs & Effects**: High saturation, fast eating time, foundational survival replenishment
+## Crafting Recipes
 
-### Tier II
-- **Category**: **Hearty Provisions**
-- **Sample Dishes**: Bacon & Eggs, Veggie Skillet, Sausage Pan, Hunters Stew
-- **Typical Buffs & Effects**: Sustained Saturation, Speed I, Jump Boost I
+These diagrams are generated from the actual recipe files and the add-on's food textures. Shaped recipes preserve ingredient positions; shapeless recipes show ingredients without implying fixed positions.
 
-### Tier III
-- **Category**: **Explorer's Banquets**
-- **Sample Dishes**: Miners Roast, Mariners Pot, Highland Venison, Lumberjacks Ham
-- **Typical Buffs & Effects**: Haste II, Night Vision, Dolphins Grace, Water Breathing
+### Tier I — Rustic Sustenance
 
-### Tier IV
-- **Category**: **Mythic & Imperial Feasts**
-- **Sample Dishes**: Dragonlords Galantine, Sovereign Platter, Celestial Roast, Imperial Feast
-- **Typical Buffs & Effects**: Regeneration II, Absorption IV, Strength II, Resistance II, Fire Resistance
+![Tier I crafting recipes](https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/MCPEDL/addons/Grand-Banquets/assets/recipes/tier_1_recipes.png)
 
----
+### Tier II — Hearty Provisions
+
+![Tier II crafting recipes](https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/MCPEDL/addons/Grand-Banquets/assets/recipes/tier_2_recipes.png)
+
+### Tier III — Explorer's Banquets
+
+![Tier III crafting recipes](https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/MCPEDL/addons/Grand-Banquets/assets/recipes/tier_3_recipes.png)
+
+### Tier IV — Mythic & Imperial Feasts
+
+![Tier IV crafting recipes](https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/MCPEDL/addons/Grand-Banquets/assets/recipes/tier_4_recipes.png)
+
+## Feast Tiers
+
+- **Tier I — Rustic Sustenance:** Potato Loaf, Harvest Loaf, Roasted Roots, and Kelp Fish Broth.
+- **Tier II — Hearty Provisions:** Bacon & Eggs, Veggie Skillet, Sausage Pan, and Hunter's Stew.
+- **Tier III — Explorer's Banquets:** Miner's Roast, Mariner's Pot, Highland Venison, and Lumberjack's Ham.
+- **Tier IV — Mythic & Imperial Feasts:** Dragonlord's Galantine, Celestial Roast, Sovereign Platter, and Imperial Feast.
 
 ## Key Culinary Specialties
 
-- **Miner's Roast**: Infuses deep subterranean expeditions with Haste II and Night Vision for 3 minutes.
-- **Mariner's Pot**: Bestows Dolphin's Grace and Water Breathing for seamless oceanic voyages and underwater monument raiding.
-- **Glazed Wings**: Grants Jump Boost II alongside Slow Falling for graceful mountain descents and aerial maneuvering.
-- **Imperial Feast**: A grand masterwork combining rare animal proteins, golden crops, and aromatic seasonings for complete combat empowerment.
+- **Miner's Roast:** Grants Haste II and Night Vision for 3 minutes.
+- **Mariner's Pot:** Grants Dolphin's Grace and Water Breathing.
+- **Glazed Wings:** Grants Jump Boost II and Slow Falling.
+- **Imperial Feast:** A high-tier meal intended for demanding combat encounters.
+
+## Compatibility
+
+- **Minecraft Bedrock Edition:** The current project description lists 1.21.0+.
+- **Experiments and achievements:** Check the current world and pack settings; this description does not claim achievement compatibility.
+
+## Creator and Permissions
+
+- **Creator:** AllensCreations. All rights reserved.
+- **Content creators:** You may feature Grand Banquets in videos and streams with credit to AllensCreations.
+- **Redistribution:** Do not re-upload this pack to third-party marketplaces or file-sharing platforms without permission.
+- **Creator pages:** [CurseForge Profile](https://www.curseforge.com/members/allenscreations/projects) · [MCPEDL Profile](https://mcpedl.com/user/allenscreations/)
 
 ---
 
-## Attribution & Guidelines
-
-- **Creator**: AllensCreations. All rights reserved.
-- **Content Creators**: You are welcome to feature Grand Banquets in videos, streams, and showcase packs with credit to AllensCreations.
-- **Redistribution**: Direct re-uploading of unmodified or modified files to third-party marketplaces, APK sites, or file-sharing platforms without explicit permission is strictly prohibited.
-
----
+© All rights reserved for AllensCreations.
 
 ## Search & Discovery Keywords
 
-Minecraft Bedrock cooking add-on, culinary progression system, custom food recipes, Minecraft PE banquet feasts, food buffs potion saturation, farming cooking mod, MCPEDL, CurseForge, AllensCreations.
+Minecraft Bedrock cooking add-on, Grand Banquets food recipes, custom food items Minecraft PE, Minecraft Bedrock food buffs, survival cooking add-on, banquet feasts, Minecraft farming and cooking, MCPEDL add-on, CurseForge Bedrock, AllensCreations.
