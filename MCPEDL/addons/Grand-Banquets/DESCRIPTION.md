@@ -2,21 +2,21 @@
 
 **By AllensCreations**
 
-Grand Banquets adds 32 craftable custom foods to Minecraft Bedrock Edition. The dishes are organized into four tiers, ranging from practical meals for everyday survival to elaborate feasts with special status effects.
+Grand Banquets adds 32 craftable custom foods to Minecraft Bedrock Edition. The collection is arranged into four tiers, from everyday survival meals to elaborate feasts with additional status effects.
 
 ## Overview
 
-Prepare dishes using familiar Minecraft ingredients and choose meals to suit different activities. Food values, eating times, and effects vary by dish. The recipes are available through the crafting table, and each recipe is marked as always unlocked so players can access it without first discovering a separate unlock item.
+Cook a wider range of meals using familiar Minecraft ingredients. Each dish has its own food values, and selected meals also grant status effects after eating. Recipes are available without needing to unlock them first.
 
 ## Custom Food Items
 
-The add-on includes 32 custom dishes, including Shepherd's Pie, Hunter's Stew, Roast Turkey, Glazed Wings, Miner's Roast, Mariner's Pot, Dragonlord's Galantine, Celestial Roast, Sovereign Platter, and Imperial Feast.
+The collection includes dishes such as Shepherd's Pie, Hunter's Stew, Roast Turkey, Glazed Wings, Miner's Roast, Mariner's Pot, Dragonlord's Abyssal Galantine, Celestial Echo Roast, Sovereign Platter, and Imperial Hero's Crown Feast.
 
 ![Grand Banquets custom food item previews](https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/MCPEDL/addons/Grand-Banquets/assets/recipes/item_previews.png)
 
 ## Crafting Recipes
 
-The recipe diagrams provide a visual ingredient guide. Ingredients are displayed in a single vertical column and the finished dish is shown separately. Always use the actual in-game recipe for the authoritative ingredient requirements and crafting behavior.
+Use the diagrams below as a visual guide to the ingredients for each dish. Each diagram lists ingredients in one vertical column and shows the finished dish separately. The crafting table in Minecraft remains the source of truth for recipe requirements and crafting behavior.
 
 ### Tier I — Rustic Sustenance
 
@@ -34,35 +34,28 @@ The recipe diagrams provide a visual ingredient guide. Ingredients are displayed
 
 ![Tier IV crafting recipes](https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/MCPEDL/addons/Grand-Banquets/assets/recipes/tier_4_recipes.png)
 
-## Feast Tiers
-
-- **Tier I — Rustic Sustenance:** Potato Loaf, Harvest Loaf, Roasted Roots, and Kelp Fish Broth.
-- **Tier II — Hearty Provisions:** Bacon and Eggs, Veggie Skillet, Sausage Pan, and Hunter's Stew.
-- **Tier III — Explorer's Banquets:** Miner's Roast, Mariner's Pot, Highland Venison, and Lumberjack's Ham.
-- **Tier IV — Mythic and Imperial Feasts:** Dragonlord's Galantine, Celestial Roast, Sovereign Platter, and Imperial Feast.
-
-The complete collection contains 32 dishes across the four tiers. Other dishes include Shepherd's Pie, Roast Turkey, Fisherman's Platter, Braised Ribs, Mushroom Casserole, Glazed Ham, Cheese Bread Pot, Honey Berry Tart, Strider Gumbo, Scholar's Dumplings, Warlord's Steak, and Phoenix Roast.
-
 ## Featured Food Effects
 
-- **Miner's Roast:** Grants Haste II and Night Vision for 3 minutes.
-- **Mariner's Pot:** Grants Dolphin's Grace and Water Breathing.
-- **Glazed Wings:** Grants Jump Boost II and Slow Falling.
-- **Imperial Feast:** A high-tier meal designed around the add-on's upper culinary progression. Check its in-game effect and food values when using the current pack.
+Some dishes provide additional effects after eating:
 
-Food effects and values are specific to each dish. The list above highlights selected dishes rather than every effect in the collection.
+- **Miner's Roast:** Haste II and Night Vision for 3 minutes.
+- **Mariner's Pot:** Dolphin's Grace for 2 minutes and Water Breathing for 4 minutes.
+- **Glazed Wings:** Jump Boost II for 3 minutes and Slow Falling for 1 minute.
+- **Imperial Feast:** Village Hero for 15 minutes, Saturation for 2 minutes, and Resistance for 5 minutes.
+
+Other dishes provide different food values or effects. These examples highlight selected meals from the full collection.
 
 ## How to Use
 
-1. Import the .mcaddon package into Minecraft Bedrock Edition.
-2. Activate the add-on's Behavior Pack and Resource Pack in the world settings if they are not enabled automatically.
-3. Open a crafting table and use the ingredients shown in the relevant recipe.
-4. Eat a prepared dish to receive its food value and any effects assigned to it.
+1. Download and import the `.mcaddon` package into Minecraft Bedrock Edition.
+2. Activate the add-on's Behavior Pack and Resource Pack in your world settings if they are not enabled automatically.
+3. Open a crafting table and use the ingredients shown in the recipe for the dish you want to prepare.
+4. Eat a prepared dish to restore hunger and receive any status effects assigned to it.
 
 ## Compatibility and World Settings
 
-- **Minecraft Bedrock Edition:** The pack manifests specify a minimum engine version of 1.21.0. This is the declared minimum, not a guarantee for every later release.
-- **Experimental features:** The current manifests do not declare an experimental toggle requirement. World-specific settings and behavior can still vary by game version.
+- **Minecraft Bedrock Edition:** The pack declares a minimum engine version of 1.21.0. This is the declared minimum, not a guarantee that every later release behaves identically.
+- **Experimental features:** The current pack manifests do not declare an experimental toggle requirement. World settings and behavior may still vary by game version.
 - **Achievements:** Achievement compatibility has not been independently verified for this release. Do not assume achievements remain enabled in every world configuration.
 
 ## Feedback and Suggestions
@@ -73,7 +66,7 @@ If you find a bug or a feature that does not work as expected, please leave a co
 
 - **Creator:** AllensCreations.
 - **Video creators:** You may feature this add-on in videos and streams with credit to AllensCreations.
-- **Redistribution:** Do not re-upload the pack to third-party marketplaces or file-sharing platforms without permission. Direct players to the official project page instead.
+- **Redistribution:** Do not re-upload the pack to third-party marketplaces or file-sharing platforms without permission. Direct players to the official project page.
 - **CurseForge:** [AllensCreations Projects](https://www.curseforge.com/members/allenscreations/projects)
 - **MCPEDL:** [AllensCreations Profile](https://mcpedl.com/user/allenscreations/)
 
