@@ -230,7 +230,7 @@ if missing:
 
 entries=[render(p) for p in recipes]
 # Texture preview sheet
-sheet=Image.new("RGBA",(872,48+len(entries)*64),(35,35,38,255)); dr=ImageDraw.Draw(sheet)
+sheet=Image.new("RGBA",(420,48+len(entries)*64),(35,35,38,255)); dr=ImageDraw.Draw(sheet)
 dr.text((16,10),"Grand Banquets — Custom Food Items",font=font(24),fill="white")
 for i,(slug,icon,_) in enumerate(entries):
     x=16; y=48+i*64
