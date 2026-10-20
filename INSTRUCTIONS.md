@@ -36,7 +36,7 @@ All documentation files (README.md across repository root, packs, and maps) must
 All documentation must render cleanly across GitHub, CurseForge, and synced MCPEDL pages.
 
 ### Rules:
-- **Published project README images:** Use verified absolute raw GitHub URLs so images render on external platforms. Example: `![Project banner](https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/MCPEDL/addons/<project>/banner.jpg)`.
+- **Published project DESCRIPTION.md images:** Use verified absolute raw GitHub URLs so images render on external platforms. Individual add-on README.md files must not contain images. Example: `![Project banner](https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/MCPEDL/addons/<project>/banner.jpg)`.
 - **Internal references:** Relative paths are appropriate for links between repository files where useful; avoid relative image embeds in published READMEs intended for external platforms.
 - **CurseForge HTML editor:** If HTML image sizing is explicitly needed, use relative widths and omit fixed height so images can scale proportionally.
 - **Spoiler Markup:** When adding collapsible spoilers (crafting recipes, detailed tables, changelogs), use the official markup in CurseForge's `</>` editor:
@@ -70,7 +70,7 @@ All documentation must render cleanly across GitHub, CurseForge, and synced MCPE
 
 ### Mandatory Customer-Facing / Commercial Presentation
 
-Treat every public-facing add-on page as a polished product listing written for a Minecraft player or customer, not for another developer. This applies to README files, changelogs, catalog descriptions, feature lists, crafting explanations, promotional copy, and player-facing notices.
+Treat every public-facing add-on product description as a polished product listing written for a Minecraft player or customer, not for another developer. This applies to DESCRIPTION.md, changelogs, catalog descriptions, feature lists, crafting explanations, promotional copy, and player-facing notices. Individual add-on README.md files remain download-link-only.
 
 - **Lead with the player experience.** Explain what players can do, how a feature behaves in-game, what they need, and what benefit it provides. Use natural customer language rather than implementation notes.
 - **Do not expose developer-looking details in public descriptions.** Avoid source-code terminology, internal file names, variable/function names, event names, API/module names, JSON component names, raw configuration keys, technical identifiers, code snippets, stack traces, commit hashes, and build-workflow details unless the user specifically requests technical documentation.
@@ -163,7 +163,7 @@ When relevant visual assets (promotional banners, artwork, item previews, recipe
 - Source vanilla item textures from `/root/bedrock-samples/resource_pack/textures/`. Confirm every file exists in the checked-out sample version before using it. Do not redraw, approximate, or substitute unrelated icons.
 - Read the actual recipe JSON first. Render shaped recipes in their declared pattern; render shapeless recipes with a clear unordered ingredient layout so the image does not imply fixed ingredient positions. Show the correct output item and output count.
 - Use nearest-neighbor scaling for pixel art. Keep the crafting interface Minecraft Bedrock-style and readable, with transparent ingredient icons composited cleanly into slots.
-- Save the final standalone PNG in the relevant add-on folder and update its README to embed the verified image using the repository's raw GitHub URL. Do not reference a missing image or leave an outdated recipe screenshot in place.
+- Save the final standalone PNG in the relevant add-on folder and update its DESCRIPTION.md to embed the verified image using the repository's raw GitHub URL. Do not reference a missing image or leave an outdated recipe screenshot in place.
 - Keep a reusable Python generator under `scripts/` where practical. It must read the real recipe data and fail clearly if the sample texture pack, ingredient texture, result texture, or recipe file is missing. Do not claim an image was sourced from Bedrock Samples unless the texture paths and assets were actually checked.
 - Do not change recipe ingredients, result count, or shaped/shapeless behavior just to match an image. The recipe JSON is authoritative; update the diagram to match it.
 
@@ -268,7 +268,7 @@ Jayly's documentation is a useful secondary reference for API exploration and ex
 
 ## Community Feedback and Add-on Suggestions
 
-- In player-facing project descriptions or READMEs, invite players to leave a comment or report if they find a bug, a feature that does not work as expected, or another issue.
+- In player-facing DESCRIPTION.md files, invite players to leave a comment or report if they find a bug, a feature that does not work as expected, or another issue.
 - Also welcome add-on ideas and feature suggestions; make it clear that AllensCreations is open to community suggestions.
 - Keep the note friendly, concise, and natural. Suggested wording: "Found a bug or a feature that isn't working? Please leave a comment and let me know. Have an idea for another add-on or a new feature? Suggestions are always welcome!"
 - Do not imply that every suggestion will be implemented or that every reported issue will be fixed immediately.
@@ -352,7 +352,7 @@ For every new pack and every meaningful update, automatically inspect the actual
 - Change only the files necessary to fulfill the request. Follow existing repository conventions and preserve unrelated formatting, comments, behavior, and features.
 - Avoid broad rewrites, duplicate documentation, unnecessary dependencies, and new custom items or commands unless requested or clearly necessary.
 - Update only the affected instruction or documentation sections when possible; do not rewrite the entire documentation set for a narrow change.
-- Keep player-facing writing concise and factual, following the repository's README and commercial-description standards.
+- Keep player-facing writing concise and factual, following the download-only README and commercial DESCRIPTION.md standards.
 
 ### 8. Definition of Done and Handoff
 
