@@ -1,10 +1,9 @@
 import os
 import json
 import re
-from io import BytesIO
 from pathlib import Path
-import cairosvg
 from PIL import Image
+from crafting_template import render_crafting_table_svg
 
 ROOT_BEDROCK = os.path.join(os.environ.get("BEDROCK_SAMPLES_ROOT", "/root/bedrock-samples"), "resource_pack")
 OUT_DIR = "MCPEDL/addons/Grimoire-Relics-V2/assets/recipes"
@@ -106,23 +105,8 @@ def get_ingredient_icon(item_id):
         return im
 
 def make_crafting_gui():
-    """Render the sole authorized crafting-board reference, CRAFTING_TABLE.svg."""
-    svg_path = Path("assets/CRAFTING_TABLE.svg")
-    if not svg_path.is_file():
-        raise FileNotFoundError(
-            f"Required crafting template SVG is missing: {svg_path}. "
-            "No alternative crafting board may be used."
-        )
-    svg_source = svg_path.read_bytes()
-    board = Image.open(
-        BytesIO(cairosvg.svg2png(bytestring=svg_source, output_width=400))
-    ).convert("RGBA")
-    if board.size != (400, 222):
-        raise ValueError(
-            f"Unexpected rendered CRAFTING_TABLE.svg dimensions {board.size}; "
-            "expected 400x222."
-        )
-    return board
+    """Render the one authorized source, assets/CRAFTING_TABLE.svg."""
+    return render_crafting_table_svg()
 
 RECIPES_DIR = "MCPEDL/addons/Grimoire-Relics-V2/behavior_pack/recipes"
 RP_TEXTURES = "MCPEDL/addons/Grimoire-Relics-V2/resource_pack/textures/items"
