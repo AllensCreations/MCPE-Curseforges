@@ -969,6 +969,13 @@ jobs:
             README_STATE="Generated"
           fi
 
+          DESCRIPTION_STATE="Not generated"
+
+          if [ -n "${ADDON:-}" ] && \
+             [ -f "MCPEDL/new_addons/${ADDON}/DESCRIPTION.md" ]; then
+            DESCRIPTION_STATE="Generated"
+          fi
+
           CATALOG_STATE="Not generated"
 
           if [ -f "MCPEDL/new_addons/README.md" ]; then
@@ -983,7 +990,8 @@ jobs:
             echo "| Status | ${JOB_STATUS} |"
             echo "| Slug | \`${ADDON:-Not generated}\` |"
             echo "| Source Directory | \`MCPEDL/new_addons/\` |"
-            echo "| Add-on README | ${README_STATE} |"
+            echo "| Download README | ${README_STATE} |"
+            echo "| Product Description | ${DESCRIPTION_STATE} |"
             echo "| Source Catalog | ${CATALOG_STATE} |"
             echo ""
             echo "Review the preceding steps for validation, build, and push results."
