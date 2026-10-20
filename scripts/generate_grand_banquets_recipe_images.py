@@ -18,7 +18,7 @@ ALIASES={
 "golden_apple":"apple_golden","lapis_lazuli":"dye_powder_blue","milk_bucket":"bucket_milk","raw_beef":"beef",
 "raw_chicken":"chicken","raw_cod":"fish","raw_mutton":"mutton_raw","raw_porkchop":"porkchop_raw",
 "raw_rabbit":"rabbit","raw_salmon":"salmon","red_mushroom":"mushroom_red",
-"brown_mushroom":"mushroom_brown","wheat_seeds":"seeds_wheat","totem_of_undying":"totem",
+"brown_mushroom":"mushroom_brown","dragon_breath":"dragons_breath","wheat_seeds":"seeds_wheat","totem_of_undying":"totem",
 "bone_meal":"dye_powder_white","nautilus_shell":"nautilus","tropical_fish":"clownfish",
 "pufferfish":"fish_pufferfish_raw","porkchop":"porkchop_raw","cod":"fish","mutton":"mutton_raw"
 }
@@ -76,6 +76,29 @@ def render(path):
     return slug,outicon,p
 recipes=sorted(RECIPES.glob("*.json"))
 if len(recipes)!=32:raise RuntimeError(f"Expected 32 recipes, found {len(recipes)}")
+
+# Resolve every ingredient before rendering so CI reports all missing mappings in one run.
+missing=set()
+for path in recipes:
+    kind,data=recipe(path)
+    if kind=="minecraft:recipe_shaped":
+        ingredients=[obj.get("item") for obj in data.get("key",{}).values() if isinstance(obj,dict)]
+    else:
+        ingredients=[obj.get("item") for obj in data.get("ingredients",[]) if isinstance(obj,dict)]
+    for item in ingredients:
+        try:
+            vanilla(item)
+        except FileNotFoundError:
+            missing.add(item)
+    result=data.get("result",{}).get("item","").split(":")[-1]
+    if not (TEXTURES/(result+".png")).is_file():
+        missing.add(f"custom result texture: {result}.png")
+if missing:
+    raise FileNotFoundError(
+        "Unresolved recipe assets (checked official Bedrock Samples and add-on textures):\\n- "
+        + "\\n- ".join(sorted(missing))
+    )
+
 entries=[render(p) for p in recipes]
 # Texture preview sheet
 sheet=Image.new("RGBA",(872,64+8*64),(35,35,38,255)); dr=ImageDraw.Draw(sheet)
