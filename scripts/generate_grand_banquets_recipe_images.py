@@ -111,60 +111,64 @@ DISPLAY_NAMES = {
 def font(n):
     p=Path("/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf")
     return ImageFont.truetype(str(p),n) if p.exists() else ImageFont.load_default()
-def pumpkin_block_icon():
-    """Render a crisp isometric Pumpkin icon from verified official block textures."""
+def isometric_block_icon(side_filename, top_filename=None, right_shade=0.72):
+    """Render a crisp isometric inventory icon from verified official block faces."""
     root = SAMPLES / "textures" / "blocks"
-    side_path = root / "pumpkin_side.png"
-    top_path = root / "pumpkin_top.png"
-    for path in (side_path, top_path):
+    side_path = root / side_filename
+    top_path = root / (top_filename or side_filename)
+    for path in dict.fromkeys((side_path, top_path)):
         if not path.is_file():
-            raise FileNotFoundError(f"Required official Bedrock Samples pumpkin texture is missing: {path}")
+            raise FileNotFoundError(f"Required official Bedrock Samples block texture is missing: {path}")
 
     icon = Image.new("RGBA", (32, 32), (0, 0, 0, 0))
 
-    def face(texture_path, box, points):
+    def face(texture_path, box, points, shade=1.0):
         x0, y0, x1, y1 = box
         texture = Image.open(texture_path).convert("RGBA").resize(
             (x1 - x0, y1 - y0), Image.Resampling.NEAREST
         )
+        if shade != 1.0:
+            pixels = texture.load()
+            for y in range(texture.height):
+                for x in range(texture.width):
+                    r, g, b, a = pixels[x, y]
+                    pixels[x, y] = (int(r * shade), int(g * shade), int(b * shade), a)
         layer = Image.new("RGBA", (32, 32), (0, 0, 0, 0))
         layer.alpha_composite(texture, (x0, y0))
         mask = Image.new("L", (32, 32), 0)
         ImageDraw.Draw(mask).polygon(points, fill=255)
-        alpha = layer.getchannel("A")
         from PIL import ImageChops
-        layer.putalpha(ImageChops.multiply(alpha, mask))
+        layer.putalpha(ImageChops.multiply(layer.getchannel("A"), mask))
         icon.alpha_composite(layer)
 
-    # Use the official top and side textures, clipped into three block faces.
-    # The darkened right face gives the icon readable vanilla-style depth.
+    # Three visible faces make block items read like inventory icons, not flat
+    # world-texture squares. Use the official top texture when one exists.
     face(top_path, (4, 2, 28, 16), [(16, 2), (28, 9), (16, 16), (4, 9)])
     face(side_path, (4, 9, 17, 30), [(4, 9), (16, 16), (16, 30), (4, 23)])
-    right = Image.open(side_path).convert("RGBA").resize((13, 21), Image.Resampling.NEAREST)
-    pixels = right.load()
-    for y in range(right.height):
-        for x in range(right.width):
-            r, g, b, a = pixels[x, y]
-            pixels[x, y] = (int(r * 0.72), int(g * 0.72), int(b * 0.72), a)
-    layer = Image.new("RGBA", (32, 32), (0, 0, 0, 0))
-    layer.alpha_composite(right, (16, 9))
-    mask = Image.new("L", (32, 32), 0)
-    ImageDraw.Draw(mask).polygon([(16, 16), (28, 9), (28, 23), (16, 30)], fill=255)
-    from PIL import ImageChops
-    layer.putalpha(ImageChops.multiply(layer.getchannel("A"), mask))
-    icon.alpha_composite(layer)
+    face(side_path, (16, 9, 29, 30), [(16, 16), (28, 9), (28, 23), (16, 30)], right_shade)
     return icon
+
+
+def pumpkin_block_icon():
+    """Render Pumpkin as a small cube using official top and side textures."""
+    return isometric_block_icon("pumpkin_side.png", "pumpkin_top.png")
+
+
+def emerald_block_icon():
+    """Render Block of Emerald as a cube, not a flat world-face texture."""
+    return isometric_block_icon("emerald_block.png", "emerald_block.png", right_shade=0.72)
 
 def vanilla(item):
     short=item.split(":")[-1]
-    # Pumpkin is a block item and Bedrock Samples has no separate flat
-    # inventory sprite, so render a small cube from its official top/side art.
+    # Prefer the true inventory sprite for items. When Samples provides only
+    # world-face textures for a placeable block, render a 3D inventory-style icon.
     if short == "pumpkin":
         return pumpkin_block_icon()
+    if short == "emerald_block":
+        return emerald_block_icon()
 
     mapped=ALIASES.get(short)
-    # Emerald must use its inventory item sprite. Emerald Block remains a block
-    # ingredient and correctly uses the official block texture.
+    # Emerald uses its actual inventory sprite; never substitute the block icon.
     if mapped:
         path=SAMPLES/"textures"/mapped
         if not path.is_file():
