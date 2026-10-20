@@ -1,7 +1,9 @@
 #!/usr/bin/env python3
 """Generate recipe diagrams and texture previews for Grand Banquets."""
 import json, os
+from io import BytesIO
 from pathlib import Path
+import cairosvg
 from PIL import Image, ImageDraw, ImageFont
 
 ROOT=Path(__file__).resolve().parents[1]
@@ -186,27 +188,17 @@ def recipe(path):
     for k in ("minecraft:recipe_shaped","minecraft:recipe_shapeless"):
         if k in d:return k,d[k]
     raise ValueError(f"Unsupported recipe type: {path}")
-# Use the user's current SVG crafting-table template, exported to PNG by the
-# workflow before this generator runs. Never fall back to the retired PNG board.
-BOARD_PATH = ROOT / "assets/CRAFTING_TABLE.png"
-if not BOARD_PATH.is_file():
-    raise FileNotFoundError(
-        f"Required crafting template PNG is missing: {BOARD_PATH}. "
-        "Export assets/CRAFTING_TABLE.svg first."
-    )
-BOARD = Image.open(BOARD_PATH).convert("RGBA")
+# The SVG itself is the sole crafting-board reference. Render it directly;
+# never read another PNG or board image as a substitute.
+BOARD_SVG_PATH = ROOT / "assets/CRAFTING_TABLE.svg"
+if not BOARD_SVG_PATH.is_file():
+    raise FileNotFoundError(f"Required crafting template SVG is missing: {BOARD_SVG_PATH}")
+svg_source = BOARD_SVG_PATH.read_bytes()
+BOARD = Image.open(BytesIO(cairosvg.svg2png(bytestring=svg_source, output_width=400))).convert("RGBA")
 if BOARD.size != (400, 222):
-    aspect_ratio = BOARD.width / BOARD.height
-    if abs(aspect_ratio - (400 / 222)) > 0.005:
-        raise ValueError(
-            f"Unexpected crafting template dimensions {BOARD.size}; "
-            "expected the 400x222 template proportions."
-        )
-    # The SVG converter exports at 800px wide. Normalize the rasterized
-    # template to the generator's coordinate system before cropping its slots.
-    BOARD = BOARD.resize((400, 222), Image.Resampling.LANCZOS)
+    raise ValueError(f"Unexpected rendered SVG dimensions {BOARD.size}; expected 400x222")
 
-# Crop the slot and arrow artwork from the current SVG-derived template.
+# Crop the slot and arrow artwork from the directly rendered CRAFTING_TABLE.svg template.
 # The ingredient slot is reused vertically so every recipe uses one column.
 INGREDIENT_SLOT = BOARD.crop((35, 32, 89, 87))
 OUTPUT_SLOT = BOARD.crop((306, 81, 370, 148))
