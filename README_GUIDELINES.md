@@ -177,3 +177,11 @@ CHANGELOG files communicate updates directly to players and community users. The
 ### Fixed
 - **[Fix Title]**: [Description of what in-game bug or glitch was resolved].
 ```
+
+
+## Official Minecraft Reference Assets — Required
+
+- Always reference the official Mojang Bedrock Samples repository for vanilla Bedrock textures, item/block names and identifiers, recipes, entity definitions, components, and format conventions. Inspect the actual checked-out files rather than guessing paths from memory.
+- Before generating crafting diagrams, inventory all recipes and resolve every vanilla ingredient against the current Samples texture files and, when useful, official texture atlas/index metadata. IDs often differ from texture filenames; verify explicit mappings.
+- Resolve all ingredient textures before rendering, and surface unresolved items together where practical. Do not use unrelated placeholder textures or silently substitute another item. Custom result/ingredient textures must come from the add-on's actual resource pack.
+- Recipe images are not complete until the generator succeeds, outputs are committed, and the published image references resolve.
