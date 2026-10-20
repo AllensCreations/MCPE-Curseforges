@@ -385,10 +385,10 @@ Minecraft Bedrock add-on, {clean_name.lower()} Bedrock mod, Minecraft PE compani
     if is_addon:
         catalog = "new_addons" if category == "new_addons" else "addons"
         readme_content = (
-            f"# {slug}\\n\\n"
+            f"# {slug}\n\n"
             f"**Download:** [Open the official download catalog]"
             f"(https://github.com/AllensCreations/MCPE-Curseforges/blob/main/"
-            f"MCPEDL/{catalog}/README.md#available-add-ons)\\n"
+            f"MCPEDL/{catalog}/README.md#available-add-ons)\n"
         )
         with open(readme_path, "w", encoding="utf-8") as f:
             f.write(readme_content)
