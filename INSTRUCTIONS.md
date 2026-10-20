@@ -197,7 +197,8 @@ MCPE-Curseforges/
 │   │   ├── <Addon-Name>/
 │   │   │   ├── behavior_pack/     # BP source code
 │   │   │   ├── resource_pack/     # RP source code
-│   │   │   ├── README.md          # Documentation
+│   │   │   ├── README.md          # Download link only
+│   │   │   ├── DESCRIPTION.md     # Customer-facing product information
 │   │   │   └── <images>           # Banners, infographics, previews
 │   │   └── README.md
 │   ├── script/                    # Source folders for scripts, minigames & challenges
