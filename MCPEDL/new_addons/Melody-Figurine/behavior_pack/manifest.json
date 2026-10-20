@@ -1,13 +1,13 @@
 {
   "format_version": 2,
   "header": {
-    "name": "Melody Figurine (v1.0.1)",
+    "name": "Melody Figurine (v1.0.2)",
     "description": "A musical figurine that starts a custom song and makes nearby mobs dance. by AllensCreations",
     "uuid": "f14c8c2b-4e57-4a4b-8c1d-9c40c40a1101",
     "version": [
       1,
       0,
-      1
+      2
     ],
     "min_engine_version": [
       1,
@@ -23,7 +23,7 @@
       "version": [
         1,
         0,
-        1
+        2
       ]
     },
     {
@@ -34,7 +34,7 @@
       "version": [
         1,
         0,
-        1
+        2
       ],
       "entry": "scripts/main.js"
     }
