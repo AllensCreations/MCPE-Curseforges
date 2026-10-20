@@ -9,6 +9,7 @@ on:
       - 'MCPEDL/**/behavior_pack/recipes/*.json'
       - 'MCPEDL/**/resource_pack/textures/**'
       - 'scripts/generate_recipe_images.py'
+      - 'scripts/generate_grand_banquets_recipe_images.py'
       - 'scripts/generate_monster_companions_recipe_image.py'
       - '.github/workflows/generate-recipe-images.yml'
   workflow_dispatch:
