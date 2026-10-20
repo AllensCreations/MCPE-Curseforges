@@ -257,7 +257,7 @@ const RELICS = {
     end: (p, s) => clearLight(p, s)
   },
   "custom:tome_void": {
-    name: "Void Phantom", info: ["End-only: one-time 2s Level 60 phase elevation from void", "Touchdown 1s slow falling | Single use; breaks after activation"],
+    name: "Void Phantom", info: ["End-only: one-time 2s Level 60 phase elevation from void", "Touchdown 1s slow falling | Single use; breaks after safe touchdown"],
     particle: "minecraft:basic_portal_particle", ids: [],
     fast: (p, s) => {
       if (p.dimension.id !== "minecraft:the_end") return;
@@ -284,6 +284,9 @@ const RELICS = {
             s.voidDropping = false;
             try { p.clearVelocity(); } catch (err) {}
             addFx(p, "slow_falling", 0, 20);
+            // Consume the relic only after the rescue reaches a safe touchdown.
+            const item = offhandItem(p);
+            if (item && item.typeId === "custom:tome_void") damageOffhand(p, 100);
             p.onScreenDisplay.setActionBar("§d✦ Void Phantom: Touchdown cushioned ✦");
             p.playSound("random.orb");
           }
@@ -401,9 +404,6 @@ function activateVoidPhantom(p, s) {
 
   try { p.clearVelocity(); } catch (err) {}
   heal(p, 20);
-  // Consume the relic on activation so its one-time use is enforced by the item itself.
-  damageOffhand(p, 100);
-
   addFx(p, "levitation", 59, 40);
   p.onScreenDisplay.setActionBar("§5✦ The Void Phantom phases you upward from the abyss! ✦");
   p.playSound("portal.travel");
