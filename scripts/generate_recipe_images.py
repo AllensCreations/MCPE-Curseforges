@@ -1,6 +1,9 @@
 import os
 import json
 import re
+from io import BytesIO
+from pathlib import Path
+import cairosvg
 from PIL import Image
 
 ROOT_BEDROCK = os.path.join(os.environ.get("BEDROCK_SAMPLES_ROOT", "/root/bedrock-samples"), "resource_pack")
@@ -103,52 +106,23 @@ def get_ingredient_icon(item_id):
         return im
 
 def make_crafting_gui():
-    W, H = 126, 68
-    bg = Image.new('RGBA', (W, H), (198, 198, 198, 255))
-    
-    # 3D borders for window
-    for x in range(W):
-        bg.putpixel((x, 0), (255, 255, 255, 255))
-        bg.putpixel((x, 1), (255, 255, 255, 255))
-        bg.putpixel((x, H-1), (85, 85, 85, 255))
-        bg.putpixel((x, H-2), (85, 85, 85, 255))
-    for y in range(H):
-        bg.putpixel((0, y), (255, 255, 255, 255))
-        bg.putpixel((1, y), (255, 255, 255, 255))
-        bg.putpixel((W-1, y), (85, 85, 85, 255))
-        bg.putpixel((W-2, y), (85, 85, 85, 255))
-
-    def draw_slot(sx, sy, size=18):
-        for x in range(sx, sx + size):
-            bg.putpixel((x, sy), (55, 55, 55, 255))
-            bg.putpixel((x, sy + size - 1), (255, 255, 255, 255))
-        for y in range(sy, sy + size):
-            bg.putpixel((sx, y), (55, 55, 55, 255))
-            bg.putpixel((sx + size - 1, y), (255, 255, 255, 255))
-        for x in range(sx + 1, sx + size - 1):
-            for y in range(sy + 1, sy + size - 1):
-                bg.putpixel((x, y), (139, 139, 139, 255))
-
-    # 3x3 grid starting at (8, 7)
-    for row in range(3):
-        for col in range(3):
-            draw_slot(8 + col * 18, 7 + row * 18)
-
-    # Arrow
-    arrow_pixels = [
-        (72, 31), (73, 31), (74, 31), (75, 31), (76, 31), (77, 31), (78, 31), (79, 31),
-        (72, 32), (73, 32), (74, 32), (75, 32), (76, 32), (77, 32), (78, 32), (79, 32),
-        (72, 33), (73, 33), (74, 33), (75, 33), (76, 33), (77, 33), (78, 33), (79, 33),
-        (80, 29), (80, 30), (80, 31), (80, 32), (80, 33), (80, 34), (80, 35),
-        (81, 30), (81, 31), (81, 32), (81, 33), (81, 34),
-        (82, 31), (82, 32), (82, 33),
-        (83, 32)
-    ]
-    for px, py in arrow_pixels:
-        bg.putpixel((px, py), (139, 139, 139, 255))
-
-    draw_slot(96, 23, size=22)
-    return bg
+    """Render the sole authorized crafting-board reference, CRAFTING_TABLE.svg."""
+    svg_path = Path("assets/CRAFTING_TABLE.svg")
+    if not svg_path.is_file():
+        raise FileNotFoundError(
+            f"Required crafting template SVG is missing: {svg_path}. "
+            "No alternative crafting board may be used."
+        )
+    svg_source = svg_path.read_bytes()
+    board = Image.open(
+        BytesIO(cairosvg.svg2png(bytestring=svg_source, output_width=400))
+    ).convert("RGBA")
+    if board.size != (400, 222):
+        raise ValueError(
+            f"Unexpected rendered CRAFTING_TABLE.svg dimensions {board.size}; "
+            "expected 400x222."
+        )
+    return board
 
 RECIPES_DIR = "MCPEDL/addons/Grimoire-Relics-V2/behavior_pack/recipes"
 RP_TEXTURES = "MCPEDL/addons/Grimoire-Relics-V2/resource_pack/textures/items"
@@ -166,22 +140,27 @@ for rf in sorted(os.listdir(RECIPES_DIR)):
     tome_name = result_item.replace("custom:", "")
 
     out_tex_path = os.path.join(RP_TEXTURES, f"{tome_name}.png")
-    out_tex = Image.open(out_tex_path).convert("RGBA").resize((16, 16), Image.Resampling.NEAREST)
+    out_tex = Image.open(out_tex_path).convert("RGBA").resize((40, 40), Image.Resampling.NEAREST)
 
     canvas = make_crafting_gui()
+    # Slot coordinates come from assets/CRAFTING_TABLE.svg. Never construct
+    # a replacement grid or use a different board reference.
+    slot_x = [35, 90, 146]
+    slot_y = [32, 90, 145]
 
     for row_idx, row in enumerate(grid_pattern):
         for col_idx, ch in enumerate(row):
             if ch in key_map:
                 item_id = key_map[ch]["item"]
-                tex = get_ingredient_icon(item_id)
-                if tex:
-                    canvas.paste(tex, (8 + col_idx * 18 + 1, 7 + row_idx * 18 + 1), tex)
+                tex = get_ingredient_icon(item_id).resize((32, 32), Image.Resampling.NEAREST)
+                x = slot_x[col_idx] + 9
+                y = slot_y[row_idx] + 9
+                canvas.paste(tex, (x, y), tex)
 
     if out_tex:
-        canvas.paste(out_tex, (96 + 3, 23 + 3), out_tex)
+        canvas.paste(out_tex, (318, 94), out_tex)
 
-    scale_factor = 4
+    scale_factor = 2
     scaled = canvas.resize((canvas.width * scale_factor, canvas.height * scale_factor), Image.Resampling.NEAREST)
     
     out_file = os.path.join(OUT_DIR, f"{tome_name}_recipe.png")
@@ -198,7 +177,7 @@ files = [
 
 cols = 4
 rows = 4
-img_w, img_h = 504, 272
+img_w, img_h = 800, 444
 pad = 12
 
 sheet_w = cols * img_w + (cols + 1) * pad
