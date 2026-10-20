@@ -60,7 +60,7 @@ def render_crafting_table_svg() -> Image.Image:
     return image
 
 
-def compose_recipe_diagram(recipe_type: str, recipe_data: dict, ingredient_icon, result_icon: Image.Image, output_count: int = 1, scale: int = 2) -> Image.Image:
+def compose_recipe_diagram(recipe_type: str, recipe_data: dict, ingredient_icon, result_icon: Image.Image, output_count: int = 1, scale: int = 1) -> Image.Image:
     """Overlay recipe icons onto the real 3x3 grid in CRAFTING_TABLE.svg.
 
     Shaped recipes retain their exact pattern positions. Shapeless ingredients
