@@ -27,7 +27,7 @@ This directory stores all compiled releases (behavior packs, resource packs, add
 | **Swarm Mob Booster** | `v1.0.4` | Script Behavior Pack (`.mcpack`) | [Download (.mcpack)](Swarm-Mob-Booster/Swarm%20Mob%20Booster%20by%20AllensCreations%20%28V1.0.4%29.mcpack) | [`Swarm-Mob-Booster/`](Swarm-Mob-Booster/) |
 | **One-Block-Economy** | `v1.0.0` | Script Behavior Pack (`.mcpack`) | [Download (.mcpack)](One-Block-Economy/One-Block%20Hardcore%20Survival%20Economy%20by%20AllensCreations%20%28V1.0.0%29.mcpack) | [`One-Block-Economy/`](One-Block-Economy/) |
 | **Harvest Intelligence** | `v1.0.2` | Script Behavior Pack (`.mcpack`) | [Download (.mcpack)](Harvest-Intelligence/Harvest%20Intelligence%20by%20AllensCreations%20%28V1.0.2%29.mcpack) | [`Harvest-Intelligence/`](Harvest-Intelligence/) |
-| **Melody Figurine** | `v1.0.9` | Complete Pack (`.mcaddon`) | [Download (.mcaddon)](Melody-Figurine/Melody%20Figurine%20by%20AllensCreations%20%28V1.0.9%29.mcaddon) | [`Melody-Figurine/`](Melody-Figurine/) |
+| **Melody Figurine** | `v1.0.10` | Complete Pack (`.mcaddon`) | [Download (.mcaddon)](Melody-Figurine/Melody%20Figurine%20by%20AllensCreations%20%28V1.0.10%29.mcaddon) | [`Melody-Figurine/`](Melody-Figurine/) |
 
 ### Worlds and Maps
 
