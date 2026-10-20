@@ -145,12 +145,12 @@ Every individual add-on DESCRIPTION.md that includes attribution must place that
 
 ## 6. Visual Assets and Images
 
-When relevant visual assets (promotional banners, artwork, item previews, recipe infographics) exist in the repository, consider incorporating them into the project description. Do not force irrelevant images into a README:
+When relevant visual assets (promotional banners, artwork, item previews, recipe infographics) exist in the repository, consider incorporating them into the project's DESCRIPTION.md. Do not place product images or artwork in a download-only project README:
 
-1. Hero Banner: Placed near the top below the main title.
-2. Pack Artwork: Displayed in the Overview or Features section.
-3. Recipe Infographics: Placed in the Crafting Recipes section as pre-rendered standalone PNG images.
-4. Item Sprites: Displayed alongside item specifications.
+1. Hero Banner: Placed near the top of DESCRIPTION.md below the main title.
+2. Pack Artwork: Displayed in the Overview or Features section of DESCRIPTION.md.
+3. Recipe Infographics: Placed in the Crafting Recipes section of DESCRIPTION.md as pre-rendered standalone PNG images.
+4. Item Sprites: Displayed alongside item specifications in DESCRIPTION.md.
 
 ---
 
