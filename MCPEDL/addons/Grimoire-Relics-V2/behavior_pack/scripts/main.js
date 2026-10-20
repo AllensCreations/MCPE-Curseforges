@@ -257,25 +257,20 @@ const RELICS = {
     end: (p, s) => clearLight(p, s)
   },
   "custom:tome_void": {
-    name: "Void Phantom", info: ["End-only: 2s Level 60 phase elevation from void", "Touchdown 1s slow falling | 5m cooldown"],
+    name: "Void Phantom", info: ["End-only: one-time 2s Level 60 phase elevation from void", "Touchdown 1s slow falling | Single use; breaks after activation"],
     particle: "minecraft:basic_portal_particle", ids: [],
     fast: (p, s) => {
-      // Void Phantom strictly operates in The End dimension
       if (p.dimension.id !== "minecraft:the_end") return;
 
-      // Monitor drop after elevation: detect solid blocks underneath in fast loop for responsive landing
+      // Watch the return descent and cushion the final touchdown.
       if (s.voidDropping) {
         const y = p.location.y;
         if (y > s.voidPeakY) s.voidPeakY = y;
-
-        // When falling back down, scan downwards beneath the player for solid ground
         if (y < s.voidPeakY) {
           const bx = Math.floor(p.location.x);
           const by = Math.floor(p.location.y);
           const bz = Math.floor(p.location.z);
           let groundFound = false;
-
-          // Check within 3 blocks directly below the player for last-second touchdown
           for (let dy = 1; dy <= 3; dy++) {
             try {
               const b = p.dimension.getBlock({ x: bx, y: by - dy, z: bz });
@@ -285,68 +280,21 @@ const RELICS = {
               }
             } catch (err) {}
           }
-
           if (groundFound) {
             s.voidDropping = false;
             try { p.clearVelocity(); } catch (err) {}
-            addFx(p, "slow_falling", 0, 20); // 1 second (20 ticks) Level 1 effect to negate fall damage
+            addFx(p, "slow_falling", 0, 20);
             p.onScreenDisplay.setActionBar("§d✦ Void Phantom: Touchdown cushioned ✦");
             p.playSound("random.orb");
           }
         }
       }
 
-      if (p.location.y > -10 || now() - s.lastVoid < 6000) return;
-      s.lastVoid = now();
-      s.voidElevating = true;
-      s.voidPeakY = -99999;
-
-      // Fast phase elevation: cancel downward fall momentum and launch upward
-      try { p.clearVelocity(); } catch (err) {}
-      heal(p, 20);
-      damageOffhand(p, 10);
-      
-      // Fast phase elevation upward: Levitation level 60 (amplifier 59) for 2 seconds (40 ticks)
-      addFx(p, "levitation", 59, 40);
-      p.onScreenDisplay.setActionBar("§5✦ The Void Phantom phases you upward from the abyss! ✦");
-      p.playSound("portal.travel");
-      p.playSound("mob.phantom.swoop");
-
-      // After 2 seconds (40 ticks), remove levitation so player begins downward drop trajectory
-      system.runTimeout(() => {
-        try {
-          dropFx(p, ["levitation"]);
-          s.voidElevating = false;
-          s.voidDropping = true;
-          s.voidPeakY = p.location.y;
-        } catch (err) {}
-      }, 40);
+      if (p.location.y <= -10) activateVoidPhantom(p, s);
     },
     onHurt: (p, ev, a, s) => {
-      // In The End, intercept void damage if fall velocity reached threshold
-      if (p.dimension.id !== "minecraft:the_end") return;
-      if (ev.damageSource.cause === "void" && now() - s.lastVoid >= 6000) {
-        s.lastVoid = now();
-        s.voidElevating = true;
-        s.voidPeakY = -99999;
-        try { p.clearVelocity(); } catch (err) {}
-        heal(p, 20);
-        damageOffhand(p, 10);
-        
-        // Fast phase elevation upward: Levitation level 60 (amplifier 59) for 2 seconds (40 ticks)
-        addFx(p, "levitation", 59, 40);
-        p.onScreenDisplay.setActionBar("§5✦ The Void Phantom phases you upward from the abyss! ✦");
-        p.playSound("portal.travel");
-        p.playSound("mob.phantom.swoop");
-
-        system.runTimeout(() => {
-          try {
-            dropFx(p, ["levitation"]);
-            s.voidElevating = false;
-            s.voidDropping = true;
-            s.voidPeakY = p.location.y;
-          } catch (err) {}
-        }, 40);
+      if (p.dimension.id === "minecraft:the_end" && ev.damageSource.cause === "void") {
+        activateVoidPhantom(p, s);
       }
     }
   },
@@ -443,6 +391,33 @@ const RELICS = {
     }
   }
 };
+
+function activateVoidPhantom(p, s) {
+  // This relic is single-use: no cooldown and no second rescue after activation.
+  if (s.voidUsed || p.dimension.id !== "minecraft:the_end") return;
+  s.voidUsed = true;
+  s.voidElevating = true;
+  s.voidPeakY = -99999;
+
+  try { p.clearVelocity(); } catch (err) {}
+  heal(p, 20);
+  // Consume the relic on activation so its one-time use is enforced by the item itself.
+  damageOffhand(p, 100);
+
+  addFx(p, "levitation", 59, 40);
+  p.onScreenDisplay.setActionBar("§5✦ The Void Phantom phases you upward from the abyss! ✦");
+  p.playSound("portal.travel");
+  p.playSound("mob.phantom.swoop");
+
+  system.runTimeout(() => {
+    try {
+      dropFx(p, ["levitation"]);
+      s.voidElevating = false;
+      s.voidDropping = true;
+      s.voidPeakY = p.location.y;
+    } catch (err) {}
+  }, 40);
+}
 
 function clearLight(p, s) {
   if (!s.light) return;
