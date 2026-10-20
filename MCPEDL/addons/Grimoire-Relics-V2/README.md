@@ -1,4 +1,4 @@
-# Grimoire Relics V2 (v1.0.5) — Magical Offhand Grimoires
+# Grimoire Relics V2 (v1.0.6) — Magical Offhand Grimoires
 
 [![Minecraft Bedrock](https://img.shields.io/badge/Minecraft%20Bedrock-1.26%2B-brightgreen?style=flat-square&logo=minecraft)](https://github.com/AllensCreations/MCPE-Curseforges)
 [![Format](https://img.shields.io/badge/Format-.MCADDON-orange?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/addons#available-add-ons)
