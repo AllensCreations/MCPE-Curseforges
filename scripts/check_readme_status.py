@@ -133,11 +133,18 @@ def scan_projects(target_project=None):
                     readme_content = f.read()
                 readme_lines = [line.strip() for line in readme_content.splitlines() if line.strip()]
                 has_download_link = bool(re.search(r"\*\*Download:\*\*\s*\[[^]]+\]\([^)]+\)", readme_content))
-                if len(readme_lines) > 4 or not readme_lines or not readme_lines[0].startswith("# ") or not has_download_link:
+                has_installation = "## Installation" in readme_content
+                has_description_link = "## Add-on Information" in readme_content and "DESCRIPTION.md" in readme_content
+                if (
+                    len(readme_lines) > 24 or not readme_lines
+                    or not readme_lines[0].startswith("# ")
+                    or not has_download_link or not has_installation
+                    or not has_description_link
+                ):
                     results.append({
                         "name": proj_name, "path": rel_path, "proj_dir": proj,
-                        "status": "README_NOT_DOWNLOAD_ONLY",
-                        "details": "Individual add-on README.md must contain only its title/version and download link."
+                        "status": "README_DOWNLOAD_PAGE_INCOMPLETE",
+                        "details": "Add-on README.md should include title/version, download details, import steps, and a DESCRIPTION.md link."
                     })
                     continue
 
@@ -295,7 +302,25 @@ def auto_generate_readme(proj_dir):
                 f"MCPEDL/{catalog}/README.md#available-add-ons"
             )
             label = "Open the official download catalog"
-        content = f"# {clean_name} (v{version})\n\n**Download:** [{label}]({url})\n"
+        description_url = (
+            "https://github.com/AllensCreations/MCPE-Curseforges/blob/main/"
+            f"{os.path.relpath(description_path, REPO_ROOT).replace(os.sep, '/')}"
+        )
+        package_format = f".{os.path.splitext(candidates[0])[1].lstrip('.')}" if candidates else meta["primary_ext"].upper()
+        content = (
+            f"# {clean_name} (v{version})\n\n"
+            f"Download the current release of **{clean_name}** for Minecraft Bedrock Edition.\n\n"
+            f"## Download\n\n"
+            f"- **Version:** {version}\n"
+            f"- **Package format:** `{package_format}`\n"
+            f"- **Direct download:** [{label}]({url})\n\n"
+            f"## Installation\n\n"
+            f"1. Download the package using the link above.\n"
+            f"2. Open the downloaded file with Minecraft to import it.\n"
+            f"3. If the package contains a pack that must be enabled separately, activate it in your world's settings.\n\n"
+            f"## Add-on Information\n\n"
+            f"For gameplay features, usage details, recipes, compatibility notes, and other project information, read the [full description]({description_url}).\n"
+        )
         with open(readme_path, "w", encoding="utf-8") as f:
             f.write(content)
 
