@@ -172,8 +172,7 @@ Use `python3 scripts/check_readme_status.py --fix` to automatically generate sta
 If the script is absent or fails, inspect project folders and README files
 manually. Report the limitation rather than pretending the audit succeeded.
 
-For individual projects, inspect the target README directly and check whether
-it is missing, incomplete, stale, or inconsistent with the source files.
+For individual add-ons, inspect README.md for download-link-only compliance and DESCRIPTION.md for complete, accurate product information. For maps and scripts, follow the appropriate category-specific documentation format.
 
 ## Step 4 — Verify Project Information
 
