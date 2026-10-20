@@ -186,41 +186,101 @@ def recipe(path):
     for k in ("minecraft:recipe_shaped","minecraft:recipe_shapeless"):
         if k in d:return k,d[k]
     raise ValueError(f"Unsupported recipe type: {path}")
-def render(path):
-    kind,r=recipe(path); result=r.get("result",{}); slug=result.get("item","").split(":")[-1]
-    rp=TEXTURES/(slug+".png")
-    if not rp.is_file():raise FileNotFoundError(f"Missing custom result texture: {rp}")
-    outicon=Image.open(rp).convert("RGBA").resize((32,32),Image.Resampling.NEAREST)
-    im=Image.new("RGBA",(500,204),(42,42,46,255)); dr=ImageDraw.Draw(im)
-    dr.text((14,8),DISPLAY_NAMES.get(slug,slug.replace("_"," ").title()),font=font(18),fill="white")
-    sx,sy,slot=18,42,48
-    for y in range(3):
-        for x in range(3):
-            px,py=sx+x*53,sy+y*53
-            dr.rectangle((px,py,px+slot,py+slot),fill=(128,128,128),outline=(230,230,230),width=2)
-    if kind=="minecraft:recipe_shaped":
-        pattern,key=r.get("pattern",[]),r.get("key",{})
-        if len(pattern)>3 or any(len(row)>3 for row in pattern):raise ValueError(f"Pattern exceeds 3x3: {path}")
-        for y,row in enumerate(pattern):
-            for x,ch in enumerate(row):
-                if ch==" " or ch not in key:continue
-                ing=key[ch].get("item")
-                if not ing:raise ValueError(f"Unsupported ingredient {ch} in {path}")
-                im.alpha_composite(vanilla(ing),(sx+x*53+8,sy+y*53+8))
+# Use the user's reference board for the exact slot, output-slot, and arrow styling.
+BOARD_PATH = ROOT / "assets/CRAFTINGBOARD.PNG"
+if not BOARD_PATH.is_file():
+    raise FileNotFoundError(f"Required crafting-board reference is missing: {BOARD_PATH}")
+BOARD = Image.open(BOARD_PATH).convert("RGBA")
+if BOARD.size != (399, 222):
+    raise ValueError(f"Unexpected crafting-board reference dimensions {BOARD.size}; expected 399x222")
+
+# Crop the visual components from the supplied reference instead of inventing a
+# different interface. The ingredient slot is reused vertically (one column).
+INGREDIENT_SLOT = BOARD.crop((35, 32, 89, 87))
+OUTPUT_SLOT = BOARD.crop((304, 80, 372, 149))
+ARROW = BOARD.crop((230, 97, 270, 119))
+
+def recipe_ingredients(kind, data, path):
+    """Return ingredient IDs in recipe order, counting repeated ingredients."""
+    found = []
+    if kind == "minecraft:recipe_shaped":
+        pattern, key = data.get("pattern", []), data.get("key", {})
+        if len(pattern) > 3 or any(len(row) > 3 for row in pattern):
+            raise ValueError(f"Pattern exceeds 3x3: {path}")
+        for row in pattern:
+            for char in row:
+                if char == " ":
+                    continue
+                if char not in key:
+                    raise ValueError(f"Pattern character {char!r} has no key entry in {path}")
+                ingredient = key[char].get("item")
+                if not ingredient:
+                    raise ValueError(f"Unsupported ingredient {char!r} in {path}")
+                found.append(ingredient)
     else:
-        ingredients=r.get("ingredients",[])
-        if len(ingredients)>9:raise ValueError(f"More than 9 shapeless ingredients: {path}")
-        for i,obj in enumerate(ingredients):
-            ing=obj.get("item") if isinstance(obj,dict) else None
-            if not ing:raise ValueError(f"Unsupported shapeless ingredient {obj} in {path}")
-            y,x=divmod(i,3); im.alpha_composite(vanilla(ing),(sx+x*53+8,sy+y*53+8))
-    dr.text((375,92),"→",font=font(32),fill="white")
-    dr.rectangle((426,82,490,146),fill=(128,128,128),outline=(230,230,230),width=2)
-    im.alpha_composite(outicon,(442,98))
-    dr.text((433,151),f"Output x{result.get('count',1)}",font=font(12),fill="white")
-    dr.text((18,190),"Shaped" if kind=="minecraft:recipe_shaped" else "Shapeless",font=font(11),fill=(220,220,220))
-    p=OUT/(slug+"_recipe.png"); im.resize((1000,408),Image.Resampling.NEAREST).save(p)
-    return slug,outicon,p
+        for obj in data.get("ingredients", []):
+            ingredient = obj.get("item") if isinstance(obj, dict) else None
+            if not ingredient:
+                raise ValueError(f"Unsupported shapeless ingredient {obj} in {path}")
+            found.append(ingredient)
+    # Preserve first-seen order while grouping identical ingredients.
+    grouped = []
+    for ingredient in found:
+        match = next((entry for entry in grouped if entry[0] == ingredient), None)
+        if match:
+            match[1] += 1
+        else:
+            grouped.append([ingredient, 1])
+    if not grouped:
+        raise ValueError(f"Recipe has no supported ingredients: {path}")
+    return grouped
+
+def render(path):
+    kind, data = recipe(path)
+    result = data.get("result", {})
+    slug = result.get("item", "").split(":")[-1]
+    rp = TEXTURES / (slug + ".png")
+    if not rp.is_file():
+        raise FileNotFoundError(f"Missing custom result texture: {rp}")
+    outicon = Image.open(rp).convert("RGBA").resize((40, 40), Image.Resampling.NEAREST)
+    ingredients = recipe_ingredients(kind, data, path)
+
+    # A single vertical ingredient column; the diagram is a guide, not a literal
+    # crafting-grid pattern. Its dimensions grow with the ingredient count.
+    slot_step = 58
+    top = 48
+    height = max(204, top + len(ingredients) * slot_step + 26)
+    im = Image.new("RGBA", (500, height), (198, 198, 198, 255))
+    dr = ImageDraw.Draw(im)
+    title = DISPLAY_NAMES.get(slug, slug.replace("_", " ").title())
+    dr.text((14, 10), title, font=font(18), fill=(35, 35, 35))
+
+    for index, (ingredient, count) in enumerate(ingredients):
+        y = top + index * slot_step
+        im.alpha_composite(INGREDIENT_SLOT.resize((50, 52), Image.Resampling.NEAREST), (22, y))
+        icon = vanilla(ingredient)
+        im.alpha_composite(icon.resize((32, 32), Image.Resampling.NEAREST), (31, y + 10))
+        dr.text((82, y + 17), ingredient.split(":")[-1].replace("_", " ").title(),
+                font=font(12), fill=(35, 35, 35))
+        if count > 1:
+            dr.text((82, y + 33), f"Quantity: {count}", font=font(10), fill=(55, 55, 55))
+
+    mid_y = top + (len(ingredients) - 1) * slot_step // 2
+    im.alpha_composite(ARROW.resize((46, 26), Image.Resampling.NEAREST), (300, mid_y + 10))
+    output_y = max(top, mid_y - 8)
+    im.alpha_composite(OUTPUT_SLOT.resize((62, 62), Image.Resampling.NEAREST), (408, output_y))
+    im.alpha_composite(outicon, (419, output_y + 11))
+    dr.text((402, output_y + 66), f"Output x{result.get('count', 1)}",
+            font=font(11), fill=(35, 35, 35))
+    dr.text((22, height - 18),
+            "Shaped recipe — ingredients listed in one column" if kind == "minecraft:recipe_shaped"
+            else "Shapeless recipe — ingredients listed in one column",
+            font=font(10), fill=(55, 55, 55))
+
+    output_path = OUT / (slug + "_recipe.png")
+    im.save(output_path)
+    return slug, outicon, output_path
+
 recipes=sorted(RECIPES.glob("*.json"))
 if len(recipes)!=32:raise RuntimeError(f"Expected 32 recipes, found {len(recipes)}")
 
@@ -260,13 +320,19 @@ tiers=[
 ("tier_2_recipes.png",["bacon_and_eggs","sausage_pan","hunters_stew","braised_ribs","glazed_ham","glazed_wings","honey_berry_tart","roast_turkey"]),
 ("tier_3_recipes.png",["miners_roast","mariners_pot","highland_venison","lumberjacks_ham","fishermans_platter","strider_gumbo","scholars_dumplings","warlords_steak"]),
 ("tier_4_recipes.png",["citadel_ham","sovereign_platter","phoenix_roast","verdant_ambrosia","dragonlords_galantine","celestial_roast","imperial_feast","shepherds_pie"])]
-for filename,slugs in tiers:
-    selected=[e for e in entries if e[0] in slugs]
-    if len(selected)!=len(slugs):raise RuntimeError(f"Missing recipe for {filename}")
-    board=Image.new("RGBA",(1012,4*204+64),(35,35,38,255)); dr=ImageDraw.Draw(board)
-    dr.text((16,8),filename.replace("_"," ").replace(".png","").title(),font=font(22),fill="white")
-    for i,(_,_,p) in enumerate(selected):
-        card=Image.open(p).convert("RGBA").resize((500,204),Image.Resampling.NEAREST)
-        board.alpha_composite(card,(6+(i%2)*506,48+(i//2)*204))
-    board.save(OUT/filename)
+for filename, slugs in tiers:
+    selected = [entry for entry in entries if entry[0] in slugs]
+    if len(selected) != len(slugs):
+        raise RuntimeError(f"Missing recipe for {filename}")
+    cards = [(slug, icon, path, Image.open(path).convert("RGBA")) for slug, icon, path in selected]
+    tile_height = max(card.height for _, _, _, card in cards)
+    board = Image.new("RGBA", (1012, 48 + 4 * tile_height), (198, 198, 198, 255))
+    dr = ImageDraw.Draw(board)
+    dr.text((16, 8), filename.replace("_", " ").replace(".png", "").title(),
+            font=font(22), fill=(35, 35, 35))
+    for i, (_, _, _, card) in enumerate(cards):
+        x = 6 + (i % 2) * 506
+        y = 48 + (i // 2) * tile_height
+        board.alpha_composite(card, (x, y))
+    board.save(OUT / filename)
 print("Generated 32 recipe diagrams, item preview sheet, and four tier sheets.")
