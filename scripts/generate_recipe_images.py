@@ -3,7 +3,7 @@ import json
 import re
 from PIL import Image
 
-ROOT_BEDROCK = "/root/bedrock-samples/resource_pack"
+ROOT_BEDROCK = os.path.join(os.environ.get("BEDROCK_SAMPLES_ROOT", "/root/bedrock-samples"), "resource_pack")
 OUT_DIR = "MCPEDL/addons/Grimoire-Relics-V2/assets/recipes"
 os.makedirs(OUT_DIR, exist_ok=True)
 
@@ -56,7 +56,9 @@ RAW_TEXTURE_MAP = {
 }
 
 def make_block_item_icon(face_path):
-    face = Image.open(face_path).convert('RGBA').resize((16, 16))
+    if not os.path.isfile(face_path):
+        raise FileNotFoundError(f'Required vanilla texture not found: {face_path}')
+    face = Image.open(face_path).convert('RGBA').resize((16, 16), Image.Resampling.NEAREST)
     out = Image.new('RGBA', (16, 16), (0, 0, 0, 0))
     scaled = face.resize((12, 12), Image.Resampling.NEAREST)
     out.paste(scaled, (2, 2))
@@ -76,7 +78,7 @@ def make_block_item_icon(face_path):
 def get_ingredient_icon(item_id):
     entry = RAW_TEXTURE_MAP.get(item_id)
     if not entry:
-        return None
+        raise ValueError(f"No verified vanilla texture mapping for recipe ingredient: {item_id}")
     if isinstance(entry, tuple):
         path, kind = entry
         if kind == "block_item":
@@ -88,9 +90,13 @@ def get_ingredient_icon(item_id):
             out.paste(head.resize((12, 12), Image.Resampling.NEAREST), (2, 2))
             return out
         else: # plant_item
+            if not os.path.isfile(path):
+                raise FileNotFoundError(f"Required vanilla texture not found: {path}")
             p_im = Image.open(path).convert("RGBA")
             return p_im.resize((16, 16), Image.Resampling.NEAREST)
     else:
+        if not os.path.isfile(entry):
+            raise FileNotFoundError(f"Required vanilla texture not found: {entry}")
         im = Image.open(entry).convert("RGBA")
         if im.size != (16, 16):
             im = im.resize((16, 16), Image.Resampling.NEAREST)
