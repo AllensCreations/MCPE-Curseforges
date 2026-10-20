@@ -6,7 +6,7 @@ Identifies:
 1. Missing README.md files.
 2. Unwritten documentation placeholders (e.g. 'Not yet written', 'Documentation status').
 3. Newly scaffolded stubs (e.g. '## Source Files', 'Review the included manifests...').
-4. Incomplete documentation lacking core gameplay sections (## Overview, ## Features, ## How It Works).
+4. Incomplete product descriptions lacking core gameplay sections (## Overview, ## Features, ## How It Works).
 """
 
 import os
@@ -110,7 +110,9 @@ def scan_projects(target_project=None):
             if target_project and target_project.lower() not in (proj_name.lower(), proj.lower()):
                 continue
 
+            is_addon = cat in ("MCPEDL/addons", "MCPEDL/new_addons")
             readme_path = os.path.join(proj, "README.md")
+            documentation_path = os.path.join(proj, "DESCRIPTION.md") if is_addon else readme_path
             rel_path = os.path.relpath(proj, REPO_ROOT)
 
             if not os.path.isfile(readme_path):
@@ -123,7 +125,17 @@ def scan_projects(target_project=None):
                 })
                 continue
 
-            with open(readme_path, "r", encoding="utf-8") as f:
+            if is_addon and not os.path.isfile(documentation_path):
+                results.append({
+                    "name": proj_name,
+                    "path": rel_path,
+                    "proj_dir": proj,
+                    "status": "MISSING_DESCRIPTION",
+                    "details": "DESCRIPTION.md does not exist for this add-on."
+                })
+                continue
+
+            with open(documentation_path, "r", encoding="utf-8") as f:
                 content = f.read()
 
             matched_placeholders = [m for m in PLACEHOLDER_MARKERS if m in content]
@@ -268,12 +280,15 @@ def analyze_addon_source(proj_dir):
 
 
 def auto_generate_readme(proj_dir):
-    """Generates minimized, commercial, promotional README without emojis, dev codes, or installation section."""
+    """Generates product documentation in DESCRIPTION.md for add-ons and README.md for other project types."""
     meta = extract_manifest_info(proj_dir)
     features, interactions = analyze_addon_source(proj_dir)
     slug = os.path.basename(proj_dir)
 
     readme_path = os.path.join(proj_dir, "README.md")
+    category = os.path.basename(os.path.dirname(proj_dir))
+    is_addon = category in ("addons", "new_addons")
+    output_path = os.path.join(proj_dir, "DESCRIPTION.md") if is_addon else readme_path
 
     # Format features as clean mobile cards
     feature_cards = []
@@ -364,9 +379,21 @@ No experimental features required. Designed to keep achievements available while
 
 Minecraft Bedrock add-on, {clean_name.lower()} Bedrock mod, Minecraft PE companions, companion animal protection, survival companion add-on, MCPEDL add-on, CurseForge Bedrock, AllensCreations.
 """
-    with open(readme_path, "w", encoding="utf-8") as f:
+    with open(output_path, "w", encoding="utf-8") as f:
         f.write(content)
-    print(f"  [Auto-Fix] Successfully generated commercial README for {slug}")
+
+    if is_addon:
+        catalog = "new_addons" if category == "new_addons" else "addons"
+        readme_content = (
+            f"# {slug}\\n\\n"
+            f"**Download:** [Open the official download catalog]"
+            f"(https://github.com/AllensCreations/MCPE-Curseforges/blob/main/"
+            f"MCPEDL/{catalog}/README.md#available-add-ons)\\n"
+        )
+        with open(readme_path, "w", encoding="utf-8") as f:
+            f.write(readme_content)
+
+    print(f"  [Auto-Fix] Successfully generated product documentation for {slug}")
 
 
 def main():
