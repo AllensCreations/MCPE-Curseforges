@@ -58,16 +58,15 @@ if not RESULT_TEXTURE.is_file():
 board_bytes = cairosvg.svg2png(
     bytestring=BOARD_SVG.read_bytes(),
     output_width=400,
-    output_height=222,
 )
 board = Image.open(BytesIO(board_bytes)).convert("RGBA")
-if board.size != (400, 222):
-    raise ValueError(f"Unexpected CRAFTING_TABLE.svg dimensions after rendering: {board.size}")
+if board.size != (400, 220):
+    raise ValueError(f"Unexpected CRAFTING_TABLE.svg dimensions after rendering: {board.size}; expected 400x220")
 
 # All GUI artwork is cropped from the SVG render, never redrawn.
-ingredient_slot = board.crop((35, 32, 89, 87))
-output_slot = board.crop((306, 81, 370, 148))
-arrow = board.crop((230, 97, 285, 122))
+ingredient_slot = board.crop((34, 30, 86, 84))
+output_slot = board.crop((306, 80, 370, 146))
+arrow = board.crop((252, 96, 284, 122))
 
 recipe_root = json.loads(RECIPE_FILE.read_text(encoding="utf-8"))
 recipe = recipe_root.get("minecraft:recipe_shapeless")
