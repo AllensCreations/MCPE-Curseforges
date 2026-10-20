@@ -187,41 +187,6 @@ def recipe(path):
     for k in ("minecraft:recipe_shaped","minecraft:recipe_shapeless"):
         if k in d:return k,d[k]
     raise ValueError(f"Unsupported recipe type: {path}")
-def recipe_ingredients(kind, data, path):
-    """Return ingredient IDs in recipe order, counting repeated ingredients."""
-    found = []
-    if kind == "minecraft:recipe_shaped":
-        pattern, key = data.get("pattern", []), data.get("key", {})
-        if len(pattern) > 3 or any(len(row) > 3 for row in pattern):
-            raise ValueError(f"Pattern exceeds 3x3: {path}")
-        for row in pattern:
-            for char in row:
-                if char == " ":
-                    continue
-                if char not in key:
-                    raise ValueError(f"Pattern character {char!r} has no key entry in {path}")
-                ingredient = key[char].get("item")
-                if not ingredient:
-                    raise ValueError(f"Unsupported ingredient {char!r} in {path}")
-                found.append(ingredient)
-    else:
-        for obj in data.get("ingredients", []):
-            ingredient = obj.get("item") if isinstance(obj, dict) else None
-            if not ingredient:
-                raise ValueError(f"Unsupported shapeless ingredient {obj} in {path}")
-            found.append(ingredient)
-    # Preserve first-seen order while grouping identical ingredients.
-    grouped = []
-    for ingredient in found:
-        match = next((entry for entry in grouped if entry[0] == ingredient), None)
-        if match:
-            match[1] += 1
-        else:
-            grouped.append([ingredient, 1])
-    if not grouped:
-        raise ValueError(f"Recipe has no supported ingredients: {path}")
-    return grouped
-
 def render(path):
     kind, data = recipe(path)
     result = data.get("result", {})
