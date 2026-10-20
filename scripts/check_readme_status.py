@@ -132,7 +132,7 @@ def scan_projects(target_project=None):
                 with open(readme_path, "r", encoding="utf-8") as f:
                     readme_content = f.read()
                 readme_lines = [line.strip() for line in readme_content.splitlines() if line.strip()]
-                has_download_link = bool(re.search(r"\*\*Download:\*\*\s*\[[^]]+\]\([^)]+\)", readme_content))
+                has_download_link = bool(re.search(r"\*\*(?:Direct download|Download):\*\*\s*\[[^]]+\]\([^)]+\)", readme_content))
                 has_installation = "## Installation" in readme_content
                 has_description_link = "## Add-on Information" in readme_content and "DESCRIPTION.md" in readme_content
                 if (
