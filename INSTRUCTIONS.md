@@ -68,6 +68,20 @@ All documentation must render cleanly across GitHub, CurseForge, and synced MCPE
 
 ## 2. Technical and Factual Descriptions (Zero Marketing Slop)
 
+### Mandatory Customer-Facing / Commercial Presentation
+
+Treat every public-facing add-on page as a polished product listing written for a Minecraft player or customer, not for another developer. This applies to README files, changelogs, catalog descriptions, feature lists, crafting explanations, promotional copy, and player-facing notices.
+
+- **Lead with the player experience.** Explain what players can do, how a feature behaves in-game, what they need, and what benefit it provides. Use natural customer language rather than implementation notes.
+- **Do not expose developer-looking details in public descriptions.** Avoid source-code terminology, internal file names, variable/function names, event names, API/module names, JSON component names, raw configuration keys, technical identifiers, code snippets, stack traces, commit hashes, and build-workflow details unless the user specifically requests technical documentation.
+- **Never use Minecraft internal item identifiers as player-facing names.** Do not write identifiers such as `minecraft:diamond`, `minecraft:totem_of_undying`, `minecraft:iron_pickaxe`, or other namespace-and-underscore identifiers in a public README or changelog. Use the normal in-game display name instead, such as “Diamond,” “Totem of Undying,” or “Iron Pickaxe.” Apply the same rule to blocks, mobs, enchantments, effects, and other game content: use the familiar player-facing name.
+- **Keep internal identifiers inside implementation files only.** Technical IDs may be used where the game requires them in JSON, JavaScript, functions, recipes, localization keys, manifests, and other source files. Do not alter valid source identifiers just to make them look customer-friendly; change only public-facing prose and display text when appropriate.
+- **Describe mechanics, not code.** For example, write “The ability activates when you use the relic” instead of describing an event handler, script callback, component, or tick interval. Explain controls and requirements from the player's perspective.
+- **Use customer-friendly names consistently.** Prefer the in-game display name or a clear, readable feature name. Avoid snake_case, namespace prefixes, file extensions, raw enum values, and developer abbreviations in headings, bullets, tables, badges, and captions.
+- **Commercial does not mean exaggerated.** Keep the presentation polished and appealing but factual. Do not invent benefits, use clickbait, add filler, or promise unverified compatibility, performance, achievements, or features.
+- **Exceptions:** Keep technical details in source code, internal developer notes, or a technical document when the user explicitly asks for them. When a public-facing guide must mention a requirement, translate it into clear player language and include only what the player needs to know.
+
+
 Pack descriptions must be polished, player-focused, and commercially presentable without sacrificing accuracy.
 
 ### Rules:
