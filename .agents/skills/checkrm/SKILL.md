@@ -231,7 +231,7 @@ Keep individual add-on README.md files image-free. In add-on DESCRIPTION.md,
 allow only item sprites and crafting recipe diagrams as images. Do not add
 promotional banners, generic screenshots, or unrelated artwork. Verify all
 image targets and use absolute raw GitHub URLs for published embeds. Crafting
-diagrams must follow the source-based workflow in INSTRUCTIONS.md: use `assets/CRAFTINGBOARD.PNG` as the required board reference, put all ingredients in one vertical column only, and use recognizable inventory-style Minecraft item icons for ingredients and output. Keep ingredient identities, requirements, result, and count faithful to the actual recipe JSON. The image is a simplified guide rather than a literal crafting-grid pattern. If the reference asset is missing at that path, report it instead of guessing or substituting a board.
+diagrams must follow the source-based workflow in INSTRUCTIONS.md: `assets/CRAFTING_TABLE.svg` is the sole authorized crafting-board reference. Every generator must render that exact SVG directly and derive board details from it. A PNG export is output only, never an independent reference or a source for board design/cropping. Never use `CRAFTINGBOARD.PNG`, another board image, screenshots, a hand-drawn GUI, or a remembered interface. If the SVG is missing or unreadable, stop and report it instead of substituting another board. Put all ingredients in one vertical column only and use recognizable inventory-style Minecraft item icons for ingredients and output. Keep ingredient identities, requirements, result, and count faithful to the actual recipe JSON. The image is a simplified guide rather than a literal crafting-grid pattern.
 
 ## Step 6 — Create or Update Project Documentation
 
