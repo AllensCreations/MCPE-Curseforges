@@ -9,7 +9,7 @@ This document establishes repository-wide documentation standards for AllensCrea
 - Inspect source files before making claims. Ask the user when an unresolved choice could materially affect gameplay, compatibility, distribution, data loss, or release/version behavior. For ordinary style choices, apply these defaults and proceed.
 - Never invent features, versions, links, assets, test results, compatibility, achievement support, performance guarantees, or platform behavior. Distinguish verified facts from assumptions and untested claims.
 
-All documentation files (README.md across repository root, packs, and maps) must strictly follow these rules to ensure seamless rendering across CurseForge, MCPEDL, Planet Minecraft, and GitHub.
+Repository documentation must render cleanly across CurseForge, MCPEDL, Planet Minecraft, and GitHub. Individual add-on README.md files are download-link-only; DESCRIPTION.md contains the full player-facing product information. Root and category catalog README.md files remain catalogs.
 
 ---
 
