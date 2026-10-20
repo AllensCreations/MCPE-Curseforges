@@ -310,6 +310,34 @@ def auto_generate_readme(proj_dir):
                 and GAMEPLAY_HEADING_REGEX.search(existing_description)
                 and not any(marker in existing_description for marker in PLACEHOLDER_MARKERS + SCAFFOLD_STUB_MARKERS)
             ):
+                # If an older full README still exists, preserve any distinct top-level
+                # sections that have not yet been moved into DESCRIPTION.md.
+                if os.path.isfile(readme_path):
+                    with open(readme_path, "r", encoding="utf-8") as f:
+                        old_readme = f.read()
+                    if len(old_readme.strip()) > 500 and GAMEPLAY_HEADING_REGEX.search(old_readme):
+                        existing_headings = {
+                            heading.strip().casefold()
+                            for heading in re.findall(r"(?m)^##\s+(.+?)\s*$", existing_description)
+                        }
+                        additional_sections = []
+                        for section in re.split(r"(?m)(?=^##\s+)", old_readme):
+                            match = re.match(r"(?s)^##\s+(.+?)\s*\n", section)
+                            if not match:
+                                continue
+                            heading = match.group(1).strip()
+                            if heading.casefold() not in existing_headings:
+                                additional_sections.append(section.strip())
+                                existing_headings.add(heading.casefold())
+                        if additional_sections:
+                            existing_description = (
+                                existing_description.rstrip()
+                                + "\n\n---\n\n"
+                                + "\n\n".join(additional_sections)
+                                + "\n"
+                            )
+                            with open(description_path, "w", encoding="utf-8") as f:
+                                f.write(existing_description)
                 write_download_readme()
                 print(f"  [Auto-Fix] Preserved DESCRIPTION.md and refreshed download-only README for {slug}")
                 return
