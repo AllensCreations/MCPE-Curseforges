@@ -11,7 +11,7 @@ import json
 import os
 from pathlib import Path
 
-from PIL import Image, ImageDraw, ImageFont
+from PIL import Image
 from crafting_template import compose_recipe_diagram
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -34,11 +34,6 @@ def load_icon(path: Path, size: tuple[int, int] = (32, 32)) -> Image.Image:
     if not path.is_file():
         raise FileNotFoundError(f"Required texture not found: {path}")
     return Image.open(path).convert("RGBA").resize(size, Image.Resampling.NEAREST)
-
-
-def font(size: int) -> ImageFont.ImageFont:
-    path = Path("/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf")
-    return ImageFont.truetype(str(path), size) if path.is_file() else ImageFont.load_default()
 
 
 if not RECIPE_FILE.is_file():
