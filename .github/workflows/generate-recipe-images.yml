@@ -13,6 +13,8 @@ on:
       - 'scripts/generate_monster_companions_recipe_image.py'
       - 'scripts/convert_crafting_recipe_svgs_to_png.py'
       - 'assets/CRAFTING_TABLE.svg'
+      - 'assets/CRAFTINGBOARD.PNG'
+      - 'assets/CRAFTINGBOARD.png'
       - 'assets/CRAFTING_RECIPE*.svg'
       - '.github/workflows/generate-recipe-images.yml'
   workflow_dispatch:
@@ -70,7 +72,7 @@ jobs:
           git add MCPEDL/addons/Monster-Companions/beast_biscuit_recipe.png
           git add MCPEDL/addons/Grimoire-Relics-V2/assets/recipes MCPEDL/addons/Grimoire-Relics-V2/assets/all_recipes_sheet.png
           git add MCPEDL/addons/Grand-Banquets/assets/recipes
-          git add assets/CRAFTING_TABLE.png assets/CRAFTING_RECIPE*.png
+          git add assets/CRAFTING_TABLE.png assets/CRAFTING_RECIPE*.png assets/CRAFTINGBOARD.PNG assets/CRAFTINGBOARD.png 2>/dev/null || true
           if git diff --cached --quiet; then
             echo "Recipe images are already up to date."
           else
