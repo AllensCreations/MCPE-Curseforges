@@ -1,0 +1,46 @@
+{
+  "format_version": 2,
+  "header": {
+    "name": "Melody Figurine (v1.0.0)",
+    "description": "Textures and custom music for the Melody Figurine. by AllensCreations",
+    "uuid": "d9b1c8f6-ad34-4b6d-8c0c-7b8d4f001104",
+    "version": [
+      1,
+      0,
+      0
+    ],
+    "min_engine_version": [
+      1,
+      26,
+      0
+    ]
+  },
+  "modules": [
+    {
+      "description": "Melody Figurine resources",
+      "type": "resources",
+      "uuid": "e0c2d9a7-be45-4c7e-9d1d-8c9e5a001105",
+      "version": [
+        1,
+        0,
+        0
+      ]
+    }
+  ],
+  "dependencies": [
+    {
+      "uuid": "f14c8c2b-4e57-4a4b-8c1d-9c40c40a1101",
+      "version": [
+        1,
+        0,
+        0
+      ]
+    }
+  ],
+  "metadata": {
+    "authors": [
+      "AllensCreations"
+    ],
+    "product_type": "addon"
+  }
+}

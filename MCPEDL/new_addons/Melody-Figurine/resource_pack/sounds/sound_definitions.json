@@ -1,0 +1,15 @@
+{
+  "format_version": "1.14.0",
+  "sound_definitions": {
+    "melody:melody_song": {
+      "category": "music",
+      "sounds": [
+        {
+          "name": "sounds/music/melody_song",
+          "stream": true,
+          "volume": 1
+        }
+      ]
+    }
+  }
+}
