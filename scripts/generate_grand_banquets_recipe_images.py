@@ -51,6 +51,41 @@ ALIASES={
 "pumpkin":"blocks/pumpkin_side.png",
 }
 
+DISPLAY_NAMES = {
+    "bacon_and_eggs": "Smoked Bacon & Eggs",
+    "braised_ribs": "Braised Forest Ribs",
+    "celestial_roast": "Celestial Echo Roast",
+    "cheese_bread_pot": "Baked Cheese & Bread Pot",
+    "citadel_ham": "Golden Citadel Glazed Ham",
+    "dragonlords_galantine": "Dragonlord's Abyssal Galantine",
+    "fishermans_platter": "Fisherman's Platter",
+    "glazed_ham": "Glazed Ham Tray",
+    "glazed_wings": "Glazed Amber Glider Wings",
+    "harvest_loaf": "Farmer's Harvest Loaf",
+    "highland_venison": "Highland Runner's Venison",
+    "honey_berry_tart": "Sunlit Honey Berry Tart",
+    "hunters_stew": "Campfire Hunter's Stew",
+    "imperial_feast": "Imperial Hero's Crown Feast",
+    "kelp_fish_broth": "Savory Kelp & Fish Broth",
+    "lumberjacks_ham": "Lumberjack's Spiced Ham",
+    "mariners_pot": "Mariner's Deepwater Pot",
+    "miners_roast": "Deep Delver's Miners Roast",
+    "mushroom_casserole": "Creamy Mushroom Casserole",
+    "phoenix_roast": "Phoenix Spiced Roast",
+    "potato_loaf": "Rustic Potato Loaf",
+    "pumpkin_casserole": "Autumn Pumpkin Casserole",
+    "roast_turkey": "Stuffed Roast Turkey",
+    "roasted_roots": "Roasted Root Feast",
+    "sausage_pan": "Country Pork Sausage Pan",
+    "scholars_dumplings": "Lapis Scholar's Dumplings",
+    "shepherds_pie": "Hearty Shepherd's Pie",
+    "sovereign_platter": "Tide Sovereign's Seafood Platter",
+    "strider_gumbo": "Nether Strider's Gumbo",
+    "veggie_skillet": "Vegetable Medley Skillet",
+    "verdant_ambrosia": "Verdant Sovereign Ambrosia",
+    "warlords_steak": "Warlord's Crimson Steak Feast",
+}
+
 def font(n):
     p=Path("/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf")
     return ImageFont.truetype(str(p),n) if p.exists() else ImageFont.load_default()
@@ -76,7 +111,7 @@ def render(path):
     if not rp.is_file():raise FileNotFoundError(f"Missing custom result texture: {rp}")
     outicon=Image.open(rp).convert("RGBA").resize((32,32),Image.Resampling.NEAREST)
     im=Image.new("RGBA",(500,204),(42,42,46,255)); dr=ImageDraw.Draw(im)
-    dr.text((14,8),slug.replace("_"," ").title(),font=font(18),fill="white")
+    dr.text((14,8),DISPLAY_NAMES.get(slug,slug.replace("_"," ").title()),font=font(18),fill="white")
     sx,sy,slot=18,42,48
     for y in range(3):
         for x in range(3):
