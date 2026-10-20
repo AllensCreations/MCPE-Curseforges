@@ -328,38 +328,29 @@ jobs:
 
           readme = f"""# {addon}
 
-          ## Description
+          **Download:** See the [New Add-ons download catalog](https://github.com/AllensCreations/MCPE-Curseforges/blob/main/MCPEDL/new_addons/README.md).
+          """
 
-          Minecraft Bedrock add-on by AllensCreations.
+          description = f"""# {addon}
 
-          ## Source Files
+          **By AllensCreations**
 
-          This directory contains the uncompressed source files used to build this add-on.
-
-          Review the included manifests, behavior packs, resource packs, and scripts before publishing.
-
-          ## Attribution
-
-          - Creator: AllensCreations.
-          - Content creators may feature this add-on in videos and streams with credit to AllensCreations.
-          - Do not re-upload this add-on or modified copies to other websites, app stores, or file-sharing services.
-
-          ---
-          
-          © All rights reserved for AllensCreations.
+          Add the verified, player-facing product description for this add-on here. Describe only features and requirements confirmed by the included pack files. Follow the repository's DESCRIPTION.md guidelines.
           """
 
           import textwrap
 
           readme = textwrap.dedent(readme).lstrip()
+          description = textwrap.dedent(description).lstrip()
 
-          with open(
-              os.path.join(root, "README.md"),
-              "w",
-              encoding="utf-8",
-              newline="\n"
-          ) as output:
-              output.write(readme)
+          for filename, content in (("README.md", readme), ("DESCRIPTION.md", description)):
+              with open(
+                  os.path.join(root, filename),
+                  "w",
+                  encoding="utf-8",
+                  newline="\\n"
+              ) as output:
+                  output.write(content)
 
           with open(os.path.join(root, "LOCK"), "w", encoding="utf-8", newline="\n") as output:
               output.write(
