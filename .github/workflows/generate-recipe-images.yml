@@ -70,7 +70,11 @@ jobs:
           git add MCPEDL/addons/Monster-Companions/beast_biscuit_recipe.png
           git add MCPEDL/addons/Grimoire-Relics-V2/assets/recipes MCPEDL/addons/Grimoire-Relics-V2/assets/all_recipes_sheet.png
           git add MCPEDL/addons/Grand-Banquets/assets/recipes
-          git add assets/CRAFTING_TABLE.png assets/CRAFTING_RECIPE*.png
+          git add assets/CRAFTING_TABLE.png
+          # Stage optional recipe SVG exports only when the files exist.
+          if compgen -G "assets/CRAFTING_RECIPE*.png" > /dev/null; then
+            git add assets/CRAFTING_RECIPE*.png
+          fi
           if git diff --cached --quiet; then
             echo "Recipe images are already up to date."
           else
