@@ -22,3 +22,9 @@
 - Adjusted shop prices to scale with progression and keep starter supplies accessible.
 - Purchases deduct coins only for items successfully delivered.
 - Updated the world builder to package the complete source world as a `.mcworld` release.
+
+## [0.1.6] - 2026-10-21
+
+### Improved
+- Tuned tier pricing and purchase quantities to keep starter supplies affordable and rare endgame equipment costly.
+- Synced the world builder and pack versions for the complete `.mcworld` release.
