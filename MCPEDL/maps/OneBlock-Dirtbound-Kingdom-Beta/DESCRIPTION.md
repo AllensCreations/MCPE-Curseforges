@@ -14,9 +14,9 @@ The shared central block becomes tougher as the world-wide break count increases
 - **350 breaks — Iron Heart:** Iron Ore; +3 OneCoins per break.
 - **700 breaks — Golden Core:** Gold Ore; +3 OneCoins per break.
 - **1,200 breaks — Diamond Core:** Diamond Ore; +4 OneCoins per break.
-- **2,000 breaks — Obsidian Core:** Obsidian; +5 OneCoins per break.
-- **3,000 breaks — Crying Core:** Crying Obsidian; +6 OneCoins per break.
-- **4,500 breaks — Ancient Core:** Ancient Debris; +7 OneCoins per break.
+- **2,000 breaks — Ancient Core:** Ancient Debris; +5 OneCoins per break.
+- **3,000 breaks — Obsidian Core:** Obsidian; +6 OneCoins per break.
+- **4,500 breaks — Crying Core:** Crying Obsidian; +7 OneCoins per break.
 - **6,000 breaks — Kingdom Core:** Block of Netherite; +8 OneCoins per break.
 
 Use suitable pickaxes for later blocks. The core stage is shared by the world, while shop unlocks and personal milestone rewards are tracked separately for each player.
