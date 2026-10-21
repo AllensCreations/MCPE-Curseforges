@@ -8,6 +8,7 @@ This directory stores all compiled releases (behavior packs, resource packs, add
 
 ### Add-on Packs
 
+| **OneBlock Dirtbound Kingdom Beta — Test Build** | `v0.1.8` | MCAddon Test (`.mcaddon`) | [Download (.mcaddon)](OneBlock-Dirtbound-Kingdom-Beta/OneBlock%20Dirtbound%20Kingdom%20MCAddon%20Test%20%28v0.1.8%29.mcaddon) | [`OneBlock-Dirtbound-Kingdom-Beta/`](OneBlock-Dirtbound-Kingdom-Beta/) |
 | Pack Name | Version | Type | Download Link | Build Folder |
 | :--- | :--- | :--- | :--- | :--- |
 | **Vanilla Quality of Life** | `v1.3.19` | Complete Add-on (`.mcaddon`) | [Download (.mcaddon)](Vanilla-Quality-of-Life/Vanilla%20Quality%20of%20Life%20by%20AllensCreations%20%28V1.3.19%29.mcaddon) | [`Vanilla-Quality-of-Life/`](Vanilla-Quality-of-Life/) |
@@ -36,7 +37,7 @@ This directory stores all compiled releases (behavior packs, resource packs, add
 | **OneBlock Void Survival** | `v1.2.5` | Survival World (`.mcworld`) | [Download (.mcworld)](OneBlock-Void-Survival/OneBlock%20Void%20Survival%20by%20AllensCreations%20%28V1.2.5%29.mcworld) | [`OneBlock-Void-Survival/`](OneBlock-Void-Survival/) |
 | **OneBlock Void (Admin Studio)** | `v1.2.5` | Testing World (`.mcworld`) | [Download (.mcworld)](OneBlock-Void-Survival/OneBlock%20Void%20Survival%20by%20AllensCreations%20%28V1.2.5%29.mcworld) | [`OneBlock-Void-Survival/`](OneBlock-Void-Survival/) |
 | **OneBlock Economy** | `v1.0.6` | Custom Map (`.mcworld`) | [Download (.mcworld)](OneBlock-Economy/OneBlock%20Economy%20by%20AllensCreations%20%28V1.0.6%29.mcworld) | [`OneBlock-Economy/`](OneBlock-Economy/) |
-| **OneBlock Dirtbound Kingdom Beta** | `v0.1.7` | Complete World (`.mcworld`) | [Download (.mcworld)](OneBlock-Dirtbound-Kingdom-Beta/OneBlock%20Dirtbound%20Kingdom%20Beta%20by%20AllensCreations%20%28V0.1.7%29.mcworld) | [`OneBlock-Dirtbound-Kingdom-Beta/`](OneBlock-Dirtbound-Kingdom-Beta/) |
+
 
 ### Script Projects & Challenges
 
