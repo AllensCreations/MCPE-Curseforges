@@ -1,8 +1,14 @@
 name: Build OneBlock Creative, Survival, and Hardcore Worlds
 
 on:
-  # Deliberately manual: do not publish regenerated worlds until the Creative
-  # .mcworld has been tested in Minecraft and the mechanics are confirmed.
+  # Rebuild all opted-in OneBlock worlds whenever map source or the builder changes.
+  # The generated commit uses [skip ci] to prevent a rebuild loop.
+  push:
+    paths:
+      - 'MCPEDL/maps/**'
+      - 'CreateWorld/McpeWorld.html'
+      - 'scripts/build_oneblock_variants_from_template.py'
+      - '.github/workflows/build-oneblock-variants.yml'
   workflow_dispatch:
 
 permissions:
