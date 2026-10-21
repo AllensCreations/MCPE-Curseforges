@@ -7,7 +7,7 @@ on:
       - 'Mcpeworlds/**'
       - 'scripts/build_oneblock_variants_from_template.py'
       - 'scripts/validate_oneblock_source.py'
-      - 'scripts/validate_oneblock_source.py'
+      - 'scripts/sync_mcpeworld_templates.py'
       - 'INSTRUCTIONS.md'
       - '.github/workflows/validate-oneblock-source.yml'
   pull_request:
@@ -15,6 +15,7 @@ on:
       - 'MCPEDL/maps/OneBlock-Dirtbound-Kingdom-Beta/**'
       - 'scripts/build_oneblock_variants_from_template.py'
       - 'scripts/validate_oneblock_source.py'
+      - 'scripts/sync_mcpeworld_templates.py'
       - 'INSTRUCTIONS.md'
       - '.github/workflows/validate-oneblock-source.yml'
   workflow_dispatch:
@@ -47,6 +48,6 @@ jobs:
         run: node --input-type=module --check < MCPEDL/maps/OneBlock-Dirtbound-Kingdom-Beta/behavior_pack/scripts/main.js
 
       - name: Check builder and validator Python syntax
-        run: python -c "from pathlib import Path; [compile(p.read_text(encoding='utf-8'), str(p), 'exec') for p in (Path('scripts/build_oneblock_variants_from_template.py'), Path('scripts/validate_oneblock_source.py'))]"
+        run: python -c "from pathlib import Path; [compile(p.read_text(encoding='utf-8'), str(p), 'exec') for p in (Path('scripts/build_oneblock_variants_from_template.py'), Path('scripts/validate_oneblock_source.py'), Path('scripts/sync_mcpeworld_templates.py'))]"
 
       # World archives are built by build-oneblock-variants.yml after source changes.
