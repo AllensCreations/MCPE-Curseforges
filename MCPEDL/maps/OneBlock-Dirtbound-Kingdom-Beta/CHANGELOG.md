@@ -2,17 +2,18 @@
 
 ---
 
-## [Unreleased]
+## [0.1.20] - 2026-10-21
 
 ### Fixed
-- **World database integrity:** Rebuilt all three world variants from a complete Bedrock world database instead of generating a nearly empty LevelDB database.
-- **Starting platform recovery:** The starting-platform function is linked as an active world Behavior Pack and restores missing Bedrock at 0 63 0 and Dirt at 0 64 0 without teleporting players.
-- **World mode metadata:** Creative, Survival, and Hardcore variants now receive separate mode settings while preserving the source world's stored world data.
+- **Startup core recovery:** The Script API now checks the central position during initialization and player join, placing the correct stage block only when the position is empty.
+- **Progression ownership:** Ongoing tick recovery remains limited to the Bedrock footing and Trader Post, avoiding a second system replacing the evolving core.
+- **Pack version alignment:** Behavior Pack and Resource Pack versions now match at 0.1.20.
 
-### Improved & Balanced
-- **Creative world testing:** The Creative `.mcworld` is the sole tester. The separate MCAddon tester package is retired; Creative, Survival, and Hardcore world files are kept together.
+### Improved
+- **Automatic source checks:** Map source changes now trigger static validation of manifests, function wiring, Script API syntax, the HTML reference, and the world builder.
+- **World build safety:** Source validation does not generate world archives. New Creative, Survival, and Hardcore worlds remain gated on testing the Creative world in Minecraft.
 
-Note: archive structure and pack-link checks passed in GitHub Actions. Minecraft in-game loading and gameplay still require confirmation in the game.
+Note: These changes are source updates only. No new .mcworld archives were generated, and gameplay remains unverified in Minecraft.
 
 
 ## [0.1.18] - 2026-10-21
