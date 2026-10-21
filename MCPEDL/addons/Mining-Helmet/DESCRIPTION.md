@@ -2,13 +2,13 @@
 
 **By AllensCreations**
 
-Hands-free dynamic following light system for cave mining and night exploration.
+Wearable light for cave mining and night exploration.
 
 ---
 
 ## Overview
 
-**Mining Helmet** adds wearable headgear with real-time dynamic following light to Minecraft Bedrock Edition. Equipped in your head armor slot, it continuously lights up your surroundings as you walk, run, and dig, leaving both hands free for your pickaxe, weapon, or shield.
+**Mining Helmet** adds wearable headgear with moving light to Minecraft Bedrock Edition. Equipped in your head armor slot, it continuously lights up your surroundings as you walk, run, and dig, leaving both hands free for your pickaxe, weapon, or shield.
 
 The helmet provides moving light while worn, and holding a Lantern or Torch can also provide handheld light.
 
@@ -19,22 +19,22 @@ The helmet provides moving light while worn, and holding a Lantern or Torch can 
 ### Mining Helmet (Lantern)
 - **Light Power Level**: **15**
 - **Illumination Type**: High-Intensity Beam
-- **Description**: Full daylight-equivalent illumination. Maximum light level in Minecraft Bedrock.
+- **Description**: Bright illumination while worn.
 
 ### Mining Helmet (Torch)
 - **Light Power Level**: **10**
 - **Illumination Type**: Medium Warm Glow
-- **Description**: Atmospheric survival light suitable for early-game spelunking.
+- **Description**: A lower-light option for early-game cave exploration.
 
 ### Handheld / Offhand Lantern
 - **Light Power Level**: **15**
 - **Illumination Type**: Portable Floodlight
-- **Description**: Dynamic light emitted when holding a standard Lantern in your main hand or offhand.
+- **Description**: Provides moving light while a standard Lantern is held in either hand.
 
 ### Handheld / Offhand Torch
 - **Light Power Level**: **10**
 - **Illumination Type**: Portable Torch Light
-- **Description**: Dynamic light emitted when holding a standard Torch in your main hand or offhand.
+- **Description**: Provides moving light while a standard Torch is held in either hand.
 
 ---
 
@@ -79,6 +79,12 @@ Combine a standard **Torch** with a **Golden Helmet** to craft the Level 10 Mini
 ![Crafting Recipe: Torch Mining Helmet](https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/MCPEDL/addons/Mining-Helmet/recipe_torch.png)
 
 ---
+
+## How to Use
+
+1. Import the complete add-on and enable its included packs in your world settings.
+2. Craft the Lantern or Torch Mining Helmet using the listed ingredients.
+3. Equip the helmet in your head armor slot to carry its light with you. Holding a Lantern or Torch can also provide light.
 
 ## Compatibility
 
