@@ -2,8 +2,6 @@
 
 **By AllensCreations**
 
-Explore more creations: [CurseForge Profile](https://www.curseforge.com/members/allenscreations/projects) · [MCPEDL Profile](https://mcpedl.com/user/allenscreations/)
-
 Transform vanilla Ghasts into colossal flying mob heads with custom combat attacks and shearing mechanics.
 
 ---
@@ -98,6 +96,11 @@ Interact with any Ghast while holding a skull to trigger the transformation:
 ---
 
 ---
+
+## Creator Profiles
+
+- [CurseForge Profile](https://www.curseforge.com/members/allenscreations/projects)
+- [MCPEDL Profile](https://mcpedl.com/user/allenscreations/)
 
 ## Guidelines and Attribution
 

@@ -153,6 +153,11 @@ The pack includes exploration loot entries for Ancient Relics. Their intended lo
 
 If a feature is broken or does not work as described, please leave a comment on the project page. Add-on suggestions and ideas are welcome.
 
+## Creator Profiles
+
+- [CurseForge Profile](https://www.curseforge.com/members/allenscreations/projects)
+- [MCPEDL Profile](https://mcpedl.com/user/allenscreations/)
+
 ## Guidelines and Attribution
 
 - Creator: AllensCreations
