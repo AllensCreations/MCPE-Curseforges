@@ -1,0 +1,77 @@
+name: Build OneBlock Creative, Survival, and Hardcore Worlds
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'MCPEDL/maps/**/oneblock.json'
+      - 'MCPEDL/maps/**/behavior_pack/**'
+      - 'MCPEDL/maps/**/resource_pack/**'
+      - 'CreateWorld/McpeWorld.html'
+      - 'scripts/build_oneblock_variants.py'
+      - '.github/workflows/build-oneblock-variants.yml'
+  workflow_dispatch:
+    inputs:
+      project_path:
+        description: 'Optional repository-relative path, e.g. MCPEDL/maps/My-OneBlock. Leave blank to build every enabled OneBlock project.'
+        required: false
+        default: ''
+        type: string
+
+permissions:
+  contents: write
+
+concurrency:
+  group: build-oneblock-variants-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  build:
+    name: Build and publish all three world modes
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Install LevelDB build dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y libleveldb-dev libsnappy-dev
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install Python dependencies
+        run: python -m pip install --upgrade pip plyvel
+
+      - name: Build variants from the map's actual packs
+        shell: bash
+        env:
+          EVENT_NAME: ${{ github.event_name }}
+          PROJECT_PATH: ${{ inputs.project_path }}
+        run: |
+          set -euo pipefail
+          if [[ "$EVENT_NAME" == "workflow_dispatch" && -n "$PROJECT_PATH" ]]; then
+            python scripts/build_oneblock_variants.py --project-path "$PROJECT_PATH"
+          else
+            python scripts/build_oneblock_variants.py --all
+          fi
+
+      - name: Commit generated .mcworld files
+        shell: bash
+        run: |
+          set -euo pipefail
+          git add 'MCPEDL/maps/*/Creative/*.mcworld' 'MCPEDL/maps/*/Survival/*.mcworld' 'MCPEDL/maps/*/Hardcore/*.mcworld'
+          if git diff --cached --quiet; then
+            echo "No generated world changes to commit."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git commit -m "build(oneblock): generate Creative, Survival, and Hardcore worlds [skip ci]"
+          git push
