@@ -1,5 +1,13 @@
 # Changelog — OneBlock: Dirtbound Kingdom Beta
 
+## [0.1.23] - 2026-10-21
+
+### Changed
+- Removed the lectern and all physical Trader Post blocks.
+- Made the custom Trader Ledger item the only way to open the shop.
+- Removed automatic lectern recovery; the item remains the sole shop access method.
+
+
 ## [0.1.22] - 2026-10-21
 
 ### Changed
