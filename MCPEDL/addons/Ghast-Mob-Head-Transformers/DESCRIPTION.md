@@ -117,4 +117,4 @@ Interact with any Ghast while holding a skull to trigger the transformation:
 
 ## Search & Discovery Keywords
 
-Minecraft Bedrock add-on, giant flying mob heads, Ghast transformer mod, Minecraft PE mob skulls, wearable mob heads, wither skeleton ghast, custom projectiles Bedrock, MCPEDL add-on, CurseForge Bedrock, AllensCreations.
+Ghast Mob Head Transformers Bedrock add-on, Minecraft PE mod, MCPEDL add-on, CurseForge Bedrock, AllensCreations.

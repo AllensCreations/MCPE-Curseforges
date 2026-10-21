@@ -172,4 +172,4 @@ If a feature is broken or does not work as described, please leave a comment on 
 
 ## Search & Discovery Keywords
 
-Minecraft Bedrock 1.26+ add-on, Grimoire Relics V2, magical offhand tomes, RPG relic progression, passive offhand effects, Void Phantom void rescue, End dimension rescue, craftable magical books, Ancient Relic loot, Minecraft PE magic add-on, MCPEDL, CurseForge Bedrock, AllensCreations.
+Grimoire Relics V2 Bedrock add-on, Minecraft PE mod, MCPEDL add-on, CurseForge Bedrock, AllensCreations.

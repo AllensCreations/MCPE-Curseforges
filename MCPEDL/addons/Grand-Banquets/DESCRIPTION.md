@@ -69,4 +69,4 @@ If you find a bug or a feature that does not work as expected, please leave a co
 
 ## Search & Discovery Keywords
 
-Minecraft Bedrock cooking add-on, Grand Banquets food recipes, 32 custom food items Minecraft PE, craftable feast recipes Bedrock, Minecraft food effects, Miner's Roast Haste Night Vision, Mariner's Pot Water Breathing, survival cooking add-on, banquet feast items, MCPEDL add-on, CurseForge Bedrock, AllensCreations.
+Grand Banquets Bedrock add-on, Minecraft PE mod, MCPEDL add-on, CurseForge Bedrock, AllensCreations.
