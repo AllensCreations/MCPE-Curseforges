@@ -44,7 +44,7 @@ Your current OneCoins balance appears in the action bar and updates regularly. T
 1. Import the Creative world into Minecraft Bedrock Edition first.
 2. Use Creative as the only test world and check the starting platform, central block, mining rewards, progression, and Trader Ledger.
 3. The published Creative, Survival, and Hardcore archives may not include the latest source changes. Source checks alone do not prove in-game gameplay works.
-4. Do not rebuild the world archives until the Creative mechanics pass in Minecraft, each mode has its own complete matching world foundation, and rebuilding is explicitly approved.
+4. World archives are not rebuilt automatically when source files change. Run the OneBlock world-build workflow manually when you want to regenerate them; each mode must have its own complete matching world foundation. Structural checks do not replace in-game testing.
 
 ## Compatibility and Limitations
 
