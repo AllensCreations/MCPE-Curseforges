@@ -300,7 +300,7 @@ Every new OneBlock map project must generate and publish three complete `.mcworl
 
 ### Output layout
 
-The workflow writes and commits the three worlds into the same map folder:
+The workflow writes and commits all three worlds into the same map folder:
 
 ```
 MCPEDL/maps/<Map-Name>/
@@ -312,21 +312,26 @@ MCPEDL/maps/<Map-Name>/
 └── <Map-Name> - Hardcore.mcworld
 ```
 
+### Authoritative world-reference policy
+
+- Always use the latest committed files under `Mcpeworlds/` as the mode-specific references. The current mapping is `Creative_Void_Sandbox.mcworld.zip` -> Creative, `Survival_Void_World.mcworld.zip` -> Survival, and `Hardcore_Void_World.mcworld.zip` -> Hardcore. Do not use `CreateWorld/McpeWorld.html`, an older extracted template, or a different mode's reference instead.
+- Read the selected reference and the builder before changing world generation. Preserve each selected reference's own world metadata and mode settings; only make changes required to name the Dirtbound world and link the map's actual packs.
+- **A complete reference must include its own LevelDB database** (including `db/CURRENT` and actual database data files). The current three reference archives do not contain LevelDB. Until complete references are supplied, the builder uses the older complete OneBlock Void Survival archive only as a database carrier. This means the generated world's chunks/terrain may come from that carrier; do not claim the reference terrain was preserved. Never fabricate an empty database or copy the carrier's metadata/settings/packs over the selected mode reference.
+- If the user uploads newer references, update the files in `Mcpeworlds/`, check that each archive contains `level.dat` and a real `db/` database, and rebuild all three variants. If a reference lacks required world data, keep the automated output behavior but explicitly report the limitation rather than pretending the archive is a complete copy of that reference.
+
 ### Automatic execution and verification
 
 - Every change under `MCPEDL/maps/**`, `Mcpeworlds/**`, or the OneBlock world builder must trigger `.github/workflows/build-oneblock-variants.yml`. This workflow automatically rebuilds and commits the Creative, Survival, and Hardcore `.mcworld` files for all enabled `oneblock.json` projects. The generated commit uses `[skip ci]` to prevent a build loop. `workflow_dispatch` remains available for manual rebuilds.
 - Every change under an opted-in OneBlock map, `Mcpeworlds/**`, the builder, or the validator must also trigger `.github/workflows/validate-oneblock-source.yml`. This pipeline validates pack manifests and dependencies, tick/function wiring, Script API syntax, the three mode-specific template files, and the world builder.
-- Always regenerate the world archives after map-source changes; do not leave the `.mcworld` files stale relative to their source. Automated structural checks are not a substitute for testing in Minecraft, and never claim gameplay verification without an actual game test.
-- The builder uses the matching uploaded `Mcpeworlds/` archive as the starting metadata/settings template for each mode. These files currently omit LevelDB, so the complete OneBlock Void Survival archive is allowed only as a database carrier; its metadata and packs must never replace the selected mode template.
+- Always regenerate the world archives after map-source or reference changes; do not leave the `.mcworld` files stale relative to their source. Automated structural checks are not a substitute for testing in Minecraft, and never claim gameplay verification without an actual game test.
 - A successful ZIP/LevelDB/manifest check is a structural build check, not proof that Minecraft loaded the map or that its custom OneBlock progression works. Never claim in-game verification without an actual game test.
 - If a project's pack manifest is missing, malformed, or has an unresolved Resource Pack UUID dependency, fail the build and report the exact source path. Never generate fake pack UUIDs for the map's actual packs or silently omit required packs.
-
 
 ## OneBlock Creative-World Testing and Download Layout
 
 - The **Creative .mcworld is the sole tester** for OneBlock maps. Do not create or publish a separate .mcaddon tester package or a `Tester Build/` folder.
 - Generate the Creative, Survival, and Hardcore `.mcworld` variants together in the same map project directory. The Creative world is the one the user imports first to test the actual gameplay; the other two variants are kept alongside it.
-- The individual map `README.md` must provide clearly labeled download links for Creative, Survival, and Hardcore worlds. The Creative link is the tester link; do not advertise a separate add-on package.
+- The individual map `README.md` must provide clearly labeled download links for Creative, Survival, and Hardcore worlds. The Creative world is the test world; do not advertise a separate add-on package.
 - Every OneBlock map must use safe one-time setup, translated to that map's coordinates. Never clear preserved world terrain or teleport players. The shared builder must use the correct mode-specific `Mcpeworlds/` template.
 - Keep initial setup and ongoing recovery separate. In Dirtbound, `oneblock_setup.mcfunction` applies setup only to players not yet tagged `void_cleaned`; it sets spawn, restores Bedrock and the initial Dirt only if those blocks are air, ensures the Trader Post, then tags setup complete. `oneblock_tick.mcfunction` calls setup and only restores missing Bedrock/Trader; it must never set the core or world spawn every tick. The Script API owns core break handling and stage progression. No second tick-enabled pack may compete with it.
-- Keep the three world files, README links, and map catalog aligned to actual committed filenames and the current pack version. If source version advances while world archives are held behind the gameplay-test gate, explicitly state that the existing archives may not contain the latest source changes. Never claim an in-game test passed based only on archive or syntax checks.
+- Keep the three world files, README links, and map catalog aligned to actual committed filenames and the current pack version. Always rebuild after map-source/reference changes, even when Minecraft testing has not yet occurred. Never claim an in-game test passed based only on archive or syntax checks.
