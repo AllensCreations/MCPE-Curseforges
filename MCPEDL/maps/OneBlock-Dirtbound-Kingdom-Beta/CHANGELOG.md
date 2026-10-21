@@ -2,6 +2,14 @@
 
 ---
 
+## [0.1.18] - 2026-10-21
+
+### Fixed
+- **Reliable starting block:** The central Dirt now has a direct recovery path that does not depend on saved progression data being available.
+- **Correct starting location:** World spawn is set to 0 65 0 with spawn spread disabled, without teleporting players who are already online.
+- **Restored foundation and Trader Post:** Missing Bedrock and the permanent Trader Post are restored automatically.
+
+
 ## [0.1.17] - 2026-10-21
 
 ### Fixed
