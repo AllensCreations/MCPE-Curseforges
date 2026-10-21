@@ -10,7 +10,7 @@ Fell entire trees and mine contiguous ore veins in a single sneak-break, protect
 
 ## Overview
 
-Mining large underground ore clusters and chopping tall trees one block at a time takes unnecessary time.
+Mining large underground ore clusters and chopping tall trees one block at a time can take time.
 
 **Smart Tree Capitator & Domino Ore Miner** adds sneak-activated chain mining to Minecraft Bedrock Edition . Sneak while breaking a log or ore to fell the entire tree or harvest the connected ore vein in one action. Chain mining stops when the tool has 5 durability points remaining, helping prevent breakage.
 
@@ -63,7 +63,7 @@ Standing upright leaves standard vanilla single-block mining untouched. The add-
 
 ### Tree Capitation
 - **Requirement**: Sneak with an Axe
-- **What Happens**: Fells connected trunk logs and branches upward up to 128 blocks in one tick.
+- **What Happens**: Fells connected trunk logs and branches upward up to 128 blocks during the same mining action.
 
 ### Domino Ore Mining
 - **Requirement**: Sneak with a Pickaxe
@@ -81,13 +81,13 @@ Standing upright leaves standard vanilla single-block mining untouched. The add-
 
 ## How Tree Felling Works
 
-When you break an eligible log while sneaking with an axe, the add-on scans upward through the tree:
+When you break an eligible log while sneaking with an axe, the add-on scans through the tree:
 
 1. **Connected Branches**: Follows connected logs and branches, including diagonal connections.
 2. **Matching Wood Types**: Only the same wood type is felled, helping protect nearby trees.
 3. **The Leaf Scan (Player-Placed Leaves Ignored)**: Ignores player-placed leaves (sheared decorative leaves), ensuring custom hedges, bushes, and decorative roof foliage are never falsely detected as natural tree canopies.
 4. **Build Protection**: Uses nearby natural canopy clues to reduce accidental damage to wooden builds.
-5. **Safety Limits**: Capped at 128 logs per tree and bounded by world height (-64 to 320) to prevent runaway chain reactions.
+5. **Safety Limits**: Capped at 128 logs per tree and bounded by the world height range to prevent runaway chain reactions.
 
 ### Supported Trees
 - **Overworld**: Oak, Spruce, Birch, Jungle, Acacia, Dark Oak, Mangrove (including roots), Cherry, and Pale Oak.
@@ -99,7 +99,7 @@ When you break an eligible log while sneaking with an axe, the add-on scans upwa
 
 ## How Ore Mining Works
 
-Domino Ore Miner checks all 26 spatial neighbors (faces, edges, and corners) using iterative breadth-first search. Veins are contiguous with no arbitrary distance limits up to the 64-block cluster cap. Regular stone and deepslate ores share the same mineral category, allowing veins that cross stone layers to mine seamlessly:
+Domino Ore Miner follows connected matching ores, including diagonal connections, up to the 64-block cluster limit. Regular and deepslate versions of the same ore can be mined together:
 
 ### Coal
 - **Minimum Pickaxe**: Wooden+
@@ -151,12 +151,12 @@ Domino Ore Miner checks all 26 spatial neighbors (faces, edges, and corners) usi
 
 ## Durability Protection System
 
-- Queries  before breaking each secondary block.
+- Checks the tool's remaining durability before breaking each additional block.
 - Halts immediately when remaining durability  reaches 5 or less.
 - Plays an audible warning sound (warning sound) and displays an action bar alert:
   > **[Tool Protection]** Stopped mining to save tool! (5 durability left)
 - Revalidates the equipped tool before each block break. If the tool is switched or removed, chain mining stops instantly.
-- Applies standard vanilla Unbreaking probabilities (standard Unbreaking enchantment behavior) per block.
+- Respects the normal durability-saving effect of the Unbreaking enchantment.
 
 ---
 
