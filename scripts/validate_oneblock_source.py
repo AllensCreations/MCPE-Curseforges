@@ -122,12 +122,14 @@ def main() -> None:
         db = template / "db"
         data_files = [p for p in db.iterdir() if p.is_file() and p.name not in
                       {"CURRENT", "LOCK", "LOG", "LOG.old"} and not p.name.startswith("MANIFEST")] if db.is_dir() else []
-        if not (db / "CURRENT").is_file() or not data_files:
-            message = f"{mode} Mcpeworlds foundation has no complete LevelDB; world generation must remain paused."
+        if db.exists() and (not (db / "CURRENT").is_file() or not data_files):
+            message = f"{mode} Mcpeworlds source has an incomplete db/ folder; remove it if the source is intended to be database-free, or supply a complete database."
             foundation_blockers.append(message)
             print(f"BLOCKER: {message}")
+        elif db.exists():
+            print(f"PASS: {mode} source has a complete optional LevelDB.")
         else:
-            print(f"PASS: {mode} Mcpeworlds foundation has LevelDB data.")
+            print(f"PASS: {mode} is database-free; the builder creates a fresh LevelDB only in temporary build staging.")
 
     for document_name in ("README.md", "DESCRIPTION.md"):
         document = (PROJECT / document_name).read_text(encoding="utf-8")
@@ -141,8 +143,8 @@ def main() -> None:
     builder = BUILDER.read_text(encoding="utf-8")
     require("db/CURRENT" in builder and "world_behavior_packs.json" in builder,
             "world builder must preserve LevelDB and verify world pack links")
-    require("validate_leveldb" in builder and "DATABASE_CARRIER" not in builder,
-            "world builder must require each selected Mcpeworlds foundation's own LevelDB and never borrow another world's database")
+    require("initialize_staged_void_leveldb" in builder and "DATABASE_CARRIER" not in builder,
+            "world builder must initialize a fresh staged database for database-free void templates and never borrow another world's database")
     require("SOURCE_WORLDS" in builder and "Mcpeworlds" in builder
             and "SOURCE_ARCHIVES" not in builder and '"Mcpeworlds" / "Creative"' in builder
             and "locate_world_root" in builder,
