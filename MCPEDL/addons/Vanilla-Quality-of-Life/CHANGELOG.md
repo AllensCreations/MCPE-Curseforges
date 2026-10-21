@@ -48,7 +48,7 @@
 
 ### Added
 - **Optional Mining Presets**: Added selectable Behavior Pack presets for Tree Capitator Only, Vein Miner Only, and Vanilla Mining (both disabled). The default pack keeps both features enabled. Other QoL features remain active in every preset.
-- **Subpack-aware mining configuration**: Tree Capitator and Vein Miner can be independently enabled or disabled through a small configuration module overridden by each preset.
+- **Independent Mining Presets:** Players can choose Tree Capitator, Vein Miner, or vanilla mining behavior through the available presets.
 
 ---
 
@@ -116,7 +116,7 @@ This major milestone integrates **Passive Auto-Switch Tools**, **Smart Tree Capi
 ### Added
 - **Dynamic Handheld & Offhand Lighting**: Moving Torches and Lanterns emit real-time Light Levels 10–15 via `minecraft:light_block`.
 - **Offhand Quick-Swap**: Double-sneak gesture or sneak+use in air to quickly swap Torches, Lanterns, Clocks, and Compasses between mainhand and offhand.
-- Script event command `/scriptevent qol:swap` for gamepad/macro controllers.
+
 
 ---
 
