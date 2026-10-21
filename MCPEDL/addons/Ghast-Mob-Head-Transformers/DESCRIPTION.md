@@ -1,4 +1,4 @@
-# Ghast Mob Head Transformers (v1.1.12) — Giant Flying Mob Heads by AllensCreations
+# Ghast Mob Head Transformers (v1.1.13) — Giant Flying Mob Heads by AllensCreations
 
 ![MCPEDL](https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/MCPEDL/addons/Ghast-Mob-Head-Transformers/1791965821315.jpg?v=1791967147 "MCPEDL")
 
@@ -6,6 +6,8 @@
 [![Format](https://img.shields.io/badge/Format-.MCADDON%20%7C%20.MCPACK-orange?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/addons#available-add-ons)
 
 **By AllensCreations**
+
+Explore more creations: [CurseForge Profile](https://www.curseforge.com/members/allenscreations/projects) · [MCPEDL Profile](https://mcpedl.com/user/allenscreations/)
 
 Transform vanilla Ghasts into colossal flying mob heads with custom combat attacks and shearing mechanics.
 
