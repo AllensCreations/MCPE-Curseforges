@@ -154,40 +154,6 @@ def read_manifest(path: Path) -> dict[str, Any]:
     return data
 
 
-def make_platform_pack(target: Path, project_slug: str) -> tuple[str, list[int]]:
-    import uuid
-    namespace = uuid.uuid5(uuid.NAMESPACE_URL, f"https://github.com/AllensCreations/MCPE-Curseforges/{project_slug}/starting-platform")
-    pack_uuid = str(namespace)
-    module_uuid = str(uuid.uuid5(namespace, "module"))
-    version = [1, 0, 0]
-    target.mkdir(parents=True, exist_ok=True)
-    functions = target / "functions"
-    functions.mkdir()
-    manifest = {
-        "format_version": 2,
-        "header": {
-            "name": "OneBlock Starting Platform (v1.0.0)",
-            "description": "Restores the starting footing and spawn point without teleporting players. by AllensCreations",
-            "uuid": pack_uuid,
-            "version": version,
-            "min_engine_version": [1, 26, 0],
-        },
-        "modules": [{"type": "data", "uuid": module_uuid, "version": version}],
-        "metadata": {"authors": ["AllensCreations"]},
-    }
-    (target / "manifest.json").write_text(json.dumps(manifest, indent=2) + "\n", encoding="utf-8")
-    (functions / "tick.json").write_text(json.dumps({"values": ["oneblock_setup"]}, indent=2) + "\n", encoding="utf-8")
-    # The map's primary Behavior Pack owns the evolving OneBlock at (0, 64, 0).
-    # This auxiliary pack must only protect the footing; it must never replace
-    # a stage block (including Grass) or compete with progression recovery.
-    lines = [
-        "gamerule spawnradius 0",
-        "execute if block 0 63 0 air run setblock 0 63 0 bedrock",
-    ]
-    (functions / "oneblock_setup.mcfunction").write_text("\n".join(lines) + "\n", encoding="utf-8")
-    return pack_uuid, version
-
-
 def build_variant(project: Path, map_name: str, mode: str) -> Path:
     if not SOURCE_WORLD.is_file():
         raise FileNotFoundError(
@@ -237,12 +203,11 @@ def build_variant(project: Path, map_name: str, mode: str) -> Path:
         bp_folder = safe_name(project.name + "BP")
         rp_folder = safe_name(project.name + "RP")
         shutil.copytree(bp_source, world / "behavior_packs" / bp_folder)
-        bootstrap_uuid, bootstrap_version = make_platform_pack(
-            world / "behavior_packs" / "OneBlockStartingPlatform", project_slug
-        )
+        # Keep all OneBlock setup and recovery in the map's own Behavior Pack.
+        # A second tick-enabled pack can race the progression script and make
+        # platform/block state unpredictable, so the world links only this pack.
         bp_links = [
             {"pack_id": bp_uuid, "version": bp_version},
-            {"pack_id": bootstrap_uuid, "version": bootstrap_version},
         ]
         (world / "world_behavior_packs.json").write_text(json.dumps(bp_links, indent=2) + "\n", encoding="utf-8")
 
@@ -264,21 +229,18 @@ def build_variant(project: Path, map_name: str, mode: str) -> Path:
                 elif path.is_file():
                     archive.write(path, relative)
 
-    verify_archive(output, bp_uuid, bp_version, rp_uuid, rp_version, bootstrap_uuid, bp_folder, rp_folder)
+    verify_archive(output, bp_uuid, bp_version, rp_uuid, rp_version, bp_folder, rp_folder)
     return output
 
 
 def verify_archive(path: Path, bp_uuid: str, bp_version: list[int], rp_uuid: str | None,
-                   rp_version: list[int] | None, bootstrap_uuid: str, bp_folder: str, rp_folder: str) -> None:
+                   rp_version: list[int] | None, bp_folder: str, rp_folder: str) -> None:
     with zipfile.ZipFile(path) as archive:
         names = set(archive.namelist())
         required = {
             "level.dat", "levelname.txt", "db/CURRENT",
             f"behavior_packs/{bp_folder}/manifest.json",
             f"behavior_packs/{bp_folder}/functions/tick.json",
-            "behavior_packs/OneBlockStartingPlatform/manifest.json",
-            "behavior_packs/OneBlockStartingPlatform/functions/tick.json",
-            "behavior_packs/OneBlockStartingPlatform/functions/oneblock_setup.mcfunction",
             "world_behavior_packs.json",
         }
         if "level.dat_old" in names:
@@ -293,8 +255,6 @@ def verify_archive(path: Path, bp_uuid: str, bp_version: list[int], rp_uuid: str
         bp_links = json.loads(archive.read("world_behavior_packs.json"))
         if not any(p.get("pack_id") == bp_uuid and p.get("version") == bp_version for p in bp_links):
             raise RuntimeError(f"{path.name} does not link the Dirtbound Behavior Pack.")
-        if not any(p.get("pack_id") == bootstrap_uuid for p in bp_links):
-            raise RuntimeError(f"{path.name} does not link the starting-platform pack.")
         if rp_uuid:
             if "world_resource_packs.json" not in names:
                 raise RuntimeError(f"{path.name} is missing world_resource_packs.json.")
