@@ -41,28 +41,32 @@ def safe_extract(archive_path: Path, destination: Path) -> None:
         archive.extractall(destination)
 
 
-def locate_world_root(extracted: Path) -> Path:
-    """Find the real Bedrock world whether the uploaded ZIP wraps a .mcworld or its files."""
+def locate_world_root(extracted: Path, depth: int = 0) -> Path:
+    """Find a Bedrock world inside direct, nested .mcworld, or wrapper ZIP uploads."""
     candidates = [extracted]
     candidates.extend(p.parent for p in extracted.rglob("level.dat"))
     for candidate in candidates:
         if (candidate / "level.dat").is_file() and (candidate / "db" / "CURRENT").is_file():
             return candidate
 
-    nested_archives = sorted(extracted.rglob("*.mcworld"))
-    for nested in nested_archives:
-        destination = extracted / "_nested_world"
-        destination.mkdir(exist_ok=True)
-        safe_extract(nested, destination)
-        if (destination / "level.dat").is_file() and (destination / "db" / "CURRENT").is_file():
-            return destination
-        nested_candidates = [p.parent for p in destination.rglob("level.dat")]
-        for candidate in nested_candidates:
-            if (candidate / "db" / "CURRENT").is_file():
-                return candidate
+    if depth < 4:
+        nested_archives = [
+            p for p in extracted.rglob("*")
+            if p.is_file() and zipfile.is_zipfile(p)
+        ]
+        for index, nested in enumerate(nested_archives):
+            destination = extracted / f"_nested_archive_{depth}_{index}"
+            destination.mkdir(exist_ok=True)
+            try:
+                safe_extract(nested, destination)
+                return locate_world_root(destination, depth + 1)
+            except (ValueError, zipfile.BadZipFile, OSError):
+                continue
 
+    sample = sorted(p.relative_to(extracted).as_posix() for p in extracted.rglob("*") if p.is_file())[:30]
     raise ValueError(
-        "The selected Mcpeworlds template does not contain level.dat and db/CURRENT. "
+        "The selected Mcpeworlds template does not contain level.dat and db/CURRENT, "
+        f"even after inspecting nested ZIP archives. Files found: {sample}. "
         "Refusing to create a fabricated or incomplete world."
     )
 
