@@ -6,7 +6,7 @@ Dirtbound Kingdom is a OneBlock challenge built around a central block, a coin e
 
 ## Overview
 
-Start at the center of the world with the core at **0 64 0**, Bedrock directly underneath at **0 63 0**, and world spawn at **0 65 0**. The setup is designed to restore the starting Dirt if the core position is empty, even if progression data is not ready. The world spawn spread is set to zero; this changes world spawn behavior but does not teleport players already in the world.
+Start at the center of the world with the core at **0 0 0**, Bedrock directly underneath at **0 -1 0**, and world spawn at **0 1 0**. The setup places the initial placeholder at the core position and lets the Script API replace it with the current stage. The one-time Void Cleaner clears only the 33 × 33 square from -16 -64 -16 through 16 -64 16 on Y = -64, then places Bedrock at 0 -1 0 and sets world spawn to 0 1 0. It runs only for players who do not have the void_cleaned tag.
 
 ## Ten Core Stages
 
@@ -27,7 +27,7 @@ Use suitable pickaxes for later blocks. The core stage is shared by the world, w
 
 ## Permanent Trader Access
 
-- A permanent Trader Post is maintained at **2 65 0**.
+- A permanent Trader Post is maintained at **2 1 0**.
 - Interact with the Trader Post barrel to open the shop without needing the custom item.
 - The OneBlock Trader Ledger can be recovered through the Trader menu, and the add-on attempts to restore it if it is missing from the player's inventory.
 - The host can also use the existing trader recovery function.
@@ -51,7 +51,7 @@ A normal Minecraft sidebar scoreboard displays each player's current OneCoins ba
 
 1. Import the Creative `.mcworld` by opening it with Minecraft Bedrock Edition.
 2. Enter the imported world and allow its setup to initialize.
-3. Confirm that the core is present at **0 64 0**, Bedrock is at **0 63 0**, and world spawn is **0 65 0**.
+3. Confirm that the core is present at **0 0 0**, Bedrock is at **0 -1 0**, and world spawn is **0 1 0**.
 4. Break the central block and verify the mining counter, OneCoin balance, and block stage.
 5. Confirm the core reappears after each break, including when a break advances the shared stage.
 6. Interact with the Trader Post barrel to open the shop. Test Ledger recovery by removing the item from your inventory.
@@ -62,7 +62,7 @@ A normal Minecraft sidebar scoreboard displays each player's current OneCoins ba
 - Target platform: Minecraft Bedrock Edition 1.26+.
 - Package format: `.mcworld` complete world.
 - Use the Creative world as the tester. The Survival and Hardcore variants are kept alongside it.
-- The current source version is 0.1.20. The world archives are regenerated automatically from their matching mode-specific templates whenever map source or template files change.
+- The current source version is 0.1.20. The world archives are regenerated automatically from the editable mode-specific templates under Mcpeworlds/Extracted/ whenever map source or template files change.
 - Automated package and syntax checks do not replace live in-game testing. Startup core recovery has been added to source, but in-game behavior still requires verification inside Minecraft.
 - Experimental settings, achievement status, and multiplayer balance have not been verified.
 
