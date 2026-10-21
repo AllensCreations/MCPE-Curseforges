@@ -6,7 +6,7 @@ Download the current OneBlock Behavior Pack and Resource Pack test package for M
 
 - **Version:** 0.1.16 Test Build
 - **Package format:** `.mcaddon`
-- **Direct download:** [Download OneBlock Dirtbound Kingdom MCAddon Test](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/OneBlock-Dirtbound-Kingdom-Beta/OneBlock%20Dirtbound%20Kingdom%20Beta%20by%20AllensCreations%20%28V0.1.16%29.mcaddon)
+- **Direct download:** [Download OneBlock Dirtbound Kingdom MCAddon Test](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/OneBlock-Dirtbound-Kingdom-Beta/OneBlock%20Dirtbound%20Kingdom%20MCAddon%20Test%20%28v0.1.16%29.mcaddon)
 
 ## Installation
 
