@@ -14,9 +14,9 @@ const STAGES=[
 {name:"Iron Heart",unlock:350,block:"iron_ore",reward:3},
 {name:"Golden Core",unlock:700,block:"gold_ore",reward:3},
 {name:"Diamond Core",unlock:1200,block:"diamond_ore",reward:4},
-{name:"Obsidian Core",unlock:2000,block:"obsidian",reward:5},
-{name:"Crying Core",unlock:3000,block:"crying_obsidian",reward:6},
-{name:"Ancient Core",unlock:4500,block:"ancient_debris",reward:7},
+{name:"Ancient Core",unlock:2000,block:"ancient_debris",reward:5},
+{name:"Obsidian Core",unlock:3000,block:"obsidian",reward:6},
+{name:"Crying Core",unlock:4500,block:"crying_obsidian",reward:7},
 {name:"Kingdom Core",unlock:6000,block:"netherite_block",reward:8}
 ];
 const RAW=[
