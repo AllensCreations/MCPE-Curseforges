@@ -20,6 +20,11 @@ ROOT = Path(__file__).resolve().parents[1]
 MAPS_ROOT = ROOT / "MCPEDL" / "maps"
 PROJECT = MAPS_ROOT / "OneBlock-Dirtbound-Kingdom-Beta"
 SOURCE_WORLDS = {
+    "Creative": ROOT / "Mcpeworlds" / "Extracted" / "Creative",
+    "Survival": ROOT / "Mcpeworlds" / "Extracted" / "Survival",
+    "Hardcore": ROOT / "Mcpeworlds" / "Extracted" / "Hardcore",
+}
+SOURCE_ARCHIVES = {
     "Creative": ROOT / "Mcpeworlds" / "Creative_Void_Sandbox.mcworld.zip",
     "Survival": ROOT / "Mcpeworlds" / "Survival_Void_World.mcworld.zip",
     "Hardcore": ROOT / "Mcpeworlds" / "Hardcore_Void_World.mcworld.zip",
@@ -156,9 +161,11 @@ def read_manifest(path: Path) -> dict[str, Any]:
 
 def build_variant(project: Path, map_name: str, mode: str) -> Path:
     source_world = SOURCE_WORLDS[mode]
-    if not source_world.is_file():
+    source_archive = SOURCE_ARCHIVES[mode]
+    use_extracted_folder = source_world.is_dir()
+    if not use_extracted_folder and not source_archive.is_file():
         raise FileNotFoundError(
-            f"Required mode-specific Mcpeworlds template is missing: {source_world}. "
+            f"Required mode-specific Mcpeworlds template is missing: {source_world} and {source_archive}. "
             "Refusing to publish a fabricated empty LevelDB world."
         )
     bp_source = project / "behavior_pack"
@@ -177,7 +184,10 @@ def build_variant(project: Path, map_name: str, mode: str) -> Path:
     with tempfile.TemporaryDirectory(prefix="dirtbound-world-") as temp:
         staging = Path(temp) / "staging"
         staging.mkdir()
-        safe_extract(source_world, staging)
+        if use_extracted_folder:
+            shutil.copytree(source_world, staging, dirs_exist_ok=True)
+        else:
+            safe_extract(source_archive, staging)
         world = locate_world_root(staging)
 
         # The uploaded mode references have level metadata but no db/LevelDB.
@@ -284,6 +294,11 @@ def verify_archive(path: Path, bp_uuid: str, bp_version: list[int], rp_uuid: str
                    {"CURRENT", "LOCK", "LOG", "LOG.old"} and not n.split("/")[-1].startswith("MANIFEST")
                    for n in names):
             raise RuntimeError(f"{path.name} contains no real LevelDB data files.")
+        cleaner_path = f"behavior_packs/{bp_folder}/functions/void_cleaner.mcfunction"
+        cleaner_source = archive.read(cleaner_path).decode("utf-8")
+        expected_cleaner = "execute as @a[tag=!void_cleaned] run fill -16 -64 -16 16 -64 16 air"
+        if expected_cleaner not in cleaner_source.splitlines():
+            raise RuntimeError(f"{path.name} does not contain the required 33x33 Y=-64 Void Cleaner command.")
         bp_links = json.loads(archive.read("world_behavior_packs.json"))
         if not any(p.get("pack_id") == bp_uuid and p.get("version") == bp_version for p in bp_links):
             raise RuntimeError(f"{path.name} does not link the Dirtbound Behavior Pack.")
