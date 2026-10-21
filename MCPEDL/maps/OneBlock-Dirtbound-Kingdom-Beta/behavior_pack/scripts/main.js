@@ -23,6 +23,7 @@ function objective(n){return world.scoreboard.getObjective(n)??world.scoreboard.
 function score(n,p){try{const id=p.scoreboardIdentity;return id?(objective(n).getScore(id)??0):0}catch{return 0}}
 function hasScore(n,p){try{const id=p.scoreboardIdentity;return !!id&&objective(n).getScore(id)!==undefined}catch{return false}}
 function setScore(n,p,v){const id=p.scoreboardIdentity;if(id)objective(n).setScore(id,Math.max(0,Math.floor(v)))}
+function initialize(p){if(!hasScore(COINS,p))setScore(COINS,p,50);if(!hasScore(MINED,p))setScore(MINED,p,0)}
 const balance=p=>score(COINS,p), mined=p=>score(MINED,p);
 function tell(p,m){try{p.sendMessage("§6[Dirtbound] §f"+m)}catch{}}
 function showMain(p){new ActionFormData().title("ONEBLOCK TRADING POST").body("OneCoins: §e"+balance(p)+"§r\nBlocks mined: "+mined(p)+"\n180 purchasable entries across 10 tiers.\nSell Dirt and mine to unlock better supplies.").button("Browse 180 Purchasable Items").button("Sell All Dirt").button("Balance & Progress").show(p).then(r=>{if(r.canceled)return;if(r.selection===0)showShop(p);else if(r.selection===1)sellDirt(p);else tell(p,"Balance: "+balance(p)+" OneCoins. Blocks mined: "+mined(p)+". Next tier: "+(SHOPS.find(s=>s.unlock>mined(p))?.name??"all tiers unlocked")+".")}).catch(()=>tell(p,"Trading UI failed to open. Interact with the Trader again."))}
