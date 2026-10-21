@@ -8,15 +8,15 @@ Transform vanilla Ghasts into colossal flying mob heads with custom combat attac
 
 ## Overview
 
-Transform the skies of your world with colossal floating mob heads.
+Transform Ghasts into large floating mob heads with different appearances and attacks.
 
 **Ghast Mob Head Transformers** allows you to interact with any Ghast while holding a mob head or skull to instantly convert it into a giant, floating version of that mob.
 
-Each transformed variant features unique attack projectiles, dynamic facial animations, authentic sound effects, and full survival shearing support so you can reclaim your skulls at any time.
+Each variant has its own projectile attack, facial animations, and sounds. Use Shears to reclaim the head used for the transformation.
 
 ---
 
-## Transformation Variants & Combat Abilities
+## Transformation Variants and Attacks
 
 Interact with any Ghast while holding a skull to trigger the transformation:
 
@@ -82,7 +82,7 @@ Interact with any Ghast while holding a skull to trigger the transformation:
 
 - **Dynamic Charging Expressions**: When preparing to fire, transformed heads shift dynamically into angry, glowing, mouth-open attack expressions.
 - **Colossal Ender Dragon Head**: Equip a Dragon Head to transform the Ghast into an obsidian-scaled boss with 100 HP, 3D snout, horns, and lingering purple Dragon Fireballs.
-- **Resource Recovery**: Use Shears on any transformed Ghast to safely reclaim your equipped skull with to reclaim the required head.
+- **Resource Recovery**: Use Shears on a transformed Ghast to reclaim the head used for its transformation.
 - **3D Hat, Snout, and Horn Geometry**: Features authentic 3D mob head modeling including Piglin snouts/ears and Ender Dragon snouts/horns.
 - **Clean Animations**: Tentacles tuck away smoothly while heads are equipped, restoring naturally upon shearing.
 
@@ -90,8 +90,8 @@ Interact with any Ghast while holding a skull to trigger the transformation:
 
 ## Compatibility
 
-- Minecraft Bedrock Edition. Check the current package listing for the release's supported game version.
-- Available as a complete add-on or as separate pack files where listed.
+- Minecraft Bedrock Edition. Check the published package details for the supported game version.
+- Available as a complete add-on and as separate pack files where listed.
 
 ---
 
