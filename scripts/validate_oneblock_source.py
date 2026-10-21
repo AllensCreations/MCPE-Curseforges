@@ -98,16 +98,13 @@ def main() -> None:
     require("setworldspawn" not in tick_source, "tick recovery must not reset world spawn every tick")
     require("tp @s" not in tick_source and "tp @s" not in setup_source,
             "Only the requested first-join Void Cleaner may teleport players")
-    for expected in ("const ORIGIN={x:0,y:0,z:0};", "const TRADER_POS={x:2,y:1,z:0};",
-                     "const BONUS_POS={x:1,y:1,z:0};", "minecraft:grass_block"):
-        require(expected in script if expected != "minecraft:grass_block" else expected in script,
-                f"main.js is missing new coordinate/core initialization behavior: {expected}")
-
     script_path = BP / "scripts/main.js"
     script = script_path.read_text(encoding="utf-8")
-    for expected in ("initializeCoreIfMissing", "restoreCoreImmediately", "playerBreakBlock.subscribe",
+    for expected in ("const ORIGIN={x:0,y:0,z:0};", "const TRADER_POS={x:2,y:1,z:0};",
+                     "const BONUS_POS={x:1,y:1,z:0};", "minecraft:grass_block",
+                     "initializeCoreIfMissing", "restoreCoreImmediately", "playerBreakBlock.subscribe",
                      "onCoreBreak(p)", "STAGES[stageFor(globalScore"):
-        require(expected in script, f"main.js is missing core recovery/progression marker: {expected}")
+        require(expected in script, f"main.js is missing required core coordinate/recovery/progression marker: {expected}")
 
     for mode, template in TEMPLATES.items():
         require(template.is_file(), f"{mode} reference world is missing: {template.relative_to(ROOT)}")
