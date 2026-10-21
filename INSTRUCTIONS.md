@@ -245,18 +245,55 @@ MCPE-Curseforges/
 
 ---
 
-## 8. World Template and Asset-Removal Standards
+## 8. World Sources and OneBlock Reference Policy
 
-Do not assume that a legacy asset archive or extracted asset directory still exists. The former `Assets/Oneblock-assets.mcworld` and `assets/oneblock-template/` are not authoritative and must not be referenced as required inputs.
+- `CreateWorld/McpeWorld.html` is the design/reference specification for new OneBlock world generation. Read it before changing the OneBlock world builder. It describes the intended void-world preset, hard difficulty, fixed seed 159266, mode presets, and a starting platform with bedrock below the block and spawn above it.
+- The HTML file is reference material, not a generated map asset, source archive, or executable build step. Do not copy its browser-only code into the workflow or claim its downloadable archive is a verified complete world.
+- New OneBlock variant builds use `scripts/build_oneblock_variants.py` and create a fresh Bedrock world archive with a LevelDB database, world metadata, pack links, and the actual map project's Behavior/Resource Packs. Do not require the deleted legacy `Assets/Oneblock-assets.mcworld` or `assets/oneblock-template/` for this pipeline.
+- The new pipeline creates three separate variants for each enabled OneBlock project: Creative, Survival, and Hardcore. The variants share the map's packs and world layout; Creative uses Creative mode and cheats, Survival uses Survival mode without cheats, and Hardcore sets Bedrock's `IsHardcore` flag and uses Survival mode without cheats.
+- Preserve complete world data in any workflow that is explicitly based on an existing source world: `level.dat`, `level.dat_old` when supplied, `levelname.txt`, all `db/` LevelDB files, world pack manifests, and all other original world files. Do not silently replace a source-world build with a generated blank world.
+- When a map installs packs, link exact manifest UUIDs and versions through `world_behavior_packs.json` and, when applicable, `world_resource_packs.json` at the world root. Verify archive contents and pack links before delivery.
+- For the OneBlock variants, the generated one-time starting-platform pack establishes bedrock at `(0, 63, 0)`, dirt at `(0, 64, 0)`, and world spawn at `(0, 65, 0)`. Do not claim gameplay progression, block regeneration, or in-game success from archive structure checks alone.
 
-- The current designated source world, when supplied, is `assets/Void_For_Workv2.mcworld`.
-- The standard builder extracts that archive into `assets/oneblock-template/` only when the extracted template is absent or incomplete. Each build must use a temporary copy and must never mutate the master template.
-- If the source archive and a complete extracted template have both been removed, stop and report the exact missing path. Do not fabricate a replacement world, create a metadata-only stub, or silently use an unrelated world.
-- Preserve the complete world data from the chosen source, including `level.dat`, `level.dat_old` when supplied, `levelname.txt`, the full `db/` LevelDB directory, world pack manifests, and all other original world files.
-- When a map installs or replaces packs, link exact manifest UUIDs and versions through `world_behavior_packs.json` and, when applicable, `world_resource_packs.json` at the world root.
-- Verify the resulting `.mcworld` archive contains the complete world database, all required pack files, and valid world pack references before delivery.
+## 10. OneBlock Three-Variant Workflow — Mandatory
 
-Legacy files under `assets/oneblock-assets/` are not a world template. Do not use old catalogs or metadata as substitutes for the actual world database.
+Every new OneBlock map project must generate and publish three complete `.mcworld` files: **Creative**, **Survival**, and **Hardcore**.
+
+### Project opt-in
+
+- Keep the map source at `MCPEDL/maps/<Map-Name>/` (the repository's canonical folder spelling is lowercase `maps`).
+- The map must include `behavior_pack/manifest.json`. Include `resource_pack/manifest.json` when the Behavior Pack depends on that Resource Pack.
+- Add `oneblock.json` beside the pack folders to opt the project into automatic generation. Minimal example:
+  ```json
+  {
+    "enabled": true,
+    "name": "My OneBlock Map"
+  }
+  ```
+- The `name` value is the player-facing base name used in output filenames. `enabled: false` disables generation for that project.
+
+### Output layout
+
+The workflow writes and commits the three worlds into the same map folder:
+
+```
+MCPEDL/maps/<Map-Name>/
+├── oneblock.json
+├── behavior_pack/
+├── resource_pack/                 # Optional unless required by the Behavior Pack
+├── Creative/<Map-Name> - Creative.mcworld
+├── Survival/<Map-Name> - Survival.mcworld
+└── Hardcore/<Map-Name> - Hardcore.mcworld
+```
+
+### Automatic execution and verification
+
+- `.github/workflows/build-oneblock-variants.yml` runs when an opted-in map's `oneblock.json`, Behavior Pack, or Resource Pack changes on `main`. It can also be run manually from GitHub Actions; leave the project path blank to rebuild all opted-in maps or specify `MCPEDL/maps/<Map-Name>` to build one map.
+- The workflow installs LevelDB dependencies, builds all three variants, verifies required world files and exact world pack links, and commits generated `.mcworld` files. Generated output folders alone do not retrigger the workflow.
+- The builder reads `CreateWorld/McpeWorld.html` as a reference, not as an input archive. It must not depend on the deleted legacy world asset.
+- A successful ZIP/LevelDB/manifest check is a structural build check, not proof that Minecraft loaded the map or that its custom OneBlock progression works. Never claim in-game verification without an actual game test.
+- If a project's pack manifest is missing, malformed, or has an unresolved Resource Pack UUID dependency, fail the build and report the exact source path. Never generate fake pack UUIDs for the map's actual packs or silently omit required packs.
+
 ## 9. Bedrock Function Files, Automatic Execution, and World Pack Linking
 
 These checks are mandatory whenever creating, editing, packaging, or debugging a Bedrock `.mcfunction` file. Do not assume that a function runs just because the file exists in the archive.
