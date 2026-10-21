@@ -22,11 +22,11 @@
 ### Changed
 - **Grimoire Handheld Presentation (Vanilla Item In Hand)**:
   - Completely removed custom attachables, 3D entity geometry models, and lingering animations.
-  - All 20 Grimoires now render directly and cleanly as standard handheld items in both the player's offhand and main hand, utilizing their crisp 2D pixel art icons (`minecraft:icon`custom 2D pixel art icons`item_texture.json`) without any hovering, displacement, or awkward positioning.
+  - **Handheld Appearance:** Grimoires now display cleanly in either hand.
 - **Void Phantom Retuning (2s Level 60 Elevation & Ground-Block Detected Slow Falling)**:
   - Restricted emergency void rescue strictly to **The End** dimension (`minecraft:the_end`).
-  - Tuned phase elevation to an intense **2-second Level 60 fast phase elevation** (amplifier 59, 40 ticks) that immediately halts void fall velocity and rapidly ascends out of the abyss.
-  - Replaced long slow falling with an instantaneous ground detection trigger: probes 1–3 blocks beneath the player during descent, halts downward velocity smoothly`clearVelocity()`, and grants **1 second** (20 ticks) of Level 1 Slow Falling at the final moment of touchdown to cleanly negate all fall damage without floaty delays.
+  - **Void Phantom Escape:** Improved the relic's rapid lift out of the void to help players recover from a fall.
+  - **Safer Landing:** Added a brief Slow Falling cushion at touchdown to help prevent fall damage without a long floating effect.
 - **HUD Cleanliness (Status Effect UI Suppression)**:
   - Added interface optimization, completely hiding status effect HUD icons and timers for an uncluttered screen display.
 
@@ -60,7 +60,7 @@
 
 ### Changed
 - **Particle Aura Retuning**:
-  - Softened the particle aura from 4 high-frequency spinning particles every 8 ticks down to **1 subtle, ambient sparkle every 20 ticks (1.0s)** orbiting gently around the player.
+  - **Subtle Relic Aura:** Reduced the particle effect to a quieter ambient sparkle.
 - **Anvil Repair Ratio**:
   - Fine-tuned vanilla Book (`minecraft:book`) anvil repairs to a strict **1:1 ratio** (1 durability point restored per book).
 
@@ -118,4 +118,4 @@ Initial public release of **Grimoire Relics V2**, an RPG-style magical offhand c
   - 14 craftable tomes surrounding a central Book in a shaped Crafting Table grid.
   - Generated pixel-art crafting recipe diagrams using vanilla Bedrock sample item textures.
 - **Particle & Aura Engine**:
-  - Staggered 8-tick orbiting 4-point halo particle engine matching each tome's elemental identity.
+  - **Elemental Visuals:** Added distinct halo effects to reflect each tome's elemental identity.

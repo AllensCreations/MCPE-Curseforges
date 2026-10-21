@@ -22,15 +22,13 @@
 ## [1.3.13] - 2026-10-17
 
 ### Changed
-- Standardized the mining subpacks to No Sneak (Slot 1 Required), Both Off, and Default (Sneak Required).
+- Standardized the available mining presets so players can choose the intended tool behavior.
 - Kept the no-sneak behavior limited to Tree Capitator and Domino Ore Miner; the required tool must be held in selected hotbar slot 1.
-- Removed the obsolete Tree-Only and Vein-Only subpack configurations.
-- Kept release notes in CHANGELOG.md rather than README.md.
+- Removed obsolete mining preset choices.
 
 ## [1.3.10] - 2026-10-17
 
 ### Fixed
-- Synchronized the script version with the Behavior Pack and Resource Pack manifests after the repository version bump.
 
 ## [1.3.9] - 2026-10-17
 
@@ -43,14 +41,14 @@
 ## [1.3.6] - 2026-10-17
 
 ### Fixed
-- Added the missing **Default (All Features)** subpack choice so all four mining presets are explicitly selectable.
+- Added a **Default (All Features)** mining preset.
 - Kept the default configuration enabled for both Tree Capitator and Vein Miner.
 
 ## [1.3.3] - 2026-10-17
 
 ### Added
-- **Optional Mining Subpacks**: Added selectable Behavior Pack presets for Tree Capitator Only, Vein Miner Only, and Vanilla Mining (both disabled). The default pack keeps both features enabled. Other QoL features remain active in every preset.
-- **Subpack-aware mining configuration**: Tree Capitator and Vein Miner can be independently enabled or disabled through a small configuration module overridden by each subpack.
+- **Optional Mining Presets**: Added selectable Behavior Pack presets for Tree Capitator Only, Vein Miner Only, and Vanilla Mining (both disabled). The default pack keeps both features enabled. Other QoL features remain active in every preset.
+- **Subpack-aware mining configuration**: Tree Capitator and Vein Miner can be independently enabled or disabled through a small configuration module overridden by each preset.
 
 ---
 
@@ -90,7 +88,7 @@ This major milestone integrates **Passive Auto-Switch Tools**, **Smart Tree Capi
   - Durability health scoring: Intelligently avoids selecting nearly-broken tools to preserve gear.
   - Automated cobweb shear interaction loop.
 - **Smart Tree Capitator (Sneak + Axe)**:
-  - Sneak while chopping any tree log to fell the entire trunk and connected branches up to **128 logs** in a single tick.
+  - Sneak while chopping any tree log to fell the entire trunk and connected branches up to **128 logs** immediately.
   - **3×3 Trunk Column Scan**: Evaluates 8 side blocks around the cut log (`~-1 ~ ~-1` to `~1 ~ ~1`) and 9 blocks directly above layer-by-layer up the trunk with zero downward digging.
   - **Canopy / Branch "Virus" Flood-Fill**: Once the trunk column ends, an outward contagion flood-fill infects and fells all contiguous horizontal and upward branch logs (`dy >= 0`) until no connected tree logs remain.
   - **Tree Species Matching**: Ensures Oak only fells Oak and Birch only fells Birch, preventing collateral damage in dense tree farms or forests.
@@ -109,8 +107,7 @@ This major milestone integrates **Passive Auto-Switch Tools**, **Smart Tree Capi
   - Flashes an on-screen action bar warning and plays an alert sound to protect valuable enchanted tools.
 
 ### Changed
-- Synchronized Behavior Pack and Resource Pack manifest dependencies and module versions to `[1, 3, 0]`.
-- Normalized `min_engine_version` to `[1, 21, 0]` across both manifests for flawless Bedrock 1.21+ compatibility without "missing dependencies" warnings.
+- Aligned the pack requirements to reduce missing-dependency warnings on supported game versions.
 
 ---
 

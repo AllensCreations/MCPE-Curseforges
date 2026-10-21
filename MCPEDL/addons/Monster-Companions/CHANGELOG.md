@@ -16,5 +16,5 @@
 
 ### Fixed
 - **Biscuit crafting access:** Addressed the reported issue where the biscuit recipe was not available for offline crafting.
-- **Recipe reference:** Documented the recipe identifier and ingredients consistently: 1 Rotten Flesh, 1 Bone, 1 Sweet Berries, and 1 Honey Bottle produce 4 Primal Beast Biscuits.
+- **Biscuit Recipe:** One Rotten Flesh, one Bone, one Sweet Berries, and one Honey Bottle craft four Primal Beast Biscuits.
 
