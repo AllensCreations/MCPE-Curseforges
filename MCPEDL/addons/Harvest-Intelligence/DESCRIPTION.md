@@ -49,6 +49,21 @@ Harvest Intelligence automatically replants supported mature crops after you bre
 
 ---
 
+---
+
+## Guidelines and Attribution
+
+- Creator: AllensCreations
+- Rights & Reservation: All rights reserved for AllensCreations.
+- Content Creators: Content creators are permitted to feature this creation in videos and streams with credit to AllensCreations.
+- Redistribution: Do not re-upload this pack or provide direct monetized download bypasses. Link directly to the official repository page.
+
+---
+
+© All rights reserved for AllensCreations.
+
+---
+
 ## Search & Discovery Keywords
 
 Minecraft Bedrock add-on, Harvest Intelligence Bedrock, automatic crop replanting, Minecraft crop protection, farmland trampling protection, wheat replanting, carrot replanting, potato replanting, beetroot farming, melon stem, pumpkin stem, Minecraft PE farming utility, survival QoL, MCPEDL add-on, CurseForge Bedrock, AllensCreations.
