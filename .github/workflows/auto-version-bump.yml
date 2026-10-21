@@ -13,10 +13,35 @@ on:
   workflow_dispatch:
     inputs:
       target:
-        description: "Project folder name to process, or 'all' (defaults to all projects)"
+        description: "Choose one project to process, or all projects"
         required: true
         default: 'all'
-        type: string
+        type: choice
+        options:
+          - all
+          - Ghast-Mob-Head-Transformers
+          - Grand-Banquets
+          - Grimoire-Relics-V2
+          - Harvest-Intelligence
+          - Immortal-Pets
+          - Magnetic-Satchel
+          - Mining-Helmet
+          - Monster-Companions
+          - Passive-Auto-Switch-Tools
+          - Smart-Tree-Capitator-and-Domino-Ore-Miner
+          - Sudden-Death-Roulette
+          - Tameable-Companion-Fox
+          - Universal-Clutch
+          - Vanilla-Quality-of-Life
+          - OneBlock-Dirtbound-Kingdom-Beta
+          - OneBlock-Economy
+          - OneBlock-Void-Survival
+          - Melody-Figurine
+          - One-Block-Economy
+          - Swarm-Mob-Booster
+          - Alphabet-Scavenger-Hunt
+          - Shared-Hivemind-Inventory
+          - Tethered-Breaker-And-Builder
 
 permissions:
   contents: write
