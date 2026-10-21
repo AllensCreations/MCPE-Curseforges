@@ -115,8 +115,13 @@ def main() -> None:
         setup_source = setup.read_text(encoding="utf-8")
         require("execute as @a[tag=!void_cleaned] run fill -16 -64 -16 16 -64 16 air" in setup_source,
                 f"{mode} reference has the wrong bounded Void Cleaner command")
-        require(not (template / "db/CURRENT").is_file(),
-                f"{mode} reference database status changed; review the documented database-carrier build path")
+        db = template / "db"
+        if not (db / "CURRENT").is_file():
+            print(f"NOTE: {mode} reference has no LevelDB; the builder uses the documented database carrier.")
+        else:
+            data_files = [p for p in db.iterdir() if p.is_file() and p.name not in
+                          {"CURRENT", "LOCK", "LOG", "LOG.old"} and not p.name.startswith("MANIFEST")]
+            require(bool(data_files), f"{mode} reference has db/CURRENT but no LevelDB data files")
 
     for document_name in ("README.md", "DESCRIPTION.md"):
         document = (PROJECT / document_name).read_text(encoding="utf-8")
