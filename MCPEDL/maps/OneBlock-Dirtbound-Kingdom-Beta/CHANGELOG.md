@@ -2,6 +2,13 @@
 
 ---
 
+## [0.1.14] - 2026-10-21
+
+### Improved & Balanced
+- **Core difficulty curve:** Reordered the late-game blocks so Ancient Debris precedes Obsidian, followed by Crying Obsidian and a Block of Netherite.
+- **Shared progress display:** The status bar now shows both the current core stage and the world's total core-break count.
+
+
 ## [0.1.13] - 2026-10-21
 
 ### Added
