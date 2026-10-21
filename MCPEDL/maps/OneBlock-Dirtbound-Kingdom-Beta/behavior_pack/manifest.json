@@ -1,13 +1,13 @@
 {
   "format_version": 2,
   "header": {
-    "name": "OneBlock Dirtbound Kingdom Beta (v0.1.2)",
-    "description": "Beta OneBlock survival economy and purchase shop. by AllensCreations",
+    "name": "Dirtbound Kingdom (v0.1.3)",
+    "description": "OneBlock survival economy with an interactive Trader item and supply shop. by AllensCreations",
     "uuid": "8d4d93bf-c8b2-4df4-9f28-52f4f8f08b10",
     "version": [
       0,
       1,
-      2
+      3
     ],
     "min_engine_version": [
       1,
@@ -17,18 +17,35 @@
   },
   "modules": [
     {
+      "type": "data",
+      "uuid": "6cf34061-8f23-43aa-8a11-8320c8f9a5d4",
+      "version": [
+        0,
+        1,
+        3
+      ]
+    },
+    {
       "type": "script",
       "language": "javascript",
       "uuid": "a2dcb37f-22c9-47b4-8b17-1bd3c0a91f65",
       "version": [
         0,
         1,
-        2
+        3
       ],
       "entry": "scripts/main.js"
     }
   ],
   "dependencies": [
+    {
+      "uuid": "e8d8136a-7a5b-4818-b813-61c21f2e71ad",
+      "version": [
+        0,
+        1,
+        3
+      ]
+    },
     {
       "module_name": "@minecraft/server",
       "version": "2.10.0"
