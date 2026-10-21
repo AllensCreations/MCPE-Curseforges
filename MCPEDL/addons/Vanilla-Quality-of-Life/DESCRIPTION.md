@@ -1,12 +1,5 @@
 # Vanilla Quality of Life (v1.3.20)
 
-Survival Mechanics and Enhancements by AllensCreations
-
-![MCPEDL](https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/MCPEDL/addons/Vanilla-Quality-of-Life/banner.jpg "MCPEDL")
-
-[![Minecraft Bedrock](https://img.shields.io/badge/Minecraft%20Bedrock-1.21.0%2B-brightgreen?style=flat-square&logo=minecraft)](https://github.com/AllensCreations/MCPE-Curseforges)
-[![Format](https://img.shields.io/badge/Format-.MCADDON-orange?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/addons#available-add-ons)
-
 **By AllensCreations**
 
 **Survival convenience features for Minecraft Bedrock Edition**
@@ -52,7 +45,7 @@ Combines dynamic lighting, offhand quick-swap, automatic tool selection, tree ca
 
 ### Leashing Mobs
 - **Vanilla Bedrock**: Passive mobs only
-- **With Vanilla QoL**: All non-boss mobs (Villagers, Golems, Hostiles; Warden/Wither/Dragon immune)
+- **With Vanilla QoL**: Leash support extends to many additional mobs; the Warden, Wither, and Ender Dragon remain immune.
 
 ### Hostile Mob Aggro on Leads
 - **Vanilla Bedrock**: Hostile attacks continue
@@ -91,7 +84,7 @@ Combines dynamic lighting, offhand quick-swap, automatic tool selection, tree ca
 ### Key Gameplay Mechanics
 
 #### 1. Passive Auto-Switch Tools (Slot 1)
-- Hold Slot 1 (hotbar index 0) to activate auto tool selection:
+- Hold Slot 1 (first hotbar slot) to activate auto tool selection:
   - Hit stone, ores, or brick -> Equips best Pickaxe (evaluating tier, efficiency, and durability).
   - Hit logs, wood, or planks -> Equips best Axe.
   - Hit dirt, sand, gravel, or clay -> Equips best Shovel.
@@ -101,16 +94,16 @@ Combines dynamic lighting, offhand quick-swap, automatic tool selection, tree ca
 
 #### 2. Smart Tree Capitator (Axe; sneak requirement depends on selected subpack)
 - With Default, sneak while chopping any tree log with an axe to fell the entire tree. No Sneak removes this requirement while the axe is held in selected hotbar slot 1:
-  - **Upward-Biased 3D Flood-Fill**: Connects same-level and upward logs, including diagonal branches, without searching below the stump.
+  - **Upward-Biased connected-log search**: Connects same-level and upward logs, including diagonal branches, without searching below the stump.
   - **Species Matching**: Enforces strict wood species matching (Oak only fells Oak) to prevent chain reactions into adjacent trees.
   - **The Leaf Scan (Build & Bush Protection)**: Ignores player-placed decorative leaves (harvested with shears), protecting your custom bushes, hedges, and roof designs while exclusively verifying natural tree canopies.
-  - **House Protection (`isTreeCanopy`)**: Requires natural-looking leaf canopy evidence for Overworld trees; wart blocks and shroomlights count only for crimson/warped fungi. This reduces false positives but cannot guarantee protection for every custom build.
+  - **House Protection (the canopy check)**: Requires natural-looking leaf canopy evidence for Overworld trees; wart blocks and shroomlights count only for crimson/warped fungi. This reduces false positives but cannot guarantee protection for every custom build.
   - **Natural Leaf Decay**: Preserves leaf canopies for authentic leaf decay drops (saplings, sticks, apples).
   - **Capacity Limit**: Up to 128 logs per tree operation.
 
 #### 3. Domino Ore Miner (Pickaxe; sneak requirement depends on selected subpack)
 - With Default, sneak while mining any mineral ore with a pickaxe to harvest the connected ore vein. No Sneak removes this requirement while the pickaxe is held in selected hotbar slot 1:
-  - **26-Neighbor Detection**: Sweeps faces, edges, and corners across all 3 spatial dimensions.
+  - **connected-block Detection**: Sweeps faces, edges, and corners across all 3 spatial dimensions.
   - **Category Normalization**: Normalizes stone and deepslate variants (e.g. Coal Ore and Deepslate Coal Ore chain together).
   - **Fortune & Silk Touch**: Honors Silk Touch block drops and vanilla Fortune item multipliers.
   - **Capacity Limit**: Up to 64 ore blocks per vein cluster.
@@ -125,7 +118,7 @@ Combines dynamic lighting, offhand quick-swap, automatic tool selection, tree ca
 - Quick-swap gestures:
   - **Double-sneak** (crouch twice within 0.7 seconds) to swap held item into offhand.
   - **Sneak + Use/Tap in air** to swap held item into offhand.
-  - Run `/scriptevent qol:swap` command.
+  - Run  command.
 - Real-time dynamic light: Torches emit Light Level 14, Soul Torches and Soul Lanterns Level 10, Redstone Torches Level 7, and Lanterns Level 15 as you move.
 
 #### 6. Universal Leashing (101 Mobs)
@@ -134,7 +127,7 @@ Combines dynamic lighting, offhand quick-swap, automatic tool selection, tree ca
 - Sneak-interaction on Villagers attaches leads without opening the trading UI.
 
 #### 7. Friendly-Fire Immunity for Pets and Mounts
-- Tamed Wolves, Cats, Parrots, Horses, Donkeys, Mules, and Llamas take zero damage from player melee attacks, sweeping strikes, and projectile fire.
+- Tamed Wolves, Cats, Parrots, Horses, Donkeys, Mules, and Llamas take no damage from player melee attacks, sweeping strikes, and projectile fire.
 - Tamed entities are immune to Creeper and TNT explosion damage.
 
 #### 8. Fast Leaf Decay
@@ -200,20 +193,18 @@ Combines dynamic lighting, offhand quick-swap, automatic tool selection, tree ca
 
 ## Compatibility & Packaging Formats
 
-- Minecraft Bedrock Edition 1.21.0+
-- Pure vanilla gameplay mechanics
+- Minecraft Bedrock Edition. Check the current release listing for the supported version.
+- Designed around Minecraft Bedrock gameplay mechanics
 - **Available Package Formats**:
-  - **Complete `.MCADDON`**: 1-click full install with all features and companion visuals.
-  - **Behavior Pack (`.mcpack`)**: Standalone gameplay and survival mechanics.
-  - **Resource Pack (`.mcpack`)**: Visual lead attachments and companion animations.
+  - **Complete **: 1-click full install with all features and companion visuals.
+  - **Behavior Pack ()**: Standalone gameplay and survival mechanics.
+  - **Resource Pack ()**: Visual lead attachments and companion animations.
 
 ---
 
 ## Guidelines and Attribution
 
 - Creator: AllensCreations
-- CurseForge: https://www.curseforge.com/members/allenscreations/projects
-- MCPEDL: https://mcpedl.com/user/allenscreations/
 - Rights & Reservation: All rights reserved for AllensCreations.
 - Content Creators: Content creators are permitted to feature this pack in videos and streams with credit to AllensCreations.
 - Redistribution: Do not re-upload this pack or provide direct monetized download bypasses. Link directly to the official repository page.

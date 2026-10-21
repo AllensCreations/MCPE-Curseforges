@@ -1,11 +1,6 @@
-# Tameable Companion Fox (v1.0.5) — Advanced Fox Companion by AllensCreations
-
-[![Minecraft Bedrock](https://img.shields.io/badge/Minecraft%20Bedrock-1.21.0%2B-brightgreen?style=flat-square&logo=minecraft)](https://github.com/AllensCreations/MCPE-Curseforges)
-[![Format](https://img.shields.io/badge/Format-.MCADDON-orange?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/addons#available-add-ons)
+# Tameable Companion Fox (v1.0.5) — Advanced Fox Companion
 
 **By AllensCreations**
-
-Explore more creations: [CurseForge Profile](https://www.curseforge.com/members/allenscreations/projects) · [MCPEDL Profile](https://mcpedl.com/user/allenscreations/)
 
 Tame loyal foxes, command resting poses, and arm your companions with weapons.
 
@@ -13,11 +8,9 @@ Tame loyal foxes, command resting poses, and arm your companions with weapons.
 
 ## Overview
 
-Your adventures in the wild just got much more exciting.
-
 **Tameable Companion Fox** allows you to tame wild foxes into loyal, protective companions. Feed them sweet berries or glow berries to bond with them, command them to sit down with authentic curl-up resting animations, and even equip swords or axes directly into their mouths to turn them into powerful survival allies.
 
-Adds a tameable fox companion with the behaviors described below.
+Red and arctic foxes can become companions with the same core commands and equipment options.
 
 ---
 
@@ -47,7 +40,7 @@ Adds a tameable fox companion with the behaviors described below.
 
 ### Tame Fox
 - **Requirement**: Sweet Berries / Glow Berries
-- **What Happens**: Pacifies the wild fox and establishes a permanent companion bond.
+- **What Happens**: Pacifies the wild fox and establishes a companion bond.
 
 ### Command Sit
 - **Requirement**: Empty Hand (on standing fox)
