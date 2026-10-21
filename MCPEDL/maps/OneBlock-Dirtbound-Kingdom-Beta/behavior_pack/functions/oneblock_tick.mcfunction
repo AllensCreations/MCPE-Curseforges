@@ -9,3 +9,4 @@ execute if score #stage dirtbound_core matches 7 if block 0 64 0 air run setbloc
 execute if score #stage dirtbound_core matches 8 if block 0 64 0 air run setblock 0 64 0 crying_obsidian
 execute if score #stage dirtbound_core matches 9 if block 0 64 0 air run setblock 0 64 0 netherite_block
 execute if block 2 65 0 air run setblock 2 65 0 barrel
+execute if block 0 64 0 air run setblock 0 64 0 dirt
