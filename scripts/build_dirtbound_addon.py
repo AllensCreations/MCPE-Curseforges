@@ -71,8 +71,8 @@ def build() -> Path:
     if "oneblock_tick" not in tick_config.get("values", []):
         raise ValueError("tick.json must schedule oneblock_tick.")
     tick_function = (BP / "functions" / "oneblock_tick.mcfunction").read_text(encoding="utf-8")
-    if "execute unless score #setup dirtbound_core matches 1 run setworldspawn 0 65 0" not in tick_function or "execute unless score #setup dirtbound_core matches 1 run setblock 0 63 0 bedrock" not in tick_function or "execute unless score #setup dirtbound_core matches 1 run setblock 0 64 0 dirt" not in tick_function or "matches 9 if block 0 64 0 air run setblock 0 64 0 netherite_block" not in tick_function or "execute if block 0 64 0 air run setblock 0 64 0 dirt" not in tick_function or "execute if block 0 63 0 air run setblock 0 63 0 bedrock" not in tick_function or "execute if block 2 65 0 air run setblock 2 65 0 barrel" not in tick_function:
-        raise ValueError("OneBlock tick function must restore the correct core stage and permanent Trader Post.")
+    if "setworldspawn 0 65 0" not in tick_function or "gamerule spawnradius 0" not in tick_function or "execute if block 0 64 0 air run setblock 0 64 0 dirt" not in tick_function or "execute if block 0 63 0 air run setblock 0 63 0 bedrock" not in tick_function or "execute if block 2 65 0 air run setblock 2 65 0 barrel" not in tick_function or "matches 9 if block 0 64 0 air run setblock 0 64 0 netherite_block" not in tick_function:
+        raise ValueError("OneBlock tick function must set the exact world spawn, disable spawn spread, restore the Dirt fallback and bedrock footing, preserve all stages, and restore the Trader Post.")
     give_function = (BP / "functions" / "give_trader.mcfunction").read_text(encoding="utf-8")
     if "give @s allenscreations:trader_ledger 1" not in give_function:
         raise ValueError("give_trader function must give the custom Trader item.")
