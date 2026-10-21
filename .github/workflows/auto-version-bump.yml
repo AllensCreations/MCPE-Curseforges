@@ -9,21 +9,14 @@ on:
       - 'MCPEDL/new_addons/**'
       - 'MCPEDL/script/**'
       - 'MCPEDL/maps/**'
-      - '!MCPEDL/maps/OneBlock-Dirtbound-Kingdom-Beta/**'
       - 'scripts/ensure_recipe_unlocks.py'
   workflow_dispatch:
     inputs:
       target:
-        description: 'Project to process'
+        description: "Project folder name to process, or 'all' (defaults to all projects)"
         required: true
-        default: 'choose-target'
-        type: choice
-        options:
-          - choose-target
-          - all
-          - Mining-Helmet
-          - OneBlock-Dirtbound-Kingdom-Beta
-          # add your other project folder names here
+        default: 'all'
+        type: string
 
 permissions:
   contents: write
@@ -61,10 +54,7 @@ jobs:
         run: |
           set -euo pipefail
           if [ "$EVENT" = "workflow_dispatch" ]; then
-            if [ "$TARGET" = "choose-target" ] || [ -z "$TARGET" ]; then
-              echo "Pick a project from the dropdown, or choose 'all'."
-              exit 1
-            elif [ "$TARGET" = "all" ]; then
+            if [ -z "$TARGET" ] || [ "$TARGET" = "all" ]; then
               python3 scripts/auto_bump_and_build.py --all
             else
               python3 scripts/auto_bump_and_build.py --project "$TARGET"
