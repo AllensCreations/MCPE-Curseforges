@@ -74,9 +74,19 @@ def main() -> None:
     setup_path = BP / "functions/oneblock_setup.mcfunction"
     require(tick_function_path.is_file(), "registered oneblock_tick.mcfunction is missing")
     require(setup_path.is_file(), "oneblock_setup.mcfunction is missing")
+    cleaner_path = BP / "functions/void_cleaner.mcfunction"
+    require(cleaner_path.is_file(), "void_cleaner.mcfunction is required for every OneBlock map")
     tick_source = tick_function_path.read_text(encoding="utf-8")
     setup_source = setup_path.read_text(encoding="utf-8")
+    cleaner_source = cleaner_path.read_text(encoding="utf-8")
     require("function oneblock_setup" in tick_source, "oneblock_tick must call oneblock_setup")
+    require("execute unless block 0 62 0 structure_void run function void_cleaner" in setup_source,
+            "oneblock_setup must invoke Void Cleaner behind its persistent one-time sentinel")
+    require("fill -15 0 -15 15 30 15 air" in cleaner_source and
+            "fill -15 31 -15 15 62 15 air" in cleaner_source,
+            "Void Cleaner must use the approved bounded cleanup area and fill sizes")
+    require("setblock 0 62 0 structure_void" in cleaner_source,
+            "Void Cleaner must persist its one-time sentinel under the platform")
     require("setblock 0 63 0 bedrock" in tick_source, "tick recovery must protect Bedrock at 0 63 0")
     require("setblock 2 65 0 barrel" in tick_source, "tick recovery must protect the Trader Post at 2 65 0")
     require("setblock 0 64 0" not in tick_source, "tick recovery must not compete with Script API core progression")
