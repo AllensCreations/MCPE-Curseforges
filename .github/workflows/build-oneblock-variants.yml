@@ -6,9 +6,7 @@ on:
     branches:
       - main
     paths:
-      - 'MCPEDL/maps/**/oneblock.json'
-      - 'MCPEDL/maps/**/behavior_pack/**'
-      - 'MCPEDL/maps/**/resource_pack/**'
+      - 'MCPEDL/maps/**'
       - 'Mcpeworlds/**'
       - 'scripts/build_oneblock_variants_from_template.py'
       - 'scripts/sync_oneblock_map_readmes.py'
