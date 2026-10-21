@@ -214,9 +214,8 @@ MCPE-Curseforges/
 ├── assets/                        # Master media and configuration assets
 │   ├── banner.jpg                 # Master repository banner
 │   ├── mcpedl.png                 # Master brand logo
-│   └── oneblock-assets/           # Authoritative OneBlock reference modules
-│       ├── catalog.json           # Catalog manifest of all 24 curated assets
-│       ├── *.json                 # Settings, HUD, mechanics, and phases (1-15)
+│   ├── oneblock-template/         # Extracted, complete Bedrock world template (level.dat + db/)
+│   └── oneblock-template.mcworld  # Optional source archive; extracted once when needed
 ├── MCPEDL/                        # Consolidated projects directory (Addons, Scripts, Maps)
 │   ├── addons/                    # Source folders for add-ons & packs
 │   │   ├── <Addon-Name>/
@@ -248,15 +247,12 @@ MCPE-Curseforges/
 
 ## 8. OneBlock Game Standards and Reference Assets
 
-When developing, updating, or generating any OneBlock maps, add-ons, or minigames in this repository, you **MUST** reference [`assets/oneblock-assets/`](assets/oneblock-assets/catalog.json) as the official single source of truth:
+When creating or updating a OneBlock map in this repository, use the complete extracted Bedrock world at `assets/oneblock-template/` as the world-generation baseline. The template must preserve `level.dat`, `level.dat_old` when supplied, `levelname.txt`, the full `db/` LevelDB directory, world pack manifests, and any other files present in the source world.
 
-1. **Pure Reference Baseline (Zero Image Clutter):**
-   - The reference folder [`assets/oneblock-assets/`](assets/oneblock-assets/) contains strictly non-image assets. It houses the definitive core assets for OneBlock maps:
-     - **[`text_in_the_block.json`](assets/oneblock-assets/text_in_the_block.json)**: The authoritative configuration, offset, template, and interval specifications for the floating holographic text rendered directly on/above the OneBlock altar.
-     - **[`level.dat`](assets/oneblock-assets/level.dat)**: The official Minecraft Bedrock world level data containing the master world generator, gamerules, spawn coordinates, and difficulty settings.
-     - **[`instant_block_renewal.json`](assets/oneblock-assets/instant_block_renewal.json)**: 1-tick instant auto-renewal mechanism that spawns the next block faster than player gravity fall acceleration.
-     - **[`player_elevation_snap.json`](assets/oneblock-assets/player_elevation_snap.json)**: Active player anti-fall protection that monitors vertical coordinates, snaps the player back to y=65.0, and runs `clearVelocity()` to neutralize downward falling momentum.
-   - All OneBlock world builds and scripts must use these reference files as their foundational baseline.
+1. **Complete-world template, not a metadata-only stub:** The original source is `Void_For_Workv2.mcworld`. Place it at `assets/oneblock-template.mcworld` (or `assets/Void_For_Workv2.mcworld`) if it is not already present. The builder extracts it once into `assets/oneblock-template/` and reuses that extracted folder on later builds.
+2. **Never mutate the master template:** Every build must copy the extracted template into an isolated staging directory. Apply the requested world name to the staged `level.dat`, `level.dat_old` when present, and `levelname.txt`, then package the entire staged world at the archive root. Include the complete `db/` directory and preserve world pack manifests and other source files. Never package only `level.dat` and `levelname.txt`.
+3. **Keep builds isolated:** Write generated worlds to `builds/<World-Name>/`. Changes to a generated world must not flow back into the extracted master template or affect other projects.
+4. **Legacy reference JSONs:** Any surviving files under the former `assets/oneblock-assets/` folder are legacy mechanic notes, not the source world. Do not use its `level.dat` or catalog as the basis for new world builds. Migrate a mechanic note only when its behavior is independently verified and still relevant to the target project.
 
 ## Add-on LOCK Marker and Build Safeguards
 
