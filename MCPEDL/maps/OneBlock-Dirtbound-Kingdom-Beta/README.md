@@ -4,9 +4,9 @@ Download the beta world for Minecraft Bedrock Edition.
 
 ## Download
 
-- **Version:** 0.1.6 Beta
+- **Version:** 0.1.7 Beta
 - **Package format:** `.mcworld`
-- **Direct download:** [Download OneBlock: Dirtbound Kingdom Beta (.mcworld)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/OneBlock-Dirtbound-Kingdom-Beta/OneBlock%20Dirtbound%20Kingdom%20Beta%20by%20AllensCreations%20%28V0.1.6%29.mcworld)
+- **Direct download:** [Download OneBlock: Dirtbound Kingdom Beta (.mcworld)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/OneBlock-Dirtbound-Kingdom-Beta/OneBlock%20Dirtbound%20Kingdom%20Beta%20by%20AllensCreations%20%28V0.1.7%29.mcworld)
 
 ## Installation
 
