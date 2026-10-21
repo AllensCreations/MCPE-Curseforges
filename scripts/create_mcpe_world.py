@@ -20,6 +20,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 ASSETS_DIR = BASE_DIR / "assets"
 TEMPLATE_DIR = ASSETS_DIR / "oneblock-template"
 SOURCE_ARCHIVE_CANDIDATES = (
+    BASE_DIR / "Assets" / "Oneblock-assets.mcworld",
     ASSETS_DIR / "oneblock-template.mcworld",
     ASSETS_DIR / "Void_For_Workv2.mcworld",
 )
