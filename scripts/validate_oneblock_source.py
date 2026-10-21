@@ -106,6 +106,7 @@ def main() -> None:
                      "onCoreBreak(p)", "STAGES[stageFor(globalScore"):
         require(expected in script, f"main.js is missing required core coordinate/recovery/progression marker: {expected}")
 
+    foundation_blockers = []
     for mode, template in TEMPLATES.items():
         require(template.is_dir(), f"{mode} reference folder is missing: {template.relative_to(ROOT)}")
         require((template / "level.dat").is_file(),
@@ -119,7 +120,9 @@ def main() -> None:
         data_files = [p for p in db.iterdir() if p.is_file() and p.name not in
                       {"CURRENT", "LOCK", "LOG", "LOG.old"} and not p.name.startswith("MANIFEST")] if db.is_dir() else []
         if not (db / "CURRENT").is_file() or not data_files:
-            print(f"BLOCKER: {mode} Mcpeworlds foundation has no complete LevelDB; world generation must remain paused.")
+            message = f"{mode} Mcpeworlds foundation has no complete LevelDB; world generation must remain paused."
+            foundation_blockers.append(message)
+            print(f"BLOCKER: {message}")
         else:
             print(f"PASS: {mode} Mcpeworlds foundation has LevelDB data.")
 
@@ -153,8 +156,12 @@ def main() -> None:
     print(f"PASS: Dirtbound source validation (v{'.'.join(map(str, bp_version))})")
     print("PASS: matching pack manifests/dependency, tick registration, first-join Void Cleaner, setup, core at (0,0,0)")
     print("PASS: all three direct Mcpeworlds source folders exist and builder uses mode-specific foundations")
-    print("NOTE: if any foundation printed BLOCKER, world generation cannot proceed until complete LevelDB files are supplied.")
     print("NOTE: static checks do not test Minecraft gameplay.")
+    if foundation_blockers:
+        print("FAIL: complete mode-specific Mcpeworlds foundations are required before world generation.")
+        for blocker in foundation_blockers:
+            print(f"- {blocker}")
+        raise SystemExit(2)
 
 
 if __name__ == "__main__":
