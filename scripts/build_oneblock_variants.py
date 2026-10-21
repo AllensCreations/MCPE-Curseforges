@@ -219,11 +219,9 @@ def make_bootstrap_pack(project_slug: str, target: Path) -> tuple[str, list[int]
     (target / "manifest.json").write_text(json.dumps(manifest, indent=2) + "\n", encoding="utf-8")
     (target / "functions" / "tick.json").write_text(json.dumps({"values": ["oneblock_setup"]}, indent=2) + "\n", encoding="utf-8")
     lines = [
-        "execute as @a[tag=!oneblock_bootstrapped] run setblock 0 63 0 bedrock",
-        "execute as @a[tag=!oneblock_bootstrapped] run setblock 0 64 0 dirt",
-        "execute as @a[tag=!oneblock_bootstrapped] run setworldspawn 0 65 0",
-        "execute as @a[tag=!oneblock_bootstrapped] run tp @s 0 65 0",
-        "tag @a[tag=!oneblock_bootstrapped] add oneblock_bootstrapped",
+        "execute unless block 0 63 0 bedrock run setblock 0 63 0 bedrock",
+        "execute unless block 0 64 0 dirt run setblock 0 64 0 dirt",
+        "setworldspawn 0 65 0",
     ]
     (target / "functions" / "oneblock_setup.mcfunction").write_text("\n".join(lines) + "\n", encoding="utf-8")
     return pack_uuid, VERSION
@@ -259,7 +257,8 @@ def build_variant(project: Path, project_slug: str, map_name: str, mode: str) ->
                 )
 
     variant_name = f"{map_name} - {mode}"
-    out_dir = project / mode
+    # Keep Creative, Survival, and Hardcore downloads together in the map folder.
+    out_dir = project
     out_dir.mkdir(parents=True, exist_ok=True)
     output = out_dir / f"{safe_name(variant_name)}.mcworld"
 
@@ -363,6 +362,9 @@ def main() -> int:
             config = json.loads(config_path.read_text(encoding="utf-8"))
             if config.get("enabled", True) is not True:
                 print(f"Skipping disabled OneBlock project: {project.relative_to(ROOT)}")
+                continue
+            if config.get("release_enabled", False) is not True:
+                print(f"Skipping release worlds until tester sign-off: {project.relative_to(ROOT)}")
                 continue
             map_name = str(config.get("name") or project.name.replace("-", " "))
             project_slug = project.relative_to(ROOT).as_posix()
