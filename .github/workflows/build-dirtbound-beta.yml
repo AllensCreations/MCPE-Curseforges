@@ -9,8 +9,6 @@ on:
       - 'scripts/build_dirtbound_addon.py'
       - '.github/workflows/build-dirtbound-beta.yml'
 
-# The generated .mcaddon is checked into builds/ so the public Build link
-# updates alongside the source, rather than existing only as a temporary artifact.
 permissions:
   contents: write
 
@@ -30,35 +28,29 @@ jobs:
         run: |
           cp MCPEDL/maps/OneBlock-Dirtbound-Kingdom-Beta/behavior_pack/scripts/main.js /tmp/main.mjs
           node --check /tmp/main.mjs
-      - name: Build and validate MCAddon test package
+      - name: Build and validate current MCAddon
         run: python3 scripts/build_dirtbound_addon.py
-      - name: Publish generated package to builds/
+      - name: Publish generated package
         run: |
           set -euo pipefail
           output_dir="builds/OneBlock-Dirtbound-Kingdom-Beta"
-          current_file="$(find "$output_dir" -maxdepth 1 -type f -name '*.mcaddon' -printf '%f\n' | sort | tail -n 1)"
-          if [ -z "$current_file" ]; then
-            echo "Build did not produce an MCAddon file."
-            exit 1
-          fi
-
-          # Remove older generated MCAddon test packages so the Build folder
-          # has one unambiguous current test package. Preserve separate .mcpack files.
-          find "$output_dir" -maxdepth 1 -type f -name '*MCAddon Test*.mcaddon' ! -name "$current_file" -delete
-          git add "$output_dir/$current_file"
-          git add -u "$output_dir"
+          version="$(python3 -c 'import json; print(".".join(map(str, json.load(open("MCPEDL/maps/OneBlock-Dirtbound-Kingdom-Beta/behavior_pack/manifest.json"))["header"]["version"])))')"
+          current_file="OneBlock Dirtbound Kingdom Beta by AllensCreations (V${version}).mcaddon"
+          test -s "$output_dir/$current_file"
+          # Remove old combined packages so downloads cannot silently stay on a stale version.
+          find "$output_dir" -maxdepth 1 -type f -name '*.mcaddon' ! -name "$current_file" -delete
+          git add "$output_dir"
           if git diff --cached --quiet; then
-            echo "The committed build already matches the generated package."
+            echo "The committed package already matches the generated package."
             exit 0
           fi
-
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git commit -m "Build OneBlock Dirtbound Kingdom MCAddon test package"
+          git commit -m "Build OneBlock Dirtbound Kingdom v${version} package"
           git push
-      - name: Upload MCAddon test package
+      - name: Upload current MCAddon
         uses: actions/upload-artifact@v4
         with:
-          name: OneBlock-Dirtbound-Kingdom-MCAddon-Test
+          name: OneBlock-Dirtbound-Kingdom-MCAddon
           path: builds/OneBlock-Dirtbound-Kingdom-Beta/*.mcaddon
           retention-days: 90
