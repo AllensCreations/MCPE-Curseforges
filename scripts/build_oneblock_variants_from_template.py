@@ -86,8 +86,13 @@ def patch_level_dat(path: Path, world_name: str, mode: str) -> None:
     creative = mode == "Creative"
     hardcore = mode == "Hardcore"
     raw = patch_string_tag(raw, "LevelName", world_name)
-    raw = patch_string_tag(raw, "FlatWorldLayers", VOID_LAYERS)
-    raw = patch_string_tag(raw, "InventoryVersion", "1.26.52")
+    # The source world's actual LevelDB/chunk layout is preserved. Some valid
+    # retail worlds omit FlatWorldLayers because they are not flat-world presets;
+    # only update these optional metadata fields when present.
+    if tag_prefix(8, "FlatWorldLayers") in raw[8:]:
+        raw = patch_string_tag(raw, "FlatWorldLayers", VOID_LAYERS)
+    if tag_prefix(8, "InventoryVersion") in raw[8:]:
+        raw = patch_string_tag(raw, "InventoryVersion", "1.26.52")
     for name, value in (
         ("GameType", 1 if creative else 0),
         ("Difficulty", 3),
