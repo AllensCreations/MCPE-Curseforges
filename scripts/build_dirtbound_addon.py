@@ -81,6 +81,8 @@ def build() -> Path:
         raise ValueError("main.js still contains a literal \\n before the SHOPS declaration.")
     if "maintain()" in main_js or "setblock" in main_js or "GameMode" in main_js:
         raise ValueError("Block generation and game-mode handling must stay outside main.js.")
+    if "function restoreCoreImmediately(dimension)" not in main_js or "restoreCoreImmediately(b.dimension)" not in main_js:
+        raise ValueError("Core breaks must restore the evolved block immediately after rewards and progression update.")
     if "function initialize(p)" not in main_js:
         raise ValueError("main.js must initialize player economy scores.")
     if 'const BLOCK_ICON="⛏", COIN_ICON="◈";' not in main_js:
