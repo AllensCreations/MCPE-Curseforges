@@ -1,0 +1,53 @@
+name: Validate OneBlock Dirtbound Source
+
+on:
+  push:
+    paths:
+      - 'MCPEDL/maps/OneBlock-Dirtbound-Kingdom-Beta/**'
+      - 'CreateWorld/McpeWorld.html'
+      - 'scripts/build_oneblock_variants_from_template.py'
+      - 'scripts/validate_oneblock_source.py'
+      - 'INSTRUCTIONS.md'
+      - '.github/workflows/validate-oneblock-source.yml'
+  pull_request:
+    paths:
+      - 'MCPEDL/maps/OneBlock-Dirtbound-Kingdom-Beta/**'
+      - 'CreateWorld/McpeWorld.html'
+      - 'scripts/build_oneblock_variants_from_template.py'
+      - 'scripts/validate_oneblock_source.py'
+      - 'INSTRUCTIONS.md'
+      - '.github/workflows/validate-oneblock-source.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    name: Validate map source without generating world archives
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Set up Node.js for Bedrock Script API syntax checks
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: Validate manifests, function wiring, HTML reference, and builder policy
+        run: python scripts/validate_oneblock_source.py
+
+      - name: Check JavaScript syntax
+        run: node --input-type=module --check < MCPEDL/maps/OneBlock-Dirtbound-Kingdom-Beta/behavior_pack/scripts/main.js
+
+      - name: Check builder and validator Python syntax
+        run: python -c "from pathlib import Path; [compile(p.read_text(encoding='utf-8'), str(p), 'exec') for p in (Path('scripts/build_oneblock_variants_from_template.py'), Path('scripts/validate_oneblock_source.py'))]"
+
+      # Deliberately no build step here: source changes trigger validation
+      # automatically, while .mcworld generation remains gated on Minecraft testing.
