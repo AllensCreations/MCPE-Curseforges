@@ -5,9 +5,12 @@ on:
     branches:
       - main
     paths:
-      - 'MCPEDL/**'
+      - 'MCPEDL/addons/**'
+      - 'MCPEDL/new_addons/**'
+      - 'MCPEDL/script/**'
+      - 'MCPEDL/maps/**'
+      - '!MCPEDL/maps/OneBlock-Dirtbound-Kingdom-Beta/**'
       - 'scripts/ensure_recipe_unlocks.py'
-      - '.github/workflows/auto-version-bump.yml'
   workflow_dispatch:
     inputs:
       target:
