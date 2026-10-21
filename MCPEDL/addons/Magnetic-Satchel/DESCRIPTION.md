@@ -2,17 +2,15 @@
 
 **By AllensCreations**
 
-**HANDS-FREE VACUUM SYSTEM & CONVENIENCE UTILITY**
-
-Wearable offhand magnetic vacuum satchel that automatically pulls nearby dropped items directly toward you.
+A wearable utility satchel that attracts nearby dropped items while keeping your main hand free.
 
 ---
 
 ## Overview
 
-Tired of leaving valuable ores behind in lava-adjacent chasms or chasing down scattered mob loot?
+Collect nearby drops more conveniently while mining, exploring, or fighting mobs.
 
-**Magnetic Satchel** introduces a crafted utility satchel that equips into your offhand slot.  it continually scans for nearby dropped items within an 8-block radius and draws them toward you using realistic vector physics.
+**Magnetic Satchel** introduces a crafted utility satchel that equips into your offhand slot.  it attracts nearby dropped items within an 8-block radius and draws them toward you.
 
 Leave your main hand free to hold your pickaxe, weapon, or torches while the satchel gathers all dropped resources directly to your inventory.
 
@@ -21,7 +19,7 @@ Leave your main hand free to hold your pickaxe, weapon, or torches while the sat
 ## Key Features
 
 ### Offhand Equippable
-- **Description**: Equips cleanly in the offhand slot , keeping your main hand free for tools and weapons.
+- **Description**: Equips in the offhand slot, keeping your main hand free for tools and weapons.
 
 ### 8-Block Vacuum Radius
 - **Description**: Detects and pulls all nearby dropped item entities within an 8-block radius.
@@ -33,7 +31,7 @@ Leave your main hand free to hold your pickaxe, weapon, or torches while the sat
 - **Description**: Emits subtle portal particle trails behind moving items as they glide inward.
 
 ### Quick Toggle Switch
-- **Description**: Sneak + Right-click / use while holding the satchel in your main hand to instantly toggle magnetism ON or OFF.
+- **Description**: Sneak and use the satchel while holding it in your main hand to instantly toggle magnetism ON or OFF.
 
 ### Action Bar Feedback
 - **Description**: Clear action bar HUD indicator displays an on-screen message indicating whether magnetism is active.
@@ -50,16 +48,16 @@ Leave your main hand free to hold your pickaxe, weapon, or torches while the sat
 - **Outcome**: Automatically activates the vacuum pull for all items within 8 blocks.
 
 ### Toggle Active/Disabled
-- **Control / Trigger**: Sneak + Right-Click with satchel in main hand
+- **Control / Trigger**: Sneak and use the satchel while holding it in your main hand
 - **Outcome**: Toggles magnetic pull on/off without needing to unequip.
 
 ### Automatic Collection
 - **Control / Trigger**: Stand within 8 blocks of dropped items
-- **Outcome**: Items are drawn toward your player coordinate until vanilla inventory pickup triggers.
+- **Outcome**: Items are drawn toward your player coordinate until normal item pickup occurs.
 
 ### Safe Inventory Handling
 - **Control / Trigger**: Normal inventory behavior
-- **Outcome**: When full, items hover safely beside you rather than glitching.
+- **Outcome**: When full, items remain nearby when your inventory is full.
 
 ---
 
