@@ -14,9 +14,9 @@ PROJECT = ROOT / "MCPEDL/maps/OneBlock-Dirtbound-Kingdom-Beta"
 BP = PROJECT / "behavior_pack"
 RP = PROJECT / "resource_pack"
 TEMPLATES = {
-    "Creative": ROOT / "Mcpeworlds/Creative_Void_Sandbox.mcworld.zip",
-    "Survival": ROOT / "Mcpeworlds/Survival_Void_World.mcworld.zip",
-    "Hardcore": ROOT / "Mcpeworlds/Hardcore_Void_World.mcworld.zip",
+    "Creative": ROOT / "Mcpeworlds/Creative",
+    "Survival": ROOT / "Mcpeworlds/Survival",
+    "Hardcore": ROOT / "Mcpeworlds/Hardcore",
 }
 BUILDER = ROOT / "scripts/build_oneblock_variants_from_template.py"
 
@@ -107,12 +107,16 @@ def main() -> None:
         require(expected in script, f"main.js is missing required core coordinate/recovery/progression marker: {expected}")
 
     for mode, template in TEMPLATES.items():
-        require(template.is_file(), f"{mode} reference world is missing: {template.relative_to(ROOT)}")
-        require(template.stat().st_size > 0, f"{mode} reference world is empty: {template.relative_to(ROOT)}")
-        extracted = ROOT / "Mcpeworlds" / "Extracted" / mode
-        if extracted.exists():
-            require((extracted / "level.dat").is_file(),
-                    f"{mode} extracted template must contain level.dat at its root: {extracted.relative_to(ROOT)}")
+        require(template.is_dir(), f"{mode} reference folder is missing: {template.relative_to(ROOT)}")
+        require((template / "level.dat").is_file(),
+                f"{mode} reference folder must contain level.dat: {template.relative_to(ROOT)}")
+        setup = template / "behavior_packs/void_cleaner/functions/setup_void.mcfunction"
+        require(setup.is_file(), f"{mode} reference setup function is missing: {setup.relative_to(ROOT)}")
+        setup_source = setup.read_text(encoding="utf-8")
+        require("execute as @a[tag=!void_cleaned] run fill -16 -64 -16 16 -64 16 air" in setup_source,
+                f"{mode} reference has the wrong bounded Void Cleaner command")
+        require(not (template / "db/CURRENT").is_file(),
+                f"{mode} reference database status changed; review the documented database-carrier build path")
 
     for document_name in ("README.md", "DESCRIPTION.md"):
         document = (PROJECT / document_name).read_text(encoding="utf-8")
@@ -126,9 +130,10 @@ def main() -> None:
     builder = BUILDER.read_text(encoding="utf-8")
     require("db/CURRENT" in builder and "world_behavior_packs.json" in builder,
             "world builder must preserve LevelDB and verify world pack links")
-    require("SOURCE_WORLDS" in builder and "SOURCE_ARCHIVES" in builder and "Extracted" in builder
+    require("SOURCE_WORLDS" in builder and "Mcpeworlds" in builder
+            and "SOURCE_ARCHIVES" not in builder and '"Mcpeworlds" / "Creative"' in builder
             and "locate_world_root" in builder,
-            "world builder must prefer editable extracted templates and retain archive fallback")
+            "world builder must use the three direct editable template folders with no archive fallback")
     require("expected_cleaner" in builder and "33x33 Y=-64" in builder,
             "world builder must verify the exact bounded Void Cleaner in each generated archive")
     require("Mcpeworlds" in builder,
@@ -140,7 +145,7 @@ def main() -> None:
 
     print(f"PASS: Dirtbound source validation (v{'.'.join(map(str, bp_version))})")
     print("PASS: matching pack manifests/dependency, tick registration, first-join Void Cleaner, setup, core at (0,0,0)")
-    print("PASS: all three Mcpeworlds reference archives exist and builder uses mode-specific templates")
+    print("PASS: all three direct Mcpeworlds source folders exist and builder uses mode-specific templates")
     print("NOTE: static checks do not test Minecraft gameplay.")
 
 
