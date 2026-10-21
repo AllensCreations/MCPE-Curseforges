@@ -219,8 +219,8 @@ def make_bootstrap_pack(project_slug: str, target: Path) -> tuple[str, list[int]
     (target / "manifest.json").write_text(json.dumps(manifest, indent=2) + "\n", encoding="utf-8")
     (target / "functions" / "tick.json").write_text(json.dumps({"values": ["oneblock_setup"]}, indent=2) + "\n", encoding="utf-8")
     lines = [
-        "execute unless block 0 63 0 bedrock run setblock 0 63 0 bedrock",
-        "execute unless block 0 64 0 dirt run setblock 0 64 0 dirt",
+        "execute if block 0 63 0 air run setblock 0 63 0 bedrock",
+        "execute if block 0 64 0 air run setblock 0 64 0 dirt",
         "setworldspawn 0 65 0",
     ]
     (target / "functions" / "oneblock_setup.mcfunction").write_text("\n".join(lines) + "\n", encoding="utf-8")
