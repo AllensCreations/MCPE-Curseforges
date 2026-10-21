@@ -1,8 +1,7 @@
 #!/usr/bin/env python3
-"""Static source checks for the Dirtbound OneBlock map.
+"""Static source checks for Dirtbound and its three uploaded world templates.
 
-This validation never generates or modifies .mcworld files. Minecraft gameplay
-must be tested separately before the manual world-archive build is approved.
+This validation does not claim that gameplay has been tested in Minecraft.
 """
 from __future__ import annotations
 
@@ -14,7 +13,11 @@ ROOT = Path(__file__).resolve().parents[1]
 PROJECT = ROOT / "MCPEDL/maps/OneBlock-Dirtbound-Kingdom-Beta"
 BP = PROJECT / "behavior_pack"
 RP = PROJECT / "resource_pack"
-HTML = ROOT / "CreateWorld/McpeWorld.html"
+TEMPLATES = {
+    "Creative": ROOT / "Mcpeworlds/Creative_Void_Sandbox.mcworld.zip",
+    "Survival": ROOT / "Mcpeworlds/Survival_Void_World.mcworld.zip",
+    "Hardcore": ROOT / "Mcpeworlds/Hardcore_Void_World.mcworld.zip",
+}
 BUILDER = ROOT / "scripts/build_oneblock_variants_from_template.py"
 
 
@@ -90,22 +93,26 @@ def main() -> None:
                      "onCoreBreak(p)", "STAGES[stageFor(globalScore"):
         require(expected in script, f"main.js is missing core recovery/progression marker: {expected}")
 
-    html = HTML.read_text(encoding="utf-8")
-    for expected in ("setblock 0 0 0 minecraft:grass_block", "setworldspawn 0 1 0", "void_cleaned"):
-        require(expected in html, f"CreateWorld/McpeWorld.html reference is missing: {expected}")
+    for mode, template in TEMPLATES.items():
+        require(template.is_file(), f"{mode} reference world is missing: {template.relative_to(ROOT)}")
+        require(template.stat().st_size > 0, f"{mode} reference world is empty: {template.relative_to(ROOT)}")
 
     builder = BUILDER.read_text(encoding="utf-8")
     require("db/CURRENT" in builder and "world_behavior_packs.json" in builder,
             "world builder must preserve LevelDB and verify world pack links")
+    require("SOURCE_WORLDS" in builder and "locate_world_root" in builder,
+            "world builder must use the uploaded mode-specific world templates")
+    require("Mcpeworlds" in builder and "CreateWorld/McpeWorld.html" not in builder,
+            "world builder must use Mcpeworlds templates, not the removed HTML")
     require("MODES = (\"Creative\", \"Survival\", \"Hardcore\")" in builder,
             "world builder must retain all three world variants")
-    require(re.search(r"def verify_archive\(", builder) is not None,
+    require(re.search(r"def verify_archive\\(", builder) is not None,
             "world builder must include archive verification")
 
     print(f"PASS: Dirtbound source validation (v{'.'.join(map(str, bp_version))})")
     print("PASS: matching pack manifests/dependency, tick registration, one-time setup, no-teleport rule")
-    print("PASS: core startup recovery and progression markers, HTML reference, three-variant builder")
-    print("NOTE: static checks do not test Minecraft gameplay and do not generate .mcworld files.")
+    print("PASS: all three Mcpeworlds reference archives exist and builder uses mode-specific templates")
+    print("NOTE: static checks do not test Minecraft gameplay.")
 
 
 if __name__ == "__main__":
