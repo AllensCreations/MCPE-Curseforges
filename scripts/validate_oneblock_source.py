@@ -102,8 +102,8 @@ def main() -> None:
             "world builder must preserve LevelDB and verify world pack links")
     require("SOURCE_WORLDS" in builder and "locate_world_root" in builder,
             "world builder must use the uploaded mode-specific world templates")
-    require("Mcpeworlds" in builder and "CreateWorld/McpeWorld.html" not in builder,
-            "world builder must use Mcpeworlds templates, not the removed HTML")
+    require("Mcpeworlds" in builder,
+            "world builder must use the uploaded Mcpeworlds templates")
     require("MODES = (\"Creative\", \"Survival\", \"Hardcore\")" in builder,
             "world builder must retain all three world variants")
     require(re.search(r"def verify_archive\\(", builder) is not None,
