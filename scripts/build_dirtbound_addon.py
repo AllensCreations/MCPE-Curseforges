@@ -82,6 +82,14 @@ def build() -> Path:
         raise ValueError("Block generation and game-mode handling must stay outside main.js.")
     if "function initialize(p)" not in main_js:
         raise ValueError("main.js must initialize player economy scores.")
+    if 'const BLOCK_ICON="⛏", COIN_ICON="◈";' not in main_js:
+        raise ValueError("main.js must use visible block and coin indicators.")
+    if "loc.x!==ORIGIN.x" not in main_js or "setScore(COINS,p,balance(p)+1)" not in main_js:
+        raise ValueError("Breaking the central OneBlock must update the block count and OneCoin balance.")
+    expected_milestones = [0, 50, 150, 350, 700, 1200, 2000, 3000, 4500, 6000]
+    actual_milestones = [int(match) for match in __import__("re").findall(r'\["[^"]+",(\d+),', main_js)]
+    if actual_milestones != expected_milestones:
+        raise ValueError(f"Shop milestones must be {expected_milestones}, got {actual_milestones}.")
 
     OUT_DIR.mkdir(parents=True, exist_ok=True)
     output.unlink(missing_ok=True)

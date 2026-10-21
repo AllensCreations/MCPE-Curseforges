@@ -2,6 +2,17 @@
 
 ---
 
+## [0.1.11] - 2026-10-21
+
+### Fixed
+- **Mining progress tracking:** Central OneBlock breaks now read the block's actual position, so each successful break advances the mining counter and updates the OneCoin balance.
+- **Dirt sales:** Dirt is only removed after the balance update succeeds, preventing lost inventory when the economy is not ready.
+
+### Improved & Balanced
+- **Longer progression:** Expanded tier milestones through 6,000 central-block breaks.
+- **Mining rewards:** Earn 1 OneCoin for each central block broken and 1 OneCoin for each Dirt block sold.
+- **Clearer status display:** Added distinct pickaxe and coin indicators to the live status bar and trading menus.
+
 ## [0.1.10] - 2026-10-21
 
 ### Changed
