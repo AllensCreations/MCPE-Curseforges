@@ -46,17 +46,17 @@ The Melody Figurine is a small decorative statue with a matching inventory icon 
 ## How to Use
 
 1. Import the add-on and enable both packs in your world settings.
-2. Obtain the Melody Figurine from the Creative inventory or, with cheats enabled, use the command /give @s melody:melody_figurine 1.
+2. Obtain the Melody Figurine from the Creative inventory.
 3. Place it on the ground.
 4. Sneak-interact to choose a mode, then interact normally to start the song and effects.
 
 ## Compatibility
 
 - Minecraft Bedrock Edition: 1.26.0 or later.
-- Experimental features: No experiment requirement detected in the inspected files.
+- Experimental features: The current pack does not declare a requirement for experimental toggles.
 - Achievements: Not verified.
 - Multiplayer and Realms behavior: Not verified.
-- In-game behavior still needs testing after this update; package checks are not a substitute for testing in Minecraft.
+- Gameplay behavior should be checked in Minecraft before relying on it in a long-term world.
 
 ## Creator and Permissions
 

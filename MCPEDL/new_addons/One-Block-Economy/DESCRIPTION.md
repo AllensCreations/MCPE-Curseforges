@@ -34,9 +34,10 @@ This add-on does not generate a complete OneBlock world. Use it in a world with 
 
 ## Guidelines and Attribution
 
-- Creator: AllensCreations.
-- Videos and streams may feature this add-on with credit to AllensCreations.
-- Do not re-upload this add-on or modified copies as your own. Link to the official repository instead.
+- Creator: AllensCreations
+- Rights & Reservation: All rights reserved for AllensCreations.
+- Content Creators: Content creators are permitted to feature this creation in videos and streams with credit to AllensCreations.
+- Redistribution: Do not re-upload this pack or provide direct monetized download bypasses. Link directly to the official repository page.
 
 ---
 

@@ -26,7 +26,7 @@ The central block provides resources as you progress through increasingly advanc
 - **Trading:** A traveling merchant periodically offers trades for rare saplings, seeds, and other supplies.
 
 ### Admin Photography Studio
-- **Separate World Option:** The Admin edition includes a photo studio with camera views and lighting controls. Use the appropriate world download if you want these tools.
+- **Separate World Option:** The Admin edition provides a separate photo studio with camera views and lighting controls; select that edition only if those tools are needed.
 
 ## How to Play
 

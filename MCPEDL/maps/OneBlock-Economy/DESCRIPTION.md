@@ -30,7 +30,7 @@ Start on a small platform suspended in the void and mine the central block to ga
 
 ## How to Play
 
-1. Import the world using the direct download on the project README.
+1. Import the world from its project download page.
 2. Begin mining the central block and collect the resources it provides.
 3. Use each phase's materials to prepare for the next stage.
 4. Watch for the trader's limited-time visits and avoid falling into the void.

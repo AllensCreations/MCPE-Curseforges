@@ -1,13 +1,6 @@
 # Swarm Mob Booster (v1.0.5) — Configurable Mob Spawn Density
 
-![MCPEDL](https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/MCPEDL/new_addons/Swarm-Mob-Booster/behavior_pack/pack_icon.png "MCPEDL")
-
-[![Minecraft Bedrock](https://img.shields.io/badge/Minecraft%20Bedrock-1.21.0%2B-brightgreen?style=flat-square&logo=minecraft)](https://github.com/AllensCreations/MCPE-Curseforges)
-[![Format](https://img.shields.io/badge/Format-.MCPACK-orange?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/new_addons#available-add-ons)
-
 **By AllensCreations**
-
-Explore more creations: [CurseForge Profile](https://www.curseforge.com/members/allenscreations/projects) · [MCPEDL Profile](https://mcpedl.com/user/allenscreations/)
 
 Increase spawn weights and group sizes for supported vanilla mobs across the Overworld, Nether, and End. Three selectable presets adjust density caps and group sizes, and an action-bar display tracks nearby mobs.
 
@@ -46,9 +39,12 @@ Increase spawn weights and group sizes for supported vanilla mobs across the Ove
 
 ## Guidelines and Attribution
 
-- Creator: AllensCreations.
-- Videos and streams may feature this add-on with credit to AllensCreations.
-- Do not re-upload this pack or modified copies as your own. Link to the official repository instead.
+- Creator: AllensCreations
+- Rights & Reservation: All rights reserved for AllensCreations.
+- Content Creators: Content creators are permitted to feature this creation in videos and streams with credit to AllensCreations.
+- Redistribution: Do not re-upload this pack or provide direct monetized download bypasses. Link directly to the official repository page.
+- [CurseForge Profile](https://www.curseforge.com/members/allenscreations/projects)
+- [MCPEDL Profile](https://mcpedl.com/user/allenscreations/)
 
 ---
 
