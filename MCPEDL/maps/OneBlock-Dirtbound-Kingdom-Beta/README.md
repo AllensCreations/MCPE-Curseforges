@@ -1,19 +1,19 @@
-# OneBlock: Dirtbound Kingdom Beta (v0.1.2)
+# OneBlock: Dirtbound Kingdom Beta (v0.1.3)
 
 Download the beta world for Minecraft Bedrock Edition.
 
 ## Download
 
-- **Version:** 0.1.0 Beta
-- **Package format:** .mcworld
-- **Download source:** [Official maps catalog](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/maps#available-maps). The repository-hosted beta package will appear there after the first build workflow run.
+- **Version:** 0.1.3 Beta
+- **Package format:** `.mcworld`
+- **Direct download:** [Download OneBlock: Dirtbound Kingdom Beta (.mcworld)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/OneBlock-Dirtbound-Kingdom-Beta/OneBlock%20Dirtbound%20Kingdom%20Beta%20by%20AllensCreations%20%28V0.1.3%29.mcworld)
 
 ## Installation
 
-1. Download the .mcworld file.
-2. Open it with Minecraft to import the world.
-3. Open the imported world and use the chat commands !shop, !sell, !balance, and !help.
+1. Download the world package.
+2. Open the `.mcworld` file with Minecraft to import it.
+3. Hold the OneBlock Trader item and interact with it to open the Trading UI.
 
-## Game Information
+## Add-on Information
 
 For gameplay details and beta limitations, read the [full description](https://github.com/AllensCreations/MCPE-Curseforges/blob/main/MCPEDL/maps/OneBlock-Dirtbound-Kingdom-Beta/DESCRIPTION.md).
