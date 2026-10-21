@@ -202,6 +202,11 @@ Combines dynamic lighting, offhand quick-swap, automatic tool selection, tree ca
 
 ---
 
+## Creator Profiles
+
+- [CurseForge Profile](https://www.curseforge.com/members/allenscreations/projects)
+- [MCPEDL Profile](https://mcpedl.com/user/allenscreations/)
+
 ## Guidelines and Attribution
 
 - Creator: AllensCreations

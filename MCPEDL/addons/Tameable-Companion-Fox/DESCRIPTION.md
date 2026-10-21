@@ -71,6 +71,11 @@ Red and arctic foxes can become companions with the same core commands and equip
 
 ---
 
+## Creator Profiles
+
+- [CurseForge Profile](https://www.curseforge.com/members/allenscreations/projects)
+- [MCPEDL Profile](https://mcpedl.com/user/allenscreations/)
+
 ## Guidelines and Attribution
 
 - Creator: AllensCreations
