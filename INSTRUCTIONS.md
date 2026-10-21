@@ -315,6 +315,6 @@ MCPEDL/maps/<Map-Name>/
 
 - `.github/workflows/build-oneblock-variants.yml` runs when an opted-in map's `oneblock.json`, Behavior Pack, or Resource Pack changes on `main`. It can also be run manually from GitHub Actions; leave the project path blank to rebuild all opted-in maps or specify `MCPEDL/maps/<Map-Name>` to build one map.
 - The workflow installs LevelDB dependencies, builds all three variants, verifies required world files and exact world pack links, and commits generated `.mcworld` files. Generated output folders alone do not retrigger the workflow.
-- The builder reads `CreateWorld/McpeWorld.html` as a reference, not as an input archive. It must not depend on the deleted legacy world asset.
+- The builder follows the design documented in `CreateWorld/McpeWorld.html`; it does not execute the HTML or use it as an input archive. It must not depend on the deleted legacy world asset.
 - A successful ZIP/LevelDB/manifest check is a structural build check, not proof that Minecraft loaded the map or that its custom OneBlock progression works. Never claim in-game verification without an actual game test.
 - If a project's pack manifest is missing, malformed, or has an unresolved Resource Pack UUID dependency, fail the build and report the exact source path. Never generate fake pack UUIDs for the map's actual packs or silently omit required packs.
