@@ -130,8 +130,8 @@ def patch_level_dat(path: Path, world_name: str, mode: str) -> None:
         ("commandsEnabled", int(creative)),
         ("hasBeenLoadedInCreative", int(creative)),
     ):
-        if name == "IsHardcore" and tag_prefix(1, name) not in raw[8:]:
-            # Older valid worlds may predate Bedrock's explicit Hardcore flag.
+        if tag_prefix(1, name) not in raw[8:]:
+            # Older valid worlds may omit flags introduced by later Bedrock versions.
             raw = add_root_numeric_tag(raw, 1, name, value)
         else:
             raw = patch_numeric_tag(raw, 1, name, value)
