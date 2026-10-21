@@ -1,9 +1,10 @@
 #!/usr/bin/env python3
-"""Build OneBlock worlds from the three editable mode-specific world folders.
+"""Build OneBlock worlds using each complete Mcpeworlds mode folder as its foundation.
 
-The folders provide mode metadata/settings. Because they omit LevelDB, a
-known-complete Bedrock world is used only as a database carrier; its metadata
-and packs are never copied.
+A mode folder must contain its own LevelDB. The builder refuses to borrow a
+database from another world, because that would silently substitute its terrain.
+World archives are generated only through an explicitly approved manual workflow
+after the Creative mechanics have been tested in Minecraft.
 """
 from __future__ import annotations
 
@@ -24,12 +25,6 @@ SOURCE_WORLDS = {
     "Survival": ROOT / "Mcpeworlds" / "Survival",
     "Hardcore": ROOT / "Mcpeworlds" / "Hardcore",
 }
-# The three uploaded references contain metadata and pack setup but no LevelDB.
-# Use this known-complete world only as a database carrier, never for its settings/packs.
-DATABASE_CARRIER = (
-    MAPS_ROOT / "OneBlock-Void-Survival" /
-    "OneBlock Void Survival by AllensCreations (V1.2.5).mcworld"
-)
 MODES = ("Creative", "Survival", "Hardcore")
 
 
@@ -75,6 +70,21 @@ def locate_world_root(extracted: Path, depth: int = 0) -> Path:
         f"even after inspecting nested ZIP archives. Files found: {sample}. "
         "Refusing to create a fabricated or incomplete world."
     )
+
+
+def validate_leveldb(db_path: Path, label: str) -> None:
+    """Require the selected foundation's own complete LevelDB database."""
+    data_files = [
+        p for p in db_path.iterdir()
+        if p.is_file() and p.name not in {"CURRENT", "LOCK", "LOG", "LOG.old"}
+        and not p.name.startswith("MANIFEST")
+    ] if db_path.is_dir() else []
+    if not (db_path / "CURRENT").is_file() or not data_files:
+        raise ValueError(
+            f"{label} has no complete LevelDB database at {db_path}. "
+            "The builder will not borrow another world's database or substitute its terrain. "
+            "Supply a complete matching world foundation before generating .mcworld files."
+        )
 
 
 def tag_prefix(tag_type: int, name: str) -> bytes:
@@ -180,43 +190,12 @@ def build_variant(project: Path, map_name: str, mode: str) -> Path:
         shutil.copytree(source_world, staging, dirs_exist_ok=True)
         world = locate_world_root(staging)
 
-        # The uploaded mode references have level metadata but no db/LevelDB.
-        # Preserve their mode settings while supplying only a real database from
-        # a known-complete Bedrock world. Never copy that carrier's level.dat or packs.
-        if not (world / "db" / "CURRENT").is_file():
-            if not DATABASE_CARRIER.is_file():
-                raise FileNotFoundError(
-                    f"The {mode} template has no LevelDB and the required database carrier is missing: "
-                    f"{DATABASE_CARRIER}"
-                )
-            carrier_stage = Path(temp) / "database_carrier"
-            carrier_stage.mkdir()
-            safe_extract(DATABASE_CARRIER, carrier_stage)
-            carrier_world = locate_world_root(carrier_stage)
-            carrier_db = carrier_world / "db"
-            data_files = [
-                p for p in carrier_db.iterdir()
-                if p.is_file() and p.name not in {"CURRENT", "LOCK", "LOG", "LOG.old"}
-                and not p.name.startswith("MANIFEST")
-            ] if carrier_db.is_dir() else []
-            if not (carrier_db / "CURRENT").is_file() or not data_files:
-                raise ValueError(
-                    f"The database carrier has no complete LevelDB database: {DATABASE_CARRIER}"
-                )
-            shutil.copytree(carrier_db, world / "db", dirs_exist_ok=True)
+        # The matching Mcpeworlds folder must provide its own database. Do not
+        # borrow terrain/chunks from a different world.
+        validate_leveldb(world / "db", f"{mode} Mcpeworlds foundation")
 
-        data_files = [
-            p for p in (world / "db").iterdir()
-            if p.is_file() and p.name not in {"CURRENT", "LOCK", "LOG", "LOG.old"}
-            and not p.name.startswith("MANIFEST")
-        ]
-        if not (world / "db" / "CURRENT").is_file() or not data_files:
-            raise ValueError(
-                f"The {mode} output has no complete LevelDB data; refusing to generate a broken world."
-            )
-
-        # Preserve the mode-specific template's game mode, seed, spawn, void settings,
-        # gamerules, and all other metadata. Only rename the imported world.
+        # Preserve the mode-specific foundation's game mode, seed, spawn, void settings,
+        # gamerules, terrain, chunks, and other world data. Only rename the imported world.
         for metadata_name in ("level.dat", "level.dat_old"):
             metadata = world / metadata_name
             if metadata.is_file():
