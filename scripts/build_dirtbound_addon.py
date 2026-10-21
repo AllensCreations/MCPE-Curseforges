@@ -47,6 +47,7 @@ def build() -> Path:
         BP / "functions" / "tick.json",
         BP / "functions" / "oneblock_tick.mcfunction",
         BP / "functions" / "give_trader.mcfunction",
+        BP / "functions" / "bonus_spawn.mcfunction",
         RP / "textures" / "item_texture.json",
         RP / "textures" / "items" / "trader_ledger.png",
     ]
@@ -70,8 +71,8 @@ def build() -> Path:
     if "oneblock_tick" not in tick_config.get("values", []):
         raise ValueError("tick.json must schedule oneblock_tick.")
     tick_function = (BP / "functions" / "oneblock_tick.mcfunction").read_text(encoding="utf-8")
-    if "execute if block 0 64 0 air run setblock 0 64 0 dirt" not in tick_function:
-        raise ValueError("OneBlock tick function must restore Dirt only when the center is air.")
+    if "matches 0 if block 0 64 0 air run setblock 0 64 0 dirt" not in tick_function or "matches 9 if block 0 64 0 air run setblock 0 64 0 netherite_block" not in tick_function or "execute if block 2 65 0 air run setblock 2 65 0 barrel" not in tick_function:
+        raise ValueError("OneBlock tick function must restore the correct core stage and permanent Trader Post.")
     give_function = (BP / "functions" / "give_trader.mcfunction").read_text(encoding="utf-8")
     if "give @s allenscreations:trader_ledger 1" not in give_function:
         raise ValueError("give_trader function must give the custom Trader item.")
@@ -84,18 +85,21 @@ def build() -> Path:
         raise ValueError("main.js must initialize player economy scores.")
     if 'const BLOCK_ICON="⛏", COIN_ICON="◈";' not in main_js:
         raise ValueError("main.js must use visible block and coin indicators.")
-    if "loc.x!==ORIGIN.x" not in main_js or "setScore(COINS,p,balance(p)+1)" not in main_js:
-        raise ValueError("Breaking the central OneBlock must update the block count and OneCoin balance.")
+    if "loc.x!==ORIGIN.x" not in main_js or "setScore(COINS,p,balance(p)+stage.reward)" not in main_js or "playerInteractWithBlock.subscribe" not in main_js:
+        raise ValueError("Core breaks must award stage-based OneCoins and the permanent Trader Post must open.")
     expected_milestones = [0, 50, 150, 350, 700, 1200, 2000, 3000, 4500, 6000]
-    actual_milestones = [int(match) for match in __import__("re").findall(r'\["[^"]+",(\d+),', main_js)]
+    actual_milestones = [int(match) for match in __import__("re").findall(r'unlock:(\d+),block:', main_js)]
     if actual_milestones != expected_milestones:
-        raise ValueError(f"Shop milestones must be {expected_milestones}, got {actual_milestones}.")
+        raise ValueError(f"Core stages must unlock at {expected_milestones}, got {actual_milestones}.")
     expected_rewards = {50: 25, 150: 50, 350: 75, 700: 100, 1200: 150, 2000: 200, 3000: 300, 4500: 500, 6000: 1000}
     actual_rewards = {int(blocks): int(coins) for blocks, coins in __import__("re").findall(r'\{blocks:(\d+),coins:(\d+)\}', main_js)}
     if actual_rewards != expected_rewards:
         raise ValueError(f"Milestone rewards must be {expected_rewards}, got {actual_rewards}.")
     if 'BLOCK_ICON+" Block Mined:' not in main_js or 'COIN_ICON+" OneCoins:' not in main_js:
         raise ValueError("The live status bar must label Block Mined and OneCoins.")
+    for required_feature in ["recoverTrader(p)", "showPrestige(p)", "spawnMobWave(p)", "spawnBonus(p)", "personal%250===0", "total%500===0"]:
+        if required_feature not in main_js:
+            raise ValueError(f"Missing required gameplay feature: {required_feature}")
 
     OUT_DIR.mkdir(parents=True, exist_ok=True)
     output.unlink(missing_ok=True)
@@ -118,6 +122,7 @@ def build() -> Path:
             "DirtboundKingdomBP/functions/tick.json",
             "DirtboundKingdomBP/functions/oneblock_tick.mcfunction",
             "DirtboundKingdomBP/functions/give_trader.mcfunction",
+            "DirtboundKingdomBP/functions/bonus_spawn.mcfunction",
             "DirtboundKingdomRP/manifest.json",
             "DirtboundKingdomRP/textures/item_texture.json",
             "DirtboundKingdomRP/textures/items/trader_ledger.png",
