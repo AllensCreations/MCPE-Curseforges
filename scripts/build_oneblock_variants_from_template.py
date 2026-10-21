@@ -57,7 +57,12 @@ def patch_numeric_tag(raw: bytes, tag_type: int, name: str, value: int) -> bytes
         raise ValueError(f"Missing required NBT tag {name!r} in level.dat")
     start = index + len(prefix)
     size = sizes[tag_type]
-    packed = {1: struct.pack("<b", value), 3: struct.pack("<i", value), 4: struct.pack("<q", value)}[tag_type]
+    if tag_type == 1:
+        packed = struct.pack("<b", value)
+    elif tag_type == 3:
+        packed = struct.pack("<i", value)
+    else:
+        packed = struct.pack("<q", value)
     return raw[:start] + packed[:size] + raw[start + size:]
 
 
