@@ -2,7 +2,7 @@
 
 **By AllensCreations**
 
-Dirtbound Kingdom is a OneBlock challenge built around a central block, a coin economy, a permanent trading station, and ten progression stages. The Creative `.mcworld` is the designated tester world for checking gameplay before relying on the Survival or Hardcore variants.
+Dirtbound Kingdom is a OneBlock challenge built around a central block, a coin economy, a permanent trading station, and ten progression stages. The Creative `.mcworld` is the recommended first world for checking gameplay; Creative, Survival, and Hardcore worlds are built from their matching uploaded world templates.
 
 ## Overview
 
