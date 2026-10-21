@@ -1,6 +1,6 @@
 # Team Inventory (v1.0.13)
 
-Download **Team Inventory** for Minecraft Bedrock Edition.
+Download the current release of **Team Inventory** for Minecraft Bedrock Edition.
 
 ## Download
 
@@ -10,10 +10,10 @@ Download **Team Inventory** for Minecraft Bedrock Edition.
 
 ## Installation
 
-1. Download the package above.
+1. Download the file using the link above.
 2. Open it with Minecraft to import it.
-3. For a pack, activate it in the relevant world settings if Minecraft does not enable it automatically.
+3. Activate the imported pack in your world's settings if Minecraft does not enable it automatically.
 
-## Project Details
+## Project Information
 
-Read the [full description](https://github.com/AllensCreations/MCPE-Curseforges/blob/main/MCPEDL/script/Shared-Hivemind-Inventory/DESCRIPTION.md) for gameplay details, instructions, requirements, and limitations.
+Read the [full description](https://github.com/AllensCreations/MCPE-Curseforges/blob/main/MCPEDL/script/Shared-Hivemind-Inventory/DESCRIPTION.md) for gameplay details, usage, requirements, and limitations.

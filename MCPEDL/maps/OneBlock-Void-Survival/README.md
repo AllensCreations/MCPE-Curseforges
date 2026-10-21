@@ -1,6 +1,6 @@
-# OneBlock Void Survival (v1.2.6) — Progressive Void World by AllensCreations
+# OneBlock Void Survival (v1.2.6)
 
-Download **OneBlock Void Survival — Progressive Void World by AllensCreations** for Minecraft Bedrock Edition.
+Download the current release of **OneBlock Void Survival** for Minecraft Bedrock Edition.
 
 ## Download
 
@@ -10,10 +10,10 @@ Download **OneBlock Void Survival — Progressive Void World by AllensCreations*
 
 ## Installation
 
-1. Download the package above.
+1. Download the file using the link above.
 2. Open it with Minecraft to import it.
-3. For a pack, activate it in the relevant world settings if Minecraft does not enable it automatically.
+3. Find the imported world in your Worlds list and open it.
 
-## Project Details
+## Project Information
 
-Read the [full description](https://github.com/AllensCreations/MCPE-Curseforges/blob/main/MCPEDL/maps/OneBlock-Void-Survival/DESCRIPTION.md) for gameplay details, instructions, requirements, and limitations.
+Read the [full description](https://github.com/AllensCreations/MCPE-Curseforges/blob/main/MCPEDL/maps/OneBlock-Void-Survival/DESCRIPTION.md) for gameplay details, usage, requirements, and limitations.
