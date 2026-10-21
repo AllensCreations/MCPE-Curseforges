@@ -1,8 +1,12 @@
-# OneBlock: Dirtbound Kingdom Beta (v0.1.16) — MCAddon Test Build
+# OneBlock: Dirtbound Kingdom Beta (v0.1.18) — OneBlock Survival Economy Test Build
 
 **By AllensCreations**
 
-This test package brings a longer OneBlock survival economy with ten evolving core stages, ten shop tiers, and a permanent Trader Post. It contains the Behavior Pack and Resource Pack but does not include a prebuilt world.
+Dirtbound Kingdom is a OneBlock survival challenge built around a central block, a coin economy, a permanent trading station, and ten progression stages. This release is a Behavior Pack and Resource Pack test package; it does not contain a prebuilt world.
+
+## Overview
+
+Start at the center of the world with the core at **0 64 0**, Bedrock directly underneath at **0 63 0**, and world spawn at **0 65 0**. The setup is designed to restore the starting Dirt if the core position is empty, even if progression data is not ready. The world spawn spread is set to zero; this changes world spawn behavior but does not teleport players already in the world.
 
 ## Ten Core Stages
 
@@ -23,10 +27,10 @@ Use suitable pickaxes for later blocks. The core stage is shared by the world, w
 
 ## Permanent Trader Access
 
-- A permanent Trader Post is restored at coordinates `2 65 0` whenever that position is air.
+- A permanent Trader Post is maintained at **2 65 0**.
 - Interact with the Trader Post barrel to open the shop without needing the custom item.
 - The OneBlock Trader Ledger can be recovered through the Trader menu, and the add-on attempts to restore it if it is missing from the player's inventory.
-- The existing `/function give_trader` recovery command remains available to the host.
+- The host can also use the existing trader recovery function.
 
 ## Trading and Balanced Progression
 
@@ -41,27 +45,24 @@ Use suitable pickaxes for later blocks. The core stage is shared by the world, w
 
 ## Permanent Colored Scoreboard
 
-A normal Minecraft sidebar scoreboard stays visible instead of using the thin, temporary action-bar strip. Its title is colored, and it displays each player's current OneCoins balance.
+A normal Minecraft sidebar scoreboard displays each player's current OneCoins balance. Its title uses the Dirtbound Kingdom color scheme rather than a temporary action-bar display.
 
 ## Test Setup
 
 1. Import the MCAddon and create a new, disposable Bedrock world.
 2. Enable both imported packs.
-3. Check that the central core position (`0 64 0`) is air or the intended core block, and that the Trader Post position (`2 65 0`) is available.
+3. Confirm that the core is present at **0 64 0**, Bedrock is at **0 63 0**, and world spawn is **0 65 0**.
 4. Break the central block and verify the mining counter, OneCoin balance, and block stage.
 5. Confirm the core reappears after each break, including when a break advances the shared stage.
-6. Confirm the colored OneCoins sidebar remains visible while playing.
-7. Interact with the Trader Post barrel to open the shop. Test Ledger recovery by removing the item from your inventory.
-8. Watch for bonus blocks and the 500-break Core Surge.
-
-The scheduled block function restores the correct core stage when its scoreboard is available, with a Dirt fallback if stage data is missing. A successful core break also triggers immediate restoration after rewards and progression update. It does not clear terrain or build a void platform, so test in a disposable world with the intended OneBlock platform.
+6. Interact with the Trader Post barrel to open the shop. Test Ledger recovery by removing the item from your inventory.
+7. Check the bonus block and 500-break Core Surge after normal progression.
 
 ## Compatibility and Test Notes
 
 - Target platform: Minecraft Bedrock Edition 1.26+.
 - Package format: MCAddon containing a Behavior Pack and Resource Pack.
-- This package is for testing and does not contain a world save.
-- The automated package build and syntax checks do not replace live in-game testing. Stage hardness, station interaction, mob spawning, item recovery, and the economy should be tested in Minecraft.
+- This package is for testing and does not contain a world save or prebuilt platform.
+- Automated package and syntax checks do not replace live in-game testing. The block-spawn issue has been addressed in source, but this environment cannot launch Minecraft to confirm in-game behavior.
 - Experimental settings, achievement status, and multiplayer balance have not been verified.
 
 ## Guidelines and Attribution
