@@ -1,19 +1,18 @@
-name: Build OneBlock Dirtbound Kingdom Beta
+name: Test OneBlock Dirtbound Kingdom Add-on
 
 on:
   workflow_dispatch:
   push:
     paths:
-      - 'Assets/Oneblock-assets.mcworld'
       - 'MCPEDL/maps/OneBlock-Dirtbound-Kingdom-Beta/**'
-      - 'scripts/build_dirtbound_beta.py'
+      - 'scripts/build_dirtbound_addon.py'
       - '.github/workflows/build-dirtbound-beta.yml'
 
 permissions:
   contents: write
 
 jobs:
-  build:
+  build-addon-test:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
@@ -24,23 +23,27 @@ jobs:
         uses: actions/setup-python@v5
         with:
           python-version: "3.x"
-      - name: Build complete world from the repository OneBlock source
-        run: python3 scripts/build_dirtbound_beta.py
-      - name: Upload beta world
+      - name: Check JavaScript syntax
+        run: |
+          cp MCPEDL/maps/OneBlock-Dirtbound-Kingdom-Beta/behavior_pack/scripts/main.js /tmp/main.mjs
+          node --check /tmp/main.mjs
+      - name: Build and validate MCAddon test package
+        run: python3 scripts/build_dirtbound_addon.py
+      - name: Upload MCAddon test package
         uses: actions/upload-artifact@v4
         with:
-          name: OneBlock-Dirtbound-Kingdom-Beta-v0.1.7
-          path: builds/OneBlock-Dirtbound-Kingdom-Beta/*.mcworld
+          name: OneBlock-Dirtbound-Kingdom-MCAddon-Test-v0.1.8
+          path: builds/OneBlock-Dirtbound-Kingdom-Beta/*.mcaddon
           retention-days: 90
-      - name: Publish beta world to repository
+      - name: Publish MCAddon test package
         run: |
           set -euo pipefail
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add builds/OneBlock-Dirtbound-Kingdom-Beta/*.mcworld
+          git add builds/OneBlock-Dirtbound-Kingdom-Beta/*.mcaddon
           if git diff --staged --quiet; then
-            echo "No new beta world to publish."
+            echo "No new MCAddon test package to publish."
           else
-            git commit -m "build(map): publish Dirtbound Kingdom beta world [skip ci]"
+            git commit -m "build(addon): publish Dirtbound Kingdom MCAddon test package [skip ci]"
             git push origin HEAD:${GITHUB_REF_NAME}
           fi
