@@ -66,6 +66,22 @@ def patch_numeric_tag(raw: bytes, tag_type: int, name: str, value: int) -> bytes
     return raw[:start] + packed[:size] + raw[start + size:]
 
 
+def add_root_numeric_tag(raw: bytes, tag_type: int, name: str, value: int) -> bytes:
+    """Append a missing root-level numeric NBT tag before the root END marker."""
+    if len(raw) < 9 or raw[-1] != 0:
+        raise ValueError("Cannot safely append a root NBT tag: invalid compound terminator.")
+    if tag_type == 1:
+        packed = struct.pack("<b", value)
+    elif tag_type == 3:
+        packed = struct.pack("<i", value)
+    elif tag_type == 4:
+        packed = struct.pack("<q", value)
+    else:
+        raise ValueError(f"Unsupported root numeric NBT type: {tag_type}")
+    payload = raw[8:-1] + tag_prefix(tag_type, name) + packed + raw[-1:]
+    return raw[:4] + struct.pack("<I", len(payload)) + payload
+
+
 def patch_string_tag(raw: bytes, name: str, value: str) -> bytes:
     prefix = tag_prefix(8, name)
     index = raw.find(prefix, 8)
@@ -114,7 +130,11 @@ def patch_level_dat(path: Path, world_name: str, mode: str) -> None:
         ("commandsEnabled", int(creative)),
         ("hasBeenLoadedInCreative", int(creative)),
     ):
-        raw = patch_numeric_tag(raw, 1, name, value)
+        if name == "IsHardcore" and tag_prefix(1, name) not in raw[8:]:
+            # Older valid worlds may predate Bedrock's explicit Hardcore flag.
+            raw = add_root_numeric_tag(raw, 1, name, value)
+        else:
+            raw = patch_numeric_tag(raw, 1, name, value)
     for name, value in (
         ("instabuild", int(creative)),
         ("invulnerable", int(creative)),
