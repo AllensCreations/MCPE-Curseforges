@@ -1,63 +1,57 @@
-# OneBlock: Dirtbound Kingdom Beta (v0.1.0)
+# OneBlock: Dirtbound Kingdom Beta (v0.1.3) — Trading Survival
 
 **By AllensCreations**
 
-Start with one regenerating Dirt block in the void and build a life through a small survival economy. Sell collected Dirt for OneCoins, purchase essential supplies, and unlock better shop phases as you mine more blocks.
+Build a life from a single Dirt block in the void. Collect Dirt, exchange it for OneCoins, and use your OneBlock Trader to buy supplies and grow your island.
 
 ## Overview
 
-The OneBlock remains Dirt at **(0, 64, 0)**. Bedrock is maintained directly beneath it at **(0, 63, 0)**, and the world spawn is set to **(0, 65, 0)**. The beta uses the supplied OneBlock world as its base and adds a purchase menu and a three-stage starter economy.
+This map uses the repository's complete OneBlock source world as its baseline. The central Dirt block is at (0, 64, 0), Bedrock is directly below at (0, 63, 0), and the world spawn is set above it at (0, 65, 0).
 
 ## Key Features
 
-### One Dirt Block
-- **Description**: Break the central Dirt block to collect Dirt. The block regenerates as Dirt, keeping the challenge centered on one permanent source.
+### OneBlock Trader
+- Receive a custom OneBlock Trader item when you join for the first time.
+- Hold the item and interact with it to open the Trading UI.
+- Buy supplies, sell all Dirt in your inventory, or check your balance and progress from the menu.
 
-### OneCoins Economy
-- **Description**: New players start with 50 OneCoins. Sell all Dirt in your inventory for 1 OneCoin per block using !sell.
+### OneCoins
+- Start with 50 OneCoins.
+- Exchange each Dirt block in your inventory for 1 OneCoin.
+- Currency and mined-block progress are tracked separately for each player.
 
-### Purchase UI
-- **Description**: Open the shop with !shop. Choose a phase and buy survival essentials directly into your inventory. The first phase includes wood, food, seeds, cobblestone, a Wooden Pickaxe, and Torches.
-
-### Three Beta Phases
-- **Description**: Phase 1 is available immediately. Phase 2 unlocks after 20 blocks mined, and Phase 3 unlocks after 50 blocks mined. Each phase offers seven purchases to help expand your island and survival options.
-
-### Balance and Help
-- **Description**: Use !balance to check your OneCoins or !help to view the basic controls.
+### Three Supply Phases
+- **Castaway Supplies:** available from the start, with wood, food, seeds, tools, and torches.
+- **Settler Supplies:** unlock after 20 blocks mined, adding a Furnace, Chest, Water Bucket, and Iron Ingots.
+- **Adventurer Supplies:** unlock after 50 blocks mined, adding an Iron Pickaxe, Shield, Bow, Arrows, Glass, Lanterns, and Diamonds.
 
 ## How to Play
 
-1. Break the Dirt block at the center to collect Dirt.
-2. Type !sell to sell all Dirt in your inventory.
-3. Type !shop to open the purchase menu.
-4. Spend OneCoins on supplies and build outward from the OneBlock.
-5. Mine 20 blocks to unlock Phase 2, then 50 blocks to unlock Phase 3.
+1. Break the central Dirt block to collect Dirt.
+2. Hold the OneBlock Trader and interact with it to open the Trading UI.
+3. Choose **Sell All Dirt** to receive OneCoins.
+4. Choose **Buy Supplies** to browse unlocked categories and purchase items.
+5. Mine 20 blocks to unlock Settler Supplies and 50 blocks to unlock Adventurer Supplies.
 
-## Beta Notes
+## Compatibility and Beta Notes
 
-- This is an early beta build with three shop phases and a starter economy.
-- The map has not yet been tested inside Minecraft.
-- Achievements and experiment status are unknown because the imported world's full settings and in-game behavior have not been verified.
+- Target platform: Minecraft Bedrock Edition 1.26+.
+- The world package includes a Behavior Pack and Resource Pack.
+- The package structure has been checked; in-game interaction and shop behavior still need testing inside Minecraft.
+- Experimental settings and achievement status have not been confirmed from an in-game inspection.
 
-## Compatibility
-
-- Minecraft Bedrock Edition: 1.26+ target, using stable module versions listed in the pack.
-- Complete world package: .mcworld.
-- In-game testing: Not yet performed.
-
-## Guidelines and Attribution
+## Creator and Permissions
 
 - Creator: AllensCreations
+- [CurseForge Profile](https://www.curseforge.com/members/allenscreations/projects)
+- [MCPEDL Profile](https://mcpedl.com/user/allenscreations/)
 - Rights & Reservation: All rights reserved for AllensCreations.
-- Content Creators: Permitted to feature this creation in videos and streams with credit to AllensCreations.
-- Redistribution: Do not re-upload this pack or provide direct monetized download bypasses. Link directly to the official repository page.
+- Content creators may feature this creation in videos and streams with credit to AllensCreations. Do not re-upload or redistribute the package without permission.
 
 ---
 
 © All rights reserved for AllensCreations.
 
----
-
 ## Search & Discovery Keywords
 
-Minecraft Bedrock OneBlock map, Dirtblock survival economy, OneBlock shop UI, Minecraft OneBlock phases, void survival map, OneCoins shop, Minecraft PE custom world, MCPEDL map, CurseForge Bedrock, AllensCreations.
+Minecraft Bedrock OneBlock map, Dirtbound Kingdom, OneBlock Trader item, interactive trading UI, Dirt selling economy, OneCoins survival, void island survival, Minecraft PE OneBlock, MCPEDL map, CurseForge Bedrock, AllensCreations.
