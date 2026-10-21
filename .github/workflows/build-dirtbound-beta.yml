@@ -58,29 +58,27 @@ jobs:
           PY
       - name: Build and validate current MCAddon
         run: python3 scripts/build_dirtbound_addon.py
-      - name: Publish generated package
+      - name: Publish tester package
         run: |
           set -euo pipefail
-          output_dir="builds/OneBlock-Dirtbound-Kingdom-Beta"
+          output_dir="MCPEDL/maps/OneBlock-Dirtbound-Kingdom-Beta/Tester Build"
           version="$(python3 -c 'import json; print(".".join(map(str, json.load(open("MCPEDL/maps/OneBlock-Dirtbound-Kingdom-Beta/behavior_pack/manifest.json"))["header"]["version"])))')"
-          current_file="OneBlock Dirtbound Kingdom Beta by AllensCreations (V${version}).mcaddon"
+          current_file="OneBlock Dirtbound Kingdom Beta Tester Build (V${version}).mcaddon"
           test -s "$output_dir/$current_file"
-          # Remove old combined packages so downloads cannot silently stay on a stale version.
           find "$output_dir" -maxdepth 1 -type f -name '*.mcaddon' ! -name "$current_file" -delete
           git add "$output_dir"
           if git diff --cached --quiet; then
-            echo "The committed package already matches the generated package."
+            echo "The committed tester package already matches the generated package."
             exit 0
           fi
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git commit -m "Build OneBlock Dirtbound Kingdom v${version} package"
-          # Other repository automation may commit concurrently; rebase before publishing.
+          git commit -m "Build OneBlock Dirtbound Kingdom v${version} tester package"
           git pull --rebase origin main
           git push
-      - name: Upload current MCAddon
+      - name: Upload tester MCAddon
         uses: actions/upload-artifact@v4
         with:
-          name: OneBlock-Dirtbound-Kingdom-MCAddon
-          path: builds/OneBlock-Dirtbound-Kingdom-Beta/*.mcaddon
+          name: OneBlock-Dirtbound-Kingdom-Tester-Build
+          path: "MCPEDL/maps/OneBlock-Dirtbound-Kingdom-Beta/Tester Build/*.mcaddon"
           retention-days: 90
