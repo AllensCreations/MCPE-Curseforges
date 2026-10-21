@@ -177,12 +177,12 @@ def make_platform_pack(target: Path, project_slug: str) -> tuple[str, list[int]]
     }
     (target / "manifest.json").write_text(json.dumps(manifest, indent=2) + "\n", encoding="utf-8")
     (functions / "tick.json").write_text(json.dumps({"values": ["oneblock_setup"]}, indent=2) + "\n", encoding="utf-8")
+    # The map's primary Behavior Pack owns the evolving OneBlock at (0, 64, 0).
+    # This auxiliary pack must only protect the footing; it must never replace
+    # a stage block (including Grass) or compete with progression recovery.
     lines = [
         "gamerule spawnradius 0",
         "execute if block 0 63 0 air run setblock 0 63 0 bedrock",
-        "execute if block 0 64 0 air run setblock 0 64 0 dirt",
-        "execute if block 0 64 0 grass_block run setblock 0 64 0 dirt",
-        "setworldspawn 0 65 0",
     ]
     (functions / "oneblock_setup.mcfunction").write_text("\n".join(lines) + "\n", encoding="utf-8")
     return pack_uuid, version
