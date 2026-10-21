@@ -53,7 +53,7 @@ Leave your main hand free to hold your pickaxe, weapon, or torches while the sat
 
 ### Automatic Collection
 - **Control / Trigger**: Stand within 8 blocks of dropped items
-- **Outcome**: Items are drawn toward your player coordinate until normal item pickup occurs.
+- **Outcome**: Items are drawn toward your player until normal item pickup occurs.
 
 ### Safe Inventory Handling
 - **Control / Trigger**: Normal inventory behavior
@@ -63,7 +63,7 @@ Leave your main hand free to hold your pickaxe, weapon, or torches while the sat
 
 ## Crafting Recipes
 
-The Magnetic Satchel can be crafted at any crafting table using either of the following shaped recipes:
+Craft the Magnetic Satchel at a crafting table using either of these recipes:
 
 ### Recipe 1: Ender Pearl Core
 - **Top Row**: Leather, Iron Ingot, Leather
