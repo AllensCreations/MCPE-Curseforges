@@ -1,14 +1,18 @@
-# Changelog
+# Changelog — Harvest Intelligence
 
-## v1.0.2
+---
 
-- Corrected sweet berry bush growth-state detection for automatic replanting.
-- Made startup logging independent of the release version.
+## [1.0.2] - 2026-10-18
 
-## v1.0.0
+### Fixed
+- **Sweet Berry Bush Replanting:** Replanting now recognizes the supported bush growth states correctly.
 
-- Added normal-break harvesting support for selected vanilla crops.
-- Added inventory-aware replanting for supported mature crops.
-- Added a notification when a mature supported crop is harvested without the matching planting item.
-- Added bounded nearby monitoring to attempt recovery from accidental player trampling of farmland crops.
-- Preserved vanilla drop generation by allowing the original crop break to complete.
+---
+
+## [1.0.0] - 2026-10-18
+
+### Added
+- **Automatic Replanting:** Supported mature crops are replanted after normal harvesting when the matching planting item is available.
+- **Planting Supply Notice:** A short notification appears when a harvested crop cannot be replanted because the required planting item is missing.
+- **Crop Trampling Recovery:** The add-on makes a best-effort attempt to restore supported crops affected by accidental trampling.
+- **Vanilla Harvest Drops:** Minecraft continues to handle normal crop drops.
