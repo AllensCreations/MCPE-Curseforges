@@ -2,7 +2,6 @@ import { world, system, ItemStack } from "@minecraft/server";
 import { ActionFormData, MessageFormData } from "@minecraft/server-ui";
 
 const ORIGIN={x:0,y:0,z:0};
-const TRADER_POS={x:2,y:1,z:0};
 const BONUS_POS={x:1,y:1,z:0};
 
 const TRADER_ITEM="allenscreations:trader_ledger";
@@ -64,7 +63,6 @@ function initializeCoreIfMissing(dimension){try{const block=dimension.getBlock(O
 function restoreCoreImmediately(dimension){try{const block=dimension.getBlock(ORIGIN);if(block&&(block.typeId==="minecraft:air"||block.typeId==="minecraft:grass_block"))block.setType("minecraft:"+STAGES[stageFor(globalScore("#breaks"))].block)}catch{}}
 function onCoreBreak(p){initialize(p);const personal=mined(p)+1;const total=globalScore("#breaks")+1;setScore(MINED,p,personal);setGlobal("#breaks",total);updateCoreStage();const stage=STAGES[stageFor(total)];setScore(COINS,p,balance(p)+stage.reward);const stageReward=STAGE_REWARDS.find(r=>r.blocks===personal);if(stageReward){setScore(COINS,p,balance(p)+stageReward.coins);tell(p,personal+" personal breaks! Stage bonus: +"+stageReward.coins+" OneCoins.")}if(personal>0&&personal%250===0){setScore(COINS,p,balance(p)+20);tell(p,"Milestone reached: "+personal+" personal breaks. +20 bonus OneCoins.")}if(total>0&&total%500===0){setScore(COINS,p,balance(p)+50);tell(p,"Core Surge milestone! +50 OneCoins.");spawnMobWave(p)}if(Math.random()<1/40)spawnBonus(p);for(const s of SHOPS)if(s.unlock>0&&s.unlock===personal)tell(p,"New shop unlocked: "+s.name+"!");const newStage=STAGES.find(s=>s.unlock===total);if(newStage)tell(p,"The central OneBlock evolved into the "+newStage.name+"! It is tougher to mine; use better pickaxes.");}
 world.afterEvents.itemUse.subscribe(e=>{if(e.itemStack?.typeId!==TRADER_ITEM)return;const p=e.source;if(p?.typeId==="minecraft:player")system.run(()=>showMain(p))});
-world.afterEvents.playerInteractWithBlock.subscribe(e=>{const p=e.player,b=e.block,l=b.location;if(b.typeId==="minecraft:lectern"&&l.x===TRADER_POS.x&&l.y===TRADER_POS.y&&l.z===TRADER_POS.z)system.run(()=>showMain(p))});
 world.afterEvents.playerBreakBlock.subscribe(e=>{const b=e.block,loc=b.location,p=e.player;if(!p)return;if(loc.x===BONUS_POS.x&&loc.y===BONUS_POS.y&&loc.z===BONUS_POS.z&&globalScore("#bonus")===1){setGlobal("#bonus",0);setScore(COINS,p,balance(p)+30);tell(p,"Bonus Core collected! +30 OneCoins.");if(Math.random()<0.2)spawnMobWave(p);return}if(b.dimension.id!=="minecraft:overworld"||loc.x!==ORIGIN.x||loc.y!==ORIGIN.y||loc.z!==ORIGIN.z)return;system.run(()=>{onCoreBreak(p);restoreCoreImmediately(b.dimension)})});
 system.runInterval(()=>{if(!coreInitializationComplete&&world.getAllPlayers().some(p=>{try{return p.hasTag("void_cleaned")}catch{return false}}))initializeCoreIfMissing(world.getDimension("overworld"))},1);
 world.afterEvents.playerSpawn.subscribe(e=>system.runTimeout(()=>{initialize(e.player);recoverTrader(e.player)},5));
