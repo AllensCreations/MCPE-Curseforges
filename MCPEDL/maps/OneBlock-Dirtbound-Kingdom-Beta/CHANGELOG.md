@@ -2,6 +2,13 @@
 
 ---
 
+## [0.1.15] - 2026-10-21
+
+### Fixed
+- **Immediate core restoration:** The central block returns as soon as a successful break is processed, using the newly unlocked stage when progression changes.
+- **Consistent mining rewards:** Core restoration does not trigger a second player-break reward.
+
+
 ## [0.1.14] - 2026-10-21
 
 ### Improved & Balanced
