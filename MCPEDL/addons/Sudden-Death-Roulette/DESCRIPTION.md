@@ -1,9 +1,11 @@
-# Sudden Death Roulette (v1.0.0) — The Diamond Race by AllensCreations
+# Sudden Death Roulette (v1.0.1) — The Diamond Race by AllensCreations
 
 [![Minecraft Bedrock](https://img.shields.io/badge/Minecraft%20Bedrock-1.21.0%2B-brightgreen?style=flat-square&logo=minecraft)](https://github.com/AllensCreations/MCPE-Curseforges)
 [![Format](https://img.shields.io/badge/Format-.MCPACK-orange?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/addons#available-add-ons)
 
 **By AllensCreations**
+
+Explore more creations: [CurseForge Profile](https://www.curseforge.com/members/allenscreations/projects) · [MCPEDL Profile](https://mcpedl.com/user/allenscreations/)
 
 **ESCALATING SURVIVAL CHALLENGE & PERILOUS DIAMOND HUNT**
 
