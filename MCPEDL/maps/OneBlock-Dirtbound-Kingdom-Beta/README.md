@@ -1,4 +1,4 @@
-# OneBlock: Dirtbound Kingdom Beta (v0.1.10)
+# OneBlock: Dirtbound Kingdom Beta (v0.1.11)
 
 Download the OneBlock Behavior Pack and Resource Pack as an MCAddon test package for Minecraft Bedrock Edition.
 
