@@ -109,12 +109,28 @@ def main() -> None:
     for mode, template in TEMPLATES.items():
         require(template.is_file(), f"{mode} reference world is missing: {template.relative_to(ROOT)}")
         require(template.stat().st_size > 0, f"{mode} reference world is empty: {template.relative_to(ROOT)}")
+        extracted = ROOT / "Mcpeworlds" / "Extracted" / mode
+        if extracted.exists():
+            require((extracted / "level.dat").is_file(),
+                    f"{mode} extracted template must contain level.dat at its root: {extracted.relative_to(ROOT)}")
+
+    for document_name in ("README.md", "DESCRIPTION.md"):
+        document = (PROJECT / document_name).read_text(encoding="utf-8")
+        for coordinate in ("0 0 0", "0 -1 0", "0 1 0", "2 1 0"):
+            require(coordinate in document,
+                    f"{document_name} must document Dirtbound's current coordinate {coordinate}")
+        for stale_coordinate in ("0 64 0", "0 63 0", "0 65 0", "2 65 0"):
+            require(stale_coordinate not in document,
+                    f"{document_name} contains obsolete Dirtbound coordinate {stale_coordinate}")
 
     builder = BUILDER.read_text(encoding="utf-8")
     require("db/CURRENT" in builder and "world_behavior_packs.json" in builder,
             "world builder must preserve LevelDB and verify world pack links")
-    require("SOURCE_WORLDS" in builder and "locate_world_root" in builder,
-            "world builder must use the uploaded mode-specific world templates")
+    require("SOURCE_WORLDS" in builder and "SOURCE_ARCHIVES" in builder and "Extracted" in builder
+            and "locate_world_root" in builder,
+            "world builder must prefer editable extracted templates and retain archive fallback")
+    require("expected_cleaner" in builder and "33x33 Y=-64" in builder,
+            "world builder must verify the exact bounded Void Cleaner in each generated archive")
     require("Mcpeworlds" in builder,
             "world builder must use the uploaded Mcpeworlds templates")
     require("MODES = (\"Creative\", \"Survival\", \"Hardcore\")" in builder,
