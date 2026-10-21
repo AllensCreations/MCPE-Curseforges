@@ -2,6 +2,15 @@
 
 ---
 
+## [0.1.16] - 2026-10-21
+
+### Fixed
+- **Core spawning fallback:** The OneBlock now has a Dirt fallback if stage scoreboard data is unavailable, while stage-specific restoration remains first in priority.
+
+### Improved
+- **Permanent colored scoreboard:** Replaced the thin temporary action-bar strip with the normal Minecraft sidebar scoreboard, using a colored Dirtbound Kingdom title and showing players' OneCoins balances. The sidebar is re-applied on startup and periodically to keep it visible.
+
+
 ## [0.1.15] - 2026-10-21
 
 ### Fixed
