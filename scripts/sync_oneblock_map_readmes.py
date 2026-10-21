@@ -92,7 +92,7 @@ def build_readme(project: Path) -> str:
         lines.extend([
             f"The map source is v{version}, but these world archives are missing or do not link the current pack versions: "
             + ", ".join(stale_or_missing) + ".",
-            "Existing downloads may be from an earlier source version. World rebuilding remains gated until the Creative mechanics have been tested in Minecraft, each matching Mcpeworlds foundation contains its own complete LevelDB, and rebuilding is explicitly approved.",
+            "Existing downloads may be from an earlier source version. World archives are not rebuilt automatically; run the OneBlock world-build workflow manually when you want to regenerate them. Each matching Mcpeworlds foundation must contain its own complete LevelDB.",
         ])
 
     lines.extend([
