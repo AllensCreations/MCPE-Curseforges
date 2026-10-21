@@ -6,6 +6,7 @@ foundation. When a source has no db/ directory, the builder creates a fresh,
 independent empty LevelDB only in temporary build staging. It never adds a
 database to Mcpeworlds/ and never borrows chunks or terrain from another world.
 An existing but incomplete source database is treated as an error.
+"""
 from __future__ import annotations
 
 import json
