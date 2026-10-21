@@ -12,8 +12,6 @@ Passive Auto-Switch Tools is an intelligent survival add-on that automates tool 
 
 Hotbar slots 2 through 9 remain completely unmanaged, ensuring uninterrupted building, offhand usage, and consumable item management.
 
-![Passive Auto-Switch Tools Icon](https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/MCPEDL/addons/Passive-Auto-Switch-Tools/pack_icon.png)
-
 ---
 
 ## Mechanics and Operation
@@ -90,6 +88,11 @@ Item components are preserved during swaps:
 - **With Passive Auto-Switch Tools**: Zero scoreboard or command setup required
 
 ---
+
+## Creator Profiles
+
+- [CurseForge Profile](https://www.curseforge.com/members/allenscreations/projects)
+- [MCPEDL Profile](https://mcpedl.com/user/allenscreations/)
 
 ## Guidelines and Attribution
 

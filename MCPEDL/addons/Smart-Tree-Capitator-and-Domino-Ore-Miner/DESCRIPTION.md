@@ -204,6 +204,11 @@ Domino Ore Miner checks all 26 spatial neighbors (faces, edges, and corners) usi
 
 ---
 
+## Creator Profiles
+
+- [CurseForge Profile](https://www.curseforge.com/members/allenscreations/projects)
+- [MCPEDL Profile](https://mcpedl.com/user/allenscreations/)
+
 ## Guidelines and Attribution
 
 - Creator: AllensCreations

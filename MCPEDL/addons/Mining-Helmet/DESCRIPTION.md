@@ -87,6 +87,11 @@ Combine a standard **Torch** with a **Golden Helmet** to craft the Level 10 Mini
 
 ---
 
+## Creator Profiles
+
+- [CurseForge Profile](https://www.curseforge.com/members/allenscreations/projects)
+- [MCPEDL Profile](https://mcpedl.com/user/allenscreations/)
+
 ## Guidelines and Attribution
 
 - Creator: AllensCreations
