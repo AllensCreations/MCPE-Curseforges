@@ -164,4 +164,4 @@ Equipping a Saddle onto supported large companions enables manual mounting and d
 
 ## Search & Discovery Keywords
 
-Minecraft Bedrock monster companions, tame hostile mobs, rideable spiders creepers, beast biscuit taming, bodyguard mobs Bedrock, companion add-on, MCPEDL, CurseForge, AllensCreations.
+Monster Companions Bedrock add-on, Combat Pacification System Minecraft Bedrock, Companion Squad Mechanics Minecraft Bedrock, Mount Mechanics and Bedrock Ride UI Minecraft Bedrock, Undead Minecraft Bedrock, Minecraft PE mod, MCPEDL add-on, CurseForge Bedrock, AllensCreations.

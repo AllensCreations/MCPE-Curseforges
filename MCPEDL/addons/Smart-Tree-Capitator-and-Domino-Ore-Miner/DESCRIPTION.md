@@ -224,4 +224,4 @@ Domino Ore Miner checks all 26 spatial neighbors (faces, edges, and corners) usi
 
 ## Search & Discovery Keywords
 
-Minecraft Bedrock tree capitator, domino ore miner, sneak vein mining, chain ore miner, Bedrock lumberjack mod, tool durability safety, Minecraft PE mining mod, MCPEDL, CurseForge, AllensCreations.
+Smart Tree Capitator and Domino Ore Miner Bedrock add-on, Sneak Minecraft Bedrock, Mineral Category Normalization Minecraft Bedrock, Durability Safety Guard Minecraft Bedrock, Unbreaking Respect Minecraft Bedrock, Minecraft PE mod, MCPEDL add-on, CurseForge Bedrock, AllensCreations.

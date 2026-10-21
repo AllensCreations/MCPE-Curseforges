@@ -113,4 +113,4 @@ Item components are preserved during swaps:
 
 ## Search & Discovery Keywords
 
-Minecraft Bedrock auto switch tools, intelligent tool switcher, Slot 1 auto equip, Bedrock weapon auto swap, survival tool selector, touch controls optimization, MCPEDL, CurseForge, AllensCreations.
+Passive Auto-Switch Tools - Automatic Tool Selection by AllensCreations Bedrock add-on, Hotbar Slot 1 Activation Minecraft Bedrock, Block Minecraft Bedrock, Tier Priority Hierarchy Minecraft Bedrock, Item Integrity and Preservation Minecraft Bedrock, Minecraft PE mod, MCPEDL add-on, CurseForge Bedrock, AllensCreations.

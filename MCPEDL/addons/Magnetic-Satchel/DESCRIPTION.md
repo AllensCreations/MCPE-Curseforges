@@ -114,4 +114,4 @@ The Magnetic Satchel can be crafted at any crafting table using either of the fo
 
 ## Search & Discovery Keywords
 
-Minecraft Bedrock item magnet, magnetic satchel offhand, vacuum dropped items, item pull utility, hands-free ore pickup, Minecraft PE magnet mod, MCPEDL, CurseForge, AllensCreations.
+Magnetic Satchel Bedrock add-on, Offhand Equippable Minecraft Bedrock, Impulse Physics Minecraft Bedrock, Particle Trails Minecraft Bedrock, Quick Toggle Switch Minecraft Bedrock, Minecraft PE mod, MCPEDL add-on, CurseForge Bedrock, AllensCreations.

@@ -111,4 +111,4 @@ Combine a standard **Torch** with a **Golden Helmet** to craft the Level 10 Mini
 
 ## Search & Discovery Keywords
 
-Minecraft Bedrock dynamic lighting, wearable mining helmet, moving light source, Bedrock lantern helmet, cave exploration mod, hands-free torch light, MCPEDL, CurseForge, AllensCreations. (CI test)
+Mining Helmet Bedrock add-on, Mining Helmet (Lantern) Minecraft Bedrock, Mining Helmet (Torch) Minecraft Bedrock, Handheld / Offhand Lantern Minecraft Bedrock, Handheld / Offhand Torch Minecraft Bedrock, Minecraft PE mod, MCPEDL add-on, CurseForge Bedrock, AllensCreations.
