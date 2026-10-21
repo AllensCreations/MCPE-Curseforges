@@ -12,6 +12,12 @@ on:
 permissions:
   contents: write
 
+# Only the newest source revision should publish a package; older runs can
+# otherwise race and attempt to rebase conflicting binary archives.
+concurrency:
+  group: dirtbound-kingdom-build
+  cancel-in-progress: true
+
 jobs:
   build-addon-test:
     runs-on: ubuntu-latest
