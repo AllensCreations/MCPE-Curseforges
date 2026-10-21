@@ -11,3 +11,14 @@
 
 ### Fixed
 - The world builder now starts from the repository's complete OneBlock source world and preserves its world database.
+
+## [0.1.5] - 2026-10-21
+
+### Added
+- Expanded the Trader shop to 180 purchasable entries across ten progression tiers.
+- Added mining milestones from the Settler tier through Kingdom Master.
+
+### Improved
+- Adjusted shop prices to scale with progression and keep starter supplies accessible.
+- Purchases deduct coins only for items successfully delivered.
+- Updated the world builder to package the complete source world as a `.mcworld` release.
