@@ -1,15 +1,17 @@
 # Editable Minecraft Bedrock World Templates
 
-This folder contains the three mode-specific reference archives used by the OneBlock world builder:
+This folder contains the three editable, mode-specific world references used by the OneBlock world builder:
 
-- Creative: `Creative_Void_Sandbox.mcworld.zip`
-- Survival: `Survival_Void_World.mcworld.zip`
-- Hardcore: `Hardcore_Void_World.mcworld.zip`
+- `Creative/` — Creative reference
+- `Survival/` — Survival reference
+- `Hardcore/` — Hardcore reference
 
 ## Editing
 
-Use the extracted editable copies in `Extracted/Creative/`, `Extracted/Survival/`, and `Extracted/Hardcore/`. The sync workflow extracts archive references into these folders when initializing or refreshing them. When a commit changes files under `Extracted/`, the workflow packages the edited folders back into the three archives.
+Open the matching folder and edit its files directly. These are the canonical sources; there are no duplicate `.mcworld.zip` archives and no nested `Extracted/` folder. Changes under `Mcpeworlds/` trigger source validation and the OneBlock build workflow, which regenerates the Creative, Survival, and Hardcore Dirtbound output worlds.
 
-The current reference templates do not contain LevelDB databases. They can still provide inspectable world metadata/settings, but the build process must use the documented database carrier until complete reference worlds with `db/CURRENT` and real database files are supplied. Do not assume reference terrain/chunks are preserved.
+## Important database limitation
 
-After template or map-source changes, the build workflow regenerates all three Dirtbound world variants. Creative remains the only designated in-game tester; there is no Tester Build.
+The three reference folders contain readable world metadata and pack setup but do not contain complete LevelDB databases (`db/CURRENT` and database data files). The builder currently uses a complete world only as a database carrier. Its terrain/chunks may therefore come from that carrier; do not assume the original reference terrain is preserved.
+
+Creative remains the only designated in-game tester. There is no Tester Build, and static validation is not proof of an in-game test.

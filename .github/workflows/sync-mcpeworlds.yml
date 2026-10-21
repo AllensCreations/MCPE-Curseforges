@@ -1,4 +1,4 @@
-name: Sync Editable Mcpeworld Templates
+name: Validate Editable Mcpeworld Templates
 
 on:
   push:
@@ -9,53 +9,17 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: write
-
-concurrency:
-  group: sync-mcpeworld-templates-${{ github.ref }}
-  cancel-in-progress: false
+  contents: read
 
 jobs:
-  sync:
+  validate:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
-        with:
-          ref: ${{ github.ref }}
-          fetch-depth: 0
-
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
           python-version: '3.11'
-
-      - name: Choose synchronization direction
-        id: direction
-        shell: bash
-        run: |
-          set -euo pipefail
-          changed="$(git diff-tree --no-commit-id --name-only -r HEAD)"
-          if grep -q '^Mcpeworlds/Extracted/' <<< "$changed"; then
-            echo "mode=package" >> "$GITHUB_OUTPUT"
-          else
-            echo "mode=extract" >> "$GITHUB_OUTPUT"
-          fi
-
-      - name: Extract references for readable editing or package edited folders
-        run: python scripts/sync_mcpeworld_templates.py "${{ steps.direction.outputs.mode }}"
-
-      - name: Commit synchronized references
-        shell: bash
-        run: |
-          set -euo pipefail
-          git add -- Mcpeworlds
-          if git diff --cached --quiet; then
-            echo "Reference files already synchronized."
-            exit 0
-          fi
-          git config user.name "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
-          git commit -m "chore(mcpeworlds): sync extracted templates and archives [skip ci]"
-          git pull --rebase origin "${GITHUB_REF_NAME}"
-          git push origin "HEAD:${GITHUB_REF_NAME}"
+      - name: Validate the canonical editable world folders
+        run: python scripts/sync_mcpeworld_templates.py

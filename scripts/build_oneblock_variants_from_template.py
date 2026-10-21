@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
-"""Build OneBlock worlds from the three user-supplied mode-specific templates.
+"""Build OneBlock worlds from the three editable mode-specific world folders.
 
-Each Mcpeworlds archive is the source of truth for its own mode metadata and
-settings. Because these uploads omit LevelDB, a known-complete Bedrock world is
-used only as a database carrier; its metadata and packs are never copied.
+The folders provide mode metadata/settings. Because they omit LevelDB, a
+known-complete Bedrock world is used only as a database carrier; its metadata
+and packs are never copied.
 """
 from __future__ import annotations
 
@@ -20,14 +20,9 @@ ROOT = Path(__file__).resolve().parents[1]
 MAPS_ROOT = ROOT / "MCPEDL" / "maps"
 PROJECT = MAPS_ROOT / "OneBlock-Dirtbound-Kingdom-Beta"
 SOURCE_WORLDS = {
-    "Creative": ROOT / "Mcpeworlds" / "Extracted" / "Creative",
-    "Survival": ROOT / "Mcpeworlds" / "Extracted" / "Survival",
-    "Hardcore": ROOT / "Mcpeworlds" / "Extracted" / "Hardcore",
-}
-SOURCE_ARCHIVES = {
-    "Creative": ROOT / "Mcpeworlds" / "Creative_Void_Sandbox.mcworld.zip",
-    "Survival": ROOT / "Mcpeworlds" / "Survival_Void_World.mcworld.zip",
-    "Hardcore": ROOT / "Mcpeworlds" / "Hardcore_Void_World.mcworld.zip",
+    "Creative": ROOT / "Mcpeworlds" / "Creative",
+    "Survival": ROOT / "Mcpeworlds" / "Survival",
+    "Hardcore": ROOT / "Mcpeworlds" / "Hardcore",
 }
 # The three uploaded references contain metadata and pack setup but no LevelDB.
 # Use this known-complete world only as a database carrier, never for its settings/packs.
@@ -161,12 +156,10 @@ def read_manifest(path: Path) -> dict[str, Any]:
 
 def build_variant(project: Path, map_name: str, mode: str) -> Path:
     source_world = SOURCE_WORLDS[mode]
-    source_archive = SOURCE_ARCHIVES[mode]
-    use_extracted_folder = source_world.is_dir()
-    if not use_extracted_folder and not source_archive.is_file():
+    if not source_world.is_dir() or not (source_world / "level.dat").is_file():
         raise FileNotFoundError(
-            f"Required mode-specific Mcpeworlds template is missing: {source_world} and {source_archive}. "
-            "Refusing to publish a fabricated empty LevelDB world."
+            f"Required editable mode-specific Mcpeworlds folder is missing or incomplete: {source_world}. "
+            "The builder uses these folders directly and no archive fallback is configured."
         )
     bp_source = project / "behavior_pack"
     rp_source = project / "resource_pack"
@@ -184,10 +177,7 @@ def build_variant(project: Path, map_name: str, mode: str) -> Path:
     with tempfile.TemporaryDirectory(prefix="dirtbound-world-") as temp:
         staging = Path(temp) / "staging"
         staging.mkdir()
-        if use_extracted_folder:
-            shutil.copytree(source_world, staging, dirs_exist_ok=True)
-        else:
-            safe_extract(source_archive, staging)
+        shutil.copytree(source_world, staging, dirs_exist_ok=True)
         world = locate_world_root(staging)
 
         # The uploaded mode references have level metadata but no db/LevelDB.
