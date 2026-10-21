@@ -1,6 +1,6 @@
 # OneBlock: Dirtbound Kingdom Beta (v0.1.20)
 
-Download the OneBlock world for Minecraft Bedrock Edition. **The Creative world is the designated tester** for checking the OneBlock mechanics before you rely on the Survival or Hardcore variants.
+Download the OneBlock world for Minecraft Bedrock Edition. The Creative world is the recommended first world for checking OneBlock mechanics; matching Creative, Survival, and Hardcore archives are rebuilt automatically from their corresponding world templates.
 
 ## World Downloads
 
@@ -12,7 +12,7 @@ Use this world first to test the starting block, footing, spawn, Trader access, 
 
 **[Download Hardcore World (.mcworld)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/MCPEDL/maps/OneBlock-Dirtbound-Kingdom-Beta/OneBlock%20Dirtbound%20Kingdom%20Beta%20-%20Hardcore.mcworld)**
 
-The committed world archives are the previous build and may not include the latest v0.1.20 source changes. Test the existing Creative world first; after the mechanics are confirmed in Minecraft, the Creative, Survival, and Hardcore archives can be regenerated together.
+World archives are regenerated automatically after map-source or reference-template changes. Structural validation confirms archive contents and pack links, but actual gameplay still needs to be tested in Minecraft.
 
 ## Test Instructions
 
