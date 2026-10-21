@@ -10,7 +10,7 @@ Source files for survival challenges, minigames, and script modules by AllensCre
 | Team Inventory | 1.0.13 | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/script/Shared-Hivemind-Inventory/) | [MCPACK](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Shared-Hivemind-Inventory/Team%20Inventory%20by%20AllensCreations%20%28V1.0.13%29.mcpack) |
 | Tethered: Breaker & Builder | 1.0.6 | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/script/Tethered-Breaker-And-Builder/) | [MCPACK](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Tethered-Breaker-And-Builder/Tethered%20Breaker%20and%20Builder%20by%20AllensCreations%20%28V1.0.6%29.mcpack) |
 
-The catalog is automatically updated by the add-on generation workflow.
+Download links point to the currently published package files.
 
 ## Attribution
 

@@ -10,7 +10,7 @@ Source files for newly generated Minecraft Bedrock add-ons by AllensCreations.
 | Swarm Mob Booster | 1.0.5 | [Source](Swarm-Mob-Booster/) | [MCPACK](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Swarm-Mob-Booster/Swarm%20Mob%20Booster%20by%20AllensCreations%20%28V1.0.5%29.mcpack) |
 | Melody Figurine | 1.0.11 | [Source](Melody-Figurine/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Melody-Figurine/Melody%20Figurine%20by%20AllensCreations%20%28V1.0.11%29.mcaddon) |
 
-The catalog is automatically updated by the add-on generation workflow.
+Download links point to the currently published package files.
 
 ## Attribution
 
