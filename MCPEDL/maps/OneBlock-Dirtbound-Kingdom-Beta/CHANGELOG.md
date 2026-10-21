@@ -4,9 +4,9 @@
 
 ## [0.1.24] - 2026-10-21
 
-### Changed
+### Improved & Balanced
 - **Cleaner Starting Area:** The starting area is cleared before the central block progression begins.
-- **Trader Ledger Shop Access:** The Trader Ledger is the only way to open the shop; there is no physical Trader Post block.
+- **Trader Ledger Shop Access:** The Trader Ledger is the only way to open the shop.
 - **Live Balance Display:** The OneCoins balance appears in the action bar instead of a sidebar display.
 
 ## [0.1.23] - 2026-10-21
@@ -14,13 +14,13 @@
 ### Changed
 - Removed the lectern and all physical Trader Post blocks.
 - Made the custom Trader Ledger item the only way to open the shop.
-- Removed automatic lectern recovery; the item remains the sole shop access method.
+- Removed the old lectern-based shop access; the Trader Ledger is the only way to open the shop.
 
 ## [0.1.22] - 2026-10-21
 
 ### Changed
-- Removed the Trader Post barrel and replaced it with a lectern at the same coordinates.
-- Replaced the sidebar balance display with live OneCoins text in the action bar.
+- Changed the original shop station during the transition to item-only shop access.
+- Replaced the sidebar balance with live OneCoins text in the action bar.
 - Simplified currency and mining status text; no special Minecoin or wooden-pickaxe symbols are required.
 
 ### Fixed
@@ -32,7 +32,7 @@
 
 ### Fixed
 - **Reliable world setup:** The starting area is cleaned before OneBlock progression begins.
-- **Stable core startup:** The central block initializes after the starting-area cleanup, preventing setup from replacing the intended starting block.
+- **Stable Core Startup:** The central block initializes after the starting-area cleanup.
 
 ## [0.1.20] - 2026-10-21
 
@@ -44,16 +44,16 @@
 ## [0.1.18] - 2026-10-21
 
 ### Fixed
-- **Reliable starting block:** The central Dirt now has a direct recovery path that does not depend on saved progression data being available.
-- **Correct starting location:** World spawn is set to 0 65 0 with spawn spread disabled, without teleporting players who are already online.
-- **Restored foundation and Trader Post:** Missing Bedrock and the permanent Trader Post are restored automatically.
+- **Reliable Starting Block:** The central Dirt can recover if saved progression information is unavailable.
+- **Correct Starting Location:** World spawn is configured during setup without teleporting players who are already online.
+- **Restored Foundation:** Missing Bedrock footing is restored automatically.
 
 ## [0.1.17] - 2026-10-21
 
 ### Fixed
 - **Reliable starting platform:** The OneBlock now initializes as Dirt at 0 64 0, with a Bedrock footing at 0 63 0.
-- **Correct world spawn:** The world spawn is set to 0 65 0 during one-time setup, without teleporting players.
-- **Platform protection:** Missing Bedrock footing and the Trader Post are restored by the scheduled function.
+- **Correct World Spawn:** The starting spawn is set during one-time setup without moving players who are already online.
+- **Platform Protection:** The Bedrock footing is restored if it is missing.
 
 ## [0.1.16] - 2026-10-21
 
@@ -66,7 +66,7 @@
 ## [0.1.15] - 2026-10-21
 
 ### Fixed
-- **Immediate core restoration:** The central block returns as soon as a successful break is processed, using the newly unlocked stage when progression changes.
+- **Immediate Core Restoration:** The central block returns after a successful break, using the newly unlocked stage when progression changes.
 - **Consistent mining rewards:** Core restoration does not trigger a second player-break reward.
 
 ## [0.1.14] - 2026-10-21
@@ -92,7 +92,7 @@
 ## [0.1.11] - 2026-10-21
 
 ### Fixed
-- **Mining progress tracking:** Central OneBlock breaks now read the block's actual position, so each successful break advances the mining counter and updates the OneCoin balance.
+- **Mining Progress:** Breaking the central block advances the mining counter and updates the OneCoin balance.
 - **Dirt sales:** Dirt is only removed after the balance update succeeds, preventing lost inventory when the economy is not ready.
 
 ### Improved & Balanced
@@ -104,14 +104,14 @@
 ## [0.1.10] - 2026-10-21
 
 ### Changed
-- **Core Recovery:** The central Dirt returns when its position is empty, without replacing an occupied block.
+- **Core Recovery:** The central Dirt returns when its position is empty, without replacing another block.
 - Added the custom OneBlock Trader item.
 - Kept shop access, currency, purchases, and progression together in the add-on.
 
 ## [0.1.8] - 2026-10-21
 
 ### Fixed
-- Corrected a malformed line break in the trading script that prevented the script from parsing.
+- Fixed a problem that prevented the trading interface from loading.
 
 ## [0.1.7] - 2026-10-21
 
