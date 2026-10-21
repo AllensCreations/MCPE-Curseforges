@@ -68,6 +68,9 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
 
+          # Persist the extracted source template on the first successful build.
+          # Subsequent runs reuse these files instead of extracting the archive again.
+          git add assets/oneblock-template/
           git add "${{ env.OUTPUT_DIR }}/*.mcworld"
           if git diff --staged --quiet; then
             echo "No changes to commit."
