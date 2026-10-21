@@ -10,6 +10,14 @@ Download the current published OneBlock world for Minecraft Bedrock Edition.
 
 These are the currently published world files from the previous build; they have **not** been rebuilt with source v0.1.21 or the cleaner-priority fix. Updated world generation remains paused until complete matching world data is available and the Creative gameplay has been tested in Minecraft.
 
+## Dirtbound Setup Coordinates
+
+- OneBlock core: `0 0 0`
+- Bedrock footing: `0 -1 0`
+- World spawn: `0 1 0`
+- Permanent Trader Post: `2 1 0`
+- The first-join Void Cleaner clears only the 33 × 33 square from `-16 -64 -16` through `16 -64 16` on the single layer `Y = -64`.
+
 ## Installation
 
 1. Download the Creative world first.
