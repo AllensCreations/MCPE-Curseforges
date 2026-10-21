@@ -1,9 +1,5 @@
 # Changelog — Monster Companions
 
-Player-facing updates for **Monster Companions** by AllensCreations.
-
----
-
 ## [1.0.8] - 2026-10-19
 
 ### Fixed

@@ -72,7 +72,7 @@
 - **Domino Ore Miner Ancient Debris Cap**: Capped contiguous Ancient Debris chain mining to a maximum of 4 blocks (`MAX_ANCIENT_DEBRIS_CLUSTER_SIZE: 4`) to preserve Netherite vein discovery balance.
 - **Durability Safety Guard Threshold**: Tuned durability safety guard threshold from 5 to 1 durability point, giving players maximum tool usage before emergency protection activates.
 - **Stonecutter Woodcutter All 12 Woods**: Added full Stonecutter recipe support for Pale Oak (Logs to Planks, Slabs, Stairs, Fences, Fence Gates, and Trapdoors), completing support for all 12 wood variants in Minecraft Bedrock.
-- **Standalone BP Compatibility**: Decoupled the Resource Pack UUID dependency from `behavior_pack/manifest.json`, allowing the Behavior Pack (`.mcpack`) to run independently without "missing pack" warnings, while still bundling seamlessly in the `.mcaddon`.
+- **Standalone BP Compatibility**: Decoupled the Resource Pack UUID dependency from `behavior_pack/pack settings`, allowing the Behavior Pack (`.mcpack`) to run independently without "missing pack" warnings, while still bundling seamlessly in the `.mcaddon`.
 
 ---
 

@@ -7,7 +7,6 @@
 - Made the custom Trader Ledger item the only way to open the shop.
 - Removed automatic lectern recovery; the item remains the sole shop access method.
 
-
 ## [0.1.22] - 2026-10-21
 
 ### Changed
@@ -17,7 +16,6 @@
 
 ### Fixed
 - Balance text refreshes regularly and displays the live player balance.
-
 
 ---
 
@@ -38,7 +36,6 @@
 ### Improved
 - **World foundation safety:** Published world downloads remain unchanged until complete matching world data is available and the Creative world has been tested in Minecraft.
 
-
 ## [0.1.18] - 2026-10-21
 
 ### Fixed
@@ -46,14 +43,12 @@
 - **Correct starting location:** World spawn is set to 0 65 0 with spawn spread disabled, without teleporting players who are already online.
 - **Restored foundation and Trader Post:** Missing Bedrock and the permanent Trader Post are restored automatically.
 
-
 ## [0.1.17] - 2026-10-21
 
 ### Fixed
 - **Reliable starting platform:** The OneBlock now initializes as Dirt at 0 64 0, with a Bedrock footing at 0 63 0.
 - **Correct world spawn:** The world spawn is set to 0 65 0 during one-time setup, without teleporting players.
 - **Platform protection:** Missing Bedrock footing and the Trader Post are restored by the scheduled function.
-
 
 ## [0.1.16] - 2026-10-21
 
@@ -63,20 +58,17 @@
 ### Improved
 - **Permanent colored scoreboard:** Replaced the thin temporary action-bar strip with the normal Minecraft sidebar scoreboard, using a colored Dirtbound Kingdom title and showing players' OneCoins balances. The sidebar is re-applied on startup and periodically to keep it visible.
 
-
 ## [0.1.15] - 2026-10-21
 
 ### Fixed
 - **Immediate core restoration:** The central block returns as soon as a successful break is processed, using the newly unlocked stage when progression changes.
 - **Consistent mining rewards:** Core restoration does not trigger a second player-break reward.
 
-
 ## [0.1.14] - 2026-10-21
 
 ### Improved & Balanced
 - **Core difficulty curve:** Reordered the late-game blocks so Ancient Debris precedes Obsidian, followed by Crying Obsidian and a Block of Netherite.
 - **Shared progress display:** The status bar now shows both the current core stage and the world's total core-break count.
-
 
 ## [0.1.13] - 2026-10-21
 
@@ -91,7 +83,6 @@
 - **Tier-based mining rewards:** Later core stages grant more OneCoins per break to help fund better tools and supplies.
 - **Regular milestones:** Every 250 personal breaks grants a small bonus, alongside the larger shop-tier rewards.
 - **Trader recovery:** The Ledger is automatically restored when missing and inventory space is available.
-
 
 ## [0.1.11] - 2026-10-21
 

@@ -1,7 +1,5 @@
 # Changelog — Smart Tree Capitator and Domino Ore Miner
 
----
-
 ## [1.0.6] - 2026-10-16
 
 ### Added & Improved
