@@ -1,0 +1,78 @@
+name: Auto Build Minecraft Packages
+
+on:
+  push:
+    # Run for every pushed change on every branch.
+    branches:
+      - '**'
+  pull_request:
+    # Validate and build proposed changes before they are merged.
+    branches:
+      - '**'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: auto-build-packages-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  build:
+    name: Build and validate distributable packages
+    # Prevent generated commits from starting another build cycle.
+    if: "!contains(github.event.head_commit.message, '[skip ci]')"
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
+
+      - name: Build .mcpack and .mcaddon packages
+        run: python3 scripts/auto_bump_and_build.py --all --no-bump
+
+      - name: Build OneBlock .mcworld variants
+        # The builder validates each source foundation and fails rather than
+        # fabricating or borrowing a LevelDB database.
+        run: python3 scripts/build_oneblock_variants_from_template.py
+
+      - name: Synchronize OneBlock map download pages
+        run: python3 scripts/sync_oneblock_map_readmes.py
+
+      - name: Validate pack manifest titles and attribution
+        run: python3 scripts/validate_manifest_titles.py
+
+      - name: Upload generated package artifacts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: minecraft-packages-${{ github.run_number }}
+          path: |
+            MCPEDL/**/*.mcpack
+            MCPEDL/**/*.mcaddon
+            MCPEDL/**/*.mcworld
+          if-no-files-found: warn
+          retention-days: 14
+
+      - name: Commit generated packages and synchronized pages
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add -A -- MCPEDL builds packs minigames maps README.md
+          if git diff --cached --quiet; then
+            echo "No generated package or documentation changes to commit."
+            exit 0
+          fi
+          git commit -m "build: automatically rebuild Minecraft packages [skip ci]"
+          git push origin HEAD:main
