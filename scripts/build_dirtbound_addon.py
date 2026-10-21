@@ -44,6 +44,9 @@ def build() -> Path:
     required = [
         BP / "scripts" / "main.js",
         BP / "items" / "trader_ledger.json",
+        BP / "functions" / "tick.json",
+        BP / "functions" / "oneblock_tick.mcfunction",
+        BP / "functions" / "give_trader.mcfunction",
         RP / "textures" / "item_texture.json",
         RP / "textures" / "items" / "trader_ledger.png",
     ]
@@ -63,9 +66,22 @@ def build() -> Path:
                for dep in bp_dependencies):
         raise ValueError("Behavior Pack must depend on the matching Resource Pack version.")
 
+    tick_config = read_json(BP / "functions" / "tick.json")
+    if "oneblock_tick" not in tick_config.get("values", []):
+        raise ValueError("tick.json must schedule oneblock_tick.")
+    tick_function = (BP / "functions" / "oneblock_tick.mcfunction").read_text(encoding="utf-8")
+    if "execute if block 0 64 0 air run setblock 0 64 0 dirt" not in tick_function:
+        raise ValueError("OneBlock tick function must restore Dirt only when the center is air.")
+    give_function = (BP / "functions" / "give_trader.mcfunction").read_text(encoding="utf-8")
+    if "give @s allenscreations:trader_ledger 1" not in give_function:
+        raise ValueError("give_trader function must give the custom Trader item.")
     main_js = (BP / "scripts" / "main.js").read_text(encoding="utf-8")
     if r"\nconst SHOPS=" in main_js:
         raise ValueError("main.js still contains a literal \\n before the SHOPS declaration.")
+    if "maintain()" in main_js or "setblock" in main_js or "GameMode" in main_js:
+        raise ValueError("Block generation and game-mode handling must stay outside main.js.")
+    if "function initialize(p)" not in main_js:
+        raise ValueError("main.js must initialize player economy scores.")
 
     OUT_DIR.mkdir(parents=True, exist_ok=True)
     output.unlink(missing_ok=True)
@@ -85,6 +101,9 @@ def build() -> Path:
             "DirtboundKingdomBP/manifest.json",
             "DirtboundKingdomBP/scripts/main.js",
             "DirtboundKingdomBP/items/trader_ledger.json",
+            "DirtboundKingdomBP/functions/tick.json",
+            "DirtboundKingdomBP/functions/oneblock_tick.mcfunction",
+            "DirtboundKingdomBP/functions/give_trader.mcfunction",
             "DirtboundKingdomRP/manifest.json",
             "DirtboundKingdomRP/textures/item_texture.json",
             "DirtboundKingdomRP/textures/items/trader_ledger.png",
