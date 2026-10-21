@@ -1,16 +1,7 @@
 name: Build OneBlock Creative, Survival, and Hardcore Worlds
 
 on:
-  # Automatically rebuild all variants when map source or world foundations change.
-  push:
-    branches:
-      - main
-    paths:
-      - 'MCPEDL/maps/**'
-      - 'Mcpeworlds/**'
-      - 'scripts/build_oneblock_variants_from_template.py'
-      - 'scripts/sync_oneblock_map_readmes.py'
-      - '.github/workflows/build-oneblock-variants.yml'
+  # World archives are built only when manually requested.
   workflow_dispatch:
 
 permissions:
