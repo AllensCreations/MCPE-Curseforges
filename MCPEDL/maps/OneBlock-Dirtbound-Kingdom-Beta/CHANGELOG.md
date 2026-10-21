@@ -10,10 +10,10 @@
 - **Pack version alignment:** Behavior Pack and Resource Pack versions now match at 0.1.20.
 
 ### Improved
-- **Automatic source checks:** Map source changes now trigger static validation of manifests, function wiring, Script API syntax, the HTML reference, and the world builder.
-- **World build safety:** Source validation does not generate world archives. New Creative, Survival, and Hardcore worlds remain gated on testing the Creative world in Minecraft.
+- **Automatic source checks:** Map source changes now trigger static validation of manifests, function wiring, Script API syntax, the three uploaded world templates and the world builder.
+- **World build safety:** The Creative, Survival, and Hardcore archives are rebuilt automatically from their matching uploaded world templates. Structural checks do not replace in-game testing.
 
-Note: These changes are source updates only. No new .mcworld archives were generated, and gameplay remains unverified in Minecraft.
+Note: Static checks do not prove that gameplay works in Minecraft.
 
 
 ## [0.1.18] - 2026-10-21
