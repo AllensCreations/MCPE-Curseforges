@@ -2,6 +2,21 @@
 
 ---
 
+## [0.1.13] - 2026-10-21
+
+### Added
+- **Permanent Trader Post:** Open the shop from the base station, recover a missing Trader Ledger, and keep access even after losing the item.
+- **Ten evolving core stages:** The central block progresses from Dirt to a Block of Netherite as the world reaches 6,000 total breaks.
+- **Bonus Emerald Block:** Find an occasional bonus block and claim 30 OneCoins, with a chance of a hostile encounter.
+- **Core Surge events:** Every 500 world-wide breaks grants a coin bonus and starts a hostile mob challenge.
+- **Kingdom Prestige:** Players who reach 6,000 personal breaks may reset their own shop progress for bonus coins and a permanent Prestige level.
+
+### Improved & Balanced
+- **Tier-based mining rewards:** Later core stages grant more OneCoins per break to help fund better tools and supplies.
+- **Regular milestones:** Every 250 personal breaks grants a small bonus, alongside the larger shop-tier rewards.
+- **Trader recovery:** The Ledger is automatically restored when missing and inventory space is available.
+
+
 ## [0.1.11] - 2026-10-21
 
 ### Fixed
