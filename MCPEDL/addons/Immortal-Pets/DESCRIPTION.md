@@ -10,8 +10,7 @@ Immortal Pets automatically protects selected tamed companions in the Overworld,
 
 - Infinite Resistance, Fire Resistance, and Water Breathing effects.
 - Automatic health recovery and poison-effect removal.
-- Protection is refreshed as supported pets appear and when their area loads.
-- Protection recovery when entities spawn or chunks reload.
+- Protection is refreshed when supported pets appear and when their area loads.
 - Selective protection for cats, wolves, parrots, horses, donkeys, mules, skeleton horses, zombie horses, and llamas.
 - **Special name rule:** A selected, tamed pet named EID is killed.
 - No custom gameplay items or player-run commands.
@@ -39,7 +38,7 @@ Choose one subpack in Behavior Pack settings:
 - Experimental features: The pack does not declare a requirement for experimental toggles.
 - Achievement support: The add-on is designed without cheats or experimental toggles. Actual achievement availability can still depend on Minecraft version, platform, and world settings.
 
-Protection cannot guarantee survival against every possible game mechanic, command, despawn, or API event. Test environmental damage and reload behavior in the target Bedrock version before relying on it for a permanent world.
+Protection cannot guarantee survival against every game mechanic, command, or despawn scenario. Test environmental damage and reload behavior in the target Bedrock version before relying on it for a permanent world.
 
 ## Credits & Usage
 
