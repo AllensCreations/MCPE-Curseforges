@@ -36,9 +36,9 @@ import urllib.parse
 REPO_ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
 GITHUB_RAW = "https://github.com/AllensCreations/MCPE-Curseforges/raw/main"
 
-# Dirtbound is a OneBlock world project with a gameplay-test gate. It must not
-# be packaged as a standalone .mcaddon/.mcpack by the generic add-on builder.
-EXCLUDED_AUTOMATED_PROJECTS = {"OneBlock-Dirtbound-Kingdom-Beta"}
+# Dirtbound participates in automatic source/version processing, but its .mcworld
+# archives must only be rebuilt by the dedicated, test-gated world workflow.
+TEST_GATED_WORLD_PROJECTS = {"OneBlock-Dirtbound-Kingdom-Beta"}
 
 # ─────────────────────────────────────────────────────────────────────────────
 # Git helpers
@@ -92,8 +92,6 @@ def find_target_project_dirs():
         if os.path.isdir(cat_path):
             for p in glob.glob(os.path.join(cat_path, "*")):
                 if not os.path.isdir(p):
-                    continue
-                if os.path.basename(p) in EXCLUDED_AUTOMATED_PROJECTS:
                     continue
                 projects[p] = cat
     return projects
@@ -1139,7 +1137,13 @@ def main():
             print(f"  Version: v{old_v} → v{new_v}")
 
         # ── Build packages with standardized filename format ───────────────
-        primary_file, built_files = rebuild_project_packages(cp, cat, new_v)
+        # Dirtbound is included in automatic source/version processing, but its
+        # world archives remain protected by the dedicated in-game-test gate.
+        if proj_name in TEST_GATED_WORLD_PROJECTS:
+            primary_file, built_files = None, None
+            print("  Test-gated world project: skipping generic package rebuild; existing .mcworld files are untouched.")
+        else:
+            primary_file, built_files = rebuild_project_packages(cp, cat, new_v)
 
         # ── Synchronize all Directory README files & links ─────────────────
         update_readmes(cp, cat, old_v, new_v, primary_file, built_files)
