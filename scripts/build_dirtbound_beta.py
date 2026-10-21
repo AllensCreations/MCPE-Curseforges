@@ -14,8 +14,8 @@ BP_SOURCE = PROJECT / "behavior_pack"
 RP_SOURCE = PROJECT / "resource_pack"
 BP_UUID = "8d4d93bf-c8b2-4df4-9f28-52f4f8f08b10"
 RP_UUID = "e8d8136a-7a5b-4818-b813-61c21f2e71ad"
-VERSION = [0, 1, 6]
-WORLD_NAME = "OneBlock Dirtbound Kingdom Beta by AllensCreations (V0.1.6)"
+VERSION = [0, 1, 7]
+WORLD_NAME = "OneBlock Dirtbound Kingdom Beta by AllensCreations (V0.1.7)"
 OUTPUT = ROOT / "builds" / "OneBlock-Dirtbound-Kingdom-Beta" / f"{WORLD_NAME}.mcworld"
 
 
@@ -44,6 +44,27 @@ def rename_level_dat(path: Path, name: str) -> None:
     path.write_bytes(raw[:4] + len(payload).to_bytes(4, "little") + payload)
 
 
+def enforce_survival_level(path: Path) -> None:
+    """Set the copied world's saved default game mode to Survival."""
+    raw = bytearray(path.read_bytes())
+    # Bedrock level.dat uses little-endian NBT after its 8-byte file header.
+    # Patch the existing root-level GameType integer without changing world storage keys.
+    tag = b"\\x03\\x08\\x00GameType"
+    index = raw.find(tag, 8)
+    if index < 0:
+        raise ValueError("Could not locate the saved GameType tag in level.dat.")
+    value_at = index + len(tag)
+    raw[value_at:value_at + 4] = (0).to_bytes(4, "little", signed=True)
+    # Keep the copied world's default difficulty on Hard; Survival is still the
+    # player's game mode, while Hardcore remains dependent on the source world's saved setting.
+    difficulty_tag = b"\\x03\\x0a\\x00Difficulty"
+    difficulty_index = raw.find(difficulty_tag, 8)
+    if difficulty_index >= 0:
+        difficulty_at = difficulty_index + len(difficulty_tag)
+        raw[difficulty_at:difficulty_at + 4] = (3).to_bytes(4, "little", signed=True)
+    path.write_bytes(raw)
+
+
 def build() -> Path:
     if not SOURCE.is_file():
         raise FileNotFoundError(f"Required OneBlock source world is missing: {SOURCE}. Do not substitute another world.")
@@ -63,6 +84,8 @@ def build() -> Path:
         safe_extract(SOURCE, world_dir)
         if not (world_dir / "level.dat").is_file() or not (world_dir / "db").is_dir():
             raise ValueError("The repository OneBlock source archive is incomplete; expected level.dat and db/.")
+
+        enforce_survival_level(world_dir / "level.dat")
 
         for filename in ("level.dat", "level.dat_old"):
             metadata = world_dir / filename
