@@ -29,19 +29,20 @@ def main() -> int:
             if expected not in lines:
                 errors.append(f"Cleaner command missing or incorrect: {setup.relative_to(ROOT)}")
         db = world / "db"
-        if not (db / "CURRENT").is_file():
-            print(f"WARNING: {mode} source has no db/CURRENT; build uses documented database carrier.")
-        else:
-            data_files = [p for p in db.iterdir() if p.is_file() and p.name not in
-                          {"CURRENT", "LOCK", "LOG", "LOG.old"} and not p.name.startswith("MANIFEST")]
-            if not data_files:
-                errors.append(f"LevelDB data files are missing under {db.relative_to(ROOT)}")
+        data_files = [p for p in db.iterdir() if p.is_file() and p.name not in
+                      {"CURRENT", "LOCK", "LOG", "LOG.old"} and not p.name.startswith("MANIFEST")] if db.is_dir() else []
+        if not (db / "CURRENT").is_file() or not data_files:
+            print(
+                f"BLOCKER: {mode} source lacks a complete LevelDB database. "
+                "The world builder will not borrow another world's database or terrain."
+            )
     if errors:
         print("Mcpeworlds source validation failed:")
         for error in errors:
             print(f"- {error}")
         return 1
-    print("Validated the three canonical Mcpeworlds folders (Creative, Survival, Hardcore).")
+    print("Validated the structure and bounded Void Cleaner of the three canonical Mcpeworlds folders.")
+    print("World generation remains blocked for any mode reported above until its own complete LevelDB is supplied.")
     return 0
 
 
