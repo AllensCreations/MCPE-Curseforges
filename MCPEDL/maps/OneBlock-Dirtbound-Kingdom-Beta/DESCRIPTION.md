@@ -1,4 +1,4 @@
-# OneBlock: Dirtbound Kingdom Beta (source v0.1.21)
+# OneBlock: Dirtbound Kingdom Beta (source v0.1.22)
 
 **By AllensCreations**
 
@@ -25,10 +25,10 @@ The shared central block becomes tougher as the world-wide break count increases
 
 Use suitable pickaxes for later blocks. The core stage is shared by the world, while shop unlocks and personal milestone rewards are tracked separately for each player.
 
-## Permanent Trader Access
+## Trader Access
 
-- A permanent Trader Post is maintained at **2 1 0**.
-- Interact with the Trader Post barrel to open the shop without needing the custom item.
+- A lectern at **2 1 0** marks the Trader Post; interact with it to open the shop.
+- The OneBlock Trader Ledger also opens the shop when used.
 - The OneBlock Trader Ledger can be recovered through the Trader menu, and the add-on attempts to restore it if it is missing from the player's inventory.
 - The host can also use the existing trader recovery function.
 
@@ -43,9 +43,9 @@ Use suitable pickaxes for later blocks. The core stage is shared by the world, w
 - A bonus Emerald Block can appear above the platform. Breaking it grants 30 OneCoins, with a 20% chance of triggering a hostile mob wave.
 - After 6,000 personal breaks, Kingdom Prestige can reset that player's personal shop progress for +500 OneCoins and one permanent Prestige level. The shared core does not reset, so prestige is an optional harder challenge.
 
-## Permanent Colored Scoreboard
+## Live Balance Text
 
-A normal Minecraft sidebar scoreboard displays each player's current OneCoins balance. Its title uses the Dirtbound Kingdom color scheme rather than a temporary action-bar display.
+Your current OneCoins balance appears as a persistent action-bar text line. It updates regularly and does not use the sidebar scoreboard.
 
 ## Test Setup
 
@@ -54,7 +54,7 @@ A normal Minecraft sidebar scoreboard displays each player's current OneCoins ba
 3. Confirm that the core is present at **0 0 0**, Bedrock is at **0 -1 0**, and world spawn is **0 1 0**.
 4. Break the central block and verify the mining counter, OneCoin balance, and block stage.
 5. Confirm the core reappears after each break, including when a break advances the shared stage.
-6. Interact with the Trader Post barrel to open the shop. Test Ledger recovery by removing the item from your inventory.
+6. Interact with the Trader Post lectern to open the shop. Test Ledger recovery by removing the item from your inventory.
 7. Check the bonus block and 500-break Core Surge after normal progression.
 
 ## Compatibility and Test Notes
@@ -62,7 +62,7 @@ A normal Minecraft sidebar scoreboard displays each player's current OneCoins ba
 - Target platform: Minecraft Bedrock Edition 1.26+.
 - Package format: `.mcworld` complete world.
 - Use the Creative world as the tester. The Survival and Hardcore variants are kept alongside it.
-- The current add-on source version is 0.1.21; the currently published `.mcworld` downloads remain from the previous build. The direct editable folders under Mcpeworlds/Creative/, Mcpeworlds/Survival/, and Mcpeworlds/Hardcore/ are the intended mode-specific foundations. Each needs its own complete world database before a new world archive can be generated. World generation remains paused until complete matching world data is supplied, the Creative mechanics are tested in Minecraft, and a rebuild is approved.
+- The current add-on source version is 0.1.22; the currently published `.mcworld` downloads remain from the previous build. The direct editable folders under Mcpeworlds/Creative/, Mcpeworlds/Survival/, and Mcpeworlds/Hardcore/ are the intended mode-specific foundations. Each needs its own complete world database before a new world archive can be generated. World generation remains paused until complete matching world data is supplied, the Creative mechanics are tested in Minecraft, and a rebuild is approved.
 - Automated package and syntax checks do not replace live in-game testing. Starting-block recovery and progression still require verification inside Minecraft.
 - Experimental settings, achievement status, and multiplayer balance have not been verified.
 
