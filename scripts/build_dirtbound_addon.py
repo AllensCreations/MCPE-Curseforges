@@ -71,7 +71,7 @@ def build() -> Path:
     if "oneblock_tick" not in tick_config.get("values", []):
         raise ValueError("tick.json must schedule oneblock_tick.")
     tick_function = (BP / "functions" / "oneblock_tick.mcfunction").read_text(encoding="utf-8")
-    if "matches 0 if block 0 64 0 air run setblock 0 64 0 dirt" not in tick_function or "matches 9 if block 0 64 0 air run setblock 0 64 0 netherite_block" not in tick_function or "execute if block 2 65 0 air run setblock 2 65 0 barrel" not in tick_function:
+    if "matches 0 if block 0 64 0 air run setblock 0 64 0 dirt" not in tick_function or "matches 9 if block 0 64 0 air run setblock 0 64 0 netherite_block" not in tick_function or "execute if block 0 64 0 air run setblock 0 64 0 dirt" not in tick_function or "execute if block 2 65 0 air run setblock 2 65 0 barrel" not in tick_function:
         raise ValueError("OneBlock tick function must restore the correct core stage and permanent Trader Post.")
     give_function = (BP / "functions" / "give_trader.mcfunction").read_text(encoding="utf-8")
     if "give @s allenscreations:trader_ledger 1" not in give_function:
@@ -97,8 +97,8 @@ def build() -> Path:
     actual_rewards = {int(blocks): int(coins) for blocks, coins in __import__("re").findall(r'\{blocks:(\d+),coins:(\d+)\}', main_js)}
     if actual_rewards != expected_rewards:
         raise ValueError(f"Milestone rewards must be {expected_rewards}, got {actual_rewards}.")
-    if 'BLOCK_ICON+" Block Mined:' not in main_js or 'COIN_ICON+" OneCoins:' not in main_js:
-        raise ValueError("The live status bar must label Block Mined and OneCoins.")
+    if 'setObjectiveAtDisplaySlot("Sidebar"' not in main_js or "setActionBar(" in main_js:
+        raise ValueError("The permanent colored sidebar scoreboard must replace the temporary actionbar.")
     for required_feature in ["recoverTrader(p)", "showPrestige(p)", "spawnMobWave(p)", "spawnBonus(p)", "personal%250===0", "total%500===0"]:
         if required_feature not in main_js:
             raise ValueError(f"Missing required gameplay feature: {required_feature}")
