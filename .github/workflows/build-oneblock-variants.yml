@@ -37,6 +37,9 @@ jobs:
       - name: Build each mode from its complete matching Mcpeworlds foundation and the map's actual packs
         run: python scripts/build_oneblock_variants_from_template.py
 
+      - name: Synchronize map README with generated world archives
+        run: python scripts/sync_oneblock_map_readmes.py
+
       - name: Commit generated .mcworld files
         shell: bash
         run: |
