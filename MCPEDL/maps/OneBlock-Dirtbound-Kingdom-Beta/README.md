@@ -1,20 +1,20 @@
 # OneBlock: Dirtbound Kingdom Beta (v0.1.20)
 
-Download the OneBlock world for Minecraft Bedrock Edition. The Creative world is the recommended first world for checking OneBlock mechanics; matching Creative, Survival, and Hardcore archives are rebuilt automatically from their corresponding world templates.
+Download a OneBlock world for Minecraft Bedrock Edition. Creative, Survival, and Hardcore worlds are rebuilt automatically using their matching references in `Mcpeworlds/`.
 
 ## World Downloads
 
-**[Download Creative World — Tester (.mcworld)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/MCPEDL/maps/OneBlock-Dirtbound-Kingdom-Beta/OneBlock%20Dirtbound%20Kingdom%20Beta%20-%20Creative.mcworld)**
+**[Download Creative World (.mcworld)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/MCPEDL/maps/OneBlock-Dirtbound-Kingdom-Beta/OneBlock%20Dirtbound%20Kingdom%20Beta%20-%20Creative.mcworld)**
 
-Use this world first to test the starting block, footing, spawn, Trader access, OneCoins, selling, purchases, and progression.
+Use Creative as the only tester for checking the starting block, footing, spawn, Trader access, OneCoins, selling, purchases, and progression.
 
 **[Download Survival World (.mcworld)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/MCPEDL/maps/OneBlock-Dirtbound-Kingdom-Beta/OneBlock%20Dirtbound%20Kingdom%20Beta%20-%20Survival.mcworld)**
 
 **[Download Hardcore World (.mcworld)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/MCPEDL/maps/OneBlock-Dirtbound-Kingdom-Beta/OneBlock%20Dirtbound%20Kingdom%20Beta%20-%20Hardcore.mcworld)**
 
-World archives are regenerated automatically after map-source or reference-template changes. Structural validation confirms archive contents and pack links, but actual gameplay still needs to be tested in Minecraft.
+World archives are regenerated automatically after map-source or reference changes. The current uploaded mode references contain world metadata but no LevelDB database, so the builder uses a separate complete world only as a database carrier. Mode settings come from the matching reference, but terrain/chunks may differ from that reference. Structural validation does not prove the map works in Minecraft.
 
-## Test Instructions
+## Creative Test Checklist
 
 1. Import the Creative world by opening its downloaded `.mcworld` file with Minecraft.
 2. Confirm Dirt appears at **0 64 0**, Bedrock is directly below at **0 63 0**, and world spawn is **0 65 0**.
