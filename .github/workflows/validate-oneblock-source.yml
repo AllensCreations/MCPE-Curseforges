@@ -4,8 +4,9 @@ on:
   push:
     paths:
       - 'MCPEDL/maps/OneBlock-Dirtbound-Kingdom-Beta/**'
-      - 'CreateWorld/McpeWorld.html'
+      - 'Mcpeworlds/**'
       - 'scripts/build_oneblock_variants_from_template.py'
+      - 'scripts/validate_oneblock_source.py'
       - 'scripts/validate_oneblock_source.py'
       - 'INSTRUCTIONS.md'
       - '.github/workflows/validate-oneblock-source.yml'
@@ -40,7 +41,7 @@ jobs:
         with:
           node-version: '22'
 
-      - name: Validate manifests, function wiring, HTML reference, and builder policy
+      - name: Validate manifests, function wiring, uploaded world templates, and builder policy
         run: python scripts/validate_oneblock_source.py
 
       - name: Check JavaScript syntax
@@ -49,5 +50,4 @@ jobs:
       - name: Check builder and validator Python syntax
         run: python -c "from pathlib import Path; [compile(p.read_text(encoding='utf-8'), str(p), 'exec') for p in (Path('scripts/build_oneblock_variants_from_template.py'), Path('scripts/validate_oneblock_source.py'))]"
 
-      # Deliberately no build step here: source changes trigger validation
-      # automatically, while .mcworld generation remains gated on Minecraft testing.
+      # World archives are built by build-oneblock-variants.yml after source changes.
