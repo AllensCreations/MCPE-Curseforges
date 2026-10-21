@@ -11,6 +11,7 @@
 ### Improved & Balanced
 - **Longer progression:** Expanded tier milestones through 6,000 central-block breaks.
 - **Mining rewards:** Earn 1 OneCoin for each central block broken and 1 OneCoin for each Dirt block sold.
+- **Milestone bonuses:** Receive additional OneCoins at each progression unlock, with larger rewards reserved for later milestones.
 - **Clearer status display:** Added distinct pickaxe and coin indicators to the live status bar and trading menus.
 
 ## [0.1.10] - 2026-10-21

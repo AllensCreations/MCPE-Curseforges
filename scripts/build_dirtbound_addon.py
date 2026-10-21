@@ -90,6 +90,12 @@ def build() -> Path:
     actual_milestones = [int(match) for match in __import__("re").findall(r'\["[^"]+",(\d+),', main_js)]
     if actual_milestones != expected_milestones:
         raise ValueError(f"Shop milestones must be {expected_milestones}, got {actual_milestones}.")
+    expected_rewards = {50: 25, 150: 50, 350: 75, 700: 100, 1200: 150, 2000: 200, 3000: 300, 4500: 500, 6000: 1000}
+    actual_rewards = {int(blocks): int(coins) for blocks, coins in __import__("re").findall(r'\{blocks:(\d+),coins:(\d+)\}', main_js)}
+    if actual_rewards != expected_rewards:
+        raise ValueError(f"Milestone rewards must be {expected_rewards}, got {actual_rewards}.")
+    if 'BLOCK_ICON+" Block Mined:' not in main_js or 'COIN_ICON+" OneCoins:' not in main_js:
+        raise ValueError("The live status bar must label Block Mined and OneCoins.")
 
     OUT_DIR.mkdir(parents=True, exist_ok=True)
     output.unlink(missing_ok=True)

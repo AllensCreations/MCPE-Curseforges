@@ -22,8 +22,10 @@ The block function only fills the central position when it is air; it does not c
 - Selling Dirt grants 1 additional OneCoin per Dirt block sold.
 - Ten shop tiers unlock at 0, 50, 150, 350, 700, 1,200, 2,000, 3,000, 4,500, and 6,000 central-block breaks.
 - The economy keeps a 50-OneCoin starting balance; starter supplies remain cheaper, while rare endgame gear costs substantially more.
+- Milestone bonuses add 25, 50, 75, 100, 150, 200, 300, 500, and 1,000 OneCoins at the nine unlocks after the starter tier.
+- The live status bar displays Block Mined and OneCoins with pickaxe and coin indicators.
 - The shop is designed with 180 purchasable entries across ten tiers.
-- Pricing, delivery, block restoration, and the Trader item still require in-game testing.
+- Pricing, delivery, icon rendering, block restoration, and the Trader item still require in-game testing.
 
 ## Compatibility and Test Notes
 
