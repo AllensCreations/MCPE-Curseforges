@@ -312,10 +312,10 @@ def verify_archive(path: Path, bp_manifest: dict[str, Any], rp_manifest: dict[st
             "world_behavior_packs.json", "behavior_packs/OneBlockStartingPlatform/manifest.json",
             "behavior_packs/OneBlockStartingPlatform/functions/tick.json",
             "behavior_packs/OneBlockStartingPlatform/functions/oneblock_setup.mcfunction",
-            f"behavior_packs/{safe_name(path.parent.parent.name + 'BP')}/manifest.json",
+            f"behavior_packs/{safe_name(path.parent.name + 'BP')}/manifest.json",
         }
         if rp_manifest is not None:
-            required.add(f"resource_packs/{safe_name(path.parent.parent.name + 'RP')}/manifest.json")
+            required.add(f"resource_packs/{safe_name(path.parent.name + 'RP')}/manifest.json")
         missing = required - names
         if missing:
             raise RuntimeError(f"{path} is missing required archive entries: {', '.join(sorted(missing))}")
