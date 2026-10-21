@@ -78,4 +78,4 @@ The Melody Figurine is a small decorative statue with a matching inventory icon 
 
 ## Search & Discovery Keywords
 
-Minecraft Bedrock Melody Figurine add-on, Minecraft PE music add-on, dancing mobs add-on, mob dance particles, placeable musical figurine, custom soundtrack Bedrock, Minecraft Bedrock party modes, dancing hostile mobs, rainbow screen effects, MCPEDL add-on, CurseForge Bedrock, AllensCreations.
+Melody Figurine Minecraft Bedrock, Included Song Bedrock, Four Party Modes Bedrock, Selecting a Mode Bedrock, Nearby Mob Dance Bedrock, Minecraft PE add-on, MCPEDL, CurseForge Bedrock, AllensCreations.

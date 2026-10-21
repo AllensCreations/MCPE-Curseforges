@@ -58,4 +58,4 @@ Increase spawn weights and group sizes for supported vanilla mobs across the Ove
 
 ## Search & Discovery Keywords
 
-Minecraft Bedrock mob spawn add-on, Swarm Mob Booster, mob density presets, increased mob spawn groups, 25 mob cap, 38 mob cap, 50 mob cap, nearby mob HUD, Minecraft PE survival add-on, AllensCreations.
+Swarm Mob Booster Minecraft Bedrock, Supported Mob Spawn Rules Bedrock, Three Density Presets Bedrock, Nearby Mob HUD Bedrock, Ground-Item Handling Bedrock, Minecraft PE add-on, MCPEDL, CurseForge Bedrock, AllensCreations.

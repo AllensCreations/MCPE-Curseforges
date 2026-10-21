@@ -46,4 +46,4 @@ This add-on does not generate a complete OneBlock world. Use it in a world with 
 
 ## Search & Discovery Keywords
 
-Minecraft Bedrock OneBlock add-on, One-Block Hardcore Survival Economy, 20-phase OneBlock progression, regenerating OneBlock, Wandering Trader every 250 blocks, void rescue mechanic, Minecraft PE survival add-on, AllensCreations.
+One-Block Hardcore Survival Economy Minecraft Bedrock, OneBlock Regeneration Bedrock, 20 Progression Phases Bedrock, Wandering Trader Bedrock, Void Rescue Bedrock, Minecraft PE add-on, MCPEDL, CurseForge Bedrock, AllensCreations.
