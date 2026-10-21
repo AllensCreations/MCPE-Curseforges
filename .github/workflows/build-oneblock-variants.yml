@@ -60,7 +60,8 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git commit -m "build(oneblock): generate Creative, Survival, and Hardcore worlds [skip ci]"
-          # Other documentation commits may land while the worlds are building.
-          # Rebase the generated binary commit on the current branch before pushing.
-          git pull --rebase origin main
+          # Other commits and concurrent world builds may land while this build runs.
+          # Generated .mcworld archives are reproducible outputs; on binary conflicts,
+          # keep this run's newly generated archive while replaying onto current main.
+          git pull --rebase -X theirs origin main
           git push
