@@ -1,33 +1,66 @@
 # Changelog — Grimoire Relics V2
 
+## [1.0.6] - 2026-10-20
+
+### Changed
+- **Void Phantom is now single-use**: removed the five-minute cooldown and made the first rescue consume and break the relic, preventing repeated activations.
+- Kept the End-only rescue, 2-second phase elevation, and touchdown slow-falling cushion.
+
+---
+
+## [1.0.5] - 2026-10-19
+
+### Changed
+- Refreshed the README to match the current published pack version and the project's Minecraft 1.26+ target.
+- Clarified that the collection contains 14 craftable tomes and 6 exploration-only Ancient Relics.
+- Clarified recipe unlock expectations and softened blanket compatibility/achievement claims so they are not presented as guaranteed across every Minecraft version.
+
+---
+
+## [1.0.3] - 2026-10-15
+
+### Changed
+- **Grimoire Handheld Presentation (Vanilla Item In Hand)**:
+  - Simplified the carried spellbook appearance and removed the previous custom model presentation.
+  - **Handheld Appearance:** Grimoires now display cleanly in either hand.
+- **Void Phantom Retuning (2s Level 60 Elevation & Ground-Block Detected Slow Falling)**:
+  - Restricted emergency void rescue strictly to **The End** dimension (The End).
+  - **Void Phantom Escape:** Improved the relic's rapid lift out of the void to help players recover from a fall.
+  - **Safer Landing:** Added a brief Slow Falling cushion at touchdown to help prevent fall damage without a long floating effect.
+- **HUD Cleanliness (Status Effect UI Suppression)**:
+  - Added interface optimization, completely hiding status effect HUD icons and timers for an uncluttered screen display.
+
+---
+
+## [1.0.2] - 2026-10-15
+
+### Changed
+- **End Dimension Void Rescue Hardening**:
+  - Confined Void Phantom protection strictly to The End dimension (The End).
+  - Initial integration of ground-proximity cushion landing.
+
+---
+
 ## [1.0.1] - 2026-10-15
 
 ### Added
-- **3D Hip-Holstered Grimoire Model & Attachment Engine**:
-  - Full 3D modeled spellbook (`geometry.grimoire_hip`) slung dynamically onto the player's belt/hip using Bedrock attachables (`minecraft:attachable`).
-  - Realistic leather strap holster, textured binding spine, thick parchment page bulk, and golden clasp buckle.
-  - Custom 3D texture maps generated for all 20 tomes under `textures/models/*_model.png`.
-- **Dynamic Hip Sway & Walking Animation**:
-  - Subtle breathing idle movement coupled with natural walking stride momentum (`animation.grimoire.hip_idle`) that sways rhythmically as the player walks or runs.
-- **Creative Inventory Book Grouping**:
-  - All 20 Grimoires are now organized into `itemGroup.name.book` under the `equipment` creative category, grouping them alongside vanilla enchanted books.
-- **Dedicated Pack Icons**:
-  - Custom 32×32 pixel art pack icons for both Behavior Pack (`BP`) and Resource Pack (`RP`) featuring an illuminated grimoire, glowing arcane core, and the signature `AC` (AllensCreations) monogram.
-- **16×16 HD Pixel Art Texture Pack**:
-  - Upgraded all 20 tome item textures from basic 12×12 squares to detailed 16×16 HD pixel art textures.
-  - Regenerated all 14 crafting recipe preview diagrams and composite sheet to showcase the new textures.
+- **Spellbook Presentation:** Improved the way spellbooks appear when carried, with clearer textures and a more polished in-game look.
+
+- **Natural Carried Movement:** Refined the spellbook's appearance while walking and standing still.
+
+- **Creative Inventory Organization:** Grouped the grimoires together in the Creative inventory for easier browsing.
+- **Pack Icons:** Added dedicated icons to make the add-on easier to identify in pack settings.
+
+- **Item Texture Refresh:** Improved the appearance of the tome icons and refreshed the recipe previews.
 
 ### Changed
 - **Particle Aura Retuning**:
-  - Reduced the particle aura to one subtle ambient sparkle.
+  - **Subtle Relic Aura:** Reduced the particle effect to a quieter ambient sparkle.
 - **Anvil Repair Ratio**:
-  - Fine-tuned vanilla Book (`minecraft:book`) anvil repairs to a strict **1:1 ratio** (1 durability point restored per book).
+  - Fine-tuned vanilla Book (Book) anvil repairs to a strict **1:1 ratio** (1 durability point restored per book).
 
 ### Fixed
-- **Void Phantom Emergency Rescue**:
-  - Fixed void rescue activation triggers in the Overworld, The End, and the Nether.
-  - Added an emergency `entityHurt` interceptor for `"void"` damage cause to prevent bypasses during high fall speeds.
-  - Teleportation now reliably lands above surface terrain or End platform (`100, 49, 0`), applies Slow Falling, heals 20 HP, and plays travel audio.
+- **Void Phantom Rescue:** Improved emergency rescue behavior in the Overworld, The End, and the Nether, with a safer landing and brief Slow Falling protection.
 
 ---
 
@@ -35,7 +68,7 @@
 
 ### Initial Release: The Ancient Grimoires
 
-Initial public release of **Grimoire Relics V2**, an RPG-style magical offhand companion system for Minecraft Bedrock Edition (v1.21.0+) powered by `@minecraft/server` gameplay system. Fully achievement-friendly with zero experimental toggles required.
+Initial public release of **Grimoire Relics V2**, an RPG-style magical offhand companion system for Minecraft Bedrock Edition (v1.21.0+) powered by modern Bedrock gameplay mechanics. Fully achievement-friendly with zero experimental toggles required.
 
 ### Added
 - **20 Magical Offhand Relics**:
@@ -51,7 +84,7 @@ Initial public release of **Grimoire Relics V2**, an RPG-style magical offhand c
   - **Frost Weaver**: Frost Walker II water freezing underfoot + powder snow freezing immunity.
   - **Stormcaller**: Speed III outdoors in rain/thunder + 15% retaliatory lightning strike against melee attackers.
   - **Deep Delver**: Permanent Haste II + automated dynamic light block projection under Y=55 in the dark.
-  - **Void Phantom**: Emergency surface and The End spawn platform (`100, 49, 0`) void rescue with Slow Falling.
+  - **Void Phantom**: Emergency surface and The End spawn platform (100, 49, 0) void rescue with Slow Falling.
   - **Iron Golem**: 4 Absorption hearts every 30s + melee launch knockback.
   - **Venom Hydra**: Poison and Wither immunity + melee Poison II infliction.
   - **Cursed Alchemist**: Infinite duration preservation and refreshing of all active beneficial potion effects.
@@ -60,10 +93,10 @@ Initial public release of **Grimoire Relics V2**, an RPG-style magical offhand c
   - **Mirror Trickster**: 25% evasive damage negation with a 3-block backward blink through smoke.
   - **Cataclysm Dragon**: Strength II, Resistance I, and complete immunity to explosions and dragon breath.
 - **Tome Durability & Maintenance System**:
-  - Each relic features **100 Max Durability** (`minecraft:durability`).
+  - Each relic features **100 Max Durability** (minecraft durability).
   - **Event-Only Wear**: Passive stat buffs do not consume durability. Durability is deducted only when active abilities, combat procs, or emergency rescues trigger.
-  - **Enchanting & Mending**: Compatible with Enchanting Tables and Anvils (`minecraft:enchantable`), supporting **Mending**, **Efficiency**, and **Unbreaking**.
-  - **Anvil Repairing**: Repairable by combining matching tomes or using vanilla **Books** (`minecraft:book`) at a strict 1:1 ratio (1 durability restored per book) via `minecraft:repairable`.
+  - **Enchanting & Mending**: Compatible with Enchanting Tables and Anvils (minecraft enchantable), supporting **Mending**, **Efficiency**, and **Unbreaking**.
+  - **Anvil Repairing**: Repairable by combining matching tomes or using vanilla **Books** (Book) at a strict 1:1 ratio (1 durability restored per book) smoothlyminecraft repairable.
   - **Shatter Audio & Particles**: Plays authentic item breaking sound, spawns break particles, and notifies the player on shatter.
 - **World Chest Loot Generation**:
   - 6 tomes are designated as uncraftable **Ancient Relics** obtainable only through rare exploration chests:
@@ -72,9 +105,9 @@ Initial public release of **Grimoire Relics V2**, an RPG-style magical offhand c
     - End Cities: *Cataclysm Dragon*.
     - Dungeon Monster Rooms: *Blood Vampire* (replaces enchanted golden apple rolls).
   - Additional dungeon distribution for *Deep Delver*, *Arcane Scholar*, *Cursed Alchemist*, and *Abyssal Tide*.
-  - **Relic Antiquity Wear**: Looted tomes generate with realistic ancient wear, spawning with 15% to 70% used durability (`set_damage`).
+  - **Relic Antiquity Wear**: Looted tomes generate with realistic ancient wear, spawning with 15% to 70% used durability (set damage).
 - **Authentic Crafting System**:
   - 14 craftable tomes surrounding a central Book in a shaped Crafting Table grid.
   - Generated pixel-art crafting recipe diagrams using vanilla Bedrock sample item textures.
 - **Particle & Aura Engine**:
-  - Staggered 8-tick orbiting 4-point halo particle engine matching each tome's elemental identity.
+  - **Elemental Visuals:** Added distinct halo effects to reflect each tome's elemental identity.

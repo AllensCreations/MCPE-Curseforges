@@ -17,7 +17,6 @@
 - Prevented axes from qualifying as pickaxes for ore-chain mining.
 - Restricted Fortune multipliers to eligible ore categories, excluding raw iron, raw gold, and ancient debris.
 - Tightened tree-canopy checks to reduce false positives from blocks below the trunk and unrelated Nether canopy blocks.
-- Updated the player-facing README to match the current source and repository documentation standards.
 
 ## [1.3.13] - 2026-10-17
 
@@ -26,17 +25,13 @@
 - Kept the no-sneak behavior limited to Tree Capitator and Domino Ore Miner; the required tool must be held in selected hotbar slot 1.
 - Removed obsolete mining preset choices.
 
-## [1.3.10] - 2026-10-17
-
-### Fixed
-
 ## [1.3.9] - 2026-10-17
 
 ### Changed
 - Simplified mining presets to three choices: No Sneak (Slot 1 Required), Both Off, and Default (Sneak Required).
 - Added a No Sneak preset for Tree Capitator and Domino Ore Miner; it only activates when the required tool is held in the selected first hotbar slot.
 - Kept the sneak requirement for mining in the Default preset and left other add-on features unchanged.
-- Synchronized Behavior Pack, Resource Pack, and script version numbers to 1.3.9.
+- Aligned the pack versions so the add-on components remain in step.
 
 ## [1.3.6] - 2026-10-17
 
