@@ -6,7 +6,7 @@ on:
   push:
     paths:
       - 'MCPEDL/maps/**'
-      - 'CreateWorld/McpeWorld.html'
+      - 'Mcpeworlds/**'
       - 'scripts/build_oneblock_variants_from_template.py'
       - '.github/workflows/build-oneblock-variants.yml'
   workflow_dispatch:
@@ -41,7 +41,7 @@ jobs:
       - name: Install Python dependencies
         run: python -m pip install --upgrade pip plyvel
 
-      - name: Build variants from a valid Bedrock world template and the map's actual packs
+      - name: Build each mode from its matching uploaded world template and the map's actual packs
         run: python scripts/build_oneblock_variants_from_template.py
 
       - name: Commit generated .mcworld files
