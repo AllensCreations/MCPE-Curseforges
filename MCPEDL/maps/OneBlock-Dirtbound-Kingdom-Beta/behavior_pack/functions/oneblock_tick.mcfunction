@@ -1,4 +1,4 @@
-# One-time HTML-reference setup is tag-guarded and never teleports players.
+# One-time setup includes the sentinel-guarded Void Cleaner and never teleports players.
 function oneblock_setup
 
 # Ongoing safety recovery only: never manage the evolving core or reset spawn here.
