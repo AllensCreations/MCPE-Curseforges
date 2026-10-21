@@ -1,4 +1,4 @@
-# OneBlock Dirtbound Kingdom Beta (source v0.1.23)
+# OneBlock Dirtbound Kingdom Beta (source v0.1.23) (v0.1.24)
 
 Download the current published OneBlock Dirtbound Kingdom Beta world for Minecraft Bedrock Edition.
 
