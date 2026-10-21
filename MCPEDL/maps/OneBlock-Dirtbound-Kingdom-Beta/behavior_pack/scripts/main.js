@@ -1,9 +1,9 @@
 import { world, system, ItemStack } from "@minecraft/server";
 import { ActionFormData, MessageFormData } from "@minecraft/server-ui";
 
-const ORIGIN={x:0,y:64,z:0};
-const TRADER_POS={x:2,y:65,z:0};
-const BONUS_POS={x:1,y:65,z:0};
+const ORIGIN={x:0,y:0,z:0};
+const TRADER_POS={x:2,y:1,z:0};
+const BONUS_POS={x:1,y:1,z:0};
 const BLOCK_ICON="⛏", COIN_ICON="◈";
 const TRADER_ITEM="allenscreations:trader_ledger";
 const COINS="dirtbound_coins", MINED="dirtbound_blocks", CORE="dirtbound_core", PRESTIGE="dirtbound_prestige";
@@ -60,8 +60,8 @@ function showPrestige(p){if(mined(p)<6000)return tell(p,"Kingdom Prestige unlock
 function spawnMobWave(p){try{for(let i=0;i<3;i++){const dx=(i-1)*2; p.dimension.spawnEntity(i===1?"minecraft:spider":"minecraft:zombie",{x:p.location.x+dx,y:p.location.y,z:p.location.z+2})}tell(p,"§cCore Surge! Three hostile mobs have appeared. Defeat them for survival loot.")}catch{tell(p,"Core Surge triggered, but there was not enough room to spawn its challenge.")}}
 function spawnBonus(p){try{const b=p.dimension.getBlock(BONUS_POS);if(!b||b.typeId!=="minecraft:air")return false;p.dimension.runCommand("function bonus_spawn");setGlobal("#bonus",1);tell(p,"Bonus Core spotted above the platform! Break the Emerald Block for a coin reward.");return true}catch{return false}}
 let coreInitializationComplete=false;
-function initializeCoreIfMissing(dimension){if(coreInitializationComplete)return true;try{const block=dimension.getBlock(ORIGIN);if(!block)return false;if(block.typeId==="minecraft:air")block.setType("minecraft:"+STAGES[stageFor(globalScore("#breaks"))].block);coreInitializationComplete=true;return true}catch{return false}}
-function restoreCoreImmediately(dimension){try{const block=dimension.getBlock(ORIGIN);if(block&&block.typeId==="minecraft:air")block.setType("minecraft:"+STAGES[stageFor(globalScore("#breaks"))].block)}catch{}}
+function initializeCoreIfMissing(dimension){if(coreInitializationComplete)return true;try{const block=dimension.getBlock(ORIGIN);if(!block)return false;if(block.typeId==="minecraft:air"||block.typeId==="minecraft:grass_block")block.setType("minecraft:"+STAGES[stageFor(globalScore("#breaks"))].block);coreInitializationComplete=true;return true}catch{return false}}
+function restoreCoreImmediately(dimension){try{const block=dimension.getBlock(ORIGIN);if(block&&(block.typeId==="minecraft:air"||block.typeId==="minecraft:grass_block"))block.setType("minecraft:"+STAGES[stageFor(globalScore("#breaks"))].block)}catch{}}
 function onCoreBreak(p){initialize(p);const personal=mined(p)+1;const total=globalScore("#breaks")+1;setScore(MINED,p,personal);setGlobal("#breaks",total);updateCoreStage();const stage=STAGES[stageFor(total)];setScore(COINS,p,balance(p)+stage.reward);const stageReward=STAGE_REWARDS.find(r=>r.blocks===personal);if(stageReward){setScore(COINS,p,balance(p)+stageReward.coins);tell(p,BLOCK_ICON+" "+personal+" personal breaks! "+COIN_ICON+" Stage bonus: +"+stageReward.coins+" OneCoins.")}if(personal>0&&personal%250===0){setScore(COINS,p,balance(p)+20);tell(p,"Milestone reached: "+personal+" personal breaks. +20 bonus OneCoins.")}if(total>0&&total%500===0){setScore(COINS,p,balance(p)+50);tell(p,"Core Surge milestone! +50 OneCoins.");spawnMobWave(p)}if(Math.random()<1/40)spawnBonus(p);for(const s of SHOPS)if(s.unlock>0&&s.unlock===personal)tell(p,"New shop unlocked: "+s.name+"!");const newStage=STAGES.find(s=>s.unlock===total);if(newStage)tell(p,"The central OneBlock evolved into the "+newStage.name+"! It is tougher to mine; use better pickaxes.");}
 world.afterEvents.itemUse.subscribe(e=>{if(e.itemStack?.typeId!==TRADER_ITEM)return;const p=e.source;if(p?.typeId==="minecraft:player")system.run(()=>showMain(p))});
 world.afterEvents.playerInteractWithBlock.subscribe(e=>{const p=e.player,b=e.block,l=b.location;if(b.typeId==="minecraft:barrel"&&l.x===TRADER_POS.x&&l.y===TRADER_POS.y&&l.z===TRADER_POS.z)system.run(()=>showMain(p))});
