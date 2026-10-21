@@ -187,14 +187,14 @@ def make_platform_pack(target: Path, project_slug: str) -> tuple[str, list[int]]
     return pack_uuid, version
 
 
-def build_variant(mode: str) -> Path:
+def build_variant(project: Path, map_name: str, mode: str) -> Path:
     if not SOURCE_WORLD.is_file():
         raise FileNotFoundError(
             f"Required valid Bedrock source world is missing: {SOURCE_WORLD}. "
             "Refusing to publish a fabricated empty LevelDB world."
         )
-    bp_source = PROJECT / "behavior_pack"
-    rp_source = PROJECT / "resource_pack"
+    bp_source = project / "behavior_pack"
+    rp_source = project / "resource_pack"
     bp_manifest = read_manifest(bp_source / "manifest.json")
     rp_manifest_path = rp_source / "manifest.json"
     rp_manifest = read_manifest(rp_manifest_path) if rp_manifest_path.is_file() else None
@@ -202,9 +202,9 @@ def build_variant(mode: str) -> Path:
     bp_version = bp_manifest["header"]["version"]
     rp_uuid = rp_manifest["header"]["uuid"] if rp_manifest else None
     rp_version = rp_manifest["header"]["version"] if rp_manifest else None
-    world_name = f"OneBlock Dirtbound Kingdom Beta - {mode}"
-    output = PROJECT / f"{safe_name(world_name)}.mcworld"
-    project_slug = PROJECT.relative_to(ROOT).as_posix()
+    world_name = f"{map_name} - {mode}"
+    output = project / f"{safe_name(world_name)}.mcworld"
+    project_slug = project.relative_to(ROOT).as_posix()
 
     with tempfile.TemporaryDirectory(prefix="dirtbound-world-") as temp:
         world = Path(temp) / "world"
@@ -233,7 +233,8 @@ def build_variant(mode: str) -> Path:
                 shutil.rmtree(path)
         (world / "behavior_packs").mkdir()
         (world / "resource_packs").mkdir()
-        bp_folder = "DirtboundKingdomBP"
+        bp_folder = safe_name(project.name + "BP")
+        rp_folder = safe_name(project.name + "RP")
         shutil.copytree(bp_source, world / "behavior_packs" / bp_folder)
         bootstrap_uuid, bootstrap_version = make_platform_pack(
             world / "behavior_packs" / "OneBlockStartingPlatform", project_slug
@@ -245,7 +246,7 @@ def build_variant(mode: str) -> Path:
         (world / "world_behavior_packs.json").write_text(json.dumps(bp_links, indent=2) + "\n", encoding="utf-8")
 
         if rp_manifest:
-            shutil.copytree(rp_source, world / "resource_packs" / "DirtboundKingdomRP")
+            shutil.copytree(rp_source, world / "resource_packs" / rp_folder)
             (world / "world_resource_packs.json").write_text(
                 json.dumps([{"pack_id": rp_uuid, "version": rp_version}], indent=2) + "\n",
                 encoding="utf-8",
@@ -262,18 +263,18 @@ def build_variant(mode: str) -> Path:
                 elif path.is_file():
                     archive.write(path, relative)
 
-    verify_archive(output, bp_uuid, bp_version, rp_uuid, rp_version, bootstrap_uuid)
+    verify_archive(output, bp_uuid, bp_version, rp_uuid, rp_version, bootstrap_uuid, bp_folder, rp_folder)
     return output
 
 
 def verify_archive(path: Path, bp_uuid: str, bp_version: list[int], rp_uuid: str | None,
-                   rp_version: list[int] | None, bootstrap_uuid: str) -> None:
+                   rp_version: list[int] | None, bootstrap_uuid: str, bp_folder: str, rp_folder: str) -> None:
     with zipfile.ZipFile(path) as archive:
         names = set(archive.namelist())
         required = {
             "level.dat", "levelname.txt", "db/CURRENT",
-            "behavior_packs/DirtboundKingdomBP/manifest.json",
-            "behavior_packs/DirtboundKingdomBP/functions/tick.json",
+            f"behavior_packs/{bp_folder}/manifest.json",
+            f"behavior_packs/{bp_folder}/functions/tick.json",
             "behavior_packs/OneBlockStartingPlatform/manifest.json",
             "behavior_packs/OneBlockStartingPlatform/functions/tick.json",
             "behavior_packs/OneBlockStartingPlatform/functions/oneblock_setup.mcfunction",
@@ -302,20 +303,23 @@ def verify_archive(path: Path, bp_uuid: str, bp_version: list[int], rp_uuid: str
 
 
 def main() -> int:
-    if not (PROJECT / "oneblock.json").is_file():
-        raise FileNotFoundError(f"OneBlock marker not found in {PROJECT}")
-    config = json.loads((PROJECT / "oneblock.json").read_text(encoding="utf-8"))
-    if config.get("enabled", True) is not True:
-        print("Dirtbound OneBlock generation is disabled.")
+    projects = sorted(path.parent for path in MAPS_ROOT.rglob("oneblock.json"))
+    if not projects:
+        print("No OneBlock projects found; add oneblock.json beside a map pack.")
         return 0
     built = []
-    for mode in MODES:
-        output = build_variant(mode)
-        print(f"Built from valid source world and structurally verified: {output.relative_to(ROOT)} ({output.stat().st_size} bytes)")
-        built.append(output)
+    for project in projects:
+        config = json.loads((project / "oneblock.json").read_text(encoding="utf-8"))
+        if config.get("enabled", True) is not True:
+            print(f"Skipping disabled OneBlock project: {project.relative_to(ROOT)}")
+            continue
+        map_name = str(config.get("name") or project.name.replace("-", " "))
+        for mode in MODES:
+            output = build_variant(project, map_name, mode)
+            print(f"Built from valid source world and structurally verified: {output.relative_to(ROOT)} ({output.stat().st_size} bytes)")
+            built.append(output)
     print(f"Successfully built {len(built)} world variants.")
     return 0
-
 
 if __name__ == "__main__":
     raise SystemExit(main())
