@@ -95,7 +95,7 @@ def main() -> None:
     ):
         require(expected in cleaner_source, f"Void Cleaner is missing required command: {expected}")
     require("setblock 0 -1 0 bedrock" in tick_source, "tick recovery must protect Bedrock at 0 -1 0")
-    require("setblock 2 1 0 barrel" in tick_source, "tick recovery must protect the Trader Post at 2 1 0")
+    require("setblock 2 1 0 lectern" in tick_source, "tick recovery must protect the Trader Post lectern at 2 1 0")
     require("setblock 0 0 0" not in tick_source, "tick recovery must not compete with Script API core progression")
     require("setworldspawn" not in tick_source, "tick recovery must not reset world spawn every tick")
     require("tp @s" not in tick_source and "tp @s" not in setup_source,
