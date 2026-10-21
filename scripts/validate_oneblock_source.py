@@ -106,7 +106,8 @@ def main() -> None:
             "world builder must use the uploaded Mcpeworlds templates")
     require("MODES = (\"Creative\", \"Survival\", \"Hardcore\")" in builder,
             "world builder must retain all three world variants")
-    require(re.search(r"def verify_archive\\(", builder) is not None,
+    require("def verify_archive(" in builder,
+            "world builder must include archive verification")
             "world builder must include archive verification")
 
     print(f"PASS: Dirtbound source validation (v{'.'.join(map(str, bp_version))})")
