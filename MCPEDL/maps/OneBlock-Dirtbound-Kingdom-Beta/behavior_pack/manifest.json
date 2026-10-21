@@ -1,13 +1,13 @@
 {
   "format_version": 2,
   "header": {
-    "name": "OneBlock Dirtbound Kingdom Beta (v0.1.8)",
+    "name": "OneBlock Dirtbound Kingdom Beta (v0.1.9)",
     "description": "OneBlock survival economy with an interactive Trader item and 180 purchasable supplies. by AllensCreations",
     "uuid": "8d4d93bf-c8b2-4df4-9f28-52f4f8f08b10",
     "version": [
       0,
       1,
-      8
+      9
     ],
     "min_engine_version": [
       1,
@@ -22,7 +22,7 @@
       "version": [
         0,
         1,
-        8
+        9
       ]
     },
     {
@@ -32,7 +32,7 @@
       "version": [
         0,
         1,
-        8
+        9
       ],
       "entry": "scripts/main.js"
     }
@@ -43,7 +43,7 @@
       "version": [
         0,
         1,
-        8
+        9
       ]
     },
     {

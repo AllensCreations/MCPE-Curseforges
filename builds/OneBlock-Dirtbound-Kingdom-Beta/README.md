@@ -1,21 +1,29 @@
-# OneBlock Dirtbound Kingdom Beta — Test Build
+# OneBlock Dirtbound Kingdom Beta - Downloads and Releases
 
-The current package is a troubleshooting add-on, not a finished world. World generation is paused until the central OneBlock block is confirmed in-game.
+This folder contains compiled release packages for **OneBlock Dirtbound Kingdom Beta** by AllensCreations.
 
-## Current Test Package
+---
 
-- **Version:** 0.1.8
-- **Format:** `.mcaddon`
-- **Download:** [OneBlock Dirtbound Kingdom MCAddon Test](OneBlock%20Dirtbound%20Kingdom%20MCAddon%20Test%20%28v0.1.8%29.mcaddon)
+## Direct Download Links
 
-## Testing
+| File Name | Format | Size | Description | Download Link |
+| :--- | :--- | :--- | :--- | :--- |
+| **`OneBlock Dirtbound Kingdom Beta by AllensCreations (V0.1.9).mcaddon`** | `.mcaddon` | ~7 KB | Complete bundle containing both Behavior Pack and Resource Pack. | [Download (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/OneBlock-Dirtbound-Kingdom-Beta/OneBlock%20Dirtbound%20Kingdom%20Beta%20by%20AllensCreations%20%28V0.1.9%29.mcaddon) |
+| **`OneBlock Dirtbound Kingdom Beta BP by AllensCreations (V0.1.9).mcpack`** | `.mcpack` | ~5 KB | Behavior Pack: Custom entities, components, and gameplay mechanics. | [Download (.mcpack)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/OneBlock-Dirtbound-Kingdom-Beta/OneBlock%20Dirtbound%20Kingdom%20Beta%20BP%20by%20AllensCreations%20%28V0.1.9%29.mcpack) |
+| **`OneBlock Dirtbound Kingdom Beta RP by AllensCreations (V0.1.9).mcpack`** | `.mcpack` | ~1 KB | Resource Pack: Custom models, geometry, textures, and sounds. | [Download (.mcpack)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/OneBlock-Dirtbound-Kingdom-Beta/OneBlock%20Dirtbound%20Kingdom%20Beta%20RP%20by%20AllensCreations%20%28V0.1.9%29.mcpack) |
 
-1. Import the MCAddon into Minecraft Bedrock.
-2. Create a new, disposable test world.
-3. Enable both the imported Behavior Pack and Resource Pack.
-4. Join the world and check for Dirt at the central OneBlock position.
-5. Break the block once and verify whether it is restored.
+---
 
-The MCAddon does not contain a world save. Do not use a world with important progress. Previous world and pack files in this directory are retained as historical build artifacts and are not the current test target.
+## Installation Guide
 
-For gameplay details and known limitations, read the [project description](https://github.com/AllensCreations/MCPE-Curseforges/blob/main/MCPEDL/maps/OneBlock-Dirtbound-Kingdom-Beta/DESCRIPTION.md).
+For general import instructions, refer to the centralized [Download and Installation Guide](../README.md#download-and-installation-guide).
+
+---
+
+## Source Files
+To inspect uncompressed JSON files, geometry, render controllers, and textures:
+- [View Source Files](../../MCPEDL/maps/OneBlock-Dirtbound-Kingdom-Beta/)
+
+---
+
+© All rights reserved for AllensCreations.
