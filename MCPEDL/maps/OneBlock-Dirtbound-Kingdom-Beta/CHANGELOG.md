@@ -1,4 +1,13 @@
-# Changelog — OneBlock: Dirtbound Kingdom Beta
+# Changelog — OneBlock Dirtbound Kingdom Beta
+
+---
+
+## [0.1.24] - 2026-10-21
+
+### Changed
+- **Cleaner Starting Area:** The starting area is cleared before the central block progression begins.
+- **Trader Ledger Shop Access:** The Trader Ledger is the only way to open the shop; there is no physical Trader Post block.
+- **Live Balance Display:** The OneCoins balance appears in the action bar instead of a sidebar display.
 
 ## [0.1.23] - 2026-10-21
 
@@ -24,7 +33,6 @@
 ### Fixed
 - **Reliable world setup:** The starting area is cleaned before OneBlock progression begins.
 - **Stable core startup:** The central block initializes after the starting-area cleanup, preventing setup from replacing the intended starting block.
-- **World archive safety:** Existing world downloads were left unchanged. Rebuilding still requires a successful Creative in-game test, complete matching world foundations for every mode, and explicit approval.
 
 ## [0.1.20] - 2026-10-21
 
@@ -32,9 +40,6 @@
 - **Startup core recovery:** The central block is restored when missing during world startup or player entry, without replacing an occupied core.
 - **Progression stability:** Routine world maintenance no longer replaces the evolving central block.
 - **Pack version alignment:** The Behavior Pack and Resource Pack use matching release versions.
-
-### Improved
-- **World foundation safety:** Published world downloads remain unchanged until complete matching world data is available and the Creative world has been tested in Minecraft.
 
 ## [0.1.18] - 2026-10-21
 
@@ -99,33 +104,26 @@
 ## [0.1.10] - 2026-10-21
 
 ### Changed
-- Moved central Dirt restoration into a scheduled function that places Dirt only when the target position is air.
-- Added a separate function to give the custom OneBlock Trader item.
-- Kept the trading interface, currency, purchases, and progression in the script.
-- Removed block placement, player teleportation, and game-mode changes from the script.
+- **Core Recovery:** The central Dirt returns when its position is empty, without replacing an occupied block.
+- Added the custom OneBlock Trader item.
+- Kept shop access, currency, purchases, and progression together in the add-on.
 
 ## [0.1.8] - 2026-10-21
 
 ### Fixed
 - Corrected a malformed line break in the trading script that prevented the script from parsing.
-- Added a test package so the OneBlock behavior can be checked separately from world generation.
-
-### Changed
-- Paused new world generation while the add-on is tested.
-- Updated both packs to the same test version.
 
 ## [0.1.7] - 2026-10-21
 
 ### Fixed
-- Restored the central OneBlock by repairing the startup script and waiting for the spawn area to load before placing the block.
-- Set the world default to Survival on Hard difficulty.
-- Players are returned to Survival when they join, preventing Creative mode from overriding the intended gameplay.
+- **Central Block Startup:** Improved the starting block setup so the central block appears when the world is ready.
+- Set the intended world difficulty and Survival gameplay defaults.
+- Players enter Survival when joining the challenge.
 
 ## [0.1.6] - 2026-10-21
 
 ### Improved
 - Tuned tier pricing and purchase quantities to keep starter supplies affordable and rare endgame equipment costly.
-- Synced the world builder and pack versions for the complete world release.
 
 ## [0.1.5] - 2026-10-21
 
@@ -144,5 +142,3 @@
 - Moved Dirt selling, supply purchases, currency, and phase progression into the menu.
 - Added a custom inventory icon for the Trader item.
 
-### Fixed
-- The world builder was configured to start from the repository's OneBlock source world and preserve its world database.

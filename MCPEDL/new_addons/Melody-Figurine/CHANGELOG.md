@@ -26,22 +26,21 @@
 - Added a small orbiting musical sparkle effect around the figurine while the song plays.
 
 ### Fixed
-- Reworked the dance loop to add visible hopping and more reliable mob validity checks.
-- Updated the stable gameplay system dependency and linked the Behavior Pack to its Resource Pack.
-- Simplified the inventory icon reference and corrected the pack dependency direction so textures and custom audio can load together.
-- Added clearer in-game feedback if the soundtrack cannot start.
+- Improved hopping and movement during mob dances.
+- Improved pack setup so the figurine's textures and custom audio work together.
+
+- Added clearer feedback when the soundtrack cannot start.
 
 ## [1.0.8] - 2026-10-21
 
 ### Fixed
-- Rebuilt the block texture asset and released the corrected package with the custom figurine model and inventory icon.
+- Corrected the figurine's placed-block appearance and inventory icon.
 
 ## [1.0.7] - 2026-10-21
 
 ### Fixed
 - Replaced the cube placeholder with a small figurine model.
 - Added a matching inventory icon and corrected the item icon definition.
-- Removed the unsupported replacement-item setting that could interfere with placement.
 
 ## [1.0.6] - 2026-10-20
 

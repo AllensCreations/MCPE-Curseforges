@@ -5,7 +5,7 @@
 ## [1.0.12] - 2026-10-18
 
 ### Fixed
-- **Join Notification:** The private syncing message now appears even when the usual notification method is unavailable.
+- **Join Notification:** The inventory-sync message is shown more reliably when players join.
 
 ---
 
@@ -19,7 +19,7 @@
 ## [1.0.10] - 2026-10-18
 
 ### Fixed
-- **Join Notification:** Added a fallback so the private syncing message can still appear when normal delivery fails.
+- **Join Notification:** Improved delivery of the inventory-sync message when players join.
 
 ---
 
@@ -33,7 +33,7 @@
 ## [1.0.7] - 2026-10-18
 
 ### Improved
-- **Team Inventory Name:** Updated the in-game add-on name to Team Inventory.
+- **Team Inventory Name:** Updated the in-game name to Team Inventory.
 
 ---
 
