@@ -49,7 +49,7 @@ def enforce_survival_level(path: Path) -> None:
     raw = bytearray(path.read_bytes())
     # Bedrock level.dat uses little-endian NBT after its 8-byte file header.
     # Patch the existing root-level GameType integer without changing world storage keys.
-    tag = b"\\x03\\x08\\x00GameType"
+    tag = b"\x03\x08\x00GameType"
     index = raw.find(tag, 8)
     if index < 0:
         raise ValueError("Could not locate the saved GameType tag in level.dat.")
@@ -57,7 +57,7 @@ def enforce_survival_level(path: Path) -> None:
     raw[value_at:value_at + 4] = (0).to_bytes(4, "little", signed=True)
     # Keep the copied world's default difficulty on Hard; Survival is still the
     # player's game mode, while Hardcore remains dependent on the source world's saved setting.
-    difficulty_tag = b"\\x03\\x0a\\x00Difficulty"
+    difficulty_tag = b"\x03\x0a\x00Difficulty"
     difficulty_index = raw.find(difficulty_tag, 8)
     if difficulty_index >= 0:
         difficulty_at = difficulty_index + len(difficulty_tag)
