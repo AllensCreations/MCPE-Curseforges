@@ -95,7 +95,7 @@ def main() -> None:
     ):
         require(expected in cleaner_source, f"Void Cleaner is missing required command: {expected}")
     require("setblock 0 -1 0 bedrock" in tick_source, "tick recovery must protect Bedrock at 0 -1 0")
-    require("setblock 2 1 0 lectern" in tick_source, "tick recovery must protect the Trader Post lectern at 2 1 0")
+    require("setblock 2 1 0 lectern" not in tick_source, "tick recovery must not create a physical Trader Post")
     require("setblock 0 0 0" not in tick_source, "tick recovery must not compete with Script API core progression")
     require("setworldspawn" not in tick_source, "tick recovery must not reset world spawn every tick")
     require("tp @s" not in tick_source and "tp @s" not in setup_source,
@@ -130,7 +130,7 @@ def main() -> None:
 
     for document_name in ("README.md", "DESCRIPTION.md"):
         document = (PROJECT / document_name).read_text(encoding="utf-8")
-        for coordinate in ("0 0 0", "0 -1 0", "0 1 0", "2 1 0"):
+        for coordinate in ("0 0 0", "0 -1 0", "0 1 0"):
             require(coordinate in document,
                     f"{document_name} must document Dirtbound's current coordinate {coordinate}")
         for stale_coordinate in ("0 64 0", "0 63 0", "0 65 0", "2 65 0"):
