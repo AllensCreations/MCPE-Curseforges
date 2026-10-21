@@ -2,7 +2,7 @@
 
 ---
 
-## [0.1.9] - 2026-10-21
+## [0.1.10] - 2026-10-21
 
 ### Changed
 - Moved central Dirt restoration into a scheduled function that places Dirt only when the target position is air.
