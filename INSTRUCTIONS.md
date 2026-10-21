@@ -318,3 +318,13 @@ MCPEDL/maps/<Map-Name>/
 - The builder follows the design documented in `CreateWorld/McpeWorld.html`; it does not execute the HTML or use it as an input archive. It must not depend on the deleted legacy world asset.
 - A successful ZIP/LevelDB/manifest check is a structural build check, not proof that Minecraft loaded the map or that its custom OneBlock progression works. Never claim in-game verification without an actual game test.
 - If a project's pack manifest is missing, malformed, or has an unresolved Resource Pack UUID dependency, fail the build and report the exact source path. Never generate fake pack UUIDs for the map's actual packs or silently omit required packs.
+
+
+## OneBlock Tester Gate and World Download Layout
+
+- For OneBlock maps that require gameplay verification, publish a dedicated `Tester Build/` folder inside that map's project directory. The tester package is a `.mcaddon` containing the current Behavior Pack and Resource Pack; it must not create a `.mcworld`.
+- Keep the Creative, Survival, and Hardcore `.mcworld` files together directly in the same map project directory, not in three mode subfolders.
+- Do not generate release worlds until the user has confirmed the add-on mechanics passed in-game testing. Use `oneblock.json` with `release_enabled: false` until that confirmation; keep the marker disabled only when the whole project should be excluded from generation.
+- The shared world builder must not teleport players. Initial platform recovery should place Bedrock at `(0,63,0)` and Dirt at `(0,64,0)` only when those positions are air, so the recovery logic cannot overwrite evolved OneBlock stages.
+- The individual map `README.md` should provide a direct tester-build download and three clearly labeled Creative, Survival, and Hardcore world download links. If release files do not exist yet, state clearly that the links are pending tester approval rather than implying the worlds are already available.
+- Keep the tester package, generated worlds, README links, and map catalog aligned to the current pack version and actual committed filenames. Never claim an in-game test passed based only on archive or syntax checks.
