@@ -1,5 +1,16 @@
 # Changelog — OneBlock: Dirtbound Kingdom Beta
 
+## [0.1.22] - 2026-10-21
+
+### Changed
+- Removed the Trader Post barrel and replaced it with a lectern at the same coordinates.
+- Replaced the sidebar scoreboard with live OneCoins action-bar text driven by a function.
+- Simplified currency and mining status text; no special Minecoin or wooden-pickaxe symbols are required.
+
+### Fixed
+- Balance text refreshes regularly and displays the live player balance.
+
+
 ---
 
 ## [0.1.21] - 2026-10-21
