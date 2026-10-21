@@ -5,7 +5,7 @@
 ## [Unreleased]
 
 ### Improved & Balanced
-- **Separate testing from world releases:** A dedicated tester package is provided first. The Creative, Survival, and Hardcore worlds remain unavailable until the OneBlock mechanics are verified in Minecraft.
+- **Creative world testing:** The Creative `.mcworld` is now the sole tester. The separate MCAddon tester package is being retired; Creative, Survival, and Hardcore world files are kept together.
 
 
 ## [0.1.18] - 2026-10-21
