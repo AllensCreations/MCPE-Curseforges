@@ -1,18 +1,18 @@
-# OneBlock: Dirtbound Kingdom Beta (v0.1.16)
+# OneBlock: Dirtbound Kingdom Beta (v0.1.17)
 
 Download the available OneBlock Behavior Pack and Resource Pack test package for Minecraft Bedrock Edition.
 
 ## Download
 
-- **Version:** 0.1.16 Test Build
+- **Version:** 0.1.17 Test Build
 - **Package format:** `.mcaddon`
-- **Direct download:** [Download OneBlock Dirtbound Kingdom MCAddon Test](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/OneBlock-Dirtbound-Kingdom-Beta/OneBlock%20Dirtbound%20Kingdom%20Beta%20by%20AllensCreations%20%28V0.1.16%29.mcaddon)
+- **Direct download:** [Download OneBlock Dirtbound Kingdom MCAddon Test](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/OneBlock-Dirtbound-Kingdom-Beta/OneBlock%20Dirtbound%20Kingdom%20Beta%20by%20AllensCreations%20%28V0.1.17%29.mcaddon)
 
 ## Installation
 
 1. Download and open the `.mcaddon` file with Minecraft to import both packs.
 2. Create a **new, disposable test world** and enable both imported packs.
-3. Ensure the central OneBlock position at `0 64 0` and Trader Post position at `2 65 0` are clear for the test.
+3. Ensure the central OneBlock at `0 64 0`, Bedrock footing at `0 63 0`, and world spawn at `0 65 0` are initialized by the scheduled function.
 4. Use the permanent Trader Post barrel or the OneBlock Trader item to open the shop.
 
 This is a troubleshooting add-on, not a prebuilt world. Read [DESCRIPTION.md](DESCRIPTION.md) for test details.
