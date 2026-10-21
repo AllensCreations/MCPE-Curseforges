@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
 """Build OneBlock worlds from the three user-supplied mode-specific templates.
 
-Each Mcpeworlds archive is the source of truth for its own world settings and
-real LevelDB database. The builder adds the target map's actual packs and
-changes only the displayed world name and required pack links.
+Each Mcpeworlds archive is the source of truth for its own mode metadata and
+settings. Because these uploads omit LevelDB, a known-complete Bedrock world is
+used only as a database carrier; its metadata and packs are never copied.
 """
 from __future__ import annotations
 
@@ -24,6 +24,12 @@ SOURCE_WORLDS = {
     "Survival": ROOT / "Mcpeworlds" / "Survival_Void_World.mcworld.zip",
     "Hardcore": ROOT / "Mcpeworlds" / "Hardcore_Void_World.mcworld.zip",
 }
+# The three uploaded references contain metadata and pack setup but no LevelDB.
+# Use this known-complete world only as a database carrier, never for its settings/packs.
+DATABASE_CARRIER = (
+    MAPS_ROOT / "OneBlock-Void-Survival" /
+    "OneBlock Void Survival by AllensCreations (V1.2.5).mcworld"
+)
 MODES = ("Creative", "Survival", "Hardcore")
 
 
@@ -46,7 +52,7 @@ def locate_world_root(extracted: Path, depth: int = 0) -> Path:
     candidates = [extracted]
     candidates.extend(p.parent for p in extracted.rglob("level.dat"))
     for candidate in candidates:
-        if (candidate / "level.dat").is_file() and (candidate / "db" / "CURRENT").is_file():
+        if (candidate / "level.dat").is_file():
             return candidate
 
     if depth < 4:
@@ -65,7 +71,7 @@ def locate_world_root(extracted: Path, depth: int = 0) -> Path:
 
     sample = sorted(p.relative_to(extracted).as_posix() for p in extracted.rglob("*") if p.is_file())[:30]
     raise ValueError(
-        "The selected Mcpeworlds template does not contain level.dat and db/CURRENT, "
+        "The selected Mcpeworlds template does not contain level.dat, "
         f"even after inspecting nested ZIP archives. Files found: {sample}. "
         "Refusing to create a fabricated or incomplete world."
     )
@@ -173,14 +179,40 @@ def build_variant(project: Path, map_name: str, mode: str) -> Path:
         staging.mkdir()
         safe_extract(source_world, staging)
         world = locate_world_root(staging)
+
+        # The uploaded mode references have level metadata but no db/LevelDB.
+        # Preserve their mode settings while supplying only a real database from
+        # a known-complete Bedrock world. Never copy that carrier's level.dat or packs.
+        if not (world / "db" / "CURRENT").is_file():
+            if not DATABASE_CARRIER.is_file():
+                raise FileNotFoundError(
+                    f"The {mode} template has no LevelDB and the required database carrier is missing: "
+                    f"{DATABASE_CARRIER}"
+                )
+            carrier_stage = Path(temp) / "database_carrier"
+            carrier_stage.mkdir()
+            safe_extract(DATABASE_CARRIER, carrier_stage)
+            carrier_world = locate_world_root(carrier_stage)
+            carrier_db = carrier_world / "db"
+            data_files = [
+                p for p in carrier_db.iterdir()
+                if p.is_file() and p.name not in {"CURRENT", "LOCK", "LOG", "LOG.old"}
+                and not p.name.startswith("MANIFEST")
+            ] if carrier_db.is_dir() else []
+            if not (carrier_db / "CURRENT").is_file() or not data_files:
+                raise ValueError(
+                    f"The database carrier has no complete LevelDB database: {DATABASE_CARRIER}"
+                )
+            shutil.copytree(carrier_db, world / "db", dirs_exist_ok=True)
+
         data_files = [
             p for p in (world / "db").iterdir()
             if p.is_file() and p.name not in {"CURRENT", "LOCK", "LOG", "LOG.old"}
             and not p.name.startswith("MANIFEST")
         ]
-        if not data_files:
+        if not (world / "db" / "CURRENT").is_file() or not data_files:
             raise ValueError(
-                f"The {mode} template has no LevelDB data files; refusing to generate a broken world."
+                f"The {mode} output has no complete LevelDB data; refusing to generate a broken world."
             )
 
         # Preserve the mode-specific template's game mode, seed, spawn, void settings,
