@@ -320,10 +320,10 @@ MCPEDL/maps/<Map-Name>/
 - If a project's pack manifest is missing, malformed, or has an unresolved Resource Pack UUID dependency, fail the build and report the exact source path. Never generate fake pack UUIDs for the map's actual packs or silently omit required packs.
 
 
-## OneBlock Tester Build and World Download Layout
+## OneBlock Creative-World Testing and Download Layout
 
-- For OneBlock maps that require gameplay verification, publish a dedicated `Tester Build/` folder inside that map's project directory. The tester package is a `.mcaddon` containing the current Behavior Pack and Resource Pack; it must not create a `.mcworld`.
-- Keep the Creative, Survival, and Hardcore `.mcworld` files together directly in the same map project directory, not in three mode subfolders.
+- The **Creative .mcworld is the sole tester** for OneBlock maps. Do not create or publish a separate .mcaddon tester package or a `Tester Build/` folder.
+- Generate the Creative, Survival, and Hardcore `.mcworld` variants together in the same map project directory. The Creative world is the one the user imports first to test the actual gameplay; the other two variants are kept alongside it.
+- The individual map `README.md` must provide clearly labeled download links for Creative, Survival, and Hardcore worlds. The Creative link is the tester link; do not advertise a separate add-on package.
 - The shared world builder must not teleport players. Initial platform recovery should place Bedrock at `(0,63,0)` and Dirt at `(0,64,0)` only when those positions are air, so the recovery logic cannot overwrite evolved OneBlock stages.
-- The individual map `README.md` should provide a direct tester-build download and three clearly labeled Creative, Survival, and Hardcore world download links. If release files do not exist yet, label those links as pending generation rather than implying the worlds are already available.
-- Keep the tester package, generated worlds, README links, and map catalog aligned to the current pack version and actual committed filenames. Never claim an in-game test passed based only on archive or syntax checks.
+- Keep the three world files, README links, and map catalog aligned to actual committed filenames and the current pack version. Never claim an in-game test passed based only on archive or syntax checks.
