@@ -12,11 +12,9 @@ Cook a wider range of meals using familiar Minecraft ingredients. Each dish has 
 
 The collection includes dishes such as Shepherd's Pie, Hunter's Stew, Roast Turkey, Glazed Wings, Miner's Roast, Mariner's Pot, Dragonlord's Abyssal Galantine, Celestial Echo Roast, Sovereign Platter, and Imperial Hero's Crown Feast.
 
-
 ## Crafting Recipes
 
 Recipes are available in the crafting table. Use the ingredients for the dish you want to prepare.
-
 
 ## Featured Food Effects
 
@@ -46,22 +44,14 @@ Other dishes provide different food values or effects. These examples highlight 
 
 If you find a bug or a feature that does not work as expected, please leave a comment. Add-on ideas and suggestions for future features are welcome.
 
-## Creator and Permissions
-
-- **Creator:** AllensCreations.
-- **Video creators:** You may feature this add-on in videos and streams with credit to AllensCreations.
-- **Redistribution:** Do not re-upload the pack to third-party marketplaces or file-sharing platforms without permission. Direct players to the official project page.
-- **CurseForge:** [AllensCreations Projects](https://www.curseforge.com/members/allenscreations/projects)
-- **MCPEDL:** [AllensCreations Profile](https://mcpedl.com/user/allenscreations/)
-
 ---
 
 ## Guidelines and Attribution
 
 - Creator: AllensCreations
-- Rights and reservation: All rights reserved for AllensCreations.
-- Content creators may feature this creation in videos and streams with credit to AllensCreations.
-- Do not re-upload this pack or provide direct monetized download bypasses. Link to the official project page.
+- Rights & Reservation: All rights reserved for AllensCreations.
+- Content Creators: Content creators are permitted to feature this creation in videos and streams with credit to AllensCreations.
+- Redistribution: Do not re-upload this pack or provide direct monetized download bypasses. Link directly to the official repository page.
 
 ---
 

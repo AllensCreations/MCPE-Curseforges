@@ -1,9 +1,4 @@
-# Ghast Mob Head Transformers (v1.1.13) — Giant Flying Mob Heads by AllensCreations
-
-![MCPEDL](https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/MCPEDL/addons/Ghast-Mob-Head-Transformers/1791965821315.jpg?v=1791967147 "MCPEDL")
-
-[![Minecraft Bedrock](https://img.shields.io/badge/Minecraft%20Bedrock-1.21%20--%201.26%2B-brightgreen?style=flat-square&logo=minecraft)](https://github.com/AllensCreations/MCPE-Curseforges)
-[![Format](https://img.shields.io/badge/Format-.MCADDON%20%7C%20.MCPACK-orange?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/addons#available-add-ons)
+# Ghast Mob Head Transformers (v1.1.13) — Giant Flying Mob Heads
 
 **By AllensCreations**
 
@@ -27,61 +22,61 @@ Each transformed variant features unique attack projectiles, dynamic facial anim
 
 Interact with any Ghast while holding a skull to trigger the transformation:
 
-### 0
-- **Item Required**: *(Default)*
+### Classic Ghast
+- **Item Required**: No head required
 - **Transformed Creature**: Classic Ghast
-- **Attack Type & Fire Rate**: Giant Explosive Fireball (2.0s)
-- **Sound Cues**: Classic Ghast screams
-- **Shearing Reclaim**: None
+- **Attack**: Giant Explosive Fireball (2.0s)
+- **Sound**: Classic Ghast screams
+- **Shears**: None
 
-### 1
+### Skeleton Head
 - **Item Required**: Skeleton Skull
 - **Transformed Creature**: Giant Skeleton Head
-- **Attack Type & Fire Rate**: Rapid Piercing Arrow (1.0s)
-- **Sound Cues**: Bone rattles and snaps
-- **Shearing Reclaim**: Skeleton Skull
+- **Attack**: Rapid Piercing Arrow (1.0s)
+- **Sound**: Bone rattles and snaps
+- **Shears**: Skeleton Skull
 
-### 2
+### Wither Skeleton Head
 - **Item Required**: Wither Skeleton Skull
 - **Transformed Creature**: Giant Wither Skeleton
-- **Attack Type & Fire Rate**: Explosive Wither Skull (2.2s)
-- **Sound Cues**: Deep soul rattle
-- **Shearing Reclaim**: Wither Skeleton Skull
+- **Attack**: Explosive Wither Skull (2.2s)
+- **Sound**: Deep soul rattle
+- **Shears**: Wither Skeleton Skull
 
-### 3
+### Zombie Head
 - **Item Required**: Zombie Head
 - **Transformed Creature**: Giant Zombie Head
-- **Attack Type & Fire Rate**: Splash Poison Potion (1.6s)
-- **Sound Cues**: Undead zombie groans
-- **Shearing Reclaim**: Zombie Head
+- **Attack**: Splash Poison Potion (1.6s)
+- **Sound**: Undead zombie groans
+- **Shears**: Zombie Head
 
-### 4
+### Player Head
 - **Item Required**: Steve / Player Head
 - **Transformed Creature**: Giant Steve Head
-- **Attack Type & Fire Rate**: Knockback Wind Charge (1.4s)
-- **Sound Cues**: Wind charge burst
-- **Shearing Reclaim**: Player Head
+- **Attack**: Knockback Wind Charge (1.4s)
+- **Sound**: Wind charge burst
+- **Shears**: Player Head
 
-### 5
+### Creeper Head
 - **Item Required**: Creeper Head
 - **Transformed Creature**: Giant Creeper Head
-- **Attack Type & Fire Rate**: High-Explosive Fireball (2.5s)
-- **Sound Cues**: Terrifying fuse hiss
-- **Shearing Reclaim**: Creeper Head
+- **Attack**: High-Explosive Fireball (2.5s)
+- **Sound**: Terrifying fuse hiss
+- **Shears**: Creeper Head
 
-### 6
+### Piglin Head
 - **Item Required**: Piglin Head
 - **Transformed Creature**: Giant Piglin Head
-- **Attack Type & Fire Rate**: Rapid Blazing Fireballs (0.8s)
-- **Sound Cues**: Aggressive piglin snorts
-- **Shearing Reclaim**: Piglin Head
+- **Attack**: Rapid Blazing Fireballs (0.8s)
+- **Sound**: Aggressive piglin snorts
+- **Shears**: Piglin Head
 
-### 7
+### Ender Dragon Head
 - **Item Required**: Dragon Head
 - **Transformed Creature**: Colossal Ender Dragon Head
-- **Attack Type & Fire Rate**: Lingering Dragon Fireball (3.0s, 100 HP)
-- **Sound Cues**: Ender Dragon roar and growl
-- **Shearing Reclaim**: Dragon Head
+- **Attack**: Lingering Dragon Fireball (3.0s, 100 HP)
+- **Sound**: Ender Dragon roar and growl
+- **Shears**: Dragon Head
 
 ---
 
@@ -89,7 +84,7 @@ Interact with any Ghast while holding a skull to trigger the transformation:
 
 - **Dynamic Charging Expressions**: When preparing to fire, transformed heads shift dynamically into angry, glowing, mouth-open attack expressions.
 - **Colossal Ender Dragon Head**: Equip a Dragon Head to transform the Ghast into an obsidian-scaled boss with 100 HP, 3D snout, horns, and lingering purple Dragon Fireballs.
-- **Resource Recovery**: Use Shears on any transformed Ghast to safely reclaim your equipped skull with zero item loss.
+- **Resource Recovery**: Use Shears on any transformed Ghast to safely reclaim your equipped skull with to reclaim the required head.
 - **3D Hat, Snout, and Horn Geometry**: Features authentic 3D mob head modeling including Piglin snouts/ears and Ender Dragon snouts/horns.
 - **Clean Animations**: Tentacles tuck away smoothly while heads are equipped, restoring naturally upon shearing.
 
@@ -97,8 +92,10 @@ Interact with any Ghast while holding a skull to trigger the transformation:
 
 ## Compatibility
 
-- Minecraft Bedrock Edition 1.21.0 - 1.26+
-- Complete Add-on (.mcaddon) and Modular Pack (.mcpack) format
+- Minecraft Bedrock Edition. Check the current package listing for the release's supported game version.
+- Available as a complete add-on or as separate pack files where listed.
+
+---
 
 ---
 

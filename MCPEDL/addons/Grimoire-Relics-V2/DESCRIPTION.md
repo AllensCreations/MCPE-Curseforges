@@ -1,8 +1,5 @@
 # Grimoire Relics V2 (v1.0.8)
 
-[![Minecraft Bedrock](https://img.shields.io/badge/Minecraft%20Bedrock-1.26%2B-brightgreen?style=flat-square&logo=minecraft)](https://github.com/AllensCreations/MCPE-Curseforges)
-[![Format](https://img.shields.io/badge/Format-.MCADDON-orange?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/addons#available-add-ons)
-
 **By AllensCreations**
 
 Equip one of 20 magical grimoires in your offhand to gain its distinct passive effects, combat abilities, environmental powers, or subtle particle aura. Fourteen tomes are craftable; six Ancient Relics are found through exploration.
@@ -26,7 +23,7 @@ Grimoire Relics V2 adds a collection of magical tomes to Minecraft Bedrock Editi
 - **Acquisition**: Craftable
 
 ### <img src="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/MCPEDL/addons/Grimoire-Relics-V2/assets/items/tome_zephyr.png" width="20" height="20" alt="Zephyr Wind"> **Zephyr Wind**
-- **Abilities & Mechanics**: Speed II + Jump Boost I. Auto Slow Falling when plunging (downward velocity < -0.5). Full fall damage immunity.
+- **Abilities & Mechanics**: Speed II + Jump Boost I. Auto Slow Falling when plunging (while falling quickly). Full fall damage immunity.
 - **Acquisition**: Craftable
 
 ### <img src="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/MCPEDL/addons/Grimoire-Relics-V2/assets/items/tome_lich.png" width="20" height="20" alt="Necrotic Lich"> **Necrotic Lich**
@@ -42,7 +39,7 @@ Grimoire Relics V2 adds a collection of magical tomes to Minecraft Bedrock Editi
 - **Acquisition**: **Ancient Relic (Loot Only)**: Dungeon Monster Rooms
 
 ### <img src="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/MCPEDL/addons/Grimoire-Relics-V2/assets/items/tome_lunar.png" width="20" height="20" alt="Lunar Eclipse"> **Lunar Eclipse**
-- **Abilities & Mechanics**: Nocturnal Blessing: Invisibility and Strength I during nighttime (13000–23000 ticks) in the Overworld.
+- **Abilities & Mechanics**: Nocturnal Blessing: Invisibility and Strength I during nighttime (during nighttime) in the Overworld.
 - **Acquisition**: Craftable
 
 ### <img src="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/MCPEDL/addons/Grimoire-Relics-V2/assets/items/tome_solar.png" width="20" height="20" alt="Solar Dawn"> **Solar Dawn**
@@ -66,7 +63,7 @@ Grimoire Relics V2 adds a collection of magical tomes to Minecraft Bedrock Editi
 - **Acquisition**: Craftable
 
 ### <img src="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/MCPEDL/addons/Grimoire-Relics-V2/assets/items/tome_void.png" width="20" height="20" alt="Void Phantom"> **Void Phantom**
-- **Abilities & Mechanics**: In The End, the first void rescue triggers a 2-second Level 60 elevation, followed by a 1-second Slow Falling cushion when safe ground is detected during descent. The rescue continues if you remove the tome from your offhand. After safe touchdown, the activated Void Phantom is consumed from your offhand or inventory if it can be found. The rescue is locked after activation for the current player session.
+- **Abilities & Mechanics**: In The End, the first void rescue triggers a 2-second a brief upward lift, followed by a 1-second Slow Falling cushion when safe ground is detected during descent. The rescue continues if you remove the tome from your offhand. After safe touchdown, the activated Void Phantom is consumed from your offhand or inventory if it can be found. Only one rescue can activate per player session.
 - **Acquisition**: **Ancient Relic (Loot Only)**: Ancient Cities
 
 ### <img src="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/MCPEDL/addons/Grimoire-Relics-V2/assets/items/tome_golem.png" width="20" height="20" alt="Iron Golem"> **Iron Golem**
@@ -101,7 +98,7 @@ Grimoire Relics V2 adds a collection of magical tomes to Minecraft Bedrock Editi
 
 ## Crafting Pattern
 
-There are **14 craftable tomes** made at a standard Crafting Table using shaped recipes arranged around a central Book. The recipes use the vanilla recipe system and include recipe unlock entries. The **6 Ancient Relics** (Void Phantom, Cataclysm Dragon, Necrotic Lich, Mirror Trickster, Blood Vampire, and Infernal Phoenix) are not craftable and are intended to be found in exploration loot:
+There are **14 craftable tomes** made at a standard Crafting Table using shaped recipes arranged around a central Book. The recipes are available through the crafting table. The **6 Ancient Relics** (Void Phantom, Cataclysm Dragon, Necrotic Lich, Mirror Trickster, Blood Vampire, and Infernal Phoenix) are not craftable and are intended to be found in exploration loot:
 
 <p align="center">
   <img src="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/MCPEDL/addons/Grimoire-Relics-V2/assets/all_recipes_sheet.png" alt="Grimoire Relics V2 Crafting Recipes" width="850">
@@ -112,7 +109,7 @@ There are **14 craftable tomes** made at a standard Crafting Table using shaped 
 ## Durability, Enchanting & World Generation
 
 ### Relic Durability, Enchanting & Repairing
-- **100 Max Durability** (`minecraft:durability`): Each Grimoire possesses a durability health bar.
+- **100 durability points** (): Each Grimoire possesses a durability health bar.
 - **Event-Only Wear**: Passive stat buffs (such as Water Breathing, Speed, or Haste) do **not** drain durability. Durability is consumed strictly upon active mechanical execution:
   - *Combat triggers* (e.g. Phoenix burn on hit/hurt, Vampire life-steal, Iron Golem absorption & launch, Hydra poison, Lich wither): 1 durability per event.
   - *Environmental abilities* (e.g. Druid crop boost, Frost Weaver water freeze, Stormcaller lightning strike, Mirror Trickster blink): 1 to 2 durability per event.
@@ -122,17 +119,17 @@ There are **14 craftable tomes** made at a standard Crafting Table using shaped 
   - **Mending** restores tome durability automatically as you collect experience orbs.
 - **Anvil Repairing**:
   - Combine two of the same tomes on an Anvil to restore their remaining durability.
-  - Can also be repaired on an Anvil using standard **Books** (`minecraft:book`) at a strict **1:1 ratio** (1 book restores 1 durability point).
-- **Shatter**: If durability reaches 0 without being repaired or protected, the tome shatters (`random.break` audio with item break particles) and is removed from your equipment.
+  - Can also be repaired on an Anvil using standard **Books** () at a strict **1:1 ratio** (1 book restores 1 durability point).
+- **Shatter**: If durability reaches 0 without being repaired or protected, the tome shatters ( audio with item break particles) and is removed from your equipment.
 
 ### World Chest Distribution
 The pack includes exploration loot entries for Ancient Relics. Their intended locations are:
-- **Ancient Cities**: High chance for **Void Phantom** (`tome_void`) and **Mirror Trickster** (`tome_mirror`).
-- **Bastion Remnants (Treasure)**: **Infernal Phoenix** (`tome_phoenix`) and **Necrotic Lich** (`tome_lich`).
-- **End Cities**: **Cataclysm Dragon** (`tome_dragon`).
-- **Stronghold Libraries**: **Arcane Scholar** (`tome_scholar`) and **Cursed Alchemist** (`tome_alchemist`).
-- **Shipwreck Treasuries**: **Abyssal Tide** (`tome_abyss`).
-- **Monster Rooms / Simple Dungeons**: **Blood Vampire** (`tome_vampire`) and **Deep Delver** (`tome_delver`).
+- **Ancient Cities**: High chance for **Void Phantom** () and **Mirror Trickster** ().
+- **Bastion Remnants (Treasure)**: **Infernal Phoenix** () and **Necrotic Lich** ().
+- **End Cities**: **Cataclysm Dragon** ().
+- **Stronghold Libraries**: **Arcane Scholar** () and **Cursed Alchemist** ().
+- **Shipwreck Treasuries**: **Abyssal Tide** ().
+- **Monster Rooms / Simple Dungeons**: **Blood Vampire** () and **Deep Delver** ().
 
 ---
 
@@ -148,8 +145,8 @@ The pack includes exploration loot entries for Ancient Relics. Their intended lo
 
 - **Minecraft Bedrock Edition**: Intended target is 1.26+; the pack manifests list a minimum engine version of 1.21.0.
 - **Format**: Complete Pack (.mcaddon), containing a Behavior Pack and Resource Pack.
-- **Experimental Features**: No experimental toggles are declared in the pack manifests. Requirements can vary by Minecraft version and world settings.
-- **Achievements**: Likely achievement-friendly based on the pack setup; this has not been confirmed through in-game testing.
+- Experimental features: No experimental toggle requirement is declared for the current pack, but behavior can vary by game version and world settings.
+- **Achievements**: Achievement support has not been confirmed through in-game testing.
 - **Use**: Activate both included packs in your world and equip a tome in your offhand.
 
 ## Help and Suggestions
@@ -158,11 +155,10 @@ If a feature is broken or does not work as described, please leave a comment on 
 
 ## Guidelines and Attribution
 
-- **Creator**: AllensCreations
-- **More projects**: [CurseForge](https://www.curseforge.com/members/allenscreations/projects) | [MCPEDL](https://mcpedl.com/user/allenscreations/)
-- **Rights & Reservation**: All rights reserved for AllensCreations.
-- **Content Creators**: Content creators are permitted to feature this creation in videos and streams with credit to AllensCreations.
-- **Redistribution**: Do not re-upload this pack or provide direct monetized download bypasses. Link directly to the official repository page.
+- Creator: AllensCreations
+- Rights & Reservation: All rights reserved for AllensCreations.
+- Content Creators: Content creators are permitted to feature this creation in videos and streams with credit to AllensCreations.
+- Redistribution: Do not re-upload this pack or provide direct monetized download bypasses. Link directly to the official repository page.
 
 ---
 
