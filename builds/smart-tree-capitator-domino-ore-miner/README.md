@@ -1,28 +1,20 @@
-# Smart Tree Capitator and Domino Ore Miner - Downloads and Releases
+# Smart Tree Capitator and Domino Ore Miner (v1.0.6) — Downloads
 
-This folder contains compiled release packages for **Smart Tree Capitator and Domino Ore Miner** by AllensCreations.
+This folder contains an older archived package. For the current release, use the official project page below.
 
----
+## Available Downloads
 
-## Direct Download Links
+- **Complete Add-on (.mcaddon):** [Download Complete Add-on (.mcaddon)](Smart%20Tree%20Capitator%20and%20Domino%20Ore%20Miner%20by%20AllensCreations%20%28V1.0.6%29.mcaddon)
+- **Pack (.mcpack):** [Download Pack (.mcpack)](Smart%20Tree%20Capitator%20and%20Domino%20Ore%20Miner%20by%20AllensCreations%20%28V1.0.6%29.mcpack)
 
-| File Name | Format | Size | Description | Download Link |
-| :--- | :--- | :--- | :--- | :--- |
-| **`Smart Tree Capitator and Domino Ore Miner by AllensCreations (V1.0.6).mcpack`** | `.mcpack` | ~75 KB | Script Behavior Pack archive ready for import. | [Download (.mcpack)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/smart-tree-capitator-domino-ore-miner/Smart%20Tree%20Capitator%20and%20Domino%20Ore%20Miner%20by%20AllensCreations%20%28V1.0.6%29.mcpack) |
-| **`Smart Tree Capitator and Domino Ore Miner by AllensCreations (V1.0.6).mcaddon`** | `.mcaddon` | ~75 KB | Complete Add-on package archive. | [Download (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/smart-tree-capitator-domino-ore-miner/Smart%20Tree%20Capitator%20and%20Domino%20Ore%20Miner%20by%20AllensCreations%20%28V1.0.6%29.mcaddon) |
+## Current Release
 
----
+See the [current project download page](https://github.com/AllensCreations/MCPE-Curseforges/blob/main/MCPEDL/addons/Smart-Tree-Capitator-and-Domino-Ore-Miner/README.md) for the maintained version.
 
-## Installation Guide
+## Installation
 
-For general import instructions, refer to the centralized [Download and Installation Guide](../README.md#download-and-installation-guide).
-
----
-
-## Source Files
-To inspect uncompressed JSON files, geometry, render controllers, and textures:
-- [View Source Files](../../MCPEDL/addons/Smart-Tree-Capitator-and-Domino-Ore-Miner/)
-
----
+1. Download the package you need.
+2. Open the downloaded file with Minecraft to import it.
+3. For packs, enable them in the world's settings if required.
 
 © All rights reserved for AllensCreations.

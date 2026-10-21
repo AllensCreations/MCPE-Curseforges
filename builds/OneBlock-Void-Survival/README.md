@@ -1,29 +1,17 @@
-# OneBlock Void Survival - Downloads and Releases
+# OneBlock Void Survival Admin (v1.2.6) — Downloads
 
-This folder contains compiled release packages for **OneBlock Void Survival** by AllensCreations.
+Download the published package files for Minecraft Bedrock Edition from this folder.
 
----
+## Available Downloads
 
-## Direct Download Links
+- **Admin World (.mcworld):** [Download Admin World (.mcworld)](OneBlock%20Void%20Survival%20Admin%20by%20AllensCreations%20%28V1.2.6%29.mcworld)
+- **Behavior Pack (.mcpack):** [Download Behavior Pack (.mcpack)](OneBlock%20Void%20Survival%20BP%20by%20AllensCreations%20%28V1.2.6%29.mcpack)
+- **World (.mcworld):** [Download World (.mcworld)](OneBlock%20Void%20Survival%20by%20AllensCreations%20%28V1.2.6%29.mcworld)
 
-| File Name | Format | Size | Description | Download Link |
-| :--- | :--- | :--- | :--- | :--- |
-| **`OneBlock Void Survival BP by AllensCreations (V1.2.6).mcpack`** | `.mcpack` | ~150 KB | Standalone Behavior Pack archive for custom map logic. | [Download (.mcpack)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/OneBlock-Void-Survival/OneBlock%20Void%20Survival%20BP%20by%20AllensCreations%20%28V1.2.6%29.mcpack) |
-| **`OneBlock Void Survival by AllensCreations (V1.2.6).mcworld`** | `.mcworld` | ~266 KB | Complete Survival World archive ready for one-click import. | [Download (.mcworld)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/OneBlock-Void-Survival/OneBlock%20Void%20Survival%20by%20AllensCreations%20%28V1.2.6%29.mcworld) |
-| **`OneBlock Void Survival Admin by AllensCreations (V1.2.6).mcworld`** | `.mcworld` | ~266 KB | Admin / Studio World archive pre-configured with testing tools. | [Download (.mcworld)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/OneBlock-Void-Survival/OneBlock%20Void%20Survival%20Admin%20by%20AllensCreations%20%28V1.2.6%29.mcworld) |
+## Installation
 
----
-
-## Installation Guide
-
-For general import instructions, refer to the centralized [Download and Installation Guide](../README.md#download-and-installation-guide).
-
----
-
-## Source Files
-To inspect uncompressed JSON files, geometry, render controllers, and textures:
-- [View Source Files](../../MCPEDL/maps/OneBlock-Void-Survival/)
-
----
+1. Download the package you need.
+2. Open the downloaded file with Minecraft to import it.
+3. For packs, enable them in the world's settings if required.
 
 © All rights reserved for AllensCreations.

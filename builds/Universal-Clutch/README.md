@@ -1,28 +1,16 @@
-# Universal Clutch - Downloads and Releases
+# Universal Clutch (v1.0.2) — Downloads
 
-This folder contains compiled release packages for **Universal Clutch** by AllensCreations.
+Download the published package files for Minecraft Bedrock Edition from this folder.
 
----
+## Available Downloads
 
-## Direct Download Links
+- **Complete Add-on (.mcaddon):** [Download Complete Add-on (.mcaddon)](Universal%20Clutch%20by%20AllensCreations%20%28V1.0.2%29.mcaddon)
+- **Pack (.mcpack):** [Download Pack (.mcpack)](Universal%20Clutch%20by%20AllensCreations%20%28V1.0.2%29.mcpack)
 
-| File Name | Format | Size | Description | Download Link |
-| :--- | :--- | :--- | :--- | :--- |
-| **`Universal Clutch by AllensCreations (V1.0.2).mcpack`** | `.mcpack` | ~54 KB | Script Behavior Pack archive ready for import. | [Download (.mcpack)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Universal-Clutch/Universal%20Clutch%20by%20AllensCreations%20%28V1.0.2%29.mcpack) |
-| **`Universal Clutch by AllensCreations (V1.0.2).mcaddon`** | `.mcaddon` | ~54 KB | Complete Add-on package archive. | [Download (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Universal-Clutch/Universal%20Clutch%20by%20AllensCreations%20%28V1.0.2%29.mcaddon) |
+## Installation
 
----
-
-## Installation Guide
-
-For general import instructions, refer to the centralized [Download and Installation Guide](../README.md#download-and-installation-guide).
-
----
-
-## Source Files
-To inspect uncompressed JSON files, geometry, render controllers, and textures:
-- [View Source Files](../../MCPEDL/addons/Universal-Clutch/)
-
----
+1. Download the package you need.
+2. Open the downloaded file with Minecraft to import it.
+3. For packs, enable them in the world's settings if required.
 
 © All rights reserved for AllensCreations.

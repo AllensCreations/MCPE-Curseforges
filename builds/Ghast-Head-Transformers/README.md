@@ -1,29 +1,21 @@
-# Ghast Mob Head Transformers - Downloads and Releases
+# Ghast Mob Head Transformers (v1.1.11) — Downloads
 
-This folder contains compiled release packages for **Ghast Mob Head Transformers** by AllensCreations.
+This folder contains an older archived package. For the current release, use the official project page below.
 
----
+## Available Downloads
 
-## Direct Download Links
+- **Behavior Pack (.mcpack):** [Download Behavior Pack (.mcpack)](Ghast%20Mob%20Head%20Transformers%20BP%20by%20AllensCreations%20%28V1.1.11%29.mcpack)
+- **Resource Pack (.mcpack):** [Download Resource Pack (.mcpack)](Ghast%20Mob%20Head%20Transformers%20RP%20by%20AllensCreations%20%28V1.1.11%29.mcpack)
+- **Complete Add-on (.mcaddon):** [Download Complete Add-on (.mcaddon)](Ghast%20Mob%20Head%20Transformers%20by%20AllensCreations%20%28V1.1.11%29.mcaddon)
 
-| File Name | Format | Size | Description | Download Link |
-| :--- | :--- | :--- | :--- | :--- |
-| **`Ghast Mob Head Transformers by AllensCreations (V1.1.11).mcaddon`** | `.mcaddon` | ~250 KB | Complete bundle containing both Behavior Pack and Resource Pack. | [Download (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Ghast-Head-Transformers/Ghast%20Mob%20Head%20Transformers%20by%20AllensCreations%20%28V1.1.11%29.mcaddon) |
-| **`Ghast Mob Head Transformers BP by AllensCreations (V1.1.11).mcpack`** | `.mcpack` | ~118 KB | Behavior Pack: Custom entities, components, and gameplay mechanics. | [Download (.mcpack)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Ghast-Head-Transformers/Ghast%20Mob%20Head%20Transformers%20BP%20by%20AllensCreations%20%28V1.1.11%29.mcpack) |
-| **`Ghast Mob Head Transformers RP by AllensCreations (V1.1.11).mcpack`** | `.mcpack` | ~130 KB | Resource Pack: Custom models, geometry, textures, and sounds. | [Download (.mcpack)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Ghast-Head-Transformers/Ghast%20Mob%20Head%20Transformers%20RP%20by%20AllensCreations%20%28V1.1.11%29.mcpack) |
+## Current Release
 
----
+See the [current project download page](https://github.com/AllensCreations/MCPE-Curseforges/blob/main/MCPEDL/addons/Ghast-Mob-Head-Transformers/README.md) for the maintained version.
 
-## Installation Guide
+## Installation
 
-For general import instructions, refer to the centralized [Download and Installation Guide](../README.md#download-and-installation-guide).
-
----
-
-## Source Files
-To inspect uncompressed JSON files, geometry, render controllers, and textures:
-- [View Source Files](../../MCPEDL/addons/Ghast-Mob-Head-Transformers/)
-
----
+1. Download the package you need.
+2. Open the downloaded file with Minecraft to import it.
+3. For packs, enable them in the world's settings if required.
 
 © All rights reserved for AllensCreations.

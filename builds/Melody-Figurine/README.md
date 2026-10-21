@@ -1,29 +1,17 @@
-# Melody Figurine - Downloads and Releases
+# Melody Figurine (v1.0.11) — Downloads
 
-This folder contains compiled release packages for **Melody Figurine** by AllensCreations.
+Download the published package files for Minecraft Bedrock Edition from this folder.
 
----
+## Available Downloads
 
-## Direct Download Links
+- **Behavior Pack (.mcpack):** [Download Behavior Pack (.mcpack)](Melody%20Figurine%20BP%20by%20AllensCreations%20%28V1.0.11%29.mcpack)
+- **Resource Pack (.mcpack):** [Download Resource Pack (.mcpack)](Melody%20Figurine%20RP%20by%20AllensCreations%20%28V1.0.11%29.mcpack)
+- **Complete Add-on (.mcaddon):** [Download Complete Add-on (.mcaddon)](Melody%20Figurine%20by%20AllensCreations%20%28V1.0.11%29.mcaddon)
 
-| File Name | Format | Size | Description | Download Link |
-| :--- | :--- | :--- | :--- | :--- |
-| **`Melody Figurine by AllensCreations (V1.0.11).mcaddon`** | `.mcaddon` | ~847 KB | Complete bundle containing both Behavior Pack and Resource Pack. | [Download (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Melody-Figurine/Melody%20Figurine%20by%20AllensCreations%20%28V1.0.11%29.mcaddon) |
-| **`Melody Figurine BP by AllensCreations (V1.0.11).mcpack`** | `.mcpack` | ~5 KB | Behavior Pack: Custom entities, components, and gameplay mechanics. | [Download (.mcpack)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Melody-Figurine/Melody%20Figurine%20BP%20by%20AllensCreations%20%28V1.0.11%29.mcpack) |
-| **`Melody Figurine RP by AllensCreations (V1.0.11).mcpack`** | `.mcpack` | ~841 KB | Resource Pack: Custom models, geometry, textures, and sounds. | [Download (.mcpack)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Melody-Figurine/Melody%20Figurine%20RP%20by%20AllensCreations%20%28V1.0.11%29.mcpack) |
+## Installation
 
----
-
-## Installation Guide
-
-For general import instructions, refer to the centralized [Download and Installation Guide](../README.md#download-and-installation-guide).
-
----
-
-## Source Files
-To inspect uncompressed JSON files, geometry, render controllers, and textures:
-- [View Source Files](../../MCPEDL/new_addons/Melody-Figurine/)
-
----
+1. Download the package you need.
+2. Open the downloaded file with Minecraft to import it.
+3. For packs, enable them in the world's settings if required.
 
 © All rights reserved for AllensCreations.
