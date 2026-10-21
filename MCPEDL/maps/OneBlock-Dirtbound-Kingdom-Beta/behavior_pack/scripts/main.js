@@ -37,7 +37,7 @@ function quantityFor(id,tier){if(/(pickaxe|axe|sword|helmet|chestplate|leggings|
 const SHOPS=RAW.map(([name,unlock,ids],tier)=>({name:name+" Supplies",unlock,items:ids.split(" ").slice(0,18).map((id,i)=>({id:"minecraft:"+id,name:id.split("_").map(w=>w[0].toUpperCase()+w.slice(1)).join(" ")+" ×"+(tier===0?QUANTITIES[i]:quantityFor(id,tier)),amount:tier===0?QUANTITIES[i]:quantityFor(id,tier),price:Math.max(1,Math.round((BASE_PRICES[i]||25)*[1,1.4,2,3,4,6,9,13,18,28][tier]+tier*tier*6))}))}));
 const STAGE_REWARDS=[{blocks:50,coins:25},{blocks:150,coins:50},{blocks:350,coins:75},{blocks:700,coins:100},{blocks:1200,coins:150},{blocks:2000,coins:200},{blocks:3000,coins:300},{blocks:4500,coins:500},{blocks:6000,coins:1000}];
 function objective(n){return world.scoreboard.getObjective(n)??world.scoreboard.addObjective(n,n===COINS?"§6Dirtbound Kingdom §8| §eOneCoins":n)}
-function showBalanceText(p){try{p.runCommand('titleraw @s actionbar {"rawtext":[{"text":"§6Dirtbound §8| §eBalance: §f"},{"score":{"name":"@s","objective":"dirtbound_coins"}},{"text":" §6OneCoins"}]}')}catch{}}
+
 function score(n,p){try{const id=p.scoreboardIdentity;return id?(objective(n).getScore(id)??0):0}catch{return 0}}
 function hasScore(n,p){try{const id=p.scoreboardIdentity;return !!id&&objective(n).getScore(id)!==undefined}catch{return false}}
 function setScore(n,p,v){try{const id=p?.scoreboardIdentity;if(!id)return false;objective(n).setScore(id,Math.max(0,Math.floor(v)));return true}catch{return false}}
@@ -67,6 +67,6 @@ world.afterEvents.itemUse.subscribe(e=>{if(e.itemStack?.typeId!==TRADER_ITEM)ret
 world.afterEvents.playerInteractWithBlock.subscribe(e=>{const p=e.player,b=e.block,l=b.location;if(b.typeId==="minecraft:lectern"&&l.x===TRADER_POS.x&&l.y===TRADER_POS.y&&l.z===TRADER_POS.z)system.run(()=>showMain(p))});
 world.afterEvents.playerBreakBlock.subscribe(e=>{const b=e.block,loc=b.location,p=e.player;if(!p)return;if(loc.x===BONUS_POS.x&&loc.y===BONUS_POS.y&&loc.z===BONUS_POS.z&&globalScore("#bonus")===1){setGlobal("#bonus",0);setScore(COINS,p,balance(p)+30);tell(p,"Bonus Core collected! +30 OneCoins.");if(Math.random()<0.2)spawnMobWave(p);return}if(b.dimension.id!=="minecraft:overworld"||loc.x!==ORIGIN.x||loc.y!==ORIGIN.y||loc.z!==ORIGIN.z)return;system.run(()=>{onCoreBreak(p);restoreCoreImmediately(b.dimension)})});
 system.runInterval(()=>{if(!coreInitializationComplete&&world.getAllPlayers().some(p=>{try{return p.hasTag("void_cleaned")}catch{return false}}))initializeCoreIfMissing(world.getDimension("overworld"))},1);
-world.afterEvents.playerSpawn.subscribe(e=>system.runTimeout(()=>{initialize(e.player);recoverTrader(e.player);showBalanceText(e.player)},5));
-system.runInterval(()=>{for(const p of world.getAllPlayers())try{initialize(p);showBalanceText(p);if(!hasTrader(p)&&invOf(p)?.emptySlotsCount>0)recoverTrader(p)}catch{}},20);
+world.afterEvents.playerSpawn.subscribe(e=>system.runTimeout(()=>{initialize(e.player);recoverTrader(e.player)},5));
+system.runInterval(()=>{for(const p of world.getAllPlayers())try{initialize(p);if(!hasTrader(p)&&invOf(p)?.emptySlotsCount>0)recoverTrader(p)}catch{}},20);
 system.run(()=>{objective(COINS);objective(MINED);objective(CORE);objective(PRESTIGE);if(globalScore("#stage")===0)setGlobal("#stage",0);if(globalScore("#breaks")===0)setGlobal("#breaks",0);if(globalScore("#bonus")===0)setGlobal("#bonus",0);});
