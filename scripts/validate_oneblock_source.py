@@ -120,7 +120,7 @@ def main() -> None:
             "world builder must include archive verification")
 
     print(f"PASS: Dirtbound source validation (v{'.'.join(map(str, bp_version))})")
-    print("PASS: matching pack manifests/dependency, tick registration, one-time setup, no-teleport rule")
+    print("PASS: matching pack manifests/dependency, tick registration, one-time Void Cleaner, setup, no-teleport rule")
     print("PASS: all three Mcpeworlds reference archives exist and builder uses mode-specific templates")
     print("NOTE: static checks do not test Minecraft gameplay.")
 
