@@ -1,6 +1,6 @@
 # Changelog — Monster Companions
 
-## [1.0.8] - 2026-10-19
+## [1.0.8] — 2026-10-19
 
 ### Fixed
 - **Recipe book visibility:** The Primal Beast Biscuit recipe is now configured as always unlocked, addressing the issue where the recipe did not appear in the crafting recipe list.
@@ -8,7 +8,7 @@
 
 ---
 
-## [1.0.7] - 2026-10-19
+## [1.0.7] — 2026-10-19
 
 ### Improved & Balanced
 - **Offline crafting:** The Primal Beast Biscuit recipe is included with the Behavior Pack, so players can craft biscuits during local gameplay without an internet connection after importing and enabling the add-on.
