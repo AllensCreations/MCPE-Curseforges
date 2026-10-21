@@ -4,8 +4,15 @@
 
 ## [Unreleased]
 
+### Fixed
+- **World database integrity:** Rebuilt all three world variants from a complete Bedrock world database instead of generating a nearly empty LevelDB database.
+- **Starting platform recovery:** The starting-platform function is linked as an active world Behavior Pack and restores missing Bedrock at 0 63 0 and Dirt at 0 64 0 without teleporting players.
+- **World mode metadata:** Creative, Survival, and Hardcore variants now receive separate mode settings while preserving the source world's stored world data.
+
 ### Improved & Balanced
-- **Creative world testing:** The Creative `.mcworld` is now the sole tester. The separate MCAddon tester package is being retired; Creative, Survival, and Hardcore world files are kept together.
+- **Creative world testing:** The Creative `.mcworld` is the sole tester. The separate MCAddon tester package is retired; Creative, Survival, and Hardcore world files are kept together.
+
+Note: archive structure and pack-link checks passed in GitHub Actions. Minecraft in-game loading and gameplay still require confirmation in the game.
 
 
 ## [0.1.18] - 2026-10-21
