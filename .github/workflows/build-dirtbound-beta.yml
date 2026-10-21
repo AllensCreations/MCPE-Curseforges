@@ -1,0 +1,40 @@
+name: Build OneBlock Dirtbound Kingdom Beta
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.x"
+      - name: Build complete beta world
+        run: python3 scripts/build_dirtbound_beta.py
+      - name: Upload beta world
+        uses: actions/upload-artifact@v4
+        with:
+          name: OneBlock-Dirtbound-Kingdom-Beta-v0.1.0
+          path: builds/OneBlock-Dirtbound-Kingdom-Beta/*.mcworld
+          retention-days: 90
+      - name: Publish beta world to repository
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add builds/OneBlock-Dirtbound-Kingdom-Beta/*.mcworld
+          if git diff --staged --quiet; then
+            echo "No new beta world to publish."
+          else
+            git commit -m "build(map): publish Dirtbound Kingdom beta world [skip ci]"
+            git push origin HEAD:${GITHUB_REF_NAME}
+          fi
