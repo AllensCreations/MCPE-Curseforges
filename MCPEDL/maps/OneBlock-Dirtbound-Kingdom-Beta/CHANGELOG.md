@@ -28,3 +28,10 @@
 ### Improved
 - Tuned tier pricing and purchase quantities to keep starter supplies affordable and rare endgame equipment costly.
 - Synced the world builder and pack versions for the complete `.mcworld` release.
+
+## [0.1.7] - 2026-10-21
+
+### Fixed
+- Restored the central OneBlock by repairing the startup script and waiting for the spawn area to load before placing the block.
+- Set the world default to Survival on Hard difficulty.
+- Players are returned to Survival when they join, preventing Creative mode from overriding the intended gameplay.
