@@ -70,6 +70,21 @@ After an initial 15-second grace period upon spawning, probabilistic death rolls
 
 ---
 
+---
+
+## Guidelines and Attribution
+
+- Creator: AllensCreations
+- Rights & Reservation: All rights reserved for AllensCreations.
+- Content Creators: Content creators are permitted to feature this creation in videos and streams with credit to AllensCreations.
+- Redistribution: Do not re-upload this pack or provide direct monetized download bypasses. Link directly to the official repository page.
+
+---
+
+© All rights reserved for AllensCreations.
+
+---
+
 ## Search & Discovery Keywords
 
 Minecraft Bedrock survival challenge, sudden death roulette, find diamond challenge, death countdown minigame, intense survival race, Minecraft PE challenge pack, MCPEDL, CurseForge, AllensCreations.
