@@ -10,7 +10,7 @@ Download the published Creative, Survival, and Hardcore world files for Minecraf
 
 ## Important Testing Note
 
-The world archives must not be rebuilt until the Creative mechanics have been tested in Minecraft, each mode has its own complete matching world foundation, and rebuilding is explicitly approved. Do not create a separate Tester Build; Creative remains the only tester.
+World archives are not rebuilt automatically when source files change. Run the OneBlock world-build workflow manually when you want to regenerate them. Each mode must have its own complete matching LevelDB foundation. Do not create a separate Tester Build; Creative remains the primary in-game test world.
 
 For gameplay details, see the [full map description](../../MCPEDL/maps/OneBlock-Dirtbound-Kingdom-Beta/DESCRIPTION.md).
 
