@@ -70,7 +70,7 @@ Standing upright leaves standard vanilla single-block mining untouched. The add-
 - **What Happens**: Sweeps contiguous ore veins across 26 spatial neighbors up to 64 blocks.
 
 ### Durability Protection
-- **Requirement**: Tool hits 5 durability
+- **Requirement**: Tool has 5 durability points remaining
 - **What Happens**: Halts chain break immediately, preserves tool, and plays alert sound.
 
 ### Tool Switch Safety
@@ -102,57 +102,46 @@ When you break an eligible log while sneaking with an axe, the add-on scans upwa
 Domino Ore Miner checks all 26 spatial neighbors (faces, edges, and corners) using iterative breadth-first search. Veins are contiguous with no arbitrary distance limits up to the 64-block cluster cap. Regular stone and deepslate ores share the same mineral category, allowing veins that cross stone layers to mine seamlessly:
 
 ### Coal
-- **Supported Ores**: 
 - **Minimum Pickaxe**: Wooden+
 - **Drops**: Coal
 
 ### Iron
-- **Supported Ores**: 
 - **Minimum Pickaxe**: Stone+
 - **Drops**: Raw Iron
 
 ### Copper
-- **Supported Ores**: 
 - **Minimum Pickaxe**: Stone+
 - **Drops**: Raw Copper (2–5)
 
 ### Gold
-- **Supported Ores**: 
 - **Minimum Pickaxe**: Iron+
 - **Drops**: Raw Gold
 
 ### Nether Gold
-- **Supported Ores**: 
 - **Minimum Pickaxe**: Wooden+
 - **Drops**: Gold Nuggets (2–6)
 
 ### Lapis Lazuli
-- **Supported Ores**: 
 - **Minimum Pickaxe**: Stone+
 - **Drops**: Lapis Lazuli (4–9)
 
 ### Redstone
-- **Supported Ores**: 
 - **Minimum Pickaxe**: Iron+
 - **Drops**: Redstone Dust (4–5)
 
 ### Diamond
-- **Supported Ores**: 
 - **Minimum Pickaxe**: Iron+
 - **Drops**: Diamond
 
 ### Emerald
-- **Supported Ores**: 
 - **Minimum Pickaxe**: Iron+
 - **Drops**: Emerald
 
 ### Nether Quartz
-- **Supported Ores**: 
 - **Minimum Pickaxe**: Wooden+
 - **Drops**: Nether Quartz
 
 ### Ancient Debris
-- **Supported Ores**: 
 - **Minimum Pickaxe**: Diamond+
 - **Drops**: Ancient Debris Block
 
@@ -163,7 +152,7 @@ Domino Ore Miner checks all 26 spatial neighbors (faces, edges, and corners) usi
 ## Durability Protection System
 
 - Queries  before breaking each secondary block.
-- Halts immediately when remaining durability () reaches 5 or less.
+- Halts immediately when remaining durability  reaches 5 or less.
 - Plays an audible warning sound (warning sound) and displays an action bar alert:
   > **[Tool Protection]** Stopped mining to save tool! (5 durability left)
 - Revalidates the equipped tool before each block break. If the tool is switched or removed, chain mining stops instantly.
