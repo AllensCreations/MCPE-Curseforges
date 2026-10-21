@@ -59,7 +59,7 @@ Grimoire Relics V2 adds a collection of magical tomes to Minecraft Bedrock Editi
 - **Acquisition**: Craftable
 
 ### <img src="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/MCPEDL/addons/Grimoire-Relics-V2/assets/items/tome_delver.png" width="20" height="20" alt="Deep Delver"> **Deep Delver**
-- **Abilities & Mechanics**: Permanent Haste II. Automatically manifests an invisible light block at feet when below Y=55 in the dark.
+- **Abilities & Mechanics**: Permanent Haste II. Provides nearby light when exploring dark areas below Y=55.
 - **Acquisition**: Craftable
 
 ### <img src="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/MCPEDL/addons/Grimoire-Relics-V2/assets/items/tome_void.png" width="20" height="20" alt="Void Phantom"> **Void Phantom**
@@ -75,7 +75,7 @@ Grimoire Relics V2 adds a collection of magical tomes to Minecraft Bedrock Editi
 - **Acquisition**: Craftable
 
 ### <img src="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/MCPEDL/addons/Grimoire-Relics-V2/assets/items/tome_alchemist.png" width="20" height="20" alt="Cursed Alchemist"> **Cursed Alchemist**
-- **Abilities & Mechanics**: Potion Mastery: Permanently preserves and refreshes the duration of active beneficial potion effects.
+- **Abilities & Mechanics**: Potion Mastery: Keeps active beneficial potion effects from expiring while the tome is equipped.
 - **Acquisition**: Craftable
 
 ### <img src="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/MCPEDL/addons/Grimoire-Relics-V2/assets/items/tome_seraph.png" width="20" height="20" alt="Radiant Seraph"> **Radiant Seraph**
@@ -98,7 +98,7 @@ Grimoire Relics V2 adds a collection of magical tomes to Minecraft Bedrock Editi
 
 ## Crafting Pattern
 
-There are **14 craftable tomes** made at a standard Crafting Table using shaped recipes arranged around a central Book. The recipes are available through the crafting table. The **6 Ancient Relics** (Void Phantom, Cataclysm Dragon, Necrotic Lich, Mirror Trickster, Blood Vampire, and Infernal Phoenix) are not craftable and are intended to be found in exploration loot:
+There are **14 craftable tomes** made at a standard Crafting Table using shaped recipes arranged around a central Book. The recipes are available through the crafting table. The **6 Ancient Relics** (Void Phantom, Cataclysm Dragon, Necrotic Lich, Mirror Trickster, Blood Vampire, and Infernal Phoenix) cannot be crafted and are found through exploration loot:
 
 <p align="center">
   <img src="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/MCPEDL/addons/Grimoire-Relics-V2/assets/all_recipes_sheet.png" alt="Grimoire Relics V2 Crafting Recipes" width="850">
@@ -108,8 +108,8 @@ There are **14 craftable tomes** made at a standard Crafting Table using shaped 
 
 ## Durability, Enchanting & World Generation
 
-### Relic Durability, Enchanting & Repairing
-- **100 durability points** (): Each Grimoire possesses a durability health bar.
+### Durability, Enchanting, and Repairing
+- **100 durability points**: Each Grimoire possesses a durability health bar.
 - **Event-Only Wear**: Passive stat buffs (such as Water Breathing, Speed, or Haste) do **not** drain durability. Durability is consumed strictly upon active mechanical execution:
   - *Combat triggers* (e.g. Phoenix burn on hit/hurt, Vampire life-steal, Iron Golem absorption & launch, Hydra poison, Lich wither): 1 durability per event.
   - *Environmental abilities* (e.g. Druid crop boost, Frost Weaver water freeze, Stormcaller lightning strike, Mirror Trickster blink): 1 to 2 durability per event.
@@ -119,17 +119,17 @@ There are **14 craftable tomes** made at a standard Crafting Table using shaped 
   - **Mending** restores tome durability automatically as you collect experience orbs.
 - **Anvil Repairing**:
   - Combine two of the same tomes on an Anvil to restore their remaining durability.
-  - Can also be repaired on an Anvil using standard **Books** () at a strict **1:1 ratio** (1 book restores 1 durability point).
+  - Can also be repaired on an Anvil using standard **Books** at a strict **1:1 ratio** (1 book restores 1 durability point).
 - **Shatter**: If durability reaches 0 without being repaired or protected, the tome shatters ( audio with item break particles) and is removed from your equipment.
 
 ### World Chest Distribution
 The pack includes exploration loot entries for Ancient Relics. Their intended locations are:
-- **Ancient Cities**: High chance for **Void Phantom** () and **Mirror Trickster** ().
-- **Bastion Remnants (Treasure)**: **Infernal Phoenix** () and **Necrotic Lich** ().
-- **End Cities**: **Cataclysm Dragon** ().
-- **Stronghold Libraries**: **Arcane Scholar** () and **Cursed Alchemist** ().
-- **Shipwreck Treasuries**: **Abyssal Tide** ().
-- **Monster Rooms / Simple Dungeons**: **Blood Vampire** () and **Deep Delver** ().
+- **Ancient Cities**: High chance for **Void Phantom** and **Mirror Trickster**.
+- **Bastion Remnants (Treasure)**: **Infernal Phoenix** and **Necrotic Lich**.
+- **End Cities**: **Cataclysm Dragon**.
+- **Stronghold Libraries**: **Arcane Scholar** and **Cursed Alchemist**.
+- **Shipwreck Treasuries**: **Abyssal Tide**.
+- **Monster Rooms / Simple Dungeons**: **Blood Vampire** and **Deep Delver**.
 
 ---
 
@@ -144,7 +144,7 @@ The pack includes exploration loot entries for Ancient Relics. Their intended lo
 ## Compatibility and Setup
 
 - **Minecraft Bedrock Edition**: Intended target is 1.26+; the pack manifests list a minimum engine version of 1.21.0.
-- **Format**: Complete Pack (.mcaddon), containing a Behavior Pack and Resource Pack.
+- **Format**: Complete add-on (.mcaddon), containing a Behavior Pack and Resource Pack.
 - Experimental features: No experimental toggle requirement is declared for the current pack, but behavior can vary by game version and world settings.
 - **Achievements**: Achievement support has not been confirmed through in-game testing.
 - **Use**: Activate both included packs in your world and equip a tome in your offhand.
