@@ -12,7 +12,7 @@
 ## [1.0.11] - 2026-10-18
 
 ### Improved
-- **In-Game Title:** The add-on title now displays the release version consistently.
+- **In-Game Title:** The in-game add-on title now shows the correct release version.
 
 ---
 
@@ -45,5 +45,5 @@
 - **Conflict Feedback:** Players receive brief feedback when simultaneous slot changes conflict.
 
 ### Improved & Balanced
-- **World Settings:** The add-on no longer changes the world's keep-inventory setting.
-- **Clearer Status:** Removed the persistent status display and custom command controls.
+- **World Settings:** The add-on leaves the world's inventory-on-death setting unchanged.
+- **Clearer Status:** Removed the always-visible status display and custom command controls.
