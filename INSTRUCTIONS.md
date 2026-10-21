@@ -321,7 +321,7 @@ MCPEDL/maps/<Map-Name>/
 
 ### Automatic execution and verification
 
-- Relevant source changes automatically trigger `.github/workflows/build-oneblock-variants.yml`, which attempts to rebuild all three world modes and synchronize the map README. The workflow can also be run manually. No in-game test confirmation or separate rebuild approval is required for the automation.
+- Repository pushes and pull requests automatically trigger `.github/workflows/auto-build-minecraft-packages.yml` to rebuild enabled OneBlock world modes and synchronize their map READMEs. `.github/workflows/build-oneblock-variants.yml` remains available for manual reruns. No in-game test confirmation or separate rebuild approval is required for the automation.
 - Every change under an opted-in OneBlock map, `Mcpeworlds/**`, the builder, or the validator must also trigger `.github/workflows/validate-oneblock-source.yml`. This pipeline validates pack manifests and dependencies, tick/function wiring, Script API syntax, the three mode-specific template files, and the world builder.
 - Do not regenerate world archives merely because map-source or reference files changed. Keep the current `.mcworld` files untouched until the Creative mechanics have been tested in Minecraft and the user approves a rebuild. Automated structural checks are not a substitute for testing in Minecraft, and never claim gameplay verification without an actual game test.
 - A successful ZIP/LevelDB/manifest check is a structural build check, not proof that Minecraft loaded the map or that its custom OneBlock progression works. Never claim in-game verification without an actual game test.
