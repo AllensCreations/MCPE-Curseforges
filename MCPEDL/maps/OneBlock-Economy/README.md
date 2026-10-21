@@ -6,7 +6,7 @@ Download **OneBlock Economy — Hardcore Void Survival with 20-Phase Progression
 
 - **Version:** 1.0.7
 - **Package format:** `.mcworld`
-- **Download:** [Open the official Maps download catalog](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/maps#available-maps)
+- **Direct download:** [Download the world (.mcworld)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/OneBlock-Economy/OneBlock%20Economy%20by%20AllensCreations%20%28V1.0.7%29.mcworld)
 
 ## Installation
 

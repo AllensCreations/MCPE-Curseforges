@@ -6,7 +6,7 @@ Download **Alphabet Scavenger Hunt Challenge — Fast-Paced Survival Minigame** 
 
 - **Version:** 1.0.6
 - **Package format:** `.mcpack`
-- **Download:** [Open the official Scripts download catalog](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/script#available-scripts)
+- **Direct download:** [Download the pack (.mcpack)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Alphabet-Scavenger-Hunt/Alphabet%20Scavenger%20Hunt%20by%20AllensCreations%20%28V1.0.6%29.mcpack)
 
 ## Installation
 

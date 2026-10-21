@@ -6,7 +6,7 @@ Download **OneBlock Void Survival — Progressive Void World by AllensCreations*
 
 - **Version:** 1.2.6
 - **Package format:** `.mcworld`
-- **Download:** [Open the official Maps download catalog](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/maps#available-maps)
+- **Direct download:** [Download the world (.mcworld)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/OneBlock-Void-Survival/OneBlock%20Void%20Survival%20by%20AllensCreations%20%28V1.2.6%29.mcworld)
 
 ## Installation
 

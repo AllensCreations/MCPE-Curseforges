@@ -6,7 +6,7 @@ Download **Team Inventory** for Minecraft Bedrock Edition.
 
 - **Version:** 1.0.13
 - **Package format:** `.mcpack`
-- **Download:** [Open the official Scripts download catalog](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/script#available-scripts)
+- **Direct download:** [Download the pack (.mcpack)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Shared-Hivemind-Inventory/Team%20Inventory%20by%20AllensCreations%20%28V1.0.13%29.mcpack)
 
 ## Installation
 
