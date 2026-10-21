@@ -1,4 +1,4 @@
-# OneBlock: Dirtbound Kingdom Beta (v0.1.1)
+# OneBlock: Dirtbound Kingdom Beta (v0.1.2)
 
 Download the beta world for Minecraft Bedrock Edition.
 

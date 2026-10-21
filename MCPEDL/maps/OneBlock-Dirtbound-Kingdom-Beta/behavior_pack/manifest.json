@@ -1,13 +1,13 @@
 {
   "format_version": 2,
   "header": {
-    "name": "OneBlock Dirtbound Kingdom Beta (v0.1.1)",
+    "name": "OneBlock Dirtbound Kingdom Beta (v0.1.2)",
     "description": "Beta OneBlock survival economy and purchase shop. by AllensCreations",
     "uuid": "8d4d93bf-c8b2-4df4-9f28-52f4f8f08b10",
     "version": [
       0,
       1,
-      1
+      2
     ],
     "min_engine_version": [
       1,
@@ -23,7 +23,7 @@
       "version": [
         0,
         1,
-        1
+        2
       ],
       "entry": "scripts/main.js"
     }
