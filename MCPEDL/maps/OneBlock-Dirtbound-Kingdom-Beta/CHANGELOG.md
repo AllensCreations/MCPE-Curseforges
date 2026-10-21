@@ -2,6 +2,13 @@
 
 ---
 
+## [Unreleased]
+
+### Build Workflow
+- Registered Dirtbound Kingdom with the shared OneBlock world-generation workflow.
+- Creative, Survival, and Hardcore world generation remains disabled until the current MCAddon mechanics are tested in Minecraft, as previously requested. This avoids publishing unverified world archives.
+
+
 ## [0.1.18] - 2026-10-21
 
 ### Fixed
