@@ -197,8 +197,8 @@ Combines dynamic lighting, offhand quick-swap, automatic tool selection, tree ca
 - Designed around Minecraft Bedrock gameplay mechanics
 - **Available Package Formats**:
   - **Complete **: 1-click full install with all features and companion visuals.
-  - **Behavior Pack ()**: Standalone gameplay and survival mechanics.
-  - **Resource Pack ()**: Visual lead attachments and companion animations.
+  - **Behavior Pack**: Standalone gameplay and survival mechanics.
+  - **Resource Pack**: Visual lead attachments and companion animations.
 
 ---
 
