@@ -1,13 +1,13 @@
 {
   "format_version": 2,
   "header": {
-    "name": "Harvest Intelligence (v1.0.2)",
+    "name": "Harvest Intelligence (v1.0.3)",
     "description": "Smart vanilla crop replanting and crop trampling protection. by AllensCreations",
     "uuid": "db1bedad-4d0b-409e-b54f-b9ed17b6ba0c",
     "version": [
       1,
       0,
-      2
+      3
     ],
     "min_engine_version": [
       1,
@@ -24,7 +24,7 @@
       "version": [
         1,
         0,
-        2
+        3
       ],
       "entry": "scripts/main.js"
     }

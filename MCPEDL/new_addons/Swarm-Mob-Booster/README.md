@@ -1,12 +1,12 @@
-# Swarm Mob Booster (v1.0.4)
+# Swarm Mob Booster (v1.0.5)
 
 Download the current release of **Swarm Mob Booster** for Minecraft Bedrock Edition.
 
 ## Download
 
-- **Version:** 1.0.4
+- **Version:** 1.0.5
 - **Package format:** `.mcpack`
-- **Direct download:** [Download the add-on (.mcpack)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Swarm-Mob-Booster/Swarm%20Mob%20Booster%20by%20AllensCreations%20%28V1.0.4%29.mcpack)
+- **Direct download:** [Download the add-on (.mcpack)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Swarm-Mob-Booster/Swarm%20Mob%20Booster%20by%20AllensCreations%20%28V1.0.5%29.mcpack)
 
 ## Installation
 

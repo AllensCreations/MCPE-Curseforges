@@ -1,13 +1,13 @@
 {
   "format_version": 2,
   "header": {
-    "name": "Vanilla Quality of Life (v1.3.19)",
+    "name": "Vanilla Quality of Life (v1.3.20)",
     "description": "Client entity locators and visual fixes for Vanilla Quality of Life. by AllensCreations",
     "uuid": "fd036566-d0b1-4f92-9b28-9dd45a376d44",
     "version": [
       1,
       3,
-      19
+      20
     ],
     "min_engine_version": [
       1,
@@ -23,7 +23,7 @@
       "version": [
         1,
         3,
-        19
+        20
       ]
     }
   ],

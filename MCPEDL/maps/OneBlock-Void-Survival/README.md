@@ -1,4 +1,4 @@
-# OneBlock Void Survival (v1.2.5) — Progressive Void World by AllensCreations
+# OneBlock Void Survival (v1.2.6) — Progressive Void World by AllensCreations
 
 ![MCPEDL](https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/MCPEDL/maps/OneBlock-Void-Survival/behavior_pack/pack_icon.png "MCPEDL")
 

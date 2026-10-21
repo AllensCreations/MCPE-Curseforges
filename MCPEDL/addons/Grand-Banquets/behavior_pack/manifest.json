@@ -1,30 +1,50 @@
 {
   "format_version": 2,
   "header": {
-    "name": "Grand Banquets (v1.0.2)",
+    "name": "Grand Banquets (v1.0.3)",
     "description": "Adds 32 craftable custom food dishes across four tiers, including meals with special status effects. by AllensCreations",
     "uuid": "485dca7d-bdc8-4fce-bc51-6b7d459907d1",
-    "version": [1, 0, 2],
-    "min_engine_version": [1, 21, 0]
+    "version": [
+      1,
+      0,
+      3
+    ],
+    "min_engine_version": [
+      1,
+      21,
+      0
+    ]
   },
   "modules": [
     {
       "type": "data",
       "uuid": "4fd39a00-2f96-462e-9725-50d7a583769c",
-      "version": [1, 0, 2]
+      "version": [
+        1,
+        0,
+        3
+      ]
     },
     {
       "type": "script",
       "language": "javascript",
       "uuid": "2ba52d2e-6b8d-4dea-9b19-e2b8e1eda59d",
-      "version": [1, 0, 2],
+      "version": [
+        1,
+        0,
+        3
+      ],
       "entry": "scripts/main.js"
     }
   ],
   "dependencies": [
     {
       "uuid": "77eb5486-758d-4a9f-9949-4eba0b900d30",
-      "version": [1, 0, 2]
+      "version": [
+        1,
+        0,
+        3
+      ]
     },
     {
       "module_name": "@minecraft/server",
@@ -32,7 +52,9 @@
     }
   ],
   "metadata": {
-    "authors": ["AllensCreations"],
+    "authors": [
+      "AllensCreations"
+    ],
     "product_type": "addon"
   }
 }

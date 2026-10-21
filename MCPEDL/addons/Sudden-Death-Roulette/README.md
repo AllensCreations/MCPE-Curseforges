@@ -1,12 +1,12 @@
-# Sudden Death Roulette (v1.0.0)
+# Sudden Death Roulette (v1.0.1)
 
 Download the current release of **Sudden Death Roulette** for Minecraft Bedrock Edition.
 
 ## Download
 
-- **Version:** 1.0.0
+- **Version:** 1.0.1
 - **Package format:** `.mcpack`
-- **Direct download:** [Download the add-on (.mcpack)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Sudden-Death-Roulette/Sudden%20Death%20Roulette%20by%20AllensCreations%20%28V1.0.0%29.mcpack)
+- **Direct download:** [Download the add-on (.mcpack)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Sudden-Death-Roulette/Sudden%20Death%20Roulette%20by%20AllensCreations%20%28V1.0.1%29.mcpack)
 
 ## Installation
 
