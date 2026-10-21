@@ -14,8 +14,8 @@ BP_SOURCE = PROJECT / "behavior_pack"
 RP_SOURCE = PROJECT / "resource_pack"
 BP_UUID = "8d4d93bf-c8b2-4df4-9f28-52f4f8f08b10"
 RP_UUID = "e8d8136a-7a5b-4818-b813-61c21f2e71ad"
-VERSION = [0, 1, 3]
-WORLD_NAME = "OneBlock Dirtbound Kingdom Beta by AllensCreations (V0.1.3)"
+VERSION = [0, 1, 5]
+WORLD_NAME = "OneBlock Dirtbound Kingdom Beta by AllensCreations (V0.1.5)"
 OUTPUT = ROOT / "builds" / "OneBlock-Dirtbound-Kingdom-Beta" / f"{WORLD_NAME}.mcworld"
 
 
