@@ -1,173 +1,39 @@
 import { world, system, ItemStack } from "@minecraft/server";
 import { ActionFormData } from "@minecraft/server-ui";
 
-const ORIGIN = { x: 0, y: 64, z: 0 };
-const BEDROCK = { x: 0, y: 63, z: 0 };
-const SPAWN = { x: 0.5, y: 65, z: 0.5 };
-const TRADER_ITEM = "allenscreations:trader_ledger";
-const COINS = "dirtbound_coins";
-const MINED = "dirtbound_blocks";
-const RECEIVED = "dirtbound_trader_received";
-
-const SHOPS = [
- { name:"Castaway Supplies", unlock:0, items:[
-  {name:"Oak Log ×1",id:"minecraft:oak_log",amount:1,price:10},
-  {name:"Oak Planks ×8",id:"minecraft:oak_planks",amount:8,price:8},
-  {name:"Bread ×3",id:"minecraft:bread",amount:3,price:15},
-  {name:"Wheat Seeds ×4",id:"minecraft:wheat_seeds",amount:4,price:12},
-  {name:"Cobblestone ×8",id:"minecraft:cobblestone",amount:8,price:25},
-  {name:"Wooden Pickaxe ×1",id:"minecraft:wooden_pickaxe",amount:1,price:20},
-  {name:"Torch ×4",id:"minecraft:torch",amount:4,price:12}
- ]},
- { name:"Settler Supplies", unlock:20, items:[
-  {name:"Stone ×16",id:"minecraft:stone",amount:16,price:30},
-  {name:"Oak Sapling ×2",id:"minecraft:oak_sapling",amount:2,price:35},
-  {name:"Furnace ×1",id:"minecraft:furnace",amount:1,price:40},
-  {name:"Chest ×2",id:"minecraft:chest",amount:2,price:30},
-  {name:"Water Bucket ×1",id:"minecraft:water_bucket",amount:1,price:100},
-  {name:"Carrot ×4",id:"minecraft:carrot",amount:4,price:35},
-  {name:"Iron Ingot ×2",id:"minecraft:iron_ingot",amount:2,price:100}
- ]},
- { name:"Adventurer Supplies", unlock:50, items:[
-  {name:"Iron Pickaxe ×1",id:"minecraft:iron_pickaxe",amount:1,price:220},
-  {name:"Shield ×1",id:"minecraft:shield",amount:1,price:300},
-  {name:"Bow ×1",id:"minecraft:bow",amount:1,price:250},
-  {name:"Arrow ×16",id:"minecraft:arrow",amount:16,price:100},
-  {name:"Glass ×16",id:"minecraft:glass",amount:16,price:90},
-  {name:"Lantern ×4",id:"minecraft:lantern",amount:4,price:100},
-  {name:"Diamond ×1",id:"minecraft:diamond",amount:1,price:450}
- ]}
+const ORIGIN={x:0,y:64,z:0}, BEDROCK={x:0,y:63,z:0}, SPAWN={x:0.5,y:65,z:0.5};
+const TRADER_ITEM="allenscreations:trader_ledger", COINS="dirtbound_coins", MINED="dirtbound_blocks", RECEIVED="dirtbound_trader_received";
+const RAW=[
+["Castaway",0,"oak_log oak_planks stick crafting_table wooden_pickaxe wooden_axe wooden_shovel torch bread wheat_seeds oak_sapling dirt cobblestone bowl baked_potato chest furnace bone_meal"],
+["Settler",20,"stone glass oak_fence oak_door lantern carrot potato beetroot_seeds wheat bucket water_bucket iron_nugget iron_ingot stone_pickaxe stone_axe stone_sword shield fishing_rod"],
+["Homesteader",50,"iron_pickaxe iron_axe iron_shovel iron_sword iron_hoe iron_helmet iron_chestplate iron_leggings iron_boots shears milk_bucket composter hay_block pumpkin_seeds melon_seeds lead name_tag campfire barrel smoker"],
+["Miner",100,"rail powered_rail minecart anvil redstone redstone_torch lever stone_button piston dispenser dropper iron_door cauldron compass clock bow arrow golden_apple stonecutter"],
+["Explorer",175,"diamond diamond_pickaxe diamond_axe diamond_sword diamond_shovel diamond_hoe enchanting_table book lapis_lazuli bookshelf map empty_map spyglass potion golden_carrot ender_pearl obsidian crying_obsidian ender_eye"],
+["Engineer",275,"hopper observer sticky_piston repeater comparator redstone_block target daylight_detector tripwire_hook trapped_chest blast_furnace loom cartography_table smithing_table lightning_rod crafter heavy_weighted_pressure_plate bell lectern"],
+["Netherbound",400,"flint_and_steel fire_charge golden_sword golden_helmet magma_cream blaze_powder blaze_rod nether_wart soul_sand netherrack nether_brick quartz glowstone_dust ghast_tear spectral_arrow magma_block crying_obsidian shroomlight warped_stem"],
+["Enchanter",600,"experience_bottle enchanted_book grindstone enchanting_table bookshelf ender_pearl totem_of_undying shulker_shell ender_chest beacon nether_star brewing_stand cauldron dragon_breath phantom_membrane golden_apple turtle_helmet conduit heart_of_the_sea"],
+["End Challenger",850,"diamond_helmet diamond_chestplate diamond_leggings diamond_boots trident crossbow firework_rocket ender_pearl end_crystal dragon_breath phantom_membrane elytra shulker_box end_stone purpur_block chorus_fruit recovery_compass turtle_scute prismarine_crystals"],
+["Kingdom Master",1200,"netherite_ingot netherite_scrap netherite_upgrade_smithing_template netherite_pickaxe netherite_axe netherite_sword netherite_helmet netherite_chestplate netherite_leggings netherite_boots beacon conduit dragon_egg respawn_anchor ender_chest shulker_box enchanted_golden_apple nether_star lodestone"]
 ];
-
-function objective(name) {
- return world.scoreboard.getObjective(name) ?? world.scoreboard.addObjective(name,name);
-}
-function score(name,player) {
- try { const id=player.scoreboardIdentity; return id ? (objective(name).getScore(id) ?? 0) : 0; }
- catch { return 0; }
-}
-function hasScore(name,player) {
- try { const id=player.scoreboardIdentity; return !!id && objective(name).getScore(id)!==undefined; }
- catch { return false; }
-}
-function setScore(name,player,value) {
- const id=player.scoreboardIdentity;
- if(id) objective(name).setScore(id,Math.max(0,Math.floor(value)));
-}
-const balance=p=>score(COINS,p);
-const mined=p=>score(MINED,p);
-function tell(player,message) { try { player.sendMessage("§6[Dirtbound] §f"+message); } catch {} }
-
-function maintainOneBlock() {
- try {
-  const dim=world.getDimension("overworld");
-  if(dim.getBlock(BEDROCK)?.typeId!=="minecraft:bedrock") dim.getBlock(BEDROCK)?.setType("minecraft:bedrock");
-  if(dim.getBlock(ORIGIN)?.typeId!=="minecraft:dirt") dim.getBlock(ORIGIN)?.setType("minecraft:dirt");
-  world.setDefaultSpawnLocation({x:0,y:65,z:0});
- } catch {}
-}
-function giveTrader(player) {
- const inventory=player.getComponent("minecraft:inventory")?.container;
- if(!inventory) return;
- try {
-  const leftover=inventory.addItem(new ItemStack(TRADER_ITEM,1));
-  if(leftover) { tell(player,"Make room in your inventory to receive the OneBlock Trader."); return; }
-  setScore(RECEIVED,player,1);
-  tell(player,"You received the OneBlock Trader. Hold it and interact to open the Trading UI.");
- } catch { tell(player,"The Trader item could not be delivered. Make inventory space and rejoin."); }
-}
-function initializePlayer(player) {
- if(!hasScore(COINS,player)) setScore(COINS,player,50);
- if(!hasScore(MINED,player)) setScore(MINED,player,0);
- if(!hasScore(RECEIVED,player)) giveTrader(player);
-}
-function showTradingUI(player) {
- const form=new ActionFormData().title("ONEBLOCK TRADING POST")
-  .body("OneCoins: §e"+balance(player)+"§r\nBlocks mined: "+mined(player)+"\n\nTrade Dirt for coins or buy supplies to grow your island.\nPhase 2 unlocks at 20 blocks; Phase 3 at 50.");
- form.button("Buy Supplies"); form.button("Sell All Dirt"); form.button("Balance & Progress");
- form.show(player).then(r=>{
-  if(r.canceled) return;
-  if(r.selection===0) showShop(player);
-  else if(r.selection===1) sellDirt(player);
-  else tell(player,"Balance: "+balance(player)+" OneCoins. Blocks mined: "+mined(player)+". Phase 2: 20 blocks. Phase 3: 50 blocks.");
- }).catch(()=>tell(player,"The Trading UI could not open. Interact with the Trader again."));
-}
-function showShop(player) {
- const count=mined(player);
- const form=new ActionFormData().title("SUPPLY SHOP").body("Balance: "+balance(player)+" OneCoins\nChoose a supply category.");
- for(const shop of SHOPS) form.button(count>=shop.unlock ? shop.name : shop.name+"\n§8Unlock at "+shop.unlock+" blocks");
- form.button("Back");
- form.show(player).then(r=>{
-  if(r.canceled) return;
-  if(r.selection===SHOPS.length) return showTradingUI(player);
-  const shop=SHOPS[r.selection]; if(!shop) return;
-  if(count<shop.unlock) { tell(player,shop.name+" unlocks after "+shop.unlock+" blocks mined."); return showShop(player); }
-  showProducts(player,shop);
- }).catch(()=>tell(player,"The Supply Shop could not open."));
-}
-function showProducts(player,shop) {
- const form=new ActionFormData().title(shop.name).body("Balance: "+balance(player)+" OneCoins\nChoose an item to purchase.");
- for(const item of shop.items) form.button(item.name+"\n§e"+item.price+" OneCoins");
- form.button("Back to Categories");
- form.show(player).then(r=>{
-  if(r.canceled) return;
-  if(r.selection===shop.items.length) return showShop(player);
-  const item=shop.items[r.selection]; if(item) purchase(player,item,shop);
- }).catch(()=>tell(player,"The item list could not open."));
-}
-function purchase(player,item,shop) {
- if(mined(player)<shop.unlock) return tell(player,"That supply category is still locked.");
- const funds=balance(player);
- if(funds<item.price) return tell(player,"Not enough OneCoins. You need "+item.price+" and have "+funds+".");
- const inventory=player.getComponent("minecraft:inventory")?.container;
- if(!inventory || inventory.emptySlotsCount<1) return tell(player,"Make at least one free inventory slot before purchasing.");
- try {
-  const leftover=inventory.addItem(new ItemStack(item.id,item.amount));
-  const delivered=item.amount-(leftover?.amount ?? 0);
-  if(delivered<=0) return tell(player,"Your inventory cannot fit that purchase. No coins were taken.");
-  const charged=Math.ceil(item.price*delivered/item.amount);
-  setScore(COINS,player,funds-charged);
-  tell(player,leftover ? "Limited space: delivered "+delivered+" item(s), charged "+charged+" OneCoins." : "Purchased "+item.name+" for "+charged+" OneCoins. Balance: "+balance(player)+".");
- } catch { tell(player,"The purchase failed. No coins were taken."); }
-}
-function sellDirt(player) {
- const inventory=player.getComponent("minecraft:inventory")?.container;
- if(!inventory) return tell(player,"Your inventory could not be accessed.");
- let sold=0;
- for(let slot=0;slot<inventory.size;slot++) {
-  const stack=inventory.getItem(slot);
-  if(stack?.typeId!=="minecraft:dirt") continue;
-  sold+=stack.amount; inventory.setItem(slot,undefined);
- }
- if(!sold) return tell(player,"You have no Dirt to sell. Break the central OneBlock first.");
- setScore(COINS,player,balance(player)+sold);
- tell(player,"Sold "+sold+" Dirt for "+sold+" OneCoins. Balance: "+balance(player)+".");
-}
-world.afterEvents.itemUse.subscribe(event=>{
- if(event.itemStack?.typeId!==TRADER_ITEM) return;
- const player=event.source;
- if(!player || player.typeId!=="minecraft:player") return;
- system.run(()=>showTradingUI(player));
-});
-world.afterEvents.playerBreakBlock.subscribe(event=>{
- const b=event.block;
- if(b.dimension.id!=="minecraft:overworld" || b.x!==ORIGIN.x || b.y!==ORIGIN.y || b.z!==ORIGIN.z) return;
- const player=event.player; if(!player) return;
- system.run(()=>{
-  maintainOneBlock();
-  const count=mined(player)+1; setScore(MINED,player,count);
-  for(const shop of SHOPS) if(shop.unlock>0 && shop.unlock===count) tell(player,"New shop unlocked: "+shop.name+"!");
- });
-});
-world.afterEvents.playerSpawn.subscribe(event=>{
- system.runTimeout(()=>{
-  initializePlayer(event.player); maintainOneBlock();
-  if(event.initialSpawn) try { event.player.teleport(SPAWN,{dimension:world.getDimension("overworld"),checkForBlocks:false}); } catch {}
- },10);
-});
-system.runInterval(()=>{
- for(const player of world.getAllPlayers()) {
-  try { player.onScreenDisplay.setActionBar("§6Dirtbound Kingdom §8| §fBlocks: "+mined(player)+" §8| §eOneCoins: "+balance(player)); } catch {}
- }
-},100);
-system.run(()=>{ objective(COINS); objective(MINED); objective(RECEIVED); maintainOneBlock(); });
+const QUANTITIES=[8,8,8,1,1,1,1,4,3,4,2,8,8,4,2,1,1,3];
+const BASE_PRICES=[6,8,6,18,22,22,15,12,15,12,18,8,25,8,12,20,35,20];
+const SHOPS=RAW.map(([name,unlock,ids],tier)=>({name:name+" Supplies",unlock,items:ids.split(" ").map((id,i)=>({id:"minecraft:"+id,name:id.split("_").map(w=>w[0].toUpperCase()+w.slice(1)).join(" ")+" ×"+(tier===0?QUANTITIES[i]:[8,8,4,1,1,1,1,4,4,4,2,8,8,2,2,1,1,2][i]),amount:tier===0?QUANTITIES[i]:[8,8,4,1,1,1,1,4,4,4,2,8,8,2,2,1,1,2][i],price:Math.max(1,Math.round((BASE_PRICES[i]||25)*Math.pow(2.05,tier)+tier*tier*7))}))}));
+function objective(n){return world.scoreboard.getObjective(n)??world.scoreboard.addObjective(n,n)}
+function score(n,p){try{const id=p.scoreboardIdentity;return id?(objective(n).getScore(id)??0):0}catch{return 0}}
+function hasScore(n,p){try{const id=p.scoreboardIdentity;return !!id&&objective(n).getScore(id)!==undefined}catch{return false}}
+function setScore(n,p,v){const id=p.scoreboardIdentity;if(id)objective(n).setScore(id,Math.max(0,Math.floor(v)))}
+const balance=p=>score(COINS,p), mined=p=>score(MINED,p);
+function tell(p,m){try{p.sendMessage("§6[Dirtbound] §f"+m)}catch{}}
+function maintain(){try{const d=world.getDimension("overworld");if(d.getBlock(BEDROCK)?.typeId!=="minecraft:bedrock")d.getBlock(BEDROCK)?.setType("minecraft:bedrock");if(d.getBlock(ORIGIN)?.typeId!=="minecraft:dirt")d.getBlock(ORIGIN)?.setType("minecraft:dirt");world.setDefaultSpawnLocation({x:0,y:65,z:0})}catch{}}
+function giveTrader(p){const inv=p.getComponent("minecraft:inventory")?.container;if(!inv)return;try{const left=inv.addItem(new ItemStack(TRADER_ITEM,1));if(left){tell(p,"Make room in your inventory to receive the OneBlock Trader.");return}setScore(RECEIVED,p,1);tell(p,"You received the OneBlock Trader. Hold it and interact to open the Trading UI.")}catch{tell(p,"Trader delivery failed. Make inventory space and rejoin.")}}
+function initialize(p){if(!hasScore(COINS,p))setScore(COINS,p,50);if(!hasScore(MINED,p))setScore(MINED,p,0);if(!hasScore(RECEIVED,p))giveTrader(p)}
+function showMain(p){new ActionFormData().title("ONEBLOCK TRADING POST").body("OneCoins: §e"+balance(p)+"§r\nBlocks mined: "+mined(p)+"\n180 purchasable entries across 10 tiers.\nSell Dirt and mine to unlock better supplies.").button("Browse 180 Purchasable Items").button("Sell All Dirt").button("Balance & Progress").show(p).then(r=>{if(r.canceled)return;if(r.selection===0)showShop(p);else if(r.selection===1)sellDirt(p);else tell(p,"Balance: "+balance(p)+" OneCoins. Blocks mined: "+mined(p)+". Next tier: "+(SHOPS.find(s=>s.unlock>mined(p))?.name??"all tiers unlocked")+".")}).catch(()=>tell(p,"Trading UI failed to open. Interact with the Trader again."))}
+function showShop(p){const count=mined(p),f=new ActionFormData().title("SUPPLY TIERS").body("Balance: "+balance(p)+" OneCoins\nChoose a tier. Locked tiers show their mining requirement.");for(const s of SHOPS)f.button(count>=s.unlock?s.name+" (18 items)":s.name+"\n§8Unlock at "+s.unlock+" blocks");f.button("Back");f.show(p).then(r=>{if(r.canceled)return;if(r.selection===SHOPS.length)return showMain(p);const s=SHOPS[r.selection];if(!s)return;if(count<s.unlock){tell(p,s.name+" unlocks after "+s.unlock+" blocks mined.");return showShop(p)}showProducts(p,s)}).catch(()=>tell(p,"Supply Shop failed to open."))}
+function showProducts(p,s){const f=new ActionFormData().title(s.name).body("Balance: "+balance(p)+" OneCoins\nChoose one of 18 items.");for(const item of s.items)f.button(item.name+"\n§e"+item.price+" OneCoins");f.button("Back to Tiers");f.show(p).then(r=>{if(r.canceled)return;if(r.selection===s.items.length)return showShop(p);const item=s.items[r.selection];if(item)purchase(p,item,s)}).catch(()=>tell(p,"Item list failed to open."))}
+function purchase(p,item,s){if(mined(p)<s.unlock)return tell(p,"That tier is locked.");const funds=balance(p);if(funds<item.price)return tell(p,"Not enough OneCoins. Need "+item.price+", have "+funds+".");const inv=p.getComponent("minecraft:inventory")?.container;if(!inv||inv.emptySlotsCount<1)return tell(p,"Make at least one free inventory slot first.");try{const left=inv.addItem(new ItemStack(item.id,item.amount)),delivered=item.amount-(left?.amount??0);if(delivered<=0)return tell(p,"Inventory full. No coins were taken.");const charged=Math.ceil(item.price*delivered/item.amount);setScore(COINS,p,funds-charged);tell(p,left?"Limited space: delivered "+delivered+" item(s), charged "+charged+" OneCoins.":"Purchased "+item.name+" for "+charged+" OneCoins. Balance: "+balance(p)+".")}catch{tell(p,"Purchase failed. No coins were taken.")}}
+function sellDirt(p){const inv=p.getComponent("minecraft:inventory")?.container;if(!inv)return tell(p,"Inventory unavailable.");let sold=0;for(let i=0;i<inv.size;i++){const st=inv.getItem(i);if(st?.typeId==="minecraft:dirt"){sold+=st.amount;inv.setItem(i,undefined)}}if(!sold)return tell(p,"No Dirt to sell. Break the central OneBlock first.");setScore(COINS,p,balance(p)+sold);tell(p,"Sold "+sold+" Dirt for "+sold+" OneCoins. Balance: "+balance(p)+".")}
+world.afterEvents.itemUse.subscribe(e=>{if(e.itemStack?.typeId!==TRADER_ITEM)return;const p=e.source;if(p?.typeId==="minecraft:player")system.run(()=>showMain(p))});
+world.afterEvents.playerBreakBlock.subscribe(e=>{const b=e.block;if(b.dimension.id!=="minecraft:overworld"||b.x!==ORIGIN.x||b.y!==ORIGIN.y||b.z!==ORIGIN.z||!e.player)return;system.run(()=>{maintain();const count=mined(e.player)+1;setScore(MINED,e.player,count);for(const s of SHOPS)if(s.unlock>0&&s.unlock===count)tell(e.player,"New shop unlocked: "+s.name+"!")})});
+world.afterEvents.playerSpawn.subscribe(e=>system.runTimeout(()=>{initialize(e.player);maintain();if(e.initialSpawn)try{e.player.teleport(SPAWN,{dimension:world.getDimension("overworld"),checkForBlocks:false})}catch{}},10));
+system.runInterval(()=>{for(const p of world.getAllPlayers())try{p.onScreenDisplay.setActionBar("§6Dirtbound Kingdom §8| §fBlocks: "+mined(p)+" §8| §eOneCoins: "+balance(p))}catch{}},100);
+system.run(()=>{objective(COINS);objective(MINED);objective(RECEIVED);maintain()});
