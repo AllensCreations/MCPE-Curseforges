@@ -2,9 +2,7 @@
 
 **By AllensCreations**
 
-Explore more creations: [CurseForge Profile](https://www.curseforge.com/members/allenscreations/projects) · [MCPEDL Profile](https://mcpedl.com/user/allenscreations/)
-
-This Minecraft Bedrock add-on adds a block-breaking progression loop, a recurring Wandering Trader, and a void rescue mechanic to a compatible OneBlock world.
+This Minecraft Bedrock add-on adds central-block progression, recurring Wandering Trader visits, and a void-rescue feature for a compatible OneBlock world.
 
 ## Features
 
@@ -31,6 +29,11 @@ This add-on does not generate a complete OneBlock world. Use it in a world with 
 ## Compatibility
 
 - Minimum Minecraft Bedrock version: 1.21.0.
+
+## Creator Profiles
+
+- [CurseForge Profile](https://www.curseforge.com/members/allenscreations/projects)
+- [MCPEDL Profile](https://mcpedl.com/user/allenscreations/)
 
 ## Guidelines and Attribution
 
