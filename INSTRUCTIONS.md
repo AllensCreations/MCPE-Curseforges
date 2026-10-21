@@ -247,18 +247,18 @@ MCPE-Curseforges/
 
 ---
 
-## 8. OneBlock Game Standards and Reference Assets
+## 8. World Template and Asset-Removal Standards
 
-**Mandatory for every new or updated OneBlock map:** use `Assets/Oneblock-assets.mcworld` as the authoritative source archive and `assets/oneblock-template/` as the extracted baseline when available. Never substitute a blank world, a metadata-only stub, or a newly invented world for the supplied OneBlock assets.
+Do not assume that a legacy asset archive or extracted asset directory still exists. The former `Assets/Oneblock-assets.mcworld` and `assets/oneblock-template/` are not authoritative and must not be referenced as required inputs.
 
-The source world is stored at `Assets/Oneblock-assets.mcworld`. The builder extracts it into `assets/oneblock-template/` on the first build. Keep the complete world, including `level.dat`, `level.dat_old` when supplied, `levelname.txt`, the full `db/` LevelDB directory, world pack manifests, and every other original file. Each output map must be built from a temporary copy so the source archive/template is never mutated.
+- The current designated source world, when supplied, is `assets/Void_For_Workv2.mcworld`.
+- The standard builder extracts that archive into `assets/oneblock-template/` only when the extracted template is absent or incomplete. Each build must use a temporary copy and must never mutate the master template.
+- If the source archive and a complete extracted template have both been removed, stop and report the exact missing path. Do not fabricate a replacement world, create a metadata-only stub, or silently use an unrelated world.
+- Preserve the complete world data from the chosen source, including `level.dat`, `level.dat_old` when supplied, `levelname.txt`, the full `db/` LevelDB directory, world pack manifests, and all other original world files.
+- When a map installs or replaces packs, link exact manifest UUIDs and versions through `world_behavior_packs.json` and, when applicable, `world_resource_packs.json` at the world root.
+- Verify the resulting `.mcworld` archive contains the complete world database, all required pack files, and valid world pack references before delivery.
 
-1. **Complete-world baseline:** preserve the source world database and all original files unless the map feature explicitly requires adding or updating pack references.
-2. **Pack integration:** install the map's Behavior Pack and Resource Pack into the staged copy, then link their exact UUIDs and versions in the world pack manifests.
-3. **UI-first interactions:** when an interactive shop/trading feature is requested, prefer an in-game UI opened by the requested item or block interaction rather than a chat-command-only workflow.
-4. **Verify the output archive:** check that `level.dat`, `levelname.txt`, `db/`, pack files, and world pack references are present before publishing.
-5. **Legacy reference JSONs:** any surviving files under the former `assets/oneblock-assets/` folder are legacy mechanic notes, not the source world. Do not use its `level.dat` or catalog as the basis for new world builds. Migrate a mechanic note only when its behavior is independently verified and still relevant to the target project.
-
+Legacy files under `assets/oneblock-assets/` are not a world template. Do not use old catalogs or metadata as substitutes for the actual world database.
 ## 9. Bedrock Function Files, Automatic Execution, and World Pack Linking
 
 These checks are mandatory whenever creating, editing, packaging, or debugging a Bedrock `.mcfunction` file. Do not assume that a function runs just because the file exists in the archive.
