@@ -6,7 +6,7 @@
 
 ### Added
 - **Permanent Trader Post:** Open the shop from the base station, recover a missing Trader Ledger, and keep access even after losing the item.
-- **Ten evolving core stages:** The central block progresses from Dirt to a Block of Netherite as the world reaches 6,000 total breaks.
+- **Ten evolving core stages:** The central block progresses from Dirt through increasingly tough stone, ore, ancient debris, obsidian, and a Block of Netherite as the world reaches 6,000 total breaks.
 - **Bonus Emerald Block:** Find an occasional bonus block and claim 30 OneCoins, with a chance of a hostile encounter.
 - **Core Surge events:** Every 500 world-wide breaks grants a coin bonus and starts a hostile mob challenge.
 - **Kingdom Prestige:** Players who reach 6,000 personal breaks may reset their own shop progress for bonus coins and a permanent Prestige level.
