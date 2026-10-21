@@ -1,8 +1,8 @@
-import { world, system, ItemStack, GameMode } from "@minecraft/server";
+import { world, system, ItemStack } from "@minecraft/server";
 import { ActionFormData } from "@minecraft/server-ui";
 
-const ORIGIN={x:0,y:64,z:0}, BEDROCK={x:0,y:63,z:0}, SPAWN={x:0.5,y:65,z:0.5};
-const TRADER_ITEM="allenscreations:trader_ledger", COINS="dirtbound_coins", MINED="dirtbound_blocks", RECEIVED="dirtbound_trader_received";
+const ORIGIN={x:0,y:64,z:0};
+const TRADER_ITEM="allenscreations:trader_ledger", COINS="dirtbound_coins", MINED="dirtbound_blocks";
 const RAW=[
 ["Castaway",0,"oak_log oak_planks stick crafting_table wooden_pickaxe wooden_axe wooden_shovel torch bread wheat_seeds oak_sapling dirt cobblestone bowl baked_potato chest furnace bone_meal"],
 ["Settler",20,"stone glass oak_fence oak_door lantern carrot potato beetroot_seeds wheat bucket water_bucket iron_nugget iron_ingot stone_pickaxe stone_axe stone_sword shield fishing_rod"],
@@ -25,9 +25,6 @@ function hasScore(n,p){try{const id=p.scoreboardIdentity;return !!id&&objective(
 function setScore(n,p,v){const id=p.scoreboardIdentity;if(id)objective(n).setScore(id,Math.max(0,Math.floor(v)))}
 const balance=p=>score(COINS,p), mined=p=>score(MINED,p);
 function tell(p,m){try{p.sendMessage("§6[Dirtbound] §f"+m)}catch{}}
-function maintain(){try{const d=world.getDimension("overworld");const bedrock=d.getBlock(BEDROCK),center=d.getBlock(ORIGIN);if(!bedrock||!center)return false;if(bedrock.typeId!=="minecraft:bedrock")bedrock.setType("minecraft:bedrock");if(center.typeId!=="minecraft:dirt")center.setType("minecraft:dirt");world.setDefaultSpawnLocation({x:0,y:65,z:0});return true}catch{return false}}
-function giveTrader(p){const inv=p.getComponent("minecraft:inventory")?.container;if(!inv)return;try{const left=inv.addItem(new ItemStack(TRADER_ITEM,1));if(left){tell(p,"Make room in your inventory to receive the OneBlock Trader.");return}setScore(RECEIVED,p,1);tell(p,"You received the OneBlock Trader. Hold it and interact to open the Trading UI.")}catch{tell(p,"Trader delivery failed. Make inventory space and rejoin.")}}
-function initialize(p){if(!hasScore(COINS,p))setScore(COINS,p,50);if(!hasScore(MINED,p))setScore(MINED,p,0);if(!hasScore(RECEIVED,p))giveTrader(p)}
 function showMain(p){new ActionFormData().title("ONEBLOCK TRADING POST").body("OneCoins: §e"+balance(p)+"§r\nBlocks mined: "+mined(p)+"\n180 purchasable entries across 10 tiers.\nSell Dirt and mine to unlock better supplies.").button("Browse 180 Purchasable Items").button("Sell All Dirt").button("Balance & Progress").show(p).then(r=>{if(r.canceled)return;if(r.selection===0)showShop(p);else if(r.selection===1)sellDirt(p);else tell(p,"Balance: "+balance(p)+" OneCoins. Blocks mined: "+mined(p)+". Next tier: "+(SHOPS.find(s=>s.unlock>mined(p))?.name??"all tiers unlocked")+".")}).catch(()=>tell(p,"Trading UI failed to open. Interact with the Trader again."))}
 function showShop(p){const count=mined(p),f=new ActionFormData().title("SUPPLY TIERS").body("Balance: "+balance(p)+" OneCoins\nChoose a tier. Locked tiers show their mining requirement.");for(const s of SHOPS)f.button(count>=s.unlock?s.name+" (18 items)":s.name+"\n§8Unlock at "+s.unlock+" blocks");f.button("Back");f.show(p).then(r=>{if(r.canceled)return;if(r.selection===SHOPS.length)return showMain(p);const s=SHOPS[r.selection];if(!s)return;if(count<s.unlock){tell(p,s.name+" unlocks after "+s.unlock+" blocks mined.");return showShop(p)}showProducts(p,s)}).catch(()=>tell(p,"Supply Shop failed to open."))}
 function showProducts(p,s){const f=new ActionFormData().title(s.name).body("Balance: "+balance(p)+" OneCoins\nChoose one of 18 items.");for(const item of s.items)f.button(item.name+"\n§e"+item.price+" OneCoins");f.button("Back to Tiers");f.show(p).then(r=>{if(r.canceled)return;if(r.selection===s.items.length)return showShop(p);const item=s.items[r.selection];if(item)purchase(p,item,s)}).catch(()=>tell(p,"Item list failed to open."))}
@@ -35,6 +32,6 @@ function purchase(p,item,s){if(mined(p)<s.unlock)return tell(p,"That tier is loc
 function sellDirt(p){const inv=p.getComponent("minecraft:inventory")?.container;if(!inv)return tell(p,"Inventory unavailable.");let sold=0;for(let i=0;i<inv.size;i++){const st=inv.getItem(i);if(st?.typeId==="minecraft:dirt"){sold+=st.amount;inv.setItem(i,undefined)}}if(!sold)return tell(p,"No Dirt to sell. Break the central OneBlock first.");setScore(COINS,p,balance(p)+sold);tell(p,"Sold "+sold+" Dirt for "+sold+" OneCoins. Balance: "+balance(p)+".")}
 world.afterEvents.itemUse.subscribe(e=>{if(e.itemStack?.typeId!==TRADER_ITEM)return;const p=e.source;if(p?.typeId==="minecraft:player")system.run(()=>showMain(p))});
 world.afterEvents.playerBreakBlock.subscribe(e=>{const b=e.block;if(b.dimension.id!=="minecraft:overworld"||b.x!==ORIGIN.x||b.y!==ORIGIN.y||b.z!==ORIGIN.z||!e.player)return;system.run(()=>{maintain();const count=mined(e.player)+1;setScore(MINED,e.player,count);for(const s of SHOPS)if(s.unlock>0&&s.unlock===count)tell(e.player,"New shop unlocked: "+s.name+"!")})});
-world.afterEvents.playerSpawn.subscribe(e=>system.runTimeout(()=>{const p=e.player;initialize(p);try{p.setGameMode(GameMode.survival)}catch{};if(e.initialSpawn)try{p.teleport(SPAWN,{dimension:world.getDimension("overworld"),checkForBlocks:false})}catch{};system.runTimeout(()=>{maintain();try{p.setGameMode(GameMode.survival)}catch{}},20)},10));
+world.afterEvents.playerSpawn.subscribe(e=>system.runTimeout(()=>initialize(e.player),10));
 system.runInterval(()=>{for(const p of world.getAllPlayers())try{p.onScreenDisplay.setActionBar("§6Dirtbound Kingdom §8| §fBlocks: "+mined(p)+" §8| §eOneCoins: "+balance(p))}catch{}},100);
-system.run(()=>{objective(COINS);objective(MINED);objective(RECEIVED)});
+system.run(()=>{objective(COINS);objective(MINED)});
