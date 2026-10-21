@@ -1,6 +1,6 @@
 # Scripts and Minigames
 
-Source files for survival challenges, minigames, and script modules by AllensCreations.
+Source files for Minecraft Bedrock survival challenges and minigames by AllensCreations.
 
 ## Available Scripts
 

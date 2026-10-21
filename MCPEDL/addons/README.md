@@ -14,14 +14,14 @@ Source files for established Minecraft Bedrock add-ons by AllensCreations.
 | Tameable Companion Fox | 1.0.5 | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/addons/Tameable-Companion-Fox/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Tameable-Companion-Fox/Tameable%20Companion%20Fox%20by%20AllensCreations%20%28V1.0.5%29.mcaddon) |
 | Vanilla Quality of Life | 1.3.20 | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/addons/Vanilla-Quality-of-Life/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Vanilla-Quality-of-Life/Vanilla%20Quality%20of%20Life%20by%20AllensCreations%20%28V1.3.20%29.mcaddon) |
 | Grimoire Relics V2 | 1.0.8 | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/addons/Grimoire-Relics-V2/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Grimoire-Relics-V2/Grimoire%20Relics%20V2%20by%20AllensCreations%20%28V1.0.8%29.mcaddon) |
-| Grand Banquets | 1.0.3 | [Source](Grand-Banquets/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Grand-Banquets/Grand%20Banquets%20by%20AllensCreations%20%28V1.0.3%29.mcaddon) |
+| Grand Banquets | 1.0.3 | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/addons/Grand-Banquets/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Grand-Banquets/Grand%20Banquets%20by%20AllensCreations%20%28V1.0.3%29.mcaddon) |
 | Magnetic Satchel | 1.0.5 | [Source](Magnetic-Satchel/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Magnetic-Satchel/Magnetic%20Satchel%20by%20AllensCreations%20%28V1.0.5%29.mcaddon) |
 | Sudden Death Roulette The Diamond Race | 1.0.1 | [Source](Sudden-Death-Roulette/) | [MCPACK](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Sudden-Death-Roulette/Sudden%20Death%20Roulette%20by%20AllensCreations%20%28V1.0.1%29.mcpack) |
 | Universal Clutch | 1.0.2 | [Source](Universal-Clutch/) | [MCPACK](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Universal-Clutch/Universal%20Clutch%20by%20AllensCreations%20%28V1.0.2%29.mcpack) |
 | Smart Tree Capitator and Domino Ore Miner | 1.0.8 | [Source](Smart-Tree-Capitator-and-Domino-Ore-Miner/) | [MCPACK](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Smart-Tree-Capitator-and-Domino-Ore-Miner/Smart%20Tree%20Capitator%20and%20Domino%20Ore%20Miner%20by%20AllensCreations%20%28V1.0.8%29.mcpack) |
 | Harvest Intelligence | 1.0.3 | [Source](Harvest-Intelligence/) | [MCPACK](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Harvest-Intelligence/Harvest%20Intelligence%20by%20AllensCreations%20%28V1.0.3%29.mcpack) |
 
-The catalog is automatically updated by the add-on generation workflow.
+Download links point to the currently published package files.
 
 ## Attribution
 

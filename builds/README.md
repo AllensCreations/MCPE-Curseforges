@@ -15,11 +15,11 @@ This directory stores the compiled releases (behavior packs, resource packs, add
 | **Monster Companions** | `v1.0.9` | Complete Add-on (`.mcaddon`) | [Download (.mcaddon)](Monster-Companions/Monster%20Companions%20by%20AllensCreations%20%28V1.0.9%29.mcaddon) | [`Monster-Companions/`](Monster-Companions/) |
 | **Mining Helmet** | `v1.0.11` | Complete Add-on (`.mcaddon`) | [Download (.mcaddon)](Mining-Helmet/Mining%20Helmet%20by%20AllensCreations%20%28V1.0.11%29.mcaddon) | [`Mining-Helmet/`](Mining-Helmet/) |
 | **Passive Auto-Switch Tools** | `v1.1.13` | Script Behavior Pack (`.mcpack`) | [Download (.mcpack)](Passive-Auto-Switch-Tools/Passive%20Auto-Switch%20Tools%20by%20AllensCreations%20%28V1.1.13%29.mcpack) | [`Passive-Auto-Switch-Tools/`](Passive-Auto-Switch-Tools/) |
-| **Ghast Mob Head Transformers** | `v1.1.13` | Complete Add-on (`.mcaddon`) | [Download (.mcaddon)](Ghast-Mob-Head-Transformers/Ghast%20Mob%20Head%20Transformers%20by%20AllensCreations%20%28V1.1.13%29.mcaddon) | [`Ghast-Head-Transformers/`](Ghast-Head-Transformers/) |
+| **Ghast Mob Head Transformers** | `v1.1.13` | Complete Add-on (`.mcaddon`) | [Download (.mcaddon)](Ghast-Mob-Head-Transformers/Ghast%20Mob%20Head%20Transformers%20by%20AllensCreations%20%28V1.1.13%29.mcaddon) | [`Ghast-Mob-Head-Transformers/`](Ghast-Mob-Head-Transformers/) |
 | **Immortal Pets** | `v1.1.7` | Script Behavior Pack (`.mcpack`) | [Download (.mcpack)](Immortal-Pets/Immortal%20Pets%20by%20AllensCreations%20%28V1.1.7%29.mcpack) | [`Immortal-Pets/`](Immortal-Pets/) |
-| **Tameable Companion Fox** | `v1.0.5` | Complete Pack (`.mcaddon`) | [Download (.mcaddon)](Tameable-Companion-Fox/Tameable%20Companion%20Fox%20by%20AllensCreations%20%28V1.0.5%29.mcaddon) | [`tameable-companion-fox/`](tameable-companion-fox/) |
+| **Tameable Companion Fox** | `v1.0.5` | Complete Pack (`.mcaddon`) | [Download (.mcaddon)](Tameable-Companion-Fox/Tameable%20Companion%20Fox%20by%20AllensCreations%20%28V1.0.5%29.mcaddon) | [`Tameable-Companion-Fox/`](Tameable-Companion-Fox/) |
 | **Magnetic Satchel** | `v1.0.5` | Complete Pack (`.mcaddon`) | [Download (.mcaddon)](Magnetic-Satchel/Magnetic%20Satchel%20by%20AllensCreations%20%28V1.0.5%29.mcaddon) | [`Magnetic-Satchel/`](Magnetic-Satchel/) |
-| **Smart Tree Capitator & Domino Ore Miner** | `v1.0.6` | Complete Pack (`.mcaddon`) | [Download (.mcaddon)](smart-tree-capitator-domino-ore-miner/Smart%20Tree%20Capitator%20and%20Domino%20Ore%20Miner%20by%20AllensCreations%20%28V1.0.6%29.mcaddon) | [`smart-tree-capitator-domino-ore-miner/`](smart-tree-capitator-domino-ore-miner/) |
+| **Smart Tree Capitator & Domino Ore Miner** | `v1.0.8` | Complete Pack (`.mcaddon`) | [Download (.mcaddon)](Smart-Tree-Capitator-and-Domino-Ore-Miner/Smart%20Tree%20Capitator%20and%20Domino%20Ore%20Miner%20by%20AllensCreations%20%28V1.0.8%29.mcaddon) | [`Smart-Tree-Capitator-and-Domino-Ore-Miner/`](Smart-Tree-Capitator-and-Domino-Ore-Miner/) |
 | **Universal Clutch** | `v1.0.2` | Complete Pack (`.mcaddon`) | [Download (.mcpack)](Universal-Clutch/Universal%20Clutch%20by%20AllensCreations%20%28V1.0.2%29.mcpack) | [`Universal-Clutch/`](Universal-Clutch/) |
 | **Grimoire-Relics-V2** | `v1.0.8` | Complete Pack (`.mcaddon`) | [Download (.mcaddon)](Grimoire-Relics-V2/Grimoire%20Relics%20V2%20by%20AllensCreations%20%28V1.0.8%29.mcaddon) | [`Grimoire-Relics-V2/`](Grimoire-Relics-V2/) |
 | **Grand-Banquets** | `v1.0.3` | Complete Pack (`.mcaddon`) | [Download (.mcaddon)](Grand-Banquets/Grand%20Banquets%20by%20AllensCreations%20%28V1.0.3%29.mcaddon) | [`Grand-Banquets/`](Grand-Banquets/) |
@@ -32,12 +32,13 @@ This directory stores the compiled releases (behavior packs, resource packs, add
 
 ### Worlds and Maps
 
+Dirtbound's three world variants are published in the map source folder. Creative is the sole in-game test world; archives must not be rebuilt until Creative mechanics pass in Minecraft, complete matching mode-specific world foundations are supplied, and the user approves the rebuild.
+
 | Map Name | Version | Type | Download Link | Build Folder |
 | :--- | :--- | :--- | :--- | :--- |
 | **OneBlock Void Survival** | `v1.2.6` | Survival World (`.mcworld`) | [Download (.mcworld)](OneBlock-Void-Survival/OneBlock%20Void%20Survival%20by%20AllensCreations%20%28V1.2.6%29.mcworld) | [`OneBlock-Void-Survival/`](OneBlock-Void-Survival/) |
 | **OneBlock Void (Admin Studio)** | `v1.2.6` | Testing World (`.mcworld`) | [Download (.mcworld)](OneBlock-Void-Survival/OneBlock%20Void%20Survival%20by%20AllensCreations%20%28V1.2.6%29.mcworld) | [`OneBlock-Void-Survival/`](OneBlock-Void-Survival/) |
 | **OneBlock Economy** | `v1.0.7` | Custom Map (`.mcworld`) | [Download (.mcworld)](OneBlock-Economy/OneBlock%20Economy%20by%20AllensCreations%20%28V1.0.7%29.mcworld) | [`OneBlock-Economy/`](OneBlock-Economy/) |
-
 
 ### Script Projects & Challenges
 
