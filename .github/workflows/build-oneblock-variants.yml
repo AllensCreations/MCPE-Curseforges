@@ -1,15 +1,15 @@
 name: Build OneBlock Creative, Survival, and Hardcore Worlds
 
 on:
-  # Rebuild all opted-in OneBlock worlds whenever map source or the builder changes.
-  # The generated commit uses [skip ci] to prevent a rebuild loop.
-  push:
-    paths:
-      - 'MCPEDL/maps/**'
-      - 'Mcpeworlds/**'
-      - 'scripts/build_oneblock_variants_from_template.py'
-      - '.github/workflows/build-oneblock-variants.yml'
+  # World generation is deliberately manual and gated until the Creative
+  # mechanics have been tested in Minecraft and the user approves rebuilding.
   workflow_dispatch:
+    inputs:
+      creative_test_passed:
+        description: "Confirm the current Creative world mechanics were tested in Minecraft"
+        required: true
+        type: boolean
+        default: false
 
 permissions:
   contents: write
@@ -21,6 +21,7 @@ concurrency:
 jobs:
   build:
     name: Build and publish all three world modes
+    if: ${{ inputs.creative_test_passed == true }}
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
@@ -33,7 +34,7 @@ jobs:
         with:
           python-version: '3.11'
 
-      - name: Build each mode from its matching uploaded world template and the map's actual packs
+      - name: Build each mode from its complete matching Mcpeworlds foundation and the map's actual packs
         run: python scripts/build_oneblock_variants_from_template.py
 
       - name: Commit generated .mcworld files
