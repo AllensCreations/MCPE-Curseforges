@@ -1,4 +1,4 @@
-# Passive Auto-Switch Tools (v1.1.12) - Automatic Tool Selection by AllensCreations
+# Passive Auto-Switch Tools (v1.1.13) - Automatic Tool Selection by AllensCreations
 
 ![MCPEDL](https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/MCPEDL/addons/Passive-Auto-Switch-Tools/pack_icon.png "MCPEDL")
 
@@ -6,6 +6,8 @@
 [![Format](https://img.shields.io/badge/Format-.MCPACK-orange?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/addons#available-add-ons)
 
 **By AllensCreations**
+
+Explore more creations: [CurseForge Profile](https://www.curseforge.com/members/allenscreations/projects) · [MCPEDL Profile](https://mcpedl.com/user/allenscreations/)
 
 Automatic intelligent tool and combat equipment selection for survival.
 

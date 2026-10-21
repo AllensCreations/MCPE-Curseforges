@@ -1,4 +1,4 @@
-# Monster Companions (v1.0.8)
+# Monster Companions (v1.0.9)
 
 *Tameable Hostile Mobs and Mounts by AllensCreations*
 

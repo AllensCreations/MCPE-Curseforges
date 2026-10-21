@@ -1,4 +1,4 @@
-# Mining Helmet (v1.0.10) — Dynamic Lighting Add-on by AllensCreations
+# Mining Helmet (v1.0.11) — Dynamic Lighting Add-on by AllensCreations
 
 ![MCPEDL](https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/MCPEDL/addons/Mining-Helmet/1791946330457.jpg "MCPEDL")
 
@@ -6,6 +6,8 @@
 [![Format](https://img.shields.io/badge/Format-.MCADDON-orange?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/addons#available-add-ons)
 
 **By AllensCreations**
+
+Explore more creations: [CurseForge Profile](https://www.curseforge.com/members/allenscreations/projects) · [MCPEDL Profile](https://mcpedl.com/user/allenscreations/)
 
 Hands-free dynamic following light system for cave mining and night exploration.
 
