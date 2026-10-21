@@ -1,4 +1,8 @@
-# One-Block Hardcore Survival Economy (v1.0.0) — 20-Phase Progression Add-on
+# One-Block Hardcore Survival Economy (v1.0.1) — 20-Phase Progression Add-on
+
+**By AllensCreations**
+
+Explore more creations: [CurseForge Profile](https://www.curseforge.com/members/allenscreations/projects) · [MCPEDL Profile](https://mcpedl.com/user/allenscreations/)
 
 This Minecraft Bedrock add-on adds a block-breaking progression loop, a recurring Wandering Trader, and a void rescue mechanic to a compatible OneBlock world.
 

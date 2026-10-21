@@ -1,4 +1,4 @@
-# Swarm Mob Booster (v1.0.4) — Configurable Mob Spawn Density
+# Swarm Mob Booster (v1.0.5) — Configurable Mob Spawn Density
 
 ![MCPEDL](https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/MCPEDL/new_addons/Swarm-Mob-Booster/behavior_pack/pack_icon.png "MCPEDL")
 
@@ -6,6 +6,8 @@
 [![Format](https://img.shields.io/badge/Format-.MCPACK-orange?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/new_addons#available-add-ons)
 
 **By AllensCreations**
+
+Explore more creations: [CurseForge Profile](https://www.curseforge.com/members/allenscreations/projects) · [MCPEDL Profile](https://mcpedl.com/user/allenscreations/)
 
 Increase spawn weights and group sizes for supported vanilla mobs across the Overworld, Nether, and End. Three selectable presets adjust density caps and group sizes, and an action-bar display tracks nearby mobs.
 
