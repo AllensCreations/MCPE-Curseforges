@@ -12,7 +12,7 @@ Use Creative as the only tester for checking the starting block, footing, spawn,
 
 **[Download Hardcore World (MCWORLD)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/MCPEDL/maps/OneBlock-Dirtbound-Kingdom-Beta/OneBlock%20Dirtbound%20Kingdom%20Beta%20-%20Hardcore.mcworld)**
 
-World archives are regenerated automatically after map-source or reference changes. Edit the Creative, Survival, and Hardcore source folders directly under Mcpeworlds/. There are no duplicate .mcworld.zip files or nested Extracted/ folder. The current references do not contain LevelDB, so the builder uses a separate complete world only as a database carrier. Mode settings come from the matching reference, but terrain/chunks may differ from it. Structural validation does not prove the map works in Minecraft.
+Edit the Creative, Survival, and Hardcore source folders directly under Mcpeworlds/. There are no duplicate .mcworld.zip files or nested Extracted/ folder. The current references do not contain LevelDB, so they are not yet complete world foundations. The builder now refuses to borrow another world's database or terrain. These currently committed world downloads have not been rebuilt from a complete matching foundation. New world generation is paused until the Creative mechanics are tested in Minecraft, complete mode-specific foundations are available, and a rebuild is approved. Structural validation does not prove the map works in Minecraft.
 
 ## Creative Test Checklist
 
