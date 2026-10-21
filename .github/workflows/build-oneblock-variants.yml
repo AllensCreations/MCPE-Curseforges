@@ -10,6 +10,8 @@ on:
       - 'MCPEDL/maps/**/resource_pack/**'
       - 'CreateWorld/McpeWorld.html'
       - 'scripts/build_oneblock_variants.py'
+      - 'scripts/build_oneblock_variants_from_template.py'
+      - 'MCPEDL/maps/OneBlock-Void-Survival/*.mcworld'
       - '.github/workflows/build-oneblock-variants.yml'
   workflow_dispatch:
     inputs:
@@ -57,9 +59,9 @@ jobs:
         run: |
           set -euo pipefail
           if [[ "$EVENT_NAME" == "workflow_dispatch" && -n "$PROJECT_PATH" ]]; then
-            python scripts/build_oneblock_variants.py --project-path "$PROJECT_PATH"
+            python scripts/build_oneblock_variants_from_template.py
           else
-            python scripts/build_oneblock_variants.py --all
+            python scripts/build_oneblock_variants_from_template.py
           fi
 
       - name: Commit generated .mcworld files
