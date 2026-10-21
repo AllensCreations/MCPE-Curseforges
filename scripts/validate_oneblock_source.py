@@ -108,7 +108,6 @@ def main() -> None:
             "world builder must retain all three world variants")
     require("def verify_archive(" in builder,
             "world builder must include archive verification")
-            "world builder must include archive verification")
 
     print(f"PASS: Dirtbound source validation (v{'.'.join(map(str, bp_version))})")
     print("PASS: matching pack manifests/dependency, tick registration, one-time setup, no-teleport rule")
