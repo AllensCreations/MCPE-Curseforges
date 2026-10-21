@@ -6,7 +6,7 @@ Download the beta world for Minecraft Bedrock Edition.
 
 - **Version:** 0.1.0 Beta
 - **Package format:** .mcworld
-- **Beta build:** Download the attached OneBlock Dirtbound Kingdom Beta v0.1.0.mcworld file from this conversation. Repository release packaging is still being prepared.
+- **Download source:** [Official maps catalog](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/maps#available-maps). The repository-hosted beta package will appear there after the first build workflow run.
 
 ## Installation
 
