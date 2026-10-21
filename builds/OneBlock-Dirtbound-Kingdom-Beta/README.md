@@ -8,9 +8,9 @@ This folder contains compiled release packages for **OneBlock Dirtbound Kingdom 
 
 | File Name | Format | Size | Description | Download Link |
 | :--- | :--- | :--- | :--- | :--- |
-| **`OneBlock Dirtbound Kingdom Beta by AllensCreations (V0.1.16).mcaddon`** | `.mcaddon` | ~9 KB | Complete bundle containing both Behavior Pack and Resource Pack. | [Download (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/OneBlock-Dirtbound-Kingdom-Beta/OneBlock%20Dirtbound%20Kingdom%20Beta%20by%20AllensCreations%20%28V0.1.16%29.mcaddon) |
-
-
+| **`OneBlock Dirtbound Kingdom Beta by AllensCreations (V0.1.19).mcaddon`** | `.mcaddon` | ~10 KB | Complete bundle containing both Behavior Pack and Resource Pack. | [Download (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/OneBlock-Dirtbound-Kingdom-Beta/OneBlock%20Dirtbound%20Kingdom%20Beta%20by%20AllensCreations%20%28V0.1.19%29.mcaddon) |
+| **`OneBlock Dirtbound Kingdom Beta BP by AllensCreations (V0.1.19).mcpack`** | `.mcpack` | ~8 KB | Behavior Pack: Custom entities, components, and gameplay mechanics. | [Download (.mcpack)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/OneBlock-Dirtbound-Kingdom-Beta/OneBlock%20Dirtbound%20Kingdom%20Beta%20BP%20by%20AllensCreations%20%28V0.1.19%29.mcpack) |
+| **`OneBlock Dirtbound Kingdom Beta RP by AllensCreations (V0.1.19).mcpack`** | `.mcpack` | ~1 KB | Resource Pack: Custom models, geometry, textures, and sounds. | [Download (.mcpack)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/OneBlock-Dirtbound-Kingdom-Beta/OneBlock%20Dirtbound%20Kingdom%20Beta%20RP%20by%20AllensCreations%20%28V0.1.19%29.mcpack) |
 
 ---
 
