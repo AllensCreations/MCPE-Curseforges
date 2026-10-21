@@ -102,11 +102,12 @@ def main() -> None:
             "Only the requested first-join Void Cleaner may teleport players")
     script_path = BP / "scripts/main.js"
     script = script_path.read_text(encoding="utf-8")
-    for expected in ("const ORIGIN={x:0,y:0,z:0};", "const TRADER_POS={x:2,y:1,z:0};",
-                     "const BONUS_POS={x:1,y:1,z:0};", "minecraft:grass_block",
-                     "initializeCoreIfMissing", "restoreCoreImmediately", "playerBreakBlock.subscribe",
-                     "onCoreBreak(p)", "STAGES[stageFor(globalScore"):
+    for expected in ("const ORIGIN={x:0,y:0,z:0};", "const BONUS_POS={x:1,y:1,z:0};",
+                     "minecraft:grass_block", "initializeCoreIfMissing", "restoreCoreImmediately",
+                     "playerBreakBlock.subscribe", "onCoreBreak(p)", "STAGES[stageFor(globalScore"):
         require(expected in script, f"main.js is missing required core coordinate/recovery/progression marker: {expected}")
+    require("const TRADER_POS=" not in script and "playerInteractWithBlock.subscribe" not in script,
+            "The Trader Ledger item must be the only shop access method; no physical Trader Post interaction may remain")
 
     foundation_blockers = []
     for mode, template in TEMPLATES.items():
