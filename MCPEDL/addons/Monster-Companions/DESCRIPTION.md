@@ -12,12 +12,12 @@ Tame 32 hostile monsters into defensive bodyguards and controllable mounts.
 
 Monster Companions is a Minecraft Bedrock add-on that enables players to pacify and tame 32 hostile mob types into defensive bodyguards and controllable mounts.
 
-The pack adds tamable companion behavior and mount interactions to selected hostile mobs.
+The add-on lets players tame selected hostile mobs and use supported creatures as mounts.
 
 ## Compatibility and World Settings
 
 - Minecraft Bedrock Edition. Check the current release listing for the supported version.
-- The Primal Beast Biscuit recipe is included with the pack and can be used offline after import and activation.
+- The Primal Beast Biscuit recipe is included with the downloaded add-on.
 - Achievement support has not been confirmed through in-game testing.
 
 ---
@@ -36,9 +36,9 @@ Wild hostile mobs cannot be tamed immediately. The player must engage the target
 - Kamikaze Creepers: Tamed Creepers will rush enemy threats that damage the player and detonate on the target as a single-use explosive bodyguard.
 - Spirit Vexes: Tamed Evokers summon Spirit Vexes that attack hostiles and despawn naturally when their lifespan ends without turning on players.
 
-### Mount Mechanics and Bedrock Ride UI
+### Riding Companions
 Equipping a Saddle onto supported large companions enables manual mounting and direct steering:
-- On-screen mount prompt: Displays the native Bedrock "Mount" prompt on touch controls, controllers, and mouse/keyboard.
+- Mount prompt: Uses Minecraft's normal mount prompt on touch controls, controllers, and keyboard/mouse.
 - Sneak-to-interact: Crouching allows players to feed, heal, lead, or rename mounts without accidentally mounting.
 - Manual steering: Autonomous wandering and head-turning are disabled while mounted.
 - Wall climbing: Tamed Spiders and Cave Spiders can scale vertical surfaces and cliffs while mounted.
@@ -125,7 +125,7 @@ Equipping a Saddle onto supported large companions enables manual mounting and d
 - Ingredients: 1 Rotten Flesh, 1 Bone, 1 Sweet Berries, 1 Honey Bottle
 - Yield: 4x Primal Beast Biscuits
 - Recipe book: The recipe is set to appear in the crafting recipe list.
-- Offline crafting: The recipe is bundled in the Behavior Pack; internet access is not needed during local gameplay.
+- Offline crafting: The recipe is included with the add-on, so internet access is not needed during local gameplay after import.
 
 ---
 
