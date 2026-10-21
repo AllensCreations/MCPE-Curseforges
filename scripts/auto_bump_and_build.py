@@ -36,6 +36,10 @@ import urllib.parse
 REPO_ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
 GITHUB_RAW = "https://github.com/AllensCreations/MCPE-Curseforges/raw/main"
 
+# Dirtbound is a OneBlock world project with a gameplay-test gate. It must not
+# be packaged as a standalone .mcaddon/.mcpack by the generic add-on builder.
+EXCLUDED_AUTOMATED_PROJECTS = {"OneBlock-Dirtbound-Kingdom-Beta"}
+
 # ─────────────────────────────────────────────────────────────────────────────
 # Git helpers
 # ─────────────────────────────────────────────────────────────────────────────
@@ -87,8 +91,11 @@ def find_target_project_dirs():
         cat_path = os.path.join(REPO_ROOT, cat)
         if os.path.isdir(cat_path):
             for p in glob.glob(os.path.join(cat_path, "*")):
-                if os.path.isdir(p):
-                    projects[p] = cat
+                if not os.path.isdir(p):
+                    continue
+                if os.path.basename(p) in EXCLUDED_AUTOMATED_PROJECTS:
+                    continue
+                projects[p] = cat
     return projects
 
 
