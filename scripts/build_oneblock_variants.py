@@ -127,7 +127,7 @@ def make_level_dat(world_name: str, mode: str) -> bytes:
         "LimitedWorldOriginX": tag(INT, 0),
         "LimitedWorldOriginY": tag(INT, 32767),
         "LimitedWorldOriginZ": tag(INT, 0),
-        "MinimumCompatibleClientVersion": tag(LIST, (INT, [1, 26, 0, 0])),
+        "MinimumCompatibleClientVersion": tag(LIST, (INT, [1, 26, 50, 0, 0])),
         "MultiplayerGame": tag(BYTE, 1),
         "MultiplayerGameIntent": tag(BYTE, 1),
         "NetherScale": tag(INT, 8),
@@ -147,7 +147,6 @@ def make_level_dat(world_name: str, mode: str) -> bytes:
         "abilities": tag(COMPOUND, abilities),
         "commandsEnabled": tag(BYTE, int(creative)),
         "cheatsEnabled": tag(BYTE, int(creative)),
-        "commandsEnabled": tag(BYTE, int(creative)),
         "dodaylightcycle": tag(BYTE, 1),
         "doentitydrops": tag(BYTE, 1),
         "dofiretick": tag(BYTE, 1),
@@ -243,11 +242,22 @@ def build_variant(project: Path, project_slug: str, map_name: str, mode: str) ->
     rp_manifest = read_manifest(rp_manifest_path) if rp_manifest_path.is_file() else None
 
     dependencies = bp_manifest.get("dependencies", [])
-    if rp_manifest is None:
-        for dep in dependencies:
-            if isinstance(dep, dict) and dep.get("uuid"):
+    uuid_dependencies = [dep for dep in dependencies if isinstance(dep, dict) and dep.get("uuid")]
+    if uuid_dependencies and rp_manifest is None:
+        raise ValueError(
+            f"{project_slug} Behavior Pack declares a UUID dependency but resource_pack/manifest.json is missing."
+        )
+    if rp_manifest is not None:
+        for dep in uuid_dependencies:
+            if dep.get("uuid") != rp_manifest["header"]["uuid"]:
                 raise ValueError(
-                    f"{project_slug} Behavior Pack declares a UUID dependency but resource_pack/manifest.json is missing."
+                    f"{project_slug} Behavior Pack dependency UUID {dep.get('uuid')} does not match "
+                    f"resource_pack/manifest.json UUID {rp_manifest['header']['uuid']}."
+                )
+            if dep.get("version") != rp_manifest["header"]["version"]:
+                raise ValueError(
+                    f"{project_slug} Behavior Pack dependency version {dep.get('version')} does not match "
+                    f"resource_pack/manifest.json version {rp_manifest['header']['version']}."
                 )
 
     variant_name = f"{map_name} - {mode}"
