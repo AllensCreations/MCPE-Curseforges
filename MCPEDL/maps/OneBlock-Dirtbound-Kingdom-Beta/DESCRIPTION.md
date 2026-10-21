@@ -1,8 +1,8 @@
-# OneBlock: Dirtbound Kingdom Beta (source v0.1.22)
+# OneBlock: Dirtbound Kingdom Beta (source v0.1.23)
 
 **By AllensCreations**
 
-Dirtbound Kingdom is a OneBlock challenge built around a central block, a coin economy, a permanent trading station, and ten progression stages. Use the currently published Creative world as the only in-game tester. The editable Creative, Survival, and Hardcore folders under Mcpeworlds/ are the intended foundations for future world builds, but they currently lack complete world databases; the published downloads have not yet been rebuilt from them.
+Dirtbound Kingdom is a OneBlock challenge built around a central block, a coin economy accessed exclusively through the custom Trader Ledger item, and ten progression stages. Use the currently published Creative world as the only in-game tester. The editable Creative, Survival, and Hardcore folders under Mcpeworlds/ are the intended foundations for future world builds, but they currently lack complete world databases; the published downloads have not yet been rebuilt from them.
 
 ## Overview
 
@@ -27,10 +27,9 @@ Use suitable pickaxes for later blocks. The core stage is shared by the world, w
 
 ## Trader Access
 
-- A lectern at **2 1 0** marks the Trader Post; interact with it to open the shop.
-- The OneBlock Trader Ledger also opens the shop when used.
-- The OneBlock Trader Ledger can be recovered through the Trader menu, and the add-on attempts to restore it if it is missing from the player's inventory.
-- The host can also use the existing trader recovery function.
+- Use the custom **OneBlock Trader Ledger** item to open the shop.
+- The Trader Ledger is the only shop access method; no physical Trader Ledger block is used.
+- The add-on attempts to restore the Ledger if it is missing from the player's inventory.
 
 ## Trading and Balanced Progression
 
@@ -54,7 +53,7 @@ Your current OneCoins balance appears as a persistent action-bar text line. It u
 3. Confirm that the core is present at **0 0 0**, Bedrock is at **0 -1 0**, and world spawn is **0 1 0**.
 4. Break the central block and verify the mining counter, OneCoin balance, and block stage.
 5. Confirm the core reappears after each break, including when a break advances the shared stage.
-6. Interact with the Trader Post lectern to open the shop. Test Ledger recovery by removing the item from your inventory.
+6. Interact with the Trader Ledger Trader Ledger item to open the shop. Test Ledger recovery by removing the item from your inventory.
 7. Check the bonus block and 500-break Core Surge after normal progression.
 
 ## Compatibility and Test Notes
@@ -62,7 +61,7 @@ Your current OneCoins balance appears as a persistent action-bar text line. It u
 - Target platform: Minecraft Bedrock Edition 1.26+.
 - Package format: `.mcworld` complete world.
 - Use the Creative world as the tester. The Survival and Hardcore variants are kept alongside it.
-- The current add-on source version is 0.1.22; the currently published `.mcworld` downloads remain from the previous build. The direct editable folders under Mcpeworlds/Creative/, Mcpeworlds/Survival/, and Mcpeworlds/Hardcore/ are the intended mode-specific foundations. Each needs its own complete world database before a new world archive can be generated. World generation remains paused until complete matching world data is supplied, the Creative mechanics are tested in Minecraft, and a rebuild is approved.
+- The current add-on source version is 0.1.23; the currently published `.mcworld` downloads remain from the previous build. The direct editable folders under Mcpeworlds/Creative/, Mcpeworlds/Survival/, and Mcpeworlds/Hardcore/ are the intended mode-specific foundations. Each needs its own complete world database before a new world archive can be generated. World generation remains paused until complete matching world data is supplied, the Creative mechanics are tested in Minecraft, and a rebuild is approved.
 - Automated package and syntax checks do not replace live in-game testing. Starting-block recovery and progression still require verification inside Minecraft.
 - Experimental settings, achievement status, and multiplayer balance have not been verified.
 
@@ -81,4 +80,4 @@ Your current OneCoins balance appears as a persistent action-bar text line. It u
 
 ## Search & Discovery Keywords
 
-Minecraft Bedrock OneBlock survival, Dirtbound Kingdom, evolving OneBlock core, OneBlock Trader Post, OneCoins shop economy, ten-stage OneBlock progression, bonus Emerald Block, Minecraft PE survival challenge, MCPEDL map, CurseForge Bedrock, AllensCreations.
+Minecraft Bedrock OneBlock survival, Dirtbound Kingdom, evolving OneBlock core, OneBlock Trader Ledger, OneCoins shop economy, ten-stage OneBlock progression, bonus Emerald Block, Minecraft PE survival challenge, MCPEDL map, CurseForge Bedrock, AllensCreations.
