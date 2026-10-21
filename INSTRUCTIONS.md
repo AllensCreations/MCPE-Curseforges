@@ -215,7 +215,9 @@ MCPE-Curseforges/
 │   ├── banner.jpg                 # Master repository banner
 │   ├── mcpedl.png                 # Master brand logo
 │   ├── oneblock-template/         # Extracted, complete Bedrock world template (level.dat + db/)
-│   └── oneblock-template.mcworld  # Optional source archive; extracted once when needed
+│   └── oneblock-template.mcworld  # Optional lowercase source archive path
+├── Assets/
+│   └── Oneblock-assets.mcworld    # Supplied source world archive; extracted once on first build
 ├── MCPEDL/                        # Consolidated projects directory (Addons, Scripts, Maps)
 │   ├── addons/                    # Source folders for add-ons & packs
 │   │   ├── <Addon-Name>/
@@ -249,7 +251,7 @@ MCPE-Curseforges/
 
 When creating or updating a OneBlock map in this repository, use the complete extracted Bedrock world at `assets/oneblock-template/` as the world-generation baseline. The template must preserve `level.dat`, `level.dat_old` when supplied, `levelname.txt`, the full `db/` LevelDB directory, world pack manifests, and any other files present in the source world.
 
-1. **Complete-world template, not a metadata-only stub:** The original source is `Void_For_Workv2.mcworld`. Place it at `assets/oneblock-template.mcworld` (or `assets/Void_For_Workv2.mcworld`) if it is not already present. The builder extracts it once into `assets/oneblock-template/` and reuses that extracted folder on later builds.
+1. **Complete-world template, not a metadata-only stub:** The source archive is already stored at `Assets/Oneblock-assets.mcworld`. The builder extracts it into `assets/oneblock-template/` on the first build. The workflow commits that extracted directory alongside the generated map, so later builds reuse the committed extracted template instead of extracting the source archive again.
 2. **Never mutate the master template:** Every build must copy the extracted template into an isolated staging directory. Apply the requested world name to the staged `level.dat`, `level.dat_old` when present, and `levelname.txt`, then package the entire staged world at the archive root. Include the complete `db/` directory and preserve world pack manifests and other source files. Never package only `level.dat` and `levelname.txt`.
 3. **Keep builds isolated:** Write generated worlds to `builds/<World-Name>/`. Changes to a generated world must not flow back into the extracted master template or affect other projects.
 4. **Legacy reference JSONs:** Any surviving files under the former `assets/oneblock-assets/` folder are legacy mechanic notes, not the source world. Do not use its `level.dat` or catalog as the basis for new world builds. Migrate a mechanic note only when its behavior is independently verified and still relevant to the target project.
