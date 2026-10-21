@@ -1,10 +1,11 @@
 #!/usr/bin/env python3
-"""Build OneBlock worlds using each complete Mcpeworlds mode folder as its foundation.
+"""Build OneBlock worlds from the three canonical Mcpeworlds mode folders.
 
-A mode folder must contain its own LevelDB. The builder refuses to borrow a
-database from another world, because that would silently substitute its terrain.
-World archives are generated only when the OneBlock world-build workflow is manually started. The builder still requires complete, valid LevelDB data for every mode and fails closed if a foundation is incomplete.
-"""
+The editable source folders intentionally omit LevelDB to represent a void
+foundation. When a source has no db/ directory, the builder creates a fresh,
+independent empty LevelDB only in temporary build staging. It never adds a
+database to Mcpeworlds/ and never borrows chunks or terrain from another world.
+An existing but incomplete source database is treated as an error.
 from __future__ import annotations
 
 import json
@@ -72,18 +73,42 @@ def locate_world_root(extracted: Path, depth: int = 0) -> Path:
 
 
 def validate_leveldb(db_path: Path, label: str) -> None:
-    """Require the selected foundation's own complete LevelDB database."""
+    """Check that a staged LevelDB has its index and at least one data table."""
     data_files = [
         p for p in db_path.iterdir()
         if p.is_file() and p.name not in {"CURRENT", "LOCK", "LOG", "LOG.old"}
         and not p.name.startswith("MANIFEST")
     ] if db_path.is_dir() else []
     if not (db_path / "CURRENT").is_file() or not data_files:
-        raise ValueError(
-            f"{label} has no complete LevelDB database at {db_path}. "
-            "The builder will not borrow another world's database or substitute its terrain. "
-            "Supply a complete matching world foundation before generating .mcworld files."
+        raise ValueError(f"{label} has an incomplete LevelDB at {db_path}.")
+
+
+def initialize_staged_void_leveldb(db_path: Path, label: str) -> None:
+    """Create a new empty LevelDB in staging when the source intentionally has none."""
+    if db_path.exists():
+        validate_leveldb(db_path, label)
+        return
+    try:
+        import plyvel
+    except ImportError as exc:
+        raise RuntimeError(
+            "Creating database-free void templates requires plyvel. "
+            "Install the workflow's LevelDB dependency before building worlds."
+        ) from exc
+
+    db_path.parent.mkdir(parents=True, exist_ok=True)
+    database = plyvel.DB(str(db_path), create_if_missing=True)
+    try:
+        # A harmless marker forces LevelDB to persist an SST data file. It is not
+        # a Minecraft chunk and contains no terrain, biome, or world-generation data.
+        database.put(
+            b"MCPE-Curseforges:void-template-marker",
+            b"empty-staged-database-v1",
+            sync=True,
         )
+    finally:
+        database.close()
+    validate_leveldb(db_path, label)
 
 
 def tag_prefix(tag_type: int, name: str) -> bytes:
@@ -189,9 +214,10 @@ def build_variant(project: Path, map_name: str, mode: str) -> Path:
         shutil.copytree(source_world, staging, dirs_exist_ok=True)
         world = locate_world_root(staging)
 
-        # The matching Mcpeworlds folder must provide its own database. Do not
-        # borrow terrain/chunks from a different world.
-        validate_leveldb(world / "db", f"{mode} Mcpeworlds foundation")
+        # The canonical source folders intentionally omit db/. Create a fresh
+        # empty database in this temporary copy only; never modify Mcpeworlds/
+        # or import chunks/terrain from another world.
+        initialize_staged_void_leveldb(world / "db", f"{mode} staged void foundation")
 
         # Preserve the mode-specific foundation's game mode, seed, spawn, void settings,
         # gamerules, terrain, chunks, and other world data. Only rename the imported world.
