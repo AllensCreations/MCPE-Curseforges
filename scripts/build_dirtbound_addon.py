@@ -61,7 +61,7 @@ def build() -> Path:
     if rp_manifest["header"]["version"] != version:
         raise ValueError("Behavior Pack and Resource Pack versions do not match.")
     version_text = ".".join(str(part) for part in version)
-    output = OUT_DIR / f"OneBlock Dirtbound Kingdom MCAddon Test (v{version_text}).mcaddon"
+    output = OUT_DIR / f"OneBlock Dirtbound Kingdom Beta by AllensCreations (V{version_text}).mcaddon"
     bp_dependencies = bp_manifest.get("dependencies", [])
     if not any(dep.get("uuid") == rp_manifest["header"]["uuid"] and dep.get("version") == version
                for dep in bp_dependencies):
