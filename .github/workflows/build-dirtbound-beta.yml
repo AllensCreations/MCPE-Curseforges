@@ -1,4 +1,4 @@
-name: Build OneBlock Dirtbound Kingdom Add-on
+name: Validate OneBlock Dirtbound Kingdom
 
 on:
   workflow_dispatch:
@@ -6,30 +6,17 @@ on:
     paths:
       - 'MCPEDL/maps/OneBlock-Dirtbound-Kingdom-Beta/behavior_pack/**'
       - 'MCPEDL/maps/OneBlock-Dirtbound-Kingdom-Beta/resource_pack/**'
-      - 'scripts/build_dirtbound_addon.py'
       - '.github/workflows/build-dirtbound-beta.yml'
 
 permissions:
-  contents: write
-
-# Only the newest source revision should publish a package; older runs can
-# otherwise race and attempt to rebase conflicting binary archives.
-concurrency:
-  group: dirtbound-kingdom-build
-  cancel-in-progress: true
+  contents: read
 
 jobs:
-  build-addon-test:
+  validate-source:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
-      - name: Set up Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: "3.x"
       - name: Check JavaScript syntax
         run: |
           cp MCPEDL/maps/OneBlock-Dirtbound-Kingdom-Beta/behavior_pack/scripts/main.js /tmp/main.mjs
@@ -56,29 +43,3 @@ jobs:
               raise SystemExit("World spawn must not depend on scoreboard initialization.")
           print("OneBlock spawn, footing, and restoration order validated.")
           PY
-      - name: Build and validate current MCAddon
-        run: python3 scripts/build_dirtbound_addon.py
-      - name: Publish tester package
-        run: |
-          set -euo pipefail
-          output_dir="MCPEDL/maps/OneBlock-Dirtbound-Kingdom-Beta/Tester Build"
-          version="$(python3 -c 'import json; print(".".join(map(str, json.load(open("MCPEDL/maps/OneBlock-Dirtbound-Kingdom-Beta/behavior_pack/manifest.json"))["header"]["version"])))')"
-          current_file="OneBlock Dirtbound Kingdom Beta Tester Build (V${version}).mcaddon"
-          test -s "$output_dir/$current_file"
-          find "$output_dir" -maxdepth 1 -type f -name '*.mcaddon' ! -name "$current_file" -delete
-          git add "$output_dir"
-          if git diff --cached --quiet; then
-            echo "The committed tester package already matches the generated package."
-            exit 0
-          fi
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git commit -m "Build OneBlock Dirtbound Kingdom v${version} tester package"
-          git pull --rebase origin main
-          git push
-      - name: Upload tester MCAddon
-        uses: actions/upload-artifact@v4
-        with:
-          name: OneBlock-Dirtbound-Kingdom-Tester-Build
-          path: "MCPEDL/maps/OneBlock-Dirtbound-Kingdom-Beta/Tester Build/*.mcaddon"
-          retention-days: 90
