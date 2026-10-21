@@ -12,7 +12,6 @@ import json
 import re
 import shutil
 import struct
-import subprocess
 import sys
 import tempfile
 import uuid
@@ -22,7 +21,6 @@ from typing import Any
 
 ROOT = Path(__file__).resolve().parents[1]
 MAPS_ROOT = ROOT / "MCPEDL" / "maps"
-REFERENCE_HTML = ROOT / "CreateWorld" / "McpeWorld.html"
 MODES = ("Creative", "Survival", "Hardcore")
 VERSION = [1, 0, 0]
 SEED = 159266
@@ -315,7 +313,10 @@ def verify_archive(path: Path, bp_manifest: dict[str, Any], rp_manifest: dict[st
             "world_behavior_packs.json", "behavior_packs/OneBlockStartingPlatform/manifest.json",
             "behavior_packs/OneBlockStartingPlatform/functions/tick.json",
             "behavior_packs/OneBlockStartingPlatform/functions/oneblock_setup.mcfunction",
+            f"behavior_packs/{safe_name(path.parent.parent.name + 'BP')}/manifest.json",
         }
+        if rp_manifest is not None:
+            required.add(f"resource_packs/{safe_name(path.parent.parent.name + 'RP')}/manifest.json")
         missing = required - names
         if missing:
             raise RuntimeError(f"{path} is missing required archive entries: {', '.join(sorted(missing))}")
