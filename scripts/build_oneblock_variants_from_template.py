@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
-"""Build complete OneBlock worlds from the repository's valid Bedrock world archive.
+"""Build OneBlock worlds from the three user-supplied mode-specific templates.
 
-CreateWorld/McpeWorld.html remains the settings/behavior reference. Unlike the
-HTML download routine and the former builder, this script preserves an existing
-real Bedrock LevelDB world instead of manufacturing an empty database.
+Each Mcpeworlds archive is the source of truth for its own world settings and
+real LevelDB database. The builder adds the target map's actual packs and
+changes only the displayed world name and required pack links.
 """
 from __future__ import annotations
 
@@ -19,11 +19,12 @@ from typing import Any
 ROOT = Path(__file__).resolve().parents[1]
 MAPS_ROOT = ROOT / "MCPEDL" / "maps"
 PROJECT = MAPS_ROOT / "OneBlock-Dirtbound-Kingdom-Beta"
-SOURCE_WORLD = MAPS_ROOT / "OneBlock-Void-Survival" / "OneBlock Void Survival by AllensCreations (V1.2.5).mcworld"
+SOURCE_WORLDS = {
+    "Creative": ROOT / "Mcpeworlds" / "Creative_Void_Sandbox.mcworld.zip",
+    "Survival": ROOT / "Mcpeworlds" / "Survival_Void_World.mcworld.zip",
+    "Hardcore": ROOT / "Mcpeworlds" / "Hardcore_Void_World.mcworld.zip",
+}
 MODES = ("Creative", "Survival", "Hardcore")
-PACK_VERSION = [0, 1, 18]
-SEED = 159266
-VOID_LAYERS = '{"biome_id":1,"encoding_version":6,"preset_id":"TheVoid","world_version":"version.post_1_18"}'
 
 
 def safe_name(value: str) -> str:
@@ -38,6 +39,32 @@ def safe_extract(archive_path: Path, destination: Path) -> None:
             if target != root and root not in target.parents:
                 raise ValueError(f"Unsafe path in source world archive: {member.filename}")
         archive.extractall(destination)
+
+
+def locate_world_root(extracted: Path) -> Path:
+    """Find the real Bedrock world whether the uploaded ZIP wraps a .mcworld or its files."""
+    candidates = [extracted]
+    candidates.extend(p.parent for p in extracted.rglob("level.dat"))
+    for candidate in candidates:
+        if (candidate / "level.dat").is_file() and (candidate / "db" / "CURRENT").is_file():
+            return candidate
+
+    nested_archives = sorted(extracted.rglob("*.mcworld"))
+    for nested in nested_archives:
+        destination = extracted / "_nested_world"
+        destination.mkdir(exist_ok=True)
+        safe_extract(nested, destination)
+        if (destination / "level.dat").is_file() and (destination / "db" / "CURRENT").is_file():
+            return destination
+        nested_candidates = [p.parent for p in destination.rglob("level.dat")]
+        for candidate in nested_candidates:
+            if (candidate / "db" / "CURRENT").is_file():
+                return candidate
+
+    raise ValueError(
+        "The selected Mcpeworlds template does not contain level.dat and db/CURRENT. "
+        "Refusing to create a fabricated or incomplete world."
+    )
 
 
 def tag_prefix(tag_type: int, name: str) -> bytes:
@@ -100,49 +127,12 @@ def patch_string_tag(raw: bytes, name: str, value: str) -> bytes:
     return raw[:4] + struct.pack("<I", len(payload)) + payload
 
 
-def patch_level_dat(path: Path, world_name: str, mode: str) -> None:
+def patch_level_dat(path: Path, world_name: str) -> None:
+    """Rename a template world without overriding its selected mode/settings."""
     raw = path.read_bytes()
     if len(raw) < 8:
         raise ValueError(f"{path.name} is too short to be a Bedrock level.dat")
-    creative = mode == "Creative"
-    hardcore = mode == "Hardcore"
     raw = patch_string_tag(raw, "LevelName", world_name)
-    # The source world's actual LevelDB/chunk layout is preserved. Some valid
-    # retail worlds omit FlatWorldLayers because they are not flat-world presets;
-    # only update these optional metadata fields when present.
-    if tag_prefix(8, "FlatWorldLayers") in raw[8:]:
-        raw = patch_string_tag(raw, "FlatWorldLayers", VOID_LAYERS)
-    if tag_prefix(8, "InventoryVersion") in raw[8:]:
-        raw = patch_string_tag(raw, "InventoryVersion", "1.26.52")
-    for name, value in (
-        ("GameType", 1 if creative else 0),
-        ("Difficulty", 3),
-        ("RandomSeed", SEED),
-        ("SpawnX", 0),
-        ("SpawnY", 65),
-        ("SpawnZ", 0),
-        ("spawnradius", 0),
-    ):
-        raw = patch_numeric_tag(raw, 3 if name != "RandomSeed" else 4, name, value)
-    for name, value in (
-        ("IsHardcore", int(hardcore)),
-        ("cheatsEnabled", int(creative)),
-        ("commandsEnabled", int(creative)),
-        ("hasBeenLoadedInCreative", int(creative)),
-    ):
-        if tag_prefix(1, name) not in raw[8:]:
-            # Older valid worlds may omit flags introduced by later Bedrock versions.
-            raw = add_root_numeric_tag(raw, 1, name, value)
-        else:
-            raw = patch_numeric_tag(raw, 1, name, value)
-    for name, value in (
-        ("instabuild", int(creative)),
-        ("invulnerable", int(creative)),
-        ("mayfly", int(creative)),
-        ("op", int(creative)),
-        ("teleport", int(creative)),
-    ):
-        raw = patch_numeric_tag(raw, 1, name, value)
     path.write_bytes(raw)
 
 
@@ -155,9 +145,10 @@ def read_manifest(path: Path) -> dict[str, Any]:
 
 
 def build_variant(project: Path, map_name: str, mode: str) -> Path:
-    if not SOURCE_WORLD.is_file():
+    source_world = SOURCE_WORLDS[mode]
+    if not source_world.is_file():
         raise FileNotFoundError(
-            f"Required valid Bedrock source world is missing: {SOURCE_WORLD}. "
+            f"Required mode-specific Mcpeworlds template is missing: {source_world}. "
             "Refusing to publish a fabricated empty LevelDB world."
         )
     bp_source = project / "behavior_pack"
@@ -174,26 +165,29 @@ def build_variant(project: Path, map_name: str, mode: str) -> Path:
     project_slug = project.relative_to(ROOT).as_posix()
 
     with tempfile.TemporaryDirectory(prefix="dirtbound-world-") as temp:
-        world = Path(temp) / "world"
-        world.mkdir()
-        safe_extract(SOURCE_WORLD, world)
-        if not (world / "level.dat").is_file() or not (world / "db" / "CURRENT").is_file():
-            raise ValueError("The source archive must contain level.dat and a real db/CURRENT LevelDB file.")
+        staging = Path(temp) / "staging"
+        staging.mkdir()
+        safe_extract(source_world, staging)
+        world = locate_world_root(staging)
         data_files = [
             p for p in (world / "db").iterdir()
             if p.is_file() and p.name not in {"CURRENT", "LOCK", "LOG", "LOG.old"}
             and not p.name.startswith("MANIFEST")
         ]
         if not data_files:
-            raise ValueError("The source world has no LevelDB data files; refusing to generate a broken world.")
+            raise ValueError(
+                f"The {mode} template has no LevelDB data files; refusing to generate a broken world."
+            )
 
+        # Preserve the mode-specific template's game mode, seed, spawn, void settings,
+        # gamerules, and all other metadata. Only rename the imported world.
         for metadata_name in ("level.dat", "level.dat_old"):
             metadata = world / metadata_name
             if metadata.is_file():
-                patch_level_dat(metadata, world_name, mode)
+                patch_level_dat(metadata, world_name)
         (world / "levelname.txt").write_text(world_name, encoding="utf-8")
 
-        # Replace the template's old packs while preserving its actual world database.
+        # Replace the template's old packs while preserving its actual world database and mode settings.
         for folder in ("behavior_packs", "resource_packs"):
             path = world / folder
             if path.exists():
