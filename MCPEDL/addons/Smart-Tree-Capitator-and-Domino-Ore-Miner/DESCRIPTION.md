@@ -1,11 +1,6 @@
-# Smart Tree Capitator and Domino Ore Miner (v1.0.8) — Vein and Tree Miner by AllensCreations
-
-[![Minecraft Bedrock](https://img.shields.io/badge/Minecraft%20Bedrock-1.21.0%2B-brightgreen?style=flat-square&logo=minecraft)](https://github.com/AllensCreations/MCPE-Curseforges)
-[![Format](https://img.shields.io/badge/Format-.MCPACK%20%2F%20.MCADDON-orange?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/addons#available-add-ons)
+# Smart Tree Capitator and Domino Ore Miner (v1.0.8) — Vein and Tree Miner
 
 **By AllensCreations**
-
-Explore more creations: [CurseForge Profile](https://www.curseforge.com/members/allenscreations/projects) · [MCPEDL Profile](https://mcpedl.com/user/allenscreations/)
 
 **SNEAK-ACTIVATED VEIN MINING & BUILT-IN TOOL PROTECTION**
 
@@ -17,7 +12,7 @@ Fell entire trees and mine contiguous ore veins in a single sneak-break, protect
 
 Mining large underground ore clusters and chopping tall trees one block at a time takes unnecessary time.
 
-**Smart Tree Capitator & Domino Ore Miner** adds sneak-activated chain mining to Minecraft Bedrock Edition using the modern Minecraft Bedrock mechanics. Sneak while breaking a log or ore to fell the entire tree or harvest the connected ore vein in a single tick. Tools stop mining when durability drops to 5, preventing accidental breakage.
+**Smart Tree Capitator & Domino Ore Miner** adds sneak-activated chain mining to Minecraft Bedrock Edition . Sneak while breaking a log or ore to fell the entire tree or harvest the connected ore vein in one action. Chain mining stops when the tool has 5 durability points remaining, helping prevent breakage.
 
 Standing upright leaves standard vanilla single-block mining untouched. The add-on adds no extra hunger or exhaustion penalties.
 
@@ -28,11 +23,11 @@ Standing upright leaves standard vanilla single-block mining untouched. The add-
 ### Sneak-Activated Mining
 - **Description**: Chains only while sneaking, keeping single-block mining intact when upright.
 
-### 26-Neighbor Tree Capitator
-- **Description**: Upward-biased 26-neighbor 3D flood-fill scan captures straight trunks, diagonal branches, and mega canopies with species matching and house protection.
+### Connected Tree Felling
+- **Description**: Follows connected logs and branches while matching wood types and protecting nearby builds.
 
-### 26-Neighbor Domino Ore Miner
-- **Description**: True 3D breadth-first search connects full clusters through face, edge, and corner connections up to 64 blocks.
+### Connected Ore Mining
+- **Description**: Connects touching ore blocks, including diagonal connections, up to 64 blocks.
 
 ### Mineral Category Normalization
 - **Description**: Groups regular and deepslate ore variants so veins crossing stone layers mine together.
@@ -41,7 +36,7 @@ Standing upright leaves standard vanilla single-block mining untouched. The add-
 - **Description**: Automatically stops chain mining when tool durability reaches 5 points remaining.
 
 ### Unbreaking Respect
-- **Description**: Factors in vanilla Unbreaking enchantment probabilities (`100 / (level + 1)%`).
+- **Description**: Factors in vanilla Unbreaking enchantment probabilities (standard Unbreaking enchantment behavior).
 
 ### Fortune & Silk Touch Support
 - **Description**: Honors Silk Touch drops and vanilla Fortune item multipliers.
@@ -50,7 +45,7 @@ Standing upright leaves standard vanilla single-block mining untouched. The add-
 - **Description**: Applies no extra exhaustion or hunger drain beyond standard block breaking.
 
 ### Instant Burst Mode
-- **Description**: Breaks the full cluster or felled tree in the exact same tick with zero delay.
+- **Description**: Breaks the full cluster or felled tree in the in one action.
 
 ### Natural Drops
 - **Description**: Drops items at each block's location with authentic survival physics.
@@ -84,14 +79,14 @@ Standing upright leaves standard vanilla single-block mining untouched. The add-
 
 ---
 
-## Tree Capitator 26-Neighbor Traversal Pattern
+## How Tree Felling Works
 
 When you break an eligible log while sneaking with an axe, the add-on scans upward through the tree:
 
-1. **26-Neighbor Contiguous Search**: Evaluates all 26 surrounding spatial block coordinates (`dx, dy, dz ∈ [-1, 0, 1]`) with upward bias (`dy >= 0`), cleanly connecting branches, crooked trunks, and diagonal logs.
-2. **Species Matching**: Only fells logs of the exact same wood species (e.g. Oak only fells Oak) to prevent jumping into adjacent trees.
+1. **Connected Branches**: Follows connected logs and branches, including diagonal connections.
+2. **Matching Wood Types**: Only the same wood type is felled, helping protect nearby trees.
 3. **The Leaf Scan (Player-Placed Leaves Ignored)**: Ignores player-placed leaves (sheared decorative leaves), ensuring custom hedges, bushes, and decorative roof foliage are never falsely detected as natural tree canopies.
-4. **House Protection (`isTreeCanopy`)**: Requires natural leaf, wart block, or shroomlight presence within the connected canopy before felling to protect log cabins and player builds from accidental destruction.
+4. **Build Protection**: Uses nearby natural canopy clues to reduce accidental damage to wooden builds.
 5. **Safety Limits**: Capped at 128 logs per tree and bounded by world height (-64 to 320) to prevent runaway chain reactions.
 
 ### Supported Trees
@@ -102,62 +97,62 @@ When you break an eligible log while sneaking with an axe, the add-on scans upwa
 
 ---
 
-## Domino Ore Miner & Mineral Categories
+## How Ore Mining Works
 
 Domino Ore Miner checks all 26 spatial neighbors (faces, edges, and corners) using iterative breadth-first search. Veins are contiguous with no arbitrary distance limits up to the 64-block cluster cap. Regular stone and deepslate ores share the same mineral category, allowing veins that cross stone layers to mine seamlessly:
 
 ### Coal
-- **Supported Block IDs**: `minecraft:coal_ore`, `minecraft:deepslate_coal_ore`
+- **Supported Ores**: 
 - **Minimum Pickaxe**: Wooden+
 - **Drops**: Coal
 
 ### Iron
-- **Supported Block IDs**: `minecraft:iron_ore`, `minecraft:deepslate_iron_ore`
+- **Supported Ores**: 
 - **Minimum Pickaxe**: Stone+
 - **Drops**: Raw Iron
 
 ### Copper
-- **Supported Block IDs**: `minecraft:copper_ore`, `minecraft:deepslate_copper_ore`
+- **Supported Ores**: 
 - **Minimum Pickaxe**: Stone+
 - **Drops**: Raw Copper (2–5)
 
 ### Gold
-- **Supported Block IDs**: `minecraft:gold_ore`, `minecraft:deepslate_gold_ore`
+- **Supported Ores**: 
 - **Minimum Pickaxe**: Iron+
 - **Drops**: Raw Gold
 
 ### Nether Gold
-- **Supported Block IDs**: `minecraft:nether_gold_ore`
+- **Supported Ores**: 
 - **Minimum Pickaxe**: Wooden+
 - **Drops**: Gold Nuggets (2–6)
 
 ### Lapis Lazuli
-- **Supported Block IDs**: `minecraft:lapis_ore`, `minecraft:deepslate_lapis_ore`
+- **Supported Ores**: 
 - **Minimum Pickaxe**: Stone+
 - **Drops**: Lapis Lazuli (4–9)
 
 ### Redstone
-- **Supported Block IDs**: `minecraft:redstone_ore`, `minecraft:deepslate_redstone_ore`
+- **Supported Ores**: 
 - **Minimum Pickaxe**: Iron+
 - **Drops**: Redstone Dust (4–5)
 
 ### Diamond
-- **Supported Block IDs**: `minecraft:diamond_ore`, `minecraft:deepslate_diamond_ore`
+- **Supported Ores**: 
 - **Minimum Pickaxe**: Iron+
 - **Drops**: Diamond
 
 ### Emerald
-- **Supported Block IDs**: `minecraft:emerald_ore`, `minecraft:deepslate_emerald_ore`
+- **Supported Ores**: 
 - **Minimum Pickaxe**: Iron+
 - **Drops**: Emerald
 
 ### Nether Quartz
-- **Supported Block IDs**: `minecraft:quartz_ore`, `minecraft:nether_quartz_ore`
+- **Supported Ores**: 
 - **Minimum Pickaxe**: Wooden+
 - **Drops**: Nether Quartz
 
 ### Ancient Debris
-- **Supported Block IDs**: `minecraft:ancient_debris`
+- **Supported Ores**: 
 - **Minimum Pickaxe**: Diamond+
 - **Drops**: Ancient Debris Block
 
@@ -167,12 +162,12 @@ Domino Ore Miner checks all 26 spatial neighbors (faces, edges, and corners) usi
 
 ## Durability Protection System
 
-- Queries `minecraft:durability` before breaking each secondary block.
-- Halts immediately when remaining durability (`maxDurability - damage`) reaches 5 or less.
-- Plays an audible warning sound (`note.bass`) and displays an action bar alert:
+- Queries  before breaking each secondary block.
+- Halts immediately when remaining durability () reaches 5 or less.
+- Plays an audible warning sound (warning sound) and displays an action bar alert:
   > **[Tool Protection]** Stopped mining to save tool! (5 durability left)
 - Revalidates the equipped tool before each block break. If the tool is switched or removed, chain mining stops instantly.
-- Applies standard vanilla Unbreaking probabilities (`100 / (level + 1)%`) per block.
+- Applies standard vanilla Unbreaking probabilities (standard Unbreaking enchantment behavior) per block.
 
 ---
 
@@ -203,9 +198,9 @@ Domino Ore Miner checks all 26 spatial neighbors (faces, edges, and corners) usi
 ## Compatibility
 
 - Minecraft Bedrock Edition 1.21.0+
-- Experimental Features toggle enabled in World Settings
+- Experimental features: Check the current release instructions and world settings.
 - Pure Behavior Pack format (.mcpack and .mcaddon)
-- Multiplayer compatible with isolated per-player recursion guards
+- Multiplayer behavior should be checked in the target game version.
 
 ---
 

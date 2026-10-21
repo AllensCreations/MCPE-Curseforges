@@ -1,13 +1,6 @@
-# Passive Auto-Switch Tools (v1.1.13) - Automatic Tool Selection by AllensCreations
-
-![MCPEDL](https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/MCPEDL/addons/Passive-Auto-Switch-Tools/pack_icon.png "MCPEDL")
-
-[![Minecraft Bedrock](https://img.shields.io/badge/Minecraft%20Bedrock-1.21%20--%201.26%2B-brightgreen?style=flat-square&logo=minecraft)](https://github.com/AllensCreations/MCPE-Curseforges)
-[![Format](https://img.shields.io/badge/Format-.MCPACK-orange?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/addons#available-add-ons)
+# Passive Auto-Switch Tools (v1.1.13) - Automatic Tool Selection
 
 **By AllensCreations**
-
-Explore more creations: [CurseForge Profile](https://www.curseforge.com/members/allenscreations/projects) · [MCPEDL Profile](https://mcpedl.com/user/allenscreations/)
 
 Automatic intelligent tool and combat equipment selection for survival.
 
@@ -15,7 +8,7 @@ Automatic intelligent tool and combat equipment selection for survival.
 
 ## Overview
 
-Passive Auto-Switch Tools is an intelligent survival add-on that automates tool and weapon selection in Minecraft Bedrock Edition. When holding hotbar slot 1, the script activates exclusively when you **start to break/hit a block** (avoiding annoying swaps when merely looking around), and **when attacking a mob** by automatically equipping your highest-tier axe or sword.
+Passive Auto-Switch Tools is an intelligent survival add-on that automates tool and weapon selection in Minecraft Bedrock Edition. When you select hotbar slot 1, the add-on activates when you **start to break/hit a block** (avoiding annoying swaps when merely looking around), and **when attacking a mob** by automatically equipping your highest-tier axe or sword.
 
 Hotbar slots 2 through 9 remain completely unmanaged, ensuring uninterrupted building, offhand usage, and consumable item management.
 
@@ -29,7 +22,7 @@ Hotbar slots 2 through 9 remain completely unmanaged, ensuring uninterrupted bui
 
 The automation engine operates exclusively when the player selects hotbar slot 1:
 - Hotbar Slot 1: Active auto-switch slot. Striking blocks triggers tool selection; attacking mobs triggers weapon selection.
-- Hotbar Slots 2 through 9: Standard manual operation. The script performs no item swaps while these slots are selected.
+- Hotbar Slots 2 through 9: Standard manual operation. the add-on does not swap items while these slots are selected.
 
 ### Block-to-Tool & Combat Matching
 
@@ -61,8 +54,8 @@ Item components are preserved during swaps:
 
 ## Performance & Optimization
 
-- **Zero Idle Lag**: Only activates the moment you strike a block or engage a mob.
-- **Instant Response**: Seamless weapon and tool swapping tailored for console, mobile touch, and PC.
+- **Activation on Action**: Tool selection occurs when you begin mining or attack, rather than while you simply look around.
+- **Automatic Selection**: Chooses a suitable tool or weapon when you begin mining or attacking.
 
 ---
 

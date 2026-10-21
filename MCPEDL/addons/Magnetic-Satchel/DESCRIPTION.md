@@ -1,11 +1,6 @@
-# Magnetic Satchel (v1.0.5) — Offhand Item Vacuum Add-on by AllensCreations
-
-[![Minecraft Bedrock](https://img.shields.io/badge/Minecraft%20Bedrock-1.21.0%2B-brightgreen?style=flat-square&logo=minecraft)](https://github.com/AllensCreations/MCPE-Curseforges)
-[![Format](https://img.shields.io/badge/Format-.MCADDON-orange?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/addons#available-add-ons)
+# Magnetic Satchel (v1.0.5) — Offhand Item Vacuum Add-on
 
 **By AllensCreations**
-
-Explore more creations: [CurseForge Profile](https://www.curseforge.com/members/allenscreations/projects) · [MCPEDL Profile](https://mcpedl.com/user/allenscreations/)
 
 **HANDS-FREE VACUUM SYSTEM & CONVENIENCE UTILITY**
 
@@ -17,7 +12,7 @@ Wearable offhand magnetic vacuum satchel that automatically pulls nearby dropped
 
 Tired of leaving valuable ores behind in lava-adjacent chasms or chasing down scattered mob loot?
 
-**Magnetic Satchel** introduces a crafted utility satchel that equips into your offhand slot. Powered by the modern modern Minecraft Bedrock mechanics, it continually scans for nearby dropped items within an 8-block sphere and smoothly pulls them into your pickup radius using realistic vector physics.
+**Magnetic Satchel** introduces a crafted utility satchel that equips into your offhand slot.  it continually scans for nearby dropped items within an 8-block radius and draws them toward you using realistic vector physics.
 
 Leave your main hand free to hold your pickaxe, weapon, or torches while the satchel gathers all dropped resources directly to your inventory.
 
@@ -26,13 +21,13 @@ Leave your main hand free to hold your pickaxe, weapon, or torches while the sat
 ## Key Features
 
 ### Offhand Equippable
-- **Description**: Equips cleanly in the offhand slot (`slot.weapon.offhand`), keeping your main hand free for tools and weapons.
+- **Description**: Equips cleanly in the offhand slot , keeping your main hand free for tools and weapons.
 
 ### 8-Block Vacuum Radius
-- **Description**: Detects and pulls all nearby dropped item entities within an 8-block sphere.
+- **Description**: Detects and pulls all nearby dropped item entities within an 8-block radius.
 
-### Impulse Physics
-- **Description**: Uses smooth directional velocity impulses with gravity compensation to glide items toward your chest level.
+### Item Attraction
+- **Description**: Uses smooth gentle movement toward the player to glide items toward your chest level.
 
 ### Particle Trails
 - **Description**: Emits subtle portal particle trails behind moving items as they glide inward.
@@ -41,7 +36,7 @@ Leave your main hand free to hold your pickaxe, weapon, or torches while the sat
 - **Description**: Sneak + Right-click / use while holding the satchel in your main hand to instantly toggle magnetism ON or OFF.
 
 ### Action Bar Feedback
-- **Description**: Clear action bar HUD indicator displays `§6[SATCHEL] §aMagnetism: ACTIVE` or `§6[SATCHEL] §cMagnetism: DISABLED`.
+- **Description**: Clear action bar HUD indicator displays an on-screen message indicating whether magnetism is active.
 
 ### Flexible Recipes
 - **Description**: Craftable with either an Ender Pearl or a Compass depending on your survival stage.
@@ -84,19 +79,6 @@ The Magnetic Satchel can be crafted at any crafting table using either of the fo
 
 ---
 
-## Highlights & Performance
-
-- **Smooth Item Gliding**: Draws dropped items smoothly toward your character with natural physics.
-- **Visual Feedback**: Subtle sparkle trail shows items flying toward you.
-- **Item Collection**: Collects dropped items within the configured radius.
-
----
-
-## Compatibility
-
-- Minecraft Bedrock Edition 1.21.0+
-- Full multiplayer support (per-player offhand detection and individual toggle state tags)
-
 ---
 
 ## Guidelines and Attribution
@@ -114,4 +96,4 @@ The Magnetic Satchel can be crafted at any crafting table using either of the fo
 
 ## Search & Discovery Keywords
 
-Magnetic Satchel Bedrock add-on, Offhand Equippable Minecraft Bedrock, Impulse Physics Minecraft Bedrock, Particle Trails Minecraft Bedrock, Quick Toggle Switch Minecraft Bedrock, Minecraft PE mod, MCPEDL add-on, CurseForge Bedrock, AllensCreations.
+Magnetic Satchel Bedrock add-on, Offhand Equippable Minecraft Bedrock, Item Attraction Minecraft Bedrock, Particle Trails Minecraft Bedrock, Quick Toggle Switch Minecraft Bedrock, Minecraft PE mod, MCPEDL add-on, CurseForge Bedrock, AllensCreations.

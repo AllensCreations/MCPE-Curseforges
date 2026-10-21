@@ -2,35 +2,23 @@
 
 *Tameable Hostile Mobs and Mounts by AllensCreations*
 
-![MCPEDL](https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/MCPEDL/addons/Monster-Companions/1791889944961.jpg "MCPEDL")
-
-[![Minecraft Bedrock](https://img.shields.io/badge/Minecraft%20Bedrock-1.21%20--%201.26%2B-brightgreen?style=flat-square&logo=minecraft)](https://github.com/AllensCreations/MCPE-Curseforges)
-[![Format](https://img.shields.io/badge/Format-.MCADDON%20%7C%20.MCPACK-orange?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/addons#available-add-ons)
-
 **By AllensCreations**
 
-Explore more creations: [CurseForge Profile](https://www.curseforge.com/members/allenscreations/projects) · [MCPEDL Profile](https://mcpedl.com/user/allenscreations/)
-
 Tame 32 hostile monsters into defensive bodyguards and controllable mounts.
-
 
 ---
 
 ## Overview
 
-Monster Companions is a data-driven Minecraft Bedrock add-on that enables players to pacify and tame 32 hostile mob types into defensive bodyguards and controllable mounts.
+Monster Companions is a Minecraft Bedrock add-on that enables players to pacify and tame 32 hostile mob types into defensive bodyguards and controllable mounts.
 
 The pack adds tamable companion behavior and mount interactions to selected hostile mobs.
 
-![Monster Companions Banner](https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/MCPEDL/addons/Monster-Companions/1791889996745.jpg)
-
 ## Compatibility and World Settings
 
-- **Minecraft Version:** Minecraft Bedrock 1.26+
-- **Format:** Behavior Pack and Resource Pack (`.mcaddon` / `.mcpack`)
-- **Achievement Status:** Likely achievement-friendly based on the inspected pack manifests and data-driven setup; this is not a guarantee for every world or game version.
-- **Experimental Features:** No experiment requirement detected in the inspected pack files. The actual world settings were not inspected, and compatibility may change with future Minecraft updates.
-- **Offline Play:** The recipe is included in the Behavior Pack and does not need an internet connection after the pack is imported and enabled locally.
+- Minecraft Bedrock Edition. Check the current release listing for the supported version.
+- The Primal Beast Biscuit recipe is included with the pack and can be used offline after import and activation.
+- Achievement support has not been confirmed through in-game testing.
 
 ---
 
@@ -41,7 +29,7 @@ Wild hostile mobs cannot be tamed immediately. The player must engage the target
 
 ### Companion Squad Mechanics
 - Perimeter buffer: Companions follow the player while keeping a buffer distance to prevent obstructing the player camera or mining path. If the player sprints ahead, companions teleport behind the player safely.
-- Friendly-fire immunity: Companions are configured to avoid friendly-fire damage and exclude teammates from their attack targeting. Companions also exclude teammates from their attack targeting.
+- Friendly-fire immunity: Companions avoid friendly-fire damage and do not target teammates.
 - Visual status indicators: Tamed companions display an always-visible floating nameplate above their head. Custom name tags can be applied directly without an anvil.
 - In-combat healing: Feeding a wounded companion a Primal Beast Biscuit restores 10 HP (5 hearts).
 - Sunlight protection: Tamed Zombies, Skeletons, and Phantoms can wear helmets to prevent burning in direct sunlight.
@@ -116,20 +104,14 @@ Equipping a Saddle onto supported large companions enables manual mounting and d
 
 ![Primal Beast Biscuit Item](https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/MCPEDL/addons/Monster-Companions/beast_biscuit_preview.png)
 
-### Identifier
-- **Specification**: `allenscreations:beast_biscuit`
-
-### Function
-- **Specification**: Pacification item (below 50% HP) / Health restoration item
+### Use
+- **Effect**: Pacifies weakened hostile mobs and restores health to an injured companion.
 
 ### Healing Value
 - **Specification**: 10 HP (5 Hearts)
 
 ### Stack Size
 - **Specification**: 64
-
-### Texture File
-- **Specification**: `resource_pack/textures/items/beast_biscuit.png`
 
 ---
 
@@ -142,8 +124,7 @@ Equipping a Saddle onto supported large companions enables manual mounting and d
 - Type: Shapeless Crafting Table Recipe
 - Ingredients: 1 Rotten Flesh, 1 Bone, 1 Sweet Berries, 1 Honey Bottle
 - Yield: 4x Primal Beast Biscuits
-- Recipe Identifier: `allenscreations:beast_biscuit_recipe`
-- Recipe book: The recipe is configured as always unlocked so it can appear in the crafting recipe list.
+- Recipe book: The recipe is set to appear in the crafting recipe list.
 - Offline crafting: The recipe is bundled in the Behavior Pack; internet access is not needed during local gameplay.
 
 ---

@@ -1,13 +1,6 @@
-# Mining Helmet (v1.0.11) — Dynamic Lighting Add-on by AllensCreations
-
-![MCPEDL](https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/MCPEDL/addons/Mining-Helmet/1791946330457.jpg "MCPEDL")
-
-[![Minecraft Bedrock](https://img.shields.io/badge/Minecraft%20Bedrock-1.20.80%20--%201.26%2B-brightgreen?style=flat-square&logo=minecraft)](https://github.com/AllensCreations/MCPE-Curseforges)
-[![Format](https://img.shields.io/badge/Format-.MCADDON-orange?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/addons#available-add-ons)
+# Mining Helmet (v1.0.11) — Dynamic Lighting Add-on
 
 **By AllensCreations**
-
-Explore more creations: [CurseForge Profile](https://www.curseforge.com/members/allenscreations/projects) · [MCPEDL Profile](https://mcpedl.com/user/allenscreations/)
 
 Hands-free dynamic following light system for cave mining and night exploration.
 
@@ -15,11 +8,9 @@ Hands-free dynamic following light system for cave mining and night exploration.
 
 ## Overview
 
-Illuminate your mining expeditions without placing hundreds of torches.
-
 **Mining Helmet** adds wearable headgear with real-time dynamic following light to Minecraft Bedrock Edition. Equipped in your head armor slot, it continuously lights up your surroundings as you walk, run, and dig, leaving both hands free for your pickaxe, weapon, or shield.
 
-Adds dynamic illumination to help improve visibility in dark areas.
+The helmet provides moving light while worn, and holding a Lantern or Torch can also provide handheld light.
 
 ---
 
@@ -91,7 +82,7 @@ Combine a standard **Torch** with a **Golden Helmet** to craft the Level 10 Mini
 
 ## Compatibility
 
-- Minecraft Bedrock Edition 1.20.80 - 1.26+
+- Minecraft Bedrock Edition. Check the current package listing for the supported release range.
 - Complete Add-on (.mcaddon) format
 
 ---
