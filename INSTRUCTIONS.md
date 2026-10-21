@@ -306,9 +306,9 @@ MCPEDL/maps/<Map-Name>/
 ├── oneblock.json
 ├── behavior_pack/
 ├── resource_pack/                 # Optional unless required by the Behavior Pack
-├── Creative/<Map-Name> - Creative.mcworld
-├── Survival/<Map-Name> - Survival.mcworld
-└── Hardcore/<Map-Name> - Hardcore.mcworld
+├── <Map-Name> - Creative.mcworld
+├── <Map-Name> - Survival.mcworld
+└── <Map-Name> - Hardcore.mcworld
 ```
 
 ### Automatic execution and verification
@@ -320,11 +320,10 @@ MCPEDL/maps/<Map-Name>/
 - If a project's pack manifest is missing, malformed, or has an unresolved Resource Pack UUID dependency, fail the build and report the exact source path. Never generate fake pack UUIDs for the map's actual packs or silently omit required packs.
 
 
-## OneBlock Tester Gate and World Download Layout
+## OneBlock Tester Build and World Download Layout
 
 - For OneBlock maps that require gameplay verification, publish a dedicated `Tester Build/` folder inside that map's project directory. The tester package is a `.mcaddon` containing the current Behavior Pack and Resource Pack; it must not create a `.mcworld`.
 - Keep the Creative, Survival, and Hardcore `.mcworld` files together directly in the same map project directory, not in three mode subfolders.
-- Do not generate release worlds until the user has confirmed the add-on mechanics passed in-game testing. Use `oneblock.json` with `release_enabled: false` until that confirmation; keep the marker disabled only when the whole project should be excluded from generation.
 - The shared world builder must not teleport players. Initial platform recovery should place Bedrock at `(0,63,0)` and Dirt at `(0,64,0)` only when those positions are air, so the recovery logic cannot overwrite evolved OneBlock stages.
-- The individual map `README.md` should provide a direct tester-build download and three clearly labeled Creative, Survival, and Hardcore world download links. If release files do not exist yet, state clearly that the links are pending tester approval rather than implying the worlds are already available.
+- The individual map `README.md` should provide a direct tester-build download and three clearly labeled Creative, Survival, and Hardcore world download links. If release files do not exist yet, label those links as pending generation rather than implying the worlds are already available.
 - Keep the tester package, generated worlds, README links, and map catalog aligned to the current pack version and actual committed filenames. Never claim an in-game test passed based only on archive or syntax checks.
