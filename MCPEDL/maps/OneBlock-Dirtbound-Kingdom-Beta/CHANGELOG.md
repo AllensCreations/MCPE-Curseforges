@@ -2,6 +2,14 @@
 
 ---
 
+## [0.1.9] - 2026-10-21
+
+### Changed
+- Moved central Dirt restoration into a scheduled function that places Dirt only when the target position is air.
+- Added a separate function to give the custom OneBlock Trader item.
+- Kept the trading interface, currency, purchases, and progression in the script.
+- Removed block placement, player teleportation, and game-mode changes from the script.
+
 ## [0.1.8] - 2026-10-21
 
 ### Fixed
