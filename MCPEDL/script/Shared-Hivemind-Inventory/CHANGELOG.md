@@ -14,7 +14,7 @@
 
 ## 1.0.9
 - Display a private “Syncing shared inventory...” message when a player joins.
-- Use a dedicated mcfunction for the message; the Script API only detects the join and invokes the function.
+- Use a dedicated mcfunction for the message; the gameplay system only detects the join and invokes the function.
 - Do not repeat the join message on death respawns.
 
 ## 1.0.8
@@ -32,4 +32,4 @@
 - Add brief feedback for simultaneous slot conflicts.
 - Remove the persistent status HUD and custom script-event commands.
 - Stop forcing the world's keepInventory gamerule.
-- Clarify death-drop and Script API limitations.
+- Clarify death-drop and gameplay system limitations.

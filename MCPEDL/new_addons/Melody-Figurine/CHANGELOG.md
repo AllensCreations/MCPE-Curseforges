@@ -1,7 +1,5 @@
 # Changelog — Melody Figurine
 
----
-
 ## [1.0.10] - 2026-10-21
 
 ### Added
@@ -29,7 +27,7 @@
 
 ### Fixed
 - Reworked the dance loop to add visible hopping and more reliable mob validity checks.
-- Updated the stable Script API dependency and linked the Behavior Pack to its Resource Pack.
+- Updated the stable gameplay system dependency and linked the Behavior Pack to its Resource Pack.
 - Simplified the inventory icon reference and corrected the pack dependency direction so textures and custom audio can load together.
 - Added clearer in-game feedback if the soundtrack cannot start.
 

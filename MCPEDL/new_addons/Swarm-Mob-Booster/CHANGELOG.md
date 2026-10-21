@@ -1,9 +1,5 @@
 # Changelog — Swarm Mob Booster
 
-All notable updates and improvements to the **Swarm Mob Booster** add-on by AllensCreations are documented in this file.
-
----
-
 ## [1.0.0] - 2026-10-17
 
 ### Added

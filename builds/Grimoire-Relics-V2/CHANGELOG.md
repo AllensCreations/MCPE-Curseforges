@@ -1,7 +1,5 @@
 # Changelog — Grimoire Relics V2
 
----
-
 ## [1.0.1] - 2026-10-15
 
 ### Added
@@ -37,7 +35,7 @@
 
 ### Initial Release: The Ancient Grimoires
 
-Initial public release of **Grimoire Relics V2**, an RPG-style magical offhand companion system for Minecraft Bedrock Edition (v1.21.0+) powered by `@minecraft/server` Script API. Fully achievement-friendly with zero experimental toggles required.
+Initial public release of **Grimoire Relics V2**, an RPG-style magical offhand companion system for Minecraft Bedrock Edition (v1.21.0+) powered by `@minecraft/server` gameplay system. Fully achievement-friendly with zero experimental toggles required.
 
 ### Added
 - **20 Magical Offhand Relics**:
