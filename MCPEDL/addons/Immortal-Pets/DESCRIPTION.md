@@ -57,3 +57,22 @@ Protection cannot guarantee survival against every possible game mechanic, comma
 - Do not bypass original download sources through monetized redistribution.
 
 © All rights reserved for AllensCreations.
+
+---
+
+## Guidelines and Attribution
+
+- Creator: AllensCreations
+- Rights & Reservation: All rights reserved for AllensCreations.
+- Content Creators: Content creators are permitted to feature this creation in videos and streams with credit to AllensCreations.
+- Redistribution: Do not re-upload this pack or provide direct monetized download bypasses. Link directly to the official repository page.
+
+---
+
+© All rights reserved for AllensCreations.
+
+---
+
+## Search & Discovery Keywords
+
+Minecraft Bedrock add-on, Immortal Pets Bedrock mod, Minecraft PE survival, Immortal Pets  — Advanced Pet Protection by AllensCreations, MCPEDL add-on, CurseForge Bedrock, AllensCreations.
