@@ -8,9 +8,9 @@ Standalone survival maps and custom worlds by AllensCreations.
 | :--- | :--- | :--- | :--- |
 | OneBlock Void Survival | 1.2.5 | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/maps/OneBlock-Void-Survival/) | [MCWORLD](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/OneBlock-Void-Survival/OneBlock%20Void%20Survival%20by%20AllensCreations%20%28V1.2.5%29.mcworld) |
 | OneBlock Economy | 1.0.6 | [Source](OneBlock-Economy/) | [MCWORLD](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/OneBlock-Economy/OneBlock%20Economy%20by%20AllensCreations%20%28V1.0.6%29.mcworld) |
-| OneBlock: Dirtbound Kingdom Beta | 0.1.19 | [Source](OneBlock-Dirtbound-Kingdom-Beta/) | [Creative World — Tester](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/MCPEDL/maps/OneBlock-Dirtbound-Kingdom-Beta/OneBlock%20Dirtbound%20Kingdom%20Beta%20-%20Creative.mcworld) |
+| OneBlock: Dirtbound Kingdom Beta | Source 0.1.20; world archives pending test | [Source](OneBlock-Dirtbound-Kingdom-Beta/) | [Existing Creative World — Tester](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/MCPEDL/maps/OneBlock-Dirtbound-Kingdom-Beta/OneBlock%20Dirtbound%20Kingdom%20Beta%20-%20Creative.mcworld) |
 
-The catalog is automatically updated by the add-on generation workflow.
+Dirtbound source changes are validated automatically. New world archives are published only after the Creative mechanics are tested in Minecraft.
 
 ## Attribution
 
