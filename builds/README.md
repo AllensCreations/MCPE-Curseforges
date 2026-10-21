@@ -10,7 +10,6 @@ This directory stores the compiled releases (behavior packs, resource packs, add
 
 | Pack Name | Version | Type | Download Link | Build Folder |
 | :--- | :--- | :--- | :--- | :--- |
-| **OneBlock Dirtbound Kingdom Beta** | `v0.1.24` | Creative World (`.mcworld`) | [Download Creative World](../MCPEDL/maps/OneBlock-Dirtbound-Kingdom-Beta/OneBlock%20Dirtbound%20Kingdom%20Beta%20-%20Creative.mcworld) | [`OneBlock-Dirtbound-Kingdom-Beta/`](../MCPEDL/maps/OneBlock-Dirtbound-Kingdom-Beta/) |
 | **Vanilla Quality of Life** | `v1.3.20` | Complete Add-on (`.mcaddon`) | [Download (.mcaddon)](Vanilla-Quality-of-Life/Vanilla%20Quality%20of%20Life%20by%20AllensCreations%20%28V1.3.20%29.mcaddon) | [`Vanilla-Quality-of-Life/`](Vanilla-Quality-of-Life/) |
 | **Monster Companions** | `v1.0.9` | Complete Add-on (`.mcaddon`) | [Download (.mcaddon)](Monster-Companions/Monster%20Companions%20by%20AllensCreations%20%28V1.0.9%29.mcaddon) | [`Monster-Companions/`](Monster-Companions/) |
 | **Mining Helmet** | `v1.0.11` | Complete Add-on (`.mcaddon`) | [Download (.mcaddon)](Mining-Helmet/Mining%20Helmet%20by%20AllensCreations%20%28V1.0.11%29.mcaddon) | [`Mining-Helmet/`](Mining-Helmet/) |
@@ -36,6 +35,7 @@ Dirtbound's three world variants are published in the map source folder. Creativ
 
 | Map Name | Version | Type | Download Link | Build Folder |
 | :--- | :--- | :--- | :--- | :--- |
+| **OneBlock Dirtbound Kingdom Beta** | `v0.1.24` | Three World Variants (`.mcworld`) | [Creative](../MCPEDL/maps/OneBlock-Dirtbound-Kingdom-Beta/OneBlock%20Dirtbound%20Kingdom%20Beta%20-%20Creative.mcworld) · [Survival](../MCPEDL/maps/OneBlock-Dirtbound-Kingdom-Beta/OneBlock%20Dirtbound%20Kingdom%20Beta%20-%20Survival.mcworld) · [Hardcore](../MCPEDL/maps/OneBlock-Dirtbound-Kingdom-Beta/OneBlock%20Dirtbound%20Kingdom%20Beta%20-%20Hardcore.mcworld) | [Map folder](../MCPEDL/maps/OneBlock-Dirtbound-Kingdom-Beta/) |
 | **OneBlock Void Survival** | `v1.2.6` | Survival World (`.mcworld`) | [Download (.mcworld)](OneBlock-Void-Survival/OneBlock%20Void%20Survival%20by%20AllensCreations%20%28V1.2.6%29.mcworld) | [`OneBlock-Void-Survival/`](OneBlock-Void-Survival/) |
 | **OneBlock Void (Admin Studio)** | `v1.2.6` | Testing World (`.mcworld`) | [Download (.mcworld)](OneBlock-Void-Survival/OneBlock%20Void%20Survival%20by%20AllensCreations%20%28V1.2.6%29.mcworld) | [`OneBlock-Void-Survival/`](OneBlock-Void-Survival/) |
 | **OneBlock Economy** | `v1.0.7` | Custom Map (`.mcworld`) | [Download (.mcworld)](OneBlock-Economy/OneBlock%20Economy%20by%20AllensCreations%20%28V1.0.7%29.mcworld) | [`OneBlock-Economy/`](OneBlock-Economy/) |
