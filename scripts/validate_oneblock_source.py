@@ -70,6 +70,8 @@ def main() -> None:
     values = tick.get("values")
     require(isinstance(values, list) and "oneblock_tick" in values,
             "functions/tick.json must register oneblock_tick")
+    require(values[0] == "void_cleaner",
+            "functions/tick.json must run void_cleaner first, before oneblock_tick")
     tick_function_path = BP / "functions/oneblock_tick.mcfunction"
     setup_path = BP / "functions/oneblock_setup.mcfunction"
     require(tick_function_path.is_file(), "registered oneblock_tick.mcfunction is missing")
@@ -154,7 +156,7 @@ def main() -> None:
             "world builder must include archive verification")
 
     print(f"PASS: Dirtbound source validation (v{'.'.join(map(str, bp_version))})")
-    print("PASS: matching pack manifests/dependency, tick registration, first-join Void Cleaner, setup, core at (0,0,0)")
+    print("PASS: matching pack manifests/dependency, Void Cleaner first in tick order, setup, core gated on void_cleaned")
     print("PASS: all three direct Mcpeworlds source folders exist and builder uses mode-specific foundations")
     print("NOTE: static checks do not test Minecraft gameplay.")
     if foundation_blockers:
