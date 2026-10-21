@@ -2,6 +2,14 @@
 
 ---
 
+## [0.1.17] - 2026-10-21
+
+### Fixed
+- **Reliable starting platform:** The OneBlock now initializes as Dirt at 0 64 0, with a Bedrock footing at 0 63 0.
+- **Correct world spawn:** The world spawn is set to 0 65 0 during one-time setup, without teleporting players.
+- **Platform protection:** Missing Bedrock footing and the Trader Post are restored by the scheduled function.
+
+
 ## [0.1.16] - 2026-10-21
 
 ### Fixed
