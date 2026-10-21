@@ -2,14 +2,14 @@
 
 **By AllensCreations**
 
-Increase spawn weights and group sizes for supported vanilla mobs across the Overworld, Nether, and End. Three selectable presets adjust density caps and group sizes, and an action-bar display tracks nearby mobs.
+Increase the spawn frequency and group sizes of supported vanilla mobs across the Overworld, Nether, and The End. Three selectable presets adjust density caps and group sizes, and an action-bar display tracks nearby mobs.
 
 ---
 
 ## Key Features
 
 ### Supported Mob Spawn Rules
-- **Description**: Adjusts spawn weights and group sizes for the vanilla mobs included in the pack's spawn rules.
+- **Description**: Adjusts spawn frequency and group sizes for the supported vanilla mobs.
 
 ### Three Density Presets
 - **Lite Swarm**: 25-mob density cap with groups of 4–8.
@@ -37,14 +37,17 @@ Increase spawn weights and group sizes for supported vanilla mobs across the Ove
 - Minimum Minecraft Bedrock version: 1.21.0.
 - Actual spawn counts depend on world conditions and the selected preset.
 
+## Creator Profiles
+
+- [CurseForge Profile](https://www.curseforge.com/members/allenscreations/projects)
+- [MCPEDL Profile](https://mcpedl.com/user/allenscreations/)
+
 ## Guidelines and Attribution
 
 - Creator: AllensCreations
 - Rights & Reservation: All rights reserved for AllensCreations.
 - Content Creators: Content creators are permitted to feature this creation in videos and streams with credit to AllensCreations.
 - Redistribution: Do not re-upload this pack or provide direct monetized download bypasses. Link directly to the official repository page.
-- [CurseForge Profile](https://www.curseforge.com/members/allenscreations/projects)
-- [MCPEDL Profile](https://mcpedl.com/user/allenscreations/)
 
 ---
 
