@@ -1,4 +1,4 @@
-# Melody Figurine (v1.0.10) — A Musical Mob Dance
+# Melody Figurine (v1.0.11) — A Musical Mob Dance
 
 **By AllensCreations**
 

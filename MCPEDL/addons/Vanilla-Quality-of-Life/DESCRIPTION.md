@@ -1,4 +1,4 @@
-# Vanilla Quality of Life (v1.3.19)
+# Vanilla Quality of Life (v1.3.20)
 
 Survival Mechanics and Enhancements by AllensCreations
 
