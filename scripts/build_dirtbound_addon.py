@@ -12,8 +12,8 @@ PROJECT = ROOT / "MCPEDL" / "maps" / "OneBlock-Dirtbound-Kingdom-Beta"
 BP = PROJECT / "behavior_pack"
 RP = PROJECT / "resource_pack"
 OUT_DIR = ROOT / "builds" / "OneBlock-Dirtbound-Kingdom-Beta"
-VERSION = [0, 1, 8]
-OUTPUT = OUT_DIR / "OneBlock Dirtbound Kingdom MCAddon Test (v0.1.8).mcaddon"
+VERSION = None
+OUTPUT = None
 
 
 def read_json(path: Path):
@@ -27,10 +27,12 @@ def validate_pack(pack_dir: Path, expected_type: str) -> dict:
         raise FileNotFoundError(f"Missing pack manifest: {manifest_path}")
     manifest = read_json(manifest_path)
     header = manifest.get("header", {})
-    if header.get("version") != VERSION:
-        raise ValueError(f"{manifest_path}: header.version must be {VERSION}")
-    if not header.get("name", "").endswith("(v0.1.8)"):
-        raise ValueError(f"{manifest_path}: display name must end in (v0.1.8)")
+    version = header.get("version")
+    if not isinstance(version, list) or len(version) != 3:
+        raise ValueError(f"{manifest_path}: header.version must be a three-part version")
+    expected_title_suffix = "(v" + ".".join(str(part) for part in version) + ")"
+    if not header.get("name", "").endswith(expected_title_suffix):
+        raise ValueError(f"{manifest_path}: display name must end in {expected_title_suffix}")
     if header.get("description", "").count("by AllensCreations") != 1:
         raise ValueError(f"{manifest_path}: description must include 'by AllensCreations' exactly once")
     if not any(module.get("type") == expected_type for module in manifest.get("modules", [])):
@@ -51,8 +53,13 @@ def build() -> Path:
 
     bp_manifest = validate_pack(BP, "data")
     rp_manifest = validate_pack(RP, "resources")
+    version = bp_manifest["header"]["version"]
+    if rp_manifest["header"]["version"] != version:
+        raise ValueError("Behavior Pack and Resource Pack versions do not match.")
+    version_text = ".".join(str(part) for part in version)
+    output = OUT_DIR / f"OneBlock Dirtbound Kingdom MCAddon Test (v{version_text}).mcaddon"
     bp_dependencies = bp_manifest.get("dependencies", [])
-    if not any(dep.get("uuid") == rp_manifest["header"]["uuid"] and dep.get("version") == VERSION
+    if not any(dep.get("uuid") == rp_manifest["header"]["uuid"] and dep.get("version") == version
                for dep in bp_dependencies):
         raise ValueError("Behavior Pack must depend on the matching Resource Pack version.")
 
@@ -61,15 +68,15 @@ def build() -> Path:
         raise ValueError("main.js still contains a literal \\n before the SHOPS declaration.")
 
     OUT_DIR.mkdir(parents=True, exist_ok=True)
-    OUTPUT.unlink(missing_ok=True)
-    with zipfile.ZipFile(OUTPUT, "w", compression=zipfile.ZIP_DEFLATED) as archive:
+    output.unlink(missing_ok=True)
+    with zipfile.ZipFile(output, "w", compression=zipfile.ZIP_DEFLATED) as archive:
         for pack_name, pack_dir in (("DirtboundKingdomBP", BP), ("DirtboundKingdomRP", RP)):
             for path in sorted(pack_dir.rglob("*")):
                 if not path.is_file():
                     continue
                 archive.write(path, (Path(pack_name) / path.relative_to(pack_dir)).as_posix())
 
-    with zipfile.ZipFile(OUTPUT) as archive:
+    with zipfile.ZipFile(output) as archive:
         bad_file = archive.testzip()
         if bad_file:
             raise RuntimeError(f"Corrupt archive member: {bad_file}")
@@ -86,10 +93,10 @@ def build() -> Path:
         if missing:
             raise RuntimeError("MCAddon package is incomplete: " + ", ".join(sorted(missing)))
 
-    print(f"Built MCAddon test package: {OUTPUT}")
-    print(f"Package size: {OUTPUT.stat().st_size} bytes")
+    print(f"Built MCAddon test package: {output}")
+    print(f"Package size: {output.stat().st_size} bytes")
     print("No .mcworld was generated.")
-    return OUTPUT
+    return output
 
 
 if __name__ == "__main__":
