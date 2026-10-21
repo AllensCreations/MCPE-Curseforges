@@ -13,7 +13,6 @@ on:
   pull_request:
     paths:
       - 'MCPEDL/maps/OneBlock-Dirtbound-Kingdom-Beta/**'
-      - 'CreateWorld/McpeWorld.html'
       - 'scripts/build_oneblock_variants_from_template.py'
       - 'scripts/validate_oneblock_source.py'
       - 'INSTRUCTIONS.md'
