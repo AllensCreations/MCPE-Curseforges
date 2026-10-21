@@ -12,7 +12,7 @@ Use Creative as the only tester for checking the starting block, footing, spawn,
 
 **[Download Hardcore World (MCWORLD)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/MCPEDL/maps/OneBlock-Dirtbound-Kingdom-Beta/OneBlock%20Dirtbound%20Kingdom%20Beta%20-%20Hardcore.mcworld)**
 
-World archives are regenerated automatically after map-source or reference changes. The editable world-template folders are under Mcpeworlds/Extracted/; the three .mcworld.zip files are packaged copies. The current references do not contain LevelDB, so the builder uses a separate complete world only as a database carrier. Mode settings come from the matching reference, but terrain/chunks may differ from it. Structural validation does not prove the map works in Minecraft.
+World archives are regenerated automatically after map-source or reference changes. Edit the Creative, Survival, and Hardcore source folders directly under Mcpeworlds/. There are no duplicate .mcworld.zip files or nested Extracted/ folder. The current references do not contain LevelDB, so the builder uses a separate complete world only as a database carrier. Mode settings come from the matching reference, but terrain/chunks may differ from it. Structural validation does not prove the map works in Minecraft.
 
 ## Creative Test Checklist
 
@@ -20,7 +20,7 @@ World archives are regenerated automatically after map-source or reference chang
 2. Confirm the OneBlock core is at **0 0 0**, Bedrock is directly below at **0 -1 0**, and world spawn is **0 1 0**.
 3. Confirm the initial cleanup clears the 33 × 33 square from **-16 -64 -16** through **16 -64 16**, on the single layer **Y = -64**.
 4. Break the central block and verify that it returns and advances through the stages correctly.
-5. Test the Trader Post and Trader Ledger, OneCoins balance, Dirt selling, purchases, and progression.
+5. Confirm the permanent Trader Post is at **2 1 0**, then test the Trader Ledger, OneCoins balance, Dirt selling, purchases, and progression.
 6. Check that the block remains in place without teleporting players.
 7. Report any failure before treating the mechanics as verified.
 
