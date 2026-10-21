@@ -1,6 +1,6 @@
-# OneBlock: Dirtbound Kingdom Beta (v0.1.10)
+# OneBlock: Dirtbound Kingdom Beta (v0.1.8)
 
-Download the OneBlock behavior and resource packs as an MCAddon test package for Minecraft Bedrock Edition.
+Download the OneBlock Behavior Pack and Resource Pack as an MCAddon test package for Minecraft Bedrock Edition.
 
 ## Download
 
@@ -11,10 +11,9 @@ Download the OneBlock behavior and resource packs as an MCAddon test package for
 ## Installation
 
 1. Download and open the `.mcaddon` file with Minecraft to import both packs.
-2. Create a **new, disposable test world**. This test package does not include a world save.
-3. Enable the imported Behavior Pack and Resource Pack in that world's settings.
-4. Join the test world and check whether the central Dirt block appears and returns after being broken.
+2. Create a **new, disposable test world** and enable both imported packs.
+3. Enable cheats for this test world.
+4. Run `/function give_trader` to receive the custom OneBlock Trader item.
+5. Check coordinates `0 64 0` for the central Dirt block. The Behavior Pack's tick function restores Dirt there only when that position is air.
 
-## Add-on Information
-
-This is a troubleshooting build used to test the OneBlock script separately from world packaging. Do not use a world with important progress. Read the [full description](https://github.com/AllensCreations/MCPE-Curseforges/blob/main/MCPEDL/maps/OneBlock-Dirtbound-Kingdom-Beta/DESCRIPTION.md) for the current test scope.
+This is a troubleshooting add-on, not a prebuilt world. Read [DESCRIPTION.md](DESCRIPTION.md) for test details.
