@@ -1,7 +1,11 @@
-# One-time bounded void cleanup for Dirtbound.
-# Clear only the 31x31 area below the starting platform; preserve the platform at y=63 and everything above it.
-# Two fills stay below Bedrock's per-command fill volume limit.
-fill -15 0 -15 15 30 15 air
-fill -15 31 -15 15 62 15 air
-# Persistent one-time sentinel under the center Bedrock block.
-setblock 0 62 0 structure_void
+# One-time per-player void cleanup and spawn setup for Dirtbound.
+# Clear the specified bottom void layer, then establish the starting block and spawn.
+execute as @a[tag=!void_cleaned] run fill -16 -64 -16 16 -64 16 air
+execute as @a[tag=!void_cleaned] run tp @s 0 1 0
+execute as @a[tag=!void_cleaned] run setblock 0 -1 0 bedrock
+execute as @a[tag=!void_cleaned] run setblock 0 0 0 minecraft:grass_block
+execute as @a[tag=!void_cleaned] run setworldspawn 0 1 0
+execute as @a[tag=!void_cleaned] run tellraw @a {"rawtext":[{"text":"§aDone cleaning"}]}
+# Keep the permanent Trader Post available at the new spawn height.
+execute as @a[tag=!void_cleaned] run execute if block 2 1 0 air run setblock 2 1 0 barrel
+tag @a[tag=!void_cleaned] add void_cleaned
