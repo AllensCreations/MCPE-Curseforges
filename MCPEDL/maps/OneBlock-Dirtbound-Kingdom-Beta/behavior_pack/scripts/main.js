@@ -66,11 +66,11 @@ function ensurePlayer(player) {
   const coins = objective(COINS);
   const count = objective(MINED);
   try {
-    if (player.scoreboardIdentity && coins.getScore(player.scoreboardIdentity) === undefined) {
+    if (player.scoreboardIdentity && !coins.hasParticipant(player.scoreboardIdentity)) {
       setScore(COINS, player, 50);
       tell(player, "Welcome! You received 50 OneCoins. Break the dirt block, then use !sell and !shop.");
     }
-    if (player.scoreboardIdentity && count.getScore(player.scoreboardIdentity) === undefined) setScore(MINED, player, 0);
+    if (player.scoreboardIdentity && !count.hasParticipant(player.scoreboardIdentity)) setScore(MINED, player, 0);
   } catch {}
 }
 function showShop(player) {
@@ -108,9 +108,12 @@ function purchase(player, item, shop) {
   if (!inventory || inventory.emptySlotsCount < 1) return tell(player, "Make at least one free inventory slot before purchasing.");
   try {
     const leftover = inventory.addItem(new ItemStack(item.id, item.amount));
-    if (leftover) return tell(player, "Your inventory cannot fit that purchase. No coins were taken.");
-    setScore(COINS, player, current - item.price);
-    tell(player, "Purchased " + item.name + " for " + item.price + " OneCoins. Balance: " + balance(player) + ".");
+    const delivered = item.amount - (leftover?.amount ?? 0);
+    if (delivered <= 0) return tell(player, "Your inventory cannot fit that purchase. No coins were taken.");
+    const charged = Math.ceil(item.price * delivered / item.amount);
+    setScore(COINS, player, current - charged);
+    if (leftover) tell(player, "Inventory space was limited. Delivered " + delivered + " item(s) and charged " + charged + " OneCoins.");
+    else tell(player, "Purchased " + item.name + " for " + charged + " OneCoins. Balance: " + balance(player) + ".");
   } catch {
     tell(player, "That item could not be delivered. No coins were taken.");
   }
