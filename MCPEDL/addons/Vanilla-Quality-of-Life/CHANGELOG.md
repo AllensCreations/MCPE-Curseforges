@@ -68,7 +68,6 @@
 
 ## [1.3.0] - 2026-10-15
 
-
 This major milestone integrates **Passive Auto-Switch Tools**, **Smart Tree Capitator**, and **Domino Ore Miner** directly into the core Vanilla Quality of Life suite, creating the ultimate all-in-one survival add-on for Minecraft Bedrock.
 
 ### Added

@@ -12,10 +12,10 @@
 
 ### Changed
 - **Tree Capitator 26-Neighbor 3D Flood Fill**:
-  - Upgraded tree log detection to a unified upward-biased 26-neighbor 3D breadth-first search (`dx, dy, dz ∈ [-1, 0, 1]` with `dy >= 0`).
+  - Upgraded tree log detection to a unified upward-biased 26-neighbor 3D breadth-first search (adjacent blocks in all horizontal and upward directions with horizontal and upward connections).
   - Seamlessly fells contiguous straight trunks, complex diagonal branches (Acacia, Cherry, Large Oak), and sprawling mega trees immediately.
-  - Maintains strict wood species matching (`isMatchingLog`) so adjacent trees of different species are untouched.
-  - Preserves **House Protection** (`isTreeCanopy`), requiring leaf, wart block, or shroomlight canopy presence to prevent accidental felling of wooden builds and log cabins.
+  - Maintains strict wood species matching (matching tree logs) so adjacent trees of different species are untouched.
+  - Preserves **House Protection** (protected leaf canopies), requiring leaf, wart block, or shroomlight canopy presence to prevent accidental felling of wooden builds and log cabins.
 
 ---
 
