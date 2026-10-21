@@ -1,4 +1,4 @@
-# OneBlock: Dirtbound Kingdom Beta (v0.1.20)
+# OneBlock: Dirtbound Kingdom Beta (source v0.1.21)
 
 **By AllensCreations**
 
@@ -62,7 +62,7 @@ A normal Minecraft sidebar scoreboard displays each player's current OneCoins ba
 - Target platform: Minecraft Bedrock Edition 1.26+.
 - Package format: `.mcworld` complete world.
 - Use the Creative world as the tester. The Survival and Hardcore variants are kept alongside it.
-- The current source version is 0.1.20. The direct editable folders under Mcpeworlds/Creative/, Mcpeworlds/Survival/, and Mcpeworlds/Hardcore/ are the intended mode-specific foundations. Each needs its own complete world database before a new world archive can be generated. World generation remains paused until complete matching world data is supplied, the Creative mechanics are tested in Minecraft, and a rebuild is approved.
+- The current add-on source version is 0.1.21; the currently published `.mcworld` downloads remain from the previous build. The direct editable folders under Mcpeworlds/Creative/, Mcpeworlds/Survival/, and Mcpeworlds/Hardcore/ are the intended mode-specific foundations. Each needs its own complete world database before a new world archive can be generated. World generation remains paused until complete matching world data is supplied, the Creative mechanics are tested in Minecraft, and a rebuild is approved.
 - Automated package and syntax checks do not replace live in-game testing. Starting-block recovery and progression still require verification inside Minecraft.
 - Experimental settings, achievement status, and multiplayer balance have not been verified.
 
