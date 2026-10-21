@@ -1,50 +1,53 @@
-# Team Inventory (v1.0.13)
+# Team Inventory (v1.0.13) — Shared Multiplayer Inventory
 
 **By AllensCreations**
 
-All players in a world share one inventory state. Item counts, slot changes, equipment, and selected hotbar slot are synchronized to other online players.
+Share inventory progress with everyone in the same world. Team Inventory synchronizes players' main inventory, armor, offhand items, and selected hotbar slot so the group can manage one shared set of supplies.
 
-## Features
+## Overview
 
-- Shares all 36 main inventory slots, armor, offhand, and selected hotbar slot.
-- Detects inventory changes every two game ticks.
-- Saves the shared state in world dynamic properties for world restarts.
-- New and returning players receive the existing shared inventory.
-- Preserves supported item metadata, including names, lore, durability, and enchantments where the Script API exposes them.
-- Detects competing edits and attempts to preserve conflicting items as world drops, with brief player feedback.
-- Death drops the authoritative shared inventory once and clears it for the team.
-- Does not force the `keepInventory` gamerule.
+The add-on keeps the team's inventory state synchronized as players join and play. It attempts to preserve supported item details, including names, lore, durability, and enchantments when the game exposes that information.
 
-## Compatibility and Settings
+## Key Features
 
-- **Minecraft Bedrock:** 1.21.0+
-- **Format:** Script Behavior Pack (`.mcpack`)
-- **Achievement Friendly:** No guarantee; behavior packs using Script API may require world settings that affect achievements.
-- **Experimental Features:** No experimental toggle is intentionally required beyond the declared Script API dependency.
+### Shared Inventory
+- **What Happens:** The team's main inventory, armor, offhand, and selected hotbar slot are shared among online players.
 
-## Notes
+### Returning Players
+- **What Happens:** New and returning players receive the current shared inventory state.
 
-Inventory changes are detected by polling, so updates occur on the next synchronization check. The game engine and available Script API determine whether every item component can be serialized and restored exactly. If vanilla `keepInventory` is disabled, vanilla death-drop behavior may overlap with scripted shared drops; the pack deliberately leaves the world's gamerule unchanged.
+### Conflict Recovery
+- **What Happens:** When players make conflicting inventory changes, the add-on attempts to preserve affected items as world drops and provides brief feedback.
 
-## Attribution
+### Death Handling
+- **What Happens:** The shared inventory is dropped once on death and then cleared for the team.
 
-Created by AllensCreations. Do not re-upload or redistribute this pack as your own. Link to the official repository when featuring it.
+### World Settings
+- **Important:** The add-on does not force the world's keep-inventory setting. The result of death drops can therefore depend on the world's existing setting.
 
-© All rights reserved for AllensCreations.
+## How to Use
 
-## Creator Profiles
+1. Import the pack and enable it in the world's Behavior Packs settings.
+2. Have players join the same world; the shared inventory is synchronized for the group.
+3. Coordinate item use with teammates, since inventory changes affect everyone.
+
+## Compatibility and Limitations
+
+- Minecraft Bedrock Edition. Check the current package listing for the supported game version.
+- Synchronization happens periodically, so changes may take a short moment to appear.
+- Exact preservation of every item component is not guaranteed; supported item details depend on what Minecraft makes available.
+
+## Creator and Permissions
 
 - [CurseForge Profile](https://www.curseforge.com/members/allenscreations/projects)
 - [MCPEDL Profile](https://mcpedl.com/user/allenscreations/)
-
----
 
 ## Guidelines and Attribution
 
 - Creator: AllensCreations
 - Rights & Reservation: All rights reserved for AllensCreations.
-- Content Creators: Content creators are permitted to feature this creation in videos and streams with credit to AllensCreations.
-- Redistribution: Do not re-upload this creation or provide direct monetized download bypasses. Link directly to the official repository page.
+- Content Creators: You may feature this pack in videos and streams with credit to AllensCreations.
+- Redistribution: Do not re-upload this pack or provide direct monetized download bypasses. Link directly to the official repository page.
 
 ---
 
@@ -54,4 +57,4 @@ Created by AllensCreations. Do not re-upload or redistribute this pack as your o
 
 ## Search & Discovery Keywords
 
-Minecraft Bedrock script pack, Team Inventory, Minecraft PE survival, MCPEDL, CurseForge Bedrock, AllensCreations.
+Minecraft Bedrock shared inventory, Team Inventory add-on, multiplayer shared items, shared hotbar Minecraft, shared armor and offhand, Minecraft PE multiplayer tool, team survival inventory, MCPEDL, CurseForge Bedrock, AllensCreations.

@@ -1,123 +1,56 @@
-# OneBlock Void Survival (v1.2.6) — Progressive Void World by AllensCreations
+# OneBlock Void Survival (v1.2.6) — Progressive Void World
 
 **By AllensCreations**
 
-**PROGRESSIVE VOID SURVIVAL & 43 MYSTERY ISLANDS**
-
-Start on a single infinite block in the void, unlock progressive biomes, and discover 43 floating mystery islands.
-
----
+Mine a regenerating block in the void, unlock new phases, gather supplies, and discover floating islands across Minecraft's dimensions. OneBlock Void Survival combines gradual resource progression with exploration rewards.
 
 ## Overview
 
-Start on a single block suspended above an endless void. Every time you break it, a new block appears in its place.
-
-**OneBlock Void Survival** delivers an infinite progressive void adventure for Minecraft Bedrock Edition. As you mine the central block, you advance through distinct game phases, unlock new resources, encounter supply chests, and trigger the discovery of 43 handcrafted floating mystery islands across all three dimensions.
-
----
+The central block provides resources as you progress through increasingly advanced phases. Milestones unlock additional survival support and reveal 43 mystery islands across the Overworld, Nether, and The End.
 
 ## Key Features
 
-### 1-Tick Auto-Renewal
-- **Description**: The central block at `(0, 64, 0)` instantly regenerates in 1 tick (0.05s) upon breaking with any tool, fist, or explosive.
-
-### Bedrock Foundation
-- **Description**: Solid bedrock at `(0, 63, 0)` prevents gravity blocks (sand, gravel, concrete powder) from falling into the void.
-
-### 3-Tier Phase Scaling
-- **Description**: 50 blocks/phase for early starter biomes, 100 blocks/phase for mid-tier biomes, and 150 blocks/phase for dimension biomes.
+### Progressive OneBlock Phases
+- **What Happens:** The central block renews when mined and advances through phases. Progression uses three stage ranges: 50 blocks per early phase, 100 per mid-tier phase, and 150 per dimension phase.
 
 ### 43 Mystery Islands
-- **Description**: Handcrafted islands across Overworld (28), Nether (8), and The End (7) unlock progressively as you hit mining milestones.
+- **Exploration:** Discover 28 islands in the Overworld, eight in the Nether, and seven in The End as you reach progression milestones.
 
-### Starter Platform Assist
-- **Description**: Mining the first 8 blocks automatically constructs a protective 3x3 platform around the central block.
+### Starter Platform and Supply Chest
+- **What Happens:** Early mining expands the starting platform. A supply chest appears at the 15-block milestone with water and lava for creating a cobblestone generator.
 
-### Starter Resource Chest
-- **Description**: Milestone 15 spawns a bonus supply chest containing water and lava to create your cobblestone generator.
-
-### Supply Chests & Lucky Rush
-- **Description**: Random bonus chests with phase loot and temporary 10-second surges of accelerated mineral generation.
+### Bonus Supplies
+- **What Happens:** Supply chests and short resource surges can provide extra help during progression.
 
 ### Dimension Shifter Merchant
-- **Description**: Wandering merchant periodically arrives offering exclusive survival trades for rare saplings, seeds, and artifacts.
+- **Trading:** A traveling merchant periodically offers trades for rare saplings, seeds, and other supplies.
 
 ### Admin Photography Studio
-- **Description**: Admin Edition includes a double-sneak photo studio GUI, 3/4 isometric panoramic camera coordinates, and lighting toggles.
+- **Separate World Option:** The Admin edition includes a photo studio with camera views and lighting controls. Use the appropriate world download if you want these tools.
 
----
+## How to Play
 
-## How It Works
+1. Import the world into Minecraft Bedrock Edition.
+2. Mine the central block and collect each new drop.
+3. Use the resources and supply milestones to prepare for later phases.
+4. Explore newly unlocked islands when they become available.
 
-### Mine OneBlock
-- **Trigger**: Break block at `(0, 64, 0)`
-- **In-Game Result**: Instantly drops resources and replaces with next phase block.
+## Compatibility and Limitations
 
-### Platform Formation
-- **Trigger**: First 8 blocks broken
-- **In-Game Result**: Expands safe 3x3 platform to secure player footing.
+- Minecraft Bedrock Edition. Check the current world listing and package details before importing.
+- The standard and Admin world files serve different purposes; choose the version that matches your intended play style.
 
-### Cobblestone Setup
-- **Trigger**: Mine 15 blocks
-- **In-Game Result**: Spawns starter chest with water and lava buckets.
+## Creator and Permissions
 
-### Biome Progression
-- **Trigger**: Complete phase block quota
-- **In-Game Result**: Advances phase with visual sound cues and higher-tier resources.
-
-### Island Discovery
-- **Trigger**: Milestone block thresholds
-- **In-Game Result**: Procedurally manifests floating theme islands 140–250 blocks away in the void.
-
-### Admin Studio
-- **Trigger**: Double-sneak (Admin Edition)
-- **In-Game Result**: Opens inspection GUI for instant island teleportation and panoramic camera views.
-
----
-
-## Island Discovery Catalog (43 Mystery Islands)
-
-As you hit mining milestones, handcrafted mystery islands appear in the distant void across three dimensions:
-
-### Overworld
-- **Island Count**: 28
-- **Biomes and Structures**: Plains Oasis, Desert Temple, Lush Caves, Deep Dark Shrine, Trial Chamber, Mushroom Field, Cherry Grove, Badlands Mesa, Mangrove Swamp, Ice Spikes
-
-### The Nether
-- **Island Count**: 8
-- **Biomes and Structures**: Crimson Forest, Warped Grove, Soul Sand Valley, Piglin Bastion Treasury, Nether Fortress Outpost, Basalt Deltas
-
-### The End
-- **Island Count**: 7
-- **Biomes and Structures**: End City Outpost, Chorus Orchard, Purpur Citadel, Void Dragon Altar, Shulker Spire
-
-All islands feature lantern beacons, custom treasure chests, and perimeter buffers.
-
----
-
-## Administration and Photography Studio
-
-The map package includes an Admin Edition (`OneBlock_Void_Survival_Admin.mcworld`):
-- All 43 islands pre-manifested upon launch for inspection.
-- Studio GUI opened via a quick double-sneak gesture.
-- Dedicated panoramic camera coordinates for every island.
-- Time-of-day and lighting toggles (High Noon, Sunset, Midnight, Night Vision).
-
----
-
-## Compatibility
-
-- Minecraft Bedrock Edition 1.21.0+
-- Complete Bedrock World (.mcworld) format
-
----
+- [CurseForge Profile](https://www.curseforge.com/members/allenscreations/projects)
+- [MCPEDL Profile](https://mcpedl.com/user/allenscreations/)
 
 ## Guidelines and Attribution
 
 - Creator: AllensCreations
 - Rights & Reservation: All rights reserved for AllensCreations.
-- Content Creators: Content creators are permitted to feature this creation in videos and streams with credit to AllensCreations.
-- Redistribution: Do not re-upload this pack or provide direct monetized download bypasses. Link directly to the official repository page.
+- Content Creators: You may feature this creation in videos and streams with credit to AllensCreations.
+- Redistribution: Do not re-upload this creation or provide direct monetized download bypasses. Link directly to the official repository page.
 
 ---
 
@@ -127,9 +60,4 @@ The map package includes an Admin Edition (`OneBlock_Void_Survival_Admin.mcworld
 
 ## Search & Discovery Keywords
 
-Minecraft Bedrock OneBlock map, OneBlock void survival, renewing block world, 43 void islands, RPG void progression, Dimension Shifter merchant, Minecraft PE custom map, MCPEDL world, CurseForge, AllensCreations.
-
-## Creator Profiles
-
-- [CurseForge Profile](https://www.curseforge.com/members/allenscreations/projects)
-- [MCPEDL Profile](https://mcpedl.com/user/allenscreations/)
+Minecraft Bedrock OneBlock map, OneBlock Void Survival, 43 mystery islands, progressive void survival, OneBlock phases, Overworld Nether End islands, Minecraft PE map, MCPEDL map, CurseForge Bedrock, AllensCreations.
