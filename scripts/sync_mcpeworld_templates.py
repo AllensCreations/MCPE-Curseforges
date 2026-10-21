@@ -11,6 +11,7 @@ MODES = ("Creative", "Survival", "Hardcore")
 
 def main() -> int:
     errors = []
+    blockers = []
     for mode in MODES:
         world = ROOT_DIR / mode
         if not world.is_dir():
@@ -32,17 +33,23 @@ def main() -> int:
         data_files = [p for p in db.iterdir() if p.is_file() and p.name not in
                       {"CURRENT", "LOCK", "LOG", "LOG.old"} and not p.name.startswith("MANIFEST")] if db.is_dir() else []
         if not (db / "CURRENT").is_file() or not data_files:
-            print(
-                f"BLOCKER: {mode} source lacks a complete LevelDB database. "
+            message = (
+                f"{mode} source lacks a complete LevelDB database under {db.relative_to(ROOT)}. "
                 "The world builder will not borrow another world's database or terrain."
             )
+            blockers.append(message)
+            print(f"BLOCKER: {message}")
     if errors:
         print("Mcpeworlds source validation failed:")
         for error in errors:
             print(f"- {error}")
         return 1
-    print("Validated the structure and bounded Void Cleaner of the three canonical Mcpeworlds folders.")
-    print("World generation remains blocked for any mode reported above until its own complete LevelDB is supplied.")
+    if blockers:
+        print("Mcpeworlds foundation validation is blocked:")
+        for blocker in blockers:
+            print(f"- {blocker}")
+        return 2
+    print("Validated the structure, bounded Void Cleaner, and complete LevelDB of all three canonical Mcpeworlds foundations.")
     return 0
 
 
