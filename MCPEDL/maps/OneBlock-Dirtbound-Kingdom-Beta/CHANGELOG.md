@@ -24,19 +24,19 @@
 ## [0.1.21] - 2026-10-21
 
 ### Fixed
-- **Void Cleaner startup priority:** `tick.json` now runs `void_cleaner` before `oneblock_tick`.
-- **Core initialization race:** Script API waits until a player has the `void_cleaned` tag before initializing the central core, preventing startup recovery from racing the cleaner's grass placeholder.
-- **World archive safety:** Existing `.mcworld` downloads were not regenerated; complete matching Mcpeworlds LevelDB foundations and an approved Creative in-game test are still required before rebuilding.
+- **Reliable world setup:** The starting area is cleaned before OneBlock progression begins.
+- **Stable core startup:** The central block initializes after the starting-area cleanup, preventing setup from replacing the intended starting block.
+- **World archive safety:** Existing world downloads were left unchanged. Rebuilding still requires a successful Creative in-game test, complete matching world foundations for every mode, and explicit approval.
 
 ## [0.1.20] - 2026-10-21
 
 ### Fixed
-- **Startup core recovery:** The Script API now checks the central position during initialization and player join, placing the correct stage block only when the position is empty.
-- **Progression ownership:** Ongoing tick recovery remains limited to the Bedrock footing and Trader Post, avoiding a second system replacing the evolving core.
-- **Pack version alignment:** Behavior Pack and Resource Pack versions now match at 0.1.20.
+- **Startup core recovery:** The central block is restored when missing during world startup or player entry, without replacing an occupied core.
+- **Progression stability:** Routine world maintenance no longer replaces the evolving central block.
+- **Pack version alignment:** The Behavior Pack and Resource Pack use matching release versions.
 
 ### Improved
-- **World foundation safety:** The published world downloads are not refreshed until complete matching world data is available and the Creative world has been tested in Minecraft.
+- **World foundation safety:** Published world downloads remain unchanged until complete matching world data is available and the Creative world has been tested in Minecraft.
 
 
 ## [0.1.18] - 2026-10-21

@@ -1,12 +1,12 @@
-# OneBlock: Dirtbound Kingdom Beta (source v0.1.23)
+# OneBlock: Dirtbound Kingdom Beta (source v0.1.24)
 
 **By AllensCreations**
 
-Dirtbound Kingdom is a OneBlock challenge built around a central block, a coin economy accessed exclusively through the custom Trader Ledger item, and ten progression stages. Use the currently published Creative world as the only in-game tester. The editable Creative, Survival, and Hardcore folders under Mcpeworlds/ are the intended foundations for future world builds, but they currently lack complete world databases; the published downloads have not yet been rebuilt from them.
+Dirtbound Kingdom is a OneBlock challenge built around a central block, a coin economy accessed exclusively through the custom Trader Ledger item, and ten progression stages. Use the currently published Creative world as the only in-game tester. The Creative, Survival, and Hardcore world foundations are incomplete and the published downloads have not yet been rebuilt from them. Creative remains the only designated in-game tester. World archives must not be rebuilt until the Creative mechanics pass in-game testing, each mode has its own complete matching world database, and rebuilding is explicitly approved.
 
 ## Overview
 
-Start at the center of the world with the core at **0 0 0**, Bedrock directly underneath at **0 -1 0**, and world spawn at **0 1 0**. The world setup places a starting placeholder at the core position, which should become the current stage block when gameplay initializes. The one-time Void Cleaner clears only the 33 × 33 square from -16 -64 -16 through 16 -64 16 on Y = -64, then places Bedrock at 0 -1 0 and sets world spawn to 0 1 0. It runs only for players who do not have the void_cleaned tag.
+Start at the center of the world with the core at **0 0 0**, Bedrock directly underneath at **0 -1 0**, and world spawn at **0 1 0**. The world setup places a starting placeholder at the core position, which should become the current stage block when gameplay initializes. During initial setup, the Void Cleaner clears a 33 × 33 area at the bottom of the starting platform, places Bedrock beneath the central block, and sets the spawn point. It is intended to run once for each player who has not completed this setup.
 
 ## Ten Core Stages
 
@@ -28,7 +28,7 @@ Use suitable pickaxes for later blocks. The core stage is shared by the world, w
 ## Trader Access
 
 - Use the custom **OneBlock Trader Ledger** item to open the shop.
-- The Trader Ledger is the only shop access method; no physical Trader Ledger block is used.
+- The Trader Ledger item is the only shop access method; there is no physical shop block.
 - The add-on attempts to restore the Ledger if it is missing from the player's inventory.
 
 ## Trading and Balanced Progression
