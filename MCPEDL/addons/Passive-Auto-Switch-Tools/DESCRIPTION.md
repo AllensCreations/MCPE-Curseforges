@@ -2,13 +2,13 @@
 
 **By AllensCreations**
 
-Automatic intelligent tool and combat equipment selection for survival.
+Automatically selects a suitable tool or weapon when you begin mining or attacking.
 
 ---
 
 ## Overview
 
-Passive Auto-Switch Tools is an intelligent survival add-on that automates tool and weapon selection in Minecraft Bedrock Edition. When you select hotbar slot 1, the add-on activates when you **start to break/hit a block** (avoiding annoying swaps when merely looking around), and **when attacking a mob** by automatically equipping your highest-tier axe or sword.
+Passive Auto-Switch Tools is an survival add-on that automates tool and weapon selection in Minecraft Bedrock Edition. When you select hotbar slot 1, the add-on activates when you **start to break/hit a block** (avoiding annoying swaps when merely looking around), and **when attacking a mob** by automatically equipping your highest-tier axe or sword.
 
 Hotbar slots 2 through 9 remain completely unmanaged, ensuring uninterrupted building, offhand usage, and consumable item management.
 
@@ -18,7 +18,7 @@ Hotbar slots 2 through 9 remain completely unmanaged, ensuring uninterrupted bui
 
 ### Hotbar Slot 1 Activation
 
-The automation engine operates exclusively when the player selects hotbar slot 1:
+Automatic selection is active only while hotbar slot 1 is selected:
 - Hotbar Slot 1: Active auto-switch slot. Striking blocks triggers tool selection; attacking mobs triggers weapon selection.
 - Hotbar Slots 2 through 9: Standard manual operation. the add-on does not swap items while these slots are selected.
 
@@ -41,12 +41,12 @@ If items of equal tier exist across hotbar and main inventory, the item already 
 
 ### Item Integrity and Preservation
 
-Item components are preserved during swaps:
+The add-on aims to preserve tool details when switching items:
 - Durability damage values remain exact.
 - Custom anvil names and lore strings are preserved.
 - Enchantments (Efficiency, Fortune, Silk Touch, Unbreaking, Mending, Sharpness, etc.) are preserved intact.
 - Active tool locking: If the currently held tool or weapon is already valid for the target block or combat, no redundant inventory swaps occur.
-- No looking-at-block jitter: Tools only switch when you actually start breaking, never while simply looking around.
+- Tools switch when you begin breaking a block, not merely when you look at it.
 
 ---
 
@@ -69,7 +69,7 @@ Item components are preserved during swaps:
 
 ### Look-Around Stability
 - **Vanilla Bedrock**: Static
-- **With Passive Auto-Switch Tools**: Clean & stable (no unwanted swaps while looking)
+- **With Passive Auto-Switch Tools**: No unwanted tool swaps from simply looking at blocks
 
 ### Tool Wear Protection
 - **Vanilla Bedrock**: Manual caution required
@@ -85,7 +85,7 @@ Item components are preserved during swaps:
 
 ### Configuration Requirements
 - **Vanilla Bedrock**: Not applicable
-- **With Passive Auto-Switch Tools**: Zero scoreboard or command setup required
+- **With Passive Auto-Switch Tools**: No extra command setup required
 
 ---
 
