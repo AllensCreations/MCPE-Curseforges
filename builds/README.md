@@ -1,6 +1,6 @@
 # Builds Directory - MCPE Curseforges
 
-This directory stores the compiled releases (behavior packs, resource packs, add-ons, and worlds) in the MCPE Curseforges collection by AllensCreations. Dirtbound world archives remain gated: the source version can advance without rebuilding published worlds, and archives must not be regenerated until the Creative mechanics pass in-game testing, each mode has a complete matching world foundation, and rebuilding is explicitly approved.
+This directory stores the compiled releases (behavior packs, resource packs, add-ons, and worlds) in the MCPE Curseforges collection by AllensCreations. Dirtbound source files can change without rebuilding published world archives. Rebuild the Creative, Survival, and Hardcore `.mcworld` files only by manually running the OneBlock world-build workflow; each mode must have its own complete LevelDB foundation.
 
 ---
 
@@ -31,7 +31,7 @@ This directory stores the compiled releases (behavior packs, resource packs, add
 
 ### Worlds and Maps
 
-Dirtbound's three world variants are published in the map source folder. Creative is the sole in-game test world; archives must not be rebuilt until Creative mechanics pass in Minecraft, complete matching mode-specific world foundations are supplied, and the user approves the rebuild.
+Dirtbound's three world variants are published in the map source folder. World archives are not rebuilt automatically when source files change. Run the OneBlock world-build workflow manually when you want to regenerate them; each mode must have its own complete matching world foundation.
 
 | Map Name | Version | Type | Download Link | Build Folder |
 | :--- | :--- | :--- | :--- | :--- |
