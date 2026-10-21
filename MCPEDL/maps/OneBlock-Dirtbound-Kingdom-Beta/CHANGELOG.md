@@ -2,6 +2,13 @@
 
 ---
 
+## [0.1.21] - 2026-10-21
+
+### Fixed
+- **Void Cleaner startup priority:** `tick.json` now runs `void_cleaner` before `oneblock_tick`.
+- **Core initialization race:** Script API waits until a player has the `void_cleaned` tag before initializing the central core, preventing startup recovery from racing the cleaner's grass placeholder.
+- **World archive safety:** Existing `.mcworld` downloads were not regenerated; complete matching Mcpeworlds LevelDB foundations and an approved Creative in-game test are still required before rebuilding.
+
 ## [0.1.20] - 2026-10-21
 
 ### Fixed
