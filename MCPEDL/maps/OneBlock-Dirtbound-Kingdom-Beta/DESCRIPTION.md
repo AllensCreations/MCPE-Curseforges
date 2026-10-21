@@ -62,7 +62,7 @@ A normal Minecraft sidebar scoreboard displays each player's current OneCoins ba
 - Target platform: Minecraft Bedrock Edition 1.26+.
 - Package format: `.mcworld` complete world.
 - Use the Creative world as the tester. The Survival and Hardcore variants are kept alongside it.
-- The current source version is 0.1.20. The world archives are regenerated automatically from the editable mode-specific templates under Mcpeworlds/Extracted/ whenever map source or template files change.
+- The current source version is 0.1.20. Creative, Survival, and Hardcore use the direct editable folders under Mcpeworlds/ as their intended foundations. Those folders currently lack complete LevelDB databases, so they are not yet complete world foundations and no new world archives will be generated until complete matching world data is supplied, the Creative mechanics are tested in Minecraft, and a rebuild is approved.
 - Automated package and syntax checks do not replace live in-game testing. Startup core recovery has been added to source, but in-game behavior still requires verification inside Minecraft.
 - Experimental settings, achievement status, and multiplayer balance have not been verified.
 
