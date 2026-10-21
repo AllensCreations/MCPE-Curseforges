@@ -61,17 +61,13 @@
 - **Wandering Trader Collector Head Trades**: Adjusted head trade offering probability to a rare 2% spawn rate in collector trade pools, priced at 1 Diamond Block + 16 Emeralds per head.
 - **Shulker Shell Drop Rate**: Adjusted Shulker Shell drops to 1 to 2 shells (yielding 2 to 3 with Looting enchantments).
 - **Boss Leashing Immunity**: Removed leashing capability from the Warden, Wither, and Ender Dragon to maintain boss encounter integrity while preserving universal leashing on all 98 standard entities.
-- **Tree Capitator House Protection & 26-Neighbor Traversal**: Upgraded tree log detection to a unified upward-biased 26-neighbor 3D flood-fill algorithm (evaluating all adjacent coordinates `dx, dy, dz ∈ [-1, 0, 1]` with `dy >= 0`), allowing seamless felling of complex branching and diagonal canopies while maintaining strict species matching and canopy protection (`isTreeCanopy`) to prevent accidental cabin destruction.
-- **Domino Ore Miner Ancient Debris Cap**: Capped contiguous Ancient Debris chain mining to a maximum of 4 blocks (`MAX_ANCIENT_DEBRIS_CLUSTER_SIZE: 4`) to preserve Netherite vein discovery balance.
 - **Durability Safety Guard Threshold**: Tuned durability safety guard threshold from 5 to 1 durability point, giving players maximum tool usage before emergency protection activates.
 - **Stonecutter Woodcutter All 12 Woods**: Added full Stonecutter recipe support for Pale Oak (Logs to Planks, Slabs, Stairs, Fences, Fence Gates, and Trapdoors), completing support for all 12 wood variants in Minecraft Bedrock.
-- **Standalone BP Compatibility**: Decoupled the Resource Pack UUID dependency from `behavior_pack/pack settings`, allowing the Behavior Pack (`.mcpack`) to run independently without "missing pack" warnings, while still bundling seamlessly in the `.mcaddon`.
 
 ---
 
 ## [1.3.0] - 2026-10-15
 
-### Major Integration Update: The Survival Powerhouse
 
 This major milestone integrates **Passive Auto-Switch Tools**, **Smart Tree Capitator**, and **Domino Ore Miner** directly into the core Vanilla Quality of Life suite, creating the ultimate all-in-one survival add-on for Minecraft Bedrock.
 
@@ -84,8 +80,6 @@ This major milestone integrates **Passive Auto-Switch Tools**, **Smart Tree Capi
   - Automated cobweb shear interaction loop.
 - **Smart Tree Capitator (Sneak + Axe)**:
   - Sneak while chopping any tree log to fell the entire trunk and connected branches up to **128 logs** immediately.
-  - **3×3 Trunk Column Scan**: Evaluates 8 side blocks around the cut log (`~-1 ~ ~-1` to `~1 ~ ~1`) and 9 blocks directly above layer-by-layer up the trunk with zero downward digging.
-  - **Canopy / Branch "Virus" Flood-Fill**: Once the trunk column ends, an outward contagion flood-fill infects and fells all contiguous horizontal and upward branch logs (`dy >= 0`) until no connected tree logs remain.
   - **Tree Species Matching**: Ensures Oak only fells Oak and Birch only fells Birch, preventing collateral damage in dense tree farms or forests.
   - Preserves natural leaf canopies for authentic vanilla leaf decay drops (saplings, sticks, apples).
 - **Domino Ore Miner (Sneak + Pickaxe)**:
@@ -94,7 +88,6 @@ This major milestone integrates **Passive Auto-Switch Tools**, **Smart Tree Capi
   - Full Fortune and Silk Touch support: Correctly honors Silk Touch block drops and vanilla Fortune item multipliers.
 - **Offhand Torch Placement (Sneak + Click Block)**:
   - When holding a Torch, Soul Torch, or Redstone Torch in your offhand, simply **Sneak and Click** on any block to place it directly from your offhand onto the floor or wall.
-  - Automatically determines wall/floor orientation (`top`, `north`, `south`, `east`, `west`) and plays authentic placement sound.
   - Decrements offhand stack in Survival/Adventure mode (unlimited in Creative).
   - Cave-mining quality of life: keep your Pickaxe in your mainhand while placing torches without swapping items.
 - **Durability Safety Guard**:
@@ -109,9 +102,7 @@ This major milestone integrates **Passive Auto-Switch Tools**, **Smart Tree Capi
 ## [1.2.6] - 2026-10-14
 
 ### Added
-- **Dynamic Handheld & Offhand Lighting**: Moving Torches and Lanterns emit real-time Light Levels 10–15 via `minecraft:light_block`.
 - **Offhand Quick-Swap**: Double-sneak gesture or sneak+use in air to quickly swap Torches, Lanterns, Clocks, and Compasses between mainhand and offhand.
-
 
 ---
 
