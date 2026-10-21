@@ -14,15 +14,20 @@ on:
   workflow_dispatch:
     inputs:
       target:
-        description: 'Project to process: "all" for every pack, or a name like "Mining-Helmet"'
+        description: 'Project to process'
         required: true
         default: 'choose-target'
-        type: string
+        type: choice
+        options:
+          - choose-target
+          - all
+          - Mining-Helmet
+          - OneBlock-Dirtbound-Kingdom-Beta
+          # add your other project folder names here
 
 permissions:
   contents: write
 
-# Prevent overlapping release jobs from racing while writing versions and packages.
 concurrency:
   group: auto-version-bump-${{ github.ref }}
   cancel-in-progress: false
@@ -49,20 +54,23 @@ jobs:
 
       - name: Bump versions, rebuild packages & register new projects
         id: process
+        env:
+          EVENT: ${{ github.event_name }}
+          TARGET: ${{ github.event.inputs.target }}
+          BEFORE: ${{ github.event.before }}
         run: |
-          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
-            TARGET="${{ github.event.inputs.target }}"
+          set -euo pipefail
+          if [ "$EVENT" = "workflow_dispatch" ]; then
             if [ "$TARGET" = "choose-target" ] || [ -z "$TARGET" ]; then
-              echo "Choose a project name or explicitly enter 'all' to process every project."
+              echo "Pick a project from the dropdown, or choose 'all'."
               exit 1
             elif [ "$TARGET" = "all" ]; then
               python3 scripts/auto_bump_and_build.py --all
             else
               python3 scripts/auto_bump_and_build.py --project "$TARGET"
             fi
-          elif [ "${{ github.event.before }}" != "" ] && \
-               [ "${{ github.event.before }}" != "0000000000000000000000000000000000000000" ]; then
-            python3 scripts/auto_bump_and_build.py --base "${{ github.event.before }}"
+          elif [ -n "$BEFORE" ] && [ "$BEFORE" != "0000000000000000000000000000000000000000" ]; then
+            python3 scripts/auto_bump_and_build.py --base "$BEFORE"
           else
             python3 scripts/auto_bump_and_build.py --base "HEAD~1"
           fi
@@ -72,17 +80,19 @@ jobs:
 
       - name: Commit and push changes
         run: |
+          set -euo pipefail
           git config --global user.name  "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
 
           for dir in MCPEDL packs minigames maps builds; do
-            [ -d "$dir" ] && git add "$dir"
+            if [ -d "$dir" ]; then git add "$dir"; fi
           done
-          [ -f "README.md" ] && git add README.md
+          if [ -f README.md ]; then git add README.md; fi
 
           if git diff --staged --quiet; then
             echo "No changes to commit."
           else
             git commit -m "chore(release): auto-bump versions, rebuild packages & register new projects [skip ci]"
+            git pull --rebase origin main
             git push origin main
           fi
