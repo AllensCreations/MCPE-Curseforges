@@ -32,13 +32,15 @@ def main() -> int:
         db = world / "db"
         data_files = [p for p in db.iterdir() if p.is_file() and p.name not in
                       {"CURRENT", "LOCK", "LOG", "LOG.old"} and not p.name.startswith("MANIFEST")] if db.is_dir() else []
-        if not (db / "CURRENT").is_file() or not data_files:
-            message = (
-                f"{mode} source lacks a complete LevelDB database under {db.relative_to(ROOT)}. "
-                "The world builder will not borrow another world's database or terrain."
+        if db.exists() and (not (db / "CURRENT").is_file() or not data_files):
+            errors.append(
+                f"{mode} has an incomplete optional db/ folder under {db.relative_to(ROOT)}. "
+                "Remove the empty folder for a database-free void source, or supply a complete database."
             )
-            blockers.append(message)
-            print(f"BLOCKER: {message}")
+        elif db.exists():
+            print(f"PASS: {mode} source has a complete optional LevelDB.")
+        else:
+            print(f"PASS: {mode} source is intentionally database-free; the builder initializes a fresh empty database in temporary staging.")
     if errors:
         print("Mcpeworlds source validation failed:")
         for error in errors:
@@ -49,7 +51,7 @@ def main() -> int:
         for blocker in blockers:
             print(f"- {blocker}")
         return 2
-    print("Validated the structure, bounded Void Cleaner, and complete LevelDB of all three canonical Mcpeworlds foundations.")
+    print("Validated all three canonical Mcpeworlds folders and bounded Void Cleaner; database-free sources are supported.")
     return 0
 
 
