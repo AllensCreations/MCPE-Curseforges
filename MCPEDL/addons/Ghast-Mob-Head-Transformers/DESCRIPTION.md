@@ -117,4 +117,4 @@ Interact with any Ghast while holding a skull to trigger the transformation:
 
 ## Search & Discovery Keywords
 
-Ghast Mob Head Transformers Bedrock add-on, Minecraft PE mod, MCPEDL add-on, CurseForge Bedrock, AllensCreations.
+Ghast Mob Head Transformers Bedrock add-on, giant ghast head transformation, ghast head mob behavior, Minecraft Bedrock mob transformation, Minecraft PE add-on, MCPEDL, CurseForge Bedrock, AllensCreations.

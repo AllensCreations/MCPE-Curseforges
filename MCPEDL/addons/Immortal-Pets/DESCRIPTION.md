@@ -75,4 +75,4 @@ Protection cannot guarantee survival against every possible game mechanic, comma
 
 ## Search & Discovery Keywords
 
-Immortal Pets Bedrock add-on, Minecraft PE mod, MCPEDL add-on, CurseForge Bedrock, AllensCreations.
+Immortal Pets Bedrock add-on, pet protection Minecraft, companion survival protection, pet recovery mechanics, Minecraft Bedrock pets, Minecraft PE survival add-on, MCPEDL, CurseForge Bedrock, AllensCreations.

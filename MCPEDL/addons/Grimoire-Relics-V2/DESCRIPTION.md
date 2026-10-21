@@ -172,4 +172,4 @@ If a feature is broken or does not work as described, please leave a comment on 
 
 ## Search & Discovery Keywords
 
-Grimoire Relics V2 Bedrock add-on, <img src="https Minecraft Bedrock, <img src="https Minecraft Bedrock, <img src="https Minecraft Bedrock, <img src="https Minecraft Bedrock, Minecraft PE mod, MCPEDL add-on, CurseForge Bedrock, AllensCreations.
+Grimoire Relics V2 Bedrock add-on, magical offhand relics, craftable grimoires, Ancient Relics exploration, Void Phantom rescue relic, Minecraft Bedrock magic items, Minecraft PE RPG add-on, MCPEDL, CurseForge Bedrock, AllensCreations.

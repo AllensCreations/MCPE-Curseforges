@@ -69,4 +69,4 @@ If you find a bug or a feature that does not work as expected, please leave a co
 
 ## Search & Discovery Keywords
 
-Grand Banquets Bedrock add-on, Minecraft PE mod, MCPEDL add-on, CurseForge Bedrock, AllensCreations.
+Grand Banquets Bedrock add-on, craftable meals Minecraft, food recipes and feasts, Minecraft Bedrock cooking, survival food variety, Minecraft PE add-on, MCPEDL, CurseForge Bedrock, AllensCreations.
