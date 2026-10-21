@@ -1,4 +1,4 @@
-# OneBlock: Dirtbound Kingdom Beta — MCAddon Test Build
+# OneBlock: Dirtbound Kingdom Beta (v0.1.15) — MCAddon Test Build
 
 **By AllensCreations**
 
@@ -45,10 +45,11 @@ Use suitable pickaxes for later blocks. The core stage is shared by the world, w
 2. Enable both imported packs.
 3. Check that the central core position (`0 64 0`) is air or the intended core block, and that the Trader Post position (`2 65 0`) is available.
 4. Break the central block and verify the mining counter, OneCoin balance, and block stage.
+5. Confirm the core reappears immediately after each break, including when a break advances the shared stage.
 5. Interact with the Trader Post barrel to open the shop. Test Ledger recovery by removing the item from your inventory.
 6. Watch for bonus blocks and the 500-break Core Surge.
 
-The scheduled block function only fills the core and Trader Post positions when they are air. It does not clear terrain or build a void platform, so test in a disposable world with the intended OneBlock platform.
+The scheduled block function fills the core and Trader Post positions when they are air, and a successful core break now triggers immediate restoration after rewards and stage progression update. It does not clear terrain or build a void platform, so test in a disposable world with the intended OneBlock platform.
 
 ## Compatibility and Test Notes
 
