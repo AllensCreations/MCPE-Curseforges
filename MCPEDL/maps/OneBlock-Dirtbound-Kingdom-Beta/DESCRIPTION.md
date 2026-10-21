@@ -80,4 +80,4 @@ Your current OneCoins balance appears as a persistent action-bar text line. It u
 
 ## Search & Discovery Keywords
 
-Minecraft Bedrock OneBlock survival, Dirtbound Kingdom, evolving OneBlock core, OneBlock Trader Ledger, OneCoins shop economy, ten-stage OneBlock progression, bonus Emerald Block, Minecraft PE survival challenge, MCPEDL map, CurseForge Bedrock, AllensCreations.
+OneBlock: Dirtbound Kingdom Beta (source v0.1.24) Minecraft Bedrock, Minecraft PE survival, MCPEDL, CurseForge Bedrock, AllensCreations.

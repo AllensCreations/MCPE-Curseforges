@@ -226,4 +226,4 @@ Combines dynamic lighting, offhand quick-swap, automatic tool selection, tree ca
 
 ## Search & Discovery Keywords
 
-Minecraft Bedrock survival quality of life, MCPE QoL mod, Bedrock auto tool switcher, sneak tree capitator, domino ore vein miner, dynamic lighting torch, offhand quick swap Minecraft, universal mob lead leashing, friendly fire pet protection, fast leaf decay, woodcutter stonecutter recipe, potion stacking 16x, MCPEDL add-ons, CurseForge Minecraft Bedrock, AllensCreations.
+Vanilla Quality of Life Minecraft Bedrock, Feature Comparison Highlights Bedrock, Tool & Weapon Switching Bedrock, Tree Harvesting Bedrock, Ore Vein Mining Bedrock, Minecraft PE survival, MCPEDL, CurseForge Bedrock, AllensCreations.

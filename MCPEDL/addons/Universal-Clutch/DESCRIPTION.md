@@ -191,4 +191,4 @@ Individual players can customize their personal settings on multiplayer servers 
 
 ## Search & Discovery Keywords
 
-Minecraft Bedrock auto clutch, water bucket clutch mod, MLG clutch helper, fall damage saver, boat clutch, powder snow clutch, Minecraft PE clutch add-on, MCPEDL, CurseForge, AllensCreations.
+Universal Clutch Minecraft Bedrock, Multi-Item Clutch Support Bedrock, Dimension-Aware Clutches Bedrock, Dual Hand & Inventory Detection Bedrock, Totem of Undying Fail-Safe Bedrock, Minecraft PE survival, MCPEDL, CurseForge Bedrock, AllensCreations.

@@ -93,4 +93,4 @@ Adds a tameable fox companion with the behaviors described below.
 
 ## Search & Discovery Keywords
 
-Minecraft Bedrock tameable foxes, pet companion fox, tame arctic fox, sweet berry taming, cute companion mod, Minecraft PE foxes, MCPEDL, CurseForge, AllensCreations.
+Tameable Companion Fox Minecraft Bedrock, Berry Taming Bedrock, Bodyguard Protection Bedrock, Upgraded Vitality Bedrock, Sit & Stand Commands Bedrock, Minecraft PE survival, MCPEDL, CurseForge Bedrock, AllensCreations.
