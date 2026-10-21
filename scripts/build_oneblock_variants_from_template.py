@@ -271,6 +271,8 @@ def verify_archive(path: Path, bp_uuid: str, bp_version: list[int], rp_uuid: str
             "level.dat", "levelname.txt", "db/CURRENT",
             f"behavior_packs/{bp_folder}/manifest.json",
             f"behavior_packs/{bp_folder}/functions/tick.json",
+            f"behavior_packs/{bp_folder}/functions/oneblock_setup.mcfunction",
+            f"behavior_packs/{bp_folder}/functions/void_cleaner.mcfunction",
             "world_behavior_packs.json",
         }
         if "level.dat_old" in names:
