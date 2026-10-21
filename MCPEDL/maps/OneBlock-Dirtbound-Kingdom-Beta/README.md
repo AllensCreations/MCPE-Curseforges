@@ -12,7 +12,7 @@ Use this world first to test the starting block, footing, spawn, Trader access, 
 
 **[Download Hardcore World (.mcworld)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/MCPEDL/maps/OneBlock-Dirtbound-Kingdom-Beta/OneBlock%20Dirtbound%20Kingdom%20Beta%20-%20Hardcore.mcworld)**
 
-The three world files are intended to be kept together in this project folder. Download links work once the matching files have been generated and committed.
+All three world downloads are published in this folder. Start with Creative to test the map before relying on Survival or Hardcore.
 
 ## Test Instructions
 
