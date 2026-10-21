@@ -2,11 +2,11 @@
 
 **By AllensCreations**
 
-Dirtbound Kingdom is a OneBlock challenge built around a central block, a coin economy, a permanent trading station, and ten progression stages. The Creative `.mcworld` is the recommended first world for checking gameplay; Creative, Survival, and Hardcore worlds are built from their matching uploaded world templates.
+Dirtbound Kingdom is a OneBlock challenge built around a central block, a coin economy, a permanent trading station, and ten progression stages. Use the currently published Creative world as the only in-game tester. The editable Creative, Survival, and Hardcore folders under Mcpeworlds/ are the intended foundations for future world builds, but they currently lack complete world databases; the published downloads have not yet been rebuilt from them.
 
 ## Overview
 
-Start at the center of the world with the core at **0 0 0**, Bedrock directly underneath at **0 -1 0**, and world spawn at **0 1 0**. The setup places the initial placeholder at the core position and lets the Script API replace it with the current stage. The one-time Void Cleaner clears only the 33 × 33 square from -16 -64 -16 through 16 -64 16 on Y = -64, then places Bedrock at 0 -1 0 and sets world spawn to 0 1 0. It runs only for players who do not have the void_cleaned tag.
+Start at the center of the world with the core at **0 0 0**, Bedrock directly underneath at **0 -1 0**, and world spawn at **0 1 0**. The world setup places a starting placeholder at the core position, which should become the current stage block when gameplay initializes. The one-time Void Cleaner clears only the 33 × 33 square from -16 -64 -16 through 16 -64 16 on Y = -64, then places Bedrock at 0 -1 0 and sets world spawn to 0 1 0. It runs only for players who do not have the void_cleaned tag.
 
 ## Ten Core Stages
 
@@ -62,8 +62,8 @@ A normal Minecraft sidebar scoreboard displays each player's current OneCoins ba
 - Target platform: Minecraft Bedrock Edition 1.26+.
 - Package format: `.mcworld` complete world.
 - Use the Creative world as the tester. The Survival and Hardcore variants are kept alongside it.
-- The current source version is 0.1.20. Creative, Survival, and Hardcore use the direct editable folders under Mcpeworlds/ as their intended foundations. Those folders currently lack complete LevelDB databases, so they are not yet complete world foundations and no new world archives will be generated until complete matching world data is supplied, the Creative mechanics are tested in Minecraft, and a rebuild is approved.
-- Automated package and syntax checks do not replace live in-game testing. Startup core recovery has been added to source, but in-game behavior still requires verification inside Minecraft.
+- The current source version is 0.1.20. The direct editable folders under Mcpeworlds/Creative/, Mcpeworlds/Survival/, and Mcpeworlds/Hardcore/ are the intended mode-specific foundations. Each needs its own complete world database before a new world archive can be generated. World generation remains paused until complete matching world data is supplied, the Creative mechanics are tested in Minecraft, and a rebuild is approved.
+- Automated package and syntax checks do not replace live in-game testing. Starting-block recovery and progression still require verification inside Minecraft.
 - Experimental settings, achievement status, and multiplayer balance have not been verified.
 
 ## Guidelines and Attribution
