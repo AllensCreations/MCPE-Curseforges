@@ -1,5 +1,5 @@
 # One-time per-player void cleanup and spawn setup for Dirtbound.
-# Clear the specified bottom void layer, then establish the starting block and spawn.
+# Clear the full 33x33 square on Y=-64, from X/Z -16 through +16 (not just 0 through 15), then establish the starting block and spawn.
 execute as @a[tag=!void_cleaned] run fill -16 -64 -16 16 -64 16 air
 execute as @a[tag=!void_cleaned] run tp @s 0 1 0
 execute as @a[tag=!void_cleaned] run setblock 0 -1 0 bedrock
