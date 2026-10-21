@@ -36,6 +36,7 @@ This directory stores all compiled releases (behavior packs, resource packs, add
 | **OneBlock Void Survival** | `v1.2.5` | Survival World (`.mcworld`) | [Download (.mcworld)](OneBlock-Void-Survival/OneBlock%20Void%20Survival%20by%20AllensCreations%20%28V1.2.5%29.mcworld) | [`OneBlock-Void-Survival/`](OneBlock-Void-Survival/) |
 | **OneBlock Void (Admin Studio)** | `v1.2.5` | Testing World (`.mcworld`) | [Download (.mcworld)](OneBlock-Void-Survival/OneBlock%20Void%20Survival%20by%20AllensCreations%20%28V1.2.5%29.mcworld) | [`OneBlock-Void-Survival/`](OneBlock-Void-Survival/) |
 | **OneBlock Economy** | `v1.0.6` | Custom Map (`.mcworld`) | [Download (.mcworld)](OneBlock-Economy/OneBlock%20Economy%20by%20AllensCreations%20%28V1.0.6%29.mcworld) | [`OneBlock-Economy/`](OneBlock-Economy/) |
+| **OneBlock Dirtbound Kingdom Beta** | `v0.1.1` | Script Behavior Pack (`.mcpack`) | [Download (.mcpack)](OneBlock-Dirtbound-Kingdom-Beta/OneBlock%20Dirtbound%20Kingdom%20Beta%20by%20AllensCreations%20%28V0.1.1%29.mcpack) | [`OneBlock-Dirtbound-Kingdom-Beta/`](OneBlock-Dirtbound-Kingdom-Beta/) |
 
 ### Script Projects & Challenges
 

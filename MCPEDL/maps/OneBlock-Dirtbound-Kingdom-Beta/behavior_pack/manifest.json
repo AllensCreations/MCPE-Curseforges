@@ -1,24 +1,47 @@
 {
   "format_version": 2,
   "header": {
-    "name": "Dirtbound Kingdom (v0.1.0)",
+    "name": "OneBlock Dirtbound Kingdom Beta (v0.1.1)",
     "description": "Beta OneBlock survival economy and purchase shop. by AllensCreations",
     "uuid": "8d4d93bf-c8b2-4df4-9f28-52f4f8f08b10",
-    "version": [0, 1, 0],
-    "min_engine_version": [1, 26, 0]
+    "version": [
+      0,
+      1,
+      1
+    ],
+    "min_engine_version": [
+      1,
+      26,
+      0
+    ]
   },
   "modules": [
     {
       "type": "script",
       "language": "javascript",
       "uuid": "a2dcb37f-22c9-47b4-8b17-1bd3c0a91f65",
-      "version": [0, 1, 0],
+      "version": [
+        0,
+        1,
+        1
+      ],
       "entry": "scripts/main.js"
     }
   ],
   "dependencies": [
-    { "module_name": "@minecraft/server", "version": "2.10.0" },
-    { "module_name": "@minecraft/server-ui", "version": "2.2.0" }
+    {
+      "module_name": "@minecraft/server",
+      "version": "2.10.0"
+    },
+    {
+      "module_name": "@minecraft/server-ui",
+      "version": "2.2.0"
+    }
   ],
-  "metadata": { "authors": ["AllensCreations"], "product_type": "addon" }
+  "metadata": {
+    "authors": [
+      "AllensCreations"
+    ],
+    "product_type": "addon"
+  }
 }
