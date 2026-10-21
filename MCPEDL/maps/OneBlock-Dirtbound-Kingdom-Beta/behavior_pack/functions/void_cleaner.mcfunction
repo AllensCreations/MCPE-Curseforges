@@ -7,6 +7,6 @@ execute as @a[tag=!void_cleaned] run setblock 0 -1 0 bedrock
 execute as @a[tag=!void_cleaned] run setblock 0 0 0 minecraft:grass_block
 execute as @a[tag=!void_cleaned] run setworldspawn 0 1 0
 execute as @a[tag=!void_cleaned] run tellraw @a {"rawtext":[{"text":"§aDone cleaning"}]}
-# Keep the permanent Trader Post available at the new spawn height.
-execute as @a[tag=!void_cleaned] run execute if block 2 1 0 air run setblock 2 1 0 barrel
+# Keep the Trader lectern available at the new spawn height.
+execute as @a[tag=!void_cleaned] run execute if block 2 1 0 air run setblock 2 1 0 lectern
 tag @a[tag=!void_cleaned] add void_cleaned
