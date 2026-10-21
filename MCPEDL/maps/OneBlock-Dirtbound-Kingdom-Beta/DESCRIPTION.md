@@ -1,4 +1,4 @@
-# OneBlock: Dirtbound Kingdom Beta (v0.1.15) — MCAddon Test Build
+# OneBlock: Dirtbound Kingdom Beta (v0.1.16) — MCAddon Test Build
 
 **By AllensCreations**
 
@@ -39,17 +39,22 @@ Use suitable pickaxes for later blocks. The core stage is shared by the world, w
 - A bonus Emerald Block can appear above the platform. Breaking it grants 30 OneCoins, with a 20% chance of triggering a hostile mob wave.
 - After 6,000 personal breaks, Kingdom Prestige can reset that player's personal shop progress for +500 OneCoins and one permanent Prestige level. The shared core does not reset, so prestige is an optional harder challenge.
 
+## Permanent Colored Scoreboard
+
+A normal Minecraft sidebar scoreboard stays visible instead of using the thin, temporary action-bar strip. Its title is colored, and it displays each player's current OneCoins balance.
+
 ## Test Setup
 
 1. Import the MCAddon and create a new, disposable Bedrock world.
 2. Enable both imported packs.
 3. Check that the central core position (`0 64 0`) is air or the intended core block, and that the Trader Post position (`2 65 0`) is available.
 4. Break the central block and verify the mining counter, OneCoin balance, and block stage.
-5. Confirm the core reappears immediately after each break, including when a break advances the shared stage.
-5. Interact with the Trader Post barrel to open the shop. Test Ledger recovery by removing the item from your inventory.
-6. Watch for bonus blocks and the 500-break Core Surge.
+5. Confirm the core reappears after each break, including when a break advances the shared stage.
+6. Confirm the colored OneCoins sidebar remains visible while playing.
+7. Interact with the Trader Post barrel to open the shop. Test Ledger recovery by removing the item from your inventory.
+8. Watch for bonus blocks and the 500-break Core Surge.
 
-The scheduled block function fills the core and Trader Post positions when they are air, and a successful core break now triggers immediate restoration after rewards and stage progression update. It does not clear terrain or build a void platform, so test in a disposable world with the intended OneBlock platform.
+The scheduled block function restores the correct core stage when its scoreboard is available, with a Dirt fallback if stage data is missing. A successful core break also triggers immediate restoration after rewards and progression update. It does not clear terrain or build a void platform, so test in a disposable world with the intended OneBlock platform.
 
 ## Compatibility and Test Notes
 
