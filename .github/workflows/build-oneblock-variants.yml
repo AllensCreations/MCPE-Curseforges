@@ -1,18 +1,8 @@
 name: Build OneBlock Creative, Survival, and Hardcore Worlds
 
 on:
-  push:
-    branches:
-      - main
-    paths:
-      - 'MCPEDL/maps/**/oneblock.json'
-      - 'MCPEDL/maps/**/behavior_pack/**'
-      - 'MCPEDL/maps/**/resource_pack/**'
-      - 'CreateWorld/McpeWorld.html'
-      - 'scripts/build_oneblock_variants.py'
-      - 'scripts/build_oneblock_variants_from_template.py'
-      - 'MCPEDL/maps/OneBlock-Void-Survival/*.mcworld'
-      - '.github/workflows/build-oneblock-variants.yml'
+  # Deliberately manual: do not publish regenerated worlds until the Creative
+  # .mcworld has been tested in Minecraft and the mechanics are confirmed.
   workflow_dispatch:
 
 permissions:
