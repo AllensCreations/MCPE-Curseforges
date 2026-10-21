@@ -2,7 +2,7 @@
 
 **By AllensCreations**
 
-Dirtbound Kingdom is a OneBlock survival challenge built around a central block, a coin economy, a permanent trading station, and ten progression stages. This release is a Behavior Pack and Resource Pack test package; it does not contain a prebuilt world.
+Dirtbound Kingdom is a OneBlock challenge built around a central block, a coin economy, a permanent trading station, and ten progression stages. The Creative `.mcworld` is the designated tester world for checking gameplay before relying on the Survival or Hardcore variants.
 
 ## Overview
 
@@ -49,8 +49,8 @@ A normal Minecraft sidebar scoreboard displays each player's current OneCoins ba
 
 ## Test Setup
 
-1. Import the MCAddon and create a new, disposable Bedrock world.
-2. Enable both imported packs.
+1. Import the Creative `.mcworld` by opening it with Minecraft Bedrock Edition.
+2. Enter the imported world and allow its setup to initialize.
 3. Confirm that the core is present at **0 64 0**, Bedrock is at **0 63 0**, and world spawn is **0 65 0**.
 4. Break the central block and verify the mining counter, OneCoin balance, and block stage.
 5. Confirm the core reappears after each break, including when a break advances the shared stage.
@@ -60,9 +60,9 @@ A normal Minecraft sidebar scoreboard displays each player's current OneCoins ba
 ## Compatibility and Test Notes
 
 - Target platform: Minecraft Bedrock Edition 1.26+.
-- Package format: MCAddon containing a Behavior Pack and Resource Pack.
-- This package is for testing and does not contain a world save or prebuilt platform.
-- Automated package and syntax checks do not replace live in-game testing. The block-spawn issue has been addressed in source, but this environment cannot launch Minecraft to confirm in-game behavior.
+- Package format: `.mcworld` complete world.
+- Use the Creative world as the tester. The Survival and Hardcore variants are kept alongside it.
+- Automated package and syntax checks do not replace live in-game testing. The block-spawn issue has been addressed in source, but in-game behavior still requires verification inside Minecraft.
 - Experimental settings, achievement status, and multiplayer balance have not been verified.
 
 ## Guidelines and Attribution
