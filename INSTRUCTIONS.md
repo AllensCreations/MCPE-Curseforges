@@ -255,6 +255,31 @@ MCPE-Curseforges/
 - When a map installs packs, link exact manifest UUIDs and versions through `world_behavior_packs.json` and, when applicable, `world_resource_packs.json` at the world root. Verify archive contents and pack links before delivery.
 - For the OneBlock variants, the generated one-time starting-platform pack establishes bedrock at `(0, 63, 0)`, dirt at `(0, 64, 0)`, and world spawn at `(0, 65, 0)`. Do not claim gameplay progression, block regeneration, or in-game success from archive structure checks alone.
 
+## 9. Bedrock Function Files, Automatic Execution, and World Pack Linking
+
+These checks are mandatory whenever creating, editing, packaging, or debugging a Bedrock `.mcfunction` file. Do not assume that a function runs just because the file exists in the archive.
+
+### Canonical repository paths
+
+- Resolve all paths from the repository root; do not guess the current working directory.
+- For a Behavior Pack stored in a project folder, place function files at `<project>/behavior_pack/functions/<function_name>.mcfunction`.
+- Place the automatic tick function registration at `<project>/behavior_pack/functions/tick.json`. The `values` array must list function names relative to `functions/`, without the `.mcfunction` suffix (for example, `oneblock_tick`).
+- A function intended to run only when explicitly called must still be under `functions/`; document and verify the caller rather than assuming automatic execution.
+- When building a `.mcworld`, the final archive must include the pack under the world's `behavior_packs/<pack-folder>/` directory and a `world_behavior_packs.json` file at the **world root**. Each entry must use the exact Behavior Pack manifest header UUID and version. If a Resource Pack is included, likewise verify `world_resource_packs.json` against its exact manifest UUID and version.
+- A `.mcaddon` intended for manual import is not a substitute for a complete `.mcworld`. For a map request, use the project world builder and the approved source world assets; do not deliver only an add-on archive.
+
+### Required verification before delivery
+
+1. Inspect the project's actual `manifest.json`, function files, `functions/tick.json`, and build script before editing. Use the repository-relative paths above and report the paths you inspected.
+2. Confirm the manifest UUID/version exactly matches the world link file. Never invent UUIDs, versions, or directories.
+3. Confirm `functions/tick.json` is valid JSON, is in the exact `behavior_pack/functions/` directory, and registers the intended function name. Confirm that the referenced `.mcfunction` file exists at the matching path.
+4. Inspect commands for correct Bedrock syntax, valid block/item identifiers, coordinate assumptions, and dependencies such as scoreboards. Do not let a score-dependent command be the only path that creates the initial block unless initialization is guaranteed and verified.
+5. Build the requested archive, then inspect its ZIP contents. For `.mcworld`, verify `level.dat`, the world database (`db/`), the pack files, `world_behavior_packs.json`, and any required `world_resource_packs.json` are present at the expected paths. Verify each world pack entry against the corresponding manifest.
+6. Run available JSON, archive, and project validation tests. State precisely what passed. Static checks prove archive structure and configuration only; they do **not** prove Minecraft actually executed a function. Never claim in-game success without an actual in-game test.
+7. If the player receives a custom item but the initial block does not appear, treat item delivery and function execution as separate paths. Diagnose pack activation, world pack links, tick registration, function path/name, command errors, and the built archive before adding more fallback commands or increasing the version.
+
+Do not claim that `tick.json` is missing or misplaced without inspecting the final packaged archive. The correct source location for the tick registration is `behavior_pack/functions/tick.json`; the world pack link file is a separate requirement for a self-contained `.mcworld`.
+
 ## 10. OneBlock Three-Variant Workflow — Mandatory
 
 Every new OneBlock map project must generate and publish three complete `.mcworld` files: **Creative**, **Survival**, and **Hardcore**.
@@ -293,28 +318,3 @@ MCPEDL/maps/<Map-Name>/
 - The builder reads `CreateWorld/McpeWorld.html` as a reference, not as an input archive. It must not depend on the deleted legacy world asset.
 - A successful ZIP/LevelDB/manifest check is a structural build check, not proof that Minecraft loaded the map or that its custom OneBlock progression works. Never claim in-game verification without an actual game test.
 - If a project's pack manifest is missing, malformed, or has an unresolved Resource Pack UUID dependency, fail the build and report the exact source path. Never generate fake pack UUIDs for the map's actual packs or silently omit required packs.
-
-## 9. Bedrock Function Files, Automatic Execution, and World Pack Linking
-
-These checks are mandatory whenever creating, editing, packaging, or debugging a Bedrock `.mcfunction` file. Do not assume that a function runs just because the file exists in the archive.
-
-### Canonical repository paths
-
-- Resolve all paths from the repository root; do not guess the current working directory.
-- For a Behavior Pack stored in a project folder, place function files at `<project>/behavior_pack/functions/<function_name>.mcfunction`.
-- Place the automatic tick function registration at `<project>/behavior_pack/functions/tick.json`. The `values` array must list function names relative to `functions/`, without the `.mcfunction` suffix (for example, `oneblock_tick`).
-- A function intended to run only when explicitly called must still be under `functions/`; document and verify the caller rather than assuming automatic execution.
-- When building a `.mcworld`, the final archive must include the pack under the world's `behavior_packs/<pack-folder>/` directory and a `world_behavior_packs.json` file at the **world root**. Each entry must use the exact Behavior Pack manifest header UUID and version. If a Resource Pack is included, likewise verify `world_resource_packs.json` against its exact manifest UUID and version.
-- A `.mcaddon` intended for manual import is not a substitute for a complete `.mcworld`. For a map request, use the project world builder and the approved source world assets; do not deliver only an add-on archive.
-
-### Required verification before delivery
-
-1. Inspect the project's actual `manifest.json`, function files, `functions/tick.json`, and build script before editing. Use the repository-relative paths above and report the paths you inspected.
-2. Confirm the manifest UUID/version exactly matches the world link file. Never invent UUIDs, versions, or directories.
-3. Confirm `functions/tick.json` is valid JSON, is in the exact `behavior_pack/functions/` directory, and registers the intended function name. Confirm that the referenced `.mcfunction` file exists at the matching path.
-4. Inspect commands for correct Bedrock syntax, valid block/item identifiers, coordinate assumptions, and dependencies such as scoreboards. Do not let a score-dependent command be the only path that creates the initial block unless initialization is guaranteed and verified.
-5. Build the requested archive, then inspect its ZIP contents. For `.mcworld`, verify `level.dat`, the world database (`db/`), the pack files, `world_behavior_packs.json`, and any required `world_resource_packs.json` are present at the expected paths. Verify each world pack entry against the corresponding manifest.
-6. Run available JSON, archive, and project validation tests. State precisely what passed. Static checks prove archive structure and configuration only; they do **not** prove Minecraft actually executed a function. Never claim in-game success without an actual in-game test.
-7. If the player receives a custom item but the initial block does not appear, treat item delivery and function execution as separate paths. Diagnose pack activation, world pack links, tick registration, function path/name, command errors, and the built archive before adding more fallback commands or increasing the version.
-
-Do not claim that `tick.json` is missing or misplaced without inspecting the final packaged archive. The correct source location for the tick registration is `behavior_pack/functions/tick.json`; the world pack link file is a separate requirement for a self-contained `.mcworld`.
