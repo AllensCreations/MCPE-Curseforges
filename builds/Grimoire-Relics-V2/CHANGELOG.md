@@ -19,7 +19,7 @@
 
 ### Changed
 - **Particle Aura Retuning**:
-  - Softened the particle aura from 4 high-frequency spinning particles every 8 ticks down to **1 subtle, ambient sparkle every 20 ticks (1.0s)** orbiting gently around the player.
+  - Reduced the particle aura to one subtle ambient sparkle.
 - **Anvil Repair Ratio**:
   - Fine-tuned vanilla Book (`minecraft:book`) anvil repairs to a strict **1:1 ratio** (1 durability point restored per book).
 
