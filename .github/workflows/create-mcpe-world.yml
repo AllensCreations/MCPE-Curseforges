@@ -1,4 +1,4 @@
-name: "Create MCPE World from Level Data"
+name: "Create MCPE World from OneBlock Template"
 
 on:
   workflow_dispatch:
@@ -38,19 +38,20 @@ jobs:
         with:
           python-version: "3.x"
 
-      - name: Generate MCPE World Archive
+      - name: Generate complete MCPE World Archive
         id: generate
         shell: bash
+        env:
+          WORLD_NAME: ${{ inputs.world_name }}
         run: |
           set -euo pipefail
-          WORLD_NAME="${{ inputs.world_name }}"
-          SAFE_NAME=$(python3 -c "import re; print(re.sub(r'[\\\\/*?:\"<>|]', '', '''$WORLD_NAME''').strip() or 'MCPE_World')")
+          SAFE_NAME="$(python3 -c 'import os, re; name=os.environ["WORLD_NAME"]; print(re.sub(r"[\\\\/*?:\"<>|]", "", name).strip().rstrip(".") or "MCPE_World")')"
           OUTPUT_DIR="builds/${SAFE_NAME}"
 
           echo "SAFE_NAME=${SAFE_NAME}" >> "$GITHUB_ENV"
           echo "OUTPUT_DIR=${OUTPUT_DIR}" >> "$GITHUB_ENV"
 
-          python3 scripts/create_mcpe_world.py --name "${WORLD_NAME}" --output-dir "${OUTPUT_DIR}"
+          python3 scripts/create_mcpe_world.py --name "$WORLD_NAME" --output-dir "$OUTPUT_DIR"
 
       - name: Upload .mcworld Artifact
         uses: actions/upload-artifact@v4
