@@ -363,9 +363,7 @@ def main() -> int:
             if config.get("enabled", True) is not True:
                 print(f"Skipping disabled OneBlock project: {project.relative_to(ROOT)}")
                 continue
-            if config.get("release_enabled", False) is not True:
-                print(f"Skipping release worlds until tester sign-off: {project.relative_to(ROOT)}")
-                continue
+            # Build all three world variants together. Creative is the designated tester world.
             map_name = str(config.get("name") or project.name.replace("-", " "))
             project_slug = project.relative_to(ROOT).as_posix()
             for mode in MODES:
