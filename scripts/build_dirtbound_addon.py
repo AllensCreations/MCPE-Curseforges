@@ -57,7 +57,7 @@ def build() -> Path:
         raise ValueError("Behavior Pack must depend on the matching Resource Pack version.")
 
     main_js = (BP / "scripts" / "main.js").read_text(encoding="utf-8")
-    if r"\\nconst SHOPS=" in main_js:
+    if r"\nconst SHOPS=" in main_js:
         raise ValueError("main.js still contains a literal \\n before the SHOPS declaration.")
 
     OUT_DIR.mkdir(parents=True, exist_ok=True)
