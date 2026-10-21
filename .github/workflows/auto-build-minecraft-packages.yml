@@ -36,12 +36,18 @@ jobs:
         with:
           python-version: '3.x'
 
+      - name: Install LevelDB support for temporary void-world databases
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y libleveldb-dev
+          python3 -m pip install plyvel
+
       - name: Build .mcpack and .mcaddon packages
         run: python3 scripts/auto_bump_and_build.py --all --no-bump
 
       - name: Build OneBlock .mcworld variants
-        # The builder validates each source foundation and fails rather than
-        # fabricating or borrowing a LevelDB database.
+        # Database-free void sources receive a fresh empty database in temporary
+        # staging; no source folder or other world's terrain/database is modified.
         run: python3 scripts/build_oneblock_variants_from_template.py
 
       - name: Synchronize OneBlock map download pages
