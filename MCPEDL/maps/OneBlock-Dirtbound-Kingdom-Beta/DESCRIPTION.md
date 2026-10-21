@@ -1,76 +1,64 @@
-# OneBlock: Dirtbound Kingdom Beta (source v0.1.24)
+# OneBlock Dirtbound Kingdom Beta (v0.1.24)
 
 **By AllensCreations**
 
-Dirtbound Kingdom is a OneBlock challenge built around a central block, a coin economy accessed exclusively through the custom Trader Ledger item, and ten progression stages. Use the currently published Creative world as the only in-game tester. The Creative, Survival, and Hardcore world foundations are incomplete and the published downloads have not yet been rebuilt from them. Creative remains the only designated in-game tester. World archives must not be rebuilt until the Creative mechanics pass in-game testing, each mode has its own complete matching world database, and rebuilding is explicitly approved.
+OneBlock Dirtbound Kingdom Beta is a void-survival challenge built around a shared central block, a OneCoins economy, and ten stages of increasingly valuable resources. Creative is the sole in-game test world. The currently published world archives have not yet been rebuilt to match the latest source changes.
 
 ## Overview
 
-Start at the center of the world with the core at **0 0 0**, Bedrock directly underneath at **0 -1 0**, and world spawn at **0 1 0**. The world setup places a starting placeholder at the core position, which should become the current stage block when gameplay initializes. During initial setup, the Void Cleaner clears a 33 × 33 area at the bottom of the starting platform, places Bedrock beneath the central block, and sets the spawn point. It is intended to run once for each player who has not completed this setup.
+The central block is at **(0, 0, 0)**, with Bedrock directly below and player spawn above it. First-time setup clears the starting area and prepares the platform before progression begins.
 
 ## Ten Core Stages
 
-The shared central block becomes tougher as the world-wide break count increases. Each break grants stage-based OneCoins.
+The central block changes as the world's total number of successful breaks increases. Each break awards OneCoins based on the current stage.
 
-- **0 breaks — Forgotten Soil:** Dirt; +1 OneCoin per break.
-- **50 breaks — Stone Core:** Stone; +2 OneCoins per break.
-- **150 breaks — Cobbleheart:** Cobblestone; +2 OneCoins per break.
-- **350 breaks — Iron Heart:** Iron Ore; +3 OneCoins per break.
-- **700 breaks — Golden Core:** Gold Ore; +3 OneCoins per break.
-- **1,200 breaks — Diamond Core:** Diamond Ore; +4 OneCoins per break.
-- **2,000 breaks — Ancient Core:** Ancient Debris; +5 OneCoins per break.
-- **3,000 breaks — Obsidian Core:** Obsidian; +6 OneCoins per break.
-- **4,500 breaks — Crying Core:** Crying Obsidian; +7 OneCoins per break.
-- **6,000 breaks — Kingdom Core:** Block of Netherite; +8 OneCoins per break.
+- **0 breaks — Forgotten Soil:** Dirt; 1 OneCoin per break.
+- **50 breaks — Stone Core:** Stone; 2 OneCoins per break.
+- **150 breaks — Cobbleheart:** Cobblestone; 2 OneCoins per break.
+- **350 breaks — Iron Heart:** Iron Ore; 3 OneCoins per break.
+- **700 breaks — Golden Core:** Gold Ore; 3 OneCoins per break.
+- **1,200 breaks — Diamond Core:** Diamond Ore; 4 OneCoins per break.
+- **2,000 breaks — Ancient Core:** Ancient Debris; 5 OneCoins per break.
+- **3,000 breaks — Obsidian Core:** Obsidian; 6 OneCoins per break.
+- **4,500 breaks — Crying Core:** Crying Obsidian; 7 OneCoins per break.
+- **6,000 breaks — Kingdom Core:** Block of Netherite; 8 OneCoins per break.
 
-Use suitable pickaxes for later blocks. The core stage is shared by the world, while shop unlocks and personal milestone rewards are tracked separately for each player.
+Use appropriate pickaxes as the core becomes harder. World-wide core progression is shared, while shop unlocks and personal milestones are tracked per player.
 
-## Trader Access
+## Trader Ledger and Shop
 
-- Use the custom **OneBlock Trader Ledger** item to open the shop.
-- The Trader Ledger item is the only shop access method; there is no physical shop block.
-- The add-on attempts to restore the Ledger if it is missing from the player's inventory.
+- Use the custom **OneBlock Trader Ledger** item to open the shop. It is the only shop access method; there is no physical Trader Post block.
+- Starting balance: 50 OneCoins. Selling Dirt grants 1 OneCoin per block.
+- The shop contains 180 purchase options across ten tiers, with prices increasing as equipment improves.
+- Unlocking a shop tier grants a one-time coin bonus. Every 250 personal core breaks grants another 20 OneCoins.
+- Every 500 world-wide core breaks triggers a Core Surge, awarding 50 OneCoins and spawning three hostile mobs near the player who reaches the milestone.
+- A bonus Emerald Block can appear above the platform. Breaking it grants 30 OneCoins and has a 20% chance to trigger a hostile mob wave.
+- After 6,000 personal breaks, Kingdom Prestige lets a player reset personal shop progress for 500 OneCoins and one permanent Prestige level. The shared core does not reset.
 
-## Trading and Balanced Progression
+## Balance Display
 
-- Starting balance: 50 OneCoins.
-- Selling Dirt grants 1 OneCoin per Dirt.
-- The shop contains 180 purchasable entries across ten tiers, with prices scaling by tier and reduced quantities for powerful equipment.
-- Each shop tier has a one-time bonus of 25, 50, 75, 100, 150, 200, 300, 500, or 1,000 OneCoins at its unlock.
-- Every 250 personal core breaks grants another 20 OneCoins.
-- Every 500 world-wide core breaks triggers a Core Surge: +50 OneCoins and three hostile mobs near the player who reached the milestone.
-- A bonus Emerald Block can appear above the platform. Breaking it grants 30 OneCoins, with a 20% chance of triggering a hostile mob wave.
-- After 6,000 personal breaks, Kingdom Prestige can reset that player's personal shop progress for +500 OneCoins and one permanent Prestige level. The shared core does not reset, so prestige is an optional harder challenge.
+Your current OneCoins balance appears in the action bar and updates regularly. The map does not use a sidebar balance display.
 
-## Live Balance Text
+## Installation and Testing
 
-Your current OneCoins balance appears as a persistent action-bar text line. It updates regularly and does not use the sidebar scoreboard.
+1. Import the Creative world into Minecraft Bedrock Edition first.
+2. Use Creative as the only test world and check the starting platform, central block, mining rewards, progression, and Trader Ledger.
+3. The published Creative, Survival, and Hardcore archives may not include the latest source changes. Source checks alone do not prove in-game gameplay works.
+4. Do not rebuild the world archives until the Creative mechanics pass in Minecraft, each mode has its own complete matching world foundation, and rebuilding is explicitly approved.
 
-## Test Setup
+## Compatibility and Limitations
 
-1. Import the Creative `.mcworld` by opening it with Minecraft Bedrock Edition.
-2. Enter the imported world and allow its setup to initialize.
-3. Confirm that the core is present at **0 0 0**, Bedrock is at **0 -1 0**, and world spawn is **0 1 0**.
-4. Break the central block and verify the mining counter, OneCoin balance, and block stage.
-5. Confirm the core reappears after each break, including when a break advances the shared stage.
-6. Interact with the Trader Ledger Trader Ledger item to open the shop. Test Ledger recovery by removing the item from your inventory.
-7. Check the bonus block and 500-break Core Surge after normal progression.
-
-## Compatibility and Test Notes
-
-- Target platform: Minecraft Bedrock Edition 1.26+.
-- Package format: `.mcworld` complete world.
-- Use the Creative world as the tester. The Survival and Hardcore variants are kept alongside it.
-- The current add-on source version is 0.1.23; the currently published `.mcworld` downloads remain from the previous build. The direct editable folders under Mcpeworlds/Creative/, Mcpeworlds/Survival/, and Mcpeworlds/Hardcore/ are the intended mode-specific foundations. Each needs its own complete world database before a new world archive can be generated. World generation remains paused until complete matching world data is supplied, the Creative mechanics are tested in Minecraft, and a rebuild is approved.
-- Automated package and syntax checks do not replace live in-game testing. Starting-block recovery and progression still require verification inside Minecraft.
-- Experimental settings, achievement status, and multiplayer balance have not been verified.
+- Intended target: Minecraft Bedrock Edition 1.26+.
+- Package format: complete world.
+- Creative is the only designated test world; Survival and Hardcore variants are kept alongside it.
+- Experimental settings, achievement support, and multiplayer balance have not been verified in-game.
 
 ## Guidelines and Attribution
 
 - Creator: AllensCreations
 - Rights & Reservation: All rights reserved for AllensCreations.
 - Content Creators: Content creators are permitted to feature this creation in videos and streams with credit to AllensCreations.
-- Redistribution: Do not re-upload this pack or provide direct monetized download bypasses. Link directly to the official repository page.
+- Redistribution: Do not re-upload this map or provide direct monetized download bypasses. Link directly to the official repository page.
 - [CurseForge Profile](https://www.curseforge.com/members/allenscreations/projects)
 - [MCPEDL Profile](https://mcpedl.com/user/allenscreations/)
 
@@ -78,6 +66,8 @@ Your current OneCoins balance appears as a persistent action-bar text line. It u
 
 © All rights reserved for AllensCreations.
 
+---
+
 ## Search & Discovery Keywords
 
-OneBlock: Dirtbound Kingdom Beta (source v0.1.24) Minecraft Bedrock, Minecraft PE survival, MCPEDL, CurseForge Bedrock, AllensCreations.
+OneBlock Dirtbound Kingdom Beta, OneBlock void survival, OneCoins economy, central block progression, Trader Ledger shop, Minecraft Bedrock survival map, Minecraft PE map, MCPEDL, CurseForge Bedrock, AllensCreations.
