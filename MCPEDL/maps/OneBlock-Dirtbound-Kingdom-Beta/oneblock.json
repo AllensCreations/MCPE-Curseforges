@@ -1,4 +1,5 @@
 {
-  "enabled": false,
+  "enabled": true,
+  "release_enabled": false,
   "name": "OneBlock Dirtbound Kingdom Beta"
 }
