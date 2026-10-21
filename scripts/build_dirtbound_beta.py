@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Build a complete Dirtbound Kingdom world from the repository OneBlock source archive."""
+"""Build a complete Dirtbound Kingdom world from the designated Void_For_Workv2 source archive."""
 
 import json
 import shutil
@@ -8,7 +8,7 @@ import zipfile
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
-SOURCE = ROOT / "Assets" / "Oneblock-assets.mcworld"
+SOURCE = ROOT / "assets" / "Void_For_Workv2.mcworld"
 PROJECT = ROOT / "MCPEDL" / "maps" / "OneBlock-Dirtbound-Kingdom-Beta"
 BP_SOURCE = PROJECT / "behavior_pack"
 RP_SOURCE = PROJECT / "resource_pack"
@@ -67,7 +67,7 @@ def enforce_survival_level(path: Path) -> None:
 
 def build() -> Path:
     if not SOURCE.is_file():
-        raise FileNotFoundError(f"Required OneBlock source world is missing: {SOURCE}. Do not substitute another world.")
+        raise FileNotFoundError(f"Required source world is missing: {SOURCE}. Restore the designated Void_For_Workv2.mcworld archive; do not substitute another world.")
     required_sources = [
         BP_SOURCE / "manifest.json", BP_SOURCE / "scripts" / "main.js",
         BP_SOURCE / "items" / "trader_ledger.json", RP_SOURCE / "manifest.json",
@@ -83,7 +83,7 @@ def build() -> Path:
         world_dir.mkdir()
         safe_extract(SOURCE, world_dir)
         if not (world_dir / "level.dat").is_file() or not (world_dir / "db").is_dir():
-            raise ValueError("The repository OneBlock source archive is incomplete; expected level.dat and db/.")
+            raise ValueError("The designated source archive is incomplete; expected level.dat and db/.")
 
         enforce_survival_level(world_dir / "level.dat")
 
