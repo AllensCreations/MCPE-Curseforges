@@ -80,22 +80,28 @@ def main() -> None:
     setup_source = setup_path.read_text(encoding="utf-8")
     cleaner_source = cleaner_path.read_text(encoding="utf-8")
     require("function oneblock_setup" in tick_source, "oneblock_tick must call oneblock_setup")
-    require("execute unless block 0 62 0 structure_void run function void_cleaner" in setup_source,
-            "oneblock_setup must invoke Void Cleaner behind its persistent one-time sentinel")
-    require("fill -15 0 -15 15 30 15 air" in cleaner_source and
-            "fill -15 31 -15 15 62 15 air" in cleaner_source,
-            "Void Cleaner must use the approved bounded cleanup area and fill sizes")
-    require("setblock 0 62 0 structure_void" in cleaner_source,
-            "Void Cleaner must persist its one-time sentinel under the platform")
-    require("setblock 0 63 0 bedrock" in tick_source, "tick recovery must protect Bedrock at 0 63 0")
-    require("setblock 2 65 0 barrel" in tick_source, "tick recovery must protect the Trader Post at 2 65 0")
-    require("setblock 0 64 0" not in tick_source, "tick recovery must not compete with Script API core progression")
+    require("function void_cleaner" in setup_source,
+            "oneblock_setup must invoke the per-player Void Cleaner")
+    for expected in (
+        "execute as @a[tag=!void_cleaned] run fill -16 -64 -16 16 -64 16 air",
+        "execute as @a[tag=!void_cleaned] run tp @s 0 1 0",
+        "execute as @a[tag=!void_cleaned] run setblock 0 -1 0 bedrock",
+        "execute as @a[tag=!void_cleaned] run setblock 0 0 0 minecraft:grass_block",
+        "execute as @a[tag=!void_cleaned] run setworldspawn 0 1 0",
+        "execute as @a[tag=!void_cleaned] run tellraw @a",
+        "tag @a[tag=!void_cleaned] add void_cleaned",
+    ):
+        require(expected in cleaner_source, f"Void Cleaner is missing required command: {expected}")
+    require("setblock 0 -1 0 bedrock" in tick_source, "tick recovery must protect Bedrock at 0 -1 0")
+    require("setblock 2 1 0 barrel" in tick_source, "tick recovery must protect the Trader Post at 2 1 0")
+    require("setblock 0 0 0" not in tick_source, "tick recovery must not compete with Script API core progression")
     require("setworldspawn" not in tick_source, "tick recovery must not reset world spawn every tick")
     require("tp @s" not in tick_source and "tp @s" not in setup_source,
-            "OneBlock setup/recovery must never teleport players")
-    for expected in ("setworldspawn 0 65 0", "setblock 0 63 0 bedrock", "setblock 0 64 0 dirt",
-                     "setblock 2 65 0 barrel", "tag @a[tag=!void_cleaned] add void_cleaned"):
-        require(expected in setup_source, f"oneblock_setup is missing required setup behavior: {expected}")
+            "Only the requested first-join Void Cleaner may teleport players")
+    for expected in ("const ORIGIN={x:0,y:0,z:0};", "const TRADER_POS={x:2,y:1,z:0};",
+                     "const BONUS_POS={x:1,y:1,z:0};", "minecraft:grass_block"):
+        require(expected in script if expected != "minecraft:grass_block" else expected in script,
+                f"main.js is missing new coordinate/core initialization behavior: {expected}")
 
     script_path = BP / "scripts/main.js"
     script = script_path.read_text(encoding="utf-8")
@@ -120,7 +126,7 @@ def main() -> None:
             "world builder must include archive verification")
 
     print(f"PASS: Dirtbound source validation (v{'.'.join(map(str, bp_version))})")
-    print("PASS: matching pack manifests/dependency, tick registration, one-time Void Cleaner, setup, no-teleport rule")
+    print("PASS: matching pack manifests/dependency, tick registration, first-join Void Cleaner, setup, core at (0,0,0)")
     print("PASS: all three Mcpeworlds reference archives exist and builder uses mode-specific templates")
     print("NOTE: static checks do not test Minecraft gameplay.")
 
