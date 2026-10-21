@@ -1,35 +1,19 @@
 # Team Inventory (v1.0.13)
 
-![Team Inventory](https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/MCPEDL/script/Shared-Hivemind-Inventory/pack_icon.png)
+Download **Team Inventory** for Minecraft Bedrock Edition.
 
-**By AllensCreations**
+## Download
 
-All players in a world share one inventory state. Item counts, slot changes, equipment, and selected hotbar slot are synchronized to other online players.
+- **Version:** 1.0.13
+- **Package format:** `.mcpack`
+- **Download:** [Open the official Scripts download catalog](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/script#available-scripts)
 
-## Features
+## Installation
 
-- Shares all 36 main inventory slots, armor, offhand, and selected hotbar slot.
-- Detects inventory changes every two game ticks.
-- Saves the shared state in world dynamic properties for world restarts.
-- New and returning players receive the existing shared inventory.
-- Preserves supported item metadata, including names, lore, durability, and enchantments where the Script API exposes them.
-- Detects competing edits and attempts to preserve conflicting items as world drops, with brief player feedback.
-- Death drops the authoritative shared inventory once and clears it for the team.
-- Does not force the `keepInventory` gamerule.
+1. Download the package above.
+2. Open it with Minecraft to import it.
+3. For a pack, activate it in the relevant world settings if Minecraft does not enable it automatically.
 
-## Compatibility and Settings
+## Project Details
 
-- **Minecraft Bedrock:** 1.21.0+
-- **Format:** Script Behavior Pack (`.mcpack`)
-- **Achievement Friendly:** No guarantee; behavior packs using Script API may require world settings that affect achievements.
-- **Experimental Features:** No experimental toggle is intentionally required beyond the declared Script API dependency.
-
-## Notes
-
-Inventory changes are detected by polling, so updates occur on the next synchronization check. The game engine and available Script API determine whether every item component can be serialized and restored exactly. If vanilla `keepInventory` is disabled, vanilla death-drop behavior may overlap with scripted shared drops; the pack deliberately leaves the world's gamerule unchanged.
-
-## Attribution
-
-Created by AllensCreations. Do not re-upload or redistribute this pack as your own. Link to the official repository when featuring it.
-
-© All rights reserved for AllensCreations.
+Read the [full description](https://github.com/AllensCreations/MCPE-Curseforges/blob/main/MCPEDL/script/Shared-Hivemind-Inventory/DESCRIPTION.md) for gameplay details, instructions, requirements, and limitations.
