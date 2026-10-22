@@ -1,5 +1,5 @@
-import { world, system, ItemStack, ItemTypes } from "@minecraft/server";
-import { ActionFormData, MessageFormData } from "@minecraft/server-ui";
+import { world, system, ItemStack, ItemTypes, GameMode } from "@minecraft/server";
+import { ActionFormData, MessageFormData, ModalFormData } from "@minecraft/server-ui";
 
 // ---------------------------------------------------------------------------
 // Config
@@ -7,9 +7,32 @@ import { ActionFormData, MessageFormData } from "@minecraft/server-ui";
 const ORIGIN = { x: 0, y: 0, z: 0 };
 const BONUS_POS = { x: 1, y: 1, z: 0 };
 const OVERWORLD = "minecraft:overworld";
-// Core only initializes once some player has the "void_cleaned" tag (set by your own function/pack).
-// Set to false if you don't use a void-cleanup step.
-const REQUIRE_VOID_TAG = true;
+const REQUIRE_VOID_TAG = true;          // wait for a player with the "void_cleaned" tag
+const ALWAYS_DROP_DIRT = 1;             // guaranteed dirt per core break (0 = off)
+const BONUS_CHANCE = 1 / 40;            // chance per core break
+const BONUS_LIFETIME_TICKS = 20 * 90;   // emerald despawns after 90s if nobody breaks it
+const BONUS_FUNCTION = "bonus_spawn";   // optional bonus_spawn.mcfunction (falls back to setType)
+const HUD_ENABLED = true;
+const SHOP_ICONS = true;                // show item icons on shop buttons (set false if icons look wrong)
+const MAX_BUY_QTY = 64;                 // max bundles per purchase
+const CHEST_UI = true;                  // true = chest-grid menus (needs DirtboundTraderUI resource pack); false = standard list menus
+const CHEST_PREFIX = "dbtrader:";       // must match the resource pack (ui/server_form.json)
+const BACK_ICON = "textures/items/arrow";
+const TIER_ICONS = [
+  "textures/blocks/log_oak", "textures/items/stone_pickaxe", "textures/items/iron_pickaxe", "textures/items/minecart_normal",
+  "textures/items/diamond", "textures/items/redstone_dust", "textures/items/blaze_rod", "textures/items/experience_bottle",
+  "textures/items/elytra", "textures/items/netherite_ingot"
+];
+const CONFIRM_OVER = 200;               // purchases at or above this many coins ask for confirmation
+// Block-items use a different texture folder than normal items. Add more here if an icon looks blank.
+const ICON_OVERRIDES = {
+  dirt: "textures/blocks/dirt", cobblestone: "textures/blocks/cobblestone", stone: "textures/blocks/stone",
+  glass: "textures/blocks/glass", oak_log: "textures/blocks/log_oak", oak_planks: "textures/blocks/planks_oak",
+  obsidian: "textures/blocks/obsidian", crying_obsidian: "textures/blocks/crying_obsidian",
+  iron_ore: "textures/blocks/iron_ore", gold_ore: "textures/blocks/gold_ore", diamond_ore: "textures/blocks/diamond_ore",
+  ancient_debris: "textures/blocks/ancient_debris_side", netherrack: "textures/blocks/netherrack",
+  end_stone: "textures/blocks/end_stone", soul_sand: "textures/blocks/soul_sand"
+};
 
 const TRADER_ITEM = "allenscreations:trader_ledger";
 const COINS = "dirtbound_coins", MINED = "dirtbound_blocks", CORE = "dirtbound_core", PRESTIGE = "dirtbound_prestige";
@@ -33,8 +56,15 @@ const STAGE_REWARDS = [
   { blocks: 3000, coins: 300 }, { blocks: 4500, coins: 500 }, { blocks: 6000, coins: 1000 }
 ];
 
+// What the "Sell Core Drops" button buys back (per item, before nothing else)
+const SELL_VALUES = {
+  "minecraft:dirt": 1, "minecraft:stone": 1, "minecraft:cobblestone": 1,
+  "minecraft:iron_ore": 2, "minecraft:gold_ore": 3, "minecraft:diamond_ore": 4,
+  "minecraft:ancient_debris": 6, "minecraft:obsidian": 4, "minecraft:crying_obsidian": 5
+};
+
 // ---------------------------------------------------------------------------
-// Shop data (items are listed once, in the earliest tier they appear in)
+// Shop data
 // ---------------------------------------------------------------------------
 const RAW = [
   ["Castaway", 0, "oak_log oak_planks stick crafting_table wooden_pickaxe wooden_axe wooden_shovel torch bread wheat_seeds oak_sapling dirt cobblestone bowl baked_potato chest furnace bone_meal"],
@@ -49,7 +79,6 @@ const RAW = [
   ["Kingdom Master", 6000, "netherite_ingot netherite_scrap netherite_upgrade_smithing_template netherite_pickaxe netherite_axe netherite_sword netherite_helmet netherite_chestplate netherite_leggings netherite_boots dragon_egg respawn_anchor enchanted_golden_apple lodestone"]
 ];
 
-// Per-item prices (per single item). Anything not listed falls back to TIER_DEFAULT or gear math.
 const TIER_DEFAULT = [2, 3, 5, 8, 12, 18, 24, 32, 45, 60];
 const VALUES = {
   dirt: 3, oak_planks: 1, stick: 1, torch: 1, cobblestone: 1, stone: 2, glass: 3, oak_log: 3,
@@ -93,10 +122,14 @@ function buildShops() {
       if (seen.has(raw)) continue;
       const typeId = "minecraft:" + raw;
       if (!itemExists(typeId)) { skipped.push(raw); continue; }
-      let amount = SINGLES.has(raw) ? 1 : TIER_QTY[tier];
-      try { amount = Math.max(1, Math.min(amount, new ItemStack(typeId, 1).maxAmount)); } catch { skipped.push(raw); continue; }
+      let amount = SINGLES.has(raw) ? 1 : TIER_QTY[tier], maxStack = 64;
+      try { maxStack = new ItemStack(typeId, 1).maxAmount; amount = Math.max(1, Math.min(amount, maxStack)); } catch { skipped.push(raw); continue; }
       seen.add(raw);
-      items.push({ id: typeId, name: prettyName(raw) + " ×" + amount, amount, price: Math.max(1, Math.round(unitValue(raw, tier) * amount)) });
+      items.push({
+        id: typeId, base: prettyName(raw), name: prettyName(raw) + " ×" + amount, amount, maxStack,
+        price: Math.max(1, Math.round(unitValue(raw, tier) * amount)),
+        icon: SHOP_ICONS ? (ICON_OVERRIDES[raw] ?? "textures/items/" + raw) : undefined
+      });
     }
     return { name: name + " Supplies", unlock, items };
   });
@@ -104,7 +137,7 @@ function buildShops() {
 }
 
 // ---------------------------------------------------------------------------
-// Scoreboard helpers (players are passed directly so identities get created)
+// Scoreboard helpers
 // ---------------------------------------------------------------------------
 const objCache = new Map();
 function objective(n) {
@@ -131,6 +164,27 @@ function initialize(p) {
   if (ok) ready.add(p.id);
 }
 const balance = p => score(COINS, p), mined = p => score(MINED, p), prestige = p => score(PRESTIGE, p);
+const fmt = n => String(n).replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+function shortNum(n) { if (n >= 1e6) return +(n / 1e6).toFixed(1) + "M"; if (n >= 1000) return +(n / 1000).toFixed(1) + "k"; return String(n); }
+
+// Menu helpers: one code path for chest-grid mode and standard list mode.
+function uiForm(title, body) {
+  const f = new ActionFormData().title(CHEST_UI ? CHEST_PREFIX + title : title);
+  if (body) f.body(body);
+  return f;
+}
+// chestLabel = the short text drawn on the slot (price/count). name+sub are used by the standard list.
+function uiButton(f, name, sub, icon, chestLabel) {
+  const label = CHEST_UI ? (chestLabel ?? sub ?? name) : (sub ? name + "\n" + sub : name);
+  if (icon) f.button(label, icon); else f.button(label);
+}
+const sellIcon = id => SHOP_ICONS ? (ICON_OVERRIDES[id.replace("minecraft:", "")] ?? "textures/items/" + id.replace("minecraft:", "")) : undefined;
+function stageBar() {
+  const total = globalScore("#breaks"), st = stageFor(total), cur = STAGES[st], next = STAGES[st + 1];
+  if (!next) return "§a" + "|".repeat(24) + " §6MAX";
+  const n = Math.max(0, Math.min(24, Math.round(((total - cur.unlock) / (next.unlock - cur.unlock)) * 24)));
+  return "§a" + "|".repeat(n) + "§8" + "|".repeat(24 - n) + " §7" + next.name;
+}
 
 // ---------------------------------------------------------------------------
 // Misc helpers
@@ -151,8 +205,8 @@ function recoverTrader(p) {
 function stageFor(count) { let n = 0; for (let i = 0; i < STAGES.length; i++) if (count >= STAGES[i].unlock) n = i; return n; }
 function shopTierIndex(count) { let n = 0; for (let i = 0; i < SHOPS.length; i++) if (count >= SHOPS[i].unlock) n = i; return n; }
 function updateCoreStage() { setGlobal("#stage", stageFor(globalScore("#breaks"))); }
+function coreCenter(pos, yOff = 0.5) { return { x: pos.x + 0.5, y: pos.y + yOff, z: pos.z + 0.5 }; }
 
-// Retries the form if the player's chat/menu was open (UserBusy)
 function showForm(form, p, tries = 0) {
   return form.show(p).then(r => {
     if (r.canceled && r.cancelationReason === "UserBusy" && tries < 30)
@@ -164,88 +218,239 @@ function showForm(form, p, tries = 0) {
 // ---------------------------------------------------------------------------
 // Menus
 // ---------------------------------------------------------------------------
+function progressText(p) {
+  const total = globalScore("#breaks");
+  const next = STAGES.find(s => s.unlock > total);
+  return next ? "Next core stage: §e" + next.name + "§r in " + fmt(next.unlock - total) + " breaks" : "§aFinal core stage reached";
+}
+
 function showMain(p) {
   initialize(p);
   const total = SHOPS.reduce((n, s) => n + s.items.length, 0);
   const tier = SHOPS[shopTierIndex(mined(p))];
-  const form = new ActionFormData().title("DIRTBOUND TRADER")
-    .body("OneCoins: §e" + balance(p) + "§r\nYour blocks mined: " + mined(p) + "\nShop tier (personal): " + (tier ? tier.name : "-") +
-      "\nCore stage (shared): " + STAGES[stageFor(globalScore("#breaks"))].name + "\nPrestige " + prestige(p) +
-      "\n" + total + " supplies across " + SHOPS.length + " tiers.")
-    .button("Browse Supplies").button("Sell All Dirt").button("Recover Trader Ledger").button("Balance & Progress").button("Kingdom Prestige");
+  const form = uiForm("Dirtbound Trader",
+    "§6" + fmt(balance(p)) + " OneCoins §8| §bMined " + fmt(mined(p)) + (prestige(p) ? " §8| §dPrestige " + prestige(p) : "") +
+    "\n" + stageBar() + "\n§7Shop: §f" + (tier ? tier.name : "-") + " §8| §7Core: §f" + STAGES[stageFor(globalScore("#breaks"))].name);
+  uiButton(form, "Browse Supplies", total + " items across " + SHOPS.length + " tiers", "textures/items/emerald", "§aShop");
+  uiButton(form, "Sell Items", "Choose what and how many", "textures/items/gold_ingot", "§eSell");
+  uiButton(form, "Sell All Dirt", "Quick sell", "textures/blocks/dirt", "§fDirt");
+  uiButton(form, "Recover Trader Ledger", "Get your Ledger back", "textures/items/book_normal", "§bBook");
+  uiButton(form, "Balance & Progress", "Stats in chat", "textures/items/compass_item", "§7Stats");
+  uiButton(form, "Kingdom Prestige", "Reset for permanent bonuses", "textures/items/nether_star", "§dPrest");
   showForm(form, p).then(r => {
     if (r.canceled) return;
-    if (r.selection === 0) showShop(p);
-    else if (r.selection === 1) sellDirt(p);
-    else if (r.selection === 2) { if (recoverTrader(p)) tell(p, "Trader access restored."); else tell(p, "Make one inventory slot free, then recover the Ledger here."); }
-    else if (r.selection === 3) {
-      const next = SHOPS.find(s => s.unlock > mined(p));
-      tell(p, "Balance: " + balance(p) + " OneCoins. Your blocks mined: " + mined(p) + ". Shared core stage: " + STAGES[stageFor(globalScore("#breaks"))].name +
-        " (" + globalScore("#breaks") + " total breaks). " + (next ? "Next shop tier: " + next.name + " at " + next.unlock + " of your own breaks." : "All shop tiers unlocked."));
-    } else if (r.selection === 4) showPrestige(p);
+    switch (r.selection) {
+      case 0: return showShop(p);
+      case 1: return showSell(p);
+      case 2: return sellItems(p, id => id === "minecraft:dirt", "Dirt");
+      case 3:
+        if (recoverTrader(p)) tell(p, "Trader access restored.");
+        else tell(p, "Make one inventory slot free, then recover the Ledger here.");
+        return;
+      case 4: {
+        const next = SHOPS.find(s => s.unlock > mined(p));
+        tell(p, "Balance: " + fmt(balance(p)) + " OneCoins. Your blocks mined: " + fmt(mined(p)) + ". Shared core: " + STAGES[stageFor(globalScore("#breaks"))].name +
+          " (" + fmt(globalScore("#breaks")) + " total breaks). " + (next ? "Next shop tier: " + next.name + " at " + fmt(next.unlock) + " of your own breaks." : "All shop tiers unlocked."));
+        return;
+      }
+      case 5: return showPrestige(p);
+    }
   }).catch(() => tell(p, "Trader UI failed to open. Interact with the Trader Post or Ledger again."));
 }
 
 function showShop(p) {
   const count = mined(p);
-  const f = new ActionFormData().title("SUPPLY TIERS").body("Balance: " + balance(p) + " OneCoins\nChoose a tier. Locked tiers show how many of your own breaks they need.");
-  for (const s of SHOPS) f.button(count >= s.unlock ? s.name + " (" + s.items.length + " items)" : s.name + "\n§8Unlock at " + s.unlock + " blocks");
-  f.button("Back");
+  const f = uiForm("Supply Tiers", "§6" + fmt(balance(p)) + " OneCoins §8| §bMined " + fmt(count) + "\n§7Locked tiers need more of your own breaks.");
+  SHOPS.forEach((s, i) => {
+    const open = count >= s.unlock;
+    uiButton(f, s.name, open ? s.items.length + " items" : "§8Unlock at " + fmt(s.unlock) + " blocks",
+      open ? (TIER_ICONS[i] ?? "textures/items/emerald") : "textures/items/barrier", open ? "§a" + s.items.length : "§c" + shortNum(s.unlock));
+  });
+  uiButton(f, "Back", "", BACK_ICON, "§cBack");
   showForm(f, p).then(r => {
     if (r.canceled) return;
     if (r.selection === SHOPS.length) return showMain(p);
     const s = SHOPS[r.selection]; if (!s) return;
-    if (count < s.unlock) { tell(p, s.name + " unlocks after " + s.unlock + " personal blocks mined."); return showShop(p); }
+    if (count < s.unlock) { tell(p, s.name + " unlocks after " + fmt(s.unlock) + " personal blocks mined."); return showShop(p); }
     showProducts(p, s);
   }).catch(() => tell(p, "Supply Shop failed to open."));
 }
 
 function showProducts(p, s) {
-  const f = new ActionFormData().title(s.name).body("Balance: " + balance(p) + " OneCoins\nChoose an item.");
-  for (const item of s.items) f.button(item.name + "\n§e" + item.price + " OneCoins");
-  f.button("Back to Tiers");
+  const f = uiForm(s.name, "§6" + fmt(balance(p)) + " OneCoins\n§7Tap an item to choose a quantity. Price shown on each slot.");
+  for (const item of s.items) uiButton(f, item.name, "§e" + fmt(item.price) + " OneCoins", item.icon, "§e" + shortNum(item.price));
+  uiButton(f, "Back to Tiers", "", BACK_ICON, "§cBack");
   showForm(f, p).then(r => {
     if (r.canceled) return;
     if (r.selection === s.items.length) return showShop(p);
     const item = s.items[r.selection];
-    if (item) purchase(p, item, s);
+    if (item) askQuantity(p, item, s);
   }).catch(() => tell(p, "Item list failed to open."));
 }
 
-// Charges first, then delivers; refunds anything not delivered.
-function purchase(p, item, s) {
-  initialize(p);
-  if (mined(p) < s.unlock) return tell(p, "That tier is locked.");
-  const funds = balance(p);
-  if (funds < item.price) return tell(p, "Not enough OneCoins. Need " + item.price + ", have " + funds + ".");
+// Slider helper: tries the classic signature first, then the newer options-object signature.
+function addSlider(form, label, min, max, def) {
+  try { form.slider(label, min, max, 1, def); }
+  catch { form.slider(label, min, max, { valueStep: 1, defaultValue: def }); }
+  return form;
+}
+const clampInt = (v, lo, hi) => Math.max(lo, Math.min(hi, Math.floor(Number(v) || lo)));
+const shortId = id => id.replace("minecraft:", "");
+
+function maxBuyable(p, item) {
   const inv = invOf(p);
-  if (!inv || inv.emptySlotsCount < 1) return tell(p, "Make at least one free inventory slot first.");
-  if (!setScore(COINS, p, funds - item.price)) return tell(p, "Could not update your balance. No items were given.");
-  let delivered = 0;
-  try {
-    const left = inv.addItem(new ItemStack(item.id, item.amount));
-    delivered = item.amount - (left?.amount ?? 0);
-  } catch { delivered = 0; }
-  const charged = delivered > 0 ? Math.ceil(item.price * delivered / item.amount) : 0;
-  if (charged < item.price) setScore(COINS, p, balance(p) + (item.price - charged));
-  if (delivered <= 0) return tell(p, "Purchase failed or inventory full. No coins were taken.");
-  tell(p, delivered < item.amount
-    ? "Limited space: delivered " + delivered + " item(s), charged " + charged + " OneCoins."
-    : "Purchased " + item.name + " for " + charged + " OneCoins. Balance: " + balance(p) + ".");
+  const free = inv ? inv.emptySlotsCount : 0;
+  const byCoins = Math.floor(balance(p) / item.price);
+  const bySpace = Math.floor(free * item.maxStack / item.amount);
+  return Math.max(0, Math.min(byCoins, bySpace, MAX_BUY_QTY));
 }
 
-function sellDirt(p) {
+function askQuantity(p, item, s) {
   initialize(p);
-  const inv = invOf(p); if (!inv) return tell(p, "Inventory unavailable.");
-  let sold = 0; const slots = [];
+  const reopen = () => system.runTimeout(() => showProducts(p, s), 2);
+  if (mined(p) < s.unlock) return tell(p, "That tier is locked.");
+  if (balance(p) < item.price) { tell(p, "Not enough OneCoins. Need " + fmt(item.price) + ", have " + fmt(balance(p)) + "."); return reopen(); }
+  const cap = maxBuyable(p, item);
+  if (cap < 1) { tell(p, "Not enough free inventory space for that item."); return reopen(); }
+  if (cap === 1) return confirmPurchase(p, item, s, 1);
+
+  const unit = item.amount === 1 ? "Quantity" : "Bundles of " + item.amount;
+  const form = new ModalFormData().title(item.base);
+  addSlider(form, unit + " (" + fmt(item.price) + " coins each)\nBalance: " + fmt(balance(p)) + " | Max you can buy: " + cap, 1, cap, 1);
+  showForm(form, p).then(r => {
+    if (r.canceled) return reopen();
+    confirmPurchase(p, item, s, clampInt(r.formValues?.[0] ?? 1, 1, cap));
+  }).catch(() => tell(p, "Quantity menu failed to open."));
+}
+
+function confirmPurchase(p, item, s, qty) {
+  const price = item.price * qty;
+  if (price < CONFIRM_OVER) return purchase(p, item, s, qty);
+  const form = new MessageFormData().title("CONFIRM PURCHASE")
+    .body("Buy §e" + fmt(item.amount * qty) + "× " + item.base + "§r for §e" + fmt(price) + " OneCoins§r?\nBalance after: " + fmt(balance(p) - price))
+    .button1("Cancel").button2("Buy");
+  showForm(form, p).then(r => {
+    if (r.canceled || r.selection !== 1) return system.runTimeout(() => showProducts(p, s), 2);
+    purchase(p, item, s, qty);
+  }).catch(() => tell(p, "Confirm screen failed to open."));
+}
+
+// Charges first, then delivers in stack-sized chunks; refunds anything not delivered. Reopens the tier afterwards.
+function purchase(p, item, s, qty = 1) {
+  initialize(p);
+  const again = () => system.runTimeout(() => showProducts(p, s), 2);
+  if (mined(p) < s.unlock) return tell(p, "That tier is locked.");
+  const total = item.amount * qty, price = item.price * qty;
+  const funds = balance(p);
+  if (funds < price) { tell(p, "Not enough OneCoins. Need " + fmt(price) + ", have " + fmt(funds) + "."); return again(); }
+  const inv = invOf(p);
+  if (!inv || inv.emptySlotsCount < 1) return tell(p, "Make at least one free inventory slot first.");
+  if (!setScore(COINS, p, funds - price)) return tell(p, "Could not update your balance. No items were given.");
+
+  let delivered = 0, remaining = total;
+  try {
+    while (remaining > 0) {
+      const n = Math.min(remaining, item.maxStack);
+      const left = inv.addItem(new ItemStack(item.id, n));
+      const put = n - (left?.amount ?? 0);
+      delivered += put; remaining -= put;
+      if (put < n) break;
+    }
+  } catch {}
+  const charged = delivered > 0 ? Math.ceil(price * delivered / total) : 0;
+  if (charged < price) setScore(COINS, p, balance(p) + (price - charged));
+  if (delivered <= 0) { tell(p, "Purchase failed or inventory full. No coins were taken."); return again(); }
+  tell(p, delivered < total
+    ? "Limited space: delivered " + fmt(delivered) + " item(s), charged " + fmt(charged) + " OneCoins."
+    : "Purchased " + fmt(total) + "× " + item.base + " for " + fmt(charged) + " OneCoins. Balance: " + fmt(balance(p)) + ".");
+  try { p.playSound("random.orb"); } catch {}
+  again();
+}
+
+// ---------------------------------------------------------------------------
+// Selling
+// ---------------------------------------------------------------------------
+function sellable(p) {
+  const out = new Map(), inv = invOf(p);
+  if (!inv) return out;
   for (let i = 0; i < inv.size; i++) {
     const st = inv.getItem(i);
-    if (st?.typeId === "minecraft:dirt") { sold += st.amount; slots.push(i); }
+    if (st && SELL_VALUES[st.typeId] !== undefined) out.set(st.typeId, (out.get(st.typeId) ?? 0) + st.amount);
   }
-  if (!sold) return tell(p, "No Dirt to sell.");
-  if (!setScore(COINS, p, balance(p) + sold)) return tell(p, "Balance is not ready; no Dirt was removed.");
-  for (const i of slots) inv.setItem(i, undefined);
-  tell(p, "Sold " + sold + " Dirt for " + sold + " OneCoins. Balance: " + balance(p) + ".");
+  return out;
+}
+
+function removeItems(inv, typeId, amount) {
+  let left = amount;
+  for (let i = 0; i < inv.size && left > 0; i++) {
+    const st = inv.getItem(i);
+    if (!st || st.typeId !== typeId) continue;
+    if (st.amount <= left) { left -= st.amount; inv.setItem(i, undefined); }
+    else { st.amount -= left; left = 0; inv.setItem(i, st); }
+  }
+  return amount - left;
+}
+
+// Sells an exact amount of one item type.
+function sellAmount(p, typeId, amount) {
+  initialize(p);
+  const inv = invOf(p); if (!inv) return tell(p, "Inventory unavailable.");
+  const have = sellable(p).get(typeId) ?? 0;
+  const n = Math.min(amount, have);
+  if (n <= 0) return tell(p, "You no longer have that item.");
+  const coins = n * SELL_VALUES[typeId];
+  if (!setScore(COINS, p, balance(p) + coins)) return tell(p, "Balance is not ready; nothing was removed.");
+  const removed = removeItems(inv, typeId, n);
+  if (removed < n) setScore(COINS, p, balance(p) - (n - removed) * SELL_VALUES[typeId]);
+  tell(p, "Sold " + fmt(removed) + "× " + prettyName(shortId(typeId)) + " for " + fmt(removed * SELL_VALUES[typeId]) + " OneCoins. Balance: " + fmt(balance(p)) + ".");
+  try { p.playSound("random.orb"); } catch {}
+}
+
+// Sells every matching stack (used by Sell All Dirt and Sell Everything).
+function sellItems(p, matches, label) {
+  initialize(p);
+  const inv = invOf(p); if (!inv) return tell(p, "Inventory unavailable.");
+  const have = [...sellable(p).entries()].filter(([id]) => matches(id));
+  if (!have.length) return tell(p, "No " + label + " to sell.");
+  const count = have.reduce((n, [, c]) => n + c, 0);
+  const coins = have.reduce((n, [id, c]) => n + c * SELL_VALUES[id], 0);
+  if (!setScore(COINS, p, balance(p) + coins)) return tell(p, "Balance is not ready; nothing was removed.");
+  for (const [id, c] of have) removeItems(inv, id, c);
+  tell(p, "Sold " + fmt(count) + " " + label + " for " + fmt(coins) + " OneCoins. Balance: " + fmt(balance(p)) + ".");
+  try { p.playSound("random.orb"); } catch {}
+}
+
+function showSell(p) {
+  initialize(p);
+  const have = sellable(p);
+  if (!have.size) return tell(p, "The Trader buys nothing you are carrying. Mine the core for Dirt and ores.");
+  const entries = [...have.entries()];
+  const total = entries.reduce((n, [id, c]) => n + c * SELL_VALUES[id], 0);
+  const f = uiForm("Sell Items", "§6" + fmt(balance(p)) + " OneCoins\n§7Pick an item to choose how many to sell.");
+  uiButton(f, "Sell Everything", "§e+" + fmt(total) + " OneCoins", "textures/items/gold_ingot", "§e+" + shortNum(total));
+  for (const [id, c] of entries) uiButton(f, prettyName(shortId(id)) + " ×" + fmt(c), "§e" + SELL_VALUES[id] + " each", sellIcon(id), "§f" + shortNum(c));
+  uiButton(f, "Back", "", BACK_ICON, "§cBack");
+  showForm(f, p).then(r => {
+    if (r.canceled) return;
+    if (r.selection === 0) return sellItems(p, () => true, "items");
+    if (r.selection === entries.length + 1) return showMain(p);
+    const [id, c] = entries[r.selection - 1] ?? [];
+    if (id) showSellAmount(p, id, c);
+  }).catch(() => tell(p, "Sell menu failed to open."));
+}
+
+function showSellAmount(p, id, have) {
+  const again = () => system.runTimeout(() => showSell(p), 2);
+  if (have <= 1) { sellAmount(p, id, 1); return again(); }
+  const form = new ModalFormData().title("Sell " + prettyName(shortId(id)));
+  addSlider(form, "Amount (" + SELL_VALUES[id] + " coins each, you have " + fmt(have) + ")", 1, have, Math.min(have, 16));
+  try { form.toggle("Sell all " + fmt(have), false); } catch { form.toggle("Sell all " + fmt(have), { defaultValue: false }); }
+  showForm(form, p).then(r => {
+    if (r.canceled) return again();
+    const amount = r.formValues?.[1] ? have : clampInt(r.formValues?.[0] ?? 1, 1, have);
+    sellAmount(p, id, amount);
+    again();
+  }).catch(() => tell(p, "Sell amount menu failed to open."));
 }
 
 function showPrestige(p) {
@@ -261,6 +466,7 @@ function showPrestige(p) {
     setScore(COINS, p, coins);
     setScore(PRESTIGE, p, level);
     tell(p, "Prestige " + level + " reached! Personal progress reset; +500 OneCoins awarded. The shared core remains evolved.");
+    try { p.playSound("random.levelup"); } catch {}
   }).catch(() => tell(p, "Prestige menu could not open."));
 }
 
@@ -276,19 +482,47 @@ function spawnMobWave(p) {
   } catch { tell(p, "Core Surge triggered, but there was not enough room to spawn its challenge."); }
 }
 
+// The OneBlock always yields dirt, no matter which stage block was broken.
+function dropGuaranteedDirt(p, dim, brokenId) {
+  if (ALWAYS_DROP_DIRT <= 0) return;
+  let creative = false;
+  try { creative = p.getGameMode() === GameMode.Creative; } catch {}
+  // A survival-broken dirt block already drops dirt naturally; don't double it.
+  if (brokenId === "minecraft:dirt" && !creative) return;
+  try { dim.spawnItem(new ItemStack("minecraft:dirt", ALWAYS_DROP_DIRT), coreCenter(ORIGIN, 1.0)); } catch {}
+}
+
+let bonusExpiresAt = 0;
+function bonusActive(dim) {
+  try { return dim.getBlock(BONUS_POS)?.typeId === "minecraft:emerald_block"; } catch { return false; }
+}
+
+// Emerald spawns at BONUS_POS (next to the OneBlock). Runs bonus_spawn.mcfunction if present, otherwise places it directly.
 function spawnBonus() {
   try {
     const dim = world.getDimension("overworld");
     const b = dim.getBlock(BONUS_POS);
     if (!b || b.typeId !== "minecraft:air") return false;
-    b.setType("minecraft:emerald_block");
+    try { dim.runCommand("function " + BONUS_FUNCTION); } catch {}
+    if (!bonusActive(dim)) b.setType("minecraft:emerald_block");
+    if (!bonusActive(dim)) return false;
     setGlobal("#bonus", 1);
-    world.sendMessage("§6[Dirtbound] §fA Bonus Core appeared beside the OneBlock! Break the Emerald Block for a coin reward.");
+    bonusExpiresAt = system.currentTick + BONUS_LIFETIME_TICKS;
+    dim.playSound("random.orb", coreCenter(BONUS_POS));
+    world.sendMessage("§6[Dirtbound] §fA Bonus Core appeared beside the OneBlock! Break the Emerald Block within " + Math.round(BONUS_LIFETIME_TICKS / 20) + "s for a coin reward.");
     return true;
   } catch { return false; }
 }
 
-// Places the correct stage block if the origin is empty (or holds an outdated stage block).
+function clearBonus(dim, announce) {
+  try {
+    if (bonusActive(dim)) dim.getBlock(BONUS_POS).setType("minecraft:air");
+  } catch {}
+  setGlobal("#bonus", 0);
+  bonusExpiresAt = 0;
+  if (announce) world.sendMessage("§6[Dirtbound] §7The Bonus Core faded away.");
+}
+
 function placeCore(dimension) {
   try {
     const block = dimension.getBlock(ORIGIN);
@@ -300,7 +534,7 @@ function placeCore(dimension) {
   } catch { return false; }
 }
 
-function onCoreBreak(p) {
+function onCoreBreak(p, dim, brokenId) {
   initialize(p);
   const personal = mined(p) + 1;
   const total = globalScore("#breaks") + 1;
@@ -308,17 +542,19 @@ function onCoreBreak(p) {
   setGlobal("#breaks", total);
   updateCoreStage();
 
+  dropGuaranteedDirt(p, dim, brokenId);
+
   const pres = prestige(p);
   let gain = Math.max(1, Math.round(STAGES[stageFor(total)].reward * (1 + 0.1 * pres)));
 
   const stageReward = STAGE_REWARDS.find(r => r.blocks === personal);
-  if (stageReward && pres === 0) { gain += stageReward.coins; tell(p, personal + " personal breaks! Stage bonus: +" + stageReward.coins + " OneCoins."); }
-  if (personal % 250 === 0) { gain += 20; tell(p, "Milestone reached: " + personal + " personal breaks. +20 bonus OneCoins."); }
+  if (stageReward && pres === 0) { gain += stageReward.coins; tell(p, fmt(personal) + " personal breaks! Stage bonus: +" + stageReward.coins + " OneCoins."); }
+  if (personal % 250 === 0) { gain += 20; tell(p, "Milestone reached: " + fmt(personal) + " personal breaks. +20 bonus OneCoins."); }
   if (total % 500 === 0) { gain += 50; tell(p, "Core Surge milestone! +50 OneCoins."); spawnMobWave(p); }
   setScore(COINS, p, balance(p) + gain);
 
-  if (Math.random() < 1 / 40) spawnBonus();
-  for (const s of SHOPS) if (s.unlock > 0 && s.unlock === personal) tell(p, "New shop unlocked: " + s.name + "!");
+  if (Math.random() < BONUS_CHANCE) spawnBonus();
+  for (const s of SHOPS) if (s.unlock > 0 && s.unlock === personal) { tell(p, "New shop unlocked: " + s.name + "!"); try { p.playSound("random.levelup"); } catch {} }
   const newStage = STAGES.find(s => s.unlock > 0 && s.unlock === total);
   if (newStage) world.sendMessage("§6[Dirtbound] §fThe central OneBlock evolved into the " + newStage.name + "! It is tougher to mine; use better pickaxes.");
 }
@@ -335,20 +571,25 @@ world.afterEvents.itemUse.subscribe(e => {
 world.afterEvents.playerBreakBlock.subscribe(e => {
   const b = e.block, loc = b.location, p = e.player;
   if (!p || b.dimension.id !== OVERWORLD) return;
+  const brokenId = e.brokenBlockPermutation.type.id;
 
-  // Bonus block: must actually have been the emerald block
+  // Bonus block
   if (loc.x === BONUS_POS.x && loc.y === BONUS_POS.y && loc.z === BONUS_POS.z) {
-    if (globalScore("#bonus") === 1 && e.brokenBlockPermutation.type.id === "minecraft:emerald_block") {
+    if (globalScore("#bonus") === 1 && brokenId === "minecraft:emerald_block") {
+      const reward = 30 + STAGES[stageFor(globalScore("#breaks"))].reward * 5;
       setGlobal("#bonus", 0);
-      setScore(COINS, p, balance(p) + 30);
-      tell(p, "Bonus Core collected! +30 OneCoins.");
+      bonusExpiresAt = 0;
+      setScore(COINS, p, balance(p) + reward);
+      tell(p, "Bonus Core collected! +" + reward + " OneCoins.");
+      try { p.playSound("random.levelup"); } catch {}
       if (Math.random() < 0.2) spawnMobWave(p);
     }
     return;
   }
 
   if (loc.x !== ORIGIN.x || loc.y !== ORIGIN.y || loc.z !== ORIGIN.z) return;
-  system.run(() => { onCoreBreak(p); placeCore(b.dimension); });
+  const dim = b.dimension;
+  system.run(() => { onCoreBreak(p, dim, brokenId); placeCore(dim); });
 });
 
 world.afterEvents.playerSpawn.subscribe(e => system.runTimeout(() => {
@@ -367,16 +608,18 @@ const initLoop = system.runInterval(() => {
   } catch {}
 }, 10);
 
-// Watchdog: restores the core if explosions/pistons/etc. destroy it, and clears a stuck bonus flag
+// Watchdog: restores the core, handles bonus expiry and stuck flags
 system.runInterval(() => {
   if (!coreReady) return;
   const dim = world.getDimension("overworld");
   placeCore(dim);
   if (globalScore("#bonus") === 1) {
-    try {
-      const b = dim.getBlock(BONUS_POS);
-      if (b && b.typeId !== "minecraft:emerald_block") setGlobal("#bonus", 0);
-    } catch {}
+    if (!bonusActive(dim)) { setGlobal("#bonus", 0); bonusExpiresAt = 0; }
+    else if (!bonusExpiresAt) bonusExpiresAt = system.currentTick + BONUS_LIFETIME_TICKS;
+    else if (system.currentTick >= bonusExpiresAt) clearBonus(dim, true);
+  } else if (bonusActive(dim)) {
+    setGlobal("#bonus", 1); // emerald placed by function/command: track it
+    bonusExpiresAt = system.currentTick + BONUS_LIFETIME_TICKS;
   }
 }, 20);
 
@@ -385,6 +628,21 @@ system.runInterval(() => {
     try { initialize(p); recoverTrader(p); } catch {}
   }
 }, 40);
+
+// Actionbar HUD
+if (HUD_ENABLED) system.runInterval(() => {
+  if (!coreReady) return;
+  const total = globalScore("#breaks");
+  const next = STAGES.find(s => s.unlock > total);
+  for (const p of world.getAllPlayers()) {
+    try {
+      if (!ready.has(p.id)) continue;
+      p.onScreenDisplay.setActionBar("§6" + fmt(balance(p)) + " OneCoins §8| §bMined " + fmt(mined(p)) +
+        (prestige(p) ? " §8| §dPrestige " + prestige(p) : "") +
+        (next ? " §8| §7Next core in §e" + fmt(next.unlock - total) : " §8| §aMax core"));
+    } catch {}
+  }
+}, 20);
 
 system.run(() => {
   objective(COINS); objective(MINED); objective(CORE); objective(PRESTIGE);
