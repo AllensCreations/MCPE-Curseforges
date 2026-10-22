@@ -1,22 +1,10 @@
 import { world, system, ItemStack, ItemTypes, GameMode } from "@minecraft/server";
 import { ActionFormData, MessageFormData, ModalFormData } from "@minecraft/server-ui";
 
-// ---------------------------------------------------------------------------
-// Currency
-// ---------------------------------------------------------------------------
-// CUR is the ONLY way the Dirtbound currency is written anywhere in this script.
-// Every message, menu and scoreboard label uses it, so changing it here changes it everywhere.
-//
-// What it is:     the in-world currency of the Dirtbound Kingdom (the "OneCoin").
-// How you get it: breaking the central OneBlock core, selling Dirt/ores to the Trader,
-//                 milestones, stage bonuses, bonus emerald blocks and Prestige.
-// What it is NOT: it is NOT the real-money Minecoins from the Minecraft Marketplace, it is NOT
-//                 experience points, and it is NOT an item you can hold. It is a scoreboard value
-//                 ("dirtbound_coins") that lives only in this world and cannot be bought with real money.
 const CUR = ":minecoin:";
 const CURRENCY_INFO = [
   "§6" + CUR + " §fis the Dirtbound Kingdom currency (the OneCoin).",
-  "§7- §aEarned by§f: breaking the OneBlock, selling Dirt and ores, milestones, bonus emerald blocks and Prestige.",
+  "§7- §aEarned by§f: breaking the OneBlock, selling Dirt and ores, milestones and Prestige.",
   "§7- §aSpent on§f: Trader supplies (items, tools, armor).",
   "§7- §cNot real money§f: it is NOT Marketplace Minecoins and cannot be bought, traded or refunded with real money.",
   "§7- §cNot XP§f: it is separate from experience levels and is never lost on death.",
@@ -24,117 +12,52 @@ const CURRENCY_INFO = [
   "§7- §bWorld-only§f: your balance stays in this world and does not carry over to other worlds."
 ].join("\n");
 
-// ---------------------------------------------------------------------------
-// Config
-// ---------------------------------------------------------------------------
 const ORIGIN = { x: 0, y: 0, z: 0 };
-const BONUS_POS = { x: 1, y: 1, z: 0 };
 const OVERWORLD = "minecraft:overworld";
-const REQUIRE_VOID_TAG = true;          // wait for a player with the "void_cleaned" tag
-const ALWAYS_DROP_DIRT = 1;             // guaranteed dirt per core break (0 = off)
-const BONUS_CHANCE = 1 / 40;            // chance per core break
-const BONUS_LIFETIME_TICKS = 20 * 90;   // emerald despawns after 90s if nobody breaks it
-const BONUS_FUNCTION = "bonus_spawn";   // optional bonus_spawn.mcfunction (falls back to setType)
-// Keep false if you show the balance with your own balance_display.mcfunction.
-// Two things writing to the actionbar at once makes it flicker.
+const REQUIRE_VOID_TAG = true;
+const ALWAYS_DROP_DIRT = 1;
 const HUD_ENABLED = false;
-const SHOP_ICONS = true;                // show item icons on shop buttons (set false if icons look wrong)
-const MAX_BUY_QTY = 64;                 // max bundles per purchase
-const CHEST_UI = true;                  // true = chest-grid menus (needs DirtboundTraderUI resource pack); false = standard list menus
-const CHEST_PREFIX = "dbtrader:";       // must match the resource pack (ui/server_form.json)
-const BACK_ICON = "textures/items/arrow";
-const TIER_ICONS = [
-  "textures/blocks/log_oak", "textures/items/stone_pickaxe", "textures/items/iron_pickaxe", "textures/items/minecart_normal",
-  "textures/items/diamond", "textures/items/redstone_dust", "textures/items/blaze_rod", "textures/items/experience_bottle",
-  "textures/items/elytra", "textures/items/netherite_ingot"
-];
-const CONFIRM_OVER = 200;               // purchases at or above this many coins ask for confirmation
-// Icon paths follow Mojang's bedrock-samples resource pack (textures/items/* and textures/blocks/*).
-// Bedrock renames many files (wooden -> wood, golden -> gold, bucket -> bucket_empty, ...), so a
-// guessed path shows blank. Anything not listed below gets no icon instead of a broken one.
-const I = n => "textures/items/" + n, B = n => "textures/blocks/" + n;
-const ICON_MAP = {
-  // items
-  stick: I("stick"), bread: I("bread"), wheat_seeds: I("seeds_wheat"), bowl: I("bowl"), baked_potato: I("potato_baked"),
-  bone_meal: I("dye_powder_white"), carrot: I("carrot"), potato: I("potato"), beetroot_seeds: I("seeds_beetroot"), wheat: I("wheat"),
-  bucket: I("bucket_empty"), water_bucket: I("bucket_water"), milk_bucket: I("bucket_milk"),
-  iron_nugget: I("iron_nugget"), iron_ingot: I("iron_ingot"), fishing_rod: I("fishing_rod_uncast"), shears: I("shears"),
-  pumpkin_seeds: I("seeds_pumpkin"), melon_seeds: I("seeds_melon"), lead: I("lead"), name_tag: I("name_tag"), campfire: I("campfire"),
-  minecart: I("minecart_normal"), redstone: I("redstone_dust"), lever: I("lever"), iron_door: I("door_iron"), oak_door: I("door_wood"),
-  cauldron: I("cauldron"), compass: I("compass_item"), clock: I("clock_item"), bow: I("bow_standby"), arrow: I("arrow"),
-  golden_apple: I("apple_golden"), enchanted_golden_apple: I("apple_golden"), diamond: I("diamond"), book: I("book_normal"),
-  enchanted_book: I("book_enchanted"), lapis_lazuli: I("dye_powder_blue"), empty_map: I("map_empty"),
-  potion: I("potion_bottle_drinkable"), golden_carrot: I("carrot_golden"), ender_pearl: I("ender_pearl"), ender_eye: I("ender_eye"),
-  hopper: I("hopper"), repeater: I("repeater"), comparator: I("comparator"), flint_and_steel: I("flint_and_steel"),
-  fire_charge: I("fireball"), magma_cream: I("magma_cream"), blaze_powder: I("blaze_powder"), blaze_rod: I("blaze_rod"),
-  nether_wart: I("nether_wart"), nether_brick: I("netherbrick"), quartz: I("quartz"), glowstone_dust: I("glowstone_dust"),
-  ghast_tear: I("ghast_tear"), experience_bottle: I("experience_bottle"), totem_of_undying: I("totem"),
-  shulker_shell: I("shulker_shell"), nether_star: I("nether_star"), brewing_stand: I("brewing_stand"),
-  dragon_breath: I("dragons_breath"), phantom_membrane: I("phantom_membrane"), turtle_helmet: I("turtle_helmet"),
-  heart_of_the_sea: I("heartofthesea_closed"), trident: I("trident"), crossbow: I("crossbow_standby"),
-  firework_rocket: I("fireworks"), end_crystal: I("end_crystal"), elytra: I("elytra"), chorus_fruit: I("chorus_fruit"),
-  turtle_scute: I("turtle_shell_piece"), prismarine_crystals: I("prismarine_crystals"),
-  netherite_ingot: I("netherite_ingot"), netherite_scrap: I("netherite_scrap"),
-  // blocks
-  dirt: B("dirt"), stone: B("stone"), cobblestone: B("cobblestone"), glass: B("glass"), oak_log: B("log_oak"),
-  oak_planks: B("planks_oak"), oak_fence: B("planks_oak"), oak_sapling: B("sapling_oak"), torch: B("torch_on"),
-  redstone_torch: B("redstone_torch_on"), crafting_table: B("crafting_table_front"), furnace: B("furnace_front_off"),
-  obsidian: B("obsidian"), crying_obsidian: B("crying_obsidian"), netherrack: B("netherrack"), soul_sand: B("soul_sand"),
-  end_stone: B("end_stone"), bookshelf: B("bookshelf"), redstone_block: B("redstone_block"), magma_block: B("magma"),
-  hay_block: B("hay_block_side"), composter: B("composter_side"), barrel: B("barrel_side"), piston: B("piston_side"),
-  sticky_piston: B("piston_top_sticky"), dispenser: B("dispenser_front_horizontal"), dropper: B("dropper_front_horizontal"),
-  rail: B("rail_normal"), powered_rail: B("rail_golden"), anvil: B("anvil_base"), observer: B("observer_front"),
-  target: B("target_side"), daylight_detector: B("daylight_detector_top"), tripwire_hook: B("trip_wire_source"),
-  blast_furnace: B("blast_furnace_front_off"), smoker: B("smoker_front_off"), loom: B("loom_front"),
-  smithing_table: B("smithing_table_front"), grindstone: B("grindstone_side"), beacon: B("beacon"), shroomlight: B("shroomlight"),
-  dragon_egg: B("dragon_egg"), lodestone: B("lodestone_side"), netherite_block: B("netherite_block"),
-  iron_ore: B("iron_ore"), gold_ore: B("gold_ore"), diamond_ore: B("diamond_ore"), ancient_debris: B("ancient_debris_side"),
-  enchanting_table: B("enchanting_table_top"), purpur_block: B("purpur_block"), stone_button: B("stone"),
-  heavy_weighted_pressure_plate: B("iron_block")
-};
-const TOOL_ICON = /^(wooden|stone|iron|golden|diamond|netherite)_(pickaxe|axe|sword|shovel|hoe|helmet|chestplate|leggings|boots)$/;
-function iconFor(raw) {
-  if (ICON_MAP[raw]) return ICON_MAP[raw];
-  const m = raw.match(TOOL_ICON);
-  if (m) return I((m[1] === "wooden" ? "wood" : m[1] === "golden" ? "gold" : m[1]) + "_" + m[2]);
-  return undefined;
-}
+const SHOP_ICONS = true;
+const MAX_BUY_QTY = 64;
+const CHEST_UI = true;
+const CHEST_PREFIX = "dbtrader:";
+const CONFIRM_OVER = 200;
+const ICON_BASE = "textures/dbk/icons/";
+const ICON_IDS = new Set(["ancient_debris", "anvil", "arrow", "baked_potato", "barrel", "barrier", "beacon", "beetroot_seeds", "bell", "blast_furnace", "blaze_powder", "blaze_rod", "bone_meal", "book", "bookshelf", "bow", "bowl", "bread", "brewing_stand", "bucket", "campfire", "carrot", "cartography_table", "cauldron", "chest", "chorus_fruit", "clock", "cobblestone", "comparator", "compass", "composter", "conduit", "crafter", "crafting_table", "crossbow", "crying_obsidian", "daylight_detector", "diamond", "diamond_axe", "diamond_boots", "diamond_chestplate", "diamond_helmet", "diamond_hoe", "diamond_leggings", "diamond_ore", "diamond_pickaxe", "diamond_shovel", "diamond_sword", "dirt", "dispenser", "dragon_breath", "dragon_egg", "dropper", "elytra", "emerald", "empty_map", "enchanted_book", "enchanted_golden_apple", "enchanting_table", "end_crystal", "end_stone", "ender_chest", "ender_eye", "ender_pearl", "experience_bottle", "fire_charge", "firework_rocket", "fishing_rod", "flint_and_steel", "furnace", "ghast_tear", "glass", "glowstone_dust", "gold_ingot", "gold_ore", "golden_apple", "golden_carrot", "golden_helmet", "golden_sword", "grindstone", "hay_block", "heart_of_the_sea", "heavy_weighted_pressure_plate", "hopper", "iron_axe", "iron_boots", "iron_chestplate", "iron_door", "iron_helmet", "iron_hoe", "iron_ingot", "iron_leggings", "iron_nugget", "iron_ore", "iron_pickaxe", "iron_shovel", "iron_sword", "lantern", "lapis_lazuli", "lead", "lectern", "lever", "lightning_rod", "lodestone", "loom", "magma_block", "magma_cream", "melon_seeds", "milk_bucket", "minecart", "name_tag", "nether_brick", "nether_star", "nether_wart", "netherite_axe", "netherite_boots", "netherite_chestplate", "netherite_helmet", "netherite_ingot", "netherite_leggings", "netherite_pickaxe", "netherite_scrap", "netherite_sword", "netherite_upgrade_smithing_template", "netherrack", "oak_door", "oak_fence", "oak_log", "oak_planks", "oak_sapling", "observer", "obsidian", "paper", "phantom_membrane", "piston", "potato", "potion", "powered_rail", "prismarine_crystals", "pumpkin_seeds", "purpur_block", "quartz", "rail", "recovery_compass", "redstone", "redstone_block", "redstone_torch", "repeater", "respawn_anchor", "shears", "shroomlight", "shulker_box", "shulker_shell", "smithing_table", "smoker", "soul_sand", "spectral_arrow", "spyglass", "stick", "sticky_piston", "stone", "stone_axe", "stone_button", "stone_pickaxe", "stone_sword", "stonecutter_block", "target", "torch", "totem_of_undying", "trapped_chest", "trident", "tripwire_hook", "turtle_helmet", "turtle_scute", "warped_stem", "water_bucket", "wheat", "wheat_seeds", "wooden_axe", "wooden_pickaxe", "wooden_shovel"]);
+const ico = n => ICON_BASE + n;
+function iconFor(raw) { return ICON_IDS.has(raw) ? ico(raw) : undefined; }
 
+const BACK_ICON = ico("arrow");
+const TIER_ICONS = ["oak_log", "stone_pickaxe", "iron_pickaxe", "minecart", "diamond", "redstone", "blaze_rod", "experience_bottle", "elytra", "netherite_ingot"].map(ico);
 const TRADER_ITEM = "allenscreations:trader_ledger";
-// Scoreboard objective names (internal ids; the player never sees these except on the sidebar title).
-// COINS holds the player's CUR balance. MINED = personal core breaks. CORE = shared world counters
-// (#breaks, #stage, #bonus). PRESTIGE = permanent prestige level.
 const COINS = "dirtbound_coins", MINED = "dirtbound_blocks", CORE = "dirtbound_core", PRESTIGE = "dirtbound_prestige";
 
 const STAGES = [
-  { name: "Forgotten Soil", unlock: 0, block: "dirt", reward: 1 },
-  { name: "Stone Core", unlock: 50, block: "stone", reward: 2 },
-  { name: "Cobbleheart", unlock: 150, block: "cobblestone", reward: 2 },
-  { name: "Iron Heart", unlock: 350, block: "iron_ore", reward: 3 },
-  { name: "Golden Core", unlock: 700, block: "gold_ore", reward: 3 },
-  { name: "Diamond Core", unlock: 1200, block: "diamond_ore", reward: 4 },
-  { name: "Ancient Core", unlock: 2000, block: "ancient_debris", reward: 5 },
-  { name: "Obsidian Core", unlock: 3000, block: "obsidian", reward: 6 },
-  { name: "Crying Core", unlock: 4500, block: "crying_obsidian", reward: 7 },
-  { name: "Kingdom Core", unlock: 6000, block: "netherite_block", reward: 8 }
+  { name: "Forgotten Soil", unlock: 0, id: "dbk:stage_01", reward: 1, mineTime: "0.5s", tool: "Any shovel or hand", desc: "The starting block. Loose, quick to break, and the foundation of the whole Kingdom." },
+  { name: "Stone Core", unlock: 50, id: "dbk:stage_02", reward: 2, mineTime: "1.5s", tool: "Wooden pickaxe or better", desc: "Packed stone. The core hardens as the shared break count climbs." },
+  { name: "Cobbleheart", unlock: 150, id: "dbk:stage_03", reward: 2, mineTime: "2s", tool: "Wooden pickaxe or better", desc: "Rough cobbled rock that pays the same as stone but takes longer to chip." },
+  { name: "Iron Heart", unlock: 350, id: "dbk:stage_04", reward: 3, mineTime: "3s", tool: "Stone pickaxe or better", desc: "Iron-veined rock. Payouts rise to 3 per break." },
+  { name: "Golden Core", unlock: 700, id: "dbk:stage_05", reward: 3, mineTime: "3s", tool: "Iron pickaxe or better", desc: "Gold-flecked stone with a steady payout." },
+  { name: "Diamond Core", unlock: 1200, id: "dbk:stage_06", reward: 4, mineTime: "4s", tool: "Iron pickaxe or better", desc: "Diamond-rich rock. Mining gets noticeably slower." },
+  { name: "Ancient Core", unlock: 2000, id: "dbk:stage_07", reward: 5, mineTime: "6s", tool: "Diamond pickaxe or better", desc: "Ancient debris. Very hard and worth 5 per break." },
+  { name: "Obsidian Core", unlock: 3000, id: "dbk:stage_08", reward: 6, mineTime: "10s", tool: "Diamond pickaxe or better", desc: "Obsidian-dark and slow to mine without a strong pickaxe." },
+  { name: "Crying Core", unlock: 4500, id: "dbk:stage_09", reward: 7, mineTime: "12s", tool: "Diamond or netherite pickaxe", desc: "Weeping obsidian. Payout of 7 per break." },
+  { name: "Kingdom Core", unlock: 6000, id: "dbk:stage_10", reward: 8, mineTime: "15s", tool: "Netherite pickaxe", desc: "The final stage and the highest payout. Prestige unlocks here." }
 ];
-const STAGE_BLOCK_IDS = new Set(STAGES.map(s => "minecraft:" + s.block));
+const STAGE_BLOCK_IDS = new Set(STAGES.map(s => s.id));
+const stageTexture = i => "textures/blocks/dbk/stage_" + String(i + 1).padStart(2, "0");
 const STAGE_REWARDS = [
   { blocks: 50, coins: 25 }, { blocks: 150, coins: 50 }, { blocks: 350, coins: 75 },
   { blocks: 700, coins: 100 }, { blocks: 1200, coins: 150 }, { blocks: 2000, coins: 200 },
   { blocks: 3000, coins: 300 }, { blocks: 4500, coins: 500 }, { blocks: 6000, coins: 1000 }
 ];
 
-// What the "Sell Core Drops" button buys back (CUR per item)
 const SELL_VALUES = {
   "minecraft:dirt": 1, "minecraft:stone": 1, "minecraft:cobblestone": 1,
   "minecraft:iron_ore": 2, "minecraft:gold_ore": 3, "minecraft:diamond_ore": 4,
   "minecraft:ancient_debris": 6, "minecraft:obsidian": 4, "minecraft:crying_obsidian": 5
 };
 
-// ---------------------------------------------------------------------------
-// Shop data
-// ---------------------------------------------------------------------------
 const RAW = [
   ["Castaway", 0, "oak_log oak_planks stick crafting_table wooden_pickaxe wooden_axe wooden_shovel torch bread wheat_seeds oak_sapling dirt cobblestone bowl baked_potato chest furnace bone_meal"],
   ["Settler", 50, "stone glass oak_fence oak_door lantern carrot potato beetroot_seeds wheat bucket water_bucket iron_nugget iron_ingot stone_pickaxe stone_axe stone_sword shield fishing_rod"],
@@ -205,9 +128,6 @@ function buildShops() {
   if (skipped.length) console.warn("[Dirtbound] Skipped invalid item IDs: " + skipped.join(", "));
 }
 
-// ---------------------------------------------------------------------------
-// Scoreboard helpers
-// ---------------------------------------------------------------------------
 const objCache = new Map();
 function objective(n) {
   let o = objCache.get(n);
@@ -227,24 +147,21 @@ const ready = new Set();
 function initialize(p) {
   if (ready.has(p.id)) return;
   let ok = true;
-  if (!hasScore(COINS, p)) ok = setScore(COINS, p, 50) && ok;   // starter balance: 50 CUR
+  if (!hasScore(COINS, p)) ok = setScore(COINS, p, 50) && ok;
   if (!hasScore(MINED, p)) ok = setScore(MINED, p, 0) && ok;
   if (!hasScore(PRESTIGE, p)) ok = setScore(PRESTIGE, p, 0) && ok;
   if (ok) ready.add(p.id);
 }
 const balance = p => score(COINS, p), mined = p => score(MINED, p), prestige = p => score(PRESTIGE, p);
 const fmt = n => String(n).replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-// Money formatter: always "<amount> :minecoin:" so currency never appears as a bare number.
 const money = n => fmt(n) + " " + CUR;
 function shortNum(n) { if (n >= 1e6) return +(n / 1e6).toFixed(1) + "M"; if (n >= 1000) return +(n / 1000).toFixed(1) + "k"; return String(n); }
 
-// Menu helpers: one code path for chest-grid mode and standard list mode.
 function uiForm(title, body) {
   const f = new ActionFormData().title(CHEST_UI ? CHEST_PREFIX + title : title);
   if (body) f.body(body);
   return f;
 }
-// chestLabel = the short text drawn on the slot (price/count). name+sub are used by the standard list.
 function uiButton(f, name, sub, icon, chestLabel) {
   const label = CHEST_UI ? (chestLabel ?? sub ?? name) : (sub ? name + "\n" + sub : name);
   if (icon) f.button(label, icon); else f.button(label);
@@ -257,9 +174,6 @@ function stageBar() {
   return "§2" + "|".repeat(n) + "§c" + "|".repeat(24 - n) + " §7" + next.name;
 }
 
-// ---------------------------------------------------------------------------
-// Misc helpers
-// ---------------------------------------------------------------------------
 function tell(p, m) { try { p.sendMessage("§6[Dirtbound] §f" + m); } catch {} }
 function invOf(p) { return p.getComponent("minecraft:inventory")?.container; }
 function hasTrader(p) {
@@ -286,16 +200,12 @@ function showForm(form, p, tries = 0) {
   });
 }
 
-// ---------------------------------------------------------------------------
-// Menus
-// ---------------------------------------------------------------------------
 function progressText(p) {
   const total = globalScore("#breaks");
   const next = STAGES.find(s => s.unlock > total);
   return next ? "Next core stage: §6" + next.name + "§r in " + fmt(next.unlock - total) + " breaks" : "§2Final core stage reached";
 }
 
-// Explains what the currency is (and is not). Opened from the main menu and sent to chat.
 function showCurrencyInfo(p) {
   const form = new MessageFormData().title("About " + CUR)
     .body(CURRENCY_INFO + "\n\n§7Your balance: §6" + money(balance(p)))
@@ -303,6 +213,52 @@ function showCurrencyInfo(p) {
   showForm(form, p).then(r => {
     if (!r.canceled && r.selection === 1) system.runTimeout(() => showMain(p), 2);
   }).catch(() => tell(p, CUR + " is the Dirtbound Kingdom currency. It is not Marketplace Minecoins and has no real-money value."));
+}
+
+function stageStatus(i) {
+  const total = globalScore("#breaks"), cur = stageFor(total);
+  if (i < cur) return "§aCleared";
+  if (i === cur) return "§eCurrent";
+  return "§cLocked §7(" + fmt(STAGES[i].unlock - total) + " breaks to go)";
+}
+
+function showStages(p) {
+  initialize(p);
+  const total = globalScore("#breaks"), cur = stageFor(total);
+  const f = uiForm("Core Stages", "§7The shared OneBlock evolves through " + STAGES.length + " stages as the whole server breaks it. Stage unlocks use shared breaks (" + fmt(total) + " so far). Tap a stage for details.\n" + stageBar());
+  STAGES.forEach((st, i) => uiButton(f, (i + 1) + ". " + st.name, i === cur ? "§eCurrent stage" : stageStatus(i), i <= cur ? stageTexture(i) : ico("barrier"), (i === cur ? "§e" : i < cur ? "§a" : "§c") + (i + 1)));
+  uiButton(f, "Back", "", BACK_ICON, "§cBack");
+  showForm(f, p).then(r => {
+    if (r.canceled) return;
+    if (r.selection === STAGES.length) return showMain(p);
+    showStageDetail(p, r.selection);
+  }).catch(() => tell(p, "Stage list failed to open."));
+}
+
+function showStageDetail(p, i) {
+  const st = STAGES[i], next = STAGES[i + 1], pres = prestige(p);
+  const pay = Math.max(1, Math.round(st.reward * (1 + 0.1 * pres)));
+  const bonus = STAGE_REWARDS.find(r => r.blocks === st.unlock);
+  const body = [
+    "§6" + st.name + " §7(Stage " + (i + 1) + " of " + STAGES.length + ")",
+    "§7" + st.desc,
+    "",
+    "§fStatus: " + stageStatus(i),
+    "§fUnlocks at: §b" + fmt(st.unlock) + " §fshared core breaks",
+    "§fPayout: §6" + money(st.reward) + " §fper break" + (pres ? " §7(yours with Prestige " + pres + ": " + money(pay) + ")" : ""),
+    "§fFirst-run reach bonus: " + (bonus ? "§6" + money(bonus.coins) + " §fat " + fmt(bonus.blocks) + " of your own breaks" : "§7none"),
+    "§fMining time: §b" + st.mineTime + " §7(bare hands)",
+    "§fRecommended tool: §b" + st.tool,
+    "§fDrops: §b" + ALWAYS_DROP_DIRT + "x Dirt §fper break (sell it for " + money(SELL_VALUES["minecraft:dirt"]) + " each)",
+    "§fNext stage: " + (next ? "§6" + next.name + " §fat " + fmt(next.unlock) + " breaks" : "§2none, this is the final stage"),
+    "",
+    "§7" + CUR + " is the Dirtbound currency, not Marketplace Minecoins."
+  ].join("\n");
+  const form = new MessageFormData().title("Stage " + (i + 1) + ": " + st.name).body(body).button1("All Stages").button2("Back to Trader");
+  showForm(form, p).then(r => {
+    if (r.canceled) return;
+    system.runTimeout(() => (r.selection === 1 ? showMain(p) : showStages(p)), 2);
+  }).catch(() => tell(p, "Stage details failed to open."));
 }
 
 function showMain(p) {
@@ -313,13 +269,14 @@ function showMain(p) {
     "§6" + money(balance(p)) + " §c| §bMined " + fmt(mined(p)) + (prestige(p) ? " §c| §dPrestige " + prestige(p) : "") +
     "\n§7" + CUR + " = Dirtbound currency. Not real-money Minecoins." +
     "\n" + stageBar() + "\n§7Shop: §f" + (tier ? tier.name : "-") + " §c| §7Core: §f" + STAGES[stageFor(globalScore("#breaks"))].name);
-  uiButton(form, "Browse Supplies", total + " items across " + SHOPS.length + " tiers", "textures/items/emerald", "§2Shop");
-  uiButton(form, "Sell Items", "Choose what and how many", "textures/items/gold_ingot", "§6Sell");
-  uiButton(form, "Sell All Dirt", "Quick sell", "textures/blocks/dirt", "§fDirt");
-  uiButton(form, "Recover Trader Ledger", "Get your Ledger back", "textures/items/book_normal", "§bBook");
-  uiButton(form, "Balance & Progress", "Stats in chat", "textures/items/compass_item", "§7Stats");
-  uiButton(form, "Kingdom Prestige", "Reset for permanent bonuses", "textures/items/nether_star", "§dPrest");
-  uiButton(form, "About " + CUR, "What the currency is and isn't", "textures/items/paper", "§eInfo");
+  uiButton(form, "Browse Supplies", total + " items across " + SHOPS.length + " tiers", ico("emerald"), "§2Shop");
+  uiButton(form, "Sell Items", "Choose what and how many", ico("gold_ingot"), "§6Sell");
+  uiButton(form, "Sell All Dirt", "Quick sell", ico("dirt"), "§fDirt");
+  uiButton(form, "Recover Trader Ledger", "Get your Ledger back", ico("book"), "§bBook");
+  uiButton(form, "Balance & Progress", "Stats in chat", ico("compass"), "§7Stats");
+  uiButton(form, "Kingdom Prestige", "Reset for permanent bonuses", ico("nether_star"), "§dPrest");
+  uiButton(form, "Core Stages", "All " + STAGES.length + " core stages explained", stageTexture(stageFor(globalScore("#breaks"))), "§eStages");
+  uiButton(form, "About " + CUR, "What the currency is and isn't", ico("paper"), "§eInfo");
   showForm(form, p).then(r => {
     if (r.canceled) return;
     switch (r.selection) {
@@ -337,7 +294,8 @@ function showMain(p) {
         return;
       }
       case 5: return showPrestige(p);
-      case 6: return showCurrencyInfo(p);
+      case 6: return showStages(p);
+      case 7: return showCurrencyInfo(p);
     }
   }).catch(() => tell(p, "Trader UI failed to open. Interact with the Trader Post or Ledger again."));
 }
@@ -348,7 +306,7 @@ function showShop(p) {
   SHOPS.forEach((s, i) => {
     const open = count >= s.unlock;
     uiButton(f, s.name, open ? s.items.length + " items" : "§cUnlock at " + fmt(s.unlock) + " blocks",
-      open ? (TIER_ICONS[i] ?? "textures/items/emerald") : "textures/items/barrier", open ? "§2" + s.items.length : "§c" + shortNum(s.unlock));
+      open ? (TIER_ICONS[i] ?? ico("emerald")) : ico("barrier"), open ? "§2" + s.items.length : "§c" + shortNum(s.unlock));
   });
   uiButton(f, "Back", "", BACK_ICON, "§cBack");
   showForm(f, p).then(r => {
@@ -372,7 +330,6 @@ function showProducts(p, s) {
   }).catch(() => tell(p, "Item list failed to open."));
 }
 
-// Slider helper: tries the classic signature first, then the newer options-object signature.
 function addSlider(form, label, min, max, def) {
   try { form.slider(label, min, max, 1, def); }
   catch { form.slider(label, min, max, { valueStep: 1, defaultValue: def }); }
@@ -419,7 +376,6 @@ function confirmPurchase(p, item, s, qty) {
   }).catch(() => tell(p, "Confirm screen failed to open."));
 }
 
-// Charges first, then delivers in stack-sized chunks; refunds anything not delivered. Reopens the tier afterwards.
 function purchase(p, item, s, qty = 1) {
   initialize(p);
   const again = () => system.runTimeout(() => showProducts(p, s), 2);
@@ -451,9 +407,6 @@ function purchase(p, item, s, qty = 1) {
   again();
 }
 
-// ---------------------------------------------------------------------------
-// Selling
-// ---------------------------------------------------------------------------
 function sellable(p) {
   const out = new Map(), inv = invOf(p);
   if (!inv) return out;
@@ -475,7 +428,6 @@ function removeItems(inv, typeId, amount) {
   return amount - left;
 }
 
-// Sells an exact amount of one item type.
 function sellAmount(p, typeId, amount) {
   initialize(p);
   const inv = invOf(p); if (!inv) return tell(p, "Inventory unavailable.");
@@ -490,7 +442,6 @@ function sellAmount(p, typeId, amount) {
   try { p.playSound("random.orb"); } catch {}
 }
 
-// Sells every matching stack (used by Sell All Dirt and Sell Everything).
 function sellItems(p, matches, label) {
   initialize(p);
   const inv = invOf(p); if (!inv) return tell(p, "Inventory unavailable.");
@@ -511,7 +462,7 @@ function showSell(p) {
   const entries = [...have.entries()];
   const total = entries.reduce((n, [id, c]) => n + c * SELL_VALUES[id], 0);
   const f = uiForm("Sell Items", "§6" + money(balance(p)) + "\n§7Pick an item to choose how many to sell. You are paid in " + CUR + ".");
-  uiButton(f, "Sell Everything", "§6+" + money(total), "textures/items/gold_ingot", "§6+" + shortNum(total));
+  uiButton(f, "Sell Everything", "§6+" + money(total), ico("gold_ingot"), "§6+" + shortNum(total));
   for (const [id, c] of entries) uiButton(f, prettyName(shortId(id)) + " ×" + fmt(c), "§6" + SELL_VALUES[id] + " " + CUR + " each", sellIcon(id), "§f" + shortNum(c));
   uiButton(f, "Back", "", BACK_ICON, "§cBack");
   showForm(f, p).then(r => {
@@ -554,9 +505,6 @@ function showPrestige(p) {
   }).catch(() => tell(p, "Prestige menu could not open."));
 }
 
-// ---------------------------------------------------------------------------
-// Core + bonus logic
-// ---------------------------------------------------------------------------
 function spawnMobWave(p) {
   try {
     for (let i = 0; i < 3; i++) {
@@ -566,68 +514,24 @@ function spawnMobWave(p) {
   } catch { tell(p, "Core Surge triggered, but there was not enough room to spawn its challenge."); }
 }
 
-// The OneBlock drops ONLY dirt: the natural drop (cobblestone, raw ore, ...) is removed and replaced.
-const CORE_DROP_IDS = new Set(["dirt", "stone", "cobblestone", "iron_ore", "raw_iron", "gold_ore", "raw_gold",
-  "diamond_ore", "diamond", "ancient_debris", "obsidian", "crying_obsidian", "netherite_block"].map(n => "minecraft:" + n));
-const ourDirt = new Set();
 function replaceDrops(dim) {
   try {
-    for (const e of dim.getEntities({ type: "minecraft:item", location: coreCenter(ORIGIN, 0.5), maxDistance: 3 })) {
-      if (ourDirt.has(e.id)) continue;
-      const id = e.getComponent("minecraft:item")?.itemStack?.typeId;
-      if (id && CORE_DROP_IDS.has(id)) e.remove();
-    }
-    if (ALWAYS_DROP_DIRT > 0) {
-      const d = dim.spawnItem(new ItemStack("minecraft:dirt", ALWAYS_DROP_DIRT), coreCenter(ORIGIN, 1.0));
-      if (ourDirt.size > 200) ourDirt.clear();
-      ourDirt.add(d.id);
-    }
+    if (ALWAYS_DROP_DIRT > 0) dim.spawnItem(new ItemStack("minecraft:dirt", ALWAYS_DROP_DIRT), coreCenter(ORIGIN, 1.0));
   } catch {}
-}
-
-let bonusExpiresAt = 0;
-function bonusActive(dim) {
-  try { return dim.getBlock(BONUS_POS)?.typeId === "minecraft:emerald_block"; } catch { return false; }
-}
-
-// Emerald spawns at BONUS_POS (next to the OneBlock). Runs bonus_spawn.mcfunction if present, otherwise places it directly.
-function spawnBonus() {
-  try {
-    const dim = world.getDimension("overworld");
-    const b = dim.getBlock(BONUS_POS);
-    if (!b || b.typeId !== "minecraft:air") return false;
-    try { dim.runCommand("function " + BONUS_FUNCTION); } catch {}
-    if (!bonusActive(dim)) b.setType("minecraft:emerald_block");
-    if (!bonusActive(dim)) return false;
-    setGlobal("#bonus", 1);
-    bonusExpiresAt = system.currentTick + BONUS_LIFETIME_TICKS;
-    dim.playSound("random.orb", coreCenter(BONUS_POS));
-    world.sendMessage("§6[Dirtbound] §fA Bonus Core appeared beside the OneBlock! Break the Emerald Block within " + Math.round(BONUS_LIFETIME_TICKS / 20) + "s for a " + CUR + " reward.");
-    return true;
-  } catch { return false; }
-}
-
-function clearBonus(dim, announce) {
-  try {
-    if (bonusActive(dim)) dim.getBlock(BONUS_POS).setType("minecraft:air");
-  } catch {}
-  setGlobal("#bonus", 0);
-  bonusExpiresAt = 0;
-  if (announce) world.sendMessage("§6[Dirtbound] §7The Bonus Core faded away.");
 }
 
 function placeCore(dimension) {
   try {
     const block = dimension.getBlock(ORIGIN);
     if (!block) return false;
-    const target = "minecraft:" + STAGES[stageFor(globalScore("#breaks"))].block;
+    const target = STAGES[stageFor(globalScore("#breaks"))].id;
     const id = block.typeId;
     if (id === "minecraft:air" || id === "minecraft:grass_block" || (STAGE_BLOCK_IDS.has(id) && id !== target)) block.setType(target);
     return true;
   } catch { return false; }
 }
 
-function onCoreBreak(p, dim, brokenId) {
+function onCoreBreak(p, dim) {
   initialize(p);
   const personal = mined(p) + 1;
   const total = globalScore("#breaks") + 1;
@@ -644,15 +548,11 @@ function onCoreBreak(p, dim, brokenId) {
   if (total % 500 === 0) { gain += 50; tell(p, "Core Surge milestone! +" + money(50) + "."); spawnMobWave(p); }
   setScore(COINS, p, balance(p) + gain);
 
-  if (Math.random() < BONUS_CHANCE) spawnBonus();
   for (const s of SHOPS) if (s.unlock > 0 && s.unlock === personal) { tell(p, "New shop unlocked: " + s.name + "!"); try { p.playSound("random.levelup"); } catch {} }
   const newStage = STAGES.find(s => s.unlock > 0 && s.unlock === total);
   if (newStage) world.sendMessage("§6[Dirtbound] §fThe central OneBlock evolved into the " + newStage.name + "! It is tougher to mine; use better pickaxes.");
 }
 
-// ---------------------------------------------------------------------------
-// Events
-// ---------------------------------------------------------------------------
 world.afterEvents.itemUse.subscribe(e => {
   if (e.itemStack?.typeId !== TRADER_ITEM) return;
   const p = e.source;
@@ -662,40 +562,20 @@ world.afterEvents.itemUse.subscribe(e => {
 world.afterEvents.playerBreakBlock.subscribe(e => {
   const b = e.block, loc = b.location, p = e.player;
   if (!p || b.dimension.id !== OVERWORLD) return;
-  const brokenId = e.brokenBlockPermutation.type.id;
-
-  // Bonus block
-  if (loc.x === BONUS_POS.x && loc.y === BONUS_POS.y && loc.z === BONUS_POS.z) {
-    if (globalScore("#bonus") === 1 && brokenId === "minecraft:emerald_block") {
-      const reward = 30 + STAGES[stageFor(globalScore("#breaks"))].reward * 5;
-      setGlobal("#bonus", 0);
-      bonusExpiresAt = 0;
-      setScore(COINS, p, balance(p) + reward);
-      tell(p, "Bonus Core collected! +" + money(reward) + ".");
-      try { p.playSound("random.levelup"); } catch {}
-      if (Math.random() < 0.2) spawnMobWave(p);
-    }
-    return;
-  }
-
   if (loc.x !== ORIGIN.x || loc.y !== ORIGIN.y || loc.z !== ORIGIN.z) return;
   const dim = b.dimension;
-  system.run(() => { onCoreBreak(p, dim, brokenId); placeCore(dim); });
+  system.run(() => { onCoreBreak(p, dim); placeCore(dim); });
   system.runTimeout(() => replaceDrops(dim), 2);
 });
 
 world.afterEvents.playerSpawn.subscribe(e => system.runTimeout(() => {
   try {
     initialize(e.player); recoverTrader(e.player);
-    // One-time hint on first join this session so new players learn what the currency is.
     if (e.initialSpawn) tell(e.player, "§6" + CUR + "§f is the Dirtbound currency. It is not Marketplace Minecoins. Open your Trader Ledger and tap §eAbout " + CUR + "§f for details.");
   } catch {}
 }, 5));
 world.afterEvents.playerLeave.subscribe(e => ready.delete(e.playerId));
 
-// ---------------------------------------------------------------------------
-// Loops
-// ---------------------------------------------------------------------------
 let coreReady = false;
 const initLoop = system.runInterval(() => {
   try {
@@ -704,19 +584,10 @@ const initLoop = system.runInterval(() => {
   } catch {}
 }, 10);
 
-// Watchdog: restores the core, handles bonus expiry and stuck flags
 system.runInterval(() => {
   if (!coreReady) return;
   const dim = world.getDimension("overworld");
   placeCore(dim);
-  if (globalScore("#bonus") === 1) {
-    if (!bonusActive(dim)) { setGlobal("#bonus", 0); bonusExpiresAt = 0; }
-    else if (!bonusExpiresAt) bonusExpiresAt = system.currentTick + BONUS_LIFETIME_TICKS;
-    else if (system.currentTick >= bonusExpiresAt) clearBonus(dim, true);
-  } else if (bonusActive(dim)) {
-    setGlobal("#bonus", 1); // emerald placed by function/command: track it
-    bonusExpiresAt = system.currentTick + BONUS_LIFETIME_TICKS;
-  }
 }, 20);
 
 system.runInterval(() => {
@@ -725,7 +596,6 @@ system.runInterval(() => {
   }
 }, 40);
 
-// Actionbar HUD
 if (HUD_ENABLED) system.runInterval(() => {
   if (!coreReady) return;
   const total = globalScore("#breaks");
@@ -745,5 +615,4 @@ system.run(() => {
   buildShops();
   if (globalScore("#stage") === 0) setGlobal("#stage", 0);
   if (globalScore("#breaks") === 0) setGlobal("#breaks", 0);
-  if (globalScore("#bonus") === 0) setGlobal("#bonus", 0);
 });
