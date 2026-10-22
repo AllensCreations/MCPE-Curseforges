@@ -152,13 +152,15 @@ Do not claim `tick.json` is missing without inspecting the installed or packaged
 
 ### Workflow
 
-You supply a OneBlock script (new or an update). Claude does not build worlds or archives as part of this; `.mcworld` files are compiled into `builds/<Map-Name>/` by `build-oneblock-variants.yml` from the `Mcpeworlds/` folders. Claude:
+The authoritative world foundations are the direct folders `Mcpeworlds/Creative/`, `Mcpeworlds/Survival/`, and `Mcpeworlds/Hardcore/`. The OneBlock build workflow copies each matching foundation into a temporary staging directory, preserves its valid `level.dat`, integrates the map's current Behavior Pack and Resource Pack, then packages the completed world as a `.mcworld` inside `MCPEDL/maps/<Map-Name>/`.
 
-1. Saves the source in `MCPEDL/maps/<Map-Name>/`: `behavior_pack/`, `resource_pack/` if the Behavior Pack depends on it, `pack_icon.png`, and `README.md`.
-2. Installs the pack(s) into all three `Mcpeworlds/` folders.
-3. Verifies the result and reports exactly what was checked.
+1. Keep map source packs in `MCPEDL/maps/<Map-Name>/behavior_pack/` and `resource_pack/` (when required), with the project's docs and configuration.
+2. Use `Mcpeworlds/` as the only source of world foundations; do not use old world ZIPs or `Oneblock-assets.mcworld` as a substitute.
+3. Preserve the intentional database-free void design: never create, fabricate, borrow, or require `db/CURRENT` or LevelDB data.
+4. On relevant source, foundation, builder, or instruction changes, `build-oneblock-variants.yml` automatically builds Creative, Survival, and Hardcore worlds and synchronizes the map README. Manual dispatch remains available.
+5. Validate the generated archive structure and pack references. Report structural checks separately from Minecraft gameplay testing.
 
-Creative is the primary in-game test world. Do not create a separate `.mcaddon` tester package or a `Tester Build/` folder.
+Creative is the primary and only designated in-game test world. Do not create a separate `.mcaddon` tester package or a `Tester Build/` folder. The map project keeps the source add-ons and its generated `.mcworld` deliveries together; unrelated add-on build workflows must not misclassify this map as a standalone add-on.
 
 ### Installing into the world folders
 
@@ -172,7 +174,7 @@ Repeat for each mode folder, with identical results in all three:
   ```
   Replace the entry with the same `pack_id` on update. Never invent a UUID or version.
 - Only one OneBlock gameplay pack may own the platform and core. Before installing a different OneBlock script, remove the previously installed OneBlock pack folders and link entries from all three modes (its source stays in its own `MCPEDL/maps/` folder). Leave unrelated packs alone.
-- Do not modify `level.dat`, `level.dat_old`, `levelname.txt`, `db/`, or world settings, and never create, fabricate, or borrow a world database. If the Behavior Pack's dependencies are unresolved, stop and report the exact path.
+- Do not modify the source foundations under `Mcpeworlds/`. The build copies the selected foundation and may rename only the staged copy's world name metadata; it must preserve the selected valid `level.dat` content otherwise. Never create, fabricate, borrow, or require a world database. `db/CURRENT` and actual LevelDB data must remain absent in the source and output. If the Behavior Pack's dependencies are unresolved, stop and report the exact path.
 
 ### Verification
 
@@ -185,7 +187,7 @@ Repeat for each mode folder, with identical results in all three:
 
 ### Map README
 
-- Download-focused. Link the Creative, Survival, and Hardcore worlds only to compiled `.mcworld` files that actually exist in `builds/<Map-Name>/`, and keep the version aligned with the current Behavior Pack. Do not claim an archive matches the current source unless it was checked. Catalog entries in `MCPEDL/maps/README.md` follow the same rule.
+- Download-focused. Link Creative, Survival, and Hardcore only to compiled `.mcworld` files that actually exist in `MCPEDL/maps/<Map-Name>/`, and keep the source version aligned with the current Behavior Pack. The OneBlock build workflow publishes all three archives there after successful structural validation. Do not claim an archive matches the current source unless it was checked. Catalog entries in `MCPEDL/maps/README.md` follow the same rule.
 
 ### Example project spec: Dirtbound
 
@@ -215,7 +217,7 @@ Workflows in `.github/workflows/`. Roles below come from file names and recent c
 | `auto-version-bump.yml` | Bumps release versions. Must keep manifest titles in the `Name (vX.Y.Z)` format (Section 3). |
 | `create-addon-scaffold.yml` | Scaffolds a new add-on with a download-only README and a DESCRIPTION starter. |
 | `create-mcpe-world.yml` | Creates and persists the extracted OneBlock world template for future builds. |
-| `build-oneblock-variants.yml` | Builds the Creative, Survival, and Hardcore `.mcworld` archives into `builds/<Map-Name>/` and refreshes the map README. |
+| `build-oneblock-variants.yml` | Automatically builds the Creative, Survival, and Hardcore database-free `.mcworld` archives into `MCPEDL/maps/<Map-Name>/` when relevant sources or foundations change; manual dispatch is also available. |
 | `refresh-build-packs.yml` | Scheduled refresh of projects and rebuild of packs in `builds/`. |
 | `generate-recipe-images.yml` | Regenerates recipe diagrams (Section 5). |
 | `manage-addon-status.yml` | Manages add-on status. |
