@@ -1,6 +1,6 @@
 # Repository Instructions
 
-Core policy for AllensCreations/MCPE-Curseforges. All README, DESCRIPTION, and CHANGELOG rules live in `README_GUIDELINES.md`, which must be followed together with this file; this file wins on any conflict. One skill, `.agents/skills/checkrm/SKILL.md`, covers the documentation audit workflow and the Mojang Bedrock Samples, Minecraft Wiki, and Bedrock Wiki references. It follows this file and `README_GUIDELINES.md` and never overrides them.
+Core policy for AllensCreations/MCPE-Curseforges. All README, DESCRIPTION, and CHANGELOG rules live in `README_GUIDELINES.md`, which must be followed together with this file; this file wins on any conflict. One skill, `.agents/skills/checkrm/SKILL.md`, covers the documentation audit workflow and the Mojang Bedrock Samples, Minecraft Wiki, and Bedrock Wiki references. It follows this file and `README_GUIDELINES.md` and never overrides them. AI-agent generation of OneBlock add-ons is covered by `ONEBLOCK_ADDON_GENERATOR.md`, which follows this file and never overrides it.
 
 ---
 
@@ -180,12 +180,21 @@ Do not claim `tick.json` is missing without inspecting the installed or packaged
 The authoritative world foundations are the direct folders `Mcpeworlds/Creative/`, `Mcpeworlds/Survival/`, and `Mcpeworlds/Hardcore/`. The OneBlock build workflow copies each matching foundation into a temporary staging directory, preserves its valid `level.dat`, integrates the map's current Behavior Pack and Resource Pack, then packages the completed world as a `.mcworld` inside `MCPEDL/maps/<Map-Name>/`.
 
 1. Keep map source packs in `MCPEDL/maps/<Map-Name>/behavior_pack/` and `resource_pack/` (when required), with the project's docs and configuration.
-2. Use `Mcpeworlds/` as the only source of world foundations; do not use old world ZIPs or `Oneblock-assets.mcworld` as a substitute.
+2. Use `Mcpeworlds/` as the only source of world foundations. Do not use old world ZIPs, `Oneblock-assets.mcworld`, `assets/Void_For_Workv2.mcworld`, or a persisted `assets/oneblock-template/` as a substitute. Do not recreate the retired `create-mcpe-world.yml` workflow or `scripts/create_mcpe_world.py`, which depended on a template containing a world database.
 3. Preserve the intentional database-free void design: never create, fabricate, borrow, or require `db/CURRENT` or LevelDB data.
 4. On relevant source, foundation, builder, or instruction changes, `build-oneblock-variants.yml` automatically builds Creative, Survival, and Hardcore worlds and synchronizes the map README. Manual dispatch remains available.
 5. Validate the generated archive structure and pack references. Report structural checks separately from Minecraft gameplay testing.
 
 Creative is the primary and only designated in-game test world. Do not create a separate `.mcaddon` tester package or a `Tester Build/` folder. The map project keeps the source add-ons and its generated `.mcworld` deliveries together; unrelated add-on build workflows must not misclassify this map as a standalone add-on.
+
+### Creating a OneBlock map from an AI-generated payload
+
+- `ONEBLOCK_ADDON_GENERATOR.md` is the instruction file given to an AI agent. The agent returns a single-line base64 ZIP of the add-on, produced by running code, never written by hand.
+- `create-oneblock-from-base64.yml` takes the map name plus the base64 (or a `.b64` path under `MCPEDL/incoming/`), runs `scripts/import_oneblock_payload.py`, writes `MCPEDL/maps/<Map-Name>/`, and builds the Creative, Survival, and Hardcore worlds from `Mcpeworlds/` in the same run.
+- The importer validates before writing anything. It rejects unsafe paths, symlinks, world data (`db/`, `level.dat`), nested archives, shipped pack link files, disallowed file types, bad manifests (title `Name (vX.Y.Z)` matching `header.version`, `by AllensCreations` exactly once, matching BP/RP versions, RP dependency), a `tick.json` that does not list `void_cleaner` first, and recipes without `AlwaysUnlocked`.
+- The map name is typed per run; never hardcode one in a workflow or script.
+- When Sections 3, 4, 6, or 7 change, update `ONEBLOCK_ADDON_GENERATOR.md` and the importer in the same change. This file wins on any conflict.
+- These checks prove structure only. Never claim the add-on or world works in Minecraft until tested in game.
 
 ### Installing into the world folders
 
@@ -242,10 +251,13 @@ Workflows in `.github/workflows/`. Roles below come from file names and recent c
 | `auto-version-bump.yml` | Bumps release versions. Must keep manifest titles in the `Name (vX.Y.Z)` format (Section 3). |
 | `create-addon-scaffold.yml` | Scaffolds a new add-on with a download-only README and a DESCRIPTION starter. |
 | `build-oneblock-variants.yml` | Automatically builds the Creative, Survival, and Hardcore database-free `.mcworld` archives into `MCPEDL/maps/<Map-Name>/` when relevant sources or foundations change; manual dispatch is also available. |
+| `create-oneblock-from-base64.yml` | Manual run: decodes a base64 ZIP into `MCPEDL/maps/<Map-Name>/`, then builds the three database-free `.mcworld` archives (Section 7). |
 | `refresh-build-packs.yml` | Scheduled refresh of projects and rebuild of packs in `builds/`. |
 | `generate-recipe-images.yml` | Regenerates recipe diagrams (Section 5). |
 | `manage-addon-status.yml` | Manages add-on status. |
 | `delete-project.yml` | Deletes a project. |
+
+Retired: `create-mcpe-world.yml` and `scripts/create_mcpe_world.py` (they required a template containing a world database, which conflicts with the database-free design in Section 7). Do not recreate them or reference them from other workflows or docs.
 
 Helper scripts in `scripts/`:
 
@@ -253,6 +265,9 @@ Helper scripts in `scripts/`:
 - `validate_manifest_titles.py`: the title validator from Section 3.
 - `auto_bump_and_build.py`: bumps versions and builds packs. Use `--no-bump` for documentation-only work.
 - `crafting_template.py`: shared recipe board renderer.
+- `build_oneblock_variants_from_template.py`: builds the three OneBlock world modes from `Mcpeworlds/` and a map's packs (Section 7). Reads `ONEBLOCK_MAP` to build one map.
+- `sync_oneblock_map_readmes.py`: synchronizes a map README with the generated `.mcworld` archives.
+- `import_oneblock_payload.py`: validates and imports a base64 ZIP into `MCPEDL/maps/<Map-Name>/` (Section 7).
 
 - Never claim a workflow ran or succeeded unless its run was checked.
 - When a rule in this file changes a workflow's behavior (titles, paths, versions), update the workflow in the same change.
@@ -265,14 +280,16 @@ Helper scripts in `scripts/`:
 MCPE-Curseforges/
 ├── INSTRUCTIONS.md
 ├── README_GUIDELINES.md
+├── ONEBLOCK_ADDON_GENERATOR.md    # Instructions for AI agents that generate OneBlock add-ons as base64
 ├── README.md                      # Catalog of active add-ons, maps, scripts
 ├── scripts/                       # Generators, validators, crafting_template.py, CRAFTING_TABLE.svg
 ├── .github/workflows/
-├── Mcpeworlds/{Creative,Survival,Hardcore}/   # World folders that receive OneBlock scripts
+├── Mcpeworlds/{Creative,Survival,Hardcore}/   # Database-free world foundations; source of all OneBlock worlds
 ├── MCPEDL/
 │   ├── addons/<Addon-Name>/       # behavior_pack/, resource_pack/, README.md, DESCRIPTION.md
 │   ├── new_addons/
+│   ├── incoming/                  # Temporary .b64 payloads for create-oneblock-from-base64.yml
 │   ├── script/<Project-Name>/     # behavior_pack/, pack_icon.png, README.md
-│   └── maps/<Map-Name>/           # OneBlock script source: behavior_pack/, pack_icon.png, README.md
+│   └── maps/<Map-Name>/           # OneBlock source packs + generated Creative/Survival/Hardcore .mcworld files, README.md
 └── builds/<Name>/                 # Compiled .mcaddon / .mcpack / .mcworld
 ```
