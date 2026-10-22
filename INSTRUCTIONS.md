@@ -98,9 +98,9 @@ Every custom crafting recipe must be unlocked by default using the schema its re
 ### Diagram rules
 
 - Build diagrams programmatically from the actual recipe JSON, the add-on's real result texture, and vanilla textures from Mojang's [Bedrock Samples](https://github.com/Mojang/bedrock-samples) (checked out at `/root/bedrock-samples/resource_pack/textures/`). The recipe JSON is authoritative for ingredients, quantities, result, count, and shaped/shapeless behavior. Never change a recipe to fit an image.
-- **Board reference:** `scripts/CRAFTING_TABLE.svg` is the only authorized reference, rendered through the shared `scripts/crafting_template.py`. Any PNG export is derived from it and never a separate reference. Never use `CRAFTINGBOARD.PNG`, screenshots, hand-drawn boards, or remembered interfaces. If the SVG is missing or unreadable, stop and report it.
+- **Board reference:** `scripts/CRAFTING_TABLE.svg` is the only authorized reference, rendered through the shared `scripts/crafting_template.py`, which reads slot positions from the SVG's ids (`slot-0` to `slot-8` in row-major order, `slot-N-fill`, `output`, `output-fill`, `arrow`). Any PNG export is derived from it and never a separate reference. Never use `CRAFTINGBOARD.PNG`, screenshots, hand-drawn boards, or remembered interfaces. If the SVG is missing or unreadable, stop and report it.
 - Always show the full 3x3 grid. Shaped recipes keep exact row/column placement and empty cells; shapeless ingredients fill cells in row-major order. Never flatten to a list. Show quantities and the output count in the SVG's output slot.
-- Colors: ingredient slots `#8A8A8A` (matching the SVG), diagram background solid `#8B8B8B`.
+- Colors: take every color (background, slot fill, edges, arrow) from `scripts/CRAFTING_TABLE.svg`. Do not hardcode board colors in a generator, and do not leave the background transparent.
 - Style: plain vanilla-style gray UI, crisp nearest-neighbor pixel art, consistent icon size, precise alignment. No ornate frames, gradients, glow, labels, or emojis.
 - Present one diagram per row at the SVG's native 400x222 size.
 
