@@ -1,20 +1,8 @@
----
-name: checkrm
-description: >-
-  Audits, creates, updates, and verifies documentation (README.md, DESCRIPTION.md,
-  CHANGELOG.md, catalogs, build references) across the AllensCreations
-  MCPE-Curseforges repository, for MCPEDL/addons, MCPEDL/new_addons, MCPEDL/script,
-  and MCPEDL/maps. Also the reference guide for Mojang's official Bedrock Samples
-  repository: vanilla textures, recipes, identifiers, and components, including
-  recipe image generation. Trigger with /checkrm or requests to create, update,
-  audit, or repair project documentation, or to look up vanilla Bedrock data.
----
-
-# checkrm: Documentation Audit and Bedrock Samples Reference
+# checkrm: Documentation Audit, Bedrock Samples and Minecraft Wiki Reference
 
 ## Authority
 
-- `INSTRUCTIONS.md` (core policy) and `README_GUIDELINES.md` (all README, DESCRIPTION, and CHANGELOG rules and templates) are authoritative. This skill defines only the audit workflow and the Samples reference. It does not restate or override them. If either file cannot be read, stop and report it instead of working from memory.
+- `INSTRUCTIONS.md` (core policy) and `README_GUIDELINES.md` (all README, DESCRIPTION, and CHANGELOG rules and templates) are authoritative. This skill defines only the audit workflow and the Samples and Wiki references. It does not restate or override them. If either file cannot be read, stop and report it instead of working from memory.
 - The user's explicit scope and source accuracy outrank any template.
 
 ## Scope and Modes
@@ -48,6 +36,8 @@ It reports missing or incomplete documentation (for example `Not yet written`, s
 Read the relevant files before writing any claim: manifests, entry points, entity and component files, items, blocks, recipes, functions, loot tables, language files, pack relationships, and settings. For scripts and maps, read their real entry points, configuration, and usage.
 
 Establish, when evidence permits: what the project does, which features exist, how they are activated or configured, whether settings persist, required packs and dependencies, supported versions, known limitations, and achievement and experiment status (classification rules are in `INSTRUCTIONS.md`). Never infer a feature from a name alone, and distinguish implemented behavior from planned behavior.
+
+When a document names a vanilla item or block, verify its name and sprite against the Minecraft Wiki and Bedrock Samples sections below instead of writing it from memory or title-casing the identifier.
 
 ### 4. Check references before writing
 
@@ -86,6 +76,20 @@ Use `--no-bump` unless the user explicitly requests a version bump. Never claim 
 
 State briefly: projects audited or updated; README, DESCRIPTION, catalog, and build files changed; commands run and results; missing assets, unresolved links, or unverifiable information; remaining projects needing attention. Never report success for a check that was not run or did not pass, and never claim every project was audited if some were inaccessible.
 
+## Minecraft Wiki Item Reference
+
+The [Minecraft Wiki item list](https://minecraft.wiki/w/Item) is the reference for official item names, how items are grouped, and what their inventory sprites look like. Use it together with Bedrock Samples, never instead of it.
+
+- **Division of authority:**
+  - Item and block **identifiers**, textures, recipes, and components come from Bedrock Samples (the Wiki page does not list internal IDs).
+  - Player-facing **display names** follow the Wiki's item name for Bedrock Edition, confirmed against `resource_pack/texts/en_US.lang` in Samples (keys such as `item.<id>.name` and `tile.<id>.name`). The lang file is the in-game truth when the Wiki is unreachable or disagrees; report any disagreement instead of picking silently.
+  - Never derive a display name by title-casing an identifier. Vanilla names often differ from IDs (for example `experience_bottle` is Bottle o' Enchanting, `hay_block` is Hay Bale, `ender_eye` is Eye of Ender, `wooden_door` is Oak Door, `golden_rail` is Powered Rail, `magma` is Magma Block).
+- **Edition tags:** the item list marks entries `[BE only]` or `[JE only]`. Do not document or sell an item as available if it is Java-only. Spectral Arrow, for example, is not a Bedrock item.
+- **Sprite naming on the Wiki:** inventory renders are `Invicon_<Title_Case_Name>.png` (for example `Invicon_Acacia_Button.png`) and flat sprites are `ItemSprite_<lowercase-hyphenated-name>.png` (for example `ItemSprite_acacia-boat.png`). Look sprites up by the Wiki name, not the identifier.
+- **Fetching:** use WebFetch or WebSearch on the page. Shell access to `minecraft.wiki` is often blocked by network policy; if a request is refused, report it, do not route around it, and fall back to Bedrock Samples (`en_US.lang` for names, `textures/` for sprites).
+- **Licensing and images:** Wiki text and images are community content under their own license and Mojang's asset terms. Do not copy Wiki images or large blocks of Wiki text into the repository unless the user asks and the license and attribution are handled. By default, generate sprites and recipe diagrams from Bedrock Samples textures, and use the Wiki only to confirm names, edition availability, and what an icon should look like.
+- **Mismatches:** the Wiki, `en_US.lang`, and Samples can lag each other across releases. Check the Samples version in `version.json` and state the version a name or availability claim was verified against.
+
 ## Mojang Bedrock Samples Reference
 
 Mojang's official [bedrock-samples](https://github.com/mojang/bedrock-samples) repository is the source of truth for vanilla Bedrock identifiers, textures, recipes, components, entity definitions, and data formats. It is cloned at `/root/bedrock-samples/`.
@@ -93,8 +97,11 @@ Mojang's official [bedrock-samples](https://github.com/mojang/bedrock-samples) r
 - Layout: `resource_pack/` (textures in `textures/items/`, `textures/blocks/`, `textures/models/armor/`, `textures/ui/`; `attachables/`; `texts/`) and `behavior_pack/` (`items/`, `entities/`, `recipes/`, `loot_tables/`).
 - Content changes between releases. Verify the checked-out version and confirm each path exists before relying on a file, value, or schema. Do not hardcode values such as armor defense or durability from memory; read the actual definitions.
 - Item identifiers do not always match texture filenames. Inventory all recipes first, build an explicit ingredient-to-texture mapping, and use texture atlas or index metadata when helpful. Report all unresolved items together and fail clearly rather than substituting a placeholder.
+- Item and block texture indexes (`textures/item_texture.json`, `textures/terrain_texture.json`) begin with a `//` comment line, so strip comment lines before parsing them as JSON. Many vanilla items have no entry keyed by identifier, and many block textures are `.tga` rather than `.png`, so check both extensions before calling a texture missing.
+- Block inventory icons are rendered in game from top and side textures. Flat `textures/blocks/` files are not inventory icons; render an isometric view from the real face textures when a cube-style sprite is needed.
+- An identifier that is valid in one place may not exist in Bedrock (for example `oak_door` is `wooden_door`). Confirm an identifier appears in Samples recipes, loot tables, or trades, or in the game's own item registry, before documenting it.
 - Custom items use the add-on's own resource-pack textures. Vanilla recipes in `behavior_pack/recipes/` are the reference for recipe format, group tags, and ingredient identifiers.
-- If the checkout is missing or lacks the asset, report the limitation and do not pretend it was sourced. In CI, clone or fetch Samples and set the checkout root explicitly. Do not report success until generation finishes, PNGs are committed, and image references resolve.
+- If the checkout is missing or lacks the asset, report the limitation and do not pretend it was sourced. When only GitHub is reachable, a sparse `git clone --filter=blob:none --sparse` followed by `git sparse-checkout set --no-cone <paths>` works even when raw file downloads are blocked. In CI, clone or fetch Samples and set the checkout root explicitly. Do not report success until generation finishes, PNGs are committed, and image references resolve.
 - Scale 16x16 textures with nearest-neighbor interpolation to keep pixel art crisp:
 
 ```python
