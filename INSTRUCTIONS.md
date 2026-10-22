@@ -1,6 +1,6 @@
 # Repository Instructions
 
-Core policy for AllensCreations/MCPE-Curseforges. All README, DESCRIPTION, and CHANGELOG rules live in `README_GUIDELINES.md`, which must be followed together with this file; this file wins on any conflict. One skill, `.agents/skills/checkrm/SKILL.md`, covers the documentation audit workflow and the Mojang Bedrock Samples reference. It follows this file and `README_GUIDELINES.md` and never overrides them.
+Core policy for AllensCreations/MCPE-Curseforges. All README, DESCRIPTION, and CHANGELOG rules live in `README_GUIDELINES.md`, which must be followed together with this file; this file wins on any conflict. One skill, `.agents/skills/checkrm/SKILL.md`, covers the documentation audit workflow and the Mojang Bedrock Samples, Minecraft Wiki, and Bedrock Wiki references. It follows this file and `README_GUIDELINES.md` and never overrides them.
 
 ---
 
@@ -10,6 +10,14 @@ Core policy for AllensCreations/MCPE-Curseforges. All README, DESCRIPTION, and C
 - Inspect source files before making claims. Ask the user only when an unresolved choice could materially affect gameplay, compatibility, distribution, data loss, or versioning. For ordinary style choices, use the defaults and proceed.
 - Never invent features, versions, links, assets, test results, compatibility, achievement support, performance guarantees, or platform behavior. Separate verified facts from assumptions.
 - Never claim an in-game test, function execution, or gameplay result unless it was actually tested in Minecraft. Archive, JSON, and syntax checks prove structure only.
+- **Source priority.** When sources disagree, use this order and report the disagreement instead of choosing silently:
+  1. The add-on's own files (manifests, JSON, scripts, textures).
+  2. Mojang [Bedrock Samples](https://github.com/Mojang/bedrock-samples) for vanilla identifiers, textures, recipes, components, and data formats.
+  3. Official [Minecraft Creator Documentation](https://learn.microsoft.com/en-us/minecraft/creator/?view=minecraft-bedrock-stable) for stable versions and API availability.
+  4. [Minecraft Wiki](https://minecraft.wiki/) for display names, Bedrock/Java availability, and the appearance of icons and assets.
+  5. [Bedrock Wiki](https://wiki.bedrock.dev/) for community-documented formats, techniques, and troubleshooting.
+
+  Sources 4 and 5 are community-maintained and can lag behind releases. They never override 1 to 3 on identifiers, versions, or API availability.
 
 ---
 
@@ -24,6 +32,9 @@ Core policy for AllensCreations/MCPE-Curseforges. All README, DESCRIPTION, and C
   - [`@minecraft/server` stable reference](https://learn.microsoft.com/en-us/minecraft/creator/scriptapi/minecraft/server/minecraft-server?view=minecraft-bedrock-stable)
   - [`@minecraft/server-ui` stable reference](https://learn.microsoft.com/en-us/minecraft/creator/scriptapi/minecraft/server-ui/minecraft-server-ui?view=minecraft-bedrock-stable)
   - [Latest platform version guidance](https://learn.microsoft.com/en-us/minecraft/creator/documents/practices/latestplatformversion?view=minecraft-bedrock-stable)
+- Supplementary community references (never used to pick versions or confirm API availability):
+  - [Bedrock Wiki](https://wiki.bedrock.dev/) for add-on file formats, components, Molang, animation controllers, entity, block, and item techniques, and troubleshooting guides.
+  - [Minecraft Wiki](https://minecraft.wiki/) for vanilla names, edition availability, and icon appearance.
 - Select the highest stable module version supported by the target game and every other dependency in the pack, checking peer-dependency requirements. Never use preview, beta, or RC versions unless a requested feature requires them, and then say so clearly.
 - Game versions and Script API module versions are separate systems; do not infer one from the other.
 - Set `min_engine_version` to the lowest game version the implementation actually needs, not automatically the newest release.
@@ -107,7 +118,16 @@ Every custom crafting recipe must be unlocked by default using the schema its re
 ### Textures
 
 - Use inventory-style item sprites, never cropped world textures. If only block-face textures exist, build a small isometric cube from verified matching faces (top and side); never stretch one face.
-- Bedrock Samples (see the `checkrm` skill) is the only source for vanilla names, identifiers, and textures. No third-party packs, guessed filenames, or approximate icons.
+- **Source order for vanilla textures and icons:**
+  1. Bedrock Samples (see the `checkrm` skill) is the primary source for vanilla names, identifiers, and textures.
+  2. The [Minecraft Wiki](https://minecraft.wiki/) is the approved reference for icons and assets. Use it to confirm what an item or block icon should look like, to confirm the official display name and edition availability, and as a **fallback image source only when Samples has no usable inventory-style sprite** (for example, cube-style block icons or items whose texture cannot be mapped).
+  3. No third-party packs, guessed filenames, or approximate icons.
+- **Using the Minecraft Wiki as an image source:**
+  - Look sprites up by the Wiki name, not the identifier: `Invicon_<Title_Case_Name>.png` for inventory renders and `ItemSprite_<lowercase-hyphenated-name>.png` for flat sprites.
+  - Open the image's file page first and confirm its license and attribution. Wiki text and most images are community content under their own license (CC BY-NC-SA 3.0 unless the file page says otherwise), plus Mojang's asset terms.
+  - Record every Wiki-sourced image (file page URL, license, date retrieved) in the generator's header comment or in `scripts/ASSET_SOURCES.md`, and add attribution to the project's `DESCRIPTION.md` when the image is published.
+  - Prefer Samples-derived sprites whenever both are available. Do not bulk-copy Wiki images or large blocks of Wiki text into the repository.
+  - If network policy blocks `minecraft.wiki`, report it and fall back to Samples. Do not route around the block.
 - Inspect the add-on's whole recipe directory first and build an explicit ingredient-to-texture mapping for every ingredient. Filenames often differ from item IDs (for example, Enchanted Golden Apple uses the golden apple texture), and files may be under `textures/items/` or `textures/blocks/`. Verify each path exists and depicts the correct item.
 - Never substitute another icon or skip an ingredient. Report all unresolved ingredients together and stop.
 
@@ -119,6 +139,11 @@ Every custom crafting recipe must be unlocked by default using the schema its re
 - Keep generated PNGs in the repository; a correct URL does not prove the file exists.
 - Do not call images generated or published until the workflow succeeds and the PNGs exist. If a generator fails, fix the first unmapped ingredient at its source and rerun.
 - Confirm output item IDs map to the correct custom texture and that referenced filenames match what the generator produces.
+
+### Technical reference
+
+- Use the [Bedrock Wiki](https://wiki.bedrock.dev/) to understand a file format, component, or technique, then verify the exact schema, identifiers, and format version against Bedrock Samples and the current official documentation before writing it into a pack.
+- Cite the Bedrock Wiki page in handoff notes when it informed a decision, and note that it is community documentation. Link to it instead of copying its text.
 
 ---
 
