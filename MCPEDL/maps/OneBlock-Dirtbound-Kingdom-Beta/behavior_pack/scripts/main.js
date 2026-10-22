@@ -5,7 +5,7 @@ import { ActionFormData, MessageFormData, ModalFormData } from "@minecraft/serve
 // Config
 // ---------------------------------------------------------------------------
 const ORIGIN = { x: 0, y: 0, z: 0 };
-const BONUS_POS = { x: 1, y: 1, z: 0 };
+const BONUS_POS = { x: 0, y: 1, z: 0 };
 const OVERWORLD = "minecraft:overworld";
 const REQUIRE_VOID_TAG = true;          // wait for a player with the "void_cleaned" tag
 const ALWAYS_DROP_DIRT = 1;             // guaranteed dirt per core break (0 = off)
