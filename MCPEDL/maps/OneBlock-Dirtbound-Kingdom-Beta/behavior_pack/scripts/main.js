@@ -1,4 +1,4 @@
-import { world, system, ItemStack, ItemTypes, GameMode } from "@minecraft/server";
+import { world, system, ItemStack, ItemTypes, BlockPermutation } from "@minecraft/server";
 import { ActionFormData, MessageFormData, ModalFormData } from "@minecraft/server-ui";
 
 const CUR = ":minecoin:";
@@ -33,18 +33,19 @@ const TRADER_ITEM = "allenscreations:trader_ledger";
 const COINS = "dirtbound_coins", MINED = "dirtbound_blocks", CORE = "dirtbound_core", PRESTIGE = "dirtbound_prestige";
 
 const STAGES = [
-  { name: "Forgotten Soil", unlock: 0, id: "dbk:stage_01", reward: 1, mineTime: "0.5s", tool: "Any shovel or hand", desc: "The starting block. Loose, quick to break, and the foundation of the whole Kingdom." },
-  { name: "Stone Core", unlock: 50, id: "dbk:stage_02", reward: 2, mineTime: "1.5s", tool: "Wooden pickaxe or better", desc: "Packed stone. The core hardens as the shared break count climbs." },
-  { name: "Cobbleheart", unlock: 150, id: "dbk:stage_03", reward: 2, mineTime: "2s", tool: "Wooden pickaxe or better", desc: "Rough cobbled rock that pays the same as stone but takes longer to chip." },
-  { name: "Iron Heart", unlock: 350, id: "dbk:stage_04", reward: 3, mineTime: "3s", tool: "Stone pickaxe or better", desc: "Iron-veined rock. Payouts rise to 3 per break." },
-  { name: "Golden Core", unlock: 700, id: "dbk:stage_05", reward: 3, mineTime: "3s", tool: "Iron pickaxe or better", desc: "Gold-flecked stone with a steady payout." },
-  { name: "Diamond Core", unlock: 1200, id: "dbk:stage_06", reward: 4, mineTime: "4s", tool: "Iron pickaxe or better", desc: "Diamond-rich rock. Mining gets noticeably slower." },
-  { name: "Ancient Core", unlock: 2000, id: "dbk:stage_07", reward: 5, mineTime: "6s", tool: "Diamond pickaxe or better", desc: "Ancient debris. Very hard and worth 5 per break." },
-  { name: "Obsidian Core", unlock: 3000, id: "dbk:stage_08", reward: 6, mineTime: "10s", tool: "Diamond pickaxe or better", desc: "Obsidian-dark and slow to mine without a strong pickaxe." },
-  { name: "Crying Core", unlock: 4500, id: "dbk:stage_09", reward: 7, mineTime: "12s", tool: "Diamond or netherite pickaxe", desc: "Weeping obsidian. Payout of 7 per break." },
-  { name: "Kingdom Core", unlock: 6000, id: "dbk:stage_10", reward: 8, mineTime: "15s", tool: "Netherite pickaxe", desc: "The final stage and the highest payout. Prestige unlocks here." }
+  { name: "Forgotten Soil", unlock: 0, reward: 1, mineTime: "0.5s", tool: "Any shovel or hand", desc: "The starting block. Loose, quick to break, and the foundation of the whole Kingdom." },
+  { name: "Stone Core", unlock: 50, reward: 2, mineTime: "1.5s", tool: "Wooden pickaxe or better", desc: "Packed stone. The core hardens as the shared break count climbs." },
+  { name: "Cobbleheart", unlock: 150, reward: 2, mineTime: "2s", tool: "Wooden pickaxe or better", desc: "Rough cobbled rock that pays the same as stone but takes longer to chip." },
+  { name: "Iron Heart", unlock: 350, reward: 3, mineTime: "3s", tool: "Stone pickaxe or better", desc: "Iron-veined rock. Payouts rise to 3 per break." },
+  { name: "Golden Core", unlock: 700, reward: 3, mineTime: "3s", tool: "Iron pickaxe or better", desc: "Gold-flecked stone with a steady payout." },
+  { name: "Diamond Core", unlock: 1200, reward: 4, mineTime: "4s", tool: "Iron pickaxe or better", desc: "Diamond-rich rock. Mining gets noticeably slower." },
+  { name: "Ancient Core", unlock: 2000, reward: 5, mineTime: "6s", tool: "Diamond pickaxe or better", desc: "Ancient debris. Very hard and worth 5 per break." },
+  { name: "Obsidian Core", unlock: 3000, reward: 6, mineTime: "10s", tool: "Diamond pickaxe or better", desc: "Obsidian-dark and slow to mine without a strong pickaxe." },
+  { name: "Crying Core", unlock: 4500, reward: 7, mineTime: "12s", tool: "Diamond or netherite pickaxe", desc: "Weeping obsidian. Payout of 7 per break." },
+  { name: "Kingdom Core", unlock: 6000, reward: 8, mineTime: "15s", tool: "Netherite pickaxe", desc: "The final stage and the highest payout. Prestige unlocks here." }
 ];
-const STAGE_BLOCK_IDS = new Set(STAGES.map(s => s.id));
+const CORE_BLOCK = "dbk:core";
+const STAGE_STATE = "dbk:stage";
 const stageTexture = i => "textures/blocks/dbk/stage_" + String(i + 1).padStart(2, "0");
 const STAGE_REWARDS = [
   { blocks: 50, coins: 25 }, { blocks: 150, coins: 50 }, { blocks: 350, coins: 75 },
@@ -524,9 +525,13 @@ function placeCore(dimension) {
   try {
     const block = dimension.getBlock(ORIGIN);
     if (!block) return false;
-    const target = STAGES[stageFor(globalScore("#breaks"))].id;
+    const stage = stageFor(globalScore("#breaks"));
     const id = block.typeId;
-    if (id === "minecraft:air" || id === "minecraft:grass_block" || (STAGE_BLOCK_IDS.has(id) && id !== target)) block.setType(target);
+    if (id === "minecraft:air" || id === "minecraft:grass_block") {
+      block.setPermutation(BlockPermutation.resolve(CORE_BLOCK, { [STAGE_STATE]: stage }));
+    } else if (id === CORE_BLOCK && block.permutation.getState(STAGE_STATE) !== stage) {
+      block.setPermutation(BlockPermutation.resolve(CORE_BLOCK, { [STAGE_STATE]: stage }));
+    }
     return true;
   } catch { return false; }
 }
