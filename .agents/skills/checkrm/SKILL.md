@@ -1,459 +1,105 @@
 ---
 name: checkrm
 description: >-
-  Audits, creates, updates, and verifies documentation across the AllensCreations
-  MCPE-Curseforges repository. Supports individual project updates and
-  repository-wide scans across MCPEDL/addons, MCPEDL/new_addons, MCPEDL/script,
-  and MCPEDL/maps. Inspects scripts, manifests, entities, animation controllers,
-  language files, recipes, presets, assets, and gameplay mechanics. Creates or
-  updates README.md and DESCRIPTION.md files, checks logos and banners, synchronizes parent
-  catalogs and build references, and verifies the final documentation status.
-  Trigger with /checkrm or requests to create, update, audit, or repair project
-  documentation.
+  Audits, creates, updates, and verifies documentation (README.md, DESCRIPTION.md,
+  CHANGELOG.md, catalogs, build references) across the AllensCreations
+  MCPE-Curseforges repository, for MCPEDL/addons, MCPEDL/new_addons, MCPEDL/script,
+  and MCPEDL/maps. Also the reference guide for Mojang's official Bedrock Samples
+  repository: vanilla textures, recipes, identifiers, and components, including
+  recipe image generation. Trigger with /checkrm or requests to create, update,
+  audit, or repair project documentation, or to look up vanilla Bedrock data.
 ---
 
-# checkrm — README and Documentation Audit
+# checkrm: Documentation Audit and Bedrock Samples Reference
 
-## Purpose
+## Authority
 
-Use this skill to audit, create, update, and verify project documentation in the
-AllensCreations MCPE-Curseforges repository.
+- `INSTRUCTIONS.md` (core policy) and `README_GUIDELINES.md` (all README, DESCRIPTION, and CHANGELOG rules and templates) are authoritative. This skill defines only the audit workflow and the Samples reference. It does not restate or override them. If either file cannot be read, stop and report it instead of working from memory.
+- The user's explicit scope and source accuracy outrank any template.
 
-Supported project locations include:
+## Scope and Modes
 
-- `MCPEDL/addons`
-- `MCPEDL/new_addons`
-- `MCPEDL/script`
-- `MCPEDL/maps`
+Handles documentation and catalog maintenance only. Do not change gameplay code, manifests, UUIDs, versions, dependencies, pack settings, assets, workflows, or release configuration unless the user explicitly asks.
 
-The repository may contain additional categories. Discover the actual structure
-before making assumptions.
+- **Repository-wide audit:** the user says `/checkrm`, asks to check all projects, or names no single project.
+- **Individual project:** the user names a project, slug, or folder, or asks to create, repair, or update one project's documentation.
+- **Documentation-only:** if the user says so, touch no gameplay files, manifests, assets, scripts, or workflows.
 
-This skill handles documentation and catalog maintenance. Do not change
-gameplay code, manifests, pack behavior, assets, or project configuration unless
-the user explicitly requests those changes.
+Discover the actual folder structure first. Do not assume a folder or file exists, and do not silently substitute a similarly named project; report ambiguity or a missing target.
 
-## Operating Modes
+## Procedure
 
-Choose the mode from the user's request.
+### 1. Discover
 
-### Repository-wide audit
+Identify the target project, its current README and DESCRIPTION, manifests, scripts and configuration, entities, items, blocks, recipes, functions, loot tables, animations, language files, and assets, plus the parent category catalog, root README, and builds README.
 
-Use this mode when the user says `/checkrm`, asks to check all projects, asks for
-a repository-wide README audit, or does not specify a single project.
+### 2. Audit status
 
-### Individual project
-
-Use this mode when the user names a project, slug, or project folder, or asks to
-create, repair, or update one project's README.
-
-### Documentation-only request
-
-If the user explicitly requests documentation only, do not modify gameplay
-files, manifests, assets, scripts, workflows, or pack configuration.
-
-## README Structure and Reference Standards
-
-`INSTRUCTIONS.md` defines shared policy and `README_GUIDELINES.md` is the canonical README/CHANGELOG style guide. This skill defines the audit workflow. Its template is a fallback only and must not override either document or the user's explicit instructions. Inspect existing documentation to learn current conventions.
-
-For individual add-ons, audit both README.md (download-focused landing page) and DESCRIPTION.md (complete customer-facing product information). README.md should include release/download details, package format, generic import steps, and a link to DESCRIPTION.md. When migrating an existing project, move full verified product content into DESCRIPTION.md. Before finishing a documentation audit, verify the project's manifest titles and creator attribution with `python3 scripts/validate_manifest_titles.py --project <project-path>` when applicable. Confirm each title has exactly one `(vX.Y.Z)` suffix matching `header.version`, the manifest description contains `by AllensCreations` exactly once, and paired Behavior Pack/Resource Pack displayed versions match. Include the official [CurseForge](https://www.curseforge.com/members/allenscreations/projects) and [MCPEDL](https://mcpedl.com/user/allenscreations/) profile links in DESCRIPTION.md only.
-
-Before creating or substantially rewriting README.md or DESCRIPTION.md:
-
-1. Inspect the repository root `README.md`, if present.
-2. Inspect two or three relevant, well-documented project DESCRIPTION.md files for add-on product content, and README.md files for download-link conventions.
-3. Prefer reference projects from the same category as the target.
-4. Inspect the relevant category catalog and the builds README, if present.
-5. Identify established title style, section order, feature-card conventions,
-   compatibility wording, attribution, and formatting. For add-on descriptions,
-   do not create or embed images unless the user explicitly requests them or
-   project-specific instructions require them.
-6. Reuse appropriate repository conventions without copying project-specific
-   features or unsupported claims.
-7. If no references are accessible, use the templates and rules in this skill.
-
-Do not assume a reference README is correct just because it exists. Check its
-links, image paths, claims, and structure before adopting its conventions.
-
-The embedded template defines the baseline structure. Repository conventions
-may add or rearrange sections when that better fits the project category, but
-must not override the accuracy and style rules below.
-
-## Required Writing Style
-
-- Use direct, factual, technical language.
-- Do not use emojis in headings, bullets, tables, or body text.
-- Do not use clickbait hooks, rhetorical questions, hype, buzzwords, or marketing
-  filler.
-- Avoid phrases such as "Tired of...", "Meet your new best friend",
-  "revolutionary", and "production-ready" unless directly required and factually
-  justified.
-- Do not claim a feature exists unless verified from source files or other
-  reliable project evidence.
-- Do not claim compatibility, achievement support, performance, security, or
-  testing status without evidence.
-- Do not invent release versions, download links, screenshots, assets, credits,
-  dependencies, or project details.
-- Preserve useful verified content in DESCRIPTION.md for add-ons; keep individual add-on README.md files focused on downloading/importing and linking to DESCRIPTION.md.
-- Avoid duplicate sections and duplicate catalog entries.
-- Do not add raw HTML to README files unless the repository's established
-  format or a specific user request requires it.
-- Do not include installation instructions when the user explicitly asks to omit
-  them.
-
-## Default Add-on README.md Template (Download Focus)
-
-```markdown
-# [Add-on Name] (vX.Y.Z)
-
-Download the current release of **[Add-on Name]** for Minecraft Bedrock Edition.
-
-## Download
-
-- **Version:** X.Y.Z
-- **Package format:** `.mcaddon`
-- **Direct download:** [Download [Add-on Name] (.mcaddon)](verified-direct-download-link)
-
-## Installation
-
-1. Download the package using the link above.
-2. Open the downloaded file with Minecraft to import it.
-3. If the package contains a pack that must be enabled separately, activate it in your world's settings.
-
-## Add-on Information
-
-For gameplay features, usage details, recipes, compatibility notes, and other project information, read the [full description](verified-DESCRIPTION-link).
-```
-
-If no direct release file exists, link only to the relevant official download catalog.
-
-## DESCRIPTION.md Product Page
-
-Use `README_GUIDELINES.md` to create a complete, polished, player-facing product description in DESCRIPTION.md. Preserve verified existing details during migration. Keep source identifiers and developer internals out of public prose.
-
-## Step 1 — Discover the Repository
-
-Before editing, inspect the available repository files and identify:
-
-- The target project directory.
-- Its current README, if any.
-- Behavior-pack and resource-pack manifests, where applicable.
-- Source scripts and configuration.
-- Entities, components, animation controllers, animations, render controllers,
-  items, blocks, recipes, functions, loot tables, and language files, where
-  applicable.
-- Images, logos, banners, previews, and other referenced assets.
-- Parent category catalog files.
-- Root README and build-output README files.
-- Existing scripts used to generate, audit, or synchronize documentation.
-
-Do not assume a folder or file exists. Check the actual repository structure.
-
-## Step 2 — Select the Target
-
-For an individual request, use the project path or slug supplied by the user.
-Search the supported project folders if the location is unclear.
-
-For a repository-wide audit, inspect all supported project categories that
-actually exist. Include any additional project category only when the repository
-structure or user request indicates it is in scope.
-
-Do not silently substitute a similarly named project if the requested target
-cannot be found. Report the ambiguity or missing target.
-
-## Step 3 — Audit README Status
-
-For repository-wide checks, run the repository's existing status checker when
-available:
+For repository-wide checks run:
 
 ```bash
 python3 scripts/check_readme_status.py
 ```
 
-Use its output to identify missing or incomplete documentation, including
-statuses such as:
+It reports missing or incomplete documentation (for example `Not yet written`, scaffold stubs containing `## Source Files`, DESCRIPTION files missing gameplay sections, README files that contain product information instead of a download link, and broken relative links or orphaned build directories). `--fix` generates standard documentation for detected stubs; review its output before keeping it. If the script is absent or fails, inspect manually and report the limitation.
 
-- `Not yet written`
-- `Logo: Not supplied`
-- `Banner: Not supplied`
-- Newly scaffolded stubs (e.g., contains `## Source Files`, `Review the included manifests...`, or generic one-line descriptions)
-- Incomplete DESCRIPTION.md files missing gameplay sections (`## Overview`, `## Features`, `## How It Works`)
-- Missing `README.md` or `DESCRIPTION.md` for an individual add-on
-- Individual add-on README.md files containing product information instead of only a download link
-- Broken relative markdown links or image targets across all repository catalogs and build readmes
+### 3. Verify project facts
 
-The script automatically audits relative links in repository README.md and DESCRIPTION.md files and reports dead links or orphaned build directories.
+Read the relevant files before writing any claim: manifests, entry points, entity and component files, items, blocks, recipes, functions, loot tables, language files, pack relationships, and settings. For scripts and maps, read their real entry points, configuration, and usage.
 
-Use `python3 scripts/check_readme_status.py --fix` to automatically generate standard documentation for any detected stubs.
+Establish, when evidence permits: what the project does, which features exist, how they are activated or configured, whether settings persist, required packs and dependencies, supported versions, known limitations, and achievement and experiment status (classification rules are in `INSTRUCTIONS.md`). Never infer a feature from a name alone, and distinguish implemented behavior from planned behavior.
 
-If the script is absent or fails, inspect project folders and README files
-manually. Report the limitation rather than pretending the audit succeeded.
+### 4. Check references before writing
 
-For individual add-ons, inspect README.md for download-link-only compliance and DESCRIPTION.md for complete, accurate product information. For maps and scripts, follow the appropriate category-specific documentation format.
+Before creating or substantially rewriting a README or DESCRIPTION, read the root README, the category catalog, the builds README, and two or three well-documented projects of the same category. Reuse conventions, not project-specific claims. Verify a reference's links, image paths, and claims before adopting anything from it.
 
-## Step 4 — Verify Project Information
+### 5. Write or update
 
-Read the relevant project files before writing claims.
+Follow `README_GUIDELINES.md` for file roles, writing rules, and templates. Migrating an older add-on moves verified README content into DESCRIPTION.md and leaves a download-only README. Do not add a feature merely because it was requested if it is not implemented. Omit installation steps entirely if the user asks.
 
-For Minecraft Bedrock add-ons, inspect applicable files such as:
+### 6. Images, badges, links
 
-- `manifest.json` in each pack.
-- JavaScript or TypeScript entry points.
-- Entity JSON files and component groups.
-- Item, block, recipe, loot-table, and function files.
-- Animation and render-controller files.
-- Animation controllers.
-- Resource definitions and textures.
-- Language files and user-facing strings.
-- Behavior-pack and resource-pack relationships.
-- Configuration properties, presets, and subpacks.
-
-For scripts, maps, and other projects, inspect their actual entry points,
-configuration, dependencies, assets, and usage instructions.
-
-Determine, when evidence permits:
-
-- What the project does.
-- Which features are implemented.
-- How features are activated or configured.
-- Whether settings persist.
-- Required packs, modules, dependencies, or experiments.
-- Supported version information.
-- Known limitations.
-- Whether achievement-friendly behavior is supported.
-- What assets are available for DESCRIPTION.md.
-
-Do not infer a feature from a name alone. Confirm it from implementation or
-reliable documentation.
-
-## Step 5 — Check Logos, Banners, and Preview Images
-
-Keep individual add-on README.md files image-free. In add-on DESCRIPTION.md,
-allow only item sprites and crafting recipe diagrams as images. Do not add
-promotional banners, generic screenshots, or unrelated artwork. Verify all
-image targets and use absolute raw GitHub URLs for published embeds. Crafting
-diagrams must follow the source-based workflow in INSTRUCTIONS.md: `assets/CRAFTING_TABLE.svg` is the sole authorized crafting-board reference. Every generator must use the shared `scripts/crafting_template.py` renderer, which reads and renders that exact SVG directly, and derive all board details from it. A PNG export is output only, never an independent reference or a source for board design/cropping. Never use `CRAFTINGBOARD.PNG`, another board image, screenshots, a hand-drawn GUI, or a remembered interface. If the SVG is missing or unreadable, stop and report it instead of substituting another board. Use the full 3x3 grid from the canonical SVG and recognizable inventory-style Minecraft item icons for ingredients and output. Preserve exact shaped-recipe positions and empty cells; place shapeless ingredients in separate cells in row-major order. Keep ingredient identities, requirements, result, and count faithful to the actual recipe JSON. Each diagram should remain compact at the SVG's native 400×222 size by default. When several diagrams are presented together for commercial/product-page promotion, arrange them in one vertical column, one image per row; do not use a multi-column gallery. This is presentation only and must not change the in-game recipe.
-
-## Step 6 — Create or Update Project Documentation
-
-For add-ons, write product information to DESCRIPTION.md and keep README.md limited to the download link. For other project categories, follow the user's latest explicit direction and repository standards.
-
-For add-ons, include relevant sections from the following list:
-
-1. Project title.
-2. Verified banner or logo.
-3. Relevant, working badges.
-4. Creator and concise description.
-5. Overview.
-6. Features.
-7. How It Works or Mechanics.
-8. Configuration or settings, if present.
-9. Compatibility and requirements.
-10. Installation, when appropriate and not prohibited.
-11. Known limitations, when verified.
-12. Credits and permissions.
-13. Copyright notice.
-
-Not every section is required for every project. Do not add empty headings or
-irrelevant sections just to match a template.
-
-For scripts and tools, document purpose, requirements, usage, configuration,
-and limitations when supported by evidence.
-
-For maps, document the gameplay premise, objectives, included content,
-requirements, and known limitations when supported by evidence.
-
-For any project:
-
-- Use the actual project name and correct project type.
-- Keep descriptions concise, polished, player-focused, and factual; avoid hype and filler.
-- Explain meaningful features rather than listing unsupported claims.
-- Never claim achievement support, no experimental features, compatibility, performance, or testing status without evidence.
-- Individual add-on README.md files must be image-free. Images in DESCRIPTION.md are optional, not mandatory. Do not create or embed item sprites or crafting recipe diagrams unless the user explicitly requests them or project-specific instructions require them. When included, verify the assets exist and use absolute raw GitHub URLs. Other project categories and catalogs may follow their own image rules.
+- README.md files contain no images. DESCRIPTION.md images are limited to requested item sprites and crafting diagrams, following the recipe image rules in `INSTRUCTIONS.md`. Confirm every image exists and use absolute raw GitHub URLs.
+- Do not add badges. Verify any existing badge and its destination, or remove it. Leave no placeholders in finished files.
 - Verify that every link destination exists.
-- Keep formatting consistent with verified repository conventions.
-- Do not include internal analysis or instructions to the assistant in the
-  published README.
-- Do not include a feature merely because it was requested if it was not
-  implemented.
 
-## Step 7 — Verify Badges and Compatibility Claims
+### 7. Synchronize catalogs and builds
 
-Before including badges, verify the relevant information and destination.
-
-- Minecraft version badges must match verified project information.
-- Release badges must point to a real release or valid repository destination.
-- Achievement-friendly claims must be supported by the implementation or
-  reliable testing evidence.
-- Format badges must accurately describe the project.
-- Do not use placeholders such as `verified-version-badge` in a finished README.
-- Remove badges that cannot be verified.
-- Do not state that a project was tested on a version unless evidence confirms
-  that testing occurred.
-- Do not claim that experiments are unnecessary unless the project setup and
-  implementation support that statement.
-
-## Step 8 — Document Features and Mechanics Accurately
-
-For each documented feature, identify the source or other evidence supporting
- the claim.
-
-Explain mechanics clearly enough for a user or developer to understand them.
-Where applicable, document:
-
-- Default behavior.
-- User-configurable options.
-- Toggles and presets.
-- Controls or activation conditions.
-- Persistent versus temporary settings.
-- Required pack combinations.
-- Important limitations or edge cases.
-
-Distinguish implemented behavior from planned behavior. Do not promise future
-features unless the user explicitly asks to document a roadmap.
-
-## Step 9 — Handle Installation Instructions Carefully
-
-Include installation instructions when they are useful and supported by the
-project format.
-
-For Minecraft Bedrock add-ons, verify the available pack files and actual
-activation requirements before writing the instructions.
-
-If the user says not to include installation instructions, omit the entire
-installation section. Do not reintroduce it in another section.
-
-Do not invent download locations, file names, or installation steps.
-
-## Step 10 — Synchronize Catalogs and Build Documentation
-
-After updating a project's README.md and/or DESCRIPTION.md, inspect the repository to determine whether
-the project is listed in:
-
-- Its category catalog.
-- The root README or project index.
-- The builds README or other generated documentation.
-
-Update only relevant entries. Preserve established ordering and formatting.
-
-Before adding an entry, search for an existing entry to avoid duplication.
-Verify paths and links. Do not create a new catalog file if the repository uses
-an existing catalog structure.
-
-If the repository provides an established build or synchronization script,
-inspect its usage and effects before running it.
-
-A known command may be:
+Check whether the project appears in its category catalog, the root README, and the builds README. Update only relevant entries, search first to avoid duplicates, and keep established ordering. Inspect any build script before running it. A known command:
 
 ```bash
 python3 scripts/auto_bump_and_build.py --project "<Project-Name>" --no-bump
 ```
 
-Run it only if the script exists and its behavior is appropriate for the task.
-Use `--no-bump` when updating documentation without intentionally incrementing a
-project version. Do not run a version bump unless the user explicitly requests
-one.
+Use `--no-bump` unless the user explicitly requests a version bump. Never claim a build or sync completed if it failed or was not run.
 
-Do not claim that a build or synchronization completed if the command failed or
-was not run.
+### 8. Verify
 
-## Step 11 — Verify the Final Changes
+1. Re-read the whole edited file, and check headings, lists, and links.
+2. Confirm each documented feature has source evidence and that no verified content was lost.
+3. Run `python3 scripts/validate_manifest_titles.py --project <project-path>` when applicable: one `(vX.Y.Z)` suffix matching `header.version`, `by AllensCreations` exactly once in the manifest description, and matching Behavior Pack and Resource Pack versions.
+4. Run `python3 scripts/check_readme_status.py` again. Expect `0` needing update and `[LINK INTEGRITY] All relative links valid`; fix broken links before finishing.
+5. Check the add-on LOCK marker (rule in `INSTRUCTIONS.md`) for projects under `MCPEDL/addons/` and `MCPEDL/new_addons/`. Report the exact project path of any missing or invalid marker and do not call the project build-ready.
+6. Review the final diff for scope. If a check was not run, say so.
 
-After editing:
+### 9. Report
 
-1. Re-read the complete target README.
-2. Check headings, lists, tables, badges, and links; confirm README.md files contain no images and DESCRIPTION.md images are limited to item sprites and crafting recipe diagrams.
-3. Check that each documented feature is supported by project evidence.
-4. Check that no placeholders remain in finished documentation.
-5. Check that no duplicate catalog entries were introduced.
-6. Check that existing verified content was not accidentally removed.
-7. Run the repository's documentation status checker, which audits README/DESCRIPTION status and relative links across product pages, catalogs, and builds:
+State briefly: projects audited or updated; README, DESCRIPTION, catalog, and build files changed; commands run and results; missing assets, unresolved links, or unverifiable information; remaining projects needing attention. Never report success for a check that was not run or did not pass, and never claim every project was audited if some were inaccessible.
 
-```bash
-python3 scripts/check_readme_status.py
+## Mojang Bedrock Samples Reference
+
+Mojang's official [bedrock-samples](https://github.com/mojang/bedrock-samples) repository is the source of truth for vanilla Bedrock identifiers, textures, recipes, components, entity definitions, and data formats. It is cloned at `/root/bedrock-samples/`.
+
+- Layout: `resource_pack/` (textures in `textures/items/`, `textures/blocks/`, `textures/models/armor/`, `textures/ui/`; `attachables/`; `texts/`) and `behavior_pack/` (`items/`, `entities/`, `recipes/`, `loot_tables/`).
+- Content changes between releases. Verify the checked-out version and confirm each path exists before relying on a file, value, or schema. Do not hardcode values such as armor defense or durability from memory; read the actual definitions.
+- Item identifiers do not always match texture filenames. Inventory all recipes first, build an explicit ingredient-to-texture mapping, and use texture atlas or index metadata when helpful. Report all unresolved items together and fail clearly rather than substituting a placeholder.
+- Custom items use the add-on's own resource-pack textures. Vanilla recipes in `behavior_pack/recipes/` are the reference for recipe format, group tags, and ingredient identifiers.
+- If the checkout is missing or lacks the asset, report the limitation and do not pretend it was sourced. In CI, clone or fetch Samples and set the checkout root explicitly. Do not report success until generation finishes, PNGs are committed, and image references resolve.
+- Scale 16x16 textures with nearest-neighbor interpolation to keep pixel art crisp:
+
+```python
+from PIL import Image
+
+icon = Image.open("/root/bedrock-samples/resource_pack/textures/items/<verified_file>.png").convert("RGBA")
+icon = icon.resize((44, 44), Image.Resampling.NEAREST)
 ```
-
-Ensure output shows `0` needs update and confirms `[LINK INTEGRITY] All relative links valid`. If any broken link is detected, resolve it immediately before committing.
-8. If the repository has a suitable validation or build command, run it when
-   appropriate and safe.
-9. Review the final diff and ensure changes remain within the user's requested
-   scope.
-
-If a check cannot be run, state that it was not run. Do not report unverified
-success.
-
-## Repository-Wide Audit Procedure
-
-When the user requests `/checkrm` or a repository-wide audit:
-
-1. Discover all relevant project folders and catalogs.
-2. Run `python3 scripts/check_readme_status.py` if available.
-3. Review the status report and identify missing or incomplete documentation.
-4. Inspect each affected project and its actual implementation.
-5. Inspect reference READMEs to confirm current repository conventions.
-6. Create or repair each README using verified project information.
-7. Check badges and links; confirm add-on descriptions use only permitted item sprites and crafting recipe diagrams.
-8. Synchronize relevant catalogs and generated documentation.
-9. Run appropriate repository scripts without unintended version changes.
-10. Run the status checker again.
-11. Review the diff and summarize completed work, remaining issues, and checks
-    that could not be performed.
-
-Do not claim that every project was audited if some folders or files were
-inaccessible or excluded.
-
-## Individual Project Update Procedure
-
-When the user requests a single project update:
-
-1. Locate the exact project.
-2. Inspect its existing README and source files.
-3. Inspect relevant reference READMEs and catalogs.
-4. Identify missing, stale, or inaccurate documentation.
-5. Create or update the README.
-6. Verify badges, links, and claims; keep README.md image-free. Only include item sprites or crafting recipe diagrams in DESCRIPTION.md when explicitly requested or required by project-specific instructions.
-7. Update relevant catalogs only when necessary.
-8. Run applicable validation commands.
-9. Review the final diff.
-10. Report the files changed and any remaining uncertainty.
-
-## Clarify Material Ambiguities
-
-If source files or existing rules leave a decision unresolved that could materially affect gameplay, compatibility, user data, release/version behavior, or distribution, ask the user before implementing that decision. For ordinary documentation choices, apply `INSTRUCTIONS.md` and `README_GUIDELINES.md` and proceed.
-
-## Change Boundaries and Safety
-
-Unless explicitly requested, do not:
-
-- Change gameplay logic or source code.
-- Change manifests, UUIDs, version numbers, dependencies, or pack settings.
-- Modify, remove, or create project assets.
-- Change workflows or release configuration.
-- Publish releases or upload files.
-- Perform a version bump.
-- Delete project files.
-- Replace project-specific information with assumptions.
-- Make unrelated formatting changes across the repository.
-
-Documentation changes must reflect the actual project, not change the project to
-match the README.
-
-## Completion Report
-
-After the work, provide a concise factual summary that includes:
-
-- Projects audited or updated.
-- README.md files created or changed.
-- DESCRIPTION.md files created or changed.
-- Catalog or build documentation files changed.
-- Validation commands run and their results.
-- Missing assets, unresolved links, or information that could not be verified.
-- Any remaining projects that need attention.
-
-Never report a successful check, build, synchronization, or test unless its
-result confirms success.
-
-## Add-on LOCK Marker Audit
-
-For projects under `MCPEDL/addons/` and `MCPEDL/new_addons/`, verify that the project root contains a `LOCK` file beginning with `AllensCreations Add-on Lock v1`. Missing or invalid markers are release-blocking: report the exact project path and do not claim the project is build-ready. Confirm the scaffold workflow creates the marker and the build script enforces it. The marker is only a repository/build safeguard; it does not encrypt source, stop source edits, or prevent extraction of a distributable package.
-
