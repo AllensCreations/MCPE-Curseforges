@@ -1,9 +1,10 @@
 #!/usr/bin/env python3
-"""Build OneBlock worlds using each complete Mcpeworlds mode folder as its foundation.
+"""Build database-free OneBlock void worlds from the authoritative Mcpeworlds foundations.
 
-A mode folder must contain its own LevelDB. The builder refuses to borrow a
-database from another world, because that would silently substitute its terrain.
-World archives are generated only when the OneBlock world-build workflow is manually started. The builder still requires complete, valid LevelDB data for every mode and fails closed if a foundation is incomplete.
+Each mode must contain its own valid level.dat. A LevelDB database is deliberately
+not required: these foundations are database-free void worlds. The builder copies
+the selected foundation, preserves its metadata, integrates the map's current
+packs, validates the archive, and only then replaces the published archive.
 """
 from __future__ import annotations
 
@@ -71,19 +72,28 @@ def locate_world_root(extracted: Path, depth: int = 0) -> Path:
     )
 
 
-def validate_leveldb(db_path: Path, label: str) -> None:
-    """Require the selected foundation's own complete LevelDB database."""
-    data_files = [
-        p for p in db_path.iterdir()
-        if p.is_file() and p.name not in {"CURRENT", "LOCK", "LOG", "LOG.old"}
-        and not p.name.startswith("MANIFEST")
-    ] if db_path.is_dir() else []
-    if not (db_path / "CURRENT").is_file() or not data_files:
+def validate_database_free_foundation(world_path: Path, label: str) -> None:
+    """Ensure the source remains a deliberate database-free void-world foundation."""
+    db_path = world_path / "db"
+    if (db_path / "CURRENT").exists():
         raise ValueError(
-            f"{label} has no complete LevelDB database at {db_path}. "
-            "The builder will not borrow another world's database or substitute its terrain. "
-            "Supply a complete matching world foundation before generating .mcworld files."
+            f"{label} unexpectedly contains db/CURRENT. This project intentionally "
+            "uses a database-free void-world foundation; refusing to add or substitute a database."
         )
+    if db_path.is_dir():
+        metadata_names = {"CURRENT", "LOCK", "LOG", "LOG.old"}
+        data_files = [
+            path for path in db_path.iterdir()
+            if path.is_file()
+            and path.name not in metadata_names
+            and not path.name.startswith("MANIFEST")
+        ]
+        if data_files:
+            names = ", ".join(sorted(path.name for path in data_files[:10]))
+            raise ValueError(
+                f"{label} contains unexpected database data in {db_path}: {names}. "
+                "The foundation must remain database-free; do not create, borrow, or fabricate LevelDB."
+            )
 
 
 def tag_prefix(tag_type: int, name: str) -> bytes:
@@ -181,7 +191,10 @@ def build_variant(project: Path, map_name: str, mode: str) -> Path:
     rp_version = rp_manifest["header"]["version"] if rp_manifest else None
     world_name = f"{map_name} - {mode}"
     output = project / f"{safe_name(world_name)}.mcworld"
-    project_slug = project.relative_to(ROOT).as_posix()
+    # Build beside the final archive and atomically replace it only after checks pass.
+    output.parent.mkdir(parents=True, exist_ok=True)
+    staged_output = output.with_name(f".{output.name}.building")
+    staged_output.unlink(missing_ok=True)
 
     with tempfile.TemporaryDirectory(prefix="dirtbound-world-") as temp:
         staging = Path(temp) / "staging"
@@ -189,9 +202,9 @@ def build_variant(project: Path, map_name: str, mode: str) -> Path:
         shutil.copytree(source_world, staging, dirs_exist_ok=True)
         world = locate_world_root(staging)
 
-        # The matching Mcpeworlds folder must provide its own database. Do not
-        # borrow terrain/chunks from a different world.
-        validate_leveldb(world / "db", f"{mode} Mcpeworlds foundation")
+        # Preserve the intentional database-free void design. level.dat is the
+        # valid world metadata source; never synthesize or borrow LevelDB files.
+        validate_database_free_foundation(world, f"{mode} Mcpeworlds foundation")
 
         # Preserve the mode-specific foundation's game mode, seed, spawn, void settings,
         # gamerules, terrain, chunks, and other world data. Only rename the imported world.
@@ -228,8 +241,7 @@ def build_variant(project: Path, map_name: str, mode: str) -> Path:
         else:
             (world / "world_resource_packs.json").unlink(missing_ok=True)
 
-        output.parent.mkdir(parents=True, exist_ok=True)
-        with zipfile.ZipFile(output, "w", compression=zipfile.ZIP_DEFLATED) as archive:
+        with zipfile.ZipFile(staged_output, "w", compression=zipfile.ZIP_DEFLATED) as archive:
             for path in sorted(world.rglob("*")):
                 relative = path.relative_to(world).as_posix()
                 if path.is_dir():
@@ -237,7 +249,8 @@ def build_variant(project: Path, map_name: str, mode: str) -> Path:
                 elif path.is_file():
                     archive.write(path, relative)
 
-    verify_archive(output, bp_uuid, bp_version, rp_uuid, rp_version, bp_folder, rp_folder)
+    verify_archive(staged_output, bp_uuid, bp_version, rp_uuid, rp_version, bp_folder, rp_folder)
+    staged_output.replace(output)
     return output
 
 
@@ -246,7 +259,7 @@ def verify_archive(path: Path, bp_uuid: str, bp_version: list[int], rp_uuid: str
     with zipfile.ZipFile(path) as archive:
         names = set(archive.namelist())
         required = {
-            "level.dat", "levelname.txt", "db/CURRENT",
+            "level.dat", "levelname.txt",
             f"behavior_packs/{bp_folder}/manifest.json",
             f"behavior_packs/{bp_folder}/functions/tick.json",
             f"behavior_packs/{bp_folder}/functions/oneblock_setup.mcfunction",
@@ -258,10 +271,22 @@ def verify_archive(path: Path, bp_uuid: str, bp_version: list[int], rp_uuid: str
         missing = required - names
         if missing:
             raise RuntimeError(f"{path.name} missing required entries: {', '.join(sorted(missing))}")
-        if not any(n.startswith("db/") and not n.endswith("/") and n.split("/")[-1] not in
-                   {"CURRENT", "LOCK", "LOG", "LOG.old"} and not n.split("/")[-1].startswith("MANIFEST")
-                   for n in names):
-            raise RuntimeError(f"{path.name} contains no real LevelDB data files.")
+        if "db/CURRENT" in names:
+            raise RuntimeError(f"{path.name} unexpectedly contains db/CURRENT; the void foundation must remain database-free.")
+        database_files = [
+            name for name in names
+            if name.startswith("db/") and not name.endswith("/")
+            and name.split("/")[-1] not in {"CURRENT", "LOCK", "LOG", "LOG.old"}
+            and not name.split("/")[-1].startswith("MANIFEST")
+        ]
+        if database_files:
+            raise RuntimeError(
+                f"{path.name} contains unexpected LevelDB data files: {', '.join(sorted(database_files)[:10])}"
+            )
+        tick_path = f"behavior_packs/{bp_folder}/functions/tick.json"
+        tick_data = json.loads(archive.read(tick_path).decode("utf-8"))
+        if not tick_data.get("values") or tick_data["values"][0] != "void_cleaner":
+            raise RuntimeError(f"{path.name} must run Void Cleaner first in functions/tick.json.")
         cleaner_path = f"behavior_packs/{bp_folder}/functions/void_cleaner.mcfunction"
         cleaner_source = archive.read(cleaner_path).decode("utf-8")
         expected_cleaner = "execute as @a[tag=!void_cleaned] run fill -16 -64 -16 16 -64 16 air"
