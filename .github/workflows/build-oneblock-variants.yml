@@ -1,7 +1,18 @@
 name: Build OneBlock Creative, Survival, and Hardcore Worlds
 
 on:
-  # World archives are built only when manually requested.
+  # Rebuild all OneBlock worlds whenever their source, foundations, builder, or docs change.
+  push:
+    branches:
+      - main
+    paths:
+      - "MCPEDL/maps/OneBlock-Dirtbound-Kingdom-Beta/**"
+      - "Mcpeworlds/**"
+      - "scripts/build_oneblock_variants_from_template.py"
+      - "scripts/sync_oneblock_map_readmes.py"
+      - ".github/workflows/build-oneblock-variants.yml"
+      - "INSTRUCTIONS.md"
+  # Keep a manual build option for recovery and verification.
   workflow_dispatch:
 
 permissions:
@@ -33,16 +44,17 @@ jobs:
         run: python scripts/sync_oneblock_map_readmes.py
 
       - name: Commit generated .mcworld files and synchronized README
+        if: github.ref == 'refs/heads/main'
         shell: bash
         run: |
           set -euo pipefail
-          git add -A -- MCPEDL/maps
+          git add -A -- MCPEDL/maps/OneBlock-Dirtbound-Kingdom-Beta
           if git diff --cached --quiet; then
             echo "No generated world changes to commit."
             exit 0
           fi
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git commit -m "build(oneblock): regenerate worlds after source changes [skip ci]"
-          git pull --rebase -X theirs origin main
-          git push
+          git commit -m "build(oneblock): regenerate database-free void worlds [skip ci]"
+          # A non-fast-forward push fails safely; never resolve conflicts by overwriting source changes.
+          git push origin HEAD:main
