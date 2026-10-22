@@ -9,7 +9,7 @@ const BONUS_POS = { x: 0, y: 1, z: 0 };
 const OVERWORLD = "minecraft:overworld";
 const REQUIRE_VOID_TAG = true;          // wait for a player with the "void_cleaned" tag
 const ALWAYS_DROP_DIRT = 1;             // guaranteed dirt per core break (0 = off)
-const BONUS_CHANCE = 1 / 40;            // chance per core break
+const BONUS_CHANCE = 1 / 100;            // chance per core break
 const BONUS_LIFETIME_TICKS = 20 * 90;   // emerald despawns after 90s if nobody breaks it
 const BONUS_FUNCTION = "bonus_spawn";   // optional bonus_spawn.mcfunction (falls back to setType)
 const HUD_ENABLED = true;
