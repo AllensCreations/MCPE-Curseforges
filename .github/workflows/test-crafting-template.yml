@@ -1,12 +1,12 @@
 name: Test crafting template
 
-# Manual only. Renders sample recipes with scripts/crafting_template.py and
-# uploads the PNGs as a downloadable artifact. Does not commit anything.
+# Manual only. Runs tests/test_crafting_template.py and uploads the sample
+# images as a downloadable artifact. Does not commit anything.
 on:
   workflow_dispatch:
 
 jobs:
-  render:
+  test:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -18,38 +18,11 @@ jobs:
       - name: Install dependencies
         run: pip install pillow cairosvg
 
-      - name: Render sample recipes
-        working-directory: scripts
-        run: |
-          mkdir -p ../test-output
-          python - <<'EOF'
-          from PIL import Image
-          import crafting_template as ct
-
-          layout = ct.load_board_layout()
-          print("Slots:", layout.slots)
-          print("Output:", layout.output)
-
-          colors = {
-              "minecraft:diamond": (80, 220, 230, 255),
-              "minecraft:stick": (150, 100, 40, 255),
-              "minecraft:iron_ingot": (220, 220, 220, 255),
-          }
-          icon = lambda item: Image.new("RGBA", (16, 16), colors[item])
-          result = Image.new("RGBA", (16, 16), (255, 0, 0, 255))
-
-          shaped = {
-              "pattern": ["DDD", " S ", " S "],
-              "key": {"D": {"item": "minecraft:diamond"}, "S": {"item": "minecraft:stick"}},
-          }
-          ct.compose_recipe_diagram("minecraft:recipe_shaped", shaped, icon, result, 3).save("../test-output/shaped.png")
-
-          shapeless = {"ingredients": [{"item": "minecraft:iron_ingot"}] * 4}
-          ct.compose_recipe_diagram("minecraft:recipe_shapeless", shapeless, icon, result, 1).save("../test-output/shapeless.png")
-          print("Rendered test images successfully.")
-          EOF
+      - name: Run crafting template test
+        run: python tests/test_crafting_template.py
 
       - uses: actions/upload-artifact@v4
+        if: always()
         with:
           name: crafting-template-test
-          path: test-output/*.png
+          path: tests/output/*.png
