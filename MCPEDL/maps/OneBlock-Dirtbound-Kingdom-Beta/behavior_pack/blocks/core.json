@@ -1,0 +1,182 @@
+{
+  "format_version": "1.21.60",
+  "minecraft:block": {
+    "description": {
+      "identifier": "dbk:core",
+      "menu_category": {
+        "category": "construction"
+      },
+      "states": {
+        "dbk:stage": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9
+        ]
+      }
+    },
+    "components": {
+      "minecraft:destructible_by_explosion": false,
+      "minecraft:loot": "loot_tables/empty.json",
+      "minecraft:display_name": "Dirtbound Core"
+    },
+    "permutations": [
+      {
+        "condition": "q.block_state('dbk:stage') == 0",
+        "components": {
+          "minecraft:material_instances": {
+            "*": {
+              "texture": "dbk_stage_01",
+              "render_method": "opaque"
+            }
+          },
+          "minecraft:destructible_by_mining": {
+            "seconds_to_destroy": 0.5
+          },
+          "minecraft:map_color": "#5c402c"
+        }
+      },
+      {
+        "condition": "q.block_state('dbk:stage') == 1",
+        "components": {
+          "minecraft:material_instances": {
+            "*": {
+              "texture": "dbk_stage_02",
+              "render_method": "opaque"
+            }
+          },
+          "minecraft:destructible_by_mining": {
+            "seconds_to_destroy": 1.5
+          },
+          "minecraft:map_color": "#606876"
+        }
+      },
+      {
+        "condition": "q.block_state('dbk:stage') == 2",
+        "components": {
+          "minecraft:material_instances": {
+            "*": {
+              "texture": "dbk_stage_03",
+              "render_method": "opaque"
+            }
+          },
+          "minecraft:destructible_by_mining": {
+            "seconds_to_destroy": 2.0
+          },
+          "minecraft:map_color": "#467070"
+        }
+      },
+      {
+        "condition": "q.block_state('dbk:stage') == 3",
+        "components": {
+          "minecraft:material_instances": {
+            "*": {
+              "texture": "dbk_stage_04",
+              "render_method": "opaque"
+            }
+          },
+          "minecraft:destructible_by_mining": {
+            "seconds_to_destroy": 3.0
+          },
+          "minecraft:map_color": "#70544c"
+        }
+      },
+      {
+        "condition": "q.block_state('dbk:stage') == 4",
+        "components": {
+          "minecraft:material_instances": {
+            "*": {
+              "texture": "dbk_stage_05",
+              "render_method": "opaque"
+            }
+          },
+          "minecraft:destructible_by_mining": {
+            "seconds_to_destroy": 3.0
+          },
+          "minecraft:map_color": "#78623a"
+        }
+      },
+      {
+        "condition": "q.block_state('dbk:stage') == 5",
+        "components": {
+          "minecraft:material_instances": {
+            "*": {
+              "texture": "dbk_stage_06",
+              "render_method": "opaque"
+            }
+          },
+          "minecraft:destructible_by_mining": {
+            "seconds_to_destroy": 4.0
+          },
+          "minecraft:map_color": "#346876"
+        }
+      },
+      {
+        "condition": "q.block_state('dbk:stage') == 6",
+        "components": {
+          "minecraft:material_instances": {
+            "*": {
+              "texture": "dbk_stage_07",
+              "render_method": "opaque"
+            }
+          },
+          "minecraft:destructible_by_mining": {
+            "seconds_to_destroy": 6.0
+          },
+          "minecraft:map_color": "#542830"
+        }
+      },
+      {
+        "condition": "q.block_state('dbk:stage') == 7",
+        "components": {
+          "minecraft:material_instances": {
+            "*": {
+              "texture": "dbk_stage_08",
+              "render_method": "opaque"
+            }
+          },
+          "minecraft:destructible_by_mining": {
+            "seconds_to_destroy": 10.0
+          },
+          "minecraft:map_color": "#1c1230"
+        }
+      },
+      {
+        "condition": "q.block_state('dbk:stage') == 8",
+        "components": {
+          "minecraft:material_instances": {
+            "*": {
+              "texture": "dbk_stage_09",
+              "render_method": "opaque"
+            }
+          },
+          "minecraft:destructible_by_mining": {
+            "seconds_to_destroy": 12.0
+          },
+          "minecraft:map_color": "#2e1654"
+        }
+      },
+      {
+        "condition": "q.block_state('dbk:stage') == 9",
+        "components": {
+          "minecraft:material_instances": {
+            "*": {
+              "texture": "dbk_stage_10",
+              "render_method": "opaque"
+            }
+          },
+          "minecraft:destructible_by_mining": {
+            "seconds_to_destroy": 15.0
+          },
+          "minecraft:map_color": "#16161c"
+        }
+      }
+    ]
+  }
+}
