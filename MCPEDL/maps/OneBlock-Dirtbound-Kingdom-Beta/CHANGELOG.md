@@ -2,6 +2,16 @@
 
 ---
 
+## [0.1.25] - 2026-10-22
+
+### Build & Packaging
+- Use the valid `level.dat` from each matching `Mcpeworlds/Creative/`, `Survival/`, and `Hardcore/` foundation.
+- Preserve the intentional database-free void-world structure; do not require or create `db/CURRENT` or LevelDB data.
+- Integrate the current Behavior Pack and Resource Pack into each generated `.mcworld`.
+- Automatically rebuild all three world archives on relevant source/foundation changes, with structural checks before replacing published files.
+- Verify that `void_cleaner` remains first in the packaged `functions/tick.json`.
+
+
 ## [0.1.24] - 2026-10-21
 
 ### Improved & Balanced
