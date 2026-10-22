@@ -1,8 +1,8 @@
-# OneBlock Dirtbound Kingdom Beta (v0.1.24)
+# OneBlock Dirtbound Kingdom Beta (v0.1.25)
 
 **By AllensCreations**
 
-OneBlock Dirtbound Kingdom Beta is a void-survival challenge built around a shared central block, a OneCoins economy, and ten stages of increasingly valuable resources. Creative is the sole in-game test world. The currently published world archives have not yet been rebuilt to match the latest source changes.
+OneBlock Dirtbound Kingdom Beta is a database-free void-survival challenge built around a shared central block, a OneCoins economy, and ten stages of increasingly valuable resources. Creative is the sole in-game test world. The Creative, Survival, and Hardcore world archives are built from their matching `Mcpeworlds/` foundations and the current add-on packs.
 
 ## Overview
 
@@ -44,7 +44,7 @@ Your current OneCoins balance appears in the action bar and updates regularly. T
 1. Import the Creative world into Minecraft Bedrock Edition first.
 2. Use Creative as the only test world and check the starting platform, central block, mining rewards, progression, and Trader Ledger.
 3. The published Creative, Survival, and Hardcore archives may not include the latest source changes. Source checks alone do not prove in-game gameplay works.
-4. World archives are not rebuilt automatically when source files change. Run the OneBlock world-build workflow manually when you want to regenerate them; each mode must have its own complete matching world foundation. Structural checks do not replace in-game testing.
+4. The OneBlock workflow automatically rebuilds all three `.mcworld` archives when relevant map sources, `Mcpeworlds/` foundations, builder code, or instructions change. Manual dispatch remains available. Each archive copies its mode's valid `level.dat` and installs the current Behavior Pack and Resource Pack. The deliberate absence of `db/CURRENT` and LevelDB data is preserved; no database is created, borrowed, or fabricated. Structural checks do not replace in-game testing.
 
 ## Compatibility and Limitations
 
