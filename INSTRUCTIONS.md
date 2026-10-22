@@ -241,7 +241,6 @@ Workflows in `.github/workflows/`. Roles below come from file names and recent c
 | :--- | :--- |
 | `auto-version-bump.yml` | Bumps release versions. Must keep manifest titles in the `Name (vX.Y.Z)` format (Section 3). |
 | `create-addon-scaffold.yml` | Scaffolds a new add-on with a download-only README and a DESCRIPTION starter. |
-| `create-mcpe-world.yml` | Creates and persists the extracted OneBlock world template for future builds. |
 | `build-oneblock-variants.yml` | Automatically builds the Creative, Survival, and Hardcore database-free `.mcworld` archives into `MCPEDL/maps/<Map-Name>/` when relevant sources or foundations change; manual dispatch is also available. |
 | `refresh-build-packs.yml` | Scheduled refresh of projects and rebuild of packs in `builds/`. |
 | `generate-recipe-images.yml` | Regenerates recipe diagrams (Section 5). |
