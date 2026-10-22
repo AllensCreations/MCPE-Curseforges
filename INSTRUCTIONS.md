@@ -1,6 +1,6 @@
 # Repository Instructions
 
-Core policy for AllensCreations/MCPE-Curseforges. All README, DESCRIPTION, and CHANGELOG rules live in `README_GUIDELINES.md`, which must be followed together with this file; this file wins on any conflict. Specialized skills still apply alongside this file: `.agents/skills/checkrm/SKILL.md` (audit workflow), `.agents/skills/mcpe-readme/SKILL.md` (commercial-but-factual writing), and the Mojang samples skill (vanilla reference assets).
+Core policy for AllensCreations/MCPE-Curseforges. All README, DESCRIPTION, and CHANGELOG rules live in `README_GUIDELINES.md`, which must be followed together with this file; this file wins on any conflict. One skill, `.agents/skills/checkrm/SKILL.md`, covers the documentation audit workflow and the Mojang Bedrock Samples reference. It follows this file and `README_GUIDELINES.md` and never overrides them.
 
 ---
 
@@ -51,7 +51,7 @@ Do this for every new pack and meaningful update. A compatible API version does 
 
 ---
 
-## 3. Manifest Title and Creator Attribution
+## 3. Manifest Title, Attribution, and LOCK Marker
 
 - Every Behavior Pack and Resource Pack manifest title is `Add-on Name (vX.Y.Z)`, for example `Vanilla Quality of Life (v1.3.0)`. Update it whenever the release version changes; release automation must preserve this.
 - Put `by AllensCreations` in `header.description` exactly once. Normalize existing descriptions rather than appending duplicates. Keep attribution out of the title.
@@ -61,6 +61,13 @@ Do this for every new pack and meaningful update. A compatible API version does 
   - that version matches `header.version`;
   - no malformed or duplicated suffixes;
   - `behavior_pack/` and `resource_pack/` versions match when both exist.
+- Run it for one project with `python3 scripts/validate_manifest_titles.py --project <project-path>`.
+
+### Add-on LOCK marker
+
+- Every project under `MCPEDL/addons/` and `MCPEDL/new_addons/` has a `LOCK` file at its root beginning with `AllensCreations Add-on Lock v1`.
+- The scaffold workflow creates it and the build script enforces it. A missing or invalid marker is release-blocking: report the exact project path and do not call the project build-ready.
+- It is a repository and build safeguard only. It does not encrypt source, stop edits, or prevent extraction of a distributable package.
 
 ---
 
@@ -100,7 +107,7 @@ Every custom crafting recipe must be unlocked by default using the schema its re
 ### Textures
 
 - Use inventory-style item sprites, never cropped world textures. If only block-face textures exist, build a small isometric cube from verified matching faces (top and side); never stretch one face.
-- Bedrock Samples is the only source for vanilla names, identifiers, and textures. No third-party packs, guessed filenames, or approximate icons.
+- Bedrock Samples (see the `checkrm` skill) is the only source for vanilla names, identifiers, and textures. No third-party packs, guessed filenames, or approximate icons.
 - Inspect the add-on's whole recipe directory first and build an explicit ingredient-to-texture mapping for every ingredient. Filenames often differ from item IDs (for example, Enchanted Golden Apple uses the golden apple texture), and files may be under `textures/items/` or `textures/blocks/`. Verify each path exists and depicts the correct item.
 - Never substitute another icon or skip an ingredient. Report all unresolved ingredients together and stop.
 
@@ -213,6 +220,13 @@ Workflows in `.github/workflows/`. Roles below come from file names and recent c
 | `generate-recipe-images.yml` | Regenerates recipe diagrams (Section 5). |
 | `manage-addon-status.yml` | Manages add-on status. |
 | `delete-project.yml` | Deletes a project. |
+
+Helper scripts in `scripts/`:
+
+- `check_readme_status.py`: audits README and DESCRIPTION status and relative links (`--fix` generates stub documentation).
+- `validate_manifest_titles.py`: the title validator from Section 3.
+- `auto_bump_and_build.py`: bumps versions and builds packs. Use `--no-bump` for documentation-only work.
+- `crafting_template.py`: shared recipe board renderer.
 
 - Never claim a workflow ran or succeeded unless its run was checked.
 - When a rule in this file changes a workflow's behavior (titles, paths, versions), update the workflow in the same change.
