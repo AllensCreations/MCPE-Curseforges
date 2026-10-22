@@ -1,0 +1,13 @@
+{
+  "format_version": "1.21.60",
+  "minecraft:item": {
+    "description": {
+      "identifier": "custom:sovereign_ledger",
+      "menu_category": { "category": "items" }
+    },
+    "components": {
+      "minecraft:max_stack_size": 1,
+      "minecraft:display_name": { "value": "§6Sovereign Ledger" }
+    }
+  }
+}
