@@ -1,13 +1,13 @@
 {
   "format_version": 2,
   "header": {
-    "name": "OneBlock Dirtbound Kingdom Beta (v0.1.29)",
+    "name": "OneBlock Dirtbound Kingdom Beta (v0.1.30)",
     "description": "Custom Trader item texture for Dirtbound Kingdom. by AllensCreations",
     "uuid": "e8d8136a-7a5b-4818-b813-61c21f2e71ad",
     "version": [
       0,
       1,
-      29
+      30
     ],
     "min_engine_version": [
       1,
@@ -22,7 +22,7 @@
       "version": [
         0,
         1,
-        29
+        30
       ]
     }
   ],
