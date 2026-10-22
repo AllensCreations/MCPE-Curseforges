@@ -1,19 +1,22 @@
 name: Build OneBlock Creative, Survival, and Hardcore Worlds
 
 on:
-  # Rebuild all OneBlock worlds whenever their source, foundations, builder, or docs change.
   push:
-    branches:
-      - main
+    branches: [main]
     paths:
-      - "MCPEDL/maps/OneBlock-Dirtbound-Kingdom-Beta/**"
+      - "MCPEDL/maps/**"
       - "Mcpeworlds/**"
       - "scripts/build_oneblock_variants_from_template.py"
       - "scripts/sync_oneblock_map_readmes.py"
       - ".github/workflows/build-oneblock-variants.yml"
       - "INSTRUCTIONS.md"
-  # Keep a manual build option for recovery and verification.
   workflow_dispatch:
+    inputs:
+      map_name:
+        description: "Map folder under MCPEDL/maps/ (blank = build all maps)"
+        required: false
+        default: ""
+        type: string
 
 permissions:
   contents: write
@@ -24,8 +27,10 @@ concurrency:
 
 jobs:
   build:
-    name: Build and publish all three world modes
+    name: Build and publish world modes
     runs-on: ubuntu-latest
+    env:
+      ONEBLOCK_MAP: ${{ inputs.map_name }}
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -37,18 +42,58 @@ jobs:
         with:
           python-version: '3.11'
 
-      - name: Build each mode from its complete matching Mcpeworlds foundation and the map's actual packs
+      - name: Validate map name
+        shell: bash
+        run: |
+          set -euo pipefail
+          if [ -n "$ONEBLOCK_MAP" ]; then
+            [[ "$ONEBLOCK_MAP" =~ ^[A-Za-z0-9._-]+$ ]] \
+              || { echo "::error::Map name may only use letters, numbers, . _ -"; exit 1; }
+            [ -f "MCPEDL/maps/$ONEBLOCK_MAP/oneblock.json" ] \
+              || { echo "::error::MCPEDL/maps/$ONEBLOCK_MAP/oneblock.json not found"; exit 1; }
+          fi
+
+      - name: Build each mode from its matching Mcpeworlds foundation and the map's packs
         run: python scripts/build_oneblock_variants_from_template.py
 
       - name: Synchronize map README with generated world archives
         run: python scripts/sync_oneblock_map_readmes.py
 
-      - name: Commit generated .mcworld files and synchronized README
+      - name: Verify generated worlds are database-free
+        shell: bash
+        run: |
+          python3 - <<'PY'
+          import glob, os, sys, zipfile
+          only = os.environ.get("ONEBLOCK_MAP", "").strip()
+          bad = []
+          for cfg in glob.glob("MCPEDL/maps/*/oneblock.json"):
+              folder = os.path.dirname(cfg)
+              if only and os.path.basename(folder) != only:
+                  continue
+              for w in glob.glob(folder + "/*.mcworld"):
+                  names = zipfile.ZipFile(w).namelist()
+                  if not any(n.endswith("level.dat") for n in names):
+                      bad.append(f"{w}: missing level.dat")
+                  if any(n.startswith("db/") or "/db/" in n for n in names):
+                      bad.append(f"{w}: contains db/ data")
+          if bad:
+              print("\n".join("::error::" + b for b in bad)); sys.exit(1)
+          print("Structural checks passed (not an in-game test).")
+          PY
+
+      - name: Upload worlds as artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: oneblock-worlds
+          path: MCPEDL/maps/*/*.mcworld
+          if-no-files-found: warn
+
+      - name: Commit generated .mcworld files and README
         if: github.ref == 'refs/heads/main'
         shell: bash
         run: |
           set -euo pipefail
-          git add -A -- MCPEDL/maps/OneBlock-Dirtbound-Kingdom-Beta
+          git add -A -- MCPEDL/maps
           if git diff --cached --quiet; then
             echo "No generated world changes to commit."
             exit 0
@@ -56,5 +101,4 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git commit -m "build(oneblock): regenerate database-free void worlds [skip ci]"
-          # A non-fast-forward push fails safely; never resolve conflicts by overwriting source changes.
           git push origin HEAD:main

@@ -19,7 +19,7 @@ from typing import Any
 
 ROOT = Path(__file__).resolve().parents[1]
 MAPS_ROOT = ROOT / "MCPEDL" / "maps"
-PROJECT = MAPS_ROOT / "OneBlock-Dirtbound-Kingdom-Beta"
+PROJECT = MAPS_ROOT / (__import__("os").environ.get("ONEBLOCK_MAP", "").strip() or next((q.parent.name for q in sorted(MAPS_ROOT.rglob("oneblock.json"))), ""))
 SOURCE_WORLDS = {
     "Creative": ROOT / "Mcpeworlds" / "Creative",
     "Survival": ROOT / "Mcpeworlds" / "Survival",
@@ -294,17 +294,22 @@ def verify_archive(path: Path, bp_uuid: str, bp_version: list[int], rp_uuid: str
             raise RuntimeError(f"{path.name} does not contain the required 33x33 Y=-64 Void Cleaner command.")
         bp_links = json.loads(archive.read("world_behavior_packs.json"))
         if not any(p.get("pack_id") == bp_uuid and p.get("version") == bp_version for p in bp_links):
-            raise RuntimeError(f"{path.name} does not link the Dirtbound Behavior Pack.")
+            raise RuntimeError(f"{path.name} does not link the map Behavior Pack.")
         if rp_uuid:
             if "world_resource_packs.json" not in names:
                 raise RuntimeError(f"{path.name} is missing world_resource_packs.json.")
             rp_links = json.loads(archive.read("world_resource_packs.json"))
             if not any(p.get("pack_id") == rp_uuid and p.get("version") == rp_version for p in rp_links):
-                raise RuntimeError(f"{path.name} does not link the Dirtbound Resource Pack.")
+                raise RuntimeError(f"{path.name} does not link the map Resource Pack.")
 
 
 def main() -> int:
     projects = sorted(path.parent for path in MAPS_ROOT.rglob("oneblock.json"))
+    only = __import__("os").environ.get("ONEBLOCK_MAP", "").strip()
+    if only:
+        projects = [p for p in projects if p.name == only]
+        if not projects:
+            raise SystemExit(f"Map {only!r} not found or has no oneblock.json")
     if not projects:
         print("No OneBlock projects found; add oneblock.json beside a map pack.")
         return 0
