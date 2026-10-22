@@ -1,0 +1,96 @@
+name: Extract ZIP to Selected Folder
+
+on:
+  workflow_dispatch:
+    inputs:
+      zip_path:
+        description: "Repository path to the ZIP file"
+        required: true
+        default: "MCPEDL/maps/OneBlock-Dirtbound-Kingdom-Beta/resource_pack/textures/dbk/icons/icons.zip"
+        type: string
+      destination_path:
+        description: "Repository folder where ZIP contents should be extracted"
+        required: true
+        default: "MCPEDL/maps/OneBlock-Dirtbound-Kingdom-Beta/resource_pack/textures/dbk/icons"
+        type: string
+      delete_source_zip:
+        description: "Delete the source ZIP after successful extraction"
+        required: true
+        default: false
+        type: boolean
+
+permissions:
+  contents: write
+
+concurrency:
+  group: extract-zip-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  extract:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.ref_name }}
+          fetch-depth: 0
+
+      - name: Validate paths and extract ZIP
+        env:
+          ZIP_PATH: ${{ inputs.zip_path }}
+          DEST_PATH: ${{ inputs.destination_path }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          import os
+          for name in ('ZIP_PATH', 'DEST_PATH'):
+              value = os.environ[name].strip()
+              if not value or value.startswith('/') or '\\\\' in value:
+                  raise SystemExit(f'Invalid {name}: use a repository-relative path.')
+              if any(part in ('', '.', '..') for part in value.split('/')):
+                  raise SystemExit(f'Invalid {name}: path traversal or empty path segment.')
+          if not os.environ['ZIP_PATH'].lower().endswith('.zip'):
+              raise SystemExit('ZIP_PATH must point to a .zip file.')
+          PY
+          test -f "$ZIP_PATH" || { echo "::error::ZIP file not found: $ZIP_PATH"; exit 1; }
+          mkdir -p "$DEST_PATH"
+          python - <<'PY'
+          import os, zipfile
+          archive = os.environ['ZIP_PATH']
+          with zipfile.ZipFile(archive) as zf:
+              for item in zf.infolist():
+                  name = item.filename.replace('\\\\', '/')
+                  if name.startswith('/') or any(p == '..' for p in name.split('/')):
+                      raise SystemExit(f'Unsafe ZIP entry: {item.filename}')
+              zf.extractall(os.environ['DEST_PATH'])
+          print(f'Extracted {archive} into {os.environ["DEST_PATH"]}')
+          PY
+
+      - name: Optionally remove source ZIP
+        if: ${{ inputs.delete_source_zip }}
+        env:
+          ZIP_PATH: ${{ inputs.zip_path }}
+        run: rm -- "$ZIP_PATH"
+
+      - name: Commit and push extracted files
+        env:
+          ZIP_PATH: ${{ inputs.zip_path }}
+          DEST_PATH: ${{ inputs.destination_path }}
+          DELETE_SOURCE: ${{ inputs.delete_source_zip }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -- "$DEST_PATH"
+          if [[ "$DELETE_SOURCE" == "true" ]]; then
+            git add -u -- "$ZIP_PATH"
+          fi
+          if git diff --cached --quiet; then
+            echo "No extracted-file changes to commit."
+            exit 0
+          fi
+          git commit -m "Extract ZIP contents into selected folder"
+          git push origin "HEAD:${GITHUB_REF_NAME}"
