@@ -1,1 +1,5 @@
-{"ui_defs":["ui/dirtbound_chest.json"]}
+{
+  "ui_defs": [
+    "ui/dirtbound_chest.json"
+  ]
+}
