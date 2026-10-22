@@ -47,7 +47,7 @@ jobs:
           import os
           for name in ('ZIP_PATH', 'DEST_PATH'):
               value = os.environ[name].strip()
-              if not value or value.startswith('/') or '\\\\' in value:
+              if not value or value.startswith('/') or chr(92) in value:
                   raise SystemExit(f'Invalid {name}: use a repository-relative path.')
               if any(part in ('', '.', '..') for part in value.split('/')):
                   raise SystemExit(f'Invalid {name}: path traversal or empty path segment.')
@@ -61,7 +61,7 @@ jobs:
           archive = os.environ['ZIP_PATH']
           with zipfile.ZipFile(archive) as zf:
               for item in zf.infolist():
-                  name = item.filename.replace('\\\\', '/')
+                  name = item.filename.replace(chr(92), '/')
                   if name.startswith('/') or any(p == '..' for p in name.split('/')):
                       raise SystemExit(f'Unsafe ZIP entry: {item.filename}')
               zf.extractall(os.environ['DEST_PATH'])
