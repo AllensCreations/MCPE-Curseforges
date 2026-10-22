@@ -8,8 +8,7 @@ Download the current published OneBlock Dirtbound Kingdom Beta world for Minecra
 - **Survival:** [Download Survival World (.mcworld)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/MCPEDL/maps/OneBlock-Dirtbound-Kingdom-Beta/OneBlock%20Dirtbound%20Kingdom%20Beta%20-%20Survival.mcworld)
 - **Hardcore:** [Download Hardcore World (.mcworld)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/MCPEDL/maps/OneBlock-Dirtbound-Kingdom-Beta/OneBlock%20Dirtbound%20Kingdom%20Beta%20-%20Hardcore.mcworld)
 
-The map source is v0.1.25, but these world archives are missing or do not link the current pack versions: Creative, Survival, Hardcore.
-Existing downloads may be from an earlier source version. World archives are not rebuilt automatically; run the OneBlock world-build workflow manually when you want to regenerate them. Each matching Mcpeworlds foundation must contain its own complete LevelDB.
+The map source is v0.1.25. The OneBlock workflow automatically rebuilds all three world archives when relevant map source files, `Mcpeworlds/` foundations, builder code, or instructions change. It can also be run manually. Each archive uses its matching foundation's valid `level.dat`, integrates the current Behavior Pack and Resource Pack, and deliberately contains no LevelDB database or `db/CURRENT`. Archive checks verify structure and pack links; they do not prove gameplay has been tested in Minecraft.
 
 ## Installation
 
