@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Synchronize README.md files for opted-in OneBlock map projects.
 
-README state is derived from current pack manifests and actual world archives.
+README state is derived from current pack manifests and actual database-free world archives.
 This script never creates world archives or claims gameplay was tested.
 """
 from __future__ import annotations
@@ -24,11 +24,11 @@ def pack_link_matches(archive_path: Path, link_name: str, pack_uuid: str, versio
     try:
         with zipfile.ZipFile(archive_path) as archive:
             names = set(archive.namelist())
-            if "level.dat" not in names or "db/CURRENT" not in names:
+            if "level.dat" not in names or "db/CURRENT" in names:
                 return False
-            if not any(name.startswith("db/") and not name.endswith("/")
-                       and name.split("/")[-1] not in {"CURRENT", "LOCK", "LOG", "LOG.old"}
-                       and not name.split("/")[-1].startswith("MANIFEST") for name in names):
+            if any(name.startswith("db/") and not name.endswith("/")
+                   and name.split("/")[-1] not in {"CURRENT", "LOCK", "LOG", "LOG.old"}
+                   and not name.split("/")[-1].startswith("MANIFEST") for name in names):
                 return False
             if link_name not in names:
                 return False
@@ -92,7 +92,7 @@ def build_readme(project: Path) -> str:
         lines.extend([
             f"The map source is v{version}, but these world archives are missing or do not link the current pack versions: "
             + ", ".join(stale_or_missing) + ".",
-            "Existing downloads may be from an earlier source version. World archives are not rebuilt automatically; run the OneBlock world-build workflow manually when you want to regenerate them. Each matching Mcpeworlds foundation must contain its own complete LevelDB.",
+            "Existing downloads may be from an earlier source version. The OneBlock workflow rebuilds all three archives automatically when relevant map sources, Mcpeworlds foundations, builder code, or instructions change; it can also be run manually. Each archive preserves its mode's valid level.dat and intentionally contains no LevelDB database or db/CURRENT.",
         ])
 
     lines.extend([
