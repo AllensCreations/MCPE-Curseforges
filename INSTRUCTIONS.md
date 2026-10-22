@@ -327,7 +327,7 @@ Do not claim `tick.json` is missing without inspecting the installed or packaged
 
 ### Workflow
 
-You supply a OneBlock script (new or an update). Claude does not build worlds or archives as part of this; `.mcworld` files are compiled into `builds/<Map-Name>/` by the build process from the `Mcpeworlds/` folders. Claude:
+You supply a OneBlock script (new or an update). Claude does not build worlds or archives as part of this; `.mcworld` files are compiled into `builds/<Map-Name>/` by `build-oneblock-variants.yml` from the `Mcpeworlds/` folders. Claude:
 
 1. Saves the source in `MCPEDL/maps/<Map-Name>/`: `behavior_pack/`, `resource_pack/` if the Behavior Pack depends on it, `pack_icon.png`, and `README.md`.
 2. Installs the pack(s) into all three `Mcpeworlds/` folders.
@@ -381,7 +381,27 @@ Repeat for each mode folder, with identical results in all three:
 
 ---
 
-## 9. Repository Organization
+## 9. Workflows
+
+Workflows in `.github/workflows/`. Roles below come from file names and recent commit messages; read the actual workflow file before editing it or describing what it does.
+
+| Workflow | Role |
+| :--- | :--- |
+| `auto-version-bump.yml` | Bumps release versions. Must keep manifest titles in the `Name (vX.Y.Z)` format (Section 4). |
+| `create-addon-scaffold.yml` | Scaffolds a new add-on with a download-only README and a DESCRIPTION starter. |
+| `create-mcpe-world.yml` | Creates and persists the extracted OneBlock world template for future builds. |
+| `build-oneblock-variants.yml` | Builds the Creative, Survival, and Hardcore `.mcworld` archives into `builds/<Map-Name>/` and refreshes the map README. |
+| `refresh-build-packs.yml` | Scheduled refresh of projects and rebuild of packs in `builds/`. |
+| `generate-recipe-images.yml` | Regenerates recipe diagrams (Section 6). |
+| `manage-addon-status.yml` | Manages add-on status. |
+| `delete-project.yml` | Deletes a project. |
+
+- Never claim a workflow ran or succeeded unless its run was checked.
+- When a rule in this file changes a workflow's behavior (titles, paths, versions), update the workflow in the same change.
+
+---
+
+## 10. Repository Organization
 
 ```
 MCPE-Curseforges/
