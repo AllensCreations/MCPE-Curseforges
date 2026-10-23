@@ -2,7 +2,7 @@ import { system } from "@minecraft/server";
 import { ActionFormData } from "@minecraft/server-ui";
 import { CURRENCY, LICENSES, ISLAND_LEVELS, CONTRACTS, CATS, DIRT_REWARD, nice, ACHIEVEMENTS, UPGRADE_MAX } from "./config.js";
 import { loadPlayer, loadWorld, hasLic, islandLevel, highestTier, ITEMS, quote, snapshot, demandState } from "./store.js";
-import { inventoryCounts, sell, buyLicense, buyIsland, buyContract, cancelContract, upgradeContract, upgradeCost, intervalFor } from "./game.js";
+import { inventoryCounts, sell, buyLicense, buyIsland, buyContract, cancelContract, upgradeContract, upgradeCost, intervalFor, autoMineStatus, buyAutoMine } from "./game.js";
 
 const wait = (t) => new Promise((r) => system.runTimeout(r, t));
 const busy = new Set();
@@ -43,9 +43,9 @@ async function mainMenu(p) {
       "\n\nDirt pays a fixed " + DIRT_REWARD + " " + CURRENCY + " each time you mine the OneBlock.";
     const r = await show(p, new ActionFormData().title("Trader's Ledger").body(body)
       .button("Sell Items").button("Market Prices").button("Block Licenses").button("Natural Loot Contracts")
-      .button("Island Expansion Permits").button("Transaction History").button("Achievements").button("Exit"));
-    if (r.canceled || r.selection === 7) return;
-    const fn = [sellMenu, priceMenu, licenseMenu, contractMenu, islandMenu, historyMenu, achMenu][r.selection];
+      .button("Island Expansion Permits").button("Auto-Mining Subscription").button("Transaction History").button("Achievements").button("Exit"));
+    if (r.canceled || r.selection === 8) return;
+    const fn = [sellMenu, priceMenu, licenseMenu, contractMenu, islandMenu, autoMineMenu, historyMenu, achMenu][r.selection];
     await fn(p);
   }
 }
@@ -163,6 +163,19 @@ async function contractMenu(p) {
       await note(p, res.ok ? "Contract Active" : "Purchase Failed", res.msg);
     }
   }
+}
+
+
+async function autoMineMenu(p) {
+  const s = autoMineStatus();
+  const remaining = Math.ceil(s.remainingTicks / 20);
+  const body = s.active
+    ? "Subscription active for this Minecraft day.\nTime remaining: " + remaining + " seconds.\nDrops are stored in the chest directly above the OneBlock. The subscription expires when the next Minecraft day begins."
+    : "Cost: " + s.cost + " " + CURRENCY + "\nIncludes up to 30 seconds of OneBlock automation during the current Minecraft day. The subscription expires when the next Minecraft day begins.\n\nAutomation requires space in the chest directly above the OneBlock.";
+  if (s.active) return note(p, "Auto-Mining Subscription", body);
+  if (!(await confirm(p, "Auto-Mining Subscription", body, "Purchase for " + s.cost + " " + CURRENCY))) return;
+  const res = buyAutoMine(p);
+  await note(p, res.ok ? "Subscription Purchased" : "Purchase Failed", res.msg);
 }
 
 async function islandMenu(p) {
