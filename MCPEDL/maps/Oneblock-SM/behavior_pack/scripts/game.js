@@ -73,8 +73,10 @@ const currentDay = () => world.getDay();
 export function autoMineStatus() {
   const a = loadWorld().autoMine;
   const day = currentDay();
-  if (!a || a.expiresDay <= day || a.usedTicks >= AUTO_MINE_TICKS) {
-    return { active: false, available: true, usedTicks: 0, remainingTicks: AUTO_MINE_TICKS, cost: AUTO_MINE_COST };
+  const active = !!a && a.expiresDay > day && (a.usedTicks || 0) < AUTO_MINE_TICKS;
+  const available = !a || a.purchaseDay !== day;
+  if (!active) {
+    return { active: false, available, usedTicks: a && a.purchaseDay === day ? (a.usedTicks || 0) : 0, remainingTicks: a && a.purchaseDay === day ? Math.max(0, AUTO_MINE_TICKS - (a.usedTicks || 0)) : AUTO_MINE_TICKS, cost: AUTO_MINE_COST };
   }
   return { active: true, available: false, usedTicks: a.usedTicks || 0, remainingTicks: Math.max(0, AUTO_MINE_TICKS - (a.usedTicks || 0)), cost: AUTO_MINE_COST };
 }
@@ -83,12 +85,13 @@ export function buyAutoMine(p) {
   const w = loadWorld();
   const day = currentDay();
   const a = w.autoMine;
-  if (a && a.expiresDay > day && a.usedTicks < AUTO_MINE_TICKS) {
-    return { ok: false, msg: "The OneBlock automation subscription is already active for this Minecraft day. Remaining time: " + Math.ceil((AUTO_MINE_TICKS - a.usedTicks) / 20) + " seconds." };
+  if (a && a.purchaseDay === day) {
+    const remaining = Math.max(0, AUTO_MINE_TICKS - (a.usedTicks || 0));
+    return { ok: false, msg: remaining > 0 ? "The OneBlock automation subscription is already active for this Minecraft day. Remaining time: " + Math.ceil(remaining / 20) + " seconds." : "You have used today's 30-second automation allowance. You can purchase another subscription when the next Minecraft day begins." };
   }
   const d = loadPlayer(p);
   if (!spend(d, AUTO_MINE_COST)) return { ok: false, msg: "Not enough " + CURRENCY + ". You need " + AUTO_MINE_COST + ", you have " + d.coins + "." };
-  w.autoMine = { owner: p.id, expiresDay: day + 1, usedTicks: 0 };
+  w.autoMine = { owner: p.id, purchaseDay: day, expiresDay: day + 1, usedTicks: 0 };
   log(d, "Bought OneBlock automation subscription for " + AUTO_MINE_COST + " " + CURRENCY);
   savePlayer(p, d);
   saveWorld(w);
@@ -131,11 +134,12 @@ export function autoMineTick() {
   const a = w.autoMine;
   const day = currentDay();
   if (!a || a.expiresDay <= day || a.usedTicks >= AUTO_MINE_TICKS) return;
+  const player = world.getAllPlayers().find((p) => p.id === a.owner && p.dimension.id === "minecraft:overworld" && p.hasTag("void_cleaned"));
+  if (!player) return;
   a.usedTicks = Math.min(AUTO_MINE_TICKS, (a.usedTicks || 0) + 1);
   if (a.usedTicks % 20 === 0 || a.usedTicks >= AUTO_MINE_TICKS) saveWorld(w);
   if (a.usedTicks % AUTO_MINE_STEP !== 0) return;
-  const player = world.getAllPlayers().find((p) => p.id === a.owner && p.dimension.id === "minecraft:overworld" && p.hasTag("void_cleaned"));
-  if (!player || !core.armed || core.pending) return;
+  if (!core.armed || core.pending) return;
   const dim = dimOf();
   let chestBlock = dim.getBlock({ x: CORE.x, y: CORE.y + 1, z: CORE.z });
   if (!chestBlock) return;
