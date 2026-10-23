@@ -4,11 +4,18 @@ import { initEconomy } from "./economy.js";
 import { initZoning } from "./zoning.js";
 import { initWorkers } from "./workers.js";
 import { initLedger, LEDGER_ID } from "./ledger_ui.js";
+import { initPlatform } from "./platform.js";
+import { initWaves } from "./waves.js";
+import { initMilestones } from "./milestones.js";
+import { applyPending } from "./trade.js";
 
 initEconomy();
 initZoning();
 initWorkers();
 initLedger();
+initPlatform();
+initWaves();
+initMilestones();
 
 function giveLedger(player) {
   const left = player.getComponent("minecraft:inventory")?.container?.addItem(new ItemStack(LEDGER_ID, 1));
@@ -24,6 +31,18 @@ system.runInterval(() => {
     }
   }
 }, 40);
+
+// Restore a missing ledger when a returning player joins.
+function hasLedger(player) {
+  const c = player.getComponent("minecraft:inventory")?.container;
+  if (!c) return true;
+  for (let i = 0; i < c.size; i++) if (c.getItem(i)?.typeId === LEDGER_ID) return true;
+  return false;
+}
+world.afterEvents.playerSpawn.subscribe((ev) => {
+  if (ev.initialSpawn) applyPending(ev.player); // coins earned by trade listings while offline
+  if (ev.initialSpawn && ev.player.getDynamicProperty("sv_ledger") === true && !hasLedger(ev.player)) giveLedger(ev.player);
+});
 
 // Lost your ledger?  /scriptevent sv:ledger
 system.afterEvents.scriptEventReceive.subscribe((ev) => {

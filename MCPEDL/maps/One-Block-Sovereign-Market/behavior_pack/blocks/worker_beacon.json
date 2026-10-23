@@ -3,14 +3,21 @@
   "minecraft:block": {
     "description": {
       "identifier": "custom:worker_beacon",
-      "menu_category": { "category": "construction" }
+      "menu_category": {
+        "category": "construction"
+      }
     },
     "components": {
       "minecraft:geometry": "minecraft:geometry.full_block",
       "minecraft:material_instances": {
-        "*": { "texture": "beacon", "render_method": "opaque" }
+        "*": {
+          "texture": "worker_beacon",
+          "render_method": "opaque"
+        }
       },
-      "minecraft:destructible_by_mining": { "seconds_to_destroy": 1.5 }
+      "minecraft:destructible_by_mining": {
+        "seconds_to_destroy": 1.5
+      }
     }
   }
 }

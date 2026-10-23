@@ -1,11 +1,13 @@
 // zoning.js - island permit levels + boundary guard.
 import { world, system, ItemStack } from "@minecraft/server";
 import { ORIGIN } from "./economy.js";
+import { teamPermit, setTeamPermit } from "./teams.js";
 
 // Level 0 is free. Radius is measured in blocks from the origin on X and Z.
+// "phase" is the minimum world phase index (see economy.js PHASES) needed to buy that level.
 export const PERMITS = [
-  { radius: 8, cost: 0 }, { radius: 16, cost: 50 }, { radius: 32, cost: 250 },
-  { radius: 64, cost: 1000 }, { radius: 128, cost: 5000 },
+  { radius: 8, cost: 0, phase: 0 }, { radius: 16, cost: 50, phase: 1 }, { radius: 32, cost: 250, phase: 2 },
+  { radius: 64, cost: 1000, phase: 3 }, { radius: 128, cost: 5000, phase: 4 },
 ];
 export const WARNING = "§c[ZONING] §fPermit required to build in this sector!";
 
@@ -13,8 +15,10 @@ export function getPermitLevel(player) {
   const v = player.getDynamicProperty("sv_permit");
   return typeof v === "number" ? Math.min(Math.max(0, v), PERMITS.length - 1) : 0;
 }
-export const setPermitLevel = (player, lvl) => player.setDynamicProperty("sv_permit", lvl);
-export const getRadius = (player) => PERMITS[getPermitLevel(player)].radius;
+export function setPermitLevel(player, lvl) { player.setDynamicProperty("sv_permit", lvl); setTeamPermit(player.id, lvl); }
+// A team shares its best permit.
+export const effectiveLevel = (player) => Math.min(PERMITS.length - 1, Math.max(getPermitLevel(player), teamPermit(player.id)));
+export const getRadius = (player) => PERMITS[effectiveLevel(player)].radius;
 export const isInside = (radius, x, z) => Math.abs(x - ORIGIN.x) <= radius && Math.abs(z - ORIGIN.z) <= radius;
 
 const lastSafe = new Map(); // player id -> last location inside the permit
