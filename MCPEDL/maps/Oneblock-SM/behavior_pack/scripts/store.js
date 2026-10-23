@@ -4,7 +4,7 @@ import { MAX_BALANCE, HISTORY_MAX, MARKET, MARKET_CFG as C, CATS, ISLAND_LEVELS,
 const PKEY = "osm:player";
 const WKEY = "osm:world";
 const freshPlayer = () => ({ v: 1, coins: 0, lic: ["t1"], con: [], hist: [], mined: 0, tx: 0, up: {}, ach: [], sold: 0 });
-const freshWorld = () => ({ v: 1, lvl: 0, market: {}, chests: [] });
+const freshWorld = () => ({ v: 1, lvl: 0, market: {}, chests: [], autoMine: null });
 
 function read(holder, key, fresh) {
   const raw = holder.getDynamicProperty(key);
