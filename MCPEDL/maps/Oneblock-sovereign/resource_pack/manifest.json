@@ -1,0 +1,35 @@
+{
+  "format_version": 2,
+  "header": {
+    "name": "One-Block: Sovereign Market (v1.3.0)",
+    "description": "Ledger icon for One-Block: Sovereign Market. by AllensCreations",
+    "uuid": "59453769-1597-41db-8034-608c5394d2f8",
+    "version": [
+      1,
+      3,
+      0
+    ],
+    "min_engine_version": [
+      1,
+      26,
+      50
+    ]
+  },
+  "modules": [
+    {
+      "type": "resources",
+      "uuid": "9b9b55f3-8a54-40f5-89d7-6a91857d7af1",
+      "version": [
+        1,
+        3,
+        0
+      ]
+    }
+  ],
+  "metadata": {
+    "authors": [
+      "AllensCreations"
+    ],
+    "product_type": "addon"
+  }
+}
