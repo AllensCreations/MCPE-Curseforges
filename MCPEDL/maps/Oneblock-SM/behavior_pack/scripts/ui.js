@@ -171,8 +171,10 @@ async function autoMineMenu(p) {
   const remaining = Math.ceil(s.remainingTicks / 20);
   const body = s.active
     ? "Subscription active for this Minecraft day.\nTime remaining: " + remaining + " seconds.\nDrops are stored in the chest directly above the OneBlock. The subscription expires when the next Minecraft day begins."
-    : "Cost: " + s.cost + " " + CURRENCY + "\nIncludes up to 30 seconds of OneBlock automation during the current Minecraft day. The subscription expires when the next Minecraft day begins.\n\nAutomation requires space in the chest directly above the OneBlock.";
-  if (s.active) return note(p, "Auto-Mining Subscription", body);
+    : !s.available
+      ? "Today's 30-second automation allowance has been used. You can purchase another subscription when the next Minecraft day begins."
+      : "Cost: " + s.cost + " " + CURRENCY + "\nIncludes up to 30 seconds of OneBlock automation during the current Minecraft day. The subscription expires when the next Minecraft day begins.\n\nAutomation requires space in the chest directly above the OneBlock.";
+  if (s.active || !s.available) return note(p, "Auto-Mining Subscription", body);
   if (!(await confirm(p, "Auto-Mining Subscription", body, "Purchase for " + s.cost + " " + CURRENCY))) return;
   const res = buyAutoMine(p);
   await note(p, res.ok ? "Subscription Purchased" : "Purchase Failed", res.msg);
