@@ -1,16 +1,28 @@
-# Harvest Intelligence (v1.0.3) — Downloads
+# Harvest Intelligence - Downloads and Releases
 
-Download the published package files for Minecraft Bedrock Edition from this folder.
+This folder contains compiled release packages for **Harvest Intelligence** by AllensCreations.
 
-## Available Downloads
+---
 
-- **Complete Add-on (.mcaddon):** [Download Complete Add-on (.mcaddon)](Harvest%20Intelligence%20by%20AllensCreations%20%28V1.0.3%29.mcaddon)
-- **Pack (.mcpack):** [Download Pack (.mcpack)](Harvest%20Intelligence%20by%20AllensCreations%20%28V1.0.3%29.mcpack)
+## Direct Download Links
 
-## Installation
+| File Name | Format | Size | Description | Download Link |
+| :--- | :--- | :--- | :--- | :--- |
+| **`Harvest Intelligence by AllensCreations (V1.0.3).mcpack`** | `.mcpack` | ~4 KB | Script Behavior Pack archive ready for import. | [Download (.mcpack)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Harvest-Intelligence/Harvest%20Intelligence%20by%20AllensCreations%20%28V1.0.3%29.mcpack) |
+| **`Harvest Intelligence by AllensCreations (V1.0.3).mcaddon`** | `.mcaddon` | ~4 KB | Complete Add-on package archive. | [Download (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Harvest-Intelligence/Harvest%20Intelligence%20by%20AllensCreations%20%28V1.0.3%29.mcaddon) |
 
-1. Download the package you need.
-2. Open the downloaded file with Minecraft to import it.
-3. For packs, enable them in the world's settings if required.
+---
+
+## Installation Guide
+
+For general import instructions, refer to the centralized [Download and Installation Guide](../README.md#download-and-installation-guide).
+
+---
+
+## Source Files
+To inspect uncompressed JSON files, geometry, render controllers, and textures:
+- [View Source Files](../../MCPEDL/addons/Harvest-Intelligence/)
+
+---
 
 © All rights reserved for AllensCreations.

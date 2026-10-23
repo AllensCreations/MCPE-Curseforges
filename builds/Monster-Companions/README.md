@@ -1,17 +1,29 @@
-# Monster Companions (v1.0.9) — Downloads
+# Monster Companions - Downloads and Releases
 
-Download the published package files for Minecraft Bedrock Edition from this folder.
+This folder contains compiled release packages for **Monster Companions** by AllensCreations.
 
-## Available Downloads
+---
 
-- **Behavior Pack (.mcpack):** [Download Behavior Pack (.mcpack)](Monster%20Companions%20BP%20by%20AllensCreations%20%28V1.0.9%29.mcpack)
-- **Resource Pack (.mcpack):** [Download Resource Pack (.mcpack)](Monster%20Companions%20RP%20by%20AllensCreations%20%28V1.0.9%29.mcpack)
-- **Complete Add-on (.mcaddon):** [Download Complete Add-on (.mcaddon)](Monster%20Companions%20by%20AllensCreations%20%28V1.0.9%29.mcaddon)
+## Direct Download Links
 
-## Installation
+| File Name | Format | Size | Description | Download Link |
+| :--- | :--- | :--- | :--- | :--- |
+| **`Monster Companions by AllensCreations (V1.0.9).mcaddon`** | `.mcaddon` | ~1.1 MB | Complete bundle containing both Behavior Pack and Resource Pack. | [Download (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Monster-Companions/Monster%20Companions%20by%20AllensCreations%20%28V1.0.9%29.mcaddon) |
+| **`Monster Companions BP by AllensCreations (V1.0.9).mcpack`** | `.mcpack` | ~602 KB | Behavior Pack: Custom entities, components, and gameplay mechanics. | [Download (.mcpack)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Monster-Companions/Monster%20Companions%20BP%20by%20AllensCreations%20%28V1.0.9%29.mcpack) |
+| **`Monster Companions RP by AllensCreations (V1.0.9).mcpack`** | `.mcpack` | ~517 KB | Resource Pack: Custom models, geometry, textures, and sounds. | [Download (.mcpack)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Monster-Companions/Monster%20Companions%20RP%20by%20AllensCreations%20%28V1.0.9%29.mcpack) |
 
-1. Download the package you need.
-2. Open the downloaded file with Minecraft to import it.
-3. For packs, enable them in the world's settings if required.
+---
+
+## Installation Guide
+
+For general import instructions, refer to the centralized [Download and Installation Guide](../README.md#download-and-installation-guide).
+
+---
+
+## Source Files
+To inspect uncompressed JSON files, geometry, render controllers, and textures:
+- [View Source Files](../../MCPEDL/addons/Monster-Companions/)
+
+---
 
 © All rights reserved for AllensCreations.

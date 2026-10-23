@@ -1,16 +1,28 @@
-# Alphabet Scavenger Hunt (v1.0.6) — Downloads
+# Alphabet Scavenger Hunt - Downloads and Releases
 
-Download the published package files for Minecraft Bedrock Edition from this folder.
+This folder contains compiled release packages for **Alphabet Scavenger Hunt** by AllensCreations.
 
-## Available Downloads
+---
 
-- **Complete Add-on (.mcaddon):** [Download Complete Add-on (.mcaddon)](Alphabet%20Scavenger%20Hunt%20by%20AllensCreations%20%28V1.0.6%29.mcaddon)
-- **Pack (.mcpack):** [Download Pack (.mcpack)](Alphabet%20Scavenger%20Hunt%20by%20AllensCreations%20%28V1.0.6%29.mcpack)
+## Direct Download Links
 
-## Installation
+| File Name | Format | Size | Description | Download Link |
+| :--- | :--- | :--- | :--- | :--- |
+| **`Alphabet Scavenger Hunt by AllensCreations (V1.0.6).mcpack`** | `.mcpack` | ~1.4 MB | Script Behavior Pack archive ready for import. | [Download (.mcpack)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Alphabet-Scavenger-Hunt/Alphabet%20Scavenger%20Hunt%20by%20AllensCreations%20%28V1.0.6%29.mcpack) |
+| **`Alphabet Scavenger Hunt by AllensCreations (V1.0.6).mcaddon`** | `.mcaddon` | ~1.4 MB | Complete Add-on package archive. | [Download (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Alphabet-Scavenger-Hunt/Alphabet%20Scavenger%20Hunt%20by%20AllensCreations%20%28V1.0.6%29.mcaddon) |
 
-1. Download the package you need.
-2. Open the downloaded file with Minecraft to import it.
-3. For packs, enable them in the world's settings if required.
+---
+
+## Installation Guide
+
+For general import instructions, refer to the centralized [Download and Installation Guide](../README.md#download-and-installation-guide).
+
+---
+
+## Source Files
+To inspect uncompressed JSON files, geometry, render controllers, and textures:
+- [View Source Files](../../MCPEDL/script/Alphabet-Scavenger-Hunt/)
+
+---
 
 © All rights reserved for AllensCreations.

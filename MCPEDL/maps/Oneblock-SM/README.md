@@ -1,4 +1,4 @@
-# OneBlock Sovereign Market (source v1.0.0)
+# OneBlock Sovereign Market (source v1.0.0) (v1.0.0)
 
 Download the current published OneBlock Sovereign Market world for Minecraft Bedrock Edition.
 
