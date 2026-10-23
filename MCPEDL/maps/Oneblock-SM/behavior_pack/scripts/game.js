@@ -99,7 +99,7 @@ export function buyAutoMine(p) {
 }
 
 const AUTO_DROPS = {
-  "minecraft:coal_ore": "minecraft:coal", "minecraft:deepslate_coal_ore": "minecraft:coal",
+  "minecraft:grass_block": "minecraft:dirt", "minecraft:coal_ore": "minecraft:coal", "minecraft:deepslate_coal_ore": "minecraft:coal",
   "minecraft:copper_ore": "minecraft:raw_copper", "minecraft:deepslate_copper_ore": "minecraft:raw_copper",
   "minecraft:iron_ore": "minecraft:raw_iron", "minecraft:deepslate_iron_ore": "minecraft:raw_iron",
   "minecraft:gold_ore": "minecraft:raw_gold", "minecraft:deepslate_gold_ore": "minecraft:raw_gold",
@@ -152,11 +152,14 @@ export function autoMineTick() {
   const coreBlock = dim.getBlock(CORE);
   if (!container || !coreBlock || coreBlock.isAir) return;
   if (!storeAutoDrop(container, coreBlock.typeId)) {
-    a.usedTicks = AUTO_MINE_TICKS;
-    saveWorld(w);
-    try { player.sendMessage("Automation paused: the OneBlock collection chest is full."); } catch (e) {}
+    if (!a.fullWarned) {
+      a.fullWarned = true;
+      saveWorld(w);
+      try { player.sendMessage("Automation paused: the OneBlock collection chest is full. Empty the chest to resume."); } catch (e) {}
+    }
     return;
   }
+  a.fullWarned = false;
   core.armed = false;
   core.pending = true;
   if (!regenerate(player)) core.pending = false;
