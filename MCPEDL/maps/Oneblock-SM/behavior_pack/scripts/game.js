@@ -63,6 +63,105 @@ export function coreWatch() {
   if (!core.pending) { core.pending = true; system.run(() => regenerate(null)); }
 }
 
+
+// ---- OneBlock automation subscription ----
+export const AUTO_MINE_COST = 100;
+export const AUTO_MINE_TICKS = 600; // 30 real-time seconds at 20 ticks/second.
+const AUTO_MINE_STEP = 4;
+const currentDay = () => world.getDay();
+
+export function autoMineStatus() {
+  const a = loadWorld().autoMine;
+  const day = currentDay();
+  if (!a || a.expiresDay <= day || a.usedTicks >= AUTO_MINE_TICKS) {
+    return { active: false, available: true, usedTicks: 0, remainingTicks: AUTO_MINE_TICKS, cost: AUTO_MINE_COST };
+  }
+  return { active: true, available: false, usedTicks: a.usedTicks || 0, remainingTicks: Math.max(0, AUTO_MINE_TICKS - (a.usedTicks || 0)), cost: AUTO_MINE_COST };
+}
+
+export function buyAutoMine(p) {
+  const w = loadWorld();
+  const day = currentDay();
+  const a = w.autoMine;
+  if (a && a.expiresDay > day && a.usedTicks < AUTO_MINE_TICKS) {
+    return { ok: false, msg: "The OneBlock automation subscription is already active for this Minecraft day. Remaining time: " + Math.ceil((AUTO_MINE_TICKS - a.usedTicks) / 20) + " seconds." };
+  }
+  const d = loadPlayer(p);
+  if (!spend(d, AUTO_MINE_COST)) return { ok: false, msg: "Not enough " + CURRENCY + ". You need " + AUTO_MINE_COST + ", you have " + d.coins + "." };
+  w.autoMine = { owner: p.id, expiresDay: day + 1, usedTicks: 0 };
+  log(d, "Bought OneBlock automation subscription for " + AUTO_MINE_COST + " " + CURRENCY);
+  savePlayer(p, d);
+  saveWorld(w);
+  return { ok: true, msg: "Subscription purchased for " + AUTO_MINE_COST + " " + CURRENCY + ". Automation can run for up to 30 seconds this Minecraft day. It expires when the next Minecraft day begins." };
+}
+
+const AUTO_DROPS = {
+  "minecraft:coal_ore": "minecraft:coal", "minecraft:deepslate_coal_ore": "minecraft:coal",
+  "minecraft:copper_ore": "minecraft:raw_copper", "minecraft:deepslate_copper_ore": "minecraft:raw_copper",
+  "minecraft:iron_ore": "minecraft:raw_iron", "minecraft:deepslate_iron_ore": "minecraft:raw_iron",
+  "minecraft:gold_ore": "minecraft:raw_gold", "minecraft:deepslate_gold_ore": "minecraft:raw_gold",
+  "minecraft:redstone_ore": "minecraft:redstone", "minecraft:deepslate_redstone_ore": "minecraft:redstone",
+  "minecraft:lapis_ore": "minecraft:lapis_lazuli", "minecraft:deepslate_lapis_ore": "minecraft:lapis_lazuli",
+  "minecraft:diamond_ore": "minecraft:diamond", "minecraft:deepslate_diamond_ore": "minecraft:diamond",
+  "minecraft:emerald_ore": "minecraft:emerald", "minecraft:deepslate_emerald_ore": "minecraft:emerald",
+  "minecraft:quartz_ore": "minecraft:quartz", "minecraft:glowstone": "minecraft:glowstone_dust"
+};
+
+function storeAutoDrop(container, blockId) {
+  let stack;
+  try { stack = new ItemStack(AUTO_DROPS[blockId] || blockId, 1); } catch (e) { return false; }
+  for (let i = 0; i < container.size; i++) {
+    const old = container.getItem(i);
+    if (old && old.typeId === stack.typeId && old.amount < old.maxAmount) {
+      const moved = Math.min(stack.amount, old.maxAmount - old.amount);
+      old.amount += moved;
+      stack.amount -= moved;
+      container.setItem(i, old);
+      if (stack.amount <= 0) return true;
+    }
+  }
+  for (let i = 0; i < container.size; i++) {
+    if (!container.getItem(i)) { container.setItem(i, stack); return true; }
+  }
+  return false;
+}
+
+export function autoMineTick() {
+  const w = loadWorld();
+  const a = w.autoMine;
+  const day = currentDay();
+  if (!a || a.expiresDay <= day || a.usedTicks >= AUTO_MINE_TICKS) return;
+  a.usedTicks = Math.min(AUTO_MINE_TICKS, (a.usedTicks || 0) + 1);
+  if (a.usedTicks % 20 === 0 || a.usedTicks >= AUTO_MINE_TICKS) saveWorld(w);
+  if (a.usedTicks % AUTO_MINE_STEP !== 0) return;
+  const player = world.getAllPlayers().find((p) => p.id === a.owner && p.dimension.id === "minecraft:overworld" && p.hasTag("void_cleaned"));
+  if (!player || !core.armed || core.pending) return;
+  const dim = dimOf();
+  let chestBlock = dim.getBlock({ x: CORE.x, y: CORE.y + 1, z: CORE.z });
+  if (!chestBlock) return;
+  if (chestBlock.typeId !== "minecraft:chest") {
+    if (!chestBlock.isAir) return;
+    try { chestBlock.setType("minecraft:chest"); } catch (e) { return; }
+    chestBlock = dim.getBlock({ x: CORE.x, y: CORE.y + 1, z: CORE.z });
+  }
+  const container = chestBlock?.getComponent("minecraft:inventory")?.container;
+  const coreBlock = dim.getBlock(CORE);
+  if (!container || !coreBlock || coreBlock.isAir) return;
+  if (!storeAutoDrop(container, coreBlock.typeId)) {
+    a.usedTicks = AUTO_MINE_TICKS;
+    saveWorld(w);
+    try { player.sendMessage("Automation paused: the OneBlock collection chest is full."); } catch (e) {}
+    return;
+  }
+  core.armed = false;
+  core.pending = true;
+  if (!regenerate(player)) core.pending = false;
+  if (a.usedTicks >= AUTO_MINE_TICKS) {
+    saveWorld(w);
+    try { player.sendMessage("OneBlock automation time is up for today."); } catch (e) {}
+  }
+}
+
 // ---- Wallet ----
 export function credit(p, n, label) {
   const d = loadPlayer(p);
