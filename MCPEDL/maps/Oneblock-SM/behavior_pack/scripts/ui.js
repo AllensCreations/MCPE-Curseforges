@@ -1,8 +1,8 @@
 import { system } from "@minecraft/server";
 import { ActionFormData } from "@minecraft/server-ui";
-import { CURRENCY, LICENSES, ISLAND_LEVELS, CONTRACTS, CATS, DIRT_REWARD, nice, ACHIEVEMENTS, UPGRADE_MAX, BIG_CONFIRM } from "./config.js";
+import { CURRENCY, LICENSES, ISLAND_LEVELS, CONTRACTS, CATS, DIRT_REWARD, nice, ACHIEVEMENTS, UPGRADE_MAX, BIG_CONFIRM, BASIC_CHEST_CHANCE } from "./config.js";
 import { loadPlayer, loadWorld, hasLic, islandLevel, highestTier, ITEMS, quote, snapshot, demandState } from "./store.js";
-import { inventoryCounts, sell, buyLicense, buyIsland, buyContract, upgradeContract, upgradeCost, intervalFor, autoMineStatus, buyAutoMine } from "./game.js";
+import { inventoryCounts, sell, buyLicense, buyIsland, buyContract, upgradeContract, upgradeCost, intervalFor, autoStatus, buyAutoLevel, toggleAuto } from "./game.js";
 
 const wait = (t) => new Promise((r) => system.runTimeout(r, t));
 const busy = new Set();
@@ -71,9 +71,9 @@ async function mainMenu(p) {
       "\n\nDirt pays a fixed " + DIRT_REWARD + " " + CURRENCY + " each time you mine the OneBlock.";
     const r = await show(p, new ActionFormData().title("Trader's Ledger").body(body)
       .button("Sell Items").button("Market Prices").button("Block Licenses").button("Natural Loot Contracts")
-      .button("Island & Auto-Mine").button("Transaction History").button("Achievements").button("Exit"));
-    if (r.canceled || r.selection === 7) return;
-    const fn = [sellMenu, priceMenu, licenseMenu, contractMenu, perksMenu, historyMenu, achMenu][r.selection];
+      .button("Island & Auto-Mine").button("Achievements").button("Exit"));
+    if (r.canceled || r.selection === 6) return;
+    const fn = [sellMenu, priceMenu, licenseMenu, contractMenu, perksMenu, achMenu][r.selection];
     await fn(p);
   }
 }
@@ -147,9 +147,9 @@ async function contractMenu(p) {
   await shop(p, "Natural Loot Contracts", "One button per contract: activate it, then upgrade the same button.", (d) =>
     CONTRACTS.map((c) => {
       if (!hasLic(d, c.req)) return { text: "\u00a78" + c.name + "\nLocked", info: "Requires " + LICENSES.find((l) => l.id === c.req).name + "." };
-      if (!d.con.includes(c.id)) return { text: c.name + "\nActivate for " + c.cost + " " + CURRENCY, cost: c.cost, confirm: c.name + ": a chest about every " + Math.round(c.intervalMs / 60000) + " minutes, up to 3 at a time.", run: () => buyContract(p, c.id) };
+      if (!d.con.includes(c.id)) return { text: c.name + "\nActivate for " + c.cost + " " + CURRENCY, cost: c.cost, confirm: c.id === "basic" ? c.name + ": the OneBlock sometimes turns into a loot chest." : c.name + ": a chest about every " + Math.round(c.intervalMs / 60000) + " minutes, up to 3 at a time.", run: () => buyContract(p, c.id) };
       const lvl = (d.up && d.up[c.id]) || 1;
-      if (lvl >= UPGRADE_MAX) return { text: "\u00a76" + c.name + "  Lv" + lvl + " MAX\nChest every ~" + Math.round(intervalFor(d, c) / 60000) + " min", info: c.name + " is at the maximum level." };
+      if (lvl >= UPGRADE_MAX) return { text: "\u00a76" + c.name + "  Lv" + lvl + " MAX\n" + (c.id === "basic" ? "OneBlock chest chance " + Math.round(BASIC_CHEST_CHANCE * lvl * 100) + "%" : "Chest every ~" + Math.round(intervalFor(d, c) / 60000) + " min"), info: c.name + " is at the maximum level." };
       const cost = upgradeCost(c, lvl);
       return { text: "\u00a7a" + c.name + "  Lv" + lvl + "\nUpgrade to Lv" + (lvl + 1) + ": " + cost + " " + CURRENCY, cost, confirm: c.name + ": upgrade to level " + (lvl + 1) + ". Each level adds one loot roll and shortens the wait.", run: () => upgradeContract(p, c.id) };
     }));
@@ -165,17 +165,14 @@ async function perksMenu(p) {
       ? { text: "Island " + L.size + "x" + L.size + "\nExpand to " + next.size + "x" + next.size + ": " + next.cost + " " + CURRENCY, cost: next.cost, confirm: next.name + " (" + next.size + " x " + next.size + "). The island is shared by everyone in this world.", run: () => buyIsland(p, idx + 1) }
       : { text: "\u00a76Island " + L.size + "x" + L.size + " MAX\nEvery permit owned", info: "You own every island permit." });
 
-    const s = autoMineStatus();
-    if (s.active) rows.push({ text: "\u00a72Auto-Mine: Active\n" + Math.ceil(s.remainingTicks / 20) + "s left today", info: "Drops go into the chest directly above the OneBlock. The subscription ends when the next Minecraft day begins." });
-    else if (!s.available) rows.push({ text: "\u00a78Auto-Mine: Used today\nAvailable next Minecraft day", info: "Today's 30-second automation allowance has been used." });
-    else rows.push({ text: "Auto-Mine\nBuy for " + s.cost + " " + CURRENCY, cost: s.cost, run: () => buyAutoMine(p) });
+    const s = autoStatus();
+    const per = (n) => (n === 1 ? "every tick" : "every " + n + " ticks");
+    rows.push(s.next
+      ? { text: "Auto-Miner " + (s.level ? "Lv" + s.level : "(not owned)") + "\n" + (s.level ? "Upgrade to Lv" + (s.level + 1) : "Buy Lv1") + ": " + s.next.cost + " " + CURRENCY, cost: s.next.cost, confirm: "Auto-Miner Lv" + (s.level + 1) + ": breaks the OneBlock " + per(s.next.step) + " for about 2 minutes per Minecraft day. Drops go to the chest above the OneBlock.", run: () => buyAutoLevel(p) }
+      : { text: "\u00a76Auto-Miner Lv" + s.level + " MAX\nBreaks the OneBlock " + per(s.step), info: "The Auto-Miner is at the maximum level." });
+    if (s.level) rows.push({ text: "Auto-Miner: " + (s.on ? "\u00a72ON" : "\u00a7cOFF") + "\n" + (s.leftSecs > 0 ? s.leftSecs + "s left today. Tap to toggle" : "Exhausted. Recharges next day"), run: () => toggleAuto(p) });
     return rows;
   });
-}
-
-async function historyMenu(p) {
-  const d = loadPlayer(p);
-  await note(p, "Transaction History", "OneBlock Dirt mined: " + d.mined + " (" + d.mined * DIRT_REWARD + " " + CURRENCY + " earned from Dirt)\n\n" + (d.hist.length ? d.hist.join("\n") : "No purchases or sales yet."));
 }
 
 async function achMenu(p) {

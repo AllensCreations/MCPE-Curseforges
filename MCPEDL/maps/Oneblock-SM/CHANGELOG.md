@@ -21,3 +21,10 @@
 - Island permits and the Auto-Mining Subscription now share one screen, "Island & Auto-Mine".
 - Auto-mining no longer reads the saved world data every tick. The subscription is cached, so the per-tick check is near zero when nobody has a subscription.
 - Pack versions, changelog and descriptions now match (1.0.3).
+
+## 1.0.4
+- Auto-Miner rebuilt: five permanent levels (every 10, 6, 4, 2, then 1 tick per OneBlock break), an ON/OFF toggle, and about 2 minutes of mining per Minecraft day. When the time runs out it shows "Auto-mining is exhausted". Each break plays the block-destroy animation and stores what the OneBlock held in the chest above it.
+- Basic Supply Chest now lives inside the OneBlock: with the contract active, the OneBlock sometimes turns into a loot chest (5 percent per level). It no longer spawns chests randomly on the island.
+- Transaction History removed from the Ledger.
+- Market prices react more strongly to every sale, and the sale receipt shows the price before and after.
+- Plot protection: bucket placement is checked, and placed or broken blocks outside the permitted area are undone as a backup.

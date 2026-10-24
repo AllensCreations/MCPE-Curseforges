@@ -1,5 +1,5 @@
 import { world, system, BlockTypes, ItemStack } from "@minecraft/server";
-import { CORE, FLOOR_Y, CURRENCY, LICENSES, UNSAFE_BLOCK, ISLAND_LEVELS, CONTRACTS, MAX_CHESTS_PER_PLAYER, LEDGER_ID, nice, DIRT_SHARE, LOOT_DENY, BIOMES, ACHIEVEMENTS, GOLDEN_CHANCE, GOLDEN_LOOT, UPGRADE_MAX, UPGRADE_CUT } from "./config.js";
+import { CORE, FLOOR_Y, CURRENCY, LICENSES, UNSAFE_BLOCK, ISLAND_LEVELS, CONTRACTS, MAX_CHESTS_PER_PLAYER, LEDGER_ID, nice, DIRT_SHARE, LOOT_DENY, BIOMES, ACHIEVEMENTS, GOLDEN_CHANCE, GOLDEN_LOOT, UPGRADE_MAX, UPGRADE_CUT, AUTO_LEVELS, AUTO_DAILY_TICKS, BASIC_CHEST_CHANCE } from "./config.js";
 import { loadPlayer, savePlayer, loadWorld, saveWorld, hasLic, canAfford, addCoins, spend, log, islandLevel, inBounds, ITEMS, quote, recordSale } from "./store.js";
 
 const dimOf = () => world.getDimension("overworld");
@@ -44,13 +44,36 @@ export function pickBlock(pool) {
 export function regenerate(player) {
   const b = dimOf().getBlock(CORE);
   if (!b) return false;
-  const id = pickBlock(player ? poolFor(loadPlayer(player)) : [["minecraft:dirt", 1]]);
+  const d = player ? loadPlayer(player) : null;
+  let id = pickBlock(d ? poolFor(d) : [["minecraft:dirt", 1]]);
+  // Basic Supply Chest contract: the OneBlock sometimes turns into a loot chest instead of a block.
+  let chest = !!d && d.con.includes("basic") && Math.random() < BASIC_CHEST_CHANCE * ((d.up && d.up.basic) || 1);
+  if (chest) id = "minecraft:chest";
   try { b.setType(id); } catch (e) {
+    chest = false;
     try { b.setType("minecraft:dirt"); } catch (e2) { return false; }
   }
+  if (chest) { try { fillBasicChest(b, d); } catch (e) { console.warn("[SovereignMarket] basic chest: " + e); } }
   core.armed = true;
   core.pending = false;
   return true;
+}
+
+function fillBasicChest(block, d) {
+  const C = CONTRACTS.find((c) => c.id === "basic");
+  const lvl = (d.up && d.up.basic) || 1;
+  const entries = C.loot.filter((x) => hasLic(d, x[4]) && BlockOrItemOk(x[0]));
+  const cont = block.getComponent("minecraft:inventory")?.container;
+  if (!cont || !entries.length) return;
+  const total = entries.reduce((sum, e) => sum + e[1], 0);
+  const rolls = rnd(C.rolls[0] + lvl - 1, C.rolls[1] + lvl - 1);
+  for (let r = 0; r < rolls; r++) {
+    let pick = Math.random() * total, e = entries[0];
+    for (const c of entries) { pick -= c[1]; if (pick < 0) { e = c; break; } }
+    const slot = rnd(0, cont.size - 1);
+    if (cont.getItem(slot)) continue;
+    cont.setItem(slot, new ItemStack(full(e[0]), rnd(e[2], e[3])));
+  }
 }
 
 // Recovery: re-arm after reloads, regenerate if the core vanished (only once a player finished setup).
@@ -64,17 +87,16 @@ export function coreWatch() {
 }
 
 
-// ---- OneBlock automation subscription ----
-export const AUTO_MINE_COST = 100;
-export const AUTO_MINE_TICKS = 600; // 30 real-time seconds at 20 ticks/second.
-const AUTO_MINE_STEP = 4;
+// ---- Auto-Miner (permanent levels, 2 minutes per Minecraft day) ----
 const currentDay = () => world.getDay();
 
-// Cached subscription record: undefined = not loaded yet, null = nobody has a subscription.
-// The per-tick check reads only this variable, so it costs almost nothing when auto-mining is idle.
+// Cached record: undefined = not loaded yet, null = not owned. The per-tick check reads only this variable.
 let autoCache;
 function autoState() {
-  if (autoCache === undefined) autoCache = loadWorld().autoMine || null;
+  if (autoCache === undefined) {
+    const a = loadWorld().autoMine;
+    autoCache = a && a.lvl ? a : null;
+  }
   return autoCache;
 }
 function persistAuto() {
@@ -82,32 +104,47 @@ function persistAuto() {
   w.autoMine = autoCache || null;
   saveWorld(w);
 }
-
-export function autoMineStatus() {
-  const a = autoState();
+function rolloverAuto(a) {
   const day = currentDay();
-  const active = !!a && a.expiresDay > day && (a.usedTicks || 0) < AUTO_MINE_TICKS;
-  const available = !a || a.purchaseDay !== day;
-  if (!active) {
-    return { active: false, available, usedTicks: a && a.purchaseDay === day ? (a.usedTicks || 0) : 0, remainingTicks: a && a.purchaseDay === day ? Math.max(0, AUTO_MINE_TICKS - (a.usedTicks || 0)) : AUTO_MINE_TICKS, cost: AUTO_MINE_COST };
-  }
-  return { active: true, available: false, usedTicks: a.usedTicks || 0, remainingTicks: Math.max(0, AUTO_MINE_TICKS - (a.usedTicks || 0)), cost: AUTO_MINE_COST };
+  if (a.day === day) return;
+  a.day = day; a.used = 0; a.msg = false; a.full = false;
+  persistAuto();
 }
 
-export function buyAutoMine(p) {
-  const day = currentDay();
+export function autoStatus() {
   const a = autoState();
-  if (a && a.purchaseDay === day) {
-    const remaining = Math.max(0, AUTO_MINE_TICKS - (a.usedTicks || 0));
-    return { ok: false, msg: remaining > 0 ? "The OneBlock automation subscription is already active for this Minecraft day. Remaining time: " + Math.ceil(remaining / 20) + " seconds." : "You have used today's 30-second automation allowance. You can purchase another subscription when the next Minecraft day begins." };
-  }
+  if (a) rolloverAuto(a);
+  const level = a ? a.lvl : 0;
+  const used = a ? a.used || 0 : 0;
+  return {
+    level,
+    on: !!a && a.on !== false,
+    step: level ? AUTO_LEVELS[level - 1].step : 0,
+    next: AUTO_LEVELS[level] || null,
+    leftSecs: Math.ceil(Math.max(0, AUTO_DAILY_TICKS - used) / 20),
+  };
+}
+
+export function buyAutoLevel(p) {
+  const a = autoState();
+  const level = a ? a.lvl : 0;
+  const nxt = AUTO_LEVELS[level];
+  if (!nxt) return { ok: false, msg: "The Auto-Miner is already at the maximum level." };
   const d = loadPlayer(p);
-  if (!spend(d, AUTO_MINE_COST)) return { ok: false, msg: "Not enough " + CURRENCY + ". You need " + AUTO_MINE_COST + ", you have " + d.coins + "." };
-  autoCache = { owner: p.id, purchaseDay: day, expiresDay: day + 1, usedTicks: 0 };
-  log(d, "Bought OneBlock automation subscription for " + AUTO_MINE_COST + " " + CURRENCY);
+  if (!spend(d, nxt.cost)) return { ok: false, msg: "Not enough " + CURRENCY + ". You need " + nxt.cost + ", you have " + d.coins + "." };
+  autoCache = { lvl: level + 1, on: a ? a.on !== false : true, day: a ? a.day : currentDay(), used: a ? a.used || 0 : 0, msg: a ? !!a.msg : false, full: false };
+  log(d, "Bought Auto-Miner Lv" + (level + 1) + " for " + nxt.cost);
   savePlayer(p, d);
   persistAuto();
-  return { ok: true, msg: "Subscription purchased for " + AUTO_MINE_COST + " " + CURRENCY + ". Automation can run for up to 30 seconds this Minecraft day. It expires when the next Minecraft day begins." };
+  return { ok: true, msg: "Auto-Miner Lv" + (level + 1) + " ready: it breaks the OneBlock every " + nxt.step + " tick" + (nxt.step === 1 ? "" : "s") + ", about 2 minutes per Minecraft day. Balance: " + d.coins + " " + CURRENCY };
+}
+
+export function toggleAuto(p) {
+  const a = autoState();
+  if (!a) return { ok: false, msg: "You do not own the Auto-Miner yet." };
+  a.on = a.on === false;
+  persistAuto();
+  return { ok: true, msg: "Auto-Miner is now " + (a.on ? "ON" : "OFF") + "." };
 }
 
 const AUTO_DROPS = {
@@ -141,15 +178,34 @@ function storeAutoDrop(container, blockId) {
   return false;
 }
 
-export function autoMineTick() {
-  const a = autoState();
-  if (!a) return; // idle: no world read, no player scan
-  if (a.expiresDay <= currentDay() || (a.usedTicks || 0) >= AUTO_MINE_TICKS) return;
-  const player = world.getAllPlayers().find((p) => p.id === a.owner && p.dimension.id === "minecraft:overworld" && p.hasTag("void_cleaned"));
-  if (!player) return;
-  a.usedTicks = Math.min(AUTO_MINE_TICKS, (a.usedTicks || 0) + 1);
-  if (a.usedTicks % 20 === 0 || a.usedTicks >= AUTO_MINE_TICKS) persistAuto();
-  if (a.usedTicks % AUTO_MINE_STEP !== 0) return;
+// Moves everything from a chest-shaped OneBlock into the collection chest. False if the collection chest is full.
+function moveChestLoot(coreBlock, dest) {
+  const inv = coreBlock.getComponent("minecraft:inventory")?.container;
+  if (!inv) return true;
+  for (let i = 0; i < inv.size; i++) {
+    const it = inv.getItem(i);
+    if (!it) continue;
+    const left = dest.addItem(it);
+    inv.setItem(i, left);
+    if (left) return false;
+  }
+  return true;
+}
+
+// Break animation: a real "destroy" setblock plays the crack particles and sound. Its item drops are removed,
+// because what the OneBlock held was already stored in the collection chest.
+function breakEffect(dim) {
+  try { dim.runCommand("setblock " + CORE.x + " " + CORE.y + " " + CORE.z + " air destroy"); } catch (e) { return; }
+  const sweep = () => {
+    try {
+      for (const e of dim.getEntities({ type: "minecraft:item", location: { x: CORE.x + 0.5, y: CORE.y + 0.5, z: CORE.z + 0.5 }, maxDistance: 1.5 })) e.remove();
+    } catch (e) { /* ignore */ }
+  };
+  sweep();
+  system.run(sweep);
+}
+
+function mineOnce(player, a) {
   if (!core.armed || core.pending) return;
   const dim = dimOf();
   let chestBlock = dim.getBlock({ x: CORE.x, y: CORE.y + 1, z: CORE.z });
@@ -162,22 +218,43 @@ export function autoMineTick() {
   const container = chestBlock?.getComponent("minecraft:inventory")?.container;
   const coreBlock = dim.getBlock(CORE);
   if (!container || !coreBlock || coreBlock.isAir) return;
-  if (!storeAutoDrop(container, coreBlock.typeId)) {
-    if (!a.fullWarned) {
-      a.fullWarned = true;
+  const stored = coreBlock.typeId === "minecraft:chest" ? moveChestLoot(coreBlock, container) : storeAutoDrop(container, coreBlock.typeId);
+  if (!stored) {
+    if (!a.full) {
+      a.full = true;
       persistAuto();
-      try { player.sendMessage("Automation paused: the OneBlock collection chest is full. Empty the chest to resume."); } catch (e) {}
+      try { player.sendMessage("Auto-Miner paused: the collection chest above the OneBlock is full. Empty it to resume."); } catch (e) { /* ignore */ }
     }
     return;
   }
-  a.fullWarned = false;
+  a.full = false;
   core.armed = false;
   core.pending = true;
+  breakEffect(dim);
   if (!regenerate(player)) core.pending = false;
-  if (a.usedTicks >= AUTO_MINE_TICKS) {
-    persistAuto();
-    try { player.sendMessage("OneBlock automation time is up for today."); } catch (e) {}
-  }
+}
+
+function announceExhausted(player, a) {
+  a.msg = true;
+  persistAuto();
+  try {
+    player.sendMessage("\u00a7cAuto-mining is exhausted. It recharges when the next Minecraft day begins.");
+    player.onScreenDisplay.setActionBar("\u00a7cAuto-mining exhausted");
+  } catch (e) { /* ignore */ }
+}
+
+export function autoMineTick() {
+  const a = autoState();
+  if (!a || a.on === false) return; // idle: no world read, no player scan
+  rolloverAuto(a);
+  if ((a.used || 0) >= AUTO_DAILY_TICKS && a.msg) return;
+  const player = world.getAllPlayers().find((p) => p.dimension.id === "minecraft:overworld" && p.hasTag("void_cleaned"));
+  if (!player) return;
+  if ((a.used || 0) >= AUTO_DAILY_TICKS) { announceExhausted(player, a); return; }
+  a.used = (a.used || 0) + 1;
+  if (a.used % 20 === 0) persistAuto();
+  if (a.used % AUTO_LEVELS[a.lvl - 1].step === 0) mineOnce(player, a);
+  if (a.used >= AUTO_DAILY_TICKS) announceExhausted(player, a);
 }
 
 // ---- Wallet ----
@@ -240,14 +317,16 @@ export function sell(p, id, qty) {
   if (removed < 1) return { ok: false, msg: "Could not remove items. Nothing was sold." };
   const w = loadWorld();
   const q = quote(w, id, removed);
+  const before = q.unit;
   addCoins(d, q.total);
   recordSale(w, id, removed);
+  const after = quote(w, id, 1).unit;
   log(d, "Sold " + removed + " " + nice(id) + " for " + q.total);
   d.sold = (d.sold || 0) + removed;
   if (d.sold >= 1000) grantAch(p, d, "sell_1000");
   savePlayer(p, d);
   saveWorld(w);
-  return { ok: true, msg: "Receipt: sold " + removed + " " + nice(id) + " for " + q.total + " " + CURRENCY + ".\nBalance: " + d.coins + " " + CURRENCY };
+  return { ok: true, msg: "Receipt: sold " + removed + " " + nice(id) + " for " + q.total + " " + CURRENCY + ".\nMarket price: " + Math.round(before * 10) / 10 + " -> " + Math.round(after * 10) / 10 + " each.\nBalance: " + d.coins + " " + CURRENCY };
 }
 
 // ---- Island expansion ----
@@ -370,7 +449,7 @@ export function contractTick() {
     const d = loadPlayer(p);
     for (const id of d.con) {
       const C = CONTRACTS.find((c) => c.id === id);
-      if (!C) continue;
+      if (!C || id === "basic") continue; // Basic Supply Chest lives inside the OneBlock pool, not on a timer
       const key = p.id + ":" + id;
       if (!nextAt.has(key)) nextAt.set(key, now + intervalFor(d, C));
       if (now >= nextAt.get(key)) {

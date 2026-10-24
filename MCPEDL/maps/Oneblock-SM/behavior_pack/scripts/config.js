@@ -7,7 +7,7 @@ export const DIRT_REWARD = 1;
 export const MAX_BALANCE = 2000000000;
 export const HISTORY_MAX = 15;
 export const MAX_CHESTS_PER_PLAYER = 3;
-export const MARKET_CFG = { depth: 150, halfLifeMin: 20, maxSupply: 5000, rotateMs: 7200000, hot: 1.25, cold: 0.85 };
+export const MARKET_CFG = { depth: 80, halfLifeMin: 20, maxSupply: 5000, rotateMs: 7200000, hot: 1.25, cold: 0.85 };
 
 // Island levels: permitted build area is x/z in [min, max]. Each level contains the previous one.
 export const ISLAND_LEVELS = [
@@ -123,3 +123,17 @@ export const ACHIEVEMENTS = [
 
 // One-tap shop: only purchases at or above this many coins ask for a confirmation.
 export const BIG_CONFIRM = 2000;
+
+// Auto-Miner: permanent world-wide levels. step = ticks between OneBlock breaks (1 tick at the top level).
+// Each Minecraft day it runs AUTO_DAILY_TICKS (2 minutes) and then reports that it is exhausted.
+export const AUTO_LEVELS = [
+  { cost: 100, step: 10 },
+  { cost: 400, step: 6 },
+  { cost: 1500, step: 4 },
+  { cost: 5000, step: 2 },
+  { cost: 15000, step: 1 },
+];
+export const AUTO_DAILY_TICKS = 2400;
+
+// Basic Supply Chest: chance per OneBlock break (times the contract level) that the OneBlock becomes a loot chest.
+export const BASIC_CHEST_CHANCE = 0.05;

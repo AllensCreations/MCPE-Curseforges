@@ -54,9 +54,45 @@ on("playerPlaceBlock (before)", () => world.beforeEvents.playerPlaceBlock.subscr
   if (!inBounds(b.x, b.z)) { ev.cancel = true; warn(ev.player, PLOT_MSG); }
 }));
 
+const FACE = { Up: [0, 1, 0], Down: [0, -1, 0], North: [0, 0, -1], South: [0, 0, 1], East: [1, 0, 0], West: [-1, 0, 0] };
+
 on("playerInteractWithBlock (before)", () => world.beforeEvents.playerInteractWithBlock.subscribe((ev) => {
   const b = ev.block;
-  if (b.dimension.id === "minecraft:overworld" && !inBounds(b.x, b.z)) ev.cancel = true;
+  if (b.dimension.id !== "minecraft:overworld") return;
+  if (!inBounds(b.x, b.z)) { ev.cancel = true; return; }
+  // Buckets place liquid on the far side of the clicked face, so check that target too.
+  const id = ev.itemStack && ev.itemStack.typeId;
+  const f = FACE[String(ev.blockFace)];
+  if (id && id.endsWith("bucket") && f && !inBounds(b.x + f[0], b.z + f[2])) { ev.cancel = true; warn(ev.player, PLOT_MSG); }
+}));
+
+// Backup enforcement. If a "before" event is missing or misses a case, the block is undone right after it happens.
+on("playerPlaceBlock (after, plot guard)", () => world.afterEvents.playerPlaceBlock.subscribe((ev) => {
+  const b = ev.block;
+  if (b.dimension.id !== "minecraft:overworld" || inBounds(b.x, b.z)) return;
+  const player = ev.player;
+  system.run(() => {
+    try {
+      const stack = b.getItemStack(1, true);
+      b.setType("minecraft:air");
+      const gm = String(player.getGameMode()).toLowerCase();
+      if (stack && (gm === "survival" || gm === "adventure")) player.getComponent("minecraft:inventory").container.addItem(stack);
+    } catch (e) { /* ignore */ }
+    warn(player, PLOT_MSG);
+  });
+}));
+
+on("playerBreakBlock (after, plot guard)", () => world.afterEvents.playerBreakBlock.subscribe((ev) => {
+  const b = ev.block;
+  if (b.dimension.id !== "minecraft:overworld" || inBounds(b.x, b.z)) return;
+  const perm = ev.brokenBlockPermutation;
+  system.run(() => {
+    try {
+      b.setPermutation(perm);
+      for (const e of b.dimension.getEntities({ type: "minecraft:item", location: { x: b.x + 0.5, y: b.y + 0.5, z: b.z + 0.5 }, maxDistance: 2 })) e.remove();
+    } catch (e) { /* ignore */ }
+    warn(ev.player, PLOT_MSG);
+  });
 }));
 
 on("playerSpawn", () => world.afterEvents.playerSpawn.subscribe((ev) => {
