@@ -1,0 +1,135 @@
+name: Collect Files for AI Review
+
+# Bundles the repo files an AI needs to review/improve the OneBlock tooling
+# into ONE downloadable zip (plus a single readable TXT with all text files).
+# Save as: .github/workflows/collect-ai-review-files.yml
+
+on:
+  workflow_dispatch:
+    inputs:
+      extra_paths:
+        description: "Optional extra files/folders to include, comma-separated (e.g. scripts/foo.py,MCPEDL/maps/Dirtbound-Kingdom)"
+        required: false
+        default: ""
+
+permissions:
+  contents: read
+
+jobs:
+  collect:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Gather files
+        env:
+          EXTRA_PATHS: ${{ github.event.inputs.extra_paths }}
+        run: |
+          set -u
+          OUT=ai_review_bundle
+          mkdir -p "$OUT"
+
+          # 1. Repo tree (depth 3, no .git, no world data noise)
+          find . -maxdepth 3 -not -path './.git*' -not -path './node_modules*' \
+            | sort > "$OUT/repo_tree_depth3.txt"
+
+          # Full list of files under key folders (names only)
+          find . -type f -not -path './.git/*' \
+            \( -path './scripts/*' -o -path './.github/*' -o -path './Mcpeworlds/assets/*' \) \
+            | sort > "$OUT/key_folder_file_list.txt"
+
+          # 2. Helper to copy a file while keeping its path
+          copy_item() {
+            src="$1"
+            if [ -e "$src" ]; then
+              mkdir -p "$OUT/files/$(dirname "$src")"
+              cp -r "$src" "$OUT/files/$src"
+              echo "OK      $src" >> "$OUT/manifest.txt"
+            else
+              echo "MISSING $src" >> "$OUT/manifest.txt"
+            fi
+          }
+
+          : > "$OUT/manifest.txt"
+
+          # 3. The files requested
+          copy_item scripts/import_oneblock_payload.py
+          copy_item scripts/build_oneblock_variants_from_template.py
+          copy_item INSTRUCTIONS.md
+          copy_item README_GUIDELINES.md
+          copy_item Mcpeworlds/assets/resources_pack/textures/items/trader_ledger.png
+          copy_item Mcpeworlds/assets/resources_pack/textures/item_texture.json
+
+          # All workflows (conventions: Python version, permissions, branch)
+          for f in .github/workflows/*.yml .github/workflows/*.yaml; do
+            [ -f "$f" ] && copy_item "$f"
+          done
+
+          # Every other script in scripts/
+          for f in scripts/*; do
+            [ -f "$f" ] && copy_item "$f"
+          done
+
+          # 4. Optional extras from the input
+          if [ -n "$EXTRA_PATHS" ]; then
+            echo "$EXTRA_PATHS" | tr ',' '\n' | while read -r p; do
+              p="$(echo "$p" | xargs)"
+              [ -n "$p" ] && copy_item "$p"
+            done
+          fi
+
+          # 5. Hash of the Trader Ledger PNG (to verify the embedded copy)
+          PNG=Mcpeworlds/assets/resources_pack/textures/items/trader_ledger.png
+          if [ -f "$PNG" ]; then
+            sha256sum "$PNG" > "$OUT/trader_ledger_sha256.txt"
+            stat -c '%s bytes' "$PNG" >> "$OUT/trader_ledger_sha256.txt"
+          else
+            echo "trader_ledger.png not found at expected path" > "$OUT/trader_ledger_sha256.txt"
+          fi
+
+          # 6. Environment hints
+          {
+            echo "Default branch: ${{ github.event.repository.default_branch }}"
+            echo "Ref: ${{ github.ref }}"
+            echo "Python on runner: $(python3 --version 2>&1)"
+          } > "$OUT/env_info.txt"
+
+      - name: Build one readable TXT of all text files
+        run: |
+          python3 - <<'PY'
+          import os, pathlib
+          root = pathlib.Path("ai_review_bundle")
+          files_dir = root / "files"
+          text_ext = {".py", ".yml", ".yaml", ".json", ".md", ".txt", ".js", ".mcfunction", ".lang", ".sh"}
+          out = root / "ALL_TEXT_FILES.txt"
+          items = sorted(p for p in files_dir.rglob("*") if p.is_file())
+          included = []
+          with out.open("w", encoding="utf-8") as fh:
+              fh.write("TABLE OF CONTENTS\n")
+              for p in items:
+                  if p.suffix.lower() in text_ext:
+                      included.append(p)
+                      fh.write(f"- {p.relative_to(files_dir).as_posix()}\n")
+              fh.write(f"\nTotal text files: {len(included)}\n\n")
+              for p in included:
+                  rel = p.relative_to(files_dir).as_posix()
+                  fh.write(f"\n===== FILE: {rel} =====\n")
+                  fh.write(p.read_text(encoding="utf-8", errors="replace"))
+                  fh.write(f"\n===== END FILE: {rel} =====\n")
+          print(f"Wrote {out} with {len(included)} files")
+          PY
+
+      - name: Show what was collected
+        run: |
+          echo "=== manifest ==="
+          cat ai_review_bundle/manifest.txt
+          echo "=== trader ledger ==="
+          cat ai_review_bundle/trader_ledger_sha256.txt
+
+      - name: Upload bundle
+        uses: actions/upload-artifact@v4
+        with:
+          name: ai-review-bundle
+          path: ai_review_bundle/
+          retention-days: 14
