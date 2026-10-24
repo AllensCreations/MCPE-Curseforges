@@ -120,3 +120,6 @@ export const ACHIEVEMENTS = [
   { id: "island_max", name: "Frontier Owner", desc: "Reach the largest island", reward: 300 },
   { id: "all_licenses", name: "Sovereign Collector", desc: "Own every block license", reward: 500 },
 ];
+
+// One-tap shop: only purchases at or above this many coins ask for a confirmation.
+export const BIG_CONFIRM = 2000;

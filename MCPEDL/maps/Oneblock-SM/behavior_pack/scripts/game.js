@@ -70,8 +70,21 @@ export const AUTO_MINE_TICKS = 600; // 30 real-time seconds at 20 ticks/second.
 const AUTO_MINE_STEP = 4;
 const currentDay = () => world.getDay();
 
+// Cached subscription record: undefined = not loaded yet, null = nobody has a subscription.
+// The per-tick check reads only this variable, so it costs almost nothing when auto-mining is idle.
+let autoCache;
+function autoState() {
+  if (autoCache === undefined) autoCache = loadWorld().autoMine || null;
+  return autoCache;
+}
+function persistAuto() {
+  const w = loadWorld();
+  w.autoMine = autoCache || null;
+  saveWorld(w);
+}
+
 export function autoMineStatus() {
-  const a = loadWorld().autoMine;
+  const a = autoState();
   const day = currentDay();
   const active = !!a && a.expiresDay > day && (a.usedTicks || 0) < AUTO_MINE_TICKS;
   const available = !a || a.purchaseDay !== day;
@@ -82,19 +95,18 @@ export function autoMineStatus() {
 }
 
 export function buyAutoMine(p) {
-  const w = loadWorld();
   const day = currentDay();
-  const a = w.autoMine;
+  const a = autoState();
   if (a && a.purchaseDay === day) {
     const remaining = Math.max(0, AUTO_MINE_TICKS - (a.usedTicks || 0));
     return { ok: false, msg: remaining > 0 ? "The OneBlock automation subscription is already active for this Minecraft day. Remaining time: " + Math.ceil(remaining / 20) + " seconds." : "You have used today's 30-second automation allowance. You can purchase another subscription when the next Minecraft day begins." };
   }
   const d = loadPlayer(p);
   if (!spend(d, AUTO_MINE_COST)) return { ok: false, msg: "Not enough " + CURRENCY + ". You need " + AUTO_MINE_COST + ", you have " + d.coins + "." };
-  w.autoMine = { owner: p.id, purchaseDay: day, expiresDay: day + 1, usedTicks: 0 };
+  autoCache = { owner: p.id, purchaseDay: day, expiresDay: day + 1, usedTicks: 0 };
   log(d, "Bought OneBlock automation subscription for " + AUTO_MINE_COST + " " + CURRENCY);
   savePlayer(p, d);
-  saveWorld(w);
+  persistAuto();
   return { ok: true, msg: "Subscription purchased for " + AUTO_MINE_COST + " " + CURRENCY + ". Automation can run for up to 30 seconds this Minecraft day. It expires when the next Minecraft day begins." };
 }
 
@@ -130,14 +142,13 @@ function storeAutoDrop(container, blockId) {
 }
 
 export function autoMineTick() {
-  const w = loadWorld();
-  const a = w.autoMine;
-  const day = currentDay();
-  if (!a || a.expiresDay <= day || a.usedTicks >= AUTO_MINE_TICKS) return;
+  const a = autoState();
+  if (!a) return; // idle: no world read, no player scan
+  if (a.expiresDay <= currentDay() || (a.usedTicks || 0) >= AUTO_MINE_TICKS) return;
   const player = world.getAllPlayers().find((p) => p.id === a.owner && p.dimension.id === "minecraft:overworld" && p.hasTag("void_cleaned"));
   if (!player) return;
   a.usedTicks = Math.min(AUTO_MINE_TICKS, (a.usedTicks || 0) + 1);
-  if (a.usedTicks % 20 === 0 || a.usedTicks >= AUTO_MINE_TICKS) saveWorld(w);
+  if (a.usedTicks % 20 === 0 || a.usedTicks >= AUTO_MINE_TICKS) persistAuto();
   if (a.usedTicks % AUTO_MINE_STEP !== 0) return;
   if (!core.armed || core.pending) return;
   const dim = dimOf();
@@ -154,7 +165,7 @@ export function autoMineTick() {
   if (!storeAutoDrop(container, coreBlock.typeId)) {
     if (!a.fullWarned) {
       a.fullWarned = true;
-      saveWorld(w);
+      persistAuto();
       try { player.sendMessage("Automation paused: the OneBlock collection chest is full. Empty the chest to resume."); } catch (e) {}
     }
     return;
@@ -164,7 +175,7 @@ export function autoMineTick() {
   core.pending = true;
   if (!regenerate(player)) core.pending = false;
   if (a.usedTicks >= AUTO_MINE_TICKS) {
-    saveWorld(w);
+    persistAuto();
     try { player.sendMessage("OneBlock automation time is up for today."); } catch (e) {}
   }
 }
