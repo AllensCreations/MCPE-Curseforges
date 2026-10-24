@@ -1,35 +1,26 @@
 name: Export Repo Content to TXT
 
-# Pick a category (addons, maps, new_addons, script, ...) and get readable TXT files
-# you can feed to an AI. Text files only; binaries, worlds, builds and .git are skipped.
+# Type the paths you want (files or folders, comma or newline separated) and get readable
+# TXT you can feed to an AI. No size limits: nothing is truncated, and by default everything
+# goes into ONE file. Binary files are detected and skipped.
 # Save as: .github/workflows/export-repo-to-txt.yml
 
 on:
   workflow_dispatch:
     inputs:
-      category:
-        description: "What to export"
+      paths:
+        description: "Paths to export, comma-separated. Files, folders or globs. e.g. MCPEDL/addons/Grand-Banquets, scripts, .github/workflows, MCPEDL/maps/*/behavior_pack"
         required: true
-        default: all
-        type: choice
-        options:
-          - all
-          - addons
-          - maps
-          - new_addons
-          - script
-          - scripts
-          - workflows
-          - docs
-      name_filter:
-        description: "Optional: only these folders, comma-separated (e.g. Grand-Banquets,Mining-Helmet). Blank = everything in the category"
-        required: false
-        default: ""
         type: string
       part_size_kb:
-        description: "Max size of each TXT part in KB (smaller = fits smaller AI context windows)"
+        description: "0 = one single TXT, no limit (default). Or a number of KB to split into parts"
         required: false
-        default: "300"
+        default: "0"
+        type: string
+      output_name:
+        description: "Optional name for the output file (letters, numbers, . _ -)"
+        required: false
+        default: "export"
         type: string
 
 permissions:
@@ -44,101 +35,106 @@ jobs:
 
       - name: Build TXT export
         env:
-          CATEGORY: ${{ inputs.category }}
-          NAME_FILTER: ${{ inputs.name_filter }}
+          PATHS: ${{ inputs.paths }}
           PART_KB: ${{ inputs.part_size_kb }}
+          OUT_NAME: ${{ inputs.output_name }}
         run: |
           python3 - <<'PY'
           import os, re, pathlib
 
-          CATEGORY = os.environ["CATEGORY"]
-          FILTER = [x.strip().lower() for x in os.environ.get("NAME_FILTER", "").split(",") if x.strip()]
+          raw_paths = [p.strip().strip("'\"") for p in re.split(r"[,\n]", os.environ["PATHS"]) if p.strip()]
           try:
-              PART_BYTES = max(20, int(os.environ.get("PART_KB", "300"))) * 1024
+              part_kb = int(os.environ.get("PART_KB", "0") or "0")
           except ValueError:
-              PART_BYTES = 300 * 1024
-          MAX_FILE = 300 * 1024  # a single file larger than this is truncated
+              part_kb = 0
+          part_bytes = part_kb * 1024 if part_kb > 0 else 0   # 0 = unlimited, one file
+          label = re.sub(r"[^A-Za-z0-9._-]", "_", os.environ.get("OUT_NAME", "export") or "export")[:60]
 
-          ROOTS = {
-              "addons": ["MCPEDL/addons"],
-              "maps": ["MCPEDL/maps"],
-              "new_addons": ["MCPEDL/new_addons"],
-              "script": ["MCPEDL/script"],
-              "scripts": ["scripts"],
-              "workflows": [".github/workflows"],
-              "docs": ["README.md", "INSTRUCTIONS.md", "README_GUIDELINES.md",
-                       "ONEBLOCK_ADDON_GENERATOR.md", "Mcpeworlds/README.md", ".agents"],
-          }
-          ROOTS["all"] = [r for k in ("addons", "maps", "new_addons", "script", "scripts", "workflows", "docs") for r in ROOTS[k]]
+          root = pathlib.Path(".").resolve()
+          SKIP_DIRS = {".git", "db", "node_modules", "__pycache__", "exports"}
+          selected, skipped, missing = {}, [], []
 
-          TEXT_EXT = {".json", ".js", ".mjs", ".ts", ".mcfunction", ".md", ".txt", ".lang",
-                      ".py", ".yml", ".yaml", ".html", ".css"}
-          SKIP_DIRS = {".git", "db", "node_modules", "builds", "__pycache__", "ai_review_bundle", "exports"}
+          def is_text(p: pathlib.Path) -> bool:
+              try:
+                  head = p.read_bytes()[:8192]
+              except OSError:
+                  return False
+              if b"\x00" in head:
+                  return False
+              try:
+                  head.decode("utf-8")
+              except UnicodeDecodeError as e:
+                  # a multi-byte char cut at the 8 KB boundary is fine
+                  return e.start >= len(head) - 4
+              return True
 
-          root = pathlib.Path(".")
-          selected, skipped = [], []
-
-          def consider(p: pathlib.Path):
-              rel = p.as_posix()
-              parts = [x.lower() for x in p.parts]
-              if any(d in parts for d in SKIP_DIRS) and not rel.startswith(".agents"):
+          def add(p: pathlib.Path):
+              try:
+                  rel = p.resolve().relative_to(root)
+              except ValueError:
+                  return  # outside the repo
+              if any(part in SKIP_DIRS for part in rel.parts):
                   return
-              if FILTER and not any(f in parts for f in FILTER):
+              if not p.is_file():
                   return
-              if p.suffix.lower() in TEXT_EXT:
-                  selected.append(p)
+              if is_text(p):
+                  selected[rel.as_posix()] = p
               else:
-                  skipped.append(rel)
+                  skipped.append(rel.as_posix())
 
-          for entry in ROOTS[CATEGORY]:
-              p = root / entry
-              if p.is_file():
-                  consider(p)
-              elif p.is_dir():
-                  for f in sorted(p.rglob("*")):
-                      if f.is_file():
-                          consider(f)
-          selected = sorted(set(selected), key=lambda x: x.as_posix().lower())
+          for entry in raw_paths:
+              if ".." in pathlib.PurePosixPath(entry).parts or entry.startswith("/"):
+                  missing.append(entry + "  (not allowed: must be inside the repo)")
+                  continue
+              matches = sorted(root.glob(entry))
+              if not matches:
+                  missing.append(entry)
+                  continue
+              for m in matches:
+                  if m.is_dir():
+                      for f in sorted(m.rglob("*")):
+                          add(f)
+                  else:
+                      add(m)
 
-          # Build blocks
+          files = sorted(selected, key=str.lower)
+          if missing:
+              for m in missing:
+                  print(f"::warning::Path not found or not allowed: {m}")
+          if not files:
+              raise SystemExit("::error::Nothing matched. Check the paths (case-sensitive, relative to the repo root).")
+
           blocks = []
-          for f in selected:
-              raw = f.read_bytes()
-              truncated = len(raw) > MAX_FILE
-              text = raw[:MAX_FILE].decode("utf-8", errors="replace")
-              n_lines = text.count("\n") + 1
-              head = f"===== FILE: {f.as_posix()} ({n_lines} lines, {len(raw)} bytes){' TRUNCATED' if truncated else ''} ====="
-              blocks.append((f.as_posix(), f"\n{head}\n{text}\n===== END FILE: {f.as_posix()} =====\n"))
+          for rel in files:
+              data = selected[rel].read_bytes().decode("utf-8", errors="replace")
+              head = f"===== FILE: {rel} ({data.count(chr(10)) + 1} lines, {len(data.encode('utf-8'))} bytes) ====="
+              blocks.append((rel, f"\n{head}\n{data}\n===== END FILE: {rel} =====\n"))
 
-          # Split into parts on file boundaries
-          parts, cur, cur_size = [], [], 0
+          parts, cur, size = [], [], 0
           for rel, block in blocks:
-              size = len(block.encode("utf-8"))
-              if cur and cur_size + size > PART_BYTES:
-                  parts.append(cur); cur, cur_size = [], 0
-              cur.append((rel, block)); cur_size += size
+              b = len(block.encode("utf-8"))
+              if part_bytes and cur and size + b > part_bytes:
+                  parts.append(cur); cur, size = [], 0
+              cur.append((rel, block)); size += b
           if cur:
               parts.append(cur)
 
           out = pathlib.Path("exports"); out.mkdir(exist_ok=True)
-          label = CATEGORY + ("_" + "-".join(FILTER) if FILTER else "")
-          label = re.sub(r"[^A-Za-z0-9._-]", "_", label)[:60]
-          index = [f"EXPORT: category={CATEGORY} filter={FILTER or 'none'}",
-                   f"Text files: {len(selected)}   Parts: {len(parts)}   Skipped non-text files: {len(skipped)}", ""]
+          index = ["EXPORT REQUEST: " + ", ".join(raw_paths),
+                   f"Text files: {len(files)}   Parts: {len(parts)}   Skipped binary: {len(skipped)}   Paths not found: {len(missing)}", ""]
           for i, part in enumerate(parts, 1):
-              name = f"export_{label}_part{i:02d}_of_{len(parts):02d}.txt"
-              header = f"PART {i} OF {len(parts)} | category={CATEGORY} | files in this part: {len(part)}\n"
-              toc = "".join(f"- {rel}\n" for rel, _ in part)
-              (out / name).write_text(header + "CONTENTS OF THIS PART:\n" + toc + "".join(b for _, b in part), encoding="utf-8")
-              index.append(f"{name}  ({len(part)} files)")
-              index.extend(f"    {rel}" for rel, _ in part)
+              name = f"{label}.txt" if len(parts) == 1 else f"{label}_part{i:02d}_of_{len(parts):02d}.txt"
+              head = f"PART {i} OF {len(parts)} | files in this part: {len(part)}\nCONTENTS OF THIS PART:\n" + "".join(f"- {r}\n" for r, _ in part)
+              (out / name).write_text(head + "".join(b for _, b in part), encoding="utf-8")
+              total = (out / name).stat().st_size
+              index.append(f"{name}  ({len(part)} files, {total} bytes)")
+              index.extend(f"    {r}" for r, _ in part)
+          if missing:
+              index += ["", "NOT FOUND:"] + [f"    {m}" for m in missing]
           if skipped:
-              index += ["", "SKIPPED (not text):"] + [f"    {s}" for s in skipped[:500]]
+              index += ["", "SKIPPED (binary):"] + [f"    {s}" for s in skipped[:1000]]
           (out / "INDEX.txt").write_text("\n".join(index) + "\n", encoding="utf-8")
-
-          print(f"Exported {len(selected)} files into {len(parts)} part(s); skipped {len(skipped)} non-text.")
-          if not selected:
-              raise SystemExit("::error::Nothing matched. Check the category and name_filter.")
+          print(f"Exported {len(files)} files into {len(parts)} part(s); skipped {len(skipped)} binary; {len(missing)} path(s) not found.")
           PY
 
       - name: Summary
@@ -146,8 +142,8 @@ jobs:
         run: |
           {
             echo "### Export Repo Content to TXT"
-            echo "- Category: \`${{ inputs.category }}\`   Filter: \`${{ inputs.name_filter }}\`"
-            echo "- Download the **repo-export-txt** artifact below, then give the TXT parts to your AI (start with INDEX.txt)."
+            echo "- Paths: \`${{ inputs.paths }}\`"
+            echo "- Download the **repo-export-txt** artifact below. INDEX.txt lists every file included."
             [ -d exports ] && ls -la exports | sed 's/^/    /'
           } >> "$GITHUB_STEP_SUMMARY"
 
