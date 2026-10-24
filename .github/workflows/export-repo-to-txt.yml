@@ -2,7 +2,9 @@ name: Export Repo Content to TXT
 
 # Type the paths you want (files or folders, comma or newline separated) and get readable
 # TXT you can feed to an AI. No size limits: nothing is truncated, and by default everything
-# goes into ONE file. Binary files are detected and skipped.
+# goes into ONE file named after what you exported (e.g. Grand-Banquets.txt). Binary files
+# are detected and skipped. The downloaded zip also contains ONEBLOCK_ADDON_GENERATOR.md
+# so the AI always has the best-practice instructions next to the export.
 # Save as: .github/workflows/export-repo-to-txt.yml
 
 on:
@@ -18,9 +20,9 @@ on:
         default: "0"
         type: string
       output_name:
-        description: "Optional name for the output file (letters, numbers, . _ -)"
+        description: "Optional override. Leave blank to name the file after the exported path(s)"
         required: false
-        default: "export"
+        default: ""
         type: string
 
 permissions:
@@ -34,6 +36,7 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Build TXT export
+        id: build
         env:
           PATHS: ${{ inputs.paths }}
           PART_KB: ${{ inputs.part_size_kb }}
@@ -48,7 +51,23 @@ jobs:
           except ValueError:
               part_kb = 0
           part_bytes = part_kb * 1024 if part_kb > 0 else 0   # 0 = unlimited, one file
-          label = re.sub(r"[^A-Za-z0-9._-]", "_", os.environ.get("OUT_NAME", "export") or "export")[:60]
+
+          def safe(x):
+              return re.sub(r"[^A-Za-z0-9._-]+", "_", x).strip("_.")
+
+          def auto_label():
+              names = []
+              for e in raw_paths:
+                  last = [c for c in pathlib.PurePosixPath(e.rstrip("/")).parts if c not in (".", "")]
+                  n = safe(last[-1]) if last else ""
+                  if n and n not in names:
+                      names.append(n)
+              if not names:
+                  return "export"
+              label = "+".join(names[:3]) + ("+more" if len(names) > 3 else "")
+              return label[:80]
+
+          label = safe(os.environ.get("OUT_NAME", "")) or auto_label() or "export"
 
           root = pathlib.Path(".").resolve()
           SKIP_DIRS = {".git", "db", "node_modules", "__pycache__", "exports"}
@@ -133,7 +152,15 @@ jobs:
               index += ["", "NOT FOUND:"] + [f"    {m}" for m in missing]
           if skipped:
               index += ["", "SKIPPED (binary):"] + [f"    {s}" for s in skipped[:1000]]
+          gen = pathlib.Path("ONEBLOCK_ADDON_GENERATOR.md")
+          if gen.is_file():
+              (out / gen.name).write_bytes(gen.read_bytes())
+              index += ["", "ALSO INCLUDED: ONEBLOCK_ADDON_GENERATOR.md (best-practice instructions for OneBlock add-ons)"]
+          else:
+              print("::warning::ONEBLOCK_ADDON_GENERATOR.md not found in the repo root; not added to the export")
           (out / "INDEX.txt").write_text("\n".join(index) + "\n", encoding="utf-8")
+          with open(os.environ["GITHUB_OUTPUT"], "a", encoding="utf-8") as fh:
+              fh.write(f"label={label}\n")
           print(f"Exported {len(files)} files into {len(parts)} part(s); skipped {len(skipped)} binary; {len(missing)} path(s) not found.")
           PY
 
@@ -143,14 +170,14 @@ jobs:
           {
             echo "### Export Repo Content to TXT"
             echo "- Paths: \`${{ inputs.paths }}\`"
-            echo "- Download the **repo-export-txt** artifact below. INDEX.txt lists every file included."
+            echo "- Download the **${{ steps.build.outputs.label }}** artifact below (zip). It contains the TXT export, INDEX.txt and ONEBLOCK_ADDON_GENERATOR.md."
             [ -d exports ] && ls -la exports | sed 's/^/    /'
           } >> "$GITHUB_STEP_SUMMARY"
 
       - name: Upload export
         uses: actions/upload-artifact@v4
         with:
-          name: repo-export-txt
+          name: ${{ steps.build.outputs.label }}
           path: exports/
           if-no-files-found: error
           retention-days: 14
