@@ -1,13 +1,13 @@
 import { world, system, BlockTypes, ItemStack } from "@minecraft/server";
-import { CORE, FLOOR_Y, CURRENCY, LICENSES, UNSAFE_BLOCK, ISLAND_LEVELS, CONTRACTS, MAX_CHESTS_PER_PLAYER, LEDGER_ID, nice, DIRT_SHARE, LOOT_DENY, BIOMES, ACHIEVEMENTS, GOLDEN_CHANCE, GOLDEN_LOOT, UPGRADE_MAX, UPGRADE_CUT, AUTO_LEVELS, AUTO_DAILY_TICKS, BASIC_CHEST_CHANCE } from "./config.js";
-import { loadPlayer, savePlayer, loadWorld, saveWorld, hasLic, canAfford, addCoins, spend, log, islandLevel, inBounds, ITEMS, quote, recordSale } from "./store.js";
+import { CORE, FLOOR_Y, CURRENCY, LICENSES, UNSAFE_BLOCK, ISLAND_LEVELS, CONTRACTS, MAX_CHESTS_PER_PLAYER, LEDGER_ID, nice, DIRT_SHARE, LOOT_DENY, BIOMES, ACHIEVEMENTS, GOLDEN_CHANCE, GOLDEN_LOOT, UPGRADE_MAX, UPGRADE_CUT, AUTO_LEVELS, AUTO_DAILY_TICKS, BASIC_CHEST_CHANCE, BORDER_BLOCK, MILESTONE_EVERY, MILESTONE_COINS_PER_TIER, JACKPOT_CHANCE, JACKPOT_MIN_PER_TIER, JACKPOT_MAX_PER_TIER } from "./config.js";
+import { loadPlayer, savePlayer, loadWorld, saveWorld, hasLic, canAfford, addCoins, spend, log, islandLevel, inBounds, ITEMS, quote, recordSale, highestTier } from "./store.js";
 
 const dimOf = () => world.getDimension("overworld");
 const rnd = (a, b) => a + Math.floor(Math.random() * (b - a + 1));
 const full = (id) => "minecraft:" + id;
 
 // ---- OneBlock core ----
-export const core = { armed: false, pending: false };
+export const core = { armed: false, pending: false, jackpot: false };
 export const isCore = (b) => b.dimension.id === "minecraft:overworld" && b.x === CORE.x && b.y === CORE.y && b.z === CORE.z;
 export const isFoundation = (b) => b.dimension.id === "minecraft:overworld" && b.x === CORE.x && b.y === CORE.y - 1 && b.z === CORE.z;
 
@@ -41,32 +41,53 @@ export function pickBlock(pool) {
   return pool[0][0];
 }
 
-export function regenerate(player) {
+// auto = true when the Auto-Miner breaks the block: no jackpot and no milestone bonus, but chests still appear.
+export function regenerate(player, auto = false) {
   const b = dimOf().getBlock(CORE);
   if (!b) return false;
   const d = player ? loadPlayer(player) : null;
   let id = pickBlock(d ? poolFor(d) : [["minecraft:dirt", 1]]);
-  // Basic Supply Chest contract: the OneBlock sometimes turns into a loot chest instead of a block.
-  let chest = !!d && d.con.includes("basic") && Math.random() < BASIC_CHEST_CHANCE * ((d.up && d.up.basic) || 1);
+  core.jackpot = false;
+  let chest = false, bonus = false;
+  if (d && !auto && d.bonus) {
+    // Milestone reward: the next OneBlock is a bonus loot chest.
+    chest = true; bonus = true;
+    d.bonus = false;
+    savePlayer(player, d);
+  } else if (d && !auto && Math.random() < JACKPOT_CHANCE) {
+    id = "minecraft:gold_block";
+    core.jackpot = true;
+  } else if (d && d.con.includes("basic") && Math.random() < BASIC_CHEST_CHANCE * ((d.up && d.up.basic) || 1)) {
+    // Basic Supply Chest contract: the OneBlock sometimes turns into a loot chest instead of a block.
+    chest = true;
+  }
   if (chest) id = "minecraft:chest";
   try { b.setType(id); } catch (e) {
-    chest = false;
+    chest = false; bonus = false; core.jackpot = false;
     try { b.setType("minecraft:dirt"); } catch (e2) { return false; }
   }
-  if (chest) { try { fillBasicChest(b, d); } catch (e) { console.warn("[SovereignMarket] basic chest: " + e); } }
+  if (chest) { try { fillOneBlockChest(b, d, bonus); } catch (e) { console.warn("[SovereignMarket] oneblock chest: " + e); } }
+  if (core.jackpot && player) { try { player.onScreenDisplay.setActionBar("\u00a76JACKPOT block! Break it for coins."); } catch (e) { /* ignore */ } }
   core.armed = true;
   core.pending = false;
   return true;
 }
 
-function fillBasicChest(block, d) {
-  const C = CONTRACTS.find((c) => c.id === "basic");
-  const lvl = (d.up && d.up.basic) || 1;
-  const entries = C.loot.filter((x) => hasLic(d, x[4]) && BlockOrItemOk(x[0]));
+// Fills a chest-shaped OneBlock. Bonus chests roll the loot of every contract the player's licenses allow.
+function fillOneBlockChest(block, d, bonus) {
+  let entries, rolls;
+  if (bonus) {
+    entries = CONTRACTS.flatMap((c) => c.loot).filter((x) => hasLic(d, x[4]) && BlockOrItemOk(x[0]));
+    rolls = rnd(6, 8);
+  } else {
+    const C = CONTRACTS.find((c) => c.id === "basic");
+    const lvl = (d.up && d.up.basic) || 1;
+    entries = C.loot.filter((x) => hasLic(d, x[4]) && BlockOrItemOk(x[0]));
+    rolls = rnd(C.rolls[0] + lvl - 1, C.rolls[1] + lvl - 1);
+  }
   const cont = block.getComponent("minecraft:inventory")?.container;
   if (!cont || !entries.length) return;
   const total = entries.reduce((sum, e) => sum + e[1], 0);
-  const rolls = rnd(C.rolls[0] + lvl - 1, C.rolls[1] + lvl - 1);
   for (let r = 0; r < rolls; r++) {
     let pick = Math.random() * total, e = entries[0];
     for (const c of entries) { pick -= c[1]; if (pick < 0) { e = c; break; } }
@@ -144,6 +165,11 @@ export function toggleAuto(p) {
   if (!a) return { ok: false, msg: "You do not own the Auto-Miner yet." };
   a.on = a.on === false;
   persistAuto();
+  if (a.on) {
+    // Break the OneBlock right away so the player sees it start.
+    rolloverAuto(a);
+    if ((a.used || 0) < AUTO_DAILY_TICKS) { try { mineOnce(p, a, true); } catch (e) { /* ignore */ } }
+  }
   return { ok: true, msg: "Auto-Miner is now " + (a.on ? "ON" : "OFF") + "." };
 }
 
@@ -205,7 +231,7 @@ function breakEffect(dim) {
   system.run(sweep);
 }
 
-function mineOnce(player, a) {
+function mineOnce(player, a, fx) {
   if (!core.armed || core.pending) return;
   const dim = dimOf();
   let chestBlock = dim.getBlock({ x: CORE.x, y: CORE.y + 1, z: CORE.z });
@@ -230,8 +256,8 @@ function mineOnce(player, a) {
   a.full = false;
   core.armed = false;
   core.pending = true;
-  breakEffect(dim);
-  if (!regenerate(player)) core.pending = false;
+  if (fx) breakEffect(dim);
+  if (!regenerate(player, true)) core.pending = false;
 }
 
 function announceExhausted(player, a) {
@@ -253,18 +279,40 @@ export function autoMineTick() {
   if ((a.used || 0) >= AUTO_DAILY_TICKS) { announceExhausted(player, a); return; }
   a.used = (a.used || 0) + 1;
   if (a.used % 20 === 0) persistAuto();
-  if (a.used % AUTO_LEVELS[a.lvl - 1].step === 0) mineOnce(player, a);
+  const step = AUTO_LEVELS[a.lvl - 1].step;
+  if (a.used % 10 === 1) { try { player.onScreenDisplay.setActionBar("\u00a7bAuto-Miner Lv" + a.lvl + "   " + Math.ceil((AUTO_DAILY_TICKS - a.used) / 20) + "s left"); } catch (e) { /* ignore */ } }
+  // Fast levels show the break effect every 4th break so the screen stays readable.
+  if (a.used % step === 0) mineOnce(player, a, step >= 4 || a.used % 4 === 0);
   if (a.used >= AUTO_DAILY_TICKS) announceExhausted(player, a);
 }
 
 // ---- Wallet ----
-export function credit(p, n, label) {
+// Called for every hand break of the OneBlock. Dirt no longer pays: items are sold at the market.
+// Handles the jackpot block and the milestone bonus.
+export function onHandBreak(p, typeId) {
   const d = loadPlayer(p);
-  addCoins(d, n);
   d.mined += 1;
+  const tier = highestTier(d);
+  const notes = [];
+  if (core.jackpot && typeId === "minecraft:gold_block") {
+    const amt = rnd(JACKPOT_MIN_PER_TIER * tier, JACKPOT_MAX_PER_TIER * tier);
+    addCoins(d, amt);
+    log(d, "Jackpot block: +" + amt);
+    notes.push("\u00a76JACKPOT! +" + amt + " " + CURRENCY);
+  }
+  if (d.mined % MILESTONE_EVERY === 0) {
+    const c = MILESTONE_COINS_PER_TIER * tier;
+    addCoins(d, c);
+    d.bonus = true;
+    log(d, "Milestone " + d.mined + " breaks: +" + c);
+    notes.push("\u00a7aMilestone: " + d.mined + " breaks! +" + c + " " + CURRENCY + ". Your next OneBlock is a bonus chest.");
+  }
   savePlayer(p, d);
-  try { p.onScreenDisplay.setActionBar("+" + n + " " + CURRENCY + "   Balance: " + d.coins); } catch (e) { /* ignore */ }
+  for (const n of notes) { try { p.sendMessage(n); p.onScreenDisplay.setActionBar(n); } catch (e) { /* ignore */ } }
 }
+
+// Has this player finished the mandatory How to Play guide?
+export const tutorialDone = (p, d) => !!d.tutDone || (d.ach || []).includes("tutorial") || p.hasTag("tutorial_done");
 
 // ---- Licenses ----
 export function buyLicense(p, id) {
@@ -341,14 +389,16 @@ export function buyIsland(p, targetIdx) {
   const dim = dimOf();
   const corners = [[N.min, N.min], [N.min, N.max], [N.max, N.min], [N.max, N.max]];
   if (corners.some(([x, z]) => !dim.getBlock({ x, y: FLOOR_Y, z }))) return { ok: false, msg: "The new area is not loaded. Stand near the OneBlock and try again. Nothing was charged." };
-  // Floor only the new ring, and only where the space is empty (keep), so existing blocks are never touched.
-  const strips = [
-    [N.min, N.min, N.max, O.min - 1], [N.min, O.max + 1, N.max, N.max],
-    [N.min, O.min, O.min - 1, O.max], [O.max + 1, O.min, N.max, O.max],
-  ];
-  for (const [x1, z1, x2, z2] of strips) {
-    if (x1 > x2 || z1 > z2) continue;
-    try { dim.runCommand("fill " + x1 + " " + FLOOR_Y + " " + z1 + " " + x2 + " " + FLOOR_Y + " " + z2 + " grass_block replace air"); } catch (e) { /* nothing to fill */ }
+  // Only the border is drawn: the old border is removed and a new ring is placed on the edge of the new area.
+  // Nothing inside the area is filled, so players build their own land.
+  const edges = (L) => [[L.min, L.min, L.max, L.min], [L.min, L.max, L.max, L.max], [L.min, L.min + 1, L.min, L.max - 1], [L.max, L.min + 1, L.max, L.max - 1]];
+  for (const [x1, z1, x2, z2] of edges(O)) {
+    try { dim.runCommand("fill " + x1 + " " + FLOOR_Y + " " + z1 + " " + x2 + " " + FLOOR_Y + " " + z2 + " air replace " + BORDER_BLOCK); } catch (e) { /* no old border here */ }
+  }
+  for (const [x1, z1, x2, z2] of edges(N)) {
+    for (const under of ["air", "grass_block"]) {
+      try { dim.runCommand("fill " + x1 + " " + FLOOR_Y + " " + z1 + " " + x2 + " " + FLOOR_Y + " " + z2 + " " + BORDER_BLOCK + " replace " + under); } catch (e) { /* nothing to replace */ }
+    }
   }
   spend(d, N.cost);
   w.lvl = targetIdx;

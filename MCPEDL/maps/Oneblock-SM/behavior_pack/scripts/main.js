@@ -1,8 +1,8 @@
 import { world, system } from "@minecraft/server";
-import { LEDGER_ID, DIRT_REWARD, CORE } from "./config.js";
+import { LEDGER_ID, CORE } from "./config.js";
 import { inBounds, loadWorld, ITEMS, snapshot, loadPlayer, savePlayer } from "./store.js";
-import { core, isCore, isFoundation, regenerate, coreWatch, credit, contractTick, ensureLedger, auditLoot, sweepLiquids, grantAch, clearDroppedLedgers, autoMineTick } from "./game.js";
-import { openLedger } from "./ui.js";
+import { core, isCore, isFoundation, regenerate, coreWatch, onHandBreak, tutorialDone, contractTick, ensureLedger, auditLoot, sweepLiquids, grantAch, clearDroppedLedgers, autoMineTick } from "./game.js";
+import { openLedger, runTutorial } from "./ui.js";
 
 // Each subscription is isolated so one unsupported event cannot stop the rest of the add-on.
 function on(label, fn) {
@@ -23,7 +23,16 @@ const warn = (p, msg) => {
   });
 };
 
+// Mandatory How to Play guide: until it is finished the player cannot move, build, break or open the Ledger.
+const tutLocked = new Set();
+const tutSession = new Set();
+const unlocked = new Set();
+function setMove(p, enabled) {
+  try { p.runCommand("inputpermission set @s movement " + (enabled ? "enabled" : "disabled")); } catch (e) { /* command unavailable */ }
+}
+
 on("itemUse", () => world.afterEvents.itemUse.subscribe((ev) => {
+  if (tutLocked.has(ev.source.id)) return;
   if (ev.itemStack && ev.itemStack.typeId === LEDGER_ID) openLedger(ev.source);
 }));
 
@@ -32,7 +41,7 @@ on("playerBreakBlock (after)", () => world.afterEvents.playerBreakBlock.subscrib
   core.armed = false;
   core.pending = true;
   const player = ev.player;
-  if (ev.brokenBlockPermutation.type.id === "minecraft:dirt") credit(player, DIRT_REWARD, "OneBlock Dirt");
+  onHandBreak(player, ev.brokenBlockPermutation.type.id);
   if (/diamond_ore$/.test(ev.brokenBlockPermutation.type.id)) {
     const dd = loadPlayer(player);
     grantAch(player, dd, "first_diamond");
@@ -42,12 +51,14 @@ on("playerBreakBlock (after)", () => world.afterEvents.playerBreakBlock.subscrib
 }));
 
 on("playerBreakBlock (before)", () => world.beforeEvents.playerBreakBlock.subscribe((ev) => {
+  if (tutLocked.has(ev.player.id)) { ev.cancel = true; return; }
   const b = ev.block;
   if (isFoundation(b)) { ev.cancel = true; return; }
   if (b.dimension.id === "minecraft:overworld" && !inBounds(b.x, b.z)) { ev.cancel = true; warn(ev.player, PLOT_MSG); }
 }));
 
 on("playerPlaceBlock (before)", () => world.beforeEvents.playerPlaceBlock.subscribe((ev) => {
+  if (tutLocked.has(ev.player.id)) { ev.cancel = true; return; }
   const b = ev.block;
   if (b.dimension.id !== "minecraft:overworld") return;
   if (isCore(b) || isFoundation(b)) { ev.cancel = true; return; }
@@ -57,6 +68,7 @@ on("playerPlaceBlock (before)", () => world.beforeEvents.playerPlaceBlock.subscr
 const FACE = { Up: [0, 1, 0], Down: [0, -1, 0], North: [0, 0, -1], South: [0, 0, 1], East: [1, 0, 0], West: [-1, 0, 0] };
 
 on("playerInteractWithBlock (before)", () => world.beforeEvents.playerInteractWithBlock.subscribe((ev) => {
+  if (tutLocked.has(ev.player.id)) { ev.cancel = true; return; }
   const b = ev.block;
   if (b.dimension.id !== "minecraft:overworld") return;
   if (!inBounds(b.x, b.z)) { ev.cancel = true; return; }
@@ -98,6 +110,33 @@ on("playerBreakBlock (after, plot guard)", () => world.afterEvents.playerBreakBl
 on("playerSpawn", () => world.afterEvents.playerSpawn.subscribe((ev) => {
   const p = ev.player;
   system.runTimeout(() => { try { ensureLedger(p); } catch (e) { /* player left */ } }, 40);
+}));
+
+// Opens the mandatory guide for anyone who has not finished it, and frees players who have.
+// Operators can skip it for a player with: /tag <player> add tutorial_done
+system.runInterval(() => {
+  for (const p of world.getAllPlayers()) {
+    try {
+      if (!p.hasTag("void_cleaned")) continue; // starter island not built yet
+      if (tutorialDone(p, loadPlayer(p))) {
+        tutLocked.delete(p.id);
+        if (!unlocked.has(p.id)) { setMove(p, true); unlocked.add(p.id); }
+        continue;
+      }
+      if (tutSession.has(p.id)) continue;
+      tutSession.add(p.id);
+      tutLocked.add(p.id);
+      unlocked.delete(p.id);
+      setMove(p, false);
+      runTutorial(p).catch((e) => console.warn("[SovereignMarket] tutorial: " + e)).finally(() => tutSession.delete(p.id));
+    } catch (e) { /* player left */ }
+  }
+}, 20);
+
+on("playerLeave", () => world.afterEvents.playerLeave.subscribe((ev) => {
+  tutLocked.delete(ev.playerId);
+  tutSession.delete(ev.playerId);
+  unlocked.delete(ev.playerId);
 }));
 
 system.runInterval(() => { try { coreWatch(); } catch (e) { console.warn("[SovereignMarket] watch: " + e); } }, 20);

@@ -1,8 +1,8 @@
 import { system } from "@minecraft/server";
 import { ActionFormData } from "@minecraft/server-ui";
-import { CURRENCY, LICENSES, ISLAND_LEVELS, CONTRACTS, CATS, DIRT_REWARD, nice, ACHIEVEMENTS, UPGRADE_MAX, BIG_CONFIRM, BASIC_CHEST_CHANCE, TUTORIAL_PAGES } from "./config.js";
+import { CURRENCY, LICENSES, ISLAND_LEVELS, CONTRACTS, CATS, nice, ACHIEVEMENTS, UPGRADE_MAX, BIG_CONFIRM, BASIC_CHEST_CHANCE, TUTORIAL_PAGES } from "./config.js";
 import { loadPlayer, savePlayer, loadWorld, hasLic, islandLevel, highestTier, ITEMS, quote, snapshot, demandState } from "./store.js";
-import { inventoryCounts, sell, buyLicense, buyIsland, buyContract, upgradeContract, upgradeCost, intervalFor, autoStatus, buyAutoLevel, toggleAuto, grantAch } from "./game.js";
+import { inventoryCounts, sell, buyLicense, buyIsland, buyContract, upgradeContract, upgradeCost, intervalFor, autoStatus, buyAutoLevel, toggleAuto, grantAch, tutorialDone } from "./game.js";
 
 const wait = (t) => new Promise((r) => system.runTimeout(r, t));
 const busy = new Set();
@@ -65,8 +65,9 @@ function hintFor(d) {
   const next = ISLAND_LEVELS[islandLevel() + 1];
   if (!hasLic(d, "t2")) {
     if (d.coins >= 40) return "You can afford Tier 2: Woodland. Open Block Licenses.";
-    if (!(d.breaks || d.mined)) return "Break the OneBlock to earn coins. Dirt pays 1 each.";
-    return "Save 40 coins for Tier 2: Woodland (logs and planks).";
+    if (!d.mined) return "Break the OneBlock to get Dirt and other items.";
+    if (!(d.sold || 0)) return "Sell your Dirt in Sell Items. It pays 1 coin each.";
+    return "Save 40 coins for Tier 2: Woodland (logs and leaves).";
   }
   if (!(d.sold || 0)) return "Sell your logs and other items in Sell Items to earn more coins.";
   if (!d.con.length && d.coins >= 100) return "Activate a loot contract in Natural Loot Contracts.";
@@ -83,39 +84,46 @@ async function mainMenu(p) {
     const hint = hintFor(d);
     const body = (hint ? "\u00a7eHint: " + hint + "\u00a7r\n\n" : "") + "Balance: " + d.coins + " " + CURRENCY + "\nOneBlock tier: " + highestTier(d) + " of 10\nIsland: " + L.size + " x " + L.size +
       (next ? " (next permit: " + next.cost + ")" : " (maximum)") + "\nMarket: high demand for " + hot + " goods\nActive contracts: " + d.con.length +
-      "\n\nDirt pays a fixed " + DIRT_REWARD + " " + CURRENCY + " each time you mine the OneBlock.";
-    const names = ["How to Play", "Sell Items", "Market Prices", "Block Licenses", "Natural Loot Contracts", "Island & Auto-Mine", "Achievements"];
+      "\nBreaks: " + d.mined + " (bonus every 100)" +
+      "\n\nEvery item sells at the market, Dirt included.";
+    const items = [];
+    if (!tutorialDone(p, d)) items.push(["How to Play", runTutorial]); // disappears once the guide has been read
+    items.push(["Sell Items", sellMenu], ["Market Prices", priceMenu], ["Block Licenses", licenseMenu], ["Natural Loot Contracts", contractMenu], ["Island & Auto-Mine", perksMenu], ["Achievements", achMenu]);
     const f = new ActionFormData().title("Trader's Ledger").body(body);
-    for (const n of names) f.button(n);
+    for (const it of items) f.button(it[0]);
     f.button("Exit");
     const r = await show(p, f);
-    if (r.canceled || r.selection === names.length) return;
-    await [tutorialMenu, sellMenu, priceMenu, licenseMenu, contractMenu, perksMenu, achMenu][r.selection](p);
+    if (r.canceled || r.selection === items.length) return;
+    await items[r.selection][1](p);
   }
 }
 
-// ---- How to Play ----
-async function tutorialMenu(p) {
+// ---- How to Play (mandatory, read once) ----
+// The guide cannot be closed: pressing close reopens the same page. Finishing it sets a permanent flag,
+// pays the Quick Learner reward, and the Ledger button disappears.
+export async function runTutorial(p) {
+  const alive = () => { try { return typeof p.isValid === "function" ? p.isValid() : p.isValid !== false; } catch (e) { return false; } };
   let i = 0;
-  for (;;) {
+  while (alive()) {
     const page = TUTORIAL_PAGES[i];
     const last = i === TUTORIAL_PAGES.length - 1;
     const f = new ActionFormData().title("How to Play (" + (i + 1) + "/" + TUTORIAL_PAGES.length + ")").body("\u00a76" + page.title + "\u00a7r\n\n" + page.body);
     const acts = [];
     f.button(last ? "Done" : "Next"); acts.push(last ? "done" : "next");
     if (i > 0) { f.button("Previous"); acts.push("prev"); }
-    f.button("Close"); acts.push("close");
-    const r = await show(p, f);
-    if (r.canceled) return;
+    let r;
+    try { r = await f.show(p); } catch (e) { return; }
+    if (r.canceled) { await wait(r.cancelationReason === "UserBusy" ? 20 : 8); continue; }
     const act = acts[r.selection];
     if (act === "next") i++;
     else if (act === "prev") i--;
     else if (act === "done") {
       const d = loadPlayer(p);
+      d.tutDone = true;
       grantAch(p, d, "tutorial");
       savePlayer(p, d);
       return;
-    } else return;
+    }
   }
 }
 
@@ -156,7 +164,7 @@ async function sellItem(p, id) {
 
 async function priceMenu(p) {
   for (;;) {
-    const f = new ActionFormData().title("Market Prices").body("Choose a category. Dirt is not traded: it pays a fixed " + DIRT_REWARD + " " + CURRENCY + " per OneBlock mining event.");
+    const f = new ActionFormData().title("Market Prices").body("Choose a category. Prices fall as you sell and recover over time.");
     for (const c of CATS) f.button(c[0].toUpperCase() + c.slice(1) + " goods" + (demandState(c).label === "High" ? "\nHigh demand" : ""));
     f.button("Back");
     const r = await show(p, f);

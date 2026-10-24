@@ -1,13 +1,13 @@
 {
   "format_version": 2,
   "header": {
-    "name": "OneBlock Sovereign Market (v1.0.6)",
+    "name": "OneBlock Sovereign Market (v1.1.0)",
     "description": "Trader Ledger icon for OneBlock Sovereign Market. by AllensCreations",
     "uuid": "4b6073aa-4c92-4e1b-bbdb-85207021b512",
     "version": [
       1,
-      0,
-      6
+      1,
+      0
     ],
     "min_engine_version": [
       1,
@@ -21,8 +21,8 @@
       "uuid": "a10fbad8-a7bf-496e-9c07-4198ab993c01",
       "version": [
         1,
-        0,
-        6
+        1,
+        0
       ]
     }
   ],

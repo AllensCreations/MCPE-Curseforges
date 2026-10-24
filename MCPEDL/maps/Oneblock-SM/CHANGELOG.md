@@ -37,3 +37,11 @@
 
 ## 1.0.6
 - Removed an incorrect line about Sell All from the How to Play guide.
+
+## 1.1.0
+- Dirt no longer pays coins when you break the OneBlock. Dirt is now an item you sell at the market like any other (1 coin minimum each).
+- How to Play is mandatory and read once. New and existing players cannot move, build or open the Ledger until they finish it. Close is gone, pressing it reopens the page, and the Ledger button disappears afterwards. Operators can skip it with `/tag <player> add tutorial_done`.
+- Island expansion draws only a border (polished deepslate) and no longer fills grass. Sizes are 9, 17, 33, 65, then 67, 69, 71 and so on, up to 129. From 67 on, each permit costs about 10 percent more than the last.
+- Auto-Miner: toggling it ON breaks the OneBlock immediately, a countdown shows on the action bar, and fast levels show the break effect every 4th break.
+- OneBlock additions: every 100th hand break pays a tier-based coin bonus and the next OneBlock becomes a bonus loot chest; a 1 percent gold block jackpot pays 20 to 60 coins per owned tier. Neither triggers from the Auto-Miner.
+- Block pools now contain only blocks that generate naturally. Removed: planks, stripped logs, polished stone variants, stone, mud, nether and end bricks, packed mud, raw metal blocks, purpur and dyed terracotta. Added natural blocks such as mycelium, moss, azalea leaves, deepslate, sandstone, calcite, mushroom blocks, pumpkin, melon, nether stems and soul soil. Contract loot no longer contains planks or glass.
