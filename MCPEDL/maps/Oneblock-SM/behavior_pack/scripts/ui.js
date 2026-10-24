@@ -1,8 +1,8 @@
 import { system } from "@minecraft/server";
 import { ActionFormData } from "@minecraft/server-ui";
-import { CURRENCY, LICENSES, ISLAND_LEVELS, CONTRACTS, CATS, DIRT_REWARD, nice, ACHIEVEMENTS, UPGRADE_MAX, BIG_CONFIRM, BASIC_CHEST_CHANCE } from "./config.js";
-import { loadPlayer, loadWorld, hasLic, islandLevel, highestTier, ITEMS, quote, snapshot, demandState } from "./store.js";
-import { inventoryCounts, sell, buyLicense, buyIsland, buyContract, upgradeContract, upgradeCost, intervalFor, autoStatus, buyAutoLevel, toggleAuto } from "./game.js";
+import { CURRENCY, LICENSES, ISLAND_LEVELS, CONTRACTS, CATS, DIRT_REWARD, nice, ACHIEVEMENTS, UPGRADE_MAX, BIG_CONFIRM, BASIC_CHEST_CHANCE, TUTORIAL_PAGES } from "./config.js";
+import { loadPlayer, savePlayer, loadWorld, hasLic, islandLevel, highestTier, ITEMS, quote, snapshot, demandState } from "./store.js";
+import { inventoryCounts, sell, buyLicense, buyIsland, buyContract, upgradeContract, upgradeCost, intervalFor, autoStatus, buyAutoLevel, toggleAuto, grantAch } from "./game.js";
 
 const wait = (t) => new Promise((r) => system.runTimeout(r, t));
 const busy = new Set();
@@ -60,21 +60,62 @@ export async function openLedger(p) {
   try { await mainMenu(p); } catch (e) { console.warn("[SovereignMarket] ledger error: " + e); } finally { busy.delete(p.id); }
 }
 
+// One short hint that follows the player's progress. Returns "" when there is nothing useful to say.
+function hintFor(d) {
+  const next = ISLAND_LEVELS[islandLevel() + 1];
+  if (!hasLic(d, "t2")) {
+    if (d.coins >= 40) return "You can afford Tier 2: Woodland. Open Block Licenses.";
+    if (!(d.breaks || d.mined)) return "Break the OneBlock to earn coins. Dirt pays 1 each.";
+    return "Save 40 coins for Tier 2: Woodland (logs and planks).";
+  }
+  if (!(d.sold || 0)) return "Sell your logs and other items in Sell Items to earn more coins.";
+  if (!d.con.length && d.coins >= 100) return "Activate a loot contract in Natural Loot Contracts.";
+  if (next && d.coins >= next.cost) return "You can afford the next island permit.";
+  return "";
+}
+
 async function mainMenu(p) {
   for (;;) {
     const d = loadPlayer(p);
     const L = ISLAND_LEVELS[islandLevel()];
     const next = ISLAND_LEVELS[islandLevel() + 1];
     const hot = CATS.find((c) => demandState(c).label === "High");
-    const body = "Balance: " + d.coins + " " + CURRENCY + "\nOneBlock tier: " + highestTier(d) + " of 10\nIsland: " + L.size + " x " + L.size +
+    const hint = hintFor(d);
+    const body = (hint ? "\u00a7eHint: " + hint + "\u00a7r\n\n" : "") + "Balance: " + d.coins + " " + CURRENCY + "\nOneBlock tier: " + highestTier(d) + " of 10\nIsland: " + L.size + " x " + L.size +
       (next ? " (next permit: " + next.cost + ")" : " (maximum)") + "\nMarket: high demand for " + hot + " goods\nActive contracts: " + d.con.length +
       "\n\nDirt pays a fixed " + DIRT_REWARD + " " + CURRENCY + " each time you mine the OneBlock.";
-    const r = await show(p, new ActionFormData().title("Trader's Ledger").body(body)
-      .button("Sell Items").button("Market Prices").button("Block Licenses").button("Natural Loot Contracts")
-      .button("Island & Auto-Mine").button("Achievements").button("Exit"));
-    if (r.canceled || r.selection === 6) return;
-    const fn = [sellMenu, priceMenu, licenseMenu, contractMenu, perksMenu, achMenu][r.selection];
-    await fn(p);
+    const names = ["How to Play", "Sell Items", "Market Prices", "Block Licenses", "Natural Loot Contracts", "Island & Auto-Mine", "Achievements"];
+    const f = new ActionFormData().title("Trader's Ledger").body(body);
+    for (const n of names) f.button(n);
+    f.button("Exit");
+    const r = await show(p, f);
+    if (r.canceled || r.selection === names.length) return;
+    await [tutorialMenu, sellMenu, priceMenu, licenseMenu, contractMenu, perksMenu, achMenu][r.selection](p);
+  }
+}
+
+// ---- How to Play ----
+async function tutorialMenu(p) {
+  let i = 0;
+  for (;;) {
+    const page = TUTORIAL_PAGES[i];
+    const last = i === TUTORIAL_PAGES.length - 1;
+    const f = new ActionFormData().title("How to Play (" + (i + 1) + "/" + TUTORIAL_PAGES.length + ")").body("\u00a76" + page.title + "\u00a7r\n\n" + page.body);
+    const acts = [];
+    f.button(last ? "Done" : "Next"); acts.push(last ? "done" : "next");
+    if (i > 0) { f.button("Previous"); acts.push("prev"); }
+    f.button("Close"); acts.push("close");
+    const r = await show(p, f);
+    if (r.canceled) return;
+    const act = acts[r.selection];
+    if (act === "next") i++;
+    else if (act === "prev") i--;
+    else if (act === "done") {
+      const d = loadPlayer(p);
+      grantAch(p, d, "tutorial");
+      savePlayer(p, d);
+      return;
+    } else return;
   }
 }
 

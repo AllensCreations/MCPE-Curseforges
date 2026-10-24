@@ -28,3 +28,12 @@
 - Transaction History removed from the Ledger.
 - Market prices react more strongly to every sale, and the sale receipt shows the price before and after.
 - Plot protection: bucket placement is checked, and placed or broken blocks outside the permitted area are undone as a backup.
+
+## 1.0.5
+- How to Play guide in the Trader's Ledger: six short pages covering mining, licenses, selling, contracts, the island and the Auto-Miner.
+- A progress hint at the top of the Ledger menu that follows what the player has done so far.
+- New achievement "Quick Learner": finish the guide for 25 coins.
+- New players see a short tip pointing to How to Play when they first join.
+
+## 1.0.6
+- Removed an incorrect line about Sell All from the How to Play guide.

@@ -8,4 +8,5 @@ execute as @a[tag=!void_cleaned] if block 0 0 0 air run setblock 0 0 0 dirt
 execute as @a[tag=!void_cleaned] run setworldspawn 0 1 0
 execute as @a[tag=!void_cleaned] run spawnpoint @s 0 1 0
 execute as @a[tag=!void_cleaned] run tellraw @s {"rawtext":[{"text":"Welcome to OneBlock: Sovereign Market. Mine the block, then use the Trader Ledger."}]}
+execute as @a[tag=!void_cleaned] run tellraw @s {"rawtext":[{"text":"Tip: open the Trader Ledger in hotbar slot 9 and tap How to Play."}]}
 execute as @a[tag=!void_cleaned] run tag @s add void_cleaned
