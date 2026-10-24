@@ -1,21 +1,19 @@
-# OneBlock Add-on Generator (AI Agent Instructions) - v3
+# OneBlock Add-on Generator (AI Agent Instructions) - v4
 
 Send this file to an AI agent together with your OneBlock idea. The agent builds a complete OneBlock add-on and returns it as **one line of base64** (inline, or as a `.b64` file if long). You paste that into the GitHub workflow **Create OneBlock Add-on from Base64**, which creates `MCPEDL/maps/<Map-Name>/` and builds the Creative, Survival, and Hardcore worlds from `Mcpeworlds/`.
 
 If you can read the repository AllensCreations/MCPE-Curseforges, read `INSTRUCTIONS.md`, `README_GUIDELINES.md`, **`scripts/import_oneblock_payload.py`** (validates your ZIP) and **`scripts/build_oneblock_variants_from_template.py`** (builds the worlds) first. The scripts are the real source of truth: if this file and a script disagree, the script wins, and you should tell the user what differs. If you cannot read the repo, the rules below are self-sufficient, including the required texture (Section 4) and a ready-made self-test (Section 10).
 
-**What changed in v3**
-- Every OneBlock add-on now **must ship the Trader Ledger texture** (`trader_ledger.png`) and an item that uses it. That makes the **resource pack mandatory** (Section 4). The PNG is embedded below, so this works even without repo access.
-- The importer's rules are now written down (Section 3), including traps that were not documented before (a folder named `db`, stray files in `Mcpeworlds/assets/`).
-- A runnable self-test script replaces the vague "run a check" instruction (Section 10).
-- The packaging script now always writes `payload.b64` (v2 exited before writing it when the ZIP was too large) and round-trips the result (Section 11).
-- New troubleshooting table for build failures (Section 13).
+**What changed in v4**
+- **One script.** `build_payload.py` (Section 10) replaces the separate self-test and packaging snippets. It installs any missing Trader Ledger files from an embedded, hash-verified PNG, runs all checks, builds the ZIP, writes `payload.b64` and round-trips it.
+- The checks now match the importer more closely: only the key JSON files must be strict, other JSON only warns. New warnings: `oneblock_setup` listed in `tick.json`, links in the README, missing "not tested in game".
+- Sections 4 and 12 are shorter because the script covers what they used to repeat.
 
 ---
 
 ## 1. Hard rules for the agent
 
-- **Never write base64 by hand** for the payload. Create the files, build the ZIP, and encode it by actually running code (Section 11). If you cannot run code, stop and say so; output the file tree with full contents plus the packaging script and tell the user to run it. Never output invented base64.
+- **Never write base64 by hand** for the payload. Create the files, build the ZIP, and encode it by actually running code (Section 10). If you cannot run code, stop and say so; output the file tree with full contents plus the packaging script and tell the user to run it. Never output invented base64.
 - Never invent features, versions, links, assets, test results, or compatibility. Separate verified facts from assumptions.
 - Never claim an in-game test. Building the ZIP proves structure only.
 - Look up the **latest stable** Minecraft Bedrock release and **latest stable** `@minecraft/server` and `@minecraft/server-ui` versions from official Minecraft Creator documentation (or the Script API docs for the current release) at the time of the work. Do not use remembered versions. No preview/beta/RC unless a requested feature requires it, and then say so in the README.
@@ -82,7 +80,7 @@ Two scripts check your work. The importer (`import_oneblock_payload.py`) checks 
 6. **Importer path rules.** The importer rejects a file if any folder or file name in its path is exactly `db` (case-insensitive), if the file is named `level.dat`, if the extension is not in the allowed list, or if it is a nested archive or symlink. So never name a folder `db`, and never copy a whole folder from the repo (Section 4 explains why).
 7. **Importer content rules.** Every file in `behavior_pack/recipes/` must contain `AlwaysUnlocked` (Section 8). Manifest names, descriptions, versions and dependencies follow Section 6.
 
-**Run the Section 10 self-test before packaging. Do not skip it.**
+**Run `build_payload.py` (Section 10) before delivering. Do not skip it.**
 
 ---
 
@@ -105,25 +103,7 @@ resource_pack/textures/items/trader_ledger.png
 behavior_pack/items/trader_ledger.json
 ```
 
-**Getting the PNG bytes (in this order):**
-1. If you can read the repo, copy the file byte for byte and compare its SHA-256 with the one above. If the repo copy differs, the repo copy wins: keep it, and report the new hash to the user so this file can be updated.
-2. Otherwise decode this base64 with code and verify the SHA-256 matches. If the hash does not match, you made a copy error, so paste it again.
-
-```
-iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAA/0lEQVR42mNgGAUDDBgJKTgy0eI/pZbY5J/AaQ8TLglbdan/tupS/6nhS3zmMA26KCj3Vkdx7bE7nymyoD1LDm90sBAyYNXKSrItDwtvJ6hmwKOAhViFfFJGRBv66dk58h3w5P2vwRkCMBDVXotTblllM+0dQAp45qnBEH8fVUy5wOn/3Qn7GOniAAYGBgYFP1kU/oNNjykLAXKCOdVCg4GBgYFh9okbIywNwAA2nw+9goiSYKZ5OYDPUeipnq5pQGr7DYK14eBLAzKCbIMzDZBSw5ECBn82JKZVQ5NmOawli56KyQGV0x4xHL75jHFoRQHCxXIU9w1w+X4UDAoAACWbTR1cQx13AAAAAElFTkSuQmCC
-```
-
-```python
-import base64, hashlib, pathlib
-B64 = "<paste the line above>"
-png = base64.b64decode(B64, validate=True)
-assert hashlib.sha256(png).hexdigest() == "fecc64905334511d97569611666ffa28a8941683a20e30ca5926ecb9ffd9c001"
-dest = pathlib.Path("build/Map-Name/resource_pack/textures/items/trader_ledger.png")   # change Map-Name
-dest.parent.mkdir(parents=True, exist_ok=True)
-dest.write_bytes(png)
-```
-
-Never redraw, recolor, resize, re-encode, or "improve" the PNG, and never generate a replacement. If you can neither read the repo nor run code, stop and say so.
+**Getting the PNG:** `build_payload.py` (Section 10) writes the three ledger files below if they are missing, using an embedded copy of the PNG whose SHA-256 it verifies. If you can read the repo and its copy differs from the hash above, the repo copy wins: place it at the path above before running the script, pass `--ledger-sha256 <new hash>`, and report the new hash to the user so this file can be updated. Never redraw, recolor, resize, re-encode, or generate a replacement.
 
 **`resource_pack/textures/item_texture.json`** (the repo's file; copy it verbatim):
 
@@ -257,217 +237,293 @@ Array-style recipe formats use `"unlock": [{ "context": "AlwaysUnlocked" }]`. Do
 
 ---
 
-## 10. Self-test script (run it, do not skip)
+## 10. `build_payload.py` (run this, do not hand-write)
 
-Save this as `selftest.py` next to `build/` and run `python selftest.py build/Map-Name`. If you used a repo copy of the PNG whose hash differs from Section 4, pass that hash as a second argument. It mirrors the importer and builder rules, plus the Trader Ledger checks.
+One script does the whole job: installs missing Trader Ledger files, runs every check from Section 3, 6 and 8 (mirroring the importer and builder), builds the ZIP, writes `payload.b64` (always, one line) and round-trips it.
+
+1. Create the project under `build/<Map-Name>/` using the Section 2 layout. You do not need to create the three ledger files yourself; you may still edit `item_texture.json` to add the add-on's own textures, and edit the ledger item's display name.
+2. Save the script below as `build_payload.py` next to `build/`.
+3. Run `python build_payload.py build/Map-Name`. Add `--check-only` to test without building. Add `--ledger-sha256 <hash>` only if you used a repo copy of the PNG with a different hash.
+4. Fix every failure it prints and run it again. Paste the final output (PASSED and BUILD OK) into your reply. It proves structure only.
+5. Deliver `payload.b64`: one single line, no line breaks, spaces or code fences. If the ZIP is under 48,000 bytes you may paste it inline; otherwise deliver the file and tell the user to commit it to `MCPE-Curseforges/MCPEDL/incoming/<name>.b64` and pass that path as `payload_file`. Never retype it from memory.
 
 ```python
 #!/usr/bin/env python3
-"""OneBlock payload self-test. Usage: python selftest.py build/Map-Name [asset_sha256]"""
-import hashlib, json, re, struct, sys
+"""OneBlock payload builder: ONE file that installs the Trader Ledger assets, checks the
+project, builds the ZIP, writes payload.b64 and round-trips it.
+
+Usage:  python build_payload.py build/Map-Name [--ledger-sha256 HEX] [--out payload.b64] [--check-only]
+
+  --ledger-sha256  only if you used the repo's trader_ledger.png and its hash differs from the
+                   embedded one (the repo copy wins; report the new hash to the user).
+  --check-only     run the checks, do not build the ZIP.
+
+Structural checks only. They mirror scripts/import_oneblock_payload.py and the builder's
+verify_archive; if the scripts and this file ever disagree, the scripts win.
+Exit codes: 0 ok, 1 checks failed, 2 packaging or round-trip failed.
+"""
+import argparse, base64, hashlib, io, json, re, struct, sys, zipfile
 from pathlib import Path, PurePosixPath
 
-EXPECTED_SHA = "fecc64905334511d97569611666ffa28a8941683a20e30ca5926ecb9ffd9c001"
-UUID = re.compile(r"^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$", re.I)
-TITLE = re.compile(r"^.+ \(v(\d+)\.(\d+)\.(\d+)\)$")
-ALLOWED = {".json", ".js", ".mcfunction", ".md", ".txt", ".lang", ".png", ".jpg", ".jpeg", ".tga", ".ogg"}
+# ---------------------------------------------------------------- constants
+LEDGER_SHA256 = "fecc64905334511d97569611666ffa28a8941683a20e30ca5926ecb9ffd9c001"
+LEDGER_PNG_B64 = "iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAA/0lEQVR42mNgGAUDDBgJKTgy0eI/pZbY5J/AaQ8TLglbdan/tupS/6nhS3zmMA26KCj3Vkdx7bE7nymyoD1LDm90sBAyYNXKSrItDwtvJ6hmwKOAhViFfFJGRBv66dk58h3w5P2vwRkCMBDVXotTblllM+0dQAp45qnBEH8fVUy5wOn/3Qn7GOniAAYGBgYFP1kU/oNNjykLAXKCOdVCg4GBgYFh9okbIywNwAA2nw+9goiSYKZ5OYDPUeipnq5pQGr7DYK14eBLAzKCbIMzDZBSw5ECBn82JKZVQ5NmOawli56KyQGV0x4xHL75jHFoRQHCxXIU9w1w+X4UDAoAACWbTR1cQx13AAAAAElFTkSuQmCC"
+ITEM_TEXTURE = {
+    "resource_pack_name": "dirtbound_kingdom",
+    "texture_name": "atlas.items",
+    "texture_data": {"trader_ledger": {"textures": "textures/items/trader_ledger"}},
+}
+LEDGER_ITEM = {
+    "format_version": "1.20.80",
+    "minecraft:item": {
+        "description": {"identifier": "allenscreations:trader_ledger", "menu_category": {"category": "items"}},
+        "components": {
+            "minecraft:max_stack_size": 1,
+            "minecraft:icon": {"textures": {"default": "trader_ledger"}},
+            "minecraft:display_name": {"value": "OneBlock Trader"},
+            "minecraft:use_animation": "spyglass",
+            "minecraft:use_modifiers": {"use_duration": 0.1, "movement_modifier": 1},
+        },
+    },
+}
 CLEANER = "execute as @a[tag=!void_cleaned] run fill -16 -64 -16 16 -64 16 air"
 ATTRIBUTION = "by AllensCreations"
-
-root = Path(sys.argv[1])
-expected_sha = sys.argv[2] if len(sys.argv) > 2 else EXPECTED_SHA
-fails = []
-
-
-def check(ok, msg):
-    if not ok:
-        fails.append(msg)
-
-
-def jload(rel):
-    try:
-        return json.loads((root / rel).read_text(encoding="utf-8-sig"))
-    except Exception as exc:
-        fails.append(f"{rel}: missing or invalid JSON ({exc})")
-        return None
-
-
-# 1. File inventory and path rules
-files = [p for p in root.rglob("*") if p.is_file()]
-check(len(files) <= 500, f"{len(files)} files (max 500)")
-total = 0
-for p in files:
-    rel = p.relative_to(root).as_posix()
-    low = PurePosixPath(rel.lower())
-    size = p.stat().st_size
-    total += size
-    check(size <= 5 * 1024 * 1024, f"{rel}: over 5 MB")
-    check(low.suffix in ALLOWED, f"{rel}: file type not allowed")
-    check("db" not in low.parts and low.name != "level.dat", f"{rel}: world data not allowed")
-    check(low.name not in ("world_behavior_packs.json", "world_resource_packs.json"), f"{rel}: link files not allowed")
-    check(not rel.lower().endswith((".mcworld", ".mcpack", ".mcaddon", ".zip")), f"{rel}: nested archive")
-    check(not p.is_symlink(), f"{rel}: symlink")
-    check(not rel.startswith("Mcpeworlds/"), f"{rel}: Mcpeworlds paths must not be shipped")
-    if low.suffix == ".json":
-        jload(rel)
-check(total <= 25 * 1024 * 1024, f"total {total} bytes (max 25 MB)")
-
-# 2. Required files
-for rel in ("oneblock.json", "README.md", "DESCRIPTION.md", "CHANGELOG.md",
+UUID_V4 = re.compile(r"^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$", re.I)
+TITLE = re.compile(r"^.+ \(v(\d+)\.(\d+)\.(\d+)\)$")
+ALLOWED = {".json", ".js", ".mcfunction", ".md", ".txt", ".lang", ".png", ".jpg", ".jpeg", ".tga", ".ogg"}
+BLOCKED = (".mcworld", ".mcpack", ".mcaddon", ".zip")
+MAX_FILES, MAX_FILE, MAX_TOTAL, ZIP_LIMIT = 500, 5 * 1024 * 1024, 25 * 1024 * 1024, 48000
+STRICT_JSON = ("oneblock.json", "behavior_pack/manifest.json", "resource_pack/manifest.json",
+               "behavior_pack/functions/tick.json", "resource_pack/textures/item_texture.json",
+               "behavior_pack/items/trader_ledger.json")
+REQUIRED = ("oneblock.json", "README.md", "DESCRIPTION.md", "CHANGELOG.md",
             "behavior_pack/manifest.json", "resource_pack/manifest.json",
             "behavior_pack/functions/tick.json", "behavior_pack/functions/void_cleaner.mcfunction",
-            "behavior_pack/functions/oneblock_setup.mcfunction"):
-    check((root / rel).is_file(), f"missing required file: {rel}")
+            "behavior_pack/functions/oneblock_setup.mcfunction", "behavior_pack/items/trader_ledger.json",
+            "resource_pack/textures/item_texture.json", "resource_pack/textures/items/trader_ledger.png")
 
-cfg = jload("oneblock.json")
-if isinstance(cfg, dict):
-    check(isinstance(cfg.get("name"), str) and cfg["name"].strip(), "oneblock.json needs a non-empty name")
-    check(cfg.get("enabled") is True, "oneblock.json enabled must be true")
 
-# 3. tick.json and void_cleaner
-tick = jload("behavior_pack/functions/tick.json")
-vals = (tick or {}).get("values")
-check(isinstance(vals, list) and vals, "tick.json needs a non-empty values list")
-if isinstance(vals, list) and vals:
-    check(vals[0] == "void_cleaner", "tick.json: first entry must be void_cleaner")
-    for v in vals:
-        check((root / f"behavior_pack/functions/{v}.mcfunction").is_file(), f"tick.json names {v} but its .mcfunction is missing")
-cleaner = root / "behavior_pack/functions/void_cleaner.mcfunction"
-if cleaner.is_file():
-    lines = cleaner.read_text(encoding="utf-8").splitlines()
-    check(CLEANER in lines, "void_cleaner.mcfunction lacks the exact required fill line")
-    commands = [l for l in lines if l.strip() and not l.lstrip().startswith("#")]
-    check(bool(commands) and commands[0] == CLEANER, "the required fill line must be the first command")
+# ------------------------------------------------------ step 1: ledger assets
+def install_ledger(root: Path) -> None:
+    """Create the three Trader Ledger files if missing. Never overwrites an existing PNG."""
+    png = base64.b64decode(LEDGER_PNG_B64, validate=True)
+    assert hashlib.sha256(png).hexdigest() == LEDGER_SHA256, "embedded PNG is corrupt"
+    p = root / "resource_pack/textures/items/trader_ledger.png"
+    if not p.exists():
+        p.parent.mkdir(parents=True, exist_ok=True)
+        p.write_bytes(png)
+        print("installed  resource_pack/textures/items/trader_ledger.png")
+    t = root / "resource_pack/textures/item_texture.json"
+    if not t.exists():
+        t.parent.mkdir(parents=True, exist_ok=True)
+        t.write_text(json.dumps(ITEM_TEXTURE, indent=2) + "\n", encoding="utf-8")
+        print("installed  resource_pack/textures/item_texture.json")
+    else:  # keep the add-on's own entries, make sure the ledger entry is right
+        data = json.loads(t.read_text(encoding="utf-8-sig"))
+        want = ITEM_TEXTURE["texture_data"]["trader_ledger"]
+        if data.get("texture_data", {}).get("trader_ledger") != want or data.get("texture_name") != "atlas.items":
+            data["texture_name"] = "atlas.items"
+            data.setdefault("texture_data", {})["trader_ledger"] = want
+            t.write_text(json.dumps(data, indent=2) + "\n", encoding="utf-8")
+            print("repaired   item_texture.json trader_ledger entry")
+    i = root / "behavior_pack/items/trader_ledger.json"
+    if not i.exists():
+        i.parent.mkdir(parents=True, exist_ok=True)
+        i.write_text(json.dumps(LEDGER_ITEM, indent=2) + "\n", encoding="utf-8")
+        print("installed  behavior_pack/items/trader_ledger.json")
 
-# 4. Manifests
-all_uuids, versions, header_uuid = [], {}, {}
-for label in ("behavior_pack", "resource_pack"):
-    m = jload(f"{label}/manifest.json")
-    if not isinstance(m, dict):
-        continue
-    check(m.get("format_version") == 2, f"{label}: format_version must be 2")
-    h = m.get("header") or {}
-    uuid, ver, name, desc = h.get("uuid"), h.get("version"), h.get("name", ""), h.get("description", "")
-    check(isinstance(uuid, str) and UUID.match(uuid), f"{label}: header.uuid missing or not a v4 UUID")
-    check(isinstance(ver, list) and len(ver) == 3 and all(isinstance(x, int) for x in ver), f"{label}: header.version must be [x,y,z]")
-    t = TITLE.match(name) if isinstance(name, str) else None
-    check(bool(t), f"{label}: header.name must end with one (vX.Y.Z)")
-    if t and isinstance(ver, list):
-        check([int(x) for x in t.groups()] == ver, f"{label}: title version does not match header.version")
-        check(name.count("(v") == 1, f"{label}: duplicated version suffix in name")
-    check(isinstance(desc, str) and desc.count(ATTRIBUTION) == 1, f"{label}: description needs '{ATTRIBUTION}' exactly once")
-    check(ATTRIBUTION not in str(name), f"{label}: keep attribution out of the name")
-    all_uuids.append(uuid)
-    for mod in m.get("modules") or []:
-        all_uuids.append(mod.get("uuid"))
-        check(isinstance(mod.get("uuid"), str) and UUID.match(mod["uuid"]), f"{label}: module uuid missing or invalid")
-    check(bool(m.get("modules")), f"{label}: no modules")
-    versions[label], header_uuid[label] = ver, uuid
-    if label == "resource_pack":
-        check(any(x.get("type") == "resources" for x in m.get("modules") or []), "resource_pack needs a 'resources' module")
-check(len(all_uuids) == len(set(all_uuids)), "UUIDs must all be unique (headers and modules)")
-check(versions.get("behavior_pack") == versions.get("resource_pack"), "behavior and resource pack versions must match")
-bp = jload("behavior_pack/manifest.json") or {}
-rp_dep = [d for d in bp.get("dependencies") or [] if d.get("uuid") == header_uuid.get("resource_pack")]
-check(bool(rp_dep), "behavior pack must depend on the resource pack header.uuid")
-if rp_dep:
-    check(rp_dep[0].get("version") == versions.get("resource_pack"), "resource pack dependency version must match")
-for d in bp.get("dependencies") or []:
-    check(not any(t in str(d.get("version", "")).lower() for t in ("beta", "rc", "preview")),
-          f"preview/beta dependency {d.get('module_name')}: only if a requested feature needs it")
 
-# 5. Recipes
-for p in (root / "behavior_pack/recipes").glob("**/*.json") if (root / "behavior_pack/recipes").is_dir() else []:
-    check(b"AlwaysUnlocked" in p.read_bytes(), f"{p.relative_to(root).as_posix()}: missing AlwaysUnlocked")
+# ----------------------------------------------------------- step 2: checks
+def run_checks(root: Path, ledger_sha: str):
+    fails, warns = [], []
 
-# 6. Trader Ledger asset
-png = root / "resource_pack/textures/items/trader_ledger.png"
-if png.is_file():
-    data = png.read_bytes()
-    check(hashlib.sha256(data).hexdigest() == expected_sha, "trader_ledger.png is not a byte-for-byte copy (SHA-256 mismatch)")
-    check(data[:8] == b"\x89PNG\r\n\x1a\n" and struct.unpack(">II", data[16:24]) == (32, 32), "trader_ledger.png must be a 32x32 PNG")
-else:
-    fails.append("missing resource_pack/textures/items/trader_ledger.png")
-its = jload("resource_pack/textures/item_texture.json") or {}
-check(its.get("texture_name") == "atlas.items", "item_texture.json: texture_name must be atlas.items")
-entry = (its.get("texture_data") or {}).get("trader_ledger") or {}
-check(entry.get("textures") == "textures/items/trader_ledger", "item_texture.json: trader_ledger entry missing or wrong path")
-item = (jload("behavior_pack/items/trader_ledger.json") or {}).get("minecraft:item") or {}
-check((item.get("description") or {}).get("identifier") == "allenscreations:trader_ledger", "trader_ledger.json: identifier must be allenscreations:trader_ledger")
-icon = ((item.get("components") or {}).get("minecraft:icon") or {}).get("textures", {}).get("default")
-check(icon == "trader_ledger", "trader_ledger.json: icon default must be trader_ledger")
+    def check(ok, msg):
+        if not ok:
+            fails.append(msg)
 
-if fails:
-    print("SELF-TEST FAILED")
-    for f in sorted(set(fails)):
-        print(" -", f)
-    sys.exit(1)
-print(f"SELF-TEST PASSED ({len(files)} files, {total} bytes)")
+    def jload(rel, strict=True):
+        try:
+            return json.loads((root / rel).read_text(encoding="utf-8-sig"))
+        except Exception as exc:
+            (fails if strict else warns).append(f"{rel}: missing or invalid JSON ({exc})")
+            return None
+
+    files = [p for p in root.rglob("*") if p.is_file()]
+    total = 0
+    check(len(files) <= MAX_FILES, f"{len(files)} files (max {MAX_FILES})")
+    for p in files:
+        rel = p.relative_to(root).as_posix()
+        low = PurePosixPath(rel.lower())
+        size = p.stat().st_size
+        total += size
+        check(size <= MAX_FILE, f"{rel}: over 5 MB")
+        check(low.suffix in ALLOWED, f"{rel}: file type not allowed")
+        check("db" not in low.parts and low.name != "level.dat", f"{rel}: world data not allowed")
+        check(low.name not in ("world_behavior_packs.json", "world_resource_packs.json"), f"{rel}: link files not allowed")
+        check(not rel.lower().endswith(BLOCKED), f"{rel}: nested archive")
+        check(not p.is_symlink(), f"{rel}: symlink")
+        check(not rel.startswith("Mcpeworlds/"), f"{rel}: Mcpeworlds paths must not be shipped")
+        if low.suffix == ".json" and rel not in STRICT_JSON and not rel.startswith("behavior_pack/recipes/"):
+            jload(rel, strict=False)  # importer only warns on these
+    check(total <= MAX_TOTAL, f"total {total} bytes (max 25 MB)")
+    for rel in REQUIRED:
+        check((root / rel).is_file(), f"missing required file: {rel}")
+
+    cfg = jload("oneblock.json")
+    if isinstance(cfg, dict):
+        check(isinstance(cfg.get("name"), str) and cfg["name"].strip(), "oneblock.json needs a non-empty name")
+        check(cfg.get("enabled") is True, "oneblock.json enabled must be true")
+
+    tick = jload("behavior_pack/functions/tick.json")
+    vals = (tick or {}).get("values")
+    check(isinstance(vals, list) and bool(vals), "tick.json needs a non-empty values list")
+    if isinstance(vals, list) and vals:
+        check(vals[0] == "void_cleaner", "tick.json: first entry must be void_cleaner")
+        for v in vals:
+            check((root / f"behavior_pack/functions/{v}.mcfunction").is_file(), f"tick.json names {v} but its .mcfunction is missing")
+        if "oneblock_setup" in vals:
+            warns.append("oneblock_setup is listed in tick.json and will run every tick; intended?")
+    cl = root / "behavior_pack/functions/void_cleaner.mcfunction"
+    if cl.is_file():
+        lines = cl.read_text(encoding="utf-8").splitlines()
+        check(CLEANER in lines, "void_cleaner.mcfunction lacks the exact required fill line")
+        cmds = [x for x in lines if x.strip() and not x.lstrip().startswith("#")]
+        check(bool(cmds) and cmds[0] == CLEANER, "the required fill line must be the first command")
+
+    uuids, versions, huuid = [], {}, {}
+    for label in ("behavior_pack", "resource_pack"):
+        m = jload(f"{label}/manifest.json")
+        if not isinstance(m, dict):
+            continue
+        check(m.get("format_version") == 2, f"{label}: format_version must be 2")
+        h = m.get("header") or {}
+        uuid, ver, name, desc = h.get("uuid"), h.get("version"), h.get("name", ""), h.get("description", "")
+        check(isinstance(uuid, str) and bool(UUID_V4.match(uuid)), f"{label}: header.uuid missing or not a v4 UUID")
+        check(isinstance(ver, list) and len(ver) == 3 and all(isinstance(x, int) for x in ver), f"{label}: header.version must be [x,y,z]")
+        t = TITLE.match(name) if isinstance(name, str) else None
+        check(bool(t), f"{label}: header.name must end with one (vX.Y.Z)")
+        if t and isinstance(ver, list):
+            check([int(x) for x in t.groups()] == ver, f"{label}: title version does not match header.version")
+            check(name.count("(v") == 1, f"{label}: duplicated version suffix in name")
+        check(isinstance(desc, str) and desc.count(ATTRIBUTION) == 1, f"{label}: description needs '{ATTRIBUTION}' exactly once")
+        check(ATTRIBUTION not in str(name), f"{label}: keep attribution out of the name")
+        uuids.append(uuid)
+        mods = m.get("modules") or []
+        check(bool(mods), f"{label}: no modules")
+        for mod in mods:
+            uuids.append(mod.get("uuid"))
+            check(isinstance(mod.get("uuid"), str) and bool(UUID_V4.match(mod["uuid"])), f"{label}: module uuid missing or invalid")
+        versions[label], huuid[label] = ver, uuid
+        if label == "resource_pack":
+            check(any(x.get("type") == "resources" for x in mods), "resource_pack needs a 'resources' module")
+    check(len(uuids) == len(set(uuids)), "UUIDs must all be unique (headers and modules)")
+    check(versions.get("behavior_pack") == versions.get("resource_pack"), "behavior and resource pack versions must match")
+    bp = jload("behavior_pack/manifest.json") or {}
+    dep = [d for d in bp.get("dependencies") or [] if d.get("uuid") == huuid.get("resource_pack")]
+    check(bool(dep), "behavior pack must depend on the resource pack header.uuid")
+    if dep:
+        check(dep[0].get("version") == versions.get("resource_pack"), "resource pack dependency version must match")
+    for d in bp.get("dependencies") or []:
+        if any(w in str(d.get("version", "")).lower() for w in ("beta", "rc", "preview")):
+            warns.append(f"preview/beta dependency {d.get('module_name')}: allowed only if a requested feature needs it; say so in the README")
+
+    rec = root / "behavior_pack/recipes"
+    for p in rec.glob("**/*.json") if rec.is_dir() else []:
+        check(b"AlwaysUnlocked" in p.read_bytes(), f"{p.relative_to(root).as_posix()}: missing AlwaysUnlocked")
+
+    png = root / "resource_pack/textures/items/trader_ledger.png"
+    if png.is_file():
+        d = png.read_bytes()
+        check(hashlib.sha256(d).hexdigest() == ledger_sha, "trader_ledger.png is not a byte-for-byte copy (SHA-256 mismatch)")
+        check(d[:8] == b"\x89PNG\r\n\x1a\n" and struct.unpack(">II", d[16:24]) == (32, 32), "trader_ledger.png must be a 32x32 PNG")
+    its = jload("resource_pack/textures/item_texture.json") or {}
+    check(its.get("texture_name") == "atlas.items", "item_texture.json: texture_name must be atlas.items")
+    check(((its.get("texture_data") or {}).get("trader_ledger") or {}).get("textures") == "textures/items/trader_ledger",
+          "item_texture.json: trader_ledger entry missing or wrong path")
+    item = (jload("behavior_pack/items/trader_ledger.json") or {}).get("minecraft:item") or {}
+    check((item.get("description") or {}).get("identifier") == "allenscreations:trader_ledger", "trader_ledger.json: identifier must be allenscreations:trader_ledger")
+    icon = ((item.get("components") or {}).get("minecraft:icon") or {}).get("textures", {}).get("default")
+    check(icon == "trader_ledger", "trader_ledger.json: icon default must be trader_ledger")
+
+    readme = root / "README.md"
+    if readme.is_file():
+        low = readme.read_text(encoding="utf-8").lower()
+        if "not tested in game" not in low:
+            warns.append("README.md should state: source created, not tested in game")
+        if "http://" in low or "https://" in low:
+            warns.append("README.md contains a link: no download links allowed")
+    return fails, warns, len(files), total
+
+
+# ------------------------------------------- step 3: ZIP, base64, round-trip
+def pack(root: Path, out: Path) -> int:
+    buf = io.BytesIO()
+    with zipfile.ZipFile(buf, "w", zipfile.ZIP_DEFLATED) as z:
+        for p in sorted(root.rglob("*")):
+            if p.is_file():
+                info = zipfile.ZipInfo(p.relative_to(root).as_posix(), date_time=(2020, 1, 1, 0, 0, 0))
+                info.compress_type = zipfile.ZIP_DEFLATED
+                info.external_attr = 0o644 << 16
+                z.writestr(info, p.read_bytes(), compresslevel=9)
+    data = buf.getvalue()
+    out.write_text(base64.b64encode(data).decode("ascii"), encoding="ascii")  # always one line
+    back = zipfile.ZipFile(io.BytesIO(base64.b64decode(out.read_text(), validate=True)))
+    names = set(back.namelist())
+    missing = set(REQUIRED) - names
+    if back.testzip() is not None or missing:
+        print(f"ROUND-TRIP FAILED: {back.testzip()} / missing {sorted(missing)}")
+        sys.exit(2)
+    print(f"ZIP bytes: {len(data)}   payload.b64 chars: {out.stat().st_size}   round-trip OK ({len(names)} files)")
+    if len(data) > ZIP_LIMIT:
+        print(f"ZIP is over {ZIP_LIMIT} bytes: do NOT paste it into the workflow. Deliver {out.name} as a file "
+              "(commit to MCPEDL/incoming/<name>.b64 and use payload_file).")
+    return len(data)
+
+
+def main() -> None:
+    ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
+    ap.add_argument("project", help="e.g. build/Map-Name")
+    ap.add_argument("--ledger-sha256", default=LEDGER_SHA256)
+    ap.add_argument("--out", default="payload.b64")
+    ap.add_argument("--check-only", action="store_true")
+    a = ap.parse_args()
+    root = Path(a.project)
+    if not root.is_dir():
+        sys.exit(f"Project folder not found: {root}")
+    install_ledger(root)
+    fails, warns, n, total = run_checks(root, a.ledger_sha256)
+    for w in sorted(set(warns)):
+        print("WARNING:", w)
+    if fails:
+        print("SELF-TEST FAILED")
+        for f in sorted(set(fails)):
+            print(" -", f)
+        sys.exit(1)
+    print(f"SELF-TEST PASSED ({n} files, {total} bytes)")
+    if not a.check_only:
+        pack(root, Path(a.out))
+        print("BUILD OK. Structure only: not tested in game.")
+
+
+if __name__ == "__main__":
+    main()
 ```
-
-Paste the PASS or FAIL output into your reply. It proves structure only.
 
 ---
 
-## 11. Packaging (run this, do not hand-write)
+## 11. Final self-check before replying
 
-1. Create the project under `build/<Map-Name>/` using the Section 2 layout, including the Section 4 files.
-2. Run the Section 10 self-test and fix every failure.
-3. From the folder containing `build/`, run:
+`build_payload.py` already checks structure, manifests, UUIDs, dependencies, recipes, `tick.json`, `void_cleaner`, and the Trader Ledger files. By hand, confirm only:
 
-```python
-import base64, io, pathlib, sys, zipfile
-
-src = pathlib.Path("build/Map-Name")          # change Map-Name
-buf = io.BytesIO()
-with zipfile.ZipFile(buf, "w", zipfile.ZIP_DEFLATED, compresslevel=9) as z:
-    for p in sorted(src.rglob("*")):
-        if p.is_file():
-            z.write(p, p.relative_to(src).as_posix())   # forward slashes, no wrapping folder
-data = buf.getvalue()
-out = pathlib.Path("payload.b64")
-out.write_text(base64.b64encode(data).decode("ascii"))   # always written, one line
-print("ZIP bytes:", len(data), file=sys.stderr)
-if len(data) > 48000:
-    print("ZIP is over 48,000 bytes: do NOT paste it as a workflow input. Deliver payload.b64 as a file.", file=sys.stderr)
-
-# round-trip check
-back = zipfile.ZipFile(io.BytesIO(base64.b64decode(out.read_text(), validate=True)))
-names = set(back.namelist())
-need = {"oneblock.json", "behavior_pack/manifest.json", "resource_pack/manifest.json",
-        "behavior_pack/functions/tick.json", "behavior_pack/functions/void_cleaner.mcfunction",
-        "behavior_pack/functions/oneblock_setup.mcfunction", "behavior_pack/items/trader_ledger.json",
-        "resource_pack/textures/item_texture.json", "resource_pack/textures/items/trader_ledger.png"}
-missing = need - names
-if back.testzip() is not None or missing:
-    sys.exit(f"Round-trip failed: {back.testzip()} / missing {sorted(missing)}")
-print("Round-trip OK:", len(names), "files", file=sys.stderr)
-```
-
-4. The base64 is **one single line**: no line breaks, spaces, or code fences.
-5. If you cannot print the full base64 reliably in chat, deliver `payload.b64` as a downloadable file instead of retyping it. Never retype it from memory. If the ZIP is over 48,000 bytes, the user commits the file to `MCPE-Curseforges/MCPEDL/incoming/<name>.b64` and passes that path to the workflow.
-
----
-
-## 12. Final self-check before replying
-
-- [ ] `oneblock.json` is valid JSON with `enabled` and `name`.
-- [ ] `tick.json` is valid, lists `void_cleaner` first, and every listed function file exists.
-- [ ] `void_cleaner.mcfunction` contains the exact required `fill -16 -64 -16 16 -64 16 air` line as its first command.
-- [ ] `oneblock_setup.mcfunction` exists and is harmless.
-- [ ] `resource_pack/textures/items/trader_ledger.png` is a byte-for-byte copy (SHA-256 verified), `item_texture.json` has the `trader_ledger` entry, and `behavior_pack/items/trader_ledger.json` uses it.
-- [ ] No file from `Mcpeworlds/assets/` other than those two was copied (no stray file named `1`).
-- [ ] Both manifests: title `Name (vX.Y.Z)` matches `header.version`; same version in both packs; `by AllensCreations` exactly once; UUIDs valid and unique.
-- [ ] The behavior pack depends on the resource pack's UUID and version.
-- [ ] All recipes have `AlwaysUnlocked`.
-- [ ] No world data, nested archives, or pack link files; no folder named `db`.
+- [ ] The script printed SELF-TEST PASSED and BUILD OK, and the base64 came from `payload.b64`, not from typing.
 - [ ] Module versions are latest stable, looked up on the date of the work, with the date recorded.
-- [ ] README states achievement status, experiments, and "not tested in game".
-- [ ] The self-test printed PASSED, and the base64 came from running the packaging script and round-tripped.
+- [ ] README states achievement status, experiments, and "not tested in game", and mentions the repository's own Trader Ledger icon.
+- [ ] `oneblock_setup.mcfunction` is harmless and idempotent, and the README says it is a manual or optional function.
+- [ ] No file from `Mcpeworlds/assets/` other than the ledger files was copied (no stray file named `1`).
 
 ---
 
-## 13. If the build fails
+## 12. If the build fails
 
 Paste the workflow's error log back to the agent. Common messages and their fixes:
 
@@ -492,13 +548,13 @@ If the message is not listed, check the relevant script in `scripts/` and tell t
 
 ---
 
-## 14. Reply format
+## 13. Reply format
 
 1. Suggested map folder name (letters, numbers, `.` `_` `-`).
 2. The base64 (one-line code block) **or** the `.b64` file.
-3. A short summary: what the add-on does, target game version, `min_engine_version` (and whether that is verified), module versions with the date checked, achievement and experiment status, the Trader Ledger asset (source: repo copy or embedded copy; SHA-256 verified; what the ledger does in this add-on), any deviations from this file (for example a script teleport), the self-test result, and verification status ("source created and packaged, not tested in game").
+3. A short summary: what the add-on does, target game version, `min_engine_version` (and whether that is verified), module versions with the date checked, achievement and experiment status, the Trader Ledger asset (source: repo copy or embedded copy; SHA-256 verified; what the ledger does in this add-on), any deviations from this file (for example a script teleport), the `build_payload.py` result, and verification status ("source created and packaged, not tested in game").
 4. Next steps:
    - GitHub, Actions, **Create OneBlock Add-on from Base64**, Run workflow.
    - Enter the map name and paste the base64. **If the map folder already exists from an earlier run, set overwrite to true.**
-   - If the build fails, paste the error log (and the relevant part of the script in `scripts/`) back to the agent so it can fix the payload (Section 13).
+   - If the build fails, paste the error log (and the relevant part of the script in `scripts/`) back to the agent so it can fix the payload (Section 12).
    - Download the Creative world from the run's artifacts or from `MCPEDL/maps/<Map-Name>/`, then test it in Minecraft.
