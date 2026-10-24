@@ -1,0 +1,160 @@
+name: Export Repo Content to TXT
+
+# Pick a category (addons, maps, new_addons, script, ...) and get readable TXT files
+# you can feed to an AI. Text files only; binaries, worlds, builds and .git are skipped.
+# Save as: .github/workflows/export-repo-to-txt.yml
+
+on:
+  workflow_dispatch:
+    inputs:
+      category:
+        description: "What to export"
+        required: true
+        default: all
+        type: choice
+        options:
+          - all
+          - addons
+          - maps
+          - new_addons
+          - script
+          - scripts
+          - workflows
+          - docs
+      name_filter:
+        description: "Optional: only these folders, comma-separated (e.g. Grand-Banquets,Mining-Helmet). Blank = everything in the category"
+        required: false
+        default: ""
+        type: string
+      part_size_kb:
+        description: "Max size of each TXT part in KB (smaller = fits smaller AI context windows)"
+        required: false
+        default: "300"
+        type: string
+
+permissions:
+  contents: read
+
+jobs:
+  export:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Build TXT export
+        env:
+          CATEGORY: ${{ inputs.category }}
+          NAME_FILTER: ${{ inputs.name_filter }}
+          PART_KB: ${{ inputs.part_size_kb }}
+        run: |
+          python3 - <<'PY'
+          import os, re, pathlib
+
+          CATEGORY = os.environ["CATEGORY"]
+          FILTER = [x.strip().lower() for x in os.environ.get("NAME_FILTER", "").split(",") if x.strip()]
+          try:
+              PART_BYTES = max(20, int(os.environ.get("PART_KB", "300"))) * 1024
+          except ValueError:
+              PART_BYTES = 300 * 1024
+          MAX_FILE = 300 * 1024  # a single file larger than this is truncated
+
+          ROOTS = {
+              "addons": ["MCPEDL/addons"],
+              "maps": ["MCPEDL/maps"],
+              "new_addons": ["MCPEDL/new_addons"],
+              "script": ["MCPEDL/script"],
+              "scripts": ["scripts"],
+              "workflows": [".github/workflows"],
+              "docs": ["README.md", "INSTRUCTIONS.md", "README_GUIDELINES.md",
+                       "ONEBLOCK_ADDON_GENERATOR.md", "Mcpeworlds/README.md", ".agents"],
+          }
+          ROOTS["all"] = [r for k in ("addons", "maps", "new_addons", "script", "scripts", "workflows", "docs") for r in ROOTS[k]]
+
+          TEXT_EXT = {".json", ".js", ".mjs", ".ts", ".mcfunction", ".md", ".txt", ".lang",
+                      ".py", ".yml", ".yaml", ".html", ".css"}
+          SKIP_DIRS = {".git", "db", "node_modules", "builds", "__pycache__", "ai_review_bundle", "exports"}
+
+          root = pathlib.Path(".")
+          selected, skipped = [], []
+
+          def consider(p: pathlib.Path):
+              rel = p.as_posix()
+              parts = [x.lower() for x in p.parts]
+              if any(d in parts for d in SKIP_DIRS) and not rel.startswith(".agents"):
+                  return
+              if FILTER and not any(f in parts for f in FILTER):
+                  return
+              if p.suffix.lower() in TEXT_EXT:
+                  selected.append(p)
+              else:
+                  skipped.append(rel)
+
+          for entry in ROOTS[CATEGORY]:
+              p = root / entry
+              if p.is_file():
+                  consider(p)
+              elif p.is_dir():
+                  for f in sorted(p.rglob("*")):
+                      if f.is_file():
+                          consider(f)
+          selected = sorted(set(selected), key=lambda x: x.as_posix().lower())
+
+          # Build blocks
+          blocks = []
+          for f in selected:
+              raw = f.read_bytes()
+              truncated = len(raw) > MAX_FILE
+              text = raw[:MAX_FILE].decode("utf-8", errors="replace")
+              n_lines = text.count("\n") + 1
+              head = f"===== FILE: {f.as_posix()} ({n_lines} lines, {len(raw)} bytes){' TRUNCATED' if truncated else ''} ====="
+              blocks.append((f.as_posix(), f"\n{head}\n{text}\n===== END FILE: {f.as_posix()} =====\n"))
+
+          # Split into parts on file boundaries
+          parts, cur, cur_size = [], [], 0
+          for rel, block in blocks:
+              size = len(block.encode("utf-8"))
+              if cur and cur_size + size > PART_BYTES:
+                  parts.append(cur); cur, cur_size = [], 0
+              cur.append((rel, block)); cur_size += size
+          if cur:
+              parts.append(cur)
+
+          out = pathlib.Path("exports"); out.mkdir(exist_ok=True)
+          label = CATEGORY + ("_" + "-".join(FILTER) if FILTER else "")
+          label = re.sub(r"[^A-Za-z0-9._-]", "_", label)[:60]
+          index = [f"EXPORT: category={CATEGORY} filter={FILTER or 'none'}",
+                   f"Text files: {len(selected)}   Parts: {len(parts)}   Skipped non-text files: {len(skipped)}", ""]
+          for i, part in enumerate(parts, 1):
+              name = f"export_{label}_part{i:02d}_of_{len(parts):02d}.txt"
+              header = f"PART {i} OF {len(parts)} | category={CATEGORY} | files in this part: {len(part)}\n"
+              toc = "".join(f"- {rel}\n" for rel, _ in part)
+              (out / name).write_text(header + "CONTENTS OF THIS PART:\n" + toc + "".join(b for _, b in part), encoding="utf-8")
+              index.append(f"{name}  ({len(part)} files)")
+              index.extend(f"    {rel}" for rel, _ in part)
+          if skipped:
+              index += ["", "SKIPPED (not text):"] + [f"    {s}" for s in skipped[:500]]
+          (out / "INDEX.txt").write_text("\n".join(index) + "\n", encoding="utf-8")
+
+          print(f"Exported {len(selected)} files into {len(parts)} part(s); skipped {len(skipped)} non-text.")
+          if not selected:
+              raise SystemExit("::error::Nothing matched. Check the category and name_filter.")
+          PY
+
+      - name: Summary
+        if: ${{ always() }}
+        run: |
+          {
+            echo "### Export Repo Content to TXT"
+            echo "- Category: \`${{ inputs.category }}\`   Filter: \`${{ inputs.name_filter }}\`"
+            echo "- Download the **repo-export-txt** artifact below, then give the TXT parts to your AI (start with INDEX.txt)."
+            [ -d exports ] && ls -la exports | sed 's/^/    /'
+          } >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Upload export
+        uses: actions/upload-artifact@v4
+        with:
+          name: repo-export-txt
+          path: exports/
+          if-no-files-found: error
+          retention-days: 14
