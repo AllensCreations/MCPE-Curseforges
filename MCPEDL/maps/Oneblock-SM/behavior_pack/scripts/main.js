@@ -1,7 +1,7 @@
 import { world, system } from "@minecraft/server";
 import { LEDGER_ID, DIRT_REWARD, CORE } from "./config.js";
 import { inBounds, loadWorld, ITEMS, snapshot, loadPlayer, savePlayer } from "./store.js";
-import { core, isCore, isFoundation, regenerate, coreWatch, credit, contractTick, ensureLedger, auditLoot, sweepLiquids, grantAch, clearDroppedLedgers } from "./game.js";
+import { core, isCore, isFoundation, regenerate, coreWatch, credit, contractTick, ensureLedger, auditLoot, sweepLiquids, grantAch, clearDroppedLedgers, autoMineTick } from "./game.js";
 import { openLedger } from "./ui.js";
 
 // Each subscription is isolated so one unsupported event cannot stop the rest of the add-on.
@@ -65,6 +65,7 @@ on("playerSpawn", () => world.afterEvents.playerSpawn.subscribe((ev) => {
 }));
 
 system.runInterval(() => { try { coreWatch(); } catch (e) { console.warn("[SovereignMarket] watch: " + e); } }, 20);
+system.runInterval(() => { try { autoMineTick(); } catch (e) { console.warn("[SovereignMarket] auto-mine: " + e); } }, 1);
 system.runInterval(() => { try { contractTick(); } catch (e) { console.warn("[SovereignMarket] contracts: " + e); } }, 200);
 
 // Admin market report: /scriptevent osm:market (sender needs the osm_admin tag: /tag @s add osm_admin)

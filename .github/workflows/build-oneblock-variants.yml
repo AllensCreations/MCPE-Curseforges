@@ -32,10 +32,12 @@ jobs:
     env:
       ONEBLOCK_MAP: ${{ inputs.map_name }}
     steps:
-      - name: Checkout repository
+      - name: Checkout the branch that triggered this build
         uses: actions/checkout@v4
         with:
+          ref: ${{ github.ref }}
           fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Set up Python
         uses: actions/setup-python@v5
@@ -81,15 +83,15 @@ jobs:
           print("Structural checks passed (not an in-game test).")
           PY
 
-      - name: Upload worlds as artifact
+      - name: Upload generated worlds as artifact
         uses: actions/upload-artifact@v4
         with:
           name: oneblock-worlds
-          path: MCPEDL/maps/*/*.mcworld
-          if-no-files-found: warn
+          path: ${{ inputs.map_name != '' && format('MCPEDL/maps/{0}/*.mcworld', inputs.map_name) || 'MCPEDL/maps/*/*.mcworld' }}
+          if-no-files-found: error
 
-      - name: Commit generated .mcworld files and README
-        if: github.ref == 'refs/heads/main'
+      - name: Commit generated .mcworld files and README to the selected branch
+        if: startsWith(github.ref, 'refs/heads/')
         shell: bash
         run: |
           set -euo pipefail
@@ -101,4 +103,4 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git commit -m "build(oneblock): regenerate database-free void worlds [skip ci]"
-          git push origin HEAD:main
+          git push origin "HEAD:${GITHUB_REF}"
