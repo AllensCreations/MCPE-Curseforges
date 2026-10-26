@@ -1,0 +1,166 @@
+name: Create Project from Base64
+
+# Paste the base64 produced by an AI agent (see GAME_GENERATOR.md).
+# The ZIP's project.json decides the type:
+#   addon  -> MCPEDL/new_addons/<Name>/
+#   map    -> MCPEDL/maps/<Name>/      (+ Creative/Survival/Hardcore worlds)
+#   script -> MCPEDL/script/<Name>/    (+ "<Name> - Test.mcworld")
+# Structural checks only: never an in-game test.
+
+on:
+  workflow_dispatch:
+    inputs:
+      project_name:
+        description: "Folder name to create (letters, numbers, . _ -)"
+        required: true
+        type: string
+      payload_base64:
+        description: "Base64 of the project ZIP, single line. Leave blank if you use payload_file."
+        required: false
+        default: ""
+        type: string
+      payload_file:
+        description: "Alternative for big payloads: path to a .b64 file under MCPEDL/incoming/"
+        required: false
+        default: ""
+        type: string
+      overwrite:
+        description: "Replace the project folder if it already exists"
+        required: false
+        default: false
+        type: boolean
+
+permissions:
+  contents: write
+
+concurrency:
+  group: create-project-from-base64-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  create:
+    name: Import project and build worlds
+    runs-on: ubuntu-latest
+    env:
+      PROJECT_NAME: ${{ inputs.project_name }}
+      PROJECT_PAYLOAD: ${{ inputs.payload_base64 }}
+      PAYLOAD_FILE: ${{ inputs.payload_file }}
+      OVERWRITE: ${{ inputs.overwrite }}
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Check inputs
+        shell: bash
+        run: |
+          set -euo pipefail
+          [[ "$PROJECT_NAME" =~ ^[A-Za-z0-9][A-Za-z0-9._-]{0,63}$ ]] \
+            || { echo "::error::Name: letters, numbers, . _ - only (max 64)"; exit 1; }
+          if [ -z "$PROJECT_PAYLOAD" ] && [ -z "$PAYLOAD_FILE" ]; then
+            echo "::error::Provide payload_base64 or payload_file"; exit 1
+          fi
+
+      - name: Decode, validate, and write the project
+        id: import
+        shell: bash
+        run: |
+          set -euo pipefail
+          ARGS=(--name "$PROJECT_NAME" --github-output "$GITHUB_OUTPUT")
+          if [ "$OVERWRITE" = "true" ]; then ARGS+=(--overwrite); fi
+          if [ -z "$PROJECT_PAYLOAD" ]; then ARGS+=(--payload-file "$PAYLOAD_FILE"); fi
+          python scripts/import_project_payload.py "${ARGS[@]}"
+
+      # ---- maps: build the three OneBlock worlds ----
+      - name: Check world foundations (maps)
+        if: ${{ steps.import.outputs.type == 'map' }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          for mode in Creative Survival Hardcore; do
+            [ -f "Mcpeworlds/$mode/level.dat" ] \
+              || { echo "::error::Missing foundation Mcpeworlds/$mode/level.dat"; exit 1; }
+          done
+
+      - name: Build worlds from Mcpeworlds foundations (maps)
+        if: ${{ steps.import.outputs.type == 'map' }}
+        run: python scripts/build_oneblock_variants_from_template.py
+
+      - name: Synchronize map README with world archives (maps)
+        if: ${{ steps.import.outputs.type == 'map' }}
+        run: python scripts/sync_oneblock_map_readmes.py
+
+      # ---- scripts and add-ons with test_world.json: build the test world ----
+      - name: Build test world (script / add-on)
+        if: ${{ steps.import.outputs.has_test_world == 'true' }}
+        run: python scripts/build_test_world.py --project "${{ steps.import.outputs.dest }}"
+
+      - name: Verify generated worlds are database-free
+        if: ${{ steps.import.outputs.type == 'map' || steps.import.outputs.has_test_world == 'true' }}
+        shell: bash
+        env:
+          DEST: ${{ steps.import.outputs.dest }}
+        run: |
+          python3 - <<'PY'
+          import glob, os, sys, zipfile
+          folder = os.environ["DEST"]
+          worlds = glob.glob(folder + "/*.mcworld")
+          bad = []
+          if not worlds:
+              bad.append(f"No .mcworld produced in {folder}")
+          for w in worlds:
+              names = zipfile.ZipFile(w).namelist()
+              if not any(n.endswith("level.dat") for n in names):
+                  bad.append(f"{w}: missing level.dat")
+              if any(n.startswith("db/") or "/db/" in n for n in names):
+                  bad.append(f"{w}: contains db/ data")
+          if bad:
+              print("\n".join("::error::" + b for b in bad)); sys.exit(1)
+          print(f"Structural checks passed for {len(worlds)} world(s). Not an in-game test.")
+          PY
+
+      - name: Upload worlds as artifact
+        if: ${{ steps.import.outputs.type == 'map' || steps.import.outputs.has_test_world == 'true' }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ steps.import.outputs.name }}-worlds
+          path: ${{ steps.import.outputs.dest }}/*.mcworld
+          if-no-files-found: error
+          retention-days: 90
+
+      - name: Commit project and worlds
+        shell: bash
+        env:
+          DEST: ${{ steps.import.outputs.dest }}
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add -A -- "$DEST"
+          if [ -z "$PROJECT_PAYLOAD" ] && [ -n "$PAYLOAD_FILE" ]; then
+            git rm -q --ignore-unmatch -- "$PAYLOAD_FILE"
+          fi
+          if git diff --cached --quiet; then
+            echo "No changes to commit."; exit 0
+          fi
+          git commit -m "feat(${{ steps.import.outputs.type }}): create ${PROJECT_NAME} from base64 payload [skip ci]"
+          git pull --rebase origin "${GITHUB_REF_NAME}"
+          git push origin "HEAD:${GITHUB_REF_NAME}"
+
+      - name: Summary
+        if: ${{ always() }}
+        shell: bash
+        run: |
+          {
+            echo "### Create Project from Base64"
+            echo "- Project: \`${PROJECT_NAME}\` (type: \`${{ steps.import.outputs.type }}\`)"
+            echo "- Folder: \`${{ steps.import.outputs.dest }}\`"
+            echo "- Verified: ZIP safety, manifests, UUIDs, dependencies, type-specific files (structural only)"
+            echo "- **Not verified:** Minecraft loading the pack or gameplay. Test it in-game."
+          } >> "$GITHUB_STEP_SUMMARY"
