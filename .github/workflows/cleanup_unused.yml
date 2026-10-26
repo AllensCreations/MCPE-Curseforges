@@ -1,0 +1,103 @@
+name: Cleanup Unused Files
+
+# Removes leftovers (old payloads in MCPEDL/incoming, failed-import staging folders,
+# obsolete workflow files) and optionally old workflow runs.
+# DRY RUN by default: tick "apply" to actually delete anything.
+
+on:
+  workflow_dispatch:
+    inputs:
+      apply:
+        description: "Actually delete (unchecked = dry run, only reports)"
+        required: false
+        default: false
+        type: boolean
+      keep_days:
+        description: "Keep files in MCPEDL/incoming newer than this many days"
+        required: false
+        default: "7"
+        type: string
+      delete_old_runs:
+        description: "Also delete old completed workflow runs (and their artifacts)"
+        required: false
+        default: false
+        type: boolean
+      run_keep_days:
+        description: "Keep workflow runs newer than this many days"
+        required: false
+        default: "30"
+        type: string
+
+permissions:
+  contents: write
+  actions: write
+
+concurrency:
+  group: cleanup-unused-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  cleanup:
+    runs-on: ubuntu-latest
+    env:
+      APPLY: ${{ inputs.apply }}
+      KEEP_DAYS: ${{ inputs.keep_days }}
+      DELETE_RUNS: ${{ inputs.delete_old_runs }}
+      RUN_KEEP_DAYS: ${{ inputs.run_keep_days }}
+      GH_TOKEN: ${{ github.token }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Check inputs
+        shell: bash
+        run: |
+          set -euo pipefail
+          [[ "$KEEP_DAYS" =~ ^[0-9]{1,4}$ ]] || { echo "::error::keep_days must be a number"; exit 1; }
+          [[ "$RUN_KEEP_DAYS" =~ ^[0-9]{1,4}$ ]] || { echo "::error::run_keep_days must be a number"; exit 1; }
+
+      - name: Find and remove unused files
+        shell: bash
+        run: |
+          set -euo pipefail
+          ARGS=(--keep-days "$KEEP_DAYS")
+          if [ "$APPLY" = "true" ]; then ARGS+=(--apply); fi
+          python scripts/cleanup_unused.py "${ARGS[@]}"
+          cat cleanup_report.md >> "$GITHUB_STEP_SUMMARY"
+          rm -f cleanup_report.md
+
+      - name: Delete old workflow runs
+        if: ${{ inputs.delete_old_runs }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          CUTOFF=$(date -u -d "-${RUN_KEEP_DAYS} days" +%Y-%m-%dT%H:%M:%SZ)
+          IDS=$(gh api --paginate "repos/${GITHUB_REPOSITORY}/actions/runs?status=completed&per_page=100" \
+            --jq ".workflow_runs[] | select(.created_at < \"$CUTOFF\") | select(.id != ${GITHUB_RUN_ID}) | .id")
+          COUNT=$(echo "$IDS" | grep -c . || true)
+          if [ "$APPLY" = "true" ]; then
+            for id in $IDS; do gh api -X DELETE "repos/${GITHUB_REPOSITORY}/actions/runs/$id" || true; done
+            echo "- Deleted $COUNT workflow run(s) older than ${RUN_KEEP_DAYS} days." >> "$GITHUB_STEP_SUMMARY"
+          else
+            echo "- Would delete $COUNT workflow run(s) older than ${RUN_KEEP_DAYS} days." >> "$GITHUB_STEP_SUMMARY"
+          fi
+
+      - name: Commit removals
+        if: ${{ inputs.apply }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add -A
+          if git diff --cached --quiet; then
+            echo "Nothing to commit."; exit 0
+          fi
+          git commit -m "chore(cleanup): remove unused leftovers [skip ci]"
+          git pull --rebase origin "${GITHUB_REF_NAME}"
+          git push origin "HEAD:${GITHUB_REF_NAME}"
