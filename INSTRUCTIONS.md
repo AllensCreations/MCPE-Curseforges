@@ -1,6 +1,6 @@
 # Repository Instructions
 
-Core policy for AllensCreations/MCPE-Curseforges. All README, DESCRIPTION, and CHANGELOG rules live in `README_GUIDELINES.md`, which must be followed together with this file; this file wins on any conflict. One skill, `.agents/skills/checkrm/SKILL.md`, covers the documentation audit workflow and the Mojang Bedrock Samples, Minecraft Wiki, and Bedrock Wiki references. It follows this file and `README_GUIDELINES.md` and never overrides them. AI-agent generation of OneBlock add-ons is covered by `ONEBLOCK_ADDON_GENERATOR.md`, which follows this file and never overrides it.
+Core policy for AllensCreations/MCPE-Curseforges. All README, DESCRIPTION, and CHANGELOG rules live in `README_GUIDELINES.md`, which must be followed together with this file; this file wins on any conflict. One skill, `.agents/skills/checkrm/SKILL.md`, covers the documentation audit workflow and the Mojang Bedrock Samples, Minecraft Wiki, and Bedrock Wiki references. It follows this file and `README_GUIDELINES.md` and never overrides them. AI-agent generation of add-ons, maps, and scripts is covered by `GAME_GENERATOR.md`, which follows this file and never overrides it.
 
 ---
 
@@ -187,14 +187,24 @@ The authoritative world foundations are the direct folders `Mcpeworlds/Creative/
 
 Creative is the primary and only designated in-game test world. Do not create a separate `.mcaddon` tester package or a `Tester Build/` folder. The map project keeps the source add-ons and its generated `.mcworld` deliveries together; unrelated add-on build workflows must not misclassify this map as a standalone add-on.
 
-### Creating a OneBlock map from an AI-generated payload
+### Creating a project from an AI-generated payload
 
-- `ONEBLOCK_ADDON_GENERATOR.md` is the instruction file given to an AI agent. The agent returns a single-line base64 ZIP of the add-on, produced by running code, never written by hand.
-- `create-oneblock-from-base64.yml` takes the map name plus the base64 (or a `.b64` path under `MCPEDL/incoming/`), runs `scripts/import_oneblock_payload.py`, writes `MCPEDL/maps/<Map-Name>/`, and builds the Creative, Survival, and Hardcore worlds from `Mcpeworlds/` in the same run.
-- The importer validates before writing anything. It rejects unsafe paths, symlinks, world data (`db/`, `level.dat`), nested archives, shipped pack link files, disallowed file types, bad manifests (title `Name (vX.Y.Z)` matching `header.version`, `by AllensCreations` exactly once, matching BP/RP versions, RP dependency), a `tick.json` that does not list `void_cleaner` first, and recipes without `AlwaysUnlocked`.
-- The map name is typed per run; never hardcode one in a workflow or script.
-- When Sections 3, 4, 6, or 7 change, update `ONEBLOCK_ADDON_GENERATOR.md` and the importer in the same change. This file wins on any conflict.
-- These checks prove structure only. Never claim the add-on or world works in Minecraft until tested in game.
+- `GAME_GENERATOR.md` is the instruction file given to an AI agent. The agent first asks which type the user wants (**addon**, **map**, or **script**), then returns a single-line base64 ZIP produced by running code, never written by hand. The ZIP's `project.json` (`{"type": "addon|map|script", "name": "..."}`) carries the type.
+- `create-project-from-base64.yml` takes the folder name plus the base64 (or a `.b64` path under `MCPEDL/incoming/`) and runs `scripts/import_project_payload.py`. The importer imports `scripts/build_payload.py`, so the agent-side and repo-side checks are the same code.
+- Destinations: addon -> `MCPEDL/new_addons/<Name>/` (the importer writes the `LOCK` markers); map -> `MCPEDL/maps/<Name>/` (the importer writes `oneblock.json`; Creative, Survival, and Hardcore worlds are built in the same run); script -> `MCPEDL/script/<Name>/` (a test world is built, see below).
+- The importer validates before writing anything. It rejects unsafe paths, symlinks, world data (`db/`, `level.dat`), nested archives, shipped pack link files, disallowed file types, bad manifests (title `Name (vX.Y.Z)` matching `header.version`, `by AllensCreations` exactly once, matching BP/RP versions, RP dependency), recipes without `AlwaysUnlocked`, and the per-type requirements below. Icons must match the repo copies under `Mcpeworlds/assets/resources_pack/textures/items/` byte for byte.
+- Map requirements: `tick.json` lists `void_cleaner` first, `void_cleaner.mcfunction` starts with the required Y=-64 fill line, `oneblock_setup.mcfunction` exists, and the Trader Ledger item, texture entry, and `trader_ledger.png` are present. Add-ons and scripts do not need the void cleaner or the ledger.
+- The folder name is typed per run; never hardcode one in a workflow or script. A payload with only `oneblock.json` (no `project.json`) is still accepted as a map.
+- When Sections 3, 4, 6, or 7 change, update `GAME_GENERATOR.md`, `scripts/build_payload.py`, and the importer in the same change, then run `scripts/selftest_project_types.py` and `scripts/check_generator_sync.py`. This file wins on any conflict.
+- These checks prove structure only. Never claim the add-on, map, script, or world works in Minecraft until tested in game.
+
+### Scripts and test worlds
+
+- A script project is `MCPEDL/script/<Name>/` with `behavior_pack/` (script module, `scripts/main.js`), `resource_pack/`, `project.json`, `test_world.json`, and the documentation files.
+- Every script ships the Controller item (`allenscreations:controller`, texture `controller.png`, a 16 x 16 icon kept at `Mcpeworlds/assets/resources_pack/textures/items/controller.png`). Using it opens a form with **Start**, **Restart**, and **End**; the script keeps the state (idle, running, ended) in a world dynamic property. A project may opt out with `"controller": false` in `project.json`.
+- `test_world.json` is `{"mode": "Creative", "include_addons": ["Name", ...]}`. Included add-ons are looked up in `MCPEDL/addons/` and `MCPEDL/new_addons/`. `scripts/build_test_world.py` copies `Mcpeworlds/<mode>`, installs the script and every included add-on, links all packs, and writes `<Name> - Test.mcworld` into the project folder. It fails on a missing include, duplicate pack UUIDs, or an unresolved pack dependency. Experiments and achievement state come from the foundation and are not verified.
+- `build-test-world.yml` rebuilds test worlds on demand. Add-ons may also carry a `test_world.json`.
+- The one-OneBlock-pack-per-world rule applies to maps only; a script test world may link several packs.
 
 ### Installing into the world folders
 
@@ -216,7 +226,7 @@ Repeat for each mode folder, with identical results in all three:
 - Each mode folder's installed pack matches the source, and each link entry matches the manifest's UUID and version.
 - The Resource Pack dependency UUID resolves, when one exists.
 - Script files pass available syntax checks.
-- The `validate-oneblock-source.yml` workflow should run on changes to a OneBlock map under `MCPEDL/maps/` or to `Mcpeworlds/**` and cover the checks above.
+- The importer, `build_oneblock_variants_from_template.py` (`verify_archive`), and `build_test_world.py` run these checks when a project is created or rebuilt; `scripts/selftest_project_types.py` exercises all three project types end to end. There is no separate source-validation workflow.
 - State precisely what passed. Structural checks never prove Minecraft loaded the world or that progression works.
 
 ### Map README
@@ -251,7 +261,9 @@ Workflows in `.github/workflows/`. Roles below come from file names and recent c
 | `auto-version-bump.yml` | Bumps release versions. Must keep manifest titles in the `Name (vX.Y.Z)` format (Section 3). |
 | `create-addon-scaffold.yml` | Scaffolds a new add-on with a download-only README and a DESCRIPTION starter. |
 | `build-oneblock-variants.yml` | Automatically builds the Creative, Survival, and Hardcore database-free `.mcworld` archives into `MCPEDL/maps/<Map-Name>/` when relevant sources or foundations change; manual dispatch is also available. |
-| `create-oneblock-from-base64.yml` | Manual run: decodes a base64 ZIP into `MCPEDL/maps/<Map-Name>/`, then builds the three database-free `.mcworld` archives (Section 7). |
+| `create-project-from-base64.yml` | Manual run: decodes a base64 ZIP (type addon, map, or script from `project.json`) into the matching `MCPEDL/` folder and builds the worlds that type needs (Section 7). |
+| `build-test-world.yml` | Manual run: rebuilds `<Name> - Test.mcworld` for scripts and add-ons that have `test_world.json`. |
+| `apply-generator-upgrade.yml` | Manual run: applies a reviewed upgrade ZIP (new files, deletions listed in `upgrade_manifest.json`); dry run by default. |
 | `refresh-build-packs.yml` | Scheduled refresh of projects and rebuild of packs in `builds/`. |
 | `generate-recipe-images.yml` | Regenerates recipe diagrams (Section 5). |
 | `manage-addon-status.yml` | Manages add-on status. |
@@ -267,7 +279,11 @@ Helper scripts in `scripts/`:
 - `crafting_template.py`: shared recipe board renderer.
 - `build_oneblock_variants_from_template.py`: builds the three OneBlock world modes from `Mcpeworlds/` and a map's packs (Section 7). Reads `ONEBLOCK_MAP` to build one map.
 - `sync_oneblock_map_readmes.py`: synchronizes a map README with the generated `.mcworld` archives.
-- `import_oneblock_payload.py`: validates and imports a base64 ZIP into `MCPEDL/maps/<Map-Name>/` (Section 7).
+- `import_project_payload.py`: validates and imports a base64 ZIP into `MCPEDL/new_addons/`, `maps/`, or `script/` (Section 7).
+- `build_payload.py`: the agent-side packager and the shared check code the importer uses. Its text is also embedded in `GAME_GENERATOR.md`.
+- `build_test_world.py`: builds a script or add-on test world with chosen add-ons (Section 7).
+- `selftest_project_types.py`: end-to-end test of all three project types in a throwaway copy of the repo.
+- `check_generator_sync.py`: fails when the script embedded in `GAME_GENERATOR.md` differs from `scripts/build_payload.py`.
 
 - Never claim a workflow ran or succeeded unless its run was checked.
 - When a rule in this file changes a workflow's behavior (titles, paths, versions), update the workflow in the same change.
@@ -280,7 +296,7 @@ Helper scripts in `scripts/`:
 MCPE-Curseforges/
 ├── INSTRUCTIONS.md
 ├── README_GUIDELINES.md
-├── ONEBLOCK_ADDON_GENERATOR.md    # Instructions for AI agents that generate OneBlock add-ons as base64
+├── GAME_GENERATOR.md              # Instructions for AI agents: asks addon / map / script, returns base64
 ├── README.md                      # Catalog of active add-ons, maps, scripts
 ├── scripts/                       # Generators, validators, crafting_template.py, CRAFTING_TABLE.svg
 ├── .github/workflows/
@@ -288,8 +304,8 @@ MCPE-Curseforges/
 ├── MCPEDL/
 │   ├── addons/<Addon-Name>/       # behavior_pack/, resource_pack/, README.md, DESCRIPTION.md
 │   ├── new_addons/
-│   ├── incoming/                  # Temporary .b64 payloads for create-oneblock-from-base64.yml
-│   ├── script/<Project-Name>/     # behavior_pack/, pack_icon.png, README.md
-│   └── maps/<Map-Name>/           # OneBlock source packs + generated Creative/Survival/Hardcore .mcworld files, README.md
+│   ├── incoming/                  # Temporary .b64 payloads for create-project-from-base64.yml
+│   ├── script/<Project-Name>/     # behavior_pack/, resource_pack/, project.json, test_world.json, README.md, <Name> - Test.mcworld
+│   └── maps/<Map-Name>/           # project.json, oneblock.json, OneBlock source packs + generated Creative/Survival/Hardcore .mcworld files, README.md
 └── builds/<Name>/                 # Compiled .mcaddon / .mcpack / .mcworld
 ```
