@@ -1,0 +1,239 @@
+name: Apply Generator Upgrade
+
+# Applies a reviewed upgrade ZIP to the repository: overlays new/changed files, deletes the files
+# listed in the ZIP's upgrade_manifest.json, checks the result, then commits.
+#
+# HOW TO USE
+#   1. Commit the ZIP to MCPEDL/incoming/generator-upgrade.zip (GitHub: Add file > Upload files).
+#   2. Run this workflow with dry_run = true (default). Read the summary.
+#   3. Run it again with dry_run = false.
+#
+# IMPORTANT (GitHub rule): the built-in GITHUB_TOKEN may not create, change or delete anything
+# under .github/workflows/. Without a secret named WORKFLOW_PAT (a personal access token with
+# the "workflow" scope) this run applies everything else and LISTS the workflow files you must
+# add by hand (Add file > Create new file, paste the content from the ZIP). With the secret set,
+# it applies them too.
+#
+# Save as: .github/workflows/apply-generator-upgrade.yml  (this file itself must be added by hand once)
+
+on:
+  workflow_dispatch:
+    inputs:
+      zip_path:
+        description: "Path of the upgrade ZIP inside the repository"
+        required: true
+        default: "MCPEDL/incoming/generator-upgrade.zip"
+        type: string
+      dry_run:
+        description: "Only report what would change (recommended first)"
+        required: true
+        default: true
+        type: boolean
+      delete_obsolete:
+        description: "Delete the files listed under 'delete' in upgrade_manifest.json"
+        required: true
+        default: true
+        type: boolean
+      delete_optional:
+        description: "Also delete the files listed under 'optional_delete'"
+        required: true
+        default: false
+        type: boolean
+      remove_zip:
+        description: "Remove the upgrade ZIP from the repo after a successful apply"
+        required: true
+        default: true
+        type: boolean
+
+permissions:
+  contents: write
+
+concurrency:
+  group: apply-generator-upgrade-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  apply:
+    runs-on: ubuntu-latest
+    env:
+      ZIP_PATH: ${{ inputs.zip_path }}
+      DRY_RUN: ${{ inputs.dry_run }}
+      DELETE_OBSOLETE: ${{ inputs.delete_obsolete }}
+      DELETE_OPTIONAL: ${{ inputs.delete_optional }}
+      REMOVE_ZIP: ${{ inputs.remove_zip }}
+      HAS_PAT: ${{ secrets.WORKFLOW_PAT != '' }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.WORKFLOW_PAT || secrets.GITHUB_TOKEN }}
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install PyYAML (workflow syntax check)
+        run: python -m pip install --quiet pyyaml
+
+      - name: Plan and apply
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 - <<'PY'
+          import json, os, pathlib, posixpath, shutil, sys, zipfile
+
+          zip_path = os.environ["ZIP_PATH"].strip()
+          dry = os.environ["DRY_RUN"] == "true"
+          do_del = os.environ["DELETE_OBSOLETE"] == "true"
+          do_opt = os.environ["DELETE_OPTIONAL"] == "true"
+          has_pat = os.environ["HAS_PAT"] == "true"
+          ROOT = pathlib.Path(".").resolve()
+
+          ALLOWED = ("GAME_GENERATOR.md", "ONEBLOCK_ADDON_GENERATOR.md", "INSTRUCTIONS.md", "README_GUIDELINES.md", "scripts/",
+                     "Mcpeworlds/assets/", ".github/workflows/")
+          PROTECTED = ("Mcpeworlds/Creative/", "Mcpeworlds/Survival/", "Mcpeworlds/Hardcore/", "MCPEDL/", "builds/", ".git/")
+
+          def bad(msg):
+              print("::error::" + msg)
+              sys.exit(1)
+
+          def safe(rel):
+              p = posixpath.normpath(rel)
+              if p.startswith("/") or p.startswith("..") or "\\" in rel or ".." in p.split("/"):
+                  bad(f"Unsafe path: {rel}")
+              if any(p.startswith(x) for x in PROTECTED):
+                  bad(f"Protected path, refusing: {rel}")
+              if not any(p == a or p.startswith(a) for a in ALLOWED):
+                  bad(f"Path outside the allowed upgrade areas: {rel}")
+              return p
+
+          zp = (ROOT / zip_path).resolve()
+          try:
+              zp.relative_to(ROOT)
+          except ValueError:
+              bad("zip_path must be inside the repository")
+          if not zp.is_file() or not zipfile.is_zipfile(zp):
+              bad(f"{zip_path} is not a ZIP file in the repository")
+          z = zipfile.ZipFile(zp)
+          names = [n for n in z.namelist() if not n.endswith("/")]
+          if "upgrade_manifest.json" not in names:
+              bad("upgrade_manifest.json missing from the ZIP")
+          manifest = json.loads(z.read("upgrade_manifest.json"))
+          payload = {safe(n): n for n in names if n != "upgrade_manifest.json"}
+          deletes = [safe(x) for x in manifest.get("delete", [])] if do_del else []
+          deletes += [safe(x) for x in manifest.get("optional_delete", [])] if do_opt else []
+          stale_names = manifest.get("stale_reference_names", [])
+
+          wf = lambda p: p.startswith(".github/workflows/")
+          skipped_wf = []
+          lines = ["### Upgrade plan" + (" (DRY RUN: nothing is written)" if dry else ""), ""]
+          writes, removes = [], []
+          for rel, member in sorted(payload.items()):
+              target = ROOT / rel
+              data = z.read(member)
+              if wf(rel) and not has_pat:
+                  skipped_wf.append(("add/update", rel))
+                  continue
+              state = "NEW" if not target.exists() else ("same" if target.read_bytes() == data else "CHANGED")
+              lines.append(f"- {state}: `{rel}`")
+              if state != "same":
+                  writes.append((rel, data))
+          for rel in deletes:
+              if wf(rel) and not has_pat:
+                  skipped_wf.append(("delete", rel))
+                  continue
+              exists = (ROOT / rel).is_file()
+              lines.append(f"- {'DELETE' if exists else 'already gone'}: `{rel}`")
+              if exists:
+                  removes.append(rel)
+          if skipped_wf:
+              lines += ["", "### Workflow files you must handle by hand (no WORKFLOW_PAT secret)", ""]
+              for what, rel in skipped_wf:
+                  lines.append(f"- {what}: `{rel}`" + ("  (content is inside the ZIP)" if what != "delete" else ""))
+
+          if not dry:
+              for rel, data in writes:
+                  t = ROOT / rel
+                  t.parent.mkdir(parents=True, exist_ok=True)
+                  t.write_bytes(data)
+              for rel in removes:
+                  (ROOT / rel).unlink()
+
+          # --- checks on the RESULTING tree, computed in memory so a dry run checks the same thing
+          import yaml
+          view = {}
+          for p in ROOT.rglob("*"):
+              if p.is_file() and ".git" not in p.parts and p.suffix in (".md", ".yml", ".yaml", ".py", ".json", ".txt"):
+                  rel = p.relative_to(ROOT).as_posix()
+                  if rel.startswith("MCPEDL/") or rel in removes:
+                      continue
+                  try:
+                      view[rel] = p.read_text(encoding="utf-8")
+                  except UnicodeDecodeError:
+                      pass
+          for rel, member in payload.items():
+              if wf(rel) and not has_pat:
+                  continue
+              if rel.endswith((".md", ".yml", ".yaml", ".py", ".json", ".txt")):
+                  view[rel] = z.read(member).decode("utf-8")
+          problems, warnings = [], []
+          for rel, text in sorted(view.items()):
+              if rel.endswith(".py"):
+                  try:
+                      compile(text, rel, "exec")
+                  except SyntaxError as e:
+                      problems.append(f"Python syntax error in {rel}: {e}")
+              if rel.startswith(".github/workflows/") and rel.endswith((".yml", ".yaml")):
+                  try:
+                      yaml.safe_load(text)
+                  except Exception as e:
+                      problems.append(f"Invalid YAML in {rel}: {e}")
+              if rel in ("upgrade_manifest.json", ".github/workflows/apply-generator-upgrade.yml"):
+                  continue
+              for n in stale_names:
+                  if n in text:
+                      msg = f"Stale reference to '{n}' in {rel}"
+                      (warnings if (wf(rel) and not has_pat) else problems).append(msg)
+          lines += ["", "### Checks", ""]
+          lines += [f"- PROBLEM: {x}" for x in problems]
+          lines += [f"- Warning (workflow file you must update by hand): {x}" for x in warnings]
+          if not problems:
+              lines.append("- Python syntax, workflow YAML and stale references: OK")
+
+          summary = os.environ.get("GITHUB_STEP_SUMMARY")
+          if summary:
+              with open(summary, "a", encoding="utf-8") as fh:
+                  fh.write("\n".join(lines) + "\n")
+          print("\n".join(lines))
+          if problems:
+              print("::error::Checks failed; nothing is committed. Fix the listed references (or re-run with a corrected ZIP).")
+              sys.exit(1)
+          with open(os.environ["GITHUB_ENV"], "a", encoding="utf-8") as fh:
+              fh.write(f"CHANGED={'true' if (writes or removes) else 'false'}\n")
+              fh.write(f"SKIPPED_WF={'true' if skipped_wf else 'false'}\n")
+          PY
+
+      - name: Self-test the new pipeline
+        if: ${{ !inputs.dry_run }}
+        run: |
+          python scripts/check_generator_sync.py
+          python scripts/selftest_project_types.py
+
+      - name: Commit
+        if: ${{ !inputs.dry_run }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add -A -- GAME_GENERATOR.md INSTRUCTIONS.md README_GUIDELINES.md scripts Mcpeworlds/assets .github/workflows
+          git add -u -- ONEBLOCK_ADDON_GENERATOR.md 2>/dev/null || true
+          if [ "$REMOVE_ZIP" = "true" ] && [ "${SKIPPED_WF:-false}" = "false" ]; then
+            git rm -q --ignore-unmatch -- "$ZIP_PATH"
+          elif [ "${SKIPPED_WF:-false}" = "true" ]; then
+            echo "Keeping $ZIP_PATH: it still holds the workflow files you must add by hand."
+          fi
+          if git diff --cached --quiet; then echo "Nothing to commit."; exit 0; fi
+          git commit -m "chore(generator): apply generator v5 upgrade [skip ci]"
+          git pull --rebase origin "${GITHUB_REF_NAME}"
+          git push origin "HEAD:${GITHUB_REF_NAME}"
