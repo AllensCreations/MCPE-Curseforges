@@ -34,7 +34,9 @@ from pathlib import Path, PurePosixPath
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 import build_payload as bp  # noqa: E402  (single source of truth for the checks)
 
-DEST = {"addon": "new_addons", "map": "maps", "script": "script"}
+DEST = bp.DEST_DIR
+MAX_B64 = 36_000_000
+CONTROL = re.compile(r"[\x00-\x1f\x7f]")
 LOCK_ROOT = ("AllensCreations Add-on Lock v1\n\nRequired repository marker for build validation.\n"
              "This marker does not encrypt source files or prevent extraction of distributable packages.\n")
 LOCK_PACK = ("AllensCreations Add-on Lock v1\n\nPack marker included in the exported Minecraft Bedrock pack.\n"
@@ -61,6 +63,8 @@ def read_payload(root: Path, payload_file: str | None) -> str:
     text = re.sub(r"\s+", "", text)
     if not text:
         fail("Empty payload. Provide base64 text or a payload file.")
+    if len(text) > MAX_B64:
+        fail(f"Payload is {len(text)} base64 characters (max {MAX_B64}).")
     return text
 
 
@@ -80,20 +84,27 @@ def collect_files(z: zipfile.ZipFile, errors: list[str]) -> dict[str, bytes]:
         fail("ZIP contains no files.")
     if len(infos) > bp.MAX_FILES:
         fail(f"ZIP has {len(infos)} files (max {bp.MAX_FILES}).")
-    names = []
+    declared = sum(i.file_size for i in infos)
+    if declared > bp.MAX_TOTAL:
+        fail(f"Declared uncompressed size {declared} exceeds {bp.MAX_TOTAL} bytes. Nothing was read.")
+    names, seen = [], {}
     for info in infos:
         name = info.filename
         parts = PurePosixPath(name).parts
-        if "\\" in name or name.startswith("/") or ".." in parts or any(":" in p for p in parts):
+        if "\\" in name or name.startswith("/") or ".." in parts or any(":" in p for p in parts) or CONTROL.search(name):
             errors.append(f"Unsafe path in ZIP: {name!r}")
         if stat.S_ISLNK(info.external_attr >> 16):
             errors.append(f"Symlink not allowed: {name!r}")
+        key = name.lower()
+        if key in seen:
+            errors.append(f"Duplicate or case-colliding ZIP entry: {name!r} and {seen[key]!r}")
+        seen[key] = name
         names.append(name)
     prefix = ""
     if "project.json" not in names and "oneblock.json" not in names:
         tops = {PurePosixPath(n).parts[0] for n in names}
         if len(tops) == 1 and all(len(PurePosixPath(n).parts) > 1 for n in names):
-            prefix = next(iter(tops)) + "/"  # tolerate one wrapping folder
+            prefix = next(iter(tops)) + "/"
     files: dict[str, bytes] = {}
     total = 0
     for info in infos:
@@ -101,11 +112,15 @@ def collect_files(z: zipfile.ZipFile, errors: list[str]) -> dict[str, bytes]:
         if info.file_size > bp.MAX_FILE:
             errors.append(f"File too large: {rel} ({info.file_size} bytes)")
             continue
-        data = z.read(info)
+        with z.open(info) as fh:
+            data = fh.read(bp.MAX_FILE + 1)
+        if len(data) > bp.MAX_FILE:
+            errors.append(f"File too large: {rel} (more than {bp.MAX_FILE} bytes)")
+            continue
         total += len(data)
+        if total > bp.MAX_TOTAL:
+            fail(f"Total uncompressed size exceeds {bp.MAX_TOTAL} bytes. Stopped reading.")
         files[rel] = data
-    if total > bp.MAX_TOTAL:
-        errors.append(f"Total uncompressed size {total} exceeds {bp.MAX_TOTAL} bytes.")
     return files
 
 
@@ -159,11 +174,23 @@ def main() -> None:
 
         base = root / "MCPEDL" / DEST[ptype]
         dest = base / args.name
+        clashes = []
+        for other_type, other in DEST.items():
+            d = root / "MCPEDL" / other
+            if d.is_dir():
+                clashes += [(other, c.name) for c in d.iterdir()
+                            if c.is_dir() and c.name.lower() == args.name.lower() and not (other_type == ptype and c.name == args.name)]
         if dest.exists() and not args.overwrite:
             fail(f"{dest.relative_to(root)} already exists. Re-run with overwrite enabled to replace it.")
-        for other_type, other in DEST.items():
-            if other_type != ptype and (root / "MCPEDL" / other / args.name).exists():
-                print(f"::warning::A folder named {args.name} also exists under MCPEDL/{other}/")
+        if clashes and not args.overwrite:
+            fail("Name clash: " + ", ".join(f"MCPEDL/{o}/{n}" for o, n in clashes)
+                 + " already exists (another project type or different letter case). Pick another name, or enable overwrite if the clash is intended.")
+        for o, n in clashes:
+            print(f"::warning::overwrite enabled: MCPEDL/{o}/{n} also exists and is left untouched")
+        if dest.exists():
+            old_files = sorted(p.relative_to(dest).as_posix() for p in dest.rglob("*") if p.is_file())
+            print(f"::warning::overwrite will delete {len(old_files)} existing file(s) in {dest.relative_to(root)}: "
+                  + ", ".join(old_files[:20]) + (" ..." if len(old_files) > 20 else ""))
         if ptype == "map":
             (stage / "oneblock.json").write_text(
                 json.dumps({"enabled": True, "name": pj["name"]}, indent=2) + "\n", encoding="utf-8")

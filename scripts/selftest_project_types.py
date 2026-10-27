@@ -67,12 +67,110 @@ def manifest(name, kind, rp_uuid=None, script=False, ui=False):
     return m
 
 
-MAIN_JS = '''import { world } from "@minecraft/server";
-import { ActionFormData } from "@minecraft/server-ui";
-const ID = "allenscreations:controller";
+MAIN_JS = '''import { world, system, ItemStack, EntityComponentTypes, GameMode } from "@minecraft/server";
+import { ActionFormData, FormCancelationReason } from "@minecraft/server-ui";
+
+const CONTROLLER_ID = "allenscreations:controller";
+const STATE_KEY = "game_state";
+const HOW_TO_PLAY = "Replace this text with the real rules of the game.";
+
+const getState = () => {
+  const v = world.getDynamicProperty(STATE_KEY);
+  return typeof v === "string" ? v : "idle";
+};
+const setState = (s) => world.setDynamicProperty(STATE_KEY, s);
+const isCreative = (player) => player.getGameMode() === GameMode.Creative;
+const containerOf = (player) => player.getComponent(EntityComponentTypes.Inventory)?.container;
+
+function hasController(player) {
+  const inv = containerOf(player);
+  if (!inv) return false;
+  for (let i = 0; i < inv.size; i++) {
+    if (inv.getItem(i)?.typeId === CONTROLLER_ID) return true;
+  }
+  return false;
+}
+function giveController(player) {
+  if (hasController(player)) return;
+  containerOf(player)?.addItem(new ItemStack(CONTROLLER_ID, 1));
+}
+function consumeController(player) {
+  if (isCreative(player)) return;
+  const inv = containerOf(player);
+  if (!inv) return;
+  for (let i = 0; i < inv.size; i++) {
+    if (inv.getItem(i)?.typeId === CONTROLLER_ID) {
+      inv.setItem(i, undefined);
+      player.playSound("random.break");
+      player.sendMessage("The Controller broke.");
+      return;
+    }
+  }
+}
+
+function startGame() {
+  setState("running");
+  world.sendMessage("Game started.");
+}
+function endGame() {
+  setState("ended");
+  world.sendMessage("Game ended.");
+  for (const p of world.getAllPlayers()) giveController(p);
+}
+
+async function showHowToPlay(player) {
+  const form = new ActionFormData().title("How to play").body(HOW_TO_PLAY).button("Back");
+  let res;
+  try {
+    res = await form.show(player);
+  } catch (e) {
+    return;
+  }
+  if (!res.canceled && res.selection === 0) openController(player);
+}
+
+async function openController(player, attempt = 0) {
+  const note = isCreative(player) ? "Creative: the Controller is kept." : "Start uses up the Controller.";
+  const form = new ActionFormData()
+    .title("Controller")
+    .body(`State: ${getState()}\n${note}`)
+    .button("Start")
+    .button("How to play");
+  let res;
+  try {
+    res = await form.show(player);
+  } catch (e) {
+    return;
+  }
+  if (res.canceled) {
+    if (res.cancelationReason === FormCancelationReason.UserBusy && attempt < 5) {
+      system.runTimeout(() => openController(player, attempt + 1), 10);
+    }
+    return;
+  }
+  if (res.selection === 0) {
+    if (getState() === "running") {
+      player.sendMessage("Already running.");
+      return;
+    }
+    startGame();
+    consumeController(player);
+  } else if (res.selection === 1) {
+    showHowToPlay(player);
+  }
+}
+
 world.afterEvents.itemUse.subscribe(({ source, itemStack }) => {
-  if (itemStack.typeId !== ID) return;
-  new ActionFormData().title("Controller").button("Start").button("Restart").button("End").show(source);
+  if (itemStack?.typeId === CONTROLLER_ID) openController(source);
+});
+
+system.afterEvents.scriptEventReceive.subscribe(({ id }) => {
+  if (id === "allenscreations:end" && getState() === "running") endGame();
+});
+
+world.afterEvents.playerSpawn.subscribe(({ player, initialSpawn }) => {
+  if (!initialSpawn) return;
+  if (isCreative(player) || getState() !== "running") giveController(player);
 });
 '''
 DOCS = {"README.md": "# X\nSource created, not tested in game.\nLikely achievement-friendly.\nNo experiment requirement detected in the inspected files.\n",
@@ -104,8 +202,8 @@ def sample(root: Path, ptype: str, name: str, **kw) -> Path:
         write(d / "behavior_pack/scripts/main.js", MAIN_JS)
     if ptype == "map":
         write(d / "behavior_pack/functions/tick.json", json.dumps({"values": ["void_cleaner", "oneblock_tick"]}))
-        write(d / "behavior_pack/functions/void_cleaner.mcfunction", "execute as @a[tag=!void_cleaned] run fill -16 -64 -16 16 -64 16 air\n")
-        write(d / "behavior_pack/functions/oneblock_tick.mcfunction", "# noop\n")
+        write(d / "behavior_pack/functions/void_cleaner.mcfunction", "execute as @a[tag=!void_cleaned] run fill -16 -64 -16 16 -64 16 air\nexecute as @a[tag=!void_cleaned] run tag @s add void_cleaned\n")
+        write(d / "behavior_pack/functions/oneblock_tick.mcfunction", "scoreboard objectives add sample dummy\n")
         write(d / "behavior_pack/functions/oneblock_setup.mcfunction", "scoreboard objectives add sample dummy\n")
     if ptype == "script":
         write(d / "test_world.json", json.dumps({"mode": "Creative", "include_addons": kw.get("include", [])}))
@@ -222,7 +320,10 @@ def main() -> int:
         reject("script without test_world.json", lambda d: (d / "test_world.json").unlink(), "test_world.json")
         reject("script including an add-on that does not exist", lambda d: write(d / "test_world.json", json.dumps({"include_addons": ["Nope-Addon"]})), "not found")
         reject("tampered controller.png", lambda d: (d / "resource_pack/textures/items/controller.png").write_bytes(b"\x89PNG\r\n\x1a\n" + b"0" * 40), "controller.png")
-        reject("main.js without the End button", lambda d: write(d / "behavior_pack/scripts/main.js", MAIN_JS.replace('.button("End")', "")), "'End'")
+        reject("main.js without the How to play button", lambda d: write(d / "behavior_pack/scripts/main.js", MAIN_JS.replace('.button("How to play")', "")), "'How to play'")
+        reject("main.js with an extra Restart button", lambda d: write(d / "behavior_pack/scripts/main.js", MAIN_JS.replace('.button("How to play")', '.button("How to play").button("Restart")')), "must not have Restart or End")
+        reject("map whose void cleaner never adds the tag", lambda d: write(d / "behavior_pack/functions/void_cleaner.mcfunction", "execute as @a[tag=!void_cleaned] run fill -16 -64 -16 16 -64 16 air\n"), "void_cleaned tag", ptype="map")
+        reject("payload reusing UUIDs of an imported project", lambda d: write(d / "behavior_pack/manifest.json", (root / "MCPEDL/new_addons/Sample-Addon/behavior_pack/manifest.json").read_text()), "already used by")
         reject("world data (db folder)", lambda d: write(d / "behavior_pack/db/x.json", "{}"), "world data")
         reject("map without the void cleaner line", lambda d: write(d / "behavior_pack/functions/void_cleaner.mcfunction", "say hi\n"), "void_cleaner", ptype="map")
         reject("test world mode typo", lambda d: write(d / "test_world.json", json.dumps({"mode": "Peaceful"})), "mode must be")

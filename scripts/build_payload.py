@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Project payload builder v6 for AllensCreations/MCPE-Curseforges.
+"""Project payload builder v8 for AllensCreations/MCPE-Curseforges.
 
 One script for all three project types: addon, map (OneBlock), script.
 It installs the mandatory repo assets that are missing, runs every structural check,
@@ -12,11 +12,14 @@ Needs build/Project-Name/project.json:  {"type": "addon|map|script", "name": "Di
 Structural checks only: never proof that anything works in Minecraft.
 Exit codes: 0 ok, 1 checks failed, 2 packaging or round-trip failed.
 """
-import argparse, base64, hashlib, io, json, re, struct, sys, zipfile
+import argparse, base64, hashlib, io, json, re, shutil, struct, subprocess, sys, tempfile, zipfile
 from pathlib import Path, PurePosixPath
 
 TYPES = ("addon", "map", "script")
 MODES = ("Creative", "Survival", "Hardcore")
+DEST_DIR = {"addon": "new_addons", "map": "maps", "script": "script"}
+MIN_ITEM_FORMAT = [1, 20, 80]
+CONTROLLER_LABELS = ("Start", "How to play")
 LEDGER_SHA256 = "fecc64905334511d97569611666ffa28a8941683a20e30ca5926ecb9ffd9c001"
 LEDGER_PNG_B64 = "iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAA/0lEQVR42mNgGAUDDBgJKTgy0eI/pZbY5J/AaQ8TLglbdan/tupS/6nhS3zmMA26KCj3Vkdx7bE7nymyoD1LDm90sBAyYNXKSrItDwtvJ6hmwKOAhViFfFJGRBv66dk58h3w5P2vwRkCMBDVXotTblllM+0dQAp45qnBEH8fVUy5wOn/3Qn7GOniAAYGBgYFP1kU/oNNjykLAXKCOdVCg4GBgYFh9okbIywNwAA2nw+9goiSYKZ5OYDPUeipnq5pQGr7DYK14eBLAzKCbIMzDZBSw5ECBn82JKZVQ5NmOawli56KyQGV0x4xHL75jHFoRQHCxXIU9w1w+X4UDAoAACWbTR1cQx13AAAAAElFTkSuQmCC"
 CONTROLLER_SHA256 = "c2f833f915003f333991bc098df114f1765fc2b8ecd2ccda98b7d6128f2d234a"
@@ -26,7 +29,7 @@ ASSET_DIR = "Mcpeworlds/assets/resources_pack/textures/items"  # repo copies, us
 LEDGER_TEXTURE = {"resource_pack_name": "dirtbound_kingdom", "texture_name": "atlas.items",
                   "texture_data": {"trader_ledger": {"textures": "textures/items/trader_ledger"}}}
 LEDGER_ITEM = {
-    "format_version": "1.20.80",
+    "format_version": "",
     "minecraft:item": {
         "description": {"identifier": "allenscreations:trader_ledger", "menu_category": {"category": "items"}},
         "components": {
@@ -40,7 +43,7 @@ LEDGER_ITEM = {
 }
 CONTROLLER_ENTRY = {"textures": "textures/items/controller"}
 CONTROLLER_ITEM = {
-    "format_version": "1.20.80",
+    "format_version": "",
     "minecraft:item": {
         "description": {"identifier": "allenscreations:controller", "menu_category": {"category": "items"}},
         "components": {
@@ -53,6 +56,11 @@ CONTROLLER_ITEM = {
     },
 }
 GIVE_LINE = "give @s allenscreations:controller"
+END_LINE = "scriptevent allenscreations:end"
+ALLOWED_MODULES = ("@minecraft/server", "@minecraft/server-ui", "@minecraft/vanilla-data")
+REPO_URL = "https://github.com/AllensCreations/MCPE-Curseforges/tree/main/"
+GAMEPLAY_HEADING = re.compile(r"^##\s+.*(overview|feature|mechanic|how it works|about|rule|system|gameplay)", re.I | re.M)
+IMPORT_RE = re.compile(r"""(?:\bimport\b[^;]*?\bfrom\s*|\bimport\s*\(\s*|\bimport\s+)["']([^"']+)["']""")
 CLEANER = "execute as @a[tag=!void_cleaned] run fill -16 -64 -16 16 -64 16 air"
 ATTRIBUTION = "by AllensCreations"
 NAME_RE = re.compile(r"^[A-Za-z0-9][A-Za-z0-9._-]{0,63}$")
@@ -69,7 +77,7 @@ MAP_REQUIRED = ("resource_pack/manifest.json", "behavior_pack/functions/tick.jso
                 "resource_pack/textures/items/trader_ledger.png")
 CONTROLLER_REQUIRED = ("resource_pack/manifest.json", "behavior_pack/items/controller.json",
                        "resource_pack/textures/item_texture.json", "resource_pack/textures/items/controller.png",
-                       "behavior_pack/functions/give_controller.mcfunction")
+                       "behavior_pack/functions/give_controller.mcfunction", "behavior_pack/functions/end_game.mcfunction")
 
 
 def _png(b64, sha):
@@ -87,6 +95,24 @@ def read_project(root):
 
 def wants_controller(pj):
     return isinstance(pj, dict) and pj.get("type") == "script" and pj.get("controller", True) is not False
+
+
+def item_format_version(root):
+    try:
+        m = json.loads((Path(root) / "behavior_pack/manifest.json").read_text(encoding="utf-8-sig"))
+        mev = m["header"]["min_engine_version"]
+        if isinstance(mev, list) and len(mev) == 3 and all(isinstance(x, int) and not isinstance(x, bool) for x in mev) and mev != [0, 0, 0]:
+            return ".".join(str(x) for x in max(mev, MIN_ITEM_FORMAT))
+    except Exception:
+        pass
+    return None
+
+
+def _item(template, root):
+    fv = item_format_version(root)
+    if fv is None:
+        sys.exit("Set behavior_pack/manifest.json header.min_engine_version to the looked-up game version before running this script: the shipped item JSON takes its format_version from it.")
+    return {**template, "format_version": fv}
 
 
 def _write_json(p, data):
@@ -126,7 +152,7 @@ def install_assets(root):
                       LEDGER_TEXTURE["texture_data"]["trader_ledger"], "ledger", LEDGER_TEXTURE)
         i = root / "behavior_pack/items/trader_ledger.json"
         if not i.exists():
-            _write_json(i, LEDGER_ITEM)
+            _write_json(i, _item(LEDGER_ITEM, root))
             print("installed  behavior_pack/items/trader_ledger.json")
     elif wants_controller(pj):
         base = {"resource_pack_name": "allenscreations", "texture_name": "atlas.items",
@@ -134,19 +160,59 @@ def install_assets(root):
         _install_icon(root, "controller", _png(CONTROLLER_PNG_B64, CONTROLLER_SHA256), CONTROLLER_ENTRY, "controller", base)
         i = root / "behavior_pack/items/controller.json"
         if not i.exists():
-            _write_json(i, CONTROLLER_ITEM)
+            _write_json(i, _item(CONTROLLER_ITEM, root))
             print("installed  behavior_pack/items/controller.json")
         g = root / "behavior_pack/functions/give_controller.mcfunction"
         if not g.exists():
             g.parent.mkdir(parents=True, exist_ok=True)
             g.write_text(GIVE_LINE + "\n", encoding="utf-8")
             print("installed  behavior_pack/functions/give_controller.mcfunction")
+        e = root / "behavior_pack/functions/end_game.mcfunction"
+        if not e.exists():
+            e.parent.mkdir(parents=True, exist_ok=True)
+            e.write_text(END_LINE + "\n", encoding="utf-8")
+            print("installed  behavior_pack/functions/end_game.mcfunction")
 
 
 def _png_size(d):
     if d[:8] != b"\x89PNG\r\n\x1a\n" or len(d) < 24:
         return None
     return struct.unpack(">II", d[16:24])
+
+
+def _has_comment(src):
+    i, n, q = 0, len(src), None
+    while i < n:
+        c = src[i]
+        if q:
+            if c == "\\":
+                i += 2
+                continue
+            if c == q or (q != "`" and c == "\n"):
+                q = None
+            i += 1
+            continue
+        if c in "\"'`":
+            q = c
+        elif c == "/" and i + 1 < n and src[i + 1] in "/*":
+            return True
+        i += 1
+    return False
+
+
+def _node_syntax(path):
+    """Return (ran, error). Uses node --check on a .mjs copy; ran is False when node is missing."""
+    node = shutil.which("node")
+    if not node:
+        return False, ""
+    with tempfile.TemporaryDirectory() as t:
+        tmp = Path(t) / "check.mjs"
+        shutil.copyfile(path, tmp)
+        r = subprocess.run([node, "--check", str(tmp)], capture_output=True, text=True)
+    if r.returncode == 0:
+        return True, ""
+    errs = [ln for ln in r.stderr.splitlines() if "Error" in ln]
+    return True, (errs[-1] if errs else "syntax error").strip()
 
 
 def run_checks(root, repo_root=None, folder=None):
@@ -236,8 +302,10 @@ def run_checks(root, repo_root=None, folder=None):
             check(CLEANER in lines, "void_cleaner.mcfunction lacks the exact required fill line")
             cmds = [x for x in lines if x.strip() and not x.lstrip().startswith("#")]
             check(bool(cmds) and cmds[0] == CLEANER, "the required fill line must be the first command")
+            check(bool(cmds) and re.search(r"\btag\b.*\badd\s+void_cleaned\b", cmds[-1]) is not None,
+                  "void_cleaner.mcfunction: the last command must add the void_cleaned tag, otherwise every command repeats every tick")
 
-    uuids, versions, huuid, bpm = [], {}, {}, {}
+    uuids, versions, huuid, bpm, mevs = [], {}, {}, {}, {}
     labels = ["behavior_pack"] + (["resource_pack"] if (root / "resource_pack/manifest.json").is_file() else [])
     for label in labels:
         m = jload(f"{label}/manifest.json")
@@ -251,8 +319,9 @@ def run_checks(root, repo_root=None, folder=None):
         check(isinstance(uuid, str) and bool(UUID_V4.match(uuid)), f"{label}: header.uuid missing or not a v4 UUID")
         check(isinstance(ver, list) and len(ver) == 3 and all(isinstance(x, int) for x in ver), f"{label}: header.version must be [x,y,z]")
         mev = h.get("min_engine_version")
-        if not (isinstance(mev, list) and len(mev) == 3 and all(isinstance(x, int) for x in mev)):
-            warns.append(f"{label}: header.min_engine_version should be a 3-number array")
+        if not (isinstance(mev, list) and len(mev) == 3 and all(isinstance(x, int) and not isinstance(x, bool) for x in mev)) or mev == [0, 0, 0]:
+            fails.append(f"{label}: header.min_engine_version must be 3 integers (the looked-up game version), not a placeholder")
+        mevs[label] = mev
         t = TITLE.match(name) if isinstance(name, str) else None
         check(bool(t), f"{label}: header.name must end with one (vX.Y.Z)")
         if t and isinstance(ver, list):
@@ -274,6 +343,20 @@ def run_checks(root, repo_root=None, folder=None):
         if label == "resource_pack":
             check(any(x.get("type") == "resources" for x in mods), "resource_pack needs a 'resources' module")
     check(len(uuids) == len(set(uuids)), "UUIDs must all be unique (headers and modules)")
+    if repo_root:
+        mine = {u.lower() for u in uuids if isinstance(u, str)}
+        for mp in sorted((Path(repo_root) / "MCPEDL").glob("*/*/*/manifest.json")):
+            proj = mp.parent.parent
+            if folder and proj.name == folder and proj.parent.name == DEST_DIR.get(ptype):
+                continue
+            try:
+                other = json.loads(mp.read_text(encoding="utf-8-sig"))
+            except Exception:
+                continue
+            ids = [(other.get("header") or {}).get("uuid")] + [m.get("uuid") for m in other.get("modules") or []]
+            for u in ids:
+                if isinstance(u, str) and u.lower() in mine:
+                    fails.append(f"UUID {u} is already used by MCPEDL/{proj.parent.name}/{proj.name}: generate fresh UUIDs")
     if "resource_pack" in versions:
         check(versions.get("behavior_pack") == versions.get("resource_pack"), "behavior and resource pack versions must match")
         dep = [d for d in bpm.get("dependencies") or [] if d.get("uuid") == huuid.get("resource_pack")]
@@ -285,6 +368,7 @@ def run_checks(root, repo_root=None, folder=None):
         if "module_name" in d:
             modnames[d["module_name"]] = d.get("version")
             check(isinstance(d.get("version"), str) and bool(d.get("version")), f"dependency {d['module_name']} needs a version string")
+            check(d["module_name"] in ALLOWED_MODULES, f"dependency {d['module_name']} is not allowed (allowed: {', '.join(ALLOWED_MODULES)})")
         if any(w in str(d.get("version", "")).lower() for w in ("beta", "rc", "preview")):
             warns.append(f"preview/beta dependency {d.get('module_name')}: allowed only if a requested feature needs it; say so in the README")
     has_script = any(x.get("type") == "script" for x in bpm.get("modules") or [])
@@ -294,12 +378,24 @@ def run_checks(root, repo_root=None, folder=None):
         check("@minecraft/server" in modnames, "script module needs a @minecraft/server dependency")
     if controller:
         check("@minecraft/server-ui" in modnames, "controller needs a @minecraft/server-ui dependency")
+    mev_bp = mevs.get("behavior_pack")
+    if isinstance(mev_bp, list) and len(mev_bp) == 3 and all(isinstance(x, int) for x in mev_bp) and mev_bp != [0, 0, 0]:
+        for item_rel in ("behavior_pack/items/trader_ledger.json", "behavior_pack/items/controller.json"):
+            ip = root / item_rel
+            if not ip.is_file():
+                continue
+            try:
+                fv = [int(x) for x in str(json.loads(ip.read_text(encoding="utf-8-sig")).get("format_version", "")).split(".")]
+            except Exception:
+                continue
+            if len(fv) == 3 and fv > mev_bp:
+                warns.append(f"{item_rel}: format_version {'.'.join(map(str, fv))} is newer than min_engine_version {'.'.join(map(str, mev_bp))}: raise min_engine_version")
 
     rec = root / "behavior_pack/recipes"
     for p in rec.glob("**/*.json") if rec.is_dir() else []:
         check(b"AlwaysUnlocked" in p.read_bytes(), f"{p.relative_to(root).as_posix()}: missing AlwaysUnlocked")
 
-    def icon_checks(key, ident, item_rel, want_sha, size, asset):
+    def icon_checks(key, ident, item_rel, want_sha, size):
         png = root / f"resource_pack/textures/items/{key}.png"
         if png.is_file():
             d = png.read_bytes()
@@ -320,32 +416,55 @@ def run_checks(root, repo_root=None, folder=None):
         icon = ((item.get("components") or {}).get("minecraft:icon") or {}).get("textures", {}).get("default")
         check(icon == key, f"{item_rel}: icon default must be {key}")
 
+    scripts_dir = root / "behavior_pack/scripts"
+    for jp in sorted(scripts_dir.rglob("*.js")) if scripts_dir.is_dir() else []:
+        jrel = jp.relative_to(root).as_posix()
+        jtxt = jp.read_text(encoding="utf-8")
+        for spec in IMPORT_RE.findall(jtxt):
+            check(spec in ALLOWED_MODULES or spec.startswith(("./", "../")),
+                  f"{jrel}: import of '{spec}' is not allowed (only {', '.join(ALLOWED_MODULES)} and relative files)")
+        check(not re.search(r"\beval\s*\(|\bFunction\s*\(", jtxt), f"{jrel}: eval and the Function constructor are not allowed")
+        if _has_comment(jtxt):
+            warns.append(jrel + ": remove comments (no comments in scripts)")
+        ran, err = _node_syntax(jp)
+        if ran and err:
+            fails.append(f"{jrel}: syntax error: {err}")
+        elif not ran:
+            warns.append(f"{jrel}: syntax not checked (node not found)")
+
     if ptype == "map":
-        icon_checks("trader_ledger", "allenscreations:trader_ledger", "behavior_pack/items/trader_ledger.json", LEDGER_SHA256, (32, 32), "ledger")
+        icon_checks("trader_ledger", "allenscreations:trader_ledger", "behavior_pack/items/trader_ledger.json", LEDGER_SHA256, (32, 32))
     if controller:
-        icon_checks("controller", "allenscreations:controller", "behavior_pack/items/controller.json", CONTROLLER_SHA256, (16, 16), "controller")
+        icon_checks("controller", "allenscreations:controller", "behavior_pack/items/controller.json", CONTROLLER_SHA256, (16, 16))
         mj = root / "behavior_pack/scripts/main.js"
         if mj.is_file():
             js = mj.read_text(encoding="utf-8")
             check("allenscreations:controller" in js, "main.js never mentions allenscreations:controller")
             check("ActionFormData" in js, "main.js must open the controller with ActionFormData")
-            for label in ("Start", "Restart", "End"):
-                check(f'"{label}"' in js or f"'{label}'" in js, f"main.js: controller button '{label}' not found")
-            check("getGameMode" in js and "GameMode.Creative" in js, "main.js: the controller must check GameMode.Creative with getGameMode()")
-            check("setItem" in js and "selectedSlotIndex" in js, "main.js: Start/Restart must consume the controller outside Creative")
+            btn = []
+            for label in CONTROLLER_LABELS:
+                mt = re.search(r"\.button\(\s*[\"']" + label + r"[\"']", js)
+                check(mt is not None, f"main.js: controller button '{label}' not found")
+                btn.append(mt.start() if mt else None)
+            if all(x is not None for x in btn):
+                check(btn == sorted(btn), "main.js: controller buttons must be added in the order Start, How to play")
+            check(re.search(r"\.button\(\s*[\"'](?:Restart|End)[\"']", js) is None, "main.js: the controller form must not have Restart or End buttons")
+            check(re.search(r"getGameMode\(\)\s*[!=]==?\s*GameMode\.Creative", js) is not None,
+                  "main.js: the controller must check GameMode.Creative with getGameMode()")
+            check(re.search(r"\.setItem\(", js) is not None, "main.js: Start must consume the controller outside Creative (setItem)")
+            check("scriptEventReceive" in js and "allenscreations:end" in js, "main.js: must handle the allenscreations:end script event")
             if "setInterval" in js or "system.runInterval" in js:
                 warns.append("main.js uses a repeating timer; confirm it is not a per-tick scan")
 
     gf = root / "behavior_pack/functions/give_controller.mcfunction"
     if controller and gf.is_file():
         check(GIVE_LINE in gf.read_text(encoding="utf-8").splitlines(), "give_controller.mcfunction must contain: " + GIVE_LINE)
-    for rel in ("behavior_pack/scripts/main.js",):
-        src = root / rel
-        if src.is_file() and any(re.match(r"\s*(//|/\*)", ln) for ln in src.read_text(encoding="utf-8").splitlines()):
-            warns.append(rel + ": remove comments (v6: no comments in scripts)")
+    ef = root / "behavior_pack/functions/end_game.mcfunction"
+    if controller and ef.is_file():
+        check(END_LINE in ef.read_text(encoding="utf-8").splitlines(), "end_game.mcfunction must contain: " + END_LINE)
     for fn in (root / "behavior_pack/functions").glob("**/*.mcfunction") if (root / "behavior_pack/functions").is_dir() else []:
         if any(ln.lstrip().startswith("#") for ln in fn.read_text(encoding="utf-8").splitlines()):
-            warns.append(fn.relative_to(root).as_posix() + ": remove comments (v6: no comments in functions)")
+            warns.append(fn.relative_to(root).as_posix() + ": remove comments (no comments in functions)")
 
     # test_world.json (required for scripts, optional for add-ons)
     tw_p = root / "test_world.json"
@@ -373,22 +492,52 @@ def run_checks(root, repo_root=None, folder=None):
         elif tw is not None:
             fails.append("test_world.json must be a JSON object")
 
-    readme = root / "README.md"
-    if readme.is_file():
-        low = readme.read_text(encoding="utf-8").lower()
-        if "not tested in game" not in low:
-            warns.append("README.md should state: source created, not tested in game")
-        if "http://" in low or "https://" in low:
-            warns.append("README.md contains a link: no download links allowed")
-        if ".mcworld" in low:
-            warns.append("README.md mentions .mcworld: archives are added after the build, do not claim them")
-        if not any(a in low for a in ACHIEVEMENT):
-            warns.append("README.md needs one achievement status line (Likely achievement-friendly / Not achievement-friendly / Unknown)")
-    desc_p = root / "DESCRIPTION.md"
-    if desc_p.is_file():
-        dl = desc_p.read_text(encoding="utf-8").lower()
-        if "script api" in dl or "@minecraft/" in dl:
-            warns.append("DESCRIPTION.md must not mention Script API or @minecraft modules (README_GUIDELINES)")
+    readme, desc_p, chg = root / "README.md", root / "DESCRIPTION.md", root / "CHANGELOG.md"
+    rtext = readme.read_text(encoding="utf-8") if readme.is_file() else ""
+    dtext = desc_p.read_text(encoding="utf-8") if desc_p.is_file() else ""
+    ctext = chg.read_text(encoding="utf-8") if chg.is_file() else ""
+    both = (rtext + "\n" + dtext).lower()
+    if rtext or dtext:
+        if "not tested in game" not in both:
+            warns.append("DOC: README.md or DESCRIPTION.md should state: source created, not tested in game")
+        if not any(a in both for a in ACHIEVEMENT):
+            warns.append("DOC: needs one achievement status line (Likely achievement-friendly / Not achievement-friendly / Unknown)")
+        if "experiment" not in both:
+            warns.append("DOC: needs an experiments line (for example: No experiment requirement detected in the inspected files.)")
+    for url in re.findall(r"https?://[^\s)>\]]+", rtext):
+        if not url.startswith(REPO_URL) or "/raw/" in url:
+            warns.append(f"DOC: README.md link not allowed (only {REPO_URL}... pages, no downloads): {url}")
+    if ".mcworld" in rtext.lower():
+        warns.append("DOC: README.md mentions .mcworld: archives are added after the build, do not claim them")
+    for name, text in (("README.md", rtext), ("DESCRIPTION.md", dtext)):
+        low = text.lower()
+        if "script api" in low or "@minecraft/" in low:
+            warns.append(f"DOC: {name} must not mention Script API or @minecraft modules (Part 2)")
+        if any(ln.lstrip().startswith("|") for ln in text.splitlines()):
+            warns.append(f"DOC: {name} must not contain Markdown tables (Part 2)")
+    nonempty = lambda t: len([ln for ln in t.splitlines() if ln.strip()])
+    if ptype == "addon":
+        rl = [ln for ln in rtext.splitlines() if ln.strip()]
+        okr = (bool(rl) and rl[0].startswith("# ") and len(rl) <= 24
+               and re.search(r"\*\*(?:Direct download|Download):\*\*\s*\[[^]]+\]\([^)]+\)", rtext) is not None
+               and "## Installation" in rtext and "## Add-on Information" in rtext and "DESCRIPTION.md" in rtext)
+        if not okr:
+            warns.append("DOC: add-on README.md must follow the Part 2 template (title, **Download:** link, ## Installation, "
+                         "## Add-on Information linking DESCRIPTION.md, at most 24 lines)")
+        page, page_name = dtext, "DESCRIPTION.md"
+    else:
+        page, page_name = rtext, "README.md"
+    if page and (GAMEPLAY_HEADING.search(page) is None or nonempty(page) < 25):
+        warns.append(f"DOC: {page_name} is the product page for this type: needs an Overview/Features section and at least 25 non-empty lines")
+    if dtext:
+        for h in ("## Guidelines and Attribution", "## Search & Discovery Keywords"):
+            if h not in dtext:
+                warns.append(f"DOC: DESCRIPTION.md lacks '{h}' (Part 2)")
+    if ctext:
+        if re.search(r"https?://", ctext):
+            warns.append("DOC: CHANGELOG.md must not contain links (Part 2)")
+        if re.search(r"(?m)^## \[\d+\.\d+\.\d+\] - \d{4}-\d{2}-\d{2}", ctext) is None:
+            warns.append("DOC: CHANGELOG.md needs entries like '## [1.0.0] - YYYY-MM-DD' (Part 2)")
     return fails, warns, len(files), total
 
 

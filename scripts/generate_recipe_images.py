@@ -4,7 +4,7 @@ from pathlib import Path
 from PIL import Image
 from crafting_template import compose_recipe_diagram
 
-ROOT_BEDROCK = os.path.join(os.environ.get("BEDROCK_SAMPLES_ROOT", "/root/bedrock-samples"), "resource_pack")
+ROOT_BEDROCK = os.path.join(os.environ.get("BEDROCK_SAMPLES_ROOT", "/tmp/bedrock-samples"), "resource_pack")
 OUT_DIR = "MCPEDL/addons/Grimoire-Relics-V2/assets/recipes"
 os.makedirs(OUT_DIR, exist_ok=True)
 

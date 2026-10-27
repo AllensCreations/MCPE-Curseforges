@@ -10,7 +10,7 @@ ADDON=ROOT/"MCPEDL/addons/Grand-Banquets"
 RECIPES=ADDON/"behavior_pack/recipes"
 TEXTURES=ADDON/"resource_pack/textures/items/banquet"
 OUT=ADDON/"assets/recipes"
-SAMPLES=Path(os.environ.get("BEDROCK_SAMPLES_ROOT","/root/bedrock-samples"))/"resource_pack"
+SAMPLES=Path(os.environ.get("BEDROCK_SAMPLES_ROOT","/tmp/bedrock-samples"))/"resource_pack"
 OUT.mkdir(parents=True,exist_ok=True)
 # Explicit, source-verified texture filenames, following the Monster Companions
 # generator's direct item-ID-to-texture mapping approach. Keep each item mapped once.
