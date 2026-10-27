@@ -768,7 +768,7 @@ test_world.json
 
 **The Controller.** Every script ships the repo's Controller icon (the user's `pixel_controller.png`, 16 x 16, shipped as `controller.png`) as item `allenscreations:controller`. Using it opens a form with exactly two buttons: **Start** and **How to play**. The user can opt out with `"controller": false` in `project.json`; then none of the Controller files are needed.
 
-- Only the host or an operator receives and can use the Controller (`player.isOp()`). **Start** works while the game is not running, and re-reads the game state after the form closes because another player may have changed it while it was open. **How to play** opens a second form that shows the rules text and a Back button.
+- Only the host or an operator receives and can use the Controller. Check this with the `isHost` helper from the template, never with `player.isOp()` alone: `isOp()` does not exist in the 2.x `@minecraft/server` module, so calling it throws and the Controller never opens. The helper uses `isOp()` when it exists and `playerPermissionLevel === 2` (Operator) otherwise. **Start** works while the game is not running, and re-reads the game state after the form closes because another player may have changed it while it was open. **How to play** opens a second form that shows the rules text and a Back button.
 - **Survival breaks it, Creative keeps it.** Start consumes the first Controller found in the player's inventory (not just the selected slot, so switching slots does not avoid it) unless `getGameMode()` is `GameMode.Creative`.
 - **How the game ends.** Your game logic calls `endGame()` on its win or lose condition. `endGame()` sets the state to `ended` and gives the host or operator a fresh one if they have none, so a Survival world cannot get stuck without one.
 - **Admin functions.** `give_controller.mcfunction` (`/function give_controller`) and `end_game.mcfunction` (`/function end_game`, which sends the `allenscreations:end` script event the script listens for) are always shipped and need cheats. They are not form buttons. The item also stays in the creative inventory (`menu_category`).
@@ -779,7 +779,7 @@ test_world.json
 **Controller texture pack (resource pack).** The icon is `Mcpeworlds/assets/resources_pack/textures/items/controller.png` in the repo, a 16 x 16 PNG. The importer compares your copy to that file byte for byte.
 
 - Never draw, recolor, resize or re-save it, and never write its base64 by hand. Running `build_payload.py` installs it for you as `resource_pack/textures/items/controller.png`.
-- The same run also creates `resource_pack/textures/item_texture.json` (`atlas.items`, entry `controller` pointing to `textures/items/controller`), `behavior_pack/items/controller.json` (identifier `allenscreations:controller`, icon `controller`, display name `Controller`, stack size 1, `format_version` taken from your behavior pack's `min_engine_version`, never lower than 1.20.80) `behavior_pack/functions/give_controller.mcfunction` and `behavior_pack/functions/end_game.mcfunction`. It never overwrites an existing PNG.
+- The same run also creates `resource_pack/textures/item_texture.json` (`atlas.items`, entry `controller` pointing to `textures/items/controller`), `behavior_pack/items/controller.json` (identifier `allenscreations:controller`, icon `controller`, display name `§l§bAllens§dCreations §6Controller` (shown in game as a color-coded "AllensCreations Controller"), stack size 1, `format_version` taken from your behavior pack's `min_engine_version`, never lower than 1.20.80) `behavior_pack/functions/give_controller.mcfunction` and `behavior_pack/functions/end_game.mcfunction`. It never overwrites an existing PNG.
 - Write `behavior_pack/manifest.json` with the looked-up `min_engine_version` before running the script, because the item JSON takes its `format_version` from it.
 - You still write `resource_pack/manifest.json` yourself (Section 3 template, fresh UUIDs, same version as the behavior pack) and add its dependency to the behavior pack manifest, plus `@minecraft/server-ui`.
 - Do not copy anything else from `Mcpeworlds/assets/`. Do not ship a resource pack for a script with `"controller": false` unless it has its own textures.
@@ -800,7 +800,9 @@ const getState = () => {
   return typeof v === "string" ? v : "idle";
 };
 const setState = (s) => world.setDynamicProperty(STATE_KEY, s);
+const OPERATOR_LEVEL = 2;
 const isCreative = (player) => player.getGameMode() === GameMode.Creative;
+const isHost = (player) => (typeof player.isOp === "function" ? player.isOp() : player.playerPermissionLevel === OPERATOR_LEVEL);
 const containerOf = (player) => player.getComponent(EntityComponentTypes.Inventory)?.container;
 
 function hasController(player) {
@@ -836,7 +838,7 @@ function startGame() {
 function endGame() {
   setState("ended");
   world.sendMessage("Game ended.");
-  for (const p of world.getAllPlayers()) if (p.isOp()) giveController(p);
+  for (const p of world.getAllPlayers()) if (isHost(p)) giveController(p);
 }
 
 async function showHowToPlay(player) {
@@ -882,7 +884,7 @@ async function openController(player, attempt = 0) {
 }
 
 world.afterEvents.itemUse.subscribe(({ source, itemStack }) => {
-    if (itemStack?.typeId === CONTROLLER_ID && source.isOp()) openController(source);
+    if (itemStack?.typeId === CONTROLLER_ID && isHost(source)) openController(source);
 });
 
 system.afterEvents.scriptEventReceive.subscribe(({ id }) => {
@@ -891,7 +893,7 @@ system.afterEvents.scriptEventReceive.subscribe(({ id }) => {
 
 world.afterEvents.playerSpawn.subscribe(({ player, initialSpawn }) => {
   if (!initialSpawn) return;
-  if (player.isOp() && (isCreative(player) || getState() !== "running")) giveController(player);
+  if (isHost(player) && (isCreative(player) || getState() !== "running")) giveController(player);
 });
 ```
 
@@ -986,7 +988,7 @@ CONTROLLER_ITEM = {
         "components": {
             "minecraft:max_stack_size": 1,
             "minecraft:icon": {"textures": {"default": "controller"}},
-            "minecraft:display_name": {"value": "Controller"},
+            "minecraft:display_name": {"value": "§l§bAllens§dCreations §6Controller"},
             "minecraft:use_animation": "spyglass",
             "minecraft:use_modifiers": {"use_duration": 0.1, "movement_modifier": 1},
         },
