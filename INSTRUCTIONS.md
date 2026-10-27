@@ -217,8 +217,8 @@ For maps, Creative is the primary and only designated in-game test world (a scri
 
 - A script project is `MCPEDL/script/<Name>/` with `behavior_pack/` (script module, `scripts/main.js`), `resource_pack/`, `project.json`, `test_world.json`, and the documentation files.
 - Every script ships the Controller item (`allenscreations:controller`, texture `controller.png`, a 16 x 16 icon kept at `Mcpeworlds/assets/resources_pack/textures/items/controller.png`). Using it opens a form with **Start** and **How to play**; the script keeps the state (idle, running, ended) in a world dynamic property. A project may opt out with `"controller": false` in `project.json`.
-- **Start** works for anyone while no game is running. **How to play** opens a page with the game's rules and a Back button. The game ends through its own win or lose logic, which calls `endGame()`.
-- **Survival breaks the Controller, Creative keeps it.** Start consumes the first Controller found in the player's inventory (switching slots does not avoid it) unless the player is in Creative. When the game ends, the script gives every player without one a fresh Controller. `give_controller.mcfunction` (`give @s allenscreations:controller`) and `end_game.mcfunction` (`scriptevent allenscreations:end`) ship with every Controller script, need cheats, and are not form buttons.
+- Only the host or an operator receives and can use the Controller. **Start** works while no game is running. **How to play** opens a page with the game's rules and a Back button. The game ends through its own win or lose logic, which calls `endGame()`.
+- **Survival breaks the Controller, Creative keeps it.** Start consumes the first Controller found in the player's inventory (switching slots does not avoid it) unless the player is in Creative. When the game ends, the script gives the host or operator a fresh Controller if they have none. `give_controller.mcfunction` (`give @s allenscreations:controller`) and `end_game.mcfunction` (`scriptevent allenscreations:end`) ship with every Controller script, need cheats, and are not form buttons.
 - `test_world.json` is `{"mode": "Creative", "include_addons": ["Name", ...]}`. Included add-ons are looked up in `MCPEDL/addons/` and `MCPEDL/new_addons/`. `scripts/build_test_world.py` copies `Mcpeworlds/<mode>`, installs the script and every included add-on, links all packs, and writes `<Name> - Test.mcworld` into the project folder. It fails on a missing include, duplicate pack UUIDs, or an unresolved pack dependency. Experiments and achievement state come from the foundation and are not verified.
 - `build-test-world.yml` rebuilds test worlds on demand. Add-ons may also carry a `test_world.json`.
 - The one-OneBlock-pack-per-world rule applies to maps only; a script test world may link several packs.
@@ -770,11 +770,11 @@ test_world.json
 
 **The Controller.** Every script ships the repo's Controller icon (the user's `pixel_controller.png`, 16 x 16, shipped as `controller.png`) as item `allenscreations:controller`. Using it opens a form with exactly two buttons: **Start** and **How to play**. The user can opt out with `"controller": false` in `project.json`; then none of the Controller files are needed.
 
-- **Start** works for anyone while the game is not running, and re-reads the game state after the form closes because another player may have changed it while it was open. **How to play** opens a second form that shows the rules text and a Back button.
+- Only the host or an operator receives and can use the Controller (`player.isOp()`). **Start** works while the game is not running, and re-reads the game state after the form closes because another player may have changed it while it was open. **How to play** opens a second form that shows the rules text and a Back button.
 - **Survival breaks it, Creative keeps it.** Start consumes the first Controller found in the player's inventory (not just the selected slot, so switching slots does not avoid it) unless `getGameMode()` is `GameMode.Creative`.
-- **How the game ends.** Your game logic calls `endGame()` on its win or lose condition. `endGame()` sets the state to `ended` and gives every player without a Controller a fresh one, so a Survival world cannot get stuck without one.
+- **How the game ends.** Your game logic calls `endGame()` on its win or lose condition. `endGame()` sets the state to `ended` and gives the host or operator a fresh one if they have none, so a Survival world cannot get stuck without one.
 - **Admin functions.** `give_controller.mcfunction` (`/function give_controller`) and `end_game.mcfunction` (`/function end_game`, which sends the `allenscreations:end` script event the script listens for) are always shipped and need cheats. They are not form buttons. The item also stays in the creative inventory (`menu_category`).
-- **Giving it.** The script gives it on a player's first spawn when they do not already carry one, and only if the game is not `running` (Creative players always get one). Game state (`idle`, `running`, `ended`) lives in a world dynamic property so it survives rejoining.
+- **Giving it.** The script gives it only to the host or an operator on their first spawn, when they do not already carry one and the game is not `running` (Creative operators always get one). Game state (`idle`, `running`, `ended`) lives in a world dynamic property so it survives rejoining.
 - **The form** shows the state and a one-line statement of whether the Controller will be kept. Keep the two labels `"Start"` and `"How to play"` exactly, in that order, and do not add Restart or End buttons.
 - **How to play text.** Replace the `HOW_TO_PLAY` constant in the template with the real rules of your game: goal, controls, and how it ends.
 
@@ -838,7 +838,7 @@ function startGame() {
 function endGame() {
   setState("ended");
   world.sendMessage("Game ended.");
-  for (const p of world.getAllPlayers()) giveController(p);
+  for (const p of world.getAllPlayers()) if (p.isOp()) giveController(p);
 }
 
 async function showHowToPlay(player) {
@@ -884,7 +884,7 @@ async function openController(player, attempt = 0) {
 }
 
 world.afterEvents.itemUse.subscribe(({ source, itemStack }) => {
-  if (itemStack?.typeId === CONTROLLER_ID) openController(source);
+    if (itemStack?.typeId === CONTROLLER_ID && source.isOp()) openController(source);
 });
 
 system.afterEvents.scriptEventReceive.subscribe(({ id }) => {
@@ -893,7 +893,7 @@ system.afterEvents.scriptEventReceive.subscribe(({ id }) => {
 
 world.afterEvents.playerSpawn.subscribe(({ player, initialSpawn }) => {
   if (!initialSpawn) return;
-  if (isCreative(player) || getState() !== "running") giveController(player);
+  if (player.isOp() && (isCreative(player) || getState() !== "running")) giveController(player);
 });
 ```
 
