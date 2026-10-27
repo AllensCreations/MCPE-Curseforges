@@ -36,6 +36,12 @@ jobs:
         with:
           python-version: "3.x"
 
+      - name: Convert icon files to pack_icon.png
+        run: |
+          set -euo pipefail
+          pip install pillow
+          python3 scripts/make_pack_icon.py
+
       - name: Refresh projects and rebuild distributable packs
         env:
           TARGET: ${{ github.event.inputs.target || 'all' }}
