@@ -1,12 +1,13 @@
 # Team Inventory (v1.0.14)
 
-Team Inventory shares one inventory between everyone in the same Minecraft Bedrock world: main inventory, armor, offhand and the selected hotbar slot.
+Team Inventory shares one inventory between everyone in the same Minecraft Bedrock world once the Controller starts it: main inventory, armor, offhand and the selected hotbar slot.
 
 ## Installation
 
 1. Import the pack into Minecraft.
-2. Enable it in the world's Behavior Packs settings.
-3. Have players join the same world.
+2. Enable the Behavior Pack and the Resource Pack in the world's settings.
+3. Use the Controller item and choose Start.
+4. In Survival the Controller breaks on Start or Restart; the function give_controller replaces it.
 
 ## Project Information
 

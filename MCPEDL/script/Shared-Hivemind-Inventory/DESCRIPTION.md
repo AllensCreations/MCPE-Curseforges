@@ -14,8 +14,8 @@ The add-on keeps the team's inventory state synchronized as players join and pla
 - **What Happens:** The team's main inventory, armor, offhand, and selected hotbar slot are shared among online players.
 
 ### Joining Players
-- **What Happens:** Players who join a world that already has a shared inventory receive the team inventory. Their own items are replaced, so store anything personal before joining.
-- **First Setup:** When the add-on starts with no saved team inventory, every online player's items are combined into it and extra items are dropped at their feet.
+- **What Happens:** Players who join while sharing is running receive the team inventory. Their own items are replaced, so store anything personal before joining.
+- **First Setup:** When sharing starts, every online player's items are combined into the team inventory and extra items are dropped at their feet.
 
 ### Conflict Recovery
 - **What Happens:** When players make conflicting inventory changes, the add-on attempts to preserve affected items as world drops and provides brief feedback.
@@ -28,11 +28,20 @@ The add-on keeps the team's inventory state synchronized as players join and pla
 ### World Settings
 - **Important:** The add-on does not force the world's keep-inventory setting. The result of death drops can therefore depend on the world's existing setting.
 
+### Controller
+- **What Happens:** Every player receives a Controller item when they join. Using it opens a menu with Start, Restart and End.
+- **Start:** Begins sharing and combines everyone's current items.
+- **Restart:** Empties the shared inventory and keeps sharing.
+- **End:** Stops sharing. Everyone keeps the items they hold.
+- **Survival:** Start and Restart use up the Controller. Get a new one from the creative inventory or with the function give_controller.
+- **Creative:** The Controller is kept.
+
 ## How to Use
 
-1. Import the pack and enable it in the world's Behavior Packs settings.
-2. Have players join the same world; the shared inventory is synchronized for the group.
+1. Import the pack and enable both the Behavior Pack and the Resource Pack in the world settings.
+2. Use the Controller and choose Start; sharing stays off until then.
 3. Coordinate item use with teammates, since inventory changes affect everyone.
+4. Use the Controller again and choose End when you want everyone to go back to separate inventories.
 
 ## Compatibility and Limitations
 

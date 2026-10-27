@@ -12,6 +12,10 @@
 - **Hotbar Selection:** Simultaneous hotbar changes no longer fight each other.
 - **Error Messages:** Internal error warnings are limited so they no longer flood chat.
 
+### Added
+- **Controller:** A Controller item with Start, Restart and End controls when sharing is active. It breaks in Survival and is kept in Creative.
+- **Replacement Function:** give_controller gives a new Controller.
+
 ### Improved
 - **Performance:** Inventory comparison skips detailed checks when item type or amount already differ.
 - **Compatibility:** Updated to the current stable game scripting version.

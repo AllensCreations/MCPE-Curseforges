@@ -1,6 +1,9 @@
-import { world, system, ItemStack, EquipmentSlot, EnchantmentTypes } from "@minecraft/server";
+import { world, system, ItemStack, EquipmentSlot, EnchantmentTypes, EntityComponentTypes, GameMode } from "@minecraft/server";
+import { ActionFormData, FormCancelationReason } from "@minecraft/server-ui";
 
 const STORAGE_KEY = "allenscreations:hivemind_v106";
+const STATE_KEY = "allenscreations:team_state";
+const CONTROLLER_ID = "allenscreations:controller";
 const MAX_STORED = 30000;
 const MAX_APPLY_RETRIES = 10;
 const ERROR_COOLDOWN = 200;
@@ -14,6 +17,7 @@ let syncing = false;
 let initialized = false;
 let tickBusy = false;
 let warnedSize = false;
+let stripControllers = false;
 let lastErrorTick = -ERROR_COOLDOWN;
 const snapshots = new Map();
 const pendingDeath = new Map();
@@ -24,6 +28,13 @@ function withSync(fn) {
   syncing = true;
   try { fn(); } finally { syncing = false; }
 }
+const getState = () => {
+  const v = world.getDynamicProperty(STATE_KEY);
+  return typeof v === "string" ? v : "idle";
+};
+const setState = (s) => world.setDynamicProperty(STATE_KEY, s);
+const isRunning = () => safe(getState, "idle") === "running";
+const isCreative = (player) => safe(() => player.getGameMode() === GameMode.Creative, false);
 function inventoryOf(player) { return safe(() => player.getComponent("minecraft:inventory")?.container); }
 function equipmentOf(player) { return safe(() => player.getComponent("minecraft:equippable")); }
 function clone(item) { return item ? safe(() => item.clone(), undefined) : undefined; }
@@ -156,11 +167,13 @@ function placeItem(state, item) {
   state.slots[i] = clone(item);
   return true;
 }
+function hasControllerState(state) { return state.slots.some(s => s?.typeId === CONTROLLER_ID); }
 function mergeInto(state, player) {
   const read = readPlayer(player);
   if (!read) return;
   read.slots.forEach((item, i) => {
     if (!item) return;
+    if (item.typeId === CONTROLLER_ID && (stripControllers || hasControllerState(state))) return;
     if (!state.slots[i]) state.slots[i] = clone(item);
     else if (!placeItem(state, item)) spawnSafely(player, item);
   });
@@ -215,6 +228,7 @@ function initialize(players) {
     master.selected = safe(() => players[0].selectedSlotIndex, 0);
     persist();
   }
+  stripControllers = false;
   initialized = true;
   withSync(() => { for (const p of players) applyState(p, master); });
 }
@@ -222,6 +236,7 @@ function syncTick() {
   if (syncing || tickBusy) return;
   tickBusy = true;
   try {
+    if (!isRunning()) return;
     const players = livePlayers();
     if (!players.length) return;
     if (!initialized) { initialize(players); return; }
@@ -237,9 +252,100 @@ function syncTick() {
   } finally { tickBusy = false; }
 }
 
+function resetSharing() {
+  master = null;
+  initialized = false;
+  snapshots.clear();
+  applyFails.clear();
+  safe(() => world.setDynamicProperty(STORAGE_KEY, undefined));
+}
+function hasController(player) {
+  const inv = inventoryOf(player);
+  if (!inv) return false;
+  for (let i = 0; i < inv.size; i++) {
+    if (inv.getItem(i)?.typeId === CONTROLLER_ID) return true;
+  }
+  return false;
+}
+function giveController(player) {
+  if (hasController(player)) return;
+  inventoryOf(player)?.addItem(new ItemStack(CONTROLLER_ID, 1));
+}
+function consumeController(player) {
+  if (isCreative(player)) return;
+  const inv = inventoryOf(player);
+  const slot = player.selectedSlotIndex;
+  if (inv?.getItem(slot)?.typeId !== CONTROLLER_ID) return;
+  inv.setItem(slot, undefined);
+  player.playSound("random.break");
+  player.sendMessage("The Controller broke.");
+}
+function startGame(player) {
+  resetSharing();
+  stripControllers = !isCreative(player);
+  setState("running");
+  consumeController(player);
+  world.sendMessage("§a[Team Inventory] Sharing started. Everyone's items are being combined.");
+}
+function endGame() {
+  resetSharing();
+  setState("ended");
+  world.sendMessage("§e[Team Inventory] Sharing ended. Everyone keeps their current items.");
+}
+function restartGame(player) {
+  if (!isRunning() || !master) {
+    startGame(player);
+    return;
+  }
+  master = emptyState();
+  persist();
+  withSync(() => { for (const p of livePlayers()) applyState(p, master); });
+  if (isCreative(player)) giveController(player);
+  else {
+    player.playSound("random.break");
+    player.sendMessage("The Controller broke.");
+  }
+  world.sendMessage("§e[Team Inventory] Shared inventory was emptied.");
+}
+async function openController(player, attempt = 0) {
+  const state = getState();
+  const note = isCreative(player) ? "Creative: the Controller is kept." : "Start and Restart use up the Controller.";
+  const form = new ActionFormData()
+    .title("Controller")
+    .body(`State: ${state}\n${note}\nRestart empties the shared inventory.`)
+    .button("Start")
+    .button("Restart")
+    .button("End");
+  let res;
+  try {
+    res = await form.show(player);
+  } catch (e) {
+    return;
+  }
+  if (res.canceled) {
+    if (res.cancelationReason === FormCancelationReason.UserBusy && attempt < 5) {
+      system.runTimeout(() => openController(player, attempt + 1), 10);
+    }
+    return;
+  }
+  if (res.selection === 0) {
+    if (state === "running") player.sendMessage("Already running.");
+    else startGame(player);
+  } else if (res.selection === 1) {
+    restartGame(player);
+  } else if (res.selection === 2) {
+    if (state === "running") endGame();
+    else player.sendMessage("Nothing to end.");
+  }
+}
+
+world.afterEvents.itemUse.subscribe(({ source, itemStack }) => {
+  if (itemStack?.typeId === CONTROLLER_ID) openController(source);
+});
+
 world.afterEvents.entityDie.subscribe(event => {
   const dead = event.deadEntity;
-  if (dead.typeId !== "minecraft:player" || !master) return;
+  if (dead.typeId !== "minecraft:player" || !master || !isRunning()) return;
   const id = dead.id;
   if (pendingDeath.has(id)) return;
   pendingDeath.set(id, true);
@@ -266,7 +372,8 @@ world.beforeEvents.playerLeave.subscribe(event => {
 
 world.afterEvents.playerSpawn.subscribe(event => {
   const player = event.player;
-  if (event.initialSpawn !== false) {
+  if (event.initialSpawn !== false && !isRunning()) system.run(() => giveController(player));
+  if (event.initialSpawn !== false && isRunning()) {
     system.run(() => {
       const result = safe(() => player.runCommand("function team_inventory/join_message"), null);
       if (!result || result.successCount < 1) {
