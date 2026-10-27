@@ -1,0 +1,25 @@
+{
+  "format_version": 2,
+  "header": {
+    "name": "Mob Chaos: Behavioral Roulette (v1.0.0)",
+    "description": "Every mob near you randomly steals another creature's traits. by AllensCreations",
+    "uuid": "19a64dcf-4564-41be-a8b5-4927f4cf19d6",
+    "version": [1, 0, 0],
+    "min_engine_version": [1, 26, 60]
+  },
+  "modules": [
+    {
+      "type": "script",
+      "language": "javascript",
+      "uuid": "46b053df-6ac5-4b33-80cc-ca508a6bbe6f",
+      "version": [1, 0, 0],
+      "entry": "scripts/main.js"
+    }
+  ],
+  "dependencies": [
+    { "uuid": "d5db9770-bad9-4a54-9780-b2e6a8a08166", "version": [1, 0, 0] },
+    { "module_name": "@minecraft/server", "version": "2.10.0" },
+    { "module_name": "@minecraft/server-ui", "version": "2.2.0" }
+  ],
+  "metadata": { "authors": ["AllensCreations"], "product_type": "addon" }
+}
