@@ -355,6 +355,13 @@ All documentation rules, player-facing writing, creator links, attribution, and 
 
 ### 1. File Roles
 
+
+> [!IMPORTANT]
+> **Uniform Structure for Project READMEs vs. DESCRIPTIONs:**
+> - **Project `README.md` must be identical in layout across every pack**: Download landing page format only (Title `(vX.Y.Z)`, `## Download` with version, format, and direct download link, `## Installation` with 3-step import steps, and `## Add-on Information` with link to `DESCRIPTION.md`). It must NEVER contain features, overviews, recipes, images, or gameplay documentation.
+> - **Project `DESCRIPTION.md`**: Houses the full customer-facing product description, overview, feature cards, usage details, compatibility, creator profile links, attribution, and search keywords.
+
+
 | File | Purpose |
 | :--- | :--- |
 | Add-on `README.md` | Download landing page: name, verified version, direct `.mcaddon`/`.mcpack` link (or catalog link), package format, short generic import steps, link to `DESCRIPTION.md`. |
@@ -1611,3 +1618,18 @@ If the message is not listed, check the relevant script in `scripts/` and tell t
    - Download the generated world from the run's artifacts or from the project folder and test it in Minecraft.
    - To change which add-ons a test world includes later, edit `test_world.json` and run **Build Test World**.
    - If the build fails, paste the error log back to the agent (Section 10).
+
+---
+
+## Part 4: Minecraft Bedrock Engine & Manifest Version Standards
+
+All packs, add-ons, and behavior/resource scripts created or maintained in this repository must adhere to the modern engine standard:
+
+- **Target Engine Version:** **Minecraft Bedrock 1.26+** (Preview, Beta, and Release builds).
+- **Minimum Engine Version (`min_engine_version`):**
+  - All modern behavior packs, mob behavior scripts, and resource packs must target minimum engine version `[1, 26, 0]` (or higher, e.g. `[1, 26, 40]` / `[1, 26, 60]`).
+  - Manifest `format_version` must be `2`.
+- **Documentation & Badges:**
+  - Readme headers must feature the version badge: `[![Minecraft Bedrock](https://img.shields.io/badge/Minecraft%20Bedrock-1.26.0%2B-brightgreen?style=flat-square&logo=minecraft)](https://github.com/AllensCreations/MCPE-Curseforges)`.
+  - Compatibility sections must state: `- Minecraft Bedrock Edition: 1.26.0 or newer`.
+
