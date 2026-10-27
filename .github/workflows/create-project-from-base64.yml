@@ -1,11 +1,12 @@
 name: Create Project from Base64
 
-# Paste the base64 produced by an AI agent (see GAME_GENERATOR.md).
+# Paste the base64 produced by an AI agent (see INSTRUCTIONS.md, Part 4).
 # The ZIP's project.json decides the type:
 #   addon  -> MCPEDL/new_addons/<Name>/
 #   map    -> MCPEDL/maps/<Name>/      (+ Creative/Survival/Hardcore worlds)
 #   script -> MCPEDL/script/<Name>/    (+ "<Name> - Test.mcworld")
 # Structural checks only: never an in-game test.
+# commit_mode pull_request (default) opens a pull request for review; direct pushes to the branch.
 
 on:
   workflow_dispatch:
@@ -29,9 +30,18 @@ on:
         required: false
         default: false
         type: boolean
+      commit_mode:
+        description: "pull_request opens a PR to review (default); direct pushes straight to the branch"
+        required: false
+        default: pull_request
+        type: choice
+        options:
+          - pull_request
+          - direct
 
 permissions:
   contents: write
+  pull-requests: write
 
 concurrency:
   group: create-project-from-base64-${{ github.ref }}
@@ -46,6 +56,7 @@ jobs:
       PROJECT_PAYLOAD: ${{ inputs.payload_base64 }}
       PAYLOAD_FILE: ${{ inputs.payload_file }}
       OVERWRITE: ${{ inputs.overwrite }}
+      COMMIT_MODE: ${{ inputs.commit_mode }}
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -57,6 +68,11 @@ jobs:
         with:
           python-version: "3.11"
 
+      - name: Set up Node.js (script syntax check)
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
       - name: Check inputs
         shell: bash
         run: |
@@ -66,6 +82,8 @@ jobs:
           if [ -z "$PROJECT_PAYLOAD" ] && [ -z "$PAYLOAD_FILE" ]; then
             echo "::error::Provide payload_base64 or payload_file"; exit 1
           fi
+          [[ "$COMMIT_MODE" == "pull_request" || "$COMMIT_MODE" == "direct" ]] \
+            || { echo "::error::commit_mode must be pull_request or direct"; exit 1; }
 
       - name: Decode, validate, and write the project
         id: import
@@ -99,7 +117,9 @@ jobs:
       # ---- scripts and add-ons with test_world.json: build the test world ----
       - name: Build test world (script / add-on)
         if: ${{ steps.import.outputs.has_test_world == 'true' }}
-        run: python scripts/build_test_world.py --project "${{ steps.import.outputs.dest }}"
+        env:
+          DEST: ${{ steps.import.outputs.dest }}
+        run: python scripts/build_test_world.py --project "$DEST"
 
       - name: Verify generated worlds are database-free
         if: ${{ steps.import.outputs.type == 'map' || steps.import.outputs.has_test_world == 'true' }}
@@ -135,13 +155,20 @@ jobs:
           retention-days: 90
 
       - name: Commit project and worlds
+        id: commit
         shell: bash
         env:
           DEST: ${{ steps.import.outputs.dest }}
+          PTYPE: ${{ steps.import.outputs.type }}
+          GH_TOKEN: ${{ github.token }}
         run: |
           set -euo pipefail
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
+          BRANCH="import/${PROJECT_NAME}-${GITHUB_RUN_ID}"
+          if [ "$COMMIT_MODE" = "pull_request" ]; then
+            git checkout -b "$BRANCH"
+          fi
           git add -A -- "$DEST"
           if [ -z "$PROJECT_PAYLOAD" ] && [ -n "$PAYLOAD_FILE" ]; then
             git rm -q --ignore-unmatch -- "$PAYLOAD_FILE"
@@ -149,18 +176,31 @@ jobs:
           if git diff --cached --quiet; then
             echo "No changes to commit."; exit 0
           fi
-          git commit -m "feat(${{ steps.import.outputs.type }}): create ${PROJECT_NAME} from base64 payload [skip ci]"
-          git pull --rebase origin "${GITHUB_REF_NAME}"
-          git push origin "HEAD:${GITHUB_REF_NAME}"
+          git commit -m "feat(${PTYPE}): create ${PROJECT_NAME} from base64 payload [skip ci]"
+          if [ "$COMMIT_MODE" = "direct" ]; then
+            git pull --rebase origin "${GITHUB_REF_NAME}"
+            git push origin "HEAD:${GITHUB_REF_NAME}"
+            echo "mode=direct" >> "$GITHUB_OUTPUT"
+          else
+            git push origin "$BRANCH"
+            gh pr create --base "${GITHUB_REF_NAME}" --head "$BRANCH" \
+              --title "Add ${PTYPE} ${PROJECT_NAME} from AI payload" \
+              --body "AI-generated payload. Structural checks passed; nothing was tested in Minecraft. Review behavior_pack/scripts/ and every .mcfunction before merging."
+            echo "mode=pull_request" >> "$GITHUB_OUTPUT"
+          fi
 
       - name: Summary
         if: ${{ always() }}
         shell: bash
+        env:
+          OUT_TYPE: ${{ steps.import.outputs.type }}
+          OUT_DEST: ${{ steps.import.outputs.dest }}
         run: |
           {
             echo "### Create Project from Base64"
-            echo "- Project: \`${PROJECT_NAME}\` (type: \`${{ steps.import.outputs.type }}\`)"
-            echo "- Folder: \`${{ steps.import.outputs.dest }}\`"
+            echo "- Project: \`${PROJECT_NAME}\` (type: \`${OUT_TYPE}\`)"
+            echo "- Folder: \`${OUT_DEST}\`"
+            echo "- Commit mode: \`${COMMIT_MODE}\`"
             echo "- Verified: ZIP safety, manifests, UUIDs, dependencies, type-specific files (structural only)"
             echo "- **Not verified:** Minecraft loading the pack or gameplay. Test it in-game."
           } >> "$GITHUB_STEP_SUMMARY"

@@ -3,7 +3,7 @@ name: Export Repo Content to TXT
 # Type the paths you want (files or folders, comma or newline separated) and get readable
 # TXT you can feed to an AI. No size limits: nothing is truncated, and by default everything
 # goes into ONE file named after what you exported (e.g. Grand-Banquets.txt). Binary files
-# are detected and skipped. The downloaded zip also contains ONEBLOCK_ADDON_GENERATOR.md
+# are detected and skipped. The downloaded zip also contains INSTRUCTIONS.md
 # so the AI always has the best-practice instructions next to the export.
 # Save as: .github/workflows/export-repo-to-txt.yml
 
@@ -152,12 +152,12 @@ jobs:
               index += ["", "NOT FOUND:"] + [f"    {m}" for m in missing]
           if skipped:
               index += ["", "SKIPPED (binary):"] + [f"    {s}" for s in skipped[:1000]]
-          gen = pathlib.Path("ONEBLOCK_ADDON_GENERATOR.md")
+          gen = pathlib.Path("INSTRUCTIONS.md")
           if gen.is_file():
               (out / gen.name).write_bytes(gen.read_bytes())
-              index += ["", "ALSO INCLUDED: ONEBLOCK_ADDON_GENERATOR.md (best-practice instructions for OneBlock add-ons)"]
+              index += ["", "ALSO INCLUDED: INSTRUCTIONS.md (combined repository policy and project generator)"]
           else:
-              print("::warning::ONEBLOCK_ADDON_GENERATOR.md not found in the repo root; not added to the export")
+              print("::warning::INSTRUCTIONS.md not found in the repo root; not added to the export")
           (out / "INDEX.txt").write_text("\n".join(index) + "\n", encoding="utf-8")
           with open(os.environ["GITHUB_OUTPUT"], "a", encoding="utf-8") as fh:
               fh.write(f"label={label}\n")
@@ -170,7 +170,7 @@ jobs:
           {
             echo "### Export Repo Content to TXT"
             echo "- Paths: \`${{ inputs.paths }}\`"
-            echo "- Download the **${{ steps.build.outputs.label }}** artifact below (zip). It contains the TXT export, INDEX.txt and ONEBLOCK_ADDON_GENERATOR.md."
+            echo "- Download the **${{ steps.build.outputs.label }}** artifact below (zip). It contains the TXT export, INDEX.txt and INSTRUCTIONS.md."
             [ -d exports ] && ls -la exports | sed 's/^/    /'
           } >> "$GITHUB_STEP_SUMMARY"
 

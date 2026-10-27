@@ -54,13 +54,11 @@ jobs:
           : > "$OUT/manifest.txt"
 
           # 3. The files requested
-          copy_item scripts/import_oneblock_payload.py
           copy_item scripts/build_oneblock_variants_from_template.py
           copy_item INSTRUCTIONS.md
-          copy_item README_GUIDELINES.md
-          copy_item ONEBLOCK_ADDON_GENERATOR.md
           copy_item .agents/skills/checkrm/SKILL.md
           copy_item Mcpeworlds/assets/resources_pack/textures/items/trader_ledger.png
+          copy_item Mcpeworlds/assets/resources_pack/textures/items/controller.png
           copy_item Mcpeworlds/assets/resources_pack/textures/item_texture.json
 
           # All workflows (conventions: Python version, permissions, branch)

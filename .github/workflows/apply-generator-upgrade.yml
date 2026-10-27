@@ -89,7 +89,7 @@ jobs:
           has_pat = os.environ["HAS_PAT"] == "true"
           ROOT = pathlib.Path(".").resolve()
 
-          ALLOWED = ("GAME_GENERATOR.md", "ONEBLOCK_ADDON_GENERATOR.md", "INSTRUCTIONS.md", "README_GUIDELINES.md", "scripts/",
+          ALLOWED = ("INSTRUCTIONS.md", "scripts/",
                      "Mcpeworlds/assets/", ".github/workflows/")
           PROTECTED = ("Mcpeworlds/Creative/", "Mcpeworlds/Survival/", "Mcpeworlds/Hardcore/", "MCPEDL/", "builds/", ".git/")
 
@@ -226,14 +226,14 @@ jobs:
           set -euo pipefail
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add -A -- GAME_GENERATOR.md INSTRUCTIONS.md README_GUIDELINES.md scripts Mcpeworlds/assets .github/workflows
-          git add -u -- ONEBLOCK_ADDON_GENERATOR.md 2>/dev/null || true
+          git add -A -- INSTRUCTIONS.md scripts Mcpeworlds/assets .github/workflows
+          git add -u -- GAME_GENERATOR.md README_GUIDELINES.md ONEBLOCK_ADDON_GENERATOR.md 2>/dev/null || true
           if [ "$REMOVE_ZIP" = "true" ] && [ "${SKIPPED_WF:-false}" = "false" ]; then
             git rm -q --ignore-unmatch -- "$ZIP_PATH"
           elif [ "${SKIPPED_WF:-false}" = "true" ]; then
             echo "Keeping $ZIP_PATH: it still holds the workflow files you must add by hand."
           fi
           if git diff --cached --quiet; then echo "Nothing to commit."; exit 0; fi
-          git commit -m "chore(generator): apply generator v5 upgrade [skip ci]"
+          git commit -m "chore(generator): apply generator upgrade [skip ci]"
           git pull --rebase origin "${GITHUB_REF_NAME}"
           git push origin "HEAD:${GITHUB_REF_NAME}"
