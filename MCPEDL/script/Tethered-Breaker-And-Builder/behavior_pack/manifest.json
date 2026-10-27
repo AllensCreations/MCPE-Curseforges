@@ -1,11 +1,19 @@
 {
   "format_version": 2,
   "header": {
-    "name": "Tethered Breaker and Builder (v1.0.7)",
+    "name": "Tethered Breaker and Builder (v1.0.8)",
     "description": "2-Player Asymmetric Co-op challenge with a dynamic elastic leash. by AllensCreations",
     "uuid": "57d260b6-c748-4db4-8feb-0d5d6be74613",
-    "version": [1, 0, 7],
-    "min_engine_version": [1, 26, 40]
+    "version": [
+      1,
+      0,
+      8
+    ],
+    "min_engine_version": [
+      1,
+      26,
+      40
+    ]
   },
   "modules": [
     {
@@ -13,14 +21,36 @@
       "type": "script",
       "language": "javascript",
       "uuid": "969f8937-48b6-4394-9cbf-c4224c551d7b",
-      "version": [1, 0, 7],
+      "version": [
+        1,
+        0,
+        8
+      ],
       "entry": "scripts/main.js"
     }
   ],
   "dependencies": [
-    { "uuid": "f3a1c7e2-6b84-4d19-9a52-0c7e5d8b1a36", "version": [1, 0, 7] },
-    { "module_name": "@minecraft/server", "version": "2.9.0" },
-    { "module_name": "@minecraft/server-ui", "version": "2.0.0" }
+    {
+      "uuid": "f3a1c7e2-6b84-4d19-9a52-0c7e5d8b1a36",
+      "version": [
+        1,
+        0,
+        8
+      ]
+    },
+    {
+      "module_name": "@minecraft/server",
+      "version": "2.9.0"
+    },
+    {
+      "module_name": "@minecraft/server-ui",
+      "version": "2.0.0"
+    }
   ],
-  "metadata": { "authors": ["AllensCreations"], "product_type": "addon" }
+  "metadata": {
+    "authors": [
+      "AllensCreations"
+    ],
+    "product_type": "addon"
+  }
 }
