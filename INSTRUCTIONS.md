@@ -759,11 +759,12 @@ resource_pack/textures/items/trader_ledger.png
 
 A script is a mini-game or challenge driven by the Script API. It works in any world; it does not depend on specific terrain.
 
-**Required files** (the script installs the six Controller files if missing):
+**Required files** (the script installs the seven Controller files if missing):
 
 ```
 behavior_pack/manifest.json                    script module + @minecraft/server + @minecraft/server-ui
-behavior_pack/scripts/main.js
+behavior_pack/scripts/main.js                  the game only; imports ./controller.js
+behavior_pack/scripts/controller.js            fixed copy, installed by build_payload.py, never edited
 behavior_pack/items/controller.json
 behavior_pack/functions/give_controller.mcfunction   exact line: give @s allenscreations:controller
 behavior_pack/functions/end_game.mcfunction          exact line: scriptevent allenscreations:end
@@ -781,7 +782,7 @@ test_world.json
 - **Admin functions.** `give_controller.mcfunction` (`/function give_controller`) and `end_game.mcfunction` (`/function end_game`, which sends the `allenscreations:end` script event the script listens for) are always shipped and need cheats. They are not form buttons. The item also stays in the creative inventory (`menu_category`).
 - **Giving it.** The script gives it only to the host or an operator on their first spawn, when they do not already carry one and the game is not `running` (Creative operators always get one). Game state (`idle`, `running`, `ended`) lives in a world dynamic property so it survives rejoining.
 - **The form** shows the state and a one-line statement of whether the Controller will be kept. Keep the two labels `"Start"` and `"How to play"` exactly, in that order, and do not add Restart or End buttons.
-- **How to play text.** Replace the `HOW_TO_PLAY` constant in the template with the real rules of your game: goal, controls, and how it ends.
+- **Info and rules text.** Fill `gameInfo` and `howToPlay` in `registerController` with the real game description and rules: goal, controls, and how it ends.
 
 **Controller texture pack (resource pack).** The icon is `Mcpeworlds/assets/resources_pack/textures/items/controller.png` in the repo, a 16 x 16 PNG. The importer compares your copy to that file byte for byte.
 
@@ -792,117 +793,34 @@ test_world.json
 - Do not copy anything else from `Mcpeworlds/assets/`. Do not ship a resource pack for a script with `"controller": false` unless it has its own textures.
 - If the script needs other textures, add them next to the Controller icon and extend `item_texture.json` without removing the `controller` entry.
 
-Starting point for `main.js` (adapt it and put your game logic around `startGame` and `endGame`, calling `endGame()` from your win or lose condition; confirm every member against the stable module versions you chose, including `getGameMode()` and `GameMode`; do not add comments):
+The Controller code lives in its own file, `behavior_pack/scripts/controller.js`. `build_payload.py` installs it when `main.js` calls `registerController(`, and the check fails if it differs from the generator copy, so never edit it. `main.js` holds only the game and connects to the two buttons through one call:
 
 ```js
-import { world, system, ItemStack, EntityComponentTypes, GameMode } from "@minecraft/server";
-import { ActionFormData, FormCancelationReason } from "@minecraft/server-ui";
+import { world } from "@minecraft/server";
+import { registerController, endGame } from "./controller.js";
 
-const CONTROLLER_ID = "allenscreations:controller";
-const STATE_KEY = "game_state";
-const HOW_TO_PLAY = "Replace this text with the real rules of the game.";
-
-const getState = () => {
-  const v = world.getDynamicProperty(STATE_KEY);
-  return typeof v === "string" ? v : "idle";
-};
-const setState = (s) => world.setDynamicProperty(STATE_KEY, s);
-const OPERATOR_LEVEL = 2;
-const isCreative = (player) => player.getGameMode() === GameMode.Creative;
-const isHost = (player) => (typeof player.isOp === "function" ? player.isOp() : player.playerPermissionLevel === OPERATOR_LEVEL);
-const containerOf = (player) => player.getComponent(EntityComponentTypes.Inventory)?.container;
-
-function hasController(player) {
-  const inv = containerOf(player);
-  if (!inv) return false;
-  for (let i = 0; i < inv.size; i++) {
-    if (inv.getItem(i)?.typeId === CONTROLLER_ID) return true;
-  }
-  return false;
-}
-function giveController(player) {
-  if (hasController(player)) return;
-  containerOf(player)?.addItem(new ItemStack(CONTROLLER_ID, 1));
-}
-function consumeController(player) {
-  if (isCreative(player)) return;
-  const inv = containerOf(player);
-  if (!inv) return;
-  for (let i = 0; i < inv.size; i++) {
-    if (inv.getItem(i)?.typeId === CONTROLLER_ID) {
-      inv.setItem(i, undefined);
-      player.playSound("random.break");
-      player.sendMessage("The Controller broke.");
-      return;
-    }
-  }
+function win() {
+  world.sendMessage("You won.");
+  endGame();
 }
 
-function startGame() {
-  setState("running");
-  world.sendMessage("Game started.");
-}
-function endGame() {
-  setState("ended");
-  world.sendMessage("Game ended.");
-  for (const p of world.getAllPlayers()) if (isHost(p)) giveController(p);
-}
-
-async function showHowToPlay(player) {
-  const form = new ActionFormData().title("How to play").body(HOW_TO_PLAY).button("Back");
-  let res;
-  try {
-    res = await form.show(player);
-  } catch (e) {
-    return;
-  }
-  if (!res.canceled && res.selection === 0) openController(player);
-}
-
-async function openController(player, attempt = 0) {
-  const note = isCreative(player) ? "Creative: the Controller is kept." : "Start uses up the Controller.";
-  const form = new ActionFormData()
-    .title("Controller")
-    .body(`State: ${getState()}\n${note}`)
-    .button("Start")
-    .button("How to play");
-  let res;
-  try {
-    res = await form.show(player);
-  } catch (e) {
-    return;
-  }
-  if (res.canceled) {
-    if (res.cancelationReason === FormCancelationReason.UserBusy && attempt < 5) {
-      system.runTimeout(() => openController(player, attempt + 1), 10);
-    }
-    return;
-  }
-  if (res.selection === 0) {
-    if (getState() === "running") {
-      player.sendMessage("Already running.");
-      return;
-    }
-    startGame();
-    consumeController(player);
-  } else if (res.selection === 1) {
-    showHowToPlay(player);
-  }
-}
-
-world.afterEvents.itemUse.subscribe(({ source, itemStack }) => {
-    if (itemStack?.typeId === CONTROLLER_ID && isHost(source)) openController(source);
-});
-
-system.afterEvents.scriptEventReceive.subscribe(({ id }) => {
-  if (id === "allenscreations:end" && getState() === "running") endGame();
-});
-
-world.afterEvents.playerSpawn.subscribe(({ player, initialSpawn }) => {
-  if (!initialSpawn) return;
-  if (isHost(player) && (isCreative(player) || getState() !== "running")) giveController(player);
+registerController({
+  title: "Sample Game",
+  gameInfo: "Type: Challenge\nPlayers: 1 or more\nGoal: Replace this text with a short description of the game.",
+  howToPlay: "Goal: replace this text.\nControls: replace this text.\nHow it ends: replace this text.",
+  onStart: () => {
+    world.sendMessage("Game started.");
+  },
+  onEnd: () => {
+    world.sendMessage("Game ended.");
+  },
 });
 ```
+
+- `title`, `gameInfo` and `howToPlay` are required text. `gameInfo` tells the player what kind of game it is (type, players, goal) and is shown on the Controller form above the state line. `howToPlay` is the rules page behind the **How to play** button.
+- **Start** runs `onStart(player)` after the Controller is consumed. If `onStart` throws, the state returns to `idle` and the Controller is given back.
+- Call `endGame()` (imported from `./controller.js`) from your win or lose logic. It runs `onEnd()` and gives the host or operator a fresh Controller. The `allenscreations:end` script event does the same.
+- Existing projects with an inline Controller in `main.js` still pass with a warning; move them to `registerController` when you next touch them.
 
 **The test world.** `test_world.json` is required for scripts (use an empty list if no add-ons are wanted) and optional for add-ons:
 
@@ -966,6 +884,143 @@ MODES = ("Creative", "Survival", "Hardcore")
 DEST_DIR = {"addon": "new_addons", "map": "maps", "script": "script"}
 MIN_ITEM_FORMAT = [1, 20, 80]
 CONTROLLER_LABELS = ("Start", "How to play")
+CONTROLLER_JS_REL = "behavior_pack/scripts/controller.js"
+CONTROLLER_JS = r'''import { world, system, ItemStack, EntityComponentTypes, GameMode } from "@minecraft/server";
+import { ActionFormData, FormCancelationReason } from "@minecraft/server-ui";
+
+const CONTROLLER_ID = "allenscreations:controller";
+const STATE_KEY = "game_state";
+const OPERATOR_LEVEL = 2;
+
+let config = null;
+let registered = false;
+
+const getState = () => {
+  const v = world.getDynamicProperty(STATE_KEY);
+  return typeof v === "string" ? v : "idle";
+};
+const setState = (s) => world.setDynamicProperty(STATE_KEY, s);
+const isCreative = (player) => player.getGameMode() === GameMode.Creative;
+const isHost = (player) => (typeof player.isOp === "function" ? player.isOp() : player.playerPermissionLevel === OPERATOR_LEVEL);
+const containerOf = (player) => player.getComponent(EntityComponentTypes.Inventory)?.container;
+
+function hasController(player) {
+  const inv = containerOf(player);
+  if (!inv) return false;
+  for (let i = 0; i < inv.size; i++) {
+    if (inv.getItem(i)?.typeId === CONTROLLER_ID) return true;
+  }
+  return false;
+}
+
+function giveController(player) {
+  if (hasController(player)) return;
+  containerOf(player)?.addItem(new ItemStack(CONTROLLER_ID, 1));
+}
+
+function consumeController(player) {
+  if (isCreative(player)) return;
+  const inv = containerOf(player);
+  if (!inv) return;
+  for (let i = 0; i < inv.size; i++) {
+    if (inv.getItem(i)?.typeId === CONTROLLER_ID) {
+      inv.setItem(i, undefined);
+      player.playSound("random.break");
+      player.sendMessage("The Controller broke.");
+      return;
+    }
+  }
+}
+
+function runStart(player) {
+  if (getState() === "running") {
+    player.sendMessage("Already running.");
+    return;
+  }
+  setState("running");
+  consumeController(player);
+  try {
+    config.onStart(player);
+  } catch (e) {
+    setState("idle");
+    giveController(player);
+    player.sendMessage("The game could not start.");
+  }
+}
+
+export function endGame() {
+  if (getState() !== "running") return;
+  setState("ended");
+  try {
+    config?.onEnd();
+  } catch (e) {
+    world.sendMessage("The game ended with an error.");
+  }
+  for (const p of world.getAllPlayers()) if (isHost(p)) giveController(p);
+}
+
+async function showHowToPlay(player) {
+  const form = new ActionFormData().title("How to play").body(config.howToPlay).button("Back");
+  let res;
+  try {
+    res = await form.show(player);
+  } catch (e) {
+    return;
+  }
+  if (!res.canceled && res.selection === 0) openController(player);
+}
+
+async function openController(player, attempt = 0) {
+  const note = isCreative(player) ? "Creative: the Controller is kept." : "Start uses up the Controller.";
+  const form = new ActionFormData()
+    .title(config.title)
+    .body(`${config.gameInfo}\n\nState: ${getState()}\n${note}`)
+    .button("Start")
+    .button("How to play");
+  let res;
+  try {
+    res = await form.show(player);
+  } catch (e) {
+    return;
+  }
+  if (res.canceled) {
+    if (res.cancelationReason === FormCancelationReason.UserBusy && attempt < 5) {
+      system.runTimeout(() => openController(player, attempt + 1), 10);
+    }
+    return;
+  }
+  if (res.selection === 0) {
+    runStart(player);
+  } else if (res.selection === 1) {
+    showHowToPlay(player);
+  }
+}
+
+export function registerController(options) {
+  if (registered) return;
+  registered = true;
+  config = {
+    title: options?.title ?? "Controller",
+    gameInfo: options?.gameInfo ?? "",
+    howToPlay: options?.howToPlay ?? "",
+    onStart: options?.onStart ?? (() => {}),
+    onEnd: options?.onEnd ?? (() => {}),
+  };
+
+  world.afterEvents.itemUse.subscribe(({ source, itemStack }) => {
+    if (itemStack?.typeId === CONTROLLER_ID && isHost(source)) openController(source);
+  });
+
+  system.afterEvents.scriptEventReceive.subscribe(({ id }) => {
+    if (id === "allenscreations:end") endGame();
+  });
+
+  world.afterEvents.playerSpawn.subscribe(({ player, initialSpawn }) => {
+    if (!initialSpawn) return;
+    if (isHost(player) && (isCreative(player) || getState() !== "running")) giveController(player);
+  });
+}
+'''
 LEDGER_SHA256 = "fecc64905334511d97569611666ffa28a8941683a20e30ca5926ecb9ffd9c001"
 LEDGER_PNG_B64 = "iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAA/0lEQVR42mNgGAUDDBgJKTgy0eI/pZbY5J/AaQ8TLglbdan/tupS/6nhS3zmMA26KCj3Vkdx7bE7nymyoD1LDm90sBAyYNXKSrItDwtvJ6hmwKOAhViFfFJGRBv66dk58h3w5P2vwRkCMBDVXotTblllM+0dQAp45qnBEH8fVUy5wOn/3Qn7GOniAAYGBgYFP1kU/oNNjykLAXKCOdVCg4GBgYFh9okbIywNwAA2nw+9goiSYKZ5OYDPUeipnq5pQGr7DYK14eBLAzKCbIMzDZBSw5ECBn82JKZVQ5NmOawli56KyQGV0x4xHL75jHFoRQHCxXIU9w1w+X4UDAoAACWbTR1cQx13AAAAAElFTkSuQmCC"
 CONTROLLER_SHA256 = "c2f833f915003f333991bc098df114f1765fc2b8ecd2ccda98b7d6128f2d234a"
@@ -1118,6 +1173,12 @@ def install_assets(root):
             e.parent.mkdir(parents=True, exist_ok=True)
             e.write_text(END_LINE + "\n", encoding="utf-8")
             print("installed  behavior_pack/functions/end_game.mcfunction")
+        mjs = root / "behavior_pack/scripts/main.js"
+        cjs = root / CONTROLLER_JS_REL
+        if not cjs.exists() and mjs.is_file() and "registerController(" in mjs.read_text(encoding="utf-8"):
+            cjs.parent.mkdir(parents=True, exist_ok=True)
+            cjs.write_text(CONTROLLER_JS, encoding="utf-8", newline="\n")
+            print("installed  " + CONTROLLER_JS_REL)
 
 
 def _png_size(d):
@@ -1385,22 +1446,38 @@ def run_checks(root, repo_root=None, folder=None):
     if controller:
         icon_checks("controller", "allenscreations:controller", "behavior_pack/items/controller.json", CONTROLLER_SHA256, (16, 16))
         mj = root / "behavior_pack/scripts/main.js"
+        cj = root / CONTROLLER_JS_REL
         if mj.is_file():
             js = mj.read_text(encoding="utf-8")
-            check("allenscreations:controller" in js, "main.js never mentions allenscreations:controller")
-            check("ActionFormData" in js, "main.js must open the controller with ActionFormData")
-            btn = []
-            for label in CONTROLLER_LABELS:
-                mt = re.search(r"\.button\(\s*[\"']" + label + r"[\"']", js)
-                check(mt is not None, f"main.js: controller button '{label}' not found")
-                btn.append(mt.start() if mt else None)
-            if all(x is not None for x in btn):
-                check(btn == sorted(btn), "main.js: controller buttons must be added in the order Start, How to play")
-            check(re.search(r"\.button\(\s*[\"'](?:Restart|End)[\"']", js) is None, "main.js: the controller form must not have Restart or End buttons")
-            check(re.search(r"getGameMode\(\)\s*[!=]==?\s*GameMode\.Creative", js) is not None,
-                  "main.js: the controller must check GameMode.Creative with getGameMode()")
-            check(re.search(r"\.setItem\(", js) is not None, "main.js: Start must consume the controller outside Creative (setItem)")
-            check("scriptEventReceive" in js and "allenscreations:end" in js, "main.js: must handle the allenscreations:end script event")
+            if "registerController(" in js:
+                check(cj.is_file(), "missing required file: " + CONTROLLER_JS_REL)
+                if cj.is_file():
+                    check(cj.read_text(encoding="utf-8").replace("\r\n", "\n") == CONTROLLER_JS,
+                          "controller.js must be the unchanged generator copy")
+                check(re.search(r"from\s+[\"']\./controller\.js[\"']", js) is not None,
+                      "main.js: must import registerController from ./controller.js")
+                for key in ("gameInfo", "howToPlay"):
+                    check(re.search(r"\b" + key + r"\s*:\s*(?![\"'`]{2})\S", js) is not None,
+                          f"main.js: registerController needs a non-empty {key}")
+                check(re.search(r"\bonStart\s*[:(]", js) is not None, "main.js: registerController needs onStart")
+                if "allenscreations:controller" in js:
+                    warns.append("main.js mentions the controller item; controller.js already handles it")
+            else:
+                warns.append("main.js has an inline controller (legacy); move it to controller.js with registerController")
+                check("allenscreations:controller" in js, "main.js never mentions allenscreations:controller")
+                check("ActionFormData" in js, "main.js must open the controller with ActionFormData")
+                btn = []
+                for label in CONTROLLER_LABELS:
+                    mt = re.search(r"\.button\(\s*[\"']" + label + r"[\"']", js)
+                    check(mt is not None, f"main.js: controller button '{label}' not found")
+                    btn.append(mt.start() if mt else None)
+                if all(x is not None for x in btn):
+                    check(btn == sorted(btn), "main.js: controller buttons must be added in the order Start, How to play")
+                check(re.search(r"\.button\(\s*[\"'](?:Restart|End)[\"']", js) is None, "main.js: the controller form must not have Restart or End buttons")
+                check(re.search(r"getGameMode\(\)\s*[!=]==?\s*GameMode\.Creative", js) is not None,
+                      "main.js: the controller must check GameMode.Creative with getGameMode()")
+                check(re.search(r"\.setItem\(", js) is not None, "main.js: Start must consume the controller outside Creative (setItem)")
+                check("scriptEventReceive" in js and "allenscreations:end" in js, "main.js: must handle the allenscreations:end script event")
             if "setInterval" in js or "system.runInterval" in js:
                 warns.append("main.js uses a repeating timer; confirm it is not a per-tick scan")
 
@@ -1556,7 +1633,7 @@ if __name__ == "__main__":
 - [ ] Module versions are latest stable, looked up on the date of the work, with the date recorded.
 - [ ] The documentation states achievement status, experiments, and "not tested in game" in the file Section 7 names, and the run shows no `DOC:` warnings.
 - [ ] Map: `oneblock_setup.mcfunction` is harmless and idempotent, and the README says it is manual or optional. `void_cleaner` ends by adding the `void_cleaned` tag.
-- [ ] Script: the form has exactly Start and How to play; `HOW_TO_PLAY` holds the real rules; the game logic is real (the template functions only send messages) and calls `endGame()` on its win or lose condition; Start consumes the Controller outside Creative; `end_game` and `give_controller` exist; each listed add-on exists.
+- [ ] Script: the form has exactly Start and How to play; `gameInfo` and `howToPlay` hold the real text; the game logic is real (the template functions only send messages) and calls `endGame()` on its win or lose condition; Start consumes the Controller outside Creative; `end_game` and `give_controller` exist; each listed add-on exists.
 - [ ] No comments in any script, function or JSON file.
 - [ ] No file from `Mcpeworlds/assets/` other than the ledger or controller files was copied (no stray file named `1`).
 
@@ -1579,7 +1656,9 @@ Paste the workflow's error log back to the agent. Common messages and fixes:
 | `first entry must be void_cleaner` / `lacks the exact required fill line` | Fix `tick.json` / `void_cleaner.mcfunction` (Section 5). |
 | `missing required file: ...` | Add the named file; see the list for your type. |
 | `is not a byte-for-byte copy` | Use the repo or embedded PNG unchanged; never re-save it. |
-| `main.js: controller button '<label>' not found` | Keep the two labels `"Start"` and `"How to play"` in `main.js`. |
+| `controller.js must be the unchanged generator copy` | Delete `controller.js` and run `build_payload.py` again; do not edit it. |
+| `main.js: registerController needs a non-empty gameInfo` / `howToPlay` / `onStart` | Fill the fields in the `registerController({...})` call. |
+| `main.js: controller button '<label>' not found` | Legacy inline controller only: keep the two labels `"Start"` and `"How to play"`. |
 | `the controller form must not have Restart or End buttons` | Remove them; the form has only Start and How to play. |
 | `the controller must check GameMode.Creative` / `must consume the controller` | Keep the Creative check and the consume step from the Section 6 template. |
 | `give_controller.mcfunction must contain` | The file must have the line `give @s allenscreations:controller`. |
