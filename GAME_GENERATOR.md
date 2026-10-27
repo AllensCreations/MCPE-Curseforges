@@ -1,8 +1,15 @@
-# Game Generator (AI Agent Instructions) - v5
+# Game Generator (AI Agent Instructions) - v6
 
 Send this file to an AI agent together with your idea. The agent builds a complete project and returns it as **one line of base64** (inline, or as a `.b64` file if long). You paste it into the GitHub workflow **Create Project from Base64**, which puts it in the right `MCPEDL/` folder and builds the worlds that type needs.
 
 If you can read the repository AllensCreations/MCPE-Curseforges, read `INSTRUCTIONS.md`, `README_GUIDELINES.md`, **`scripts/build_payload.py`** (the checks), **`scripts/import_project_payload.py`** and **`scripts/build_test_world.py`** first. The scripts are the real source of truth: if this file and a script disagree, the script wins, and you tell the user what differs. If you cannot read the repo, this file is self-sufficient: Section 8 contains the full packaging script.
+
+**What changed in v6**
+- **The Controller breaks in Survival.** Start and Restart use up the Controller unless the player is in Creative; End never does. Creative players always keep it.
+- **`give_controller` function** ships with every Controller script (`/function give_controller`) so a broken Controller can be replaced.
+- **Better Controller form:** it shows the game state and whether the Controller will be kept.
+- **No comments in scripts.** Code, functions and JSON ship without comments; the checker warns about them.
+- The checker verifies the Creative check, the break logic and the give function.
 
 **What changed in v5**
 - **One generator for three types: addon, map, script.** Step 0 asks which one.
@@ -24,7 +31,7 @@ Do not guess the type from the idea. Do not continue until you have it. Then fol
 |---|---|---|
 | addon | `MCPEDL/new_addons/<Name>/` | none; optional `test_world.json` |
 | map | `MCPEDL/maps/<Name>/` | void cleaner, setup function, Trader Ledger (Section 5) |
-| script | `MCPEDL/script/<Name>/` | Controller, `test_world.json` (Section 6) |
+| script | `MCPEDL/script/<Name>/` | Controller, `give_controller` function, `test_world.json` (Section 6) |
 
 ---
 
@@ -39,6 +46,7 @@ Do not guess the type from the idea. Do not continue until you have it. Then fol
 - **Art:** no AI-generated images, ever. The Trader Ledger (maps) and Controller (scripts) icons come only from the repo copy or the copy embedded in Section 8. For any other texture use real vanilla texture names, user-supplied textures, or omit the icon.
 - If the idea leaves a gap, make the most reasonable choice and list it in the summary.
 - Shell tip: the environment may be plain `sh`, so do not use brace expansion like `mkdir -p a/{b,c}`. After creating files, list them and confirm they exist.
+- Never write comments in `.js`, `.mcfunction` or `.json` files, and keep code short and self-explanatory. Explanations belong in your reply, not in the files.
 - Prefer event-driven logic over per-tick polling, broad entity searches, or block scans.
 
 ---
@@ -52,7 +60,7 @@ project.json          REQUIRED, all types: {"type": "addon|map|script", "name": 
 README.md  DESCRIPTION.md  CHANGELOG.md
 test_world.json       script: REQUIRED. addon: optional. map: do not ship.
 behavior_pack/manifest.json
-behavior_pack/...     functions/ items/ blocks/ entities/ recipes/ loot_tables/ texts/ scripts/main.js
+behavior_pack/...     functions/ (scripts with a Controller also need give_controller.mcfunction) items/ blocks/ entities/ recipes/ loot_tables/ texts/ scripts/main.js
 resource_pack/        map and script: REQUIRED. addon: optional.
 ```
 
@@ -144,56 +152,84 @@ resource_pack/textures/items/trader_ledger.png
 
 A script is a mini-game or challenge driven by the Script API. It works in any world; it does not depend on specific terrain.
 
-**Required files** (the script installs the four Controller files if missing):
+**Required files** (the script installs the five Controller files if missing):
 
 ```
 behavior_pack/manifest.json                    script module + @minecraft/server + @minecraft/server-ui
 behavior_pack/scripts/main.js
 behavior_pack/items/controller.json
+behavior_pack/functions/give_controller.mcfunction   exact line: give @s allenscreations:controller
 resource_pack/manifest.json
 resource_pack/textures/item_texture.json       entry "controller" -> "textures/items/controller"
 resource_pack/textures/items/controller.png    16 x 16, from the repo or Section 8, never redrawn
 test_world.json
 ```
 
-**The Controller.** Every script ships the repo's Controller icon (the user's `pixel_controller.png`, 16 x 16, shipped as `controller.png`) as item `allenscreations:controller`. Using it opens a form with exactly three buttons: **Start**, **Restart**, **End**. The user can opt out with `"controller": false` in `project.json`; then none of the Controller files are needed. The script gives the item to each player when they first spawn (if they do not already carry one) and holds the game state (`idle`, `running`, `ended`) in a world dynamic property so it survives rejoining. Your game logic goes into `startGame`, `restartGame`, and `endGame`.
+**The Controller.** Every script ships the repo's Controller icon (the user's `pixel_controller.png`, 16 x 16, shipped as `controller.png`) as item `allenscreations:controller`. Using it opens a form with exactly three buttons: **Start**, **Restart**, **End**. The user can opt out with `"controller": false` in `project.json`; then none of the Controller files are needed.
 
-Starting point for `main.js` (adapt it; confirm every member against the stable module versions you chose before using it, and keep the three labels `"Start"`, `"Restart"`, `"End"`):
+- **Survival breaks it, Creative keeps it.** Start and Restart leave the game running, so they consume the Controller from the player's selected slot unless `getGameMode()` is `GameMode.Creative`. End never consumes it. After it breaks, End and Restart need a fresh one.
+- **Getting a new one.** `give_controller.mcfunction` (`/function give_controller`, needs cheats) is always shipped. The item also stays in the creative inventory (`menu_category`). Say in the README and summary that a Survival-only world without cheats can get stuck, because the user chose this behavior.
+- **Giving it.** The script gives it on a player's first spawn when they do not already carry one, and only if the game is not `running` (Creative players always get one). Game state (`idle`, `running`, `ended`) lives in a world dynamic property so it survives rejoining.
+- **The form** shows the state and a one-line note on whether the Controller will be kept. Keep the three labels `"Start"`, `"Restart"`, `"End"` exactly.
+
+Starting point for `main.js` (adapt it and put your game logic inside `startGame`, `restartGame` and `endGame`; confirm every member against the stable module versions you chose, including `getGameMode()` and `GameMode`; do not add comments):
 
 ```js
-import { world, system, ItemStack, EntityComponentTypes } from "@minecraft/server";
+import { world, system, ItemStack, EntityComponentTypes, GameMode } from "@minecraft/server";
 import { ActionFormData, FormCancelationReason } from "@minecraft/server-ui";
 
 const CONTROLLER_ID = "allenscreations:controller";
-const STATE_KEY = "game_state"; // "idle" | "running" | "ended"
+const STATE_KEY = "game_state";
 
 const getState = () => {
   const v = world.getDynamicProperty(STATE_KEY);
   return typeof v === "string" ? v : "idle";
 };
 const setState = (s) => world.setDynamicProperty(STATE_KEY, s);
+const isCreative = (player) => player.getGameMode() === GameMode.Creative;
+const containerOf = (player) => player.getComponent(EntityComponentTypes.Inventory)?.container;
 
 function startGame() {
   setState("running");
   world.sendMessage("Game started.");
-  // TODO: game setup
 }
 function endGame() {
   setState("ended");
   world.sendMessage("Game ended.");
-  // TODO: game cleanup and results
 }
 function restartGame() {
   if (getState() === "running") endGame();
-  // TODO: reset game data
   startGame();
+}
+
+function hasController(player) {
+  const inv = containerOf(player);
+  if (!inv) return false;
+  for (let i = 0; i < inv.size; i++) {
+    if (inv.getItem(i)?.typeId === CONTROLLER_ID) return true;
+  }
+  return false;
+}
+function giveController(player) {
+  if (hasController(player)) return;
+  containerOf(player)?.addItem(new ItemStack(CONTROLLER_ID, 1));
+}
+function consumeController(player) {
+  if (isCreative(player)) return;
+  const inv = containerOf(player);
+  const slot = player.selectedSlotIndex;
+  if (inv?.getItem(slot)?.typeId !== CONTROLLER_ID) return;
+  inv.setItem(slot, undefined);
+  player.playSound("random.break");
+  player.sendMessage("The Controller broke.");
 }
 
 async function openController(player, attempt = 0) {
   const state = getState();
+  const note = isCreative(player) ? "Creative: the Controller is kept." : "Start and Restart use up the Controller.";
   const form = new ActionFormData()
     .title("Controller")
-    .body(`State: ${state}`)
+    .body(`State: ${state}\n${note}`)
     .button("Start")
     .button("Restart")
     .button("End");
@@ -204,18 +240,24 @@ async function openController(player, attempt = 0) {
     return;
   }
   if (res.canceled) {
-    // The form is dropped while chat or another screen is open: retry briefly.
     if (res.cancelationReason === FormCancelationReason.UserBusy && attempt < 5) {
       system.runTimeout(() => openController(player, attempt + 1), 10);
     }
     return;
   }
   if (res.selection === 0) {
-    state === "running" ? player.sendMessage("Already running.") : startGame();
+    if (state === "running") {
+      player.sendMessage("Already running.");
+      return;
+    }
+    startGame();
+    consumeController(player);
   } else if (res.selection === 1) {
     restartGame();
+    consumeController(player);
   } else if (res.selection === 2) {
-    state === "running" ? endGame() : player.sendMessage("Nothing to end.");
+    if (state === "running") endGame();
+    else player.sendMessage("Nothing to end.");
   }
 }
 
@@ -223,16 +265,9 @@ world.afterEvents.itemUse.subscribe(({ source, itemStack }) => {
   if (itemStack?.typeId === CONTROLLER_ID) openController(source);
 });
 
-function giveController(player) {
-  const inv = player.getComponent(EntityComponentTypes.Inventory)?.container;
-  if (!inv) return;
-  for (let i = 0; i < inv.size; i++) {
-    if (inv.getItem(i)?.typeId === CONTROLLER_ID) return;
-  }
-  inv.addItem(new ItemStack(CONTROLLER_ID, 1));
-}
 world.afterEvents.playerSpawn.subscribe(({ player, initialSpawn }) => {
-  if (initialSpawn) giveController(player);
+  if (!initialSpawn) return;
+  if (isCreative(player) || getState() !== "running") giveController(player);
 });
 ```
 
@@ -259,7 +294,7 @@ world.afterEvents.playerSpawn.subscribe(({ player, initialSpawn }) => {
 
 ---
 
-## 8. `build_payload.py` (run this, do not hand-write)
+## 8. `build_payload.py` v6 (run this, do not hand-write)
 
 One script does the whole job: installs missing Trader Ledger or Controller files, runs every check, builds the ZIP, writes `payload.b64` (always one line) and round-trips it. The repo's importer imports this same file.
 
@@ -271,7 +306,7 @@ One script does the whole job: installs missing Trader Ledger or Controller file
 
 ```python
 #!/usr/bin/env python3
-"""Project payload builder v5 for AllensCreations/MCPE-Curseforges.
+"""Project payload builder v6 for AllensCreations/MCPE-Curseforges.
 
 One script for all three project types: addon, map (OneBlock), script.
 It installs the mandatory repo assets that are missing, runs every structural check,
@@ -324,6 +359,7 @@ CONTROLLER_ITEM = {
         },
     },
 }
+GIVE_LINE = "give @s allenscreations:controller"
 CLEANER = "execute as @a[tag=!void_cleaned] run fill -16 -64 -16 16 -64 16 air"
 ATTRIBUTION = "by AllensCreations"
 NAME_RE = re.compile(r"^[A-Za-z0-9][A-Za-z0-9._-]{0,63}$")
@@ -339,7 +375,8 @@ MAP_REQUIRED = ("resource_pack/manifest.json", "behavior_pack/functions/tick.jso
                 "behavior_pack/items/trader_ledger.json", "resource_pack/textures/item_texture.json",
                 "resource_pack/textures/items/trader_ledger.png")
 CONTROLLER_REQUIRED = ("resource_pack/manifest.json", "behavior_pack/items/controller.json",
-                       "resource_pack/textures/item_texture.json", "resource_pack/textures/items/controller.png")
+                       "resource_pack/textures/item_texture.json", "resource_pack/textures/items/controller.png",
+                       "behavior_pack/functions/give_controller.mcfunction")
 
 
 def _png(b64, sha):
@@ -406,6 +443,11 @@ def install_assets(root):
         if not i.exists():
             _write_json(i, CONTROLLER_ITEM)
             print("installed  behavior_pack/items/controller.json")
+        g = root / "behavior_pack/functions/give_controller.mcfunction"
+        if not g.exists():
+            g.parent.mkdir(parents=True, exist_ok=True)
+            g.write_text(GIVE_LINE + "\n", encoding="utf-8")
+            print("installed  behavior_pack/functions/give_controller.mcfunction")
 
 
 def _png_size(d):
@@ -596,8 +638,21 @@ def run_checks(root, repo_root=None, folder=None):
             check("ActionFormData" in js, "main.js must open the controller with ActionFormData")
             for label in ("Start", "Restart", "End"):
                 check(f'"{label}"' in js or f"'{label}'" in js, f"main.js: controller button '{label}' not found")
+            check("getGameMode" in js and "GameMode.Creative" in js, "main.js: the controller must check GameMode.Creative with getGameMode()")
+            check("setItem" in js and "selectedSlotIndex" in js, "main.js: Start/Restart must consume the controller outside Creative")
             if "setInterval" in js or "system.runInterval" in js:
                 warns.append("main.js uses a repeating timer; confirm it is not a per-tick scan")
+
+    gf = root / "behavior_pack/functions/give_controller.mcfunction"
+    if controller and gf.is_file():
+        check(GIVE_LINE in gf.read_text(encoding="utf-8").splitlines(), "give_controller.mcfunction must contain: " + GIVE_LINE)
+    for rel in ("behavior_pack/scripts/main.js",):
+        src = root / rel
+        if src.is_file() and any(re.match(r"\s*(//|/\*)", ln) for ln in src.read_text(encoding="utf-8").splitlines()):
+            warns.append(rel + ": remove comments (v6: no comments in scripts)")
+    for fn in (root / "behavior_pack/functions").glob("**/*.mcfunction") if (root / "behavior_pack/functions").is_dir() else []:
+        if any(ln.lstrip().startswith("#") for ln in fn.read_text(encoding="utf-8").splitlines()):
+            warns.append(fn.relative_to(root).as_posix() + ": remove comments (v6: no comments in functions)")
 
     # test_world.json (required for scripts, optional for add-ons)
     tw_p = root / "test_world.json"
@@ -711,7 +766,8 @@ if __name__ == "__main__":
 - [ ] Module versions are latest stable, looked up on the date of the work, with the date recorded.
 - [ ] README states achievement status, experiments, and "not tested in game".
 - [ ] Map: `oneblock_setup.mcfunction` is harmless and idempotent, and the README says it is manual or optional.
-- [ ] Script: the form has Start, Restart, End and every `TODO` in `main.js` is replaced by real logic; each listed add-on exists.
+- [ ] Script: the form has Start, Restart, End; the game logic is real (the template functions only send messages); Start/Restart consume the Controller outside Creative; each listed add-on exists.
+- [ ] No comments in any script, function or JSON file.
 - [ ] No file from `Mcpeworlds/assets/` other than the ledger or controller files was copied (no stray file named `1`).
 
 ---
@@ -734,6 +790,9 @@ Paste the workflow's error log back to the agent. Common messages and fixes:
 | `missing required file: ...` | Add the named file; see the list for your type. |
 | `is not a byte-for-byte copy` | Use the repo or embedded PNG unchanged; never re-save it. |
 | `main.js: controller button 'End' not found` | Keep the three labels `"Start"`, `"Restart"`, `"End"` in `main.js`. |
+| `controller must check GameMode.Creative` / `must consume the controller` | Keep the Creative check and the consume step from the Section 6 template. |
+| `give_controller.mcfunction must contain` | The file must have the line `give @s allenscreations:controller`. |
+| `remove comments` | Strip comments from the named file (warning only). |
 | `add-on '<x>' not found` | Fix the folder name in `test_world.json` or remove it. |
 | `Duplicate pack UUID` / `depends on pack ... not included` | The included add-on clashes with or needs another pack: change the list. |
 | `missing the AlwaysUnlocked unlock context` | Add the unlock to the recipe (Section 7). |
@@ -754,4 +813,3 @@ If the message is not listed, check the relevant script in `scripts/` and tell t
    - Download the generated world from the run's artifacts or from the project folder and test it in Minecraft.
    - To change which add-ons a test world includes later, edit `test_world.json` and run **Build Test World**.
    - If the build fails, paste the error log back to the agent (Section 10).
-
