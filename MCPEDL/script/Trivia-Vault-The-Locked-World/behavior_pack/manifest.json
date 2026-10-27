@@ -1,0 +1,58 @@
+{
+  "format_version": 2,
+  "header": {
+    "name": "Trivia Vault: The Locked World (v1.0.0)",
+    "description": "A survival trivia challenge by AllensCreations",
+    "uuid": "f04c6ab1-bdb6-4ee1-8fe1-87a76173a087",
+    "version": [
+      1,
+      0,
+      0
+    ],
+    "min_engine_version": [
+      1,
+      26,
+      0
+    ]
+  },
+  "modules": [
+    {
+      "type": "data",
+      "uuid": "f9e5f77c-efb4-4d31-b6ee-496ab54b313d",
+      "version": [
+        1,
+        0,
+        0
+      ]
+    },
+    {
+      "type": "script",
+      "language": "javascript",
+      "uuid": "021fc196-7cc4-4d56-b65b-f837b5372829",
+      "version": [
+        1,
+        0,
+        0
+      ],
+      "entry": "scripts/main.js"
+    }
+  ],
+  "dependencies": [
+    {
+      "module_name": "@minecraft/server",
+      "version": "2.10.0"
+    },
+    {
+      "module_name": "@minecraft/server-ui",
+      "version": "2.2.0"
+    },
+    {
+      "uuid": "28e51c40-0b28-483c-88f0-3b7e0209536d",
+      "version": [
+        1,
+        0,
+        0
+      ]
+    }
+  ]
+}
