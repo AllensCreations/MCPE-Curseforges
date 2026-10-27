@@ -49,7 +49,7 @@ CONTROLLER_ITEM = {
         "components": {
             "minecraft:max_stack_size": 1,
             "minecraft:icon": {"textures": {"default": "controller"}},
-            "minecraft:display_name": {"value": "Controller"},
+            "minecraft:display_name": {"value": "§l§bAllens§dCreations §6Controller"},
             "minecraft:use_animation": "spyglass",
             "minecraft:use_modifiers": {"use_duration": 0.1, "movement_modifier": 1},
         },
