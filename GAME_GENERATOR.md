@@ -172,6 +172,14 @@ test_world.json
 - **Giving it.** The script gives it on a player's first spawn when they do not already carry one, and only if the game is not `running` (Creative players always get one). Game state (`idle`, `running`, `ended`) lives in a world dynamic property so it survives rejoining.
 - **The form** shows the state and a one-line note on whether the Controller will be kept. Keep the three labels `"Start"`, `"Restart"`, `"End"` exactly.
 
+**Controller texture pack (resource pack).** The icon is `Mcpeworlds/assets/resources_pack/textures/items/controller.png` in the repo, a 16 x 16 PNG. The importer compares your copy to that file byte for byte.
+
+- Never draw, recolor, resize or re-save it, and never write its base64 by hand. Running `build_payload.py` installs it for you as `resource_pack/textures/items/controller.png`.
+- The same run also creates `resource_pack/textures/item_texture.json` (`atlas.items`, entry `controller` pointing to `textures/items/controller`), `behavior_pack/items/controller.json` (identifier `allenscreations:controller`, icon `controller`, display name `Controller`, stack size 1) and `behavior_pack/functions/give_controller.mcfunction`. It never overwrites an existing PNG.
+- You still write `resource_pack/manifest.json` yourself (Section 3 template, fresh UUIDs, same version as the behavior pack) and add its dependency to the behavior pack manifest, plus `@minecraft/server-ui`.
+- Do not copy anything else from `Mcpeworlds/assets/`. Do not ship a resource pack for a script with `"controller": false` unless it has its own textures.
+- If the script needs other textures, add them next to the Controller icon and extend `item_texture.json` without removing the `controller` entry.
+
 Starting point for `main.js` (adapt it and put your game logic inside `startGame`, `restartGame` and `endGame`; confirm every member against the stable module versions you chose, including `getGameMode()` and `GameMode`; do not add comments):
 
 ```js
