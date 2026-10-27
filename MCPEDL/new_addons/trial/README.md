@@ -1,17 +1,19 @@
-# Mob Chaos: Behavioral Roulette
+# Mob Chaos Behavioral Roulette (v1.0.0)
 
-An unpredictable add-on for Minecraft Bedrock. Mobs near you get their behaviors scrambled with traits stolen from other creatures, and eerie glitch warnings flash on screen before each change. by AllensCreations
+Download the current release of **Mob Chaos Behavioral Roulette** for Minecraft Bedrock Edition.
 
-## Install
-Add the behavior pack to your world. No resource pack is needed.
+## Download
 
-## Status
-- Achievement status: Unknown / needs confirmation
-- No experiment requirement detected in the inspected files.
-- Script module: @minecraft/server 2.10.0, the latest stable listed in the official Creator documentation when checked on 2026-10-26. The game version that first shipped 2.10.0 was not confirmed, so min_engine_version 1.26.50 is an inference.
-- Source created, not tested in game.
+- **Version:** 1.0.0
+- **Package format:** `.mcpack`
+- **Direct download:** [Download the add-on (.mcpack)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/trial/Mob%20Chaos%20Behavioral%20Roulette%20by%20AllensCreations%20%28V1.0.0%29.mcpack)
 
-## Notes
-- Mutations are kept in memory, so every nearby mob is re-rolled when the world loads and again at random intervals (default 120 seconds).
-- Controls: /scriptevent mobchaos:reshuffle, mobchaos:warnings on|off, mobchaos:blocks on|off, mobchaos:interval <seconds>, mobchaos:status
-- Unverified assumptions: arrow damage from the volley trait, sound event names, and chase movement feel need in-game testing.
+## Installation
+
+1. Download the package using the link above.
+2. Open the downloaded file with Minecraft to import it.
+3. If the package contains a pack that must be enabled separately, activate it in your world's settings.
+
+## Add-on Information
+
+For gameplay features, usage details, recipes, compatibility notes, and other project information, read the [full description](https://github.com/AllensCreations/MCPE-Curseforges/blob/main/MCPEDL/new_addons/trial/DESCRIPTION.md).

@@ -1,4 +1,4 @@
-# Mob Chaos: Behavioral Roulette
+# Mob Chaos: Behavioral Roulette (v1.0.0)
 
 A chaos mini-game by AllensCreations. While it runs, mobs near you are randomly handed another creature's tricks: cows hover and drop beef, sheep catch fire and charge, dogs gain a creeper's fuse, spiders blink behind you. Blood-red glitching warnings flash on your action bar and screen right before a mob mutates.
 
