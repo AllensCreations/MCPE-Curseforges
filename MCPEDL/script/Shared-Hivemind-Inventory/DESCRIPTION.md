@@ -1,4 +1,4 @@
-# Team Inventory (v1.0.13) — Shared Multiplayer Inventory
+# Team Inventory (v1.0.14) — Shared Multiplayer Inventory
 
 **By AllensCreations**
 
@@ -13,14 +13,17 @@ The add-on keeps the team's inventory state synchronized as players join and pla
 ### Shared Inventory
 - **What Happens:** The team's main inventory, armor, offhand, and selected hotbar slot are shared among online players.
 
-### Returning Players
-- **What Happens:** New and returning players receive the current shared inventory state.
+### Joining Players
+- **What Happens:** Players who join a world that already has a shared inventory receive the team inventory. Their own items are replaced, so store anything personal before joining.
+- **First Setup:** When the add-on starts with no saved team inventory, every online player's items are combined into it and extra items are dropped at their feet.
 
 ### Conflict Recovery
 - **What Happens:** When players make conflicting inventory changes, the add-on attempts to preserve affected items as world drops and provides brief feedback.
 
 ### Death Handling
 - **What Happens:** The shared inventory is dropped once on death and then cleared for the team.
+- **Keep Inventory On:** The add-on drops the shared items itself.
+- **Keep Inventory Off:** The game's own death drop is used, so items are not duplicated.
 
 ### World Settings
 - **Important:** The add-on does not force the world's keep-inventory setting. The result of death drops can therefore depend on the world's existing setting.
@@ -35,6 +38,9 @@ The add-on keeps the team's inventory state synchronized as players join and pla
 
 - Minecraft Bedrock Edition. Check the current package listing for the supported game version.
 - Synchronization happens periodically, so changes may take a short moment to appear.
+- Items keep every detail while the world is running. After the world is restarted, only names, lore, durability and enchantments are restored. Shulker box and bundle contents, potion types, dyed colors, banner patterns and maps are not.
+- If the shared inventory becomes too large to save, players are warned and the saved copy stops updating until it is smaller.
+- Every player's selected hotbar slot is shared; if several players change it at the same moment, the first change wins.
 - Exact preservation of every item component is not guaranteed; supported item details depend on what Minecraft makes available.
 
 ## Creator and Permissions
@@ -58,3 +64,4 @@ The add-on keeps the team's inventory state synchronized as players join and pla
 ## Search & Discovery Keywords
 
 Minecraft Bedrock shared inventory, Team Inventory add-on, multiplayer shared items, shared hotbar Minecraft, shared armor and offhand, Minecraft PE multiplayer tool, team survival inventory, MCPEDL, CurseForge Bedrock, AllensCreations.
+

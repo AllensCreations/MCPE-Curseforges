@@ -1,25 +1,37 @@
-/** Team Inventory — AllensCreations
- * Shared main inventory, offhand, armor, and selected hotbar slot.
- * Persistent world dynamic property storage; two-tick change detection.
- */
 import { world, system, ItemStack, EquipmentSlot, EnchantmentTypes } from "@minecraft/server";
 
 const STORAGE_KEY = "allenscreations:hivemind_v106";
+const MAX_STORED = 30000;
+const MAX_APPLY_RETRIES = 10;
+const ERROR_COOLDOWN = 200;
 const SLOT_COUNT = 36;
 const SCAN_INTERVAL = 2;
 const ARMOR_SLOTS = [EquipmentSlot.Head, EquipmentSlot.Chest, EquipmentSlot.Legs, EquipmentSlot.Feet];
 const EQUIPMENT_SLOTS = [...ARMOR_SLOTS, EquipmentSlot.Offhand];
+
 let master = null;
 let syncing = false;
 let initialized = false;
 let tickBusy = false;
+let warnedSize = false;
+let lastErrorTick = -ERROR_COOLDOWN;
 const snapshots = new Map();
 const pendingDeath = new Map();
+const applyFails = new Map();
 
 function safe(fn, fallback = undefined) { try { return fn(); } catch { return fallback; } }
+function withSync(fn) {
+  syncing = true;
+  try { fn(); } finally { syncing = false; }
+}
 function inventoryOf(player) { return safe(() => player.getComponent("minecraft:inventory")?.container); }
 function equipmentOf(player) { return safe(() => player.getComponent("minecraft:equippable")); }
 function clone(item) { return item ? safe(() => item.clone(), undefined) : undefined; }
+function isAlive(player) {
+  if (!safe(() => player.isValid, false)) return false;
+  return safe(() => player.getComponent("minecraft:health")?.currentValue > 0, true);
+}
+function livePlayers() { return world.getAllPlayers().filter(isAlive); }
 
 function serializeItem(item) {
   if (!item) return null;
@@ -29,7 +41,10 @@ function serializeItem(item) {
   safe(() => { const d = item.getComponent("minecraft:durability"); if (d) out.damage = d.damage; });
   safe(() => {
     const c = item.getComponent("minecraft:enchantable");
-    if (c) out.enchants = c.getEnchantments().map(e => ({ id: e.type.id, level: e.level }));
+    if (c) {
+      const list = c.getEnchantments();
+      if (list.length) out.enchants = list.map(e => ({ id: e.type.id, level: e.level }));
+    }
   });
   return out;
 }
@@ -49,12 +64,13 @@ function deserializeItem(data) {
 }
 function sameItem(a, b) {
   if (!a || !b) return !a && !b;
+  if (a.typeId !== b.typeId || a.amount !== b.amount) return false;
   return JSON.stringify(serializeItem(a)) === JSON.stringify(serializeItem(b));
 }
 function readPlayer(player) {
   const c = inventoryOf(player);
   if (!c) return null;
-  const slots = Array.from({ length: SLOT_COUNT }, (_, i) => clone(c.getItem(i)));
+  const slots = Array.from({ length: SLOT_COUNT }, (_, i) => clone(safe(() => c.getItem(i))));
   const eq = equipmentOf(player);
   const equipment = {};
   for (const slot of EQUIPMENT_SLOTS) equipment[slot] = clone(safe(() => eq?.getEquipment(slot)));
@@ -77,33 +93,24 @@ function deserializeState(data) {
 }
 function persist() {
   if (!master) return;
-  safe(() => world.setDynamicProperty(STORAGE_KEY, JSON.stringify(serializeState(master))));
+  const json = JSON.stringify(serializeState(master));
+  if (json.length > MAX_STORED) {
+    if (!warnedSize) {
+      warnedSize = true;
+      safe(() => world.sendMessage("§e[Team Inventory] The shared inventory is too large to save. It will not persist until it is smaller."));
+    }
+    return;
+  }
+  warnedSize = false;
+  safe(() => world.setDynamicProperty(STORAGE_KEY, json));
 }
 function loadPersisted() {
   const raw = safe(() => world.getDynamicProperty(STORAGE_KEY));
   if (typeof raw !== "string" || !raw) return null;
   return safe(() => deserializeState(JSON.parse(raw)), null);
 }
-function snapshot(player, state) { snapshots.set(player.id, state ?? readPlayer(player)); }
-function applyState(player, state = master) {
-  if (!state) return;
-  const c = inventoryOf(player), eq = equipmentOf(player);
-  if (!c) return;
-  for (let i = 0; i < SLOT_COUNT; i++) safe(() => c.setItem(i, clone(state.slots[i])));
-  for (const slot of EQUIPMENT_SLOTS) safe(() => eq?.setEquipment(slot, clone(state.equipment[slot])));
-  safe(() => { player.selectedSlotIndex = state.selected; });
-  snapshot(player, readPlayer(player));
-}
 function emptyState() {
   return { slots: Array(SLOT_COUNT).fill(undefined), equipment: Object.fromEntries(EQUIPMENT_SLOTS.map(s => [s, undefined])), selected: 0 };
-}
-function slotName(i) { return i < 9 ? `hotbar ${i + 1}` : `inventory slot ${i + 1}`; }
-function warnConflict(player, description) {
-  safe(() => player.sendMessage(`§e[Team Inventory] Inventory conflict in ${description}; both item changes were preserved when possible.`));
-}
-function spawnSafely(player, item) {
-  if (!item) return false;
-  return !!safe(() => { player.dimension.spawnItem(clone(item), player.location); return true; }, false);
 }
 function stateDiff(a, b) {
   const slots = [];
@@ -111,69 +118,114 @@ function stateDiff(a, b) {
   const equipment = EQUIPMENT_SLOTS.filter(s => !sameItem(a.equipment[s], b.equipment[s]));
   return { slots, equipment, selected: a.selected !== b.selected };
 }
+function applyState(player, state = master) {
+  if (!state) return;
+  const c = inventoryOf(player), eq = equipmentOf(player);
+  if (!c) return;
+  for (let i = 0; i < SLOT_COUNT; i++) safe(() => c.setItem(i, clone(state.slots[i])));
+  for (const slot of EQUIPMENT_SLOTS) safe(() => eq?.setEquipment(slot, clone(state.equipment[slot])));
+  safe(() => { player.selectedSlotIndex = state.selected; });
+  const read = readPlayer(player);
+  const fails = applyFails.get(player.id) ?? 0;
+  const diff = read ? stateDiff(state, read) : null;
+  if (diff && !diff.slots.length && !diff.equipment.length) {
+    applyFails.delete(player.id);
+    snapshots.set(player.id, read);
+  } else if (fails >= MAX_APPLY_RETRIES) {
+    applyFails.delete(player.id);
+    if (read) snapshots.set(player.id, read);
+  } else {
+    applyFails.set(player.id, fails + 1);
+    snapshots.delete(player.id);
+  }
+}
+function slotName(i) { return i < 9 ? `hotbar ${i + 1}` : `inventory slot ${i + 1}`; }
+function warnConflict(player, description) {
+  safe(() => player.sendMessage(`§e[Team Inventory] Inventory conflict in ${description}; both item changes were preserved when possible.`));
+}
+function spawnAt(dimension, item, location) {
+  if (!item) return false;
+  return !!safe(() => { dimension.spawnItem(clone(item), location); return true; }, false);
+}
+function spawnSafely(player, item) {
+  return spawnAt(player.dimension, item, player.location);
+}
+function placeItem(state, item) {
+  const i = state.slots.findIndex(s => !s);
+  if (i < 0) return false;
+  state.slots[i] = clone(item);
+  return true;
+}
+function mergeInto(state, player) {
+  const read = readPlayer(player);
+  if (!read) return;
+  read.slots.forEach((item, i) => {
+    if (!item) return;
+    if (!state.slots[i]) state.slots[i] = clone(item);
+    else if (!placeItem(state, item)) spawnSafely(player, item);
+  });
+  for (const slot of EQUIPMENT_SLOTS) {
+    const item = read.equipment[slot];
+    if (!item) continue;
+    if (!state.equipment[slot]) state.equipment[slot] = clone(item);
+    else if (!placeItem(state, item)) spawnSafely(player, item);
+  }
+}
 function applyDetectedChanges(detected) {
   const slotWinners = new Map();
   const equipmentWinners = new Map();
   let changed = false;
+  let selectedTaken = false;
   for (const { player, current, previous } of detected) {
     const changes = stateDiff(previous, current);
     for (const i of changes.slots) {
       const item = clone(current.slots[i]);
       if (!slotWinners.has(i)) slotWinners.set(i, { item, player });
-      else {
-        const winner = slotWinners.get(i);
-        if (!sameItem(winner.item, item)) {
-          if (item) spawnSafely(player, item);
-          warnConflict(player, slotName(i));
-        }
+      else if (!sameItem(slotWinners.get(i).item, item)) {
+        if (item) spawnSafely(player, item);
+        warnConflict(player, slotName(i));
       }
     }
     for (const slot of changes.equipment) {
       const item = clone(current.equipment[slot]);
       if (!equipmentWinners.has(slot)) equipmentWinners.set(slot, { item, player });
-      else {
-        const winner = equipmentWinners.get(slot);
-        if (!sameItem(winner.item, item)) {
-          if (item) spawnSafely(player, item);
-          warnConflict(player, String(slot));
-        }
+      else if (!sameItem(equipmentWinners.get(slot).item, item)) {
+        if (item) spawnSafely(player, item);
+        warnConflict(player, String(slot));
       }
     }
-    if (changes.selected) { master.selected = current.selected; changed = true; }
+    if (changes.selected && !selectedTaken) {
+      selectedTaken = true;
+      master.selected = current.selected;
+      changed = true;
+    }
   }
   for (const [i, winner] of slotWinners) { master.slots[i] = clone(winner.item); changed = true; }
   for (const [slot, winner] of equipmentWinners) { master.equipment[slot] = clone(winner.item); changed = true; }
   if (changed) {
-    syncing = true;
-    try { for (const p of world.getAllPlayers()) applyState(p, master); }
-    finally { syncing = false; }
+    withSync(() => { for (const p of livePlayers()) applyState(p, master); });
     persist();
   }
 }
 function initialize(players) {
   master = loadPersisted();
   if (!master) {
-    const first = players[0];
-    master = first ? (readPlayer(first) ?? emptyState()) : emptyState();
+    master = emptyState();
+    for (const p of players) mergeInto(master, p);
+    master.selected = safe(() => players[0].selectedSlotIndex, 0);
     persist();
   }
   initialized = true;
-  syncing = true;
-  try { for (const p of players) applyState(p, master); }
-  finally { syncing = false; }
+  withSync(() => { for (const p of players) applyState(p, master); });
 }
 function syncTick() {
   if (syncing || tickBusy) return;
   tickBusy = true;
   try {
-    const players = world.getAllPlayers();
+    const players = livePlayers();
     if (!players.length) return;
     if (!initialized) { initialize(players); return; }
-    for (const p of players) if (!snapshots.has(p.id)) {
-      syncing = true;
-      try { applyState(p, master); }
-      finally { syncing = false; }
-    }
+    for (const p of players) if (!snapshots.has(p.id)) withSync(() => applyState(p, master));
     const detected = [];
     for (const p of players) {
       const before = snapshots.get(p.id), current = readPlayer(p);
@@ -185,54 +237,54 @@ function syncTick() {
   } finally { tickBusy = false; }
 }
 
-// Preserve the actual keepInventory gamerule. If vanilla death drops are enabled, vanilla
-// drops may overlap with scripted shared drops; the pack does not change the world's gamerule.
 world.afterEvents.entityDie.subscribe(event => {
   const dead = event.deadEntity;
   if (dead.typeId !== "minecraft:player" || !master) return;
   const id = dead.id;
   if (pendingDeath.has(id)) return;
   pendingDeath.set(id, true);
-  const dim = dead.dimension, loc = { x: dead.location.x, y: dead.location.y + 0.5, z: dead.location.z };
+  const dim = dead.dimension;
+  const loc = { x: dead.location.x, y: dead.location.y + 0.5, z: dead.location.z };
   const coords = `${Math.floor(dead.location.x)}, ${Math.floor(dead.location.y)}, ${Math.floor(dead.location.z)}`;
+  const vanillaDrops = safe(() => world.gameRules.keepInventory === false, false);
+  const stacks = [...master.slots, ...EQUIPMENT_SLOTS.map(s => master.equipment[s])].filter(Boolean);
   let dropped = 0;
-  syncing = true;
-  try {
-    for (const item of master.slots) if (item && safe(() => { dim.spawnItem(clone(item), loc); return true; }, false)) dropped++;
-    for (const slot of EQUIPMENT_SLOTS) { const item = master.equipment[slot]; if (item && safe(() => { dim.spawnItem(clone(item), loc); return true; }, false)) dropped++; }
+  withSync(() => {
+    for (const item of stacks) if (vanillaDrops || spawnAt(dim, item, loc)) dropped++;
     master = emptyState();
-    for (const p of world.getAllPlayers()) applyState(p, master);
+    for (const p of livePlayers()) applyState(p, master);
     persist();
     world.sendMessage(`§c[Team Inventory] ${dead.name ?? "A player"} died at ${coords}. Shared inventory dropped once (${dropped} stacks).`);
-  } finally {
-    syncing = false;
-    system.runTimeout(() => pendingDeath.delete(id), 40);
-  }
+  });
+  system.runTimeout(() => pendingDeath.delete(id), 40);
 });
 
-world.beforeEvents.playerLeave.subscribe(event => snapshots.delete(event.player.id));
+world.beforeEvents.playerLeave.subscribe(event => {
+  snapshots.delete(event.player.id);
+  applyFails.delete(event.player.id);
+});
+
 world.afterEvents.playerSpawn.subscribe(event => {
-  // Show the join message even if this is the world's first player and sync has not initialized yet.
+  const player = event.player;
   if (event.initialSpawn !== false) {
     system.run(() => {
-      // Prefer the mcfunction message; fall back to the Script API if command execution is unavailable.
-      const result = safe(() => event.player.runCommand("function team_inventory/join_message"), null);
+      const result = safe(() => player.runCommand("function team_inventory/join_message"), null);
       if (!result || result.successCount < 1) {
-        safe(() => event.player.sendMessage("§a[Team Inventory] §fSyncing shared inventory..."));
+        safe(() => player.sendMessage("§a[Team Inventory] §fSyncing shared inventory..."));
       }
     });
   }
-
-  if (!initialized || !master) return;
-  syncing = true;
-  try { applyState(event.player, master); }
-  finally { syncing = false; }
+  snapshots.delete(player.id);
+  applyFails.delete(player.id);
 });
 
 system.runInterval(() => {
   try { syncTick(); }
-  catch (error) {
+  catch {
     syncing = false;
-    safe(() => world.sendMessage("§c[Team Inventory] Sync paused for this check after an internal error."));
+    if (system.currentTick - lastErrorTick >= ERROR_COOLDOWN) {
+      lastErrorTick = system.currentTick;
+      safe(() => world.sendMessage("§c[Team Inventory] Sync paused for this check after an internal error."));
+    }
   }
 }, SCAN_INTERVAL);

@@ -1,19 +1,18 @@
-# Team Inventory (v1.0.13)
+# Team Inventory (v1.0.14)
 
-Download the current release of **Team Inventory** for Minecraft Bedrock Edition.
-
-## Download
-
-- **Version:** 1.0.13
-- **Package format:** `.mcpack`
-- **Direct download:** [Download the pack (.mcpack)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Shared-Hivemind-Inventory/Team%20Inventory%20by%20AllensCreations%20%28V1.0.13%29.mcpack)
+Team Inventory shares one inventory between everyone in the same Minecraft Bedrock world: main inventory, armor, offhand and the selected hotbar slot.
 
 ## Installation
 
-1. Download the file using the link above.
-2. Open it with Minecraft to import it.
-3. Activate the imported pack in your world's settings if Minecraft does not enable it automatically.
+1. Import the pack into Minecraft.
+2. Enable it in the world's Behavior Packs settings.
+3. Have players join the same world.
 
 ## Project Information
 
-Read the [full description](https://github.com/AllensCreations/MCPE-Curseforges/blob/main/MCPEDL/script/Shared-Hivemind-Inventory/DESCRIPTION.md) for gameplay details, usage, requirements, and limitations.
+- Achievements: Unknown / needs confirmation.
+- Experiments: No experiment requirement detected in the inspected files.
+- Players who join an already-running shared world receive the team inventory in place of their own items.
+- Source created, not tested in game.
+
+Read the full description in DESCRIPTION.md.

@@ -2,6 +2,22 @@
 
 ---
 
+## [1.0.14] - 2026-10-27
+
+### Fixed
+- **Death Drops:** The shared inventory is no longer duplicated on death when the world's keep-inventory setting is off.
+- **First Setup:** Items from every online player are combined into the shared inventory instead of only the first player's.
+- **Join Sync:** Players are checked after syncing and retried if their inventory did not update.
+- **Saving:** Players are warned when the shared inventory is too large to save.
+- **Hotbar Selection:** Simultaneous hotbar changes no longer fight each other.
+- **Error Messages:** Internal error warnings are limited so they no longer flood chat.
+
+### Improved
+- **Performance:** Inventory comparison skips detailed checks when item type or amount already differ.
+- **Compatibility:** Updated to the current stable game scripting version.
+
+---
+
 ## [1.0.12] - 2026-10-18
 
 ### Fixed
