@@ -8,9 +8,9 @@ This folder contains compiled release packages for **Monster Companions** by All
 
 | File Name | Format | Size | Description | Download Link |
 | :--- | :--- | :--- | :--- | :--- |
-| **`Monster Companions by AllensCreations (V1.0.9).mcaddon`** | `.mcaddon` | ~1.1 MB | Complete bundle containing both Behavior Pack and Resource Pack. | [Download (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Monster-Companions/Monster%20Companions%20by%20AllensCreations%20%28V1.0.9%29.mcaddon) |
-| **`Monster Companions BP by AllensCreations (V1.0.9).mcpack`** | `.mcpack` | ~602 KB | Behavior Pack: Custom entities, components, and gameplay mechanics. | [Download (.mcpack)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Monster-Companions/Monster%20Companions%20BP%20by%20AllensCreations%20%28V1.0.9%29.mcpack) |
-| **`Monster Companions RP by AllensCreations (V1.0.9).mcpack`** | `.mcpack` | ~517 KB | Resource Pack: Custom models, geometry, textures, and sounds. | [Download (.mcpack)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Monster-Companions/Monster%20Companions%20RP%20by%20AllensCreations%20%28V1.0.9%29.mcpack) |
+| **`Monster Companions by AllensCreations (V1.0.9).mcaddon`** | `.mcaddon` | ~393 KB | Complete bundle containing both Behavior Pack and Resource Pack. | [Download (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Monster-Companions/Monster%20Companions%20by%20AllensCreations%20%28V1.0.9%29.mcaddon) |
+| **`Monster Companions BP by AllensCreations (V1.0.9).mcpack`** | `.mcpack` | ~238 KB | Behavior Pack: Custom entities, components, and gameplay mechanics. | [Download (.mcpack)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Monster-Companions/Monster%20Companions%20BP%20by%20AllensCreations%20%28V1.0.9%29.mcpack) |
+| **`Monster Companions RP by AllensCreations (V1.0.9).mcpack`** | `.mcpack` | ~153 KB | Resource Pack: Custom models, geometry, textures, and sounds. | [Download (.mcpack)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Monster-Companions/Monster%20Companions%20RP%20by%20AllensCreations%20%28V1.0.9%29.mcpack) |
 
 ---
 

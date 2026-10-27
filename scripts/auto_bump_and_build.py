@@ -33,6 +33,21 @@ import shutil
 import argparse
 import urllib.parse
 
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+try:
+    import make_pack_icon
+except Exception as _exc:  # Pillow missing etc.
+    make_pack_icon = None
+    print(f"WARNING: pack icon helper unavailable: {_exc}", file=sys.stderr)
+
+JUNK_DIRS = {"__pycache__", ".git", ".github"}
+JUNK_FILES = {".ds_store", "thumbs.db", "desktop.ini", ".gitkeep"}
+
+
+def is_junk(filename):
+    low = filename.lower()
+    return low in JUNK_FILES or low.endswith(("~", ".bak", ".tmp", ".orig", ".importing"))
+
 REPO_ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
 GITHUB_RAW = "https://github.com/AllensCreations/MCPE-Curseforges/raw/main"
 
@@ -373,8 +388,11 @@ def zip_directory_contents(src_dir, zip_dest):
     """Zips the contents of src_dir directly into the root of zip_dest."""
     os.makedirs(os.path.dirname(zip_dest), exist_ok=True)
     with zipfile.ZipFile(zip_dest, "w", zipfile.ZIP_DEFLATED) as zf:
-        for root, _, files in os.walk(src_dir):
+        for root, dirs, files in os.walk(src_dir):
+            dirs[:] = [d for d in dirs if d not in JUNK_DIRS]
             for file in sorted(files):
+                if is_junk(file):
+                    continue
                 full_path = os.path.join(root, file)
                 rel_path = os.path.relpath(full_path, src_dir)
                 zf.write(full_path, rel_path)
@@ -394,6 +412,10 @@ def rebuild_project_packages(project_path, category, version_str=None):
 
     build_dir = os.path.join(REPO_ROOT, "builds", project_name)
     os.makedirs(build_dir, exist_ok=True)
+
+    # Always make sure pack_icon.png exists BEFORE zipping (fixes missing pack icons)
+    if make_pack_icon is not None:
+        make_pack_icon.ensure_project_icons(project_path)
 
     # Clean old binaries in build_dir
     for ext in ("*.mcaddon", "*.mcpack", "*.mcworld"):
@@ -483,12 +505,18 @@ def rebuild_project_packages(project_path, category, version_str=None):
         rp_folder_name = f"{slug}_RP"
 
         with zipfile.ZipFile(mcaddon_path, "w", zipfile.ZIP_DEFLATED) as zf:
-            for root, _, files in os.walk(bp_dir):
+            for root, dirs, files in os.walk(bp_dir):
+                dirs[:] = [x for x in dirs if x not in JUNK_DIRS]
                 for file in sorted(files):
+                    if is_junk(file):
+                        continue
                     fp = os.path.join(root, file)
                     zf.write(fp, os.path.join(bp_folder_name, os.path.relpath(fp, bp_dir)))
-            for root, _, files in os.walk(rp_dir):
+            for root, dirs, files in os.walk(rp_dir):
+                dirs[:] = [x for x in dirs if x not in JUNK_DIRS]
                 for file in sorted(files):
+                    if is_junk(file):
+                        continue
                     fp = os.path.join(root, file)
                     zf.write(fp, os.path.join(rp_folder_name, os.path.relpath(fp, rp_dir)))
 
