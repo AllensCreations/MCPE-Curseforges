@@ -49,7 +49,7 @@ Dirtbound's three world variants are published in the map source folder. World a
 | Project Name | Version | Type | Download Link | Build Folder |
 | :--- | :--- | :--- | :--- | :--- |
 | **Alphabet Scavenger Hunt** | `v1.0.6` | Script Behavior Pack (`.mcpack`) | [Download (.mcpack)](Alphabet-Scavenger-Hunt/Alphabet%20Scavenger%20Hunt%20by%20AllensCreations%20%28V1.0.6%29.mcpack) | [`Alphabet-Scavenger-Hunt/`](Alphabet-Scavenger-Hunt/) |
-| **Team Inventory** | `v1.0.14` | Script Behavior Pack (`.mcpack`) | [Download (.mcaddon)](Shared-Hivemind-Inventory/Team%20Inventory%20by%20AllensCreations%20%28V1.0.14%29.mcaddon) | [`Shared-Hivemind-Inventory/`](Shared-Hivemind-Inventory/) |
+| **Team Inventory** | `v1.0.15` | Script Behavior Pack (`.mcpack`) | [Download (.mcaddon)](Shared-Hivemind-Inventory/Team%20Inventory%20by%20AllensCreations%20%28V1.0.15%29.mcaddon) | [`Shared-Hivemind-Inventory/`](Shared-Hivemind-Inventory/) |
 | **Tethered: Breaker & Builder** | `v1.0.9` | Script Behavior Pack (`.mcpack`) | [Download (.mcaddon)](Tethered-Breaker-And-Builder/Tethered%20Breaker%20and%20Builder%20by%20AllensCreations%20%28V1.0.9%29.mcaddon) | [`Tethered-Breaker-And-Builder/`](Tethered-Breaker-And-Builder/) |
 | **Trivia Vault The Locked World** | `v1.0.1` | Complete Pack (`.mcaddon`) | [Download (.mcaddon)](Trivia-Vault-The-Locked-World/Trivia%20Vault%20The%20Locked%20World%20by%20AllensCreations%20%28V1.0.1%29.mcaddon) | [`Trivia-Vault-The-Locked-World/`](Trivia-Vault-The-Locked-World/) |
 
