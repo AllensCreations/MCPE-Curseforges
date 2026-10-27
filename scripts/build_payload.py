@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Project payload builder v5 for AllensCreations/MCPE-Curseforges.
+"""Project payload builder v6 for AllensCreations/MCPE-Curseforges.
 
 One script for all three project types: addon, map (OneBlock), script.
 It installs the mandatory repo assets that are missing, runs every structural check,
@@ -52,6 +52,7 @@ CONTROLLER_ITEM = {
         },
     },
 }
+GIVE_LINE = "give @s allenscreations:controller"
 CLEANER = "execute as @a[tag=!void_cleaned] run fill -16 -64 -16 16 -64 16 air"
 ATTRIBUTION = "by AllensCreations"
 NAME_RE = re.compile(r"^[A-Za-z0-9][A-Za-z0-9._-]{0,63}$")
@@ -67,7 +68,8 @@ MAP_REQUIRED = ("resource_pack/manifest.json", "behavior_pack/functions/tick.jso
                 "behavior_pack/items/trader_ledger.json", "resource_pack/textures/item_texture.json",
                 "resource_pack/textures/items/trader_ledger.png")
 CONTROLLER_REQUIRED = ("resource_pack/manifest.json", "behavior_pack/items/controller.json",
-                       "resource_pack/textures/item_texture.json", "resource_pack/textures/items/controller.png")
+                       "resource_pack/textures/item_texture.json", "resource_pack/textures/items/controller.png",
+                       "behavior_pack/functions/give_controller.mcfunction")
 
 
 def _png(b64, sha):
@@ -134,6 +136,11 @@ def install_assets(root):
         if not i.exists():
             _write_json(i, CONTROLLER_ITEM)
             print("installed  behavior_pack/items/controller.json")
+        g = root / "behavior_pack/functions/give_controller.mcfunction"
+        if not g.exists():
+            g.parent.mkdir(parents=True, exist_ok=True)
+            g.write_text(GIVE_LINE + "\n", encoding="utf-8")
+            print("installed  behavior_pack/functions/give_controller.mcfunction")
 
 
 def _png_size(d):
@@ -324,8 +331,21 @@ def run_checks(root, repo_root=None, folder=None):
             check("ActionFormData" in js, "main.js must open the controller with ActionFormData")
             for label in ("Start", "Restart", "End"):
                 check(f'"{label}"' in js or f"'{label}'" in js, f"main.js: controller button '{label}' not found")
+            check("getGameMode" in js and "GameMode.Creative" in js, "main.js: the controller must check GameMode.Creative with getGameMode()")
+            check("setItem" in js and "selectedSlotIndex" in js, "main.js: Start/Restart must consume the controller outside Creative")
             if "setInterval" in js or "system.runInterval" in js:
                 warns.append("main.js uses a repeating timer; confirm it is not a per-tick scan")
+
+    gf = root / "behavior_pack/functions/give_controller.mcfunction"
+    if controller and gf.is_file():
+        check(GIVE_LINE in gf.read_text(encoding="utf-8").splitlines(), "give_controller.mcfunction must contain: " + GIVE_LINE)
+    for rel in ("behavior_pack/scripts/main.js",):
+        src = root / rel
+        if src.is_file() and any(re.match(r"\s*(//|/\*)", ln) for ln in src.read_text(encoding="utf-8").splitlines()):
+            warns.append(rel + ": remove comments (v6: no comments in scripts)")
+    for fn in (root / "behavior_pack/functions").glob("**/*.mcfunction") if (root / "behavior_pack/functions").is_dir() else []:
+        if any(ln.lstrip().startswith("#") for ln in fn.read_text(encoding="utf-8").splitlines()):
+            warns.append(fn.relative_to(root).as_posix() + ": remove comments (v6: no comments in functions)")
 
     # test_world.json (required for scripts, optional for add-ons)
     tw_p = root / "test_world.json"
