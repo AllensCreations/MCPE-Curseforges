@@ -94,8 +94,8 @@ def get_clean_title(addon_path):
                         if title_clean:
                             title_clean = re.sub(r"\s+(?:BP|RP)$", "", title_clean).strip()
                             return title_clean
-        except Exception:
-            pass
+        except Exception as exc:
+            print(f"WARNING: ignored error: {exc}", file=sys.stderr)
     slug = os.path.basename(addon_path)
     return slug.replace("-", " ").replace("_", " ").title()
 
