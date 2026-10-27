@@ -91,7 +91,7 @@ Do this for every new pack and meaningful update. A compatible API version does 
 #### Add-on LOCK marker
 
 - Every project under `MCPEDL/addons/` and `MCPEDL/new_addons/` has a `LOCK` file at its root beginning with `AllensCreations Add-on Lock v1`.
-- The scaffold workflow creates it and the build script enforces it. A missing or invalid marker is release-blocking: report the exact project path and do not call the project build-ready.
+- `scripts/import_project_payload.py` (Create Project from Base64) creates it and the build script enforces it. A missing or invalid marker is release-blocking: report the exact project path and do not call the project build-ready.
 - It is a repository and build safeguard only. It does not encrypt source, stop edits, or prevent extraction of a distributable package.
 
 ---
@@ -276,7 +276,6 @@ Workflows in `.github/workflows/`. Roles below come from file names and recent c
 | Workflow | Role |
 | :--- | :--- |
 | `auto-version-bump.yml` | Bumps release versions. Must keep manifest titles in the `Name (vX.Y.Z)` format (Section 3). |
-| `create-addon-scaffold.yml` | Scaffolds a new add-on with a download-only README and a DESCRIPTION starter. |
 | `build-oneblock-variants.yml` | Automatically builds the Creative, Survival, and Hardcore database-free `.mcworld` archives into `MCPEDL/maps/<Map-Name>/` when relevant sources or foundations change; manual dispatch is also available. |
 | `create-project-from-base64.yml` | Manual run: decodes a base64 ZIP (type addon, map, or script from `project.json`) into the matching `MCPEDL/` folder and builds the worlds that type needs (Section 7). `commit_mode` defaults to `pull_request` so the import is reviewed before it reaches the branch; `direct` pushes straight to it. |
 | `build-test-world.yml` | Manual run: rebuilds `<Name> - Test.mcworld` for scripts and add-ons that have `test_world.json`. |
@@ -289,9 +288,8 @@ Workflows in `.github/workflows/`. Roles below come from file names and recent c
 | `export-repo-to-txt.yml` | Exports chosen repository paths to readable TXT (plus Part 1) for AI use. |
 | `extract-zip-to-folder.yml` | Extracts a ZIP that is already in the repository into a chosen folder. |
 | `cleanup_unused.yml` | Removes leftovers (old payloads, `*.importing` folders, obsolete workflow files); dry run by default. |
-| `test-crafting-template.yml` | Manual run of the crafting template test; commits nothing. |
 
-Retired: `create-mcpe-world.yml` and `scripts/create_mcpe_world.py` (they required a template containing a world database, which conflicts with the database-free design in Section 7). Do not recreate them or reference them from other workflows or docs.
+Retired: `create-addon-scaffold.yml` (use Create Project from Base64) and `test-crafting-template.yml` (the test runs in `ci.yml`), `create-mcpe-world.yml` and `scripts/create_mcpe_world.py` (they required a template containing a world database, which conflicts with the database-free design in Section 7). Do not recreate them or reference them from other workflows or docs.
 
 Helper scripts in `scripts/`:
 
