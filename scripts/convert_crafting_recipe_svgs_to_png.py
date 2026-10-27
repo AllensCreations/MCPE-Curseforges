@@ -30,7 +30,7 @@ def embed_remote_images(svg: str) -> str:
 def main():
     candidates = sorted(ASSETS.glob("CRAFTING_RECIPE*.svg"))
     # Always export the crafting board template to PNG as well.
-    template_svg = ASSETS / "CRAFTING_TABLE.svg"
+    template_svg = ROOT / "scripts" / "CRAFTING_TABLE.svg"
     if template_svg.exists():
         candidates.insert(0, template_svg)
     if not candidates:

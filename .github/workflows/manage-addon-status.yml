@@ -28,16 +28,19 @@ concurrency:
 jobs:
   manage-lifecycle:
     runs-on: ubuntu-latest
+    env:
+      ADDON: ${{ github.event.inputs.addon }}
+      STATUS: ${{ github.event.inputs.status }}
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
         with:
           fetch-depth: 0
           token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Set up Python
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065 # v5
         with:
           python-version: "3.x"
 
@@ -45,8 +48,8 @@ jobs:
         id: process
         run: |
           python3 scripts/manage_addon_status.py \
-            --addon "${{ github.event.inputs.addon }}" \
-            --status "${{ github.event.inputs.status }}"
+            --addon "${ADDON}" \
+            --status "${STATUS}"
 
       - name: Commit and push changes
         if: "${{ github.event.inputs.status == 'finished' && github.event.inputs.addon != 'none' }}"
@@ -64,7 +67,7 @@ jobs:
           if git diff --staged --quiet; then
             echo "No changes staged to commit."
           else
-            git commit -m "feat(addons): promote ${{ github.event.inputs.addon }} to addons folder (finished) [skip ci]"
+            git commit -m "feat(addons): promote ${ADDON} to addons folder (finished) [skip ci]"
 
             for attempt in 1 2 3; do
               echo "Push attempt $attempt of 3..."
@@ -91,9 +94,9 @@ jobs:
             echo ""
             echo "| Parameter | Value |"
             echo "| :--- | :--- |"
-            echo "| Target Add-on | \`${{ github.event.inputs.addon }}\` |"
-            echo "| Selected Label | \`${{ github.event.inputs.status }}\` |"
-            if [ "${{ github.event.inputs.status }}" = "finished" ]; then
+            echo "| Target Add-on | \`${ADDON}\` |"
+            echo "| Selected Label | \`${STATUS}\` |"
+            if [ "${STATUS}" = "finished" ]; then
               echo "| Outcome | Promoted from \`MCPEDL/new_addons/\` to \`MCPEDL/addons/\` & catalogs synchronized |"
             else
               echo "| Outcome | Retained unchanged in \`MCPEDL/new_addons/\` for active testing |"

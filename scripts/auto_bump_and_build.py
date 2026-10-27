@@ -210,8 +210,8 @@ def get_manifest_info(project_path):
                 info["version_list"] = list(hdr["version"])
                 info["version_str"] = format_version(info["version_list"])
             break
-        except Exception:
-            pass
+        except Exception as exc:
+            print(f"WARNING: ignored error: {exc}", file=sys.stderr)
     return info
 
 
@@ -253,8 +253,8 @@ def get_project_title(project_path):
                     title_clean = re.sub(r'[\\/*?:"<>|]', "", title_part).strip()
                     if title_clean:
                         return title_clean
-        except Exception:
-            pass
+        except Exception as exc:
+            print(f"WARNING: ignored error: {exc}", file=sys.stderr)
     return _display_name(os.path.basename(project_path))
 
 
@@ -1162,10 +1162,13 @@ def main():
 
     # Keep dropdown choices in manage-addon-status.yml synced with new_addons
     try:
-        from scripts.manage_addon_status import sync_workflow_choices
+        try:
+            from manage_addon_status import sync_workflow_choices
+        except ImportError:
+            from scripts.manage_addon_status import sync_workflow_choices
         sync_workflow_choices()
-    except Exception:
-        pass
+    except Exception as exc:
+        print(f"[Auto-Version] WARNING: dropdown sync skipped: {exc}", file=sys.stderr)
 
     print("\n[Auto-Version] Completed successfully!")
     for s in updated_summary:

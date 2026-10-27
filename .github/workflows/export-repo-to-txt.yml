@@ -33,7 +33,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
 
       - name: Build TXT export
         id: build
@@ -166,16 +166,19 @@ jobs:
 
       - name: Summary
         if: ${{ always() }}
+        env:
+          PATHS_IN: ${{ inputs.paths }}
+          LABEL: ${{ steps.build.outputs.label }}
         run: |
           {
             echo "### Export Repo Content to TXT"
-            echo "- Paths: \`${{ inputs.paths }}\`"
-            echo "- Download the **${{ steps.build.outputs.label }}** artifact below (zip). It contains the TXT export, INDEX.txt and INSTRUCTIONS.md."
+            echo "- Paths: \`${PATHS_IN}\`"
+            echo "- Download the **${LABEL}** artifact below (zip). It contains the TXT export, INDEX.txt and INSTRUCTIONS.md."
             [ -d exports ] && ls -la exports | sed 's/^/    /'
           } >> "$GITHUB_STEP_SUMMARY"
 
       - name: Upload export
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
         with:
           name: ${{ steps.build.outputs.label }}
           path: exports/
