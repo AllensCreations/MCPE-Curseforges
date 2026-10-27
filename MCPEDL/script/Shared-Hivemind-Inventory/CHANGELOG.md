@@ -4,21 +4,24 @@
 
 ## [1.0.14] - 2026-10-27
 
-### Fixed
-- **Death Drops:** The shared inventory is no longer duplicated on death when the world's keep-inventory setting is off.
-- **First Setup:** Items from every online player are combined into the shared inventory instead of only the first player's.
-- **Join Sync:** Players are checked after syncing and retried if their inventory did not update.
-- **Saving:** Players are warned when the shared inventory is too large to save.
-- **Hotbar Selection:** Simultaneous hotbar changes no longer fight each other.
-- **Error Messages:** Internal error warnings are limited so they no longer flood chat.
-
 ### Added
-- **Controller:** A Controller item with Start, Restart and End controls when sharing is active. It breaks in Survival and is kept in Creative.
-- **Replacement Function:** give_controller gives a new Controller.
+- **AllensCreations Controller**: The host or an operator receives a Controller item. Using it opens a menu with Start and How to play. Starting uses it up in Survival and keeps it in Creative.
+- **Ending the Game**: The function end_game ends sharing and divides the shared items between players. The function give_controller gives a new Controller.
+- **Team Start**: Sharing now begins when the host chooses Start, and everyone's items are combined at that moment.
 
-### Improved
-- **Performance:** Inventory comparison skips detailed checks when item type or amount already differ.
-- **Compatibility:** Updated to the current stable game scripting version.
+### Improved & Balanced
+- **Simultaneous Changes**: Changes made by several players at the same moment are combined instead of dropping a spare copy of the stack.
+- **Faster Syncing**: Inventories are checked every tick and only changed slots are updated.
+- **Hotbar Selection**: Every player now keeps their own selected hotbar slot.
+- **Creative and Spectator**: Players in these modes no longer take part in the shared inventory.
+- **Restarts**: Items keep their full details after a restart when a teammate still holds the same item.
+
+### Fixed
+- **Death Drops**: The shared inventory is no longer duplicated when several players die together.
+- **First Setup**: Items from every online player are combined instead of only the first player's.
+- **Join Sync**: A player's inventory is checked after syncing and retried if it did not update.
+- **Saving**: Players are warned when the shared inventory is too large to save, and an outdated saved copy is no longer kept.
+- **Error Messages**: Internal error warnings are limited so they no longer flood chat.
 
 ---
 

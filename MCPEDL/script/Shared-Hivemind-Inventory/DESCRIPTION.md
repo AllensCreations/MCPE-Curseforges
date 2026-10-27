@@ -2,55 +2,50 @@
 
 **By AllensCreations**
 
-Share inventory progress with everyone in the same world. Team Inventory synchronizes players' main inventory, armor, offhand items, and selected hotbar slot so the group can manage one shared set of supplies.
+One inventory for the whole team. Team Inventory combines every player's main inventory, armor and offhand items and keeps them identical for everyone until the game is ended.
 
 ## Overview
 
-The add-on keeps the team's inventory state synchronized as players join and play. It attempts to preserve supported item details, including names, lore, durability, and enchantments when the game exposes that information.
+The host or an operator starts the shared inventory with the AllensCreations Controller. From that moment, anything one player picks up, uses or drops changes it for the whole team. The add-on keeps names, lore, durability and enchantments of items while the world is running.
 
 ## Key Features
 
 ### Shared Inventory
-- **What Happens:** The team's main inventory, armor, offhand, and selected hotbar slot are shared among online players.
+- **What Happens**: Main inventory, armor and offhand items are shared by every player who takes part.
+- **Simultaneous Changes**: When two players change the same stack at once, both changes are combined instead of lost or duplicated.
+
+### AllensCreations Controller
+- **What Happens**: Only the host or an operator can hold and use the Controller. It offers Start and How to play.
+- **Survival**: Start uses up the Controller.
+- **Creative**: The Controller is kept.
+
+### Team Deaths
+- **What Happens**: The shared inventory drops once when a player dies and is then emptied for the team.
+- **Keep Inventory**: The rule is switched on while sharing runs so nothing drops twice, and restored when sharing ends.
+
+### Ending the Game
+- **What Happens**: An operator uses the function end_game. The shared items are divided between players, the host keeps the armor, and everyone else is emptied so items are not duplicated.
+- **Controller Replacement**: The host or an operator gets a new Controller when the game ends. The function give_controller also gives one.
 
 ### Joining Players
-- **What Happens:** Players who join while sharing is running receive the team inventory. Their own items are replaced, so store anything personal before joining.
-- **First Setup:** When sharing starts, every online player's items are combined into the team inventory and extra items are dropped at their feet.
-
-### Conflict Recovery
-- **What Happens:** When players make conflicting inventory changes, the add-on attempts to preserve affected items as world drops and provides brief feedback.
-
-### Death Handling
-- **What Happens:** The shared inventory is dropped once on death and then cleared for the team.
-- **Keep Inventory On:** The add-on drops the shared items itself.
-- **Keep Inventory Off:** The game's own death drop is used, so items are not duplicated.
-
-### World Settings
-- **Important:** The add-on does not force the world's keep-inventory setting. The result of death drops can therefore depend on the world's existing setting.
-
-### Controller
-- **What Happens:** Every player receives a Controller item when they join. Using it opens a menu with Start, Restart and End.
-- **Start:** Begins sharing and combines everyone's current items.
-- **Restart:** Empties the shared inventory and keeps sharing.
-- **End:** Stops sharing. Everyone keeps the items they hold.
-- **Survival:** Start and Restart use up the Controller. Get a new one from the creative inventory or with the function give_controller.
-- **Creative:** The Controller is kept.
+- **What Happens**: Players who join while sharing is running receive the team inventory. Their own items are replaced, so store anything personal before joining.
 
 ## How to Use
 
 1. Import the pack and enable both the Behavior Pack and the Resource Pack in the world settings.
-2. Use the Controller and choose Start; sharing stays off until then.
-3. Coordinate item use with teammates, since inventory changes affect everyone.
-4. Use the Controller again and choose End when you want everyone to go back to separate inventories.
+2. The host or an operator uses the Controller and chooses Start.
+3. Play together and coordinate item use with teammates.
+4. An operator runs the function end_game to finish.
 
-## Compatibility and Limitations
+## Compatibility
 
-- Minecraft Bedrock Edition. Check the current package listing for the supported game version.
-- Synchronization happens periodically, so changes may take a short moment to appear.
-- Items keep every detail while the world is running. After the world is restarted, only names, lore, durability and enchantments are restored. Shulker box and bundle contents, potion types, dyed colors, banner patterns and maps are not.
-- If the shared inventory becomes too large to save, players are warned and the saved copy stops updating until it is smaller.
-- Every player's selected hotbar slot is shared; if several players change it at the same moment, the first change wins.
-- Exact preservation of every item component is not guaranteed; supported item details depend on what Minecraft makes available.
+- Minecraft Bedrock Edition: 1.26.40 or newer. Older versions were not checked.
+- Experimental features: No experiment requirement detected in the inspected files.
+- Achievements: Unknown / needs confirmation.
+- Verification: Source created, not tested in game.
+- After the world is restarted, only names, lore, durability and enchantments of items are restored. Shulker box and bundle contents, potion types, dyed colors, banner patterns and maps may be lost.
+- If the shared inventory becomes too large to save, players are warned and the saved copy is cleared until it is smaller.
+- Players in Creative or Spectator mode are not part of the shared inventory.
 
 ## Creator and Permissions
 
@@ -61,7 +56,7 @@ The add-on keeps the team's inventory state synchronized as players join and pla
 
 - Creator: AllensCreations
 - Rights & Reservation: All rights reserved for AllensCreations.
-- Content Creators: You may feature this pack in videos and streams with credit to AllensCreations.
+- Content Creators: Content creators are permitted to feature this creation in videos and streams with credit to AllensCreations.
 - Redistribution: Do not re-upload this pack or provide direct monetized download bypasses. Link directly to the official repository page.
 
 ---
@@ -72,5 +67,4 @@ The add-on keeps the team's inventory state synchronized as players join and pla
 
 ## Search & Discovery Keywords
 
-Minecraft Bedrock shared inventory, Team Inventory add-on, multiplayer shared items, shared hotbar Minecraft, shared armor and offhand, Minecraft PE multiplayer tool, team survival inventory, MCPEDL, CurseForge Bedrock, AllensCreations.
-
+Minecraft Bedrock add-on, Team Inventory Bedrock mod, shared inventory, multiplayer shared items, shared armor and offhand, team survival inventory, Minecraft PE multiplayer, MCPEDL add-on, CurseForge Bedrock, AllensCreations.

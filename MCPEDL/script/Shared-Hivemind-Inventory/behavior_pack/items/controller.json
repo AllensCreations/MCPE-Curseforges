@@ -1,5 +1,5 @@
 {
-  "format_version": "1.20.80",
+  "format_version": "1.26.40",
   "minecraft:item": {
     "description": {
       "identifier": "allenscreations:controller",
@@ -15,7 +15,7 @@
         }
       },
       "minecraft:display_name": {
-        "value": "Controller"
+        "value": "\u00a7l\u00a7bAllens\u00a7dCreations \u00a76Controller"
       },
       "minecraft:use_animation": "spyglass",
       "minecraft:use_modifiers": {
