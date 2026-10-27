@@ -1150,6 +1150,8 @@ def _node_syntax(path):
         r = subprocess.run([node, "--check", str(tmp)], capture_output=True, text=True)
     if r.returncode == 0:
         return True, ""
+    if "SyntaxError" not in r.stderr:
+        return False, ""
     errs = [ln for ln in r.stderr.splitlines() if "Error" in ln]
     return True, (errs[-1] if errs else "syntax error").strip()
 
@@ -1369,7 +1371,7 @@ def run_checks(root, repo_root=None, folder=None):
         if ran and err:
             fails.append(f"{jrel}: syntax error: {err}")
         elif not ran:
-            warns.append(f"{jrel}: syntax not checked (node not found)")
+            warns.append(f"{jrel}: syntax not checked (node not found or not working)")
 
     if ptype == "map":
         icon_checks("trader_ledger", "allenscreations:trader_ledger", "behavior_pack/items/trader_ledger.json", LEDGER_SHA256, (32, 32))
