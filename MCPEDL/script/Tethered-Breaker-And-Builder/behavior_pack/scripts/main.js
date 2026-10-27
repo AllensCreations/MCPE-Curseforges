@@ -1,462 +1,438 @@
-/**
- * ==============================================================================
- * TETHERED: BREAKER & BUILDER -- 2-PLAYER ASYMMETRIC CO-OP
- * ==============================================================================
- * Version: 1.0.0
- * Target Engine: Minecraft Bedrock 1.21.0+ / v1.26 Standards
- * API Modules: @minecraft/server v1.13.0+, @minecraft/server-ui v1.3.0+
- * Author: AllensCreations
- *
- * System Architecture:
- * 1. Asymmetric Roles:
- *    - role_breaker: Can mine blocks freely; has exclusive melee combat rights.
- *      Cannot place blocks, fluids, or fire.
- *    - role_builder: Can place blocks and fluids freely; exclusive utility crafting.
- *      Cannot mine blocks or attack entities.
- * 2. Dynamic Leash Physics (Anchor-Aware Elastic Spring):
- *    - 15-meter maximum tether distance.
- *    - Color-coded particle beam connects players every tick.
- *    - Overstretched (>15m) applies an elastic spring vector toward each other.
- *    - Anchor logic: Grounded partner acts as an anchor to reel in falling/airborne partners.
- *    - Overstretch damage (>18m): 2 damage points per second until regrouped.
- * 3. Co-op Respawn & Re-anchor:
- *    - Dead player respawns directly beside their surviving partner with grace effects.
- * 4. Persistent HUD Action Bar:
- *    - Displays Slack, Tense, or Overstretched status with exact metric distance.
- * ==============================================================================
- */
-
-import {
-  world,
-  system,
-  EntityDamageCause
-} from "@minecraft/server";
-import {
-  ActionFormData
-} from "@minecraft/server-ui";
-
-// ==============================================================================
-// 1. CONSTANTS & CONFIGURATION
-// ==============================================================================
+import { world, system, GameMode, EntityDamageCause } from "@minecraft/server";
+import { ActionFormData } from "@minecraft/server-ui";
+import { registerController, endGame } from "./controller.js";
 
 const CONFIG = {
-  MAX_TETHER_DISTANCE: 15.0,
-  DAMAGE_DISTANCE: 18.0,
-  TENSE_DISTANCE: 10.0,
-  OVERSTRETCH_DAMAGE: 2, // 1 full heart
-  DAMAGE_INTERVAL_TICKS: 20, // 1 second
-  PARTICLE_STEP: 1.0, // Distance between beam particles
-  RESPAWN_GRACE_TICKS: 100 // 5 seconds of protection
+  TICK_STEP: 2,
+  TENSE_DISTANCE: 10,
+  MAX_TETHER_DISTANCE: 15,
+  DAMAGE_DISTANCE: 18,
+  RECALL_DISTANCE: 64,
+  RECALL_TICKS: 100,
+  DIMENSION_RECALL_TICKS: 300,
+  STRAIN_GRACE_TICKS: 60,
+  STRAIN_DAMAGE: 2,
+  STRAIN_INTERVAL_TICKS: 20,
+  STRAIN_MIN_HEALTH: 2,
+  MAX_BEAM_PARTICLES: 32,
+  MAX_PULL: 0.6,
+  RESPAWN_DELAY_TICKS: 10,
+  RESPAWN_GRACE_TICKS: 100,
+  NOTICE_TICKS: 60,
+  PROMPT_SWEEP_TICKS: 200
 };
 
-// Forbidden items for Breaker (bucket fluids, ignition, building utilities)
-const BREAKER_FORBIDDEN_ITEMS = new Set([
-  "minecraft:water_bucket",
-  "minecraft:lava_bucket",
-  "minecraft:powder_snow_bucket",
-  "minecraft:cod_bucket",
-  "minecraft:salmon_bucket",
-  "minecraft:tropical_fish_bucket",
-  "minecraft:pufferfish_bucket",
-  "minecraft:axolotl_bucket",
-  "minecraft:tadpole_bucket",
-  "minecraft:flint_and_steel",
-  "minecraft:fire_charge"
+const ROLE_PROP = "tether:role";
+const BREAKER = "breaker";
+const BUILDER = "builder";
+
+const FORBIDDEN_EXACT = new Set([
+  "minecraft:flint_and_steel", "minecraft:fire_charge", "minecraft:armor_stand",
+  "minecraft:end_crystal", "minecraft:item_frame", "minecraft:glow_item_frame",
+  "minecraft:painting", "minecraft:bone_meal", "minecraft:ender_eye"
 ]);
 
-// Runtime tracking variables
-let overstretchDamageTimer = 0;
-let soundWarningCooldown = 0;
+const notices = new Map();
+const lastSound = new Map();
+const promptPending = new Set();
+const tether = { dimTicks: 0, farTicks: 0, strainTicks: 0, soundCd: 0 };
 
-// ==============================================================================
-// 2. ROLE MANAGEMENT & MODAL UI
-// ==============================================================================
+const running = () => world.getDynamicProperty("game_state") === "running";
 
-/**
- * Checks if a player holds the Breaker role.
- * @param {Player} player
- * @returns {boolean}
- */
-function isBreaker(player) {
-  return player?.hasTag("role_breaker") ?? false;
+function isPlacerItem(id) {
+  if (!id) return false;
+  if (FORBIDDEN_EXACT.has(id)) return true;
+  if (id === "minecraft:milk_bucket" || id === "minecraft:bucket") return false;
+  return id.endsWith("_bucket") || id.endsWith("_spawn_egg") || id.endsWith("_boat") ||
+    id.endsWith("_chest_boat") || id.endsWith("_raft") || id.endsWith("_chest_raft") || id.endsWith("minecart");
 }
 
-/**
- * Checks if a player holds the Builder role.
- * @param {Player} player
- * @returns {boolean}
- */
-function isBuilder(player) {
-  return player?.hasTag("role_builder") ?? false;
+function getRole(player) {
+  try { return player?.getDynamicProperty(ROLE_PROP); } catch { return undefined; }
 }
 
-/**
- * Assigns an exclusive role to a player and removes any conflicting roles.
- * @param {Player} player
- * @param {"role_breaker" | "role_builder"} role
- */
-function assignRole(player, role) {
-  player.removeTag("role_breaker");
-  player.removeTag("role_builder");
-  player.addTag(role);
+function setRole(player, role) {
+  try {
+    player.setDynamicProperty(ROLE_PROP, role);
+    player.removeTag("role_breaker");
+    player.removeTag("role_builder");
+    if (role) player.addTag(role === BREAKER ? "role_breaker" : "role_builder");
+  } catch {}
 }
 
-/**
- * Displays the role selection modal form to a player.
- * @param {Player} player
- */
-function showRoleSelectionForm(player) {
-  const form = new ActionFormData()
-    .title("TETHERED: CHOOSE ROLE")
-    .body(
-      "Select your asymmetric co-op role:\n\n" +
-      "BREAKER:\n" +
-      "- Mines all blocks freely\n" +
-      "- Exclusive melee & weapon combat ability\n" +
-      "- CANNOT place blocks, fluids, or fire\n\n" +
-      "BUILDER:\n" +
-      "- Places blocks & fluids freely\n" +
-      "- Exclusive crafting & utility access\n" +
-      "- CANNOT break blocks or attack entities\n\n" +
-      "Rule: You are tethered within 15 meters. Stay close to survive!"
-    )
-    .button("Play as BREAKER")
-    .button("Play as BUILDER");
+const canPlace = (p) => !running() || getRole(p) === BUILDER;
+const canBreak = (p) => !running() || getRole(p) === BREAKER;
+const canAttack = (p) => !running() || getRole(p) === BREAKER;
 
-  form.show(player).then((response) => {
-    if (response.canceled) return;
+function roleTaken(role, except) {
+  return world.getAllPlayers().some((p) => p.id !== except?.id && getRole(p) === role);
+}
 
-    if (response.selection === 0) {
-      assignRole(player, "role_breaker");
-      player.sendMessage("§a[TETHERED] You are now the §lBREAKER§r§a! Mine blocks and protect your Builder in battle.");
-      player.playSound("random.levelup", { location: player.location, volume: 1.0, pitch: 1.2 });
-    } else if (response.selection === 1) {
-      assignRole(player, "role_builder");
-      player.sendMessage("§e[TETHERED] You are now the §lBUILDER§r§e! Construct structures and support your Breaker.");
-      player.playSound("random.levelup", { location: player.location, volume: 1.0, pitch: 1.0 });
+function notify(player, text) {
+  const now = system.currentTick;
+  notices.set(player.id, { text, until: now + CONFIG.NOTICE_TICKS });
+  if ((lastSound.get(player.id) ?? -100) + 20 > now) return;
+  lastSound.set(player.id, now);
+  system.run(() => {
+    try { if (player.isValid) player.playSound("note.bass", { volume: 0.5, pitch: 0.6 }); } catch {}
+  });
+}
+
+function promptRole(player) {
+  try {
+    if (!running() || !player?.isValid || getRole(player) || promptPending.has(player.id)) return;
+    promptPending.add(player.id);
+    const takenBreaker = roleTaken(BREAKER, player);
+    const takenBuilder = roleTaken(BUILDER, player);
+    new ActionFormData()
+      .title("TETHERED: CHOOSE ROLE")
+      .body(
+        "Select your role (one player per role):\n\n" +
+        "BREAKER:\n- Mines blocks and fights\n- CANNOT place blocks, fluids, fire or spawn things\n\n" +
+        "BUILDER:\n- Places blocks and fluids\n- CANNOT mine blocks or attack\n\n" +
+        "You are tethered within 15 meters. Until you pick a role you cannot build, mine or fight."
+      )
+      .button(takenBreaker ? "BREAKER (taken)" : "Play as BREAKER")
+      .button(takenBuilder ? "BUILDER (taken)" : "Play as BUILDER")
+      .show(player)
+      .then((res) => {
+        promptPending.delete(player.id);
+        if (!running() || !player.isValid || getRole(player) || res.canceled) return;
+        const role = res.selection === 0 ? BREAKER : BUILDER;
+        if (roleTaken(role, player)) {
+          player.sendMessage("§c[TETHERED] That role is already taken. Pick the other one.");
+          system.runTimeout(() => promptRole(player), 20);
+          return;
+        }
+        setRole(player, role);
+        player.sendMessage(role === BREAKER
+          ? "§a[TETHERED] You are the §lBREAKER§r§a! Mine blocks and protect your Builder."
+          : "§e[TETHERED] You are the §lBUILDER§r§e! Construct and support your Breaker.");
+        player.playSound("random.levelup", { volume: 1, pitch: role === BREAKER ? 1.2 : 1.0 });
+      })
+      .catch(() => promptPending.delete(player.id));
+  } catch {
+    promptPending.delete(player?.id);
+  }
+}
+
+system.runInterval(() => {
+  if (!running()) return;
+  for (const p of world.getAllPlayers()) if (!getRole(p)) promptRole(p);
+}, CONFIG.PROMPT_SWEEP_TICKS);
+
+world.beforeEvents.playerInteractWithBlock.subscribe((ev) => {
+  if (!running()) return;
+  const p = ev.player;
+  const id = ev.itemStack?.typeId;
+  if (!id) return;
+  if (!canPlace(p)) {
+    if (!isPlacerItem(id)) return;
+    ev.cancel = true;
+    if (ev.isFirstEvent) notify(p, "§cOnly the Builder can place blocks, fluids, fire or spawn things!");
+    return;
+  }
+  const lighter = id === "minecraft:flint_and_steel" || id === "minecraft:fire_charge";
+  if (id === "minecraft:tnt_minecart" || (lighter && ev.block?.typeId === "minecraft:tnt")) {
+    ev.cancel = true;
+    if (ev.isFirstEvent) notify(p, "§cThe Builder cannot detonate TNT!");
+  }
+});
+
+world.afterEvents.playerPlaceBlock.subscribe((ev) => {
+  const p = ev.player;
+  if (canPlace(p)) return;
+  try {
+    const block = ev.block;
+    let refund;
+    try { refund = block.getItemStack(1, true); } catch {}
+    block.setType("minecraft:air");
+    if (refund && p.getGameMode() !== GameMode.Creative) {
+      const left = p.getComponent("minecraft:inventory")?.container?.addItem(refund);
+      if (left) p.dimension.spawnItem(left, p.location);
     }
-  }).catch(() => {});
+    notify(p, "§cOnly the Builder can place blocks!");
+  } catch {}
+});
+
+world.beforeEvents.playerBreakBlock.subscribe((ev) => {
+  if (canBreak(ev.player)) return;
+  ev.cancel = true;
+  notify(ev.player, "§cOnly the Breaker can break blocks!");
+});
+
+world.beforeEvents.entityHurt.subscribe((ev) => {
+  const attacker = ev.damageSource?.damagingEntity;
+  if (attacker?.typeId !== "minecraft:player" || attacker.id === ev.hurtEntity?.id || canAttack(attacker)) return;
+  ev.cancel = true;
+  notify(attacker, "§cOnly the Breaker can attack!");
+});
+
+function getPair() {
+  const players = world.getAllPlayers().filter((p) => p.isValid);
+  const breaker = players.find((p) => getRole(p) === BREAKER);
+  const builder = players.find((p) => getRole(p) === BUILDER);
+  return breaker && builder ? { breaker, builder } : null;
 }
 
-// Prompt unassigned players on world join
-world.afterEvents.playerSpawn.subscribe((event) => {
-  const player = event.player;
-  if (!isBreaker(player) && !isBuilder(player)) {
-    system.runTimeout(() => {
-      showRoleSelectionForm(player);
-    }, 40); // 2 second delay after spawn
-  }
-});
-
-// ==============================================================================
-// 3. EVENT RESTRICTIONS (ASYMMETRIC ROLE RULES)
-// ==============================================================================
-
-/**
- * Rule: Breakers CANNOT place blocks.
- */
-world.beforeEvents.playerPlaceBlock.subscribe((event) => {
-  const player = event.player;
-  if (isBreaker(player)) {
-    event.cancel = true;
-    system.run(() => {
-      player.onScreenDisplay.setActionBar("§cYou cannot build! Only Builder can place blocks!");
-      player.playSound("note.bass", { location: player.location, volume: 0.5, pitch: 0.6 });
-    });
-  }
-});
-
-/**
- * Rule: Breakers CANNOT use fluid buckets or ignite fire.
- */
-world.beforeEvents.itemUseOn.subscribe((event) => {
-  const player = event.source;
-  if (player?.typeId === "minecraft:player" && isBreaker(player)) {
-    const item = event.itemStack;
-    if (item && BREAKER_FORBIDDEN_ITEMS.has(item.typeId)) {
-      event.cancel = true;
-      system.run(() => {
-        player.onScreenDisplay.setActionBar("§cYou cannot place fluids or fire!");
-        player.playSound("note.bass", { location: player.location, volume: 0.5, pitch: 0.6 });
-      });
-    }
-  }
-});
-
-/**
- * Rule: Builders CANNOT break blocks.
- */
-world.beforeEvents.playerBreakBlock.subscribe((event) => {
-  const player = event.player;
-  if (isBuilder(player)) {
-    event.cancel = true;
-    system.run(() => {
-      player.onScreenDisplay.setActionBar("§cYou cannot mine! Only Breaker can break blocks!");
-      player.playSound("note.bass", { location: player.location, volume: 0.5, pitch: 0.6 });
-    });
-  }
-});
-
-/**
- * Rule: Builders CANNOT attack mobs or players (Breaker handles combat).
- */
-world.beforeEvents.entityHitEntity.subscribe((event) => {
-  const attacker = event.damagingEntity;
-  if (attacker?.typeId === "minecraft:player" && isBuilder(attacker)) {
-    event.cancel = true;
-    system.run(() => {
-      attacker.onScreenDisplay.setActionBar("§cYou cannot fight! Only Breaker can attack!");
-      attacker.playSound("note.bass", { location: attacker.location, volume: 0.5, pitch: 0.7 });
-    });
-  }
-});
-
-// ==============================================================================
-// 4. PAIR DETECTION & TETHER PHYSICS ENGINE
-// ==============================================================================
-
-/**
- * Finds the active tethered pair in the world.
- * Matches a Breaker and a Builder, or the first two active players.
- * @returns {{ playerA: Player, playerB: Player } | null}
- */
-function getTetheredPair() {
-  const players = world.getAllPlayers();
-  if (players.length < 2) return null;
-
-  const breaker = players.find(p => isBreaker(p));
-  const builder = players.find(p => isBuilder(p));
-
-  if (breaker && builder && breaker.id !== builder.id) {
-    return { playerA: breaker, playerB: builder };
-  }
-
-  // Fallback to first two players if roles are not yet selected
-  return { playerA: players[0], playerB: players[1] };
+function mode(p) {
+  try { return p.getGameMode(); } catch { return GameMode.Survival; }
 }
 
-/**
- * Renders a particle beam connecting two player coordinates.
- * @param {Dimension} dimension
- * @param {Vector3} start
- * @param {Vector3} end
- * @param {number} distance
- * @param {string} particleType
- */
-function renderParticleBeam(dimension, start, end, distance, particleType) {
-  if (distance <= 0) return;
+function isAlive(p) {
+  try {
+    const h = p.getComponent("minecraft:health");
+    return !h || h.currentValue > 0;
+  } catch { return false; }
+}
 
-  const dx = end.x - start.x;
-  const dy = end.y - start.y;
-  const dz = end.z - start.z;
+function hud(p, text) {
+  const n = notices.get(p.id);
+  try { p.onScreenDisplay.setActionBar(n && n.until > system.currentTick ? n.text : text); } catch {}
+}
 
-  const steps = Math.max(1, Math.floor(distance / CONFIG.PARTICLE_STEP));
-  const stepX = dx / steps;
-  const stepY = dy / steps;
-  const stepZ = dz / steps;
+function resetTether() {
+  tether.dimTicks = 0;
+  tether.farTicks = 0;
+  tether.strainTicks = 0;
+  tether.soundCd = 0;
+}
 
+function safeTeleport(p, target) {
+  const dest = { x: target.location.x, y: target.location.y, z: target.location.z };
+  try {
+    p.teleport(dest, { dimension: target.dimension, checkForBlocks: true });
+  } catch {
+    try { p.teleport(dest, { dimension: target.dimension }); } catch {}
+  }
+}
+
+function renderBeam(dim, a, b, dist, particle) {
+  const steps = Math.min(CONFIG.MAX_BEAM_PARTICLES, Math.max(2, Math.floor(dist)));
   for (let i = 1; i < steps; i++) {
-    const px = start.x + stepX * i;
-    const py = start.y + stepY * i;
-    const pz = start.z + stepZ * i;
+    const t = i / steps;
     try {
-      dimension.spawnParticle(particleType, { x: px, y: py, z: pz });
+      dim.spawnParticle(particle, {
+        x: a.x + (b.x - a.x) * t,
+        y: a.y + 1.1 + (b.y - a.y) * t,
+        z: a.z + (b.z - a.z) * t
+      });
     } catch {}
   }
 }
 
-/**
- * Main physics, particle, and HUD loop. Runs every tick.
- */
-system.runInterval(() => {
-  const pair = getTetheredPair();
-  if (!pair) return;
+function pull(p, dx, dz, strength) {
+  const m = mode(p);
+  if (m === GameMode.Creative || m === GameMode.Spectator) return;
+  try { p.applyKnockback({ x: dx * strength, z: dz * strength }, 0); } catch {}
+}
 
-  const { playerA, playerB } = pair;
-  if (!playerA?.isValid || !playerB?.isValid) return;
+function anchored(p) {
+  try { return p.isOnGround || p.isInWater || p.isClimbing; } catch { return false; }
+}
 
-  // Check if players are in different dimensions
-  if (playerA.dimension.id !== playerB.dimension.id) {
-    playerA.onScreenDisplay.setActionBar("§c[LEASH: BROKEN] §fDimensional Rift: Partners in Different Worlds!");
-    playerB.onScreenDisplay.setActionBar("§c[LEASH: BROKEN] §fDimensional Rift: Partners in Different Worlds!");
+function strain(p) {
+  try {
+    const h = p.getComponent("minecraft:health");
+    if (!h || h.currentValue - CONFIG.STRAIN_DAMAGE < CONFIG.STRAIN_MIN_HEALTH) return;
+    p.applyDamage(CONFIG.STRAIN_DAMAGE, { cause: EntityDamageCause.contact });
+    p.playSound("random.break", { volume: 0.9, pitch: 1.1 });
+  } catch {}
+}
+
+function tick() {
+  const pair = running() ? getPair() : null;
+  if (!pair) { resetTether(); return; }
+  const { breaker: A, builder: B } = pair;
+  const step = CONFIG.TICK_STEP;
+
+  if (!isAlive(A) || !isAlive(B)) { resetTether(); return; }
+  if (mode(A) === GameMode.Spectator || mode(B) === GameMode.Spectator) {
+    hud(A, "§7[LEASH: PAUSED] §fSpectator");
+    hud(B, "§7[LEASH: PAUSED] §fSpectator");
+    resetTether();
     return;
   }
 
-  const dimension = playerA.dimension;
-  const locA = playerA.location;
-  const locB = playerB.location;
+  if (A.dimension.id !== B.dimension.id) {
+    tether.dimTicks += step;
+    const left = Math.max(0, Math.ceil((CONFIG.DIMENSION_RECALL_TICKS - tether.dimTicks) / 20));
+    const text = `§c[LEASH: STRETCHED ACROSS DIMENSIONS] §fFollow your partner! Recall in ${left}s`;
+    hud(A, text);
+    hud(B, text);
+    if (tether.dimTicks >= CONFIG.DIMENSION_RECALL_TICKS) {
+      safeTeleport(B, A);
+      tether.dimTicks = 0;
+    }
+    return;
+  }
+  tether.dimTicks = 0;
 
-  // Center beam at chest height (y + 1.1)
-  const beamStart = { x: locA.x, y: locA.y + 1.1, z: locA.z };
-  const beamEnd = { x: locB.x, y: locB.y + 1.1, z: locB.z };
+  const la = A.location;
+  const lb = B.location;
+  const dx = lb.x - la.x;
+  const dy = lb.y - la.y;
+  const dz = lb.z - la.z;
+  const dist = Math.sqrt(dx * dx + dy * dy + dz * dz);
 
-  const dx = locB.x - locA.x;
-  const dy = locB.y - locA.y;
-  const dz = locB.z - locA.z;
-  const distance = Math.sqrt(dx * dx + dy * dy + dz * dz);
+  if (dist > CONFIG.RECALL_DISTANCE) {
+    tether.farTicks += step;
+    tether.strainTicks = 0;
+    const left = Math.max(0, Math.ceil((CONFIG.RECALL_TICKS - tether.farTicks) / 20));
+    const text = `§c[LEASH: SNAPPED] §f${Math.floor(dist)}m apart. Recall in ${left}s`;
+    hud(A, text);
+    hud(B, text);
+    if (tether.farTicks >= CONFIG.RECALL_TICKS) {
+      safeTeleport(B, A);
+      tether.farTicks = 0;
+    }
+    return;
+  }
+  tether.farTicks = 0;
 
-  // ----------------------------------------------------------------------------
-  // A. Dynamic Particle Beam & HUD Tension State
-  // ----------------------------------------------------------------------------
-  let particleType = "minecraft:villager_happy";
-  let hudText = "";
-  const formattedDistance = distance.toFixed(1);
-
-  if (distance < CONFIG.TENSE_DISTANCE) {
-    // Slack state (< 10m): Green sparkles
-    particleType = "minecraft:villager_happy";
-    hudText = `§a[LEASH: SLACK] §fDistance: ${formattedDistance}m`;
-  } else if (distance <= CONFIG.MAX_TETHER_DISTANCE) {
-    // Tense state (10m - 15m): Golden electric sparks
-    particleType = "minecraft:electric_spark_particle";
-    hudText = `§e[LEASH: TENSE] §fDistance: ${formattedDistance}m`;
-  } else {
-    // Overstretched state (> 15m): Bright flame & critical particles
-    particleType = "minecraft:basic_flame_particle";
-    hudText = `§c[LEASH: OVERSTRETCHED] §fDistance: ${formattedDistance}m!`;
+  const d = dist.toFixed(1);
+  let particle = "minecraft:villager_happy";
+  let text = `§a[LEASH: SLACK] §fDistance: ${d}m`;
+  if (dist >= CONFIG.TENSE_DISTANCE && dist <= CONFIG.MAX_TETHER_DISTANCE) {
+    particle = "minecraft:electric_spark_particle";
+    text = `§e[LEASH: TENSE] §fDistance: ${d}m`;
+  } else if (dist > CONFIG.MAX_TETHER_DISTANCE && dist <= CONFIG.DAMAGE_DISTANCE) {
+    particle = "minecraft:basic_flame_particle";
+    text = `§6[LEASH: OVERSTRETCHED] §fDistance: ${d}m`;
+  } else if (dist > CONFIG.DAMAGE_DISTANCE) {
+    particle = "minecraft:basic_flame_particle";
+    text = `§c[LEASH: STRAINED] §fDistance: ${d}m! Damage incoming`;
   }
 
-  // Render the visual connection beam
-  renderParticleBeam(dimension, beamStart, beamEnd, distance, particleType);
+  renderBeam(A.dimension, la, lb, dist, particle);
+  hud(A, text);
+  hud(B, text);
 
-  // Update persistent Action Bar HUD
-  playerA.onScreenDisplay.setActionBar(hudText);
-  playerB.onScreenDisplay.setActionBar(hudText);
-
-  // ----------------------------------------------------------------------------
-  // B. Overstretched Physics Pulling (Anchor-Aware Elastic Spring)
-  // ----------------------------------------------------------------------------
-  if (distance > CONFIG.MAX_TETHER_DISTANCE) {
-    const excess = distance - CONFIG.MAX_TETHER_DISTANCE;
-    const dirX = dx / distance;
-    const dirZ = dz / distance;
-
-    // Progressive spring strength bounded between 0.35 and 1.2
-    const springStrength = Math.min(1.2, 0.35 + excess * 0.12);
-
-    // Audio cue every 15 ticks while overstretched
-    soundWarningCooldown++;
-    if (soundWarningCooldown >= 15) {
-      soundWarningCooldown = 0;
-      playerA.playSound("note.bass", { location: locA, volume: 0.8, pitch: 0.5 });
-      playerB.playSound("note.bass", { location: locB, volume: 0.8, pitch: 0.5 });
-    }
-
-    const aGrounded = playerA.isOnGround;
-    const bGrounded = playerB.isOnGround;
-
-    if (aGrounded && !bGrounded) {
-      // Player A is an anchor: pull airborne/falling Player B back toward Player A
-      try {
-        playerB.applyKnockback(-dirX, -dirZ, springStrength * 1.4, Math.max(0.15, -dy / distance * 0.4));
-      } catch {}
-    } else if (bGrounded && !aGrounded) {
-      // Player B is an anchor: pull airborne/falling Player A back toward Player B
-      try {
-        playerA.applyKnockback(dirX, dirZ, springStrength * 1.4, Math.max(0.15, dy / distance * 0.4));
-      } catch {}
-    } else {
-      // Both grounded or both airborne: pull mutually inward toward midpoint
-      try {
-        playerA.applyKnockback(dirX, dirZ, springStrength * 0.85, 0.1);
-        playerB.applyKnockback(-dirX, -dirZ, springStrength * 0.85, 0.1);
-      } catch {}
-    }
-
-    // --------------------------------------------------------------------------
-    // C. Overstretch Strain Damage (> 18m)
-    // --------------------------------------------------------------------------
-    if (distance > CONFIG.DAMAGE_DISTANCE) {
-      overstretchDamageTimer++;
-      if (overstretchDamageTimer >= CONFIG.DAMAGE_INTERVAL_TICKS) {
-        overstretchDamageTimer = 0;
-        try {
-          playerA.applyDamage(CONFIG.OVERSTRETCH_DAMAGE, { cause: EntityDamageCause.contact });
-          playerB.applyDamage(CONFIG.OVERSTRETCH_DAMAGE, { cause: EntityDamageCause.contact });
-          playerA.playSound("random.break", { location: locA, volume: 0.9, pitch: 1.1 });
-          playerB.playSound("random.break", { location: locB, volume: 0.9, pitch: 1.1 });
-        } catch {}
-      }
-    } else {
-      overstretchDamageTimer = 0;
-    }
-  } else {
-    overstretchDamageTimer = 0;
-    soundWarningCooldown = 0;
+  if (dist <= CONFIG.MAX_TETHER_DISTANCE) {
+    tether.strainTicks = 0;
+    tether.soundCd = 0;
+    return;
   }
-}, 1);
 
-// ==============================================================================
-// 5. CO-OP RESPAWN & RE-ANCHOR ENGINE
-// ==============================================================================
+  const hd = Math.sqrt(dx * dx + dz * dz);
+  if (hd > 0.01) {
+    const ux = dx / hd;
+    const uz = dz / hd;
+    const s = Math.min(CONFIG.MAX_PULL, 0.2 + (dist - CONFIG.MAX_TETHER_DISTANCE) * 0.04);
+    const anchorA = anchored(A);
+    const anchorB = anchored(B);
+    if (anchorA && !anchorB) pull(B, -ux, -uz, s);
+    else if (anchorB && !anchorA) pull(A, ux, uz, s);
+    else {
+      pull(A, ux, uz, s * 0.6);
+      pull(B, -ux, -uz, s * 0.6);
+    }
+  }
 
-/**
- * When a player respawns after dying, automatically teleport them to their
- * living tether partner with brief invulnerability grace effects.
- */
-world.afterEvents.playerSpawn.subscribe((event) => {
-  const respawned = event.player;
-  const pair = getTetheredPair();
-  if (!pair) return;
+  tether.soundCd += step;
+  if (tether.soundCd >= 16) {
+    tether.soundCd = 0;
+    try {
+      A.playSound("note.bass", { volume: 0.8, pitch: 0.5 });
+      B.playSound("note.bass", { volume: 0.8, pitch: 0.5 });
+    } catch {}
+  }
 
-  const partner = pair.playerA.id === respawned.id ? pair.playerB : pair.playerA;
-  if (!partner || !partner.isValid) return;
+  if (dist <= CONFIG.DAMAGE_DISTANCE) {
+    tether.strainTicks = 0;
+    return;
+  }
+  tether.strainTicks += step;
+  const over = tether.strainTicks - CONFIG.STRAIN_GRACE_TICKS;
+  if (over >= 0 && over % CONFIG.STRAIN_INTERVAL_TICKS < step) {
+    strain(A);
+    strain(B);
+  }
+}
 
-  // Defer teleport 1 tick to ensure player entity is fully attached to the world
+system.runInterval(tick, CONFIG.TICK_STEP);
+
+world.afterEvents.playerSpawn.subscribe(({ player, initialSpawn }) => {
+  if (!running()) return;
+  if (initialSpawn) {
+    if (!getRole(player)) system.runTimeout(() => promptRole(player), 40);
+    return;
+  }
   system.runTimeout(() => {
     try {
-      respawned.teleport(
-        { x: partner.location.x, y: partner.location.y, z: partner.location.z },
-        { dimension: partner.dimension }
-      );
-
-      // Apply grace period effects (Resistance V and Regeneration II)
-      respawned.addEffect("resistance", CONFIG.RESPAWN_GRACE_TICKS, { amplifier: 4, showParticles: false });
-      respawned.addEffect("regeneration", CONFIG.RESPAWN_GRACE_TICKS, { amplifier: 1, showParticles: false });
-
-      respawned.sendMessage("§a[TETHERED] You have respawned and re-anchored directly to your partner!");
-      partner.sendMessage(`§a[TETHERED] ${respawned.name} has respawned and re-anchored to your position!`);
-
-      respawned.playSound("random.orb", { location: respawned.location, volume: 1.0, pitch: 1.0 });
-      partner.playSound("random.orb", { location: partner.location, volume: 1.0, pitch: 1.0 });
+      if (!running() || !player.isValid) return;
+      if (!getRole(player)) { promptRole(player); return; }
+      const pair = getPair();
+      if (!pair || (player.id !== pair.breaker.id && player.id !== pair.builder.id)) return;
+      const partner = player.id === pair.breaker.id ? pair.builder : pair.breaker;
+      if (!partner.isValid || !isAlive(partner)) return;
+      safeTeleport(player, partner);
+      player.addEffect("resistance", CONFIG.RESPAWN_GRACE_TICKS, { amplifier: 4, showParticles: false });
+      player.addEffect("regeneration", CONFIG.RESPAWN_GRACE_TICKS, { amplifier: 1, showParticles: false });
+      player.sendMessage("§a[TETHERED] You respawned and re-anchored to your partner!");
+      partner.sendMessage(`§a[TETHERED] ${player.name} respawned at your position.`);
     } catch {}
-  }, 5);
+  }, CONFIG.RESPAWN_DELAY_TICKS);
 });
 
-// ==============================================================================
-// 6. SCRIPT EVENT COMMANDS (OPERATOR CONTROLS)
-// ==============================================================================
+world.afterEvents.playerLeave.subscribe(({ playerId }) => {
+  notices.delete(playerId);
+  lastSound.delete(playerId);
+  promptPending.delete(playerId);
+});
 
-/**
- * Native `/scriptevent` command handler:
- * - `/scriptevent tether:start`: Re-prompts the role selection modal for all players.
- * - `/scriptevent tether:breaker`: Sets caller or first player to Breaker.
- * - `/scriptevent tether:builder`: Sets caller or first player to Builder.
- * - `/scriptevent tether:reset`: Clears all role tags.
- */
-system.afterEvents.scriptEventReceive.subscribe((event) => {
-  if (event.id === "tether:start") {
-    for (const player of world.getAllPlayers()) {
-      showRoleSelectionForm(player);
+world.afterEvents.entityDie.subscribe(({ deadEntity }) => {
+  if (!running() || deadEntity?.typeId !== "minecraft:ender_dragon") return;
+  world.sendMessage("§6[TETHERED] The Ender Dragon has fallen. The tethered pair wins!");
+  endGame();
+});
+
+function resolveTarget(ev) {
+  if (ev.sourceEntity?.typeId === "minecraft:player") return ev.sourceEntity;
+  const name = ev.message?.trim();
+  return name ? world.getAllPlayers().find((p) => p.name === name) : undefined;
+}
+
+function forceRole(target, role) {
+  for (const o of world.getAllPlayers()) if (o.id !== target.id && getRole(o) === role) setRole(o, undefined);
+  setRole(target, role);
+  target.sendMessage(`§a[TETHERED] Assigned to role: ${role.toUpperCase()}.`);
+}
+
+system.afterEvents.scriptEventReceive.subscribe((ev) => {
+  if (!running()) return;
+  if (ev.id === "tether:reset") {
+    for (const p of world.getAllPlayers()) setRole(p, undefined);
+    world.sendMessage("§c[TETHERED] All roles have been reset.");
+  } else if (ev.id === "tether:swap") {
+    const pair = getPair();
+    if (!pair) return;
+    setRole(pair.breaker, BUILDER);
+    setRole(pair.builder, BREAKER);
+    world.sendMessage("§e[TETHERED] Roles swapped.");
+  } else if (ev.id === "tether:breaker" || ev.id === "tether:builder") {
+    const target = resolveTarget(ev);
+    if (!target) return;
+    forceRole(target, ev.id === "tether:breaker" ? BREAKER : BUILDER);
+  }
+});
+
+registerController({
+  title: "Tethered: Breaker and Builder",
+  gameInfo: "Type: Co-op challenge\nPlayers: 2 (one Breaker, one Builder)\nGoal: Defeat the Ender Dragon together while tethered within 15 meters.",
+  howToPlay: "Goal: Defeat the Ender Dragon as a pair.\nRoles: The Breaker mines and fights but cannot place anything. The Builder places blocks and fluids but cannot mine or attack.\nLeash: Stay within 15 meters. Beyond that you are pulled together, and beyond 18 meters you take strain damage.\nHow it ends: The Ender Dragon dies, or an operator uses the end game function.",
+  onStart: () => {
+    resetTether();
+    for (const p of world.getAllPlayers()) {
+      setRole(p, undefined);
+      promptRole(p);
     }
-    world.sendMessage("§a[TETHERED] Role selection dialog opened for all connected players.");
-  } else if (event.id === "tether:reset") {
-    for (const player of world.getAllPlayers()) {
-      player.removeTag("role_breaker");
-      player.removeTag("role_builder");
-    }
-    world.sendMessage("§c[TETHERED] All role tags have been reset.");
-  } else if (event.id === "tether:breaker") {
-    const target = event.sourceEntity ?? world.getAllPlayers()[0];
-    if (target?.typeId === "minecraft:player") {
-      assignRole(target, "role_breaker");
-      target.sendMessage("§a[TETHERED] Assigned to role: BREAKER.");
-    }
-  } else if (event.id === "tether:builder") {
-    const target = event.sourceEntity ?? world.getAllPlayers()[0];
-    if (target?.typeId === "minecraft:player") {
-      assignRole(target, "role_builder");
-      target.sendMessage("§e[TETHERED] Assigned to role: BUILDER.");
-    }
+    world.sendMessage("§a[TETHERED] The challenge has started. Choose your roles.");
+  },
+  onEnd: () => {
+    resetTether();
+    notices.clear();
+    for (const p of world.getAllPlayers()) setRole(p, undefined);
+    world.sendMessage("§c[TETHERED] The challenge has ended. Restrictions are lifted.");
   }
 });

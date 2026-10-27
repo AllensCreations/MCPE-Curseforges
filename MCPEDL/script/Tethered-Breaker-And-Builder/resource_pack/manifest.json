@@ -1,0 +1,14 @@
+{
+  "format_version": 2,
+  "header": {
+    "name": "Tethered Breaker and Builder (v1.0.7)",
+    "description": "Controller icon for the Tethered challenge. by AllensCreations",
+    "uuid": "f3a1c7e2-6b84-4d19-9a52-0c7e5d8b1a36",
+    "version": [1, 0, 7],
+    "min_engine_version": [1, 26, 40]
+  },
+  "modules": [
+    { "type": "resources", "uuid": "8c2e94d7-1f60-4b3a-a7d5-39e0b6c4f812", "version": [1, 0, 7] }
+  ],
+  "metadata": { "authors": ["AllensCreations"], "product_type": "addon" }
+}

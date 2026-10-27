@@ -1,4 +1,4 @@
-# Tethered: Breaker and Builder (v1.0.6) — Two-Player Co-op Challenge
+# Tethered: Breaker and Builder (v1.0.7) — Two-Player Co-op Challenge
 
 **By AllensCreations**
 
@@ -6,37 +6,42 @@ Work together as a mining-and-combat partner and a building specialist while an 
 
 ## Overview
 
-Two players share a 15-meter tether. The Breaker handles mining and combat but cannot place blocks or fluids. The Builder can construct, place fluids, and craft utilities but cannot mine blocks or attack enemies. Stretching too far pulls partners back together, and severe overextension causes damage.
+Two players share a 15-meter tether. The Breaker handles mining and combat but cannot place blocks or fluids. The Builder can construct and place fluids but cannot mine blocks or attack. Stretching too far pulls partners back together, and severe overextension causes non-lethal damage. Defeat the Ender Dragon together to win.
 
 ## Key Features
 
 ### Asymmetric Roles
-- **Breaker:** Mines, harvests resources, and fights hostile mobs.
-- **Builder:** Places blocks and fluids, builds structures, and manages crafting utilities.
+- **What Happens**: Each player chooses Breaker or Builder when the challenge starts. Each role can be held by one player.
 
 ### Elastic Tether
-- **What Happens:** The tether responds to distance and pulls players back toward one another when they move too far apart.
+- **What Happens**: Partners are pulled toward each other beyond 15 meters, with strain damage beyond 18 meters after a short grace period.
 
 ### Tension Feedback
-- **What Happens:** Visual and audio cues communicate four distance states, while the on-screen display shows the current separation.
+- **What Happens**: A particle beam, sound cues and an on-screen display show four distance states: slack, tense, overstretched and strained.
 
-### Rejoin and Respawn Support
-- **What Happens:** The add-on attempts to reunite partners after respawn and provides temporary protection during the reunion.
+### Recall
+- **What Happens**: Partners who are very far apart or in different dimensions for too long are brought back together.
 
-### Role Selection
-- **What Happens:** An in-game dialog helps players choose their roles when they join the world.
+### Respawn Support
+- **What Happens**: A partner who dies respawns beside the survivor with temporary protection.
 
-## How to Play
+### Controller
+- **What Happens**: The host or an operator uses the AllensCreations Controller to start the challenge and read the rules.
+
+## How to Use
 
 1. Import and enable the pack in a Minecraft Bedrock world.
-2. Have two players join and select their roles.
-3. Coordinate movement and tasks: the Breaker gathers and defends, while the Builder constructs and prepares utilities.
-4. Stay within tether range. Severe overextension causes damage until you regroup.
+2. The host or an operator uses the Controller and chooses Start.
+3. Each player picks a role from the menu.
+4. The Breaker gathers and defends while the Builder constructs. Stay within the leash range.
+5. Defeat the Ender Dragon to win.
 
-## Compatibility and Limitations
+## Compatibility
 
-- Minecraft Bedrock Edition. Check the current package listing for the supported game version.
-- The challenge is designed around two distinct player roles and works best when both players coordinate.
+- Minecraft Bedrock Edition: 1.26.40 or newer
+- Experimental features: No experiment requirement detected in the inspected files.
+- Achievements: Likely achievement-friendly. Operator commands require cheats, which disables achievements.
+- Verification: Source created, not tested in game.
 
 ## Creator and Permissions
 
@@ -47,7 +52,7 @@ Two players share a 15-meter tether. The Breaker handles mining and combat but c
 
 - Creator: AllensCreations
 - Rights & Reservation: All rights reserved for AllensCreations.
-- Content Creators: You may feature this pack in videos and streams with credit to AllensCreations.
+- Content Creators: Content creators are permitted to feature this creation in videos and streams with credit to AllensCreations.
 - Redistribution: Do not re-upload this pack or provide direct monetized download bypasses. Link directly to the official repository page.
 
 ---
@@ -58,4 +63,4 @@ Two players share a 15-meter tether. The Breaker handles mining and combat but c
 
 ## Search & Discovery Keywords
 
-Minecraft Bedrock co-op challenge, Tethered Breaker and Builder, asymmetric two-player survival, Minecraft tether mod, cooperative mining and building, multiplayer survival minigame, Minecraft PE script pack, MCPEDL, CurseForge Bedrock, AllensCreations.
+Minecraft Bedrock co-op challenge, Tethered Breaker and Builder, asymmetric two-player survival, Minecraft tether, cooperative mining and building, multiplayer survival minigame, Minecraft PE challenge, MCPEDL, CurseForge Bedrock, AllensCreations.
