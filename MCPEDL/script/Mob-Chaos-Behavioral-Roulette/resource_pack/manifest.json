@@ -1,14 +1,35 @@
 {
   "format_version": 2,
   "header": {
-    "name": "Mob Chaos: Behavioral Roulette (v1.0.0)",
+    "name": "Mob Chaos Behavioral Roulette (v1.0.1)",
     "description": "Controller item texture for Mob Chaos. by AllensCreations",
     "uuid": "d5db9770-bad9-4a54-9780-b2e6a8a08166",
-    "version": [1, 0, 0],
-    "min_engine_version": [1, 26, 60]
+    "version": [
+      1,
+      0,
+      1
+    ],
+    "min_engine_version": [
+      1,
+      26,
+      0
+    ]
   },
   "modules": [
-    { "type": "resources", "uuid": "33826e9e-246d-4cf5-8ab8-e1da0e68ea9e", "version": [1, 0, 0] }
+    {
+      "type": "resources",
+      "uuid": "33826e9e-246d-4cf5-8ab8-e1da0e68ea9e",
+      "version": [
+        1,
+        0,
+        1
+      ]
+    }
   ],
-  "metadata": { "authors": ["AllensCreations"], "product_type": "addon" }
+  "metadata": {
+    "authors": [
+      "AllensCreations"
+    ],
+    "product_type": "addon"
+  }
 }

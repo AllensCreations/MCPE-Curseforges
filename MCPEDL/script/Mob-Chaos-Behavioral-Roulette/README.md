@@ -1,4 +1,4 @@
-# Mob Chaos: Behavioral Roulette (v1.0.0)
+# Mob Chaos: Behavioral Roulette (v1.0.1)
 
 A chaos mini-game by AllensCreations for Minecraft Bedrock Edition.
 
@@ -34,7 +34,7 @@ Mob Chaos: Behavioral Roulette turns every mob near you into an unpredictable wi
 
 ## Compatibility
 
-- Minecraft Bedrock Edition: 1.26.60 or newer.
+- Minecraft Bedrock Edition: 1.26.0 or newer.
 - Experimental features: No experimental features required.
 - Achievements: Unknown / needs confirmation.
 - Verification: Source created, not tested in game.

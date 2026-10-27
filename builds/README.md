@@ -28,7 +28,7 @@ This directory stores the compiled releases (behavior packs, resource packs, add
 | **One-Block-Economy** | `v1.0.1` | Script Behavior Pack (`.mcpack`) | [Download (.mcpack)](One-Block-Economy/One-Block%20Hardcore%20Survival%20Economy%20by%20AllensCreations%20%28V1.0.1%29.mcpack) | [`One-Block-Economy/`](One-Block-Economy/) |
 | **Harvest Intelligence** | `v1.0.3` | Script Behavior Pack (`.mcpack`) | [Download (.mcpack)](Harvest-Intelligence/Harvest%20Intelligence%20by%20AllensCreations%20%28V1.0.3%29.mcpack) | [`Harvest-Intelligence/`](Harvest-Intelligence/) |
 | **Melody Figurine** | `v1.0.11` | Complete Pack (`.mcaddon`) | [Download (.mcaddon)](Melody-Figurine/Melody%20Figurine%20by%20AllensCreations%20%28V1.0.11%29.mcaddon) | [`Melody-Figurine/`](Melody-Figurine/) |
-| **Mob Chaos Behavioral Roulette** | `v1.0.0` | Script Behavior Pack (`.mcpack`) | [Download (.mcaddon)](Mob-Chaos-Behavioral-Roulette/Mob%20Chaos%20Behavioral%20Roulette%20by%20AllensCreations%20%28V1.0.0%29.mcaddon) | [`trial/`](trial/) |
+| **Mob Chaos Behavioral Roulette** | `v1.0.1` | Script Behavior Pack (`.mcpack`) | [Download (.mcaddon)](Mob-Chaos-Behavioral-Roulette/Mob%20Chaos%20Behavioral%20Roulette%20by%20AllensCreations%20%28V1.0.1%29.mcaddon) | [`trial/`](trial/) |
 
 ### Worlds and Maps
 

@@ -8,7 +8,11 @@ on:
         required: true
         type: choice
         options:
-          - "none"
+          - "Melody-Figurine"
+          - "One-Block-Economy"
+          - "Selective-Mob-Controller"
+          - "Swarm-Mob-Booster"
+          - "trial"
       status:
         description: "Lifecycle status label"
         required: true

@@ -38,7 +38,7 @@ Before each mutation, eerie blood-red glitch text flashes on your action bar or 
 
 ## Compatibility
 
-- Minecraft Bedrock Edition: 1.26.60 or newer.
+- Minecraft Bedrock Edition: 1.26.0 or newer.
 - Experimental features: No experimental features required.
 - Achievements: Unknown / needs confirmation.
 - Verification: Source created, not tested in game.
