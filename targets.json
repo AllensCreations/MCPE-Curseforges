@@ -215,6 +215,30 @@
       "bannerExists": false,
       "logoExists": true,
       "readmeExists": true
+    },
+    {
+      "id": "MCPEDL/new_addons/Selective-Mob-Controller",
+      "name": "Selective Mob Controller",
+      "category": "addon",
+      "dir": "MCPEDL/new_addons/Selective-Mob-Controller",
+      "readmePath": "MCPEDL/new_addons/Selective-Mob-Controller/README.md",
+      "bannerPath": "MCPEDL/new_addons/Selective-Mob-Controller/banner.jpg",
+      "logoPath": "MCPEDL/new_addons/Selective-Mob-Controller/behavior_pack/pack_icon.png",
+      "bannerExists": false,
+      "logoExists": true,
+      "readmeExists": true
+    },
+    {
+      "id": "MCPEDL/new_addons/One-Block-Economy",
+      "name": "One-Block Hardcore Survival Economy",
+      "category": "addon",
+      "dir": "MCPEDL/new_addons/One-Block-Economy",
+      "readmePath": "MCPEDL/new_addons/One-Block-Economy/README.md",
+      "bannerPath": "MCPEDL/new_addons/One-Block-Economy/banner.jpg",
+      "logoPath": "MCPEDL/new_addons/One-Block-Economy/behavior_pack/pack_icon.png",
+      "bannerExists": false,
+      "logoExists": true,
+      "readmeExists": true
     }
   ]
 }

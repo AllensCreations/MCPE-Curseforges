@@ -1,0 +1,60 @@
+name: Update Minimum Bedrock Version & Instructions
+
+on:
+  workflow_dispatch:
+    inputs:
+      min_version:
+        description: 'New minimum Bedrock engine version (e.g. 1.26.0 or 1.26)'
+        required: true
+        default: '1.26.0'
+        type: string
+      update_manifests:
+        description: 'Update manifests for mob behavior scripts (Swarm Mob Booster, Selective Mob Controller)?'
+        required: true
+        default: true
+        type: boolean
+      update_readmes:
+        description: 'Update compatibility and badge versions in relevant READMEs?'
+        required: true
+        default: true
+        type: boolean
+
+permissions:
+  contents: write
+
+jobs:
+  update-version:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
+
+      - name: Adjust INSTRUCTIONS.md, Manifests & READMEs
+        run: |
+          python3 scripts/update_min_version.py \
+            --version "${{ github.event.inputs.min_version }}" \
+            ${{ github.event.inputs.update_manifests == 'true' && '--manifests' || '' }} \
+            ${{ github.event.inputs.update_readmes == 'true' && '--readmes' || '' }}
+
+      - name: Commit and push changes
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+
+          git add INSTRUCTIONS.md
+          git add MCPEDL/
+          git add scripts/
+
+          if git diff --staged --quiet; then
+            echo "No changes detected to commit."
+          else
+            git commit -m "chore(engine): update minimum Bedrock version to ${{ github.event.inputs.min_version }} and adjust instructions [skip ci]"
+            git push
+          fi

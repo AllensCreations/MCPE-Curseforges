@@ -1,0 +1,76 @@
+{
+  "format_version": 2,
+  "header": {
+    "name": "Selective Mob Controller by AllensCreations",
+    "description": "Strictly filter allowed mob spawns with two-layer script purge guard and massively boosted cluster spawn density (Ludicrous Swarm 75-cap).",
+    "uuid": "b68bb2fa-ae10-4039-8f9e-7122e1c7bd01",
+    "version": [
+      1,
+      0,
+      1
+    ],
+    "min_engine_version": [
+      1,
+      26,
+      0
+    ]
+  },
+  "modules": [
+    {
+      "description": "Selective Mob Controller Data Module",
+      "type": "data",
+      "uuid": "7b6ffb8e-372a-4bd1-a2f4-442b77c10768",
+      "version": [
+        1,
+        0,
+        1
+      ]
+    },
+    {
+      "description": "Selective Mob Controller Script Module",
+      "type": "script",
+      "language": "javascript",
+      "uuid": "8f23327d-3320-4995-8ad3-e7c4cd498cf6",
+      "version": [
+        1,
+        0,
+        1
+      ],
+      "entry": "scripts/main.js"
+    }
+  ],
+  "dependencies": [
+    {
+      "module_name": "@minecraft/server",
+      "version": "1.13.0"
+    }
+  ],
+  "subpacks": [
+    {
+      "folder_name": "undead_apocalypse",
+      "name": "Undead Apocalypse (Zombies, Skeletons, Phantoms, Drowned, Husks, Strays)",
+      "memory_tier": 1
+    },
+    {
+      "folder_name": "hostiles_only",
+      "name": "Hostiles Only (All Hostile Monsters Swarm)",
+      "memory_tier": 2
+    },
+    {
+      "folder_name": "peaceful_farm",
+      "name": "Peaceful Farm (Livestock & Ambient)",
+      "memory_tier": 3
+    },
+    {
+      "folder_name": "invasion_raids",
+      "name": "Invasion & Raids (Illagers, Witches, Ravagers)",
+      "memory_tier": 4
+    }
+  ],
+  "metadata": {
+    "authors": [
+      "AllensCreations"
+    ],
+    "product_type": "addon"
+  }
+}
