@@ -1,7 +1,7 @@
 # Trivia Vault: The Locked World
 
 ## Overview
-Trivia Vault: The Locked World turns survival mining into a high-risk Minecraft knowledge challenge. Every Survival block-break event is stopped until the player answers a randomized multiple-choice question.
+Trivia Vault: The Locked World turns survival mining into a high-risk Minecraft knowledge challenge. Breaking a block type in Survival is stopped until the player answers a randomized multiple-choice question for that type.
 
 ## Features
 - 500 unique question entries across crafting, mobs, items, blocks, dimensions, exploration, villagers, redstone, archaeology, and Minecraft history.
@@ -13,7 +13,7 @@ Trivia Vault: The Locked World turns survival mining into a high-risk Minecraft 
 - A Controller-based start and instructions screen.
 
 ## Gameplay
-Start the run with the Controller. In Survival, attempt to break a block to receive a question. Correct answers unlock that block and award loot immediately; attempt to break the same block again to harvest it. Wrong answers apply one random penalty. Creative mode is left unmodified for testing and inspection. The run ends when the player dies.
+Start the run with the Controller. In Survival, attempt to break a block to receive a question. Correct answers unlock that block type for the rest of the run and award loot immediately. Wrong answers apply one random penalty. Creative mode is left unmodified for testing and inspection. The run ends when the player dies.
 
 ## Compatibility
 Unknown / needs confirmation. The pack targets stable Minecraft Bedrock 26.52-era documentation, but the actual game version and achievement state must be checked in the world where it is installed.

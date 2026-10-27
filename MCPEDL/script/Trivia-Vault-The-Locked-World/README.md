@@ -3,9 +3,9 @@
 ## Overview
 Trivia Vault: The Locked World is a survival trivia challenge by AllensCreations.
 
-Each Survival block break attempt opens a randomized Minecraft question.
-Choose one of four possible answers to unlock your block and earn a random reward.
-A correct answer grants the reward immediately; break the same block again to harvest it.
+Each Survival block break attempt on a locked block type opens a randomized Minecraft question.
+Choose one of four possible answers to unlock that block type and earn a random reward.
+A correct answer grants the reward immediately and unlocks every block of that type for the rest of the run.
 A wrong answer triggers a randomized penalty.
 Penalties include losing a hotbar item, an anvil hazard, hostile mobs, and status effects.
 The question bank contains 500 entries across crafting, mobs, blocks, exploration, and game history.
@@ -29,7 +29,7 @@ The penalty pool contains 50 entries, including the requested creeper and anvil 
 
 ## Controls and Rules
 Attempt to break any block in Survival to open the trivia form.
-Select the correct answer to unlock that block; break it again to collect it.
+Select the correct answer to unlock that block type; every block of the same type can then be broken freely until the run ends.
 Wrong answers trigger a randomized penalty, so keep valuable items protected.
 Use a lifeline when available; each run begins with three.
 Creative mode bypasses the block-break quiz so the world can be inspected safely.

@@ -7,7 +7,7 @@ import { CONSEQUENCES } from "./consequences.js";
 
 const GAME_KEY = "game_state";
 const playerStats = new Map();
-const bypass = new Map();
+const unlocked = new Map();
 const pending = new Map();
 const rand = (n) => Math.floor(Math.random() * n);
 const shuffle = (items) => [...items].sort(() => Math.random() - 0.5);
@@ -15,7 +15,11 @@ const statsFor = (player) => {
   if (!playerStats.has(player.id)) playerStats.set(player.id, { lifelines: 3, multiplier: 1, multiplierUntil: 0, correct: 0, asked: new Set() });
   return playerStats.get(player.id);
 };
-const posKey = (player, loc, dimensionId) => `${player.id}|${dimensionId}|${loc.x},${loc.y},${loc.z}`;
+const unlockedFor = (player) => {
+  if (!unlocked.has(player.id)) unlocked.set(player.id, new Set());
+  return unlocked.get(player.id);
+};
+const blockName = (typeId) => typeId.replace(/^minecraft:/, "").split("_").map((w) => w.charAt(0).toUpperCase() + w.slice(1)).join(" ");
 const invOf = (player) => player.getComponent(EntityComponentTypes.Inventory)?.container;
 
 function say(player, message) {
@@ -151,12 +155,12 @@ async function showQuestion(player) {
   const uniqueOptions = [...new Map(finalOptions.map((c) => [c.text, c])).values()];
   const form = new ActionFormData()
     .title(`Trivia Vault | ${state.q.category}`)
-    .body(`${state.q.question}\n\nChoose one answer. A wrong answer triggers a random penalty.\nLifelines remaining: ${stats.lifelines}`);
+    .body(`Block: ${blockName(state.key)}\n${state.q.question}\n\nChoose one answer. Correct unlocks every ${blockName(state.key)} for this run. A wrong answer triggers a random penalty.\nLifelines remaining: ${stats.lifelines}`);
   uniqueOptions.slice(0, 4).forEach((c) => form.button(c.text));
   if (!state.reduced && stats.lifelines > 0) form.button("Use Lifeline — remove wrong answers");
   else if (state.reduced && stats.lifelines > 0) form.button("Use Lifeline — cryptic hint");
   let response;
-  try { response = await form.show(player); } catch (e) { return; }
+  try { response = await form.show(player); } catch (e) { pending.delete(player.id); return; }
   if (response.canceled) { pending.delete(player.id); return; }
   const lifelineIndex = uniqueOptions.slice(0, 4).length;
   if (response.selection === lifelineIndex && stats.lifelines > 0) {
@@ -178,9 +182,9 @@ async function showQuestion(player) {
   pending.delete(player.id);
   if (chosen?.correct) {
     stats.correct++;
-    bypass.set(state.key, system.currentTick + 100);
+    unlockedFor(player).add(state.key);
     award(player);
-    say(player, "Block unlocked. Break that same block again to harvest it.");
+    say(player, `${blockName(state.key)} unlocked. Every ${blockName(state.key)} can now be broken for the rest of this run.`);
   } else {
     applyConsequence(player);
   }
@@ -189,16 +193,12 @@ async function showQuestion(player) {
 world.beforeEvents.playerBreakBlock.subscribe((event) => {
   if (world.getDynamicProperty(GAME_KEY) !== "running") return;
   if (event.player.getGameMode() === GameMode.Creative) return;
-  const block = event.block;
-  const loc = { x: block.location.x, y: block.location.y, z: block.location.z };
-  const key = posKey(event.player, loc, event.dimension.id);
-  const expiry = bypass.get(key);
-  if (expiry && expiry >= system.currentTick) {
-    bypass.delete(key);
-    return;
-  }
+  const typeId = event.block.typeId;
+  if (unlockedFor(event.player).has(typeId)) return;
   event.cancel = true;
-  system.run(() => newQuestion(event.player, key));
+  const player = event.player;
+  if (pending.has(player.id)) return;
+  system.run(() => newQuestion(player, typeId));
 });
 
 world.afterEvents.entityDie.subscribe((event) => {
@@ -212,24 +212,24 @@ world.afterEvents.entityDie.subscribe((event) => {
 world.afterEvents.playerLeave.subscribe((event) => {
   playerStats.delete(event.playerId);
   pending.delete(event.playerId);
-  for (const key of bypass.keys()) if (key.startsWith(`${event.playerId}|`)) bypass.delete(key);
+  unlocked.delete(event.playerId);
 });
 
 registerController({
   title: "Trivia Vault: The Locked World",
   gameInfo: "Type: Survival trivia challenge\nPlayers: Solo\nGoal: Answer Minecraft questions correctly to unlock blocks and earn rewards.",
-  howToPlay: "Goal: Survive the Trivia Vault and collect rare rewards.\nControls: In Survival, attempt to break a block to open a four-choice trivia question. Choose an answer in the form.\nCorrect: Receive a random reward, then break the same block again to harvest it.\nWrong: Receive a randomized penalty, including lost hotbar items, an anvil hazard, or ten creepers.\nLifelines: Three per run. Use one to remove wrong answers or reveal a cryptic hint.\nCreative: Block breaking is not intercepted.\nHow it ends: Your death ends the run. Use the Controller to start another run.",
+  howToPlay: "Goal: Survive the Trivia Vault and collect rare rewards.\nControls: In Survival, attempt to break a block to open a four-choice trivia question. Choose an answer in the form.\nCorrect: Receive a random reward and unlock that block type (every block of the same type) for the rest of the run.\nWrong: Receive a randomized penalty, including lost hotbar items, an anvil hazard, or ten creepers.\nLifelines: Three per run. Use one to remove wrong answers or reveal a cryptic hint.\nCreative: Block breaking is not intercepted.\nHow it ends: Your death ends the run. Use the Controller to start another run.",
   onStart: (player) => {
     playerStats.clear();
     pending.clear();
-    bypass.clear();
+    unlocked.clear();
     playerStats.set(player.id, { lifelines: 3, multiplier: 1, multiplierUntil: 0, correct: 0, asked: new Set() });
-    world.sendMessage("§6Trivia Vault: The Locked World§r has opened. Every Survival block break is a question.");
+    world.sendMessage("§6Trivia Vault: The Locked World§r has opened. Every new block type is a question.");
     say(player, `Question bank: ${QUESTIONS.length} entries. Rewards: ${REWARDS.length}. Penalties: ${CONSEQUENCES.length}.`);
   },
   onEnd: () => {
     pending.clear();
-    bypass.clear();
+    unlocked.clear();
     world.sendMessage("§6Trivia Vault§r is closed. Start again with the Controller when ready.");
   },
 });
