@@ -1,0 +1,29 @@
+{
+  "format_version": 2,
+  "header": {
+    "name": "Trivia Vault: The Locked World Resources (v1.0.0)",
+    "description": "Controller icon resources by AllensCreations",
+    "uuid": "28e51c40-0b28-483c-88f0-3b7e0209536d",
+    "version": [
+      1,
+      0,
+      0
+    ],
+    "min_engine_version": [
+      1,
+      26,
+      0
+    ]
+  },
+  "modules": [
+    {
+      "type": "resources",
+      "uuid": "9b8b84da-58ee-4612-89eb-83e95fcfc910",
+      "version": [
+        1,
+        0,
+        0
+      ]
+    }
+  ]
+}
