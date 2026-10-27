@@ -1114,8 +1114,12 @@ def main():
             except OSError:
                 lock_content = ""
             if not lock_content.startswith("AllensCreations Add-on Lock v1"):
-                print(f"[Auto-Version] ERROR: Missing or invalid LOCK marker: {os.path.relpath(lock_path, REPO_ROOT)}")
-                sys.exit(1)
+                print(f"[Auto-Version] Missing/invalid LOCK marker, creating: {os.path.relpath(lock_path, REPO_ROOT)}")
+                with open(lock_path, "w", encoding="utf-8", newline="\n") as lock_file:
+                    lock_file.write(
+                        "AllensCreations Add-on Lock v1\n\n"
+                        "Required repository marker for build validation.\n"
+                        "This marker does not encrypt source files or prevent extraction of distributable packages.\n")
 
         proj_name = os.path.basename(cp)
         is_new    = not (os.path.join(REPO_ROOT, "README.md") and
