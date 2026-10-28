@@ -512,16 +512,6 @@
             "check_if_target_is_immersed_in_water": true
           }
         ]
-      },
-      "minecraft:tameable": {
-        "probability": 1.0,
-        "tame_items": [
-          "allenscreations:beast_biscuit"
-        ],
-        "tame_event": {
-          "event": "allenscreations:on_tame",
-          "target": "self"
-        }
       }
     },
     "component_groups": {
@@ -784,6 +774,10 @@
             {
               "item": "allenscreations:beast_biscuit",
               "heal_amount": 10
+            },
+            {
+              "item": "allenscreations:golden_beast_biscuit",
+              "heal_amount": 40
             }
           ]
         },
@@ -813,12 +807,75 @@
         "minecraft:nameable": {
           "always_show": true,
           "allow_name_tag_renaming": true
+        },
+        "minecraft:behavior.nearest_attackable_target": {
+          "priority": 2,
+          "within_radius": 16,
+          "must_see": true,
+          "reselect_targets": true,
+          "entity_types": [
+            {
+              "filters": {
+                "all_of": [
+                  {
+                    "test": "is_family",
+                    "subject": "other",
+                    "value": "monster"
+                  },
+                  {
+                    "test": "is_family",
+                    "subject": "other",
+                    "operator": "!=",
+                    "value": "monster_companion"
+                  },
+                  {
+                    "test": "has_target",
+                    "subject": "other"
+                  },
+                  {
+                    "test": "owner_distance",
+                    "subject": "self",
+                    "operator": "<=",
+                    "value": 16
+                  }
+                ]
+              },
+              "max_dist": 16
+            }
+          ]
+        },
+        "minecraft:sittable": {},
+        "minecraft:behavior.stay_while_sitting": {
+          "priority": 2
+        }
+      },
+      "allenscreations:wild": {
+        "minecraft:tameable": {
+          "probability": 0.3,
+          "tame_items": [
+            "allenscreations:beast_biscuit"
+          ],
+          "tame_event": {
+            "event": "allenscreations:on_tame",
+            "target": "self"
+          }
         }
       }
     },
     "events": {
       "minecraft:entity_born": {
-        "trigger": "minecraft:as_baby"
+        "sequence": [
+          {
+            "add": {
+              "component_groups": [
+                "allenscreations:wild"
+              ]
+            }
+          },
+          {
+            "trigger": "minecraft:as_baby"
+          }
+        ]
       },
       "minecraft:as_rider": {
         "add": {
@@ -907,60 +964,71 @@
       "minecraft:entity_spawned": {
         "sequence": [
           {
-            "randomize": [
-              {
-                "randomize": [
-                  {
-                    "trigger": "minecraft:as_ranged_adult",
-                    "weight": 25
-                  },
-                  {
-                    "trigger": "minecraft:as_adult",
-                    "weight": 375
-                  }
-                ],
-                "weight": 9500
-              },
-              {
-                "randomize": [
-                  {
-                    "trigger": "minecraft:as_ranged_baby",
-                    "weight": 25
-                  },
-                  {
-                    "trigger": "minecraft:as_baby",
-                    "weight": 375
-                  }
-                ],
-                "weight": 425
-              },
-              {
-                "randomize": [
-                  {
-                    "trigger": "minecraft:as_ranged_baby_jockey",
-                    "weight": 25
-                  },
-                  {
-                    "trigger": "minecraft:as_baby_jockey",
-                    "weight": 375
-                  }
-                ],
-                "weight": 75
-              }
-            ]
+            "add": {
+              "component_groups": [
+                "allenscreations:wild"
+              ]
+            }
           },
           {
-            "randomize": [
+            "sequence": [
               {
-                "add": {
-                  "component_groups": [
-                    "minecraft:can_break_doors"
-                  ]
-                },
-                "weight": 10
+                "randomize": [
+                  {
+                    "randomize": [
+                      {
+                        "trigger": "minecraft:as_ranged_adult",
+                        "weight": 25
+                      },
+                      {
+                        "trigger": "minecraft:as_adult",
+                        "weight": 375
+                      }
+                    ],
+                    "weight": 9500
+                  },
+                  {
+                    "randomize": [
+                      {
+                        "trigger": "minecraft:as_ranged_baby",
+                        "weight": 25
+                      },
+                      {
+                        "trigger": "minecraft:as_baby",
+                        "weight": 375
+                      }
+                    ],
+                    "weight": 425
+                  },
+                  {
+                    "randomize": [
+                      {
+                        "trigger": "minecraft:as_ranged_baby_jockey",
+                        "weight": 25
+                      },
+                      {
+                        "trigger": "minecraft:as_baby_jockey",
+                        "weight": 375
+                      }
+                    ],
+                    "weight": 75
+                  }
+                ]
               },
               {
-                "weight": 90
+                "randomize": [
+                  {
+                    "add": {
+                      "component_groups": [
+                        "minecraft:can_break_doors"
+                      ]
+                    },
+                    "weight": 10
+                  },
+                  {
+                    "weight": 90
+                  }
+                ]
               }
             ]
           }
@@ -1033,6 +1101,11 @@
         },
         "play_sound": {
           "sound": "random.levelup"
+        },
+        "remove": {
+          "component_groups": [
+            "allenscreations:wild"
+          ]
         }
       }
     }

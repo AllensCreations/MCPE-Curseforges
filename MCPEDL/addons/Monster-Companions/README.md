@@ -17,3 +17,4 @@ Download the current release of **Monster Companions** for Minecraft Bedrock Edi
 ## Add-on Information
 
 For gameplay features, usage details, recipes, compatibility notes, and other project information, read the [full description](https://github.com/AllensCreations/MCPE-Curseforges/blob/main/MCPEDL/addons/Monster-Companions/DESCRIPTION.md).
+

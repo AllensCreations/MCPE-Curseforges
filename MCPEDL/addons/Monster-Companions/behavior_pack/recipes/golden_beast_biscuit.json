@@ -1,0 +1,29 @@
+{
+  "format_version": "1.20.10",
+  "minecraft:recipe_shapeless": {
+    "description": {
+      "identifier": "allenscreations:golden_beast_biscuit_recipe"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "group": "monster_companions:golden_beast_biscuit",
+    "ingredients": [
+      {
+        "item": "allenscreations:beast_biscuit"
+      },
+      {
+        "item": "minecraft:gold_ingot"
+      }
+    ],
+    "result": {
+      "item": "allenscreations:golden_beast_biscuit",
+      "count": 1
+    },
+    "unlock": [
+      {
+        "context": "AlwaysUnlocked"
+      }
+    ]
+  }
+}

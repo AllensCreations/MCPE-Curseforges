@@ -138,17 +138,7 @@
       "minecraft:physics": {},
       "minecraft:pushable_by_entity": {},
       "minecraft:pushable_by_block": {},
-      "minecraft:spawn_egg_interaction": {},
-      "minecraft:tameable": {
-        "probability": 1.0,
-        "tame_items": [
-          "allenscreations:beast_biscuit"
-        ],
-        "tame_event": {
-          "event": "allenscreations:on_tame",
-          "target": "self"
-        }
-      }
+      "minecraft:spawn_egg_interaction": {}
     },
     "component_groups": {
       "angry_zoglin": {
@@ -351,6 +341,10 @@
             {
               "item": "allenscreations:beast_biscuit",
               "heal_amount": 10
+            },
+            {
+              "item": "allenscreations:golden_beast_biscuit",
+              "heal_amount": 40
             }
           ]
         },
@@ -380,7 +374,55 @@
           ]
         },
         "minecraft:input_ground_controlled": {},
-        "minecraft:behavior.player_ride_tamed": {}
+        "minecraft:behavior.player_ride_tamed": {},
+        "minecraft:behavior.nearest_attackable_target": {
+          "priority": 2,
+          "within_radius": 16,
+          "must_see": true,
+          "reselect_targets": true,
+          "entity_types": [
+            {
+              "filters": {
+                "all_of": [
+                  {
+                    "test": "is_family",
+                    "subject": "other",
+                    "value": "monster"
+                  },
+                  {
+                    "test": "is_family",
+                    "subject": "other",
+                    "operator": "!=",
+                    "value": "monster_companion"
+                  },
+                  {
+                    "test": "has_target",
+                    "subject": "other"
+                  },
+                  {
+                    "test": "owner_distance",
+                    "subject": "self",
+                    "operator": "<=",
+                    "value": 16
+                  }
+                ]
+              },
+              "max_dist": 16
+            }
+          ]
+        }
+      },
+      "allenscreations:wild": {
+        "minecraft:tameable": {
+          "probability": 0.15,
+          "tame_items": [
+            "allenscreations:beast_biscuit"
+          ],
+          "tame_event": {
+            "event": "allenscreations:on_tame",
+            "target": "self"
+          }
+        }
       }
     },
     "events": {
@@ -399,7 +441,18 @@
         }
       },
       "minecraft:entity_born": {
-        "trigger": "minecraft:as_baby"
+        "sequence": [
+          {
+            "add": {
+              "component_groups": [
+                "allenscreations:wild"
+              ]
+            }
+          },
+          {
+            "trigger": "minecraft:as_baby"
+          }
+        ]
       },
       "minecraft:as_adult": {
         "add": {
@@ -416,22 +469,33 @@
         }
       },
       "minecraft:entity_spawned": {
-        "randomize": [
+        "sequence": [
           {
             "add": {
               "component_groups": [
-                "zoglin_adult"
+                "allenscreations:wild"
               ]
-            },
-            "weight": 95
+            }
           },
           {
-            "add": {
-              "component_groups": [
-                "zoglin_baby"
-              ]
-            },
-            "weight": 5
+            "randomize": [
+              {
+                "add": {
+                  "component_groups": [
+                    "zoglin_adult"
+                  ]
+                },
+                "weight": 95
+              },
+              {
+                "add": {
+                  "component_groups": [
+                    "zoglin_baby"
+                  ]
+                },
+                "weight": 5
+              }
+            ]
           }
         ]
       },
@@ -475,6 +539,11 @@
         },
         "play_sound": {
           "sound": "random.levelup"
+        },
+        "remove": {
+          "component_groups": [
+            "allenscreations:wild"
+          ]
         }
       }
     }

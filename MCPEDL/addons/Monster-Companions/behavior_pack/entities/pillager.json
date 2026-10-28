@@ -205,16 +205,6 @@
       },
       "minecraft:variant": {
         "value": 0
-      },
-      "minecraft:tameable": {
-        "probability": 1.0,
-        "tame_items": [
-          "allenscreations:beast_biscuit"
-        ],
-        "tame_event": {
-          "event": "allenscreations:on_tame",
-          "target": "self"
-        }
       }
     },
     "component_groups": {
@@ -502,6 +492,10 @@
             {
               "item": "allenscreations:beast_biscuit",
               "heal_amount": 10
+            },
+            {
+              "item": "allenscreations:golden_beast_biscuit",
+              "heal_amount": 40
             }
           ]
         },
@@ -531,6 +525,58 @@
         "minecraft:nameable": {
           "always_show": true,
           "allow_name_tag_renaming": true
+        },
+        "minecraft:behavior.nearest_attackable_target": {
+          "priority": 2,
+          "within_radius": 16,
+          "must_see": true,
+          "reselect_targets": true,
+          "entity_types": [
+            {
+              "filters": {
+                "all_of": [
+                  {
+                    "test": "is_family",
+                    "subject": "other",
+                    "value": "monster"
+                  },
+                  {
+                    "test": "is_family",
+                    "subject": "other",
+                    "operator": "!=",
+                    "value": "monster_companion"
+                  },
+                  {
+                    "test": "has_target",
+                    "subject": "other"
+                  },
+                  {
+                    "test": "owner_distance",
+                    "subject": "self",
+                    "operator": "<=",
+                    "value": 16
+                  }
+                ]
+              },
+              "max_dist": 16
+            }
+          ]
+        },
+        "minecraft:sittable": {},
+        "minecraft:behavior.stay_while_sitting": {
+          "priority": 2
+        }
+      },
+      "allenscreations:wild": {
+        "minecraft:tameable": {
+          "probability": 0.2,
+          "tame_items": [
+            "allenscreations:beast_biscuit"
+          ],
+          "tame_event": {
+            "event": "allenscreations:on_tame",
+            "target": "self"
+          }
         }
       }
     },
@@ -556,11 +602,22 @@
         }
       },
       "minecraft:entity_spawned": {
-        "add": {
-          "component_groups": [
-            "minecraft:ranged_attack"
-          ]
-        }
+        "sequence": [
+          {
+            "add": {
+              "component_groups": [
+                "allenscreations:wild"
+              ]
+            }
+          },
+          {
+            "add": {
+              "component_groups": [
+                "minecraft:ranged_attack"
+              ]
+            }
+          }
+        ]
       },
       "minecraft:raid_expired": {
         "sequence": [
@@ -680,6 +737,11 @@
         },
         "play_sound": {
           "sound": "random.levelup"
+        },
+        "remove": {
+          "component_groups": [
+            "allenscreations:wild"
+          ]
         }
       }
     }
