@@ -20,10 +20,81 @@ on:
     - cron: "17 2 * * *"
   workflow_dispatch:
     inputs:
-      target:
-        description: "'all' or one project folder name under MCPEDL/"
+      scope:
+        description: "What to process"
         required: true
-        default: 'all'
+        default: all
+        type: choice
+        options:
+          - all
+          - one project (pick it below)
+      addon:
+        description: "Project from MCPEDL/addons (only when scope = one project)"
+        required: true
+        default: "-"
+        type: choice
+        options:
+          # BEGIN addon
+          - "-"
+          - "Ghast-Mob-Head-Transformers"
+          - "Grand-Banquets"
+          - "Grimoire-Relics-V2"
+          - "Harvest-Intelligence"
+          - "Immortal-Pets"
+          - "Magnetic-Satchel"
+          - "Mining-Helmet"
+          - "Monster-Companions"
+          - "Passive-Auto-Switch-Tools"
+          - "Smart-Tree-Capitator-and-Domino-Ore-Miner"
+          - "Sudden-Death-Roulette"
+          - "Tameable-Companion-Fox"
+          - "Universal-Clutch"
+          - "Vanilla-Quality-of-Life"
+          # END addon
+      new_addon:
+        description: "Project from MCPEDL/new_addons (only when scope = one project)"
+        required: true
+        default: "-"
+        type: choice
+        options:
+          # BEGIN new_addon
+          - "-"
+          - "Melody-Figurine"
+          - "One-Block-Economy"
+          - "Selective-Mob-Controller"
+          - "Swarm-Mob-Booster"
+          - "trial"
+          # END new_addon
+      script:
+        description: "Project from MCPEDL/script (only when scope = one project)"
+        required: true
+        default: "-"
+        type: choice
+        options:
+          # BEGIN script
+          - "-"
+          - "Alphabet-Scavenger-Hunt"
+          - "Mob-Chaos-Behavioral-Roulette"
+          - "Shared-Hivemind-Inventory"
+          - "Tethered-Breaker-And-Builder"
+          - "Trivia-Vault-The-Locked-World"
+          # END script
+      map:
+        description: "Project from MCPEDL/maps (only when scope = one project)"
+        required: true
+        default: "-"
+        type: choice
+        options:
+          # BEGIN map
+          - "-"
+          - "OneBlock-Dirtbound-Kingdom-Beta"
+          - "Oneblock-SM"
+          - "OneBlock-Void-Survival"
+          # END map
+      other:
+        description: "Optional: project path or name missing from the lists above"
+        required: false
+        default: ""
         type: string
       bump:
         description: "Bump pack versions (turn off for a refresh-only rebuild)"
@@ -71,7 +142,12 @@ jobs:
         id: process
         env:
           EVENT: ${{ github.event_name }}
-          TARGET: ${{ github.event.inputs.target }}
+          SCOPE: ${{ github.event.inputs.scope }}
+          ADDON: ${{ github.event.inputs.addon }}
+          NEW_ADDON: ${{ github.event.inputs.new_addon }}
+          SCRIPT: ${{ github.event.inputs.script }}
+          MAP: ${{ github.event.inputs.map }}
+          OTHER: ${{ github.event.inputs.other }}
           BUMP: ${{ github.event.inputs.bump }}
           BEFORE: ${{ github.event.before }}
         run: |
@@ -83,10 +159,20 @@ jobs:
               ARGS=(--all --no-bump)
               ;;
             workflow_dispatch)
-              if [ -z "$TARGET" ] || [ "$TARGET" = "all" ]; then
+              if [ "$SCOPE" = "all" ]; then
                 ARGS=(--all)
               else
-                ARGS=(--project "$TARGET")
+                PICKS=()
+                [ -n "$ADDON" ]     && [ "$ADDON" != "-" ]     && PICKS+=("MCPEDL/addons/$ADDON")
+                [ -n "$NEW_ADDON" ] && [ "$NEW_ADDON" != "-" ] && PICKS+=("MCPEDL/new_addons/$NEW_ADDON")
+                [ -n "$SCRIPT" ]    && [ "$SCRIPT" != "-" ]    && PICKS+=("MCPEDL/script/$SCRIPT")
+                [ -n "$MAP" ]       && [ "$MAP" != "-" ]       && PICKS+=("MCPEDL/maps/$MAP")
+                [ -n "$OTHER" ]                                && PICKS+=("$OTHER")
+                if [ "${#PICKS[@]}" -ne 1 ]; then
+                  echo "::error::scope is 'one project': pick exactly one project (found ${#PICKS[@]}). Leave the other lists on '-'."
+                  exit 1
+                fi
+                ARGS=(--project "${PICKS[0]}")
               fi
               if [ "$BUMP" = "true" ]; then
                 MODE="release"

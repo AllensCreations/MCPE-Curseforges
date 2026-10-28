@@ -276,7 +276,7 @@ Workflows in `.github/workflows/`. Roles below come from file names and recent c
 
 | Workflow | Role |
 | :--- | :--- |
-| `auto-version-bump.yml` | Single release workflow (replaces refresh-build-packs.yml). On push to main it bumps versions, rebuilds packs and registers new projects; daily at 02:17 UTC and on manual run it refreshes and rebuilds packs without bumping (manual run has a bump toggle). Every run syncs project, category, builds, root and OneBlock map READMEs and audits README status. Must keep manifest titles in the `Name (vX.Y.Z)` format (Section 3). |
+| `auto-version-bump.yml` | Single release workflow (replaces refresh-build-packs.yml). On push to main it bumps versions, rebuilds packs and registers new projects; daily at 02:17 UTC and on manual run it refreshes and rebuilds packs without bumping (manual run: project dropdowns and a bump toggle). Every run syncs project, category, builds, root and OneBlock map READMEs and audits README status. Must keep manifest titles in the `Name (vX.Y.Z)` format (Section 3). |
 | `build-oneblock-variants.yml` | Automatically builds the Creative, Survival, and Hardcore database-free `.mcworld` archives into `MCPEDL/maps/<Map-Name>/` when relevant sources or foundations change; manual dispatch is also available. |
 | `create-project-from-base64.yml` | Manual run: decodes a base64 ZIP (type addon, map, or script from `project.json`) into the matching `MCPEDL/` folder and builds the worlds that type needs (Section 7). `commit_mode` defaults to `pull_request` so the import is reviewed before it reaches the branch; `direct` pushes straight to it. |
 | `build-test-world.yml` | Manual run: rebuilds `<Name> - Test.mcworld` for scripts and add-ons that have `test_world.json`. |
@@ -296,6 +296,7 @@ Helper scripts in `scripts/`:
 - `check_readme_status.py`: audits README and DESCRIPTION status and relative links (`--fix` generates stub documentation).
 - `validate_manifest_titles.py`: the title validator from Section 3.
 - `auto_bump_and_build.py`: bumps versions and builds packs. Use `--no-bump` for documentation-only work.
+- `sync_dispatch_choices.py`: fills the project dropdowns in `auto-version-bump.yml` from `MCPEDL/`; run it after adding or removing a project, then commit the workflow (`--check` only reports).
 - `crafting_template.py`: shared recipe board renderer.
 - `build_oneblock_variants_from_template.py`: builds the three OneBlock world modes from `Mcpeworlds/` and a map's packs (Section 7). Reads `ONEBLOCK_MAP` to build one map.
 - `sync_oneblock_map_readmes.py`: synchronizes a map README with the generated `.mcworld` archives.
