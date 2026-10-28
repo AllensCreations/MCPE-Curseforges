@@ -448,6 +448,20 @@
             "allenscreations:wild"
           ]
         }
+      },
+      "allenscreations:stay_on": {
+        "queue_command": {
+          "command": [
+            "title @p actionbar §eStay"
+          ]
+        }
+      },
+      "allenscreations:stay_off": {
+        "queue_command": {
+          "command": [
+            "title @p actionbar §aFollow"
+          ]
+        }
       }
     },
     "component_groups": {
@@ -623,6 +637,19 @@
               "max_dist": 16
             }
           ]
+        },
+        "minecraft:sittable": {
+          "sit_event": {
+            "event": "allenscreations:stay_on",
+            "target": "self"
+          },
+          "stand_event": {
+            "event": "allenscreations:stay_off",
+            "target": "self"
+          }
+        },
+        "minecraft:behavior.stay_while_sitting": {
+          "priority": 2
         }
       },
       "allenscreations:wild": {
