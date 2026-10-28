@@ -643,6 +643,30 @@
               },
               "max_dist": 16,
               "priority": 1
+            },
+            {
+              "filters": {
+                "all_of": [
+                  {
+                    "test": "is_family",
+                    "subject": "other",
+                    "value": "player"
+                  },
+                  {
+                    "test": "is_owner",
+                    "subject": "other"
+                  },
+                  {
+                    "test": "actor_health",
+                    "subject": "other",
+                    "operator": "<=",
+                    "value": 14
+                  }
+                ]
+              },
+              "max_dist": 10,
+              "priority": 2,
+              "cooldown": 20
             }
           ]
         },
@@ -653,6 +677,20 @@
           "sound": "throw",
           "power": 0.75,
           "projectiles": [
+            {
+              "aux_val": 21,
+              "def": "minecraft:splash_potion",
+              "filters": {
+                "all_of": [
+                  {
+                    "test": "is_family",
+                    "subject": "other",
+                    "value": "player"
+                  }
+                ]
+              },
+              "lose_target": true
+            },
             {
               "aux_val": 17,
               "def": "minecraft:splash_potion",

@@ -1,12 +1,19 @@
 # Changelog - Monster Companions
 
+## [1.2.5] - 2026-10-29
+
+### Added
+- **Witch healing**: A tamed Witch now occasionally throws a healing splash potion at you when you are hurt.
+
+---
+
 ## [1.2.4] - 2026-10-29
 
 ### Added
 - **Parched**: The new desert skeleton can now be tamed with a Primal Beast Biscuit. A tamed Parched fires Weakness arrows at enemies and does not burn in sunlight.
 
 ### Fixed
-- **Witch potions**: A tamed Witch no longer throws healing potions at you or targets you.
+- **Witch potions**: A tamed Witch no longer throws harmful potions at you or targets you.
 - **Companion attacks**: Arrows, fireballs, potions, and other attacks from your companions no longer damage you.
 
 ---
