@@ -65,7 +65,7 @@
     {
       "folder_name": "hardmode",
       "name": "Hardmode",
-      "memory_tier": 0
+      "memory_performance_tier": 1
     }
   ]
 }

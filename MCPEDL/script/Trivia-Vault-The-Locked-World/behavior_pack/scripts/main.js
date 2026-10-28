@@ -71,7 +71,7 @@ function dropAnvil(player) {
 function removeMatchingBlocksInRadius(player, target) {
   if (target?.kind === "item") {
     player.applyDamage(8);
-    say(player, "Hard lesson: the crafted item remains locked and the vault deals extra damage.");
+    say(player, "Wrong answer: the crafted item remains locked and the vault deals damage.");
     return;
   }
   if (!target?.location || !target?.typeId || !target?.dimension) {
@@ -178,14 +178,14 @@ async function showQuestion(player) {
     state.ready = true;
     pending.set(player.id, state);
     const menu = new ActionFormData()
-      .title("Trivia Vault | Locked Block")
-      .body(`A trivia question is ready.\nFour answer choices will appear on the next screen.\nLifelines remaining: ${stats.lifelines}`)
-      .button("Answer the question")
-      .button("Use a lifeline");
+      .title(`Trivia Vault | ${state.target?.kind === "item" ? "Locked Crafted Item" : "Locked Block"}`)
+      .body(`A trivia question is ready.\nFour answer choices will appear on the next screen.\nMode: ${HARDMODE ? "HARDMODE" : "Normal"}\nLifelines remaining: ${stats.lifelines}`)
+      .button("Answer the question");
+    if (!HARDMODE) menu.button("Use a lifeline");
     let menuResponse;
     try { menuResponse = await menu.show(player); } catch (e) { return; }
     if (menuResponse.canceled) { pending.delete(player.id); return; }
-    if (menuResponse.selection === 1) { await showLifeline(player); return; }
+    if (!HARDMODE && menuResponse.selection === 1) { await showLifeline(player); return; }
   }
   const form = new ActionFormData()
     .title(`Trivia Vault | ${state.q.category}`)
@@ -202,7 +202,8 @@ async function showQuestion(player) {
     if (state.target?.kind === "item") {
       const count = Math.max(1, state.target.count || 1);
       const inv = invOf(player);
-      const remainder = inv?.addItem(new ItemStack(state.target.typeId, count));
+      const craftedOutput = new ItemStack(state.target.typeId, count);
+      const remainder = inv ? inv.addItem(craftedOutput) : craftedOutput;
       if (remainder) { try { player.dimension.spawnItem(remainder, player.location); } catch (e) {} }
       say(player, unlocked ? `Correct answer! ${state.target.typeId.replace("minecraft:", "")} is now unlocked, and your crafted item has been returned.` : "Correct answer! The item was returned, but permanent storage was unavailable.");
     } else {
