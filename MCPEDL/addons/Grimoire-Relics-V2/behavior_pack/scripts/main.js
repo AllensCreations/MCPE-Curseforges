@@ -184,9 +184,9 @@ const RELICS = {
         try {
           const perm = b.permutation;
           if (SOIL_CROPS.includes(b.typeId)) {
-            const g = perm.getState("growth");
-            if (typeof g === "number" && g < 7) {
-              b.setPermutation(perm.withState("growth", g + 1));
+            const g = perm.getState(b.typeId === "minecraft:nether_wart" ? "age" : "growth");
+            if (typeof g === "number" && g < (b.typeId === "minecraft:nether_wart" ? 3 : 7)) {
+              b.setPermutation(perm.withState(b.typeId === "minecraft:nether_wart" ? "age" : "growth", g + 1));
               fertilized = true;
             }
           } else if (b.typeId.endsWith("_sapling")) {
