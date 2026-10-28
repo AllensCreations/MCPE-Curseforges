@@ -52,7 +52,7 @@ const CONFIG = {
   NETHER_GOLD_POLICY: "nether_gold",
 
   // Durability Safety Guard
-  DURABILITY_SAFETY_THRESHOLD: 1,
+  DURABILITY_SAFETY_THRESHOLD: 0,
   ALERT_SOUND: "note.bass",
   ALERT_PITCH: 0.7,
   ALERT_VOLUME: 1.0,
@@ -652,6 +652,7 @@ function switchPlayerSlot1Tool(player, category, blockTypeId) {
   if (!player || player.selectedSlotIndex !== CONFIG.AUTO_SWITCH_SLOT) {
     return false;
   }
+  if (system.currentTick < (chainPauseUntil.get(player.id) ?? 0)) return false;
 
   const container = getContainer(player);
   if (!container) return false;
@@ -752,7 +753,7 @@ function getMainhandTool(player) {
 function checkToolSafety(player) {
   if (isGameMode(player, "creative")) return { safe: true, remaining: 9999 };
   const tool = getMainhandTool(player);
-  if (!tool) return { safe: true, remaining: 9999 };
+  if (!tool) return { safe: false, remaining: 0 };
 
   try {
     const durComp = tool.getComponent("minecraft:durability") || tool.getComponent("durability");
@@ -1106,14 +1107,15 @@ const ORE_XP = {
   nether_gold: [0, 1],
 };
 
-function awardOreExperience(player, category) {
+function awardOreExperience(dimension, loc, category) {
   const range = ORE_XP[category];
   if (!range) return;
   const xp = Math.floor(Math.random() * (range[1] - range[0] + 1)) + range[0];
-  if (xp <= 0) return;
-  try {
-    player.addExperience(xp);
-  } catch (e) {}
+  for (let i = 0; i < xp; i++) {
+    try {
+      dimension.spawnEntity("minecraft:xp_orb", { x: loc.x + 0.5, y: loc.y + 0.5, z: loc.z + 0.5 });
+    } catch (e) {}
+  }
 }
 
 function calculateFortuneDropCount(fortuneLevel, minBase = 1, maxBase = 1, fortuneApplies = true) {
@@ -1252,7 +1254,7 @@ function executeDominoOreMiner(player, dimension, startLoc, startBlockId, onComp
           dimension.runCommand(`setblock ${blockData.x} ${blockData.y} ${blockData.z} air destroy`);
         }
       }
-      if (!hasSilkTouch) awardOreExperience(player, oreInfo.category);
+      if (!hasSilkTouch) awardOreExperience(dimension, blockData, oreInfo.category);
       applyToolDurabilityDamage(player);
     } catch (err) {}
   }
@@ -1263,6 +1265,7 @@ function executeDominoOreMiner(player, dimension, startLoc, startBlockId, onComp
 // ─── Event Subscriptions & Global Dispatcher ──────────────────────────────────
 
 const activeMiningOperations = new Set();
+const chainPauseUntil = new Map();
 
 // 1. Offhand Sneak + Use/Tap in Air Quick-Swap
 world.beforeEvents.itemUse.subscribe((event) => {
@@ -1276,142 +1279,6 @@ world.beforeEvents.itemUse.subscribe((event) => {
   system.run(() => {
     swapHands(player);
   });
-});
-
-// 2. Offhand Sneak + Click Block Torch Placement
-const TORCH_ITEM_TO_BLOCK = {
-  "minecraft:torch": "minecraft:torch",
-  "minecraft:soul_torch": "minecraft:soul_torch",
-  "minecraft:redstone_torch": "minecraft:redstone_torch",
-};
-
-const REPLACEABLE_BLOCK_IDS = new Set([
-  "minecraft:air",
-  "minecraft:short_grass",
-  "minecraft:grass",
-  "minecraft:tallgrass",
-  "minecraft:tall_grass",
-  "minecraft:fern",
-  "minecraft:large_fern",
-  "minecraft:deadbush",
-  "minecraft:vine",
-  "minecraft:snow_layer",
-  "minecraft:fire",
-  "minecraft:soul_fire",
-]);
-
-function isBlockReplaceable(block) {
-  try {
-    if (!block || !block.isValid()) return false;
-    if (block.isAir) return true;
-    return REPLACEABLE_BLOCK_IDS.has(block.typeId);
-  } catch (e) {
-    return false;
-  }
-}
-
-function getAdjacentBlock(block, face) {
-  try {
-    switch (String(face)) {
-      case "Up": return { target: block.above(), facingDir: "top" };
-      // The state points the torch toward its supporting block, opposite the clicked face.
-      case "North": return { target: block.north(), facingDir: "south" };
-      case "South": return { target: block.south(), facingDir: "north" };
-      case "West": return { target: block.west(), facingDir: "east" };
-      case "East": return { target: block.east(), facingDir: "west" };
-      default: return null;
-    }
-  } catch (e) {
-    return null;
-  }
-}
-
-world.beforeEvents.itemUseOn.subscribe((event) => {
-  try {
-    const player = event.source;
-    if (!player || player.typeId !== "minecraft:player" || !player.isSneaking) return;
-    if (isGameMode(player, "adventure") || isGameMode(player, "spectator")) return;
-
-    const equipment = getEquipment(player);
-    if (!equipment) return;
-
-    let offhand;
-    try {
-      offhand = equipment.getEquipment(EquipmentSlot.Offhand);
-    } catch (e) {
-      return;
-    }
-    if (!offhand) return;
-
-    const torchBlockId = TORCH_ITEM_TO_BLOCK[offhand.typeId];
-    if (!torchBlockId) return;
-
-    const clickedBlock = event.block;
-    if (!clickedBlock || !clickedBlock.isValid() || clickedBlock.isAir || clickedBlock.isLiquid) return;
-
-    const adj = getAdjacentBlock(clickedBlock, event.blockFace);
-    if (!adj || !adj.target || !adj.target.isValid()) return;
-
-    const targetBlock = adj.target;
-    if (!isBlockReplaceable(targetBlock) || targetBlock.isLiquid) return;
-
-    const state = getQolState(player.id);
-    const now = system.currentTick;
-    if (now - (state.lastTorchPlaceTick || 0) < 4) {
-      event.cancel = true;
-      return;
-    }
-
-    event.cancel = true;
-    state.lastTorchPlaceTick = now;
-
-    const facingDir = adj.facingDir;
-    const offhandTypeId = offhand.typeId;
-
-    system.run(() => {
-      try {
-        if (!player.isValid() || !targetBlock.isValid()) return;
-        if (!isBlockReplaceable(targetBlock) || targetBlock.isLiquid) return;
-
-        let placed = false;
-        try {
-          const perm = BlockPermutation.resolve(torchBlockId, { torch_facing_direction: facingDir });
-          targetBlock.setPermutation(perm);
-          placed = true;
-        } catch (e1) {
-          try {
-            targetBlock.dimension.runCommand(`setblock ${targetBlock.x} ${targetBlock.y} ${targetBlock.z} ${torchBlockId} ["torch_facing_direction"="${facingDir}"]`);
-            placed = true;
-          } catch (e2) {}
-        }
-
-        if (!placed) return;
-
-        try {
-          player.playSound("dig.wood", { pitch: 0.9, volume: 0.8 });
-        } catch (e) {}
-
-        let isCreative = false;
-        try {
-          isCreative = isGameMode(player, "creative");
-        } catch (e) {}
-
-        if (!isCreative) {
-          try {
-            const currentOff = equipment.getEquipment(EquipmentSlot.Offhand);
-            if (currentOff && currentOff.typeId === offhandTypeId) {
-              if (currentOff.amount > 1) {
-                const updated = new ItemStack(currentOff.typeId, currentOff.amount - 1);
-                writeOffhand(player, equipment, updated);
-              } else {
-                writeOffhand(player, equipment, undefined);
-              }
-            }
-          } catch (e) {}
-        }
-      } catch (err) {}
-    });
-  } catch (err) {}
 });
 
 // 3. Passive Auto-Switch: Ordinary blocks via hit block
@@ -1478,7 +1345,7 @@ world.afterEvents.playerBreakBlock.subscribe((event) => {
   const brokenTypeId = brokenBlockPermutation?.type?.id;
   if (!brokenTypeId) return;
 
-  const tool = getMainhandTool(player) || itemStackBeforeBreak;
+  const tool = itemStackBeforeBreak || getMainhandTool(player);
   if (!tool) return;
 
   const toolTypeId = tool.typeId;
@@ -1486,6 +1353,7 @@ world.afterEvents.playerBreakBlock.subscribe((event) => {
   // Tree Capitator
   if (isAxe(toolTypeId) && isEligibleLog(brokenTypeId)) {
     activeMiningOperations.add(player.id);
+    chainPauseUntil.set(player.id, system.currentTick + 20);
     try {
       executeTreeCapitator(player, dimension, startLoc, brokenTypeId, () => {
         activeMiningOperations.delete(player.id);
@@ -1499,6 +1367,7 @@ world.afterEvents.playerBreakBlock.subscribe((event) => {
   // Domino Ore Miner
   if (isPickaxe(toolTypeId) && getOreInfo(brokenTypeId)) {
     activeMiningOperations.add(player.id);
+    chainPauseUntil.set(player.id, system.currentTick + 20);
     try {
       executeDominoOreMiner(player, dimension, startLoc, brokenTypeId, () => {
         activeMiningOperations.delete(player.id);

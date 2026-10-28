@@ -1,4 +1,4 @@
-# Vanilla Quality of Life (v1.3.22)
+# Vanilla Quality of Life (v1.3.24)
 
 **By AllensCreations**
 
@@ -37,7 +37,7 @@ Combines dynamic lighting, offhand quick-swap, automatic tool selection, tree ca
 - Choose one preset in the Behavior Pack's subpack settings. Changes may require reactivating the pack or reloading the world.
 ### Tool Durability Safety
 - **Vanilla Bedrock**: Tools break unexpectedly
-- **With Vanilla QoL**: Auto-halts chain mining at 1 durability with alert sounds
+- **With Vanilla QoL**: Auto-halts chain mining when the tool has 0 durability left, with alert sounds
 
 ### Offhand Utilities & Lighting
 - **Vanilla Bedrock**: Shield and Totem only
@@ -107,17 +107,16 @@ Combines dynamic lighting, offhand quick-swap, automatic tool selection, tree ca
   - **connected-block Detection**: Sweeps faces, edges, and corners across all 3 spatial dimensions.
   - **Category Normalization**: Normalizes stone and deepslate variants (e.g. Coal Ore and Deepslate Coal Ore chain together).
   - **Fortune & Silk Touch**: Honors Silk Touch block drops and Fortune bonuses; Redstone Fortune adds extra dust instead of multiplying it.
-  - **Experience**: Chain-mined ores award their normal experience when mined without Silk Touch.
+  - **Experience**: Chain-mined ores drop their normal experience as orbs when mined without Silk Touch.
   - **Creative Mode**: Chain mining and felling use no tool durability and drop no items.
   - **Capacity Limit**: Up to 64 ore blocks per vein cluster.
 
 #### 4. Durability Safety Guard
-- Automatically halts Tree Capitator and Domino Ore Miner operations if your tool reaches **1 durability point remaining**.
-- Plays a warning sound and displays an action-bar alert when the durability threshold is reached. This reduces the risk of breaking tools during chain-mining but does not guarantee that tools can never break.
+- Automatically halts Tree Capitator and Domino Ore Miner operations if your tool has **0 durability remaining** or is gone.
+- Plays a warning sound and displays an action-bar alert when the durability threshold is reached. Chain mining uses the tool down to its last durability point, so the tool can break on the final block.
 
-#### 5. Offhand Quick-Swap, Torch Placement & Dynamic Handheld Lighting
+#### 5. Offhand Quick-Swap & Dynamic Handheld Lighting
 - Supported quick-swap items: Torches, Soul Torches, Redstone Torches, Lanterns, Soul Lanterns, Clocks, Compasses, Recovery Compasses.
-- **Offhand Torch Placement**: When holding a Torch, Soul Torch, or Redstone Torch in your offhand, simply **Sneak and Click** (right-click / interact) on any block surface to place it from your offhand without swapping items or losing your mainhand tool. This does not work in Adventure mode.
 - Quick-swap gestures:
   - **Double-sneak** (crouch twice within 0.7 seconds while standing still) to swap held item into offhand.
   - **Sneak + Use/Tap in air** to swap held item into offhand.

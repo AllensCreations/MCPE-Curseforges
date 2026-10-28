@@ -1,5 +1,15 @@
 # Changelog — Vanilla Quality of Life
 
+## [1.3.24] — 2026-10-29
+
+### Improved & Balanced
+- **Durability Guard**: Chain mining now stops only when the tool has 0 durability left, instead of at 1.
+- **Offhand Torch Placement Removed**: Torches in the offhand can no longer be placed with Sneak + Click. Offhand quick-swap and held-item light still work.
+
+### Fixed
+- **Auto-Switch With Chain Mining**: Auto-switch now pauses briefly while a tree or ore vein is being mined so the tool in hand cannot change during it.
+- **Broken Tool Chain Mining**: Tree Capitator and Domino Ore Miner no longer keep breaking blocks after the tool has broken or has no durability left.
+
 ## [1.3.22] — 2026-10-28
 
 ### Improved & Balanced
@@ -9,7 +19,7 @@
 
 ### Improved & Balanced
 - **Redstone Fortune**: Chain-mined Redstone Ore with Fortune now drops extra dust the way the single-block version does, instead of multiplying the whole stack.
-- **Ore Experience**: Chain-mined ores now award their normal experience when mined without Silk Touch.
+- **Ore Experience**: Chain-mined ores now drop their normal experience as orbs when mined without Silk Touch.
 - **Tree Capitator Limits**: Logs more than 8 blocks away from the broken log are ignored, so neighboring trees are far less likely to be felled together.
 - **Player Build Protection**: Trees touching planks, doors, fences, glass, bricks, or storage blocks are left standing.
 - **Game Rules**: Sleep skipping and the faster random tick speed are now set once when the world first loads, so you can change them afterward.
@@ -17,7 +27,6 @@
 ### Fixed
 - **Cobweb Shears Switch**: Looking at a cobweb no longer swaps shears into your hand; the swap now happens only when you hit the cobweb.
 - **Creative Mode**: Chain mining and tree felling no longer wear down tools or drop items in Creative.
-- **Adventure Mode**: Offhand torch placement no longer works in Adventure mode.
 - **Melon and Pumpkin Stems**: Breaking a stem with an axe no longer fells nearby trees.
 - **Accidental Hand Swap**: Quickly tapping sneak while moving or in the air, such as while bridging, no longer swaps your hands.
 - **Leftover Light Blocks**: Moving light blocks left behind after a crash or reload are now removed the next time the world loads.
