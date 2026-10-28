@@ -1,5 +1,22 @@
 # Changelog — Vanilla Quality of Life
 
+## [1.3.21] — 2026-10-28
+
+### Improved & Balanced
+- **Redstone Fortune**: Chain-mined Redstone Ore with Fortune now drops extra dust the way the single-block version does, instead of multiplying the whole stack.
+- **Ore Experience**: Chain-mined ores now award their normal experience when mined without Silk Touch.
+- **Tree Capitator Limits**: Logs more than 8 blocks away from the broken log are ignored, so neighboring trees are far less likely to be felled together.
+- **Player Build Protection**: Trees touching planks, doors, fences, glass, bricks, or storage blocks are left standing.
+- **Game Rules**: Sleep skipping and the faster random tick speed are now set once when the world first loads, so you can change them afterward.
+
+### Fixed
+- **Cobweb Shears Switch**: Looking at a cobweb no longer swaps shears into your hand; the swap now happens only when you hit the cobweb.
+- **Creative Mode**: Chain mining and tree felling no longer wear down tools or drop items in Creative.
+- **Adventure Mode**: Offhand torch placement no longer works in Adventure mode.
+- **Melon and Pumpkin Stems**: Breaking a stem with an axe no longer fells nearby trees.
+- **Accidental Hand Swap**: Quickly tapping sneak while moving or in the air, such as while bridging, no longer swaps your hands.
+- **Leftover Light Blocks**: Moving light blocks left behind after a crash or reload are now removed the next time the world loads.
+
 ## [1.3.17] — 2026-10-18
 
 ### Fixed

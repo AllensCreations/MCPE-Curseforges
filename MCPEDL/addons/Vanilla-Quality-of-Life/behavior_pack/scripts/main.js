@@ -6,7 +6,7 @@
  * 1. Offhand Utility Quick-Swap (Double-sneak / Sneak + Use in air / /scriptevent qol:swap)
  * 2. Real-Time Dynamic Handheld & Offhand Lighting (Torches, Lanterns via light_block)
  * 3. Passive Auto-Switch Tools (Intelligent Slot 1 tool & weapon switcher)
- * 4. Smart Tree Capitator (Sneak-axe felling with 5x5 footprint & downward stump sweep)
+ * 4. Smart Tree Capitator (Sneak-axe felling of connected logs, upward from the broken block)
  * 5. Domino Ore Miner (Sneak-pickaxe contiguous 26-neighbor ore vein mining)
  * 6. Durability Safety Guard (Automatic tool protection stopping at 1 durability)
  *
@@ -16,7 +16,6 @@
 import { world, system, EquipmentSlot, ItemStack, BlockPermutation } from "@minecraft/server";
 import { MINING_OPTIONS } from "./mining-options.js";
 
-const VERSION = "1.3.17";
 const LOG_PREFIX = "[Vanilla QoL]";
 
 // ─── Configuration ────────────────────────────────────────────────────────────
@@ -43,15 +42,13 @@ const CONFIG = {
   TREE_CAPITATOR_ENABLED: MINING_OPTIONS.TREE_CAPITATOR_ENABLED,
   MAX_TREE_BLOCKS: 128,
   MAX_TREE_HEIGHT: 320,
-  TREE_HORIZONTAL_RANGE: 1, // 3x3 footprint (8 sides & 9 above)
-  TREE_DOWNWARD_RANGE: 0,   // No downward search
+  TREE_MAX_HORIZONTAL_SPREAD: 8, // Logs farther than this from the broken block are ignored
   MATCH_TREE_SPECIES: true,
 
   // Domino Ore Miner
   DOMINO_ORE_MINER_ENABLED: MINING_OPTIONS.DOMINO_ORE_MINER_ENABLED,
   MAX_ORE_CLUSTER_SIZE: 64,
   MAX_ANCIENT_DEBRIS_CLUSTER_SIZE: 4,
-  INSTANT_BURST: true,
   NETHER_GOLD_POLICY: "nether_gold",
 
   // Durability Safety Guard
@@ -102,6 +99,14 @@ function getQolState(id) {
     qolPlayerState.set(id, state);
   }
   return state;
+}
+
+function isGameMode(player, mode) {
+  try {
+    return !!player.matches({ gameMode: mode });
+  } catch (e) {
+    return false;
+  }
 }
 
 function shortId(typeId) {
@@ -273,6 +278,22 @@ function canHoldLight(block) {
   }
 }
 
+let lightsCleaned = false;
+
+// Remember active light block positions so they can be removed after a crash or reload.
+function persistLights() {
+  if (!lightsCleaned) return;
+  try {
+    const list = [];
+    for (const st of qolPlayerState.values()) {
+      if (st.lightDim !== undefined && st.lightX !== undefined) {
+        list.push([st.lightDim.id, st.lightX, st.lightY, st.lightZ]);
+      }
+    }
+    world.setDynamicProperty("qol:lights", JSON.stringify(list));
+  } catch (e) {}
+}
+
 function clearPlacedLight(state) {
   if (!state || state.lightDim === undefined || state.lightX === undefined) return;
   try {
@@ -286,6 +307,7 @@ function clearPlacedLight(state) {
   state.lightY = undefined;
   state.lightZ = undefined;
   state.lightLevel = 0;
+  persistLights();
 }
 
 function placeLightBlock(dim, x, y, z, level) {
@@ -376,6 +398,7 @@ function updatePlayerLight(player, state) {
   state.lightY = y;
   state.lightZ = z;
   state.lightLevel = level;
+  persistLights();
 }
 
 // ─── Passive Auto-Switch Tools Engine ─────────────────────────────────────────
@@ -727,6 +750,7 @@ function getMainhandTool(player) {
 }
 
 function checkToolSafety(player) {
+  if (isGameMode(player, "creative")) return { safe: true, remaining: 9999 };
   const tool = getMainhandTool(player);
   if (!tool) return { safe: true, remaining: 9999 };
 
@@ -745,6 +769,7 @@ function checkToolSafety(player) {
 }
 
 function applyToolDurabilityDamage(player) {
+  if (isGameMode(player, "creative")) return;
   const eq = getEquipment(player);
   if (!eq) return;
 
@@ -822,7 +847,7 @@ const ELIGIBLE_LOGS = new Set([
 function isEligibleLog(blockId) {
   if (!blockId) return false;
   if (ELIGIBLE_LOGS.has(blockId)) return true;
-  return /(log|wood|stem|hyphae|mangrove_roots)$/i.test(blockId);
+  return /(_log|_wood|_hyphae|mangrove_roots|(crimson|warped)_stem)$/i.test(blockId);
 }
 
 function getWoodSpecies(typeId) {
@@ -874,6 +899,33 @@ function isTreeCanopy(dimension, blocks, targetSpecies) {
   return false;
 }
 
+// Blocks that indicate a player-built structure next to the logs (cabins, fences, storage).
+const PLAYER_BUILD_PATTERN = /(planks|stairs|slab|door|trapdoor|glass|brick|fence|(^|_)bed$|crafting_table|chest|barrel|furnace|concrete|wool|carpet|bookshelf)/;
+
+function isNearPlayerBuild(dimension, blocks, startLoc) {
+  const checked = new Set();
+  const positions = [startLoc, ...blocks];
+  for (const pos of positions) {
+    for (let dx = -1; dx <= 1; dx++) {
+      for (let dy = -1; dy <= 1; dy++) {
+        for (let dz = -1; dz <= 1; dz++) {
+          const x = pos.x + dx;
+          const y = pos.y + dy;
+          const z = pos.z + dz;
+          const key = `${x},${y},${z}`;
+          if (checked.has(key)) continue;
+          checked.add(key);
+          try {
+            const b = dimension.getBlock({ x, y, z });
+            if (b && PLAYER_BUILD_PATTERN.test(normalizeId(b.typeId))) return true;
+          } catch (e) {}
+        }
+      }
+    }
+  }
+  return false;
+}
+
 function executeTreeCapitator(player, dimension, startLoc, startBlockId, onComplete) {
   if (typeof startBlockId === "function") {
     onComplete = startBlockId;
@@ -907,6 +959,10 @@ function executeTreeCapitator(player, dimension, startLoc, startBlockId, onCompl
 
           if (ny < startLoc.y) continue;
           if (ny > startLoc.y + CONFIG.MAX_TREE_HEIGHT) continue;
+          if (
+            Math.abs(nx - startLoc.x) > CONFIG.TREE_MAX_HORIZONTAL_SPREAD ||
+            Math.abs(nz - startLoc.z) > CONFIG.TREE_MAX_HORIZONTAL_SPREAD
+          ) continue;
 
           const key = `${nx},${ny},${nz}`;
           if (visited.has(key)) continue;
@@ -939,7 +995,14 @@ function executeTreeCapitator(player, dimension, startLoc, startBlockId, onCompl
     return;
   }
 
+  // Player-build protection: trees touching planks, doors, fences, etc. are left standing
+  if (isNearPlayerBuild(dimension, blocksToBreak, startLoc)) {
+    if (onComplete) onComplete();
+    return;
+  }
+
   // Break felled logs
+  const creative = isGameMode(player, "creative");
   for (const pos of blocksToBreak) {
     if (!player || !player.isValid()) break;
 
@@ -950,7 +1013,7 @@ function executeTreeCapitator(player, dimension, startLoc, startBlockId, onCompl
     }
 
     try {
-      dimension.runCommand(`setblock ${pos.x} ${pos.y} ${pos.z} air destroy`);
+      dimension.runCommand(`setblock ${pos.x} ${pos.y} ${pos.z} air${creative ? "" : " destroy"}`);
       applyToolDurabilityDamage(player);
     } catch (err) {}
   }
@@ -1023,8 +1086,35 @@ const NEIGHBOR_OFFSETS_26 = (() => {
 
 // Fortune multiplies eligible item drops; raw iron, raw gold, and ancient debris are excluded.
 const FORTUNE_AFFECTED_ORE_CATEGORIES = new Set([
-  "coal", "copper", "lapis", "nether_gold", "redstone", "diamond", "emerald", "quartz",
+  "coal", "copper", "lapis", "nether_gold", "diamond", "emerald", "quartz",
 ]);
+
+// Redstone is the exception: Fortune adds 0 to level extra dust instead of multiplying.
+function calculateRedstoneDropCount(fortuneLevel, minBase = 4, maxBase = 5) {
+  const base = Math.floor(Math.random() * (maxBase - minBase + 1)) + minBase;
+  return base + (fortuneLevel > 0 ? Math.floor(Math.random() * (fortuneLevel + 1)) : 0);
+}
+
+// Vanilla experience ranges for ores broken without Silk Touch.
+const ORE_XP = {
+  coal: [0, 2],
+  lapis: [2, 5],
+  redstone: [1, 5],
+  diamond: [3, 7],
+  emerald: [3, 7],
+  quartz: [2, 5],
+  nether_gold: [0, 1],
+};
+
+function awardOreExperience(player, category) {
+  const range = ORE_XP[category];
+  if (!range) return;
+  const xp = Math.floor(Math.random() * (range[1] - range[0] + 1)) + range[0];
+  if (xp <= 0) return;
+  try {
+    player.addExperience(xp);
+  } catch (e) {}
+}
 
 function calculateFortuneDropCount(fortuneLevel, minBase = 1, maxBase = 1, fortuneApplies = true) {
   const baseCount = minBase === maxBase
@@ -1102,6 +1192,7 @@ function executeDominoOreMiner(player, dimension, startLoc, startBlockId, onComp
 
   let hasSilkTouch = false;
   let fortuneLevel = 0;
+  const creative = isGameMode(player, "creative");
 
   try {
     const enchantable = tool?.getComponent("minecraft:enchantable") || tool?.getComponent("enchantable");
@@ -1126,9 +1217,13 @@ function executeDominoOreMiner(player, dimension, startLoc, startBlockId, onComp
     const oreInfo = getOreInfo(blockData.typeId);
     if (!oreInfo) continue;
 
-    if (toolTier < oreInfo.minTier) break;
+    if (!creative && toolTier < oreInfo.minTier) break;
 
     try {
+      if (creative) {
+        dimension.runCommand(`setblock ${blockData.x} ${blockData.y} ${blockData.z} air`);
+        continue;
+      }
       if (hasSilkTouch) {
         dimension.runCommand(`setblock ${blockData.x} ${blockData.y} ${blockData.z} air`);
         dimension.spawnItem(new ItemStack(blockData.typeId, 1), {
@@ -1139,12 +1234,14 @@ function executeDominoOreMiner(player, dimension, startLoc, startBlockId, onComp
       } else {
         const dropId = oreInfo.dropItem;
         if (dropId) {
-          const count = calculateFortuneDropCount(
-            fortuneLevel,
-            oreInfo.minDrop || 1,
-            oreInfo.maxDrop || 1,
-            FORTUNE_AFFECTED_ORE_CATEGORIES.has(oreInfo.category)
-          );
+          const count = oreInfo.category === "redstone"
+            ? calculateRedstoneDropCount(fortuneLevel, oreInfo.minDrop || 4, oreInfo.maxDrop || 5)
+            : calculateFortuneDropCount(
+                fortuneLevel,
+                oreInfo.minDrop || 1,
+                oreInfo.maxDrop || 1,
+                FORTUNE_AFFECTED_ORE_CATEGORIES.has(oreInfo.category)
+              );
           dimension.runCommand(`setblock ${blockData.x} ${blockData.y} ${blockData.z} air`);
           dimension.spawnItem(new ItemStack(dropId, count), {
             x: blockData.x + 0.5,
@@ -1155,6 +1252,7 @@ function executeDominoOreMiner(player, dimension, startLoc, startBlockId, onComp
           dimension.runCommand(`setblock ${blockData.x} ${blockData.y} ${blockData.z} air destroy`);
         }
       }
+      if (!hasSilkTouch) awardOreExperience(player, oreInfo.category);
       applyToolDurabilityDamage(player);
     } catch (err) {}
   }
@@ -1232,6 +1330,7 @@ world.beforeEvents.itemUseOn.subscribe((event) => {
   try {
     const player = event.source;
     if (!player || player.typeId !== "minecraft:player" || !player.isSneaking) return;
+    if (isGameMode(player, "adventure") || isGameMode(player, "spectator")) return;
 
     const equipment = getEquipment(player);
     if (!equipment) return;
@@ -1294,7 +1393,7 @@ world.beforeEvents.itemUseOn.subscribe((event) => {
 
         let isCreative = false;
         try {
-          isCreative = String(player.getGameMode()).toLowerCase() === "creative";
+          isCreative = isGameMode(player, "creative");
         } catch (e) {}
 
         if (!isCreative) {
@@ -1429,8 +1528,19 @@ system.runInterval(() => {
       const sneaking = !!player.isSneaking;
 
       if (sneaking && !state.sneakHeld) {
-        state.sneakCount += 1;
-        state.sneakTimer = 0;
+        // Taps while moving or airborne (e.g. bridging) do not count toward the double-sneak swap.
+        let still = true;
+        try {
+          const v = player.getVelocity();
+          still = Math.hypot(v.x, v.z) < 0.03 && player.isOnGround !== false;
+        } catch (e) {}
+        if (still) {
+          state.sneakCount += 1;
+          state.sneakTimer = 0;
+        } else {
+          state.sneakCount = 0;
+          state.sneakTimer = 0;
+        }
       }
       state.sneakHeld = sneaking;
 
@@ -1481,7 +1591,7 @@ system.runInterval(() => {
       if (!state || state.key !== key) {
         webInteraction.set(player.id, {
           key,
-          lastInteractionTick: now,
+          lastInteractionTick: -Infinity,
           initialTick: now,
         });
         continue;
@@ -1543,4 +1653,37 @@ system.afterEvents.scriptEventReceive.subscribe((event) => {
   } catch (e) {}
 });
 
-console.warn(`${LOG_PREFIX} v${VERSION} Initialized. Tree Capitator: ${CONFIG.TREE_CAPITATOR_ENABLED ? "ON" : "OFF"}; Vein Miner: ${CONFIG.DOMINO_ORE_MINER_ENABLED ? "ON" : "OFF"}.`);
+// 9. Startup: remove leftover light blocks and apply the sleep/leaf-decay gamerules once per world
+system.runTimeout(() => {
+  try {
+    const raw = world.getDynamicProperty("qol:lights");
+    if (typeof raw === "string") {
+      const active = new Set();
+      for (const st of qolPlayerState.values()) {
+        if (st.lightDim !== undefined && st.lightX !== undefined) {
+          active.add(`${st.lightDim.id},${st.lightX},${st.lightY},${st.lightZ}`);
+        }
+      }
+      for (const [dimId, x, y, z] of JSON.parse(raw)) {
+        if (active.has(`${dimId},${x},${y},${z}`)) continue;
+        try {
+          const b = world.getDimension(dimId).getBlock({ x, y, z });
+          if (b && isLightBlock(b.typeId)) b.setPermutation(BlockPermutation.resolve("minecraft:air"));
+        } catch (e) {}
+      }
+    }
+  } catch (e) {}
+  lightsCleaned = true;
+  persistLights();
+
+  try {
+    if (!world.getDynamicProperty("qol:gamerules_set")) {
+      const dim = world.getDimension("overworld");
+      dim.runCommand("gamerule playersSleepingPercentage 0");
+      dim.runCommand("gamerule randomTickSpeed 4");
+      world.setDynamicProperty("qol:gamerules_set", true);
+    }
+  } catch (e) {}
+}, 40);
+
+console.warn(`${LOG_PREFIX} Initialized. Tree Capitator: ${CONFIG.TREE_CAPITATOR_ENABLED ? "ON" : "OFF"}; Vein Miner: ${CONFIG.DOMINO_ORE_MINER_ENABLED ? "ON" : "OFF"}.`);

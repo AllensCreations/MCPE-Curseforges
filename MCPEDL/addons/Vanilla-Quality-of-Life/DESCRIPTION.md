@@ -1,4 +1,4 @@
-# Vanilla Quality of Life (v1.3.20)
+# Vanilla Quality of Life (v1.3.21)
 
 **By AllensCreations**
 
@@ -56,8 +56,8 @@ Combines dynamic lighting, offhand quick-swap, automatic tool selection, tree ca
 - **With Vanilla QoL**: Immune to player melee sweeps, arrows, and explosions
 
 ### Leaf Decay Speed
-- **Vanilla Bedrock**: 10 to 30 seconds
-- **With Vanilla QoL**: 1 to 2 seconds
+- **Vanilla Bedrock**: Standard leaf decay
+- **With Vanilla QoL**: Faster leaf decay and crop growth through a higher random tick speed, set once when the world first loads
 
 ### Woodcutting in Stonecutter
 - **Vanilla Bedrock**: Not supported (stone only)
@@ -97,7 +97,7 @@ Combines dynamic lighting, offhand quick-swap, automatic tool selection, tree ca
   - **Upward-Biased connected-log search**: Connects same-level and upward logs, including diagonal branches, without searching below the stump.
   - **Species Matching**: Enforces strict wood species matching (Oak only fells Oak) to prevent chain reactions into adjacent trees.
   - **The Leaf Scan (Build & Bush Protection)**: Ignores player-placed decorative leaves (harvested with shears), protecting your custom bushes, hedges, and roof designs while exclusively verifying natural tree canopies.
-  - **House Protection (the canopy check)**: Requires natural-looking leaf canopy evidence for Overworld trees; wart blocks and shroomlights count only for crimson/warped fungi. This reduces false positives but cannot guarantee protection for every custom build.
+  - **House Protection (the canopy check)**: Requires natural-looking leaf canopy evidence for Overworld trees; wart blocks and shroomlights count only for crimson/warped fungi. Trees touching player-built blocks such as planks, doors, fences, glass, bricks, or storage are left standing, and logs more than 8 blocks from the broken log are ignored. This reduces false positives but cannot guarantee protection for every custom build.
   - **Natural Leaf Decay**: Preserves leaf canopies for authentic leaf decay drops (saplings, sticks, apples).
   - **Capacity Limit**: Up to 128 logs per tree operation.
 
@@ -105,7 +105,9 @@ Combines dynamic lighting, offhand quick-swap, automatic tool selection, tree ca
 - With Default, sneak while mining any mineral ore with a pickaxe to harvest the connected ore vein. No Sneak removes this requirement while the pickaxe is held in selected hotbar slot 1:
   - **connected-block Detection**: Sweeps faces, edges, and corners across all 3 spatial dimensions.
   - **Category Normalization**: Normalizes stone and deepslate variants (e.g. Coal Ore and Deepslate Coal Ore chain together).
-  - **Fortune & Silk Touch**: Honors Silk Touch block drops and vanilla Fortune item multipliers.
+  - **Fortune & Silk Touch**: Honors Silk Touch block drops and Fortune bonuses; Redstone Fortune adds extra dust instead of multiplying it.
+  - **Experience**: Chain-mined ores award their normal experience when mined without Silk Touch.
+  - **Creative Mode**: Chain mining and felling use no tool durability and drop no items.
   - **Capacity Limit**: Up to 64 ore blocks per vein cluster.
 
 #### 4. Durability Safety Guard
@@ -114,9 +116,9 @@ Combines dynamic lighting, offhand quick-swap, automatic tool selection, tree ca
 
 #### 5. Offhand Quick-Swap, Torch Placement & Dynamic Handheld Lighting
 - Supported quick-swap items: Torches, Soul Torches, Redstone Torches, Lanterns, Soul Lanterns, Clocks, Compasses, Recovery Compasses.
-- **Offhand Torch Placement**: When holding a Torch, Soul Torch, or Redstone Torch in your offhand, simply **Sneak and Click** (right-click / interact) on any block surface to place it from your offhand without swapping items or losing your mainhand tool.
+- **Offhand Torch Placement**: When holding a Torch, Soul Torch, or Redstone Torch in your offhand, simply **Sneak and Click** (right-click / interact) on any block surface to place it from your offhand without swapping items or losing your mainhand tool. This does not work in Adventure mode.
 - Quick-swap gestures:
-  - **Double-sneak** (crouch twice within 0.7 seconds) to swap held item into offhand.
+  - **Double-sneak** (crouch twice within 0.7 seconds while standing still) to swap held item into offhand.
   - **Sneak + Use/Tap in air** to swap held item into offhand.
   - Run  command.
 - Real-time dynamic light: Torches emit Light Level 14, Soul Torches and Soul Lanterns Level 10, Redstone Torches Level 7, and Lanterns Level 15 as you move.
@@ -131,7 +133,7 @@ Combines dynamic lighting, offhand quick-swap, automatic tool selection, tree ca
 - Tamed entities are immune to Creeper and TNT explosion damage.
 
 #### 8. Fast Leaf Decay
-- Floating leaves from chopped trees decay within 1 to 2 seconds.
+- Floating leaves from chopped trees decay faster because the random tick speed is raised to 4 when the world first loads. This also speeds up crop growth, and you can change it afterward with the game rule command.
 - Natural leaf drops such as saplings, sticks, and apples remain available as leaves decay.
 
 #### 9. Stonecutter Woodcutter Integration
