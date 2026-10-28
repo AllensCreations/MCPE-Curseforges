@@ -1,4 +1,4 @@
-# Trivia Vault: The Locked World (v1.0.11)
+# Trivia Vault: The Locked World (v1.0.12)
 
 ## Overview
 Trivia Vault: The Locked World is a survival trivia challenge by AllensCreations.
@@ -12,8 +12,7 @@ The correct answer's position is shuffled for every question.
 - Four answer choices with randomized answer placement.
 - Correctly answering permanently unlocks that block type across the world.
 - The unlock is stored as a world dynamic property and is intended to persist after restarting.
-- Correct answers award a rarity-weighted random reward.
-- Wrong answers trigger randomized survival penalties.
+- Wrong answers trigger randomized survival penalties, including a chance to remove matching blocks within a 20-block radius of the targeted block.
 - Three hint-only lifelines are available per run; they do not remove answer choices.
 - The AllensCreations Controller opens the Start and How to play options.
 - Creative mode bypasses the block-break trivia check.
@@ -27,8 +26,8 @@ The correct answer's position is shuffled for every question.
 ## Controls and Rules
 Attempt to break a block in Survival to open a trivia question.
 Select one of the four answers.
-A correct answer unlocks that entire block type, not just one coordinate.
-Wrong answers trigger a random penalty, which may include damage, hostile mobs, or losing an item.
+A correct answer unlocks that entire block type, not just one coordinate. Unlocking the block is the only reward; no items or experience are awarded.
+Wrong answers trigger a random penalty, which may include damage, hostile mobs, losing an item, or removing matching blocks within a 20-block radius of the block being mined.
 Use a lifeline before answering when you need a hint.
 The run ends when the player dies; use the Controller to start another run.
 
