@@ -10,7 +10,7 @@ This directory stores the compiled releases (behavior packs, resource packs, add
 
 | Pack Name | Version | Type | Download Link | Build Folder |
 | :--- | :--- | :--- | :--- | :--- |
-| **Vanilla Quality of Life** | `v1.3.21` | Complete Add-on (`.mcaddon`) | [Download (.mcaddon)](Vanilla-Quality-of-Life/Vanilla%20Quality%20of%20Life%20by%20AllensCreations%20%28V1.3.21%29.mcaddon) | [`Vanilla-Quality-of-Life/`](Vanilla-Quality-of-Life/) |
+| **Vanilla Quality of Life** | `v1.3.22` | Complete Add-on (`.mcaddon`) | [Download (.mcaddon)](Vanilla-Quality-of-Life/Vanilla%20Quality%20of%20Life%20by%20AllensCreations%20%28V1.3.22%29.mcaddon) | [`Vanilla-Quality-of-Life/`](Vanilla-Quality-of-Life/) |
 | **Monster Companions** | `v1.2.2` | Complete Add-on (`.mcaddon`) | [Download (.mcaddon)](Monster-Companions/Monster%20Companions%20by%20AllensCreations%20%28V1.2.2%29.mcaddon) | [`Monster-Companions/`](Monster-Companions/) |
 | **Mining Helmet** | `v1.0.11` | Complete Add-on (`.mcaddon`) | [Download (.mcaddon)](Mining-Helmet/Mining%20Helmet%20by%20AllensCreations%20%28V1.0.11%29.mcaddon) | [`Mining-Helmet/`](Mining-Helmet/) |
 | **Passive Auto-Switch Tools** | `v1.1.13` | Script Behavior Pack (`.mcpack`) | [Download (.mcpack)](Passive-Auto-Switch-Tools/Passive%20Auto-Switch%20Tools%20by%20AllensCreations%20%28V1.1.13%29.mcpack) | [`Passive-Auto-Switch-Tools/`](Passive-Auto-Switch-Tools/) |
