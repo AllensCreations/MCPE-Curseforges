@@ -1,23 +1,17 @@
-name: Update Minimum Bedrock Version & Instructions
+name: Update Minimum Bedrock Version
 
 on:
   workflow_dispatch:
     inputs:
       min_version:
-        description: 'New minimum Bedrock engine version (e.g. 1.26.0 or 1.26)'
+        description: 'Looked-up minimum Bedrock engine version the projects actually need (e.g. 1.21.0)'
         required: true
-        default: '1.26.0'
         type: string
-      update_manifests:
-        description: 'Update manifests for mob behavior scripts (Swarm Mob Booster, Selective Mob Controller)?'
+      projects:
+        description: 'Project folders under MCPEDL/, comma-separated'
         required: true
-        default: true
-        type: boolean
-      update_readmes:
-        description: 'Update compatibility and badge versions in relevant READMEs?'
-        required: true
-        default: true
-        type: boolean
+        default: 'MCPEDL/new_addons/Swarm-Mob-Booster,MCPEDL/new_addons/Selective-Mob-Controller'
+        type: string
 
 permissions:
   contents: write
@@ -34,27 +28,32 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
-          python-version: '3.x'
+          python-version: '3.12'
 
-      - name: Adjust INSTRUCTIONS.md, Manifests & READMEs
+      - name: Update manifests
+        env:
+          MIN_VERSION: ${{ inputs.min_version }}
+          PROJECTS: ${{ inputs.projects }}
         run: |
-          python3 scripts/update_min_version.py \
-            --version "${{ github.event.inputs.min_version }}" \
-            ${{ github.event.inputs.update_manifests == 'true' && '--manifests' || '' }} \
-            ${{ github.event.inputs.update_readmes == 'true' && '--readmes' || '' }}
+          set -euo pipefail
+          ARGS=()
+          IFS=',' read -ra LIST <<< "$PROJECTS"
+          for p in "${LIST[@]}"; do
+            p="$(echo "$p" | xargs)"
+            [ -n "$p" ] && ARGS+=(--project "$p")
+          done
+          python3 scripts/update_min_version.py --version "$MIN_VERSION" "${ARGS[@]}"
 
       - name: Commit and push changes
+        env:
+          MIN_VERSION: ${{ inputs.min_version }}
         run: |
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
-
-          git add INSTRUCTIONS.md
           git add MCPEDL/
-          git add scripts/
-
           if git diff --staged --quiet; then
             echo "No changes detected to commit."
           else
-            git commit -m "chore(engine): update minimum Bedrock version to ${{ github.event.inputs.min_version }} and adjust instructions [skip ci]"
+            git commit -m "chore(engine): set min_engine_version to ${MIN_VERSION} [skip ci]"
             git push
           fi

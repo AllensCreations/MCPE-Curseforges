@@ -27,9 +27,6 @@ jobs:
       - name: Syntax check Python
         run: python -m compileall -q scripts tests
 
-      - name: Embedded generator in sync
-        run: python scripts/check_generator_sync.py
-
       - name: Manifest titles
         run: python scripts/validate_manifest_titles.py
 
@@ -43,6 +40,9 @@ jobs:
 
       - name: Crafting template test
         run: python tests/test_crafting_template.py
+
+      - name: Project pipeline self-test
+        run: python scripts/selftest_project_types.py --fake-foundation
 
       - name: Lint workflows (actionlint)
         continue-on-error: true  # advisory until existing warnings are cleaned up

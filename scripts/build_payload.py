@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Project payload builder v8 for AllensCreations/MCPE-Curseforges.
+"""Project payload builder v9 for AllensCreations/MCPE-Curseforges.
 
 One script for all three project types: addon, map (OneBlock), script.
 It installs the mandatory repo assets that are missing, runs every structural check,
@@ -151,6 +151,11 @@ export function registerController(options) {
     if (id === "allenscreations:end") endGame();
   });
 
+  world.afterEvents.worldLoad.subscribe(() => {
+    if (getState() === "running") setState("idle");
+    for (const p of world.getAllPlayers()) if (isHost(p)) giveController(p);
+  });
+
   world.afterEvents.playerSpawn.subscribe(({ player, initialSpawn }) => {
     if (!initialSpawn) return;
     if (isHost(player) && (isCreative(player) || getState() !== "running")) giveController(player);
@@ -163,8 +168,7 @@ CONTROLLER_SHA256 = "c2f833f915003f333991bc098df114f1765fc2b8ecd2ccda98b7d6128f2
 CONTROLLER_PNG_B64 = "iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAQVJREFUOE9jZKAQMFKonwHdgP9EGgjXh2zAf8ln78D6n0sJMcDYMAORxUBsBgaI5TADwJqVUlLgDvj/4QWKYxgFJOD8e3PmgC0B6QcZANd8dNs6BmuvILBCkCJkADN81/QbDG6ZGmB5kCFwA6AmgvXADEEPj8dCaxlk3wUzrL15lsHw8HlUA0A2ILsAV2AyZl9i+D9VD9MFyP6PD/AA6285lAqma+xmg+mFG3ZghAM8EK2srMCSoMCCGQDTgMyHBe6xY8dQA1ExxAduOlQSwxcwS0AS99dsQQ0DmAEwk3GEwX+YIcgGgNSCoxJkCDEGwDTD0gHYADQbceURDHVUz0y4oh+nOABgcXsLMipB8AAAAABJRU5ErkJggg=="
 ASSET_DIR = "Mcpeworlds/assets/resources_pack/textures/items"  # repo copies, used by the importer
 
-LEDGER_TEXTURE = {"resource_pack_name": "dirtbound_kingdom", "texture_name": "atlas.items",
-                  "texture_data": {"trader_ledger": {"textures": "textures/items/trader_ledger"}}}
+LEDGER_ENTRY = {"textures": "textures/items/trader_ledger"}
 LEDGER_ITEM = {
     "format_version": "",
     "minecraft:item": {
@@ -194,10 +198,12 @@ CONTROLLER_ITEM = {
 }
 GIVE_LINE = "give @s allenscreations:controller"
 END_LINE = "scriptevent allenscreations:end"
+CRAFTING_RECIPES = ("minecraft:recipe_shaped", "minecraft:recipe_shapeless")
 ALLOWED_MODULES = ("@minecraft/server", "@minecraft/server-ui", "@minecraft/vanilla-data")
 REPO_URL = "https://github.com/AllensCreations/MCPE-Curseforges/tree/main/"
 GAMEPLAY_HEADING = re.compile(r"^##\s+.*(overview|feature|mechanic|how it works|about|rule|system|gameplay)", re.I | re.M)
 IMPORT_RE = re.compile(r"""(?:\bimport\b[^;]*?\bfrom\s*|\bimport\s*\(\s*|\bimport\s+)["']([^"']+)["']""")
+CORE_GUARD = re.compile(r"\bif\s+block\s+\S+\s+\S+\s+\S+\s+(?:minecraft:)?bedrock\b.*\brun\s+tag\s+@s\s+add\s+void_cleaned\b")
 CLEANER = "execute as @a[tag=!void_cleaned] run fill -16 -64 -16 16 -64 16 air"
 ATTRIBUTION = "by AllensCreations"
 NAME_RE = re.compile(r"^[A-Za-z0-9][A-Za-z0-9._-]{0,63}$")
@@ -221,6 +227,11 @@ def _png(b64, sha):
     data = base64.b64decode(b64, validate=True)
     assert hashlib.sha256(data).hexdigest() == sha, "embedded PNG is corrupt"
     return data
+
+
+def pack_slug(name):
+    slug = re.sub(r"[^a-z0-9]+", "_", str(name).lower()).strip("_")
+    return slug or "oneblock"
 
 
 def read_project(root):
@@ -285,8 +296,9 @@ def install_assets(root):
     if not isinstance(pj, dict):
         return
     if pj.get("type") == "map":
-        _install_icon(root, "trader_ledger", _png(LEDGER_PNG_B64, LEDGER_SHA256),
-                      LEDGER_TEXTURE["texture_data"]["trader_ledger"], "ledger", LEDGER_TEXTURE)
+        base = {"resource_pack_name": pack_slug(pj.get("name")), "texture_name": "atlas.items",
+                "texture_data": {"trader_ledger": LEDGER_ENTRY}}
+        _install_icon(root, "trader_ledger", _png(LEDGER_PNG_B64, LEDGER_SHA256), LEDGER_ENTRY, "ledger", base)
         i = root / "behavior_pack/items/trader_ledger.json"
         if not i.exists():
             _write_json(i, _item(LEDGER_ITEM, root))
@@ -449,6 +461,10 @@ def run_checks(root, repo_root=None, folder=None):
             check(bool(cmds) and cmds[0] == CLEANER, "the required fill line must be the first command")
             check(bool(cmds) and re.search(r"\btag\b.*\badd\s+void_cleaned\b", cmds[-1]) is not None,
                   "void_cleaner.mcfunction: the last command must add the void_cleaned tag, otherwise every command repeats every tick")
+            check(bool(cmds) and CORE_GUARD.search(cmds[-1]) is not None,
+                  "void_cleaner.mcfunction: the last command must add the void_cleaned tag only if the core Bedrock exists "
+                  "(execute as @a[tag=!void_cleaned] if block <x> <y> <z> bedrock run tag @s add void_cleaned), "
+                  "otherwise a fill on unloaded chunks is never retried")
 
     uuids, versions, huuid, bpm, mevs = [], {}, {}, {}, {}
     labels = ["behavior_pack"] + (["resource_pack"] if (root / "resource_pack/manifest.json").is_file() else [])
@@ -538,7 +554,20 @@ def run_checks(root, repo_root=None, folder=None):
 
     rec = root / "behavior_pack/recipes"
     for p in rec.glob("**/*.json") if rec.is_dir() else []:
-        check(b"AlwaysUnlocked" in p.read_bytes(), f"{p.relative_to(root).as_posix()}: missing AlwaysUnlocked")
+        rrel = p.relative_to(root).as_posix()
+        try:
+            rdata = json.loads(p.read_text(encoding="utf-8-sig"))
+        except Exception as exc:
+            fails.append(f"{rrel}: invalid JSON ({exc})")
+            continue
+        rkey = next((k for k in CRAFTING_RECIPES if isinstance(rdata, dict) and k in rdata), None)
+        if rkey is None:
+            continue
+        body = rdata[rkey] if isinstance(rdata[rkey], dict) else {}
+        unlock = body.get("unlock")
+        entries = unlock if isinstance(unlock, list) else [unlock]
+        check(any(isinstance(e, dict) and e.get("context") == "AlwaysUnlocked" for e in entries),
+              f"{rrel}: missing the unlock context AlwaysUnlocked inside {rkey}")
 
     def icon_checks(key, ident, item_rel, want_sha, size):
         png = root / f"resource_pack/textures/items/{key}.png"
@@ -569,6 +598,9 @@ def run_checks(root, repo_root=None, folder=None):
             check(spec in ALLOWED_MODULES or spec.startswith(("./", "../")),
                   f"{jrel}: import of '{spec}' is not allowed (only {', '.join(ALLOWED_MODULES)} and relative files)")
         check(not re.search(r"\beval\s*\(|\bFunction\s*\(", jtxt), f"{jrel}: eval and the Function constructor are not allowed")
+        check(not re.search(r"\bimport\s*\(\s*(?![\"'])", jtxt), f"{jrel}: dynamic import with a computed specifier is not allowed (it bypasses the module allowlist)")
+        if re.search(r"\b(?:globalThis|window|self)\s*\[", jtxt):
+            warns.append(f"{jrel}: indexed global access can bypass the eval and import checks: a reviewer must read this file")
         if _has_comment(jtxt):
             warns.append(jrel + ": remove comments (no comments in scripts)")
         ran, err = _node_syntax(jp)
@@ -676,6 +708,22 @@ def run_checks(root, repo_root=None, folder=None):
             warns.append(f"DOC: {name} must not mention Script API or @minecraft modules (Part 2)")
         if any(ln.lstrip().startswith("|") for ln in text.splitlines()):
             warns.append(f"DOC: {name} must not contain Markdown tables (Part 2)")
+    low_r, low_d = rtext.lower(), dtext.lower()
+    if re.search(r"img\.shields\.io|!\[[^\]]*\]\(", rtext):
+        warns.append("DOC: README.md must not contain badges or images (Part 2)")
+    if "img.shields.io" in low_d:
+        warns.append("DOC: DESCRIPTION.md must not contain badges (Part 2)")
+    if dtext and "not an official minecraft product" not in low_d:
+        warns.append("DOC: DESCRIPTION.md attribution block needs the unofficial-product disclaimer (Part 2, Section 4)")
+    if re.search(r"give_controller|end_game|oneblock_setup|/function\b", both) and "cheats" not in both:
+        warns.append("DOC: documentation mentions an admin function or command but not that it needs cheats, which disable achievements")
+    mev_doc = mevs.get("behavior_pack")
+    if isinstance(mev_doc, list) and len(mev_doc) == 3 and mev_doc != [0, 0, 0]:
+        for m in re.finditer(r"(\d+\.\d+(?:\.\d+)?)\+?\s+or newer|Bedrock Edition:?\s*(\d+\.\d+(?:\.\d+)?)", rtext + "\n" + dtext):
+            v = [int(x) for x in (m.group(1) or m.group(2)).split(".")]
+            v += [0] * (3 - len(v))
+            if v != mev_doc:
+                warns.append(f"DOC: documentation names Minecraft {'.'.join(map(str, v))} but min_engine_version is {'.'.join(map(str, mev_doc))}: state only the verified minimum")
     nonempty = lambda t: len([ln for ln in t.splitlines() if ln.strip()])
     if ptype == "addon":
         rl = [ln for ln in rtext.splitlines() if ln.strip()]
