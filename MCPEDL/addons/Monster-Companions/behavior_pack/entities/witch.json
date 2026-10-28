@@ -608,6 +608,122 @@
         },
         "minecraft:behavior.stay_while_sitting": {
           "priority": 2
+        },
+        "minecraft:behavior.nearest_prioritized_attackable_target": {
+          "priority": 2,
+          "within_radius": 16,
+          "must_see": true,
+          "reselect_targets": true,
+          "entity_types": [
+            {
+              "filters": {
+                "all_of": [
+                  {
+                    "test": "is_family",
+                    "subject": "other",
+                    "value": "monster"
+                  },
+                  {
+                    "test": "is_family",
+                    "subject": "other",
+                    "operator": "!=",
+                    "value": "monster_companion"
+                  },
+                  {
+                    "test": "has_target",
+                    "subject": "other"
+                  },
+                  {
+                    "test": "owner_distance",
+                    "subject": "self",
+                    "operator": "<=",
+                    "value": 16
+                  }
+                ]
+              },
+              "max_dist": 16,
+              "priority": 1
+            }
+          ]
+        },
+        "minecraft:shooter": {
+          "aux_val": 23,
+          "def": "minecraft:splash_potion",
+          "magic": true,
+          "sound": "throw",
+          "power": 0.75,
+          "projectiles": [
+            {
+              "aux_val": 17,
+              "def": "minecraft:splash_potion",
+              "filters": {
+                "all_of": [
+                  {
+                    "operator": ">=",
+                    "test": "target_distance",
+                    "subject": "self",
+                    "value": 8
+                  },
+                  {
+                    "none_of": [
+                      {
+                        "subject": "other",
+                        "test": "has_mob_effect",
+                        "value": "slowness"
+                      }
+                    ]
+                  }
+                ]
+              }
+            },
+            {
+              "aux_val": 25,
+              "def": "minecraft:splash_potion",
+              "filters": {
+                "all_of": [
+                  {
+                    "operator": ">=",
+                    "test": "actor_health",
+                    "subject": "other",
+                    "value": 8
+                  },
+                  {
+                    "none_of": [
+                      {
+                        "subject": "other",
+                        "test": "has_mob_effect",
+                        "value": "poison"
+                      }
+                    ]
+                  }
+                ]
+              }
+            },
+            {
+              "aux_val": 34,
+              "chance": 0.25,
+              "def": "minecraft:splash_potion",
+              "filters": {
+                "all_of": [
+                  {
+                    "operator": "<=",
+                    "test": "target_distance",
+                    "subject": "self",
+                    "value": 3
+                  },
+                  {
+                    "none_of": [
+                      {
+                        "subject": "other",
+                        "test": "has_mob_effect",
+                        "value": "weakness"
+                      }
+                    ]
+                  }
+                ]
+              }
+            }
+          ]
         }
       },
       "allenscreations:wild": {

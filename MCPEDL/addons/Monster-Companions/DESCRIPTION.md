@@ -1,16 +1,16 @@
-# Monster Companions (v1.2.0)
+# Monster Companions (v1.2.4)
 
 *Tameable Hostile Mobs and Mounts by AllensCreations*
 
 **By AllensCreations**
 
-Tame 30 hostile monsters into defensive bodyguards and controllable mounts.
+Tame 31 hostile monsters into defensive bodyguards and controllable mounts.
 
 ---
 
 ## Overview
 
-Monster Companions is a Minecraft Bedrock add-on that enables players to pacify and tame 30 hostile mob types into defensive bodyguards and controllable mounts.
+Monster Companions is a Minecraft Bedrock add-on that enables players to pacify and tame 31 hostile mob types into defensive bodyguards and controllable mounts.
 
 The add-on lets players tame selected hostile mobs and use supported creatures as mounts.
 
@@ -37,7 +37,7 @@ Tap a companion with an empty hand to make it sit and hold its position, and tap
 
 ### Companion Squad Mechanics
 - Perimeter buffer: Companions follow the player while keeping a buffer distance to prevent obstructing the player camera or mining path. If the player sprints ahead, companions teleport behind the player safely.
-- Friendly-fire immunity: Companions avoid friendly-fire damage and do not target teammates.
+- Friendly-fire immunity: Companions avoid friendly-fire damage and do not target teammates. Arrows, fireballs, potions, and other attacks from your companions no longer damage you.
 - Auto-protect: Companions defend you from nearby aggressive hostile mobs even before you are attacked.
 - Visual status indicators: Tamed companions display an always-visible floating nameplate above their head. Custom name tags can be applied directly without an anvil.
 - In-combat healing: Feeding a wounded companion a Primal Beast Biscuit restores 10 HP (5 hearts).
@@ -55,15 +55,15 @@ Equipping a Saddle onto supported large companions enables manual mounting and d
 
 ---
 
-## Tameable Mob Roster (30 Mobs)
+## Tameable Mob Roster (31 Mobs)
 
 ### Undead
 - **Supported Mobs**: Zombie, Drowned, Husk, Zombie Villager, Zombified Pigman
 - **Special Abilities**: Helmet sunlight protection, melee defense
 
 ### Skeletons
-- **Supported Mobs**: Skeleton, Stray, Bogged, Wither Skeleton
-- **Special Abilities**: Ranged arrow support, Wither effect
+- **Supported Mobs**: Skeleton, Stray, Bogged, Parched, Wither Skeleton
+- **Special Abilities**: Ranged arrow support, Wither effect, Weakness arrows
 
 ### Tricky Trials
 - **Supported Mobs**: Breeze

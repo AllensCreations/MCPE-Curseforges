@@ -1,5 +1,16 @@
 # Changelog - Monster Companions
 
+## [1.2.4] - 2026-10-29
+
+### Added
+- **Parched**: The new desert skeleton can now be tamed with a Primal Beast Biscuit. A tamed Parched fires Weakness arrows at enemies and does not burn in sunlight.
+
+### Fixed
+- **Witch potions**: A tamed Witch no longer throws healing potions at you or targets you.
+- **Companion attacks**: Arrows, fireballs, potions, and other attacks from your companions no longer damage you.
+
+---
+
 ## [1.2.0] - 2026-10-28
 
 ### Added

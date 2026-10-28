@@ -1,0 +1,24 @@
+{
+  "format_version": "1.26.0",
+  "minecraft:entity": {
+    "description": {
+      "identifier": "minecraft:player"
+    },
+    "components": {
+      "minecraft:damage_sensor": {
+        "triggers": [
+          {
+            "on_damage": {
+              "filters": {
+                "test": "is_family",
+                "subject": "other",
+                "value": "monster_companion"
+              }
+            },
+            "deals_damage": false
+          }
+        ]
+      }
+    }
+  }
+}
