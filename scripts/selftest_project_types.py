@@ -89,7 +89,7 @@ registerController({
 });
 '''
 DOCS = {"README.md": "# X\nSource created, not tested in game.\nLikely achievement-friendly.\nNo experiment requirement detected in the inspected files.\n",
-        "DESCRIPTION.md": "# X\nPlayer text.\n", "CHANGELOG.md": "# Changelog\n## 1.0.0\n- First version.\n"}
+        "DESCRIPTION.md": "# X\nPlayer text.\nThis is an unofficial community creation. It is not an official Minecraft product.\n", "CHANGELOG.md": "# Changelog\n## 1.0.0\n- First version.\n"}
 
 
 def write(p: Path, text: str) -> None:
@@ -117,7 +117,7 @@ def sample(root: Path, ptype: str, name: str, **kw) -> Path:
         write(d / "behavior_pack/scripts/main.js", MAIN_JS)
     if ptype == "map":
         write(d / "behavior_pack/functions/tick.json", json.dumps({"values": ["void_cleaner", "oneblock_tick"]}))
-        write(d / "behavior_pack/functions/void_cleaner.mcfunction", "execute as @a[tag=!void_cleaned] run fill -16 -64 -16 16 -64 16 air\nexecute as @a[tag=!void_cleaned] run tag @s add void_cleaned\n")
+        write(d / "behavior_pack/functions/void_cleaner.mcfunction", "execute as @a[tag=!void_cleaned] run fill -16 -64 -16 16 -64 16 air\nsetblock 0 -1 0 bedrock\nexecute as @a[tag=!void_cleaned] if block 0 -1 0 bedrock run tag @s add void_cleaned\n")
         write(d / "behavior_pack/functions/oneblock_tick.mcfunction", "scoreboard objectives add sample dummy\n")
         write(d / "behavior_pack/functions/oneblock_setup.mcfunction", "scoreboard objectives add sample dummy\n")
     if ptype == "script":
@@ -238,11 +238,20 @@ def main() -> int:
         reject("controller.js edited (How to play removed)", lambda d: write(d / "behavior_pack/scripts/controller.js", (d / "behavior_pack/scripts/controller.js").read_text().replace('.button("How to play")', "")), "unchanged generator copy")
         reject("main.js without gameInfo", lambda d: write(d / "behavior_pack/scripts/main.js", MAIN_JS.replace("gameInfo:", "gameinfo:")), "non-empty gameInfo")
         reject("main.js with an empty howToPlay", lambda d: write(d / "behavior_pack/scripts/main.js", re.sub(r"howToPlay: \"[^\n]*\",", "howToPlay: \"\",", MAIN_JS)), "non-empty howToPlay")
+        reject("map whose void cleaner adds the tag without checking the core Bedrock", lambda d: write(d / "behavior_pack/functions/void_cleaner.mcfunction", "execute as @a[tag=!void_cleaned] run fill -16 -64 -16 16 -64 16 air\nexecute as @a[tag=!void_cleaned] run tag @s add void_cleaned\n"), "core Bedrock", ptype="map")
+        reject("shaped recipe without AlwaysUnlocked", lambda d: write(d / "behavior_pack/recipes/a.json", json.dumps({"format_version": "1.20.10", "minecraft:recipe_shaped": {"description": {"identifier": "x:a"}, "tags": ["crafting_table"], "pattern": ["#"], "key": {"#": {"item": "minecraft:stick"}}, "result": {"item": "minecraft:stick"}}})), "AlwaysUnlocked", ptype="addon")
+        reject("recipe file that is not valid JSON", lambda d: write(d / "behavior_pack/recipes/a.json", "{"), "invalid JSON", ptype="addon")
+        reject("dynamic import with a computed specifier", lambda d: write(d / "behavior_pack/scripts/main.js", MAIN_JS + "const m = 'x';\nimport(m);\n"), "dynamic import")
         reject("map whose void cleaner never adds the tag", lambda d: write(d / "behavior_pack/functions/void_cleaner.mcfunction", "execute as @a[tag=!void_cleaned] run fill -16 -64 -16 16 -64 16 air\n"), "void_cleaned tag", ptype="map")
         reject("payload reusing UUIDs of an imported project", lambda d: write(d / "behavior_pack/manifest.json", (root / "MCPEDL/new_addons/Sample-Addon/behavior_pack/manifest.json").read_text()), "already used by")
         reject("world data (db folder)", lambda d: write(d / "behavior_pack/db/x.json", "{}"), "world data")
         reject("map without the void cleaner line", lambda d: write(d / "behavior_pack/functions/void_cleaner.mcfunction", "say hi\n"), "void_cleaner", ptype="map")
         reject("test world mode typo", lambda d: write(d / "test_world.json", json.dumps({"mode": "Peaceful"})), "mode must be")
+        d = sample(root, "addon", "Furnace-Addon")
+        write(d / "behavior_pack/recipes/f.json", json.dumps({"format_version": "1.20.10", "minecraft:recipe_furnace": {"description": {"identifier": "x:f"}, "tags": ["furnace"], "input": "minecraft:sand", "output": "minecraft:glass"}}))
+        write(d / "behavior_pack/recipes/ok.json", json.dumps({"format_version": "1.20.10", "minecraft:recipe_shapeless": {"description": {"identifier": "x:s"}, "tags": ["crafting_table"], "ingredients": [{"item": "minecraft:stick"}], "result": {"item": "minecraft:stick"}, "unlock": [{"context": "AlwaysUnlocked"}]}}))
+        (r, log), out = build_payload(root, d)
+        ok(r == 0, "addon: furnace recipe needs no unlock, shapeless recipe with unlock passes")
         d = sample(root, "script", "NoCtl", controller=False)
         (r, log), out = build_payload(root, d)
         ok(r == 0 and not (d / "resource_pack").exists(), "script: controller=false skips the controller assets")

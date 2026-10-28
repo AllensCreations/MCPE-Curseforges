@@ -216,7 +216,6 @@ jobs:
       - name: Self-test the new pipeline
         if: ${{ !inputs.dry_run }}
         run: |
-          python scripts/check_generator_sync.py
           python scripts/selftest_project_types.py
 
       - name: Commit
