@@ -42,7 +42,7 @@ Dirtbound's three world variants are published in the map source folder. World a
 | **OneBlock Economy** | `v1.0.7` | Custom Map (`.mcworld`) | [Download (.mcworld)](OneBlock-Economy/OneBlock%20Economy%20by%20AllensCreations%20%28V1.0.7%29.mcworld) | [`OneBlock-Economy/`](OneBlock-Economy/) |
 | **One-Block Sovereign Market** | `v1.0.0` | Script Behavior Pack (`.mcpack`) | [Download (.mcpack)](One-Block-Sovereign-Market/One-Block%20Sovereign%20Market%20by%20AllensCreations%20%28V1.0.0%29.mcpack) | [`One-Block-Sovereign-Market/`](One-Block-Sovereign-Market/) |
 | **OneBlock Sovereign Market** | `v1.3.0` | Complete Pack (`.mcaddon`) | [Download (.mcaddon)](Oneblock-sovereign/One-Block%20Sovereign%20Market%20by%20AllensCreations%20%28V1.3.0%29.mcaddon) | [`OneBlock-SM/`](OneBlock-SM/) |
-| **OneBlock Sovereign Market** | `v1.1.1` | Complete Pack (`.mcaddon`) | [Download (.mcaddon)](Oneblock-SM/OneBlock%20Sovereign%20Market%20by%20AllensCreations%20%28V1.1.1%29.mcaddon) | [`Oneblock-SM/`](Oneblock-SM/) |
+| **OneBlock Sovereign Market** | `v1.1.2` | Complete Pack (`.mcaddon`) | [Download (.mcaddon)](Oneblock-SM/OneBlock%20Sovereign%20Market%20by%20AllensCreations%20%28V1.1.2%29.mcaddon) | [`Oneblock-SM/`](Oneblock-SM/) |
 
 ### Script Projects & Challenges
 
