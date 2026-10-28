@@ -1,13 +1,13 @@
 {
   "format_version": 2,
   "header": {
-    "name": "Trivia Vault: The Locked World (v1.0.9)",
-    "description": "A survival trivia challenge by AllensCreations",
+    "name": "Trivia Vault The Locked World (v1.0.10)",
+    "description": "A survival trivia challenge. by AllensCreations",
     "uuid": "f04c6ab1-bdb6-4ee1-8fe1-87a76173a087",
     "version": [
       1,
       0,
-      9
+      10
     ],
     "min_engine_version": [
       1,
@@ -22,7 +22,7 @@
       "version": [
         1,
         0,
-        9
+        10
       ]
     },
     {
@@ -32,7 +32,7 @@
       "version": [
         1,
         0,
-        9
+        10
       ],
       "entry": "scripts/main.js"
     }
@@ -51,8 +51,14 @@
       "version": [
         1,
         0,
-        9
+        10
       ]
     }
-  ]
+  ],
+  "metadata": {
+    "authors": [
+      "AllensCreations"
+    ],
+    "product_type": "addon"
+  }
 }

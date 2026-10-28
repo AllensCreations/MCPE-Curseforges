@@ -51,7 +51,7 @@ Dirtbound's three world variants are published in the map source folder. World a
 | **Alphabet Scavenger Hunt** | `v1.0.7` | Script Behavior Pack (`.mcpack`) | [Download (.mcpack)](Alphabet-Scavenger-Hunt/Alphabet%20Scavenger%20Hunt%20by%20AllensCreations%20%28V1.0.7%29.mcpack) | [`Alphabet-Scavenger-Hunt/`](Alphabet-Scavenger-Hunt/) |
 | **Team Inventory** | `v1.0.17` | Script Behavior Pack (`.mcpack`) | [Download (.mcaddon)](Shared-Hivemind-Inventory/Team%20Inventory%20by%20AllensCreations%20%28V1.0.17%29.mcaddon) | [`Shared-Hivemind-Inventory/`](Shared-Hivemind-Inventory/) |
 | **Tethered: Breaker & Builder** | `v1.0.10` | Script Behavior Pack (`.mcpack`) | [Download (.mcaddon)](Tethered-Breaker-And-Builder/Tethered%20Breaker%20and%20Builder%20by%20AllensCreations%20%28V1.0.10%29.mcaddon) | [`Tethered-Breaker-And-Builder/`](Tethered-Breaker-And-Builder/) |
-| **Trivia Vault The Locked World** | `v1.0.2` | Complete Pack (`.mcaddon`) | [Download (.mcaddon)](Trivia-Vault-The-Locked-World/Trivia%20Vault%20The%20Locked%20World%20by%20AllensCreations%20%28V1.0.2%29.mcaddon) | [`Trivia-Vault-The-Locked-World/`](Trivia-Vault-The-Locked-World/) |
+| **Trivia Vault The Locked World** | `v1.0.10` | Complete Pack (`.mcaddon`) | [Download (.mcaddon)](Trivia-Vault-The-Locked-World/Trivia%20Vault%20The%20Locked%20World%20by%20AllensCreations%20%28V1.0.10%29.mcaddon) | [`Trivia-Vault-The-Locked-World/`](Trivia-Vault-The-Locked-World/) |
 
 ---
 
