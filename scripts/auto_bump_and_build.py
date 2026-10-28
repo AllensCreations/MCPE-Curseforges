@@ -618,7 +618,7 @@ This folder contains compiled release packages for **{title}** by AllensCreation
 
 ## Installation Guide
 
-For general import instructions, refer to the centralized [Download and Installation Guide](../../README.md#download-and-installation-guide).
+For general import instructions, refer to the centralized [Download and Installation Guide](../../README.md#compatibility-and-installation).
 
 ---
 
