@@ -5,8 +5,12 @@ name: Create Project from Base64
 #   addon  -> MCPEDL/new_addons/<Name>/
 #   map    -> MCPEDL/maps/<Name>/      (+ Creative/Survival/Hardcore worlds)
 #   script -> MCPEDL/script/<Name>/    (+ "<Name> - Test.mcworld")
+# Nothing needs typing: commit one .b64 file to MCPEDL/incoming/, pick import_mode, run.
+#   project_name blank    -> taken from the .b64 file name
+#   payload_file blank    -> the only .b64 in MCPEDL/incoming/ (a bare file name also works)
 # import_mode:
-#   create    -> new project only; fails if the folder already exists (default)
+#   auto      -> update if the project already exists, otherwise create (default)
+#   create    -> new project only; fails if the folder already exists
 #   update    -> merge the payload into the existing project, wherever it lives
 #                (addons, new_addons, maps, script). Files not in the payload
 #                (icons, images, LOCK, banners) are kept. Nothing is deleted.
@@ -17,26 +21,28 @@ name: Create Project from Base64
 on:
   workflow_dispatch:
     inputs:
-      project_name:
-        description: "Folder name (letters, numbers, . _ -). For update/overwrite, the existing folder name."
-        required: true
-        type: string
       import_mode:
-        description: "create = new only, update = merge into existing and keep other files, overwrite = replace everything"
+        description: "auto = update if it exists else create, create = new only, update = merge and keep other files, overwrite = replace everything"
         required: true
-        default: create
+        default: auto
         type: choice
         options:
+          - auto
           - create
           - update
           - overwrite
+      project_name:
+        description: "Optional. Leave blank to use the .b64 file name (letters, numbers, . _ -)"
+        required: false
+        default: ""
+        type: string
       payload_base64:
-        description: "Base64 of the project ZIP, single line. Leave blank if you use payload_file."
+        description: "Optional. Base64 of the project ZIP, single line. Leave blank to use a .b64 file."
         required: false
         default: ""
         type: string
       payload_file:
-        description: "Alternative for big payloads: path to a .b64 file under MCPEDL/incoming/"
+        description: "Optional. Leave blank to use the only .b64 file in MCPEDL/incoming/ (or enter its file name)"
         required: false
         default: ""
         type: string
@@ -87,13 +93,12 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          [[ "$PROJECT_NAME" =~ ^[A-Za-z0-9][A-Za-z0-9._-]{0,63}$ ]] \
-            || { echo "::error::Name: letters, numbers, . _ - only (max 64)"; exit 1; }
-          [[ "$IMPORT_MODE" == "create" || "$IMPORT_MODE" == "update" || "$IMPORT_MODE" == "overwrite" ]] \
-            || { echo "::error::import_mode must be create, update, or overwrite"; exit 1; }
-          if [ -z "$PROJECT_PAYLOAD" ] && [ -z "$PAYLOAD_FILE" ]; then
-            echo "::error::Provide payload_base64 or payload_file"; exit 1
+          if [ -n "$PROJECT_NAME" ]; then
+            [[ "$PROJECT_NAME" =~ ^[A-Za-z0-9][A-Za-z0-9._-]{0,63}$ ]] \
+              || { echo "::error::Name: letters, numbers, . _ - only (max 64)"; exit 1; }
           fi
+          [[ "$IMPORT_MODE" == "auto" || "$IMPORT_MODE" == "create" || "$IMPORT_MODE" == "update" || "$IMPORT_MODE" == "overwrite" ]] \
+            || { echo "::error::import_mode must be auto, create, update, or overwrite"; exit 1; }
           [[ "$COMMIT_MODE" == "pull_request" || "$COMMIT_MODE" == "direct" ]] \
             || { echo "::error::commit_mode must be pull_request or direct"; exit 1; }
 
@@ -102,8 +107,9 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          ARGS=(--name "$PROJECT_NAME" --mode "$IMPORT_MODE" --github-output "$GITHUB_OUTPUT")
-          if [ -z "$PROJECT_PAYLOAD" ]; then ARGS+=(--payload-file "$PAYLOAD_FILE"); fi
+          ARGS=(--mode "$IMPORT_MODE" --github-output "$GITHUB_OUTPUT")
+          if [ -n "$PROJECT_NAME" ]; then ARGS+=(--name "$PROJECT_NAME"); fi
+          if [ -z "$PROJECT_PAYLOAD" ] && [ -n "$PAYLOAD_FILE" ]; then ARGS+=(--payload-file "$PAYLOAD_FILE"); fi
           python scripts/import_project_payload.py "${ARGS[@]}"
 
       # ---- maps: build the three OneBlock worlds ----
@@ -171,28 +177,31 @@ jobs:
         env:
           DEST: ${{ steps.import.outputs.dest }}
           PTYPE: ${{ steps.import.outputs.type }}
+          NAME: ${{ steps.import.outputs.name }}
+          MODE: ${{ steps.import.outputs.mode }}
+          PAYLOAD_PATH: ${{ steps.import.outputs.payload_path }}
           GH_TOKEN: ${{ github.token }}
         run: |
           set -euo pipefail
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          BRANCH="import/${PROJECT_NAME}-${GITHUB_RUN_ID}"
+          BRANCH="import/${NAME}-${GITHUB_RUN_ID}"
           if [ "$COMMIT_MODE" = "pull_request" ]; then
             git checkout -b "$BRANCH"
           fi
           git add -A -- "$DEST"
-          if [ -z "$PROJECT_PAYLOAD" ] && [ -n "$PAYLOAD_FILE" ]; then
-            git rm -q --ignore-unmatch -- "$PAYLOAD_FILE"
+          if [ -n "$PAYLOAD_PATH" ]; then
+            git rm -q --ignore-unmatch -- "$PAYLOAD_PATH"
           fi
           if git diff --cached --quiet; then
             echo "No changes to commit."; exit 0
           fi
-          case "$IMPORT_MODE" in
+          case "$MODE" in
             create)    VERB="create" ;;
             update)    VERB="update" ;;
             overwrite) VERB="overwrite" ;;
           esac
-          git commit -m "feat(${PTYPE}): ${VERB} ${PROJECT_NAME} from base64 payload [skip ci]"
+          git commit -m "feat(${PTYPE}): ${VERB} ${NAME} from base64 payload [skip ci]"
           if [ "$COMMIT_MODE" = "direct" ]; then
             git pull --rebase origin "${GITHUB_REF_NAME}"
             git push origin "HEAD:${GITHUB_REF_NAME}"
@@ -200,8 +209,8 @@ jobs:
           else
             git push origin "$BRANCH"
             gh pr create --base "${GITHUB_REF_NAME}" --head "$BRANCH" \
-              --title "${VERB^} ${PTYPE} ${PROJECT_NAME} from AI payload" \
-              --body "AI-generated payload (mode: ${IMPORT_MODE}). Structural checks passed; nothing was tested in Minecraft. Review behavior_pack/scripts/, every .mcfunction, and the file list in this PR before merging."
+              --title "${VERB^} ${PTYPE} ${NAME} from AI payload" \
+              --body "AI-generated payload (mode: ${MODE}). Structural checks passed; nothing was tested in Minecraft. Review behavior_pack/scripts/, every .mcfunction, and the file list in this PR before merging."
             echo "mode=pull_request" >> "$GITHUB_OUTPUT"
           fi
 
@@ -211,11 +220,13 @@ jobs:
         env:
           OUT_TYPE: ${{ steps.import.outputs.type }}
           OUT_DEST: ${{ steps.import.outputs.dest }}
+          OUT_NAME: ${{ steps.import.outputs.name }}
+          OUT_MODE: ${{ steps.import.outputs.mode }}
         run: |
           {
             echo "### Create Project from Base64"
-            echo "- Project: \`${PROJECT_NAME}\` (type: \`${OUT_TYPE}\`)"
-            echo "- Import mode: \`${IMPORT_MODE}\`"
+            echo "- Project: \`${OUT_NAME}\` (type: \`${OUT_TYPE}\`)"
+            echo "- Import mode: \`${IMPORT_MODE}\` -> \`${OUT_MODE}\`"
             echo "- Folder: \`${OUT_DEST}\`"
             echo "- Commit mode: \`${COMMIT_MODE}\`"
             echo "- Verified: ZIP safety, manifests, UUIDs, dependencies, type-specific files (structural only)"
