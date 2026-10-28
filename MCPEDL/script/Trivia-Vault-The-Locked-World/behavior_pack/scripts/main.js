@@ -1,8 +1,7 @@
-import { world, system, ItemStack, EntityComponentTypes, GameMode } from "@minecraft/server";
+import { world, system, EntityComponentTypes, GameMode } from "@minecraft/server";
 import { ActionFormData } from "@minecraft/server-ui";
 import { registerController, endGame } from "./controller.js";
 import { QUESTIONS } from "./questions.js";
-import { REWARDS } from "./rewards.js";
 import { CONSEQUENCES } from "./consequences.js";
 
 const GAME_KEY = "game_state";
@@ -38,32 +37,6 @@ function say(player, message) {
   try { player.sendMessage(`§6[Trivia Vault]§r ${message}`); } catch (e) {}
 }
 
-function giveItem(player, typeId, count) {
-  const inv = invOf(player);
-  if (!inv) return;
-  let remaining = count;
-  while (remaining > 0) {
-    const stack = new ItemStack(typeId, Math.min(remaining, 64));
-    const leftover = inv.addItem(stack);
-    if (leftover) player.dimension.spawnItem(leftover, player.location);
-    remaining -= stack.amount;
-  }
-}
-
-function award(player) {
-  const stats = statsFor(player);
-  const totalWeight = REWARDS.reduce((sum, item) => sum + (item.weight || 1), 0);
-  let ticket = rand(totalWeight);
-  let reward = REWARDS[0];
-  for (const item of REWARDS) {
-    ticket -= item.weight || 1;
-    if (ticket < 0) { reward = item; break; }
-  }
-  giveItem(player, reward.item, reward.count);
-  if (reward.xp > 0) player.addExperience(reward.xp);
-  say(player, `${reward.message} Correct answers: ${stats.correct}.`);
-}
-
 function removeHotbarItem(player) {
   const inv = invOf(player);
   if (!inv) return;
@@ -94,9 +67,40 @@ function dropAnvil(player) {
   } catch (e) { player.applyDamage(6); }
 }
 
-function applyConsequence(player) {
+function removeMatchingBlocksInRadius(player, target) {
+  if (!target?.location || !target?.typeId || !target?.dimension) {
+    say(player, "The block-disappearing penalty could not find its target.");
+    return;
+  }
+  const center = { x: Math.floor(target.location.x), y: Math.floor(target.location.y), z: Math.floor(target.location.z) };
+  const radius = 20;
+  const typeId = target.typeId;
+  let removed = 0;
+  function* scan() {
+    for (let dy = -radius; dy <= radius; dy++) {
+      for (let dx = -radius; dx <= radius; dx++) {
+        for (let dz = -radius; dz <= radius; dz++) {
+          if (dx * dx + dy * dy + dz * dz > radius * radius) continue;
+          try {
+            const block = target.dimension.getBlock({ x: center.x + dx, y: center.y + dy, z: center.z + dz });
+            if (block && block.typeId === typeId) {
+              block.setType("minecraft:air");
+              removed++;
+            }
+          } catch (e) {}
+        }
+      }
+      yield;
+    }
+    say(player, `Wrong answer. ${removed} matching ${typeId.replace("minecraft:", "")} blocks disappeared within a 20-block radius.`);
+  }
+  system.runJob(scan());
+}
+
+function applyConsequence(player, target) {
   const outcome = CONSEQUENCES[rand(CONSEQUENCES.length)];
   switch (outcome.kind) {
+    case "blocks_radius": removeMatchingBlocksInRadius(player, target); break;
     case "hotbar": removeHotbarItem(player); break;
     case "anvil": dropAnvil(player); break;
     case "creepers": spawnNear(player, "minecraft:creeper", 10, 10); spawnNear(player, "minecraft:creeper", 2, 5); break;
@@ -140,10 +144,10 @@ function applyConsequence(player) {
     case "slimes": spawnNear(player, "minecraft:slime", 6, 8); break;
     default: player.applyDamage(5); break;
   }
-  say(player, `Wrong answer. ${outcome.message}`);
+  if (outcome.kind !== "blocks_radius") say(player, `Wrong answer. ${outcome.message}`);
 }
 
-function newQuestion(player, key) {
+function newQuestion(player, key, target) {
   const stats = statsFor(player);
   let pool = QUESTIONS.filter((q) => !stats.asked.has(q.question));
   if (!pool.length) { stats.asked.clear(); pool = QUESTIONS; }
@@ -152,7 +156,7 @@ function newQuestion(player, key) {
   const wrong = [...new Set(q.wrong.filter((a) => a !== q.answer))].slice(0, 3);
   if (wrong.length !== 3) { say(player, "This question could not be loaded safely. Try breaking the block again."); return; }
   const choices = shuffle([q.answer, ...wrong]).map((text) => ({ text, correct: text === q.answer }));
-  pending.set(player.id, { q, choices, key });
+  pending.set(player.id, { q, choices, key, target });
   showQuestion(player);
 }
 
@@ -185,10 +189,9 @@ async function showQuestion(player) {
   if (chosen?.correct) {
     stats.correct++;
     const unlocked = permanentlyUnlockBlock(state.key);
-    award(player);
-    say(player, unlocked ? "This block type is permanently unlocked. All blocks of this type across the world can now be broken without another question." : "Correct answer! This block type is unlocked for this run; permanent storage was unavailable.");
+    say(player, unlocked ? "Correct answer! This block type is now permanently unlocked. All blocks of this type across the world can now be broken without another question." : "Correct answer! This block type is unlocked for this run; permanent storage was unavailable.");
   } else {
-    applyConsequence(player);
+    applyConsequence(player, state.target);
   }
 }
 
@@ -218,7 +221,8 @@ world.beforeEvents.playerBreakBlock.subscribe((event) => {
   const key = `block_${block.typeId}`;
   if (isBlockUnlocked(key)) return;
   event.cancel = true;
-  system.run(() => newQuestion(event.player, key));
+  const target = { typeId: block.typeId, location: { ...block.location }, dimension: event.player.dimension };
+  system.run(() => newQuestion(event.player, key, target));
 });
 
 world.afterEvents.entityDie.subscribe((event) => {
@@ -236,14 +240,14 @@ world.afterEvents.playerLeave.subscribe((event) => {
 
 registerController({
   title: "Trivia Vault: The Locked World",
-  gameInfo: "Type: Survival trivia challenge\nPlayers: Solo\nGoal: Answer general-knowledge and Minecraft questions correctly to unlock block types and earn rewards.",
-  howToPlay: "Goal: Survive the Trivia Vault and collect rewards.\nControls: In Survival, attempt to break a block to open a general-knowledge or Minecraft trivia question with exactly four answer choices.\nCorrect: Receive a balanced random reward. That block type is permanently unlocked in the world, so every block of that type can be broken without another question.\nWrong: Face severe penalties, including item loss, heavy damage, fire, or large hostile-mob waves.\nLifelines: Three hint lifelines per run; they never remove answer choices.\nCreative: Block breaking is not intercepted.\nHow it ends: Your death ends the run. Use the Controller to start another run.",
+  gameInfo: "Type: Survival trivia challenge\nPlayers: Solo\nGoal: Answer general-knowledge and Minecraft questions correctly to unlock block types.",
+  howToPlay: "Goal: Survive the Trivia Vault by answering trivia questions correctly.\nControls: In Survival, attempt to break a block to open a general-knowledge or Minecraft trivia question with exactly four answer choices.\nCorrect: That block type is permanently unlocked in the world, so every block of that type can be broken without another question. Unlocking the block is the only reward.\nWrong: Face randomized penalties, including a chance for matching blocks within a 20-block radius of the targeted block to disappear.\nLifelines: Three hint lifelines per run; they never remove answer choices.\nCreative: Block breaking is not intercepted.\nHow it ends: Your death ends the run. Use the Controller to start another run.",
   onStart: (player) => {
     playerStats.clear();
     pending.clear();
     playerStats.set(player.id, { lifelines: 3, multiplier: 1, multiplierUntil: 0, correct: 0, asked: new Set() });
     world.sendMessage("§6Trivia Vault: The Locked World§r has opened. Every locked Survival block type triggers a trivia question.");
-    say(player, `Trivia question bank: ${QUESTIONS.length} entries. Four choices per question. Rewards are weighted by rarity. Penalties: ${CONSEQUENCES.length}.`);
+    say(player, `Trivia question bank: ${QUESTIONS.length} entries. Four choices per question. No rewards are given for correct answers. Penalties: ${CONSEQUENCES.length}.`);
   },
   onEnd: () => {
     pending.clear();
