@@ -1,12 +1,12 @@
-# One-Block Hardcore Survival Economy (v1.0.1)
+# One-Block Hardcore Survival Economy (v1.0.2)
 
 Download the current release of **One-Block Hardcore Survival Economy** for Minecraft Bedrock Edition.
 
 ## Download
 
-- **Version:** 1.0.1
+- **Version:** 1.0.2
 - **Package format:** `.mcpack`
-- **Direct download:** [Download the add-on (.mcpack)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/One-Block-Economy/One-Block%20Hardcore%20Survival%20Economy%20by%20AllensCreations%20%28V1.0.1%29.mcpack)
+- **Direct download:** [Download One-Block Hardcore Survival Economy (.mcpack)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/One-Block-Economy/One-Block%20Hardcore%20Survival%20Economy%20by%20AllensCreations%20%28V1.0.2%29.mcpack)
 
 ## Installation
 

@@ -8,15 +8,15 @@ This folder contains compiled release packages for **OneBlock Void Survival** by
 
 | File Name | Format | Size | Description | Download Link |
 | :--- | :--- | :--- | :--- | :--- |
-| **`OneBlock Void Survival BP by AllensCreations (V1.2.6).mcpack`** | `.mcpack` | ~150 KB | Standalone Behavior Pack archive for custom map logic. | [Download (.mcpack)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/OneBlock-Void-Survival/OneBlock%20Void%20Survival%20BP%20by%20AllensCreations%20%28V1.2.6%29.mcpack) |
-| **`OneBlock Void Survival by AllensCreations (V1.2.6).mcworld`** | `.mcworld` | ~266 KB | Complete Survival World archive ready for one-click import. | [Download (.mcworld)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/OneBlock-Void-Survival/OneBlock%20Void%20Survival%20by%20AllensCreations%20%28V1.2.6%29.mcworld) |
-| **`OneBlock Void Survival Admin by AllensCreations (V1.2.6).mcworld`** | `.mcworld` | ~266 KB | Admin / Studio World archive pre-configured with testing tools. | [Download (.mcworld)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/OneBlock-Void-Survival/OneBlock%20Void%20Survival%20Admin%20by%20AllensCreations%20%28V1.2.6%29.mcworld) |
+| **`OneBlock Void Survival BP by AllensCreations (V1.2.7).mcpack`** | `.mcpack` | ~150 KB | Standalone Behavior Pack archive for custom map logic. | [Download (.mcpack)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/OneBlock-Void-Survival/OneBlock%20Void%20Survival%20BP%20by%20AllensCreations%20%28V1.2.7%29.mcpack) |
+| **`OneBlock Void Survival by AllensCreations (V1.2.7).mcworld`** | `.mcworld` | ~266 KB | Complete Survival World archive ready for one-click import. | [Download (.mcworld)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/OneBlock-Void-Survival/OneBlock%20Void%20Survival%20by%20AllensCreations%20%28V1.2.7%29.mcworld) |
+| **`OneBlock Void Survival Admin by AllensCreations (V1.2.7).mcworld`** | `.mcworld` | ~266 KB | Admin / Studio World archive pre-configured with testing tools. | [Download (.mcworld)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/OneBlock-Void-Survival/OneBlock%20Void%20Survival%20Admin%20by%20AllensCreations%20%28V1.2.7%29.mcworld) |
 
 ---
 
 ## Installation Guide
 
-For general import instructions, refer to the centralized [Download and Installation Guide](../README.md#download-and-installation-guide).
+For general import instructions, refer to the centralized [Download and Installation Guide](../../README.md#compatibility-and-installation).
 
 ---
 

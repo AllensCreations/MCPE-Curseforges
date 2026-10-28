@@ -8,15 +8,15 @@ This folder contains compiled release packages for **Ghast Mob Head Transformers
 
 | File Name | Format | Size | Description | Download Link |
 | :--- | :--- | :--- | :--- | :--- |
-| **`Ghast Mob Head Transformers by AllensCreations (V1.1.13).mcaddon`** | `.mcaddon` | ~216 KB | Complete bundle containing both Behavior Pack and Resource Pack. | [Download (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Ghast-Mob-Head-Transformers/Ghast%20Mob%20Head%20Transformers%20by%20AllensCreations%20%28V1.1.13%29.mcaddon) |
-| **`Ghast Mob Head Transformers BP by AllensCreations (V1.1.13).mcpack`** | `.mcpack` | ~101 KB | Behavior Pack: Custom entities, components, and gameplay mechanics. | [Download (.mcpack)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Ghast-Mob-Head-Transformers/Ghast%20Mob%20Head%20Transformers%20BP%20by%20AllensCreations%20%28V1.1.13%29.mcpack) |
-| **`Ghast Mob Head Transformers RP by AllensCreations (V1.1.13).mcpack`** | `.mcpack` | ~113 KB | Resource Pack: Custom models, geometry, textures, and sounds. | [Download (.mcpack)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Ghast-Mob-Head-Transformers/Ghast%20Mob%20Head%20Transformers%20RP%20by%20AllensCreations%20%28V1.1.13%29.mcpack) |
+| **`Ghast Mob Head Transformers by AllensCreations (V1.1.14).mcaddon`** | `.mcaddon` | ~216 KB | Complete bundle containing both Behavior Pack and Resource Pack. | [Download (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Ghast-Mob-Head-Transformers/Ghast%20Mob%20Head%20Transformers%20by%20AllensCreations%20%28V1.1.14%29.mcaddon) |
+| **`Ghast Mob Head Transformers BP by AllensCreations (V1.1.14).mcpack`** | `.mcpack` | ~101 KB | Behavior Pack: Custom entities, components, and gameplay mechanics. | [Download (.mcpack)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Ghast-Mob-Head-Transformers/Ghast%20Mob%20Head%20Transformers%20BP%20by%20AllensCreations%20%28V1.1.14%29.mcpack) |
+| **`Ghast Mob Head Transformers RP by AllensCreations (V1.1.14).mcpack`** | `.mcpack` | ~113 KB | Resource Pack: Custom models, geometry, textures, and sounds. | [Download (.mcpack)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Ghast-Mob-Head-Transformers/Ghast%20Mob%20Head%20Transformers%20RP%20by%20AllensCreations%20%28V1.1.14%29.mcpack) |
 
 ---
 
 ## Installation Guide
 
-For general import instructions, refer to the centralized [Download and Installation Guide](../README.md#download-and-installation-guide).
+For general import instructions, refer to the centralized [Download and Installation Guide](../../README.md#compatibility-and-installation).
 
 ---
 

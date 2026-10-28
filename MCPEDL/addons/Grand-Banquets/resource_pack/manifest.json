@@ -1,13 +1,13 @@
 {
   "format_version": 2,
   "header": {
-    "name": "Grand Banquets (v1.0.3)",
+    "name": "Grand Banquets (v1.0.4)",
     "description": "Provides item icons and display names for the 32 custom banquet dishes. by AllensCreations",
     "uuid": "77eb5486-758d-4a9f-9949-4eba0b900d30",
     "version": [
       1,
       0,
-      3
+      4
     ],
     "min_engine_version": [
       1,
@@ -22,7 +22,7 @@
       "version": [
         1,
         0,
-        3
+        4
       ]
     }
   ],
@@ -32,7 +32,7 @@
       "version": [
         1,
         0,
-        3
+        4
       ]
     }
   ],

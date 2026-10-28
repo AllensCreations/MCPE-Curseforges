@@ -1,13 +1,13 @@
 {
   "format_version": 2,
   "header": {
-    "name": "Alphabet Scavenger Hunt (v1.0.6)",
+    "name": "Alphabet Scavenger Hunt (v1.0.7)",
     "description": "High-stakes 20-round survival challenge. Scavenge items matching the target letter before the 60s timer expires or suffer permanent max health decay!. by AllensCreations",
     "uuid": "ada4eaa0-2796-4c73-a8c2-7e60d04fcf18",
     "version": [
       1,
       0,
-      6
+      7
     ],
     "min_engine_version": [
       1,
@@ -23,7 +23,7 @@
       "version": [
         1,
         0,
-        6
+        7
       ]
     },
     {
@@ -35,7 +35,7 @@
       "version": [
         1,
         0,
-        6
+        7
       ]
     }
   ],

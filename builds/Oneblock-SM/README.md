@@ -8,15 +8,15 @@ This folder contains compiled release packages for **OneBlock Sovereign Market**
 
 | File Name | Format | Size | Description | Download Link |
 | :--- | :--- | :--- | :--- | :--- |
-| **`OneBlock Sovereign Market by AllensCreations (V1.1.0).mcaddon`** | `.mcaddon` | ~27 KB | Complete bundle containing both Behavior Pack and Resource Pack. | [Download (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Oneblock-SM/OneBlock%20Sovereign%20Market%20by%20AllensCreations%20%28V1.1.0%29.mcaddon) |
-| **`OneBlock Sovereign Market BP by AllensCreations (V1.1.0).mcpack`** | `.mcpack` | ~25 KB | Behavior Pack: Custom entities, components, and gameplay mechanics. | [Download (.mcpack)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Oneblock-SM/OneBlock%20Sovereign%20Market%20BP%20by%20AllensCreations%20%28V1.1.0%29.mcpack) |
-| **`OneBlock Sovereign Market RP by AllensCreations (V1.1.0).mcpack`** | `.mcpack` | ~1 KB | Resource Pack: Custom models, geometry, textures, and sounds. | [Download (.mcpack)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Oneblock-SM/OneBlock%20Sovereign%20Market%20RP%20by%20AllensCreations%20%28V1.1.0%29.mcpack) |
+| **`OneBlock Sovereign Market by AllensCreations (V1.1.1).mcaddon`** | `.mcaddon` | ~27 KB | Complete bundle containing both Behavior Pack and Resource Pack. | [Download (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Oneblock-SM/OneBlock%20Sovereign%20Market%20by%20AllensCreations%20%28V1.1.1%29.mcaddon) |
+| **`OneBlock Sovereign Market BP by AllensCreations (V1.1.1).mcpack`** | `.mcpack` | ~25 KB | Behavior Pack: Custom entities, components, and gameplay mechanics. | [Download (.mcpack)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Oneblock-SM/OneBlock%20Sovereign%20Market%20BP%20by%20AllensCreations%20%28V1.1.1%29.mcpack) |
+| **`OneBlock Sovereign Market RP by AllensCreations (V1.1.1).mcpack`** | `.mcpack` | ~1 KB | Resource Pack: Custom models, geometry, textures, and sounds. | [Download (.mcpack)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Oneblock-SM/OneBlock%20Sovereign%20Market%20RP%20by%20AllensCreations%20%28V1.1.1%29.mcpack) |
 
 ---
 
 ## Installation Guide
 
-For general import instructions, refer to the centralized [Download and Installation Guide](../README.md#download-and-installation-guide).
+For general import instructions, refer to the centralized [Download and Installation Guide](../../README.md#compatibility-and-installation).
 
 ---
 

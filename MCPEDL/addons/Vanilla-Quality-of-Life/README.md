@@ -1,12 +1,12 @@
-# Vanilla Quality of Life (v1.3.22)
+# Vanilla Quality of Life (v1.3.23)
 
 Download the current release of **Vanilla Quality of Life** for Minecraft Bedrock Edition.
 
 ## Download
 
-- **Version:** 1.3.22
+- **Version:** 1.3.23
 - **Package format:** `.mcaddon`
-- **Direct download:** [Download Vanilla Quality of Life (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Vanilla-Quality-of-Life/Vanilla%20Quality%20of%20Life%20by%20AllensCreations%20%28V1.3.22%29.mcaddon)
+- **Direct download:** [Download Vanilla Quality of Life (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Vanilla-Quality-of-Life/Vanilla%20Quality%20of%20Life%20by%20AllensCreations%20%28V1.3.23%29.mcaddon)
 
 ## Installation
 

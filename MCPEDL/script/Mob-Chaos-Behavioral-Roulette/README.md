@@ -1,4 +1,4 @@
-# Mob Chaos: Behavioral Roulette (v1.0.1)
+# Mob Chaos: Behavioral Roulette (v1.0.2)
 
 A chaos mini-game by AllensCreations for Minecraft Bedrock Edition.
 

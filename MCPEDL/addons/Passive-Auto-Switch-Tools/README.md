@@ -1,12 +1,12 @@
-# Passive Auto-Switch Tools (v1.1.13)
+# Passive Auto-Switch Tools (v1.1.14)
 
 Download the current release of **Passive Auto-Switch Tools** for Minecraft Bedrock Edition.
 
 ## Download
 
-- **Version:** 1.1.13
+- **Version:** 1.1.14
 - **Package format:** `.mcpack`
-- **Direct download:** [Download the add-on (.mcpack)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Passive-Auto-Switch-Tools/Passive%20Auto-Switch%20Tools%20by%20AllensCreations%20%28V1.1.13%29.mcpack)
+- **Direct download:** [Download Passive Auto-Switch Tools (.mcpack)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Passive-Auto-Switch-Tools/Passive%20Auto-Switch%20Tools%20by%20AllensCreations%20%28V1.1.14%29.mcpack)
 
 ## Installation
 
