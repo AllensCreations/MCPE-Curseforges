@@ -581,6 +581,56 @@ def rebuild_project_packages(project_path, category, version_str=None):
 # README synchronization
 # ─────────────────────────────────────────────────────────────────────────────
 
+VERSION_KEEP = int(os.environ.get("KEEP_VERSIONS", "5"))
+
+
+def _version_sort_key(folder_name):
+    m = re.match(r"V(\d+)\.(\d+)\.(\d+)$", folder_name)
+    return tuple(int(x) for x in m.groups()) if m else None
+
+
+def save_version_snapshot(project_path, project_name, version_str):
+    """
+    Saves the freshly built packages plus a source.zip into
+    builds/<project_name>/versions/V<version_str>/.
+    Skipped when that version folder already exists, so daily no-bump refreshes
+    never overwrite an earlier snapshot. Keeps the newest KEEP_VERSIONS (default 5).
+    Never raises: a snapshot problem must not break a release.
+    """
+    try:
+        build_dir = os.path.join(REPO_ROOT, "builds", project_name)
+        vroot = os.path.join(build_dir, "versions")
+        vdir = os.path.join(vroot, f"V{version_str}")
+        if os.path.isdir(vdir):
+            return
+        os.makedirs(vdir, exist_ok=True)
+
+        for ext in (".mcaddon", ".mcpack", ".mcworld"):
+            for f in glob.glob(os.path.join(build_dir, "*" + ext)):
+                shutil.copy2(f, vdir)
+
+        binary_ext = (".mcaddon", ".mcpack", ".mcworld")
+        with zipfile.ZipFile(os.path.join(vdir, "source.zip"), "w", zipfile.ZIP_DEFLATED) as zf:
+            for root, dirs, files in os.walk(project_path):
+                dirs[:] = [d for d in dirs if d not in JUNK_DIRS]
+                for fn in sorted(files):
+                    if is_junk(fn) or fn.lower().endswith(binary_ext):
+                        continue
+                    full = os.path.join(root, fn)
+                    zf.write(full, os.path.relpath(full, project_path))
+        print(f"  Saved version snapshot: builds/{project_name}/versions/V{version_str}")
+
+        saved = sorted(
+            (d for d in os.listdir(vroot) if _version_sort_key(d) is not None),
+            key=_version_sort_key,
+        )
+        for old in saved[:-VERSION_KEEP] if VERSION_KEEP > 0 else []:
+            shutil.rmtree(os.path.join(vroot, old), ignore_errors=True)
+            print(f"  Pruned old snapshot: {old}")
+    except Exception as exc:
+        print(f"  WARNING: version snapshot skipped: {exc}", file=sys.stderr)
+
+
 def generate_build_readme(project_path, category, version_str, built_files):
     """Generates / updates builds/<project_name>/README.md with download table."""
     project_name = os.path.basename(project_path)
@@ -1184,6 +1234,10 @@ def main():
             primary_file, built_files = rebuild_project_packages(cp, cat, new_v)
 
         # ── Synchronize all Directory README files & links ─────────────────
+        # ── Save this version into builds/<project>/versions/ ───────────────
+        if proj_name not in TEST_GATED_WORLD_PROJECTS:
+            save_version_snapshot(cp, proj_name, new_v)
+
         update_readmes(cp, cat, old_v, new_v, primary_file, built_files)
 
         # ── Register if new ───────────────────────────────────────────────

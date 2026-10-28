@@ -332,6 +332,7 @@ MCPE-Curseforges/
 │   ├── script/<Project-Name>/
 │   └── maps/<Map-Name>/
 └── builds/<Name>/
+    └── versions/V<x.y.z>/   (auto-saved packages + source.zip per release, last 5 kept)
 ```
 
 ---
