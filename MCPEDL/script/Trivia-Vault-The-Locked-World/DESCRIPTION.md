@@ -1,8 +1,8 @@
-# Trivia Vault: The Locked World (v1.0.9) — Survival Trivia Challenge
+# Trivia Vault: The Locked World (v1.0.13) — Survival Trivia Challenge
 
 **By AllensCreations**
 
-Trivia Vault: The Locked World turns Survival block breaking into a general-knowledge challenge. Answer questions correctly to unlock a whole block type and receive a random reward. Wrong answers trigger dangerous penalties.
+Trivia Vault: The Locked World turns Survival block breaking into a general-knowledge challenge. Answer questions correctly to permanently unlock the block type being mined. Unlocking the block is the only reward; correct answers grant no items or experience. Wrong answers trigger randomized penalties.
 
 ## Overview
 This preview build contains five sample questions covering internet culture, geography, science, and Minecraft. Every question has four choices, and the answer order is shuffled when the question appears.
@@ -14,8 +14,8 @@ This preview build contains five sample questions covering internet culture, geo
 ### Four-Choice Trivia
 - **What Happens**: Each question presents four choices with randomized answer placement.
 
-### Rewards and Penalties
-- **What Happens**: Correct answers grant rarity-weighted rewards. Wrong answers trigger randomized Survival penalties.
+### Unlocks and Penalties
+- **What Happens**: Correct answers only unlock the block type across the world. Wrong answers trigger randomized Survival penalties, including a chance to remove matching blocks within a 20-block radius of the targeted block.
 
 ### Hint Lifelines
 - **What Happens**: Three hint-only lifelines are available per run. Hints do not remove answer choices.
@@ -47,4 +47,4 @@ Use the Controller as the host or an operator and select Start. In Survival, att
 
 ## Search & Discovery Keywords
 
-Minecraft Bedrock script, Trivia Vault: The Locked World, survival trivia challenge, general knowledge quiz, randomized answers, block type unlocks, survival rewards, lifelines, AllensCreations.
+Minecraft Bedrock script, Trivia Vault: The Locked World, survival trivia challenge, general knowledge quiz, randomized answers, block type unlocks, 20-block radius penalty, lifelines, AllensCreations.
