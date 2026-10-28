@@ -21,6 +21,29 @@ import urllib.parse
 REPO_ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
 
 
+def _heading_slugs(md_path):
+    """GitHub-style heading slugs for a markdown file (ignores fenced code)."""
+    slugs, seen, in_code = set(), {}, False
+    try:
+        with open(md_path, "r", encoding="utf-8") as fh:
+            lines = fh.read().splitlines()
+    except Exception:
+        return slugs
+    for line in lines:
+        if line.lstrip().startswith("```"):
+            in_code = not in_code
+            continue
+        m = re.match(r"^#{1,6}\s+(.*?)\s*#*\s*$", line)
+        if in_code or not m:
+            continue
+        title = re.sub(r"\[([^\]]*)\]\([^)]*\)", r"\1", m.group(1))
+        slug = re.sub(r"[^\w\- ]", "", title.lower().strip()).replace(" ", "-")
+        n = seen.get(slug, 0)
+        seen[slug] = n + 1
+        slugs.add(slug if n == 0 else f"{slug}-{n}")
+    return slugs
+
+
 def audit_relative_links():
     """Audits relative links across all repository README.md files to ensure no dead links exist."""
     broken = []
@@ -52,6 +75,11 @@ def audit_relative_links():
             if not os.path.exists(full_path):
                 rel_rm = os.path.relpath(rm, REPO_ROOT)
                 broken.append((rel_rm, text, target, unquoted))
+            elif "#" in target and full_path.lower().endswith(".md") and os.path.isfile(full_path):
+                fragment = urllib.parse.unquote(target.split("#", 1)[1]).strip().lower()
+                if fragment and fragment not in _heading_slugs(full_path):
+                    rel_rm = os.path.relpath(rm, REPO_ROOT)
+                    broken.append((rel_rm, text, target, f"{unquoted} (missing anchor #{fragment})"))
 
     return broken, len(readme_files)
 

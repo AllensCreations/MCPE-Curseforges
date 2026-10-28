@@ -33,6 +33,10 @@ jobs:
       - name: Manifest titles
         run: python scripts/validate_manifest_titles.py
 
+      - name: README, DESCRIPTION and link audit
+        continue-on-error: true  # advisory until existing findings are cleaned up
+        run: python scripts/check_readme_status.py
+
       - name: Crafting template test
         run: python tests/test_crafting_template.py
 

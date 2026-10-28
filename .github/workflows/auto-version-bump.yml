@@ -1,4 +1,9 @@
-name: Auto-Bump Pack Version, Rebuild & Register New Projects
+name: Release - Bump, Rebuild, Refresh & Sync READMEs
+
+# One workflow for everything that used to live in two:
+#   * "Auto-Bump Pack Version, Rebuild & Register New Projects" (push + manual)
+#   * "Refresh Add-ons and Rebuild Packs" (daily schedule + manual)
+# Every run also re-syncs the READMEs (project, category, builds, root, OneBlock maps).
 
 on:
   push:
@@ -10,6 +15,9 @@ on:
       - 'MCPEDL/script/**'
       - 'MCPEDL/maps/**'
       - 'scripts/ensure_recipe_unlocks.py'
+  # Daily refresh, even when no source files changed (never bumps versions).
+  schedule:
+    - cron: "17 2 * * *"
   workflow_dispatch:
     inputs:
       target:
@@ -17,25 +25,31 @@ on:
         required: true
         default: 'all'
         type: string
+      bump:
+        description: "Bump pack versions (turn off for a refresh-only rebuild)"
+        required: true
+        default: true
+        type: boolean
 
 permissions:
   contents: write
 
 concurrency:
-  group: auto-version-bump-${{ github.ref }}
+  group: release-build-refresh
   cancel-in-progress: false
 
 jobs:
-  bump-build-register:
+  release-refresh:
     runs-on: ubuntu-latest
-    # Dirtbound's dedicated world workflow owns its README and archive generation;
-    # skip this generic release job when a push includes that map's source tree.
-    if: ${{ !contains(github.event.head_commit.message, '[skip ci]') && (github.event_name == 'workflow_dispatch' || !contains(toJSON(github.event.commits), 'MCPEDL/maps/OneBlock-Dirtbound-Kingdom-Beta/')) }}
+    # Pushes only: skip bot commits, and skip when the push touches Dirtbound's
+    # source tree (its dedicated world workflow owns that README and archives).
+    if: ${{ github.event_name != 'push' || (!contains(github.event.head_commit.message, '[skip ci]') && !contains(toJSON(github.event.commits), 'MCPEDL/maps/OneBlock-Dirtbound-Kingdom-Beta/')) }}
 
     steps:
-      - name: Checkout repository
+      - name: Checkout main
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
+          ref: main
           fetch-depth: 0
           token: ${{ secrets.GITHUB_TOKEN }}
 
@@ -47,25 +61,51 @@ jobs:
       - name: Ensure custom crafting recipes are always unlocked
         run: python3 scripts/ensure_recipe_unlocks.py
 
+      - name: Convert icon files to pack_icon.png
+        run: |
+          set -euo pipefail
+          pip install pillow
+          python3 scripts/make_pack_icon.py
+
       - name: Bump versions, rebuild packages & register new projects
         id: process
         env:
           EVENT: ${{ github.event_name }}
           TARGET: ${{ github.event.inputs.target }}
+          BUMP: ${{ github.event.inputs.bump }}
           BEFORE: ${{ github.event.before }}
         run: |
           set -euo pipefail
-          if [ "$EVENT" = "workflow_dispatch" ]; then
-            if [ -z "$TARGET" ] || [ "$TARGET" = "all" ]; then
-              python3 scripts/auto_bump_and_build.py --all
-            else
-              python3 scripts/auto_bump_and_build.py --project "$TARGET"
-            fi
-          elif [ -n "$BEFORE" ] && [ "$BEFORE" != "0000000000000000000000000000000000000000" ]; then
-            python3 scripts/auto_bump_and_build.py --base "$BEFORE"
-          else
-            python3 scripts/auto_bump_and_build.py --base "HEAD~1"
-          fi
+          ARGS=()
+          MODE="refresh"
+          case "$EVENT" in
+            schedule)
+              ARGS=(--all --no-bump)
+              ;;
+            workflow_dispatch)
+              if [ -z "$TARGET" ] || [ "$TARGET" = "all" ]; then
+                ARGS=(--all)
+              else
+                ARGS=(--project "$TARGET")
+              fi
+              if [ "$BUMP" = "true" ]; then
+                MODE="release"
+              else
+                ARGS+=(--no-bump)
+              fi
+              ;;
+            *)
+              MODE="release"
+              if [ -n "$BEFORE" ] && [ "$BEFORE" != "0000000000000000000000000000000000000000" ]; then
+                ARGS=(--base "$BEFORE")
+              else
+                ARGS=(--base "HEAD~1")
+              fi
+              ;;
+          esac
+          echo "mode=$MODE" >> "$GITHUB_OUTPUT"
+          echo "Running: python3 scripts/auto_bump_and_build.py ${ARGS[*]}"
+          python3 scripts/auto_bump_and_build.py "${ARGS[@]}"
 
       - name: Synchronize OneBlock map READMEs
         run: python3 scripts/sync_oneblock_map_readmes.py
@@ -73,21 +113,37 @@ jobs:
       - name: Validate manifest titles and creator attribution
         run: python3 scripts/validate_manifest_titles.py
 
+      - name: Audit README and DESCRIPTION status (report only)
+        continue-on-error: true
+        run: |
+          {
+            echo "### README audit"
+            echo '```'
+            python3 scripts/check_readme_status.py || true
+            echo '```'
+          } >> "$GITHUB_STEP_SUMMARY"
+
       - name: Commit and push changes
+        env:
+          MODE: ${{ steps.process.outputs.mode }}
         run: |
           set -euo pipefail
-          git config --global user.name  "github-actions[bot]"
-          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git config user.name  "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
 
           for dir in MCPEDL packs minigames maps builds; do
             if [ -d "$dir" ]; then git add "$dir"; fi
           done
           if [ -f README.md ]; then git add README.md; fi
 
-          if git diff --staged --quiet; then
-            echo "No changes to commit."
+          if git diff --cached --quiet; then
+            echo "Nothing to commit: packages, catalogs and READMEs are up to date."
           else
-            git commit -m "chore(release): auto-bump versions, rebuild packages & register new projects [skip ci]"
+            if [ "$MODE" = "release" ]; then
+              git commit -m "chore(release): auto-bump versions, rebuild packages, register projects & sync READMEs [skip ci]"
+            else
+              git commit -m "chore(build): refresh project packages, catalogs & READMEs [skip ci]"
+            fi
             git pull --rebase origin main
             git push origin main
           fi

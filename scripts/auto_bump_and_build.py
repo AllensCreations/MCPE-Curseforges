@@ -384,18 +384,35 @@ def update_manifests_for_project(project_path):
 # Package builder
 # ─────────────────────────────────────────────────────────────────────────────
 
-def zip_directory_contents(src_dir, zip_dest):
-    """Zips the contents of src_dir directly into the root of zip_dest."""
+def _collect_zip_entries(src_dir, prefix=""):
+    """Sorted (archive_name, file_path) pairs for src_dir, skipping junk."""
+    entries = []
+    for root, dirs, files in os.walk(src_dir):
+        dirs[:] = sorted(d for d in dirs if d not in JUNK_DIRS)
+        for file in sorted(files):
+            if is_junk(file):
+                continue
+            full_path = os.path.join(root, file)
+            rel_path = os.path.relpath(full_path, src_dir).replace(os.sep, "/")
+            entries.append(((prefix + "/" + rel_path) if prefix else rel_path, full_path))
+    return entries
+
+
+def _write_zip(zip_dest, entries):
+    """Write a reproducible zip: fixed timestamps, sorted entries, fixed permissions."""
     os.makedirs(os.path.dirname(zip_dest), exist_ok=True)
     with zipfile.ZipFile(zip_dest, "w", zipfile.ZIP_DEFLATED) as zf:
-        for root, dirs, files in os.walk(src_dir):
-            dirs[:] = [d for d in dirs if d not in JUNK_DIRS]
-            for file in sorted(files):
-                if is_junk(file):
-                    continue
-                full_path = os.path.join(root, file)
-                rel_path = os.path.relpath(full_path, src_dir)
-                zf.write(full_path, rel_path)
+        for arcname, full_path in sorted(entries):
+            info = zipfile.ZipInfo(arcname, date_time=(1980, 1, 1, 0, 0, 0))
+            info.compress_type = zipfile.ZIP_DEFLATED
+            info.external_attr = 0o644 << 16
+            with open(full_path, "rb") as fh:
+                zf.writestr(info, fh.read())
+
+
+def zip_directory_contents(src_dir, zip_dest):
+    """Zips the contents of src_dir directly into the root of zip_dest (reproducible)."""
+    _write_zip(zip_dest, _collect_zip_entries(src_dir))
 
 
 def rebuild_project_packages(project_path, category, version_str=None):
@@ -504,21 +521,10 @@ def rebuild_project_packages(project_path, category, version_str=None):
         bp_folder_name = f"{slug}_BP"
         rp_folder_name = f"{slug}_RP"
 
-        with zipfile.ZipFile(mcaddon_path, "w", zipfile.ZIP_DEFLATED) as zf:
-            for root, dirs, files in os.walk(bp_dir):
-                dirs[:] = [x for x in dirs if x not in JUNK_DIRS]
-                for file in sorted(files):
-                    if is_junk(file):
-                        continue
-                    fp = os.path.join(root, file)
-                    zf.write(fp, os.path.join(bp_folder_name, os.path.relpath(fp, bp_dir)))
-            for root, dirs, files in os.walk(rp_dir):
-                dirs[:] = [x for x in dirs if x not in JUNK_DIRS]
-                for file in sorted(files):
-                    if is_junk(file):
-                        continue
-                    fp = os.path.join(root, file)
-                    zf.write(fp, os.path.join(rp_folder_name, os.path.relpath(fp, rp_dir)))
+        _addon_entries = []
+        for _src_dir, _folder in ((bp_dir, bp_folder_name), (rp_dir, rp_folder_name)):
+            _addon_entries.extend(_collect_zip_entries(_src_dir, _folder))
+        _write_zip(mcaddon_path, _addon_entries)
 
         primary_file = addon_name
         built_files.append((
@@ -612,7 +618,7 @@ This folder contains compiled release packages for **{title}** by AllensCreation
 
 ## Installation Guide
 
-For general import instructions, refer to the centralized [Download and Installation Guide](../README.md#download-and-installation-guide).
+For general import instructions, refer to the centralized [Download and Installation Guide](../../README.md#download-and-installation-guide).
 
 ---
 
