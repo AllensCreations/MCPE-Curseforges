@@ -648,7 +648,7 @@ def update_project_readme(project_path, category, new_ver_str, primary_file=None
             quoted_file = urllib.parse.quote(primary_file)
             download_url = f"{GITHUB_RAW}/builds/{project_name}/{quoted_file}"
             extension = os.path.splitext(primary_file)[1].lower()
-            download_label = f"Download the add-on ({extension})"
+            download_label = f"Download {title} ({extension})"
         else:
             catalog = "new_addons" if category.endswith("new_addons") else "addons"
             download_url = (

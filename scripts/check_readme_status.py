@@ -323,7 +323,7 @@ def auto_generate_readme(proj_dir):
             package = candidates[0]
             package_rel = os.path.relpath(package, REPO_ROOT).replace(os.sep, "/")
             url = "https://github.com/AllensCreations/MCPE-Curseforges/raw/main/" + urllib.parse.quote(package_rel, safe="/")
-            label = f"Download the add-on (.{os.path.splitext(package)[1].lstrip('.')})"
+            label = f"Download {clean_name} (.{os.path.splitext(package)[1].lstrip('.')})"
         else:
             url = (
                 "https://github.com/AllensCreations/MCPE-Curseforges/blob/main/"
