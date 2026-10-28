@@ -50,6 +50,11 @@ jobs:
           Repo: https://github.com/AllensCreations/MCPE-Curseforges.git (branch main)
           The attached TXT export shows the current files. Read it before changing anything.
 
+          ## Destination (remembered from this export)
+          Repo-root-relative folders this work belongs to:
+          __DEST__
+          All file paths in the .sh script start from the repo root and stay inside these folders. New files for this work go here too. Put the first folder in a `DEST=` variable at the top of the script and use it for every path and for `git add`.
+
           ## Rules
           1. Never invent features, versions, links, assets or test results.
           2. Give only what changed. Smallest possible edits, no unrelated rewrites.
@@ -112,6 +117,7 @@ jobs:
           root = pathlib.Path(".").resolve()
           SKIP_DIRS = {".git", "db", "node_modules", "__pycache__", "exports"}
           selected, skipped, missing = {}, [], []
+          dests = []
 
           def is_text(p: pathlib.Path) -> bool:
               try:
@@ -150,6 +156,12 @@ jobs:
                   missing.append(entry)
                   continue
               for m in matches:
+                  try:
+                      d = (m if m.is_dir() else m.parent).relative_to(root).as_posix() or "."
+                      if d not in dests:
+                          dests.append(d)
+                  except ValueError:
+                      pass
                   if m.is_dir():
                       for f in sorted(m.rglob("*")):
                           add(f)
@@ -180,6 +192,7 @@ jobs:
 
           out = pathlib.Path("exports"); out.mkdir(exist_ok=True)
           index = ["EXPORT REQUEST: " + ", ".join(raw_paths),
+                   "DESTINATION: " + ", ".join(dests),
                    f"Text files: {len(files)}   Parts: {len(parts)}   Skipped binary: {len(skipped)}   Paths not found: {len(missing)}", ""]
           for i, part in enumerate(parts, 1):
               name = f"{label}.txt" if len(parts) == 1 else f"{label}_part{i:02d}_of_{len(parts):02d}.txt"
@@ -192,7 +205,7 @@ jobs:
               index += ["", "NOT FOUND:"] + [f"    {m}" for m in missing]
           if skipped:
               index += ["", "SKIPPED (binary):"] + [f"    {s}" for s in skipped[:1000]]
-          (out / "INSTRUCTIONS.md").write_text(AI_PROMPT + "\n", encoding="utf-8")
+          (out / "INSTRUCTIONS.md").write_text(AI_PROMPT.replace("__DEST__", "\n".join("- " + d for d in dests) or "- .") + "\n", encoding="utf-8")
           index += ["", "ALSO INCLUDED: INSTRUCTIONS.md (AI update prompt: one Termux .sh script per update)"]
           (out / "INDEX.txt").write_text("\n".join(index) + "\n", encoding="utf-8")
           with open(os.environ["GITHUB_OUTPUT"], "a", encoding="utf-8") as fh:
