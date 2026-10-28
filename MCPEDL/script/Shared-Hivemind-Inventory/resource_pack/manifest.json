@@ -1,13 +1,13 @@
 {
   "format_version": 2,
   "header": {
-    "name": "Team Inventory (v1.0.15)",
+    "name": "Team Inventory (v1.0.16)",
     "description": "Controller icon for Team Inventory. by AllensCreations",
     "uuid": "cc723f33-6729-4663-9077-dd1f1ed4d836",
     "version": [
       1,
       0,
-      15
+      16
     ],
     "min_engine_version": [
       1,
@@ -22,7 +22,7 @@
       "version": [
         1,
         0,
-        15
+        16
       ]
     }
   ],
