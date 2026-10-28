@@ -45,7 +45,8 @@ export function pickBlock(pool) {
 export function regenerate(player, auto = false) {
   const b = dimOf().getBlock(CORE);
   if (!b) return false;
-  const d = player ? loadPlayer(player) : null;
+  let d = null;
+  try { d = player ? loadPlayer(player) : null; } catch (e) { d = null; }
   let id = pickBlock(d ? poolFor(d) : [["minecraft:dirt", 1]]);
   core.jackpot = false;
   let chest = false, bonus = false;
@@ -104,7 +105,14 @@ export function coreWatch() {
   const b = dimOf().getBlock(CORE);
   if (!b) return;
   if (!b.isAir) { core.armed = true; core.pending = false; return; }
-  if (!core.pending) { core.pending = true; system.run(() => regenerate(null)); }
+  if (!core.pending) {
+    core.pending = true;
+    system.run(() => {
+      let ok = false;
+      try { ok = regenerate(null); } catch (e) { console.warn("[SovereignMarket] regenerate: " + e); }
+      if (!ok) core.pending = false;
+    });
+  }
 }
 
 
@@ -168,7 +176,15 @@ export function toggleAuto(p) {
   if (a.on) {
     // Break the OneBlock right away so the player sees it start.
     rolloverAuto(a);
-    if ((a.used || 0) < AUTO_DAILY_TICKS) { try { mineOnce(p, a, true); } catch (e) { /* ignore */ } }
+    // The instant break uses the same daily time as a normal break, so toggling cannot give free breaks.
+    if ((a.used || 0) < AUTO_DAILY_TICKS) {
+      let broke = false;
+      try { broke = mineOnce(p, a, true); } catch (e) { /* ignore */ }
+      if (broke) {
+        a.used = Math.min(AUTO_DAILY_TICKS, (a.used || 0) + AUTO_LEVELS[a.lvl - 1].step);
+        persistAuto();
+      }
+    }
   }
   return { ok: true, msg: "Auto-Miner is now " + (a.on ? "ON" : "OFF") + "." };
 }
@@ -182,7 +198,10 @@ const AUTO_DROPS = {
   "minecraft:lapis_ore": "minecraft:lapis_lazuli", "minecraft:deepslate_lapis_ore": "minecraft:lapis_lazuli",
   "minecraft:diamond_ore": "minecraft:diamond", "minecraft:deepslate_diamond_ore": "minecraft:diamond",
   "minecraft:emerald_ore": "minecraft:emerald", "minecraft:deepslate_emerald_ore": "minecraft:emerald",
-  "minecraft:quartz_ore": "minecraft:quartz", "minecraft:glowstone": "minecraft:glowstone_dust"
+  "minecraft:quartz_ore": "minecraft:quartz", "minecraft:glowstone": "minecraft:glowstone_dust",
+  "minecraft:stone": "minecraft:cobblestone", "minecraft:deepslate": "minecraft:cobbled_deepslate", "minecraft:clay": "minecraft:clay_ball",
+  "minecraft:melon_block": "minecraft:melon_slice", "minecraft:nether_gold_ore": "minecraft:gold_nugget", "minecraft:mycelium": "minecraft:dirt",
+  "minecraft:red_mushroom_block": "minecraft:red_mushroom", "minecraft:brown_mushroom_block": "minecraft:brown_mushroom"
 };
 
 function storeAutoDrop(container, blockId) {
@@ -257,7 +276,8 @@ function mineOnce(player, a, fx) {
   core.armed = false;
   core.pending = true;
   if (fx) breakEffect(dim);
-  if (!regenerate(player, true)) core.pending = false;
+  if (!regenerate(player, true)) { core.pending = false; return false; }
+  return true;
 }
 
 function announceExhausted(player, a) {
@@ -387,8 +407,10 @@ export function buyIsland(p, targetIdx) {
   const O = ISLAND_LEVELS[cur];
   if (!canAfford(d, N.cost)) return { ok: false, msg: "Not enough " + CURRENCY + ". You need " + N.cost + ", you have " + d.coins + "." };
   const dim = dimOf();
-  const corners = [[N.min, N.min], [N.min, N.max], [N.max, N.min], [N.max, N.max]];
-  if (corners.some(([x, z]) => !dim.getBlock({ x, y: FLOOR_Y, z }))) return { ok: false, msg: "The new area is not loaded. Stand near the OneBlock and try again. Nothing was charged." };
+  // Every block of the new border must be loaded, or the ring would be drawn only in part after the coins are taken.
+  for (let i = N.min; i <= N.max; i++) {
+    if (![[i, N.min], [i, N.max], [N.min, i], [N.max, i]].every(([x, z]) => dim.getBlock({ x, y: FLOOR_Y, z }))) return { ok: false, msg: "The new area is not loaded. Stand near the OneBlock and try again. Nothing was charged." };
+  }
   // Only the border is drawn: the old border is removed and a new ring is placed on the edge of the new area.
   // Nothing inside the area is filled, so players build their own land.
   const edges = (L) => [[L.min, L.min, L.max, L.min], [L.min, L.max, L.max, L.max], [L.min, L.min + 1, L.min, L.max - 1], [L.max, L.min + 1, L.max, L.max - 1]];
@@ -565,12 +587,15 @@ export function auditLoot() {
 }
 
 // Removes stray liquid from the permitted island area (replace only; never touches other blocks).
-// Limited to 67x67x5 so it stays under the fill command's 32,768 block cap.
+// Works in stripes of 32 rows so every fill stays under the fill command's 32,768 block cap on any island size.
 export function sweepLiquids() {
   const L = ISLAND_LEVELS[islandLevel()];
   const dim = dimOf();
   for (const f of ["flowing_water", "water", "flowing_lava", "lava"]) {
-    try { dim.runCommand("fill " + L.min + " 0 " + L.min + " " + L.max + " 4 " + L.max + " air replace " + f); } catch (e) { /* none found */ }
+    for (let z = L.min; z <= L.max; z += 32) {
+      const z2 = Math.min(L.max, z + 31);
+      try { dim.runCommand("fill " + L.min + " 0 " + z + " " + L.max + " 4 " + z2 + " air replace " + f); } catch (e) { /* none found */ }
+    }
   }
 }
 

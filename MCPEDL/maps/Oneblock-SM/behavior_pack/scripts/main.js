@@ -41,13 +41,19 @@ on("playerBreakBlock (after)", () => world.afterEvents.playerBreakBlock.subscrib
   core.armed = false;
   core.pending = true;
   const player = ev.player;
-  onHandBreak(player, ev.brokenBlockPermutation.type.id);
-  if (/diamond_ore$/.test(ev.brokenBlockPermutation.type.id)) {
-    const dd = loadPlayer(player);
-    grantAch(player, dd, "first_diamond");
-    savePlayer(player, dd);
-  }
-  system.run(() => { if (!regenerate(player)) core.pending = false; });
+  try {
+    onHandBreak(player, ev.brokenBlockPermutation.type.id);
+    if (/diamond_ore$/.test(ev.brokenBlockPermutation.type.id)) {
+      const dd = loadPlayer(player);
+      grantAch(player, dd, "first_diamond");
+      savePlayer(player, dd);
+    }
+  } catch (e) { console.warn("[SovereignMarket] break reward: " + e); }
+  system.run(() => {
+    let ok = false;
+    try { ok = regenerate(player); } catch (e) { console.warn("[SovereignMarket] regenerate: " + e); }
+    if (!ok) core.pending = false;
+  });
 }));
 
 on("playerBreakBlock (before)", () => world.beforeEvents.playerBreakBlock.subscribe((ev) => {
@@ -66,16 +72,17 @@ on("playerPlaceBlock (before)", () => world.beforeEvents.playerPlaceBlock.subscr
 }));
 
 const FACE = { Up: [0, 1, 0], Down: [0, -1, 0], North: [0, 0, -1], South: [0, 0, 1], East: [1, 0, 0], West: [-1, 0, 0] };
+const EDGE_ITEMS = /bucket$|flint_and_steel$|fire_charge$|spawn_egg$|_boat$|_raft$|minecart$|armor_stand$|end_crystal$|item_frame$|painting$/;
 
 on("playerInteractWithBlock (before)", () => world.beforeEvents.playerInteractWithBlock.subscribe((ev) => {
   if (tutLocked.has(ev.player.id)) { ev.cancel = true; return; }
   const b = ev.block;
   if (b.dimension.id !== "minecraft:overworld") return;
   if (!inBounds(b.x, b.z)) { ev.cancel = true; return; }
-  // Buckets place liquid on the far side of the clicked face, so check that target too.
+  // Buckets, boats, minecarts, fire and similar items act on the far side of the clicked face, so check that target too.
   const id = ev.itemStack && ev.itemStack.typeId;
   const f = FACE[String(ev.blockFace)];
-  if (id && id.endsWith("bucket") && f && !inBounds(b.x + f[0], b.z + f[2])) { ev.cancel = true; warn(ev.player, PLOT_MSG); }
+  if (id && EDGE_ITEMS.test(id) && f && !inBounds(b.x + f[0], b.z + f[2])) { ev.cancel = true; warn(ev.player, PLOT_MSG); }
 }));
 
 // Backup enforcement. If a "before" event is missing or misses a case, the block is undone right after it happens.
@@ -105,6 +112,15 @@ on("playerBreakBlock (after, plot guard)", () => world.afterEvents.playerBreakBl
     } catch (e) { /* ignore */ }
     warn(ev.player, PLOT_MSG);
   });
+}));
+
+// Explosions cannot remove the OneBlock, the collection chest above it or the foundation Bedrock.
+on("explosion (before)", () => world.beforeEvents.explosion.subscribe((ev) => {
+  try {
+    const all = ev.getImpactedBlocks();
+    const keep = all.filter((b) => !(b.dimension.id === "minecraft:overworld" && b.x === CORE.x && b.z === CORE.z && b.y >= CORE.y - 1 && b.y <= CORE.y + 1));
+    if (keep.length !== all.length) ev.setImpactedBlocks(keep);
+  } catch (e) { /* ignore */ }
 }));
 
 on("playerSpawn", () => world.afterEvents.playerSpawn.subscribe((ev) => {
@@ -137,6 +153,7 @@ on("playerLeave", () => world.afterEvents.playerLeave.subscribe((ev) => {
   tutLocked.delete(ev.playerId);
   tutSession.delete(ev.playerId);
   unlocked.delete(ev.playerId);
+  lastWarn.delete(ev.playerId);
 }));
 
 system.runInterval(() => { try { coreWatch(); } catch (e) { console.warn("[SovereignMarket] watch: " + e); } }, 20);

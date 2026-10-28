@@ -23,8 +23,12 @@ function read(holder, key, fresh) {
 
 export const loadPlayer = (p) => read(p, PKEY, freshPlayer);
 export const savePlayer = (p, d) => p.setDynamicProperty(PKEY, JSON.stringify(d));
+let levelCache = -1; // island level kept in memory so block events do not reread the saved world data
 export const loadWorld = () => read(world, WKEY, freshWorld);
-export const saveWorld = (w) => world.setDynamicProperty(WKEY, JSON.stringify(w));
+export const saveWorld = (w) => {
+  world.setDynamicProperty(WKEY, JSON.stringify(w));
+  levelCache = Math.min(Math.max(0, w.lvl | 0), ISLAND_LEVELS.length - 1);
+};
 
 export const hasLic = (d, id) => d.lic.includes(id);
 export const canAfford = (d, n) => Number.isSafeInteger(n) && n >= 0 && d.coins >= n;
@@ -35,7 +39,10 @@ export function log(d, text) {
   d.hist.unshift(text);
   if (d.hist.length > HISTORY_MAX) d.hist.length = HISTORY_MAX;
 }
-export const islandLevel = () => Math.min(Math.max(0, loadWorld().lvl | 0), ISLAND_LEVELS.length - 1);
+export const islandLevel = () => {
+  if (levelCache < 0) levelCache = Math.min(Math.max(0, loadWorld().lvl | 0), ISLAND_LEVELS.length - 1);
+  return levelCache;
+};
 export const inBounds = (x, z) => {
   const L = ISLAND_LEVELS[islandLevel()];
   return x >= L.min && x <= L.max && z >= L.min && z <= L.max;
