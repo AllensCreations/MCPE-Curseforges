@@ -617,6 +617,21 @@
             "allenscreations:wild"
           ]
         }
+      },
+      "allenscreations:sit_down": {
+        "queue_command": {
+          "command": [
+            "ride @s summon_ride allenscreations:sit_seat reassign_rides"
+          ]
+        }
+      },
+      "allenscreations:stand_up": {
+        "queue_command": {
+          "command": [
+            "ride @s stop_riding",
+            "kill @e[type=allenscreations:sit_seat,r=3]"
+          ]
+        }
       }
     },
     "component_groups": {
@@ -740,7 +755,15 @@
             },
             {
               "item": "allenscreations:golden_beast_biscuit",
-              "heal_amount": 40
+              "heal_amount": 40,
+              "effects": [
+                {
+                  "name": "regeneration",
+                  "chance": 1.0,
+                  "duration": 5,
+                  "amplifier": 2
+                }
+              ]
             }
           ]
         },
@@ -787,7 +810,16 @@
             }
           ]
         },
-        "minecraft:sittable": {},
+        "minecraft:sittable": {
+          "sit_event": {
+            "event": "allenscreations:sit_down",
+            "target": "self"
+          },
+          "stand_event": {
+            "event": "allenscreations:stand_up",
+            "target": "self"
+          }
+        },
         "minecraft:behavior.stay_while_sitting": {
           "priority": 2
         }

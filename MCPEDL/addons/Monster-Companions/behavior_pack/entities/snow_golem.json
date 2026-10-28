@@ -294,7 +294,15 @@
             },
             {
               "item": "allenscreations:golden_beast_biscuit",
-              "heal_amount": 40
+              "heal_amount": 40,
+              "effects": [
+                {
+                  "name": "regeneration",
+                  "chance": 1.0,
+                  "duration": 5,
+                  "amplifier": 2
+                }
+              ]
             }
           ]
         },

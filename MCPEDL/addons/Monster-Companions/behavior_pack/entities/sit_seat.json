@@ -1,0 +1,59 @@
+{
+  "format_version": "1.21.0",
+  "minecraft:entity": {
+    "description": {
+      "identifier": "allenscreations:sit_seat",
+      "is_spawnable": false,
+      "is_summonable": true
+    },
+    "component_groups": {
+      "allenscreations:check_empty": {
+        "minecraft:environment_sensor": {
+          "triggers": [
+            {
+              "filters": { "test": "rider_count", "operator": "<", "value": 1 },
+              "event": "allenscreations:remove_seat"
+            }
+          ]
+        }
+      },
+      "allenscreations:remove": {
+        "minecraft:instant_despawn": {}
+      }
+    },
+    "components": {
+      "minecraft:type_family": { "family": ["allenscreations_sit_seat"] },
+      "minecraft:collision_box": { "width": 0.1, "height": 0.1 },
+      "minecraft:health": { "value": 1, "max": 1 },
+      "minecraft:damage_sensor": {
+        "triggers": { "deals_damage": "no" }
+      },
+      "minecraft:physics": {},
+      "minecraft:spell_effects": {
+        "add_effects": [
+          { "effect": "invisibility", "duration": "infinite", "visible": false }
+        ]
+      },
+      "minecraft:rideable": {
+        "seat_count": 1,
+        "family_types": ["monster_companion"],
+        "seats": [
+          { "position": [0.0, -0.2, 0.0] }
+        ]
+      },
+      "minecraft:timer": {
+        "time": 2,
+        "looping": false,
+        "time_down_event": { "event": "allenscreations:start_check", "target": "self" }
+      }
+    },
+    "events": {
+      "allenscreations:start_check": {
+        "add": { "component_groups": ["allenscreations:check_empty"] }
+      },
+      "allenscreations:remove_seat": {
+        "add": { "component_groups": ["allenscreations:remove"] }
+      }
+    }
+  }
+}
