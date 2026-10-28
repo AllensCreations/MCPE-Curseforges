@@ -1,15 +1,13 @@
-## [Unreleased]
+# Changelog — Trivia Vault: The Locked World
 
-### Changed
-- Blocks now unlock by block type instead of by individual block position; a correct answer unlocks every block of that type for the rest of the run.
-- The trivia form now shows the block name being unlocked.
-
-### Fixed
-- Repeated block breaking no longer stacks multiple trivia forms while one is open.
-
-## [1.0.0] - 2026-10-27
+## [1.0.9] - 2026-10-28
 
 ### Added
-- Added a survival trivia challenge with randomized multiple-choice questions.
-- Added randomized rewards, failure consequences, and limited-use lifelines.
-- Added Controller integration and in-game instructions.
+- Added five sample questions across general knowledge and Minecraft.
+- Added randomized answer placement for each question.
+- Changed permanent unlocks from individual coordinates to block types.
+- Updated player instructions for the sample question bank and block-type progression.
+
+### Improved & Balanced
+- Kept rarity-weighted rewards and randomized survival penalties.
+- Kept hint lifelines without removing answer choices.

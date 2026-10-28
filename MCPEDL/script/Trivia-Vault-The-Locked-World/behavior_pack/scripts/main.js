@@ -7,19 +7,31 @@ import { CONSEQUENCES } from "./consequences.js";
 
 const GAME_KEY = "game_state";
 const playerStats = new Map();
-const unlocked = new Map();
 const pending = new Map();
 const rand = (n) => Math.floor(Math.random() * n);
-const shuffle = (items) => [...items].sort(() => Math.random() - 0.5);
+const shuffle = (items) => {
+  const result = [...items];
+  for (let i = result.length - 1; i > 0; i--) {
+    const j = rand(i + 1);
+    [result[i], result[j]] = [result[j], result[i]];
+  }
+  return result;
+};
 const statsFor = (player) => {
   if (!playerStats.has(player.id)) playerStats.set(player.id, { lifelines: 3, multiplier: 1, multiplierUntil: 0, correct: 0, asked: new Set() });
   return playerStats.get(player.id);
 };
-const unlockedFor = (player) => {
-  if (!unlocked.has(player.id)) unlocked.set(player.id, new Set());
-  return unlocked.get(player.id);
-};
-const blockName = (typeId) => typeId.replace(/^minecraft:/, "").split("_").map((w) => w.charAt(0).toUpperCase() + w.slice(1)).join(" ");
+function unlockProperty(key) {
+  let hash = 2166136261;
+  for (let i = 0; i < key.length; i++) hash = Math.imul(hash ^ key.charCodeAt(i), 16777619);
+  return `tv_unlocked_${(hash >>> 0).toString(16)}`;
+}
+function isBlockUnlocked(key) {
+  try { return world.getDynamicProperty(unlockProperty(key)) === true; } catch (e) { return false; }
+}
+function permanentlyUnlockBlock(key) {
+  try { world.setDynamicProperty(unlockProperty(key), true); return true; } catch (e) { return false; }
+}
 const invOf = (player) => player.getComponent(EntityComponentTypes.Inventory)?.container;
 
 function say(player, message) {
@@ -40,15 +52,15 @@ function giveItem(player, typeId, count) {
 
 function award(player) {
   const stats = statsFor(player);
-  const reward = REWARDS[rand(REWARDS.length)];
-  const multiplier = system.currentTick <= stats.multiplierUntil ? stats.multiplier : 1;
-  giveItem(player, reward.item, reward.count);
-  if (reward.xp > 0) player.addExperience(Math.floor(reward.xp * multiplier));
-  if (Math.random() < 0.16) {
-    stats.multiplier = 2;
-    stats.multiplierUntil = system.currentTick + 20 * 60;
-    say(player, "XP multiplier activated: 2x for the next 60 seconds.");
+  const totalWeight = REWARDS.reduce((sum, item) => sum + (item.weight || 1), 0);
+  let ticket = rand(totalWeight);
+  let reward = REWARDS[0];
+  for (const item of REWARDS) {
+    ticket -= item.weight || 1;
+    if (ticket < 0) { reward = item; break; }
   }
+  giveItem(player, reward.item, reward.count);
+  if (reward.xp > 0) player.addExperience(reward.xp);
   say(player, `${reward.message} Correct answers: ${stats.correct}.`);
 }
 
@@ -87,14 +99,14 @@ function applyConsequence(player) {
   switch (outcome.kind) {
     case "hotbar": removeHotbarItem(player); break;
     case "anvil": dropAnvil(player); break;
-    case "creepers": spawnNear(player, "minecraft:creeper", 10, 10); break;
-    case "damage": player.applyDamage(6 + rand(7)); break;
-    case "hunger": player.addEffect("hunger", 20 * 45, { amplifier: 2 }); break;
-    case "poison": player.addEffect("poison", 20 * 12, { amplifier: 1 }); break;
-    case "weakness": player.addEffect("weakness", 20 * 35, { amplifier: 1 }); break;
-    case "slowness": player.addEffect("slowness", 20 * 20, { amplifier: 2 }); break;
-    case "blindness": player.addEffect("blindness", 20 * 8, { amplifier: 0 }); break;
-    case "fire": player.setOnFire(8, true); break;
+    case "creepers": spawnNear(player, "minecraft:creeper", 10, 10); spawnNear(player, "minecraft:creeper", 2, 5); break;
+    case "damage": player.applyDamage(10 + rand(11)); break;
+    case "hunger": player.addEffect("hunger", 20 * 60, { amplifier: 3 }); break;
+    case "poison": player.addEffect("poison", 20 * 18, { amplifier: 1 }); break;
+    case "weakness": player.addEffect("weakness", 20 * 50, { amplifier: 2 }); break;
+    case "slowness": player.addEffect("slowness", 20 * 30, { amplifier: 3 }); break;
+    case "blindness": player.addEffect("blindness", 20 * 12, { amplifier: 0 }); break;
+    case "fire": player.setOnFire(12, true); break;
     case "lightning": {
       const l = player.location;
       try { player.dimension.spawnEntity("minecraft:lightning_bolt", { x: l.x + 2, y: l.y, z: l.z + 2 }); } catch (e) { player.applyDamage(5); }
@@ -120,28 +132,27 @@ function applyConsequence(player) {
       }
       break;
     }
-    case "phantoms": spawnNear(player, "minecraft:phantom", 3, 10); break;
-    case "spiders": spawnNear(player, "minecraft:spider", 5, 10); break;
-    case "skeletons": spawnNear(player, "minecraft:skeleton", 5, 10); break;
-    case "zombies": spawnNear(player, "minecraft:zombie", 5, 10); break;
-    case "silverfish": spawnNear(player, "minecraft:silverfish", 8, 8); break;
-    case "slimes": spawnNear(player, "minecraft:slime", 4, 8); break;
+    case "phantoms": spawnNear(player, "minecraft:phantom", 5, 10); break;
+    case "spiders": spawnNear(player, "minecraft:spider", 7, 10); break;
+    case "skeletons": spawnNear(player, "minecraft:skeleton", 7, 10); break;
+    case "zombies": spawnNear(player, "minecraft:zombie", 7, 10); break;
+    case "silverfish": spawnNear(player, "minecraft:silverfish", 10, 8); break;
+    case "slimes": spawnNear(player, "minecraft:slime", 6, 8); break;
     default: player.applyDamage(5); break;
   }
   say(player, `Wrong answer. ${outcome.message}`);
 }
 
-function newQuestion(player, key, reduced = false) {
+function newQuestion(player, key) {
   const stats = statsFor(player);
   let pool = QUESTIONS.filter((q) => !stats.asked.has(q.question));
-  if (!pool.length) {
-    stats.asked.clear();
-    pool = QUESTIONS;
-  }
+  if (!pool.length) { stats.asked.clear(); pool = QUESTIONS; }
   const q = pool[rand(pool.length)];
   stats.asked.add(q.question);
-  const choices = shuffle([q.answer, ...q.wrong]).map((text) => ({ text, correct: text === q.answer }));
-  pending.set(player.id, { q, choices, key, reduced });
+  const wrong = [...new Set(q.wrong.filter((a) => a !== q.answer))].slice(0, 3);
+  if (wrong.length !== 3) { say(player, "This question could not be loaded safely. Try breaking the block again."); return; }
+  const choices = shuffle([q.answer, ...wrong]).map((text) => ({ text, correct: text === q.answer }));
+  pending.set(player.id, { q, choices, key });
   showQuestion(player);
 }
 
@@ -149,56 +160,65 @@ async function showQuestion(player) {
   const state = pending.get(player.id);
   if (!state) return;
   const stats = statsFor(player);
-  const visible = state.reduced ? state.choices.filter((c) => c.correct || Math.random() < 0.34) : state.choices;
-  const options = visible.length > 2 ? visible.slice(0, 2).concat(visible.filter((c) => c.correct).slice(0, 1)) : visible;
-  const finalOptions = options.some((c) => c.correct) ? options : [state.choices.find((c) => c.correct), ...options.slice(0, 1)];
-  const uniqueOptions = [...new Map(finalOptions.map((c) => [c.text, c])).values()];
+  if (!state.ready) {
+    state.ready = true;
+    pending.set(player.id, state);
+    const menu = new ActionFormData()
+      .title("Trivia Vault | Locked Block")
+      .body(`A trivia question is ready.\nFour answer choices will appear on the next screen.\nLifelines remaining: ${stats.lifelines}`)
+      .button("Answer the question")
+      .button("Use a lifeline");
+    let menuResponse;
+    try { menuResponse = await menu.show(player); } catch (e) { return; }
+    if (menuResponse.canceled) { pending.delete(player.id); return; }
+    if (menuResponse.selection === 1) { await showLifeline(player); return; }
+  }
   const form = new ActionFormData()
     .title(`Trivia Vault | ${state.q.category}`)
-    .body(`Block: ${blockName(state.key)}\n${state.q.question}\n\nChoose one answer. Correct unlocks every ${blockName(state.key)} for this run. A wrong answer triggers a random penalty.\nLifelines remaining: ${stats.lifelines}`);
-  uniqueOptions.slice(0, 4).forEach((c) => form.button(c.text));
-  if (!state.reduced && stats.lifelines > 0) form.button("Use Lifeline — remove wrong answers");
-  else if (state.reduced && stats.lifelines > 0) form.button("Use Lifeline — cryptic hint");
+    .body(`${state.q.question}\n\nChoose one of the four answers. Wrong answers trigger severe penalties.`);
+  state.choices.forEach((c) => form.button(c.text));
   let response;
-  try { response = await form.show(player); } catch (e) { pending.delete(player.id); return; }
+  try { response = await form.show(player); } catch (e) { return; }
   if (response.canceled) { pending.delete(player.id); return; }
-  const lifelineIndex = uniqueOptions.slice(0, 4).length;
-  if (response.selection === lifelineIndex && stats.lifelines > 0) {
-    stats.lifelines--;
-    if (!state.reduced) {
-      state.reduced = true;
-      state.choices = state.choices.filter((c) => c.correct || Math.random() < 0.34);
-      if (!state.choices.some((c) => c.correct)) state.choices[0] = { text: state.q.answer, correct: true };
-      state.choices = shuffle(state.choices);
-      pending.set(player.id, state);
-      showQuestion(player);
-    } else {
-      say(player, `Hint: the answer begins with “${state.q.answer.slice(0, 1)}” and has ${state.q.answer.length} characters.`);
-      showQuestion(player);
-    }
-    return;
-  }
-  const chosen = uniqueOptions[response.selection];
+  const chosen = state.choices[response.selection];
   pending.delete(player.id);
   if (chosen?.correct) {
     stats.correct++;
-    unlockedFor(player).add(state.key);
+    const unlocked = permanentlyUnlockBlock(state.key);
     award(player);
-    say(player, `${blockName(state.key)} unlocked. Every ${blockName(state.key)} can now be broken for the rest of this run.`);
+    say(player, unlocked ? "This block type is permanently unlocked. All blocks of this type across the world can now be broken without another question." : "Correct answer! This block type is unlocked for this run; permanent storage was unavailable.");
   } else {
     applyConsequence(player);
   }
 }
 
+async function showLifeline(player) {
+  const stats = statsFor(player);
+  if (stats.lifelines <= 0) { say(player, "No lifelines remain."); return; }
+  const form = new ActionFormData()
+    .title("Trivia Vault | Lifeline")
+    .body("Use one of your limited lifelines before answering. The question will still show exactly four choices.")
+    .button("Cryptic hint")
+    .button("Return to question");
+  try {
+    const response = await form.show(player);
+    if (response.canceled || response.selection !== 0) { showQuestion(player); return; }
+    const state = pending.get(player.id);
+    if (!state) return;
+    stats.lifelines--;
+    say(player, `Cryptic hint: the answer begins with “${state.q.answer.slice(0, 1)}” and contains ${state.q.answer.length} characters.`);
+    showQuestion(player);
+  } catch (e) {}
+}
+
 world.beforeEvents.playerBreakBlock.subscribe((event) => {
   if (world.getDynamicProperty(GAME_KEY) !== "running") return;
   if (event.player.getGameMode() === GameMode.Creative) return;
-  const typeId = event.block.typeId;
-  if (unlockedFor(event.player).has(typeId)) return;
+  const block = event.block;
+  const key = `block_${block.typeId}`;
+  if (isBlockUnlocked(key)) return;
   event.cancel = true;
-  const player = event.player;
-  if (pending.has(player.id)) return;
-  system.run(() => newQuestion(player, typeId));
+  system.run(() => newQuestion(event.player, key));
 });
 
 world.afterEvents.entityDie.subscribe((event) => {
@@ -212,24 +232,21 @@ world.afterEvents.entityDie.subscribe((event) => {
 world.afterEvents.playerLeave.subscribe((event) => {
   playerStats.delete(event.playerId);
   pending.delete(event.playerId);
-  unlocked.delete(event.playerId);
 });
 
 registerController({
   title: "Trivia Vault: The Locked World",
-  gameInfo: "Type: Survival trivia challenge\nPlayers: Solo\nGoal: Answer Minecraft questions correctly to unlock blocks and earn rewards.",
-  howToPlay: "Goal: Survive the Trivia Vault and collect rare rewards.\nControls: In Survival, attempt to break a block to open a four-choice trivia question. Choose an answer in the form.\nCorrect: Receive a random reward and unlock that block type (every block of the same type) for the rest of the run.\nWrong: Receive a randomized penalty, including lost hotbar items, an anvil hazard, or ten creepers.\nLifelines: Three per run. Use one to remove wrong answers or reveal a cryptic hint.\nCreative: Block breaking is not intercepted.\nHow it ends: Your death ends the run. Use the Controller to start another run.",
+  gameInfo: "Type: Survival trivia challenge\nPlayers: Solo\nGoal: Answer general-knowledge and Minecraft questions correctly to unlock block types and earn rewards.",
+  howToPlay: "Goal: Survive the Trivia Vault and collect rewards.\nControls: In Survival, attempt to break a block to open a general-knowledge or Minecraft trivia question with exactly four answer choices.\nCorrect: Receive a balanced random reward. That block type is permanently unlocked in the world, so every block of that type can be broken without another question.\nWrong: Face severe penalties, including item loss, heavy damage, fire, or large hostile-mob waves.\nLifelines: Three hint lifelines per run; they never remove answer choices.\nCreative: Block breaking is not intercepted.\nHow it ends: Your death ends the run. Use the Controller to start another run.",
   onStart: (player) => {
     playerStats.clear();
     pending.clear();
-    unlocked.clear();
     playerStats.set(player.id, { lifelines: 3, multiplier: 1, multiplierUntil: 0, correct: 0, asked: new Set() });
-    world.sendMessage("§6Trivia Vault: The Locked World§r has opened. Every new block type is a question.");
-    say(player, `Question bank: ${QUESTIONS.length} entries. Rewards: ${REWARDS.length}. Penalties: ${CONSEQUENCES.length}.`);
+    world.sendMessage("§6Trivia Vault: The Locked World§r has opened. Every locked Survival block type triggers a trivia question.");
+    say(player, `Trivia question bank: ${QUESTIONS.length} entries. Four choices per question. Rewards are weighted by rarity. Penalties: ${CONSEQUENCES.length}.`);
   },
   onEnd: () => {
     pending.clear();
-    unlocked.clear();
     world.sendMessage("§6Trivia Vault§r is closed. Start again with the Controller when ready.");
   },
 });

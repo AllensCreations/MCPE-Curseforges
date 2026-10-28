@@ -128,6 +128,11 @@ export function registerController(options) {
     if (id === "allenscreations:end") endGame();
   });
 
+  world.afterEvents.worldLoad.subscribe(() => {
+    if (getState() === "running") setState("idle");
+    for (const p of world.getAllPlayers()) if (isHost(p)) giveController(p);
+  });
+
   world.afterEvents.playerSpawn.subscribe(({ player, initialSpawn }) => {
     if (!initialSpawn) return;
     if (isHost(player) && (isCreative(player) || getState() !== "running")) giveController(player);

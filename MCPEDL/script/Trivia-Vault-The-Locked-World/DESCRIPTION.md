@@ -1,31 +1,50 @@
-# Trivia Vault: The Locked World
+# Trivia Vault: The Locked World (v1.0.9) — Survival Trivia Challenge
+
+**By AllensCreations**
+
+Trivia Vault: The Locked World turns Survival block breaking into a general-knowledge challenge. Answer questions correctly to unlock a whole block type and receive a random reward. Wrong answers trigger dangerous penalties.
 
 ## Overview
-Trivia Vault: The Locked World turns survival mining into a high-risk Minecraft knowledge challenge. Breaking a block type in Survival is stopped until the player answers a randomized multiple-choice question for that type.
+This preview build contains five sample questions covering internet culture, geography, science, and Minecraft. Every question has four choices, and the answer order is shuffled when the question appears.
 
-## Features
-- 500 unique question entries across crafting, mobs, items, blocks, dimensions, exploration, villagers, redstone, archaeology, and Minecraft history.
-- Four-choice trivia forms with shuffled answers.
-- A random reward pool with 50 entries.
-- A random penalty pool with 50 entries, including item loss, anvil hazards, and creeper swarms.
-- Three lifelines per run for answer elimination and cryptic hints.
-- Occasional double experience rewards for a limited duration.
-- A Controller-based start and instructions screen.
+## Key Features
+### Block-Type Unlocks
+- **What Happens**: A correct answer permanently unlocks that block type across the world, rather than unlocking only one coordinate.
 
-## Gameplay
-Start the run with the Controller. In Survival, attempt to break a block to receive a question. Correct answers unlock that block type for the rest of the run and award loot immediately. Wrong answers apply one random penalty. Creative mode is left unmodified for testing and inspection. The run ends when the player dies.
+### Four-Choice Trivia
+- **What Happens**: Each question presents four choices with randomized answer placement.
+
+### Rewards and Penalties
+- **What Happens**: Correct answers grant rarity-weighted rewards. Wrong answers trigger randomized Survival penalties.
+
+### Hint Lifelines
+- **What Happens**: Three hint-only lifelines are available per run. Hints do not remove answer choices.
+
+## How to Use
+Use the Controller as the host or an operator and select Start. In Survival, attempt to break a locked block to open a question. Creative mode bypasses the trivia check. The run ends when the player dies.
 
 ## Compatibility
-Unknown / needs confirmation. The pack targets stable Minecraft Bedrock 26.52-era documentation, but the actual game version and achievement state must be checked in the world where it is installed.
-No experiment requirement detected in the inspected files; follow any in-game prompt required to enable script execution.
-Source created, not tested in game.
+- Minecraft Bedrock Edition: minimum version not independently verified for this preview.
+- Experimental features: No experiment requirement detected in the inspected files; follow any in-game prompt required to enable script execution.
+- Achievements: Unknown / needs confirmation.
+- Verification: Source created, not tested in game.
 
 ## Creator and Permissions
-Creator: AllensCreations.
-Permission to redistribute or modify this project should be obtained from the creator unless separately licensed.
+- [CurseForge Profile](https://www.curseforge.com/members/allenscreations/projects)
+- [MCPEDL Profile](https://mcpedl.com/user/allenscreations/)
 
 ## Guidelines and Attribution
-Minecraft is a trademark of Microsoft. This project is an independent community-made experience and is not official Minecraft content. AllensCreations is credited as the creator of this project.
+
+- Creator: AllensCreations
+- Rights & Reservation: All rights reserved for AllensCreations.
+- Content Creators: Content creators are permitted to feature this creation in videos and streams with credit to AllensCreations.
+- Redistribution: Do not re-upload this pack or provide direct monetized download bypasses. Link directly to the official repository page.
+- Disclaimer: This is an unofficial community creation. It is not an official Minecraft product and is not approved by or associated with Mojang or Microsoft.
+
+© All rights reserved for AllensCreations.
+
+---
 
 ## Search & Discovery Keywords
-Minecraft Bedrock, trivia, survival challenge, quiz minigame, locked world, Minecraft questions, AllensCreations, survival rewards, lifelines, hostile mobs.
+
+Minecraft Bedrock script, Trivia Vault: The Locked World, survival trivia challenge, general knowledge quiz, randomized answers, block type unlocks, survival rewards, lifelines, AllensCreations.
