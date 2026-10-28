@@ -162,10 +162,10 @@ export function buyAutoLevel(p) {
   const d = loadPlayer(p);
   if (!spend(d, nxt.cost)) return { ok: false, msg: "Not enough " + CURRENCY + ". You need " + nxt.cost + ", you have " + d.coins + "." };
   autoCache = { lvl: level + 1, on: a ? a.on !== false : true, day: a ? a.day : currentDay(), used: a ? a.used || 0 : 0, msg: a ? !!a.msg : false, full: false };
-  log(d, "Bought Auto-Miner Lv" + (level + 1) + " for " + nxt.cost);
+  log(d, "Bought " + nxt.name + " Auto-Miner for " + nxt.cost);
   savePlayer(p, d);
   persistAuto();
-  return { ok: true, msg: "Auto-Miner Lv" + (level + 1) + " ready: it breaks the OneBlock every " + nxt.step + " tick" + (nxt.step === 1 ? "" : "s") + ", about 2 minutes per Minecraft day. Balance: " + d.coins + " " + CURRENCY };
+  return { ok: true, msg: nxt.name + " Auto-Miner ready: it breaks the OneBlock every " + nxt.step + " tick" + (nxt.step === 1 ? "" : "s") + ", about 2 minutes per Minecraft day. Balance: " + d.coins + " " + CURRENCY };
 }
 
 export function toggleAuto(p) {
@@ -300,9 +300,9 @@ export function autoMineTick() {
   a.used = (a.used || 0) + 1;
   if (a.used % 20 === 0) persistAuto();
   const step = AUTO_LEVELS[a.lvl - 1].step;
-  if (a.used % 10 === 1) { try { player.onScreenDisplay.setActionBar("\u00a7bAuto-Miner Lv" + a.lvl + "   " + Math.ceil((AUTO_DAILY_TICKS - a.used) / 20) + "s left"); } catch (e) { /* ignore */ } }
-  // Fast levels show the break effect every 4th break so the screen stays readable.
-  if (a.used % step === 0) mineOnce(player, a, step >= 4 || a.used % 4 === 0);
+  if (a.used % 10 === 1) { try { player.onScreenDisplay.setActionBar("\u00a7b" + AUTO_LEVELS[a.lvl - 1].name + " Auto-Miner   " + Math.ceil((AUTO_DAILY_TICKS - a.used) / 20) + "s left"); } catch (e) { /* ignore */ } }
+  // Every break plays the block-destroy effect.
+  if (a.used % step === 0) mineOnce(player, a, true);
   if (a.used >= AUTO_DAILY_TICKS) announceExhausted(player, a);
 }
 
@@ -408,16 +408,17 @@ export function buyIsland(p, targetIdx) {
   if (!canAfford(d, N.cost)) return { ok: false, msg: "Not enough " + CURRENCY + ". You need " + N.cost + ", you have " + d.coins + "." };
   const dim = dimOf();
   // Every block of the new border must be loaded, or the ring would be drawn only in part after the coins are taken.
-  for (let i = N.min; i <= N.max; i++) {
-    if (![[i, N.min], [i, N.max], [N.min, i], [N.max, i]].every(([x, z]) => dim.getBlock({ x, y: FLOOR_Y, z }))) return { ok: false, msg: "The new area is not loaded. Stand near the OneBlock and try again. Nothing was charged." };
+  for (let i = N.min - 1; i <= N.max + 1; i++) {
+    if (![[i, N.min - 1], [i, N.max + 1], [N.min - 1, i], [N.max + 1, i]].every(([x, z]) => dim.getBlock({ x, y: FLOOR_Y, z }))) return { ok: false, msg: "The new area is not loaded. Stand near the OneBlock and try again. Nothing was charged." };
   }
-  // Only the border is drawn: the old border is removed and a new ring is placed on the edge of the new area.
+  // Only the border is drawn: the old border is removed and a new ring is placed just outside the new area.
   // Nothing inside the area is filled, so players build their own land.
-  const edges = (L) => [[L.min, L.min, L.max, L.min], [L.min, L.max, L.max, L.max], [L.min, L.min + 1, L.min, L.max - 1], [L.max, L.min + 1, L.max, L.max - 1]];
-  for (const [x1, z1, x2, z2] of edges(O)) {
+  // o = 1 gives the ring just outside the permitted area, where players cannot break or place blocks.
+  const edges = (L, o = 0) => { const lo = L.min - o, hi = L.max + o; return [[lo, lo, hi, lo], [lo, hi, hi, hi], [lo, lo + 1, lo, hi - 1], [hi, lo + 1, hi, hi - 1]]; };
+  for (const [x1, z1, x2, z2] of [...edges(O), ...edges(O, 1)]) {
     try { dim.runCommand("fill " + x1 + " " + FLOOR_Y + " " + z1 + " " + x2 + " " + FLOOR_Y + " " + z2 + " air replace " + BORDER_BLOCK); } catch (e) { /* no old border here */ }
   }
-  for (const [x1, z1, x2, z2] of edges(N)) {
+  for (const [x1, z1, x2, z2] of edges(N, 1)) {
     for (const under of ["air", "grass_block"]) {
       try { dim.runCommand("fill " + x1 + " " + FLOOR_Y + " " + z1 + " " + x2 + " " + FLOOR_Y + " " + z2 + " " + BORDER_BLOCK + " replace " + under); } catch (e) { /* nothing to replace */ }
     }

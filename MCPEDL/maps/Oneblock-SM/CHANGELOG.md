@@ -2,6 +2,15 @@
 
 ---
 
+## [1.1.3] - 2026-10-29
+
+### Improved & Balanced
+- **Tool-Named Auto-Miner**: The five Auto-Miner levels are now Wooden, Copper, Iron, Gold and Diamond. Speeds and prices are unchanged.
+
+### Fixed
+- **Auto-Miner Break Effect**: Every Auto-Miner break now plays the block-destroy effect. Before, the two fastest levels showed it only on every fourth break.
+- **Island Border Outside the Permit**: The border ring is now placed just outside the permitted area, so it can no longer be mined for Polished Deepslate. Rings left by earlier permits are removed when you buy the next one.
+
 ## [1.1.2] - 2026-10-29
 
 ### Improved & Balanced

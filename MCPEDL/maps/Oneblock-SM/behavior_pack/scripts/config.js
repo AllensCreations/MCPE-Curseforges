@@ -142,11 +142,11 @@ export const BIG_CONFIRM = 2000;
 // Auto-Miner: permanent world-wide levels. step = ticks between OneBlock breaks (1 tick at the top level).
 // Each Minecraft day it runs AUTO_DAILY_TICKS (2 minutes) and then reports that it is exhausted.
 export const AUTO_LEVELS = [
-  { cost: 100, step: 10 },
-  { cost: 400, step: 6 },
-  { cost: 1500, step: 4 },
-  { cost: 5000, step: 2 },
-  { cost: 15000, step: 1 },
+  { name: "Wooden", cost: 100, step: 10 },
+  { name: "Copper", cost: 400, step: 6 },
+  { name: "Iron", cost: 1500, step: 4 },
+  { name: "Gold", cost: 5000, step: 2 },
+  { name: "Diamond", cost: 15000, step: 1 },
 ];
 export const AUTO_DAILY_TICKS = 2400;
 
@@ -159,7 +159,7 @@ export const TUTORIAL_PAGES = [
   { title: "Block Licenses", body: "Block Licenses add new blocks to the OneBlock. At the start it only makes Dirt.\n\nGood first buy: Tier 2: Woodland for 40 coins adds logs and leaves.\n\nEach tier unlocks more, and rare blocks stay rare." },
   { title: "Selling Items", body: "You earn coins by selling items. Dirt, logs, stone and ores all sell in Sell Items.\n\nPrices move: the more you sell, the lower the price goes, and it recovers over time. Check Market Prices for goods in high demand." },
   { title: "Loot Contracts", body: "Natural Loot Contracts bring you free loot chests. Loot only includes items your licenses allow.\n\nBasic Supply Chest makes the OneBlock itself turn into a chest now and then. The other contracts place chests on your island.\n\nEach contract can be upgraded up to level 3." },
-  { title: "Island & Auto-Miner", body: "Island permits make your build area bigger. You can only build and break blocks inside the permitted area. The edge of your area is marked by a ring of polished deepslate. The island is shared by everyone in this world.\n\nThe Auto-Miner breaks the OneBlock for you for about 2 minutes per Minecraft day. Drops go into the chest above the OneBlock. Higher levels mine faster." },
+  { title: "Island & Auto-Miner", body: "Island permits make your build area bigger. You can only build and break blocks inside the permitted area. Your area is surrounded by a ring of polished deepslate just outside it. The island is shared by everyone in this world.\n\nThe Auto-Miner breaks the OneBlock for you for about 2 minutes per Minecraft day. Drops go into the chest above the OneBlock. Higher levels mine faster." },
   { title: "Ready to Go", body: "That is everything you need.\n\nQuick plan: mine Dirt, buy Tier 2, sell logs, then save up for contracts and bigger tiers.\n\nCheck Achievements for bonus coins. Finish this guide now for the Quick Learner reward." },
 ];
 

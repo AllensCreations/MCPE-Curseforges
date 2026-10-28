@@ -1,6 +1,6 @@
 import { system } from "@minecraft/server";
 import { ActionFormData } from "@minecraft/server-ui";
-import { CURRENCY, LICENSES, ISLAND_LEVELS, CONTRACTS, CATS, nice, ACHIEVEMENTS, UPGRADE_MAX, BIG_CONFIRM, BASIC_CHEST_CHANCE, TUTORIAL_PAGES } from "./config.js";
+import { CURRENCY, LICENSES, ISLAND_LEVELS, CONTRACTS, CATS, nice, ACHIEVEMENTS, UPGRADE_MAX, BIG_CONFIRM, BASIC_CHEST_CHANCE, TUTORIAL_PAGES, AUTO_LEVELS } from "./config.js";
 import { loadPlayer, savePlayer, loadWorld, hasLic, islandLevel, highestTier, ITEMS, quote, snapshot, demandState } from "./store.js";
 import { inventoryCounts, sell, buyLicense, buyIsland, buyContract, upgradeContract, upgradeCost, intervalFor, autoStatus, buyAutoLevel, toggleAuto, grantAch, tutorialDone } from "./game.js";
 
@@ -217,8 +217,8 @@ async function perksMenu(p) {
     const s = autoStatus();
     const per = (n) => (n === 1 ? "every tick" : "every " + n + " ticks");
     rows.push(s.next
-      ? { text: "Auto-Miner " + (s.level ? "Lv" + s.level : "(not owned)") + "\n" + (s.level ? "Upgrade to Lv" + (s.level + 1) : "Buy Lv1") + ": " + s.next.cost + " " + CURRENCY, cost: s.next.cost, confirm: "Auto-Miner Lv" + (s.level + 1) + ": breaks the OneBlock " + per(s.next.step) + " for about 2 minutes per Minecraft day. Drops go to the chest above the OneBlock.", run: () => buyAutoLevel(p) }
-      : { text: "\u00a76Auto-Miner Lv" + s.level + " MAX\nBreaks the OneBlock " + per(s.step), info: "The Auto-Miner is at the maximum level." });
+      ? { text: "Auto-Miner: " + (s.level ? AUTO_LEVELS[s.level - 1].name : "not owned") + "\n" + (s.level ? "Upgrade to " : "Buy ") + s.next.name + ": " + s.next.cost + " " + CURRENCY, cost: s.next.cost, confirm: s.next.name + " Auto-Miner: breaks the OneBlock " + per(s.next.step) + " for about 2 minutes per Minecraft day. Drops go to the chest above the OneBlock.", run: () => buyAutoLevel(p) }
+      : { text: "\u00a76" + AUTO_LEVELS[s.level - 1].name + " Auto-Miner MAX\nBreaks the OneBlock " + per(s.step), info: "The Auto-Miner is at the maximum level." });
     if (s.level) rows.push({ text: "Auto-Miner: " + (s.on ? "\u00a72ON" : "\u00a7cOFF") + "\n" + (s.leftSecs > 0 ? s.leftSecs + "s left today. Tap to toggle" : "Exhausted. Recharges next day"), run: () => toggleAuto(p) });
     return rows;
   });
