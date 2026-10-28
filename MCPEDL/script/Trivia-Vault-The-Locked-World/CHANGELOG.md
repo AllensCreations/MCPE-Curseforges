@@ -1,5 +1,16 @@
 # Changelog — Trivia Vault: The Locked World
 
+## [1.0.14] - 2026-10-28
+
+### Added
+- Added a selectable Hardmode behavior-pack subpack.
+- Added crafting unlock questions: crafted outputs of locked item types are held until a correct answer, then returned and unlocked.
+
+### Improved & Balanced
+- Hardmode disables lifelines and adds damage after wrong-answer penalties.
+- Normal mode retains three hint lifelines.
+- Preserved the 20-block-radius limit for matching-block removal.
+
 ## [1.0.13] - 2026-10-28
 
 ### Added

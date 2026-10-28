@@ -1,4 +1,4 @@
-# Trivia Vault: The Locked World (v1.0.13) — Survival Trivia Challenge
+# Trivia Vault: The Locked World (v1.0.14) — Survival Trivia Challenge
 
 **By AllensCreations**
 
@@ -25,7 +25,7 @@ Use the Controller as the host or an operator and select Start. In Survival, att
 
 ## Compatibility
 - Minecraft Bedrock Edition: minimum version not independently verified for this preview.
-- Experimental features: No experiment requirement detected in the inspected files; follow any in-game prompt required to enable script execution.
+- Experimental features: Crafting interception uses the experimental `playerCraftRecipe` event; enable the relevant Creator experiment if required by your installed game version.
 - Achievements: Unknown / needs confirmation.
 - Verification: Source created, not tested in game.
 
@@ -47,4 +47,4 @@ Use the Controller as the host or an operator and select Start. In Survival, att
 
 ## Search & Discovery Keywords
 
-Minecraft Bedrock script, Trivia Vault: The Locked World, survival trivia challenge, general knowledge quiz, randomized answers, block type unlocks, 20-block radius penalty, lifelines, AllensCreations.
+Minecraft Bedrock script, Trivia Vault: The Locked World, survival trivia challenge, general knowledge quiz, randomized answers, block type unlocks, 20-block radius penalty, crafting unlocks, Hardmode subpack, lifelines, AllensCreations.

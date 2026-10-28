@@ -1,8 +1,9 @@
-import { world, system, EntityComponentTypes, GameMode } from "@minecraft/server";
+import { world, system, EntityComponentTypes, GameMode, ItemStack } from "@minecraft/server";
 import { ActionFormData } from "@minecraft/server-ui";
 import { registerController, endGame } from "./controller.js";
 import { QUESTIONS } from "./questions.js";
 import { CONSEQUENCES } from "./consequences.js";
+import { HARDMODE } from "./difficulty.js";
 
 const GAME_KEY = "game_state";
 const playerStats = new Map();
@@ -17,7 +18,7 @@ const shuffle = (items) => {
   return result;
 };
 const statsFor = (player) => {
-  if (!playerStats.has(player.id)) playerStats.set(player.id, { lifelines: 3, multiplier: 1, multiplierUntil: 0, correct: 0, asked: new Set() });
+  if (!playerStats.has(player.id)) playerStats.set(player.id, { lifelines: HARDMODE ? 0 : 3, multiplier: 1, multiplierUntil: 0, correct: 0, asked: new Set() });
   return playerStats.get(player.id);
 };
 function unlockProperty(key) {
@@ -68,6 +69,11 @@ function dropAnvil(player) {
 }
 
 function removeMatchingBlocksInRadius(player, target) {
+  if (target?.kind === "item") {
+    player.applyDamage(8);
+    say(player, "Hard lesson: the crafted item remains locked and the vault deals extra damage.");
+    return;
+  }
   if (!target?.location || !target?.typeId || !target?.dimension) {
     say(player, "The block-disappearing penalty could not find its target.");
     return;
@@ -145,6 +151,10 @@ function applyConsequence(player, target) {
     default: player.applyDamage(5); break;
   }
   if (outcome.kind !== "blocks_radius") say(player, `Wrong answer. ${outcome.message}`);
+  if (HARDMODE) {
+    try { player.applyDamage(4); } catch (e) {}
+    say(player, "Hardmode penalty: additional damage.");
+  }
 }
 
 function newQuestion(player, key, target) {
@@ -189,7 +199,15 @@ async function showQuestion(player) {
   if (chosen?.correct) {
     stats.correct++;
     const unlocked = permanentlyUnlockBlock(state.key);
-    say(player, unlocked ? "Correct answer! This block type is now permanently unlocked. All blocks of this type across the world can now be broken without another question." : "Correct answer! This block type is unlocked for this run; permanent storage was unavailable.");
+    if (state.target?.kind === "item") {
+      const count = Math.max(1, state.target.count || 1);
+      const inv = invOf(player);
+      const remainder = inv?.addItem(new ItemStack(state.target.typeId, count));
+      if (remainder) { try { player.dimension.spawnItem(remainder, player.location); } catch (e) {} }
+      say(player, unlocked ? `Correct answer! ${state.target.typeId.replace("minecraft:", "")} is now unlocked, and your crafted item has been returned.` : "Correct answer! The item was returned, but permanent storage was unavailable.");
+    } else {
+      say(player, unlocked ? "Correct answer! This block type is now permanently unlocked. All blocks of this type across the world can now be broken without another question." : "Correct answer! This block type is unlocked for this run; permanent storage was unavailable.");
+    }
   } else {
     applyConsequence(player, state.target);
   }
@@ -212,6 +230,39 @@ async function showLifeline(player) {
     say(player, `Cryptic hint: the answer begins with “${state.q.answer.slice(0, 1)}” and contains ${state.q.answer.length} characters.`);
     showQuestion(player);
   } catch (e) {}
+}
+
+function removeCraftedItems(player, typeId, count) {
+  const inv = invOf(player);
+  if (!inv) return 0;
+  let remaining = count;
+  for (let slot = 0; slot < inv.size && remaining > 0; slot++) {
+    const stack = inv.getItem(slot);
+    if (!stack || stack.typeId !== typeId) continue;
+    const take = Math.min(stack.amount, remaining);
+    remaining -= take;
+    if (take === stack.amount) inv.setItem(slot, undefined);
+    else { stack.amount -= take; inv.setItem(slot, stack); }
+  }
+  return count - remaining;
+}
+
+if (world.afterEvents.playerCraftRecipe) {
+  world.afterEvents.playerCraftRecipe.subscribe(({ player, itemStack }) => {
+    if (world.getDynamicProperty(GAME_KEY) !== "running" || !itemStack || player.getGameMode() === GameMode.Creative) return;
+    const typeId = itemStack.typeId;
+    const key = `item_${typeId}`;
+    if (isBlockUnlocked(key)) return;
+    system.run(() => {
+      const count = removeCraftedItems(player, typeId, itemStack.amount);
+      if (count <= 0) {
+        say(player, `A crafted ${typeId.replace("minecraft:", "")} could not be held for its unlock question. Enable the required Creator experiment and try again.`);
+        return;
+      }
+      say(player, `Your crafted ${typeId.replace("minecraft:", "")} is locked until you answer correctly.`);
+      newQuestion(player, key, { kind: "item", typeId, count });
+    });
+  });
 }
 
 world.beforeEvents.playerBreakBlock.subscribe((event) => {
@@ -245,8 +296,8 @@ registerController({
   onStart: (player) => {
     playerStats.clear();
     pending.clear();
-    playerStats.set(player.id, { lifelines: 3, multiplier: 1, multiplierUntil: 0, correct: 0, asked: new Set() });
-    world.sendMessage("§6Trivia Vault: The Locked World§r has opened. Every locked Survival block type triggers a trivia question.");
+    playerStats.set(player.id, { lifelines: HARDMODE ? 0 : 3, multiplier: 1, multiplierUntil: 0, correct: 0, asked: new Set() });
+    world.sendMessage(`§6Trivia Vault: The Locked World§r has opened in ${HARDMODE ? "HARDMODE" : "Normal mode"}. Locked blocks and crafted items trigger trivia questions.`);
     say(player, `Trivia question bank: ${QUESTIONS.length} entries. Four choices per question. No rewards are given for correct answers. Penalties: ${CONSEQUENCES.length}.`);
   },
   onEnd: () => {

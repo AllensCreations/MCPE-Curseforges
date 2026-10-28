@@ -1,4 +1,4 @@
-# Trivia Vault: The Locked World (v1.0.13)
+# Trivia Vault: The Locked World (v1.0.14)
 
 ## Overview
 Trivia Vault: The Locked World is a survival trivia challenge by AllensCreations.
@@ -9,13 +9,17 @@ The correct answer's position is shuffled for every question.
 
 ## Features
 - Five sample questions in this fast preview build.
+- Selectable Hardmode behavior-pack subpack: no lifelines and additional damage after wrong answers.
 - Four answer choices with randomized answer placement.
 - Correctly answering permanently unlocks that block type across the world.
 - The unlock is stored as a world dynamic property and is intended to persist after restarting.
 - Wrong answers trigger randomized survival penalties, including a chance to remove matching blocks within a 20-block radius of the targeted block.
-- Three hint-only lifelines are available per run; they do not remove answer choices.
+- Normal mode provides three hint-only lifelines per run; Hardmode provides none.
 - The AllensCreations Controller opens the Start and How to play options.
-- Creative mode bypasses the block-break trivia check.
+- Crafting a locked item holds the output until the player answers correctly; then the crafted output is returned and that item type is permanently unlocked.
+- Crafting interception currently depends on the experimental `playerCraftRecipe` Script API event and requires the relevant Creator experiment in game versions where it remains experimental.
+- Select the Hardmode subpack in the Behavior Pack settings to remove lifelines and add damage to wrong-answer penalties.
+- Creative mode bypasses the block-break trivia check and crafting locks.
 
 ## How to Start
 1. Import the project package into Minecraft Bedrock.

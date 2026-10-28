@@ -60,5 +60,12 @@
       "AllensCreations"
     ],
     "product_type": "addon"
-  }
+  },
+  "subpacks": [
+    {
+      "folder_name": "hardmode",
+      "name": "Hardmode",
+      "memory_tier": 0
+    }
+  ]
 }
