@@ -1,46 +1,35 @@
-# Trivia Vault: The Locked World (v1.0.15)
+# Trivia Vault: The Locked World
 
 ## Overview
 Trivia Vault: The Locked World is a survival trivia challenge by AllensCreations.
 
-In Survival, attempting to break a locked block type opens a four-choice trivia question.
-Questions mix internet culture, geography, science, everyday knowledge, and Minecraft.
-The correct answer's position is shuffled for every question.
+In Survival, attempting to break a locked block type immediately opens a four-choice trivia question. Questions cover general knowledge and Minecraft. The correct answer's position is shuffled for every question.
 
 ## Features
-- Five sample questions in this fast preview build.
-- Selectable Hardmode behavior-pack subpack: no lifelines and additional damage after wrong answers.
+- Direct question display with no extra confirmation screen.
 - Four answer choices with randomized answer placement.
 - Correctly answering permanently unlocks that block type across the world.
-- The unlock is stored as a world dynamic property and is intended to persist after restarting.
 - Wrong answers trigger randomized survival penalties, including a chance to remove matching blocks within a 20-block radius of the targeted block.
-- Normal mode provides three hint-only lifelines per run; Hardmode provides none.
+- Selectable Hardmode behavior-pack subpack: additional damage after wrong answers.
 - The AllensCreations Controller opens the Start and How to play options.
-- Crafting a locked item holds the output until the player answers correctly; then the crafted output is returned and that item type is permanently unlocked.
-- Crafting interception currently depends on the experimental `playerCraftRecipe` Script API event and requires the relevant Creator experiment in game versions where it remains experimental.
-- Select the Hardmode subpack in the Behavior Pack settings to remove lifelines and add damage to wrong-answer penalties.
-- Creative mode bypasses the block-break trivia check and crafting locks.
+- Crafting is not intercepted; normal crafting remains unchanged.
 
 ## How to Start
 1. Import the project package into Minecraft Bedrock.
 2. Enable the Behavior Pack and Resource Pack in a test world.
-3. Use the Controller as the host or an operator to open the game menu.
-4. Select Start and play in Survival mode.
+3. Select the Hardmode subpack in Behavior Pack settings if desired.
+4. Use the Controller as the host or an operator to open the game menu.
+5. Select Start and play in Survival mode.
 
 ## Controls and Rules
-Attempt to break a block in Survival to open a trivia question.
+Attempt to break a locked block in Survival to open its trivia question. The question appears directly, without an extra confirmation menu, hints, or lifelines.
 Select one of the four answers.
-A correct answer unlocks that entire block type, not just one coordinate. Unlocking the block is the only reward; no items or experience are awarded.
-Wrong answers trigger a random penalty, which may include damage, hostile mobs, losing an item, or removing matching blocks within a 20-block radius of the block being mined.
-Use a lifeline before answering when you need a hint.
-The run ends when the player dies; use the Controller to start another run.
+A correct answer permanently unlocks that block type across the world. Unlocking the block is the only reward; no items or experience are awarded.
+Wrong answers trigger a random penalty, which may include damage, hostile mobs, losing an item, or removing matching blocks within a 20-block radius of the targeted block.
+Creative mode bypasses the block-break trivia check.
+The run ends when the player dies; the game state closes and further trivia stops. Use the Controller to start another run.
 
 ## Compatibility
 Achievement status: Unknown / needs confirmation.
-Experiments: No experiment requirement detected in the inspected files; follow any in-game prompt required to enable script execution.
-Source created, not tested in game.
-
-## Verification Notes
-The JavaScript files were syntax-checked for this preview package.
-The package structure was checked locally, but the repository's current build_payload.py pipeline was not run.
-This package has five sample questions for faster review and is not the full question bank.
+Experiments: No experiment requirement detected in the inspected files.
+Source updated; in-game testing is still required to confirm gameplay behavior.

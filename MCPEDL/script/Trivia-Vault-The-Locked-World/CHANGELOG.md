@@ -1,5 +1,17 @@
 # Changelog — Trivia Vault: The Locked World
 
+## [Unreleased]
+
+### Fixed
+- Reverted crafting interception so crafting remains unchanged.
+- Prevented rapid or instant-break block interactions from opening multiple trivia forms for the same player.
+- Made death immediately close the run, clear open questions, and stop further trivia handling.
+
+### Changed
+- Trivia questions now appear directly, without the extra “Answer the question” screen.
+- Removed hints and lifelines.
+
+
 ## [1.0.14] - 2026-10-28
 
 ### Added

@@ -1,35 +1,39 @@
-# Trivia Vault: The Locked World (v1.0.14) — Survival Trivia Challenge
+# Trivia Vault: The Locked World — Survival Trivia Challenge
 
 **By AllensCreations**
 
-Trivia Vault: The Locked World turns Survival block breaking into a general-knowledge challenge. Answer questions correctly to permanently unlock the block type being mined. Unlocking the block is the only reward; correct answers grant no items or experience. Wrong answers trigger randomized penalties.
+Trivia Vault: The Locked World turns Survival block breaking into a general-knowledge challenge. Attempt to break a locked block, answer its trivia question, and permanently unlock that block type. Unlocking the block is the only reward. Wrong answers trigger randomized penalties.
 
 ## Overview
-This preview build contains five sample questions covering internet culture, geography, science, and Minecraft. Every question has four choices, and the answer order is shuffled when the question appears.
+Every question has four choices, and the answer order is shuffled when the question appears. The question is displayed immediately, without an extra confirmation screen, hints, or lifelines.
 
 ## Key Features
 ### Block-Type Unlocks
-- **What Happens**: A correct answer permanently unlocks that block type across the world, rather than unlocking only one coordinate.
+- A correct answer permanently unlocks that block type across the world, rather than unlocking only one coordinate.
 
 ### Four-Choice Trivia
-- **What Happens**: Each question presents four choices with randomized answer placement.
+- Each question presents four choices with randomized answer placement.
+- The question appears directly when a locked block is targeted; there is no separate “Answer the question” screen.
 
 ### Unlocks and Penalties
-- **What Happens**: Correct answers only unlock the block type across the world. Wrong answers trigger randomized Survival penalties, including a chance to remove matching blocks within a 20-block radius of the targeted block.
+- Correct answers only unlock the block type across the world. No items or experience are awarded.
+- Wrong answers trigger randomized Survival penalties, including a chance to remove matching blocks within a 20-block radius of the targeted block.
 
-### Hint Lifelines
-- **What Happens**: Three hint-only lifelines are available per run. Hints do not remove answer choices.
+### Difficulty
+- The selectable Hardmode behavior-pack subpack adds damage after wrong answers.
+- Crafting is not intercepted and works normally.
 
 ## How to Use
-Use the Controller as the host or an operator and select Start. In Survival, attempt to break a locked block to open a question. Creative mode bypasses the trivia check. The run ends when the player dies.
+Use the Controller as the host or an operator and select Start. In Survival, attempt to break a locked block to open the question directly. Creative mode bypasses the trivia check. The run ends when the player dies, and the game state closes.
 
 ## Compatibility
-- Minecraft Bedrock Edition: minimum version not independently verified for this preview.
-- Experimental features: Crafting interception uses the experimental `playerCraftRecipe` event; enable the relevant Creator experiment if required by your installed game version.
+- Minecraft Bedrock Edition: minimum version is listed in the Behavior Pack manifest.
+- Experimental features: No experiment requirement detected in the inspected files.
 - Achievements: Unknown / needs confirmation.
-- Verification: Source created, not tested in game.
+- Verification: Source updated, not tested in game.
 
 ## Creator and Permissions
+
 - [CurseForge Profile](https://www.curseforge.com/members/allenscreations/projects)
 - [MCPEDL Profile](https://mcpedl.com/user/allenscreations/)
 
@@ -47,4 +51,4 @@ Use the Controller as the host or an operator and select Start. In Survival, att
 
 ## Search & Discovery Keywords
 
-Minecraft Bedrock script, Trivia Vault: The Locked World, survival trivia challenge, general knowledge quiz, randomized answers, block type unlocks, 20-block radius penalty, crafting unlocks, Hardmode subpack, lifelines, AllensCreations.
+Minecraft Bedrock script, Trivia Vault: The Locked World, survival trivia challenge, general knowledge quiz, randomized answers, block type unlocks, 20-block radius penalty, Hardmode, AllensCreations.

@@ -1,4 +1,4 @@
-import { world, system, EntityComponentTypes, GameMode, ItemStack } from "@minecraft/server";
+import { world, system, EntityComponentTypes, GameMode } from "@minecraft/server";
 import { ActionFormData } from "@minecraft/server-ui";
 import { registerController, endGame } from "./controller.js";
 import { QUESTIONS } from "./questions.js";
@@ -8,6 +8,8 @@ import { HARDMODE } from "./difficulty.js";
 const GAME_KEY = "game_state";
 const playerStats = new Map();
 const pending = new Map();
+const questionOpening = new Set();
+let gameOver = false;
 const rand = (n) => Math.floor(Math.random() * n);
 const shuffle = (items) => {
   const result = [...items];
@@ -18,7 +20,7 @@ const shuffle = (items) => {
   return result;
 };
 const statsFor = (player) => {
-  if (!playerStats.has(player.id)) playerStats.set(player.id, { lifelines: HARDMODE ? 0 : 3, multiplier: 1, multiplierUntil: 0, correct: 0, asked: new Set() });
+  if (!playerStats.has(player.id)) playerStats.set(player.id, { multiplier: 1, multiplierUntil: 0, correct: 0, asked: new Set() });
   return playerStats.get(player.id);
 };
 function unlockProperty(key) {
@@ -158,6 +160,7 @@ function applyConsequence(player, target) {
 }
 
 function newQuestion(player, key, target) {
+  if (gameOver || world.getDynamicProperty(GAME_KEY) !== "running" || pending.has(player.id)) return;
   const stats = statsFor(player);
   let pool = QUESTIONS.filter((q) => !stats.asked.has(q.question));
   if (!pool.length) { stats.asked.clear(); pool = QUESTIONS; }
@@ -172,137 +175,77 @@ function newQuestion(player, key, target) {
 
 async function showQuestion(player) {
   const state = pending.get(player.id);
-  if (!state) return;
-  const stats = statsFor(player);
-  if (!state.ready) {
-    state.ready = true;
-    pending.set(player.id, state);
-    const menu = new ActionFormData()
-      .title(`Trivia Vault | ${state.target?.kind === "item" ? "Locked Crafted Item" : "Locked Block"}`)
-      .body(`A trivia question is ready.\nFour answer choices will appear on the next screen.\nMode: ${HARDMODE ? "HARDMODE" : "Normal"}\nLifelines remaining: ${stats.lifelines}`)
-      .button("Answer the question");
-    if (!HARDMODE) menu.button("Use a lifeline");
-    let menuResponse;
-    try { menuResponse = await menu.show(player); } catch (e) { return; }
-    if (menuResponse.canceled) { pending.delete(player.id); return; }
-    if (!HARDMODE && menuResponse.selection === 1) { await showLifeline(player); return; }
-  }
+  if (!state || gameOver || world.getDynamicProperty(GAME_KEY) !== "running") return;
   const form = new ActionFormData()
     .title(`Trivia Vault | ${state.q.category}`)
-    .body(`${state.q.question}\n\nChoose one of the four answers. Wrong answers trigger severe penalties.`);
+    .body(`${state.q.question}\n\nSelect the correct answer. Wrong answers trigger severe penalties.`);
   state.choices.forEach((c) => form.button(c.text));
   let response;
-  try { response = await form.show(player); } catch (e) { return; }
+  try { response = await form.show(player); } catch (e) { pending.delete(player.id); return; }
   if (response.canceled) { pending.delete(player.id); return; }
   const chosen = state.choices[response.selection];
   pending.delete(player.id);
+  if (gameOver || world.getDynamicProperty(GAME_KEY) !== "running") return;
+  const stats = statsFor(player);
   if (chosen?.correct) {
     stats.correct++;
     const unlocked = permanentlyUnlockBlock(state.key);
-    if (state.target?.kind === "item") {
-      const count = Math.max(1, state.target.count || 1);
-      const inv = invOf(player);
-      const craftedOutput = new ItemStack(state.target.typeId, count);
-      const remainder = inv ? inv.addItem(craftedOutput) : craftedOutput;
-      if (remainder) { try { player.dimension.spawnItem(remainder, player.location); } catch (e) {} }
-      say(player, unlocked ? `Correct answer! ${state.target.typeId.replace("minecraft:", "")} is now unlocked, and your crafted item has been returned.` : "Correct answer! The item was returned, but permanent storage was unavailable.");
-    } else {
-      say(player, unlocked ? "Correct answer! This block type is now permanently unlocked. All blocks of this type across the world can now be broken without another question." : "Correct answer! This block type is unlocked for this run; permanent storage was unavailable.");
-    }
+    say(player, unlocked ? "Correct answer! This block type is now permanently unlocked across the world." : "Correct answer! This block type is unlocked for this run; permanent storage was unavailable.");
   } else {
     applyConsequence(player, state.target);
   }
 }
 
-async function showLifeline(player) {
-  const stats = statsFor(player);
-  if (stats.lifelines <= 0) { say(player, "No lifelines remain."); return; }
-  const form = new ActionFormData()
-    .title("Trivia Vault | Lifeline")
-    .body("Use one of your limited lifelines before answering. The question will still show exactly four choices.")
-    .button("Cryptic hint")
-    .button("Return to question");
-  try {
-    const response = await form.show(player);
-    if (response.canceled || response.selection !== 0) { showQuestion(player); return; }
-    const state = pending.get(player.id);
-    if (!state) return;
-    stats.lifelines--;
-    say(player, `Cryptic hint: the answer begins with “${state.q.answer.slice(0, 1)}” and contains ${state.q.answer.length} characters.`);
-    showQuestion(player);
-  } catch (e) {}
-}
-
-function removeCraftedItems(player, typeId, count) {
-  const inv = invOf(player);
-  if (!inv) return 0;
-  let remaining = count;
-  for (let slot = 0; slot < inv.size && remaining > 0; slot++) {
-    const stack = inv.getItem(slot);
-    if (!stack || stack.typeId !== typeId) continue;
-    const take = Math.min(stack.amount, remaining);
-    remaining -= take;
-    if (take === stack.amount) inv.setItem(slot, undefined);
-    else { stack.amount -= take; inv.setItem(slot, stack); }
-  }
-  return count - remaining;
-}
-
-if (world.afterEvents.playerCraftRecipe) {
-  world.afterEvents.playerCraftRecipe.subscribe(({ player, itemStack }) => {
-    if (world.getDynamicProperty(GAME_KEY) !== "running" || !itemStack || player.getGameMode() === GameMode.Creative) return;
-    const typeId = itemStack.typeId;
-    const key = `item_${typeId}`;
-    if (isBlockUnlocked(key)) return;
-    system.run(() => {
-      const count = removeCraftedItems(player, typeId, itemStack.amount);
-      if (count <= 0) {
-        say(player, `A crafted ${typeId.replace("minecraft:", "")} could not be held for its unlock question. Enable the required Creator experiment and try again.`);
-        return;
-      }
-      say(player, `Your crafted ${typeId.replace("minecraft:", "")} is locked until you answer correctly.`);
-      newQuestion(player, key, { kind: "item", typeId, count });
-    });
-  });
-}
-
 world.beforeEvents.playerBreakBlock.subscribe((event) => {
-  if (world.getDynamicProperty(GAME_KEY) !== "running") return;
-  if (event.player.getGameMode() === GameMode.Creative) return;
+  const player = event.player;
+  if (gameOver || world.getDynamicProperty(GAME_KEY) !== "running") { event.cancel = true; return; }
+  if (player.getGameMode() === GameMode.Creative) return;
+  if (pending.has(player.id) || questionOpening.has(player.id)) { event.cancel = true; return; }
   const block = event.block;
   const key = `block_${block.typeId}`;
   if (isBlockUnlocked(key)) return;
   event.cancel = true;
-  const target = { typeId: block.typeId, location: { ...block.location }, dimension: event.player.dimension };
-  system.run(() => newQuestion(event.player, key, target));
+  questionOpening.add(player.id);
+  const target = { typeId: block.typeId, location: { ...block.location }, dimension: player.dimension };
+  system.run(() => {
+    questionOpening.delete(player.id);
+    if (!gameOver && world.getDynamicProperty(GAME_KEY) === "running" && !pending.has(player.id)) newQuestion(player, key, target);
+  });
 });
 
 world.afterEvents.entityDie.subscribe((event) => {
   const entity = event.deadEntity;
-  if (entity.typeId !== "minecraft:player") return;
-  if (world.getDynamicProperty(GAME_KEY) !== "running") return;
-  say(entity, "You have been eliminated. The vault closes.");
-  endGame();
+  if (entity.typeId !== "minecraft:player" || gameOver || world.getDynamicProperty(GAME_KEY) !== "running") return;
+  gameOver = true;
+  pending.clear();
+  questionOpening.clear();
+  try { entity.sendMessage("§6[Trivia Vault]§r You have been eliminated. The vault closes."); } catch (e) {}
+  system.run(() => endGame());
 });
 
 world.afterEvents.playerLeave.subscribe((event) => {
   playerStats.delete(event.playerId);
   pending.delete(event.playerId);
+  questionOpening.delete(event.playerId);
 });
 
 registerController({
   title: "Trivia Vault: The Locked World",
   gameInfo: "Type: Survival trivia challenge\nPlayers: Solo\nGoal: Answer general-knowledge and Minecraft questions correctly to unlock block types.",
-  howToPlay: "Goal: Survive the Trivia Vault by answering trivia questions correctly.\nControls: In Survival, attempt to break a block to open a general-knowledge or Minecraft trivia question with exactly four answer choices.\nCorrect: That block type is permanently unlocked in the world, so every block of that type can be broken without another question. Unlocking the block is the only reward.\nWrong: Face randomized penalties, including a chance for matching blocks within a 20-block radius of the targeted block to disappear.\nLifelines: Three hint lifelines per run; they never remove answer choices.\nCreative: Block breaking is not intercepted.\nHow it ends: Your death ends the run. Use the Controller to start another run.",
+  howToPlay: "Goal: Survive the Trivia Vault by answering trivia questions correctly.\nControls: In Survival, attempt to break a locked block to open its trivia question directly, with exactly four answer choices.\nCorrect: That block type is permanently unlocked in the world, so every block of that type can be broken without another question. Unlocking the block is the only reward.\nWrong: Face randomized penalties, including a chance for matching blocks within a 20-block radius of the targeted block to disappear.\nNo hints or lifelines are available.\nCreative: Block breaking is not intercepted.\nHow it ends: Your death ends the run and stops further trivia. Use the Controller to start another run.",
   onStart: (player) => {
+    gameOver = false;
     playerStats.clear();
     pending.clear();
-    playerStats.set(player.id, { lifelines: HARDMODE ? 0 : 3, multiplier: 1, multiplierUntil: 0, correct: 0, asked: new Set() });
-    world.sendMessage(`§6Trivia Vault: The Locked World§r has opened in ${HARDMODE ? "HARDMODE" : "Normal mode"}. Locked blocks and crafted items trigger trivia questions.`);
+    questionOpening.clear();
+    playerStats.set(player.id, { multiplier: 1, multiplierUntil: 0, correct: 0, asked: new Set() });
+    world.sendMessage(`§6Trivia Vault: The Locked World§r has opened in ${HARDMODE ? "HARDMODE" : "Normal mode"}. Only locked block types trigger trivia questions.`);
     say(player, `Trivia question bank: ${QUESTIONS.length} entries. Four choices per question. No rewards are given for correct answers. Penalties: ${CONSEQUENCES.length}.`);
   },
   onEnd: () => {
+    gameOver = true;
     pending.clear();
+    questionOpening.clear();
     world.sendMessage("§6Trivia Vault§r is closed. Start again with the Controller when ready.");
   },
 });
