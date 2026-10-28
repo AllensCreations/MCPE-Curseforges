@@ -1,10 +1,10 @@
 name: Export Repo Content to TXT
 
 # Type the paths you want (files or folders, comma or newline separated) and get readable
-# TXT you can feed to an AI. No size limits: nothing is truncated, and by default everything
-# goes into ONE file named after what you exported (e.g. Grand-Banquets.txt). Binary files
-# are detected and skipped. The downloaded zip also contains INSTRUCTIONS.md
-# so the AI always has the best-practice instructions next to the export.
+# TXT you can feed to an AI. Nothing is truncated; by default everything goes into ONE file
+# named after what you exported. Binary files are skipped. The downloaded zip also contains
+# INSTRUCTIONS.md (a short built-in AI prompt: every update comes back as one Termux .sh
+# script that does git pull, applies the change, commits and pushes).
 # Save as: .github/workflows/export-repo-to-txt.yml
 
 on:
@@ -44,6 +44,46 @@ jobs:
         run: |
           python3 - <<'PY'
           import os, re, pathlib
+
+          AI_PROMPT = '''# AI Instructions
+
+          Repo: https://github.com/AllensCreations/MCPE-Curseforges.git (branch main)
+          The attached TXT export shows the current files. Read it before changing anything.
+
+          ## Rules
+          1. Never invent features, versions, links, assets or test results.
+          2. Give only what changed. Smallest possible edits, no unrelated rewrites.
+          3. No notes, summaries or explanations unless asked.
+          4. Applies to any project type: add-on, map, script, workflow, website, anything. Keep the existing folder layout. A new project goes in its own new folder next to similar ones.
+
+          ## Every update request = ONE Termux script
+          Create `update_<short-name>.sh` as a downloadable file. It must, in this order:
+          1. `#!/data/data/com.termux/files/usr/bin/bash` and `set -e`
+          2. `cd "$HOME/MCPE-Curseforges"`, or `git clone` the repo URL first if the folder is missing
+          3. `git pull --rebase`
+          4. Apply every change inside the script itself (heredocs for new or replaced files, inline python3 for patching many files). No separate files to download.
+          5. Validate every changed .json file with python3 and stop on error
+          6. `git add` only the changed paths, `git commit -m "<short message>"`, `git push`
+          7. Safe to run twice (skip anything already applied)
+
+          ## Reply format
+          1. The .sh file
+          2. These steps, exactly:
+
+          First time only:
+          ```
+          pkg update -y && pkg install -y git python
+          termux-setup-storage
+          git config --global user.name "AllensCreations"
+          git config --global user.email "your-email@example.com"
+          git config --global credential.helper store
+          ```
+          Every update:
+          ```
+          bash ~/storage/downloads/update_<short-name>.sh
+          ```
+          Download the .sh to your Downloads folder first. At the push prompt, the password is your GitHub Personal Access Token (repo scope), not your account password.
+          '''
 
           raw_paths = [p.strip().strip("'\"") for p in re.split(r"[,\n]", os.environ["PATHS"]) if p.strip()]
           try:
@@ -152,12 +192,8 @@ jobs:
               index += ["", "NOT FOUND:"] + [f"    {m}" for m in missing]
           if skipped:
               index += ["", "SKIPPED (binary):"] + [f"    {s}" for s in skipped[:1000]]
-          gen = pathlib.Path("INSTRUCTIONS.md")
-          if gen.is_file():
-              (out / gen.name).write_bytes(gen.read_bytes())
-              index += ["", "ALSO INCLUDED: INSTRUCTIONS.md (combined repository policy and project generator)"]
-          else:
-              print("::warning::INSTRUCTIONS.md not found in the repo root; not added to the export")
+          (out / "INSTRUCTIONS.md").write_text(AI_PROMPT + "\n", encoding="utf-8")
+          index += ["", "ALSO INCLUDED: INSTRUCTIONS.md (AI update prompt: one Termux .sh script per update)"]
           (out / "INDEX.txt").write_text("\n".join(index) + "\n", encoding="utf-8")
           with open(os.environ["GITHUB_OUTPUT"], "a", encoding="utf-8") as fh:
               fh.write(f"label={label}\n")
