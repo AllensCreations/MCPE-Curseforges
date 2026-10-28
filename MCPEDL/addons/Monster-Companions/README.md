@@ -1,12 +1,12 @@
-# Monster Companions (v1.2.3)
+# Monster Companions (v1.2.4)
 
 Download the current release of **Monster Companions** for Minecraft Bedrock Edition.
 
 ## Download
 
-- **Version:** 1.2.3
+- **Version:** 1.2.4
 - **Package format:** `.mcaddon`
-- **Direct download:** [Download Monster Companions (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Monster-Companions/Monster%20Companions%20by%20AllensCreations%20%28V1.2.3%29.mcaddon)
+- **Direct download:** [Download Monster Companions (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Monster-Companions/Monster%20Companions%20by%20AllensCreations%20%28V1.2.4%29.mcaddon)
 
 ## Installation
 
