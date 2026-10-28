@@ -1,4 +1,4 @@
-# Vanilla Quality of Life (v1.3.21)
+# Vanilla Quality of Life (v1.3.22)
 
 **By AllensCreations**
 
@@ -90,6 +90,7 @@ Combines dynamic lighting, offhand quick-swap, automatic tool selection, tree ca
   - Hit dirt, sand, gravel, or clay -> Equips best Shovel.
   - Hit leaves or cobwebs -> Equips Shears.
   - Attack hostile or passive mobs -> Equips best melee Weapon (Sword or Axe).
+- Continuous switching: While you keep mining or breaking blocks, aiming at a different kind of block switches to its best tool without stopping. This keeps checking for about 2 seconds after each hit or broken block.
 - Low durability penalty: Automatically favors healthy tools so nearly-broken tools aren't worn down.
 
 #### 2. Smart Tree Capitator (Axe; sneak requirement depends on selected subpack)

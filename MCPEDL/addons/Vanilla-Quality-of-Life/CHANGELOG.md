@@ -1,5 +1,10 @@
 # Changelog — Vanilla Quality of Life
 
+## [1.3.22] — 2026-10-28
+
+### Improved & Balanced
+- **Continuous Auto-Switch**: While you keep mining, aiming at a different kind of block, such as moving from stone to dirt, now switches to the best tool without stopping.
+
 ## [1.3.21] — 2026-10-28
 
 ### Improved & Balanced

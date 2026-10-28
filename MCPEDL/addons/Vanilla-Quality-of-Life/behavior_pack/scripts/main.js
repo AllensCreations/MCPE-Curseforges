@@ -1619,6 +1619,62 @@ system.runInterval(() => {
   }
 }, CONFIG.WEB_CHECK_INTERVAL);
 
+// 6b. Continuous Auto-Switch: while mining, re-check the targeted block every tick
+const MINING_ACTIVE_TICKS = 40; // keeps checking for 2 seconds after a hit or a broken block
+const miningActivity = new Map();
+const lastAutoSwitchKey = new Map();
+
+function markMining(player) {
+  if (!player || player.typeId !== "minecraft:player") return;
+  miningActivity.set(player.id, system.currentTick);
+}
+
+world.afterEvents.entityHitBlock.subscribe((event) => {
+  try {
+    markMining(event.damagingEntity);
+  } catch (e) {}
+});
+
+world.afterEvents.playerBreakBlock.subscribe((event) => {
+  try {
+    markMining(event.player);
+  } catch (e) {}
+});
+
+system.runInterval(() => {
+  const now = system.currentTick;
+  for (const player of world.getAllPlayers()) {
+    try {
+      const last = miningActivity.get(player.id);
+      if (last === undefined || now - last > MINING_ACTIVE_TICKS) {
+        lastAutoSwitchKey.delete(player.id);
+        continue;
+      }
+      if (player.selectedSlotIndex !== CONFIG.AUTO_SWITCH_SLOT) continue;
+
+      const lastCombat = recentCombat.get(player.id) ?? -Infinity;
+      if (now - lastCombat < CONFIG.COMBAT_COOLDOWN_TICKS) continue;
+
+      const target = getTargetBlock(player);
+      if (!target) continue;
+
+      const key = blockKey(target);
+      if (lastAutoSwitchKey.get(player.id) === key) continue;
+
+      const category = getRequiredToolCategory(target.typeId);
+      if (!category) continue;
+
+      lastAutoSwitchKey.set(player.id, key);
+      switchPlayerSlot1Tool(player, category, target.typeId);
+    } catch (e) {}
+  }
+}, 1);
+
+world.afterEvents.playerLeave.subscribe((event) => {
+  miningActivity.delete(event.playerId);
+  lastAutoSwitchKey.delete(event.playerId);
+});
+
 // 7. Player Lifecycle Cleanups
 world.afterEvents.playerLeave.subscribe((event) => {
   const id = event.playerId;
