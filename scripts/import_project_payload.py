@@ -7,6 +7,7 @@ Supports three project types, read from project.json inside the payload:
   script -> MCPEDL/script/<Name>/       (test_world.json describes the test world)
 
 Modes (--mode):
+  auto      update when the project already exists, otherwise create (the workflow's default)
   create    new project only; fails if the name already exists anywhere under MCPEDL/ (default)
   update    merge the payload into the existing project (addons/ or new_addons/ for add-ons).
             Files that are not in the payload (icons, images, LOCK) are kept; nothing is deleted.
@@ -18,9 +19,12 @@ Everything is validated BEFORE anything is written, using the same run_checks() 
 A legacy payload with only oneblock.json and no project.json is treated as a map.
 
 Usage:
-  python scripts/import_project_payload.py --name My-Project [--mode create|update|overwrite]
-      [--payload-file MCPEDL/incoming/my-project.b64] [--root DIR] [--github-output FILE]
-The payload is read from --payload-file, or else from env PROJECT_PAYLOAD (or ONEBLOCK_PAYLOAD).
+  python scripts/import_project_payload.py [--name My-Project] [--mode auto|create|update|overwrite]
+      [--payload-file my-project.b64] [--root DIR] [--github-output FILE]
+Payload source, in this order: env PROJECT_PAYLOAD (or ONEBLOCK_PAYLOAD) when --payload-file is empty,
+else --payload-file (a bare file name is looked up in MCPEDL/incoming/), else the only .b64 file in
+MCPEDL/incoming/. When --name is empty it is taken from the .b64 file name (Monster-Companions.b64 ->
+Monster-Companions).
 """
 from __future__ import annotations
 
@@ -44,7 +48,7 @@ import build_payload as bp  # noqa: E402  (single source of truth for the checks
 DEST = bp.DEST_DIR
 ALL_DIRS = ("addons", "new_addons", "maps", "script")
 COMPAT = {"addon": ("addons", "new_addons"), "map": ("maps",), "script": ("script",)}
-MODES = ("create", "update", "overwrite")
+MODES = ("auto", "create", "update", "overwrite")
 PACKS = ("behavior_pack", "resource_pack")
 MAX_B64 = 36_000_000
 CONTROL = re.compile(r"[\x00-\x1f\x7f]")
@@ -58,25 +62,39 @@ def fail(msg: str) -> None:
     sys.exit(msg)
 
 
-def read_payload(root: Path, payload_file: str | None) -> str:
+def resolve_payload(root: Path, payload_file: str | None) -> tuple[str, str | None]:
+    """Return (base64 text, repo-relative payload path or None when the text came from the environment)."""
+    incoming = (root / "MCPEDL" / "incoming").resolve()
+    env_text = os.environ.get("PROJECT_PAYLOAD") or os.environ.get("ONEBLOCK_PAYLOAD", "")
+    path: Path | None = None
     if payload_file:
-        incoming = (root / "MCPEDL" / "incoming").resolve()
-        path = (root / payload_file).resolve()
+        given = Path(payload_file)
+        path = (incoming / given.name) if len(given.parts) == 1 else (root / given).resolve()
         try:
             path.relative_to(incoming)
         except ValueError:
             fail(f"--payload-file must be inside MCPEDL/incoming/ (got {payload_file})")
         if not path.is_file():
-            fail(f"Payload file not found: {payload_file}")
+            fail(f"Payload file not found: {path.relative_to(root).as_posix()}")
+    elif not env_text.strip():
+        found = sorted(incoming.glob("*.b64")) if incoming.is_dir() else []
+        if not found:
+            fail("No payload: commit a .b64 file to MCPEDL/incoming/ or paste base64 into the workflow.")
+        if len(found) > 1:
+            fail("Several .b64 files in MCPEDL/incoming/: " + ", ".join(f.name for f in found)
+                 + ". Enter the file name in payload_file.")
+        path = found[0]
+    if path is not None:
         text = path.read_text(encoding="utf-8")
+        rel = path.resolve().relative_to(root).as_posix()
     else:
-        text = os.environ.get("PROJECT_PAYLOAD") or os.environ.get("ONEBLOCK_PAYLOAD", "")
+        text, rel = env_text, None
     text = re.sub(r"\s+", "", text)
     if not text:
         fail("Empty payload. Provide base64 text or a payload file.")
     if len(text) > MAX_B64:
         fail(f"Payload is {len(text)} base64 characters (max {MAX_B64}).")
-    return text
+    return text, rel
 
 
 def decode_zip(b64: str) -> zipfile.ZipFile:
@@ -222,8 +240,8 @@ def merge_into(stage: Path, dest: Path, ptype: str) -> tuple[list[str], list[str
 
 def main() -> None:
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
-    ap.add_argument("--name", "--map", dest="name", required=True, help="Folder name for the project")
-    ap.add_argument("--mode", choices=MODES, help="create (default), update, or overwrite")
+    ap.add_argument("--name", "--map", dest="name", default="", help="Folder name (default: the .b64 file name)")
+    ap.add_argument("--mode", choices=MODES, help="create (default), auto, update, or overwrite")
     ap.add_argument("--overwrite", action="store_true", help="Same as --mode overwrite (kept for older callers)")
     ap.add_argument("--payload-file")
     ap.add_argument("--root", default=str(Path(__file__).resolve().parents[1]))
@@ -231,11 +249,17 @@ def main() -> None:
     args = ap.parse_args()
     mode = args.mode or ("overwrite" if args.overwrite else "create")
     root = Path(args.root).resolve()
-    if not bp.NAME_RE.match(args.name):
-        fail("Name: 1-64 chars, letters/numbers/. _ - only, starting with a letter or number.")
 
     errors: list[str] = []
-    files = collect_files(decode_zip(read_payload(root, args.payload_file)), errors)
+    b64, payload_rel = resolve_payload(root, args.payload_file)
+    if not args.name:
+        if payload_rel is None:
+            fail("Enter project_name when the payload is pasted as text.")
+        args.name = Path(payload_rel).stem
+        print(f"Project name taken from the payload file: {args.name}")
+    if not bp.NAME_RE.match(args.name):
+        fail("Name: 1-64 chars, letters/numbers/. _ - only, starting with a letter or number.")
+    files = collect_files(decode_zip(b64), errors)
     legacy_to_project(files, errors)
 
     with tempfile.TemporaryDirectory(prefix="payload-") as tmp:
@@ -259,6 +283,9 @@ def main() -> None:
         compat = [(d, c) for d, c in exact if d in COMPAT[ptype]]
         foreign = [(d, c) for d, c in exact if d not in COMPAT[ptype]]
         existing: Path | None = None
+        if mode == "auto":
+            mode = "update" if compat else "create"
+            print(f"Mode auto -> {mode} ({'found' if compat else 'no existing'} {ptype} named {args.name})")
         if mode == "create":
             if exact or loose:
                 fail("Name clash: " + ", ".join(f"MCPEDL/{d}/{c.name}" for d, c in exact + loose)
@@ -332,7 +359,7 @@ def main() -> None:
     if args.github_output:
         with open(args.github_output, "a", encoding="utf-8") as fh:
             fh.write(f"type={ptype}\ndest={dest.relative_to(root).as_posix()}\nname={args.name}\n"
-                     f"mode={mode}\nhas_test_world={'true' if has_tw else 'false'}\n")
+                     f"mode={mode}\npayload_path={payload_rel or ''}\nhas_test_world={'true' if has_tw else 'false'}\n")
 
 
 if __name__ == "__main__":
