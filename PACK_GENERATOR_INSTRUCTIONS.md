@@ -438,7 +438,7 @@ Do not guess the type. Then follow Sections 1 to 3, the one section for that typ
 - **Art:** a generated payload never contains AI-generated images. The Trader Ledger (maps) and Controller (scripts) icons come only from the repo copy, which `build_payload.py` installs. For any other texture use real vanilla texture names, user-supplied textures, or omit the icon.
 - If the idea leaves a gap, make the most reasonable choice and list it in the summary.
 - The shell may be plain `sh`: do not use brace expansion. After creating files, list them and confirm they exist.
-- **Shell script file names.** Whenever you give the user a `.sh` file (including a command or script handed over because you cannot run code), put at least 5 random lowercase letters or digits in the file name before the extension, for example `apply_fix_k7q2x.sh`. Generate a fresh suffix every time (for example `head -c 200 /dev/urandom | tr -dc 'a-z0-9' | head -c 6`) and never reuse a name from an earlier reply or an existing file, so running a new script can never overwrite or re-run an older one. Use the exact same name in the reply and in the command that runs it.
+- **Shell script file names.** Whenever you give the user a `.sh` file (including a command or script handed over because you cannot run code), name it `(Repofilename)_(Version)_(Rand).sh`. `Repofilename` is the repository file, project, or folder the script works on, without its extension and with no spaces (use hyphens); `Version` is that item's current version as `X.Y.Z` (or the instruction file's version, such as `v3`); `Rand` is at least 5 random lowercase letters or digits, for example `Dirtbound_1.2.0_k7q2x.sh` or `INSTRUCTIONS_v3_m4p7z9.sh`. Generate a fresh `Rand` every time (for example `head -c 200 /dev/urandom | tr -dc 'a-z0-9' | head -c 6`) and never reuse a name from an earlier reply or an existing file, so running a new script can never overwrite or re-run an older one. Use the exact same name in the reply and in the command that runs it.
 - No comments in `.js`, `.mcfunction`, or `.json` files (Part 1, Section 1).
 - Prefer event-driven logic over per-tick polling, broad entity searches, or block scans.
 - Do not claim a README or catalog link to a `.mcworld` that does not exist yet.
@@ -638,7 +638,7 @@ By hand, confirm only:
 - [ ] Script: the form has exactly Start and How to play; `gameInfo` and `howToPlay` hold real text; the game logic is real and calls `endGame()`; stuck-state recovery exists; each listed add-on exists.
 - [ ] No comments in any script, function, or JSON file.
 - [ ] Every README, DESCRIPTION, and CHANGELOG matches its Part 2 template exactly (headings, order, labels), with no placeholders left.
-- [ ] Any `.sh` file handed over has at least 5 random characters in its name, new for this reply.
+- [ ] Any `.sh` file handed over is named `(Repofilename)_(Version)_(Rand).sh` with a fresh `Rand` of at least 5 characters.
 - [ ] No file from `Mcpeworlds/assets/` other than the ledger or controller files was copied.
 - [ ] The reply contains only the five Section 11 blocks (or one listed exception), nothing before or after.
 
