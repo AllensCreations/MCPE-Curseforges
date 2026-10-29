@@ -1,19 +1,18 @@
-# Instructions: Combined Repository Policy (v2)
+# Instructions: Core Repository Policy (v3)
 
-Single instruction file for AllensCreations/MCPE-Curseforges. It merges four sources so an AI agent only needs to read one file.
+Instruction file for AllensCreations/MCPE-Curseforges covering repository policy, documentation, and audits. The AI-agent project generator now lives in its own file, `PACK_GENERATOR_INSTRUCTIONS.md`.
 
 | Part | Covers |
 | :--- | :--- |
 | Part 1 | Core policy: accuracy, versions, manifests, recipes, images, functions, OneBlock, workflows, layout, security, known untested assumptions |
 | Part 2 | README, DESCRIPTION, and CHANGELOG rules, attribution, keywords, templates |
 | Part 3 | `checkrm` documentation audit workflow, Minecraft Wiki and Bedrock Samples references |
-| Part 4 | AI-agent project generator: asks addon / map / script, returns a base64 ZIP built by `scripts/build_payload.py` |
 
-The old Part 5 (engine and manifest version standards) is merged into Part 1, Section 2. There is no Part 5.
+The generator (asks addon / map / script, returns a base64 ZIP built by `scripts/build_payload.py`) is in `PACK_GENERATOR_INSTRUCTIONS.md`. It carries its own copy of the rules it needs, and this file wins on any conflict.
 
-**Precedence.** Part 1 wins on any conflict. Parts 2 and 3 follow Part 1 and never override it. Part 4 follows Parts 1 to 3 and never overrides them. Factual accuracy and the user's requested scope outrank any template. The scripts in `scripts/` enforce these rules; if a script and this file disagree, report the difference to the user and follow this file for documents, the script for what the importer will accept. **Section numbers refer to the Part they appear in**; a reference to another Part names it.
+**Precedence.** Part 1 wins on any conflict. Parts 2 and 3 follow Part 1 and never override them. `PACK_GENERATOR_INSTRUCTIONS.md` follows this file and never overrides it. Factual accuracy and the user's requested scope outrank any template. The scripts in `scripts/` enforce these rules; if a script and this file disagree, report the difference to the user and follow this file for documents, the script for what the importer will accept. **Section numbers refer to the Part they appear in**; a reference to another Part names it.
 
-**Which Part to read.** Documentation work: Parts 1 (Sections 1 to 2), 2, 3. Generating a new add-on, map, or script: Parts 1, 2, and 4. Build, workflow, or OneBlock changes: Part 1 (Sections 6 to 10).
+**Which file to read.** Documentation work: Parts 1 (Sections 1 to 2), 2, 3. Build, workflow, or OneBlock changes: Part 1 (Sections 6 to 10). Generating a new add-on, map, or script: `PACK_GENERATOR_INSTRUCTIONS.md`.
 
 ---
 
@@ -217,13 +216,13 @@ For maps, Creative is the primary and only designated in-game test world (a scri
 
 #### Creating a project from an AI-generated payload
 
-- Part 4 is the instruction file given to an AI agent. The agent first asks which type the user wants (**addon**, **map**, or **script**), then returns a single-line base64 ZIP produced by running code, never written by hand. The ZIP's `project.json` (`{"type": "addon|map|script", "name": "..."}`) carries the type.
+- `PACK_GENERATOR_INSTRUCTIONS.md` is the instruction file given to an AI agent. The agent first asks which type the user wants (**addon**, **map**, or **script**), then returns a single-line base64 ZIP produced by running code, never written by hand. The ZIP's `project.json` (`{"type": "addon|map|script", "name": "..."}`) carries the type.
 - `create-project-from-base64.yml` takes the folder name plus the base64 (or a `.b64` path under `MCPEDL/incoming/`) and runs `scripts/import_project_payload.py`, which imports `scripts/build_payload.py`, so the agent-side and repo-side checks are the same code.
 - Destinations: addon -> `MCPEDL/new_addons/<Name>/` (the importer writes the `LOCK` markers); map -> `MCPEDL/maps/<Name>/` (the importer writes `oneblock.json`; Creative, Survival, and Hardcore worlds are built in the same run); script -> `MCPEDL/script/<Name>/` (a test world is built).
 - The importer validates before writing anything. It rejects unsafe paths, symlinks, world data (`db/`, `level.dat`), nested archives, shipped pack link files, disallowed file types, bad manifests, recipes without the required unlock, and the per-type requirements below. Icons must match the repo copies under `Mcpeworlds/assets/resources_pack/textures/items/` byte for byte.
 - Map requirements: `tick.json` lists `void_cleaner` first, `void_cleaner.mcfunction` starts with the required Y=-64 fill line, `oneblock_setup.mcfunction` exists, and the Trader Ledger item, texture entry, and `trader_ledger.png` are present. Add-ons and scripts do not need the void cleaner or the ledger.
 - The folder name is typed per run; never hardcode one in a workflow or script. A payload with only `oneblock.json` (no `project.json`) is still accepted as a map.
-- When Sections 3, 4, 6, or 7 change, update Part 4, `scripts/build_payload.py`, and the importer in the same change, then run `scripts/selftest_project_types.py`. This file wins on any conflict.
+- When Sections 3, 4, 6, or 7 change, update `PACK_GENERATOR_INSTRUCTIONS.md`, `scripts/build_payload.py`, and the importer in the same change, then run `scripts/selftest_project_types.py`. This file wins on any conflict.
 - These checks prove structure only. Never claim the add-on, map, script, or world works in Minecraft until tested in game.
 
 #### Scripts and test worlds
@@ -276,7 +275,7 @@ Repeat for each mode folder, with identical results in all three:
   6. send the cleaning notice
   7. add the `void_cleaned` tag, **only once the core Bedrock exists** (see below)
 - **Chunk loading.** Bedrock does not keep spawn chunks loaded the way Java does. If the fill runs while its chunks are unloaded, it fails silently. To make the cleanup self-healing, the final tag command must be conditional on the result, for example `execute as @a[tag=!void_cleaned] if block 0 -1 0 bedrock run tag @s add void_cleaned`, so a failed cleanup retries on the next tick instead of being marked done. The notice (step 6) must not spam while retrying, so guard it the same way or accept that the retry window is short. This design is unverified until tested in game (Section 11).
-- Do not expand cleanup beyond this layer without approval. (Part 4 says the same; neither Part adds a "clear starting area" step.)
+- Do not expand cleanup beyond this layer without approval. (`PACK_GENERATOR_INSTRUCTIONS.md` says the same; neither Part adds a "clear starting area" step.)
 - `tick.json` lists `void_cleaner` before `oneblock_tick`. `oneblock_tick` may restore only missing Bedrock; it must not reset spawn, teleport players, or place/replace the core.
 - The Script API owns the core at `(0,0,0)`, break rewards, and stage progression, and waits until a player has `void_cleaned` before replacing the grass placeholder.
 - Player tags persist in saved worlds, so a source fix does not patch an already-imported world. To test a fix, import a fresh copy of the updated world as a new world.
@@ -310,7 +309,7 @@ Retired, do not recreate or reference: `create-addon-scaffold.yml`, `test-crafti
 Helper scripts in `scripts/` (read the script for exact options):
 
 - `check_readme_status.py`, `validate_manifest_titles.py`, `auto_bump_and_build.py` (`--no-bump` for documentation-only work), `sync_dispatch_choices.py`, `crafting_template.py`, `build_oneblock_variants_from_template.py` (reads `ONEBLOCK_MAP`), `sync_oneblock_map_readmes.py`, `import_project_payload.py`, `build_payload.py`, `build_test_world.py`, `cleanup_unused.py`, `delete_project.py`, `manage_addon_status.py`, `ensure_recipe_unlocks.py`, `update_min_version.py` (manifests only), the recipe image generators, `selftest_project_types.py`. `tests/test_crafting_template.py` is run by CI.
-- `check_generator_sync.py` is retired: nothing is embedded in this file any more (Part 4, Section 8). Do not recreate it.
+- `check_generator_sync.py` is retired: nothing is embedded in this file any more (`PACK_GENERATOR_INSTRUCTIONS.md`, Section 8). Do not recreate it.
 
 When a rule in this file changes a workflow's behavior (titles, paths, versions), update the workflow in the same change.
 
@@ -613,270 +612,3 @@ Mojang's [bedrock-samples](https://github.com/mojang/bedrock-samples) repository
 - Scale 16x16 textures with nearest-neighbor interpolation to keep pixel art crisp (`Image.Resampling.NEAREST` in Pillow).
 
 ---
-
-## Part 4: Game Generator (AI Agent Instructions, v9)
-
-Instructions for an AI agent that builds a complete project from the user's idea and returns it as **one line of base64**. The user pastes it into the GitHub workflow **Create Project from Base64**, which places it in the right `MCPEDL/` folder and builds the worlds that type needs.
-
-**Source of truth.** The scripts are the real source of truth. Read `scripts/build_payload.py` (the packager and all checks), `scripts/import_project_payload.py`, and `scripts/build_test_world.py` from AllensCreations/MCPE-Curseforges before building. If this Part and a script disagree, tell the user what differs. If you cannot read the repository, ask the user to paste `scripts/build_payload.py` into the chat and use that exact text. Never rewrite the script from memory and never use a stale copy.
-
-Parts 1 to 3 apply to everything you generate. This Part adds only what is specific to generation.
-
-### 0. First: ask the type
-
-If the user has not already said it, ask exactly this one question and wait:
-
-> What do you want to make: **addon**, **map** (OneBlock), or **script** (a mini-game or challenge with a Controller and a test world)?
-
-Do not guess the type. Then follow Sections 1 to 3, the one section for that type (4, 5, or 6), and Sections 7 to 11. Ask at most one more question, and only if the answer would change what you build.
-
-| Type | Folder | Extra files |
-|---|---|---|
-| addon | `MCPEDL/new_addons/<Name>/` | none; optional `test_world.json` |
-| map | `MCPEDL/maps/<Name>/` | void cleaner, setup function, Trader Ledger (Section 5) |
-| script | `MCPEDL/script/<Name>/` | Controller, `give_controller`, `end_game`, `test_world.json` (Section 6) |
-
-### 1. Hard rules for the agent (all types)
-
-- **Never write base64 by hand.** Create the files, build the ZIP, and encode it by actually running code (Section 8). If you cannot run code, stop and say so; output the file tree with full contents plus the command and tell the user to run it. Never output invented base64.
-- Never invent features, versions, links, assets, test results, or compatibility. Building the ZIP proves structure only.
-- Look up the latest stable Minecraft Bedrock release and latest stable `@minecraft/server` and `@minecraft/server-ui` versions from the official documentation at the time of the work and record the date (Part 1, Section 2). No preview/beta/RC unless a requested feature requires it, and then say so in the README.
-- `min_engine_version` follows Part 1, Section 2 (lowest version needed, a real looked-up version). If you cannot confirm which game version first shipped the module version you use, say so.
-- **Art:** a generated payload never contains AI-generated images. The Trader Ledger (maps) and Controller (scripts) icons come only from the repo copy, which `build_payload.py` installs. For any other texture use real vanilla texture names, user-supplied textures, or omit the icon.
-- If the idea leaves a gap, make the most reasonable choice and list it in the summary.
-- The shell may be plain `sh`: do not use brace expansion. After creating files, list them and confirm they exist.
-- No comments in `.js`, `.mcfunction`, or `.json` files (Part 1, Section 1).
-- Prefer event-driven logic over per-tick polling, broad entity searches, or block scans.
-- Do not claim a README or catalog link to a `.mcworld` that does not exist yet.
-
-### 2. What the agent delivers
-
-A ZIP whose **root** is the project folder contents. Everything is built in `build/<Name>/`:
-
-```
-project.json          REQUIRED, all types: {"type": "addon|map|script", "name": "Display Name"}
-README.md  DESCRIPTION.md  CHANGELOG.md
-test_world.json       script: REQUIRED. addon: optional. map: do not ship.
-behavior_pack/manifest.json
-behavior_pack/...     functions/ items/ blocks/ entities/ recipes/ loot_tables/ texts/ scripts/main.js
-resource_pack/        map and script: REQUIRED. addon: optional.
-```
-
-Do not ship `oneblock.json` (the importer writes it for maps), `LOCK` files (the importer writes them for add-ons), or a `project.json` for a different type.
-
-**Never include:** world data (`db/`, `level.dat`, `world_behavior_packs.json`, `world_resource_packs.json`), `.mcworld`/`.mcpack`/`.mcaddon`/`.zip` files, symlinks, or any `Mcpeworlds/...` path. Never name a folder or file exactly `db`. Allowed types and size limits are defined in `scripts/build_payload.py`; at the time of writing: 500 files, 5 MB per file, 25 MB total, and a ZIP of about 48,000 bytes for inline pasting (larger payloads go through a `.b64` file under `MCPEDL/incoming/`).
-
-### 3. Manifests (all types)
-
-Applies to `behavior_pack/manifest.json` and, when present, `resource_pack/manifest.json`. Part 1, Sections 2 and 3 apply in full.
-
-- `format_version`: 2. `header.min_engine_version` is a 3-integer array, a looked-up version, never `[0, 0, 0]`.
-- `header.name` is exactly `Add-on Name (vX.Y.Z)`: one terminal version suffix equal to `header.version`. Both packs use the same version.
-- `header.description` contains `by AllensCreations` exactly once. Keep attribution out of the name.
-- Fresh, valid, unique UUIDs (v4) for every header and module. Never reuse one, and never copy a UUID from an example.
-- If a resource pack exists, the behavior pack's `dependencies` includes `{ "uuid": "<resource pack header.uuid>", "version": [x, y, z] }` with the matching version.
-- Script modules: `"type": "script"`, `"language": "javascript"`, `"entry": "scripts/main.js"`, and dependencies written as `{ "module_name": "@minecraft/server", "version": "<latest stable string>" }`. Add `@minecraft/server-ui` when the pack uses forms (always for the Controller).
-- No experiments unless the feature truly needs one; name it in the documentation if so.
-- Dependencies and imports are limited to `@minecraft/server`, `@minecraft/server-ui`, and `@minecraft/vanilla-data`.
-
-Resource pack template (replace every `<fresh uuid v4>` and `<looked-up game version>`):
-
-```json
-{
-  "format_version": 2,
-  "header": {
-    "name": "Add-on Name (v1.0.0)",
-    "description": "Textures for the add-on. by AllensCreations",
-    "uuid": "<fresh uuid v4>",
-    "version": [1, 0, 0],
-    "min_engine_version": ["<looked-up game version as three integers>"]
-  },
-  "modules": [
-    { "type": "resources", "uuid": "<fresh uuid v4>", "version": [1, 0, 0] }
-  ],
-  "metadata": { "authors": ["AllensCreations"], "product_type": "addon" }
-}
-```
-
-(The `min_engine_version` placeholder above is deliberately not valid JSON for the array; write three integers.)
-
-### 4. Type: addon
-
-- Behavior pack required; resource pack optional. No void cleaner, no ledger, no controller.
-- If you ship `functions/tick.json`, every name in it must exist as `functions/<n>.mcfunction`.
-- A `test_world.json` is optional (format in Section 6).
-- The importer writes the `LOCK` markers; do not create them.
-
-### 5. Type: map (OneBlock)
-
-The map must work in any database-free void world and must not depend on specific terrain, a database, or world settings.
-
-**Required files** (`build_payload.py` installs the three ledger files if missing):
-
-```
-behavior_pack/functions/tick.json              {"values": ["void_cleaner", "oneblock_tick"]}  void_cleaner FIRST
-behavior_pack/functions/void_cleaner.mcfunction
-behavior_pack/functions/oneblock_setup.mcfunction
-behavior_pack/items/trader_ledger.json
-resource_pack/textures/item_texture.json
-resource_pack/textures/items/trader_ledger.png
-```
-
-1. `tick.json` is valid JSON with a non-empty `values` list, `void_cleaner` first, and every name exists as a `.mcfunction`.
-2. `void_cleaner.mcfunction` has this exact line as its **first command**, on its own line, no trailing spaces:
-   ```
-   execute as @a[tag=!void_cleaned] run fill -16 -64 -16 16 -64 16 air
-   ```
-3. `oneblock_setup.mcfunction` only has to exist. Keep it harmless and idempotent. Do not list it in `tick.json`. Say in the README, in plain player words and without naming the file, that the optional setup command needs cheats and that using cheats in a world disables achievements there.
-4. **Trader Ledger** is mandatory and comes only from the repo copy, installed by `build_payload.py`. It is a 32 x 32 RGBA PNG at `Mcpeworlds/assets/resources_pack/textures/items/trader_ledger.png`. The item identifier stays `allenscreations:trader_ledger`; you may change its display name. Never redraw, recolor, resize, or re-encode it, and never copy the whole `Mcpeworlds/assets/` folder.
-5. The ledger's role follows the idea. In the Dirtbound reference map it is the only way to open a shop menu. If the idea gives it no role, still ship it and say so in the summary.
-
-**Pipeline** (Dirtbound reference design) unless the user specifies otherwise. `void_cleaner.mcfunction` runs every tick, each command guarded by `tag=!void_cleaned`, in this order: (1) the required Y=-64 line; (2) teleport the untagged player to spawn (the only function-side teleport); (3) Bedrock under the core; (4) placeholder at the core only if empty; (5) set world spawn; (6) optional notice; (7) add the `void_cleaned` tag as the **last** command, **conditional on the core Bedrock existing** (Part 1, Section 7, Chunk loading). Without the tag every guarded command repeats every tick forever; with an unconditional tag, a fill that ran on unloaded chunks is never retried. Do not add a "clear starting area" step; Part 1 forbids expanding cleanup beyond the single Y=-64 layer without approval.
-
-- Protect the core from later joiners: any clear of the core area must be skipped once the core exists.
-- `oneblock_tick` may restore only missing Bedrock, and only if a player already has `void_cleaned`. It must not reset spawn, teleport players, or place or replace the core.
-- If a Script API owns the core block, break rewards, and progression, it waits until a player has `void_cleaned` before replacing the placeholder.
-- Dirtbound coordinates: core `(0,0,0)`, Bedrock `(0,-1,0)`, spawn `(0,1,0)`. If the user gives others, use theirs and make sure any `fill` covers what it claims to clear.
-- A script teleport is allowed only in script; state it in the summary. If an idea cannot work with the `void_cleaner`-first pipeline, say so instead of silently changing it.
-
-### 6. Type: script
-
-A script is a mini-game or challenge driven by the Script API. It works in any world and does not depend on specific terrain.
-
-**Required files** (`build_payload.py` installs the Controller files if missing):
-
-```
-behavior_pack/manifest.json                    script module + @minecraft/server + @minecraft/server-ui
-behavior_pack/scripts/main.js                  the game only; imports ./controller.js
-behavior_pack/scripts/controller.js            fixed copy installed by build_payload.py, never edited
-behavior_pack/items/controller.json
-behavior_pack/functions/give_controller.mcfunction
-behavior_pack/functions/end_game.mcfunction
-resource_pack/manifest.json
-resource_pack/textures/item_texture.json
-resource_pack/textures/items/controller.png    16 x 16, from the repo, never redrawn
-test_world.json
-```
-
-**The Controller.** Every script ships item `allenscreations:controller`. Using it opens a form with exactly two buttons, **Start** and **How to play**, in that order. `"controller": false` in `project.json` opts out; then none of the Controller files are needed.
-
-- Only the host or an operator receives and can use the Controller, checked with the `isHost` helper in `controller.js`, never with `player.isOp()` alone. **Start** works while the game is not running and re-reads the game state after the form closes. **How to play** opens a second form with the rules text and a Back button.
-- **Survival breaks it, Creative keeps it.** Start consumes the first Controller in the player's inventory unless `getGameMode()` is `GameMode.Creative`.
-- **How the game ends.** Your game logic calls `endGame()` on its win or lose condition. `endGame()` sets the state to `ended` and gives the host or operator a fresh Controller if they have none.
-- **Stuck-state recovery.** The state must not remain `running` after a world reload with no live game. Reset it to `idle` on world load and give the host or operator a Controller (Part 1, Section 7). `give_controller` and `end_game` need cheats and are a last resort, not form buttons.
-- **Giving it.** The script gives it to the host or an operator on first spawn when they carry none and the game is not `running` (Creative operators always get one). State (`idle`, `running`, `ended`) lives in a world dynamic property.
-- **The form** shows the state and whether the Controller will be kept. Keep the two labels exactly, and do not add Restart or End buttons.
-- Fill `gameInfo` and `howToPlay` in `registerController` with the real description and rules: goal, controls, and how it ends.
-
-`controller.js` is installed by `build_payload.py` when `main.js` calls `registerController(`, and the check fails if it differs from the generator copy, so never edit it. Write `behavior_pack/manifest.json` with the looked-up `min_engine_version` before running the script, because the item JSON takes its `format_version` from it. You still write `resource_pack/manifest.json` yourself (Section 3, fresh UUIDs, same version) and add its dependency and `@minecraft/server-ui` to the behavior pack manifest. Do not copy anything else from `Mcpeworlds/assets/`.
-
-`main.js` holds only the game and connects to the Controller through one call:
-
-```js
-import { world } from "@minecraft/server";
-import { registerController, endGame } from "./controller.js";
-
-function win() {
-  world.sendMessage("You won.");
-  endGame();
-}
-
-registerController({
-  title: "Sample Game",
-  gameInfo: "Type: Challenge\nPlayers: 1 or more\nGoal: Replace this text with a short description of the game.",
-  howToPlay: "Goal: replace this text.\nControls: replace this text.\nHow it ends: replace this text.",
-  onStart: () => {
-    world.sendMessage("Game started.");
-  },
-  onEnd: () => {
-    world.sendMessage("Game ended.");
-  },
-});
-```
-
-- `title`, `gameInfo`, and `howToPlay` are required. **Start** runs `onStart(player)` after the Controller is consumed; if it throws, the state returns to `idle` and the Controller is given back. The `allenscreations:end` script event also ends the game.
-- The template's `win()` only sends a message: replace it with real game logic.
-- Existing projects with an inline Controller still pass with a warning; move them to `registerController` when next touched.
-
-**The test world.** `test_world.json` is required for scripts (use an empty list if no add-ons are wanted) and optional for add-ons:
-
-```json
-{ "mode": "Creative", "include_addons": ["Magnetic-Satchel", "Mining-Helmet"] }
-```
-
-- `mode` is `Creative`, `Survival`, or `Hardcore` (default `Creative`).
-- `include_addons` holds folder names that already exist under `MCPEDL/addons/` or `MCPEDL/new_addons/`, at most 10, no duplicates. The importer rejects a missing name. Use only add-ons the user named or the idea clearly needs; if you cannot verify a name exists, ask once.
-- The workflow builds `<Name> - Test.mcworld` into the project folder. It fails on duplicate pack UUIDs or an unresolved dependency. The README must not claim the `.mcworld` exists; it is added after the build.
-- The test world uses the void foundation of the chosen mode. If the script needs terrain, build it from script or functions, not from world data.
-
-### 7. Recipes and documentation (all types)
-
-Documentation follows Part 2 exactly; `build_payload.py` prints a `DOC:` warning for each rule it can check, and the final run must show none.
-
-- Every custom shaped or shapeless crafting recipe needs the unlock its type requires (Part 1, Section 4). Other recipe types are not given an `unlock` field.
-- **Add-on `README.md`:** the Part 2 download-only template, at most 24 non-empty lines. Until a package exists, link the official catalog page (`https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/new_addons/README.md#available-add-ons`). No other links, no badges, no `.mcworld` claims, no features.
-- **Map and script `README.md`:** the product page: an Overview or Features section and at least 25 non-empty lines. For a map, mention the Trader Ledger; for a script, the Controller. Never claim a `.mcworld` exists.
-- **Compatibility lines** go in `DESCRIPTION.md` for add-ons and in `README.md` for maps and scripts: exactly one achievement status (*Likely achievement-friendly*, *Not achievement-friendly / may disable achievements*, or *Unknown / needs confirmation*); an experiments line; and the sentence "Source created, not tested in game." State the verified minimum game version only if verified. Mention cheats where an admin function is documented.
-- **`DESCRIPTION.md`:** the Part 2 template, including Creator and Permissions links, the Guidelines and Attribution block (with the unofficial-product disclaimer), and Search & Discovery Keywords. Only features that exist in the files. Never mention `Script API` or `@minecraft/` modules. Use in-game display names, no code blocks, no Markdown tables.
-- **`CHANGELOG.md`:** the Part 2 format, starting with `## [1.0.0] - YYYY-MM-DD`, no links.
-
-### 8. Building the payload
-
-Do not hand-write the ZIP or the base64. `scripts/build_payload.py` installs the missing Ledger or Controller files, runs every check, builds the ZIP, writes `payload.b64` (always one line), and round-trips it. The repository importer imports this same file, so agent-side and repo-side checks cannot drift apart. There is no embedded copy in this file; the repository version is the only version.
-
-1. Create the project under `build/<Name>/` using the Section 2 layout, including `project.json` and a behavior pack manifest with the looked-up `min_engine_version`.
-2. Obtain `scripts/build_payload.py` from the repository (or pasted by the user, see the start of this Part) and save it next to `build/`.
-3. Run `python build_payload.py build/Name`. Add `--check-only` to test without building.
-4. Fix every failure and every `DOC:` warning and run it again. Paste the final output (SELF-TEST PASSED and BUILD OK) into your reply. It proves structure only. Node must be installed so the script syntax check runs; if the output says syntax was not checked, say so.
-5. Deliver `payload.b64`: one single line, no line breaks, spaces, or code fences. If the ZIP is under the inline limit you may paste it; otherwise deliver the file and tell the user to commit it to `MCPE-Curseforges/MCPEDL/incoming/<n>.b64` and pass that path as `payload_file`. Never retype it from memory.
-
-### 9. Final self-check before replying
-
-By hand, confirm only:
-
-- [ ] You asked for (or were given) the type before building.
-- [ ] The script printed SELF-TEST PASSED and BUILD OK, and the base64 came from `payload.b64`.
-- [ ] Module versions are latest stable, looked up on the date of the work, with the date recorded.
-- [ ] `min_engine_version` is a looked-up value and the documentation states only a verified minimum.
-- [ ] The documentation states achievement status (with the cheats caveat where relevant), experiments, and "not tested in game", and the run shows no `DOC:` warnings.
-- [ ] Map: `oneblock_setup.mcfunction` is harmless and idempotent; `void_cleaner` ends with the conditional `void_cleaned` tag.
-- [ ] Script: the form has exactly Start and How to play; `gameInfo` and `howToPlay` hold real text; the game logic is real and calls `endGame()`; stuck-state recovery exists; each listed add-on exists.
-- [ ] No comments in any script, function, or JSON file.
-- [ ] No file from `Mcpeworlds/assets/` other than the ledger or controller files was copied.
-
-### 10. If the build fails
-
-Paste the workflow's error log back to the agent. If a message names a rule, find the rule in this file and the check in `scripts/build_payload.py`. Common messages:
-
-| Message contains | Fix |
-|---|---|
-| `type must be one of` | `project.json` needs `"type": "addon"`, `"map"`, or `"script"`. |
-| `File type not allowed` / `world data not allowed` / `link files not allowed` | Remove the file or folder (Section 2). |
-| `header.name must end with one (vX.Y.Z)` / `title version does not match` | One suffix, equal to `header.version`, in both packs. |
-| `description needs 'by AllensCreations' exactly once` | Once per description, never in the name. |
-| `must depend on the resource pack header.uuid` | Add the dependency (Section 3). |
-| `first entry must be void_cleaner` / `lacks the exact required fill line` / `the last command must add the void_cleaned tag` | Fix `tick.json` and `void_cleaner.mcfunction` (Section 5). |
-| `missing required file` | Add the file listed for your type. |
-| `is not a byte-for-byte copy` | Use the repo PNG unchanged. |
-| `controller.js must be the unchanged generator copy` | Delete it and rerun the script. |
-| `registerController needs ...` | Fill the fields in the call. |
-| `import ... is not allowed` / `eval and the Function constructor` / `syntax error` | Fix the named line. |
-| `min_engine_version must be 3 integers` | Use the looked-up game version. |
-| `format_version ... newer than min_engine_version` | Raise `min_engine_version` or lower the item `format_version`. |
-| `is already used by MCPEDL/...` | Generate fresh UUIDs. |
-| `Name clash` / `already exists` / `also exists under` | Pick another folder name or set `overwrite` to true. |
-| `add-on '<x>' not found` | Fix the name in `test_world.json`. |
-| `missing the unlock context` | Add the unlock to the shaped or shapeless recipe (Part 1, Section 4). |
-| `DOC: ...` | Fix the documentation rule it names. |
-
-### 11. Reply format
-
-1. Type, and the suggested folder name (letters, numbers, `.` `_` `-`).
-2. The base64 (one-line code block) or the `.b64` file.
-3. A short summary: what it does, target game version, `min_engine_version` (and whether verified), module versions with the date checked, achievement and experiment status, the icon asset (repo copy, hash verified), for a script the included add-ons, any deviations from this Part, and the `build_payload.py` result.
-4. Next steps:
-   - GitHub, Actions, **Create Project from Base64**, Run workflow.
-   - Enter the folder name and paste the base64. If the folder already exists, set overwrite to true. Leave `commit_mode` on `pull_request`, then review and merge the pull request it opens.
-   - Download the generated world from the run's artifacts or the project folder and test it in Minecraft.
-   - To change which add-ons a test world includes, edit `test_world.json` and run **Build Test World**.
-   - If the build fails, paste the error log back to the agent (Section 10).

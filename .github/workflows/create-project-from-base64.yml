@@ -1,6 +1,6 @@
 name: Create Project from Base64
 
-# Paste the base64 produced by an AI agent (see INSTRUCTIONS.md, Part 4).
+# Paste the base64 produced by an AI agent (see PACK_GENERATOR_INSTRUCTIONS.md).
 # The ZIP's project.json decides the type:
 #   addon  -> MCPEDL/new_addons/<Name>/
 #   map    -> MCPEDL/maps/<Name>/      (+ Creative/Survival/Hardcore worlds)

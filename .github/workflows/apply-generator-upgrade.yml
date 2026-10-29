@@ -89,7 +89,7 @@ jobs:
           has_pat = os.environ["HAS_PAT"] == "true"
           ROOT = pathlib.Path(".").resolve()
 
-          ALLOWED = ("INSTRUCTIONS.md", "scripts/",
+          ALLOWED = ("INSTRUCTIONS.md", "PACK_GENERATOR_INSTRUCTIONS.md", "scripts/",
                      "Mcpeworlds/assets/", ".github/workflows/")
           PROTECTED = ("Mcpeworlds/Creative/", "Mcpeworlds/Survival/", "Mcpeworlds/Hardcore/", "MCPEDL/", "builds/", ".git/")
 
@@ -225,7 +225,7 @@ jobs:
           set -euo pipefail
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add -A -- INSTRUCTIONS.md scripts Mcpeworlds/assets .github/workflows
+          git add -A -- INSTRUCTIONS.md PACK_GENERATOR_INSTRUCTIONS.md scripts Mcpeworlds/assets .github/workflows
           git add -u -- GAME_GENERATOR.md README_GUIDELINES.md ONEBLOCK_ADDON_GENERATOR.md 2>/dev/null || true
           if [ "$REMOVE_ZIP" = "true" ] && [ "${SKIPPED_WF:-false}" = "false" ]; then
             git rm -q --ignore-unmatch -- "$ZIP_PATH"
