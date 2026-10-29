@@ -1,4 +1,4 @@
-# Trivia Vault: The Locked World (v1.0.16)
+# Trivia Vault: The Locked World (v1.0.17)
 
 ## Overview
 Trivia Vault: The Locked World is a survival trivia challenge by AllensCreations.

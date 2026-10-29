@@ -8,9 +8,9 @@ This folder contains compiled release packages for **Trivia Vault The Locked Wor
 
 | File Name | Format | Size | Description | Download Link |
 | :--- | :--- | :--- | :--- | :--- |
-| **`Trivia Vault The Locked World by AllensCreations (V1.0.16).mcaddon`** | `.mcaddon` | ~40 KB | Complete bundle containing both Behavior Pack and Resource Pack. | [Download (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Trivia-Vault-The-Locked-World/Trivia%20Vault%20The%20Locked%20World%20by%20AllensCreations%20%28V1.0.16%29.mcaddon) |
-| **`Trivia Vault The Locked World BP by AllensCreations (V1.0.16).mcpack`** | `.mcpack` | ~38 KB | Behavior Pack: Custom entities, components, and gameplay mechanics. | [Download (.mcpack)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Trivia-Vault-The-Locked-World/Trivia%20Vault%20The%20Locked%20World%20BP%20by%20AllensCreations%20%28V1.0.16%29.mcpack) |
-| **`Trivia Vault The Locked World RP by AllensCreations (V1.0.16).mcpack`** | `.mcpack` | ~1 KB | Resource Pack: Custom models, geometry, textures, and sounds. | [Download (.mcpack)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Trivia-Vault-The-Locked-World/Trivia%20Vault%20The%20Locked%20World%20RP%20by%20AllensCreations%20%28V1.0.16%29.mcpack) |
+| **`Trivia Vault The Locked World by AllensCreations (V1.0.17).mcaddon`** | `.mcaddon` | ~40 KB | Complete bundle containing both Behavior Pack and Resource Pack. | [Download (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Trivia-Vault-The-Locked-World/Trivia%20Vault%20The%20Locked%20World%20by%20AllensCreations%20%28V1.0.17%29.mcaddon) |
+| **`Trivia Vault The Locked World BP by AllensCreations (V1.0.17).mcpack`** | `.mcpack` | ~38 KB | Behavior Pack: Custom entities, components, and gameplay mechanics. | [Download (.mcpack)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Trivia-Vault-The-Locked-World/Trivia%20Vault%20The%20Locked%20World%20BP%20by%20AllensCreations%20%28V1.0.17%29.mcpack) |
+| **`Trivia Vault The Locked World RP by AllensCreations (V1.0.17).mcpack`** | `.mcpack` | ~1 KB | Resource Pack: Custom models, geometry, textures, and sounds. | [Download (.mcpack)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Trivia-Vault-The-Locked-World/Trivia%20Vault%20The%20Locked%20World%20RP%20by%20AllensCreations%20%28V1.0.17%29.mcpack) |
 
 ---
 

@@ -1,13 +1,13 @@
 {
   "format_version": 2,
   "header": {
-    "name": "Grimoire Relics V2 (v1.0.10)",
+    "name": "Grimoire Relics V2 (v1.0.11)",
     "description": "Grimoire Relics resource pack with the 20 tome icons. by AllensCreations",
     "uuid": "cefdddd0-186d-4bc2-ad03-553ce7d08676",
     "version": [
       1,
       0,
-      10
+      11
     ],
     "min_engine_version": [
       1,
@@ -22,7 +22,7 @@
       "version": [
         1,
         0,
-        10
+        11
       ]
     }
   ],
@@ -32,7 +32,7 @@
       "version": [
         1,
         0,
-        10
+        11
       ]
     }
   ],

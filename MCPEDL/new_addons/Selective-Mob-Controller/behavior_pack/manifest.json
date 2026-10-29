@@ -1,13 +1,13 @@
 {
   "format_version": 2,
   "header": {
-    "name": "Selective Mob Controller (v1.0.3)",
+    "name": "Selective Mob Controller (v1.0.4)",
     "description": "Strictly filter allowed mob spawns with two-layer script purge guard and massively boosted cluster spawn density (Ludicrous Swarm 75-cap). by AllensCreations",
     "uuid": "b68bb2fa-ae10-4039-8f9e-7122e1c7bd01",
     "version": [
       1,
       0,
-      3
+      4
     ],
     "min_engine_version": [
       1,
@@ -23,7 +23,7 @@
       "version": [
         1,
         0,
-        3
+        4
       ]
     },
     {
@@ -34,7 +34,7 @@
       "version": [
         1,
         0,
-        3
+        4
       ],
       "entry": "scripts/main.js"
     }

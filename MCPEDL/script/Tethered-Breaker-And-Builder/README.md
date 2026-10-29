@@ -1,4 +1,4 @@
-# Tethered: Breaker and Builder (v1.0.10)
+# Tethered: Breaker and Builder (v1.0.11)
 
 A two-player co-op challenge for Minecraft Bedrock Edition. One player breaks, the other builds, and an elastic leash keeps you together.
 

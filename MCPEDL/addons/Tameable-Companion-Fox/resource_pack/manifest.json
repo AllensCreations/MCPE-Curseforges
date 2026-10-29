@@ -1,13 +1,13 @@
 {
   "format_version": 2,
   "header": {
-    "name": "Tameable Companion Fox (v1.0.6)",
+    "name": "Tameable Companion Fox (v1.0.7)",
     "description": "Resource pack for Tameable Companion Fox. by AllensCreations",
     "uuid": "996c09c4-1460-4a46-b37c-3a164534b33f",
     "version": [
       1,
       0,
-      6
+      7
     ],
     "min_engine_version": [
       1,
@@ -22,7 +22,7 @@
       "version": [
         1,
         0,
-        6
+        7
       ]
     }
   ],

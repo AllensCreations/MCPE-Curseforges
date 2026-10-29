@@ -1,12 +1,12 @@
-# Grimoire Relics V2 (v1.0.10)
+# Grimoire Relics V2 (v1.0.11)
 
 Download the current release of **Grimoire Relics V2** for Minecraft Bedrock Edition.
 
 ## Download
 
-- **Version:** 1.0.10
+- **Version:** 1.0.11
 - **Package format:** `.mcaddon`
-- **Direct download:** [Download Grimoire Relics V2 (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Grimoire-Relics-V2/Grimoire%20Relics%20V2%20by%20AllensCreations%20%28V1.0.10%29.mcaddon)
+- **Direct download:** [Download Grimoire Relics V2 (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Grimoire-Relics-V2/Grimoire%20Relics%20V2%20by%20AllensCreations%20%28V1.0.11%29.mcaddon)
 
 ## Installation
 

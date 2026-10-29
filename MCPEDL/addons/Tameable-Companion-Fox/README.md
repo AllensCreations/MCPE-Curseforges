@@ -1,12 +1,12 @@
-# Tameable Companion Fox (v1.0.6)
+# Tameable Companion Fox (v1.0.7)
 
 Download the current release of **Tameable Companion Fox** for Minecraft Bedrock Edition.
 
 ## Download
 
-- **Version:** 1.0.6
+- **Version:** 1.0.7
 - **Package format:** `.mcaddon`
-- **Direct download:** [Download Tameable Companion Fox (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Tameable-Companion-Fox/Tameable%20Companion%20Fox%20by%20AllensCreations%20%28V1.0.6%29.mcaddon)
+- **Direct download:** [Download Tameable Companion Fox (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Tameable-Companion-Fox/Tameable%20Companion%20Fox%20by%20AllensCreations%20%28V1.0.7%29.mcaddon)
 
 ## Installation
 

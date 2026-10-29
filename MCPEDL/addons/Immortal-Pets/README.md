@@ -1,12 +1,12 @@
-# Immortal Pets (v1.1.8)
+# Immortal Pets (v1.1.9)
 
 Download the current release of **Immortal Pets** for Minecraft Bedrock Edition.
 
 ## Download
 
-- **Version:** 1.1.8
+- **Version:** 1.1.9
 - **Package format:** `.mcpack`
-- **Direct download:** [Download Immortal Pets (.mcpack)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Immortal-Pets/Immortal%20Pets%20by%20AllensCreations%20%28V1.1.8%29.mcpack)
+- **Direct download:** [Download Immortal Pets (.mcpack)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Immortal-Pets/Immortal%20Pets%20by%20AllensCreations%20%28V1.1.9%29.mcpack)
 
 ## Installation
 

@@ -1,18 +1,18 @@
 {
   "format_version": 2,
   "header": {
-    "name": "Mining Helmet (v1.0.12)",
+    "name": "Mining Helmet (v1.0.13)",
     "description": "Textures, attachables, and client models for Mining Helmet. by AllensCreations",
     "uuid": "1b31b370-3c6e-4f8a-bb0b-7d1aaaf04e11",
     "version": [
       1,
       0,
-      12
+      13
     ],
     "min_engine_version": [
       1,
-      20,
-      80
+      21,
+      0
     ]
   },
   "modules": [
@@ -23,7 +23,7 @@
       "version": [
         1,
         0,
-        12
+        13
       ]
     }
   ],

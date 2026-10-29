@@ -1,13 +1,13 @@
 {
   "format_version": 2,
   "header": {
-    "name": "Magnetic Satchel (v1.0.6)",
+    "name": "Magnetic Satchel (v1.0.7)",
     "description": "Adds the Magnetic Satchel. Hold it in your offhand to pull nearby dropped items toward you. Sneak and use it in the main hand to toggle magnetism on or off. by AllensCreations",
     "uuid": "5f2473b0-91dc-4b2a-928c-ed36b85f6861",
     "version": [
       1,
       0,
-      6
+      7
     ],
     "min_engine_version": [
       1,
@@ -22,7 +22,7 @@
       "version": [
         1,
         0,
-        6
+        7
       ]
     },
     {
@@ -32,7 +32,7 @@
       "version": [
         1,
         0,
-        6
+        7
       ],
       "entry": "scripts/main.js"
     }
@@ -43,7 +43,7 @@
       "version": [
         1,
         0,
-        6
+        7
       ]
     },
     {

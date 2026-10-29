@@ -8,8 +8,8 @@ This folder contains compiled release packages for **Harvest Intelligence** by A
 
 | File Name | Format | Size | Description | Download Link |
 | :--- | :--- | :--- | :--- | :--- |
-| **`Harvest Intelligence by AllensCreations (V1.0.4).mcpack`** | `.mcpack` | ~4 KB | Script Behavior Pack archive ready for import. | [Download (.mcpack)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Harvest-Intelligence/Harvest%20Intelligence%20by%20AllensCreations%20%28V1.0.4%29.mcpack) |
-| **`Harvest Intelligence by AllensCreations (V1.0.4).mcaddon`** | `.mcaddon` | ~4 KB | Complete Add-on package archive. | [Download (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Harvest-Intelligence/Harvest%20Intelligence%20by%20AllensCreations%20%28V1.0.4%29.mcaddon) |
+| **`Harvest Intelligence by AllensCreations (V1.0.5).mcpack`** | `.mcpack` | ~4 KB | Script Behavior Pack archive ready for import. | [Download (.mcpack)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Harvest-Intelligence/Harvest%20Intelligence%20by%20AllensCreations%20%28V1.0.5%29.mcpack) |
+| **`Harvest Intelligence by AllensCreations (V1.0.5).mcaddon`** | `.mcaddon` | ~4 KB | Complete Add-on package archive. | [Download (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Harvest-Intelligence/Harvest%20Intelligence%20by%20AllensCreations%20%28V1.0.5%29.mcaddon) |
 
 ---
 

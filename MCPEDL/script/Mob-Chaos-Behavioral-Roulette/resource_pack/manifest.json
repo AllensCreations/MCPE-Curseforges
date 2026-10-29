@@ -1,13 +1,13 @@
 {
   "format_version": 2,
   "header": {
-    "name": "Mob Chaos Behavioral Roulette (v1.0.2)",
+    "name": "Mob Chaos Behavioral Roulette (v1.0.3)",
     "description": "Controller item texture for Mob Chaos. by AllensCreations",
     "uuid": "d5db9770-bad9-4a54-9780-b2e6a8a08166",
     "version": [
       1,
       0,
-      2
+      3
     ],
     "min_engine_version": [
       1,
@@ -22,7 +22,7 @@
       "version": [
         1,
         0,
-        2
+        3
       ]
     }
   ],

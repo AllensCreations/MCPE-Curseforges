@@ -1,18 +1,18 @@
 {
   "format_version": 2,
   "header": {
-    "name": "Mining Helmet (v1.0.12)",
+    "name": "Mining Helmet (v1.0.13)",
     "description": "Wearable Mining Helmet with real-time dynamic light tracking using @minecraft/server. by AllensCreations",
     "uuid": "1a05f976-9731-4a23-934d-c77cc12722c9",
     "version": [
       1,
       0,
-      12
+      13
     ],
     "min_engine_version": [
       1,
-      20,
-      80
+      21,
+      0
     ]
   },
   "modules": [
@@ -23,7 +23,7 @@
       "version": [
         1,
         0,
-        12
+        13
       ]
     },
     {
@@ -34,7 +34,7 @@
       "version": [
         1,
         0,
-        12
+        13
       ],
       "entry": "scripts/main.js"
     }
@@ -49,7 +49,7 @@
       "version": [
         1,
         0,
-        12
+        13
       ]
     }
   ],
