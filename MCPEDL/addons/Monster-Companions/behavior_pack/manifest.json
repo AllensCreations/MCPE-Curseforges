@@ -1,13 +1,13 @@
 {
   "format_version": 2,
   "header": {
-    "name": "Monster Companions (v1.2.8)",
+    "name": "Monster Companions (v1.2.9)",
     "description": "Tame hostile monsters into loyal bodyguards and rideable mounts with Beast Biscuits!. by AllensCreations",
     "uuid": "51f090e5-374b-42c6-a122-bcef2a0f0356",
     "version": [
       1,
       2,
-      8
+      9
     ],
     "min_engine_version": [
       1,
@@ -23,7 +23,7 @@
       "version": [
         1,
         2,
-        8
+        9
       ]
     }
   ],
@@ -33,7 +33,7 @@
       "version": [
         1,
         2,
-        8
+        9
       ]
     }
   ],

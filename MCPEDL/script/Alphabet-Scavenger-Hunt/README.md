@@ -1,4 +1,4 @@
-# Alphabet Scavenger Hunt Challenge (v1.0.8)
+# Alphabet Scavenger Hunt Challenge (v1.0.9)
 
 Download the current release of **Alphabet Scavenger Hunt Challenge** for Minecraft Bedrock Edition.
 

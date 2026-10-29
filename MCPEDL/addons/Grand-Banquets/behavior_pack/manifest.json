@@ -1,13 +1,13 @@
 {
   "format_version": 2,
   "header": {
-    "name": "Grand Banquets (v1.0.5)",
+    "name": "Grand Banquets (v1.0.6)",
     "description": "Adds 32 craftable custom food dishes across four tiers, including meals with special status effects. by AllensCreations",
     "uuid": "485dca7d-bdc8-4fce-bc51-6b7d459907d1",
     "version": [
       1,
       0,
-      5
+      6
     ],
     "min_engine_version": [
       1,
@@ -22,7 +22,7 @@
       "version": [
         1,
         0,
-        5
+        6
       ]
     },
     {
@@ -32,7 +32,7 @@
       "version": [
         1,
         0,
-        5
+        6
       ],
       "entry": "scripts/main.js"
     }
@@ -43,7 +43,7 @@
       "version": [
         1,
         0,
-        5
+        6
       ]
     },
     {

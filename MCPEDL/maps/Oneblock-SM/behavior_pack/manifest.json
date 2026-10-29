@@ -1,13 +1,13 @@
 {
   "format_version": 2,
   "header": {
-    "name": "OneBlock Sovereign Market (v1.1.5)",
+    "name": "OneBlock Sovereign Market (v1.1.6)",
     "description": "Dirt-to-sovereignty OneBlock economy with a Trader Ledger. by AllensCreations",
     "uuid": "5f751626-2798-46f7-9cae-ebd3e2394e78",
     "version": [
       1,
       1,
-      5
+      6
     ],
     "min_engine_version": [
       1,
@@ -22,7 +22,7 @@
       "version": [
         1,
         1,
-        5
+        6
       ]
     },
     {
@@ -32,7 +32,7 @@
       "version": [
         1,
         1,
-        5
+        6
       ],
       "entry": "scripts/main.js"
     }
@@ -43,7 +43,7 @@
       "version": [
         1,
         1,
-        5
+        6
       ]
     },
     {

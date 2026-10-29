@@ -1,13 +1,13 @@
 {
   "format_version": 2,
   "header": {
-    "name": "Mob Chaos Behavioral Roulette (v1.0.2)",
+    "name": "Mob Chaos Behavioral Roulette (v1.0.3)",
     "description": "Every mob gets scrambled behaviors stolen from other creatures. by AllensCreations",
     "uuid": "1c343af2-f13b-4239-8f9a-3608f92faab4",
     "version": [
       1,
       0,
-      2
+      3
     ],
     "min_engine_version": [
       1,
@@ -23,7 +23,7 @@
       "version": [
         1,
         0,
-        2
+        3
       ],
       "entry": "scripts/main.js"
     }

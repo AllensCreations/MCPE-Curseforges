@@ -1,13 +1,13 @@
 {
   "format_version": 2,
   "header": {
-    "name": "Passive Auto-Switch Tools (v1.1.15)",
+    "name": "Passive Auto-Switch Tools (v1.1.16)",
     "description": "Zero-configuration passive tool auto-switcher when holding Hotbar Slot 1. by AllensCreations",
     "uuid": "030580a5-3472-418c-82bd-656a52728134",
     "version": [
       1,
       1,
-      15
+      16
     ],
     "min_engine_version": [
       1,
@@ -24,7 +24,7 @@
       "version": [
         1,
         1,
-        15
+        16
       ],
       "entry": "scripts/main.js"
     }

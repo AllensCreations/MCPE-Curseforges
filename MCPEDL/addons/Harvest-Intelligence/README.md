@@ -1,12 +1,12 @@
-# Harvest Intelligence (v1.0.5)
+# Harvest Intelligence (v1.0.6)
 
 Download the current release of **Harvest Intelligence** for Minecraft Bedrock Edition.
 
 ## Download
 
-- **Version:** 1.0.5
+- **Version:** 1.0.6
 - **Package format:** `.mcpack`
-- **Direct download:** [Download Harvest Intelligence (.mcpack)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Harvest-Intelligence/Harvest%20Intelligence%20by%20AllensCreations%20%28V1.0.5%29.mcpack)
+- **Direct download:** [Download Harvest Intelligence (.mcpack)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Harvest-Intelligence/Harvest%20Intelligence%20by%20AllensCreations%20%28V1.0.6%29.mcpack)
 
 ## Installation
 

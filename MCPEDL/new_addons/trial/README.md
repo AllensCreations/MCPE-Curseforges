@@ -1,12 +1,12 @@
-# Mob Chaos Behavioral Roulette (v1.0.2)
+# Mob Chaos Behavioral Roulette (v1.0.3)
 
 Download the current release of **Mob Chaos Behavioral Roulette** for Minecraft Bedrock Edition.
 
 ## Download
 
-- **Version:** 1.0.2
+- **Version:** 1.0.3
 - **Package format:** `.mcpack`
-- **Direct download:** [Download Mob Chaos Behavioral Roulette (.mcpack)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/trial/Mob%20Chaos%20Behavioral%20Roulette%20by%20AllensCreations%20%28V1.0.2%29.mcpack)
+- **Direct download:** [Download Mob Chaos Behavioral Roulette (.mcpack)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/trial/Mob%20Chaos%20Behavioral%20Roulette%20by%20AllensCreations%20%28V1.0.3%29.mcpack)
 
 ## Installation
 

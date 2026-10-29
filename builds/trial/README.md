@@ -8,8 +8,8 @@ This folder contains compiled release packages for **Mob Chaos Behavioral Roulet
 
 | File Name | Format | Size | Description | Download Link |
 | :--- | :--- | :--- | :--- | :--- |
-| **`Mob Chaos Behavioral Roulette by AllensCreations (V1.0.2).mcpack`** | `.mcpack` | ~6 KB | Script Behavior Pack archive ready for import. | [Download (.mcpack)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/trial/Mob%20Chaos%20Behavioral%20Roulette%20by%20AllensCreations%20%28V1.0.2%29.mcpack) |
-| **`Mob Chaos Behavioral Roulette by AllensCreations (V1.0.2).mcaddon`** | `.mcaddon` | ~6 KB | Complete Add-on package archive. | [Download (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/trial/Mob%20Chaos%20Behavioral%20Roulette%20by%20AllensCreations%20%28V1.0.2%29.mcaddon) |
+| **`Mob Chaos Behavioral Roulette by AllensCreations (V1.0.3).mcpack`** | `.mcpack` | ~6 KB | Script Behavior Pack archive ready for import. | [Download (.mcpack)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/trial/Mob%20Chaos%20Behavioral%20Roulette%20by%20AllensCreations%20%28V1.0.3%29.mcpack) |
+| **`Mob Chaos Behavioral Roulette by AllensCreations (V1.0.3).mcaddon`** | `.mcaddon` | ~6 KB | Complete Add-on package archive. | [Download (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/trial/Mob%20Chaos%20Behavioral%20Roulette%20by%20AllensCreations%20%28V1.0.3%29.mcaddon) |
 
 ---
 

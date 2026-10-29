@@ -1,12 +1,12 @@
-# Selective Mob Controller (v1.0.4)
+# Selective Mob Controller (v1.0.5)
 
 Download the current release of **Selective Mob Controller** for Minecraft Bedrock Edition.
 
 ## Download
 
-- **Version:** 1.0.4
+- **Version:** 1.0.5
 - **Package format:** `.mcpack`
-- **Direct download:** [Download Selective Mob Controller (.mcpack)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Selective-Mob-Controller/Selective%20Mob%20Controller%20by%20AllensCreations%20%28V1.0.4%29.mcpack)
+- **Direct download:** [Download Selective Mob Controller (.mcpack)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Selective-Mob-Controller/Selective%20Mob%20Controller%20by%20AllensCreations%20%28V1.0.5%29.mcpack)
 
 ## Installation
 

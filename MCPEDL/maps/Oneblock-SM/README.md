@@ -1,4 +1,4 @@
-# OneBlock Sovereign Market (source v1.1.5)
+# OneBlock Sovereign Market (source v1.1.6)
 
 Download the current published OneBlock Sovereign Market world for Minecraft Bedrock Edition.
 
@@ -8,8 +8,8 @@ Download the current published OneBlock Sovereign Market world for Minecraft Bed
 - **Survival:** [Download Survival World (.mcworld)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/MCPEDL/maps/Oneblock-SM/OneBlock%20Sovereign%20Market%20-%20Survival.mcworld)
 - **Hardcore:** [Download Hardcore World (.mcworld)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/MCPEDL/maps/Oneblock-SM/OneBlock%20Sovereign%20Market%20-%20Hardcore.mcworld)
 
-All three world archives contain the current Behavior Pack version (1.1.5) and matching world pack links.
-Archive checks confirm package structure only; they do not prove gameplay has been tested in Minecraft.
+The map source is v1.1.6, but these world archives are missing or do not link the current pack versions: Creative, Survival, Hardcore.
+Existing downloads may be from an earlier source version. The OneBlock workflow rebuilds all three archives automatically when relevant map sources, Mcpeworlds foundations, builder code, or instructions change; it can also be run manually. Each archive preserves its mode's valid level.dat and intentionally contains no LevelDB database or db/CURRENT.
 
 ## Installation
 
