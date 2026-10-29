@@ -33,6 +33,7 @@ The generator (asks addon / map / script, returns a base64 ZIP built by `scripts
 
   Sources 4 and 5 are community-maintained and can lag behind releases. They never override 1 to 3 on identifiers, versions, or API availability.
 - **No comments in shipped code.** Do not write comments in `.js`, `.mcfunction`, or `.json` files; keep code short and self-explanatory. Explanations belong in documentation or the handoff.
+- **Shell script file names.** Whenever you give the user a `.sh` file (including a command or script handed over because you cannot run code), put at least 5 random lowercase letters or digits in the file name before the extension, for example `apply_fix_k7q2x.sh`. Generate a fresh suffix every time (for example `head -c 200 /dev/urandom | tr -dc 'a-z0-9' | head -c 6`) and never reuse a name from an earlier reply or an existing file, so running a new script can never overwrite or re-run an older one. Use the exact same name in the reply and in the command that runs it.
 - **Not an official product.** Public documentation must not imply endorsement by Mojang or Microsoft (see Part 2, Section 4).
 
 ---
@@ -464,6 +465,8 @@ Minecraft Bedrock add-on, [Add-on Name] Bedrock mod, [feature 1], [feature 2], [
 ```
 
 ### 6. Templates
+
+**Strict template rule.** Follow the matching template below exactly for every `README.md`, `DESCRIPTION.md`, and `CHANGELOG.md` you write or update: same headings, same heading text, same order, same labels, same list and bullet format. Do not add, remove, rename, merge, or reorder sections, and do not add boilerplate, extra notes, or text outside the template. Replace every `[placeholder]` and `verified-...` marker with verified content and leave none behind. The only allowed deviations are the ones the templates and Section 1 already name (map and script READMEs as product pages, and a section's content when a fact cannot be verified, in which case say so inside that section rather than dropping it). Factual accuracy and the user's requested scope still outrank the template.
 
 **Add-on README.md**
 
