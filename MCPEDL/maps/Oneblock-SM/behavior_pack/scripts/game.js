@@ -252,13 +252,20 @@ function breakEffect(dim) {
   system.run(sweep);
 }
 
+let lastHint = -1000;
+function hint(player, text) {
+  if (system.currentTick - lastHint < 100) return;
+  lastHint = system.currentTick;
+  try { player.onScreenDisplay.setActionBar("\u00a7c" + text); player.sendMessage("\u00a7c" + text); } catch (e) { /* ignore */ }
+}
+
 function mineOnce(player, a, fx) {
-  if (!core.armed || core.pending) return;
+  if (core.pending) return; // works on whatever block is at the OneBlock position, no earlier hand break needed
   const dim = dimOf();
   let chestBlock = dim.getBlock({ x: CORE.x, y: CORE.y + 1, z: CORE.z });
   if (!chestBlock) return;
   if (chestBlock.typeId !== "minecraft:chest") {
-    if (!chestBlock.isAir) return;
+    if (!chestBlock.isAir) { hint(player, "Auto-Miner: the block above the OneBlock must be empty so the collection chest can go there. Remove it."); return; }
     try { chestBlock.setType("minecraft:chest"); } catch (e) { return; }
     chestBlock = dim.getBlock({ x: CORE.x, y: CORE.y + 1, z: CORE.z });
   }

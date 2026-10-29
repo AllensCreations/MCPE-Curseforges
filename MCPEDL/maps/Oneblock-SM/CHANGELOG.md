@@ -2,6 +2,12 @@
 
 ---
 
+## [1.1.5] - 2026-10-29
+
+### Fixed
+- **Auto-Miner Start**: The Auto-Miner now mines whatever block is at the OneBlock position as soon as it is ON, without waiting for a hand break first.
+- **Auto-Miner Warnings**: If a block above the OneBlock stops the collection chest from being placed, the Auto-Miner now tells you on the action bar instead of silently doing nothing.
+
 ## [1.1.4] - 2026-10-29
 
 ### Fixed
