@@ -3,6 +3,7 @@ import { ActionFormData } from "@minecraft/server-ui";
 import { OVERWORLD_PHASES, NETHER_PHASES, END_PHASES } from "./phases.js";
 import { RARITY_TIERS, DIMENSION_TRADE_POOLS } from "./rarities.js";
 import { ISLAND_THEMES, OVERWORLD_ISLAND_ORDER, getIslandLocation, buildThemedIsland, isIslandPhysicallyBuilt, getIslandBlockPool } from "./islands.js";
+import { WORLD_MODE } from "./mode.js";
 // Admin Build Configuration
 // In Survival: false (pure vanilla experience: no Actionbar HUD, no !run or admin command intercepts)
 // In Admin World: true (enables !run auto-break testing runner, !hud toggle, !admin GUI, and inspector tools)
@@ -11,6 +12,9 @@ const IS_ADMIN_BUILD = false;
 function isAdmin(player) {
   return IS_ADMIN_BUILD === true;
 }
+
+const IS_HARDCORE = WORLD_MODE === "hardcore";
+const BASE_MODE = WORLD_MODE === "creative" ? "creative" : "survival";
 
 // Progressive Phase Length Scaling:
 // Early Biomes (Phases 0-4): 50 blocks (fast progression through starter woods/caves)
@@ -2326,7 +2330,7 @@ world.afterEvents.entityDie.subscribe((event) => {
     const dead = event.deadEntity;
     if (dead && dead.typeId === "minecraft:player") {
       const player = dead;
-      if (!isAdmin(player)) {
+      if (IS_HARDCORE && !isAdmin(player)) {
         player.addTag("hardcore_fallen");
         for (const p of world.getAllPlayers()) {
           p.sendMessage(`\n§4§l☠ [HARDCORE ELIMINATION] §c${player.name} §4has fallen!§r`);
@@ -2376,22 +2380,22 @@ world.afterEvents.playerSpawn.subscribe((event) => {
         }
       }
 
-      // Enforce Hardcore Survival or Spectator on spawning player in official survival world
+      // Enforce the world mode on the spawning player
       if (!isAdmin(player)) {
-        if (player.hasTag("hardcore_fallen")) {
+        if (IS_HARDCORE && player.hasTag("hardcore_fallen")) {
           try {
             player.setGameMode("spectator");
           } catch (gme) {
             try { player.runCommand("gamemode spectator @s"); } catch (e2) {}
           }
           player.sendMessage("§4[Hardcore Mode] §cYou have fallen! You are in Spectator Mode.");
-        } else {
+        } else if (IS_HARDCORE || initialSpawn) {
           try {
-            if (player.getGameMode && player.getGameMode() !== "survival") {
-              player.setGameMode("survival");
+            if (player.getGameMode && player.getGameMode() !== BASE_MODE) {
+              player.setGameMode(BASE_MODE);
             }
           } catch (gme) {
-            try { player.runCommand("gamemode survival @s"); } catch (e2) {}
+            try { player.runCommand(`gamemode ${BASE_MODE} @s`); } catch (e2) {}
           }
         }
       } else {
@@ -2810,7 +2814,7 @@ system.runInterval(() => {
     try { tickDimensionShifters(); } catch (e) {}
 
     // Permanently Lock World Difficulty to Hard in survival world
-    if (!IS_ADMIN_BUILD && tickCounter % 10 === 0) {
+    if (IS_HARDCORE && !IS_ADMIN_BUILD && tickCounter % 10 === 0) {
       try {
         const ow = world.getDimension("overworld");
         if (ow) {
@@ -2823,8 +2827,8 @@ system.runInterval(() => {
     // Actionbar HUD & Gamemode Enforcement
     for (const player of world.getAllPlayers()) {
       try {
-        // Permanently Lock Player GameMode in official survival world
-        if (!isAdmin(player)) {
+        // Lock Player GameMode in the Hardcore world only
+        if (IS_HARDCORE && !isAdmin(player)) {
           try {
             if (player.hasTag("hardcore_fallen")) {
               if (player.getGameMode && player.getGameMode() !== "spectator") {

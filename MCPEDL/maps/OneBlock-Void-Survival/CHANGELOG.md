@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.2.14] - 2026-10-29
+
+### Added
+- **Three Worlds**: The map now comes as a Creative world, a Survival world, and a Hardcore world.
+
+### Improved & Balanced
+- **Hardcore Is No Longer Forced**: Permanent Spectator Mode after death and the locked Hard difficulty now apply only to the Hardcore world. The Survival world uses normal respawning, and the Creative world starts every player in Creative mode.
+
 ## Unreleased (fixes after v1.2.6)
 
 ### Gameplay fixes

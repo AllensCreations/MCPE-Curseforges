@@ -1,4 +1,4 @@
-# OneBlock Void Survival (v1.2.6) — Progressive Void World
+# OneBlock Void Survival (v1.2.14) — Progressive Void World
 
 **By AllensCreations**
 
@@ -25,15 +25,17 @@ The central block provides resources as you progress through increasingly advanc
 ### Dimension Shifter Merchant
 - **Trading:** The Dimension Shifter visits each dimension for 3 minutes every 8 to 20 minutes (in the Overworld from Phase 5). Each visit offers 5 randomly rolled items by rarity tier, paid in iron, gold, diamonds, or netherite. Stock is shared between players and he leaves if attacked.
 
-### Hardcore Survival
-- **What Happens:** The standard world is locked to Survival mode on Hard difficulty. If you die, you are placed in Spectator Mode permanently.
+### Three Worlds
+- **Creative:** Every player starts in Creative mode and nothing is locked.
+- **Survival:** Every player starts in Survival mode. Difficulty and game mode are not locked, and normal respawning applies.
+- **Hardcore:** Survival mode with the difficulty locked to Hard. If you die, you are placed in Spectator Mode permanently.
 
 ### Admin Photography Studio
 - **Separate World Option:** The Admin edition provides a separate photo studio with camera views and lighting controls; select that edition only if those tools are needed.
 
 ## How to Play
 
-1. Import the world into Minecraft Bedrock Edition.
+1. Import the world you want (Creative, Survival, or Hardcore) into Minecraft Bedrock Edition.
 2. Mine the central block and collect each new drop.
 3. Use the resources and supply milestones to prepare for later phases.
 4. Explore newly unlocked islands when they become available.

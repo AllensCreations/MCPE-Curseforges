@@ -17,7 +17,7 @@ Download the current release of **OneBlock Void Survival** for Minecraft Bedrock
 ## Requirements
 
 - Minecraft Bedrock Edition 1.21.50 or newer.
-- The standard world is Hardcore Survival on Hard difficulty: if you die, you are placed in Spectator Mode permanently.
+- The map is built as three worlds: Creative, Survival, and Hardcore. In the Hardcore world the difficulty is locked to Hard, and if you die you are placed in Spectator Mode permanently.
 
 ## Project Information
 
