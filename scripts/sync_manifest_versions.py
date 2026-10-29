@@ -31,6 +31,18 @@ def resolve_projects(args):
     return ab.detect_changed_projects(changed, project_dirs)
 
 
+def get_scope(args):
+    scope_file = getattr(args, "scope_file", None)
+    if scope_file and os.path.isfile(scope_file):
+        with open(scope_file, encoding="utf-8") as handle:
+            return [line.strip() for line in handle if line.strip()]
+    projects = resolve_projects(args)
+    if scope_file:
+        with open(scope_file, "w", encoding="utf-8") as handle:
+            handle.write("\n".join(projects) + ("\n" if projects else ""))
+    return projects
+
+
 def read_json(path):
     try:
         data = json.loads(Path(path).read_text(encoding="utf-8"))
@@ -214,12 +226,13 @@ def main():
     parser.add_argument("--base", help="Git ref to diff against, to pick changed projects (same rule as auto_bump_and_build.py).")
     parser.add_argument("--project", help="One project folder or name.")
     parser.add_argument("--all", action="store_true", help="Every project under MCPEDL/.")
+    parser.add_argument("--scope-file", help="File that stores the selected projects, so later steps of one run use the same set.")
     parser.add_argument("--raise-engine", action="store_true", help="Raise min_engine_version to cover item and block format versions.")
     parser.add_argument("--check", action="store_true", help="Report what would change and exit 1 if anything would; write nothing.")
     parser.add_argument("--verify-only", action="store_true", help="Only run the version checker on the selected projects; write nothing.")
     args = parser.parse_args()
 
-    projects = resolve_projects(args)
+    projects = get_scope(args)
     if not projects:
         print("[Sync] No projects selected; nothing to do.")
         return 0

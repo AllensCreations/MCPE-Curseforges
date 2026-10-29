@@ -103,6 +103,8 @@ Do this for every new pack and meaningful update. A compatible API version does 
 - `min_engine_version` is synced between a project's packs by raising the lower one, never lowering. With "Raise min_engine_version" on (default), it is also raised to the newest item or block `format_version` the Behavior Pack contains (Section 2). This drops older players, so add it to the CHANGELOG.
 - After the rebuild, `scripts/sync_manifest_versions.py --verify-only` runs `scripts/check_manifest_versions.py` on the processed projects and fails the job before anything is committed. `check-manifest-versions.yml` checks every manifest on pull requests and on demand.
 
+- `scripts/sync_project_docs.py` runs after the rebuild for the same projects. It sets the version in each `DESCRIPTION.md` title line to the manifest version, and adds a `## [X.Y.Z] - YYYY-MM-DD` entry to `CHANGELOG.md` when the newest entry is older than the manifest version (creating the file if it is missing). The entry only names the areas that changed (items, blocks, gameplay scripts, and so on) or says it was a maintenance release. It never invents features, so edit it to describe what players will notice. It never touches a changelog whose newest entry is already newer than the manifest.
+
 #### Add-on LOCK marker
 
 - Every project under `MCPEDL/addons/` and `MCPEDL/new_addons/` has a `LOCK` file at its root beginning with `AllensCreations Add-on Lock v1`.
@@ -316,7 +318,7 @@ Retired, do not recreate or reference: `create-addon-scaffold.yml`, `test-crafti
 
 Helper scripts in `scripts/` (read the script for exact options):
 
-- `check_readme_status.py`, `check_manifest_versions.py`, `sync_manifest_versions.py` (`--check` reports without writing, `--verify-only` runs the checker on the selected projects), `validate_manifest_titles.py`, `auto_bump_and_build.py` (`--no-bump` for documentation-only work), `sync_dispatch_choices.py`, `crafting_template.py`, `build_oneblock_variants_from_template.py` (reads `ONEBLOCK_MAP`), `sync_oneblock_map_readmes.py`, `import_project_payload.py`, `build_payload.py`, `build_test_world.py`, `cleanup_unused.py`, `delete_project.py`, `manage_addon_status.py`, `ensure_recipe_unlocks.py`, `update_min_version.py` (manifests only), the recipe image generators, `selftest_project_types.py`. `tests/test_crafting_template.py` is run by CI.
+- `check_readme_status.py`, `check_manifest_versions.py`, `sync_manifest_versions.py` (`--check` reports without writing, `--verify-only` runs the checker on the selected projects), `sync_project_docs.py` (DESCRIPTION heading and CHANGELOG entry; `--check` reports without writing), `validate_manifest_titles.py`, `auto_bump_and_build.py` (`--no-bump` for documentation-only work), `sync_dispatch_choices.py`, `crafting_template.py`, `build_oneblock_variants_from_template.py` (reads `ONEBLOCK_MAP`), `sync_oneblock_map_readmes.py`, `import_project_payload.py`, `build_payload.py`, `build_test_world.py`, `cleanup_unused.py`, `delete_project.py`, `manage_addon_status.py`, `ensure_recipe_unlocks.py`, `update_min_version.py` (manifests only), the recipe image generators, `selftest_project_types.py`. `tests/test_crafting_template.py` is run by CI.
 - `check_generator_sync.py` is retired: nothing is embedded in this file any more (`PACK_GENERATOR_INSTRUCTIONS.md`, Section 8). Do not recreate it.
 
 When a rule in this file changes a workflow's behavior (titles, paths, versions), update the workflow in the same change.

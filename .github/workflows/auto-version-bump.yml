@@ -226,6 +226,14 @@ jobs:
             echo "::error::Manifest version check failed. Nothing was committed."
             exit "$VERIFY_STATUS"
           fi
+          echo "Syncing DESCRIPTION headings and CHANGELOG entries"
+          python3 scripts/sync_project_docs.py "${VERIFY_ARGS[@]}" | tee "$RUNNER_TEMP/docs.log"
+          {
+            echo "### DESCRIPTION and CHANGELOG sync"
+            echo '```'
+            cat "$RUNNER_TEMP/docs.log"
+            echo '```'
+          } >> "$GITHUB_STEP_SUMMARY"
 
       - name: Synchronize OneBlock map READMEs
         run: python3 scripts/sync_oneblock_map_readmes.py
