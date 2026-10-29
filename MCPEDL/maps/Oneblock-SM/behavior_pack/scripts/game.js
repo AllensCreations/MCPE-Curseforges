@@ -121,6 +121,7 @@ const currentDay = () => world.getDay();
 
 // Cached record: undefined = not loaded yet, null = not owned. The per-tick check reads only this variable.
 let autoCache;
+let autoWait = 0; // ticks since the last Auto-Miner break; a missed break is retried on the next tick
 function autoState() {
   if (autoCache === undefined) {
     const a = loadWorld().autoMine;
@@ -181,6 +182,7 @@ export function toggleAuto(p) {
       let broke = false;
       try { broke = mineOnce(p, a, true); } catch (e) { /* ignore */ }
       if (broke) {
+        autoWait = 0;
         a.used = Math.min(AUTO_DAILY_TICKS, (a.used || 0) + AUTO_LEVELS[a.lvl - 1].step);
         persistAuto();
       }
@@ -297,12 +299,18 @@ export function autoMineTick() {
   const player = world.getAllPlayers().find((p) => p.dimension.id === "minecraft:overworld" && p.hasTag("void_cleaned"));
   if (!player) return;
   if ((a.used || 0) >= AUTO_DAILY_TICKS) { announceExhausted(player, a); return; }
+  if (a.full) {
+    // Paused because the collection chest is full: mining time does not run, and the next break happens the moment there is room.
+    if (mineOnce(player, a, true)) autoWait = 0;
+    return;
+  }
   a.used = (a.used || 0) + 1;
   if (a.used % 20 === 0) persistAuto();
   const step = AUTO_LEVELS[a.lvl - 1].step;
   if (a.used % 10 === 1) { try { player.onScreenDisplay.setActionBar("\u00a7b" + AUTO_LEVELS[a.lvl - 1].name + " Auto-Miner   " + Math.ceil((AUTO_DAILY_TICKS - a.used) / 20) + "s left"); } catch (e) { /* ignore */ } }
   // Every break plays the block-destroy effect.
-  if (a.used % step === 0) mineOnce(player, a, true);
+  autoWait++;
+  if (autoWait >= step && mineOnce(player, a, true)) autoWait = 0;
   if (a.used >= AUTO_DAILY_TICKS) announceExhausted(player, a);
 }
 

@@ -2,6 +2,11 @@
 
 ---
 
+## [1.1.4] - 2026-10-29
+
+### Fixed
+- **Continuous Auto-Mining**: The Auto-Miner now moves straight on to the next block at its tool speed. A break that could not happen, such as while the OneBlock was being replaced, is retried on the next tick instead of after a full wait, and mining time no longer runs while the collection chest is full.
+
 ## [1.1.3] - 2026-10-29
 
 ### Improved & Balanced
