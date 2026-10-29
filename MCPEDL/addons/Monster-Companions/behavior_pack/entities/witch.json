@@ -710,6 +710,12 @@
                         "value": "slowness"
                       }
                     ]
+                  },
+                  {
+                    "test": "distance_to_nearest_player",
+                    "subject": "other",
+                    "operator": ">",
+                    "value": 4
                   }
                 ]
               }
@@ -733,6 +739,12 @@
                         "value": "poison"
                       }
                     ]
+                  },
+                  {
+                    "test": "distance_to_nearest_player",
+                    "subject": "other",
+                    "operator": ">",
+                    "value": 4
                   }
                 ]
               }
@@ -757,6 +769,12 @@
                         "value": "weakness"
                       }
                     ]
+                  },
+                  {
+                    "test": "distance_to_nearest_player",
+                    "subject": "other",
+                    "operator": ">",
+                    "value": 4
                   }
                 ]
               }

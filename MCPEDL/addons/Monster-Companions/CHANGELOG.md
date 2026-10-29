@@ -1,5 +1,12 @@
 # Changelog - Monster Companions
 
+## [1.2.6] - 2026-10-29
+
+### Fixed
+- **Witch splash safety**: A tamed Witch no longer throws poison, slowness, or weakness potions at enemies standing within 4 blocks of you.
+
+---
+
 ## [1.2.5] - 2026-10-29
 
 ### Added
