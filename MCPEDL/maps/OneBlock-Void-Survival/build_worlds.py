@@ -6,7 +6,7 @@ import tempfile
 import zipfile
 
 HERE = os.path.dirname(os.path.abspath(__file__))
-MODES = (("creative", "Creative"), ("survival", "Survival"), ("hardcore", "Hardcore"))
+MODES = (("creative", "Creative"), ("survival", "Survival"))
 
 
 def main():
