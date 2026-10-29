@@ -14,6 +14,13 @@ Download the current release of **OneBlock Void Survival** for Minecraft Bedrock
 2. Open it with Minecraft to import it.
 3. Find the imported world in your Worlds list and open it.
 
+## Requirements
+
+- Minecraft Bedrock Edition 1.21.50 or newer.
+- The standard world is Hardcore Survival on Hard difficulty: if you die, you are placed in Spectator Mode permanently.
+
 ## Project Information
+
+See the [changelog](https://github.com/AllensCreations/MCPE-Curseforges/blob/main/MCPEDL/maps/OneBlock-Void-Survival/CHANGELOG.md) for what changed.
 
 Read the [full description](https://github.com/AllensCreations/MCPE-Curseforges/blob/main/MCPEDL/maps/OneBlock-Void-Survival/DESCRIPTION.md) for gameplay details, usage, requirements, and limitations.

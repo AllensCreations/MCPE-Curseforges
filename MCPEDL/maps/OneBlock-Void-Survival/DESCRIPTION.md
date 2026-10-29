@@ -14,16 +14,16 @@ The central block provides resources as you progress through increasingly advanc
 - **What Happens:** The central block renews when mined and advances through phases. Phase length depends on the phase number: phases 1-5 are 50 blocks, phases 6-10 are 100, and phases 11+ are 150 (Overworld 1,500 blocks in total, Nether 450, End 200).
 
 ### 43 Mystery Islands
-- **Exploration:** Discover 33 islands in the Overworld, seven in the Nether, and three in The End as you reach progression milestones.
+- **Exploration:** Discover 33 islands in the Overworld, seven in the Nether, and three in The End as you reach progression milestones. Each island has its own mini OneBlock core (30-50 blocks); finishing it reveals a treasure chest.
 
 ### Starter Platform and Supply Chest
-- **What Happens:** Early mining expands the starting platform. A supply chest appears at the 15-block milestone with water and lava for creating a cobblestone generator.
+- **What Happens:** A 15-block guided tutorial teaches the basics (platform, wood, stone, coal) while the starting platform grows. At the 15-block milestone a Starter Gift Chest appears with 2 ice blocks and a lava bucket for creating water and cobblestone generators.
 
 ### Bonus Supplies
-- **What Happens:** Supply chests and short resource surges can provide extra help during progression.
+- **What Happens:** From Phase 5 of the Overworld (and in the Nether and End), mining in the middle of a phase can trigger mystery supply chests, mob spawns, a Lucky Rush (10 seconds of ore spawns), a Void Surge (a short wave of hostile mobs), or a rare Jackpot chest.
 
 ### Dimension Shifter Merchant
-- **Trading:** A traveling merchant periodically offers trades for rare saplings, seeds, and other supplies.
+- **Trading:** The Dimension Shifter visits each dimension for 3 minutes every 8 to 20 minutes (in the Overworld from Phase 5). Each visit offers 5 randomly rolled items by rarity tier, paid in iron, gold, diamonds, or netherite. Stock is shared between players and he leaves if attacked.
 
 ### Hardcore Survival
 - **What Happens:** The standard world is locked to Survival mode on Hard difficulty. If you die, you are placed in Spectator Mode permanently.

@@ -40,6 +40,10 @@
 - Removed the unused `void_trader_trades.json`, the non-working piston hook, and unused code.
 - `DESCRIPTION.md` now lists the correct island counts (33 Overworld, 7 Nether, 3 End), the real phase lengths, Hardcore Survival, and the 1.21.50 requirement.
 
+### Documentation
+- `README.md` now lists the requirements (Minecraft 1.21.50+, Hardcore Survival) and links to this changelog.
+- `DESCRIPTION.md` now describes the tutorial and starter gift chest, island core chests, random mid-phase events, and how the Dimension Shifter works.
+
 ### Known limitations
 - Admin chat commands do not work on stable APIs. The Admin build's buttons, double-sneak and scriptevent still work.
 - Each island is built in a single tick, which can cause a short hitch.
