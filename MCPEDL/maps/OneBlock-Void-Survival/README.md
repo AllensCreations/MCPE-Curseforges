@@ -1,4 +1,4 @@
-# OneBlock Void Survival (v1.2.10)
+# OneBlock Void Survival (v1.2.11)
 
 Download the current release of **OneBlock Void Survival** for Minecraft Bedrock Edition.
 
