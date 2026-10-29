@@ -1,5 +1,13 @@
 # Changelog - Monster Companions
 
+---
+
+## [1.2.9] - 2026-10-29
+
+### Improved & Balanced
+
+- **Maintenance release**: Repackaged the pack; no gameplay changes were recorded.
+
 ## [1.2.8] - 2026-10-29
 
 ### Fixed
@@ -76,5 +84,3 @@
 ### Fixed
 - **Biscuit crafting access:** Addressed the reported issue where the biscuit recipe was not available for offline crafting.
 - **Biscuit Recipe:** One Rotten Flesh, one Bone, one Sweet Berries, and one Honey Bottle craft four Primal Beast Biscuits.
-
-

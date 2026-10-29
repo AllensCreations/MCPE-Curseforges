@@ -1,4 +1,4 @@
-# Sudden Death Roulette (v1.0.1) — The Diamond Race
+# Sudden Death Roulette (v1.0.4) — The Diamond Race
 
 **By AllensCreations**
 
@@ -62,12 +62,25 @@ After an initial 15-second grace period upon spawning, the roulette begins after
 - [CurseForge Profile](https://www.curseforge.com/members/allenscreations/projects)
 - [MCPEDL Profile](https://mcpedl.com/user/allenscreations/)
 
+## Compatibility
+
+- Minecraft Bedrock Edition: 1.21.0 or newer.
+- Experimental features: Not verified.
+- Achievements: Unknown / needs confirmation.
+- Verification: Source created, not tested in game.
+
+## Creator and Permissions
+
+- Creator: AllensCreations
+- Profiles: [CurseForge Profile](https://www.curseforge.com/members/allenscreations/projects) · [MCPEDL Profile](https://mcpedl.com/user/allenscreations/)
+
 ## Guidelines and Attribution
 
 - Creator: AllensCreations
 - Rights & Reservation: All rights reserved for AllensCreations.
 - Content Creators: Content creators are permitted to feature this creation in videos and streams with credit to AllensCreations.
 - Redistribution: Do not re-upload this pack or provide direct monetized download bypasses. Link directly to the official repository page.
+- Disclaimer: This is an unofficial community creation. It is not an official Minecraft product and is not approved by or associated with Mojang or Microsoft.
 
 ---
 

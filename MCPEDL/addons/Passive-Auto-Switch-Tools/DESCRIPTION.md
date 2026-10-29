@@ -1,4 +1,4 @@
-# Passive Auto-Switch Tools (v1.1.13) - Automatic Tool Selection
+# Passive Auto-Switch Tools (v1.1.16) - Automatic Tool Selection
 
 **By AllensCreations**
 
@@ -94,12 +94,25 @@ The add-on aims to preserve tool details when switching items:
 - [CurseForge Profile](https://www.curseforge.com/members/allenscreations/projects)
 - [MCPEDL Profile](https://mcpedl.com/user/allenscreations/)
 
+## Compatibility
+
+- Minecraft Bedrock Edition: 1.21.0 or newer.
+- Experimental features: Not verified.
+- Achievements: Unknown / needs confirmation.
+- Verification: Source created, not tested in game.
+
+## Creator and Permissions
+
+- Creator: AllensCreations
+- Profiles: [CurseForge Profile](https://www.curseforge.com/members/allenscreations/projects) · [MCPEDL Profile](https://mcpedl.com/user/allenscreations/)
+
 ## Guidelines and Attribution
 
 - Creator: AllensCreations
 - Rights & Reservation: All rights reserved for AllensCreations.
-- Content Creators: Content creators are permitted to feature this pack in videos and streams with credit to AllensCreations.
+- Content Creators: Content creators are permitted to feature this creation in videos and streams with credit to AllensCreations.
 - Redistribution: Do not re-upload this pack or provide direct monetized download bypasses. Link directly to the official repository page.
+- Disclaimer: This is an unofficial community creation. It is not an official Minecraft product and is not approved by or associated with Mojang or Microsoft.
 
 ---
 

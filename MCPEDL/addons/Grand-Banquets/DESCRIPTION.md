@@ -1,4 +1,4 @@
-# Grand Banquets (v1.0.3) — Craftable Meals and Feasts
+# Grand Banquets (v1.0.6) — Craftable Meals and Feasts
 
 **By AllensCreations**
 
@@ -39,6 +39,7 @@ Other dishes provide different food values or effects. These examples highlight 
 - **Minecraft Bedrock Edition:** The pack declares a minimum engine version of 1.21.0. This is the declared minimum, not a guarantee that every later release behaves identically.
 - **Experimental features:** The current pack manifests do not declare an experimental toggle requirement. World settings and behavior may still vary by game version.
 - **Achievements:** Achievement compatibility has not been independently verified for this release. Do not assume achievements remain enabled in every world configuration.
+- Verification: Source created, not tested in game.
 
 ## Feedback and Suggestions
 
@@ -51,16 +52,24 @@ If you find a bug or a feature that does not work as expected, please leave a co
 - [CurseForge Profile](https://www.curseforge.com/members/allenscreations/projects)
 - [MCPEDL Profile](https://mcpedl.com/user/allenscreations/)
 
+## Creator and Permissions
+
+- Creator: AllensCreations
+- Profiles: [CurseForge Profile](https://www.curseforge.com/members/allenscreations/projects) · [MCPEDL Profile](https://mcpedl.com/user/allenscreations/)
+
 ## Guidelines and Attribution
 
 - Creator: AllensCreations
 - Rights & Reservation: All rights reserved for AllensCreations.
 - Content Creators: Content creators are permitted to feature this creation in videos and streams with credit to AllensCreations.
 - Redistribution: Do not re-upload this pack or provide direct monetized download bypasses. Link directly to the official repository page.
+- Disclaimer: This is an unofficial community creation. It is not an official Minecraft product and is not approved by or associated with Mojang or Microsoft.
 
 ---
 
 © All rights reserved for AllensCreations.
+
+---
 
 ## Search & Discovery Keywords
 

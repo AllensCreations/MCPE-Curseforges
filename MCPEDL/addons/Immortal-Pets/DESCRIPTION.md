@@ -1,4 +1,4 @@
-# Immortal Pets (v1.1.7) — Advanced Pet Protection
+# Immortal Pets (v1.1.10) — Advanced Pet Protection
 
 **By AllensCreations**
 
@@ -39,6 +39,8 @@ Choose one subpack in Behavior Pack settings:
 - Achievement support: The add-on is designed without cheats or experimental toggles. Actual achievement availability can still depend on Minecraft version, platform, and world settings.
 
 Protection cannot guarantee survival against every game mechanic, command, or despawn scenario. Test environmental damage and reload behavior in the target Bedrock version before relying on it for a permanent world.
+- Achievements: Unknown / needs confirmation.
+- Verification: Source created, not tested in game.
 
 ## Credits & Usage
 
@@ -57,12 +59,18 @@ Protection cannot guarantee survival against every game mechanic, command, or de
 - [CurseForge Profile](https://www.curseforge.com/members/allenscreations/projects)
 - [MCPEDL Profile](https://mcpedl.com/user/allenscreations/)
 
+## Creator and Permissions
+
+- Creator: AllensCreations
+- Profiles: [CurseForge Profile](https://www.curseforge.com/members/allenscreations/projects) · [MCPEDL Profile](https://mcpedl.com/user/allenscreations/)
+
 ## Guidelines and Attribution
 
 - Creator: AllensCreations
 - Rights & Reservation: All rights reserved for AllensCreations.
 - Content Creators: Content creators are permitted to feature this creation in videos and streams with credit to AllensCreations.
 - Redistribution: Do not re-upload this pack or provide direct monetized download bypasses. Link directly to the official repository page.
+- Disclaimer: This is an unofficial community creation. It is not an official Minecraft product and is not approved by or associated with Mojang or Microsoft.
 
 ---
 

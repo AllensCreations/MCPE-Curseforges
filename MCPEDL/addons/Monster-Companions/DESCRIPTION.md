@@ -1,4 +1,4 @@
-# Monster Companions (v1.2.8)
+# Monster Companions (v1.2.9)
 
 *Tameable Hostile Mobs and Mounts by AllensCreations*
 
@@ -156,13 +156,18 @@ Equipping a Saddle onto supported large companions enables manual mounting and d
 - [CurseForge Profile](https://www.curseforge.com/members/allenscreations/projects)
 - [MCPEDL Profile](https://mcpedl.com/user/allenscreations/)
 
+## Creator and Permissions
+
+- Creator: AllensCreations
+- Profiles: [CurseForge Profile](https://www.curseforge.com/members/allenscreations/projects) · [MCPEDL Profile](https://mcpedl.com/user/allenscreations/)
+
 ## Guidelines and Attribution
 
 - Creator: AllensCreations
 - Rights & Reservation: All rights reserved for AllensCreations.
-- Content Creators: Content creators are permitted to feature this pack in videos and streams with credit to AllensCreations.
+- Content Creators: Content creators are permitted to feature this creation in videos and streams with credit to AllensCreations.
 - Redistribution: Do not re-upload this pack or provide direct monetized download bypasses. Link directly to the official repository page.
-- Community feedback: Found a bug or a feature that isn't working? Please leave a comment and let me know. Add-on ideas and feature suggestions are always welcome.
+- Disclaimer: This is an unofficial community creation. It is not an official Minecraft product and is not approved by or associated with Mojang or Microsoft.
 
 ---
 
@@ -173,4 +178,3 @@ Equipping a Saddle onto supported large companions enables manual mounting and d
 ## Search & Discovery Keywords
 
 Monster Companions Bedrock add-on, Taming chances Minecraft Bedrock, auto-protect bodyguard mobs Minecraft Bedrock, Companion Squad Mechanics Minecraft Bedrock, Mount Mechanics and Bedrock Ride UI Minecraft Bedrock, Undead Minecraft Bedrock, Minecraft PE mod, MCPEDL add-on, CurseForge Bedrock, AllensCreations.
-

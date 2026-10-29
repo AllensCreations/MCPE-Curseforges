@@ -1,4 +1,4 @@
-# Melody Figurine (v1.0.11) — A Musical Mob Dance
+# Melody Figurine (v1.0.14) — A Musical Mob Dance
 
 **By AllensCreations**
 
@@ -57,6 +57,7 @@ The Melody Figurine is a small decorative statue with a matching inventory icon 
 - Achievements: Not verified.
 - Multiplayer and Realms behavior: Not verified.
 - Gameplay behavior should be checked in Minecraft before relying on it in a long-term world.
+- Verification: Source created, not tested in game.
 
 ## Creator and Permissions
 
@@ -67,8 +68,9 @@ The Melody Figurine is a small decorative statue with a matching inventory icon 
 
 - Creator: AllensCreations
 - Rights & Reservation: All rights reserved for AllensCreations.
-- Content creators may feature this creation in videos and streams with credit to AllensCreations.
-- Do not re-upload this pack or provide direct monetized download bypasses. Link directly to the official repository page.
+- Content Creators: Content creators are permitted to feature this creation in videos and streams with credit to AllensCreations.
+- Redistribution: Do not re-upload this pack or provide direct monetized download bypasses. Link directly to the official repository page.
+- Disclaimer: This is an unofficial community creation. It is not an official Minecraft product and is not approved by or associated with Mojang or Microsoft.
 
 ---
 

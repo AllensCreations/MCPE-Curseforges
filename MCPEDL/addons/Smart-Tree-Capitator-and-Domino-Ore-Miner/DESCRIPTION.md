@@ -1,4 +1,4 @@
-# Smart Tree Capitator and Domino Ore Miner (v1.0.8) — Vein and Tree Miner
+# Smart Tree Capitator and Domino Ore Miner (v1.0.11) — Vein and Tree Miner
 
 **By AllensCreations**
 
@@ -192,18 +192,26 @@ Domino Ore Miner follows connected matching ores, including diagonal connections
 - Multiplayer behavior should be checked in the target game version.
 
 ---
+- Achievements: Unknown / needs confirmation.
+- Verification: Source created, not tested in game.
 
 ## Creator Profiles
 
 - [CurseForge Profile](https://www.curseforge.com/members/allenscreations/projects)
 - [MCPEDL Profile](https://mcpedl.com/user/allenscreations/)
 
+## Creator and Permissions
+
+- Creator: AllensCreations
+- Profiles: [CurseForge Profile](https://www.curseforge.com/members/allenscreations/projects) · [MCPEDL Profile](https://mcpedl.com/user/allenscreations/)
+
 ## Guidelines and Attribution
 
 - Creator: AllensCreations
 - Rights & Reservation: All rights reserved for AllensCreations.
-- Content Creators: Permitted to feature this add-on in gameplay videos and streams with attribution to AllensCreations.
+- Content Creators: Content creators are permitted to feature this creation in videos and streams with credit to AllensCreations.
 - Redistribution: Do not re-upload this pack or provide direct monetized download bypasses. Link directly to the official repository page.
+- Disclaimer: This is an unofficial community creation. It is not an official Minecraft product and is not approved by or associated with Mojang or Microsoft.
 
 ---
 

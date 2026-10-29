@@ -1,4 +1,4 @@
-# Tameable Companion Fox (v1.0.5) — Advanced Fox Companion
+# Tameable Companion Fox (v1.0.8) — Advanced Fox Companion
 
 **By AllensCreations**
 
@@ -70,11 +70,19 @@ Red and arctic foxes can become companions with the same core commands and equip
 - Behavior Pack & Resource Pack format
 
 ---
+- Experimental features: Not verified.
+- Achievements: Unknown / needs confirmation.
+- Verification: Source created, not tested in game.
 
 ## Creator Profiles
 
 - [CurseForge Profile](https://www.curseforge.com/members/allenscreations/projects)
 - [MCPEDL Profile](https://mcpedl.com/user/allenscreations/)
+
+## Creator and Permissions
+
+- Creator: AllensCreations
+- Profiles: [CurseForge Profile](https://www.curseforge.com/members/allenscreations/projects) · [MCPEDL Profile](https://mcpedl.com/user/allenscreations/)
 
 ## Guidelines and Attribution
 
@@ -82,6 +90,7 @@ Red and arctic foxes can become companions with the same core commands and equip
 - Rights & Reservation: All rights reserved for AllensCreations.
 - Content Creators: Content creators are permitted to feature this creation in videos and streams with credit to AllensCreations.
 - Redistribution: Do not re-upload this pack or provide direct monetized download bypasses. Link directly to the official repository page.
+- Disclaimer: This is an unofficial community creation. It is not an official Minecraft product and is not approved by or associated with Mojang or Microsoft.
 
 ---
 
