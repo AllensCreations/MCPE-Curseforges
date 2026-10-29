@@ -53,6 +53,7 @@ jobs:
           STRICT: ${{ inputs.strict }}
         run: |
           set -uo pipefail
+          set +e
           ARGS=()
           if [ -n "${PROJECT:-}" ]; then ARGS+=(--project "$PROJECT"); fi
           if [ "${STRICT:-false}" = "true" ]; then ARGS+=(--strict); fi

@@ -440,16 +440,22 @@ def auto_generate_readme(proj_dir):
 ## Compatibility
 
 - Minecraft Bedrock Edition: {meta["min_engine"]} or newer.
-- Package format: {meta["primary_ext"].upper()}.
-- Achievement support: not confirmed through in-game testing.
-- Experimental-feature requirements: check the target game's world settings and pack behavior.
+- Experimental features: Not verified.
+- Achievements: Unknown / needs confirmation.
+- Verification: Source created, not tested in game.
 
 ## Creator and Permissions
 
 - Creator: AllensCreations
 - Profiles: [CurseForge Profile](https://www.curseforge.com/members/allenscreations/projects) · [MCPEDL Profile](https://mcpedl.com/user/allenscreations/)
-- Content creators may feature this add-on in videos and streams with credit to AllensCreations.
-- Do not re-upload this pack or provide direct monetized download bypasses.
+
+## Guidelines and Attribution
+
+- Creator: AllensCreations
+- Rights & Reservation: All rights reserved for AllensCreations.
+- Content Creators: Content creators are permitted to feature this creation in videos and streams with credit to AllensCreations.
+- Redistribution: Do not re-upload this pack or provide direct monetized download bypasses. Link directly to the official repository page.
+- Disclaimer: This is an unofficial community creation. It is not an official Minecraft product and is not approved by or associated with Mojang or Microsoft.
 
 ---
 
@@ -483,7 +489,21 @@ def main():
         action="store_true",
         help="Automatically generate standard documentation for any incomplete or scaffold stubs.",
     )
+    parser.add_argument(
+        "--remake",
+        choices=("standardize", "rebuild"),
+        help="Remake README.md, DESCRIPTION.md and CHANGELOG.md for --project or --all (see scripts/remake_docs.py). standardize keeps existing text; rebuild regenerates add-on docs from source files.",
+    )
+    parser.add_argument("--docs", default="all", help="With --remake: readme, description, changelog, or all (comma separated).")
+    parser.add_argument("--all", action="store_true", help="With --remake: every project.")
+    parser.add_argument("--check", action="store_true", help="With --remake: report changes without writing.")
+    parser.add_argument("--confirm-rebuild", action="store_true", help="With --remake rebuild --all: confirm replacing every add-on DESCRIPTION.md and README.md.")
     args = parser.parse_args()
+
+    if args.remake:
+        sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+        import remake_docs
+        sys.exit(remake_docs.run(args))
 
     projects = scan_projects(target_project=args.project)
     print("=" * 70)

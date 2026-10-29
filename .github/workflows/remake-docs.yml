@@ -1,0 +1,166 @@
+name: Remake Docs (README, DESCRIPTION, CHANGELOG)
+
+# Remakes project documentation to the Part 2 standard, for every project or one.
+#   standardize (default): keeps existing text. Rebuilds each add-on README as the download
+#     page, fixes DESCRIPTION structure (title version, By line, Compatibility lines,
+#     Creator links, exact attribution block, keyword section) and adds a missing CHANGELOG
+#     entry for the current version. Nothing verified is removed.
+#   rebuild: add-ons only. Replaces DESCRIPTION.md and README.md with generic text built
+#     from the source files. Use it for stubs; write real features with the AI export workflow.
+# dry_run only reports. commit_mode pull_request (default) opens a pull request to review.
+
+on:
+  workflow_dispatch:
+    inputs:
+      scope:
+        description: "all projects, or one project (fill in the project box)"
+        required: true
+        default: all
+        type: choice
+        options:
+          - all
+          - one project
+      project:
+        description: "Project folder name, used when scope = one project (e.g. Mining-Helmet)"
+        required: false
+        default: ""
+        type: string
+      mode:
+        description: "standardize keeps existing text; rebuild regenerates add-on docs from source files"
+        required: true
+        default: standardize
+        type: choice
+        options:
+          - standardize
+          - rebuild
+      docs:
+        description: "Which documents to remake"
+        required: true
+        default: all
+        type: choice
+        options:
+          - all
+          - readme
+          - description
+          - changelog
+      dry_run:
+        description: "Only report what would change"
+        required: true
+        default: false
+        type: boolean
+      confirm_rebuild:
+        description: "Type REBUILD to allow mode = rebuild with scope = all"
+        required: false
+        default: ""
+        type: string
+      commit_mode:
+        description: "pull_request opens a PR to review (default); direct pushes straight to the branch"
+        required: true
+        default: pull_request
+        type: choice
+        options:
+          - pull_request
+          - direct
+
+permissions:
+  contents: write
+  pull-requests: write
+
+concurrency:
+  group: remake-docs-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  remake:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@6d4fd22b20465ccc0f7354476588e8df7c9ca0e0 # v7.1.0
+        with:
+          python-version: "3.12"
+
+      - name: Remake documents
+        id: remake
+        env:
+          SCOPE: ${{ inputs.scope }}
+          PROJECT: ${{ inputs.project }}
+          MODE: ${{ inputs.mode }}
+          DOCS: ${{ inputs.docs }}
+          DRY_RUN: ${{ inputs.dry_run }}
+          CONFIRM: ${{ inputs.confirm_rebuild }}
+        run: |
+          set -uo pipefail
+          set +e
+          ARGS=(--remake "$MODE" --docs "$DOCS")
+          if [ "$SCOPE" = "all" ]; then
+            ARGS+=(--all)
+            if [ "$MODE" = "rebuild" ]; then
+              if [ "$CONFIRM" != "REBUILD" ]; then
+                echo "::error::mode = rebuild with scope = all replaces every add-on DESCRIPTION.md and README.md. Type REBUILD in confirm_rebuild, or pick one project."
+                exit 1
+              fi
+              ARGS+=(--confirm-rebuild)
+            fi
+          else
+            if [ -z "$PROJECT" ]; then
+              echo "::error::scope is 'one project': fill in the project box."
+              exit 1
+            fi
+            ARGS+=(--project "$PROJECT")
+          fi
+          if [ "$DRY_RUN" = "true" ]; then ARGS+=(--check); fi
+          echo "Running: python3 scripts/check_readme_status.py ${ARGS[*]}"
+          python3 scripts/check_readme_status.py "${ARGS[@]}" 2>&1 | tee remake.log
+          STATUS=${PIPESTATUS[0]}
+          if [ "$STATUS" -eq 1 ] && [ "$DRY_RUN" = "true" ]; then STATUS=0; fi
+          {
+            echo "### Remake docs ($MODE, $DOCS, $SCOPE)"
+            echo '```'
+            cat remake.log
+            echo '```'
+          } >> "$GITHUB_STEP_SUMMARY"
+          exit "$STATUS"
+
+      - name: Audit result (report only)
+        continue-on-error: true
+        run: |
+          {
+            echo "### README audit after remake"
+            echo '```'
+            python3 scripts/check_readme_status.py || true
+            echo '```'
+          } >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Commit changes
+        if: ${{ !inputs.dry_run }}
+        env:
+          COMMIT_MODE: ${{ inputs.commit_mode }}
+          MODE: ${{ inputs.mode }}
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          BRANCH="docs/remake-${GITHUB_RUN_ID}"
+          if [ "$COMMIT_MODE" = "pull_request" ]; then
+            git checkout -b "$BRANCH"
+          fi
+          git add -A -- MCPEDL
+          if git diff --cached --quiet; then
+            echo "No changes to commit."; exit 0
+          fi
+          git commit -m "docs: remake README, DESCRIPTION and CHANGELOG (${MODE}) [skip ci]"
+          if [ "$COMMIT_MODE" = "direct" ]; then
+            git pull --rebase origin "${GITHUB_REF_NAME}"
+            git push origin "HEAD:${GITHUB_REF_NAME}"
+          else
+            git push origin "$BRANCH"
+            gh pr create --base "${GITHUB_REF_NAME}" --head "$BRANCH" \
+              --title "Remake docs (${MODE})" \
+              --body "Generated by Remake Docs. Mode: ${MODE}. Review the changed README, DESCRIPTION and CHANGELOG files. Added defaults such as 'Verification: Source created, not tested in game' and generated changelog entries must be replaced with verified facts."
+          fi

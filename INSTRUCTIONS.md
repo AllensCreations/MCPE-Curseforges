@@ -300,6 +300,7 @@ Workflows live in `.github/workflows/`. The roles below are a summary and will d
 | :--- | :--- |
 | `auto-version-bump.yml` | Single release workflow. On push to main it bumps versions, rebuilds packs, and registers new projects; daily and on manual run it refreshes and rebuilds without bumping. Every run syncs project, category, builds, root and OneBlock map READMEs and audits README status. Must keep manifest titles in the `Name (vX.Y.Z)` format (Section 3). |
 | `check-manifest-versions.yml` | Checks every manifest for version, UUID, dependency, import, and engine-version problems. Runs on pull requests, on pushes that touch manifests, and on demand. |
+| `remake-docs.yml` | Remakes README, DESCRIPTION, and CHANGELOG for all projects or one (`standardize` keeps text, `rebuild` regenerates add-on docs). Dry run and pull request by default. |
 | `build-oneblock-variants.yml` | Builds the Creative, Survival, and Hardcore database-free `.mcworld` archives into `MCPEDL/maps/<Map-Name>/`. |
 | `create-project-from-base64.yml` | Manual run: decodes a base64 ZIP into the matching `MCPEDL/` folder and builds the worlds that type needs. `commit_mode` defaults to `pull_request`; `direct` pushes straight to the branch. |
 | `build-test-world.yml` | Manual run: rebuilds `<Name> - Test.mcworld`. |
@@ -318,7 +319,7 @@ Retired, do not recreate or reference: `create-addon-scaffold.yml`, `test-crafti
 
 Helper scripts in `scripts/` (read the script for exact options):
 
-- `check_readme_status.py`, `check_manifest_versions.py`, `sync_manifest_versions.py` (`--check` reports without writing, `--verify-only` runs the checker on the selected projects), `sync_project_docs.py` (DESCRIPTION heading and CHANGELOG entry; `--check` reports without writing), `validate_manifest_titles.py`, `auto_bump_and_build.py` (`--no-bump` for documentation-only work), `sync_dispatch_choices.py`, `crafting_template.py`, `build_oneblock_variants_from_template.py` (reads `ONEBLOCK_MAP`), `sync_oneblock_map_readmes.py`, `import_project_payload.py`, `build_payload.py`, `build_test_world.py`, `cleanup_unused.py`, `delete_project.py`, `manage_addon_status.py`, `ensure_recipe_unlocks.py`, `update_min_version.py` (manifests only), the recipe image generators, `selftest_project_types.py`. `tests/test_crafting_template.py` is run by CI.
+- `check_readme_status.py` (also `--remake standardize|rebuild`, `--check`), `remake_docs.py`, `check_manifest_versions.py`, `sync_manifest_versions.py` (`--check` reports without writing, `--verify-only` runs the checker on the selected projects), `sync_project_docs.py` (DESCRIPTION heading and CHANGELOG entry; `--check` reports without writing), `validate_manifest_titles.py`, `auto_bump_and_build.py` (`--no-bump` for documentation-only work), `sync_dispatch_choices.py`, `crafting_template.py`, `build_oneblock_variants_from_template.py` (reads `ONEBLOCK_MAP`), `sync_oneblock_map_readmes.py`, `import_project_payload.py`, `build_payload.py`, `build_test_world.py`, `cleanup_unused.py`, `delete_project.py`, `manage_addon_status.py`, `ensure_recipe_unlocks.py`, `update_min_version.py` (manifests only), the recipe image generators, `selftest_project_types.py`. `tests/test_crafting_template.py` is run by CI.
 - `check_generator_sync.py` is retired: nothing is embedded in this file any more (`PACK_GENERATOR_INSTRUCTIONS.md`, Section 8). Do not recreate it.
 
 When a rule in this file changes a workflow's behavior (titles, paths, versions), update the workflow in the same change.
@@ -594,6 +595,8 @@ Discover the actual folder structure first. Do not assume a folder or file exist
    5. Check the add-on LOCK marker (Part 1, Section 3) for projects under `MCPEDL/addons/` and `MCPEDL/new_addons/`.
    6. Review the final diff for scope. If a check was not run, say so.
 9. **Report.** State briefly: projects audited or updated; files changed; commands run and results; missing assets, unresolved links, or unverifiable information; remaining projects needing attention. Never report success for a check that was not run or did not pass.
+
+**Remaking documentation in bulk.** `python3 scripts/check_readme_status.py --remake standardize --all --check` previews, and the same command without `--check` writes. `standardize` keeps existing text: it rebuilds each add-on README as the download page, fixes DESCRIPTION structure (title version, By line, Compatibility lines, Creator links, the exact attribution block, the keyword section), and adds a missing CHANGELOG entry. `--remake rebuild --project <Name>` replaces an add-on's DESCRIPTION and README with generic text built from source files (maps and scripts are never rebuilt), and `--all` needs `--confirm-rebuild`. Added defaults (Verification, Achievements, Experimental features) are conservative placeholders and generated changelog entries are generic, so replace them with verified facts. The workflow `remake-docs.yml` runs the same thing with a dry run and a pull request.
 
 ### 4. Minecraft Wiki Item Reference
 
