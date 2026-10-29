@@ -1,13 +1,13 @@
 {
   "format_version": 2,
   "header": {
-    "name": "Fletching Table Arsenal (v1.0.0)",
+    "name": "Fletching Table Arsenal (v1.0.1)",
     "description": "Turns the Fletching Table into a tactical arrow workstation. by AllensCreations",
     "uuid": "5b1557e6-7066-47b6-87c8-3accb36a3615",
     "version": [
       1,
       0,
-      0
+      1
     ],
     "min_engine_version": [
       1,
@@ -23,7 +23,7 @@
       "version": [
         1,
         0,
-        0
+        1
       ],
       "entry": "scripts/main.js"
     }

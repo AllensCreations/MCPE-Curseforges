@@ -29,6 +29,7 @@ This directory stores the compiled releases (behavior packs, resource packs, add
 | **Harvest Intelligence** | `v1.0.6` | Script Behavior Pack (`.mcpack`) | [Download (.mcpack)](Harvest-Intelligence/Harvest%20Intelligence%20by%20AllensCreations%20%28V1.0.6%29.mcpack) | [`Harvest-Intelligence/`](Harvest-Intelligence/) |
 | **Melody Figurine** | `v1.0.14` | Complete Pack (`.mcaddon`) | [Download (.mcaddon)](Melody-Figurine/Melody%20Figurine%20by%20AllensCreations%20%28V1.0.14%29.mcaddon) | [`Melody-Figurine/`](Melody-Figurine/) |
 | **Mob Chaos Behavioral Roulette** | `v1.0.4` | Script Behavior Pack (`.mcpack`) | [Download (.mcaddon)](Mob-Chaos-Behavioral-Roulette/Mob%20Chaos%20Behavioral%20Roulette%20by%20AllensCreations%20%28V1.0.4%29.mcaddon) | [`trial/`](trial/) |
+| **Fletching Table Arsenal** | `v1.0.1` | Script Behavior Pack (`.mcpack`) | [Download (.mcpack)](Fletching-Table-Arsenal/Fletching%20Table%20Arsenal%20by%20AllensCreations%20%28V1.0.1%29.mcpack) | [`Fletching-Table-Arsenal/`](Fletching-Table-Arsenal/) |
 
 ### Worlds and Maps
 
