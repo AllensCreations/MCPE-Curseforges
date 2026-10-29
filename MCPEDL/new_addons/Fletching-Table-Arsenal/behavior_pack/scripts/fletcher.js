@@ -176,9 +176,9 @@ function buildDetailForm(container, recipe) {
   const stock = status.needs
     .map(({ need, have }) => `${have >= need.amount ? "§a" : "§c"}${have}§8/§7${need.amount} §7${need.name[1]}`)
     .join("  §8|  ");
-  const form = new ActionFormData().title(`${recipe.color}§l${recipe.menuName}`);
+  const form = new ActionFormData().title("§6[ FLETCHER'S WORKBENCH ]");
   form.body(
-    `§8INPUT\n${slots}\n\n§8OUTPUT\n§8[ ${recipe.color}${BATCH_SIZE}x ${recipe.menuName} §8]\n\n` +
+    `${recipe.color}§l${recipe.menuName}\n\n§8INPUT\n${slots}\n\n§8OUTPUT\n§8[ ${recipe.color}${BATCH_SIZE}x ${recipe.menuName} §8]\n\n` +
       `§8STOCK\n${stock}\n\n§8EFFECT\n§7${recipe.effect}\n`
   );
   form.button(

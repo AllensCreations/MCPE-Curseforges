@@ -2,12 +2,6 @@
 
 ---
 
-## [1.0.1] - 2026-10-29
-
-### Improved & Balanced
-
-- **Maintenance release**: Repackaged the pack; no gameplay changes were recorded.
-
 ## [1.0.0] - 2026-10-29
 
 ### Added
@@ -15,4 +9,5 @@
 - **Explosive Arrows**: A small blast on impact that does not break blocks.
 - **Teleportation Arrows**: Teleports the archer to the impact point.
 - **Frost Arrows**: Slows and weakens targets and puts out fire on them.
+- **Workbench screen**: A Resource Pack styles the menu with a dark input panel and slot-framed icons.
 - **Incendiary Arrows**: Sets targets and nearby open space on fire.

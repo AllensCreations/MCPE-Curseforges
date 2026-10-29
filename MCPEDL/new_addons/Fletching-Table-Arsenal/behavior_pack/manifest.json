@@ -1,13 +1,13 @@
 {
   "format_version": 2,
   "header": {
-    "name": "Fletching Table Arsenal (v1.0.1)",
+    "name": "Fletching Table Arsenal (v1.0.0)",
     "description": "Turns the Fletching Table into a tactical arrow workstation. by AllensCreations",
     "uuid": "5b1557e6-7066-47b6-87c8-3accb36a3615",
     "version": [
       1,
       0,
-      1
+      0
     ],
     "min_engine_version": [
       1,
@@ -23,12 +23,20 @@
       "version": [
         1,
         0,
-        1
+        0
       ],
       "entry": "scripts/main.js"
     }
   ],
   "dependencies": [
+    {
+      "uuid": "67cd68eb-664f-4890-a864-43ab6cf80597",
+      "version": [
+        1,
+        0,
+        0
+      ]
+    },
     {
       "module_name": "@minecraft/server",
       "version": "1.19.0"

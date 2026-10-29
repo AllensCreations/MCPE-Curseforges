@@ -1,4 +1,4 @@
-# Fletching Table Arsenal (v1.0.1) — Tactical Arrow Workstation
+# Fletching Table Arsenal (v1.0.0) — Tactical Arrow Workstation
 
 **By AllensCreations**
 
@@ -27,6 +27,7 @@ The Fletching Table becomes a working archery station. A menu shows your current
 - Right-click a Fletching Table to open the Fletcher's Workbench. Sneak while right-clicking to place blocks against the table as usual.
 - Pick a conversion. If you have the materials, they are removed from your inventory and the new Arrows are added. If not, a warning appears above your hotbar.
 - Only plain Arrows with no custom name count toward the cost.
+- Enable the Resource Pack to get the stone-style workbench screen with slot-framed icons. Without it, the menu uses the standard Minecraft form look.
 - Fire the specialized Arrows from a Bow. Crossbows are not supported.
 - Specialized Arrows are chosen from the first matching stack in your inventory when you start drawing the Bow.
 
