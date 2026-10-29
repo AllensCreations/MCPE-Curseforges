@@ -1,4 +1,4 @@
-# Swarm Mob Booster (v1.0.5) — Configurable Mob Spawn Density
+# Swarm Mob Booster (v1.0.8) — Configurable Mob Spawn Density
 
 **By AllensCreations**
 

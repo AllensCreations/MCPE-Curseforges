@@ -1,5 +1,13 @@
 # Changelog — Melody Figurine
 
+---
+
+## [1.0.14] - 2026-10-29
+
+### Improved & Balanced
+
+- **Maintenance release**: Repackaged the pack; no gameplay changes were recorded.
+
 ## [1.0.10] - 2026-10-21
 
 ### Added
@@ -59,4 +67,3 @@
 ### Added
 - Musical Figurine: A placeable figurine that starts a song when interacted with.
 - Mob Dance Effects: Nearby mobs spin and hop within a 20-block radius with colorful particle effects.
-

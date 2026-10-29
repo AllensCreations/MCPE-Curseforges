@@ -1,4 +1,4 @@
-# Team Inventory (v1.0.14) — Shared Multiplayer Inventory
+# Team Inventory (v1.0.19) — Shared Multiplayer Inventory
 
 **By AllensCreations**
 

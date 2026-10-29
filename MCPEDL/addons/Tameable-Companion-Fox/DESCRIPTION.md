@@ -1,4 +1,4 @@
-# Tameable Companion Fox (v1.0.5) — Advanced Fox Companion
+# Tameable Companion Fox (v1.0.8) — Advanced Fox Companion
 
 **By AllensCreations**
 

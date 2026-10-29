@@ -1,4 +1,4 @@
-# Vanilla Quality of Life (v1.3.24)
+# Vanilla Quality of Life (v1.3.26)
 
 **By AllensCreations**
 

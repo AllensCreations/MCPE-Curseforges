@@ -1,5 +1,7 @@
 # Changelog — Trivia Vault: The Locked World
 
+---
+
 ## [Unreleased]
 
 ### Fixed
@@ -11,6 +13,12 @@
 - Trivia questions now appear directly, without the extra “Answer the question” screen.
 - Removed hints and lifelines.
 
+
+## [1.0.18] - 2026-10-29
+
+### Improved & Balanced
+
+- **Maintenance release**: Repackaged the pack; no gameplay changes were recorded.
 
 ## [1.0.14] - 2026-10-28
 

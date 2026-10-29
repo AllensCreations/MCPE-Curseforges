@@ -1,4 +1,4 @@
-# Trivia Vault: The Locked World — Survival Trivia Challenge
+# Trivia Vault: The Locked World (v1.0.18) — Survival Trivia Challenge
 
 **By AllensCreations**
 

@@ -1,5 +1,13 @@
 # Changelog — Vanilla Quality of Life
 
+---
+
+## [1.3.26] - 2026-10-29
+
+### Improved & Balanced
+
+- **Maintenance release**: Repackaged the pack; no gameplay changes were recorded.
+
 ## [1.3.24] — 2026-10-29
 
 ### Improved & Balanced

@@ -1,4 +1,4 @@
-# OneBlock Dirtbound Kingdom Beta (v0.1.25)
+# OneBlock Dirtbound Kingdom Beta (v0.1.28)
 
 **By AllensCreations**
 

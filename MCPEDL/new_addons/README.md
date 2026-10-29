@@ -10,7 +10,7 @@ Source files for newly generated Minecraft Bedrock add-ons by AllensCreations.
 | Swarm Mob Booster | 1.0.8 | [Source](Swarm-Mob-Booster/) | [MCPACK](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Swarm-Mob-Booster/Swarm%20Mob%20Booster%20by%20AllensCreations%20%28V1.0.8%29.mcpack) |
 | Melody Figurine | 1.0.14 | [Source](Melody-Figurine/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Melody-Figurine/Melody%20Figurine%20by%20AllensCreations%20%28V1.0.14%29.mcaddon) |
 | Mob Chaos Behavioral Roulette | 1.0.3 | [Source](trial/) | [MCPACK](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/trial/Mob%20Chaos%20Behavioral%20Roulette%20by%20AllensCreations%20%28V1.0.3%29.mcpack) |
-| Fletching Table Arsenal | 1.0.1 | [Source](Fletching-Table-Arsenal/) | [MCPACK](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Fletching-Table-Arsenal/Fletching%20Table%20Arsenal%20by%20AllensCreations%20%28V1.0.1%29.mcpack) |
+| Fletching Table Arsenal | 1.0.0 | [Source](Fletching-Table-Arsenal/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Fletching-Table-Arsenal/Fletching%20Table%20Arsenal%20by%20AllensCreations%20%28V1.0.0%29.mcaddon) |
 
 Download links point to the currently published package files. A source project should be present before a new add-on is listed here.
 

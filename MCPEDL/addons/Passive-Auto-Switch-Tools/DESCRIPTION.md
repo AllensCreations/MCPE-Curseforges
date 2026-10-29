@@ -1,4 +1,4 @@
-# Passive Auto-Switch Tools (v1.1.13) - Automatic Tool Selection
+# Passive Auto-Switch Tools (v1.1.16) - Automatic Tool Selection
 
 **By AllensCreations**
 

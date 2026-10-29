@@ -1,4 +1,4 @@
-# One-Block Hardcore Survival Economy (v1.0.1) — 20-Phase Progression Add-on
+# One-Block Hardcore Survival Economy (v1.0.4) — 20-Phase Progression Add-on
 
 **By AllensCreations**
 

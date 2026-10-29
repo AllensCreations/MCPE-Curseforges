@@ -1,4 +1,4 @@
-# Immortal Pets (v1.1.7) — Advanced Pet Protection
+# Immortal Pets (v1.1.10) — Advanced Pet Protection
 
 **By AllensCreations**
 

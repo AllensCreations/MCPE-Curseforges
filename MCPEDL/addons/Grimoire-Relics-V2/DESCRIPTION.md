@@ -1,4 +1,4 @@
-# Grimoire Relics V2 (v1.0.8)
+# Grimoire Relics V2 (v1.0.12)
 
 **By AllensCreations**
 

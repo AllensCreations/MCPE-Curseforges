@@ -1,5 +1,13 @@
 # Changelog — Swarm Mob Booster
 
+---
+
+## [1.0.8] - 2026-10-29
+
+### Improved & Balanced
+
+- **Maintenance release**: Repackaged the pack; no gameplay changes were recorded.
+
 ## [1.0.0] - 2026-10-17
 
 ### Added

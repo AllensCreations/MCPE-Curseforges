@@ -1,4 +1,4 @@
-# Tethered: Breaker and Builder (v1.0.7) — Two-Player Co-op Challenge
+# Tethered: Breaker and Builder (v1.0.12) — Two-Player Co-op Challenge
 
 **By AllensCreations**
 

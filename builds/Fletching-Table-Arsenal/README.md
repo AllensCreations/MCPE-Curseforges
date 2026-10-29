@@ -8,8 +8,9 @@ This folder contains compiled release packages for **Fletching Table Arsenal** b
 
 | File Name | Format | Size | Description | Download Link |
 | :--- | :--- | :--- | :--- | :--- |
-| **`Fletching Table Arsenal by AllensCreations (V1.0.1).mcpack`** | `.mcpack` | ~6 KB | Script Behavior Pack archive ready for import. | [Download (.mcpack)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Fletching-Table-Arsenal/Fletching%20Table%20Arsenal%20by%20AllensCreations%20%28V1.0.1%29.mcpack) |
-| **`Fletching Table Arsenal by AllensCreations (V1.0.1).mcaddon`** | `.mcaddon` | ~6 KB | Complete Add-on package archive. | [Download (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Fletching-Table-Arsenal/Fletching%20Table%20Arsenal%20by%20AllensCreations%20%28V1.0.1%29.mcaddon) |
+| **`Fletching Table Arsenal by AllensCreations (V1.0.0).mcaddon`** | `.mcaddon` | ~9 KB | Complete bundle containing both Behavior Pack and Resource Pack. | [Download (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Fletching-Table-Arsenal/Fletching%20Table%20Arsenal%20by%20AllensCreations%20%28V1.0.0%29.mcaddon) |
+| **`Fletching Table Arsenal BP by AllensCreations (V1.0.0).mcpack`** | `.mcpack` | ~6 KB | Behavior Pack: Custom entities, components, and gameplay mechanics. | [Download (.mcpack)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Fletching-Table-Arsenal/Fletching%20Table%20Arsenal%20BP%20by%20AllensCreations%20%28V1.0.0%29.mcpack) |
+| **`Fletching Table Arsenal RP by AllensCreations (V1.0.0).mcpack`** | `.mcpack` | ~2 KB | Resource Pack: Custom models, geometry, textures, and sounds. | [Download (.mcpack)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Fletching-Table-Arsenal/Fletching%20Table%20Arsenal%20RP%20by%20AllensCreations%20%28V1.0.0%29.mcpack) |
 
 ---
 

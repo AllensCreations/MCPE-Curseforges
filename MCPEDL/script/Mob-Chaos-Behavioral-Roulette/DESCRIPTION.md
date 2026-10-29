@@ -1,4 +1,4 @@
-# Mob Chaos: Behavioral Roulette (v1.0.0) — Wildcard Mob Mutation Minigame
+# Mob Chaos: Behavioral Roulette (v1.0.4) — Wildcard Mob Mutation Minigame
 
 **By AllensCreations**
 

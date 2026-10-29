@@ -1,4 +1,4 @@
-# Mob Chaos: Behavioral Roulette
+# Mob Chaos: Behavioral Roulette (v1.0.3)
 
 Every mob near you gets its instincts scrambled. At world load and at regular intervals, mobs are handed random behaviors stolen from other creatures.
 

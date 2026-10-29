@@ -2,6 +2,12 @@
 
 ---
 
+## [0.1.28] - 2026-10-29
+
+### Improved & Balanced
+
+- **Maintenance release**: Repackaged the pack; no gameplay changes were recorded.
+
 ## [0.1.25] - 2026-10-22
 
 ### Build & Packaging
@@ -151,4 +157,3 @@
 - Replaced chat commands with an interactive OneBlock Trader item and Trading UI.
 - Moved Dirt selling, supply purchases, currency, and phase progression into the menu.
 - Added a custom inventory icon for the Trader item.
-
