@@ -33,6 +33,9 @@ const JACKPOT_CHANCE = 0.001;    // 0.1% (1 in 1000 blocks)
 const activeCountdowns = new Map();
 const activeLuckyRush = new Map(); // dimensionKey -> secondsLeft
 const recentIslandBreaks = new Map();
+const mainPending = new Map();
+const lastProgressTick = new Map();
+const islandPending = new Map();
 
 // 8 perimeter positions around (0, 64, 0)
 const SURROUNDING_OFFSETS = [
@@ -916,6 +919,7 @@ function incrementDimensionCount(dimKey, dimension) {
   const prevCount = prevState.count;
   const newCount = prevCount + 1;
   world.setDynamicProperty(countProp, newCount);
+  lastProgressTick.set(dimKey, system.currentTick);
 
   const newState = getDimensionState(dimKey);
   const phases = getPhasesForDim(dimKey);
@@ -1255,13 +1259,19 @@ function ensureOneBlock(dimension) {
     const stuckBedrock = !!block && block.typeId === "minecraft:bedrock";
     const isMissing = !block || block.isAir || block.typeId === "minecraft:air" || isLiquid || stuckBedrock;
 
+    // A block that vanished without any break/explosion handler counting it within 3 ticks
+    // (piston, plant pop, decay) counts as progress once. Player breaks are never double counted.
+    const pend = mainPending.get(dimKey);
+    if (pend !== undefined && system.currentTick - pend >= 3) {
+      mainPending.delete(dimKey);
+      if ((lastProgressTick.get(dimKey) ?? -99) < pend) incrementDimensionCount(dimKey, dimension);
+    }
+
     if (isMissing) {
-      // Block vanished without a player break (piston, plant pop, decay): count it. Stuck bedrock/first placement: plain renew.
-      if (block && !stuckBedrock && lastKnownOneBlockType[dimKey]) {
-        handleAutomatedBlockDestruction(dimension);
-      } else {
-        renewOneBlock(dimension);
+      if (block && !stuckBedrock && lastKnownOneBlockType[dimKey] && !mainPending.has(dimKey)) {
+        mainPending.set(dimKey, system.currentTick);
       }
+      renewOneBlock(dimension);
     } else if (block) {
       lastKnownOneBlockType[dimKey] = block.typeId;
     }
@@ -2697,15 +2707,19 @@ function ensureIslandOneBlocks(dimension) {
       }
       if (obX === undefined || obZ === undefined) continue;
 
+      const ip = islandPending.get(theme.id);
+      if (ip !== undefined && system.currentTick - ip >= 3) {
+        islandPending.delete(theme.id);
+        if ((recentIslandBreaks.get(theme.id) ?? -99) < ip) handleIslandOneBlockBreak(dimension, { x: obX, y: obY, z: obZ }, null);
+      }
       const b = dimension.getBlock({ x: obX, y: obY, z: obZ });
       const isMissing = !b || b.isAir || b.typeId === "minecraft:air" ||
                         b.typeId === "minecraft:water" || b.typeId === "minecraft:flowing_water" ||
                         b.typeId === "minecraft:lava" || b.typeId === "minecraft:flowing_lava";
       if (b && isMissing) {
         // Core removed by non-player means (piston, explosion...): count it as mined, no free blocks
-        if (hadCore && (b.isAir || b.typeId === "minecraft:air") && system.currentTick - (recentIslandBreaks.get(theme.id) ?? -99) >= 3) {
-          handleIslandOneBlockBreak(dimension, { x: obX, y: obY, z: obZ }, null);
-          continue;
+        if (hadCore && (b.isAir || b.typeId === "minecraft:air") && !islandPending.has(theme.id)) {
+          islandPending.set(theme.id, system.currentTick);
         }
         if (b.typeId.includes("water") || b.typeId.includes("lava")) {
           try { b.setType("minecraft:air"); } catch (e) {}

@@ -22,6 +22,7 @@
 - Chests no longer overwrite blocks you placed or loot still inside an old chest.
 - Phase blocks that cannot exist on the OneBlock spot were replaced (dead bush, waterlily, bamboo, pink petals, pale hanging moss, chorus plant, chorus flower).
 - The admin HUD no longer references a missing variable.
+- Fixed the tutorial skipping every other step: a broken block is no longer counted twice.
 
 ### Exploit fixes
 - A OneBlock or island core removed by a piston, explosion or similar now counts as progress instead of being renewed for free.
