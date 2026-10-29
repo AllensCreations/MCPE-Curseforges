@@ -4,9 +4,11 @@
 
 ### Added
 - **Three Worlds**: The map now comes as a Creative world, a Survival world, and a Hardcore world.
+- **Worlds Included**: The Creative, Survival, and Hardcore worlds are included with the project.
 
 ### Improved & Balanced
 - **Hardcore Is No Longer Forced**: Permanent Spectator Mode after death and the locked Hard difficulty now apply only to the Hardcore world. The Survival world uses normal respawning, and the Creative world starts every player in Creative mode.
+- **Admin World Removed**: The separate Admin world is no longer included.
 
 ## Unreleased (fixes after v1.2.6)
 

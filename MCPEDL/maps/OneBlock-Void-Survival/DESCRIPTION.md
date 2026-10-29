@@ -30,9 +30,6 @@ The central block provides resources as you progress through increasingly advanc
 - **Survival:** Every player starts in Survival mode. Difficulty and game mode are not locked, and normal respawning applies.
 - **Hardcore:** Survival mode with the difficulty locked to Hard. If you die, you are placed in Spectator Mode permanently.
 
-### Admin Photography Studio
-- **Separate World Option:** The Admin edition provides a separate photo studio with camera views and lighting controls; select that edition only if those tools are needed.
-
 ## How to Play
 
 1. Import the world you want (Creative, Survival, or Hardcore) into Minecraft Bedrock Edition.
@@ -43,7 +40,7 @@ The central block provides resources as you progress through increasingly advanc
 ## Compatibility and Limitations
 
 - Minecraft Bedrock Edition 1.21.50 or newer. Check the current world listing and package details before importing.
-- The standard and Admin world files serve different purposes; choose the version that matches your intended play style.
+- Each world is a separate file. Choose the Creative, Survival, or Hardcore world that matches your intended play style.
 
 ## Creator and Permissions
 
