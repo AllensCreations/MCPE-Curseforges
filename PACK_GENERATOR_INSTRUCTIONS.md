@@ -439,6 +439,7 @@ Do not guess the type. Then follow Sections 1 to 3, the one section for that typ
 - No comments in `.js`, `.mcfunction`, or `.json` files (Part 1, Section 1).
 - Prefer event-driven logic over per-tick polling, broad entity searches, or block scans.
 - Do not claim a README or catalog link to a `.mcworld` that does not exist yet.
+- The final reply follows Section 11 exactly, with no extra text.
 
 ### 2. What the agent delivers
 
@@ -618,7 +619,7 @@ Do not hand-write the ZIP or the base64. `scripts/build_payload.py` installs the
 1. Create the project under `build/<Name>/` using the Section 2 layout, including `project.json` and a behavior pack manifest with the looked-up `min_engine_version`.
 2. Obtain `scripts/build_payload.py` from the repository (or pasted by the user, see the start of this Part) and save it next to `build/`.
 3. Run `python build_payload.py build/Name`. Add `--check-only` to test without building.
-4. Fix every failure and every `DOC:` warning and run it again. Paste the final output (SELF-TEST PASSED and BUILD OK) into your reply. It proves structure only. Node must be installed so the script syntax check runs; if the output says syntax was not checked, say so.
+4. Fix every failure and every `DOC:` warning and run it again. Report the final SELF-TEST PASSED and BUILD OK lines on the `build_payload.py result` line of the Section 11 summary. It proves structure only. Node must be installed so the script syntax check runs; if the output says syntax was not checked, say so.
 5. Deliver `payload.b64`: one single line, no line breaks, spaces, or code fences. If the ZIP is under the inline limit you may paste it; otherwise deliver the file and tell the user to commit it to `MCPE-Curseforges/MCPEDL/incoming/<n>.b64` and pass that path as `payload_file`. Never retype it from memory.
 
 ### 9. Final self-check before replying
@@ -634,6 +635,7 @@ By hand, confirm only:
 - [ ] Script: the form has exactly Start and How to play; `gameInfo` and `howToPlay` hold real text; the game logic is real and calls `endGame()`; stuck-state recovery exists; each listed add-on exists.
 - [ ] No comments in any script, function, or JSON file.
 - [ ] No file from `Mcpeworlds/assets/` other than the ledger or controller files was copied.
+- [ ] The reply contains only the five Section 11 blocks (or one listed exception), nothing before or after.
 
 ### 10. If the build fails
 
@@ -660,14 +662,60 @@ Paste the workflow's error log back to the agent. If a message names a rule, fin
 | `missing the unlock context` | Add the unlock to the shaped or shapeless recipe (Part 1, Section 4). |
 | `DOC: ...` | Fix the documentation rule it names. |
 
-### 11. Reply format
+### 11. Reply format (strict)
 
-1. Type, and the suggested folder name (letters, numbers, `.` `_` `-`).
-2. The base64 (one-line code block) or the `.b64` file.
-3. A short summary: what it does, target game version, `min_engine_version` (and whether verified), module versions with the date checked, achievement and experiment status, the icon asset (repo copy, hash verified), for a script the included add-ons, any deviations from this Part, and the `build_payload.py` result.
-4. Next steps:
-   - GitHub, Actions, **Create Project from Base64**, Run workflow.
-   - Enter the folder name and paste the base64. If the folder already exists, set overwrite to true. Leave `commit_mode` on `pull_request`, then review and merge the pull request it opens.
-   - Download the generated world from the run's artifacts or the project folder and test it in Minecraft.
-   - To change which add-ons a test world includes, edit `test_world.json` and run **Build Test World**.
-   - If the build fails, paste the error log back to the agent (Section 10).
+The final reply uses exactly the five blocks below, in this order, with these exact headings. Nothing comes before the first heading and nothing after the last block: no greeting, no preamble, no closing offer, no extra sections, no restating of the idea, and no text outside the blocks. Do not reorder, rename, merge, or skip a block. A block with nothing to report says `None`.
+
+**1. TYPE AND FOLDER**
+
+```
+Type: addon | map | script
+Folder name: <letters, numbers, . _ - only>
+```
+
+**2. PAYLOAD**
+
+- If the ZIP is under the inline limit (Section 2): one fenced code block holding the contents of `payload.b64` and nothing else. One line, no line breaks, no spaces, copied from the file, never retyped.
+- Otherwise: one line, `File: payload.b64`, followed by `Commit to: MCPE-Curseforges/MCPEDL/incoming/<folder name>.b64` and `payload_file value: MCPEDL/incoming/<folder name>.b64`.
+
+**3. SUMMARY**
+
+Exactly these labeled lines, one per line, in this order, each a single short sentence or value:
+
+```
+What it does:
+Target game version:
+min_engine_version: <value> (verified | not verified)
+Module versions: @minecraft/server <version>, @minecraft/server-ui <version> (checked <YYYY-MM-DD>)
+Achievements: Likely achievement-friendly | Not achievement-friendly / may disable achievements | Unknown / needs confirmation
+Experiments: <none detected | required: name | unknown>
+Icon asset: <repo copy, hash verified | none>
+Included add-ons: <names | None | not a script>
+Deviations from this file: <list | None>
+build_payload.py result: <the SELF-TEST PASSED and BUILD OK lines, or the exact failure>
+Verification: Source created, not tested in game.
+```
+
+Use `Not applicable` for a line that does not fit the type (for example the icon asset for an add-on without one). Never write a value that was not checked.
+
+**4. NEXT STEPS**
+
+Exactly these five numbered lines:
+
+```
+1. GitHub, Actions, Create Project from Base64, Run workflow.
+2. Enter the folder name and paste the payload. If the folder already exists, set overwrite to true. Leave commit_mode on pull_request, then review and merge the pull request it opens.
+3. Download the generated world from the run's artifacts or the project folder and test it in Minecraft.
+4. To change which add-ons a test world includes, edit test_world.json and run Build Test World.
+5. If the build fails, paste the error log back to the agent.
+```
+
+**5. OPEN QUESTIONS**
+
+Each gap you filled with your own choice (Section 1) as one bullet, or `None`. Do not ask new questions here.
+
+**Exceptions** (use these instead of the five blocks, and nothing else):
+
+- **You cannot run code:** reply with `CANNOT BUILD`, one line saying why, the file tree with full contents, and the exact command to run (Section 1). No base64.
+- **The build failed and you cannot fix it:** reply with `BUILD FAILED`, the exact failing lines from `build_payload.py`, and the rule or script check each one names. No base64.
+- **The type is unknown:** reply only with the Section 0 question.
