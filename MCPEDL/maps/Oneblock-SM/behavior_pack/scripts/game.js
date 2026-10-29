@@ -208,7 +208,7 @@ const AUTO_DROPS = {
 
 function storeAutoDrop(container, blockId) {
   let stack;
-  try { stack = new ItemStack(AUTO_DROPS[blockId] || blockId, 1); } catch (e) { return false; }
+  try { stack = new ItemStack(AUTO_DROPS[blockId] || blockId, 1); } catch (e) { return true; } // no item form: skip it so the miner never stalls
   for (let i = 0; i < container.size; i++) {
     const old = container.getItem(i);
     if (old && old.typeId === stack.typeId && old.amount < old.maxAmount) {
@@ -303,7 +303,8 @@ export function autoMineTick() {
   if (!a || a.on === false) return; // idle: no world read, no player scan
   rolloverAuto(a);
   if ((a.used || 0) >= AUTO_DAILY_TICKS && a.msg) return;
-  const player = world.getAllPlayers().find((p) => p.dimension.id === "minecraft:overworld" && p.hasTag("void_cleaned"));
+  // Any player in the Overworld is enough: the miner works on whatever OneBlock is there, no setup tag needed.
+  const player = world.getAllPlayers().find((p) => p.dimension.id === "minecraft:overworld");
   if (!player) return;
   if ((a.used || 0) >= AUTO_DAILY_TICKS) { announceExhausted(player, a); return; }
   if (a.full) {

@@ -1,4 +1,4 @@
-# OneBlock: Sovereign Market (v1.1.5) — Dirt-to-Sovereignty OneBlock Economy
+# OneBlock: Sovereign Market (v1.1.6) — Dirt-to-Sovereignty OneBlock Economy
 
 - Start on a small 9 x 9 void island with one OneBlock that produces Dirt. A short How to Play guide opens first and must be read once.
 - Mining the OneBlock gives you items. Dirt sells for 1 :minecoin: each in the Trader's Ledger, like every other item.

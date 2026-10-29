@@ -2,6 +2,12 @@
 
 ---
 
+## [1.1.6] - 2026-10-29
+
+### Fixed
+- **Auto-Miner Without Setup**: The Auto-Miner no longer needs the welcome setup to have run for your character. It works for any player in the Overworld.
+- **Auto-Miner Never Stalls**: A mined block that has no item form no longer stops the Auto-Miner as if the chest were full. It is skipped and mining continues.
+
 ## [1.1.5] - 2026-10-29
 
 ### Fixed
