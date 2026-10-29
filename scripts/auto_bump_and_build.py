@@ -322,8 +322,10 @@ def update_manifests_for_project(project_path):
         with open(mp, encoding="utf-8") as f:
             data = json.load(f)
         manifest_data[mp] = data
-        if current_ver is None and "header" in data and "version" in data["header"]:
-            current_ver = list(data["header"]["version"])
+        hv = data.get("header", {}).get("version") if isinstance(data.get("header"), dict) else None
+        if isinstance(hv, list) and len(hv) == 3 and all(type(x) is int for x in hv):
+            if current_ver is None or hv > current_ver:
+                current_ver = list(hv)
 
     if current_ver is None:
         current_ver = [1, 0, 0]

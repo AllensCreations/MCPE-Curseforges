@@ -96,6 +96,13 @@ Do this for every new pack and meaningful update. A compatible API version does 
   - `behavior_pack/` and `resource_pack/` versions match when both exist.
 - Run it for one project with `python3 scripts/validate_manifest_titles.py --project <project-path>`.
 
+#### Version, UUID, and engine sync
+
+- The release workflow runs `scripts/sync_manifest_versions.py` before bumping. For every project it processes, it sets every source pack's `header.version` and module versions to the project's highest version, rewrites the `(vX.Y.Z)` title suffix to match, updates dependency versions that point at a pack in the same project, keeps installed world copies and world link files (`world_behavior_packs.json`, `world_resource_packs.json`) in step with the source manifests, and replaces invalid or duplicate **module** UUIDs.
+- **Pack header UUIDs are never regenerated.** Changing one breaks existing worlds. The only UUID repair applied to a dependency is repointing a single unresolved Behavior Pack dependency to the project's own Resource Pack header UUID, and the workflow logs it. A duplicate header UUID across projects, or an invalid one, is a failure for a person to fix.
+- `min_engine_version` is synced between a project's packs by raising the lower one, never lowering. With "Raise min_engine_version" on (default), it is also raised to the newest item or block `format_version` the Behavior Pack contains (Section 2). This drops older players, so add it to the CHANGELOG.
+- After the rebuild, `scripts/sync_manifest_versions.py --verify-only` runs `scripts/check_manifest_versions.py` on the processed projects and fails the job before anything is committed. `check-manifest-versions.yml` checks every manifest on pull requests and on demand.
+
 #### Add-on LOCK marker
 
 - Every project under `MCPEDL/addons/` and `MCPEDL/new_addons/` has a `LOCK` file at its root beginning with `AllensCreations Add-on Lock v1`.
@@ -290,6 +297,7 @@ Workflows live in `.github/workflows/`. The roles below are a summary and will d
 | Workflow | Role |
 | :--- | :--- |
 | `auto-version-bump.yml` | Single release workflow. On push to main it bumps versions, rebuilds packs, and registers new projects; daily and on manual run it refreshes and rebuilds without bumping. Every run syncs project, category, builds, root and OneBlock map READMEs and audits README status. Must keep manifest titles in the `Name (vX.Y.Z)` format (Section 3). |
+| `check-manifest-versions.yml` | Checks every manifest for version, UUID, dependency, import, and engine-version problems. Runs on pull requests, on pushes that touch manifests, and on demand. |
 | `build-oneblock-variants.yml` | Builds the Creative, Survival, and Hardcore database-free `.mcworld` archives into `MCPEDL/maps/<Map-Name>/`. |
 | `create-project-from-base64.yml` | Manual run: decodes a base64 ZIP into the matching `MCPEDL/` folder and builds the worlds that type needs. `commit_mode` defaults to `pull_request`; `direct` pushes straight to the branch. |
 | `build-test-world.yml` | Manual run: rebuilds `<Name> - Test.mcworld`. |
@@ -308,7 +316,7 @@ Retired, do not recreate or reference: `create-addon-scaffold.yml`, `test-crafti
 
 Helper scripts in `scripts/` (read the script for exact options):
 
-- `check_readme_status.py`, `validate_manifest_titles.py`, `auto_bump_and_build.py` (`--no-bump` for documentation-only work), `sync_dispatch_choices.py`, `crafting_template.py`, `build_oneblock_variants_from_template.py` (reads `ONEBLOCK_MAP`), `sync_oneblock_map_readmes.py`, `import_project_payload.py`, `build_payload.py`, `build_test_world.py`, `cleanup_unused.py`, `delete_project.py`, `manage_addon_status.py`, `ensure_recipe_unlocks.py`, `update_min_version.py` (manifests only), the recipe image generators, `selftest_project_types.py`. `tests/test_crafting_template.py` is run by CI.
+- `check_readme_status.py`, `check_manifest_versions.py`, `sync_manifest_versions.py` (`--check` reports without writing, `--verify-only` runs the checker on the selected projects), `validate_manifest_titles.py`, `auto_bump_and_build.py` (`--no-bump` for documentation-only work), `sync_dispatch_choices.py`, `crafting_template.py`, `build_oneblock_variants_from_template.py` (reads `ONEBLOCK_MAP`), `sync_oneblock_map_readmes.py`, `import_project_payload.py`, `build_payload.py`, `build_test_world.py`, `cleanup_unused.py`, `delete_project.py`, `manage_addon_status.py`, `ensure_recipe_unlocks.py`, `update_min_version.py` (manifests only), the recipe image generators, `selftest_project_types.py`. `tests/test_crafting_template.py` is run by CI.
 - `check_generator_sync.py` is retired: nothing is embedded in this file any more (`PACK_GENERATOR_INSTRUCTIONS.md`, Section 8). Do not recreate it.
 
 When a rule in this file changes a workflow's behavior (titles, paths, versions), update the workflow in the same change.
