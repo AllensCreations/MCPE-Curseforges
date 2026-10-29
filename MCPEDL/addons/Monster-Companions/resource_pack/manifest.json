@@ -1,13 +1,13 @@
 {
   "format_version": 2,
   "header": {
-    "name": "Monster Companions (v1.2.9)",
+    "name": "Monster Companions (v1.2.10)",
     "description": "Custom textures, icons, and language definitions for Monster Companions. by AllensCreations",
     "uuid": "7216d2ae-eb79-49ec-ba4f-25fab6d1f65d",
     "version": [
       1,
       2,
-      9
+      10
     ],
     "min_engine_version": [
       1,
@@ -23,7 +23,7 @@
       "version": [
         1,
         2,
-        9
+        10
       ]
     }
   ],
