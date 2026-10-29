@@ -10,6 +10,7 @@ STABLE_MODULE_RE = re.compile(r"^\d+\.\d+\.\d+$")
 IMPORT_RE = re.compile(r"""(?:from\s+|import\s*\(?\s*)["'](@minecraft/[\w\-]+)["']""")
 KNOWN_MODULES = {"@minecraft/server", "@minecraft/server-ui", "@minecraft/vanilla-data"}
 PACK_KINDS = ("behavior_pack", "resource_pack")
+INSTALLED_PARTS = {"world", "worlds", "behavior_packs", "resource_packs"}
 
 
 class Report:
@@ -57,6 +58,10 @@ def pack_kind(path):
         if part in PACK_KINDS:
             return part
     return None
+
+
+def is_installed_copy(path):
+    return any(part in INSTALLED_PARTS for part in path.parts[:-1])
 
 
 def project_of(path):
@@ -223,15 +228,29 @@ def check_all(paths):
             check_content_formats(path, data, report)
 
     owners = {}
+    copies = []
     for path, data, _, _ in manifests:
         value = data["header"].get("uuid")
-        if valid_uuid(value):
+        if not valid_uuid(value):
+            continue
+        if is_installed_copy(path):
+            copies.append((path, data))
+        else:
             owners.setdefault(value, []).append(path)
     for value, where in owners.items():
         if len(where) > 1:
             report.error(", ".join(rel(p) for p in where), f"header.uuid {value} is used by more than one pack.")
 
+    source_versions = {p: d["header"].get("version") for ps in owners.values() for p in ps for q, d, _, _ in manifests if q == p}
+    for path, data in copies:
+        value = data["header"]["uuid"]
+        for source in owners.get(value, []):
+            if is_triple(data["header"].get("version")) and source_versions.get(source) != data["header"]["version"]:
+                report.warn(rel(path), f"installed copy is version {data['header']['version']} but source {rel(source)} is {source_versions.get(source)}; rebuild the world.")
+
     for path, data, _, uuid_deps in manifests:
+        if is_installed_copy(path):
+            continue
         for tag, dep_uuid, dep_version in uuid_deps:
             targets = owners.get(dep_uuid)
             if not targets:
