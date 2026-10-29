@@ -777,20 +777,8 @@ function materializeIsland(dimension, theme, phaseIndex, totalCount) {
         p.playSound("block.amethyst_block.resonate", { pitch: 1.1, volume: 0.8 });
         p.playSound("ambient.weather.wind", { pitch: 0.9, volume: 0.5 });
 
-        // Dramatic Title & Subtitle announcement
-        p.onScreenDisplay.setTitle("§5§l✦ RIFT MANIFESTED ✦§r", {
-          subtitle: `§dSomewhere in the distant §b${cardinal}§d... a new island has materialized!`,
-          fadeInDuration: 10,
-          stayDuration: 70,
-          fadeOutDuration: 20
-        });
-
-        // Action bar toast
-        p.onScreenDisplay.setActionBar(`§e⚡ A distant island has materialized in the §b${cardinal}§e! Follow the starlight trail.`);
-
-        // Clean atmospheric chat announcement
-        p.sendMessage(`\n§d✦ §lSomewhere in the Void...§r §da new island has materialized!`);
-        p.sendMessage(`§e★ A distant island has materialized in the void! Look for the starlight trail in the §b§l${cardinal}§r§e.\n`);
+        // Small announcement: action bar only (no big centered title)
+        p.onScreenDisplay.setActionBar(`§d✦ A new island has materialized in the §b${cardinal}§d! Follow the starlight trail.`);
       } catch (pe) {}
     }
 
