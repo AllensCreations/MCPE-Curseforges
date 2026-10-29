@@ -4,7 +4,8 @@ name: Export Repo Content to TXT
 # TXT you can feed to an AI. Nothing is truncated; by default everything goes into ONE file
 # named after what you exported. Binary files are skipped. The downloaded zip also contains
 # INSTRUCTIONS.md (a short built-in AI prompt: every update comes back as one Termux .sh
-# script that does git pull, applies the change, commits and pushes).
+# script, named (Repofilename)_(Version)_(Rand).sh with at least 5 random characters so it never reuses an old file name, that
+# does git pull, applies the change, commits and pushes; docs follow the templates exactly).
 # Save as: .github/workflows/export-repo-to-txt.yml
 
 on:
@@ -62,7 +63,7 @@ jobs:
           4. Applies to any project type: add-on, map, script, workflow, website, anything. Keep the existing folder layout. A new project goes in its own new folder next to similar ones.
 
           ## Every update request = ONE Termux script
-          Create `update_<short-name>.sh` as a downloadable file. It must, in this order:
+          Create `<Repofilename>_<Version>_<RAND>.sh` as a downloadable file. `<Repofilename>` is the project, folder or file being changed, with no extension and no spaces (hyphens allowed). `<Version>` is that item's version as X.Y.Z (the next patch version when the script bumps docs). `<RAND>` is at least 5 random lowercase letters or digits (for example `k7q2x`), freshly generated for every script and never reused from an earlier reply or an existing file, so a new script can never overwrite or re-run an older one with the same name. Use the exact same file name in the reply steps. It must, in this order:
           1. `#!/data/data/com.termux/files/usr/bin/bash` and `set -e`
           2. `cd "$HOME/MCPE-Curseforges"`, or `git clone` the repo URL first if the folder is missing
           3. `git pull --rebase`
@@ -72,6 +73,7 @@ jobs:
           7. Safe to run twice (skip anything already applied)
 
           ## Docs (every update, inside the same script)
+          Strict templates: README.md, DESCRIPTION.md and CHANGELOG.md must follow the templates below exactly: same headings, same heading text, same order, same labels and bullet format. Do not add, remove, rename, merge or reorder sections, and add no boilerplate or extra text. Leave no placeholders; fill every [bracket] with verified content. Accuracy and the requested scope still outrank the template.
           After the change, analyze README.md, DESCRIPTION.md and CHANGELOG.md in the destination folder. Edit a file only if the change makes it inaccurate or incomplete; leave the rest untouched. Never remove verified content.
           - Versions: never edit manifest versions or the README version/download link; the auto-version-bump workflow does that on push. In the script, read the current version from the manifest, and write the new CHANGELOG entry and the DESCRIPTION title as the next patch version (unless a different bump is asked).
           - Writing: player-facing only. In-game display names, never identifiers, file names, JSON, events or code. Write "Behavior Pack" / "Resource Pack", never BP/RP. No code blocks, emojis, hype, badges or images (DESCRIPTION may keep existing item sprites and recipe diagrams). No Markdown tables; use `### Feature Name` cards with `- **What Happens**: ...` bullets. Paragraphs of 4 sentences at most. State only verified facts; Verification line must say source created, package built or in-game tested, never mixed.
@@ -114,7 +116,7 @@ jobs:
           - CHANGELOG.md: `# Changelog — [Name]`, `---`, then newest release first as `## [X.Y.Z] - YYYY-MM-DD` (script uses today's date), grouped under `### Added`, `### Improved & Balanced`, `### Fixed` (bugs described by in-game experience). Entries are `- **Title**: player impact.` No links, URLs, badges, function or event names, or unverified benefits. No boilerplate after the title.
 
           ## Reply format
-          1. The .sh file
+          1. The .sh file (named <Repofilename>_<Version>_<RAND>.sh, ending with the random characters)
           2. These steps, exactly:
 
           First time only:
@@ -127,9 +129,9 @@ jobs:
           ```
           Every update:
           ```
-          bash ~/storage/downloads/update_<short-name>.sh
+          bash ~/storage/downloads/<Repofilename>_<Version>_<RAND>.sh
           ```
-          Download the .sh to your Downloads folder first. At the push prompt, the password is your GitHub Personal Access Token (repo scope), not your account password.
+          Download the .sh to your Downloads folder first and use its exact file name, including the random characters. At the push prompt, the password is your GitHub Personal Access Token (repo scope), not your account password.
           '''
 
           raw_paths = [p.strip().strip("'\"") for p in re.split(r"[,\n]", os.environ["PATHS"]) if p.strip()]
@@ -248,7 +250,7 @@ jobs:
           if skipped:
               index += ["", "SKIPPED (binary):"] + [f"    {s}" for s in skipped[:1000]]
           (out / "INSTRUCTIONS.md").write_text(AI_PROMPT.replace("__DEST__", "\n".join("- " + d for d in dests) or "- .") + "\n", encoding="utf-8")
-          index += ["", "ALSO INCLUDED: INSTRUCTIONS.md (AI update prompt: one Termux .sh script per update)"]
+          index += ["", "ALSO INCLUDED: INSTRUCTIONS.md (AI update prompt: one Termux .sh script per update, name format (Repofilename)_(Version)_(Rand).sh with 5+ random characters)"]
           (out / "INDEX.txt").write_text("\n".join(index) + "\n", encoding="utf-8")
           with open(os.environ["GITHUB_OUTPUT"], "a", encoding="utf-8") as fh:
               fh.write(f"label={label}\n")
