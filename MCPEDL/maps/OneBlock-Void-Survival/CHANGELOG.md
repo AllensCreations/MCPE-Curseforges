@@ -1,5 +1,13 @@
 # Changelog
 
+---
+
+## [1.2.15] - 2026-10-29
+
+### Improved & Balanced
+
+- **Content update**: Updated gameplay scripts and world data.
+
 ## [1.2.14] - 2026-10-29
 
 ### Added
