@@ -1,5 +1,12 @@
 # Changelog - Monster Companions
 
+## [1.2.7] - 2026-10-29
+
+### Fixed
+- **Parched stats**: Parched now matches the vanilla mob: 16 HP, Weakness arrows, immune to Weakness, and no Weakness on melee hits.
+
+---
+
 ## [1.2.6] - 2026-10-29
 
 ### Fixed
