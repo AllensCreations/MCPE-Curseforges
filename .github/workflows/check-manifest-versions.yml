@@ -1,0 +1,67 @@
+name: Check Manifest Versions
+
+on:
+  pull_request:
+    paths:
+      - "MCPEDL/**/manifest.json"
+      - "MCPEDL/**/behavior_pack/items/**"
+      - "MCPEDL/**/behavior_pack/blocks/**"
+      - "MCPEDL/**/behavior_pack/scripts/**"
+      - "scripts/check_manifest_versions.py"
+      - ".github/workflows/check-manifest-versions.yml"
+  push:
+    branches:
+      - main
+    paths:
+      - "MCPEDL/**/manifest.json"
+      - "scripts/check_manifest_versions.py"
+      - ".github/workflows/check-manifest-versions.yml"
+  workflow_call:
+  workflow_dispatch:
+    inputs:
+      project:
+        description: "Project folder under MCPEDL/ to check (blank = all packs)"
+        required: false
+        default: ""
+        type: string
+      strict:
+        description: "Fail on warnings too"
+        required: false
+        default: false
+        type: boolean
+
+permissions:
+  contents: read
+
+concurrency:
+  group: check-manifest-versions-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+
+      - uses: actions/setup-python@6d4fd22b20465ccc0f7354476588e8df7c9ca0e0 # v7.1.0
+        with:
+          python-version: "3.12"
+
+      - name: Check all manifest versions
+        env:
+          PROJECT: ${{ inputs.project }}
+          STRICT: ${{ inputs.strict }}
+        run: |
+          set -uo pipefail
+          ARGS=()
+          if [ -n "${PROJECT:-}" ]; then ARGS+=(--project "$PROJECT"); fi
+          if [ "${STRICT:-false}" = "true" ]; then ARGS+=(--strict); fi
+          python scripts/check_manifest_versions.py "${ARGS[@]}" 2>&1 | tee check.log
+          STATUS=${PIPESTATUS[0]}
+          {
+            echo "### Manifest version check"
+            echo '```'
+            cat check.log
+            echo '```'
+          } >> "$GITHUB_STEP_SUMMARY"
+          exit "$STATUS"
