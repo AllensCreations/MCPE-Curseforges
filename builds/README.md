@@ -11,7 +11,7 @@ This directory stores the compiled releases (behavior packs, resource packs, add
 | Pack Name | Version | Type | Download Link | Build Folder |
 | :--- | :--- | :--- | :--- | :--- |
 | **Vanilla Quality of Life** | `v1.3.24` | Complete Add-on (`.mcaddon`) | [Download (.mcaddon)](Vanilla-Quality-of-Life/Vanilla%20Quality%20of%20Life%20by%20AllensCreations%20%28V1.3.24%29.mcaddon) | [`Vanilla-Quality-of-Life/`](Vanilla-Quality-of-Life/) |
-| **Monster Companions** | `v1.2.6` | Complete Add-on (`.mcaddon`) | [Download (.mcaddon)](Monster-Companions/Monster%20Companions%20by%20AllensCreations%20%28V1.2.6%29.mcaddon) | [`Monster-Companions/`](Monster-Companions/) |
+| **Monster Companions** | `v1.2.7` | Complete Add-on (`.mcaddon`) | [Download (.mcaddon)](Monster-Companions/Monster%20Companions%20by%20AllensCreations%20%28V1.2.7%29.mcaddon) | [`Monster-Companions/`](Monster-Companions/) |
 | **Mining Helmet** | `v1.0.12` | Complete Add-on (`.mcaddon`) | [Download (.mcaddon)](Mining-Helmet/Mining%20Helmet%20by%20AllensCreations%20%28V1.0.12%29.mcaddon) | [`Mining-Helmet/`](Mining-Helmet/) |
 | **Passive Auto-Switch Tools** | `v1.1.14` | Script Behavior Pack (`.mcpack`) | [Download (.mcpack)](Passive-Auto-Switch-Tools/Passive%20Auto-Switch%20Tools%20by%20AllensCreations%20%28V1.1.14%29.mcpack) | [`Passive-Auto-Switch-Tools/`](Passive-Auto-Switch-Tools/) |
 | **Ghast Mob Head Transformers** | `v1.1.14` | Complete Add-on (`.mcaddon`) | [Download (.mcaddon)](Ghast-Mob-Head-Transformers/Ghast%20Mob%20Head%20Transformers%20by%20AllensCreations%20%28V1.1.14%29.mcaddon) | [`Ghast-Mob-Head-Transformers/`](Ghast-Mob-Head-Transformers/) |
