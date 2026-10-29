@@ -1,4 +1,4 @@
-# Monster Companions (v1.2.8)
+# Monster Companions (v1.2.10)
 
 *Tameable Hostile Mobs and Mounts by AllensCreations*
 
@@ -37,7 +37,7 @@ Tap a companion with an empty hand to make it sit and hold its position, and tap
 
 ### Companion Squad Mechanics
 - Perimeter buffer: Companions follow the player while keeping a buffer distance to prevent obstructing the player camera or mining path. If the player sprints ahead, companions teleport behind the player safely.
-- Friendly-fire immunity: Companions avoid friendly-fire damage and do not target teammates. Arrows, fireballs, potions, and other attacks from your companions no longer damage you.
+- Friendly-fire immunity: Companions avoid friendly-fire damage and do not target teammates.
 - Auto-protect: Companions defend you from nearby aggressive hostile mobs even before you are attacked.
 - Visual status indicators: Tamed companions display an always-visible floating nameplate above their head. Custom name tags can be applied directly without an anvil.
 - In-combat healing: Feeding a wounded companion a Primal Beast Biscuit restores 10 HP (5 hearts).

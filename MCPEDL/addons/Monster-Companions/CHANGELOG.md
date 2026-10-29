@@ -1,8 +1,9 @@
 # Changelog - Monster Companions
 
-## [1.2.8] - 2026-10-29
+## [1.2.10] - 2026-10-29
 
 ### Fixed
+- **Floating in the world**: Fixed a bug where you floated and saw air bubbles after entering a world with the add-on.
 - **Parched stats**: Parched now matches the vanilla mob: 16 HP, Weakness arrows, immune to Weakness, and no Weakness on melee hits.
 
 ---
@@ -28,7 +29,6 @@
 
 ### Fixed
 - **Witch potions**: A tamed Witch no longer throws harmful potions at you or targets you.
-- **Companion attacks**: Arrows, fireballs, potions, and other attacks from your companions no longer damage you.
 
 ---
 
