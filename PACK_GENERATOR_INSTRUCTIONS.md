@@ -308,6 +308,8 @@ Minecraft Bedrock add-on, [Add-on Name] Bedrock mod, [feature 1], [feature 2], [
 
 ### 6. Templates
 
+**Strict template rule.** Follow the matching template below exactly for every `README.md`, `DESCRIPTION.md`, and `CHANGELOG.md` you write or update: same headings, same heading text, same order, same labels, same list and bullet format. Do not add, remove, rename, merge, or reorder sections, and do not add boilerplate, extra notes, or text outside the template. Replace every `[placeholder]` and `verified-...` marker with verified content and leave none behind. The only allowed deviations are the ones the templates and Section 1 already name (map and script READMEs as product pages, and a section's content when a fact cannot be verified, in which case say so inside that section rather than dropping it). Factual accuracy and the user's requested scope still outrank the template.
+
 **Add-on README.md**
 
 ```markdown
@@ -436,6 +438,7 @@ Do not guess the type. Then follow Sections 1 to 3, the one section for that typ
 - **Art:** a generated payload never contains AI-generated images. The Trader Ledger (maps) and Controller (scripts) icons come only from the repo copy, which `build_payload.py` installs. For any other texture use real vanilla texture names, user-supplied textures, or omit the icon.
 - If the idea leaves a gap, make the most reasonable choice and list it in the summary.
 - The shell may be plain `sh`: do not use brace expansion. After creating files, list them and confirm they exist.
+- **Shell script file names.** Whenever you give the user a `.sh` file (including a command or script handed over because you cannot run code), put at least 5 random lowercase letters or digits in the file name before the extension, for example `apply_fix_k7q2x.sh`. Generate a fresh suffix every time (for example `head -c 200 /dev/urandom | tr -dc 'a-z0-9' | head -c 6`) and never reuse a name from an earlier reply or an existing file, so running a new script can never overwrite or re-run an older one. Use the exact same name in the reply and in the command that runs it.
 - No comments in `.js`, `.mcfunction`, or `.json` files (Part 1, Section 1).
 - Prefer event-driven logic over per-tick polling, broad entity searches, or block scans.
 - Do not claim a README or catalog link to a `.mcworld` that does not exist yet.
@@ -634,6 +637,8 @@ By hand, confirm only:
 - [ ] Map: `oneblock_setup.mcfunction` is harmless and idempotent; `void_cleaner` ends with the conditional `void_cleaned` tag.
 - [ ] Script: the form has exactly Start and How to play; `gameInfo` and `howToPlay` hold real text; the game logic is real and calls `endGame()`; stuck-state recovery exists; each listed add-on exists.
 - [ ] No comments in any script, function, or JSON file.
+- [ ] Every README, DESCRIPTION, and CHANGELOG matches its Part 2 template exactly (headings, order, labels), with no placeholders left.
+- [ ] Any `.sh` file handed over has at least 5 random characters in its name, new for this reply.
 - [ ] No file from `Mcpeworlds/assets/` other than the ledger or controller files was copied.
 - [ ] The reply contains only the five Section 11 blocks (or one listed exception), nothing before or after.
 
