@@ -11,10 +11,10 @@ The central block provides resources as you progress through increasingly advanc
 ## Key Features
 
 ### Progressive OneBlock Phases
-- **What Happens:** The central block renews when mined and advances through phases. Progression uses three stage ranges: 50 blocks per early phase, 100 per mid-tier phase, and 150 per dimension phase.
+- **What Happens:** The central block renews when mined and advances through phases. Phase length depends on the phase number: phases 1-5 are 50 blocks, phases 6-10 are 100, and phases 11+ are 150 (Overworld 1,500 blocks in total, Nether 450, End 200).
 
 ### 43 Mystery Islands
-- **Exploration:** Discover 28 islands in the Overworld, eight in the Nether, and seven in The End as you reach progression milestones.
+- **Exploration:** Discover 33 islands in the Overworld, seven in the Nether, and three in The End as you reach progression milestones.
 
 ### Starter Platform and Supply Chest
 - **What Happens:** Early mining expands the starting platform. A supply chest appears at the 15-block milestone with water and lava for creating a cobblestone generator.
@@ -24,6 +24,9 @@ The central block provides resources as you progress through increasingly advanc
 
 ### Dimension Shifter Merchant
 - **Trading:** A traveling merchant periodically offers trades for rare saplings, seeds, and other supplies.
+
+### Hardcore Survival
+- **What Happens:** The standard world is locked to Survival mode on Hard difficulty. If you die, you are placed in Spectator Mode permanently.
 
 ### Admin Photography Studio
 - **Separate World Option:** The Admin edition provides a separate photo studio with camera views and lighting controls; select that edition only if those tools are needed.
@@ -37,7 +40,7 @@ The central block provides resources as you progress through increasingly advanc
 
 ## Compatibility and Limitations
 
-- Minecraft Bedrock Edition. Check the current world listing and package details before importing.
+- Minecraft Bedrock Edition 1.21.50 or newer. Check the current world listing and package details before importing.
 - The standard and Admin world files serve different purposes; choose the version that matches your intended play style.
 
 ## Creator and Permissions

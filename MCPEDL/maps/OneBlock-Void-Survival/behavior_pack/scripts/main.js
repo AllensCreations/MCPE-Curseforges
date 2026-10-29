@@ -9,13 +9,7 @@ import { ISLAND_THEMES, OVERWORLD_ISLAND_ORDER, getIslandLocation, buildThemedIs
 const IS_ADMIN_BUILD = false;
 
 function isAdmin(player) {
-  if (IS_ADMIN_BUILD) return true;
-  if (!player) return false;
-  try {
-    return player.hasTag("admin") || world.getDynamicProperty("is_admin_world") === true;
-  } catch (e) {
-    return false;
-  }
+  return IS_ADMIN_BUILD === true;
 }
 
 // Progressive Phase Length Scaling:
@@ -36,17 +30,9 @@ const LUCKY_RUSH_CHANCE = 0.005; // 0.5% (1 in 200 blocks)
 const VOID_SURGE_CHANCE = 0.005; // 0.5% (1 in 200 blocks)
 const JACKPOT_CHANCE = 0.001;    // 0.1% (1 in 1000 blocks)
 
-const PICKAXE_STATS = {
-  "minecraft:wooden_pickaxe": { durability: 59, interval: 40 },
-  "minecraft:stone_pickaxe": { durability: 131, interval: 30 },
-  "minecraft:iron_pickaxe": { durability: 250, interval: 20 },
-  "minecraft:golden_pickaxe": { durability: 32, interval: 10 },
-  "minecraft:diamond_pickaxe": { durability: 1561, interval: 12 },
-  "minecraft:netherite_pickaxe": { durability: 2031, interval: 8 }
-};
-
 const activeCountdowns = new Map();
 const activeLuckyRush = new Map(); // dimensionKey -> secondsLeft
+const recentIslandBreaks = new Map();
 
 // 8 perimeter positions around (0, 64, 0)
 const SURROUNDING_OFFSETS = [
@@ -147,47 +133,6 @@ function getDimensionState(dimKey) {
   };
 }
 
-// Calculates directional arrow and distance from player to target island
-function calculateNavIndicator(pPos, pRotation, targetPos) {
-  try {
-    const dx = targetPos.x - pPos.x;
-    const dz = targetPos.z - pPos.z;
-    const dist = Math.round(Math.sqrt(dx * dx + dz * dz));
-
-    // Target angle in Minecraft world (-180 to 180 degrees)
-    const targetAngle = (Math.atan2(-dx, dz) * 180) / Math.PI;
-    const diff = ((targetAngle - pRotation.y + 180) % 360 + 360) % 360 - 180;
-
-    let arrow = "⬆";
-    if (Math.abs(diff) <= 22.5) {
-      arrow = "⬆";
-    } else if (diff > 22.5 && diff < 67.5) {
-      arrow = "↗";
-    } else if (diff >= 67.5 && diff < 112.5) {
-      arrow = "➡";
-    } else if (diff >= 112.5 && diff < 157.5) {
-      arrow = "↘";
-    } else if (Math.abs(diff) >= 157.5) {
-      arrow = "⬇";
-    } else if (diff <= -22.5 && diff > -67.5) {
-      arrow = "↖";
-    } else if (diff <= -67.5 && diff > -112.5) {
-      arrow = "⬅";
-    } else {
-      arrow = "↙";
-    }
-
-    const deg = ((Math.atan2(dz, dx) * 180) / Math.PI + 360) % 360;
-    const directions = ["East", "South-East", "South", "South-West", "West", "North-West", "North", "North-East"];
-    const cardinalIdx = Math.round(deg / 45) % 8;
-    const cardinal = directions[cardinalIdx];
-
-    return { arrow, dist, cardinal };
-  } catch (e) {
-    return { arrow: "⬆", dist: 0, cardinal: "North" };
-  }
-}
-
 function getCardinalFromCoords(dx, dz) {
   try {
     const deg = ((Math.atan2(dz, dx) * 180) / Math.PI + 360) % 360;
@@ -224,7 +169,16 @@ function spawnOneBlockChest(dimension, items = []) {
 
     const block = dimension.getBlock(chestPos);
     if (block) {
-      block.setType("minecraft:chest");
+      if (block.typeId !== "minecraft:chest") {
+        if (!block.isAir) {
+          // Never destroy a player-built block: drop the loot instead
+          for (const it of items) {
+            try { if (it instanceof ItemStack) dimension.spawnItem(it, { x: chestPos.x + 0.5, y: chestPos.y + 0.2, z: chestPos.z + 0.5 }); } catch (se) {}
+          }
+          return;
+        }
+        block.setType("minecraft:chest");
+      }
 
       // Populate chest inventory container on next tick once block entity is instantiated
       system.runTimeout(() => {
@@ -290,7 +244,7 @@ function spawnScatteredLootInChest(container, chestItems = []) {
       if (availableSlots.length === 0) break;
       const slot = availableSlots.pop();
       try {
-        container.setItem(slot, stack);
+        if (container.getItem(slot)) container.addItem(stack); else container.setItem(slot, stack);
       } catch (e) {
         try { container.addItem(stack); } catch (e2) {}
       }
@@ -318,6 +272,75 @@ function getNearbyIslandPlayers(dimension, loc, maxDistance = 48, breakerPlayer 
   return Array.from(nearby);
 }
 
+// Finalizes a fully mined island core (bedrock -> natural floor + reward chest).
+// Safe to call repeatedly: retried by ensureIslandOneBlocks if the chunk was unloaded or the world was closed.
+function finalizeIslandCore(dimension, theme, loc, player) {
+  try {
+    if (world.getDynamicProperty(`island_ob_final_${theme.id}`)) return;
+    const targetBlock = dimension.getBlock(loc);
+    if (!targetBlock) return; // chunk unloaded, retry later
+    world.setDynamicProperty(`island_ob_final_${theme.id}`, true);
+    if (targetBlock.typeId !== "minecraft:bedrock") return;
+
+    try { targetBlock.setType(theme.floor); } catch (e) { try { targetBlock.setType("minecraft:dirt"); } catch (e2) {} }
+    const underBlock = dimension.getBlock({ x: loc.x, y: loc.y - 1, z: loc.z });
+    if (underBlock) {
+      try { underBlock.setType(theme.subfloor || theme.floor); } catch (e) { try { underBlock.setType(theme.floor); } catch (e2) {} }
+    }
+    const besideOffsets = [{ x: 1, z: 0 }, { x: -1, z: 0 }, { x: 0, z: 1 }, { x: 0, z: -1 }];
+    for (const off of besideOffsets) {
+      const bBlock = dimension.getBlock({ x: loc.x + off.x, y: loc.y, z: loc.z + off.z });
+      if (bBlock && bBlock.typeId === "minecraft:bedrock") {
+        try { bBlock.setType(theme.floor); } catch (e) { try { bBlock.setType("minecraft:dirt"); } catch (e2) {} }
+      }
+    }
+
+    const chestPos = { x: loc.x, y: loc.y + 1, z: loc.z };
+    try {
+      const existing = dimension.getEntities({
+        type: "minecraft:chest_minecart",
+        location: { x: chestPos.x + 0.5, y: chestPos.y + 0.5, z: chestPos.z + 0.5 },
+        maxDistance: 2.5
+      });
+      for (const ent of existing) ent.remove();
+    } catch (ee) {}
+
+    const chestBlock = dimension.getBlock(chestPos);
+    if (chestBlock) {
+      if (chestBlock.isAir || chestBlock.typeId === "minecraft:chest") {
+        if (chestBlock.isAir) chestBlock.setType("minecraft:chest");
+        system.runTimeout(() => {
+          try {
+            const cb = dimension.getBlock(chestPos);
+            if (cb && cb.typeId === "minecraft:chest") {
+              const chestComp = cb.getComponent("minecraft:inventory");
+              if (chestComp && chestComp.container) {
+                spawnScatteredLootInChest(chestComp.container, theme.chest);
+              }
+            }
+          } catch (ie) {}
+        }, 1);
+      } else {
+        // Never destroy a player-built block: drop the reward instead
+        for (const entry of theme.chest || []) {
+          try { dimension.spawnItem(new ItemStack(entry.id, entry.count || 1), { x: chestPos.x + 0.5, y: chestPos.y + 0.5, z: chestPos.z + 0.5 }); } catch (de) {}
+        }
+      }
+    }
+
+    try {
+      dimension.spawnEntity("minecraft:fireworks_rocket", { x: loc.x + 0.5, y: loc.y + 2.0, z: loc.z + 0.5 });
+      dimension.spawnParticle("minecraft:totem_particle", { x: loc.x + 0.5, y: loc.y + 1.5, z: loc.z + 0.5 });
+      dimension.playSound("random.levelup", loc, { pitch: 1.2, volume: 1.0 });
+      dimension.playSound("random.chestopen", chestPos, { pitch: 1.0, volume: 1.0 });
+    } catch (fe) {}
+
+    for (const p of getNearbyIslandPlayers(dimension, loc, 48, player)) {
+      p.sendMessage(`${theme.color}★ [Island Core Conquered] §fThe Bedrock core has stabilized into the island's natural floor! The Sacred Treasure Chest has manifested above!\n`);
+    }
+  } catch (err) {}
+}
+
 // Handles breaking of an Island Mini-OneBlock Core (30-50 blocks capacity)
 function handleIslandOneBlockBreak(dimension, loc, player) {
   try {
@@ -338,6 +361,7 @@ function handleIslandOneBlockBreak(dimension, loc, player) {
       }
     }
     if (!matchedTheme) return;
+    recentIslandBreaks.set(matchedTheme.id, system.currentTick);
 
     const maxBlocks = world.getDynamicProperty(`island_ob_max_${matchedTheme.id}`) ?? 40;
     const currentMined = (world.getDynamicProperty(`island_ob_mined_${matchedTheme.id}`) ?? 0) + 1;
@@ -470,72 +494,10 @@ function handleIslandOneBlockBreak(dimension, loc, player) {
         }, s * 20);
       }
 
-      // 2. Exactly 3 seconds (60 ticks) later: ALL Bedrock converts into normal island blocks & Sacred Chest block spawns above
+      // 2. 3 seconds later: finalize (retried by ensureIslandOneBlocks if the chunk unloads or the world closes)
+      world.setDynamicProperty(`island_ob_done_tick_${matchedTheme.id}`, system.currentTick);
       system.runTimeout(() => {
-        try {
-          const targetBlock = dimension.getBlock(loc);
-          if (targetBlock) {
-            targetBlock.setType(matchedTheme.floor);
-          }
-          // Convert foundation bedrock underneath into subsoil block
-          const underBlock = dimension.getBlock({ x: loc.x, y: loc.y - 1, z: loc.z });
-          if (underBlock) {
-            underBlock.setType(matchedTheme.subfloor || matchedTheme.floor);
-          }
-
-          // Convert all surrounding bedrock blocks into natural island floor
-          const besideOffsets = [
-            { x: 1, z: 0 },
-            { x: -1, z: 0 },
-            { x: 0, z: 1 },
-            { x: 0, z: -1 }
-          ];
-          for (const off of besideOffsets) {
-            const bBlock = dimension.getBlock({ x: loc.x + off.x, y: loc.y, z: loc.z + off.z });
-            if (bBlock) bBlock.setType(matchedTheme.floor);
-          }
-
-          // Spawn the Sacred Reward Chest block ABOVE the permanent floor block at { x: loc.x, y: loc.y + 1, z: loc.z }
-          const chestPos = { x: loc.x, y: loc.y + 1, z: loc.z };
-
-          // Remove any lingering chest_minecart entities around Island OneBlock
-          try {
-            const existing = dimension.getEntities({
-              type: "minecraft:chest_minecart",
-              location: { x: chestPos.x + 0.5, y: chestPos.y + 0.5, z: chestPos.z + 0.5 },
-              maxDistance: 2.5
-            });
-            for (const ent of existing) ent.remove();
-          } catch (ee) {}
-
-          const chestBlock = dimension.getBlock(chestPos);
-          if (chestBlock) {
-            chestBlock.setType("minecraft:chest");
-            system.runTimeout(() => {
-              try {
-                const cb = dimension.getBlock(chestPos);
-                if (cb && cb.typeId === "minecraft:chest") {
-                  const chestComp = cb.getComponent("minecraft:inventory");
-                  if (chestComp && chestComp.container) {
-                    spawnScatteredLootInChest(chestComp.container, matchedTheme.chest);
-                  }
-                }
-              } catch (ie) {}
-            }, 1);
-          }
-
-          // Celebration effects: fireworks, totem particles, levelup sound, chat announcement
-          dimension.spawnEntity("minecraft:fireworks_rocket", { x: loc.x + 0.5, y: loc.y + 2.0, z: loc.z + 0.5 });
-          dimension.spawnParticle("minecraft:totem_particle", { x: loc.x + 0.5, y: loc.y + 1.5, z: loc.z + 0.5 });
-          dimension.playSound("random.levelup", loc, { pitch: 1.2, volume: 1.0 });
-          dimension.playSound("random.chestopen", chestPos, { pitch: 1.0, volume: 1.0 });
-
-          // Message only shown to the player who mined it or players near the island (clean for multiplayer)
-          const finishAudience = getNearbyIslandPlayers(dimension, loc, 48, player);
-          for (const p of finishAudience) {
-            p.sendMessage(`${matchedTheme.color}★ [Island Core Conquered] §fThe Bedrock core has stabilized into the island's natural floor! The Sacred Treasure Chest has manifested above!\n`);
-          }
-        } catch (e) {}
+        finalizeIslandCore(dimension, matchedTheme, loc, player);
       }, 60);
     }
   } catch (err) {}
@@ -599,6 +561,7 @@ function spawnPhaseMiniBoss(dimKey, dimension, phaseIndex) {
 
 // Start Lucky Rush event (10 seconds)
 function triggerLuckyRush(dimKey, dimension) {
+  if (activeLuckyRush.get(dimKey)) return;
   activeLuckyRush.set(dimKey, 10);
 
   for (const p of world.getAllPlayers()) {
@@ -1025,8 +988,13 @@ function incrementDimensionCount(dimKey, dimension) {
   // Check if phase climax was just reached
   if (newState.phaseIndex > prevState.phaseIndex) {
     spawnPhaseMiniBoss(dimKey, dimension, newState.phaseIndex);
-    const isGameComplete = (dimKey === "end" && newState.phaseIndex === phases.length - 1);
-    startPhaseTransition(dimKey, dimension, newState.phaseIndex, isGameComplete);
+    startPhaseTransition(dimKey, dimension, newState.phaseIndex, false);
+  } else if (dimKey === "end" && newState.phaseIndex === phases.length - 1 &&
+             newState.progressInPhase === newState.currentPhaseLength &&
+             !world.getDynamicProperty("game_complete")) {
+    // Victory only when the final End phase is actually completed
+    world.setDynamicProperty("game_complete", true);
+    startPhaseTransition(dimKey, dimension, newState.phaseIndex, true);
   }
 
   // Check global island milestones
@@ -1119,6 +1087,11 @@ function handleAutomatedBlockDestruction(dimension) {
       }
     } catch (pe) {}
 
+    try {
+      const cb = dimension.getBlock(ONEBLOCK_POS);
+      if (cb && cb.isAir) cb.setType(dimKey === "nether" ? "minecraft:netherrack" : (dimKey === "end" ? "minecraft:end_stone" : "minecraft:dirt"));
+    } catch (fb) {}
+
     // Advance progression for automated destruction (TNT, Piston, etc.)
     incrementDimensionCount(dimKey, dimension);
   } catch (err) {}
@@ -1145,7 +1118,7 @@ export function renewOneBlock(dimension) {
     const bType = block.typeId;
     const isLiquid = bType === "minecraft:water" || bType === "minecraft:flowing_water" ||
                      bType === "minecraft:lava" || bType === "minecraft:flowing_lava";
-    const isAir = block.isAir || bType === "minecraft:air" || isLiquid;
+    const isAir = block.isAir || bType === "minecraft:air" || isLiquid || bType === "minecraft:bedrock";
 
     if (!isAir) {
       lastKnownOneBlockType[dimKey] = bType;
@@ -1165,7 +1138,7 @@ export function renewOneBlock(dimension) {
     if (dimKey === "overworld" && state.count < TUTORIAL_BLOCKS.length) {
       nextBlockType = TUTORIAL_BLOCKS[state.count].block;
     } else if (activeLuckyRush.get(dimKey)) {
-      const luckyBlocks = ["minecraft:gold_block", "minecraft:emerald_block", "minecraft:diamond_ore", "minecraft:gold_ore", "minecraft:iron_block"];
+      const luckyBlocks = ["minecraft:gold_ore", "minecraft:iron_ore", "minecraft:diamond_ore", "minecraft:emerald_ore", "minecraft:lapis_ore"];
       nextBlockType = luckyBlocks[Math.floor(Math.random() * luckyBlocks.length)];
     } else if (phase && phase.blocks && phase.blocks.length > 0) {
       nextBlockType = pickWeighted(phase.blocks).id;
@@ -1279,11 +1252,16 @@ function ensureOneBlock(dimension) {
 
     const block = dimension.getBlock(ONEBLOCK_POS);
     const isLiquid = block && (block.typeId === "minecraft:water" || block.typeId === "minecraft:flowing_water" || block.typeId === "minecraft:lava" || block.typeId === "minecraft:flowing_lava");
-    const isMissing = !block || block.isAir || block.typeId === "minecraft:air" || isLiquid;
+    const stuckBedrock = !!block && block.typeId === "minecraft:bedrock";
+    const isMissing = !block || block.isAir || block.typeId === "minecraft:air" || isLiquid || stuckBedrock;
 
     if (isMissing) {
-      // Guarantee the block is auto-renewed immediately!
-      renewOneBlock(dimension);
+      // Block vanished without a player break (piston, plant pop, decay): count it. Stuck bedrock/first placement: plain renew.
+      if (block && !stuckBedrock && lastKnownOneBlockType[dimKey]) {
+        handleAutomatedBlockDestruction(dimension);
+      } else {
+        renewOneBlock(dimension);
+      }
     } else if (block) {
       lastKnownOneBlockType[dimKey] = block.typeId;
     }
@@ -1716,7 +1694,7 @@ export function giveAdminInspectorTool(player) {
       compass.setLore([
         "§e[Admin Inspection Tool]",
         "§aRight-click to open Island Inspector GUI!",
-        "§bTeleport to any of the 42 secret void islands",
+        "§bTeleport to any of the 43 secret void islands",
         "§dor pre-generate all of them with 1 click."
       ]);
       inv.addItem(compass);
@@ -1781,6 +1759,18 @@ function generateRandomTrades(dimKey) {
   return { trades, hasMythicOrFabled };
 }
 
+function clearShifterStall(dimKey) {
+  try {
+    const state = dimensionShifterState[dimKey];
+    const dim = world.getDimension(dimKey === "end" ? "the_end" : dimKey);
+    for (const sp of state.stall || []) {
+      const sb = dim.getBlock(sp);
+      if (sb && sb.typeId === state.stallMat) sb.setType("minecraft:air");
+    }
+    state.stall = [];
+  } catch (e) {}
+}
+
 function tickDimensionShifters() {
   const dims = [
     { key: "overworld", dim: world.getDimension("overworld") },
@@ -1799,9 +1789,12 @@ function tickDimensionShifters() {
     const state = dimensionShifterState[key];
 
     if (!state.isPresent) {
+      // Remove orphaned shifters left over from a previous session
+      try { for (const oe of dim.getEntities({ tags: ["dimension_shifter"] })) oe.remove(); } catch (oe2) {}
       state.nextVisitIn--;
       if (state.nextVisitIn <= 0) {
         state.isPresent = true;
+        state.visitId = (state.visitId || 0) + 1;
         state.secondsLeft = 180;
 
         const { trades, hasMythicOrFabled } = generateRandomTrades(key);
@@ -1809,10 +1802,12 @@ function tickDimensionShifters() {
 
         try {
           const stallMaterial = key === "nether" ? "minecraft:nether_brick" : key === "end" ? "minecraft:end_bricks" : "minecraft:oak_planks";
+          state.stall = [];
+          state.stallMat = stallMaterial;
           for (let x = 2; x <= 4; x++) {
             for (let z = -1; z <= 1; z++) {
               const b = dim.getBlock({ x, y: 63, z });
-              if (b && b.isAir) b.setType(stallMaterial);
+              if (b && b.isAir) { b.setType(stallMaterial); state.stall.push({ x, y: 63, z }); }
             }
           }
 
@@ -1852,6 +1847,7 @@ function tickDimensionShifters() {
       if (state.secondsLeft <= 0) {
         state.isPresent = false;
         state.nextVisitIn = getRandomInterval();
+        clearShifterStall(key);
 
         try {
           for (const entity of dim.getEntities({ tags: ["dimension_shifter"] })) {
@@ -1869,6 +1865,7 @@ function tickDimensionShifters() {
 
 function openShifterTradeModal(player, dimKey) {
   const state = dimensionShifterState[dimKey];
+  const visit = state ? state.visitId : undefined;
   if (!state || !state.isPresent || state.trades.length === 0) {
     player.sendMessage("§cThe Dimension Shifter is not available right now.");
     return;
@@ -1891,6 +1888,10 @@ function openShifterTradeModal(player, dimKey) {
   form.show(player).then((response) => {
     if (response.canceled || response.selection === undefined) return;
 
+    if (!state.isPresent || state.visitId !== visit) {
+      player.sendMessage("§c[Dimension Shifter] The Dimension Shifter has already left!");
+      return;
+    }
     const selectedTrade = state.trades[response.selection];
     if (!selectedTrade) return;
 
@@ -1974,6 +1975,7 @@ world.afterEvents.entityHurt.subscribe((event) => {
         if (state) {
           state.isPresent = false;
           state.nextVisitIn = getRandomInterval();
+          clearShifterStall(dimKey);
         }
         hurtEntity.dimension.playSound("mob.endermen.portal", hurtEntity.location, { volume: 1.0, pitch: 0.8 });
         hurtEntity.remove();
@@ -1991,7 +1993,7 @@ try {
   if (world.beforeEvents && world.beforeEvents.itemUseOn && typeof world.beforeEvents.itemUseOn.subscribe === "function") {
     world.beforeEvents.itemUseOn.subscribe((event) => {
   try {
-    const { itemStack, block, player } = event;
+    const { itemStack, block, source: player } = event;
     if (!itemStack || !block) return;
 
     const loc = block.location;
@@ -2008,31 +2010,6 @@ try {
 
   }
 } catch (e) {}
-// Piston Movement Hook: When a piston pushes the OneBlock, allow it without decay and advance progression
-try {
-  if (world.beforeEvents && world.beforeEvents.pistonActivate) {
-    world.beforeEvents.pistonActivate.subscribe((event) => {
-      try {
-        if (!event.isExpanding) return;
-        const blocks = typeof event.getAttachedBlocks === "function" ? event.getAttachedBlocks() : [];
-        for (const b of blocks) {
-          const loc = b.location;
-          if (loc.x === ONEBLOCK_POS.x && loc.y === ONEBLOCK_POS.y && loc.z === ONEBLOCK_POS.z) {
-            // Piston is pushing the OneBlock!
-            // Wait 2 ticks for the push animation to complete, then regenerate the next block & advance!
-            system.runTimeout(() => {
-              try {
-                handleAutomatedBlockDestruction(event.dimension);
-              } catch (e) {}
-            }, 2);
-            break;
-          }
-        }
-      } catch (e) {}
-    });
-  }
-} catch (e) {}
-
 // Explosion Hook: When explosions destroy the OneBlock, advance progression and renew
 try {
   if (world.afterEvents && world.afterEvents.blockExplode) {
@@ -2136,7 +2113,7 @@ world.afterEvents.playerBreakBlock.subscribe((event) => {
       nextBlockType = pickWeighted(phase.blocks).id;
     }
   } else if (activeLuckyRush.get(dimKey)) {
-    const luckyBlocks = ["minecraft:gold_block", "minecraft:emerald_block", "minecraft:diamond_ore", "minecraft:gold_ore", "minecraft:iron_block"];
+    const luckyBlocks = ["minecraft:gold_ore", "minecraft:iron_ore", "minecraft:diamond_ore", "minecraft:emerald_ore", "minecraft:lapis_ore"];
     nextBlockType = luckyBlocks[Math.floor(Math.random() * luckyBlocks.length)];
   } else {
     nextBlockType = pickWeighted(phase.blocks).id;
@@ -2223,7 +2200,7 @@ world.afterEvents.playerBreakBlock.subscribe((event) => {
   const isEarlyGame = (dimKey === "overworld" && (state.count < TUTORIAL_BLOCKS.length || state.phaseIndex <= 3));
   const minMid = Math.floor(state.currentPhaseLength * 0.3);
   const maxMid = Math.floor(state.currentPhaseLength * 0.7);
-  if (!isEarlyGame && state.phaseProgress >= minMid && state.phaseProgress <= maxMid) {
+  if (!isEarlyGame && state.progressInPhase >= minMid && state.progressInPhase <= maxMid) {
     const roll = Math.random();
 
     if (roll < CHEST_CHANCE) {
@@ -2693,12 +2670,27 @@ function ensureIslandOneBlocks(dimension) {
     if ((theme.dimension || "overworld") !== targetDim) continue;
     try {
       const completed = world.getDynamicProperty(`island_ob_completed_${theme.id}`);
-      if (completed) continue;
+      if (completed) {
+        if (!world.getDynamicProperty(`island_ob_final_${theme.id}`)) {
+          const fx = world.getDynamicProperty(`island_ob_x_${theme.id}`);
+          const fy = world.getDynamicProperty(`island_ob_y_${theme.id}`);
+          const fz = world.getDynamicProperty(`island_ob_z_${theme.id}`);
+          const dt = world.getDynamicProperty(`island_ob_done_tick_${theme.id}`);
+          if (fx !== undefined && fy !== undefined && fz !== undefined) {
+            const stale = dt === undefined || system.currentTick < dt || system.currentTick - dt > 100;
+            if (stale) finalizeIslandCore(dimension, theme, { x: fx, y: fy, z: fz }, null);
+          }
+        }
+        continue;
+      }
       let obX = world.getDynamicProperty(`island_ob_x_${theme.id}`);
       let obY = world.getDynamicProperty(`island_ob_y_${theme.id}`);
       let obZ = world.getDynamicProperty(`island_ob_z_${theme.id}`);
 
+      const hadCore = obX !== undefined;
       if (obX === undefined) {
+        // Never plant a core before the island itself is built (the builder places it)
+        if (!world.getDynamicProperty(`island_built_${theme.id}`)) continue;
         obX = world.getDynamicProperty(`island_target_x_${theme.id}`);
         obY = world.getDynamicProperty(`island_target_y_${theme.id}`) ?? theme.y;
         obZ = world.getDynamicProperty(`island_target_z_${theme.id}`);
@@ -2710,6 +2702,11 @@ function ensureIslandOneBlocks(dimension) {
                         b.typeId === "minecraft:water" || b.typeId === "minecraft:flowing_water" ||
                         b.typeId === "minecraft:lava" || b.typeId === "minecraft:flowing_lava";
       if (b && isMissing) {
+        // Core removed by non-player means (piston, explosion...): count it as mined, no free blocks
+        if (hadCore && (b.isAir || b.typeId === "minecraft:air") && system.currentTick - (recentIslandBreaks.get(theme.id) ?? -99) >= 3) {
+          handleIslandOneBlockBreak(dimension, { x: obX, y: obY, z: obZ }, null);
+          continue;
+        }
         if (b.typeId.includes("water") || b.typeId.includes("lava")) {
           try { b.setType("minecraft:air"); } catch (e) {}
         }
@@ -2852,12 +2849,12 @@ system.runInterval(() => {
         if (isAdmin(player) && !player.hasTag("hide_hud") && !isAutoBreakRunning) {
           const dimKey = getDimKey(player.dimension.id);
           const state = getDimensionState(dimKey);
-          const progressInPhase = (state.count % BLOCKS_PER_PHASE);
+          const progressInPhase = state.progressInPhase;
           const phaseName = state.phase ? state.phase.name : "Starting";
           const dimPrefix = dimKey === "nether" ? "§c[Nether]" : (dimKey === "end" ? "§d[End]" : "§a[Overworld]");
 
           player.onScreenDisplay.setActionBar(
-            `${dimPrefix} §ePhase ${state.phaseIndex + 1}: §f${phaseName} §7[§b${progressInPhase}§7/§b${BLOCKS_PER_PHASE}§7] §eTotal: §6${state.count}`
+            `${dimPrefix} §ePhase ${state.phaseIndex + 1}: §f${phaseName} §7[§b${progressInPhase}§7/§b${state.currentPhaseLength}§7] §eTotal: §6${state.count}`
           );
         }
       } catch (e) {}

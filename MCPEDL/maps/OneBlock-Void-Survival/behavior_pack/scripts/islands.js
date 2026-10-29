@@ -16,7 +16,7 @@ export const ISLAND_THEMES = [
     "name": "Lush Floral Oasis",
     "color": "§a",
     "floor": "minecraft:grass_block",
-    "subfloor": "minecraft:rooted_dirt",
+    "subfloor": "minecraft:dirt_with_roots",
     "base": "minecraft:andesite",
     "feature": "well",
     "mob": "minecraft:villager_v2",
@@ -266,7 +266,7 @@ export const ISLAND_THEMES = [
     "name": "Badlands Gold Mesa",
     "color": "§6",
     "floor": "minecraft:red_sand",
-    "subfloor": "minecraft:terracotta",
+    "subfloor": "minecraft:hardened_clay",
     "base": "minecraft:red_sandstone",
     "feature": "gold_core",
     "mob": null,
@@ -299,7 +299,7 @@ export const ISLAND_THEMES = [
     "y": 96,
     "name": "Glacial Ice Spire",
     "color": "§b",
-    "floor": "minecraft:snow_block",
+    "floor": "minecraft:snow",
     "subfloor": "minecraft:packed_ice",
     "base": "minecraft:blue_ice",
     "feature": "ice_spike",
@@ -811,7 +811,7 @@ export const ISLAND_THEMES = [
     "color": "§5",
     "floor": "minecraft:purpur_block",
     "subfloor": "minecraft:purpur_pillar",
-    "base": "minecraft:end_stone_bricks",
+    "base": "minecraft:end_bricks",
     "feature": "end_rod",
     "mob": "minecraft:shulker",
     "chest": [
@@ -1082,7 +1082,7 @@ export const ISLAND_THEMES = [
     "name": "Sunlit Honey Apiary",
     "color": "§6",
     "floor": "minecraft:flowering_azalea",
-    "subfloor": "minecraft:rooted_dirt",
+    "subfloor": "minecraft:dirt_with_roots",
     "base": "minecraft:dirt",
     "feature": "beehive",
     "mob": "minecraft:bee",
@@ -1150,7 +1150,7 @@ export const ISLAND_THEMES = [
     "name": "Tropical Melon Greenhouse",
     "color": "§a",
     "floor": "minecraft:moss_block",
-    "subfloor": "minecraft:rooted_dirt",
+    "subfloor": "minecraft:dirt_with_roots",
     "base": "minecraft:jungle_planks",
     "feature": "glass_dome",
     "mob": null,
@@ -1456,7 +1456,7 @@ export const ISLAND_THEMES = [
     "name": "End Ship Hangar",
     "color": "§d",
     "floor": "minecraft:purpur_block",
-    "subfloor": "minecraft:end_stone_bricks",
+    "subfloor": "minecraft:end_bricks",
     "base": "minecraft:purpur_pillar",
     "feature": "end_ship",
     "mob": "minecraft:shulker",
@@ -1616,7 +1616,7 @@ function safeAirOnlySetBlock(dimension, loc, typeId) {
 function getRockBlock(theme, dx, dz, d, seed) {
   if (theme.biome === "the_end") {
     const eh = Math.abs((dx * 31 + dz * 19 + d * 13 + seed) % 100);
-    return eh < 65 ? "minecraft:end_stone" : (eh < 88 ? "minecraft:end_stone_bricks" : "minecraft:purpur_block");
+    return eh < 65 ? "minecraft:end_stone" : (eh < 88 ? "minecraft:end_bricks" : "minecraft:purpur_block");
   }
   if (theme.biome.includes("nether") || theme.biome.includes("valley") || theme.biome.includes("deltas")) {
     const nh = Math.abs((dx * 31 + dz * 17 + d * 7 + seed) % 100);
@@ -1630,7 +1630,7 @@ function getRockBlock(theme, dx, dz, d, seed) {
     // Authentic Mojang Badlands Horizontal Terracotta Strata (7 distinct colors):
     const band = (d + Math.floor(Math.abs(dx * 0.15 + dz * 0.1))) % 7;
     if (d >= 6 && Math.abs((dx * 17 + dz * 23 + seed) % 100) < 40) return "minecraft:red_sandstone";
-    if (band === 0) return "minecraft:terracotta";
+    if (band === 0) return "minecraft:hardened_clay";
     if (band === 1) return "minecraft:orange_terracotta";
     if (band === 2) return "minecraft:yellow_terracotta";
     if (band === 3) return "minecraft:red_sandstone";
@@ -1640,7 +1640,7 @@ function getRockBlock(theme, dx, dz, d, seed) {
   }
   if (theme.biome === "desert") {
     const dh = Math.abs((dx * 31 + dz * 17 + d * 7 + seed) % 100);
-    if (d >= 6 && dh < 50) return "minecraft:terracotta";
+    if (d >= 6 && dh < 50) return "minecraft:hardened_clay";
     return dh < 40 ? "minecraft:sandstone" : (dh < 65 ? "minecraft:smooth_sandstone" : (dh < 85 ? "minecraft:cut_sandstone" : "minecraft:chiseled_sandstone"));
   }
   if (theme.biome.includes("ocean") || theme.biome.includes("warm_ocean")) {
@@ -1650,7 +1650,7 @@ function getRockBlock(theme, dx, dz, d, seed) {
   }
   if (theme.biome.includes("ice") || theme.biome.includes("frozen")) {
     const ih = Math.abs((dx * 31 + dz * 17 + d * 7 + seed) % 100);
-    return ih < 40 ? "minecraft:packed_ice" : (ih < 70 ? "minecraft:blue_ice" : (ih < 85 ? "minecraft:snow_block" : "minecraft:calcite"));
+    return ih < 40 ? "minecraft:packed_ice" : (ih < 70 ? "minecraft:blue_ice" : (ih < 85 ? "minecraft:snow" : "minecraft:calcite"));
   }
   if (theme.id === "amethyst_geode") {
     return d <= 2 ? "minecraft:calcite" : (d <= 5 ? "minecraft:smooth_basalt" : "minecraft:tuff");
@@ -1754,7 +1754,7 @@ function getSubsoilBlock(theme, dx, dz, seed) {
   const sh = Math.abs((dx * 37 + dz * 29 + seed) % 100);
 
   if (theme.id === "badlands_mesa" || theme.biome === "mesa") {
-    if (sh < 35) return "minecraft:terracotta";
+    if (sh < 35) return "minecraft:hardened_clay";
     if (sh < 65) return "minecraft:red_sandstone";
     if (sh < 85) return "minecraft:orange_terracotta";
     return "minecraft:yellow_terracotta";
@@ -1775,7 +1775,7 @@ function getSubsoilBlock(theme, dx, dz, seed) {
   }
   if (theme.floor.includes("end_stone") || theme.biome === "the_end") {
     if (sh < 60) return "minecraft:end_stone";
-    if (sh < 85) return "minecraft:end_stone_bricks";
+    if (sh < 85) return "minecraft:end_bricks";
     return "minecraft:purpur_block";
   }
   if (theme.floor.includes("tuff") || theme.biome === "deep_dark") {
@@ -1798,7 +1798,7 @@ function getSubsoilBlock(theme, dx, dz, seed) {
   }
   if (theme.biome.includes("ice") || theme.biome.includes("frozen")) {
     if (sh < 45) return "minecraft:packed_ice";
-    if (sh < 75) return "minecraft:snow_block";
+    if (sh < 75) return "minecraft:snow";
     return "minecraft:diorite";
   }
 
@@ -2207,7 +2207,7 @@ export function getIslandBlockPool(theme) {
     bee_apiary: ["minecraft:bee_nest", "minecraft:honeycomb_block", "minecraft:honey_block", "minecraft:yellow_terracotta", "minecraft:hay_block"],
     pumpkin_patch: ["minecraft:pumpkin", "minecraft:carved_pumpkin", "minecraft:lit_pumpkin", "minecraft:hay_block", "minecraft:dirt"],
     melon_greenhouse: ["minecraft:melon_block", "minecraft:glass", "minecraft:dirt", "minecraft:grass_block", "minecraft:jungle_log"],
-    sculk_laboratory: ["minecraft:sculk", "minecraft:sculk_catalyst", "minecraft:deepslate_tiles", "minecraft:deepslate", "minecraft:reinforced_deepslate"],
+    sculk_laboratory: ["minecraft:sculk", "minecraft:sculk_catalyst", "minecraft:deepslate_tiles", "minecraft:deepslate", "minecraft:deepslate_bricks"],
     armory_vault: ["minecraft:stone_bricks", "minecraft:iron_block", "minecraft:raw_iron_block", "minecraft:chiseled_stone_bricks", "minecraft:cracked_stone_bricks"],
     bakery_windmill: ["minecraft:hay_block", "minecraft:barrel", "minecraft:dried_kelp_block", "minecraft:spruce_planks", "minecraft:spruce_log"],
     aquarium_atoll: ["minecraft:sand", "minecraft:tube_coral_block", "minecraft:brain_coral_block", "minecraft:prismarine", "minecraft:sponge"],
@@ -2497,7 +2497,7 @@ function buildThemedStructure(dimension, theme, center) {
       safeAirOnlySetBlock(dimension, { x: sx + 2, y: sy, z: sz + 2 }, "minecraft:iron_bars");
       safeAirOnlySetBlock(dimension, { x: sx + 1, y: sy + 1, z: sz + 2 }, "minecraft:iron_bars");
       safeAirOnlySetBlock(dimension, { x: sx + 2, y: sy, z: sz + 1 }, "minecraft:blast_furnace");
-      safeAirOnlySetBlock(dimension, { x: sx + 3, y: sy, z: sz + 1 }, "minecraft:stonecutter");
+      safeAirOnlySetBlock(dimension, { x: sx + 3, y: sy, z: sz + 1 }, "minecraft:stonecutter_block");
       safeAirOnlySetBlock(dimension, { x: sx + 3, y: sy, z: sz + 2 }, "minecraft:anvil");
       safeAirOnlySetBlock(dimension, { x: sx + 3, y: sy, z: sz + 3 }, "minecraft:smithing_table");
       safeAirOnlySetBlock(dimension, { x: sx + 2, y: sy, z: sz + 3 }, "minecraft:crafting_table");
@@ -2813,7 +2813,7 @@ function buildThemedStructure(dimension, theme, center) {
         { id: "minecraft:golden_boots", count: 1 }
       ]);
       try {
-        dimension.spawnEntity("minecraft:zombified_piglin", { x: sx + 2.5, y: sy, z: sz + 0.5 });
+        dimension.spawnEntity("minecraft:zombie_pigman", { x: sx + 2.5, y: sy, z: sz + 0.5 });
         mobSpawned = true;
       } catch (e) {}
       break;
@@ -2880,7 +2880,7 @@ function buildThemedStructure(dimension, theme, center) {
       // Hanging Iron Bars & Spawner Pedestal above the lava pool
       safeAirOnlySetBlock(dimension, { x: cx, y: sy + 2, z: cz }, "minecraft:iron_bars");
       safeAirOnlySetBlock(dimension, { x: cx, y: sy + 3, z: cz }, "minecraft:iron_bars");
-      safeAirOnlySetBlock(dimension, { x: cx, y: sy + 1, z: cz }, "minecraft:spawner");
+      safeAirOnlySetBlock(dimension, { x: cx, y: sy + 1, z: cz }, "minecraft:mob_spawner");
 
       // Stronghold Loot Chest (Guaranteed 12 Eyes of Ender for vanilla activation)
       placeStructureChest(dimension, { x: cx - 3, y: sy, z: cz }, [
@@ -3327,7 +3327,7 @@ function buildThemedStructure(dimension, theme, center) {
       safeAirOnlySetBlock(dimension, { x: sx + 2, y: sy, z: sz + 3 }, "minecraft:iron_bars");
       safeAirOnlySetBlock(dimension, { x: sx + 1, y: sy, z: sz + 1 }, "minecraft:blast_furnace");
       safeAirOnlySetBlock(dimension, { x: sx + 3, y: sy, z: sz + 1 }, "minecraft:anvil");
-      safeAirOnlySetBlock(dimension, { x: sx + 1, y: sy, z: sz + 3 }, "minecraft:stonecutter");
+      safeAirOnlySetBlock(dimension, { x: sx + 1, y: sy, z: sz + 3 }, "minecraft:stonecutter_block");
       placeStructureChest(dimension, { x: sx + 3, y: sy, z: sz + 3 }, [
         { id: "minecraft:diamond", count: 2 },
         { id: "minecraft:raw_iron", count: 12 },
@@ -3717,7 +3717,7 @@ export function buildThemedIsland(dimension, theme, center) {
 
   // 1. AUTO-CHANGE BIOME: Paint true native Minecraft biome across island volume
   try {
-    const biomeName = theme.biome || "plains";
+    const biomeName = ({ dark_forest: "roofed_forest", nether_wastes: "hell" })[theme.biome] || theme.biome || "plains";
     dimension.runCommand(`fillbiome ${cx - 14} ${cy - 12} ${cz - 14} ${cx + 14} ${cy + 18} ${cz + 14} ${biomeName}`);
   } catch (be) {}
 

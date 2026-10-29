@@ -57,7 +57,7 @@ export const DIMENSION_TRADE_POOLS = {
     { id: "minecraft:ghast_tear", count: 2 },                  // 7: Distinct
     { id: "minecraft:blaze_rod", count: 4 },                   // 8: Scarce
     { id: "minecraft:nether_wart", count: 8 },                 // 9: Rare
-    { id: "minecraft:potion", count: 1 },                      // 10: Elite (Fire Res)
+    { id: "minecraft:blaze_powder", count: 4 },                      // 10: Elite
     { id: "minecraft:wither_skeleton_skull", count: 1 },       // 11: Superior
     { id: "minecraft:crying_obsidian", count: 6 },             // 12: Exceptional
     { id: "minecraft:ancient_debris", count: 2 },              // 13: Pristine
@@ -66,7 +66,7 @@ export const DIMENSION_TRADE_POOLS = {
     { id: "minecraft:netherite_upgrade_smithing_template", count: 1 }, // 16: Epic
     { id: "minecraft:enchanted_golden_apple", count: 1 },      // 17: Legendary
     { id: "minecraft:nether_star", count: 1 },                 // 18: Fabled
-    { id: "minecraft:netherite_block", count: 1 }              // 19: Mythic
+    { id: "minecraft:beacon", count: 1 }              // 19: Mythic
   ],
   end: [
     { id: "minecraft:chorus_fruit", count: 12 },               // 0: Common
@@ -78,7 +78,7 @@ export const DIMENSION_TRADE_POOLS = {
     { id: "minecraft:phantom_membrane", count: 4 },            // 6: Refined
     { id: "minecraft:ender_chest", count: 1 },                 // 7: Distinct
     { id: "minecraft:shulker_shell", count: 2 },               // 8: Scarce
-    { id: "minecraft:diamond_block", count: 1 },               // 9: Rare
+    { id: "minecraft:enchanting_table", count: 1 },               // 9: Rare
     { id: "minecraft:end_crystal", count: 2 },                 // 10: Elite
     { id: "minecraft:dragon_breath", count: 4 },               // 11: Superior
     { id: "minecraft:undyed_shulker_box", count: 1 },          // 12: Exceptional

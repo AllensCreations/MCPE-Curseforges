@@ -44,7 +44,7 @@ export const OVERWORLD_PHASES = [
     blocks: [
       { id: "minecraft:cherry_log", weight: 35 },
       { id: "minecraft:cherry_leaves", weight: 25 },
-      { id: "minecraft:pink_petals", weight: 15 },
+      { id: "minecraft:cherry_planks", weight: 15 },
       { id: "minecraft:grass_block", weight: 15 },
       { id: "minecraft:dirt", weight: 10 }
     ],
@@ -97,7 +97,7 @@ export const OVERWORLD_PHASES = [
       { id: "minecraft:sand", weight: 45 },
       { id: "minecraft:sandstone", weight: 30 },
       { id: "minecraft:smooth_sandstone", weight: 15 },
-      { id: "minecraft:deadbush", weight: 10 }
+      { id: "minecraft:cut_sandstone", weight: 10 }
     ],
     chests: [
       { id: "minecraft:cactus", min: 1, max: 3, weight: 30 },
@@ -129,7 +129,7 @@ export const OVERWORLD_PHASES = [
     blocks: [
       { id: "minecraft:jungle_log", weight: 35 },
       { id: "minecraft:jungle_leaves", weight: 25 },
-      { id: "minecraft:bamboo", weight: 15 },
+      { id: "minecraft:bamboo_block", weight: 15 },
       { id: "minecraft:melon_block", weight: 15 },
       { id: "minecraft:moss_block", weight: 10 }
     ],
@@ -149,7 +149,7 @@ export const OVERWORLD_PHASES = [
       { id: "minecraft:mangrove_leaves", weight: 20 },
       { id: "minecraft:mud", weight: 25 },
       { id: "minecraft:clay", weight: 15 },
-      { id: "minecraft:waterlily", weight: 10 }
+      { id: "minecraft:mangrove_roots", weight: 10 }
     ],
     chests: [
       { id: "minecraft:mangrove_propagule", min: 1, max: 3, weight: 25 },
@@ -165,7 +165,7 @@ export const OVERWORLD_PHASES = [
       { id: "minecraft:pale_oak_log", weight: 35 },
       { id: "minecraft:pale_oak_leaves", weight: 25 },
       { id: "minecraft:pale_moss_block", weight: 20 },
-      { id: "minecraft:pale_hanging_moss", weight: 10 },
+      { id: "minecraft:pale_oak_planks", weight: 10 },
       { id: "minecraft:creaking_heart", weight: 10 }
     ],
     chests: [
@@ -266,7 +266,7 @@ export const OVERWORLD_PHASES = [
   }
 ];
 
-// 7 Nether Phases (250 blocks each, natural blocks only)
+// 7 Nether Phases (length by phase number, see getPhaseLength in main.js)
 export const NETHER_PHASES = [
   {
     name: "Nether Wastes",
@@ -384,7 +384,7 @@ export const NETHER_PHASES = [
   }
 ];
 
-// 4 End Phases (250 blocks each, natural blocks only)
+// 4 End Phases (length by phase number, see getPhaseLength in main.js)
 export const END_PHASES = [
   {
     name: "End Highlands",
@@ -404,8 +404,8 @@ export const END_PHASES = [
     name: "Chorus Plant Islands",
     blocks: [
       { id: "minecraft:end_stone", weight: 50 },
-      { id: "minecraft:chorus_plant", weight: 30 },
-      { id: "minecraft:chorus_flower", weight: 20 }
+      { id: "minecraft:purpur_pillar", weight: 30 },
+      { id: "minecraft:purpur_block", weight: 20 }
     ],
     chests: [
       { id: "minecraft:chorus_fruit", min: 4, max: 12, weight: 40 },
