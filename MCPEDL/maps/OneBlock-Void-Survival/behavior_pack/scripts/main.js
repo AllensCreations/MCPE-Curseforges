@@ -278,7 +278,7 @@ function getNearbyIslandPlayers(dimension, loc, maxDistance = 48, breakerPlayer 
   return Array.from(nearby);
 }
 
-// Finalizes a fully mined island core (bedrock -> natural floor + reward chest).
+// Finalizes a fully mined island core (removes the bedrock -> natural floor + reward chest).
 // Safe to call repeatedly: retried by ensureIslandOneBlocks if the chunk was unloaded or the world was closed.
 function finalizeIslandCore(dimension, theme, loc, player) {
   try {
@@ -286,7 +286,7 @@ function finalizeIslandCore(dimension, theme, loc, player) {
     const targetBlock = dimension.getBlock(loc);
     if (!targetBlock) return; // chunk unloaded, retry later
     world.setDynamicProperty(`island_ob_final_${theme.id}`, true);
-    if (targetBlock.typeId !== "minecraft:bedrock") return;
+    if (targetBlock.typeId !== "minecraft:bedrock" && !targetBlock.isAir) return;
 
     try { targetBlock.setType(theme.floor); } catch (e) { try { targetBlock.setType("minecraft:dirt"); } catch (e2) {} }
     const underBlock = dimension.getBlock({ x: loc.x, y: loc.y - 1, z: loc.z });
@@ -342,7 +342,7 @@ function finalizeIslandCore(dimension, theme, loc, player) {
     } catch (fe) {}
 
     for (const p of getNearbyIslandPlayers(dimension, loc, 48, player)) {
-      p.sendMessage(`${theme.color}★ [Island Core Conquered] §fThe Bedrock core has stabilized into the island's natural floor! The Sacred Treasure Chest has manifested above!\n`);
+      p.sendMessage(`${theme.color}★ [Island Core Conquered] §fThe island core is complete! The bedrock is gone and a Treasure Chest has appeared above!\n`);
     }
   } catch (err) {}
 }
@@ -450,61 +450,12 @@ function handleIslandOneBlockBreak(dimension, loc, player) {
         } catch (e) {}
       }, 1);
     } else {
-      // Fully mined! The core first reveals solid Bedrock for 3 seconds, then stabilizes into the normal floor block!
+      // Fully mined! IMMEDIATE_ISLAND_COMPLETE: the core is marked complete, bedrock is removed and the reward chest appears right away.
       world.setDynamicProperty(`island_ob_completed_${matchedTheme.id}`, true);
-
-      // 1. Instantly place Bedrock at the core location and reinforce surrounding bedrock collar
-      system.run(() => {
-        try {
-          const targetBlock = dimension.getBlock(loc);
-          if (targetBlock) {
-            targetBlock.setType("minecraft:bedrock");
-          }
-          const underBlock = dimension.getBlock({ x: loc.x, y: loc.y - 1, z: loc.z });
-          if (underBlock) underBlock.setType("minecraft:bedrock");
-
-          const besideOffsets = [
-            { x: 1, z: 0 },
-            { x: -1, z: 0 },
-            { x: 0, z: 1 },
-            { x: 0, z: -1 }
-          ];
-          for (const off of besideOffsets) {
-            const bBlock = dimension.getBlock({ x: loc.x + off.x, y: loc.y, z: loc.z + off.z });
-            if (bBlock) bBlock.setType("minecraft:bedrock");
-          }
-        } catch (e) {}
-      });
-
-      // Bedrock manifestation FX: deep resonance & void energy
-      try {
-        dimension.playSound("block.anvil.land", loc, { pitch: 0.7, volume: 1.0 });
-        dimension.playSound("block.amethyst_block.resonate", loc, { pitch: 0.9, volume: 1.0 });
-        dimension.spawnParticle("minecraft:portal_particle", { x: loc.x + 0.5, y: loc.y + 1.2, z: loc.z + 0.5 });
-        dimension.spawnParticle("minecraft:dragon_breath_fire", { x: loc.x + 0.5, y: loc.y + 1.2, z: loc.z + 0.5 });
-      } catch (e) {}
-
-      const targetAudience = getNearbyIslandPlayers(dimension, loc, 48, player);
-      for (const p of targetAudience) {
-        p.onScreenDisplay.setActionBar(`§5✦ Bedrock Core Exposed! Stabilizing terrain... (3s) ✦`);
-        p.sendMessage(`\n${matchedTheme.color}✦ [Core Reached] §fThe Island Core has struck Bedrock! Stabilizing into natural terrain in 3 seconds...`);
-      }
-
-      // Pulsing stabilization particles during the 3-second countdown
-      for (let s = 1; s <= 2; s++) {
-        system.runTimeout(() => {
-          try {
-            dimension.spawnParticle("minecraft:wax_particle", { x: loc.x + 0.5, y: loc.y + 1.2, z: loc.z + 0.5 });
-            dimension.playSound("random.orb", loc, { pitch: 1.0 + s * 0.3, volume: 0.8 });
-          } catch (e) {}
-        }, s * 20);
-      }
-
-      // 2. 3 seconds later: finalize (retried by ensureIslandOneBlocks if the chunk unloads or the world closes)
       world.setDynamicProperty(`island_ob_done_tick_${matchedTheme.id}`, system.currentTick);
-      system.runTimeout(() => {
+      system.run(() => {
         finalizeIslandCore(dimension, matchedTheme, loc, player);
-      }, 60);
+      });
     }
   } catch (err) {}
 }
