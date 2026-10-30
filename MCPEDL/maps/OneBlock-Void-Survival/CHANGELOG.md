@@ -18,6 +18,8 @@
 
 ### Improved & Balanced
 - **Hardcore Removed**: The Hardcore world is gone. The map now comes as a Creative world and a Survival world. Permanent Spectator Mode after death and the locked Hard difficulty no longer exist.
+- **Island Discovered Message**: The large centered title is now a small action bar message.
+- **Chat Command Leftovers Removed**: Unused chat command code that cannot work in current Minecraft was removed.
 
 ## [1.2.14] - 2026-10-29
 

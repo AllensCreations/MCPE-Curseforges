@@ -2396,8 +2396,7 @@ world.afterEvents.playerSpawn.subscribe((event) => {
         player.sendMessage("\n§6=== ONEBLOCK PHOTOGRAPHY & ADMIN STUDIO (ZERO ITEMS NEEDED) ===");
         player.sendMessage("§e1. Physical Buttons: §7Console at (3, 65, -2..2) right beside spawn");
         player.sendMessage("§e2. Double-Crouch: §7Double-tap Sneak anywhere to open Photo Studio & Inspector");
-        player.sendMessage("§e3. Chat Commands: §7Type §bphoto§7, §bday§7, §bsunset§7, §bnight§7, §ball§7, or §bmenu§7 (no slash!)");
-        player.sendMessage("§e4. Bedrock Command: §7Type §b/scriptevent ob:menu§7 or §b/scriptevent ob:all§r\n");
+        player.sendMessage("§e3. Bedrock Command: §7Type §b/scriptevent ob:menu§7 or §b/scriptevent ob:all§r\n");
       }
 
         // Welcome introduction & creator thank you
@@ -2413,143 +2412,6 @@ world.afterEvents.playerSpawn.subscribe((event) => {
     });
 });
 
-// Chat command helpers (zero-item friendly, no slash required!)
-try {
-  if (world.beforeEvents && world.beforeEvents.chatSend && typeof world.beforeEvents.chatSend.subscribe === "function") {
-    world.beforeEvents.chatSend.subscribe((event) => {
-  const { message, sender } = event;
-  const raw = message.trim();
-  const msg = raw.toLowerCase();
-
-  // Admin World Chat Intercepts (No slash needed!)
-  if (IS_ADMIN_BUILD || isAdmin(sender)) {
-    if (msg === "run" || msg === "!run" || msg === "/run" || msg === "start" || msg === "break") {
-      event.cancel = true;
-      system.run(() => {
-        toggleAdminAutoBreak(sender);
-      });
-      return;
-    }
-
-    if (msg === "run all" || msg === "!run all" || msg === "runall" || msg === "!runall") {
-      event.cancel = true;
-      system.run(() => {
-        summonAllIslandsAdmin(sender);
-        if (!isAutoBreakRunning) {
-          toggleAdminAutoBreak(sender);
-        }
-      });
-      return;
-    }
-
-    if (msg === "all" || msg === "!all" || msg === "summon all" || msg === "!summon all" || msg === "islands" || msg === "!islands") {
-      event.cancel = true;
-      system.run(() => {
-        summonAllIslandsAdmin(sender);
-      });
-      return;
-    }
-
-    if (msg === "island" || msg === "!island" || msg === "next" || msg === "!next") {
-      event.cancel = true;
-      system.run(() => {
-        summonNextIslandAdmin(sender);
-      });
-      return;
-    }
-
-    if (msg === "menu" || msg === "!menu" || msg === "admin" || msg === "!admin" || msg === "gui" || msg === "!gui") {
-      event.cancel = true;
-      system.run(() => {
-        openAdminIslandMenu(sender);
-      });
-      return;
-    }
-
-    if (msg === "stop" || msg === "!stop" || msg === "halt") {
-      event.cancel = true;
-      system.run(() => {
-        if (isAutoBreakRunning) {
-          toggleAdminAutoBreak(sender);
-        } else {
-          sender.sendMessage("§e[Admin] Auto-Break is not currently running.");
-        }
-      });
-      return;
-    }
-
-    if (msg === "photo" || msg === "!photo" || msg === "camera" || msg === "!camera" || msg === "studio" || msg === "!studio") {
-      event.cancel = true;
-      system.run(() => {
-        openAdminIslandMenu(sender);
-      });
-      return;
-    }
-
-    if (msg === "day" || msg === "noon" || msg === "!day" || msg === "!noon") {
-      event.cancel = true;
-      system.run(() => {
-        sender.dimension.runCommand("time set noon");
-        sender.dimension.runCommand("weather clear");
-        sender.sendMessage("§a[Photo Studio] Studio lighting set to High Noon!");
-      });
-      return;
-    }
-
-    if (msg === "sunset" || msg === "golden" || msg === "!sunset" || msg === "!golden") {
-      event.cancel = true;
-      system.run(() => {
-        sender.dimension.runCommand("time set 12000");
-        sender.dimension.runCommand("weather clear");
-        sender.sendMessage("§6[Photo Studio] Studio lighting set to Golden Hour Sunset!");
-      });
-      return;
-    }
-
-    if (msg === "night" || msg === "!night" || msg === "midnight") {
-      event.cancel = true;
-      system.run(() => {
-        sender.dimension.runCommand("time set 18000");
-        sender.dimension.runCommand("weather clear");
-        sender.sendMessage("§9[Photo Studio] Studio lighting set to Starry Midnight!");
-      });
-      return;
-    }
-
-    if (msg === "help" || msg === "!help" || msg === "commands") {
-      event.cancel = true;
-      system.run(() => {
-        sender.sendMessage("\n§6=== ADMIN & PHOTO STUDIO COMMANDS ===");
-        sender.sendMessage("§b• photo / menu §7- Open Island Photography & Inspector Studio");
-        sender.sendMessage("§b• day / noon §7- Set bright High Noon studio lighting");
-        sender.sendMessage("§b• sunset / golden §7- Set dramatic Golden Hour lighting");
-        sender.sendMessage("§b• night §7- Set Starry Midnight lighting");
-        sender.sendMessage("§b• all §7- Manifest all 43 secret islands into the void");
-        sender.sendMessage("§b• run §7- Start / Stop fast Auto-Break runner");
-        sender.sendMessage("§b• Double-Crouch §7- Double-tap sneak anywhere to open Studio\n");
-      });
-      return;
-    }
-  }
-
-  // HUD command for Survival or Admin
-  if (msg === "!hud") {
-    if (!isAdmin(sender)) return;
-    event.cancel = true;
-    system.run(() => {
-      if (sender.hasTag("hide_hud")) {
-        sender.removeTag("hide_hud");
-        sender.sendMessage("§a[HUD] Actionbar HUD enabled!");
-      } else {
-        sender.addTag("hide_hud");
-        sender.sendMessage("§e[HUD] Actionbar HUD hidden!");
-      }
-    });
-  }
-});
-
-  }
-} catch (e) {}
 // Physical Button Push Listener for Admin Station
 try {
   if (world.afterEvents && world.afterEvents.buttonPush && typeof world.afterEvents.buttonPush.subscribe === "function") {
@@ -2857,12 +2719,7 @@ function triggerIslandRegistration(player, matchedTheme, blockPos) {
     player.playSound("random.levelup", { pitch: 1.5, volume: 1.0 });
 
     const sizeStr = matchedTheme.size ? matchedTheme.size.toUpperCase() : "MEDIUM";
-    player.onScreenDisplay.setTitle("§6§lISLAND DISCOVERED!§r", {
-      stayDuration: 100,
-      fadeInDuration: 5,
-      fadeOutDuration: 15,
-      subtitle: `§a${matchedTheme.name} §7(${sizeStr})`
-    });
+    player.onScreenDisplay.setActionBar(`§6Island discovered: §a${matchedTheme.name} §7(${sizeStr})`);
     player.sendMessage(`\n§6★ [Island Discovered] §aYou arrived at §e§l${matchedTheme.name}§r§a!`);
     player.sendMessage(`§7The island monument is now unlocked! Enjoy your rewards in the treasure chest!\n`);
   } catch (err) {}
