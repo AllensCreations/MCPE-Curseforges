@@ -466,7 +466,6 @@ def rebuild_project_packages(project_path, category, version_str=None):
                     pass
 
         mcworld_name = f"{title} by AllensCreations (V{version_str}).mcworld"
-        admin_world_name = f"{title} Admin by AllensCreations (V{version_str}).mcworld"
         bp_pack_name = f"{title} BP by AllensCreations (V{version_str}).mcpack"
 
         if has_bp:
@@ -500,17 +499,6 @@ def rebuild_project_packages(project_path, category, version_str=None):
             "Complete Survival World archive ready for one-click import."
         ))
         print(f"  Built: {os.path.relpath(target_build, REPO_ROOT)}")
-
-        # Admin world
-        admin_target_build = os.path.join(build_dir, admin_world_name)
-        admin_target_map = os.path.join(project_path, admin_world_name)
-        zip_directory_contents(world_dir, admin_target_build)
-        shutil.copy2(admin_target_build, admin_target_map)
-        built_files.append((
-            admin_world_name, "mcworld", _format_size(admin_target_build),
-            "Admin / Studio World archive pre-configured with testing tools."
-        ))
-        print(f"  Built: {os.path.relpath(admin_target_build, REPO_ROOT)}")
 
     # 2. Combined BP + RP Add-on
     elif has_bp and has_rp:
@@ -757,6 +745,11 @@ def update_project_readme(project_path, category, new_ver_str, primary_file=None
         lines[i] = f"# {title} (v{new_ver_str}){suffix}{newline}"
         break
     content = "".join(lines)
+
+    if primary_file and "- **Direct download:**" in content:
+        _pf_url = f"{GITHUB_RAW}/builds/{os.path.basename(project_path)}/{urllib.parse.quote(primary_file)}"
+        content = re.sub(r"(- \*\*Version:\*\* )[0-9][0-9.]*", lambda m: m.group(1) + new_ver_str, content, count=1)
+        content = re.sub(r"(- \*\*Direct download:\*\* \[[^\]]*\]\()[^)]*(\))", lambda m: m.group(1) + _pf_url + m.group(2), content, count=1)
 
     with open(readme_path, "w", encoding="utf-8") as f:
         f.write(content)
