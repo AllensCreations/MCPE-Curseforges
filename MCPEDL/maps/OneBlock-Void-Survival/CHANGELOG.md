@@ -2,6 +2,12 @@
 
 ---
 
+## [1.2.18] - 2026-10-30
+
+### Improved & Balanced
+
+- **Content update**: Updated gameplay scripts and world data.
+
 ## [1.2.17] - 2026-10-30
 
 ### Improved & Balanced
