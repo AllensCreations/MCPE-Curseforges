@@ -153,7 +153,9 @@ def download_readme_text(proj, meta, name, version_text):
     for ext in (meta["primary_ext"], "mcaddon", "mcpack"):
         candidates.extend(sorted(build_dir.glob(f"*.{ext}")))
     if candidates:
-        package = candidates[0]
+        first_ext = candidates[0].suffix
+        same_ext = [c for c in candidates if c.suffix == first_ext and " BP " not in c.name and " RP " not in c.name] or candidates
+        package = max(same_ext, key=lambda c: tuple(int(x) for x in (re.search(r"\(V(\d+)\.(\d+)\.(\d+)\)", c.name) or [None, 0, 0, 0]).groups()) if re.search(r"\(V(\d+)\.(\d+)\.(\d+)\)", c.name) else (0, 0, 0))
         rel = package.relative_to(ROOT).as_posix()
         url = RAW + urllib.parse.quote(rel, safe="/")
         label = f"Download {name} ({package.suffix})"

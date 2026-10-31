@@ -1,0 +1,73 @@
+name: Sync READMEs (links and versions)
+
+# Makes every README agree with the real files: root README.md, builds/README.md,
+# builds/<project>/README.md, MCPEDL/<category>/README.md and each project README.
+# It repairs download links that point at packages that no longer exist (404), refreshes
+# versions in catalog rows and headings, and lists links that cannot be fixed.
+# The release workflow runs the same step on every release.
+
+on:
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: "Only report what would change"
+        required: true
+        default: false
+        type: boolean
+
+permissions:
+  contents: write
+
+concurrency:
+  group: release-build-refresh
+  cancel-in-progress: false
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          ref: main
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@6d4fd22b20465ccc0f7354476588e8df7c9ca0e0 # v7.1.0
+        with:
+          python-version: "3.12"
+
+      - name: Sync README links and versions
+        env:
+          DRY_RUN: ${{ inputs.dry_run }}
+        run: |
+          set -uo pipefail
+          set +e
+          ARGS=()
+          if [ "$DRY_RUN" = "true" ]; then ARGS+=(--check); fi
+          python3 scripts/sync_readme_links.py "${ARGS[@]}" 2>&1 | tee sync.log
+          STATUS=${PIPESTATUS[0]}
+          if [ "$STATUS" -eq 1 ] && [ "$DRY_RUN" = "true" ]; then STATUS=0; fi
+          {
+            echo "### README link and version sync"
+            echo '```'
+            cat sync.log
+            echo '```'
+          } >> "$GITHUB_STEP_SUMMARY"
+          exit "$STATUS"
+
+      - name: Commit and push
+        if: ${{ !inputs.dry_run }}
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add README.md builds MCPEDL
+          if [ -f Mcpeworlds/README.md ]; then git add Mcpeworlds/README.md; fi
+          if git diff --cached --quiet; then
+            echo "Nothing to commit: every README already matches the builds."
+            exit 0
+          fi
+          git commit -m "docs: sync README download links and versions [skip ci]"
+          git pull --rebase origin main
+          git push origin main

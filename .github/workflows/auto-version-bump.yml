@@ -238,6 +238,20 @@ jobs:
       - name: Synchronize OneBlock map READMEs
         run: python3 scripts/sync_oneblock_map_readmes.py
 
+      - name: Sync every README link and version
+        run: |
+          set -uo pipefail
+          set +e
+          python3 scripts/sync_readme_links.py 2>&1 | tee "$RUNNER_TEMP/readme-sync.log"
+          STATUS=${PIPESTATUS[0]}
+          {
+            echo "### README link and version sync"
+            echo '```'
+            cat "$RUNNER_TEMP/readme-sync.log"
+            echo '```'
+          } >> "$GITHUB_STEP_SUMMARY"
+          exit "$STATUS"
+
       - name: Validate manifest titles and creator attribution
         run: python3 scripts/validate_manifest_titles.py
 
@@ -273,6 +287,7 @@ jobs:
             if [ -d "$dir" ]; then git add "$dir"; fi
           done
           if [ -f README.md ]; then git add README.md; fi
+          if [ -f Mcpeworlds/README.md ]; then git add Mcpeworlds/README.md; fi
 
           if git diff --cached --quiet; then
             echo "Nothing to commit: packages, catalogs and READMEs are up to date."
