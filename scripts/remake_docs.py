@@ -9,6 +9,7 @@ import check_readme_status as crs
 import check_manifest_versions as cmv
 import sync_manifest_versions as smv
 import sync_project_docs as spd
+import sync_readme_links as srl
 
 ROOT = cmv.ROOT
 ALL_DOCS = ("readme", "description", "changelog")
@@ -181,6 +182,27 @@ def download_readme_text(proj, meta, name, version_text):
     )
 
 
+def refresh_readme(proj, category, version_text, name, check):
+    """Write the add-on README with the same generator the release workflow uses. Returns True if it changed."""
+    ab = smv.import_bump()
+    path = Path(proj)
+    readme = path / "README.md"
+    before = readme.read_text(encoding="utf-8") if readme.is_file() else None
+    if before is None:
+        readme.write_text(f"# {name} (v{version_text})\n", encoding="utf-8")
+    primary = srl.Project(category, path, ab).primary
+    import contextlib, io
+    with contextlib.redirect_stdout(io.StringIO()):
+        ab.update_project_readme(str(path), f"MCPEDL/{category}", version_text, primary)
+    after = readme.read_text(encoding="utf-8")
+    if check:
+        if before is None:
+            readme.unlink()
+        else:
+            readme.write_text(before, encoding="utf-8")
+    return before != after
+
+
 def lines_of(text):
     return [l for l in text.splitlines() if l.strip()]
 
@@ -250,7 +272,7 @@ def run(args):
                         if stale.is_file():
                             stale.unlink()
                     crs.auto_generate_readme(proj)
-                    readme.write_text(download_readme_text(proj, meta, name, version_text), encoding="utf-8")
+                    refresh_readme(proj, category_of(proj), version_text, name, False)
                     description_text = description.read_text(encoding="utf-8") if description.is_file() else None
                     if description_text:
                         description.write_text(standardize_description(description_text, name, version_text, meta["min_engine"], notices, f"{rel}/DESCRIPTION.md"), encoding="utf-8")
@@ -262,14 +284,15 @@ def run(args):
             long_readme = len(lines_of(readme_text)) > 24
             if long_readme and (description_complete(desc_text) or not description.is_file()) and not check:
                 crs.auto_generate_readme(proj)
-                readme.write_text(download_readme_text(proj, meta, name, version_text), encoding="utf-8")
+                refresh_readme(proj, category_of(proj), version_text, name, False)
                 changes.append(f"wrote {rel}/README.md (product information preserved into DESCRIPTION.md, download page refreshed)")
             elif long_readme and description.is_file() and not description_complete(desc_text):
                 notices.append(f"{rel}: README holds product text but DESCRIPTION.md is incomplete; skipped so nothing is lost. Move the text into DESCRIPTION.md first.")
             elif long_readme and check:
                 changes.append(f"would refresh {rel}/README.md and preserve its product text in DESCRIPTION.md")
             else:
-                write(readme, download_readme_text(proj, meta, name, version_text), "download page")
+                if refresh_readme(proj, category_of(proj), version_text, name, check):
+                    changes.append(f"{'would write' if check else 'wrote'} {rel}/README.md (download page)")
 
         if mode != "rebuild" and is_addon and "description" in docs and description.is_file():
             text = description.read_text(encoding="utf-8")
