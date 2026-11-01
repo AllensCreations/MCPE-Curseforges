@@ -1,4 +1,4 @@
-# Team Inventory (v1.0.20)
+# Team Inventory (v1.0.21)
 
 Share one inventory with everyone in your Minecraft Bedrock world.
 
