@@ -74,7 +74,7 @@ function runStart(player) {
     return;
   }
   setState("running");
-  consumeController(player);
+  if (config.consumeOnStart) consumeController(player);
   try {
     config.onStart(player);
   } catch (e) {
@@ -106,12 +106,46 @@ async function showHowToPlay(player) {
   if (!res.canceled && res.selection === 0) openController(player);
 }
 
+async function confirmEnd(player) {
+  if (getState() !== "running") {
+    player.sendMessage("No game is running.");
+    return;
+  }
+  const form = new ActionFormData()
+    .title("End game?")
+    .body("This stops the game that is running now.")
+    .button("End Game")
+    .button("Back");
+  let res;
+  try {
+    res = await form.show(player);
+  } catch (e) {
+    return;
+  }
+  if (res.canceled) return;
+  if (res.selection === 0) {
+    if (getState() !== "running") {
+      player.sendMessage("The game already ended.");
+      return;
+    }
+    world.sendMessage(`${player.name} ended the game.`);
+    endGame();
+  } else {
+    openController(player);
+  }
+}
+
 async function openController(player, attempt = 0) {
-  const note = isCreative(player) ? "Creative: the Controller is kept." : "Start uses up the Controller.";
+  const running = getState() === "running";
+  const note = running
+    ? "End Game stops the current game."
+    : config.consumeOnStart
+      ? (isCreative(player) ? "Creative: the Controller is kept." : "Start uses up the Controller.")
+      : "The Controller is kept.";
   const form = new ActionFormData()
     .title(config.title)
     .body(`${config.gameInfo}\n\nState: ${getState()}\n${note}`)
-    .button("Start")
+    .button(running ? "End Game" : "Start")
     .button("How to play");
   let res;
   try {
@@ -126,7 +160,8 @@ async function openController(player, attempt = 0) {
     return;
   }
   if (res.selection === 0) {
-    runStart(player);
+    if (running) confirmEnd(player);
+    else runStart(player);
   } else if (res.selection === 1) {
     showHowToPlay(player);
   }
@@ -139,6 +174,7 @@ export function registerController(options) {
     title: options?.title ?? "Controller",
     gameInfo: options?.gameInfo ?? "",
     howToPlay: options?.howToPlay ?? "",
+    consumeOnStart: options?.consumeOnStart === true,
     onStart: options?.onStart ?? (() => {}),
     onEnd: options?.onEnd ?? (() => {}),
   };
@@ -157,8 +193,12 @@ export function registerController(options) {
   });
 
   world.afterEvents.playerSpawn.subscribe(({ player, initialSpawn }) => {
-    if (!initialSpawn) return;
-    if (isHost(player) && (isCreative(player) || getState() !== "running")) giveController(player);
+    if (!isHost(player)) return;
+    if (config.consumeOnStart) {
+      if (initialSpawn && (isCreative(player) || getState() !== "running")) giveController(player);
+      return;
+    }
+    giveController(player);
   });
 }
 '''
@@ -641,7 +681,7 @@ def run_checks(root, repo_root=None, folder=None):
                     btn.append(mt.start() if mt else None)
                 if all(x is not None for x in btn):
                     check(btn == sorted(btn), "main.js: controller buttons must be added in the order Start, How to play")
-                check(re.search(r"\.button\(\s*[\"'](?:Restart|End)[\"']", js) is None, "main.js: the controller form must not have Restart or End buttons")
+                check(re.search(r"\.button\(\s*[\"'](?:Restart)[\"']", js) is None, "main.js: the controller form must not have a Restart button")
                 check(re.search(r"getGameMode\(\)\s*[!=]==?\s*GameMode\.Creative", js) is not None,
                       "main.js: the controller must check GameMode.Creative with getGameMode()")
                 check(re.search(r"\.setItem\(", js) is not None, "main.js: Start must consume the controller outside Creative (setItem)")

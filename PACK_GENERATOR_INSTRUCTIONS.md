@@ -161,9 +161,9 @@ Do not claim `tick.json` is missing without inspecting the installed or packaged
 #### Scripts and test worlds
 
 - A script project is `MCPEDL/script/<Name>/` with `behavior_pack/` (script module, `scripts/main.js`), `resource_pack/`, `project.json`, `test_world.json`, and the documentation files.
-- Every script ships the Controller item (`allenscreations:controller`, texture `controller.png`, a 16 x 16 icon kept at `Mcpeworlds/assets/resources_pack/textures/items/controller.png`). Using it opens a form with **Start** and **How to play**; the script keeps the state (idle, running, ended) in a world dynamic property. A project may opt out with `"controller": false` in `project.json`.
-- Only the host or an operator receives and can use the Controller. **Start** works while no game is running. **How to play** opens a page with the rules and a Back button. The game ends through its own win or lose logic, which calls `endGame()`.
-- **Survival breaks the Controller, Creative keeps it.** Start consumes the first Controller found in the player's inventory unless the player is in Creative. When the game ends, the script gives the host or operator a fresh Controller if they have none.
+- Every script ships the Controller item (`allenscreations:controller`, texture `controller.png`, a 16 x 16 icon kept at `Mcpeworlds/assets/resources_pack/textures/items/controller.png`). Using it opens a form with **Start** and **How to play**, and **End Game** takes the place of **Start** while a game is running; the script keeps the state (idle, running, ended) in a world dynamic property. A project may opt out with `"controller": false` in `project.json`.
+- Only the host or an operator receives and can use the Controller. **Start** works while no game is running. While a game is running the first button reads **End Game** instead, asks to confirm, then calls `endGame()`; it needs no cheats. **How to play** is always the second button and opens a page with the rules and a Back button. The game also ends through its own win or lose logic, which calls `endGame()`.
+- **The Controller is kept while a game runs**, so **End Game** stays reachable. A script may opt back into the old behavior with `consumeOnStart: true` in `registerController`: Start then consumes the first Controller found unless the player is in Creative, and **End Game** is only reachable by a host who still carries one. The host or operator receives a Controller on every spawn (including after death) when they carry none, and when the game ends the script gives a fresh one if they have none.
 - **Stuck-state recovery.** The game state must not be able to stay `running` forever. On world load, a script that cannot restore a live game must reset the state to `idle` and give the host or operator a Controller. `give_controller.mcfunction` and `end_game.mcfunction` ship with every Controller script but need cheats, so they are a last resort and never the only recovery path.
 - `test_world.json` is `{"mode": "Creative", "include_addons": ["Name", ...]}`. Included add-ons are looked up in `MCPEDL/addons/` and `MCPEDL/new_addons/`. `scripts/build_test_world.py` copies `Mcpeworlds/<mode>`, installs the script and every included add-on, links all packs, and writes `<Name> - Test.mcworld` into the project folder. It fails on a missing include, duplicate pack UUIDs, or an unresolved pack dependency. Experiments and achievement state come from the foundation and are not verified.
 - `build-test-world.yml` rebuilds test worlds on demand. Add-ons may also carry a `test_world.json`.
@@ -211,7 +211,7 @@ Treat these as open until confirmed in game, and do not state them as fact in do
 1. **Void cleaner chunk loading.** Whether the Y=-64 fill succeeds for a player spawning in a fresh void world, and whether the conditional tag fix in Section 7 retries correctly.
 2. **Host permissions.** That the world host is reported as an Operator by `playerPermissionLevel` with cheats off, so the Controller reaches the host on a normal (achievement-eligible) world.
 3. **`isOp()` availability.** That `isOp()` is absent in the 2.x `@minecraft/server` module, which is why the Controller uses a helper. Re-check against the current stable module whenever the version changes.
-4. **Controller consumption.** That consuming the Controller in Survival and restoring it on game end behaves correctly across rejoin, death, and world reload.
+4. **Controller handling.** That keeping the Controller while a game runs, giving it back on respawn, the End Game confirm form, and the `consumeOnStart: true` option behave correctly across rejoin, death, and world reload. The logic was exercised with mocked Minecraft modules, not in the game.
 5. **Achievement impact.** That shipped functions and the Controller do not disable achievements unless an admin command is actually run.
 6. **Foundation settings.** The experiment and achievement state of each `Mcpeworlds/` foundation.
 
@@ -553,14 +553,14 @@ resource_pack/textures/items/controller.png    16 x 16, from the repo, never red
 test_world.json
 ```
 
-**The Controller.** Every script ships item `allenscreations:controller`. Using it opens a form with exactly two buttons, **Start** and **How to play**, in that order. `"controller": false` in `project.json` opts out; then none of the Controller files are needed.
+**The Controller.** Every script ships item `allenscreations:controller`. Using it opens a form with two buttons, **Start** and **How to play**, in that order; while the game is running the first button reads **End Game** instead of **Start**. `"controller": false` in `project.json` opts out; then none of the Controller files are needed.
 
-- Only the host or an operator receives and can use the Controller, checked with the `isHost` helper in `controller.js`, never with `player.isOp()` alone. **Start** works while the game is not running and re-reads the game state after the form closes. **How to play** opens a second form with the rules text and a Back button.
-- **Survival breaks it, Creative keeps it.** Start consumes the first Controller in the player's inventory unless `getGameMode()` is `GameMode.Creative`.
+- Only the host or an operator receives and can use the Controller, checked with the `isHost` helper in `controller.js`, never with `player.isOp()` alone. **Start** works while the game is not running and re-reads the game state after the form closes. While it is running the first button reads **End Game**, asks to confirm in a second form (**End Game** or **Back**), then calls `endGame()` with no cheats needed. **How to play** opens a form with the rules text and a Back button.
+- **It is kept while the game runs**, so **End Game** stays reachable. The optional `consumeOnStart: true` in `registerController` restores the old behavior: Start consumes the first Controller in the player's inventory unless `getGameMode()` is `GameMode.Creative`, and **End Game** is then only reachable by a host who still carries one.
 - **How the game ends.** Your game logic calls `endGame()` on its win or lose condition. `endGame()` sets the state to `ended` and gives the host or operator a fresh Controller if they have none.
-- **Stuck-state recovery.** The state must not remain `running` after a world reload with no live game. Reset it to `idle` on world load and give the host or operator a Controller (Part 1, Section 7). `give_controller` and `end_game` need cheats and are a last resort, not form buttons.
-- **Giving it.** The script gives it to the host or an operator on first spawn when they carry none and the game is not `running` (Creative operators always get one). State (`idle`, `running`, `ended`) lives in a world dynamic property.
-- **The form** shows the state and whether the Controller will be kept. Keep the two labels exactly, and do not add Restart or End buttons.
+- **Stuck-state recovery.** The state must not remain `running` after a world reload with no live game. Reset it to `idle` on world load and give the host or operator a Controller (Part 1, Section 7). `give_controller` and `end_game` need cheats and are a last resort; the **End Game** button needs no cheats.
+- **Giving it.** The script gives it to the host or an operator on every spawn, including after death, when they carry none (with `consumeOnStart: true`: on first spawn when the game is not `running`, and Creative operators always get one). State (`idle`, `running`, `ended`) lives in a world dynamic property.
+- **The form** shows the state and whether the Controller will be kept. Keep the labels exactly (**Start** or **End Game**, then **How to play**), and do not add Restart or other buttons.
 - Fill `gameInfo` and `howToPlay` in `registerController` with the real description and rules: goal, controls, and how it ends.
 
 `controller.js` is installed by `build_payload.py` when `main.js` calls `registerController(`, and the check fails if it differs from the generator copy, so never edit it. Write `behavior_pack/manifest.json` with the looked-up `min_engine_version` before running the script, because the item JSON takes its `format_version` from it. You still write `resource_pack/manifest.json` yourself (Section 3, fresh UUIDs, same version) and add its dependency and `@minecraft/server-ui` to the behavior pack manifest. Do not copy anything else from `Mcpeworlds/assets/`.
@@ -589,7 +589,7 @@ registerController({
 });
 ```
 
-- `title`, `gameInfo`, and `howToPlay` are required. **Start** runs `onStart(player)` after the Controller is consumed; if it throws, the state returns to `idle` and the Controller is given back. The `allenscreations:end` script event also ends the game.
+- `title`, `gameInfo`, and `howToPlay` are required; `consumeOnStart` is optional (default `false`). **Start** runs `onStart(player)`; if it throws, the state returns to `idle` and the Controller is given back. **End Game** (shown while the game runs) calls `onEnd()` through `endGame()`. The `allenscreations:end` script event also ends the game.
 - The template's `win()` only sends a message: replace it with real game logic.
 - Existing projects with an inline Controller still pass with a warning; move them to `registerController` when next touched.
 

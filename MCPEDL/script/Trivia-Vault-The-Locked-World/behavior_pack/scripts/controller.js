@@ -51,7 +51,7 @@ function runStart(player) {
     return;
   }
   setState("running");
-  consumeController(player);
+  if (config.consumeOnStart) consumeController(player);
   try {
     config.onStart(player);
   } catch (e) {
@@ -83,12 +83,46 @@ async function showHowToPlay(player) {
   if (!res.canceled && res.selection === 0) openController(player);
 }
 
+async function confirmEnd(player) {
+  if (getState() !== "running") {
+    player.sendMessage("No game is running.");
+    return;
+  }
+  const form = new ActionFormData()
+    .title("End game?")
+    .body("This stops the game that is running now.")
+    .button("End Game")
+    .button("Back");
+  let res;
+  try {
+    res = await form.show(player);
+  } catch (e) {
+    return;
+  }
+  if (res.canceled) return;
+  if (res.selection === 0) {
+    if (getState() !== "running") {
+      player.sendMessage("The game already ended.");
+      return;
+    }
+    world.sendMessage(`${player.name} ended the game.`);
+    endGame();
+  } else {
+    openController(player);
+  }
+}
+
 async function openController(player, attempt = 0) {
-  const note = isCreative(player) ? "Creative: the Controller is kept." : "Start uses up the Controller.";
+  const running = getState() === "running";
+  const note = running
+    ? "End Game stops the current game."
+    : config.consumeOnStart
+      ? (isCreative(player) ? "Creative: the Controller is kept." : "Start uses up the Controller.")
+      : "The Controller is kept.";
   const form = new ActionFormData()
     .title(config.title)
     .body(`${config.gameInfo}\n\nState: ${getState()}\n${note}`)
-    .button("Start")
+    .button(running ? "End Game" : "Start")
     .button("How to play");
   let res;
   try {
@@ -103,7 +137,8 @@ async function openController(player, attempt = 0) {
     return;
   }
   if (res.selection === 0) {
-    runStart(player);
+    if (running) confirmEnd(player);
+    else runStart(player);
   } else if (res.selection === 1) {
     showHowToPlay(player);
   }
@@ -116,6 +151,7 @@ export function registerController(options) {
     title: options?.title ?? "Controller",
     gameInfo: options?.gameInfo ?? "",
     howToPlay: options?.howToPlay ?? "",
+    consumeOnStart: options?.consumeOnStart === true,
     onStart: options?.onStart ?? (() => {}),
     onEnd: options?.onEnd ?? (() => {}),
   };
@@ -134,7 +170,11 @@ export function registerController(options) {
   });
 
   world.afterEvents.playerSpawn.subscribe(({ player, initialSpawn }) => {
-    if (!initialSpawn) return;
-    if (isHost(player) && (isCreative(player) || getState() !== "running")) giveController(player);
+    if (!isHost(player)) return;
+    if (config.consumeOnStart) {
+      if (initialSpawn && (isCreative(player) || getState() !== "running")) giveController(player);
+      return;
+    }
+    giveController(player);
   });
 }

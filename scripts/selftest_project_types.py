@@ -175,6 +175,7 @@ def main() -> int:
         ok(r == 0, "script: build_payload installs controller assets and passes")
         ok((d / "resource_pack/textures/items/controller.png").read_bytes() == (REPO / "Mcpeworlds/assets/resources_pack/textures/items/controller.png").read_bytes(),
            "script: controller.png equals the repo asset byte for byte")
+        ok("\"End Game\"" in (d / "behavior_pack/scripts/controller.js").read_text(encoding="utf-8"), "script: controller.js has the End Game button")
         r, log = do_import(root, d, out)
         sd = root / "MCPEDL/script/Sample-Script"
         ok(r == 0 and (sd / "test_world.json").is_file(), "script: imported into MCPEDL/script")
