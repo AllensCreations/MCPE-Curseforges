@@ -2,6 +2,12 @@
 
 ---
 
+## [1.3.28] - 2026-11-01
+
+### Improved & Balanced
+
+- **Resource Pack Included**: The Behavior Pack now requires its Resource Pack, so both are enabled together when you activate it.
+
 ## [1.3.27] - 2026-11-01
 
 ### Fixed
