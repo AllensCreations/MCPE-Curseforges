@@ -1,8 +1,8 @@
-# Team Inventory (v1.0.20) — Shared Multiplayer Inventory
+# Team Inventory (v1.0.21) — Shared Multiplayer Inventory
 
 **By AllensCreations**
 
-One inventory for the whole team. Team Inventory combines every player's main inventory, armor and offhand items and keeps them identical for everyone until the game is ended.
+One inventory for the whole team. Team Inventory combines every player's main inventory, armor, offhand and Ender Chest items and keeps them identical for everyone until the game is ended.
 
 ## Overview
 
@@ -15,16 +15,27 @@ The host or an operator starts the shared inventory with the AllensCreations Con
 - **Simultaneous Changes**: When two players change the same stack at once, both changes are combined instead of lost or duplicated.
 
 ### AllensCreations Controller
-- **What Happens**: Only the host or an operator can hold and use the Controller. It offers Start and How to play.
+- **What Happens**: Only the host or an operator can hold and use the Controller. It offers Start, How to play and a Mode switch between Normal and Hard.
 - **Survival**: Start uses up the Controller.
 - **Creative**: The Controller is kept.
+
+### Shared Ender Chest
+- **What Happens**: Every player's Ender Chest holds the same items, so something stored by one player can be taken out by another.
+- **Start**: Ender Chest items from every player are combined when the game starts.
+- **Deaths**: The Ender Chest is not dropped when a player dies.
+
+### Hard Mode
+- **What Happens**: The host or an operator can switch the Mode to Hard before choosing Start. Health and hunger are then shared by every player who takes part.
+- **Damage and Healing**: Damage taken by one player is taken by the whole team. Healing and eating raise the shared value once.
+- **Starting Values**: Everyone's health and hunger are set to the lowest among the players when the game starts.
+- **Deaths**: When one player dies, every other player who takes part dies too.
 
 ### Team Deaths
 - **What Happens**: The shared inventory drops once when a player dies and is then emptied for the team.
 - **Keep Inventory**: The rule is switched on while sharing runs so nothing drops twice, and restored when sharing ends.
 
 ### Ending the Game
-- **What Happens**: An operator uses the function end_game. The shared items are divided between players, the host keeps the armor, and everyone else is emptied so items are not duplicated.
+- **What Happens**: An operator uses the function end_game. The shared items are divided between players, the host keeps the armor and the shared Ender Chest items, and everyone else is emptied so items are not duplicated.
 - **Controller Replacement**: The host or an operator gets a new Controller when the game ends. The function give_controller also gives one.
 
 ### Joining Players
@@ -33,7 +44,7 @@ The host or an operator starts the shared inventory with the AllensCreations Con
 ## How to Use
 
 1. Import the pack and enable both the Behavior Pack and the Resource Pack in the world settings.
-2. The host or an operator uses the Controller and chooses Start.
+2. The host or an operator uses the Controller, optionally switches the Mode to Hard, and chooses Start.
 3. Play together and coordinate item use with teammates.
 4. An operator runs the function end_game to finish.
 
@@ -67,4 +78,4 @@ The host or an operator starts the shared inventory with the AllensCreations Con
 
 ## Search & Discovery Keywords
 
-Minecraft Bedrock add-on, Team Inventory Bedrock mod, shared inventory, multiplayer shared items, shared armor and offhand, team survival inventory, Minecraft PE multiplayer, MCPEDL add-on, CurseForge Bedrock, AllensCreations.
+Minecraft Bedrock add-on, Team Inventory Bedrock mod, shared inventory, multiplayer shared items, shared armor and offhand, shared ender chest, shared health and hunger, hard mode, team survival inventory, Minecraft PE multiplayer, MCPEDL add-on, CurseForge Bedrock, AllensCreations.

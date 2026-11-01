@@ -2,6 +2,18 @@
 
 ---
 
+## [1.0.21] - 2026-11-01
+
+### Added
+
+- **Shared Ender Chest**: Every player's Ender Chest now holds the same items. Items from all Ender Chests are combined when the game starts, and the Ender Chest is not dropped when a player dies.
+- **Hard Mode**: The host or an operator can switch the Controller's Mode to Hard before starting. Health and hunger are then shared by the whole team, and when one player dies, everyone dies.
+
+### Improved & Balanced
+
+- **Controller Menu**: The menu now shows the current mode and has a Mode button.
+- **Ending the Game**: The host keeps the shared Ender Chest items and everyone else's Ender Chest is emptied.
+
 ## [1.0.20] - 2026-11-01
 
 ### Improved & Balanced

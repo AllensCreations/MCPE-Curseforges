@@ -1,5 +1,6 @@
 import { world, system, ItemStack, EquipmentSlot, EnchantmentTypes, EntityComponentTypes, GameMode } from "@minecraft/server";
 import { ActionFormData, FormCancelationReason } from "@minecraft/server-ui";
+import { hardTick, hardReset, hardKillAll } from "./hard_mode.js";
 
 const CONTROLLER_ID = "allenscreations:controller";
 const STATE_KEY = "allenscreations:team_state";
@@ -7,13 +8,16 @@ const STORAGE_KEY = "allenscreations:hivemind_v106";
 const MEMBERS_KEY = "allenscreations:team_members";
 const CLEAR_KEY = "allenscreations:team_clear";
 const KEEP_KEY = "allenscreations:team_keep";
+const HARD_KEY = "allenscreations:hard_mode";
 const TITLE = "§l§bAllens§dCreations §6Controller";
-const HOW_TO_PLAY = "Use the Controller and choose Start. Everyone's main inventory, armor and offhand items are combined into one shared inventory, and anything one player picks up, uses or drops changes it for the whole team.\n\nIf anyone dies, the whole shared inventory drops once and is emptied for the team. Creative and Spectator players are not part of it.\n\nAn operator ends the game with the function end_game. The shared items are then divided between the players and everyone else is emptied, so nothing is duplicated.";
+const HOW_TO_PLAY = "Use the Controller and choose Start. Everyone's main inventory, armor, offhand and Ender Chest items are combined into one shared inventory, and anything one player picks up, uses or drops changes it for the whole team.\n\nIf anyone dies, the whole shared inventory drops once and is emptied for the team. The Ender Chest is kept. Creative and Spectator players are not part of it.\n\nIn Hard mode, health and hunger are shared too, and if one player dies, everyone dies.\n\nAn operator ends the game with the function end_game. The shared items are then divided between the players and everyone else is emptied, so nothing is duplicated.";
 const OPERATOR_LEVEL = 2;
 const MAX_STORED = 30000;
 const MAX_APPLY_RETRIES = 10;
 const ERROR_COOLDOWN = 200;
-const SLOT_COUNT = 36;
+const INV_SLOTS = 36;
+const ENDER_SLOTS = 27;
+const SLOT_COUNT = INV_SLOTS + ENDER_SLOTS;
 const SCAN_INTERVAL = 1;
 const ARMOR_SLOTS = [EquipmentSlot.Head, EquipmentSlot.Chest, EquipmentSlot.Legs, EquipmentSlot.Feet];
 const EQUIPMENT_SLOTS = [...ARMOR_SLOTS, EquipmentSlot.Offhand];
@@ -45,6 +49,8 @@ const isRunning = () => safe(getState, "idle") === "running";
 const isCreative = (player) => safe(() => player.getGameMode() === GameMode.Creative, false);
 const isHost = (player) => safe(() => (typeof player.isOp === "function" ? player.isOp() : player.playerPermissionLevel === OPERATOR_LEVEL), false);
 const containerOf = (player) => safe(() => player.getComponent(EntityComponentTypes.Inventory)?.container);
+const enderOf = (player) => safe(() => player.getComponent("minecraft:ender_inventory")?.container);
+const isHard = () => safe(() => world.getDynamicProperty(HARD_KEY) === "1", false);
 function equipmentOf(player) { return safe(() => player.getComponent("minecraft:equippable")); }
 function clone(item) { return item ? safe(() => item.clone(), undefined) : undefined; }
 function isAlive(player) {
@@ -132,7 +138,8 @@ function visible(item) { return item && item.typeId !== CONTROLLER_ID ? clone(it
 function readPlayer(player) {
   const c = containerOf(player);
   if (!c) return null;
-  const slots = Array.from({ length: SLOT_COUNT }, (_, i) => visible(safe(() => c.getItem(i))));
+  const e = enderOf(player);
+  const slots = Array.from({ length: SLOT_COUNT }, (_, i) => visible(safe(() => (i < INV_SLOTS ? c.getItem(i) : e?.getItem(i - INV_SLOTS)))));
   const eq = equipmentOf(player);
   const equipment = {};
   for (const slot of EQUIPMENT_SLOTS) equipment[slot] = visible(safe(() => eq?.getEquipment(slot)));
@@ -145,9 +152,9 @@ function serializeState(state) {
   };
 }
 function deserializeState(data) {
-  if (!data || !Array.isArray(data.slots) || data.slots.length !== SLOT_COUNT) return null;
+  if (!data || !Array.isArray(data.slots) || (data.slots.length !== SLOT_COUNT && data.slots.length !== INV_SLOTS)) return null;
   return {
-    slots: data.slots.map(deserializeItem),
+    slots: Array.from({ length: SLOT_COUNT }, (_, i) => deserializeItem(data.slots[i] ?? null)),
     equipment: Object.fromEntries(EQUIPMENT_SLOTS.map(slot => [slot, deserializeItem(data.equipment?.[slot] ?? null)]))
   };
 }
@@ -183,9 +190,13 @@ function writeState(player, state) {
   const c = containerOf(player);
   const eq = equipmentOf(player);
   if (!c) return;
+  const ender = enderOf(player);
   for (let i = 0; i < SLOT_COUNT; i++) {
-    const live = safe(() => c.getItem(i));
-    if (!sameItem(visible(live), state.slots[i])) safe(() => c.setItem(i, clone(state.slots[i])));
+    const box = i < INV_SLOTS ? c : ender;
+    const at = i < INV_SLOTS ? i : i - INV_SLOTS;
+    if (!box) continue;
+    const live = safe(() => box.getItem(at));
+    if (!sameItem(visible(live), state.slots[i])) safe(() => box.setItem(at, clone(state.slots[i])));
   }
   for (const slot of EQUIPMENT_SLOTS) {
     const live = safe(() => eq?.getEquipment(slot));
@@ -209,7 +220,7 @@ function applyState(player, state = master) {
     snapshots.delete(player.id);
   }
 }
-function slotName(i) { return i < 9 ? `hotbar ${i + 1}` : `inventory slot ${i + 1}`; }
+function slotName(i) { if (i >= INV_SLOTS) return `Ender Chest slot ${i - INV_SLOTS + 1}`; return i < 9 ? `hotbar ${i + 1}` : `inventory slot ${i + 1}`; }
 function warnConflict(player, description) {
   safe(() => player.sendMessage(`§e[Team Inventory] Inventory conflict in ${description}; your extra item was dropped at your feet.`));
 }
@@ -218,11 +229,16 @@ function spawnAt(dimension, item, location) {
   return !!safe(() => { dimension.spawnItem(clone(item), location); return true; }, false);
 }
 function spawnSafely(player, item) { return spawnAt(player.dimension, item, player.location); }
-function placeItem(state, item) {
-  const i = state.slots.findIndex(s => !s);
-  if (i < 0) return false;
-  state.slots[i] = clone(item);
-  return true;
+function placeItem(state, item, ender = false) {
+  const from = ender ? INV_SLOTS : 0;
+  const to = ender ? SLOT_COUNT : INV_SLOTS;
+  for (let i = from; i < to; i++) {
+    if (!state.slots[i]) {
+      state.slots[i] = clone(item);
+      return true;
+    }
+  }
+  return false;
 }
 function mergeInto(state, player) {
   const read = readPlayer(player);
@@ -230,7 +246,7 @@ function mergeInto(state, player) {
   read.slots.forEach((item, i) => {
     if (!item) return;
     if (!state.slots[i]) state.slots[i] = clone(item);
-    else if (!placeItem(state, item)) spawnSafely(player, item);
+    else if (!placeItem(state, item, i >= INV_SLOTS)) spawnSafely(player, item);
   });
   for (const slot of EQUIPMENT_SLOTS) {
     const item = read.equipment[slot];
@@ -402,6 +418,7 @@ function consumeController(player) {
 
 function startGame(player) {
   resetSharing();
+  hardReset();
   setState("running");
   needMerge = true;
   rulesChecked = true;
@@ -414,11 +431,12 @@ function startGame(player) {
 function distribute(online, holder) {
   const states = new Map(online.map(p => [p.id, emptyState()]));
   let k = 0;
-  for (const item of master.slots) {
+  for (const item of master.slots.slice(0, INV_SLOTS)) {
     if (!item) continue;
     placeItem(states.get(online[k++ % online.length].id), item);
   }
   const held = states.get(holder.id);
+  for (let i = INV_SLOTS; i < SLOT_COUNT; i++) held.slots[i] = clone(master.slots[i]);
   for (const slot of EQUIPMENT_SLOTS) held.equipment[slot] = clone(master.equipment[slot]);
   for (const p of online) writeState(p, states.get(p.id));
 }
@@ -443,6 +461,7 @@ function endGame(source) {
   });
   saveSet(MEMBERS_KEY, new Set());
   resetSharing();
+  hardReset();
   restoreKeepInventory();
   setState("ended");
   world.sendMessage(holder ? `§e[Team Inventory] Sharing ended. The shared items were divided between the players, and ${holder.name} holds the armor.` : "§e[Team Inventory] Sharing ended.");
@@ -464,9 +483,10 @@ async function openController(player, attempt = 0) {
   const note = isCreative(player) ? "Creative: the Controller is kept." : "Start uses up the Controller.";
   const form = new ActionFormData()
     .title(TITLE)
-    .body(`§7State: §f${getState()}\n§7${note}`)
+    .body(`§7State: §f${getState()}\n§7Mode: §f${isHard() ? "Hard" : "Normal"}\n§7${note}`)
     .button("Start")
-    .button("How to play");
+    .button("How to play")
+    .button(`Mode: ${isHard() ? "Hard" : "Normal"}`);
   let res;
   try {
     res = await form.show(player);
@@ -487,6 +507,13 @@ async function openController(player, attempt = 0) {
     startGame(player);
   } else if (res.selection === 1) {
     showHowToPlay(player);
+  } else if (res.selection === 2) {
+    if (getState() === "running") {
+      player.sendMessage("The mode can only be changed before Start.");
+      return;
+    }
+    safe(() => world.setDynamicProperty(HARD_KEY, isHard() ? undefined : "1"));
+    system.run(() => openController(player));
   }
 }
 
@@ -513,10 +540,12 @@ world.afterEvents.entityDie.subscribe(event => {
   const dim = dead.dimension;
   const loc = { x: dead.location.x, y: dead.location.y + 0.5, z: dead.location.z };
   const vanillaDrops = safe(() => world.gameRules.keepInventory === false, false);
-  const stacks = [...master.slots, ...EQUIPMENT_SLOTS.map(s => master.equipment[s])].filter(Boolean);
+  const stacks = [...master.slots.slice(0, INV_SLOTS), ...EQUIPMENT_SLOTS.map(s => master.equipment[s])].filter(Boolean);
   withSync(() => {
     for (const item of stacks) if (!vanillaDrops) spawnAt(dim, item, loc);
+    const kept = master.slots.slice(INV_SLOTS);
     master = emptyState();
+    kept.forEach((item, i) => { master.slots[INV_SLOTS + i] = item; });
     for (const p of sharingPlayers()) applyState(p, master);
     persist();
   });
@@ -564,3 +593,16 @@ system.runInterval(() => {
     }
   }
 }, SCAN_INTERVAL);
+
+system.runInterval(() => {
+  try {
+    if (isRunning() && isHard()) hardTick(sharingPlayers());
+    else hardReset();
+  } catch {}
+}, 1);
+
+world.afterEvents.entityDie.subscribe(event => {
+  const dead = event.deadEntity;
+  if (dead.typeId !== "minecraft:player" || !isRunning() || !isHard() || isCreative(dead)) return;
+  hardKillAll(sharingPlayers());
+});
