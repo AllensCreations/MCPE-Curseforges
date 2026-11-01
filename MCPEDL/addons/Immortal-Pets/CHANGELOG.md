@@ -4,6 +4,6 @@
 
 ## [1.1.10] - 2026-10-29
 
-### Added
+### Improved & Balanced
 
-- **Initial release**: First packaged release of Immortal Pets.
+- **Changelog started**: Version history is recorded from this release onward.

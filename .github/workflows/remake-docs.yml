@@ -67,7 +67,7 @@ permissions:
   pull-requests: write
 
 concurrency:
-  group: remake-docs-${{ github.ref }}
+  group: release-build-refresh
   cancel-in-progress: false
 
 jobs:

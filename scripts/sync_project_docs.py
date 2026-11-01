@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """Keep each project's DESCRIPTION.md heading version and CHANGELOG.md newest entry in step with its manifest version."""
-import argparse, datetime, json, re, subprocess, sys
+import argparse, datetime, re, subprocess, sys
 from pathlib import Path
 
 HERE = Path(__file__).resolve().parent
@@ -115,7 +115,7 @@ def sync_changelog(path, version, version_text, name, date_text, areas):
         return None, (f"newest entry {'.'.join(map(str, top))} is newer than manifest {version_text}; left alone." if top > version else None)
     if not exists:
         areas = []
-        entry = ["## [" + version_text + "] - " + date_text, "", "### Added", "", f"- **Initial release**: First packaged release of {name}.", ""]
+        entry = ["## [" + version_text + "] - " + date_text, "", "### Improved & Balanced", "", "- **Changelog started**: Version history is recorded from this release onward.", ""]
         lines = [f"# Changelog — {name}", "", "---", ""]
     else:
         entry = entry_lines(version_text, date_text, areas)

@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """Remake README.md, DESCRIPTION.md, and CHANGELOG.md for every project (or one) to the Part 2 standard."""
-import argparse, datetime, os, re, sys, urllib.parse
+import argparse, datetime, os, re, sys
 from pathlib import Path
 
 HERE = Path(__file__).resolve().parent
@@ -13,8 +13,6 @@ import sync_readme_links as srl
 
 ROOT = cmv.ROOT
 ALL_DOCS = ("readme", "description", "changelog")
-RAW = "https://github.com/AllensCreations/MCPE-Curseforges/raw/main/"
-BLOB = "https://github.com/AllensCreations/MCPE-Curseforges/blob/main/"
 CF_URL = "https://www.curseforge.com/members/allenscreations/projects"
 MP_URL = "https://mcpedl.com/user/allenscreations/"
 
@@ -143,43 +141,6 @@ def standardize_description(text, name, version_text, min_engine, notices, label
     ki = find(sections, "## search & discovery keywords")
     sections.insert(ki, GUIDELINES)
     return pre.rstrip("\n") + "\n\n" + "".join(sections).rstrip("\n") + "\n"
-
-
-def download_readme_text(proj, meta, name, version_text):
-    slug = os.path.basename(proj)
-    category = category_of(proj)
-    catalog = "new_addons" if category == "new_addons" else "addons"
-    build_dir = Path(ROOT) / "builds" / slug
-    candidates = []
-    for ext in (meta["primary_ext"], "mcaddon", "mcpack"):
-        candidates.extend(sorted(build_dir.glob(f"*.{ext}")))
-    if candidates:
-        first_ext = candidates[0].suffix
-        same_ext = [c for c in candidates if c.suffix == first_ext and " BP " not in c.name and " RP " not in c.name] or candidates
-        package = max(same_ext, key=lambda c: tuple(int(x) for x in (re.search(r"\(V(\d+)\.(\d+)\.(\d+)\)", c.name) or [None, 0, 0, 0]).groups()) if re.search(r"\(V(\d+)\.(\d+)\.(\d+)\)", c.name) else (0, 0, 0))
-        rel = package.relative_to(ROOT).as_posix()
-        url = RAW + urllib.parse.quote(rel, safe="/")
-        label = f"Download {name} ({package.suffix})"
-        fmt = package.suffix
-    else:
-        url = f"{BLOB}MCPEDL/{catalog}/README.md#available-add-ons"
-        label = "Open the official download catalog"
-        fmt = "." + meta["primary_ext"]
-    description_url = BLOB + (Path(proj) / "DESCRIPTION.md").relative_to(ROOT).as_posix()
-    return (
-        f"# {name} (v{version_text})\n\n"
-        f"Download the current release of **{name}** for Minecraft Bedrock Edition.\n\n"
-        f"## Download\n\n"
-        f"- **Version:** {version_text}\n"
-        f"- **Package format:** `{fmt}`\n"
-        f"- **Direct download:** [{label}]({url})\n\n"
-        f"## Installation\n\n"
-        f"1. Download the package using the link above.\n"
-        f"2. Open the downloaded file with Minecraft to import it.\n"
-        f"3. If the package contains a pack that must be enabled separately, activate it in your world's settings.\n\n"
-        f"## Add-on Information\n\n"
-        f"For gameplay features, usage details, recipes, compatibility notes, and other project information, read the [full description]({description_url}).\n"
-    )
 
 
 def refresh_readme(proj, category, version_text, name, check):

@@ -163,25 +163,54 @@ def project_for_line(line, readme, projects):
     return None
 
 
-def sync_versions_in_line(line, project):
-    if not project.version:
+VERSION_HEADER = re.compile(r"^(?:current |latest )?version$", re.I)
+
+
+def table_cells(line):
+    return [c for c in line.strip().strip("|").split("|")]
+
+
+def version_columns(header_line):
+    return {i for i, cell in enumerate(table_cells(header_line)) if VERSION_HEADER.match(cell.strip().strip("*` ").strip())}
+
+
+def sync_versions_in_line(line, project, columns):
+    """Update only cells under a column headed exactly 'Version'. Other version-like cells (such as a minimum game version) are never touched."""
+    if not project.version or not columns or not line.lstrip().startswith("|"):
         return line
-    line = re.sub(r"`v\d+\.\d+\.\d+`", f"`v{project.version}`", line)
-    if line.lstrip().startswith("|"):
-        cells = line.split("|")
-        for i, cell in enumerate(cells):
-            match = CELL_VERSION.match(cell)
-            if match:
-                cells[i] = f"{match.group(1)}{match.group(2)}{project.version}{match.group(4)}"
-        line = "|".join(cells)
-    return line
+    parts = line.split("|")
+    changed = False
+    for index in columns:
+        position = index + 1
+        if position >= len(parts) - 1 and not line.rstrip().endswith("|"):
+            position = index + 1
+        if position >= len(parts):
+            continue
+        cell = parts[position]
+        match = CELL_VERSION.match(cell)
+        if match:
+            parts[position] = f"{match.group(1)}{match.group(2)}{project.version}{match.group(4)}"
+            changed = True
+        else:
+            new_cell = re.sub(r"`v\d+\.\d+\.\d+`", f"`v{project.version}`", cell)
+            if new_cell != cell:
+                parts[position] = new_cell
+                changed = True
+    return "|".join(parts) if changed else line
 
 
 def sync_text(readme, text, projects, report):
     out_lines = []
     heading_projects = sorted(projects.values(), key=lambda p: -len(p.title or ""))
+    columns, previous = set(), ""
     for line in text.split("\n"):
         original = line
+        if line.lstrip().startswith("|"):
+            if re.match(r"^\s*\|?\s*:?-{3,}", line) and previous.lstrip().startswith("|"):
+                columns = version_columns(previous)
+        else:
+            columns = set()
+        previous = line
         replacements = {}
 
         def swap(match):
@@ -209,7 +238,7 @@ def sync_text(readme, text, projects, report):
             line = line.replace(old, new)
         owner = project_for_line(line, readme, projects)
         if owner is not None:
-            line = sync_versions_in_line(line, owner)
+            line = sync_versions_in_line(line, owner, columns)
         elif line.startswith("### ") and "(v" in line:
             hits = [p for p in heading_projects if p.title and p.title.lower() in line.lower()]
             if len(hits) == 1 and hits[0].version:

@@ -1147,6 +1147,9 @@ def main():
             p for p in project_dirs
             if args.project in (p, os.path.basename(p)) or args.project in p
         ]
+        exact = [p for p in matched if args.project in (p, os.path.basename(p))]
+        if exact:
+            matched = exact
         if not matched:
             print(f"[Auto-Version] Error: No project matching '{args.project}' found.")
             sys.exit(1)

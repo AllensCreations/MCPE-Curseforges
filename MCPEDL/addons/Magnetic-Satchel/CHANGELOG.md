@@ -4,6 +4,6 @@
 
 ## [1.0.8] - 2026-10-29
 
-### Added
+### Improved & Balanced
 
-- **Initial release**: First packaged release of Magnetic Satchel.
+- **Changelog started**: Version history is recorded from this release onward.

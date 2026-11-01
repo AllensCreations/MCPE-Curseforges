@@ -4,6 +4,6 @@
 
 ## [1.0.14] - 2026-10-29
 
-### Added
+### Improved & Balanced
 
-- **Initial release**: First packaged release of Mining Helmet.
+- **Changelog started**: Version history is recorded from this release onward.

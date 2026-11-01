@@ -22,7 +22,9 @@ def resolve_projects(args):
     if args.all:
         return sorted(project_dirs)
     if args.project:
-        matched = [p for p in project_dirs if args.project in (p, os.path.basename(p)) or args.project in p]
+        matched = [p for p in project_dirs if args.project in (p, os.path.basename(p))]
+        if not matched:
+            matched = [p for p in project_dirs if args.project in p]
         if not matched:
             print(f"ERROR: no project matching '{args.project}' found.", file=sys.stderr)
             sys.exit(2)
@@ -203,7 +205,7 @@ def sync_project(project, raise_engine, known_uuids, changes, notices):
 def verify(projects):
     paths = sorted(p for p in cmv.PROJECT_ROOT.rglob("manifest.json") if "node_modules" not in p.parts)
     report, count = cmv.check_all(paths)
-    scoped = [cmv.rel(Path(p)) for p in projects]
+    scoped = [cmv.rel(Path(p)).rstrip("/") + "/" for p in projects]
     def in_scope(message):
         return any(s in message for s in scoped)
     blocking = [e for e in report.errors if in_scope(e)]

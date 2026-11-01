@@ -4,6 +4,6 @@
 
 ## [1.1.16] - 2026-10-29
 
-### Added
+### Improved & Balanced
 
-- **Initial release**: First packaged release of Ghast Mob Head Transformers.
+- **Changelog started**: Version history is recorded from this release onward.
