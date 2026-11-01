@@ -14,6 +14,12 @@
 - Removed hints and lifelines.
 
 
+## [1.0.19] - 2026-11-01
+
+### Improved & Balanced
+
+- **Content update**: Updated gameplay scripts.
+
 ## [1.0.18] - 2026-10-29
 
 ### Improved & Balanced
