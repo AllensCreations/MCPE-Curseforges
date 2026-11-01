@@ -512,16 +512,13 @@ world.afterEvents.entityDie.subscribe(event => {
   pendingDeath.set(id, true);
   const dim = dead.dimension;
   const loc = { x: dead.location.x, y: dead.location.y + 0.5, z: dead.location.z };
-  const coords = `${Math.floor(dead.location.x)}, ${Math.floor(dead.location.y)}, ${Math.floor(dead.location.z)}`;
   const vanillaDrops = safe(() => world.gameRules.keepInventory === false, false);
   const stacks = [...master.slots, ...EQUIPMENT_SLOTS.map(s => master.equipment[s])].filter(Boolean);
-  let dropped = 0;
   withSync(() => {
-    for (const item of stacks) if (vanillaDrops || spawnAt(dim, item, loc)) dropped++;
+    for (const item of stacks) if (!vanillaDrops) spawnAt(dim, item, loc);
     master = emptyState();
     for (const p of sharingPlayers()) applyState(p, master);
     persist();
-    world.sendMessage(`§c[Team Inventory] ${dead.name ?? "A player"} died at ${coords}. Shared inventory dropped once (${dropped} stacks).`);
   });
   system.runTimeout(() => pendingDeath.delete(id), 40);
 });

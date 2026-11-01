@@ -2,6 +2,12 @@
 
 ---
 
+## [1.0.20] - 2026-11-01
+
+### Improved & Balanced
+
+- **Death Chat**: The chat message that announced a player's death and where the shared inventory dropped is gone. The shared inventory still drops once at the spot where the player died.
+
 ## [1.0.19] - 2026-10-29
 
 ### Improved & Balanced
