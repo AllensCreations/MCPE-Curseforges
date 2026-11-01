@@ -2,6 +2,12 @@
 
 ---
 
+## [1.3.27] - 2026-11-01
+
+### Fixed
+
+- **Enchanted Tool Offhand Swap**: Swapping an enchanted or damaged tool into your offhand with a torch no longer resets it, so enchantments and remaining durability are kept.
+
 ## [1.3.26] - 2026-10-29
 
 ### Improved & Balanced

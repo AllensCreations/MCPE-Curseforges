@@ -150,19 +150,33 @@ function cloneStack(item) {
   }
 }
 
+function isPlainSupportedStack(item) {
+  if (!item || !SUPPORTED_OFFHAND_ITEMS.has(item.typeId)) return false;
+  try {
+    if (item.nameTag) return false;
+    if (item.getLore().length > 0) return false;
+  } catch (e) {
+    return false;
+  }
+  return true;
+}
+
 function offhandMatches(equipment, item) {
   const readBack = equipment.getEquipment(EquipmentSlot.Offhand);
   if (!item) return !readBack;
-  // Type-only checks can incorrectly accept a stale stack and skip count updates.
-  return !!(
-    readBack &&
-    readBack.typeId === item.typeId &&
-    readBack.amount === item.amount &&
-    (readBack.nameTag || "") === (item.nameTag || "")
-  );
+  if (!readBack || readBack.typeId !== item.typeId || readBack.amount !== item.amount) return false;
+  // Supported utility items are also compared by name. Any other item keeps its own data
+  // (enchantments, durability, name) and is matched by type and count only.
+  if (SUPPORTED_OFFHAND_ITEMS.has(item.typeId)) {
+    return (readBack.nameTag || "") === (item.nameTag || "");
+  }
+  return true;
 }
 
 function forceOffhand(player, item) {
+  // Commands create a brand-new item and would wipe enchantments, durability and names,
+  // so they only run to clear the slot or for plain supported items.
+  if (item && !isPlainSupportedStack(item)) return;
   const id = item ? shortId(item.typeId) : "air";
   const amount = item ? item.amount : 1;
   const commands = item
