@@ -16,21 +16,7 @@ ALL_DOCS = ("readme", "description", "changelog")
 CF_URL = "https://www.curseforge.com/members/allenscreations/projects"
 MP_URL = "https://mcpedl.com/user/allenscreations/"
 
-GUIDELINES = """## Guidelines and Attribution
-
-- Creator: AllensCreations
-- Rights & Reservation: All rights reserved for AllensCreations.
-- Content Creators: Content creators are permitted to feature this creation in videos and streams with credit to AllensCreations.
-- Redistribution: Do not re-upload this pack or provide direct monetized download bypasses. Link directly to the official repository page.
-- Disclaimer: This is an unofficial community creation. It is not an official Minecraft product and is not approved by or associated with Mojang or Microsoft.
-
----
-
-© All rights reserved for AllensCreations.
-
----
-
-"""
+from doc_template import GUIDELINES, KEYWORD_ANCHORS  # noqa: E402  (single source for the attribution block and keyword anchors)
 COPYRIGHT_RE = re.compile(r"(?m)^---[ \t]*\n+© All rights reserved for AllensCreations\.[ \t]*\n+(?:---[ \t]*\n+)?")
 STYLE_CHECKS = (
     ("Markdown table", re.compile(r"(?m)^\|.*\|\s*$")),
@@ -106,6 +92,15 @@ def standardize_description(text, name, version_text, min_engine, notices, label
         sections.append(f"## Search & Discovery Keywords\n\nMinecraft Bedrock add-on, {name} Bedrock mod, Minecraft PE survival, MCPEDL add-on, CurseForge Bedrock, AllensCreations.\n")
         notices.append(f"{label}: keyword section was missing; added generic anchors. Add feature keywords.")
     ki = find(sections, "## search & discovery keywords")
+
+    ki = find(sections, "## search & discovery keywords")
+    head_line, _, kw_rest = sections[ki].partition("\n")
+    kw_text = kw_rest.strip()
+    missing_kw = [a for a in KEYWORD_ANCHORS if a.lower() not in kw_text.lower()]
+    if missing_kw:
+        base_kw = kw_text.rstrip(".").rstrip()
+        sections[ki] = head_line + "\n\n" + base_kw + (", " if base_kw else "") + ", ".join(missing_kw) + ".\n"
+        notices.append(f"{label}: added the general keyword anchors that were missing ({', '.join(missing_kw)}). Add feature keywords too.")
 
     ci = find(sections, "## compatibility")
     defaults = (

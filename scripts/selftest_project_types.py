@@ -100,7 +100,8 @@ def write(p: Path, text: str) -> None:
 def sample(root: Path, ptype: str, name: str, **kw) -> Path:
     d = root / "build" / name
     shutil.rmtree(d, ignore_errors=True)
-    for f, t in DOCS.items():
+    import doc_template as dtp
+    for f, t in dtp.compliant_docs(ptype if ptype in ("addon", "map", "script") else "addon", name.replace("-", " "), "1.0.0").items():
         write(d / f, t)
     pj = {"type": ptype, "name": name.replace("-", " ")}
     if kw.get("controller") is False:
@@ -233,6 +234,11 @@ def main() -> int:
             r, log = run([str(root / "scripts/import_project_payload.py"), "--name", "Bad", "--payload-file", "MCPEDL/incoming/bad.b64", "--overwrite"], root)
             ok(r != 0 and needle in log, f"rejected: {label}")
 
+        reject("add-on README that does not follow the template", lambda d: write(d / "README.md", (d / "README.md").read_text() + "\n## Features\n\n- fast\n"), "exactly 12", ptype="addon")
+        reject("add-on DESCRIPTION with an extra section", lambda d: write(d / "DESCRIPTION.md", (d / "DESCRIPTION.md").read_text().replace("## How to Use", "## Recipes\n\nx\n\n## How to Use")), "sections must be exactly", ptype="addon")
+        reject("add-on DESCRIPTION with an edited attribution block", lambda d: write(d / "DESCRIPTION.md", (d / "DESCRIPTION.md").read_text().replace("Do not re-upload this pack", "Feel free to re-upload this pack")), "attribution block", ptype="addon")
+        reject("CHANGELOG with a link", lambda d: write(d / "CHANGELOG.md", (d / "CHANGELOG.md").read_text().replace("Players can use the new creation.", "See https://example.com now.")), "links or URLs", ptype="addon")
+        reject("script README with a Markdown table", lambda d: write(d / "README.md", (d / "README.md").read_text() + "\n| a | b |\n"), "Markdown table")
         reject("script without test_world.json", lambda d: (d / "test_world.json").unlink(), "test_world.json")
         reject("script including an add-on that does not exist", lambda d: write(d / "test_world.json", json.dumps({"include_addons": ["Nope-Addon"]})), "not found")
         reject("tampered controller.png", lambda d: (d / "resource_pack/textures/items/controller.png").write_bytes(b"\x89PNG\r\n\x1a\n" + b"0" * 40), "controller.png")

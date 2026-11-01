@@ -738,7 +738,7 @@ def run_checks(root, repo_root=None, folder=None):
         if "experiment" not in both:
             warns.append("DOC: needs an experiments line (for example: No experiment requirement detected in the inspected files.)")
     for url in re.findall(r"https?://[^\s)>\]]+", rtext):
-        if not url.startswith(REPO_URL) or "/raw/" in url:
+        if not url.startswith((REPO_URL, REPO_URL.replace("/tree/", "/blob/"))) or "/raw/" in url:
             warns.append(f"DOC: README.md link not allowed (only {REPO_URL}... pages, no downloads): {url}")
     if ".mcworld" in rtext.lower():
         warns.append("DOC: README.md mentions .mcworld: archives are added after the build, do not claim them")
@@ -787,6 +787,17 @@ def run_checks(root, repo_root=None, folder=None):
             warns.append("DOC: CHANGELOG.md must not contain links (Part 2)")
         if re.search(r"(?m)^## \[\d+\.\d+\.\d+\] - \d{4}-\d{2}-\d{2}", ctext) is None:
             warns.append("DOC: CHANGELOG.md needs entries like '## [1.0.0] - YYYY-MM-DD' (Part 2)")
+    try:
+        import doc_template as _dt
+        _doc_errors = _dt.check_docs(root, ptype)
+    except Exception as exc:  # a broken checker must never let documentation through silently
+        _doc_errors = [f"DOC: the template checker could not run ({exc})"]
+    _soft = "should state: source created, not tested in game"
+    _moved = [w for w in warns if w.startswith("DOC:") and _soft not in w]
+    warns[:] = [w for w in warns if w not in _moved]
+    for _e in _doc_errors + _moved:
+        if _e not in fails:
+            fails.append(_e)
     return fails, warns, len(files), total
 
 

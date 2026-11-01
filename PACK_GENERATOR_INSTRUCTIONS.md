@@ -200,7 +200,7 @@ AI-generated payloads are untrusted input until a person reviews them. **Human r
 - **Identifiers:** pack UUIDs must be unique across `MCPEDL/` (the project's own folder is excluded so an overwrite can keep its UUIDs), and `min_engine_version` must be a real looked-up version.
 - **Workflow hygiene:** never place `${{ inputs.* }}` or step outputs directly inside a `run:` script. Pass them through `env:` and quote the variable.
 - **Upgrade ZIPs** (`apply-generator-upgrade.yml`) can overwrite scripts and workflows. Read the dry-run plan first and only upload ZIPs you built yourself.
-- **Generated docs** must pass the documentation checks in `build_payload.py` (messages starting with `DOC:`) with no warnings.
+- **Generated docs** must pass the documentation checks in `build_payload.py` (messages starting with `DOC:`). They are failures, not warnings, so a payload that deviates from the templates is rejected.
 
 ---
 
@@ -308,7 +308,7 @@ Minecraft Bedrock add-on, [Add-on Name] Bedrock mod, [feature 1], [feature 2], [
 
 ### 6. Templates
 
-**Strict template rule.** Follow the matching template below exactly for every `README.md`, `DESCRIPTION.md`, and `CHANGELOG.md` you write or update: same headings, same heading text, same order, same labels, same list and bullet format. Do not add, remove, rename, merge, or reorder sections, and do not add boilerplate, extra notes, or text outside the template. Replace every `[placeholder]` and `verified-...` marker with verified content and leave none behind. The only allowed deviations are the ones the templates and Section 1 already name (map and script READMEs as product pages, and a section's content when a fact cannot be verified, in which case say so inside that section rather than dropping it). Factual accuracy and the user's requested scope still outrank the template.
+**Strict template rule (enforced).** `scripts/doc_template.py`, run by `build_payload.py` and the importer, fails the build on any deviation from the add-on README, add-on DESCRIPTION, and CHANGELOG templates. Follow the matching template below exactly for every `README.md`, `DESCRIPTION.md`, and `CHANGELOG.md` you write or update: same headings, same heading text, same order, same labels, same list and bullet format. Do not add, remove, rename, merge, or reorder sections, and do not add boilerplate, extra notes, or text outside the template. Replace every `[placeholder]` and `verified-...` marker with verified content and leave none behind. The only allowed deviations are the ones the templates and Section 1 already name (map and script READMEs as product pages, and a section's content when a fact cannot be verified, in which case say so inside that section rather than dropping it). Factual accuracy and the user's requested scope still outrank the template.
 
 **Add-on README.md**
 
@@ -606,7 +606,7 @@ registerController({
 
 ### 7. Recipes and documentation (all types)
 
-Documentation follows Part 2 exactly; `build_payload.py` prints a `DOC:` warning for each rule it can check, and the final run must show none.
+Documentation follows Part 2 exactly; `build_payload.py` fails with a `DOC:` message for each rule it can check, including the exact README, DESCRIPTION, and CHANGELOG templates, and the final run must show none.
 
 - Every custom shaped or shapeless crafting recipe needs the unlock its type requires (Part 1, Section 4). Other recipe types are not given an `unlock` field.
 - **Add-on `README.md`:** the Part 2 download-only template, at most 24 non-empty lines. Until a package exists, link the official catalog page (`https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/new_addons/README.md#available-add-ons`). No other links, no badges, no `.mcworld` claims, no features.
@@ -622,7 +622,7 @@ Do not hand-write the ZIP or the base64. `scripts/build_payload.py` installs the
 1. Create the project under `build/<Name>/` using the Section 2 layout, including `project.json` and a behavior pack manifest with the looked-up `min_engine_version`.
 2. Obtain `scripts/build_payload.py` from the repository (or pasted by the user, see the start of this Part) and save it next to `build/`.
 3. Run `python build_payload.py build/Name`. Add `--check-only` to test without building.
-4. Fix every failure and every `DOC:` warning and run it again. Report the final SELF-TEST PASSED and BUILD OK lines on the `build_payload.py result` line of the Section 11 summary. It proves structure only. Node must be installed so the script syntax check runs; if the output says syntax was not checked, say so.
+4. Fix every failure, including every `DOC:` failure, and run it again. Report the final SELF-TEST PASSED and BUILD OK lines on the `build_payload.py result` line of the Section 11 summary. It proves structure only. Node must be installed so the script syntax check runs; if the output says syntax was not checked, say so.
 5. Deliver `payload.b64`: one single line, no line breaks, spaces, or code fences. If the ZIP is under the inline limit you may paste it; otherwise deliver the file and tell the user to commit it to `MCPE-Curseforges/MCPEDL/incoming/<n>.b64` and pass that path as `payload_file`. Never retype it from memory.
 
 ### 9. Final self-check before replying
@@ -633,7 +633,7 @@ By hand, confirm only:
 - [ ] The script printed SELF-TEST PASSED and BUILD OK, and the base64 came from `payload.b64`.
 - [ ] Module versions are latest stable, looked up on the date of the work, with the date recorded.
 - [ ] `min_engine_version` is a looked-up value and the documentation states only a verified minimum.
-- [ ] The documentation states achievement status (with the cheats caveat where relevant), experiments, and "not tested in game", and the run shows no `DOC:` warnings.
+- [ ] The documentation states achievement status (with the cheats caveat where relevant), experiments, and "not tested in game", and the run shows no `DOC:` failures.
 - [ ] Map: `oneblock_setup.mcfunction` is harmless and idempotent; `void_cleaner` ends with the conditional `void_cleaned` tag.
 - [ ] Script: the form has exactly Start and How to play; `gameInfo` and `howToPlay` hold real text; the game logic is real and calls `endGame()`; stuck-state recovery exists; each listed add-on exists.
 - [ ] No comments in any script, function, or JSON file.
@@ -665,7 +665,7 @@ Paste the workflow's error log back to the agent. If a message names a rule, fin
 | `Name clash` / `already exists` / `also exists under` | Pick another folder name or set `overwrite` to true. |
 | `add-on '<x>' not found` | Fix the name in `test_world.json`. |
 | `missing the unlock context` | Add the unlock to the shaped or shapeless recipe (Part 1, Section 4). |
-| `DOC: ...` | Fix the documentation rule it names. |
+| `DOC: ...` | A documentation rule or template deviation. Fix exactly what it names; the template is in Part 2, Section 6. |
 
 ### 11. Reply format (strict)
 
