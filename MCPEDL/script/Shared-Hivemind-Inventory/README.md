@@ -15,7 +15,7 @@ Only the host or an operator can start the shared inventory, using the AllensCre
 - **Conflicts**: If two players change the same stack at the same moment, both changes are combined instead of losing or duplicating items.
 
 ### AllensCreations Controller
-- **What Happens**: The host or an operator receives a Controller item. Using it opens a menu with Start, How to play and Mode.
+- **What Happens**: The host or an operator receives a Controller item. Using it opens a menu with Start, How to play, Mode and Layout.
 - **Survival**: Starting the game uses up the Controller.
 - **Creative**: The Controller is kept.
 
@@ -23,6 +23,12 @@ Only the host or an operator can start the shared inventory, using the AllensCre
 - **What Happens**: Every player's Ender Chest holds the same items, so something stored by one player can be taken out by another.
 - **Start and End**: Ender Chest items from every player are combined when the game starts. When it ends, the host keeps the shared Ender Chest items and everyone else's Ender Chest is emptied.
 - **Deaths**: The Ender Chest is not dropped when a player dies.
+
+### Personal Layout
+- **What Happens**: When the Layout is Personal, the team still shares the same items, but each player arranges their own main inventory and hotbar. New items go into the first free slot.
+- **Armor, Offhand and Ender Chest**: These keep the same layout for everyone.
+- **Moving Items**: Items that leave a player's inventory for less than a second, such as while moving a stack, are not taken from teammates. A stack held for longer is taken from teammates and returned when it is put back.
+- **Full Inventory**: If a player has no free space, the missing items arrive as soon as space is free.
 
 ### Hard Mode
 - **What Happens**: The host or an operator can switch the Controller's Mode to Hard before choosing Start. Health and hunger are then shared by every player who takes part.
@@ -45,7 +51,7 @@ Only the host or an operator can start the shared inventory, using the AllensCre
 ## How to Use
 
 1. Import the pack and enable the Behavior Pack and the Resource Pack in the world settings.
-2. The host or an operator uses the Controller, optionally switches the Mode to Hard, and chooses Start.
+2. The host or an operator uses the Controller, optionally switches the Mode to Hard or the Layout to Personal, and chooses Start.
 3. Play together. Coordinate item use, since every change affects the team.
 4. When you finish, an operator runs the function end_game.
 

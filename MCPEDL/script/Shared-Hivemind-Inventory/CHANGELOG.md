@@ -2,6 +2,16 @@
 
 ---
 
+## [1.0.22] - 2026-11-01
+
+### Added
+
+- **Personal Layout**: The host or an operator can switch the Controller's Layout to Personal before starting. The team still shares the same items, but each player arranges their own main inventory and hotbar.
+
+### Improved & Balanced
+
+- **Controller Menu**: The menu now shows the current layout and has a Layout button.
+
 ## [1.0.21] - 2026-11-01
 
 ### Added
