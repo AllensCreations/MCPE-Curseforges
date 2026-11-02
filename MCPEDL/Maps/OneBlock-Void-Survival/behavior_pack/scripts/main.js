@@ -341,8 +341,10 @@ function finalizeIslandCore(dimension, theme, loc, player) {
       dimension.playSound("random.chestopen", chestPos, { pitch: 1.0, volume: 1.0 });
     } catch (fe) {}
 
+    const islandsDone = ISLAND_THEMES.filter((t) => world.getDynamicProperty(`island_ob_final_${t.id}`)).length;
     for (const p of getNearbyIslandPlayers(dimension, loc, 48, player)) {
-      p.sendMessage(`${theme.color}★ [Island Core Conquered] §fThe island core is complete! The bedrock is gone and a Treasure Chest has appeared above!\n`);
+      p.sendMessage(`${theme.color}★ [Island Core Conquered] §fThe island core is complete! The bedrock is gone and a Treasure Chest has appeared above!`);
+      p.sendMessage(`§7Islands completed: §f${islandsDone}/${ISLAND_THEMES.length}\n`);
     }
   } catch (err) {}
 }

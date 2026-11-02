@@ -17,7 +17,7 @@ The central block provides resources as you progress through increasingly advanc
 - **What Happens:** The central block renews when mined and advances through phases. Phase length depends on the phase number: phases 1-5 are 50 blocks, phases 6-10 are 100, and phases 11+ are 150 (Overworld 1,500 blocks in total, Nether 450, End 200).
 
 ### 43 Mystery Islands
-- **Exploration:** Discover 33 islands in the Overworld, seven in the Nether, and three in The End as you reach progression milestones. Each island has its own mini OneBlock core (30-50 blocks); finishing it reveals a treasure chest.
+- **Exploration:** Discover 33 islands in the Overworld, seven in the Nether, and three in The End as you reach progression milestones. Each island has its own mini OneBlock core of 35 blocks. A small counter above the hotbar shows your progress, for example 12/35 mined. Finishing the core removes the bedrock around it and reveals a treasure chest, and a message tells you how many of the 43 islands you have completed. Grassy and forest islands grow extra trees, and several farm and nature islands come with animals.
 
 ### Starter Platform and Supply Chest
 - **What Happens:** A 15-block guided tutorial teaches the basics (platform, wood, stone, coal) while the starting platform grows. At the 15-block milestone a Starter Gift Chest appears with 2 ice blocks and a lava bucket for creating water and cobblestone generators.
