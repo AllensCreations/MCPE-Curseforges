@@ -1,11 +1,12 @@
 name: Export Repo Content to TXT
 
 # Type the paths you want (files or folders, comma or newline separated) and get readable
-# TXT you can feed to an AI. Nothing is truncated; by default everything goes into ONE file
-# named after what you exported. Binary files are skipped. The downloaded zip also contains
-# INSTRUCTIONS.md (a short built-in AI prompt: every update comes back as one Termux .sh
+# TXT you can feed to an AI. Nothing is truncated; everything (index, AI instructions and
+# file contents) goes into ONE .txt file named after what you exported, uploaded without a
+# zip. Binary files are skipped. The built-in AI prompt ( every update comes back as one Termux .sh
 # script, named (Repofilename)_(Version)_(Rand).sh with at least 5 random characters so it never reuses an old file name, that
-# does git pull, applies the change, commits and pushes; docs follow the templates exactly).
+# does git pull, applies the change, commits and pushes; CHANGELOG.md is updated on every
+# change with a +0.0.1 patch bump; docs follow the templates exactly).
 # Save as: .github/workflows/export-repo-to-txt.yml
 
 on:
@@ -14,11 +15,6 @@ on:
       paths:
         description: "Paths to export, comma-separated. Files, folders or globs. e.g. MCPEDL/Addons/Grand-Banquets, scripts, .github/workflows, MCPEDL/Maps/*/behavior_pack"
         required: true
-        type: string
-      part_size_kb:
-        description: "0 = one single TXT, no limit (default). Or a number of KB to split into parts"
-        required: false
-        default: "0"
         type: string
       output_name:
         description: "Optional override. Leave blank to name the file after the exported path(s)"
@@ -40,7 +36,6 @@ jobs:
         id: build
         env:
           PATHS: ${{ inputs.paths }}
-          PART_KB: ${{ inputs.part_size_kb }}
           OUT_NAME: ${{ inputs.output_name }}
         run: |
           python3 - <<'PY'
@@ -63,19 +58,20 @@ jobs:
           4. Applies to any project type: add-on, map, script, workflow, website, anything. Keep the existing folder layout. A new project goes in its own new folder next to similar ones.
 
           ## Every update request = ONE Termux script
-          Create `<Repofilename>_<Version>_<RAND>.sh` as a downloadable file. `<Repofilename>` is the project, folder or file being changed, with no extension and no spaces (hyphens allowed). `<Version>` is that item's version as X.Y.Z (the next patch version when the script bumps docs). `<RAND>` is at least 5 random lowercase letters or digits (for example `k7q2x`), freshly generated for every script and never reused from an earlier reply or an existing file, so a new script can never overwrite or re-run an older one with the same name. Use the exact same file name in the reply steps. It must, in this order:
+          Create `<Repofilename>_<Version>_<RAND>.sh` as a downloadable file. `<Repofilename>` is the project, folder or file being changed, with no extension and no spaces (hyphens allowed). `<Version>` is that item's new version as X.Y.Z (the current version plus 0.0.1, see Versions below). `<RAND>` is at least 5 random lowercase letters or digits (for example `k7q2x`), freshly generated for every script and never reused from an earlier reply or an existing file, so a new script can never overwrite or re-run an older one with the same name. Use the exact same file name in the reply steps. It must, in this order:
           1. `#!/data/data/com.termux/files/usr/bin/bash` and `set -e`
           2. `cd "$HOME/MCPE-Curseforges"`, or `git clone` the repo URL first if the folder is missing
           3. `git pull --rebase`
           4. Apply every change (code and docs) inside the script itself (heredocs for new or replaced files, inline python3 for patching many files). No separate files to download.
           5. Validate every changed .json file with python3 and stop on error
+          5b. Verify the top CHANGELOG.md heading equals the new version and the script file name version; stop on mismatch
           6. `git add` only the changed paths, `git commit -m "<short message>"`, `git push`
           7. Safe to run twice (skip anything already applied)
 
           ## Docs (every update, inside the same script)
           Strict templates: README.md, DESCRIPTION.md and CHANGELOG.md must follow the templates below exactly: same headings, same heading text, same order, same labels and bullet format. Do not add, remove, rename, merge or reorder sections, and add no boilerplate or extra text. Leave no placeholders; fill every [bracket] with verified content. Accuracy and the requested scope still outrank the template.
-          After the change, analyze README.md, DESCRIPTION.md and CHANGELOG.md in the destination folder. Edit a file only if the change makes it inaccurate or incomplete; leave the rest untouched. Never remove verified content.
-          - Versions: never edit manifest versions or the README version/download link; the auto-version-bump workflow does that on push. In the script, read the current version from the manifest, and write the new CHANGELOG entry and the DESCRIPTION title as the next patch version (unless a different bump is asked).
+          CHANGELOG.md is mandatory on every update, with no exceptions: every script must add a new release entry for the change. After the change, analyze README.md and DESCRIPTION.md in the destination folder. Edit them only if the change makes them inaccurate or incomplete; leave the rest untouched. Never remove verified content.
+          - Versions: never edit manifest versions or the README version/download link; the auto-version-bump workflow does that on push. In the script, take the highest of the manifest version and the top CHANGELOG.md entry, and add exactly 0.0.1 to the patch number (1.2.3 becomes 1.2.4, 1.2.9 becomes 1.2.10, no rollover). Use that one new version for the CHANGELOG entry, the DESCRIPTION title and the script file name. Only use a different bump if the request asks for it. Never reuse or overwrite an existing version heading. If the heading for the new version already exists (script run twice), skip adding it.
           - Writing: player-facing only. In-game display names, never identifiers, file names, JSON, events or code. Write "Behavior Pack" / "Resource Pack", never BP/RP. No code blocks, emojis, hype, or badges in README; every DESCRIPTION must include the two exact Minecraft Bedrock and Format badges from the repo template and no other badges. DESCRIPTION may keep existing item sprites and recipe diagrams. No Markdown tables; use `### Feature Name` cards with `- **What Happens**: ...` bullets. Paragraphs of 4 sentences at most. State only verified facts; Verification line must say source created, package built or in-game tested, never mixed.
           - README.md (add-on): download landing page only, 24 non-empty lines max:
           ```
@@ -113,7 +109,7 @@ jobs:
 
           © All rights reserved for AllensCreations.
           ```
-          - CHANGELOG.md: `# Changelog — [Name]`, `---`, then newest release first as `## [X.Y.Z] - YYYY-MM-DD` (script uses today's date), grouped under `### Added`, `### Improved & Balanced`, `### Fixed` (bugs described by in-game experience). Entries are `- **Title**: player impact.` No links, URLs, badges, function or event names, or unverified benefits. No boilerplate after the title.
+          - CHANGELOG.md: `# Changelog — [Name]`, `---`, then newest release first as `## [X.Y.Z] - YYYY-MM-DD` (script uses today's date from `TZ=Asia/Singapore date +%F`), grouped under `### Added`, `### Improved & Balanced`, `### Fixed` (bugs described by in-game experience). Entries are `- **Title**: player impact.` No links, URLs, badges, function or event names, or unverified benefits. No boilerplate after the title. Every entry needs at least one bullet; omit headings that have no entries. Insert the new entry directly under the `---` and above the previous release. Never edit or delete older entries.
 
           ## Reply format
           1. The .sh file (named <Repofilename>_<Version>_<RAND>.sh, ending with the random characters)
@@ -135,11 +131,6 @@ jobs:
           '''
 
           raw_paths = [p.strip().strip("'\"") for p in re.split(r"[,\n]", os.environ["PATHS"]) if p.strip()]
-          try:
-              part_kb = int(os.environ.get("PART_KB", "0") or "0")
-          except ValueError:
-              part_kb = 0
-          part_bytes = part_kb * 1024 if part_kb > 0 else 0   # 0 = unlimited, one file
 
           def safe(x):
               return re.sub(r"[^A-Za-z0-9._-]+", "_", x).strip("_.")
@@ -212,6 +203,13 @@ jobs:
                   else:
                       add(m)
 
+          # Always include the docs next to (or one level above) each destination,
+          # so the AI can see the current CHANGELOG.md and version. add() ignores missing files.
+          for d in list(dests):
+              for base in (root / d, (root / d).parent):
+                  for doc in ("CHANGELOG.md", "README.md", "DESCRIPTION.md"):
+                      add(base / doc)
+
           files = sorted(selected, key=str.lower)
           if missing:
               for m in missing:
@@ -219,42 +217,43 @@ jobs:
           if not files:
               raise SystemExit("::error::Nothing matched. Check the paths (case-sensitive, relative to the repo root).")
 
+          # Detect the current version from every exported CHANGELOG.md (top release heading)
+          version_lines = []
+          for rel in files:
+              if pathlib.PurePosixPath(rel).name != "CHANGELOG.md":
+                  continue
+              text = selected[rel].read_text(encoding="utf-8", errors="replace")
+              mv = re.search(r"^## \[(\d+)\.(\d+)\.(\d+)\]", text, re.M)
+              if mv:
+                  a, b, c = (int(x) for x in mv.groups())
+                  version_lines.append(f"CURRENT VERSION: {a}.{b}.{c} / NEXT: {a}.{b}.{c + 1}  ({rel})")
+
           blocks = []
           for rel in files:
               data = selected[rel].read_bytes().decode("utf-8", errors="replace")
               head = f"===== FILE: {rel} ({data.count(chr(10)) + 1} lines, {len(data.encode('utf-8'))} bytes) ====="
               blocks.append((rel, f"\n{head}\n{data}\n===== END FILE: {rel} =====\n"))
 
-          parts, cur, size = [], [], 0
-          for rel, block in blocks:
-              b = len(block.encode("utf-8"))
-              if part_bytes and cur and size + b > part_bytes:
-                  parts.append(cur); cur, size = [], 0
-              cur.append((rel, block)); size += b
-          if cur:
-              parts.append(cur)
-
           out = pathlib.Path("exports"); out.mkdir(exist_ok=True)
+          name = f"{label}.txt"
           index = ["EXPORT REQUEST: " + ", ".join(raw_paths),
-                   "DESTINATION: " + ", ".join(dests),
-                   f"Text files: {len(files)}   Parts: {len(parts)}   Skipped binary: {len(skipped)}   Paths not found: {len(missing)}", ""]
-          for i, part in enumerate(parts, 1):
-              name = f"{label}.txt" if len(parts) == 1 else f"{label}_part{i:02d}_of_{len(parts):02d}.txt"
-              head = f"PART {i} OF {len(parts)} | files in this part: {len(part)}\nCONTENTS OF THIS PART:\n" + "".join(f"- {r}\n" for r, _ in part)
-              (out / name).write_text(head + "".join(b for _, b in part), encoding="utf-8")
-              total = (out / name).stat().st_size
-              index.append(f"{name}  ({len(part)} files, {total} bytes)")
-              index.extend(f"    {r}" for r, _ in part)
+                   "DESTINATION: " + ", ".join(dests)]
+          index += version_lines
+          index += [f"Text files: {len(files)}   Skipped binary: {len(skipped)}   Paths not found: {len(missing)}", "", "FILES IN THIS EXPORT:"]
+          index += [f"- {r}" for r in files]
           if missing:
               index += ["", "NOT FOUND:"] + [f"    {m}" for m in missing]
           if skipped:
-              index += ["", "SKIPPED (binary):"] + [f"    {s}" for s in skipped[:1000]]
-          (out / "INSTRUCTIONS.md").write_text(AI_PROMPT.replace("__DEST__", "\n".join("- " + d for d in dests) or "- .") + "\n", encoding="utf-8")
-          index += ["", "ALSO INCLUDED: INSTRUCTIONS.md (AI update prompt: one Termux .sh script per update, name format (Repofilename)_(Version)_(Rand).sh with 5+ random characters)"]
-          (out / "INDEX.txt").write_text("\n".join(index) + "\n", encoding="utf-8")
+              index += ["", "SKIPPED (binary):"] + [f"    {x}" for x in skipped[:1000]]
+          instructions = AI_PROMPT.replace("__DEST__", "\n".join("- " + d for d in dests) or "- .")
+          sep = "=" * 60
+          content = (f"{sep}\nSECTION 1: INDEX\n{sep}\n" + "\n".join(index) + "\n\n"
+                     + f"{sep}\nSECTION 2: AI INSTRUCTIONS\n{sep}\n" + instructions + "\n"
+                     + f"{sep}\nSECTION 3: FILE CONTENTS\n{sep}\n" + "".join(b for _, b in blocks))
+          (out / name).write_text(content, encoding="utf-8")
           with open(os.environ["GITHUB_OUTPUT"], "a", encoding="utf-8") as fh:
               fh.write(f"label={label}\n")
-          print(f"Exported {len(files)} files into {len(parts)} part(s); skipped {len(skipped)} binary; {len(missing)} path(s) not found.")
+          print(f"Exported {len(files)} files into {name}; skipped {len(skipped)} binary; {len(missing)} path(s) not found.")
           PY
 
       - name: Summary
@@ -266,14 +265,14 @@ jobs:
           {
             echo "### Export Repo Content to TXT"
             echo "- Paths: \`${PATHS_IN}\`"
-            echo "- Download the **${LABEL}** artifact below (zip). It contains the TXT export, INDEX.txt and INSTRUCTIONS.md."
+            echo "- Download **${LABEL}.txt** from the artifact below. It holds the index, AI instructions and all file contents in one text file."
             [ -d exports ] && ls -la exports | sed 's/^/    /'
           } >> "$GITHUB_STEP_SUMMARY"
 
       - name: Upload export
         uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         with:
-          name: ${{ steps.build.outputs.label }}
-          path: exports/
+          path: exports/${{ steps.build.outputs.label }}.txt
+          archive: false
           if-no-files-found: error
           retention-days: 14
