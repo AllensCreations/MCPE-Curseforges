@@ -143,11 +143,6 @@ Configurable via the Behavior Pack subpack settings slider in World Settings:
 - Achievements: Unknown / needs confirmation.
 - Verification: Source created, not tested in game.
 
-## Creator Profiles
-
-- [CurseForge Profile](https://www.curseforge.com/members/allenscreations/projects)
-- [MCPEDL Profile](https://mcpedl.com/user/allenscreations/)
-
 ## Creator and Permissions
 
 - Creator: AllensCreations

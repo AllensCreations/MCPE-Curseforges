@@ -41,11 +41,6 @@ Harvest Intelligence automatically replants supported mature crops after you bre
 - Achievements: Unknown / needs confirmation.
 - Verification: Source created, not tested in game.
 
-## Creator Profiles
-
-- [CurseForge Profile](https://www.curseforge.com/members/allenscreations/projects)
-- [MCPEDL Profile](https://mcpedl.com/user/allenscreations/)
-
 ## Creator and Permissions
 
 - Creator: AllensCreations

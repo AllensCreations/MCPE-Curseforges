@@ -87,6 +87,10 @@ def standardize_description(text, name, version_text, min_engine, notices, label
     if gi is not None:
         sections.pop(gi)
 
+    profile_section = find(sections, "## creator profiles")
+    if profile_section is not None:
+        sections.pop(profile_section)
+
     ki = find(sections, "## search & discovery keywords")
     if ki is None:
         sections.append(f"## Search & Discovery Keywords\n\nMinecraft Bedrock add-on, {name} Bedrock mod, Minecraft PE survival, MCPEDL add-on, CurseForge Bedrock, AllensCreations.\n")

@@ -79,11 +79,6 @@ Craft the Magnetic Satchel at a crafting table using either of these recipes:
 
 ---
 
-## Creator Profiles
-
-- [CurseForge Profile](https://www.curseforge.com/members/allenscreations/projects)
-- [MCPEDL Profile](https://mcpedl.com/user/allenscreations/)
-
 ## Compatibility
 
 - Minecraft Bedrock Edition: 1.21.0 or newer.

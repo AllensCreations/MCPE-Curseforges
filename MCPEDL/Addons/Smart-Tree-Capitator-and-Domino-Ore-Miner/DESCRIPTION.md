@@ -195,11 +195,6 @@ Domino Ore Miner follows connected matching ores, including diagonal connections
 - Achievements: Unknown / needs confirmation.
 - Verification: Source created, not tested in game.
 
-## Creator Profiles
-
-- [CurseForge Profile](https://www.curseforge.com/members/allenscreations/projects)
-- [MCPEDL Profile](https://mcpedl.com/user/allenscreations/)
-
 ## Creator and Permissions
 
 - Creator: AllensCreations

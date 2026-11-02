@@ -207,11 +207,6 @@ Combines dynamic lighting, offhand quick-swap, automatic tool selection, tree ca
 - Achievements: Unknown / needs confirmation.
 - Verification: Source created, not tested in game.
 
-## Creator Profiles
-
-- [CurseForge Profile](https://www.curseforge.com/members/allenscreations/projects)
-- [MCPEDL Profile](https://mcpedl.com/user/allenscreations/)
-
 ## Creator and Permissions
 
 - Creator: AllensCreations

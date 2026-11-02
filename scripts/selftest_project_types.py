@@ -141,6 +141,23 @@ def do_import(root: Path, d: Path, out: Path, overwrite=False):
 
 
 def main() -> int:
+    import remake_docs
+    profile_urls = (remake_docs.CF_URL, remake_docs.MP_URL)
+    duplicate_profiles = (
+        "# Sample\n\n## Creator Profiles\n\n"
+        f"- [CurseForge Profile]({profile_urls[0]})\n"
+        f"- [MCPEDL Profile]({profile_urls[1]})\n\n"
+        "## Creator and Permissions\n\n- Creator: AllensCreations\n"
+        f"- Profiles: [CurseForge Profile]({profile_urls[0]}) · "
+        f"[MCPEDL Profile]({profile_urls[1]})\n\n"
+        "## Search & Discovery Keywords\n\nMinecraft Bedrock, Sample.\n"
+    )
+    standardized = remake_docs.standardize_description(
+        duplicate_profiles, "Sample", "1.0.0", "1.21.0", [], "selftest"
+    )
+    ok(all(standardized.count(url) == 1 for url in profile_urls),
+       "description: profile links appear once after standardization")
+
     ap = argparse.ArgumentParser()
     ap.add_argument("--fake-foundation", action="store_true")
     a = ap.parse_args()

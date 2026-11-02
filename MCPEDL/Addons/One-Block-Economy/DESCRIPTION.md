@@ -34,11 +34,6 @@ This add-on does not generate a complete OneBlock world. Use it in a world with 
 - Achievements: Unknown / needs confirmation.
 - Verification: Source created, not tested in game.
 
-## Creator Profiles
-
-- [CurseForge Profile](https://www.curseforge.com/members/allenscreations/projects)
-- [MCPEDL Profile](https://mcpedl.com/user/allenscreations/)
-
 ## Creator and Permissions
 
 - Creator: AllensCreations
