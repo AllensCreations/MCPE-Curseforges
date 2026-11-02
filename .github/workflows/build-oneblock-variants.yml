@@ -71,9 +71,10 @@ jobs:
               project = config.parent
               if selected and project.name != selected:
                   continue
-              info = Path("builds") / project.name / "Curseforge_Info.json"
-              if not info.is_file():
-                  continue
+              try:
+                  release.read_info(f"MCPEDL/Maps/{project.name}")
+              except ValueError:
+                  continue  # not registered in builds/Curseforge_IDs.json
               version, _ = release.latest_changelog_entry(project / "CHANGELOG.md")
               release.align_manifests(project, version)
           PY

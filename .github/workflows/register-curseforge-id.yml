@@ -1,7 +1,8 @@
 name: Register CurseForge ID
 
-# Run once per pack. Saves builds/<pack>/Curseforge_Info.json, then rewrites the
-# BEGIN/END registered block in publish-curseforge.yml from every registered pack.
+# Run once per pack. Adds/updates the pack in builds/Curseforge_IDs.json (one registry for all
+# packs; old builds/<pack>/Curseforge_Info.json files are folded in automatically), then
+# refreshes the Publish Pack to CurseForge dropdown from that registry.
 # Needs the WORKFLOW_PAT secret to push the edited workflow file; without it the ID is
 # still saved but the dropdown is not updated.
 
@@ -39,7 +40,7 @@ jobs:
         with:
           python-version: '3.x'
 
-      - name: Save ID
+      - name: Save ID and refresh the publish dropdown
         env:
           PROJECT_PATH: ${{ inputs.project }}
           CURSEFORGE_PROJECT_ID: ${{ inputs.curseforge_project_id }}
@@ -47,49 +48,15 @@ jobs:
           set -euo pipefail
           [[ "$GITHUB_REF" == refs/heads/* ]] || { echo "::error::Run this workflow on a branch."; exit 1; }
           python3 scripts/register_curseforge_id.py --project "$PROJECT_PATH" --id "$CURSEFORGE_PROJECT_ID"
-
-      - name: Rebuild the publish dropdown from registered packs
-        run: |
-          set -euo pipefail
-          WF=".github/workflows/publish-curseforge.yml"
-          grep -q '# BEGIN registered' "$WF" && grep -q '# END registered' "$WF" \
-            || { echo "::error::BEGIN/END registered markers missing in $WF"; exit 1; }
-
-          # Collect every registered pack folder (builds/<Name>/Curseforge_Info.json -> MCPEDL/<Type>/<Name>)
-          PATHS=()
-          for f in builds/*/Curseforge_Info.json; do
-            [ -f "$f" ] || continue
-            NAME=$(basename "$(dirname "$f")")
-            DIR=$(find MCPEDL -mindepth 2 -maxdepth 2 -type d -name "$NAME" | head -n1)
-            if [ -z "$DIR" ]; then
-              echo "::warning::builds/$NAME has an ID but no MCPEDL/*/$NAME folder; skipped."
-              continue
-            fi
-            PATHS+=("$DIR")
-          done
-
-          OPTS=$(mktemp)
-          printf '          - "-"\n' > "$OPTS"
-          if [ "${#PATHS[@]}" -gt 0 ]; then
-            printf '%s\n' "${PATHS[@]}" | sort -u | while read -r p; do
-              printf '          - "%s"\n' "$p"
-            done >> "$OPTS"
-          fi
-
-          awk -v optfile="$OPTS" '
-            /# BEGIN registered/ { print; while ((getline l < optfile) > 0) print l; skip=1; next }
-            /# END registered/   { skip=0 }
-            !skip { print }
-          ' "$WF" > "$WF.new"
-          mv "$WF.new" "$WF"
-          echo "Dropdown now contains:"; cat "$OPTS"
+          python3 scripts/sync_dispatch_choices.py
+          cat builds/Curseforge_IDs.json
 
       - name: Commit
         env:
           HAS_PAT: ${{ secrets.WORKFLOW_PAT != '' }}
         run: |
           set -euo pipefail
-          git add -A -- builds
+          git add -A -- builds/Curseforge_IDs.json ':(glob)builds/*/Curseforge_Info.json'
           if [ "$HAS_PAT" = "true" ]; then
             git add -- .github/workflows/publish-curseforge.yml
           elif ! git diff --quiet -- .github/workflows/publish-curseforge.yml; then

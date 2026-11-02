@@ -33,8 +33,10 @@ class AutoPublishTests(unittest.TestCase):
     def test_id_requires_api_token(self):
         with tempfile.TemporaryDirectory() as temp:
             root = Path(temp)
-            (root / "builds/Example").mkdir(parents=True)
-            (root / "builds/Example/Curseforge_Info.json").write_text('{"project_id":"123"}')
+            (root / "builds").mkdir(parents=True)
+            (root / "builds/Curseforge_IDs.json").write_text(
+                '{"MCPEDL/Addons/Example":{"project_id":"123"}}'
+            )
             with patch.object(publisher.release, "REPO_ROOT", root):
                 with patch.dict(os.environ, {"CURSEFORGE_API_TOKEN": ""}):
                     with self.assertRaisesRegex(ValueError, "CURSEFORGE_API_TOKEN"):
@@ -43,8 +45,10 @@ class AutoPublishTests(unittest.TestCase):
     def test_map_all_uploads_each_variant_and_bumps_only_once(self):
         with tempfile.TemporaryDirectory() as temp:
             root = Path(temp)
-            (root / "builds/Example").mkdir(parents=True)
-            (root / "builds/Example/Curseforge_Info.json").write_text('{"project_id":"123"}')
+            (root / "builds").mkdir(parents=True)
+            (root / "builds/Curseforge_IDs.json").write_text(
+                '{"MCPEDL/Maps/Example":{"project_id":"123"}}'
+            )
             package = root / "Example.mcworld"
             package.touch()
             prepare_calls = []
@@ -72,8 +76,26 @@ class AutoPublishTests(unittest.TestCase):
             )
             self.assertEqual(run.call_count, 3)
             self.assertTrue(all(not path.exists() for path in metadata_files))
-            saved = json.loads((root / "builds/Example/Curseforge_Info.json").read_text())
-            self.assertEqual(saved["last_published_version"], "1.1.0")
+            saved = json.loads((root / "builds/Curseforge_IDs.json").read_text())
+            self.assertEqual(saved["MCPEDL/Maps/Example"]["last_published_version"], "1.1.0")
+            self.assertEqual(saved["MCPEDL/Maps/Example"]["project_id"], "123")
+
+    def test_old_per_pack_files_are_migrated_into_the_registry(self):
+        with tempfile.TemporaryDirectory() as temp:
+            root = Path(temp)
+            (root / "MCPEDL/Addons/Old").mkdir(parents=True)
+            (root / "builds/Old").mkdir(parents=True)
+            legacy = root / "builds/Old/Curseforge_Info.json"
+            legacy.write_text('{"project_id":"77","last_published_version":"1.2.0"}')
+            with patch.object(publisher.release, "REPO_ROOT", root):
+                info = publisher.release.read_info("MCPEDL/Addons/Old")
+                self.assertEqual(info["project_id"], "77")
+                self.assertEqual(info["last_published_version"], "1.2.0")
+                publisher.release.save_info("MCPEDL/Addons/New", "88")
+            saved = json.loads((root / "builds/Curseforge_IDs.json").read_text())
+            self.assertEqual(sorted(saved), ["MCPEDL/Addons/New", "MCPEDL/Addons/Old"])
+            self.assertEqual(saved["MCPEDL/Addons/Old"]["last_published_version"], "1.2.0")
+            self.assertFalse(legacy.exists())
 
     def test_changelog_entries_are_combined_and_version_bumped(self):
         with tempfile.TemporaryDirectory() as temp:

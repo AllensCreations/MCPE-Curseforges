@@ -16,8 +16,8 @@ import prepare_curseforge_upload as release
 
 def publish(project_path, release_type="release", map_variant="default"):
     category, project_name = release.project_from_path(project_path)
-    info_path = release.REPO_ROOT / "builds" / project_name / "Curseforge_Info.json"
-    release.read_info(info_path)  # fails with a clear message if the pack is not registered
+    pack_key = f"MCPEDL/{category}/{project_name}"
+    release.read_info(pack_key)  # fails with a clear message if the pack is not in builds/Curseforge_IDs.json
 
     token = os.environ.get("CURSEFORGE_API_TOKEN", "")
     if not token:
@@ -67,7 +67,7 @@ def publish(project_path, release_type="release", map_variant="default"):
             metadata_path.unlink(missing_ok=True)
         print(f"Published {package_path.name} to CurseForge project {project_id}.")
 
-    release.save_info(info_path, f"MCPEDL/{category}/{project_name}", project_id, version)
+    release.save_info(pack_key, project_id, version)
     return True
 
 

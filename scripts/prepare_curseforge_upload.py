@@ -113,30 +113,96 @@ def align_manifests(project_dir, changelog_version):
     return changed
 
 
-def read_info(info_path):
+REGISTRY_NAME = "Curseforge_IDs.json"
+
+
+def registry_path():
+    """One registry for every pack: builds/Curseforge_IDs.json, keyed by MCPEDL/<Category>/<Name>."""
+    return REPO_ROOT / "builds" / REGISTRY_NAME
+
+
+def _clean_id(value):
+    text = str(value).strip() if isinstance(value, (str, int)) and not isinstance(value, bool) else ""
+    return text if re.fullmatch(r"[0-9]+", text) else None
+
+
+def _find_project_path(name):
+    for category in PACKAGE_EXTENSIONS:
+        if (REPO_ROOT / "MCPEDL" / category / name).is_dir():
+            return f"MCPEDL/{category}/{name}"
+    return None
+
+
+def _load_registry():
+    """Return (registry, migrated_legacy_files).
+
+    Packs that still have an old builds/<Name>/Curseforge_Info.json are detected and folded in
+    automatically (the registry wins when a pack is in both).
+    """
+    path = registry_path()
+    registry = {}
+    if path.is_file():
+        try:
+            registry = json.loads(path.read_text(encoding="utf-8"))
+        except json.JSONDecodeError as exc:
+            raise ValueError(f"Invalid JSON: {path.relative_to(REPO_ROOT)}") from exc
+        if not isinstance(registry, dict):
+            raise ValueError(f"{path.relative_to(REPO_ROOT)} must hold a JSON object")
+
+    migrated = []
+    builds = REPO_ROOT / "builds"
+    for legacy in sorted(builds.glob("*/Curseforge_Info.json")) if builds.is_dir() else []:
+        try:
+            info = json.loads(legacy.read_text(encoding="utf-8"))
+        except (OSError, json.JSONDecodeError):
+            continue
+        project_id = _clean_id(info.get("project_id")) if isinstance(info, dict) else None
+        saved_path = info.get("project") if isinstance(info, dict) else None
+        key = saved_path if isinstance(saved_path, str) and re.fullmatch(
+            r"MCPEDL/(Addons|Maps|Script|Minigame)/[A-Za-z0-9][A-Za-z0-9_-]*", saved_path
+        ) else _find_project_path(legacy.parent.name)
+        if not project_id or not key:
+            continue
+        entry = {"project_id": project_id}
+        if info.get("last_published_version"):
+            entry["last_published_version"] = info["last_published_version"]
+        registry.setdefault(key, entry)
+        migrated.append(legacy)
+    return registry, migrated
+
+
+def load_registry():
+    return _load_registry()[0]
+
+
+def read_info(project_path):
     """Return the saved CurseForge info for a pack (written by Register CurseForge ID)."""
-    if not info_path.is_file():
+    entry = load_registry().get(project_path)
+    project_id = _clean_id(entry.get("project_id")) if isinstance(entry, dict) else None
+    if not project_id:
         raise ValueError(
-            "No saved CurseForge project ID. Run the 'Register CurseForge ID' workflow for this pack first."
+            f"No saved CurseForge project ID for {project_path}. "
+            "Run the 'Register CurseForge ID' workflow for this pack first."
         )
-    try:
-        info = json.loads(info_path.read_text(encoding="utf-8"))
-    except json.JSONDecodeError as exc:
-        raise ValueError(f"Invalid saved CurseForge info: {info_path.relative_to(REPO_ROOT)}") from exc
-    project_id = info.get("project_id") if isinstance(info, dict) else None
-    if not isinstance(project_id, str) or not re.fullmatch(r"[0-9]+", project_id):
-        raise ValueError(f"Invalid project_id in {info_path.relative_to(REPO_ROOT)}")
-    return info
+    return {**entry, "project_id": project_id}
 
 
-def save_info(info_path, project_path, project_id, last_published_version=None, extra=None):
-    info = {"project_id": project_id, "project": project_path}
-    if extra:
-        info.update(extra)
+def save_info(project_path, project_id, last_published_version=None):
+    """Add or update one pack in builds/Curseforge_IDs.json (keeps its other fields)."""
+    registry, migrated = _load_registry()
+    entry = dict(registry.get(project_path) or {})
+    entry["project_id"] = _clean_id(project_id)
+    if not entry["project_id"]:
+        raise ValueError("CurseForge project ID must contain only digits")
     if last_published_version:
-        info["last_published_version"] = last_published_version
-    info_path.parent.mkdir(parents=True, exist_ok=True)
-    info_path.write_text(json.dumps(info, indent=2) + "\n", encoding="utf-8")
+        entry["last_published_version"] = last_published_version
+    registry[project_path] = entry
+    path = registry_path()
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_text(json.dumps(dict(sorted(registry.items())), indent=2) + "\n", encoding="utf-8")
+    for legacy in migrated:  # now stored in the registry
+        legacy.unlink(missing_ok=True)
+    return path
 
 
 def parse_version(text):
@@ -301,8 +367,8 @@ def prepare(project_path, release_type, map_variant="default", rebuild=True, bum
     changelog_path = project_dir / "CHANGELOG.md"
     if not changelog_path.is_file():
         raise ValueError(f"Missing changelog: {changelog_path.relative_to(REPO_ROOT)}")
-    info_path = REPO_ROOT / "builds" / project_name / "Curseforge_Info.json"
-    info = read_info(info_path)
+    info_path = registry_path()
+    info = read_info(f"MCPEDL/{category}/{project_name}")
     project_id = info["project_id"]
 
     if bump:

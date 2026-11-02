@@ -3,7 +3,7 @@
 
 Two workflows are managed:
   auto-version-bump.yml     one list per category (all projects)
-  publish-curseforge.yml    one list of registered packs only (those with builds/<name>/Curseforge_Info.json)
+  publish-curseforge.yml    one list of registered packs only (those listed in builds/Curseforge_IDs.json)
 
   python3 scripts/sync_dispatch_choices.py           rewrite the dropdown lists
   python3 scripts/sync_dispatch_choices.py --check   exit 1 if the lists are stale (used by CI)
@@ -12,6 +12,7 @@ GitHub allows at most 25 options per dropdown, so each list holds "-" plus up to
 Workflow files cannot be pushed by the Actions token, so run this locally after adding or
 removing a project, then commit the workflow file.
 """
+import json
 import os
 import sys
 
@@ -38,12 +39,17 @@ def projects(category):
 
 
 def registered_packs():
-    """Full MCPEDL paths of packs that have a saved CurseForge ID."""
-    found = []
-    for category in ("Addons", "Maps", "Script", "Minigame"):
+    """Full MCPEDL paths of packs listed in builds/Curseforge_IDs.json (plus any not yet migrated)."""
+    found = set()
+    registry = os.path.join(ROOT, "builds", "Curseforge_IDs.json")
+    if os.path.isfile(registry):
+        with open(registry, encoding="utf-8") as fh:
+            data = json.load(fh)
+        found.update(key for key in data if os.path.isdir(os.path.join(ROOT, *key.split("/"))))
+    for category in ("Addons", "Maps", "Script", "Minigame"):  # old per-pack files
         for name in projects(f"MCPEDL/{category}"):
             if os.path.isfile(os.path.join(ROOT, "builds", name, "Curseforge_Info.json")):
-                found.append(f"MCPEDL/{category}/{name}")
+                found.add(f"MCPEDL/{category}/{name}")
     return sorted(found, key=str.lower)
 
 

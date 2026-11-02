@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Save a pack's CurseForge project ID so it appears in the Publish workflow dropdown.
+"""Save a pack's CurseForge project ID in builds/Curseforge_IDs.json (the one shared registry).
 
   python3 scripts/register_curseforge_id.py --project MCPEDL/Addons/Example --id 123456
 """
@@ -19,12 +19,8 @@ def register(project_path, project_id):
     category, name = release.project_from_path(project_path.strip().strip("/"))
     if not (release.REPO_ROOT / "MCPEDL" / category / name).is_dir():
         raise ValueError(f"Project does not exist: MCPEDL/{category}/{name}")
-    info_path = release.REPO_ROOT / "builds" / name / "Curseforge_Info.json"
-    previous = None
-    if info_path.is_file():
-        previous = release.read_info(info_path).get("last_published_version")
-    release.save_info(info_path, f"MCPEDL/{category}/{name}", project_id, previous)
-    return info_path
+    # Keeps last_published_version if the pack was registered before.
+    return release.save_info(f"MCPEDL/{category}/{name}", project_id)
 
 
 def main():
