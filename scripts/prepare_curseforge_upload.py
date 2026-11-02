@@ -17,6 +17,12 @@ REPO_ROOT = Path(builder.REPO_ROOT)
 CHANGELOG_HEADER = re.compile(
     r"^## \[(\d+\.\d+\.\d+)\] - \d{4}-\d{2}-\d{2}\s*$"
 )
+PACKAGE_EXTENSIONS = {
+    "Addons": ".mcaddon",
+    "Maps": ".mcworld",
+    "Script": ".mcpack",
+    "Minigame": ".mcaddon",
+}
 
 
 def latest_changelog_entry(path):
@@ -205,6 +211,11 @@ def prepare(project_path, release_type, provided_id="", map_variant="default"):
     if not package_path.is_file():
         raise ValueError(
             f"Built package is missing: {package_path.relative_to(REPO_ROOT)}"
+        )
+    expected_extension = PACKAGE_EXTENSIONS[category]
+    if package_path.suffix.lower() != expected_extension:
+        raise ValueError(
+            f"{category} must publish {expected_extension}, not {package_path.suffix}"
         )
 
     metadata = {
