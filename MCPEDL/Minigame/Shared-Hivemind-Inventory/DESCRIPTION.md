@@ -89,3 +89,4 @@ The host or an operator starts the shared inventory with the AllensCreations Con
 ## Search & Discovery Keywords
 
 Minecraft Bedrock add-on, Team Inventory Bedrock mod, shared inventory, multiplayer shared items, shared armor and offhand, shared ender chest, shared health and hunger, hard mode, personal inventory layout, team survival inventory, Minecraft PE multiplayer, MCPEDL add-on, CurseForge Bedrock, AllensCreations.
+

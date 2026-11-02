@@ -168,3 +168,4 @@ Configurable via the Behavior Pack subpack settings slider in World Settings:
 ## Search & Discovery Keywords
 
 Universal Clutch Minecraft Bedrock, Multi-Item Clutch Support Bedrock, Dimension-Aware Clutches Bedrock, Dual Hand & Inventory Detection Bedrock, Totem of Undying Fail-Safe Bedrock, Minecraft PE survival, MCPEDL, CurseForge Bedrock, AllensCreations, Minecraft Bedrock add-on, MCPEDL add-on.
+

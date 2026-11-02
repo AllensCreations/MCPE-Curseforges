@@ -89,3 +89,4 @@ After an initial 15-second grace period upon spawning, the roulette begins after
 ## Search & Discovery Keywords
 
 Sudden Death Roulette Minecraft Bedrock, Grace Period Bedrock, Stage 1: The Whispers Bedrock, Stage 2: The Shivers Bedrock, Stage 3: The Toll Bedrock, Minecraft PE survival, MCPEDL, CurseForge Bedrock, AllensCreations, Minecraft Bedrock add-on, MCPEDL add-on.
+

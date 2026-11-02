@@ -68,3 +68,4 @@ Two players share a 15-meter tether. The Breaker handles mining and combat but c
 ## Search & Discovery Keywords
 
 Minecraft Bedrock co-op challenge, Tethered Breaker and Builder, asymmetric two-player survival, Minecraft tether, cooperative mining and building, multiplayer survival minigame, Minecraft PE challenge, MCPEDL, CurseForge Bedrock, AllensCreations, Minecraft Bedrock add-on, MCPEDL add-on.
+

@@ -63,3 +63,4 @@ The Fletching Table becomes a working archery station. A menu shows your current
 ## Search & Discovery Keywords
 
 Minecraft Bedrock add-on, Fletching Table Arsenal Bedrock mod, tactical arrows, explosive arrows, teleportation arrows, frost arrows, incendiary arrows, fletching table menu, Minecraft PE survival, MCPEDL add-on, CurseForge Bedrock, AllensCreations.
+

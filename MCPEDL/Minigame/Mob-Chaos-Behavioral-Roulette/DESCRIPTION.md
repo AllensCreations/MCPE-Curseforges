@@ -69,3 +69,4 @@ Before each mutation, eerie blood-red glitch text flashes on your action bar or 
 ## Search & Discovery Keywords
 
 Minecraft Bedrock add-on, Mob Chaos Behavioral Roulette Bedrock mod, mutating mobs Minecraft Bedrock, chaotic mob traits, creeper fuse animals, flying cows Bedrock, Minecraft PE minigame, MCPEDL add-on, CurseForge Bedrock, AllensCreations.
+

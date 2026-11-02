@@ -82,3 +82,4 @@ Your current OneCoins balance appears in the action bar and updates regularly. T
 ## Search & Discovery Keywords
 
 OneBlock Dirtbound Kingdom Beta, OneBlock void survival, OneCoins economy, central block progression, Trader Ledger shop, Minecraft Bedrock survival map, Minecraft PE map, MCPEDL, CurseForge Bedrock, AllensCreations, Minecraft Bedrock add-on, MCPEDL add-on.
+

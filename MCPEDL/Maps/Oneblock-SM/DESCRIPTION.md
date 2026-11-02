@@ -48,3 +48,4 @@
 ## Search & Discovery Keywords
 
 Minecraft Bedrock add-on, OneBlock Sovereign Market Bedrock mod, Minecraft PE survival, MCPEDL add-on, CurseForge Bedrock, AllensCreations.
+

@@ -72,3 +72,4 @@ Start, restart, or end a run with the Controller item. The challenge is designed
 ## Search & Discovery Keywords
 
 Minecraft Bedrock add-on, Alphabet Scavenger Hunt Bedrock minigame, timed survival challenge, Minecraft PE scavenger hunt, letter item hunt, MCPEDL add-on, CurseForge Bedrock, AllensCreations.
+

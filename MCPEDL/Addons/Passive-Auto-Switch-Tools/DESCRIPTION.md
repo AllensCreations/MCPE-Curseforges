@@ -121,3 +121,4 @@ The add-on aims to preserve tool details when switching items:
 ## Search & Discovery Keywords
 
 Passive Auto-Switch Tools - Automatic Tool Selection by AllensCreations Bedrock add-on, Hotbar Slot 1 Activation Minecraft Bedrock, Block Minecraft Bedrock, Tier Priority Hierarchy Minecraft Bedrock, Item Integrity and Preservation Minecraft Bedrock, Minecraft PE mod, MCPEDL add-on, CurseForge Bedrock, AllensCreations, Minecraft Bedrock add-on.
+

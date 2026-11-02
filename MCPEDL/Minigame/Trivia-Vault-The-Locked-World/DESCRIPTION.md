@@ -57,3 +57,4 @@ Use the Controller as the host or an operator and select Start. In Survival, att
 ## Search & Discovery Keywords
 
 Minecraft Bedrock script, Trivia Vault: The Locked World, survival trivia challenge, general knowledge quiz, randomized answers, block type unlocks, 20-block radius penalty, Hardmode, AllensCreations, Minecraft Bedrock add-on, MCPEDL add-on, CurseForge Bedrock.
+

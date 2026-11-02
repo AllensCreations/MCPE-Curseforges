@@ -66,3 +66,4 @@ Harvest Intelligence automatically replants supported mature crops after you bre
 ## Search & Discovery Keywords
 
 Harvest Intelligence Bedrock add-on, Normal Harvesting Minecraft Bedrock, Automatic Replanting Minecraft Bedrock, Supported Crops Minecraft Bedrock, Crop Trampling Protection Minecraft Bedrock, Minecraft PE mod, MCPEDL add-on, CurseForge Bedrock, AllensCreations, Minecraft Bedrock add-on.
+
