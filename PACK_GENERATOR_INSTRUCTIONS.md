@@ -258,7 +258,7 @@ Applies to every public README, DESCRIPTION, CHANGELOG, and catalog entry. Write
 - Documentation must render cleanly on GitHub, CurseForge, MCPEDL, and Planet Minecraft.
 - No Markdown tables in project READMEs or DESCRIPTIONs. Use `### Feature Name` cards with short bullets (`- **What Happens**: ...`). Catalogs may use tables.
 - Paragraphs of 3-4 sentences at most. Avoid LaTeX notation; use `->` or a Unicode arrow.
-- **No badges and no images in any project README** (add-ons, maps, scripts). Every project `DESCRIPTION.md` must include the two Minecraft Bedrock and Format badges shown in Part 2's template; do not add other badges. Other DESCRIPTION images may only be requested item sprites and crafting recipe diagrams, as described in Part 1, Section 5. Release versions are not shown in project README or DESCRIPTION titles; compatibility versions belong only in verified compatibility details. The one exception is the generated "Collection Size" badge in the root `README.md`, written by `auto_bump_and_build.py` and `delete_project.py`; do not hand-edit it and do not copy it into other files.
+- **No badges and no images in any project README** (add-ons, maps, scripts). Every project `DESCRIPTION.md` must include the two Minecraft Bedrock and Format badges shown in Part 2's template; do not add other badges. Other DESCRIPTION images may only be requested item sprites, crafting recipe diagrams, or the paired clickable platform listing images described in `INSTRUCTIONS.md`, Part 1, Section 5. Release versions are not shown in project README or DESCRIPTION titles; compatibility versions belong only in verified compatibility details. The one exception is the generated "Collection Size" badge in the root `README.md`, written by `auto_bump_and_build.py` and `delete_project.py`; do not hand-edit it and do not copy it into other files.
 - Never allow duplicate suffixes such as `(v1.2.0) (v1.2.1)`.
 - Never copy a legacy MCPEDL description to CurseForge unchanged; adjust in CurseForge's `</>` editor.
 - Use relative paths for links between repository files. Use full URLs in published pages:
@@ -341,20 +341,25 @@ Use a verified direct package URL when one exists; otherwise link the official c
 [![Minecraft Bedrock](https://img.shields.io/badge/Minecraft%20Bedrock-1.21%20--%201.26%2B-brightgreen?style=flat-square&logo=minecraft)](https://github.com/AllensCreations/MCPE-Curseforges)
 [![Format](https://img.shields.io/badge/Format-.MCPACK%20%7C%20.MCADDON%20%7C%20.MCWORLD-blue?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges)
 
-[Concise customer-facing summary.]
+**[Short player-facing tagline]**
+
+> [A concise, factual pitch: what players can do and what makes the experience useful or distinct.]
 
 ## Overview
 
-[Verified description of the in-game experience.]
+[Explain the core gameplay loop and how the pack changes the player's experience.]
 
 ## Key Features
 
 ### [Feature Name]
 - **What Happens**: [Player-facing behavior, using normal Minecraft names.]
+- **How It Works**: [Optional verified detail, only when it helps players understand the feature.]
+
+Add separate feature cards for meaningful mechanics. Put relevant item lists, mob rosters, and verified crafting details inside the matching card; omit sections the pack does not need.
 
 ## How to Use
 
-[Verified player actions, requirements, crafting, and in-game behavior.]
+[How players install, activate, craft, or use the pack, with verified requirements.]
 
 ## Compatibility
 
@@ -365,7 +370,10 @@ Use a verified direct package URL when one exists; otherwise link the official c
 
 ## Creator and Permissions
 
-[CurseForge and MCPEDL profile links.]
+- Creator: AllensCreations
+- Profiles: [CurseForge Profile](https://www.curseforge.com/members/allenscreations/projects) · [MCPEDL Profile](https://mcpedl.com/user/allenscreations/)
+
+When both listing images and verified pack-page URLs are available, place the paired clickable CurseForge and MCPEDL images here. Keep the profile links above as text links.
 
 ## Guidelines and Attribution
 
@@ -377,6 +385,8 @@ Use a verified direct package URL when one exists; otherwise link the official c
 
 [Keywords.]
 ```
+
+Use the reference's clear title/tagline, highlighted pitch, grouped features, and practical details as inspiration. Keep descriptions in portable Markdown instead of copying custom HTML/CSS or spoiler wrappers; rendering must remain clear on CurseForge, MCPEDL, and GitHub. Do not put a release version in the title or add unverified features, compatibility promises, or placeholder images.
 
 **CHANGELOG.md**
 

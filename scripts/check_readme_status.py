@@ -401,9 +401,9 @@ def auto_generate_readme(proj_dir):
         feature = re.sub(r"\bminecraft:[a-z0-9_]+", lambda m: m.group(0).split(":", 1)[1].replace("_", " ").title(), feature, flags=re.IGNORECASE)
         feature = feature.replace("Script API", "in-game interactions")
         title = feature.strip().rstrip(".")
-        feature_cards.append(f"### {title}\n- **Description**: {feature}")
+        feature_cards.append(f"### {title}\n- **What Happens**: {feature}")
     if not feature_cards:
-        feature_cards.append("### Included Gameplay\n- **Description**: Review the included features and pack settings for the exact behavior provided.")
+        feature_cards.append("### Included Gameplay\n- **What Happens**: Review the included features and pack settings for the exact behavior provided.")
 
     feature_section = "\n\n".join(feature_cards)
     interaction_cards = []
@@ -413,16 +413,26 @@ def auto_generate_readme(proj_dir):
     interaction_section = "\n\n".join(interaction_cards) if interaction_cards else "Use the in-game interactions provided by the add-on. Refer to the included pack settings and item descriptions for supported controls."
 
     achievement = "Likely achievement-friendly." if category == "Addons" else "Unknown / needs confirmation."
+    project_type = {
+        "Addons": "add-on",
+        "Maps": "map",
+        "Script": "script pack",
+        "Minigame": "minigame",
+    }.get(category, "pack")
     badges = "\n".join(DESCRIPTION_BADGES)
-    content = f"""# {clean_name}
+    content = f"""# {clean_name} — Minecraft Bedrock {project_type.title()}
 
 **By AllensCreations**
 
 {badges}
 
+**A player-focused Minecraft Bedrock {project_type}.**
+
+> {clean_name} adds gameplay behavior to Minecraft Bedrock Edition. The feature list below is based on inspected project files; confirm world-specific requirements in the target game.
+
 ## Overview
 
-{clean_name} adds gameplay behavior to Minecraft Bedrock Edition. The included features below are based on the files present in this project; confirm any world-specific requirements in the target game.
+Explore the verified gameplay and interactions described in the feature cards below.
 
 ## Key Features
 

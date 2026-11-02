@@ -49,7 +49,7 @@ Follow `README_GUIDELINES.md` for file roles, writing rules, and templates. Migr
 
 ### 6. Images, badges, links
 
-- README.md files contain no images. DESCRIPTION.md images are limited to requested item sprites and crafting diagrams, following the recipe image rules in `INSTRUCTIONS.md`. Confirm every image exists and use absolute raw GitHub URLs.
+- README.md files contain no images. DESCRIPTION.md images are limited to requested item sprites, crafting diagrams, and the optional paired clickable CurseForge/MCPEDL listing images described in `INSTRUCTIONS.md`. Confirm every image exists and use absolute raw GitHub URLs.
 - Do not add badges to project README files. Every DESCRIPTION.md must include the two exact Minecraft Bedrock and Format badges from the repository template, exactly once each, and no other badges. Leave no placeholders in finished files.
 - Verify that every link destination exists.
 

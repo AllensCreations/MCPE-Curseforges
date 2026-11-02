@@ -178,6 +178,14 @@ def style_report(path, notices, label):
     if path.name == "DESCRIPTION.md":
         for badge in DESCRIPTION_BADGES:
             text = text.replace(badge, "")
+        text = re.sub(
+            r"\[!\[(?:CurseForge|MCPEDL)[^\]]*\]\("
+            r"https://raw\.githubusercontent\.com/AllensCreations/MCPE-Curseforges/main/assets/Images/[^)\s]+"
+            r"\)\]\((?:https?://(?:www\.)?curseforge\.com/[^)\s]+|https?://mcpedl\.com/[^)\s]+)\)",
+            "",
+            text,
+            flags=re.IGNORECASE,
+        )
     found = [f"{name} x{len(rx.findall(text))}" for name, rx in STYLE_CHECKS if rx.search(text)]
     if found:
         notices.append(f"{label}: style issues to fix by hand (Part 2): " + ", ".join(found) + ".")

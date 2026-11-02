@@ -327,9 +327,10 @@ def compliant_docs(ptype, name, version, ext=None, date="2026-01-01"):
     cards = "\n".join(f"### Feature {i}\n- **What Happens**: Players can use feature {i} in the world.\n" for i in range(1, 9))
     achievement = "Likely achievement-friendly." if ptype == "addon" else "Unknown / needs confirmation."
     description = (f"# {name} (v{version}) — A clear factual subtitle\n\n**By AllensCreations**\n\n"
-                   f"{DESCRIPTION_BADGES[0]}\n{DESCRIPTION_BADGES[1]}\n\nA short summary for players.\n\n"
+                   f"{DESCRIPTION_BADGES[0]}\n{DESCRIPTION_BADGES[1]}\n\n"
+                   f"**A short player-facing tagline.**\n\n> A concise, factual pitch explains what players can do and what makes the experience distinct.\n\n"
                    f"## Overview\n\nThis creation adds a small experience to your world.\n\n## Key Features\n\n{cards}\n"
-                   f"## How to Use\n\nUse the items you receive in the world.\n\n## Compatibility\n\n"
+                   f"## How to Use\n\nUse the items and interactions provided in the world.\n\n## Compatibility\n\n"
                    f"- Minecraft Bedrock Edition: 1.21.0 or newer.\n- Experimental features: Not verified.\n"
                    f"- Achievements: {achievement}\n- Verification: Source created, not tested in game.\n\n"
                    f"## Creator and Permissions\n\n- Creator: AllensCreations\n- Profiles: [CurseForge Profile]({CF_URL}) · [MCPEDL Profile]({MP_URL})\n\n"

@@ -143,6 +143,21 @@ Shaped recipes use an object and shapeless recipes use an array, which is the fo
 - Use verified absolute raw GitHub URLs. Confirm every referenced image exists, is committed, and matches the item or recipe. Remove outdated images.
 - Item sprites use the real texture from the add-on or an authoritative vanilla source.
 
+#### Optional platform listing images
+
+- When the user supplies both platform images, add them as clickable links in the `Creator and Permissions` section. Keep the existing creator profile links; the image links should lead to the pack's own CurseForge and MCPEDL listings.
+- Store optimized 16:9 JPEGs at `assets/Images/<project-slug>-curseforge.jpg` and `assets/Images/<project-slug>-mcpedl.jpg`. Do not create placeholders or invent listing URLs.
+- Link each image with Markdown using the full raw GitHub asset URL and the verified listing URL:
+
+  Replace the example pack name, asset slug, and listing paths with the actual verified values before publishing.
+
+  ```markdown
+  [![CurseForge — Pack name](https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/assets/Images/pack-slug-curseforge.jpg)](https://www.curseforge.com/minecraft/mc-mods/verified-pack-page)
+  [![MCPEDL — Pack name](https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/assets/Images/pack-slug-mcpedl.jpg)](https://mcpedl.com/verified-pack-page/)
+  ```
+
+- Include the pair only when both images and both listing URLs are available. Preview the result on CurseForge and MCPEDL before using it in published descriptions; if either platform does not render clickable images, do not use the pair there.
+
 #### Diagram rules
 
 - Build diagrams programmatically from the actual recipe JSON, the add-on's real result texture, and vanilla textures from Mojang's Bedrock Samples (root from the `BEDROCK_SAMPLES_ROOT` environment variable; the recipe-image workflow clones it to `/tmp/bedrock-samples`). The recipe JSON is authoritative for ingredients, quantities, result, count, and shaped/shapeless behavior. Never change a recipe to fit an image.
@@ -420,7 +435,7 @@ Applies to every public README, DESCRIPTION, CHANGELOG, and catalog entry. Write
 - Documentation must render cleanly on GitHub, CurseForge, MCPEDL, and Planet Minecraft.
 - No Markdown tables in project READMEs or DESCRIPTIONs. Use `### Feature Name` cards with short bullets (`- **What Happens**: ...`). Catalogs may use tables.
 - Paragraphs of 3-4 sentences at most. Avoid LaTeX notation; use `->` or a Unicode arrow.
-- **No badges and no images in any project README** (add-ons, maps, scripts). Every project `DESCRIPTION.md` must include the two Minecraft Bedrock and Format badges shown in Part 2's template; do not add other badges. Other DESCRIPTION images may only be requested item sprites and crafting recipe diagrams, as described in Part 1, Section 5. Release versions are not shown in project README or DESCRIPTION titles; compatibility versions belong only in verified compatibility details. The one exception is the generated "Collection Size" badge in the root `README.md`, written by `auto_bump_and_build.py` and `delete_project.py`; do not hand-edit it and do not copy it into other files.
+- **No badges and no images in any project README** (add-ons, maps, scripts). Every project `DESCRIPTION.md` must include the two Minecraft Bedrock and Format badges shown in Part 2's template; do not add other badges. Other DESCRIPTION images may only be requested item sprites, crafting recipe diagrams, or the paired clickable platform listing images described in Part 1, Section 5. Release versions are not shown in project README or DESCRIPTION titles; compatibility versions belong only in verified compatibility details. The one exception is the generated "Collection Size" badge in the root `README.md`, written by `auto_bump_and_build.py` and `delete_project.py`; do not hand-edit it and do not copy it into other files.
 - Never allow duplicate suffixes such as `(v1.2.0) (v1.2.1)`.
 - Never copy a legacy MCPEDL description to CurseForge unchanged; adjust in CurseForge's `</>` editor.
 - Use relative paths for links between repository files. Use full URLs in published pages:
@@ -503,20 +518,25 @@ Use a verified direct package URL when one exists; otherwise link the official c
 [![Minecraft Bedrock](https://img.shields.io/badge/Minecraft%20Bedrock-1.21%20--%201.26%2B-brightgreen?style=flat-square&logo=minecraft)](https://github.com/AllensCreations/MCPE-Curseforges)
 [![Format](https://img.shields.io/badge/Format-.MCPACK%20%7C%20.MCADDON%20%7C%20.MCWORLD-blue?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges)
 
-[Concise customer-facing summary.]
+**[Short player-facing tagline]**
+
+> [A concise, factual pitch: what players can do and what makes the experience useful or distinct.]
 
 ## Overview
 
-[Verified description of the in-game experience.]
+[Explain the core gameplay loop and how the pack changes the player's experience.]
 
 ## Key Features
 
 ### [Feature Name]
 - **What Happens**: [Player-facing behavior, using normal Minecraft names.]
+- **How It Works**: [Optional verified detail, only when it helps players understand the feature.]
+
+Add separate feature cards for meaningful mechanics. Put relevant item lists, mob rosters, and verified crafting details inside the matching card; omit sections the pack does not need. Keep crafting diagrams or item sprites only when they help explain a real feature.
 
 ## How to Use
 
-[Verified player actions, requirements, crafting, and in-game behavior.]
+[How players install, activate, craft, or use the pack, with verified requirements.]
 
 ## Compatibility
 
@@ -527,7 +547,10 @@ Use a verified direct package URL when one exists; otherwise link the official c
 
 ## Creator and Permissions
 
-[CurseForge and MCPEDL profile links.]
+- Creator: AllensCreations
+- Profiles: [CurseForge Profile](https://www.curseforge.com/members/allenscreations/projects) · [MCPEDL Profile](https://mcpedl.com/user/allenscreations/)
+
+When both listing images and verified pack-page URLs are available, place the paired clickable CurseForge and MCPEDL images here. Keep the profile links above as text links.
 
 ## Guidelines and Attribution
 
@@ -539,6 +562,8 @@ Use a verified direct package URL when one exists; otherwise link the official c
 
 [Keywords.]
 ```
+
+Use this as the visual structure: a clear title and tagline, a short highlighted pitch, scannable feature cards, then practical compatibility and creator details. Keep `DESCRIPTION.md` in portable Markdown rather than copying the reference's custom HTML/CSS or spoiler wrappers; rendering must remain clear on CurseForge, MCPEDL, and GitHub. Do not put a release version in the title, and do not add unverified features, compatibility promises, or placeholder images.
 
 **CHANGELOG.md**
 
@@ -590,7 +615,7 @@ Discover the actual folder structure first. Do not assume a folder or file exist
 3. **Verify project facts.** Read the relevant files before writing any claim. Establish, when evidence permits: what the project does, which features exist, how they are activated or configured, whether settings persist, required packs and dependencies, supported versions, known limitations, and achievement and experiment status (Part 1, Section 2). Never infer a feature from a name alone, and distinguish implemented behavior from planned behavior. When a document names a vanilla item or block, verify its name and sprite against Sections 4 and 5 below.
 4. **Check references before writing.** Before creating or substantially rewriting a README or DESCRIPTION, read the root README, the category catalog, the builds README, and two or three well-documented projects of the same category. Reuse conventions, not project-specific claims. Verify a reference's links, image paths, and claims before adopting anything from it.
 5. **Write or update.** Follow Part 2. Do not add a feature merely because it was requested if it is not implemented. Omit installation steps entirely if the user asks.
-6. **Images, badges, links.** README.md files contain no images and no badges. Every DESCRIPTION.md includes the two exact badges in its template, with no additional badges. Other DESCRIPTION.md images are limited to requested item sprites and crafting diagrams, with absolute raw GitHub URLs that you have confirmed exist. Leave no placeholders. Verify that every link destination exists.
+6. **Images, badges, links.** README.md files contain no images and no badges. Every DESCRIPTION.md includes the two exact badges in its template, with no additional badges. Other DESCRIPTION.md images are limited to requested item sprites, crafting diagrams, and (when both images and actual listing URLs are provided) the paired clickable CurseForge/MCPEDL listing images described in Part 1, Section 5. Confirm every asset exists, use absolute raw GitHub URLs, and verify every link destination. Leave no placeholders.
 7. **Synchronize catalogs and builds.** Check whether the project appears in its category catalog, the root README, and the builds README. Update only relevant entries, search first to avoid duplicates, and keep established ordering. Inspect any build script before running it. A known command is `python3 scripts/auto_bump_and_build.py --project "<Project-Name>"`. The builder never changes manifest versions. Never claim a build or sync completed if it failed or was not run.
 8. **Verify.**
    1. Re-read the whole edited file, and check headings, lists, and links.

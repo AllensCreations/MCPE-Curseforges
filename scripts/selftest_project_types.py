@@ -164,6 +164,12 @@ def main() -> int:
         and "- Achievements: Likely achievement-friendly." in standardized,
         "description: standardization applies profile, badge, and achievement policy",
     )
+    hero_images = (
+        "\n[![CurseForge — Sample](https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/assets/Images/sample-curseforge.jpg)]"
+        "(https://www.curseforge.com/minecraft/mc-mods/sample)\n"
+        "[![MCPEDL — Sample](https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/assets/Images/sample-mcpedl.jpg)]"
+        "(https://mcpedl.com/sample/)\n"
+    )
     for ptype in ("addon", "map", "script", "minigame"):
         description = doc_template.compliant_docs(ptype, "Sample Pack", "1.0.0")["DESCRIPTION.md"]
         badge_errors = []
@@ -197,6 +203,40 @@ def main() -> int:
         upload_spec.loader.exec_module(uploader)
         uploader.REPO_ROOT = root
         uploader.builder.REPO_ROOT = str(root)
+
+        image_project = sample(root, "addon", "Description-Image-Test")
+        image_description = image_project / "DESCRIPTION.md"
+        image_description.write_text(
+            image_description.read_text(encoding="utf-8").replace(
+                "## Creator and Permissions", "## Creator and Permissions\n" + hero_images
+            ),
+            encoding="utf-8",
+        )
+        image_errors = doc_template.check_docs(image_project, "addon")
+        image_notices = []
+        remake_docs.style_report(image_description, image_notices, "image-test")
+        ok(not image_errors and not image_notices,
+           "description: clickable platform listing images pass validation and style checks")
+
+        generated_source = sample(root, "addon", "Description-Template-Test")
+        generated_project = root / "MCPEDL/Addons/Description-Template-Test"
+        generated_project.parent.mkdir(parents=True, exist_ok=True)
+        shutil.copytree(generated_source, generated_project)
+        (generated_project / "DESCRIPTION.md").unlink()
+        remake_docs.crs.REPO_ROOT = str(root)
+        remake_docs.crs.auto_generate_readme(str(generated_project))
+        generated_errors = []
+        generated_text = (generated_project / "DESCRIPTION.md").read_text(encoding="utf-8")
+        doc_template.check_description(
+            generated_text, doc_template.manifest_version(generated_project), generated_errors
+        )
+        doc_template.check_description_badges(generated_text, generated_errors)
+        ok(
+            not generated_errors
+            and "**A player-focused Minecraft Bedrock add-on.**" in generated_text
+            and "> Description-Template-Test adds gameplay behavior" in generated_text,
+            "description: auto-generation follows the player-focused template",
+        )
 
         upload_source = sample(root, "addon", "Curseforge-Test")
         upload_project = root / "MCPEDL/Addons/Curseforge-Test"
