@@ -24,16 +24,16 @@ Combines dynamic lighting, offhand quick-swap, automatic tool selection, tree ca
 
 ### Tree Harvesting
 - **Vanilla Bedrock**: 1 log at a time
-- **With Vanilla QoL**: Fells entire trees up to 128 logs; the No Sneak subpack works without sneaking while an axe is held in selected hotbar slot 1
+- **With Vanilla QoL**: Fells entire trees up to 128 logs; the Auto Chain Mine subpack works without sneaking while an axe is held in selected hotbar slot 1
 
 ### Ore Vein Mining
 - **Vanilla Bedrock**: 1 ore block at a time
-- **With Vanilla QoL**: Domino mines contiguous ore veins across 26 neighbors; the No Sneak subpack works without sneaking while a pickaxe is held in selected hotbar slot 1
+- **With Vanilla QoL**: Domino mines contiguous ore veins across 26 neighbors; the Auto Chain Mine subpack works without sneaking while a pickaxe is held in selected hotbar slot 1
 
 ### Optional Mining Subpacks
-- **No Sneak (Slot 1 Required)**: Tree Capitator and Domino Ore Miner work without sneaking, only while the required axe or pickaxe is held in the selected first hotbar slot.
-- **Both Off**: Disables Tree Capitator and Domino Ore Miner while keeping the rest of Vanilla QoL active.
-- **Default (Sneak Required)**: Both mining features remain enabled and require sneaking, preserving the usual behavior.
+- **Auto Chain Mine: Tool in Slot 1**: Tree Capitator and Domino Ore Miner trigger without sneaking, but only while an axe or pickaxe is held in the first hotbar slot. Every log or ore you break with that tool is chain mined.
+- **Chain Mining Off (Other Features On)**: Disables Tree Capitator and Domino Ore Miner while every other feature stays active.
+- **Sneak to Chain Mine (Default)**: Tree Capitator and Domino Ore Miner are on and trigger only while you sneak, so normal chopping and mining stay unchanged.
 - Choose one preset in the Behavior Pack's subpack settings. Changes may require reactivating the pack or reloading the world.
 ### Tool Durability Safety
 - **Vanilla Bedrock**: Tools break unexpectedly
@@ -94,7 +94,7 @@ Combines dynamic lighting, offhand quick-swap, automatic tool selection, tree ca
 - Low durability penalty: Automatically favors healthy tools so nearly-broken tools aren't worn down.
 
 #### 2. Smart Tree Capitator (Axe; sneak requirement depends on selected subpack)
-- With Default, sneak while chopping any tree log with an axe to fell the entire tree. No Sneak removes this requirement while the axe is held in selected hotbar slot 1:
+- With Sneak to Chain Mine (Default), sneak while chopping any tree log with an axe to fell the entire tree. Auto Chain Mine removes this requirement while the axe is held in selected hotbar slot 1:
   - **Upward-Biased connected-log search**: Connects same-level and upward logs, including diagonal branches, without searching below the stump.
   - **Species Matching**: Enforces strict wood species matching (Oak only fells Oak) to prevent chain reactions into adjacent trees.
   - **The Leaf Scan (Build & Bush Protection)**: Ignores player-placed decorative leaves (harvested with shears), protecting your custom bushes, hedges, and roof designs while exclusively verifying natural tree canopies.
@@ -103,7 +103,7 @@ Combines dynamic lighting, offhand quick-swap, automatic tool selection, tree ca
   - **Capacity Limit**: Up to 128 logs per tree operation.
 
 #### 3. Domino Ore Miner (Pickaxe; sneak requirement depends on selected subpack)
-- With Default, sneak while mining any mineral ore with a pickaxe to harvest the connected ore vein. No Sneak removes this requirement while the pickaxe is held in selected hotbar slot 1:
+- With Sneak to Chain Mine (Default), sneak while mining any mineral ore with a pickaxe to harvest the connected ore vein. Auto Chain Mine removes this requirement while the pickaxe is held in selected hotbar slot 1:
   - **connected-block Detection**: Sweeps faces, edges, and corners across all 3 spatial dimensions.
   - **Category Normalization**: Normalizes stone and deepslate variants (e.g. Coal Ore and Deepslate Coal Ore chain together).
   - **Fortune & Silk Touch**: Honors Silk Touch block drops and Fortune bonuses; Redstone Fortune adds extra dust instead of multiplying it.

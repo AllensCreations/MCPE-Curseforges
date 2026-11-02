@@ -5,6 +5,7 @@
 ## [1.3.28] - 2026-11-01
 
 ### Improved & Balanced
+- **Clearer Mining Presets**: The three mining presets in the pack settings now describe what they do: Sneak to Chain Mine (Default), Auto Chain Mine: Tool in Slot 1, and Chain Mining Off (Other Features On).
 
 - **Resource Pack Included**: The Behavior Pack now requires its Resource Pack, so both are enabled together when you activate it.
 

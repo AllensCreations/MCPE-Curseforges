@@ -62,17 +62,17 @@
   "subpacks": [
     {
       "folder_name": "no_sneak_slot1",
-      "name": "No Sneak (Slot 1 Required)",
+      "name": "Auto Chain Mine: Tool in Slot 1",
       "memory_tier": 0
     },
     {
       "folder_name": "vanilla_mining",
-      "name": "Both Off",
+      "name": "Chain Mining Off (Other Features On)",
       "memory_tier": 0
     },
     {
       "folder_name": "default",
-      "name": "Default (Sneak Required)",
+      "name": "Sneak to Chain Mine (Default)",
       "memory_tier": 0
     }
   ]
