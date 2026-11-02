@@ -8,9 +8,7 @@ This folder contains compiled release packages for **Vanilla Quality of Life** b
 
 | File Name | Format | Size | Description | Download Link |
 | :--- | :--- | :--- | :--- | :--- |
-| **`Vanilla Quality of Life by AllensCreations (V1.3.27).mcaddon`** | `.mcaddon` | ~597 KB | Complete bundle containing both Behavior Pack and Resource Pack. | [Download (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Vanilla-Quality-of-Life/Vanilla%20Quality%20of%20Life%20by%20AllensCreations%20%28V1.3.27%29.mcaddon) |
-| **`Vanilla Quality of Life BP by AllensCreations (V1.3.27).mcpack`** | `.mcpack` | ~467 KB | Behavior Pack: Custom entities, components, and gameplay mechanics. | [Download (.mcpack)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Vanilla-Quality-of-Life/Vanilla%20Quality%20of%20Life%20BP%20by%20AllensCreations%20%28V1.3.27%29.mcpack) |
-| **`Vanilla Quality of Life RP by AllensCreations (V1.3.27).mcpack`** | `.mcpack` | ~107 KB | Resource Pack: Custom models, geometry, textures, and sounds. | [Download (.mcpack)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Vanilla-Quality-of-Life/Vanilla%20Quality%20of%20Life%20RP%20by%20AllensCreations%20%28V1.3.27%29.mcpack) |
+| **`Vanilla Quality of Life by AllensCreations (V1.3.27).mcaddon`** | `.mcaddon` | ~598 KB | Complete bundle containing both Behavior Pack and Resource Pack. | [Download (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Vanilla-Quality-of-Life/Vanilla%20Quality%20of%20Life%20by%20AllensCreations%20%28V1.3.27%29.mcaddon) |
 
 ---
 
@@ -22,7 +20,7 @@ For general import instructions, refer to the centralized [Download and Installa
 
 ## Source Files
 To inspect uncompressed JSON files, geometry, render controllers, and textures:
-- [View Source Files](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/addons/Vanilla-Quality-of-Life)
+- [View Source Files](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/Vanilla-Quality-of-Life/)
 
 ---
 

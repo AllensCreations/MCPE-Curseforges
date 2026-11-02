@@ -35,7 +35,7 @@ except ImportError:
 BASE_DIR = os.path.abspath(os.path.dirname(__file__))
 
 def get_projects():
-    """Discovers repository root and all sub-projects (addons, maps, scripts)."""
+    """Discovers the root and projects in all four pack categories."""
     projects = []
 
     # 1. Root project
@@ -54,9 +54,9 @@ def get_projects():
         "readmeExists": os.path.exists(os.path.join(BASE_DIR, "README.md")),
     })
 
-    # 2. Addons (check MCPEDL/addons or addons)
-    addons_dir = os.path.join(BASE_DIR, "MCPEDL", "addons") if os.path.exists(os.path.join(BASE_DIR, "MCPEDL", "addons")) else os.path.join(BASE_DIR, "addons")
-    addons_rel = "MCPEDL/addons" if "MCPEDL" in addons_dir else "addons"
+    # 2. Add-ons
+    addons_dir = os.path.join(BASE_DIR, "MCPEDL", "Addons")
+    addons_rel = "MCPEDL/Addons"
     if os.path.exists(addons_dir):
         for name in sorted(os.listdir(addons_dir)):
             full = os.path.join(addons_dir, name)
@@ -97,9 +97,9 @@ def get_projects():
                     "readmeExists": os.path.exists(os.path.join(BASE_DIR, readme_path)),
                 })
 
-    # 3. Maps (check MCPEDL/maps or maps)
-    maps_dir = os.path.join(BASE_DIR, "MCPEDL", "maps") if os.path.exists(os.path.join(BASE_DIR, "MCPEDL", "maps")) else os.path.join(BASE_DIR, "maps")
-    maps_rel = "MCPEDL/maps" if "MCPEDL" in maps_dir else "maps"
+    # 3. Maps
+    maps_dir = os.path.join(BASE_DIR, "MCPEDL", "Maps")
+    maps_rel = "MCPEDL/Maps"
     if os.path.exists(maps_dir):
         for name in sorted(os.listdir(maps_dir)):
             full = os.path.join(maps_dir, name)
@@ -121,34 +121,43 @@ def get_projects():
                     "readmeExists": os.path.exists(os.path.join(BASE_DIR, readme_path)),
                 })
 
-    # 4. Scripts (check MCPEDL/script or script)
-    scripts_dir = os.path.join(BASE_DIR, "MCPEDL", "script") if os.path.exists(os.path.join(BASE_DIR, "MCPEDL", "script")) else os.path.join(BASE_DIR, "script")
-    scripts_rel = "MCPEDL/script" if "MCPEDL" in scripts_dir else "script"
-    if os.path.exists(scripts_dir):
-        for name in sorted(os.listdir(scripts_dir)):
-            full = os.path.join(scripts_dir, name)
-            if os.path.isdir(full) and not name.startswith("."):
-                banner_cand = os.path.join(scripts_rel, name, "banner.jpg")
-                for f in os.listdir(full):
-                    if (f.endswith(".jpg") or f.endswith(".png")) and not f.startswith("pack_icon") and not f.startswith("mcpedl"):
-                        banner_cand = os.path.join(scripts_rel, name, f)
-                        break
-                icon_path = os.path.join(scripts_rel, name, "pack_icon.png")
-                if not os.path.exists(os.path.join(BASE_DIR, icon_path)):
-                    icon_path = os.path.join(scripts_rel, name, "mcpedl.png")
-                readme_path = os.path.join(scripts_rel, name, "README.md")
-                projects.append({
-                    "id": f"{scripts_rel}/{name}",
-                    "name": name.replace("-", " "),
-                    "category": "script",
-                    "dir": os.path.join(scripts_rel, name),
-                    "readmePath": readme_path,
-                    "bannerPath": banner_cand,
-                    "logoPath": icon_path,
-                    "bannerExists": os.path.exists(os.path.join(BASE_DIR, banner_cand)),
-                    "logoExists": os.path.exists(os.path.join(BASE_DIR, icon_path)),
-                    "readmeExists": os.path.exists(os.path.join(BASE_DIR, readme_path)),
-                })
+    # 4. Standalone Scripts and Minigames
+    for folder, category in (("Script", "script"), ("Minigame", "minigame")):
+        project_dir = os.path.join(BASE_DIR, "MCPEDL", folder)
+        project_rel = f"MCPEDL/{folder}"
+        if not os.path.exists(project_dir):
+            continue
+        for name in sorted(os.listdir(project_dir)):
+            full = os.path.join(project_dir, name)
+            if not os.path.isdir(full) or name.startswith("."):
+                continue
+            banner_cand = os.path.join(project_rel, name, "banner.jpg")
+            for f in os.listdir(full):
+                if (f.endswith(".jpg") or f.endswith(".png")) and not f.startswith("pack_icon") and not f.startswith("mcpedl"):
+                    banner_cand = os.path.join(project_rel, name, f)
+                    break
+            icon_path = os.path.join(project_rel, name, "pack_icon.png")
+            if not os.path.exists(os.path.join(BASE_DIR, icon_path)):
+                icon_path = os.path.join(project_rel, name, "mcpedl.png")
+            readme_path = os.path.join(project_rel, name, "README.md")
+            project_name = name.replace("-", " ")
+            if os.path.isfile(os.path.join(BASE_DIR, readme_path)):
+                with open(os.path.join(BASE_DIR, readme_path), encoding="utf-8") as readme:
+                    heading = readme.readline().strip()
+                if heading.startswith("# "):
+                    project_name = heading[2:].strip()
+            projects.append({
+                "id": f"{project_rel}/{name}",
+                "name": project_name,
+                "category": category,
+                "dir": os.path.join(project_rel, name),
+                "readmePath": readme_path,
+                "bannerPath": banner_cand,
+                "logoPath": icon_path,
+                "bannerExists": os.path.exists(os.path.join(BASE_DIR, banner_cand)),
+                "logoExists": os.path.exists(os.path.join(BASE_DIR, icon_path)),
+                "readmeExists": os.path.exists(os.path.join(BASE_DIR, readme_path)),
+            })
 
     return projects
 

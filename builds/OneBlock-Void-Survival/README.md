@@ -8,7 +8,6 @@ This folder contains compiled release packages for **OneBlock Void Survival** by
 
 | File Name | Format | Size | Description | Download Link |
 | :--- | :--- | :--- | :--- | :--- |
-| **`OneBlock Void Survival BP by AllensCreations (V1.2.18).mcpack`** | `.mcpack` | ~148 KB | Standalone Behavior Pack archive for custom map logic. | [Download (.mcpack)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/OneBlock-Void-Survival/OneBlock%20Void%20Survival%20BP%20by%20AllensCreations%20%28V1.2.18%29.mcpack) |
 | **`OneBlock Void Survival by AllensCreations (V1.2.18).mcworld`** | `.mcworld` | ~264 KB | Complete Survival World archive ready for one-click import. | [Download (.mcworld)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/OneBlock-Void-Survival/OneBlock%20Void%20Survival%20by%20AllensCreations%20%28V1.2.18%29.mcworld) |
 
 ---
@@ -21,7 +20,7 @@ For general import instructions, refer to the centralized [Download and Installa
 
 ## Source Files
 To inspect uncompressed JSON files, geometry, render controllers, and textures:
-- [View Source Files](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/maps/OneBlock-Void-Survival)
+- [View Source Files](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Maps/OneBlock-Void-Survival/)
 
 ---
 

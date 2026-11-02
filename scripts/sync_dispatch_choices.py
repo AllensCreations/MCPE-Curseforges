@@ -14,10 +14,10 @@ import sys
 ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
 WORKFLOW = os.path.join(ROOT, ".github", "workflows", "auto-version-bump.yml")
 CATEGORIES = {
-    "addon": "MCPEDL/addons",
-    "new_addon": "MCPEDL/new_addons",
-    "script": "MCPEDL/script",
-    "map": "MCPEDL/maps",
+    "addon": "MCPEDL/Addons",
+    "script": "MCPEDL/Script",
+    "minigame": "MCPEDL/Minigame",
+    "map": "MCPEDL/Maps",
 }
 MAX_PROJECTS = 24
 

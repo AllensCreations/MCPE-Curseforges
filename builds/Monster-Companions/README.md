@@ -9,8 +9,6 @@ This folder contains compiled release packages for **Monster Companions** by All
 | File Name | Format | Size | Description | Download Link |
 | :--- | :--- | :--- | :--- | :--- |
 | **`Monster Companions by AllensCreations (V1.2.10).mcaddon`** | `.mcaddon` | ~408 KB | Complete bundle containing both Behavior Pack and Resource Pack. | [Download (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Monster-Companions/Monster%20Companions%20by%20AllensCreations%20%28V1.2.10%29.mcaddon) |
-| **`Monster Companions BP by AllensCreations (V1.2.10).mcpack`** | `.mcpack` | ~252 KB | Behavior Pack: Custom entities, components, and gameplay mechanics. | [Download (.mcpack)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Monster-Companions/Monster%20Companions%20BP%20by%20AllensCreations%20%28V1.2.10%29.mcpack) |
-| **`Monster Companions RP by AllensCreations (V1.2.10).mcpack`** | `.mcpack` | ~154 KB | Resource Pack: Custom models, geometry, textures, and sounds. | [Download (.mcpack)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Monster-Companions/Monster%20Companions%20RP%20by%20AllensCreations%20%28V1.2.10%29.mcpack) |
 
 ---
 
@@ -22,7 +20,7 @@ For general import instructions, refer to the centralized [Download and Installa
 
 ## Source Files
 To inspect uncompressed JSON files, geometry, render controllers, and textures:
-- [View Source Files](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/addons/Monster-Companions)
+- [View Source Files](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/Monster-Companions/)
 
 ---
 

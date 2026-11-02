@@ -12,7 +12,7 @@ import zipfile
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
-MAPS_ROOT = ROOT / "MCPEDL" / "maps"
+MAPS_ROOT = ROOT / "MCPEDL" / "Maps"
 GITHUB_RAW = "https://github.com/AllensCreations/MCPE-Curseforges/raw/main"
 
 
@@ -88,13 +88,13 @@ def build_readme(project: Path) -> str:
         "",
         "## Installation",
         "",
-        "1. Download one of the available world variants above.",
-        "2. Open the downloaded .mcworld file with Minecraft Bedrock Edition to import it.",
+        "1. Download the package using the link above.",
+        "2. Open the downloaded file with Minecraft to import it.",
         "3. Find the imported world in your Worlds list and open it.",
         "",
         "## Pack Information",
         "",
-        f"For gameplay features, setup details, compatibility notes, and other project information, read the [full description]({GITHUB_RAW}/{urllib.parse.quote(project.relative_to(ROOT).as_posix())}/DESCRIPTION.md).",
+        f"For gameplay features, usage details, compatibility notes, and other project information, read the [full description]({GITHUB_RAW}/{urllib.parse.quote(project.relative_to(ROOT).as_posix())}/DESCRIPTION.md).",
         "",
     ]
     return "\n".join(lines)

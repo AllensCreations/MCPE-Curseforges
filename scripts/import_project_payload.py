@@ -1,15 +1,16 @@
 #!/usr/bin/env python3
 """Import a base64 ZIP produced by an AI agent into the repository.
 
-Supports three project types, read from project.json inside the payload:
-  addon  -> MCPEDL/new_addons/<Name>/   (LOCK markers are written here)
-  map    -> MCPEDL/maps/<Name>/         (OneBlock; oneblock.json is written here)
-  script -> MCPEDL/script/<Name>/       (test_world.json describes the test world)
+Supports four project types, read from project.json inside the payload:
+  addon    -> MCPEDL/Addons/<Name>/    (LOCK markers are written here)
+  map      -> MCPEDL/Maps/<Name>/      (OneBlock; oneblock.json is written here)
+  script   -> MCPEDL/Script/<Name>/    (Creative test world)
+  minigame -> MCPEDL/Minigame/<Name>/  (Controller and Creative test world)
 
 Modes (--mode):
   auto      update when the project already exists, otherwise create (the workflow's default)
   create    new project only; fails if the name already exists anywhere under MCPEDL/ (default)
-  update    merge the payload into the existing project (addons/ or new_addons/ for add-ons).
+  update    merge the payload into the existing project   (the matching category for the project type).
             Files that are not in the payload (icons, images, LOCK) are kept; nothing is deleted.
             Pack and module UUIDs must match the existing ones and the pack version must be higher.
   overwrite replace the whole project folder with the payload (the old --overwrite flag)
@@ -46,8 +47,8 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 import build_payload as bp  # noqa: E402  (single source of truth for the checks)
 
 DEST = bp.DEST_DIR
-ALL_DIRS = ("addons", "new_addons", "maps", "script")
-COMPAT = {"addon": ("addons", "new_addons"), "map": ("maps",), "script": ("script",)}
+ALL_DIRS = ("Addons", "Maps", "Script", "Minigame")
+COMPAT = {"addon": ("Addons",), "map": ("Maps",), "script": ("Script",), "minigame": ("Minigame",)}
 MODES = ("auto", "create", "update", "overwrite")
 PACKS = ("behavior_pack", "resource_pack")
 MAX_B64 = 36_000_000
@@ -277,7 +278,7 @@ def main() -> None:
         if ptype not in bp.TYPES:
             for e in sorted(set(errors + [f for f in fails if f])):
                 print(f"::error::{e}")
-            fail("Import rejected: project.json type must be addon, map, or script. Nothing was written.")
+            fail("Import rejected: project.json type must be addon, map, script, or minigame. Nothing was written.")
 
         exact, loose = find_projects(root, args.name)
         compat = [(d, c) for d, c in exact if d in COMPAT[ptype]]
@@ -353,7 +354,7 @@ def main() -> None:
                 shutil.rmtree(dest)  # replace the whole folder so no stale files remain
             staging.rename(dest)
 
-    has_tw = (dest / "test_world.json").is_file() and ptype != "map"
+    has_tw = ptype in ("addon", "script", "minigame")
     print(f"Imported {len(files)} file(s) as {ptype} into {dest.relative_to(root)} (mode: {mode})")
     print("Structural validation passed. This does not prove it works in Minecraft.")
     if args.github_output:

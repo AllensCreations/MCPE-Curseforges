@@ -1,0 +1,66 @@
+{
+  "format_version": 2,
+  "header": {
+    "name": "Alphabet Scavenger Hunt (v1.0.9)",
+    "description": "High-stakes 20-round survival challenge. Scavenge items matching the target letter before the 60s timer expires or suffer permanent max health decay!. by AllensCreations",
+    "uuid": "ada4eaa0-2796-4c73-a8c2-7e60d04fcf18",
+    "version": [
+      1,
+      0,
+      9
+    ],
+    "min_engine_version": [
+      1,
+      26,
+      40
+    ]
+  },
+  "modules": [
+    {
+      "description": "Alphabet Scavenger Hunt Data Module",
+      "type": "data",
+      "uuid": "b4ab001a-a533-49f9-a560-6918fb5b0b06",
+      "version": [
+        1,
+        0,
+        9
+      ]
+    },
+    {
+      "description": "Alphabet Scavenger Hunt Game Script",
+      "type": "script",
+      "language": "javascript",
+      "entry": "scripts/main.js",
+      "uuid": "950c903e-42a2-48f3-8e64-60f2af35b73e",
+      "version": [
+        1,
+        0,
+        9
+      ]
+    }
+  ],
+  "dependencies": [
+    {
+      "uuid": "a5f9a639-fe66-47df-8519-bb256701a77e",
+      "version": [
+        1,
+        0,
+        9
+      ]
+    },
+    {
+      "module_name": "@minecraft/server",
+      "version": "2.9.0"
+    },
+    {
+      "module_name": "@minecraft/server-ui",
+      "version": "2.0.0"
+    }
+  ],
+  "metadata": {
+    "authors": [
+      "AllensCreations"
+    ],
+    "product_type": "addon"
+  }
+}

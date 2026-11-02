@@ -1,29 +1,18 @@
-# OneBlock Sovereign Market - Downloads and Releases
+# OneBlock Sovereign Market
 
-This folder contains compiled release packages for **OneBlock Sovereign Market** by AllensCreations.
+Download the current release of **OneBlock Sovereign Market** for Minecraft Bedrock Edition.
 
----
+## Download
 
-## Direct Download Links
+- **Package format:** `.mcworld`
+- **Direct download:** [Download OneBlock Sovereign Market (.mcworld)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/MCPEDL/Maps/Oneblock-SM/OneBlock%20Sovereign%20Market%20-%20Creative.mcworld) · [Download Survival World](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/MCPEDL/Maps/Oneblock-SM/OneBlock%20Sovereign%20Market%20-%20Survival.mcworld) · [Download Hardcore World](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/MCPEDL/Maps/Oneblock-SM/OneBlock%20Sovereign%20Market%20-%20Hardcore.mcworld)
 
-| File Name | Format | Size | Description | Download Link |
-| :--- | :--- | :--- | :--- | :--- |
-| **`OneBlock Sovereign Market by AllensCreations (V1.1.6).mcaddon`** | `.mcaddon` | ~28 KB | Complete bundle containing both Behavior Pack and Resource Pack. | [Download (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Oneblock-SM/OneBlock%20Sovereign%20Market%20by%20AllensCreations%20%28V1.1.6%29.mcaddon) |
-| **`OneBlock Sovereign Market BP by AllensCreations (V1.1.6).mcpack`** | `.mcpack` | ~26 KB | Behavior Pack: Custom entities, components, and gameplay mechanics. | [Download (.mcpack)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Oneblock-SM/OneBlock%20Sovereign%20Market%20BP%20by%20AllensCreations%20%28V1.1.6%29.mcpack) |
-| **`OneBlock Sovereign Market RP by AllensCreations (V1.1.6).mcpack`** | `.mcpack` | ~1 KB | Resource Pack: Custom models, geometry, textures, and sounds. | [Download (.mcpack)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Oneblock-SM/OneBlock%20Sovereign%20Market%20RP%20by%20AllensCreations%20%28V1.1.6%29.mcpack) |
+## Installation
 
----
+1. Download the package using the link above.
+2. Open the downloaded file with Minecraft to import it.
+3. Find the imported world in your Worlds list and open it.
 
-## Installation Guide
+## Pack Information
 
-For general import instructions, refer to the centralized [Download and Installation Guide](https://github.com/AllensCreations/MCPE-Curseforges/blob/main/README.md#compatibility-and-installation).
-
----
-
-## Source Files
-To inspect uncompressed JSON files, geometry, render controllers, and textures:
-- [View Source Files](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/maps/Oneblock-SM)
-
----
-
-© All rights reserved for AllensCreations.
+For gameplay features, usage details, compatibility notes, and other project information, read the [full description](https://github.com/AllensCreations/MCPE-Curseforges/blob/main/MCPEDL/Maps/Oneblock-SM/DESCRIPTION.md).

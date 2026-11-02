@@ -87,16 +87,8 @@ def find_target_project_dirs():
     """Returns dict of project_dir -> category_path for all known categories."""
     projects = {}
     categories = [
-        "MCPEDL/addons", "MCPEDL/new_addons", "MCPEDL/script", "MCPEDL/maps",
+        "MCPEDL/Addons", "MCPEDL/Maps", "MCPEDL/Script", "MCPEDL/Minigame",
     ]
-    mcpedl_dir = os.path.join(REPO_ROOT, "MCPEDL")
-    if os.path.isdir(mcpedl_dir):
-        for sub in sorted(os.listdir(mcpedl_dir)):
-            subpath = os.path.join(mcpedl_dir, sub)
-            if os.path.isdir(subpath):
-                rel_cat = f"MCPEDL/{sub}"
-                if rel_cat not in categories:
-                    categories.append(rel_cat)
     for cat in categories:
         cat_path = os.path.join(REPO_ROOT, cat)
         if os.path.isdir(cat_path):
@@ -274,12 +266,13 @@ def _get_pack_type(project_path, category, version_str="1.0.0"):
     world_dir = os.path.join(project_path, "world")
     title = get_project_title(project_path)
 
-    if "maps" in category and os.path.isdir(world_dir):
+    kind = os.path.basename(category).lower()
+    if kind == "maps":
         return "Custom Map (`.mcworld`)", "mcworld", f"{title} by AllensCreations (V{version_str}).mcworld"
-    elif os.path.isdir(bp_dir) and os.path.isdir(rp_dir):
+    elif kind in {"addons", "minigame"}:
         return "Complete Pack (`.mcaddon`)", "mcaddon", f"{title} by AllensCreations (V{version_str}).mcaddon"
     else:
-        return "Script Behavior Pack (`.mcpack`)", "mcpack", f"{title} by AllensCreations (V{version_str}).mcpack"
+        return "Script Pack (`.mcpack`)", "mcpack", f"{title} by AllensCreations (V{version_str}).mcpack"
 
 
 # ─────────────────────────────────────────────────────────────────────────────
@@ -336,14 +329,6 @@ def rebuild_project_packages(project_path, category, version_str=None):
     if make_pack_icon is not None:
         make_pack_icon.ensure_project_icons(project_path)
 
-    # Clean old binaries in build_dir
-    for ext in ("*.mcaddon", "*.mcpack", "*.mcworld"):
-        for old_f in glob.glob(os.path.join(build_dir, ext)):
-            try:
-                os.remove(old_f)
-            except OSError:
-                pass
-
     bp_dir = os.path.join(project_path, "behavior_pack")
     rp_dir = os.path.join(project_path, "resource_pack")
     world_dir = os.path.join(project_path, "world")
@@ -351,12 +336,25 @@ def rebuild_project_packages(project_path, category, version_str=None):
     has_bp = os.path.isdir(bp_dir)
     has_rp = os.path.isdir(rp_dir)
     has_world = os.path.isdir(world_dir)
+    kind = os.path.basename(category).lower()
+    buildable = (
+        (kind == "maps" and has_world)
+        or (kind in {"addons", "minigame"} and (has_bp or has_rp))
+        or (kind == "script" and has_bp and not has_rp)
+    )
+    if buildable:
+        for ext in ("*.mcaddon", "*.mcpack", "*.mcworld"):
+            for old_f in glob.glob(os.path.join(build_dir, ext)):
+                try:
+                    os.remove(old_f)
+                except OSError:
+                    pass
 
     built_files = []
     primary_file = None
 
     # 1. Custom Map
-    if "maps" in category and has_world:
+    if kind == "maps" and has_world:
         # Clean any old binaries inside project directory as well
         for ext in ("*.mcworld", "*.mcpack"):
             for old_map in glob.glob(os.path.join(project_path, ext)):
@@ -366,17 +364,6 @@ def rebuild_project_packages(project_path, category, version_str=None):
                     pass
 
         mcworld_name = f"{title} by AllensCreations (V{version_str}).mcworld"
-        bp_pack_name = f"{title} BP by AllensCreations (V{version_str}).mcpack"
-
-        if has_bp:
-            mcpack_path = os.path.join(build_dir, bp_pack_name)
-            zip_directory_contents(bp_dir, mcpack_path)
-            shutil.copy2(mcpack_path, os.path.join(project_path, bp_pack_name))
-            built_files.append((
-                bp_pack_name, "mcpack", _format_size(mcpack_path),
-                "Standalone Behavior Pack archive for custom map logic."
-            ))
-            print(f"  Built: {os.path.relpath(mcpack_path, REPO_ROOT)}")
 
         dest_world_bp = os.path.join(world_dir, "behavior_packs", "OneBlockVoid")
         if os.path.isdir(dest_world_bp) and has_bp:
@@ -401,10 +388,8 @@ def rebuild_project_packages(project_path, category, version_str=None):
         print(f"  Built: {os.path.relpath(target_build, REPO_ROOT)}")
 
     # 2. Combined BP + RP Add-on
-    elif has_bp and has_rp:
+    elif kind in {"addons", "minigame"} and has_bp and has_rp:
         addon_name = f"{title} by AllensCreations (V{version_str}).mcaddon"
-        bp_pack_name = f"{title} BP by AllensCreations (V{version_str}).mcpack"
-        rp_pack_name = f"{title} RP by AllensCreations (V{version_str}).mcpack"
 
         mcaddon_path = os.path.join(build_dir, addon_name)
         slug = project_name.replace("-", "_")
@@ -423,46 +408,30 @@ def rebuild_project_packages(project_path, category, version_str=None):
         ))
         print(f"  Built: {os.path.relpath(mcaddon_path, REPO_ROOT)}")
 
-        # Build standalone BP mcpack
-        bp_mcpack_path = os.path.join(build_dir, bp_pack_name)
-        zip_directory_contents(bp_dir, bp_mcpack_path)
-        built_files.append((
-            bp_pack_name, "mcpack", _format_size(bp_mcpack_path),
-            "Behavior Pack: Custom entities, components, and gameplay mechanics."
-        ))
-        print(f"  Built: {os.path.relpath(bp_mcpack_path, REPO_ROOT)}")
-
-        # Build standalone RP mcpack
-        rp_mcpack_path = os.path.join(build_dir, rp_pack_name)
-        zip_directory_contents(rp_dir, rp_mcpack_path)
-        built_files.append((
-            rp_pack_name, "mcpack", _format_size(rp_mcpack_path),
-            "Resource Pack: Custom models, geometry, textures, and sounds."
-        ))
-        print(f"  Built: {os.path.relpath(rp_mcpack_path, REPO_ROOT)}")
-
     # 3. BP-only (Scripts / Addon without RP)
-    elif has_bp and not has_rp:
-        pack_name = f"{title} by AllensCreations (V{version_str}).mcpack"
+    elif kind in {"addons", "minigame"} and (has_bp or has_rp):
         addon_name = f"{title} by AllensCreations (V{version_str}).mcaddon"
+        slug = project_name.replace("-", "_")
+        entries = []
+        if has_bp:
+            entries.extend(_collect_zip_entries(bp_dir, f"{slug}_BP"))
+        if has_rp:
+            entries.extend(_collect_zip_entries(rp_dir, f"{slug}_RP"))
+        mcaddon_path = os.path.join(build_dir, addon_name)
+        _write_zip(mcaddon_path, entries)
+        primary_file = addon_name
+        built_files.append((addon_name, "mcaddon", _format_size(mcaddon_path),
+                            "Complete Add-on package for Minecraft Bedrock."))
+        print(f"  Built: {os.path.relpath(mcaddon_path, REPO_ROOT)}")
 
+    elif kind == "script" and has_bp and not has_rp:
+        pack_name = f"{title} by AllensCreations (V{version_str}).mcpack"
         mcpack_path = os.path.join(build_dir, pack_name)
         zip_directory_contents(bp_dir, mcpack_path)
         primary_file = pack_name
-        built_files.append((
-            pack_name, "mcpack", _format_size(mcpack_path),
-            "Script Behavior Pack archive ready for import."
-        ))
+        built_files.append((pack_name, "mcpack", _format_size(mcpack_path),
+                            "Script Behavior Pack archive ready for import."))
         print(f"  Built: {os.path.relpath(mcpack_path, REPO_ROOT)}")
-
-        # Also provide .mcaddon
-        mcaddon_path = os.path.join(build_dir, addon_name)
-        zip_directory_contents(bp_dir, mcaddon_path)
-        built_files.append((
-            addon_name, "mcaddon", _format_size(mcaddon_path),
-            "Complete Add-on package archive."
-        ))
-        print(f"  Built: {os.path.relpath(mcaddon_path, REPO_ROOT)}")
 
     return primary_file, built_files
 
@@ -584,6 +553,8 @@ def update_project_readme(project_path, category, new_ver_str, primary_file=None
     readme_path = os.path.join(project_path, "README.md")
     if not os.path.isfile(readme_path):
         return
+    if primary_file is None and os.path.basename(category).lower() == "maps":
+        return
 
     title = get_project_title(project_path)
     project_name = os.path.basename(project_path)
@@ -595,10 +566,10 @@ def update_project_readme(project_path, category, new_ver_str, primary_file=None
         download_label = f"Download {title} ({package_ext})"
     else:
         catalog = {
-            "addons": "addons/README.md#available-add-ons",
-            "new_addons": "new_addons/README.md#available-add-ons",
-            "maps": "maps/README.md#available-maps",
-            "script": "script/README.md#available-scripts",
+            "Addons": "Addons/README.md#available-add-ons",
+            "Maps": "Maps/README.md#available-maps",
+            "Script": "Script/README.md#available-scripts",
+            "Minigame": "Minigame/README.md#available-minigames",
         }.get(project_category, "README.md")
         download_url = (
             "https://github.com/AllensCreations/MCPE-Curseforges/blob/main/"
@@ -664,7 +635,7 @@ def update_category_readme(category, project_name, new_ver_str, primary_file):
     print(f"  Updated {os.path.relpath(cat_readme, REPO_ROOT)}")
 
 
-def update_builds_master_readme(project_name, new_ver_str, primary_file):
+def update_builds_master_readme(project_name, category, new_ver_str, primary_file):
     """Updates the package download link in builds/README.md."""
     builds_readme = os.path.join(REPO_ROOT, "builds", "README.md")
     if not os.path.isfile(builds_readme):
@@ -675,6 +646,13 @@ def update_builds_master_readme(project_name, new_ver_str, primary_file):
     quoted_file = urllib.parse.quote(primary_file)
     rel_dl = f"{project_name}/{quoted_file}"
     slug_key = project_name.replace("-", " ").lower()
+    kind = os.path.basename(category).lower()
+    type_label = {
+        "addons": "Add-on (.mcaddon)",
+        "maps": "Map (.mcworld)",
+        "script": "Script Pack (.mcpack)",
+        "minigame": "Minigame (.mcaddon)",
+    }.get(kind)
 
     updated_lines = []
     for line in lines:
@@ -685,6 +663,12 @@ def update_builds_master_readme(project_name, new_ver_str, primary_file):
                 f"[Download (.{ext})]({rel_dl})",
                 line
             )
+            if type_label:
+                line = re.sub(
+                    r"^(\|\s*\*\*[^|]+\*\*\s*\|)[^|]*",
+                    lambda match: match.group(1) + f" {type_label} ",
+                    line,
+                )
         updated_lines.append(line)
 
     with open(builds_readme, "w", encoding="utf-8") as f:
@@ -692,7 +676,7 @@ def update_builds_master_readme(project_name, new_ver_str, primary_file):
     print(f"  Updated {os.path.relpath(builds_readme, REPO_ROOT)}")
 
 
-def update_root_readme(project_name, new_ver_str, primary_file):
+def update_root_readme(project_name, category, new_ver_str, primary_file):
     """Updates catalog table rows and detailed overview headers in root README.md."""
     root_readme = os.path.join(REPO_ROOT, "README.md")
     if not os.path.isfile(root_readme):
@@ -715,6 +699,19 @@ def update_root_readme(project_name, new_ver_str, primary_file):
                 f"[Download (.{ext})]({dl_url})",
                 line
             )
+            kind = os.path.basename(category).lower()
+            label = {
+                "addons": "Add-on (.mcaddon)",
+                "maps": "Map (.mcworld)",
+                "script": "Script Pack (.mcpack)",
+                "minigame": "Minigame (.mcaddon)",
+            }.get(kind)
+            if label:
+                line = re.sub(
+                    r"^(\|\s*\*\*[^|]+\*\*\s*\|)[^|]*",
+                    lambda match: match.group(1) + f" {label} ",
+                    line,
+                )
         new_lines.append(line)
 
     with open(root_readme, "w", encoding="utf-8") as f:
@@ -746,11 +743,11 @@ def update_readmes(project_path, category, old_ver_str, new_ver_str, primary_fil
 
     # 4. Update master builds README
     if primary_file:
-        update_builds_master_readme(project_name, new_ver_str, primary_file)
+        update_builds_master_readme(project_name, category, new_ver_str, primary_file)
 
     # 5. Update root README
     if primary_file:
-        update_root_readme(project_name, new_ver_str, primary_file)
+        update_root_readme(project_name, category, new_ver_str, primary_file)
 
 
 # ─────────────────────────────────────────────────────────────────────────────
@@ -797,19 +794,14 @@ def _insert_table_row(readme_path, section_marker, new_row, skip_if_contains=Non
 
 def _update_collection_badge(root_readme):
     """Rewrites the Collection Size badge to reflect current project counts."""
-    maps_dir   = os.path.join(REPO_ROOT, "MCPEDL", "maps")
-    script_dir = os.path.join(REPO_ROOT, "MCPEDL", "script")
-
-    addon_dirs = [
-        d for d in glob.glob(os.path.join(REPO_ROOT, "MCPEDL", "*"))
-        if os.path.isdir(d) and os.path.basename(d) not in ("maps", "script")
-    ]
-    n_addons  = sum(
-        len([p for p in glob.glob(os.path.join(ad, "*")) if os.path.isdir(p)])
-        for ad in addon_dirs
-    )
-    n_maps    = len([d for d in glob.glob(os.path.join(maps_dir,   "*")) if os.path.isdir(d)])
-    n_scripts = len([d for d in glob.glob(os.path.join(script_dir, "*")) if os.path.isdir(d)])
+    category_dirs = {
+        name: os.path.join(REPO_ROOT, "MCPEDL", name)
+        for name in ("Addons", "Maps", "Script", "Minigame")
+    }
+    counts = {
+        name: len([p for p in glob.glob(os.path.join(path, "*")) if os.path.isdir(p)])
+        for name, path in category_dirs.items()
+    }
 
     if not os.path.isfile(root_readme):
         return
@@ -819,7 +811,8 @@ def _update_collection_badge(root_readme):
 
     new_badge = (
         f"[![Collection Size](https://img.shields.io/badge/Collection-"
-        f"{n_addons}%20Add--ons%20%7C%20{n_maps}%20Map%20%7C%20{n_scripts}%20Scripts"
+        f"{counts['Addons']}%20Add--ons%20%7C%20{counts['Maps']}%20Maps%20%7C%20"
+        f"{counts['Script']}%20Scripts%20%7C%20{counts['Minigame']}%20Minigames"
         f"-orange?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges)"
     )
     updated = re.sub(
@@ -832,7 +825,8 @@ def _update_collection_badge(root_readme):
             f.write(updated)
         print(
             f"  Updated Collection Size badge → "
-            f"{n_addons} Add-ons | {n_maps} Maps | {n_scripts} Scripts"
+            f"{counts['Addons']} Add-ons | {counts['Maps']} Maps | "
+            f"{counts['Script']} Scripts | {counts['Minigame']} Minigames"
         )
 
 
@@ -879,15 +873,16 @@ def register_new_project(project_path, category, version_str=None, primary_file=
     _insert_table_row(cat_readme, cat_section, cat_row, skip_if_contains=project_name)
 
     # 2. Root README catalog table
-    if "addons" in category:
-        root_section = "## Active Add-ons Catalog"
+    kind = os.path.basename(category).lower()
+    if kind == "addons":
+        root_section = "## Add-ons Catalog"
         root_row = (
             f"| **{title}** | {type_label} "
             f"| [Download (.{primary_ext})]({gh_dl}) "
             f"| [`{source_rel}/`]({source_url}) "
             f"| {tiny_desc} |"
         )
-    elif "maps" in category:
+    elif kind == "maps":
         root_section = "## Maps Catalog"
         root_row = (
             f"| **{title}** | Custom Map "
@@ -895,10 +890,10 @@ def register_new_project(project_path, category, version_str=None, primary_file=
             f"| [`{source_rel}/`]({source_url}) "
             f"| {tiny_desc} |"
         )
-    else:  # script
-        root_section = "## Scripts and Challenges Catalog"
+    else:
+        root_section = "## Minigames Catalog" if kind == "minigame" else "## Script Packs Catalog"
         root_row = (
-            f"| **{title}** | Script "
+            f"| **{title}** | {'Minigame' if kind == 'minigame' else 'Script'} "
             f"| [Download (.{primary_ext})]({gh_dl}) "
             f"| [`{source_rel}/`]({source_url}) "
             f"| {tiny_desc} |"
@@ -906,12 +901,14 @@ def register_new_project(project_path, category, version_str=None, primary_file=
     _insert_table_row(root_readme, root_section, root_row, skip_if_contains=project_name)
 
     # 3. builds/README table
-    if "addons" in category:
+    if kind == "addons":
         builds_section = "### Add-on Packs"
-    elif "maps" in category:
+    elif kind == "maps":
         builds_section = "### Worlds and Maps"
+    elif kind == "minigame":
+        builds_section = "### Minigames"
     else:
-        builds_section = "### Script Projects"
+        builds_section = "### Script Packs"
 
     builds_row = (
         f"| **{title}** | {type_label} "
@@ -1004,7 +1001,7 @@ def main():
 
         # Required marker prevents accidental packaging of unprotected add-ons.
         normalized_category = cat.replace("\\", "/").strip("/")
-        if normalized_category in {"MCPEDL/addons", "MCPEDL/new_addons"}:
+        if normalized_category == "MCPEDL/Addons":
             lock_path = os.path.join(cp, "LOCK")
             try:
                 with open(lock_path, encoding="utf-8") as lock_file:
@@ -1020,8 +1017,9 @@ def main():
                         "This marker does not encrypt source files or prevent extraction of distributable packages.\n")
 
         proj_name = os.path.basename(cp)
-        is_new    = not (os.path.join(REPO_ROOT, "README.md") and
-                         proj_name in open(os.path.join(REPO_ROOT, "README.md")).read())
+        category_readme = os.path.join(REPO_ROOT, cat, "README.md")
+        category_text = open(category_readme, encoding="utf-8").read() if os.path.isfile(category_readme) else ""
+        is_new = proj_name not in category_text
 
         print(f"\nProcessing {os.path.relpath(cp, REPO_ROOT)} {'(NEW)' if is_new else ''}...")
 
@@ -1040,7 +1038,7 @@ def main():
 
         # ── Synchronize all Directory README files & links ─────────────────
         # ── Save this version into builds/<project>/versions/ ───────────────
-        if proj_name not in TEST_GATED_WORLD_PROJECTS:
+        if primary_file and proj_name not in TEST_GATED_WORLD_PROJECTS:
             save_version_snapshot(cp, proj_name, new_v)
 
         update_readmes(cp, cat, old_v, new_v, primary_file, built_files)

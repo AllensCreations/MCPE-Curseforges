@@ -69,7 +69,7 @@ The build synchronizes packages and catalogs without changing manifest versions.
 2. Confirm each documented feature has source evidence and that no verified content was lost.
 3. Run `python3 scripts/validate_manifest_titles.py --project <project-path>` when applicable: one `(vX.Y.Z)` suffix matching `header.version`, `by AllensCreations` exactly once in the manifest description, and matching Behavior Pack and Resource Pack versions.
 4. Run `python3 scripts/check_readme_status.py` again. Expect `0` needing update and `[LINK INTEGRITY] All relative links valid`; fix broken links before finishing.
-5. Check the add-on LOCK marker (rule in `INSTRUCTIONS.md`) for projects under `MCPEDL/addons/` and `MCPEDL/new_addons/`. Report the exact project path of any missing or invalid marker and do not call the project build-ready.
+5. Check the add-on LOCK marker (rule in `INSTRUCTIONS.md`) for projects under `MCPEDL/Addons/` and `MCPEDL/Addons/`. Report the exact project path of any missing or invalid marker and do not call the project build-ready.
 6. Review the final diff for scope. If a check was not run, say so.
 
 ### 9. Report

@@ -7,10 +7,10 @@ on:
     branches:
       - main
     paths:
-      - 'MCPEDL/addons/**'
-      - 'MCPEDL/new_addons/**'
-      - 'MCPEDL/script/**'
-      - 'MCPEDL/maps/**'
+      - 'MCPEDL/Addons/**'
+      - 'MCPEDL/Script/**'
+      - 'MCPEDL/Minigame/**'
+      - 'MCPEDL/Maps/**'
       - 'scripts/ensure_recipe_unlocks.py'
   # Daily refresh, even when no source files changed (never bumps versions).
   schedule:
@@ -26,58 +26,58 @@ on:
           - all
           - one project (pick it below)
       addon:
-        description: "Project from MCPEDL/addons (only when scope = one project)"
+        description: "Project from MCPEDL/Addons (only when scope = one project)"
         required: true
         default: "-"
         type: choice
         options:
           # BEGIN addon
           - "-"
+          - "Fletching-Table-Arsenal"
           - "Ghast-Mob-Head-Transformers"
           - "Grand-Banquets"
           - "Grimoire-Relics-V2"
           - "Harvest-Intelligence"
           - "Immortal-Pets"
           - "Magnetic-Satchel"
+          - "Melody-Figurine"
           - "Mining-Helmet"
           - "Monster-Companions"
+          - "One-Block-Economy"
           - "Passive-Auto-Switch-Tools"
+          - "Selective-Mob-Controller"
           - "Smart-Tree-Capitator-and-Domino-Ore-Miner"
           - "Sudden-Death-Roulette"
+          - "Swarm-Mob-Booster"
           - "Tameable-Companion-Fox"
           - "Universal-Clutch"
           - "Vanilla-Quality-of-Life"
           # END addon
-      new_addon:
-        description: "Project from MCPEDL/new_addons (only when scope = one project)"
-        required: true
-        default: "-"
-        type: choice
-        options:
-          # BEGIN new_addon
-          - "-"
-          - "Melody-Figurine"
-          - "One-Block-Economy"
-          - "Selective-Mob-Controller"
-          - "Swarm-Mob-Booster"
-          - "trial"
-          # END new_addon
       script:
-        description: "Project from MCPEDL/script (only when scope = one project)"
+        description: "Project from MCPEDL/Script (only when scope = one project)"
         required: true
         default: "-"
         type: choice
         options:
           # BEGIN script
           - "-"
+          # END script
+      minigame:
+        description: "Project from MCPEDL/Minigame (only when scope = one project)"
+        required: true
+        default: "-"
+        type: choice
+        options:
+          # BEGIN minigame
+          - "-"
           - "Alphabet-Scavenger-Hunt"
           - "Mob-Chaos-Behavioral-Roulette"
           - "Shared-Hivemind-Inventory"
           - "Tethered-Breaker-And-Builder"
           - "Trivia-Vault-The-Locked-World"
-          # END script
+          # END minigame
       map:
-        description: "Project from MCPEDL/maps (only when scope = one project)"
+        description: "Project from MCPEDL/Maps (only when scope = one project)"
         required: true
         default: "-"
         type: choice
@@ -105,7 +105,7 @@ jobs:
     runs-on: ubuntu-latest
     # Pushes only: skip bot commits, and skip when the push touches Dirtbound's
     # source tree (its dedicated world workflow owns that README and archives).
-    if: ${{ github.event_name != 'push' || (!contains(github.event.head_commit.message, '[skip ci]') && !contains(toJSON(github.event.commits), 'MCPEDL/maps/OneBlock-Dirtbound-Kingdom-Beta/')) }}
+    if: ${{ github.event_name != 'push' || (!contains(github.event.head_commit.message, '[skip ci]') && !contains(toJSON(github.event.commits), 'MCPEDL/Maps/OneBlock-Dirtbound-Kingdom-Beta/')) }}
 
     steps:
       - name: Checkout main
@@ -135,8 +135,8 @@ jobs:
           EVENT: ${{ github.event_name }}
           SCOPE: ${{ github.event.inputs.scope }}
           ADDON: ${{ github.event.inputs.addon }}
-          NEW_ADDON: ${{ github.event.inputs.new_addon }}
           SCRIPT: ${{ github.event.inputs.script }}
+          MINIGAME: ${{ github.event.inputs.minigame }}
           MAP: ${{ github.event.inputs.map }}
           OTHER: ${{ github.event.inputs.other }}
           BEFORE: ${{ github.event.before }}
@@ -152,10 +152,10 @@ jobs:
                 ARGS=(--all)
               else
                 PICKS=()
-                [ -n "$ADDON" ]     && [ "$ADDON" != "-" ]     && PICKS+=("MCPEDL/addons/$ADDON")
-                [ -n "$NEW_ADDON" ] && [ "$NEW_ADDON" != "-" ] && PICKS+=("MCPEDL/new_addons/$NEW_ADDON")
-                [ -n "$SCRIPT" ]    && [ "$SCRIPT" != "-" ]    && PICKS+=("MCPEDL/script/$SCRIPT")
-                [ -n "$MAP" ]       && [ "$MAP" != "-" ]       && PICKS+=("MCPEDL/maps/$MAP")
+                [ -n "$ADDON" ]     && [ "$ADDON" != "-" ]     && PICKS+=("MCPEDL/Addons/$ADDON")
+                [ -n "$SCRIPT" ]    && [ "$SCRIPT" != "-" ]    && PICKS+=("MCPEDL/Script/$SCRIPT")
+                [ -n "$MINIGAME" ]  && [ "$MINIGAME" != "-" ]  && PICKS+=("MCPEDL/Minigame/$MINIGAME")
+                [ -n "$MAP" ]       && [ "$MAP" != "-" ]       && PICKS+=("MCPEDL/Maps/$MAP")
                 [ -n "$OTHER" ]                                && PICKS+=("$OTHER")
                 if [ "${#PICKS[@]}" -ne 1 ]; then
                   echo "::error::scope is 'one project': pick exactly one project (found ${#PICKS[@]}). Leave the other lists on '-'."

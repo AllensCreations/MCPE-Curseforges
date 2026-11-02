@@ -53,7 +53,7 @@ def main():
         if (root / wf).is_file() and not (root / helper).exists():
             remove.append((wf, f"obsolete: calls missing {helper}"))
 
-    projects = {p.name for d in ("addons", "new_addons", "maps", "script")
+    projects = {p.name for d in ("Addons", "Maps", "Script", "Minigame")
                 for p in (root / "MCPEDL" / d).glob("*") if p.is_dir()}
     b = root / "builds"
     if b.is_dir():

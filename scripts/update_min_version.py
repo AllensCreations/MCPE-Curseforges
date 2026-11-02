@@ -5,7 +5,7 @@ INSTRUCTIONS.md no longer carries a fixed engine version and READMEs carry no ve
 (Part 1 Section 2, Part 2 Section 3), so this script only edits manifests.
 Use it only with a game version you have looked up and confirmed the project needs.
 
-Usage: python scripts/update_min_version.py --version 1.21.0 [--project MCPEDL/new_addons/Name ...]
+Usage: python scripts/update_min_version.py --version 1.21.0 [--project MCPEDL/Addons/Name ...]
 """
 
 import argparse
@@ -16,8 +16,8 @@ from pathlib import Path
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
 DEFAULT_PROJECTS = (
-    "MCPEDL/new_addons/Swarm-Mob-Booster",
-    "MCPEDL/new_addons/Selective-Mob-Controller",
+    "MCPEDL/Addons/Swarm-Mob-Booster",
+    "MCPEDL/Addons/Selective-Mob-Controller",
 )
 PACKS = ("behavior_pack", "resource_pack")
 

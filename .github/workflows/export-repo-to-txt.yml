@@ -12,7 +12,7 @@ on:
   workflow_dispatch:
     inputs:
       paths:
-        description: "Paths to export, comma-separated. Files, folders or globs. e.g. MCPEDL/addons/Grand-Banquets, scripts, .github/workflows, MCPEDL/maps/*/behavior_pack"
+        description: "Paths to export, comma-separated. Files, folders or globs. e.g. MCPEDL/Addons/Grand-Banquets, scripts, .github/workflows, MCPEDL/Maps/*/behavior_pack"
         required: true
         type: string
       part_size_kb:

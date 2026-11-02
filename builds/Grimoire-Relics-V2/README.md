@@ -9,8 +9,6 @@ This folder contains compiled release packages for **Grimoire Relics V2** by All
 | File Name | Format | Size | Description | Download Link |
 | :--- | :--- | :--- | :--- | :--- |
 | **`Grimoire Relics V2 by AllensCreations (V1.0.12).mcaddon`** | `.mcaddon` | ~43 KB | Complete bundle containing both Behavior Pack and Resource Pack. | [Download (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Grimoire-Relics-V2/Grimoire%20Relics%20V2%20by%20AllensCreations%20%28V1.0.12%29.mcaddon) |
-| **`Grimoire Relics V2 BP by AllensCreations (V1.0.12).mcpack`** | `.mcpack` | ~27 KB | Behavior Pack: Custom entities, components, and gameplay mechanics. | [Download (.mcpack)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Grimoire-Relics-V2/Grimoire%20Relics%20V2%20BP%20by%20AllensCreations%20%28V1.0.12%29.mcpack) |
-| **`Grimoire Relics V2 RP by AllensCreations (V1.0.12).mcpack`** | `.mcpack` | ~14 KB | Resource Pack: Custom models, geometry, textures, and sounds. | [Download (.mcpack)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Grimoire-Relics-V2/Grimoire%20Relics%20V2%20RP%20by%20AllensCreations%20%28V1.0.12%29.mcpack) |
 
 ---
 
@@ -22,7 +20,7 @@ For general import instructions, refer to the centralized [Download and Installa
 
 ## Source Files
 To inspect uncompressed JSON files, geometry, render controllers, and textures:
-- [View Source Files](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/addons/Grimoire-Relics-V2)
+- [View Source Files](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/Grimoire-Relics-V2/)
 
 ---
 

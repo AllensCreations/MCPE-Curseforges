@@ -8,8 +8,7 @@ This folder contains compiled release packages for **Alphabet Scavenger Hunt** b
 
 | File Name | Format | Size | Description | Download Link |
 | :--- | :--- | :--- | :--- | :--- |
-| **`Alphabet Scavenger Hunt by AllensCreations (V1.0.9).mcpack`** | `.mcpack` | ~155 KB | Script Behavior Pack archive ready for import. | [Download (.mcpack)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Alphabet-Scavenger-Hunt/Alphabet%20Scavenger%20Hunt%20by%20AllensCreations%20%28V1.0.9%29.mcpack) |
-| **`Alphabet Scavenger Hunt by AllensCreations (V1.0.9).mcaddon`** | `.mcaddon` | ~155 KB | Complete Add-on package archive. | [Download (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Alphabet-Scavenger-Hunt/Alphabet%20Scavenger%20Hunt%20by%20AllensCreations%20%28V1.0.9%29.mcaddon) |
+| **`Alphabet Scavenger Hunt by AllensCreations (V1.0.9).mcaddon`** | `.mcaddon` | ~303 KB | Complete bundle containing both Behavior Pack and Resource Pack. | [Download (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Alphabet-Scavenger-Hunt/Alphabet%20Scavenger%20Hunt%20by%20AllensCreations%20%28V1.0.9%29.mcaddon) |
 
 ---
 
@@ -21,7 +20,7 @@ For general import instructions, refer to the centralized [Download and Installa
 
 ## Source Files
 To inspect uncompressed JSON files, geometry, render controllers, and textures:
-- [View Source Files](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/script/Alphabet-Scavenger-Hunt)
+- [View Source Files](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Minigame/Alphabet-Scavenger-Hunt/)
 
 ---
 

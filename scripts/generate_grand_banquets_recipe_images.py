@@ -6,7 +6,7 @@ from PIL import Image, ImageDraw, ImageFont
 from crafting_template import compose_recipe_diagram
 
 ROOT=Path(__file__).resolve().parents[1]
-ADDON=ROOT/"MCPEDL/addons/Grand-Banquets"
+ADDON=ROOT/"MCPEDL/Addons/Grand-Banquets"
 RECIPES=ADDON/"behavior_pack/recipes"
 TEXTURES=ADDON/"resource_pack/textures/items/banquet"
 OUT=ADDON/"assets/recipes"

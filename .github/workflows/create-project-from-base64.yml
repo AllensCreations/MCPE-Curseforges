@@ -2,9 +2,10 @@ name: Create Project from Base64
 
 # Paste the base64 produced by an AI agent (see PACK_GENERATOR_INSTRUCTIONS.md).
 # The ZIP's project.json decides the type:
-#   addon  -> MCPEDL/new_addons/<Name>/
-#   map    -> MCPEDL/maps/<Name>/      (+ Creative/Survival/Hardcore worlds)
-#   script -> MCPEDL/script/<Name>/    (+ "<Name> - Test.mcworld")
+#   addon  -> MCPEDL/Addons/<Name>/
+#   map    -> MCPEDL/Maps/<Name>/      (+ Creative/Survival/Hardcore worlds)
+#   script   -> MCPEDL/Script/<Name>/    (.mcpack + Creative test world)
+#   minigame -> MCPEDL/Minigame/<Name>/  (.mcaddon + Controller + Creative test world)
 # Nothing needs typing: commit one .b64 file to MCPEDL/incoming/, pick import_mode, run.
 #   project_name blank    -> taken from the .b64 file name
 #   payload_file blank    -> the only .b64 in MCPEDL/incoming/ (a bare file name also works)
@@ -12,7 +13,7 @@ name: Create Project from Base64
 #   auto      -> update if the project already exists, otherwise create (default)
 #   create    -> new project only; fails if the folder already exists
 #   update    -> merge the payload into the existing project, wherever it lives
-#                (addons, new_addons, maps, script). Files not in the payload
+#                (Addons, Maps, Script, Minigame). Files not in the payload
 #                (icons, images, LOCK, banners) are kept. Nothing is deleted.
 #   overwrite -> replace the whole project folder with the payload
 # Structural checks only: never an in-game test.
@@ -131,8 +132,8 @@ jobs:
         if: ${{ steps.import.outputs.type == 'map' }}
         run: python scripts/sync_oneblock_map_readmes.py
 
-      # ---- scripts and add-ons with test_world.json: build the test world ----
-      - name: Build test world (script / add-on)
+      # ---- Addons, Scripts, and Minigames: build a Creative test world ----
+      - name: Build test world (Add-on / Script / Minigame)
         if: ${{ steps.import.outputs.has_test_world == 'true' }}
         env:
           DEST: ${{ steps.import.outputs.dest }}

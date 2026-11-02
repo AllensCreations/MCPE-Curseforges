@@ -111,7 +111,7 @@ GAMEPLAY_HEADING_REGEX = re.compile(
 
 def scan_projects(target_project=None):
     categories = [
-        "MCPEDL/addons", "MCPEDL/new_addons", "MCPEDL/script", "MCPEDL/maps"
+        "MCPEDL/Addons", "MCPEDL/Maps", "MCPEDL/Script", "MCPEDL/Minigame"
     ]
     mcpedl_dir = os.path.join(REPO_ROOT, "MCPEDL")
     if os.path.isdir(mcpedl_dir):
@@ -304,6 +304,12 @@ def auto_generate_readme(proj_dir):
     readme_path = os.path.join(proj_dir, "README.md")
     description_path = os.path.join(proj_dir, "DESCRIPTION.md")
     category = os.path.basename(os.path.dirname(proj_dir))
+    meta["primary_ext"] = {
+        "Addons": "mcaddon",
+        "Maps": "mcworld",
+        "Script": "mcpack",
+        "Minigame": "mcaddon",
+    }.get(category, meta["primary_ext"])
     output_path = description_path
 
     clean_name = meta["name"].replace(" BP", "").replace(" RP", "").strip()
@@ -312,11 +318,11 @@ def auto_generate_readme(proj_dir):
 
     def write_download_readme():
         catalog = {
-            "addons": "addons/README.md#available-add-ons",
-            "new_addons": "new_addons/README.md#available-add-ons",
-            "maps": "maps/README.md#available-maps",
-            "script": "script/README.md#available-scripts",
-        }.get(category, "addons/README.md#available-add-ons")
+            "Addons": "Addons/README.md#available-add-ons",
+            "Maps": "Maps/README.md#available-maps",
+            "Script": "Script/README.md#available-scripts",
+            "Minigame": "Minigame/README.md#available-minigames",
+        }.get(category, "Addons/README.md#available-add-ons")
         build_dir = os.path.join(REPO_ROOT, "builds", slug)
         candidates = []
         for ext in (meta["primary_ext"], "mcaddon", "mcpack"):

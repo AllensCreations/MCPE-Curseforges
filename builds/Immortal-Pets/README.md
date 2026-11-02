@@ -8,8 +8,7 @@ This folder contains compiled release packages for **Immortal Pets** by AllensCr
 
 | File Name | Format | Size | Description | Download Link |
 | :--- | :--- | :--- | :--- | :--- |
-| **`Immortal Pets by AllensCreations (V1.1.10).mcpack`** | `.mcpack` | ~6 KB | Script Behavior Pack archive ready for import. | [Download (.mcpack)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Immortal-Pets/Immortal%20Pets%20by%20AllensCreations%20%28V1.1.10%29.mcpack) |
-| **`Immortal Pets by AllensCreations (V1.1.10).mcaddon`** | `.mcaddon` | ~6 KB | Complete Add-on package archive. | [Download (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Immortal-Pets/Immortal%20Pets%20by%20AllensCreations%20%28V1.1.10%29.mcaddon) |
+| **`Immortal Pets by AllensCreations (V1.1.10).mcaddon`** | `.mcaddon` | ~6 KB | Complete Add-on package for Minecraft Bedrock. | [Download (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Immortal-Pets/Immortal%20Pets%20by%20AllensCreations%20%28V1.1.10%29.mcaddon) |
 
 ---
 
@@ -21,7 +20,7 @@ For general import instructions, refer to the centralized [Download and Installa
 
 ## Source Files
 To inspect uncompressed JSON files, geometry, render controllers, and textures:
-- [View Source Files](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/addons/Immortal-Pets)
+- [View Source Files](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/Immortal-Pets/)
 
 ---
 

@@ -1,15 +1,15 @@
 #!/usr/bin/env python3
-"""Build a database-free test world (.mcworld) for a script or add-on project.
+"""Build a database-free Creative test world (.mcworld) for a project.
 
 The project's own packs plus the add-ons listed in its test_world.json are installed into a copy
 of Mcpeworlds/<mode>. Output: <project folder>/<Display Name> - Test.mcworld
 
 test_world.json: {"mode": "Creative", "include_addons": ["Magnetic-Satchel", "Mining-Helmet"]}
-Included add-ons are looked up in MCPEDL/addons/<Name> and MCPEDL/new_addons/<Name>.
+Included add-ons are looked up in MCPEDL/Addons/<Name>.
 
 Usage:
-  python scripts/build_test_world.py --project MCPEDL/script/My-Script
-  python scripts/build_test_world.py --all           # every script/add-on that has test_world.json
+  python scripts/build_test_world.py --project MCPEDL/Minigame/My-Game
+  python scripts/build_test_world.py --all           # every add-on, script, and minigame
 Structural checks only; never proof that anything works in Minecraft.
 """
 from __future__ import annotations
@@ -37,11 +37,10 @@ def load(p: Path):
 
 
 def find_addon(root: Path, name: str) -> Path:
-    for d in ("addons", "new_addons"):
-        p = root / "MCPEDL" / d / name
-        if (p / "behavior_pack" / "manifest.json").is_file() or (p / "resource_pack" / "manifest.json").is_file():
-            return p
-    raise SystemExit(f"Included add-on '{name}' not found under MCPEDL/addons or MCPEDL/new_addons.")
+    p = root / "MCPEDL" / "Addons" / name
+    if (p / "behavior_pack" / "manifest.json").is_file() or (p / "resource_pack" / "manifest.json").is_file():
+        return p
+    raise SystemExit(f"Included add-on '{name}' not found under MCPEDL/Addons.")
 
 
 def collect_packs(root: Path, project: Path, cfg: dict):
@@ -68,10 +67,10 @@ def collect_packs(root: Path, project: Path, cfg: dict):
 
 def build(root: Path, project: Path) -> Path:
     pj = load(project / "project.json") if (project / "project.json").is_file() else {"name": project.name}
-    cfg = load(project / "test_world.json")
+    cfg = load(project / "test_world.json") if (project / "test_world.json").is_file() else {}
     mode = cfg.get("mode", "Creative")
-    if mode not in MODES:
-        raise SystemExit(f"{project.name}: mode must be one of {MODES}")
+    if mode != "Creative":
+        raise SystemExit(f"{project.name}: test worlds must use the Creative foundation.")
     source = root / "Mcpeworlds" / mode
     if not (source / "level.dat").is_file():
         raise SystemExit(f"Missing foundation {source}/level.dat")
@@ -151,7 +150,14 @@ def main() -> int:
     a = ap.parse_args()
     root = Path(a.root).resolve()
     if a.all:
-        projects = sorted(p.parent for d in ("script", "new_addons", "addons") for p in (root / "MCPEDL" / d).glob("*/test_world.json"))
+        projects = sorted(
+            p for d in ("Addons", "Script", "Minigame")
+            for p in (root / "MCPEDL" / d).iterdir()
+            if p.is_dir() and (
+                (p / "behavior_pack" / "manifest.json").is_file()
+                or (p / "resource_pack" / "manifest.json").is_file()
+            )
+        )
     elif a.project:
         projects = [(root / a.project).resolve()]
     else:
@@ -160,8 +166,6 @@ def main() -> int:
         print("No projects with test_world.json found.")
         return 0
     for p in projects:
-        if not (p / "test_world.json").is_file():
-            raise SystemExit(f"{p}: needs test_world.json")
         build(root, p)
     return 0
 

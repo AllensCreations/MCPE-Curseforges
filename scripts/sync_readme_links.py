@@ -13,7 +13,7 @@ ROOT = cmv.ROOT
 GITHUB = "https://github.com/AllensCreations/MCPE-Curseforges"
 RAW = GITHUB + "/raw/main"
 BLOB = GITHUB + "/blob/main"
-CATEGORIES = ("addons", "new_addons", "maps", "script")
+CATEGORIES = ("Addons", "Maps", "Script", "Minigame")
 PACKAGE_EXT = (".mcaddon", ".mcpack", ".mcworld")
 MODES = ("Creative", "Survival", "Hardcore")
 LINK_RE = re.compile(r"(\]\()((?:[^()\s]|\([^()]*\))+)(\))")
@@ -306,9 +306,9 @@ def main():
                 readme.write_text(new, encoding="utf-8")
 
     for project in projects.values():
-        if project.category in ("maps",) and project.world_archives:
+        if project.category == "Maps" and project.world_archives:
             continue
-        if project.category in ("addons", "new_addons", "maps", "script") and (project.path / "README.md").is_file() and project.version:
+        if project.category in CATEGORIES and (project.path / "README.md").is_file() and project.version:
             before = (project.path / "README.md").read_text(encoding="utf-8")
             ab.update_project_readme(str(project.path), f"MCPEDL/{project.category}", project.version, project.primary)
             after = (project.path / "README.md").read_text(encoding="utf-8")

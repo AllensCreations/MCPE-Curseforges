@@ -36,8 +36,8 @@ def latest_changelog_entry(path):
 
 
 def prepare(category, project_name, release_type):
-    if category not in {"addons", "new_addons"}:
-        raise ValueError("Category must be addons or new_addons")
+    if category not in {"Addons", "Minigame"}:
+        raise ValueError("Category must be Addons or Minigame")
     if release_type not in {"release", "beta", "alpha"}:
         raise ValueError("Release type must be release, beta or alpha")
     if not re.fullmatch(r"[A-Za-z0-9][A-Za-z0-9_-]*", project_name):

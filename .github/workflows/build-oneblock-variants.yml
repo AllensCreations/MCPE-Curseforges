@@ -4,7 +4,7 @@ on:
   push:
     branches: [main]
     paths:
-      - "MCPEDL/maps/**"
+      - "MCPEDL/Maps/**"
       - "Mcpeworlds/**"
       - "scripts/build_oneblock_variants_from_template.py"
       - "scripts/sync_oneblock_map_readmes.py"
@@ -13,7 +13,7 @@ on:
   workflow_dispatch:
     inputs:
       map_name:
-        description: "Map folder under MCPEDL/maps/ (blank = build all maps)"
+        description: "Map folder under MCPEDL/Maps/ (blank = build all maps)"
         required: false
         default: ""
         type: string
@@ -51,8 +51,8 @@ jobs:
           if [ -n "$ONEBLOCK_MAP" ]; then
             [[ "$ONEBLOCK_MAP" =~ ^[A-Za-z0-9._-]+$ ]] \
               || { echo "::error::Map name may only use letters, numbers, . _ -"; exit 1; }
-            [ -f "MCPEDL/maps/$ONEBLOCK_MAP/oneblock.json" ] \
-              || { echo "::error::MCPEDL/maps/$ONEBLOCK_MAP/oneblock.json not found"; exit 1; }
+            [ -f "MCPEDL/Maps/$ONEBLOCK_MAP/oneblock.json" ] \
+              || { echo "::error::MCPEDL/Maps/$ONEBLOCK_MAP/oneblock.json not found"; exit 1; }
           fi
 
       - name: Build each mode from its matching Mcpeworlds foundation and the map's packs
@@ -68,7 +68,7 @@ jobs:
           import glob, os, sys, zipfile
           only = os.environ.get("ONEBLOCK_MAP", "").strip()
           bad = []
-          for cfg in glob.glob("MCPEDL/maps/*/oneblock.json"):
+          for cfg in glob.glob("MCPEDL/Maps/*/oneblock.json"):
               folder = os.path.dirname(cfg)
               if only and os.path.basename(folder) != only:
                   continue
@@ -87,7 +87,7 @@ jobs:
         uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         with:
           name: oneblock-worlds
-          path: ${{ inputs.map_name != '' && format('MCPEDL/maps/{0}/*.mcworld', inputs.map_name) || 'MCPEDL/maps/*/*.mcworld' }}
+          path: ${{ inputs.map_name != '' && format('MCPEDL/Maps/{0}/*.mcworld', inputs.map_name) || 'MCPEDL/Maps/*/*.mcworld' }}
           if-no-files-found: error
 
       - name: Commit generated .mcworld files and README to the selected branch
@@ -95,7 +95,7 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          git add -A -- MCPEDL/maps
+          git add -A -- MCPEDL/Maps
           if git diff --cached --quiet; then
             echo "No generated world changes to commit."
             exit 0

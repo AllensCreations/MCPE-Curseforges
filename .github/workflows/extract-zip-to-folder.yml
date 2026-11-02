@@ -6,12 +6,12 @@ on:
       zip_path:
         description: "Repository path to the ZIP file"
         required: true
-        default: "MCPEDL/maps/OneBlock-Dirtbound-Kingdom-Beta/resource_pack/textures/dbk/icons/icons.zip"
+        default: "MCPEDL/Maps/OneBlock-Dirtbound-Kingdom-Beta/resource_pack/textures/dbk/icons/icons.zip"
         type: string
       destination_path:
         description: "Repository folder where ZIP contents should be extracted"
         required: true
-        default: "MCPEDL/maps/OneBlock-Dirtbound-Kingdom-Beta/resource_pack/textures/dbk/icons"
+        default: "MCPEDL/Maps/OneBlock-Dirtbound-Kingdom-Beta/resource_pack/textures/dbk/icons"
         type: string
       delete_source_zip:
         description: "Delete the source ZIP after successful extraction"

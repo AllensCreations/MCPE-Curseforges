@@ -10,7 +10,7 @@ on:
       projects:
         description: 'Project folders under MCPEDL/, comma-separated'
         required: true
-        default: 'MCPEDL/new_addons/Swarm-Mob-Booster,MCPEDL/new_addons/Selective-Mob-Controller'
+        default: 'MCPEDL/Addons/Swarm-Mob-Booster,MCPEDL/Addons/Selective-Mob-Controller'
         type: string
 
 permissions:

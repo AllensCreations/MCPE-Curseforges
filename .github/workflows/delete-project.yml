@@ -9,9 +9,9 @@ on:
         type: choice
         options:
           - "addons"
-          - "new_addons"
           - "maps"
           - "script"
+          - "minigame"
 
       addon_target:
         description: "2. If type is 'addons', select project"
@@ -19,33 +19,25 @@ on:
         type: choice
         options:
           - "none"
+          - "Fletching-Table-Arsenal"
           - "Ghast-Mob-Head-Transformers"
           - "Grand-Banquets"
           - "Grimoire-Relics-V2"
           - "Harvest-Intelligence"
           - "Immortal-Pets"
           - "Magnetic-Satchel"
+          - "Melody-Figurine"
           - "Mining-Helmet"
           - "Monster-Companions"
+          - "One-Block-Economy"
           - "Passive-Auto-Switch-Tools"
+          - "Selective-Mob-Controller"
           - "Smart-Tree-Capitator-and-Domino-Ore-Miner"
           - "Sudden-Death-Roulette"
+          - "Swarm-Mob-Booster"
           - "Tameable-Companion-Fox"
           - "Universal-Clutch"
           - "Vanilla-Quality-of-Life"
-
-      new_addon_target:
-        description: "2. If type is 'new_addons', select project"
-        required: false
-        type: choice
-        options:
-          - "none"
-          - "Fletching-Table-Arsenal"
-          - "Melody-Figurine"
-          - "One-Block-Economy"
-          - "Selective-Mob-Controller"
-          - "Swarm-Mob-Booster"
-          - "trial"
 
       map_target:
         description: "2. If type is 'maps', select project"
@@ -59,6 +51,13 @@ on:
 
       script_target:
         description: "2. If type is 'script', select project"
+        required: false
+        type: choice
+        options:
+          - "none"
+
+      minigame_target:
+        description: "2. If type is 'minigame', select project"
         required: false
         type: choice
         options:
@@ -108,9 +107,9 @@ jobs:
         env:
           TARGET_TYPE: ${{ inputs.target_type }}
           ADDON_TARGET: ${{ inputs.addon_target }}
-          NEW_ADDON_TARGET: ${{ inputs.new_addon_target }}
           MAP_TARGET: ${{ inputs.map_target }}
           SCRIPT_TARGET: ${{ inputs.script_target }}
+          MINIGAME_TARGET: ${{ inputs.minigame_target }}
           CONFIRM: ${{ inputs.confirm }}
         run: |
           set -euo pipefail
@@ -127,14 +126,14 @@ jobs:
             addons)
               TARGET="$ADDON_TARGET"
               ;;
-            new_addons)
-              TARGET="$NEW_ADDON_TARGET"
-              ;;
             maps)
               TARGET="$MAP_TARGET"
               ;;
             script)
               TARGET="$SCRIPT_TARGET"
+              ;;
+            minigame)
+              TARGET="$MINIGAME_TARGET"
               ;;
             *)
               echo "::error::Invalid project category: $TARGET_TYPE"
@@ -156,9 +155,9 @@ jobs:
         env:
           TARGET_TYPE: ${{ inputs.target_type }}
           ADDON_TARGET: ${{ inputs.addon_target }}
-          NEW_ADDON_TARGET: ${{ inputs.new_addon_target }}
           MAP_TARGET: ${{ inputs.map_target }}
           SCRIPT_TARGET: ${{ inputs.script_target }}
+          MINIGAME_TARGET: ${{ inputs.minigame_target }}
           CONFIRM: ${{ inputs.confirm }}
         run: |
           set -euo pipefail
@@ -166,9 +165,9 @@ jobs:
           python3 scripts/delete_project.py \
             --type "$TARGET_TYPE" \
             --addon "$ADDON_TARGET" \
-            --new-addon "$NEW_ADDON_TARGET" \
             --map "$MAP_TARGET" \
             --script "$SCRIPT_TARGET" \
+            --minigame "$MINIGAME_TARGET" \
             --confirm "$CONFIRM"
 
       - name: Commit and push changes
@@ -295,9 +294,9 @@ jobs:
         env:
           TARGET_TYPE: ${{ inputs.target_type }}
           ADDON_TARGET: ${{ inputs.addon_target }}
-          NEW_ADDON_TARGET: ${{ inputs.new_addon_target }}
           MAP_TARGET: ${{ inputs.map_target }}
           SCRIPT_TARGET: ${{ inputs.script_target }}
+          MINIGAME_TARGET: ${{ inputs.minigame_target }}
           CONFIRM: ${{ inputs.confirm }}
           CANCELLED: ${{ steps.validate.outputs.cancelled }}
           DELETE_OUTCOME: ${{ steps.delete.outcome }}
@@ -316,14 +315,14 @@ jobs:
               addons)
                 SELECTED="$ADDON_TARGET"
                 ;;
-              new_addons)
-                SELECTED="$NEW_ADDON_TARGET"
-                ;;
               maps)
                 SELECTED="$MAP_TARGET"
                 ;;
               script)
                 SELECTED="$SCRIPT_TARGET"
+                ;;
+              minigame)
+                SELECTED="$MINIGAME_TARGET"
                 ;;
               *)
                 SELECTED="unknown"

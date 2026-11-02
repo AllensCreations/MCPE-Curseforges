@@ -8,7 +8,7 @@ on:
   workflow_dispatch:
     inputs:
       extra_paths:
-        description: "Optional extra files/folders to include, comma-separated (e.g. scripts/foo.py,MCPEDL/maps/Dirtbound-Kingdom)"
+        description: "Optional extra files/folders to include, comma-separated (e.g. scripts/foo.py,MCPEDL/Maps/Dirtbound-Kingdom)"
         required: false
         default: ""
 

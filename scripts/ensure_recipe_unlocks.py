@@ -4,7 +4,7 @@ import json
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
-SEARCH_ROOTS = (ROOT / "MCPEDL" / "addons", ROOT / "MCPEDL" / "new_addons")
+SEARCH_ROOTS = (ROOT / "MCPEDL" / "Addons",)
 RECIPE_TYPES = {"minecraft:recipe_shaped", "minecraft:recipe_shapeless"}
 changed = 0
 already_correct = 0

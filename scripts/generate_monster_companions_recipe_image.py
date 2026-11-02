@@ -17,7 +17,7 @@ from crafting_template import compose_recipe_diagram
 ROOT = Path(__file__).resolve().parents[1]
 SAMPLES_ROOT = Path(os.environ.get("BEDROCK_SAMPLES_ROOT", "/tmp/bedrock-samples"))
 VANILLA_TEXTURES = SAMPLES_ROOT / "resource_pack" / "textures" / "items"
-ADDON = ROOT / "MCPEDL" / "addons" / "Monster-Companions"
+ADDON = ROOT / "MCPEDL" / "Addons" / "Monster-Companions"
 RECIPE_FILE = ADDON / "behavior_pack" / "recipes" / "beast_biscuit.json"
 RESULT_TEXTURE = ADDON / "resource_pack" / "textures" / "items" / "beast_biscuit.png"
 OUTPUT_FILE = ADDON / "beast_biscuit_recipe.png"

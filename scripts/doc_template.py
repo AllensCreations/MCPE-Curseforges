@@ -282,8 +282,9 @@ def check_docs(root, ptype):
     return unique
 
 
-def compliant_docs(ptype, name, version, ext="mcaddon", date="2026-01-01"):
+def compliant_docs(ptype, name, version, ext=None, date="2026-01-01"):
     """A set of documentation files that passes every check here (used by tests and as a reference)."""
+    ext = ext or {"addon": "mcaddon", "map": "mcworld", "script": "mcpack", "minigame": "mcaddon"}.get(ptype, "mcaddon")
     cards = "\n".join(f"### Feature {i}\n- **What Happens**: Players can use feature {i} in the world.\n" for i in range(1, 9))
     description = (f"# {name} (v{version}) — A clear factual subtitle\n\n**By AllensCreations**\n\nA short summary for players.\n\n"
                    f"## Overview\n\nThis creation adds a small experience to your world.\n\n## Key Features\n\n{cards}\n"
@@ -294,16 +295,17 @@ def compliant_docs(ptype, name, version, ext="mcaddon", date="2026-01-01"):
                    f"{GUIDELINES}## Search & Discovery Keywords\n\nMinecraft Bedrock add-on, {name} Bedrock mod, MCPEDL add-on, CurseForge Bedrock, AllensCreations.\n")
     base = "https://github.com/AllensCreations/MCPE-Curseforges/tree/main"
     slug = name.replace(" ", "-")
+    category = {"addon": "Addons", "map": "Maps", "script": "Script", "minigame": "Minigame"}.get(ptype, "Addons")
     readme = (f"# {name}\n\nDownload the current release of **{name}** for Minecraft Bedrock Edition.\n\n## Download\n\n"
               f"- **Package format:** `.{ext}`\n"
-              f"- **Direct download:** [Download {name} (.{ext})]({base}/MCPEDL/new_addons/README.md#available-add-ons)\n\n"
+              f"- **Direct download:** [Download {name} (.{ext})]({base}/MCPEDL/{category}/README.md)\n\n"
               f"## Installation\n\n" + "\n".join(
                   INSTALL_STEPS[:2] + (
                       ("3. Find the imported world in your Worlds list and open it.",)
                       if ext == "mcworld" else INSTALL_STEPS[2:]
                   )
               ) + "\n\n## Pack Information\n\n"
-              f"For gameplay features, usage details, compatibility notes, and other project information, read the [full description]({base}/MCPEDL/new_addons/{slug}/DESCRIPTION.md).\n")
+              f"For gameplay features, usage details, compatibility notes, and other project information, read the [full description]({base}/MCPEDL/{category}/{slug}/DESCRIPTION.md).\n")
     description = re.sub(
         r"(?m)^# (.+?) \(v\d+\.\d+\.\d+\)( — .+)$",
         r"# \1\2",
@@ -337,9 +339,9 @@ def main():
     parser.add_argument("path", nargs="?", help="A folder to audit (payload folder or project folder).")
     parser.add_argument("--all", action="store_true", help="Every project under MCPEDL/.")
     parser.add_argument("--project", help="One project folder name under MCPEDL/.")
-    parser.add_argument("--type", choices=("addon", "map", "script"), help="Project type for a PATH audit (default: addon).")
+    parser.add_argument("--type", choices=("addon", "map", "script", "minigame"), help="Project type for a PATH audit (default: addon).")
     args = parser.parse_args()
-    kinds = {"addons": "addon", "new_addons": "addon", "maps": "map", "script": "script"}
+    kinds = {"Addons": "addon", "Maps": "map", "Script": "script", "Minigame": "minigame"}
     targets = []
     if args.path:
         targets.append((args.type or "addon", Path(args.path)))

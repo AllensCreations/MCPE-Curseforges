@@ -1167,7 +1167,7 @@
           state.targets = {};
           targetSelect.innerHTML = "";
           
-          const groups = { root: [], addon: [], map: [], script: [] };
+          const groups = { root: [], addon: [], map: [], script: [], minigame: [] };
           data.targets.forEach(t => {
             state.targets[t.id] = t;
             if (groups[t.category]) groups[t.category].push(t);
@@ -1183,15 +1183,16 @@
             });
           }
 
-          const groupLabels = { addon: "Add-ons", map: "Maps", script: "Scripts & Minigames" };
-          ['addon', 'map', 'script'].forEach(cat => {
+          const groupLabels = { addon: "Add-ons", map: "Maps", script: "Scripts", minigame: "Minigames" };
+          ['addon', 'map', 'script', 'minigame'].forEach(cat => {
             if (groups[cat].length) {
               const grp = document.createElement("optgroup");
               grp.label = groupLabels[cat];
               groups[cat].forEach(t => {
                 const opt = document.createElement("option");
                 opt.value = t.id;
-                opt.textContent = `${cat === 'addon' ? '⚡' : cat === 'map' ? '🏝️' : '🎮'} ${t.name}`;
+                const icon = cat === 'addon' ? '⚡' : cat === 'map' ? '🏝️' : cat === 'minigame' ? '🎮' : '🧩';
+                opt.textContent = `${icon} ${t.name}`;
                 targetSelect.appendChild(opt);
               });
               targetSelect.appendChild(grp);
@@ -1224,7 +1225,7 @@
           state.targets = {};
           targetSelect.innerHTML = "";
 
-          const groups = { root: [], addon: [], map: [], script: [] };
+          const groups = { root: [], addon: [], map: [], script: [], minigame: [] };
           data.targets.forEach(t => {
             state.targets[t.id] = t;
             if (groups[t.category]) groups[t.category].push(t);
@@ -1240,15 +1241,16 @@
             });
           }
 
-          const groupLabels = { addon: "Add-ons", map: "Maps", script: "Scripts & Minigames" };
-          ['addon', 'map', 'script'].forEach(cat => {
+          const groupLabels = { addon: "Add-ons", map: "Maps", script: "Scripts", minigame: "Minigames" };
+          ['addon', 'map', 'script', 'minigame'].forEach(cat => {
             if (groups[cat].length) {
               const grp = document.createElement("optgroup");
               grp.label = groupLabels[cat];
               groups[cat].forEach(t => {
                 const opt = document.createElement("option");
                 opt.value = t.id;
-                opt.textContent = `${cat === 'addon' ? '⚡' : cat === 'map' ? '🏝️' : '🎮'} ${t.name}`;
+                const icon = cat === 'addon' ? '⚡' : cat === 'map' ? '🏝️' : cat === 'minigame' ? '🎮' : '🧩';
+                opt.textContent = `${icon} ${t.name}`;
                 targetSelect.appendChild(opt);
               });
               targetSelect.appendChild(grp);

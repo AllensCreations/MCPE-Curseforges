@@ -1,12 +1,12 @@
 name: Build Test World
 
-# Rebuilds "<Name> - Test.mcworld" for scripts and add-ons that have test_world.json.
+# Rebuilds "<Name> - Test.mcworld" for Addons, Scripts, and Minigames.
 
 on:
   workflow_dispatch:
     inputs:
       project:
-        description: "Project folder, e.g. MCPEDL/script/My-Script. Leave blank to rebuild every project with a test_world.json."
+        description: "Project folder, e.g. MCPEDL/Minigame/My-Game. Leave blank to rebuild every eligible project."
         required: false
         default: ""
         type: string
@@ -37,8 +37,8 @@ jobs:
         run: |
           set -euo pipefail
           if [ -n "$PROJECT" ]; then
-            [[ "$PROJECT" =~ ^MCPEDL/(script|new_addons|addons)/[A-Za-z0-9][A-Za-z0-9._-]{0,63}$ ]] \
-              || { echo "::error::project must look like MCPEDL/script/<Name>"; exit 1; }
+            [[ "$PROJECT" =~ ^MCPEDL/(Addons|Script|Minigame)/[A-Za-z0-9][A-Za-z0-9._-]{0,63}$ ]] \
+              || { echo "::error::project must look like MCPEDL/{Addons,Script,Minigame}/<Name>"; exit 1; }
             python scripts/build_test_world.py --project "$PROJECT"
           else
             python scripts/build_test_world.py --all

@@ -1,0 +1,35 @@
+{
+  "format_version": 2,
+  "header": {
+    "name": "Alphabet Scavenger Hunt (v1.0.9)",
+    "description": "Controller icon resources. by AllensCreations",
+    "uuid": "a5f9a639-fe66-47df-8519-bb256701a77e",
+    "version": [
+      1,
+      0,
+      9
+    ],
+    "min_engine_version": [
+      1,
+      26,
+      40
+    ]
+  },
+  "modules": [
+    {
+      "type": "resources",
+      "uuid": "97822c15-dcd6-49e7-90e5-d9537afa4b68",
+      "version": [
+        1,
+        0,
+        9
+      ]
+    }
+  ],
+  "metadata": {
+    "authors": [
+      "AllensCreations"
+    ],
+    "product_type": "addon"
+  }
+}

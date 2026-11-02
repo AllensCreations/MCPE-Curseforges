@@ -2,7 +2,7 @@
 """
 Project Deletion & Catalog Cleanup Script for MCPE-Curseforges.
 
-Deletes any project from MCPEDL/ (addons, new_addons, maps, script), cleans
+Deletes any project from MCPEDL/ (Addons, Maps, Script, Minigame), cleans
 its entry from category READMEs, master builds/README.md, and root README.md,
 deletes its compiled build artifacts, updates collection badges, and keeps
 workflow selection dropdowns synchronized.
@@ -21,13 +21,13 @@ BUILDS_DIR = os.path.join(REPO_ROOT, "builds")
 BUILDS_README = os.path.join(BUILDS_DIR, "README.md")
 DELETE_WORKFLOW = os.path.join(REPO_ROOT, ".github", "workflows", "delete-project.yml")
 
-VALID_TYPES = ["addons", "new_addons", "maps", "script"]
+VALID_TYPES = ["addons", "maps", "script", "minigame"]
 
 CATEGORY_MAP = {
-    "addons": os.path.join(REPO_ROOT, "MCPEDL", "addons"),
-    "new_addons": os.path.join(REPO_ROOT, "MCPEDL", "new_addons"),
-    "maps": os.path.join(REPO_ROOT, "MCPEDL", "maps"),
-    "script": os.path.join(REPO_ROOT, "MCPEDL", "script"),
+    "addons": os.path.join(REPO_ROOT, "MCPEDL", "Addons"),
+    "maps": os.path.join(REPO_ROOT, "MCPEDL", "Maps"),
+    "script": os.path.join(REPO_ROOT, "MCPEDL", "Script"),
+    "minigame": os.path.join(REPO_ROOT, "MCPEDL", "Minigame"),
 }
 
 
@@ -47,25 +47,18 @@ def update_collection_badge():
     if not os.path.isfile(ROOT_README):
         return
 
-    maps_dir = CATEGORY_MAP["maps"]
-    script_dir = CATEGORY_MAP["script"]
-    addon_dirs = [
-        d for d in glob.glob(os.path.join(REPO_ROOT, "MCPEDL", "*"))
-        if os.path.isdir(d) and os.path.basename(d) not in ("maps", "script")
-    ]
-    n_addons = sum(
-        len([p for p in glob.glob(os.path.join(ad, "*")) if os.path.isdir(p)])
-        for ad in addon_dirs
-    )
-    n_maps = len([d for d in glob.glob(os.path.join(maps_dir, "*")) if os.path.isdir(d)])
-    n_scripts = len([d for d in glob.glob(os.path.join(script_dir, "*")) if os.path.isdir(d)])
+    n_addons = len(list_projects_in_category("addons"))
+    n_maps = len(list_projects_in_category("maps"))
+    n_scripts = len(list_projects_in_category("script"))
+    n_minigames = len(list_projects_in_category("minigame"))
 
     with open(ROOT_README, "r", encoding="utf-8") as f:
         content = f.read()
 
     new_badge = (
         f"[![Collection Size](https://img.shields.io/badge/Collection-"
-        f"{n_addons}%20Add--ons%20%7C%20{n_maps}%20Map%20%7C%20{n_scripts}%20Scripts"
+        f"{n_addons}%20Add-ons%20%7C%20{n_maps}%20Maps%20%7C%20"
+        f"{n_scripts}%20Scripts%20%7C%20{n_minigames}%20Minigames"
         f"-orange?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges)"
     )
     updated = re.sub(
@@ -76,7 +69,8 @@ def update_collection_badge():
     if updated != content:
         with open(ROOT_README, "w", encoding="utf-8") as f:
             f.write(updated)
-        print(f"  [Badge] Updated Collection Size badge -> {n_addons} Add-ons | {n_maps} Maps | {n_scripts} Scripts")
+        print(f"  [Badge] Updated Collection Size badge -> {n_addons} Add-ons | {n_maps} Maps | "
+              f"{n_scripts} Scripts | {n_minigames} Minigames")
 
 
 def clean_category_readme(cat_key, slug):
@@ -106,18 +100,7 @@ def clean_category_readme(cat_key, slug):
             continue
         new_lines.append(line)
 
-    # For new_addons, if no projects remain, restore placeholder
-    if cat_key == "new_addons":
-        remaining_projects = list_projects_in_category("new_addons")
-        if not remaining_projects:
-            has_placeholder = any("*No add-ons currently in testing.*" in l for l in new_lines)
-            if not has_placeholder:
-                for idx, line in enumerate(new_lines):
-                    if line.startswith("| :---"):
-                        new_lines.insert(idx + 1, "| *No add-ons currently in testing.* | | |\n")
-                        break
-
-    if removed or cat_key == "new_addons":
+    if removed:
         with open(readme_path, "w", encoding="utf-8") as f:
             f.writelines(new_lines)
         print(f"  [Catalog] Cleaned {os.path.relpath(readme_path, REPO_ROOT)}")
@@ -200,9 +183,9 @@ def sync_delete_workflow_choices():
         return
 
     addons = list_projects_in_category("addons")
-    new_addons = list_projects_in_category("new_addons")
     maps = list_projects_in_category("maps")
     scripts = list_projects_in_category("script")
+    minigames = list_projects_in_category("minigame")
 
     def build_options_block(items):
         options = ["none"] + [it for it in items if it != "none"]
@@ -213,9 +196,9 @@ def sync_delete_workflow_choices():
 
     replacements = [
         ("addon_target", build_options_block(addons)),
-        ("new_addon_target", build_options_block(new_addons)),
         ("map_target", build_options_block(maps)),
         ("script_target", build_options_block(scripts)),
+        ("minigame_target", build_options_block(minigames)),
     ]
 
     new_content = content
@@ -304,9 +287,9 @@ def main():
     parser.add_argument("--type", choices=VALID_TYPES, required=False, help="Category type of project")
     parser.add_argument("--project", help="Explicit project folder name (slug)")
     parser.add_argument("--addon", default="none", help="Selected addon from dropdown")
-    parser.add_argument("--new-addon", default="none", help="Selected new_addon from dropdown")
     parser.add_argument("--map", default="none", help="Selected map from dropdown")
     parser.add_argument("--script", default="none", help="Selected script from dropdown")
+    parser.add_argument("--minigame", default="none", help="Selected minigame from dropdown")
     parser.add_argument("--confirm", default="no", choices=["yes", "no"], help="Safety confirmation")
     parser.add_argument("--dry-run", action="store_true", help="Simulate deletion without changes")
     parser.add_argument("--sync-choices", action="store_true", help="Only synchronize workflow choice dropdowns")
@@ -330,12 +313,12 @@ def main():
         slug = args.project.strip()
     elif args.type == "addons" and args.addon != "none":
         slug = args.addon.strip()
-    elif args.type == "new_addons" and args.new_addon != "none":
-        slug = args.new_addon.strip()
     elif args.type == "maps" and args.map != "none":
         slug = args.map.strip()
     elif args.type == "script" and args.script != "none":
         slug = args.script.strip()
+    elif args.type == "minigame" and args.minigame != "none":
+        slug = args.minigame.strip()
 
     if not slug or slug.lower() == "none":
         print(f"Error: No valid project selected for type '{args.type}'.", file=sys.stderr)

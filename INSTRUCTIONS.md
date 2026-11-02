@@ -8,7 +8,7 @@ Instruction file for AllensCreations/MCPE-Curseforges covering repository policy
 | Part 2 | README, DESCRIPTION, and CHANGELOG rules, attribution, keywords, templates |
 | Part 3 | `checkrm` documentation audit workflow, Minecraft Wiki and Bedrock Samples references |
 
-The generator (asks addon / map / script, returns a base64 ZIP built by `scripts/build_payload.py`) is in `PACK_GENERATOR_INSTRUCTIONS.md`. It carries its own copy of the rules it needs, and this file wins on any conflict.
+The generator (asks Add-on / Map / Script / Minigame, returns a base64 ZIP built by `scripts/build_payload.py`) is in `PACK_GENERATOR_INSTRUCTIONS.md`. It carries its own copy of the rules it needs, and this file wins on any conflict.
 
 **Precedence.** Part 1 wins on any conflict. Parts 2 and 3 follow Part 1 and never override them. `PACK_GENERATOR_INSTRUCTIONS.md` follows this file and never overrides it. Factual accuracy and the user's requested scope outrank any template. The scripts in `scripts/` enforce these rules; if a script and this file disagree, report the difference to the user and follow this file for documents, the script for what the importer will accept. **Section numbers refer to the Part they appear in**; a reference to another Part names it.
 
@@ -108,7 +108,7 @@ Do this for every new pack and meaningful update. A compatible API version does 
 
 #### Add-on LOCK marker
 
-- Every project under `MCPEDL/addons/` and `MCPEDL/new_addons/` has a `LOCK` file at its root beginning with `AllensCreations Add-on Lock v1`.
+- Every project under `MCPEDL/Addons/` has a `LOCK` file at its root beginning with `AllensCreations Add-on Lock v1`.
 - `scripts/import_project_payload.py` creates it and the build script enforces it. A missing or invalid marker is release-blocking: report the exact project path and do not call the project build-ready.
 - It is a repository and build safeguard only. It does not encrypt source, stop edits, or prevent extraction of a distributable package.
 
@@ -214,37 +214,38 @@ Do not claim `tick.json` is missing without inspecting the installed or packaged
 
 #### Workflow
 
-The authoritative world foundations are the direct folders `Mcpeworlds/Creative/`, `Mcpeworlds/Survival/`, and `Mcpeworlds/Hardcore/`. The OneBlock build workflow copies each matching foundation into a temporary staging directory, preserves its valid `level.dat`, integrates the map's current Behavior Pack and Resource Pack, then packages the completed world as a `.mcworld` inside `MCPEDL/maps/<Map-Name>/`.
+The authoritative world foundations are the direct folders `Mcpeworlds/Creative/`, `Mcpeworlds/Survival/`, and `Mcpeworlds/Hardcore/`. The OneBlock build workflow copies each matching foundation into a temporary staging directory, preserves its valid `level.dat`, integrates the map's current Behavior Pack and Resource Pack, then packages the completed world as a `.mcworld` inside `MCPEDL/Maps/<Map-Name>/`.
 
-1. Keep map source packs in `MCPEDL/maps/<Map-Name>/behavior_pack/` and `resource_pack/` (when required), with the project's docs and configuration.
+1. Keep map source packs in `MCPEDL/Maps/<Map-Name>/behavior_pack/` and `resource_pack/` (when required), with the project's docs and configuration.
 2. Use `Mcpeworlds/` as the only source of world foundations. Do not use old world ZIPs, `Oneblock-assets.mcworld`, `assets/Void_For_Workv2.mcworld`, or a persisted `assets/oneblock-template/`. Do not recreate the retired `create-mcpe-world.yml` workflow or `scripts/create_mcpe_world.py`.
 3. Preserve the intentional database-free void design: never create, fabricate, borrow, or require `db/CURRENT` or LevelDB data.
 4. On relevant source, foundation, builder, or instruction changes, `build-oneblock-variants.yml` automatically builds Creative, Survival, and Hardcore worlds and synchronizes the map README. Manual dispatch remains available.
 5. Validate the generated archive structure and pack references. Report structural checks separately from Minecraft gameplay testing.
 
-For maps, Creative is the primary and only designated in-game test world (a script's `test_world.json` chooses its own mode). Do not create a separate `.mcaddon` tester package or a `Tester Build/` folder. Unrelated add-on build workflows must not misclassify a map as a standalone add-on.
+Maps ship as worlds generated from the Creative, Survival, and Hardcore foundations. Add-ons, Scripts, and Minigames use the Creative foundation for their test worlds; test-world mode is fixed to Creative. Do not create a separate tester package or `Tester Build/` folder. Unrelated Add-on build workflows must not misclassify a Map as a standalone Add-on.
 
 #### Creating a project from an AI-generated payload
 
-- `PACK_GENERATOR_INSTRUCTIONS.md` is the instruction file given to an AI agent. The agent first asks which type the user wants (**addon**, **map**, or **script**), then returns a single-line base64 ZIP produced by running code, never written by hand. The ZIP's `project.json` (`{"type": "addon|map|script", "name": "..."}`) carries the type.
+- `PACK_GENERATOR_INSTRUCTIONS.md` is the instruction file given to an AI agent. The agent first asks which type the user wants (**addon**, **map**, **script**, or **minigame**), then returns a single-line base64 ZIP produced by running code, never written by hand. The ZIP's `project.json` (`{"type": "addon|map|script|minigame", "name": "..."}`) carries the type.
 - `create-project-from-base64.yml` takes the folder name plus the base64 (or a `.b64` path under `MCPEDL/incoming/`) and runs `scripts/import_project_payload.py`, which imports `scripts/build_payload.py`, so the agent-side and repo-side checks are the same code.
-- Destinations: addon -> `MCPEDL/new_addons/<Name>/` (the importer writes the `LOCK` markers); map -> `MCPEDL/maps/<Name>/` (the importer writes `oneblock.json`; Creative, Survival, and Hardcore worlds are built in the same run); script -> `MCPEDL/script/<Name>/` (a test world is built).
+- Destinations and formats: addon -> `MCPEDL/Addons/<Name>/` (`.mcaddon`, Creative test world; importer writes `LOCK`); map -> `MCPEDL/Maps/<Name>/` (`.mcworld`; importer writes `oneblock.json`, then Creative, Survival, and Hardcore worlds are built); script -> `MCPEDL/Script/<Name>/` (`.mcpack`, Creative test world, no Controller); minigame -> `MCPEDL/Minigame/<Name>/` (`.mcaddon`, Controller item and Creative test world).
 - The importer validates before writing anything. It rejects unsafe paths, symlinks, world data (`db/`, `level.dat`), nested archives, shipped pack link files, disallowed file types, bad manifests, recipes without the required unlock, and the per-type requirements below. Icons must match the repo copies under `Mcpeworlds/assets/resources_pack/textures/items/` byte for byte.
-- Map requirements: `tick.json` lists `void_cleaner` first, `void_cleaner.mcfunction` starts with the required Y=-64 fill line, `oneblock_setup.mcfunction` exists, and the Trader Ledger item, texture entry, and `trader_ledger.png` are present. Add-ons and scripts do not need the void cleaner or the ledger.
+- Map requirements: `tick.json` lists `void_cleaner` first, `void_cleaner.mcfunction` starts with the required Y=-64 fill line, `oneblock_setup.mcfunction` exists, and the Trader Ledger item, texture entry, and `trader_ledger.png` are present. Add-ons, Scripts, and Minigames do not need the void cleaner or ledger.
 - The folder name is typed per run; never hardcode one in a workflow or script. A payload with only `oneblock.json` (no `project.json`) is still accepted as a map.
 - When Sections 3, 4, 6, or 7 change, update `PACK_GENERATOR_INSTRUCTIONS.md`, `scripts/build_payload.py`, and the importer in the same change, then run `scripts/selftest_project_types.py`. This file wins on any conflict.
 - These checks prove structure only. Never claim the add-on, map, script, or world works in Minecraft until tested in game.
 
 #### Scripts and test worlds
 
-- A script project is `MCPEDL/script/<Name>/` with `behavior_pack/` (script module, `scripts/main.js`), `resource_pack/`, `project.json`, `test_world.json`, and the documentation files.
-- Every script ships the Controller item (`allenscreations:controller`, texture `controller.png`, a 16 x 16 icon kept at `Mcpeworlds/assets/resources_pack/textures/items/controller.png`). Using it opens a form with **Start** and **How to play**, and **End Game** takes the place of **Start** while a game is running; the script keeps the state (idle, running, ended) in a world dynamic property. A project may opt out with `"controller": false` in `project.json`.
+- A Script project is `MCPEDL/Script/<Name>/`, contains a script Behavior Pack and Creative `test_world.json`, and ships as `.mcpack`.
+- A Minigame project is `MCPEDL/Minigame/<Name>/`, contains Behavior and Resource Packs plus Creative `test_world.json`, and ships as `.mcaddon`.
+- Every Minigame ships the Controller item (`allenscreations:controller`, texture `controller.png`, a 16 x 16 icon kept at `Mcpeworlds/assets/resources_pack/textures/items/controller.png`). Using it opens a form with **Start** and **How to play**, and **End Game** takes the place of **Start** while a game is running; the script keeps the state (idle, running, ended) in a world dynamic property. Minigames cannot opt out.
 - Only the host or an operator receives and can use the Controller. **Start** works while no game is running. While a game is running the first button reads **End Game** instead, asks to confirm, then calls `endGame()`; it needs no cheats. **How to play** is always the second button and opens a page with the rules and a Back button. The game also ends through its own win or lose logic, which calls `endGame()`.
 - **The Controller is kept while a game runs**, so **End Game** stays reachable. A script may opt back into the old behavior with `consumeOnStart: true` in `registerController`: Start then consumes the first Controller found unless the player is in Creative, and **End Game** is only reachable by a host who still carries one. The host or operator receives a Controller on every spawn (including after death) when they carry none, and when the game ends the script gives a fresh one if they have none.
-- **Stuck-state recovery.** The game state must not be able to stay `running` forever. On world load, a script that cannot restore a live game must reset the state to `idle` and give the host or operator a Controller. `give_controller.mcfunction` and `end_game.mcfunction` ship with every Controller script but need cheats, so they are a last resort and never the only recovery path.
-- `test_world.json` is `{"mode": "Creative", "include_addons": ["Name", ...]}`. Included add-ons are looked up in `MCPEDL/addons/` and `MCPEDL/new_addons/`. `scripts/build_test_world.py` copies `Mcpeworlds/<mode>`, installs the script and every included add-on, links all packs, and writes `<Name> - Test.mcworld` into the project folder. It fails on a missing include, duplicate pack UUIDs, or an unresolved pack dependency. Experiments and achievement state come from the foundation and are not verified.
-- `build-test-world.yml` rebuilds test worlds on demand. Add-ons may also carry a `test_world.json`.
-- The one-OneBlock-pack-per-world rule applies to maps only; a script test world may link several packs.
+- **Stuck-state recovery.** The game state must not be able to stay `running` forever. On world load, a Minigame script that cannot restore a live game must reset the state to `idle` and give the host or operator a Controller. `give_controller.mcfunction` and `end_game.mcfunction` ship with every Controller Minigame but need cheats, so they are a last resort and never the only recovery path.
+- `test_world.json` is `{"mode": "Creative", "include_addons": ["Name", ...]}`. Included add-ons are looked up only in `MCPEDL/Addons/`. `scripts/build_test_world.py` copies the Creative foundation, installs the project and any included add-ons, links all packs, and writes `<Name> - Test.mcworld` into the project folder. It fails on a missing include, duplicate pack UUIDs, or an unresolved pack dependency. Experiments and achievement state come from the foundation and are not verified.
+- `build-test-world.yml` rebuilds Creative test worlds for Add-ons, Scripts, and Minigames. Add-ons may omit `test_world.json`; Script and Minigame payloads require it.
+- The one-OneBlock-pack-per-world rule applies to maps only; test worlds may link several packs.
 
 #### Installing into the world folders
 
@@ -266,12 +267,12 @@ Repeat for each mode folder, with identical results in all three:
 - Each mode folder's installed pack matches the source, and each link entry matches the manifest's UUID and version.
 - The Resource Pack dependency UUID resolves, when one exists.
 - Script files pass available syntax checks.
-- The importer, `build_oneblock_variants_from_template.py` (`verify_archive`), and `build_test_world.py` run these checks when a project is created or rebuilt; `scripts/selftest_project_types.py` exercises all three project types end to end.
+- The importer, `build_oneblock_variants_from_template.py` (`verify_archive`), and `build_test_world.py` run these checks when a project is created or rebuilt; `scripts/selftest_project_types.py` exercises all four project types end to end.
 - State precisely what passed. Structural checks never prove Minecraft loaded the world or that progression works.
 
 #### Map README
 
-- Download-focused. Link Creative, Survival, and Hardcore only to compiled `.mcworld` files that actually exist in `MCPEDL/maps/<Map-Name>/`, and keep the source version aligned with the current Behavior Pack. Do not claim an archive matches the current source unless it was checked. Catalog entries in `MCPEDL/maps/README.md` follow the same rule.
+- Download-focused. Link Creative, Survival, and Hardcore only to compiled `.mcworld` files that actually exist in `MCPEDL/Maps/<Map-Name>/`, and keep the source version aligned with the current Behavior Pack. Do not claim an archive matches the current source unless it was checked. Catalog entries in `MCPEDL/Maps/README.md` follow the same rule.
 
 #### Example project spec: Dirtbound
 
@@ -303,14 +304,13 @@ Workflows live in `.github/workflows/`. The roles below are a summary and will d
 | `check-manifest-versions.yml` | Checks every manifest for version, UUID, dependency, import, and engine-version problems. Runs on pull requests, on pushes that touch manifests, and on demand. |
 | `remake-docs.yml` | Remakes README, DESCRIPTION, and CHANGELOG for all projects or one (`standardize` keeps text, `rebuild` regenerates add-on docs). Dry run and pull request by default. |
 | `sync-readmes.yml` | Makes README download links match real builds (fixes 404 links) without placing release versions in project README titles. Dry run option. |
-| `build-oneblock-variants.yml` | Builds the Creative, Survival, and Hardcore database-free `.mcworld` archives into `MCPEDL/maps/<Map-Name>/`. |
+| `build-oneblock-variants.yml` | Builds the Creative, Survival, and Hardcore database-free `.mcworld` archives into `MCPEDL/Maps/<Map-Name>/`. |
 | `create-project-from-base64.yml` | Manual run: decodes a base64 ZIP into the matching `MCPEDL/` folder and builds the worlds that type needs. `commit_mode` defaults to `pull_request`; `direct` pushes straight to the branch. |
 | `build-test-world.yml` | Manual run: rebuilds `<Name> - Test.mcworld`. |
 | `apply-generator-upgrade.yml` | Manual run: applies a reviewed upgrade ZIP; dry run by default. |
 | `generate-recipe-images.yml` | Regenerates recipe diagrams (Section 5). |
 | `ci.yml` | Pull-request checks: Python syntax, manifest titles, README audit (advisory), crafting template test, and the project pipeline self-test (`selftest_project_types.py --fake-foundation`). |
 | `update-min-version.yml` | Manual run: sets `min_engine_version` in the manifests of chosen projects to a looked-up version. It does not edit this file or any README. |
-| `manage-addon-status.yml` | Manages add-on status. |
 | `delete-project.yml` | Deletes a project. |
 | `collect-ai-review-files.yml` | Bundles the instruction file, scripts, workflows, and icon hashes for AI review. |
 | `export-repo-to-txt.yml` | Exports chosen paths to readable TXT for AI use. |
@@ -321,7 +321,7 @@ Retired, do not recreate or reference: `create-addon-scaffold.yml`, `test-crafti
 
 Helper scripts in `scripts/` (read the script for exact options):
 
-- `check_readme_status.py` (also `--remake standardize|rebuild`, `--check`), `remake_docs.py`, `sync_readme_links.py` (`--check` previews, `--strict` fails on broken links), `check_manifest_versions.py`, `sync_manifest_versions.py` (`--check` reports without writing, `--verify-only` runs the checker on the selected projects), `sync_project_docs.py` (DESCRIPTION heading and CHANGELOG entry; `--check` reports without writing), `validate_manifest_titles.py`, `auto_bump_and_build.py` (builds without changing manifest versions), `sync_dispatch_choices.py`, `crafting_template.py`, `build_oneblock_variants_from_template.py` (reads `ONEBLOCK_MAP`), `sync_oneblock_map_readmes.py`, `import_project_payload.py`, `build_payload.py`, `build_test_world.py`, `cleanup_unused.py`, `delete_project.py`, `manage_addon_status.py`, `ensure_recipe_unlocks.py`, `update_min_version.py` (manifests only), the recipe image generators, `selftest_project_types.py`. `tests/test_crafting_template.py` is run by CI.
+- `check_readme_status.py` (also `--remake standardize|rebuild`, `--check`), `remake_docs.py`, `sync_readme_links.py` (`--check` previews, `--strict` fails on broken links), `check_manifest_versions.py`, `sync_manifest_versions.py` (`--check` reports without writing, `--verify-only` runs the checker on the selected projects), `sync_project_docs.py` (DESCRIPTION heading and CHANGELOG entry; `--check` reports without writing), `validate_manifest_titles.py`, `auto_bump_and_build.py` (builds without changing manifest versions), `sync_dispatch_choices.py`, `crafting_template.py`, `build_oneblock_variants_from_template.py` (reads `ONEBLOCK_MAP`), `sync_oneblock_map_readmes.py`, `import_project_payload.py`, `build_payload.py`, `build_test_world.py`, `cleanup_unused.py`, `delete_project.py`, `ensure_recipe_unlocks.py`, `update_min_version.py` (manifests only), the recipe image generators, `selftest_project_types.py`. `tests/test_crafting_template.py` is run by CI.
 - `check_generator_sync.py` is retired: nothing is embedded in this file any more (`PACK_GENERATOR_INSTRUCTIONS.md`, Section 8). Do not recreate it.
 
 When a rule in this file changes a workflow's behavior (titles, paths, versions), update the workflow in the same change.
@@ -338,11 +338,11 @@ MCPE-Curseforges/
 ├── .github/workflows/
 ├── Mcpeworlds/{Creative,Survival,Hardcore}/
 ├── MCPEDL/
-│   ├── addons/<Addon-Name>/
-│   ├── new_addons/
+│   ├── Addons/<Addon-Name>/
+│   ├── Maps/<Map-Name>/
+│   ├── Script/<Project-Name>/
+│   ├── Minigame/<Project-Name>/
 │   ├── incoming/
-│   ├── script/<Project-Name>/
-│   └── maps/<Map-Name>/
 └── builds/<Name>/
     └── versions/V<x.y.z>/   (auto-saved packages + source.zip per release, last 5 kept)
 ```
@@ -394,10 +394,10 @@ All documentation rules, player-facing writing, creator links, attribution, and 
 
 - **Every project type:** the README is the download and installation page; the DESCRIPTION is the product page. Before replacing a long README, preserve its verified player-facing content in `DESCRIPTION.md`. Never lose verified information or duplicate full descriptions across both.
 - Catalogs are the download source of truth:
-  - Existing Add-ons: `MCPEDL/addons/README.md#available-add-ons`
-  - New Add-ons: `MCPEDL/new_addons/README.md#available-add-ons`
-  - Maps: `MCPEDL/maps/README.md#available-maps`
-  - Scripts & Challenges: `MCPEDL/script/README.md#available-scripts`
+  - Add-ons: `MCPEDL/Addons/README.md#available-add-ons` (`.mcaddon`)
+  - Maps: `MCPEDL/Maps/README.md#available-maps` (`.mcworld`)
+  - Scripts: `MCPEDL/Script/README.md#available-scripts` (`.mcpack`)
+  - Minigames: `MCPEDL/Minigame/README.md#available-minigames` (`.mcaddon`, Controller item)
   - Master builds: `builds/README.md#available-pack-and-map-builds`
 
 ### 2. Player-Facing Writing
@@ -594,7 +594,7 @@ Discover the actual folder structure first. Do not assume a folder or file exist
    2. Confirm each documented feature has source evidence and that no verified content was lost.
    3. Run `python3 scripts/validate_manifest_titles.py --project <project-path>` when applicable.
    4. Run `python3 scripts/check_readme_status.py` again. Expect `0` needing update and `[LINK INTEGRITY] All relative links valid`.
-   5. Check the add-on LOCK marker (Part 1, Section 3) for projects under `MCPEDL/addons/` and `MCPEDL/new_addons/`.
+   5. Check the add-on LOCK marker (Part 1, Section 3) for projects under `MCPEDL/Addons/`.
    6. Review the final diff for scope. If a check was not run, say so.
 9. **Report.** State briefly: projects audited or updated; files changed; commands run and results; missing assets, unresolved links, or unverifiable information; remaining projects needing attention. Never report success for a check that was not run or did not pass.
 

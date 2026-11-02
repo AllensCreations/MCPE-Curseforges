@@ -8,8 +8,8 @@ on:
         required: true
         type: choice
         options:
-          - addons
-          - new_addons
+          - Addons
+          - Minigame
       project:
         description: Exact project folder name
         required: true

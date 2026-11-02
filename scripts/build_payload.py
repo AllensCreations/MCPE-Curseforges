@@ -1,23 +1,23 @@
 #!/usr/bin/env python3
 """Project payload builder v9 for AllensCreations/MCPE-Curseforges.
 
-One script for all three project types: addon, map (OneBlock), script.
+One script for all four project types: addon, map, script, minigame.
 It installs the mandatory repo assets that are missing, runs every structural check,
 builds the ZIP, writes payload.b64 (one line) and round-trips it.
 scripts/import_project_payload.py imports this same file, so the agent-side checks and
 the repo-side checks cannot drift apart.
 
 Usage:  python build_payload.py build/Project-Name [--out payload.b64] [--check-only]
-Needs build/Project-Name/project.json:  {"type": "addon|map|script", "name": "Display Name"}
+Needs build/Project-Name/project.json:  {"type": "addon|map|script|minigame", "name": "Display Name"}
 Structural checks only: never proof that anything works in Minecraft.
 Exit codes: 0 ok, 1 checks failed, 2 packaging or round-trip failed.
 """
 import argparse, base64, hashlib, io, json, re, shutil, struct, subprocess, sys, tempfile, zipfile
 from pathlib import Path, PurePosixPath
 
-TYPES = ("addon", "map", "script")
+TYPES = ("addon", "map", "script", "minigame")
 MODES = ("Creative", "Survival", "Hardcore")
-DEST_DIR = {"addon": "new_addons", "map": "maps", "script": "script"}
+DEST_DIR = {"addon": "Addons", "map": "Maps", "script": "Script", "minigame": "Minigame"}
 MIN_ITEM_FORMAT = [1, 20, 80]
 CONTROLLER_LABELS = ("Start", "How to play")
 CONTROLLER_JS_REL = "behavior_pack/scripts/controller.js"
@@ -283,7 +283,7 @@ def read_project(root):
 
 
 def wants_controller(pj):
-    return isinstance(pj, dict) and pj.get("type") == "script" and pj.get("controller", True) is not False
+    return isinstance(pj, dict) and pj.get("type") == "minigame"
 
 
 def item_format_version(root):
@@ -376,6 +376,10 @@ def _png_size(d):
     return struct.unpack(">II", d[16:24])
 
 
+def _is_test_world_output(path):
+    return path.name.endswith(" - Test.mcworld")
+
+
 def _has_comment(src):
     i, n, q = 0, len(src), None
     while i < n:
@@ -437,11 +441,13 @@ def run_checks(root, repo_root=None, folder=None):
     if isinstance(pj, dict):
         check(isinstance(pj.get("name"), str) and bool(pj["name"].strip()), "project.json needs a non-empty name")
         check(pj.get("controller", True) in (True, False), "project.json: controller must be true or false")
+        if ptype == "minigame":
+            check(pj.get("controller", True) is not False, "minigame projects must use the Controller item")
     strict = {"project.json", "behavior_pack/manifest.json", "resource_pack/manifest.json", "behavior_pack/functions/tick.json",
               "resource_pack/textures/item_texture.json", "behavior_pack/items/trader_ledger.json",
               "behavior_pack/items/controller.json", "test_world.json", "oneblock.json"}
 
-    files = [p for p in root.rglob("*") if p.is_file()]
+    files = [p for p in root.rglob("*") if p.is_file() and not _is_test_world_output(p)]
     total = 0
     check(len(files) <= MAX_FILES, f"{len(files)} files (max {MAX_FILES})")
     for p in files:
@@ -468,9 +474,13 @@ def run_checks(root, repo_root=None, folder=None):
     if controller:
         for rel in CONTROLLER_REQUIRED:
             check((root / rel).is_file(), f"missing required file: {rel}")
-    if ptype == "script":
+    if ptype in ("script", "minigame"):
         check((root / "behavior_pack/scripts/main.js").is_file(), "missing required file: behavior_pack/scripts/main.js")
-        check((root / "test_world.json").is_file(), "missing required file: test_world.json (scripts always get a test world)")
+        check((root / "test_world.json").is_file(), f"missing required file: test_world.json ({ptype} projects always get a test world)")
+    if ptype == "script":
+        check(not (root / "resource_pack").exists(), "script projects must be Behavior Pack-only so the package is a .mcpack")
+    if ptype == "minigame":
+        check((root / "resource_pack/manifest.json").is_file(), "minigame projects need a Resource Pack for the Controller item")
 
     # oneblock.json is optional in the payload (the importer writes it for maps); if present it must agree
     if (root / "oneblock.json").is_file() and ptype == "map":
@@ -574,8 +584,8 @@ def run_checks(root, repo_root=None, folder=None):
         if any(w in str(d.get("version", "")).lower() for w in ("beta", "rc", "preview")):
             warns.append(f"preview/beta dependency {d.get('module_name')}: allowed only if a requested feature needs it; say so in the README")
     has_script = any(x.get("type") == "script" for x in bpm.get("modules") or [])
-    if ptype == "script":
-        check(has_script, "script project: behavior_pack manifest needs a script module")
+    if ptype in ("script", "minigame"):
+        check(has_script, f"{ptype} project: behavior_pack manifest needs a script module")
     if has_script:
         check("@minecraft/server" in modnames, "script module needs a @minecraft/server dependency")
     if controller:
@@ -700,14 +710,14 @@ def run_checks(root, repo_root=None, folder=None):
         if any(ln.lstrip().startswith("#") for ln in fn.read_text(encoding="utf-8").splitlines()):
             warns.append(fn.relative_to(root).as_posix() + ": remove comments (no comments in functions)")
 
-    # test_world.json (required for scripts, optional for add-ons)
+    # Test worlds use the Creative foundation for add-ons, scripts, and minigames.
     tw_p = root / "test_world.json"
     if tw_p.is_file():
         if ptype == "map":
             warns.append("test_world.json is ignored for maps (maps already build Creative/Survival/Hardcore worlds)")
         tw = jload("test_world.json")
         if isinstance(tw, dict):
-            check(tw.get("mode", "Creative") in MODES, f"test_world.json: mode must be one of {', '.join(MODES)}")
+            check(tw.get("mode", "Creative") == "Creative", "test_world.json: test worlds must use the Creative foundation")
             inc = tw.get("include_addons", [])
             check(isinstance(inc, list) and len(inc) <= 10 and all(isinstance(x, str) and NAME_RE.match(x) for x in inc),
                   "test_world.json: include_addons must be a list of up to 10 add-on folder names")
@@ -717,9 +727,9 @@ def run_checks(root, repo_root=None, folder=None):
                     check(folder not in inc, "test_world.json: a project cannot include itself")
                 if repo_root:
                     for n in inc:
-                        ok = any((Path(repo_root) / "MCPEDL" / d / n / pk / "manifest.json").is_file()
-                                 for d in ("addons", "new_addons") for pk in ("behavior_pack", "resource_pack"))
-                        check(ok, f"test_world.json: add-on '{n}' not found under MCPEDL/addons or MCPEDL/new_addons")
+                        ok = any((Path(repo_root) / "MCPEDL" / "Addons" / n / pk / "manifest.json").is_file()
+                                 for pk in ("behavior_pack", "resource_pack"))
+                        check(ok, f"test_world.json: add-on '{n}' not found under MCPEDL/Addons")
             for k in tw:
                 if k not in ("mode", "include_addons"):
                     warns.append(f"test_world.json: unknown key '{k}' ignored")
@@ -795,7 +805,7 @@ def pack(root, out):
     buf = io.BytesIO()
     with zipfile.ZipFile(buf, "w", zipfile.ZIP_DEFLATED) as z:
         for p in sorted(root.rglob("*")):
-            if p.is_file():
+            if p.is_file() and not _is_test_world_output(p):
                 info = zipfile.ZipInfo(p.relative_to(root).as_posix(), date_time=(2020, 1, 1, 0, 0, 0))
                 info.compress_type = zipfile.ZIP_DEFLATED
                 info.external_attr = 0o644 << 16
@@ -804,7 +814,11 @@ def pack(root, out):
     out.write_text(base64.b64encode(data).decode("ascii"), encoding="ascii")  # always one line
     back = zipfile.ZipFile(io.BytesIO(base64.b64decode(out.read_text(), validate=True)))
     names = set(back.namelist())
-    want = {p.relative_to(root).as_posix() for p in root.rglob("*") if p.is_file()}
+    want = {
+        p.relative_to(root).as_posix()
+        for p in root.rglob("*")
+        if p.is_file() and not _is_test_world_output(p)
+    }
     if back.testzip() is not None or names != want:
         print(f"ROUND-TRIP FAILED: {back.testzip()} / diff {sorted(names ^ want)}")
         sys.exit(2)
@@ -825,7 +839,7 @@ def main():
     if not root.is_dir():
         sys.exit(f"Project folder not found: {root}")
     if read_project(root) is None:
-        sys.exit('Missing or invalid project.json. Create it first: {"type": "addon|map|script", "name": "Display Name"}')
+        sys.exit('Missing or invalid project.json. Create it first: {"type": "addon|map|script|minigame", "name": "Display Name"}')
     install_assets(root)
     fails, warns, n, total = run_checks(root)
     for w in sorted(set(warns)):

@@ -1,6 +1,6 @@
 # Pack Generator Instructions (AI Agent, v9)
 
-Standalone instruction file for an AI agent that builds a complete **addon**, **map** (OneBlock), or **script** project from the user's idea and returns it as **one line of base64** for the GitHub workflow **Create Project from Base64**.
+Standalone instruction file for an AI agent that builds a complete **addon**, **map**, **script**, or **minigame** project from the user's idea and returns it as **one line of base64** for the GitHub workflow **Create Project from Base64**.
 
 This file is self-contained. It includes the rules from the repository's `INSTRUCTIONS.md` (Parts 1 and 2) that a generator needs, using the same Part and Section numbers so cross references stay valid. Sections of `INSTRUCTIONS.md` Part 1 that only matter to maintainers (recipe images, workflows, repository layout, world-folder installation) are left out. Part 3 (the `checkrm` audit) is not needed to generate a project.
 
@@ -98,7 +98,7 @@ Do this for every new pack and meaningful update. A compatible API version does 
 
 #### Add-on LOCK marker
 
-- Every project under `MCPEDL/addons/` and `MCPEDL/new_addons/` has a `LOCK` file at its root beginning with `AllensCreations Add-on Lock v1`.
+- Every Add-on under `MCPEDL/Addons/` has a `LOCK` file at its root beginning with `AllensCreations Add-on Lock v1`.
 - `scripts/import_project_payload.py` creates it and the build script enforces it. A missing or invalid marker is release-blocking: report the exact project path and do not call the project build-ready.
 - It is a repository and build safeguard only. It does not encrypt source, stop edits, or prevent extraction of a distributable package.
 
@@ -158,16 +158,13 @@ Do not claim `tick.json` is missing without inspecting the installed or packaged
 - Anything specific to one project (coordinates, spawn, cleanup, shop access) belongs to that project's own spec, not to these general rules. Dirtbound's spec at the end of this section is a worked example.
 - The three folders `Mcpeworlds/Creative/`, `Mcpeworlds/Survival/`, and `Mcpeworlds/Hardcore/` are convenience delivery targets, not a limit on where a script can be used.
 
-#### Scripts and test worlds
+#### Add-on, Script, and Minigame test worlds
 
-- A script project is `MCPEDL/script/<Name>/` with `behavior_pack/` (script module, `scripts/main.js`), `resource_pack/`, `project.json`, `test_world.json`, and the documentation files.
-- Every script ships the Controller item (`allenscreations:controller`, texture `controller.png`, a 16 x 16 icon kept at `Mcpeworlds/assets/resources_pack/textures/items/controller.png`). Using it opens a form with **Start** and **How to play**, and **End Game** takes the place of **Start** while a game is running; the script keeps the state (idle, running, ended) in a world dynamic property. A project may opt out with `"controller": false` in `project.json`.
-- Only the host or an operator receives and can use the Controller. **Start** works while no game is running. While a game is running the first button reads **End Game** instead, asks to confirm, then calls `endGame()`; it needs no cheats. **How to play** is always the second button and opens a page with the rules and a Back button. The game also ends through its own win or lose logic, which calls `endGame()`.
-- **The Controller is kept while a game runs**, so **End Game** stays reachable. A script may opt back into the old behavior with `consumeOnStart: true` in `registerController`: Start then consumes the first Controller found unless the player is in Creative, and **End Game** is only reachable by a host who still carries one. The host or operator receives a Controller on every spawn (including after death) when they carry none, and when the game ends the script gives a fresh one if they have none.
-- **Stuck-state recovery.** The game state must not be able to stay `running` forever. On world load, a script that cannot restore a live game must reset the state to `idle` and give the host or operator a Controller. `give_controller.mcfunction` and `end_game.mcfunction` ship with every Controller script but need cheats, so they are a last resort and never the only recovery path.
-- `test_world.json` is `{"mode": "Creative", "include_addons": ["Name", ...]}`. Included add-ons are looked up in `MCPEDL/addons/` and `MCPEDL/new_addons/`. `scripts/build_test_world.py` copies `Mcpeworlds/<mode>`, installs the script and every included add-on, links all packs, and writes `<Name> - Test.mcworld` into the project folder. It fails on a missing include, duplicate pack UUIDs, or an unresolved pack dependency. Experiments and achievement state come from the foundation and are not verified.
-- `build-test-world.yml` rebuilds test worlds on demand. Add-ons may also carry a `test_world.json`.
-- The one-OneBlock-pack-per-world rule applies to maps only; a script test world may link several packs.
+- Add-ons use `MCPEDL/Addons/` and `.mcaddon`; their Creative test world can be built without a payload `test_world.json`.
+- Standalone Scripts use `MCPEDL/Script/`, a Behavior Pack only, and `.mcpack`; they require a Creative `test_world.json` and do not use the Controller.
+- Minigames use `MCPEDL/Minigame/`, Behavior and Resource Packs, `.mcaddon`, and a required Creative `test_world.json`; every Minigame uses the Controller described in Section 6.
+- Test worlds are copied from `Mcpeworlds/Creative/`; included packs must exist under `MCPEDL/Addons/`. The builder rejects missing add-ons, duplicate pack UUIDs, and unresolved dependencies. Experiments and achievement state are inherited from the foundation and are not verified.
+- Maps use all three world foundations—Creative, Survival, and Hardcore—and do not ship `test_world.json`. A test world may link several packs.
 
 #### Example project spec: Dirtbound
 
@@ -235,10 +232,10 @@ All documentation rules, player-facing writing, creator links, attribution, and 
 
 - **Every project type:** the README is the download and installation page; the DESCRIPTION is the product page. Before replacing a long README, preserve its verified player-facing content in `DESCRIPTION.md`. Never lose verified information or duplicate full descriptions across both.
 - Catalogs are the download source of truth:
-  - Existing Add-ons: `MCPEDL/addons/README.md#available-add-ons`
-  - New Add-ons: `MCPEDL/new_addons/README.md#available-add-ons`
-  - Maps: `MCPEDL/maps/README.md#available-maps`
-  - Scripts & Challenges: `MCPEDL/script/README.md#available-scripts`
+  - Add-ons: `MCPEDL/Addons/README.md#available-add-ons` (`.mcaddon`)
+  - Maps: `MCPEDL/Maps/README.md#available-maps` (`.mcworld`)
+  - Scripts: `MCPEDL/Script/README.md#available-scripts` (`.mcpack`)
+  - Minigames: `MCPEDL/Minigame/README.md#available-minigames` (`.mcaddon`)
   - Master builds: `builds/README.md#available-pack-and-map-builds`
 
 ### 2. Player-Facing Writing
@@ -417,15 +414,16 @@ Parts 1 and 2 above apply to everything you generate. This Part adds only what i
 
 If the user has not already said it, ask exactly this one question and wait:
 
-> What do you want to make: **addon**, **map** (OneBlock), or **script** (a mini-game or challenge with a Controller and a test world)?
+> What do you want to make: **addon** (.mcaddon), **map** (.mcworld), **script** (.mcpack), or **minigame** (.mcaddon with the Controller item)?
 
-Do not guess the type. Then follow Sections 1 to 3, the one section for that type (4, 5, or 6), and Sections 7 to 11. Ask at most one more question, and only if the answer would change what you build.
+Do not guess the type. Then follow Sections 1 to 3, the matching type requirements (4 to 6), and Sections 7 to 11. Ask at most one more question, and only if the answer would change what you build.
 
 | Type | Folder | Extra files |
 |---|---|---|
-| addon | `MCPEDL/new_addons/<Name>/` | none; optional `test_world.json` |
-| map | `MCPEDL/maps/<Name>/` | void cleaner, setup function, Trader Ledger (Section 5) |
-| script | `MCPEDL/script/<Name>/` | Controller, `give_controller`, `end_game`, `test_world.json` (Section 6) |
+| addon | `MCPEDL/Addons/<Name>/` | `.mcaddon`; Creative test world |
+| map | `MCPEDL/Maps/<Name>/` | `.mcworld`; Creative, Survival, and Hardcore worlds (Section 5) |
+| script | `MCPEDL/Script/<Name>/` | `.mcpack`; Behavior Pack only; Creative test world |
+| minigame | `MCPEDL/Minigame/<Name>/` | `.mcaddon`; Controller, Resource Pack, Creative test world (Section 6) |
 
 ### 1. Hard rules for the agent (all types)
 
@@ -433,7 +431,7 @@ Do not guess the type. Then follow Sections 1 to 3, the one section for that typ
 - Never invent features, versions, links, assets, test results, or compatibility. Building the ZIP proves structure only.
 - Look up the latest stable Minecraft Bedrock release and latest stable `@minecraft/server` and `@minecraft/server-ui` versions from the official documentation at the time of the work and record the date (Part 1, Section 2). No preview/beta/RC unless a requested feature requires it, and then disclose that clearly in the `DESCRIPTION.md`.
 - `min_engine_version` follows Part 1, Section 2 (lowest version needed, a real looked-up version). If you cannot confirm which game version first shipped the module version you use, say so.
-- **Art:** a generated payload never contains AI-generated images. The Trader Ledger (maps) and Controller (scripts) icons come only from the repo copy, which `build_payload.py` installs. For any other texture use real vanilla texture names, user-supplied textures, or omit the icon.
+- **Art:** a generated payload never contains AI-generated images. The Trader Ledger (Maps) and Controller (Minigames) icons come only from the repo copy, which `build_payload.py` installs. For any other texture use real vanilla texture names, user-supplied textures, or omit the icon.
 - If the idea leaves a gap, make the most reasonable choice and list it in the summary.
 - The shell may be plain `sh`: do not use brace expansion. After creating files, list them and confirm they exist.
 - **Shell script file names.** Whenever you give the user a `.sh` file (including a command or script handed over because you cannot run code), name it `(Repofilename)_(Version)_(Rand).sh`. `Repofilename` is the repository file, project, or folder the script works on, without its extension and with no spaces (use hyphens); `Version` is that item's current version as `X.Y.Z` (or the instruction file's version, such as `v3`); `Rand` is at least 5 random lowercase letters or digits, for example `Dirtbound_1.2.0_k7q2x.sh` or `INSTRUCTIONS_v3_m4p7z9.sh`. Generate a fresh `Rand` every time (for example `head -c 200 /dev/urandom | tr -dc 'a-z0-9' | head -c 6`) and never reuse a name from an earlier reply or an existing file, so running a new script can never overwrite or re-run an older one. Use the exact same name in the reply and in the command that runs it.
@@ -447,12 +445,12 @@ Do not guess the type. Then follow Sections 1 to 3, the one section for that typ
 A ZIP whose **root** is the project folder contents. Everything is built in `build/<Name>/`:
 
 ```
-project.json          REQUIRED, all types: {"type": "addon|map|script", "name": "Display Name"}
+project.json          REQUIRED, all types: {"type": "addon|map|script|minigame", "name": "Display Name"}
 README.md  DESCRIPTION.md  CHANGELOG.md
-test_world.json       script: REQUIRED. addon: optional. map: do not ship.
+test_world.json       script/minigame: REQUIRED. addon: optional. map: do not ship.
 behavior_pack/manifest.json
 behavior_pack/...     functions/ items/ blocks/ entities/ recipes/ loot_tables/ texts/ scripts/main.js
-resource_pack/        map and script: REQUIRED. addon: optional.
+resource_pack/        map/minigame: REQUIRED. addon: optional. script: forbidden.
 ```
 
 Do not ship `oneblock.json` (the importer writes it for maps), `LOCK` files (the importer writes them for add-ons), or a `project.json` for a different type.
@@ -495,9 +493,9 @@ Resource pack template (replace every `<fresh uuid v4>` and `<looked-up game ver
 
 ### 4. Type: addon
 
-- Behavior pack required; resource pack optional. No void cleaner, no ledger, no controller.
+- Package is always `.mcaddon`; behavior pack required, resource pack optional. No void cleaner, ledger, or Controller.
 - If you ship `functions/tick.json`, every name in it must exist as `functions/<n>.mcfunction`.
-- A `test_world.json` is optional (format in Section 6).
+- A `test_world.json` is optional. When built, its test world uses the Creative foundation.
 - The importer writes the `LOCK` markers; do not create them.
 
 ### 5. Type: map (OneBlock)
@@ -532,9 +530,15 @@ resource_pack/textures/items/trader_ledger.png
 - Dirtbound coordinates: core `(0,0,0)`, Bedrock `(0,-1,0)`, spawn `(0,1,0)`. If the user gives others, use theirs and make sure any `fill` covers what it claims to clear.
 - A script teleport is allowed only in script; state it in the summary. If an idea cannot work with the `void_cleaner`-first pipeline, say so instead of silently changing it.
 
-### 6. Type: script
+### 6. Types: script and minigame
 
-A script is a mini-game or challenge driven by the Script API. It works in any world and does not depend on specific terrain.
+#### Script
+
+A Script project is a standalone Behavior Pack for general gameplay logic. It has `project.json` with `"type": "script"`, `behavior_pack/manifest.json`, `behavior_pack/scripts/main.js`, and a required Creative `test_world.json`. It must not include a Resource Pack or Controller files and always ships as `.mcpack`.
+
+#### Minigame
+
+A Minigame is a playable challenge driven by a script. It has `project.json` with `"type": "minigame"`, Behavior and Resource Packs, and a required Creative `test_world.json`. It always ships as `.mcaddon` and uses the Controller item.
 
 **Required files** (`build_payload.py` installs the Controller files if missing):
 
@@ -551,7 +555,7 @@ resource_pack/textures/items/controller.png    16 x 16, from the repo, never red
 test_world.json
 ```
 
-**The Controller.** Every script ships item `allenscreations:controller`. Using it opens a form with two buttons, **Start** and **How to play**, in that order; while the game is running the first button reads **End Game** instead of **Start**. `"controller": false` in `project.json` opts out; then none of the Controller files are needed.
+**The Controller.** Every Minigame ships item `allenscreations:controller`. Using it opens a form with two buttons, **Start** and **How to play**, in that order; while the game is running the first button reads **End Game** instead of **Start**. Minigames cannot opt out.
 
 - Only the host or an operator receives and can use the Controller, checked with the `isHost` helper in `controller.js`, never with `player.isOp()` alone. **Start** works while the game is not running and re-reads the game state after the form closes. While it is running the first button reads **End Game**, asks to confirm in a second form (**End Game** or **Back**), then calls `endGame()` with no cheats needed. **How to play** opens a form with the rules text and a Back button.
 - **It is kept while the game runs**, so **End Game** stays reachable. The optional `consumeOnStart: true` in `registerController` restores the old behavior: Start consumes the first Controller in the player's inventory unless `getGameMode()` is `GameMode.Creative`, and **End Game** is then only reachable by a host who still carries one.
@@ -591,16 +595,16 @@ registerController({
 - The template's `win()` only sends a message: replace it with real game logic.
 - Existing projects with an inline Controller still pass with a warning; move them to `registerController` when next touched.
 
-**The test world.** `test_world.json` is required for scripts (use an empty list if no add-ons are wanted) and optional for add-ons:
+**The test world.** `test_world.json` is required for Script and Minigame projects and optional for Add-ons (use an empty add-on list if none are wanted):
 
 ```json
 { "mode": "Creative", "include_addons": ["Magnetic-Satchel", "Mining-Helmet"] }
 ```
 
-- `mode` is `Creative`, `Survival`, or `Hardcore` (default `Creative`).
-- `include_addons` holds folder names that already exist under `MCPEDL/addons/` or `MCPEDL/new_addons/`, at most 10, no duplicates. The importer rejects a missing name. Use only add-ons the user named or the idea clearly needs; if you cannot verify a name exists, ask once.
+- `mode` must be `Creative`; tests always use the Creative foundation.
+- `include_addons` holds folder names that already exist under `MCPEDL/Addons/`, at most 10, no duplicates. The importer rejects a missing name. Use only add-ons the user named or the idea clearly needs; if you cannot verify a name exists, ask once.
 - The workflow builds `<Name> - Test.mcworld` into the project folder. It fails on duplicate pack UUIDs or an unresolved dependency. The README must not claim the `.mcworld` exists; it is added after the build.
-- The test world uses the void foundation of the chosen mode. If the script needs terrain, build it from script or functions, not from world data.
+- The test world uses the Creative foundation. If the game needs terrain, build it from script or functions, not from world data.
 
 ### 7. Recipes and documentation (all types)
 
@@ -645,7 +649,7 @@ Paste the workflow's error log back to the agent. If a message names a rule, fin
 
 | Message contains | Fix |
 |---|---|
-| `type must be one of` | `project.json` needs `"type": "addon"`, `"map"`, or `"script"`. |
+| `type must be one of` | `project.json` needs `"type": "addon"`, `"map"`, `"script"`, or `"minigame"`. |
 | `File type not allowed` / `world data not allowed` / `link files not allowed` | Remove the file or folder (Section 2). |
 | `header.name must end with one (vX.Y.Z)` / `title version does not match` | One suffix, equal to `header.version`, in both packs. |
 | `description needs 'by AllensCreations' exactly once` | Once per description, never in the name. |
@@ -671,7 +675,7 @@ The final reply uses exactly the five blocks below, in this order, with these ex
 **1. TYPE AND FOLDER**
 
 ```
-Type: addon | map | script
+Type: addon | map | script | minigame
 Folder name: <letters, numbers, . _ - only>
 ```
 

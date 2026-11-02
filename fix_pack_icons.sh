@@ -254,7 +254,7 @@ for dp, dns, fns in os.walk(root):
 
 # stale builds/ folders that match no project in MCPEDL/
 projects = set()
-for cat in ("addons", "new_addons", "maps", "script"):
+for cat in ("Addons", "Maps", "Script", "Minigame"):
     d = os.path.join(root, "MCPEDL", cat)
     if os.path.isdir(d):
         projects |= {n for n in os.listdir(d) if os.path.isdir(os.path.join(d, n))}

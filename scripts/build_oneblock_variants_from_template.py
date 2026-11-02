@@ -18,7 +18,7 @@ from pathlib import Path
 from typing import Any
 
 ROOT = Path(__file__).resolve().parents[1]
-MAPS_ROOT = ROOT / "MCPEDL" / "maps"
+MAPS_ROOT = ROOT / "MCPEDL" / "Maps"
 PROJECT = MAPS_ROOT / (__import__("os").environ.get("ONEBLOCK_MAP", "").strip() or next((q.parent.name for q in sorted(MAPS_ROOT.rglob("oneblock.json"))), ""))
 SOURCE_WORLDS = {
     "Creative": ROOT / "Mcpeworlds" / "Creative",
