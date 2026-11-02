@@ -45,10 +45,12 @@ Use the Controller as the host or an operator and select Start. In Survival, att
 - Redistribution: Do not re-upload this pack or provide direct monetized download bypasses. Link directly to the official repository page.
 - Disclaimer: This is an unofficial community creation. It is not an official Minecraft product and is not approved by or associated with Mojang or Microsoft.
 
+---
+
 © All rights reserved for AllensCreations.
 
 ---
 
 ## Search & Discovery Keywords
 
-Minecraft Bedrock script, Trivia Vault: The Locked World, survival trivia challenge, general knowledge quiz, randomized answers, block type unlocks, 20-block radius penalty, Hardmode, AllensCreations.
+Minecraft Bedrock script, Trivia Vault: The Locked World, survival trivia challenge, general knowledge quiz, randomized answers, block type unlocks, 20-block radius penalty, Hardmode, AllensCreations, Minecraft Bedrock add-on, MCPEDL add-on, CurseForge Bedrock.

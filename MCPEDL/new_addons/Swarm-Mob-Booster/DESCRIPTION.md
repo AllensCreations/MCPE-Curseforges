@@ -67,4 +67,4 @@ Increase the spawn frequency and group sizes of supported vanilla mobs across th
 
 ## Search & Discovery Keywords
 
-Swarm Mob Booster Minecraft Bedrock, Supported Mob Spawn Rules Bedrock, Three Density Presets Bedrock, Nearby Mob HUD Bedrock, Ground-Item Handling Bedrock, Minecraft PE add-on, MCPEDL, CurseForge Bedrock, AllensCreations.
+Swarm Mob Booster Minecraft Bedrock, Supported Mob Spawn Rules Bedrock, Three Density Presets Bedrock, Nearby Mob HUD Bedrock, Ground-Item Handling Bedrock, Minecraft PE add-on, MCPEDL, CurseForge Bedrock, AllensCreations, Minecraft Bedrock add-on, MCPEDL add-on.

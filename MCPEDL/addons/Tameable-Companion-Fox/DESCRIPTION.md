@@ -100,4 +100,4 @@ Red and arctic foxes can become companions with the same core commands and equip
 
 ## Search & Discovery Keywords
 
-Tameable Companion Fox Minecraft Bedrock, Berry Taming Bedrock, Bodyguard Protection Bedrock, Upgraded Vitality Bedrock, Sit & Stand Commands Bedrock, Minecraft PE survival, MCPEDL, CurseForge Bedrock, AllensCreations.
+Tameable Companion Fox Minecraft Bedrock, Berry Taming Bedrock, Bodyguard Protection Bedrock, Upgraded Vitality Bedrock, Sit & Stand Commands Bedrock, Minecraft PE survival, MCPEDL, CurseForge Bedrock, AllensCreations, Minecraft Bedrock add-on, MCPEDL add-on.

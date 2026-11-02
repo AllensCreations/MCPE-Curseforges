@@ -233,4 +233,4 @@ Combines dynamic lighting, offhand quick-swap, automatic tool selection, tree ca
 
 ## Search & Discovery Keywords
 
-Vanilla Quality of Life Minecraft Bedrock, Feature Comparison Highlights Bedrock, Tool & Weapon Switching Bedrock, Tree Harvesting Bedrock, Ore Vein Mining Bedrock, Minecraft PE survival, MCPEDL, CurseForge Bedrock, AllensCreations.
+Vanilla Quality of Life Minecraft Bedrock, Feature Comparison Highlights Bedrock, Tool & Weapon Switching Bedrock, Tree Harvesting Bedrock, Ore Vein Mining Bedrock, Minecraft PE survival, MCPEDL, CurseForge Bedrock, AllensCreations, Minecraft Bedrock add-on, MCPEDL add-on.

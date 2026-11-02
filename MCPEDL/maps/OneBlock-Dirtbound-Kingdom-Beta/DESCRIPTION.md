@@ -52,15 +52,23 @@ Your current OneCoins balance appears in the action bar and updates regularly. T
 - Package format: complete world.
 - Creative is the only designated test world; Survival and Hardcore variants are kept alongside it.
 - Experimental settings, achievement support, and multiplayer balance have not been verified in-game.
+- Minecraft Bedrock Edition: 1.26.0 or newer.
+- Experimental features: Not verified.
+- Achievements: Unknown / needs confirmation.
+- Verification: Source created, not tested in game.
+
+## Creator and Permissions
+
+- Creator: AllensCreations
+- Profiles: [CurseForge Profile](https://www.curseforge.com/members/allenscreations/projects) · [MCPEDL Profile](https://mcpedl.com/user/allenscreations/)
 
 ## Guidelines and Attribution
 
 - Creator: AllensCreations
 - Rights & Reservation: All rights reserved for AllensCreations.
 - Content Creators: Content creators are permitted to feature this creation in videos and streams with credit to AllensCreations.
-- Redistribution: Do not re-upload this map or provide direct monetized download bypasses. Link directly to the official repository page.
-- [CurseForge Profile](https://www.curseforge.com/members/allenscreations/projects)
-- [MCPEDL Profile](https://mcpedl.com/user/allenscreations/)
+- Redistribution: Do not re-upload this pack or provide direct monetized download bypasses. Link directly to the official repository page.
+- Disclaimer: This is an unofficial community creation. It is not an official Minecraft product and is not approved by or associated with Mojang or Microsoft.
 
 ---
 
@@ -70,4 +78,4 @@ Your current OneCoins balance appears in the action bar and updates regularly. T
 
 ## Search & Discovery Keywords
 
-OneBlock Dirtbound Kingdom Beta, OneBlock void survival, OneCoins economy, central block progression, Trader Ledger shop, Minecraft Bedrock survival map, Minecraft PE map, MCPEDL, CurseForge Bedrock, AllensCreations.
+OneBlock Dirtbound Kingdom Beta, OneBlock void survival, OneCoins economy, central block progression, Trader Ledger shop, Minecraft Bedrock survival map, Minecraft PE map, MCPEDL, CurseForge Bedrock, AllensCreations, Minecraft Bedrock add-on, MCPEDL add-on.

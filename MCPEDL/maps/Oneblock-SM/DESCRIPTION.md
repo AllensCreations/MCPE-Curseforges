@@ -1,5 +1,7 @@
 # OneBlock: Sovereign Market — Dirt-to-Sovereignty OneBlock Economy
 
+**By AllensCreations**
+
 - Start on a small 9 x 9 void island with one OneBlock that produces Dirt. A short How to Play guide opens first and must be read once.
 - Mining the OneBlock gives you items. Dirt sells for 1 :minecoin: each in the Trader's Ledger, like every other item.
 - Trader's Ledger: sell items, read market prices, buy block licenses, activate loot contracts, buy island permits, buy the Auto-Miner, and review your achievements. The ledger is an item kept in hotbar slot 9 for every player.
@@ -13,3 +15,33 @@
 - Six achievements pay one-time coin rewards.
 - Island permits grow the build area 9, 17, 33, 65, then 1 block per side at a time (67, 69, 71 and so on up to 129). Only the border is drawn, just outside the permitted area, so you build your own land inside it. Building outside your plot shows a "Plot not owned" warning.
 - Stray water and lava are removed from the island area every 30 seconds.
+
+## Compatibility
+
+- Minecraft Bedrock Edition: 1.26.40 or newer.
+- Experimental features: Not verified.
+- Achievements: Unknown / needs confirmation.
+- Verification: Source created, not tested in game.
+
+## Creator and Permissions
+
+- Creator: AllensCreations
+- Profiles: [CurseForge Profile](https://www.curseforge.com/members/allenscreations/projects) · [MCPEDL Profile](https://mcpedl.com/user/allenscreations/)
+
+## Guidelines and Attribution
+
+- Creator: AllensCreations
+- Rights & Reservation: All rights reserved for AllensCreations.
+- Content Creators: Content creators are permitted to feature this creation in videos and streams with credit to AllensCreations.
+- Redistribution: Do not re-upload this pack or provide direct monetized download bypasses. Link directly to the official repository page.
+- Disclaimer: This is an unofficial community creation. It is not an official Minecraft product and is not approved by or associated with Mojang or Microsoft.
+
+---
+
+© All rights reserved for AllensCreations.
+
+---
+
+## Search & Discovery Keywords
+
+Minecraft Bedrock add-on, OneBlock Sovereign Market Bedrock mod, Minecraft PE survival, MCPEDL add-on, CurseForge Bedrock, AllensCreations.

@@ -40,6 +40,9 @@ The central block provides resources as you progress through increasingly advanc
 
 - Minecraft Bedrock Edition 1.21.50 or newer. Check the current world listing and package details before importing.
 - Each world is a separate file. Choose the Creative or Survival world that matches your intended play style.
+- Experimental features: Not verified.
+- Achievements: Unknown / needs confirmation.
+- Verification: Source created, not tested in game.
 
 ## Creator and Permissions
 
@@ -50,8 +53,9 @@ The central block provides resources as you progress through increasingly advanc
 
 - Creator: AllensCreations
 - Rights & Reservation: All rights reserved for AllensCreations.
-- Content Creators: You may feature this creation in videos and streams with credit to AllensCreations.
-- Redistribution: Do not re-upload this creation or provide direct monetized download bypasses. Link directly to the official repository page.
+- Content Creators: Content creators are permitted to feature this creation in videos and streams with credit to AllensCreations.
+- Redistribution: Do not re-upload this pack or provide direct monetized download bypasses. Link directly to the official repository page.
+- Disclaimer: This is an unofficial community creation. It is not an official Minecraft product and is not approved by or associated with Mojang or Microsoft.
 
 ---
 
@@ -61,4 +65,4 @@ The central block provides resources as you progress through increasingly advanc
 
 ## Search & Discovery Keywords
 
-Minecraft Bedrock OneBlock map, OneBlock Void Survival, 43 mystery islands, progressive void survival, OneBlock phases, Overworld Nether End islands, Minecraft PE map, MCPEDL map, CurseForge Bedrock, AllensCreations.
+Minecraft Bedrock OneBlock map, OneBlock Void Survival, 43 mystery islands, progressive void survival, OneBlock phases, Overworld Nether End islands, Minecraft PE map, MCPEDL map, CurseForge Bedrock, AllensCreations, Minecraft Bedrock add-on, MCPEDL add-on.

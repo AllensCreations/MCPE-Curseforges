@@ -42,6 +42,9 @@ Each round selects a target letter and gives you 60 seconds to find a matching i
 
 - Minecraft Bedrock Edition. Check the package listing for the current supported version.
 - A failed round applies a lasting maximum-health penalty for the current run.
+- Experimental features: Not verified.
+- Achievements: Unknown / needs confirmation.
+- Verification: Source created, not tested in game.
 
 ## Creator and Permissions
 
@@ -52,8 +55,9 @@ Each round selects a target letter and gives you 60 seconds to find a matching i
 
 - Creator: AllensCreations
 - Rights & Reservation: All rights reserved for AllensCreations.
-- Content Creators: You may feature this creation in videos and streams with credit to AllensCreations.
+- Content Creators: Content creators are permitted to feature this creation in videos and streams with credit to AllensCreations.
 - Redistribution: Do not re-upload this pack or provide direct monetized download bypasses. Link directly to the official repository page.
+- Disclaimer: This is an unofficial community creation. It is not an official Minecraft product and is not approved by or associated with Mojang or Microsoft.
 
 ---
 
@@ -63,4 +67,4 @@ Each round selects a target letter and gives you 60 seconds to find a matching i
 
 ## Search & Discovery Keywords
 
-Minecraft Bedrock scavenger hunt, Alphabet Scavenger Hunt challenge, timed survival minigame, 20-round Minecraft challenge, letter item hunt, Minecraft PE minigame, survival inventory challenge, MCPEDL, CurseForge Bedrock, AllensCreations.
+Minecraft Bedrock scavenger hunt, Alphabet Scavenger Hunt challenge, timed survival minigame, 20-round Minecraft challenge, letter item hunt, Minecraft PE minigame, survival inventory challenge, MCPEDL, CurseForge Bedrock, AllensCreations, Minecraft Bedrock add-on, MCPEDL add-on.

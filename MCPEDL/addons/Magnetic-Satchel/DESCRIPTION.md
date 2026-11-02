@@ -112,4 +112,4 @@ Craft the Magnetic Satchel at a crafting table using either of these recipes:
 
 ## Search & Discovery Keywords
 
-Magnetic Satchel Bedrock add-on, Offhand Equippable Minecraft Bedrock, Item Attraction Minecraft Bedrock, Particle Trails Minecraft Bedrock, Quick Toggle Switch Minecraft Bedrock, Minecraft PE mod, MCPEDL add-on, CurseForge Bedrock, AllensCreations.
+Magnetic Satchel Bedrock add-on, Offhand Equippable Minecraft Bedrock, Item Attraction Minecraft Bedrock, Particle Trails Minecraft Bedrock, Quick Toggle Switch Minecraft Bedrock, Minecraft PE mod, MCPEDL add-on, CurseForge Bedrock, AllensCreations, Minecraft Bedrock add-on.
