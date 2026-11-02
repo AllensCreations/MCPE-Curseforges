@@ -79,7 +79,7 @@ jobs:
           - Writing: player-facing only. In-game display names, never identifiers, file names, JSON, events or code. Write "Behavior Pack" / "Resource Pack", never BP/RP. No code blocks, emojis, hype, or badges in README; every DESCRIPTION must include the two exact Minecraft Bedrock and Format badges from the repo template and no other badges. DESCRIPTION may keep existing item sprites and recipe diagrams. No Markdown tables; use `### Feature Name` cards with `- **What Happens**: ...` bullets. Paragraphs of 4 sentences at most. State only verified facts; Verification line must say source created, package built or in-game tested, never mixed.
           - README.md (add-on): download landing page only, 24 non-empty lines max:
           ```
-          # [Name] (vX.Y.Z)
+          # [Name]
 
           Download the current release of **[Name]** for Minecraft Bedrock Edition.
 
