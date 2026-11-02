@@ -1,9 +1,10 @@
-name: Export Repo Content to TXT
+name: Export Repo Content to MD
 
-# Type the paths you want (files or folders, comma or newline separated) and get readable
-# TXT you can feed to an AI. Nothing is truncated; everything (index, AI instructions and
-# file contents) goes into ONE .txt file named after what you exported, uploaded without a
-# zip. Binary files are skipped. The built-in AI prompt ( every update comes back as one Termux .sh
+# Type the paths you want (files or folders, comma or newline separated) and get a readable
+# Markdown file you can feed to an AI. Nothing is truncated; everything (index, AI instructions
+# and file contents) goes into ONE .md file named after what you exported, uploaded without a
+# zip. GitHub cannot push a download to your device by itself: open the run summary and tap
+# the download link. Binary files are skipped. The built-in AI prompt ( every update comes back as one Termux .sh
 # script, named (Repofilename)_(Version)_(Rand).sh with at least 5 random characters so it never reuses an old file name, that
 # does git pull, applies the change, commits and pushes; CHANGELOG.md is updated on every
 # change with a +0.0.1 patch bump; docs follow the templates exactly).
@@ -32,7 +33,7 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
 
-      - name: Build TXT export
+      - name: Build MD export
         id: build
         env:
           PATHS: ${{ inputs.paths }}
@@ -44,7 +45,7 @@ jobs:
           AI_PROMPT = '''# AI Instructions
 
           Repo: https://github.com/AllensCreations/MCPE-Curseforges.git (branch main)
-          The attached TXT export shows the current files. Read it before changing anything.
+          The attached MD export shows the current files. Read it before changing anything.
 
           ## Destination (remembered from this export)
           Repo-root-relative folders this work belongs to:
@@ -231,48 +232,52 @@ jobs:
           blocks = []
           for rel in files:
               data = selected[rel].read_bytes().decode("utf-8", errors="replace")
-              head = f"===== FILE: {rel} ({data.count(chr(10)) + 1} lines, {len(data.encode('utf-8'))} bytes) ====="
-              blocks.append((rel, f"\n{head}\n{data}\n===== END FILE: {rel} =====\n"))
+              runs = re.findall(r"`+", data)
+              fence = "`" * max(3, max((len(r) for r in runs), default=0) + 1)
+              head = f"## FILE: {rel} ({data.count(chr(10)) + 1} lines, {len(data.encode('utf-8'))} bytes)"
+              blocks.append((rel, f"\n{head}\n\n{fence}\n{data.rstrip(chr(10))}\n{fence}\n"))
 
           out = pathlib.Path("exports"); out.mkdir(exist_ok=True)
-          name = f"{label}.txt"
-          index = ["EXPORT REQUEST: " + ", ".join(raw_paths),
-                   "DESTINATION: " + ", ".join(dests)]
-          index += version_lines
-          index += [f"Text files: {len(files)}   Skipped binary: {len(skipped)}   Paths not found: {len(missing)}", "", "FILES IN THIS EXPORT:"]
-          index += [f"- {r}" for r in files]
+          name = f"{label}.md"
+          index = ["- **Export request:** " + ", ".join(f"`{r}`" for r in raw_paths),
+                   "- **Destination:** " + ", ".join(f"`{d}`" for d in dests)]
+          index += [f"- **{v.split('  (')[0]}**  (`{v.split('  (')[1].rstrip(')')}`)" for v in version_lines]
+          index += [f"- **Text files:** {len(files)}", f"- **Skipped binary:** {len(skipped)}", f"- **Paths not found:** {len(missing)}", "", "### Files in this export", ""]
+          index += [f"- `{r}`" for r in files]
           if missing:
-              index += ["", "NOT FOUND:"] + [f"    {m}" for m in missing]
+              index += ["", "### Not found", ""] + [f"- `{m}`" for m in missing]
           if skipped:
-              index += ["", "SKIPPED (binary):"] + [f"    {x}" for x in skipped[:1000]]
+              index += ["", "### Skipped (binary)", ""] + [f"- `{x}`" for x in skipped[:1000]]
           instructions = AI_PROMPT.replace("__DEST__", "\n".join("- " + d for d in dests) or "- .")
-          sep = "=" * 60
-          content = (f"{sep}\nSECTION 1: INDEX\n{sep}\n" + "\n".join(index) + "\n\n"
-                     + f"{sep}\nSECTION 2: AI INSTRUCTIONS\n{sep}\n" + instructions + "\n"
-                     + f"{sep}\nSECTION 3: FILE CONTENTS\n{sep}\n" + "".join(b for _, b in blocks))
+          content = ("# Repo Export\n\n## Index\n\n" + "\n".join(index) + "\n\n---\n\n"
+                     + "## AI Instructions\n\n" + instructions.replace("# AI Instructions", "", 1).strip() + "\n\n---\n\n"
+                     + "## File Contents\n" + "".join(b for _, b in blocks))
           (out / name).write_text(content, encoding="utf-8")
           with open(os.environ["GITHUB_OUTPUT"], "a", encoding="utf-8") as fh:
               fh.write(f"label={label}\n")
           print(f"Exported {len(files)} files into {name}; skipped {len(skipped)} binary; {len(missing)} path(s) not found.")
           PY
 
+      - name: Upload export
+        id: upload
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          path: exports/${{ steps.build.outputs.label }}.md
+          archive: false
+          if-no-files-found: error
+          retention-days: 14
+
       - name: Summary
         if: ${{ always() }}
         env:
           PATHS_IN: ${{ inputs.paths }}
           LABEL: ${{ steps.build.outputs.label }}
+          ARTIFACT_URL: ${{ steps.upload.outputs.artifact-url }}
         run: |
           {
-            echo "### Export Repo Content to TXT"
+            echo "### Export Repo Content to MD"
             echo "- Paths: \`${PATHS_IN}\`"
-            echo "- Download **${LABEL}.txt** from the artifact below. It holds the index, AI instructions and all file contents in one text file."
+            echo "- Download **${LABEL}.md**: ${ARTIFACT_URL}"
+            echo "- It holds the index, AI instructions and all file contents in one Markdown file."
             [ -d exports ] && ls -la exports | sed 's/^/    /'
           } >> "$GITHUB_STEP_SUMMARY"
-
-      - name: Upload export
-        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
-        with:
-          path: exports/${{ steps.build.outputs.label }}.txt
-          archive: false
-          if-no-files-found: error
-          retention-days: 14
