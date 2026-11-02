@@ -1,5 +1,12 @@
 # Changelog - Monster Companions
 
+## [1.2.12] - 2026-11-03
+
+### Improved & Balanced
+- **Taming feedback**: The on-screen "Companion tamed!" message has been removed. Hearts still appear when a mob is tamed.
+
+---
+
 ## [1.2.11] - 2026-11-03
 
 ### Added

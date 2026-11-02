@@ -811,8 +811,7 @@
         },
         "queue_command": {
           "command": [
-            "particle minecraft:heart_particle ~ ~1.5 ~",
-            "title @p actionbar §aCompanion tamed!"
+            "particle minecraft:heart_particle ~ ~1.5 ~"
           ]
         }
       },
