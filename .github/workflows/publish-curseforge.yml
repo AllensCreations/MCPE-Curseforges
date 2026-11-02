@@ -1,23 +1,54 @@
-name: Publish Add-on to CurseForge
+name: Publish Pack to CurseForge
 
 on:
   workflow_dispatch:
     inputs:
-      category:
-        description: Add-on source category
+      project:
+        description: Select a pack
         required: true
         type: choice
         options:
-          - Addons
-          - Minigame
-      project:
-        description: Exact project folder name
-        required: true
-        type: string
+          - MCPEDL/Addons/Fletching-Table-Arsenal
+          - MCPEDL/Addons/Ghast-Mob-Head-Transformers
+          - MCPEDL/Addons/Grand-Banquets
+          - MCPEDL/Addons/Grimoire-Relics-V2
+          - MCPEDL/Addons/Harvest-Intelligence
+          - MCPEDL/Addons/Immortal-Pets
+          - MCPEDL/Addons/Magnetic-Satchel
+          - MCPEDL/Addons/Melody-Figurine
+          - MCPEDL/Addons/Mining-Helmet
+          - MCPEDL/Addons/Monster-Companions
+          - MCPEDL/Addons/One-Block-Economy
+          - MCPEDL/Addons/Passive-Auto-Switch-Tools
+          - MCPEDL/Addons/Selective-Mob-Controller
+          - MCPEDL/Addons/Smart-Tree-Capitator-and-Domino-Ore-Miner
+          - MCPEDL/Addons/Sudden-Death-Roulette
+          - MCPEDL/Addons/Swarm-Mob-Booster
+          - MCPEDL/Addons/Tameable-Companion-Fox
+          - MCPEDL/Addons/Universal-Clutch
+          - MCPEDL/Addons/Vanilla-Quality-of-Life
+          - MCPEDL/Maps/OneBlock-Dirtbound-Kingdom-Beta
+          - MCPEDL/Maps/OneBlock-Void-Survival
+          - MCPEDL/Maps/Oneblock-SM
+          - MCPEDL/Minigame/Alphabet-Scavenger-Hunt
+          - MCPEDL/Minigame/Mob-Chaos-Behavioral-Roulette
+          - MCPEDL/Minigame/Shared-Hivemind-Inventory
+          - MCPEDL/Minigame/Tethered-Breaker-And-Builder
+          - MCPEDL/Minigame/Trivia-Vault-The-Locked-World
       curseforge_project_id:
-        description: Existing CurseForge project ID
-        required: true
+        description: Enter once for a pack; leave blank to reuse its saved ID
+        required: false
         type: string
+      map_variant:
+        description: Used for maps with multiple world modes
+        required: true
+        default: default
+        type: choice
+        options:
+          - default
+          - Creative
+          - Survival
+          - Hardcore
       release_type:
         description: CurseForge release type
         required: true
@@ -29,7 +60,11 @@ on:
           - alpha
 
 permissions:
-  contents: read
+  contents: write
+
+concurrency:
+  group: publish-curseforge-${{ inputs.project }}-${{ github.ref }}
+  cancel-in-progress: false
 
 jobs:
   publish:
@@ -37,6 +72,8 @@ jobs:
     steps:
       - name: Check out source
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          ref: ${{ github.ref }}
 
       - name: Set up Python
         uses: actions/setup-python@6d4fd22b20465ccc0f7354476588e8df7c9ca0e0 # v7.1.0
@@ -46,38 +83,62 @@ jobs:
       - name: Install build dependency
         run: python3 -m pip install pillow
 
-      - name: Validate publish inputs and token
+      - name: Validate CurseForge token
         env:
           CURSEFORGE_API_TOKEN: ${{ secrets.CURSEFORGE_API_TOKEN }}
-          CURSEFORGE_PROJECT_ID: ${{ inputs.curseforge_project_id }}
         run: |
-          set -euo pipefail
           if [ -z "$CURSEFORGE_API_TOKEN" ]; then
             echo "::error::Add the CURSEFORGE_API_TOKEN repository secret before publishing."
-            exit 1
-          fi
-          if [[ ! "$CURSEFORGE_PROJECT_ID" =~ ^[0-9]+$ ]]; then
-            echo "::error::CurseForge project ID must contain only digits."
             exit 1
           fi
 
       - name: Build package and prepare release metadata
         id: release
         env:
-          CATEGORY: ${{ inputs.category }}
-          PROJECT: ${{ inputs.project }}
+          PROJECT_PATH: ${{ inputs.project }}
+          CURSEFORGE_PROJECT_ID: ${{ inputs.curseforge_project_id }}
+          MAP_VARIANT: ${{ inputs.map_variant }}
           RELEASE_TYPE: ${{ inputs.release_type }}
         run: |
           set -euo pipefail
           python3 scripts/prepare_curseforge_upload.py \
-            --category "$CATEGORY" \
-            --project "$PROJECT" \
+            --project "$PROJECT_PATH" \
+            --map-variant "$MAP_VARIANT" \
             --release-type "$RELEASE_TYPE"
+
+      - name: Save project ID and synchronized pack versions
+        env:
+          INFO_PATH: ${{ steps.release.outputs.info_path }}
+          MANIFEST_PATHS: ${{ steps.release.outputs.manifest_paths }}
+          PROJECT_PATH: ${{ inputs.project }}
+        run: |
+          set -euo pipefail
+          [[ "$GITHUB_REF" == refs/heads/* ]] || {
+            echo "::error::Publishing and saving CurseForge IDs requires a branch ref."
+            exit 1
+          }
+          git add -- "$INFO_PATH"
+          while IFS= read -r path; do
+            [ -z "$path" ] || git add -- "$path"
+          done <<< "$MANIFEST_PATHS"
+          if [[ "$PROJECT_PATH" == MCPEDL/Maps/* ]]; then
+            for path in "$PROJECT_PATH"/*.mcworld; do
+              [ -f "$path" ] && git add -- "$path"
+            done
+          fi
+          if git diff --cached --quiet; then
+            echo "Saved project settings are already current."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git commit -m "chore(curseforge): save project settings [skip ci]"
+          git push origin "HEAD:${GITHUB_REF}"
 
       - name: Upload to CurseForge
         env:
           CURSEFORGE_API_TOKEN: ${{ secrets.CURSEFORGE_API_TOKEN }}
-          CURSEFORGE_PROJECT_ID: ${{ inputs.curseforge_project_id }}
+          CURSEFORGE_PROJECT_ID: ${{ steps.release.outputs.curseforge_project_id }}
           PACKAGE_PATH: ${{ steps.release.outputs.package }}
           METADATA_PATH: ${{ steps.release.outputs.metadata }}
         run: |

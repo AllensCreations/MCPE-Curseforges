@@ -168,6 +168,65 @@ def main() -> int:
         spec = importlib.util.spec_from_file_location("selftest_auto_bump", root / "scripts/auto_bump_and_build.py")
         pack_builder = importlib.util.module_from_spec(spec)
         spec.loader.exec_module(pack_builder)
+        sys.path.insert(0, str(root / "scripts"))
+        upload_spec = importlib.util.spec_from_file_location(
+            "selftest_prepare_curseforge_upload",
+            root / "scripts/prepare_curseforge_upload.py",
+        )
+        uploader = importlib.util.module_from_spec(upload_spec)
+        upload_spec.loader.exec_module(uploader)
+        uploader.REPO_ROOT = root
+        uploader.builder.REPO_ROOT = str(root)
+
+        upload_source = sample(root, "addon", "Curseforge-Test")
+        upload_project = root / "MCPEDL/Addons/Curseforge-Test"
+        upload_project.parent.mkdir(parents=True, exist_ok=True)
+        shutil.copytree(upload_source, upload_project)
+        changelog = upload_project / "CHANGELOG.md"
+        changelog.write_text(
+            changelog.read_text(encoding="utf-8").replace("[1.0.0]", "[1.0.1]", 1),
+            encoding="utf-8",
+        )
+        package, _, project_id, info_path, changed_manifests = uploader.prepare(
+            "MCPEDL/Addons/Curseforge-Test", "beta", "1742470"
+        )
+        ok(
+            package.is_file()
+            and package.suffix == ".mcaddon"
+            and project_id == "1742470"
+            and json.loads(info_path.read_text(encoding="utf-8"))["project_id"] == "1742470"
+            and bool(changed_manifests)
+            and json.loads((upload_project / "behavior_pack/manifest.json").read_text())["header"]["version"] == [1, 0, 1],
+            "CurseForge: saves ID and syncs manifest to latest changelog",
+        )
+        _, _, reused_id, _, unchanged_manifests = uploader.prepare(
+            "MCPEDL/Addons/Curseforge-Test", "beta"
+        )
+        ok(reused_id == "1742470" and not unchanged_manifests,
+           "CurseForge: reuses saved project ID on later runs")
+        for kind, category, extension in (
+            ("script", "Script", ".mcpack"),
+            ("minigame", "Minigame", ".mcaddon"),
+        ):
+            name = f"Curseforge-{kind.title()}-Test"
+            source = sample(root, kind, name)
+            project = root / "MCPEDL" / category / name
+            project.parent.mkdir(parents=True, exist_ok=True)
+            shutil.copytree(source, project)
+            package, _, _, _, _ = uploader.prepare(
+                f"MCPEDL/{category}/{name}", "beta", "1742471"
+            )
+            ok(package.is_file() and package.suffix == extension,
+               f"CurseForge: builds {kind} packages")
+        variants = root / "MCPEDL/Maps/Variant-Test"
+        variants.mkdir(parents=True)
+        survival_world = variants / "Variant Test - Survival.mcworld"
+        survival_world.touch()
+        ok(
+            uploader.find_map_package(variants, None, "Survival") == survival_world,
+            "CurseForge: selects requested map variant",
+        )
+
         for mode in ("Creative", "Survival", "Hardcore"):
             w = root / "Mcpeworlds" / mode
             w.mkdir(parents=True, exist_ok=True)
@@ -179,6 +238,21 @@ def main() -> int:
                 for extra in ("level.dat_old", "levelname.txt"):
                     if (REPO / "Mcpeworlds" / mode / extra).is_file():
                         shutil.copy(REPO / "Mcpeworlds" / mode / extra, w / extra)
+
+        map_source = sample(root, "map", "Curseforge-Map-Test")
+        map_project = root / "MCPEDL/Maps/Curseforge-Map-Test"
+        map_project.parent.mkdir(parents=True, exist_ok=True)
+        shutil.copytree(map_source, map_project)
+        write(map_project / "oneblock.json", json.dumps({"enabled": True, "name": "Curseforge Map Test"}))
+        map_package, _, _, _, _ = uploader.prepare(
+            "MCPEDL/Maps/Curseforge-Map-Test", "beta", "1742472", "Survival"
+        )
+        ok(
+            map_package.suffix == ".mcworld"
+            and map_package.name.endswith(" - Survival.mcworld")
+            and map_package.is_file(),
+            "CurseForge: rebuilds and selects a map world variant",
+        )
 
         # 1. add-on
         d = sample(root, "addon", "Sample-Addon", with_rp=True)
