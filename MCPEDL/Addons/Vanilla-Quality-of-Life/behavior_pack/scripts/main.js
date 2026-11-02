@@ -1573,7 +1573,7 @@ system.runInterval(() => {
 }, CONFIG.WEB_CHECK_INTERVAL);
 
 // 6b. Continuous Auto-Switch: while mining, re-check the targeted block every tick
-const MINING_ACTIVE_TICKS = 40; // keeps checking for 2 seconds after a hit or a broken block
+const MINING_ACTIVE_TICKS = 10;
 const miningActivity = new Map();
 const lastAutoSwitchKey = new Map();
 const lastBreakTick = new Map();
@@ -1593,7 +1593,6 @@ world.afterEvents.entityHitBlock.subscribe((event) => {
 world.afterEvents.playerBreakBlock.subscribe((event) => {
   try {
     lastBreakTick.set(event.player.id, system.currentTick);
-    markMining(event.player);
   } catch (e) {}
 });
 

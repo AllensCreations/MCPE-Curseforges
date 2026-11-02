@@ -4,6 +4,9 @@
 
 ## [1.3.30] - 2026-11-03
 
+### Improved & Balanced
+- **Auto-Switch Only While Mining**: Auto-switch now acts only while you are hitting blocks and no longer changes your tool just because you are looking at something.
+
 ### Fixed
 - **Durability After Auto-Switch**: If auto-switch changes your tool at the same moment a tree or ore vein is chain mined, the tool you actually mined with is put back in your hand and takes the durability loss instead of the new tool.
 - **Switch Delay After Breaking**: Auto-switch now waits a few ticks after any block breaks before changing your tool, so the tool you broke the block with keeps its durability loss.

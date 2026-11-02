@@ -93,7 +93,7 @@ Combines dynamic lighting, offhand quick-swap, automatic tool selection, tree ca
   - Hit dirt, sand, gravel, or clay -> Equips best Shovel.
   - Hit leaves or cobwebs -> Equips Shears.
   - Attack hostile or passive mobs -> Equips best melee Weapon (Sword or Axe).
-- Continuous switching: While you keep mining or breaking blocks, aiming at a different kind of block switches to its best tool without stopping. This keeps checking for about 2 seconds after each hit or broken block. Switching pauses for about 2 seconds after a tree or ore vein is chain mined.
+- Continuous switching: While you are actively hitting blocks, aiming at a different kind of block switches to its best tool. Auto-switch only acts while you are mining, never just from looking at a block.
 - Low durability penalty: Automatically favors healthy tools so nearly-broken tools aren't worn down.
 
 #### 2. Smart Tree Capitator (Axe; sneak requirement depends on selected subpack)
