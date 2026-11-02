@@ -17,6 +17,7 @@ on:
         options:
           # BEGIN registered
           - "-"
+          - "MCPEDL/Addons/Monster-Companions"
           - "MCPEDL/Addons/Vanilla-Quality-of-Life"
           - "MCPEDL/Maps/OneBlock-Void-Survival"
           # END registered
