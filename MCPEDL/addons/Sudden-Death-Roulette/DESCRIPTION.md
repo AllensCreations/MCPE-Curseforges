@@ -1,4 +1,4 @@
-# Sudden Death Roulette (v1.0.4) — The Diamond Race
+# Sudden Death Roulette — The Diamond Race
 
 **By AllensCreations**
 

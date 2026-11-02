@@ -1,4 +1,4 @@
-# Magnetic Satchel (v1.0.8) — Offhand Item Vacuum Add-on
+# Magnetic Satchel — Offhand Item Vacuum Add-on
 
 **By AllensCreations**
 

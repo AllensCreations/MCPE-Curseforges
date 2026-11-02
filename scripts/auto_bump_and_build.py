@@ -580,84 +580,59 @@ To inspect uncompressed JSON files, geometry, render controllers, and textures:
 
 
 def update_project_readme(project_path, category, new_ver_str, primary_file=None):
-    """Keep individual add-on READMEs focused on download/import details; preserve other category formats."""
+    """Keep project READMEs version-free and focused on downloads and installation."""
     readme_path = os.path.join(project_path, "README.md")
     if not os.path.isfile(readme_path):
         return
 
-    if category in ("MCPEDL/addons", "MCPEDL/new_addons"):
-        title = get_project_title(project_path)
-        project_name = os.path.basename(project_path)
-        if primary_file:
-            quoted_file = urllib.parse.quote(primary_file)
-            download_url = f"{GITHUB_RAW}/builds/{project_name}/{quoted_file}"
-            extension = os.path.splitext(primary_file)[1].lower()
-            download_label = f"Download {title} ({extension})"
-        else:
-            catalog = "new_addons" if category.endswith("new_addons") else "addons"
-            download_url = (
-                "https://github.com/AllensCreations/MCPE-Curseforges/blob/main/"
-                f"MCPEDL/{catalog}/README.md#available-add-ons"
-            )
-            download_label = "Open the official download catalog"
-
-        description_path = os.path.join(project_path, "DESCRIPTION.md")
-        description_url = (
+    title = get_project_title(project_path)
+    project_name = os.path.basename(project_path)
+    project_category = category.removeprefix("MCPEDL/")
+    if primary_file:
+        quoted_file = urllib.parse.quote(primary_file)
+        download_url = f"{GITHUB_RAW}/builds/{project_name}/{quoted_file}"
+        package_ext = os.path.splitext(primary_file)[1].lower()
+        download_label = f"Download {title} ({package_ext})"
+    else:
+        catalog = {
+            "addons": "addons/README.md#available-add-ons",
+            "new_addons": "new_addons/README.md#available-add-ons",
+            "maps": "maps/README.md#available-maps",
+            "script": "script/README.md#available-scripts",
+        }.get(project_category, "README.md")
+        download_url = (
             "https://github.com/AllensCreations/MCPE-Curseforges/blob/main/"
-            f"{os.path.relpath(description_path, REPO_ROOT).replace(os.sep, '/')}"
+            f"MCPEDL/{catalog}"
         )
-        package_ext = os.path.splitext(primary_file)[1].lower() if primary_file else "not available"
-        content = (
-            f"# {title} (v{new_ver_str})\n\n"
-            f"Download the current release of **{title}** for Minecraft Bedrock Edition.\n\n"
-            f"## Download\n\n"
-            f"- **Version:** {new_ver_str}\n"
-            f"- **Package format:** `{package_ext}`\n"
-            f"- **Direct download:** [{download_label}]({download_url})\n\n"
-            f"## Installation\n\n"
-            f"1. Download the package using the link above.\n"
-            f"2. Open the downloaded file with Minecraft to import it.\n"
-            f"3. If the package contains a pack that must be enabled separately, activate it in your world's settings.\n\n"
-            f"## Add-on Information\n\n"
-            f"For gameplay features, usage details, recipes, compatibility notes, and other project information, read the [full description]({description_url}).\n"
-        )
-        with open(readme_path, "w", encoding="utf-8") as f:
-            f.write(content)
-        print(f"  Updated download-only project README: {os.path.relpath(readme_path, REPO_ROOT)}")
-        return
+        package_ext = "see catalog"
+        download_label = "Open the official download catalog"
 
-    # Preserve the established README format for maps, scripts, and other categories.
-    with open(readme_path, encoding="utf-8") as f:
-        content = f.read()
-
-    content = re.sub(r"\[!\[Release\]\([^)]+\)\]\([^)]+\)\n?", "", content)
-    content = re.sub(r"\[!\[Changelog\]\([^)]+\)\]\([^)]+\)\n?", "", content)
-
-    lines = content.splitlines(keepends=True)
-    for i, line in enumerate(lines):
-        if i >= 5 or not line.startswith("# "):
-            continue
-        newline = "\n" if line.endswith("\n") else ""
-        title = line.rstrip("\r\n")[2:].strip()
-        suffix = ""
-        for sep in (" — ", " - ", " -- "):
-            if sep in title:
-                title, rest = title.split(sep, 1)
-                suffix = sep + rest
-                break
-        title = re.sub(r"\s*\([vV]\d+\.\d+\.\d+\)\s*$", "", title).strip()
-        lines[i] = f"# {title} (v{new_ver_str}){suffix}{newline}"
-        break
-    content = "".join(lines)
-
-    if primary_file and "- **Direct download:**" in content:
-        _pf_url = f"{GITHUB_RAW}/builds/{os.path.basename(project_path)}/{urllib.parse.quote(primary_file)}"
-        content = re.sub(r"(- \*\*Version:\*\* )[0-9][0-9.]*", lambda m: m.group(1) + new_ver_str, content, count=1)
-        content = re.sub(r"(- \*\*Direct download:\*\* \[[^\]]*\]\()[^)]*(\))", lambda m: m.group(1) + _pf_url + m.group(2), content, count=1)
-
+    description_path = os.path.join(project_path, "DESCRIPTION.md")
+    description_url = (
+        "https://github.com/AllensCreations/MCPE-Curseforges/blob/main/"
+        f"{os.path.relpath(description_path, REPO_ROOT).replace(os.sep, '/')}"
+    )
+    install_last_step = (
+        "3. Find the imported world in your Worlds list and open it."
+        if package_ext == ".mcworld"
+        else "3. If the package contains a pack that must be enabled separately, activate it in your world's settings."
+    )
+    content = (
+        f"# {title}\n\n"
+        f"Download the current release of **{title}** for Minecraft Bedrock Edition.\n\n"
+        f"## Download\n\n"
+        f"- **Package format:** `{package_ext}`\n"
+        f"- **Direct download:** [{download_label}]({download_url})\n\n"
+        f"## Installation\n\n"
+        f"1. Download the package using the link above.\n"
+        f"2. Open the downloaded file with Minecraft to import it.\n"
+        f"{install_last_step}\n\n"
+        f"## Pack Information\n\n"
+        f"For gameplay features, usage details, compatibility notes, and other project information, read the [full description]({description_url}).\n"
+    )
     with open(readme_path, "w", encoding="utf-8") as f:
         f.write(content)
-    print(f"  Synchronized versioned project title in {os.path.relpath(readme_path, REPO_ROOT)}")
+    print(f"  Updated version-free project README: {os.path.relpath(readme_path, REPO_ROOT)}")
 
 
 def update_category_readme(category, project_name, new_ver_str, primary_file):

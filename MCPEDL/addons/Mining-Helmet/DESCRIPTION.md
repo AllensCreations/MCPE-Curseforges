@@ -1,4 +1,4 @@
-# Mining Helmet (v1.0.14) — Dynamic Lighting Add-on
+# Mining Helmet — Dynamic Lighting Add-on
 
 **By AllensCreations**
 

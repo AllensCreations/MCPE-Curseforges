@@ -36,7 +36,7 @@ CHANGELOG_GROUPS = ("Added", "Improved & Balanced", "Fixed")
 INSTALL_STEPS = ("1. Download the package using the link above.",
                  "2. Open the downloaded file with Minecraft to import it.",
                  "3. If the package contains a pack that must be enabled separately, activate it in your world's settings.")
-INFO_LINE = re.compile(r"^For gameplay features, usage details, recipes, compatibility notes, and other project information, read the \[full description\]\(([^)\s]+)\)\.$")
+INFO_LINE = re.compile(r"^For gameplay features, usage details, compatibility notes, and other project information, read the \[full description\]\(([^)\s]+)\)\.$")
 EMOJI = re.compile("[\U0001F300-\U0001FAFF\u2600-\u27BF\uFE0F]")
 BANNED = (
     ("a Markdown table", re.compile(r"(?m)^\s*\|.*\|\s*$")),
@@ -79,45 +79,49 @@ def banned_content(name, text, errors, images_allowed=False):
         errors.append(f"DOC: {name} must not contain images (Part 2).")
 
 
-def check_addon_readme(text, version, errors):
+def check_project_readme(text, errors):
     lines = [l for l in norm(text).split("\n") if l.strip()]
     n = "README.md"
-    if len(lines) != 12:
-        errors.append(f"DOC: {n} must have exactly 12 non-empty lines in the Part 2 template layout (found {len(lines)}); no extra text, features, or sections.")
-    title = re.match(r"^# (.+) \(v(\d+\.\d+\.\d+)\)$", lines[0]) if lines else None
+    if len(lines) != 11:
+        errors.append(f"DOC: {n} must have exactly 11 non-empty lines in the version-free download template (found {len(lines)}).")
+    title = re.match(r"^# (.+)$", lines[0]) if lines else None
     if not title:
-        errors.append(f"DOC: {n} line 1 must be '# [Add-on Name] (vX.Y.Z)'.")
+        errors.append(f"DOC: {n} line 1 must be '# [Pack Name]' with no release version.")
         return
-    name, tver = title.group(1), title.group(2)
-    if version and tver != version:
-        errors.append(f"DOC: {n} title says v{tver} but the manifest version is {version}.")
+    name = title.group(1)
+    if re.search(r"\(v\d+\.\d+\.\d+\)$", name, re.I):
+        errors.append(f"DOC: {n} title must not contain a release version.")
     expect = [
         (1, f"Download the current release of **{name}** for Minecraft Bedrock Edition.", "the intro sentence"),
         (2, "## Download", "the '## Download' heading"),
-        (3, f"- **Version:** {tver}", "the '- **Version:** X.Y.Z' line (same version as the title)"),
-        (6, "## Installation", "the '## Installation' heading"),
-        (7, INSTALL_STEPS[0], "installation step 1"),
-        (8, INSTALL_STEPS[1], "installation step 2"),
-        (9, INSTALL_STEPS[2], "installation step 3"),
-        (10, "## Add-on Information", "the '## Add-on Information' heading"),
+        (5, "## Installation", "the '## Installation' heading"),
+        (6, INSTALL_STEPS[0], "installation step 1"),
+        (7, INSTALL_STEPS[1], "installation step 2"),
+        (9, "## Pack Information", "the '## Pack Information' heading"),
     ]
     for index, wanted, label in expect:
         if index >= len(lines) or lines[index] != wanted:
             errors.append(f"DOC: {n} {label} must read exactly: {wanted}")
-    fmt = re.match(r"^- \*\*Package format:\*\* `\.(mcaddon|mcpack)`$", lines[4]) if len(lines) > 4 else None
+    fmt = re.match(r"^- \*\*Package format:\*\* `\.(mcaddon|mcpack|mcworld)`$", lines[3]) if len(lines) > 3 else None
     if not fmt:
-        errors.append(f"DOC: {n} line 5 must be: - **Package format:** `.mcaddon` (or `.mcpack`).")
-    dl = re.match(r"^- \*\*(?:Direct download|Download):\*\* \[Download (.+) \(\.(mcaddon|mcpack)\)\]\(([^)\s]+)\)$", lines[5]) if len(lines) > 5 else None
+        errors.append(f"DOC: {n} line 4 must name a supported package format: `.mcaddon`, `.mcpack`, or `.mcworld`.")
+    dl = re.match(r"^- \*\*Direct download:\*\* \[Download (.+) \(\.(mcaddon|mcpack|mcworld)\)\]\(([^)\s]+)\)", lines[4]) if len(lines) > 4 else None
     if not dl:
-        errors.append(f"DOC: {n} line 6 must be: - **Direct download:** [Download {name} (.mcaddon)](link).")
+        errors.append(f"DOC: {n} line 5 must be a direct download link for {name} and its package format.")
     else:
-        if dl.group(1) != name:
+        if dl.group(1) != name and not dl.group(1).startswith(name + " — "):
             errors.append(f"DOC: {n} the download link text must name '{name}'.")
         if fmt and dl.group(2) != fmt.group(1):
             errors.append(f"DOC: {n} the package format and the download link extension must match.")
-    info = INFO_LINE.match(lines[11]) if len(lines) > 11 else None
+    if fmt and fmt.group(1) == "mcworld" and len(lines) > 8:
+        expected_install = "3. Find the imported world in your Worlds list and open it."
+    else:
+        expected_install = INSTALL_STEPS[2]
+    if len(lines) > 8 and lines[8] != expected_install:
+        errors.append(f"DOC: {n} installation step 3 must read exactly: {expected_install}")
+    info = INFO_LINE.match(lines[10]) if len(lines) > 10 else None
     if not info:
-        errors.append(f"DOC: {n} the last line must be the template sentence linking the full description.")
+        errors.append(f"DOC: {n} the last line must link the full DESCRIPTION.md.")
     elif "DESCRIPTION.md" not in info.group(1):
         errors.append(f"DOC: {n} the full description link must point to DESCRIPTION.md.")
     banned_content(n, text, errors)
@@ -132,11 +136,11 @@ def check_description(text, version, errors):
     n = "DESCRIPTION.md"
     text = norm(text)
     pre, sections = section_map(text)
-    head = re.search(r"(?m)^# (.+?) \(v(\d+\.\d+\.\d+)\) — (\S.*)$", pre)
+    head = re.search(r"(?m)^# (.+?) — (\S.*)$", pre)
     if not head or pre.lstrip().split("\n", 1)[0] != head.group(0):
-        errors.append(f"DOC: {n} line 1 must be '# [Add-on Name] (vX.Y.Z) — [Clear, factual subtitle]'.")
-    elif version and head.group(2) != version:
-        errors.append(f"DOC: {n} title says v{head.group(2)} but the manifest version is {version}.")
+        errors.append(f"DOC: {n} line 1 must be '# [Pack Name] — [Clear, factual subtitle]' with no release version.")
+    elif re.search(r"\(v\d+\.\d+\.\d+\)$", head.group(1), re.I):
+        errors.append(f"DOC: {n} title must not contain a release version.")
     after = [l for l in pre.split("\n")[1:] if l.strip()]
     if not after or after[0] != "**By AllensCreations**":
         errors.append(f"DOC: {n} the line after the title must be exactly: **By AllensCreations**")
@@ -258,20 +262,16 @@ def check_docs(root, ptype):
     for name in ("README.md", "DESCRIPTION.md", "CHANGELOG.md"):
         p = root / name
         texts[name] = p.read_text(encoding="utf-8") if p.is_file() else None
-    if ptype == "addon":
-        if texts["README.md"] is not None:
-            check_addon_readme(texts["README.md"], version, errors)
-        if texts["DESCRIPTION.md"] is not None:
+    if texts["README.md"] is not None:
+        check_project_readme(texts["README.md"], errors)
+    if texts["DESCRIPTION.md"] is not None:
+        if ptype == "addon":
             check_description(texts["DESCRIPTION.md"], version, errors)
-        if texts["README.md"] and texts["DESCRIPTION.md"]:
-            rt = re.match(r"^# (.+?) \(v", texts["README.md"])
-            dt = re.match(r"^# (.+?) \(v", texts["DESCRIPTION.md"])
-            if rt and dt and rt.group(1) != dt.group(1):
-                errors.append("DOC: the add-on name in README.md and DESCRIPTION.md must be identical.")
-    else:
-        for name in ("README.md", "DESCRIPTION.md"):
-            if texts[name] is not None:
-                banned_content(name, texts[name], errors, images_allowed=(name == "DESCRIPTION.md"))
+        else:
+            banned_content("DESCRIPTION.md", texts["DESCRIPTION.md"], errors, images_allowed=True)
+            title = re.search(r"(?m)^# (.+?)(?: — .+)?$", texts["DESCRIPTION.md"])
+            if title and re.search(r"\(v\d+\.\d+\.\d+\)", title.group(1), re.I):
+                errors.append("DOC: DESCRIPTION.md title must not contain a release version.")
     if texts["CHANGELOG.md"] is not None:
         check_changelog(texts["CHANGELOG.md"], version, errors)
     seen, unique = set(), []
@@ -294,14 +294,22 @@ def compliant_docs(ptype, name, version, ext="mcaddon", date="2026-01-01"):
                    f"{GUIDELINES}## Search & Discovery Keywords\n\nMinecraft Bedrock add-on, {name} Bedrock mod, MCPEDL add-on, CurseForge Bedrock, AllensCreations.\n")
     base = "https://github.com/AllensCreations/MCPE-Curseforges/tree/main"
     slug = name.replace(" ", "-")
-    readme = (f"# {name} (v{version})\n\nDownload the current release of **{name}** for Minecraft Bedrock Edition.\n\n## Download\n\n"
-              f"- **Version:** {version}\n- **Package format:** `.{ext}`\n"
+    readme = (f"# {name}\n\nDownload the current release of **{name}** for Minecraft Bedrock Edition.\n\n## Download\n\n"
+              f"- **Package format:** `.{ext}`\n"
               f"- **Direct download:** [Download {name} (.{ext})]({base}/MCPEDL/new_addons/README.md#available-add-ons)\n\n"
-              f"## Installation\n\n" + "\n".join(INSTALL_STEPS) + "\n\n## Add-on Information\n\n"
-              f"For gameplay features, usage details, recipes, compatibility notes, and other project information, read the [full description]({base}/MCPEDL/new_addons/{slug}/DESCRIPTION.md).\n")
+              f"## Installation\n\n" + "\n".join(
+                  INSTALL_STEPS[:2] + (
+                      ("3. Find the imported world in your Worlds list and open it.",)
+                      if ext == "mcworld" else INSTALL_STEPS[2:]
+                  )
+              ) + "\n\n## Pack Information\n\n"
+              f"For gameplay features, usage details, compatibility notes, and other project information, read the [full description]({base}/MCPEDL/new_addons/{slug}/DESCRIPTION.md).\n")
+    description = re.sub(
+        r"(?m)^# (.+?) \(v\d+\.\d+\.\d+\)( — .+)$",
+        r"# \1\2",
+        description,
+    )
     changelog = (f"# Changelog — {name}\n\n---\n\n## [{version}] - {date}\n\n### Added\n- **First release**: Players can use the new creation.\n")
-    if ptype != "addon":
-        readme = description.split("## Creator and Permissions")[0].rstrip("\n") + "\n"
     return {"README.md": readme, "DESCRIPTION.md": description, "CHANGELOG.md": changelog}
 
 

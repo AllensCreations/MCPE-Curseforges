@@ -1,4 +1,4 @@
-# Alphabet Scavenger Hunt Challenge (v1.0.9) — Timed Survival Minigame
+# Alphabet Scavenger Hunt Challenge — Timed Survival Minigame
 
 **By AllensCreations**
 

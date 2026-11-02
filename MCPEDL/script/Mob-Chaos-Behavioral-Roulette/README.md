@@ -1,45 +1,18 @@
-# Mob Chaos: Behavioral Roulette (v1.0.4)
+# Mob Chaos Behavioral Roulette
 
-A chaos mini-game by AllensCreations for Minecraft Bedrock Edition.
+Download the current release of **Mob Chaos Behavioral Roulette** for Minecraft Bedrock Edition.
 
-## Overview
+## Download
 
-Mob Chaos: Behavioral Roulette turns every mob near you into an unpredictable wildcard. While it runs, mobs close to players are randomly handed another creature's special traits for a brief time: cows hover and drop beef, sheep catch fire and charge, dogs gain a creeper's fuse, and spiders blink behind you. Eerie blood-red glitch text flashes on your action bar and screen center right before mutations strike.
+- **Package format:** `.mcaddon`
+- **Direct download:** [Download Mob Chaos Behavioral Roulette (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Mob-Chaos-Behavioral-Roulette/Mob%20Chaos%20Behavioral%20Roulette%20by%20AllensCreations%20%28V1.0.4%29.mcaddon)
 
-## Key Features
+## Installation
 
-### Trait Swapping Roulette
-- **What Happens**: Every 30 seconds, nearby creatures are temporarily mutated with borrowed abilities, effects, impulses, sounds, and unpredictable traits.
-- **Wings of the Sky**: Hovering mobs rain down their own item drops from above.
-- **Burning Hunger**: Mobs catch fire and sprint at nearby players with boosted speed.
-- **Springheels**: Mobs bound high through the air with exaggerated leap impulses.
-- **Blink**: Mobs vanish and teleport directly behind the player.
-- **Ravager Fury**: Mobs gain heavy resistance, increased health, and hard-hitting melee strikes.
-- **Creeper Fuse**: Mobs hiss and detonate, turning even common livestock and loyal pets volatile.
-- **Ghost**: Mobs turn invisible and speed rapidly away into the shadows.
-- **Wrong Voice**: Mobs emit bizarre, randomized vocalizations from other entities.
+1. Download the package using the link above.
+2. Open the downloaded file with Minecraft to import it.
+3. If the package contains a pack that must be enabled separately, activate it in your world's settings.
 
-### AllensCreations Controller
-- **What Happens**: Players receive a Controller item on spawn. Using it opens an interactive form allowing operators to Start, Restart, or End the chaos game.
+## Pack Information
 
-### Glitch Warning Radar
-- **What Happens**: Blood-red glitch alerts flash across your HUD and screen right before mutations take hold.
-
-## How to Use
-
-1. Import the pack and enable both the Behavior Pack and the Resource Pack in your world settings.
-2. Use the Controller item you receive on first spawn to open the menu and select Start.
-3. In void or flat worlds, spawn creatures using standard spawn eggs.
-4. When finished, use the Controller to select End to restore normal behavior.
-
-## Compatibility
-
-- Minecraft Bedrock Edition: 1.26.0 or newer.
-- Experimental features: No experimental features required.
-- Achievements: Unknown / needs confirmation.
-- Verification: Source created, not tested in game.
-- Fuse explosions break blocks by default; this setting can be adjusted in the script configuration.
-
----
-
-© All rights reserved for AllensCreations.
+For gameplay features, usage details, compatibility notes, and other project information, read the [full description](https://github.com/AllensCreations/MCPE-Curseforges/blob/main/MCPEDL/script/Mob-Chaos-Behavioral-Roulette/DESCRIPTION.md).

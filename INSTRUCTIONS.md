@@ -302,7 +302,7 @@ Workflows live in `.github/workflows/`. The roles below are a summary and will d
 | `auto-version-bump.yml` | Single release workflow. On push to main it bumps versions, rebuilds packs, and registers new projects; daily and on manual run it refreshes and rebuilds without bumping. Every run syncs project, category, builds, root and OneBlock map READMEs and audits README status. Must keep manifest titles in the `Name (vX.Y.Z)` format (Section 3). |
 | `check-manifest-versions.yml` | Checks every manifest for version, UUID, dependency, import, and engine-version problems. Runs on pull requests, on pushes that touch manifests, and on demand. |
 | `remake-docs.yml` | Remakes README, DESCRIPTION, and CHANGELOG for all projects or one (`standardize` keeps text, `rebuild` regenerates add-on docs). Dry run and pull request by default. |
-| `sync-readmes.yml` | Makes every README link and version match the real builds (fixes 404 download links). Dry run option. The release workflow runs the same sync. |
+| `sync-readmes.yml` | Makes README download links match real builds (fixes 404 links) without placing release versions in project README titles. Dry run option. |
 | `build-oneblock-variants.yml` | Builds the Creative, Survival, and Hardcore database-free `.mcworld` archives into `MCPEDL/maps/<Map-Name>/`. |
 | `create-project-from-base64.yml` | Manual run: decodes a base64 ZIP into the matching `MCPEDL/` folder and builds the worlds that type needs. `commit_mode` defaults to `pull_request`; `direct` pushes straight to the branch. |
 | `build-test-world.yml` | Manual run: rebuilds `<Name> - Test.mcworld`. |
@@ -383,17 +383,16 @@ All documentation rules, player-facing writing, creator links, attribution, and 
 
 ### 1. File Roles
 
-> **Uniform structure.** Every add-on `README.md` is a download landing page in the same layout: title with `(vX.Y.Z)`, `## Download` with version, format, and direct link, `## Installation` with three steps, and `## Add-on Information` linking `DESCRIPTION.md`. It never contains features, overviews, recipes, images, badges, or gameplay documentation. `DESCRIPTION.md` holds the full product description.
+> **Uniform structure.** Every project `README.md` is a version-free download landing page: title, current package format and direct download, three installation steps, and a link to `DESCRIPTION.md`. `DESCRIPTION.md` holds the full product description and never includes the add-on's release version in its title. Release versions belong in manifests and `CHANGELOG.md`; verified Minecraft compatibility versions may remain in `DESCRIPTION.md`.
 
 | File | Purpose |
 | :--- | :--- |
-| Add-on `README.md` | Download landing page: name, verified version, direct `.mcaddon`/`.mcpack` link (or catalog link), package format, short generic import steps, link to `DESCRIPTION.md`. |
-| Add-on `DESCRIPTION.md` | Full product page: overview, features, usage, recipes, compatibility, achievement/experiment status, creator links, attribution, search keywords. |
+| Project `README.md` | Download landing page: name, current package format and direct `.mcaddon`, `.mcpack`, or `.mcworld` link (or catalog link), short installation steps, and link to `DESCRIPTION.md`. No release version. |
+| Project `DESCRIPTION.md` | Full product page: overview, features, usage, recipes, compatibility, achievement/experiment status, creator links, attribution, search keywords. No release version in the title. |
 | `CHANGELOG.md` | Concise, player-visible changes only. |
 | Root and category catalogs | Project lists with version, source, and download links. May use compact tables. |
 
-- **Maps and scripts:** the README is the product page, because `check_readme_status.py` audits `README.md` for these types: an Overview or Features section and at least 25 non-empty lines, plus the achievement, experiment, and verification lines. Map READMEs link only `.mcworld` files that exist (Part 1, Section 7).
-- A new add-on gets both files. When updating an older add-on, move verified README content into `DESCRIPTION.md` before replacing the README. Never lose verified information or duplicate full descriptions across both.
+- **Every project type:** the README is the download and installation page; the DESCRIPTION is the product page. Before replacing a long README, preserve its verified player-facing content in `DESCRIPTION.md`. Never lose verified information or duplicate full descriptions across both.
 - Catalogs are the download source of truth:
   - Existing Add-ons: `MCPEDL/addons/README.md#available-add-ons`
   - New Add-ons: `MCPEDL/new_addons/README.md#available-add-ons`
@@ -421,7 +420,7 @@ Applies to every public README, DESCRIPTION, CHANGELOG, and catalog entry. Write
 - Documentation must render cleanly on GitHub, CurseForge, MCPEDL, and Planet Minecraft.
 - No Markdown tables in project READMEs or DESCRIPTIONs. Use `### Feature Name` cards with short bullets (`- **What Happens**: ...`). Catalogs may use tables.
 - Paragraphs of 3-4 sentences at most. Avoid LaTeX notation; use `->` or a Unicode arrow.
-- **No badges and no images in any project README** (add-ons, maps, scripts). DESCRIPTIONs may include only item sprites and crafting recipe diagrams, and only when requested or required (Part 1, Section 5). Version badges, including shields.io badges, are not used in project documentation; the version appears in the title and compatibility line. The one exception is the generated "Collection Size" badge in the root `README.md`, written by `auto_bump_and_build.py` and `delete_project.py`; do not hand-edit it and do not copy it into other files.
+- **No badges and no images in any project README** (add-ons, maps, scripts). DESCRIPTIONs may include only item sprites and crafting recipe diagrams, and only when requested or required (Part 1, Section 5). Release versions are not shown in project README or DESCRIPTION titles; compatibility versions belong only in verified compatibility details. The one exception is the generated "Collection Size" badge in the root `README.md`, written by `auto_bump_and_build.py` and `delete_project.py`; do not hand-edit it and do not copy it into other files.
 - Never allow duplicate suffixes such as `(v1.2.0) (v1.2.1)`.
 - Never copy a legacy MCPEDL description to CurseForge unchanged; adjust in CurseForge's `</>` editor.
 - Use relative paths for links between repository files. Use full URLs in published pages:
@@ -467,20 +466,19 @@ Minecraft Bedrock add-on, [Add-on Name] Bedrock mod, [feature 1], [feature 2], [
 
 ### 6. Templates
 
-**Strict template rule (enforced).** `scripts/doc_template.py`, run by `build_payload.py` and the importer, fails the build on any deviation from the add-on README, add-on DESCRIPTION, and CHANGELOG templates. Follow the matching template below exactly for every `README.md`, `DESCRIPTION.md`, and `CHANGELOG.md` you write or update: same headings, same heading text, same order, same labels, same list and bullet format. Do not add, remove, rename, merge, or reorder sections, and do not add boilerplate, extra notes, or text outside the template. Replace every `[placeholder]` and `verified-...` marker with verified content and leave none behind. The only allowed deviations are the ones the templates and Section 1 already name (map and script READMEs as product pages, and a section's content when a fact cannot be verified, in which case say so inside that section rather than dropping it). Factual accuracy and the user's requested scope still outrank the template.
+**Strict template rule (enforced).** `scripts/doc_template.py`, run by `build_payload.py` and the importer, fails the build on any deviation from the project README, DESCRIPTION, and CHANGELOG templates. Follow the matching template below exactly for every `README.md`, `DESCRIPTION.md`, and `CHANGELOG.md` you write or update: same headings, same heading text, same order, same labels, same list and bullet format. Do not add, remove, rename, merge, or reorder sections, and do not add boilerplate, extra notes, or text outside the template. Replace every `[placeholder]` and `verified-...` marker with verified content and leave none behind. Package installation text may vary for `.mcworld` files, and multiple verified world variants may be listed together. Factual accuracy and the user's requested scope still outrank the template.
 
-**Add-on README.md**
+**Project README.md**
 
 ```markdown
-# [Add-on Name] (vX.Y.Z)
+# [Pack Name]
 
-Download the current release of **[Add-on Name]** for Minecraft Bedrock Edition.
+Download the current release of **[Pack Name]** for Minecraft Bedrock Edition.
 
 ## Download
 
-- **Version:** X.Y.Z
 - **Package format:** `.mcaddon`
-- **Direct download:** [Download [Add-on Name] (.mcaddon)](verified-direct-download-link)
+- **Direct download:** [Download [Pack Name] (.mcaddon)](verified-direct-download-link)
 
 ## Installation
 
@@ -488,17 +486,17 @@ Download the current release of **[Add-on Name]** for Minecraft Bedrock Edition.
 2. Open the downloaded file with Minecraft to import it.
 3. If the package contains a pack that must be enabled separately, activate it in your world's settings.
 
-## Add-on Information
+## Pack Information
 
-For gameplay features, usage details, recipes, compatibility notes, and other project information, read the [full description](verified-DESCRIPTION-link).
+For gameplay features, usage details, compatibility notes, and other project information, read the [full description](verified-DESCRIPTION-link).
 ```
 
-Use a verified direct package URL when one exists; otherwise link the official catalog. Keep an add-on README at 24 non-empty lines or fewer and keep the exact `**Download:**` (or `**Direct download:**`) label, the `## Installation` heading, and the `## Add-on Information` heading with the `DESCRIPTION.md` link, because `check_readme_status.py` and `build_payload.py` check them.
+Use a verified direct package URL when one exists; otherwise link the official category catalog. Keep project READMEs at 24 non-empty lines or fewer, use the package's actual format (`.mcaddon`, `.mcpack`, or `.mcworld`), and link to `DESCRIPTION.md`. Do not show the release version in the README. For `.mcworld`, the final installation step tells players to open the imported world. When a map offers multiple verified world variants, preserve all of those links.
 
-**Add-on DESCRIPTION.md**
+**Project DESCRIPTION.md**
 
 ```markdown
-# [Add-on Name] (vX.Y.Z) — [Clear, factual subtitle]
+# [Pack Name] — [Clear, factual subtitle]
 
 **By AllensCreations**
 
@@ -600,7 +598,7 @@ Discover the actual folder structure first. Do not assume a folder or file exist
    6. Review the final diff for scope. If a check was not run, say so.
 9. **Report.** State briefly: projects audited or updated; files changed; commands run and results; missing assets, unresolved links, or unverifiable information; remaining projects needing attention. Never report success for a check that was not run or did not pass.
 
-**Remaking documentation in bulk.** `python3 scripts/check_readme_status.py --remake standardize --all --check` previews, and the same command without `--check` writes. `standardize` keeps existing text: it rebuilds each add-on README as the download page, fixes DESCRIPTION structure (title version, By line, Compatibility lines, Creator links, the exact attribution block, the keyword section), and adds a missing CHANGELOG entry. `--remake rebuild --project <Name>` replaces an add-on's DESCRIPTION and README with generic text built from source files (maps and scripts are never rebuilt), and `--all` needs `--confirm-rebuild`. Added defaults (Verification, Achievements, Experimental features) are conservative placeholders and generated changelog entries are generic, so replace them with verified facts. The workflow `remake-docs.yml` runs the same thing with a dry run and a pull request.
+**Remaking documentation in bulk.** `python3 scripts/check_readme_status.py --remake standardize --all --check` previews, and the same command without `--check` writes. `standardize` keeps existing product text: it refreshes project READMEs as version-free download pages, removes release versions from DESCRIPTION titles, fixes structure (By line, Compatibility lines, Creator links, attribution, keywords), and adds a missing CHANGELOG entry. `--remake rebuild --project <Name>` replaces the project's DESCRIPTION and README with generic text built from source files; `--all` needs `--confirm-rebuild`. Added defaults (Verification, Achievements, Experimental features) are conservative placeholders and generated changelog entries are generic, so replace them with verified facts. The workflow `remake-docs.yml` runs the same thing with a dry run and a pull request.
 
 ### 4. Minecraft Wiki Item Reference
 

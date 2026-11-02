@@ -1,4 +1,4 @@
-# Fletching Table Arsenal (v1.0.0) — Tactical Arrow Workstation
+# Fletching Table Arsenal — Tactical Arrow Workstation
 
 **By AllensCreations**
 

@@ -224,17 +224,16 @@ All documentation rules, player-facing writing, creator links, attribution, and 
 
 ### 1. File Roles
 
-> **Uniform structure.** Every add-on `README.md` is a download landing page in the same layout: title with `(vX.Y.Z)`, `## Download` with version, format, and direct link, `## Installation` with three steps, and `## Add-on Information` linking `DESCRIPTION.md`. It never contains features, overviews, recipes, images, badges, or gameplay documentation. `DESCRIPTION.md` holds the full product description.
+> **Uniform structure.** Every project `README.md` is a version-free download landing page: title, current package format and direct download, three installation steps, and a link to `DESCRIPTION.md`. `DESCRIPTION.md` holds the full product description and never includes the add-on's release version in its title. Release versions belong in manifests and `CHANGELOG.md`; verified Minecraft compatibility versions may remain in `DESCRIPTION.md`.
 
 | File | Purpose |
 | :--- | :--- |
-| Add-on `README.md` | Download landing page: name, verified version, direct `.mcaddon`/`.mcpack` link (or catalog link), package format, short generic import steps, link to `DESCRIPTION.md`. |
-| Add-on `DESCRIPTION.md` | Full product page: overview, features, usage, recipes, compatibility, achievement/experiment status, creator links, attribution, search keywords. |
+| Project `README.md` | Download landing page: name, current package format and direct `.mcaddon`, `.mcpack`, or `.mcworld` link (or catalog link), short installation steps, and link to `DESCRIPTION.md`. No release version. |
+| Project `DESCRIPTION.md` | Full product page: overview, features, usage, recipes, compatibility, achievement/experiment status, creator links, attribution, search keywords. No release version in the title. |
 | `CHANGELOG.md` | Concise, player-visible changes only. |
 | Root and category catalogs | Project lists with version, source, and download links. May use compact tables. |
 
-- **Maps and scripts:** the README is the product page, because `check_readme_status.py` audits `README.md` for these types: an Overview or Features section and at least 25 non-empty lines, plus the achievement, experiment, and verification lines. Map READMEs link only `.mcworld` files that exist (Part 1, Section 7).
-- A new add-on gets both files. When updating an older add-on, move verified README content into `DESCRIPTION.md` before replacing the README. Never lose verified information or duplicate full descriptions across both.
+- **Every project type:** the README is the download and installation page; the DESCRIPTION is the product page. Before replacing a long README, preserve its verified player-facing content in `DESCRIPTION.md`. Never lose verified information or duplicate full descriptions across both.
 - Catalogs are the download source of truth:
   - Existing Add-ons: `MCPEDL/addons/README.md#available-add-ons`
   - New Add-ons: `MCPEDL/new_addons/README.md#available-add-ons`
@@ -262,7 +261,7 @@ Applies to every public README, DESCRIPTION, CHANGELOG, and catalog entry. Write
 - Documentation must render cleanly on GitHub, CurseForge, MCPEDL, and Planet Minecraft.
 - No Markdown tables in project READMEs or DESCRIPTIONs. Use `### Feature Name` cards with short bullets (`- **What Happens**: ...`). Catalogs may use tables.
 - Paragraphs of 3-4 sentences at most. Avoid LaTeX notation; use `->` or a Unicode arrow.
-- **No badges and no images in any project README** (add-ons, maps, scripts). DESCRIPTIONs may include only item sprites and crafting recipe diagrams, and only when requested or required (Part 1, Section 5). Version badges, including shields.io badges, are not used in project documentation; the version appears in the title and compatibility line. The one exception is the generated "Collection Size" badge in the root `README.md`, written by `auto_bump_and_build.py` and `delete_project.py`; do not hand-edit it and do not copy it into other files.
+- **No badges and no images in any project README** (add-ons, maps, scripts). DESCRIPTIONs may include only item sprites and crafting recipe diagrams, and only when requested or required (Part 1, Section 5). Release versions are not shown in project README or DESCRIPTION titles; compatibility versions belong only in verified compatibility details. The one exception is the generated "Collection Size" badge in the root `README.md`, written by `auto_bump_and_build.py` and `delete_project.py`; do not hand-edit it and do not copy it into other files.
 - Never allow duplicate suffixes such as `(v1.2.0) (v1.2.1)`.
 - Never copy a legacy MCPEDL description to CurseForge unchanged; adjust in CurseForge's `</>` editor.
 - Use relative paths for links between repository files. Use full URLs in published pages:
@@ -308,20 +307,19 @@ Minecraft Bedrock add-on, [Add-on Name] Bedrock mod, [feature 1], [feature 2], [
 
 ### 6. Templates
 
-**Strict template rule (enforced).** `scripts/doc_template.py`, run by `build_payload.py` and the importer, fails the build on any deviation from the add-on README, add-on DESCRIPTION, and CHANGELOG templates. Follow the matching template below exactly for every `README.md`, `DESCRIPTION.md`, and `CHANGELOG.md` you write or update: same headings, same heading text, same order, same labels, same list and bullet format. Do not add, remove, rename, merge, or reorder sections, and do not add boilerplate, extra notes, or text outside the template. Replace every `[placeholder]` and `verified-...` marker with verified content and leave none behind. The only allowed deviations are the ones the templates and Section 1 already name (map and script READMEs as product pages, and a section's content when a fact cannot be verified, in which case say so inside that section rather than dropping it). Factual accuracy and the user's requested scope still outrank the template.
+**Strict template rule (enforced).** `scripts/doc_template.py`, run by `build_payload.py` and the importer, fails the build on any deviation from the project README, DESCRIPTION, and CHANGELOG templates. Follow the matching template below exactly for every `README.md`, `DESCRIPTION.md`, and `CHANGELOG.md` you write or update: same headings, same heading text, same order, same labels, same list and bullet format. Do not add, remove, rename, merge, or reorder sections, and do not add boilerplate, extra notes, or text outside the template. Replace every `[placeholder]` and `verified-...` marker with verified content and leave none behind. Package installation text may vary for `.mcworld` files, and multiple verified world variants may be listed together. Factual accuracy and the user's requested scope still outrank the template.
 
-**Add-on README.md**
+**Project README.md**
 
 ```markdown
-# [Add-on Name] (vX.Y.Z)
+# [Pack Name]
 
-Download the current release of **[Add-on Name]** for Minecraft Bedrock Edition.
+Download the current release of **[Pack Name]** for Minecraft Bedrock Edition.
 
 ## Download
 
-- **Version:** X.Y.Z
 - **Package format:** `.mcaddon`
-- **Direct download:** [Download [Add-on Name] (.mcaddon)](verified-direct-download-link)
+- **Direct download:** [Download [Pack Name] (.mcaddon)](verified-direct-download-link)
 
 ## Installation
 
@@ -329,17 +327,17 @@ Download the current release of **[Add-on Name]** for Minecraft Bedrock Edition.
 2. Open the downloaded file with Minecraft to import it.
 3. If the package contains a pack that must be enabled separately, activate it in your world's settings.
 
-## Add-on Information
+## Pack Information
 
-For gameplay features, usage details, recipes, compatibility notes, and other project information, read the [full description](verified-DESCRIPTION-link).
+For gameplay features, usage details, compatibility notes, and other project information, read the [full description](verified-DESCRIPTION-link).
 ```
 
-Use a verified direct package URL when one exists; otherwise link the official catalog. Keep an add-on README at 24 non-empty lines or fewer and keep the exact `**Download:**` (or `**Direct download:**`) label, the `## Installation` heading, and the `## Add-on Information` heading with the `DESCRIPTION.md` link, because `check_readme_status.py` and `build_payload.py` check them.
+Use a verified direct package URL when one exists; otherwise link the official category catalog. Keep project READMEs at 24 non-empty lines or fewer, use the package's actual format (`.mcaddon`, `.mcpack`, or `.mcworld`), and link to `DESCRIPTION.md`. Do not show the release version in the README. For `.mcworld`, the final installation step tells players to open the imported world. When a map offers multiple verified world variants, preserve all of those links.
 
-**Add-on DESCRIPTION.md**
+**Project DESCRIPTION.md**
 
 ```markdown
-# [Add-on Name] (vX.Y.Z) — [Clear, factual subtitle]
+# [Pack Name] — [Clear, factual subtitle]
 
 **By AllensCreations**
 
@@ -433,7 +431,7 @@ Do not guess the type. Then follow Sections 1 to 3, the one section for that typ
 
 - **Never write base64 by hand.** Create the files, build the ZIP, and encode it by actually running code (Section 8). If you cannot run code, stop and say so; output the file tree with full contents plus the command and tell the user to run it. Never output invented base64.
 - Never invent features, versions, links, assets, test results, or compatibility. Building the ZIP proves structure only.
-- Look up the latest stable Minecraft Bedrock release and latest stable `@minecraft/server` and `@minecraft/server-ui` versions from the official documentation at the time of the work and record the date (Part 1, Section 2). No preview/beta/RC unless a requested feature requires it, and then say so in the README.
+- Look up the latest stable Minecraft Bedrock release and latest stable `@minecraft/server` and `@minecraft/server-ui` versions from the official documentation at the time of the work and record the date (Part 1, Section 2). No preview/beta/RC unless a requested feature requires it, and then disclose that clearly in the `DESCRIPTION.md`.
 - `min_engine_version` follows Part 1, Section 2 (lowest version needed, a real looked-up version). If you cannot confirm which game version first shipped the module version you use, say so.
 - **Art:** a generated payload never contains AI-generated images. The Trader Ledger (maps) and Controller (scripts) icons come only from the repo copy, which `build_payload.py` installs. For any other texture use real vanilla texture names, user-supplied textures, or omit the icon.
 - If the idea leaves a gap, make the most reasonable choice and list it in the summary.
@@ -522,7 +520,7 @@ resource_pack/textures/items/trader_ledger.png
    ```
    execute as @a[tag=!void_cleaned] run fill -16 -64 -16 16 -64 16 air
    ```
-3. `oneblock_setup.mcfunction` only has to exist. Keep it harmless and idempotent. Do not list it in `tick.json`. Say in the README, in plain player words and without naming the file, that the optional setup command needs cheats and that using cheats in a world disables achievements there.
+3. `oneblock_setup.mcfunction` only has to exist. Keep it harmless and idempotent. Do not list it in `tick.json`. Say in the `DESCRIPTION.md`, in plain player words and without naming the file, that the optional setup command needs cheats and that using cheats in a world disables achievements there.
 4. **Trader Ledger** is mandatory and comes only from the repo copy, installed by `build_payload.py`. It is a 32 x 32 RGBA PNG at `Mcpeworlds/assets/resources_pack/textures/items/trader_ledger.png`. The item identifier stays `allenscreations:trader_ledger`; you may change its display name. Never redraw, recolor, resize, or re-encode it, and never copy the whole `Mcpeworlds/assets/` folder.
 5. The ledger's role follows the idea. In the Dirtbound reference map it is the only way to open a shop menu. If the idea gives it no role, still ship it and say so in the summary.
 
@@ -609,9 +607,8 @@ registerController({
 Documentation follows Part 2 exactly; `build_payload.py` fails with a `DOC:` message for each rule it can check, including the exact README, DESCRIPTION, and CHANGELOG templates, and the final run must show none.
 
 - Every custom shaped or shapeless crafting recipe needs the unlock its type requires (Part 1, Section 4). Other recipe types are not given an `unlock` field.
-- **Add-on `README.md`:** the Part 2 download-only template, at most 24 non-empty lines. Until a package exists, link the official catalog page (`https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/new_addons/README.md#available-add-ons`). No other links, no badges, no `.mcworld` claims, no features.
-- **Map and script `README.md`:** the product page: an Overview or Features section and at least 25 non-empty lines. For a map, mention the Trader Ledger; for a script, the Controller. Never claim a `.mcworld` exists.
-- **Compatibility lines** go in `DESCRIPTION.md` for add-ons and in `README.md` for maps and scripts: exactly one achievement status (*Likely achievement-friendly*, *Not achievement-friendly / may disable achievements*, or *Unknown / needs confirmation*); an experiments line; and the sentence "Source created, not tested in game." State the verified minimum game version only if verified. Mention cheats where an admin function is documented.
+- **Every project `README.md`:** the version-free download-only template, at most 24 non-empty lines, with the current package format and a verified package link or official category catalog link. Preserve multiple verified world variants for maps. No badges or gameplay claims.
+- **`DESCRIPTION.md`:** the product page for add-ons, maps, and scripts. Include the gameplay details, compatibility lines, attribution, and keywords. State the verified minimum game version only if verified. Mention cheats where an admin function is documented.
 - **`DESCRIPTION.md`:** the Part 2 template, including Creator and Permissions links, the Guidelines and Attribution block (with the unofficial-product disclaimer), and Search & Discovery Keywords. Only features that exist in the files. Never mention `Script API` or `@minecraft/` modules. Use in-game display names, no code blocks, no Markdown tables.
 - **`CHANGELOG.md`:** the Part 2 format, starting with `## [1.0.0] - YYYY-MM-DD`, no links.
 

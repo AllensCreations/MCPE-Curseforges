@@ -134,10 +134,9 @@ def scan_projects(target_project=None):
             if target_project and target_project.lower() not in (proj_name.lower(), proj.lower()):
                 continue
 
-            is_addon = cat in ("MCPEDL/addons", "MCPEDL/new_addons")
             readme_path = os.path.join(proj, "README.md")
             description_path = os.path.join(proj, "DESCRIPTION.md")
-            documentation_path = description_path if is_addon else readme_path
+            documentation_path = description_path
             rel_path = os.path.relpath(proj, REPO_ROOT)
 
             if not os.path.isfile(readme_path):
@@ -147,33 +146,33 @@ def scan_projects(target_project=None):
                 })
                 continue
 
-            if is_addon and not os.path.isfile(description_path):
+            if not os.path.isfile(description_path):
                 results.append({
                     "name": proj_name, "path": rel_path, "proj_dir": proj,
                     "status": "MISSING_DESCRIPTION",
-                    "details": "DESCRIPTION.md does not exist for this add-on."
+                    "details": "DESCRIPTION.md does not exist for this project."
                 })
                 continue
 
-            if is_addon:
-                with open(readme_path, "r", encoding="utf-8") as f:
-                    readme_content = f.read()
-                readme_lines = [line.strip() for line in readme_content.splitlines() if line.strip()]
-                has_download_link = bool(re.search(r"\*\*(?:Direct download|Download):\*\*\s*\[[^]]+\]\([^)]+\)", readme_content))
-                has_installation = "## Installation" in readme_content
-                has_description_link = "## Add-on Information" in readme_content and "DESCRIPTION.md" in readme_content
-                if (
-                    len(readme_lines) > 24 or not readme_lines
-                    or not readme_lines[0].startswith("# ")
-                    or not has_download_link or not has_installation
-                    or not has_description_link
-                ):
-                    results.append({
-                        "name": proj_name, "path": rel_path, "proj_dir": proj,
-                        "status": "README_DOWNLOAD_PAGE_INCOMPLETE",
-                        "details": "Add-on README.md should include title/version, download details, import steps, and a DESCRIPTION.md link."
-                    })
-                    continue
+            with open(readme_path, "r", encoding="utf-8") as f:
+                readme_content = f.read()
+            readme_lines = [line.strip() for line in readme_content.splitlines() if line.strip()]
+            has_download_link = bool(re.search(r"\*\*Direct download:\*\*\s*\[[^]]+\]\([^)]+\)", readme_content))
+            has_installation = "## Installation" in readme_content
+            has_description_link = "## Pack Information" in readme_content and "DESCRIPTION.md" in readme_content
+            if (
+                len(readme_lines) > 24 or not readme_lines
+                or not readme_lines[0].startswith("# ")
+                or re.search(r"\(v\d+\.\d+\.\d+\)$", readme_lines[0], re.I)
+                or not has_download_link or not has_installation
+                or not has_description_link
+            ):
+                results.append({
+                    "name": proj_name, "path": rel_path, "proj_dir": proj,
+                    "status": "README_DOWNLOAD_PAGE_INCOMPLETE",
+                    "details": "README.md should use the version-free download template and link DESCRIPTION.md."
+                })
+                continue
 
             with open(documentation_path, "r", encoding="utf-8") as f:
                 content = f.read()
@@ -298,22 +297,26 @@ def analyze_addon_source(proj_dir):
 
 
 def auto_generate_readme(proj_dir):
-    """Creates DESCRIPTION.md for add-ons and keeps their README.md download-only."""
+    """Create a player description and version-free download README for a project."""
     meta = extract_manifest_info(proj_dir)
     features, interactions = analyze_addon_source(proj_dir)
     slug = os.path.basename(proj_dir)
     readme_path = os.path.join(proj_dir, "README.md")
     description_path = os.path.join(proj_dir, "DESCRIPTION.md")
     category = os.path.basename(os.path.dirname(proj_dir))
-    is_addon = category in ("addons", "new_addons")
-    output_path = description_path if is_addon else readme_path
+    output_path = description_path
 
     clean_name = meta["name"].replace(" BP", "").replace(" RP", "").strip()
     clean_name = re.sub(r"\s*\(v\d+\.\d+\.\d+\)\s*$", "", clean_name).strip()
     version = meta["version"]
 
     def write_download_readme():
-        catalog = "new_addons" if category == "new_addons" else "addons"
+        catalog = {
+            "addons": "addons/README.md#available-add-ons",
+            "new_addons": "new_addons/README.md#available-add-ons",
+            "maps": "maps/README.md#available-maps",
+            "script": "script/README.md#available-scripts",
+        }.get(category, "addons/README.md#available-add-ons")
         build_dir = os.path.join(REPO_ROOT, "builds", slug)
         candidates = []
         for ext in (meta["primary_ext"], "mcaddon", "mcpack"):
@@ -326,83 +329,65 @@ def auto_generate_readme(proj_dir):
         else:
             url = (
                 "https://github.com/AllensCreations/MCPE-Curseforges/blob/main/"
-                f"MCPEDL/{catalog}/README.md#available-add-ons"
+                f"MCPEDL/{catalog}"
             )
             label = "Open the official download catalog"
         description_url = (
             "https://github.com/AllensCreations/MCPE-Curseforges/blob/main/"
             f"{os.path.relpath(description_path, REPO_ROOT).replace(os.sep, '/')}"
         )
-        package_format = f".{os.path.splitext(candidates[0])[1].lstrip('.')}" if candidates else meta["primary_ext"].upper()
+        package_format = f".{os.path.splitext(candidates[0])[1].lstrip('.')}" if candidates else f".{meta['primary_ext'].lstrip('.')}"
+        install_last_step = (
+            "3. Find the imported world in your Worlds list and open it."
+            if package_format == ".mcworld"
+            else "3. If the package contains a pack that must be enabled separately, activate it in your world's settings."
+        )
         content = (
-            f"# {clean_name} (v{version})\n\n"
+            f"# {clean_name}\n\n"
             f"Download the current release of **{clean_name}** for Minecraft Bedrock Edition.\n\n"
             f"## Download\n\n"
-            f"- **Version:** {version}\n"
             f"- **Package format:** `{package_format}`\n"
             f"- **Direct download:** [{label}]({url})\n\n"
             f"## Installation\n\n"
             f"1. Download the package using the link above.\n"
             f"2. Open the downloaded file with Minecraft to import it.\n"
-            f"3. If the package contains a pack that must be enabled separately, activate it in your world's settings.\n\n"
-            f"## Add-on Information\n\n"
-            f"For gameplay features, usage details, recipes, compatibility notes, and other project information, read the [full description]({description_url}).\n"
+            f"{install_last_step}\n\n"
+            f"## Pack Information\n\n"
+            f"For gameplay features, usage details, compatibility notes, and other project information, read the [full description]({description_url}).\n"
         )
         with open(readme_path, "w", encoding="utf-8") as f:
             f.write(content)
 
-    if is_addon:
-        # Preserve an existing complete DESCRIPTION.md rather than regenerating it.
-        if os.path.isfile(description_path):
-            with open(description_path, "r", encoding="utf-8") as f:
-                existing_description = f.read()
-            existing_lines = [line.strip() for line in existing_description.splitlines() if line.strip()]
-            if (
-                len(existing_lines) >= 25
-                and GAMEPLAY_HEADING_REGEX.search(existing_description)
-                and not any(marker in existing_description for marker in PLACEHOLDER_MARKERS + SCAFFOLD_STUB_MARKERS)
-            ):
-                # If an older full README still exists, preserve any distinct top-level
-                # sections that have not yet been moved into DESCRIPTION.md.
-                if os.path.isfile(readme_path):
-                    with open(readme_path, "r", encoding="utf-8") as f:
-                        old_readme = f.read()
-                    if len(old_readme.strip()) > 500 and GAMEPLAY_HEADING_REGEX.search(old_readme):
-                        existing_headings = {
-                            heading.strip().casefold()
-                            for heading in re.findall(r"(?m)^##\s+(.+?)\s*$", existing_description)
-                        }
-                        additional_sections = []
-                        for section in re.split(r"(?m)(?=^##\s+)", old_readme):
-                            match = re.match(r"(?s)^##\s+(.+?)\s*\n", section)
-                            if not match:
-                                continue
-                            heading = match.group(1).strip()
-                            if heading.casefold() not in existing_headings:
-                                additional_sections.append(section.strip())
-                                existing_headings.add(heading.casefold())
-                        if additional_sections:
-                            existing_description = (
-                                existing_description.rstrip()
-                                + "\n\n---\n\n"
-                                + "\n\n".join(additional_sections)
-                                + "\n"
-                            )
-                            with open(description_path, "w", encoding="utf-8") as f:
-                                f.write(existing_description)
-                write_download_readme()
-                print(f"  [Auto-Fix] Preserved DESCRIPTION.md and refreshed download-only README for {slug}")
-                return
-        elif os.path.isfile(readme_path):
-            # Migrate existing product information instead of discarding it.
-            with open(readme_path, "r", encoding="utf-8") as f:
-                old_readme = f.read()
-            if len(old_readme.strip()) > 500 and GAMEPLAY_HEADING_REGEX.search(old_readme):
-                with open(description_path, "w", encoding="utf-8") as f:
-                    f.write(old_readme if old_readme.endswith("\n") else old_readme + "\n")
-                write_download_readme()
-                print(f"  [Auto-Fix] Moved existing product information into DESCRIPTION.md for {slug}")
-                return
+    if os.path.isfile(description_path):
+        with open(description_path, "r", encoding="utf-8") as f:
+            description = f.read()
+        description = re.sub(
+            r"(?m)^(# .+?) \(v\d+\.\d+\.\d+\)(?= — |$)",
+            r"\1",
+            description,
+            count=1,
+        )
+        with open(description_path, "w", encoding="utf-8") as f:
+            f.write(description)
+        write_download_readme()
+        print(f"  [Auto-Fix] Preserved DESCRIPTION.md and refreshed download-only README for {slug}")
+        return
+    elif os.path.isfile(readme_path):
+        # Migrate existing product information instead of discarding it.
+        with open(readme_path, "r", encoding="utf-8") as f:
+            old_readme = f.read()
+        if len(old_readme.strip()) > 500 and GAMEPLAY_HEADING_REGEX.search(old_readme):
+            old_readme = re.sub(
+                r"(?m)^(# .+?) \(v\d+\.\d+\.\d+\)(?= — |$)",
+                r"\1",
+                old_readme,
+                count=1,
+            )
+            with open(description_path, "w", encoding="utf-8") as f:
+                f.write(old_readme if old_readme.endswith("\n") else old_readme + "\n")
+            write_download_readme()
+            print(f"  [Auto-Fix] Moved existing product information into DESCRIPTION.md for {slug}")
+            return
 
     feature_cards = []
     for feature in features:
@@ -420,7 +405,7 @@ def auto_generate_readme(proj_dir):
         interaction_cards.append(f"### {action}\n- **Requirement**: {requirement}\n- **What Happens**: {result}")
     interaction_section = "\n\n".join(interaction_cards) if interaction_cards else "Use the in-game interactions provided by the add-on. Refer to the included pack settings and item descriptions for supported controls."
 
-    content = f"""# {clean_name} (v{version})
+    content = f"""# {clean_name}
 
 **By AllensCreations**
 
@@ -469,8 +454,7 @@ Minecraft Bedrock add-on, {clean_name.lower()} Bedrock mod, Minecraft PE surviva
     with open(output_path, "w", encoding="utf-8") as f:
         f.write(content)
 
-    if is_addon:
-        write_download_readme()
+    write_download_readme()
 
     print(f"  [Auto-Fix] Successfully generated product documentation for {slug}")
 

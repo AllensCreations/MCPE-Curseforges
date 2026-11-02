@@ -1,4 +1,4 @@
-# Universal Clutch (v1.0.5) — Intelligent Fall Mitigation Add-on
+# Universal Clutch — Intelligent Fall Mitigation Add-on
 
 **By AllensCreations**
 

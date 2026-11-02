@@ -1,35 +1,18 @@
-# Trivia Vault: The Locked World (v1.0.19)
+# Trivia Vault The Locked World
 
-## Overview
-Trivia Vault: The Locked World is a survival trivia challenge by AllensCreations.
+Download the current release of **Trivia Vault The Locked World** for Minecraft Bedrock Edition.
 
-In Survival, attempting to break a locked block type immediately opens a four-choice trivia question. Questions cover general knowledge and Minecraft. The correct answer's position is shuffled for every question.
+## Download
 
-## Features
-- Direct question display with no extra confirmation screen.
-- Four answer choices with randomized answer placement.
-- Correctly answering permanently unlocks that block type across the world.
-- Wrong answers trigger randomized survival penalties, including a chance to remove matching blocks within a 20-block radius of the targeted block.
-- Selectable Hardmode behavior-pack subpack: additional damage after wrong answers.
-- The AllensCreations Controller opens the Start and How to play options.
-- Crafting is not intercepted; normal crafting remains unchanged.
+- **Package format:** `.mcaddon`
+- **Direct download:** [Download Trivia Vault The Locked World (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Trivia-Vault-The-Locked-World/Trivia%20Vault%20The%20Locked%20World%20by%20AllensCreations%20%28V1.0.19%29.mcaddon)
 
-## How to Start
-1. Import the project package into Minecraft Bedrock.
-2. Enable the Behavior Pack and Resource Pack in a test world.
-3. Select the Hardmode subpack in Behavior Pack settings if desired.
-4. Use the Controller as the host or an operator to open the game menu.
-5. Select Start and play in Survival mode.
+## Installation
 
-## Controls and Rules
-Attempt to break a locked block in Survival to open its trivia question. The question appears directly, without an extra confirmation menu, hints, or lifelines.
-Select one of the four answers.
-A correct answer permanently unlocks that block type across the world. Unlocking the block is the only reward; no items or experience are awarded.
-Wrong answers trigger a random penalty, which may include damage, hostile mobs, losing an item, or removing matching blocks within a 20-block radius of the targeted block.
-Creative mode bypasses the block-break trivia check.
-The run ends when the player dies; the game state closes and further trivia stops. Use the Controller to start another run.
+1. Download the package using the link above.
+2. Open the downloaded file with Minecraft to import it.
+3. If the package contains a pack that must be enabled separately, activate it in your world's settings.
 
-## Compatibility
-Achievement status: Unknown / needs confirmation.
-Experiments: No experiment requirement detected in the inspected files.
-Source updated; in-game testing is still required to confirm gameplay behavior.
+## Pack Information
+
+For gameplay features, usage details, compatibility notes, and other project information, read the [full description](https://github.com/AllensCreations/MCPE-Curseforges/blob/main/MCPEDL/script/Trivia-Vault-The-Locked-World/DESCRIPTION.md).

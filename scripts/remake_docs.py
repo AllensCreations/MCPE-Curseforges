@@ -38,7 +38,7 @@ def clean_name(meta):
     return re.sub(r"\s*\(v\d+\.\d+\.\d+\)\s*$", "", name).strip()
 
 
-def fix_heading(text, version_text):
+def fix_heading(text, version_text=None):
     lines = text.splitlines(keepends=True)
     for i, line in enumerate(lines[:6]):
         if not line.startswith("# "):
@@ -52,7 +52,7 @@ def fix_heading(text, version_text):
                 suffix = sep + rest
                 break
         title = re.sub(r"\s*\([vV]\d+\.\d+\.\d+\)\s*$", "", title).strip()
-        lines[i] = f"# {title} (v{version_text}){suffix}{newline}"
+        lines[i] = f"# {title}{suffix}{newline}"
         return "".join(lines), i
     return text, None
 
@@ -145,7 +145,7 @@ def refresh_readme(proj, category, version_text, name, check):
     readme = path / "README.md"
     before = readme.read_text(encoding="utf-8") if readme.is_file() else None
     if before is None:
-        readme.write_text(f"# {name} (v{version_text})\n", encoding="utf-8")
+        readme.write_text(f"# {name}\n", encoding="utf-8")
     primary = srl.Project(category, path, ab).primary
     import contextlib, io
     with contextlib.redirect_stdout(io.StringIO()):
@@ -211,7 +211,6 @@ def run(args):
         proj = item["proj_dir"]
         path = Path(proj)
         rel = path.relative_to(ROOT).as_posix()
-        is_addon = category_of(proj) in ("addons", "new_addons")
         meta = crs.extract_manifest_info(proj)
         name = clean_name(meta)
         version = spd.project_version(path)
@@ -219,9 +218,7 @@ def run(args):
         description, readme = path / "DESCRIPTION.md", path / "README.md"
 
         if mode == "rebuild":
-            if not is_addon:
-                notices.append(f"{rel}: maps and scripts keep their curated README; rebuild skipped.")
-            elif "readme" in docs or "description" in docs:
+            if "readme" in docs or "description" in docs:
                 changes.append(f"{'would rebuild' if check else 'rebuilt'} {rel}/DESCRIPTION.md and README.md from source files")
                 if not check:
                     for stale in (description, readme):
@@ -234,7 +231,7 @@ def run(args):
                         description.write_text(standardize_description(description_text, name, version_text, meta["min_engine"], notices, f"{rel}/DESCRIPTION.md"), encoding="utf-8")
                 notices.append(f"{rel}: rebuilt text is generic and based only on source files. Write the real features with the AI export workflow.")
 
-        elif is_addon and "readme" in docs:
+        elif "readme" in docs:
             readme_text = readme.read_text(encoding="utf-8") if readme.is_file() else ""
             desc_text = description.read_text(encoding="utf-8") if description.is_file() else ""
             long_readme = len(lines_of(readme_text)) > 24
@@ -250,13 +247,13 @@ def run(args):
                 if refresh_readme(proj, category_of(proj), version_text, name, check):
                     changes.append(f"{'would write' if check else 'wrote'} {rel}/README.md (download page)")
 
-        if mode != "rebuild" and is_addon and "description" in docs and description.is_file():
+        if mode != "rebuild" and "description" in docs and description.is_file():
             text = description.read_text(encoding="utf-8")
             if description_complete(text) or mode == "standardize":
                 write(description, standardize_description(text, name, version_text, meta["min_engine"], notices, f"{rel}/DESCRIPTION.md"), "structure and attribution")
             if not description_complete(text):
                 notices.append(f"{rel}/DESCRIPTION.md: the text is still a stub or lacks Overview and Features sections. Structure was fixed; write the real features.")
-        elif mode != "rebuild" and is_addon and "description" in docs and not description.is_file():
+        elif mode != "rebuild" and "description" in docs and not description.is_file():
             notices.append(f"{rel}: DESCRIPTION.md is missing. Run with --remake rebuild --project {os.path.basename(proj)} or write it with the AI export workflow.")
 
         if "changelog" in docs and version:
@@ -272,7 +269,7 @@ def run(args):
                 notices.append(f"{rel}/CHANGELOG.md: contains links; Part 2 says remove them.")
 
         for doc in (description, readme):
-            if doc.is_file() and ((doc is description and "description" in docs) or (doc is readme and "readme" in docs and not is_addon)):
+            if doc.is_file() and ((doc is description and "description" in docs) or (doc is readme and "readme" in docs)):
                 style_report(doc, notices, f"{rel}/{doc.name}")
 
     for line in changes:

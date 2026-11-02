@@ -1,4 +1,4 @@
-# Smart Tree Capitator and Domino Ore Miner (v1.0.11) — Vein and Tree Miner
+# Smart Tree Capitator and Domino Ore Miner — Vein and Tree Miner
 
 **By AllensCreations**
 

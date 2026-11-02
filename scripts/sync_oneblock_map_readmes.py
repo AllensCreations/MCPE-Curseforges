@@ -65,47 +65,38 @@ def build_readme(project: Path) -> str:
     modes = ("Creative", "Survival", "Hardcore")
     current = {mode: world_is_current(project, map_name, mode, bp, rp) for mode in modes}
 
-    lines = [
-        f"# {map_name} (source v{version})",
-        "",
-        f"Download the current published {map_name} world for Minecraft Bedrock Edition.",
-        "",
-        "## World Downloads",
-        "",
-    ]
+    world_links = []
     for mode in modes:
         filename = f"{map_name} - {mode}.mcworld"
-        if (project / filename).is_file():
+        if current[mode]:
             url = f"{GITHUB_RAW}/{urllib.parse.quote(project.relative_to(ROOT).as_posix())}/{urllib.parse.quote(filename)}"
-            lines.append(f"- **{mode}:** [Download {mode} World (.mcworld)]({url})")
-        else:
-            lines.append(f"- **{mode}:** Not generated yet.")
+            label = f"Download {map_name} (.mcworld)" if not world_links else f"Download {mode} World"
+            world_links.append(f"[{label}]({url})")
+    if not world_links:
+        raise ValueError(f"No current world archive is available for {project.relative_to(ROOT)}")
 
-    lines.append("")
-    if all(current.values()):
-        lines.extend([
-            f"All three world archives contain the current Behavior Pack version ({version}) and matching world pack links.",
-            "Archive checks confirm package structure only; they do not prove gameplay has been tested in Minecraft.",
-        ])
-    else:
-        stale_or_missing = [mode for mode in modes if not current[mode]]
-        lines.extend([
-            f"The map source is v{version}, but these world archives are missing or do not link the current pack versions: "
-            + ", ".join(stale_or_missing) + ".",
-            "Existing downloads may be from an earlier source version. The OneBlock workflow rebuilds all three archives automatically when relevant map sources, Mcpeworlds foundations, builder code, or instructions change; it can also be run manually. Each archive preserves its mode's valid level.dat and intentionally contains no LevelDB database or db/CURRENT.",
-        ])
-
-    lines.extend([
+    links = " · ".join(world_links)
+    lines = [
+        f"# {map_name}",
+        "",
+        f"Download the current release of **{map_name}** for Minecraft Bedrock Edition.",
+        "",
+        "## Download",
+        "",
+        "- **Package format:** `.mcworld`",
+        f"- **Direct download:** {links}",
         "",
         "## Installation",
         "",
-        "1. Download the Creative world first.",
+        "1. Download one of the available world variants above.",
         "2. Open the downloaded .mcworld file with Minecraft Bedrock Edition to import it.",
-        "3. Use Creative as the only test world. Importing a world file does not update a world already saved in Minecraft.",
+        "3. Find the imported world in your Worlds list and open it.",
         "",
-        f"For gameplay details, setup coordinates, and testing limitations, read the [full description]({GITHUB_RAW}/{urllib.parse.quote(project.relative_to(ROOT).as_posix())}/DESCRIPTION.md).",
+        "## Pack Information",
         "",
-    ])
+        f"For gameplay features, setup details, compatibility notes, and other project information, read the [full description]({GITHUB_RAW}/{urllib.parse.quote(project.relative_to(ROOT).as_posix())}/DESCRIPTION.md).",
+        "",
+    ]
     return "\n".join(lines)
 
 

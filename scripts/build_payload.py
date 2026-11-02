@@ -241,6 +241,7 @@ END_LINE = "scriptevent allenscreations:end"
 CRAFTING_RECIPES = ("minecraft:recipe_shaped", "minecraft:recipe_shapeless")
 ALLOWED_MODULES = ("@minecraft/server", "@minecraft/server-ui", "@minecraft/vanilla-data")
 REPO_URL = "https://github.com/AllensCreations/MCPE-Curseforges/tree/main/"
+RAW_BUILDS_URL = "https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/"
 GAMEPLAY_HEADING = re.compile(r"^##\s+.*(overview|feature|mechanic|how it works|about|rule|system|gameplay)", re.I | re.M)
 IMPORT_RE = re.compile(r"""(?:\bimport\b[^;]*?\bfrom\s*|\bimport\s*\(\s*|\bimport\s+)["']([^"']+)["']""")
 CORE_GUARD = re.compile(r"\bif\s+block\s+\S+\s+\S+\s+\S+\s+(?:minecraft:)?bedrock\b.*\brun\s+tag\s+@s\s+add\s+void_cleaned\b")
@@ -738,10 +739,8 @@ def run_checks(root, repo_root=None, folder=None):
         if "experiment" not in both:
             warns.append("DOC: needs an experiments line (for example: No experiment requirement detected in the inspected files.)")
     for url in re.findall(r"https?://[^\s)>\]]+", rtext):
-        if not url.startswith((REPO_URL, REPO_URL.replace("/tree/", "/blob/"))) or "/raw/" in url:
-            warns.append(f"DOC: README.md link not allowed (only {REPO_URL}... pages, no downloads): {url}")
-    if ".mcworld" in rtext.lower():
-        warns.append("DOC: README.md mentions .mcworld: archives are added after the build, do not claim them")
+        if not url.startswith((REPO_URL, REPO_URL.replace("/tree/", "/blob/"), RAW_BUILDS_URL)):
+            warns.append(f"DOC: README.md link must point to the official repository: {url}")
     for name, text in (("README.md", rtext), ("DESCRIPTION.md", dtext)):
         low = text.lower()
         if "script api" in low or "@minecraft/" in low:
@@ -765,18 +764,8 @@ def run_checks(root, repo_root=None, folder=None):
             if v != mev_doc:
                 warns.append(f"DOC: documentation names Minecraft {'.'.join(map(str, v))} but min_engine_version is {'.'.join(map(str, mev_doc))}: state only the verified minimum")
     nonempty = lambda t: len([ln for ln in t.splitlines() if ln.strip()])
-    if ptype == "addon":
-        rl = [ln for ln in rtext.splitlines() if ln.strip()]
-        okr = (bool(rl) and rl[0].startswith("# ") and len(rl) <= 24
-               and re.search(r"\*\*(?:Direct download|Download):\*\*\s*\[[^]]+\]\([^)]+\)", rtext) is not None
-               and "## Installation" in rtext and "## Add-on Information" in rtext and "DESCRIPTION.md" in rtext)
-        if not okr:
-            warns.append("DOC: add-on README.md must follow the Part 2 template (title, **Download:** link, ## Installation, "
-                         "## Add-on Information linking DESCRIPTION.md, at most 24 lines)")
-        page, page_name = dtext, "DESCRIPTION.md"
-    else:
-        page, page_name = rtext, "README.md"
-    if page and (GAMEPLAY_HEADING.search(page) is None or nonempty(page) < 25):
+    if dtext and (GAMEPLAY_HEADING.search(dtext) is None or nonempty(dtext) < 25):
+        page_name = "DESCRIPTION.md"
         warns.append(f"DOC: {page_name} is the product page for this type: needs an Overview/Features section and at least 25 non-empty lines")
     if dtext:
         for h in ("## Guidelines and Attribution", "## Search & Discovery Keywords"):

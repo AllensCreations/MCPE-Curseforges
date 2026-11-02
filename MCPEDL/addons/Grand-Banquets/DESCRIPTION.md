@@ -1,4 +1,4 @@
-# Grand Banquets (v1.0.6) — Craftable Meals and Feasts
+# Grand Banquets — Craftable Meals and Feasts
 
 **By AllensCreations**
 

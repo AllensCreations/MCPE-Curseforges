@@ -1,4 +1,4 @@
-# Harvest Intelligence (v1.0.6) — Smarter Vanilla Farming
+# Harvest Intelligence — Smarter Vanilla Farming
 
 **By AllensCreations**
 

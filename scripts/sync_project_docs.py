@@ -79,7 +79,7 @@ def entry_lines(version_text, date_text, areas):
     return [f"## [{version_text}] - {date_text}", "", "### Improved & Balanced", "", bullet, ""]
 
 
-def sync_description(path, version_text):
+def sync_description(path, version_text=None):
     text = path.read_text(encoding="utf-8")
     lines = text.splitlines(keepends=True)
     for i, line in enumerate(lines[:6]):
@@ -94,7 +94,7 @@ def sync_description(path, version_text):
                 suffix = sep + rest
                 break
         title = re.sub(r"\s*\([vV]\d+\.\d+\.\d+\)\s*$", "", title).strip()
-        new = f"# {title} (v{version_text}){suffix}{newline}"
+        new = f"# {title}{suffix}{newline}"
         if new == line:
             return None
         lines[i] = new
@@ -161,9 +161,9 @@ def main():
 
         description = project / "DESCRIPTION.md"
         if description.is_file():
-            updated = sync_description(description, version_text)
+            updated = sync_description(description)
             if updated is not None:
-                changes.append(f"{rel}/DESCRIPTION.md heading set to v{version_text}")
+                changes.append(f"{rel}/DESCRIPTION.md release version removed from heading")
                 if not args.check:
                     description.write_text(updated, encoding="utf-8")
 

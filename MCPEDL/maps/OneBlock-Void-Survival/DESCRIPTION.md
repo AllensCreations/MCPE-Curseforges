@@ -1,4 +1,4 @@
-# OneBlock Void Survival (v1.2.18) — Progressive Void World
+# OneBlock Void Survival — Progressive Void World
 
 **By AllensCreations**
 

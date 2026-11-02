@@ -234,7 +234,7 @@ def main() -> int:
             r, log = run([str(root / "scripts/import_project_payload.py"), "--name", "Bad", "--payload-file", "MCPEDL/incoming/bad.b64", "--overwrite"], root)
             ok(r != 0 and needle in log, f"rejected: {label}")
 
-        reject("add-on README that does not follow the template", lambda d: write(d / "README.md", (d / "README.md").read_text() + "\n## Features\n\n- fast\n"), "exactly 12", ptype="addon")
+        reject("add-on README that does not follow the template", lambda d: write(d / "README.md", (d / "README.md").read_text() + "\n## Features\n\n- fast\n"), "exactly 11", ptype="addon")
         reject("add-on DESCRIPTION with an extra section", lambda d: write(d / "DESCRIPTION.md", (d / "DESCRIPTION.md").read_text().replace("## How to Use", "## Recipes\n\nx\n\n## How to Use")), "sections must be exactly", ptype="addon")
         reject("add-on DESCRIPTION with an edited attribution block", lambda d: write(d / "DESCRIPTION.md", (d / "DESCRIPTION.md").read_text().replace("Do not re-upload this pack", "Feel free to re-upload this pack")), "attribution block", ptype="addon")
         reject("CHANGELOG with a link", lambda d: write(d / "CHANGELOG.md", (d / "CHANGELOG.md").read_text().replace("Players can use the new creation.", "See https://example.com now.")), "links or URLs", ptype="addon")

@@ -308,7 +308,7 @@ def main():
     for project in projects.values():
         if project.category in ("maps",) and project.world_archives:
             continue
-        if project.category in ("addons", "new_addons", "script") and (project.path / "README.md").is_file() and project.version:
+        if project.category in ("addons", "new_addons", "maps", "script") and (project.path / "README.md").is_file() and project.version:
             before = (project.path / "README.md").read_text(encoding="utf-8")
             ab.update_project_readme(str(project.path), f"MCPEDL/{project.category}", project.version, project.primary)
             after = (project.path / "README.md").read_text(encoding="utf-8")
