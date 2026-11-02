@@ -43,8 +43,9 @@ Tap a companion with an empty hand to make it sit and hold its position, and tap
 - Friendly-fire immunity: Companions avoid friendly-fire damage and do not target teammates.
 - Auto-protect: Companions defend you from nearby aggressive hostile mobs even before you are attacked.
 - Visual status indicators: Tamed companions display an always-visible floating nameplate above their head. Custom name tags can be applied directly without an anvil.
+- Taming feedback: Hearts and an on-screen message confirm when a Primal Beast Biscuit tames a mob.
 - In-combat healing: Feeding a wounded companion a Primal Beast Biscuit restores 10 HP (5 hearts).
-- Witch healing: A tamed Witch occasionally throws a healing splash potion at you when you are hurt.
+- Witch healing: A tamed Witch occasionally throws a healing splash potion at you when you are hurt. It also heals nearby companions at 5 hearts or less.
 - Sunlight protection: Tamed Zombies, Skeletons, and Phantoms can wear helmets to prevent burning in direct sunlight.
 - Kamikaze Creepers: Tamed Creepers will rush enemy threats that damage the player and detonate on the target as a single-use explosive bodyguard.
 - Spirit Vexes: Tamed Evokers summon Spirit Vexes that attack hostiles and despawn naturally when their lifespan ends without turning on players.

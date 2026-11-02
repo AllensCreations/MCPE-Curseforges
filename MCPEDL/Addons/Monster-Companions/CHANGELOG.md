@@ -1,5 +1,13 @@
 # Changelog - Monster Companions
 
+## [1.2.11] - 2026-11-03
+
+### Added
+- **Taming feedback**: A burst of hearts and a "Companion tamed!" message now appear when a Primal Beast Biscuit tames a mob.
+- **Witch ally healing**: A tamed Witch now also throws a healing splash potion at nearby companions that are at 5 hearts or less.
+
+---
+
 ## [1.2.10] - 2026-10-29
 
 ### Fixed

@@ -667,6 +667,26 @@
               "max_dist": 10,
               "priority": 2,
               "cooldown": 20
+            },
+            {
+              "filters": {
+                "all_of": [
+                  {
+                    "test": "is_family",
+                    "subject": "other",
+                    "value": "monster_companion"
+                  },
+                  {
+                    "test": "actor_health",
+                    "subject": "other",
+                    "operator": "<=",
+                    "value": 10
+                  }
+                ]
+              },
+              "max_dist": 10,
+              "priority": 3,
+              "cooldown": 20
             }
           ]
         },
@@ -686,6 +706,20 @@
                     "test": "is_family",
                     "subject": "other",
                     "value": "player"
+                  }
+                ]
+              },
+              "lose_target": true
+            },
+            {
+              "aux_val": 21,
+              "def": "minecraft:splash_potion",
+              "filters": {
+                "all_of": [
+                  {
+                    "test": "is_family",
+                    "subject": "other",
+                    "value": "monster_companion"
                   }
                 ]
               },
@@ -863,6 +897,12 @@
         "remove": {
           "component_groups": [
             "allenscreations:wild"
+          ]
+        },
+        "queue_command": {
+          "command": [
+            "particle minecraft:heart_particle ~ ~1.5 ~",
+            "title @p actionbar §aCompanion tamed!"
           ]
         }
       },
