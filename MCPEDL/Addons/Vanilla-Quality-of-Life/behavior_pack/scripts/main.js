@@ -24,7 +24,7 @@ const CONFIG = {
   // Offhand Quick-Swap & Dynamic Light
   SWAP_WINDOW_TICKS: 14,
   SWAP_COOLDOWN_TICKS: 8,
-  LIGHT_UPDATE_TICKS: 4,
+  LIGHT_UPDATE_TICKS: 1,
 
   // Passive Auto-Switch Tools (Slot 1)
   AUTO_SWITCH_SLOT: 0, // Slot 1 in UI (0-indexed)
@@ -1630,6 +1630,21 @@ system.runInterval(() => {
 world.afterEvents.playerLeave.subscribe((event) => {
   miningActivity.delete(event.playerId);
   lastAutoSwitchKey.delete(event.playerId);
+});
+
+world.afterEvents.playerPlaceBlock.subscribe((event) => {
+  try {
+    const player = event.player;
+    const state = qolPlayerState.get(player.id);
+    if (!state || state.lightX === undefined) return;
+    const placed = event.block;
+    if (placed.x !== state.lightX || placed.y !== state.lightY || placed.z !== state.lightZ) return;
+    state.lightX = undefined;
+    state.lightY = undefined;
+    state.lightZ = undefined;
+    state.lightLevel = 0;
+    updatePlayerLight(player, state);
+  } catch (e) {}
 });
 
 // 7. Player Lifecycle Cleanups
