@@ -30,6 +30,9 @@
 
 ### Improved & Balanced
 - **Hardcore Removed**: The Hardcore world is gone. The map now comes as a Creative world and a Survival world. Permanent Spectator Mode after death and the locked Hard difficulty no longer exist.
+- **Island Cores No Longer Loop**: Once an island core has started or finished, the island is never rebuilt around it. Previously, mining out the floor where a finished core stood could bring the bedrock and a fresh core block back again and again.
+- **More Trees**: Grassy and forest islands now grow a second tree on the opposite side.
+- **Island Animals**: Farm, village and nature islands now come with a few extra animals such as cows, sheep, pigs, chickens and rabbits.
 - **Island Cores Complete Instantly**: Breaking the last block of an island core now completes it at once. The bedrock around the core is removed and the treasure chest appears immediately, with no bedrock reveal or 3 second wait.
 - **Island Discovered Message**: The large centered title is now a small action bar message.
 - **Chat Command Leftovers Removed**: Unused chat command code that cannot work in current Minecraft was removed.

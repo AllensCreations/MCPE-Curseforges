@@ -699,6 +699,11 @@ function startPhaseTransition(dimKey, dimension, newPhaseIdx, isGameComplete) {
   }, 20);
 }
 
+function islandRebuildAllowed(themeId) {
+  return world.getDynamicProperty(`island_ob_x_${themeId}`) === undefined &&
+    !world.getDynamicProperty(`island_ob_completed_${themeId}`);
+}
+
 function materializeIsland(dimension, theme, phaseIndex, totalCount) {
   try {
     const dimKey = getDimKey(dimension.id);
@@ -772,7 +777,7 @@ function materializeIsland(dimension, theme, phaseIndex, totalCount) {
 
     system.runTimeout(() => {
       try {
-        if (!isIslandPhysicallyBuilt(dimension, islandLoc.center)) {
+        if (islandRebuildAllowed(theme.id) && !isIslandPhysicallyBuilt(dimension, islandLoc.center)) {
           const placed = buildThemedIsland(dimension, theme, islandLoc.center);
           if (placed > 0) {
             world.setDynamicProperty(`island_built_${theme.id}`, true);
@@ -2719,7 +2724,7 @@ system.runInterval(() => {
         // Proactive building: If player is within 100 blocks of island target (8-chunk sim distance = 128 blocks)
         if (dist <= 100) {
           const center = { x: data.tx, y: data.ty, z: data.tz };
-          if (!isIslandPhysicallyBuilt(player.dimension, center)) {
+          if (islandRebuildAllowed(data.theme.id) && !isIslandPhysicallyBuilt(player.dimension, center)) {
             const placed = buildThemedIsland(player.dimension, data.theme, center);
             if (placed > 0) {
               world.setDynamicProperty(`island_built_${data.theme.id}`, true);

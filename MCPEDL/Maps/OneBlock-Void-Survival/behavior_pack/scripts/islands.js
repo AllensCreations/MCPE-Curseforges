@@ -2337,9 +2337,26 @@ function getIslandTreePlacement(theme, center) {
   }
 }
 
-function buildIslandNaturalTree(dimension, theme, center) {
+const EXTRA_TREE_FLOORS = new Set(["minecraft:grass_block", "minecraft:podzol", "minecraft:moss_block", "minecraft:mycelium", "minecraft:crimson_nylium", "minecraft:warped_nylium", "minecraft:mud"]);
+
+const EXTRA_ISLAND_MOBS = {
+  sky_oasis: ["minecraft:cow", "minecraft:sheep"],
+  cherry_sanctuary: ["minecraft:sheep", "minecraft:rabbit"],
+  bakery_windmill: ["minecraft:cow", "minecraft:chicken", "minecraft:pig"],
+  melon_greenhouse: ["minecraft:sheep", "minecraft:chicken"],
+  pumpkin_patch: ["minecraft:pig", "minecraft:chicken"],
+  bee_apiary: ["minecraft:rabbit"],
+  mushroom_haven: ["minecraft:mooshroom"],
+  jungle_temple: ["minecraft:ocelot"]
+};
+
+function buildIslandNaturalTree(dimension, theme, center, mirror) {
   const treeConfig = getIslandTreePlacement(theme, center);
   if (!treeConfig) return;
+  if (mirror) {
+    treeConfig.pos = { x: 2 * center.x - treeConfig.pos.x, y: treeConfig.pos.y, z: 2 * center.z - treeConfig.pos.z };
+    treeConfig.beeNest = false;
+  }
 
   const { x: tx, y: cy, z: tz } = treeConfig.pos;
 
@@ -3969,6 +3986,7 @@ export function buildThemedIsland(dimension, theme, center) {
   // Authentic 5-tall wood trunk with a ~33-leaf rounded canopy for all forest/woodland/flora themes
   try {
     buildIslandNaturalTree(dimension, theme, center);
+    if (theme.size !== "compact" && EXTRA_TREE_FLOORS.has(theme.floor)) buildIslandNaturalTree(dimension, theme, center, true);
   } catch (te) {}
 
   // 8. CORNER LIGHTING POSTS:
@@ -4023,6 +4041,18 @@ export function buildThemedIsland(dimension, theme, center) {
     try {
       dimension.spawnEntity(theme.mob, { x: cx + 0.5, y: coreY + 1.2, z: cz - 1.5 });
     } catch (e) {}
+  }
+
+  const extraMobs = EXTRA_ISLAND_MOBS[theme.id];
+  if (extraMobs && !world.getDynamicProperty(`island_mobs_${theme.id}`)) {
+    world.setDynamicProperty(`island_mobs_${theme.id}`, true);
+    const spots = [{ x: 2.5, z: 1.5 }, { x: -2.5, z: 1.5 }, { x: 1.5, z: -2.5 }, { x: -1.5, z: -2.5 }];
+    extraMobs.forEach((mobId, n) => {
+      const s = spots[n % spots.length];
+      try {
+        dimension.spawnEntity(mobId, { x: cx + s.x, y: coreY + 2, z: cz + s.z });
+      } catch (e) {}
+    });
   }
 
   return totalBlocksPlacedThisBuild;
