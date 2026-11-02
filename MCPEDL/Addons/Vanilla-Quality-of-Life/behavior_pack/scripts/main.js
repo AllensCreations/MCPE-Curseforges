@@ -103,10 +103,12 @@ function getQolState(id) {
 
 function isGameMode(player, mode) {
   try {
+    return world.getPlayers({ gameMode: mode, name: player.name }).length > 0;
+  } catch (e) {}
+  try {
     return !!player.matches({ gameMode: mode });
-  } catch (e) {
-    return false;
-  }
+  } catch (e) {}
+  return false;
 }
 
 function shortId(typeId) {
@@ -577,6 +579,7 @@ function getRequiredToolCategory(typeId) {
   if (IGNORED_BLOCKS.has(id)) return null;
 
   if (id === "web" || id.includes("cobweb")) return ToolCategory.WEB;
+  if (id.includes("mangrove_roots")) return ToolCategory.AXE;
 
   // Specific families before broad substring checks: sandstone is mined with a pickaxe;
   // ordinary sand/red sand and plain mud remain shovel blocks.
@@ -773,7 +776,7 @@ function checkToolSafety(player) {
     const durComp = tool.getComponent("minecraft:durability") || tool.getComponent("durability");
     if (!durComp) return { safe: true, remaining: 9999 };
 
-    const remaining = durComp.maxDurability - durComp.damage;
+    const remaining = durComp.maxDurability - durComp.damage - getPendingToolDamage(player);
     if (remaining <= CONFIG.DURABILITY_SAFETY_THRESHOLD) {
       return { safe: false, remaining };
     }
@@ -783,12 +786,20 @@ function checkToolSafety(player) {
   }
 }
 
+const pendingToolDamage = new Map();
+
+function getPendingToolDamage(player) {
+  const entry = pendingToolDamage.get(player.id);
+  return entry ? entry.damage : 0;
+}
+
 function applyToolDurabilityDamage(player) {
   if (isGameMode(player, "creative")) return;
-  const eq = getEquipment(player);
-  if (!eq) return;
+  const container = getContainer(player);
+  if (!container) return;
 
-  const tool = eq.getEquipment(EquipmentSlot.Mainhand);
+  const slot = player.selectedSlotIndex;
+  const tool = container.getItem(slot);
   if (!tool) return;
 
   try {
@@ -812,12 +823,44 @@ function applyToolDurabilityDamage(player) {
     const shouldDamage = unbreakingLevel > 0
       ? Math.random() < 1 / (unbreakingLevel + 1)
       : true;
+    if (!shouldDamage) return;
 
-    if (shouldDamage) {
-      durComp.damage += 1;
-      eq.setEquipment(EquipmentSlot.Mainhand, tool);
+    let entry = pendingToolDamage.get(player.id);
+    if (!entry || entry.slot !== slot || entry.typeId !== tool.typeId) {
+      entry = { slot, typeId: tool.typeId, damage: 0 };
+      pendingToolDamage.set(player.id, entry);
     }
+    entry.damage += 1;
   } catch (e) {}
+}
+
+function flushToolDamage(player) {
+  const entry = pendingToolDamage.get(player.id);
+  pendingToolDamage.delete(player.id);
+  if (!entry || entry.damage <= 0) return;
+
+  system.run(() => {
+    try {
+      if (!player.isValid()) return;
+      const container = getContainer(player);
+      if (!container) return;
+
+      const tool = container.getItem(entry.slot);
+      if (!tool || tool.typeId !== entry.typeId) return;
+
+      const durComp = tool.getComponent("minecraft:durability") || tool.getComponent("durability");
+      if (!durComp) return;
+
+      const total = durComp.damage + entry.damage;
+      if (total >= durComp.maxDurability) {
+        container.setItem(entry.slot, undefined);
+        player.playSound("random.break");
+        return;
+      }
+      durComp.damage = total;
+      container.setItem(entry.slot, tool);
+    } catch (e) {}
+  });
 }
 
 function notifyToolProtection(player, remainingDurability) {
@@ -932,7 +975,9 @@ function isNearPlayerBuild(dimension, blocks, startLoc) {
           checked.add(key);
           try {
             const b = dimension.getBlock({ x, y, z });
-            if (b && PLAYER_BUILD_PATTERN.test(normalizeId(b.typeId))) return true;
+            if (!b) continue;
+            const builtId = normalizeId(b.typeId);
+            if (builtId !== "moss_carpet" && PLAYER_BUILD_PATTERN.test(builtId)) return true;
           } catch (e) {}
         }
       }
@@ -1339,6 +1384,13 @@ world.afterEvents.entityHitEntity.subscribe((event) => {
   } catch (e) {}
 });
 
+function finishChain(player) {
+  activeMiningOperations.delete(player.id);
+  flushToolDamage(player);
+  miningActivity.delete(player.id);
+  lastAutoSwitchKey.delete(player.id);
+}
+
 // 4. Sneak Block Break: Smart Tree Capitator & Domino Ore Miner
 world.afterEvents.playerBreakBlock.subscribe((event) => {
   const { block, brokenBlockPermutation, player, dimension, itemStackBeforeBreak } = event;
@@ -1367,13 +1419,13 @@ world.afterEvents.playerBreakBlock.subscribe((event) => {
   // Tree Capitator
   if (isAxe(toolTypeId) && isEligibleLog(brokenTypeId)) {
     activeMiningOperations.add(player.id);
-    chainPauseUntil.set(player.id, system.currentTick + 20);
+    chainPauseUntil.set(player.id, system.currentTick + 40);
     try {
       executeTreeCapitator(player, dimension, startLoc, brokenTypeId, () => {
-        activeMiningOperations.delete(player.id);
+        finishChain(player);
       });
     } catch (err) {
-      activeMiningOperations.delete(player.id);
+      finishChain(player);
     }
     return;
   }
@@ -1381,13 +1433,13 @@ world.afterEvents.playerBreakBlock.subscribe((event) => {
   // Domino Ore Miner
   if (isPickaxe(toolTypeId) && getOreInfo(brokenTypeId)) {
     activeMiningOperations.add(player.id);
-    chainPauseUntil.set(player.id, system.currentTick + 20);
+    chainPauseUntil.set(player.id, system.currentTick + 40);
     try {
       executeDominoOreMiner(player, dimension, startLoc, brokenTypeId, () => {
-        activeMiningOperations.delete(player.id);
+        finishChain(player);
       });
     } catch (err) {
-      activeMiningOperations.delete(player.id);
+      finishChain(player);
     }
     return;
   }
@@ -1509,6 +1561,7 @@ const lastAutoSwitchKey = new Map();
 
 function markMining(player) {
   if (!player || player.typeId !== "minecraft:player") return;
+  if (system.currentTick < (chainPauseUntil.get(player.id) ?? 0)) return;
   miningActivity.set(player.id, system.currentTick);
 }
 

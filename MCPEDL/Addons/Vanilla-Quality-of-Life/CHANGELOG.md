@@ -2,6 +2,13 @@
 
 ---
 
+## [1.3.29] - 2026-11-02
+
+### Fixed
+- **Tool Durability**: Tree Capitator and Domino Ore Miner now reliably wear down the tool you used, even if auto-switch changes your held item right afterward.
+- **Mangrove Trees**: Mangrove trees with moss carpet around their roots are now felled, and breaking Muddy Mangrove Roots no longer switches you to a shovel.
+- **Auto-Switch After Chain Mining**: Auto-switch now waits about two seconds after a tree or ore vein is chain mined before it can change your tool.
+
 ## [1.3.28] - 2026-11-01
 
 ### Improved & Balanced
