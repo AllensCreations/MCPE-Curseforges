@@ -27,7 +27,7 @@ concurrency:
 
 jobs:
   build:
-    name: Build and publish world modes
+    name: Build world modes
     runs-on: ubuntu-latest
     env:
       ONEBLOCK_MAP: ${{ inputs.map_name }}
@@ -105,29 +105,6 @@ jobs:
               print("\n".join("::error::" + b for b in bad)); sys.exit(1)
           print("Structural checks passed (not an in-game test).")
           PY
-
-      - name: Publish changed map variants with saved CurseForge IDs
-        env:
-          ONEBLOCK_MAP: ${{ inputs.map_name }}
-          CURSEFORGE_API_TOKEN: ${{ secrets.CURSEFORGE_API_TOKEN }}
-        shell: bash
-        run: |
-          set -euo pipefail
-          for config in MCPEDL/Maps/*/oneblock.json; do
-              [ -f "$config" ] || continue
-              map_dir="${config%/oneblock.json}"
-              if [ -n "$ONEBLOCK_MAP" ] && [ "${map_dir##*/}" != "$ONEBLOCK_MAP" ]; then
-                continue
-              fi
-              mapfile -t world_files < <(find "$map_dir" -maxdepth 1 -type f -name '*.mcworld' -print)
-              [ "${#world_files[@]}" -gt 0 ] || continue
-              if [ -z "$(git status --porcelain -- "${world_files[@]}")" ]; then
-                continue
-              fi
-              python scripts/auto_publish_curseforge.py \
-                --project "$map_dir" \
-                --map-variant all
-          done
 
       - name: Upload generated worlds as artifact
         uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2

@@ -215,23 +215,6 @@ jobs:
             echo '```'
           } >> "$GITHUB_STEP_SUMMARY"
 
-      - name: Publish changed packs with saved CurseForge IDs
-        if: steps.process.outputs.has_rebuilt_projects == 'true'
-        env:
-          EVENT: ${{ github.event_name }}
-          REBUILT_PROJECTS: ${{ steps.process.outputs.rebuilt_projects }}
-          CURSEFORGE_API_TOKEN: ${{ secrets.CURSEFORGE_API_TOKEN }}
-        run: |
-          set -euo pipefail
-          while IFS= read -r PROJECT_PATH; do
-            [ -n "$PROJECT_PATH" ] || continue
-            if [[ "$EVENT" == "push" && "$PROJECT_PATH" == MCPEDL/Maps/* && -f "$PROJECT_PATH/oneblock.json" ]]; then
-              echo "OneBlock map worlds are published by the dedicated world-build workflow: $PROJECT_PATH"
-              continue
-            fi
-            python3 scripts/auto_publish_curseforge.py --project "$PROJECT_PATH"
-          done <<< "$REBUILT_PROJECTS"
-
       - name: Commit and push changes
         run: |
           set -euo pipefail

@@ -1,5 +1,9 @@
 #!/usr/bin/env python3
-"""Keep the project dropdowns in .github/workflows/auto-version-bump.yml in sync with MCPEDL/.
+"""Keep the workflow dropdowns in sync with MCPEDL/ and the saved CurseForge IDs.
+
+Two workflows are managed:
+  auto-version-bump.yml     one list per category (all projects)
+  publish-curseforge.yml    one list of registered packs only (those with builds/<name>/Curseforge_Info.json)
 
   python3 scripts/sync_dispatch_choices.py           rewrite the dropdown lists
   python3 scripts/sync_dispatch_choices.py --check   exit 1 if the lists are stale (used by CI)
@@ -12,7 +16,9 @@ import os
 import sys
 
 ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
-WORKFLOW = os.path.join(ROOT, ".github", "workflows", "auto-version-bump.yml")
+WORKFLOWS_DIR = os.path.join(ROOT, ".github", "workflows")
+BUMP_WORKFLOW = os.path.join(WORKFLOWS_DIR, "auto-version-bump.yml")
+PUBLISH_WORKFLOW = os.path.join(WORKFLOWS_DIR, "publish-curseforge.yml")
 CATEGORIES = {
     "addon": "MCPEDL/Addons",
     "script": "MCPEDL/Script",
@@ -29,6 +35,43 @@ def projects(category):
     names = [n for n in os.listdir(base)
              if os.path.isdir(os.path.join(base, n)) and not n.startswith(".")]
     return sorted(names, key=str.lower)
+
+
+def registered_packs():
+    """Full MCPEDL paths of packs that have a saved CurseForge ID."""
+    found = []
+    for category in ("Addons", "Maps", "Script", "Minigame"):
+        for name in projects(f"MCPEDL/{category}"):
+            if os.path.isfile(os.path.join(ROOT, "builds", name, "Curseforge_Info.json")):
+                found.append(f"MCPEDL/{category}/{name}")
+    return sorted(found, key=str.lower)
+
+
+def render_publish(lines):
+    """Rewrite the '# BEGIN registered' block with registered packs only."""
+    out, i = [], 0
+    while i < len(lines):
+        line = lines[i]
+        out.append(line)
+        if line.strip() == "# BEGIN registered":
+            indent = line[: len(line) - len(line.lstrip())]
+            j = i + 1
+            while j < len(lines) and lines[j].strip() != "# END registered":
+                j += 1
+            if j >= len(lines):
+                i += 1
+                continue
+            names = registered_packs()
+            if len(names) > MAX_PROJECTS:
+                print(f"WARNING: {len(names)} registered packs; only the first {MAX_PROJECTS} fit in the dropdown.")
+                names = names[:MAX_PROJECTS]
+            out.append(f'{indent}- "-"')
+            out.extend(f'{indent}- "{n}"' for n in names)
+            out.append(lines[j])
+            i = j + 1
+            continue
+        i += 1
+    return out
 
 
 def render(lines):
@@ -60,24 +103,30 @@ def render(lines):
     return out
 
 
-def main():
-    if not os.path.isfile(WORKFLOW):
-        print(f"{WORKFLOW} not found", file=sys.stderr)
-        return 1
-    with open(WORKFLOW, encoding="utf-8") as fh:
+def sync_file(path, renderer, check):
+    if not os.path.isfile(path):
+        return 0 if path == PUBLISH_WORKFLOW else 1
+    with open(path, encoding="utf-8") as fh:
         text = fh.read()
-    lines = text.split("\n")
-    new_text = "\n".join(render(lines))
+    new_text = "\n".join(renderer(text.split("\n")))
+    name = os.path.basename(path)
     if new_text == text:
-        print("Dropdown lists already up to date.")
+        print(f"{name}: dropdown lists already up to date.")
         return 0
-    if "--check" in sys.argv:
-        print("Dropdown lists are stale. Run: python3 scripts/sync_dispatch_choices.py  then commit the workflow.")
+    if check:
+        print(f"{name}: dropdown lists are stale. Run: python3 scripts/sync_dispatch_choices.py  then commit the workflow.")
         return 1
-    with open(WORKFLOW, "w", encoding="utf-8", newline="\n") as fh:
+    with open(path, "w", encoding="utf-8", newline="\n") as fh:
         fh.write(new_text)
-    print("Updated dropdown lists in auto-version-bump.yml")
+    print(f"{name}: updated dropdown lists.")
     return 0
+
+
+def main():
+    check = "--check" in sys.argv
+    status = sync_file(BUMP_WORKFLOW, render, check)
+    status |= sync_file(PUBLISH_WORKFLOW, render_publish, check)
+    return status
 
 
 if __name__ == "__main__":

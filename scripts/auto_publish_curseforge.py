@@ -1,5 +1,9 @@
 #!/usr/bin/env python3
-"""Publish a rebuilt pack when its saved CurseForge project ID is configured."""
+"""Manually publish one pack to CurseForge using its registered project ID.
+
+Bumps the version to major.(minor+1).0, merges every unpublished changelog entry into one,
+uploads, then records the published version so the next run only merges newer entries.
+"""
 
 import argparse
 import os
@@ -13,13 +17,11 @@ import prepare_curseforge_upload as release
 def publish(project_path, release_type="release", map_variant="default"):
     category, project_name = release.project_from_path(project_path)
     info_path = release.REPO_ROOT / "builds" / project_name / "Curseforge_Info.json"
-    if not info_path.is_file():
-        print(f"Skipping {project_path}: no saved CurseForge project ID.")
-        return False
+    release.read_info(info_path)  # fails with a clear message if the pack is not registered
 
     token = os.environ.get("CURSEFORGE_API_TOKEN", "")
     if not token:
-        raise ValueError("CURSEFORGE_API_TOKEN is required because this pack has a saved project ID.")
+        raise ValueError("CURSEFORGE_API_TOKEN is required to publish.")
 
     if map_variant == "all":
         if category != "Maps":
@@ -29,12 +31,15 @@ def publish(project_path, release_type="release", map_variant="default"):
         variants = (map_variant,)
 
     project_id = None
+    version = None
     for index, variant in enumerate(variants):
-        package_path, metadata_path, project_id, _, _ = release.prepare(
+        # Only the first variant bumps the version, merges the changelog and rebuilds.
+        package_path, metadata_path, project_id, _, _, version = release.prepare(
             project_path,
             release_type,
             map_variant=variant,
-            rebuild=map_variant != "all" and index == 0,
+            rebuild=index == 0,
+            bump=index == 0,
         )
         try:
             try:
@@ -61,6 +66,8 @@ def publish(project_path, release_type="release", map_variant="default"):
         finally:
             metadata_path.unlink(missing_ok=True)
         print(f"Published {package_path.name} to CurseForge project {project_id}.")
+
+    release.save_info(info_path, f"MCPEDL/{category}/{project_name}", project_id, version)
     return True
 
 

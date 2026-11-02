@@ -1,0 +1,71 @@
+name: Register CurseForge ID
+
+# Run once per pack. Saves builds/<pack>/Curseforge_Info.json and adds the pack to the
+# Publish Pack to CurseForge dropdown. Needs the WORKFLOW_PAT secret to update that dropdown;
+# without it the ID is still saved and you must run scripts/sync_dispatch_choices.py locally.
+
+on:
+  workflow_dispatch:
+    inputs:
+      project:
+        description: "Exact path, e.g. MCPEDL/Addons/Mining-Helmet"
+        required: true
+        type: string
+      curseforge_project_id:
+        description: CurseForge project ID (digits only)
+        required: true
+        type: string
+
+permissions:
+  contents: write
+
+concurrency:
+  group: register-curseforge-id
+  cancel-in-progress: false
+
+jobs:
+  register:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out source
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          ref: ${{ github.ref }}
+          token: ${{ secrets.WORKFLOW_PAT || secrets.GITHUB_TOKEN }}
+
+      - name: Set up Python
+        uses: actions/setup-python@6d4fd22b20465ccc0f7354476588e8df7c9ca0e0 # v7.1.0
+        with:
+          python-version: '3.x'
+
+      - name: Save ID and refresh the publish dropdown
+        env:
+          PROJECT_PATH: ${{ inputs.project }}
+          CURSEFORGE_PROJECT_ID: ${{ inputs.curseforge_project_id }}
+        run: |
+          set -euo pipefail
+          [[ "$GITHUB_REF" == refs/heads/* ]] || { echo "::error::Run this workflow on a branch."; exit 1; }
+          python3 scripts/register_curseforge_id.py --project "$PROJECT_PATH" --id "$CURSEFORGE_PROJECT_ID"
+          python3 scripts/sync_dispatch_choices.py
+
+      - name: Commit
+        env:
+          HAS_PAT: ${{ secrets.WORKFLOW_PAT != '' }}
+        run: |
+          set -euo pipefail
+          git add -A -- builds
+          if [ "$HAS_PAT" = "true" ]; then
+            git add -- .github/workflows/publish-curseforge.yml
+          elif ! git diff --quiet -- .github/workflows/publish-curseforge.yml; then
+            echo "::warning::No WORKFLOW_PAT secret: run 'python3 scripts/sync_dispatch_choices.py' locally and commit publish-curseforge.yml so the pack appears in the dropdown."
+            git checkout -- .github/workflows/publish-curseforge.yml
+          fi
+          if git diff --cached --quiet; then
+            echo "Already registered."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git commit -m "chore(curseforge): register project ID [skip ci]"
+          git pull --rebase origin "${GITHUB_REF#refs/heads/}"
+          git push origin "HEAD:${GITHUB_REF}"

@@ -2,6 +2,7 @@
 """Build a pack and prepare its latest changelog entry for CurseForge."""
 
 import argparse
+import datetime
 import json
 import os
 import re
@@ -112,21 +113,11 @@ def align_manifests(project_dir, changelog_version):
     return changed
 
 
-def resolve_project_id(info_path, provided_id):
-    project_id = provided_id.strip()
-    if project_id:
-        if not re.fullmatch(r"[0-9]+", project_id):
-            raise ValueError("CurseForge project ID must contain only digits")
-        info_path.parent.mkdir(parents=True, exist_ok=True)
-        info_path.write_text(
-            json.dumps({"project_id": project_id}, indent=2) + "\n",
-            encoding="utf-8",
-        )
-        return project_id
-
+def read_info(info_path):
+    """Return the saved CurseForge info for a pack (written by Register CurseForge ID)."""
     if not info_path.is_file():
         raise ValueError(
-            "No saved CurseForge project ID. Enter it once in the workflow input."
+            "No saved CurseForge project ID. Run the 'Register CurseForge ID' workflow for this pack first."
         )
     try:
         info = json.loads(info_path.read_text(encoding="utf-8"))
@@ -135,7 +126,136 @@ def resolve_project_id(info_path, provided_id):
     project_id = info.get("project_id") if isinstance(info, dict) else None
     if not isinstance(project_id, str) or not re.fullmatch(r"[0-9]+", project_id):
         raise ValueError(f"Invalid project_id in {info_path.relative_to(REPO_ROOT)}")
-    return project_id
+    return info
+
+
+def save_info(info_path, project_path, project_id, last_published_version=None, extra=None):
+    info = {"project_id": project_id, "project": project_path}
+    if extra:
+        info.update(extra)
+    if last_published_version:
+        info["last_published_version"] = last_published_version
+    info_path.parent.mkdir(parents=True, exist_ok=True)
+    info_path.write_text(json.dumps(info, indent=2) + "\n", encoding="utf-8")
+
+
+def parse_version(text):
+    return tuple(int(part) for part in text.split("."))
+
+
+def split_changelog(text):
+    """Split into (preamble, [segment, ...]); each segment starts at a '## ' heading."""
+    starts = [m.start() for m in re.finditer(r"^## .+$", text, re.MULTILINE)]
+    if not starts:
+        raise ValueError("No version entry found in changelog")
+    preamble = text[:starts[0]]
+    segments = [text[a:b] for a, b in zip(starts, starts[1:] + [len(text)])]
+    return preamble, segments
+
+
+def manifest_max_version(project_dir):
+    versions = []
+    for path in project_dir.rglob("manifest.json"):
+        if {"world", "worlds", "behavior_packs", "resource_packs"}.intersection(path.parts):
+            continue
+        try:
+            version = json.loads(path.read_text(encoding="utf-8"))["header"]["version"]
+        except (OSError, ValueError, KeyError, TypeError):
+            continue
+        if isinstance(version, list) and len(version) == 3 and all(type(p) is int for p in version):
+            versions.append(tuple(version))
+    return max(versions) if versions else (0, 0, 0)
+
+
+def _merge_bodies(bodies):
+    """Merge entry bodies: same '### Heading' lists are joined, duplicate lines dropped."""
+    sections = {}
+    for body in bodies:
+        heading = ""
+        for line in body.splitlines():
+            line = line.rstrip()
+            if line.startswith("### ") and not line.startswith("####"):
+                heading = line[4:].strip()
+                sections.setdefault(heading, [])
+            elif line.strip():
+                lines = sections.setdefault(heading, [])
+                if line not in lines:
+                    lines.append(line)
+    out = []
+    for heading, lines in sections.items():
+        if heading:
+            out.append(f"#### {heading}")
+        out.extend(lines)
+        out.append("")
+    return "\n".join(out).strip()
+
+
+def render_combined_entry(new_version, date_text, merged):
+    """One entry: a 'What's new' line, then changes grouped per minor series (X.Y.x), newest first."""
+    groups = {}
+    for version, version_text, _, segment in merged:
+        groups.setdefault(version[:2], []).append((version, version_text, segment.partition("\n")[2]))
+
+    versions = [entry[1] for entry in merged]
+    if len(versions) == 1:
+        intro = f"**What's new in v{new_version}:** Packed with the v{versions[0]} update."
+    else:
+        intro = (
+            f"**What's new in v{new_version}:** Packed with {len(versions)} updates, "
+            f"from v{versions[-1]} through v{versions[0]}."
+        )
+
+    blocks = []
+    for (major, minor), items in sorted(groups.items(), reverse=True):
+        names = [item[1] for item in sorted(items, key=lambda item: item[0])]
+        span = f"v{names[0]}" if len(names) == 1 else f"v{names[0]} \u2013 v{names[-1]}"
+        body = _merge_bodies([item[2] for item in sorted(items, key=lambda item: item[0], reverse=True)])
+        blocks.append(f"### v{major}.{minor}.x ({span})\n\n{body}")
+    return f"## [{new_version}] - {date_text}\n\n{intro}\n\n" + "\n\n".join(blocks)
+
+
+def combine_changelog(project_dir, changelog_path, last_published=None, today=None):
+    """Merge every changelog entry newer than the last published version into ONE entry.
+
+    The new version is  major.(minor+1).0  of the highest version seen (last published,
+    changelog, manifests). The merged entry replaces the entries it combined at the top of
+    CHANGELOG.md, so the changelog, manifests and CurseForge all show the same version.
+    Returns (new_version_text, combined_entry_text).
+    """
+    text = changelog_path.read_text(encoding="utf-8")
+    preamble, segments = split_changelog(text)
+
+    entries = []
+    for segment in segments:
+        heading = segment.splitlines()[0]
+        match = CHANGELOG_HEADER.fullmatch(heading)
+        if not match:
+            break
+        entries.append((parse_version(match.group(1)), match.group(1), heading, segment))
+    if not entries:
+        raise ValueError(f"Latest changelog heading must be a dated version in {changelog_path}")
+
+    baseline = parse_version(last_published) if last_published else None
+    if baseline is None:
+        merged = entries[:1]  # first publish: only the newest entry
+    else:
+        merged = [entry for entry in entries if entry[0] > baseline]
+    if not merged:
+        raise ValueError(
+            f"Nothing new to publish: the changelog has no entry newer than v{last_published}. "
+            "Add a changelog entry first."
+        )
+
+    highest = max([entries[0][0], manifest_max_version(project_dir)] + ([baseline] if baseline else []))
+    new_version = f"{highest[0]}.{highest[1] + 1}.0"
+    date_text = (today or datetime.date.today()).isoformat()
+
+    entry = render_combined_entry(new_version, date_text, merged)
+
+    remaining = segments[len(merged):]
+    new_text = preamble + entry + "\n\n" + "".join(remaining)
+    changelog_path.write_text(new_text.rstrip() + "\n", encoding="utf-8")
+    return new_version, entry
 
 
 def find_map_package(project_dir, built_name, variant):
@@ -166,7 +286,7 @@ def find_map_package(project_dir, built_name, variant):
     )
 
 
-def prepare(project_path, release_type, provided_id="", map_variant="default", rebuild=True):
+def prepare(project_path, release_type, map_variant="default", rebuild=True, bump=True):
     category, project_name = project_from_path(project_path)
     if release_type not in {"release", "beta", "alpha"}:
         raise ValueError("Release type must be release, beta or alpha")
@@ -181,11 +301,18 @@ def prepare(project_path, release_type, provided_id="", map_variant="default", r
     changelog_path = project_dir / "CHANGELOG.md"
     if not changelog_path.is_file():
         raise ValueError(f"Missing changelog: {changelog_path.relative_to(REPO_ROOT)}")
-    changelog_version, changelog = latest_changelog_entry(changelog_path)
+    info_path = REPO_ROOT / "builds" / project_name / "Curseforge_Info.json"
+    info = read_info(info_path)
+    project_id = info["project_id"]
+
+    if bump:
+        changelog_version, changelog = combine_changelog(
+            project_dir, changelog_path, info.get("last_published_version")
+        )
+    else:
+        changelog_version, changelog = latest_changelog_entry(changelog_path)
 
     manifest_changes = align_manifests(project_dir, changelog_version)
-    info_path = REPO_ROOT / "builds" / project_name / "Curseforge_Info.json"
-    project_id = resolve_project_id(info_path, provided_id)
 
     primary_name = None
     if rebuild:
@@ -236,7 +363,7 @@ def prepare(project_path, release_type, provided_id="", map_variant="default", r
     )
     with os.fdopen(fd, "w", encoding="utf-8") as metadata_file:
         json.dump(metadata, metadata_file, ensure_ascii=False)
-    return package_path, Path(metadata_name), project_id, info_path, manifest_changes
+    return package_path, Path(metadata_name), project_id, info_path, manifest_changes, changelog_version
 
 
 def main():
@@ -250,10 +377,9 @@ def main():
     if not output_path:
         parser.error("GITHUB_OUTPUT must be set by GitHub Actions")
 
-    package_path, metadata_path, project_id, info_path, manifest_changes = prepare(
+    package_path, metadata_path, project_id, info_path, manifest_changes, _ = prepare(
         args.project,
         args.release_type,
-        os.environ.get("CURSEFORGE_PROJECT_ID", ""),
         args.map_variant,
     )
     with open(output_path, "a", encoding="utf-8") as output:
