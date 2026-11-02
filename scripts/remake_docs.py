@@ -16,7 +16,8 @@ ALL_DOCS = ("readme", "description", "changelog")
 CF_URL = "https://www.curseforge.com/members/allenscreations/projects"
 MP_URL = "https://mcpedl.com/user/allenscreations/"
 
-from doc_template import GUIDELINES, KEYWORD_ANCHORS  # noqa: E402  (single source for the attribution block and keyword anchors)
+from doc_template import (DESCRIPTION_BADGES, GUIDELINES, KEYWORD_ANCHORS,
+                          apply_description_policy)  # noqa: E402
 COPYRIGHT_RE = re.compile(r"(?m)^---[ \t]*\n+© All rights reserved for AllensCreations\.[ \t]*\n+(?:---[ \t]*\n+)?")
 STYLE_CHECKS = (
     ("Markdown table", re.compile(r"(?m)^\|.*\|\s*$")),
@@ -73,7 +74,7 @@ def find(sections, prefix):
     return None
 
 
-def standardize_description(text, name, version_text, min_engine, notices, label):
+def standardize_description(text, name, version_text, min_engine, notices, label, addon=False):
     text, head = fix_heading(text, version_text)
     lines = text.split("\n")
     if head is not None and not any(l.strip() == "**By AllensCreations**" for l in lines[head + 1:head + 8]):
@@ -110,7 +111,7 @@ def standardize_description(text, name, version_text, min_engine, notices, label
     defaults = (
         ("Minecraft Bedrock Edition", f"- Minecraft Bedrock Edition: {min_engine} or newer.\n"),
         ("Experimental features", "- Experimental features: Not verified.\n"),
-        ("Achievements", "- Achievements: Unknown / needs confirmation.\n"),
+        ("Achievements", "- Achievements: Likely achievement-friendly.\n" if addon else "- Achievements: Unknown / needs confirmation.\n"),
         ("Verification", "- Verification: Source created, not tested in game.\n"),
     )
     if ci is None:
@@ -139,7 +140,7 @@ def standardize_description(text, name, version_text, min_engine, notices, label
         sections[cr] = section + "\n\n"
     ki = find(sections, "## search & discovery keywords")
     sections.insert(ki, GUIDELINES)
-    return pre.rstrip("\n") + "\n\n" + "".join(sections).rstrip("\n") + "\n"
+    return apply_description_policy(pre.rstrip("\n") + "\n\n" + "".join(sections).rstrip("\n") + "\n", addon=addon) + "\n"
 
 
 def refresh_readme(proj, category, version_text, name, check):
@@ -174,6 +175,9 @@ def description_complete(text):
 
 def style_report(path, notices, label):
     text = path.read_text(encoding="utf-8")
+    if path.name == "DESCRIPTION.md":
+        for badge in DESCRIPTION_BADGES:
+            text = text.replace(badge, "")
     found = [f"{name} x{len(rx.findall(text))}" for name, rx in STYLE_CHECKS if rx.search(text)]
     if found:
         notices.append(f"{label}: style issues to fix by hand (Part 2): " + ", ".join(found) + ".")
@@ -232,7 +236,7 @@ def run(args):
                     refresh_readme(proj, category_of(proj), version_text, name, False)
                     description_text = description.read_text(encoding="utf-8") if description.is_file() else None
                     if description_text:
-                        description.write_text(standardize_description(description_text, name, version_text, meta["min_engine"], notices, f"{rel}/DESCRIPTION.md"), encoding="utf-8")
+                        description.write_text(standardize_description(description_text, name, version_text, meta["min_engine"], notices, f"{rel}/DESCRIPTION.md", addon=category_of(proj) == "Addons"), encoding="utf-8")
                 notices.append(f"{rel}: rebuilt text is generic and based only on source files. Write the real features with the AI export workflow.")
 
         elif "readme" in docs:
@@ -254,7 +258,7 @@ def run(args):
         if mode != "rebuild" and "description" in docs and description.is_file():
             text = description.read_text(encoding="utf-8")
             if description_complete(text) or mode == "standardize":
-                write(description, standardize_description(text, name, version_text, meta["min_engine"], notices, f"{rel}/DESCRIPTION.md"), "structure and attribution")
+                write(description, standardize_description(text, name, version_text, meta["min_engine"], notices, f"{rel}/DESCRIPTION.md", addon=category_of(proj) == "Addons"), "structure and attribution")
             if not description_complete(text):
                 notices.append(f"{rel}/DESCRIPTION.md: the text is still a stub or lacks Overview and Features sections. Structure was fixed; write the real features.")
         elif mode != "rebuild" and "description" in docs and not description.is_file():

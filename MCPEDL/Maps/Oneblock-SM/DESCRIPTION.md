@@ -2,6 +2,9 @@
 
 **By AllensCreations**
 
+[![Minecraft Bedrock](https://img.shields.io/badge/Minecraft%20Bedrock-1.21%20--%201.26%2B-brightgreen?style=flat-square&logo=minecraft)](https://github.com/AllensCreations/MCPE-Curseforges)
+[![Format](https://img.shields.io/badge/Format-.MCPACK%20%7C%20.MCADDON%20%7C%20.MCWORLD-blue?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges)
+
 - Start on a small 9 x 9 void island with one OneBlock that produces Dirt. A short How to Play guide opens first and must be read once.
 - Mining the OneBlock gives you items. Dirt sells for 1 :minecoin: each in the Trader's Ledger, like every other item.
 - Trader's Ledger: sell items, read market prices, buy block licenses, activate loot contracts, buy island permits, buy the Auto-Miner, and review your achievements. The ledger is an item kept in hotbar slot 9 for every player.

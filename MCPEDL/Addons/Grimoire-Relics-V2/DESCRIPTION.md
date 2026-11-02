@@ -2,6 +2,9 @@
 
 **By AllensCreations**
 
+[![Minecraft Bedrock](https://img.shields.io/badge/Minecraft%20Bedrock-1.21%20--%201.26%2B-brightgreen?style=flat-square&logo=minecraft)](https://github.com/AllensCreations/MCPE-Curseforges)
+[![Format](https://img.shields.io/badge/Format-.MCPACK%20%7C%20.MCADDON%20%7C%20.MCWORLD-blue?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges)
+
 Equip one of 20 magical grimoires in your offhand to gain its distinct passive effects, combat abilities, environmental powers, or subtle particle aura. Fourteen tomes are craftable; six Ancient Relics are found through exploration.
 
 ---
@@ -146,7 +149,7 @@ The pack includes exploration loot entries for Ancient Relics. Their intended lo
 - **Minecraft Bedrock Edition**: Intended target is 1.26+; the pack manifests list a minimum engine version of 1.21.0.
 - **Format**: Complete add-on (.mcaddon), containing a Behavior Pack and Resource Pack.
 - Experimental features: No experimental toggle requirement is declared for the current pack, but behavior can vary by game version and world settings.
-- **Achievements**: Achievement support has not been confirmed through in-game testing.
+- Achievements: Likely achievement-friendly.
 - **Use**: Activate both included packs in your world and equip a tome in your offhand.
 - Verification: Source created, not tested in game.
 

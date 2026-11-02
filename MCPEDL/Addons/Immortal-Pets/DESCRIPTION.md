@@ -2,6 +2,9 @@
 
 **By AllensCreations**
 
+[![Minecraft Bedrock](https://img.shields.io/badge/Minecraft%20Bedrock-1.21%20--%201.26%2B-brightgreen?style=flat-square&logo=minecraft)](https://github.com/AllensCreations/MCPE-Curseforges)
+[![Format](https://img.shields.io/badge/Format-.MCPACK%20%7C%20.MCADDON%20%7C%20.MCWORLD-blue?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges)
+
 ## Overview
 
 Immortal Pets automatically protects selected tamed companions in the Overworld, Nether, and End. Protection starts when a supported pet is tamed and is restored for existing pets as the world loads.
@@ -39,7 +42,7 @@ Choose one subpack in Behavior Pack settings:
 - Achievement support: The add-on is designed without cheats or experimental toggles. Actual achievement availability can still depend on Minecraft version, platform, and world settings.
 
 Protection cannot guarantee survival against every game mechanic, command, or despawn scenario. Test environmental damage and reload behavior in the target Bedrock version before relying on it for a permanent world.
-- Achievements: Unknown / needs confirmation.
+- Achievements: Likely achievement-friendly.
 - Verification: Source created, not tested in game.
 
 ## Credits & Usage

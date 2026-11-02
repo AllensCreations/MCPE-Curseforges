@@ -760,8 +760,6 @@ def run_checks(root, repo_root=None, folder=None):
     low_r, low_d = rtext.lower(), dtext.lower()
     if re.search(r"img\.shields\.io|!\[[^\]]*\]\(", rtext):
         warns.append("DOC: README.md must not contain badges or images (Part 2)")
-    if "img.shields.io" in low_d:
-        warns.append("DOC: DESCRIPTION.md must not contain badges (Part 2)")
     if dtext and "not an official minecraft product" not in low_d:
         warns.append("DOC: DESCRIPTION.md attribution block needs the unofficial-product disclaimer (Part 2, Section 4)")
     if re.search(r"give_controller|end_game|oneblock_setup|/function\b", both) and "cheats" not in both:

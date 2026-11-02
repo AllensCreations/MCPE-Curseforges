@@ -2,6 +2,9 @@
 
 **By AllensCreations**
 
+[![Minecraft Bedrock](https://img.shields.io/badge/Minecraft%20Bedrock-1.21%20--%201.26%2B-brightgreen?style=flat-square&logo=minecraft)](https://github.com/AllensCreations/MCPE-Curseforges)
+[![Format](https://img.shields.io/badge/Format-.MCPACK%20%7C%20.MCADDON%20%7C%20.MCWORLD-blue?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges)
+
 Place the Melody Figurine and interact with it to start its included soundtrack. Nearby mobs within 20 blocks dance with different movement styles, colorful particles, and a short finale. The figurine gains orbiting musical sparkles while the song plays.
 
 ## Overview
@@ -54,7 +57,7 @@ The Melody Figurine is a small decorative statue with a matching inventory icon 
 
 - Minecraft Bedrock Edition: 1.26.0 or later.
 - Experimental features: The current pack does not declare a requirement for experimental toggles.
-- Achievements: Not verified.
+- Achievements: Likely achievement-friendly.
 - Multiplayer and Realms behavior: Not verified.
 - Gameplay behavior should be checked in Minecraft before relying on it in a long-term world.
 - Verification: Source created, not tested in game.

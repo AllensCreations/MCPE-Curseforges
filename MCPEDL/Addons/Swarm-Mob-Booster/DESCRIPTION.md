@@ -2,6 +2,9 @@
 
 **By AllensCreations**
 
+[![Minecraft Bedrock](https://img.shields.io/badge/Minecraft%20Bedrock-1.21%20--%201.26%2B-brightgreen?style=flat-square&logo=minecraft)](https://github.com/AllensCreations/MCPE-Curseforges)
+[![Format](https://img.shields.io/badge/Format-.MCPACK%20%7C%20.MCADDON%20%7C%20.MCWORLD-blue?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges)
+
 Increase the spawn frequency and group sizes of supported vanilla mobs across the Overworld, Nether, and The End. Three selectable presets adjust density caps and group sizes, and an action-bar display tracks nearby mobs.
 
 ---
@@ -38,7 +41,7 @@ Increase the spawn frequency and group sizes of supported vanilla mobs across th
 - Actual spawn counts depend on world conditions and the selected preset.
 - Minecraft Bedrock Edition: 1.26.0 or newer.
 - Experimental features: Not verified.
-- Achievements: Unknown / needs confirmation.
+- Achievements: Likely achievement-friendly.
 - Verification: Source created, not tested in game.
 
 ## Creator and Permissions

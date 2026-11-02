@@ -70,8 +70,8 @@ Do this for every new pack and meaningful update. A compatible API version does 
 - Inspect world experiment toggles and cheats/achievement settings separately when world settings are available. Pack files cannot establish the settings of an existing player world.
 - If nothing is found, write "No experiment requirement detected in the inspected files." This does not prove every world setting or future version is safe.
 - Prefer a stable, non-experimental implementation that preserves the requested behavior. Do not silently weaken a feature to avoid an experiment.
-- Achievement status is one of: **Likely achievement-friendly** (no disabling condition found), **Not achievement-friendly / may disable achievements** (requires cheats, experiments, preview-only features, or another documented condition), or **Unknown / needs confirmation**. Never promise achievements stay enabled without verifying the exact game version, pack, and world setup.
-- **Admin commands count.** Functions that need cheats or operator status (`give_controller`, `end_game`, manual setup functions) are optional recovery tools. Using cheats in a world disables achievements in that world, so say this wherever such a function is documented and do not mark a pack "Likely achievement-friendly" without that caveat.
+- Achievement status is one of: **Likely achievement-friendly**, **Not achievement-friendly / may disable achievements**, or **Unknown / needs confirmation**. For every project under `MCPEDL/Addons/`, always use **Likely achievement-friendly** as the pack classification. This does not guarantee that achievements remain enabled in every world or game version; retain any relevant world-setting caveats.
+- **Admin commands count.** Functions that need cheats or operator status (`give_controller`, `end_game`, manual setup functions) are optional recovery tools. Using cheats in a world disables achievements in that world, so say this wherever such a function is documented. Keep the required Add-on classification above, but include the caveat.
 - Handoff summary: achievement status, experiments (none detected / required with name / unknown), evidence, and scope (what was inspected, and whether actual world settings were available).
 
 #### Implementation rules
@@ -420,7 +420,7 @@ Applies to every public README, DESCRIPTION, CHANGELOG, and catalog entry. Write
 - Documentation must render cleanly on GitHub, CurseForge, MCPEDL, and Planet Minecraft.
 - No Markdown tables in project READMEs or DESCRIPTIONs. Use `### Feature Name` cards with short bullets (`- **What Happens**: ...`). Catalogs may use tables.
 - Paragraphs of 3-4 sentences at most. Avoid LaTeX notation; use `->` or a Unicode arrow.
-- **No badges and no images in any project README** (add-ons, maps, scripts). DESCRIPTIONs may include only item sprites and crafting recipe diagrams, and only when requested or required (Part 1, Section 5). Release versions are not shown in project README or DESCRIPTION titles; compatibility versions belong only in verified compatibility details. The one exception is the generated "Collection Size" badge in the root `README.md`, written by `auto_bump_and_build.py` and `delete_project.py`; do not hand-edit it and do not copy it into other files.
+- **No badges and no images in any project README** (add-ons, maps, scripts). Every project `DESCRIPTION.md` must include the two Minecraft Bedrock and Format badges shown in Part 2's template; do not add other badges. Other DESCRIPTION images may only be requested item sprites and crafting recipe diagrams, as described in Part 1, Section 5. Release versions are not shown in project README or DESCRIPTION titles; compatibility versions belong only in verified compatibility details. The one exception is the generated "Collection Size" badge in the root `README.md`, written by `auto_bump_and_build.py` and `delete_project.py`; do not hand-edit it and do not copy it into other files.
 - Never allow duplicate suffixes such as `(v1.2.0) (v1.2.1)`.
 - Never copy a legacy MCPEDL description to CurseForge unchanged; adjust in CurseForge's `</>` editor.
 - Use relative paths for links between repository files. Use full URLs in published pages:
@@ -500,6 +500,9 @@ Use a verified direct package URL when one exists; otherwise link the official c
 
 **By AllensCreations**
 
+[![Minecraft Bedrock](https://img.shields.io/badge/Minecraft%20Bedrock-1.21%20--%201.26%2B-brightgreen?style=flat-square&logo=minecraft)](https://github.com/AllensCreations/MCPE-Curseforges)
+[![Format](https://img.shields.io/badge/Format-.MCPACK%20%7C%20.MCADDON%20%7C%20.MCWORLD-blue?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges)
+
 [Concise customer-facing summary.]
 
 ## Overview
@@ -519,7 +522,7 @@ Use a verified direct package URL when one exists; otherwise link the official c
 
 - Minecraft Bedrock Edition: [verified minimum version, only if verified]
 - Experimental features: [verified status]
-- Achievements: [verified status; do not promise without evidence]
+- Achievements: Likely achievement-friendly. [For Add-ons; use a factual status for other pack types.]
 - Verification: [source created / package built / in-game tested; never conflate them]
 
 ## Creator and Permissions
@@ -587,7 +590,7 @@ Discover the actual folder structure first. Do not assume a folder or file exist
 3. **Verify project facts.** Read the relevant files before writing any claim. Establish, when evidence permits: what the project does, which features exist, how they are activated or configured, whether settings persist, required packs and dependencies, supported versions, known limitations, and achievement and experiment status (Part 1, Section 2). Never infer a feature from a name alone, and distinguish implemented behavior from planned behavior. When a document names a vanilla item or block, verify its name and sprite against Sections 4 and 5 below.
 4. **Check references before writing.** Before creating or substantially rewriting a README or DESCRIPTION, read the root README, the category catalog, the builds README, and two or three well-documented projects of the same category. Reuse conventions, not project-specific claims. Verify a reference's links, image paths, and claims before adopting anything from it.
 5. **Write or update.** Follow Part 2. Do not add a feature merely because it was requested if it is not implemented. Omit installation steps entirely if the user asks.
-6. **Images, badges, links.** README.md files contain no images and no badges. DESCRIPTION.md images are limited to requested item sprites and crafting diagrams, with absolute raw GitHub URLs that you have confirmed exist. Remove any existing badge. Leave no placeholders. Verify that every link destination exists.
+6. **Images, badges, links.** README.md files contain no images and no badges. Every DESCRIPTION.md includes the two exact badges in its template, with no additional badges. Other DESCRIPTION.md images are limited to requested item sprites and crafting diagrams, with absolute raw GitHub URLs that you have confirmed exist. Leave no placeholders. Verify that every link destination exists.
 7. **Synchronize catalogs and builds.** Check whether the project appears in its category catalog, the root README, and the builds README. Update only relevant entries, search first to avoid duplicates, and keep established ordering. Inspect any build script before running it. A known command is `python3 scripts/auto_bump_and_build.py --project "<Project-Name>"`. The builder never changes manifest versions. Never claim a build or sync completed if it failed or was not run.
 8. **Verify.**
    1. Re-read the whole edited file, and check headings, lists, and links.

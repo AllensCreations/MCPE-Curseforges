@@ -142,6 +142,7 @@ def do_import(root: Path, d: Path, out: Path, overwrite=False):
 
 def main() -> int:
     import remake_docs
+    import doc_template
     profile_urls = (remake_docs.CF_URL, remake_docs.MP_URL)
     duplicate_profiles = (
         "# Sample\n\n## Creator Profiles\n\n"
@@ -153,10 +154,29 @@ def main() -> int:
         "## Search & Discovery Keywords\n\nMinecraft Bedrock, Sample.\n"
     )
     standardized = remake_docs.standardize_description(
-        duplicate_profiles, "Sample", "1.0.0", "1.21.0", [], "selftest"
+        duplicate_profiles, "Sample", "1.0.0", "1.21.0", [], "selftest", addon=True
     )
-    ok(all(standardized.count(url) == 1 for url in profile_urls),
-       "description: profile links appear once after standardization")
+    standardized_badge_errors = []
+    doc_template.check_description_badges(standardized, standardized_badge_errors)
+    ok(
+        all(standardized.count(url) == 1 for url in profile_urls)
+        and not standardized_badge_errors
+        and "- Achievements: Likely achievement-friendly." in standardized,
+        "description: standardization applies profile, badge, and achievement policy",
+    )
+    for ptype in ("addon", "map", "script", "minigame"):
+        description = doc_template.compliant_docs(ptype, "Sample Pack", "1.0.0")["DESCRIPTION.md"]
+        badge_errors = []
+        doc_template.check_description_badges(description, badge_errors)
+        has_expected_achievement_label = ptype != "addon" or (
+            "- Achievements: Likely achievement-friendly." in description
+        )
+        ok(
+            not badge_errors
+            and has_expected_achievement_label
+            and description.count("\n\n\n") == 0,
+            f"description: {ptype} template applies badge and achievement policy",
+        )
 
     ap = argparse.ArgumentParser()
     ap.add_argument("--fake-foundation", action="store_true")
@@ -357,6 +377,8 @@ def main() -> int:
 
         reject("add-on README that does not follow the template", lambda d: write(d / "README.md", (d / "README.md").read_text() + "\n## Features\n\n- fast\n"), "exactly 11", ptype="addon")
         reject("add-on DESCRIPTION with an extra section", lambda d: write(d / "DESCRIPTION.md", (d / "DESCRIPTION.md").read_text().replace("## How to Use", "## Recipes\n\nx\n\n## How to Use")), "sections must be exactly", ptype="addon")
+        reject("DESCRIPTION missing a required badge", lambda d: write(d / "DESCRIPTION.md", (d / "DESCRIPTION.md").read_text().replace(doc_template.DESCRIPTION_BADGES[0] + "\n", "")), "include this badge exactly once", ptype="addon")
+        reject("DESCRIPTION duplicating a required badge", lambda d: write(d / "DESCRIPTION.md", (d / "DESCRIPTION.md").read_text().replace(doc_template.DESCRIPTION_BADGES[0], doc_template.DESCRIPTION_BADGES[0] + "\n" + doc_template.DESCRIPTION_BADGES[0])), "include this badge exactly once", ptype="addon")
         reject("add-on DESCRIPTION with an edited attribution block", lambda d: write(d / "DESCRIPTION.md", (d / "DESCRIPTION.md").read_text().replace("Do not re-upload this pack", "Feel free to re-upload this pack")), "attribution block", ptype="addon")
         reject("CHANGELOG with a link", lambda d: write(d / "CHANGELOG.md", (d / "CHANGELOG.md").read_text().replace("Players can use the new creation.", "See https://example.com now.")), "links or URLs", ptype="addon")
         reject("minigame README with a Markdown table", lambda d: write(d / "README.md", (d / "README.md").read_text() + "\n| a | b |\n"), "Markdown table")

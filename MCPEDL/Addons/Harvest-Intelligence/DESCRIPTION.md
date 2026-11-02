@@ -2,6 +2,9 @@
 
 **By AllensCreations**
 
+[![Minecraft Bedrock](https://img.shields.io/badge/Minecraft%20Bedrock-1.21%20--%201.26%2B-brightgreen?style=flat-square&logo=minecraft)](https://github.com/AllensCreations/MCPE-Curseforges)
+[![Format](https://img.shields.io/badge/Format-.MCPACK%20%7C%20.MCADDON%20%7C%20.MCWORLD-blue?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges)
+
 Harvest Intelligence automatically replants supported mature crops after you break them normally, provided the matching planting item is in your inventory. It also monitors nearby farmland and attempts to restore crops damaged by accidental trampling.
 
 ## Key Features
@@ -33,12 +36,12 @@ Harvest Intelligence automatically replants supported mature crops after you bre
 
 - Minecraft Bedrock Edition 1.21.20 or newer.
 - No custom items or Resource Pack are included.
-- Achievement compatibility is not guaranteed and should be checked in the target Minecraft release.
+- Likely achievement-friendly; availability can still depend on the Minecraft release and world settings.
 - Check the current Minecraft world settings if the add-on does not behave as expected.
 
 ---
 - Experimental features: Not verified.
-- Achievements: Unknown / needs confirmation.
+- Achievements: Likely achievement-friendly.
 - Verification: Source created, not tested in game.
 
 ## Creator and Permissions

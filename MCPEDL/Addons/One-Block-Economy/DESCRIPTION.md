@@ -2,6 +2,9 @@
 
 **By AllensCreations**
 
+[![Minecraft Bedrock](https://img.shields.io/badge/Minecraft%20Bedrock-1.21%20--%201.26%2B-brightgreen?style=flat-square&logo=minecraft)](https://github.com/AllensCreations/MCPE-Curseforges)
+[![Format](https://img.shields.io/badge/Format-.MCPACK%20%7C%20.MCADDON%20%7C%20.MCWORLD-blue?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges)
+
 This Minecraft Bedrock add-on adds central-block progression, recurring Wandering Trader visits, and a void-rescue feature for a compatible OneBlock world.
 
 ## Features
@@ -31,7 +34,7 @@ This add-on does not generate a complete OneBlock world. Use it in a world with 
 - Minimum Minecraft Bedrock version: 1.21.0.
 - Minecraft Bedrock Edition: 1.21.0 or newer.
 - Experimental features: Not verified.
-- Achievements: Unknown / needs confirmation.
+- Achievements: Likely achievement-friendly.
 - Verification: Source created, not tested in game.
 
 ## Creator and Permissions

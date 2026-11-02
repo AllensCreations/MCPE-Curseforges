@@ -2,6 +2,9 @@
 
 **By AllensCreations**
 
+[![Minecraft Bedrock](https://img.shields.io/badge/Minecraft%20Bedrock-1.21%20--%201.26%2B-brightgreen?style=flat-square&logo=minecraft)](https://github.com/AllensCreations/MCPE-Curseforges)
+[![Format](https://img.shields.io/badge/Format-.MCPACK%20%7C%20.MCADDON%20%7C%20.MCWORLD-blue?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges)
+
 Trivia Vault: The Locked World turns Survival block breaking into a general-knowledge challenge. Attempt to break a locked block, answer its trivia question, and permanently unlock that block type. Unlocking the block is the only reward. Wrong answers trigger randomized penalties.
 
 ## Overview

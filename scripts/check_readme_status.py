@@ -311,6 +311,7 @@ def auto_generate_readme(proj_dir):
         "Minigame": "mcaddon",
     }.get(category, meta["primary_ext"])
     output_path = description_path
+    from doc_template import DESCRIPTION_BADGES, apply_description_policy
 
     clean_name = meta["name"].replace(" BP", "").replace(" RP", "").strip()
     clean_name = re.sub(r"\s*\(v\d+\.\d+\.\d+\)\s*$", "", clean_name).strip()
@@ -366,7 +367,7 @@ def auto_generate_readme(proj_dir):
 
     if os.path.isfile(description_path):
         with open(description_path, "r", encoding="utf-8") as f:
-            description = f.read()
+            description = apply_description_policy(f.read(), addon=category == "Addons")
         description = re.sub(
             r"(?m)^(# .+?) \(v\d+\.\d+\.\d+\)(?= — |$)",
             r"\1",
@@ -390,7 +391,7 @@ def auto_generate_readme(proj_dir):
                 count=1,
             )
             with open(description_path, "w", encoding="utf-8") as f:
-                f.write(old_readme if old_readme.endswith("\n") else old_readme + "\n")
+                f.write(apply_description_policy(old_readme, addon=category == "Addons") + "\n")
             write_download_readme()
             print(f"  [Auto-Fix] Moved existing product information into DESCRIPTION.md for {slug}")
             return
@@ -411,9 +412,13 @@ def auto_generate_readme(proj_dir):
         interaction_cards.append(f"### {action}\n- **Requirement**: {requirement}\n- **What Happens**: {result}")
     interaction_section = "\n\n".join(interaction_cards) if interaction_cards else "Use the in-game interactions provided by the add-on. Refer to the included pack settings and item descriptions for supported controls."
 
+    achievement = "Likely achievement-friendly." if category == "Addons" else "Unknown / needs confirmation."
+    badges = "\n".join(DESCRIPTION_BADGES)
     content = f"""# {clean_name}
 
 **By AllensCreations**
+
+{badges}
 
 ## Overview
 
@@ -431,7 +436,7 @@ def auto_generate_readme(proj_dir):
 
 - Minecraft Bedrock Edition: {meta["min_engine"]} or newer.
 - Experimental features: Not verified.
-- Achievements: Unknown / needs confirmation.
+- Achievements: {achievement}
 - Verification: Source created, not tested in game.
 
 ## Creator and Permissions

@@ -70,8 +70,8 @@ Do this for every new pack and meaningful update. A compatible API version does 
 - Inspect world experiment toggles and cheats/achievement settings separately when world settings are available. Pack files cannot establish the settings of an existing player world.
 - If nothing is found, write "No experiment requirement detected in the inspected files." This does not prove every world setting or future version is safe.
 - Prefer a stable, non-experimental implementation that preserves the requested behavior. Do not silently weaken a feature to avoid an experiment.
-- Achievement status is one of: **Likely achievement-friendly** (no disabling condition found), **Not achievement-friendly / may disable achievements** (requires cheats, experiments, preview-only features, or another documented condition), or **Unknown / needs confirmation**. Never promise achievements stay enabled without verifying the exact game version, pack, and world setup.
-- **Admin commands count.** Functions that need cheats or operator status (`give_controller`, `end_game`, manual setup functions) are optional recovery tools. Using cheats in a world disables achievements in that world, so say this wherever such a function is documented and do not mark a pack "Likely achievement-friendly" without that caveat.
+- Achievement status is one of: **Likely achievement-friendly**, **Not achievement-friendly / may disable achievements**, or **Unknown / needs confirmation**. For every project under `MCPEDL/Addons/`, always use **Likely achievement-friendly** as the pack classification. This does not guarantee that achievements remain enabled in every world or game version; retain any relevant world-setting caveats.
+- **Admin commands count.** Functions that need cheats or operator status (`give_controller`, `end_game`, manual setup functions) are optional recovery tools. Using cheats in a world disables achievements in that world, so say this wherever such a function is documented. Keep the required Add-on classification above, but include the caveat.
 - Handoff summary: achievement status, experiments (none detected / required with name / unknown), evidence, and scope (what was inspected, and whether actual world settings were available).
 
 #### Implementation rules
@@ -258,7 +258,7 @@ Applies to every public README, DESCRIPTION, CHANGELOG, and catalog entry. Write
 - Documentation must render cleanly on GitHub, CurseForge, MCPEDL, and Planet Minecraft.
 - No Markdown tables in project READMEs or DESCRIPTIONs. Use `### Feature Name` cards with short bullets (`- **What Happens**: ...`). Catalogs may use tables.
 - Paragraphs of 3-4 sentences at most. Avoid LaTeX notation; use `->` or a Unicode arrow.
-- **No badges and no images in any project README** (add-ons, maps, scripts). DESCRIPTIONs may include only item sprites and crafting recipe diagrams, and only when requested or required (Part 1, Section 5). Release versions are not shown in project README or DESCRIPTION titles; compatibility versions belong only in verified compatibility details. The one exception is the generated "Collection Size" badge in the root `README.md`, written by `auto_bump_and_build.py` and `delete_project.py`; do not hand-edit it and do not copy it into other files.
+- **No badges and no images in any project README** (add-ons, maps, scripts). Every project `DESCRIPTION.md` must include the two Minecraft Bedrock and Format badges shown in Part 2's template; do not add other badges. Other DESCRIPTION images may only be requested item sprites and crafting recipe diagrams, as described in Part 1, Section 5. Release versions are not shown in project README or DESCRIPTION titles; compatibility versions belong only in verified compatibility details. The one exception is the generated "Collection Size" badge in the root `README.md`, written by `auto_bump_and_build.py` and `delete_project.py`; do not hand-edit it and do not copy it into other files.
 - Never allow duplicate suffixes such as `(v1.2.0) (v1.2.1)`.
 - Never copy a legacy MCPEDL description to CurseForge unchanged; adjust in CurseForge's `</>` editor.
 - Use relative paths for links between repository files. Use full URLs in published pages:
@@ -338,6 +338,9 @@ Use a verified direct package URL when one exists; otherwise link the official c
 
 **By AllensCreations**
 
+[![Minecraft Bedrock](https://img.shields.io/badge/Minecraft%20Bedrock-1.21%20--%201.26%2B-brightgreen?style=flat-square&logo=minecraft)](https://github.com/AllensCreations/MCPE-Curseforges)
+[![Format](https://img.shields.io/badge/Format-.MCPACK%20%7C%20.MCADDON%20%7C%20.MCWORLD-blue?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges)
+
 [Concise customer-facing summary.]
 
 ## Overview
@@ -357,7 +360,7 @@ Use a verified direct package URL when one exists; otherwise link the official c
 
 - Minecraft Bedrock Edition: [verified minimum version, only if verified]
 - Experimental features: [verified status]
-- Achievements: [verified status; do not promise without evidence]
+- Achievements: Likely achievement-friendly. [For Add-ons; use a factual status for other pack types.]
 - Verification: [source created / package built / in-game tested; never conflate them]
 
 ## Creator and Permissions
@@ -613,7 +616,7 @@ Documentation follows Part 2 exactly; `build_payload.py` fails with a `DOC:` mes
 - Every custom shaped or shapeless crafting recipe needs the unlock its type requires (Part 1, Section 4). Other recipe types are not given an `unlock` field.
 - **Every project `README.md`:** the version-free download-only template, at most 24 non-empty lines, with the current package format and a verified package link or official category catalog link. Preserve multiple verified world variants for maps. No badges or gameplay claims.
 - **`DESCRIPTION.md`:** the product page for add-ons, maps, and scripts. Include the gameplay details, compatibility lines, attribution, and keywords. State the verified minimum game version only if verified. Mention cheats where an admin function is documented.
-- **`DESCRIPTION.md`:** the Part 2 template, including Creator and Permissions links, the Guidelines and Attribution block (with the unofficial-product disclaimer), and Search & Discovery Keywords. Only features that exist in the files. Never mention `Script API` or `@minecraft/` modules. Use in-game display names, no code blocks, no Markdown tables.
+- **`DESCRIPTION.md`:** the Part 2 template, including both required badges, Creator and Permissions links, the Guidelines and Attribution block (with the unofficial-product disclaimer), and Search & Discovery Keywords. Only features that exist in the files. Never mention `Script API` or `@minecraft/` modules. Use in-game display names, no code blocks, no Markdown tables.
 - **`CHANGELOG.md`:** the Part 2 format, starting with `## [1.0.0] - YYYY-MM-DD`, no links.
 
 ### 8. Building the payload

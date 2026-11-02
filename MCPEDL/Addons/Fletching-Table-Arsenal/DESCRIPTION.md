@@ -2,6 +2,9 @@
 
 **By AllensCreations**
 
+[![Minecraft Bedrock](https://img.shields.io/badge/Minecraft%20Bedrock-1.21%20--%201.26%2B-brightgreen?style=flat-square&logo=minecraft)](https://github.com/AllensCreations/MCPE-Curseforges)
+[![Format](https://img.shields.io/badge/Format-.MCPACK%20%7C%20.MCADDON%20%7C%20.MCWORLD-blue?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges)
+
 Right-click a Fletching Table to open the Fletcher's Workbench and convert ordinary Arrows into four specialized types of ammunition, using only vanilla items.
 
 ## Overview
@@ -35,7 +38,7 @@ The Fletching Table becomes a working archery station. A menu shows your current
 
 - Minecraft Bedrock Edition: minimum version not verified; the pack declares 1.21.80.
 - Experimental features: No experiment requirement detected in the inspected files.
-- Achievements: Likely achievement-friendly. No cheats are required.
+- Achievements: Likely achievement-friendly.
 - Verification: Source created, not tested in game.
 
 ## Creator and Permissions

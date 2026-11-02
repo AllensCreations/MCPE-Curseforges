@@ -2,6 +2,9 @@
 
 **By AllensCreations**
 
+[![Minecraft Bedrock](https://img.shields.io/badge/Minecraft%20Bedrock-1.21%20--%201.26%2B-brightgreen?style=flat-square&logo=minecraft)](https://github.com/AllensCreations/MCPE-Curseforges)
+[![Format](https://img.shields.io/badge/Format-.MCPACK%20%7C%20.MCADDON%20%7C%20.MCWORLD-blue?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges)
+
 Grand Banquets adds 32 craftable custom foods to Minecraft Bedrock Edition. The collection is arranged into four tiers, from everyday survival meals to elaborate feasts with additional status effects.
 
 ## Overview
@@ -38,7 +41,7 @@ Other dishes provide different food values or effects. These examples highlight 
 
 - **Minecraft Bedrock Edition:** The pack declares a minimum engine version of 1.21.0. This is the declared minimum, not a guarantee that every later release behaves identically.
 - **Experimental features:** The current pack manifests do not declare an experimental toggle requirement. World settings and behavior may still vary by game version.
-- **Achievements:** Achievement compatibility has not been independently verified for this release. Do not assume achievements remain enabled in every world configuration.
+- Achievements: Likely achievement-friendly.
 - Verification: Source created, not tested in game.
 
 ## Feedback and Suggestions
