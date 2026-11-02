@@ -1,6 +1,7 @@
 {
   "cleanUrls": true,
   "rewrites": [
+    { "source": "/curseforge", "destination": "/curseforge.html" },
     { "source": "/", "destination": "/branding.html" },
     { "source": "/index.html", "destination": "/branding.html" }
   ]

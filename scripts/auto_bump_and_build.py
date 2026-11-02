@@ -21,6 +21,7 @@ import os
 import re
 import sys
 import json
+import hashlib
 import glob
 import zipfile
 import subprocess
@@ -434,6 +435,37 @@ def rebuild_project_packages(project_path, category, version_str=None):
         print(f"  Built: {os.path.relpath(mcpack_path, REPO_ROOT)}")
 
     return primary_file, built_files
+
+
+def _package_hashes(project_name):
+    build_dir = os.path.join(REPO_ROOT, "builds", project_name)
+    hashes = {}
+    for name in os.listdir(build_dir) if os.path.isdir(build_dir) else []:
+        if not name.lower().endswith((".mcaddon", ".mcpack", ".mcworld")):
+            continue
+        path = os.path.join(build_dir, name)
+        if os.path.isfile(path):
+            hashes[name] = _sha256_file(path)
+    return hashes
+
+
+def _sha256_file(path):
+    digest = hashlib.sha256()
+    with open(path, "rb") as package:
+        for chunk in iter(lambda: package.read(1024 * 1024), b""):
+            digest.update(chunk)
+    return digest.hexdigest()
+
+
+def _write_rebuilt_projects(rebuilt_projects):
+    output_path = os.environ.get("GITHUB_OUTPUT")
+    if not output_path:
+        return
+    with open(output_path, "a", encoding="utf-8") as output:
+        output.write(f"has_rebuilt_projects={'true' if rebuilt_projects else 'false'}\n")
+        output.write("rebuilt_projects<<EOF\n")
+        output.write("\n".join(rebuilt_projects) + "\n")
+        output.write("EOF\n")
 
 
 # ─────────────────────────────────────────────────────────────────────────────
@@ -985,6 +1017,7 @@ def main():
     
     if not changed_projects:
         print("[Build] No pack/map/script changes or new projects detected.")
+        _write_rebuilt_projects([])
         sys.exit(0)
 
     print(f"[Build] Processing {len(changed_projects)} project(s):")
@@ -992,6 +1025,7 @@ def main():
         print(f"  - {os.path.relpath(cp, REPO_ROOT)}")
 
     updated_summary = []
+    rebuilt_projects = []
 
     for cp in changed_projects:
         cat = project_dirs.get(cp)
@@ -1034,7 +1068,14 @@ def main():
             primary_file, built_files = None, None
             print("  Test-gated world project: skipping generic package rebuild; existing .mcworld files are untouched.")
         else:
+            previous_packages = _package_hashes(proj_name)
             primary_file, built_files = rebuild_project_packages(cp, cat, new_v)
+            if built_files and any(
+                previous_packages.get(package[0])
+                != _sha256_file(os.path.join(REPO_ROOT, "builds", proj_name, package[0]))
+                for package in built_files
+            ):
+                rebuilt_projects.append(f"{cat}/{proj_name}")
 
         # ── Synchronize all Directory README files & links ─────────────────
         # ── Save this version into builds/<project>/versions/ ───────────────
@@ -1058,6 +1099,7 @@ def main():
     print("\n[Build] Completed successfully!")
     for s in updated_summary:
         print(f"  - {s}")
+    _write_rebuilt_projects(rebuilt_projects)
 
 
 if __name__ == "__main__":

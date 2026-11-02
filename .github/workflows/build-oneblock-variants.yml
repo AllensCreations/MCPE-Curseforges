@@ -55,6 +55,29 @@ jobs:
               || { echo "::error::MCPEDL/Maps/$ONEBLOCK_MAP/oneblock.json not found"; exit 1; }
           fi
 
+      - name: Align saved map releases to their changelogs
+        shell: bash
+        run: |
+          python3 - <<'PY'
+          import os
+          import sys
+          from pathlib import Path
+
+          sys.path.insert(0, "scripts")
+          import prepare_curseforge_upload as release
+
+          selected = os.environ.get("ONEBLOCK_MAP", "").strip()
+          for config in sorted(Path("MCPEDL/Maps").glob("*/oneblock.json")):
+              project = config.parent
+              if selected and project.name != selected:
+                  continue
+              info = Path("builds") / project.name / "Curseforge_Info.json"
+              if not info.is_file():
+                  continue
+              version, _ = release.latest_changelog_entry(project / "CHANGELOG.md")
+              release.align_manifests(project, version)
+          PY
+
       - name: Build each mode from its matching Mcpeworlds foundation and the map's packs
         run: python scripts/build_oneblock_variants_from_template.py
 
@@ -82,6 +105,29 @@ jobs:
               print("\n".join("::error::" + b for b in bad)); sys.exit(1)
           print("Structural checks passed (not an in-game test).")
           PY
+
+      - name: Publish changed map variants with saved CurseForge IDs
+        env:
+          ONEBLOCK_MAP: ${{ inputs.map_name }}
+          CURSEFORGE_API_TOKEN: ${{ secrets.CURSEFORGE_API_TOKEN }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          for config in MCPEDL/Maps/*/oneblock.json; do
+              [ -f "$config" ] || continue
+              map_dir="${config%/oneblock.json}"
+              if [ -n "$ONEBLOCK_MAP" ] && [ "${map_dir##*/}" != "$ONEBLOCK_MAP" ]; then
+                continue
+              fi
+              mapfile -t world_files < <(find "$map_dir" -maxdepth 1 -type f -name '*.mcworld' -print)
+              [ "${#world_files[@]}" -gt 0 ] || continue
+              if [ -z "$(git status --porcelain -- "${world_files[@]}")" ]; then
+                continue
+              fi
+              python scripts/auto_publish_curseforge.py \
+                --project "$map_dir" \
+                --map-variant all
+          done
 
       - name: Upload generated worlds as artifact
         uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2

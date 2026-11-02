@@ -166,7 +166,7 @@ def find_map_package(project_dir, built_name, variant):
     )
 
 
-def prepare(project_path, release_type, provided_id="", map_variant="default"):
+def prepare(project_path, release_type, provided_id="", map_variant="default", rebuild=True):
     category, project_name = project_from_path(project_path)
     if release_type not in {"release", "beta", "alpha"}:
         raise ValueError("Release type must be release, beta or alpha")
@@ -187,21 +187,25 @@ def prepare(project_path, release_type, provided_id="", map_variant="default"):
     info_path = REPO_ROOT / "builds" / project_name / "Curseforge_Info.json"
     project_id = resolve_project_id(info_path, provided_id)
 
-    primary_name, _ = builder.rebuild_project_packages(str(project_dir), f"MCPEDL/{category}")
-    if category == "Maps" and (project_dir / "oneblock.json").is_file():
-        env = dict(os.environ, ONEBLOCK_MAP=project_name)
-        result = subprocess.run(
-            [sys.executable, str(REPO_ROOT / "scripts" / "build_oneblock_variants_from_template.py")],
-            cwd=REPO_ROOT,
-            env=env,
-            capture_output=True,
-            text=True,
-        )
-        if result.returncode:
-            raise ValueError(
-                f"Could not rebuild map variants for {project_name}: "
-                f"{(result.stderr or result.stdout).strip()}"
+    primary_name = None
+    if rebuild:
+        primary_name, _ = builder.rebuild_project_packages(str(project_dir), f"MCPEDL/{category}")
+        if category == "Maps" and (project_dir / "oneblock.json").is_file():
+            env = dict(os.environ, ONEBLOCK_MAP=project_name)
+            result = subprocess.run(
+                [sys.executable, str(REPO_ROOT / "scripts" / "build_oneblock_variants_from_template.py")],
+                cwd=REPO_ROOT,
+                env=env,
+                capture_output=True,
+                text=True,
             )
+            if result.returncode:
+                raise ValueError(
+                    f"Could not rebuild map variants for {project_name}: "
+                    f"{(result.stderr or result.stdout).strip()}"
+                )
+    elif category != "Maps":
+        raise ValueError("Reusing an existing package is only supported for map variants")
     if category == "Maps":
         package_path = find_map_package(project_dir, primary_name, map_variant)
     else:

@@ -657,6 +657,7 @@
       opacity: 0.5;
       cursor: not-allowed;
     }
+    #curseforgeLink[hidden] { display: none; }
 
     /* Toast Notification */
     .toast {
@@ -787,6 +788,9 @@
     </div>
 
     <div class="header-controls">
+      <a class="btn btn-outline" id="curseforgeLink" href="/curseforge.html" hidden style="font-size: 0.78rem; padding: 0.35rem 0.75rem; text-decoration: none;">
+        CurseForge IDs
+      </a>
       <div class="status-pill" id="serverStatusPill">
         <span class="status-dot"></span>
         <span id="serverStatusText">Detecting Environment...</span>
@@ -1213,6 +1217,7 @@
           const data = await staticRes.json();
           state.isServerMode = false;
           state.isVercelMode = true;
+          document.getElementById("curseforgeLink").hidden = false;
           serverStatusPill.classList.remove("offline");
           serverStatusPill.style.background = "rgba(59, 130, 246, 0.1)";
           serverStatusPill.style.borderColor = "rgba(59, 130, 246, 0.3)";
