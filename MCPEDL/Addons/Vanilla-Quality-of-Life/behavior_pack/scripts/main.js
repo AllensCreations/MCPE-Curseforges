@@ -695,6 +695,7 @@ function switchPlayerSlot1Tool(player, category, blockTypeId) {
 
   try {
     container.swapItems(bestSlot, CONFIG.AUTO_SWITCH_SLOT, container);
+    lastSwap.set(player.id, { tick: system.currentTick, slot: bestSlot });
     return true;
   } catch {
     return false;
@@ -1325,6 +1326,7 @@ function executeDominoOreMiner(player, dimension, startLoc, startBlockId, onComp
 
 const activeMiningOperations = new Set();
 const chainPauseUntil = new Map();
+const lastSwap = new Map();
 
 // 1. Offhand Sneak + Use/Tap in Air Quick-Swap
 world.beforeEvents.itemUse.subscribe((event) => {
@@ -1413,6 +1415,22 @@ world.afterEvents.playerBreakBlock.subscribe((event) => {
 
   const tool = itemStackBeforeBreak || getMainhandTool(player);
   if (!tool) return;
+
+  const heldNow = getMainhandTool(player);
+  if (!heldNow || heldNow.typeId !== tool.typeId) {
+    const swap = lastSwap.get(player.id);
+    const swapContainer = getContainer(player);
+    if (swap && swapContainer && system.currentTick - swap.tick <= 4) {
+      try {
+        const moved = swapContainer.getItem(swap.slot);
+        if (moved && moved.typeId === tool.typeId) {
+          swapContainer.swapItems(swap.slot, CONFIG.AUTO_SWITCH_SLOT, swapContainer);
+        }
+      } catch (e) {}
+    }
+    const restored = getMainhandTool(player);
+    if (!restored || restored.typeId !== tool.typeId) return;
+  }
 
   const toolTypeId = tool.typeId;
 
@@ -1558,6 +1576,7 @@ system.runInterval(() => {
 const MINING_ACTIVE_TICKS = 40; // keeps checking for 2 seconds after a hit or a broken block
 const miningActivity = new Map();
 const lastAutoSwitchKey = new Map();
+const lastBreakTick = new Map();
 
 function markMining(player) {
   if (!player || player.typeId !== "minecraft:player") return;
@@ -1573,6 +1592,7 @@ world.afterEvents.entityHitBlock.subscribe((event) => {
 
 world.afterEvents.playerBreakBlock.subscribe((event) => {
   try {
+    lastBreakTick.set(event.player.id, system.currentTick);
     markMining(event.player);
   } catch (e) {}
 });
@@ -1590,6 +1610,8 @@ system.runInterval(() => {
 
       const lastCombat = recentCombat.get(player.id) ?? -Infinity;
       if (now - lastCombat < CONFIG.COMBAT_COOLDOWN_TICKS) continue;
+
+      if (now - (lastBreakTick.get(player.id) ?? -Infinity) < 5) continue;
 
       const target = getTargetBlock(player);
       if (!target) continue;
@@ -1622,6 +1644,8 @@ world.afterEvents.playerLeave.subscribe((event) => {
   webInteraction.delete(id);
   clearPendingSwap(id);
   activeMiningOperations.delete(id);
+  lastSwap.delete(id);
+  lastBreakTick.delete(id);
 });
 
 if (world.afterEvents.playerDimensionChange) {

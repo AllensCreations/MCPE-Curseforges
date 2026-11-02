@@ -2,6 +2,12 @@
 
 ---
 
+## [1.3.30] - 2026-11-03
+
+### Fixed
+- **Durability After Auto-Switch**: If auto-switch changes your tool at the same moment a tree or ore vein is chain mined, the tool you actually mined with is put back in your hand and takes the durability loss instead of the new tool.
+- **Switch Delay After Breaking**: Auto-switch now waits a few ticks after any block breaks before changing your tool, so the tool you broke the block with keeps its durability loss.
+
 ## [1.3.29] - 2026-11-02
 
 ### Fixed
