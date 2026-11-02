@@ -375,6 +375,10 @@ function handleIslandOneBlockBreak(dimension, loc, player) {
 
     const progress = currentMined / maxBlocks;
 
+    for (const rp of getNearbyIslandPlayers(dimension, loc, 48, player)) {
+      try { rp.onScreenDisplay.setActionBar(`${matchedTheme.color}${currentMined}/${maxBlocks} mined`); } catch (ae) {}
+    }
+
     // Visual feedback ONLY via particle progression (no action bar counter text)
     if (progress < 0.5) {
       // Early Stage (<50%): Happy villager green sparkles

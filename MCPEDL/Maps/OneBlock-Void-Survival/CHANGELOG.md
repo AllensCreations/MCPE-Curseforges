@@ -30,6 +30,7 @@
 
 ### Improved & Balanced
 - **Hardcore Removed**: The Hardcore world is gone. The map now comes as a Creative world and a Survival world. Permanent Spectator Mode after death and the locked Hard difficulty no longer exist.
+- **Island Progress Readout**: Mining an island core now shows a small action bar message such as 12/35 mined, so you can see how far along the island is.
 - **Island Cores No Longer Loop**: Once an island core has started or finished, the island is never rebuilt around it. Previously, mining out the floor where a finished core stood could bring the bedrock and a fresh core block back again and again.
 - **More Trees**: Grassy and forest islands now grow a second tree on the opposite side.
 - **Island Animals**: Farm, village and nature islands now come with a few extra animals such as cows, sheep, pigs, chickens and rabbits.
