@@ -16,13 +16,13 @@ This folder contains compiled release packages for **Tameable Companion Fox** by
 
 ## Installation Guide
 
-For general import instructions, refer to the centralized [Download and Installation Guide](../../README.md#compatibility-and-installation).
+For general import instructions, refer to the centralized [Download and Installation Guide](https://github.com/AllensCreations/MCPE-Curseforges/blob/main/README.md#compatibility-and-installation).
 
 ---
 
 ## Source Files
 To inspect uncompressed JSON files, geometry, render controllers, and textures:
-- [View Source Files](../../MCPEDL/addons/Tameable-Companion-Fox/)
+- [View Source Files](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/addons/Tameable-Companion-Fox)
 
 ---
 

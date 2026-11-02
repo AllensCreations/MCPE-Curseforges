@@ -4,15 +4,9 @@ on:
   workflow_dispatch:
     inputs:
       addon:
-        description: "Select add-on from MCPEDL/new_addons/"
+        description: "Folder slug from MCPEDL/new_addons/"
         required: true
-        type: choice
-        options:
-          - "Melody-Figurine"
-          - "One-Block-Economy"
-          - "Selective-Mob-Controller"
-          - "Swarm-Mob-Booster"
-          - "trial"
+        type: string
       status:
         description: "Lifecycle status label"
         required: true

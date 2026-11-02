@@ -46,7 +46,7 @@ reference/
 
 ## Complete Bedrock Tools Reference
 
-All canonical tool identifiers derived from [`metadata/vanilladata_modules/mojang-items.json`](bedrock-samples/metadata/vanilladata_modules/mojang-items.json):
+All canonical tool identifiers derived from [`metadata/vanilladata_modules/mojang-items.json`](https://github.com/AllensCreations/MCPE-Curseforges/blob/main/reference/bedrock-samples/metadata/vanilladata_modules/mojang-items.json):
 
 ### 1. Mining, Digging & Harvesting Tools
 
@@ -84,8 +84,8 @@ All canonical tool identifiers derived from [`metadata/vanilladata_modules/mojan
 ## How to Use in Development
 
 1. **Looking up an entity component:**
-   Inspect [`bedrock-samples/behavior_pack/entities/<entity>.json`](bedrock-samples/behavior_pack/entities/) to see exact vanilla components (e.g., `minecraft:rideable`, `minecraft:leashable`, `minecraft:health`).
+   Inspect [`bedrock-samples/behavior_pack/entities/<entity>.json`](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/reference/bedrock-samples/behavior_pack/entities) to see exact vanilla components (e.g., `minecraft:rideable`, `minecraft:leashable`, `minecraft:health`).
 2. **Looking up valid item/block IDs:**
-   Search [`bedrock-samples/metadata/vanilladata_modules/mojang-items.json`](bedrock-samples/metadata/vanilladata_modules/mojang-items.json) for exact namespaces.
+   Search [`bedrock-samples/metadata/vanilladata_modules/mojang-items.json`](https://github.com/AllensCreations/MCPE-Curseforges/blob/main/reference/bedrock-samples/metadata/vanilladata_modules/mojang-items.json) for exact namespaces.
 3. **Validating JSON with Schemas:**
-   Configure your editor (VS Code, Bridge) to use the schemas in [`bedrock-samples/metadata/json_schemas/`](bedrock-samples/metadata/json_schemas/).
+   Configure your editor (VS Code, Bridge) to use the schemas in [`bedrock-samples/metadata/json_schemas/`](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/reference/bedrock-samples/metadata/json_schemas).

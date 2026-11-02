@@ -114,7 +114,7 @@ def clean_category_readme(cat_key, slug):
             if not has_placeholder:
                 for idx, line in enumerate(new_lines):
                     if line.startswith("| :---"):
-                        new_lines.insert(idx + 1, "| *No add-ons currently in testing.* | | | | |\n")
+                        new_lines.insert(idx + 1, "| *No add-ons currently in testing.* | | |\n")
                         break
 
     if removed or cat_key == "new_addons":
@@ -221,10 +221,14 @@ def sync_delete_workflow_choices():
     new_content = content
     for input_name, block in replacements:
         pattern = re.compile(
-            rf"({input_name}:\s*\n\s*description:[^\n]+\n\s*required:[^\n]+\n\s*type:\s*choice\s*\n\s*options:\s*\n)(?:\s*-\s*[^\n]+\n)+",
+            rf"(^\s*{re.escape(input_name)}:\s*\n\s+description:[^\n]+\n\s+required:[^\n]+\n\s+type:\s*choice\s*\n\s+options:\s*\n)(?:\s+-\s*[^\n]+\n)+",
             re.MULTILINE
         )
-        new_content = pattern.sub(rf"\g<1>{block}\n", new_content)
+        new_content, count = pattern.subn(rf"\g<1>{block}\n", new_content)
+        if count != 1:
+            raise RuntimeError(
+                f"Expected one '{input_name}' choice list in delete-project.yml; found {count}."
+            )
 
     if new_content != content:
         with open(DELETE_WORKFLOW, "w", encoding="utf-8") as f:
@@ -239,14 +243,21 @@ def delete_project(target_type, slug, dry_run=False):
         print(f"Error: Invalid target type '{target_type}'. Valid: {', '.join(VALID_TYPES)}", file=sys.stderr)
         return False
 
-    project_dir = os.path.join(cat_dir, slug)
-    if not os.path.isdir(project_dir):
+    if slug not in list_projects_in_category(target_type):
         print(f"Error: Project '{slug}' not found in {os.path.relpath(cat_dir, REPO_ROOT)}.", file=sys.stderr)
         avail = list_projects_in_category(target_type)
         print(f"Available in '{target_type}': {', '.join(avail) if avail else '(none)'}", file=sys.stderr)
         return False
 
+    project_dir = os.path.realpath(os.path.join(cat_dir, slug))
+    if os.path.dirname(project_dir) != os.path.realpath(cat_dir):
+        print(f"Error: Project path escapes category directory: {slug!r}", file=sys.stderr)
+        return False
+
     build_dir = os.path.join(BUILDS_DIR, slug)
+    if os.path.islink(build_dir):
+        print(f"Error: Refusing to delete symlinked build directory: {build_dir}", file=sys.stderr)
+        return False
 
     print("=" * 70)
     print(f"Action:      DELETE PROJECT")
@@ -296,7 +307,7 @@ def main():
     parser.add_argument("--new-addon", default="none", help="Selected new_addon from dropdown")
     parser.add_argument("--map", default="none", help="Selected map from dropdown")
     parser.add_argument("--script", default="none", help="Selected script from dropdown")
-    parser.add_argument("--confirm", default="yes", choices=["yes", "no"], help="Safety confirmation")
+    parser.add_argument("--confirm", default="no", choices=["yes", "no"], help="Safety confirmation")
     parser.add_argument("--dry-run", action="store_true", help="Simulate deletion without changes")
     parser.add_argument("--sync-choices", action="store_true", help="Only synchronize workflow choice dropdowns")
 

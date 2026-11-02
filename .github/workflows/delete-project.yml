@@ -20,12 +20,19 @@ on:
         options:
           - "none"
           - "Ghast-Mob-Head-Transformers"
+          - "Grand-Banquets"
+          - "Grimoire-Relics-V2"
+          - "Harvest-Intelligence"
           - "Immortal-Pets"
+          - "Magnetic-Satchel"
           - "Mining-Helmet"
           - "Monster-Companions"
           - "Passive-Auto-Switch-Tools"
-          - "Vanilla-Quality-of-Life"
+          - "Smart-Tree-Capitator-and-Domino-Ore-Miner"
+          - "Sudden-Death-Roulette"
           - "Tameable-Companion-Fox"
+          - "Universal-Clutch"
+          - "Vanilla-Quality-of-Life"
 
       new_addon_target:
         description: "2. If type is 'new_addons', select project"
@@ -33,8 +40,12 @@ on:
         type: choice
         options:
           - "none"
-          - "Magnetic-Satchel"
-          - "Smart-Tree-Capitator-and-Domino-Ore-Miner"
+          - "Fletching-Table-Arsenal"
+          - "Melody-Figurine"
+          - "One-Block-Economy"
+          - "Selective-Mob-Controller"
+          - "Swarm-Mob-Booster"
+          - "trial"
 
       map_target:
         description: "2. If type is 'maps', select project"
@@ -42,7 +53,9 @@ on:
         type: choice
         options:
           - "none"
+          - "OneBlock-Dirtbound-Kingdom-Beta"
           - "OneBlock-Void-Survival"
+          - "Oneblock-SM"
 
       script_target:
         description: "2. If type is 'script', select project"
@@ -51,8 +64,10 @@ on:
         options:
           - "none"
           - "Alphabet-Scavenger-Hunt"
+          - "Mob-Chaos-Behavioral-Roulette"
           - "Shared-Hivemind-Inventory"
           - "Tethered-Breaker-And-Builder"
+          - "Trivia-Vault-The-Locked-World"
 
       confirm:
         description: "Confirm deletion (Safety check)"

@@ -1,9 +1,6 @@
-name: Release - Bump, Rebuild, Refresh & Sync READMEs
+name: Build Changed Packs & Sync Catalogs
 
-# One workflow for everything that used to live in two:
-#   * "Auto-Bump Pack Version, Rebuild & Register New Projects" (push + manual)
-#   * "Refresh Add-ons and Rebuild Packs" (daily schedule + manual)
-# Every run also re-syncs the READMEs (project, category, builds, root, OneBlock maps).
+# Rebuild packs and synchronize their catalogs without changing manifest versions.
 
 on:
   push:
@@ -96,17 +93,6 @@ on:
         required: false
         default: ""
         type: string
-      bump:
-        description: "Bump pack versions (turn off for a refresh-only rebuild)"
-        required: true
-        default: true
-        type: boolean
-      sync_engine:
-        description: "Raise min_engine_version when item or block files need a newer game version"
-        required: true
-        default: true
-        type: boolean
-
 permissions:
   contents: write
 
@@ -143,7 +129,7 @@ jobs:
           pip install pillow
           python3 scripts/make_pack_icon.py
 
-      - name: Bump versions, rebuild packages & register new projects
+      - name: Rebuild packages & register new projects
         id: process
         env:
           EVENT: ${{ github.event_name }}
@@ -153,16 +139,13 @@ jobs:
           SCRIPT: ${{ github.event.inputs.script }}
           MAP: ${{ github.event.inputs.map }}
           OTHER: ${{ github.event.inputs.other }}
-          BUMP: ${{ github.event.inputs.bump }}
           BEFORE: ${{ github.event.before }}
-          SYNC_ENGINE: ${{ github.event.inputs.sync_engine }}
         run: |
           set -euo pipefail
           ARGS=()
-          MODE="refresh"
           case "$EVENT" in
             schedule)
-              ARGS=(--all --no-bump)
+              ARGS=(--all)
               ;;
             workflow_dispatch)
               if [ "$SCOPE" = "all" ]; then
@@ -180,14 +163,8 @@ jobs:
                 fi
                 ARGS=(--project "${PICKS[0]}")
               fi
-              if [ "$BUMP" = "true" ]; then
-                MODE="release"
-              else
-                ARGS+=(--no-bump)
-              fi
               ;;
             *)
-              MODE="release"
               if [ -n "$BEFORE" ] && [ "$BEFORE" != "0000000000000000000000000000000000000000" ]; then
                 ARGS=(--base "$BEFORE")
               else
@@ -195,45 +172,8 @@ jobs:
               fi
               ;;
           esac
-          echo "mode=$MODE" >> "$GITHUB_OUTPUT"
-          SYNC_ARGS=()
-          for a in "${ARGS[@]}"; do
-            if [ "$a" != "--no-bump" ]; then SYNC_ARGS+=("$a"); fi
-          done
-          if [ "${SYNC_ENGINE:-true}" != "false" ]; then SYNC_ARGS+=(--raise-engine); fi
-          echo "Syncing versions and UUID references: ${SYNC_ARGS[*]}"
-          python3 scripts/sync_manifest_versions.py "${SYNC_ARGS[@]}" | tee "$RUNNER_TEMP/sync.log"
           echo "Running: python3 scripts/auto_bump_and_build.py ${ARGS[*]}"
           python3 scripts/auto_bump_and_build.py "${ARGS[@]}"
-          echo "Verifying manifest versions of the processed projects"
-          VERIFY_ARGS=()
-          for a in "${SYNC_ARGS[@]}"; do
-            if [ "$a" != "--raise-engine" ]; then VERIFY_ARGS+=("$a"); fi
-          done
-          VERIFY_STATUS=0
-          python3 scripts/sync_manifest_versions.py "${VERIFY_ARGS[@]}" --verify-only | tee "$RUNNER_TEMP/verify.log" || VERIFY_STATUS=$?
-          {
-            echo "### Version and UUID sync"
-            echo '```'
-            cat "$RUNNER_TEMP/sync.log"
-            echo '```'
-            echo "### Manifest version check"
-            echo '```'
-            cat "$RUNNER_TEMP/verify.log"
-            echo '```'
-          } >> "$GITHUB_STEP_SUMMARY"
-          if [ "$VERIFY_STATUS" -ne 0 ]; then
-            echo "::error::Manifest version check failed. Nothing was committed."
-            exit "$VERIFY_STATUS"
-          fi
-          echo "Syncing DESCRIPTION headings and CHANGELOG entries"
-          python3 scripts/sync_project_docs.py "${VERIFY_ARGS[@]}" | tee "$RUNNER_TEMP/docs.log"
-          {
-            echo "### DESCRIPTION and CHANGELOG sync"
-            echo '```'
-            cat "$RUNNER_TEMP/docs.log"
-            echo '```'
-          } >> "$GITHUB_STEP_SUMMARY"
 
       - name: Synchronize OneBlock map READMEs
         run: python3 scripts/sync_oneblock_map_readmes.py
@@ -248,20 +188,6 @@ jobs:
             echo "### DESCRIPTION standardization"
             echo '```'
             cat "$RUNNER_TEMP/description-standardize.log"
-            echo '```'
-          } >> "$GITHUB_STEP_SUMMARY"
-          exit "$STATUS"
-
-      - name: Sync every README link and version
-        run: |
-          set -uo pipefail
-          set +e
-          python3 scripts/sync_readme_links.py 2>&1 | tee "$RUNNER_TEMP/readme-sync.log"
-          STATUS=${PIPESTATUS[0]}
-          {
-            echo "### README link and version sync"
-            echo '```'
-            cat "$RUNNER_TEMP/readme-sync.log"
             echo '```'
           } >> "$GITHUB_STEP_SUMMARY"
           exit "$STATUS"
@@ -290,8 +216,6 @@ jobs:
           } >> "$GITHUB_STEP_SUMMARY"
 
       - name: Commit and push changes
-        env:
-          MODE: ${{ steps.process.outputs.mode }}
         run: |
           set -euo pipefail
           git config user.name  "github-actions[bot]"
@@ -306,11 +230,7 @@ jobs:
           if git diff --cached --quiet; then
             echo "Nothing to commit: packages, catalogs and READMEs are up to date."
           else
-            if [ "$MODE" = "release" ]; then
-              git commit -m "chore(release): auto-bump versions, rebuild packages, register projects & sync READMEs [skip ci]"
-            else
-              git commit -m "chore(build): refresh project packages, catalogs & READMEs [skip ci]"
-            fi
+            git commit -m "chore(build): rebuild packages and sync catalogs [skip ci]"
             git pull --rebase origin main
             git push origin main
           fi

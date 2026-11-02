@@ -68,11 +68,6 @@ def find_addon(query, directory=NEW_ADDONS_DIR):
         if norm(a) == q_norm:
             return a
 
-    # Partial match
-    for a in available:
-        if q_norm in norm(a):
-            return a
-
     return None
 
 
@@ -199,15 +194,15 @@ def rebuild_new_addons_readme():
 
         clean_name = meta['name'].replace(" BP by AllensCreations", "").replace(" RP by AllensCreations", "").replace(" by AllensCreations", "").replace(" BP", "").replace(" RP", "").strip()
 
+        source_url = f"https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/new_addons/{urllib.parse.quote(slug)}/"
         row = (
             f"| {clean_table_val(clean_name)} | "
-            f"{clean_table_val(meta['version'])} | "
-            f"[Source]({slug}/) | "
+            f"[Source]({source_url}) | "
             f"[{ext}]({download_url}) |"
         )
         rows.append(row)
 
-    table_content = "\n".join(rows) if rows else "| *No add-ons currently in testing.* | | | |"
+    table_content = "\n".join(rows) if rows else "| *No add-ons currently in testing.* | | |"
 
     content = f"""# New Add-ons
 
@@ -215,8 +210,8 @@ Source files for newly generated Minecraft Bedrock add-ons by AllensCreations.
 
 ## Available Add-ons
 
-| Add-on | Version | Source | Download |
-| :--- | :--- | :--- | :--- |
+| Add-on | Source | Download |
+| :--- | :--- | :--- |
 {table_content}
 
 The catalog is automatically updated by the add-on generation workflow.
@@ -229,8 +224,8 @@ Videos and streams are welcome with credit. Redistribution of original or modifi
 
 ## Related Directories
 
-- [Existing Add-ons](../addons/README.md)
-- [Scripts and Minigames](../script/README.md)
+- [Existing Add-ons](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/addons/README.md)
+- [Scripts and Minigames](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/script/README.md)
 """
     with open(readme_path, "w", encoding="utf-8") as f:
         f.write(content)
@@ -249,7 +244,6 @@ def update_addons_catalog(meta):
     slug = meta["slug"]
     display = meta["name"]
     desc = meta["description"]
-    ver = meta["version"]
     primary_ext = meta["primary_ext"]
     build_file = meta["build_file"]
 
@@ -257,13 +251,14 @@ def update_addons_catalog(meta):
     clean_display = display.replace(" BP by AllensCreations", "").replace(" RP by AllensCreations", "").replace(" by AllensCreations", "").replace(" BP", "").replace(" RP", "").strip()
     quoted_file = urllib.parse.quote(build_file)
     gh_dl = f"https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/{slug}/{quoted_file}"
+    source_url = f"https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/addons/{urllib.parse.quote(slug)}/"
     new_row = (
-        f"| {clean_table_val(clean_display)} | {clean_table_val(ver)} "
-        f"| [Source]({slug}/) "
+        f"| {clean_table_val(clean_display)} "
+        f"| [Source]({source_url}) "
         f"| [{ext}]({gh_dl}) |\n"
     )
 
-    slug_pattern = f"({slug}/)"
+    slug_pattern = f"/MCPEDL/addons/{urllib.parse.quote(slug)}/"
     existing_idx = next((i for i, l in enumerate(lines) if slug_pattern in l), None)
 
     if existing_idx is not None:
@@ -347,36 +342,6 @@ def update_addon_inner_readme(addon_target_dir):
         print(f"  [Addon] Cleaned internal README.md in {os.path.basename(addon_target_dir)}")
 
 
-def sync_workflow_choices():
-    """Keeps the choice options in .github/workflows/manage-addon-status.yml synchronized with new_addons."""
-    if os.environ.get("GITHUB_ACTIONS"):
-        # Never mutate workflow files within a GitHub Actions runner to prevent permission errors
-        return
-
-    workflow_path = os.path.join(REPO_ROOT, ".github", "workflows", "manage-addon-status.yml")
-    if not os.path.isfile(workflow_path):
-        return
-
-    addons = list_new_addons()
-    options_lines = [f"          - \"{a}\"" for a in addons] if addons else ["          - \"none\""]
-    options_block = "\n".join(options_lines)
-
-    with open(workflow_path, "r", encoding="utf-8") as f:
-        content = f.read()
-
-    pattern = re.compile(
-        r"(addon:\s*\n\s*description:[^\n]+\n\s*required:[^\n]+\n\s*type:\s*choice\s*\n\s*options:\s*\n)(?:\s*-\s*[^\n]+\n)+",
-        re.MULTILINE
-    )
-
-    if pattern.search(content):
-        new_content = pattern.sub(r"\g<1>" + options_block + "\n", content)
-        if new_content != content:
-            with open(workflow_path, "w", encoding="utf-8") as f:
-                f.write(new_content)
-            print("  [Workflow] Synchronized add-on choices in manage-addon-status.yml")
-
-
 def handle_testing(slug):
     """Handles 'testing' status label."""
     addon_dir = os.path.join(NEW_ADDONS_DIR, slug)
@@ -424,22 +389,20 @@ def handle_finished(slug, dry_run=False):
     update_root_readme(slug)
     update_build_readme(slug)
     update_addon_inner_readme(dst_dir)
-    sync_workflow_choices()
-
     # Sync package and check README status
     auto_bump_script = os.path.join(REPO_ROOT, "scripts", "auto_bump_and_build.py")
     if os.path.isfile(auto_bump_script):
         print("  [Build] Synchronizing build package & catalogs...")
         subprocess.run(
-            [sys.executable, auto_bump_script, "--project", slug, "--no-bump"],
+            [sys.executable, auto_bump_script, "--project", slug],
             cwd=REPO_ROOT,
-            check=False,
+            check=True,
         )
 
     check_status_script = os.path.join(REPO_ROOT, "scripts", "check_readme_status.py")
     if os.path.isfile(check_status_script):
         print("  [Audit] Running README status audit...")
-        subprocess.run([sys.executable, check_status_script], cwd=REPO_ROOT, check=False)
+        subprocess.run([sys.executable, check_status_script], cwd=REPO_ROOT, check=True)
 
     print("=" * 70)
     print(f"Success: {slug} has been promoted to MCPEDL/addons/ (finished).")
@@ -508,7 +471,6 @@ def main():
                 update_addons_catalog(meta)
                 update_root_readme(already_promoted)
                 update_build_readme(already_promoted)
-                sync_workflow_choices()
                 print("  [Sync] Catalogs and directory READMEs verified and synchronized.")
             return
 

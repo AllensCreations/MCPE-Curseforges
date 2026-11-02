@@ -1,25 +1,20 @@
 #!/usr/bin/env python3
 """
-Auto Version Bumper, Package Builder, and Catalog Registrar for MCPE-Curseforges.
+Pack Builder and Catalog Registrar for MCPE-Curseforges.
 
 Features:
 1. Detects release-worthy source/config/asset changes inside MCPEDL project directories.
 2. Registers newly added projects when their source files are changed; does not sweep
    unrelated unregistered projects on ordinary pushes.
-3. Increments semantic patch version (+0.0.1) in:
-   - header.version: [x, y, z + 1]
-   - modules[*].version: [x, y, z + 1]
-   - cross-pack dependencies[*].version (matching sibling BP/RP UUIDs)
-   - world_behavior_packs.json (if map)
-4. Synchronizes version numbers in README.md files across:
+3. Synchronizes current manifest versions in README.md files across:
    - Project Directory: <project_path>/README.md (Release badge & title)
    - Category Directory: MCPEDL/<category>/README.md (Catalog table row & download link)
    - Project Build Directory: builds/<project_name>/README.md (Direct downloads table)
    - Master Builds Directory: builds/README.md (Catalog table row & download link)
    - Root Catalog: README.md (Catalog tables, overview header & download links)
-5. Standardizes output package filenames:
+4. Standardizes output package filenames:
    "<Filename> by AllensCreations (V#.#.#).<ext>"
-6. Injects new projects into catalog tables and updates Collection Size badge.
+5. Injects new projects into catalog tables and updates Collection Size badge.
 """
 
 import os
@@ -116,9 +111,8 @@ def is_version_worthy_source_file(project_path, changed_file):
     """
     Return True only for project source/config/assets that should trigger a release.
 
-    Documentation, pack manifests, and generated archives are deliberately excluded:
-    manifest versions are managed by this script, and README/changelog edits must
-    never cause a release version to increment.
+    Documentation and generated archives are excluded. Manifests are build inputs,
+    but are never modified by this builder.
     """
     normalized = os.path.normpath(changed_file)
     absolute = os.path.abspath(os.path.join(REPO_ROOT, normalized))
@@ -133,11 +127,6 @@ def is_version_worthy_source_file(project_path, changed_file):
         return False
 
     basename = os.path.basename(relative).lower()
-    # Manifests are handled separately by the pack builder. Keep pack-level
-    # LOCK markers as distributable files so they are copied into exported packs.
-    if basename == "manifest.json":
-        return False
-
     # Markdown and common project documentation are not runtime source.
     if basename.endswith(".md") or basename in {
         "license", "license.txt", "license.md", "notice", "notice.txt",
@@ -197,12 +186,6 @@ def detect_unregistered_projects(project_dirs):
 # ─────────────────────────────────────────────────────────────────────────────
 # Version helpers
 # ─────────────────────────────────────────────────────────────────────────────
-
-def bump_version_list(ver_list):
-    if not isinstance(ver_list, list) or len(ver_list) < 3:
-        return [1, 0, 1]
-    return [ver_list[0], ver_list[1], ver_list[2] + 1]
-
 
 def format_version(ver_list):
     return f"{ver_list[0]}.{ver_list[1]}.{ver_list[2]}"
@@ -297,89 +280,6 @@ def _get_pack_type(project_path, category, version_str="1.0.0"):
         return "Complete Pack (`.mcaddon`)", "mcaddon", f"{title} by AllensCreations (V{version_str}).mcaddon"
     else:
         return "Script Behavior Pack (`.mcpack`)", "mcpack", f"{title} by AllensCreations (V{version_str}).mcpack"
-
-
-# ─────────────────────────────────────────────────────────────────────────────
-# Manifest bumping
-# ─────────────────────────────────────────────────────────────────────────────
-
-def update_manifests_for_project(project_path):
-    """
-    Bumps patch version (+0.0.1) in all manifests for a project.
-    Returns (old_version_str, new_version_str, updated_manifest_paths).
-    """
-    manifest_paths = glob.glob(
-        os.path.join(project_path, "**/manifest.json"), recursive=True
-    )
-    if not manifest_paths:
-        return None, None, []
-
-    uuid_to_version = {}
-    current_ver = None
-    manifest_data = {}
-
-    for mp in manifest_paths:
-        with open(mp, encoding="utf-8") as f:
-            data = json.load(f)
-        manifest_data[mp] = data
-        hv = data.get("header", {}).get("version") if isinstance(data.get("header"), dict) else None
-        if isinstance(hv, list) and len(hv) == 3 and all(type(x) is int for x in hv):
-            if current_ver is None or hv > current_ver:
-                current_ver = list(hv)
-
-    if current_ver is None:
-        current_ver = [1, 0, 0]
-
-    new_ver = bump_version_list(current_ver)
-    old_ver_str = format_version(current_ver)
-    new_ver_str = format_version(new_ver)
-
-    for mp, data in manifest_data.items():
-        if "header" in data and "uuid" in data["header"]:
-            uuid_to_version[data["header"]["uuid"]] = new_ver
-
-    base_title = get_project_title(project_path)
-    for mp, data in manifest_data.items():
-        if "header" in data:
-            data["header"]["version"] = new_ver
-            # Keep every pack's in-game display title aligned with the bumped release.
-            data["header"]["name"] = f"{base_title} (v{new_ver_str})"
-            description = str(data["header"].get("description", "")).strip()
-            description = re.sub(r"\s*(?:created\s+)?by\s+AllensCreations\.?\s*$", "", description, flags=re.IGNORECASE).rstrip(" .")
-            data["header"]["description"] = f"{description}. by AllensCreations" if description else "by AllensCreations"
-        if "modules" in data and isinstance(data["modules"], list):
-            for mod in data["modules"]:
-                mod["version"] = new_ver
-        if "dependencies" in data and isinstance(data["dependencies"], list):
-            for dep in data["dependencies"]:
-                if "uuid" in dep and dep["uuid"] in uuid_to_version:
-                    dep["version"] = uuid_to_version[dep["uuid"]]
-        if "metadata" not in data or not isinstance(data.get("metadata"), dict):
-            data["metadata"] = {}
-        data["metadata"]["authors"] = ["AllensCreations"]
-        data["metadata"]["product_type"] = "addon"
-        with open(mp, "w", encoding="utf-8") as f:
-            json.dump(data, f, indent=2)
-            f.write("\n")
-
-    # Update world_behavior_packs.json if present
-    for wbp in glob.glob(
-        os.path.join(project_path, "**/world_behavior_packs.json"), recursive=True
-    ):
-        try:
-            with open(wbp, encoding="utf-8") as f:
-                packs = json.load(f)
-            if isinstance(packs, list):
-                for p in packs:
-                    if "pack_id" in p and p["pack_id"] in uuid_to_version:
-                        p["version"] = uuid_to_version[p["pack_id"]]
-                with open(wbp, "w", encoding="utf-8") as f:
-                    json.dump(packs, f, indent=2)
-                    f.write("\n")
-        except Exception as e:
-            print(f"  Warning: Failed to update {wbp}: {e}")
-
-    return old_ver_str, new_ver_str, manifest_paths
 
 
 # ─────────────────────────────────────────────────────────────────────────────
@@ -583,7 +483,7 @@ def save_version_snapshot(project_path, project_name, version_str):
     """
     Saves the freshly built packages plus a source.zip into
     builds/<project_name>/versions/V<version_str>/.
-    Skipped when that version folder already exists, so daily no-bump refreshes
+    Skipped when that version folder already exists, so repeated builds
     never overwrite an earlier snapshot. Keeps the newest KEEP_VERSIONS (default 5).
     Never raises: a snapshot problem must not break a release.
     """
@@ -637,10 +537,14 @@ def generate_build_readme(project_path, category, version_str, built_files):
         )
     table_content = "\n".join(rows)
 
-    try:
-        source_rel = os.path.relpath(project_path, build_dir)
-    except ValueError:
-        source_rel = f"../../{category}/{project_name}"
+    source_path = urllib.parse.quote(
+        os.path.relpath(project_path, REPO_ROOT).replace(os.sep, "/"),
+        safe="/",
+    )
+    source_url = (
+        "https://github.com/AllensCreations/MCPE-Curseforges/"
+        f"tree/main/{source_path}/"
+    )
 
     content = f"""# {title} - Downloads and Releases
 
@@ -658,13 +562,13 @@ This folder contains compiled release packages for **{title}** by AllensCreation
 
 ## Installation Guide
 
-For general import instructions, refer to the centralized [Download and Installation Guide](../../README.md#compatibility-and-installation).
+For general import instructions, refer to the centralized [Download and Installation Guide](https://github.com/AllensCreations/MCPE-Curseforges/blob/main/README.md#compatibility-and-installation).
 
 ---
 
 ## Source Files
 To inspect uncompressed JSON files, geometry, render controllers, and textures:
-- [View Source Files]({source_rel}/)
+- [View Source Files]({source_url})
 
 ---
 
@@ -757,7 +661,7 @@ def update_project_readme(project_path, category, new_ver_str, primary_file=None
 
 
 def update_category_readme(category, project_name, new_ver_str, primary_file):
-    """Updates table row in MCPEDL/<category>/README.md with new version and download link."""
+    """Updates the package download link in MCPEDL/<category>/README.md."""
     cat_readme = os.path.join(REPO_ROOT, category, "README.md")
     if not os.path.isfile(cat_readme):
         return
@@ -771,7 +675,6 @@ def update_category_readme(category, project_name, new_ver_str, primary_file):
     updated_lines = []
     for line in lines:
         if line.strip().startswith("|") and (project_name in line or slug_key in line.lower()):
-            line = re.sub(r"\b\d+\.\d+\.\d+\b", new_ver_str, line)
             ext = primary_file.split(".")[-1].upper()
             # Handle [MCADDON](url) format
             line = re.sub(
@@ -787,7 +690,7 @@ def update_category_readme(category, project_name, new_ver_str, primary_file):
 
 
 def update_builds_master_readme(project_name, new_ver_str, primary_file):
-    """Updates table row in builds/README.md with new version and download link."""
+    """Updates the package download link in builds/README.md."""
     builds_readme = os.path.join(REPO_ROOT, "builds", "README.md")
     if not os.path.isfile(builds_readme):
         return
@@ -801,7 +704,6 @@ def update_builds_master_readme(project_name, new_ver_str, primary_file):
     updated_lines = []
     for line in lines:
         if line.strip().startswith("|") and (project_name in line or slug_key in line.lower()):
-            line = re.sub(r"`v\d+\.\d+\.\d+`", f"`v{new_ver_str}`", line)
             ext = primary_file.split(".")[-1]
             line = re.sub(
                 r"\[Download \([^)]+\)\]\([^)]+\)",
@@ -832,15 +734,12 @@ def update_root_readme(project_name, new_ver_str, primary_file):
 
     for line in lines:
         if line.strip().startswith("|") and (project_name in line or slug_key in line.lower()):
-            line = re.sub(r"`v\d+\.\d+\.\d+`", f"`v{new_ver_str}`", line)
             ext = primary_file.split(".")[-1]
             line = re.sub(
                 r"\[Download \([^)]+\)\]\([^)]+\)",
                 f"[Download (.{ext})]({dl_url})",
                 line
             )
-        elif line.startswith("### ") and (project_name in line or slug_key in line.lower()):
-            line = re.sub(r"\(v\d+\.\d+\.\d+\)", f"(v{new_ver_str})", line)
         new_lines.append(line)
 
     with open(root_readme, "w", encoding="utf-8") as f:
@@ -921,29 +820,6 @@ def _insert_table_row(readme_path, section_marker, new_row, skip_if_contains=Non
     return True
 
 
-def _insert_before_section(readme_path, before_marker, new_block, skip_if_contains=None):
-    if not os.path.isfile(readme_path):
-        return False
-
-    with open(readme_path, encoding="utf-8") as f:
-        content = f.read()
-
-    if skip_if_contains and skip_if_contains in content:
-        return False
-
-    idx = content.find(before_marker)
-    if idx == -1:
-        content = content.rstrip() + "\n\n" + new_block.strip() + "\n"
-    else:
-        content = content[:idx] + new_block + content[idx:]
-
-    with open(readme_path, "w", encoding="utf-8") as f:
-        f.write(content)
-
-    print(f"  Injected detail section in {os.path.relpath(readme_path, REPO_ROOT)}")
-    return True
-
-
 def _update_collection_badge(root_readme):
     """Rewrites the Collection Size badge to reflect current project counts."""
     maps_dir   = os.path.join(REPO_ROOT, "MCPEDL", "maps")
@@ -990,7 +866,6 @@ def register_new_project(project_path, category, version_str=None, primary_file=
     project_name = os.path.basename(project_path)
     title        = get_project_title(project_path)
     info         = get_manifest_info(project_path)
-    desc         = info["description"] or f"A Minecraft Bedrock addon by AllensCreations."
     ver          = version_str or info["version_str"]
     type_label, primary_ext, default_build_file = _get_pack_type(project_path, category, ver)
     build_file   = primary_file or default_build_file
@@ -1004,9 +879,14 @@ def register_new_project(project_path, category, version_str=None, primary_file=
         )
     except ValueError:
         source_rel = f"MCPEDL/{category.split('/')[-1]}/{project_name}"
+    source_path = urllib.parse.quote(source_rel, safe="/")
+    source_url = (
+        "https://github.com/AllensCreations/MCPE-Curseforges/"
+        f"tree/main/{source_path}/"
+    )
 
-    short_desc = desc[:80] + ("..." if len(desc) > 80 else "")
-    tiny_desc  = desc[:60] + ("..." if len(desc) > 60 else "")
+    description = info["description"]
+    tiny_desc = description[:60] + ("..." if len(description) > 60 else "")
 
     root_readme    = os.path.join(REPO_ROOT, "README.md")
     builds_readme  = os.path.join(REPO_ROOT, "builds", "README.md")
@@ -1016,8 +896,8 @@ def register_new_project(project_path, category, version_str=None, primary_file=
     ext_upper = primary_ext.upper()
     cat_section = "## Available"
     cat_row = (
-        f"| {title} | {ver} "
-        f"| [Source]({project_name}/) "
+        f"| {title} "
+        f"| [Source]({source_url}) "
         f"| [{ext_upper}]({gh_dl}) |"
     )
 
@@ -1027,64 +907,28 @@ def register_new_project(project_path, category, version_str=None, primary_file=
     if "addons" in category:
         root_section = "## Active Add-ons Catalog"
         root_row = (
-            f"| **{title}** | `v{ver}` | {type_label} "
+            f"| **{title}** | {type_label} "
             f"| [Download (.{primary_ext})]({gh_dl}) "
-            f"| [`{source_rel}/`]({source_rel}/) "
+            f"| [`{source_rel}/`]({source_url}) "
             f"| {tiny_desc} |"
         )
-        with open(root_readme, encoding="utf-8") as f:
-            existing = f.read()
-        n = existing.count("### Add-on ") + 1
-        detail_section = (
-            f"\n### Add-on {n}: {title} (v{ver})\n\n"
-            f"{desc}\n\n"
-            f"- *Add features and details here.*\n\n"
-            f"[Read Full {title} Documentation]({source_rel}/README.md)\n\n---\n\n"
-        )
-
     elif "maps" in category:
         root_section = "## Maps Catalog"
         root_row = (
-            f"| **{title}** | `v{ver}` | Custom Map "
+            f"| **{title}** | Custom Map "
             f"| [Download (.mcworld)]({gh_dl}) "
-            f"| [`{source_rel}/`]({source_rel}/) "
+            f"| [`{source_rel}/`]({source_url}) "
             f"| {tiny_desc} |"
         )
-        with open(root_readme, encoding="utf-8") as f:
-            existing = f.read()
-        n = existing.count("### Map: ") + existing.count("### Map ") + 1
-        detail_section = (
-            f"\n### Map {n}: {title} (v{ver})\n\n"
-            f"{desc}\n\n"
-            f"- *Add features and details here.*\n\n"
-            f"[Read Full {title} Documentation]({source_rel}/README.md)\n\n---\n\n"
-        )
-
     else:  # script
         root_section = "## Scripts and Challenges Catalog"
         root_row = (
-            f"| **{title}** | `v{ver}` | Script "
+            f"| **{title}** | Script "
             f"| [Download (.{primary_ext})]({gh_dl}) "
-            f"| [`{source_rel}/`]({source_rel}/) "
+            f"| [`{source_rel}/`]({source_url}) "
             f"| {tiny_desc} |"
         )
-        with open(root_readme, encoding="utf-8") as f:
-            existing = f.read()
-        n = existing.count("### Script ") + 1
-        detail_section = (
-            f"\n### Script {n}: {title} (v{ver})\n\n"
-            f"{desc}\n\n"
-            f"- *Add features and details here.*\n\n"
-            f"[Read Full {title} Documentation]({source_rel}/README.md)\n\n---\n\n"
-        )
-
     _insert_table_row(root_readme, root_section, root_row, skip_if_contains=project_name)
-    _insert_before_section(
-        root_readme,
-        "## Compatibility and Installation",
-        detail_section,
-        skip_if_contains=project_name,
-    )
 
     # 3. builds/README table
     if "addons" in category:
@@ -1095,9 +939,9 @@ def register_new_project(project_path, category, version_str=None, primary_file=
         builds_section = "### Script Projects"
 
     builds_row = (
-        f"| **{title}** | `v{ver}` | {type_label} "
-        f"| [Download (.{primary_ext})]({project_name}/{quoted_file}) "
-        f"| [`{project_name}/`]({project_name}/) |"
+        f"| **{title}** | {type_label} "
+        f"| [Download (.{primary_ext})](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/{urllib.parse.quote(project_name)}/{quoted_file}) "
+        f"| [`{project_name}/`](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/builds/{urllib.parse.quote(project_name)}/) |"
     )
     _insert_table_row(builds_readme, builds_section, builds_row, skip_if_contains=project_name)
 
@@ -1113,7 +957,7 @@ def register_new_project(project_path, category, version_str=None, primary_file=
 
 def main():
     parser = argparse.ArgumentParser(
-        description="Auto bump pack versions, rebuild packages, and register new projects."
+        description="Build packs and synchronize project catalogs."
     )
     parser.add_argument(
         "--base",
@@ -1128,53 +972,50 @@ def main():
         action="store_true",
         help="Process all packs/maps/scripts in MCPEDL/.",
     )
-    parser.add_argument(
-        "--no-bump",
-        action="store_true",
-        help="Skip version increment; only build packages and register new projects.",
-    )
     args = parser.parse_args()
 
     project_dirs = find_target_project_dirs()
 
     # Determine which projects to process
     if args.all:
-        print("[Auto-Version] Mode: ALL (explicit override) — processing every project in repository...")
+        print("[Build] Mode: ALL (explicit override) — processing every project in repository...")
         changed_projects = sorted(list(project_dirs.keys()))
     elif args.project:
-        print(f"[Auto-Version] Mode: EXPLICIT PROJECT — {args.project}")
+        print(f"[Build] Mode: EXPLICIT PROJECT — {args.project}")
         matched = [
             p for p in project_dirs
-            if args.project in (p, os.path.basename(p)) or args.project in p
+            if args.project in (p, os.path.relpath(p, REPO_ROOT), os.path.basename(p))
         ]
-        exact = [p for p in matched if args.project in (p, os.path.basename(p))]
-        if exact:
-            matched = exact
-        if not matched:
-            print(f"[Auto-Version] Error: No project matching '{args.project}' found.")
+        if len(matched) != 1:
+            if matched:
+                print(f"[Build] Error: '{args.project}' matches multiple projects:")
+                for path in matched:
+                    print(f"  - {os.path.relpath(path, REPO_ROOT)}")
+                sys.exit(1)
+            print(f"[Build] Error: No project matching '{args.project}' found.")
             sys.exit(1)
         changed_projects = matched
     else:
-        print(f"[Auto-Version] Checking changed files (base: {args.base or 'auto'})...")
+        print(f"[Build] Checking changed files (base: {args.base or 'auto'})...")
         changed_files = get_git_diff_files(args.base)
-        print(f"[Auto-Version] Diff contains {len(changed_files)} changed file(s).")
+        print(f"[Build] Diff contains {len(changed_files)} changed file(s).")
         changed_projects = detect_changed_projects(changed_files, project_dirs)
         source_files = [
             f for f in changed_files
             if any(is_version_worthy_source_file(p, f) for p in project_dirs)
         ]
-        print(f"[Auto-Version] Release-worthy project source changes: {len(source_files)} file(s).")
+        print(f"[Build] Pack source changes: {len(source_files)} file(s).")
 
     # Do not sweep every unregistered project on ordinary pushes. That behavior
-    # caused unrelated/legacy projects to be bumped unexpectedly. New projects are
+    # caused unrelated/legacy projects to be processed unexpectedly. New projects are
     # discovered naturally when their source files change; --project and --all remain
     # explicit operator overrides for intentional processing.
     
     if not changed_projects:
-        print("[Auto-Version] No pack/map/script changes or new projects detected.")
+        print("[Build] No pack/map/script changes or new projects detected.")
         sys.exit(0)
 
-    print(f"[Auto-Version] Processing {len(changed_projects)} project(s):")
+    print(f"[Build] Processing {len(changed_projects)} project(s):")
     for cp in changed_projects:
         print(f"  - {os.path.relpath(cp, REPO_ROOT)}")
 
@@ -1196,7 +1037,7 @@ def main():
             except OSError:
                 lock_content = ""
             if not lock_content.startswith("AllensCreations Add-on Lock v1"):
-                print(f"[Auto-Version] Missing/invalid LOCK marker, creating: {os.path.relpath(lock_path, REPO_ROOT)}")
+                print(f"[Build] Missing/invalid LOCK marker, creating: {os.path.relpath(lock_path, REPO_ROOT)}")
                 with open(lock_path, "w", encoding="utf-8", newline="\n") as lock_file:
                     lock_file.write(
                         "AllensCreations Add-on Lock v1\n\n"
@@ -1209,18 +1050,9 @@ def main():
 
         print(f"\nProcessing {os.path.relpath(cp, REPO_ROOT)} {'(NEW)' if is_new else ''}...")
 
-        # ── Version bump (skipped for --no-bump) ──────────────────────────
-        if args.no_bump:
-            info   = get_manifest_info(cp)
-            old_v  = info["version_str"]
-            new_v  = old_v
-            print(f"  --no-bump: keeping version at v{old_v}")
-        else:
-            old_v, new_v, manifests = update_manifests_for_project(cp)
-            if not old_v:
-                print(f"  No manifest found for {proj_name}, skipping.")
-                continue
-            print(f"  Version: v{old_v} → v{new_v}")
+        old_v = get_manifest_info(cp)["version_str"]
+        new_v = old_v
+        print(f"  Keeping source version at v{old_v}")
 
         # ── Build packages with standardized filename format ───────────────
         # Dirtbound is included in automatic source/version processing, but its
@@ -1243,24 +1075,14 @@ def main():
             register_new_project(cp, cat, new_v, primary_file)
 
         updated_summary.append(
-            f"{proj_name}: v{old_v} → v{new_v}"
+            f"{proj_name}: rebuilt at v{old_v}"
             + (" [NEW — registered in catalogs]" if is_new else "")
         )
 
     # Always ensure collection badge is synced with current project counts
     _update_collection_badge(os.path.join(REPO_ROOT, "README.md"))
 
-    # Keep dropdown choices in manage-addon-status.yml synced with new_addons
-    try:
-        try:
-            from manage_addon_status import sync_workflow_choices
-        except ImportError:
-            from scripts.manage_addon_status import sync_workflow_choices
-        sync_workflow_choices()
-    except Exception as exc:
-        print(f"[Auto-Version] WARNING: dropdown sync skipped: {exc}", file=sys.stderr)
-
-    print("\n[Auto-Version] Completed successfully!")
+    print("\n[Build] Completed successfully!")
     for s in updated_summary:
         print(f"  - {s}")
 

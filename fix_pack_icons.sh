@@ -295,7 +295,7 @@ PY
 if [ "$BUILD" = 1 ]; then
   echo "=== Converting icons and rebuilding packs ==="
   python3 scripts/make_pack_icon.py
-  python3 scripts/auto_bump_and_build.py --all --no-bump
+  python3 scripts/auto_bump_and_build.py --all
 fi
 
 echo "=== Verifying pack_icon.png inside built packs ==="

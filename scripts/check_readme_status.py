@@ -15,7 +15,6 @@ import sys
 import re
 import json
 import argparse
-import subprocess
 import urllib.parse
 
 REPO_ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
@@ -484,11 +483,7 @@ def main():
         "--project",
         help="Audit a specific project directory name (e.g. Immortal-Pets).",
     )
-    parser.add_argument(
-        "--fix",
-        action="store_true",
-        help="Automatically generate standard documentation for any incomplete or scaffold stubs.",
-    )
+    parser.add_argument("--fix", action="store_true", help=argparse.SUPPRESS)
     parser.add_argument(
         "--remake",
         choices=("standardize", "rebuild"),
@@ -499,6 +494,9 @@ def main():
     parser.add_argument("--check", action="store_true", help="With --remake: report changes without writing.")
     parser.add_argument("--confirm-rebuild", action="store_true", help="With --remake rebuild --all: confirm replacing every add-on DESCRIPTION.md and README.md.")
     args = parser.parse_args()
+
+    if args.fix:
+        parser.error("--fix was removed; use --remake standardize to preserve existing copy.")
 
     if args.remake:
         sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
@@ -530,31 +528,6 @@ def main():
     else:
         print(f"[LINK INTEGRITY] All relative links valid across {total_rms} README/DESCRIPTION files.")
     print("=" * 70)
-
-    if args.fix and pending:
-        print("\n[Auto-Fix] Resolving pending documentation...")
-        for p in pending:
-            auto_generate_readme(p["proj_dir"])
-            # Re-run auto_bump_and_build to sync catalogs
-            auto_bump_script = os.path.join(REPO_ROOT, "scripts", "auto_bump_and_build.py")
-            if os.path.isfile(auto_bump_script):
-                subprocess.run(
-                    [sys.executable, auto_bump_script, "--project", p["name"], "--no-bump"],
-                    cwd=REPO_ROOT,
-                    check=False,
-                    stdout=subprocess.DEVNULL,
-                    stderr=subprocess.DEVNULL
-                )
-
-        # Re-scan after fix
-        refreshed = scan_projects(target_project=args.project)
-        refreshed_pending = [p for p in refreshed if p["status"] != "COMPLETE"]
-        print("\nAudit results after --fix:")
-        for p in refreshed:
-            icon = "[OK]" if p["status"] == "COMPLETE" else "[NEEDS UPDATE]"
-            print(f"{icon:<15} {p['path']:<45} {p['details']}")
-        print(f"Remaining incomplete projects: {len(refreshed_pending)}")
-
 
 if __name__ == "__main__":
     main()

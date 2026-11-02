@@ -58,10 +58,10 @@ Follow `README_GUIDELINES.md` for file roles, writing rules, and templates. Migr
 Check whether the project appears in its category catalog, the root README, and the builds README. Update only relevant entries, search first to avoid duplicates, and keep established ordering. Inspect any build script before running it. A known command:
 
 ```bash
-python3 scripts/auto_bump_and_build.py --project "<Project-Name>" --no-bump
+python3 scripts/auto_bump_and_build.py --project "<Project-Name>"
 ```
 
-Use `--no-bump` unless the user explicitly requests a version bump. Never claim a build or sync completed if it failed or was not run.
+The build synchronizes packages and catalogs without changing manifest versions. Never claim a build or sync completed if it failed or was not run.
 
 ### 8. Verify
 
