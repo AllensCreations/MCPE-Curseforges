@@ -1430,6 +1430,11 @@ world.afterEvents.playerBreakBlock.subscribe((event) => {
 
   // Tree Capitator
   if (isAxe(toolTypeId) && isEligibleLog(brokenTypeId)) {
+    const treeSafety = checkToolSafety(player);
+    if (!treeSafety.safe) {
+      notifyToolProtection(player, Math.max(0, treeSafety.remaining));
+      return;
+    }
     activeMiningOperations.add(player.id);
     chainPauseUntil.set(player.id, system.currentTick + 40);
     try {
@@ -1444,6 +1449,11 @@ world.afterEvents.playerBreakBlock.subscribe((event) => {
 
   // Domino Ore Miner
   if (isPickaxe(toolTypeId) && getOreInfo(brokenTypeId)) {
+    const oreSafety = checkToolSafety(player);
+    if (!oreSafety.safe) {
+      notifyToolProtection(player, Math.max(0, oreSafety.remaining));
+      return;
+    }
     activeMiningOperations.add(player.id);
     chainPauseUntil.set(player.id, system.currentTick + 40);
     try {

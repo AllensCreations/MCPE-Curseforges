@@ -2,6 +2,11 @@
 
 ---
 
+## [1.4.2] - 2026-11-03
+
+### Improved & Balanced
+- **Zero Durability Tools**: A tool at 0 durability now breaks only the single block you hit and no longer starts Tree Capitator or Domino Ore Miner.
+
 ## [1.4.1] - 2026-11-03
 
 ### Improved & Balanced

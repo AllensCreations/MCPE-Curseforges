@@ -115,7 +115,7 @@ Combines dynamic lighting, offhand quick-swap, automatic tool selection, tree ca
   - **Capacity Limit**: Up to 64 ore blocks per vein cluster.
 
 #### 4. Durability Safety Guard
-- Automatically halts Tree Capitator and Domino Ore Miner operations if your tool has **0 durability remaining** or is gone.
+- Automatically halts Tree Capitator and Domino Ore Miner operations if your tool has **0 durability remaining** or is gone. A tool at 0 durability breaks only the single block you hit and does not start either feature.
 - Plays a warning sound and displays an action-bar alert when the durability threshold is reached. Chain mining uses the tool down to 0 durability without breaking it; the next use of that tool breaks it.
 
 #### 5. Offhand Quick-Swap & Dynamic Handheld Lighting
