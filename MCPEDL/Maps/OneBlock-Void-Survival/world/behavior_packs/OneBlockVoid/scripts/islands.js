@@ -4053,6 +4053,7 @@ export function buildThemedIsland(dimension, theme, center) {
   const themeFence = getThemeFenceType(theme);
   const themeLantern = getThemeLanternType(theme);
 
+  // LAMP_POST_V2
   const candidateOffsets = [
     { dx: 3, dz: -2 },
     { dx: -4, dz: 2 },
@@ -4061,8 +4062,19 @@ export function buildThemedIsland(dimension, theme, center) {
     { dx: 4, dz: 2 },
     { dx: -2, dz: 4 },
     { dx: 1, dz: -4 },
-    { dx: -4, dz: -2 }
+    { dx: -4, dz: -2 },
+    { dx: -5, dz: 1 },
+    { dx: 5, dz: -1 },
+    { dx: 0, dz: 5 },
+    { dx: 0, dz: -5 }
   ];
+
+  const isPostGround = (b) => {
+    if (!b || b.isAir || b.typeId === "minecraft:air") return false;
+    const t = b.typeId;
+    if (t.includes("water") || t.includes("lava") || t.includes("chest") || t.includes("leaves") || t.includes("fence") || t.includes("log") || t.includes("wall") || t.includes("bedrock") || t.includes("lodestone") || t.includes("lantern") || t.includes("chain")) return false;
+    return !PASSABLE_BLOCKS.test(t);
+  };
 
   let postsPlaced = 0;
   for (const off of candidateOffsets) {
@@ -4070,20 +4082,19 @@ export function buildThemedIsland(dimension, theme, center) {
     const px = cx + off.dx;
     const pz = cz + off.dz;
 
-    // Scan downward from cy + 6 to cy - 4 to find the highest solid surface block
     let groundY = null;
-    for (let scanY = cy + 6; scanY >= cy - 4; scanY--) {
+    for (let scanY = coreY + 1; scanY >= cy - 3; scanY--) {
       const b = dimension.getBlock({ x: px, y: scanY, z: pz });
       if (!b || b.isAir || b.typeId === "minecraft:air") continue;
-      const t = b.typeId;
-      // Skip fluids, chests, trees/leaves, and fences/walls
-      if (t.includes("water") || t.includes("lava") || t.includes("chest") || t.includes("leaves") || t.includes("fence") || t.includes("log") || t.includes("wall") || t.includes("bedrock") || t.includes("lodestone")) continue;
-      // Skip soft surface plants/crops (we will overwrite if they're on top of solid ground)
-      if (t.includes("grass") || t.includes("flower") || t.includes("petal") || t.includes("fern") || t.includes("bush") || t.includes("crop") || t.includes("carrot") || t.includes("wheat") || t.includes("potato") || t.includes("beetroot") || t.includes("pumpkin") || t.includes("melon") || t.includes("roots") || t.includes("fungus") || t.includes("reeds") || t.includes("bamboo") || t.includes("deadbush")) {
-        continue;
+      if (b.typeId.includes("leaves") || b.typeId.includes("log") || b.typeId.includes("fence") || b.typeId.includes("lantern") || b.typeId.includes("chain") || PASSABLE_BLOCKS.test(b.typeId)) continue;
+      if (!isPostGround(b)) break;
+      const solidBelow = isPostGround(dimension.getBlock({ x: px, y: scanY - 1, z: pz })) && isPostGround(dimension.getBlock({ x: px, y: scanY - 2, z: pz }));
+      const openAbove = [1, 2, 3].every((up) => isPassableBlock(dimension.getBlock({ x: px, y: scanY + up, z: pz })));
+      let flat = 0;
+      for (const [ox, oz] of [[1, 0], [-1, 0], [0, 1], [0, -1]]) {
+        if (isPostGround(dimension.getBlock({ x: px + ox, y: scanY, z: pz + oz }))) flat++;
       }
-      // Found solid ground!
-      groundY = scanY;
+      if (solidBelow && openAbove && flat >= 3) groundY = scanY;
       break;
     }
 

@@ -2,6 +2,14 @@
 
 ---
 
+## [1.2.20] - 2026-11-03
+
+### Added
+- **Halfway Island Bonus**: When an island core is half mined, it now releases one bonus item from the island's treasure.
+
+### Fixed
+- **Island Lamp Posts**: Fence and lantern posts now stand on solid island ground instead of on rooftops or on the thin edge of an island.
+
 ## [1.2.19] - 2026-11-03
 
 ### Added

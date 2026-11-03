@@ -378,8 +378,18 @@ function handleIslandOneBlockBreak(dimension, loc, player) {
 
     const progress = currentMined / maxBlocks;
 
+    const halfwayBonus = currentMined === Math.floor(maxBlocks / 2) && matchedTheme.chest && matchedTheme.chest.length > 0; // HALFWAY_BONUS
     for (const rp of getNearbyIslandPlayers(dimension, loc, 48, player)) {
-      try { rp.onScreenDisplay.setActionBar(`${matchedTheme.color}${currentMined}/${maxBlocks} mined`); } catch (ae) {}
+      try { rp.onScreenDisplay.setActionBar(`${matchedTheme.color}${currentMined}/${maxBlocks} mined${halfwayBonus ? " - halfway bonus!" : ""}`); } catch (ae) {}
+    }
+    if (halfwayBonus) {
+      const bonus = matchedTheme.chest[Math.floor(Math.random() * matchedTheme.chest.length)];
+      system.run(() => {
+        try {
+          dimension.spawnItem(new ItemStack(bonus.id, 1), { x: loc.x + 0.5, y: loc.y + 1.2, z: loc.z + 0.5 });
+          dimension.playSound("random.levelup", loc, { pitch: 1.4, volume: 0.8 });
+        } catch (be) {}
+      });
     }
 
     // Visual feedback ONLY via particle progression (no action bar counter text)
