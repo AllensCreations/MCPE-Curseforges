@@ -80,6 +80,13 @@ jobs:
         with:
           fetch-depth: 0
 
+      - name: Sync target branch before making changes (direct mode)
+        if: ${{ inputs.commit_mode == 'direct' }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          git pull --rebase origin "${GITHUB_REF_NAME}"
+
       - name: Set up Python
         uses: actions/setup-python@6d4fd22b20465ccc0f7354476588e8df7c9ca0e0 # v7.1.0
         with:
@@ -204,7 +211,6 @@ jobs:
           esac
           git commit -m "feat(${PTYPE}): ${VERB} ${NAME} from base64 payload [skip ci]"
           if [ "$COMMIT_MODE" = "direct" ]; then
-            git pull --rebase origin "${GITHUB_REF_NAME}"
             git push origin "HEAD:${GITHUB_REF_NAME}"
             echo "mode=direct" >> "$GITHUB_OUTPUT"
           else
