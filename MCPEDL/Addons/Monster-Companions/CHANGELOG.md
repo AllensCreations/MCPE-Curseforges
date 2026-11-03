@@ -1,5 +1,14 @@
 # Changelog - Monster Companions
 
+## [1.2.14] - 2026-11-04
+
+### Improved & Balanced
+- **Witch healing**: The tamed Witch now throws a visible Regeneration splash potion at you every 25 to 40 seconds. Companions standing next to you are healed too.
+- **Witch splash safety**: A tamed Witch no longer throws harmful potions at enemies standing within 4 blocks of you.
+- **Peaceful difficulty**: Minecraft removes all hostile mobs on Peaceful, including tamed companions, so play on Easy or higher to keep them.
+
+---
+
 ## [1.2.13] - 2026-11-04
 
 ### Improved & Balanced

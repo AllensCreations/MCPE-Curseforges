@@ -641,20 +641,6 @@
         },
         "minecraft:behavior.stay_while_sitting": {
           "priority": 2
-        },
-        "minecraft:despawn": {
-          "filters": {
-            "all_of": [
-              {
-                "test": "is_persistent",
-                "value": true
-              },
-              {
-                "test": "is_persistent",
-                "value": false
-              }
-            ]
-          }
         }
       },
       "allenscreations:wild": {

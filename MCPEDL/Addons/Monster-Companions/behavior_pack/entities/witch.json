@@ -650,76 +650,31 @@
                   {
                     "test": "is_family",
                     "subject": "other",
-                    "value": "player"
-                  },
-                  {
-                    "test": "is_owner",
-                    "subject": "other"
-                  },
-                  {
-                    "test": "actor_health",
-                    "subject": "other",
-                    "operator": "<=",
-                    "value": 14
+                    "value": "allenscreations_heal_marker"
                   }
                 ]
               },
-              "max_dist": 10,
-              "priority": 2,
-              "cooldown": 20
-            },
-            {
-              "filters": {
-                "all_of": [
-                  {
-                    "test": "is_family",
-                    "subject": "other",
-                    "value": "monster_companion"
-                  },
-                  {
-                    "test": "actor_health",
-                    "subject": "other",
-                    "operator": "<=",
-                    "value": 10
-                  }
-                ]
-              },
-              "max_dist": 10,
-              "priority": 3,
-              "cooldown": 20
+              "max_dist": 12,
+              "priority": 1
             }
           ]
         },
         "minecraft:shooter": {
-          "aux_val": 23,
+          "aux_val": 1,
           "def": "minecraft:splash_potion",
           "magic": true,
           "sound": "throw",
           "power": 0.75,
           "projectiles": [
             {
-              "aux_val": 21,
+              "aux_val": 28,
               "def": "minecraft:splash_potion",
               "filters": {
                 "all_of": [
                   {
                     "test": "is_family",
                     "subject": "other",
-                    "value": "player"
-                  }
-                ]
-              },
-              "lose_target": true
-            },
-            {
-              "aux_val": 21,
-              "def": "minecraft:splash_potion",
-              "filters": {
-                "all_of": [
-                  {
-                    "test": "is_family",
-                    "subject": "other",
-                    "value": "monster_companion"
+                    "value": "allenscreations_heal_marker"
                   }
                 ]
               },
@@ -812,21 +767,33 @@
                   }
                 ]
               }
+            },
+            {
+              "aux_val": 23,
+              "def": "minecraft:splash_potion",
+              "filters": {
+                "all_of": [
+                  {
+                    "test": "distance_to_nearest_player",
+                    "subject": "other",
+                    "operator": ">",
+                    "value": 4
+                  }
+                ]
+              }
             }
           ]
         },
-        "minecraft:despawn": {
-          "filters": {
-            "all_of": [
-              {
-                "test": "is_persistent",
-                "value": true
-              },
-              {
-                "test": "is_persistent",
-                "value": false
-              }
-            ]
+        "minecraft:timer": {
+          "looping": true,
+          "randomInterval": true,
+          "time": [
+            25,
+            40
+          ],
+          "time_down_event": {
+            "event": "allenscreations:witch_heal",
+            "target": "self"
           }
         }
       },
@@ -937,6 +904,13 @@
         "queue_command": {
           "command": [
             "title @p actionbar §aFollow"
+          ]
+        }
+      },
+      "allenscreations:witch_heal": {
+        "queue_command": {
+          "command": [
+            "execute at @p[r=12] run summon allenscreations:heal_marker ~ ~ ~"
           ]
         }
       }

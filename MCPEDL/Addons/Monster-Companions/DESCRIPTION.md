@@ -41,13 +41,13 @@ Tap a companion with an empty hand to make it sit and hold its position, and tap
 ### Companion Squad Mechanics
 - Perimeter buffer: Companions follow the player while keeping a buffer distance to prevent obstructing the player camera or mining path. If the player sprints ahead, companions teleport behind the player safely.
 - Friendly-fire immunity: Companions avoid friendly-fire damage and do not target teammates.
-- Peaceful safe: Tamed companions stay in the world on Peaceful difficulty.
+- Peaceful difficulty: Minecraft removes hostile mobs on Peaceful, including tamed companions. Use Easy or higher.
 - Player safe: Tamed companions never turn hostile toward players.
 - Auto-protect: Companions defend you from nearby aggressive hostile mobs even before you are attacked.
 - Visual status indicators: Tamed companions display an always-visible floating nameplate above their head. Custom name tags can be applied directly without an anvil.
 - Taming feedback: Hearts confirm when a Primal Beast Biscuit tames a mob.
 - In-combat healing: Feeding a wounded companion a Primal Beast Biscuit restores 10 HP (5 hearts).
-- Witch healing: A tamed Witch occasionally throws a healing splash potion at you when you are hurt. It also heals nearby companions at 5 hearts or less.
+- Witch healing: A tamed Witch throws a Regeneration splash potion at you every 25 to 40 seconds, which also heals companions standing next to you.
 - Sunlight protection: Tamed Zombies, Skeletons, and Phantoms can wear helmets to prevent burning in direct sunlight.
 - Kamikaze Creepers: Tamed Creepers will rush enemy threats that damage the player and detonate on the target as a single-use explosive bodyguard.
 - Spirit Vexes: Tamed Evokers summon Spirit Vexes that attack hostiles and despawn naturally when their lifespan ends without turning on players.

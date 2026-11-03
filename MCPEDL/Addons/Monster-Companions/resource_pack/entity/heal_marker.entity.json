@@ -1,0 +1,20 @@
+{
+  "format_version": "1.10.0",
+  "minecraft:client_entity": {
+    "description": {
+      "identifier": "allenscreations:heal_marker",
+      "materials": {
+        "default": "arrow"
+      },
+      "textures": {
+        "default": "textures/entity/projectiles/arrow"
+      },
+      "geometry": {
+        "default": "geometry.arrow"
+      },
+      "render_controllers": [
+        "controller.render.arrow"
+      ]
+    }
+  }
+}
