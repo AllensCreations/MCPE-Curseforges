@@ -312,9 +312,10 @@ function finalizeIslandCore(dimension, theme, loc, player) {
     } catch (ee) {}
 
     const chestBlock = dimension.getBlock(chestPos);
+    const REPLACEABLE_ABOVE_CORE = /(short_grass|tall_grass|^minecraft:grass$|fern|flower|tulip|orchid|allium|azure_bluet|oxeye|cornflower|lily_of_the_valley|poppy|dandelion|sapling|petals|crimson_roots|warped_roots|hanging_roots|snow_layer|torchflower|pitcher|dead_bush|deadbush|berries|red_mushroom$|brown_mushroom$|fungus|sprouts|carpet)/;
     if (chestBlock) {
-      if (chestBlock.isAir || chestBlock.typeId === "minecraft:chest") {
-        if (chestBlock.isAir) chestBlock.setType("minecraft:chest");
+      if (chestBlock.isAir || chestBlock.typeId === "minecraft:chest" || REPLACEABLE_ABOVE_CORE.test(chestBlock.typeId)) {
+        if (chestBlock.typeId !== "minecraft:chest") chestBlock.setType("minecraft:chest");
         system.runTimeout(() => {
           try {
             const cb = dimension.getBlock(chestPos);

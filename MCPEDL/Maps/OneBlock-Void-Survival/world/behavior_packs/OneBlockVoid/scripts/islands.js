@@ -2,7 +2,7 @@
 // Each island generates out in unloaded chunks (140 to 250 blocks away from 0,64,0)
 // and strictly preserves player-placed blocks (air-only placement) so nothing is ever overwritten!
 
-import { world, ItemStack } from "@minecraft/server";
+import { world, ItemStack, system } from "@minecraft/server";
 
 export const ISLAND_THEMES = [
   {
@@ -2402,10 +2402,65 @@ function buildIslandNaturalTree(dimension, theme, center, mirror) {
     safeAirOnlySetBlock(dimension, { x: tx - 1, y: cy + 3, z: tz }, "minecraft:bee_nest");
   }
 }
+const PASSABLE_BLOCKS = /(short_grass|tall_grass|^minecraft:grass$|fern|flower|tulip|orchid|allium|azure_bluet|oxeye|cornflower|lily_of_the_valley|poppy|dandelion|sapling|_bush|vine|petals|crimson_roots|warped_roots|hanging_roots|torch|lantern|carpet|snow_layer|rail|button|pressure_plate|candle|sea_pickle|fire|sign|banner|torchflower|pitcher|spore_blossom|berries|red_mushroom$|brown_mushroom$|fungus|sprouts|chain|dead_bush|deadbush|cobweb|web)/;
+
+function isPassableBlock(b) {
+  if (!b) return false;
+  if (b.isAir || b.typeId === "minecraft:air") return true;
+  return PASSABLE_BLOCKS.test(b.typeId);
+}
+
+function isStandableBlock(b) {
+  if (!b || b.isAir || b.typeId === "minecraft:air") return false;
+  if (b.typeId.includes("water") || b.typeId.includes("lava")) return false;
+  return !PASSABLE_BLOCKS.test(b.typeId);
+}
+
+function findSafeSpawn(dimension, typeId, loc) {
+  const offsets = [[0, 0]];
+  for (let r = 1; r <= 4; r++) {
+    for (let ox = -r; ox <= r; ox++) {
+      for (let oz = -r; oz <= r; oz++) {
+        if (Math.max(Math.abs(ox), Math.abs(oz)) === r) offsets.push([ox, oz]);
+      }
+    }
+  }
+  for (const [ox, oz] of offsets) {
+    const x = loc.x + ox;
+    const z = loc.z + oz;
+    for (let dy = 5; dy >= -5; dy--) {
+      const y = Math.floor(loc.y) + dy;
+      try {
+        if (isStandableBlock(dimension.getBlock({ x: Math.floor(x), y: y - 1, z: Math.floor(z) })) &&
+            isPassableBlock(dimension.getBlock({ x: Math.floor(x), y, z: Math.floor(z) })) &&
+            isPassableBlock(dimension.getBlock({ x: Math.floor(x), y: y + 1, z: Math.floor(z) }))) {
+          return dimension.spawnEntity(typeId, { x, y, z });
+        }
+      } catch (e) {}
+    }
+  }
+  return dimension.spawnEntity(typeId, loc);
+}
+
+function spawnMobSafe(dimension, typeId, loc) {
+  system.runTimeout(() => {
+    try { findSafeSpawn(dimension, typeId, loc); } catch (e) {}
+  }, 10);
+}
+
 function placeStructureChest(dimension, loc, items) {
   try {
     const b = dimension.getBlock(loc);
     if (!b || (!b.isAir && b.typeId !== "minecraft:air")) return;
+    const below = dimension.getBlock({ x: loc.x, y: loc.y - 1, z: loc.z });
+    if (below && (below.isAir || below.typeId === "minecraft:air")) {
+      let support = "minecraft:stone_bricks";
+      for (const [ox, oz] of [[1, 0], [-1, 0], [0, 1], [0, -1]]) {
+        const nb = dimension.getBlock({ x: loc.x + ox, y: loc.y - 1, z: loc.z + oz });
+        if (isStandableBlock(nb)) { support = nb.typeId; break; }
+      }
+      try { below.setType(support); totalBlocksPlacedThisBuild++; } catch (se) {}
+    }
     b.setType("minecraft:chest");
     totalBlocksPlacedThisBuild++;
     const inv = b.getComponent("minecraft:inventory")?.container;
@@ -2482,7 +2537,7 @@ function buildThemedStructure(dimension, theme, center) {
         { id: "minecraft:iron_ingot", count: 3 }
       ]);
       try {
-        dimension.spawnEntity("minecraft:pillager", { x: sx + 2.5, y: sy + 5, z: sz + 2.5 });
+        spawnMobSafe(dimension, "minecraft:pillager", { x: sx + 2.5, y: sy + 5, z: sz + 2.5 });
         mobSpawned = true;
       } catch (e) {}
       break;
@@ -2526,7 +2581,7 @@ function buildThemedStructure(dimension, theme, center) {
         { id: "minecraft:bread", count: 4 }
       ]);
       try {
-        dimension.spawnEntity("minecraft:villager_v2", { x: sx + 2.5, y: sy, z: sz + 2.5 });
+        spawnMobSafe(dimension, "minecraft:villager_v2", { x: sx + 2.5, y: sy, z: sz + 2.5 });
         mobSpawned = true;
       } catch (e) {}
       break;
@@ -2565,7 +2620,7 @@ function buildThemedStructure(dimension, theme, center) {
         { id: "minecraft:deadbush", count: 2 }
       ]);
       try {
-        dimension.spawnEntity("minecraft:camel", { x: sx + 2.5, y: sy, z: sz + 0.5 });
+        spawnMobSafe(dimension, "minecraft:camel", { x: sx + 2.5, y: sy, z: sz + 0.5 });
         mobSpawned = true;
       } catch (e) {}
       break;
@@ -2616,8 +2671,8 @@ function buildThemedStructure(dimension, theme, center) {
         { id: "minecraft:gunpowder", count: 2 }
       ]);
       try {
-        dimension.spawnEntity("minecraft:witch", { x: sx + 2.5, y: sy + 2, z: sz + 2.5 });
-        dimension.spawnEntity("minecraft:cat", { x: sx + 1.5, y: sy + 2, z: sz + 2.5 });
+        spawnMobSafe(dimension, "minecraft:witch", { x: sx + 2.5, y: sy + 2, z: sz + 2.5 });
+        spawnMobSafe(dimension, "minecraft:cat", { x: sx + 1.5, y: sy + 2, z: sz + 2.5 });
         mobSpawned = true;
       } catch (e) {}
       break;
@@ -2656,7 +2711,7 @@ function buildThemedStructure(dimension, theme, center) {
         { id: "minecraft:diamond", count: 2 }
       ]);
       try {
-        dimension.spawnEntity("minecraft:breeze", { x: sx + 2.5, y: sy + 1, z: sz + 2.5 });
+        spawnMobSafe(dimension, "minecraft:breeze", { x: sx + 2.5, y: sy + 1, z: sz + 2.5 });
         mobSpawned = true;
       } catch (e) {}
       break;
@@ -2697,7 +2752,7 @@ function buildThemedStructure(dimension, theme, center) {
         { id: "minecraft:nether_brick", count: 16 }
       ]);
       try {
-        dimension.spawnEntity("minecraft:blaze", { x: sx + 2.5, y: sy + 1, z: sz + 2.5 });
+        spawnMobSafe(dimension, "minecraft:blaze", { x: sx + 2.5, y: sy + 1, z: sz + 2.5 });
         mobSpawned = true;
       } catch (e) {}
       break;
@@ -2733,7 +2788,7 @@ function buildThemedStructure(dimension, theme, center) {
         { id: "minecraft:crying_obsidian", count: 3 }
       ]);
       try {
-        dimension.spawnEntity("minecraft:piglin_brute", { x: sx + 2.5, y: sy, z: sz + 1.5 });
+        spawnMobSafe(dimension, "minecraft:piglin_brute", { x: sx + 2.5, y: sy, z: sz + 1.5 });
         mobSpawned = true;
       } catch (e) {}
       break;
@@ -2794,7 +2849,7 @@ function buildThemedStructure(dimension, theme, center) {
         { id: "minecraft:apple", count: 6 }
       ]);
       try {
-        dimension.spawnEntity("minecraft:villager_v2", { x: sx + 2.5, y: sy, z: sz + 4.5 });
+        spawnMobSafe(dimension, "minecraft:villager_v2", { x: sx + 2.5, y: sy, z: sz + 4.5 });
         mobSpawned = true;
       } catch (e) {}
       break;
@@ -2830,7 +2885,7 @@ function buildThemedStructure(dimension, theme, center) {
         { id: "minecraft:golden_boots", count: 1 }
       ]);
       try {
-        dimension.spawnEntity("minecraft:zombie_pigman", { x: sx + 2.5, y: sy, z: sz + 0.5 });
+        spawnMobSafe(dimension, "minecraft:zombie_pigman", { x: sx + 2.5, y: sy, z: sz + 0.5 });
         mobSpawned = true;
       } catch (e) {}
       break;
@@ -2843,8 +2898,10 @@ function buildThemedStructure(dimension, theme, center) {
       for (let x = -3; x <= 3; x++) {
         for (let z = -3; z <= 3; z++) {
           if (Math.abs(x) <= 1 && Math.abs(z) <= 1) {
-            const b = dimension.getBlock({ x: cx + x, y: sy - 1, z: cz + z });
-            if (b) b.setType("minecraft:lava");
+            if (Math.abs(x) === 1 && Math.abs(z) === 1) {
+              const b = dimension.getBlock({ x: cx + x, y: sy - 1, z: cz + z });
+              if (b) b.setType("minecraft:lava");
+            }
           } else {
             safeAirOnlySetBlock(dimension, { x: cx + x, y: sy - 1, z: cz + z }, (x + z) % 2 === 0 ? "minecraft:stone_bricks" : "minecraft:cracked_stone_bricks");
           }
@@ -2909,7 +2966,7 @@ function buildThemedStructure(dimension, theme, center) {
         { id: "minecraft:bookshelf", count: 4 }
       ]);
       try {
-        dimension.spawnEntity("minecraft:silverfish", { x: cx + 0.5, y: sy + 1.2, z: cz + 0.5 });
+        spawnMobSafe(dimension, "minecraft:silverfish", { x: cx + 0.5, y: sy + 1.2, z: cz + 0.5 });
         mobSpawned = true;
       } catch (e) {}
       break;
@@ -2945,7 +3002,7 @@ function buildThemedStructure(dimension, theme, center) {
         { id: "minecraft:shulker_shell", count: 4 }
       ]);
       try {
-        dimension.spawnEntity("minecraft:shulker", { x: cx + 0.5, y: sy + 1, z: cz + 0.5 });
+        spawnMobSafe(dimension, "minecraft:shulker", { x: cx + 0.5, y: sy + 1, z: cz + 0.5 });
         mobSpawned = true;
       } catch (e) {}
       break;
@@ -2983,7 +3040,7 @@ function buildThemedStructure(dimension, theme, center) {
         { id: "minecraft:salmon", count: 4 }
       ]);
       try {
-        dimension.spawnEntity("minecraft:guardian", { x: sx + 2.5, y: sy + 1, z: sz + 2.5 });
+        spawnMobSafe(dimension, "minecraft:guardian", { x: sx + 2.5, y: sy + 1, z: sz + 2.5 });
         mobSpawned = true;
       } catch (e) {}
       break;
@@ -3021,7 +3078,7 @@ function buildThemedStructure(dimension, theme, center) {
         { id: "minecraft:bone", count: 8 }
       ]);
       try {
-        dimension.spawnEntity("minecraft:husk", { x: sx + 2.5, y: sy, z: sz + 1.5 });
+        spawnMobSafe(dimension, "minecraft:husk", { x: sx + 2.5, y: sy, z: sz + 1.5 });
         mobSpawned = true;
       } catch (e) {}
       break;
@@ -3057,7 +3114,7 @@ function buildThemedStructure(dimension, theme, center) {
         { id: "minecraft:experience_bottle", count: 3 }
       ]);
       try {
-        dimension.spawnEntity("minecraft:allay", { x: sx + 2.5, y: sy + 1.5, z: sz + 2.5 });
+        spawnMobSafe(dimension, "minecraft:allay", { x: sx + 2.5, y: sy + 1.5, z: sz + 2.5 });
         mobSpawned = true;
       } catch (e) {}
       break;
@@ -3086,7 +3143,7 @@ function buildThemedStructure(dimension, theme, center) {
         { id: "minecraft:glowstone_dust", count: 6 }
       ]);
       try {
-        dimension.spawnEntity("minecraft:witch", { x: sx + 2.5, y: sy, z: sz + 2.5 });
+        spawnMobSafe(dimension, "minecraft:witch", { x: sx + 2.5, y: sy, z: sz + 2.5 });
         mobSpawned = true;
       } catch (e) {}
       break;
@@ -3121,7 +3178,7 @@ function buildThemedStructure(dimension, theme, center) {
         { id: "minecraft:sniffer_egg", count: 1 }
       ]);
       try {
-        dimension.spawnEntity("minecraft:sniffer", { x: sx + 3.5, y: sy, z: sz + 2.5 });
+        spawnMobSafe(dimension, "minecraft:sniffer", { x: sx + 3.5, y: sy, z: sz + 2.5 });
         mobSpawned = true;
       } catch (e) {}
       break;
@@ -3160,7 +3217,7 @@ function buildThemedStructure(dimension, theme, center) {
         { id: "minecraft:jungle_sapling", count: 4 }
       ]);
       try {
-        dimension.spawnEntity("minecraft:parrot", { x: sx + 2.5, y: sy + 1, z: sz + 2.5 });
+        spawnMobSafe(dimension, "minecraft:parrot", { x: sx + 2.5, y: sy + 1, z: sz + 2.5 });
         mobSpawned = true;
       } catch (e) {}
       break;
@@ -3196,7 +3253,7 @@ function buildThemedStructure(dimension, theme, center) {
         { id: "minecraft:mossy_cobblestone", count: 8 }
       ]);
       try {
-        dimension.spawnEntity("minecraft:ocelot", { x: sx + 2.5, y: sy, z: sz + 2.5 });
+        spawnMobSafe(dimension, "minecraft:ocelot", { x: sx + 2.5, y: sy, z: sz + 2.5 });
         mobSpawned = true;
       } catch (e) {}
       break;
@@ -3231,7 +3288,7 @@ function buildThemedStructure(dimension, theme, center) {
         { id: "minecraft:purpur_block", count: 8 }
       ]);
       try {
-        dimension.spawnEntity("minecraft:shulker", { x: sx + 2.5, y: sy + 2, z: sz + 2.5 });
+        spawnMobSafe(dimension, "minecraft:shulker", { x: sx + 2.5, y: sy + 2, z: sz + 2.5 });
         mobSpawned = true;
       } catch (e) {}
       break;
@@ -3261,7 +3318,7 @@ function buildThemedStructure(dimension, theme, center) {
         { id: "minecraft:sculk", count: 8 }
       ]);
       try {
-        dimension.spawnEntity("minecraft:bat", { x: sx + 2.5, y: sy + 2, z: sz + 2.5 });
+        spawnMobSafe(dimension, "minecraft:bat", { x: sx + 2.5, y: sy + 2, z: sz + 2.5 });
         mobSpawned = true;
       } catch (e) {}
       break;
@@ -3290,7 +3347,7 @@ function buildThemedStructure(dimension, theme, center) {
         { id: "minecraft:shield", count: 1 }
       ]);
       try {
-        dimension.spawnEntity("minecraft:iron_golem", { x: sx + 2.5, y: sy, z: sz + 2.5 });
+        spawnMobSafe(dimension, "minecraft:iron_golem", { x: sx + 2.5, y: sy, z: sz + 2.5 });
         mobSpawned = true;
       } catch (e) {}
       break;
@@ -3321,7 +3378,7 @@ function buildThemedStructure(dimension, theme, center) {
         { id: "minecraft:tuff", count: 16 }
       ]);
       try {
-        dimension.spawnEntity("minecraft:iron_golem", { x: sx + 2.5, y: sy, z: sz + 2.5 });
+        spawnMobSafe(dimension, "minecraft:iron_golem", { x: sx + 2.5, y: sy, z: sz + 2.5 });
         mobSpawned = true;
       } catch (e) {}
       break;
@@ -3376,7 +3433,7 @@ function buildThemedStructure(dimension, theme, center) {
         { id: "minecraft:flint_and_steel", count: 1 }
       ]);
       try {
-        dimension.spawnEntity("minecraft:creeper", { x: sx + 2.5, y: sy, z: sz + 2.5 });
+        spawnMobSafe(dimension, "minecraft:creeper", { x: sx + 2.5, y: sy, z: sz + 2.5 });
         mobSpawned = true;
       } catch (e) {}
       break;
@@ -3405,7 +3462,7 @@ function buildThemedStructure(dimension, theme, center) {
         { id: "minecraft:iron_ingot", count: 4 }
       ]);
       try {
-        dimension.spawnEntity("minecraft:cave_spider", { x: sx + 2.5, y: sy, z: sz + 2.5 });
+        spawnMobSafe(dimension, "minecraft:cave_spider", { x: sx + 2.5, y: sy, z: sz + 2.5 });
         mobSpawned = true;
       } catch (e) {}
       break;
@@ -3432,7 +3489,7 @@ function buildThemedStructure(dimension, theme, center) {
         { id: "minecraft:emerald", count: 4 }
       ]);
       try {
-        dimension.spawnEntity("minecraft:slime", { x: sx + 2.5, y: sy + 1, z: sz + 2.5 });
+        spawnMobSafe(dimension, "minecraft:slime", { x: sx + 2.5, y: sy + 1, z: sz + 2.5 });
         mobSpawned = true;
       } catch (e) {}
       break;
@@ -3462,8 +3519,8 @@ function buildThemedStructure(dimension, theme, center) {
         { id: "minecraft:honey_block", count: 2 }
       ]);
       try {
-        dimension.spawnEntity("minecraft:bee", { x: sx + 2.5, y: sy + 2, z: sz + 2.5 });
-        dimension.spawnEntity("minecraft:bee", { x: sx + 1.5, y: sy + 2, z: sz + 2.5 });
+        spawnMobSafe(dimension, "minecraft:bee", { x: sx + 2.5, y: sy + 2, z: sz + 2.5 });
+        spawnMobSafe(dimension, "minecraft:bee", { x: sx + 1.5, y: sy + 2, z: sz + 2.5 });
         mobSpawned = true;
       } catch (e) {}
       break;
@@ -3494,7 +3551,7 @@ function buildThemedStructure(dimension, theme, center) {
         { id: "minecraft:mycelium", count: 4 }
       ]);
       try {
-        dimension.spawnEntity("minecraft:mooshroom", { x: sx + 2.5, y: sy, z: sz + 2.5 });
+        spawnMobSafe(dimension, "minecraft:mooshroom", { x: sx + 2.5, y: sy, z: sz + 2.5 });
         mobSpawned = true;
       } catch (e) {}
       break;
@@ -3523,7 +3580,7 @@ function buildThemedStructure(dimension, theme, center) {
         { id: "minecraft:cod", count: 6 }
       ]);
       try {
-        dimension.spawnEntity("minecraft:polar_bear", { x: sx + 2.5, y: sy, z: sz + 3.5 });
+        spawnMobSafe(dimension, "minecraft:polar_bear", { x: sx + 2.5, y: sy, z: sz + 3.5 });
         mobSpawned = true;
       } catch (e) {}
       break;
@@ -3560,7 +3617,7 @@ function buildThemedStructure(dimension, theme, center) {
         { id: "minecraft:nautilus_shell", count: 2 }
       ]);
       try {
-        dimension.spawnEntity("minecraft:axolotl", { x: sx + 2.5, y: sy + 2, z: sz + 2.5 });
+        spawnMobSafe(dimension, "minecraft:axolotl", { x: sx + 2.5, y: sy + 2, z: sz + 2.5 });
         mobSpawned = true;
       } catch (e) {}
       break;
@@ -3640,7 +3697,7 @@ function buildThemedStructure(dimension, theme, center) {
         safeAirOnlySetBlock(dimension, { x: cx + 3, y: cy + 1, z: cz + 3 }, "minecraft:hay_block");
         safeAirOnlySetBlock(dimension, { x: cx + 3, y: cy + 2, z: cz + 3 }, "minecraft:hay_block");
         try {
-          dimension.spawnEntity("minecraft:villager_v2", { x: hx + 1.5, y: hy, z: hz + 1.5 });
+          spawnMobSafe(dimension, "minecraft:villager_v2", { x: hx + 1.5, y: hy, z: hz + 1.5 });
           mobSpawned = true;
         } catch (ve) {}
       } else if (tr === "animals") {
@@ -3707,7 +3764,7 @@ function buildThemedStructure(dimension, theme, center) {
         ]);
         if (theme.mob) {
           try {
-            dimension.spawnEntity(theme.mob, { x: dx + 0.5, y: cy + 1, z: dz + 0.5 });
+            spawnMobSafe(dimension, theme.mob, { x: dx + 0.5, y: cy + 1, z: dz + 0.5 });
             mobSpawned = true;
           } catch (me) {}
         }
@@ -3895,7 +3952,9 @@ export function buildThemedIsland(dimension, theme, center) {
   else if (archetype === "terrace") coreY = cy + 3;
 
   const obPos = { x: cx, y: coreY, z: cz };
+  const coreExists = world.getDynamicProperty(`island_ob_x_${theme.id}`) !== undefined;
   try {
+    if (coreExists) throw new Error("core already exists");
     const maxBlocks = 30 + Math.floor(Math.random() * 21); // 30 to 50 randomized blocks
     world.setDynamicProperty(`island_ob_x_${theme.id}`, obPos.x);
     world.setDynamicProperty(`island_ob_y_${theme.id}`, obPos.y);
@@ -4036,10 +4095,17 @@ export function buildThemedIsland(dimension, theme, center) {
     }
   }
 
+  for (let up = 1; up <= 2; up++) {
+    const topBlock = dimension.getBlock({ x: cx, y: coreY + up, z: cz });
+    if (topBlock && !topBlock.isAir && topBlock.typeId !== "minecraft:air" && PASSABLE_BLOCKS.test(topBlock.typeId)) {
+      try { topBlock.setType("minecraft:air"); } catch (ce) {}
+    }
+  }
+
   // 9. THEMATIC COMPANION MOB (if not already spawned by structure):
   if (theme.mob && !structureMobSpawned) {
     try {
-      dimension.spawnEntity(theme.mob, { x: cx + 0.5, y: coreY + 1.2, z: cz - 1.5 });
+      spawnMobSafe(dimension, theme.mob, { x: cx + 0.5, y: coreY + 1.2, z: cz - 1.5 });
     } catch (e) {}
   }
 
@@ -4050,7 +4116,7 @@ export function buildThemedIsland(dimension, theme, center) {
     extraMobs.forEach((mobId, n) => {
       const s = spots[n % spots.length];
       try {
-        dimension.spawnEntity(mobId, { x: cx + s.x, y: coreY + 2, z: cz + s.z });
+        spawnMobSafe(dimension, mobId, { x: cx + s.x, y: coreY + 2, z: cz + s.z });
       } catch (e) {}
     });
   }

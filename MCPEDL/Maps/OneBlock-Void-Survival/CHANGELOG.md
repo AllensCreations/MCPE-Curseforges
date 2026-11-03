@@ -2,6 +2,18 @@
 
 ---
 
+## [1.2.19] - 2026-11-03
+
+### Added
+- **Islands Completed Counter**: Finishing an island core now tells you how many of the 43 islands you have completed.
+
+### Fixed
+- **Stronghold Island Core**: The core on the Stronghold End Chamber island no longer sits inside lava. Lava now fills only the corners of the chamber pool.
+- **Reward Chest Under Plants**: The treasure chest now appears even when grass, petals or roots were growing on top of a finished island core.
+- **Mobs Stuck In Blocks**: Island mobs and animals now appear on open ground instead of inside trees, walls or other blocks.
+- **Floating Island Chests**: Treasure chests inside island buildings now always have a floor under them.
+- **Island Progress Never Resets**: An island that has already been built keeps its core progress, even if the island is generated again.
+
 ## [1.2.18] - 2026-10-30
 
 ### Improved & Balanced
