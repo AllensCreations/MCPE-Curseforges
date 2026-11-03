@@ -100,7 +100,7 @@ Do this for every new pack and meaningful update. A compatible API version does 
 #### Build and version behavior
 
 - The pack build workflow rebuilds changed projects and synchronizes package/catalog links using the versions already in their manifests. It does not increment manifest, module, dependency, or world-link versions.
-- Version and engine synchronization utilities remain available for explicit maintenance, but the build workflow does not run them. **Pack header UUIDs are never regenerated** because changing one breaks existing worlds.
+- Version synchronization utilities (`sync_manifest_versions.py`) remain available for explicit maintenance; set `min_engine_version` by hand in the manifest after looking up the version, but the build workflow does not run them. **Pack header UUIDs are never regenerated** because changing one breaks existing worlds.
 - `scripts/validate_manifest_titles.py` checks manifest title/version consistency during the workflow. Correct invalid titles or manifest data deliberately before building; the workflow does not rewrite versions.
 - `scripts/sync_project_docs.py` is not part of the build workflow. Update `DESCRIPTION.md` and `CHANGELOG.md` intentionally when preparing a release; do not infer player-facing changes from source filenames.
 
@@ -325,18 +325,19 @@ Workflows live in `.github/workflows/`. The roles below are a summary and will d
 | `apply-generator-upgrade.yml` | Manual run: applies a reviewed upgrade ZIP; dry run by default. |
 | `generate-recipe-images.yml` | Regenerates recipe diagrams (Section 5). |
 | `ci.yml` | Pull-request checks: Python syntax, manifest titles, README audit (advisory), crafting template test, and the project pipeline self-test (`selftest_project_types.py --fake-foundation`). |
-| `update-min-version.yml` | Manual run: sets `min_engine_version` in the manifests of chosen projects to a looked-up version. It does not edit this file or any README. |
+| `register-curseforge-id.yml` | Manual run, once per pack: saves the CurseForge project ID in `builds/Curseforge_IDs.json` and refreshes the publish dropdown (the dropdown edit needs the `WORKFLOW_PAT` secret). |
+| `publish-curseforge.yml` | Manual run, the only upload path. `beta` and `alpha` bump the patch (X.Y.Z to X.Y.Z+1) and merge the changelog entries newer than the last upload. `release` bumps the minor (X.Y.Z to X.(Y+1).0) and merges every changelog entry since the last release, including all the betas in between. Saves `last_published_version` and `last_release_version` in the registry. |
 | `delete-project.yml` | Deletes a project. |
 | `collect-ai-review-files.yml` | Bundles the instruction file, scripts, workflows, and icon hashes for AI review. |
 | `export-repo-to-txt.yml` | Exports chosen paths to readable TXT for AI use. |
 | `extract-zip-to-folder.yml` | Extracts a repository ZIP into a chosen folder. |
 | `cleanup_unused.yml` | Removes leftovers; dry run by default. |
 
-Retired, do not recreate or reference: `create-addon-scaffold.yml`, `test-crafting-template.yml`, `create-mcpe-world.yml`, `scripts/create_mcpe_world.py`.
+Retired, do not recreate or reference: `update-min-version.yml`, `scripts/update_min_version.py`, `create-addon-scaffold.yml`, `test-crafting-template.yml`, `create-mcpe-world.yml`, `scripts/create_mcpe_world.py`.
 
 Helper scripts in `scripts/` (read the script for exact options):
 
-- `check_readme_status.py` (also `--remake standardize|rebuild`, `--check`), `remake_docs.py`, `sync_readme_links.py` (`--check` previews, `--strict` fails on broken links), `check_manifest_versions.py`, `sync_manifest_versions.py` (`--check` reports without writing, `--verify-only` runs the checker on the selected projects), `sync_project_docs.py` (DESCRIPTION heading and CHANGELOG entry; `--check` reports without writing), `validate_manifest_titles.py`, `auto_bump_and_build.py` (builds without changing manifest versions), `sync_dispatch_choices.py`, `crafting_template.py`, `build_oneblock_variants_from_template.py` (reads `ONEBLOCK_MAP`), `sync_oneblock_map_readmes.py`, `import_project_payload.py`, `build_payload.py`, `build_test_world.py`, `cleanup_unused.py`, `delete_project.py`, `ensure_recipe_unlocks.py`, `update_min_version.py` (manifests only), the recipe image generators, `selftest_project_types.py`. `tests/test_crafting_template.py` is run by CI.
+- `check_readme_status.py` (also `--remake standardize|rebuild`, `--check`), `remake_docs.py`, `sync_readme_links.py` (`--check` previews, `--strict` fails on broken links), `check_manifest_versions.py`, `sync_manifest_versions.py` (`--check` reports without writing, `--verify-only` runs the checker on the selected projects), `sync_project_docs.py` (DESCRIPTION heading and CHANGELOG entry; `--check` reports without writing), `validate_manifest_titles.py`, `auto_bump_and_build.py` (builds without changing manifest versions), `sync_dispatch_choices.py`, `crafting_template.py`, `build_oneblock_variants_from_template.py` (reads `ONEBLOCK_MAP`), `sync_oneblock_map_readmes.py`, `import_project_payload.py`, `build_payload.py`, `build_test_world.py`, `cleanup_unused.py`, `delete_project.py`, `ensure_recipe_unlocks.py`, `git_push_retry.py` (rebase-and-push with retries for workflows that write to the branch), the recipe image generators, `selftest_project_types.py`. `tests/test_crafting_template.py` is run by CI.
 - `check_generator_sync.py` is retired: nothing is embedded in this file any more (`PACK_GENERATOR_INSTRUCTIONS.md`, Section 8). Do not recreate it.
 
 When a rule in this file changes a workflow's behavior (titles, paths, versions), update the workflow in the same change.

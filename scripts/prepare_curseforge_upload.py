@@ -164,8 +164,9 @@ def _load_registry():
         if not project_id or not key:
             continue
         entry = {"project_id": project_id}
-        if info.get("last_published_version"):
-            entry["last_published_version"] = info["last_published_version"]
+        for field in ("last_published_version", "last_release_version"):
+            if info.get(field):
+                entry[field] = info[field]
         registry.setdefault(key, entry)
         migrated.append(legacy)
     return registry, migrated
@@ -187,8 +188,12 @@ def read_info(project_path):
     return {**entry, "project_id": project_id}
 
 
-def save_info(project_path, project_id, last_published_version=None):
-    """Add or update one pack in builds/Curseforge_IDs.json (keeps its other fields)."""
+def save_info(project_path, project_id, last_published_version=None, last_release_version=None):
+    """Add or update one pack in builds/Curseforge_IDs.json (keeps its other fields).
+
+    last_published_version is the newest upload of any type (beta, alpha or release);
+    last_release_version is the newest release, the baseline a release merges from.
+    """
     registry, migrated = _load_registry()
     entry = dict(registry.get(project_path) or {})
     entry["project_id"] = _clean_id(project_id)
@@ -196,6 +201,8 @@ def save_info(project_path, project_id, last_published_version=None):
         raise ValueError("CurseForge project ID must contain only digits")
     if last_published_version:
         entry["last_published_version"] = last_published_version
+    if last_release_version:
+        entry["last_release_version"] = last_release_version
     registry[project_path] = entry
     path = registry_path()
     path.parent.mkdir(parents=True, exist_ok=True)
@@ -280,12 +287,39 @@ def render_combined_entry(new_version, date_text, merged):
     return f"## [{new_version}] - {date_text}\n\n{intro}\n\n" + "\n\n".join(blocks)
 
 
-def combine_changelog(project_dir, changelog_path, last_published=None, today=None):
-    """Merge every changelog entry newer than the last published version into ONE entry.
+def merge_baseline(release_type, info):
+    """Version after which changelog entries are still unpublished for this release type.
 
-    The new version is  major.(minor+1).0  of the highest version seen (last published,
-    changelog, manifests). The merged entry replaces the entries it combined at the top of
-    CHANGELOG.md, so the changelog, manifests and CurseForge all show the same version.
+    beta and alpha merge what is newer than the last upload of any type. A release merges
+    everything newer than the last release, so it also folds in every beta published since.
+    Packs saved before betas were tracked separately have no last_release_version; their
+    earlier uploads were all minor bumps, so last_published_version is used.
+    """
+    published = info.get("last_published_version")
+    if release_type == "release":
+        return info.get("last_release_version") or published
+    return published
+
+
+def next_version(highest, release_type):
+    """beta and alpha: X.Y.Z -> X.Y.(Z+1). release: X.Y.Z -> X.(Y+1).0."""
+    major, minor, patch = highest
+    if release_type == "release":
+        return f"{major}.{minor + 1}.0"
+    return f"{major}.{minor}.{patch + 1}"
+
+
+def combine_changelog(project_dir, changelog_path, last_published=None, today=None,
+                      release_type="release", last_release=None):
+    """Merge the changelog entries this publish covers into ONE entry with the next version.
+
+    beta/alpha merge entries newer than last_published and bump the patch (X.Y.Z+1).
+    release merges entries newer than last_release (all betas since the last release plus
+    anything unpublished) and bumps the minor (X.(Y+1).0).
+    The next version builds on the highest of the last published version and the manifests;
+    unpublished changelog headings are only used when nothing was ever published.
+    The merged entry replaces the entries it combined at the top of CHANGELOG.md, so the
+    changelog, manifests and CurseForge all show the same version.
     Returns (new_version_text, combined_entry_text).
     """
     text = changelog_path.read_text(encoding="utf-8")
@@ -301,19 +335,25 @@ def combine_changelog(project_dir, changelog_path, last_published=None, today=No
     if not entries:
         raise ValueError(f"Latest changelog heading must be a dated version in {changelog_path}")
 
-    baseline = parse_version(last_published) if last_published else None
+    baseline_text = merge_baseline(
+        release_type, {"last_published_version": last_published, "last_release_version": last_release}
+    )
+    baseline = parse_version(baseline_text) if baseline_text else None
     if baseline is None:
         merged = entries[:1]  # first publish: only the newest entry
     else:
         merged = [entry for entry in entries if entry[0] > baseline]
     if not merged:
         raise ValueError(
-            f"Nothing new to publish: the changelog has no entry newer than v{last_published}. "
+            f"Nothing new to publish: the changelog has no entry newer than v{baseline_text}. "
             "Add a changelog entry first."
         )
 
-    highest = max([entries[0][0], manifest_max_version(project_dir)] + ([baseline] if baseline else []))
-    new_version = f"{highest[0]}.{highest[1] + 1}.0"
+    if last_published:
+        highest = max(parse_version(last_published), manifest_max_version(project_dir))
+    else:
+        highest = max(entries[0][0], manifest_max_version(project_dir))
+    new_version = next_version(highest, release_type)
     date_text = (today or datetime.date.today()).isoformat()
 
     entry = render_combined_entry(new_version, date_text, merged)
@@ -373,7 +413,11 @@ def prepare(project_path, release_type, map_variant="default", rebuild=True, bum
 
     if bump:
         changelog_version, changelog = combine_changelog(
-            project_dir, changelog_path, info.get("last_published_version")
+            project_dir,
+            changelog_path,
+            info.get("last_published_version"),
+            release_type=release_type,
+            last_release=info.get("last_release_version"),
         )
     else:
         changelog_version, changelog = latest_changelog_entry(changelog_path)

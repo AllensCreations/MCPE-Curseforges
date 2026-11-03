@@ -118,7 +118,7 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@6d4fd22b20465ccc0f7354476588e8df7c9ca0e0 # v7.1.0
         with:
-          python-version: '3.x'
+          python-version: '3.12'
 
       - name: Ensure custom crafting recipes are always unlocked
         run: python3 scripts/ensure_recipe_unlocks.py
@@ -231,6 +231,5 @@ jobs:
             echo "Nothing to commit: packages, catalogs and READMEs are up to date."
           else
             git commit -m "chore(build): rebuild packages and sync catalogs [skip ci]"
-            git pull --rebase origin main
-            git push origin main
+            python3 scripts/git_push_retry.py --branch main
           fi

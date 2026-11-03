@@ -127,4 +127,4 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git commit -m "build(oneblock): regenerate database-free void worlds [skip ci]"
-          git push origin "HEAD:${GITHUB_REF}"
+          python3 scripts/git_push_retry.py --branch "${GITHUB_REF#refs/heads/}"

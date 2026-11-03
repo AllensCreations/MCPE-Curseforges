@@ -1,8 +1,11 @@
 #!/usr/bin/env python3
 """Manually publish one pack to CurseForge using its registered project ID.
 
-Bumps the version to major.(minor+1).0, merges every unpublished changelog entry into one,
-uploads, then records the published version so the next run only merges newer entries.
+Version rules:
+  beta / alpha  X.Y.Z -> X.Y.(Z+1); merges the changelog entries newer than the last upload.
+  release       X.Y.Z -> X.(Y+1).0; merges every entry since the last release, so it folds in
+                all the beta versions (X.Y.1, X.Y.2, ...) published in between.
+Uploads, then records the published version (and, for a release, the release version).
 """
 
 import argparse
@@ -14,10 +17,22 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import prepare_curseforge_upload as release
 
 
+def release_baseline_after(release_type, info, version):
+    """Value to store as last_release_version after an upload, or None to keep the saved one."""
+    if release_type == "release":
+        return version
+    if info.get("last_release_version"):
+        return None
+    if info.get("last_published_version"):
+        return info["last_published_version"]
+    major, minor, patch = release.parse_version(version)
+    return f"{major}.{minor}.{max(patch - 1, 0)}"
+
+
 def publish(project_path, release_type="release", map_variant="default"):
     category, project_name = release.project_from_path(project_path)
     pack_key = f"MCPEDL/{category}/{project_name}"
-    release.read_info(pack_key)  # fails with a clear message if the pack is not in builds/Curseforge_IDs.json
+    info = release.read_info(pack_key)  # fails with a clear message if the pack is not in builds/Curseforge_IDs.json
 
     token = os.environ.get("CURSEFORGE_API_TOKEN", "")
     if not token:
@@ -67,7 +82,7 @@ def publish(project_path, release_type="release", map_variant="default"):
             metadata_path.unlink(missing_ok=True)
         print(f"Published {package_path.name} to CurseForge project {project_id}.")
 
-    release.save_info(pack_key, project_id, version)
+    release.save_info(pack_key, project_id, version, release_baseline_after(release_type, info, version))
     return True
 
 

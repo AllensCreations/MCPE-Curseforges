@@ -245,9 +245,14 @@ def build_variant(project: Path, map_name: str, mode: str) -> Path:
             for path in sorted(world.rglob("*")):
                 relative = path.relative_to(world).as_posix()
                 if path.is_dir():
-                    archive.writestr(relative.rstrip("/") + "/", "")
+                    info = zipfile.ZipInfo(relative.rstrip("/") + "/", date_time=(1980, 1, 1, 0, 0, 0))
+                    info.external_attr = (0o40755 << 16) | 0x10
+                    archive.writestr(info, "")
                 elif path.is_file():
-                    archive.write(path, relative)
+                    info = zipfile.ZipInfo(relative, date_time=(1980, 1, 1, 0, 0, 0))
+                    info.compress_type = zipfile.ZIP_DEFLATED
+                    info.external_attr = 0o644 << 16
+                    archive.writestr(info, path.read_bytes())
 
     verify_archive(staged_output, bp_uuid, bp_version, rp_uuid, rp_version, bp_folder, rp_folder)
     staged_output.replace(output)

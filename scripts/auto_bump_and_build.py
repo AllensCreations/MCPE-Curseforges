@@ -501,14 +501,12 @@ def save_version_snapshot(project_path, project_name, version_str):
                 shutil.copy2(f, vdir)
 
         binary_ext = (".mcaddon", ".mcpack", ".mcworld")
-        with zipfile.ZipFile(os.path.join(vdir, "source.zip"), "w", zipfile.ZIP_DEFLATED) as zf:
-            for root, dirs, files in os.walk(project_path):
-                dirs[:] = [d for d in dirs if d not in JUNK_DIRS]
-                for fn in sorted(files):
-                    if is_junk(fn) or fn.lower().endswith(binary_ext):
-                        continue
-                    full = os.path.join(root, fn)
-                    zf.write(full, os.path.relpath(full, project_path))
+        source_entries = [
+            (arc, full)
+            for arc, full in _collect_zip_entries(project_path)
+            if not arc.lower().endswith(binary_ext)
+        ]
+        _write_zip(os.path.join(vdir, "source.zip"), source_entries)
         print(f"  Saved version snapshot: builds/{project_name}/versions/V{version_str}")
 
         saved = sorted(

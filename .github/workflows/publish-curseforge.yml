@@ -3,8 +3,10 @@ name: Publish Pack to CurseForge
 # The ONLY place that uploads to CurseForge. Run it by hand.
 # Dropdown + project IDs + last published versions all come from builds/Curseforge_IDs.json
 # (written by "Register CurseForge ID", which also refreshes the dropdown).
-# Version becomes major.(minor+1).0 and all changelog entries newer than the last published
-# version are merged into one entry.
+# Version rules:
+#   beta / alpha: X.Y.Z becomes X.Y.(Z+1); changelog entries newer than the last upload are merged.
+#   release: X.Y.Z becomes X.(Y+1).0; every changelog entry since the last release (including all
+#   the beta versions in between) is merged into one entry.
 
 on:
   workflow_dispatch:
@@ -33,7 +35,7 @@ on:
           - Hardcore
           - all
       release_type:
-        description: CurseForge release type
+        description: "beta/alpha = X.Y.Z+1, release = X.(Y+1).0 combining every beta since the last release"
         required: true
         default: beta
         type: choice

@@ -242,25 +242,25 @@ def main() -> int:
         upload_project = root / "MCPEDL/Addons/Curseforge-Test"
         upload_project.parent.mkdir(parents=True, exist_ok=True)
         shutil.copytree(upload_source, upload_project)
-        changelog = upload_project / "CHANGELOG.md"
-        changelog.write_text(
-            changelog.read_text(encoding="utf-8").replace("[1.0.0]", "[1.0.1]", 1),
-            encoding="utf-8",
+        uploader.save_info("MCPEDL/Addons/Curseforge-Test", "1742470")
+        package, _, project_id, info_path, changed_manifests, version = uploader.prepare(
+            "MCPEDL/Addons/Curseforge-Test", "beta"
         )
-        package, _, project_id, info_path, changed_manifests = uploader.prepare(
-            "MCPEDL/Addons/Curseforge-Test", "beta", "1742470"
-        )
+        saved = json.loads(info_path.read_text(encoding="utf-8"))["MCPEDL/Addons/Curseforge-Test"]
         ok(
             package.is_file()
             and package.suffix == ".mcaddon"
             and project_id == "1742470"
-            and json.loads(info_path.read_text(encoding="utf-8"))["project_id"] == "1742470"
+            and saved["project_id"] == "1742470"
+            and version == "1.0.1"
             and bool(changed_manifests)
-            and json.loads((upload_project / "behavior_pack/manifest.json").read_text())["header"]["version"] == [1, 0, 1],
-            "CurseForge: saves ID and syncs manifest to latest changelog",
+            and json.loads((upload_project / "behavior_pack/manifest.json").read_text())["header"][
+                "version"
+            ] == [1, 0, 1],
+            "CurseForge: beta bumps the patch and syncs manifests to the new changelog entry",
         )
-        _, _, reused_id, _, unchanged_manifests = uploader.prepare(
-            "MCPEDL/Addons/Curseforge-Test", "beta"
+        _, _, reused_id, _, unchanged_manifests, _ = uploader.prepare(
+            "MCPEDL/Addons/Curseforge-Test", "beta", bump=False
         )
         ok(reused_id == "1742470" and not unchanged_manifests,
            "CurseForge: reuses saved project ID on later runs")
@@ -273,9 +273,8 @@ def main() -> int:
             project = root / "MCPEDL" / category / name
             project.parent.mkdir(parents=True, exist_ok=True)
             shutil.copytree(source, project)
-            package, _, _, _, _ = uploader.prepare(
-                f"MCPEDL/{category}/{name}", "beta", "1742471"
-            )
+            uploader.save_info(f"MCPEDL/{category}/{name}", "1742471")
+            package, _, _, _, _, _ = uploader.prepare(f"MCPEDL/{category}/{name}", "beta")
             ok(package.is_file() and package.suffix == extension,
                f"CurseForge: builds {kind} packages")
         variants = root / "MCPEDL/Maps/Variant-Test"
@@ -304,8 +303,9 @@ def main() -> int:
         map_project.parent.mkdir(parents=True, exist_ok=True)
         shutil.copytree(map_source, map_project)
         write(map_project / "oneblock.json", json.dumps({"enabled": True, "name": "Curseforge Map Test"}))
-        map_package, _, _, _, _ = uploader.prepare(
-            "MCPEDL/Maps/Curseforge-Map-Test", "beta", "1742472", "Survival"
+        uploader.save_info("MCPEDL/Maps/Curseforge-Map-Test", "1742472")
+        map_package, _, _, _, _, _ = uploader.prepare(
+            "MCPEDL/Maps/Curseforge-Map-Test", "beta", "Survival"
         )
         ok(
             map_package.suffix == ".mcworld"
