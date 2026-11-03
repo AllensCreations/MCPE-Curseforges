@@ -1,4 +1,4 @@
-# Copper-Carrier Logistics (v1.0.1) — Allay and Copper Golem Flying Sorting Units
+# Copper-Carrier Logistics — Allay and Copper Golem Flying Sorting Units
 
 **By AllensCreations**
 
@@ -47,7 +47,7 @@ Right-click an Allay with a Copper Ingot to turn it into a flying sorting unit. 
 
 - Minecraft Bedrock Edition: 1.26.60 is the targeted minimum; this version was not verified against official release notes.
 - Experimental features: No experiment requirement detected in the inspected files.
-- Achievements: Likely achievement-friendly. This does not guarantee that achievements stay enabled in every world or game version.
+- Achievements: Likely achievement-friendly.
 - Verification: Source created; not tested in game.
 
 ## Creator and Permissions
@@ -72,3 +72,4 @@ Right-click an Allay with a Copper Ingot to turn it into a flying sorting unit. 
 ## Search & Discovery Keywords
 
 Minecraft Bedrock add-on, Copper-Carrier Logistics Bedrock mod, Allay carrier, flying Copper Golem, Copper Golem sorting, flying item sorter, automatic chest sorting, Minecraft PE survival, MCPEDL add-on, CurseForge Bedrock, AllensCreations.
+

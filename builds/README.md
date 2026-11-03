@@ -29,6 +29,7 @@ This directory stores compiled Add-ons (`.mcaddon`), Maps (`.mcworld`), Scripts 
 | **Harvest Intelligence** | Add-on (.mcaddon) | [Download (.mcaddon)](Harvest-Intelligence/Harvest%20Intelligence%20by%20AllensCreations%20%28V1.0.6%29.mcaddon) | [`Harvest-Intelligence/`](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/builds/Harvest-Intelligence) |
 | **Melody Figurine** | Add-on (.mcaddon) | [Download (.mcaddon)](Melody-Figurine/Melody%20Figurine%20by%20AllensCreations%20%28V1.0.14%29.mcaddon) | [`Melody-Figurine/`](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/builds/Melody-Figurine) |
 | **Fletching Table Arsenal** | Add-on (.mcaddon) | [Download (.mcaddon)](Fletching-Table-Arsenal/Fletching%20Table%20Arsenal%20by%20AllensCreations%20%28V1.0.0%29.mcaddon) | [`Fletching-Table-Arsenal/`](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/builds/Fletching-Table-Arsenal) |
+| **Copper-Carrier Logistics** | Complete Pack (`.mcaddon`) | [Download (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Copper-Carrier-Logistics/Copper-Carrier%20Logistics%20by%20AllensCreations%20%28V1.0.0%29.mcaddon) | [`Copper-Carrier-Logistics/`](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/builds/Copper-Carrier-Logistics/) |
 
 ### Worlds and Maps
 

@@ -5,7 +5,7 @@ Download the current release of **Copper-Carrier Logistics** for Minecraft Bedro
 ## Download
 
 - **Package format:** `.mcaddon`
-- **Direct download:** [Download Copper-Carrier Logistics (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/blob/main/MCPEDL/Addons/README.md#available-add-ons)
+- **Direct download:** [Download Copper-Carrier Logistics (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Copper-Carrier-Logistics/Copper-Carrier%20Logistics%20by%20AllensCreations%20%28V1.0.0%29.mcaddon)
 
 ## Installation
 
@@ -15,4 +15,4 @@ Download the current release of **Copper-Carrier Logistics** for Minecraft Bedro
 
 ## Pack Information
 
-For gameplay features, usage details, compatibility notes, and other project information, read the [full description](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/Copper-Carrier-Logistics/DESCRIPTION.md).
+For gameplay features, usage details, compatibility notes, and other project information, read the [full description](https://github.com/AllensCreations/MCPE-Curseforges/blob/main/MCPEDL/Addons/Copper-Carrier-Logistics/DESCRIPTION.md).
