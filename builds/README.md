@@ -10,7 +10,7 @@ This directory stores compiled Add-ons (`.mcaddon`), Maps (`.mcworld`), Scripts 
 
 | Pack Name | Type | Download Link | Build Folder |
 | :--- | :--- | :--- | :--- |
-| **Vanilla Quality of Life** | Add-on (.mcaddon) | [Download (.mcaddon)](Vanilla-Quality-of-Life/Vanilla%20Quality%20of%20Life%20by%20AllensCreations%20%28V1.3.29%29.mcaddon) | [`Vanilla-Quality-of-Life/`](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/builds/Vanilla-Quality-of-Life) |
+| **Vanilla Quality of Life** | Add-on (.mcaddon) | [Download (.mcaddon)](Vanilla-Quality-of-Life/Vanilla%20Quality%20of%20Life%20by%20AllensCreations%20%28V1.4.0%29.mcaddon) | [`Vanilla-Quality-of-Life/`](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/builds/Vanilla-Quality-of-Life) |
 | **Monster Companions** | Add-on (.mcaddon) | [Download (.mcaddon)](Monster-Companions/Monster%20Companions%20by%20AllensCreations%20%28V1.2.10%29.mcaddon) | [`Monster-Companions/`](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/builds/Monster-Companions) |
 | **Mining Helmet** | Add-on (.mcaddon) | [Download (.mcaddon)](Mining-Helmet/Mining%20Helmet%20by%20AllensCreations%20%28V1.0.14%29.mcaddon) | [`Mining-Helmet/`](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/builds/Mining-Helmet) |
 | **Passive Auto-Switch Tools** | Add-on (.mcaddon) | [Download (.mcaddon)](Passive-Auto-Switch-Tools/Passive%20Auto-Switch%20Tools%20by%20AllensCreations%20%28V1.1.16%29.mcaddon) | [`Passive-Auto-Switch-Tools/`](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/builds/Passive-Auto-Switch-Tools) |
