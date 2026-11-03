@@ -73,3 +73,4 @@ Break the single block at the center of the island. Each successful player break
 ## Search & Discovery Keywords
 
 Minecraft Bedrock add-on, OneBlock Phase Evolution, OneBlock survival map, cumulative OneBlock progression, weighted OneBlock blocks, Minecraft OneBlock map, MCPEDL add-on, CurseForge Bedrock, AllensCreations.
+
