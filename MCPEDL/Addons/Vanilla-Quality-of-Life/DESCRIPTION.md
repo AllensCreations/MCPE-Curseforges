@@ -116,7 +116,7 @@ Combines dynamic lighting, offhand quick-swap, automatic tool selection, tree ca
 
 #### 4. Durability Safety Guard
 - Automatically halts Tree Capitator and Domino Ore Miner operations if your tool has **0 durability remaining** or is gone.
-- Plays a warning sound and displays an action-bar alert when the durability threshold is reached. Chain mining uses the tool down to its last durability point, so the tool can break on the final block.
+- Plays a warning sound and displays an action-bar alert when the durability threshold is reached. Chain mining uses the tool down to 0 durability without breaking it; the next use of that tool breaks it.
 
 #### 5. Offhand Quick-Swap & Dynamic Handheld Lighting
 - Supported quick-swap items: Torches, Soul Torches, Redstone Torches, Lanterns, Soul Lanterns, Clocks, Compasses, Recovery Compasses.

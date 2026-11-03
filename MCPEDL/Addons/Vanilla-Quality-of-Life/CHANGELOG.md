@@ -2,6 +2,11 @@
 
 ---
 
+## [1.4.1] - 2026-11-03
+
+### Improved & Balanced
+- **Durability Floor**: Tree Capitator and Domino Ore Miner now use your tool down to 0 durability without breaking it, and the next use of that tool breaks it.
+
 ## [1.4.0] - 2026-11-02
 
 **What's new in v1.4.0:** Packed with the v1.3.30 update.

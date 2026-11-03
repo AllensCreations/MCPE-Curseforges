@@ -852,13 +852,7 @@ function flushToolDamage(player) {
       const durComp = tool.getComponent("minecraft:durability") || tool.getComponent("durability");
       if (!durComp) return;
 
-      const total = durComp.damage + entry.damage;
-      if (total >= durComp.maxDurability) {
-        container.setItem(entry.slot, undefined);
-        player.playSound("random.break");
-        return;
-      }
-      durComp.damage = total;
+      durComp.damage = Math.min(durComp.damage + entry.damage, durComp.maxDurability);
       container.setItem(entry.slot, tool);
     } catch (e) {}
   });
