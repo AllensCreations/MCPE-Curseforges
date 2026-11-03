@@ -41,6 +41,8 @@ Tap a companion with an empty hand to make it sit and hold its position, and tap
 ### Companion Squad Mechanics
 - Perimeter buffer: Companions follow the player while keeping a buffer distance to prevent obstructing the player camera or mining path. If the player sprints ahead, companions teleport behind the player safely.
 - Friendly-fire immunity: Companions avoid friendly-fire damage and do not target teammates.
+- Peaceful safe: Tamed companions stay in the world on Peaceful difficulty.
+- Player safe: Tamed companions never turn hostile toward players.
 - Auto-protect: Companions defend you from nearby aggressive hostile mobs even before you are attacked.
 - Visual status indicators: Tamed companions display an always-visible floating nameplate above their head. Custom name tags can be applied directly without an anvil.
 - Taming feedback: Hearts confirm when a Primal Beast Biscuit tames a mob.

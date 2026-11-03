@@ -431,6 +431,20 @@
         },
         "minecraft:behavior.stay_while_sitting": {
           "priority": 2
+        },
+        "minecraft:despawn": {
+          "filters": {
+            "all_of": [
+              {
+                "test": "is_persistent",
+                "value": true
+              },
+              {
+                "test": "is_persistent",
+                "value": false
+              }
+            ]
+          }
         }
       },
       "allenscreations:wild": {
@@ -476,11 +490,21 @@
         ]
       },
       "minecraft:as_adult": {
-        "add": {
-          "component_groups": [
-            "zoglin_adult"
-          ]
-        }
+        "sequence": [
+          {
+            "filters": {
+              "test": "is_family",
+              "subject": "self",
+              "operator": "!=",
+              "value": "monster_companion"
+            },
+            "add": {
+              "component_groups": [
+                "zoglin_adult"
+              ]
+            }
+          }
+        ]
       },
       "minecraft:as_baby": {
         "add": {
@@ -501,12 +525,22 @@
           {
             "randomize": [
               {
-                "add": {
-                  "component_groups": [
-                    "zoglin_adult"
-                  ]
-                },
-                "weight": 95
+                "weight": 95,
+                "sequence": [
+                  {
+                    "filters": {
+                      "test": "is_family",
+                      "subject": "self",
+                      "operator": "!=",
+                      "value": "monster_companion"
+                    },
+                    "add": {
+                      "component_groups": [
+                        "zoglin_adult"
+                      ]
+                    }
+                  }
+                ]
               },
               {
                 "add": {
@@ -535,17 +569,39 @@
             }
           },
           {
-            "filters": {
-              "test": "has_component",
-              "operator": "!=",
-              "subject": "other",
-              "value": "minecraft:is_baby"
-            },
-            "add": {
-              "component_groups": [
-                "zoglin_adult"
-              ]
-            }
+            "sequence": [
+              {
+                "filters": {
+                  "all_of": [
+                    {
+                      "test": "has_component",
+                      "operator": "!=",
+                      "subject": "other",
+                      "value": "minecraft:is_baby"
+                    },
+                    {
+                      "test": "is_family",
+                      "subject": "self",
+                      "operator": "!=",
+                      "value": "monster_companion"
+                    }
+                  ]
+                },
+                "add": {
+                  "component_groups": [
+                    "zoglin_adult"
+                  ]
+                }
+              },
+              {
+                "filters": {
+                  "test": "has_component",
+                  "operator": "!=",
+                  "subject": "other",
+                  "value": "minecraft:is_baby"
+                }
+              }
+            ]
           }
         ]
       },

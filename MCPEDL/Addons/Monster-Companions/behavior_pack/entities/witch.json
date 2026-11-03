@@ -814,6 +814,20 @@
               }
             }
           ]
+        },
+        "minecraft:despawn": {
+          "filters": {
+            "all_of": [
+              {
+                "test": "is_persistent",
+                "value": true
+              },
+              {
+                "test": "is_persistent",
+                "value": false
+              }
+            ]
+          }
         }
       },
       "allenscreations:wild": {

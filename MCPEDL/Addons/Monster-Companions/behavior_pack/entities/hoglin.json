@@ -484,6 +484,20 @@
         },
         "minecraft:behavior.stay_while_sitting": {
           "priority": 2
+        },
+        "minecraft:despawn": {
+          "filters": {
+            "all_of": [
+              {
+                "test": "is_persistent",
+                "value": true
+              },
+              {
+                "test": "is_persistent",
+                "value": false
+              }
+            ]
+          }
         }
       },
       "allenscreations:wild": {
@@ -690,13 +704,29 @@
         ]
       },
       "spawn_adult": {
-        "add": {
-          "component_groups": [
-            "minecraft:hoglin_adult",
-            "huntable_adult",
-            "zombification_sensor"
-          ]
-        }
+        "sequence": [
+          {
+            "filters": {
+              "test": "is_family",
+              "subject": "self",
+              "operator": "!=",
+              "value": "monster_companion"
+            },
+            "add": {
+              "component_groups": [
+                "minecraft:hoglin_adult"
+              ]
+            }
+          },
+          {
+            "add": {
+              "component_groups": [
+                "huntable_adult",
+                "zombification_sensor"
+              ]
+            }
+          }
+        ]
       },
       "spawn_baby": {
         "add": {
@@ -738,26 +768,58 @@
         }
       },
       "spawn_adult_unhuntable": {
-        "add": {
-          "component_groups": [
-            "minecraft:hoglin_adult",
-            "unhuntable_adult",
-            "zombification_sensor"
-          ]
-        }
+        "sequence": [
+          {
+            "filters": {
+              "test": "is_family",
+              "subject": "self",
+              "operator": "!=",
+              "value": "monster_companion"
+            },
+            "add": {
+              "component_groups": [
+                "minecraft:hoglin_adult"
+              ]
+            }
+          },
+          {
+            "add": {
+              "component_groups": [
+                "unhuntable_adult",
+                "zombification_sensor"
+              ]
+            }
+          }
+        ]
       },
       "minecraft:ageable_grow_up": {
-        "remove": {
-          "component_groups": [
-            "minecraft:hoglin_baby"
-          ]
-        },
-        "add": {
-          "component_groups": [
-            "minecraft:hoglin_adult",
-            "huntable_adult"
-          ]
-        }
+        "sequence": [
+          {
+            "filters": {
+              "test": "is_family",
+              "subject": "self",
+              "operator": "!=",
+              "value": "monster_companion"
+            },
+            "add": {
+              "component_groups": [
+                "minecraft:hoglin_adult"
+              ]
+            }
+          },
+          {
+            "remove": {
+              "component_groups": [
+                "minecraft:hoglin_baby"
+              ]
+            },
+            "add": {
+              "component_groups": [
+                "huntable_adult"
+              ]
+            }
+          }
+        ]
       },
       "become_angry_event": {
         "add": {

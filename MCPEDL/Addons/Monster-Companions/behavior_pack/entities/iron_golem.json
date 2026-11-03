@@ -696,6 +696,20 @@
         },
         "minecraft:behavior.stay_while_sitting": {
           "priority": 2
+        },
+        "minecraft:despawn": {
+          "filters": {
+            "all_of": [
+              {
+                "test": "is_persistent",
+                "value": true
+              },
+              {
+                "test": "is_persistent",
+                "value": false
+              }
+            ]
+          }
         }
       },
       "allenscreations:wild": {
@@ -713,18 +727,38 @@
     },
     "events": {
       "minecraft:from_player": {
-        "add": {
-          "component_groups": [
-            "minecraft:player_created"
-          ]
-        }
+        "sequence": [
+          {
+            "filters": {
+              "test": "is_family",
+              "subject": "self",
+              "operator": "!=",
+              "value": "monster_companion"
+            },
+            "add": {
+              "component_groups": [
+                "minecraft:player_created"
+              ]
+            }
+          }
+        ]
       },
       "minecraft:from_village": {
-        "add": {
-          "component_groups": [
-            "minecraft:village_created"
-          ]
-        }
+        "sequence": [
+          {
+            "filters": {
+              "test": "is_family",
+              "subject": "self",
+              "operator": "!=",
+              "value": "monster_companion"
+            },
+            "add": {
+              "component_groups": [
+                "minecraft:village_created"
+              ]
+            }
+          }
+        ]
       },
       "allenscreations:on_tame": {
         "add": {

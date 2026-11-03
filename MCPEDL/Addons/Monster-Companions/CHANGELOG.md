@@ -1,5 +1,13 @@
 # Changelog - Monster Companions
 
+## [1.2.13] - 2026-11-04
+
+### Improved & Balanced
+- **Peaceful difficulty**: Tamed companions are no longer removed from the world when the game is set to Peaceful.
+- **Player safety**: Tamed companions no longer turn on players when a vanilla anger, night-time, or raid behavior triggers.
+
+---
+
 ## [1.2.12] - 2026-11-03
 
 ### Improved & Balanced

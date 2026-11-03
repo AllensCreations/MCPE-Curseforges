@@ -431,6 +431,20 @@
         },
         "minecraft:behavior.stay_while_sitting": {
           "priority": 2
+        },
+        "minecraft:despawn": {
+          "filters": {
+            "all_of": [
+              {
+                "test": "is_persistent",
+                "value": true
+              },
+              {
+                "test": "is_persistent",
+                "value": false
+              }
+            ]
+          }
         }
       },
       "allenscreations:wild": {
@@ -613,74 +627,196 @@
             }
           },
           {
+            "sequence": [
+              {
+                "filters": {
+                  "test": "is_family",
+                  "subject": "self",
+                  "operator": "!=",
+                  "value": "monster_companion"
+                },
+                "add": {
+                  "component_groups": [
+                    "minecraft:hostile"
+                  ]
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "minecraft:spawn_for_raid": {
+        "sequence": [
+          {
+            "filters": {
+              "test": "is_family",
+              "subject": "self",
+              "operator": "!=",
+              "value": "monster_companion"
+            },
             "add": {
               "component_groups": [
                 "minecraft:hostile"
               ]
             }
+          },
+          {
+            "add": {
+              "component_groups": [
+                "minecraft:raid_configuration",
+                "minecraft:raid_persistence"
+              ]
+            }
           }
         ]
       },
-      "minecraft:spawn_for_raid": {
-        "add": {
-          "component_groups": [
-            "minecraft:hostile",
-            "minecraft:raid_configuration",
-            "minecraft:raid_persistence"
-          ]
-        }
-      },
       "minecraft:spawn_for_raid_with_evoker_rider": {
-        "add": {
-          "component_groups": [
-            "minecraft:hostile",
-            "minecraft:evoker_rider_for_raid",
-            "minecraft:raid_configuration",
-            "minecraft:raid_persistence"
-          ]
-        }
+        "sequence": [
+          {
+            "filters": {
+              "test": "is_family",
+              "subject": "self",
+              "operator": "!=",
+              "value": "monster_companion"
+            },
+            "add": {
+              "component_groups": [
+                "minecraft:hostile"
+              ]
+            }
+          },
+          {
+            "add": {
+              "component_groups": [
+                "minecraft:evoker_rider_for_raid",
+                "minecraft:raid_configuration",
+                "minecraft:raid_persistence"
+              ]
+            }
+          }
+        ]
       },
       "minecraft:spawn_for_raid_with_pillager_rider": {
-        "add": {
-          "component_groups": [
-            "minecraft:hostile",
-            "minecraft:pillager_rider_for_raid",
-            "minecraft:raid_configuration",
-            "minecraft:raid_persistence"
-          ]
-        }
+        "sequence": [
+          {
+            "filters": {
+              "test": "is_family",
+              "subject": "self",
+              "operator": "!=",
+              "value": "monster_companion"
+            },
+            "add": {
+              "component_groups": [
+                "minecraft:hostile"
+              ]
+            }
+          },
+          {
+            "add": {
+              "component_groups": [
+                "minecraft:pillager_rider_for_raid",
+                "minecraft:raid_configuration",
+                "minecraft:raid_persistence"
+              ]
+            }
+          }
+        ]
       },
       "minecraft:spawn_with_pillager_rider": {
-        "add": {
-          "component_groups": [
-            "minecraft:hostile",
-            "minecraft:pillager_rider"
-          ]
-        }
+        "sequence": [
+          {
+            "filters": {
+              "test": "is_family",
+              "subject": "self",
+              "operator": "!=",
+              "value": "monster_companion"
+            },
+            "add": {
+              "component_groups": [
+                "minecraft:hostile"
+              ]
+            }
+          },
+          {
+            "add": {
+              "component_groups": [
+                "minecraft:pillager_rider"
+              ]
+            }
+          }
+        ]
       },
       "minecraft:spawn_with_pillager_captain_rider": {
-        "add": {
-          "component_groups": [
-            "minecraft:hostile",
-            "minecraft:pillager_captain_rider"
-          ]
-        }
+        "sequence": [
+          {
+            "filters": {
+              "test": "is_family",
+              "subject": "self",
+              "operator": "!=",
+              "value": "monster_companion"
+            },
+            "add": {
+              "component_groups": [
+                "minecraft:hostile"
+              ]
+            }
+          },
+          {
+            "add": {
+              "component_groups": [
+                "minecraft:pillager_captain_rider"
+              ]
+            }
+          }
+        ]
       },
       "minecraft:spawn_with_vindicator_rider": {
-        "add": {
-          "component_groups": [
-            "minecraft:hostile",
-            "minecraft:vindicator_rider"
-          ]
-        }
+        "sequence": [
+          {
+            "filters": {
+              "test": "is_family",
+              "subject": "self",
+              "operator": "!=",
+              "value": "monster_companion"
+            },
+            "add": {
+              "component_groups": [
+                "minecraft:hostile"
+              ]
+            }
+          },
+          {
+            "add": {
+              "component_groups": [
+                "minecraft:vindicator_rider"
+              ]
+            }
+          }
+        ]
       },
       "minecraft:spawn_with_vindicator_captain_rider": {
-        "add": {
-          "component_groups": [
-            "minecraft:hostile",
-            "minecraft:vindicator_captain_rider"
-          ]
-        }
+        "sequence": [
+          {
+            "filters": {
+              "test": "is_family",
+              "subject": "self",
+              "operator": "!=",
+              "value": "monster_companion"
+            },
+            "add": {
+              "component_groups": [
+                "minecraft:hostile"
+              ]
+            }
+          },
+          {
+            "add": {
+              "component_groups": [
+                "minecraft:vindicator_captain_rider"
+              ]
+            }
+          }
+        ]
       },
       "minecraft:become_stunned": {
         "add": {
@@ -707,16 +843,28 @@
         }
       },
       "minecraft:end_roar": {
-        "add": {
-          "component_groups": [
-            "minecraft:hostile"
-          ]
-        },
-        "remove": {
-          "component_groups": [
-            "roaring"
-          ]
-        }
+        "sequence": [
+          {
+            "filters": {
+              "test": "is_family",
+              "subject": "self",
+              "operator": "!=",
+              "value": "monster_companion"
+            },
+            "add": {
+              "component_groups": [
+                "minecraft:hostile"
+              ]
+            }
+          },
+          {
+            "remove": {
+              "component_groups": [
+                "roaring"
+              ]
+            }
+          }
+        ]
       },
       "minecraft:start_celebrating": {
         "sequence": [

@@ -469,6 +469,20 @@
         },
         "minecraft:behavior.stay_while_sitting": {
           "priority": 2
+        },
+        "minecraft:despawn": {
+          "filters": {
+            "all_of": [
+              {
+                "test": "is_persistent",
+                "value": true
+              },
+              {
+                "test": "is_persistent",
+                "value": false
+              }
+            ]
+          }
         }
       },
       "allenscreations:wild": {
@@ -498,16 +512,28 @@
         }
       },
       "become_calm_event": {
-        "add": {
-          "component_groups": [
-            "alert_for_attack_targets"
-          ]
-        },
-        "remove": {
-          "component_groups": [
-            "angry"
-          ]
-        }
+        "sequence": [
+          {
+            "filters": {
+              "test": "is_family",
+              "subject": "self",
+              "operator": "!=",
+              "value": "monster_companion"
+            },
+            "add": {
+              "component_groups": [
+                "alert_for_attack_targets"
+              ]
+            }
+          },
+          {
+            "remove": {
+              "component_groups": [
+                "angry"
+              ]
+            }
+          }
+        ]
       },
       "become_angry_event": {
         "add": {
@@ -517,16 +543,28 @@
         }
       },
       "important_block_destroyed_event": {
-        "add": {
-          "component_groups": [
-            "take_target_as_response_to_block_break"
-          ]
-        },
-        "remove": {
-          "component_groups": [
-            "alert_for_attack_targets"
-          ]
-        }
+        "sequence": [
+          {
+            "filters": {
+              "test": "is_family",
+              "subject": "self",
+              "operator": "!=",
+              "value": "monster_companion"
+            },
+            "add": {
+              "component_groups": [
+                "take_target_as_response_to_block_break"
+              ]
+            }
+          },
+          {
+            "remove": {
+              "component_groups": [
+                "alert_for_attack_targets"
+              ]
+            }
+          }
+        ]
       },
       "become_zombie_event": {
         "add": {
@@ -552,14 +590,30 @@
             }
           },
           {
-            "add": {
-              "component_groups": [
-                "zombification_sensor",
-                "alert_for_attack_targets",
-                "melee_unit",
-                "go_back_to_spawn"
-              ]
-            }
+            "sequence": [
+              {
+                "filters": {
+                  "test": "is_family",
+                  "subject": "self",
+                  "operator": "!=",
+                  "value": "monster_companion"
+                },
+                "add": {
+                  "component_groups": [
+                    "alert_for_attack_targets"
+                  ]
+                }
+              },
+              {
+                "add": {
+                  "component_groups": [
+                    "zombification_sensor",
+                    "melee_unit",
+                    "go_back_to_spawn"
+                  ]
+                }
+              }
+            ]
           }
         ]
       },

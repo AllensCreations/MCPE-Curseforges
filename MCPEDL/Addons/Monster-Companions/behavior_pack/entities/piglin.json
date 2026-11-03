@@ -641,6 +641,20 @@
         },
         "minecraft:behavior.stay_while_sitting": {
           "priority": 2
+        },
+        "minecraft:despawn": {
+          "filters": {
+            "all_of": [
+              {
+                "test": "is_persistent",
+                "value": true
+              },
+              {
+                "test": "is_persistent",
+                "value": false
+              }
+            ]
+          }
         }
       },
       "allenscreations:wild": {
@@ -1332,56 +1346,120 @@
         ]
       },
       "spawn_adult_ranged": {
-        "add": {
-          "component_groups": [
-            "piglin_adult",
-            "zombification_sensor",
-            "alert_for_attack_targets",
-            "ranged_unit",
-            "attack_cooldown",
-            "hunter",
-            "interactable_piglin"
-          ]
-        }
+        "sequence": [
+          {
+            "filters": {
+              "test": "is_family",
+              "subject": "self",
+              "operator": "!=",
+              "value": "monster_companion"
+            },
+            "add": {
+              "component_groups": [
+                "alert_for_attack_targets"
+              ]
+            }
+          },
+          {
+            "add": {
+              "component_groups": [
+                "piglin_adult",
+                "zombification_sensor",
+                "ranged_unit",
+                "attack_cooldown",
+                "hunter",
+                "interactable_piglin"
+              ]
+            }
+          }
+        ]
       },
       "spawn_adult_ranged_no_hunting": {
-        "add": {
-          "component_groups": [
-            "piglin_adult",
-            "zombification_sensor",
-            "alert_for_attack_targets",
-            "ranged_unit",
-            "attack_cooldown",
-            "not_hunter",
-            "interactable_piglin"
-          ]
-        }
+        "sequence": [
+          {
+            "filters": {
+              "test": "is_family",
+              "subject": "self",
+              "operator": "!=",
+              "value": "monster_companion"
+            },
+            "add": {
+              "component_groups": [
+                "alert_for_attack_targets"
+              ]
+            }
+          },
+          {
+            "add": {
+              "component_groups": [
+                "piglin_adult",
+                "zombification_sensor",
+                "ranged_unit",
+                "attack_cooldown",
+                "not_hunter",
+                "interactable_piglin"
+              ]
+            }
+          }
+        ]
       },
       "spawn_adult_melee": {
-        "add": {
-          "component_groups": [
-            "piglin_adult",
-            "zombification_sensor",
-            "alert_for_attack_targets",
-            "melee_unit",
-            "attack_cooldown",
-            "hunter",
-            "interactable_piglin"
-          ]
-        }
+        "sequence": [
+          {
+            "filters": {
+              "test": "is_family",
+              "subject": "self",
+              "operator": "!=",
+              "value": "monster_companion"
+            },
+            "add": {
+              "component_groups": [
+                "alert_for_attack_targets"
+              ]
+            }
+          },
+          {
+            "add": {
+              "component_groups": [
+                "piglin_adult",
+                "zombification_sensor",
+                "melee_unit",
+                "attack_cooldown",
+                "hunter",
+                "interactable_piglin"
+              ]
+            }
+          }
+        ]
       },
       "spawn_adult_melee_no_hunting": {
-        "add": {
-          "component_groups": [
-            "piglin_adult",
-            "zombification_sensor",
-            "alert_for_attack_targets",
-            "melee_unit",
-            "attack_cooldown",
-            "not_hunter",
-            "interactable_piglin"
-          ]
-        }
+        "sequence": [
+          {
+            "filters": {
+              "test": "is_family",
+              "subject": "self",
+              "operator": "!=",
+              "value": "monster_companion"
+            },
+            "add": {
+              "component_groups": [
+                "alert_for_attack_targets"
+              ]
+            }
+          },
+          {
+            "add": {
+              "component_groups": [
+                "piglin_adult",
+                "zombification_sensor",
+                "melee_unit",
+                "attack_cooldown",
+                "not_hunter",
+                "interactable_piglin"
+              ]
+            }
+          }
+        ]
       },
       "spawn_baby": {
         "randomize": [
@@ -1438,18 +1516,34 @@
         }
       },
       "become_calm_event": {
-        "remove": {
-          "component_groups": [
-            "angry",
-            "take_target_as_response_to_block_break"
-          ]
-        },
-        "add": {
-          "component_groups": [
-            "alert_for_attack_targets",
-            "attack_cooldown"
-          ]
-        }
+        "sequence": [
+          {
+            "filters": {
+              "test": "is_family",
+              "subject": "self",
+              "operator": "!=",
+              "value": "monster_companion"
+            },
+            "add": {
+              "component_groups": [
+                "alert_for_attack_targets"
+              ]
+            }
+          },
+          {
+            "remove": {
+              "component_groups": [
+                "angry",
+                "take_target_as_response_to_block_break"
+              ]
+            },
+            "add": {
+              "component_groups": [
+                "attack_cooldown"
+              ]
+            }
+          }
+        ]
       },
       "attack_cooldown_complete_event": {
         "remove": {
@@ -1466,16 +1560,28 @@
         }
       },
       "important_block_destroyed_event": {
-        "remove": {
-          "component_groups": [
-            "alert_for_attack_targets"
-          ]
-        },
-        "add": {
-          "component_groups": [
-            "take_target_as_response_to_block_break"
-          ]
-        }
+        "sequence": [
+          {
+            "filters": {
+              "test": "is_family",
+              "subject": "self",
+              "operator": "!=",
+              "value": "monster_companion"
+            },
+            "add": {
+              "component_groups": [
+                "take_target_as_response_to_block_break"
+              ]
+            }
+          },
+          {
+            "remove": {
+              "component_groups": [
+                "alert_for_attack_targets"
+              ]
+            }
+          }
+        ]
       },
       "admire_item_started_event": {
         "remove": {

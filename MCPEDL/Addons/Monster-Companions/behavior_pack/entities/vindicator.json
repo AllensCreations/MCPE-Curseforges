@@ -561,6 +561,20 @@
         },
         "minecraft:behavior.stay_while_sitting": {
           "priority": 2
+        },
+        "minecraft:despawn": {
+          "filters": {
+            "all_of": [
+              {
+                "test": "is_persistent",
+                "value": true
+              },
+              {
+                "test": "is_persistent",
+                "value": false
+              }
+            ]
+          }
         }
       },
       "allenscreations:wild": {
@@ -578,14 +592,30 @@
     },
     "events": {
       "minecraft:spawn_for_raid": {
-        "add": {
-          "component_groups": [
-            "minecraft:default_targeting",
-            "minecraft:raid_configuration",
-            "minecraft:raid_persistence",
-            "minecraft:raid_despawn"
-          ]
-        }
+        "sequence": [
+          {
+            "filters": {
+              "test": "is_family",
+              "subject": "self",
+              "operator": "!=",
+              "value": "monster_companion"
+            },
+            "add": {
+              "component_groups": [
+                "minecraft:default_targeting"
+              ]
+            }
+          },
+          {
+            "add": {
+              "component_groups": [
+                "minecraft:raid_configuration",
+                "minecraft:raid_persistence",
+                "minecraft:raid_despawn"
+              ]
+            }
+          }
+        ]
       },
       "minecraft:become_aggro": {
         "add": {
@@ -604,11 +634,21 @@
             }
           },
           {
-            "add": {
-              "component_groups": [
-                "minecraft:default_targeting"
-              ]
-            }
+            "sequence": [
+              {
+                "filters": {
+                  "test": "is_family",
+                  "subject": "self",
+                  "operator": "!=",
+                  "value": "monster_companion"
+                },
+                "add": {
+                  "component_groups": [
+                    "minecraft:default_targeting"
+                  ]
+                }
+              }
+            ]
           }
         ]
       },
@@ -628,58 +668,134 @@
         ]
       },
       "minecraft:promote_to_illager_captain": {
-        "add": {
-          "component_groups": [
-            "minecraft:default_targeting",
-            "minecraft:illager_squad_captain"
-          ]
-        },
-        "remove": {
-          "component_groups": [
-            "minecraft:patrol_follower"
-          ]
-        }
+        "sequence": [
+          {
+            "filters": {
+              "test": "is_family",
+              "subject": "self",
+              "operator": "!=",
+              "value": "monster_companion"
+            },
+            "add": {
+              "component_groups": [
+                "minecraft:default_targeting"
+              ]
+            }
+          },
+          {
+            "remove": {
+              "component_groups": [
+                "minecraft:patrol_follower"
+              ]
+            },
+            "add": {
+              "component_groups": [
+                "minecraft:illager_squad_captain"
+              ]
+            }
+          }
+        ]
       },
       "minecraft:spawn_as_illager_captain": {
-        "add": {
-          "component_groups": [
-            "minecraft:default_targeting",
-            "minecraft:illager_squad_captain"
-          ]
-        }
+        "sequence": [
+          {
+            "filters": {
+              "test": "is_family",
+              "subject": "self",
+              "operator": "!=",
+              "value": "monster_companion"
+            },
+            "add": {
+              "component_groups": [
+                "minecraft:default_targeting"
+              ]
+            }
+          },
+          {
+            "add": {
+              "component_groups": [
+                "minecraft:illager_squad_captain"
+              ]
+            }
+          }
+        ]
       },
       "minecraft:promote_to_patrol_captain": {
-        "add": {
-          "component_groups": [
-            "minecraft:default_targeting",
-            "minecraft:patrol_captain"
-          ]
-        },
-        "remove": {
-          "component_groups": [
-            "minecraft:patrol_follower"
-          ]
-        }
+        "sequence": [
+          {
+            "filters": {
+              "test": "is_family",
+              "subject": "self",
+              "operator": "!=",
+              "value": "monster_companion"
+            },
+            "add": {
+              "component_groups": [
+                "minecraft:default_targeting"
+              ]
+            }
+          },
+          {
+            "remove": {
+              "component_groups": [
+                "minecraft:patrol_follower"
+              ]
+            },
+            "add": {
+              "component_groups": [
+                "minecraft:patrol_captain"
+              ]
+            }
+          }
+        ]
       },
       "minecraft:spawn_as_patrol_follower": {
-        "add": {
-          "component_groups": [
-            "minecraft:default_targeting",
-            "minecraft:patrol_follower"
-          ]
-        }
+        "sequence": [
+          {
+            "filters": {
+              "test": "is_family",
+              "subject": "self",
+              "operator": "!=",
+              "value": "monster_companion"
+            },
+            "add": {
+              "component_groups": [
+                "minecraft:default_targeting"
+              ]
+            }
+          },
+          {
+            "add": {
+              "component_groups": [
+                "minecraft:patrol_follower"
+              ]
+            }
+          }
+        ]
       },
       "minecraft:stop_johnny": {
-        "add": {
-          "component_groups": [
-            "minecraft:default_targeting"
-          ]
-        },
-        "remove": {
-          "component_groups": [
-            "minecraft:vindicator_johnny"
-          ]
-        }
+        "sequence": [
+          {
+            "filters": {
+              "test": "is_family",
+              "subject": "self",
+              "operator": "!=",
+              "value": "monster_companion"
+            },
+            "add": {
+              "component_groups": [
+                "minecraft:default_targeting"
+              ]
+            }
+          },
+          {
+            "remove": {
+              "component_groups": [
+                "minecraft:vindicator_johnny"
+              ]
+            }
+          }
+        ]
       },
       "minecraft:start_celebrating": {
         "sequence": [
@@ -704,11 +820,21 @@
         ]
       },
       "minecraft:start_johnny": {
-        "add": {
-          "component_groups": [
-            "minecraft:vindicator_johnny"
-          ]
-        }
+        "sequence": [
+          {
+            "filters": {
+              "test": "is_family",
+              "subject": "self",
+              "operator": "!=",
+              "value": "monster_companion"
+            },
+            "add": {
+              "component_groups": [
+                "minecraft:vindicator_johnny"
+              ]
+            }
+          }
+        ]
       },
       "minecraft:stop_aggro": {
         "remove": {
