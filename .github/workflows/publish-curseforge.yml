@@ -109,7 +109,7 @@ jobs:
         run: |
           set -euo pipefail
           NAME="${PROJECT_PATH##*/}"
-          git add -A -- "$PROJECT_PATH" "builds/$NAME" builds/Curseforge_IDs.json ':(glob)builds/*/Curseforge_Info.json'
+          git add -A -- "$PROJECT_PATH" builds/Curseforge_IDs.json
           if git diff --cached --quiet; then
             echo "Nothing to commit."
             exit 0
