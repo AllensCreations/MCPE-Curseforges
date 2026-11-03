@@ -184,25 +184,50 @@ def format_version(ver_list):
     return f"{ver_list[0]}.{ver_list[1]}.{ver_list[2]}"
 
 
-def get_manifest_info(project_path):
-    """Returns dict: description, version_str, version_list from first manifest found."""
+_INSTALLED_COPY_PARTS = {"world", "worlds", "behavior_packs", "resource_packs"}
+
+
+def _manifest_versions(project_path):
+    """Header versions of the project's source manifests (installed world copies are ignored)."""
+    found = []
     manifest_paths = sorted(
         glob.glob(os.path.join(project_path, "**/manifest.json"), recursive=True)
     )
-    info = {"description": "", "version_str": "1.0.0", "version_list": [1, 0, 0]}
     for mp in manifest_paths:
+        parts = set(os.path.relpath(mp, project_path).replace(os.sep, "/").split("/")[:-1])
+        if parts & _INSTALLED_COPY_PARTS:
+            continue
         try:
             with open(mp, encoding="utf-8") as f:
                 data = json.load(f)
             hdr = data.get("header", {})
-            if hdr.get("description"):
-                info["description"] = hdr["description"]
-            if hdr.get("version"):
-                info["version_list"] = list(hdr["version"])
-                info["version_str"] = format_version(info["version_list"])
-            break
+            ver = hdr.get("version")
+            if isinstance(ver, list) and len(ver) == 3 and all(isinstance(x, int) for x in ver):
+                found.append((mp, hdr.get("description", ""), list(ver)))
         except Exception as exc:
             print(f"WARNING: ignored error: {exc}", file=sys.stderr)
+    return found
+
+
+def _manifest_version_set(project_path):
+    return {format_version(v) for _, _, v in _manifest_versions(project_path)}
+
+
+def get_manifest_info(project_path):
+    """Returns dict: description, version_str, version_list.
+
+    The version is the highest header version among the project's source manifests, so a build
+    follows the newest manifest instead of whichever file happens to sort first.
+    """
+    info = {"description": "", "version_str": "1.0.0", "version_list": [1, 0, 0]}
+    found = _manifest_versions(project_path)
+    for _, description, _ in found:
+        if description:
+            info["description"] = description
+            break
+    if found:
+        info["version_list"] = max(v for _, _, v in found)
+        info["version_str"] = format_version(info["version_list"])
     return info
 
 
@@ -1057,7 +1082,10 @@ def main():
 
         old_v = get_manifest_info(cp)["version_str"]
         new_v = old_v
-        print(f"  Keeping source version at v{old_v}")
+        _seen_versions = _manifest_version_set(cp)
+        if len(_seen_versions) > 1:
+            print(f"  WARNING: manifests disagree ({', '.join(sorted(_seen_versions))}); following the highest, v{old_v}.")
+        print(f"  Following manifest version v{old_v}")
 
         # ── Build packages with standardized filename format ───────────────
         # Dirtbound is included in automatic source/version processing, but its

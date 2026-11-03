@@ -1,6 +1,10 @@
 name: Build Changed Packs & Sync Catalogs
 
-# Rebuild packs and synchronize their catalogs without changing manifest versions.
+# Rebuild packs and synchronize their catalogs. Every build follows the version in the pack
+# manifests (the highest one if they disagree); this workflow never changes a manifest version.
+# Publish Pack to CurseForge owns version bumps. It commits with [skip ci], so the workflow_run
+# trigger below makes this run right after it and bring builds, snapshots and catalog links
+# to the version publish just set.
 
 on:
   push:
@@ -15,6 +19,10 @@ on:
   # Daily refresh, even when no source files changed (never bumps versions).
   schedule:
     - cron: "17 2 * * *"
+  workflow_run:
+    workflows: ["Publish Pack to CurseForge"]
+    types: [completed]
+    branches: [main]
   workflow_dispatch:
     inputs:
       scope:
@@ -105,7 +113,7 @@ jobs:
     runs-on: ubuntu-latest
     # Pushes only: skip bot commits, and skip when the push touches Dirtbound's
     # source tree (its dedicated world workflow owns that README and archives).
-    if: ${{ github.event_name != 'push' || (!contains(github.event.head_commit.message, '[skip ci]') && !contains(toJSON(github.event.commits), 'MCPEDL/Maps/OneBlock-Dirtbound-Kingdom-Beta/')) }}
+    if: ${{ (github.event_name != 'push' || (!contains(github.event.head_commit.message, '[skip ci]') && !contains(toJSON(github.event.commits), 'MCPEDL/Maps/OneBlock-Dirtbound-Kingdom-Beta/'))) && (github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success') }}
 
     steps:
       - name: Checkout main
@@ -140,6 +148,7 @@ jobs:
           MAP: ${{ github.event.inputs.map }}
           OTHER: ${{ github.event.inputs.other }}
           BEFORE: ${{ github.event.before }}
+          RUN_SHA: ${{ github.event.workflow_run.head_sha }}
         run: |
           set -euo pipefail
           ARGS=()
@@ -164,6 +173,10 @@ jobs:
                 ARGS=(--project "${PICKS[0]}")
               fi
               ;;
+            workflow_run)
+              # Everything the publish run changed since the commit it started from.
+              if [ -n "$RUN_SHA" ]; then ARGS=(--base "$RUN_SHA"); else ARGS=(--base "HEAD~1"); fi
+              ;;
             *)
               if [ -n "$BEFORE" ] && [ "$BEFORE" != "0000000000000000000000000000000000000000" ]; then
                 ARGS=(--base "$BEFORE")
@@ -177,6 +190,20 @@ jobs:
 
       - name: Synchronize OneBlock map READMEs
         run: python3 scripts/sync_oneblock_map_readmes.py
+
+      - name: Sync every README link to the current builds
+        run: |
+          set -uo pipefail
+          set +e
+          python3 scripts/sync_readme_links.py 2>&1 | tee "$RUNNER_TEMP/readme-links.log"
+          STATUS=${PIPESTATUS[0]}
+          {
+            echo "### README link sync (follows the manifest version)"
+            echo '```'
+            cat "$RUNNER_TEMP/readme-links.log"
+            echo '```'
+          } >> "$GITHUB_STEP_SUMMARY"
+          exit "$STATUS"
 
       - name: Standardize DESCRIPTION files
         run: |

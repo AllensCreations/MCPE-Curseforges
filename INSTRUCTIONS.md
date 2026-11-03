@@ -315,7 +315,7 @@ Workflows live in `.github/workflows/`. The roles below are a summary and will d
 
 | Workflow | Role |
 | :--- | :--- |
-| `auto-version-bump.yml` | Single release workflow. On push to main it bumps versions, rebuilds packs, and registers new projects; daily and on manual run it refreshes and rebuilds without bumping. Every run syncs project, category, builds, root and OneBlock map READMEs and audits README status. Must keep manifest titles in the `Name (vX.Y.Z)` format (Section 3). |
+| `auto-version-bump.yml` | "Build Changed Packs & Sync Catalogs". Rebuilds packs at the version in their manifests (the highest one if they disagree) and never changes a manifest version; `publish-curseforge.yml` owns bumps. Runs on push to main, right after a successful Publish Pack to CurseForge run (which commits with `[skip ci]`, so the push trigger would not fire), daily, and on manual run. Every run syncs project, category, builds, root and OneBlock map READMEs, repairs README download links to the current builds, and audits README status. Must keep manifest titles in the `Name (vX.Y.Z)` format (Section 3). |
 | `check-manifest-versions.yml` | Checks every manifest for version, UUID, dependency, import, and engine-version problems. Runs on pull requests, on pushes that touch manifests, and on demand. |
 | `remake-docs.yml` | Remakes README, DESCRIPTION, and CHANGELOG for all projects or one (`standardize` keeps text, `rebuild` regenerates add-on docs). Dry run and pull request by default. |
 | `sync-readmes.yml` | Makes README download links match real builds (fixes 404 links) without placing release versions in project README titles. Dry run option. |
