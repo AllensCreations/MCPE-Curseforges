@@ -1,0 +1,59 @@
+{
+  "format_version": 2,
+  "header": {
+    "name": "OneBlock Phase Evolution (v1.0.0)",
+    "description": "A twelve-phase weighted OneBlock map with automatic persistent Team Inventory for multiplayer by AllensCreations",
+    "uuid": "2837e3a8-7b22-4c85-9daa-cbf81447043b",
+    "version": [
+      1,
+      0,
+      0
+    ],
+    "min_engine_version": [
+      1,
+      26,
+      50
+    ]
+  },
+  "modules": [
+    {
+      "type": "data",
+      "uuid": "bab71879-cd1e-4e46-b648-9e0c425548ef",
+      "version": [
+        1,
+        0,
+        0
+      ]
+    },
+    {
+      "type": "script",
+      "language": "javascript",
+      "entry": "scripts/main.js",
+      "uuid": "7157284f-1ecb-464d-83cf-f4ac2257bbcf",
+      "version": [
+        1,
+        0,
+        0
+      ]
+    }
+  ],
+  "dependencies": [
+    {
+      "uuid": "551a6d82-52da-49ef-ba82-c006d32ed4d4",
+      "version": [
+        1,
+        0,
+        0
+      ]
+    },
+    {
+      "module_name": "@minecraft/server",
+      "version": "2.10.0"
+    }
+  ],
+  "metadata": {
+    "authors": [
+      "AllensCreations"
+    ]
+  }
+}
