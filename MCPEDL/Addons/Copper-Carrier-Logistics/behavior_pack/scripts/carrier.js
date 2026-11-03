@@ -1,15 +1,5 @@
 import { world, system, GameMode } from "@minecraft/server";
-import {
-  SCAN_RADIUS,
-  MAX_KEYS,
-  MAX_SLOTS,
-  registerKey,
-  clearLedger,
-  ledgerSize,
-  slotCount,
-  clearBuffer,
-  dropBuffer,
-} from "./memory.js";
+import { MAX_SLOTS, slotCount, clearBuffer, dropBuffer } from "./memory.js";
 
 export const CARRIER_TAG = "cc_carrier";
 export const UNIT_TAG = "cc_unit";
@@ -21,14 +11,17 @@ const INGOT_ID = "minecraft:copper_ingot";
 const SHEARS_ID = "minecraft:shears";
 const GOLEM_PROP = "cc:golem";
 const OWNER_PROP = "cc:owner";
+const HOME_PROP = "cc:home";
 const DIMENSIONS = ["overworld", "nether", "the_end"];
-const ANCHOR_INTERVAL = 2;
+const ANCHOR_INTERVAL = 1;
 const DISCOVER_INTERVAL = 100;
-const ANCHOR_OFFSET_Y = 0.55;
-const MISS_LIMIT = 20;
+const HOLD_DROP = 0.45;
+const HOLD_FORWARD = 0.3;
+const MISS_LIMIT = 40;
 const ORPHAN_LIMIT = 6;
 const GOLEM_SEARCH_RADIUS = 8;
 const USE_COOLDOWN = 6;
+const PIN_DURATION = 20000000;
 
 const carriers = new Map();
 const orphans = new Map();
@@ -78,6 +71,52 @@ export function burst(dimension, location, strong) {
   }
 }
 
+function pinGolem(golem) {
+  try {
+    golem.addEffect("slowness", PIN_DURATION, { amplifier: 255, showParticles: false });
+  } catch {
+    return;
+  }
+}
+
+function unpinGolem(golem) {
+  try {
+    golem.removeEffect("slowness");
+  } catch {
+    return;
+  }
+}
+
+function readHome(allay) {
+  try {
+    const raw = allay.getDynamicProperty(HOME_PROP);
+    if (typeof raw !== "string") return null;
+    const home = JSON.parse(raw);
+    if (home && Number.isFinite(home.x) && Number.isFinite(home.y) && Number.isFinite(home.z) && typeof home.d === "string") {
+      return home;
+    }
+  } catch {
+    return null;
+  }
+  return null;
+}
+
+function homeAt(allay) {
+  const at = allay.location;
+  return { x: Math.floor(at.x), y: Math.floor(at.y), z: Math.floor(at.z), d: allay.dimension.id };
+}
+
+export function setHome(state) {
+  state.home = homeAt(state.allay);
+  state.containers = [];
+  state.nextScan = 0;
+  try {
+    state.allay.setDynamicProperty(HOME_PROP, JSON.stringify(state.home));
+  } catch {
+    return;
+  }
+}
+
 function createState(allay, golem) {
   return {
     id: allay.id,
@@ -86,6 +125,9 @@ function createState(allay, golem) {
     golemId: golem.id,
     lastLoc: allay.location,
     dim: allay.dimension,
+    home: readHome(allay) ?? homeAt(allay),
+    containers: [],
+    nextScan: 0,
     misses: 0,
     phase: "idle",
     dest: null,
@@ -101,9 +143,22 @@ function attach(player, allay, golem) {
   golem.addTag(UNIT_TAG);
   allay.setDynamicProperty(GOLEM_PROP, golem.id);
   allay.setDynamicProperty(OWNER_PROP, player.id);
+  pinGolem(golem);
   const state = createState(allay, golem);
   carriers.set(allay.id, state);
+  setHome(state);
   return state;
+}
+
+function untagGolem(state) {
+  try {
+    if (state.golem.isValid) {
+      state.golem.removeTag(UNIT_TAG);
+      unpinGolem(state.golem);
+    }
+  } catch {
+    return;
+  }
 }
 
 export function releaseCarrier(state, dropItems) {
@@ -113,19 +168,11 @@ export function releaseCarrier(state, dropItems) {
   untagGolem(state);
   try {
     if (state.allay.isValid) {
-      clearLedger(state.allay);
       state.allay.removeTag(CARRIER_TAG);
       state.allay.setDynamicProperty(GOLEM_PROP, undefined);
       state.allay.setDynamicProperty(OWNER_PROP, undefined);
+      state.allay.setDynamicProperty(HOME_PROP, undefined);
     }
-  } catch {
-    return;
-  }
-}
-
-function untagGolem(state) {
-  try {
-    if (state.golem.isValid) state.golem.removeTag(UNIT_TAG);
   } catch {
     return;
   }
@@ -146,6 +193,7 @@ function discover() {
       const golem = typeof golemId === "string" ? world.getEntity(golemId) : undefined;
       if (golem && golem.isValid) {
         orphans.delete(allay.id);
+        pinGolem(golem);
         if (known) {
           known.allay = allay;
           known.golem = golem;
@@ -160,7 +208,6 @@ function discover() {
       if (misses >= ORPHAN_LIMIT) {
         orphans.delete(allay.id);
         allay.removeTag(CARRIER_TAG);
-        clearLedger(allay);
       }
     }
   }
@@ -178,6 +225,7 @@ function anchorAll() {
       if (found && found.isValid) {
         state.golem = found;
         state.misses = 0;
+        pinGolem(found);
       } else {
         state.misses++;
         if (state.misses >= MISS_LIMIT) releaseCarrier(state, true);
@@ -185,7 +233,16 @@ function anchorAll() {
       }
     }
     try {
-      state.golem.teleport({ x: at.x, y: at.y + ANCHOR_OFFSET_Y, z: at.z }, { dimension: allay.dimension });
+      const yaw = allay.getRotation().y;
+      const radians = (yaw * Math.PI) / 180;
+      state.golem.teleport(
+        {
+          x: at.x - Math.sin(radians) * HOLD_FORWARD,
+          y: at.y - HOLD_DROP,
+          z: at.z + Math.cos(radians) * HOLD_FORWARD,
+        },
+        { dimension: allay.dimension, rotation: { x: 0, y: yaw } }
+      );
     } catch {
       continue;
     }
@@ -241,10 +298,8 @@ function handleIngot(player, allay) {
   if (!allay.isValid || !player.isValid) return;
   const existing = carriers.get(allay.id);
   if (existing) {
-    say(
-      player,
-      `§6[ COPPER-CARRIER ] §bBuffer ${slotCount(allay)}/${MAX_SLOTS} slots | Ledger ${ledgerSize(allay)}/${MAX_KEYS} items`
-    );
+    setHome(existing);
+    say(player, `§6[ COPPER-CARRIER ] §bSorting area set here. Buffer ${slotCount(allay)}/${MAX_SLOTS} slots`);
     return;
   }
   const golem = findFreeGolem(allay) ?? spawnGolem(player, allay);
@@ -259,61 +314,6 @@ function handleShears(player, allay) {
   if (!state) return;
   releaseCarrier(state, true);
   say(player, "§6[ COPPER-CARRIER ] §bSorting unit released. Buffered items were dropped.");
-}
-
-function ownedCarrierNear(player) {
-  let best;
-  let bestDistance = SCAN_RADIUS;
-  for (const state of carriers.values()) {
-    if (!state.allay.isValid || state.allay.dimension.id !== player.dimension.id) continue;
-    if (state.allay.getDynamicProperty(OWNER_PROP) !== player.id) continue;
-    const a = state.allay.location;
-    const b = player.location;
-    const distance = Math.hypot(a.x - b.x, a.y - b.y, a.z - b.z);
-    if (distance <= bestDistance) {
-      best = state;
-      bestDistance = distance;
-    }
-  }
-  return best;
-}
-
-function handleRegister(player, block) {
-  let container;
-  try {
-    container = block.getComponent("minecraft:inventory")?.container;
-  } catch {
-    return;
-  }
-  if (!container) return;
-  const state = ownedCarrierNear(player);
-  if (!state) {
-    say(player, "§6[ COPPER-CARRIER ] §cNo flying sorting unit of yours is within 64 blocks.");
-    return;
-  }
-  const types = new Set();
-  for (let i = 0; i < container.size; i++) {
-    const item = container.getItem(i);
-    if (item) types.add(item.typeId);
-  }
-  if (types.size === 0) {
-    say(player, "§6[ COPPER-CARRIER ] §cPut sample items in the container first.");
-    return;
-  }
-  const { x, y, z } = block.location;
-  let added = 0;
-  let full = false;
-  for (const typeId of types) {
-    const result = registerKey(state.allay, typeId, x, y, z, block.dimension.id);
-    if (result === "full") full = true;
-    else added++;
-  }
-  const suffix = full ? " §c(ledger full)" : "";
-  say(
-    player,
-    `§6[ COPPER-CARRIER ] §bRegistered ${added} item types to ${x}, ${y}, ${z}. Ledger ${ledgerSize(state.allay)}/${MAX_KEYS}${suffix}`
-  );
-  burst(block.dimension, { x: x + 0.5, y, z: z + 0.5 }, false);
 }
 
 function handleDeath(deadEntity) {
@@ -351,12 +351,6 @@ export function initCarrier() {
       if (useIngot) handleIngot(player, target);
       else handleShears(player, target);
     });
-  });
-
-  world.afterEvents.playerInteractWithBlock.subscribe((event) => {
-    const { player, block, itemStack, isFirstEvent } = event;
-    if (!isFirstEvent || !itemStack || itemStack.typeId !== INGOT_ID || !player.isSneaking) return;
-    handleRegister(player, block);
   });
 
   world.afterEvents.entityDie.subscribe((event) => handleDeath(event.deadEntity));

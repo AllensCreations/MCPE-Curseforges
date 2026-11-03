@@ -1,10 +1,8 @@
 import { ItemStack } from "@minecraft/server";
 
-export const MAX_KEYS = 50;
 export const MAX_SLOTS = 54;
 export const SCAN_RADIUS = 64;
 
-const LEDGER_PROP = "cc:ledger";
 const BUFFER_PROP = "cc:buffer";
 const DATA_BEARING = [
   /^minecraft:(potion|splash_potion|lingering_potion|tipped_arrow|filled_map|written_book|enchanted_book|firework_rocket|firework_star|goat_horn|suspicious_stew|ominous_bottle|bundle)$/,
@@ -30,36 +28,6 @@ function writeJson(entity, prop, value) {
   } catch {
     return;
   }
-}
-
-export function getLedger(entity) {
-  const ledger = readJson(entity, LEDGER_PROP, {});
-  return ledger && typeof ledger === "object" && !Array.isArray(ledger) ? ledger : {};
-}
-
-export function ledgerSize(entity) {
-  return Object.keys(getLedger(entity)).length;
-}
-
-export function registerKey(entity, typeId, x, y, z, dimensionId) {
-  const ledger = getLedger(entity);
-  const known = typeId in ledger;
-  if (!known && Object.keys(ledger).length >= MAX_KEYS) return "full";
-  ledger[typeId] = { x, y, z, d: dimensionId };
-  writeJson(entity, LEDGER_PROP, ledger);
-  return known ? "updated" : "added";
-}
-
-export function clearLedger(entity) {
-  try {
-    entity.setDynamicProperty(LEDGER_PROP, undefined);
-  } catch {
-    return;
-  }
-}
-
-export function destinationKey(entry) {
-  return `${entry.d}|${entry.x}|${entry.y}|${entry.z}`;
 }
 
 export function isPlain(stack) {
@@ -118,10 +86,6 @@ export function pruneSlots(entity) {
 
 export function slotCount(entity) {
   return getSlots(entity).length;
-}
-
-export function itemCount(entity) {
-  return getSlots(entity).reduce((total, slot) => total + slot[1], 0);
 }
 
 export function canAccept(entity, typeId) {

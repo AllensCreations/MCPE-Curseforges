@@ -2,6 +2,15 @@
 
 ---
 
+## [1.0.1] - 2026-11-03
+
+### Added
+- **Move Sorting Area**: Right-click a flying sorting unit with a Copper Ingot to set its sorting area to where it hovers.
+
+### Improved & Balanced
+- **Copper Golem Style Sorting**: Units now deliver items to nearby chests and barrels that already hold the same item, like a normal Copper Golem but flying. No setup is needed, and the item ledger was removed.
+- **Held Copper Golem**: The Copper Golem is held under the Allay and is kept from walking around while carried.
+
 ## [1.0.0] - 2026-11-03
 
 ### Added
