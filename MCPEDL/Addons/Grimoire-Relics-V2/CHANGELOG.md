@@ -2,6 +2,12 @@
 
 ---
 
+## [1.0.13] - 2026-11-04
+
+### Improved & Balanced
+
+- **Clearer Tome Locations**: The description now lists every exploration chest that can contain Abyssal Tide, Deep Delver, Arcane Scholar, and Cursed Alchemist, and corrects a few wording mistakes. No gameplay changes.
+
 ## [1.0.12] - 2026-10-29
 
 ### Improved & Balanced

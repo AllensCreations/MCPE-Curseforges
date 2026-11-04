@@ -23,7 +23,7 @@ Grimoire Relics V2 adds a collection of magical tomes to Minecraft Bedrock Editi
 
 ### <img src="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/MCPEDL/Addons/Grimoire-Relics-V2/assets/items/tome_abyss.png" width="20" height="20" alt="Abyssal Tide"> **Abyssal Tide**
 - **Abilities & Mechanics**: Permanent Water Breathing. Night Vision while underwater. Dolphin's Grace while swimming.
-- **Acquisition**: Craftable
+- **Acquisition**: Craftable; also found in Shipwreck Treasure
 
 ### <img src="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/MCPEDL/Addons/Grimoire-Relics-V2/assets/items/tome_zephyr.png" width="20" height="20" alt="Zephyr Wind"> **Zephyr Wind**
 - **Abilities & Mechanics**: Speed II + Jump Boost I. Auto Slow Falling when plunging (while falling quickly). Full fall damage immunity.
@@ -42,7 +42,7 @@ Grimoire Relics V2 adds a collection of magical tomes to Minecraft Bedrock Editi
 - **Acquisition**: **Ancient Relic (Loot Only)**: Dungeon Monster Rooms
 
 ### <img src="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/MCPEDL/Addons/Grimoire-Relics-V2/assets/items/tome_lunar.png" width="20" height="20" alt="Lunar Eclipse"> **Lunar Eclipse**
-- **Abilities & Mechanics**: Nocturnal Blessing: Invisibility and Strength I during nighttime (during nighttime) in the Overworld.
+- **Abilities & Mechanics**: Nocturnal Blessing: Invisibility and Strength I during nighttime in the Overworld.
 - **Acquisition**: Craftable
 
 ### <img src="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/MCPEDL/Addons/Grimoire-Relics-V2/assets/items/tome_solar.png" width="20" height="20" alt="Solar Dawn"> **Solar Dawn**
@@ -63,10 +63,10 @@ Grimoire Relics V2 adds a collection of magical tomes to Minecraft Bedrock Editi
 
 ### <img src="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/MCPEDL/Addons/Grimoire-Relics-V2/assets/items/tome_delver.png" width="20" height="20" alt="Deep Delver"> **Deep Delver**
 - **Abilities & Mechanics**: Permanent Haste II. Provides nearby light when exploring dark areas below Y=55.
-- **Acquisition**: Craftable
+- **Acquisition**: Craftable; also found in Dungeon Monster Rooms
 
 ### <img src="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/MCPEDL/Addons/Grimoire-Relics-V2/assets/items/tome_void.png" width="20" height="20" alt="Void Phantom"> **Void Phantom**
-- **Abilities & Mechanics**: In The End, the first void rescue triggers a 2-second a brief upward lift, followed by a 1-second Slow Falling cushion when safe ground is detected during descent. The rescue continues if you remove the tome from your offhand. After safe touchdown, the activated Void Phantom is consumed from your offhand or inventory if it can be found. Only one rescue can activate per player session.
+- **Abilities & Mechanics**: In The End, the first void rescue triggers a brief 2-second upward lift, followed by a 1-second Slow Falling cushion when safe ground is detected during descent. The rescue continues if you remove the tome from your offhand. After safe touchdown, the activated Void Phantom is consumed from your offhand or inventory if it can be found. Only one rescue can activate per player session.
 - **Acquisition**: **Ancient Relic (Loot Only)**: Ancient Cities
 
 ### <img src="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/MCPEDL/Addons/Grimoire-Relics-V2/assets/items/tome_golem.png" width="20" height="20" alt="Iron Golem"> **Iron Golem**
@@ -79,7 +79,7 @@ Grimoire Relics V2 adds a collection of magical tomes to Minecraft Bedrock Editi
 
 ### <img src="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/MCPEDL/Addons/Grimoire-Relics-V2/assets/items/tome_alchemist.png" width="20" height="20" alt="Cursed Alchemist"> **Cursed Alchemist**
 - **Abilities & Mechanics**: Potion Mastery: Keeps active beneficial potion effects from expiring while the tome is equipped.
-- **Acquisition**: Craftable
+- **Acquisition**: Craftable; also found in Stronghold Libraries
 
 ### <img src="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/MCPEDL/Addons/Grimoire-Relics-V2/assets/items/tome_seraph.png" width="20" height="20" alt="Radiant Seraph"> **Radiant Seraph**
 - **Abilities & Mechanics**: Permanent Regeneration II. Complete immunity to Blindness and Nausea.
@@ -87,7 +87,7 @@ Grimoire Relics V2 adds a collection of magical tomes to Minecraft Bedrock Editi
 
 ### <img src="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/MCPEDL/Addons/Grimoire-Relics-V2/assets/items/tome_scholar.png" width="20" height="20" alt="Arcane Scholar"> **Arcane Scholar**
 - **Abilities & Mechanics**: Arcane Intellect: Triples all experience gained from mob drops, mining, and orbs.
-- **Acquisition**: Craftable
+- **Acquisition**: Craftable; also found in Stronghold Libraries
 
 ### <img src="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/MCPEDL/Addons/Grimoire-Relics-V2/assets/items/tome_mirror.png" width="20" height="20" alt="Mirror Trickster"> **Mirror Trickster**
 - **Abilities & Mechanics**: Elusive Phase: 25% chance upon taking damage to negate all incoming damage and blink 3 blocks backward through smoke.
@@ -123,7 +123,7 @@ There are **14 craftable tomes** made at a standard Crafting Table using shaped 
 - **Anvil Repairing**:
   - Combine two of the same tomes on an Anvil to restore their remaining durability.
   - Can also be repaired on an Anvil using standard **Books** at a strict **1:1 ratio** (1 book restores 1 durability point).
-- **Shatter**: If durability reaches 0 without being repaired or protected, the tome shatters ( audio with item break particles) and is removed from your equipment.
+- **Shatter**: If durability reaches 0 without being repaired or protected, the tome shatters with an item break sound and particles and is removed from your equipment.
 
 ### World Chest Distribution
 The pack includes exploration loot entries for Ancient Relics. Their intended locations are:
