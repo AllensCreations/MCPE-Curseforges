@@ -7,6 +7,7 @@ Standalone Minecraft Bedrock Script packs by AllensCreations. Script projects us
 | Project | Source | Download |
 | :--- | :--- | :--- |
 | *No standalone Script packs currently published.* | | |
+| Chrono-Bed | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Script/Chrono-Bed/) | [MCPACK](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Chrono-Bed/Chrono-Bed%20by%20AllensCreations%20%28V1.0.0%29.mcpack) |
 
 ## Attribution
 
