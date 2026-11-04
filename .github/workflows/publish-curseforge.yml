@@ -22,6 +22,7 @@ on:
           - "MCPEDL/Addons/Monster-Companions"
           - "MCPEDL/Addons/Vanilla-Quality-of-Life"
           - "MCPEDL/Maps/OneBlock-Void-Survival"
+          - "MCPEDL/Minigame/Shared-Hivemind-Inventory"
           # END registered
       map_variant:
         description: Maps only (default = auto, all = Creative + Survival + Hardcore)
