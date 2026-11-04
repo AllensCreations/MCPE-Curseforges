@@ -2,7 +2,7 @@
 
 **By AllensCreations**
 
-[![Minecraft Bedrock](https://img.shields.io/badge/Minecraft%20Bedrock-1.21%20--%201.26%2B-brightgreen?style=flat-square&logo=minecraft)](https://github.com/AllensCreations/MCPE-Curseforges)
+[![Minecraft Bedrock](https://img.shields.io/badge/Minecraft%20Bedrock-Stable%20Release-brightgreen?style=flat-square&logo=minecraft)](https://github.com/AllensCreations/MCPE-Curseforges)
 [![Format](https://img.shields.io/badge/Format-.MCPACK%20%7C%20.MCADDON%20%7C%20.MCWORLD-blue?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges)
 
 Race against the clock to find, gather, or craft an item whose name begins with the round's target letter. Turn an ordinary world into a fast-paced challenge that rewards quick thinking and smart inventory management.
@@ -54,6 +54,8 @@ Start, restart, or end a run with the Controller item. The challenge is designed
 
 - [CurseForge Profile](https://www.curseforge.com/members/allenscreations/projects)
 - [MCPEDL Profile](https://mcpedl.com/user/allenscreations/)
+
+<a href="https://www.curseforge.com/members/allenscreations/projects"><img src="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/assets/Images/curseforge.jpg" alt="CurseForge" width="45%"></a> <a href="https://mcpedl.com/user/allenscreations/"><img src="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/assets/Images/MCPEDL.jpg" alt="MCPEDL" width="45%"></a>
 
 ## Guidelines and Attribution
 
