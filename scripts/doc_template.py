@@ -11,9 +11,26 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 CF_URL = "https://www.curseforge.com/members/allenscreations/projects"
 MP_URL = "https://mcpedl.com/user/allenscreations/"
+IMG_BASE = "https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/assets/Images/"
+IMG_MAX_BYTES = 200 * 1024
+LISTINGS = {
+    "CurseForge": ("https://www.curseforge.com/", "curseforge.jpg", CF_URL),
+    "MCPEDL": ("https://mcpedl.com/", "MCPEDL.jpg", MP_URL),
+}
+
+
+def listing_html(label, href=None):
+    prefix, file, default = LISTINGS[label]
+    return f'<a href="{href or default}"><img src="{IMG_BASE}{file}" alt="{label}" width="45%"></a>'
+
+
+LISTING_LINE = listing_html("CurseForge") + " " + listing_html("MCPEDL")
 DESCRIPTION_BADGES = (
-    "[![Minecraft Bedrock](https://img.shields.io/badge/Minecraft%20Bedrock-1.21%20--%201.26%2B-brightgreen?style=flat-square&logo=minecraft)](https://github.com/AllensCreations/MCPE-Curseforges)",
+    "[![Minecraft Bedrock](https://img.shields.io/badge/Minecraft%20Bedrock-Stable%20Release-brightgreen?style=flat-square&logo=minecraft)](https://github.com/AllensCreations/MCPE-Curseforges)",
     "[![Format](https://img.shields.io/badge/Format-.MCPACK%20%7C%20.MCADDON%20%7C%20.MCWORLD-blue?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges)",
+)
+LEGACY_BADGES = (
+    "[![Minecraft Bedrock](https://img.shields.io/badge/Minecraft%20Bedrock-1.21%20--%201.26%2B-brightgreen?style=flat-square&logo=minecraft)](https://github.com/AllensCreations/MCPE-Curseforges)",
 )
 GUIDELINES = """## Guidelines and Attribution
 
@@ -75,14 +92,14 @@ def vtuple(text):
 
 def banned_content(name, text, errors, images_allowed=False):
     if images_allowed:
-        for badge in DESCRIPTION_BADGES:
+        for badge in DESCRIPTION_BADGES + LEGACY_BADGES:
             text = text.replace(badge, "")
     for label, rx in BANNED:
         if label == "a badge" and images_allowed:
             rx = re.compile(r"img\.shields\.io", re.I)
         if rx.search(text):
             errors.append(f"DOC: {name} must not contain {label} (Part 2).")
-    if not images_allowed and re.search(r"!\[[^\]]*\]\(", text):
+    if not images_allowed and (re.search(r"!\[[^\]]*\]\(", text) or re.search(r"<img\b", text, re.I)):
         errors.append(f"DOC: {name} must not contain images (Part 2).")
 
 
@@ -91,10 +108,32 @@ def check_description_badges(text, errors):
     for badge in DESCRIPTION_BADGES:
         if lines.count(badge) != 1:
             errors.append(f"DOC: DESCRIPTION.md must include this badge exactly once: {badge}")
+    for badge in LEGACY_BADGES:
+        if badge in lines:
+            errors.append("DOC: DESCRIPTION.md uses the old hardcoded-version Minecraft Bedrock badge; run apply_description_policy.")
+
+
+def check_listing_images(creators, errors, images_dir=None):
+    n = "DESCRIPTION.md"
+    for label, (prefix, file, default) in LISTINGS.items():
+        rx = re.compile(r'<a href="(https://[^"\s]+)"><img src="' + re.escape(IMG_BASE + file) + r'" alt="' + label + r'" width="45%"></a>')
+        found = rx.findall(creators)
+        if len(found) != 1:
+            errors.append(f"DOC: {n} '## Creator and Permissions' must contain the clickable {label} image exactly once, e.g. {listing_html(label)}")
+        elif not found[0].startswith(prefix):
+            errors.append(f"DOC: {n} the {label} image link must point to {prefix}")
+    if len(re.findall(r"<img\b", creators, re.I)) != 2 or re.search(r"\bheight=", creators, re.I):
+        errors.append(f"DOC: {n} the Creator section may hold only the two listing images, with relative width and no fixed height.")
+    folder = Path(images_dir) if images_dir else ROOT / "assets" / "Images"
+    for label, (prefix, file, default) in LISTINGS.items():
+        f = folder / file
+        if f.is_file() and f.stat().st_size > IMG_MAX_BYTES:
+            errors.append(f"DOC: {file} is {f.stat().st_size // 1024} KB; run scripts/optimize_images.py (limit {IMG_MAX_BYTES // 1024} KB).")
 
 
 def apply_description_policy(text, addon=False):
-    lines = [line for line in norm(text).split("\n") if line not in DESCRIPTION_BADGES]
+    drop = DESCRIPTION_BADGES + LEGACY_BADGES
+    lines = [line for line in norm(text).split("\n") if line not in drop]
     insert_at = next((i + 1 for i, line in enumerate(lines) if line.strip() == "**By AllensCreations**"), None)
     if insert_at is None:
         insert_at = next((i + 1 for i, line in enumerate(lines) if line.startswith("# ")), 0)
@@ -112,6 +151,21 @@ def apply_description_policy(text, addon=False):
             if compatibility is not None:
                 insert_at = next((i for i in range(compatibility + 1, len(lines)) if lines[i].startswith("## ")), len(lines))
                 lines.insert(insert_at, "- Achievements: Likely achievement-friendly.")
+    return apply_listing_images("\n".join(lines))
+
+
+def apply_listing_images(text):
+    text = norm(text)
+    if "<img" in text and LISTING_LINE in text:
+        return text
+    lines = text.split("\n")
+    start = next((i for i, l in enumerate(lines) if l.strip() == "## Creator and Permissions"), None)
+    if start is None:
+        return text
+    end = next((i for i in range(start + 1, len(lines)) if lines[i].startswith("## ")), len(lines))
+    while end > start + 1 and not lines[end - 1].strip():
+        end -= 1
+    lines[end:end] = ["", LISTING_LINE]
     return "\n".join(lines)
 
 
@@ -168,7 +222,7 @@ def section_map(text):
     return parts[0], [(p.split("\n", 1)[0][3:].strip(), p.split("\n", 1)[1] if "\n" in p else "") for p in parts[1:]]
 
 
-def check_description(text, version, errors):
+def check_description(text, errors, ptype="addon", images_dir=None):
     n = "DESCRIPTION.md"
     text = norm(text)
     pre, sections = section_map(text)
@@ -211,7 +265,7 @@ def check_description(text, version, errors):
         ach, ver = found[2][1].lower(), found[3][1].lower()
         if not any(a in ach for a in ACHIEVEMENT):
             errors.append(f"DOC: {n} the Achievements line must use one of: Likely achievement-friendly, Not achievement-friendly, Unknown / needs confirmation.")
-        if not ach.startswith("likely achievement-friendly"):
+        if ptype == "addon" and not ach.startswith("likely achievement-friendly"):
             errors.append(f"DOC: {n} add-on Achievements must start with 'Likely achievement-friendly'.")
         if not any(ver.startswith(v) for v in VERIFIED):
             errors.append(f"DOC: {n} the Verification line must start with 'Source created', 'Package built', or 'In-game tested'.")
@@ -219,6 +273,7 @@ def check_description(text, version, errors):
     for label, url in (("CurseForge", CF_URL), ("MCPEDL", MP_URL)):
         if url not in creators:
             errors.append(f"DOC: {n} '## Creator and Permissions' must link the {label} profile ({url}).")
+    check_listing_images(creators, errors, images_dir)
     if GUIDELINES + "## Search & Discovery Keywords" not in text:
         errors.append(f"DOC: {n} the attribution block must be the exact Part 2 text, directly before '## Search & Discovery Keywords'.")
     kw = body["Search & Discovery Keywords"]
@@ -291,8 +346,7 @@ def check_changelog(text, version, errors):
         errors.append(f"DOC: {n} must not name files, functions, or identifiers; describe player-visible changes.")
 
 
-def check_docs(root, ptype):
-    """Return a list of 'DOC: ...' failure messages for the documentation of one project or payload folder."""
+def check_docs(root, ptype, images_dir=None):
     root = Path(root)
     errors = []
     version = manifest_version(root)
@@ -304,13 +358,7 @@ def check_docs(root, ptype):
         check_project_readme(texts["README.md"], errors)
     if texts["DESCRIPTION.md"] is not None:
         check_description_badges(texts["DESCRIPTION.md"], errors)
-        if ptype == "addon":
-            check_description(texts["DESCRIPTION.md"], version, errors)
-        else:
-            banned_content("DESCRIPTION.md", texts["DESCRIPTION.md"], errors, images_allowed=True)
-            title = re.search(r"(?m)^# (.+?)(?: — .+)?$", texts["DESCRIPTION.md"])
-            if title and re.search(r"\(v\d+\.\d+\.\d+\)", title.group(1), re.I):
-                errors.append("DOC: DESCRIPTION.md title must not contain a release version.")
+        check_description(texts["DESCRIPTION.md"], errors, ptype, images_dir)
     if texts["CHANGELOG.md"] is not None:
         check_changelog(texts["CHANGELOG.md"], version, errors)
     seen, unique = set(), []
@@ -322,11 +370,10 @@ def check_docs(root, ptype):
 
 
 def compliant_docs(ptype, name, version, ext=None, date="2026-01-01"):
-    """A set of documentation files that passes every check here (used by tests and as a reference)."""
     ext = ext or {"addon": "mcaddon", "map": "mcworld", "script": "mcpack", "minigame": "mcaddon"}.get(ptype, "mcaddon")
     cards = "\n".join(f"### Feature {i}\n- **What Happens**: Players can use feature {i} in the world.\n" for i in range(1, 9))
     achievement = "Likely achievement-friendly." if ptype == "addon" else "Unknown / needs confirmation."
-    description = (f"# {name} (v{version}) — A clear factual subtitle\n\n**By AllensCreations**\n\n"
+    description = (f"# {name} — A clear factual subtitle\n\n**By AllensCreations**\n\n"
                    f"{DESCRIPTION_BADGES[0]}\n{DESCRIPTION_BADGES[1]}\n\n"
                    f"**A short player-facing tagline.**\n\n> A concise, factual pitch explains what players can do and what makes the experience distinct.\n\n"
                    f"## Overview\n\nThis creation adds a small experience to your world.\n\n## Key Features\n\n{cards}\n"
@@ -334,6 +381,7 @@ def compliant_docs(ptype, name, version, ext=None, date="2026-01-01"):
                    f"- Minecraft Bedrock Edition: 1.21.0 or newer.\n- Experimental features: Not verified.\n"
                    f"- Achievements: {achievement}\n- Verification: Source created, not tested in game.\n\n"
                    f"## Creator and Permissions\n\n- Creator: AllensCreations\n- Profiles: [CurseForge Profile]({CF_URL}) · [MCPEDL Profile]({MP_URL})\n\n"
+                   f"{LISTING_LINE}\n\n"
                    f"{GUIDELINES}## Search & Discovery Keywords\n\nMinecraft Bedrock add-on, {name} Bedrock mod, MCPEDL add-on, CurseForge Bedrock, AllensCreations.\n")
     base = "https://github.com/AllensCreations/MCPE-Curseforges/tree/main"
     slug = name.replace(" ", "-")
@@ -348,11 +396,6 @@ def compliant_docs(ptype, name, version, ext=None, date="2026-01-01"):
                   )
               ) + "\n\n## Pack Information\n\n"
               f"For gameplay features, usage details, compatibility notes, and other project information, read the [full description]({base}/MCPEDL/{category}/{slug}/DESCRIPTION.md).\n")
-    description = re.sub(
-        r"(?m)^# (.+?) \(v\d+\.\d+\.\d+\)( — .+)$",
-        r"# \1\2",
-        description,
-    )
     changelog = (f"# Changelog — {name}\n\n---\n\n## [{version}] - {date}\n\n### Added\n- **First release**: Players can use the new creation.\n")
     return {"README.md": readme, "DESCRIPTION.md": description, "CHANGELOG.md": changelog}
 
