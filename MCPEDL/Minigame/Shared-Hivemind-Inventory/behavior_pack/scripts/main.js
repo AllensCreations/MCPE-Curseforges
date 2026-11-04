@@ -12,7 +12,7 @@ const KEEP_KEY = "allenscreations:team_keep";
 const HARD_KEY = "allenscreations:hard_mode";
 const LAYOUT_KEY = "allenscreations:layout";
 const TITLE = "§l§bAllens§dCreations §6Controller";
-const HOW_TO_PLAY = "Use the Controller and choose Start. Everyone's main inventory, armor, offhand and Ender Chest items are combined into one shared inventory, and anything one player picks up, uses or drops changes it for the whole team.\n\nIf anyone dies, the whole shared inventory drops once and is emptied for the team. The Ender Chest is kept. Creative and Spectator players are not part of it.\n\nWith Personal layout, each player arranges their own inventory and hotbar while the items stay shared.\n\nIn Hard mode, health and hunger are shared too, and if one player dies, everyone dies.\n\nAn operator ends the game with the function end_game. The shared items are then divided between the players and everyone else is emptied, so nothing is duplicated.";
+const HOW_TO_PLAY = "Use the Controller and choose Start. Everyone's main inventory, armor, offhand and Ender Chest items are combined into one shared inventory, and anything one player picks up, uses or drops changes it for the whole team.\n\nIf anyone dies, the whole shared inventory drops once and is emptied for the team. The Ender Chest is kept. Creative and Spectator players are not part of it.\n\nWith Personal layout, each player arranges their own inventory and hotbar while the items stay shared.\n\nIn Hard mode, health and hunger are shared too, and if one player dies, everyone dies.\n\nThe host or an operator ends the game with the End Game button or the function end_game. The shared items are then divided between the players and everyone else is emptied, so nothing is duplicated.";
 const OPERATOR_LEVEL = 2;
 const MAX_STORED = 30000;
 const MAX_APPLY_RETRIES = 10;
@@ -506,7 +506,8 @@ async function openController(player, attempt = 0) {
     .button("Start")
     .button("How to play")
     .button(`Mode: ${isHard() ? "Hard" : "Normal"}`)
-    .button(`Layout: ${isPersonal() ? "Personal" : "Shared"}`);
+    .button(`Layout: ${isPersonal() ? "Personal" : "Shared"}`)
+    .button("End Game");
   let res;
   try {
     res = await form.show(player);
@@ -541,6 +542,12 @@ async function openController(player, attempt = 0) {
     }
     safe(() => world.setDynamicProperty(LAYOUT_KEY, isPersonal() ? undefined : "personal"));
     system.run(() => openController(player));
+  } else if (res.selection === 4) {
+    if (!isRunning()) {
+      player.sendMessage("Not running.");
+      return;
+    }
+    endGame(player);
   }
 }
 
