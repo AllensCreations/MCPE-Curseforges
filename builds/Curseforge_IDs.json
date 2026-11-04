@@ -1,6 +1,8 @@
 {
   "MCPEDL/Addons/Monster-Companions": {
-    "project_id": "1742867"
+    "project_id": "1742867",
+    "last_published_version": "1.3.0",
+    "last_release_version": "1.3.0"
   },
   "MCPEDL/Addons/Vanilla-Quality-of-Life": {
     "project_id": "1742470",

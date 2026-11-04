@@ -1,12 +1,15 @@
 # Changelog - Monster Companions
 
-## [1.2.14] - 2026-11-04
+## [1.3.0] - 2026-11-04
 
-### Improved & Balanced
+**What's new in v1.3.0:** Packed with the v1.2.14 update.
+
+### v1.2.x (v1.2.14)
+
+#### Improved & Balanced
 - **Witch healing**: The tamed Witch now throws a visible Regeneration splash potion at you every 25 to 40 seconds. Companions standing next to you are healed too.
 - **Witch splash safety**: A tamed Witch no longer throws harmful potions at enemies standing within 4 blocks of you.
 - **Peaceful difficulty**: Minecraft removes all hostile mobs on Peaceful, including tamed companions, so play on Easy or higher to keep them.
-
 ---
 
 ## [1.2.13] - 2026-11-04
@@ -108,5 +111,3 @@
 ### Fixed
 - **Biscuit crafting access:** Addressed the reported issue where the biscuit recipe was not available for offline crafting.
 - **Biscuit Recipe:** One Rotten Flesh, one Bone, one Sweet Berries, and one Honey Bottle craft four Primal Beast Biscuits.
-
-
