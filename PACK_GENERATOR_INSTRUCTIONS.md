@@ -1,4 +1,4 @@
-# Pack Generator Instructions (AI Agent, v11)
+# Pack Generator Instructions (AI Agent, v12)
 
 Standalone instruction file for an AI agent that builds a complete **addon**, **map**, **script**, or **minigame** project from the user's idea and returns it as **one line of base64** for the GitHub workflow **Create Project from Base64**.
 
@@ -308,7 +308,7 @@ Minecraft Bedrock add-on, [Add-on Name] Bedrock mod, [feature 1], [feature 2], [
 
 ### 6. Templates
 
-**Strict template rule (enforced).** `scripts/doc_template.py`, run by `build_payload.py` and the importer, fails the build on any deviation from the project README, DESCRIPTION, and CHANGELOG templates. Follow the matching template below exactly for every `README.md`, `DESCRIPTION.md`, and `CHANGELOG.md` you write or update: same headings, same heading text, same order, same labels, same list and bullet format. Do not add, remove, rename, merge, or reorder sections, and do not add boilerplate, extra notes, or text outside the template. Replace every `[placeholder]` and `verified-...` marker with verified content and leave none behind. Package installation text may vary for `.mcworld` files, and multiple verified world variants may be listed together. The DESCRIPTION template applies to every project type; only the add-on Achievements wording is add-on specific. Factual accuracy and the user's requested scope still outrank the template.
+**Strict template rule (enforced).** `scripts/doc_template.py`, run by `build_payload.py` and the importer, fails the build on any deviation from the project README, DESCRIPTION, and CHANGELOG templates. Follow the matching template below exactly for every `README.md`, `DESCRIPTION.md`, and `CHANGELOG.md` you write or update: same headings, same heading text, same order, same labels, same list and bullet format. Do not add, remove, rename, merge, or reorder sections, and do not add boilerplate, extra notes, or text outside the template. The one optional section is `## Common Questions`, directly after How to Use, with lines in the form `- **Question**: answer`. Replace every `[placeholder]` and `verified-...` marker with verified content and leave none behind. Package installation text may vary for `.mcworld` files, and multiple verified world variants may be listed together. The DESCRIPTION template applies to every project type; only the add-on Achievements wording is add-on specific. Factual accuracy and the user's requested scope still outrank the template.
 
 **Project README.md** (exactly 11 non-empty lines)
 
@@ -345,25 +345,34 @@ Use a verified direct package URL when one exists; otherwise link the official c
 [![Minecraft Bedrock](https://img.shields.io/badge/Minecraft%20Bedrock-Stable%20Release-brightgreen?style=flat-square&logo=minecraft)](https://github.com/AllensCreations/MCPE-Curseforges)
 [![Format](https://img.shields.io/badge/Format-.MCPACK%20%7C%20.MCADDON%20%7C%20.MCWORLD-blue?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges)
 
-**[Short player-facing tagline]**
+**[One concrete sentence, 25 words or fewer, with one verified number or item name. It doubles as the CurseForge Summary.]**
 
-> [A concise, factual pitch: what players can do and what makes the experience useful or distinct.]
+> [Two sentences at most. First: what the pack adds, with a verified name or number. Second: what changes in play or who it suits. Never write "adds items to the game".]
 
 ## Overview
 
-[Explain the core gameplay loop and how the pack changes the player's experience.]
+[One short paragraph in plain words: what a player does with the pack from start to finish, and what is different from vanilla Minecraft.]
 
 ## Key Features
 
 ### [Feature Name]
-- **What Happens**: [Player-facing behavior, using normal Minecraft names.]
-- **How It Works**: [Optional verified detail, only when it helps players understand the feature.]
+- **What Happens**: [One or two sentences of player-facing behavior with verified numbers, ranges, and item names.]
+- **How It Works**: [Optional. A short example such as "Right-click X with Y, then Z happens".]
+- **Good To Know**: [Optional. A verified limit, cost, or interaction players ask about.]
 
 Add separate feature cards for meaningful mechanics. Put relevant item lists, mob rosters, and verified crafting details inside the matching card; omit sections the pack does not need.
 
 ## How to Use
 
-[How players install, activate, craft, or use the pack, with verified requirements.]
+1. [First thing a player does, with the exact item or action.]
+2. [Next step.]
+3. [What they should see happen.]
+
+## Common Questions
+
+- **[Question players actually ask]**: [Verified answer in one or two sentences.]
+
+(The Common Questions section is optional. Include it only with verified answers; otherwise omit the whole section. It comes directly after How to Use.)
 
 ## Compatibility
 
@@ -763,6 +772,7 @@ Each gap you filled with your own choice (Section 1) as one bullet, or `None`. D
 
 ## Version History
 
+- **v12:** Improved the DESCRIPTION template: concrete tagline and pitch prompts, numbered How to Use steps, an optional Common Questions section, a Good To Know card line, and extra advisory style checks (tagline length and detail, numbered steps, generic card names).
 - **v11:** Added Part 2, Section 7 (Page Quality) based on CurseForge's author guide and HTML support list, and the advisory `--style` check.
 - **v10:** Version-free Minecraft Bedrock badge. Required clickable CurseForge and MCPEDL listing images (HTML, `width="45%"`, full raw URLs) with automatic resize and compression through `scripts/optimize_images.py` and `optimize-images.yml`. Fixed cross references (Part 4, Section 6; Part 1, Section 11). Split the Script and Minigame checklist items. Replaced the invalid resource pack JSON template with a placeholder pattern. Removed the duplicated DESCRIPTION bullets. README line count corrected to exactly 11. Attribution block no longer contains profile links. Added the non-build reply exception. The `.b64` file is now the default delivery. DESCRIPTION template enforced for every project type. Added `doc_template.py` to the source-of-truth scripts.
 - **v9:** Previous version.

@@ -237,6 +237,18 @@ def check_description(text, version, errors, ptype="addon", images_dir=None):
     elif len(after) < 2 or after[1].startswith(("#", "-", "|", "*")):
         errors.append(f"DOC: {n} needs a short summary paragraph after the By line and before ## Overview.")
     names = [s[0] for s in sections]
+    qa_at = names.index("How to Use") + 1 if "How to Use" in names else None
+    if qa_at is not None and qa_at < len(names) and names[qa_at] == "Common Questions":
+        qa_body = sections[qa_at][1]
+        sections = sections[:qa_at] + sections[qa_at + 1:]
+        names = [s[0] for s in sections]
+        qa_lines = [l for l in qa_body.split("\n") if l.strip()]
+        if not qa_lines:
+            errors.append(f"DOC: {n} '## Common Questions' must not be empty; remove it or add verified questions.")
+        for l in qa_lines:
+            if not re.match(r"^- \*\*[^*]+\*\*: \S", l):
+                errors.append(f"DOC: {n} '## Common Questions' lines must read '- **Question**: answer'.")
+                break
     if names != list(DESCRIPTION_SECTIONS):
         errors.append(f"DOC: {n} the ## sections must be exactly, in this order: {', '.join(DESCRIPTION_SECTIONS)}. Found: {', '.join(names) or 'none'}.")
         return banned_content(n, text, errors, images_allowed=True)
@@ -430,6 +442,19 @@ def style_warnings(text, name="DESCRIPTION.md"):
             continue
         if len(re.findall(r"[.!?](?:\s|$)", b)) > 4:
             hits.append(f"STYLE: {name} has a paragraph of more than four sentences: '{b[:50]}...'. Split or shorten it.")
+    tags = [l for l in lines if re.match(r"^\*\*[^*].*\*\*$", l.strip()) and "By AllensCreations" not in l]
+    if not tags:
+        hits.append(f"STYLE: {name} has no bold tagline. Add one concrete sentence of 25 words or fewer.")
+    elif len(tags[0].strip("*").split()) > 25:
+        hits.append(f"STYLE: {name} tagline is longer than 25 words. It should work as the CurseForge Summary.")
+    elif not re.search(r"\d|[A-Z][a-z]+ [A-Z]|[A-Z][a-z]+, [A-Z]", tags[0].strip("*")[1:]):
+        hits.append(f"STYLE: {name} tagline names no number or specific item. Add one verified detail.")
+    howto = re.search(r"(?ms)^## How to Use\n(.*?)(?=^## |\Z)", norm(text))
+    if howto and not re.search(r"(?m)^\d+\. ", howto.group(1)):
+        hits.append(f"STYLE: {name} How to Use has no numbered steps.")
+    for card in re.findall(r"(?m)^### (.+)$", norm(text)):
+        if card.strip().lower() in ("features", "overview", "benefits", "gameplay", "items", "improvements", "extras"):
+            hits.append(f"STYLE: {name} feature card '{card}' is too generic. Name the actual mechanic or item.")
     return hits
 
 
