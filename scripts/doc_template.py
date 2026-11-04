@@ -222,7 +222,7 @@ def section_map(text):
     return parts[0], [(p.split("\n", 1)[0][3:].strip(), p.split("\n", 1)[1] if "\n" in p else "") for p in parts[1:]]
 
 
-def check_description(text, errors, ptype="addon", images_dir=None):
+def check_description(text, version, errors, ptype="addon", images_dir=None):
     n = "DESCRIPTION.md"
     text = norm(text)
     pre, sections = section_map(text)
@@ -358,7 +358,7 @@ def check_docs(root, ptype, images_dir=None):
         check_project_readme(texts["README.md"], errors)
     if texts["DESCRIPTION.md"] is not None:
         check_description_badges(texts["DESCRIPTION.md"], errors)
-        check_description(texts["DESCRIPTION.md"], errors, ptype, images_dir)
+        check_description(texts["DESCRIPTION.md"], version, errors, ptype, images_dir)
     if texts["CHANGELOG.md"] is not None:
         check_changelog(texts["CHANGELOG.md"], version, errors)
     seen, unique = set(), []
@@ -400,6 +400,59 @@ def compliant_docs(ptype, name, version, ext=None, date="2026-01-01"):
     return {"README.md": readme, "DESCRIPTION.md": description, "CHANGELOG.md": changelog}
 
 
+STYLE_PHRASES = (
+    "game-changer", "game changer", "next level", "dive into", "delve", "unleash", "elevate", "elevates",
+    "immersive", "seamless", "seamlessly", "revolutionize", "revolutionary", "ultimate", "unparalleled",
+    "cutting-edge", "endless possibilities", "world of possibilities", "like never before", "whole new",
+    "embark", "journey", "tapestry", "supercharge", "meticulously", "breathe new life", "perfect for",
+    "whether you're", "whether you are", "enhance your", "enhances your", "transform your", "take your",
+    "adds items to the game", "adds new items", "adds new features", "changes the vanilla game",
+    "enhances gameplay", "improves gameplay", "a variety of", "various",
+)
+
+
+def style_warnings(text, name="DESCRIPTION.md"):
+    hits = []
+    lines = norm(text).split("\n")
+    for i, line in enumerate(lines, 1):
+        low = line.lower()
+        for phrase in STYLE_PHRASES:
+            if re.search(r"\b" + re.escape(phrase) + r"\b", low):
+                hits.append(f"STYLE: {name} line {i} uses '{phrase}'. Replace it with a specific fact about what players can do.")
+        if "!" in line.replace("![", ""):
+            hits.append(f"STYLE: {name} line {i} has an exclamation mark. State the fact plainly.")
+    dashes = sum(l.count("\u2014") for l in lines[1:] if not l.startswith("#"))
+    if dashes > 3:
+        hits.append(f"STYLE: {name} has {dashes} em dashes outside headings. Use plain sentences instead.")
+    for block in re.split(r"\n\s*\n", norm(text)):
+        b = block.strip()
+        if not b or b[0] in "#->*<[|" or b[0].isdigit():
+            continue
+        if len(re.findall(r"[.!?](?:\s|$)", b)) > 4:
+            hits.append(f"STYLE: {name} has a paragraph of more than four sentences: '{b[:50]}...'. Split or shorten it.")
+    return hits
+
+
+def style_audit(targets):
+    total = 0
+    for ptype, path in targets:
+        f = Path(path) / "DESCRIPTION.md"
+        if not f.is_file():
+            continue
+        hits = style_warnings(f.read_text(encoding="utf-8"))
+        rel = Path(path)
+        try:
+            rel = rel.relative_to(ROOT)
+        except ValueError:
+            pass
+        print(("style " if hits else "ok    ") + rel.as_posix())
+        for h in hits:
+            print("  - " + h)
+        total += bool(hits)
+    print(f"[Style] {total} description(s) with style hints (advisory, not build failures).")
+    return 0
+
+
 def audit(targets):
     bad = 0
     for ptype, path in targets:
@@ -425,6 +478,7 @@ def main():
     parser.add_argument("--all", action="store_true", help="Every project under MCPEDL/.")
     parser.add_argument("--project", help="One project folder name under MCPEDL/.")
     parser.add_argument("--type", choices=("addon", "map", "script", "minigame"), help="Project type for a PATH audit (default: addon).")
+    parser.add_argument("--style", action="store_true", help="Advisory style hints for DESCRIPTION.md (filler phrases, long paragraphs).")
     args = parser.parse_args()
     kinds = {"Addons": "addon", "Maps": "map", "Script": "script", "Minigame": "minigame"}
     targets = []
@@ -440,6 +494,8 @@ def main():
     if not targets:
         print("Nothing to audit: pass --all, --project NAME, or a PATH.", file=sys.stderr)
         return 2
+    if args.style:
+        return style_audit(targets)
     bad = audit(targets)
     print(f"[Docs] {len(targets)} project(s) audited, {bad} not following the template.")
     return 1 if bad else 0

@@ -1,4 +1,4 @@
-# Pack Generator Instructions (AI Agent, v10)
+# Pack Generator Instructions (AI Agent, v11)
 
 Standalone instruction file for an AI agent that builds a complete **addon**, **map**, **script**, or **minigame** project from the user's idea and returns it as **one line of base64** for the GitHub workflow **Create Project from Base64**.
 
@@ -9,7 +9,7 @@ This file is self-contained. It includes the rules from the repository's `INSTRU
 | Part | Covers |
 | :--- | :--- |
 | Part 1 (excerpt) | Accuracy, versions, achievements, manifest titles, LOCK, recipe unlock, function files, OneBlock and script rules, security, untested assumptions |
-| Part 2 | README, DESCRIPTION, CHANGELOG rules, attribution, listing images, keywords, templates |
+| Part 2 | README, DESCRIPTION, CHANGELOG rules, attribution, listing images, keywords, templates, page quality |
 | Part 4 | The generator: ask the type, build, check, deliver |
 
 **Precedence.** Part 1 wins on any conflict. Part 2 follows Part 1. Part 4 follows both and never overrides them. Factual accuracy and the user's requested scope outrank any template. If a script and this file disagree, tell the user what differs.
@@ -414,6 +414,19 @@ Use the reference's clear title/tagline, highlighted pitch, grouped features, an
 - **[Fix Title]**: [What in-game bug or glitch was resolved].
 ```
 
+### 7. Page Quality
+
+Based on CurseForge's author guide "How to Create the Best Project Page" and its list of supported HTML tags (both checked 2026-11-04). These rules keep descriptions useful and stop them reading like generic filler.
+
+- **Say what it does.** Tell players what the pack adds or changes, using verified specifics: names, counts, ranges, recipes, and controls. Never write generic lines such as "adds items to the game" or "changes the vanilla game".
+- **Tagline.** The bold tagline is one concrete sentence that can double as the CurseForge Summary field: what players do and what is new, in plain words.
+- **Plain language.** Write for ordinary players. Explain a mechanic with one short example instead of an adjective. One idea per feature card.
+- **How to Use as steps.** Use short numbered steps for anything players must do. Put common questions as short `- **Question**: answer` bullets under How to Use.
+- **Style check.** Run `python3 scripts/doc_template.py --style <project folder>` and rewrite every STYLE hint with a specific fact. Hints are advisory and never fail a build. They flag filler phrases (such as "immersive", "seamless", "whether you're"), exclamation marks, more than three em dashes outside headings, and paragraphs of more than four sentences.
+- **Media is added on the platform.** Payloads contain no screenshots. After publishing, add in-game screenshots to the CurseForge Images page, enable the carousel, and add the same screenshots on MCPEDL.
+- **Socials and links** stay at the bottom and small. The listing images use width 45%; lower it if a platform shows them too large.
+- **Supported HTML on CurseForge.** Allowed tags include p, br, strong, em, u, ul, ol, li, a (href, target), img (alt, src, width, height), blockquote, div (title, data-title), span, h1 to h6, hr, table, pre, code, section, and iframe for whitelisted domains such as YouTube. CSS font-size is capped at 40px. `<div class="spoiler">` is supported. Keep Markdown as the base; use HTML only for the listing images and a verified spoiler.
+
 ---
 
 ## Part 4: Pack Generator
@@ -628,6 +641,7 @@ Documentation follows Part 2 exactly; `build_payload.py` fails with a `DOC:` mes
 - **Every project `README.md`:** the version-free download-only template, exactly 11 non-empty lines, with the current package format and a verified package link or official category catalog link. Preserve multiple verified world variants for maps. No badges, images, or gameplay claims.
 - **Every `DESCRIPTION.md`:** the Part 2 template, including both required badges (version-free), the Creator and Permissions links, the two clickable listing images with `width="45%"`, the Guidelines and Attribution block (with the unofficial-product disclaimer), and Search & Discovery Keywords. Gameplay details only for features that exist in the files. State the verified minimum game version only if verified. Mention cheats where an admin function is documented. Never mention `Script API` or `@minecraft/` modules. Use in-game display names, no code blocks, no Markdown tables.
 - **`CHANGELOG.md`:** the Part 2 format, starting with `## [1.0.0] - YYYY-MM-DD`, no links.
+- **Style check:** run `python3 doc_template.py --style build/Name` and rewrite every STYLE hint with a specific fact (Part 2, Section 7). Hints are advisory, but do not deliver a description that still contains filler phrases.
 
 ### 8. Building the payload
 
@@ -653,6 +667,7 @@ By hand, confirm only:
 - [ ] Minigame: the form has exactly Start and How to play; `gameInfo` and `howToPlay` hold real text; the game logic is real and calls `endGame()`; stuck-state recovery exists; each listed add-on exists.
 - [ ] No comments in any script, function, or JSON file.
 - [ ] Every README, DESCRIPTION, and CHANGELOG matches its Part 2 template exactly (headings, order, labels), with no placeholders left, and every DESCRIPTION has the two listing images.
+- [ ] The style check shows no STYLE hints in `DESCRIPTION.md`, and the tagline is one concrete sentence.
 - [ ] Any `.sh` file handed over is named `(Repofilename)_(Version)_(Rand).sh` with a fresh `Rand` of at least 5 characters.
 - [ ] No file from `Mcpeworlds/assets/` other than the ledger or controller files was copied, and no file from `assets/Images/` was copied.
 - [ ] A build reply contains only the five Section 11 blocks (or one listed exception), nothing before or after.
@@ -748,5 +763,6 @@ Each gap you filled with your own choice (Section 1) as one bullet, or `None`. D
 
 ## Version History
 
+- **v11:** Added Part 2, Section 7 (Page Quality) based on CurseForge's author guide and HTML support list, and the advisory `--style` check.
 - **v10:** Version-free Minecraft Bedrock badge. Required clickable CurseForge and MCPEDL listing images (HTML, `width="45%"`, full raw URLs) with automatic resize and compression through `scripts/optimize_images.py` and `optimize-images.yml`. Fixed cross references (Part 4, Section 6; Part 1, Section 11). Split the Script and Minigame checklist items. Replaced the invalid resource pack JSON template with a placeholder pattern. Removed the duplicated DESCRIPTION bullets. README line count corrected to exactly 11. Attribution block no longer contains profile links. Added the non-build reply exception. The `.b64` file is now the default delivery. DESCRIPTION template enforced for every project type. Added `doc_template.py` to the source-of-truth scripts.
 - **v9:** Previous version.
