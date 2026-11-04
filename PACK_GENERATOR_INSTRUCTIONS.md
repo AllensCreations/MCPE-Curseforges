@@ -271,15 +271,14 @@ Applies to every public README, DESCRIPTION, CHANGELOG, and catalog entry. Write
 
 Both belong in `DESCRIPTION.md` only, never in a project README, changelog, or manifest description.
 
-- [CurseForge Profile](https://www.curseforge.com/members/allenscreations/projects)
-- [MCPEDL Profile](https://mcpedl.com/user/allenscreations/)
-
 Put the profile links in the Creator and Permissions section. Put this block immediately before the final Search & Discovery Keywords section:
 
 ```markdown
 ## Guidelines and Attribution
 
 - Creator: AllensCreations
+- [CurseForge Profile](https://www.curseforge.com/members/allenscreations/projects)
+- [MCPEDL Profile](https://mcpedl.com/user/allenscreations/)
 - Rights & Reservation: All rights reserved for AllensCreations.
 - Content Creators: Content creators are permitted to feature this creation in videos and streams with credit to AllensCreations.
 - Redistribution: Do not re-upload this pack or provide direct monetized download bypasses. Link directly to the official repository page.
