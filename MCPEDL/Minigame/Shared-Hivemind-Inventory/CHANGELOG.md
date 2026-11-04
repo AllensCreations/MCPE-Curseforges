@@ -2,10 +2,13 @@
 
 ---
 
-## [1.0.23] - 2026-11-04
+## [1.1.0] - 2026-11-04
 
-### Added
+**What's new in v1.1.0:** Packed with the v1.0.23 update.
 
+### v1.0.x (v1.0.23)
+
+#### Added
 - **End Game Button**: The Controller menu now has an End Game button. The host or an operator can end sharing without using the function, and the shared items are divided between players the same way.
 
 ## [1.0.22] - 2026-11-01
