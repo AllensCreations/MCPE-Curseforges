@@ -74,3 +74,4 @@ Time advances for the whole world, including players who are not in bed. The tim
 ## Search & Discovery Keywords
 
 Minecraft Bedrock add-on, Chrono-Bed Bedrock mod, Minecraft sleep time-lapse, bed night skip, crop growth while sleeping, faster sleep, Minecraft PE QoL, MCPEDL add-on, CurseForge Bedrock, AllensCreations.
+
