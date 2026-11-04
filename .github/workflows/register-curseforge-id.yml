@@ -70,5 +70,5 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git commit -m "chore(curseforge): register project ID [skip ci]"
-          git pull --rebase origin "${GITHUB_REF#refs/heads/}"
+          git pull --rebase origin "${GITHUB_REF#refs/heads/}" --autostash
           git push origin "HEAD:${GITHUB_REF}"
