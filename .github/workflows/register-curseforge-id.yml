@@ -56,7 +56,7 @@ jobs:
           HAS_PAT: ${{ secrets.WORKFLOW_PAT != '' }}
         run: |
           set -euo pipefail
-          git add -A -- builds/Curseforge_IDs.json ':(glob)builds/Curseforge_Info.json'
+          git add -A -- builds/Curseforge_IDs.json ':(glob)builds/Curseforge_IDs.json'
           if [ "$HAS_PAT" = "true" ]; then
             git add -- .github/workflows/publish-curseforge.yml
           elif ! git diff --quiet -- .github/workflows/publish-curseforge.yml; then
