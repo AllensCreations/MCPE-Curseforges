@@ -1,0 +1,42 @@
+{
+  "format_version": 2,
+  "header": {
+    "name": "Chrono-Bed (v1.0.0)",
+    "description": "Replaces instant sleep with an accelerating night time-lapse. by AllensCreations",
+    "uuid": "6be89c03-ec4a-412b-8419-f9c36ea529cb",
+    "version": [
+      1,
+      0,
+      0
+    ],
+    "min_engine_version": [
+      1,
+      26,
+      60
+    ]
+  },
+  "modules": [
+    {
+      "type": "script",
+      "language": "javascript",
+      "uuid": "1bc1a9a8-291d-43b1-b0db-7b631fef8e99",
+      "version": [
+        1,
+        0,
+        0
+      ],
+      "entry": "scripts/main.js"
+    }
+  ],
+  "dependencies": [
+    {
+      "module_name": "@minecraft/server",
+      "version": "2.11.0"
+    }
+  ],
+  "metadata": {
+    "authors": [
+      "AllensCreations"
+    ]
+  }
+}
