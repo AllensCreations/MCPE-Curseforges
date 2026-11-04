@@ -250,7 +250,7 @@ Applies to every public README, DESCRIPTION, CHANGELOG, and catalog entry. Write
 - No code blocks and no instructions to edit JavaScript or JSON. Present configurable behavior as in-game options, commands, or tags.
 - Tone: polished and factual. No hype, clickbait, rhetorical questions, filler, or emojis.
 - Include exact values, recipes, and requirements only when verified from source or tests.
-- Do not claim "zero lag", universal multiplayer or Realms compatibility, achievement preservation, or "no experimental features" without evidence for that exact claim.
+- Do not claim "zero lag", universal multiplayer or Realms compatibility, achievement preservation, or "no experimental features" without evidence for that exact claim. The one exception is the add-on Achievements line in DESCRIPTION.md, which always reads "Likely achievement-friendly." per the template (Part 2, Section 6), with any cheats or world-setting caveat kept.
 - Where a function or command that needs cheats is mentioned, say it needs cheats and that using cheats disables achievements in that world.
 
 ### 3. Layout and Platform Formatting

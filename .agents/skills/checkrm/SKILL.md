@@ -10,6 +10,7 @@ description: Audit, repair, and synchronize README, DESCRIPTION, and CHANGELOG d
 - `INSTRUCTIONS.md` is the only policy source. Part 1 is core policy, Part 2 holds every README, DESCRIPTION, and CHANGELOG rule and template, and Part 3 is the audit workflow with the Minecraft Wiki and Bedrock Samples references. This skill is a short working checklist and never restates or overrides them. On any conflict, `INSTRUCTIONS.md` wins.
 - There is no separate `README_GUIDELINES.md`. If `INSTRUCTIONS.md` cannot be read, stop and report it instead of working from memory.
 - The user's explicit scope and source accuracy outrank any template.
+- When the user wants the changes delivered as a Termux script to run on their phone, hand the edits to the `mcpe-pack-update` skill instead of applying them here.
 
 ## Scope and Modes
 
