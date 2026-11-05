@@ -55,7 +55,7 @@ This directory stores compiled Add-ons (`.mcaddon`), Maps (`.mcworld`), Scripts 
 | Pack Name | Type | Download Link | Build Folder |
 | :--- | :--- | :--- | :--- |
 | *No standalone Script packs currently published.* | | | |
-| **Chrono-Bed** | Script Pack (`.mcpack`) | [Download (.mcpack)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Chrono-Bed/Chrono-Bed%20by%20AllensCreations%20%28V1.0.0%29.mcpack) | [`Chrono-Bed/`](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/builds/Chrono-Bed/) |
+| **Chrono-Bed** | Script Pack (.mcpack) | [Download (.mcpack)](Chrono-Bed/Chrono-Bed%20by%20AllensCreations%20%28V1.0.0%29.mcpack) | [`Chrono-Bed/`](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/builds/Chrono-Bed/) |
 
 ---
 

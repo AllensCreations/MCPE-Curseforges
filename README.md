@@ -68,7 +68,7 @@ Standalone Script projects are Behavior Pack-only `.mcpack` downloads, tested wi
 | Project Name | Type | Download Link | Source Code | Highlights |
 | :--- | :--- | :--- | :--- | :--- |
 | *No standalone Script packs currently published.* | | | | |
-| **Chrono-Bed** | Script | [Download (.mcpack)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Chrono-Bed/Chrono-Bed%20by%20AllensCreations%20%28V1.0.0%29.mcpack) | [`MCPEDL/Script/Chrono-Bed/`](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Script/Chrono-Bed/) | Replaces instant sleep with an accelerating night time-lapse... |
+| **Chrono-Bed** | Script Pack (.mcpack) | [Download (.mcpack)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Chrono-Bed/Chrono-Bed%20by%20AllensCreations%20%28V1.0.0%29.mcpack) | [`MCPEDL/Script/Chrono-Bed/`](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Script/Chrono-Bed/) | Replaces instant sleep with an accelerating night time-lapse... |
 
 ---
 
