@@ -5,7 +5,7 @@ Download the current release of **OneBlock Void Survival** for Minecraft Bedrock
 ## Download
 
 - **Package format:** `.mcworld`
-- **Direct download:** [Download OneBlock Void Survival (.mcworld)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/OneBlock-Void-Survival/OneBlock%20Void%20Survival%20by%20AllensCreations%20%28V1.2.18%29.mcworld)
+- **Direct download:** [Download OneBlock Void Survival (.mcworld)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/OneBlock-Void-Survival/OneBlock%20Void%20Survival%20by%20AllensCreations%20%28V2.0.0%29.mcworld)
 
 ## Installation
 
