@@ -1,5 +1,9 @@
 # Changelog - Monster Companions
 
+## [2.0.0] - 2026-11-06
+
+**What's new in v2.0.0:** Rolls up the existing changelog, from v1.0.7 through v1.3.0.
+
 ## [1.3.0] - 2026-11-04
 
 **What's new in v1.3.0:** Packed with the v1.2.14 update.
