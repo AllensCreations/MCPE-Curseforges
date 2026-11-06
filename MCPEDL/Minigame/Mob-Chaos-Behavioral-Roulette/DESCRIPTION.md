@@ -25,15 +25,27 @@ Before each mutation, eerie blood-red glitch text flashes on your action bar or 
   - Creeper fuse: mobs that hiss, then blow up.
   - Ghost: mobs that vanish from sight and speed away.
   - Wrong voice: mobs that cry out with another creature's sound.
+  - Zoomies: mobs that sprint in random directions at huge speed.
+  - Weeping statue: mobs that freeze while you look at them and rush you when you look away.
+  - Magnet: mobs that chase you without attacking.
+  - Panic run: mobs that flee from you.
+  - Switcheroo: a mob that trades places with you.
+  - Dance fever: mobs that spin, hop and play notes.
+  - Pinata: mobs that drop treats and burst into goodies at the end.
+  - Mitosis twins: mobs that split into temporary copies.
+  - Storm caller: mobs that call thunder.
 
 ### Anomaly Warning Alerts
 - **What Happens**: Right before each mutation wave, blood-red glitch text flashes on the action bar or screen center (e.g. `[ANOMALY DETECTED] The biological code is rewriting...`).
 
+### Chaos Events
+- **What Happens**: About one shuffle in five becomes a surprise event. A title appears on screen and many nearby mobs get the same mutation at once, such as a dance party or a stampede toward you. Chaos events can be turned off in the Controller.
+
 ### AllensCreations Controller
-- **What Happens**: The Controller item is given to each player on spawn if they are not already carrying one. Right-click or hold it to open a form with Start, Restart, End, Block damage, Shuffle interval (15, 30 or 60 seconds), Mobs (All or Hostile only) and Glitch text. In multiplayer, only operators can use it, and Start, Restart and End can also be triggered from commands and command blocks.
+- **What Happens**: The Controller item is given to each player on spawn if they are not already carrying one. Right-click or hold it to open a form with Start, Restart, End, Block damage, Shuffle interval (15, 30 or 60 seconds), Mobs (All or Hostile only), Chaos events and Glitch text. In multiplayer, only operators can use it, and Start, Restart and End can also be triggered from commands and command blocks.
 
 ### Safety and Limits
-- **What Happens**: Up to 6 new mobs mutate per shuffle and up to 24 at once, within 48 blocks of a player. Villagers, wandering traders, iron golems, snow golems and tamed pets are never mutated, and mob attacks do not reach through walls or hurt Creative and Spectator players.
+- **What Happens**: Up to 6 new mobs mutate per shuffle and up to 24 at once, within 48 blocks of a player. Villagers, wandering traders, iron golems, snow golems and tamed pets are never mutated, and mob attacks do not reach through walls or hurt Creative and Spectator players. Copies made by Mitosis twins vanish when their mutation ends or the game stops, and Storm caller only brings real lightning when Block damage is on.
 
 ## How to Use
 
@@ -73,5 +85,5 @@ Before each mutation, eerie blood-red glitch text flashes on your action bar or 
 
 ## Search & Discovery Keywords
 
-Minecraft Bedrock add-on, Mob Chaos Behavioral Roulette Bedrock mod, mutating mobs Minecraft Bedrock, chaotic mob traits, creeper fuse animals, flying cows Bedrock, Minecraft PE minigame, MCPEDL add-on, CurseForge Bedrock, AllensCreations.
+Minecraft Bedrock add-on, Mob Chaos Behavioral Roulette Bedrock mod, mutating mobs Minecraft Bedrock, chaotic mob traits, creeper fuse animals, flying cows Bedrock, mob dance party, mob chaos events, mobs swap places, Minecraft PE minigame, MCPEDL add-on, CurseForge Bedrock, AllensCreations.
 

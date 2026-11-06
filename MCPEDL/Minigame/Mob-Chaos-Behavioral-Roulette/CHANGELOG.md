@@ -2,6 +2,21 @@
 
 ---
 
+## [1.0.4.2] - 2026-11-06
+
+### Added
+
+- **Zoomies**: Mobs sprint in random directions at huge speed.
+- **Weeping statue**: Mobs freeze solid while you look at them and rush you the moment you look away.
+- **Magnet**: Mobs chase you relentlessly without attacking.
+- **Panic run**: Mobs flee from you in terror.
+- **Switcheroo**: A mob swaps places with you.
+- **Dance fever**: Mobs spin, hop and play notes.
+- **Pinata**: Mobs drop treats while mutated and burst into a pile of goodies when it ends.
+- **Mitosis twins**: Mobs split into temporary copies that vanish when the mutation ends.
+- **Storm caller**: Mobs rumble with thunder; real lightning strikes nearby only when Block damage is on.
+- **Chaos events**: About one shuffle in five becomes a surprise event with an on-screen title, where many nearby mobs get the same mutation at once. They can be turned off in the Controller.
+
 ## [1.0.4.1] - 2026-11-06
 
 ### Added

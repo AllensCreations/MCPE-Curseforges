@@ -7,6 +7,7 @@ const BLOCK_KEY = "block_damage";
 const INTERVAL_KEY = "shuffle_seconds";
 const HOSTILE_KEY = "hostile_only";
 const MUTE_KEY = "mute_glitch";
+const NO_CHAOS_KEY = "no_chaos_events";
 
 const LOOP_TICKS = 10;
 const SHUFFLE_OPTIONS = [15, 30, 60];
@@ -16,6 +17,9 @@ const WARN_RADIUS = 32;
 const MAX_NEW_PER_SHUFFLE = 6;
 const MAX_ACTIVE = 24;
 const WARN_COOLDOWN_TICKS = 30;
+const CHAOS_EVENT_CHANCE = 0.2;
+const MAX_NEW_CHAOS = 12;
+const CLONE_TAG = "mc_clone";
 
 const SKIP_TYPES = [
   "minecraft:player", "minecraft:ender_dragon", "minecraft:wither", "minecraft:warden",
@@ -57,6 +61,7 @@ const setState = (s) => world.setDynamicProperty(STATE_KEY, s);
 
 const getFlag = (key) => world.getDynamicProperty(key) === true;
 const blockDamage = () => getFlag(BLOCK_KEY);
+const chaosEnabled = () => !getFlag(NO_CHAOS_KEY);
 const hostileOnly = () => getFlag(HOSTILE_KEY);
 const shuffleSeconds = () => {
   const v = world.getDynamicProperty(INTERVAL_KEY);
@@ -194,6 +199,57 @@ function sound(entity, id, pitch = 1) {
   }
 }
 
+function puff(entity, id) {
+  try {
+    entity.dimension.spawnParticle(id, entity.location);
+  } catch (err) {
+    // Particle unavailable; ignore.
+  }
+}
+
+function drive(en, power, lift, sign = 1) {
+  const p = nearestPlayer(en.entity, 24);
+  if (!p) return;
+  const l = en.entity.location;
+  const dx = p.location.x - l.x;
+  const dz = p.location.z - l.z;
+  const dist = Math.hypot(dx, dz);
+  if (sign > 0 && dist < 1.5) return;
+  const len = dist || 1;
+  try {
+    en.entity.applyImpulse({ x: (dx / len) * power * sign, y: lift, z: (dz / len) * power * sign });
+  } catch (err) {
+    // Mob cannot be pushed; ignore.
+  }
+}
+
+function beingWatched(en, p) {
+  try {
+    const v = p.getViewDirection();
+    const dx = en.entity.location.x - p.location.x;
+    const dy = en.entity.location.y - p.location.y;
+    const dz = en.entity.location.z - p.location.z;
+    const len = Math.hypot(dx, dy, dz) || 1;
+    const dot = (v.x * dx + v.y * dy + v.z * dz) / len;
+    return dot > 0.6 && !wallBetween(en.entity, p);
+  } catch (err) {
+    return false;
+  }
+}
+
+const PINATA_ITEMS = [
+  "minecraft:cookie", "minecraft:bread", "minecraft:golden_carrot", "minecraft:apple",
+  "minecraft:emerald", "minecraft:experience_bottle",
+];
+
+function dropPinata(entity, count) {
+  for (let i = 0; i < count; i++) {
+    try {
+      entity.dimension.spawnItem(new ItemStack(pick(PINATA_ITEMS), 1), entity.location);
+    } catch (err) { }
+  }
+}
+
 const MUTATIONS = {
   flight: {
     every: 30, dur: [300, 500],
@@ -308,10 +364,143 @@ const MUTATIONS = {
     warn: (n) => `[REALITY GLITCH] The voice of a ${n} no longer belongs to it...`,
     act: (en) => { sound(en.entity, pick(SOUNDS), 0.6 + Math.random() * 0.9); },
   },
+  zoomies: {
+    every: 15, dur: [250, 400],
+    warn: (n) => `[SYSTEM WARNING] A ${n} has gone completely feral with speed...`,
+    start: (en) => addFx(en, "speed", en.endAt - system.currentTick, 3),
+    act: (en) => {
+      const a = Math.random() * Math.PI * 2;
+      try {
+        en.entity.applyImpulse({ x: Math.cos(a) * 0.6, y: 0.25, z: Math.sin(a) * 0.6 });
+      } catch (err) { }
+    },
+  },
+  angel: {
+    every: 10, dur: [400, 600],
+    warn: (n) => `[ANOMALY DETECTED] A ${n} only moves when you look away...`,
+    act: (en) => {
+      const p = nearestPlayer(en.entity, 32);
+      if (!p) return;
+      if (beingWatched(en, p)) {
+        addFx(en, "slowness", 20, 6);
+      } else {
+        try { en.entity.removeEffect("slowness"); } catch (err) { }
+        addFx(en, "speed", 20, 1);
+        lunge(en, 0.9, 0.1);
+        strike(en, 2, 4);
+      }
+    },
+  },
+  magnet: {
+    every: 10, dur: [300, 450],
+    warn: (n) => `[REALITY GLITCH] A ${n} cannot stop following you...`,
+    start: (en) => addFx(en, "speed", en.endAt - system.currentTick, 1),
+    act: (en) => { drive(en, 0.45, 0.05); },
+  },
+  runaway: {
+    every: 10, dur: [300, 450],
+    warn: (n) => `[SYSTEM WARNING] A ${n} is terrified of you...`,
+    start: (en) => addFx(en, "speed", en.endAt - system.currentTick, 2),
+    act: (en) => { drive(en, 0.6, 0.1, -1); },
+  },
+  switcheroo: {
+    every: 100, dur: [300, 500],
+    warn: (n) => `[REALITY GLITCH] A ${n} is about to trade places with you...`,
+    act: (en) => {
+      const e = en.entity;
+      const p = nearestPlayer(e, 24);
+      if (!p) return;
+      const d = Math.hypot(p.location.x - e.location.x, p.location.z - e.location.z);
+      if (d < 3) return;
+      try {
+        const a = e.location;
+        const b = p.location;
+        const ed = e.dimension;
+        const pd = p.dimension;
+        p.teleport(a, { dimension: ed });
+        e.teleport(b, { dimension: pd });
+        sound(e, "mob.endermen.portal");
+        puff(e, "minecraft:villager_happy");
+      } catch (err) {
+        return;
+      }
+      warn(p.dimension, p.location, `[REALITY GLITCH] You just traded places with a ${en.name}!`, 0.6);
+    },
+  },
+  dancer: {
+    every: 10, dur: [300, 450],
+    warn: (n) => `[ANOMALY DETECTED] A ${n} cannot stop dancing...`,
+    act: (en) => {
+      const e = en.entity;
+      try { e.setRotation({ x: 0, y: (en.n * 50) % 360 }); } catch (err) { }
+      try {
+        if (e.isOnGround) e.applyImpulse({ x: 0, y: 0.3, z: 0 });
+      } catch (err) { }
+      sound(e, "note.harp", 0.6 + (en.n % 8) * 0.15);
+    },
+  },
+  pinata: {
+    every: 40, dur: [300, 400],
+    warn: (n) => `[SYSTEM WARNING] A ${n} has turned into a pinata...`,
+    act: (en) => {
+      dropPinata(en.entity, 1);
+      sound(en.entity, "random.pop", 1.2);
+    },
+    end: (en) => {
+      dropPinata(en.entity, 6);
+      sound(en.entity, "random.levelup", 1);
+      puff(en.entity, "minecraft:totem_particle");
+    },
+  },
+  mitosis: {
+    every: 100, dur: [300, 400],
+    warn: (n) => `[ANOMALY DETECTED] A ${n} is splitting into more of itself...`,
+    start: (en) => { en.clones = []; },
+    act: (en) => {
+      const e = en.entity;
+      if (en.clones.length >= 2) return;
+      try {
+        const loc = e.location;
+        const c = e.dimension.spawnEntity(e.typeId, {
+          x: loc.x + rand(-1, 1), y: loc.y, z: loc.z + rand(-1, 1),
+        });
+        c.addTag(CLONE_TAG);
+        en.clones.push(c);
+        puff(c, "minecraft:villager_happy");
+      } catch (err) { }
+    },
+  },
+  storm: {
+    every: 50, dur: [250, 400],
+    warn: (n) => `[SYSTEM WARNING] A ${n} is calling down the storm...`,
+    act: (en) => {
+      const e = en.entity;
+      sound(e, "ambient.weather.thunder", 1);
+      if (!blockDamage()) return;
+      try {
+        const loc = e.location;
+        e.dimension.spawnEntity("minecraft:lightning_bolt", {
+          x: loc.x + rand(-3, 3), y: loc.y, z: loc.z + rand(-3, 3),
+        });
+      } catch (err) { }
+    },
+  },
 };
 const WHEEL = [
   "flight", "flight", "burning", "burning", "leaper", "teleporter", "teleporter",
   "ravager", "fuse", "ghost", "audio", "audio",
+  "zoomies", "zoomies", "angel", "magnet", "magnet", "runaway", "switcheroo",
+  "dancer", "dancer", "pinata", "pinata", "mitosis", "storm",
+];
+
+const CHAOS_EVENTS = [
+  { key: "magnet", title: "MAGNET MADNESS", sub: "Everything is coming for you..." },
+  { key: "dancer", title: "DANCE PARTY", sub: "Nobody can stop moving..." },
+  { key: "zoomies", title: "ZOOMIES", sub: "Gotta go fast..." },
+  { key: "pinata", title: "PINATA TIME", sub: "Something sweet is about to happen..." },
+  { key: "runaway", title: "PANIC", sub: "They are all terrified of you..." },
+  { key: "storm", title: "STORM CALLER", sub: "The sky is angry..." },
+  { key: "angel", title: "DON'T BLINK", sub: "Do not look away..." },
 ];
 
 const entries = new Map();
@@ -321,6 +510,7 @@ function eligible(e) {
   try {
     if (!valid(e) || !e.typeId.startsWith("minecraft:") || SKIP_TYPES.includes(e.typeId)) return false;
     if (entries.has(e.id)) return false;
+    if (e.hasTag(CLONE_TAG)) return false;
     if (e.getComponent("minecraft:is_tamed")) return false;
     if (hostileOnly() && !e.matches({ families: ["monster"] })) return false;
     const h = e.getComponent("minecraft:health");
@@ -330,8 +520,8 @@ function eligible(e) {
   }
 }
 
-function queueMutation(e) {
-  const key = pick(WHEEL);
+function queueMutation(e, forceKey) {
+  const key = forceKey ?? pick(WHEEL);
   const mut = MUTATIONS[key];
   const now = system.currentTick;
   const dur = rand(mut.dur[0], mut.dur[1]);
@@ -340,14 +530,15 @@ function queueMutation(e) {
     n: 0, fx: [], startAt: now + WARNING_DELAY_TICKS, endAt: now + WARNING_DELAY_TICKS + dur, nextAct: 0,
   };
   entries.set(e.id, en);
-  const text = Math.random() < 0.5 ? pick(GENERIC_WARNINGS) : mut.warn(en.name);
+  const text = forceKey || Math.random() < 0.5 ? mut.warn(en.name) : pick(GENERIC_WARNINGS);
   warn(e.dimension, e.location, text, 0.35);
 }
 
-function spin() {
+function spin(forceKey) {
+  const maxNew = forceKey ? MAX_NEW_CHAOS : MAX_NEW_PER_SHUFFLE;
   let created = 0;
   for (const player of world.getAllPlayers()) {
-    if (created >= MAX_NEW_PER_SHUFFLE || entries.size >= MAX_ACTIVE) break;
+    if (created >= maxNew || entries.size >= MAX_ACTIVE) break;
     let near = [];
     try {
       near = player.dimension.getEntities({
@@ -361,17 +552,58 @@ function spin() {
       [near[i], near[j]] = [near[j], near[i]];
     }
     for (const e of near) {
-      if (created >= MAX_NEW_PER_SHUFFLE || entries.size >= MAX_ACTIVE) break;
+      if (created >= maxNew || entries.size >= MAX_ACTIVE) break;
       if (!eligible(e)) continue;
-      queueMutation(e);
+      queueMutation(e, forceKey);
       created++;
     }
   }
 }
 
+function announceChaos(ev) {
+  world.sendMessage(`§4§lCHAOS EVENT: ${ev.title}`);
+  for (const p of world.getAllPlayers()) {
+    if (isMuted(p)) continue;
+    try {
+      p.onScreenDisplay.setTitle(`§4${ev.title}`, {
+        subtitle: glitch(ev.sub),
+        fadeInDuration: 6,
+        stayDuration: 40,
+        fadeOutDuration: 10,
+      });
+    } catch (err) { }
+  }
+}
+
+function runShuffle() {
+  if (chaosEnabled() && Math.random() < CHAOS_EVENT_CHANCE) {
+    const ev = pick(CHAOS_EVENTS);
+    announceChaos(ev);
+    spin(ev.key);
+  } else {
+    spin();
+  }
+}
+
+function purgeClones() {
+  for (const id of ["overworld", "nether", "the_end"]) {
+    try {
+      for (const c of world.getDimension(id).getEntities({ tags: [CLONE_TAG] })) {
+        try { c.remove(); } catch (err) { }
+      }
+    } catch (err) { }
+  }
+}
+
 function finish(en) {
   const e = en.entity;
+  for (const c of en.clones ?? []) {
+    try { if (valid(c)) c.remove(); } catch (err) { }
+  }
   if (!valid(e)) return;
+  if (en.started) {
+    try { en.mut.end?.(en); } catch (err) { }
+  }
   for (const name of en.fx) {
     try { e.removeEffect(name); } catch (err) { }
   }
@@ -382,6 +614,7 @@ function finish(en) {
 function clearAll() {
   for (const en of entries.values()) finish(en);
   entries.clear();
+  purgeClones();
 }
 
 function step(en, now) {
@@ -413,7 +646,7 @@ system.runInterval(() => {
   if (nextShuffle === 0) nextShuffle = now + 100;
   if (now >= nextShuffle) {
     nextShuffle = now + shuffleTicks();
-    spin();
+    runShuffle();
   }
   for (const en of [...entries.values()]) {
     try {
@@ -470,7 +703,8 @@ async function openController(player, attempt = 0) {
     .button(`Block damage: ${blockDamage() ? "On" : "Off"}`)
     .button(`Shuffle every ${seconds} seconds`)
     .button(`Mobs: ${hostileOnly() ? "Hostile only" : "All"}`)
-    .button(`Glitch text: ${isMuted(player) ? "Off" : "On"}`);
+    .button(`Glitch text: ${isMuted(player) ? "Off" : "On"}`)
+    .button(`Chaos events: ${chaosEnabled() ? "On" : "Off"}`);
   let res;
   try {
     res = await form.show(player);
@@ -502,6 +736,9 @@ async function openController(player, attempt = 0) {
     system.runTimeout(() => openController(player), 2);
   } else if (res.selection === 6) {
     player.setDynamicProperty(MUTE_KEY, !isMuted(player));
+    system.runTimeout(() => openController(player), 2);
+  } else if (res.selection === 7) {
+    world.setDynamicProperty(NO_CHAOS_KEY, chaosEnabled());
     system.runTimeout(() => openController(player), 2);
   }
 }
