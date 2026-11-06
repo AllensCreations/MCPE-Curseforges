@@ -8,7 +8,7 @@ This folder contains compiled release packages for **Vanilla Quality of Life** b
 
 | File Name | Format | Size | Description | Download Link |
 | :--- | :--- | :--- | :--- | :--- |
-| **`Vanilla Quality of Life by AllensCreations (V1.4.1).mcaddon`** | `.mcaddon` | ~596 KB | Complete bundle containing both Behavior Pack and Resource Pack. | [Download (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Vanilla-Quality-of-Life/Vanilla%20Quality%20of%20Life%20by%20AllensCreations%20%28V1.4.1%29.mcaddon) |
+| **`Vanilla Quality of Life by AllensCreations (V1.4.2).mcaddon`** | `.mcaddon` | ~596 KB | Complete bundle containing both Behavior Pack and Resource Pack. | [Download (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Vanilla-Quality-of-Life/Vanilla%20Quality%20of%20Life%20by%20AllensCreations%20%28V1.4.2%29.mcaddon) |
 
 ---
 
