@@ -7,7 +7,7 @@ Version rules:
   alpha    X.Y.Z.A -> X.(Y+1).0.0; changelog grouped per series in spoilers (1.3.x and lower).
   release  X.Y.Z.A -> (X+1).0.0.0; changelog grouped per major in spoilers (v1.x.x, with its
            series inside).
-The uploaded file is named (Beta|Alpha|Release)_Filename.ext.
+The uploaded file is named 'Release - Mining Helmet v(2.0.0.0).mcaddon' (type, name, version).
 Uploads, then records the published version and the alpha/release baselines.
 """
 

@@ -222,14 +222,15 @@ class AutoPublishTests(unittest.TestCase):
 
     def test_upload_copy_uses_type_prefix_and_no_by_suffix(self):
         rel = publisher.release
-        self.assertEqual(rel.upload_name("beta", "Monster-Companions", ".mcaddon"), "Beta_Monster-Companions.mcaddon")
-        self.assertEqual(rel.upload_name("release", "OneBlock", ".mcworld", "Hardcore"), "Release_OneBlock_Hardcore.mcworld")
+        self.assertEqual(rel.upload_name("beta", "Monster-Companions", ".mcaddon", "default", "1.2.3.5"), "Beta - Monster Companions v(1.2.3.5).mcaddon")
+        self.assertEqual(rel.upload_name("release", "Mining-Helmet", ".mcaddon", "default", "2.0.0.0"), "Release - Mining Helmet v(2.0.0.0).mcaddon")
+        self.assertEqual(rel.upload_name("alpha", "OneBlock", ".mcworld", "Hardcore", "1.1.0.0"), "Alpha - OneBlock - Hardcore v(1.1.0.0).mcworld")
         with tempfile.TemporaryDirectory() as temp:
             src = Path(temp) / "Pack by AllensCreations (V1.2.3).mcaddon"
             src.write_bytes(b"x")
             with patch.dict(os.environ, {"RUNNER_TEMP": temp}):
-                staged = rel.stage_upload_copy(src, "alpha", "Pack")
-            self.assertEqual(staged.name, "Alpha_Pack.mcaddon")
+                staged = rel.stage_upload_copy(src, "alpha", "Pack", "default", "1.1.0.0")
+            self.assertEqual(staged.name, "Alpha - Pack v(1.1.0.0).mcaddon")
             self.assertEqual(staged.read_bytes(), b"x")
 
     def test_four_part_versions(self):

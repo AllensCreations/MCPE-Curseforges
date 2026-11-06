@@ -8,7 +8,7 @@ name: Publish Pack to CurseForge
 #   beta:    X.Y.Z.A becomes X.Y.(Z+1).0; every unpublished A version is merged into one grouped entry.
 #   alpha:   X.Y.Z.A becomes X.(Y+1).0.0; the changelog shows every series (1.3.x and lower) as a group (CurseForge spoiler; the newest stays open).
 #   release: X.Y.Z.A becomes (X+1).0.0.0; the changelog shows every major (v1.x.x, series inside) as a group (CurseForge spoiler; the newest stays open).
-# The uploaded file is named Beta_Filename.ext / Alpha_Filename.ext / Release_Filename.ext.
+# The uploaded file is named like: Release - Mining Helmet v(2.0.0.0).mcaddon (Beta / Alpha / Release).
 # Set the repo variable CURSEFORGE_CHANGELOG_STYLE=plain to send markdown headings instead of spoiler folds.
 
 on:

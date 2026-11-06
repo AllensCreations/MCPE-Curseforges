@@ -577,16 +577,18 @@ def find_map_package(project_dir, built_name, variant):
     )
 
 
-def upload_name(release_type, project_name, extension, map_variant="default"):
-    """(Release|Alpha|Beta)_Filename.ext, with the map variant added for non-default maps."""
-    variant = "" if map_variant == "default" else f"_{map_variant}"
-    return f"{release_type.capitalize()}_{project_name}{variant}{extension}"
+def upload_name(release_type, project_name, extension, map_variant="default", version=""):
+    """'Release - Mining Helmet v(2.0.0.0).mcaddon'; non-default maps add ' - Creative' etc."""
+    title = project_name.replace("-", " ").replace("_", " ")
+    variant = "" if map_variant == "default" else f" - {map_variant}"
+    tag = f" v({version})" if version else ""
+    return f"{release_type.capitalize()} - {title}{variant}{tag}{extension}"
 
 
-def stage_upload_copy(package_path, release_type, project_name, map_variant="default"):
+def stage_upload_copy(package_path, release_type, project_name, map_variant="default", version=""):
     """Copy the built package to a temp folder under its upload name; builds/ keeps its own name."""
     staging = Path(tempfile.mkdtemp(prefix="curseforge-upload-", dir=os.environ.get("RUNNER_TEMP") or None))
-    target = staging / upload_name(release_type, project_name, package_path.suffix.lower(), map_variant)
+    target = staging / upload_name(release_type, project_name, package_path.suffix.lower(), map_variant, version)
     shutil.copyfile(package_path, target)
     return target
 
@@ -659,7 +661,7 @@ def prepare(project_path, release_type, map_variant="default", rebuild=True, bum
             f"{category} must publish {expected_extension}, not {package_path.suffix}"
         )
 
-    package_path = stage_upload_copy(package_path, release_type, project_name, map_variant)
+    package_path = stage_upload_copy(package_path, release_type, project_name, map_variant, changelog_version)
     metadata = {
         "changelog": changelog,
         "changelogType": changelog_type(release_type),
