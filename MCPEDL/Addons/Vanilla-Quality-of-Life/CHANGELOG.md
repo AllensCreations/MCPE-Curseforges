@@ -2,6 +2,11 @@
 
 ---
 
+## [1.4.2] - 2026-11-06
+
+### Added
+- **Personal Toggles**: Each player can turn Auto-Switch, Tree Capitator, Domino Ore Miner, and Offhand Quick-Swap on or off for themselves with /scriptevent qol:toggle. Use status to see your settings and reset to turn everything back on.
+
 ## [1.4.1] - 2026-11-03
 
 **What's new in v1.4.1:** Packed with 2 updates, from v1.4.1 through v1.4.2.

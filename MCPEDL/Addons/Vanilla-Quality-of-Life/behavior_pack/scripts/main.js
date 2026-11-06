@@ -1,33 +1,14 @@
-/**
- * Vanilla Quality of Life — Comprehensive Survival QoL Suite
- * Created by AllensCreations — MCPE Curseforges
- *
- * Integrated Capabilities:
- * 1. Offhand Utility Quick-Swap (Double-sneak / Sneak + Use in air / /scriptevent qol:swap)
- * 2. Real-Time Dynamic Handheld & Offhand Lighting (Torches, Lanterns via light_block)
- * 3. Passive Auto-Switch Tools (Intelligent Slot 1 tool & weapon switcher)
- * 4. Smart Tree Capitator (Sneak-axe felling of connected logs, upward from the broken block)
- * 5. Domino Ore Miner (Sneak-pickaxe contiguous 26-neighbor ore vein mining)
- * 6. Durability Safety Guard (Automatic tool protection stopping at 1 durability)
- *
- * Target: Minecraft Bedrock 1.21+ / Script API @minecraft/server 1.13.0+
- */
-
 import { world, system, EquipmentSlot, ItemStack, BlockPermutation } from "@minecraft/server";
 import { MINING_OPTIONS } from "./mining-options.js";
 
 const LOG_PREFIX = "[Vanilla QoL]";
 
-// ─── Configuration ────────────────────────────────────────────────────────────
-
 const CONFIG = {
-  // Offhand Quick-Swap & Dynamic Light
   SWAP_WINDOW_TICKS: 14,
   SWAP_COOLDOWN_TICKS: 8,
   LIGHT_UPDATE_TICKS: 1,
 
-  // Passive Auto-Switch Tools (Slot 1)
-  AUTO_SWITCH_SLOT: 0, // Slot 1 in UI (0-indexed)
+  AUTO_SWITCH_SLOT: 0,
   SWITCH_MARGIN: 3,
   LOW_DURABILITY_USES: 15,
   LOW_DURABILITY_PENALTY: 100,
@@ -38,27 +19,22 @@ const CONFIG = {
   WEB_INTERACTION_WINDOW: 12,
   WEB_COMBAT_COOLDOWN: 40,
 
-  // Smart Tree Capitator
   TREE_CAPITATOR_ENABLED: MINING_OPTIONS.TREE_CAPITATOR_ENABLED,
   MAX_TREE_BLOCKS: 128,
   MAX_TREE_HEIGHT: 320,
-  TREE_MAX_HORIZONTAL_SPREAD: 8, // Logs farther than this from the broken block are ignored
+  TREE_MAX_HORIZONTAL_SPREAD: 8,
   MATCH_TREE_SPECIES: true,
 
-  // Domino Ore Miner
   DOMINO_ORE_MINER_ENABLED: MINING_OPTIONS.DOMINO_ORE_MINER_ENABLED,
   MAX_ORE_CLUSTER_SIZE: 64,
   MAX_ANCIENT_DEBRIS_CLUSTER_SIZE: 4,
   NETHER_GOLD_POLICY: "nether_gold",
 
-  // Durability Safety Guard
   DURABILITY_SAFETY_THRESHOLD: 0,
   ALERT_SOUND: "note.bass",
   ALERT_PITCH: 0.7,
   ALERT_VOLUME: 1.0,
 };
-
-// ─── Offhand & Dynamic Light Constants ───────────────────────────────────────
 
 const SUPPORTED_OFFHAND_ITEMS = new Set([
   "minecraft:torch",
@@ -79,7 +55,6 @@ const LIGHT_LEVELS = {
   "minecraft:soul_lantern": 10,
 };
 
-/** @type {Map<string, any>} */
 const qolPlayerState = new Map();
 
 function getQolState(id) {
@@ -167,8 +142,6 @@ function offhandMatches(equipment, item) {
   const readBack = equipment.getEquipment(EquipmentSlot.Offhand);
   if (!item) return !readBack;
   if (!readBack || readBack.typeId !== item.typeId || readBack.amount !== item.amount) return false;
-  // Supported utility items are also compared by name. Any other item keeps its own data
-  // (enchantments, durability, name) and is matched by type and count only.
   if (SUPPORTED_OFFHAND_ITEMS.has(item.typeId)) {
     return (readBack.nameTag || "") === (item.nameTag || "");
   }
@@ -176,8 +149,6 @@ function offhandMatches(equipment, item) {
 }
 
 function forceOffhand(player, item) {
-  // Commands create a brand-new item and would wipe enchantments, durability and names,
-  // so they only run to clear the slot or for plain supported items.
   if (item && !isPlainSupportedStack(item)) return;
   const id = item ? shortId(item.typeId) : "air";
   const amount = item ? item.amount : 1;
@@ -228,6 +199,59 @@ function writeMainhand(player, equipment, item) {
     }
   } catch (e) {}
   return false;
+}
+
+const FEATURE_KEYS = {
+  autoswitch: "qol:off_autoswitch",
+  tree: "qol:off_tree",
+  ore: "qol:off_ore",
+  offhand: "qol:off_offhand",
+};
+
+const FEATURE_NAMES = {
+  autoswitch: "Auto-Switch",
+  tree: "Tree Capitator",
+  ore: "Domino Ore Miner",
+  offhand: "Offhand Quick-Swap",
+};
+
+const FEATURE_ALIASES = {
+  autoswitch: "autoswitch",
+  auto: "autoswitch",
+  switch: "autoswitch",
+  tree: "tree",
+  trees: "tree",
+  treecapitator: "tree",
+  capitator: "tree",
+  ore: "ore",
+  ores: "ore",
+  vein: "ore",
+  veinminer: "ore",
+  domino: "ore",
+  dominooreminer: "ore",
+  offhand: "offhand",
+  swap: "offhand",
+  quickswap: "offhand",
+};
+
+function isFeatureOn(player, feature) {
+  try {
+    return player.getDynamicProperty(FEATURE_KEYS[feature]) !== true;
+  } catch (e) {
+    return true;
+  }
+}
+
+function setFeatureOn(player, feature, on) {
+  try {
+    player.setDynamicProperty(FEATURE_KEYS[feature], on ? undefined : true);
+  } catch (e) {}
+}
+
+function featureStatusLines(player) {
+  return Object.keys(FEATURE_NAMES)
+    .map((key) => `§f${FEATURE_NAMES[key]}: ${isFeatureOn(player, key) ? "§aON" : "§cOFF"}`)
+    .join("\n");
 }
 
 function swapHands(player) {
@@ -296,7 +320,6 @@ function canHoldLight(block) {
 
 let lightsCleaned = false;
 
-// Remember active light block positions so they can be removed after a crash or reload.
 function persistLights() {
   if (!lightsCleaned) return;
   try {
@@ -416,8 +439,6 @@ function updatePlayerLight(player, state) {
   state.lightLevel = level;
   persistLights();
 }
-
-// ─── Passive Auto-Switch Tools Engine ─────────────────────────────────────────
 
 const ToolCategory = {
   PICKAXE: "pickaxe",
@@ -581,8 +602,6 @@ function getRequiredToolCategory(typeId) {
   if (id === "web" || id.includes("cobweb")) return ToolCategory.WEB;
   if (id.includes("mangrove_roots")) return ToolCategory.AXE;
 
-  // Specific families before broad substring checks: sandstone is mined with a pickaxe;
-  // ordinary sand/red sand and plain mud remain shovel blocks.
   if (id.includes("sandstone") || id.includes("mud_brick")) return ToolCategory.PICKAXE;
 
   if (
@@ -669,6 +688,7 @@ function switchPlayerSlot1Tool(player, category, blockTypeId) {
   if (!player || player.selectedSlotIndex !== CONFIG.AUTO_SWITCH_SLOT) {
     return false;
   }
+  if (!isFeatureOn(player, "autoswitch")) return false;
   if (system.currentTick < (chainPauseUntil.get(player.id) ?? 0)) return false;
 
   const container = getContainer(player);
@@ -756,8 +776,6 @@ function getTargetBlock(player) {
     return undefined;
   }
 }
-
-// ─── Durability Safety Protection Helper ──────────────────────────────────────
 
 function getMainhandTool(player) {
   try {
@@ -870,8 +888,6 @@ function notifyToolProtection(player, remainingDurability) {
   } catch (e) {}
 }
 
-// ─── Smart Tree Capitator Engine ──────────────────────────────────────────────
-
 const AXE_IDENTIFIERS = new Set([
   "minecraft:wooden_axe", "minecraft:stone_axe", "minecraft:iron_axe",
   "minecraft:golden_axe", "minecraft:diamond_axe", "minecraft:netherite_axe",
@@ -927,21 +943,17 @@ function isTreeCanopy(dimension, blocks, targetSpecies) {
             const b = dimension.getBlock({ x: pos.x + dx, y: pos.y + dy, z: pos.z + dz });
             if (!b) continue;
 
-            // Nether tree canopies (wart blocks and shroomlights)
             if ((targetSpecies === "crimson" || targetSpecies === "warped") &&
                 (b.typeId.includes("wart_block") || b.typeId.includes("shroomlight"))) {
               return true;
             }
 
-            // Overworld leaves: ignore player-placed leaves (persistent_bit: true)
             if (b.typeId.includes("leaves")) {
               const permutation = b.permutation;
               const isPersistent = permutation?.getState("persistent_bit");
-              // If persistent_bit is true, the leaves were placed by a player (decorative)
               if (isPersistent === true) {
                 continue;
               }
-              // Natural tree leaf detected
               return true;
             }
           } catch (e) {}
@@ -952,7 +964,6 @@ function isTreeCanopy(dimension, blocks, targetSpecies) {
   return false;
 }
 
-// Blocks that indicate a player-built structure next to the logs (cabins, fences, storage).
 const PLAYER_BUILD_PATTERN = /(planks|stairs|slab|door|trapdoor|glass|brick|fence|(^|_)bed$|crafting_table|chest|barrel|furnace|concrete|wool|carpet|bookshelf)/;
 
 function isNearPlayerBuild(dimension, blocks, startLoc) {
@@ -998,8 +1009,6 @@ function executeTreeCapitator(player, dimension, startLoc, startBlockId, onCompl
   const blocksToBreak = [];
   const queue = [{ x: startLoc.x, y: startLoc.y, z: startLoc.z }];
 
-  // 26-neighbor 3D flood fill (detecting all surrounding connected blocks dx, dy, dz in [-1, 0, 1])
-  // Upward-biased (dy >= 0) to fell entire trunk and branching canopy without digging below broken stump
   while (queue.length > 0 && blocksToBreak.length < CONFIG.MAX_TREE_BLOCKS) {
     const cur = queue.shift();
 
@@ -1044,19 +1053,16 @@ function executeTreeCapitator(player, dimension, startLoc, startBlockId, onCompl
     return;
   }
 
-  // House protection: require tree canopy (leaves/wart/shroomlight) so player log cabins aren't felled
   if (!isTreeCanopy(dimension, blocksToBreak, targetSpecies)) {
     if (onComplete) onComplete();
     return;
   }
 
-  // Player-build protection: trees touching planks, doors, fences, etc. are left standing
   if (isNearPlayerBuild(dimension, blocksToBreak, startLoc)) {
     if (onComplete) onComplete();
     return;
   }
 
-  // Break felled logs
   const creative = isGameMode(player, "creative");
   for (const pos of blocksToBreak) {
     if (!player || !player.isValid()) break;
@@ -1075,8 +1081,6 @@ function executeTreeCapitator(player, dimension, startLoc, startBlockId, onCompl
 
   if (onComplete) onComplete();
 }
-
-// ─── Domino Ore Miner Engine ──────────────────────────────────────────────────
 
 const PICKAXE_TIERS = {
   "minecraft:wooden_pickaxe": 1,
@@ -1139,18 +1143,15 @@ const NEIGHBOR_OFFSETS_26 = (() => {
   return offsets;
 })();
 
-// Fortune multiplies eligible item drops; raw iron, raw gold, and ancient debris are excluded.
 const FORTUNE_AFFECTED_ORE_CATEGORIES = new Set([
   "coal", "copper", "lapis", "nether_gold", "diamond", "emerald", "quartz",
 ]);
 
-// Redstone is the exception: Fortune adds 0 to level extra dust instead of multiplying.
 function calculateRedstoneDropCount(fortuneLevel, minBase = 4, maxBase = 5) {
   const base = Math.floor(Math.random() * (maxBase - minBase + 1)) + minBase;
   return base + (fortuneLevel > 0 ? Math.floor(Math.random() * (fortuneLevel + 1)) : 0);
 }
 
-// Vanilla experience ranges for ores broken without Silk Touch.
 const ORE_XP = {
   coal: [0, 2],
   lapis: [2, 5],
@@ -1316,18 +1317,16 @@ function executeDominoOreMiner(player, dimension, startLoc, startBlockId, onComp
   if (onComplete) onComplete();
 }
 
-// ─── Event Subscriptions & Global Dispatcher ──────────────────────────────────
-
 const activeMiningOperations = new Set();
 const chainPauseUntil = new Map();
 const lastSwap = new Map();
 
-// 1. Offhand Sneak + Use/Tap in Air Quick-Swap
 world.beforeEvents.itemUse.subscribe((event) => {
   const player = event.source;
   const itemStack = event.itemStack;
 
   if (!player || !player.isSneaking) return;
+  if (!isFeatureOn(player, "offhand")) return;
   if (!itemStack || !SUPPORTED_OFFHAND_ITEMS.has(itemStack.typeId)) return;
 
   event.cancel = true;
@@ -1336,7 +1335,6 @@ world.beforeEvents.itemUse.subscribe((event) => {
   });
 });
 
-// 3. Passive Auto-Switch: Ordinary blocks via hit block
 world.afterEvents.entityHitBlock.subscribe((event) => {
   try {
     const player = event.damagingEntity;
@@ -1364,7 +1362,6 @@ world.afterEvents.entityHitBlock.subscribe((event) => {
   } catch (e) {}
 });
 
-// 3. Passive Auto-Switch: Mob combat weapon switch
 world.afterEvents.entityHitEntity.subscribe((event) => {
   try {
     const player = event.damagingEntity;
@@ -1387,7 +1384,6 @@ function finishChain(player) {
   lastAutoSwitchKey.delete(player.id);
 }
 
-// 4. Sneak Block Break: Smart Tree Capitator & Domino Ore Miner
 world.afterEvents.playerBreakBlock.subscribe((event) => {
   const { block, brokenBlockPermutation, player, dimension, itemStackBeforeBreak } = event;
 
@@ -1428,8 +1424,7 @@ world.afterEvents.playerBreakBlock.subscribe((event) => {
 
   const toolTypeId = tool.typeId;
 
-  // Tree Capitator
-  if (isAxe(toolTypeId) && isEligibleLog(brokenTypeId)) {
+  if (isAxe(toolTypeId) && isEligibleLog(brokenTypeId) && isFeatureOn(player, "tree")) {
     const treeSafety = checkToolSafety(player);
     if (!treeSafety.safe) {
       notifyToolProtection(player, Math.max(0, treeSafety.remaining));
@@ -1447,8 +1442,7 @@ world.afterEvents.playerBreakBlock.subscribe((event) => {
     return;
   }
 
-  // Domino Ore Miner
-  if (isPickaxe(toolTypeId) && getOreInfo(brokenTypeId)) {
+  if (isPickaxe(toolTypeId) && getOreInfo(brokenTypeId) && isFeatureOn(player, "ore")) {
     const oreSafety = checkToolSafety(player);
     if (!oreSafety.safe) {
       notifyToolProtection(player, Math.max(0, oreSafety.remaining));
@@ -1467,7 +1461,6 @@ world.afterEvents.playerBreakBlock.subscribe((event) => {
   }
 });
 
-// 5. 1-Tick RunInterval: Double-sneak offhand detection & dynamic handheld lighting
 system.runInterval(() => {
   let players;
   try {
@@ -1485,7 +1478,6 @@ system.runInterval(() => {
       const sneaking = !!player.isSneaking;
 
       if (sneaking && !state.sneakHeld) {
-        // Taps while moving or airborne (e.g. bridging) do not count toward the double-sneak swap.
         let still = true;
         try {
           const v = player.getVelocity();
@@ -1512,7 +1504,7 @@ system.runInterval(() => {
       if (state.sneakCount >= 2) {
         state.sneakCount = 0;
         state.sneakTimer = 0;
-        swapHands(player);
+        if (isFeatureOn(player, "offhand")) swapHands(player);
       }
 
       if (doLight) {
@@ -1522,7 +1514,6 @@ system.runInterval(() => {
   }
 }, 1);
 
-// 6. Web Interaction Interval: Auto-switch shears for cobwebs
 system.runInterval(() => {
   const now = system.currentTick;
 
@@ -1576,7 +1567,6 @@ system.runInterval(() => {
   }
 }, CONFIG.WEB_CHECK_INTERVAL);
 
-// 6b. Continuous Auto-Switch: while mining, re-check the targeted block every tick
 const MINING_ACTIVE_TICKS = 10;
 const miningActivity = new Map();
 const lastAutoSwitchKey = new Map();
@@ -1651,7 +1641,6 @@ world.afterEvents.playerPlaceBlock.subscribe((event) => {
   } catch (e) {}
 });
 
-// 7. Player Lifecycle Cleanups
 world.afterEvents.playerLeave.subscribe((event) => {
   const id = event.playerId;
   if (!id) return;
@@ -1675,19 +1664,43 @@ if (world.afterEvents.playerDimensionChange) {
   });
 }
 
-// 8. Custom Script Event Command (/scriptevent qol:swap)
 system.afterEvents.scriptEventReceive.subscribe((event) => {
   try {
+    const player = event.sourceEntity;
+    if (!player || player.typeId !== "minecraft:player") return;
+
     if (event.id === "qol:swap") {
-      const player = event.sourceEntity;
-      if (player && player.typeId === "minecraft:player") {
-        swapHands(player);
+      swapHands(player);
+      return;
+    }
+
+    if (event.id === "qol:toggle") {
+      const arg = String(event.message || "").trim().toLowerCase().replace(/[\s_-]+/g, "");
+
+      if (arg === "" || arg === "status" || arg === "list") {
+        player.sendMessage(`§e[QoL] §fYour settings:\n${featureStatusLines(player)}`);
+        return;
       }
+
+      if (arg === "reset") {
+        for (const key of Object.keys(FEATURE_KEYS)) setFeatureOn(player, key, true);
+        player.sendMessage("§e[QoL] §aAll features are ON.");
+        return;
+      }
+
+      const feature = FEATURE_ALIASES[arg];
+      if (!feature) {
+        player.sendMessage("§e[QoL] §cUnknown feature. Use autoswitch, tree, ore, offhand, status, or reset.");
+        return;
+      }
+
+      const nowOn = !isFeatureOn(player, feature);
+      setFeatureOn(player, feature, nowOn);
+      player.sendMessage(`§e[QoL] §f${FEATURE_NAMES[feature]}: ${nowOn ? "§aON" : "§cOFF"}`);
     }
   } catch (e) {}
 });
 
-// 9. Startup: remove leftover light blocks and apply the sleep/leaf-decay gamerules once per world
 system.runTimeout(() => {
   try {
     const raw = world.getDynamicProperty("qol:lights");

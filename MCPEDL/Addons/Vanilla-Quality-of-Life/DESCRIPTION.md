@@ -123,7 +123,7 @@ Combines dynamic lighting, offhand quick-swap, automatic tool selection, tree ca
 - Quick-swap gestures:
   - **Double-sneak** (crouch twice within 0.7 seconds while standing still) to swap held item into offhand.
   - **Sneak + Use/Tap in air** to swap held item into offhand.
-  - Run  command.
+  - Run /scriptevent qol:swap, which needs cheats or operator permission.
 - Real-time dynamic light: Torches emit Light Level 14, Soul Torches and Soul Lanterns Level 10, Redstone Torches Level 7, and Lanterns Level 15 as you move.
 
 #### 6. Universal Leashing (101 Mobs)
@@ -160,6 +160,12 @@ Combines dynamic lighting, offhand quick-swap, automatic tool selection, tree ca
 #### 12. Wandering Trader Collector Trades
 - Rare 2% spawn rate collector trades offering mob heads for **1 Diamond Block + 16 Emeralds**.
 - Biome flora trades: Spore Blossoms, Wither Roses, Nautilus Shells, Bundles, and Heart of the Sea.
+
+#### 13. Personal Feature Toggles
+- Each player can turn Auto-Switch, Tree Capitator, Domino Ore Miner, and Offhand Quick-Swap on or off for themselves. Every feature starts ON and your choices are saved per player.
+- Run /scriptevent qol:toggle autoswitch, /scriptevent qol:toggle tree, /scriptevent qol:toggle ore, or /scriptevent qol:toggle offhand to flip a feature. Run /scriptevent qol:toggle status to list your settings and /scriptevent qol:toggle reset to turn everything back on.
+- Turning Offhand Quick-Swap off disables the double-sneak and Sneak + Use gestures; /scriptevent qol:swap still works.
+- Script events need cheats or operator permission, and using cheats in a world disables achievements in that world.
 
 ---
 
