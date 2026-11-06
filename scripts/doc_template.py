@@ -308,7 +308,7 @@ def check_changelog(text, version, errors):
     versions, group_order, current, bullets_in_group = [], -1, None, 0
     in_entries = False
     for i, line in ne[2:]:
-        entry = re.match(r"^## \[(\d+\.\d+\.\d+)\] - (\d{4}-\d{2}-\d{2})$", line)
+        entry = re.match(r"^## \[(\d+\.\d+\.\d+(?:\.\d+)?)\] - (\d{4}-\d{2}-\d{2})$", line)
         group = re.match(r"^### (.+)$", line)
         bullet = re.match(r"^- \*\*[^*]+\*\*: \S", line)
         if entry:

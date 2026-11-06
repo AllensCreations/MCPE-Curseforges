@@ -7,6 +7,7 @@ import html
 import json
 import os
 import re
+import shutil
 import subprocess
 import sys
 import tempfile
@@ -17,7 +18,7 @@ import auto_bump_and_build as builder
 
 REPO_ROOT = Path(builder.REPO_ROOT)
 CHANGELOG_HEADER = re.compile(
-    r"^## \[(\d+\.\d+\.\d+)\] - \d{4}-\d{2}-\d{2}\s*$"
+    r"^## \[(\d+\.\d+\.\d+(?:\.\d+)?)\] - \d{4}-\d{2}-\d{2}\s*$"
 )
 PACKAGE_EXTENSIONS = {
     "Addons": ".mcaddon",
@@ -55,7 +56,8 @@ def project_from_path(project_path):
 
 
 def align_manifests(project_dir, changelog_version):
-    target = [int(part) for part in changelog_version.split(".")]
+    target = [int(part) for part in changelog_version.split(".")[:3]]
+    manifest_version = ".".join(str(part) for part in target)
     manifest_paths = [
         path for path in sorted(project_dir.rglob("manifest.json"))
         if not {"world", "worlds", "behavior_packs", "resource_packs"}.intersection(path.parts)
@@ -96,7 +98,7 @@ def align_manifests(project_dir, changelog_version):
         header["version"] = target
         if isinstance(header.get("name"), str):
             name = re.sub(r"(?:\s*\(v\d+\.\d+\.\d+\))+\s*$", "", header["name"]).rstrip()
-            header["name"] = f"{name} (v{changelog_version})"
+            header["name"] = f"{name} (v{manifest_version})"
         for module in data.get("modules", []):
             if isinstance(module, dict) and isinstance(module.get("version"), list):
                 module["version"] = target
@@ -218,7 +220,9 @@ def save_info(project_path, project_id, last_published_version=None, last_releas
 
 
 def parse_version(text):
-    return tuple(int(part) for part in text.split("."))
+    """X.Y.Z or X.Y.Z.A as a 4-tuple; a missing A counts as 0."""
+    parts = tuple(int(part) for part in text.split("."))
+    return parts + (0,) * (4 - len(parts))
 
 
 def split_changelog(text):
@@ -242,7 +246,7 @@ def manifest_max_version(project_dir):
             continue
         if isinstance(version, list) and len(version) == 3 and all(type(p) is int for p in version):
             versions.append(tuple(version))
-    return max(versions) if versions else (0, 0, 0)
+    return (max(versions) if versions else (0, 0, 0)) + (0,)
 
 
 LEGACY_SERIES_HEADING = re.compile(r"^v\d+\.\d+\.x \(")
@@ -429,22 +433,27 @@ def merge_baseline(release_type, info):
 
 
 def next_version(highest, release_type):
-    """beta: X.Y.Z -> X.Y.(Z+1). alpha: X.Y.Z -> X.(Y+1).0. release: X.Y.Z -> (X+1).0.0."""
-    major, minor, patch = highest
+    """X.Y.Z.A. beta: X.Y.(Z+1).0. alpha: X.(Y+1).0.0. release: (X+1).0.0.0.
+
+    Every update between publishes is A+1 in CHANGELOG.md; a beta publish groups those A versions.
+    """
+    major, minor, patch = highest[:3]
     if release_type == "release":
-        return f"{major + 1}.0.0"
+        return f"{major + 1}.0.0.0"
     if release_type == "alpha":
-        return f"{major}.{minor + 1}.0"
-    return f"{major}.{minor}.{patch + 1}"
+        return f"{major}.{minor + 1}.0.0"
+    return f"{major}.{minor}.{patch + 1}.0"
 
 
 def prior_version(version):
-    major, minor, patch = parse_version(version)
+    major, minor, patch, extra = parse_version(version)
+    if extra:
+        return f"{major}.{minor}.{patch}.{extra - 1}"
     if patch:
-        return f"{major}.{minor}.{patch - 1}"
+        return f"{major}.{minor}.{patch - 1}.0"
     if minor:
-        return f"{major}.{minor - 1}.0"
-    return f"{max(major - 1, 0)}.0.0" if major else version
+        return f"{major}.{minor - 1}.0.0"
+    return f"{max(major - 1, 0)}.0.0.0" if major else version
 
 
 def baselines_after(release_type, info, version):
@@ -470,7 +479,7 @@ def combine_changelog(project_dir, changelog_path, last_published=None, today=No
                       release_type="release", last_release=None, last_alpha=None):
     """Merge the changelog entries this publish covers into ONE entry with the next version.
 
-    beta: all entries newer than last_published become one grouped entry, X.Y.(Z+1).
+    beta: all entries newer than last_published (the A versions) become one grouped entry, X.Y.(Z+1).0.
     alpha: entries newer than the last alpha/release are merged; the upload shows every
     series (1.3.x and lower) as spoiler groups, X.(Y+1).0. With nothing new it still
     folds the existing history.
@@ -568,6 +577,20 @@ def find_map_package(project_dir, built_name, variant):
     )
 
 
+def upload_name(release_type, project_name, extension, map_variant="default"):
+    """(Release|Alpha|Beta)_Filename.ext, with the map variant added for non-default maps."""
+    variant = "" if map_variant == "default" else f"_{map_variant}"
+    return f"{release_type.capitalize()}_{project_name}{variant}{extension}"
+
+
+def stage_upload_copy(package_path, release_type, project_name, map_variant="default"):
+    """Copy the built package to a temp folder under its upload name; builds/ keeps its own name."""
+    staging = Path(tempfile.mkdtemp(prefix="curseforge-upload-", dir=os.environ.get("RUNNER_TEMP") or None))
+    target = staging / upload_name(release_type, project_name, package_path.suffix.lower(), map_variant)
+    shutil.copyfile(package_path, target)
+    return target
+
+
 def prepare(project_path, release_type, map_variant="default", rebuild=True, bump=True):
     category, project_name = project_from_path(project_path)
     if release_type not in {"release", "beta", "alpha"}:
@@ -636,6 +659,7 @@ def prepare(project_path, release_type, map_variant="default", rebuild=True, bum
             f"{category} must publish {expected_extension}, not {package_path.suffix}"
         )
 
+    package_path = stage_upload_copy(package_path, release_type, project_name, map_variant)
     metadata = {
         "changelog": changelog,
         "changelogType": changelog_type(release_type),

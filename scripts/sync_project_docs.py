@@ -9,7 +9,7 @@ import check_manifest_versions as cmv
 import sync_manifest_versions as smv
 
 ROOT = cmv.ROOT
-ENTRY_RE = re.compile(r"^## \[(\d+)\.(\d+)\.(\d+)\]")
+ENTRY_RE = re.compile(r"^## \[(\d+)\.(\d+)\.(\d+)(?:\.\d+)?\]")
 CATEGORIES = (
     ("items", {"items"}),
     ("blocks", {"blocks"}),

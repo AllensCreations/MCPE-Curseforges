@@ -782,7 +782,7 @@ def run_checks(root, repo_root=None, folder=None):
     if ctext:
         if re.search(r"https?://", ctext):
             warns.append("DOC: CHANGELOG.md must not contain links (Part 2)")
-        if re.search(r"(?m)^## \[\d+\.\d+\.\d+\] - \d{4}-\d{2}-\d{2}", ctext) is None:
+        if re.search(r"(?m)^## \[\d+\.\d+\.\d+(?:\.\d+)?\] - \d{4}-\d{2}-\d{2}", ctext) is None:
             warns.append("DOC: CHANGELOG.md needs entries like '## [1.0.0] - YYYY-MM-DD' (Part 2)")
     try:
         import doc_template as _dt

@@ -2,10 +2,12 @@
 """Manually publish one pack to CurseForge using its registered project ID.
 
 Version rules:
-  beta     X.Y.Z -> X.Y.(Z+1); every unpublished changelog entry is merged into one grouped entry.
-  alpha    X.Y.Z -> X.(Y+1).0; changelog grouped per series in spoilers (1.3.x and lower).
-  release  X.Y.Z -> (X+1).0.0; changelog grouped per major in spoilers (v1.x.x, with its
+  Versions are X.Y.Z.A; normal updates only bump A in CHANGELOG.md.
+  beta     X.Y.Z.A -> X.Y.(Z+1).0; every unpublished A version is merged into one grouped entry.
+  alpha    X.Y.Z.A -> X.(Y+1).0.0; changelog grouped per series in spoilers (1.3.x and lower).
+  release  X.Y.Z.A -> (X+1).0.0.0; changelog grouped per major in spoilers (v1.x.x, with its
            series inside).
+The uploaded file is named (Beta|Alpha|Release)_Filename.ext.
 Uploads, then records the published version and the alpha/release baselines.
 """
 

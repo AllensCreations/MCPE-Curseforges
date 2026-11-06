@@ -15,7 +15,7 @@ ROOT = Path(__file__).resolve().parents[1]
 OUT = ROOT / "changelog_views"
 CATEGORIES = ("Addons", "Maps", "Script", "Minigame")
 TITLE = re.compile(r"^# Changelog — (.+)$")
-ENTRY = re.compile(r"^## \[(\d+)\.(\d+)\.(\d+)\] - (\d{4}-\d{2}-\d{2})$")
+ENTRY = re.compile(r"^## \[(\d+)\.(\d+)\.(\d+)(?:\.(\d+))?\] - (\d{4}-\d{2}-\d{2})$")
 GROUP = re.compile(r"^### (.+)$")
 BULLET = re.compile(r"^- \*\*([^*]+)\*\*: (\S.*)$")
 
@@ -30,7 +30,7 @@ def parse(text):
             continue
         e = ENTRY.match(line)
         if e:
-            cur = {"v": tuple(int(x) for x in e.groups()[:3]), "date": e.group(4), "groups": []}
+            cur = {"v": tuple(int(x or 0) for x in e.groups()[:4]), "date": e.group(5), "groups": []}
             releases.append(cur)
             grp = None
             continue
@@ -47,7 +47,7 @@ def parse(text):
 
 
 def ver(r):
-    return ".".join(map(str, r["v"]))
+    return ".".join(map(str, r["v"] if r["v"][3] else r["v"][:3]))
 
 
 def series(releases):

@@ -112,8 +112,8 @@ class AutoPublishTests(unittest.TestCase):
             version, entry = publisher.release.combine_changelog(
                 project, log, "1.3.0", today=datetime.date(2026, 11, 3), release_type="beta"
             )
-            self.assertEqual(version, "1.4.3")
-            self.assertIn("## [1.4.3] - 2026-11-03", entry)
+            self.assertEqual(version, "1.4.3.0")
+            self.assertIn("## [1.4.3.0] - 2026-11-03", entry)
             self.assertIn("Packed with 3 updates", entry)
             self.assertEqual(entry.count("### Fixed"), 1)  # one grouped list, not one per version
             for expected in ("- B", "- C", "- D"):
@@ -122,7 +122,7 @@ class AutoPublishTests(unittest.TestCase):
             self.assertNotIn("<div", entry)
             self.assertEqual(publisher.release.changelog_type("beta"), "markdown")
             text = log.read_text()
-            self.assertTrue(text.index("[1.4.3]") < text.index("[1.3.0]"))
+            self.assertTrue(text.index("[1.4.3.0]") < text.index("[1.3.0]"))
             self.assertNotIn("## [1.4.2]", text)
             with self.assertRaisesRegex(ValueError, "Nothing new"):
                 publisher.release.combine_changelog(project, log, "1.4.3", release_type="beta")
@@ -144,7 +144,7 @@ class AutoPublishTests(unittest.TestCase):
         updates = rel.baselines_after(release_type, info, version)
         info["last_published_version"] = version
         info.update(updates)
-        (project / "manifest.json").write_text(json.dumps({"header": {"version": [int(p) for p in version.split(".")]}}))
+        (project / "manifest.json").write_text(json.dumps({"header": {"version": [int(p) for p in version.split(".")[:3]]}}))
         return version, entry
 
     def test_beta_bumps_patch_and_release_combines_every_beta(self):
@@ -157,26 +157,26 @@ class AutoPublishTests(unittest.TestCase):
 
             log.write_text(log.read_text().replace("# Changelog\n\n", "# Changelog\n\n## [1.3.1] - 2026-11-01\n\n### Fixed\n- Beta fix one\n\n", 1))
             version, entry = self._publish(project, log, info, "beta", 1)
-            self.assertEqual(version, "1.3.1")
+            self.assertEqual(version, "1.3.1.0")
             self.assertEqual(info["last_release_version"], "1.3.0")
 
             log.write_text(log.read_text().replace("# Changelog\n\n", "# Changelog\n\n## [1.3.2] - 2026-11-02\n\n### Added\n- Beta feature two\n\n", 1))
             version, entry = self._publish(project, log, info, "beta", 2)
-            self.assertEqual(version, "1.3.2")
+            self.assertEqual(version, "1.3.2.0")
             self.assertNotIn("Beta fix one", entry)
-            self.assertIn("## [1.3.1]", log.read_text())
+            self.assertIn("## [1.3.1.0]", log.read_text())
 
             log.write_text(log.read_text().replace("# Changelog\n\n", "# Changelog\n\n## [1.3.3] - 2026-11-03\n\n### Fixed\n- Unpublished fix\n\n", 1))
             version, entry = self._publish(project, log, info, "release", 3)
-            self.assertEqual(version, "2.0.0")
-            self.assertEqual(info["last_release_version"], "2.0.0")
-            self.assertEqual(info["last_alpha_version"], "2.0.0")
+            self.assertEqual(version, "2.0.0.0")
+            self.assertEqual(info["last_release_version"], "2.0.0.0")
+            self.assertEqual(info["last_alpha_version"], "2.0.0.0")
             for expected in ("Beta fix one", "Beta feature two", "Unpublished fix", "Base"):
                 self.assertIn(expected, entry)  # the whole history is folded in
             self.assertIn("<h3>v1.x.x (4 updates)</h3>", entry)
             text = log.read_text()
             self.assertEqual(text.count("## ["), 2)
-            self.assertIn("## [2.0.0]", text)
+            self.assertIn("## [2.0.0.0]", text)
             self.assertIn("## [1.3.0]", text)
             self.assertNotIn("<div", text)  # CHANGELOG.md stays plain
 
@@ -188,7 +188,7 @@ class AutoPublishTests(unittest.TestCase):
             )
             info = {"project_id": "1", "last_published_version": "1.3.1", "last_release_version": "1.3.0"}
             version, entry = self._publish(project, log, info, "release", 3)
-            self.assertEqual(version, "2.0.0")
+            self.assertEqual(version, "2.0.0.0")
             self.assertIn("Beta fix", entry)
             with self.assertRaisesRegex(ValueError, "Nothing new"):
                 publisher.release.combine_changelog(project, log, "2.0.0", release_type="beta")
@@ -200,12 +200,12 @@ class AutoPublishTests(unittest.TestCase):
             )
             info = {"project_id": "1"}
             version, _ = self._publish(project, log, info, "beta", 1)
-            self.assertEqual(version, "1.0.1")
-            self.assertEqual(info["last_release_version"], "1.0.0")
+            self.assertEqual(version, "1.0.1.0")
+            self.assertEqual(info["last_release_version"], "1.0.0.0")
             log.write_text(log.read_text().replace("# Changelog\n\n", "# Changelog\n\n## [1.0.2] - 2026-11-02\n\n- Second\n\n", 1))
             self._publish(project, log, info, "beta", 2)
             version, entry = self._publish(project, log, info, "release", 3)
-            self.assertEqual(version, "2.0.0")
+            self.assertEqual(version, "2.0.0.0")
             self.assertIn("First", entry)
 
     def test_old_registry_entry_without_release_field_falls_back_to_last_published(self):
@@ -220,11 +220,32 @@ class AutoPublishTests(unittest.TestCase):
         self.assertEqual(rel.baselines_after("release", info, "2.0.0"),
                          {"last_release_version": "2.0.0", "last_alpha_version": "2.0.0"})
 
+    def test_upload_copy_uses_type_prefix_and_no_by_suffix(self):
+        rel = publisher.release
+        self.assertEqual(rel.upload_name("beta", "Monster-Companions", ".mcaddon"), "Beta_Monster-Companions.mcaddon")
+        self.assertEqual(rel.upload_name("release", "OneBlock", ".mcworld", "Hardcore"), "Release_OneBlock_Hardcore.mcworld")
+        with tempfile.TemporaryDirectory() as temp:
+            src = Path(temp) / "Pack by AllensCreations (V1.2.3).mcaddon"
+            src.write_bytes(b"x")
+            with patch.dict(os.environ, {"RUNNER_TEMP": temp}):
+                staged = rel.stage_upload_copy(src, "alpha", "Pack")
+            self.assertEqual(staged.name, "Alpha_Pack.mcaddon")
+            self.assertEqual(staged.read_bytes(), b"x")
+
+    def test_four_part_versions(self):
+        rel = publisher.release
+        self.assertEqual(rel.parse_version("1.2.3"), (1, 2, 3, 0))
+        self.assertEqual(rel.parse_version("1.2.3.4"), (1, 2, 3, 4))
+        self.assertEqual(rel.next_version((1, 2, 3, 4), "beta"), "1.2.4.0")
+        self.assertEqual(rel.next_version((1, 2, 3, 4), "alpha"), "1.3.0.0")
+        self.assertEqual(rel.prior_version("1.2.3.4"), "1.2.3.3")
+        self.assertTrue(rel.CHANGELOG_HEADER.fullmatch("## [1.2.3.4] - 2026-11-06"))
+
     def test_new_version_rules(self):
         nxt = publisher.release.next_version
-        self.assertEqual(nxt((1, 3, 5), "beta"), "1.3.6")
-        self.assertEqual(nxt((1, 3, 5), "alpha"), "1.4.0")
-        self.assertEqual(nxt((1, 3, 5), "release"), "2.0.0")
+        self.assertEqual(nxt((1, 3, 5), "beta"), "1.3.6.0")
+        self.assertEqual(nxt((1, 3, 5), "alpha"), "1.4.0.0")
+        self.assertEqual(nxt((1, 3, 5), "release"), "2.0.0.0")
 
     def _history(self, temp):
         return self._project(
@@ -242,8 +263,8 @@ class AutoPublishTests(unittest.TestCase):
             info = {"project_id": "1", "last_published_version": "1.3.0", "last_release_version": "1.0.0",
                     "last_alpha_version": "1.2.0"}
             version, entry = self._publish(project, log, info, "alpha", 4)
-            self.assertEqual(version, "1.4.0")
-            self.assertEqual(info["last_alpha_version"], "1.4.0")
+            self.assertEqual(version, "1.4.0.0")
+            self.assertEqual(info["last_alpha_version"], "1.4.0.0")
             self.assertEqual(info["last_release_version"], "1.0.0")
             # newest series is open (heading + content), older series are spoilers
             self.assertIn("<h3>v1.3.x (2 updates, v1.3.2 \u2013 v1.3.5)</h3><p><strong>Fixed</strong></p>", entry)
@@ -263,7 +284,7 @@ class AutoPublishTests(unittest.TestCase):
             project, log = self._history(temp)
             info = {"project_id": "1", "last_published_version": "1.3.0", "last_release_version": "1.0.0"}
             version, entry = self._publish(project, log, info, "release", 4)
-            self.assertEqual(version, "2.0.0")
+            self.assertEqual(version, "2.0.0.0")
             self.assertEqual(entry.count("v1.x.x (4 updates)"), 1)
             self.assertIn("<h3>v1.x.x (4 updates)</h3><h4>v1.3.x", entry)  # major open, newest series open
             self.assertEqual(entry.count('<div class="spoiler">'), 2)      # 1.2.x and 1.1.x folded
@@ -288,16 +309,16 @@ class AutoPublishTests(unittest.TestCase):
             project, log = self._history(temp)
             info = {"project_id": "1", "last_published_version": "1.3.5", "last_release_version": "1.3.5"}
             version, entry = self._publish(project, log, info, "release", 5)
-            self.assertEqual(version, "2.0.0")
+            self.assertEqual(version, "2.0.0.0")
             for expected in ("Fix 135", "Add 132", "Add 120", "Add 110"):
                 self.assertIn(expected, entry)
             self.assertIn("<h3>v1.x.x (4 updates)</h3>", entry)
             text = log.read_text()
-            self.assertIn("## [2.0.0] - 2026-11-05", text)
+            self.assertIn("## [2.0.0.0] - 2026-11-05", text)
             self.assertIn("## [1.3.5]", text)  # history kept
             # the empty 2.0.0 marker is not counted as an update on the next fold
             version, entry = self._publish(project, log, info, "alpha", 6)
-            self.assertEqual(version, "2.1.0")
+            self.assertEqual(version, "2.1.0.0")
             self.assertIn("v1.x.x (4 updates)", entry)
             self.assertNotIn("v2.0.x", entry)
 
