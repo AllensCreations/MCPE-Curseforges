@@ -3,6 +3,7 @@
 
 import argparse
 import datetime
+import html
 import json
 import os
 import re
@@ -164,7 +165,7 @@ def _load_registry():
         if not project_id or not key:
             continue
         entry = {"project_id": project_id}
-        for field in ("last_published_version", "last_release_version"):
+        for field in ("last_published_version", "last_release_version", "last_alpha_version"):
             if info.get(field):
                 entry[field] = info[field]
         registry.setdefault(key, entry)
@@ -188,11 +189,13 @@ def read_info(project_path):
     return {**entry, "project_id": project_id}
 
 
-def save_info(project_path, project_id, last_published_version=None, last_release_version=None):
+def save_info(project_path, project_id, last_published_version=None, last_release_version=None,
+              last_alpha_version=None):
     """Add or update one pack in builds/Curseforge_IDs.json (keeps its other fields).
 
     last_published_version is the newest upload of any type (beta, alpha or release);
-    last_release_version is the newest release, the baseline a release merges from.
+    last_release_version is the newest release, the baseline a release merges from;
+    last_alpha_version is the newest alpha or release, the baseline an alpha merges from.
     """
     registry, migrated = _load_registry()
     entry = dict(registry.get(project_path) or {})
@@ -203,6 +206,8 @@ def save_info(project_path, project_id, last_published_version=None, last_releas
         entry["last_published_version"] = last_published_version
     if last_release_version:
         entry["last_release_version"] = last_release_version
+    if last_alpha_version:
+        entry["last_alpha_version"] = last_alpha_version
     registry[project_path] = entry
     path = registry_path()
     path.parent.mkdir(parents=True, exist_ok=True)
@@ -240,87 +245,236 @@ def manifest_max_version(project_dir):
     return max(versions) if versions else (0, 0, 0)
 
 
-def _merge_bodies(bodies):
-    """Merge entry bodies: same '### Heading' lists are joined, duplicate lines dropped."""
+LEGACY_SERIES_HEADING = re.compile(r"^v\d+\.\d+\.x \(")
+HEADING_LINE = re.compile(r"^#{3,4} (.+)$")
+# CURSEFORGE_CHANGELOG_STYLE: "spoiler" (default, HTML folds) or "plain" (markdown headings).
+CHANGELOG_STYLE_ENV = "CURSEFORGE_CHANGELOG_STYLE"
+
+
+def _merge_sections(bodies):
+    """Merge entry bodies into {heading: [lines]}: same '### Heading' lists are joined, duplicates dropped.
+
+    Older combined entries ('### v1.4.x (...)' blocks with '#### Heading' lists and a
+    "What's new" line) are understood too: their wrapper lines are ignored.
+    """
     sections = {}
     for body in bodies:
         heading = ""
         for line in body.splitlines():
             line = line.rstrip()
-            if line.startswith("### ") and not line.startswith("####"):
-                heading = line[4:].strip()
+            match = HEADING_LINE.match(line)
+            if match:
+                if LEGACY_SERIES_HEADING.match(match.group(1)):
+                    heading = ""
+                    continue
+                heading = match.group(1).strip()
                 sections.setdefault(heading, [])
-            elif line.strip():
+            elif line.strip() and not line.startswith("**What's new in v"):
                 lines = sections.setdefault(heading, [])
                 if line not in lines:
                     lines.append(line)
+    return sections
+
+
+def _merge_bodies(bodies):
+    """Markdown: '### Heading' followed by its merged list."""
     out = []
-    for heading, lines in sections.items():
+    for heading, lines in _merge_sections(bodies).items():
         if heading:
-            out.append(f"#### {heading}")
+            out.extend([f"### {heading}", ""])
         out.extend(lines)
         out.append("")
     return "\n".join(out).strip()
 
 
-def render_combined_entry(new_version, date_text, merged):
-    """One entry: a 'What's new' line, then changes grouped per minor series (X.Y.x), newest first."""
-    groups = {}
-    for version, version_text, _, segment in merged:
-        groups.setdefault(version[:2], []).append((version, version_text, segment.partition("\n")[2]))
+def _inline_html(text):
+    """Escape text for CurseForge HTML and turn **bold** into <strong>."""
+    return re.sub(r"\*\*(.+?)\*\*", r"<strong>\1</strong>", html.escape(text, quote=False))
 
-    versions = [entry[1] for entry in merged]
+
+def _sections_html(bodies):
+    """HTML (only tags CurseForge supports): <p><strong>Heading</strong></p><ul><li>..</li></ul>."""
+    out = []
+    for heading, lines in _merge_sections(bodies).items():
+        if heading:
+            out.append(f"<p><strong>{html.escape(heading, quote=False)}</strong></p>")
+        items = []
+        for line in lines:
+            stripped = line.strip()
+            if stripped.startswith(("- ", "* ")):
+                items.append(f"<li>{_inline_html(stripped[2:].strip())}</li>")
+            else:
+                if items:
+                    out.append(f"<ul>{''.join(items)}</ul>")
+                    items = []
+                out.append(f"<p>{_inline_html(stripped)}</p>")
+        if items:
+            out.append(f"<ul>{''.join(items)}</ul>")
+    return "".join(out)
+
+
+def _updates(count):
+    return f"{count} update" + ("s" if count != 1 else "")
+
+
+def _intro(new_version, versions):
     if len(versions) == 1:
-        intro = f"**What's new in v{new_version}:** Packed with the v{versions[0]} update."
-    else:
-        intro = (
-            f"**What's new in v{new_version}:** Packed with {len(versions)} updates, "
-            f"from v{versions[-1]} through v{versions[0]}."
-        )
+        return f"**What's new in v{new_version}:** Packed with the v{versions[0]} update."
+    return (
+        f"**What's new in v{new_version}:** Packed with {len(versions)} updates, "
+        f"from v{versions[-1]} through v{versions[0]}."
+    )
 
+
+def render_flat_entry(new_version, date_text, merged):
+    """ONE markdown entry for beta (and for CHANGELOG.md): every merged entry grouped by heading."""
+    body = _merge_bodies([entry[3].partition("\n")[2] for entry in merged])
+    return f"## [{new_version}] - {date_text}\n\n{_intro(new_version, [e[1] for e in merged])}\n\n{body}"
+
+
+def changelog_style():
+    """'spoiler' (default): HTML with CurseForge's div.spoiler folds. 'plain': markdown headings."""
+    return "plain" if os.environ.get(CHANGELOG_STYLE_ENV, "spoiler").strip().lower() == "plain" else "spoiler"
+
+
+def changelog_type(release_type):
+    """CurseForge changelogType for an upload: html only when a fold layout is sent."""
+    return "html" if release_type != "beta" and changelog_style() == "spoiler" else "markdown"
+
+
+def _fold(summary, inner, is_open, style, level):
+    """A group: the newest stays open (heading + content); the rest are CurseForge spoilers.
+
+    CurseForge allows no <details> tag; its supported fold is <div class="spoiler">.
+    """
+    if style == "plain":
+        return f"{'#' * level} {summary}\n\n{inner}"
+    head = f"<h{level}>{html.escape(summary, quote=False)}</h{level}>"
+    if is_open:
+        return head + inner
+    return f'{head}<div class="spoiler">{inner}</div>'
+
+
+def _series_block(major, minor, items, is_open, style, level):
+    items = sorted(items, key=lambda item: item[0])
+    names = [item[1] for item in items]
+    span = f"v{names[0]}" if len(names) == 1 else f"v{names[0]} \u2013 v{names[-1]}"
+    bodies = [item[3].partition("\n")[2] for item in reversed(items)]
+    body = _sections_html(bodies) if style == "spoiler" else _merge_bodies(bodies)
+    return _fold(f"v{major}.{minor}.x ({_updates(len(items))}, {span})", body, is_open, style, level)
+
+
+def render_rollup(entries, new_version, release_type, style="spoiler"):
+    """Grouped history for alpha and release, built from EVERY changelog entry.
+
+    alpha (X.Y.0): each series X.Y.x and lower is one group; the newest is open.
+    release ((X+1).0.0): each major (v1.x.x) is one group holding a group per series (1.3.x, 1.2.x ...).
+    """
+    tree = {}
+    for entry in entries:
+        tree.setdefault(entry[0][0], {}).setdefault(entry[0][1], []).append(entry)
+    new_major = int(new_version.split(".")[0])
+    glue = "" if style == "spoiler" else "\n\n"
     blocks = []
-    for (major, minor), items in sorted(groups.items(), reverse=True):
-        names = [item[1] for item in sorted(items, key=lambda item: item[0])]
-        span = f"v{names[0]}" if len(names) == 1 else f"v{names[0]} \u2013 v{names[-1]}"
-        body = _merge_bodies([item[2] for item in sorted(items, key=lambda item: item[0], reverse=True)])
-        blocks.append(f"### v{major}.{minor}.x ({span})\n\n{body}")
-    return f"## [{new_version}] - {date_text}\n\n{intro}\n\n" + "\n\n".join(blocks)
+    for major in sorted(tree, reverse=True):
+        first = not blocks
+        series = tree[major]
+        if release_type == "alpha" and major == new_major:
+            for minor in sorted(series, reverse=True):
+                blocks.append(_series_block(major, minor, series[minor], not blocks, style, 3))
+            continue
+        inner = [
+            _series_block(major, minor, series[minor], first and index == 0, style, 4)
+            for index, minor in enumerate(sorted(series, reverse=True))
+        ]
+        total = sum(len(items) for items in series.values())
+        blocks.append(_fold(f"v{major}.x.x ({_updates(total)})", glue.join(inner), first, style, 3))
+    return glue.join(blocks)
+
+
+def render_upload_changelog(new_version, date_text, merged, entries, release_type, style=None):
+    """The changelog text sent to CurseForge: flat markdown for beta, grouped history for alpha/release."""
+    if release_type == "beta":
+        return render_flat_entry(new_version, date_text, merged)
+    style = style or changelog_style()
+    intro = (
+        f"**What's new in v{new_version}:** Rolls up {_updates(len(entries))}, "
+        f"from v{entries[-1][1]} through v{entries[0][1]}, grouped by version."
+    )
+    rollup = render_rollup(entries, new_version, release_type, style)
+    if style == "spoiler":
+        return f"<h2>[{new_version}] - {date_text}</h2><p>{_inline_html(intro)}</p>{rollup}"
+    return f"## [{new_version}] - {date_text}\n\n{intro}\n\n{rollup}"
 
 
 def merge_baseline(release_type, info):
     """Version after which changelog entries are still unpublished for this release type.
 
-    beta and alpha merge what is newer than the last upload of any type. A release merges
-    everything newer than the last release, so it also folds in every beta published since.
-    Packs saved before betas were tracked separately have no last_release_version; their
-    earlier uploads were all minor bumps, so last_published_version is used.
+    beta merges what is newer than the last upload of any type. alpha merges what is newer than
+    the last alpha or release. release merges what is newer than the last release.
+    Packs saved before alpha was tracked fall back to the older fields.
     """
     published = info.get("last_published_version")
+    release = info.get("last_release_version")
     if release_type == "release":
-        return info.get("last_release_version") or published
+        return release or published
+    if release_type == "alpha":
+        return info.get("last_alpha_version") or release or published
     return published
 
 
 def next_version(highest, release_type):
-    """beta and alpha: X.Y.Z -> X.Y.(Z+1). release: X.Y.Z -> X.(Y+1).0."""
+    """beta: X.Y.Z -> X.Y.(Z+1). alpha: X.Y.Z -> X.(Y+1).0. release: X.Y.Z -> (X+1).0.0."""
     major, minor, patch = highest
     if release_type == "release":
+        return f"{major + 1}.0.0"
+    if release_type == "alpha":
         return f"{major}.{minor + 1}.0"
     return f"{major}.{minor}.{patch + 1}"
 
 
+def prior_version(version):
+    major, minor, patch = parse_version(version)
+    if patch:
+        return f"{major}.{minor}.{patch - 1}"
+    if minor:
+        return f"{major}.{minor - 1}.0"
+    return f"{max(major - 1, 0)}.0.0" if major else version
+
+
+def baselines_after(release_type, info, version):
+    """Registry fields to save after an upload (besides last_published_version)."""
+    fallback = info.get("last_published_version") or prior_version(version)
+    out = {}
+    if release_type == "release":
+        out["last_release_version"] = version
+        out["last_alpha_version"] = version
+    elif release_type == "alpha":
+        out["last_alpha_version"] = version
+        if not info.get("last_release_version"):
+            out["last_release_version"] = fallback
+    else:
+        if not info.get("last_release_version"):
+            out["last_release_version"] = fallback
+        if not info.get("last_alpha_version"):
+            out["last_alpha_version"] = info.get("last_release_version") or fallback
+    return out
+
+
 def combine_changelog(project_dir, changelog_path, last_published=None, today=None,
-                      release_type="release", last_release=None):
+                      release_type="release", last_release=None, last_alpha=None):
     """Merge the changelog entries this publish covers into ONE entry with the next version.
 
-    beta/alpha merge entries newer than last_published and bump the patch (X.Y.Z+1).
-    release merges entries newer than last_release (all betas since the last release plus
-    anything unpublished) and bumps the minor (X.(Y+1).0).
+    beta: all entries newer than last_published become one grouped entry, X.Y.(Z+1).
+    alpha: entries newer than the last alpha/release are merged; the upload shows every
+    series (1.3.x and lower) as spoiler groups, X.(Y+1).0.
+    release: entries newer than the last release are merged; the upload shows every major
+    (v1.x.x, with its series inside) as spoiler groups, (X+1).0.0.
     The next version builds on the highest of the last published version and the manifests;
     unpublished changelog headings are only used when nothing was ever published.
-    The merged entry replaces the entries it combined at the top of CHANGELOG.md, so the
+    CHANGELOG.md keeps one plain grouped entry in place of the entries it merged, so the
     changelog, manifests and CurseForge all show the same version.
-    Returns (new_version_text, combined_entry_text).
+    Returns (new_version_text, upload_changelog_text).
     """
     text = changelog_path.read_text(encoding="utf-8")
     preamble, segments = split_changelog(text)
@@ -336,7 +490,12 @@ def combine_changelog(project_dir, changelog_path, last_published=None, today=No
         raise ValueError(f"Latest changelog heading must be a dated version in {changelog_path}")
 
     baseline_text = merge_baseline(
-        release_type, {"last_published_version": last_published, "last_release_version": last_release}
+        release_type,
+        {
+            "last_published_version": last_published,
+            "last_release_version": last_release,
+            "last_alpha_version": last_alpha,
+        },
     )
     baseline = parse_version(baseline_text) if baseline_text else None
     if baseline is None:
@@ -356,12 +515,13 @@ def combine_changelog(project_dir, changelog_path, last_published=None, today=No
     new_version = next_version(highest, release_type)
     date_text = (today or datetime.date.today()).isoformat()
 
-    entry = render_combined_entry(new_version, date_text, merged)
+    file_entry = render_flat_entry(new_version, date_text, merged)
+    upload = render_upload_changelog(new_version, date_text, merged, entries, release_type)
 
     remaining = segments[len(merged):]
-    new_text = preamble + entry + "\n\n" + "".join(remaining)
+    new_text = preamble + file_entry + "\n\n" + "".join(remaining)
     changelog_path.write_text(new_text.rstrip() + "\n", encoding="utf-8")
-    return new_version, entry
+    return new_version, upload
 
 
 def find_map_package(project_dir, built_name, variant):
@@ -418,6 +578,7 @@ def prepare(project_path, release_type, map_variant="default", rebuild=True, bum
             info.get("last_published_version"),
             release_type=release_type,
             last_release=info.get("last_release_version"),
+            last_alpha=info.get("last_alpha_version"),
         )
     else:
         changelog_version, changelog = latest_changelog_entry(changelog_path)
@@ -461,7 +622,7 @@ def prepare(project_path, release_type, map_variant="default", rebuild=True, bum
 
     metadata = {
         "changelog": changelog,
-        "changelogType": "markdown",
+        "changelogType": changelog_type(release_type),
         "displayName": package_path.stem,
         "releaseType": release_type,
     }
