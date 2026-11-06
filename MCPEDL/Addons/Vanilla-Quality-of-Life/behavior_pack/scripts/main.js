@@ -1609,17 +1609,6 @@ if (world.afterEvents.playerDimensionChange) {
   });
 }
 
-system.afterEvents.scriptEventReceive.subscribe((event) => {
-  try {
-    if (event.id === "qol:swap") {
-      const player = event.sourceEntity;
-      if (player && player.typeId === "minecraft:player") {
-        swapHands(player);
-      }
-    }
-  } catch (e) {}
-});
-
 system.runTimeout(() => {
   try {
     const raw = world.getDynamicProperty("qol:lights");

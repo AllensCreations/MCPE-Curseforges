@@ -123,7 +123,6 @@ Combines dynamic lighting, offhand quick-swap, automatic tool selection, tree ca
 - Quick-swap gestures:
   - **Double-sneak** (crouch twice within 0.7 seconds while standing still) to swap held item into offhand.
   - **Sneak + Use/Tap in air** to swap held item into offhand.
-  - Run /scriptevent qol:swap, which needs cheats or operator permission.
 - Real-time dynamic light: Torches emit Light Level 14, Soul Torches and Soul Lanterns Level 10, Redstone Torches Level 7, and Lanterns Level 15 as you move.
 
 #### 6. Universal Leashing (101 Mobs)
@@ -136,7 +135,7 @@ Combines dynamic lighting, offhand quick-swap, automatic tool selection, tree ca
 - Tamed entities are immune to Creeper and TNT explosion damage.
 
 #### 8. Fast Leaf Decay
-- Floating leaves from chopped trees decay faster because the random tick speed is raised to 4 when the world first loads. This also speeds up crop growth, and you can change it afterward with the game rule command.
+- Floating leaves from chopped trees decay faster because the random tick speed is raised to 4 when the world first loads. This also speeds up crop growth, and you can change it afterward in your world's game rules.
 - Natural leaf drops such as saplings, sticks, and apples remain available as leaves decay.
 
 #### 9. Stonecutter Woodcutter Integration

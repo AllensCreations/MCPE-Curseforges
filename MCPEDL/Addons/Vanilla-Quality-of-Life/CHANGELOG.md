@@ -2,6 +2,11 @@
 
 ---
 
+## [1.4.4] - 2026-11-06
+
+### Removed
+- **Offhand Swap Command**: The command that swapped your offhand item is removed. Use double-sneak or Sneak + Use in the air instead.
+
 ## [1.4.3] - 2026-11-06
 
 ### Removed
