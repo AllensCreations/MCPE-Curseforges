@@ -3,22 +3,27 @@ import { ActionFormData } from "@minecraft/server-ui";
 
 const CONTROLLER_ID = "allenscreations:controller";
 const STATE_KEY = "game_state";
+const BLOCK_KEY = "block_damage";
+const INTERVAL_KEY = "shuffle_seconds";
+const HOSTILE_KEY = "hostile_only";
+const MUTE_KEY = "mute_glitch";
 
 const LOOP_TICKS = 10;
-const SHUFFLE_INTERVAL_TICKS = 600;
+const SHUFFLE_OPTIONS = [15, 30, 60];
 const WARNING_DELAY_TICKS = 40;
 const SEARCH_RADIUS = 48;
 const WARN_RADIUS = 32;
 const MAX_NEW_PER_SHUFFLE = 6;
 const MAX_ACTIVE = 24;
 const WARN_COOLDOWN_TICKS = 30;
-const EXPLOSIONS_BREAK_BLOCKS = true;
 
 const SKIP_TYPES = [
   "minecraft:player", "minecraft:ender_dragon", "minecraft:wither", "minecraft:warden",
   "minecraft:armor_stand", "minecraft:npc", "minecraft:agent", "minecraft:ender_crystal",
   "minecraft:item", "minecraft:xp_orb", "minecraft:lightning_bolt", "minecraft:tripod_camera",
   "minecraft:minecart", "minecraft:chest_minecart", "minecraft:boat", "minecraft:chest_boat",
+  "minecraft:villager", "minecraft:villager_v2", "minecraft:wandering_trader",
+  "minecraft:iron_golem", "minecraft:snow_golem",
 ];
 
 const LOOT = {
@@ -49,6 +54,22 @@ const getState = () => {
   return typeof v === "string" ? v : "idle";
 };
 const setState = (s) => world.setDynamicProperty(STATE_KEY, s);
+
+const getFlag = (key) => world.getDynamicProperty(key) === true;
+const blockDamage = () => getFlag(BLOCK_KEY);
+const hostileOnly = () => getFlag(HOSTILE_KEY);
+const shuffleSeconds = () => {
+  const v = world.getDynamicProperty(INTERVAL_KEY);
+  return SHUFFLE_OPTIONS.includes(v) ? v : 30;
+};
+const shuffleTicks = () => shuffleSeconds() * 20;
+const isMuted = (p) => {
+  try {
+    return p.getDynamicProperty(MUTE_KEY) === true;
+  } catch (err) {
+    return false;
+  }
+};
 
 const rand = (a, b) => a + Math.floor(Math.random() * (b - a + 1));
 const pick = (arr) => arr[Math.floor(Math.random() * arr.length)];
@@ -81,6 +102,7 @@ function warn(dimension, location, text, bigChance = 0) {
   }
   const now = system.currentTick;
   for (const p of players) {
+    if (isMuted(p)) continue;
     if (now - (lastWarn.get(p.id) ?? -999) < WARN_COOLDOWN_TICKS) continue;
     lastWarn.set(p.id, now);
     try {
@@ -94,7 +116,7 @@ function warn(dimension, location, text, bigChance = 0) {
         });
       }
     } catch (err) {
-      
+      // Player left or screen unavailable; ignore.
     }
   }
 }
@@ -107,12 +129,36 @@ function nearestPlayer(entity, radius) {
   }
 }
 
+function targetable(p) {
+  try {
+    const mode = String(p.getGameMode()).toLowerCase();
+    return mode !== "creative" && mode !== "spectator";
+  } catch (err) {
+    return true;
+  }
+}
+
+function wallBetween(a, b) {
+  try {
+    const from = { x: a.location.x, y: a.location.y + 1, z: a.location.z };
+    const dx = b.location.x - from.x;
+    const dy = b.location.y + 1 - from.y;
+    const dz = b.location.z - from.z;
+    const len = Math.hypot(dx, dy, dz);
+    if (len < 0.5) return false;
+    const hit = a.dimension.getBlockFromRay(from, { x: dx / len, y: dy / len, z: dz / len }, { maxDistance: len });
+    return !!hit;
+  } catch (err) {
+    return false;
+  }
+}
+
 function addFx(en, name, ticks, amp) {
   try {
     en.entity.addEffect(name, Math.max(ticks, 20), { amplifier: amp, showParticles: false });
     if (!en.fx.includes(name)) en.fx.push(name);
   } catch (err) {
-    
+    // Effect not applicable to this mob; ignore.
   }
 }
 
@@ -126,17 +172,17 @@ function lunge(en, power, lift = 0.2) {
   try {
     en.entity.applyImpulse({ x: (dx / len) * power, y: lift, z: (dz / len) * power });
   } catch (err) {
-    
+    // Mob cannot be pushed; ignore.
   }
 }
 
 function strike(en, radius, damage) {
   const p = nearestPlayer(en.entity, radius);
-  if (!p) return;
+  if (!p || !targetable(p) || wallBetween(en.entity, p)) return;
   try {
     p.applyDamage(damage, { cause: "entityAttack" });
   } catch (err) {
-    
+    // Player not damageable right now; ignore.
   }
 }
 
@@ -144,7 +190,7 @@ function sound(entity, id, pitch = 1) {
   try {
     entity.dimension.playSound(id, entity.location, { volume: 1.5, pitch });
   } catch (err) {
-    
+    // Sound unavailable; ignore.
   }
 }
 
@@ -155,8 +201,11 @@ const MUTATIONS = {
     start: (en) => { en.cap = en.entity.location.y + 14; },
     act: (en) => {
       const e = en.entity;
-      if (e.location.y < en.cap) addFx(en, "levitation", 24, 0);
-      else addFx(en, "slow_falling", 60, 0);
+      if (e.location.y < en.cap - 3) {
+        addFx(en, "levitation", 24, 0);
+      } else {
+        try { e.removeEffect("levitation"); } catch (err) { }
+      }
       addFx(en, "slow_falling", 60, 0);
       if (en.n % 4 === 0) {
         const item = LOOT[e.typeId] ?? pick(FALLBACK_LOOT);
@@ -192,13 +241,19 @@ const MUTATIONS = {
       if (d < 4) return;
       const v = p.getViewDirection();
       const hl = Math.hypot(v.x, v.z) || 1;
+      const target = { x: p.location.x - (v.x / hl) * 2, y: p.location.y, z: p.location.z - (v.z / hl) * 2 };
       try {
-        en.entity.teleport(
-          { x: p.location.x - (v.x / hl) * 2, y: p.location.y, z: p.location.z - (v.z / hl) * 2 },
-          { dimension: p.dimension, facingLocation: p.location }
-        );
+        const bx = Math.floor(target.x);
+        const by = Math.floor(target.y);
+        const bz = Math.floor(target.z);
+        const feet = p.dimension.getBlock({ x: bx, y: by, z: bz });
+        const head = p.dimension.getBlock({ x: bx, y: by + 1, z: bz });
+        if (!feet?.isAir || !head?.isAir) return;
+        en.entity.teleport(target, { dimension: p.dimension, facingLocation: p.location });
         sound(en.entity, "mob.endermen.portal");
-      } catch (err) { }
+      } catch (err) {
+        return;
+      }
       warn(p.dimension, p.location, "[ANOMALY DETECTED] Something is standing right behind you...", 0.4);
     },
   },
@@ -215,7 +270,7 @@ const MUTATIONS = {
     },
     act: (en) => {
       lunge(en, 0.8);
-      strike(en, 3.5, 6);
+      strike(en, 3.5, 4);
     },
   },
   fuse: {
@@ -231,7 +286,7 @@ const MUTATIONS = {
         const loc = e.location;
         const dim = e.dimension;
         try {
-          dim.createExplosion(loc, 3, { breaksBlocks: EXPLOSIONS_BREAK_BLOCKS, causesFire: false });
+          dim.createExplosion(loc, 3, { breaksBlocks: blockDamage(), causesFire: false });
         } catch (err) { }
         try { e.kill(); } catch (err) { }
         en.done = true;
@@ -266,6 +321,8 @@ function eligible(e) {
   try {
     if (!valid(e) || !e.typeId.startsWith("minecraft:") || SKIP_TYPES.includes(e.typeId)) return false;
     if (entries.has(e.id)) return false;
+    if (e.getComponent("minecraft:is_tamed")) return false;
+    if (hostileOnly() && !e.matches({ families: ["monster"] })) return false;
     const h = e.getComponent("minecraft:health");
     return !!h && h.currentValue > 0;
   } catch (err) {
@@ -319,6 +376,7 @@ function finish(en) {
     try { e.removeEffect(name); } catch (err) { }
   }
   try { e.extinguishFire(); } catch (err) { }
+  if (en.started) sound(e, "random.pop", 0.8);
 }
 
 function clearAll() {
@@ -354,7 +412,7 @@ system.runInterval(() => {
   const now = system.currentTick;
   if (nextShuffle === 0) nextShuffle = now + 100;
   if (now >= nextShuffle) {
-    nextShuffle = now + SHUFFLE_INTERVAL_TICKS;
+    nextShuffle = now + shuffleTicks();
     spin();
   }
   for (const en of [...entries.values()]) {
@@ -380,20 +438,39 @@ function endGame() {
 }
 
 function restartGame() {
-  if (getState() === "running") endGame();
   clearAll();
   lastWarn.clear();
   startGame();
 }
 
+function canControl(player) {
+  try {
+    if (world.getAllPlayers().length <= 1) return true;
+    return player.isOp();
+  } catch (err) {
+    return true;
+  }
+}
+
+const STATE_LABELS = { running: "Running", ended: "Ended", idle: "Not started" };
+
 async function openController(player, attempt = 0) {
+  if (!canControl(player)) {
+    player.sendMessage("§cOnly operators can use the Controller.");
+    return;
+  }
   const state = getState();
+  const seconds = shuffleSeconds();
   const form = new ActionFormData()
     .title("Controller")
-    .body(`State: ${state}`)
+    .body(`State: ${STATE_LABELS[state] ?? "Not started"}`)
     .button("Start")
     .button("Restart")
-    .button("End");
+    .button("End")
+    .button(`Block damage: ${blockDamage() ? "On" : "Off"}`)
+    .button(`Shuffle every ${seconds} seconds`)
+    .button(`Mobs: ${hostileOnly() ? "Hostile only" : "All"}`)
+    .button(`Glitch text: ${isMuted(player) ? "Off" : "On"}`);
   let res;
   try {
     res = await form.show(player);
@@ -412,11 +489,35 @@ async function openController(player, attempt = 0) {
     restartGame();
   } else if (res.selection === 2) {
     state === "running" ? endGame() : player.sendMessage("Nothing to end.");
+  } else if (res.selection === 3) {
+    world.setDynamicProperty(BLOCK_KEY, !blockDamage());
+    system.runTimeout(() => openController(player), 2);
+  } else if (res.selection === 4) {
+    const next = SHUFFLE_OPTIONS[(SHUFFLE_OPTIONS.indexOf(seconds) + 1) % SHUFFLE_OPTIONS.length];
+    world.setDynamicProperty(INTERVAL_KEY, next);
+    nextShuffle = 0;
+    system.runTimeout(() => openController(player), 2);
+  } else if (res.selection === 5) {
+    world.setDynamicProperty(HOSTILE_KEY, !hostileOnly());
+    system.runTimeout(() => openController(player), 2);
+  } else if (res.selection === 6) {
+    player.setDynamicProperty(MUTE_KEY, !isMuted(player));
+    system.runTimeout(() => openController(player), 2);
   }
 }
 
 world.afterEvents.itemUse.subscribe(({ source, itemStack }) => {
   if (itemStack?.typeId === CONTROLLER_ID) openController(source);
+});
+
+system.afterEvents.scriptEventReceive.subscribe(({ id }) => {
+  if (id === "allenscreations:start") {
+    if (getState() !== "running") startGame();
+  } else if (id === "allenscreations:restart") {
+    restartGame();
+  } else if (id === "allenscreations:end") {
+    if (getState() === "running") endGame();
+  }
 });
 
 function giveController(player) {
@@ -427,6 +528,10 @@ function giveController(player) {
   }
   inv.addItem(new ItemStack(CONTROLLER_ID, 1));
 }
-world.afterEvents.playerSpawn.subscribe(({ player, initialSpawn }) => {
-  if (initialSpawn) giveController(player);
+world.afterEvents.playerSpawn.subscribe(({ player }) => {
+  giveController(player);
+});
+
+world.afterEvents.playerLeave.subscribe(({ playerId }) => {
+  lastWarn.delete(playerId);
 });
