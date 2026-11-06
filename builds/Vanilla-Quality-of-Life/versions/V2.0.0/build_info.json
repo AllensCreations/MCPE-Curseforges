@@ -1,0 +1,8 @@
+{
+  "changelog_version": "2.0.0.0",
+  "manifest_version": "2.0.0",
+  "packages": {
+    "Vanilla Quality of Life by AllensCreations (V2.0.0).mcaddon": "be82cae4719057a3c37eabde9c99a9f93e37999a0fab08c82ac34fbcf2c775ef"
+  },
+  "source_sha256": "6dc0b905babb4aa1eab095a6344b53ac95a84e8993ab10085a593f1d3ed921f7"
+}

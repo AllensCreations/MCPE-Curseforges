@@ -1,0 +1,8 @@
+{
+  "changelog_version": "1.1.0",
+  "manifest_version": "1.1.0",
+  "packages": {
+    "Team Inventory by AllensCreations (V1.1.0).mcaddon": "a46d0aa0545fa8311e87d995cd14fa226046d2c0914603a87a11cee25a98178d"
+  },
+  "source_sha256": "5a84e79b33ddcce5aef3506bd1eba70059ed90dd14e2acf342e362c440409dd3"
+}
