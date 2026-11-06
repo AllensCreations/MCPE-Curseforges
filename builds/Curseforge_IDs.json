@@ -7,8 +7,9 @@
   },
   "MCPEDL/Addons/Vanilla-Quality-of-Life": {
     "project_id": "1742470",
-    "last_published_version": "1.4.1",
-    "last_release_version": "1.4.0"
+    "last_published_version": "1.4.2",
+    "last_release_version": "1.4.0",
+    "last_alpha_version": "1.4.0"
   },
   "MCPEDL/Maps/OneBlock-Void-Survival": {
     "project_id": "1740769",
