@@ -1,6 +1,6 @@
 # Changelog — Vanilla Quality of Life
 
-## [1.4.2] - 2026-11-06
+## [2.0.0] - 2026-11-06
 
 ### Removed
 - **Offhand Swap Command**: The command that swapped your offhand item is removed. Use double-sneak or Sneak + Use in the air instead.
@@ -9,14 +9,12 @@
 ### Added
 - **Personal Toggles**: Each player can turn Auto-Switch, Tree Capitator, Domino Ore Miner, and Offhand Quick-Swap on or off for themselves with /scriptevent qol:toggle. Use status to see your settings and reset to turn everything back on.
 
-<details>
-<summary><b>1.4.x</b> (2 releases)</summary>
-
-### [1.4.1] - 2026-11-03
-
-#### v1.4.x (v1.4.1 – v1.4.2)
+### Improved & Balanced
 - **Zero Durability Tools**: A tool at 0 durability now breaks only the single block you hit and no longer starts Tree Capitator or Domino Ore Miner.
 - **Durability Floor**: Tree Capitator and Domino Ore Miner now use your tool down to 0 durability without breaking it, and the next use of that tool breaks it.
+
+<details>
+<summary><b>1.4.x</b> (1 release)</summary>
 
 ### [1.4.0] - 2026-11-02
 
