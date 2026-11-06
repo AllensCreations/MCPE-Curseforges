@@ -159,7 +159,7 @@ def main() -> int:
     standardized_badge_errors = []
     doc_template.check_description_badges(standardized, standardized_badge_errors)
     ok(
-        all(standardized.count(url) == 1 for url in profile_urls)
+        all(standardized.count(f"]({url})") == 1 for url in profile_urls)  # markdown links once; the listing images add <a href> copies
         and not standardized_badge_errors
         and "- Achievements: Likely achievement-friendly." in standardized,
         "description: standardization applies profile, badge, and achievement policy",
@@ -252,7 +252,7 @@ def main() -> int:
             and package.suffix == ".mcaddon"
             and project_id == "1742470"
             and saved["project_id"] == "1742470"
-            and version == "1.0.1"
+            and version == "1.0.1.0"  # publish versions are X.Y.Z.A; manifests stay X.Y.Z
             and bool(changed_manifests)
             and json.loads((upload_project / "behavior_pack/manifest.json").read_text())["header"][
                 "version"
@@ -309,7 +309,7 @@ def main() -> int:
         )
         ok(
             map_package.suffix == ".mcworld"
-            and map_package.name.endswith(" - Survival.mcworld")
+            and re.search(r" - Survival v\(\d+\.\d+\.\d+\.\d+\)\.mcworld$", map_package.name)
             and map_package.is_file(),
             "CurseForge: rebuilds and selects a map world variant",
         )

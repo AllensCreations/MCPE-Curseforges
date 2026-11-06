@@ -36,6 +36,12 @@ except Exception as _exc:  # Pillow missing etc.
     make_pack_icon = None
     print(f"WARNING: pack icon helper unavailable: {_exc}", file=sys.stderr)
 
+try:
+    import manifest_tools
+except Exception as _exc:  # keep the builder usable even if the helper is missing
+    manifest_tools = None
+    print(f"WARNING: manifest_tools unavailable: {_exc}", file=sys.stderr)
+
 JUNK_DIRS = {"__pycache__", ".git", ".github"}
 JUNK_FILES = {".ds_store", "thumbs.db", "desktop.ini", ".gitkeep"}
 
@@ -505,34 +511,111 @@ def _version_sort_key(folder_name):
     return tuple(int(x) for x in m.groups()) if m else None
 
 
-def save_version_snapshot(project_path, project_name, version_str):
+PACKAGE_EXTS = (".mcaddon", ".mcpack", ".mcworld")
+
+
+def _read_text(path):
+    try:
+        with open(path, encoding="utf-8") as fh:
+            return fh.read().strip()
+    except OSError:
+        return None
+
+
+def _build_packages(project_name):
+    """{filename: sha256} of the packages currently in builds/<project>/."""
+    return _package_hashes(project_name)
+
+
+def snapshot_status(project_name, version_str, source_hash):
+    """How builds/<project>/versions/V<version>/ relates to the current source.
+
+    missing         no snapshot for this version yet
+    legacy          snapshot exists but predates source hashing (no source.sha256)
+    source_changed  the source changed since this version was snapshotted
+    packages_stale  same source, but the saved packages differ from builds/<project>/
+    current         snapshot matches the source and the current packages
     """
-    Saves the freshly built packages plus a source.zip into
-    builds/<project_name>/versions/V<version_str>/.
-    Skipped when that version folder already exists, so repeated builds
-    never overwrite an earlier snapshot. Keeps the newest KEEP_VERSIONS (default 5).
-    Never raises: a snapshot problem must not break a release.
+    vdir = os.path.join(REPO_ROOT, "builds", project_name, "versions", f"V{version_str}")
+    if not os.path.isdir(vdir):
+        return "missing"
+    stored = _read_text(os.path.join(vdir, "source.sha256"))
+    if stored is None:
+        return "legacy"
+    if source_hash and stored != source_hash:
+        return "source_changed"
+    saved = {}
+    for name in os.listdir(vdir):
+        if name.lower().endswith(PACKAGE_EXTS):
+            saved[name] = _sha256_file(os.path.join(vdir, name))
+    if saved != _build_packages(project_name):
+        return "packages_stale"
+    return "current"
+
+
+def _write_if_changed(path, text):
+    if _read_text(path) == text.strip() and os.path.isfile(path):
+        return False
+    with open(path, "w", encoding="utf-8", newline="\n") as fh:
+        fh.write(text)
+    return True
+
+
+def _build_info(project_path, project_name, version_str, source_hash):
+    """Deterministic record of what a build contains (no timestamps, so no commit churn)."""
+    info = {
+        "manifest_version": version_str,
+        "changelog_version": manifest_tools.latest_changelog_version(project_path) if manifest_tools else None,
+        "source_sha256": source_hash,
+        "packages": _build_packages(project_name),
+    }
+    return json.dumps(info, indent=2, sort_keys=True) + "\n"
+
+
+def save_version_snapshot(project_path, project_name, version_str, source_hash=None):
+    """
+    Keeps builds/<project_name>/versions/V<version_str>/ in step with the current build:
+    packages, source.zip, source.sha256 and build_info.json. Unlike the old behavior it does
+    NOT skip an existing version folder: when the source changed (or the saved packages differ)
+    the snapshot for that version is refreshed in place. Also writes builds/<project>/build_info.json
+    (the latest build, including the changelog's X.Y.Z.A).
+    Returns "created", "refreshed" or "current". Never raises: a snapshot problem must not
+    break a release.
     """
     try:
         build_dir = os.path.join(REPO_ROOT, "builds", project_name)
         vroot = os.path.join(build_dir, "versions")
         vdir = os.path.join(vroot, f"V{version_str}")
-        if os.path.isdir(vdir):
-            return
-        os.makedirs(vdir, exist_ok=True)
+        if source_hash is None and manifest_tools:
+            source_hash = manifest_tools.compute_source_hash(project_path)
 
-        for ext in (".mcaddon", ".mcpack", ".mcworld"):
+        status = snapshot_status(project_name, version_str, source_hash)
+        info_text = _build_info(project_path, project_name, version_str, source_hash)
+        _write_if_changed(os.path.join(build_dir, "build_info.json"), info_text)
+        if status == "current":
+            return "current"
+
+        existed = os.path.isdir(vdir)
+        os.makedirs(vdir, exist_ok=True)
+        if existed:
+            for name in os.listdir(vdir):
+                if name.lower().endswith(PACKAGE_EXTS) or name in {"source.zip", "source.sha256", "build_info.json"}:
+                    os.remove(os.path.join(vdir, name))
+
+        for ext in PACKAGE_EXTS:
             for f in glob.glob(os.path.join(build_dir, "*" + ext)):
                 shutil.copy2(f, vdir)
 
-        binary_ext = (".mcaddon", ".mcpack", ".mcworld")
         source_entries = [
             (arc, full)
             for arc, full in _collect_zip_entries(project_path)
-            if not arc.lower().endswith(binary_ext)
+            if not arc.lower().endswith(PACKAGE_EXTS)
         ]
         _write_zip(os.path.join(vdir, "source.zip"), source_entries)
-        print(f"  Saved version snapshot: builds/{project_name}/versions/V{version_str}")
+        _write_if_changed(os.path.join(vdir, "source.sha256"), (source_hash or "") + "\n")
+        _write_if_changed(os.path.join(vdir, "build_info.json"), info_text)
+        result = "refreshed" if existed else "created"
+        print(f"  Snapshot {result} ({status}): builds/{project_name}/versions/V{version_str}")
 
         saved = sorted(
             (d for d in os.listdir(vroot) if _version_sort_key(d) is not None),
@@ -541,8 +624,10 @@ def save_version_snapshot(project_path, project_name, version_str):
         for old in saved[:-VERSION_KEEP] if VERSION_KEEP > 0 else []:
             shutil.rmtree(os.path.join(vroot, old), ignore_errors=True)
             print(f"  Pruned old snapshot: {old}")
+        return result
     except Exception as exc:
         print(f"  WARNING: version snapshot skipped: {exc}", file=sys.stderr)
+        return "error"
 
 
 def generate_build_readme(project_path, category, version_str, built_files):
@@ -982,6 +1067,27 @@ def register_new_project(project_path, category, version_str=None, primary_file=
 # Main
 # ─────────────────────────────────────────────────────────────────────────────
 
+def verify_snapshots(project_dirs):
+    """Report-only: does builds/<project>/versions/V<manifest version>/ match the source?"""
+    bad = 0
+    for cp in sorted(project_dirs):
+        name = os.path.basename(cp)
+        if name in TEST_GATED_WORLD_PROJECTS or not manifest_tools:
+            continue
+        if manifest_tools.highest_version(cp) is None:
+            continue
+        version = get_manifest_info(cp)["version_str"]
+        if not glob.glob(os.path.join(REPO_ROOT, "builds", name, "*" + "[.]mc*")):
+            continue  # nothing built for this project (not buildable / not built yet)
+        status = snapshot_status(name, version, manifest_tools.compute_source_hash(cp))
+        flag = "ok " if status == "current" else "BAD"
+        if status != "current":
+            bad += 1
+        print(f"[{flag}] {name}: v{version} snapshot is {status}")
+    print(f"[Verify] {bad} project(s) need attention." if bad else "[Verify] All snapshots match their source.")
+    return 1 if bad else 0
+
+
 def main():
     parser = argparse.ArgumentParser(
         description="Build packs and synchronize project catalogs."
@@ -999,9 +1105,27 @@ def main():
         action="store_true",
         help="Process all packs/maps/scripts in MCPEDL/.",
     )
+    parser.add_argument(
+        "--bump",
+        action="store_true",
+        default=os.environ.get("AUTO_BUMP_MANIFEST", "").lower() in {"1", "true", "yes"},
+        help="When a project's source changed since its snapshot at the current manifest "
+             "version, bump X.Y.Z -> X.Y.(Z+1) in every manifest first (UUIDs untouched). "
+             "Without it the snapshot for that version is refreshed in place. "
+             "Env: AUTO_BUMP_MANIFEST=true.",
+    )
+    parser.add_argument(
+        "--verify",
+        action="store_true",
+        help="Build nothing: report whether each project's builds/ snapshot matches its source "
+             "and manifest version; exit 1 if any is missing or stale.",
+    )
     args = parser.parse_args()
 
     project_dirs = find_target_project_dirs()
+
+    if args.verify:
+        sys.exit(verify_snapshots(project_dirs))
 
     # Determine which projects to process
     if args.all:
@@ -1080,12 +1204,33 @@ def main():
 
         print(f"\nProcessing {os.path.relpath(cp, REPO_ROOT)} {'(NEW)' if is_new else ''}...")
 
+        skip_world = proj_name in TEST_GATED_WORLD_PROJECTS
+
+        # ── Follow the manifest ────────────────────────────────────────────
+        # Icons are source files: settle them before hashing so the hash is stable.
+        if make_pack_icon is not None:
+            make_pack_icon.ensure_project_icons(cp)
+        if manifest_tools and not skip_world:
+            _seen = _manifest_version_set(cp)
+            _target, _changed = manifest_tools.align_project_manifests(cp)
+            if _changed:
+                note = f" (manifests disagreed: {', '.join(sorted(_seen))})" if len(_seen) > 1 else ""
+                print(f"  Aligned manifests to v{format_version(_target)}{note}:")
+                for c in _changed:
+                    print(f"    {c}")
         old_v = get_manifest_info(cp)["version_str"]
         new_v = old_v
-        _seen_versions = _manifest_version_set(cp)
-        if len(_seen_versions) > 1:
-            print(f"  WARNING: manifests disagree ({', '.join(sorted(_seen_versions))}); following the highest, v{old_v}.")
-        print(f"  Following manifest version v{old_v}")
+        source_hash = manifest_tools.compute_source_hash(cp) if manifest_tools else None
+
+        bumped_note = ""
+        if args.bump and manifest_tools and not skip_world:
+            if snapshot_status(proj_name, old_v, source_hash) == "source_changed":
+                nxt = manifest_tools.bump_patch(get_manifest_info(cp)["version_list"])
+                manifest_tools.align_project_manifests(cp, target=nxt)
+                new_v = format_version(nxt)
+                bumped_note = f" [bumped v{old_v} -> v{new_v}]"
+                print(f"  Source changed since the v{old_v} snapshot: bumped manifests to v{new_v}.")
+        print(f"  Following manifest version v{new_v}")
 
         # ── Build packages with standardized filename format ───────────────
         # Dirtbound is included in automatic source/version processing, but its
@@ -1106,7 +1251,7 @@ def main():
         # ── Synchronize all Directory README files & links ─────────────────
         # ── Save this version into builds/<project>/versions/ ───────────────
         if primary_file and proj_name not in TEST_GATED_WORLD_PROJECTS:
-            save_version_snapshot(cp, proj_name, new_v)
+            snap_result = save_version_snapshot(cp, proj_name, new_v, source_hash)
 
         update_readmes(cp, cat, old_v, new_v, primary_file, built_files)
 
@@ -1115,7 +1260,7 @@ def main():
             register_new_project(cp, cat, new_v, primary_file)
 
         updated_summary.append(
-            f"{proj_name}: rebuilt at v{old_v}"
+            f"{proj_name}: rebuilt at v{new_v}{bumped_note}"
             + (" [NEW — registered in catalogs]" if is_new else "")
         )
 

@@ -1,12 +1,32 @@
 #!/usr/bin/env python3
 """Validate versioned Bedrock pack titles and creator attribution."""
-import argparse, json, re, sys
+import argparse, json, os, re, sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 PROJECT_ROOT = ROOT / "MCPEDL"
 TITLE_RE = re.compile(r"^(.+?) \(v(\d+\.\d+\.\d+)\)$")
 ATTRIBUTION = "by AllensCreations"
+
+def advisories(paths):
+    """Non-failing manifest hygiene notes (policy: format_version 2, real min_engine_version, authors)."""
+    notes = []
+    for path in paths:
+        try:
+            data = json.loads(path.read_text(encoding="utf-8"))
+        except (OSError, json.JSONDecodeError):
+            continue
+        if not isinstance(data, dict): continue
+        rel = path.relative_to(ROOT)
+        if data.get("format_version") != 2:
+            notes.append(f"{rel}: format_version is {data.get('format_version')!r}; policy is 2.")
+        header = data.get("header") if isinstance(data.get("header"), dict) else {}
+        if header.get("min_engine_version") in (None, [0, 0, 0]):
+            notes.append(f"{rel}: min_engine_version is missing or the [0, 0, 0] placeholder; set the looked-up version.")
+        meta = data.get("metadata")
+        if not (isinstance(meta, dict) and meta.get("authors")):
+            notes.append(f"{rel}: metadata.authors is missing (the build fills it in).")
+    return notes
 
 def validate(paths):
     errors, records = [], []
@@ -66,6 +86,8 @@ def main():
         print(f"ERROR: No manifest.json files found under {target}.", file=sys.stderr)
         return 2
     errors = validate(paths)
+    for note in advisories(paths):
+        print(f"::warning::{note}" if os.environ.get("GITHUB_ACTIONS") else f"NOTE: {note}")
     if errors:
         print(f"Manifest title validation failed with {len(errors)} error(s):")
         for error in errors: print(f" - {error}")

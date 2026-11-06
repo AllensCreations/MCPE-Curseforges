@@ -472,6 +472,9 @@ Explore the verified gameplay and interactions described in the feature cards be
 
 Minecraft Bedrock add-on, {clean_name.lower()} Bedrock mod, Minecraft PE survival, MCPEDL add-on, CurseForge Bedrock, AllensCreations.
 """
+    # The validator requires the clickable CurseForge/MCPEDL listing images in "Creator and
+    # Permissions"; apply the same policy the standardizer uses so generated text passes its own check.
+    content = apply_description_policy(content, addon=(category == "Addons")).rstrip("\n") + "\n"
     with open(output_path, "w", encoding="utf-8") as f:
         f.write(content)
 
