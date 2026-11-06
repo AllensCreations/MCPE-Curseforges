@@ -191,7 +191,7 @@ class AutoPublishTests(unittest.TestCase):
             self.assertEqual(version, "2.0.0")
             self.assertIn("Beta fix", entry)
             with self.assertRaisesRegex(ValueError, "Nothing new"):
-                publisher.release.combine_changelog(project, log, "2.0.0", release_type="release", last_release="2.0.0")
+                publisher.release.combine_changelog(project, log, "2.0.0", release_type="beta")
 
     def test_first_ever_beta_records_the_version_before_it_as_release_baseline(self):
         with tempfile.TemporaryDirectory() as temp:
@@ -282,6 +282,24 @@ class AutoPublishTests(unittest.TestCase):
             import re
             allowed = {"h2", "h3", "h4", "p", "strong", "ul", "li", "div"}
             self.assertLessEqual({t.lower() for t in re.findall(r"</?([a-zA-Z0-9]+)", entry)}, allowed)
+
+    def test_release_with_nothing_new_still_folds_existing_history(self):
+        with tempfile.TemporaryDirectory() as temp:
+            project, log = self._history(temp)
+            info = {"project_id": "1", "last_published_version": "1.3.5", "last_release_version": "1.3.5"}
+            version, entry = self._publish(project, log, info, "release", 5)
+            self.assertEqual(version, "2.0.0")
+            for expected in ("Fix 135", "Add 132", "Add 120", "Add 110"):
+                self.assertIn(expected, entry)
+            self.assertIn("<h3>v1.x.x (4 updates)</h3>", entry)
+            text = log.read_text()
+            self.assertIn("## [2.0.0] - 2026-11-05", text)
+            self.assertIn("## [1.3.5]", text)  # history kept
+            # the empty 2.0.0 marker is not counted as an update on the next fold
+            version, entry = self._publish(project, log, info, "alpha", 6)
+            self.assertEqual(version, "2.1.0")
+            self.assertIn("v1.x.x (4 updates)", entry)
+            self.assertNotIn("v2.0.x", entry)
 
     def test_plain_style_has_no_html(self):
         with tempfile.TemporaryDirectory() as temp:

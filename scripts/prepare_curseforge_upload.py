@@ -313,6 +313,11 @@ def _sections_html(bodies):
     return "".join(out)
 
 
+def _has_content(entry):
+    """True when a changelog entry has at least one bullet (intro-only entries do not count)."""
+    return any(lines for lines in _merge_sections([entry[3].partition("\n")[2]]).values())
+
+
 def _updates(count):
     return f"{count} update" + ("s" if count != 1 else "")
 
@@ -467,7 +472,8 @@ def combine_changelog(project_dir, changelog_path, last_published=None, today=No
 
     beta: all entries newer than last_published become one grouped entry, X.Y.(Z+1).
     alpha: entries newer than the last alpha/release are merged; the upload shows every
-    series (1.3.x and lower) as spoiler groups, X.(Y+1).0.
+    series (1.3.x and lower) as spoiler groups, X.(Y+1).0. With nothing new it still
+    folds the existing history.
     release: entries newer than the last release are merged; the upload shows every major
     (v1.x.x, with its series inside) as spoiler groups, (X+1).0.0.
     The next version builds on the highest of the last published version and the manifests;
@@ -502,11 +508,15 @@ def combine_changelog(project_dir, changelog_path, last_published=None, today=No
         merged = entries[:1]  # first publish: only the newest entry
     else:
         merged = [entry for entry in entries if entry[0] > baseline]
-    if not merged:
+    if not merged and release_type == "beta":
         raise ValueError(
             f"Nothing new to publish: the changelog has no entry newer than v{baseline_text}. "
             "Add a changelog entry first."
         )
+    # alpha/release with nothing new still fold the existing history into the new version.
+    history = [entry for entry in entries if _has_content(entry)]
+    if not history:
+        raise ValueError(f"Nothing to publish: {changelog_path} has no changelog bullets.")
 
     if last_published:
         highest = max(parse_version(last_published), manifest_max_version(project_dir))
@@ -515,8 +525,14 @@ def combine_changelog(project_dir, changelog_path, last_published=None, today=No
     new_version = next_version(highest, release_type)
     date_text = (today or datetime.date.today()).isoformat()
 
-    file_entry = render_flat_entry(new_version, date_text, merged)
-    upload = render_upload_changelog(new_version, date_text, merged, entries, release_type)
+    if merged:
+        file_entry = render_flat_entry(new_version, date_text, merged)
+    else:
+        file_entry = (
+            f"## [{new_version}] - {date_text}\n\n**What's new in v{new_version}:** "
+            f"Rolls up the existing changelog, from v{history[-1][1]} through v{history[0][1]}."
+        )
+    upload = render_upload_changelog(new_version, date_text, merged, history, release_type)
 
     remaining = segments[len(merged):]
     new_text = preamble + file_entry + "\n\n" + "".join(remaining)
