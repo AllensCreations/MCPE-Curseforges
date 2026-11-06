@@ -2,6 +2,11 @@
 
 ---
 
+## [1.4.3] - 2026-11-06
+
+### Removed
+- **Personal Toggles**: The per-player toggles added in the previous update are removed. Choose how Tree Capitator and Domino Ore Miner behave for your world with the Behavior Pack's subpack settings.
+
 ## [1.4.2] - 2026-11-06
 
 ### Added

@@ -201,59 +201,6 @@ function writeMainhand(player, equipment, item) {
   return false;
 }
 
-const FEATURE_KEYS = {
-  autoswitch: "qol:off_autoswitch",
-  tree: "qol:off_tree",
-  ore: "qol:off_ore",
-  offhand: "qol:off_offhand",
-};
-
-const FEATURE_NAMES = {
-  autoswitch: "Auto-Switch",
-  tree: "Tree Capitator",
-  ore: "Domino Ore Miner",
-  offhand: "Offhand Quick-Swap",
-};
-
-const FEATURE_ALIASES = {
-  autoswitch: "autoswitch",
-  auto: "autoswitch",
-  switch: "autoswitch",
-  tree: "tree",
-  trees: "tree",
-  treecapitator: "tree",
-  capitator: "tree",
-  ore: "ore",
-  ores: "ore",
-  vein: "ore",
-  veinminer: "ore",
-  domino: "ore",
-  dominooreminer: "ore",
-  offhand: "offhand",
-  swap: "offhand",
-  quickswap: "offhand",
-};
-
-function isFeatureOn(player, feature) {
-  try {
-    return player.getDynamicProperty(FEATURE_KEYS[feature]) !== true;
-  } catch (e) {
-    return true;
-  }
-}
-
-function setFeatureOn(player, feature, on) {
-  try {
-    player.setDynamicProperty(FEATURE_KEYS[feature], on ? undefined : true);
-  } catch (e) {}
-}
-
-function featureStatusLines(player) {
-  return Object.keys(FEATURE_NAMES)
-    .map((key) => `§f${FEATURE_NAMES[key]}: ${isFeatureOn(player, key) ? "§aON" : "§cOFF"}`)
-    .join("\n");
-}
-
 function swapHands(player) {
   const state = getQolState(player.id);
   if (system.currentTick - state.lastSwapTick < CONFIG.SWAP_COOLDOWN_TICKS) return false;
@@ -688,7 +635,6 @@ function switchPlayerSlot1Tool(player, category, blockTypeId) {
   if (!player || player.selectedSlotIndex !== CONFIG.AUTO_SWITCH_SLOT) {
     return false;
   }
-  if (!isFeatureOn(player, "autoswitch")) return false;
   if (system.currentTick < (chainPauseUntil.get(player.id) ?? 0)) return false;
 
   const container = getContainer(player);
@@ -1326,7 +1272,6 @@ world.beforeEvents.itemUse.subscribe((event) => {
   const itemStack = event.itemStack;
 
   if (!player || !player.isSneaking) return;
-  if (!isFeatureOn(player, "offhand")) return;
   if (!itemStack || !SUPPORTED_OFFHAND_ITEMS.has(itemStack.typeId)) return;
 
   event.cancel = true;
@@ -1424,7 +1369,7 @@ world.afterEvents.playerBreakBlock.subscribe((event) => {
 
   const toolTypeId = tool.typeId;
 
-  if (isAxe(toolTypeId) && isEligibleLog(brokenTypeId) && isFeatureOn(player, "tree")) {
+  if (isAxe(toolTypeId) && isEligibleLog(brokenTypeId)) {
     const treeSafety = checkToolSafety(player);
     if (!treeSafety.safe) {
       notifyToolProtection(player, Math.max(0, treeSafety.remaining));
@@ -1442,7 +1387,7 @@ world.afterEvents.playerBreakBlock.subscribe((event) => {
     return;
   }
 
-  if (isPickaxe(toolTypeId) && getOreInfo(brokenTypeId) && isFeatureOn(player, "ore")) {
+  if (isPickaxe(toolTypeId) && getOreInfo(brokenTypeId)) {
     const oreSafety = checkToolSafety(player);
     if (!oreSafety.safe) {
       notifyToolProtection(player, Math.max(0, oreSafety.remaining));
@@ -1504,7 +1449,7 @@ system.runInterval(() => {
       if (state.sneakCount >= 2) {
         state.sneakCount = 0;
         state.sneakTimer = 0;
-        if (isFeatureOn(player, "offhand")) swapHands(player);
+        swapHands(player);
       }
 
       if (doLight) {
@@ -1666,37 +1611,11 @@ if (world.afterEvents.playerDimensionChange) {
 
 system.afterEvents.scriptEventReceive.subscribe((event) => {
   try {
-    const player = event.sourceEntity;
-    if (!player || player.typeId !== "minecraft:player") return;
-
     if (event.id === "qol:swap") {
-      swapHands(player);
-      return;
-    }
-
-    if (event.id === "qol:toggle") {
-      const arg = String(event.message || "").trim().toLowerCase().replace(/[\s_-]+/g, "");
-
-      if (arg === "" || arg === "status" || arg === "list") {
-        player.sendMessage(`§e[QoL] §fYour settings:\n${featureStatusLines(player)}`);
-        return;
+      const player = event.sourceEntity;
+      if (player && player.typeId === "minecraft:player") {
+        swapHands(player);
       }
-
-      if (arg === "reset") {
-        for (const key of Object.keys(FEATURE_KEYS)) setFeatureOn(player, key, true);
-        player.sendMessage("§e[QoL] §aAll features are ON.");
-        return;
-      }
-
-      const feature = FEATURE_ALIASES[arg];
-      if (!feature) {
-        player.sendMessage("§e[QoL] §cUnknown feature. Use autoswitch, tree, ore, offhand, status, or reset.");
-        return;
-      }
-
-      const nowOn = !isFeatureOn(player, feature);
-      setFeatureOn(player, feature, nowOn);
-      player.sendMessage(`§e[QoL] §f${FEATURE_NAMES[feature]}: ${nowOn ? "§aON" : "§cOFF"}`);
     }
   } catch (e) {}
 });
