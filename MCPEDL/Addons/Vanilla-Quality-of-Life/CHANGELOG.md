@@ -2,6 +2,17 @@
 
 ---
 
+## [2.0.0.1] - 2026-11-07
+
+### Added
+- **More Held Lights**: Glowstone, Sea Lanterns, Shroomlights, and Jack o'Lanterns now light up your surroundings at Light Level 15 while you hold them.
+- **Silk Touch Auto-Switch**: Hitting glass or ice now switches to a Silk Touch tool if you carry one, and bookshelves prefer a Silk Touch Axe.
+
+### Improved & Balanced
+- **Mending Preference**: When two tools are equally good for a job, auto-switch now uses the Mending tool that needs repair first.
+- **Grouped Chain Drops**: Tree Capitator and Domino Ore Miner now merge their drops into full stacks within 5-block areas, so far fewer item entities appear.
+- **Direct Block Breaking**: Tree Capitator and Domino Ore Miner now break blocks and place their drops directly instead of running game commands.
+
 ## [2.0.0.0] - 2026-11-06
 
 **What's new in v2.0.0.0:** Packed with 2 updates, from v1.4.1 through v1.4.2.

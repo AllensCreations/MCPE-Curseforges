@@ -7,14 +7,20 @@ const CONFIG = {
   SWAP_WINDOW_TICKS: 14,
   SWAP_COOLDOWN_TICKS: 8,
   LIGHT_UPDATE_TICKS: 1,
+  STILL_SPEED_LIMIT: 0.03,
 
   AUTO_SWITCH_SLOT: 0,
   SWITCH_MARGIN: 3,
+  TOOL_TIE_TOLERANCE: 1,
+  SILK_BLOCK_BONUS: 60,
   LOW_DURABILITY_USES: 15,
   LOW_DURABILITY_PENALTY: 100,
   RAYCAST_DISTANCE: 6,
   RETRY_TICKS: 2,
   COMBAT_COOLDOWN_TICKS: 10,
+  MINING_ACTIVE_TICKS: 10,
+  BREAK_SWITCH_DELAY_TICKS: 5,
+  SWAP_RESTORE_TICKS: 4,
   WEB_CHECK_INTERVAL: 2,
   WEB_INTERACTION_WINDOW: 12,
   WEB_COMBAT_COOLDOWN: 40,
@@ -30,10 +36,17 @@ const CONFIG = {
   MAX_ANCIENT_DEBRIS_CLUSTER_SIZE: 4,
   NETHER_GOLD_POLICY: "nether_gold",
 
+  CHAIN_PAUSE_TICKS: 40,
+  DROP_GROUP_SIZE: 5,
+
   DURABILITY_SAFETY_THRESHOLD: 0,
   ALERT_SOUND: "note.bass",
   ALERT_PITCH: 0.7,
   ALERT_VOLUME: 1.0,
+
+  STARTUP_DELAY_TICKS: 40,
+  RANDOM_TICK_SPEED: 4,
+  SLEEP_PERCENTAGE: 0,
 };
 
 const SUPPORTED_OFFHAND_ITEMS = new Set([
@@ -53,6 +66,10 @@ const LIGHT_LEVELS = {
   "minecraft:redstone_torch": 7,
   "minecraft:lantern": 15,
   "minecraft:soul_lantern": 10,
+  "minecraft:glowstone": 15,
+  "minecraft:sea_lantern": 15,
+  "minecraft:shroomlight": 15,
+  "minecraft:lit_pumpkin": 15,
 };
 
 const qolPlayerState = new Map();
@@ -396,6 +413,7 @@ const ToolCategory = {
   SHEARS_OR_SWORD: "shears_or_sword",
   HOE: "hoe",
   WEAPON: "weapon",
+  SILK: "silk",
 };
 
 const TIER_SCORES = {
@@ -455,7 +473,7 @@ function readDurability(item) {
 }
 
 function readEnchantments(item) {
-  const result = { efficiency: 0, fortune: 0, silk: 0, sharpness: 0 };
+  const result = { efficiency: 0, fortune: 0, silk: 0, sharpness: 0, mending: 0 };
   try {
     const enchants = item?.getComponent("minecraft:enchantable") || item?.getComponent("enchantable");
     if (!enchants) return result;
@@ -465,9 +483,17 @@ function readEnchantments(item) {
       if (type.includes("fortune")) result.fortune = ench.level;
       if (type.includes("silk_touch")) result.silk = ench.level;
       if (type.includes("sharpness")) result.sharpness = ench.level;
+      if (type.includes("mending")) result.mending = ench.level;
     }
   } catch {}
   return result;
+}
+
+function needsRepair(item) {
+  if (!item) return false;
+  const durability = readDurability(item);
+  if (!durability || durability.fraction >= 1) return false;
+  return readEnchantments(item).mending > 0;
 }
 
 function scoreItem(item, category, slot, blockId) {
@@ -508,6 +534,11 @@ function scoreItem(item, category, slot, blockId) {
       else if (id.endsWith("_sword")) score = 50 + getMaterialTier(id);
       else return -Infinity;
       break;
+    case ToolCategory.SILK:
+      if (!/_(pickaxe|axe|shovel|hoe)$/.test(id)) return -Infinity;
+      if (readEnchantments(item).silk <= 0) return -Infinity;
+      score = getMaterialTier(id);
+      break;
     case ToolCategory.WEAPON:
       if (id.endsWith("_sword")) score = 100 + getMaterialTier(id);
       else if (id.endsWith("_axe")) score = 80 + getMaterialTier(id);
@@ -529,6 +560,10 @@ function scoreItem(item, category, slot, blockId) {
     }
   }
 
+  if (category === ToolCategory.AXE && blockId === "bookshelf" && enchants.silk > 0) {
+    score += CONFIG.SILK_BLOCK_BONUS;
+  }
+
   const durability = readDurability(item);
   if (durability) {
     if (durability.remaining <= CONFIG.LOW_DURABILITY_USES) {
@@ -545,6 +580,15 @@ function getRequiredToolCategory(typeId) {
   if (!typeId) return null;
   const id = normalizeId(typeId);
   if (IGNORED_BLOCKS.has(id)) return null;
+
+  if (
+    id === "glass" || id === "glass_pane" || id === "tinted_glass" ||
+    id === "stained_glass" || id === "stained_glass_pane" ||
+    id.endsWith("_stained_glass") || id.endsWith("_stained_glass_pane") ||
+    id === "ice" || id === "packed_ice" || id === "blue_ice"
+  ) {
+    return ToolCategory.SILK;
+  }
 
   if (id === "web" || id.includes("cobweb")) return ToolCategory.WEB;
   if (id.includes("mangrove_roots")) return ToolCategory.AXE;
@@ -645,19 +689,33 @@ function switchPlayerSlot1Tool(player, category, blockTypeId) {
 
   let bestSlot = -1;
   let bestScore = -Infinity;
+  let bestItem;
 
   for (let slot = 1; slot < container.size; slot++) {
     const item = container.getItem(slot);
     if (!item) continue;
     const score = scoreItem(item, category, slot, blockId);
-    if (score > bestScore) {
+    const tiedRepair =
+      bestItem !== undefined &&
+      Math.abs(score - bestScore) <= CONFIG.TOOL_TIE_TOLERANCE &&
+      needsRepair(item) &&
+      !needsRepair(bestItem);
+    if (score > bestScore || tiedRepair) {
       bestScore = score;
       bestSlot = slot;
+      bestItem = item;
     }
   }
 
   if (bestSlot === -1 || bestScore === -Infinity) return false;
-  if (currentScore !== -Infinity && bestScore < currentScore + CONFIG.SWITCH_MARGIN) return false;
+
+  const currentItem = container.getItem(CONFIG.AUTO_SWITCH_SLOT);
+  const repairSwap =
+    currentScore !== -Infinity &&
+    needsRepair(bestItem) &&
+    !needsRepair(currentItem) &&
+    Math.abs(bestScore - currentScore) <= CONFIG.TOOL_TIE_TOLERANCE;
+  if (currentScore !== -Infinity && bestScore < currentScore + CONFIG.SWITCH_MARGIN && !repairSwap) return false;
 
   try {
     container.swapItems(bestSlot, CONFIG.AUTO_SWITCH_SLOT, container);
@@ -938,6 +996,55 @@ function isNearPlayerBuild(dimension, blocks, startLoc) {
   return false;
 }
 
+function removeBlockAt(dimension, pos) {
+  const block = dimension.getBlock({ x: pos.x, y: pos.y, z: pos.z });
+  if (!block) return undefined;
+  const typeId = block.typeId;
+  let waterlogged = false;
+  try {
+    waterlogged = block.isWaterlogged === true;
+  } catch (e) {}
+  block.setPermutation(BlockPermutation.resolve("minecraft:air"));
+  if (waterlogged) {
+    try {
+      block.setWaterlogged(true);
+    } catch (e) {}
+  }
+  return typeId;
+}
+
+function addGroupedDrop(drops, pos, typeId, count) {
+  const size = CONFIG.DROP_GROUP_SIZE;
+  const key = `${Math.floor(pos.x / size)},${Math.floor(pos.y / size)},${Math.floor(pos.z / size)}|${typeId}`;
+  const entry = drops.get(key);
+  if (entry) {
+    entry.count += count;
+  } else {
+    drops.set(key, { typeId, count, x: pos.x, y: pos.y, z: pos.z });
+  }
+}
+
+function spawnGroupedDrops(dimension, drops) {
+  for (const entry of drops.values()) {
+    let maxStack = 64;
+    try {
+      maxStack = new ItemStack(entry.typeId, 1).maxAmount || 64;
+    } catch (e) {}
+    let remaining = entry.count;
+    while (remaining > 0) {
+      const amount = Math.min(remaining, maxStack);
+      try {
+        dimension.spawnItem(new ItemStack(entry.typeId, amount), {
+          x: entry.x + 0.5,
+          y: entry.y + 0.5,
+          z: entry.z + 0.5,
+        });
+      } catch (e) {}
+      remaining -= amount;
+    }
+  }
+}
+
 function executeTreeCapitator(player, dimension, startLoc, startBlockId, onComplete) {
   if (typeof startBlockId === "function") {
     onComplete = startBlockId;
@@ -1010,6 +1117,7 @@ function executeTreeCapitator(player, dimension, startLoc, startBlockId, onCompl
   }
 
   const creative = isGameMode(player, "creative");
+  const drops = new Map();
   for (const pos of blocksToBreak) {
     if (!player || !player.isValid()) break;
 
@@ -1020,10 +1128,12 @@ function executeTreeCapitator(player, dimension, startLoc, startBlockId, onCompl
     }
 
     try {
-      dimension.runCommand(`setblock ${pos.x} ${pos.y} ${pos.z} air${creative ? "" : " destroy"}`);
+      const brokenId = removeBlockAt(dimension, pos);
+      if (brokenId && !creative) addGroupedDrop(drops, pos, brokenId, 1);
       applyToolDurabilityDamage(player);
     } catch (err) {}
   }
+  spawnGroupedDrops(dimension, drops);
 
   if (onComplete) onComplete();
 }
@@ -1196,6 +1306,7 @@ function executeDominoOreMiner(player, dimension, startLoc, startBlockId, onComp
   let hasSilkTouch = false;
   let fortuneLevel = 0;
   const creative = isGameMode(player, "creative");
+  const drops = new Map();
 
   try {
     const enchantable = tool?.getComponent("minecraft:enchantable") || tool?.getComponent("enchantable");
@@ -1223,21 +1334,15 @@ function executeDominoOreMiner(player, dimension, startLoc, startBlockId, onComp
     if (!creative && toolTier < oreInfo.minTier) break;
 
     try {
-      if (creative) {
-        dimension.runCommand(`setblock ${blockData.x} ${blockData.y} ${blockData.z} air`);
-        continue;
-      }
+      removeBlockAt(dimension, blockData);
+      if (creative) continue;
       if (hasSilkTouch) {
-        dimension.runCommand(`setblock ${blockData.x} ${blockData.y} ${blockData.z} air`);
-        dimension.spawnItem(new ItemStack(blockData.typeId, 1), {
-          x: blockData.x + 0.5,
-          y: blockData.y + 0.5,
-          z: blockData.z + 0.5,
-        });
+        addGroupedDrop(drops, blockData, blockData.typeId, 1);
       } else {
-        const dropId = oreInfo.dropItem;
-        if (dropId) {
-          const count = oreInfo.category === "redstone"
+        const dropId = oreInfo.dropItem || blockData.typeId;
+        const count = !oreInfo.dropItem
+          ? 1
+          : oreInfo.category === "redstone"
             ? calculateRedstoneDropCount(fortuneLevel, oreInfo.minDrop || 4, oreInfo.maxDrop || 5)
             : calculateFortuneDropCount(
                 fortuneLevel,
@@ -1245,20 +1350,14 @@ function executeDominoOreMiner(player, dimension, startLoc, startBlockId, onComp
                 oreInfo.maxDrop || 1,
                 FORTUNE_AFFECTED_ORE_CATEGORIES.has(oreInfo.category)
               );
-          dimension.runCommand(`setblock ${blockData.x} ${blockData.y} ${blockData.z} air`);
-          dimension.spawnItem(new ItemStack(dropId, count), {
-            x: blockData.x + 0.5,
-            y: blockData.y + 0.5,
-            z: blockData.z + 0.5,
-          });
-        } else {
-          dimension.runCommand(`setblock ${blockData.x} ${blockData.y} ${blockData.z} air destroy`);
-        }
+        addGroupedDrop(drops, blockData, dropId, count);
+        awardOreExperience(dimension, blockData, oreInfo.category);
       }
-      if (!hasSilkTouch) awardOreExperience(dimension, blockData, oreInfo.category);
       applyToolDurabilityDamage(player);
     } catch (err) {}
   }
+
+  spawnGroupedDrops(dimension, drops);
 
   if (onComplete) onComplete();
 }
@@ -1355,7 +1454,7 @@ world.afterEvents.playerBreakBlock.subscribe((event) => {
   if (!heldNow || heldNow.typeId !== tool.typeId) {
     const swap = lastSwap.get(player.id);
     const swapContainer = getContainer(player);
-    if (swap && swapContainer && system.currentTick - swap.tick <= 4) {
+    if (swap && swapContainer && system.currentTick - swap.tick <= CONFIG.SWAP_RESTORE_TICKS) {
       try {
         const moved = swapContainer.getItem(swap.slot);
         if (moved && moved.typeId === tool.typeId) {
@@ -1376,7 +1475,7 @@ world.afterEvents.playerBreakBlock.subscribe((event) => {
       return;
     }
     activeMiningOperations.add(player.id);
-    chainPauseUntil.set(player.id, system.currentTick + 40);
+    chainPauseUntil.set(player.id, system.currentTick + CONFIG.CHAIN_PAUSE_TICKS);
     try {
       executeTreeCapitator(player, dimension, startLoc, brokenTypeId, () => {
         finishChain(player);
@@ -1394,7 +1493,7 @@ world.afterEvents.playerBreakBlock.subscribe((event) => {
       return;
     }
     activeMiningOperations.add(player.id);
-    chainPauseUntil.set(player.id, system.currentTick + 40);
+    chainPauseUntil.set(player.id, system.currentTick + CONFIG.CHAIN_PAUSE_TICKS);
     try {
       executeDominoOreMiner(player, dimension, startLoc, brokenTypeId, () => {
         finishChain(player);
@@ -1426,7 +1525,7 @@ system.runInterval(() => {
         let still = true;
         try {
           const v = player.getVelocity();
-          still = Math.hypot(v.x, v.z) < 0.03 && player.isOnGround !== false;
+          still = Math.hypot(v.x, v.z) < CONFIG.STILL_SPEED_LIMIT && player.isOnGround !== false;
         } catch (e) {}
         if (still) {
           state.sneakCount += 1;
@@ -1540,7 +1639,7 @@ system.runInterval(() => {
   for (const player of world.getAllPlayers()) {
     try {
       const last = miningActivity.get(player.id);
-      if (last === undefined || now - last > MINING_ACTIVE_TICKS) {
+      if (last === undefined || now - last > CONFIG.MINING_ACTIVE_TICKS) {
         lastAutoSwitchKey.delete(player.id);
         continue;
       }
@@ -1549,7 +1648,7 @@ system.runInterval(() => {
       const lastCombat = recentCombat.get(player.id) ?? -Infinity;
       if (now - lastCombat < CONFIG.COMBAT_COOLDOWN_TICKS) continue;
 
-      if (now - (lastBreakTick.get(player.id) ?? -Infinity) < 5) continue;
+      if (now - (lastBreakTick.get(player.id) ?? -Infinity) < CONFIG.BREAK_SWITCH_DELAY_TICKS) continue;
 
       const target = getTargetBlock(player);
       if (!target) continue;
@@ -1634,11 +1733,11 @@ system.runTimeout(() => {
   try {
     if (!world.getDynamicProperty("qol:gamerules_set")) {
       const dim = world.getDimension("overworld");
-      dim.runCommand("gamerule playersSleepingPercentage 0");
-      dim.runCommand("gamerule randomTickSpeed 4");
+      dim.runCommand(`gamerule playersSleepingPercentage ${CONFIG.SLEEP_PERCENTAGE}`);
+      dim.runCommand(`gamerule randomTickSpeed ${CONFIG.RANDOM_TICK_SPEED}`);
       world.setDynamicProperty("qol:gamerules_set", true);
     }
   } catch (e) {}
-}, 40);
+}, CONFIG.STARTUP_DELAY_TICKS);
 
 console.warn(`${LOG_PREFIX} Initialized. Tree Capitator: ${CONFIG.TREE_CAPITATOR_ENABLED ? "ON" : "OFF"}; Vein Miner: ${CONFIG.DOMINO_ORE_MINER_ENABLED ? "ON" : "OFF"}.`);

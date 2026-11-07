@@ -44,7 +44,7 @@ Combines dynamic lighting, offhand quick-swap, automatic tool selection, tree ca
 
 ### Offhand Utilities & Lighting
 - **Vanilla Bedrock**: Shield and Totem only
-- **With Vanilla QoL**: Double-sneak offhand swap + real-time moving torch/lantern light
+- **With Vanilla QoL**: Double-sneak offhand swap + real-time moving light from torches, lanterns, and glowing blocks
 
 ### Leashing Mobs
 - **Vanilla Bedrock**: Passive mobs only
@@ -92,9 +92,12 @@ Combines dynamic lighting, offhand quick-swap, automatic tool selection, tree ca
   - Hit logs, wood, or planks -> Equips best Axe.
   - Hit dirt, sand, gravel, or clay -> Equips best Shovel.
   - Hit leaves or cobwebs -> Equips Shears.
+  - Hit glass or ice -> Equips a tool enchanted with Silk Touch if you carry one.
+  - Hit bookshelves -> Prefers an Axe enchanted with Silk Touch.
   - Attack hostile or passive mobs -> Equips best melee Weapon (Sword or Axe).
 - Continuous switching: While you are actively hitting blocks, aiming at a different kind of block switches to its best tool. Auto-switch only acts while you are mining, never just from looking at a block.
 - Low durability penalty: Automatically favors healthy tools so nearly-broken tools aren't worn down.
+- Mending preference: When two tools are equally good for the job, the Mending tool that needs repair is used first.
 
 #### 2. Smart Tree Capitator (Axe; sneak requirement depends on selected subpack)
 - With Sneak to Chain Mine (Default), sneak while chopping any tree log with an axe to fell the entire tree. Auto Chain Mine removes this requirement while the axe is held in selected hotbar slot 1:
@@ -104,6 +107,8 @@ Combines dynamic lighting, offhand quick-swap, automatic tool selection, tree ca
   - **House Protection (the canopy check)**: Requires natural-looking leaf canopy evidence for Overworld trees; wart blocks and shroomlights count only for crimson/warped fungi. Trees touching player-built blocks such as planks, doors, fences, glass, bricks, or storage are left standing, and logs more than 8 blocks from the broken log are ignored. This reduces false positives but cannot guarantee protection for every custom build.
   - **Natural Leaf Decay**: Preserves leaf canopies for authentic leaf decay drops (saplings, sticks, apples).
   - **Capacity Limit**: Up to 128 logs per tree operation.
+  - **Known Limits**: A very large tree can be only partly felled because of the 128-log cap. Logs more than 8 blocks sideways from the broken log are ignored, and trees touching player-built blocks are skipped, so chop those by hand.
+  - **Grouped Drops**: Logs are merged into full stacks within 5-block areas so only a few item entities appear.
 
 #### 3. Domino Ore Miner (Pickaxe; sneak requirement depends on selected subpack)
 - With Sneak to Chain Mine (Default), sneak while mining any mineral ore with a pickaxe to harvest the connected ore vein. Auto Chain Mine removes this requirement while the pickaxe is held in selected hotbar slot 1:
@@ -113,6 +118,7 @@ Combines dynamic lighting, offhand quick-swap, automatic tool selection, tree ca
   - **Experience**: Chain-mined ores drop their normal experience as orbs when mined without Silk Touch.
   - **Creative Mode**: Chain mining and felling use no tool durability and drop no items.
   - **Capacity Limit**: Up to 64 ore blocks per vein cluster.
+  - **Grouped Drops**: Drops are merged into full stacks within 5-block areas so only a few item entities appear.
 
 #### 4. Durability Safety Guard
 - Automatically halts Tree Capitator and Domino Ore Miner operations if your tool has **0 durability remaining** or is gone. A tool at 0 durability breaks only the single block you hit and does not start either feature.
@@ -123,7 +129,7 @@ Combines dynamic lighting, offhand quick-swap, automatic tool selection, tree ca
 - Quick-swap gestures:
   - **Double-sneak** (crouch twice within 0.7 seconds while standing still) to swap held item into offhand.
   - **Sneak + Use/Tap in air** to swap held item into offhand.
-- Real-time dynamic light: Torches emit Light Level 14, Soul Torches and Soul Lanterns Level 10, Redstone Torches Level 7, and Lanterns Level 15 as you move.
+- Real-time dynamic light: Torches emit Light Level 14, Soul Torches and Soul Lanterns Level 10, Redstone Torches Level 7, and Lanterns Level 15 as you move. Glowstone, Sea Lanterns, Shroomlights, and Jack o'Lanterns also emit Level 15 while held.
 
 #### 6. Universal Leashing (101 Mobs)
 - Leash any entity: Villagers, Iron Golems, Hostiles, Creepers, Endermen, Wardens, Withers, and Ghasts.
