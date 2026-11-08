@@ -173,7 +173,7 @@
                 {
                   "name": "regeneration",
                   "chance": 1.0,
-                  "duration": 5,
+                  "duration": 30,
                   "amplifier": 2
                 }
               ]
@@ -259,7 +259,7 @@
       },
       "allenscreations:wild": {
         "minecraft:tameable": {
-          "probability": 0.12,
+          "probability": 0.24,
           "tame_items": [
             "allenscreations:beast_biscuit"
           ],
