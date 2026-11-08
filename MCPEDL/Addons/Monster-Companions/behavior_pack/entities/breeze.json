@@ -655,7 +655,27 @@
         },
         "minecraft:behavior.stay_while_sitting": {
           "priority": 2
-        }
+        },
+        "minecraft:rideable": {
+          "seat_count": 1,
+          "crouching_skip_interact": true,
+          "interact_text": "action.interact.mount",
+          "controlling_seat": 0,
+          "family_types": [
+            "player"
+          ],
+          "seats": [
+            {
+              "position": [
+                0.0,
+                1.5,
+                0.0
+              ]
+            }
+          ]
+        },
+        "minecraft:input_ground_controlled": {},
+        "minecraft:behavior.player_ride_tamed": {}
       },
       "allenscreations:wild": {
         "minecraft:tameable": {

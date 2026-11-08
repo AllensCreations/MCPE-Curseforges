@@ -58,7 +58,8 @@ Equipping a Saddle onto supported large companions enables manual mounting and d
 - Sneak-to-interact: Crouching allows players to feed, heal, lead, or rename mounts without accidentally mounting.
 - Manual steering: Autonomous wandering and head-turning are disabled while mounted.
 - Wall climbing: Tamed Spiders and Cave Spiders can scale vertical surfaces and cliffs while mounted.
-- Supported mounts: Spider, Cave Spider, Ravager, Iron Golem, Hoglin, and Zoglin.
+- Supported mounts: Spider, Cave Spider, Ravager, Iron Golem, Hoglin, Zoglin, Breeze, Ghast, and Phantom.
+- Flying mounts: Tamed Ghasts and Phantoms can be steered through the air while mounted.
 
 ---
 
@@ -74,7 +75,7 @@ Equipping a Saddle onto supported large companions enables manual mounting and d
 
 ### Tricky Trials
 - **Supported Mobs**: Breeze
-- **Special Abilities**: Wind Charge projectile launcher
+- **Special Abilities**: Wind Charge projectile launcher, rideable mount
 
 ### Nether Beasts
 - **Supported Mobs**: Hoglin, Zoglin
@@ -102,7 +103,7 @@ Equipping a Saddle onto supported large companions enables manual mounting and d
 
 ### Nether and Sky
 - **Supported Mobs**: Blaze, Ghast, Phantom
-- **Special Abilities**: Fireball artillery, aerial escort
+- **Special Abilities**: Fireball artillery, aerial escort, flying mounts
 
 ### Illagers
 - **Supported Mobs**: Ravager, Vindicator, Pillager, Evoker
