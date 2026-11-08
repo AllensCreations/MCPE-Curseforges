@@ -198,7 +198,6 @@ AI-generated payloads are untrusted input until a person reviews them. **Human r
 - **Importer limits:** the base64 payload is capped; duplicate and case-colliding ZIP entries and control characters in paths are rejected; folder names that differ only by case, or that exist under another project type, are refused unless `overwrite` is on; an overwrite warns with the files it deletes. The declared uncompressed size in a ZIP header can be forged, so the importer must count actual bytes while extracting and stop at the limit.
 - **Identifiers:** pack UUIDs must be unique across `MCPEDL/` (the project's own folder is excluded so an overwrite can keep its UUIDs), and `min_engine_version` must be a real looked-up version.
 - **Workflow hygiene:** never place `${{ inputs.* }}` or step outputs directly inside a `run:` script. Pass them through `env:` and quote the variable.
-- **Upgrade ZIPs** (`apply-generator-upgrade.yml`) can overwrite scripts and workflows. Read the dry-run plan first and only upload ZIPs you built yourself.
 - **Generated docs** must pass the documentation checks in `build_payload.py` (messages starting with `DOC:`). They are failures, not warnings, so a payload that deviates from the templates is rejected.
 
 ---
@@ -265,7 +264,7 @@ Applies to every public README, DESCRIPTION, CHANGELOG, and catalog entry. Write
   - CurseForge: `assets/Images/curseforge.jpg`, linking to the CurseForge profile (or the pack's own CurseForge page once it exists).
   - MCPEDL: `assets/Images/MCPEDL.jpg`, linking to the MCPEDL profile (or the pack's own MCPEDL page once it exists).
   - Image URLs are always the full `https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/assets/Images/<file>` form, because relative paths break on CurseForge and MCPEDL and file names are case-sensitive.
-  - Image files are compressed by `scripts/optimize_images.py` (maximum 800 px wide, maximum 200 KB, JPEG). The workflow `optimize-images.yml` runs it automatically when files in `assets/Images/` change. A generator never edits or copies these images.
+  - Image files are compressed by `scripts/optimize_images.py` (maximum 800 px wide, maximum 200 KB, JPEG). The workflow `generate-recipe-images.yml` (job `optimize`) runs it automatically when files in `assets/Images/` change. A generator never edits or copies these images.
 - Other DESCRIPTION images may only be requested item sprites or crafting recipe diagrams described in `INSTRUCTIONS.md`, Part 1, Section 5. Release versions are not shown in project README or DESCRIPTION titles. The one exception to the badge rule is the generated "Collection Size" badge in the root `README.md`, written by `auto_bump_and_build.py` and `delete_project.py`; do not hand-edit it and do not copy it into other files.
 - Never allow duplicate suffixes such as `(v1.2.0) (v1.2.1)`.
 - Never copy a legacy MCPEDL description to CurseForge unchanged; adjust in CurseForge's `</>` editor.
@@ -433,7 +432,7 @@ Based on CurseForge's author guide "How to Create the Best Project Page" and its
 - **How to Use as steps.** Use short numbered steps for anything players must do. Put common questions as short `- **Question**: answer` bullets under How to Use.
 - **Style check.** Run `python3 scripts/doc_template.py --style <project folder>` and rewrite every STYLE hint with a specific fact. Hints are advisory and never fail a build. They flag filler phrases (such as "immersive", "seamless", "whether you're"), exclamation marks, more than three em dashes outside headings, and paragraphs of more than four sentences.
 - **Media is added on the platform.** Payloads contain no screenshots. After publishing, add in-game screenshots to the CurseForge Images page, enable the carousel, and add the same screenshots on MCPEDL.
-- **Changelog views.** `CHANGELOG.md` stays plain text in the exact template format; never add HTML, fold markup, or links to it. `scripts/build_changelog_views.py` builds folded copies in `changelog_views/` (newest release open, older releases grouped by minor series): a GitHub version and a CurseForge version using spoilers. Generators do not create these files.
+- **Changelog views.** `CHANGELOG.md` stays plain text in the exact template format; never add HTML, fold markup, or links to it. `scripts/build_changelog_views.py` builds folded copies in `changelog_views/` (newest release open, older releases grouped by minor series): a GitHub version and a CurseForge version using spoilers. Generators do not create these files; the Collect Files for AI Review workflow rebuilds them on every run (optional `commit_changelog_views` saves them to the repo).
 - **Socials and links** stay at the bottom and small. The listing images use width 45%; lower it if a platform shows them too large.
 - **Supported HTML on CurseForge.** Allowed tags include p, br, strong, em, u, ul, ol, li, a (href, target), img (alt, src, width, height), blockquote, div (title, data-title), span, h1 to h6, hr, table, pre, code, section, and iframe for whitelisted domains such as YouTube. CSS font-size is capped at 40px. `<div class="spoiler">` is supported. Keep Markdown as the base; use HTML only for the listing images and a verified spoiler.
 
@@ -754,7 +753,7 @@ Exactly these five numbered lines:
 1. GitHub, Actions, Create Project from Base64, Run workflow.
 2. Enter the folder name and paste the payload. If the folder already exists, set overwrite to true. Leave commit_mode on pull_request, then review and merge the pull request it opens.
 3. Download the generated world from the run's artifacts or the project folder and test it in Minecraft.
-4. To change which add-ons a test world includes, edit test_world.json and run Build Test World.
+4. To change which add-ons a test world includes, edit test_world.json and re-run Create Project from Base64 (it rebuilds the test world).
 5. If the build fails, paste the error log back to the agent.
 ```
 

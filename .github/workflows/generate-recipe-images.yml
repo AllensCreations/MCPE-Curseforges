@@ -1,4 +1,9 @@
-name: Generate Crafting Recipe Images
+name: Generate & Optimize Images
+
+# ONE workflow for every generated or compressed image (replaces "Optimize Images").
+#   recipe-images    regenerates the crafting recipe images and item previews
+#   optimize-images  compresses assets/Images (max 800 px wide, max 200 KB, JPEG)
+# On push to main only the part whose files changed runs. By hand, pick "task".
 
 on:
   push:
@@ -15,20 +20,79 @@ on:
       - 'scripts/convert_crafting_recipe_svgs_to_png.py'
       - 'scripts/CRAFTING_TABLE.svg'
       - 'assets/CRAFTING_RECIPE*.svg'
+      - 'assets/Images/**'
       - '.github/workflows/generate-recipe-images.yml'
   workflow_dispatch:
+    inputs:
+      task:
+        description: "What to run"
+        required: true
+        default: both
+        type: choice
+        options:
+          - both
+          - recipe-images
+          - optimize-images
 
 permissions:
-  contents: write
+  contents: read
 
 concurrency:
-  group: generate-recipe-images-${{ github.ref }}
+  group: generate-images-${{ github.ref }}
   cancel-in-progress: false
 
 jobs:
-  generate:
+  changes:
     runs-on: ubuntu-latest
-    if: "!contains(github.event.head_commit.message, '[skip ci]')"
+    if: ${{ !contains(github.event.head_commit.message, '[skip ci]') }}
+    outputs:
+      recipes: ${{ steps.detect.outputs.recipes }}
+      images: ${{ steps.detect.outputs.images }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          fetch-depth: 0
+
+      - name: Decide which parts to run
+        id: detect
+        env:
+          EVENT: ${{ github.event_name }}
+          TASK: ${{ inputs.task }}
+          BEFORE: ${{ github.event.before }}
+          SHA: ${{ github.sha }}
+        run: |
+          set -euo pipefail
+          recipes=false
+          images=false
+          RECIPES='^(MCPEDL/.*/behavior_pack/recipes/.*\.json|MCPEDL/.*/resource_pack/textures/.*|scripts/(crafting_template|generate_recipe_images|generate_grand_banquets_recipe_images|generate_monster_companions_recipe_image|convert_crafting_recipe_svgs_to_png)\.py|scripts/CRAFTING_TABLE\.svg|assets/CRAFTING_RECIPE.*\.svg|\.github/workflows/generate-recipe-images\.yml)$'
+          IMAGES='^assets/Images/'
+          if [ "$EVENT" = "workflow_dispatch" ]; then
+            case "$TASK" in
+              recipe-images)   recipes=true ;;
+              optimize-images) images=true ;;
+              *)               recipes=true; images=true ;;
+            esac
+          elif [ -z "$BEFORE" ] || [ "$BEFORE" = "0000000000000000000000000000000000000000" ] \
+               || ! git cat-file -e "${BEFORE}^{commit}" 2>/dev/null; then
+            # New branch or rewritten history: cannot diff, so run everything.
+            recipes=true
+            images=true
+          else
+            CHANGED="$(git diff --name-only "$BEFORE" "$SHA")"
+            if grep -Eq "$RECIPES" <<<"$CHANGED"; then recipes=true; fi
+            if grep -Eq "$IMAGES" <<<"$CHANGED"; then images=true; fi
+          fi
+          echo "recipes=$recipes" >> "$GITHUB_OUTPUT"
+          echo "images=$images" >> "$GITHUB_OUTPUT"
+          echo "recipe images: $recipes, optimize images: $images"
+
+  generate:
+    needs: [changes]
+    if: ${{ needs.changes.outputs.recipes == 'true' }}
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
     steps:
       - name: Checkout add-on repository
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
@@ -39,13 +103,10 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@6d4fd22b20465ccc0f7354476588e8df7c9ca0e0 # v7.1.0
         with:
-          python-version: '3.12'
+          python-version: '3.14'
 
-      - name: Install image library
-        run: python -m pip install --disable-pip-version-check Pillow
-
-      - name: Install SVG to PNG converter
-        run: python -m pip install --disable-pip-version-check CairoSVG
+      - name: Install image libraries
+        run: python -m pip install --disable-pip-version-check Pillow CairoSVG
 
       - name: Export crafting recipe SVGs as PNGs
         run: python scripts/convert_crafting_recipe_svgs_to_png.py
@@ -81,4 +142,42 @@ jobs:
           else
             git commit -m "docs: regenerate source-based crafting recipe images [skip ci]"
             python3 scripts/git_push_retry.py --branch main
+          fi
+
+  optimize:
+    needs: [changes, generate]
+    # Runs after "generate" (when it ran) so the two never push at the same time.
+    if: ${{ !cancelled() && needs.changes.outputs.images == 'true' && (needs.generate.result == 'success' || needs.generate.result == 'skipped') }}
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Set up Python
+        uses: actions/setup-python@6d4fd22b20465ccc0f7354476588e8df7c9ca0e0 # v7.1.0
+        with:
+          python-version: '3.14'
+
+      - name: Install image library
+        run: python -m pip install --disable-pip-version-check Pillow
+
+      - name: Optimize assets/Images
+        run: python3 scripts/optimize_images.py
+
+      - name: Commit optimized images
+        run: |
+          set -euo pipefail
+          if [ -n "$(git status --porcelain assets/Images)" ]; then
+            git config user.name "github-actions[bot]"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git add assets/Images
+            git commit -m "chore(images): optimize images [skip ci]"
+            python3 scripts/git_push_retry.py --branch main
+          else
+            echo "Images are already optimized."
           fi
