@@ -2,6 +2,21 @@
 
 ---
 
+## [2.0.0.2] - 2026-11-08
+
+### Improved & Balanced
+- **Taming chances**: Every mob is now twice as likely to be tamed with each Primal Beast Biscuit, up to a 75% chance per attempt.
+- **Golden Beast Biscuit**: The Regeneration it gives a companion now lasts 30 seconds instead of 5.
+
+---
+
+## [2.0.0.1] - 2026-11-08
+
+### Added
+- **Rideable Breeze**: A tamed Breeze can now be ridden and steered on the ground.
+- **Rideable Ghast**: A tamed Ghast can now be ridden and steered through the air.
+- **Rideable Phantom**: A tamed Phantom can now be ridden and steered through the air.
+
 ## [2.0.1.0] - 2026-11-08
 
 **What's new in v2.0.1.0:** Packed with the v2.0.0.1 update.
