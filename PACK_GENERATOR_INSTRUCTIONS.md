@@ -264,7 +264,7 @@ Applies to every public README, DESCRIPTION, CHANGELOG, and catalog entry. Write
   - CurseForge: `assets/Images/curseforge.jpg`, linking to the CurseForge profile (or the pack's own CurseForge page once it exists).
   - MCPEDL: `assets/Images/MCPEDL.jpg`, linking to the MCPEDL profile (or the pack's own MCPEDL page once it exists).
   - Image URLs are always the full `https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/assets/Images/<file>` form, because relative paths break on CurseForge and MCPEDL and file names are case-sensitive.
-  - Image files are compressed by `scripts/optimize_images.py` (maximum 800 px wide, maximum 200 KB, JPEG). The workflow `generate-recipe-images.yml` (job `optimize`) runs it automatically when files in `assets/Images/` change. A generator never edits or copies these images.
+  - Image files are compressed by `scripts/optimize_images.py` (maximum 800 px wide, maximum 200 KB, JPEG). The workflow `optimize-images.yml` runs it automatically when files in `assets/Images/` change. A generator never edits or copies these images.
 - Other DESCRIPTION images may only be requested item sprites or crafting recipe diagrams described in `INSTRUCTIONS.md`, Part 1, Section 5. Release versions are not shown in project README or DESCRIPTION titles. The one exception to the badge rule is the generated "Collection Size" badge in the root `README.md`, written by `auto_bump_and_build.py` and `delete_project.py`; do not hand-edit it and do not copy it into other files.
 - Never allow duplicate suffixes such as `(v1.2.0) (v1.2.1)`.
 - Never copy a legacy MCPEDL description to CurseForge unchanged; adjust in CurseForge's `</>` editor.

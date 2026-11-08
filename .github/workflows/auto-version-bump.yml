@@ -1,6 +1,7 @@
 name: Build Changed Packs & Sync Catalogs
 
-# ONE workflow for building, publishing and documentation. Pick "task" when you run it by hand.
+# Build + publish live together because the build must run right after every publish.
+# Pick "task" when you run it by hand.
 #
 #   build (default, also runs on push to main and daily)
 #     Rebuild packs and synchronize their catalogs. Every build follows the version in the pack
@@ -10,7 +11,7 @@ name: Build Changed Packs & Sync Catalogs
 #     Manifest versions are only bumped when "bump_on_change" is on (input, or repo variable
 #     AUTO_BUMP_MANIFEST=true); otherwise the publish task owns version bumps.
 #
-#   publish  (the ONLY place that uploads to CurseForge; replaces "Publish Pack to CurseForge")
+#   publish  (the ONLY place that uploads to CurseForge)
 #     Dropdown + project IDs + last published versions all come from builds/Curseforge_IDs.json
 #     (written by "Register CurseForge ID", which also refreshes the dropdown).
 #     Versions are X.Y.Z.A. Every normal update only bumps A in CHANGELOG.md; manifests stay X.Y.Z.
@@ -21,12 +22,6 @@ name: Build Changed Packs & Sync Catalogs
 #     Set the repo variable CURSEFORGE_CHANGELOG_STYLE=plain to send markdown headings instead of spoiler folds.
 #     After a successful upload the build task runs automatically (all projects) in the same run.
 #
-#   remake-docs  (replaces "Remake Docs")
-#     standardize (default): keeps existing text. Rebuilds each add-on README as the download page,
-#       fixes DESCRIPTION structure and adds a missing CHANGELOG entry for the current version.
-#     rebuild: add-ons only. Replaces DESCRIPTION.md and README.md with generic text built from the
-#       source files. Use it for stubs; write real features with the AI export workflow.
-#     docs_dry_run only reports. docs_commit_mode pull_request (default) opens a pull request.
 
 on:
   push:
@@ -44,14 +39,13 @@ on:
   workflow_dispatch:
     inputs:
       task:
-        description: "What to run: build (default), publish to CurseForge, or remake-docs"
+        description: "What to run: build (default) or publish to CurseForge"
         required: true
         default: build
         type: choice
         options:
           - build
           - publish
-          - remake-docs
 
       # ---- task = build ----
       scope:
@@ -171,57 +165,6 @@ on:
           - beta
           - alpha
 
-      # ---- task = remake-docs ----
-      docs_scope:
-        description: "[remake-docs] all projects, or one project (fill in docs_project)"
-        required: true
-        default: all
-        type: choice
-        options:
-          - all
-          - one project
-      docs_project:
-        description: "[remake-docs] Project folder name, used when docs_scope = one project (e.g. Mining-Helmet)"
-        required: false
-        default: ""
-        type: string
-      docs_mode:
-        description: "[remake-docs] standardize keeps existing text; rebuild regenerates add-on docs from source files"
-        required: true
-        default: standardize
-        type: choice
-        options:
-          - standardize
-          - rebuild
-      docs_which:
-        description: "[remake-docs] Which documents to remake"
-        required: true
-        default: all
-        type: choice
-        options:
-          - all
-          - readme
-          - description
-          - changelog
-      docs_dry_run:
-        description: "[remake-docs] Only report what would change"
-        required: true
-        default: false
-        type: boolean
-      docs_confirm_rebuild:
-        description: "[remake-docs] Type REBUILD to allow docs_mode = rebuild with docs_scope = all"
-        required: false
-        default: ""
-        type: string
-      docs_commit_mode:
-        description: "[remake-docs] pull_request opens a PR to review (default); direct pushes straight to the branch"
-        required: true
-        default: pull_request
-        type: choice
-        options:
-          - pull_request
-          - direct
-
 # Least privilege by default; each job asks for what it needs.
 permissions:
   contents: read
@@ -305,109 +248,6 @@ jobs:
           python3 scripts/git_push_retry.py --branch "${GITHUB_REF#refs/heads/}"
 
   # =====================================================================================
-  # task = remake-docs
-  # =====================================================================================
-  remake-docs:
-    if: ${{ github.event_name == 'workflow_dispatch' && inputs.task == 'remake-docs' }}
-    runs-on: ubuntu-latest
-    permissions:
-      contents: write
-      pull-requests: write
-    concurrency:
-      group: release-build-refresh
-      cancel-in-progress: false
-    steps:
-      - name: Checkout
-        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
-        with:
-          fetch-depth: 0
-
-      - name: Set up Python
-        uses: actions/setup-python@6d4fd22b20465ccc0f7354476588e8df7c9ca0e0 # v7.1.0
-        with:
-          python-version: "3.14"
-
-      - name: Remake documents
-        id: remake
-        env:
-          SCOPE: ${{ inputs.docs_scope }}
-          PROJECT: ${{ inputs.docs_project }}
-          MODE: ${{ inputs.docs_mode }}
-          DOCS: ${{ inputs.docs_which }}
-          DRY_RUN: ${{ inputs.docs_dry_run }}
-          CONFIRM: ${{ inputs.docs_confirm_rebuild }}
-        run: |
-          set -uo pipefail
-          set +e
-          ARGS=(--remake "$MODE" --docs "$DOCS")
-          if [ "$SCOPE" = "all" ]; then
-            ARGS+=(--all)
-            if [ "$MODE" = "rebuild" ]; then
-              if [ "$CONFIRM" != "REBUILD" ]; then
-                echo "::error::docs_mode = rebuild with docs_scope = all replaces every add-on DESCRIPTION.md and README.md. Type REBUILD in docs_confirm_rebuild, or pick one project."
-                exit 1
-              fi
-              ARGS+=(--confirm-rebuild)
-            fi
-          else
-            if [ -z "$PROJECT" ]; then
-              echo "::error::docs_scope is 'one project': fill in docs_project."
-              exit 1
-            fi
-            ARGS+=(--project "$PROJECT")
-          fi
-          if [ "$DRY_RUN" = "true" ]; then ARGS+=(--check); fi
-          echo "Running: python3 scripts/check_readme_status.py ${ARGS[*]}"
-          python3 scripts/check_readme_status.py "${ARGS[@]}" 2>&1 | tee remake.log
-          STATUS=${PIPESTATUS[0]}
-          if [ "$STATUS" -eq 1 ] && [ "$DRY_RUN" = "true" ]; then STATUS=0; fi
-          {
-            echo "### Remake docs ($MODE, $DOCS, $SCOPE)"
-            echo '```'
-            cat remake.log
-            echo '```'
-          } >> "$GITHUB_STEP_SUMMARY"
-          exit "$STATUS"
-
-      - name: Audit result (report only)
-        continue-on-error: true
-        run: |
-          {
-            echo "### README audit after remake"
-            echo '```'
-            python3 scripts/check_readme_status.py || true
-            echo '```'
-          } >> "$GITHUB_STEP_SUMMARY"
-
-      - name: Commit changes
-        if: ${{ !inputs.docs_dry_run }}
-        env:
-          COMMIT_MODE: ${{ inputs.docs_commit_mode }}
-          MODE: ${{ inputs.docs_mode }}
-          GH_TOKEN: ${{ github.token }}
-        run: |
-          set -euo pipefail
-          git config user.name "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
-          BRANCH="docs/remake-${GITHUB_RUN_ID}"
-          if [ "$COMMIT_MODE" = "pull_request" ]; then
-            git checkout -b "$BRANCH"
-          fi
-          git add -A -- MCPEDL
-          if git diff --cached --quiet; then
-            echo "No changes to commit."; exit 0
-          fi
-          git commit -m "docs: remake README, DESCRIPTION and CHANGELOG (${MODE}) [skip ci]"
-          if [ "$COMMIT_MODE" = "direct" ]; then
-            python3 scripts/git_push_retry.py --branch "${GITHUB_REF_NAME}"
-          else
-            git push origin "$BRANCH"
-            gh pr create --base "${GITHUB_REF_NAME}" --head "$BRANCH" \
-              --title "Remake docs (${MODE})" \
-              --body "Generated by Build Changed Packs & Sync Catalogs (task remake-docs). Mode: ${MODE}. Review the changed README, DESCRIPTION and CHANGELOG files. Added defaults such as 'Verification: Source created, not tested in game' and generated changelog entries must be replaced with verified facts."
-          fi
-
-  # =====================================================================================
   # task = build (push, daily schedule, manual build, and right after a successful publish)
   # =====================================================================================
   release-refresh:
@@ -418,10 +258,10 @@ jobs:
     concurrency:
       group: release-build-refresh
       cancel-in-progress: false
-    # Skip on remake-docs runs. After a publish, run only when the upload succeeded.
+    # After a publish, run only when the upload succeeded.
     # Pushes only: skip bot commits, and skip when the push touches Dirtbound's source tree
     # (its dedicated world build owns that README and archives).
-    if: ${{ !cancelled() && (needs.publish.result == 'success' || needs.publish.result == 'skipped') && !(github.event_name == 'workflow_dispatch' && inputs.task == 'remake-docs') && (github.event_name != 'push' || (!contains(github.event.head_commit.message, '[skip ci]') && !contains(toJSON(github.event.commits), 'MCPEDL/Maps/OneBlock-Dirtbound-Kingdom-Beta/'))) }}
+    if: ${{ !cancelled() && (needs.publish.result == 'success' || needs.publish.result == 'skipped') && (github.event_name != 'push' || (!contains(github.event.head_commit.message, '[skip ci]') && !contains(toJSON(github.event.commits), 'MCPEDL/Maps/OneBlock-Dirtbound-Kingdom-Beta/'))) }}
 
     steps:
       - name: Checkout main
