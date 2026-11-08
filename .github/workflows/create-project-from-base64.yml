@@ -1,12 +1,5 @@
 name: Create Project from Base64
 
-# ONE workflow for importing AI payloads and for (re)building OneBlock worlds.
-#   task = import (default)        decode a base64 project ZIP, validate, write, build worlds, commit.
-#   task = rebuild-worlds          rebuild the Creative/Survival/Hardcore .mcworld files for one map
-#                                  (map_name) or all maps (blank). Also runs automatically on pushes
-#                                  to main that touch maps, world foundations or the builders.
-# (replaces the separate "Build OneBlock Creative, Survival, and Hardcore Worlds" workflow)
-
 # Paste the base64 produced by an AI agent (see PACK_GENERATOR_INSTRUCTIONS.md).
 # The ZIP's project.json decides the type:
 #   addon  -> MCPEDL/Addons/<Name>/
@@ -27,32 +20,10 @@ name: Create Project from Base64
 # commit_mode pull_request (default) opens a pull request for review; direct pushes to the branch.
 
 on:
-  push:
-    branches: [main]
-    paths:
-      - "MCPEDL/Maps/**"
-      - "Mcpeworlds/**"
-      - "scripts/build_oneblock_variants_from_template.py"
-      - "scripts/sync_oneblock_map_readmes.py"
-      - ".github/workflows/create-project-from-base64.yml"
-      - "INSTRUCTIONS.md"
   workflow_dispatch:
     inputs:
-      task:
-        description: "import = create/update a project from a payload (default); rebuild-worlds = rebuild OneBlock world archives"
-        required: true
-        default: import
-        type: choice
-        options:
-          - import
-          - rebuild-worlds
-      map_name:
-        description: "[rebuild-worlds] Map folder under MCPEDL/Maps/ (blank = build all maps)"
-        required: false
-        default: ""
-        type: string
       import_mode:
-        description: "[import] auto = update if it exists else create, create = new only, update = merge and keep other files, overwrite = replace everything"
+        description: "auto = update if it exists else create, create = new only, update = merge and keep other files, overwrite = replace everything"
         required: true
         default: auto
         type: choice
@@ -62,22 +33,22 @@ on:
           - update
           - overwrite
       project_name:
-        description: "[import] Optional. Leave blank to use the .b64 file name (letters, numbers, . _ -)"
+        description: "Optional. Leave blank to use the .b64 file name (letters, numbers, . _ -)"
         required: false
         default: ""
         type: string
       payload_base64:
-        description: "[import] Optional. Base64 of the project ZIP, single line. Leave blank to use a .b64 file."
+        description: "Optional. Base64 of the project ZIP, single line. Leave blank to use a .b64 file."
         required: false
         default: ""
         type: string
       payload_file:
-        description: "[import] Optional. Leave blank to use the only .b64 file in MCPEDL/incoming/ (or enter its file name)"
+        description: "Optional. Leave blank to use the only .b64 file in MCPEDL/incoming/ (or enter its file name)"
         required: false
         default: ""
         type: string
       commit_mode:
-        description: "[import] pull_request opens a PR to review (default); direct pushes straight to the branch"
+        description: "pull_request opens a PR to review (default); direct pushes straight to the branch"
         required: false
         default: pull_request
         type: choice
@@ -86,19 +57,17 @@ on:
           - direct
 
 permissions:
-  contents: read
+  contents: write
+  pull-requests: write
+
+concurrency:
+  group: create-project-from-base64-${{ github.ref }}
+  cancel-in-progress: false
 
 jobs:
   create:
     name: Import project and build worlds
-    if: ${{ github.event_name == 'workflow_dispatch' && inputs.task == 'import' }}
     runs-on: ubuntu-latest
-    permissions:
-      contents: write
-      pull-requests: write
-    concurrency:
-      group: create-project-from-base64-${{ github.ref }}
-      cancel-in-progress: false
     env:
       PROJECT_NAME: ${{ inputs.project_name }}
       IMPORT_MODE: ${{ inputs.import_mode }}
@@ -270,115 +239,3 @@ jobs:
             echo "- Verified: ZIP safety, manifests, UUIDs, dependencies, type-specific files (structural only)"
             echo "- **Not verified:** Minecraft loading the pack or gameplay. Test it in-game."
           } >> "$GITHUB_STEP_SUMMARY"
-
-  # =====================================================================================
-  # Rebuild OneBlock worlds (push to main, or task = rebuild-worlds)
-  # =====================================================================================
-  build-worlds:
-    name: Build world modes
-    if: ${{ github.event_name == 'push' || (github.event_name == 'workflow_dispatch' && inputs.task == 'rebuild-worlds') }}
-    runs-on: ubuntu-latest
-    permissions:
-      contents: write
-    concurrency:
-      group: build-oneblock-variants-${{ github.ref }}
-      cancel-in-progress: false
-    env:
-      ONEBLOCK_MAP: ${{ inputs.map_name }}
-    steps:
-      - name: Checkout the branch that triggered this build
-        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
-        with:
-          ref: ${{ github.ref }}
-          fetch-depth: 0
-          token: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Set up Python
-        uses: actions/setup-python@6d4fd22b20465ccc0f7354476588e8df7c9ca0e0 # v7.1.0
-        with:
-          python-version: '3.14'
-
-      - name: Validate map name
-        shell: bash
-        run: |
-          set -euo pipefail
-          if [ -n "$ONEBLOCK_MAP" ]; then
-            [[ "$ONEBLOCK_MAP" =~ ^[A-Za-z0-9._-]+$ ]] \
-              || { echo "::error::Map name may only use letters, numbers, . _ -"; exit 1; }
-            [ -f "MCPEDL/Maps/$ONEBLOCK_MAP/oneblock.json" ] \
-              || { echo "::error::MCPEDL/Maps/$ONEBLOCK_MAP/oneblock.json not found"; exit 1; }
-          fi
-
-      - name: Align saved map releases to their changelogs
-        shell: bash
-        run: |
-          python3 - <<'PY'
-          import os
-          import sys
-          from pathlib import Path
-
-          sys.path.insert(0, "scripts")
-          import prepare_curseforge_upload as release
-
-          selected = os.environ.get("ONEBLOCK_MAP", "").strip()
-          for config in sorted(Path("MCPEDL/Maps").glob("*/oneblock.json")):
-              project = config.parent
-              if selected and project.name != selected:
-                  continue
-              try:
-                  release.read_info(f"MCPEDL/Maps/{project.name}")
-              except ValueError:
-                  continue  # not registered in builds/Curseforge_IDs.json
-              version, _ = release.latest_changelog_entry(project / "CHANGELOG.md")
-              release.align_manifests(project, version)
-          PY
-
-      - name: Build each mode from its matching Mcpeworlds foundation and the map's packs
-        run: python scripts/build_oneblock_variants_from_template.py
-
-      - name: Synchronize map README with generated world archives
-        run: python scripts/sync_oneblock_map_readmes.py
-
-      - name: Verify generated worlds are database-free
-        shell: bash
-        run: |
-          python3 - <<'PY'
-          import glob, os, sys, zipfile
-          only = os.environ.get("ONEBLOCK_MAP", "").strip()
-          bad = []
-          for cfg in glob.glob("MCPEDL/Maps/*/oneblock.json"):
-              folder = os.path.dirname(cfg)
-              if only and os.path.basename(folder) != only:
-                  continue
-              for w in glob.glob(folder + "/*.mcworld"):
-                  names = zipfile.ZipFile(w).namelist()
-                  if not any(n.endswith("level.dat") for n in names):
-                      bad.append(f"{w}: missing level.dat")
-                  if any(n.startswith("db/") or "/db/" in n for n in names):
-                      bad.append(f"{w}: contains db/ data")
-          if bad:
-              print("\n".join("::error::" + b for b in bad)); sys.exit(1)
-          print("Structural checks passed (not an in-game test).")
-          PY
-
-      - name: Upload generated worlds as artifact
-        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
-        with:
-          name: oneblock-worlds
-          path: ${{ inputs.map_name != '' && format('MCPEDL/Maps/{0}/*.mcworld', inputs.map_name) || 'MCPEDL/Maps/*/*.mcworld' }}
-          if-no-files-found: error
-
-      - name: Commit generated .mcworld files and README to the selected branch
-        if: startsWith(github.ref, 'refs/heads/')
-        shell: bash
-        run: |
-          set -euo pipefail
-          git add -A -- MCPEDL/Maps
-          if git diff --cached --quiet; then
-            echo "No generated world changes to commit."
-            exit 0
-          fi
-          git config user.name "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
-          git commit -m "build(oneblock): regenerate database-free void worlds [skip ci]"
-          python3 scripts/git_push_retry.py --branch "${GITHUB_REF#refs/heads/}"

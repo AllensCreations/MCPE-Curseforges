@@ -44,7 +44,7 @@ Full wording is in `INSTRUCTIONS.md`, Part 3, Section 3.
 
 ## Bulk remake
 
-`python3 scripts/check_readme_status.py --remake standardize --all --check` previews; the same command without `--check` writes. `standardize` keeps product text and fixes structure. `--remake rebuild --project <Name>` replaces a project's DESCRIPTION and README with generic text built from source files, and `--all` also needs `--confirm-rebuild`. Defaults it adds (Verification, Achievements, Experimental features) and generated changelog entries are placeholders: replace them with verified facts. The `remake-docs` task of `auto-version-bump.yml` runs the same thing as a dry run and pull request.
+`python3 scripts/check_readme_status.py --remake standardize --all --check` previews; the same command without `--check` writes. `standardize` keeps product text and fixes structure. `--remake rebuild --project <Name>` replaces a project's DESCRIPTION and README with generic text built from source files, and `--all` also needs `--confirm-rebuild`. Defaults it adds (Verification, Achievements, Experimental features) and generated changelog entries are placeholders: replace them with verified facts. The `remake-docs.yml` workflow runs the same thing as a dry run and pull request.
 
 ## Wiki and Samples references
 
