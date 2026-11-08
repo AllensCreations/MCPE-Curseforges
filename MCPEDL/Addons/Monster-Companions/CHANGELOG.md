@@ -2,13 +2,15 @@
 
 ---
 
-## [2.0.0.1] - 2026-11-08
+## [2.0.1.0] - 2026-11-08
+
+**What's new in v2.0.1.0:** Packed with the v2.0.0.1 update.
 
 ### Added
+
 - **Rideable Breeze**: A tamed Breeze can now be ridden and steered on the ground.
 - **Rideable Ghast**: A tamed Ghast can now be ridden and steered through the air.
 - **Rideable Phantom**: A tamed Phantom can now be ridden and steered through the air.
-
 ---
 
 ## [2.0.0] - 2026-11-06
