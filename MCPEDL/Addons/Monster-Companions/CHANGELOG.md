@@ -1,4 +1,15 @@
-# Changelog - Monster Companions
+# Changelog — Monster Companions
+
+---
+
+## [2.0.0.1] - 2026-11-08
+
+### Added
+- **Rideable Breeze**: A tamed Breeze can now be ridden and steered on the ground.
+- **Rideable Ghast**: A tamed Ghast can now be ridden and steered through the air.
+- **Rideable Phantom**: A tamed Phantom can now be ridden and steered through the air.
+
+---
 
 ## [2.0.0] - 2026-11-06
 

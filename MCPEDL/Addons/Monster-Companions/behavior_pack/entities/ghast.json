@@ -341,6 +341,42 @@
         },
         "minecraft:behavior.stay_while_sitting": {
           "priority": 2
+        },
+        "minecraft:rideable": {
+          "seat_count": 1,
+          "crouching_skip_interact": true,
+          "interact_text": "action.interact.mount",
+          "controlling_seat": 0,
+          "family_types": [
+            "player"
+          ],
+          "dismount_mode": "on_top_center",
+          "seats": [
+            {
+              "position": [
+                0.0,
+                3.8,
+                0.0
+              ]
+            }
+          ]
+        },
+        "minecraft:free_camera_controlled": {
+          "strafe_speed_modifier": 1.0,
+          "backwards_movement_modifier": 0.5
+        },
+        "minecraft:vertical_movement_action": {
+          "vertical_velocity": 0.5
+        },
+        "minecraft:behavior.player_ride_tamed": {
+          "priority": 1
+        },
+        "minecraft:flying_speed": {
+          "value": 0.03
+        },
+        "minecraft:body_rotation_always_follows_head": {},
+        "minecraft:physics": {
+          "has_gravity": false
         }
       },
       "allenscreations:wild": {
