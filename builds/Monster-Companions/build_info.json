@@ -1,8 +1,8 @@
 {
-  "changelog_version": "2.0.0.2",
-  "manifest_version": "2.0.1",
+  "changelog_version": "2.1.0.0",
+  "manifest_version": "2.1.0",
   "packages": {
-    "Monster Companions by AllensCreations (V2.0.1).mcaddon": "522f247221775fe89dfada0140895bac1d312f528a764d3fb884bd4b78a7fc65"
+    "Monster Companions by AllensCreations (V2.1.0).mcaddon": "b1ada58d25646f06684ba22d91f5751836c75143c03acd1978d1df721def42ee"
   },
   "source_sha256": "35682e5c2d77466a8a5c41bf9e8f13204d302b72b0b3daf04c422845ea291e4b"
 }
