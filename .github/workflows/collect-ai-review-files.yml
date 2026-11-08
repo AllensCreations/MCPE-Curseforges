@@ -11,6 +11,11 @@ name: Collect Files for AI Review
 #                         The built-in AI prompt keeps the Termux .sh rules: (Repofilename)_(Version)_(Rand).sh,
 #                         CHANGELOG.md updated on every change with A+1, docs follow the templates.
 # GitHub cannot push a download to your device by itself: open the run summary and tap the link.
+#
+# CHANGELOG VIEWS (merged from the old "Build Changelog Views" workflow)
+#   Every run rebuilds changelog_views/ from each CHANGELOG.md with scripts/build_changelog_views.py
+#   and puts it in the download. The AI instructions below explain the views to the AI.
+#   Tick "commit_changelog_views" to also save the refreshed views to the repo (needs write access).
 # Save as: .github/workflows/collect-ai-review-files.yml
 
 on:
@@ -21,9 +26,14 @@ on:
         required: false
         default: ""
         type: string
+      commit_changelog_views:
+        description: "Also commit the refreshed changelog_views/ folder to the repo"
+        required: false
+        default: false
+        type: boolean
 
 permissions:
-  contents: read
+  contents: write
 
 jobs:
   collect:
@@ -31,6 +41,16 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@6d4fd22b20465ccc0f7354476588e8df7c9ca0e0 # v7.1.0
+        with:
+          python-version: '3.14'
+
+      - name: Build changelog views (folded GitHub + CurseForge copies of every CHANGELOG.md)
+        run: python3 scripts/build_changelog_views.py --all
 
       - name: Choose mode
         id: mode
@@ -83,7 +103,8 @@ jobs:
           ## Docs (every update, inside the same script)
           Strict templates: README.md, DESCRIPTION.md and CHANGELOG.md must follow the templates below exactly: same headings, same heading text, same order, same labels and bullet format. Do not add, remove, rename, merge or reorder sections, and add no boilerplate or extra text. Leave no placeholders; fill every [bracket] with verified content. Accuracy and the requested scope still outrank the template.
           CHANGELOG.md is mandatory on every update, with no exceptions: every script must add a new release entry for the change. After the change, analyze README.md and DESCRIPTION.md in the destination folder. Edit them only if the change makes them inaccurate or incomplete; leave the rest untouched. Never remove verified content.
-          - Versions: versions are X.Y.Z.A. Every update request adds exactly 1 to the 4th number A and changes nothing else (1.2.3.4 becomes 1.2.3.5, 1.2.3.9 becomes 1.2.3.10, no rollover). A top heading with only three numbers counts as A = 0, so 1.2.3 becomes 1.2.3.1. In the script, take the top CHANGELOG.md heading as the current version. Use that one new X.Y.Z.A version for the CHANGELOG entry heading `## [X.Y.Z.A] - YYYY-MM-DD` and the script file name. Never edit manifest versions (Minecraft only allows X.Y.Z there) or the README version/download link; the auto-version-bump and Publish Pack to CurseForge workflows own those. A Beta publish groups every A version since the last upload into one entry and moves to X.Y.(Z+1).0; Alpha moves to X.(Y+1).0.0 and Release to (X+1).0.0.0, so never bump X, Y or Z yourself unless the request asks for it. Never put a release version in the README or the DESCRIPTION title. Never reuse or overwrite an existing version heading. If the heading for the new version already exists (script run twice), skip adding it.
+          - Versions: versions are X.Y.Z.A. Every update request adds exactly 1 to the 4th number A and changes nothing else (1.2.3.4 becomes 1.2.3.5, 1.2.3.9 becomes 1.2.3.10, no rollover). A top heading with only three numbers counts as A = 0, so 1.2.3 becomes 1.2.3.1. In the script, take the top CHANGELOG.md heading as the current version. Use that one new X.Y.Z.A version for the CHANGELOG entry heading `## [X.Y.Z.A] - YYYY-MM-DD` and the script file name. Never edit manifest versions (Minecraft only allows X.Y.Z there) or the README version/download link; the Build Changed Packs & Sync Catalogs workflow (its build and publish tasks) owns those. A Beta publish groups every A version since the last upload into one entry and moves to X.Y.(Z+1).0; Alpha moves to X.(Y+1).0.0 and Release to (X+1).0.0.0, so never bump X, Y or Z yourself unless the request asks for it. Never put a release version in the README or the DESCRIPTION title. Never reuse or overwrite an existing version heading. If the heading for the new version already exists (script run twice), skip adding it.
+          - Changelog views: `changelog_views/<Name>.github.md` (newest release open, older releases folded by minor series) and `changelog_views/<Name>.curseforge.html` (same layout with CurseForge spoilers, to paste into the project description) are generated from CHANGELOG.md by `scripts/build_changelog_views.py`. CHANGELOG.md stays plain text in the exact template format and is the only source of truth: never add HTML, fold markup or links to it, never edit the views by hand, and never create or change them inside the .sh script. After a CHANGELOG.md change they are refreshed by the Collect Files for AI Review workflow (tick commit_changelog_views), or locally with `python3 scripts/build_changelog_views.py --project <Name>`.
           - Writing: player-facing only. In-game display names, never identifiers, file names, JSON, events or code. Write "Behavior Pack" / "Resource Pack", never BP/RP. No code blocks, emojis, hype, or badges in README; every DESCRIPTION must include the two exact Minecraft Bedrock and Format badges from the repo template and no other badges. DESCRIPTION may keep existing item sprites and recipe diagrams. No Markdown tables; use `### Feature Name` cards with `- **What Happens**: ...` bullets. Paragraphs of 4 sentences at most. State only verified facts; Verification line must say source created, package built or in-game tested, never mixed.
           - README.md (add-on): download landing page only, 24 non-empty lines max:
           ```
@@ -220,6 +241,9 @@ jobs:
               for base in (root / d, (root / d).parent):
                   for doc in ("CHANGELOG.md", "README.md", "DESCRIPTION.md"):
                       add(base / doc)
+              view_name = pathlib.PurePosixPath(d).name
+              for ext in (".github.md", ".curseforge.html"):
+                  add(root / "changelog_views" / (view_name + ext))
 
           files = sorted(selected, key=str.lower)
           if missing:
@@ -303,6 +327,7 @@ jobs:
           # 3. The files requested
           copy_item scripts/build_oneblock_variants_from_template.py
           copy_item INSTRUCTIONS.md
+          copy_item changelog_views
           copy_item PACK_GENERATOR_INSTRUCTIONS.md
           copy_item .agents/skills/checkrm/SKILL.md
           copy_item Mcpeworlds/assets/resources_pack/textures/items/trader_ledger.png
@@ -342,7 +367,7 @@ jobs:
           import os, pathlib
           root = pathlib.Path("ai_review_bundle")
           files_dir = root / "files"
-          text_ext = {".py", ".yml", ".yaml", ".json", ".md", ".txt", ".js", ".mcfunction", ".lang", ".sh"}
+          text_ext = {".py", ".yml", ".yaml", ".json", ".md", ".txt", ".js", ".mcfunction", ".lang", ".sh", ".html"}
           out = root / "ALL_TEXT_FILES.txt"
           items = sorted(p for p in files_dir.rglob("*") if p.is_file())
           included = []
@@ -368,6 +393,20 @@ jobs:
           cat ai_review_bundle/manifest.txt
           echo "=== trader ledger ==="
           cat ai_review_bundle/trader_ledger_sha256.txt
+
+      - name: Commit refreshed changelog views (optional)
+        if: ${{ inputs.commit_changelog_views }}
+        run: |
+          set -euo pipefail
+          if [ -n "$(git status --porcelain changelog_views)" ]; then
+            git config user.name "github-actions[bot]"
+            git config user.email "github-actions[bot]@users.noreply.github.com"
+            git add changelog_views
+            git commit -m "chore(changelog): update changelog views [skip ci]"
+            python3 scripts/git_push_retry.py --branch "${GITHUB_REF_NAME}"
+          else
+            echo "Changelog views are already up to date."
+          fi
 
       - name: Pick download name
         id: name

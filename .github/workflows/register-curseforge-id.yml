@@ -2,7 +2,8 @@ name: Register CurseForge ID
 
 # Run once per pack. Adds/updates the pack in builds/Curseforge_IDs.json (one registry for all
 # packs; old builds/<pack>/Curseforge_Info.json files are folded in automatically), then
-# refreshes the Publish Pack to CurseForge dropdown from that registry.
+# refreshes the "publish_project" dropdown of Build Changed Packs & Sync Catalogs
+# (task = publish) from that registry.
 # Needs the WORKFLOW_PAT secret to push the edited workflow file; without it the ID is
 # still saved but the dropdown is not updated.
 
@@ -38,7 +39,7 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@6d4fd22b20465ccc0f7354476588e8df7c9ca0e0 # v7.1.0
         with:
-          python-version: '3.x'
+          python-version: '3.14'
 
       - name: Save ID and refresh the publish dropdown
         env:
@@ -58,10 +59,10 @@ jobs:
           set -euo pipefail
           git add -A -- builds/Curseforge_IDs.json ':(glob)builds/Curseforge_IDs.json'
           if [ "$HAS_PAT" = "true" ]; then
-            git add -- .github/workflows/publish-curseforge.yml
-          elif ! git diff --quiet -- .github/workflows/publish-curseforge.yml; then
+            git add -- .github/workflows/auto-version-bump.yml
+          elif ! git diff --quiet -- .github/workflows/auto-version-bump.yml; then
             echo "::warning::No WORKFLOW_PAT secret: the dropdown was not updated. Add the secret and re-run."
-            git checkout -- .github/workflows/publish-curseforge.yml
+            git checkout -- .github/workflows/auto-version-bump.yml
           fi
           if git diff --cached --quiet; then
             echo "Already registered."

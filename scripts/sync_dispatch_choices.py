@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
 """Keep the workflow dropdowns in sync with MCPEDL/ and the saved CurseForge IDs.
 
-Two workflows are managed:
-  auto-version-bump.yml     one list per category (all projects)
-  publish-curseforge.yml    one list of registered packs only (those listed in builds/Curseforge_IDs.json)
+One workflow is managed: auto-version-bump.yml
+  build task    one list per category (all projects)
+  publish task  one list of registered packs only (those listed in builds/Curseforge_IDs.json)
 
   python3 scripts/sync_dispatch_choices.py           rewrite the dropdown lists
   python3 scripts/sync_dispatch_choices.py --check   exit 1 if the lists are stale (used by CI)
@@ -19,7 +19,6 @@ import sys
 ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
 WORKFLOWS_DIR = os.path.join(ROOT, ".github", "workflows")
 BUMP_WORKFLOW = os.path.join(WORKFLOWS_DIR, "auto-version-bump.yml")
-PUBLISH_WORKFLOW = os.path.join(WORKFLOWS_DIR, "publish-curseforge.yml")
 CATEGORIES = {
     "addon": "MCPEDL/Addons",
     "script": "MCPEDL/Script",
@@ -111,7 +110,8 @@ def render(lines):
 
 def sync_file(path, renderer, check):
     if not os.path.isfile(path):
-        return 0 if path == PUBLISH_WORKFLOW else 1
+        print(f"{os.path.basename(path)} not found.")
+        return 1
     with open(path, encoding="utf-8") as fh:
         text = fh.read()
     new_text = "\n".join(renderer(text.split("\n")))
@@ -130,9 +130,8 @@ def sync_file(path, renderer, check):
 
 def main():
     check = "--check" in sys.argv
-    status = sync_file(BUMP_WORKFLOW, render, check)
-    status |= sync_file(PUBLISH_WORKFLOW, render_publish, check)
-    return status
+    # One file holds both the per-category lists and the registered-pack list.
+    return sync_file(BUMP_WORKFLOW, lambda lines: render_publish(render(lines)), check)
 
 
 if __name__ == "__main__":

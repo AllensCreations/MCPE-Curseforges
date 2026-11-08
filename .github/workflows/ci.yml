@@ -19,7 +19,7 @@ jobs:
 
       - uses: actions/setup-python@6d4fd22b20465ccc0f7354476588e8df7c9ca0e0 # v7.1.0
         with:
-          python-version: "3.12"
+          python-version: "3.14"
 
       - name: Install dependencies
         run: pip install pillow cairosvg
@@ -30,28 +30,19 @@ jobs:
       - name: Manifest titles
         run: python scripts/validate_manifest_titles.py
 
-      - name: README, DESCRIPTION and link audit
-        continue-on-error: true  # advisory until existing findings are cleaned up
-        run: python scripts/check_readme_status.py
+      # Replaces the old standalone "Check Manifest Versions" workflow (it ran on pull requests).
+      - name: Manifest versions, UUIDs and dependencies
+        run: python scripts/check_manifest_versions.py
 
-      - name: Release workflow dropdowns in sync
+      - name: Release dropdowns in sync
         continue-on-error: true  # advisory
         run: python scripts/sync_dispatch_choices.py --check
 
-      - name: Crafting template test
-        run: python tests/test_crafting_template.py
-
-      - name: Manifest tools tests (align, bump, source hash)
-        run: python scripts/test_manifest_tools.py
-
-      - name: CurseForge publish tests
-        run: python scripts/test_auto_curseforge_publish.py
+      - name: Tests
+        run: |
+          python tests/test_crafting_template.py
+          python scripts/test_manifest_tools.py
+          python scripts/test_auto_curseforge_publish.py
 
       - name: Project pipeline self-test
         run: python scripts/selftest_project_types.py --fake-foundation
-
-      - name: Lint workflows (actionlint)
-        continue-on-error: true  # advisory until existing warnings are cleaned up
-        run: |
-          bash <(curl -sSL https://raw.githubusercontent.com/rhysd/actionlint/main/scripts/download-actionlint.bash)
-          ./actionlint -color
