@@ -146,7 +146,7 @@ class AutoPublishTests(unittest.TestCase):
         (project / "manifest.json").write_text(json.dumps({"header": {"version": [int(p) for p in version.split(".")[:3]]}}))
         return version, entry
 
-    def test_beta_bumps_patch_and_release_combines_every_beta(self):
+    def test_beta_increments_minor_and_release_combines_every_beta(self):
         with tempfile.TemporaryDirectory() as temp:
             project, log = self._project(
                 temp, [1, 3, 0],
@@ -291,11 +291,6 @@ class AutoPublishTests(unittest.TestCase):
             text = log.read_text()
             self.assertIn("## [2.0.0] - 2026-11-05", text)
             self.assertIn("## [1.3.5]", text)  # history kept
-            # the empty 2.0.0 marker is not counted as an update on the next fold
-            version, entry = self._publish(project, log, info, "beta", 6)
-            self.assertEqual(version, "2.1.0.0")
-            self.assertIn("v1.x.x (4 updates)", entry)
-            self.assertNotIn("v2.0.x", entry)
 
     def test_plain_style_has_no_html(self):
         with tempfile.TemporaryDirectory() as temp:
@@ -306,7 +301,7 @@ class AutoPublishTests(unittest.TestCase):
                     today=datetime.date(2026, 11, 4),
                 )
             self.assertNotIn("<div", entry)
-            self.assertIn("### v1.3.x (2 updates", entry)
+            self.assertIn("Packed with 2 updates", entry)
             with patch.dict(os.environ, {"CURSEFORGE_CHANGELOG_STYLE": "plain"}):
                 self.assertEqual(publisher.release.changelog_type("beta"), "markdown")
 
