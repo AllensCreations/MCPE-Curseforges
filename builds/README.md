@@ -30,6 +30,7 @@ This directory stores compiled Add-ons (`.mcaddon`), Maps (`.mcworld`), Scripts 
 | **Melody Figurine** | Add-on (.mcaddon) | [Download (.mcaddon)](Melody-Figurine/Melody%20Figurine%20by%20AllensCreations%20%28V1.0.14%29.mcaddon) | [`Melody-Figurine/`](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/builds/Melody-Figurine) |
 | **Fletching Table Arsenal** | Add-on (.mcaddon) | [Download (.mcaddon)](Fletching-Table-Arsenal/Fletching%20Table%20Arsenal%20by%20AllensCreations%20%28V1.0.0%29.mcaddon) | [`Fletching-Table-Arsenal/`](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/builds/Fletching-Table-Arsenal) |
 | **Copper-Carrier Logistics** | Add-on (.mcaddon) | [Download (.mcaddon)](Copper-Carrier-Logistics/Copper-Carrier%20Logistics%20by%20AllensCreations%20%28V1.0.0%29.mcaddon) | [`Copper-Carrier-Logistics/`](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/builds/Copper-Carrier-Logistics/) |
+| **Universal Leash** | Complete Pack (`.mcaddon`) | [Download (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Universal-Leash/Universal%20Leash%20by%20AllensCreations%20%28V1.0.2%29.mcaddon) | [`Universal-Leash/`](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/builds/Universal-Leash/) |
 
 ### Worlds and Maps
 

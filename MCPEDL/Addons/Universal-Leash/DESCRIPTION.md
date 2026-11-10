@@ -69,3 +69,4 @@ Hold a Lead, right-click a mob, and it follows you like a leashed Horse or Cow w
 ## Search & Discovery Keywords
 
 Minecraft Bedrock add-on, Universal Leash Bedrock mod, leash Villagers, leash Zombies, leash Creepers, lead any mob, Minecraft PE mod, MCPEDL add-on, CurseForge Bedrock, AllensCreations.
+
