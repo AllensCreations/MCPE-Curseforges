@@ -163,7 +163,7 @@ def scan_projects(target_project=None):
             if (
                 len(readme_lines) > 24 or not readme_lines
                 or not readme_lines[0].startswith("# ")
-                or re.search(r"\(v\d+\.\d+\.\d+\)$", readme_lines[0], re.I)
+                or re.search(r"\(v\d+\.\d+\.\d+(?:\.\d+)?\)$", readme_lines[0], re.I)
                 or not has_download_link or not has_installation
                 or not has_description_link
             ):
@@ -314,7 +314,7 @@ def auto_generate_readme(proj_dir):
     from doc_template import DESCRIPTION_BADGES, apply_description_policy
 
     clean_name = meta["name"].replace(" BP", "").replace(" RP", "").strip()
-    clean_name = re.sub(r"\s*\(v\d+\.\d+\.\d+\)\s*$", "", clean_name).strip()
+    clean_name = re.sub(r"\s*\(v\d+\.\d+\.\d+(?:\.\d+)?\)\s*$", "", clean_name).strip()
     version = meta["version"]
 
     def write_download_readme():
@@ -369,7 +369,7 @@ def auto_generate_readme(proj_dir):
         with open(description_path, "r", encoding="utf-8") as f:
             description = apply_description_policy(f.read(), addon=category == "Addons")
         description = re.sub(
-            r"(?m)^(# .+?) \(v\d+\.\d+\.\d+\)(?= — |$)",
+            r"(?m)^(# .+?) \(v\d+\.\d+\.\d+(?:\.\d+)?\)(?= — |$)",
             r"\1",
             description,
             count=1,
@@ -385,7 +385,7 @@ def auto_generate_readme(proj_dir):
             old_readme = f.read()
         if len(old_readme.strip()) > 500 and GAMEPLAY_HEADING_REGEX.search(old_readme):
             old_readme = re.sub(
-                r"(?m)^(# .+?) \(v\d+\.\d+\.\d+\)(?= — |$)",
+                r"(?m)^(# .+?) \(v\d+\.\d+\.\d+(?:\.\d+)?\)(?= — |$)",
                 r"\1",
                 old_readme,
                 count=1,

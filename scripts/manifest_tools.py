@@ -5,7 +5,12 @@ What lives here
   * align_project_manifests - make every source manifest of a project share ONE version
     (the highest, or an explicit target): header.version, the "(vX.Y.Z)" title suffix,
     module versions and BP->RP dependency versions. Pack UUIDs are never touched.
-  * bump_patch - the next X.Y.(Z+1) after the highest manifest version.
+  * bump_patch - the next X.Y.(Z+1).0 after the highest manifest version.
+
+Versions are X.Y.Z.A (4 numbers). Minecraft only accepts 3 numbers in header.version, so the
+manifest stores X.Y.Z there and the full X.Y.Z.A in metadata.version, the "(vX.Y.Z.A)" title
+suffix and the package file name. A comes from the top CHANGELOG.md heading when its X.Y.Z
+matches the manifest, else from metadata.version, else 0.
   * ensure_metadata - fill metadata.authors (and metadata.license when MANIFEST_LICENSE is set).
   * compute_source_hash - a content hash of a project's source that ignores everything the
     build itself rewrites (manifest versions/titles, derived world copies, docs, archives),
@@ -30,8 +35,9 @@ INSTALLED_COPY_PARTS = {"world", "worlds", "behavior_packs", "resource_packs"}
 JUNK_DIRS = {"__pycache__", ".git", ".github", "node_modules"}
 JUNK_FILES = {".ds_store", "thumbs.db", "desktop.ini", ".gitkeep"}
 BINARY_EXT = {".mcpack", ".mcaddon", ".mcworld", ".zip"}
-TITLE_SUFFIX_RE = re.compile(r"(?:\s*\(v\d+\.\d+\.\d+\))+\s*$")
-HAS_SUFFIX_RE = re.compile(r"\(v\d+\.\d+\.\d+\)\s*$")
+TITLE_SUFFIX_RE = re.compile(r"(?:\s*\(v\d+\.\d+\.\d+(?:\.\d+)?\))+\s*$")
+HAS_SUFFIX_RE = re.compile(r"\(v\d+\.\d+\.\d+(?:\.\d+)?\)\s*$")
+FULL_RE = re.compile(r"^(\d+)\.(\d+)\.(\d+)(?:\.(\d+))?$")
 AUTHOR = "ALNStudios"
 LEGACY_AUTHORS = ("ALNStudios",)
 FILENAME_TEMPLATE_ENV = "PACK_FILENAME_TEMPLATE"
@@ -86,8 +92,40 @@ def highest_version(project_path):
     return max(versions) if versions else None
 
 
+def parse_full(text):
+    """'1.2.3' or '1.2.3.4' -> [1,2,3,A] (A defaults to 0); None if malformed."""
+    m = FULL_RE.match(str(text or "").strip())
+    return [int(m.group(i) or 0) for i in range(1, 5)] if m else None
+
+
+def full_of(data):
+    """metadata.version of one manifest as [X,Y,Z,A], or None."""
+    meta = data.get("metadata") if isinstance(data, dict) else None
+    return parse_full(meta.get("version")) if isinstance(meta, dict) else None
+
+
+def highest_full(project_path):
+    """Highest X.Y.Z.A of the project: header triple, A from the changelog or metadata.version."""
+    triple = highest_version(project_path)
+    if triple is None:
+        return None
+    build = 0
+    cl = parse_full(latest_changelog_version(project_path))
+    if cl and cl[:3] == list(triple):
+        build = cl[3]
+    for path in source_manifest_paths(project_path):
+        try:
+            f = full_of(_read(path))
+        except (OSError, ValueError, AttributeError):
+            continue
+        if f and f[:3] == list(triple):
+            build = max(build, f[3])
+    return list(triple) + [build]
+
+
 def bump_patch(version):
-    return [version[0], version[1], version[2] + 1]
+    """Next Z: X.Y.Z[.A] -> [X, Y, Z+1, 0]."""
+    return [version[0], version[1], version[2] + 1, 0]
 
 
 def _retitle(name, version_text):
@@ -144,8 +182,9 @@ def ensure_metadata(data, license_text=None):
 def align_project_manifests(project_path, target=None, write=True, metadata=True):
     """Bring every source manifest to one version and keep titles/dependencies consistent.
 
-    target: [X, Y, Z] to force, else the highest manifest header version.
+    target: [X, Y, Z] or [X, Y, Z, A] to force, else the highest X.Y.Z.A (see highest_full).
     Returns (target_version_list_or_None, [changed manifest paths relative to the repo]).
+    header.version/modules/dependencies get X.Y.Z; metadata.version and the title get X.Y.Z.A.
     A manifest that already matches is not rewritten (no reformatting churn).
     """
     paths = source_manifest_paths(project_path)
@@ -164,9 +203,16 @@ def align_project_manifests(project_path, target=None, write=True, metadata=True
         versions = [d["header"]["version"] for _, d in loaded if is_triple(d["header"].get("version"))]
         if not versions:
             return None, []
-        target = max(versions)
+        target = highest_full(project_path)
     target = list(target)
-    target_text = fmt(target)
+    if len(target) == 3:
+        build = 0
+        full = highest_full(project_path)
+        if full and full[:3] == target:
+            build = full[3]
+        target = target + [build]
+    full_target, target = target, target[:3]
+    target_text = fmt(full_target)
     own_uuids = {d["header"].get("uuid") for _, d in loaded}
     license_text = os.environ.get("MANIFEST_LICENSE", "").strip() or None
 
@@ -174,6 +220,12 @@ def align_project_manifests(project_path, target=None, write=True, metadata=True
     for path, data in loaded:
         before = copy.deepcopy(data)
         header = data["header"]
+        meta_obj = data.get("metadata")
+        if not isinstance(meta_obj, dict):
+            meta_obj = {}
+            data["metadata"] = meta_obj
+        if meta_obj.get("version") != target_text:
+            meta_obj["version"] = target_text
         if header.get("version") != target:
             header["version"] = target
             for module in data.get("modules", []) or []:
@@ -195,7 +247,7 @@ def align_project_manifests(project_path, target=None, write=True, metadata=True
                 with open(path, "w", encoding="utf-8", newline="\n") as fh:
                     fh.write(_dump(data))
             changed.append(os.path.relpath(path, REPO_ROOT).replace(os.sep, "/"))
-    return target, changed
+    return full_target, changed
 
 
 def _normalized_manifest_bytes(raw, own_uuids):
@@ -204,6 +256,8 @@ def _normalized_manifest_bytes(raw, own_uuids):
         data = json.loads(raw.decode("utf-8"))
         header = data.get("header", {})
         header.pop("version", None)
+        if isinstance(data.get("metadata"), dict):
+            data["metadata"].pop("version", None)
         if isinstance(header.get("name"), str):
             header["name"] = TITLE_SUFFIX_RE.sub("", header["name"]).rstrip()
         for module in data.get("modules", []) or []:

@@ -42,10 +42,10 @@ class ManifestToolsTest(unittest.TestCase):
 
     def test_align_uses_highest_and_keeps_uuids(self):
         target, changed = mt.align_project_manifests(self.root)
-        self.assertEqual(target, [1, 0, 2])
+        self.assertEqual(target, [1, 0, 2, 0])
         bp = self.load("behavior_pack/manifest.json")
         self.assertEqual(bp["header"]["version"], [1, 0, 2])
-        self.assertEqual(bp["header"]["name"], "X (v1.0.2)")
+        self.assertEqual(bp["header"]["name"], "X (v1.0.2.0)")
         self.assertEqual(bp["header"]["uuid"], BP)
         self.assertEqual(bp["dependencies"][0]["version"], [1, 0, 2])
         self.assertEqual(bp["dependencies"][1]["version"], "1.15.0")
@@ -65,7 +65,8 @@ class ManifestToolsTest(unittest.TestCase):
         self.assertEqual(self.load("behavior_pack/manifest.json")["header"]["name"], "Plain Title")
 
     def test_bump_patch(self):
-        self.assertEqual(mt.bump_patch([1, 0, 2]), [1, 0, 3])
+        self.assertEqual(mt.bump_patch([1, 0, 2]), [1, 0, 3, 0])
+        self.assertEqual(mt.bump_patch([1, 0, 2, 7]), [1, 0, 3, 0])
         mt.align_project_manifests(self.root, target=mt.bump_patch(mt.highest_version(self.root)))
         self.assertEqual(mt.highest_version(self.root), [1, 0, 3])
 

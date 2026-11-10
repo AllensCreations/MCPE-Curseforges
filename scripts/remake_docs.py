@@ -26,7 +26,7 @@ STYLE_CHECKS = (
     ("BP or RP abbreviation", re.compile(r"\b(?:BP|RP)\b")),
     ("raw identifier", re.compile(r"\bminecraft:[a-z0-9_]+")),
     ("Script API or module name", re.compile(r"Script API|@minecraft/")),
-    ("duplicate version suffix", re.compile(r"\(v\d+\.\d+\.\d+\)\s*\(v\d+")),
+    ("duplicate version suffix", re.compile(r"\(v\d+\.\d+\.\d+(?:\.\d+)?\)\s*\(v\d+")),
 )
 
 
@@ -36,7 +36,7 @@ def category_of(proj):
 
 def clean_name(meta):
     name = meta["name"].replace(" BP", "").replace(" RP", "").strip()
-    return re.sub(r"\s*\(v\d+\.\d+\.\d+\)\s*$", "", name).strip()
+    return re.sub(r"\s*\(v\d+\.\d+\.\d+(?:\.\d+)?\)\s*$", "", name).strip()
 
 
 def fix_heading(text, version_text=None):
@@ -52,7 +52,7 @@ def fix_heading(text, version_text=None):
                 title, rest = title.split(sep, 1)
                 suffix = sep + rest
                 break
-        title = re.sub(r"\s*\([vV]\d+\.\d+\.\d+\)\s*$", "", title).strip()
+        title = re.sub(r"\s*\([vV]\d+\.\d+\.\d+(?:\.\d+)?\)\s*$", "", title).strip()
         lines[i] = f"# {title}{suffix}{newline}"
         return "".join(lines), i
     return text, None

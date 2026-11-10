@@ -67,7 +67,7 @@ BANNED = (
     ("'Script API' or an @minecraft module name", re.compile(r"Script API|@minecraft/", re.I)),
     ("a raw identifier such as minecraft:diamond", re.compile(r"\bminecraft:[a-z0-9_]+")),
     ("an emoji", EMOJI),
-    ("a duplicate version suffix such as (v1.0.0) (v1.0.1)", re.compile(r"\(v\d+\.\d+\.\d+\)\s*\(v\d+")),
+    ("a duplicate version suffix such as (v1.0.0) (v1.0.1)", re.compile(r"\(v\d+\.\d+\.\d+(?:\.\d+)?\)\s*\(v\d+")),
 )
 
 
@@ -179,7 +179,7 @@ def check_project_readme(text, errors):
         errors.append(f"DOC: {n} line 1 must be '# [Pack Name]' with no release version.")
         return
     name = title.group(1)
-    if re.search(r"\(v\d+\.\d+\.\d+\)$", name, re.I):
+    if re.search(r"\(v\d+\.\d+\.\d+(?:\.\d+)?\)$", name, re.I):
         errors.append(f"DOC: {n} title must not contain a release version.")
     expect = [
         (1, f"Download the current release of **{name}** for Minecraft Bedrock Edition.", "the intro sentence"),
@@ -229,7 +229,7 @@ def check_description(text, version, errors, ptype="addon", images_dir=None):
     head = re.search(r"(?m)^# (.+?) — (\S.*)$", pre)
     if not head or pre.lstrip().split("\n", 1)[0] != head.group(0):
         errors.append(f"DOC: {n} line 1 must be '# [Pack Name] — [Clear, factual subtitle]' with no release version.")
-    elif re.search(r"\(v\d+\.\d+\.\d+\)$", head.group(1), re.I):
+    elif re.search(r"\(v\d+\.\d+\.\d+(?:\.\d+)?\)$", head.group(1), re.I):
         errors.append(f"DOC: {n} title must not contain a release version.")
     after = [l for l in pre.split("\n")[1:] if l.strip()]
     if not after or after[0] != "**By ALNStudios**":

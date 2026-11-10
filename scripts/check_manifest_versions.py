@@ -97,6 +97,12 @@ def check_manifest(path, data, report):
         report.error(where, f"header.uuid is not a valid UUID ({header.get('uuid')!r}).")
     if not is_triple(header.get("version")):
         report.error(where, "header.version must be three non-negative integers.")
+    meta = data.get("metadata") if isinstance(data.get("metadata"), dict) else {}
+    full = meta.get("version")
+    if not (isinstance(full, str) and re.fullmatch(r"\d+\.\d+\.\d+\.\d+", full)):
+        report.warn(where, f"metadata.version should be X.Y.Z.A (found {full!r}); the build adds it.")
+    elif is_triple(header.get("version")) and full.rsplit(".", 1)[0] != ".".join(map(str, header["version"])):
+        report.error(where, f"metadata.version {full} does not start with header.version {header['version']}.")
     mev = header.get("min_engine_version")
     if mev is None:
         report.error(where, "header.min_engine_version is missing.")

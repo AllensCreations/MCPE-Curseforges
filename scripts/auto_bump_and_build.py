@@ -188,7 +188,8 @@ def detect_unregistered_projects(project_dirs):
 # ─────────────────────────────────────────────────────────────────────────────
 
 def format_version(ver_list):
-    return f"{ver_list[0]}.{ver_list[1]}.{ver_list[2]}"
+    """X.Y.Z or X.Y.Z.A (every number given)."""
+    return ".".join(str(p) for p in ver_list)
 
 
 def _manifest_versions(project_path):
@@ -232,6 +233,10 @@ def get_manifest_info(project_path):
             break
     if found:
         info["version_list"] = max(v for _, _, v in found)
+        if manifest_tools:
+            full = manifest_tools.highest_full(project_path)
+            if full:
+                info["version_list"] = full
         info["version_str"] = format_version(info["version_list"])
     return info
 
@@ -266,7 +271,7 @@ def get_project_title(project_path):
                             title_part = title_part.split(sep)[0].strip()
                     title_part = title_part.replace(" Challenge", "")
                     title_part = re.sub(
-                        r"\s*\([vV]\d+\.\d+\.\d+\)\s*$",
+                        r"\s*\([vV]\d+\.\d+\.\d+(?:\.\d+)?\)\s*$",
                         "",
                         title_part,
                         flags=re.IGNORECASE,
@@ -514,8 +519,8 @@ VERSION_KEEP = int(os.environ.get("KEEP_VERSIONS", "5"))
 
 
 def _version_sort_key(folder_name):
-    m = re.match(r"V(\d+)\.(\d+)\.(\d+)$", folder_name)
-    return tuple(int(x) for x in m.groups()) if m else None
+    m = re.match(r"V(\d+)\.(\d+)\.(\d+)(?:\.(\d+))?$", folder_name)
+    return tuple(int(x or 0) for x in m.groups()) if m else None
 
 
 PACKAGE_EXTS = (".mcaddon", ".mcpack", ".mcworld")
@@ -1117,7 +1122,7 @@ def main():
         action="store_true",
         default=os.environ.get("AUTO_BUMP_MANIFEST", "").lower() in {"1", "true", "yes"},
         help="When a project's source changed since its snapshot at the current manifest "
-             "version, bump X.Y.Z -> X.Y.(Z+1) in every manifest first (UUIDs untouched). "
+             "version, bump X.Y.Z.A -> X.Y.(Z+1).0 in every manifest first (UUIDs untouched). "
              "Without it the snapshot for that version is refreshed in place. "
              "Env: AUTO_BUMP_MANIFEST=true.",
     )

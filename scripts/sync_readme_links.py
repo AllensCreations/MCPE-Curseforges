@@ -17,8 +17,8 @@ CATEGORIES = ("Addons", "Maps", "Script", "Minigame")
 PACKAGE_EXT = (".mcaddon", ".mcpack", ".mcworld")
 MODES = ("Creative", "Survival", "Hardcore")
 LINK_RE = re.compile(r"(\]\()((?:[^()\s]|\([^()]*\))+)(\))")
-VERSION_TOKEN = re.compile(r"\(V(\d+)\.(\d+)\.(\d+)\)")
-CELL_VERSION = re.compile(r"^(\s*)(v?)(\d+\.\d+\.\d+)(\s*)$")
+VERSION_TOKEN = re.compile(r"\(V(\d+)\.(\d+)\.(\d+)(?:\.(\d+))?\)")
+CELL_VERSION = re.compile(r"^(\s*)(v?)(\d+\.\d+\.\d+(?:\.\d+)?)(\s*)$")
 
 
 def posix(path):
@@ -27,7 +27,7 @@ def posix(path):
 
 def file_version(name):
     match = VERSION_TOKEN.search(name)
-    return tuple(int(g) for g in match.groups()) if match else (0, 0, 0)
+    return tuple(int(g or 0) for g in match.groups()) if match else (0, 0, 0, 0)
 
 
 def shape(name):
@@ -192,7 +192,7 @@ def sync_versions_in_line(line, project, columns):
             parts[position] = f"{match.group(1)}{match.group(2)}{project.version}{match.group(4)}"
             changed = True
         else:
-            new_cell = re.sub(r"`v\d+\.\d+\.\d+`", f"`v{project.version}`", cell)
+            new_cell = re.sub(r"`v\d+\.\d+\.\d+(?:\.\d+)?`", f"`v{project.version}`", cell)
             if new_cell != cell:
                 parts[position] = new_cell
                 changed = True
@@ -242,7 +242,7 @@ def sync_text(readme, text, projects, report):
         elif line.startswith("### ") and "(v" in line:
             hits = [p for p in heading_projects if p.title and p.title.lower() in line.lower()]
             if len(hits) == 1 and hits[0].version:
-                line = re.sub(r"\((v)\d+\.\d+\.\d+\)", lambda m: f"({m.group(1)}{hits[0].version})", line, count=1)
+                line = re.sub(r"\((v)\d+\.\d+\.\d+(?:\.\d+)?\)", lambda m: f"({m.group(1)}{hits[0].version})", line, count=1)
         if line != original:
             report["lines"] += 1
         out_lines.append(line)
@@ -316,7 +316,7 @@ def main():
                 report["projects"].append(posix(project.path / "README.md"))
                 if args.check:
                     (project.path / "README.md").write_text(before, encoding="utf-8")
-        if project.primary and project.version and file_version(project.primary) != tuple(int(x) for x in project.version.split(".")):
+        if project.primary and project.version and file_version(project.primary) != tuple((int(x) for x in project.version.split(".")) if len(project.version.split(".")) == 4 else tuple(int(x) for x in project.version.split(".")) + (0,)):
             report["stale"].append(f"{project.slug}: package is {'.'.join(map(str, file_version(project.primary)))} but the manifest is {project.version}; rebuild it.")
         if not project.packages and not project.world_archives:
             report["stale"].append(f"{project.slug}: no package in builds/ and no world archive; its download links cannot work until one is built.")

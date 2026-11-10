@@ -6,7 +6,7 @@ name: Build Changed Packs & Sync Catalogs
 #   build (default, also runs on push to main and daily)
 #     Rebuild packs and synchronize their catalogs. Every build follows the version in the pack
 #     manifests: BP and RP manifests are aligned to the highest one, and
-#     builds/<pack>/versions/V<x.y.z>/ (packages, source.zip, source.sha256, build_info.json) is
+#     builds/<pack>/versions/V<x.y.z.a>/ (packages, source.zip, source.sha256, build_info.json) is
 #     created or REFRESHED IN PLACE whenever the source or packages differ from the saved snapshot.
 #     Manifest versions are only bumped when "bump_on_change" is on (input, or repo variable
 #     AUTO_BUMP_MANIFEST=true); otherwise the publish task owns version bumps.
@@ -14,7 +14,8 @@ name: Build Changed Packs & Sync Catalogs
 #   publish  (the ONLY place that uploads to CurseForge)
 #     Dropdown + project IDs + last published versions all come from builds/Curseforge_IDs.json
 #     (written by "Register CurseForge ID", which also refreshes the dropdown).
-#     Versions are X.Y.Z.A. Every normal update only bumps A in CHANGELOG.md; manifests stay X.Y.Z.
+#     Versions are X.Y.Z.A. Every normal update only bumps A in CHANGELOG.md. The build copies the full X.Y.Z.A into every manifest
+#     (metadata.version + the "(vX.Y.Z.A)" title suffix + package file names); header.version stays X.Y.Z because Minecraft only accepts 3 numbers there.
 #       beta:    X.Y.Z.A becomes X.Y.(Z+1).0; every unpublished A version is merged into one grouped entry.
 #       alpha:   X.Y.Z.A becomes X.(Y+1).0.0; the changelog shows every series (1.3.x and lower) as a group.
 #       release: X.Y.Z.A becomes (X+1).0.0.0; the changelog shows every major (v1.x.x) as a group.

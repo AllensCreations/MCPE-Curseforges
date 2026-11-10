@@ -36,7 +36,11 @@ def project_version(project):
             version = data["header"].get("version")
             if cmv.is_triple(version):
                 versions.append(tuple(version))
-    return max(versions) if versions else None
+    if not versions:
+        return None
+    import manifest_tools as mt
+    full = mt.highest_full(str(project))
+    return tuple(full) if full else max(versions)
 
 
 def project_title(project):
@@ -93,7 +97,7 @@ def sync_description(path, version_text=None):
                 title, rest = title.split(sep, 1)
                 suffix = sep + rest
                 break
-        title = re.sub(r"\s*\([vV]\d+\.\d+\.\d+\)\s*$", "", title).strip()
+        title = re.sub(r"\s*\([vV]\d+\.\d+\.\d+(?:\.\d+)?\)\s*$", "", title).strip()
         new = f"# {title}{suffix}{newline}"
         if new == line:
             return None

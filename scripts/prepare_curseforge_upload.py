@@ -58,6 +58,8 @@ def project_from_path(project_path):
 def align_manifests(project_dir, changelog_version):
     target = [int(part) for part in changelog_version.split(".")[:3]]
     manifest_version = ".".join(str(part) for part in target)
+    _parts = changelog_version.split(".")
+    full_version = ".".join(_parts[:4]) if len(_parts) >= 4 else changelog_version + ".0"
     manifest_paths = [
         path for path in sorted(project_dir.rglob("manifest.json"))
         if not {"world", "worlds", "behavior_packs", "resource_packs"}.intersection(path.parts)
@@ -97,8 +99,11 @@ def align_manifests(project_dir, changelog_version):
         header = data["header"]
         header["version"] = target
         if isinstance(header.get("name"), str):
-            name = re.sub(r"(?:\s*\(v\d+\.\d+\.\d+\))+\s*$", "", header["name"]).rstrip()
-            header["name"] = f"{name} (v{manifest_version})"
+            name = re.sub(r"(?:\s*\(v\d+\.\d+\.\d+(?:\.\d+)?\))+\s*$", "", header["name"]).rstrip()
+            header["name"] = f"{name} (v{full_version})"
+        if not isinstance(data.get("metadata"), dict):
+            data["metadata"] = {}
+        data["metadata"]["version"] = full_version
         for module in data.get("modules", []):
             if isinstance(module, dict) and isinstance(module.get("version"), list):
                 module["version"] = target

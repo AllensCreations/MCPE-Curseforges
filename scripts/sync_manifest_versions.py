@@ -61,7 +61,7 @@ def write_json(path, data):
 
 def strip_suffix(name):
     import re
-    return re.sub(r"(?:\s*\(v\d+\.\d+\.\d+\))+\s*$", "", name).rstrip()
+    return re.sub(r"(?:\s*\(v\d+\.\d+\.\d+(?:\.\d+)?\))+\s*$", "", name).rstrip()
 
 
 def content_format_max(bp_manifest_path):
@@ -109,12 +109,17 @@ def sync_project(project, raise_engine, known_uuids, changes, notices):
 
     versions = [tuple(d["header"]["version"]) for d in sources.values() if cmv.is_triple(d["header"].get("version"))]
     canonical = list(max(versions)) if versions else None
-    version_text = ".".join(map(str, canonical)) if canonical else None
+    import manifest_tools as mt
+    full = mt.highest_full(project) if canonical else None
+    version_text = ".".join(map(str, full)) if full else (".".join(map(str, canonical)) if canonical else None)
 
     for path, data in sources.items():
         header = data["header"]
         if canonical:
             header["version"] = list(canonical)
+            if not isinstance(data.get("metadata"), dict):
+                data["metadata"] = {}
+            data["metadata"]["version"] = version_text
             if isinstance(header.get("name"), str) and header["name"].strip():
                 header["name"] = f"{strip_suffix(header['name'])} (v{version_text})"
             for module in data.get("modules", []) if isinstance(data.get("modules"), list) else []:

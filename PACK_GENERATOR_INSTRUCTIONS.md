@@ -88,11 +88,11 @@ Do this for every new pack and meaningful update. A compatible API version does 
 
 ### 3. Manifest Title, Attribution, and LOCK Marker
 
-- Every Behavior Pack and Resource Pack manifest title is `Add-on Name (vX.Y.Z)`, for example `Vanilla Quality of Life (v1.3.0)`. Update it whenever the release version changes; release automation must preserve this.
+- Every Behavior Pack and Resource Pack manifest title is `Add-on Name (vX.Y.Z.A)`, for example `Vanilla Quality of Life (v1.3.0.4)`. Update it whenever the release version changes; release automation must preserve this.
 - Put `by ALNStudios` in `header.description` exactly once. Normalize existing descriptions rather than appending duplicates. Keep attribution out of the title.
 - Do not change pack UUIDs or world storage keys just to rename a title.
 - **Title validator**, run in the release workflow, failing the job on any violation and reporting errors rather than rewriting titles. For every manifest under `MCPEDL/`:
-  - exactly one terminal `(vX.Y.Z)` suffix;
+  - exactly one terminal `(vX.Y.Z.A)` suffix;
   - that version matches `header.version`;
   - no malformed or duplicated suffixes;
   - `behavior_pack/` and `resource_pack/` versions match when both exist.
@@ -498,7 +498,7 @@ Do not ship `oneblock.json` (the importer writes it for maps), `LOCK` files (the
 Applies to `behavior_pack/manifest.json` and, when present, `resource_pack/manifest.json`. Part 1, Sections 2 and 3 apply in full.
 
 - `format_version`: 2. `header.min_engine_version` is a 3-integer array, a looked-up version, never `[0, 0, 0]`.
-- `header.name` is exactly `Add-on Name (vX.Y.Z)`: one terminal version suffix equal to `header.version`. Both packs use the same version.
+- `header.name` is exactly `Add-on Name (vX.Y.Z.A)`: one terminal version suffix equal to `header.version`. Both packs use the same version.
 - `header.description` contains `by ALNStudios` exactly once. Keep attribution out of the name.
 - Fresh, valid, unique UUIDs (v4) for every header and module. Never reuse one, and never copy a UUID from an example.
 - If a resource pack exists, the behavior pack's `dependencies` includes `{ "uuid": "<resource pack header.uuid>", "version": [x, y, z] }` with the matching version.

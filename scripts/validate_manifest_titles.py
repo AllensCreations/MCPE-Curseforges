@@ -5,7 +5,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 PROJECT_ROOT = ROOT / "MCPEDL"
-TITLE_RE = re.compile(r"^(.+?) \(v(\d+\.\d+\.\d+)\)$")
+TITLE_RE = re.compile(r"^(.+?) \(v(\d+\.\d+\.\d+\.\d+)\)$")
 ATTRIBUTION = "by ALNStudios"
 
 def advisories(paths):
@@ -48,14 +48,20 @@ def validate(paths):
             expected = None
         else:
             expected = ".".join(map(str, version))
+            meta = data.get("metadata") if isinstance(data.get("metadata"), dict) else {}
+            full = str(meta.get("version", ""))
+            if not re.fullmatch(r"\d+\.\d+\.\d+\.\d+", full) or full.rsplit(".", 1)[0] != expected:
+                errors.append(f"{rel}: metadata.version must be X.Y.Z.A and start with header.version v{expected} (found {full!r}).")
+            else:
+                expected = full
         name = header.get("name")
         match = TITLE_RE.fullmatch(name) if isinstance(name, str) else None
         if not match:
-            errors.append(f"{rel}: header.name must have exactly one terminal '(vX.Y.Z)' suffix; malformed or duplicate suffixes are invalid.")
+            errors.append(f"{rel}: header.name must have exactly one terminal '(vX.Y.Z.A)' suffix; malformed or duplicate suffixes are invalid.")
         else:
             shown = match.group(2)
             if expected is not None and shown != expected:
-                errors.append(f"{rel}: title version v{shown} does not match header.version v{expected}.")
+                errors.append(f"{rel}: title version v{shown} does not match the manifest version v{expected}.")
             records.append((path, shown))
         desc = header.get("description")
         if not isinstance(desc, str) or desc.count(ATTRIBUTION) != 1:
