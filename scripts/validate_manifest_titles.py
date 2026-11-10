@@ -5,7 +5,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 PROJECT_ROOT = ROOT / "MCPEDL"
-TITLE_RE = re.compile(r"^(.+?) \\(v(\\d+\\.\\d+\\.\\d+)\\)$")
+TITLE_RE = re.compile(r"^(.+?) \(v(\d+\.\d+\.\d+)\)$")
 ATTRIBUTION = "by ALNStudios"
 
 def advisories(paths):
