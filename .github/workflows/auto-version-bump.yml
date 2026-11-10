@@ -274,10 +274,10 @@ jobs:
     if: ${{ !cancelled() && (needs.publish.result == 'success' || needs.publish.result == 'skipped') && (github.event_name != 'push' || (!contains(github.event.head_commit.message, '[skip ci]') && !contains(toJSON(github.event.commits), 'MCPEDL/Maps/OneBlock-Dirtbound-Kingdom-Beta/'))) }}
 
     steps:
-      - name: Checkout main
+      - name: Check out the triggering branch
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
-          ref: main
+          ref: ${{ github.ref }}
           fetch-depth: 0
           token: ${{ secrets.GITHUB_TOKEN }}
 
@@ -451,7 +451,7 @@ jobs:
             echo "Nothing to commit: packages, catalogs and READMEs are up to date."
           else
             git commit -m "chore(build): rebuild packages and sync catalogs [skip ci]"
-            python3 scripts/git_push_retry.py --branch main
+            python3 scripts/git_push_retry.py --branch "${GITHUB_REF#refs/heads/}"
           fi
  <<< "$CHANGED_PATHS"; then
                   # A version-tooling migration can change every project even when the commit
