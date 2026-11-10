@@ -141,51 +141,13 @@ def _find_project_path(name):
     return None
 
 
-def _load_registry():
-    """Return (registry, migrated_legacy_files).
-
-    Packs that still have an old builds/<Name>/Curseforge_Info.json are detected and folded in
-    automatically (the registry wins when a pack is in both).
-    """
-    path = registry_path()
-    registry = {}
-    if path.is_file():
-        try:
-            registry = json.loads(path.read_text(encoding="utf-8"))
-        except json.JSONDecodeError as exc:
-            raise ValueError(f"Invalid JSON: {path.relative_to(REPO_ROOT)}") from exc
-        if not isinstance(registry, dict):
-            raise ValueError(f"{path.relative_to(REPO_ROOT)} must hold a JSON object")
-
-    migrated = []
-    builds = REPO_ROOT / "builds"
-    for legacy in sorted(builds.glob("*/Curseforge_Info.json")) if builds.is_dir() else []:
-        try:
-            info = json.loads(legacy.read_text(encoding="utf-8"))
-        except (OSError, json.JSONDecodeError):
-            continue
-        project_id = _clean_id(info.get("project_id")) if isinstance(info, dict) else None
-        saved_path = info.get("project") if isinstance(info, dict) else None
-        key = saved_path if isinstance(saved_path, str) and re.fullmatch(
-            r"MCPEDL/(Addons|Maps|Script|Minigame)/[A-Za-z0-9][A-Za-z0-9_-]*", saved_path
-        ) else _find_project_path(legacy.parent.name)
-        if not project_id or not key:
-            continue
-        entry = {"project_id": project_id}
-        for field in ("last_published_version", "last_release_version"):
-            if info.get(field):
-                entry[field] = info[field]
-        registry.setdefault(key, entry)
-        migrated.append(legacy)
-    for entry in registry.values():
-        if not isinstance(entry, dict): continue
-        entry.pop("last_alpha_version", None)
-        for field in ("last_published_version", "last_release_version"):
-            value = entry.get(field)
-            if isinstance(value, str):
-                parts = value.split(".")
-                if len(parts) == 4 and all(part.isdigit() for part in parts):
-                    entry[field] = ".".join((parts[0], parts[1], str(int(parts[3]))))
+def _legacy_version_to_three_part(value):
+    """Map old Release.Alpha.Beta.Update (or omitted Update) to Release.Beta.Update."""
+    if not isinstance(value, str): return None
+                if not migration_done:
+                    entry[field] = _legacy_version_to_three_part(value) or value
+                elif len(value.split(".")) == 4:
+                    entry[field] = _legacy_version_to_three_part(value) or value
     return registry, migrated
 
 
