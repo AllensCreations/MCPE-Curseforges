@@ -309,7 +309,7 @@ def main() -> int:
         )
         ok(
             map_package.suffix == ".mcworld"
-            and re.search(r" - Survival v\(\d+\.\d+\.\d+\.\d+\)\.mcworld$", map_package.name)
+            and re.search(r" - Survival v\(\d+\.\d+\.\d+\)\.mcworld$", map_package.name)
             and map_package.is_file(),
             "CurseForge: rebuilds and selects a map world variant",
         )
