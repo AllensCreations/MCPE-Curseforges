@@ -384,6 +384,9 @@ jobs:
           } >> "$GITHUB_STEP_SUMMARY"
           exit "$STATUS"
 
+      - name: Refresh GitHub and CurseForge changelog views
+        run: python3 scripts/build_changelog_views.py --all
+
       - name: Standardize DESCRIPTION files
         run: |
           set -uo pipefail
