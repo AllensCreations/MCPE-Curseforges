@@ -56,10 +56,10 @@ def project_from_path(project_path):
 
 
 def align_manifests(project_dir, changelog_version):
-    target = [int(part) for part in changelog_version.split(".")[:3]]
-    manifest_version = ".".join(str(part) for part in target)
-    _parts = changelog_version.split(".")
-    full_version = ".".join(_parts[:4]) if len(_parts) >= 4 else changelog_version + ".0"
+    target = [int(part) for part in changelog_version.split(".")]
+    if len(target) != 3:
+        raise ValueError(f"Version must be X.Y.Z, found {changelog_version!r}")
+    full_version = changelog_version
     manifest_paths = [
         path for path in sorted(project_dir.rglob("manifest.json"))
         if not {"world", "worlds", "behavior_packs", "resource_packs"}.intersection(path.parts)
@@ -172,7 +172,7 @@ def _load_registry():
         if not project_id or not key:
             continue
         entry = {"project_id": project_id}
-        for field in ("last_published_version", "last_release_version", "last_legacy alpha_version"):
+        for field in ("last_published_version", "last_release_version"):
             if info.get(field):
                 entry[field] = info[field]
         registry.setdefault(key, entry)
@@ -509,7 +509,6 @@ def prepare(project_path, release_type, map_variant="default", rebuild=True, bum
             info.get("last_published_version"),
             release_type=release_type,
             last_release=info.get("last_release_version"),
-            last_legacy alpha=info.get("last_legacy alpha_version"),
         )
     else:
         changelog_version, changelog = latest_changelog_entry(changelog_path)
