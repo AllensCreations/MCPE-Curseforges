@@ -11,7 +11,7 @@
 ## [1.0.7] - 2026-10-27
 
 ### Added
-- **Controller**: The host or an operator starts the challenge from the AllensCreations Controller. Roles and the leash are active only while the challenge is running.
+- **Controller**: The host or an operator starts the challenge from the ALNStudios Controller. Roles and the leash are active only while the challenge is running.
 - **Win condition**: Defeating the Ender Dragon ends the challenge.
 - **Recall**: Partners who stay more than 64 blocks apart, or in different dimensions, are brought together.
 

@@ -6,7 +6,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 PROJECT_ROOT = ROOT / "MCPEDL"
 TITLE_RE = re.compile(r"^(.+?) \(v(\d+\.\d+\.\d+)\)$")
-ATTRIBUTION = "by AllensCreations"
+ATTRIBUTION = "by ALNStudios"
 
 def advisories(paths):
     """Non-failing manifest hygiene notes (policy: format_version 2, real min_engine_version, authors)."""

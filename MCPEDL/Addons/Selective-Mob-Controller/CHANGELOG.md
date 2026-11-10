@@ -1,6 +1,6 @@
 # Changelog — Selective Mob Controller
 
-All notable updates and improvements to the **Selective Mob Controller** add-on by AllensCreations are documented in this file.
+All notable updates and improvements to the **Selective Mob Controller** add-on by ALNStudios are documented in this file.
 
 ---
 

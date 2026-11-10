@@ -2,7 +2,7 @@
   "format_version": 2,
   "header": {
     "name": "Passive Auto-Switch Tools (v1.1.16)",
-    "description": "Zero-configuration passive tool auto-switcher when holding Hotbar Slot 1. by AllensCreations",
+    "description": "Zero-configuration passive tool auto-switcher when holding Hotbar Slot 1. by ALNStudios",
     "uuid": "030580a5-3472-418c-82bd-656a52728134",
     "version": [
       1,
@@ -37,7 +37,7 @@
   ],
   "metadata": {
     "authors": [
-      "AllensCreations"
+      "ALNStudios"
     ],
     "product_type": "addon"
   }

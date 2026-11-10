@@ -2,7 +2,7 @@
   "format_version": 2,
   "header": {
     "name": "Padlock & Key (v1.0.0)",
-    "description": "Password locks for chests, doors and more. by AllensCreations",
+    "description": "Password locks for chests, doors and more. by ALNStudios",
     "uuid": "1f5df9cb-a6fb-4490-9a2b-71d54e078955",
     "version": [
       1,
@@ -53,7 +53,7 @@
   ],
   "metadata": {
     "authors": [
-      "AllensCreations"
+      "ALNStudios"
     ],
     "product_type": "addon"
   }

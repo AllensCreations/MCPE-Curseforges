@@ -1,6 +1,6 @@
 # Mob Chaos: Behavioral Roulette — Wildcard Mob Mutation Minigame
 
-**By AllensCreations**
+**By ALNStudios**
 
 [![Minecraft Bedrock](https://img.shields.io/badge/Minecraft%20Bedrock-Stable%20Release-brightgreen?style=flat-square&logo=minecraft)](https://github.com/AllensCreations/MCPE-Curseforges)
 [![Format](https://img.shields.io/badge/Format-.MCPACK%20%7C%20.MCADDON%20%7C%20.MCWORLD-blue?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges)
@@ -41,7 +41,7 @@ Before each mutation, eerie blood-red glitch text flashes on your action bar or 
 ### Chaos Events
 - **What Happens**: About one shuffle in five becomes a surprise event. A title appears on screen and many nearby mobs get the same mutation at once, such as a dance party or a stampede toward you. Chaos events can be turned off in the Controller.
 
-### AllensCreations Controller
+### ALNStudios Controller
 - **What Happens**: The Controller item is given to each player on spawn if they are not already carrying one. Right-click or hold it to open a form with Start, Restart, End, Block damage, Shuffle interval (15, 30 or 60 seconds), Mobs (All or Hostile only), Chaos events and Glitch text. In multiplayer, only operators can use it, and Start, Restart and End can also be triggered from commands and command blocks.
 
 ### Safety and Limits
@@ -71,19 +71,19 @@ Before each mutation, eerie blood-red glitch text flashes on your action bar or 
 
 ## Guidelines and Attribution
 
-- Creator: AllensCreations
-- Rights & Reservation: All rights reserved for AllensCreations.
-- Content Creators: Content creators are permitted to feature this creation in videos and streams with credit to AllensCreations.
+- Creator: ALNStudios
+- Rights & Reservation: All rights reserved for ALNStudios.
+- Content Creators: Content creators are permitted to feature this creation in videos and streams with credit to ALNStudios.
 - Redistribution: Do not re-upload this pack or provide direct monetized download bypasses. Link directly to the official repository page.
 - Disclaimer: This is an unofficial community creation. It is not an official Minecraft product and is not approved by or associated with Mojang or Microsoft.
 
 ---
 
-© All rights reserved for AllensCreations.
+© All rights reserved for ALNStudios.
 
 ---
 
 ## Search & Discovery Keywords
 
-Minecraft Bedrock add-on, Mob Chaos Behavioral Roulette Bedrock mod, mutating mobs Minecraft Bedrock, chaotic mob traits, creeper fuse animals, flying cows Bedrock, mob dance party, mob chaos events, mobs swap places, Minecraft PE minigame, MCPEDL add-on, CurseForge Bedrock, AllensCreations.
+Minecraft Bedrock add-on, Mob Chaos Behavioral Roulette Bedrock mod, mutating mobs Minecraft Bedrock, chaotic mob traits, creeper fuse animals, flying cows Bedrock, mob dance party, mob chaos events, mobs swap places, Minecraft PE minigame, MCPEDL add-on, CurseForge Bedrock, ALNStudios.
 

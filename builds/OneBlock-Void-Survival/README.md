@@ -1,6 +1,6 @@
 # OneBlock Void Survival - Downloads and Releases
 
-This folder contains compiled release packages for **OneBlock Void Survival** by AllensCreations.
+This folder contains compiled release packages for **OneBlock Void Survival** by ALNStudios.
 
 ---
 
@@ -8,7 +8,7 @@ This folder contains compiled release packages for **OneBlock Void Survival** by
 
 | File Name | Format | Size | Description | Download Link |
 | :--- | :--- | :--- | :--- | :--- |
-| **`OneBlock Void Survival by AllensCreations (V2.0.0).mcworld`** | `.mcworld` | ~266 KB | Complete Survival World archive ready for one-click import. | [Download (.mcworld)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/OneBlock-Void-Survival/OneBlock%20Void%20Survival%20by%20AllensCreations%20%28V2.0.0%29.mcworld) |
+| **`OneBlock Void Survival by ALNStudios (V2.0.0).mcworld`** | `.mcworld` | ~266 KB | Complete Survival World archive ready for one-click import. | [Download (.mcworld)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/OneBlock-Void-Survival/OneBlock%20Void%20Survival%20by%20AllensCreations%20%28V2.0.0%29.mcworld) |
 
 ---
 
@@ -24,4 +24,4 @@ To inspect uncompressed JSON files, geometry, render controllers, and textures:
 
 ---
 
-© All rights reserved for AllensCreations.
+© All rights reserved for ALNStudios.

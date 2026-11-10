@@ -1,6 +1,6 @@
 # One-Block Hardcore Survival Economy - Downloads and Releases
 
-This folder contains compiled release packages for **One-Block Hardcore Survival Economy** by AllensCreations.
+This folder contains compiled release packages for **One-Block Hardcore Survival Economy** by ALNStudios.
 
 ---
 
@@ -8,7 +8,7 @@ This folder contains compiled release packages for **One-Block Hardcore Survival
 
 | File Name | Format | Size | Description | Download Link |
 | :--- | :--- | :--- | :--- | :--- |
-| **`One-Block Hardcore Survival Economy by AllensCreations (V1.0.4).mcaddon`** | `.mcaddon` | ~88 KB | Complete Add-on package for Minecraft Bedrock. | [Download (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/One-Block-Economy/One-Block%20Hardcore%20Survival%20Economy%20by%20AllensCreations%20%28V1.0.4%29.mcaddon) |
+| **`One-Block Hardcore Survival Economy by ALNStudios (V1.0.4).mcaddon`** | `.mcaddon` | ~88 KB | Complete Add-on package for Minecraft Bedrock. | [Download (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/One-Block-Economy/One-Block%20Hardcore%20Survival%20Economy%20by%20AllensCreations%20%28V1.0.4%29.mcaddon) |
 
 ---
 
@@ -24,4 +24,4 @@ To inspect uncompressed JSON files, geometry, render controllers, and textures:
 
 ---
 
-© All rights reserved for AllensCreations.
+© All rights reserved for ALNStudios.

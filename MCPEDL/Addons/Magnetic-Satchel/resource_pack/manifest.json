@@ -2,7 +2,7 @@
   "format_version": 2,
   "header": {
     "name": "Magnetic Satchel (v1.0.8)",
-    "description": "Resource pack for the Magnetic Satchel item icon. by AllensCreations",
+    "description": "Resource pack for the Magnetic Satchel item icon. by ALNStudios",
     "uuid": "1f3e564d-f82d-4dc5-b26b-53f7b5bbf451",
     "version": [
       1,
@@ -38,7 +38,7 @@
   ],
   "metadata": {
     "authors": [
-      "AllensCreations"
+      "ALNStudios"
     ],
     "product_type": "addon"
   }

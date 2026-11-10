@@ -1,6 +1,6 @@
 /**
  * Smart Tree Capitator & Domino Ore Miner
- * Created by AllensCreations — MCPE Curseforges
+ * Created by ALNStudios — MCPE Curseforges
  *
  * Single-file self-contained Script API implementation.
  * Target: Minecraft Bedrock 1.21+ / Script API @minecraft/server 1.13.0+

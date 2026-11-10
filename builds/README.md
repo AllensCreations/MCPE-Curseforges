@@ -1,6 +1,6 @@
 # Builds Directory - MCPE Curseforges
 
-This directory stores compiled Add-ons (`.mcaddon`), Maps (`.mcworld`), Scripts (`.mcpack`), and Minigames (`.mcaddon`) by AllensCreations. OneBlock maps use separate Creative, Survival, and Hardcore foundations; structural checks do not replace in-game testing.
+This directory stores compiled Add-ons (`.mcaddon`), Maps (`.mcworld`), Scripts (`.mcpack`), and Minigames (`.mcaddon`) by ALNStudios. OneBlock maps use separate Creative, Survival, and Hardcore foundations; structural checks do not replace in-game testing.
 
 ---
 
@@ -23,7 +23,7 @@ This directory stores compiled Add-ons (`.mcaddon`), Maps (`.mcworld`), Scripts 
 | **Grimoire-Relics-V2** | Add-on (.mcaddon) | [Download (.mcaddon)](Grimoire-Relics-V2/Grimoire%20Relics%20V2%20by%20AllensCreations%20%28V1.0.12%29.mcaddon) | [`Grimoire-Relics-V2/`](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/builds/Grimoire-Relics-V2) |
 | **Grand-Banquets** | Add-on (.mcaddon) | [Download (.mcaddon)](Grand-Banquets/Grand%20Banquets%20by%20AllensCreations%20%28V1.0.6%29.mcaddon) | [`Grand-Banquets/`](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/builds/Grand-Banquets) |
 | **Sudden-Death-Roulette** | Add-on (.mcaddon) | [Download (.mcaddon)](Sudden-Death-Roulette/Sudden%20Death%20Roulette%20by%20AllensCreations%20%28V1.0.4%29.mcaddon) | [`Sudden-Death-Roulette/`](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/builds/Sudden-Death-Roulette) |
-| **Selective Mob Controller by AllensCreations** | Add-on (.mcaddon) | [Download (.mcaddon)](Selective-Mob-Controller/Selective%20Mob%20Controller%20by%20AllensCreations%20%28V1.0.5%29.mcaddon) | [`Selective-Mob-Controller/`](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/builds/Selective-Mob-Controller) |
+| **Selective Mob Controller by ALNStudios** | Add-on (.mcaddon) | [Download (.mcaddon)](Selective-Mob-Controller/Selective%20Mob%20Controller%20by%20AllensCreations%20%28V1.0.5%29.mcaddon) | [`Selective-Mob-Controller/`](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/builds/Selective-Mob-Controller) |
 | **Swarm Mob Booster** | Add-on (.mcaddon) | [Download (.mcaddon)](Swarm-Mob-Booster/Swarm%20Mob%20Booster%20by%20AllensCreations%20%28V1.0.8%29.mcaddon) | [`Swarm-Mob-Booster/`](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/builds/Swarm-Mob-Booster) |
 | **One-Block-Economy** | Add-on (.mcaddon) | [Download (.mcaddon)](One-Block-Economy/One-Block%20Hardcore%20Survival%20Economy%20by%20AllensCreations%20%28V1.0.4%29.mcaddon) | [`One-Block-Economy/`](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/builds/One-Block-Economy) |
 | **Harvest Intelligence** | Add-on (.mcaddon) | [Download (.mcaddon)](Harvest-Intelligence/Harvest%20Intelligence%20by%20AllensCreations%20%28V1.0.6%29.mcaddon) | [`Harvest-Intelligence/`](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/builds/Harvest-Intelligence) |
@@ -70,4 +70,4 @@ This directory stores compiled Add-ons (`.mcaddon`), Maps (`.mcworld`), Scripts 
 
 ---
 
-© All rights reserved for AllensCreations.
+© All rights reserved for ALNStudios.

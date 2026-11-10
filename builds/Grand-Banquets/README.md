@@ -1,6 +1,6 @@
 # Grand Banquets - Downloads and Releases
 
-This folder contains compiled release packages for **Grand Banquets** by AllensCreations.
+This folder contains compiled release packages for **Grand Banquets** by ALNStudios.
 
 ---
 
@@ -8,7 +8,7 @@ This folder contains compiled release packages for **Grand Banquets** by AllensC
 
 | File Name | Format | Size | Description | Download Link |
 | :--- | :--- | :--- | :--- | :--- |
-| **`Grand Banquets by AllensCreations (V1.0.6).mcaddon`** | `.mcaddon` | ~40 KB | Complete bundle containing both Behavior Pack and Resource Pack. | [Download (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Grand-Banquets/Grand%20Banquets%20by%20AllensCreations%20%28V1.0.6%29.mcaddon) |
+| **`Grand Banquets by ALNStudios (V1.0.6).mcaddon`** | `.mcaddon` | ~40 KB | Complete bundle containing both Behavior Pack and Resource Pack. | [Download (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Grand-Banquets/Grand%20Banquets%20by%20AllensCreations%20%28V1.0.6%29.mcaddon) |
 
 ---
 
@@ -24,4 +24,4 @@ To inspect uncompressed JSON files, geometry, render controllers, and textures:
 
 ---
 
-© All rights reserved for AllensCreations.
+© All rights reserved for ALNStudios.

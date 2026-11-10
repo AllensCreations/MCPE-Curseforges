@@ -18,7 +18,7 @@ MP_URL = "https://mcpedl.com/user/allenscreations/"
 
 from doc_template import (DESCRIPTION_BADGES, GUIDELINES, KEYWORD_ANCHORS,
                           apply_description_policy)  # noqa: E402
-COPYRIGHT_RE = re.compile(r"(?m)^---[ \t]*\n+© All rights reserved for AllensCreations\.[ \t]*\n+(?:---[ \t]*\n+)?")
+COPYRIGHT_RE = re.compile(r"(?m)^---[ \t]*\n+© All rights reserved for ALNStudios\.[ \t]*\n+(?:---[ \t]*\n+)?")
 STYLE_CHECKS = (
     ("Markdown table", re.compile(r"(?m)^\|.*\|\s*$")),
     ("badge or image", re.compile(r"img\.shields\.io|!\[[^\]]*\]\(")),
@@ -75,10 +75,11 @@ def find(sections, prefix):
 
 
 def standardize_description(text, name, version_text, min_engine, notices, label, addon=False):
+    text = re.sub(r"(?<![/\w])ALNStudios", "ALNStudios", text)
     text, head = fix_heading(text, version_text)
     lines = text.split("\n")
-    if head is not None and not any(l.strip() == "**By AllensCreations**" for l in lines[head + 1:head + 8]):
-        lines[head + 1:head + 1] = ["", "**By AllensCreations**"]
+    if head is not None and not any(l.strip() == "**By ALNStudios**" for l in lines[head + 1:head + 8]):
+        lines[head + 1:head + 1] = ["", "**By ALNStudios**"]
         text = "\n".join(lines)
     text = COPYRIGHT_RE.sub("", text)
     pre, sections = split_sections(text)
@@ -94,7 +95,7 @@ def standardize_description(text, name, version_text, min_engine, notices, label
 
     ki = find(sections, "## search & discovery keywords")
     if ki is None:
-        sections.append(f"## Search & Discovery Keywords\n\nMinecraft Bedrock add-on, {name} Bedrock mod, Minecraft PE survival, MCPEDL add-on, CurseForge Bedrock, AllensCreations.\n")
+        sections.append(f"## Search & Discovery Keywords\n\nMinecraft Bedrock add-on, {name} Bedrock mod, Minecraft PE survival, MCPEDL add-on, CurseForge Bedrock, ALNStudios.\n")
         notices.append(f"{label}: keyword section was missing; added generic anchors. Add feature keywords.")
     ki = find(sections, "## search & discovery keywords")
 
@@ -130,7 +131,7 @@ def standardize_description(text, name, version_text, min_engine, notices, label
     ki = find(sections, "## search & discovery keywords")
     cr = find(sections, "## creator and permissions")
     if cr is None:
-        sections.insert(ki, f"## Creator and Permissions\n\n- Creator: AllensCreations\n- Profiles: [CurseForge Profile]({CF_URL}) · [MCPEDL Profile]({MP_URL})\n\n")
+        sections.insert(ki, f"## Creator and Permissions\n\n- Creator: ALNStudios\n- Profiles: [CurseForge Profile]({CF_URL}) · [MCPEDL Profile]({MP_URL})\n\n")
     else:
         section = sections[cr].rstrip("\n")
         if CF_URL not in section:

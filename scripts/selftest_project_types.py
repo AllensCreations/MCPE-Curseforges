@@ -53,10 +53,10 @@ def fake_level_dat(path: Path, name: str) -> None:
 def manifest(name, kind, rp_uuid=None, script=False, ui=False):
     v = [1, 0, 0]
     m = {"format_version": 2,
-         "header": {"name": f"{name} (v1.0.0)", "description": "Sample. by AllensCreations", "uuid": str(uuid.uuid4()),
+         "header": {"name": f"{name} (v1.0.0)", "description": "Sample. by ALNStudios", "uuid": str(uuid.uuid4()),
                     "version": v, "min_engine_version": [1, 21, 0]},
          "modules": [{"type": "data" if kind == "bp" else "resources", "uuid": str(uuid.uuid4()), "version": v}],
-         "metadata": {"authors": ["AllensCreations"]}}
+         "metadata": {"authors": ["ALNStudios"]}}
     if kind == "bp":
         deps = []
         if rp_uuid:
@@ -148,7 +148,7 @@ def main() -> int:
         "# Sample\n\n## Creator Profiles\n\n"
         f"- [CurseForge Profile]({profile_urls[0]})\n"
         f"- [MCPEDL Profile]({profile_urls[1]})\n\n"
-        "## Creator and Permissions\n\n- Creator: AllensCreations\n"
+        "## Creator and Permissions\n\n- Creator: ALNStudios\n"
         f"- Profiles: [CurseForge Profile]({profile_urls[0]}) · "
         f"[MCPEDL Profile]({profile_urls[1]})\n\n"
         "## Search & Discovery Keywords\n\nMinecraft Bedrock, Sample.\n"
@@ -324,7 +324,7 @@ def main() -> int:
         primary, built = pack_builder.rebuild_project_packages(str(dest), "MCPEDL/Addons")
         ok(primary and primary.endswith(".mcaddon") and [item[1] for item in built] == ["mcaddon"],
            "addon: release builder emits only .mcaddon")
-        ok((dest / "LOCK").read_text().startswith("AllensCreations Add-on Lock v1") and (dest / "behavior_pack/LOCK").is_file(), "addon: LOCK markers written")
+        ok((dest / "LOCK").read_text().startswith("ALNStudios Add-on Lock v1") and (dest / "behavior_pack/LOCK").is_file(), "addon: LOCK markers written")
         r, log = do_import(root, d, out)
         ok(r != 0 and "already exists" in log, "addon: second import without overwrite is refused")
         r, log = do_import(root, d, out, overwrite=True)

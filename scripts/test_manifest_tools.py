@@ -17,12 +17,12 @@ def make_project(root, bp_version=(1, 0, 0), rp_version=(1, 0, 2)):
     bv, rv = list(bp_version), list(rp_version)
     write(f"{root}/behavior_pack/manifest.json", {
         "format_version": 2,
-        "header": {"name": f"X (v{mt.fmt(bv)})", "description": "by AllensCreations", "uuid": BP, "version": bv},
+        "header": {"name": f"X (v{mt.fmt(bv)})", "description": "by ALNStudios", "uuid": BP, "version": bv},
         "modules": [{"type": "data", "uuid": "m1", "version": bv}],
         "dependencies": [{"uuid": RP, "version": rv}, {"module_name": "@minecraft/server", "version": "1.15.0"}]})
     write(f"{root}/resource_pack/manifest.json", {
         "format_version": 2,
-        "header": {"name": f"X (v{mt.fmt(rv)})", "description": "by AllensCreations", "uuid": RP, "version": rv},
+        "header": {"name": f"X (v{mt.fmt(rv)})", "description": "by ALNStudios", "uuid": RP, "version": rv},
         "modules": [{"type": "resources", "uuid": "m2", "version": rv}]})
     write(f"{root}/behavior_pack/scripts/main.js", "a\n")
 
@@ -49,7 +49,7 @@ class ManifestToolsTest(unittest.TestCase):
         self.assertEqual(bp["header"]["uuid"], BP)
         self.assertEqual(bp["dependencies"][0]["version"], [1, 0, 2])
         self.assertEqual(bp["dependencies"][1]["version"], "1.15.0")
-        self.assertEqual(bp["metadata"]["authors"], ["AllensCreations"])
+        self.assertEqual(bp["metadata"]["authors"], ["ALNStudios"])
         self.assertTrue(changed)
 
     def test_align_is_idempotent(self):
@@ -88,6 +88,44 @@ class ManifestToolsTest(unittest.TestCase):
     def test_installed_world_copies_are_not_source_manifests(self):
         write(f"{self.root}/world/behavior_packs/Old/manifest.json", {"header": {"version": [9, 9, 9]}})
         self.assertEqual(mt.highest_version(self.root), [1, 0, 2])
+
+    def test_package_name_follows_manifest_title_and_version(self):
+        mt.align_project_manifests(self.root)
+        self.assertEqual(mt.manifest_title(self.root), "X")
+        self.assertEqual(mt.package_basename(self.root, "1.0.2", "Fallback"), "X by ALNStudios (V1.0.2)")
+
+    def test_package_name_template_from_manifest_metadata(self):
+        path = f"{self.root}/behavior_pack/manifest.json"
+        data = json.load(open(path, encoding="utf-8"))
+        data["metadata"] = {"package_filename": "{title} - {author} (V{version})"}
+        write(path, data)
+        self.assertEqual(mt.package_basename(self.root, "1.0.2", "F"), "X - ALNStudios (V1.0.2)")
+
+    def test_template_without_version_token_falls_back(self):
+        path = f"{self.root}/behavior_pack/manifest.json"
+        data = json.load(open(path, encoding="utf-8"))
+        data["metadata"] = {"package_filename": "{title}"}
+        write(path, data)
+        self.assertEqual(mt.package_basename(self.root, "1.0.2", "F"), "X by ALNStudios (V1.0.2)")
+
+    def test_bp_rp_suffix_words_are_dropped_and_disagreement_uses_fallback(self):
+        write(f"{self.root}/behavior_pack/manifest.json", {"header": {"name": "Foo BP (v1.0.2)", "uuid": BP, "version": [1, 0, 2]}})
+        write(f"{self.root}/resource_pack/manifest.json", {"header": {"name": "Foo RP (v1.0.2)", "uuid": RP, "version": [1, 0, 2]}})
+        self.assertEqual(mt.manifest_title(self.root), "Foo")
+        write(f"{self.root}/resource_pack/manifest.json", {"header": {"name": "Bar (v1.0.2)", "uuid": RP, "version": [1, 0, 2]}})
+        self.assertIsNone(mt.manifest_title(self.root))
+        self.assertEqual(mt.package_basename(self.root, "1.0.2", "Desc Title"), "Desc Title by ALNStudios (V1.0.2)")
+
+    def test_legacy_creator_name_is_migrated_on_align(self):
+        path = f"{self.root}/behavior_pack/manifest.json"
+        data = json.load(open(path, encoding="utf-8"))
+        data["header"]["description"] = "Pack by ALNStudios"
+        data["metadata"] = {"authors": ["ALNStudios"]}
+        write(path, data)
+        mt.align_project_manifests(self.root)
+        bp = self.load("behavior_pack/manifest.json")
+        self.assertEqual(bp["header"]["description"], "Pack by ALNStudios")
+        self.assertEqual(bp["metadata"]["authors"], ["ALNStudios"])
 
 
 if __name__ == "__main__":

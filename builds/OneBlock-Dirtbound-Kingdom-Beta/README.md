@@ -16,4 +16,4 @@ For gameplay details, see the [full map description](https://github.com/AllensCr
 
 ---
 
-© All rights reserved for AllensCreations.
+© All rights reserved for ALNStudios.

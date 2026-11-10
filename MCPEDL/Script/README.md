@@ -1,6 +1,6 @@
 # Scripts
 
-Standalone Minecraft Bedrock Script packs by AllensCreations. Script projects use the `.mcpack` format and are tested with the Creative foundation.
+Standalone Minecraft Bedrock Script packs by ALNStudios. Script projects use the `.mcpack` format and are tested with the Creative foundation.
 
 ## Available Scripts
 
@@ -11,7 +11,7 @@ Standalone Minecraft Bedrock Script packs by AllensCreations. Script projects us
 
 ## Attribution
 
-Created by AllensCreations. All rights reserved.
+Created by ALNStudios. All rights reserved.
 
 Videos and streams are welcome with credit. Redistribution of original or modified files without permission is prohibited.
 

@@ -1,6 +1,6 @@
 # Trivia Vault The Locked World - Downloads and Releases
 
-This folder contains compiled release packages for **Trivia Vault The Locked World** by AllensCreations.
+This folder contains compiled release packages for **Trivia Vault The Locked World** by ALNStudios.
 
 ---
 
@@ -8,7 +8,7 @@ This folder contains compiled release packages for **Trivia Vault The Locked Wor
 
 | File Name | Format | Size | Description | Download Link |
 | :--- | :--- | :--- | :--- | :--- |
-| **`Trivia Vault The Locked World by AllensCreations (V1.0.19).mcaddon`** | `.mcaddon` | ~40 KB | Complete bundle containing both Behavior Pack and Resource Pack. | [Download (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Trivia-Vault-The-Locked-World/Trivia%20Vault%20The%20Locked%20World%20by%20AllensCreations%20%28V1.0.19%29.mcaddon) |
+| **`Trivia Vault The Locked World by ALNStudios (V1.0.19).mcaddon`** | `.mcaddon` | ~40 KB | Complete bundle containing both Behavior Pack and Resource Pack. | [Download (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Trivia-Vault-The-Locked-World/Trivia%20Vault%20The%20Locked%20World%20by%20AllensCreations%20%28V1.0.19%29.mcaddon) |
 
 ---
 
@@ -24,4 +24,4 @@ To inspect uncompressed JSON files, geometry, render controllers, and textures:
 
 ---
 
-© All rights reserved for AllensCreations.
+© All rights reserved for ALNStudios.

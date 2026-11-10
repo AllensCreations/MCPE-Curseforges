@@ -1,7 +1,7 @@
 {
   "format_version": 2,
   "header": {
-    "description": "Void survival map featuring progressive block mining, 43 procedural theme islands, and vanilla survival compatibility. by AllensCreations",
+    "description": "Void survival map featuring progressive block mining, 43 procedural theme islands, and vanilla survival compatibility. by ALNStudios",
     "name": "OneBlock Void Survival (v2.0.0)",
     "uuid": "6f42a0f9-6c11-4974-9bb5-075b3447d2d9",
     "version": [
@@ -51,7 +51,7 @@
   ],
   "metadata": {
     "authors": [
-      "AllensCreations"
+      "ALNStudios"
     ],
     "product_type": "addon"
   }

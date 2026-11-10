@@ -1,6 +1,6 @@
 # Trivia Vault: The Locked World — Survival Trivia Challenge
 
-**By AllensCreations**
+**By ALNStudios**
 
 [![Minecraft Bedrock](https://img.shields.io/badge/Minecraft%20Bedrock-Stable%20Release-brightgreen?style=flat-square&logo=minecraft)](https://github.com/AllensCreations/MCPE-Curseforges)
 [![Format](https://img.shields.io/badge/Format-.MCPACK%20%7C%20.MCADDON%20%7C%20.MCWORLD-blue?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges)
@@ -44,19 +44,19 @@ Use the Controller as the host or an operator and select Start. In Survival, att
 
 ## Guidelines and Attribution
 
-- Creator: AllensCreations
-- Rights & Reservation: All rights reserved for AllensCreations.
-- Content Creators: Content creators are permitted to feature this creation in videos and streams with credit to AllensCreations.
+- Creator: ALNStudios
+- Rights & Reservation: All rights reserved for ALNStudios.
+- Content Creators: Content creators are permitted to feature this creation in videos and streams with credit to ALNStudios.
 - Redistribution: Do not re-upload this pack or provide direct monetized download bypasses. Link directly to the official repository page.
 - Disclaimer: This is an unofficial community creation. It is not an official Minecraft product and is not approved by or associated with Mojang or Microsoft.
 
 ---
 
-© All rights reserved for AllensCreations.
+© All rights reserved for ALNStudios.
 
 ---
 
 ## Search & Discovery Keywords
 
-Minecraft Bedrock script, Trivia Vault: The Locked World, survival trivia challenge, general knowledge quiz, randomized answers, block type unlocks, 20-block radius penalty, Hardmode, AllensCreations, Minecraft Bedrock add-on, MCPEDL add-on, CurseForge Bedrock.
+Minecraft Bedrock script, Trivia Vault: The Locked World, survival trivia challenge, general knowledge quiz, randomized answers, block type unlocks, 20-block radius penalty, Hardmode, ALNStudios, Minecraft Bedrock add-on, MCPEDL add-on, CurseForge Bedrock.
 

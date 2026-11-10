@@ -32,7 +32,11 @@ JUNK_FILES = {".ds_store", "thumbs.db", "desktop.ini", ".gitkeep"}
 BINARY_EXT = {".mcpack", ".mcaddon", ".mcworld", ".zip"}
 TITLE_SUFFIX_RE = re.compile(r"(?:\s*\(v\d+\.\d+\.\d+\))+\s*$")
 HAS_SUFFIX_RE = re.compile(r"\(v\d+\.\d+\.\d+\)\s*$")
-AUTHOR = "AllensCreations"
+AUTHOR = "ALNStudios"
+LEGACY_AUTHORS = ("ALNStudios",)
+FILENAME_TEMPLATE_ENV = "PACK_FILENAME_TEMPLATE"
+DEFAULT_FILENAME_TEMPLATE = "{title} by {author} (V{version})"
+_PACK_WORD_RE = re.compile(r"\s+(?:BP|RP|Behavior Pack|Resource Pack|Behaviour Pack)\s*$", re.IGNORECASE)
 # The only derived copy a map build writes inside its own source tree (see the builder).
 DERIVED_WORLD_COPY = "world/behavior_packs/OneBlockVoid/"
 
@@ -94,9 +98,34 @@ def _retitle(name, version_text):
     return name
 
 
+def _migrate_legacy_name(value):
+    if isinstance(value, str):
+        for old in LEGACY_AUTHORS:
+            value = re.sub(r"(?<![/\w])" + re.escape(old), AUTHOR, value)
+    return value
+
+
+def migrate_legacy_branding(data):
+    """Rename the old creator name in header.description and metadata.authors. True if changed."""
+    changed = False
+    header = data.get("header")
+    if isinstance(header, dict) and isinstance(header.get("description"), str):
+        new = _migrate_legacy_name(header["description"])
+        if new != header["description"]:
+            header["description"] = new
+            changed = True
+    meta = data.get("metadata")
+    if isinstance(meta, dict) and isinstance(meta.get("authors"), list):
+        new = [_migrate_legacy_name(a) for a in meta["authors"]]
+        if new != meta["authors"]:
+            meta["authors"] = new
+            changed = True
+    return changed
+
+
 def ensure_metadata(data, license_text=None):
     """Fill metadata.authors (and metadata.license if given). Returns True if changed."""
-    changed = False
+    changed = migrate_legacy_branding(data)
     meta = data.get("metadata")
     if not isinstance(meta, dict):
         meta = {}
@@ -158,6 +187,7 @@ def align_project_manifests(project_path, target=None, write=True, metadata=True
             if (isinstance(dep, dict) and dep.get("uuid") in own_uuids
                     and isinstance(dep.get("version"), list) and dep["version"] != target):
                 dep["version"] = target
+        migrate_legacy_branding(data)
         if metadata and os.environ.get("MANIFEST_METADATA", "1") != "0":
             ensure_metadata(data, license_text)
         if data != before:
@@ -228,6 +258,60 @@ def compute_source_hash(project_path):
         digest.update(rel.encode("utf-8") + b"\0")
         digest.update(hashlib.sha256(raw).digest())
     return digest.hexdigest()
+
+
+def manifest_title(project_path):
+    """Pack title taken from the source manifests: header.name without the (vX.Y.Z) suffix and
+    without a trailing BP/RP word. Returns None unless every manifest agrees on one title."""
+    titles = set()
+    for path in source_manifest_paths(project_path):
+        try:
+            name = _read(path).get("header", {}).get("name")
+        except (OSError, ValueError, AttributeError):
+            continue
+        if not isinstance(name, str):
+            continue
+        name = TITLE_SUFFIX_RE.sub("", name).strip()
+        name = _PACK_WORD_RE.sub("", name).strip()
+        name = re.sub(r'[\\/*?:"<>|]', "", name).strip()
+        if name:
+            titles.add(name)
+    return titles.pop() if len(titles) == 1 else None
+
+
+def _manifest_filename_template(project_path):
+    for path in source_manifest_paths(project_path):
+        try:
+            value = (_read(path).get("metadata") or {}).get("package_filename")
+        except (OSError, ValueError, AttributeError):
+            continue
+        if isinstance(value, str) and value.strip():
+            return value.strip()
+    return None
+
+
+def package_basename(project_path, version_text, fallback_title):
+    """File name (without extension) of the downloadable package.
+
+    Title comes from the manifest header.name (fallback: the DESCRIPTION title) and the version
+    from the manifest. Template precedence: manifest metadata.package_filename, then the
+    PACK_FILENAME_TEMPLATE variable, then '{title} by {author} (V{version})'. Placeholders:
+    {title}, {version}, {author}. A template must keep the '(V{version})' token because the
+    README link repair finds packages by it; otherwise the default template is used.
+    """
+    title = manifest_title(project_path) or fallback_title
+    template = (_manifest_filename_template(project_path)
+                or os.environ.get(FILENAME_TEMPLATE_ENV, "").strip()
+                or DEFAULT_FILENAME_TEMPLATE)
+    if "(V{version})" not in template:
+        print(f"WARNING: filename template {template!r} lacks '(V{{version}})'; using the default.", file=sys.stderr)
+        template = DEFAULT_FILENAME_TEMPLATE
+    try:
+        name = template.format(title=title, version=version_text, author=AUTHOR)
+    except (KeyError, IndexError, ValueError):
+        print(f"WARNING: bad filename template {template!r}; using the default.", file=sys.stderr)
+        name = DEFAULT_FILENAME_TEMPLATE.format(title=title, version=version_text, author=AUTHOR)
+    return re.sub(r'[\\/*?:"<>|]', "", name).strip()
 
 
 def latest_changelog_version(project_path):

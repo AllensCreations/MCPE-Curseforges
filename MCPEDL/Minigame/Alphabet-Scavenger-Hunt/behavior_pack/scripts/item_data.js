@@ -1,7 +1,7 @@
 /**
  * Item Database & Verification Engine for Alphabet Scavenger Hunt
  * Sourced from PrismarineJS/minecraft-data (Bedrock edition standards)
- * Created by AllensCreations
+ * Created by ALNStudios
  */
 
 /**

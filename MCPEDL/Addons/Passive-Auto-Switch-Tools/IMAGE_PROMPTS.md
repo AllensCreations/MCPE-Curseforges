@@ -1,6 +1,6 @@
 # Passive Auto-Switch Tools - Image Generation Prompts
 
-This document provides optimized prompts for generating promotional logos and banners for **Passive Auto-Switch Tools** by AllensCreations.
+This document provides optimized prompts for generating promotional logos and banners for **Passive Auto-Switch Tools** by ALNStudios.
 
 ---
 
@@ -16,7 +16,7 @@ A dynamic circular triad of floating high-tier Minecraft tools—a Netherite Pic
 
 ### Prompt (Copy-Paste)
 ```text
-Sleek 3D Minecraft pack icon with a central circular layout on a dark obsidian-textured grid background. In the center, three floating tools form a dynamic rotating triad: a gleaming Netherite Pickaxe at the top, a sharp Diamond Axe on the right, and a bright Golden Shovel on the left. Glowing cyan laser arcs and curved motion arrows connect the tools in a seamless rotation loop. In the dead center, a stylized glowing hotbar slot box displays a crisp holographic number "1". Dramatic cyan and gold rim lighting, clean specular highlights. Bold futuristic typography at the bottom reads "AUTO-SWITCH TOOLS" with a glowing cyan subtitle badge "by AllensCreations", Unreal Engine 5 render, 8k resolution, ray traced --ar 1:1 --v 6.1 --stylize 250
+Sleek 3D Minecraft pack icon with a central circular layout on a dark obsidian-textured grid background. In the center, three floating tools form a dynamic rotating triad: a gleaming Netherite Pickaxe at the top, a sharp Diamond Axe on the right, and a bright Golden Shovel on the left. Glowing cyan laser arcs and curved motion arrows connect the tools in a seamless rotation loop. In the dead center, a stylized glowing hotbar slot box displays a crisp holographic number "1". Dramatic cyan and gold rim lighting, clean specular highlights. Bold futuristic typography at the bottom reads "AUTO-SWITCH TOOLS" with a glowing cyan subtitle badge "by ALNStudios", Unreal Engine 5 render, 8k resolution, ray traced --ar 1:1 --v 6.1 --stylize 250
 ```
 
 ### Negative Prompt
@@ -38,7 +38,7 @@ An action-packed survival panorama where a Minecraft player is rapidly harvestin
 
 ### Prompt (Copy-Paste)
 ```text
-Dynamic 16:9 widescreen cinematic Minecraft render showcasing fluid survival mining. In the center, an agile Minecraft explorer sprints along a dramatic landscape transition where a rocky stone quarry meets a lush oak forest and a sandy riverbed. As the player glances at a deepslate diamond ore, an ancient tree trunk, and sand blocks, ethereal glowing holographic tool projections (pickaxe, axe, shovel) instantly transition and swap into their hand with sparkling blue energy traces. A sharp floating HUD near the bottom shows Hotbar Slot 1 glowing bright cyan. Bright midday sun, crisp shadows, lush foliage. Elegant cinematic title text across the top reads "PASSIVE AUTO-SWITCH TOOLS" with an energetic subtitle reading "by AllensCreations", ray tracing, 8k resolution, octane render --ar 16:9 --v 6.1 --stylize 300
+Dynamic 16:9 widescreen cinematic Minecraft render showcasing fluid survival mining. In the center, an agile Minecraft explorer sprints along a dramatic landscape transition where a rocky stone quarry meets a lush oak forest and a sandy riverbed. As the player glances at a deepslate diamond ore, an ancient tree trunk, and sand blocks, ethereal glowing holographic tool projections (pickaxe, axe, shovel) instantly transition and swap into their hand with sparkling blue energy traces. A sharp floating HUD near the bottom shows Hotbar Slot 1 glowing bright cyan. Bright midday sun, crisp shadows, lush foliage. Elegant cinematic title text across the top reads "PASSIVE AUTO-SWITCH TOOLS" with an energetic subtitle reading "by ALNStudios", ray tracing, 8k resolution, octane render --ar 16:9 --v 6.1 --stylize 300
 ```
 
 ### Negative Prompt

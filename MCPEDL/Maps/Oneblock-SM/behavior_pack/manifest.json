@@ -2,7 +2,7 @@
   "format_version": 2,
   "header": {
     "name": "OneBlock Sovereign Market (v1.1.6)",
-    "description": "Dirt-to-sovereignty OneBlock economy with a Trader Ledger. by AllensCreations",
+    "description": "Dirt-to-sovereignty OneBlock economy with a Trader Ledger. by ALNStudios",
     "uuid": "5f751626-2798-46f7-9cae-ebd3e2394e78",
     "version": [
       1,
@@ -57,7 +57,7 @@
   ],
   "metadata": {
     "authors": [
-      "AllensCreations"
+      "ALNStudios"
     ],
     "product_type": "addon"
   }

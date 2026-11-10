@@ -1,6 +1,6 @@
 # Chrono-Bed - Downloads and Releases
 
-This folder contains compiled release packages for **Chrono-Bed** by AllensCreations.
+This folder contains compiled release packages for **Chrono-Bed** by ALNStudios.
 
 ---
 
@@ -8,7 +8,7 @@ This folder contains compiled release packages for **Chrono-Bed** by AllensCreat
 
 | File Name | Format | Size | Description | Download Link |
 | :--- | :--- | :--- | :--- | :--- |
-| **`Chrono-Bed by AllensCreations (V1.0.0).mcpack`** | `.mcpack` | ~3 KB | Script Behavior Pack archive ready for import. | [Download (.mcpack)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Chrono-Bed/Chrono-Bed%20by%20AllensCreations%20%28V1.0.0%29.mcpack) |
+| **`Chrono-Bed by ALNStudios (V1.0.0).mcpack`** | `.mcpack` | ~3 KB | Script Behavior Pack archive ready for import. | [Download (.mcpack)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Chrono-Bed/Chrono-Bed%20by%20AllensCreations%20%28V1.0.0%29.mcpack) |
 
 ---
 
@@ -24,4 +24,4 @@ To inspect uncompressed JSON files, geometry, render controllers, and textures:
 
 ---
 
-© All rights reserved for AllensCreations.
+© All rights reserved for ALNStudios.

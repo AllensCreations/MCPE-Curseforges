@@ -2,7 +2,7 @@
   "format_version": 2,
   "header": {
     "name": "Fletching Table Arsenal (v1.0.0)",
-    "description": "Turns the Fletching Table into a tactical arrow workstation. by AllensCreations",
+    "description": "Turns the Fletching Table into a tactical arrow workstation. by ALNStudios",
     "uuid": "5b1557e6-7066-47b6-87c8-3accb36a3615",
     "version": [
       1,
@@ -48,7 +48,7 @@
   ],
   "metadata": {
     "authors": [
-      "AllensCreations"
+      "ALNStudios"
     ],
     "product_type": "addon"
   }

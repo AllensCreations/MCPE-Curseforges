@@ -1,6 +1,6 @@
 # Maps and Worlds
 
-Minecraft Bedrock maps and custom worlds by AllensCreations. OneBlock maps are available with Creative, Survival, and Hardcore foundations.
+Minecraft Bedrock maps and custom worlds by ALNStudios. OneBlock maps are available with Creative, Survival, and Hardcore foundations.
 
 ## Available Maps
 
@@ -16,7 +16,7 @@ Both OneBlock maps use separate mode-specific foundations. Archives receive stru
 
 ## Attribution
 
-Created by AllensCreations. All rights reserved.
+Created by ALNStudios. All rights reserved.
 
 Videos and streams are welcome with credit. Redistribution of original or modified files without permission is prohibited.
 

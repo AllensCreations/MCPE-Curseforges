@@ -1,7 +1,7 @@
 import { world, EntityInitializationCause, system } from "@minecraft/server";
 
 /**
- * Selective Mob Controller by AllensCreations
+ * Selective Mob Controller by ALNStudios
  * Preset: Default
  *
  * Enforces strict spawn filtering via script purge guard and throttles

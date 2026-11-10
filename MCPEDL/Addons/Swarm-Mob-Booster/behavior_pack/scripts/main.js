@@ -1,7 +1,7 @@
 import { world, system } from "@minecraft/server";
 
 /**
- * Swarm Mob Booster by AllensCreations
+ * Swarm Mob Booster by ALNStudios
  * -------------------------------------------------------------
  * 1. Persistent Swarm Density HUD:
  *    Displays live nearby mob count, categorized into hostiles and passives.

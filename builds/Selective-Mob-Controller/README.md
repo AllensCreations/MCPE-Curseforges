@@ -1,6 +1,6 @@
 # Selective Mob Controller - Downloads and Releases
 
-This folder contains compiled release packages for **Selective Mob Controller** by AllensCreations.
+This folder contains compiled release packages for **Selective Mob Controller** by ALNStudios.
 
 ---
 
@@ -8,7 +8,7 @@ This folder contains compiled release packages for **Selective Mob Controller** 
 
 | File Name | Format | Size | Description | Download Link |
 | :--- | :--- | :--- | :--- | :--- |
-| **`Selective Mob Controller by AllensCreations (V1.0.5).mcaddon`** | `.mcaddon` | ~76 KB | Complete Add-on package for Minecraft Bedrock. | [Download (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Selective-Mob-Controller/Selective%20Mob%20Controller%20by%20AllensCreations%20%28V1.0.5%29.mcaddon) |
+| **`Selective Mob Controller by ALNStudios (V1.0.5).mcaddon`** | `.mcaddon` | ~76 KB | Complete Add-on package for Minecraft Bedrock. | [Download (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Selective-Mob-Controller/Selective%20Mob%20Controller%20by%20AllensCreations%20%28V1.0.5%29.mcaddon) |
 
 ---
 
@@ -24,4 +24,4 @@ To inspect uncompressed JSON files, geometry, render controllers, and textures:
 
 ---
 
-© All rights reserved for AllensCreations.
+© All rights reserved for ALNStudios.

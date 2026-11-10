@@ -34,15 +34,15 @@ LEGACY_BADGES = (
 )
 GUIDELINES = """## Guidelines and Attribution
 
-- Creator: AllensCreations
-- Rights & Reservation: All rights reserved for AllensCreations.
-- Content Creators: Content creators are permitted to feature this creation in videos and streams with credit to AllensCreations.
+- Creator: ALNStudios
+- Rights & Reservation: All rights reserved for ALNStudios.
+- Content Creators: Content creators are permitted to feature this creation in videos and streams with credit to ALNStudios.
 - Redistribution: Do not re-upload this pack or provide direct monetized download bypasses. Link directly to the official repository page.
 - Disclaimer: This is an unofficial community creation. It is not an official Minecraft product and is not approved by or associated with Mojang or Microsoft.
 
 ---
 
-© All rights reserved for AllensCreations.
+© All rights reserved for ALNStudios.
 
 ---
 
@@ -52,7 +52,7 @@ DESCRIPTION_SECTIONS = ("Overview", "Key Features", "How to Use", "Compatibility
 COMPAT_LABELS = ("Minecraft Bedrock Edition", "Experimental features", "Achievements", "Verification")
 ACHIEVEMENT = ("likely achievement-friendly", "not achievement-friendly", "unknown / needs confirmation")
 VERIFIED = ("source created", "package built", "in-game tested")
-KEYWORD_ANCHORS = ("Minecraft Bedrock add-on", "MCPEDL add-on", "CurseForge Bedrock", "AllensCreations")
+KEYWORD_ANCHORS = ("Minecraft Bedrock add-on", "MCPEDL add-on", "CurseForge Bedrock", "ALNStudios")
 CHANGELOG_GROUPS = ("Added", "Improved & Balanced", "Fixed")
 INSTALL_STEPS = ("1. Download the package using the link above.",
                  "2. Open the downloaded file with Minecraft to import it.",
@@ -134,7 +134,7 @@ def check_listing_images(creators, errors, images_dir=None):
 def apply_description_policy(text, addon=False):
     drop = DESCRIPTION_BADGES + LEGACY_BADGES
     lines = [line for line in norm(text).split("\n") if line not in drop]
-    insert_at = next((i + 1 for i, line in enumerate(lines) if line.strip() == "**By AllensCreations**"), None)
+    insert_at = next((i + 1 for i, line in enumerate(lines) if line.strip() == "**By ALNStudios**"), None)
     if insert_at is None:
         insert_at = next((i + 1 for i, line in enumerate(lines) if line.startswith("# ")), 0)
     while insert_at < len(lines) and not lines[insert_at].strip():
@@ -232,8 +232,8 @@ def check_description(text, version, errors, ptype="addon", images_dir=None):
     elif re.search(r"\(v\d+\.\d+\.\d+\)$", head.group(1), re.I):
         errors.append(f"DOC: {n} title must not contain a release version.")
     after = [l for l in pre.split("\n")[1:] if l.strip()]
-    if not after or after[0] != "**By AllensCreations**":
-        errors.append(f"DOC: {n} the line after the title must be exactly: **By AllensCreations**")
+    if not after or after[0] != "**By ALNStudios**":
+        errors.append(f"DOC: {n} the line after the title must be exactly: **By ALNStudios**")
     elif len(after) < 2 or after[1].startswith(("#", "-", "|", "*")):
         errors.append(f"DOC: {n} needs a short summary paragraph after the By line and before ## Overview.")
     names = [s[0] for s in sections]
@@ -385,16 +385,16 @@ def compliant_docs(ptype, name, version, ext=None, date="2026-01-01"):
     ext = ext or {"addon": "mcaddon", "map": "mcworld", "script": "mcpack", "minigame": "mcaddon"}.get(ptype, "mcaddon")
     cards = "\n".join(f"### Feature {i}\n- **What Happens**: Players can use feature {i} in the world.\n" for i in range(1, 9))
     achievement = "Likely achievement-friendly." if ptype == "addon" else "Unknown / needs confirmation."
-    description = (f"# {name} — A clear factual subtitle\n\n**By AllensCreations**\n\n"
+    description = (f"# {name} — A clear factual subtitle\n\n**By ALNStudios**\n\n"
                    f"{DESCRIPTION_BADGES[0]}\n{DESCRIPTION_BADGES[1]}\n\n"
                    f"**A short player-facing tagline.**\n\n> A concise, factual pitch explains what players can do and what makes the experience distinct.\n\n"
                    f"## Overview\n\nThis creation adds a small experience to your world.\n\n## Key Features\n\n{cards}\n"
                    f"## How to Use\n\nUse the items and interactions provided in the world.\n\n## Compatibility\n\n"
                    f"- Minecraft Bedrock Edition: 1.21.0 or newer.\n- Experimental features: Not verified.\n"
                    f"- Achievements: {achievement}\n- Verification: Source created, not tested in game.\n\n"
-                   f"## Creator and Permissions\n\n- Creator: AllensCreations\n- Profiles: [CurseForge Profile]({CF_URL}) · [MCPEDL Profile]({MP_URL})\n\n"
+                   f"## Creator and Permissions\n\n- Creator: ALNStudios\n- Profiles: [CurseForge Profile]({CF_URL}) · [MCPEDL Profile]({MP_URL})\n\n"
                    f"{LISTING_LINE}\n\n"
-                   f"{GUIDELINES}## Search & Discovery Keywords\n\nMinecraft Bedrock add-on, {name} Bedrock mod, MCPEDL add-on, CurseForge Bedrock, AllensCreations.\n")
+                   f"{GUIDELINES}## Search & Discovery Keywords\n\nMinecraft Bedrock add-on, {name} Bedrock mod, MCPEDL add-on, CurseForge Bedrock, ALNStudios.\n")
     base = "https://github.com/AllensCreations/MCPE-Curseforges/tree/main"
     slug = name.replace(" ", "-")
     category = {"addon": "Addons", "map": "Maps", "script": "Script", "minigame": "Minigame"}.get(ptype, "Addons")
@@ -442,7 +442,7 @@ def style_warnings(text, name="DESCRIPTION.md"):
             continue
         if len(re.findall(r"[.!?](?:\s|$)", b)) > 4:
             hits.append(f"STYLE: {name} has a paragraph of more than four sentences: '{b[:50]}...'. Split or shorten it.")
-    tags = [l for l in lines if re.match(r"^\*\*[^*].*\*\*$", l.strip()) and "By AllensCreations" not in l]
+    tags = [l for l in lines if re.match(r"^\*\*[^*].*\*\*$", l.strip()) and "By ALNStudios" not in l]
     if not tags:
         hits.append(f"STYLE: {name} has no bold tagline. Add one concrete sentence of 25 words or fewer.")
     elif len(tags[0].strip("*").split()) > 25:

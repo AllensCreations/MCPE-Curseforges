@@ -2,7 +2,7 @@
   "format_version": 2,
   "header": {
     "name": "OneBlock Phase Evolution (v1.0.0)",
-    "description": "A twelve-phase weighted OneBlock map with automatic persistent Team Inventory for multiplayer by AllensCreations",
+    "description": "A twelve-phase weighted OneBlock map with automatic persistent Team Inventory for multiplayer by ALNStudios",
     "uuid": "2837e3a8-7b22-4c85-9daa-cbf81447043b",
     "version": [
       1,
@@ -53,7 +53,7 @@
   ],
   "metadata": {
     "authors": [
-      "AllensCreations"
+      "ALNStudios"
     ]
   }
 }

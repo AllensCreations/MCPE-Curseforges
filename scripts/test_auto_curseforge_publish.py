@@ -226,7 +226,7 @@ class AutoPublishTests(unittest.TestCase):
         self.assertEqual(rel.upload_name("release", "Mining-Helmet", ".mcaddon", "default", "2.0.0.0"), "Release - Mining Helmet v(2.0.0.0).mcaddon")
         self.assertEqual(rel.upload_name("alpha", "OneBlock", ".mcworld", "Hardcore", "1.1.0.0"), "Alpha - OneBlock - Hardcore v(1.1.0.0).mcworld")
         with tempfile.TemporaryDirectory() as temp:
-            src = Path(temp) / "Pack by AllensCreations (V1.2.3).mcaddon"
+            src = Path(temp) / "Pack by ALNStudios (V1.2.3).mcaddon"
             src.write_bytes(b"x")
             with patch.dict(os.environ, {"RUNNER_TEMP": temp}):
                 staged = rel.stage_upload_copy(src, "alpha", "Pack", "default", "1.1.0.0")

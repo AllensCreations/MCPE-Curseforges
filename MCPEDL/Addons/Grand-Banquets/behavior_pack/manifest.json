@@ -2,7 +2,7 @@
   "format_version": 2,
   "header": {
     "name": "Grand Banquets (v1.0.6)",
-    "description": "Adds 32 craftable custom food dishes across four tiers, including meals with special status effects. by AllensCreations",
+    "description": "Adds 32 craftable custom food dishes across four tiers, including meals with special status effects. by ALNStudios",
     "uuid": "485dca7d-bdc8-4fce-bc51-6b7d459907d1",
     "version": [
       1,
@@ -53,7 +53,7 @@
   ],
   "metadata": {
     "authors": [
-      "AllensCreations"
+      "ALNStudios"
     ],
     "product_type": "addon"
   }

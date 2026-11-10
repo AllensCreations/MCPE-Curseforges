@@ -2,7 +2,7 @@
   "format_version": 2,
   "header": {
     "name": "Team Inventory (v1.1.0)",
-    "description": "Controller icon for Team Inventory. by AllensCreations",
+    "description": "Controller icon for Team Inventory. by ALNStudios",
     "uuid": "cc723f33-6729-4663-9077-dd1f1ed4d836",
     "version": [
       1,
@@ -28,7 +28,7 @@
   ],
   "metadata": {
     "authors": [
-      "AllensCreations"
+      "ALNStudios"
     ],
     "product_type": "addon"
   }

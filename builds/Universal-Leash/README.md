@@ -1,6 +1,6 @@
 # Universal Leash - Downloads and Releases
 
-This folder contains compiled release packages for **Universal Leash** by AllensCreations.
+This folder contains compiled release packages for **Universal Leash** by ALNStudios.
 
 ---
 
@@ -8,7 +8,7 @@ This folder contains compiled release packages for **Universal Leash** by Allens
 
 | File Name | Format | Size | Description | Download Link |
 | :--- | :--- | :--- | :--- | :--- |
-| **`Universal Leash by AllensCreations (V2.0.0).mcaddon`** | `.mcaddon` | ~226 KB | Complete bundle containing both Behavior Pack and Resource Pack. | [Download (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Universal-Leash/Universal%20Leash%20by%20AllensCreations%20%28V2.0.0%29.mcaddon) |
+| **`Universal Leash by ALNStudios (V2.0.0).mcaddon`** | `.mcaddon` | ~226 KB | Complete bundle containing both Behavior Pack and Resource Pack. | [Download (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Universal-Leash/Universal%20Leash%20by%20AllensCreations%20%28V2.0.0%29.mcaddon) |
 
 ---
 
@@ -24,4 +24,4 @@ To inspect uncompressed JSON files, geometry, render controllers, and textures:
 
 ---
 
-© All rights reserved for AllensCreations.
+© All rights reserved for ALNStudios.

@@ -89,7 +89,7 @@ Do this for every new pack and meaningful update. A compatible API version does 
 ### 3. Manifest Title, Attribution, and LOCK Marker
 
 - Every Behavior Pack and Resource Pack manifest title is `Add-on Name (vX.Y.Z)`, for example `Vanilla Quality of Life (v1.3.0)`. Update it whenever the release version changes; release automation must preserve this.
-- Put `by AllensCreations` in `header.description` exactly once. Normalize existing descriptions rather than appending duplicates. Keep attribution out of the title.
+- Put `by ALNStudios` in `header.description` exactly once. Normalize existing descriptions rather than appending duplicates. Keep attribution out of the title.
 - Do not change pack UUIDs or world storage keys just to rename a title.
 - **Title validator**, run in the release workflow, failing the job on any violation and reporting errors rather than rewriting titles. For every manifest under `MCPEDL/`:
   - exactly one terminal `(vX.Y.Z)` suffix;
@@ -100,7 +100,7 @@ Do this for every new pack and meaningful update. A compatible API version does 
 
 #### Add-on LOCK marker
 
-- Every Add-on under `MCPEDL/Addons/` has a `LOCK` file at its root beginning with `AllensCreations Add-on Lock v1`.
+- Every Add-on under `MCPEDL/Addons/` has a `LOCK` file at its root beginning with `ALNStudios Add-on Lock v1`.
 - `scripts/import_project_payload.py` creates it and the build script enforces it. A missing or invalid marker is release-blocking: report the exact project path and do not call the project build-ready.
 - It is a repository and build safeguard only. It does not encrypt source, stop edits, or prevent extraction of a distributable package.
 
@@ -282,27 +282,27 @@ The profile links and listing images go in the Creator and Permissions section. 
 ```markdown
 ## Guidelines and Attribution
 
-- Creator: AllensCreations
-- Rights & Reservation: All rights reserved for AllensCreations.
-- Content Creators: Content creators are permitted to feature this creation in videos and streams with credit to AllensCreations.
+- Creator: ALNStudios
+- Rights & Reservation: All rights reserved for ALNStudios.
+- Content Creators: Content creators are permitted to feature this creation in videos and streams with credit to ALNStudios.
 - Redistribution: Do not re-upload this pack or provide direct monetized download bypasses. Link directly to the official repository page.
 - Disclaimer: This is an unofficial community creation. It is not an official Minecraft product and is not approved by or associated with Mojang or Microsoft.
 
 ---
 
-© All rights reserved for AllensCreations.
+© All rights reserved for ALNStudios.
 
 ---
 ```
 
 ### 5. Search & Discovery Keywords
 
-Every `DESCRIPTION.md` ends with a keyword section built from its real features, not generic filler: general anchors (`Minecraft Bedrock add-on`, `Minecraft PE mod`, `MCPEDL add-on`, `CurseForge Bedrock`, `AllensCreations`), feature anchors from the description, and gameplay anchors (such as `survival QoL`, `achievement friendly MCPE`) only if verified.
+Every `DESCRIPTION.md` ends with a keyword section built from its real features, not generic filler: general anchors (`Minecraft Bedrock add-on`, `Minecraft PE mod`, `MCPEDL add-on`, `CurseForge Bedrock`, `ALNStudios`), feature anchors from the description, and gameplay anchors (such as `survival QoL`, `achievement friendly MCPE`) only if verified.
 
 ```markdown
 ## Search & Discovery Keywords
 
-Minecraft Bedrock add-on, [Add-on Name] Bedrock mod, [feature 1], [feature 2], [item or mob name], Minecraft PE survival, MCPEDL add-on, CurseForge Bedrock, AllensCreations.
+Minecraft Bedrock add-on, [Add-on Name] Bedrock mod, [feature 1], [feature 2], [item or mob name], Minecraft PE survival, MCPEDL add-on, CurseForge Bedrock, ALNStudios.
 ```
 
 ### 6. Templates
@@ -339,7 +339,7 @@ Use a verified direct package URL when one exists; otherwise link the official c
 ```markdown
 # [Pack Name] — [Clear, factual subtitle]
 
-**By AllensCreations**
+**By ALNStudios**
 
 [![Minecraft Bedrock](https://img.shields.io/badge/Minecraft%20Bedrock-Stable%20Release-brightgreen?style=flat-square&logo=minecraft)](https://github.com/AllensCreations/MCPE-Curseforges)
 [![Format](https://img.shields.io/badge/Format-.MCPACK%20%7C%20.MCADDON%20%7C%20.MCWORLD-blue?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges)
@@ -382,7 +382,7 @@ Add separate feature cards for meaningful mechanics. Put relevant item lists, mo
 
 ## Creator and Permissions
 
-- Creator: AllensCreations
+- Creator: ALNStudios
 - Profiles: [CurseForge Profile](https://www.curseforge.com/members/allenscreations/projects) · [MCPEDL Profile](https://mcpedl.com/user/allenscreations/)
 
 <a href="https://www.curseforge.com/members/allenscreations/projects"><img src="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/assets/Images/curseforge.jpg" alt="CurseForge" width="45%"></a> <a href="https://mcpedl.com/user/allenscreations/"><img src="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/assets/Images/MCPEDL.jpg" alt="MCPEDL" width="45%"></a>
@@ -442,7 +442,7 @@ Based on CurseForge's author guide "How to Create the Best Project Page" and its
 
 The agent builds a complete project from the user's idea and returns it as **one line of base64**. The user pastes it into the GitHub workflow **Create Project from Base64**, which places it in the right `MCPEDL/` folder and builds the worlds that type needs.
 
-**Source of truth.** The scripts are the real source of truth. Read `scripts/build_payload.py` (the packager and all checks), `scripts/doc_template.py` (the documentation checks), `scripts/import_project_payload.py`, and `scripts/build_test_world.py` from AllensCreations/MCPE-Curseforges before building. If this Part and a script disagree, tell the user what differs. If you cannot read the repository, ask the user to paste `scripts/build_payload.py` and `scripts/doc_template.py` into the chat and use that exact text. Never rewrite a script from memory and never use a stale copy.
+**Source of truth.** The scripts are the real source of truth. Read `scripts/build_payload.py` (the packager and all checks), `scripts/doc_template.py` (the documentation checks), `scripts/import_project_payload.py`, and `scripts/build_test_world.py` from ALNStudios/MCPE-Curseforges before building. If this Part and a script disagree, tell the user what differs. If you cannot read the repository, ask the user to paste `scripts/build_payload.py` and `scripts/doc_template.py` into the chat and use that exact text. Never rewrite a script from memory and never use a stale copy.
 
 Parts 1 and 2 above apply to everything you generate. This Part adds only what is specific to generation.
 
@@ -499,7 +499,7 @@ Applies to `behavior_pack/manifest.json` and, when present, `resource_pack/manif
 
 - `format_version`: 2. `header.min_engine_version` is a 3-integer array, a looked-up version, never `[0, 0, 0]`.
 - `header.name` is exactly `Add-on Name (vX.Y.Z)`: one terminal version suffix equal to `header.version`. Both packs use the same version.
-- `header.description` contains `by AllensCreations` exactly once. Keep attribution out of the name.
+- `header.description` contains `by ALNStudios` exactly once. Keep attribution out of the name.
 - Fresh, valid, unique UUIDs (v4) for every header and module. Never reuse one, and never copy a UUID from an example.
 - If a resource pack exists, the behavior pack's `dependencies` includes `{ "uuid": "<resource pack header.uuid>", "version": [x, y, z] }` with the matching version.
 - Script modules: `"type": "script"`, `"language": "javascript"`, `"entry": "scripts/main.js"`, and dependencies written as `{ "module_name": "@minecraft/server", "version": "<latest stable string>" }`. Add `@minecraft/server-ui` when the pack uses forms (always for the Controller).
@@ -513,7 +513,7 @@ Resource pack template. Replace every `<fresh uuid v4>` with a newly generated U
   "format_version": 2,
   "header": {
     "name": "Add-on Name (v1.0.0)",
-    "description": "Textures for the add-on. by AllensCreations",
+    "description": "Textures for the add-on. by ALNStudios",
     "uuid": "<fresh uuid v4>",
     "version": [1, 0, 0],
     "min_engine_version": [LOOKED_UP_MAJOR, LOOKED_UP_MINOR, LOOKED_UP_PATCH]
@@ -521,7 +521,7 @@ Resource pack template. Replace every `<fresh uuid v4>` with a newly generated U
   "modules": [
     { "type": "resources", "uuid": "<fresh uuid v4>", "version": [1, 0, 0] }
   ],
-  "metadata": { "authors": ["AllensCreations"], "product_type": "addon" }
+  "metadata": { "authors": ["ALNStudios"], "product_type": "addon" }
 }
 ```
 
@@ -690,7 +690,7 @@ Paste the workflow's error log back to the agent. If a message names a rule, fin
 | `type must be one of` | `project.json` needs `"type": "addon"`, `"map"`, `"script"`, or `"minigame"`. |
 | `File type not allowed` / `world data not allowed` / `link files not allowed` | Remove the file or folder (Section 2). |
 | `header.name must end with one (vX.Y.Z)` / `title version does not match` | One suffix, equal to `header.version`, in both packs. |
-| `description needs 'by AllensCreations' exactly once` | Once per description, never in the name. |
+| `description needs 'by ALNStudios' exactly once` | Once per description, never in the name. |
 | `must depend on the resource pack header.uuid` | Add the dependency (Section 3). |
 | `first entry must be void_cleaner` / `lacks the exact required fill line` / `the last command must add the void_cleaned tag` | Fix `tick.json` and `void_cleaner.mcfunction` (Section 5). |
 | `missing required file` | Add the file listed for your type. |

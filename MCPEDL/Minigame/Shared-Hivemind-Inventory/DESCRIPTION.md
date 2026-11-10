@@ -1,6 +1,6 @@
 # Team Inventory — Shared Multiplayer Inventory
 
-**By AllensCreations**
+**By ALNStudios**
 
 [![Minecraft Bedrock](https://img.shields.io/badge/Minecraft%20Bedrock-Stable%20Release-brightgreen?style=flat-square&logo=minecraft)](https://github.com/AllensCreations/MCPE-Curseforges)
 [![Format](https://img.shields.io/badge/Format-.MCPACK%20%7C%20.MCADDON%20%7C%20.MCWORLD-blue?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges)
@@ -9,7 +9,7 @@ One inventory for the whole team. Team Inventory combines every player's main in
 
 ## Overview
 
-The host or an operator starts the shared inventory with the AllensCreations Controller. From that moment, anything one player picks up, uses or drops changes it for the whole team. The add-on keeps names, lore, durability and enchantments of items while the world is running. Team Inventory is a drop-in add-on: add it to any world and the Controller gives you the shared inventory, Hard Mode and Personal Layout without any extra setup.
+The host or an operator starts the shared inventory with the ALNStudios Controller. From that moment, anything one player picks up, uses or drops changes it for the whole team. The add-on keeps names, lore, durability and enchantments of items while the world is running. Team Inventory is a drop-in add-on: add it to any world and the Controller gives you the shared inventory, Hard Mode and Personal Layout without any extra setup.
 
 ## Key Features
 
@@ -17,7 +17,7 @@ The host or an operator starts the shared inventory with the AllensCreations Con
 - **What Happens**: Main inventory, armor and offhand items are shared by every player who takes part.
 - **Simultaneous Changes**: When two players change the same stack at once, both changes are combined instead of lost or duplicated.
 
-### AllensCreations Controller
+### ALNStudios Controller
 - **What Happens**: Only the host or an operator can hold and use the Controller. It offers Start, How to play, a Mode switch between Normal and Hard, a Layout switch between Shared and Personal, and an End Game button.
 - **Survival**: Start uses up the Controller.
 - **Creative**: The Controller is kept.
@@ -77,19 +77,19 @@ The host or an operator starts the shared inventory with the AllensCreations Con
 
 ## Guidelines and Attribution
 
-- Creator: AllensCreations
-- Rights & Reservation: All rights reserved for AllensCreations.
-- Content Creators: Content creators are permitted to feature this creation in videos and streams with credit to AllensCreations.
+- Creator: ALNStudios
+- Rights & Reservation: All rights reserved for ALNStudios.
+- Content Creators: Content creators are permitted to feature this creation in videos and streams with credit to ALNStudios.
 - Redistribution: Do not re-upload this pack or provide direct monetized download bypasses. Link directly to the official repository page.
 - Disclaimer: This is an unofficial community creation. It is not an official Minecraft product and is not approved by or associated with Mojang or Microsoft.
 
 ---
 
-© All rights reserved for AllensCreations.
+© All rights reserved for ALNStudios.
 
 ---
 
 ## Search & Discovery Keywords
 
-Minecraft Bedrock add-on, Team Inventory Bedrock mod, shared inventory, multiplayer shared items, shared armor and offhand, shared ender chest, shared health and hunger, hard mode, personal inventory layout, works in any world, team survival inventory, Minecraft PE multiplayer, MCPEDL add-on, CurseForge Bedrock, AllensCreations.
+Minecraft Bedrock add-on, Team Inventory Bedrock mod, shared inventory, multiplayer shared items, shared armor and offhand, shared ender chest, shared health and hunger, hard mode, personal inventory layout, works in any world, team survival inventory, Minecraft PE multiplayer, MCPEDL add-on, CurseForge Bedrock, ALNStudios.
 

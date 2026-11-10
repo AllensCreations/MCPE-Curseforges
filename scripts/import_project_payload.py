@@ -53,9 +53,9 @@ MODES = ("auto", "create", "update", "overwrite")
 PACKS = ("behavior_pack", "resource_pack")
 MAX_B64 = 36_000_000
 CONTROL = re.compile(r"[\x00-\x1f\x7f]")
-LOCK_ROOT = ("AllensCreations Add-on Lock v1\n\nRequired repository marker for build validation.\n"
+LOCK_ROOT = ("ALNStudios Add-on Lock v1\n\nRequired repository marker for build validation.\n"
              "This marker does not encrypt source files or prevent extraction of distributable packages.\n")
-LOCK_PACK = ("AllensCreations Add-on Lock v1\n\nPack marker included in the exported Minecraft Bedrock pack.\n"
+LOCK_PACK = ("ALNStudios Add-on Lock v1\n\nPack marker included in the exported Minecraft Bedrock pack.\n"
              "This marker does not encrypt the pack or prevent extraction or editing.\n")
 
 

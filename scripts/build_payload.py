@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Project payload builder v9 for AllensCreations/MCPE-Curseforges.
+"""Project payload builder v9 for ALNStudios/MCPE-Curseforges.
 
 One script for all four project types: addon, map, script, minigame.
 It installs the mandatory repo assets that are missing, runs every structural check,
@@ -246,7 +246,7 @@ GAMEPLAY_HEADING = re.compile(r"^##\s+.*(overview|feature|mechanic|how it works|
 IMPORT_RE = re.compile(r"""(?:\bimport\b[^;]*?\bfrom\s*|\bimport\s*\(\s*|\bimport\s+)["']([^"']+)["']""")
 CORE_GUARD = re.compile(r"\bif\s+block\s+\S+\s+\S+\s+\S+\s+(?:minecraft:)?bedrock\b.*\brun\s+tag\s+@s\s+add\s+void_cleaned\b")
 CLEANER = "execute as @a[tag=!void_cleaned] run fill -16 -64 -16 16 -64 16 air"
-ATTRIBUTION = "by AllensCreations"
+ATTRIBUTION = "by ALNStudios"
 NAME_RE = re.compile(r"^[A-Za-z0-9][A-Za-z0-9._-]{0,63}$")
 UUID_V4 = re.compile(r"^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$", re.I)
 TITLE = re.compile(r"^.+ \(v(\d+)\.(\d+)\.(\d+)\)$")

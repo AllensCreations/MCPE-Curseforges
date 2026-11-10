@@ -2,7 +2,7 @@
   "format_version": 2,
   "header": {
     "name": "Monster Companions (v2.1.0)",
-    "description": "Custom textures, icons, and language definitions for Monster Companions. by AllensCreations",
+    "description": "Custom textures, icons, and language definitions for Monster Companions. by ALNStudios",
     "uuid": "7216d2ae-eb79-49ec-ba4f-25fab6d1f65d",
     "version": [
       2,
@@ -29,7 +29,7 @@
   ],
   "metadata": {
     "authors": [
-      "AllensCreations"
+      "ALNStudios"
     ],
     "product_type": "addon"
   }

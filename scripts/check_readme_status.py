@@ -97,8 +97,8 @@ SCAFFOLD_STUB_MARKERS = [
     "## Source Files",
     "Review the included manifests, behavior packs, resource packs, and scripts before publishing",
     "This directory contains the uncompressed source files used to build this add-on",
-    "Minecraft Bedrock add-on by AllensCreations.",
-    "## Description\n\nMinecraft Bedrock add-on by AllensCreations.",
+    "Minecraft Bedrock add-on by ALNStudios.",
+    "## Description\n\nMinecraft Bedrock add-on by ALNStudios.",
     "This directory contains the uncompressed source files used to build this add-on.\n\nReview the included manifests",
 ]
 
@@ -203,7 +203,7 @@ def extract_manifest_info(proj_dir):
     """Gathers metadata from manifests inside project directory."""
     manifests = sorted(glob.glob(os.path.join(proj_dir, "**/manifest.json"), recursive=True))
     name = os.path.basename(proj_dir).replace("-", " ")
-    desc = "Comprehensive Minecraft Bedrock add-on by AllensCreations."
+    desc = "Comprehensive Minecraft Bedrock add-on by ALNStudios."
     ver = "1.0.0"
     min_engine = "1.21.0"
     has_bp = False
@@ -422,7 +422,7 @@ def auto_generate_readme(proj_dir):
     badges = "\n".join(DESCRIPTION_BADGES)
     content = f"""# {clean_name} — Minecraft Bedrock {project_type.title()}
 
-**By AllensCreations**
+**By ALNStudios**
 
 {badges}
 
@@ -451,26 +451,26 @@ Explore the verified gameplay and interactions described in the feature cards be
 
 ## Creator and Permissions
 
-- Creator: AllensCreations
+- Creator: ALNStudios
 - Profiles: [CurseForge Profile](https://www.curseforge.com/members/allenscreations/projects) · [MCPEDL Profile](https://mcpedl.com/user/allenscreations/)
 
 ## Guidelines and Attribution
 
-- Creator: AllensCreations
-- Rights & Reservation: All rights reserved for AllensCreations.
-- Content Creators: Content creators are permitted to feature this creation in videos and streams with credit to AllensCreations.
+- Creator: ALNStudios
+- Rights & Reservation: All rights reserved for ALNStudios.
+- Content Creators: Content creators are permitted to feature this creation in videos and streams with credit to ALNStudios.
 - Redistribution: Do not re-upload this pack or provide direct monetized download bypasses. Link directly to the official repository page.
 - Disclaimer: This is an unofficial community creation. It is not an official Minecraft product and is not approved by or associated with Mojang or Microsoft.
 
 ---
 
-© All rights reserved for AllensCreations.
+© All rights reserved for ALNStudios.
 
 ---
 
 ## Search & Discovery Keywords
 
-Minecraft Bedrock add-on, {clean_name.lower()} Bedrock mod, Minecraft PE survival, MCPEDL add-on, CurseForge Bedrock, AllensCreations.
+Minecraft Bedrock add-on, {clean_name.lower()} Bedrock mod, Minecraft PE survival, MCPEDL add-on, CurseForge Bedrock, ALNStudios.
 """
     # The validator requires the clickable CurseForge/MCPEDL listing images in "Creator and
     # Permissions"; apply the same policy the standardizer uses so generated text passes its own check.

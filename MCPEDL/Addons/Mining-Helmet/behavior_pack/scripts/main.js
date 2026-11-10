@@ -1,6 +1,6 @@
 /**
  * Mining Helmet Dynamic Following Light System
- * Created by AllensCreations — MCPE Curseforges
+ * Created by ALNStudios — MCPE Curseforges
  *
  * Tracks the Mining Helmet in the player's head slot and handheld light sources.
  * Generates dynamic light with specific power levels:

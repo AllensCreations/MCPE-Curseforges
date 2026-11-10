@@ -1,6 +1,6 @@
 # Minigames
 
-Source files for Minecraft Bedrock survival challenges and minigames by AllensCreations.
+Source files for Minecraft Bedrock survival challenges and minigames by ALNStudios.
 
 ## Available Minigames
 
@@ -16,7 +16,7 @@ Download links point to the currently published package files.
 
 ## Attribution
 
-Created by AllensCreations. All rights reserved.
+Created by ALNStudios. All rights reserved.
 
 Videos and streams are welcome with credit. Redistribution of original or modified files without permission is prohibited.
 

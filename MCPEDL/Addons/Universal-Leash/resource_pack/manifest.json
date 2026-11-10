@@ -2,7 +2,7 @@
   "format_version": 2,
   "header": {
     "name": "Universal Leash (v2.0.0)",
-    "description": "Lead attachment points for Spiders and Cave Spiders. by AllensCreations",
+    "description": "Lead attachment points for Spiders and Cave Spiders. by ALNStudios",
     "uuid": "fd71ebea-413a-46b1-a166-c6701e048015",
     "version": [
       2,
@@ -29,7 +29,7 @@
   ],
   "metadata": {
     "authors": [
-      "AllensCreations"
+      "ALNStudios"
     ],
     "product_type": "addon"
   }

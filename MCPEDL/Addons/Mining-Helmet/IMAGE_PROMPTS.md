@@ -1,6 +1,6 @@
 # Mining Helmet - Image Generation Prompts
 
-This document provides optimized prompts for generating promotional logos and banners for **Mining Helmet** by AllensCreations.
+This document provides optimized prompts for generating promotional logos and banners for **Mining Helmet** by ALNStudios.
 
 ---
 
@@ -16,7 +16,7 @@ A gleaming golden miner's helmet with a lantern securely mounted on the forehead
 
 ### Prompt (Copy-Paste)
 ```text
-Crisp 3D Minecraft pack icon of a heavy golden miner helmet, isometric close-up view. The golden helmet has a sturdy brass-framed lantern mounted firmly on its forehead, casting an intense, bright cone of warm level-15 light into the foreground. The background consists of dark deepslate cobblestone with sparkling embedded cyan diamond ores and raw gold ore blocks catching the light beam. Dramatic high-contrast shadows, volumetric dust particles drifting in the light rays, polished metallic reflections. Bold clean typography at the bottom reads "MINING HELMET" with a refined gold-plated subtitle badge reading "by AllensCreations", ray traced, Unreal Engine 5 studio render, 8k --ar 1:1 --v 6.1 --stylize 250
+Crisp 3D Minecraft pack icon of a heavy golden miner helmet, isometric close-up view. The golden helmet has a sturdy brass-framed lantern mounted firmly on its forehead, casting an intense, bright cone of warm level-15 light into the foreground. The background consists of dark deepslate cobblestone with sparkling embedded cyan diamond ores and raw gold ore blocks catching the light beam. Dramatic high-contrast shadows, volumetric dust particles drifting in the light rays, polished metallic reflections. Bold clean typography at the bottom reads "MINING HELMET" with a refined gold-plated subtitle badge reading "by ALNStudios", ray traced, Unreal Engine 5 studio render, 8k --ar 1:1 --v 6.1 --stylize 250
 ```
 
 ### Negative Prompt
@@ -38,7 +38,7 @@ A cavernous, dark deepslate underground cavern. An intrepid miner wearing enchan
 
 ### Prompt (Copy-Paste)
 ```text
-Atmospheric wide 16:9 cinematic Minecraft cave render. Deep inside a massive underground deepslate cavern, a lone spelunker wearing an illuminated golden Mining Helmet stands on a rocky ledge looking down into a vast subterranean canyon. The helmet casts a brilliant, realistic conical beam of light slicing through the darkness, illuminating hanging pointed dripstones, an abandoned oak mineshaft bridge with minecart tracks, and glowing clusters of raw copper and diamond ores embedded in the cavern walls. Distant glowing lava falls cast warm red rim highlights. Elegant cinematic title text placed prominently in the upper third reads "MINING HELMET" with a crisp glowing subtitle "by AllensCreations", photorealistic block materials, ray tracing, 8k resolution --ar 16:9 --v 6.1 --stylize 300
+Atmospheric wide 16:9 cinematic Minecraft cave render. Deep inside a massive underground deepslate cavern, a lone spelunker wearing an illuminated golden Mining Helmet stands on a rocky ledge looking down into a vast subterranean canyon. The helmet casts a brilliant, realistic conical beam of light slicing through the darkness, illuminating hanging pointed dripstones, an abandoned oak mineshaft bridge with minecart tracks, and glowing clusters of raw copper and diamond ores embedded in the cavern walls. Distant glowing lava falls cast warm red rim highlights. Elegant cinematic title text placed prominently in the upper third reads "MINING HELMET" with a crisp glowing subtitle "by ALNStudios", photorealistic block materials, ray tracing, 8k resolution --ar 16:9 --v 6.1 --stylize 300
 ```
 
 ### Negative Prompt

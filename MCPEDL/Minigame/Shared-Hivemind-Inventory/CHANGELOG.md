@@ -48,7 +48,7 @@
 ## [1.0.14] - 2026-10-27
 
 ### Added
-- **AllensCreations Controller**: The host or an operator receives a Controller item. Using it opens a menu with Start and How to play. Starting uses it up in Survival and keeps it in Creative.
+- **ALNStudios Controller**: The host or an operator receives a Controller item. Using it opens a menu with Start and How to play. Starting uses it up in Survival and keeps it in Creative.
 - **Ending the Game**: The function end_game ends sharing and divides the shared items between players. The function give_controller gives a new Controller.
 - **Team Start**: Sharing now begins when the host chooses Start, and everyone's items are combined at that moment.
 

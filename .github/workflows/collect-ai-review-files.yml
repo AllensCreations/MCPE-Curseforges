@@ -5,8 +5,8 @@ name: Collect Files for AI Review
 #                         hashes, ALL_TEXT_FILES.txt). Download name: ai-review-bundle.zip
 #   Type paths          : files, folders or globs, comma or newline separated
 #                         (e.g. MCPEDL/Addons/Grand-Banquets, scripts, MCPEDL/Maps/*/behavior_pack).
-#                         You get ONE readable Markdown file (index, AI instructions, every text
-#                         file, nothing truncated) inside a zip named after the first folder with its
+#                         You get ONE <filename>.b64 file (base64 of a Markdown export: index, AI instructions,
+#                         every text file, nothing truncated; decode with base64 -d) inside a zip named after the first folder with its
 #                         latest changelog version:  (X.Y.Z.A) Filename.zip
 #                         The built-in AI prompt keeps the Termux .sh rules: (Repofilename)_(Version)_(Rand).sh,
 #                         CHANGELOG.md updated on every change with A+1, docs follow the templates.
@@ -73,10 +73,10 @@ jobs:
           python3 - <<'PY'
           import os, re, pathlib
 
-          AI_PROMPT = '''# AI Instructions
+          AI_PROMPT = r'''# AI Instructions
 
           Repo: https://github.com/AllensCreations/MCPE-Curseforges.git (branch main)
-          The attached MD export shows the current files. Read it before changing anything.
+          The attached export (a .b64 file: decode it with `base64 -d <name>.b64 > <name>.md`) shows the current files. Read it before changing anything.
 
           ## Destination (remembered from this export)
           Repo-root-relative folders this work belongs to:
@@ -98,7 +98,17 @@ jobs:
           5. Validate every changed .json file with python3 and stop on error
           5b. Verify the top CHANGELOG.md heading equals the new X.Y.Z.A version and the script file name version; stop on mismatch
           6. `git add` only the changed paths, `git commit -m "<short message>"`, `git push`
-          7. Safe to run twice (skip anything already applied)
+          7. After the push, start the Build Changed Packs & Sync Catalogs workflow so the pack is built automatically. Only when `DEST` starts with `MCPEDL/`; it must never stop the script (`|| echo` a warning on failure). Use exactly:
+          ```
+          TOKEN=$(printf 'protocol=https\nhost=github.com\n\n' | git credential fill | sed -n 's/^password=//p')
+          curl -fsS -X POST -H "Authorization: Bearer $TOKEN" -H "Accept: application/vnd.github+json" \
+            https://api.github.com/repos/AllensCreations/MCPE-Curseforges/actions/workflows/auto-version-bump.yml/dispatches \
+            -d "{\"ref\":\"main\",\"inputs\":{\"task\":\"build\",\"scope\":\"one project (pick it below)\",\"other\":\"$DEST\"}}" \
+            && echo "Build Changed Packs & Sync Catalogs started for $DEST" \
+            || echo "Could not start the build; run Build Changed Packs & Sync Catalogs manually."
+          ```
+          `$DEST` must be the project folder itself (for example `MCPEDL/Addons/Mining-Helmet`). The push may also start the same workflow by itself; the runs are queued and the second one changes nothing.
+          8. Safe to run twice (skip anything already applied)
 
           ## Docs (every update, inside the same script)
           Strict templates: README.md, DESCRIPTION.md and CHANGELOG.md must follow the templates below exactly: same headings, same heading text, same order, same labels and bullet format. Do not add, remove, rename, merge or reorder sections, and add no boilerplate or extra text. Leave no placeholders; fill every [bracket] with verified content. Accuracy and the requested scope still outrank the template.
@@ -128,18 +138,18 @@ jobs:
           For gameplay features, usage details, compatibility notes, and other project information, read the [full description](DESCRIPTION link).
           ```
           Maps, scripts and minigames use the same download landing page (use the real package format, and for .mcworld tell players to open the imported world). Product details live in DESCRIPTION.md.
-          - DESCRIPTION.md section order: `# [Name] — [subtitle]` (no release version), `**By AllensCreations**`, the two exact Minecraft Bedrock and Format badges from the repo template, summary, `## Overview`, `## Key Features`, `## How to Use`, `## Compatibility` (Minecraft Bedrock Edition, Experimental features, Achievements, Verification), `## Creator and Permissions` (CurseForge profile https://www.curseforge.com/members/allenscreations/projects and MCPEDL profile https://mcpedl.com/user/allenscreations/), `## Guidelines and Attribution`, then `---` and `## Search & Discovery Keywords` built from real features. For Add-ons, always use `Likely achievement-friendly` on the Achievements line; include caveats if world settings or cheats can disable achievements.
+          - DESCRIPTION.md section order: `# [Name] — [subtitle]` (no release version), `**By ALNStudios**`, the two exact Minecraft Bedrock and Format badges from the repo template, summary, `## Overview`, `## Key Features`, `## How to Use`, `## Compatibility` (Minecraft Bedrock Edition, Experimental features, Achievements, Verification), `## Creator and Permissions` (CurseForge profile https://www.curseforge.com/members/allenscreations/projects and MCPEDL profile https://mcpedl.com/user/allenscreations/), `## Guidelines and Attribution`, then `---` and `## Search & Discovery Keywords` built from real features. For Add-ons, always use `Likely achievement-friendly` on the Achievements line; include caveats if world settings or cheats can disable achievements.
           - Guidelines and Attribution block, exactly:
           ```
-          - Creator: AllensCreations
-          - Rights & Reservation: All rights reserved for AllensCreations.
-          - Content Creators: Content creators are permitted to feature this creation in videos and streams with credit to AllensCreations.
+          - Creator: ALNStudios
+          - Rights & Reservation: All rights reserved for ALNStudios.
+          - Content Creators: Content creators are permitted to feature this creation in videos and streams with credit to ALNStudios.
           - Redistribution: Do not re-upload this pack or provide direct monetized download bypasses. Link directly to the official repository page.
           - Disclaimer: This is an unofficial community creation. It is not an official Minecraft product and is not approved by or associated with Mojang or Microsoft.
 
           ---
 
-          © All rights reserved for AllensCreations.
+          © All rights reserved for ALNStudios.
           ```
           - CHANGELOG.md: `# Changelog — [Name]`, `---`, then newest release first as `## [X.Y.Z.A] - YYYY-MM-DD` (script uses today's date from `TZ=Asia/Singapore date +%F`), grouped under `### Added`, `### Improved & Balanced`, `### Fixed` (bugs described by in-game experience). Entries are `- **Title**: player impact.` No links, URLs, badges, function or event names, or unverified benefits. No boilerplate after the title. Every entry needs at least one bullet; omit headings that have no entries. Insert the new entry directly under the `---` and above the previous release. Never edit or delete older entries.
 
@@ -149,9 +159,9 @@ jobs:
 
           First time only:
           ```
-          pkg update -y && pkg install -y git python
+          pkg update -y && pkg install -y git python curl
           termux-setup-storage
-          git config --global user.name "AllensCreations"
+          git config --global user.name "ALNStudios"
           git config --global user.email "your-email@example.com"
           git config --global credential.helper store
           ```
@@ -159,7 +169,7 @@ jobs:
           ```
           bash ~/storage/downloads/<Repofilename>_<Version>_<RAND>.sh
           ```
-          Download the .sh to your Downloads folder first and use its exact file name, including the random characters. At the push prompt, the password is your GitHub Personal Access Token (repo scope), not your account password.
+          Download the .sh to your Downloads folder first and use its exact file name, including the random characters. At the push prompt, the password is your GitHub Personal Access Token (repo and workflow scopes), not your account password. The same token starts the build after the push.
           '''
 
           raw_paths = [p.strip().strip("'\"") for p in re.split(r"[,\n]", os.environ["PATHS"]) if p.strip()]
@@ -273,7 +283,7 @@ jobs:
               blocks.append((rel, f"\n{head}\n\n{fence}\n{data.rstrip(chr(10))}\n{fence}\n"))
 
           out = pathlib.Path("ai_review_bundle"); out.mkdir(exist_ok=True)
-          name = f"{label}.md"
+          name = f"{label}.b64"
           index = ["- **Export request:** " + ", ".join(f"`{r}`" for r in raw_paths),
                    "- **Destination:** " + ", ".join(f"`{d}`" for d in dests)]
           index += [f"- **{v.split('  (')[0]}**  (`{v.split('  (')[1].rstrip(')')}`)" for v in version_lines]
@@ -287,11 +297,12 @@ jobs:
           content = ("# Repo Export\n\n## Index\n\n" + "\n".join(index) + "\n\n---\n\n"
                      + "## AI Instructions\n\n" + instructions.replace("# AI Instructions", "", 1).strip() + "\n\n---\n\n"
                      + "## File Contents\n" + "".join(b for _, b in blocks))
-          (out / name).write_text(content, encoding="utf-8")
+          import base64
+          (out / name).write_bytes(base64.encodebytes(content.encode("utf-8")))
           with open(os.environ["GITHUB_OUTPUT"], "a", encoding="utf-8") as fh:
               fh.write(f"label={label}\n")
               fh.write(f"artifact_name={'(' + top_versions[0] + ') ' + label if top_versions else label}\n")
-          print(f"Exported {len(files)} files into ai_review_bundle/{name}; skipped {len(skipped)} binary; {len(missing)} path(s) not found.")
+          print(f"Exported {len(files)} files into ai_review_bundle/{name} (base64 of the Markdown export); skipped {len(skipped)} binary; {len(missing)} path(s) not found.")
           PY
 
       - name: Gather standard review files

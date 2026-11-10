@@ -1,6 +1,6 @@
 # Vanilla Quality of Life - Image Generation Prompts
 
-This document provides optimized prompts for generating promotional logos and banners for **Vanilla Quality of Life** by AllensCreations.
+This document provides optimized prompts for generating promotional logos and banners for **Vanilla Quality of Life** by ALNStudios.
 
 ---
 
@@ -16,7 +16,7 @@ A clean, premium Minecraft 3D render highlighting survival peace and universal h
 
 ### Prompt (Copy-Paste)
 ```text
-Clean 3D Minecraft render of an official pack icon, centered composition on a soft vignette gradient background. In the center, a stylized golden lead cord elegantly wraps around a floating pixelated red heart and a diamond sword resting peacefully in stone. Next to it, a cute tamed Minecraft wolf with a red collar sits calmly beside a smiling Minecraft villager holding emeralds. Subtle glowing particles, warm volumetric rim lighting, crisp edges, premium mobile game store icon aesthetic. Bold clean typography at the bottom reads "Vanilla QoL" with secondary subtitle "by AllensCreations", ray tracing, 8k resolution, Unreal Engine 5 render style --ar 1:1 --v 6.1 --stylize 250
+Clean 3D Minecraft render of an official pack icon, centered composition on a soft vignette gradient background. In the center, a stylized golden lead cord elegantly wraps around a floating pixelated red heart and a diamond sword resting peacefully in stone. Next to it, a cute tamed Minecraft wolf with a red collar sits calmly beside a smiling Minecraft villager holding emeralds. Subtle glowing particles, warm volumetric rim lighting, crisp edges, premium mobile game store icon aesthetic. Bold clean typography at the bottom reads "Vanilla QoL" with secondary subtitle "by ALNStudios", ray tracing, 8k resolution, Unreal Engine 5 render style --ar 1:1 --v 6.1 --stylize 250
 ```
 
 ### Negative Prompt
@@ -38,7 +38,7 @@ A cinematic widescreen landscape of a lush Minecraft survival world. In the fore
 
 ### Prompt (Copy-Paste)
 ```text
-Cinematic wide 16:9 Minecraft landscape render, warm golden hour sunset lighting with volumetric sun god rays filtering through autumn birch tree canopy. In the center foreground, a Minecraft survival adventurer walks forward proudly, holding glowing leads connected to a friendly Iron Golem on one side and a pacified smiling Creeper on the other. Floating tree leaves dissolve into sparkling magical particles and falling apples. In the background, a cozy rustic log cabin with a smoking stone chimney, woodcutter workstation, and tame dogs resting by a campfire. Clean cinematic title text integrated at the top center reads "VANILLA QUALITY OF LIFE" with an elegant subtitle below reading "by AllensCreations", photorealistic block textures, ray-traced shadows, 8k resolution, cinematic composition --ar 16:9 --v 6.1 --stylize 300
+Cinematic wide 16:9 Minecraft landscape render, warm golden hour sunset lighting with volumetric sun god rays filtering through autumn birch tree canopy. In the center foreground, a Minecraft survival adventurer walks forward proudly, holding glowing leads connected to a friendly Iron Golem on one side and a pacified smiling Creeper on the other. Floating tree leaves dissolve into sparkling magical particles and falling apples. In the background, a cozy rustic log cabin with a smoking stone chimney, woodcutter workstation, and tame dogs resting by a campfire. Clean cinematic title text integrated at the top center reads "VANILLA QUALITY OF LIFE" with an elegant subtitle below reading "by ALNStudios", photorealistic block textures, ray-traced shadows, 8k resolution, cinematic composition --ar 16:9 --v 6.1 --stylize 300
 ```
 
 ### Negative Prompt

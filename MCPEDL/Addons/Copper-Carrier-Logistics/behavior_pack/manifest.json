@@ -2,7 +2,7 @@
   "format_version": 2,
   "header": {
     "name": "Copper-Carrier Logistics (v1.0.0)",
-    "description": "Allays carry Copper Golems as flying sorting units with a 54-slot buffer and a 64-block range. by AllensCreations",
+    "description": "Allays carry Copper Golems as flying sorting units with a 54-slot buffer and a 64-block range. by ALNStudios",
     "uuid": "c127be93-35d8-4236-9dcd-dd6a1895ead2",
     "version": [1, 0, 0],
     "min_engine_version": [1, 26, 60]
@@ -20,7 +20,7 @@
     { "module_name": "@minecraft/server", "version": "2.11.0" }
   ],
   "metadata": {
-    "authors": ["AllensCreations"],
+    "authors": ["ALNStudios"],
     "product_type": "addon"
   }
 }

@@ -27,8 +27,8 @@ def main():
             with open(os.path.join(pack, "scripts", "mode.js"), "w", encoding="utf-8") as f:
                 f.write('export const WORLD_MODE = "%s";\n' % mode)
             with open(os.path.join(world, "levelname.txt"), "w", encoding="utf-8") as f:
-                f.write("OneBlock Void Survival %s v%s [AllensCreations]\n" % (label, short))
-            name = "OneBlock Void Survival %s by AllensCreations (V%s).mcworld" % (label, full)
+                f.write("OneBlock Void Survival %s v%s [ALNStudios]\n" % (label, short))
+            name = "OneBlock Void Survival %s by ALNStudios (V%s).mcworld" % (label, full)
             target = os.path.join(out, name)
             with zipfile.ZipFile(target, "w", zipfile.ZIP_DEFLATED) as z:
                 for root, _, files in os.walk(world):

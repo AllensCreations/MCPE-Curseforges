@@ -1,6 +1,6 @@
 # Fletching Table Arsenal — Tactical Arrow Workstation
 
-**By AllensCreations**
+**By ALNStudios**
 
 [![Minecraft Bedrock](https://img.shields.io/badge/Minecraft%20Bedrock-Stable%20Release-brightgreen?style=flat-square&logo=minecraft)](https://github.com/AllensCreations/MCPE-Curseforges)
 [![Format](https://img.shields.io/badge/Format-.MCPACK%20%7C%20.MCADDON%20%7C%20.MCWORLD-blue?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges)
@@ -50,19 +50,19 @@ The Fletching Table becomes a working archery station. A menu shows your current
 
 ## Guidelines and Attribution
 
-- Creator: AllensCreations
-- Rights & Reservation: All rights reserved for AllensCreations.
-- Content Creators: Content creators are permitted to feature this creation in videos and streams with credit to AllensCreations.
+- Creator: ALNStudios
+- Rights & Reservation: All rights reserved for ALNStudios.
+- Content Creators: Content creators are permitted to feature this creation in videos and streams with credit to ALNStudios.
 - Redistribution: Do not re-upload this pack or provide direct monetized download bypasses. Link directly to the official repository page.
 - Disclaimer: This is an unofficial community creation. It is not an official Minecraft product and is not approved by or associated with Mojang or Microsoft.
 
 ---
 
-© All rights reserved for AllensCreations.
+© All rights reserved for ALNStudios.
 
 ---
 
 ## Search & Discovery Keywords
 
-Minecraft Bedrock add-on, Fletching Table Arsenal Bedrock mod, tactical arrows, explosive arrows, teleportation arrows, frost arrows, incendiary arrows, fletching table menu, Minecraft PE survival, MCPEDL add-on, CurseForge Bedrock, AllensCreations.
+Minecraft Bedrock add-on, Fletching Table Arsenal Bedrock mod, tactical arrows, explosive arrows, teleportation arrows, frost arrows, incendiary arrows, fletching table menu, Minecraft PE survival, MCPEDL add-on, CurseForge Bedrock, ALNStudios.
 

@@ -2,7 +2,7 @@
   "format_version": 2,
   "header": {
     "name": "OneBlock Phase Evolution (v1.0.0)",
-    "description": "Resource pack for OneBlock Phase Evolution by AllensCreations",
+    "description": "Resource pack for OneBlock Phase Evolution by ALNStudios",
     "uuid": "551a6d82-52da-49ef-ba82-c006d32ed4d4",
     "version": [
       1,
@@ -28,7 +28,7 @@
   ],
   "metadata": {
     "authors": [
-      "AllensCreations"
+      "ALNStudios"
     ]
   }
 }

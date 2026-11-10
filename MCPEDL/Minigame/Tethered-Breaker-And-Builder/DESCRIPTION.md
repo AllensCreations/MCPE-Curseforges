@@ -1,6 +1,6 @@
 # Tethered: Breaker and Builder — Two-Player Co-op Challenge
 
-**By AllensCreations**
+**By ALNStudios**
 
 [![Minecraft Bedrock](https://img.shields.io/badge/Minecraft%20Bedrock-Stable%20Release-brightgreen?style=flat-square&logo=minecraft)](https://github.com/AllensCreations/MCPE-Curseforges)
 [![Format](https://img.shields.io/badge/Format-.MCPACK%20%7C%20.MCADDON%20%7C%20.MCWORLD-blue?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges)
@@ -29,7 +29,7 @@ Two players share a 15-meter tether. The Breaker handles mining and combat but c
 - **What Happens**: A partner who dies respawns beside the survivor with temporary protection.
 
 ### Controller
-- **What Happens**: The host or an operator uses the AllensCreations Controller to start the challenge and read the rules.
+- **What Happens**: The host or an operator uses the ALNStudios Controller to start the challenge and read the rules.
 
 ## How to Use
 
@@ -55,19 +55,19 @@ Two players share a 15-meter tether. The Breaker handles mining and combat but c
 
 ## Guidelines and Attribution
 
-- Creator: AllensCreations
-- Rights & Reservation: All rights reserved for AllensCreations.
-- Content Creators: Content creators are permitted to feature this creation in videos and streams with credit to AllensCreations.
+- Creator: ALNStudios
+- Rights & Reservation: All rights reserved for ALNStudios.
+- Content Creators: Content creators are permitted to feature this creation in videos and streams with credit to ALNStudios.
 - Redistribution: Do not re-upload this pack or provide direct monetized download bypasses. Link directly to the official repository page.
 - Disclaimer: This is an unofficial community creation. It is not an official Minecraft product and is not approved by or associated with Mojang or Microsoft.
 
 ---
 
-© All rights reserved for AllensCreations.
+© All rights reserved for ALNStudios.
 
 ---
 
 ## Search & Discovery Keywords
 
-Minecraft Bedrock co-op challenge, Tethered Breaker and Builder, asymmetric two-player survival, Minecraft tether, cooperative mining and building, multiplayer survival minigame, Minecraft PE challenge, MCPEDL, CurseForge Bedrock, AllensCreations, Minecraft Bedrock add-on, MCPEDL add-on.
+Minecraft Bedrock co-op challenge, Tethered Breaker and Builder, asymmetric two-player survival, Minecraft tether, cooperative mining and building, multiplayer survival minigame, Minecraft PE challenge, MCPEDL, CurseForge Bedrock, ALNStudios, Minecraft Bedrock add-on, MCPEDL add-on.
 

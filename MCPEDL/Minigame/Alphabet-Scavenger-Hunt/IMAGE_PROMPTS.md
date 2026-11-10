@@ -1,6 +1,6 @@
 # Alphabet Scavenger Hunt - Image Generation Prompts
 
-This document provides optimized prompts for generating promotional logos and banners for **Alphabet Scavenger Hunt** by AllensCreations.
+This document provides optimized prompts for generating promotional logos and banners for **Alphabet Scavenger Hunt** by ALNStudios.
 
 ---
 
@@ -16,7 +16,7 @@ A bold, vibrant letter "A" block carved from emerald and polished gold, glowing 
 
 ### Prompt (Copy-Paste)
 ```text
-Eye-catching 3D Minecraft pack icon with a central game-show aesthetic. In the center, a large, bold Minecraft block sculpted into the letter "A" made of luminous emerald and edged with polished gold. Resting against the letter block is an active digital countdown timer displaying "00:59" in glowing neon yellow and a brass steampunk hourglass with falling golden sand. Flying alphabet letter blocks (B, C, D, Z) float in the background surrounded by vibrant celebration sparks and confetti. Rich deep blue gradient backdrop with studio rim lighting. Bold playful 3D typography across the bottom reads "ALPHABET HUNT" with an official clean subtitle reading "by AllensCreations", Unreal Engine 5 render, 8k resolution --ar 1:1 --v 6.1 --stylize 250
+Eye-catching 3D Minecraft pack icon with a central game-show aesthetic. In the center, a large, bold Minecraft block sculpted into the letter "A" made of luminous emerald and edged with polished gold. Resting against the letter block is an active digital countdown timer displaying "00:59" in glowing neon yellow and a brass steampunk hourglass with falling golden sand. Flying alphabet letter blocks (B, C, D, Z) float in the background surrounded by vibrant celebration sparks and confetti. Rich deep blue gradient backdrop with studio rim lighting. Bold playful 3D typography across the bottom reads "ALPHABET HUNT" with an official clean subtitle reading "by ALNStudios", Unreal Engine 5 render, 8k resolution --ar 1:1 --v 6.1 --stylize 250
 ```
 
 ### Negative Prompt
@@ -38,7 +38,7 @@ An exhilarating, fast-paced survival race against the clock. Multiple Minecraft 
 
 ### Prompt (Copy-Paste)
 ```text
-High-energy 16:9 cinematic Minecraft minigame action scene. In the foreground, an excited Minecraft player sprints and leaps across a rocky mountain canyon, triumphantly holding up a sparkling Diamond item. At the top of the screen, a sleek holographic Minecraft bossbar HUD displays "[ ROUND 14 - TARGET: LETTER D ] 00:07 SECONDS REMAINING". In the midground, other competitive teammates scramble through trees and chests, racing against the clock. The sky is filled with colorful celebratory fireworks, particle trails, and warm golden sunlight. Bold energetic typography centered at the top reads "ALPHABET SCAVENGER HUNT" with a sleek gold-embossed subtitle "by AllensCreations", octane render, ray tracing, 8k resolution --ar 16:9 --v 6.1 --stylize 300
+High-energy 16:9 cinematic Minecraft minigame action scene. In the foreground, an excited Minecraft player sprints and leaps across a rocky mountain canyon, triumphantly holding up a sparkling Diamond item. At the top of the screen, a sleek holographic Minecraft bossbar HUD displays "[ ROUND 14 - TARGET: LETTER D ] 00:07 SECONDS REMAINING". In the midground, other competitive teammates scramble through trees and chests, racing against the clock. The sky is filled with colorful celebratory fireworks, particle trails, and warm golden sunlight. Bold energetic typography centered at the top reads "ALPHABET SCAVENGER HUNT" with a sleek gold-embossed subtitle "by ALNStudios", octane render, ray tracing, 8k resolution --ar 16:9 --v 6.1 --stylize 300
 ```
 
 ### Negative Prompt

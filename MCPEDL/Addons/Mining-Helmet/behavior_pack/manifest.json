@@ -2,7 +2,7 @@
   "format_version": 2,
   "header": {
     "name": "Mining Helmet (v1.0.14)",
-    "description": "Wearable Mining Helmet with real-time dynamic light tracking using @minecraft/server. by AllensCreations",
+    "description": "Wearable Mining Helmet with real-time dynamic light tracking using @minecraft/server. by ALNStudios",
     "uuid": "1a05f976-9731-4a23-934d-c77cc12722c9",
     "version": [
       1,
@@ -55,7 +55,7 @@
   ],
   "metadata": {
     "authors": [
-      "AllensCreations"
+      "ALNStudios"
     ],
     "product_type": "addon"
   }

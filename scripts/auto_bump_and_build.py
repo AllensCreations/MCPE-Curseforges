@@ -12,8 +12,9 @@ Features:
    - Project Build Directory: builds/<project_name>/README.md (Direct downloads table)
    - Master Builds Directory: builds/README.md (Catalog table row & download link)
    - Root Catalog: README.md (Catalog tables, overview header & download links)
-4. Standardizes output package filenames:
-   "<Filename> by AllensCreations (V#.#.#).<ext>"
+4. Names output packages from the manifest (header.name + version). Default shape:
+   "<Name> by ALNStudios (V#.#.#).<ext>"; override with metadata.package_filename in a
+   manifest or the PACK_FILENAME_TEMPLATE variable.
 5. Injects new projects into catalog tables and updates Collection Size badge.
 """
 
@@ -190,19 +191,17 @@ def format_version(ver_list):
     return f"{ver_list[0]}.{ver_list[1]}.{ver_list[2]}"
 
 
-_INSTALLED_COPY_PARTS = {"world", "worlds", "behavior_packs", "resource_packs"}
-
-
 def _manifest_versions(project_path):
-    """Header versions of the project's source manifests (installed world copies are ignored)."""
+    """Header versions of the project's source manifests (installed world copies are ignored).
+
+    Uses manifest_tools.source_manifest_paths so the build, the aligner and the verifier all
+    look at exactly the same files."""
     found = []
-    manifest_paths = sorted(
-        glob.glob(os.path.join(project_path, "**/manifest.json"), recursive=True)
-    )
+    if manifest_tools:
+        manifest_paths = manifest_tools.source_manifest_paths(project_path)
+    else:
+        manifest_paths = sorted(glob.glob(os.path.join(project_path, "**/manifest.json"), recursive=True))
     for mp in manifest_paths:
-        parts = set(os.path.relpath(mp, project_path).replace(os.sep, "/").split("/")[:-1])
-        if parts & _INSTALLED_COPY_PARTS:
-            continue
         try:
             with open(mp, encoding="utf-8") as f:
                 data = json.load(f)
@@ -291,6 +290,14 @@ def _format_size(filepath):
         return "~100 KB"
 
 
+def package_filename(project_path, version_str, ext):
+    """Download file name: follows the manifest (name + version); see manifest_tools.package_basename."""
+    fallback = get_project_title(project_path)
+    if manifest_tools:
+        return f"{manifest_tools.package_basename(project_path, version_str, fallback)}.{ext}"
+    return f"{fallback} by ALNStudios (V{version_str}).{ext}"
+
+
 def _get_pack_type(project_path, category, version_str="1.0.0"):
     """Returns (type_label, primary_ext, build_filename)."""
     bp_dir = os.path.join(project_path, "behavior_pack")
@@ -300,11 +307,11 @@ def _get_pack_type(project_path, category, version_str="1.0.0"):
 
     kind = os.path.basename(category).lower()
     if kind == "maps":
-        return "Custom Map (`.mcworld`)", "mcworld", f"{title} by AllensCreations (V{version_str}).mcworld"
+        return "Custom Map (`.mcworld`)", "mcworld", package_filename(project_path, version_str, "mcworld")
     elif kind in {"addons", "minigame"}:
-        return "Complete Pack (`.mcaddon`)", "mcaddon", f"{title} by AllensCreations (V{version_str}).mcaddon"
+        return "Complete Pack (`.mcaddon`)", "mcaddon", package_filename(project_path, version_str, "mcaddon")
     else:
-        return "Script Pack (`.mcpack`)", "mcpack", f"{title} by AllensCreations (V{version_str}).mcpack"
+        return "Script Pack (`.mcpack`)", "mcpack", package_filename(project_path, version_str, "mcpack")
 
 
 # ─────────────────────────────────────────────────────────────────────────────
@@ -345,7 +352,7 @@ def zip_directory_contents(src_dir, zip_dest):
 def rebuild_project_packages(project_path, category, version_str=None):
     """
     Rebuilds .mcaddon / .mcpack / .mcworld binaries in builds/<project_name>/.
-    Format: '<Filename> by AllensCreations (V#.#.#).<ext>'
+    Name follows the manifest (see package_filename).
     Returns (primary_filename, list_of_built_files_tuples).
     """
     project_name = os.path.basename(project_path)
@@ -395,7 +402,7 @@ def rebuild_project_packages(project_path, category, version_str=None):
                 except OSError:
                     pass
 
-        mcworld_name = f"{title} by AllensCreations (V{version_str}).mcworld"
+        mcworld_name = package_filename(project_path, version_str, "mcworld")
 
         dest_world_bp = os.path.join(world_dir, "behavior_packs", "OneBlockVoid")
         if os.path.isdir(dest_world_bp) and has_bp:
@@ -421,7 +428,7 @@ def rebuild_project_packages(project_path, category, version_str=None):
 
     # 2. Combined BP + RP Add-on
     elif kind in {"addons", "minigame"} and has_bp and has_rp:
-        addon_name = f"{title} by AllensCreations (V{version_str}).mcaddon"
+        addon_name = package_filename(project_path, version_str, "mcaddon")
 
         mcaddon_path = os.path.join(build_dir, addon_name)
         slug = project_name.replace("-", "_")
@@ -442,7 +449,7 @@ def rebuild_project_packages(project_path, category, version_str=None):
 
     # 3. BP-only (Scripts / Addon without RP)
     elif kind in {"addons", "minigame"} and (has_bp or has_rp):
-        addon_name = f"{title} by AllensCreations (V{version_str}).mcaddon"
+        addon_name = package_filename(project_path, version_str, "mcaddon")
         slug = project_name.replace("-", "_")
         entries = []
         if has_bp:
@@ -457,7 +464,7 @@ def rebuild_project_packages(project_path, category, version_str=None):
         print(f"  Built: {os.path.relpath(mcaddon_path, REPO_ROOT)}")
 
     elif kind == "script" and has_bp and not has_rp:
-        pack_name = f"{title} by AllensCreations (V{version_str}).mcpack"
+        pack_name = package_filename(project_path, version_str, "mcpack")
         mcpack_path = os.path.join(build_dir, pack_name)
         zip_directory_contents(bp_dir, mcpack_path)
         primary_file = pack_name
@@ -657,7 +664,7 @@ def generate_build_readme(project_path, category, version_str, built_files):
 
     content = f"""# {title} - Downloads and Releases
 
-This folder contains compiled release packages for **{title}** by AllensCreations.
+This folder contains compiled release packages for **{title}** by ALNStudios.
 
 ---
 
@@ -681,7 +688,7 @@ To inspect uncompressed JSON files, geometry, render controllers, and textures:
 
 ---
 
-© All rights reserved for AllensCreations.
+© All rights reserved for ALNStudios.
 """
     with open(readme_path, "w", encoding="utf-8") as f:
         f.write(content)
@@ -1148,9 +1155,17 @@ def main():
         changed_projects = matched
     else:
         print(f"[Build] Checking changed files (base: {args.base or 'auto'})...")
-        changed_files = get_git_diff_files(args.base)
+        try:
+            changed_files = get_git_diff_files(args.base)
+        except subprocess.CalledProcessError as exc:
+            print(f"[Build] Could not diff against {args.base or 'auto'} ({exc}); processing every project instead.")
+            changed_files = None
+        if changed_files is None:
+            changed_projects = sorted(project_dirs.keys())
+            changed_files = []
         print(f"[Build] Diff contains {len(changed_files)} changed file(s).")
-        changed_projects = detect_changed_projects(changed_files, project_dirs)
+        if changed_files or not changed_projects:
+            changed_projects = detect_changed_projects(changed_files, project_dirs)
         source_files = [
             f for f in changed_files
             if any(is_version_worthy_source_file(p, f) for p in project_dirs)
@@ -1189,11 +1204,11 @@ def main():
                     lock_content = lock_file.read()
             except OSError:
                 lock_content = ""
-            if not lock_content.startswith("AllensCreations Add-on Lock v1"):
+            if not lock_content.startswith(("ALNStudios Add-on Lock v1", "ALNStudios Add-on Lock v1")):
                 print(f"[Build] Missing/invalid LOCK marker, creating: {os.path.relpath(lock_path, REPO_ROOT)}")
                 with open(lock_path, "w", encoding="utf-8", newline="\n") as lock_file:
                     lock_file.write(
-                        "AllensCreations Add-on Lock v1\n\n"
+                        "ALNStudios Add-on Lock v1\n\n"
                         "Required repository marker for build validation.\n"
                         "This marker does not encrypt source files or prevent extraction of distributable packages.\n")
 

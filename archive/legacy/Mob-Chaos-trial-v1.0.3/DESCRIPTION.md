@@ -1,6 +1,6 @@
 # Mob Chaos: Behavioral Roulette
 
-**By AllensCreations**
+**By ALNStudios**
 
 Every mob near you gets its instincts scrambled. At world load and at regular intervals, mobs are handed random behaviors stolen from other creatures.
 
@@ -28,23 +28,23 @@ Use /scriptevent mobchaos:reshuffle to re-roll everything, mobchaos:warnings on 
 
 ## Creator and Permissions
 
-- Creator: AllensCreations
+- Creator: ALNStudios
 - Profiles: [CurseForge Profile](https://www.curseforge.com/members/allenscreations/projects) · [MCPEDL Profile](https://mcpedl.com/user/allenscreations/)
 
 ## Guidelines and Attribution
 
-- Creator: AllensCreations
-- Rights & Reservation: All rights reserved for AllensCreations.
-- Content Creators: Content creators are permitted to feature this creation in videos and streams with credit to AllensCreations.
+- Creator: ALNStudios
+- Rights & Reservation: All rights reserved for ALNStudios.
+- Content Creators: Content creators are permitted to feature this creation in videos and streams with credit to ALNStudios.
 - Redistribution: Do not re-upload this pack or provide direct monetized download bypasses. Link directly to the official repository page.
 - Disclaimer: This is an unofficial community creation. It is not an official Minecraft product and is not approved by or associated with Mojang or Microsoft.
 
 ---
 
-© All rights reserved for AllensCreations.
+© All rights reserved for ALNStudios.
 
 ---
 
 ## Search & Discovery Keywords
 
-Minecraft Bedrock add-on, Mob Chaos Behavioral Roulette Bedrock mod, Minecraft PE survival, MCPEDL add-on, CurseForge Bedrock, AllensCreations.
+Minecraft Bedrock add-on, Mob Chaos Behavioral Roulette Bedrock mod, Minecraft PE survival, MCPEDL add-on, CurseForge Bedrock, ALNStudios.

@@ -1,6 +1,6 @@
 # Padlock & Key - Downloads and Releases
 
-This folder contains compiled release packages for **Padlock & Key** by AllensCreations.
+This folder contains compiled release packages for **Padlock & Key** by ALNStudios.
 
 ---
 
@@ -8,7 +8,7 @@ This folder contains compiled release packages for **Padlock & Key** by AllensCr
 
 | File Name | Format | Size | Description | Download Link |
 | :--- | :--- | :--- | :--- | :--- |
-| **`Padlock & Key by AllensCreations (V1.0.0).mcaddon`** | `.mcaddon` | ~7 KB | Complete bundle containing both Behavior Pack and Resource Pack. | [Download (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Padlock-and-Key/Padlock%20%26%20Key%20by%20AllensCreations%20%28V1.0.0%29.mcaddon) |
+| **`Padlock & Key by ALNStudios (V1.0.0).mcaddon`** | `.mcaddon` | ~7 KB | Complete bundle containing both Behavior Pack and Resource Pack. | [Download (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Padlock-and-Key/Padlock%20%26%20Key%20by%20AllensCreations%20%28V1.0.0%29.mcaddon) |
 
 ---
 
@@ -24,4 +24,4 @@ To inspect uncompressed JSON files, geometry, render controllers, and textures:
 
 ---
 
-© All rights reserved for AllensCreations.
+© All rights reserved for ALNStudios.

@@ -1,6 +1,6 @@
 # Grimoire Relics V2 - Downloads and Releases
 
-This folder contains compiled release packages for **Grimoire Relics V2** by AllensCreations.
+This folder contains compiled release packages for **Grimoire Relics V2** by ALNStudios.
 
 ---
 
@@ -8,7 +8,7 @@ This folder contains compiled release packages for **Grimoire Relics V2** by All
 
 | File Name | Format | Size | Description | Download Link |
 | :--- | :--- | :--- | :--- | :--- |
-| **`Grimoire Relics V2 by AllensCreations (V1.0.12).mcaddon`** | `.mcaddon` | ~43 KB | Complete bundle containing both Behavior Pack and Resource Pack. | [Download (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Grimoire-Relics-V2/Grimoire%20Relics%20V2%20by%20AllensCreations%20%28V1.0.12%29.mcaddon) |
+| **`Grimoire Relics V2 by ALNStudios (V1.0.12).mcaddon`** | `.mcaddon` | ~43 KB | Complete bundle containing both Behavior Pack and Resource Pack. | [Download (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Grimoire-Relics-V2/Grimoire%20Relics%20V2%20by%20AllensCreations%20%28V1.0.12%29.mcaddon) |
 
 ---
 
@@ -24,4 +24,4 @@ To inspect uncompressed JSON files, geometry, render controllers, and textures:
 
 ---
 
-© All rights reserved for AllensCreations.
+© All rights reserved for ALNStudios.

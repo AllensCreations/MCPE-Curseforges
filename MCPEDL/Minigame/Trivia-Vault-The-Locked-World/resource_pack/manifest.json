@@ -2,7 +2,7 @@
   "format_version": 2,
   "header": {
     "name": "Trivia Vault The Locked World (v1.0.19)",
-    "description": "Controller icon resources. by AllensCreations",
+    "description": "Controller icon resources. by ALNStudios",
     "uuid": "28e51c40-0b28-483c-88f0-3b7e0209536d",
     "version": [
       1,
@@ -28,7 +28,7 @@
   ],
   "metadata": {
     "authors": [
-      "AllensCreations"
+      "ALNStudios"
     ],
     "product_type": "addon"
   }

@@ -2,7 +2,7 @@
   "format_version": 2,
   "header": {
     "name": "Harvest Intelligence (v1.0.6)",
-    "description": "Smart vanilla crop replanting and crop trampling protection. by AllensCreations",
+    "description": "Smart vanilla crop replanting and crop trampling protection. by ALNStudios",
     "uuid": "db1bedad-4d0b-409e-b54f-b9ed17b6ba0c",
     "version": [
       1,
@@ -37,7 +37,7 @@
   ],
   "metadata": {
     "authors": [
-      "AllensCreations"
+      "ALNStudios"
     ],
     "product_type": "addon"
   }

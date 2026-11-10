@@ -1,5 +1,5 @@
 /**
- * Universal Clutch by AllensCreations
+ * Universal Clutch by ALNStudios
  * 
  * Standalone Minecraft Bedrock Script API (@minecraft/server v1.13.0+) Add-on.
  * Single-file implementation (no external script dependencies or module imports).

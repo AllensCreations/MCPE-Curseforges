@@ -2,7 +2,7 @@
   "format_version": 2,
   "header": {
     "name": "Fletching Table Arsenal (v1.0.0)",
-    "description": "Workbench screen styling for the arrow workstation. by AllensCreations",
+    "description": "Workbench screen styling for the arrow workstation. by ALNStudios",
     "uuid": "67cd68eb-664f-4890-a864-43ab6cf80597",
     "version": [
       1,
@@ -28,7 +28,7 @@
   ],
   "metadata": {
     "authors": [
-      "AllensCreations"
+      "ALNStudios"
     ]
   }
 }

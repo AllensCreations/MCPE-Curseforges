@@ -2,7 +2,7 @@
   "format_version": 2,
   "header": {
     "name": "Immortal Pets (v1.1.10)",
-    "description": "Instant protection for selected tamed cats, wolves, parrots, horses, donkeys, mules, skeleton horses, zombie horses, and llamas. Includes persistent effect recovery and the exact-case EID exception. by AllensCreations",
+    "description": "Instant protection for selected tamed cats, wolves, parrots, horses, donkeys, mules, skeleton horses, zombie horses, and llamas. Includes persistent effect recovery and the exact-case EID exception. by ALNStudios",
     "uuid": "de3f20ae-29fe-43a6-942a-e092aad5ae02",
     "version": [
       1,
@@ -88,7 +88,7 @@
   ],
   "metadata": {
     "authors": [
-      "AllensCreations"
+      "ALNStudios"
     ],
     "product_type": "addon"
   }

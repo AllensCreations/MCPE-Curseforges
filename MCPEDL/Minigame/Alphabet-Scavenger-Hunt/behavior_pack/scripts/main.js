@@ -3,7 +3,7 @@
  * Bedrock Script API (@minecraft/server v1.13.0+)
  * Compatible with Minecraft Bedrock 1.21.0 - 1.26.x+
  * Sourced from PrismarineJS/minecraft-data
- * Created by AllensCreations
+ * Created by ALNStudios
  * Note: ZERO EMOJIS in all display strings, chat messages, and UI bars.
  */
 

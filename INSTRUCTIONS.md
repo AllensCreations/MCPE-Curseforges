@@ -1,6 +1,6 @@
 # Instructions: Core Repository Policy (v3)
 
-Instruction file for AllensCreations/MCPE-Curseforges covering repository policy, documentation, and audits. The AI-agent project generator now lives in its own file, `PACK_GENERATOR_INSTRUCTIONS.md`.
+Instruction file for ALNStudios/MCPE-Curseforges covering repository policy, documentation, and audits. The AI-agent project generator now lives in its own file, `PACK_GENERATOR_INSTRUCTIONS.md`.
 
 | Part | Covers |
 | :--- | :--- |
@@ -88,7 +88,7 @@ Do this for every new pack and meaningful update. A compatible API version does 
 ### 3. Manifest Title, Attribution, and LOCK Marker
 
 - Every Behavior Pack and Resource Pack manifest title is `Add-on Name (vX.Y.Z)`, for example `Vanilla Quality of Life (v1.3.0)`. Update it whenever the release version changes; release automation must preserve this.
-- Put `by AllensCreations` in `header.description` exactly once. Normalize existing descriptions rather than appending duplicates. Keep attribution out of the title.
+- Put `by ALNStudios` in `header.description` exactly once. Normalize existing descriptions rather than appending duplicates. Keep attribution out of the title.
 - Do not change pack UUIDs or world storage keys just to rename a title.
 - **Title validator**, run in the release workflow, failing the job on any violation and reporting errors rather than rewriting titles. For every manifest under `MCPEDL/`:
   - exactly one terminal `(vX.Y.Z)` suffix;
@@ -99,19 +99,20 @@ Do this for every new pack and meaningful update. A compatible API version does 
 
 #### Build and version behavior
 
-- **The build follows the manifest, and `builds/` follows the build.** For every project it processes, the build first aligns all source manifests (BP, RP, and any other) to the **highest** `header.version`: `header.version`, the terminal `(vX.Y.Z)` title suffix, module versions and BP/RP dependency versions (only for pack UUIDs in that project). It also fills `metadata.authors` (`AllensCreations`) and, if the `MANIFEST_LICENSE` variable is set, `metadata.license`. Pack UUIDs are never changed, and a title with no `(vX.Y.Z)` suffix is left for the validator to report.
+- **The build follows the manifest, and `builds/` follows the build.** For every project it processes, the build first aligns all source manifests (BP, RP, and any other) to the **highest** `header.version`: `header.version`, the terminal `(vX.Y.Z)` title suffix, module versions and BP/RP dependency versions (only for pack UUIDs in that project). It also fills `metadata.authors` (`ALNStudios`) and, if the `MANIFEST_LICENSE` variable is set, `metadata.license`. Pack UUIDs are never changed, and a title with no `(vX.Y.Z)` suffix is left for the validator to report.
 - Every build then creates or **refreshes in place** `builds/<pack>/versions/V<manifest version>/`: the packages, `source.zip`, `source.sha256` (a hash of the pack source that ignores manifest versions/titles, docs, archives and derived world copies) and `build_info.json` (manifest version, the latest `CHANGELOG.md` version X.Y.Z.A, source hash, package hashes). An existing version folder is never skipped: if the source or the packages differ from the snapshot, the snapshot is rewritten. `builds/<pack>/build_info.json` mirrors the latest build. The last 5 version folders are kept.
 - **Optional auto-bump.** With `--bump` (workflow input `bump_on_change`, or repo variable `AUTO_BUMP_MANIFEST=true`), a project whose source changed since its snapshot at the current manifest version is bumped to X.Y.(Z+1) in every manifest before building, then gets a new `versions/` folder. Snapshots made before hashing existed are refreshed once, never bumped. Without `--bump` the build never raises a version; the `publish` task of `auto-version-bump.yml` still owns the X.Y.Z.A version, and an auto-bumped manifest is simply the highest version it builds on.
-- Package filenames carry X.Y.Z only. The changelog's 4th number (A) is recorded in `build_info.json`, not in filenames, because README link repair depends on the filename pattern.
+- **Package filenames follow the manifest.** The name is the manifest `header.name` (without the `(vX.Y.Z)` suffix and a trailing BP/RP word; if the manifests disagree, the DESCRIPTION title is used) and the version is the aligned manifest version. Default shape `<Name> by ALNStudios (V#.#.#).<ext>`. Override per pack with `metadata.package_filename` in a manifest, or for every pack with the repo variable `PACK_FILENAME_TEMPLATE`; placeholders `{title}`, `{version}`, `{author}`, and the template must keep `(V{version})` because README link repair finds packages by it. The CurseForge upload file uses the same manifest title. Filenames carry X.Y.Z only; the changelog's 4th number (A) is recorded in `build_info.json`.
+- **Creator rename.** The creator name is `ALNStudios`. Builds migrate the old name in manifest `header.description` and `metadata.authors`; `python3 scripts/rename_brand.py --apply` migrates every other text file once. Lowercase namespaces such as `allenscreations:` are item identifiers and are never renamed.
 - Explicit maintenance: `python3 scripts/manifest_tools.py --project <path> --check|--align|--bump` (or `--all --check`) previews or applies the same alignment/bump the build uses. `sync_manifest_versions.py` remains for dependency and `min_engine_version` maintenance; set `min_engine_version` by hand after looking up the version. **Pack header UUIDs are never regenerated** because changing one breaks existing worlds.
 - `scripts/validate_manifest_titles.py` checks manifest title/version consistency during the workflow and fails the job on violations. It also prints non-failing notes for `format_version` other than 2, a missing or `[0, 0, 0]` `min_engine_version`, and missing `metadata.authors`.
 - `scripts/sync_project_docs.py` is not part of the build workflow. Update `DESCRIPTION.md` and `CHANGELOG.md` intentionally when preparing a release; do not infer player-facing changes from source filenames.
 
-- `scripts/sync_readme_links.py` remains an explicit README maintenance tool. It finds links by their target and can refresh stale package links; `python3 scripts/sync_readme_links.py --check` previews changes. The pack build workflow does not invoke it.
+- `scripts/sync_readme_links.py` remains an explicit README maintenance tool. It finds links by their target and can refresh stale package links; `python3 scripts/sync_readme_links.py --check` previews changes. The build workflow runs it after every build to repair README links.
 
 #### Add-on LOCK marker
 
-- Every project under `MCPEDL/Addons/` has a `LOCK` file at its root beginning with `AllensCreations Add-on Lock v1`.
+- Every project under `MCPEDL/Addons/` has a `LOCK` file at its root beginning with `ALNStudios Add-on Lock v1`.
 - `scripts/import_project_payload.py` creates it and the build script enforces it. A missing or invalid marker is release-blocking: report the exact project path and do not call the project build-ready.
 - It is a repository and build safeguard only. It does not encrypt source, stop edits, or prevent extraction of a distributable package.
 
@@ -453,27 +454,27 @@ Put the profile links in the Creator and Permissions section. Put this block imm
 ```markdown
 ## Guidelines and Attribution
 
-- Creator: AllensCreations
-- Rights & Reservation: All rights reserved for AllensCreations.
-- Content Creators: Content creators are permitted to feature this creation in videos and streams with credit to AllensCreations.
+- Creator: ALNStudios
+- Rights & Reservation: All rights reserved for ALNStudios.
+- Content Creators: Content creators are permitted to feature this creation in videos and streams with credit to ALNStudios.
 - Redistribution: Do not re-upload this pack or provide direct monetized download bypasses. Link directly to the official repository page.
 - Disclaimer: This is an unofficial community creation. It is not an official Minecraft product and is not approved by or associated with Mojang or Microsoft.
 
 ---
 
-© All rights reserved for AllensCreations.
+© All rights reserved for ALNStudios.
 ```
 
 ### 5. Search & Discovery Keywords
 
-Every add-on `DESCRIPTION.md` ends with a keyword section built from its real features, not generic filler: general anchors (`Minecraft Bedrock add-on`, `Minecraft PE mod`, `MCPEDL add-on`, `CurseForge Bedrock`, `AllensCreations`), feature anchors from the description, and gameplay anchors (such as `survival QoL`, `achievement friendly MCPE`) only if verified.
+Every add-on `DESCRIPTION.md` ends with a keyword section built from its real features, not generic filler: general anchors (`Minecraft Bedrock add-on`, `Minecraft PE mod`, `MCPEDL add-on`, `CurseForge Bedrock`, `ALNStudios`), feature anchors from the description, and gameplay anchors (such as `survival QoL`, `achievement friendly MCPE`) only if verified.
 
 ```markdown
 ---
 
 ## Search & Discovery Keywords
 
-Minecraft Bedrock add-on, [Add-on Name] Bedrock mod, [feature 1], [feature 2], [item or mob name], Minecraft PE survival, MCPEDL add-on, CurseForge Bedrock, AllensCreations.
+Minecraft Bedrock add-on, [Add-on Name] Bedrock mod, [feature 1], [feature 2], [item or mob name], Minecraft PE survival, MCPEDL add-on, CurseForge Bedrock, ALNStudios.
 ```
 
 ### 6. Templates
@@ -510,7 +511,7 @@ Use a verified direct package URL when one exists; otherwise link the official c
 ```markdown
 # [Pack Name] — [Clear, factual subtitle]
 
-**By AllensCreations**
+**By ALNStudios**
 
 [![Minecraft Bedrock](https://img.shields.io/badge/Minecraft%20Bedrock-1.21%20--%201.26%2B-brightgreen?style=flat-square&logo=minecraft)](https://github.com/AllensCreations/MCPE-Curseforges)
 [![Format](https://img.shields.io/badge/Format-.MCPACK%20%7C%20.MCADDON%20%7C%20.MCWORLD-blue?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges)
@@ -544,7 +545,7 @@ Add separate feature cards for meaningful mechanics. Put relevant item lists, mo
 
 ## Creator and Permissions
 
-- Creator: AllensCreations
+- Creator: ALNStudios
 - Profiles: [CurseForge Profile](https://www.curseforge.com/members/allenscreations/projects) · [MCPEDL Profile](https://mcpedl.com/user/allenscreations/)
 
 When both listing images and verified pack-page URLs are available, place the paired clickable CurseForge and MCPEDL images here. Keep the profile links above as text links.

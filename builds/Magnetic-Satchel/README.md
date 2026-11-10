@@ -1,6 +1,6 @@
 # Magnetic Satchel - Downloads and Releases
 
-This folder contains compiled release packages for **Magnetic Satchel** by AllensCreations.
+This folder contains compiled release packages for **Magnetic Satchel** by ALNStudios.
 
 ---
 
@@ -8,7 +8,7 @@ This folder contains compiled release packages for **Magnetic Satchel** by Allen
 
 | File Name | Format | Size | Description | Download Link |
 | :--- | :--- | :--- | :--- | :--- |
-| **`Magnetic Satchel by AllensCreations (V1.0.8).mcaddon`** | `.mcaddon` | ~4 KB | Complete bundle containing both Behavior Pack and Resource Pack. | [Download (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Magnetic-Satchel/Magnetic%20Satchel%20by%20AllensCreations%20%28V1.0.8%29.mcaddon) |
+| **`Magnetic Satchel by ALNStudios (V1.0.8).mcaddon`** | `.mcaddon` | ~4 KB | Complete bundle containing both Behavior Pack and Resource Pack. | [Download (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Magnetic-Satchel/Magnetic%20Satchel%20by%20AllensCreations%20%28V1.0.8%29.mcaddon) |
 
 ---
 
@@ -24,4 +24,4 @@ To inspect uncompressed JSON files, geometry, render controllers, and textures:
 
 ---
 
-© All rights reserved for AllensCreations.
+© All rights reserved for ALNStudios.

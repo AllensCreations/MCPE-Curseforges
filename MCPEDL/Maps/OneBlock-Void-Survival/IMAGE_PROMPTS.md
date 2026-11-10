@@ -1,6 +1,6 @@
 # OneBlock Void Survival - Image Generation Prompts
 
-This document provides optimized prompts for generating promotional logos and banners for **OneBlock Void Survival** by AllensCreations.
+This document provides optimized prompts for generating promotional logos and banners for **OneBlock Void Survival** by ALNStudios.
 
 ---
 
@@ -16,7 +16,7 @@ A single, pristine floating Minecraft grass block anchored by dark indestructibl
 
 ### Prompt (Copy-Paste)
 ```text
-Stunning 3D Minecraft pack icon of a single floating OneBlock suspended in an infinite cosmic void, isometric perspective. The block is a vibrant green Minecraft grass block with dirt texture on top and a solid indestructible Bedrock foundation block underneath. Floating in a deep twilight void with subtle violet and cyan nebula gas clouds, sparkling stars, and miniature floating island fragments orbiting in a gentle spiral. Glowing magical particles rise from the grass surface. Bold, majestic 3D carved stone typography at the bottom reads "ONEBLOCK VOID" with an elegant gold-accented subtitle "by AllensCreations", Unreal Engine 5 render, ray traced, 8k resolution --ar 1:1 --v 6.1 --stylize 250
+Stunning 3D Minecraft pack icon of a single floating OneBlock suspended in an infinite cosmic void, isometric perspective. The block is a vibrant green Minecraft grass block with dirt texture on top and a solid indestructible Bedrock foundation block underneath. Floating in a deep twilight void with subtle violet and cyan nebula gas clouds, sparkling stars, and miniature floating island fragments orbiting in a gentle spiral. Glowing magical particles rise from the grass surface. Bold, majestic 3D carved stone typography at the bottom reads "ONEBLOCK VOID" with an elegant gold-accented subtitle "by ALNStudios", Unreal Engine 5 render, ray traced, 8k resolution --ar 1:1 --v 6.1 --stylize 250
 ```
 
 ### Negative Prompt
@@ -38,7 +38,7 @@ A breathtaking panoramic view of the infinite void. A lone survivor in starter l
 
 ### Prompt (Copy-Paste)
 ```text
-Epic 16:9 widescreen cinematic Minecraft void panorama. In the immediate foreground, a lone courageous Minecraft survivor stands balanced on a single floating block hovering over an infinite deep-space abyss, holding an iron pickaxe as the block glows with regenerating golden sparks. In the vast panoramic background floating across the void are several distinct handcrafted islands: a floating lush green jungle island with hanging vines, a floating nether volcanic island with glowing cascading lava, and a distant purple End stone spire with hovering shulkers. Deep celestial nebula sky with vibrant magenta and dark indigo hues. Epic cinematic fantasy title across the upper center reads "ONEBLOCK VOID SURVIVAL" with a clean illuminated subtitle "by AllensCreations", cinematic lighting, ray tracing, 8k resolution, octane render --ar 16:9 --v 6.1 --stylize 300
+Epic 16:9 widescreen cinematic Minecraft void panorama. In the immediate foreground, a lone courageous Minecraft survivor stands balanced on a single floating block hovering over an infinite deep-space abyss, holding an iron pickaxe as the block glows with regenerating golden sparks. In the vast panoramic background floating across the void are several distinct handcrafted islands: a floating lush green jungle island with hanging vines, a floating nether volcanic island with glowing cascading lava, and a distant purple End stone spire with hovering shulkers. Deep celestial nebula sky with vibrant magenta and dark indigo hues. Epic cinematic fantasy title across the upper center reads "ONEBLOCK VOID SURVIVAL" with a clean illuminated subtitle "by ALNStudios", cinematic lighting, ray tracing, 8k resolution, octane render --ar 16:9 --v 6.1 --stylize 300
 ```
 
 ### Negative Prompt

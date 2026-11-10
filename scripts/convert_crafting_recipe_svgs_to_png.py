@@ -16,7 +16,7 @@ def embed_remote_images(svg: str) -> str:
     pattern = re.compile(r'(<image\b[^>]*?\b(?:href|xlink:href)=["\'])(https?://[^"\']+)(["\'][^>]*>)', re.I)
     def replace(match):
         url = match.group(2)
-        request = Request(url, headers={"User-Agent": "AllensCreations-RecipeImageBuilder/1.0"})
+        request = Request(url, headers={"User-Agent": "ALNStudios-RecipeImageBuilder/1.0"})
         try:
             with urlopen(request, timeout=30) as response:
                 data = response.read()

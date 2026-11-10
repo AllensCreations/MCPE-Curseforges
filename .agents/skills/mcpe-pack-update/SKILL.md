@@ -75,7 +75,7 @@ First time only:
 ```
 pkg update -y && pkg install -y git python
 termux-setup-storage
-git config --global user.name "AllensCreations"
+git config --global user.name "ALNStudios"
 git config --global user.email "your-email@example.com"
 git config --global credential.helper store
 ```

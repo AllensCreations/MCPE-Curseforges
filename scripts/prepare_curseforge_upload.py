@@ -577,18 +577,19 @@ def find_map_package(project_dir, built_name, variant):
     )
 
 
-def upload_name(release_type, project_name, extension, map_variant="default", version=""):
-    """'Release - Mining Helmet v(2.0.0.0).mcaddon'; non-default maps add ' - Creative' etc."""
-    title = project_name.replace("-", " ").replace("_", " ")
+def upload_name(release_type, project_name, extension, map_variant="default", version="", title=None):
+    """'Release - Mining Helmet v(2.0.0.0).mcaddon'; non-default maps add ' - Creative' etc.
+    title: the manifest's pack title when known, else the project folder name."""
+    title = title or project_name.replace("-", " ").replace("_", " ")
     variant = "" if map_variant == "default" else f" - {map_variant}"
     tag = f" v({version})" if version else ""
     return f"{release_type.capitalize()} - {title}{variant}{tag}{extension}"
 
 
-def stage_upload_copy(package_path, release_type, project_name, map_variant="default", version=""):
+def stage_upload_copy(package_path, release_type, project_name, map_variant="default", version="", title=None):
     """Copy the built package to a temp folder under its upload name; builds/ keeps its own name."""
     staging = Path(tempfile.mkdtemp(prefix="curseforge-upload-", dir=os.environ.get("RUNNER_TEMP") or None))
-    target = staging / upload_name(release_type, project_name, package_path.suffix.lower(), map_variant, version)
+    target = staging / upload_name(release_type, project_name, package_path.suffix.lower(), map_variant, version, title)
     shutil.copyfile(package_path, target)
     return target
 
@@ -661,7 +662,10 @@ def prepare(project_path, release_type, map_variant="default", rebuild=True, bum
             f"{category} must publish {expected_extension}, not {package_path.suffix}"
         )
 
-    package_path = stage_upload_copy(package_path, release_type, project_name, map_variant, changelog_version)
+    package_path = stage_upload_copy(
+        package_path, release_type, project_name, map_variant, changelog_version,
+        title=builder.manifest_tools.manifest_title(str(project_dir)) if getattr(builder, "manifest_tools", None) else None,
+    )
     metadata = {
         "changelog": changelog,
         "changelogType": changelog_type(release_type),

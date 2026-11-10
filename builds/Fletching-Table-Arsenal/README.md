@@ -1,6 +1,6 @@
 # Fletching Table Arsenal - Downloads and Releases
 
-This folder contains compiled release packages for **Fletching Table Arsenal** by AllensCreations.
+This folder contains compiled release packages for **Fletching Table Arsenal** by ALNStudios.
 
 ---
 
@@ -8,7 +8,7 @@ This folder contains compiled release packages for **Fletching Table Arsenal** b
 
 | File Name | Format | Size | Description | Download Link |
 | :--- | :--- | :--- | :--- | :--- |
-| **`Fletching Table Arsenal by AllensCreations (V1.0.0).mcaddon`** | `.mcaddon` | ~9 KB | Complete bundle containing both Behavior Pack and Resource Pack. | [Download (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Fletching-Table-Arsenal/Fletching%20Table%20Arsenal%20by%20AllensCreations%20%28V1.0.0%29.mcaddon) |
+| **`Fletching Table Arsenal by ALNStudios (V1.0.0).mcaddon`** | `.mcaddon` | ~9 KB | Complete bundle containing both Behavior Pack and Resource Pack. | [Download (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Fletching-Table-Arsenal/Fletching%20Table%20Arsenal%20by%20AllensCreations%20%28V1.0.0%29.mcaddon) |
 
 ---
 
@@ -24,4 +24,4 @@ To inspect uncompressed JSON files, geometry, render controllers, and textures:
 
 ---
 
-© All rights reserved for AllensCreations.
+© All rights reserved for ALNStudios.

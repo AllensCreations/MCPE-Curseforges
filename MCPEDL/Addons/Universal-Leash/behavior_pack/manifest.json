@@ -2,7 +2,7 @@
   "format_version": 2,
   "header": {
     "name": "Universal Leash (v2.0.0)",
-    "description": "Attach leads to 98 entity types, including Villagers, golems, and hostile mobs. by AllensCreations",
+    "description": "Attach leads to 98 entity types, including Villagers, golems, and hostile mobs. by ALNStudios",
     "uuid": "c046f542-6dce-4ec9-aec9-fe3cd4fb85d4",
     "version": [
       2,
@@ -29,7 +29,7 @@
   ],
   "metadata": {
     "authors": [
-      "AllensCreations"
+      "ALNStudios"
     ],
     "product_type": "addon"
   },
