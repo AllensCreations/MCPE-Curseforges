@@ -172,7 +172,7 @@ def _load_registry():
         if not project_id or not key:
             continue
         entry = {"project_id": project_id}
-        for field in ("last_published_version", "last_release_version", "last_alpha_version"):
+        for field in ("last_published_version", "last_release_version", "last_legacy alpha_version"):
             if info.get(field):
                 entry[field] = info[field]
         registry.setdefault(key, entry)
@@ -197,12 +197,12 @@ def read_info(project_path):
 
 
 def save_info(project_path, project_id, last_published_version=None, last_release_version=None,
-              last_alpha_version=None):
+              last_legacy alpha_version=None):
     """Add or update one pack in builds/Curseforge_IDs.json (keeps its other fields).
 
-    last_published_version is the newest upload of any type (beta, alpha or release);
+    last_published_version is the newest upload of any type (beta, legacy alpha or release);
     last_release_version is the newest release, the baseline a release merges from;
-    last_alpha_version is the newest alpha or release, the baseline an alpha merges from.
+    last_legacy alpha_version is the newest legacy alpha or release, the baseline an legacy alpha merges from.
     """
     registry, migrated = _load_registry()
     entry = dict(registry.get(project_path) or {})
@@ -213,8 +213,8 @@ def save_info(project_path, project_id, last_published_version=None, last_releas
         entry["last_published_version"] = last_published_version
     if last_release_version:
         entry["last_release_version"] = last_release_version
-    if last_alpha_version:
-        entry["last_alpha_version"] = last_alpha_version
+    if last_legacy alpha_version:
+        entry["last_legacy alpha_version"] = last_legacy alpha_version
     registry[project_path] = entry
     path = registry_path()
     path.parent.mkdir(parents=True, exist_ok=True)
@@ -225,7 +225,7 @@ def save_info(project_path, project_id, last_published_version=None, last_releas
 
 
 def parse_version(text):
-    """X.Y.Z or X.Y.Z.A as a 4-tuple; a missing A counts as 0."""
+    """X.Y.Z or X.Y.Z as a 4-tuple; a missing A counts as 0."""
     parts = tuple(int(part) for part in text.split("."))
     return parts + (0,) * (4 - len(parts))
 
@@ -379,9 +379,9 @@ def _series_block(major, minor, items, is_open, style, level):
 
 
 def render_rollup(entries, new_version, release_type, style="spoiler"):
-    """Grouped history for alpha and release, built from EVERY changelog entry.
+    """Grouped history for legacy alpha and release, built from EVERY changelog entry.
 
-    alpha (X.Y.0): each series X.Y.x and lower is one group; the newest is open.
+    legacy alpha (X.Y.0): each series X.Y.x and lower is one group; the newest is open.
     release ((X+1).0.0): each major (v1.x.x) is one group holding a group per series (1.3.x, 1.2.x ...).
     """
     tree = {}
@@ -393,7 +393,7 @@ def render_rollup(entries, new_version, release_type, style="spoiler"):
     for major in sorted(tree, reverse=True):
         first = not blocks
         series = tree[major]
-        if release_type == "alpha" and major == new_major:
+        if release_type == "legacy alpha" and major == new_major:
             for minor in sorted(series, reverse=True):
                 blocks.append(_series_block(major, minor, series[minor], not blocks, style, 3))
             continue
@@ -407,7 +407,7 @@ def render_rollup(entries, new_version, release_type, style="spoiler"):
 
 
 def render_upload_changelog(new_version, date_text, merged, entries, release_type, style=None):
-    """The changelog text sent to CurseForge: flat markdown for beta, grouped history for alpha/release."""
+    """The changelog text sent to CurseForge: flat markdown for beta, grouped history for legacy alpha/release."""
     if release_type == "beta":
         return render_flat_entry(new_version, date_text, merged)
     style = style or changelog_style()
@@ -424,28 +424,28 @@ def render_upload_changelog(new_version, date_text, merged, entries, release_typ
 def merge_baseline(release_type, info):
     """Version after which changelog entries are still unpublished for this release type.
 
-    beta merges what is newer than the last upload of any type. alpha merges what is newer than
-    the last alpha or release. release merges what is newer than the last release.
-    Packs saved before alpha was tracked fall back to the older fields.
+    beta merges what is newer than the last upload of any type. legacy alpha merges what is newer than
+    the last legacy alpha or release. release merges what is newer than the last release.
+    Packs saved before legacy alpha was tracked fall back to the older fields.
     """
     published = info.get("last_published_version")
     release = info.get("last_release_version")
     if release_type == "release":
         return release or published
-    if release_type == "alpha":
-        return info.get("last_alpha_version") or release or published
+    if release_type == "legacy alpha":
+        return info.get("last_legacy alpha_version") or release or published
     return published
 
 
 def next_version(highest, release_type):
-    """X.Y.Z.A. beta: X.Y.(Z+1).0. alpha: X.(Y+1).0.0. release: (X+1).0.0.0.
+    """X.Y.Z. beta: X.Y.(Z+1). legacy alpha: X.(Y+1).0. release: (X+1).0.0.
 
     Every update between publishes is A+1 in CHANGELOG.md; a beta publish groups those A versions.
     """
     major, minor, patch = highest[:3]
     if release_type == "release":
         return f"{major + 1}.0.0.0"
-    if release_type == "alpha":
+    if release_type == "legacy alpha":
         return f"{major}.{minor + 1}.0.0"
     return f"{major}.{minor}.{patch + 1}.0"
 
@@ -467,25 +467,25 @@ def baselines_after(release_type, info, version):
     out = {}
     if release_type == "release":
         out["last_release_version"] = version
-        out["last_alpha_version"] = version
-    elif release_type == "alpha":
-        out["last_alpha_version"] = version
+        out["last_legacy alpha_version"] = version
+    elif release_type == "legacy alpha":
+        out["last_legacy alpha_version"] = version
         if not info.get("last_release_version"):
             out["last_release_version"] = fallback
     else:
         if not info.get("last_release_version"):
             out["last_release_version"] = fallback
-        if not info.get("last_alpha_version"):
-            out["last_alpha_version"] = info.get("last_release_version") or fallback
+        if not info.get("last_legacy alpha_version"):
+            out["last_legacy alpha_version"] = info.get("last_release_version") or fallback
     return out
 
 
 def combine_changelog(project_dir, changelog_path, last_published=None, today=None,
-                      release_type="release", last_release=None, last_alpha=None):
+                      release_type="release", last_release=None, last_legacy alpha=None):
     """Merge the changelog entries this publish covers into ONE entry with the next version.
 
-    beta: all entries newer than last_published (the A versions) become one grouped entry, X.Y.(Z+1).0.
-    alpha: entries newer than the last alpha/release are merged; the upload shows every
+    beta: all entries newer than last_published (the A versions) become one grouped entry, X.Y.(Z+1).
+    legacy alpha: entries newer than the last legacy alpha/release are merged; the upload shows every
     series (1.3.x and lower) as spoiler groups, X.(Y+1).0. With nothing new it still
     folds the existing history.
     release: entries newer than the last release are merged; the upload shows every major
@@ -514,7 +514,7 @@ def combine_changelog(project_dir, changelog_path, last_published=None, today=No
         {
             "last_published_version": last_published,
             "last_release_version": last_release,
-            "last_alpha_version": last_alpha,
+            "last_legacy alpha_version": last_legacy alpha,
         },
     )
     baseline = parse_version(baseline_text) if baseline_text else None
@@ -527,7 +527,7 @@ def combine_changelog(project_dir, changelog_path, last_published=None, today=No
             f"Nothing new to publish: the changelog has no entry newer than v{baseline_text}. "
             "Add a changelog entry first."
         )
-    # alpha/release with nothing new still fold the existing history into the new version.
+    # legacy alpha/release with nothing new still fold the existing history into the new version.
     history = [entry for entry in entries if _has_content(entry)]
     if not history:
         raise ValueError(f"Nothing to publish: {changelog_path} has no changelog bullets.")
@@ -601,8 +601,8 @@ def stage_upload_copy(package_path, release_type, project_name, map_variant="def
 
 def prepare(project_path, release_type, map_variant="default", rebuild=True, bump=True):
     category, project_name = project_from_path(project_path)
-    if release_type not in {"release", "beta", "alpha"}:
-        raise ValueError("Release type must be release, beta or alpha")
+    if release_type not in {"release", "beta"}:
+        raise ValueError("Release type must be release or beta")
     if map_variant not in {"default", "Creative", "Survival", "Hardcore"}:
         raise ValueError("Map variant must be default, Creative, Survival or Hardcore")
 
@@ -625,7 +625,7 @@ def prepare(project_path, release_type, map_variant="default", rebuild=True, bum
             info.get("last_published_version"),
             release_type=release_type,
             last_release=info.get("last_release_version"),
-            last_alpha=info.get("last_alpha_version"),
+            last_legacy alpha=info.get("last_legacy alpha_version"),
         )
     else:
         changelog_version, changelog = latest_changelog_entry(changelog_path)
