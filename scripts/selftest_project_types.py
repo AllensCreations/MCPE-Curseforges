@@ -252,11 +252,11 @@ def main() -> int:
             and package.suffix == ".mcaddon"
             and project_id == "1742470"
             and saved["project_id"] == "1742470"
-            and version == "1.0.1"  # all project versions use X.Y.Z
+            and version == "1.1.0"  # all project versions use X.Y.Z
             and bool(changed_manifests)
             and json.loads((upload_project / "behavior_pack/manifest.json").read_text())["header"][
                 "version"
-            ] == [1, 0, 1],
+            ] == [1, 1, 0],
             "CurseForge: beta bumps the patch and syncs manifests to the new changelog entry",
         )
         _, _, reused_id, _, unchanged_manifests, _ = uploader.prepare(
