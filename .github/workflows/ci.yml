@@ -27,6 +27,9 @@ jobs:
       - name: Syntax check Python
         run: python -m compileall -q scripts tests
 
+      - name: Migrate legacy manifest metadata and titles to X.Y.Z
+        run: python scripts/manifest_tools.py --all --align
+
       - name: Manifest titles
         run: python scripts/validate_manifest_titles.py
 
