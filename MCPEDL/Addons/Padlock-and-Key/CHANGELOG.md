@@ -2,6 +2,17 @@
 
 ---
 
+## [1.0.0.1] - 2026-11-10
+
+### Added
+- **Glowing Key**: Keys you receive from locking or copying now have an enchanted glow.
+- **Padlock Return**: Unlocking a block with Sneak + Key disperses that Key and returns the Padlock with the same name to your inventory.
+- **Hopper Guard**: Hoppers cannot be placed directly under a locked block, and a block cannot be locked while a Hopper sits under it.
+
+### Improved & Balanced
+- **Subtext Messages**: Lock, unlock, denied and copy messages now show above your hotbar instead of in chat.
+- **Break With Key**: A locked block can now be broken while you hold its matching Key. The lock is removed, the Key disperses, and the Padlock returns. Without the Key, the block still cannot be broken.
+
 ## [1.0.0] - 2026-11-10
 
 ### Added

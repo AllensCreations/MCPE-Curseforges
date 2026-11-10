@@ -2,7 +2,10 @@ import { world, system, EquipmentSlot, ItemStack } from "@minecraft/server";
 
 const PADLOCK_ID = "pnk:padlock";
 const KEY_ID = "pnk:key";
+const GLOW_KEY_ID = "pnk:key_glow";
+const KEY_IDS = new Set([KEY_ID, GLOW_KEY_ID]);
 const NUGGET_ID = "minecraft:iron_nugget";
+const HOPPER_ID = "minecraft:hopper";
 const PROPERTY_PREFIX = "lock:";
 const REVEAL_PASSWORD_ON_DENY = false;
 
@@ -37,6 +40,10 @@ const SIDES = [
 ];
 
 const recentKeyBlockUse = new Map();
+
+function say(player, text) {
+  player.onScreenDisplay.setActionBar(text);
+}
 
 function isLockable(block) {
   const id = block.typeId;
@@ -77,18 +84,37 @@ function findLock(block) {
   return null;
 }
 
+function hasHopperBelow(block) {
+  const parts = [block];
+  if (CHEST_IDS.has(block.typeId)) {
+    for (const side of SIDES) {
+      const neighbor = block.dimension.getBlock({
+        x: block.location.x + side.x,
+        y: block.location.y,
+        z: block.location.z + side.z,
+      });
+      if (neighbor && neighbor.typeId === block.typeId) parts.push(neighbor);
+    }
+  }
+  return parts.some((part) => part.below()?.typeId === HOPPER_ID);
+}
+
 function getContainer(player) {
   return player.getComponent("minecraft:inventory")?.container;
 }
 
-function hasCorrectKey(player, password) {
+function findKeySlot(player, password) {
   const equippable = player.getComponent("minecraft:equippable");
-  if (!equippable) return false;
-  for (const slot of [EquipmentSlot.Mainhand, EquipmentSlot.Offhand]) {
-    const item = equippable.getEquipment(slot);
-    if (item && item.typeId === KEY_ID && item.nameTag === password) return true;
+  if (!equippable) return undefined;
+  for (const id of [EquipmentSlot.Mainhand, EquipmentSlot.Offhand]) {
+    const slot = equippable.getEquipmentSlot(id);
+    if (slot.hasItem() && KEY_IDS.has(slot.typeId) && slot.nameTag === password) return slot;
   }
-  return false;
+  return undefined;
+}
+
+function hasCorrectKey(player, password) {
+  return findKeySlot(player, password) !== undefined;
 }
 
 function consumeOne(slot) {
@@ -96,10 +122,10 @@ function consumeOne(slot) {
   else slot.setItem(undefined);
 }
 
-function giveKey(player, password) {
-  const key = new ItemStack(KEY_ID, 1);
-  key.nameTag = password;
-  const leftover = getContainer(player)?.addItem(key);
+function giveNamed(player, id, name) {
+  const item = new ItemStack(id, 1);
+  item.nameTag = name;
+  const leftover = getContainer(player)?.addItem(item);
   if (leftover) player.dimension.spawnItem(leftover, player.location);
 }
 
@@ -112,26 +138,39 @@ function lockBlock(player, block, password) {
   const slot = getContainer(player)?.getSlot(player.selectedSlotIndex);
   if (!slot || !slot.hasItem() || slot.typeId !== PADLOCK_ID || slot.nameTag !== password) return;
   if (!isLockable(block) || findLock(block)) return;
+  if (hasHopperBelow(block)) {
+    say(player, "Can't lock! Remove the Hopper below first");
+    player.playSound("break.amethyst_block");
+    return;
+  }
   const origin = lockPosition(block);
   world.setDynamicProperty(propertyKey(block.dimension, origin.x, origin.y, origin.z), password);
   consumeOne(slot);
-  giveKey(player, password);
-  player.sendMessage(`Locked! Key: ${password}`);
+  giveNamed(player, GLOW_KEY_ID, password);
+  say(player, `Locked! Key: ${password}`);
   player.playSound("random.anvil_use");
 }
 
-function unlockBlock(player, block, lock) {
+function releaseLock(player, dimension, at, lock) {
+  const slot = findKeySlot(player, lock.password);
   world.setDynamicProperty(lock.key, undefined);
-  player.sendMessage("Unlocked! Chest is now public");
+  if (slot) consumeOne(slot);
+  giveNamed(player, PADLOCK_ID, lock.password);
+  dimension.spawnParticle("minecraft:totem_particle", at);
+  dimension.spawnParticle("minecraft:villager_happy", at);
   player.playSound("random.orb");
-  block.dimension.spawnParticle("minecraft:villager_happy", effectLocation(block, 1.2));
+}
+
+function unlockBlock(player, block, lock) {
+  releaseLock(player, block.dimension, effectLocation(block, 1.2), lock);
+  say(player, "Unlocked! Key dispersed, Padlock returned");
 }
 
 function denyAccess(player, block, password) {
   const hint = REVEAL_PASSWORD_ON_DENY
     ? `Locked! Need key named: ${password}`
     : "Locked! Need a key with the correct name";
-  player.sendMessage(hint);
+  say(player, hint);
   player.playSound("break.amethyst_block");
   block.dimension.spawnParticle("minecraft:villager_angry", effectLocation(block, 1.2));
 }
@@ -142,17 +181,17 @@ function copyKey(player) {
   if (!equippable) return;
   const key = equippable.getEquipment(EquipmentSlot.Mainhand);
   const nuggetSlot = equippable.getEquipmentSlot(EquipmentSlot.Offhand);
-  if (!key || key.typeId !== KEY_ID || !key.nameTag) return;
+  if (!key || !KEY_IDS.has(key.typeId) || !key.nameTag) return;
   if (!nuggetSlot.hasItem() || nuggetSlot.typeId !== NUGGET_ID) return;
   consumeOne(nuggetSlot);
-  giveKey(player, key.nameTag);
-  player.sendMessage(`Key copied! Key: ${key.nameTag}`);
+  giveNamed(player, GLOW_KEY_ID, key.nameTag);
+  say(player, `Key copied! Key: ${key.nameTag}`);
   player.playSound("random.orb");
 }
 
 world.beforeEvents.playerInteractWithBlock.subscribe((event) => {
   const { player, block, itemStack, isFirstEvent } = event;
-  if (itemStack?.typeId === KEY_ID) recentKeyBlockUse.set(player.id, system.currentTick);
+  if (itemStack && KEY_IDS.has(itemStack.typeId)) recentKeyBlockUse.set(player.id, system.currentTick);
   if (!isLockable(block)) return;
   const lock = findLock(block);
 
@@ -162,7 +201,7 @@ world.beforeEvents.playerInteractWithBlock.subscribe((event) => {
     if (!isFirstEvent) return;
     const password = itemStack.nameTag;
     if (!password) {
-      system.run(() => player.sendMessage("Rename the Padlock on an anvil first. The name is the password."));
+      system.run(() => say(player, "Rename the Padlock on an anvil first. The name is the password."));
       return;
     }
     system.run(() => lockBlock(player, block, password));
@@ -183,19 +222,40 @@ world.beforeEvents.playerInteractWithBlock.subscribe((event) => {
 
 world.beforeEvents.playerBreakBlock.subscribe((event) => {
   const { player, block } = event;
-  if (!isLockable(block) || !findLock(block)) return;
-  event.cancel = true;
-  system.run(() => player.sendMessage("Can't break! Locked. Sneak + Key to unlock first"));
+  if (!isLockable(block)) return;
+  const lock = findLock(block);
+  if (!lock) return;
+  if (!hasCorrectKey(player, lock.password)) {
+    event.cancel = true;
+    system.run(() => say(player, "Locked! Hold the matching Key to break it"));
+    return;
+  }
+  const dimension = block.dimension;
+  const at = effectLocation(block, 0.8);
+  system.run(() => {
+    releaseLock(player, dimension, at, lock);
+    say(player, "Lock removed! Key dispersed, Padlock returned");
+  });
 });
 
 world.beforeEvents.itemUse.subscribe((event) => {
   const { source, itemStack } = event;
-  if (itemStack?.typeId !== KEY_ID || !itemStack.nameTag) return;
+  if (!itemStack || !KEY_IDS.has(itemStack.typeId) || !itemStack.nameTag) return;
   system.run(() => copyKey(source));
 });
 
 world.afterEvents.playerPlaceBlock.subscribe((event) => {
-  const { block } = event;
+  const { block, player } = event;
+  if (block.typeId === HOPPER_ID) {
+    const above = block.above();
+    if (above && isLockable(above) && findLock(above)) {
+      block.setType("minecraft:air");
+      getContainer(player)?.addItem(new ItemStack(HOPPER_ID, 1));
+      say(player, "Can't place! A Hopper would empty the locked block");
+      player.playSound("break.amethyst_block");
+      return;
+    }
+  }
   if (!isLockable(block)) return;
   const origin = lockPosition(block);
   const key = propertyKey(block.dimension, origin.x, origin.y, origin.z);

@@ -11,7 +11,7 @@
 
 ## Overview
 
-Craft a Padlock, rename it on an anvil, and use it on a supported block. The block locks, the Padlock is used up, and you receive a Key carrying the same name. Anyone holding a Key with that exact name in either hand can open the block, and sneaking with the Key removes the lock for good.
+Craft a Padlock, rename it on an anvil, and use it on a supported block. The block locks, the Padlock is used up, and you receive a Key carrying the same name. Anyone holding a Key with that exact name in either hand can open the block, and sneaking with the Key removes the lock for good, which disperses that Key and returns the Padlock with the same name.
 
 ## Key Features
 
@@ -21,19 +21,19 @@ Craft a Padlock, rename it on an anvil, and use it on a supported block. The blo
 - **Good To Know**: An unnamed Padlock does not lock anything. The game tells you to rename it first.
 
 ### Key
-- **What Happens**: The Key opens a locked block while it is held in your main hand or your offhand and its name matches the password exactly.
+- **What Happens**: The Key opens a locked block while it is held in your main hand or your offhand and its name matches the password exactly. Keys you receive from locking or copying have an enchanted glow.
 - **How It Works**: Right-click the locked block while holding the Key. The block opens normally and stays locked after you close it.
-- **Good To Know**: Without a matching Key, the block stays shut, and you see a message with angry villager particles. The message does not reveal the password.
+- **Good To Know**: Without a matching Key, the block stays shut, and you see text above your hotbar with angry villager particles. The text does not reveal the password.
 
 ### Permanent Unlock
 - **What Happens**: Sneak and right-click a locked block while holding the matching Key to remove the lock completely.
-- **How It Works**: You see an unlock message, hear an orb sound, and see happy villager particles. Afterwards the block is public.
+- **How It Works**: You see text above your hotbar, hear an orb sound, and see particles. The Key you used disperses and the Padlock returns to your inventory with the same name. Afterwards the block is public.
 - **Good To Know**: A normal right-click with the Key only opens the block and never removes the lock.
 
 ### Break Protection
-- **What Happens**: A locked block cannot be broken by anyone, including the player holding the correct Key.
-- **How It Works**: Unlock the block first with Sneak + Key, then break it as usual.
-- **Good To Know**: The pack adds no protection against hoppers, redstone, or explosions.
+- **What Happens**: A locked block cannot be broken unless you hold the matching Key in either hand.
+- **How It Works**: Break the block with the matching Key in hand. The lock is removed, the Key disperses, and the Padlock returns. Without the Key, text above your hotbar says the block is locked.
+- **Good To Know**: Hoppers cannot be placed directly under a locked block, and a block cannot be locked while a Hopper sits under it. The pack adds no protection against hopper minecarts, redstone, or explosions.
 
 ### Key Copies
 - **What Happens**: Hold a Key in your main hand and an Iron Nugget in your offhand, then use the Key to get one extra Key with the same name.
@@ -53,7 +53,7 @@ Craft a Padlock, rename it on an anvil, and use it on a supported block. The blo
 
 ## Common Questions
 
-- **Can I break a locked Chest?**: No. Unlock it with Sneak + Key first, then break it.
+- **Can I break a locked Chest?**: Only while you hold its matching Key in either hand. Breaking it removes the lock, disperses the Key, and returns the Padlock.
 - **Does the Padlock work when it has no custom name?**: No. Rename it on an anvil first.
 
 ## Compatibility
