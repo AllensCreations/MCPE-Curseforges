@@ -196,31 +196,20 @@ def read_info(project_path):
     return {**entry, "project_id": project_id}
 
 
-def save_info(project_path, project_id, last_published_version=None, last_release_version=None,
-              last_legacy alpha_version=None):
-    """Add or update one pack in builds/Curseforge_IDs.json (keeps its other fields).
-
-    last_published_version is the newest upload of any type (beta, legacy alpha or release);
-    last_release_version is the newest release, the baseline a release merges from;
-    last_legacy alpha_version is the newest legacy alpha or release, the baseline an legacy alpha merges from.
-    """
+def save_info(project_path, project_id, last_published_version=None, last_release_version=None):
+    """Persist the last uploaded and last release versions; discard retired Alpha fields."""
     registry, migrated = _load_registry()
     entry = dict(registry.get(project_path) or {})
     entry["project_id"] = _clean_id(project_id)
-    if not entry["project_id"]:
-        raise ValueError("CurseForge project ID must contain only digits")
-    if last_published_version:
-        entry["last_published_version"] = last_published_version
-    if last_release_version:
-        entry["last_release_version"] = last_release_version
-    if last_legacy alpha_version:
-        entry["last_legacy alpha_version"] = last_legacy alpha_version
+    if not entry["project_id"]: raise ValueError("CurseForge project ID must contain only digits")
+    if last_published_version: entry["last_published_version"] = last_published_version
+    if last_release_version: entry["last_release_version"] = last_release_version
+    entry.pop("last_alpha_version", None)
     registry[project_path] = entry
     path = registry_path()
     path.parent.mkdir(parents=True, exist_ok=True)
-    path.write_text(json.dumps(dict(sorted(registry.items())), indent=2) + "\n", encoding="utf-8")
-    for legacy in migrated:  # now stored in the registry
-        legacy.unlink(missing_ok=True)
+    path.write_text(json.dumps(dict(sorted(registry.items())), indent=2) + "\\n", encoding="utf-8")
+    for legacy in migrated: legacy.unlink(missing_ok=True)
     return path
 
 
@@ -446,106 +435,35 @@ def baselines_after(release_type, info, version):
     if release_type == "release": return {"last_release_version": version}
     return {"last_release_version": info.get("last_release_version") or fallback}
 
-def combine_changelog(project_dir, changelog_path, last_published=None, today=None,
-                      release_type="release", last_release=None, last_legacy alpha=None):
-    """Merge the changelog entries this publish covers into ONE entry with the next version.
-
-    beta: all entries newer than last_published (the A versions) become one grouped entry, X.Y.(Z+1).
-    legacy alpha: entries newer than the last legacy alpha/release are merged; the upload shows every
-    series (1.3.x and lower) as spoiler groups, X.(Y+1).0. With nothing new it still
-    folds the existing history.
-    release: entries newer than the last release are merged; the upload shows every major
-    (v1.x.x, with its series inside) as spoiler groups, (X+1).0.0.
-    The next version builds on the highest of the last published version and the manifests;
-    unpublished changelog headings are only used when nothing was ever published.
-    CHANGELOG.md keeps one plain grouped entry in place of the entries it merged, so the
-    changelog, manifests and CurseForge all show the same version.
-    Returns (new_version_text, upload_changelog_text).
-    """
+def combine_changelog(project_dir, changelog_path, last_published=None, today=None, release_type="release", last_release=None):
+    """Merge pending changelog entries and create the next three-part version."""
     text = changelog_path.read_text(encoding="utf-8")
     preamble, segments = split_changelog(text)
-
     entries = []
     for segment in segments:
         heading = segment.splitlines()[0]
         match = CHANGELOG_HEADER.fullmatch(heading)
-        if not match:
-            break
+        if not match: break
         entries.append((parse_version(match.group(1)), match.group(1), heading, segment))
-    if not entries:
-        raise ValueError(f"Latest changelog heading must be a dated version in {changelog_path}")
-
-    baseline_text = merge_baseline(
-        release_type,
-        {
-            "last_published_version": last_published,
-            "last_release_version": last_release,
-            "last_legacy alpha_version": last_legacy alpha,
-        },
-    )
+    if not entries: raise ValueError(f"Latest changelog heading must be a dated X.Y.Z version in {changelog_path}")
+    baseline_text = merge_baseline(release_type, {"last_published_version": last_published, "last_release_version": last_release})
     baseline = parse_version(baseline_text) if baseline_text else None
-    if baseline is None:
-        merged = entries[:1]  # first publish: only the newest entry
-    else:
-        merged = [entry for entry in entries if entry[0] > baseline]
+    merged = entries[:1] if baseline is None else [entry for entry in entries if entry[0] > baseline]
     if not merged and release_type == "beta":
-        raise ValueError(
-            f"Nothing new to publish: the changelog has no entry newer than v{baseline_text}. "
-            "Add a changelog entry first."
-        )
-    # legacy alpha/release with nothing new still fold the existing history into the new version.
+        raise ValueError(f"Nothing new to publish: no changelog entry newer than v{baseline_text}. Add a changelog entry first.")
     history = [entry for entry in entries if _has_content(entry)]
-    if not history:
-        raise ValueError(f"Nothing to publish: {changelog_path} has no changelog bullets.")
-
-    if last_published:
-        highest = max(parse_version(last_published), manifest_max_version(project_dir))
-    else:
-        highest = max(entries[0][0], manifest_max_version(project_dir))
+    if not history: raise ValueError(f"Nothing to publish: {changelog_path} has no changelog bullets.")
+    highest = max(parse_version(last_published), manifest_max_version(project_dir)) if last_published else max(entries[0][0], manifest_max_version(project_dir))
     new_version = next_version(highest, release_type)
     date_text = (today or datetime.date.today()).isoformat()
-
-    if merged:
-        file_entry = render_flat_entry(new_version, date_text, merged)
-    else:
-        file_entry = (
-            f"## [{new_version}] - {date_text}\n\n**What's new in v{new_version}:** "
-            f"Rolls up the existing changelog, from v{history[-1][1]} through v{history[0][1]}."
-        )
-    upload = render_upload_changelog(new_version, date_text, merged, history, release_type)
-
-    remaining = segments[len(merged):]
-    new_text = preamble + file_entry + "\n\n" + "".join(remaining)
-    changelog_path.write_text(new_text.rstrip() + "\n", encoding="utf-8")
-    return new_version, upload
-
-
-def find_map_package(project_dir, built_name, variant):
-    if variant != "default":
-        matches = sorted(project_dir.glob(f"*- {variant}.mcworld"))
-        matches = [path for path in matches if " - Test" not in path.name]
-        if len(matches) == 1:
-            return matches[0]
-        if not matches:
-            raise ValueError(f"No {variant} world package found for {project_dir.name}")
-        raise ValueError(f"More than one {variant} world package found for {project_dir.name}")
-
-    if built_name:
-        return REPO_ROOT / "builds" / project_dir.name / built_name
-    creative = sorted(project_dir.glob("* - Creative.mcworld"))
-    if len(creative) == 1:
-        return creative[0]
-    candidates = [
-        path for path in sorted(project_dir.glob("*.mcworld"))
-        if " - Test" not in path.name
-    ]
-    if len(candidates) == 1:
-        return candidates[0]
-    if not candidates:
-        raise ValueError(f"No .mcworld package found for {project_dir.name}")
-    raise ValueError(
-        f"Multiple map variants found for {project_dir.name}; choose one in the map variant dropdown"
-    )
+    if merged: file_entry = render_flat_entry(new_version, date_text, merged)
+    else: file_entry = render_flat_entry(new_version, date_text, history)
+    upload_entries = history if release_type == "release" else merged
+    upload_changelog = render_upload_changelog(new_version, date_text, merged or history, upload_entries, release_type)
+    consumed = {entry[2] for entry in (merged or history)}
+    remaining = [segment for segment in segments if segment.splitlines()[0] not in consumed]
+    changelog_path.write_text(preamble + file_entry + "\\n\\n" + "\\n\\n".join(remaining).lstrip(), encoding="utf-8")
+    return new_version, upload_changelog
 
 
 def upload_name(release_type, project_name, extension, map_variant="default", version="", title=None):
