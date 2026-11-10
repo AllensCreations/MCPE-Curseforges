@@ -2,6 +2,12 @@
 
 ---
 
+## [1.0.0.3] - 2026-11-10
+
+### Added
+- **Locked Floor**: The block directly under a locked container can no longer be broken or blown up until the lock is removed.
+- **Solid Floor Needed**: A container can only be locked when a solid block sits under it, so hoppers and hopper minecart rails cannot be placed there.
+
 ## [1.0.0.2] - 2026-11-10
 
 ### Added

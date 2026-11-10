@@ -99,6 +99,35 @@ function hasHopperBelow(block) {
   return parts.some((part) => part.below()?.typeId === HOPPER_ID);
 }
 
+function isContainer(block) {
+  const id = block.typeId;
+  return isLockable(block) && !id.endsWith("_door") && !id.endsWith("trapdoor") && !id.includes("fence_gate");
+}
+
+function hasSolidFloor(block) {
+  const parts = [block];
+  if (CHEST_IDS.has(block.typeId)) {
+    for (const side of SIDES) {
+      const neighbor = block.dimension.getBlock({
+        x: block.location.x + side.x,
+        y: block.location.y,
+        z: block.location.z + side.z,
+      });
+      if (neighbor && neighbor.typeId === block.typeId) parts.push(neighbor);
+    }
+  }
+  return parts.every((part) => {
+    const below = part.below();
+    return !!below && below.isSolid && below.typeId !== HOPPER_ID;
+  });
+}
+
+function isLockedFloor(block) {
+  const above = block.above();
+  if (!above || !isContainer(above)) return false;
+  return findLock(above) !== null;
+}
+
 function getContainer(player) {
   return player.getComponent("minecraft:inventory")?.container;
 }
@@ -140,6 +169,11 @@ function lockBlock(player, block, password) {
   if (!isLockable(block) || findLock(block)) return;
   if (hasHopperBelow(block)) {
     say(player, "Can't lock! Remove the Hopper below first");
+    player.playSound("break.amethyst_block");
+    return;
+  }
+  if (isContainer(block) && !hasSolidFloor(block)) {
+    say(player, "Can't lock! Needs a solid block below");
     player.playSound("break.amethyst_block");
     return;
   }
@@ -222,9 +256,14 @@ world.beforeEvents.playerInteractWithBlock.subscribe((event) => {
 
 world.beforeEvents.playerBreakBlock.subscribe((event) => {
   const { player, block } = event;
-  if (!isLockable(block)) return;
-  const lock = findLock(block);
-  if (!lock) return;
+  const lock = isLockable(block) ? findLock(block) : null;
+  if (!lock) {
+    if (isLockedFloor(block)) {
+      event.cancel = true;
+      system.run(() => say(player, "Protected! Unlock the block above first"));
+    }
+    return;
+  }
   if (!hasCorrectKey(player, lock.password)) {
     event.cancel = true;
     system.run(() => say(player, "Locked! Hold the matching Key to break it"));
@@ -267,6 +306,6 @@ world.afterEvents.playerLeave.subscribe((event) => {
 });
 
 world.beforeEvents.explosion.subscribe((event) => {
-  const safe = event.getImpactedBlocks().filter((block) => !(isLockable(block) && findLock(block)));
+  const safe = event.getImpactedBlocks().filter((block) => !(isLockable(block) && findLock(block)) && !isLockedFloor(block));
   event.setImpactedBlocks(safe);
 });
