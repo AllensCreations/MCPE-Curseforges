@@ -89,6 +89,7 @@ Do this for every new pack and meaningful update. A compatible API version does 
 ### 3. Manifest Title, Attribution, and LOCK Marker
 
 - Every Behavior Pack and Resource Pack manifest title is `Add-on Name (vX.Y.Z)`, for example `Vanilla Quality of Life (v1.3.4)`. Update it whenever the release version changes; release automation must preserve this.
+- Version format is strictly `X.Y.Z`: X is Release, Y is Beta, Z is Update. Legacy `X.Y.Z.A` maps to `X.Z.A`; the old Y was Alpha, Z was Beta, and A was the update counter.
 - Put `by ALNStudios` in `header.description` exactly once. Normalize existing descriptions rather than appending duplicates. Keep attribution out of the title.
 - Do not change pack UUIDs or world storage keys just to rename a title.
 - **Title validator**, run in the release workflow, failing the job on any violation and reporting errors rather than rewriting titles. For every manifest under `MCPEDL/`:
