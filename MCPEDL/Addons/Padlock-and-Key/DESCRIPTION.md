@@ -11,7 +11,7 @@
 
 ## Overview
 
-Craft a Padlock, rename it on an anvil, and use it on a supported block. The block locks, the Padlock is used up, and you receive a Key carrying the same name. Anyone holding a Key with that exact name in either hand can open the block, and sneaking with the Key removes the lock for good, which disperses that Key and returns the Padlock with the same name.
+Craft a Padlock, rename it on an anvil, and use it on a supported block. The block locks, the Padlock is used up, and you receive a Key carrying the same name. Anyone holding a Key with that exact name in either hand can open a locked container, and sneaking with the Key removes the lock for good, which disperses that Key and returns the Padlock with the same name.
 
 ## Key Features
 
@@ -21,19 +21,19 @@ Craft a Padlock, rename it on an anvil, and use it on a supported block. The blo
 - **Good To Know**: An unnamed Padlock does not lock anything. The game tells you to rename it first.
 
 ### Key
-- **What Happens**: The Key opens a locked block while it is held in your main hand or your offhand and its name matches the password exactly. Keys you receive from locking or copying have an enchanted glow.
-- **How It Works**: Right-click the locked block while holding the Key. The block opens normally and stays locked after you close it.
+- **What Happens**: The Key opens a locked container while it is held in your main hand or your offhand and its name matches the password exactly. Keys you receive from locking or copying have an enchanted glow.
+- **How It Works**: Right-click the locked container while holding the Key. It opens normally and stays locked after you close it. Locked doors, trapdoors and fence gates do not open when right-clicked, even with the Key.
 - **Good To Know**: Without a matching Key, the block stays shut, and you see text above your hotbar with angry villager particles. The text does not reveal the password.
 
 ### Permanent Unlock
 - **What Happens**: Sneak and right-click a locked block while holding the matching Key to remove the lock completely.
 - **How It Works**: You see text above your hotbar, hear an orb sound, and see particles. The Key you used disperses and the Padlock returns to your inventory with the same name. Afterwards the block is public.
-- **Good To Know**: A normal right-click with the Key only opens the block and never removes the lock.
+- **Good To Know**: A normal right-click with the Key only opens a locked container and never removes the lock.
 
 ### Break Protection
 - **What Happens**: A locked block cannot be broken unless you hold the matching Key in either hand.
 - **How It Works**: Break the block with the matching Key in hand. The lock is removed, the Key disperses, and the Padlock returns. Without the Key, text above your hotbar says the block is locked.
-- **Good To Know**: Hoppers cannot be placed directly under a locked block, and a block cannot be locked while a Hopper sits under it. Explosions do not destroy locked blocks. The block under a locked container is protected from breaking and explosions, and a container can only be locked when a solid block sits under it, so hoppers and hopper minecart rails cannot sit there. The pack adds no protection against redstone.
+- **Good To Know**: Hoppers cannot be placed directly under a locked block, and a block cannot be locked while a Hopper sits under it. Explosions do not destroy locked blocks. The block under a locked container is protected from breaking and explosions, and a container can only be locked when a block that is not a Hopper, rail or liquid sits under it, so hoppers and hopper minecart rails cannot sit there. The pack adds no protection against redstone.
 
 ### Key Copies
 - **What Happens**: Hold a Key in your main hand and an Iron Nugget in your offhand, then use the Key to get one extra Key with the same name.
@@ -41,7 +41,7 @@ Craft a Padlock, rename it on an anvil, and use it on a supported block. The blo
 - **Good To Know**: Crafting cannot carry a custom name, so copies are made by using the Key instead of in a crafting grid.
 
 ### Lockable Blocks
-- **What Happens**: Chest, Trapped Chest, Barrel, every Shulker Box, Furnace, Blast Furnace, Smoker, Hopper, Brewing Stand, Dispenser, Dropper, every door, every Fence Gate, every Trapdoor, and Chiseled Bookshelf can be locked.
+- **What Happens**: Chest, Trapped Chest, every Copper Chest, Ender Chest, Barrel, every Shulker Box, Furnace, Blast Furnace, Smoker, Hopper, Brewing Stand, Dispenser, Dropper, Crafter, Decorated Pot, every door, every Fence Gate, every Trapdoor, and Chiseled Bookshelf can be locked.
 - **How It Works**: A locked door is locked on both halves. A Chest next to a locked Chest of the same kind counts as part of the same lock.
 - **Good To Know**: Lock data is saved with the world, and each dimension keeps its own locks.
 
@@ -49,7 +49,7 @@ Craft a Padlock, rename it on an anvil, and use it on a supported block. The blo
 
 1. Craft a Padlock with 1 Iron Ingot and 1 Amethyst Shard, then rename it on an anvil to your password.
 2. Right-click a Chest, door, or other supported block with the Padlock to lock it and receive a Key.
-3. Hold the Key in either hand and right-click the block to open it, or sneak and right-click to unlock it for good.
+3. Hold the Key in either hand and right-click a container to open it, or sneak and right-click any locked block to unlock it for good.
 
 ## Common Questions
 

@@ -2,6 +2,17 @@
 
 ---
 
+## [1.0.0.4] - 2026-11-10
+
+### Added
+- **More Lockable Storage**: Every Chest type, including Copper Chests, plus Crafters and Decorated Pots can now be locked.
+
+### Improved & Balanced
+- **Locked Doors Stay Shut**: Locked doors, trapdoors and fence gates no longer open when right-clicked, even with the matching Key. Sneak and right-click with the Key to unlock them.
+
+### Fixed
+- **Floor Check**: Locking no longer asks for a solid block when another block already sits under the container. Open air, liquids, Hoppers and rails under it still stop the lock.
+
 ## [1.0.0.3] - 2026-11-10
 
 ### Added

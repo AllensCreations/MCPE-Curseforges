@@ -24,8 +24,10 @@ const EXACT_NAMES = new Set([
   "dispenser",
   "dropper",
   "chiseled_bookshelf",
+  "crafter",
+  "decorated_pot",
 ]);
-const NAME_SUFFIXES = ["_door", "trapdoor", "fence_gate", "shulker_box"];
+const NAME_SUFFIXES = ["_door", "trapdoor", "fence_gate", "shulker_box", "chest"];
 const CHEST_IDS = new Set(["minecraft:chest", "minecraft:trapped_chest"]);
 const DIMENSION_CODES = {
   "minecraft:overworld": "o",
@@ -99,9 +101,13 @@ function hasHopperBelow(block) {
   return parts.some((part) => part.below()?.typeId === HOPPER_ID);
 }
 
-function isContainer(block) {
+function isOpenable(block) {
   const id = block.typeId;
-  return isLockable(block) && !id.endsWith("_door") && !id.endsWith("trapdoor") && !id.includes("fence_gate");
+  return id.endsWith("_door") || id.endsWith("trapdoor") || id.includes("fence_gate");
+}
+
+function isContainer(block) {
+  return isLockable(block) && !isOpenable(block);
 }
 
 function hasSolidFloor(block) {
@@ -118,7 +124,7 @@ function hasSolidFloor(block) {
   }
   return parts.every((part) => {
     const below = part.below();
-    return !!below && below.isSolid && below.typeId !== HOPPER_ID;
+    return !!below && !below.isAir && !below.isLiquid && below.typeId !== HOPPER_ID && !below.typeId.endsWith("rail");
   });
 }
 
@@ -173,7 +179,7 @@ function lockBlock(player, block, password) {
     return;
   }
   if (isContainer(block) && !hasSolidFloor(block)) {
-    say(player, "Can't lock! Needs a solid block below");
+    say(player, "Can't lock! Needs a block below (no Hopper, rail or liquid)");
     player.playSound("break.amethyst_block");
     return;
   }
@@ -251,6 +257,12 @@ world.beforeEvents.playerInteractWithBlock.subscribe((event) => {
   if (player.isSneaking) {
     event.cancel = true;
     if (isFirstEvent) system.run(() => unlockBlock(player, block, lock));
+    return;
+  }
+
+  if (isOpenable(block)) {
+    event.cancel = true;
+    if (isFirstEvent) system.run(() => say(player, "Locked! Sneak and use the Key to unlock"));
   }
 });
 
