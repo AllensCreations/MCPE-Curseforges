@@ -1,4 +1,4 @@
-import { world, system, ItemStack, EquipmentSlot } from "@minecraft/server";
+import { world, system, ItemStack } from "@minecraft/server";
 
 const LUCKY = "allenscreations:lucky_block";
 const CORE = { x: 0, y: 64, z: 0 };
@@ -434,19 +434,6 @@ function pickOutcome(kind, breaks) {
   return { outcome, index };
 }
 
-function useCharm(player) {
-  const equip = player.getComponent("minecraft:equippable");
-  const held = equip?.getEquipment(EquipmentSlot.Offhand);
-  if (!held || held.typeId !== "minecraft:rabbit_foot") return false;
-  if (held.amount > 1) {
-    held.amount -= 1;
-    equip.setEquipment(EquipmentSlot.Offhand, held);
-  } else {
-    equip.setEquipment(EquipmentSlot.Offhand, undefined);
-  }
-  return true;
-}
-
 function rollKind(player) {
   let chance = GOOD_CHANCE;
   const plus = num(BONUS_KEY);
@@ -459,7 +446,6 @@ function rollKind(player) {
     chance -= 0.2;
     world.setDynamicProperty(JINX_KEY, minus - 1);
   }
-  if (useCharm(player)) chance += 0.25;
   chance = Math.min(0.95, Math.max(0.2, chance));
   return Math.random() < chance ? "good" : "bad";
 }

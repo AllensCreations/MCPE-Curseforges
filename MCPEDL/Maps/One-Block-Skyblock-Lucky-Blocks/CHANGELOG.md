@@ -2,6 +2,11 @@
 
 ---
 
+## [1.1.1] - 2026-11-10
+
+### Improved & Balanced
+- **Luck changes**: The Rabbit's Foot off-hand bonus is removed. Luck now changes only through the Four-Leaf Fortune, Golden Horseshoe and Jinx results, and the good luck chance stays between 50% and 90%.
+
 ## [1.1.0] - 2026-11-10
 
 ### Added
@@ -11,7 +16,7 @@
 ### Improved & Balanced
 - **70/30 luck**: Every break now has a 70% chance of good luck and a 30% chance of bad luck.
 - **Tier odds**: The current tier comes up 50% of the time, with the next tiers up at 25%, 12.5%, 6.25% and 6.25%.
-- **Luck changes**: Rabbit's Foot, Four-Leaf Fortune, Golden Horseshoe and Jinx now work on the 70/30 odds, with the good luck chance kept between 20% and 95%.
+- **Luck changes**: Rabbit's Foot, Four-Leaf Fortune, Golden Horseshoe and Jinx now work on the 70/30 odds.
 - **No guaranteed streak**: The first 30 breaks are no longer always good luck.
 
 ## [1.0.0] - 2026-11-10

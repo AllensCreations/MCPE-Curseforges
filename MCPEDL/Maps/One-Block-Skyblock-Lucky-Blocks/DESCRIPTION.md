@@ -21,7 +21,7 @@ You start on a 3x3 grass island floating in an empty void, next to a single luck
 
 ### 70/30 Luck
 - **What Happens**: Every break has a 70% chance of good luck and a 30% chance of bad luck from the very first block, with no guaranteed good streak.
-- **Good To Know**: The good luck chance never goes below 20% or above 95%, even with every luck change active.
+- **Good To Know**: The good luck chance stays between 50% and 90%, even with every luck change active.
 
 ### Silent Progression
 - **What Happens**: The results follow a playthrough: Plains, Forest, Stone Age, Farm and Village, Shallow Caves, Iron Age, Deep Caves, Diamond Age, Enchanting, Nether Gate, Nether Wastes, Fortress and Blaze, Ender Prep, Stronghold, Deep Dark, Ancient Wonders, Ocean Depths, End City, Beacon Rise and Mythical.
@@ -39,8 +39,8 @@ You start on a 3x3 grass island floating in an empty void, next to a single luck
 - **Good To Know**: Explosions from the lucky block do not break the island, but a hit or a blast can still knock you into the void.
 
 ### Influence Your Luck
-- **What Happens**: Hold a Rabbit's Foot in your off hand while breaking the lucky block to raise the good luck chance by 25 points. One Rabbit's Foot is used up per break.
-- **How It Works**: The Four-Leaf Fortune and Golden Horseshoe results raise the good luck chance by 20 points for 5 and 10 breaks. The Jinx result lowers it by 20 points for 5 breaks.
+- **What Happens**: The Four-Leaf Fortune and Golden Horseshoe results raise the good luck chance by 20 points for the next 5 and 10 breaks.
+- **How It Works**: The Jinx result lowers the good luck chance by 20 points for the next 5 breaks.
 
 ## How to Use
 
