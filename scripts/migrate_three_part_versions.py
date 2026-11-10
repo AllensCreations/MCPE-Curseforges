@@ -46,6 +46,14 @@ def project_target(project):
             version = header.get("version")
             if isinstance(version, list) and len(version) == 3 and all(type(p) is int and p >= 0 for p in version):
                 candidates.append((version[0], version[2], 0))
+            title = header.get("name")
+            if isinstance(title, str):
+                match = re.search(r"\\(v(\\d+\\.\\d+\\.\\d+(?:\\.\\d+)?)\\)\\s*$", title)
+                if match:
+                    try:
+                        candidates.append(tuple(int(p) for p in migrate_version(match.group(1)).split(".")))
+                    except ValueError:
+                        pass
         metadata = data.get("metadata") if isinstance(data, dict) else None
         full = metadata.get("version") if isinstance(metadata, dict) else None
         if isinstance(full, str):
