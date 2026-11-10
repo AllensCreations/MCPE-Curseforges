@@ -235,7 +235,7 @@ def save_info(project_path, project_id, last_published_version=None, last_releas
 
 
 def parse_version(text):
-    """Parse an exact X.Y.Z version into a three-part tuple."""
+    """Parse X.Y.Z; accept legacy X.Y.Z.A temporarily and map it to X.Z.A."""
     parts = tuple(int(part) for part in str(text).split("."))
     if len(parts) == 4: parts = (parts[0], parts[1], parts[3])
     if len(parts) != 3 or any(part < 0 for part in parts):
