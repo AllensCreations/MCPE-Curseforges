@@ -353,8 +353,8 @@ jobs:
             *)
               if [ -n "$BEFORE" ] && [ "$BEFORE" != "0000000000000000000000000000000000000000" ]; then
                 CHANGED_PATHS="$(git diff --name-only "$BEFORE" HEAD)"
-                if grep -Eq '^(scripts/manifest_tools\.py|scripts/migrate_three_part_versions\.py|\.github/workflows/auto-version-bump\.yml)$' <<< "$CHANGED_PATHS"; then
-                  # Version tooling changes require a full rebuild, not a version increment across every project.
+                if grep -Eq '^(scripts/|Mcpeworlds/|builds/Curseforge_IDs\.json|\.github/workflows/auto-version-bump\.yml)' <<< "$CHANGED_PATHS"; then
+                  # Build tooling, foundation or registry changes require a full rebuild, not a version increment across every project.
                   ARGS=(--all)
                   SKIP_AUTO_BUMP=true
                 else
