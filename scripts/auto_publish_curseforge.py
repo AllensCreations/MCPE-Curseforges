@@ -2,13 +2,13 @@
 """Manually publish one pack to CurseForge using its registered project ID.
 
 Version rules:
-  Versions are X.Y.Z.A; normal updates only bump A in CHANGELOG.md.
-  beta     X.Y.Z.A -> X.Y.(Z+1).0; every unpublished A version is merged into one grouped entry.
-  alpha    X.Y.Z.A -> X.(Y+1).0.0; changelog grouped per series in spoilers (1.3.x and lower).
-  release  X.Y.Z.A -> (X+1).0.0.0; changelog grouped per major in spoilers (v1.x.x, with its
-           series inside).
-The uploaded file is named 'Release - Mining Helmet v(2.0.0.0).mcaddon' (type, name, version).
-Uploads, then records the published version and the alpha/release baselines.
+  Every project version is X.Y.Z: X = Release generation, Y = Beta generation, Z = Update.
+  update   X.Y.Z -> X.Y.(Z+1) (normal build automation only).
+  beta     X.Y.Z -> X.(Y+1).0; merges unpublished changelog entries since the last upload.
+  release  X.Y.Z -> (X+1).0.0; groups the complete release history.
+  Legacy X.Y.Z.A maps to X.Z.A and legacy X.Y.Z maps to X.Z.0 because old Y was Alpha, Z was Beta and A was Update (default 0).
+All Bedrock manifests, metadata.version, titles, changelogs and upload filenames use X.Y.Z.
+Uploads, then records the published version and release baseline.
 """
 
 import argparse
@@ -80,7 +80,7 @@ def publish(project_path, release_type="release", map_variant="default"):
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--project", required=True, help="Exact MCPEDL category/project path")
-    parser.add_argument("--release-type", default="release", choices=("release", "beta", "alpha"))
+    parser.add_argument("--release-type", default="release", choices=("release", "beta"))
     parser.add_argument("--map-variant", default="default", choices=("default", "Creative", "Survival", "Hardcore", "all"))
     args = parser.parse_args()
     publish(args.project, args.release_type, args.map_variant)

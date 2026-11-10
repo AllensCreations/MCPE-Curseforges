@@ -27,6 +27,12 @@ jobs:
       - name: Syntax check Python
         run: python -m compileall -q scripts tests
 
+      - name: Migrate legacy Release.Alpha.Beta.Update versions to Release.Beta.Update
+        run: python scripts/migrate_three_part_versions.py
+
+      - name: Normalize manifest metadata and titles to X.Y.Z
+        run: python scripts/manifest_tools.py --all --align
+
       - name: Manifest titles
         run: python scripts/validate_manifest_titles.py
 
@@ -42,6 +48,7 @@ jobs:
         run: |
           python tests/test_crafting_template.py
           python scripts/test_manifest_tools.py
+          python scripts/test_migrate_three_part_versions.py
           python scripts/test_auto_curseforge_publish.py
 
       - name: Project pipeline self-test

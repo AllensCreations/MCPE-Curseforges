@@ -92,7 +92,7 @@ registerController({
 });
 '''
 DOCS = {"README.md": "# X\nSource created, not tested in game.\nLikely achievement-friendly.\nNo experiment requirement detected in the inspected files.\n",
-        "DESCRIPTION.md": "# X\nPlayer text.\nThis is an unofficial community creation. It is not an official Minecraft product.\n", "CHANGELOG.md": "# Changelog\n## 1.0.0\n- First version.\n"}
+        "DESCRIPTION.md": "# X\nPlayer text.\nThis is an unofficial community creation. It is not an official Minecraft product.\n", "CHANGELOG.md": "# Changelog\n---\n\n## [1.0.0] - 2026-01-01\n\n### Added\n- First version.\n"}
 
 
 def write(p: Path, text: str) -> None:
@@ -252,12 +252,12 @@ def main() -> int:
             and package.suffix == ".mcaddon"
             and project_id == "1742470"
             and saved["project_id"] == "1742470"
-            and version == "1.0.1.0"  # publish versions are X.Y.Z.A; manifests stay X.Y.Z
+            and version == "1.1.0"  # all project versions use X.Y.Z
             and bool(changed_manifests)
             and json.loads((upload_project / "behavior_pack/manifest.json").read_text())["header"][
                 "version"
-            ] == [1, 0, 1],
-            "CurseForge: beta bumps the patch and syncs manifests to the new changelog entry",
+            ] == [1, 1, 0],
+            "CurseForge: Beta increments the minor generation and syncs manifests to X.Y.Z",
         )
         _, _, reused_id, _, unchanged_manifests, _ = uploader.prepare(
             "MCPEDL/Addons/Curseforge-Test", "beta", bump=False
@@ -309,7 +309,7 @@ def main() -> int:
         )
         ok(
             map_package.suffix == ".mcworld"
-            and re.search(r" - Survival v\(\d+\.\d+\.\d+\.\d+\)\.mcworld$", map_package.name)
+            and re.search(r" - Survival v\(\d+\.\d+\.\d+\)\.mcworld$", map_package.name)
             and map_package.is_file(),
             "CurseForge: rebuilds and selects a map world variant",
         )

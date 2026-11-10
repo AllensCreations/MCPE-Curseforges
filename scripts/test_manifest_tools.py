@@ -42,10 +42,10 @@ class ManifestToolsTest(unittest.TestCase):
 
     def test_align_uses_highest_and_keeps_uuids(self):
         target, changed = mt.align_project_manifests(self.root)
-        self.assertEqual(target, [1, 0, 2, 0])
+        self.assertEqual(target, [1, 0, 2])
         bp = self.load("behavior_pack/manifest.json")
         self.assertEqual(bp["header"]["version"], [1, 0, 2])
-        self.assertEqual(bp["header"]["name"], "X (v1.0.2.0)")
+        self.assertEqual(bp["header"]["name"], "X (v1.0.2)")
         self.assertEqual(bp["header"]["uuid"], BP)
         self.assertEqual(bp["dependencies"][0]["version"], [1, 0, 2])
         self.assertEqual(bp["dependencies"][1]["version"], "1.15.0")
@@ -65,8 +65,8 @@ class ManifestToolsTest(unittest.TestCase):
         self.assertEqual(self.load("behavior_pack/manifest.json")["header"]["name"], "Plain Title")
 
     def test_bump_patch(self):
-        self.assertEqual(mt.bump_patch([1, 0, 2]), [1, 0, 3, 0])
-        self.assertEqual(mt.bump_patch([1, 0, 2, 7]), [1, 0, 3, 0])
+        self.assertEqual(mt.bump_patch([1, 0, 2]), [1, 0, 3])
+        with self.assertRaises(ValueError): mt.bump_patch([1, 0, 2, 7])
         mt.align_project_manifests(self.root, target=mt.bump_patch(mt.highest_version(self.root)))
         self.assertEqual(mt.highest_version(self.root), [1, 0, 3])
 
@@ -116,6 +116,17 @@ class ManifestToolsTest(unittest.TestCase):
         write(f"{self.root}/resource_pack/manifest.json", {"header": {"name": "Bar (v1.0.2)", "uuid": RP, "version": [1, 0, 2]}})
         self.assertIsNone(mt.manifest_title(self.root))
         self.assertEqual(mt.package_basename(self.root, "1.0.2", "Desc Title"), "Desc Title by ALNStudios (V1.0.2)")
+
+    def test_legacy_four_part_title_is_rewritten_to_three_parts(self):
+        path = f"{self.root}/behavior_pack/manifest.json"
+        data = self.load("behavior_pack/manifest.json")
+        data["header"]["name"] = "X (v1.7.2.4)"
+        data["metadata"] = {"version": "1.7.2.4", "authors": ["ALNStudios"]}
+        write(path, data)
+        mt.align_project_manifests(self.root, target=[1, 2, 4])
+        migrated = self.load("behavior_pack/manifest.json")
+        self.assertEqual(migrated["header"]["name"], "X (v1.2.4)")
+        self.assertEqual(migrated["metadata"]["version"], "1.2.4")
 
     def test_legacy_creator_name_is_migrated_on_align(self):
         path = f"{self.root}/behavior_pack/manifest.json"

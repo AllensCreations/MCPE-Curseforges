@@ -188,7 +188,7 @@ def detect_unregistered_projects(project_dirs):
 # ─────────────────────────────────────────────────────────────────────────────
 
 def format_version(ver_list):
-    """X.Y.Z or X.Y.Z.A (every number given)."""
+    """Format the only supported project version: X.Y.Z."""
     return ".".join(str(p) for p in ver_list)
 
 
@@ -233,10 +233,6 @@ def get_manifest_info(project_path):
             break
     if found:
         info["version_list"] = max(v for _, _, v in found)
-        if manifest_tools:
-            full = manifest_tools.highest_full(project_path)
-            if full:
-                info["version_list"] = full
         info["version_str"] = format_version(info["version_list"])
     return info
 
@@ -519,7 +515,7 @@ VERSION_KEEP = int(os.environ.get("KEEP_VERSIONS", "5"))
 
 
 def _version_sort_key(folder_name):
-    m = re.match(r"V(\d+)\.(\d+)\.(\d+)(?:\.(\d+))?$", folder_name)
+    m = re.match(r"V(\d+)\.(\d+)\.(\d+)$", folder_name)
     return tuple(int(x or 0) for x in m.groups()) if m else None
 
 
@@ -590,7 +586,7 @@ def save_version_snapshot(project_path, project_name, version_str, source_hash=N
     packages, source.zip, source.sha256 and build_info.json. Unlike the old behavior it does
     NOT skip an existing version folder: when the source changed (or the saved packages differ)
     the snapshot for that version is refreshed in place. Also writes builds/<project>/build_info.json
-    (the latest build, including the changelog's X.Y.Z.A).
+    (the latest build, including the changelog's X.Y.Z).
     Returns "created", "refreshed" or "current". Never raises: a snapshot problem must not
     break a release.
     """
@@ -1122,7 +1118,7 @@ def main():
         action="store_true",
         default=os.environ.get("AUTO_BUMP_MANIFEST", "").lower() in {"1", "true", "yes"},
         help="When a project's source changed since its snapshot at the current manifest "
-             "version, bump X.Y.Z.A -> X.Y.(Z+1).0 in every manifest first (UUIDs untouched). "
+             "version, bump X.Y.Z -> X.Y.(Z+1) in every manifest first (UUIDs untouched). "
              "Without it the snapshot for that version is refreshed in place. "
              "Env: AUTO_BUMP_MANIFEST=true.",
     )

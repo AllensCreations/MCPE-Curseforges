@@ -88,11 +88,12 @@ Do this for every new pack and meaningful update. A compatible API version does 
 
 ### 3. Manifest Title, Attribution, and LOCK Marker
 
-- Every Behavior Pack and Resource Pack manifest title is `Add-on Name (vX.Y.Z.A)`, for example `Vanilla Quality of Life (v1.3.0.4)`. Update it whenever the release version changes; release automation must preserve this.
+- Every Behavior Pack and Resource Pack manifest title is `Add-on Name (vX.Y.Z)`, for example `Vanilla Quality of Life (v1.3.4)`. Update it whenever the release version changes; release automation must preserve this.
+- Version format is strictly `X.Y.Z`: X is Release, Y is Beta, Z is Update. Legacy `X.Y.Z.A` maps to `X.Z.A`, and legacy `X.Y.Z` maps to `X.Z.0`; the old Y was Alpha, Z was Beta, and A was the update counter (default 0).
 - Put `by ALNStudios` in `header.description` exactly once. Normalize existing descriptions rather than appending duplicates. Keep attribution out of the title.
 - Do not change pack UUIDs or world storage keys just to rename a title.
 - **Title validator**, run in the release workflow, failing the job on any violation and reporting errors rather than rewriting titles. For every manifest under `MCPEDL/`:
-  - exactly one terminal `(vX.Y.Z.A)` suffix;
+  - exactly one terminal `(vX.Y.Z)` suffix;
   - that version matches `header.version`;
   - no malformed or duplicated suffixes;
   - `behavior_pack/` and `resource_pack/` versions match when both exist.
@@ -432,7 +433,7 @@ Based on CurseForge's author guide "How to Create the Best Project Page" and its
 - **How to Use as steps.** Use short numbered steps for anything players must do. Put common questions as short `- **Question**: answer` bullets under How to Use.
 - **Style check.** Run `python3 scripts/doc_template.py --style <project folder>` and rewrite every STYLE hint with a specific fact. Hints are advisory and never fail a build. They flag filler phrases (such as "immersive", "seamless", "whether you're"), exclamation marks, more than three em dashes outside headings, and paragraphs of more than four sentences.
 - **Media is added on the platform.** Payloads contain no screenshots. After publishing, add in-game screenshots to the CurseForge Images page, enable the carousel, and add the same screenshots on MCPEDL.
-- **Changelog views.** `CHANGELOG.md` stays plain text in the exact template format; never add HTML, fold markup, or links to it. `scripts/build_changelog_views.py` builds folded copies in `changelog_views/` (newest release open, older releases grouped by minor series): a GitHub version and a CurseForge version using spoilers. Generators do not create these files; the Collect Files for AI Review workflow rebuilds them on every run (optional `commit_changelog_views` saves them to the repo).
+- **Changelog views.** `CHANGELOG.md` stays plain text in the exact template format; never add HTML, fold markup, or links to it. `scripts/build_changelog_views.py` builds folded copies in `changelog_views/` (newest release open, older releases grouped by minor series): a GitHub version and a CurseForge version using spoilers. The Build Changed Packs & Sync Catalogs workflow rebuilds them after project/version sync; Collect Files for AI Review also rebuilds them on export (optional `commit_changelog_views` saves them to the repo).
 - **Socials and links** stay at the bottom and small. The listing images use width 45%; lower it if a platform shows them too large.
 - **Supported HTML on CurseForge.** Allowed tags include p, br, strong, em, u, ul, ol, li, a (href, target), img (alt, src, width, height), blockquote, div (title, data-title), span, h1 to h6, hr, table, pre, code, section, and iframe for whitelisted domains such as YouTube. CSS font-size is capped at 40px. `<div class="spoiler">` is supported. Keep Markdown as the base; use HTML only for the listing images and a verified spoiler.
 
@@ -498,7 +499,7 @@ Do not ship `oneblock.json` (the importer writes it for maps), `LOCK` files (the
 Applies to `behavior_pack/manifest.json` and, when present, `resource_pack/manifest.json`. Part 1, Sections 2 and 3 apply in full.
 
 - `format_version`: 2. `header.min_engine_version` is a 3-integer array, a looked-up version, never `[0, 0, 0]`.
-- `header.name` is exactly `Add-on Name (vX.Y.Z.A)`: one terminal version suffix equal to `header.version`. Both packs use the same version.
+- `header.name` is exactly `Add-on Name (vX.Y.Z)`: one terminal version suffix equal to `header.version`. Both packs use the same version.
 - `header.description` contains `by ALNStudios` exactly once. Keep attribution out of the name.
 - Fresh, valid, unique UUIDs (v4) for every header and module. Never reuse one, and never copy a UUID from an example.
 - If a resource pack exists, the behavior pack's `dependencies` includes `{ "uuid": "<resource pack header.uuid>", "version": [x, y, z] }` with the matching version.
