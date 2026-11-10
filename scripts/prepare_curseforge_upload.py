@@ -18,7 +18,7 @@ import auto_bump_and_build as builder
 
 REPO_ROOT = Path(builder.REPO_ROOT)
 CHANGELOG_HEADER = re.compile(
-    r"^## \[(\d+\.\d+\.\d+)\] - \d{4}-\d{2}-\d{2}\s*$"
+    r"^## \[(\d+\.\d+\.\d+(?:\.\d+)?)\] - \d{4}-\d{2}-\d{2}\s*$"
 )
 PACKAGE_EXTENSIONS = {
     "Addons": ".mcaddon",
@@ -486,7 +486,7 @@ def combine_changelog(project_dir, changelog_path, last_published=None, today=No
 
 
 def upload_name(release_type, project_name, extension, map_variant="default", version="", title=None):
-    """'Release - Mining Helmet v(2.0.0.0).mcaddon'; non-default maps add ' - Creative' etc.
+    """'Release - Mining Helmet v(2.0.0).mcaddon'; non-default maps add ' - Creative' etc.
     title: the manifest's pack title when known, else the project folder name."""
     title = title or project_name.replace("-", " ").replace("_", " ")
     variant = "" if map_variant == "default" else f" - {map_variant}"
