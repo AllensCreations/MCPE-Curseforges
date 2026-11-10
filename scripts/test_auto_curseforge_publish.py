@@ -156,19 +156,19 @@ class AutoPublishTests(unittest.TestCase):
 
             log.write_text(log.read_text().replace("# Changelog\n\n", "# Changelog\n\n## [1.3.1] - 2026-11-01\n\n### Fixed\n- Beta fix one\n\n", 1))
             version, entry = self._publish(project, log, info, "beta", 1)
-            self.assertEqual(version, "1.3.1.0")
+            self.assertEqual(version, "1.4.0")
             self.assertEqual(info["last_release_version"], "1.3.0")
 
-            log.write_text(log.read_text().replace("# Changelog\n\n", "# Changelog\n\n## [1.3.2] - 2026-11-02\n\n### Added\n- Beta feature two\n\n", 1))
+            log.write_text(log.read_text().replace("# Changelog\n\n", "# Changelog\n\n## [1.4.1] - 2026-11-02\n\n### Added\n- Beta feature two\n\n", 1))
             version, entry = self._publish(project, log, info, "beta", 2)
-            self.assertEqual(version, "1.3.2.0")
+            self.assertEqual(version, "1.5.0")
             self.assertNotIn("Beta fix one", entry)
-            self.assertIn("## [1.3.1.0]", log.read_text())
+            self.assertIn("## [1.4.0]", log.read_text())
 
-            log.write_text(log.read_text().replace("# Changelog\n\n", "# Changelog\n\n## [1.3.3] - 2026-11-03\n\n### Fixed\n- Unpublished fix\n\n", 1))
+            log.write_text(log.read_text().replace("# Changelog\n\n", "# Changelog\n\n## [1.5.1] - 2026-11-03\n\n### Fixed\n- Unpublished fix\n\n", 1))
             version, entry = self._publish(project, log, info, "release", 3)
             self.assertEqual(version, "2.0.0")
-            self.assertEqual(info["last_release_version"], "2.0.0.0")
+            self.assertEqual(info["last_release_version"], "2.0.0")
             for expected in ("Beta fix one", "Beta feature two", "Unpublished fix", "Base"):
                 self.assertIn(expected, entry)  # the whole history is folded in
             self.assertIn("<h3>v1.x.x (4 updates)</h3>", entry)
@@ -200,7 +200,7 @@ class AutoPublishTests(unittest.TestCase):
             version, _ = self._publish(project, log, info, "beta", 1)
             self.assertEqual(version, "1.1.0")
             self.assertEqual(info["last_release_version"], "1.0.0")
-            log.write_text(log.read_text().replace("# Changelog\n\n", "# Changelog\n\n## [1.0.2] - 2026-11-02\n\n- Second\n\n", 1))
+            log.write_text(log.read_text().replace("# Changelog\n\n", "# Changelog\n\n## [1.1.1] - 2026-11-02\n\n- Second\n\n", 1))
             self._publish(project, log, info, "beta", 2)
             version, entry = self._publish(project, log, info, "release", 3)
             self.assertEqual(version, "2.0.0")
@@ -216,11 +216,11 @@ class AutoPublishTests(unittest.TestCase):
         self.assertEqual(rel.baselines_after("alpha", {"last_release_version": "1.1.0"}, "1.3.0"),
                          {"last_alpha_version": "1.3.0"})
         self.assertEqual(rel.baselines_after("release", info, "2.0.0"),
-                         {"last_release_version": "2.0.0", "last_alpha_version": "2.0.0"})
+                         {"last_release_version": "2.0.0"})
 
     def test_upload_copy_uses_type_prefix_and_no_by_suffix(self):
         rel = publisher.release
-        self.assertEqual(rel.upload_name("beta", "Monster-Companions", ".mcaddon", "default", "1.2.3.5"), "Beta - Monster Companions v(1.2.3.5).mcaddon")
+        self.assertEqual(rel.upload_name("beta", "Monster-Companions", ".mcaddon", "default", "1.2.5"), "Beta - Monster Companions v(1.2.5).mcaddon")
         self.assertEqual(rel.upload_name("release", "Mining-Helmet", ".mcaddon", "default", "2.0.0"), "Release - Mining Helmet v(2.0.0).mcaddon")
         
         with tempfile.TemporaryDirectory() as temp:
@@ -231,7 +231,7 @@ class AutoPublishTests(unittest.TestCase):
             self.assertEqual(staged.name, "Beta - Pack v(1.1.0).mcaddon")
             self.assertEqual(staged.read_bytes(), b"x")
 
-    def test_four_part_versions(self):
+    def test_legacy_four_part_version_mapping(self):
         rel = publisher.release
         self.assertEqual(rel.parse_version("1.2.3"), (1, 2, 3))
         self.assertEqual(rel.parse_version("1.2.3.4"), (1, 3, 4))
