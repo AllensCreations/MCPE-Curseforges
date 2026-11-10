@@ -8,7 +8,7 @@ This folder contains compiled release packages for **Harvest Intelligence** by A
 
 | File Name | Format | Size | Description | Download Link |
 | :--- | :--- | :--- | :--- | :--- |
-| **`Harvest Intelligence by ALNStudios (V1.0.6).mcaddon`** | `.mcaddon` | ~4 KB | Complete Add-on package for Minecraft Bedrock. | [Download (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Harvest-Intelligence/Harvest%20Intelligence%20by%20AllensCreations%20%28V1.0.6%29.mcaddon) |
+| **`Harvest Intelligence by ALNStudios (V1.0.6).mcaddon`** | `.mcaddon` | ~4 KB | Complete Add-on package for Minecraft Bedrock. | [Download (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Harvest-Intelligence/Harvest%20Intelligence%20by%20ALNStudios%20%28V1.0.6%29.mcaddon) |
 
 ---
 

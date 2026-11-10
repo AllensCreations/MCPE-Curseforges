@@ -8,7 +8,7 @@ This folder contains compiled release packages for **Mining Helmet** by ALNStudi
 
 | File Name | Format | Size | Description | Download Link |
 | :--- | :--- | :--- | :--- | :--- |
-| **`Mining Helmet by ALNStudios (V1.0.14).mcaddon`** | `.mcaddon` | ~265 KB | Complete bundle containing both Behavior Pack and Resource Pack. | [Download (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Mining-Helmet/Mining%20Helmet%20by%20AllensCreations%20%28V1.0.14%29.mcaddon) |
+| **`Mining Helmet by ALNStudios (V1.0.14).mcaddon`** | `.mcaddon` | ~265 KB | Complete bundle containing both Behavior Pack and Resource Pack. | [Download (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Mining-Helmet/Mining%20Helmet%20by%20ALNStudios%20%28V1.0.14%29.mcaddon) |
 
 ---
 

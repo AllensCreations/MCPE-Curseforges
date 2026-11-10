@@ -8,7 +8,7 @@ This folder contains compiled release packages for **Mob Chaos Behavioral Roulet
 
 | File Name | Format | Size | Description | Download Link |
 | :--- | :--- | :--- | :--- | :--- |
-| **`Mob Chaos Behavioral Roulette by ALNStudios (V1.0.4).mcaddon`** | `.mcaddon` | ~10 KB | Complete bundle containing both Behavior Pack and Resource Pack. | [Download (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Mob-Chaos-Behavioral-Roulette/Mob%20Chaos%20Behavioral%20Roulette%20by%20AllensCreations%20%28V1.0.4%29.mcaddon) |
+| **`Mob Chaos Behavioral Roulette by ALNStudios (V1.0.4).mcaddon`** | `.mcaddon` | ~10 KB | Complete bundle containing both Behavior Pack and Resource Pack. | [Download (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Mob-Chaos-Behavioral-Roulette/Mob%20Chaos%20Behavioral%20Roulette%20by%20ALNStudios%20%28V1.0.4%29.mcaddon) |
 
 ---
 

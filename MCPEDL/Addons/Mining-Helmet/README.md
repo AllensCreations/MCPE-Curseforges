@@ -5,7 +5,7 @@ Download the current release of **Mining Helmet** for Minecraft Bedrock Edition.
 ## Download
 
 - **Package format:** `.mcaddon`
-- **Direct download:** [Download Mining Helmet (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Mining-Helmet/Mining%20Helmet%20by%20AllensCreations%20%28V1.0.14%29.mcaddon)
+- **Direct download:** [Download Mining Helmet (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Mining-Helmet/Mining%20Helmet%20by%20ALNStudios%20%28V1.0.14%29.mcaddon)
 
 ## Installation
 

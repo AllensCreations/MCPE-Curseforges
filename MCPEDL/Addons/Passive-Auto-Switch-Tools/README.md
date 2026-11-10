@@ -5,7 +5,7 @@ Download the current release of **Passive Auto-Switch Tools** for Minecraft Bedr
 ## Download
 
 - **Package format:** `.mcaddon`
-- **Direct download:** [Download Passive Auto-Switch Tools (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Passive-Auto-Switch-Tools/Passive%20Auto-Switch%20Tools%20by%20AllensCreations%20%28V1.1.16%29.mcaddon)
+- **Direct download:** [Download Passive Auto-Switch Tools (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Passive-Auto-Switch-Tools/Passive%20Auto-Switch%20Tools%20by%20ALNStudios%20%28V1.1.16%29.mcaddon)
 
 ## Installation
 

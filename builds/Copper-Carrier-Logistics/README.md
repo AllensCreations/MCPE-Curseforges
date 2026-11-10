@@ -8,7 +8,7 @@ This folder contains compiled release packages for **Copper-Carrier Logistics** 
 
 | File Name | Format | Size | Description | Download Link |
 | :--- | :--- | :--- | :--- | :--- |
-| **`Copper-Carrier Logistics by ALNStudios (V1.0.0).mcaddon`** | `.mcaddon` | ~8 KB | Complete Add-on package for Minecraft Bedrock. | [Download (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Copper-Carrier-Logistics/Copper-Carrier%20Logistics%20by%20AllensCreations%20%28V1.0.0%29.mcaddon) |
+| **`Copper-Carrier Logistics by ALNStudios (V1.0.0).mcaddon`** | `.mcaddon` | ~8 KB | Complete Add-on package for Minecraft Bedrock. | [Download (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Copper-Carrier-Logistics/Copper-Carrier%20Logistics%20by%20ALNStudios%20%28V1.0.0%29.mcaddon) |
 
 ---
 

@@ -5,7 +5,7 @@ Download the current release of **Swarm Mob Booster** for Minecraft Bedrock Edit
 ## Download
 
 - **Package format:** `.mcaddon`
-- **Direct download:** [Download Swarm Mob Booster (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Swarm-Mob-Booster/Swarm%20Mob%20Booster%20by%20AllensCreations%20%28V1.0.8%29.mcaddon)
+- **Direct download:** [Download Swarm Mob Booster (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Swarm-Mob-Booster/Swarm%20Mob%20Booster%20by%20ALNStudios%20%28V1.0.8%29.mcaddon)
 
 ## Installation
 

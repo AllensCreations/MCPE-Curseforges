@@ -5,7 +5,7 @@ Download the current release of **Sudden Death Roulette** for Minecraft Bedrock 
 ## Download
 
 - **Package format:** `.mcaddon`
-- **Direct download:** [Download Sudden Death Roulette (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Sudden-Death-Roulette/Sudden%20Death%20Roulette%20by%20AllensCreations%20%28V1.0.4%29.mcaddon)
+- **Direct download:** [Download Sudden Death Roulette (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Sudden-Death-Roulette/Sudden%20Death%20Roulette%20by%20ALNStudios%20%28V1.0.4%29.mcaddon)
 
 ## Installation
 

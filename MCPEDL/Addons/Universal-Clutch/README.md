@@ -5,7 +5,7 @@ Download the current release of **Universal Clutch** for Minecraft Bedrock Editi
 ## Download
 
 - **Package format:** `.mcaddon`
-- **Direct download:** [Download Universal Clutch (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Universal-Clutch/Universal%20Clutch%20by%20AllensCreations%20%28V1.0.5%29.mcaddon)
+- **Direct download:** [Download Universal Clutch (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Universal-Clutch/Universal%20Clutch%20by%20ALNStudios%20%28V1.0.5%29.mcaddon)
 
 ## Installation
 

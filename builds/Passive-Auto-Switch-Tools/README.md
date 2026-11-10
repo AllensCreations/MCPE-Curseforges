@@ -8,7 +8,7 @@ This folder contains compiled release packages for **Passive Auto-Switch Tools**
 
 | File Name | Format | Size | Description | Download Link |
 | :--- | :--- | :--- | :--- | :--- |
-| **`Passive Auto-Switch Tools by ALNStudios (V1.1.16).mcaddon`** | `.mcaddon` | ~51 KB | Complete Add-on package for Minecraft Bedrock. | [Download (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Passive-Auto-Switch-Tools/Passive%20Auto-Switch%20Tools%20by%20AllensCreations%20%28V1.1.16%29.mcaddon) |
+| **`Passive Auto-Switch Tools by ALNStudios (V1.1.16).mcaddon`** | `.mcaddon` | ~51 KB | Complete Add-on package for Minecraft Bedrock. | [Download (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Passive-Auto-Switch-Tools/Passive%20Auto-Switch%20Tools%20by%20ALNStudios%20%28V1.1.16%29.mcaddon) |
 
 ---
 

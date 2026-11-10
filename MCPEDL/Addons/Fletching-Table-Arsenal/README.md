@@ -5,7 +5,7 @@ Download the current release of **Fletching Table Arsenal** for Minecraft Bedroc
 ## Download
 
 - **Package format:** `.mcaddon`
-- **Direct download:** [Download Fletching Table Arsenal (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Fletching-Table-Arsenal/Fletching%20Table%20Arsenal%20by%20AllensCreations%20%28V1.0.0%29.mcaddon)
+- **Direct download:** [Download Fletching Table Arsenal (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Fletching-Table-Arsenal/Fletching%20Table%20Arsenal%20by%20ALNStudios%20%28V1.0.0%29.mcaddon)
 
 ## Installation
 
