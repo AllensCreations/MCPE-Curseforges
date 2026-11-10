@@ -55,6 +55,11 @@ def world_is_current(project: Path, map_name: str, mode: str, bp: dict, rp: dict
     return True
 
 
+def should_skip_project(project: Path, skip_maps: set[str]) -> bool:
+    """Return whether another workflow owns this map's world archives and README."""
+    return project.name in skip_maps
+
+
 def build_readme(project: Path) -> str:
     config = load_json(project / "oneblock.json")
     bp = load_json(project / "behavior_pack" / "manifest.json")
@@ -103,9 +108,17 @@ def build_readme(project: Path) -> str:
 def main() -> int:
     projects = sorted(path.parent for path in MAPS_ROOT.rglob("oneblock.json"))
     changed = []
+    skip_maps = {
+        name.strip()
+        for name in __import__("os").environ.get("ONEBLOCK_SKIP_MAPS", "").split(",")
+        if name.strip()
+    }
     for project in projects:
         config = load_json(project / "oneblock.json")
         if config.get("enabled", True) is not True:
+            continue
+        if should_skip_project(project, skip_maps):
+            print(f"Skipping delegated OneBlock README: {project.relative_to(ROOT)}")
             continue
         readme_path = project / "README.md"
         updated = build_readme(project)
