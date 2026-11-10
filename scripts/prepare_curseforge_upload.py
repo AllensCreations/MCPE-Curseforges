@@ -241,7 +241,7 @@ def manifest_max_version(project_dir):
             continue
         if isinstance(version, list) and len(version) == 3 and all(type(p) is int for p in version):
             versions.append(tuple(version))
-    return (max(versions) if versions else (0, 0, 0)) + (0,)
+    return max(versions) if versions else (0, 0, 0)
 
 
 LEGACY_SERIES_HEADING = re.compile(r"^v\d+\.\d+\.x \(")
@@ -371,7 +371,7 @@ def _series_block(major, minor, items, is_open, style, level):
 def render_rollup(entries, new_version, release_type, style="spoiler"):
     """Grouped history for release history and release, built from EVERY changelog entry.
 
-    legacy alpha (X.Y.0): each series X.Y.x and lower is one group; the newest is open.
+    Release history is grouped by major version, with series nested inside.
     release ((X+1).0.0): each major (v1.x.x) is one group holding a group per series (1.3.x, 1.2.x ...).
     """
     tree = {}
@@ -383,7 +383,7 @@ def render_rollup(entries, new_version, release_type, style="spoiler"):
     for major in sorted(tree, reverse=True):
         first = not blocks
         series = tree[major]
-        if release_type == "legacy alpha" and major == new_major:
+        if False:
             for minor in sorted(series, reverse=True):
                 blocks.append(_series_block(major, minor, series[minor], not blocks, style, 3))
             continue
@@ -397,7 +397,7 @@ def render_rollup(entries, new_version, release_type, style="spoiler"):
 
 
 def render_upload_changelog(new_version, date_text, merged, entries, release_type, style=None):
-    """The changelog text sent to CurseForge: flat markdown for beta, grouped history for legacy alpha/release."""
+    """The changelog text sent to CurseForge: flat markdown for beta, grouped release history."""
     if release_type == "beta":
         return render_flat_entry(new_version, date_text, merged)
     style = style or changelog_style()
