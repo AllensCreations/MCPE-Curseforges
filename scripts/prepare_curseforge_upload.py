@@ -206,7 +206,7 @@ def read_info(project_path):
 
 
 def save_info(project_path, project_id, last_published_version=None, last_release_version=None):
-    """Persist the last uploaded and last release versions; discard retired Alpha fields."""
+    """Persist the last uploaded and last Release versions; discard retired legacy fields."""
     registry, migrated = _load_registry()
     entry = dict(registry.get(project_path) or {})
     entry["project_id"] = _clean_id(project_id)
@@ -379,25 +379,15 @@ def _series_block(major, minor, items, is_open, style, level):
 
 
 def render_rollup(entries, new_version, release_type, style="spoiler"):
-    """Grouped history for release history and release, built from EVERY changelog entry.
-
-    Release history is grouped by major version, with series nested inside.
-    release ((X+1).0.0): each major (v1.x.x) is one group holding a group per series (1.3.x, 1.2.x ...).
-    """
+    """Group historical updates by Release major, then by Beta minor series."""
     tree = {}
     for entry in entries:
         tree.setdefault(entry[0][0], {}).setdefault(entry[0][1], []).append(entry)
-    new_major = int(new_version.split(".")[0])
     glue = "" if style == "spoiler" else "\n\n"
     blocks = []
     for major in sorted(tree, reverse=True):
         first = not blocks
         series = tree[major]
-        if False:
-            for minor in sorted(series, reverse=True):
-                blocks.append(_series_block(major, minor, series[minor], not blocks, style, 3))
-            continue
-        inner = [
             _series_block(major, minor, series[minor], first and index == 0, style, 4)
             for index, minor in enumerate(sorted(series, reverse=True))
         ]
