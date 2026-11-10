@@ -475,7 +475,7 @@ def combine_changelog(project_dir, changelog_path, last_published=None, today=No
     remaining = []
     for segment in segments:
         if segment.splitlines()[0] in consumed: continue
-        first, sep, rest = segment.partition("\\n")
+        first, sep, rest = segment.partition("\n")
         match = CHANGELOG_HEADER.fullmatch(first)
         if match:
             normalized = ".".join(str(part) for part in parse_version(match.group(1)))
