@@ -2,9 +2,12 @@
 
 ---
 
-## [1.0.2] - 2026-11-10
+## [2.0.0.0] - 2026-11-10
+
+**What's new in v2.0.0.0:** Packed with the v1.0.2 update.
 
 ### Fixed
+
 - **Spider Lead Height**: The lead on Spiders and Cave Spiders now attaches at the middle of their hitbox, about 0.45 and 0.25 blocks above the ground.
 
 ## [1.0.1] - 2026-11-10
