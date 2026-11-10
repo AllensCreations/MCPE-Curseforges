@@ -1,8 +1,8 @@
 {
-  "changelog_version": "1.0.0",
+  "changelog_version": "1.0.0.2",
   "manifest_version": "1.0.0",
   "packages": {
-    "Padlock & Key by AllensCreations (V1.0.0).mcaddon": "7480989a6d58d544e26d0af328449487f2a0f7c6870e87f8b84ebb61d5e8aa5b"
+    "Padlock & Key by AllensCreations (V1.0.0).mcaddon": "969a74e0b0b16cd2ef98cbe2844ed52b97318ff0acab0ea6f0b441dc6f3e0140"
   },
-  "source_sha256": "2d1b941b3cac06e9ef3bd445984c0ce4554f50c37a6eccf39ce99c3c99b59b01"
+  "source_sha256": "1de632c31ec2bf03246bef89e6038fe1e6af6cf87af7cd639c3cb22498175692"
 }
