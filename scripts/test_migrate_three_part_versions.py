@@ -63,6 +63,26 @@ class MigrationTests(unittest.TestCase):
             self.assertEqual(saved["last_release_version"], "1.3.0")
             self.assertNotIn("last_alpha_version", saved)
 
+    def test_legacy_per_pack_registry_files_are_migrated(self):
+        with tempfile.TemporaryDirectory() as temp:
+            root = Path(temp)
+            info_dir = root / "builds" / "Demo"
+            info_dir.mkdir(parents=True)
+            info = info_dir / "Curseforge_Info.json"
+            info.write_text(json.dumps({
+                "project_id": "42",
+                "last_published_version": "1.2.3.4",
+                "last_release_version": "1.2.3",
+                "last_alpha_version": "1.9.3.4",
+            }), encoding="utf-8")
+            with patch.object(migration, "ROOT", root):
+                changed = migration.migrate_legacy_info_files()
+            self.assertEqual(len(changed), 1)
+            saved = json.loads(info.read_text(encoding="utf-8"))
+            self.assertEqual(saved["last_published_version"], "1.3.4")
+            self.assertEqual(saved["last_release_version"], "1.3.0")
+            self.assertNotIn("last_alpha_version", saved)
+
     def test_old_snapshots_are_archived_out_of_active_version_tree(self):
         with tempfile.TemporaryDirectory() as temp:
             root = Path(temp)
