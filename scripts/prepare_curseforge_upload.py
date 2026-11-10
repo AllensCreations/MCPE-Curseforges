@@ -369,7 +369,7 @@ def _series_block(major, minor, items, is_open, style, level):
 
 
 def render_rollup(entries, new_version, release_type, style="spoiler"):
-    """Grouped history for legacy alpha and release, built from EVERY changelog entry.
+    """Grouped history for release history and release, built from EVERY changelog entry.
 
     legacy alpha (X.Y.0): each series X.Y.x and lower is one group; the newest is open.
     release ((X+1).0.0): each major (v1.x.x) is one group holding a group per series (1.3.x, 1.2.x ...).
