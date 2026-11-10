@@ -257,7 +257,7 @@ def main() -> int:
             and json.loads((upload_project / "behavior_pack/manifest.json").read_text())["header"][
                 "version"
             ] == [1, 1, 0],
-            "CurseForge: beta bumps the patch and syncs manifests to the new changelog entry",
+            "CurseForge: Beta increments the minor generation and syncs manifests to X.Y.Z",
         )
         _, _, reused_id, _, unchanged_manifests, _ = uploader.prepare(
             "MCPEDL/Addons/Curseforge-Test", "beta", bump=False
