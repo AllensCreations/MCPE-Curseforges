@@ -6,7 +6,7 @@ name: Build Changed Packs & Sync Catalogs
 #   build (default, also runs on push to main and daily)
 #     Rebuild packs and synchronize their catalogs. Every build follows the version in the pack
 #     manifests: BP and RP manifests are aligned to the highest one, and
-#     builds/<pack>/versions/V<x.y.z.a>/ (packages, source.zip, source.sha256, build_info.json) is
+#     builds/<pack>/versions/V<X.Y.Z>/ (packages, source.zip, source.sha256, build_info.json) is
 #     created or REFRESHED IN PLACE whenever the source or packages differ from the saved snapshot.
 #     Manifest versions are only bumped when "bump_on_change" is on (input, or repo variable
 #     AUTO_BUMP_MANIFEST=true); otherwise the publish task owns version bumps.
