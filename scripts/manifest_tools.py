@@ -5,12 +5,9 @@ What lives here
   * align_project_manifests - make every source manifest of a project share ONE version
     (the highest, or an explicit target): header.version, the "(vX.Y.Z)" title suffix,
     module versions and BP->RP dependency versions. Pack UUIDs are never touched.
-  * bump_patch - the next X.Y.(Z+1).0 after the highest manifest version.
+  * bump_patch - the next X.Y.(Z+1) after the highest manifest version.
 
-Versions are X.Y.Z (4 numbers). Minecraft only accepts 3 numbers in header.version, so the
-manifest stores X.Y.Z there and the full X.Y.Z.A in metadata.version, the "(vX.Y.Z.A)" title
-suffix and the package file name. A comes from the top CHANGELOG.md heading when its X.Y.Z
-matches the manifest, else from metadata.version, else 0.
+Versions are exactly X.Y.Z everywhere: header.version, metadata.version, the "(vX.Y.Z)" title suffix, changelog headings, package names and build snapshots.
   * ensure_metadata - fill metadata.authors (and metadata.license when MANIFEST_LICENSE is set).
   * compute_source_hash - a content hash of a project's source that ignores everything the
     build itself rewrites (manifest versions/titles, derived world copies, docs, archives),
