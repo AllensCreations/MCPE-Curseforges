@@ -7,6 +7,7 @@ const owner = process.env.GITHUB_OWNER || "AllensCreations";
 const repo = process.env.GITHUB_REPO || "MCPE-Curseforges";
 const ref = process.env.GITHUB_REF || "main";
 const safeSegment = /^[A-Za-z0-9][A-Za-z0-9._ -]{0,180}$/;
+const safePackageName = /^[A-Za-z0-9][A-Za-z0-9._ ()-]{0,220}\.(?:mcaddon|mcpack|mcworld)$/i;
 
 export async function GET(request: NextRequest) {
   const token = process.env.GITHUB_TOKEN;
@@ -14,7 +15,7 @@ export async function GET(request: NextRequest) {
 
   const project = request.nextUrl.searchParams.get("project") || "";
   const file = request.nextUrl.searchParams.get("file") || "";
-  if (!safeSegment.test(project) || !safeSegment.test(file) || file.includes("..") || !/\.(mcaddon|mcpack|mcworld)$/i.test(file)) {
+  if (!safeSegment.test(project) || !safePackageName.test(file) || file.includes("..")) {
     return NextResponse.json({ error: "Invalid build selection." }, { status: 400 });
   }
 
