@@ -18,7 +18,7 @@ import auto_bump_and_build as builder
 
 REPO_ROOT = Path(builder.REPO_ROOT)
 CHANGELOG_HEADER = re.compile(
-    r"^## \[(\d+\.\d+\.\d+(?:\.\d+)?)\] - \d{4}-\d{2}-\d{2}\s*$"
+    r"^## \[(\d+\.\d+\.\d+)\] - \d{4}-\d{2}-\d{2}\s*$"
 )
 PACKAGE_EXTENSIONS = {
     "Addons": ".mcaddon",
@@ -208,7 +208,7 @@ def save_info(project_path, project_id, last_published_version=None, last_releas
     registry[project_path] = entry
     path = registry_path()
     path.parent.mkdir(parents=True, exist_ok=True)
-    path.write_text(json.dumps(dict(sorted(registry.items())), indent=2) + "\\n", encoding="utf-8")
+    path.write_text(json.dumps(dict(sorted(registry.items())), indent=2) + "\n", encoding="utf-8")
     for legacy in migrated: legacy.unlink(missing_ok=True)
     return path
 
@@ -462,7 +462,7 @@ def combine_changelog(project_dir, changelog_path, last_published=None, today=No
     upload_changelog = render_upload_changelog(new_version, date_text, merged or history, upload_entries, release_type)
     consumed = {entry[2] for entry in (merged or history)}
     remaining = [segment for segment in segments if segment.splitlines()[0] not in consumed]
-    changelog_path.write_text(preamble + file_entry + "\\n\\n" + "\\n\\n".join(remaining).lstrip(), encoding="utf-8")
+    changelog_path.write_text(preamble + file_entry + "\n\n" + "\n\n".join(remaining).lstrip(), encoding="utf-8")
     return new_version, upload_changelog
 
 
