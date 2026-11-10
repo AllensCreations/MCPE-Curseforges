@@ -8,6 +8,7 @@ type Build = {
   category: string;
   version: string;
   description: string;
+  iconUrl?: string | null;
   packages: { name: string; format: string; sha256: string }[];
 };
 
@@ -83,7 +84,7 @@ export default function Home() {
           {!loading && !error && visible.length === 0 && <div className="empty"><strong>No matching projects</strong><p>Try another search or category.</p></div>}
           {!loading && !error && <div className="project-grid">{visible.map((build) => (
             <article className="project-card" key={build.slug}>
-              <div className="card-top"><div className="project-icon">{build.category === "Maps" ? "WORLD" : build.category === "Scripts" ? "CODE" : build.category === "Minigames" ? "PLAY" : "PACK"}</div><span className="category-tag">{build.category}</span></div>
+              <div className="card-top"><div className="project-icon">{build.iconUrl ? <img src={build.iconUrl} alt="" /> : build.category === "Maps" ? "WORLD" : build.category === "Scripts" ? "CODE" : build.category === "Minigames" ? "PLAY" : "PACK"}</div><span className="category-tag">{build.category}</span></div>
               <h3>{build.name}</h3><p className="description">{build.description || "Minecraft Bedrock project by ALNStudios."}</p>
               <div className="version-line"><span>Latest build</span><strong>v{build.version}</strong></div>
               <div className="downloads">{build.packages.map((file) => <a className="download" key={file.name} href={`/api/download?project=${encodeURIComponent(build.slug)}&file=${encodeURIComponent(file.name)}`}><span>{file.format}</span><span>Download ↗</span></a>)}</div>
