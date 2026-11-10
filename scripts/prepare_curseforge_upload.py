@@ -18,7 +18,7 @@ import auto_bump_and_build as builder
 
 REPO_ROOT = Path(builder.REPO_ROOT)
 CHANGELOG_HEADER = re.compile(
-    r"^## \[(\d+\.\d+\.\d+(?:\.\d+)?)\] - \d{4}-\d{2}-\d{2}\s*$"
+    r"^## \[(\d+\.\d+\.\d+(?:\.\d+)?)\] - (\d{4}-\d{2}-\d{2})\s*$"
 )
 PACKAGE_EXTENSIONS = {
     "Addons": ".mcaddon",
@@ -474,7 +474,7 @@ def combine_changelog(project_dir, changelog_path, last_published=None, today=No
     else: file_entry = render_flat_entry(new_version, date_text, history)
     upload_entries = history if release_type == "release" else merged
     upload_changelog = render_upload_changelog(new_version, date_text, merged or history, upload_entries, release_type)
-    consumed = {entry[2] for entry in (merged or history)}
+    consumed = {entry[2] for entry in merged}
     remaining = []
     for segment in segments:
         if segment.splitlines()[0] in consumed: continue
