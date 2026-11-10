@@ -33,10 +33,18 @@ You start on a 3x3 grass island floating in an empty void, next to a single luck
 - **How It Works**: At each step the current tier comes up 50% of the time. The next four tiers up come at 25%, 12.5%, 6.25% and 6.25%, so a lucky break can reach a few tiers ahead.
 - **Good To Know**: Every tier has its own results, and late bad tiers are severe and can end a run.
 
-### 112 Good Results and 81 Bad Results
-- **What Happens**: Early good results include Sapling Pack, Stone Tool Set and Water Bucket. Later ones include Nether Kit, Eyes of Ender, Elytra, Beacon and Netherite Armor Set.
+### 120 Good Results and 81 Bad Results
+- **What Happens**: Early good results are mostly building materials such as Sapling Pack, Dirt Delivery, Oak Logs, Plank Bundle and Stone Delivery. Mid-game results include Stone Tool Set and Water Bucket. Later ones include Nether Kit, Eyes of Ender, Elytra, Beacon and Netherite Armor Set.
 - **How It Works**: Early bad results include Hunger Pangs, Zombie Pair and Lava Splash. Later ones include Blaze Ambush, Lightning Barrage, Ravager Trio and Warden's Wrath.
 - **Good To Know**: Explosions from the lucky block do not break the island, but a hit or a blast can still knock you into the void.
+
+### Starter Chest
+- **What Happens**: A chest waits on a corner of the island with 3 Oak Saplings, 4 Bone Meal, 4 Bread, a Bucket and a Luck Ledger.
+- **Good To Know**: The first time you join, a short chat tip tells you to break the lucky block and open the chest.
+
+### Luck Ledger
+- **What Happens**: Use the Luck Ledger to see how many blocks you have broken and how many Four-Leaf Fortune or Jinx breaks are left.
+- **Good To Know**: It does not show which progression step you are on.
 
 ### Influence Your Luck
 - **What Happens**: The Four-Leaf Fortune and Golden Horseshoe results raise the good luck chance by 20 points for the next 5 and 10 breaks.
@@ -47,7 +55,8 @@ You start on a 3x3 grass island floating in an empty void, next to a single luck
 1. Open the world and wait a moment while the island appears; you spawn on the corner of the 3x3 island.
 2. Break the lucky block in the center with any tool or your hand.
 3. Read the tier and result on the action bar, then pick up what dropped or deal with what appeared.
-4. Keep breaking, and use the food, tools and armor you collect to survive the bad results.
+4. Open the chest on the corner for your first saplings and tools.
+5. Keep breaking, and use the food, tools and armor you collect to survive the bad results.
 
 ## Common Questions
 

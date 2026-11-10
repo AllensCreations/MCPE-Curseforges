@@ -1,6 +1,8 @@
 import { world, system, ItemStack } from "@minecraft/server";
 
 const LUCKY = "allenscreations:lucky_block";
+const LEDGER = "allenscreations:trader_ledger";
+const TIP_KEY = "lucky_tip_shown";
 const CORE = { x: 0, y: 64, z: 0 };
 const BREAKS_KEY = "lucky_breaks";
 const BONUS_KEY = "lucky_bonus";
@@ -96,10 +98,15 @@ const lavaSplash = (ctx) => {
 const STAGES = [
   {
     good: [
-      ["Sapling Pack", items([["minecraft:oak_sapling", 3], ["minecraft:birch_sapling", 2], ["minecraft:bone_meal", 4]])],
-      ["Seed Pouch", items([["minecraft:wheat_seeds", 8], ["minecraft:beetroot_seeds", 4], ["minecraft:pumpkin_seeds", 3], ["minecraft:melon_seeds", 3]])],
-      ["Dirt Delivery", items([["minecraft:dirt", 24]])],
-      ["Oak Logs", items([["minecraft:oak_log", 10]])],
+      ["Sapling Pack", items([["minecraft:oak_sapling", 3], ["minecraft:birch_sapling", 2], ["minecraft:bone_meal", 4]]), 3],
+      ["Dirt Delivery", items([["minecraft:dirt", 24]]), 4],
+      ["Oak Logs", items([["minecraft:oak_log", 10]]), 3],
+      ["Birch Logs", items([["minecraft:birch_log", 8]]), 2],
+      ["Plank Bundle", items([["minecraft:oak_planks", 16], ["minecraft:stick", 8]]), 2],
+      ["Stick Bundle", items([["minecraft:stick", 16]]), 2],
+      ["Seed Pouch", items([["minecraft:wheat_seeds", 8], ["minecraft:beetroot_seeds", 4], ["minecraft:pumpkin_seeds", 3], ["minecraft:melon_seeds", 3]]), 2],
+      ["Grass Blocks", items([["minecraft:grass_block", 12]]), 2],
+      ["Sand Pile", items([["minecraft:sand", 12]])],
       ["Flower Bouquet", items([["minecraft:dandelion", 3], ["minecraft:poppy", 3]])],
       ["Plains Wanderers", both(mobs("minecraft:cow", 1), mobs("minecraft:sheep", 1))],
     ],
@@ -113,10 +120,12 @@ const STAGES = [
   },
   {
     good: [
-      ["Log Pile", items([["minecraft:oak_log", 8], ["minecraft:birch_log", 8]])],
-      ["Apple Pickings", items([["minecraft:apple", 4]])],
-      ["Plank Bundle", items([["minecraft:oak_planks", 20], ["minecraft:stick", 12]])],
-      ["Wooden Tool Set", kit("minecraft:wooden_pickaxe", "minecraft:wooden_axe", "minecraft:wooden_shovel", "minecraft:wooden_sword")],
+      ["Log Pile", items([["minecraft:oak_log", 8], ["minecraft:birch_log", 8]]), 3],
+      ["Sapling Mix", items([["minecraft:spruce_sapling", 3], ["minecraft:dark_oak_sapling", 2], ["minecraft:acacia_sapling", 2]]), 3],
+      ["Plank Bundle", items([["minecraft:oak_planks", 20], ["minecraft:stick", 12]]), 2],
+      ["Apple Pickings", items([["minecraft:apple", 4]]), 2],
+      ["Wooden Tool Set", kit("minecraft:wooden_pickaxe", "minecraft:wooden_axe", "minecraft:wooden_shovel", "minecraft:wooden_sword"), 2],
+      ["Leaf Bundle", items([["minecraft:oak_leaves", 16]])],
       ["Forest Friends", both(mobs("minecraft:pig", 1), mobs("minecraft:chicken", 2))],
       ["Wolf Pup", both(mobs("minecraft:wolf", 1), items([["minecraft:bone", 4]]))],
     ],
@@ -129,11 +138,12 @@ const STAGES = [
   },
   {
     good: [
-      ["Stone Delivery", items([["minecraft:cobblestone", 32]])],
-      ["Stone Tool Set", kit("minecraft:stone_pickaxe", "minecraft:stone_axe", "minecraft:stone_shovel", "minecraft:stone_sword")],
-      ["Coal Stack", items([["minecraft:coal", 10]])],
-      ["Furnace and Fuel", items([["minecraft:furnace", 1], ["minecraft:charcoal", 8]])],
-      ["Sand and Gravel", items([["minecraft:sand", 16], ["minecraft:gravel", 16]])],
+      ["Stone Delivery", items([["minecraft:cobblestone", 32]]), 3],
+      ["Stone Tool Set", kit("minecraft:stone_pickaxe", "minecraft:stone_axe", "minecraft:stone_shovel", "minecraft:stone_sword"), 2],
+      ["Coal Stack", items([["minecraft:coal", 10]]), 2],
+      ["Furnace and Fuel", items([["minecraft:furnace", 1], ["minecraft:charcoal", 8]]), 2],
+      ["Sand and Gravel", items([["minecraft:sand", 16], ["minecraft:gravel", 16]]), 2],
+      ["Torch Bundle", items([["minecraft:torch", 12], ["minecraft:coal", 4]])],
     ],
     bad: [
       ["Zombie Pair", mobs("minecraft:zombie", 2)],
@@ -429,7 +439,16 @@ function pickOutcome(kind, breaks) {
   const base = Math.min(MAX_BASE, Math.floor((breaks - 1) / STAGE_BREAKS));
   const index = windowTier(base);
   const pool = STAGES[index][kind].filter((o) => o[0] !== lastName);
-  const outcome = pool[rand(pool.length)];
+  const total = pool.reduce((sum, o) => sum + (o[2] ?? 1), 0);
+  let roll = Math.random() * total;
+  let outcome = pool[pool.length - 1];
+  for (const o of pool) {
+    roll -= o[2] ?? 1;
+    if (roll < 0) {
+      outcome = o;
+      break;
+    }
+  }
   lastName = outcome[0];
   return { outcome, index };
 }
@@ -507,3 +526,20 @@ system.runInterval(() => {
     return;
   }
 }, 100);
+
+world.afterEvents.playerSpawn.subscribe(({ player, initialSpawn }) => {
+  if (!initialSpawn || world.getDynamicProperty(TIP_KEY)) return;
+  world.setDynamicProperty(TIP_KEY, true);
+  system.runTimeout(() => {
+    try {
+      player.sendMessage("§6Break the lucky block in the middle of the island. Open the chest on the corner first.");
+    } catch (e) {
+      return;
+    }
+  }, 100);
+});
+
+world.afterEvents.itemUse.subscribe(({ source, itemStack }) => {
+  if (itemStack.typeId !== LEDGER) return;
+  source.sendMessage(`§6Luck Ledger§r\nBreaks: ${num(BREAKS_KEY)}\nLuck boosts left: ${num(BONUS_KEY)}\nJinxes left: ${num(JINX_KEY)}`);
+});

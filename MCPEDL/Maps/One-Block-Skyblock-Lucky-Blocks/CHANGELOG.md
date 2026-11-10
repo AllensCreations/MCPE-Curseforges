@@ -2,6 +2,16 @@
 
 ---
 
+## [1.2.0] - 2026-11-10
+
+### Added
+- **Starter chest**: A chest on the island corner holds 3 Oak Saplings, 4 Bone Meal, 4 Bread, a Bucket and a Luck Ledger.
+- **Luck Ledger**: Use it to see your break count and how many Four-Leaf Fortune or Jinx breaks are left.
+- **First-join tip**: A short chat message tells new players to break the lucky block and open the chest.
+
+### Improved & Balanced
+- **Building materials first**: Early Common and Uncommon results now lean toward saplings, logs, planks, dirt, seeds and stone, with 8 more good results in total.
+
 ## [1.1.1] - 2026-11-10
 
 ### Improved & Balanced
