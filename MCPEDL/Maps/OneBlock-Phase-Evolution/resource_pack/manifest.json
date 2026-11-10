@@ -1,13 +1,13 @@
 {
   "format_version": 2,
   "header": {
-    "name": "OneBlock Phase Evolution (v1.0.0)",
+    "name": "OneBlock Phase Evolution (v1.0.1)",
     "description": "Resource pack for OneBlock Phase Evolution by ALNStudios",
     "uuid": "551a6d82-52da-49ef-ba82-c006d32ed4d4",
     "version": [
       1,
       0,
-      0
+      1
     ],
     "min_engine_version": [
       1,
@@ -22,7 +22,7 @@
       "version": [
         1,
         0,
-        0
+        1
       ]
     }
   ],
@@ -30,6 +30,6 @@
     "authors": [
       "ALNStudios"
     ],
-    "version": "1.0.0"
+    "version": "1.0.1"
   }
 }

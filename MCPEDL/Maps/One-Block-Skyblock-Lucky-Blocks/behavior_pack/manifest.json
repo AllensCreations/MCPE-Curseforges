@@ -1,13 +1,13 @@
 {
   "format_version": 2,
   "header": {
-    "name": "One Block Skyblock Lucky Blocks (v1.0.0)",
+    "name": "One Block Skyblock Lucky Blocks (v1.0.1)",
     "description": "One lucky block on a 3x3 void island. by ALNStudios",
     "uuid": "f8fcd28a-a8f9-479e-9326-94fd587c589f",
     "version": [
       1,
       0,
-      0
+      1
     ],
     "min_engine_version": [
       1,
@@ -22,7 +22,7 @@
       "version": [
         1,
         0,
-        0
+        1
       ]
     },
     {
@@ -33,7 +33,7 @@
       "version": [
         1,
         0,
-        0
+        1
       ]
     }
   ],
@@ -43,7 +43,7 @@
       "version": [
         1,
         0,
-        0
+        1
       ]
     },
     {
@@ -55,6 +55,6 @@
     "authors": [
       "ALNStudios"
     ],
-    "version": "1.0.0"
+    "version": "1.0.1"
   }
 }
