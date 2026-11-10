@@ -1,73 +1,53 @@
 #!/usr/bin/env python3
-"""Validate versioned Bedrock pack titles and creator attribution."""
+"""Validate Minecraft Bedrock pack titles and three-part project versions."""
 import argparse, json, os, re, sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 PROJECT_ROOT = ROOT / "MCPEDL"
-TITLE_RE = re.compile(r"^(.+?) \(v(\d+\.\d+\.\d+\.\d+)\)$")
+TITLE_RE = re.compile(r"^(.+?) \\(v(\\d+\\.\\d+\\.\\d+)\\)$")
 ATTRIBUTION = "by ALNStudios"
 
 def advisories(paths):
-    """Non-failing manifest hygiene notes (policy: format_version 2, real min_engine_version, authors)."""
     notes = []
     for path in paths:
-        try:
-            data = json.loads(path.read_text(encoding="utf-8"))
-        except (OSError, json.JSONDecodeError):
-            continue
+        try: data = json.loads(path.read_text(encoding="utf-8"))
+        except (OSError, json.JSONDecodeError): continue
         if not isinstance(data, dict): continue
         rel = path.relative_to(ROOT)
-        if data.get("format_version") != 2:
-            notes.append(f"{rel}: format_version is {data.get('format_version')!r}; policy is 2.")
+        if data.get("format_version") != 2: notes.append(f"{rel}: format_version is {data.get('format_version')!r}; policy is 2.")
         header = data.get("header") if isinstance(data.get("header"), dict) else {}
-        if header.get("min_engine_version") in (None, [0, 0, 0]):
-            notes.append(f"{rel}: min_engine_version is missing or the [0, 0, 0] placeholder; set the looked-up version.")
+        if header.get("min_engine_version") in (None, [0, 0, 0]): notes.append(f"{rel}: min_engine_version is missing or the placeholder.")
         meta = data.get("metadata")
-        if not (isinstance(meta, dict) and meta.get("authors")):
-            notes.append(f"{rel}: metadata.authors is missing (the build fills it in).")
+        if not (isinstance(meta, dict) and meta.get("authors")): notes.append(f"{rel}: metadata.authors is missing (the build fills it in).")
     return notes
 
 def validate(paths):
     errors, records = [], []
     for path in paths:
-        try:
-            data = json.loads(path.read_text(encoding="utf-8"))
+        try: data = json.loads(path.read_text(encoding="utf-8"))
         except (OSError, json.JSONDecodeError) as exc:
-            errors.append(f"{path.relative_to(ROOT)}: invalid JSON ({exc}).")
-            continue
+            errors.append(f"{path.relative_to(ROOT)}: invalid JSON ({exc})."); continue
         rel = path.relative_to(ROOT)
         header = data.get("header")
-        if not isinstance(header, dict):
-            errors.append(f"{rel}: missing header object.")
-            continue
+        if not isinstance(header, dict): errors.append(f"{rel}: missing header object."); continue
         version = header.get("version")
-        if (not isinstance(version, list) or len(version) != 3
-                or any(type(part) is not int or part < 0 for part in version)):
-            errors.append(f"{rel}: header.version must be [major, minor, patch] integers.")
-            expected = None
+        if not isinstance(version, list) or len(version) != 3 or any(type(x) is not int or x < 0 for x in version):
+            errors.append(f"{rel}: header.version must be [X, Y, Z] non-negative integers."); expected = None
         else:
             expected = ".".join(map(str, version))
             meta = data.get("metadata") if isinstance(data.get("metadata"), dict) else {}
             full = str(meta.get("version", ""))
-            if not re.fullmatch(r"\d+\.\d+\.\d+\.\d+", full) or full.rsplit(".", 1)[0] != expected:
-                errors.append(f"{rel}: metadata.version must be X.Y.Z.A and start with header.version v{expected} (found {full!r}).")
-            else:
-                expected = full
+            if full != expected: errors.append(f"{rel}: metadata.version must equal header.version {expected} (found {full!r}).")
         name = header.get("name")
         match = TITLE_RE.fullmatch(name) if isinstance(name, str) else None
-        if not match:
-            errors.append(f"{rel}: header.name must have exactly one terminal '(vX.Y.Z.A)' suffix; malformed or duplicate suffixes are invalid.")
+        if not match: errors.append(f"{rel}: header.name must end with exactly one (vX.Y.Z) suffix.")
         else:
             shown = match.group(2)
-            if expected is not None and shown != expected:
-                errors.append(f"{rel}: title version v{shown} does not match the manifest version v{expected}.")
+            if expected is not None and shown != expected: errors.append(f"{rel}: title version v{shown} does not match manifest version v{expected}.")
             records.append((path, shown))
         desc = header.get("description")
-        if not isinstance(desc, str) or desc.count(ATTRIBUTION) != 1:
-            errors.append(f"{rel}: header.description must contain '{ATTRIBUTION}' exactly once.")
-
-    # Compare sibling BP/RP pack versions; nested world packs are checked individually.
+        if not isinstance(desc, str) or desc.count(ATTRIBUTION) != 1: errors.append(f"{rel}: header.description must contain {ATTRIBUTION!r} exactly once.")
     pairs = {}
     for path, version in records:
         parts = path.parts
@@ -76,9 +56,7 @@ def validate(paths):
         root, kind = Path(*parts[:idx]), parts[idx]
         pairs.setdefault(root, {}).setdefault(kind, []).append(version)
     for root, kinds in pairs.items():
-        if "behavior_pack" in kinds and "resource_pack" in kinds:
-            if set(kinds["behavior_pack"]) != set(kinds["resource_pack"]):
-                errors.append(f"{root}: Behavior Pack version(s) {sorted(set(kinds['behavior_pack']))} do not match Resource Pack version(s) {sorted(set(kinds['resource_pack']))}.")
+        if "behavior_pack" in kinds and "resource_pack" in kinds and set(kinds["behavior_pack"]) != set(kinds["resource_pack"]): errors.append(f"{root}: Behavior Pack and Resource Pack versions do not match.")
     return errors
 
 def main():
@@ -88,12 +66,9 @@ def main():
     target = Path(args.project) if args.project else PROJECT_ROOT
     if not target.is_absolute(): target = ROOT / target
     paths = [target] if target.is_file() and target.name == "manifest.json" else sorted(target.rglob("manifest.json")) if target.is_dir() else []
-    if not paths:
-        print(f"ERROR: No manifest.json files found under {target}.", file=sys.stderr)
-        return 2
+    if not paths: print(f"ERROR: No manifest.json files found under {target}.", file=sys.stderr); return 2
     errors = validate(paths)
-    for note in advisories(paths):
-        print(f"::warning::{note}" if os.environ.get("GITHUB_ACTIONS") else f"NOTE: {note}")
+    for note in advisories(paths): print(f"::warning::{note}" if os.environ.get("GITHUB_ACTIONS") else f"NOTE: {note}")
     if errors:
         print(f"Manifest title validation failed with {len(errors)} error(s):")
         for error in errors: print(f" - {error}")
@@ -101,5 +76,4 @@ def main():
     print(f"Manifest title validation passed for {len(paths)} manifest(s).")
     return 0
 
-if __name__ == "__main__":
-    raise SystemExit(main())
+if __name__ == "__main__": raise SystemExit(main())
