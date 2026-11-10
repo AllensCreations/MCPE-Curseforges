@@ -65,8 +65,19 @@ def main():
     args = parser.parse_args()
     target = Path(args.project) if args.project else PROJECT_ROOT
     if not target.is_absolute(): target = ROOT / target
-    paths = [target] if target.is_file() and target.name == "manifest.json" else sorted(target.rglob("manifest.json")) if target.is_dir() else []
-    if not paths: print(f"ERROR: No manifest.json files found under {target}.", file=sys.stderr); return 2
+    if target.is_file() and target.name == "manifest.json":
+        paths = [target]
+    elif target.is_dir():
+        # Installed world copies are runtime payloads, not source packs. They may intentionally
+        # retain an upstream manifest without this repository's metadata/title conventions.
+        installed_copy_parts = {"world", "worlds", "behavior_packs", "resource_packs"}
+        paths = sorted(
+            path for path in target.rglob("manifest.json")
+            if not installed_copy_parts.intersection(path.parts)
+        )
+    else:
+        paths = []
+    if not paths: print(f"ERROR: No source manifest.json files found under {target}.", file=sys.stderr); return 2
     errors = validate(paths)
     for note in advisories(paths): print(f"::warning::{note}" if os.environ.get("GITHUB_ACTIONS") else f"NOTE: {note}")
     if errors:
