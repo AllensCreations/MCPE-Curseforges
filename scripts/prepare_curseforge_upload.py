@@ -177,6 +177,15 @@ def _load_registry():
                 entry[field] = info[field]
         registry.setdefault(key, entry)
         migrated.append(legacy)
+    for entry in registry.values():
+        if not isinstance(entry, dict): continue
+        entry.pop("last_alpha_version", None)
+        for field in ("last_published_version", "last_release_version"):
+            value = entry.get(field)
+            if isinstance(value, str):
+                parts = value.split(".")
+                if len(parts) == 4 and all(part.isdigit() for part in parts):
+                    entry[field] = ".".join((parts[0], parts[1], str(int(parts[2]) + int(parts[3]))))
     return registry, migrated
 
 
