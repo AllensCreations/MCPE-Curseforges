@@ -472,7 +472,15 @@ def combine_changelog(project_dir, changelog_path, last_published=None, today=No
     upload_entries = history if release_type == "release" else merged
     upload_changelog = render_upload_changelog(new_version, date_text, merged or history, upload_entries, release_type)
     consumed = {entry[2] for entry in (merged or history)}
-    remaining = [segment for segment in segments if segment.splitlines()[0] not in consumed]
+    remaining = []
+    for segment in segments:
+        if segment.splitlines()[0] in consumed: continue
+        first, sep, rest = segment.partition("\\n")
+        match = CHANGELOG_HEADER.fullmatch(first)
+        if match:
+            normalized = ".".join(str(part) for part in parse_version(match.group(1)))
+            first = f"## [{normalized}] - {match.group(2)}"
+        remaining.append(first + (sep + rest if sep else ""))
     changelog_path.write_text(preamble + file_entry + "\n\n" + "\n\n".join(remaining).lstrip(), encoding="utf-8")
     return new_version, upload_changelog
 
