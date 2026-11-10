@@ -6,7 +6,7 @@ Version rules:
   update   X.Y.Z -> X.Y.(Z+1) (normal build automation only).
   beta     X.Y.Z -> X.(Y+1).0; merges unpublished changelog entries since the last upload.
   release  X.Y.Z -> (X+1).0.0; groups the complete release history.
-  Legacy X.Y.Z.A versions map to X.Z.A because the old Y was the retired Alpha counter.
+  Legacy X.Y.Z.A maps to X.Z.A and legacy X.Y.Z maps to X.Z.0 because old Y was Alpha, Z was Beta and A was Update (default 0).
 All Bedrock manifests, metadata.version, titles, changelogs and upload filenames use X.Y.Z.
 Uploads, then records the published version and release baseline.
 """
