@@ -319,6 +319,7 @@ jobs:
         run: |
           set -euo pipefail
           ARGS=()
+          GLOBAL_MIGRATION=false
           case "$EVENT" in
             schedule)
               ARGS=(--all)
@@ -331,6 +332,7 @@ jobs:
                 ARGS=(--all)
               elif [ "$SCOPE" = "all" ]; then
                 ARGS=(--all)
+                  GLOBAL_MIGRATION=true
               else
                 PICKS=()
                 [ -n "$ADDON" ]     && [ "$ADDON" != "-" ]     && PICKS+=("MCPEDL/Addons/$ADDON")
@@ -351,7 +353,9 @@ jobs:
                 if grep -Eq '^(scripts/manifest_tools.py|scripts/migrate_three_part_versions.py|.github/workflows/auto-version-bump.yml)
               ;;
           esac
-          if [ "$BUMP_INPUT" = "true" ] || [ "${AUTO_BUMP_MANIFEST:-}" = "true" ]; then ARGS+=(--bump); fi
+          if { [ "$BUMP_INPUT" = "true" ] || [ "${AUTO_BUMP_MANIFEST:-}" = "true" ]; } && [ "$GLOBAL_MIGRATION" != "true" ]; then
+            ARGS+=(--bump)
+          fi
           echo "Running: python3 scripts/auto_bump_and_build.py ${ARGS[*]}"
           python3 scripts/auto_bump_and_build.py "${ARGS[@]}"
 
