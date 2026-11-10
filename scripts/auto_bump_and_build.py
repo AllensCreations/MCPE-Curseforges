@@ -188,7 +188,7 @@ def detect_unregistered_projects(project_dirs):
 # ─────────────────────────────────────────────────────────────────────────────
 
 def format_version(ver_list):
-    """X.Y.Z or X.Y.Z (every number given)."""
+    """Format the only supported project version: X.Y.Z."""
     return ".".join(str(p) for p in ver_list)
 
 
@@ -515,7 +515,7 @@ VERSION_KEEP = int(os.environ.get("KEEP_VERSIONS", "5"))
 
 
 def _version_sort_key(folder_name):
-    m = re.match(r"V(\d+)\.(\d+)\.(\d+)(?:\.(\d+))?$", folder_name)
+    m = re.match(r"V(\d+)\.(\d+)\.(\d+)$", folder_name)
     return tuple(int(x or 0) for x in m.groups()) if m else None
 
 
