@@ -99,10 +99,11 @@ def check_manifest(path, data, report):
         report.error(where, "header.version must be three non-negative integers.")
     meta = data.get("metadata") if isinstance(data.get("metadata"), dict) else {}
     full = meta.get("version")
-    if not (isinstance(full, str) and re.fullmatch(r"\d+\.\d+\.\d+\.\d+", full)):
-        report.warn(where, f"metadata.version should be X.Y.Z.A (found {full!r}); the build adds it.")
-    elif is_triple(header.get("version")) and full.rsplit(".", 1)[0] != ".".join(map(str, header["version"])):
-        report.error(where, f"metadata.version {full} does not start with header.version {header['version']}.")
+    expected = ".".join(map(str, header["version"])) if is_triple(header.get("version")) else None
+    if not (isinstance(full, str) and re.fullmatch(r"\\d+\\.\\d+\\.\\d+", full)):
+        report.error(where, f"metadata.version must be exactly X.Y.Z (found {full!r}).")
+    elif expected is not None and full != expected:
+        report.error(where, f"metadata.version {full} does not equal header.version {expected}.")
     mev = header.get("min_engine_version")
     if mev is None:
         report.error(where, "header.min_engine_version is missing.")
