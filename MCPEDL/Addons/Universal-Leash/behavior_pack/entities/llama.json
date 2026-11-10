@@ -539,7 +539,18 @@
       },
       "minecraft:behavior.hurt_by_target": {
         "priority": 1,
-        "hurt_owner": true
+        "hurt_owner": true,
+        "entity_types": [
+          {
+            "filters": {
+              "test": "is_leashed",
+              "subject": "self",
+              "operator": "equals",
+              "value": false
+            },
+            "max_dist": 64
+          }
+        ]
       },
       "minecraft:conditional_bandwidth_optimization": {},
       "minecraft:damage_sensor": {

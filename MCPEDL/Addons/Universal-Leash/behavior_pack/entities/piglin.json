@@ -339,11 +339,21 @@
           "entity_types": [
             {
               "filters": {
-                "any_of": [
+                "all_of": [
                   {
-                    "test": "is_family",
-                    "subject": "other",
-                    "value": "wither"
+                    "any_of": [
+                      {
+                        "test": "is_family",
+                        "subject": "other",
+                        "value": "wither"
+                      }
+                    ]
+                  },
+                  {
+                    "test": "is_leashed",
+                    "subject": "self",
+                    "operator": "equals",
+                    "value": false
                   }
                 ]
               },
@@ -353,26 +363,36 @@
               "filters": {
                 "all_of": [
                   {
-                    "test": "is_family",
+                    "all_of": [
+                      {
+                        "test": "is_family",
+                        "subject": "self",
+                        "value": "piglin_hunter"
+                      },
+                      {
+                        "test": "is_family",
+                        "subject": "other",
+                        "value": "hoglin_huntable"
+                      },
+                      {
+                        "test": "has_component",
+                        "subject": "other",
+                        "operator": "not",
+                        "value": "minecraft:is_baby"
+                      },
+                      {
+                        "test": "has_component",
+                        "subject": "self",
+                        "operator": "not",
+                        "value": "minecraft:attack_cooldown"
+                      }
+                    ]
+                  },
+                  {
+                    "test": "is_leashed",
                     "subject": "self",
-                    "value": "piglin_hunter"
-                  },
-                  {
-                    "test": "is_family",
-                    "subject": "other",
-                    "value": "hoglin_huntable"
-                  },
-                  {
-                    "test": "has_component",
-                    "subject": "other",
-                    "operator": "not",
-                    "value": "minecraft:is_baby"
-                  },
-                  {
-                    "test": "has_component",
-                    "subject": "self",
-                    "operator": "not",
-                    "value": "minecraft:attack_cooldown"
+                    "operator": "equals",
+                    "value": false
                   }
                 ]
               },
@@ -382,37 +402,47 @@
               "filters": {
                 "all_of": [
                   {
-                    "test": "is_family",
-                    "subject": "other",
-                    "value": "player"
+                    "all_of": [
+                      {
+                        "test": "is_family",
+                        "subject": "other",
+                        "value": "player"
+                      },
+                      {
+                        "test": "has_equipment",
+                        "subject": "other",
+                        "domain": "head",
+                        "operator": "not",
+                        "value": "golden_helmet"
+                      },
+                      {
+                        "test": "has_equipment",
+                        "subject": "other",
+                        "domain": "torso",
+                        "operator": "not",
+                        "value": "golden_chestplate"
+                      },
+                      {
+                        "test": "has_equipment",
+                        "subject": "other",
+                        "domain": "leg",
+                        "operator": "not",
+                        "value": "golden_leggings"
+                      },
+                      {
+                        "test": "has_equipment",
+                        "subject": "other",
+                        "domain": "feet",
+                        "operator": "not",
+                        "value": "golden_boots"
+                      }
+                    ]
                   },
                   {
-                    "test": "has_equipment",
-                    "subject": "other",
-                    "domain": "head",
-                    "operator": "not",
-                    "value": "golden_helmet"
-                  },
-                  {
-                    "test": "has_equipment",
-                    "subject": "other",
-                    "domain": "torso",
-                    "operator": "not",
-                    "value": "golden_chestplate"
-                  },
-                  {
-                    "test": "has_equipment",
-                    "subject": "other",
-                    "domain": "leg",
-                    "operator": "not",
-                    "value": "golden_leggings"
-                  },
-                  {
-                    "test": "has_equipment",
-                    "subject": "other",
-                    "domain": "feet",
-                    "operator": "not",
-                    "value": "golden_boots"
+                    "test": "is_leashed",
+                    "subject": "self",
+                    "operator": "equals",
+                    "value": false
                   }
                 ]
               },
@@ -421,10 +451,20 @@
             },
             {
               "filters": {
-                "any_of": [
+                "all_of": [
                   {
-                    "test": "has_container_open",
-                    "subject": "other"
+                    "any_of": [
+                      {
+                        "test": "has_container_open",
+                        "subject": "other"
+                      }
+                    ]
+                  },
+                  {
+                    "test": "is_leashed",
+                    "subject": "self",
+                    "operator": "equals",
+                    "value": false
                   }
                 ]
               },
@@ -440,9 +480,19 @@
           "entity_types": [
             {
               "filters": {
-                "test": "is_family",
-                "subject": "other",
-                "value": "player"
+                "all_of": [
+                  {
+                    "test": "is_family",
+                    "subject": "other",
+                    "value": "player"
+                  },
+                  {
+                    "test": "is_leashed",
+                    "subject": "self",
+                    "operator": "equals",
+                    "value": false
+                  }
+                ]
               },
               "max_dist": 16
             }
@@ -522,7 +572,18 @@
         "despawn_from_distance": {}
       },
       "minecraft:behavior.hurt_by_target": {
-        "priority": 1
+        "priority": 1,
+        "entity_types": [
+          {
+            "filters": {
+              "test": "is_leashed",
+              "subject": "self",
+              "operator": "equals",
+              "value": false
+            },
+            "max_dist": 64
+          }
+        ]
       },
       "minecraft:behavior.admire_item": {
         "priority": 2,

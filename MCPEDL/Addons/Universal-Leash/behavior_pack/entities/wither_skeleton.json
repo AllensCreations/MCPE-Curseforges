@@ -18,7 +18,18 @@
         "priority": 3
       },
       "minecraft:behavior.hurt_by_target": {
-        "priority": 1
+        "priority": 1,
+        "entity_types": [
+          {
+            "filters": {
+              "test": "is_leashed",
+              "subject": "self",
+              "operator": "equals",
+              "value": false
+            },
+            "max_dist": 64
+          }
+        ]
       },
       "minecraft:behavior.look_at_player": {
         "look_time": {

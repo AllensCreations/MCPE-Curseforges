@@ -34,7 +34,18 @@
         "damage": 3
       },
       "minecraft:behavior.hurt_by_target": {
-        "priority": 1
+        "priority": 1,
+        "entity_types": [
+          {
+            "filters": {
+              "test": "is_leashed",
+              "subject": "self",
+              "operator": "equals",
+              "value": false
+            },
+            "max_dist": 64
+          }
+        ]
       },
       "minecraft:behavior.random_swim": {
         "interval": 0,
@@ -645,11 +656,21 @@
           "entity_types": [
             {
               "filters": {
-                "any_of": [
+                "all_of": [
                   {
-                    "test": "is_family",
-                    "subject": "other",
-                    "value": "pufferfish"
+                    "any_of": [
+                      {
+                        "test": "is_family",
+                        "subject": "other",
+                        "value": "pufferfish"
+                      }
+                    ]
+                  },
+                  {
+                    "test": "is_leashed",
+                    "subject": "self",
+                    "operator": "equals",
+                    "value": false
                   }
                 ]
               },

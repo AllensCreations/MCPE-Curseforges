@@ -37,15 +37,27 @@
         "priority": 0
       },
       "minecraft:behavior.hurt_by_target": {
-        "entity_types": {
-          "filters": {
-            "operator": "!=",
-            "test": "is_family",
-            "subject": "other",
-            "value": "illager"
-          },
-          "max_dist": 64
-        },
+        "entity_types": [
+          {
+            "filters": {
+              "all_of": [
+                {
+                  "operator": "!=",
+                  "test": "is_family",
+                  "subject": "other",
+                  "value": "illager"
+                },
+                {
+                  "test": "is_leashed",
+                  "subject": "self",
+                  "operator": "equals",
+                  "value": false
+                }
+              ]
+            },
+            "max_dist": 64
+          }
+        ],
         "priority": 1
       },
       "minecraft:behavior.look_at_player": {
@@ -184,34 +196,44 @@
           "entity_types": [
             {
               "filters": {
-                "AND": [
+                "all_of": [
                   {
-                    "OR": [
+                    "AND": [
                       {
-                        "test": "is_family",
-                        "subject": 1,
-                        "operator": 0,
-                        "value": "player"
-                      },
-                      {
-                        "test": "is_family",
-                        "subject": 1,
-                        "operator": 0,
-                        "value": "snowgolem"
-                      },
-                      {
-                        "test": "is_family",
-                        "subject": 1,
-                        "operator": 0,
-                        "value": "irongolem"
-                      },
-                      {
-                        "test": "is_family",
-                        "subject": 1,
-                        "operator": 0,
-                        "value": "wandering_trader"
+                        "OR": [
+                          {
+                            "test": "is_family",
+                            "subject": 1,
+                            "operator": 0,
+                            "value": "player"
+                          },
+                          {
+                            "test": "is_family",
+                            "subject": 1,
+                            "operator": 0,
+                            "value": "snowgolem"
+                          },
+                          {
+                            "test": "is_family",
+                            "subject": 1,
+                            "operator": 0,
+                            "value": "irongolem"
+                          },
+                          {
+                            "test": "is_family",
+                            "subject": 1,
+                            "operator": 0,
+                            "value": "wandering_trader"
+                          }
+                        ]
                       }
                     ]
+                  },
+                  {
+                    "test": "is_leashed",
+                    "subject": "self",
+                    "operator": "equals",
+                    "value": false
                   }
                 ]
               },
@@ -219,18 +241,28 @@
             },
             {
               "filters": {
-                "AND": [
+                "all_of": [
                   {
-                    "test": "is_family",
-                    "subject": 1,
-                    "operator": 0,
-                    "value": "villager"
+                    "AND": [
+                      {
+                        "test": "is_family",
+                        "subject": 1,
+                        "operator": 0,
+                        "value": "villager"
+                      },
+                      {
+                        "test": "has_component",
+                        "subject": 1,
+                        "operator": 1,
+                        "value": "minecraft:is_baby"
+                      }
+                    ]
                   },
                   {
-                    "test": "has_component",
-                    "subject": 1,
-                    "operator": 1,
-                    "value": "minecraft:is_baby"
+                    "test": "is_leashed",
+                    "subject": "self",
+                    "operator": "equals",
+                    "value": false
                   }
                 ]
               },
@@ -368,12 +400,22 @@
           "entity_types": [
             {
               "filters": {
-                "AND": [
+                "all_of": [
                   {
-                    "test": "is_family",
-                    "subject": 1,
-                    "operator": 1,
-                    "value": "illager"
+                    "AND": [
+                      {
+                        "test": "is_family",
+                        "subject": 1,
+                        "operator": 1,
+                        "value": "illager"
+                      }
+                    ]
+                  },
+                  {
+                    "test": "is_leashed",
+                    "subject": "self",
+                    "operator": "equals",
+                    "value": false
                   }
                 ]
               },

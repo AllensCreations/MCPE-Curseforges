@@ -195,28 +195,38 @@
           "entity_types": [
             {
               "filters": {
-                "AND": [
+                "all_of": [
                   {
-                    "OR": [
+                    "AND": [
                       {
-                        "test": "is_family",
-                        "subject": 1,
-                        "operator": 0,
-                        "value": "player"
-                      },
-                      {
-                        "test": "is_family",
-                        "subject": 1,
-                        "operator": 0,
-                        "value": "squid"
-                      },
-                      {
-                        "test": "is_family",
-                        "subject": 1,
-                        "operator": 0,
-                        "value": "axolotl"
+                        "OR": [
+                          {
+                            "test": "is_family",
+                            "subject": 1,
+                            "operator": 0,
+                            "value": "player"
+                          },
+                          {
+                            "test": "is_family",
+                            "subject": 1,
+                            "operator": 0,
+                            "value": "squid"
+                          },
+                          {
+                            "test": "is_family",
+                            "subject": 1,
+                            "operator": 0,
+                            "value": "axolotl"
+                          }
+                        ]
                       }
                     ]
+                  },
+                  {
+                    "test": "is_leashed",
+                    "subject": "self",
+                    "operator": "equals",
+                    "value": false
                   }
                 ]
               }

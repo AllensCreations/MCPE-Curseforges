@@ -27,10 +27,20 @@
         "entity_types": [
           {
             "filters": {
-              "operator": "not",
-              "test": "is_family",
-              "subject": "other",
-              "value": "breeze"
+              "all_of": [
+                {
+                  "operator": "not",
+                  "test": "is_family",
+                  "subject": "other",
+                  "value": "breeze"
+                },
+                {
+                  "test": "is_leashed",
+                  "subject": "self",
+                  "operator": "equals",
+                  "value": false
+                }
+              ]
             }
           }
         ],

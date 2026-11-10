@@ -109,9 +109,19 @@
           "entity_types": [
             {
               "filters": {
-                "test": "is_family",
-                "subject": "other",
-                "value": "rabbit"
+                "all_of": [
+                  {
+                    "test": "is_family",
+                    "subject": "other",
+                    "value": "rabbit"
+                  },
+                  {
+                    "test": "is_leashed",
+                    "subject": "self",
+                    "operator": "equals",
+                    "value": false
+                  }
+                ]
               },
               "max_dist": 8
             },
@@ -119,15 +129,25 @@
               "filters": {
                 "all_of": [
                   {
-                    "test": "is_family",
-                    "subject": "other",
-                    "value": "baby_turtle"
+                    "all_of": [
+                      {
+                        "test": "is_family",
+                        "subject": "other",
+                        "value": "baby_turtle"
+                      },
+                      {
+                        "test": "in_water",
+                        "subject": "other",
+                        "operator": "!=",
+                        "value": true
+                      }
+                    ]
                   },
                   {
-                    "test": "in_water",
-                    "subject": "other",
-                    "operator": "!=",
-                    "value": true
+                    "test": "is_leashed",
+                    "subject": "self",
+                    "operator": "equals",
+                    "value": false
                   }
                 ]
               },

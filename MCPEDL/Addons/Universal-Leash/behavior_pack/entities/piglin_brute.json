@@ -11,7 +11,18 @@
     "components": {
       "minecraft:annotation.open_door": {},
       "minecraft:behavior.hurt_by_target": {
-        "priority": 1
+        "priority": 1,
+        "entity_types": [
+          {
+            "filters": {
+              "test": "is_leashed",
+              "subject": "self",
+              "operator": "equals",
+              "value": false
+            },
+            "max_dist": 64
+          }
+        ]
       },
       "minecraft:behavior.look_at_player": {
         "look_time": {
@@ -147,18 +158,38 @@
           "entity_types": [
             {
               "filters": {
-                "subject": "other",
-                "test": "is_family",
-                "value": "player"
+                "all_of": [
+                  {
+                    "subject": "other",
+                    "test": "is_family",
+                    "value": "player"
+                  },
+                  {
+                    "test": "is_leashed",
+                    "subject": "self",
+                    "operator": "equals",
+                    "value": false
+                  }
+                ]
               },
               "max_dist": 12,
               "priority": 0
             },
             {
               "filters": {
-                "subject": "other",
-                "test": "is_family",
-                "value": "wither"
+                "all_of": [
+                  {
+                    "subject": "other",
+                    "test": "is_family",
+                    "value": "wither"
+                  },
+                  {
+                    "test": "is_leashed",
+                    "subject": "self",
+                    "operator": "equals",
+                    "value": false
+                  }
+                ]
               },
               "max_dist": 12,
               "priority": 1
@@ -183,12 +214,22 @@
           "entity_types": [
             {
               "filters": {
-                "AND": [
+                "all_of": [
                   {
-                    "test": "is_family",
-                    "subject": 1,
-                    "operator": 0,
-                    "value": "player"
+                    "AND": [
+                      {
+                        "test": "is_family",
+                        "subject": 1,
+                        "operator": 0,
+                        "value": "player"
+                      }
+                    ]
+                  },
+                  {
+                    "test": "is_leashed",
+                    "subject": "self",
+                    "operator": "equals",
+                    "value": false
                   }
                 ]
               }

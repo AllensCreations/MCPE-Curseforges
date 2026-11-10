@@ -221,7 +221,18 @@
         "priority": 8
       },
       "minecraft:behavior.hurt_by_target": {
-        "priority": 3
+        "priority": 3,
+        "entity_types": [
+          {
+            "filters": {
+              "test": "is_leashed",
+              "subject": "self",
+              "operator": "equals",
+              "value": false
+            },
+            "max_dist": 64
+          }
+        ]
       },
       "minecraft:behavior.place_block": {
         "priority": 10,

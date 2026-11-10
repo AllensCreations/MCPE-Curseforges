@@ -126,15 +126,27 @@
         },
         "minecraft:behavior.hurt_by_target": {
           "priority": 2,
-          "entity_types": {
-            "filters": {
-              "test": "is_family",
-              "subject": "other",
-              "operator": "!=",
-              "value": "illager"
-            },
-            "max_dist": 64
-          }
+          "entity_types": [
+            {
+              "filters": {
+                "all_of": [
+                  {
+                    "test": "is_family",
+                    "subject": "other",
+                    "operator": "!=",
+                    "value": "illager"
+                  },
+                  {
+                    "test": "is_leashed",
+                    "subject": "self",
+                    "operator": "equals",
+                    "value": false
+                  }
+                ]
+              },
+              "max_dist": 64
+            }
+          ]
         },
         "minecraft:behavior.nearest_attackable_target": {
           "priority": 3,
@@ -143,21 +155,31 @@
           "entity_types": [
             {
               "filters": {
-                "any_of": [
+                "all_of": [
                   {
-                    "subject": "other",
-                    "test": "is_family",
-                    "value": "player"
+                    "any_of": [
+                      {
+                        "subject": "other",
+                        "test": "is_family",
+                        "value": "player"
+                      },
+                      {
+                        "subject": "other",
+                        "test": "is_family",
+                        "value": "irongolem"
+                      },
+                      {
+                        "test": "is_family",
+                        "subject": "other",
+                        "value": "wandering_trader"
+                      }
+                    ]
                   },
                   {
-                    "subject": "other",
-                    "test": "is_family",
-                    "value": "irongolem"
-                  },
-                  {
-                    "test": "is_family",
-                    "subject": "other",
-                    "value": "wandering_trader"
+                    "test": "is_leashed",
+                    "subject": "self",
+                    "operator": "equals",
+                    "value": false
                   }
                 ]
               },
@@ -167,15 +189,25 @@
               "filters": {
                 "all_of": [
                   {
-                    "test": "is_family",
-                    "subject": "other",
-                    "value": "villager"
+                    "all_of": [
+                      {
+                        "test": "is_family",
+                        "subject": "other",
+                        "value": "villager"
+                      },
+                      {
+                        "test": "has_component",
+                        "subject": "other",
+                        "operator": "!=",
+                        "value": "minecraft:is_baby"
+                      }
+                    ]
                   },
                   {
-                    "test": "has_component",
-                    "subject": "other",
-                    "operator": "!=",
-                    "value": "minecraft:is_baby"
+                    "test": "is_leashed",
+                    "subject": "self",
+                    "operator": "equals",
+                    "value": false
                   }
                 ]
               },

@@ -39,10 +39,20 @@
         "entity_types": [
           {
             "filters": {
-              "operator": "!=",
-              "test": "is_family",
-              "subject": "other",
-              "value": "breeze"
+              "all_of": [
+                {
+                  "operator": "!=",
+                  "test": "is_family",
+                  "subject": "other",
+                  "value": "breeze"
+                },
+                {
+                  "test": "is_leashed",
+                  "subject": "self",
+                  "operator": "equals",
+                  "value": false
+                }
+              ]
             }
           }
         ],
@@ -175,21 +185,31 @@
           "entity_types": [
             {
               "filters": {
-                "any_of": [
+                "all_of": [
                   {
-                    "test": "is_family",
-                    "subject": "other",
-                    "value": "player"
+                    "any_of": [
+                      {
+                        "test": "is_family",
+                        "subject": "other",
+                        "value": "player"
+                      },
+                      {
+                        "test": "is_family",
+                        "subject": "other",
+                        "value": "snowgolem"
+                      },
+                      {
+                        "test": "is_family",
+                        "subject": "other",
+                        "value": "irongolem"
+                      }
+                    ]
                   },
                   {
-                    "test": "is_family",
-                    "subject": "other",
-                    "value": "snowgolem"
-                  },
-                  {
-                    "test": "is_family",
-                    "subject": "other",
-                    "value": "irongolem"
+                    "test": "is_leashed",
+                    "subject": "self",
+                    "operator": "equals",
+                    "value": false
                   }
                 ]
               }
@@ -218,21 +238,31 @@
           "entity_types": [
             {
               "filters": {
-                "any_of": [
+                "all_of": [
                   {
-                    "test": "is_family",
-                    "subject": "other",
-                    "value": "player"
+                    "any_of": [
+                      {
+                        "test": "is_family",
+                        "subject": "other",
+                        "value": "player"
+                      },
+                      {
+                        "test": "is_family",
+                        "subject": "other",
+                        "value": "snowgolem"
+                      },
+                      {
+                        "test": "is_family",
+                        "subject": "other",
+                        "value": "irongolem"
+                      }
+                    ]
                   },
                   {
-                    "test": "is_family",
-                    "subject": "other",
-                    "value": "snowgolem"
-                  },
-                  {
-                    "test": "is_family",
-                    "subject": "other",
-                    "value": "irongolem"
+                    "test": "is_leashed",
+                    "subject": "self",
+                    "operator": "equals",
+                    "value": false
                   }
                 ]
               }

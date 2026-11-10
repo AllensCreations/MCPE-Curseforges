@@ -21,12 +21,12 @@ Hold a Lead, right-click a mob, and it follows you like a leashed Horse or Cow w
 - **Good To Know**: The lead uses three distances: 4 blocks, 6 blocks, and a 10-block maximum. Villagers do not open their trade window while you sneak, so sneak when you attach a lead to one.
 
 ### Hostile Mobs on a Lead
-- **What Happens**: Mobs such as Zombies, Skeletons, Creepers, and Endermen do not pick a new target while they are on a lead.
+- **What Happens**: Mobs such as Zombies, Skeletons, Creepers, and Endermen do not pick a new target while they are on a lead, and they do not fight back when you hit them.
 - **How It Works**: Lead the mob to a new spot, such as a mob farm, and release it there.
-- **Good To Know**: Other mobs keep their normal behavior. This add-on replaces the built-in definitions of the leashable mobs, so another add-on that edits the same mobs may conflict with it.
+- **Good To Know**: A mob that is already chasing you when you attach the lead may keep its current target until it loses track of you. Other mobs keep their normal behavior. This add-on replaces the built-in definitions of the leashable mobs, so another add-on that edits the same mobs may conflict with it.
 
 ### Spider Lead Position
-- **What Happens**: Leads attach to the body of Spiders and Cave Spiders.
+- **What Happens**: Leads attach to the center of the body of Spiders and Cave Spiders, inside their hitbox.
 - **Good To Know**: The Resource Pack is included in the same package and is required by the Behavior Pack.
 
 ### Bosses Unchanged

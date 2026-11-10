@@ -118,7 +118,18 @@
         "priority": 1
       },
       "minecraft:behavior.hurt_by_target": {
-        "priority": 1
+        "priority": 1,
+        "entity_types": [
+          {
+            "filters": {
+              "test": "is_leashed",
+              "subject": "self",
+              "operator": "equals",
+              "value": false
+            },
+            "max_dist": 64
+          }
+        ]
       },
       "minecraft:behavior.look_at_player": {
         "look_time": {
@@ -132,21 +143,31 @@
         "entity_types": [
           {
             "filters": {
-              "any_of": [
+              "all_of": [
                 {
-                  "subject": "other",
-                  "test": "is_family",
-                  "value": "player"
+                  "any_of": [
+                    {
+                      "subject": "other",
+                      "test": "is_family",
+                      "value": "player"
+                    },
+                    {
+                      "subject": "other",
+                      "test": "is_family",
+                      "value": "snowgolem"
+                    },
+                    {
+                      "subject": "other",
+                      "test": "is_family",
+                      "value": "irongolem"
+                    }
+                  ]
                 },
                 {
-                  "subject": "other",
-                  "test": "is_family",
-                  "value": "snowgolem"
-                },
-                {
-                  "subject": "other",
-                  "test": "is_family",
-                  "value": "irongolem"
+                  "test": "is_leashed",
+                  "subject": "self",
+                  "operator": "equals",
+                  "value": false
                 }
               ]
             },
@@ -158,23 +179,33 @@
             "filters": {
               "all_of": [
                 {
-                  "subject": "other",
-                  "test": "is_raider",
-                  "value": true
-                },
-                {
-                  "subject": "self",
-                  "test": "is_raider",
-                  "value": true
-                },
-                {
-                  "none_of": [
+                  "all_of": [
                     {
                       "subject": "other",
-                      "test": "is_family",
-                      "value": "witch"
+                      "test": "is_raider",
+                      "value": true
+                    },
+                    {
+                      "subject": "self",
+                      "test": "is_raider",
+                      "value": true
+                    },
+                    {
+                      "none_of": [
+                        {
+                          "subject": "other",
+                          "test": "is_family",
+                          "value": "witch"
+                        }
+                      ]
                     }
                   ]
+                },
+                {
+                  "test": "is_leashed",
+                  "subject": "self",
+                  "operator": "equals",
+                  "value": false
                 }
               ]
             },

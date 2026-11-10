@@ -67,46 +67,56 @@
             "filters": {
               "all_of": [
                 {
-                  "operator": "!=",
-                  "test": "is_family",
-                  "subject": "other",
-                  "value": "skeleton"
+                  "all_of": [
+                    {
+                      "operator": "!=",
+                      "test": "is_family",
+                      "subject": "other",
+                      "value": "skeleton"
+                    },
+                    {
+                      "operator": "!=",
+                      "test": "is_family",
+                      "subject": "other",
+                      "value": "stray"
+                    },
+                    {
+                      "operator": "!=",
+                      "test": "is_family",
+                      "subject": "other",
+                      "value": "zombie"
+                    },
+                    {
+                      "operator": "!=",
+                      "test": "is_family",
+                      "subject": "other",
+                      "value": "husk"
+                    },
+                    {
+                      "operator": "!=",
+                      "test": "is_family",
+                      "subject": "other",
+                      "value": "spider"
+                    },
+                    {
+                      "operator": "!=",
+                      "test": "is_family",
+                      "subject": "other",
+                      "value": "cavespider"
+                    },
+                    {
+                      "operator": "!=",
+                      "test": "is_family",
+                      "subject": "other",
+                      "value": "slime"
+                    }
+                  ]
                 },
                 {
-                  "operator": "!=",
-                  "test": "is_family",
-                  "subject": "other",
-                  "value": "stray"
-                },
-                {
-                  "operator": "!=",
-                  "test": "is_family",
-                  "subject": "other",
-                  "value": "zombie"
-                },
-                {
-                  "operator": "!=",
-                  "test": "is_family",
-                  "subject": "other",
-                  "value": "husk"
-                },
-                {
-                  "operator": "!=",
-                  "test": "is_family",
-                  "subject": "other",
-                  "value": "spider"
-                },
-                {
-                  "operator": "!=",
-                  "test": "is_family",
-                  "subject": "other",
-                  "value": "cavespider"
-                },
-                {
-                  "operator": "!=",
-                  "test": "is_family",
-                  "subject": "other",
-                  "value": "slime"
+                  "test": "is_leashed",
+                  "subject": "self",
+                  "operator": "equals",
+                  "value": false
                 }
               ]
             }

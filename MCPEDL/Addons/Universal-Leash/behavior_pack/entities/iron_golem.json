@@ -17,14 +17,26 @@
         "mass": 2.0
       },
       "minecraft:behavior.hurt_by_target": {
-        "entity_types": {
-          "filters": {
-            "operator": "not",
-            "test": "is_family",
-            "subject": "other",
-            "value": "creeper"
+        "entity_types": [
+          {
+            "filters": {
+              "all_of": [
+                {
+                  "operator": "not",
+                  "test": "is_family",
+                  "subject": "other",
+                  "value": "creeper"
+                },
+                {
+                  "test": "is_leashed",
+                  "subject": "self",
+                  "operator": "equals",
+                  "value": false
+                }
+              ]
+            }
           }
-        },
+        ],
         "priority": 2
       },
       "minecraft:behavior.look_at_player": {
@@ -466,24 +478,36 @@
     "component_groups": {
       "minecraft:player_created": {
         "minecraft:behavior.hurt_by_target": {
-          "entity_types": {
-            "filters": {
-              "all_of": [
-                {
-                  "test": "is_family",
-                  "operator": "not",
-                  "subject": "other",
-                  "value": "player"
-                },
-                {
-                  "test": "is_family",
-                  "operator": "not",
-                  "subject": "other",
-                  "value": "creeper"
-                }
-              ]
+          "entity_types": [
+            {
+              "filters": {
+                "all_of": [
+                  {
+                    "all_of": [
+                      {
+                        "test": "is_family",
+                        "operator": "not",
+                        "subject": "other",
+                        "value": "player"
+                      },
+                      {
+                        "test": "is_family",
+                        "operator": "not",
+                        "subject": "other",
+                        "value": "creeper"
+                      }
+                    ]
+                  },
+                  {
+                    "test": "is_leashed",
+                    "subject": "self",
+                    "operator": "equals",
+                    "value": false
+                  }
+                ]
+              }
             }
-          },
+          ],
           "priority": 2
         }
       },

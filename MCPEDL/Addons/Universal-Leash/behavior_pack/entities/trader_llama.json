@@ -385,14 +385,26 @@
       "minecraft:behavior.hurt_by_target": {
         "priority": 1,
         "hurt_owner": true,
-        "entity_types": {
-          "filters": {
-            "test": "is_family",
-            "subject": "other",
-            "operator": "!=",
-            "value": "trader_llama"
+        "entity_types": [
+          {
+            "filters": {
+              "all_of": [
+                {
+                  "test": "is_family",
+                  "subject": "other",
+                  "operator": "!=",
+                  "value": "trader_llama"
+                },
+                {
+                  "test": "is_leashed",
+                  "subject": "self",
+                  "operator": "equals",
+                  "value": false
+                }
+              ]
+            }
           }
-        }
+        ]
       },
       "minecraft:behavior.nearest_attackable_target": {
         "priority": 2,

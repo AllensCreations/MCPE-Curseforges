@@ -165,26 +165,36 @@
           "entity_types": [
             {
               "filters": {
-                "any_of": [
+                "all_of": [
                   {
-                    "test": "is_family",
-                    "subject": "other",
-                    "value": "skeleton"
+                    "any_of": [
+                      {
+                        "test": "is_family",
+                        "subject": "other",
+                        "value": "skeleton"
+                      },
+                      {
+                        "test": "is_family",
+                        "subject": "other",
+                        "value": "sheep"
+                      },
+                      {
+                        "test": "is_family",
+                        "subject": "other",
+                        "value": "rabbit"
+                      },
+                      {
+                        "test": "is_family",
+                        "subject": "other",
+                        "value": "fox"
+                      }
+                    ]
                   },
                   {
-                    "test": "is_family",
-                    "subject": "other",
-                    "value": "sheep"
-                  },
-                  {
-                    "test": "is_family",
-                    "subject": "other",
-                    "value": "rabbit"
-                  },
-                  {
-                    "test": "is_family",
-                    "subject": "other",
-                    "value": "fox"
+                    "test": "is_leashed",
+                    "subject": "self",
+                    "operator": "equals",
+                    "value": false
                   }
                 ]
               },
@@ -194,15 +204,25 @@
               "filters": {
                 "all_of": [
                   {
-                    "test": "is_family",
-                    "subject": "other",
-                    "value": "baby_turtle"
+                    "all_of": [
+                      {
+                        "test": "is_family",
+                        "subject": "other",
+                        "value": "baby_turtle"
+                      },
+                      {
+                        "test": "in_water",
+                        "subject": "other",
+                        "operator": "!=",
+                        "value": true
+                      }
+                    ]
                   },
                   {
-                    "test": "in_water",
-                    "subject": "other",
-                    "operator": "!=",
-                    "value": true
+                    "test": "is_leashed",
+                    "subject": "self",
+                    "operator": "equals",
+                    "value": false
                   }
                 ]
               },
@@ -212,15 +232,25 @@
               "filters": {
                 "all_of": [
                   {
-                    "test": "is_family",
-                    "subject": "other",
-                    "value": "skeleton"
+                    "all_of": [
+                      {
+                        "test": "is_family",
+                        "subject": "other",
+                        "value": "skeleton"
+                      },
+                      {
+                        "test": "is_underwater",
+                        "subject": "other",
+                        "operator": "!=",
+                        "value": true
+                      }
+                    ]
                   },
                   {
-                    "test": "is_underwater",
-                    "subject": "other",
-                    "operator": "!=",
-                    "value": true
+                    "test": "is_leashed",
+                    "subject": "self",
+                    "operator": "equals",
+                    "value": false
                   }
                 ]
               },
@@ -309,9 +339,19 @@
           "entity_types": [
             {
               "filters": {
-                "test": "is_family",
-                "subject": "other",
-                "value": "skeleton"
+                "all_of": [
+                  {
+                    "test": "is_family",
+                    "subject": "other",
+                    "value": "skeleton"
+                  },
+                  {
+                    "test": "is_leashed",
+                    "subject": "self",
+                    "operator": "equals",
+                    "value": false
+                  }
+                ]
               },
               "max_dist": 16
             }
@@ -761,7 +801,18 @@
         "priority": 3
       },
       "minecraft:behavior.hurt_by_target": {
-        "priority": 3
+        "priority": 3,
+        "entity_types": [
+          {
+            "filters": {
+              "test": "is_leashed",
+              "subject": "self",
+              "operator": "equals",
+              "value": false
+            },
+            "max_dist": 64
+          }
+        ]
       },
       "minecraft:behavior.leap_at_target": {
         "priority": 4,
