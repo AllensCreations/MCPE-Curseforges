@@ -64,6 +64,7 @@ on:
         options:
           # BEGIN addon
           - "-"
+          - "Copper-Carrier-Logistics"
           - "Fletching-Table-Arsenal"
           - "Ghast-Mob-Head-Transformers"
           - "Grand-Banquets"
@@ -82,6 +83,7 @@ on:
           - "Swarm-Mob-Booster"
           - "Tameable-Companion-Fox"
           - "Universal-Clutch"
+          - "Universal-Leash"
           - "Vanilla-Quality-of-Life"
           # END addon
       script:
@@ -92,6 +94,7 @@ on:
         options:
           # BEGIN script
           - "-"
+          - "Chrono-Bed"
           # END script
       minigame:
         description: "[build] Project from MCPEDL/Minigame (only when scope = one project)"
@@ -115,7 +118,9 @@ on:
         options:
           # BEGIN map
           - "-"
+          - "One-Block-Skyblock-Lucky-Blocks"
           - "OneBlock-Dirtbound-Kingdom-Beta"
+          - "OneBlock-Phase-Evolution"
           - "Oneblock-SM"
           - "OneBlock-Void-Survival"
           # END map
@@ -140,6 +145,7 @@ on:
           # BEGIN registered
           - "-"
           - "MCPEDL/Addons/Monster-Companions"
+          - "MCPEDL/Addons/Universal-Leash"
           - "MCPEDL/Addons/Vanilla-Quality-of-Life"
           - "MCPEDL/Maps/OneBlock-Void-Survival"
           - "MCPEDL/Minigame/Shared-Hivemind-Inventory"

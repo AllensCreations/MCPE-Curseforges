@@ -5,6 +5,9 @@
     "last_release_version": "2.0.0",
     "last_alpha_version": "2.1.0.0"
   },
+  "MCPEDL/Addons/Universal-Leash": {
+    "project_id": "1795874"
+  },
   "MCPEDL/Addons/Vanilla-Quality-of-Life": {
     "project_id": "1742470",
     "last_published_version": "2.0.1.0",
