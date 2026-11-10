@@ -87,7 +87,7 @@ Do this for every new pack and meaningful update. A compatible API version does 
 
 ### 3. Manifest Title, Attribution, and LOCK Marker
 
-- Every Behavior Pack and Resource Pack manifest title is `Add-on Name (vX.Y.Z)`, for example `Vanilla Quality of Life (v1.3.0.4)`. Update it whenever the release version changes; release automation must preserve this.
+- Every Behavior Pack and Resource Pack manifest title is `Add-on Name (vX.Y.Z)`, for example `Vanilla Quality of Life (v1.3.4)`. Update it whenever the release version changes; release automation must preserve this.
 - Put `by ALNStudios` in `header.description` exactly once. Normalize existing descriptions rather than appending duplicates. Keep attribution out of the title.
 - Do not change pack UUIDs or world storage keys just to rename a title.
 - **Title validator**, run in the release workflow, failing the job on any violation and reporting errors rather than rewriting titles. For every manifest under `MCPEDL/`:
@@ -99,7 +99,7 @@ Do this for every new pack and meaningful update. A compatible API version does 
 
 #### Build and version behavior
 
-- **One version everywhere: X.Y.Z.** Minecraft Bedrock `header.version` is exactly three non-negative integers, and the repository uses that same `X.Y.Z` in `metadata.version`, `(vX.Y.Z)` manifest titles, changelog headings, package filenames, README links and build snapshots. No fourth component or Alpha channel is supported.
+- **One version everywhere: X.Y.Z.** Minecraft Bedrock `header.version` is exactly three non-negative integers, and the repository uses that same `X.Y.Z` in `metadata.version`, `(vX.Y.Z)` manifest titles, changelog headings, package filenames, README links and build snapshots. No fourth component or Alpha channel is supported. Legacy `X.Y.Z.A` maps to `X.Z.A` because the old Y represented Alpha, Z represented Beta, and A represented Updates.
 - **Version roles.** X is the Release generation, Y is the Beta generation, and Z is the Updating counter. An Update increments Z (`1.2.3 -> 1.2.4`); a Beta increments Y and resets Z (`1.2.4 -> 1.3.0`); a Release increments X and resets Y/Z (`1.3.0 -> 2.0.0`).
 - **Build synchronization.** Every processed project aligns all source manifests (BP, RP and other packs) to one highest X.Y.Z version: `header.version`, `metadata.version`, terminal `(vX.Y.Z)` title suffix, module versions and same-project BP/RP dependency versions. Pack UUIDs are never changed. The build fills `metadata.authors` (`ALNStudios`) and optional `metadata.license`.
 - **Build snapshots.** Each build creates or refreshes `builds/<pack>/versions/V<X.Y.Z>/` with packages, `source.zip`, `source.sha256` and `build_info.json`. Existing snapshots are refreshed when source or packages differ. The last 5 version folders are kept.
@@ -107,7 +107,7 @@ Do this for every new pack and meaningful update. A compatible API version does 
 - **Package filenames follow the manifest.** Default shape: `<Name> by ALNStudios (VX.Y.Z).<ext>`. The version must remain three-part. Per-pack `metadata.package_filename` or the repository `PACK_FILENAME_TEMPLATE` can customize the title, but must retain `(V{version})` for README link repair.
 
 - **Creator rename.** The creator name is `ALNStudios`. Builds migrate the old name in manifest `header.description` and `metadata.authors`; `python3 scripts/rename_brand.py --apply` migrates every other text file once. Lowercase namespaces such as `allenscreations:` are item identifiers and are never renamed.
-- Explicit maintenance: `python3 scripts/manifest_tools.py --project <path> --check|--align|--bump` (or `--all --check`) previews or applies the same alignment/bump the build uses. `sync_manifest_versions.py` remains for dependency and `min_engine_version` maintenance; set `min_engine_version` by hand after looking up the version. **Pack header UUIDs are never regenerated** because changing one breaks existing worlds.
+- Explicit maintenance: `python3 scripts/migrate_three_part_versions.py` (one-time migration of manifests, changelogs, registry baselines and archival snapshots), then `python3 scripts/manifest_tools.py --project <path> --check|--align|--bump` (or `--all --check`) previews or applies the same alignment/bump the build uses. `sync_manifest_versions.py` remains for dependency and `min_engine_version` maintenance; set `min_engine_version` by hand after looking up the version. **Pack header UUIDs are never regenerated** because changing one breaks existing worlds.
 - `scripts/validate_manifest_titles.py` checks manifest title/version consistency during the workflow and fails the job on violations. It also prints non-failing notes for `format_version` other than 2, a missing or `[0, 0, 0]` `min_engine_version`, and missing `metadata.authors`.
 - `scripts/sync_project_docs.py` is not part of the build workflow. Update `DESCRIPTION.md` and `CHANGELOG.md` intentionally when preparing a release; do not infer player-facing changes from source filenames.
 
