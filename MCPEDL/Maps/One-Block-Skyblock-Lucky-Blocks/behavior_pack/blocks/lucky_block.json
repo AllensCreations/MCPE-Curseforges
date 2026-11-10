@@ -1,0 +1,19 @@
+{
+  "format_version": "1.21.90",
+  "minecraft:block": {
+    "description": {
+      "identifier": "allenscreations:lucky_block",
+      "menu_category": { "category": "construction" }
+    },
+    "components": {
+      "minecraft:geometry": "minecraft:geometry.full_block",
+      "minecraft:material_instances": {
+        "*": { "texture": "allenscreations_lucky_block", "render_method": "opaque" }
+      },
+      "minecraft:destructible_by_mining": { "seconds_to_destroy": 1 },
+      "minecraft:destructible_by_explosion": false,
+      "minecraft:loot": "loot_tables/empty.json",
+      "minecraft:map_color": "#F2C230"
+    }
+  }
+}
