@@ -92,7 +92,7 @@ registerController({
 });
 '''
 DOCS = {"README.md": "# X\nSource created, not tested in game.\nLikely achievement-friendly.\nNo experiment requirement detected in the inspected files.\n",
-        "DESCRIPTION.md": "# X\nPlayer text.\nThis is an unofficial community creation. It is not an official Minecraft product.\n", "CHANGELOG.md": "# Changelog\n## 1.0.0\n- First version.\n"}
+        "DESCRIPTION.md": "# X\nPlayer text.\nThis is an unofficial community creation. It is not an official Minecraft product.\n", "CHANGELOG.md": "# Changelog\n---\n\n## [1.0.0] - 2026-01-01\n\n### Added\n- First version.\n"}
 
 
 def write(p: Path, text: str) -> None:
