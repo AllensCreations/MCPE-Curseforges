@@ -3,10 +3,10 @@
   "texture_name": "atlas.items",
   "texture_data": {
     "pnk_padlock": {
-      "textures": "textures/items/chain"
+      "textures": "textures/items/pnk_padlock"
     },
     "pnk_key": {
-      "textures": "textures/items/trial_key"
+      "textures": "textures/items/pnk_key"
     }
   }
 }
