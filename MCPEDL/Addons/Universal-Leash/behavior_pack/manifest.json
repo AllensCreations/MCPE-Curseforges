@@ -1,13 +1,13 @@
 {
   "format_version": 2,
   "header": {
-    "name": "Universal Leash (v1.0.1)",
+    "name": "Universal Leash (v1.0.2)",
     "description": "Attach leads to 98 entity types, including Villagers, golems, and hostile mobs. by AllensCreations",
     "uuid": "c046f542-6dce-4ec9-aec9-fe3cd4fb85d4",
     "version": [
       1,
       0,
-      1
+      2
     ],
     "min_engine_version": [
       1,
@@ -23,7 +23,7 @@
       "version": [
         1,
         0,
-        1
+        2
       ]
     }
   ],
@@ -39,7 +39,7 @@
       "version": [
         1,
         0,
-        1
+        2
       ]
     }
   ]
