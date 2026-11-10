@@ -475,6 +475,34 @@ def combine_changelog(project_dir, changelog_path, last_published=None, today=No
     return new_version, upload_changelog
 
 
+
+def find_map_package(project_dir, built_name, variant):
+    if variant != "default":
+        matches = sorted(project_dir.glob(f"*- {variant}.mcworld"))
+        matches = [path for path in matches if " - Test" not in path.name]
+        if len(matches) == 1:
+            return matches[0]
+        if not matches:
+            raise ValueError(f"No {variant} world package found for {project_dir.name}")
+        raise ValueError(f"More than one {variant} world package found for {project_dir.name}")
+
+    if built_name:
+        return REPO_ROOT / "builds" / project_dir.name / built_name
+    creative = sorted(project_dir.glob("* - Creative.mcworld"))
+    if len(creative) == 1:
+        return creative[0]
+    candidates = [
+        path for path in sorted(project_dir.glob("*.mcworld"))
+        if " - Test" not in path.name
+    ]
+    if len(candidates) == 1:
+        return candidates[0]
+    if not candidates:
+        raise ValueError(f"No .mcworld package found for {project_dir.name}")
+    raise ValueError(
+        f"Multiple map variants found for {project_dir.name}; choose one in the map variant dropdown"
+    )
+
 def upload_name(release_type, project_name, extension, map_variant="default", version="", title=None):
     """'Release - Mining Helmet v(2.0.0).mcaddon'; non-default maps add ' - Creative' etc.
     title: the manifest's pack title when known, else the project folder name."""
