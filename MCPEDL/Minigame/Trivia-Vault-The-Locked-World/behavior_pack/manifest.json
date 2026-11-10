@@ -1,13 +1,13 @@
 {
   "format_version": 2,
   "header": {
-    "name": "Trivia Vault The Locked World (v1.0.19)",
+    "name": "Trivia Vault The Locked World (v1.19.0)",
     "description": "A survival trivia challenge. by ALNStudios",
     "uuid": "f04c6ab1-bdb6-4ee1-8fe1-87a76173a087",
     "version": [
       1,
-      0,
-      19
+      19,
+      0
     ],
     "min_engine_version": [
       1,
@@ -21,8 +21,8 @@
       "uuid": "f9e5f77c-efb4-4d31-b6ee-496ab54b313d",
       "version": [
         1,
-        0,
-        19
+        19,
+        0
       ]
     },
     {
@@ -31,8 +31,8 @@
       "uuid": "021fc196-7cc4-4d56-b65b-f837b5372829",
       "version": [
         1,
-        0,
-        19
+        19,
+        0
       ],
       "entry": "scripts/main.js"
     }
@@ -50,8 +50,8 @@
       "uuid": "28e51c40-0b28-483c-88f0-3b7e0209536d",
       "version": [
         1,
-        0,
-        19
+        19,
+        0
       ]
     }
   ],
@@ -59,7 +59,8 @@
     "authors": [
       "ALNStudios"
     ],
-    "product_type": "addon"
+    "product_type": "addon",
+    "version": "1.19.0"
   },
   "subpacks": [
     {

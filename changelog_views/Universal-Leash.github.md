@@ -6,13 +6,18 @@
 - **Spider Lead Height**: The lead on Spiders and Cave Spiders now attaches at the middle of their hitbox, about 0.45 and 0.25 blocks above the ground.
 
 <details>
-<summary><b>1.0.x</b> (2 releases)</summary>
+<summary><b>1.1.x</b> (1 release)</summary>
 
-### [1.0.1] - 2026-11-10
+### [1.1.0] - 2026-11-10
 
 #### Fixed
 - **Leashed Mobs Stay Calm**: Hostile and neutral mobs on a lead no longer fight back when you attack them.
 - **Spider Lead Position**: The lead on Spiders and Cave Spiders now attaches at the center of the body instead of above it.
+
+</details>
+
+<details>
+<summary><b>1.0.x</b> (1 release)</summary>
 
 ### [1.0.0] - 2026-11-10
 

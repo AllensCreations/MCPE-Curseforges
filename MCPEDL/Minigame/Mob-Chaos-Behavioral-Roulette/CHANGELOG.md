@@ -2,7 +2,7 @@
 
 ---
 
-## [1.0.4.2] - 2026-11-06
+## [1.4.2] - 2026-11-06
 
 ### Added
 
@@ -17,7 +17,7 @@
 - **Storm caller**: Mobs rumble with thunder; real lightning strikes nearby only when Block damage is on.
 - **Chaos events**: About one shuffle in five becomes a surprise event with an on-screen title, where many nearby mobs get the same mutation at once. They can be turned off in the Controller.
 
-## [1.0.4.1] - 2026-11-06
+## [1.4.1] - 2026-11-06
 
 ### Added
 
@@ -44,7 +44,7 @@
 ## v1.0.0
 - First release: Controller with Start / Restart / End, eight mob mutations, glitch warning text, test world setup.
 
-## [1.0.4] - 2026-10-29
+## [1.4.0] - 2026-10-29
 
 ### Improved & Balanced
 

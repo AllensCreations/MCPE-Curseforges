@@ -1,0 +1,8 @@
+{
+  "changelog_version": "1.6.0",
+  "manifest_version": "1.6.0",
+  "packages": {
+    "Harvest Intelligence by ALNStudios (V1.6.0).mcaddon": "2d0bf3064c89f30345011ffc3731525ef2131271cede531212b480fdf1b5e3b2"
+  },
+  "source_sha256": "4a22b60e13563d08d8fbbe112f45279b0b148dc4075b38a2ceb1998e9a4041ec"
+}

@@ -1,13 +1,13 @@
 {
   "format_version": 2,
   "header": {
-    "name": "Ghast Mob Head Transformers (v1.1.16)",
+    "name": "Ghast Mob Head Transformers (v1.16.0)",
     "description": "Transform vanilla Ghasts into giant flying mob heads by equipping vanilla skulls or custom heads. by ALNStudios",
     "uuid": "9af8462c-a72c-4c2d-aae8-f179a45d43ab",
     "version": [
       1,
-      1,
-      16
+      16,
+      0
     ],
     "min_engine_version": [
       1,
@@ -22,8 +22,8 @@
       "uuid": "aa52e556-78e0-4e43-b208-afc17599ffce",
       "version": [
         1,
-        1,
-        16
+        16,
+        0
       ]
     }
   ],
@@ -32,8 +32,8 @@
       "uuid": "7edf3247-cecf-4405-b1ea-bebc70379be8",
       "version": [
         1,
-        1,
-        16
+        16,
+        0
       ]
     }
   ],
@@ -53,6 +53,7 @@
     "authors": [
       "ALNStudios"
     ],
-    "product_type": "addon"
+    "product_type": "addon",
+    "version": "1.16.0"
   }
 }

@@ -1,13 +1,13 @@
 {
   "format_version": 2,
   "header": {
-    "name": "OneBlock Sovereign Market (v1.1.6)",
+    "name": "OneBlock Sovereign Market (v1.6.0)",
     "description": "Trader Ledger icon for OneBlock Sovereign Market. by ALNStudios",
     "uuid": "4b6073aa-4c92-4e1b-bbdb-85207021b512",
     "version": [
       1,
-      1,
-      6
+      6,
+      0
     ],
     "min_engine_version": [
       1,
@@ -21,8 +21,8 @@
       "uuid": "a10fbad8-a7bf-496e-9c07-4198ab993c01",
       "version": [
         1,
-        1,
-        6
+        6,
+        0
       ]
     }
   ],
@@ -30,6 +30,7 @@
     "authors": [
       "ALNStudios"
     ],
-    "product_type": "addon"
+    "product_type": "addon",
+    "version": "1.6.0"
   }
 }

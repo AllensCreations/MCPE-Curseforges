@@ -5,7 +5,7 @@ Download the current release of **Tethered Breaker and Builder** for Minecraft B
 ## Download
 
 - **Package format:** `.mcaddon`
-- **Direct download:** [Download Tethered Breaker and Builder (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Tethered-Breaker-And-Builder/Tethered%20Breaker%20and%20Builder%20by%20ALNStudios%20%28V1.0.12%29.mcaddon)
+- **Direct download:** [Download Tethered Breaker and Builder (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Tethered-Breaker-And-Builder/Tethered%20Breaker%20and%20Builder%20by%20ALNStudios%20%28V1.12.0%29.mcaddon)
 
 ## Installation
 

@@ -1,8 +1,8 @@
 {
-  "changelog_version": "1.0.1",
-  "manifest_version": "1.0.0",
+  "changelog_version": "1.1.0",
+  "manifest_version": "1.1.0",
   "packages": {
-    "Copper-Carrier Logistics by ALNStudios (V1.0.0).mcaddon": "3461873439e276df9cf0cbe744159124a5cfb6eb54eee5a012a685ff4b30cbd2"
+    "Copper-Carrier Logistics by ALNStudios (V1.1.0).mcaddon": "79d2f0557114e10dfdd12718908663377ba1543909f3d1c3c50c3aae5d8daa61"
   },
   "source_sha256": "b0f6d31f2abf048a2a2cf9911a476751386a7f5c8435f1e8342da27b1e821cc3"
 }

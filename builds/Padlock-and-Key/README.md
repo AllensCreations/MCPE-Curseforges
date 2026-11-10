@@ -8,7 +8,7 @@ This folder contains compiled release packages for **Padlock & Key** by ALNStudi
 
 | File Name | Format | Size | Description | Download Link |
 | :--- | :--- | :--- | :--- | :--- |
-| **`Padlock & Key by ALNStudios (V1.0.0).mcaddon`** | `.mcaddon` | ~7 KB | Complete bundle containing both Behavior Pack and Resource Pack. | [Download (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Padlock-and-Key/Padlock%20%26%20Key%20by%20ALNStudios%20%28V1.0.0%29.mcaddon) |
+| **`Padlock & Key by ALNStudios (V1.0.4).mcaddon`** | `.mcaddon` | ~7 KB | Complete bundle containing both Behavior Pack and Resource Pack. | [Download (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Padlock-and-Key/Padlock%20%26%20Key%20by%20ALNStudios%20%28V1.0.4%29.mcaddon) |
 
 ---
 

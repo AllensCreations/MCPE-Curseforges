@@ -8,7 +8,7 @@ This folder contains compiled release packages for **Swarm Mob Booster** by ALNS
 
 | File Name | Format | Size | Description | Download Link |
 | :--- | :--- | :--- | :--- | :--- |
-| **`Swarm Mob Booster by ALNStudios (V1.0.8).mcaddon`** | `.mcaddon` | ~88 KB | Complete Add-on package for Minecraft Bedrock. | [Download (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Swarm-Mob-Booster/Swarm%20Mob%20Booster%20by%20ALNStudios%20%28V1.0.8%29.mcaddon) |
+| **`Swarm Mob Booster by ALNStudios (V1.8.0).mcaddon`** | `.mcaddon` | ~88 KB | Complete Add-on package for Minecraft Bedrock. | [Download (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Swarm-Mob-Booster/Swarm%20Mob%20Booster%20by%20ALNStudios%20%28V1.8.0%29.mcaddon) |
 
 ---
 

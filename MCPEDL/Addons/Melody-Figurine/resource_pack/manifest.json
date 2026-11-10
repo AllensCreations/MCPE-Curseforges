@@ -1,13 +1,13 @@
 {
   "format_version": 2,
   "header": {
-    "name": "Melody Figurine (v1.0.14)",
+    "name": "Melody Figurine (v1.14.0)",
     "description": "Textures and custom music for the Melody Figurine. by ALNStudios",
     "uuid": "d9b1c8f6-ad34-4b6d-8c0c-7b8d4f001104",
     "version": [
       1,
-      0,
-      14
+      14,
+      0
     ],
     "min_engine_version": [
       1,
@@ -22,8 +22,8 @@
       "uuid": "e0c2d9a7-be45-4c7e-9d1d-8c9e5a001105",
       "version": [
         1,
-        0,
-        14
+        14,
+        0
       ]
     }
   ],
@@ -31,6 +31,7 @@
     "authors": [
       "ALNStudios"
     ],
-    "product_type": "addon"
+    "product_type": "addon",
+    "version": "1.14.0"
   }
 }

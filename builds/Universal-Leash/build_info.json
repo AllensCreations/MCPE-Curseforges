@@ -1,8 +1,8 @@
 {
-  "changelog_version": "2.0.0.0",
+  "changelog_version": "2.0.0",
   "manifest_version": "2.0.0",
   "packages": {
-    "Universal Leash by ALNStudios (V2.0.0).mcaddon": "ea85e255451fd1e741d09a724fa8ad5b1665340b768ae3ffb11acb1b1b387c38"
+    "Universal Leash by ALNStudios (V2.0.0).mcaddon": "70a2235235a1447ad8c7b15e8434b535ddf954234a2dd769e27ce25cfbfb00b9"
   },
   "source_sha256": "d0aaa6970d7000cd7900e496e677a758eff209c23a0ffac6bb268f674e13ac9a"
 }

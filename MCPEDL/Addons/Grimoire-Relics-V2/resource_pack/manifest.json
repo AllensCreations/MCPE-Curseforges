@@ -1,13 +1,13 @@
 {
   "format_version": 2,
   "header": {
-    "name": "Grimoire Relics V2 (v1.0.12)",
+    "name": "Grimoire Relics V2 (v1.13.0)",
     "description": "Grimoire Relics resource pack with the 20 tome icons. by ALNStudios",
     "uuid": "cefdddd0-186d-4bc2-ad03-553ce7d08676",
     "version": [
       1,
-      0,
-      12
+      13,
+      0
     ],
     "min_engine_version": [
       1,
@@ -21,8 +21,8 @@
       "uuid": "40aee9ba-808f-401a-9abe-2509ab23d1db",
       "version": [
         1,
-        0,
-        12
+        13,
+        0
       ]
     }
   ],
@@ -31,8 +31,8 @@
       "uuid": "72a2d49b-0a13-4a3d-a038-e7ba05f0f6df",
       "version": [
         1,
-        0,
-        12
+        13,
+        0
       ]
     }
   ],
@@ -40,6 +40,7 @@
     "authors": [
       "ALNStudios"
     ],
-    "product_type": "addon"
+    "product_type": "addon",
+    "version": "1.13.0"
   }
 }

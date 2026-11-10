@@ -8,7 +8,7 @@ This folder contains compiled release packages for **Team Inventory** by ALNStud
 
 | File Name | Format | Size | Description | Download Link |
 | :--- | :--- | :--- | :--- | :--- |
-| **`Team Inventory by ALNStudios (V1.1.0).mcaddon`** | `.mcaddon` | ~220 KB | Complete bundle containing both Behavior Pack and Resource Pack. | [Download (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Shared-Hivemind-Inventory/Team%20Inventory%20by%20ALNStudios%20%28V1.1.0%29.mcaddon) |
+| **`Team Inventory by ALNStudios (V1.0.0).mcaddon`** | `.mcaddon` | ~220 KB | Complete bundle containing both Behavior Pack and Resource Pack. | [Download (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Shared-Hivemind-Inventory/Team%20Inventory%20by%20ALNStudios%20%28V1.0.0%29.mcaddon) |
 
 ---
 

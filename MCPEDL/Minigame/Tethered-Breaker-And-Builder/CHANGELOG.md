@@ -2,13 +2,13 @@
 
 ---
 
-## [1.0.12] - 2026-10-29
+## [1.12.0] - 2026-10-29
 
 ### Improved & Balanced
 
 - **Maintenance release**: Repackaged the pack; no gameplay changes were recorded.
 
-## [1.0.7] - 2026-10-27
+## [1.7.0] - 2026-10-27
 
 ### Added
 - **Controller**: The host or an operator starts the challenge from the ALNStudios Controller. Roles and the leash are active only while the challenge is running.

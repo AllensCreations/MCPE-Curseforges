@@ -13,20 +13,19 @@
 - Trivia questions now appear directly, without the extra “Answer the question” screen.
 - Removed hints and lifelines.
 
-
-## [1.0.19] - 2026-11-01
+## [1.19.0] - 2026-11-01
 
 ### Improved & Balanced
 
 - **Content update**: Updated gameplay scripts.
 
-## [1.0.18] - 2026-10-29
+## [1.18.0] - 2026-10-29
 
 ### Improved & Balanced
 
 - **Maintenance release**: Repackaged the pack; no gameplay changes were recorded.
 
-## [1.0.14] - 2026-10-28
+## [1.14.0] - 2026-10-28
 
 ### Added
 - Added a selectable Hardmode behavior-pack subpack.
@@ -37,7 +36,7 @@
 - Normal mode retains three hint lifelines.
 - Preserved the 20-block-radius limit for matching-block removal.
 
-## [1.0.13] - 2026-10-28
+## [1.13.0] - 2026-10-28
 
 ### Added
 - Added five sample questions across general knowledge and Minecraft.

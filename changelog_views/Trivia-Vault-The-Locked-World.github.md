@@ -1,25 +1,35 @@
 # Changelog — Trivia Vault: The Locked World
 
-## [1.0.19] - 2026-11-01
+## [1.19.0] - 2026-11-01
 
 ### Improved & Balanced
 - **Content update**: Updated gameplay scripts.
 
 <details>
-<summary><b>1.0.x</b> (3 releases)</summary>
+<summary><b>1.18.x</b> (1 release)</summary>
 
-### [1.0.18] - 2026-10-29
+### [1.18.0] - 2026-10-29
 
 #### Improved & Balanced
 - **Maintenance release**: Repackaged the pack; no gameplay changes were recorded.
 
-### [1.0.14] - 2026-10-28
+</details>
+
+<details>
+<summary><b>1.14.x</b> (1 release)</summary>
+
+### [1.14.0] - 2026-10-28
 
 #### Added
 
 #### Improved & Balanced
 
-### [1.0.13] - 2026-10-28
+</details>
+
+<details>
+<summary><b>1.13.x</b> (1 release)</summary>
+
+### [1.13.0] - 2026-10-28
 
 #### Added
 

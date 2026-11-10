@@ -14,7 +14,7 @@
 
 - **Island Lamp Posts**: Fence and lantern posts now stand on solid island ground instead of on rooftops or on the thin edge of an island.
 
-## [1.2.19] - 2026-11-03
+## [1.19.0] - 2026-11-03
 
 ### Added
 - **Islands Completed Counter**: Finishing an island core now tells you how many of the 43 islands you have completed.
@@ -26,25 +26,25 @@
 - **Floating Island Chests**: Treasure chests inside island buildings now always have a floor under them.
 - **Island Progress Never Resets**: An island that has already been built keeps its core progress, even if the island is generated again.
 
-## [1.2.18] - 2026-10-30
+## [1.18.0] - 2026-10-30
 
 ### Improved & Balanced
 
 - **Content update**: Updated gameplay scripts and world data.
 
-## [1.2.17] - 2026-10-30
+## [1.17.0] - 2026-10-30
 
 ### Improved & Balanced
 
 - **Content update**: Updated gameplay scripts and world data.
 
-## [1.2.16] - 2026-10-30
+## [1.16.0] - 2026-10-30
 
 ### Improved & Balanced
 
 - **Content update**: Updated gameplay scripts and world data.
 
-## [1.2.15] - 2026-10-29
+## [1.15.0] - 2026-10-29
 
 ### Improved & Balanced
 
@@ -64,7 +64,7 @@
 - **Island Discovered Message**: The large centered title is now a small action bar message.
 - **Chat Command Leftovers Removed**: Unused chat command code that cannot work in current Minecraft was removed.
 
-## [1.2.14] - 2026-10-29
+## [1.14.0] - 2026-10-29
 
 ### Added
 - **Three Worlds**: The map now comes as a Creative world, a Survival world, and a Hardcore world.

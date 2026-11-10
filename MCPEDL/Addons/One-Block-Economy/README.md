@@ -5,7 +5,7 @@ Download the current release of **One-Block Hardcore Survival Economy** for Mine
 ## Download
 
 - **Package format:** `.mcaddon`
-- **Direct download:** [Download One-Block Hardcore Survival Economy (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/One-Block-Economy/One-Block%20Hardcore%20Survival%20Economy%20by%20ALNStudios%20%28V1.0.4%29.mcaddon)
+- **Direct download:** [Download One-Block Hardcore Survival Economy (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/One-Block-Economy/One-Block%20Hardcore%20Survival%20Economy%20by%20ALNStudios%20%28V1.4.0%29.mcaddon)
 
 ## Installation
 

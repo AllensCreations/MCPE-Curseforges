@@ -2,7 +2,7 @@
 
 ---
 
-## [2.0.1.0] - 2026-11-07
+## [2.1.0] - 2026-11-07
 
 **What's new in v2.0.1.0:** Packed with the v2.0.0.1 update.
 
@@ -17,7 +17,7 @@
 - **Grouped Chain Drops**: Tree Capitator and Domino Ore Miner now merge their drops into full stacks within 5-block areas, so far fewer item entities appear.
 - **Direct Block Breaking**: Tree Capitator and Domino Ore Miner now break blocks and place their drops directly instead of running game commands.
 
-## [2.0.0.0] - 2026-11-06
+## [2.0.0] - 2026-11-06
 
 **What's new in v2.0.0.0:** Packed with 2 updates, from v1.4.1 through v1.4.2.
 
@@ -35,7 +35,7 @@
 - **Zero Durability Tools**: A tool at 0 durability now breaks only the single block you hit and no longer starts Tree Capitator or Domino Ore Miner.
 - **Durability Floor**: Tree Capitator and Domino Ore Miner now use your tool down to 0 durability without breaking it, and the next use of that tool breaks it.
 
-## [1.4.0] - 2026-11-02
+## [1.0.0] - 2026-11-02
 
 **What's new in v1.4.0:** Packed with the v1.3.30 update.
 
@@ -50,27 +50,27 @@
 - **Durability After Auto-Switch**: If auto-switch changes your tool at the same moment a tree or ore vein is chain mined, the tool you actually mined with is put back in your hand and takes the durability loss instead of the new tool.
 - **Switch Delay After Breaking**: Auto-switch now waits a few ticks after any block breaks before changing your tool, so the tool you broke the block with keeps its durability loss.
 
-## [1.3.29] - 2026-11-02
+## [1.29.0] - 2026-11-02
 
 ### Fixed
 - **Tool Durability**: Tree Capitator and Domino Ore Miner now reliably wear down the tool you used, even if auto-switch changes your held item right afterward.
 - **Mangrove Trees**: Mangrove trees with moss carpet around their roots are now felled, and breaking Muddy Mangrove Roots no longer switches you to a shovel.
 - **Auto-Switch After Chain Mining**: Auto-switch now waits about two seconds after a tree or ore vein is chain mined before it can change your tool.
 
-## [1.3.28] - 2026-11-01
+## [1.28.0] - 2026-11-01
 
 ### Improved & Balanced
 - **Clearer Mining Presets**: The three mining presets in the pack settings now describe what they do: Sneak to Chain Mine (Default), Auto Chain Mine: Tool in Slot 1, and Chain Mining Off (Other Features On).
 
 - **Resource Pack Included**: The Behavior Pack now requires its Resource Pack, so both are enabled together when you activate it.
 
-## [1.3.27] - 2026-11-01
+## [1.27.0] - 2026-11-01
 
 ### Fixed
 
 - **Enchanted Tool Offhand Swap**: Swapping an enchanted or damaged tool into your offhand with a torch no longer resets it, so enchantments and remaining durability are kept.
 
-## [1.3.26] - 2026-10-29
+## [1.26.0] - 2026-10-29
 
 ### Improved & Balanced
 

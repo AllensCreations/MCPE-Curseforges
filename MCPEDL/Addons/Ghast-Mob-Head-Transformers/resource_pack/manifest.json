@@ -1,13 +1,13 @@
 {
   "format_version": 2,
   "header": {
-    "name": "Ghast Mob Head Transformers (v1.1.16)",
+    "name": "Ghast Mob Head Transformers (v1.16.0)",
     "description": "Custom geometry, render controllers, and textures for giant flying mob heads. by ALNStudios",
     "uuid": "7edf3247-cecf-4405-b1ea-bebc70379be8",
     "version": [
       1,
-      1,
-      16
+      16,
+      0
     ],
     "min_engine_version": [
       1,
@@ -22,8 +22,8 @@
       "uuid": "1961609d-bbb0-4976-86a1-faf0ab3171f8",
       "version": [
         1,
-        1,
-        16
+        16,
+        0
       ]
     }
   ],
@@ -31,6 +31,7 @@
     "authors": [
       "ALNStudios"
     ],
-    "product_type": "addon"
+    "product_type": "addon",
+    "version": "1.16.0"
   }
 }

@@ -2,13 +2,13 @@
 
 ---
 
-## [1.0.14] - 2026-10-29
+## [1.14.0] - 2026-10-29
 
 ### Improved & Balanced
 
 - **Maintenance release**: Repackaged the pack; no gameplay changes were recorded.
 
-## [1.0.10] - 2026-10-21
+## [1.10.0] - 2026-10-21
 
 ### Added
 - Four party modes: Party, Chill, Dance Battle, and Music Only.
@@ -26,7 +26,7 @@
 - The included soundtrack, placeable figurine, inventory icon, and placed-block texture.
 - Party effects end after the configured song-length session (approximately 66 seconds).
 
-## [1.0.9] - 2026-10-21
+## [1.9.0] - 2026-10-21
 
 ### Improved & Balanced
 - Nearby mobs spin and hop more frequently, with more frequent musical particles during the song.
@@ -39,30 +39,30 @@
 
 - Added clearer feedback when the soundtrack cannot start.
 
-## [1.0.8] - 2026-10-21
+## [1.8.0] - 2026-10-21
 
 ### Fixed
 - Corrected the figurine's placed-block appearance and inventory icon.
 
-## [1.0.7] - 2026-10-21
+## [1.7.0] - 2026-10-21
 
 ### Fixed
 - Replaced the cube placeholder with a small figurine model.
 - Added a matching inventory icon and corrected the item icon definition.
 
-## [1.0.6] - 2026-10-20
+## [1.6.0] - 2026-10-20
 
 ### Fixed
 - **Reliable Placement**: Fixed placement so the figurine can be placed in the world.
 - **Matching Appearance**: Added matching inventory and placed-block textures.
 - **Song Timing**: Adjusted the dance session to end near the soundtrack's finish.
 
-## [1.0.5] - 2026-10-20
+## [1.5.0] - 2026-10-20
 
 ### Improved
 - Included the soundtrack in the pack.
 
-## [1.0.1] - 2026-10-20
+## [1.1.0] - 2026-10-20
 
 ### Added
 - Musical Figurine: A placeable figurine that starts a song when interacted with.

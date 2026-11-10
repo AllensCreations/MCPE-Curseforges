@@ -1,8 +1,8 @@
 {
-  "changelog_version": "2.0.1.0",
-  "manifest_version": "2.0.1",
+  "changelog_version": "2.1.0",
+  "manifest_version": "2.1.0",
   "packages": {
-    "Vanilla Quality of Life by ALNStudios (V2.0.1).mcaddon": "c1ca17bd567b2de86006b8077740c1377698916dc0df046bd9a1339a462c0056"
+    "Vanilla Quality of Life by ALNStudios (V2.1.0).mcaddon": "f8d52e0d07e83f48f3b82331bbb12f4506850f62ed9c24b2b4222d4bcae95074"
   },
   "source_sha256": "4380cf83d76237859cc000fa7fe2d19445749bc3a2b320172c062cd832f887cf"
 }

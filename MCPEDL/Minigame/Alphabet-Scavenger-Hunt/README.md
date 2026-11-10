@@ -5,7 +5,7 @@ Download the current release of **Alphabet Scavenger Hunt** for Minecraft Bedroc
 ## Download
 
 - **Package format:** `.mcaddon`
-- **Direct download:** [Download Alphabet Scavenger Hunt (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Alphabet-Scavenger-Hunt/Alphabet%20Scavenger%20Hunt%20by%20ALNStudios%20%28V1.0.9%29.mcaddon)
+- **Direct download:** [Download Alphabet Scavenger Hunt (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Alphabet-Scavenger-Hunt/Alphabet%20Scavenger%20Hunt%20by%20ALNStudios%20%28V1.9.0%29.mcaddon)
 
 ## Installation
 

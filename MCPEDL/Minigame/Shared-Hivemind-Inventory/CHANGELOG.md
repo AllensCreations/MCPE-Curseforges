@@ -2,7 +2,7 @@
 
 ---
 
-## [1.1.0] - 2026-11-04
+## [1.0.0] - 2026-11-04
 
 **What's new in v1.1.0:** Packed with the v1.0.23 update.
 
@@ -11,7 +11,7 @@
 #### Added
 - **End Game Button**: The Controller menu now has an End Game button. The host or an operator can end sharing without using the function, and the shared items are divided between players the same way.
 
-## [1.0.22] - 2026-11-01
+## [1.22.0] - 2026-11-01
 
 ### Added
 
@@ -21,7 +21,7 @@
 
 - **Controller Menu**: The menu now shows the current layout and has a Layout button.
 
-## [1.0.21] - 2026-11-01
+## [1.21.0] - 2026-11-01
 
 ### Added
 
@@ -33,19 +33,19 @@
 - **Controller Menu**: The menu now shows the current mode and has a Mode button.
 - **Ending the Game**: The host keeps the shared Ender Chest items and everyone else's Ender Chest is emptied.
 
-## [1.0.20] - 2026-11-01
+## [1.20.0] - 2026-11-01
 
 ### Improved & Balanced
 
 - **Death Chat**: The chat message that announced a player's death and where the shared inventory dropped is gone. The shared inventory still drops once at the spot where the player died.
 
-## [1.0.19] - 2026-10-29
+## [1.19.0] - 2026-10-29
 
 ### Improved & Balanced
 
 - **Maintenance release**: Repackaged the pack; no gameplay changes were recorded.
 
-## [1.0.14] - 2026-10-27
+## [1.14.0] - 2026-10-27
 
 ### Added
 - **ALNStudios Controller**: The host or an operator receives a Controller item. Using it opens a menu with Start and How to play. Starting uses it up in Survival and keeps it in Creative.
@@ -68,42 +68,42 @@
 
 ---
 
-## [1.0.12] - 2026-10-18
+## [1.12.0] - 2026-10-18
 
 ### Fixed
 - **Join Notification:** The inventory-sync message is shown more reliably when players join.
 
 ---
 
-## [1.0.11] - 2026-10-18
+## [1.11.0] - 2026-10-18
 
 ### Improved
 - **In-Game Title:** The in-game add-on title now shows the correct release version.
 
 ---
 
-## [1.0.10] - 2026-10-18
+## [1.10.0] - 2026-10-18
 
 ### Fixed
 - **Join Notification:** Improved delivery of the inventory-sync message when players join.
 
 ---
 
-## [1.0.9] - 2026-10-18
+## [1.9.0] - 2026-10-18
 
 ### Added
 - **Private Syncing Message:** Players receive a short shared-inventory syncing message when they join, without repeating it on death respawn.
 
 ---
 
-## [1.0.7] - 2026-10-18
+## [1.7.0] - 2026-10-18
 
 ### Improved
 - **Team Inventory Name:** Updated the in-game name to Team Inventory.
 
 ---
 
-## [1.0.6] - 2026-10-18
+## [1.6.0] - 2026-10-18
 
 ### Added
 - **Persistent Shared Inventory:** Shared inventory state is retained when the world is restarted.

@@ -1,13 +1,13 @@
 {
   "format_version": 2,
   "header": {
-    "name": "Tameable Companion Fox (v1.0.8)",
+    "name": "Tameable Companion Fox (v1.8.0)",
     "description": "Tameable foxes with sitting and equip interactions. by ALNStudios",
     "uuid": "d34a1439-f03d-4e88-b31e-982a2fc4a347",
     "version": [
       1,
-      0,
-      8
+      8,
+      0
     ],
     "min_engine_version": [
       1,
@@ -21,8 +21,8 @@
       "uuid": "e868e811-abc0-44a8-a4f2-bae3143f138d",
       "version": [
         1,
-        0,
-        8
+        8,
+        0
       ]
     }
   ],
@@ -30,6 +30,7 @@
     "authors": [
       "ALNStudios"
     ],
-    "product_type": "addon"
+    "product_type": "addon",
+    "version": "1.8.0"
   }
 }

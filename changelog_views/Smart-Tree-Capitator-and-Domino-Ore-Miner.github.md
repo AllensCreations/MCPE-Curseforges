@@ -1,6 +1,6 @@
 # Changelog — Smart Tree Capitator and Domino Ore Miner
 
-## [1.0.11] - 2026-10-29
+## [1.11.0] - 2026-10-29
 
 ### Improved & Balanced
 - **Maintenance release**: Repackaged the pack; no gameplay changes were recorded.

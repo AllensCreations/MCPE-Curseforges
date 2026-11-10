@@ -1,14 +1,14 @@
 # Changelog — Tethered: Breaker and Builder
 
-## [1.0.12] - 2026-10-29
+## [1.12.0] - 2026-10-29
 
 ### Improved & Balanced
 - **Maintenance release**: Repackaged the pack; no gameplay changes were recorded.
 
 <details>
-<summary><b>1.0.x</b> (1 release)</summary>
+<summary><b>1.7.x</b> (1 release)</summary>
 
-### [1.0.7] - 2026-10-27
+### [1.7.0] - 2026-10-27
 
 #### Added
 - **Controller**: The host or an operator starts the challenge from the ALNStudios Controller. Roles and the leash are active only while the challenge is running.

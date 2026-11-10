@@ -1,13 +1,13 @@
 {
   "format_version": 2,
   "header": {
-    "name": "Smart Tree Capitator and Domino Ore Miner (v1.0.11)",
+    "name": "Smart Tree Capitator and Domino Ore Miner (v1.11.0)",
     "description": "Sneak-activated tree capitator and domino ore miner with durability safety protection. by ALNStudios",
     "uuid": "4d9c7a18-036d-4e1f-a4b4-d702b16c3387",
     "version": [
       1,
-      0,
-      11
+      11,
+      0
     ],
     "min_engine_version": [
       1,
@@ -23,8 +23,8 @@
       "uuid": "1f132867-c993-4052-97bf-75501c8073dd",
       "version": [
         1,
-        0,
-        11
+        11,
+        0
       ],
       "entry": "scripts/main.js"
     }
@@ -39,6 +39,7 @@
     "authors": [
       "ALNStudios"
     ],
-    "product_type": "addon"
+    "product_type": "addon",
+    "version": "1.11.0"
   }
 }

@@ -1,13 +1,13 @@
 {
   "format_version": 2,
   "header": {
-    "name": "Grand Banquets (v1.0.6)",
+    "name": "Grand Banquets (v1.6.0)",
     "description": "Provides item icons and display names for the 32 custom banquet dishes. by ALNStudios",
     "uuid": "77eb5486-758d-4a9f-9949-4eba0b900d30",
     "version": [
       1,
-      0,
-      6
+      6,
+      0
     ],
     "min_engine_version": [
       1,
@@ -21,8 +21,8 @@
       "uuid": "e2a0c21d-77d1-4633-8182-5c7434844b14",
       "version": [
         1,
-        0,
-        6
+        6,
+        0
       ]
     }
   ],
@@ -31,8 +31,8 @@
       "uuid": "485dca7d-bdc8-4fce-bc51-6b7d459907d1",
       "version": [
         1,
-        0,
-        6
+        6,
+        0
       ]
     }
   ],
@@ -40,6 +40,7 @@
     "authors": [
       "ALNStudios"
     ],
-    "product_type": "addon"
+    "product_type": "addon",
+    "version": "1.6.0"
   }
 }

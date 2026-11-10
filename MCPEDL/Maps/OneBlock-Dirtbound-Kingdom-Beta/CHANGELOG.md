@@ -2,13 +2,13 @@
 
 ---
 
-## [0.1.28] - 2026-10-29
+## [0.28.0] - 2026-10-29
 
 ### Improved & Balanced
 
 - **Maintenance release**: Repackaged the pack; no gameplay changes were recorded.
 
-## [0.1.25] - 2026-10-22
+## [0.25.0] - 2026-10-22
 
 ### Build & Packaging
 - Use the valid `level.dat` from each matching `Mcpeworlds/Creative/`, `Survival/`, and `Hardcore/` foundation.
@@ -17,22 +17,21 @@
 - Automatically rebuild all three world archives on relevant source/foundation changes, with structural checks before replacing published files.
 - Verify that `void_cleaner` remains first in the packaged `functions/tick.json`.
 
-
-## [0.1.24] - 2026-10-21
+## [0.24.0] - 2026-10-21
 
 ### Improved & Balanced
 - **Cleaner Starting Area:** The starting area is cleared before the central block progression begins.
 - **Trader Ledger Shop Access:** The Trader Ledger is the only way to open the shop.
 - **Live Balance Display:** The OneCoins balance appears in the action bar instead of a sidebar display.
 
-## [0.1.23] - 2026-10-21
+## [0.23.0] - 2026-10-21
 
 ### Changed
 - Removed the lectern and all physical Trader Post blocks.
 - Made the custom Trader Ledger item the only way to open the shop.
 - Removed the old lectern-based shop access; the Trader Ledger is the only way to open the shop.
 
-## [0.1.22] - 2026-10-21
+## [0.22.0] - 2026-10-21
 
 ### Changed
 - Changed the original shop station during the transition to item-only shop access.
@@ -44,34 +43,34 @@
 
 ---
 
-## [0.1.21] - 2026-10-21
+## [0.21.0] - 2026-10-21
 
 ### Fixed
 - **Reliable world setup:** The starting area is cleaned before OneBlock progression begins.
 - **Stable Core Startup:** The central block initializes after the starting-area cleanup.
 
-## [0.1.20] - 2026-10-21
+## [0.20.0] - 2026-10-21
 
 ### Fixed
 - **Startup core recovery:** The central block is restored when missing during world startup or player entry, without replacing an occupied core.
 - **Progression stability:** Routine world maintenance no longer replaces the evolving central block.
 - **Pack version alignment:** The Behavior Pack and Resource Pack use matching release versions.
 
-## [0.1.18] - 2026-10-21
+## [0.18.0] - 2026-10-21
 
 ### Fixed
 - **Reliable Starting Block:** The central Dirt can recover if saved progression information is unavailable.
 - **Correct Starting Location:** World spawn is configured during setup without teleporting players who are already online.
 - **Restored Foundation:** Missing Bedrock footing is restored automatically.
 
-## [0.1.17] - 2026-10-21
+## [0.17.0] - 2026-10-21
 
 ### Fixed
 - **Reliable starting platform:** The OneBlock now initializes as Dirt at 0 64 0, with a Bedrock footing at 0 63 0.
 - **Correct World Spawn:** The starting spawn is set during one-time setup without moving players who are already online.
 - **Platform Protection:** The Bedrock footing is restored if it is missing.
 
-## [0.1.16] - 2026-10-21
+## [0.16.0] - 2026-10-21
 
 ### Fixed
 - **Core spawning fallback:** The central block can recover as Dirt when progression information is unavailable, while later stages remain protected.
@@ -79,19 +78,19 @@
 ### Improved
 - **Permanent colored scoreboard:** Added a persistent colored sidebar showing players' OneCoins balances.
 
-## [0.1.15] - 2026-10-21
+## [0.15.0] - 2026-10-21
 
 ### Fixed
 - **Immediate Core Restoration:** The central block returns after a successful break, using the newly unlocked stage when progression changes.
 - **Consistent mining rewards:** Core restoration does not trigger a second player-break reward.
 
-## [0.1.14] - 2026-10-21
+## [0.14.0] - 2026-10-21
 
 ### Improved & Balanced
 - **Core difficulty curve:** Reordered the late-game blocks so Ancient Debris precedes Obsidian, followed by Crying Obsidian and a Block of Netherite.
 - **Shared progress display:** The status bar now shows both the current core stage and the world's total core-break count.
 
-## [0.1.13] - 2026-10-21
+## [0.13.0] - 2026-10-21
 
 ### Added
 - **Permanent Trader Post:** Open the shop from the base station, recover a missing Trader Ledger, and keep access even after losing the item.
@@ -105,7 +104,7 @@
 - **Regular milestones:** Every 250 personal breaks grants a small bonus, alongside the larger shop-tier rewards.
 - **Trader recovery:** The Ledger is automatically restored when missing and inventory space is available.
 
-## [0.1.11] - 2026-10-21
+## [0.11.0] - 2026-10-21
 
 ### Fixed
 - **Mining Progress:** Breaking the central block advances the mining counter and updates the OneCoin balance.
@@ -117,31 +116,31 @@
 - **Milestone bonuses:** Receive additional OneCoins at each progression unlock, with larger rewards reserved for later milestones.
 - **Clearer status display:** Added distinct pickaxe and coin indicators to the live status bar and trading menus.
 
-## [0.1.10] - 2026-10-21
+## [0.10.0] - 2026-10-21
 
 ### Changed
 - **Core Recovery:** The central Dirt returns when its position is empty, without replacing another block.
 - Added the custom OneBlock Trader item.
 - Kept shop access, currency, purchases, and progression together in the add-on.
 
-## [0.1.8] - 2026-10-21
+## [0.8.0] - 2026-10-21
 
 ### Fixed
 - Fixed a problem that prevented the trading interface from loading.
 
-## [0.1.7] - 2026-10-21
+## [0.7.0] - 2026-10-21
 
 ### Fixed
 - **Central Block Startup:** Improved the starting block setup so the central block appears when the world is ready.
 - Set the intended world difficulty and Survival gameplay defaults.
 - Players enter Survival when joining the challenge.
 
-## [0.1.6] - 2026-10-21
+## [0.6.0] - 2026-10-21
 
 ### Improved
 - Tuned tier pricing and purchase quantities to keep starter supplies affordable and rare endgame equipment costly.
 
-## [0.1.5] - 2026-10-21
+## [0.5.0] - 2026-10-21
 
 ### Added
 - Expanded the Trader shop to 180 purchasable entries across ten progression tiers.
@@ -151,7 +150,7 @@
 - Adjusted shop prices to scale with progression and keep starter supplies accessible.
 - Purchases deduct coins only for items successfully delivered.
 
-## [0.1.3] - 2026-10-21
+## [0.3.0] - 2026-10-21
 
 ### Improved
 - Replaced chat commands with an interactive OneBlock Trader item and Trading UI.

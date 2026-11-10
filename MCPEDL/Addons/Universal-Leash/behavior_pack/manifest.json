@@ -31,7 +31,8 @@
     "authors": [
       "ALNStudios"
     ],
-    "product_type": "addon"
+    "product_type": "addon",
+    "version": "2.0.0"
   },
   "dependencies": [
     {

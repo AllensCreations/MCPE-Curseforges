@@ -1,6 +1,6 @@
 # Changelog — Mob Chaos Behavioral Roulette
 
-## [1.0.4.2] - 2026-11-06
+## [1.4.2] - 2026-11-06
 
 ### Added
 - **Zoomies**: Mobs sprint in random directions at huge speed.
@@ -15,9 +15,9 @@
 - **Chaos events**: About one shuffle in five becomes a surprise event with an on-screen title, where many nearby mobs get the same mutation at once. They can be turned off in the Controller.
 
 <details>
-<summary><b>1.0.x</b> (2 releases)</summary>
+<summary><b>1.4.x</b> (2 releases)</summary>
 
-### [1.0.4.1] - 2026-11-06
+### [1.4.1] - 2026-11-06
 
 #### Added
 - **Start and Restart commands**: Start, Restart and End can now all be triggered from commands and command blocks.
@@ -38,7 +38,7 @@
 - **Wings of the sky**: Hovering mobs no longer overshoot their height limit.
 - **Restart**: Restarting no longer shows the game-ended message before the new game starts.
 
-### [1.0.4] - 2026-10-29
+### [1.4.0] - 2026-10-29
 
 #### Improved & Balanced
 - **Maintenance release**: Repackaged the pack; no gameplay changes were recorded.

@@ -2,7 +2,7 @@
 
 ---
 
-## [2.1.0.0] - 2026-11-08
+## [2.0.0] - 2026-11-08
 
 **What's new in v2.1.0.0:** Packed with 3 updates, from v2.0.1.0 through v2.0.0.2.
 
@@ -19,11 +19,11 @@
 - **Rideable Phantom**: A tamed Phantom can now be ridden and steered through the air.
 ---
 
-## [2.0.0] - 2026-11-06
+
 
 **What's new in v2.0.0:** Rolls up the existing changelog, from v1.0.7 through v1.3.0.
 
-## [1.3.0] - 2026-11-04
+## [1.0.0] - 2026-11-04
 
 **What's new in v1.3.0:** Packed with the v1.2.14 update.
 
@@ -35,62 +35,7 @@
 - **Peaceful difficulty**: Minecraft removes all hostile mobs on Peaceful, including tamed companions, so play on Easy or higher to keep them.
 ---
 
-## [1.2.13] - 2026-11-04
 
-### Improved & Balanced
-- **Peaceful difficulty**: Tamed companions are no longer removed from the world when the game is set to Peaceful.
-- **Player safety**: Tamed companions no longer turn on players when a vanilla anger, night-time, or raid behavior triggers.
-
----
-
-## [1.2.12] - 2026-11-03
-
-### Improved & Balanced
-- **Taming feedback**: The on-screen "Companion tamed!" message has been removed. Hearts still appear when a mob is tamed.
-
----
-
-## [1.2.11] - 2026-11-03
-
-### Added
-- **Taming feedback**: A burst of hearts and a "Companion tamed!" message now appear when a Primal Beast Biscuit tames a mob.
-- **Witch ally healing**: A tamed Witch now also throws a healing splash potion at nearby companions that are at 5 hearts or less.
-
----
-
-## [1.2.10] - 2026-10-29
-
-### Fixed
-- **Floating in the world**: Fixed a bug where you floated and saw air bubbles after entering a world with the add-on.
-- **Parched stats**: Parched now matches the vanilla mob: 16 HP, Weakness arrows, immune to Weakness, and no Weakness on melee hits.
-
----
-
-## [1.2.6] - 2026-10-29
-
-### Fixed
-- **Witch splash safety**: A tamed Witch no longer throws poison, slowness, or weakness potions at enemies standing within 4 blocks of you.
-
----
-
-## [1.2.5] - 2026-10-29
-
-### Added
-- **Witch healing**: A tamed Witch now occasionally throws a healing splash potion at you when you are hurt.
-
----
-
-## [1.2.4] - 2026-10-29
-
-### Added
-- **Parched**: The new desert skeleton can now be tamed with a Primal Beast Biscuit. A tamed Parched fires Weakness arrows at enemies and does not burn in sunlight.
-
-### Fixed
-- **Witch potions**: A tamed Witch no longer throws harmful potions at you or targets you.
-
----
-
-## [1.2.0] - 2026-10-28
 
 ### Added
 - **Golden Beast Biscuit:** Craft one Primal Beast Biscuit with one Gold Ingot to make a Golden Beast Biscuit that fully heals an injured companion.
@@ -105,7 +50,7 @@
 
 ---
 
-## [1.1.0] - 2026-10-28
+
 
 ### Added
 - **Automatic bodyguard:** Companions now attack aggressive hostile mobs that come near you, without waiting for you to be hurt first.
@@ -117,7 +62,62 @@
 
 ---
 
-## [1.0.8] - 2026-10-19
+## [1.13.0] - 2026-11-04
+
+### Improved & Balanced
+- **Peaceful difficulty**: Tamed companions are no longer removed from the world when the game is set to Peaceful.
+- **Player safety**: Tamed companions no longer turn on players when a vanilla anger, night-time, or raid behavior triggers.
+
+---
+
+## [1.12.0] - 2026-11-03
+
+### Improved & Balanced
+- **Taming feedback**: The on-screen "Companion tamed!" message has been removed. Hearts still appear when a mob is tamed.
+
+---
+
+## [1.11.0] - 2026-11-03
+
+### Added
+- **Taming feedback**: A burst of hearts and a "Companion tamed!" message now appear when a Primal Beast Biscuit tames a mob.
+- **Witch ally healing**: A tamed Witch now also throws a healing splash potion at nearby companions that are at 5 hearts or less.
+
+---
+
+## [1.10.0] - 2026-10-29
+
+### Fixed
+- **Floating in the world**: Fixed a bug where you floated and saw air bubbles after entering a world with the add-on.
+- **Parched stats**: Parched now matches the vanilla mob: 16 HP, Weakness arrows, immune to Weakness, and no Weakness on melee hits.
+
+---
+
+## [1.6.0] - 2026-10-29
+
+### Fixed
+- **Witch splash safety**: A tamed Witch no longer throws poison, slowness, or weakness potions at enemies standing within 4 blocks of you.
+
+---
+
+## [1.5.0] - 2026-10-29
+
+### Added
+- **Witch healing**: A tamed Witch now occasionally throws a healing splash potion at you when you are hurt.
+
+---
+
+## [1.4.0] - 2026-10-29
+
+### Added
+- **Parched**: The new desert skeleton can now be tamed with a Primal Beast Biscuit. A tamed Parched fires Weakness arrows at enemies and does not burn in sunlight.
+
+### Fixed
+- **Witch potions**: A tamed Witch no longer throws harmful potions at you or targets you.
+
+---
+
+## [1.8.0] - 2026-10-19
 
 ### Fixed
 - **Recipe book visibility:** The Primal Beast Biscuit recipe is now configured as always unlocked, addressing the issue where the recipe did not appear in the crafting recipe list.
@@ -125,7 +125,7 @@
 
 ---
 
-## [1.0.7] - 2026-10-19
+## [1.7.0] - 2026-10-19
 
 ### Improved & Balanced
 - **Offline crafting:** The Primal Beast Biscuit recipe is included with the Behavior Pack, so players can craft biscuits during local gameplay without an internet connection after importing and enabling the add-on.

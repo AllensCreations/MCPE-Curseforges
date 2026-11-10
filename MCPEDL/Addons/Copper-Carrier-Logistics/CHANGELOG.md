@@ -2,7 +2,7 @@
 
 ---
 
-## [1.0.1] - 2026-11-03
+## [1.1.0] - 2026-11-03
 
 ### Added
 - **Move Sorting Area**: Right-click a flying sorting unit with a Copper Ingot to set its sorting area to where it hovers.

@@ -1,12 +1,12 @@
 {
   "format_version": 2,
   "header": {
-    "name": "Team Inventory (v1.1.0)",
+    "name": "Team Inventory (v1.0.0)",
     "description": "Persistent shared inventory, armor, offhand, and hotbar selection for multiplayer. by ALNStudios",
     "uuid": "ea58a63d-0e39-4d06-b07e-07c0a98ac0e3",
     "version": [
       1,
-      1,
+      0,
       0
     ],
     "min_engine_version": [
@@ -23,7 +23,7 @@
       "uuid": "e5b9f904-8fb7-4302-ac75-1fa2b1cf4f70",
       "version": [
         1,
-        1,
+        0,
         0
       ],
       "entry": "scripts/main.js"
@@ -34,7 +34,7 @@
       "uuid": "cc723f33-6729-4663-9077-dd1f1ed4d836",
       "version": [
         1,
-        1,
+        0,
         0
       ]
     },
@@ -51,6 +51,7 @@
     "authors": [
       "ALNStudios"
     ],
-    "product_type": "addon"
+    "product_type": "addon",
+    "version": "1.0.0"
   }
 }

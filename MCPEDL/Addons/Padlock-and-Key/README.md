@@ -5,7 +5,7 @@ Download the current release of **Padlock & Key** for Minecraft Bedrock Edition.
 ## Download
 
 - **Package format:** `.mcaddon`
-- **Direct download:** [Download Padlock & Key (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Padlock-and-Key/Padlock%20%26%20Key%20by%20ALNStudios%20%28V1.0.0%29.mcaddon)
+- **Direct download:** [Download Padlock & Key (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Padlock-and-Key/Padlock%20%26%20Key%20by%20ALNStudios%20%28V1.0.4%29.mcaddon)
 
 ## Installation
 

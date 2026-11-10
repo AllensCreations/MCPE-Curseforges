@@ -1,13 +1,13 @@
 {
   "format_version": 2,
   "header": {
-    "name": "Vanilla Quality of Life (v2.0.1)",
+    "name": "Vanilla Quality of Life (v2.1.0)",
     "description": "Comprehensive survival Quality of Life suite with dynamic light, offhand quick-swap, passive auto-switch tools, tree capitator, and domino ore miner. by ALNStudios",
     "uuid": "5461534c-a7c4-4c5b-9269-8be52d2b761b",
     "version": [
       2,
-      0,
-      1
+      1,
+      0
     ],
     "min_engine_version": [
       1,
@@ -22,8 +22,8 @@
       "uuid": "81382d42-b64c-4759-8c05-0e4e3e8436e8",
       "version": [
         2,
-        0,
-        1
+        1,
+        0
       ]
     },
     {
@@ -33,8 +33,8 @@
       "uuid": "880944f5-3d04-401d-a5d5-011d89c969b6",
       "version": [
         2,
-        0,
-        1
+        1,
+        0
       ],
       "entry": "scripts/main.js"
     }
@@ -48,8 +48,8 @@
       "uuid": "fd036566-d0b1-4f92-9b28-9dd45a376d44",
       "version": [
         2,
-        0,
-        1
+        1,
+        0
       ]
     }
   ],
@@ -57,7 +57,8 @@
     "authors": [
       "ALNStudios"
     ],
-    "product_type": "addon"
+    "product_type": "addon",
+    "version": "2.1.0"
   },
   "subpacks": [
     {

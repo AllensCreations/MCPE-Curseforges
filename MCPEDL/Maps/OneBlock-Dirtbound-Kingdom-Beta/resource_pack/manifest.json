@@ -1,13 +1,13 @@
 {
   "format_version": 2,
   "header": {
-    "name": "OneBlock Dirtbound Kingdom Beta (v0.1.28)",
+    "name": "OneBlock Dirtbound Kingdom Beta (v0.28.0)",
     "description": "Custom Trader item texture for Dirtbound Kingdom. by ALNStudios",
     "uuid": "e8d8136a-7a5b-4818-b813-61c21f2e71ad",
     "version": [
       0,
-      1,
-      28
+      28,
+      0
     ],
     "min_engine_version": [
       1,
@@ -21,8 +21,8 @@
       "uuid": "fa89d5ac-9dd7-42a5-9f2f-941ab4e13f68",
       "version": [
         0,
-        1,
-        28
+        28,
+        0
       ]
     }
   ],
@@ -30,6 +30,7 @@
     "authors": [
       "ALNStudios"
     ],
-    "product_type": "addon"
+    "product_type": "addon",
+    "version": "0.28.0"
   }
 }

@@ -1,6 +1,6 @@
 # Changelog — Vanilla Quality of Life
 
-## [2.0.1] - 2026-11-07
+## [2.1.0] - 2026-11-07
 
 ### Added
 - **More Held Lights**: Glowstone, Sea Lanterns, Shroomlights, and Jack o'Lanterns now light up your surroundings at Light Level 15 while you hold them.
@@ -30,41 +30,42 @@
 </details>
 
 <details>
-<summary><b>1.4.x</b> (1 release)</summary>
+<summary><b>1.29.x</b> (1 release)</summary>
 
-### [1.4.0] - 2026-11-02
-
-#### v1.3.x (v1.3.30)
-- **Smoother Held Light**: The light from torches and lanterns in your hands now updates every tick, so it keeps up with you while moving and jumping.
-- **Auto-Switch Only While Mining**: Auto-switch now acts only while you are hitting blocks and no longer changes your tool just because you are looking at something.
-- **Light Flicker While Pillar Jumping**: Placing a block where your held light was no longer leaves you in the dark; the light moves back to you immediately.
-- **Durability After Auto-Switch**: If auto-switch changes your tool at the same moment a tree or ore vein is chain mined, the tool you actually mined with is put back in your hand and takes the durability loss instead of the new tool.
-- **Switch Delay After Breaking**: Auto-switch now waits a few ticks after any block breaks before changing your tool, so the tool you broke the block with keeps its durability loss.
-
-</details>
-
-<details>
-<summary><b>1.3.x</b> (4 releases)</summary>
-
-### [1.3.29] - 2026-11-02
+### [1.29.0] - 2026-11-02
 
 #### Fixed
 - **Tool Durability**: Tree Capitator and Domino Ore Miner now reliably wear down the tool you used, even if auto-switch changes your held item right afterward.
 - **Mangrove Trees**: Mangrove trees with moss carpet around their roots are now felled, and breaking Muddy Mangrove Roots no longer switches you to a shovel.
 - **Auto-Switch After Chain Mining**: Auto-switch now waits about two seconds after a tree or ore vein is chain mined before it can change your tool.
 
-### [1.3.28] - 2026-11-01
+</details>
+
+<details>
+<summary><b>1.28.x</b> (1 release)</summary>
+
+### [1.28.0] - 2026-11-01
 
 #### Improved & Balanced
 - **Clearer Mining Presets**: The three mining presets in the pack settings now describe what they do: Sneak to Chain Mine (Default), Auto Chain Mine: Tool in Slot 1, and Chain Mining Off (Other Features On).
 - **Resource Pack Included**: The Behavior Pack now requires its Resource Pack, so both are enabled together when you activate it.
 
-### [1.3.27] - 2026-11-01
+</details>
+
+<details>
+<summary><b>1.27.x</b> (1 release)</summary>
+
+### [1.27.0] - 2026-11-01
 
 #### Fixed
 - **Enchanted Tool Offhand Swap**: Swapping an enchanted or damaged tool into your offhand with a torch no longer resets it, so enchantments and remaining durability are kept.
 
-### [1.3.26] - 2026-10-29
+</details>
+
+<details>
+<summary><b>1.26.x</b> (1 release)</summary>
+
+### [1.26.0] - 2026-10-29
 
 #### Improved & Balanced
 - **Maintenance release**: Repackaged the pack; no gameplay changes were recorded.
@@ -140,5 +141,19 @@
 - **Spider Leash Locators**: Custom torso locator alignment for spiders and cave spiders.
 - **Pet Friendly-Fire Immunity**: Tamed companions take zero damage from friendly sweeps, arrows, and explosions.
 - **Fast Leaf Decay**: Floating leaves decay within 1 to 2 seconds after tree felling.
+
+</details>
+
+<details>
+<summary><b>1.0.x</b> (1 release)</summary>
+
+### [1.0.0] - 2026-11-02
+
+#### v1.3.x (v1.3.30)
+- **Smoother Held Light**: The light from torches and lanterns in your hands now updates every tick, so it keeps up with you while moving and jumping.
+- **Auto-Switch Only While Mining**: Auto-switch now acts only while you are hitting blocks and no longer changes your tool just because you are looking at something.
+- **Light Flicker While Pillar Jumping**: Placing a block where your held light was no longer leaves you in the dark; the light moves back to you immediately.
+- **Durability After Auto-Switch**: If auto-switch changes your tool at the same moment a tree or ore vein is chain mined, the tool you actually mined with is put back in your hand and takes the durability loss instead of the new tool.
+- **Switch Delay After Breaking**: Auto-switch now waits a few ticks after any block breaks before changing your tool, so the tool you broke the block with keeps its durability loss.
 
 </details>

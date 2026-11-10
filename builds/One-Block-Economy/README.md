@@ -8,7 +8,7 @@ This folder contains compiled release packages for **One-Block Hardcore Survival
 
 | File Name | Format | Size | Description | Download Link |
 | :--- | :--- | :--- | :--- | :--- |
-| **`One-Block Hardcore Survival Economy by ALNStudios (V1.0.4).mcaddon`** | `.mcaddon` | ~88 KB | Complete Add-on package for Minecraft Bedrock. | [Download (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/One-Block-Economy/One-Block%20Hardcore%20Survival%20Economy%20by%20ALNStudios%20%28V1.0.4%29.mcaddon) |
+| **`One-Block Hardcore Survival Economy by ALNStudios (V1.4.0).mcaddon`** | `.mcaddon` | ~88 KB | Complete Add-on package for Minecraft Bedrock. | [Download (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/One-Block-Economy/One-Block%20Hardcore%20Survival%20Economy%20by%20ALNStudios%20%28V1.4.0%29.mcaddon) |
 
 ---
 

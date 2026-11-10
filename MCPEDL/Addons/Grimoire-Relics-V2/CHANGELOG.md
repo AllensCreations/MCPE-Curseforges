@@ -2,19 +2,19 @@
 
 ---
 
-## [1.0.13] - 2026-11-04
+## [1.13.0] - 2026-11-04
 
 ### Improved & Balanced
 
 - **Clearer Tome Locations**: The description now lists every exploration chest that can contain Abyssal Tide, Deep Delver, Arcane Scholar, and Cursed Alchemist, and corrects a few wording mistakes. No gameplay changes.
 
-## [1.0.12] - 2026-10-29
+## [1.12.0] - 2026-10-29
 
 ### Improved & Balanced
 
 - **Maintenance release**: Repackaged the pack; no gameplay changes were recorded.
 
-## [1.0.6] - 2026-10-20
+## [1.6.0] - 2026-10-20
 
 ### Improved & Balanced
 - **Single-Use Void Rescue**: The first rescue consumes the Void Phantom, preventing repeated activations.
@@ -22,11 +22,11 @@
 
 ---
 
-## [1.0.5] - 2026-10-19
+## [1.5.0] - 2026-10-19
 
 ---
 
-## [1.0.3] - 2026-10-15
+## [1.3.0] - 2026-10-15
 
   - Simplified the carried spellbook appearance and removed the previous custom model presentation.
   - **Handheld Appearance:** Grimoires now display cleanly in either hand.
@@ -39,14 +39,14 @@
 
 ---
 
-## [1.0.2] - 2026-10-15
+## [1.2.0] - 2026-10-15
 
   - Confined Void Phantom protection strictly to The End dimension (The End).
   - Initial integration of ground-proximity cushion landing.
 
 ---
 
-## [1.0.1] - 2026-10-15
+## [1.1.0] - 2026-10-15
 
 ### Added
 - **Spellbook Presentation:** Improved the way spellbooks appear when carried, with clearer textures and a more polished in-game look.
