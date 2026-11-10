@@ -444,7 +444,7 @@ jobs:
           git config user.name  "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
 
-          for dir in MCPEDL builds; do
+          for dir in MCPEDL builds changelog_views; do
             if [ -d "$dir" ]; then git add "$dir"; fi
           done
           if [ -f README.md ]; then git add README.md; fi
