@@ -61,7 +61,9 @@ def migrate_registry(write=True):
     changed = False
     for entry in data.values():
         if not isinstance(entry, dict): continue
-        if entry.pop("last_alpha_version", None) is not None: changed = True
+        if "last_alpha_version" in entry:
+            del entry["last_alpha_version"]
+            changed = True
         for field in ("last_published_version", "last_release_version"):
             value = entry.get(field)
             if isinstance(value, str):
