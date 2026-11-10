@@ -28,6 +28,16 @@ class MigrationTests(unittest.TestCase):
             changelog.write_text("# Changelog\n\n## [1.2.3.4] - 2026-01-01\n\n- Test\n", encoding="utf-8")
             self.assertEqual(migration.project_target(project), [1, 3, 4])
 
+    def test_project_target_uses_legacy_manifest_title_when_metadata_is_missing(self):
+        with tempfile.TemporaryDirectory() as temp:
+            project = Path(temp)
+            manifest = project / "behavior_pack" / "manifest.json"
+            manifest.parent.mkdir()
+            manifest.write_text(json.dumps({
+                "header": {"version": [1, 2, 3], "name": "Demo (v1.2.3.4)"},
+            }), encoding="utf-8")
+            self.assertEqual(migration.project_target(project), [1, 3, 4])
+
     def test_changelog_migration_merges_alpha_collision(self):
         with tempfile.TemporaryDirectory() as temp:
             path = Path(temp) / "CHANGELOG.md"
