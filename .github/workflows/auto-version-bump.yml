@@ -280,6 +280,9 @@ jobs:
         with:
           python-version: '3.14'
 
+      - name: Normalize all legacy manifest versions to X.Y.Z
+        run: python3 scripts/manifest_tools.py --all --align
+
       - name: Ensure custom crafting recipes are always unlocked
         run: python3 scripts/ensure_recipe_unlocks.py
 
