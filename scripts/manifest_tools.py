@@ -195,7 +195,7 @@ def align_project_manifests(project_path, target=None, write=True, metadata=True
         if metadata and os.environ.get("MANIFEST_METADATA", "1") != "0": ensure_metadata(data, license_text)
         if data != before:
             if write:
-                with open(path, "w", encoding="utf-8", newline="\\n") as fh: fh.write(_dump(data))
+                with open(path, "w", encoding="utf-8", newline="\n") as fh: fh.write(_dump(data))
             changed.append(os.path.relpath(path, REPO_ROOT).replace(os.sep, "/"))
     return target, changed
 
