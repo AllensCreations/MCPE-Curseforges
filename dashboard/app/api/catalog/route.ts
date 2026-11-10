@@ -51,6 +51,7 @@ export async function GET() {
         category,
         version: info.manifest_version || info.changelog_version || manifest?.header?.version?.join(".") || "Unknown",
         description: manifest?.header?.description || "",
+        iconUrl: manifestEntry && tree.some((item) => item.path === `${sourcePrefix?.prefix}resource_pack/pack_icon.png` || item.path === `${sourcePrefix?.prefix}behavior_pack/pack_icon.png`) ? `/api/icon?project=${encodeURIComponent(slug)}` : null,
         packages,
       };
     }));
