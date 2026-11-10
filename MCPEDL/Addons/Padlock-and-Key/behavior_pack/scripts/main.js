@@ -265,3 +265,8 @@ world.afterEvents.playerPlaceBlock.subscribe((event) => {
 world.afterEvents.playerLeave.subscribe((event) => {
   recentKeyBlockUse.delete(event.playerId);
 });
+
+world.beforeEvents.explosion.subscribe((event) => {
+  const safe = event.getImpactedBlocks().filter((block) => !(isLockable(block) && findLock(block)));
+  event.setImpactedBlocks(safe);
+});

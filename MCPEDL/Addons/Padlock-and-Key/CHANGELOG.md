@@ -2,6 +2,11 @@
 
 ---
 
+## [1.0.0.2] - 2026-11-10
+
+### Added
+- **Blast Protection**: Explosions no longer destroy locked blocks. Everything around them can still be damaged.
+
 ## [1.0.0.1] - 2026-11-10
 
 ### Added

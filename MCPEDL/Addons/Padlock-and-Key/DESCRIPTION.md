@@ -33,7 +33,7 @@ Craft a Padlock, rename it on an anvil, and use it on a supported block. The blo
 ### Break Protection
 - **What Happens**: A locked block cannot be broken unless you hold the matching Key in either hand.
 - **How It Works**: Break the block with the matching Key in hand. The lock is removed, the Key disperses, and the Padlock returns. Without the Key, text above your hotbar says the block is locked.
-- **Good To Know**: Hoppers cannot be placed directly under a locked block, and a block cannot be locked while a Hopper sits under it. The pack adds no protection against hopper minecarts, redstone, or explosions.
+- **Good To Know**: Hoppers cannot be placed directly under a locked block, and a block cannot be locked while a Hopper sits under it. Explosions do not destroy locked blocks. The pack adds no protection against hopper minecarts or redstone.
 
 ### Key Copies
 - **What Happens**: Hold a Key in your main hand and an Iron Nugget in your offhand, then use the Key to get one extra Key with the same name.
