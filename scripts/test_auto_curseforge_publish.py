@@ -34,6 +34,7 @@ class AutoPublishTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as temp:
             root = Path(temp)
             (root / "builds").mkdir(parents=True)
+                (root / "builds/.three_part_version_migrated").touch()
             (root / "builds/Curseforge_IDs.json").write_text(
                 '{"MCPEDL/Addons/Example":{"project_id":"123"}}'
             )
@@ -90,11 +91,11 @@ class AutoPublishTests(unittest.TestCase):
             with patch.object(publisher.release, "REPO_ROOT", root):
                 info = publisher.release.read_info("MCPEDL/Addons/Old")
                 self.assertEqual(info["project_id"], "77")
-                self.assertEqual(info["last_published_version"], "1.2.0")
+                self.assertEqual(info["last_published_version"], "1.0.0")
                 publisher.release.save_info("MCPEDL/Addons/New", "88")
             saved = json.loads((root / "builds/Curseforge_IDs.json").read_text())
             self.assertEqual(sorted(saved), ["MCPEDL/Addons/New", "MCPEDL/Addons/Old"])
-            self.assertEqual(saved["MCPEDL/Addons/Old"]["last_published_version"], "1.2.0")
+            self.assertEqual(saved["MCPEDL/Addons/Old"]["last_published_version"], "1.0.0")
             self.assertFalse(legacy.exists())
 
     def test_beta_merges_all_unreleased_entries_into_one_grouped_entry(self):
