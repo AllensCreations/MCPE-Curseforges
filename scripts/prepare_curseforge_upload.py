@@ -225,10 +225,11 @@ def save_info(project_path, project_id, last_published_version=None, last_releas
 
 
 def parse_version(text):
-    """X.Y.Z or X.Y.Z as a 4-tuple; a missing A counts as 0."""
-    parts = tuple(int(part) for part in text.split("."))
-    return parts + (0,) * (4 - len(parts))
-
+    """Parse an exact X.Y.Z version into a three-part tuple."""
+    parts = tuple(int(part) for part in str(text).split("."))
+    if len(parts) != 3 or any(part < 0 for part in parts):
+        raise ValueError(f"Invalid X.Y.Z version: {text!r}")
+    return parts
 
 def split_changelog(text):
     """Split into (preamble, [segment, ...]); each segment starts at a '## ' heading."""
