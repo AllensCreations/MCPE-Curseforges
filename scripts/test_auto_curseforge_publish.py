@@ -12,7 +12,7 @@ import prepare_curseforge_upload as release
 class VersionPolicyTests(unittest.TestCase):
     def test_versions_are_exactly_three_parts(self):
         self.assertEqual(release.parse_version("1.2.3"), (1, 2, 3))
-        with self.assertRaises(ValueError): release.parse_version("1.2.3.4")
+        self.assertEqual(release.parse_version("1.2.3.4"), (1, 2, 7))  # legacy Z + A migration
         with self.assertRaises(ValueError): release.parse_version("1.2")
 
     def test_update_beta_release_progression(self):
@@ -26,10 +26,10 @@ class VersionPolicyTests(unittest.TestCase):
         self.assertEqual(release.merge_baseline("beta", {"last_published_version": "1.2.3", "last_release_version": "1.1.0"}), "1.2.3")
         self.assertEqual(release.merge_baseline("release", {"last_published_version": "1.3.0", "last_release_version": "1.1.0"}), "1.1.0")
 
-    def test_changelog_header_rejects_four_part_versions(self):
+    def test_changelog_header_accepts_legacy_versions_for_migration(self):
         self.assertTrue(release.CHANGELOG_HEADER.fullmatch("## [1.2.3] - 2026-11-11"))
-        self.assertFalse(release.CHANGELOG_HEADER.fullmatch("## [1.2.3.4] - 2026-11-11"))
-
+        self.assertTrue(release.CHANGELOG_HEADER.fullmatch("## [1.2.3.4] - 2026-11-11"))
+        self.assertEqual(release.parse_version("1.2.3.4"), (1, 2, 7))
     def test_alpha_is_not_a_publish_choice(self):
         self.assertNotIn("alpha", ("beta", "release"))
         with self.assertRaises(ValueError):
