@@ -96,3 +96,4 @@ You start on a 3x3 grass island floating in an empty void, next to a single luck
 ## Search & Discovery Keywords
 
 Minecraft Bedrock add-on, One Block Skyblock Lucky Blocks Bedrock map, one block skyblock, lucky block map, progressive one block, void island survival, Minecraft PE skyblock, MCPEDL add-on, CurseForge Bedrock, AllensCreations.
+
