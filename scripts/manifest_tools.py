@@ -323,9 +323,13 @@ def latest_changelog_version(project_path):
     try:
         with open(path, encoding="utf-8") as fh:
             for line in fh:
-                m = re.match(r"^## \[(\d+\.\d+\.\d+)\]", line)
+                m = re.match(r"^## \[(\d+\.\d+\.\d+(?:\.\d+)?)\]", line)
                 if m:
-                    return m.group(1)
+                    parts = parse_full(m.group(1))
+                    if len(m.group(1).split(".")) == 4:
+                        raw = [int(p) for p in m.group(1).split(".")]
+                        parts = [raw[0], raw[1], raw[2] + raw[3]]
+                    return fmt(parts) if parts else None
     except OSError:
         pass
     return None
