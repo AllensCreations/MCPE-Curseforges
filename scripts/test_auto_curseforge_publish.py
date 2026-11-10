@@ -10,7 +10,7 @@ import auto_publish_curseforge as publisher
 import prepare_curseforge_upload as release
 
 class VersionPolicyTests(unittest.TestCase):
-    def test_versions_are_exactly_three_parts(self):
+    def test_three_part_policy_and_legacy_component_mapping(self):
         self.assertEqual(release.parse_version("1.2.3"), (1, 2, 3))
         self.assertEqual(release.parse_version("1.2.3.4"), (1, 3, 4))  # legacy Z + A migration
         with self.assertRaises(ValueError): release.parse_version("1.2")
@@ -35,7 +35,7 @@ class VersionPolicyTests(unittest.TestCase):
         with self.assertRaises(ValueError):
             release.prepare("MCPEDL/Addons/Example", "alpha")
 
-    def test_registry_migration_drops_alpha_and_truncates_old_versions(self):
+    def test_registry_migration_drops_alpha_and_maps_old_components(self):
         with tempfile.TemporaryDirectory() as temp:
             root = Path(temp)
             (root / "builds").mkdir()
