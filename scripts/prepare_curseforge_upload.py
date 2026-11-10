@@ -436,34 +436,15 @@ def next_version(highest, release_type):
     return f"{major}.{minor}.{patch + 1}"
 
 def prior_version(version):
-    major, minor, patch, extra = parse_version(version)
-    if extra:
-        return f"{major}.{minor}.{patch}.{extra - 1}"
-    if patch:
-        return f"{major}.{minor}.{patch - 1}.0"
-    if minor:
-        return f"{major}.{minor - 1}.0.0"
-    return f"{max(major - 1, 0)}.0.0.0" if major else version
-
+    major, minor, patch = parse_version(version)
+    if patch: return f"{major}.{minor}.{patch - 1}"
+    if minor: return f"{major}.{minor - 1}.0"
+    return f"{max(major - 1, 0)}.0.0" if major else version
 
 def baselines_after(release_type, info, version):
-    """Registry fields to save after an upload (besides last_published_version)."""
     fallback = info.get("last_published_version") or prior_version(version)
-    out = {}
-    if release_type == "release":
-        out["last_release_version"] = version
-        out["last_legacy alpha_version"] = version
-    elif release_type == "legacy alpha":
-        out["last_legacy alpha_version"] = version
-        if not info.get("last_release_version"):
-            out["last_release_version"] = fallback
-    else:
-        if not info.get("last_release_version"):
-            out["last_release_version"] = fallback
-        if not info.get("last_legacy alpha_version"):
-            out["last_legacy alpha_version"] = info.get("last_release_version") or fallback
-    return out
-
+    if release_type == "release": return {"last_release_version": version}
+    return {"last_release_version": info.get("last_release_version") or fallback}
 
 def combine_changelog(project_dir, changelog_path, last_published=None, today=None,
                       release_type="release", last_release=None, last_legacy alpha=None):
