@@ -332,7 +332,6 @@ jobs:
                 ARGS=(--all)
               elif [ "$SCOPE" = "all" ]; then
                 ARGS=(--all)
-                  GLOBAL_MIGRATION=true
               else
                 PICKS=()
                 [ -n "$ADDON" ]     && [ "$ADDON" != "-" ]     && PICKS+=("MCPEDL/Addons/$ADDON")
@@ -350,7 +349,16 @@ jobs:
             *)
               if [ -n "$BEFORE" ] && [ "$BEFORE" != "0000000000000000000000000000000000000000" ]; then
                 CHANGED_PATHS="$(git diff --name-only "$BEFORE" HEAD)"
-                if grep -Eq '^(scripts/manifest_tools.py|scripts/migrate_three_part_versions.py|.github/workflows/auto-version-bump.yml)
+                if grep -Eq '^(scripts/manifest_tools\.py|scripts/migrate_three_part_versions\.py|\.github/workflows/auto-version-bump\.yml)$' <<< "$CHANGED_PATHS"; then
+                  # Global version migrations change every project, even if the commit has no MCPEDL paths.
+                  ARGS=(--all)
+                  GLOBAL_MIGRATION=true
+                else
+                  ARGS=(--base "$BEFORE")
+                fi
+              else
+                ARGS=(--all)
+              fi
               ;;
           esac
           if { [ "$BUMP_INPUT" = "true" ] || [ "${AUTO_BUMP_MANIFEST:-}" = "true" ]; } && [ "$GLOBAL_MIGRATION" != "true" ]; then
