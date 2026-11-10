@@ -1252,7 +1252,7 @@ def main():
         # Icons are source files: settle them before hashing so the hash is stable.
         if make_pack_icon is not None:
             make_pack_icon.ensure_project_icons(cp)
-        if manifest_tools and not skip_world:
+        if manifest_tools:
             _seen = _manifest_version_set(cp)
             _target, _changed = manifest_tools.align_project_manifests(cp)
             if _changed:
@@ -1265,7 +1265,9 @@ def main():
         source_hash = manifest_tools.compute_source_hash(cp) if manifest_tools else None
 
         bumped_note = ""
-        if args.bump and manifest_tools and not skip_world:
+        if args.bump and manifest_tools:
+            # Test-gated worlds still receive version updates; only their generic package
+            # rebuild is skipped below because a dedicated world workflow owns that archive.
             snapshot_state = snapshot_status(proj_name, old_v, source_hash)
             if should_bump_project(
                 snapshot_state,
