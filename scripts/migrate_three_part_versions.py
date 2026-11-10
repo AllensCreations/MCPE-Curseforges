@@ -93,7 +93,7 @@ def main():
     if builds.is_dir():
         for versions_dir in builds.glob("*/versions"):
             for legacy in sorted(versions_dir.glob("V*.*.*.*")):
-                if not re.fullmatch(r"V\\d+\\.\\d+\\.\\d+\\.\\d+", legacy.name):
+                if not re.fullmatch(r"V\d+\.\d+\.\d+\.\d+", legacy.name):
                     continue
                 destination = versions_dir.parent / "legacy_versions" / legacy.name
                 if not destination.exists():
