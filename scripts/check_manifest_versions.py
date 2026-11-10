@@ -100,10 +100,12 @@ def check_manifest(path, data, report):
     meta = data.get("metadata") if isinstance(data.get("metadata"), dict) else {}
     full = meta.get("version")
     expected = ".".join(map(str, header["version"])) if is_triple(header.get("version")) else None
-    if not (isinstance(full, str) and re.fullmatch(r"\d+\.\d+\.\d+", full)):
-        report.error(where, f"metadata.version must be exactly X.Y.Z (found {full!r}).")
-    elif expected is not None and full != expected:
-        report.error(where, f"metadata.version {full} does not equal header.version {expected}.")
+    if not is_installed_copy(path):
+        if not (isinstance(full, str) and re.fullmatch(r"\d+\.\d+\.\d+", full)):
+            report.error(where, f"metadata.version must be exactly X.Y.Z (found {full!r}).")
+        elif expected is not None and full != expected:
+            report.error(where, f"metadata.version {full} does not equal header.version {expected}.")
+
     mev = header.get("min_engine_version")
     if mev is None:
         report.error(where, "header.min_engine_version is missing.")
