@@ -8,8 +8,7 @@ name: Build Changed Packs & Sync Catalogs
 #     manifests: BP and RP manifests are aligned to the highest one, and
 #     builds/<pack>/versions/V<X.Y.Z>/ (packages, source.zip, source.sha256, build_info.json) is
 #     created or REFRESHED IN PLACE whenever the source or packages differ from the saved snapshot.
-#     Manifest versions are only bumped when "bump_on_change" is on (input, or repo variable
-#     AUTO_BUMP_MANIFEST=true); otherwise the publish task owns version bumps.
+#     Normal source builds automatically evaluate Update bumps; docs/generated changes do not bump.
 #
 #   publish  (the ONLY place that uploads to CurseForge)
 #     Dropdown + project IDs + last published versions all come from builds/Curseforge_IDs.json
@@ -37,7 +36,7 @@ on:
       - 'scripts/manifest_tools.py'
       - 'scripts/migrate_three_part_versions.py'
       - '.github/workflows/auto-version-bump.yml'
-  # Daily refresh, even when no source files changed (bumps only when AUTO_BUMP_MANIFEST is true).
+  # Daily refresh: rebuild all projects; bump only when source snapshots or the triggering diff prove a source change.
   schedule:
     - cron: "17 2 * * *"
   workflow_dispatch:
@@ -133,12 +132,6 @@ on:
         required: false
         default: ""
         type: string
-      bump_on_change:
-        description: "[build] Bump X.Y.Z -> X.Y.(Z+1) in the manifests when the source changed since the saved snapshot"
-        required: false
-        default: false
-        type: boolean
-
       # ---- task = publish ----
       publish_project:
         description: "[publish] Registered pack"
@@ -315,8 +308,6 @@ jobs:
           MINIGAME: ${{ github.event.inputs.minigame }}
           MAP: ${{ github.event.inputs.map }}
           OTHER: ${{ github.event.inputs.other }}
-          BUMP_INPUT: ${{ github.event.inputs.bump_on_change }}
-          AUTO_BUMP_MANIFEST: ${{ vars.AUTO_BUMP_MANIFEST }}
           PACK_FILENAME_TEMPLATE: ${{ vars.PACK_FILENAME_TEMPLATE }}
           BEFORE: ${{ github.event.before }}
         run: |
@@ -361,7 +352,9 @@ jobs:
               fi
               ;;
           esac
-          if { [ "$BUMP_INPUT" = "true" ] || [ "${AUTO_BUMP_MANIFEST:-}" = "true" ]; } && [ "$SKIP_AUTO_BUMP" != "true" ]; then
+          # Every normal build evaluates automatic Updates. The builder only increments Z
+          # when it detects a source change; publish and tooling-only rebuilds remain exempt.
+          if [ "$SKIP_AUTO_BUMP" != "true" ]; then
             ARGS+=(--bump)
           fi
           echo "Running: python3 scripts/auto_bump_and_build.py ${ARGS[*]}"

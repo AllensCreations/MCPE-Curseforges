@@ -40,6 +40,9 @@ jobs:
       - name: Manifest versions, UUIDs and dependencies
         run: python scripts/check_manifest_versions.py
 
+      - name: Validate automatic build workflow YAML
+        run: ruby -e 'require "yaml"; YAML.load_file(".github/workflows/auto-version-bump.yml"); puts "auto-version-bump.yml: valid YAML"'
+
       - name: Release dropdowns in sync
         continue-on-error: true  # advisory
         run: python scripts/sync_dispatch_choices.py --check
@@ -48,6 +51,7 @@ jobs:
         run: |
           python tests/test_crafting_template.py
           python scripts/test_manifest_tools.py
+          python scripts/test_auto_bump_and_build.py
           python scripts/test_migrate_three_part_versions.py
           python scripts/test_auto_curseforge_publish.py
 
