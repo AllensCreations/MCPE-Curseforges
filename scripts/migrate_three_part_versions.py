@@ -115,6 +115,36 @@ def migrate_registry(write=True):
         path.write_text(json.dumps(data, indent=2) + "\n", encoding="utf-8")
     return changed
 
+def migrate_legacy_info_files(write=True):
+    """Normalize old per-pack Curseforge_Info.json baselines before they are imported."""
+    changed = []
+    builds = ROOT / "builds"
+    if not builds.is_dir():
+        return changed
+    for path in sorted(builds.glob("*/Curseforge_Info.json")):
+        try:
+            data = json.loads(path.read_text(encoding="utf-8"))
+        except (OSError, json.JSONDecodeError):
+            continue
+        if not isinstance(data, dict):
+            continue
+        dirty = False
+        if "last_alpha_version" in data:
+            del data["last_alpha_version"]
+            dirty = True
+        for field in ("last_published_version", "last_release_version"):
+            value = data.get(field)
+            if isinstance(value, str) and VERSION.fullmatch(value):
+                normalized = migrate_version(value)
+                if normalized != value:
+                    data[field] = normalized
+                    dirty = True
+        if dirty:
+            if write:
+                path.write_text(json.dumps(data, indent=2) + "\n", encoding="utf-8")
+            changed.append(path.relative_to(ROOT).as_posix())
+    return changed
+
 def archive_old_snapshots(write=True):
     """Preserve old three/four-part snapshot folders outside the active X.Y.Z namespace."""
     changed = []
@@ -155,6 +185,7 @@ def main():
             changed.append(changelog.relative_to(ROOT).as_posix())
     if migrate_registry(write):
         changed.append("builds/Curseforge_IDs.json")
+    changed.extend(migrate_legacy_info_files(write))
     changed.extend(archive_old_snapshots(write))
     for item in changed:
         print(("would migrate: " if args.check else "migrated: ") + item)
