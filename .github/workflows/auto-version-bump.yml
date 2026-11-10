@@ -280,7 +280,10 @@ jobs:
         with:
           python-version: '3.14'
 
-      - name: Normalize all legacy manifest versions to X.Y.Z
+      - name: Migrate legacy X.Y.Z.A versions and changelogs to X.Y.Z
+        run: python3 scripts/migrate_three_part_versions.py
+
+      - name: Normalize all manifests to X.Y.Z
         run: python3 scripts/manifest_tools.py --all --align
 
       - name: Ensure custom crafting recipes are always unlocked
