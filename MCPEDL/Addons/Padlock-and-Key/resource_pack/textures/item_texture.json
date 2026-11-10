@@ -1,0 +1,12 @@
+{
+  "resource_pack_name": "padlock-and-key",
+  "texture_name": "atlas.items",
+  "texture_data": {
+    "pnk_padlock": {
+      "textures": "textures/items/chain"
+    },
+    "pnk_key": {
+      "textures": "textures/items/trial_key"
+    }
+  }
+}
