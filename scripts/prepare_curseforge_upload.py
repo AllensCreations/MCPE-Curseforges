@@ -423,33 +423,17 @@ def render_upload_changelog(new_version, date_text, merged, entries, release_typ
 
 
 def merge_baseline(release_type, info):
-    """Version after which changelog entries are still unpublished for this release type.
-
-    beta merges what is newer than the last upload of any type. legacy alpha merges what is newer than
-    the last legacy alpha or release. release merges what is newer than the last release.
-    Packs saved before legacy alpha was tracked fall back to the older fields.
-    """
+    """Beta covers changes since last upload; Release since last release."""
     published = info.get("last_published_version")
     release = info.get("last_release_version")
-    if release_type == "release":
-        return release or published
-    if release_type == "legacy alpha":
-        return info.get("last_legacy alpha_version") or release or published
-    return published
-
+    return (release or published) if release_type == "release" else published
 
 def next_version(highest, release_type):
-    """X.Y.Z. beta: X.Y.(Z+1). legacy alpha: X.(Y+1).0. release: (X+1).0.0.
-
-    Every update between publishes is A+1 in CHANGELOG.md; a beta publish groups those A versions.
-    """
+    """Update: X.Y.(Z+1); Beta: X.(Y+1).0; Release: (X+1).0.0."""
     major, minor, patch = highest[:3]
-    if release_type == "release":
-        return f"{major + 1}.0.0.0"
-    if release_type == "legacy alpha":
-        return f"{major}.{minor + 1}.0.0"
-    return f"{major}.{minor}.{patch + 1}.0"
-
+    if release_type == "release": return f"{major + 1}.0.0"
+    if release_type == "beta": return f"{major}.{minor + 1}.0"
+    return f"{major}.{minor}.{patch + 1}"
 
 def prior_version(version):
     major, minor, patch, extra = parse_version(version)
