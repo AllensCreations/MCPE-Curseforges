@@ -7,7 +7,7 @@ What lives here
     module versions and BP->RP dependency versions. Pack UUIDs are never touched.
   * bump_patch - the next X.Y.(Z+1).0 after the highest manifest version.
 
-Versions are X.Y.Z.A (4 numbers). Minecraft only accepts 3 numbers in header.version, so the
+Versions are X.Y.Z (4 numbers). Minecraft only accepts 3 numbers in header.version, so the
 manifest stores X.Y.Z there and the full X.Y.Z.A in metadata.version, the "(vX.Y.Z.A)" title
 suffix and the package file name. A comes from the top CHANGELOG.md heading when its X.Y.Z
 matches the manifest, else from metadata.version, else 0.
@@ -37,7 +37,7 @@ JUNK_FILES = {".ds_store", "thumbs.db", "desktop.ini", ".gitkeep"}
 BINARY_EXT = {".mcpack", ".mcaddon", ".mcworld", ".zip"}
 TITLE_SUFFIX_RE = re.compile(r"(?:\s*\(v\d+\.\d+\.\d+(?:\.\d+)?\))+\s*$")
 HAS_SUFFIX_RE = re.compile(r"\(v\d+\.\d+\.\d+(?:\.\d+)?\)\s*$")
-FULL_RE = re.compile(r"^(\d+)\.(\d+)\.(\d+)(?:\.(\d+))?$")
+FULL_RE = re.compile(r"^(\d+)\.(\d+)\.(\d+)$")
 AUTHOR = "ALNStudios"
 LEGACY_AUTHORS = ("ALNStudios",)
 FILENAME_TEMPLATE_ENV = "PACK_FILENAME_TEMPLATE"
@@ -93,40 +93,21 @@ def highest_version(project_path):
 
 
 def parse_full(text):
-    """'1.2.3' or '1.2.3.4' -> [1,2,3,A] (A defaults to 0); None if malformed."""
-    m = FULL_RE.match(str(text or "").strip())
-    return [int(m.group(i) or 0) for i in range(1, 5)] if m else None
-
+    """Parse the only supported project version format: X.Y.Z."""
+    m = FULL_RE.fullmatch(str(text or "").strip())
+    return [int(m.group(i)) for i in range(1, 4)] if m else None
 
 def full_of(data):
-    """metadata.version of one manifest as [X,Y,Z,A], or None."""
     meta = data.get("metadata") if isinstance(data, dict) else None
     return parse_full(meta.get("version")) if isinstance(meta, dict) else None
 
-
 def highest_full(project_path):
-    """Highest X.Y.Z.A of the project: header triple, A from the changelog or metadata.version."""
-    triple = highest_version(project_path)
-    if triple is None:
-        return None
-    build = 0
-    cl = parse_full(latest_changelog_version(project_path))
-    if cl and cl[:3] == list(triple):
-        build = cl[3]
-    for path in source_manifest_paths(project_path):
-        try:
-            f = full_of(_read(path))
-        except (OSError, ValueError, AttributeError):
-            continue
-        if f and f[:3] == list(triple):
-            build = max(build, f[3])
-    return list(triple) + [build]
-
+    return highest_version(project_path)
 
 def bump_patch(version):
-    """Next Z: X.Y.Z[.A] -> [X, Y, Z+1, 0]."""
-    return [version[0], version[1], version[2] + 1, 0]
-
+    if not is_triple(version):
+        raise ValueError("Version must contain exactly three non-negative integers")
+    return [version[0], version[1], version[2] + 1]
 
 def _retitle(name, version_text):
     """Replace an existing terminal (vX.Y.Z) suffix. Titles without one are left alone:
@@ -180,75 +161,46 @@ def ensure_metadata(data, license_text=None):
 
 
 def align_project_manifests(project_path, target=None, write=True, metadata=True):
-    """Bring every source manifest to one version and keep titles/dependencies consistent.
-
-    target: [X, Y, Z] or [X, Y, Z, A] to force, else the highest X.Y.Z.A (see highest_full).
-    Returns (target_version_list_or_None, [changed manifest paths relative to the repo]).
-    header.version/modules/dependencies get X.Y.Z; metadata.version and the title get X.Y.Z.A.
-    A manifest that already matches is not rewritten (no reformatting churn).
-    """
+    """Align every source manifest to one Minecraft-compatible X.Y.Z version."""
     paths = source_manifest_paths(project_path)
     loaded = []
     for path in paths:
-        try:
-            data = _read(path)
+        try: data = _read(path)
         except (OSError, ValueError):
-            print(f"WARNING: unreadable manifest skipped: {path}", file=sys.stderr)
-            continue
-        if isinstance(data, dict) and isinstance(data.get("header"), dict):
-            loaded.append((path, data))
-    if not loaded:
-        return None, []
+            print(f"WARNING: unreadable manifest skipped: {path}", file=sys.stderr); continue
+        if isinstance(data, dict) and isinstance(data.get("header"), dict): loaded.append((path, data))
+    if not loaded: return None, []
     if target is None:
         versions = [d["header"]["version"] for _, d in loaded if is_triple(d["header"].get("version"))]
-        if not versions:
-            return None, []
-        target = highest_full(project_path)
+        if not versions: return None, []
+        target = max(versions)
     target = list(target)
-    if len(target) == 3:
-        build = 0
-        full = highest_full(project_path)
-        if full and full[:3] == target:
-            build = full[3]
-        target = target + [build]
-    full_target, target = target, target[:3]
-    target_text = fmt(full_target)
+    if not is_triple(target): raise ValueError("Target version must be exactly X.Y.Z")
+    target_text = fmt(target)
     own_uuids = {d["header"].get("uuid") for _, d in loaded}
     license_text = os.environ.get("MANIFEST_LICENSE", "").strip() or None
-
     changed = []
     for path, data in loaded:
         before = copy.deepcopy(data)
         header = data["header"]
-        meta_obj = data.get("metadata")
-        if not isinstance(meta_obj, dict):
-            meta_obj = {}
-            data["metadata"] = meta_obj
-        if meta_obj.get("version") != target_text:
-            meta_obj["version"] = target_text
-        if header.get("version") != target:
-            header["version"] = target
-            for module in data.get("modules", []) or []:
-                if isinstance(module, dict) and isinstance(module.get("version"), list):
-                    module["version"] = target
+        meta = data.get("metadata")
+        if not isinstance(meta, dict): meta = {}; data["metadata"] = meta
+        meta["version"] = target_text
+        header["version"] = target
+        for module in data.get("modules", []) or []:
+            if isinstance(module, dict) and isinstance(module.get("version"), list): module["version"] = target
         retitled = _retitle(header.get("name"), target_text)
-        if retitled != header.get("name"):
-            header["name"] = retitled
+        if retitled != header.get("name"): header["name"] = retitled
         deps = data.get("dependencies", [])
         for dep in deps if isinstance(deps, list) else []:
-            if (isinstance(dep, dict) and dep.get("uuid") in own_uuids
-                    and isinstance(dep.get("version"), list) and dep["version"] != target):
-                dep["version"] = target
+            if isinstance(dep, dict) and dep.get("uuid") in own_uuids and isinstance(dep.get("version"), list): dep["version"] = target
         migrate_legacy_branding(data)
-        if metadata and os.environ.get("MANIFEST_METADATA", "1") != "0":
-            ensure_metadata(data, license_text)
+        if metadata and os.environ.get("MANIFEST_METADATA", "1") != "0": ensure_metadata(data, license_text)
         if data != before:
             if write:
-                with open(path, "w", encoding="utf-8", newline="\n") as fh:
-                    fh.write(_dump(data))
+                with open(path, "w", encoding="utf-8", newline="\\n") as fh: fh.write(_dump(data))
             changed.append(os.path.relpath(path, REPO_ROOT).replace(os.sep, "/"))
-    return full_target, changed
-
+    return target, changed
 
 def _normalized_manifest_bytes(raw, own_uuids):
     """Manifest content minus everything the version machinery rewrites."""
@@ -369,7 +321,7 @@ def package_basename(project_path, version_text, fallback_title):
 
 
 def latest_changelog_version(project_path):
-    """First '## [X.Y.Z(.A)]' heading of CHANGELOG.md, or None."""
+    """First '## [X.Y.Z]' heading of CHANGELOG.md, or None."""
     path = os.path.join(project_path, "CHANGELOG.md")
     try:
         with open(path, encoding="utf-8") as fh:
