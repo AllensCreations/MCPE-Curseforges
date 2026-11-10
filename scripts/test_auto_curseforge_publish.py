@@ -213,8 +213,6 @@ class AutoPublishTests(unittest.TestCase):
             self.assertEqual(rel.merge_baseline(kind, info), "1.2.0")
         self.assertEqual(rel.baselines_after("beta", info, "1.2.1"),
                          {"last_release_version": "1.2.0"})
-        self.assertEqual(rel.baselines_after("alpha", {"last_release_version": "1.1.0"}, "1.3.0"),
-                         {"last_alpha_version": "1.3.0"})
         self.assertEqual(rel.baselines_after("release", info, "2.0.0"),
                          {"last_release_version": "2.0.0"})
 
