@@ -2,6 +2,18 @@
 
 ---
 
+## [1.1.0] - 2026-11-10
+
+### Added
+- **Silent progression**: Results now follow a natural playthrough from Plains to the End and beyond, moving up one step every 30 breaks without any announcement.
+- **20 tiers per side**: Twenty good tiers and twenty bad tiers, with 112 good results and 81 bad results, each tier with its own results.
+
+### Improved & Balanced
+- **70/30 luck**: Every break now has a 70% chance of good luck and a 30% chance of bad luck.
+- **Tier odds**: The current tier comes up 50% of the time, with the next tiers up at 25%, 12.5%, 6.25% and 6.25%.
+- **Luck changes**: Rabbit's Foot, Four-Leaf Fortune, Golden Horseshoe and Jinx now work on the 70/30 odds, with the good luck chance kept between 20% and 95%.
+- **No guaranteed streak**: The first 30 breaks are no longer always good luck.
+
 ## [1.0.0] - 2026-11-10
 
 ### Added
