@@ -252,7 +252,7 @@ def main() -> int:
             and package.suffix == ".mcaddon"
             and project_id == "1742470"
             and saved["project_id"] == "1742470"
-            and version == "1.0.1.0"  # publish versions are X.Y.Z.A; manifests stay X.Y.Z
+            and version == "1.0.1"  # all project versions use X.Y.Z
             and bool(changed_manifests)
             and json.loads((upload_project / "behavior_pack/manifest.json").read_text())["header"][
                 "version"
