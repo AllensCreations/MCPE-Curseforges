@@ -3,6 +3,7 @@
 import argparse
 import json
 import re
+import shutil
 import sys
 from pathlib import Path
 
@@ -87,6 +88,19 @@ def main():
         if changelog.is_file() and migrate_changelog(changelog, write):
             changed.append(changelog.relative_to(ROOT).as_posix())
     if migrate_registry(write): changed.append("builds/Curseforge_IDs.json")
+    # Preserve old snapshots, but keep four-part names out of the active X.Y.Z namespace.
+    builds = ROOT / "builds"
+    if builds.is_dir():
+        for versions_dir in builds.glob("*/versions"):
+            for legacy in sorted(versions_dir.glob("V*.*.*.*")):
+                if not re.fullmatch(r"V\\d+\\.\\d+\\.\\d+\\.\\d+", legacy.name):
+                    continue
+                destination = versions_dir.parent / "legacy_versions" / legacy.name
+                if not destination.exists():
+                    if write:
+                        destination.parent.mkdir(parents=True, exist_ok=True)
+                        shutil.move(str(legacy), str(destination))
+                    changed.append((destination if write else legacy).relative_to(ROOT).as_posix())
     for item in changed: print(("would migrate: " if args.check else "migrated: ") + item)
     print(f"Version migration: {len(changed)} file(s) {'need migration' if args.check else 'updated'}.")
     return 1 if args.check and changed else 0
