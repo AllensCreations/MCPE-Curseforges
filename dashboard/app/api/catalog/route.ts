@@ -38,6 +38,7 @@ export async function GET() {
       const info = await readBlob<BuildInfo>(entry.sha);
       const sourcePrefix = categories.map((folder) => ({ folder, prefix: `MCPEDL/${folder}/${slug}/` })).find(({ prefix }) => tree.some((item) => item.path.startsWith(prefix)));
       const manifestEntry = sourcePrefix && tree.find((item) => item.type === "blob" && item.path === `${sourcePrefix.prefix}behavior_pack/manifest.json`);
+      const iconEntry = sourcePrefix && tree.find((item) => item.type === "blob" && [ `${sourcePrefix.prefix}resource_pack/pack_icon.png`, `${sourcePrefix.prefix}behavior_pack/pack_icon.png` ].includes(item.path));
       const manifest = manifestEntry ? await readBlob<Manifest>(manifestEntry.sha) : null;
       const category = sourcePrefix?.folder === "Addons" ? "Add-ons" : sourcePrefix?.folder === "Minigame" ? "Minigames" : sourcePrefix?.folder === "Script" ? "Scripts" : "Maps";
       const packages = Object.entries(info.packages || {}).map(([name, sha256]) => ({
@@ -51,7 +52,7 @@ export async function GET() {
         category,
         version: info.manifest_version || info.changelog_version || manifest?.header?.version?.join(".") || "Unknown",
         description: manifest?.header?.description || "",
-        iconUrl: manifestEntry && tree.some((item) => item.path === `${sourcePrefix?.prefix}resource_pack/pack_icon.png` || item.path === `${sourcePrefix?.prefix}behavior_pack/pack_icon.png`) ? `/api/icon?project=${encodeURIComponent(slug)}` : null,
+        iconUrl: iconEntry ? `/api/icon?sha=${iconEntry.sha}` : null,
         packages,
       };
     }));
