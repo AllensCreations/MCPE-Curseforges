@@ -388,6 +388,7 @@ def render_rollup(entries, new_version, release_type, style="spoiler"):
     for major in sorted(tree, reverse=True):
         first = not blocks
         series = tree[major]
+        inner = [
             _series_block(major, minor, series[minor], first and index == 0, style, 4)
             for index, minor in enumerate(sorted(series, reverse=True))
         ]
