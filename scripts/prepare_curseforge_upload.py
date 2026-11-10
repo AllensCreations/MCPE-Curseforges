@@ -42,7 +42,7 @@ def latest_changelog_entry(path):
     entry = text[headings[0].start():end].strip()
     if not entry.partition("\n")[2].strip():
         raise ValueError(f"Latest changelog entry is empty in {path}")
-    return match.group(1), entry
+    return ".".join(str(part) for part in parse_version(match.group(1))), entry
 
 
 def project_from_path(project_path):
@@ -225,6 +225,7 @@ def save_info(project_path, project_id, last_published_version=None, last_releas
 def parse_version(text):
     """Parse an exact X.Y.Z version into a three-part tuple."""
     parts = tuple(int(part) for part in str(text).split("."))
+    if len(parts) == 4: parts = (parts[0], parts[1], parts[2] + parts[3])
     if len(parts) != 3 or any(part < 0 for part in parts):
         raise ValueError(f"Invalid X.Y.Z version: {text!r}")
     return parts
@@ -453,7 +454,8 @@ def combine_changelog(project_dir, changelog_path, last_published=None, today=No
         heading = segment.splitlines()[0]
         match = CHANGELOG_HEADER.fullmatch(heading)
         if not match: break
-        entries.append((parse_version(match.group(1)), match.group(1), heading, segment))
+        normalized_version = ".".join(str(part) for part in parse_version(match.group(1)))
+        entries.append((parse_version(match.group(1)), normalized_version, heading, segment))
     if not entries: raise ValueError(f"Latest changelog heading must be a dated X.Y.Z version in {changelog_path}")
     baseline_text = merge_baseline(release_type, {"last_published_version": last_published, "last_release_version": last_release})
     baseline = parse_version(baseline_text) if baseline_text else None
