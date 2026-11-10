@@ -323,7 +323,7 @@ def latest_changelog_version(project_path):
     try:
         with open(path, encoding="utf-8") as fh:
             for line in fh:
-                m = re.match(r"^## \[(\d+\.\d+\.\d+(?:\.\d+)?)\]", line)
+                m = re.match(r"^## \[(\d+\.\d+\.\d+)\]", line)
                 if m:
                     return m.group(1)
     except OSError:
