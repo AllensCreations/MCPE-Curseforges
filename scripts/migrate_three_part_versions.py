@@ -48,7 +48,7 @@ def project_target(project):
                 candidates.append((version[0], version[2], 0))
             title = header.get("name")
             if isinstance(title, str):
-                match = re.search(r"\\(v(\\d+\\.\\d+\\.\\d+(?:\\.\\d+)?)\\)\\s*$", title)
+                match = re.search(r"\(v(\d+\.\d+\.\d+(?:\.\d+)?)\)\s*$", title)
                 if match:
                     try:
                         candidates.append(tuple(int(p) for p in migrate_version(match.group(1)).split(".")))
