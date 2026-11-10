@@ -328,7 +328,7 @@ def latest_changelog_version(project_path):
                     parts = parse_full(m.group(1))
                     if len(m.group(1).split(".")) == 4:
                         raw = [int(p) for p in m.group(1).split(".")]
-                        parts = [raw[0], raw[1], raw[2] + raw[3]]
+                        parts = [raw[0], raw[2], raw[3]]
                     return fmt(parts) if parts else None
     except OSError:
         pass
