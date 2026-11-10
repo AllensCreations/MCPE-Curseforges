@@ -34,7 +34,7 @@ class AutoPublishTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as temp:
             root = Path(temp)
             (root / "builds").mkdir(parents=True)
-                (root / "builds/.three_part_version_migrated").touch()
+            (root / "builds/.three_part_version_migrated").touch()
             (root / "builds/Curseforge_IDs.json").write_text(
                 '{"MCPEDL/Addons/Example":{"project_id":"123"}}'
             )
