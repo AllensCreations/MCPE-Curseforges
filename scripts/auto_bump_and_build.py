@@ -535,6 +535,21 @@ def _build_packages(project_name):
     return _package_hashes(project_name)
 
 
+def should_bump_project(snapshot_state, source_changed_in_diff=False, is_new=False):
+    """Return whether this build should create a new Update version.
+
+    A snapshot hash is authoritative when available. For existing projects whose
+    snapshot is missing or predates source hashing, a source-file change in the
+    triggering Git diff is sufficient evidence to bump. New projects keep their
+    declared initial version. Package-only drift and documentation changes never bump.
+    """
+    if is_new:
+        return False
+    if snapshot_state == "source_changed":
+        return True
+    return bool(source_changed_in_diff and snapshot_state in {"missing", "legacy"})
+
+
 def snapshot_status(project_name, version_str, source_hash):
     """How builds/<project>/versions/V<version>/ relates to the current source.
 
@@ -1136,6 +1151,7 @@ def main():
         sys.exit(verify_snapshots(project_dirs))
 
     # Determine which projects to process
+    source_changed_projects = set()
     if args.all:
         print("[Build] Mode: ALL (explicit override) — processing every project in repository...")
         changed_projects = sorted(list(project_dirs.keys()))
@@ -1154,6 +1170,15 @@ def main():
             print(f"[Build] Error: No project matching '{args.project}' found.")
             sys.exit(1)
         changed_projects = matched
+        # Manual one-project runs also inspect the triggering diff. This matters when
+        # an older project has no modern source-hash snapshot yet.
+        if args.bump:
+            try:
+                source_changed_projects = set(detect_changed_projects(
+                    get_git_diff_files(args.base), project_dirs
+                ))
+            except subprocess.CalledProcessError as exc:
+                print(f"[Build] Could not inspect source changes for bump detection: {exc}", file=sys.stderr)
     else:
         print(f"[Build] Checking changed files (base: {args.base or 'auto'})...")
         try:
@@ -1167,6 +1192,7 @@ def main():
         print(f"[Build] Diff contains {len(changed_files)} changed file(s).")
         if changed_files or not changed_projects:
             changed_projects = detect_changed_projects(changed_files, project_dirs)
+        source_changed_projects = set(detect_changed_projects(changed_files, project_dirs))
         source_files = [
             f for f in changed_files
             if any(is_version_worthy_source_file(p, f) for p in project_dirs)
@@ -1240,12 +1266,20 @@ def main():
 
         bumped_note = ""
         if args.bump and manifest_tools and not skip_world:
-            if snapshot_status(proj_name, old_v, source_hash) == "source_changed":
+            snapshot_state = snapshot_status(proj_name, old_v, source_hash)
+            if should_bump_project(
+                snapshot_state,
+                source_changed_in_diff=(cp in source_changed_projects),
+                is_new=is_new,
+            ):
                 nxt = manifest_tools.bump_patch(get_manifest_info(cp)["version_list"])
                 manifest_tools.align_project_manifests(cp, target=nxt)
                 new_v = format_version(nxt)
                 bumped_note = f" [bumped v{old_v} -> v{new_v}]"
-                print(f"  Source changed since the v{old_v} snapshot: bumped manifests to v{new_v}.")
+                print(
+                    f"  Source change detected (snapshot: {snapshot_state}); "
+                    f"bumped manifests to v{new_v}."
+                )
         print(f"  Following manifest version v{new_v}")
 
         # ── Build packages with standardized filename format ───────────────
