@@ -360,7 +360,28 @@ jobs:
           echo "Running: python3 scripts/auto_bump_and_build.py ${ARGS[*]}"
           python3 scripts/auto_bump_and_build.py "${ARGS[@]}"
 
+      # Generic pack builds do not create .mcworld files. Rebuild eligible OneBlock
+      # archives here before synchronizing links; test-gated maps remain owned by
+      # their dedicated world-build workflow.
+      - name: Rebuild non-test-gated OneBlock world archives
+        env:
+          ONEBLOCK_TEST_GATED_MAPS: OneBlock-Dirtbound-Kingdom-Beta
+        shell: bash
+        run: |
+          set -euo pipefail
+          while IFS= read -r config; do
+            project="${config%/oneblock.json}"
+            map="${project##*/}"
+            case " ${ONEBLOCK_TEST_GATED_MAPS//,/ } " in
+              *" $map "*) echo "Skipping test-gated OneBlock world build: $map"; continue ;;
+            esac
+            echo "Building current OneBlock world archives: $map"
+            ONEBLOCK_MAP="$map" python3 scripts/build_oneblock_variants_from_template.py
+          done < <(find MCPEDL/Maps -type f -name oneblock.json -print | sort)
+
       - name: Synchronize OneBlock map READMEs
+        env:
+          ONEBLOCK_SKIP_MAPS: OneBlock-Dirtbound-Kingdom-Beta
         run: python3 scripts/sync_oneblock_map_readmes.py
 
       - name: Sync every README link to the current builds
