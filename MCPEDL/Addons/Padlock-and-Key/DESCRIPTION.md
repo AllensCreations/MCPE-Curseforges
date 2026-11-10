@@ -87,3 +87,4 @@ Craft a Padlock, rename it on an anvil, and use it on a supported block. The blo
 ## Search & Discovery Keywords
 
 Minecraft Bedrock add-on, Padlock & Key Bedrock mod, chest lock, door lock, password lock, Padlock, Key, anvil rename, Minecraft PE survival, MCPEDL add-on, CurseForge Bedrock, AllensCreations.
+
