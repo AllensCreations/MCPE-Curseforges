@@ -117,6 +117,17 @@ class ManifestToolsTest(unittest.TestCase):
         self.assertIsNone(mt.manifest_title(self.root))
         self.assertEqual(mt.package_basename(self.root, "1.0.2", "Desc Title"), "Desc Title by ALNStudios (V1.0.2)")
 
+    def test_legacy_four_part_title_is_rewritten_to_three_parts(self):
+        path = f"{self.root}/behavior_pack/manifest.json"
+        data = self.load("behavior_pack/manifest.json")
+        data["header"]["name"] = "X (v1.7.2.4)"
+        data["metadata"] = {"version": "1.7.2.4", "authors": ["ALNStudios"]}
+        write(path, data)
+        mt.align_project_manifests(self.root, target=[1, 2, 4])
+        migrated = self.load("behavior_pack/manifest.json")
+        self.assertEqual(migrated["header"]["name"], "X (v1.2.4)")
+        self.assertEqual(migrated["metadata"]["version"], "1.2.4")
+
     def test_legacy_creator_name_is_migrated_on_align(self):
         path = f"{self.root}/behavior_pack/manifest.json"
         data = json.load(open(path, encoding="utf-8"))
