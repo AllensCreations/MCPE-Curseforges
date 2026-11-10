@@ -185,7 +185,7 @@ def _load_registry():
             if isinstance(value, str):
                 parts = value.split(".")
                 if len(parts) == 4 and all(part.isdigit() for part in parts):
-                    entry[field] = ".".join((parts[0], parts[1], str(int(parts[2]) + int(parts[3]))))
+                    entry[field] = ".".join((parts[0], parts[1], str(int(parts[3]))))
     return registry, migrated
 
 
@@ -225,7 +225,7 @@ def save_info(project_path, project_id, last_published_version=None, last_releas
 def parse_version(text):
     """Parse an exact X.Y.Z version into a three-part tuple."""
     parts = tuple(int(part) for part in str(text).split("."))
-    if len(parts) == 4: parts = (parts[0], parts[1], parts[2] + parts[3])
+    if len(parts) == 4: parts = (parts[0], parts[1], parts[3])
     if len(parts) != 3 or any(part < 0 for part in parts):
         raise ValueError(f"Invalid X.Y.Z version: {text!r}")
     return parts
