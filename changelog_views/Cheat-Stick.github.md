@@ -1,18 +1,29 @@
 # Changelog — Cheat Stick
 
-## [1.0.2] - 2026-11-11
+## [1.0.3] - 2026-11-11
 
 ### Added
+- **Save and Load**: Save your position in one of 5 slots and see its coordinates and dimension. Load a slot to teleport back to it.
+- **Colored name**: The menu title and messages now read @ALNStudios Cheatstick in gold and yellow, with green message text.
+
+### Improved & Balanced
+- **Travel menu simplified**: Return to Spawn, Return to World Spawn, Save Home, and Go Home are removed. Back to Death Point stays.
+- **Menu name**: The menu is now called @ALNStudios Cheatstick.
+- **Saved homes**: Homes saved in the previous version are not carried into the new slots.
+
+<details>
+<summary><b>1.0.x</b> (3 releases)</summary>
+
+### [1.0.2] - 2026-11-11
+
+#### Added
 - **Effects menu**: Haste, Speed, Night Vision, Jump Boost, Water Breathing, Fire Resistance, and Regeneration, each lasting 10 minutes.
 - **Travel menu**: Return to Spawn, Return to World Spawn, Back to Death Point, Save Home, and Go Home.
 - **Clear Nearby Hostile Mobs**: Removes hostile mobs within 32 blocks of you.
 
-### Improved & Balanced
+#### Improved & Balanced
 - **Private action bar messages**: Confirmations now appear above your hotbar and only for the player who used the Stick.
 - **Menu reorganized**: Night Vision moved to the Effects menu and Return to Spawn moved to the Travel menu.
-
-<details>
-<summary><b>1.0.x</b> (2 releases)</summary>
 
 ### [1.0.1] - 2026-11-11
 
