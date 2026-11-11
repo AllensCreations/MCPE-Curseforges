@@ -31,7 +31,7 @@ This directory stores compiled Add-ons (`.mcaddon`), Maps (`.mcworld`), Scripts 
 | **Fletching Table Arsenal** | Add-on (.mcaddon) | [Download (.mcaddon)](Fletching-Table-Arsenal/Fletching%20Table%20Arsenal%20by%20ALNStudios%20%28V1.0.0%29.mcaddon) | [`Fletching-Table-Arsenal/`](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/builds/Fletching-Table-Arsenal) |
 | **Copper-Carrier Logistics** | Add-on (.mcaddon) | [Download (.mcaddon)](Copper-Carrier-Logistics/Copper-Carrier%20Logistics%20by%20ALNStudios%20%28V1.1.0%29.mcaddon) | [`Copper-Carrier-Logistics/`](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/builds/Copper-Carrier-Logistics/) |
 | **Universal Leash** | Add-on (.mcaddon) | [Download (.mcaddon)](Universal-Leash/Universal%20Leash%20by%20ALNStudios%20%28V2.0.0%29.mcaddon) | [`Universal-Leash/`](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/builds/Universal-Leash/) |
-| **Padlock & Key** | Add-on (.mcaddon) | [Download (.mcaddon)](Padlock-and-Key/Padlock%20%26%20Key%20by%20ALNStudios%20%28V1.0.5%29.mcaddon) | [`Padlock-and-Key/`](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/builds/Padlock-and-Key/) |
+| **Padlock & Key** | Add-on (.mcaddon) | [Download (.mcaddon)](Padlock-and-Key/Padlock%20%26%20Key%20by%20ALNStudios%20%28V1.0.6%29.mcaddon) | [`Padlock-and-Key/`](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/builds/Padlock-and-Key/) |
 
 ### Worlds and Maps
 

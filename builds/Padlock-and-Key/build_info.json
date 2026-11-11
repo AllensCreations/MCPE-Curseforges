@@ -1,8 +1,8 @@
 {
-  "changelog_version": "1.4.1",
-  "manifest_version": "1.0.5",
+  "changelog_version": "1.4.2",
+  "manifest_version": "1.0.6",
   "packages": {
-    "Padlock & Key by ALNStudios (V1.0.5).mcaddon": "bca0496b6dbcb1346a5be07ad1d2c00c1e50f0530f9ac11a7eaf5e0d83988f26"
+    "Padlock & Key by ALNStudios (V1.0.6).mcaddon": "8534b40511495bd36b1da7eb78132e6b6240524ee059122025f4c9661505f01d"
   },
-  "source_sha256": "82e3d98d95fd68eb00c0fea79a5ab00fdb19eb894efa4ec07b050314a13c9f6b"
+  "source_sha256": "b21a9aa408b13aeff34ae99984cef795cc23299e6e4cc0d05b25da71a204aba4"
 }
