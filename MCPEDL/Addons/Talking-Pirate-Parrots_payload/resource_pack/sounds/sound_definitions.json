@@ -1,0 +1,472 @@
+{
+  "format_version": "1.14.0",
+  "sound_definitions": {
+    "mob.parrot.talk.creeper": {
+      "category": "neutral",
+      "min_distance": 1.0,
+      "max_distance": 16.0,
+      "sounds": [
+        {
+          "name": "sounds/mob/parrot/pirate/mob_creeper_01",
+          "volume": 1.0
+        },
+        {
+          "name": "sounds/mob/parrot/pirate/mob_creeper_02",
+          "volume": 1.0
+        }
+      ]
+    },
+    "mob.parrot.talk.skeleton": {
+      "category": "neutral",
+      "min_distance": 1.0,
+      "max_distance": 16.0,
+      "sounds": [
+        {
+          "name": "sounds/mob/parrot/pirate/mob_skeleton_01",
+          "volume": 1.0
+        }
+      ]
+    },
+    "mob.parrot.talk.zombie": {
+      "category": "neutral",
+      "min_distance": 1.0,
+      "max_distance": 16.0,
+      "sounds": [
+        {
+          "name": "sounds/mob/parrot/pirate/mob_zombie_01",
+          "volume": 1.0
+        }
+      ]
+    },
+    "mob.parrot.talk.phantom": {
+      "category": "neutral",
+      "min_distance": 1.0,
+      "max_distance": 16.0,
+      "sounds": [
+        {
+          "name": "sounds/mob/parrot/pirate/mob_phantom_01",
+          "volume": 1.0
+        }
+      ]
+    },
+    "mob.parrot.talk.spider": {
+      "category": "neutral",
+      "min_distance": 1.0,
+      "max_distance": 16.0,
+      "sounds": [
+        {
+          "name": "sounds/mob/parrot/pirate/mob_spider_01",
+          "volume": 1.0
+        }
+      ]
+    },
+    "mob.parrot.talk.enderman": {
+      "category": "neutral",
+      "min_distance": 1.0,
+      "max_distance": 16.0,
+      "sounds": [
+        {
+          "name": "sounds/mob/parrot/pirate/mob_enderman_01",
+          "volume": 1.0
+        }
+      ]
+    },
+    "mob.parrot.talk.drowned": {
+      "category": "neutral",
+      "min_distance": 1.0,
+      "max_distance": 16.0,
+      "sounds": [
+        {
+          "name": "sounds/mob/parrot/pirate/mob_drowned_01",
+          "volume": 1.0
+        }
+      ]
+    },
+    "mob.parrot.talk.witch": {
+      "category": "neutral",
+      "min_distance": 1.0,
+      "max_distance": 16.0,
+      "sounds": [
+        {
+          "name": "sounds/mob/parrot/pirate/mob_witch_01",
+          "volume": 1.0
+        }
+      ]
+    },
+    "mob.parrot.talk.warden": {
+      "category": "neutral",
+      "min_distance": 1.0,
+      "max_distance": 16.0,
+      "sounds": [
+        {
+          "name": "sounds/mob/parrot/pirate/mob_warden_01",
+          "volume": 1.0
+        }
+      ]
+    },
+    "mob.parrot.talk.low_hp": {
+      "category": "neutral",
+      "min_distance": 1.0,
+      "max_distance": 16.0,
+      "sounds": [
+        {
+          "name": "sounds/mob/parrot/pirate/health_low_01",
+          "volume": 1.0
+        },
+        {
+          "name": "sounds/mob/parrot/pirate/health_low_02",
+          "volume": 1.0
+        }
+      ]
+    },
+    "mob.parrot.talk.hit": {
+      "category": "neutral",
+      "min_distance": 1.0,
+      "max_distance": 16.0,
+      "sounds": [
+        {
+          "name": "sounds/mob/parrot/pirate/health_hit_01",
+          "volume": 1.0
+        },
+        {
+          "name": "sounds/mob/parrot/pirate/health_hit_02",
+          "volume": 1.0
+        },
+        {
+          "name": "sounds/mob/parrot/pirate/health_hit_03",
+          "volume": 1.0
+        },
+        {
+          "name": "sounds/mob/parrot/pirate/health_hit_04",
+          "volume": 1.0
+        }
+      ]
+    },
+    "mob.parrot.talk.near_death": {
+      "category": "neutral",
+      "min_distance": 1.0,
+      "max_distance": 16.0,
+      "sounds": [
+        {
+          "name": "sounds/mob/parrot/pirate/health_near_death",
+          "volume": 1.0
+        }
+      ]
+    },
+    "mob.parrot.talk.fall": {
+      "category": "neutral",
+      "min_distance": 1.0,
+      "max_distance": 16.0,
+      "sounds": [
+        {
+          "name": "sounds/mob/parrot/pirate/health_fall_01",
+          "volume": 1.0
+        }
+      ]
+    },
+    "mob.parrot.talk.poison": {
+      "category": "neutral",
+      "min_distance": 1.0,
+      "max_distance": 16.0,
+      "sounds": [
+        {
+          "name": "sounds/mob/parrot/pirate/health_poison_01",
+          "volume": 1.0
+        }
+      ]
+    },
+    "mob.parrot.talk.fire": {
+      "category": "neutral",
+      "min_distance": 1.0,
+      "max_distance": 16.0,
+      "sounds": [
+        {
+          "name": "sounds/mob/parrot/pirate/health_fire_01",
+          "volume": 1.0
+        }
+      ]
+    },
+    "mob.parrot.talk.darkness": {
+      "category": "neutral",
+      "min_distance": 1.0,
+      "max_distance": 16.0,
+      "sounds": [
+        {
+          "name": "sounds/mob/parrot/pirate/env_darkness_01",
+          "volume": 1.0
+        }
+      ]
+    },
+    "mob.parrot.talk.lava": {
+      "category": "neutral",
+      "min_distance": 1.0,
+      "max_distance": 16.0,
+      "sounds": [
+        {
+          "name": "sounds/mob/parrot/pirate/env_lava_01",
+          "volume": 1.0
+        }
+      ]
+    },
+    "mob.parrot.talk.nether": {
+      "category": "neutral",
+      "min_distance": 1.0,
+      "max_distance": 16.0,
+      "sounds": [
+        {
+          "name": "sounds/mob/parrot/pirate/env_nether_01",
+          "volume": 1.0
+        }
+      ]
+    },
+    "mob.parrot.talk.deep_cave": {
+      "category": "neutral",
+      "min_distance": 1.0,
+      "max_distance": 16.0,
+      "sounds": [
+        {
+          "name": "sounds/mob/parrot/pirate/env_deep_cave",
+          "volume": 1.0
+        }
+      ]
+    },
+    "mob.parrot.talk.thunder": {
+      "category": "neutral",
+      "min_distance": 1.0,
+      "max_distance": 16.0,
+      "sounds": [
+        {
+          "name": "sounds/mob/parrot/pirate/env_thunder_01",
+          "volume": 1.0
+        }
+      ]
+    },
+    "mob.parrot.talk.underwater": {
+      "category": "neutral",
+      "min_distance": 1.0,
+      "max_distance": 16.0,
+      "sounds": [
+        {
+          "name": "sounds/mob/parrot/pirate/env_underwater_01",
+          "volume": 1.0
+        }
+      ]
+    },
+    "mob.parrot.talk.height": {
+      "category": "neutral",
+      "min_distance": 1.0,
+      "max_distance": 16.0,
+      "sounds": [
+        {
+          "name": "sounds/mob/parrot/pirate/env_height_01",
+          "volume": 1.0
+        }
+      ]
+    },
+    "mob.parrot.talk.fortress": {
+      "category": "neutral",
+      "min_distance": 1.0,
+      "max_distance": 16.0,
+      "sounds": [
+        {
+          "name": "sounds/mob/parrot/pirate/env_fortress_01",
+          "volume": 1.0
+        }
+      ]
+    },
+    "mob.parrot.talk.home": {
+      "category": "neutral",
+      "min_distance": 1.0,
+      "max_distance": 16.0,
+      "sounds": [
+        {
+          "name": "sounds/mob/parrot/pirate/env_home_01",
+          "volume": 1.0
+        }
+      ]
+    },
+    "mob.parrot.talk.village": {
+      "category": "neutral",
+      "min_distance": 1.0,
+      "max_distance": 16.0,
+      "sounds": [
+        {
+          "name": "sounds/mob/parrot/pirate/env_village_01",
+          "volume": 1.0
+        }
+      ]
+    },
+    "mob.parrot.talk.diamond": {
+      "category": "neutral",
+      "min_distance": 1.0,
+      "max_distance": 16.0,
+      "sounds": [
+        {
+          "name": "sounds/mob/parrot/pirate/act_diamond_01",
+          "volume": 1.0
+        }
+      ]
+    },
+    "mob.parrot.talk.eating": {
+      "category": "neutral",
+      "min_distance": 1.0,
+      "max_distance": 16.0,
+      "sounds": [
+        {
+          "name": "sounds/mob/parrot/pirate/act_eating_01",
+          "volume": 1.0
+        }
+      ]
+    },
+    "mob.parrot.talk.chest": {
+      "category": "neutral",
+      "min_distance": 1.0,
+      "max_distance": 16.0,
+      "sounds": [
+        {
+          "name": "sounds/mob/parrot/pirate/act_chest_01",
+          "volume": 1.0
+        }
+      ]
+    },
+    "mob.parrot.talk.crafting": {
+      "category": "neutral",
+      "min_distance": 1.0,
+      "max_distance": 16.0,
+      "sounds": [
+        {
+          "name": "sounds/mob/parrot/pirate/act_crafting_01",
+          "volume": 1.0
+        }
+      ]
+    },
+    "mob.parrot.talk.dirt": {
+      "category": "neutral",
+      "min_distance": 1.0,
+      "max_distance": 16.0,
+      "sounds": [
+        {
+          "name": "sounds/mob/parrot/pirate/act_dirt_01",
+          "volume": 1.0
+        }
+      ]
+    },
+    "mob.parrot.talk.dig_down": {
+      "category": "neutral",
+      "min_distance": 1.0,
+      "max_distance": 16.0,
+      "sounds": [
+        {
+          "name": "sounds/mob/parrot/pirate/act_dig_down",
+          "volume": 1.0
+        }
+      ]
+    },
+    "mob.parrot.talk.bow_shot": {
+      "category": "neutral",
+      "min_distance": 1.0,
+      "max_distance": 16.0,
+      "sounds": [
+        {
+          "name": "sounds/mob/parrot/pirate/act_bow_shot",
+          "volume": 1.0
+        }
+      ]
+    },
+    "mob.parrot.talk.sleep": {
+      "category": "neutral",
+      "min_distance": 1.0,
+      "max_distance": 16.0,
+      "sounds": [
+        {
+          "name": "sounds/mob/parrot/pirate/act_sleep_01",
+          "volume": 1.0
+        }
+      ]
+    },
+    "mob.parrot.talk.gold": {
+      "category": "neutral",
+      "min_distance": 1.0,
+      "max_distance": 16.0,
+      "sounds": [
+        {
+          "name": "sounds/mob/parrot/pirate/act_gold_01",
+          "volume": 1.0
+        }
+      ]
+    },
+    "mob.parrot.talk.cookie": {
+      "category": "neutral",
+      "min_distance": 1.0,
+      "max_distance": 16.0,
+      "sounds": [
+        {
+          "name": "sounds/mob/parrot/pirate/act_cookie_01",
+          "volume": 1.0
+        }
+      ]
+    },
+    "mob.parrot.talk.shoulder": {
+      "category": "neutral",
+      "min_distance": 1.0,
+      "max_distance": 16.0,
+      "sounds": [
+        {
+          "name": "sounds/mob/parrot/pirate/idle_shoulder_01",
+          "volume": 1.0
+        },
+        {
+          "name": "sounds/mob/parrot/pirate/idle_shoulder_02",
+          "volume": 1.0
+        },
+        {
+          "name": "sounds/mob/parrot/pirate/idle_shoulder_03",
+          "volume": 1.0
+        }
+      ]
+    },
+    "mob.parrot.talk.humor": {
+      "category": "neutral",
+      "min_distance": 1.0,
+      "max_distance": 16.0,
+      "sounds": [
+        {
+          "name": "sounds/mob/parrot/pirate/idle_humor_01",
+          "volume": 1.0
+        },
+        {
+          "name": "sounds/mob/parrot/pirate/idle_humor_02",
+          "volume": 1.0
+        },
+        {
+          "name": "sounds/mob/parrot/pirate/idle_humor_03",
+          "volume": 1.0
+        },
+        {
+          "name": "sounds/mob/parrot/pirate/idle_humor_04",
+          "volume": 1.0
+        },
+        {
+          "name": "sounds/mob/parrot/pirate/idle_humor_05",
+          "volume": 1.0
+        },
+        {
+          "name": "sounds/mob/parrot/pirate/idle_humor_06",
+          "volume": 1.0
+        },
+        {
+          "name": "sounds/mob/parrot/pirate/idle_humor_07",
+          "volume": 1.0
+        },
+        {
+          "name": "sounds/mob/parrot/pirate/idle_humor_08",
+          "volume": 1.0
+        },
+        {
+          "name": "sounds/mob/parrot/pirate/idle_humor_09",
+          "volume": 1.0
+        }
+      ]
+    }
+  }
+}

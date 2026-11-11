@@ -1,0 +1,51 @@
+{
+  "format_version": 2,
+  "header": {
+    "name": "Talking Pirate Parrots (v1.0.0)",
+    "description": "Tamed parrots talk with pirate voices. by ALNStudios",
+    "uuid": "a9e5ac2c-57ca-4fa4-9d14-367d9bfbb509",
+    "version": [
+      1,
+      0,
+      0
+    ],
+    "min_engine_version": [
+      1,
+      26,
+      10
+    ]
+  },
+  "modules": [
+    {
+      "type": "script",
+      "language": "javascript",
+      "uuid": "5f2d6de6-67fa-406c-b3b6-e05ad17c6d42",
+      "version": [
+        1,
+        0,
+        0
+      ],
+      "entry": "scripts/main.js"
+    }
+  ],
+  "dependencies": [
+    {
+      "uuid": "6ff106a1-ecb6-48ab-a9a5-129accbd46cf",
+      "version": [
+        1,
+        0,
+        0
+      ]
+    },
+    {
+      "module_name": "@minecraft/server",
+      "version": "2.7.0"
+    }
+  ],
+  "metadata": {
+    "authors": [
+      "ALNStudios"
+    ],
+    "product_type": "addon"
+  }
+}

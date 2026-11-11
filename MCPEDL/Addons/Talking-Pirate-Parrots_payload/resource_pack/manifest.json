@@ -1,0 +1,35 @@
+{
+  "format_version": 2,
+  "header": {
+    "name": "Talking Pirate Parrots (v1.0.0)",
+    "description": "Pirate parrot voices. by ALNStudios",
+    "uuid": "6ff106a1-ecb6-48ab-a9a5-129accbd46cf",
+    "version": [
+      1,
+      0,
+      0
+    ],
+    "min_engine_version": [
+      1,
+      26,
+      10
+    ]
+  },
+  "modules": [
+    {
+      "type": "resources",
+      "uuid": "3bbdcf39-8fe5-4767-8108-bbdfda94216d",
+      "version": [
+        1,
+        0,
+        0
+      ]
+    }
+  ],
+  "metadata": {
+    "authors": [
+      "ALNStudios"
+    ],
+    "product_type": "addon"
+  }
+}
