@@ -1,18 +1,23 @@
 # Changelog — Cheat Stick
 
-## [1.0.3] - 2026-11-11
+## [1.0.4] - 2026-11-11
 
-### Added
+### Improved & Balanced
+- **Version in the title**: The @ALNStudios Cheatstick menu title now shows the add-on version, for example (1.0.4).
+
+<details>
+<summary><b>1.0.x</b> (4 releases)</summary>
+
+### [1.0.3] - 2026-11-11
+
+#### Added
 - **Save and Load**: Save your position in one of 5 slots and see its coordinates and dimension. Load a slot to teleport back to it.
 - **Colored name**: The menu title and messages now read @ALNStudios Cheatstick in gold and yellow, with green message text.
 
-### Improved & Balanced
+#### Improved & Balanced
 - **Travel menu simplified**: Return to Spawn, Return to World Spawn, Save Home, and Go Home are removed. Back to Death Point stays.
 - **Menu name**: The menu is now called @ALNStudios Cheatstick.
 - **Saved homes**: Homes saved in the previous version are not carried into the new slots.
-
-<details>
-<summary><b>1.0.x</b> (3 releases)</summary>
 
 ### [1.0.2] - 2026-11-11
 
