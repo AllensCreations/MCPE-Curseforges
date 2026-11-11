@@ -2,8 +2,14 @@
   "namespace": "server_form",
   "long_form_dynamic_buttons_panel": {
     "type": "grid",
-    "size": ["100% - 4px", "100%c"],
-    "grid_dimensions": [3, 9],
+    "size": [
+      "100% - 4px",
+      "100%c"
+    ],
+    "grid_dimensions": [
+      3,
+      9
+    ],
     "grid_fill_direction": "horizontal",
     "grid_rescaling_type": "horizontal",
     "grid_item_template": "server_form.dynamic_button",
@@ -11,13 +17,20 @@
     "bindings": [
       {
         "binding_name": "#form_button_contents",
+        "binding_name_override": "#collection_length"
+      },
+      {
+        "binding_name": "#form_button_length",
         "binding_name_override": "#maximum_grid_items"
       }
     ]
   },
   "dynamic_button": {
     "type": "button",
-    "size": ["100%", 42],
+    "size": [
+      "100%",
+      42
+    ],
     "sound_name": "random.click",
     "default_control": "default",
     "hover_control": "hover",
@@ -39,10 +52,16 @@
         "slot_icon": {
           "type": "image",
           "layer": 2,
-          "size": [22, 22],
+          "size": [
+            22,
+            22
+          ],
           "anchor_from": "top_middle",
           "anchor_to": "top_middle",
-          "offset": [0, 1],
+          "offset": [
+            0,
+            1
+          ],
           "bindings": [
             {
               "binding_name": "#form_button_texture",
@@ -63,10 +82,16 @@
         "slot_label": {
           "type": "label",
           "layer": 3,
-          "size": ["100% - 2px", 17],
+          "size": [
+            "100% - 2px",
+            17
+          ],
           "anchor_from": "bottom_middle",
           "anchor_to": "bottom_middle",
-          "offset": [0, -1],
+          "offset": [
+            0,
+            -1
+          ],
           "text_alignment": "center",
           "font_size": "small",
           "color": "$title_text_color",
