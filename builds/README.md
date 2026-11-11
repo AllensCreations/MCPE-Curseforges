@@ -34,7 +34,7 @@ This directory stores compiled Add-ons (`.mcaddon`), Maps (`.mcworld`), Scripts 
 | **Padlock & Key** | Add-on (.mcaddon) | [Download (.mcaddon)](Padlock-and-Key/Padlock%20%26%20Key%20by%20ALNStudios%20%28V1.0.6%29.mcaddon) | [`Padlock-and-Key/`](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/builds/Padlock-and-Key/) |
 | **Talking Pirate Parrots** | Add-on (.mcaddon) | [Download (.mcaddon)](Talking-Pirate-Parrots_payload/Talking%20Pirate%20Parrots%20by%20ALNStudios%20%28V1.0.3%29.mcaddon) | [`Talking-Pirate-Parrots_payload/`](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/builds/Talking-Pirate-Parrots_payload/) |
 | **OP Sponge** | Add-on (.mcaddon) | [Download (.mcaddon)](OP-Sponge/OP%20Sponge%20by%20ALNStudios%20%28V1.0.1%29.mcaddon) | [`OP-Sponge/`](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/builds/OP-Sponge/) |
-| **Cheat Stick** | Add-on (.mcaddon) | [Download (.mcaddon)](Cheat-Stick/Cheat%20Stick%20by%20ALNStudios%20%28V2.1.0%29.mcaddon) | [`Cheat-Stick/`](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/builds/Cheat-Stick/) |
+| **Cheat Stick** | Add-on (.mcaddon) | [Download (.mcaddon)](Cheat-Stick/Cheat%20Stick%20by%20ALNStudios%20%28V2.1.1%29.mcaddon) | [`Cheat-Stick/`](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/builds/Cheat-Stick/) |
 
 ### Worlds and Maps
 
