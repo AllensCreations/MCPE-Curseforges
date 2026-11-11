@@ -2,15 +2,16 @@
 
 ---
 
-## [1.0.0] - 2026-11-11
+## [1.0.1] - 2026-11-11
 
 ### Added
-- **Natural Market Ledger**: Open an icon-based market menu to browse categories, purchase supplies, and sell eligible goods.
-- **OneBlock economy**: Earn Coins by breaking the central block and unlock additional supplies through mining progression.
-- **Regenerating block pool**: Expand the central block's available block pool through progression and eligible block purchases.
+- **Chest-inspired market grid**: Action-form buttons are presented in a 3-row by 9-column inventory-style layout with item icons and compact supply labels.
+- **Paged catalogue**: Large categories are split into pages that fit the 27-slot grid.
 
-### Improved & Balanced
-- **Inventory-inspired menus**: Use Minecraft-style item icons and clear prices in custom forms.
+### Improved
+- **Direct purchasing**: Tapping a supply slot purchases its configured bundle immediately; successful delivery, coin deduction, and regeneration-pool updates continue through the existing purchase handler.
+- **Stable scripting baseline**: Keeps `@minecraft/server` 2.10.0 and `@minecraft/server-ui` 2.2.0 without beta modules or experimental toggles.
 
-### Fixed
-- **Purchase handling**: Refund the undelivered portion when inventory space limits a purchase.
+### Compatibility note
+- The grid is a resource-pack JSON UI customization of the standard Action Form, not a native chest container. JSON UI is deprecated by Minecraft and may need maintenance after future UI changes. It does not add an experimental gameplay toggle.
+- Source updated; package build and in-game UI behavior have not yet been verified.
