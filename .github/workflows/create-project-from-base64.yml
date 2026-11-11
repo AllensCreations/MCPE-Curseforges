@@ -6,9 +6,8 @@ name: Create Project from Base64
 #   map    -> MCPEDL/Maps/<Name>/      (+ Creative/Survival/Hardcore worlds)
 #   script   -> MCPEDL/Script/<Name>/    (.mcpack + Creative test world)
 #   minigame -> MCPEDL/Minigame/<Name>/  (.mcaddon + Controller + Creative test world)
-# Nothing needs typing: commit one .b64 file to MCPEDL/incoming/, pick import_mode, run.
-#   project_name blank    -> taken from the .b64 file name
-#   payload_file blank    -> the only .b64 in MCPEDL/incoming/ (a bare file name also works)
+# Inputs: payload_base64, import_mode, commit_mode. The project name is read from
+# project.json inside the payload (spaces become hyphens).
 # import_mode:
 #   auto      -> update if the project already exists, otherwise create (default)
 #   create    -> new project only; fails if the folder already exists
@@ -32,20 +31,9 @@ on:
           - create
           - update
           - overwrite
-      project_name:
-        description: "Optional. Leave blank to use the .b64 file name (letters, numbers, . _ -)"
-        required: false
-        default: ""
-        type: string
       payload_base64:
-        description: "Optional. Base64 of the project ZIP, single line. Leave blank to use a .b64 file."
-        required: false
-        default: ""
-        type: string
-      payload_file:
-        description: "Optional. Leave blank to use the only .b64 file in MCPEDL/incoming/ (or enter its file name)"
-        required: false
-        default: ""
+        description: "Base64 of the project ZIP, single line. The project name is read from project.json inside it."
+        required: true
         type: string
       commit_mode:
         description: "pull_request opens a PR to review (default); direct pushes straight to the branch"
@@ -69,10 +57,8 @@ jobs:
     name: Import project and build worlds
     runs-on: ubuntu-latest
     env:
-      PROJECT_NAME: ${{ inputs.project_name }}
       IMPORT_MODE: ${{ inputs.import_mode }}
       PROJECT_PAYLOAD: ${{ inputs.payload_base64 }}
-      PAYLOAD_FILE: ${{ inputs.payload_file }}
       COMMIT_MODE: ${{ inputs.commit_mode }}
     steps:
       - name: Checkout repository
@@ -101,10 +87,6 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          if [ -n "$PROJECT_NAME" ]; then
-            [[ "$PROJECT_NAME" =~ ^[A-Za-z0-9][A-Za-z0-9._-]{0,63}$ ]] \
-              || { echo "::error::Name: letters, numbers, . _ - only (max 64)"; exit 1; }
-          fi
           [[ "$IMPORT_MODE" == "auto" || "$IMPORT_MODE" == "create" || "$IMPORT_MODE" == "update" || "$IMPORT_MODE" == "overwrite" ]] \
             || { echo "::error::import_mode must be auto, create, update, or overwrite"; exit 1; }
           [[ "$COMMIT_MODE" == "pull_request" || "$COMMIT_MODE" == "direct" ]] \
@@ -116,8 +98,6 @@ jobs:
         run: |
           set -euo pipefail
           ARGS=(--mode "$IMPORT_MODE" --github-output "$GITHUB_OUTPUT")
-          if [ -n "$PROJECT_NAME" ]; then ARGS+=(--name "$PROJECT_NAME"); fi
-          if [ -z "$PROJECT_PAYLOAD" ] && [ -n "$PAYLOAD_FILE" ]; then ARGS+=(--payload-file "$PAYLOAD_FILE"); fi
           python scripts/import_project_payload.py "${ARGS[@]}"
 
       # ---- maps: build the three OneBlock worlds ----

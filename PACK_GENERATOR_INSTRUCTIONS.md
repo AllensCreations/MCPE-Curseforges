@@ -493,8 +493,8 @@ Type: addon | map | script | minigame
 Folder name: <letters, numbers, . _ - only>
 ```
 **2. PAYLOAD**
-- Default: `File: payload.b64`, then `Commit to: MCPE-Curseforges/MCPEDL/incoming/<folder name>.b64`, then `payload_file value: MCPEDL/incoming/<folder name>.b64`.
-- Only if base64 < ~12,000 chars: one fenced block with the `payload.b64` contents only (one line, no breaks/spaces, copied, NEVER retyped).
+- One fenced block with the `payload.b64` contents only (one line, no breaks/spaces, copied, NEVER retyped). The workflow reads the project name from `project.json` inside it.
+- If over the workflow input limit (65,535 chars): `File: payload.b64` and say it is too large to paste.
 
 **3. SUMMARY** exactly these lines, one short sentence/value each:
 ```
@@ -515,7 +515,7 @@ Verification: Source created, not tested in game.
 **4. NEXT STEPS** exactly:
 ```
 1. GitHub, Actions, Create Project from Base64, Run workflow.
-2. Enter the folder name and paste the payload. If the folder already exists, set overwrite to true. Leave commit_mode on pull_request, then review and merge the pull request it opens.
+2. Paste the payload into payload_base64. Pick import_mode (auto, create, update, overwrite) and commit_mode (leave pull_request), then review and merge the pull request it opens.
 3. Download the generated world from the run's artifacts or the project folder and test it in Minecraft.
 4. To change which add-ons a test world includes, edit test_world.json and re-run Create Project from Base64 (it rebuilds the test world).
 5. If the build fails, paste the error log back to the agent.

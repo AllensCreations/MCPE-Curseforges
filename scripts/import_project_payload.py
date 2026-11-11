@@ -24,7 +24,7 @@ Usage:
       [--payload-file my-project.b64] [--root DIR] [--github-output FILE]
 Payload source, in this order: env PROJECT_PAYLOAD (or ONEBLOCK_PAYLOAD) when --payload-file is empty,
 else --payload-file (a bare file name is looked up in MCPEDL/incoming/), else the only .b64 file in
-MCPEDL/incoming/. When --name is empty it is taken from the .b64 file name (Monster-Companions.b64 ->
+MCPEDL/incoming/. When --name is empty it is taken from the name in the payload's project.json (Monster-Companions.b64 ->
 Monster-Companions).
 """
 from __future__ import annotations
@@ -166,6 +166,18 @@ def legacy_to_project(files: dict[str, bytes], errors: list[str]) -> None:
         errors.append("oneblock.json is not valid JSON with a 'name'")
 
 
+def name_from_project_json(files: dict[str, bytes]) -> str:
+    """Folder name = project.json 'name', spaces to hyphens, other unsafe characters removed."""
+    try:
+        display = json.loads(files["project.json"].decode("utf-8-sig"))["name"]
+    except (KeyError, ValueError, UnicodeDecodeError):
+        fail("project.json is missing or has no 'name'. The name must be inside the payload.")
+    if not isinstance(display, str):
+        fail("project.json 'name' must be a string.")
+    slug = re.sub(r"[^A-Za-z0-9._-]", "", re.sub(r"\s+", "-", display.strip())).strip("-._")
+    return slug[:64]
+
+
 def find_projects(root: Path, name: str) -> tuple[list[tuple[str, Path]], list[tuple[str, Path]]]:
     """Return (exact-name matches, same-name-different-case matches) across every MCPEDL project folder."""
     exact, loose = [], []
@@ -253,15 +265,13 @@ def main() -> None:
 
     errors: list[str] = []
     b64, payload_rel = resolve_payload(root, args.payload_file)
-    if not args.name:
-        if payload_rel is None:
-            fail("Enter project_name when the payload is pasted as text.")
-        args.name = Path(payload_rel).stem
-        print(f"Project name taken from the payload file: {args.name}")
-    if not bp.NAME_RE.match(args.name):
-        fail("Name: 1-64 chars, letters/numbers/. _ - only, starting with a letter or number.")
     files = collect_files(decode_zip(b64), errors)
     legacy_to_project(files, errors)
+    if not args.name:
+        args.name = name_from_project_json(files)
+        print(f"Project name taken from project.json: {args.name}")
+    if not bp.NAME_RE.match(args.name):
+        fail("Name: 1-64 chars, letters/numbers/. _ - only, starting with a letter or number.")
 
     with tempfile.TemporaryDirectory(prefix="payload-") as tmp:
         stage = Path(tmp) / "p"
