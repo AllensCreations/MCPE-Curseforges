@@ -5,7 +5,7 @@
 [![Minecraft Bedrock](https://img.shields.io/badge/Minecraft%20Bedrock-Stable%20Release-brightgreen?style=flat-square&logo=minecraft)](https://github.com/AllensCreations/MCPE-Curseforges)
 [![Format](https://img.shields.io/badge/Format-.MCPACK%20%7C%20.MCADDON%20%7C%20.MCWORLD-blue?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges)
 
-**Mine the central block, earn Coins, and buy supplies that can join the OneBlock regeneration pool.**
+**Use the Natural Market Ledger to buy supplies for a regenerating OneBlock survival challenge.**
 
 > OneBlock Natural Market combines a regenerating central block with a progression-based economy. Use the Natural Market Ledger to browse supplies, buy items, and sell eligible goods.
 
