@@ -1,0 +1,18 @@
+{
+  "format_version": "1.21.60",
+  "minecraft:block": {
+    "description": {
+      "identifier": "allenscreations:lava_sponge",
+      "menu_category": { "category": "construction" }
+    },
+    "components": {
+      "minecraft:geometry": "minecraft:geometry.full_block",
+      "minecraft:material_instances": {
+        "*": { "texture": "allenscreations_lava_sponge", "render_method": "opaque" }
+      },
+      "minecraft:destructible_by_mining": { "seconds_to_destroy": 0.6 },
+      "minecraft:destructible_by_explosion": { "explosion_resistance": 0.6 },
+      "minecraft:map_color": "#E8A33A"
+    }
+  }
+}

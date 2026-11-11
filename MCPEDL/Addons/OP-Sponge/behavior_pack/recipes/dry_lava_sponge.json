@@ -1,0 +1,9 @@
+{
+  "format_version": "1.20.10",
+  "minecraft:recipe_furnace": {
+    "description": { "identifier": "allenscreations:dry_lava_sponge" },
+    "tags": ["furnace"],
+    "input": "allenscreations:lava_sponge_filled",
+    "output": "allenscreations:lava_sponge"
+  }
+}
