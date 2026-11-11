@@ -5,7 +5,7 @@ Download the current release of **OP Sponge** for Minecraft Bedrock Edition.
 ## Download
 
 - **Package format:** `.mcaddon`
-- **Direct download:** [Download OP Sponge (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/OP-Sponge/OP%20Sponge%20by%20ALNStudios%20%28V1.0.0%29.mcaddon)
+- **Direct download:** [Download OP Sponge (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/OP-Sponge/OP%20Sponge%20by%20ALNStudios%20%28V1.0.1%29.mcaddon)
 
 ## Installation
 
