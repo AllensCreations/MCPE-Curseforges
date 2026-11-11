@@ -7,7 +7,7 @@ const owner = process.env.GITHUB_OWNER || "AllensCreations";
 const repo = process.env.GITHUB_REPO || "MCPE-Curseforges";
 const ref = process.env.GITHUB_REF || "main";
 const safeSegment = /^[A-Za-z0-9][A-Za-z0-9._ -]{0,180}$/;
-const safePackageName = /^[A-Za-z0-9][A-Za-z0-9._ ()-]{0,220}\.(?:mcaddon|mcpack|mcworld)$/i;
+const isSafePackageName = (value: string) => value.length > 0 && value.length <= 220 && !/[\\/\u0000-\u001f]/.test(value) && !value.includes("..") && /\.(?:mcaddon|mcpack|mcworld)$/i.test(value);
 
 export async function GET(request: NextRequest) {
   const token = process.env.GITHUB_TOKEN;
