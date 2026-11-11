@@ -5,7 +5,7 @@
     "description": "Shows the name, health bar and classification of the entity you are looking at on the Action Bar. by ALNStudios",
     "uuid": "2965654f-c2a4-4f4e-9b00-397ae4dc0c9a",
     "version": [1, 0, 1],
-    "min_engine_version": [1, 26, 50]
+    "min_engine_version": [1, 26, 30]
   },
   "modules": [
     {

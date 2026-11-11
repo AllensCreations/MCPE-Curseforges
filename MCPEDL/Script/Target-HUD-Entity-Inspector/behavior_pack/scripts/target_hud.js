@@ -1,4 +1,4 @@
-import { system, world } from "@minecraft/server";
+import { EquipmentSlot, system, world } from "@minecraft/server";
 
 const MAX_DISTANCE = 16;
 const UPDATE_INTERVAL_TICKS = 2;
@@ -28,7 +28,28 @@ const TYPE_COLORS = {
   Hostile: "§c",
   Aggressive: "§c",
   Passive: "§a",
-  Neutral: "§e"
+  Neutral: "§e",
+  Tamed: "§d"
+};
+
+const TAMEABLE_PETS = new Set(["wolf", "cat"]);
+
+const ARMOR_SLOTS = [
+  EquipmentSlot.Head,
+  EquipmentSlot.Chest,
+  EquipmentSlot.Legs,
+  EquipmentSlot.Feet
+];
+
+const ARMOR_POINTS = {
+  leather_helmet: 1, leather_chestplate: 3, leather_leggings: 2, leather_boots: 1,
+  copper_helmet: 2, copper_chestplate: 4, copper_leggings: 3, copper_boots: 1,
+  golden_helmet: 2, golden_chestplate: 5, golden_leggings: 3, golden_boots: 1,
+  chainmail_helmet: 2, chainmail_chestplate: 5, chainmail_leggings: 4, chainmail_boots: 1,
+  iron_helmet: 2, iron_chestplate: 6, iron_leggings: 5, iron_boots: 2,
+  diamond_helmet: 3, diamond_chestplate: 8, diamond_leggings: 6, diamond_boots: 3,
+  netherite_helmet: 3, netherite_chestplate: 8, netherite_leggings: 6, netherite_boots: 3,
+  turtle_helmet: 2
 };
 
 const lastShown = new Map();
@@ -75,7 +96,33 @@ function getBaseClassification(entity) {
   return "Neutral";
 }
 
-function getClassification(entity) {
+function isOwnTamedPet(entity, viewer) {
+  if (!TAMEABLE_PETS.has(stripNamespace(entity.typeId))) {
+    return false;
+  }
+  const tameable = entity.getComponent("minecraft:tameable");
+  return Boolean(tameable) && tameable.isTamed && tameable.tamedToPlayerId === viewer.id;
+}
+
+function getArmorPoints(player) {
+  const equippable = player.getComponent("minecraft:equippable");
+  if (!equippable) {
+    return 0;
+  }
+  let total = 0;
+  for (const slot of ARMOR_SLOTS) {
+    const item = equippable.getEquipment(slot);
+    if (item) {
+      total += ARMOR_POINTS[stripNamespace(item.typeId)] ?? 0;
+    }
+  }
+  return total;
+}
+
+function getClassification(entity, viewer) {
+  if (isOwnTamedPet(entity, viewer)) {
+    return "Tamed";
+  }
   const base = getBaseClassification(entity);
   if (base !== "Neutral") {
     return base;
@@ -128,19 +175,23 @@ function findTarget(player) {
     if (!entity.getComponent("minecraft:health")) {
       continue;
     }
-    return entity;
+    return { entity, distance: hit.distance };
   }
   return undefined;
 }
 
-function buildActionBar(entity) {
+function buildActionBar(entity, viewer, distance) {
   const health = entity.getComponent("minecraft:health");
   const current = Math.ceil(health.currentValue);
   const max = Math.ceil(health.effectiveMax);
   const name = getDisplayName(entity);
-  const type = getClassification(entity);
+  const type = getClassification(entity, viewer);
   const color = TYPE_COLORS[type] ?? "§f";
-  return `§f${name} §8| ${buildHealthBar(current, max)} §f${current}/${max} §8| ${color}${type}`;
+  let line = `§f${name} §8| ${buildHealthBar(current, max)} §f${current}/${max}`;
+  if (entity.typeId === "minecraft:player") {
+    line += ` §8| §7Armor §f${getArmorPoints(entity)}`;
+  }
+  return `${line} §8| ${color}${type} §8| §7${Math.round(distance)}m`;
 }
 
 function updatePlayer(player) {
@@ -148,7 +199,7 @@ function updatePlayer(player) {
   try {
     const target = findTarget(player);
     if (target) {
-      text = buildActionBar(target);
+      text = buildActionBar(target.entity, player, target.distance);
     }
   } catch (error) {
     text = undefined;

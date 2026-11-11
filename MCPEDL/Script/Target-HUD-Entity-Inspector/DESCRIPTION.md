@@ -5,7 +5,7 @@
 [![Minecraft Bedrock](https://img.shields.io/badge/Minecraft%20Bedrock-Stable%20Release-brightgreen?style=flat-square&logo=minecraft)](https://github.com/AllensCreations/MCPE-Curseforges)
 [![Format](https://img.shields.io/badge/Format-.MCPACK%20%7C%20.MCADDON%20%7C%20.MCWORLD-blue?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges)
 
-**Look at any mob or player within 16 blocks to see its name, a 10-segment health bar, its health numbers and its type.**
+**Look at any mob or player within 16 blocks to see its name, a 10-segment health bar, its health numbers, its type and how far away it is.**
 
 > Shows the entity under your crosshair on the Action Bar with a bar such as ||||||.... beside the numbers. Neutral mobs you hurt switch to Aggressive, which suits players who fight near Wolves, Bees or Endermen.
 
@@ -24,6 +24,17 @@ Aim at a mob or another player and a single line appears on the Action Bar. It d
 - **How It Works**: Hit a Wolf, an Iron Golem or an Enderman and its type changes from Neutral to Aggressive.
 - **Good To Know**: Aggressive lasts one minute after your last hit on that mob, then returns to Neutral. Mobs hurt by something other than a player stay Neutral.
 
+### Distance Readout
+- **What Happens**: The line ends with the distance to the target in blocks, for example 5m.
+
+### Armor Points
+- **What Happens**: When you look at another player, their armor points appear beside their health.
+- **Good To Know**: Points are counted from the Leather, Copper, Golden, Chainmail, Iron, Diamond and Netherite armor they wear, plus a Turtle Shell helmet.
+
+### Tamed Pets
+- **What Happens**: Your own tamed Wolves and Cats show as Tamed, in their own color, instead of Neutral or Passive.
+- **Good To Know**: Pets tamed by other players keep their normal type.
+
 ### Instant Clear
 - **What Happens**: The line is removed right away when you stop looking at the target or a wall blocks your view.
 
@@ -31,11 +42,11 @@ Aim at a mob or another player and a single line appears on the Action Bar. It d
 
 1. Enable the Behavior Pack in your world's settings.
 2. Look at a mob or player within 16 blocks.
-3. Read the name, health bar, health numbers and type on the Action Bar.
+3. Read the name, health bar, health numbers, type and distance on the Action Bar.
 
 ## Compatibility
 
-- Minecraft Bedrock Edition: Minimum version not verified; the pack declares 1.26.50.
+- Minecraft Bedrock Edition: Minimum version not verified; the pack declares 1.26.30.
 - Experimental features: No experiment requirement detected in the inspected files.
 - Achievements: Likely achievement-friendly. This pack runs no commands.
 - Verification: Source created, not tested in game.
