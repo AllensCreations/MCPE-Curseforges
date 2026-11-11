@@ -1,10 +1,155 @@
 {
   "namespace": "server_form",
+  "long_form": {
+    "$title_panel": "common_dialogs.standard_title_label",
+    "$title_size": [
+      "100% - 15px",
+      10
+    ],
+    "$title_max_size": [
+      "100% - 15px",
+      10
+    ],
+    "size": [
+      460,
+      350
+    ],
+    "$text_name": "#title_text",
+    "$title_text_binding_type": "none",
+    "$child_control": "server_form.long_form_panel",
+    "layer": 2
+  },
+  "long_form_panel": {
+    "type": "panel",
+    "size": [
+      "100%",
+      "100%"
+    ],
+    "controls": [
+      {
+        "chest_backdrop": {
+          "type": "image",
+          "layer": -2,
+          "size": [
+            "100%",
+            "100%"
+          ],
+          "texture": "textures/ui/natural_market/chest_panel",
+          "texture_file_system": true
+        }
+      },
+      {
+        "market_scroller": {
+          "type": "panel",
+          "size": [
+            "100%",
+            "100%"
+          ],
+          "controls": [
+            {
+              "scrolling_panel": {
+                "type": "panel",
+                "size": [
+                  "100% - 12px",
+                  "100% - 10px"
+                ],
+                "anchor_from": "top_left",
+                "anchor_to": "top_left",
+                "offset": [
+                  6,
+                  5
+                ],
+                "controls": [
+                  {
+                    "scrolling_content": {
+                      "type": "panel",
+                      "size": [
+                        "100%",
+                        "100%c"
+                      ],
+                      "controls": [
+                        {
+                          "scrolling_panel_ref": {
+                            "type": "panel",
+                            "size": [
+                              "100%",
+                              "100%c"
+                            ],
+                            "controls": [
+                              {
+                                "scrolling_panel_content": {
+                                  "type": "panel",
+                                  "size": [
+                                    "100%",
+                                    "100%c"
+                                  ],
+                                  "controls": [
+                                    {
+                                      "main_label": {
+                                        "type": "label",
+                                        "offset": [
+                                          7,
+                                          5
+                                        ],
+                                        "color": "$main_header_text_color",
+                                        "size": [
+                                          "100%",
+                                          "default"
+                                        ],
+                                        "anchor_from": "top_left",
+                                        "anchor_to": "top_left",
+                                        "text": "#form_text"
+                                      }
+                                    },
+                                    {
+                                      "top_gap": {
+                                        "type": "panel",
+                                        "size": [
+                                          "100%",
+                                          8
+                                        ]
+                                      }
+                                    },
+                                    {
+                                      "button_grid": {
+                                        "type": "panel",
+                                        "size": [
+                                          "100%",
+                                          "100%c"
+                                        ],
+                                        "controls": [
+                                          {
+                                            "long_form_dynamic_buttons_panel@server_form.long_form_dynamic_buttons_panel": {}
+                                          }
+                                        ]
+                                      }
+                                    }
+                                  ]
+                                }
+                              }
+                            ]
+                          }
+                        }
+                      ]
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      }
+    ]
+  },
   "long_form_dynamic_buttons_panel": {
     "type": "grid",
     "size": [
-      "100% - 4px",
+      "100% - 8px",
       "100%c"
+    ],
+    "offset": [
+      4,
+      0
     ],
     "grid_dimensions": [
       3,
@@ -29,7 +174,7 @@
     "type": "button",
     "size": [
       "100%",
-      42
+      54
     ],
     "sound_name": "random.click",
     "default_control": "default",
@@ -49,18 +194,54 @@
     ],
     "controls": [
       {
+        "default": {
+          "type": "image",
+          "layer": 0,
+          "size": [
+            "100%",
+            "100%"
+          ],
+          "texture": "textures/ui/natural_market/slot",
+          "texture_file_system": true
+        }
+      },
+      {
+        "hover": {
+          "type": "image",
+          "layer": 0,
+          "size": [
+            "100%",
+            "100%"
+          ],
+          "texture": "textures/ui/natural_market/slot_hover",
+          "texture_file_system": true
+        }
+      },
+      {
+        "pressed": {
+          "type": "image",
+          "layer": 0,
+          "size": [
+            "100%",
+            "100%"
+          ],
+          "texture": "textures/ui/natural_market/slot_pressed",
+          "texture_file_system": true
+        }
+      },
+      {
         "slot_icon": {
           "type": "image",
           "layer": 2,
           "size": [
-            22,
-            22
+            24,
+            24
           ],
           "anchor_from": "top_middle",
           "anchor_to": "top_middle",
           "offset": [
             0,
-            1
+            2
           ],
           "bindings": [
             {
@@ -84,7 +265,7 @@
           "layer": 3,
           "size": [
             "100% - 2px",
-            17
+            25
           ],
           "anchor_from": "bottom_middle",
           "anchor_to": "bottom_middle",
@@ -93,7 +274,7 @@
             -1
           ],
           "text_alignment": "center",
-          "font_size": "small",
+          "font_size": "extra_small",
           "color": "$title_text_color",
           "text": "#form_button_text",
           "bindings": [
