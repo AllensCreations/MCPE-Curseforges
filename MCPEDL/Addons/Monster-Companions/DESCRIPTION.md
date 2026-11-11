@@ -45,6 +45,7 @@ Tap a companion with an empty hand to make it sit and hold its position, and tap
 - Player safe: Tamed companions never turn hostile toward players.
 - Auto-protect: Companions defend you from nearby aggressive hostile mobs even before you are attacked.
 - Visual status indicators: Tamed companions display an always-visible floating nameplate above their head. Custom name tags can be applied directly without an anvil.
+- Pink eyes: Tamed Zombies and Skeletons have pink eyes.
 - Taming feedback: Hearts confirm when a Primal Beast Biscuit tames a mob.
 - In-combat healing: Feeding a wounded companion a Primal Beast Biscuit restores 10 HP (5 hearts).
 - Witch healing: A tamed Witch throws a Regeneration splash potion at you every 25 to 40 seconds, which also heals companions standing next to you.

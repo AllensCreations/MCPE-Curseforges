@@ -2,6 +2,13 @@
 
 ---
 
+## [2.0.0.1] - 2026-11-11
+
+### Added
+- **Pink eyes**: Tamed Zombies and Skeletons now have pink eyes, so you can tell them apart from wild ones.
+
+---
+
 ## [2.0.0] - 2026-11-08
 
 **What's new in v2.1.0.0:** Packed with 3 updates, from v2.0.1.0 through v2.0.0.2.
