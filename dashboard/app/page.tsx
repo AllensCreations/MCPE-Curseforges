@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useEffect, useMemo, useState } from "react";
 
 type Build = {
@@ -83,12 +84,12 @@ export default function Home() {
           {!loading && error && <div className="empty error"><strong>Catalog unavailable</strong><p>{error}</p><button className="retry" onClick={() => window.location.reload()}>Try again</button></div>}
           {!loading && !error && visible.length === 0 && <div className="empty"><strong>No matching projects</strong><p>Try another search or category.</p></div>}
           {!loading && !error && <div className="project-grid">{visible.map((build) => (
-            <article className="project-card" key={build.slug}>
+            <Link className="project-card" key={build.slug} href={`/projects/${encodeURIComponent(build.slug)}`}>
               <div className="card-top"><div className="project-icon">{build.iconUrl ? <img src={build.iconUrl} alt="" /> : build.category === "Maps" ? "WORLD" : build.category === "Scripts" ? "CODE" : build.category === "Minigames" ? "PLAY" : "PACK"}</div><span className="category-tag">{build.category}</span></div>
               <h3>{build.name}</h3><p className="description">{build.description || "Minecraft Bedrock project by ALNStudios."}</p>
               <div className="version-line"><span>Latest build</span><strong>v{build.version}</strong></div>
-              <div className="downloads">{build.packages.map((file) => <a className="download" key={file.name} href={`/api/download?project=${encodeURIComponent(build.slug)}&file=${encodeURIComponent(file.name)}`}><span>{file.format}</span><span>Download ↗</span></a>)}</div>
-            </article>
+              <div className="card-open">View project details <span>→</span></div>
+            </Link>
           ))}</div>}
         </section>
         <footer><span>ALNStudios Build Center</span><span>Private · Repository-synced · Minecraft Bedrock</span></footer>
