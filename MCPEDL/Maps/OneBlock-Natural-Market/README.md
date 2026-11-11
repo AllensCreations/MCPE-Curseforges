@@ -5,7 +5,7 @@ Download the current release of **OneBlock Natural Market** for Minecraft Bedroc
 ## Download
 
 - **Package format:** `.mcworld`
-- **Direct download:** [Browse official map releases](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Maps)
+- **Direct download:** [Download OneBlock Natural Market (.mcworld)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/MCPEDL/Maps/OneBlock-Natural-Market/OneBlock%20Natural%20Market%20-%20Creative.mcworld)
 
 ## Installation
 
