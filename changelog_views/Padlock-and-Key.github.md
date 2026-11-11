@@ -1,18 +1,26 @@
 # Changelog — Padlock & Key
 
-## [1.0.4] - 2026-11-10
+## [1.0.4.1] - 2026-11-11
 
 ### Added
-- **More Lockable Storage**: Every Chest type, including Copper Chests, plus Crafters and Decorated Pots can now be locked.
-
-### Improved & Balanced
-- **Locked Doors Stay Shut**: Locked doors, trapdoors and fence gates no longer open when right-clicked, even with the matching Key. Sneak and right-click with the Key to unlock them.
+- **Hopper Minecart Guard**: A Hopper Minecart that ends up under a locked container is destroyed, so it can no longer pull items from it.
 
 ### Fixed
-- **Floor Check**: Locking no longer asks for a solid block when another block already sits under the container. Open air, liquids, Hoppers and rails under it still stop the lock.
+- **Pistons Keep Locks**: Locked blocks pushed or pulled by a Piston now keep their lock instead of becoming public.
 
 <details>
-<summary><b>1.0.x</b> (4 releases)</summary>
+<summary><b>1.0.x</b> (5 releases)</summary>
+
+### [1.0.4] - 2026-11-10
+
+#### Added
+- **More Lockable Storage**: Every Chest type, including Copper Chests, plus Crafters and Decorated Pots can now be locked.
+
+#### Improved & Balanced
+- **Locked Doors Stay Shut**: Locked doors, trapdoors and fence gates no longer open when right-clicked, even with the matching Key. Sneak and right-click with the Key to unlock them.
+
+#### Fixed
+- **Floor Check**: Locking no longer asks for a solid block when another block already sits under the container. Open air, liquids, Hoppers and rails under it still stop the lock.
 
 ### [1.0.3] - 2026-11-10
 

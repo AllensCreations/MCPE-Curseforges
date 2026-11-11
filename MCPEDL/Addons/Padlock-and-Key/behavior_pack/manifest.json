@@ -1,13 +1,13 @@
 {
   "format_version": 2,
   "header": {
-    "name": "Padlock & Key (v1.0.4)",
+    "name": "Padlock & Key (v1.0.5)",
     "description": "Password locks for chests, doors and more. by ALNStudios",
     "uuid": "1f5df9cb-a6fb-4490-9a2b-71d54e078955",
     "version": [
       1,
       0,
-      4
+      5
     ],
     "min_engine_version": [
       1,
@@ -22,7 +22,7 @@
       "version": [
         1,
         0,
-        4
+        5
       ]
     },
     {
@@ -32,7 +32,7 @@
       "version": [
         1,
         0,
-        4
+        5
       ],
       "entry": "scripts/main.js"
     }
@@ -43,7 +43,7 @@
       "version": [
         1,
         0,
-        4
+        5
       ]
     },
     {
@@ -56,6 +56,6 @@
       "ALNStudios"
     ],
     "product_type": "addon",
-    "version": "1.0.4"
+    "version": "1.0.5"
   }
 }
