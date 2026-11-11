@@ -1,17 +1,17 @@
-# Cheat Stick — Use a Normal Stick to Change Game Mode, Time, Weather, and Survival Settings
+# Cheat Stick — Use a Normal Stick to Change Game Mode, Time, Weather, Effects, Travel, and Survival Settings
 
 **By ALNStudios**
 
 [![Minecraft Bedrock](https://img.shields.io/badge/Minecraft%20Bedrock-Stable%20Release-brightgreen?style=flat-square&logo=minecraft)](https://github.com/AllensCreations/MCPE-Curseforges)
 [![Format](https://img.shields.io/badge/Format-.MCPACK%20%7C%20.MCADDON%20%7C%20.MCWORLD-blue?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges)
 
-**Use a normal Stick to open the @ALNStudio menu with Gamemode, Time, Weather, and Survival choices.**
+**Use a normal Stick to open the @ALNStudio menu with Gamemode, Time, Weather, Survival, Effects, and Travel choices.**
 
-> Any normal Stick becomes a cheat menu, with 3 game modes, 6 times of day, 3 weather types, and 5 survival helpers. It suits survival worlds where you want quick control without typing commands.
+> Any normal Stick becomes a cheat menu, with 3 game modes, 6 times of day, 3 weather types, 4 survival helpers, 7 effects, and 5 travel helpers. It suits survival worlds where you want quick control without typing commands.
 
 ## Overview
 
-Hold a normal Stick and use it. A menu titled @ALNStudio opens with four choices: Gamemode, Time, Weather, and Survival. Pick a category, pick an option, and the change applies at once. A Back button in each category returns you to the main menu.
+Hold a normal Stick and use it. A menu titled @ALNStudio opens with six choices: Gamemode, Time, Weather, Survival, Effects, and Travel. Pick a category, pick an option, and the change applies at once. A Back button in each category returns you to the main menu.
 
 ## Key Features
 
@@ -34,15 +34,25 @@ Hold a normal Stick and use it. A menu titled @ALNStudio opens with four choices
 - **How It Works**: Pick Clear to stop a storm, or pick Thunder to start one.
 
 ### Survival
-- **What Happens**: Choose Heal & Feed, Night Vision, Toggle Keep Inventory, Set Spawn Here, or Return to Spawn.
-- **How It Works**: Heal & Feed restores your health and hunger. Night Vision lasts 10 minutes. Toggle Keep Inventory switches the world setting on or off and tells you the new state. Set Spawn Here makes your current position your spawn point. Return to Spawn takes you to your spawn point, or to the world spawn if you have none.
-- **Good To Know**: Keep Inventory is a world setting, so it affects every player in the world.
+- **What Happens**: Choose Heal & Feed, Toggle Keep Inventory, Set Spawn Here, or Clear Nearby Hostile Mobs.
+- **How It Works**: Heal & Feed restores your health and hunger. Toggle Keep Inventory switches the world setting on or off and tells you the new state. Set Spawn Here makes your current position your spawn point. Clear Nearby Hostile Mobs removes hostile mobs within 32 blocks of you.
+- **Good To Know**: Keep Inventory is a world setting, so it affects every player in the world. Removed mobs drop nothing.
+
+### Effects
+- **What Happens**: Choose Haste, Speed, Night Vision, Jump Boost, Water Breathing, Fire Resistance, or Regeneration.
+- **How It Works**: The effect applies to you for 10 minutes without particles. Haste, Speed, and Jump Boost use level 2.
+- **Good To Know**: Effects only affect the player who picked them.
+
+### Travel
+- **What Happens**: Choose Return to Spawn, Return to World Spawn, Back to Death Point, Save Home, or Go Home.
+- **How It Works**: Return to Spawn takes you to your spawn point, or to the world spawn if you have none. Back to Death Point takes you to where you last died. Save Home stores your current position, and Go Home takes you back to it.
+- **Good To Know**: Each player has one saved home and one saved death point. A death point is only saved for deaths that happen after this version is installed.
 
 ## How to Use
 
 1. Take a normal Stick in your hand.
 2. Use the Stick to open the @ALNStudio menu.
-3. Pick Gamemode, Time, Weather, or Survival, then pick an option.
+3. Pick Gamemode, Time, Weather, Survival, Effects, or Travel, then pick an option.
 
 ## Common Questions
 
@@ -53,7 +63,7 @@ Hold a normal Stick and use it. A menu titled @ALNStudio opens with four choices
 
 - Minecraft Bedrock Edition: Minimum game version not verified.
 - Experimental features: No experiment requirement detected in the inspected files.
-- Achievements: Likely achievement-friendly.
+- Achievements: Likely achievement-friendly. Changing game mode, time, weather, effects, travel, and survival settings works like cheats and may disable achievements in that world.
 - Verification: Source created, not tested in game.
 
 ## Creator and Permissions
@@ -79,5 +89,5 @@ Hold a normal Stick and use it. A menu titled @ALNStudio opens with four choices
 
 ## Search & Discovery Keywords
 
-Minecraft Bedrock add-on, Cheat Stick Bedrock mod, cheat menu, game mode switcher, time and weather changer, survival helper menu, keep inventory toggle, normal stick menu, Minecraft PE survival, MCPEDL add-on, CurseForge Bedrock, ALNStudio, ALNStudios.
+Minecraft Bedrock add-on, Cheat Stick Bedrock mod, cheat menu, game mode switcher, time and weather changer, survival helper menu, keep inventory toggle, normal stick menu, Minecraft PE survival, MCPEDL add-on, CurseForge Bedrock, ALNStudio, ALNStudios, effects menu, haste and speed, death point teleport, home teleport.
 

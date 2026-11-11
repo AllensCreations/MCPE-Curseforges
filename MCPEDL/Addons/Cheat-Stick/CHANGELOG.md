@@ -2,6 +2,17 @@
 
 ---
 
+## [1.0.2] - 2026-11-11
+
+### Added
+- **Effects menu**: Haste, Speed, Night Vision, Jump Boost, Water Breathing, Fire Resistance, and Regeneration, each lasting 10 minutes.
+- **Travel menu**: Return to Spawn, Return to World Spawn, Back to Death Point, Save Home, and Go Home.
+- **Clear Nearby Hostile Mobs**: Removes hostile mobs within 32 blocks of you.
+
+### Improved & Balanced
+- **Private action bar messages**: Confirmations now appear above your hotbar and only for the player who used the Stick.
+- **Menu reorganized**: Night Vision moved to the Effects menu and Return to Spawn moved to the Travel menu.
+
 ## [1.0.1] - 2026-11-11
 
 ### Added
