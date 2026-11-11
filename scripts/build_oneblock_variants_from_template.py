@@ -233,6 +233,16 @@ def build_variant(project: Path, map_name: str, mode: str) -> Path:
         (world / "world_behavior_packs.json").write_text(json.dumps(bp_links, indent=2) + "\n", encoding="utf-8")
 
         if rp_manifest:
+            ledger_source = ROOT / "Mcpeworlds" / "assets" / "resources_pack" / "textures" / "items" / "trader_ledger.png"
+            ledger_target = rp_source / "textures" / "items" / "trader_ledger.png"
+            if (bp_source / "items" / "trader_ledger.json").is_file():
+                if not ledger_source.is_file():
+                    raise FileNotFoundError(f"Required repository Trader Ledger icon is missing: {ledger_source}")
+                ledger_target.parent.mkdir(parents=True, exist_ok=True)
+                if not ledger_target.exists():
+                    shutil.copyfile(ledger_source, ledger_target)
+                elif ledger_target.read_bytes() != ledger_source.read_bytes():
+                    raise ValueError(f"Trader Ledger icon must be an exact copy of {ledger_source}: {ledger_target}")
             shutil.copytree(rp_source, world / "resource_packs" / rp_folder)
             (world / "world_resource_packs.json").write_text(
                 json.dumps([{"pack_id": rp_uuid, "version": rp_version}], indent=2) + "\n",
