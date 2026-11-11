@@ -44,13 +44,12 @@ Start on a small void platform with the central block at (0, 0, 0). Breaking it 
 3. Break the central block to earn Coins and progress.
 4. Browse unlocked categories, confirm purchases, and sell eligible items when you need more Coins.
 
-## Compatibility and Limitations
+## Compatibility
 
-- Target game release checked on 2026-11-11: Minecraft Bedrock 26.62.
-- Minimum engine version: 1.26.50, selected to match the stable scripting module baseline checked for this build.
-- No experiment requirement detected in the inspected files.
+- Minecraft Bedrock Edition: 26.62 (release checked 2026-11-11); minimum engine version 1.26.50.
+- Experimental features: No experiment requirement detected in the inspected files.
 - Achievements: Unknown / needs confirmation because the foundation world's settings have not been verified.
-- Verification: Source created; not tested in Minecraft. Structural build checks do not prove gameplay works.
+- Verification: Source created, not tested in game. Structural build checks do not prove gameplay works.
 
 ## Creator and Permissions
 
@@ -75,4 +74,4 @@ Start on a small void platform with the central block at (0, 0, 0). Breaking it 
 
 ## Search & Discovery Keywords
 
-OneBlock Natural Market, OneBlock void survival, Coins economy, Trader Ledger shop, regenerating OneBlock, Minecraft Bedrock map, Minecraft PE map, MCPEDL, CurseForge Bedrock, ALNStudios.
+Minecraft Bedrock add-on, OneBlock Natural Market, OneBlock void survival, Coins economy, Trader Ledger shop, regenerating OneBlock, Minecraft PE mod, MCPEDL add-on, CurseForge Bedrock, ALNStudios.
