@@ -27,12 +27,10 @@ async function readBlob<T>(sha: string): Promise<T> {
 
 async function readText(entry: Entry | undefined): Promise<string> {
   if (!entry) return "";
-  return readBlob<string>(entry.sha).catch(async () => {
-    const response = await fetch(`https://api.github.com/repos/${owner}/${repo}/git/blobs/${entry.sha}`, { headers: githubHeaders(), cache: "no-store" });
-    if (!response.ok) return "";
-    const blob = await response.json();
-    return Buffer.from(blob.content, "base64").toString("utf8");
-  });
+  const response = await fetch(`https://api.github.com/repos/${owner}/${repo}/git/blobs/${entry.sha}`, { headers: githubHeaders(), cache: "no-store" });
+  if (!response.ok) return "";
+  const blob = await response.json();
+  return Buffer.from(blob.content, "base64").toString("utf8");
 }
 
 export async function GET(request: NextRequest) {
