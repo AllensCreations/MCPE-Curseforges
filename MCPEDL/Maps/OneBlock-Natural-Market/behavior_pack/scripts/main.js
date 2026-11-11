@@ -165,6 +165,9 @@ function personalBreaks(player) { return readScore(MINED, player); }
 function totalBreaks() { return readScore(TOTAL, GLOBAL_KEY); }
 function setBalance(player, amount) { return writeScore(COINS, player, amount); }
 function inventoryOf(player) { return player.getComponent("minecraft:inventory")?.container; }
+function itemAvailable(item) {
+  try { return !!ItemTypes.get(item.id); } catch { return false; }
+}
 function tell(player, message) { try { player.sendMessage("§6[Natural Market] §r" + message); } catch {} }
 function showBalance(player) {
   try { player.onScreenDisplay.setActionBar("§6Coins: §e" + balance(player) + " §8| §7Blocks: §f" + personalBreaks(player)); } catch {}
@@ -273,7 +276,7 @@ function marketMain(player) {
 }
 function showCategory(player, category) {
   const tier = unlockedTier(player);
-  const items = CATALOG.filter(item => item.category === category && item.tier <= tier && ItemTypes.get(item.id));
+  const items = CATALOG.filter(item => item.category === category && item.tier <= tier && itemAvailable(item));
   const locked = CATALOG.filter(item => item.category === category && item.tier > tier);
   const form = new ActionFormData().title(category.toUpperCase())
     .body("Balance: " + balance(player) + " Coins\nUnlocked supplies: " + items.length +
