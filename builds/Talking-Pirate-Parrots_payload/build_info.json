@@ -1,8 +1,8 @@
 {
   "changelog_version": "1.0.0",
-  "manifest_version": "1.0.1",
+  "manifest_version": "1.0.2",
   "packages": {
-    "Talking Pirate Parrots by ALNStudios (V1.0.1).mcaddon": "caba9fbe100f9c7e02114b5bc44321b3ac61c08f73a6ce732a619668aa956194"
+    "Talking Pirate Parrots by ALNStudios (V1.0.2).mcaddon": "f2ea6b3d5f8f900cdca21f41afa492fd42e59ac99b2f90f42326392c1fbea7f6"
   },
-  "source_sha256": "6f05c20dcbea2c6119c41718ab0a619368c6b10de967f9e7b7ca1892c237d018"
+  "source_sha256": "7893a7bc9119b2db5ed1645936d2acbcf7fbdc88d7ad8b0f7b2614c9848cc145"
 }
