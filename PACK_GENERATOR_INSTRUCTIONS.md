@@ -485,24 +485,23 @@ Paste the workflow error log back to the agent. Find the rule here and the check
 | `DOC: ...` | Fix exactly what it names; template in 2.5. |
 
 ### 4.11 Reply format
-BUILD request: final reply = exactly these three blocks, this order, exact headings. NEVER anything before/after: no greeting, preamble, closing offer, extra sections, restated idea. NEVER reorder/rename/merge/skip. Empty block: `None`.
+BUILD request: reply = exactly these three blocks, this order, these headings. NOTHING before/after (no greeting, intro, offer, restated idea). Empty block: `None`.
 
 **1. PAYLOAD**
-- One fenced block with the `payload.b64` contents only (one line, no breaks/spaces, copied, NEVER retyped). The workflow reads the project name from `project.json` inside it.
-- If over the workflow input limit (65,535 chars): `File: payload.b64` and say it is too large to paste.
+One fenced block: `payload.b64` contents (one line, copied, NEVER retyped). Over 65,535 chars: `File: payload.b64` and say it is too large to paste.
 
-**2. SUMMARY** exactly these lines, one short sentence/value each:
+**2. SUMMARY** exactly these lines, one short value each:
 ```
 What it does:
 Target game version:
 min_engine_version: <value> (verified | not verified)
-Module versions: @minecraft/server <version>, @minecraft/server-ui <version> (checked <YYYY-MM-DD>)
-Achievements: Likely achievement-friendly | Not achievement-friendly / may disable achievements | Unknown / needs confirmation
+Module versions: @minecraft/server <v>, @minecraft/server-ui <v> (checked <YYYY-MM-DD>)
+Achievements: <1.2 status>
 Experiments: <none detected | required: name | unknown>
 Icon asset: <repo copy, hash verified | none>
 Included add-ons: <names | None | not a script>
 Deviations from this file: <list | None>
-build_payload.py result: <the SELF-TEST PASSED and BUILD OK lines, or the exact failure>
+build_payload.py result: <SELF-TEST PASSED and BUILD OK lines, or exact failure>
 Verification: Source created, not tested in game.
 ```
 `Not applicable` for lines that do not fit the type. NEVER write an unchecked value.
@@ -510,26 +509,14 @@ Verification: Source created, not tested in game.
 **3. NEXT STEPS** exactly:
 ```
 1. GitHub, Actions, Create Project from Base64, Run workflow.
-2. Paste the payload into payload_base64. Pick import_mode (auto, create, update, overwrite) and commit_mode (leave pull_request), then review and merge the pull request it opens.
-3. Download the generated world from the run's artifacts or the project folder and test it in Minecraft.
-4. To change which add-ons a test world includes, edit test_world.json and re-run Create Project from Base64 (it rebuilds the test world).
-5. If the build fails, paste the error log back to the agent.
+2. Paste the payload into payload_base64, set import_mode, leave commit_mode on pull_request, merge the PR.
+3. Test the generated world (run artifacts or project folder) in Minecraft.
+4. Test-world add-ons: edit test_world.json, re-run the workflow.
+5. Build fails: paste the error log back.
 ```
 
-Exceptions (use INSTEAD of the three blocks, nothing else):
+Exceptions (INSTEAD of the three blocks, nothing else):
 - Cannot run code: `CANNOT BUILD`, one line why, file tree with full contents, exact command (4.1). No base64.
-- Build failed, unfixable: `BUILD FAILED`, exact failing lines from `build_payload.py`, the rule/check each names. No base64.
+- Build failed, unfixable: `BUILD FAILED`, exact failing lines from `build_payload.py`, the rule each names. No base64.
 - Type unknown: only the 4.0 question.
-- Not a build request (review, question, bug report, change to a file or script): three sections, nothing else: `**File Needed:**`, `**Changelog:**`, `**Termux Script:**` (format in `INSTRUCTIONS.md` Reply Format, `.sh` named per 1.1).
-
----
-
-## Version History
-- **v17:** Removed the 30 questions (4.0a). Build reply is three blocks: PAYLOAD, SUMMARY, NEXT STEPS. TYPE AND FOLDER and OPEN QUESTIONS blocks removed.
-- **v16:** Agent asks 30 questions (4.0a) before every build. Create Project from Base64 takes only payload_base64, import_mode, commit_mode; name from project.json.
-- **v15:** Telegram-style rewrite. NEVER/ALWAYS tags. Shared docs section synced with `INSTRUCTIONS.md`. Legacy four-part version notes removed. Size cap 50 KB (`scripts/check_instruction_files.py`).
-- **v14:** Non-build replies use the three-section format. Compressed script name rule.
-- **v13:** Folded changelog views (`scripts/build_changelog_views.py`).
-- **v12:** DESCRIPTION template: concrete tagline/pitch, numbered steps, Common Questions, Good To Know, extra style checks.
-- **v11:** Page quality rules, advisory `--style` check.
-- **v10:** Version-free badge, clickable listing images, `.b64` file route default, `doc_template.py` as source of truth.
+- Not a build request (review, question, bug report, file or script change): `**File Needed:**`, `**Changelog:**`, `**Termux Script:**` only (`INSTRUCTIONS.md` Reply Format, `.sh` named per 1.1).

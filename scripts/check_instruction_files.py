@@ -15,7 +15,7 @@ FILES = ("INSTRUCTIONS.md", "PACK_GENERATOR_INSTRUCTIONS.md")
 REQUIRED = {
     "INSTRUCTIONS.md": ("## Read ONE File Per Task", "## Reply Format", "## Final Self-Check", "## Version History",
                         "**File Needed:**", "**Changelog:**", "**Termux Script:**"),
-    "PACK_GENERATOR_INSTRUCTIONS.md": ("### 4.9 Final self-check", "### 4.11 Reply format", "## Version History",
+    "PACK_GENERATOR_INSTRUCTIONS.md": ("### 4.9 Final self-check", "### 4.11 Reply format",
                                        "**File Needed:**", "**Changelog:**", "**Termux Script:**"),
 }
 RETIRED = {"update_min_version.py", "create_mcpe_world.py", "check_generator_sync.py"}
