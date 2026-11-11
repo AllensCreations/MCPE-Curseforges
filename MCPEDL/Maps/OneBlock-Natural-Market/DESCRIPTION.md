@@ -19,11 +19,11 @@ Start on a small void platform with the central block at (0, 0, 0). Breaking it 
 - The starting core is Dirt and is managed by the map script after one-time void setup.
 
 ### Natural Market Ledger
-- Opens a **3-row by 9-column chest-inspired inventory grid** with Minecraft item icons.
+- Opens a **3-row by 9-column chest-inspired market panel** with a wood-toned frame, individual slot backgrounds, hover/pressed states, and Minecraft item icons.
 - Tap a supply slot to purchase its displayed bundle directly; no separate purchase-confirmation screen.
-- Large categories use pages that fit the 27-slot layout.
+- Large categories use pages that reserve two slots for navigation controls.
 - The catalogue contains more than 180 configured supplies across ten categories. Entries unavailable in the current game version are hidden.
-- This is a custom layout for the standard server Action Form. It is **not a real vanilla chest container screen**.
+- This is a simulated layout for the standard server Action Form. It is **not a real vanilla chest container screen** and does not support draggable slots or native container transfers.
 
 ### Coins and Selling
 - Successful central-block breaks award Coins.
@@ -48,7 +48,7 @@ Start on a small void platform with the central block at (0, 0, 0). Breaking it 
 - Minecraft Bedrock Edition: minimum engine version 1.26.50.
 - Stable Script API dependencies: `@minecraft/server` 2.10.0 and `@minecraft/server-ui` 2.2.0.
 - Experimental features: No experiment requirement detected in the inspected files.
-- UI compatibility: The inventory-grid appearance uses legacy resource-pack JSON UI customization of the standard Action Form. Minecraft is deprecating JSON UI in favor of Ore UI, so a future game update may require UI maintenance or a fallback to ordinary forms.
+- UI compatibility: The market's chest-inspired appearance is a resource-pack JSON UI customization of the standard Action Form. Minecraft is deprecating JSON UI in favor of Ore UI, so future game updates may require UI maintenance or a fallback to ordinary forms.
 - Achievements: Unknown / needs confirmation because the foundation world's settings have not been verified.
 - Verification: Source updated; no package build or in-game test has been run for this UI revision.
 

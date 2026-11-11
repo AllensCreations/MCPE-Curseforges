@@ -2,16 +2,14 @@
 
 ---
 
-## [1.0.1] - 2026-11-11
-
-### Added
-- **Chest-inspired market grid**: Action-form buttons are presented in a 3-row by 9-column inventory-style layout with item icons and compact supply labels.
-- **Paged catalogue**: Large categories are split into pages that fit the 27-slot grid.
+## [1.0.2] - 2026-11-11
 
 ### Improved
-- **Direct purchasing**: Tapping a supply slot purchases its configured bundle immediately; successful delivery, coin deduction, and regeneration-pool updates continue through the existing purchase handler.
-- **Stable scripting baseline**: Keeps `@minecraft/server` 2.10.0 and `@minecraft/server-ui` 2.2.0 without beta modules or experimental toggles.
+- Reworked the Ledger's Action Form presentation with a wood-framed market panel and individual inventory-style slot backgrounds.
+- Added distinct default, hover, and pressed slot states while retaining Minecraft item icons and the existing 3 × 9 button grid.
+- Kept the category catalogue's 25-item page size so the Next Page and Back controls fit in the remaining two slots.
 
 ### Compatibility note
-- The grid is a resource-pack JSON UI customization of the standard Action Form, not a native chest container. JSON UI is deprecated by Minecraft and may need maintenance after future UI changes. It does not add an experimental gameplay toggle.
-- Source updated; package build and in-game UI behavior have not yet been verified.
+- This remains a simulated inventory-style Action Form, not a native chest container. It does not provide draggable item slots or vanilla container transfer behavior.
+- The visual layer uses legacy resource-pack JSON UI, which Minecraft is deprecating in favor of Ore UI. Future game updates may require maintenance.
+- No experimental gameplay toggle was added. Source structure is updated; Minecraft in-game rendering has not been verified.
