@@ -1,0 +1,8 @@
+{
+  "changelog_version": "2.0.1",
+  "manifest_version": "2.0.1",
+  "packages": {
+    "Cheat Stick by ALNStudios (V2.0.1).mcaddon": "be70d4e466e56c9f530b8d7579899f39becb40c1bc2b807e99d3d156f3d13486"
+  },
+  "source_sha256": "aa669c00155c7ebfc703c948e7c1974068399ca737513c2807bdbc92042a5eb5"
+}
