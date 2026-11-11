@@ -72,3 +72,4 @@ Tame a parrot and keep it close. As you explore, mine, fight and sleep, the parr
 ## Search & Discovery Keywords
 
 Minecraft Bedrock add-on, Talking Pirate Parrots Bedrock mod, pirate parrot voices, tamed parrot dialogue, mob warning sounds, Minecraft PE companion, MCPEDL add-on, CurseForge Bedrock, ALNStudios.
+
