@@ -4,9 +4,11 @@
   "padding": 8,
   "num_mip_levels": 4,
   "texture_data": {
-    "allenscreations_op_sponge": { "textures": "textures/blocks/sponge" },
-    "allenscreations_op_sponge_wet": { "textures": "textures/blocks/sponge_wet" },
-    "allenscreations_lava_sponge": { "textures": "textures/blocks/shroomlight" },
-    "allenscreations_lava_sponge_filled": { "textures": "textures/blocks/magma" }
+    "allenscreations_op_sponge": {
+      "textures": "textures/blocks/sponge"
+    },
+    "allenscreations_op_sponge_wet": {
+      "textures": "textures/blocks/sponge_wet"
+    }
   }
 }

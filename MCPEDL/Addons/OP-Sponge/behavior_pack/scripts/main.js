@@ -19,13 +19,6 @@ const SPONGES = new Map([
       liquids: new Set(["minecraft:water", "minecraft:flowing_water"]),
     },
   ],
-  [
-    "allenscreations:lava_sponge",
-    {
-      filled: "allenscreations:lava_sponge_filled",
-      liquids: new Set(["minecraft:lava", "minecraft:flowing_lava"]),
-    },
-  ],
 ]);
 
 function keyOf(x, y, z) {

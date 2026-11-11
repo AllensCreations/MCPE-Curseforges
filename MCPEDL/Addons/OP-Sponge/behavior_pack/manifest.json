@@ -2,7 +2,7 @@
   "format_version": 2,
   "header": {
     "name": "OP Sponge (v1.0.0)",
-    "description": "Sponges that absorb water or lava. by ALNStudios",
+    "description": "A sponge that absorbs water. by ALNStudios",
     "uuid": "894911ae-ab32-43ea-8ab7-88823bcaab2a",
     "version": [1, 0, 0],
     "min_engine_version": [1, 26, 60]
