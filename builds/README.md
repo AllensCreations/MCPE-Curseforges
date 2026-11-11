@@ -32,7 +32,7 @@ This directory stores compiled Add-ons (`.mcaddon`), Maps (`.mcworld`), Scripts 
 | **Copper-Carrier Logistics** | Add-on (.mcaddon) | [Download (.mcaddon)](Copper-Carrier-Logistics/Copper-Carrier%20Logistics%20by%20ALNStudios%20%28V1.1.0%29.mcaddon) | [`Copper-Carrier-Logistics/`](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/builds/Copper-Carrier-Logistics/) |
 | **Universal Leash** | Add-on (.mcaddon) | [Download (.mcaddon)](Universal-Leash/Universal%20Leash%20by%20ALNStudios%20%28V2.0.0%29.mcaddon) | [`Universal-Leash/`](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/builds/Universal-Leash/) |
 | **Padlock & Key** | Add-on (.mcaddon) | [Download (.mcaddon)](Padlock-and-Key/Padlock%20%26%20Key%20by%20ALNStudios%20%28V1.0.6%29.mcaddon) | [`Padlock-and-Key/`](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/builds/Padlock-and-Key/) |
-| **Talking Pirate Parrots** | Complete Pack (`.mcaddon`) | [Download (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Talking-Pirate-Parrots_payload/Talking%20Pirate%20Parrots%20by%20ALNStudios%20%28V1.0.0%29.mcaddon) | [`Talking-Pirate-Parrots_payload/`](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/builds/Talking-Pirate-Parrots_payload/) |
+| **Talking Pirate Parrots** | Add-on (.mcaddon) | [Download (.mcaddon)](Talking-Pirate-Parrots_payload/Talking%20Pirate%20Parrots%20by%20ALNStudios%20%28V1.0.0%29.mcaddon) | [`Talking-Pirate-Parrots_payload/`](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/builds/Talking-Pirate-Parrots_payload/) |
 
 ### Worlds and Maps
 
