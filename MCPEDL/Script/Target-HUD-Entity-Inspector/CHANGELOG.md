@@ -2,14 +2,18 @@
 
 ---
 
-## [1.0.2] - 2026-11-11
+## [1.1.0] - 2026-11-11
+
+**What's new in v1.1.0:** Packed with the v1.0.2 update.
 
 ### Added
+
 - **Distance Readout**: The display now ends with how far away the target is, such as 5m.
 - **Armor Points**: Players you look at now show their armor points beside their health.
 - **Tamed Pets**: Your own tamed Wolves and Cats now show as Tamed instead of Neutral or Passive.
 
 ### Improved & Balanced
+
 - **Lower Minimum Version**: The Behavior Pack now asks for Minecraft 1.26.30 instead of 1.26.50.
 
 ## [1.0.1] - 2026-11-11
@@ -25,6 +29,8 @@
 
 ### Fixed
 - **Lingering Display**: The display is cleared at once when you look away from a mob, instead of fading out slowly.
+
+
 
 ## [1.0.0] - 2026-11-11
 
