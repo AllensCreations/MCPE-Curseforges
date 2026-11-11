@@ -2,16 +2,12 @@
 
 ---
 
-## [1.0.1] - 2026-11-11
+## [1.0.2] - 2026-11-11
 
-### Added
-- **Chest-inspired market grid**: Action-form buttons are presented in a 3-row by 9-column inventory-style layout with item icons and compact supply labels.
-- **Paged catalogue**: Large categories are split into pages that fit the 27-slot grid.
-
-### Improved
-- **Direct purchasing**: Tapping a supply slot purchases its configured bundle immediately; successful delivery, coin deduction, and regeneration-pool updates continue through the existing purchase handler.
-- **Stable scripting baseline**: Keeps `@minecraft/server` 2.10.0 and `@minecraft/server-ui` 2.2.0 without beta modules or experimental toggles.
+### Improved & Balanced
+- **Chest-inspired market presentation**: Added a wood-framed market panel, recessed inventory slots, item icons, and distinct hover and pressed slot artwork.
+- **Inventory grid layout**: Kept the 3-row by 9-column button grid and existing category pagination for the 27-slot layout.
 
 ### Compatibility note
-- The grid is a resource-pack JSON UI customization of the standard Action Form, not a native chest container. JSON UI is deprecated by Minecraft and may need maintenance after future UI changes. It does not add an experimental gameplay toggle.
+- The market remains a custom Action Form layout, not a real draggable chest container. It uses legacy resource-pack JSON UI customization, which Minecraft is deprecating in favor of Ore UI.
 - Source updated; package build and in-game UI behavior have not yet been verified.
