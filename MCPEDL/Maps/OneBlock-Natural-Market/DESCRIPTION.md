@@ -7,49 +7,50 @@
 
 **Use the Natural Market Ledger to buy supplies for a regenerating OneBlock survival challenge.**
 
-> OneBlock Natural Market combines a regenerating central block with a progression-based economy. Use the Natural Market Ledger to browse supplies, buy items, and sell eligible goods.
-
 ## Overview
 
-Start on a small void platform with the central block at (0, 0, 0). Breaking it earns Coins and advances shared progression; use the Ledger to purchase supplies and build out your survival options. The market uses Minecraft-style item icons in custom forms. It is an inventory-inspired simulation, not a real chest container screen.
+Start on a small void platform with the central block at (0, 0, 0). Breaking it earns Coins and advances shared progression. Use the Natural Market Ledger to buy supplies and expand the central block's eligible regeneration pool.
 
 ## Key Features
 
 ### Regenerating OneBlock
-- **What Happens**: The central block returns after a successful break. The available natural block pool expands as shared mining milestones are reached.
-- **Good To Know**: The starting core is Dirt. The core is managed by the map's script, after the one-time void setup has completed.
+- The central block returns after a successful break.
+- The available natural block pool expands as shared mining milestones are reached.
+- The starting core is Dirt and is managed by the map script after one-time void setup.
 
 ### Natural Market Ledger
-- **What Happens**: Use the Natural Market Ledger to open the market menu, browse categories, inspect prices, and confirm purchases.
-- **How It Works**: Purchase delivery and coin deductions are handled together so an unsuccessful delivery does not intentionally charge the full price.
-- **Good To Know**: The catalogue defines more than 180 supply entries across ten categories. Entries unavailable in the current game version are hidden. The menu uses custom forms with item icons, not Minecraft's native inventory interface.
+- Opens a **3-row by 9-column chest-inspired inventory grid** with Minecraft item icons.
+- Tap a supply slot to purchase its displayed bundle directly; no separate purchase-confirmation screen.
+- Large categories use pages that fit the 27-slot layout.
+- The catalogue contains more than 180 configured supplies across ten categories. Entries unavailable in the current game version are hidden.
+- This is a custom layout for the standard server Action Form. It is **not a real vanilla chest container screen**.
 
 ### Coins and Selling
-- **What Happens**: Successful central-block breaks award Coins. The market includes a sell interface for eligible items listed in its catalogue.
-- **How It Works**: Selling calculates the payout before removing eligible items from inventory.
-- **Good To Know**: The balance is shown in menu text and action-bar messages rather than a sidebar scoreboard.
+- Successful central-block breaks award Coins.
+- Eligible catalogue items can be sold through the Ledger.
+- The balance appears in menu text and action-bar messages, not a sidebar scoreboard.
 
 ### Progression and Supply Pool
-- **What Happens**: Personal mining milestones unlock additional market supplies. Purchased blocks marked as building blocks can be added to the central block's regeneration pool.
-- **Good To Know**: Liquids are excluded from the purchased regeneration pool.
-
-### Optional Recovery
-- **What Happens**: The map includes a simple administrator recovery function that restores missing Bedrock beneath the core.
-- **Good To Know**: Using commands requires cheats, and cheats disable achievements in that world.
+- Personal mining milestones unlock additional market supplies.
+- Purchased eligible blocks can be added to the central block's regeneration pool.
+- Liquids are excluded from the purchased regeneration pool.
 
 ## How to Use
 
 1. Import the Creative world first for initial checks.
-2. Use the Natural Market Ledger from your inventory to open the market.
-3. Break the central block to earn Coins and progress.
-4. Browse unlocked categories, confirm purchases, and sell eligible items when you need more Coins.
+2. Use the Natural Market Ledger from your inventory.
+3. Tap a category, then tap a supply slot to buy its listed bundle.
+4. Break the central block to earn Coins and progress.
+5. Use the selling option in the market to exchange eligible catalogue items for Coins.
 
-## Compatibility
+## Compatibility and Limitations
 
-- Minecraft Bedrock Edition: 26.62 (release checked 2026-11-11); minimum engine version 1.26.50.
+- Minecraft Bedrock Edition: minimum engine version 1.26.50.
+- Stable Script API dependencies: `@minecraft/server` 2.10.0 and `@minecraft/server-ui` 2.2.0.
 - Experimental features: No experiment requirement detected in the inspected files.
+- UI compatibility: The inventory-grid appearance uses legacy resource-pack JSON UI customization of the standard Action Form. Minecraft is deprecating JSON UI in favor of Ore UI, so a future game update may require UI maintenance or a fallback to ordinary forms.
 - Achievements: Unknown / needs confirmation because the foundation world's settings have not been verified.
-- Verification: Source created, not tested in game. Structural build checks do not prove gameplay works.
+- Verification: Source updated; no package build or in-game test has been run for this UI revision.
 
 ## Creator and Permissions
 
@@ -69,9 +70,3 @@ Start on a small void platform with the central block at (0, 0, 0). Breaking it 
 ---
 
 © All rights reserved for ALNStudios.
-
----
-
-## Search & Discovery Keywords
-
-Minecraft Bedrock add-on, OneBlock Natural Market, OneBlock void survival, Coins economy, Trader Ledger shop, regenerating OneBlock, Minecraft PE mod, MCPEDL add-on, CurseForge Bedrock, ALNStudios.
