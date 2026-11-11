@@ -76,29 +76,35 @@ jobs:
           AI_PROMPT = r'''# AI Instructions
 
           Repo: https://github.com/AllensCreations/MCPE-Curseforges.git (branch main)
-          The attached export (a .b64 file: decode it with `base64 -d <name>.b64 > <name>.md`) shows the current files. Read it before changing anything.
+          Export: .b64 file. Decode: `base64 -d <name>.b64 > <name>.md`. Read it before changing anything.
 
-          ## Destination (remembered from this export)
-          Repo-root-relative folders this work belongs to:
+          ## Destination
+          Repo-root-relative folders for this work:
           __DEST__
-          All file paths in the .sh script start from the repo root and stay inside these folders. New files for this work go here too. Put the first folder in a `DEST=` variable at the top of the script and use it for every path and for `git add`.
+          - .sh paths start at repo root, stay inside these folders. New files go here too.
+          - First folder -> `DEST=` variable at script top. Use it for every path and `git add`.
 
           ## Rules
-          1. Never invent features, versions, links, assets or test results.
-          2. Give only what changed. Smallest possible edits, no unrelated rewrites.
-          3. No notes, summaries or explanations unless asked.
-          4. Applies to any project type: add-on, map, script, workflow, website, anything. Keep the existing folder layout. A new project goes in its own new folder next to similar ones.
+          1. NEVER invent features, versions, links, assets, test results.
+          2. Output only what changed. Smallest edits. No unrelated rewrites.
+          3. No notes/summaries/explanations unless asked.
+          4. Any project type (add-on, map, script, workflow, website). Keep folder layout. New project = own new folder beside similar ones.
 
-          ## Every update request = ONE Termux script
-          Create `<Repofilename>_<Version>_<RAND>.sh` (for example `Monster-Companions_1.2.4_k7q2x.sh`) as a downloadable file. `<Repofilename>` is the project, folder or file being changed, with no extension and no spaces (hyphens allowed). `<Version>` is that item's new X.Y.Z version (normally Z+1 for an Update; use the Beta or Release progression only when requested, see Versions below). `<RAND>` is at least 5 random lowercase letters or digits (for example `k7q2x`), freshly generated for every script and never reused from an earlier reply or an existing file, so a new script can never overwrite or re-run an older one with the same name. Use the exact same file name in the reply steps. It must, in this order:
-          1. `#!/data/data/com.termux/files/usr/bin/bash` and `set -e`
-          2. `cd "$HOME/MCPE-Curseforges"`, or `git clone` the repo URL first if the folder is missing
+          ## Update request = ONE Termux script
+          - Name: `<Repofilename>_<Version>_<RAND>.sh` (e.g. `Monster-Companions_1.2.4_k7q2x.sh`). Deliver as downloadable file.
+          - Repofilename: project/folder/file changed. No extension, no spaces (hyphens ok).
+          - Version: new X.Y.Z. Update = Z+1. Beta/Release only if requested (see Versions).
+          - RAND: >=5 random lowercase letters/digits. Fresh every script. NEVER reuse (earlier reply or existing file), so a new script never overwrites or re-runs an old one.
+          - Same exact name in reply steps.
+          Script order:
+          1. `#!/data/data/com.termux/files/usr/bin/bash` + `set -e`
+          2. `cd "$HOME/MCPE-Curseforges"`; `git clone` repo URL first if folder missing
           3. `git pull --rebase`
-          4. Apply every change (code and docs) inside the script itself (heredocs for new or replaced files, inline python3 for patching many files). No separate files to download.
-          5. Validate every changed .json file with python3 and stop on error
-          5b. Verify the top CHANGELOG.md heading equals the new X.Y.Z version and the script file name version; stop on mismatch. If the project has manifests, also check that each source manifest's metadata.version is X.Y.Z (the build rewrites it after the push; do not edit it in the script)
-          6. `git add` only the changed paths, `git commit -m "<short message>"`, `git push`
-          7. After the push, start the Build Changed Packs & Sync Catalogs workflow so the pack is built automatically. Only when `DEST` starts with `MCPEDL/`; it must never stop the script (`|| echo` a warning on failure). Use exactly:
+          4. Apply ALL changes (code + docs) inside the script: heredocs for new/replaced files, inline python3 to patch many files. No separate downloads.
+          5. Validate every changed .json with python3. Stop on error.
+          5b. Verify top CHANGELOG.md heading == new X.Y.Z == script filename version. Stop on mismatch. If project has manifests: check each source manifest `metadata.version` is X.Y.Z (build rewrites it after push; NEVER edit in script).
+          6. `git add` changed paths only; `git commit -m "<short message>"`; `git push`
+          7. After push, start Build Changed Packs & Sync Catalogs. Only when `DEST` starts with `MCPEDL/`. NEVER stop the script on failure (`|| echo` warning). Use exactly:
           ```
           TOKEN=$(printf 'protocol=https\nhost=github.com\n\n' | git credential fill | sed -n 's/^password=//p')
           curl -fsS -X POST -H "Authorization: Bearer $TOKEN" -H "Accept: application/vnd.github+json" \
@@ -107,16 +113,39 @@ jobs:
             && echo "Build Changed Packs & Sync Catalogs started for $DEST" \
             || echo "Could not start the build; run Build Changed Packs & Sync Catalogs manually."
           ```
-          `$DEST` must be the project folder itself (for example `MCPEDL/Addons/Mining-Helmet`). The push may also start the same workflow by itself; the runs are queued and the second one changes nothing.
-          8. Safe to run twice (skip anything already applied)
+             `$DEST` = project folder itself (e.g. `MCPEDL/Addons/Mining-Helmet`). Push may also trigger the same workflow; runs queue, second changes nothing.
+          8. Idempotent: skip anything already applied.
 
-          ## Docs (every update, inside the same script)
-          Strict templates: README.md, DESCRIPTION.md and CHANGELOG.md must follow the templates below exactly: same headings, same heading text, same order, same labels and bullet format. Do not add, remove, rename, merge or reorder sections, and add no boilerplate or extra text. Leave no placeholders; fill every [bracket] with verified content. Accuracy and the requested scope still outrank the template.
-          CHANGELOG.md is mandatory on every update, with no exceptions: every script must add a new release entry for the change. After the change, analyze README.md and DESCRIPTION.md in the destination folder. Edit them only if the change makes them inaccurate or incomplete; leave the rest untouched. Never remove verified content.
-          - Versions: use exactly X.Y.Z everywhere: X = Release generation, Y = Beta generation, Z = Update counter. A normal Update increments Z only (1.2.3 -> 1.2.4). A Beta increments Y and resets Z (1.2.4 -> 1.3.0). A Release increments X and resets Y/Z (1.3.0 -> 2.0.0). Legacy X.Y.Z.A values migrate to X.Z.A because the old Y was Alpha, Z was Beta, and A was Update; legacy three-part X.Y.Z values migrate to X.Z.0. The repository migration handles old manifests, changelogs, registry baselines and archives old snapshots. For a normal code update, increment Z by one; only use Beta or Release transitions when the request explicitly asks for that channel. Use the new X.Y.Z in the CHANGELOG heading and script filename. Never edit manifest versions or README download links by hand; the Build Changed Packs & Sync Catalogs workflow aligns header.version, metadata.version, module/dependency versions, titles, packages and snapshots. Never put a release version in README or DESCRIPTION titles, and never reuse an existing heading.
-          - Changelog views: `changelog_views/<Name>.github.md` (newest release open, older releases folded by minor series) and `changelog_views/<Name>.curseforge.html` (same layout with CurseForge spoilers, to paste into the project description) are generated from CHANGELOG.md by `scripts/build_changelog_views.py`. CHANGELOG.md stays plain text in the exact template format and is the only source of truth: never add HTML, fold markup or links to it, never edit the views by hand, and never create or change them inside the .sh script. After a CHANGELOG.md change they are refreshed by Build Changed Packs & Sync Catalogs, by Collect Files for AI Review (tick commit_changelog_views to save the export refresh), or locally with `python3 scripts/build_changelog_views.py --project <Name>`.
-          - Writing: player-facing only. In-game display names, never identifiers, file names, JSON, events or code. Write "Behavior Pack" / "Resource Pack", never BP/RP. No code blocks, emojis, hype, or badges in README; every DESCRIPTION must include the two exact Minecraft Bedrock and Format badges from the repo template and no other badges. DESCRIPTION may keep existing item sprites and recipe diagrams. No Markdown tables; use `### Feature Name` cards with `- **What Happens**: ...` bullets. Paragraphs of 4 sentences at most. State only verified facts; Verification line must say source created, package built or in-game tested, never mixed.
-          - README.md (add-on): download landing page only, 24 non-empty lines max:
+          ## Docs (every update, same script)
+          - Templates STRICT: README.md, DESCRIPTION.md, CHANGELOG.md match templates below exactly: same headings, text, order, labels, bullet format. NEVER add/remove/rename/merge/reorder sections. No boilerplate/extra text. No placeholders: fill every [bracket] with verified content. Accuracy + requested scope outrank template.
+          - CHANGELOG.md: MANDATORY every update, no exceptions. Add new release entry for the change.
+          - README.md + DESCRIPTION.md: after change, analyze both in destination folder. Edit ONLY if change makes them inaccurate/incomplete. NEVER remove verified content.
+
+          ### Versions (X.Y.Z ONLY)
+          - Format: exactly X.Y.Z everywhere. NEVER X.Y.Z.A. No fourth part. No Alpha.
+          - X = Release, Y = Beta, Z = Update.
+          - Update: Z+1 (1.2.3 -> 1.2.4). Default.
+          - Beta: Y+1, Z=0 (1.2.4 -> 1.3.0). Only if requested.
+          - Release: X+1, Y=0, Z=0 (1.3.0 -> 2.0.0). Only if requested.
+          - Legacy X.Y.Z.A -> X.Z.A; legacy X.Y.Z -> X.Z.0. Repo migration handles old manifests, changelogs, registry baselines, old snapshots. NEVER hand-migrate.
+          - New X.Y.Z goes in CHANGELOG heading + script filename.
+          - NEVER hand-edit manifest versions or README download links. Build Changed Packs & Sync Catalogs aligns header.version, metadata.version, module/dependency versions, titles, packages, snapshots.
+          - NEVER put release version in README/DESCRIPTION titles. NEVER reuse a heading.
+
+          ### Changelog views
+          - `changelog_views/<Name>.github.md` (newest open, older folded by minor series) and `changelog_views/<Name>.curseforge.html` (CurseForge spoilers, paste into project description): generated from CHANGELOG.md by `scripts/build_changelog_views.py`.
+          - CHANGELOG.md = plain text, exact template format, only source of truth. NEVER add HTML/fold markup/links to it. NEVER edit views by hand. NEVER create/change views inside the .sh.
+          - Refresh: Build Changed Packs & Sync Catalogs; Collect Files for AI Review (tick commit_changelog_views to save); or `python3 scripts/build_changelog_views.py --project <Name>`.
+
+          ### Writing
+          - Player-facing only. In-game display names, never identifiers, file names, JSON, events, code.
+          - "Behavior Pack" / "Resource Pack", NEVER BP/RP.
+          - README: no code blocks, emojis, hype, badges.
+          - DESCRIPTION: exactly the two Minecraft Bedrock + Format badges from repo template, no others. May keep existing item sprites + recipe diagrams.
+          - No Markdown tables. Use `### Feature Name` cards with `- **What Happens**: ...` bullets.
+          - Paragraphs <=4 sentences. Verified facts only. Verification line = source created | package built | in-game tested, NEVER mixed.
+
+          ### README.md (add-on): download landing page only, <=24 non-empty lines
           ```
           # [Name]
 
@@ -137,9 +166,23 @@ jobs:
 
           For gameplay features, usage details, compatibility notes, and other project information, read the [full description](DESCRIPTION link).
           ```
-          Maps, scripts and minigames use the same download landing page (use the real package format, and for .mcworld tell players to open the imported world). Product details live in DESCRIPTION.md.
-          - DESCRIPTION.md section order: `# [Name] — [subtitle]` (no release version), `**By ALNStudios**`, the two exact Minecraft Bedrock and Format badges from the repo template, summary, `## Overview`, `## Key Features`, `## How to Use`, `## Compatibility` (Minecraft Bedrock Edition, Experimental features, Achievements, Verification), `## Creator and Permissions` (CurseForge profile https://www.curseforge.com/members/allenscreations/projects and MCPEDL profile https://mcpedl.com/user/allenscreations/), `## Guidelines and Attribution`, then `---` and `## Search & Discovery Keywords` built from real features. For Add-ons, always use `Likely achievement-friendly` on the Achievements line; include caveats if world settings or cheats can disable achievements.
-          - Guidelines and Attribution block, exactly:
+          Maps/scripts/minigames: same landing page. Use real package format; .mcworld = tell players to open the imported world. Product details live in DESCRIPTION.md.
+
+          ### DESCRIPTION.md order
+          1. `# [Name] — [subtitle]` (no release version)
+          2. `**By ALNStudios**`
+          3. Two exact badges (Minecraft Bedrock, Format) from repo template
+          4. Summary
+          5. `## Overview`
+          6. `## Key Features`
+          7. `## How to Use`
+          8. `## Compatibility`: Minecraft Bedrock Edition, Experimental features, Achievements, Verification
+          9. `## Creator and Permissions`: CurseForge https://www.curseforge.com/members/allenscreations/projects ; MCPEDL https://mcpedl.com/user/allenscreations/
+          10. `## Guidelines and Attribution`
+          11. `---` then `## Search & Discovery Keywords` from real features
+          - Add-ons: Achievements line ALWAYS `Likely achievement-friendly`; add caveats if world settings/cheats can disable achievements.
+
+          ### Guidelines and Attribution block, exactly
           ```
           - Creator: ALNStudios
           - Rights & Reservation: All rights reserved for ALNStudios.
@@ -151,10 +194,16 @@ jobs:
 
           © All rights reserved for ALNStudios.
           ```
-          - CHANGELOG.md: `# Changelog — [Name]`, `---`, then newest release first as `## [X.Y.Z] - YYYY-MM-DD` (script uses today's date from `TZ=Asia/Singapore date +%F`), grouped under `### Added`, `### Improved & Balanced`, `### Fixed` (bugs described by in-game experience). Entries are `- **Title**: player impact.` No links, URLs, badges, function or event names, or unverified benefits. No boilerplate after the title. Every entry needs at least one bullet; omit headings that have no entries. Insert the new entry directly under the `---` and above the previous release. Never edit or delete older entries.
+
+          ### CHANGELOG.md
+          - `# Changelog — [Name]`, `---`, then newest first: `## [X.Y.Z] - YYYY-MM-DD` (date: `TZ=Asia/Singapore date +%F`).
+          - Groups: `### Added`, `### Improved & Balanced`, `### Fixed` (bugs as in-game experience). Omit empty groups. Each group >=1 bullet.
+          - Entry: `- **Title**: player impact.`
+          - NO links, URLs, badges, function/event names, unverified benefits. No boilerplate after title.
+          - Insert new entry directly under `---`, above previous release. NEVER edit/delete older entries.
 
           ## Reply format
-          1. The .sh file (named <Repofilename>_<Version>_<RAND>.sh, ending with the random characters)
+          1. The .sh file (`<Repofilename>_<Version>_<RAND>.sh`, random chars included)
           2. These steps, exactly:
 
           First time only:
@@ -169,7 +218,7 @@ jobs:
           ```
           bash ~/storage/downloads/<Repofilename>_<Version>_<RAND>.sh
           ```
-          Download the .sh to your Downloads folder first and use its exact file name, including the random characters. At the push prompt, the password is your GitHub Personal Access Token (repo and workflow scopes), not your account password. The same token starts the build after the push.
+          Download .sh to Downloads first. Use exact file name incl. random chars. Push prompt password = GitHub Personal Access Token (repo + workflow scopes), NOT account password. Same token starts the build after push.
           '''
 
           raw_paths = [p.strip().strip("'\"") for p in re.split(r"[,\n]", os.environ["PATHS"]) if p.strip()]
@@ -270,9 +319,12 @@ jobs:
               text = selected[rel].read_text(encoding="utf-8", errors="replace")
               mv = re.search(r"^## \[(\d+)\.(\d+)\.(\d+)(?:\.(\d+))?\]", text, re.M)
               if mv:
-                  a, b, c, d = (int(x or 0) for x in mv.groups())
-                  version_lines.append(f"CURRENT VERSION: {a}.{b}.{c}.{d} / NEXT: {a}.{b}.{c}.{d + 1}  ({rel})")
-                  top_versions.append(f"{a}.{b}.{c}.{d}")
+                  a, b, c, d = mv.groups()
+                  if d is not None:  # legacy X.Y.Z.A -> X.Z.A
+                      a, b, c = a, c, d
+                  a, b, c = int(a), int(b), int(c)
+                  version_lines.append(f"CURRENT VERSION: {a}.{b}.{c} / NEXT UPDATE: {a}.{b}.{c + 1}  ({rel})")
+                  top_versions.append(f"{a}.{b}.{c}")
 
           blocks = []
           for rel in files:
