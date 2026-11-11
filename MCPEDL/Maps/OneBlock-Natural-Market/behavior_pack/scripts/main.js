@@ -355,32 +355,30 @@ function marketMain(player) {
     }
   }).catch(() => tell(player, "The market menu could not open. Try using the Ledger again."));
 }
-function showCategory(player, category) {
+function showCategory(player, category, page = 0) {
   const tier = unlockedTier(player);
   const items = CATALOG.filter(item => item.category === category && item.tier <= tier && itemAvailable(item));
   const locked = CATALOG.filter(item => item.category === category && item.tier > tier);
+  const pageSize = 25;
+  const pageCount = Math.max(1, Math.ceil(items.length / pageSize));
+  const safePage = Math.max(0, Math.min(page, pageCount - 1));
+  const visible = items.slice(safePage * pageSize, (safePage + 1) * pageSize);
   const form = new ActionFormData().title(category.toUpperCase())
-    .body("Balance: " + balance(player) + " Coins\nUnlocked supplies: " + items.length +
-      (locked.length ? "\nMore supplies unlock as you mine the core." : "") + "\nSelect an item to inspect it.");
-  for (const item of items) form.button(item.name + " ×" + item.amount + "\n§e" + item.price + " Coins each", item.icon);
-  form.button("Back to Market", "textures/items/book_normal");
+    .body("§6Coins: §e" + balance(player) + "§r  |  Page " + (safePage + 1) + "/" + pageCount +
+      "\nTap a supply slot to buy the listed bundle." +
+      (locked.length ? "\nMore supplies unlock as you mine the core." : ""));
+  for (const item of visible) {
+    form.button(item.name + "\n§e" + item.amount + "x · " + (item.price * item.amount) + " Coins", item.icon);
+  }
+  if (safePage + 1 < pageCount) form.button("Next Page ▶", "textures/ui/arrow_dark_right");
+  form.button("◀ Back to Market", "textures/items/book_normal");
   showForm(form, player).then(r => {
     if (r.canceled) return;
-    if (r.selection === items.length) return marketMain(player);
-    const item = items[r.selection];
-    if (item) confirmPurchase(player, item);
+    if (r.selection < visible.length) return purchase(player, visible[r.selection]);
+    const nextIndex = visible.length;
+    if (safePage + 1 < pageCount && r.selection === nextIndex) return showCategory(player, category, safePage + 1);
+    return marketMain(player);
   }).catch(() => tell(player, "This category could not open."));
-}
-function confirmPurchase(player, item) {
-  const totalPrice = item.price * item.amount;
-  const form = new MessageFormData()
-    .title(item.name)
-    .body("Purchase " + item.amount + " × " + item.name + " for " + totalPrice + " Coins?\n\nPrice per item: " + item.price + " Coins. Your balance: " + balance(player) + " Coins.")
-    .button1("Buy")
-    .button2("Cancel");
-  showForm(form, player).then(r => {
-    if (!r.canceled && r.selection === 0) purchase(player, item);
-  }).catch(() => tell(player, "Purchase confirmation could not open."));
 }
 function purchase(player, item) {
   if (item.tier > unlockedTier(player)) return tell(player, "Mine more central blocks to unlock this supply.");
