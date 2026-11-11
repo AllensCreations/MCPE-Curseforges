@@ -22,7 +22,7 @@ Start on a small void platform with the central block at (0, 0, 0). Breaking it 
 ### Natural Market Ledger
 - **What Happens**: Use the Natural Market Ledger to open the market menu, browse categories, inspect prices, and confirm purchases.
 - **How It Works**: Purchase delivery and coin deductions are handled together so an unsuccessful delivery does not intentionally charge the full price.
-- **Good To Know**: The menu uses standard custom forms with item icons; it does not replace Minecraft's native inventory interface.
+- **Good To Know**: The catalogue defines more than 180 supply entries across ten categories. Entries unavailable in the current game version are hidden. The menu uses custom forms with item icons, not Minecraft's native inventory interface.
 
 ### Coins and Selling
 - **What Happens**: Successful central-block breaks award Coins. The market includes a sell interface for eligible items listed in its catalogue.
