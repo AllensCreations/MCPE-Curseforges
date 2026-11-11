@@ -9,7 +9,8 @@ name: Collect Files for AI Review
 #                         every text file, nothing truncated; decode with base64 -d) inside a zip named after the first folder with its
 #                         latest changelog version:  (X.Y.Z) Filename.zip
 #                         The built-in AI prompt keeps the Termux .sh rules: (Repofilename)_(Version)_(Rand).sh,
-#                         CHANGELOG.md updated on every change with the three-part X.Y.Z policy.
+#                         CHANGELOG.md updated on every change with the X.Y.Z-only policy.
+#                         Replies use ONLY: File Needed, Changelog, Termux Script.
 # GitHub cannot push a download to your device by itself: open the run summary and tap the link.
 #
 # CHANGELOG VIEWS (merged from the old "Build Changelog Views" workflow)
@@ -103,6 +104,7 @@ jobs:
           4. Apply ALL changes (code + docs) inside the script: heredocs for new/replaced files, inline python3 to patch many files. No separate downloads.
           5. Validate every changed .json with python3. Stop on error.
           5b. Verify top CHANGELOG.md heading == new X.Y.Z == script filename version. Stop on mismatch. If project has manifests: check each source manifest `metadata.version` is X.Y.Z (build rewrites it after push; NEVER edit in script).
+          5c. If INSTRUCTIONS.md or PACK_GENERATOR_INSTRUCTIONS.md changed: run `python3 scripts/check_instruction_files.py`. Stop on error
           6. `git add` changed paths only; `git commit -m "<short message>"`; `git push`
           7. After push, start Build Changed Packs & Sync Catalogs. Only when `DEST` starts with `MCPEDL/`. NEVER stop the script on failure (`|| echo` warning). Use exactly:
           ```
@@ -127,7 +129,6 @@ jobs:
           - Update: Z+1 (1.2.3 -> 1.2.4). Default.
           - Beta: Y+1, Z=0 (1.2.4 -> 1.3.0). Only if requested.
           - Release: X+1, Y=0, Z=0 (1.3.0 -> 2.0.0). Only if requested.
-          - Legacy X.Y.Z.A -> X.Z.A; legacy X.Y.Z -> X.Z.0. Repo migration handles old manifests, changelogs, registry baselines, old snapshots. NEVER hand-migrate.
           - New X.Y.Z goes in CHANGELOG heading + script filename.
           - NEVER hand-edit manifest versions or README download links. Build Changed Packs & Sync Catalogs aligns header.version, metadata.version, module/dependency versions, titles, packages, snapshots.
           - NEVER put release version in README/DESCRIPTION titles. NEVER reuse a heading.
@@ -145,7 +146,7 @@ jobs:
           - No Markdown tables. Use `### Feature Name` cards with `- **What Happens**: ...` bullets.
           - Paragraphs <=4 sentences. Verified facts only. Verification line = source created | package built | in-game tested, NEVER mixed.
 
-          ### README.md (add-on): download landing page only, <=24 non-empty lines
+          ### README.md (add-on): download landing page only, EXACTLY 11 non-empty lines
           ```
           # [Name]
 
@@ -171,13 +172,13 @@ jobs:
           ### DESCRIPTION.md order
           1. `# [Name] — [subtitle]` (no release version)
           2. `**By ALNStudios**`
-          3. Two exact badges (Minecraft Bedrock, Format) from repo template
+          3. Two exact badges (Minecraft Bedrock "Stable Release", Format) from repo template
           4. Summary
           5. `## Overview`
           6. `## Key Features`
           7. `## How to Use`
           8. `## Compatibility`: Minecraft Bedrock Edition, Experimental features, Achievements, Verification
-          9. `## Creator and Permissions`: CurseForge https://www.curseforge.com/members/allenscreations/projects ; MCPEDL https://mcpedl.com/user/allenscreations/
+          9. `## Creator and Permissions`: `- Creator: ALNStudios`, `- Profiles:` CurseForge https://www.curseforge.com/members/allenscreations/projects · MCPEDL https://mcpedl.com/user/allenscreations/, then the two clickable listing images (HTML, `width="45%"`, no `height`, raw URLs `assets/Images/curseforge.jpg`, `assets/Images/MCPEDL.jpg`). NEVER edit/copy the images
           10. `## Guidelines and Attribution`
           11. `---` then `## Search & Discovery Keywords` from real features
           - Add-ons: Achievements line ALWAYS `Likely achievement-friendly`; add caveats if world settings/cheats can disable achievements.
@@ -193,6 +194,8 @@ jobs:
           ---
 
           © All rights reserved for ALNStudios.
+
+          ---
           ```
 
           ### CHANGELOG.md
@@ -202,11 +205,21 @@ jobs:
           - NO links, URLs, badges, function/event names, unverified benefits. No boilerplate after title.
           - Insert new entry directly under `---`, above previous release. NEVER edit/delete older entries.
 
-          ## Reply format
-          1. The .sh file (`<Repofilename>_<Version>_<RAND>.sh`, random chars included)
-          2. These steps, exactly:
-
-          First time only:
+          ## Reply Format (STRICT)
+          ```
+          [SYSTEM_CONFIG]
+          Mode: Direct Execution
+          Token_Efficiency: Maximum
+          Rules: no greeting, intro, outro, offers, restating. High technical accuracy.
+          ```
+          Output ONLY these three sections, in order, exact headings:
+          1. **File Needed:** repo-root-relative path of each file created/edited.
+          2. **Changelog:** bullets, brief summary of changes.
+          3. **Termux Script:** ONE fenced `bash` block holding the run command: `bash ~/storage/downloads/<Repofilename>_<Version>_<RAND>.sh`
+          - The .sh (`<Repofilename>_<Version>_<RAND>.sh`, random chars included) is the downloadable file. Exact same name in the command.
+          - NEVER text before, between, after. NEVER rename/merge/reorder/skip a section. Nothing to report: `- None`.
+          - Unclear request: ask ONE line, then proceed with defaults.
+          - First-time Termux setup, ONLY if the user asks:
           ```
           pkg update -y && pkg install -y git python curl
           termux-setup-storage
@@ -214,11 +227,7 @@ jobs:
           git config --global user.email "your-email@example.com"
           git config --global credential.helper store
           ```
-          Every update:
-          ```
-          bash ~/storage/downloads/<Repofilename>_<Version>_<RAND>.sh
-          ```
-          Download .sh to Downloads first. Use exact file name incl. random chars. Push prompt password = GitHub Personal Access Token (repo + workflow scopes), NOT account password. Same token starts the build after push.
+          - Push password = GitHub Personal Access Token (repo + workflow scopes), NOT account password. Same token starts the build after push.
           '''
 
           raw_paths = [p.strip().strip("'\"") for p in re.split(r"[,\n]", os.environ["PATHS"]) if p.strip()]
