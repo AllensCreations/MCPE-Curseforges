@@ -15,7 +15,7 @@ export async function GET(request: NextRequest) {
 
   const project = request.nextUrl.searchParams.get("project") || "";
   const file = request.nextUrl.searchParams.get("file") || "";
-  if (!safeSegment.test(project) || !safePackageName.test(file) || file.includes("..")) {
+  if (!safeSegment.test(project) || !isSafePackageName(file)) {
     return NextResponse.json({ error: "Invalid build selection." }, { status: 400 });
   }
 
