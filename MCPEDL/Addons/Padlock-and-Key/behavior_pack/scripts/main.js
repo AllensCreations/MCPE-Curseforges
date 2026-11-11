@@ -407,3 +407,28 @@ system.runInterval(() => {
     }
   }
 }, 5);
+
+world.beforeEvents.pistonActivate?.subscribe((event) => {
+  const { piston, block } = event;
+  const dimension = block.dimension;
+  let attached = [];
+  try {
+    attached = piston.getAttachedBlocksLocations();
+  } catch (error) {
+    return;
+  }
+  for (const location of attached) {
+    const moving = dimension.getBlock(location);
+    if (!moving) continue;
+    if ((isLockable(moving) && findLock(moving)) || isLockedFloor(moving)) {
+      event.cancel = true;
+      const at = block.location;
+      system.run(() => {
+        for (const player of dimension.getPlayers({ location: at, maxDistance: 8 })) {
+          say(player, "Locked! Pistons can't move a locked block");
+        }
+      });
+      return;
+    }
+  }
+});

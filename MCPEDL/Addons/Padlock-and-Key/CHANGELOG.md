@@ -2,6 +2,11 @@
 
 ---
 
+## [1.0.4.2] - 2026-11-11
+
+### Improved & Balanced
+- **Immovable Locks**: Pistons can no longer push or pull a locked block or the block under a locked container. Locked blocks stay where they are.
+
 ## [1.0.4.1] - 2026-11-11
 
 ### Added

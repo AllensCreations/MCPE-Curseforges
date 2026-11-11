@@ -43,7 +43,7 @@ Craft a Padlock, rename it on an anvil, and use it on a supported block. The blo
 ### Lockable Blocks
 - **What Happens**: Chest, Trapped Chest, every Copper Chest, Ender Chest, Barrel, every Shulker Box, Furnace, Blast Furnace, Smoker, Hopper, Brewing Stand, Dispenser, Dropper, Crafter, Decorated Pot, every door, every Fence Gate, every Trapdoor, and Chiseled Bookshelf can be locked.
 - **How It Works**: A locked door is locked on both halves. A Chest next to a locked Chest of the same kind counts as part of the same lock.
-- **Good To Know**: Lock data is saved with the world, and each dimension keeps its own locks. Pistons carry the lock along when they push or pull a locked block.
+- **Good To Know**: Lock data is saved with the world, and each dimension keeps its own locks. Pistons cannot push or pull a locked block or the block under a locked container.
 
 ## How to Use
 
