@@ -35,13 +35,13 @@ const MILESTONES = [
   { unlock: 6000, id: "minecraft:netherite_block", reward: 8 }
 ];
 const CATALOG = [
-  ["dirt", 1, 16, "Building Blocks", 0, true, "textures/blocks/dirt"],
+  ["dirt", 2, 16, "Building Blocks", 0, true, "textures/blocks/dirt"],
   ["coarse_dirt", 2, 16, "Building Blocks", 0, true, "textures/blocks/coarse_dirt"],
   ["sand", 2, 16, "Building Blocks", 0, true, "textures/blocks/sand"],
   ["gravel", 2, 16, "Building Blocks", 0, true, "textures/blocks/gravel"],
   ["oak_log", 3, 8, "Building Blocks", 0, true, "textures/blocks/log_oak"],
   ["oak_planks", 2, 16, "Building Blocks", 0, true, "textures/blocks/planks_oak"],
-  ["stick", 1, 16, "Tools & Gear", 0, false, "textures/items/stick"],
+  ["stick", 2, 16, "Tools & Gear", 0, false, "textures/items/stick"],
   ["crafting_table", 5, 1, "Building Blocks", 0, true, "textures/blocks/crafting_table_front"],
   ["torch", 2, 16, "Building Blocks", 0, true, "textures/blocks/torch_on"],
   ["bread", 4, 4, "Food", 0, false, "textures/items/bread"],
