@@ -2,15 +2,19 @@
 
 ---
 
-## [2.0.1] - 2026-11-11
+## [2.1.0] - 2026-11-11
+
+**What's new in v2.1.0:** Packed with the v2.0.1 update.
 
 ### Added
+
 - **Difficulty**: Choose Peaceful, Easy, Normal, or Hard from the Gamemode menu.
 - **Rename Slot**: Type a name for a saved slot. The name shows in the Save and Load lists.
 - **Clear Effects**: Removes every active effect from you.
 - **Clear Dropped Items**: Removes items lying on the ground within 32 blocks of you.
 
 ### Improved & Balanced
+
 - **Sneak to open**: The menu now opens only when you sneak and use a Stick, so a normal Stick no longer opens it by accident.
 - **Set Spawn Here moved**: Set Spawn Here is now in the Travel menu instead of the Survival menu.
 
@@ -22,6 +26,8 @@
 
 - **Version in the title**: The @ALNStudios Cheatstick menu title now shows the add-on version, for example (1.0.4).
 
+
+
 ## [1.0.3] - 2026-11-11
 
 ### Added
@@ -32,6 +38,8 @@
 - **Travel menu simplified**: Return to Spawn, Return to World Spawn, Save Home, and Go Home are removed. Back to Death Point stays.
 - **Menu name**: The menu is now called @ALNStudios Cheatstick.
 - **Saved homes**: Homes saved in the previous version are not carried into the new slots.
+
+
 
 
 
@@ -48,6 +56,8 @@
 
 
 
+
+
 ## [1.0.1] - 2026-11-11
 
 ### Added
@@ -57,6 +67,8 @@
 - **Normal Stick**: The menu now opens when you use a normal Stick, so no special item is needed.
 - **Cheat Stick item removed**: The separate Cheat Stick item and its recipe are gone. Use any Stick instead.
 - **Instant open**: The menu opens as soon as you use the Stick. The 1 second hold is no longer needed.
+
+
 
 
 
