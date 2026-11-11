@@ -11,7 +11,7 @@
 
 ## Overview
 
-Hold a normal Stick and use it. A menu titled @ALNStudios Cheatstick opens with six choices: Gamemode, Time, Weather, Survival, Effects, and Travel. Pick a category, pick an option, and the change applies at once. A Back button in each category returns you to the main menu.
+Hold a normal Stick and use it. A menu titled @ALNStudios Cheatstick, followed by the add-on version, opens with six choices: Gamemode, Time, Weather, Survival, Effects, and Travel. Pick a category, pick an option, and the change applies at once. A Back button in each category returns you to the main menu.
 
 ## Key Features
 

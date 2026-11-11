@@ -2,7 +2,8 @@ import { world, GameMode, Difficulty, TimeOfDay, WeatherType } from "@minecraft/
 import { ActionFormData } from "@minecraft/server-ui";
 
 const ITEM_ID = "minecraft:stick";
-const TITLE = "§l§6@ALNStudios §eCheatstick";
+const VERSION = "1.0.4";
+const TITLE = "§l§6@ALNStudios §eCheatstick §7(" + VERSION + ")";
 const PREFIX = "§l§6@ALNStudios §eCheatstick§r §8»§r §a";
 const SLOT_COUNT = 5;
 const EFFECT_TICKS = 12000;
