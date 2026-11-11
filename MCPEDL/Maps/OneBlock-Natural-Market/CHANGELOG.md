@@ -13,4 +13,4 @@
 - **Inventory-inspired menus**: Use Minecraft-style item icons and clear prices in custom forms.
 
 ### Fixed
-- **Purchase handling**: Validate funds and available inventory space before completing a purchase.
+- **Purchase handling**: Refund the undelivered portion when inventory space limits a purchase.
