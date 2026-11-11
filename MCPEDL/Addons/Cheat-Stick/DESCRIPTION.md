@@ -53,7 +53,7 @@ Hold a normal Stick and use it. A menu titled @ALNStudio opens with four choices
 
 - Minecraft Bedrock Edition: Minimum game version not verified.
 - Experimental features: No experiment requirement detected in the inspected files.
-- Achievements: Likely achievement-friendly. Changing game mode, time, weather, and survival settings works like cheats and may disable achievements in that world.
+- Achievements: Likely achievement-friendly.
 - Verification: Source created, not tested in game.
 
 ## Creator and Permissions
@@ -80,3 +80,4 @@ Hold a normal Stick and use it. A menu titled @ALNStudio opens with four choices
 ## Search & Discovery Keywords
 
 Minecraft Bedrock add-on, Cheat Stick Bedrock mod, cheat menu, game mode switcher, time and weather changer, survival helper menu, keep inventory toggle, normal stick menu, Minecraft PE survival, MCPEDL add-on, CurseForge Bedrock, ALNStudio, ALNStudios.
+
