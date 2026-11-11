@@ -1,17 +1,28 @@
 # Changelog — Cheat Stick
 
-## [1.0.1] - 2026-11-11
+## [1.0.2] - 2026-11-11
 
 ### Added
-- **Survival menu**: A new Survival category in the @ALNStudio menu with Heal & Feed, Night Vision, Toggle Keep Inventory, Set Spawn Here, and Return to Spawn.
+- **Effects menu**: Haste, Speed, Night Vision, Jump Boost, Water Breathing, Fire Resistance, and Regeneration, each lasting 10 minutes.
+- **Travel menu**: Return to Spawn, Return to World Spawn, Back to Death Point, Save Home, and Go Home.
+- **Clear Nearby Hostile Mobs**: Removes hostile mobs within 32 blocks of you.
 
 ### Improved & Balanced
+- **Private action bar messages**: Confirmations now appear above your hotbar and only for the player who used the Stick.
+- **Menu reorganized**: Night Vision moved to the Effects menu and Return to Spawn moved to the Travel menu.
+
+<details>
+<summary><b>1.0.x</b> (2 releases)</summary>
+
+### [1.0.1] - 2026-11-11
+
+#### Added
+- **Survival menu**: A new Survival category in the @ALNStudio menu with Heal & Feed, Night Vision, Toggle Keep Inventory, Set Spawn Here, and Return to Spawn.
+
+#### Improved & Balanced
 - **Normal Stick**: The menu now opens when you use a normal Stick, so no special item is needed.
 - **Cheat Stick item removed**: The separate Cheat Stick item and its recipe are gone. Use any Stick instead.
 - **Instant open**: The menu opens as soon as you use the Stick. The 1 second hold is no longer needed.
-
-<details>
-<summary><b>1.0.x</b> (1 release)</summary>
 
 ### [1.0.0] - 2026-11-11
 

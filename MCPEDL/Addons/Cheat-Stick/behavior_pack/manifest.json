@@ -1,13 +1,13 @@
 {
   "format_version": 2,
   "header": {
-    "name": "Cheat Stick (v1.0.0)",
+    "name": "Cheat Stick (v1.0.1)",
     "description": "Hold the Cheat Stick to open a menu for game mode, time, and weather. by ALNStudios",
     "uuid": "68c4f563-0d3c-4cfa-a5ec-7cac2dbad79a",
     "version": [
       1,
       0,
-      0
+      1
     ],
     "min_engine_version": [
       1,
@@ -22,7 +22,7 @@
       "version": [
         1,
         0,
-        0
+        1
       ]
     },
     {
@@ -32,7 +32,7 @@
       "version": [
         1,
         0,
-        0
+        1
       ],
       "entry": "scripts/main.js"
     }
@@ -52,6 +52,6 @@
       "ALNStudios"
     ],
     "product_type": "addon",
-    "version": "1.0.0"
+    "version": "1.0.1"
   }
 }

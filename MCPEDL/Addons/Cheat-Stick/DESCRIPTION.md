@@ -63,7 +63,7 @@ Hold a normal Stick and use it. A menu titled @ALNStudio opens with six choices:
 
 - Minecraft Bedrock Edition: Minimum game version not verified.
 - Experimental features: No experiment requirement detected in the inspected files.
-- Achievements: Likely achievement-friendly. Changing game mode, time, weather, effects, travel, and survival settings works like cheats and may disable achievements in that world.
+- Achievements: Likely achievement-friendly.
 - Verification: Source created, not tested in game.
 
 ## Creator and Permissions
