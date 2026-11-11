@@ -5,7 +5,7 @@ Download the current release of **Cheat Stick** for Minecraft Bedrock Edition.
 ## Download
 
 - **Package format:** `.mcaddon`
-- **Direct download:** [Download Cheat Stick (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Cheat-Stick/Cheat%20Stick%20by%20ALNStudios%20%28V2.0.1%29.mcaddon)
+- **Direct download:** [Download Cheat Stick (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Cheat-Stick/Cheat%20Stick%20by%20ALNStudios%20%28V2.1.0%29.mcaddon)
 
 ## Installation
 

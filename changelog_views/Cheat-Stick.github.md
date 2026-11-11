@@ -1,6 +1,6 @@
 # Changelog — Cheat Stick
 
-## [2.0.1] - 2026-11-11
+## [2.1.0] - 2026-11-11
 
 ### Added
 - **Difficulty**: Choose Peaceful, Easy, Normal, or Hard from the Gamemode menu.
