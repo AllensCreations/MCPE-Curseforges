@@ -1,15 +1,85 @@
 {
   "namespace": "server_form",
+  "main_screen_content": {
+    "modifications": [
+      {
+        "array_name": "controls",
+        "operation": "insert_back",
+        "value": [
+          {
+            "natural_market_form_factory": {
+              "type": "panel",
+              "factory": {
+                "name": "server_form_factory",
+                "control_ids": {
+                  "long_form": "@server_form.long_form"
+                }
+              }
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "long_form@common_dialogs.main_panel_no_buttons": {
+    "$title_panel": "common_dialogs.standard_title_label",
+    "$title_size": ["100% - 14px", 10],
+    "size": [390, 330],
+    "$text_name": "#title_text",
+    "$title_text_binding_type": "none",
+    "$child_control": "server_form.natural_market_panel",
+    "layer": 2
+  },
+  "natural_market_panel": {
+    "type": "panel",
+    "size": ["100%", "100%"],
+    "controls": [
+      {
+        "chest_background": {
+          "type": "image",
+          "texture": "textures/ui/natural_market/chest_panel",
+          "size": ["100%", "100%"],
+          "layer": 0
+        }
+      },
+      {
+        "market_content": {
+          "type": "stack_panel",
+          "size": ["100% - 28px", "100% - 24px"],
+          "offset": [14, 12],
+          "orientation": "vertical",
+          "layer": 1,
+          "controls": [
+            {
+              "market_description": {
+                "type": "label",
+                "size": ["100%", "default"],
+                "anchor_from": "top_left",
+                "anchor_to": "top_left",
+                "offset": [2, 0],
+                "color": [0.94, 0.88, 0.73],
+                "font_size": "small",
+                "text": "#form_text"
+              }
+            },
+            {
+              "market_grid_spacing": {
+                "type": "panel",
+                "size": ["100%", 7]
+              }
+            },
+            {
+              "long_form_dynamic_buttons_panel@server_form.long_form_dynamic_buttons_panel": {}
+            }
+          ]
+        }
+      }
+    ]
+  },
   "long_form_dynamic_buttons_panel": {
     "type": "grid",
-    "size": [
-      "100% - 4px",
-      "100%c"
-    ],
-    "grid_dimensions": [
-      3,
-      9
-    ],
+    "size": ["100% - 4px", "100%c"],
+    "grid_dimensions": [3, 9],
     "grid_fill_direction": "horizontal",
     "grid_rescaling_type": "horizontal",
     "grid_item_template": "server_form.dynamic_button",
@@ -27,10 +97,7 @@
   },
   "dynamic_button": {
     "type": "button",
-    "size": [
-      "100%",
-      42
-    ],
+    "size": ["100%", 54],
     "sound_name": "random.click",
     "default_control": "default",
     "hover_control": "hover",
@@ -49,19 +116,37 @@
     ],
     "controls": [
       {
+        "default": {
+          "type": "image",
+          "texture": "textures/ui/natural_market/slot",
+          "size": ["100%", "100%"],
+          "layer": 0
+        }
+      },
+      {
+        "hover": {
+          "type": "image",
+          "texture": "textures/ui/natural_market/slot_hover",
+          "size": ["100%", "100%"],
+          "layer": 0
+        }
+      },
+      {
+        "pressed": {
+          "type": "image",
+          "texture": "textures/ui/natural_market/slot_pressed",
+          "size": ["100%", "100%"],
+          "layer": 0
+        }
+      },
+      {
         "slot_icon": {
           "type": "image",
           "layer": 2,
-          "size": [
-            22,
-            22
-          ],
+          "size": [22, 22],
           "anchor_from": "top_middle",
           "anchor_to": "top_middle",
-          "offset": [
-            0,
-            1
-          ],
+          "offset": [0, 2],
           "bindings": [
             {
               "binding_name": "#form_button_texture",
@@ -82,19 +167,13 @@
         "slot_label": {
           "type": "label",
           "layer": 3,
-          "size": [
-            "100% - 2px",
-            17
-          ],
+          "size": ["100% - 2px", 25],
           "anchor_from": "bottom_middle",
           "anchor_to": "bottom_middle",
-          "offset": [
-            0,
-            -1
-          ],
+          "offset": [0, -1],
           "text_alignment": "center",
           "font_size": "small",
-          "color": "$title_text_color",
+          "color": [0.98, 0.93, 0.82],
           "text": "#form_button_text",
           "bindings": [
             {
