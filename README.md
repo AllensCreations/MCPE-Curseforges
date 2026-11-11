@@ -74,7 +74,7 @@ Standalone Script projects are Behavior Pack-only `.mcpack` downloads, tested wi
 | :--- | :--- | :--- | :--- | :--- |
 | *No standalone Script packs currently published.* | | | | |
 | **Chrono-Bed** | Script Pack (.mcpack) | [Download (.mcpack)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Chrono-Bed/Chrono-Bed%20by%20ALNStudios%20%28V1.0.0%29.mcpack) | [`MCPEDL/Script/Chrono-Bed/`](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Script/Chrono-Bed/) | Replaces instant sleep with an accelerating night time-lapse... |
-| **Target HUD Entity Inspector** | Script Pack (.mcpack) | [Download (.mcpack)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Target-HUD-Entity-Inspector/Target%20HUD%20Entity%20Inspector%20by%20ALNStudios%20%28V1.0.1%29.mcpack) | [`MCPEDL/Script/Target-HUD-Entity-Inspector/`](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Script/Target-HUD-Entity-Inspector/) | Shows the name, health bar and classification of the entity ... |
+| **Target HUD Entity Inspector** | Script Pack (.mcpack) | [Download (.mcpack)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Target-HUD-Entity-Inspector/Target%20HUD%20Entity%20Inspector%20by%20ALNStudios%20%28V1.0.2%29.mcpack) | [`MCPEDL/Script/Target-HUD-Entity-Inspector/`](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Script/Target-HUD-Entity-Inspector/) | Shows the name, health bar and classification of the entity ... |
 
 ---
 

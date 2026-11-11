@@ -1,8 +1,8 @@
 {
   "changelog_version": "1.0.2",
-  "manifest_version": "1.0.1",
+  "manifest_version": "1.0.2",
   "packages": {
-    "Target HUD Entity Inspector by ALNStudios (V1.0.1).mcpack": "43be2772b33d420e9d27aba082c9b50acf2afb8d40430ac24d608d39b7855f02"
+    "Target HUD Entity Inspector by ALNStudios (V1.0.2).mcpack": "f8f13bee5ebbea28856d272832b6c07eb7c1239b96f7e4ab40386a36906be6c2"
   },
-  "source_sha256": "4c6ab3d72823cc1743a87b1bc12caf1c520df54b517f060f41eeebc528ac17bd"
+  "source_sha256": "334e2e1779ef5e78dfee1cd8aa5a876bbcc3604c67aecc5e8089fff43fe31886"
 }
