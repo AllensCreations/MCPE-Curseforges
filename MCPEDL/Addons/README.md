@@ -30,7 +30,7 @@ Source files for established Minecraft Bedrock add-ons by ALNStudios.
 | Padlock & Key | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/Padlock-and-Key/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Padlock-and-Key/Padlock%20%26%20Key%20by%20ALNStudios%20%28V1.0.6%29.mcaddon) |
 | Talking Pirate Parrots | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/Talking-Pirate-Parrots_payload/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Talking-Pirate-Parrots_payload/Talking%20Pirate%20Parrots%20by%20ALNStudios%20%28V1.0.3%29.mcaddon) |
 | OP Sponge | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/OP-Sponge/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/OP-Sponge/OP%20Sponge%20by%20ALNStudios%20%28V1.0.1%29.mcaddon) |
-| Cheat Stick | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/Cheat-Stick/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Cheat-Stick/Cheat%20Stick%20by%20ALNStudios%20%28V2.1.3%29.mcaddon) |
+| Cheat Stick | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/Cheat-Stick/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Cheat-Stick/Cheat%20Stick%20by%20ALNStudios%20%28V3.0.0%29.mcaddon) |
 
 Download links point to the currently published package files.
 
