@@ -2,9 +2,12 @@
 
 ---
 
-## [1.0.4] - 2026-11-11
+## [2.0.0] - 2026-11-11
+
+**What's new in v2.0.0:** Packed with the v1.0.4 update.
 
 ### Improved & Balanced
+
 - **Version in the title**: The @ALNStudios Cheatstick menu title now shows the add-on version, for example (1.0.4).
 
 ## [1.0.3] - 2026-11-11
@@ -18,6 +21,8 @@
 - **Menu name**: The menu is now called @ALNStudios Cheatstick.
 - **Saved homes**: Homes saved in the previous version are not carried into the new slots.
 
+
+
 ## [1.0.2] - 2026-11-11
 
 ### Added
@@ -29,6 +34,8 @@
 - **Private action bar messages**: Confirmations now appear above your hotbar and only for the player who used the Stick.
 - **Menu reorganized**: Night Vision moved to the Effects menu and Return to Spawn moved to the Travel menu.
 
+
+
 ## [1.0.1] - 2026-11-11
 
 ### Added
@@ -38,6 +45,8 @@
 - **Normal Stick**: The menu now opens when you use a normal Stick, so no special item is needed.
 - **Cheat Stick item removed**: The separate Cheat Stick item and its recipe are gone. Use any Stick instead.
 - **Instant open**: The menu opens as soon as you use the Stick. The 1 second hold is no longer needed.
+
+
 
 ## [1.0.0] - 2026-11-11
 
