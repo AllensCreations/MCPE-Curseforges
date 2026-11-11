@@ -4,16 +4,58 @@
     "name": "OP Sponge (v1.0.0)",
     "description": "A sponge that absorbs water. by ALNStudios",
     "uuid": "894911ae-ab32-43ea-8ab7-88823bcaab2a",
-    "version": [1, 0, 0],
-    "min_engine_version": [1, 26, 60]
+    "version": [
+      1,
+      0,
+      0
+    ],
+    "min_engine_version": [
+      1,
+      26,
+      60
+    ]
   },
   "modules": [
-    { "type": "data", "uuid": "ae723a26-8b15-4781-956c-81d53a3021fd", "version": [1, 0, 0] },
-    { "type": "script", "language": "javascript", "uuid": "aa3774bf-f2b9-498d-aed8-1b816f595257", "entry": "scripts/main.js", "version": [1, 0, 0] }
+    {
+      "type": "data",
+      "uuid": "ae723a26-8b15-4781-956c-81d53a3021fd",
+      "version": [
+        1,
+        0,
+        0
+      ]
+    },
+    {
+      "type": "script",
+      "language": "javascript",
+      "uuid": "aa3774bf-f2b9-498d-aed8-1b816f595257",
+      "entry": "scripts/main.js",
+      "version": [
+        1,
+        0,
+        0
+      ]
+    }
   ],
   "dependencies": [
-    { "uuid": "67a33773-ea19-4d9c-a50c-0de79e1cf7aa", "version": [1, 0, 0] },
-    { "module_name": "@minecraft/server", "version": "2.11.0" }
+    {
+      "uuid": "67a33773-ea19-4d9c-a50c-0de79e1cf7aa",
+      "version": [
+        1,
+        0,
+        0
+      ]
+    },
+    {
+      "module_name": "@minecraft/server",
+      "version": "2.11.0"
+    }
   ],
-  "metadata": { "authors": ["ALNStudios"], "product_type": "addon" }
+  "metadata": {
+    "authors": [
+      "ALNStudios"
+    ],
+    "product_type": "addon",
+    "version": "1.0.0"
+  }
 }

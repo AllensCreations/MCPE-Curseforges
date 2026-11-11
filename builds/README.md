@@ -33,6 +33,7 @@ This directory stores compiled Add-ons (`.mcaddon`), Maps (`.mcworld`), Scripts 
 | **Universal Leash** | Add-on (.mcaddon) | [Download (.mcaddon)](Universal-Leash/Universal%20Leash%20by%20ALNStudios%20%28V2.0.0%29.mcaddon) | [`Universal-Leash/`](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/builds/Universal-Leash/) |
 | **Padlock & Key** | Add-on (.mcaddon) | [Download (.mcaddon)](Padlock-and-Key/Padlock%20%26%20Key%20by%20ALNStudios%20%28V1.0.6%29.mcaddon) | [`Padlock-and-Key/`](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/builds/Padlock-and-Key/) |
 | **Talking Pirate Parrots** | Add-on (.mcaddon) | [Download (.mcaddon)](Talking-Pirate-Parrots_payload/Talking%20Pirate%20Parrots%20by%20ALNStudios%20%28V1.0.3%29.mcaddon) | [`Talking-Pirate-Parrots_payload/`](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/builds/Talking-Pirate-Parrots_payload/) |
+| **OP Sponge** | Complete Pack (`.mcaddon`) | [Download (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/OP-Sponge/OP%20Sponge%20by%20ALNStudios%20%28V1.0.0%29.mcaddon) | [`OP-Sponge/`](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/builds/OP-Sponge/) |
 
 ### Worlds and Maps
 
@@ -43,6 +44,7 @@ This directory stores compiled Add-ons (`.mcaddon`), Maps (`.mcworld`), Scripts 
 | **OneBlock Sovereign Market** | Map (`.mcworld`) | [Creative](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/MCPEDL/Maps/Oneblock-SM/OneBlock%20Sovereign%20Market%20-%20Creative.mcworld) · [Survival](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/MCPEDL/Maps/Oneblock-SM/OneBlock%20Sovereign%20Market%20-%20Survival.mcworld) · [Hardcore](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/MCPEDL/Maps/Oneblock-SM/OneBlock%20Sovereign%20Market%20-%20Hardcore.mcworld) | [Map folder](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Maps/Oneblock-SM) |
 | **OneBlock Phase Evolution** | Custom Map (`.mcworld`) | [Download (.mcworld)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/MCPEDL/Maps/OneBlock-Phase-Evolution/OneBlock%20Phase%20Evolution%20-%20Creative.mcworld) | [`OneBlock-Phase-Evolution/`](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/builds/OneBlock-Phase-Evolution/) |
 | **One Block Skyblock Lucky Blocks** | Custom Map (`.mcworld`) | [Download (.mcworld)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/MCPEDL/Maps/One-Block-Skyblock-Lucky-Blocks/One%20Block%20Skyblock%20Lucky%20Blocks%20-%20Creative.mcworld) | [`One-Block-Skyblock-Lucky-Blocks/`](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/builds/One-Block-Skyblock-Lucky-Blocks/) |
+| **OneBlock Natural Market** | Custom Map (`.mcworld`) | [Download (.mcworld)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/MCPEDL/Maps/OneBlock-Natural-Market/OneBlock%20Natural%20Market%20-%20Creative.mcworld) | [`OneBlock-Natural-Market/`](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/builds/OneBlock-Natural-Market/) |
 
 ### Minigames
 

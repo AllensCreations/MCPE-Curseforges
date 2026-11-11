@@ -70,3 +70,10 @@ Start on a small void platform with the central block at (0, 0, 0). Breaking it 
 ---
 
 © All rights reserved for ALNStudios.
+
+---
+
+## Search & Discovery Keywords
+
+Minecraft Bedrock add-on, OneBlock Natural Market Bedrock mod, Minecraft PE survival, MCPEDL add-on, CurseForge Bedrock, ALNStudios.
+
