@@ -2,6 +2,18 @@
 
 ---
 
+## [2.0.1] - 2026-11-11
+
+### Added
+- **Difficulty**: Choose Peaceful, Easy, Normal, or Hard from the Gamemode menu.
+- **Rename Slot**: Type a name for a saved slot. The name shows in the Save and Load lists.
+- **Clear Effects**: Removes every active effect from you.
+- **Clear Dropped Items**: Removes items lying on the ground within 32 blocks of you.
+
+### Improved & Balanced
+- **Sneak to open**: The menu now opens only when you sneak and use a Stick, so a normal Stick no longer opens it by accident.
+- **Set Spawn Here moved**: Set Spawn Here is now in the Travel menu instead of the Survival menu.
+
 ## [2.0.0] - 2026-11-11
 
 **What's new in v2.0.0:** Packed with the v1.0.4 update.
