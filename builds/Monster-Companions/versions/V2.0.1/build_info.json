@@ -1,0 +1,8 @@
+{
+  "changelog_version": "2.0.1",
+  "manifest_version": "2.0.1",
+  "packages": {
+    "Monster Companions by ALNStudios (V2.0.1).mcaddon": "e74d7e9aa1ac92ff467728c9a9a1368ae8ba7729918b5c83383eac4237ab010e"
+  },
+  "source_sha256": "57c5f3ce4460f17d0739f5bcc29475e221edb3094d55d97cd7f2134de9bfd2a6"
+}
