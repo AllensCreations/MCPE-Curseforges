@@ -1,6 +1,6 @@
 # Changelog — Target HUD Entity Inspector
 
-## [1.0.2] - 2026-11-11
+## [1.1.0] - 2026-11-11
 
 ### Added
 - **Distance Readout**: The display now ends with how far away the target is, such as 5m.

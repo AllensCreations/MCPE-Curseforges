@@ -5,7 +5,7 @@ Download the current release of **Target HUD Entity Inspector** for Minecraft Be
 ## Download
 
 - **Package format:** `.mcpack`
-- **Direct download:** [Download Target HUD Entity Inspector (.mcpack)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Target-HUD-Entity-Inspector/Target%20HUD%20Entity%20Inspector%20by%20ALNStudios%20%28V1.0.2%29.mcpack)
+- **Direct download:** [Download Target HUD Entity Inspector (.mcpack)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Target-HUD-Entity-Inspector/Target%20HUD%20Entity%20Inspector%20by%20ALNStudios%20%28V1.1.0%29.mcpack)
 
 ## Installation
 

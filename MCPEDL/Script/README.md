@@ -8,7 +8,7 @@ Standalone Minecraft Bedrock Script packs by ALNStudios. Script projects use the
 | :--- | :--- | :--- |
 | *No standalone Script packs currently published.* | | |
 | Chrono-Bed | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Script/Chrono-Bed/) | [MCPACK](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Chrono-Bed/Chrono-Bed%20by%20ALNStudios%20%28V1.0.0%29.mcpack) |
-| Target HUD Entity Inspector | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Script/Target-HUD-Entity-Inspector/) | [MCPACK](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Target-HUD-Entity-Inspector/Target%20HUD%20Entity%20Inspector%20by%20ALNStudios%20%28V1.0.2%29.mcpack) |
+| Target HUD Entity Inspector | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Script/Target-HUD-Entity-Inspector/) | [MCPACK](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Target-HUD-Entity-Inspector/Target%20HUD%20Entity%20Inspector%20by%20ALNStudios%20%28V1.1.0%29.mcpack) |
 
 ## Attribution
 
