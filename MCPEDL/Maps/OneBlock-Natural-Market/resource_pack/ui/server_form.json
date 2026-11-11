@@ -57,7 +57,7 @@
                 "anchor_from": "top_left",
                 "anchor_to": "top_left",
                 "offset": [2, 0],
-                "color": [0.94, 0.88, 0.73],
+                "color": "#F0E0BA",
                 "font_size": "small",
                 "text": "#form_text"
               }
@@ -173,7 +173,7 @@
           "offset": [0, -1],
           "text_alignment": "center",
           "font_size": "small",
-          "color": [0.98, 0.93, 0.82],
+          "color": "#FAEED1",
           "text": "#form_button_text",
           "bindings": [
             {
