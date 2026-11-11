@@ -67,6 +67,7 @@ on:
         options:
           # BEGIN addon
           - "-"
+          - "Cheat-Stick"
           - "Copper-Carrier-Logistics"
           - "Fletching-Table-Arsenal"
           - "Ghast-Mob-Head-Transformers"
@@ -79,15 +80,17 @@ on:
           - "Mining-Helmet"
           - "Monster-Companions"
           - "One-Block-Economy"
+          - "OP-Sponge"
+          - "Padlock-and-Key"
           - "Passive-Auto-Switch-Tools"
           - "Selective-Mob-Controller"
           - "Smart-Tree-Capitator-and-Domino-Ore-Miner"
           - "Sudden-Death-Roulette"
           - "Swarm-Mob-Booster"
+          - "Talking-Pirate-Parrots_payload"
           - "Tameable-Companion-Fox"
           - "Universal-Clutch"
           - "Universal-Leash"
-          - "Vanilla-Quality-of-Life"
           # END addon
       script:
         description: "[build] Project from MCPEDL/Script (only when scope = one project)"
@@ -123,6 +126,7 @@ on:
           - "-"
           - "One-Block-Skyblock-Lucky-Blocks"
           - "OneBlock-Dirtbound-Kingdom-Beta"
+          - "OneBlock-Natural-Market"
           - "OneBlock-Phase-Evolution"
           - "Oneblock-SM"
           - "OneBlock-Void-Survival"
@@ -141,6 +145,7 @@ on:
         options:
           # BEGIN registered
           - "-"
+          - "MCPEDL/Addons/Cheat-Stick"
           - "MCPEDL/Addons/Monster-Companions"
           - "MCPEDL/Addons/Universal-Leash"
           - "MCPEDL/Addons/Vanilla-Quality-of-Life"
