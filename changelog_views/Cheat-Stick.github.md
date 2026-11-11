@@ -1,6 +1,6 @@
 # Changelog — Cheat Stick
 
-## [1.0.4] - 2026-11-11
+## [2.0.0] - 2026-11-11
 
 ### Improved & Balanced
 - **Version in the title**: The @ALNStudios Cheatstick menu title now shows the add-on version, for example (1.0.4).
