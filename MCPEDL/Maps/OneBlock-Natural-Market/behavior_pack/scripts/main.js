@@ -188,9 +188,12 @@ function grantLedger(player) {
     return true;
   } catch { return false; }
 }
+function hasScore(name, player) {
+  try { return objective(name).getScore(player) !== undefined; } catch { return false; }
+}
 function initializePlayer(player) {
-  if (objective(COINS).getScore(player) === undefined) writeScore(COINS, player, 50);
-  if (objective(MINED).getScore(player) === undefined) writeScore(MINED, player, 0);
+  if (!hasScore(COINS, player)) writeScore(COINS, player, 50);
+  if (!hasScore(MINED, player)) writeScore(MINED, player, 0);
   showBalance(player);
   grantLedger(player);
 }
@@ -275,7 +278,7 @@ function showCategory(player, category) {
   const form = new ActionFormData().title(category.toUpperCase())
     .body("Balance: " + balance(player) + " Coins\nUnlocked supplies: " + items.length +
       (locked.length ? "\nMore supplies unlock as you mine the core." : "") + "\nSelect an item to inspect it.");
-  for (const item of items) form.button(item.name + " ×" + item.amount + "\n§e" + item.price + " Coins", item.icon);
+  for (const item of items) form.button(item.name + " ×" + item.amount + "\n§e" + item.price + " Coins each", item.icon);
   form.button("Back to Market", "textures/items/book_normal");
   showForm(form, player).then(r => {
     if (r.canceled) return;
@@ -285,9 +288,10 @@ function showCategory(player, category) {
   }).catch(() => tell(player, "This category could not open."));
 }
 function confirmPurchase(player, item) {
+  const totalPrice = item.price * item.amount;
   const form = new MessageFormData()
     .title(item.name)
-    .body("Purchase " + item.amount + " × " + item.name + " for " + item.price + " Coins?\n\nYour balance: " + balance(player) + " Coins.")
+    .body("Purchase " + item.amount + " × " + item.name + " for " + totalPrice + " Coins?\n\nPrice per item: " + item.price + " Coins. Your balance: " + balance(player) + " Coins.")
     .button1("Buy")
     .button2("Cancel");
   showForm(form, player).then(r => {
@@ -299,15 +303,16 @@ function purchase(player, item) {
   const inv = inventoryOf(player);
   if (!inv) return tell(player, "Your inventory is unavailable.");
   const funds = balance(player);
-  if (funds < item.price) return tell(player, "Not enough Coins. You need " + item.price + " Coins.");
+  const totalPrice = item.price * item.amount;
+  if (funds < totalPrice) return tell(player, "Not enough Coins. You need " + totalPrice + " Coins.");
   let stack;
   try { stack = new ItemStack(item.id, item.amount); } catch { return tell(player, "This item is not available in the current game version."); }
-  if (!setBalance(player, funds - item.price)) return tell(player, "Your balance could not be updated; no purchase was made.");
+  if (!setBalance(player, funds - totalPrice)) return tell(player, "Your balance could not be updated; no purchase was made.");
   let leftover;
   try { leftover = inv.addItem(stack); } catch { leftover = stack; }
   const delivered = item.amount - (leftover?.amount ?? 0);
-  const charged = delivered > 0 ? Math.ceil(item.price * delivered / item.amount) : 0;
-  if (charged < item.price) setBalance(player, balance(player) + item.price - charged);
+  const charged = delivered * item.price;
+  if (charged < totalPrice) setBalance(player, balance(player) + totalPrice - charged);
   if (delivered <= 0) return tell(player, "Inventory full. No Coins were taken.");
   if (delivered < item.amount) tell(player, "Only " + delivered + " item(s) fit; charged " + charged + " Coins.");
   else tell(player, "Purchased " + delivered + " × " + item.name + " for " + charged + " Coins.");
@@ -317,7 +322,7 @@ function purchase(player, item) {
 function sellEligible(player) {
   const inv = inventoryOf(player);
   if (!inv) return tell(player, "Your inventory is unavailable.");
-  const values = new Map(CATALOG.map(item => [item.id, Math.max(1, Math.floor(item.price / item.amount / 2))]));
+  const values = new Map(CATALOG.map(item => [item.id, Math.max(1, Math.floor(item.price / 2))]));
   const slots = [];
   let payout = 0, count = 0;
   for (let i = 0; i < inv.size; i++) {
