@@ -1,4 +1,4 @@
-# Pack Generator Instructions (AI Agent, v13)
+# Pack Generator Instructions (AI Agent, v14)
 
 Standalone instruction file for an AI agent that builds a complete **addon**, **map**, **script**, or **minigame** project from the user's idea and returns it as **one line of base64** for the GitHub workflow **Create Project from Base64**.
 
@@ -471,7 +471,7 @@ Do not guess the type. Then follow Sections 1 to 3, the matching type requiremen
 - **Art:** a generated payload never contains AI-generated images, and never contains the CurseForge or MCPEDL listing images (they are linked by URL from `assets/Images/`). The Trader Ledger (Maps) and Controller (Minigames) icons come only from the repo copy, which `build_payload.py` installs. For any other texture use real vanilla texture names, user-supplied textures, or omit the icon.
 - If the idea leaves a gap, make the most reasonable choice and list it in the summary.
 - The shell may be plain `sh`: do not use brace expansion. After creating files, list them and confirm they exist.
-- **Shell script file names.** Whenever you give the user a `.sh` file (including a command or script handed over because you cannot run code), name it `(Repofilename)_(Version)_(Rand).sh`. `Repofilename` is the repository file, project, or folder the script works on, without its extension and with no spaces (use hyphens); `Version` is that item's current version as `X.Y.Z` (or the instruction file's version, such as `v10`); `Rand` is at least 5 random lowercase letters or digits, for example `Dirtbound_1.2.0_k7q2x.sh` or `INSTRUCTIONS_v10_m4p7z9.sh`. Generate a fresh `Rand` every time (for example `head -c 200 /dev/urandom | tr -dc 'a-z0-9' | head -c 6`) and never reuse a name from an earlier reply or an existing file, so running a new script can never overwrite or re-run an older one. Use the exact same name in the reply and in the command that runs it.
+- **Shell script file names.** Any `.sh` handed to the user (including a command given because you cannot run code): `(Repofilename)_(Version)_(Rand).sh`. `Repofilename` = project/folder/file the script changes, no extension, no spaces (hyphens). `Version` = that item's new `X.Y.Z` (Update: Z+1; Beta: Y+1, Z=0; Release: X+1, Y=Z=0) or the instruction file's version (e.g. `v14`). `Rand` = at least 5 random lowercase letters/digits, fresh every time (e.g. `head -c 200 /dev/urandom | tr -dc 'a-z0-9' | head -c 6`), never reused from an earlier reply or existing file. Examples: `Dirtbound_1.2.0_k7q2x.sh`, `PACK_GENERATOR_INSTRUCTIONS_v14_m4p7z9.sh`. Same name in the reply and in the run command.
 - No comments in `.js`, `.mcfunction`, or `.json` files (Part 1, Section 1).
 - Prefer event-driven logic over per-tick polling, broad entity searches, or block scans.
 - Do not claim a README or catalog link to a `.mcworld` that does not exist yet.
@@ -767,12 +767,13 @@ Each gap you filled with your own choice (Section 1) as one bullet, or `None`. D
 - **You cannot run code:** reply with `CANNOT BUILD`, one line saying why, the file tree with full contents, and the exact command to run (Section 1). No base64.
 - **The build failed and you cannot fix it:** reply with `BUILD FAILED`, the exact failing lines from `build_payload.py`, and the rule or script check each one names. No base64.
 - **The type is unknown:** reply only with the Section 0 question.
-- **Not a build request** (a review, a question, a bug report, or a request to change this file or a script): answer normally and concisely. The five-block format applies only to build replies.
+- **Not a build request** (review, question, bug report, change to this file or a script): reply with the three-section format from `INSTRUCTIONS.md` (Reply Format): `**File Needed:**`, `**Changelog:**`, `**Termux Script:**`. Nothing else. The five-block format applies only to build replies.
 
 ---
 
 ## Version History
 
+- **v14:** Non-build replies use the strict three-section format (File Needed, Changelog, Termux Script). Compressed script file name rule.
 - **v13:** Added folded changelog views built from the plain CHANGELOG.md by `scripts/build_changelog_views.py`.
 - **v12:** Improved the DESCRIPTION template: concrete tagline and pitch prompts, numbered How to Use steps, an optional Common Questions section, a Good To Know card line, and extra advisory style checks (tagline length and detail, numbered steps, generic card names).
 - **v11:** Added Part 2, Section 7 (Page Quality) based on CurseForge's author guide and HTML support list, and the advisory `--style` check.

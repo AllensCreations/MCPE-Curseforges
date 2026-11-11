@@ -1,6 +1,6 @@
-# Instructions: Core Repository Policy (v3)
+# Instructions: Core Repository Policy (v4)
 
-Instruction file for ALNStudios/MCPE-Curseforges covering repository policy, documentation, and audits. The AI-agent project generator now lives in its own file, `PACK_GENERATOR_INSTRUCTIONS.md`.
+Repo policy, documentation, and audit rules for ALNStudios/MCPE-Curseforges. The AI-agent project generator is `PACK_GENERATOR_INSTRUCTIONS.md`.
 
 | Part | Covers |
 | :--- | :--- |
@@ -13,6 +13,26 @@ The generator (asks Add-on / Map / Script / Minigame, returns a base64 ZIP built
 **Precedence.** Part 1 wins on any conflict. Parts 2 and 3 follow Part 1 and never override them. `PACK_GENERATOR_INSTRUCTIONS.md` follows this file and never overrides it. Factual accuracy and the user's requested scope outrank any template. The scripts in `scripts/` enforce these rules; if a script and this file disagree, report the difference to the user and follow this file for documents, the script for what the importer will accept. **Section numbers refer to the Part they appear in**; a reference to another Part names it.
 
 **Which file to read.** Documentation work: Parts 1 (Sections 1 to 2), 2, 3. Build, workflow, or OneBlock changes: Part 1 (Sections 6 to 10). Generating a new add-on, map, or script: `PACK_GENERATOR_INSTRUCTIONS.md`.
+
+### Reply Format (strict: every repo edit, update, or file request)
+
+```
+[SYSTEM_CONFIG]
+Mode: Direct Execution
+Token_Efficiency: Maximum
+Rules: no greeting, intro, outro, offers, or restating the request. High technical accuracy.
+```
+
+Output ONLY these three sections, in this order, with these exact headings:
+
+1. **File Needed:** path of each file to create or edit (repo-root-relative).
+2. **Changelog:** bulleted, brief summary of changes made.
+3. **Termux Script:** ONE fenced `bash` block: the run command for the `.sh` (named per the Shell script file names rule; the script holds every change, see Section 1 and the workflow AI instructions).
+
+- Nothing before, between, or after these sections.
+- Never rename, merge, reorder, or skip a section. Nothing to report: write `- None`.
+- Versions are `X.Y.Z` only. NEVER `X.Y.Z.A`.
+- Exceptions: (1) generator build replies use `PACK_GENERATOR_INSTRUCTIONS.md` Section 11; (2) one question, one line, only when an unresolved choice could materially affect gameplay, compatibility, distribution, data loss, or versioning.
 
 ---
 
@@ -33,7 +53,7 @@ The generator (asks Add-on / Map / Script / Minigame, returns a base64 ZIP built
 
   Sources 4 and 5 are community-maintained and can lag behind releases. They never override 1 to 3 on identifiers, versions, or API availability.
 - **No comments in shipped code.** Do not write comments in `.js`, `.mcfunction`, or `.json` files; keep code short and self-explanatory. Explanations belong in documentation or the handoff.
-- **Shell script file names.** Whenever you give the user a `.sh` file (including a command or script handed over because you cannot run code), name it `(Repofilename)_(Version)_(Rand).sh`. `Repofilename` is the repository file, project, or folder the script works on, without its extension and with no spaces (use hyphens); `Version` is that item's new version as `X.Y.Z` (normally increment Z for an Update; increment Y/reset Z for Beta, or increment X/reset Y/Z for Release; or use the instruction file's version, such as `v3`); `Rand` is at least 5 random lowercase letters or digits, for example `Dirtbound_1.2.0_k7q2x.sh` or `INSTRUCTIONS_v3_m4p7z9.sh`. Generate a fresh `Rand` every time (for example `head -c 200 /dev/urandom | tr -dc 'a-z0-9' | head -c 6`) and never reuse a name from an earlier reply or an existing file, so running a new script can never overwrite or re-run an older one. Use the exact same name in the reply and in the command that runs it.
+- **Shell script file names.** Any `.sh` handed to the user (including a command given because you cannot run code): `(Repofilename)_(Version)_(Rand).sh`. `Repofilename` = project/folder/file the script changes, no extension, no spaces (hyphens). `Version` = that item's new `X.Y.Z` (Update: Z+1; Beta: Y+1, Z=0; Release: X+1, Y=Z=0) or the instruction file's version (e.g. `v4`). `Rand` = at least 5 random lowercase letters/digits, fresh every time (e.g. `head -c 200 /dev/urandom | tr -dc 'a-z0-9' | head -c 6`), never reused from an earlier reply or existing file. Examples: `Dirtbound_1.2.0_k7q2x.sh`, `INSTRUCTIONS_v4_m4p7z9.sh`. Same name in the reply and in the run command.
 - **Not an official product.** Public documentation must not imply endorsement by Mojang or Microsoft (see Part 2, Section 4).
 
 ---
