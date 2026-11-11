@@ -8,7 +8,7 @@ This folder contains compiled release packages for **Talking Pirate Parrots** by
 
 | File Name | Format | Size | Description | Download Link |
 | :--- | :--- | :--- | :--- | :--- |
-| **`Talking Pirate Parrots by ALNStudios (V1.0.0).mcaddon`** | `.mcaddon` | ~5 KB | Complete bundle containing both Behavior Pack and Resource Pack. | [Download (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Talking-Pirate-Parrots_payload/Talking%20Pirate%20Parrots%20by%20ALNStudios%20%28V1.0.0%29.mcaddon) |
+| **`Talking Pirate Parrots by ALNStudios (V1.0.1).mcaddon`** | `.mcaddon` | ~708 KB | Complete bundle containing both Behavior Pack and Resource Pack. | [Download (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Talking-Pirate-Parrots_payload/Talking%20Pirate%20Parrots%20by%20ALNStudios%20%28V1.0.1%29.mcaddon) |
 
 ---
 

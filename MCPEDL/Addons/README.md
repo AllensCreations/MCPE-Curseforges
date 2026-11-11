@@ -28,7 +28,7 @@ Source files for established Minecraft Bedrock add-ons by ALNStudios.
 | Copper-Carrier Logistics | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/Copper-Carrier-Logistics/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Copper-Carrier-Logistics/Copper-Carrier%20Logistics%20by%20ALNStudios%20%28V1.1.0%29.mcaddon) |
 | Universal Leash | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/Universal-Leash/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Universal-Leash/Universal%20Leash%20by%20ALNStudios%20%28V2.0.0%29.mcaddon) |
 | Padlock & Key | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/Padlock-and-Key/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Padlock-and-Key/Padlock%20%26%20Key%20by%20ALNStudios%20%28V1.0.6%29.mcaddon) |
-| Talking Pirate Parrots | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/Talking-Pirate-Parrots_payload/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Talking-Pirate-Parrots_payload/Talking%20Pirate%20Parrots%20by%20ALNStudios%20%28V1.0.0%29.mcaddon) |
+| Talking Pirate Parrots | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/Talking-Pirate-Parrots_payload/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Talking-Pirate-Parrots_payload/Talking%20Pirate%20Parrots%20by%20ALNStudios%20%28V1.0.1%29.mcaddon) |
 
 Download links point to the currently published package files.
 
