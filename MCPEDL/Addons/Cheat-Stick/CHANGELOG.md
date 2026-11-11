@@ -2,9 +2,9 @@
 
 ---
 
-## [2.1.0] - 2026-11-11
+## [3.0.0] - 2026-11-11
 
-**What's new in v2.1.0:** Packed with the v2.0.1 update.
+**What's new in v3.0.0:** Packed with the v2.1.0 update.
 
 ### Added
 
@@ -28,6 +28,8 @@
 
 
 
+
+
 ## [1.0.3] - 2026-11-11
 
 ### Added
@@ -38,6 +40,8 @@
 - **Travel menu simplified**: Return to Spawn, Return to World Spawn, Save Home, and Go Home are removed. Back to Death Point stays.
 - **Menu name**: The menu is now called @ALNStudios Cheatstick.
 - **Saved homes**: Homes saved in the previous version are not carried into the new slots.
+
+
 
 
 
@@ -58,6 +62,8 @@
 
 
 
+
+
 ## [1.0.1] - 2026-11-11
 
 ### Added
@@ -67,6 +73,8 @@
 - **Normal Stick**: The menu now opens when you use a normal Stick, so no special item is needed.
 - **Cheat Stick item removed**: The separate Cheat Stick item and its recipe are gone. Use any Stick instead.
 - **Instant open**: The menu opens as soon as you use the Stick. The 1 second hold is no longer needed.
+
+
 
 
 
