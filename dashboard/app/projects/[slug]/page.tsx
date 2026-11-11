@@ -37,7 +37,7 @@ export default function ProjectDetailsPage() {
 
   useEffect(() => {
     let active = true;
-    fetch(\`/api/project?slug=\${encodeURIComponent(slug)}\`, { cache: "no-store" })
+    fetch(`/api/project?slug=${encodeURIComponent(slug)}`, { cache: "no-store" })
       .then(async (response) => {
         const data = await response.json();
         if (!response.ok) throw new Error(data.error || "Project details could not be loaded.");
@@ -85,13 +85,13 @@ export default function ProjectDetailsPage() {
             <aside className="detail-side">
               <section className="side-panel">
                 <div className="eyebrow">AVAILABLE BUILDS</div><h2>Downloads</h2>
-                {project.packages.length ? <div className="detail-packages">{project.packages.map((file) => <a className="download" key={file.name} href={\`/api/download?project=\${encodeURIComponent(project.slug)}&file=\${encodeURIComponent(file.name)}\`}><span>{file.format}</span><span>Download ↓</span></a>)}</div> : <p className="side-muted">No current build packages are listed.</p>}
+                {project.packages.length ? <div className="detail-packages">{project.packages.map((file) => <a className="download" key={file.name} href={`/api/download?project=${encodeURIComponent(project.slug)}&file=${encodeURIComponent(file.name)}`}><span>{file.name}</span><span>Download ↓</span></a>)}</div> : <p className="side-muted">No current build packages are listed.</p>}
               </section>
               <section className="side-panel">
                 <div className="eyebrow">RELEASE HISTORY</div><h2>Build versions</h2>
                 {project.versions.length ? <ul className="version-list">{project.versions.map((version, index) => <li key={version}><span className={index === 0 ? "version-indicator current" : "version-indicator"} /> <span>v{version}</span>{index === 0 && <small>Latest</small>}</li>)}</ul> : <p className="side-muted">No archived version snapshots found.</p>}
               </section>
-              <section className="side-panel project-source"><div className="eyebrow">SOURCE</div><h2>Repository folder</h2><p>{project.sourcePath || \`builds/\${project.slug}\`}</p></section>
+              <section className="side-panel project-source"><div className="eyebrow">SOURCE</div><h2>Repository folder</h2><p>{project.sourcePath || `builds/${project.slug}`}</p></section>
             </aside>
           </div>
         </>}
