@@ -1,4 +1,4 @@
-# Pack Generator Instructions (AI Agent, v15)
+# Pack Generator Instructions (AI Agent, v17)
 
 Builds a complete **addon**, **map**, **script**, or **minigame** from the user's idea. Returns ONE line of base64 for GitHub workflow **Create Project from Base64**.
 
@@ -304,7 +304,7 @@ NEVER guess the type. At most ONE more question, only if the answer changes the 
 - NEVER invent features, versions, links, assets, results, compatibility. ZIP build proves structure only.
 - ALWAYS look up latest stable Bedrock + `@minecraft/server` + `@minecraft/server-ui` at time of work, record date (1.2). NEVER preview/beta/RC unless a requested feature needs it (then disclose in DESCRIPTION). `min_engine_version` per 1.2. Cannot confirm which game version first shipped your module version: say so.
 - Art: NEVER AI-generated images. NEVER CurseForge/MCPEDL listing images in the payload (linked by URL from `assets/Images/`). Trader Ledger (maps) and Controller (minigames) icons ONLY from the repo copy that `build_payload.py` installs. Other textures: real vanilla names, user-supplied, or omit.
-- Gap in the idea: choose the most reasonable option, list it in OPEN QUESTIONS.
+- Gap in the idea: choose the most reasonable option, state it in DESCRIPTION.md.
 - Shell may be plain `sh`: NEVER brace expansion. After creating files, list them, confirm they exist.
 - `.sh` names: 1.1 rule (`(Repofilename)_(Version)_(Rand).sh`).
 - NEVER comments in `.js`, `.mcfunction`, `.json`. Prefer event-driven logic. NEVER claim a README/catalog link to a `.mcworld` that does not exist yet.
@@ -374,7 +374,7 @@ resource_pack/textures/items/trader_ledger.png
    ```
 3. `oneblock_setup.mcfunction`: exists, harmless, idempotent. NEVER in `tick.json`. DESCRIPTION says in plain words (no file name) that the optional setup command needs cheats and cheats disable achievements.
 4. Trader Ledger MANDATORY, ONLY from repo copy (32x32 RGBA `Mcpeworlds/assets/resources_pack/textures/items/trader_ledger.png`). Identifier stays `allenscreations:trader_ledger`; display name may change. NEVER redraw/recolor/resize/re-encode. NEVER copy the whole `Mcpeworlds/assets/`.
-5. Ledger role follows the idea (Dirtbound: only way to open a shop menu). No role: still ship, say so in OPEN QUESTIONS.
+5. Ledger role follows the idea (Dirtbound: only way to open a shop menu). No role: still ship, say so in DESCRIPTION.md.
 
 Pipeline (Dirtbound design) unless user says otherwise. `void_cleaner.mcfunction` runs every tick, each command guarded `tag=!void_cleaned`, order: (1) required Y=-64 line; (2) teleport untagged player to spawn (only function-side teleport); (3) Bedrock under core; (4) placeholder at core only if empty; (5) world spawn; (6) optional notice; (7) add `void_cleaned` tag LAST, CONDITIONAL on core Bedrock existing (`execute as @a[tag=!void_cleaned] if block 0 -1 0 bedrock run tag @s add void_cleaned`). Without the tag every guarded command repeats forever; unconditional tag never retries a fill on unloaded chunks. NEVER add a "clear starting area" step.
 - ALWAYS skip any core-area clear once the core exists.
@@ -485,18 +485,13 @@ Paste the workflow error log back to the agent. Find the rule here and the check
 | `DOC: ...` | Fix exactly what it names; template in 2.5. |
 
 ### 4.11 Reply format
-BUILD request: final reply = exactly these five blocks, this order, exact headings. NEVER anything before/after: no greeting, preamble, closing offer, extra sections, restated idea. NEVER reorder/rename/merge/skip. Empty block: `None`.
+BUILD request: final reply = exactly these three blocks, this order, exact headings. NEVER anything before/after: no greeting, preamble, closing offer, extra sections, restated idea. NEVER reorder/rename/merge/skip. Empty block: `None`.
 
-**1. TYPE AND FOLDER**
-```
-Type: addon | map | script | minigame
-Folder name: <letters, numbers, . _ - only>
-```
-**2. PAYLOAD**
+**1. PAYLOAD**
 - One fenced block with the `payload.b64` contents only (one line, no breaks/spaces, copied, NEVER retyped). The workflow reads the project name from `project.json` inside it.
 - If over the workflow input limit (65,535 chars): `File: payload.b64` and say it is too large to paste.
 
-**3. SUMMARY** exactly these lines, one short sentence/value each:
+**2. SUMMARY** exactly these lines, one short sentence/value each:
 ```
 What it does:
 Target game version:
@@ -512,7 +507,7 @@ Verification: Source created, not tested in game.
 ```
 `Not applicable` for lines that do not fit the type. NEVER write an unchecked value.
 
-**4. NEXT STEPS** exactly:
+**3. NEXT STEPS** exactly:
 ```
 1. GitHub, Actions, Create Project from Base64, Run workflow.
 2. Paste the payload into payload_base64. Pick import_mode (auto, create, update, overwrite) and commit_mode (leave pull_request), then review and merge the pull request it opens.
@@ -520,9 +515,8 @@ Verification: Source created, not tested in game.
 4. To change which add-ons a test world includes, edit test_world.json and re-run Create Project from Base64 (it rebuilds the test world).
 5. If the build fails, paste the error log back to the agent.
 ```
-**5. OPEN QUESTIONS** each filled gap (4.1) as one bullet, or `None`. NEVER ask new questions here.
 
-Exceptions (use INSTEAD of the five blocks, nothing else):
+Exceptions (use INSTEAD of the three blocks, nothing else):
 - Cannot run code: `CANNOT BUILD`, one line why, file tree with full contents, exact command (4.1). No base64.
 - Build failed, unfixable: `BUILD FAILED`, exact failing lines from `build_payload.py`, the rule/check each names. No base64.
 - Type unknown: only the 4.0 question.
@@ -531,6 +525,8 @@ Exceptions (use INSTEAD of the five blocks, nothing else):
 ---
 
 ## Version History
+- **v17:** Removed the 30 questions (4.0a). Build reply is three blocks: PAYLOAD, SUMMARY, NEXT STEPS. TYPE AND FOLDER and OPEN QUESTIONS blocks removed.
+- **v16:** Agent asks 30 questions (4.0a) before every build. Create Project from Base64 takes only payload_base64, import_mode, commit_mode; name from project.json.
 - **v15:** Telegram-style rewrite. NEVER/ALWAYS tags. Shared docs section synced with `INSTRUCTIONS.md`. Legacy four-part version notes removed. Size cap 50 KB (`scripts/check_instruction_files.py`).
 - **v14:** Non-build replies use the three-section format. Compressed script name rule.
 - **v13:** Folded changelog views (`scripts/build_changelog_views.py`).
