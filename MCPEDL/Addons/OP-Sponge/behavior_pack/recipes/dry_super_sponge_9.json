@@ -1,0 +1,13 @@
+{
+  "format_version": "1.20.10",
+  "minecraft:recipe_furnace": {
+    "description": {
+      "identifier": "allenscreations:dry_super_sponge_9"
+    },
+    "tags": [
+      "furnace"
+    ],
+    "input": "allenscreations:super_sponge_9_wet",
+    "output": "allenscreations:super_sponge_9"
+  }
+}

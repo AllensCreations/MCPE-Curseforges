@@ -1,0 +1,27 @@
+{
+  "format_version": "1.20.10",
+  "minecraft:recipe_shapeless": {
+    "description": {
+      "identifier": "allenscreations:super_sponge_book_6_from_books"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "ingredients": [
+      {
+        "item": "allenscreations:super_sponge_book_5"
+      },
+      {
+        "item": "allenscreations:super_sponge_book_5"
+      }
+    ],
+    "unlock": [
+      {
+        "context": "AlwaysUnlocked"
+      }
+    ],
+    "result": {
+      "item": "allenscreations:super_sponge_book_6"
+    }
+  }
+}

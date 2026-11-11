@@ -1,0 +1,23 @@
+{
+  "format_version": "1.26.50",
+  "minecraft:item": {
+    "description": {
+      "identifier": "allenscreations:super_sponge_book_3",
+      "menu_category": {
+        "category": "items"
+      }
+    },
+    "components": {
+      "minecraft:icon": {
+        "textures": {
+          "default": "allenscreations_sponge_book"
+        }
+      },
+      "minecraft:display_name": {
+        "value": "item.allenscreations:super_sponge_book_3.name"
+      },
+      "minecraft:max_stack_size": 1,
+      "minecraft:glint": true
+    }
+  }
+}

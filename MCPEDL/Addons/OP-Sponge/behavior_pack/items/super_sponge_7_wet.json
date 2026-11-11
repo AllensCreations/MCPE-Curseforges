@@ -1,0 +1,23 @@
+{
+  "format_version": "1.26.50",
+  "minecraft:item": {
+    "description": {
+      "identifier": "allenscreations:super_sponge_7_wet"
+    },
+    "components": {
+      "minecraft:icon": {
+        "textures": {
+          "default": "allenscreations_sponge_wet_icon"
+        }
+      },
+      "minecraft:display_name": {
+        "value": "tile.allenscreations:super_sponge_7_wet.name"
+      },
+      "minecraft:block_placer": {
+        "block": "allenscreations:super_sponge_7_wet",
+        "replace_block_item": true
+      },
+      "minecraft:glint": true
+    }
+  }
+}

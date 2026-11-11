@@ -1,0 +1,23 @@
+{
+  "format_version": "1.26.50",
+  "minecraft:item": {
+    "description": {
+      "identifier": "allenscreations:extreme_sponge_1_wet"
+    },
+    "components": {
+      "minecraft:icon": {
+        "textures": {
+          "default": "allenscreations_sponge_wet_icon"
+        }
+      },
+      "minecraft:display_name": {
+        "value": "tile.allenscreations:extreme_sponge_1_wet.name"
+      },
+      "minecraft:block_placer": {
+        "block": "allenscreations:extreme_sponge_1_wet",
+        "replace_block_item": true
+      },
+      "minecraft:glint": true
+    }
+  }
+}
