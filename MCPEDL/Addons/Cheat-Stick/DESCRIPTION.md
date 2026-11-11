@@ -5,13 +5,13 @@
 [![Minecraft Bedrock](https://img.shields.io/badge/Minecraft%20Bedrock-Stable%20Release-brightgreen?style=flat-square&logo=minecraft)](https://github.com/AllensCreations/MCPE-Curseforges)
 [![Format](https://img.shields.io/badge/Format-.MCPACK%20%7C%20.MCADDON%20%7C%20.MCWORLD-blue?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges)
 
-**Use a normal Stick to open the @ALNStudio menu with Gamemode, Time, Weather, Survival, Effects, and Travel choices.**
+**Use a normal Stick to open the @ALNStudios Cheatstick menu with Gamemode, Time, Weather, Survival, Effects, and Travel choices.**
 
-> Any normal Stick becomes a cheat menu, with 3 game modes, 6 times of day, 3 weather types, 4 survival helpers, 7 effects, and 5 travel helpers. It suits survival worlds where you want quick control without typing commands.
+> Any normal Stick becomes a cheat menu, with 3 game modes, 6 times of day, 3 weather types, 4 survival helpers, 7 effects, and 5 save and load slots. It suits survival worlds where you want quick control without typing commands.
 
 ## Overview
 
-Hold a normal Stick and use it. A menu titled @ALNStudio opens with six choices: Gamemode, Time, Weather, Survival, Effects, and Travel. Pick a category, pick an option, and the change applies at once. A Back button in each category returns you to the main menu.
+Hold a normal Stick and use it. A menu titled @ALNStudios Cheatstick opens with six choices: Gamemode, Time, Weather, Survival, Effects, and Travel. Pick a category, pick an option, and the change applies at once. A Back button in each category returns you to the main menu.
 
 ## Key Features
 
@@ -44,14 +44,14 @@ Hold a normal Stick and use it. A menu titled @ALNStudio opens with six choices:
 - **Good To Know**: Effects only affect the player who picked them.
 
 ### Travel
-- **What Happens**: Choose Return to Spawn, Return to World Spawn, Back to Death Point, Save Home, or Go Home.
-- **How It Works**: Return to Spawn takes you to your spawn point, or to the world spawn if you have none. Back to Death Point takes you to where you last died. Save Home stores your current position, and Go Home takes you back to it.
-- **Good To Know**: Each player has one saved home and one saved death point. A death point is only saved for deaths that happen after this version is installed.
+- **What Happens**: Choose Back to Death Point, Save, or Load.
+- **How It Works**: Back to Death Point takes you to where you last died. Save lists 5 slots; pick one to store your current position, and its coordinates and dimension are shown. Load lists the same slots with their coordinates; pick one to teleport there.
+- **Good To Know**: Each player has 5 slots and one saved death point. Saving into a used slot replaces it. A death point is only saved for deaths that happen after this version is installed. Homes saved in the previous version are not carried into the slots.
 
 ## How to Use
 
 1. Take a normal Stick in your hand.
-2. Use the Stick to open the @ALNStudio menu.
+2. Use the Stick to open the @ALNStudios Cheatstick menu.
 3. Pick Gamemode, Time, Weather, Survival, Effects, or Travel, then pick an option.
 
 ## Common Questions
@@ -89,5 +89,5 @@ Hold a normal Stick and use it. A menu titled @ALNStudio opens with six choices:
 
 ## Search & Discovery Keywords
 
-Minecraft Bedrock add-on, Cheat Stick Bedrock mod, cheat menu, game mode switcher, time and weather changer, survival helper menu, keep inventory toggle, normal stick menu, Minecraft PE survival, MCPEDL add-on, CurseForge Bedrock, ALNStudio, ALNStudios, effects menu, haste and speed, death point teleport, home teleport.
+Minecraft Bedrock add-on, Cheat Stick Bedrock mod, cheat menu, game mode switcher, time and weather changer, survival helper menu, keep inventory toggle, normal stick menu, Minecraft PE survival, MCPEDL add-on, CurseForge Bedrock, ALNStudio, ALNStudios, effects menu, haste and speed, death point teleport, save and load teleport slots.
 

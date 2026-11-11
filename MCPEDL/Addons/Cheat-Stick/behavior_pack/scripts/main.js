@@ -2,8 +2,9 @@ import { world, GameMode, Difficulty, TimeOfDay, WeatherType } from "@minecraft/
 import { ActionFormData } from "@minecraft/server-ui";
 
 const ITEM_ID = "minecraft:stick";
-const TITLE = "@ALNStudio";
-const PREFIX = "§b@ALNStudio§r ";
+const TITLE = "§l§6@ALNStudios §eCheatstick";
+const PREFIX = "§l§6@ALNStudios §eCheatstick§r §8»§r §a";
+const SLOT_COUNT = 5;
 const EFFECT_TICKS = 12000;
 const CLEAR_RADIUS = 32;
 
@@ -35,6 +36,23 @@ function goToSpot(player, spot) {
     { x: spot.x, y: spot.y, z: spot.z },
     { dimension: world.getDimension(spot.dimension) }
   );
+}
+
+const DIMENSION_NAMES = {
+  "minecraft:overworld": "Overworld",
+  "minecraft:nether": "Nether",
+  "minecraft:the_end": "The End",
+};
+
+function describeSpot(spot) {
+  return (
+    Math.floor(spot.x) + ", " + Math.floor(spot.y) + ", " + Math.floor(spot.z) +
+    " (" + (DIMENSION_NAMES[spot.dimension] ?? spot.dimension) + ")"
+  );
+}
+
+function slotKey(slot) {
+  return "cheatstick:slot" + slot + ":";
 }
 
 function effectOption(label, effectId, amplifier) {
@@ -160,29 +178,6 @@ const EFFECTS = [
 
 const TRAVEL = [
   {
-    label: "Return to Spawn",
-    run(player) {
-      const spawn = player.getSpawnPoint();
-      if (spawn) {
-        player.teleport(
-          { x: spawn.x + 0.5, y: spawn.y, z: spawn.z + 0.5 },
-          { dimension: spawn.dimension }
-        );
-        say(player, "Teleported to your spawn point.");
-      } else {
-        player.teleport(world.getDefaultSpawnLocation(), { dimension: world.getDimension("overworld") });
-        say(player, "Teleported to the world spawn.");
-      }
-    },
-  },
-  {
-    label: "Return to World Spawn",
-    run(player) {
-      player.teleport(world.getDefaultSpawnLocation(), { dimension: world.getDimension("overworld") });
-      say(player, "Teleported to the world spawn.");
-    },
-  },
-  {
     label: "Back to Death Point",
     run(player) {
       const spot = readSpot("cheatstick:death:", player);
@@ -195,25 +190,46 @@ const TRAVEL = [
     },
   },
   {
-    label: "Save Home",
-    run(player) {
-      saveSpot("cheatstick:home:", player);
-      say(player, "Home saved at your current position.");
-    },
+    label: "Save",
+    run: (player) => openSlots(player, true),
   },
   {
-    label: "Go Home",
-    run(player) {
-      const spot = readSpot("cheatstick:home:", player);
-      if (!spot) {
-        say(player, "No home saved yet.");
-        return;
-      }
-      goToSpot(player, spot);
-      say(player, "Teleported home.");
-    },
+    label: "Load",
+    run: (player) => openSlots(player, false),
   },
 ];
+
+async function openSlots(player, saving) {
+  const labels = [];
+  for (let slot = 1; slot <= SLOT_COUNT; slot++) {
+    const spot = readSpot(slotKey(slot), player);
+    labels.push("Slot " + slot + ": " + (spot ? describeSpot(spot) : "Empty"));
+  }
+  const choice = await ask(
+    player,
+    saving ? "Choose a slot to save your position in." : "Choose a slot to teleport to.",
+    labels,
+    true
+  );
+  if (choice < 0) return;
+  if (choice === SLOT_COUNT) {
+    await openCategory(player, "Choose a travel helper.", TRAVEL);
+    return;
+  }
+  const slot = choice + 1;
+  if (saving) {
+    saveSpot(slotKey(slot), player);
+    say(player, "Saved slot " + slot + ": " + describeSpot(readSpot(slotKey(slot), player)));
+    return;
+  }
+  const spot = readSpot(slotKey(slot), player);
+  if (!spot) {
+    say(player, "Slot " + slot + " is empty.");
+    return;
+  }
+  goToSpot(player, spot);
+  say(player, "Loaded slot " + slot + ": " + describeSpot(spot));
+}
 
 async function ask(player, body, labels, withBack) {
   const form = new ActionFormData().title(TITLE).body(body);
@@ -236,7 +252,7 @@ async function openCategory(player, body, options) {
     await openMain(player);
     return;
   }
-  options[choice].run(player);
+  await options[choice].run(player);
 }
 
 async function openMain(player) {
@@ -271,3 +287,4 @@ world.afterEvents.entityDie.subscribe(({ deadEntity }) => {
     saveSpot("cheatstick:death:", deadEntity);
   } catch {}
 });
+
