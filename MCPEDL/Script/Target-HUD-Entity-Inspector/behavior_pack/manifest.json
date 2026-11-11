@@ -4,8 +4,16 @@
     "name": "Target HUD Entity Inspector (v1.0.1)",
     "description": "Shows the name, health bar and classification of the entity you are looking at on the Action Bar. by ALNStudios",
     "uuid": "2965654f-c2a4-4f4e-9b00-397ae4dc0c9a",
-    "version": [1, 0, 1],
-    "min_engine_version": [1, 26, 30]
+    "version": [
+      1,
+      0,
+      1
+    ],
+    "min_engine_version": [
+      1,
+      26,
+      30
+    ]
   },
   "modules": [
     {
@@ -13,7 +21,11 @@
       "language": "javascript",
       "description": "Entity inspector raycast and Action Bar renderer",
       "uuid": "aa3de7ef-87cf-4bc7-bc00-b726cde9fbd1",
-      "version": [1, 0, 1],
+      "version": [
+        1,
+        0,
+        1
+      ],
       "entry": "scripts/main.js"
     }
   ],
@@ -24,7 +36,10 @@
     }
   ],
   "metadata": {
-    "authors": ["ALNStudios"],
-    "license": "All rights reserved"
+    "authors": [
+      "ALNStudios"
+    ],
+    "license": "All rights reserved",
+    "version": "1.0.1"
   }
 }

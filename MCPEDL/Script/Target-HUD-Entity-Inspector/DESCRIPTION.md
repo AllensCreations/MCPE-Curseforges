@@ -75,3 +75,4 @@ Aim at a mob or another player and a single line appears on the Action Bar. It d
 ## Search & Discovery Keywords
 
 Minecraft Bedrock add-on, Target HUD Entity Inspector Bedrock mod, mob health bar, target health display, Aggressive neutral mobs, Minecraft PE survival, MCPEDL add-on, CurseForge Bedrock, ALNStudios.
+
