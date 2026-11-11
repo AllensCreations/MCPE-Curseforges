@@ -321,3 +321,89 @@ world.beforeEvents.explosion.subscribe((event) => {
   const safe = event.getImpactedBlocks().filter((block) => !(isLockable(block) && findLock(block)) && !isLockedFloor(block));
   event.setImpactedBlocks(safe);
 });
+
+const FACING_VECTORS = [
+  { x: 0, y: -1, z: 0 },
+  { x: 0, y: 1, z: 0 },
+  { x: 0, y: 0, z: -1 },
+  { x: 0, y: 0, z: 1 },
+  { x: -1, y: 0, z: 0 },
+  { x: 1, y: 0, z: 0 },
+];
+const HOPPER_CART_ID = "minecraft:hopper_minecart";
+const DIMENSION_NAMES = ["overworld", "nether", "the_end"];
+
+function shifted(pos, dir, steps) {
+  return { x: pos.x + dir.x * steps, y: pos.y + dir.y * steps, z: pos.z + dir.z * steps };
+}
+
+function migrateLocks(dimension, origins, dir) {
+  const moves = [];
+  const seen = new Set();
+  for (const origin of origins) {
+    const key = propertyKey(dimension, origin.x, origin.y, origin.z);
+    if (seen.has(key)) continue;
+    seen.add(key);
+    const password = world.getDynamicProperty(key);
+    if (typeof password !== "string") continue;
+    const dest = shifted(origin, dir, 1);
+    const destBlock = dimension.getBlock(dest);
+    if (!destBlock || !isLockable(destBlock)) continue;
+    moves.push({ key, destKey: propertyKey(dimension, dest.x, dest.y, dest.z), password });
+  }
+  for (const move of moves) world.setDynamicProperty(move.key, undefined);
+  for (const move of moves) world.setDynamicProperty(move.destKey, move.password);
+}
+
+world.afterEvents.pistonActivate.subscribe((event) => {
+  const { piston, block, isExpanding } = event;
+  const dimension = block.dimension;
+  const facing = FACING_VECTORS[block.permutation.getState("facing_direction")];
+  if (!facing) return;
+  const dir = isExpanding ? facing : shifted({ x: 0, y: 0, z: 0 }, facing, -1);
+  const origin = block.location;
+  let attached = [];
+  try {
+    attached = piston.getAttachedBlocksLocations();
+  } catch (error) {
+    attached = [];
+  }
+  system.runTimeout(() => {
+    const origins = [];
+    for (const location of attached) {
+      origins.push(location);
+      origins.push(shifted(location, dir, -1));
+    }
+    if (isExpanding) {
+      for (let step = 2; step <= 13; step++) {
+        const spot = shifted(origin, facing, step);
+        const spotBlock = dimension.getBlock(spot);
+        if (!spotBlock || spotBlock.isAir || spotBlock.isLiquid) break;
+        origins.push(shifted(spot, facing, -1));
+      }
+    } else {
+      origins.push(shifted(origin, facing, 2));
+    }
+    migrateLocks(dimension, origins, dir);
+  }, 5);
+});
+
+system.runInterval(() => {
+  for (const name of DIMENSION_NAMES) {
+    try {
+      const dimension = world.getDimension(name);
+      for (const cart of dimension.getEntities({ type: HOPPER_CART_ID })) {
+        const { x, y, z } = cart.location;
+        const above = dimension.getBlock({ x: Math.floor(x), y: Math.floor(y) + 1, z: Math.floor(z) });
+        if (!above || !isContainer(above) || !findLock(above)) continue;
+        for (const player of dimension.getPlayers({ location: cart.location, maxDistance: 12 })) {
+          say(player, "Hopper Minecart destroyed! It was under a locked block");
+        }
+        dimension.spawnParticle("minecraft:villager_angry", { x, y: y + 0.5, z });
+        cart.kill();
+      }
+    } catch (error) {
+      continue;
+    }
+  }
+}, 5);

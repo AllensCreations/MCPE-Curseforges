@@ -2,6 +2,14 @@
 
 ---
 
+## [1.0.4.1] - 2026-11-11
+
+### Added
+- **Hopper Minecart Guard**: A Hopper Minecart that ends up under a locked container is destroyed, so it can no longer pull items from it.
+
+### Fixed
+- **Pistons Keep Locks**: Locked blocks pushed or pulled by a Piston now keep their lock instead of becoming public.
+
 ## [1.0.4] - 2026-11-10
 
 ### Added
