@@ -48,7 +48,6 @@ Start on a small void platform with the central block at (0, 0, 0). Breaking it 
 
 - Target game release checked on 2026-11-11: Minecraft Bedrock 26.62.
 - Minimum engine version: 1.26.50, selected to match the stable scripting module baseline checked for this build.
-- Stable module dependencies: @minecraft/server 2.10.0 and @minecraft/server-ui 2.2.0 (checked 2026-11-11).
 - No experiment requirement detected in the inspected files.
 - Achievements: Unknown / needs confirmation because the foundation world's settings have not been verified.
 - Verification: Source created; not tested in Minecraft. Structural build checks do not prove gameplay works.
