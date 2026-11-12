@@ -2,7 +2,9 @@
 
 ---
 
-## [1.10.1] - 2026-11-13 - Description and Code Cleanup
+## [1.10.1] - 2026-11-12
+
+**What's new in v1.10.1:** Packed with the v1.10.1 update. Includes: Description and Code Cleanup.
 
 ### Improved & Balanced
 
