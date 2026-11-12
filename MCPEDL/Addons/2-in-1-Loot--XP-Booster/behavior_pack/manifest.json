@@ -1,0 +1,55 @@
+{
+  "format_version": 2,
+  "header": {
+    "name": "2-in-1 Loot & XP Booster (v1.0.0)",
+    "description": "Loot and XP multipliers controlled from a renamed Book. by ALNStudios",
+    "uuid": "ac428a01-d829-4779-aeb1-52bbb3d37e0d",
+    "version": [
+      1,
+      0,
+      0
+    ],
+    "min_engine_version": [
+      1,
+      26,
+      60
+    ]
+  },
+  "modules": [
+    {
+      "type": "script",
+      "language": "javascript",
+      "uuid": "7234ab02-50fd-43f5-b082-493403c5aaa4",
+      "version": [
+        1,
+        0,
+        0
+      ],
+      "entry": "scripts/main.js"
+    }
+  ],
+  "dependencies": [
+    {
+      "uuid": "c36706a8-ddfe-419f-bd1b-69d929186543",
+      "version": [
+        1,
+        0,
+        0
+      ]
+    },
+    {
+      "module_name": "@minecraft/server",
+      "version": "2.11.0"
+    },
+    {
+      "module_name": "@minecraft/server-ui",
+      "version": "2.3.0"
+    }
+  ],
+  "metadata": {
+    "authors": [
+      "ALNStudios"
+    ],
+    "product_type": "addon"
+  }
+}
