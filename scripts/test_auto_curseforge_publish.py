@@ -267,5 +267,46 @@ class AutoPublishTests(unittest.TestCase):
                 self.assertEqual(saved["last_release_version"], expect_release or "1.3.0")
 
 
+class PublishGroupingTests(unittest.TestCase):
+    """Publish groups every changelog entry since the last publish; the build never bumps."""
+
+    CHANGELOG = (
+        "# Changelog \u2014 Demo\n\n"
+        "## [1.2.3] - 2026-11-10\n\n### Fixed\n- **A**: fix three\n\n"
+        "## [1.2.2] - 2026-11-05\n\n### Added\n- **B**: add two\n\n### Fixed\n- **C**: fix two\n\n"
+        "## [1.2.1] - 2026-11-01\n\n### Added\n- **D**: add one\n\n"
+        "## [1.1.0] - 2026-10-01\n\n### Added\n- **E**: already published\n"
+    )
+
+    def combine(self, last_published="1.1.0"):
+        with tempfile.TemporaryDirectory() as temp:
+            project = Path(temp)
+            changelog = project / "CHANGELOG.md"
+            changelog.write_text(self.CHANGELOG, encoding="utf-8")
+            version, upload = publisher.release.combine_changelog(
+                project, changelog, last_published, today=datetime.date(2026, 11, 12), release_type="beta",
+            )
+            return version, upload, changelog.read_text(encoding="utf-8")
+
+    def test_groups_everything_since_last_publish_up_to_latest(self):
+        version, upload, saved = self.combine()
+        self.assertIn("Packed with 3 updates, from v1.2.1 through v1.2.3", upload)
+        for line in ("**A**: fix three", "**B**: add two", "**C**: fix two", "**D**: add one"):
+            self.assertIn(line, upload)
+        self.assertNotIn("already published", upload)
+        self.assertEqual(upload.count("### Fixed"), 1)
+        self.assertEqual(upload.count("### Added"), 1)
+        self.assertIn("already published", saved)
+
+    def test_new_version_is_above_every_grouped_entry(self):
+        # Manifests are no longer bumped by the build, so they can still sit at the last publish.
+        version, _, _ = self.combine()
+        self.assertEqual(version, "1.3.0")
+
+    def test_nothing_new_since_last_publish_is_refused(self):
+        with self.assertRaisesRegex(ValueError, "Nothing new to publish"):
+            self.combine(last_published="1.2.3")
+
+
 if __name__ == "__main__":
     unittest.main()

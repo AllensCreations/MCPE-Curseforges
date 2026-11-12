@@ -1,0 +1,164 @@
+name: Publish to CurseForge
+
+# The ONLY place that uploads to CurseForge and the ONLY place that bumps a version.
+# "Build Changed Packs & Sync Catalogs" is passive and never publishes or bumps.
+#
+#   1. Pick a registered pack (list comes from builds/Curseforge_IDs.json, written by
+#      "Register CurseForge ID", which also refreshes the dropdown).
+#   2. The new version is Beta: X.Y.Z -> X.(Y+1).0.
+#   3. The changelog is GROUPED: every CHANGELOG.md entry newer than the last published version
+#      is merged under one heading, so a publish after several unpublished updates still shows
+#      all of them, grouped by section, from the last publish up to the latest.
+#   4. Manifests, titles, package name and snapshots are aligned to the new version, the pack is
+#      built and uploaded (as a Release) once.
+#   5. After a successful upload the new version is committed and Build Changed Packs & Sync
+#      Catalogs is started so the catalogs and README links follow.
+#
+# Set the repo variable CURSEFORGE_CHANGELOG_STYLE=plain to send markdown headings instead of
+# spoiler folds.
+
+on:
+  workflow_dispatch:
+    inputs:
+      publish_project:
+        description: "Registered pack"
+        required: true
+        default: "-"
+        type: choice
+        options:
+          # BEGIN registered
+          - "-"
+          - "MCPEDL/Addons/Cheat-Stick"
+          - "MCPEDL/Addons/Monster-Companions"
+          - "MCPEDL/Addons/Universal-Leash"
+          - "MCPEDL/Addons/Vanilla-Quality-of-Life"
+          - "MCPEDL/Addons/Waypoint-Helper"
+          - "MCPEDL/Maps/OneBlock-Void-Survival"
+          - "MCPEDL/Minigame/Shared-Hivemind-Inventory"
+          - "MCPEDL/Script/Target-HUD-Entity-Inspector"
+          # END registered
+      publish_map_variant:
+        description: "Maps only (default = auto, all = Creative + Survival + Hardcore)"
+        required: true
+        default: default
+        type: choice
+        options:
+          - default
+          - Creative
+          - Survival
+          - Hardcore
+          - all
+
+# Least privilege by default; the job asks for what it needs.
+permissions:
+  contents: read
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      actions: write
+    concurrency:
+      group: publish-curseforge-${{ inputs.publish_project }}
+      cancel-in-progress: false
+    steps:
+      - name: Check out source
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          ref: ${{ github.ref }}
+
+      # Publishing and the passive build both write to builds/ and the READMEs. Let a running
+      # build finish first so the two never push over each other.
+      - name: Wait for running builds to finish
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -uo pipefail
+          for attempt in $(seq 1 60); do
+            busy=0
+            for status in in_progress queued; do
+              count="$(gh run list --workflow auto-version-bump.yml --status "$status" --json databaseId --jq length 2>/dev/null || echo 0)"
+              busy=$((busy + count))
+            done
+            [ "$busy" -eq 0 ] && exit 0
+            echo "A build is still running ($busy); waiting (attempt $attempt/60)..."
+            sleep 20
+          done
+          echo "::warning::A build is still running after 20 minutes; continuing anyway."
+
+      - name: Set up Python
+        uses: actions/setup-python@6d4fd22b20465ccc0f7354476588e8df7c9ca0e0 # v7.1.0
+        with:
+          python-version: '3.14'
+
+      - name: Install build dependency
+        run: python3 -m pip install pillow
+
+      - name: Migrate legacy project versions before publishing
+        run: python3 scripts/migrate_three_part_versions.py
+
+      - name: Validate inputs and load ID from registry
+        env:
+          CURSEFORGE_API_TOKEN: ${{ secrets.CURSEFORGE_API_TOKEN }}
+          PROJECT_PATH: ${{ inputs.publish_project }}
+        run: |
+          set -euo pipefail
+          [[ "$GITHUB_REF" == refs/heads/* ]] || { echo "::error::Run this workflow on a branch."; exit 1; }
+          [ "$PROJECT_PATH" != "-" ] || { echo "::error::Pick a registered pack (run 'Register CurseForge ID' first if it is missing)."; exit 1; }
+          [ -n "$CURSEFORGE_API_TOKEN" ] || { echo "::error::Add the CURSEFORGE_API_TOKEN repository secret."; exit 1; }
+          python3 - <<'PY'
+          import os, sys
+          sys.path.insert(0, "scripts")
+          import prepare_curseforge_upload as release
+          try:
+              info = release.read_info(os.environ["PROJECT_PATH"])
+          except ValueError as exc:
+              print(f"::error::{exc}")
+              sys.exit(1)
+          print(f"CurseForge project {info['project_id']}, last published: {info.get('last_published_version', 'never')}")
+          PY
+
+      - name: Bump version, group changelog since last publish, build and upload (once)
+        env:
+          CURSEFORGE_API_TOKEN: ${{ secrets.CURSEFORGE_API_TOKEN }}
+          PROJECT_PATH: ${{ inputs.publish_project }}
+          MAP_VARIANT: ${{ inputs.publish_map_variant }}
+          # Every upload is a CurseForge Release. The pack version step is unchanged (X.Y.Z).
+          RELEASE_TYPE: beta
+          CURSEFORGE_CHANGELOG_STYLE: ${{ vars.CURSEFORGE_CHANGELOG_STYLE || 'spoiler' }}
+          PACK_FILENAME_TEMPLATE: ${{ vars.PACK_FILENAME_TEMPLATE }}
+        run: |
+          set -euo pipefail
+          python3 scripts/auto_publish_curseforge.py \
+            --project "$PROJECT_PATH" \
+            --map-variant "$MAP_VARIANT" \
+            --release-type "$RELEASE_TYPE"
+
+      # Runs only after a successful upload, so a failed upload leaves the repo untouched.
+      - name: Commit new version, merged changelog and saved release info
+        env:
+          PROJECT_PATH: ${{ inputs.publish_project }}
+        run: |
+          set -euo pipefail
+          NAME="${PROJECT_PATH##*/}"
+          git add -A
+          if git diff --cached --quiet; then
+            echo "Nothing to commit."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git commit -m "chore(curseforge): publish $NAME [skip ci]"
+          python3 scripts/git_push_retry.py --branch "${GITHUB_REF#refs/heads/}"
+
+      # The passive build never runs after a [skip ci] commit, so start it once here. It picks up
+      # the new version, rebuilds every package and re-syncs the catalogs and changelog views.
+      - name: Start Build Changed Packs & Sync Catalogs
+        if: success()
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh workflow run auto-version-bump.yml --ref "${GITHUB_REF#refs/heads/}" \
+            && echo "Build Changed Packs & Sync Catalogs started." \
+            || echo "::warning::Could not start the build; run Build Changed Packs & Sync Catalogs manually."

@@ -458,7 +458,18 @@ def combine_changelog(project_dir, changelog_path, last_published=None, today=No
         raise ValueError(f"Nothing new to publish: no changelog entry newer than v{baseline_text}. Add a changelog entry first.")
     history = [entry for entry in entries if _has_content(entry)]
     if not history: raise ValueError(f"Nothing to publish: {changelog_path} has no changelog bullets.")
-    highest = max(parse_version(last_published), manifest_max_version(project_dir)) if last_published else max(entries[0][0], manifest_max_version(project_dir))
+    if merged:
+        newest, oldest = max(entry[0] for entry in merged), min(entry[0] for entry in merged)
+        since = f"newer than the last publish (v{baseline_text})" if baseline_text else "(no previous publish)"
+        print(
+            f"Grouping {len(merged)} changelog entr{'y' if len(merged) == 1 else 'ies'} {since}: "
+            f"v{'.'.join(map(str, oldest))} through v{'.'.join(map(str, newest))}."
+        )
+    # The build no longer bumps manifests, so changelog entries can be ahead of both the manifests
+    # and the last publish. The new version must always be above everything it groups.
+    newest_entry = max(entry[0] for entry in entries)
+    highest = max(newest_entry, manifest_max_version(project_dir))
+    if last_published: highest = max(highest, parse_version(last_published))
     new_version = next_version(highest, release_type)
     date_text = (today or datetime.date.today()).isoformat()
     if merged: file_entry = render_flat_entry(new_version, date_text, merged)

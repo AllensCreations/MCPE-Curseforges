@@ -40,9 +40,11 @@ jobs:
       - name: Manifest versions, UUIDs and dependencies
         run: python scripts/check_manifest_versions.py
 
-      - name: Validate automatic build workflow YAML
+      - name: Validate build, publish and delete workflow YAML
         run: |
-          ruby -e 'require "yaml"; YAML.load_file(".github/workflows/auto-version-bump.yml"); puts "auto-version-bump.yml: valid YAML"'
+          for workflow in auto-version-bump publish-curseforge delete-project register-curseforge-id; do
+            ruby -e 'require "yaml"; YAML.load_file(ARGV[0]); puts "#{ARGV[0]}: valid YAML"' ".github/workflows/${workflow}.yml"
+          done
 
       - name: Release dropdowns in sync
         continue-on-error: true  # advisory
@@ -58,6 +60,7 @@ jobs:
           python scripts/test_auto_bump_and_build.py
           python scripts/test_migrate_three_part_versions.py
           python scripts/test_auto_curseforge_publish.py
+          python scripts/test_delete_project.py
           python scripts/test_check_instruction_files.py
 
       - name: Project pipeline self-test

@@ -1,4 +1,4 @@
-# Pack Generator Instructions (AI Agent, v17)
+# Pack Generator Instructions (AI Agent, v18)
 
 Builds a complete **addon**, **map**, **script**, or **minigame** from the user's idea. Returns ONE line of base64 for GitHub workflow **Create Project from Base64**.
 
@@ -65,7 +65,7 @@ Implementation:
 - NEVER change pack UUIDs or world storage keys to rename a title. NEVER regenerate header UUIDs (breaks worlds).
 - Build sync: every processed project aligns all source manifests to one highest `X.Y.Z`: `header.version`, `metadata.version`, title suffix, module versions, same-project BP/RP deps. Fills `metadata.authors` (`ALNStudios`), optional `metadata.license`.
 - Snapshots: `builds/<pack>/versions/V<X.Y.Z>/` (packages, `source.zip`, `source.sha256`, `build_info.json`). Refreshed when source/packages differ. Last 5 kept.
-- Auto Update: `--bump` or `AUTO_BUMP_MANIFEST=true` increments Z in every manifest on source change. Build automation NEVER increments Y or X.
+- Versions change ONLY in Publish to CurseForge (Beta: groups every changelog entry since the last publish under the new version). The passive build (`Build Changed Packs & Sync Catalogs`) NEVER bumps: it aligns each pack to its highest existing version and rebuilds. `--bump` / `AUTO_BUMP_MANIFEST=true` remain in `scripts/auto_bump_and_build.py` for manual use only.
 - Package name default: `<Name> by ALNStudios (VX.Y.Z).<ext>`. Custom via `metadata.package_filename` or `PACK_FILENAME_TEMPLATE`; MUST keep `(V{version})`.
 - Creator name `ALNStudios`. `python3 scripts/rename_brand.py --apply` migrates old name. NEVER rename lowercase namespaces (`allenscreations:`).
 - Tools: `python3 scripts/manifest_tools.py --project <path> --check|--align|--bump` (`--all --check`). `sync_manifest_versions.py`: deps and `min_engine_version` maintenance; set `min_engine_version` by hand after lookup. `sync_project_docs.py` NOT in build: edit DESCRIPTION/CHANGELOG deliberately. `sync_readme_links.py [--check]` repairs README links (runs after every build).

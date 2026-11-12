@@ -1,274 +1,41 @@
 name: Build Changed Packs & Sync Catalogs
 
-# Build + publish live together because the build must run right after every publish.
-# Pick "task" when you run it by hand.
+# PASSIVE BUILD. It runs by itself on every push to main (and daily), and always rebuilds ALL
+# projects, so there is nothing to pick and nothing to configure.
 #
-#   build (default, also runs on push to main and daily)
-#     Rebuild packs and synchronize their catalogs. Every build follows the version in the pack
-#     manifests: BP and RP manifests are aligned to the highest one, and
-#     builds/<pack>/versions/V<X.Y.Z>/ (packages, source.zip, source.sha256, build_info.json) is
-#     created or REFRESHED IN PLACE whenever the source or packages differ from the saved snapshot.
-#     Normal source builds automatically evaluate Update bumps; docs/generated changes do not bump.
+#   - It NEVER bumps a version. Versions only change in "Publish to CurseForge".
+#   - Each pack's BP and RP manifests are aligned to the highest version already in the pack.
+#   - builds/<pack>/versions/V<X.Y.Z>/ (packages, source.zip, source.sha256, build_info.json) is
+#     created or REFRESHED IN PLACE whenever the source or the packages differ from the snapshot.
+#   - Catalogs, READMEs, download links and changelog views are re-synced.
 #
-#   publish  (the ONLY place that uploads to CurseForge)
-#     Dropdown + project IDs + last published versions all come from builds/Curseforge_IDs.json
-#     (written by "Register CurseForge ID", which also refreshes the dropdown).
-#     Versions are X.Y.Z everywhere: Update increments Z, Beta increments Y and resets Z, Release increments X and resets Y/Z.
-#     Minecraft Bedrock manifests, metadata, titles, changelogs, package filenames and snapshots stay synchronized.
-#     Every publish is uploaded as a Release (no Release/Beta split); the version numbering is unchanged.
-#     Set the repo variable CURSEFORGE_CHANGELOG_STYLE=plain to send markdown headings instead of spoiler folds.
-#     After a successful upload the build task runs automatically (all projects) in the same run.
-#
+# Publishing to CurseForge lives in its own workflow (publish-curseforge.yml). When a publish
+# succeeds it starts this workflow once so the catalogs pick up the new version.
+# "Run workflow" is still available for a manual full rebuild (it has no options).
 
 on:
   push:
     branches:
       - main
-    paths:
-      - 'MCPEDL/Addons/**'
-      - 'MCPEDL/Script/**'
-      - 'MCPEDL/Minigame/**'
-      - 'MCPEDL/Maps/**'
-      - 'builds/Curseforge_IDs.json'
-      - 'Mcpeworlds/**'
-      - 'scripts/**'
-      - 'scripts/ensure_recipe_unlocks.py'
-      - 'scripts/manifest_tools.py'
-      - 'scripts/migrate_three_part_versions.py'
-      - '.github/workflows/auto-version-bump.yml'
-  # Daily refresh: rebuild all projects; bump only when source snapshots or the triggering diff prove a source change.
   schedule:
     - cron: "17 2 * * *"
   workflow_dispatch:
-    inputs:
-      task:
-        description: "What to run: build (default) or publish to CurseForge"
-        required: true
-        default: build
-        type: choice
-        options:
-          - build
-          - publish
 
-      # ---- task = build ----
-      scope:
-        description: "[build] What to process"
-        required: true
-        default: all
-        type: choice
-        options:
-          - all
-          - one project (pick it below)
-      addon:
-        description: "[build] Project from MCPEDL/Addons (only when scope = one project)"
-        required: true
-        default: "-"
-        type: choice
-        options:
-          # BEGIN addon
-          - "-"
-          - "Cheat-Stick"
-          - "Copper-Carrier-Logistics"
-          - "Fletching-Table-Arsenal"
-          - "Ghast-Mob-Head-Transformers"
-          - "Grand-Banquets"
-          - "Grimoire-Relics-V2"
-          - "Harvest-Intelligence"
-          - "Immortal-Pets"
-          - "Magnetic-Satchel"
-          - "Melody-Figurine"
-          - "Mining-Helmet"
-          - "Monster-Companions"
-          - "One-Block-Economy"
-          - "OP-Sponge"
-          - "Padlock-and-Key"
-          - "Passive-Auto-Switch-Tools"
-          - "Selective-Mob-Controller"
-          - "Smart-Tree-Capitator-and-Domino-Ore-Miner"
-          - "Sudden-Death-Roulette"
-          - "Swarm-Mob-Booster"
-          - "Talking-Pirate-Parrots_payload"
-          - "Tameable-Companion-Fox"
-          - "Universal-Clutch"
-          - "Universal-Leash"
-          # END addon
-      script:
-        description: "[build] Project from MCPEDL/Script (only when scope = one project)"
-        required: true
-        default: "-"
-        type: choice
-        options:
-          # BEGIN script
-          - "-"
-          - "Chrono-Bed"
-          - "Target-HUD-Entity-Inspector"
-          # END script
-      minigame:
-        description: "[build] Project from MCPEDL/Minigame (only when scope = one project)"
-        required: true
-        default: "-"
-        type: choice
-        options:
-          # BEGIN minigame
-          - "-"
-          - "Alphabet-Scavenger-Hunt"
-          - "Mob-Chaos-Behavioral-Roulette"
-          - "Shared-Hivemind-Inventory"
-          - "Tethered-Breaker-And-Builder"
-          - "Trivia-Vault-The-Locked-World"
-          # END minigame
-      map:
-        description: "[build] Project from MCPEDL/Maps (only when scope = one project)"
-        required: true
-        default: "-"
-        type: choice
-        options:
-          # BEGIN map
-          - "-"
-          - "One-Block-Skyblock-Lucky-Blocks"
-          - "OneBlock-Dirtbound-Kingdom-Beta"
-          - "OneBlock-Natural-Market"
-          - "OneBlock-Phase-Evolution"
-          - "Oneblock-SM"
-          - "OneBlock-Void-Survival"
-          # END map
-      other:
-        description: "[build] Optional: project path or name missing from the lists above"
-        required: false
-        default: ""
-        type: string
-      # ---- task = publish ----
-      publish_project:
-        description: "[publish] Registered pack"
-        required: true
-        default: "-"
-        type: choice
-        options:
-          # BEGIN registered
-          - "-"
-          - "MCPEDL/Addons/Cheat-Stick"
-          - "MCPEDL/Addons/Monster-Companions"
-          - "MCPEDL/Addons/Universal-Leash"
-          - "MCPEDL/Addons/Vanilla-Quality-of-Life"
-          - "MCPEDL/Addons/Waypoint-Helper"
-          - "MCPEDL/Maps/OneBlock-Void-Survival"
-          - "MCPEDL/Minigame/Shared-Hivemind-Inventory"
-          - "MCPEDL/Script/Target-HUD-Entity-Inspector"
-          # END registered
-      publish_map_variant:
-        description: "[publish] Maps only (default = auto, all = Creative + Survival + Hardcore)"
-        required: true
-        default: default
-        type: choice
-        options:
-          - default
-          - Creative
-          - Survival
-          - Hardcore
-          - all
-
-# Least privilege by default; each job asks for what it needs.
+# Least privilege by default; the job asks for what it needs.
 permissions:
   contents: read
 
 jobs:
-  # =====================================================================================
-  # task = publish
-  # =====================================================================================
-  publish:
-    if: ${{ github.event_name == 'workflow_dispatch' && inputs.task == 'publish' }}
-    runs-on: ubuntu-latest
-    permissions:
-      contents: write
-    concurrency:
-      group: publish-curseforge-${{ inputs.publish_project }}
-      cancel-in-progress: false
-    steps:
-      - name: Check out source
-        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
-        with:
-          ref: ${{ github.ref }}
-
-      - name: Set up Python
-        uses: actions/setup-python@6d4fd22b20465ccc0f7354476588e8df7c9ca0e0 # v7.1.0
-        with:
-          python-version: '3.14'
-
-      - name: Install build dependency
-        run: python3 -m pip install pillow
-
-      - name: Migrate legacy project versions before publishing
-        run: python3 scripts/migrate_three_part_versions.py
-
-      - name: Validate inputs and load ID from registry
-        env:
-          CURSEFORGE_API_TOKEN: ${{ secrets.CURSEFORGE_API_TOKEN }}
-          PROJECT_PATH: ${{ inputs.publish_project }}
-        run: |
-          set -euo pipefail
-          [[ "$GITHUB_REF" == refs/heads/* ]] || { echo "::error::Run this workflow on a branch."; exit 1; }
-          [ "$PROJECT_PATH" != "-" ] || { echo "::error::Pick a registered pack (run 'Register CurseForge ID' first if it is missing)."; exit 1; }
-          [ -n "$CURSEFORGE_API_TOKEN" ] || { echo "::error::Add the CURSEFORGE_API_TOKEN repository secret."; exit 1; }
-          python3 - <<'PY'
-          import os, sys
-          sys.path.insert(0, "scripts")
-          import prepare_curseforge_upload as release
-          try:
-              info = release.read_info(os.environ["PROJECT_PATH"])
-          except ValueError as exc:
-              print(f"::error::{exc}")
-              sys.exit(1)
-          print(f"CurseForge project {info['project_id']}, last published: {info.get('last_published_version', 'never')}")
-          PY
-
-      - name: Bump version, merge changelog, build and upload (once)
-        env:
-          CURSEFORGE_API_TOKEN: ${{ secrets.CURSEFORGE_API_TOKEN }}
-          PROJECT_PATH: ${{ inputs.publish_project }}
-          MAP_VARIANT: ${{ inputs.publish_map_variant }}
-          # Every upload is a CurseForge Release. The pack version step is unchanged (X.Y.Z).
-          RELEASE_TYPE: beta
-          CURSEFORGE_CHANGELOG_STYLE: ${{ vars.CURSEFORGE_CHANGELOG_STYLE || 'spoiler' }}
-          PACK_FILENAME_TEMPLATE: ${{ vars.PACK_FILENAME_TEMPLATE }}
-        run: |
-          set -euo pipefail
-          python3 scripts/auto_publish_curseforge.py \
-            --project "$PROJECT_PATH" \
-            --map-variant "$MAP_VARIANT" \
-            --release-type "$RELEASE_TYPE"
-
-      # Runs only after a successful upload, so a failed upload leaves the repo untouched.
-      - name: Commit new version, merged changelog and saved release info
-        env:
-          PROJECT_PATH: ${{ inputs.publish_project }}
-        run: |
-          set -euo pipefail
-          NAME="${PROJECT_PATH##*/}"
-          git add -A
-          if git diff --cached --quiet; then
-            echo "Nothing to commit."
-            exit 0
-          fi
-          git config user.name "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
-          git commit -m "chore(curseforge): publish $NAME [skip ci]"
-          python3 scripts/git_push_retry.py --branch "${GITHUB_REF#refs/heads/}"
-
-  # =====================================================================================
-  # task = build (push, daily schedule, manual build, and right after a successful publish)
-  # =====================================================================================
-  release-refresh:
-    needs: [publish]
+  build:
     runs-on: ubuntu-latest
     permissions:
       contents: write
     concurrency:
       group: release-build-refresh
       cancel-in-progress: false
-    # After a publish, run only when the upload succeeded.
     # Pushes only: skip bot commits, and skip when the push touches Dirtbound's source tree
     # (its dedicated world build owns that README and archives).
-    if: ${{ !cancelled() && (needs.publish.result == 'success' || needs.publish.result == 'skipped') && (github.event_name != 'push' || (!contains(github.event.head_commit.message, '[skip ci]') && !contains(toJSON(github.event.commits), 'MCPEDL/Maps/OneBlock-Dirtbound-Kingdom-Beta/'))) }}
+    if: ${{ github.event_name != 'push' || (!contains(github.event.head_commit.message, '[skip ci]') && !contains(toJSON(github.event.commits), 'MCPEDL/Maps/OneBlock-Dirtbound-Kingdom-Beta/')) }}
 
     steps:
       - name: Check out the triggering branch
@@ -301,65 +68,16 @@ jobs:
       - name: Rebuild packages & register new projects
         id: process
         env:
-          EVENT: ${{ github.event_name }}
-          TASK: ${{ github.event.inputs.task }}
-          SCOPE: ${{ github.event.inputs.scope }}
-          ADDON: ${{ github.event.inputs.addon }}
-          SCRIPT: ${{ github.event.inputs.script }}
-          MINIGAME: ${{ github.event.inputs.minigame }}
-          MAP: ${{ github.event.inputs.map }}
-          OTHER: ${{ github.event.inputs.other }}
           PACK_FILENAME_TEMPLATE: ${{ vars.PACK_FILENAME_TEMPLATE }}
-          BEFORE: ${{ github.event.before }}
+          # This workflow NEVER changes versions. Publishing owns every version bump.
+          AUTO_BUMP_MANIFEST: "false"
         run: |
           set -euo pipefail
-          ARGS=()
-          SKIP_AUTO_BUMP=false
-          case "$EVENT" in
-            schedule)
-              ARGS=(--all)
-              ;;
-            workflow_dispatch)
-              if [ "$TASK" = "publish" ]; then
-                ARGS=(--all)
-                SKIP_AUTO_BUMP=true
-              elif [ "$SCOPE" = "all" ]; then
-                ARGS=(--all)
-              else
-                PICKS=()
-                [ -n "$ADDON" ]     && [ "$ADDON" != "-" ]     && PICKS+=("MCPEDL/Addons/$ADDON")
-                [ -n "$SCRIPT" ]    && [ "$SCRIPT" != "-" ]    && PICKS+=("MCPEDL/Script/$SCRIPT")
-                [ -n "$MINIGAME" ]  && [ "$MINIGAME" != "-" ]  && PICKS+=("MCPEDL/Minigame/$MINIGAME")
-                [ -n "$MAP" ]       && [ "$MAP" != "-" ]       && PICKS+=("MCPEDL/Maps/$MAP")
-                [ -n "$OTHER" ]                                && PICKS+=("$OTHER")
-                if [ "${#PICKS[@]}" -ne 1 ]; then
-                  echo "::error::scope is 'one project': pick exactly one project (found ${#PICKS[@]}). Leave the other lists on '-'."
-                  exit 1
-                fi
-                ARGS=(--project "${PICKS[0]}")
-              fi
-              ;;
-            *)
-              if [ -n "$BEFORE" ] && [ "$BEFORE" != "0000000000000000000000000000000000000000" ]; then
-                CHANGED_PATHS="$(git diff --name-only "$BEFORE" HEAD)"
-                if grep -Eq '^(scripts/|Mcpeworlds/|builds/Curseforge_IDs\.json|\.github/workflows/auto-version-bump\.yml)' <<< "$CHANGED_PATHS"; then
-                  ARGS=(--all)
-                  SKIP_AUTO_BUMP=true
-                else
-                  ARGS=(--base "$BEFORE")
-                fi
-              else
-                ARGS=(--all)
-              fi
-              ;;
-          esac
-          # Every normal build evaluates automatic Updates. The builder only increments Z
-          # when it detects a source change; publish and tooling-only rebuilds remain exempt.
-          if [ "$SKIP_AUTO_BUMP" != "true" ]; then
-            ARGS+=(--bump)
-          fi
-          echo "Running: python3 scripts/auto_bump_and_build.py ${ARGS[*]}"
-          python3 scripts/auto_bump_and_build.py "${ARGS[@]}"
+          # Passive build: every run rebuilds ALL projects and re-syncs the catalogs. Manifest
+          # versions are only aligned to the highest one already in the pack; when the source
+          # changed, builds/<pack>/versions/V<X.Y.Z>/ is refreshed in place.
+          echo "Running: python3 scripts/auto_bump_and_build.py --all"
+          python3 scripts/auto_bump_and_build.py --all
 
       # Generic pack builds do not create .mcworld files. Rebuild eligible OneBlock
       # archives here before synchronizing links; test-gated maps remain owned by

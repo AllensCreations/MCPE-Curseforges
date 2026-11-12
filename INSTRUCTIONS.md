@@ -1,4 +1,4 @@
-# Instructions: Core Repository Policy (v5)
+# Instructions: Core Repository Policy (v6)
 
 Repo policy, docs, audit rules for ALNStudios/MCPE-Curseforges. Generating a new project: `PACK_GENERATOR_INSTRUCTIONS.md`.
 
@@ -94,7 +94,7 @@ Implementation:
 - NEVER change pack UUIDs or world storage keys to rename a title. NEVER regenerate header UUIDs (breaks worlds).
 - Build sync: every processed project aligns all source manifests to one highest `X.Y.Z`: `header.version`, `metadata.version`, title suffix, module versions, same-project BP/RP deps. Fills `metadata.authors` (`ALNStudios`), optional `metadata.license`.
 - Snapshots: `builds/<pack>/versions/V<X.Y.Z>/` (packages, `source.zip`, `source.sha256`, `build_info.json`). Refreshed when source/packages differ. Last 5 kept.
-- Auto Update: `--bump` or `AUTO_BUMP_MANIFEST=true` increments Z in every manifest on source change. Build automation NEVER increments Y or X.
+- Versions change ONLY in Publish to CurseForge (Beta: groups every changelog entry since the last publish under the new version). The passive build (`Build Changed Packs & Sync Catalogs`) NEVER bumps: it aligns each pack to its highest existing version and rebuilds. `--bump` / `AUTO_BUMP_MANIFEST=true` remain in `scripts/auto_bump_and_build.py` for manual use only.
 - Package name default: `<Name> by ALNStudios (VX.Y.Z).<ext>`. Custom via `metadata.package_filename` or `PACK_FILENAME_TEMPLATE`; MUST keep `(V{version})`.
 - Creator name `ALNStudios`. `python3 scripts/rename_brand.py --apply` migrates old name. NEVER rename lowercase namespaces (`allenscreations:`).
 - Tools: `python3 scripts/manifest_tools.py --project <path> --check|--align|--bump` (`--all --check`). `sync_manifest_versions.py`: deps and `min_engine_version` maintenance; set `min_engine_version` by hand after lookup. `sync_project_docs.py` NOT in build: edit DESCRIPTION/CHANGELOG deliberately. `sync_readme_links.py [--check]` repairs README links (runs after every build).
@@ -170,7 +170,7 @@ Example spec: Dirtbound
 - Workflows: `.github/workflows/`. ALWAYS read the actual file before editing or describing it. NEVER claim a run succeeded unless checked. NEVER trust summaries of workflows (they drift).
 - Retired, NEVER recreate or reference: `update-min-version.yml`, `scripts/update_min_version.py`, `create-addon-scaffold.yml`, `test-crafting-template.yml`, `create-mcpe-world.yml`, `scripts/create_mcpe_world.py`, `scripts/check_generator_sync.py`.
 - Version rules (1.3) changing workflow behavior: update the workflow in the same change.
-- Key entry points: `auto-version-bump.yml` (task `build`/`publish`; publish = ONLY CurseForge upload path; Beta/Release only), `collect-ai-review-files.yml` (AI hand-off: empty paths = bundle; paths = `.b64` Markdown export zipped as `(X.Y.Z) Filename.zip`), `create-project-from-base64.yml` (`commit_mode` default `pull_request`), `ci.yml` (PR checks).
+- Key entry points: `auto-version-bump.yml` (Build Changed Packs & Sync Catalogs: passive, runs on every push, builds ALL, NEVER bumps), `publish-curseforge.yml` (ONLY CurseForge upload path and ONLY version bump; Beta; groups changelog since last publish), `delete-project.yml` (Delete Package: package + builds, changelog views, registry, catalog rows, dropdown), `collect-ai-review-files.yml` (AI hand-off: empty paths = bundle; paths = `.b64` Markdown export zipped as `(X.Y.Z) Filename.zip`), `create-project-from-base64.yml` (`commit_mode` default `pull_request`), `ci.yml` (PR checks).
 - Helper scripts: `scripts/` (read each script for options). `scripts/check_instruction_files.py` fails CI when an instruction file breaks size/format rules.
 
 ### 1.9 Repository Layout
@@ -431,6 +431,7 @@ CHANGELOG.md. Newest first. Groups: Added, Improved & Balanced, Fixed (bugs as i
 - [ ] Verification stated: source created | package built | in-game tested, never mixed.
 
 ## Version History
+- **v6:** Build is passive and never bumps; publish is its own workflow and owns versions; Delete Package.
 - **v5:** Telegram-style rewrite. NEVER/ALWAYS tags. Task index, one file per task. Three-section reply format. Workflow table removed (read the workflow files). Legacy four-part version notes removed. Templates synced to `doc_template.py`. Size cap 50 KB (`scripts/check_instruction_files.py`).
 - **v4:** Reply format section.
 - **v3:** Generator moved to `PACK_GENERATOR_INSTRUCTIONS.md`.
