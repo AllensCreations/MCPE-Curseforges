@@ -9,7 +9,7 @@
  * Restores placed light blocks back to air upon movement, unequip, death, or disconnect.
  *
  * Light modes (chosen by the Behavior Pack subpack, see scripts/mode.js):
- * - cursor (default): light is placed at the block face you are looking at
+ * - cursor (default): light is placed at the block face you are looking at (no head fallback)
  * - head: light is placed just above your head
  */
 import { world, system, EquipmentSlot, BlockPermutation } from "@minecraft/server";
@@ -25,7 +25,7 @@ const LIGHT_POWERS = {
 };
 
 const LIGHT_UPDATE_INTERVAL = 2; // Run every 2 ticks (10 times/sec)
-const CURSOR_MAX_DISTANCE = 24; // How far the cursor light can reach, in blocks
+const CURSOR_MAX_DISTANCE = 1000; // Effectively unlimited; the game only reaches loaded chunks
 
 const FACE_OFFSETS = {
   Up: { x: 0, y: 1, z: 0 },
@@ -166,11 +166,12 @@ function getLightCandidates(player) {
         });
       }
     } catch (e) {
-      // Fall back to head position below
+      // Nothing targetable (unloaded chunk or no block in view): no cursor light
     }
+    return candidates;
   }
 
-  // Head position (also the fallback for cursor mode when nothing is targeted)
+  // Head mode: just above the head, falling back to torso level
   const hx = Math.floor(player.location.x);
   const hz = Math.floor(player.location.z);
   candidates.push({ x: hx, y: Math.floor(player.location.y + 1.6), z: hz });
@@ -203,6 +204,13 @@ system.runInterval(() => {
 
       const dim = player.dimension;
       const candidates = getLightCandidates(player);
+
+      // Cursor mode with nothing in view: no light
+      if (candidates.length === 0) {
+        removePlayerLight(playerId);
+        continue;
+      }
+
       const currentLight = activePlayerLights.get(playerId);
 
       // Skip work if the light is already at the preferred position with the exact power

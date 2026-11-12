@@ -2,6 +2,12 @@
 
 ---
 
+## 2026-11-13 - Mining Helmet Unlimited Cursor Light
+
+### Improved & Balanced
+
+- **Mining Helmet cursor range**: Cursor Light has no distance limit and no longer falls back to the head when nothing is in view.
+
 ## 2026-11-13 - Mining Helmet Cursor Light
 
 ### Added

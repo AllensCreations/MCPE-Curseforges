@@ -2,6 +2,13 @@
 
 ---
 
+## [1.14.2] - 2026-11-13 - Unlimited Cursor Light
+
+### Improved & Balanced
+
+- **Cursor Light range**: The light now follows whatever block you look at, no matter how far away it is.
+- **No head fallback**: Cursor Light no longer returns to your head when nothing is in view. The light turns off until you look at a block again.
+
 ## [1.14.1] - 2026-11-13 - Cursor Light Mode
 
 ### Added
