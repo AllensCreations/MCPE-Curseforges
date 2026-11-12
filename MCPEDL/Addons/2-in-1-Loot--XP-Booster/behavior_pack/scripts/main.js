@@ -37,8 +37,27 @@ const EXCLUDED_BLOCKS = new Set([
   "minecraft:trapped_chest",
   "minecraft:barrel",
   "minecraft:ender_chest",
+  "minecraft:furnace",
+  "minecraft:lit_furnace",
+  "minecraft:blast_furnace",
+  "minecraft:lit_blast_furnace",
+  "minecraft:smoker",
+  "minecraft:lit_smoker",
+  "minecraft:hopper",
+  "minecraft:dropper",
+  "minecraft:dispenser",
+  "minecraft:crafter",
+  "minecraft:brewing_stand",
+  "minecraft:decorated_pot",
+  "minecraft:chiseled_bookshelf",
+  "minecraft:lectern",
+  "minecraft:jukebox",
+  "minecraft:campfire",
+  "minecraft:soul_campfire",
+  "minecraft:flower_pot",
+  "minecraft:suspicious_sand",
+  "minecraft:suspicious_gravel",
 ]);
-
 const recentItems = new Map();
 const openMenus = new Set();
 
@@ -56,7 +75,11 @@ function xpTier(player) {
 }
 
 function isExcludedBlock(typeId) {
-  return EXCLUDED_BLOCKS.has(typeId) || typeId.endsWith("shulker_box");
+  return (
+    EXCLUDED_BLOCKS.has(typeId) ||
+    typeId.endsWith("shulker_box") ||
+    typeId.endsWith("copper_chest")
+  );
 }
 
 function statusLine(player) {
@@ -234,6 +257,9 @@ world.afterEvents.entityDie.subscribe(({ deadEntity, damageSource }) => {
   if (!killer || killer.typeId !== "minecraft:player") return;
   if (deadEntity.typeId === "minecraft:player") return;
 
+  const id = deadEntity.typeId;
+  if (id.endsWith("chest_minecart") || id.endsWith("hopper_minecart") || id.endsWith("chest_boat")) return;
+
   const maxMultiplier = lootTier(killer).max;
   if (maxMultiplier <= 1) return;
 
@@ -241,7 +267,6 @@ world.afterEvents.entityDie.subscribe(({ deadEntity, damageSource }) => {
   const location = deadEntity.location;
   system.run(() => multiplyDrops(dimension, location, MOB_RADIUS, maxMultiplier));
 });
-
 system.runInterval(() => {
   for (const player of world.getAllPlayers()) {
     if (!player.isValid) continue;
