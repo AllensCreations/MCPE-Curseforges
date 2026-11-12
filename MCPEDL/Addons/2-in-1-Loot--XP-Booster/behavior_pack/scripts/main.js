@@ -1,5 +1,5 @@
 import { world, system, EntityComponentTypes } from "@minecraft/server";
-import { ActionFormData, FormCancelationReason } from "@minecraft/server-ui";
+import { ActionFormData, ModalFormData, FormCancelationReason } from "@minecraft/server-ui";
 
 const TITLE = "§6[ ALNStudios Booster ]";
 const LOOT_TIERS = [
@@ -104,46 +104,59 @@ async function showForm(player, form) {
   return undefined;
 }
 
+function tierLegend(tiers, prefix) {
+  return tiers
+    .map((tier, index) => `${tier.color}${index + 1} ${tier.name} §8(${prefix}${tier.max}x)`)
+    .join("\n");
+}
+
 async function mainMenu(player) {
   const form = new ActionFormData()
     .title(TITLE)
     .body(`§7Tune your boosters.\n${statusLine(player)}`)
-    .button("§bLoot Drop Booster")
-    .button("§bXP Gain Booster")
-    .button("§eAbout");
+    .button("§bXP & Loot Booster")
+    .button("§eAbout")
+    .button("§cExit");
   const response = await showForm(player, form);
   if (!response) return;
-  if (response.selection === 0) await tierMenu(player, "loot");
-  else if (response.selection === 1) await tierMenu(player, "xp");
-  else if (response.selection === 2) await aboutMenu(player);
+  if (response.selection === 0) await boosterMenu(player);
+  else if (response.selection === 1) await aboutMenu(player);
 }
 
-async function tierMenu(player, kind) {
-  const isLoot = kind === "loot";
-  const tiers = isLoot ? LOOT_TIERS : XP_TIERS;
-  const current = readIndex(player, isLoot ? LOOT_KEY : XP_KEY, tiers);
-  const body = isLoot
-    ? "§7Pick a Loot tier. Drops roll randomly like Fortune, so a tier's number is the best possible roll, not a guarantee."
-    : "§7Pick an XP tier. Every orb near you becomes that many orbs and flies straight to you.";
-  const form = new ActionFormData().title(TITLE).body(body);
-  tiers.forEach((tier, index) => {
-    const mark = index === current ? "§a> " : "";
-    form.button(`${mark}${tier.color}${tier.name} §8(${isLoot ? "up to " : ""}${tier.max}x)`);
-  });
-  form.button("§7Back");
+async function boosterMenu(player) {
+  const lootCurrent = readIndex(player, LOOT_KEY, LOOT_TIERS);
+  const xpCurrent = readIndex(player, XP_KEY, XP_TIERS);
+  const form = new ModalFormData()
+    .title(TITLE)
+    .label("§7Drag a slider, then press Apply. Loot rolls randomly like Fortune, so a tier's number is the best possible roll.")
+    .divider()
+    .label(tierLegend(LOOT_TIERS, "up to "))
+    .slider("§aLoot Drop Booster", 1, LOOT_TIERS.length, {
+      defaultValue: lootCurrent + 1,
+      valueStep: 1,
+    })
+    .divider()
+    .label(tierLegend(XP_TIERS, ""))
+    .slider("§bXP Gain Booster", 1, XP_TIERS.length, {
+      defaultValue: xpCurrent + 1,
+      valueStep: 1,
+    })
+    .submitButton("§aApply");
 
   const response = await showForm(player, form);
-  if (!response) return;
-  if (response.selection === tiers.length) {
-    await mainMenu(player);
-    return;
-  }
-  if (!player.isValid) return;
+  if (!response || !player.isValid) return;
 
-  player.setDynamicProperty(isLoot ? LOOT_KEY : XP_KEY, response.selection);
+  const lootValue = response.formValues[3];
+  const xpValue = response.formValues[6];
+  if (typeof lootValue !== "number" || typeof xpValue !== "number") return;
+
+  const lootIndex = Math.min(Math.max(Math.round(lootValue) - 1, 0), LOOT_TIERS.length - 1);
+  const xpIndex = Math.min(Math.max(Math.round(xpValue) - 1, 0), XP_TIERS.length - 1);
+  player.setDynamicProperty(LOOT_KEY, lootIndex);
+  player.setDynamicProperty(XP_KEY, xpIndex);
   player.playSound("random.orb");
-  const loot = lootTier(player);
-  const xp = xpTier(player);
+  const loot = LOOT_TIERS[lootIndex];
+  const xp = XP_TIERS[xpIndex];
   player.onScreenDisplay.setActionBar(
     `§6[BOOSTER] §aLoot: §f${loot.name} (${loot.max}x) §8| §bXP: §f${xp.name} (${xp.max}x)`
   );
@@ -151,13 +164,14 @@ async function tierMenu(player, kind) {
 
 async function aboutMenu(player) {
   const lines = [
-    "§bALNStudios Booster §7v1.0.1",
+    "§6ALNStudios",
+    "§7ALNStudios makes Minecraft Bedrock add-ons, maps, scripts and minigames.",
     "",
-    "§eLoot Drop §7- Breaking blocks and killing mobs rolls a random bonus, Fortune-style. The Leprechaun tier can reach 32x but usually lands lower.",
+    "§bThis add-on §7v1.0.2",
+    "§eXP & Loot Booster §7(Behavior Pack) - Adds the Booster menu. One slider sets your Loot Drop tier (up to 32x, Fortune-style random rolls) and another sets your XP Gain tier (up to 64x, orbs collected instantly).",
+    "§eRedesigned UI §7(Resource Pack) - Gives the Booster action menus the Cheatstick look. Enable it together with the Behavior Pack.",
     "",
-    "§eXP Gain §7- Orbs near you are multiplied (up to 64x) and collected instantly.",
-    "",
-    "§eOpen this menu §7- Rename a Book to Booster on an anvil, then right-click.",
+    "§bOpen this menu §7- Rename a Book to Booster on an anvil, then right-click.",
     "",
     "§8Chests, barrels, ender chests and shulker boxes are never multiplied.",
     "§6by ALNStudios",

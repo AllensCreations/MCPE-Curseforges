@@ -1,13 +1,13 @@
 {
   "format_version": 2,
   "header": {
-    "name": "2-in-1 Loot & XP Booster (v1.0.1)",
+    "name": "2-in-1 Loot & XP Booster (v1.0.2)",
     "description": "Loot and XP multipliers controlled from a renamed Book. by ALNStudios",
     "uuid": "ac428a01-d829-4779-aeb1-52bbb3d37e0d",
     "version": [
       1,
       0,
-      1
+      2
     ],
     "min_engine_version": [
       1,
@@ -23,7 +23,7 @@
       "version": [
         1,
         0,
-        1
+        2
       ],
       "entry": "scripts/main.js"
     }
@@ -34,7 +34,7 @@
       "version": [
         1,
         0,
-        1
+        2
       ]
     },
     {
@@ -51,6 +51,6 @@
       "ALNStudios"
     ],
     "product_type": "addon",
-    "version": "1.0.1"
+    "version": "1.0.2"
   }
 }

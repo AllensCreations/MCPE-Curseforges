@@ -2,6 +2,16 @@
 
 ---
 
+## [1.0.2] - 2026-11-12 - Simplified Booster Menu
+
+### Improved & Balanced
+- **Three-button menu**: The Booster menu now has only XP & Loot Booster, About and Exit.
+- **One screen, two sliders**: XP & Loot Booster sets both boosters with a Loot slider and an XP slider, saved together with one Apply button.
+- **New About screen**: About now introduces ALNStudios and the two packs in this add-on.
+
+### Fixed
+- **Menu stays out of the way**: Exit closes the menu without changing your settings.
+
 ## [1.0.1] - 2026-11-12 - Redesigned Menu and Tiers
 
 ### Added

@@ -11,7 +11,7 @@
 
 ## Overview
 
-You rename a Book to Booster on an anvil and right-click with it. A menu opens with a Loot Drop Booster, an XP Gain Booster and an About button, and your choices apply to every block you break, every mob you kill and every XP orb near you. Nothing is added to your inventory, and no custom items exist.
+You rename a Book to Booster on an anvil and right-click with it. A menu opens with three buttons: XP & Loot Booster, About and Exit. XP & Loot Booster has one slider for Loot and one for XP, and your choices apply to every block you break, every mob you kill and every XP orb near you. Nothing is added to your inventory, and no custom items exist.
 
 ## Key Features
 
@@ -21,17 +21,17 @@ You rename a Book to Booster on an anvil and right-click with it. A menu opens w
 - **Good To Know**: Each player keeps their own settings, which are saved between sessions.
 
 ### Loot Drop Booster
-- **What Happens**: Pick one of six tiers, from Normal to The Leprechaun, for blocks you break and mobs you kill.
+- **What Happens**: Drag the Loot slider across six tiers, from Normal to The Leprechaun, for blocks you break and mobs you kill.
 - **How It Works**: Drops roll randomly like Fortune. At The Leprechaun, a stack of 3 items can become anywhere from 3 to 96, so 32x is the best roll, not a guarantee.
 - **Good To Know**: Chests, trapped chests, barrels, ender chests and shulker boxes are never multiplied, and unstackable items such as tools are left alone.
 
 ### XP Gain Booster
-- **What Happens**: Pick one of seven tiers, from Normal up to The Sage at 64x, and nearby XP orbs are multiplied by that exact amount.
+- **What Happens**: Drag the XP slider across seven tiers, from Normal up to The Sage at 64x, and nearby XP orbs are multiplied by that exact amount.
 - **How It Works**: At Amazing, each orb near you creates 7 extra orbs, and all of them fly straight to you.
 - **Good To Know**: XP orbs within 8 blocks of you are collected instantly instead of drifting toward you.
 
 ### About Screen
-- **What Happens**: An About button in the main menu explains each booster and how to open the menu.
+- **What Happens**: The About button introduces ALNStudios and the two packs in this add-on, and explains how to open the menu.
 
 ### Redesigned UI
 - **What Happens**: A small Resource Pack named Redesigned UI gives the Booster menus the Cheatstick look, with a dark panel, a blue border and colored tier names.
@@ -40,8 +40,8 @@ You rename a Book to Booster on an anvil and right-click with it. A menu opens w
 ## How to Use
 
 1. Rename a Book or a Book and Quill to Booster on an anvil.
-2. Hold it and right-click, then choose Loot Drop Booster or XP Gain Booster.
-3. Tap a tier and check the Action Bar for your Loot and XP values.
+2. Hold it and right-click, then choose XP & Loot Booster.
+3. Drag the Loot and XP sliders, press Apply and check the Action Bar for your values.
 
 ## Common Questions
 

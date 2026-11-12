@@ -1,13 +1,13 @@
 {
   "format_version": 2,
   "header": {
-    "name": "Redesigned UI (v1.0.1)",
+    "name": "Redesigned UI (v1.0.2)",
     "description": "Cheatstick-style Booster menu skin. by ALNStudios",
     "uuid": "c36706a8-ddfe-419f-bd1b-69d929186543",
     "version": [
       1,
       0,
-      1
+      2
     ],
     "min_engine_version": [
       1,
@@ -22,7 +22,7 @@
       "version": [
         1,
         0,
-        1
+        2
       ]
     }
   ],
@@ -31,6 +31,6 @@
       "ALNStudios"
     ],
     "product_type": "addon",
-    "version": "1.0.1"
+    "version": "1.0.2"
   }
 }
