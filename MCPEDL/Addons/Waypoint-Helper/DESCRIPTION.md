@@ -54,7 +54,7 @@ Right-click a Compass to open the Waypoint Helper menu. Save your current positi
 
 - Minecraft Bedrock Edition: not verified
 - Experimental features: No experiment requirement detected in the inspected files.
-- Achievements: Likely achievement-friendly. This pack does not use cheat commands.
+- Achievements: Likely achievement-friendly.
 - Verification: source created. Not tested in game.
 
 ## Creator and Permissions
@@ -81,3 +81,4 @@ Right-click a Compass to open the Waypoint Helper menu. Save your current positi
 ## Search & Discovery Keywords
 
 Minecraft Bedrock add-on, Waypoint Helper Bedrock mod, waypoint teleport, save coordinates, rename waypoints, Compass menu, Minecraft PE survival, MCPEDL add-on, CurseForge Bedrock, ALNStudios.
+
