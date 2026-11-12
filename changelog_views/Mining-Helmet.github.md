@@ -1,13 +1,21 @@
 # Changelog — Mining Helmet
 
-## [1.14.3] - 2026-11-13 - Light From You
+## [1.14.4] - 2026-11-13 - Water Light
+
+### Added
+- **Water light**: Cursor Light now works when you look at water, and also when you are underwater.
 
 ### Improved & Balanced
-- **Light from you**: Cursor Light now also glows just in front of you, so it looks like the light comes from you even when you look through a one-block gap.
-- **Far light kept**: The light on the block you are looking at is still placed, with no distance limit.
+- **Dim light at you**: The light at you is now a soft level 1 to 3 glow, while the light on what you look at keeps the full helmet power.
 
 <details>
-<summary><b>1.14.x</b> (3 releases)</summary>
+<summary><b>1.14.x</b> (4 releases)</summary>
+
+### [1.14.3] - 2026-11-13 - Light From You
+
+#### Improved & Balanced
+- **Light from you**: Cursor Light now also glows just in front of you, so it looks like the light comes from you even when you look through a one-block gap.
+- **Far light kept**: The light on the block you are looking at is still placed, with no distance limit.
 
 ### [1.14.2] - 2026-11-13 - Unlimited Cursor Light
 
