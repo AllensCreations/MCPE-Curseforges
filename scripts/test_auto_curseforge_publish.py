@@ -303,6 +303,24 @@ class PublishGroupingTests(unittest.TestCase):
         version, _, _ = self.combine()
         self.assertEqual(version, "1.3.0")
 
+    def test_keep_publishes_newest_changelog_version_without_bumping(self):
+        with tempfile.TemporaryDirectory() as temp:
+            project = Path(temp)
+            changelog = project / "CHANGELOG.md"
+            changelog.write_text(self.CHANGELOG, encoding="utf-8")
+            version, upload = publisher.release.combine_changelog(
+                project, changelog, "1.1.0", today=datetime.date(2026, 11, 12), release_type="keep",
+            )
+        self.assertEqual(version, "1.2.3")
+        self.assertIn("from v1.2.1 through v1.2.3", upload)
+
+    def test_keep_with_nothing_new_is_refused(self):
+        with tempfile.TemporaryDirectory() as temp:
+            project = Path(temp)
+            (project / "CHANGELOG.md").write_text(self.CHANGELOG, encoding="utf-8")
+            with self.assertRaisesRegex(ValueError, "Nothing new to publish"):
+                publisher.release.combine_changelog(project, project / "CHANGELOG.md", "1.2.3", release_type="keep")
+
     def test_nothing_new_since_last_publish_is_refused(self):
         with self.assertRaisesRegex(ValueError, "Nothing new to publish"):
             self.combine(last_published="1.2.3")

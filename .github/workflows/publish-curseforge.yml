@@ -1,11 +1,11 @@
 name: Publish to CurseForge
 
-# The ONLY place that uploads to CurseForge and the ONLY place that bumps a version.
-# "Build Changed Packs & Sync Catalogs" is passive and never publishes or bumps.
+# The ONLY place that uploads to CurseForge. It does NOT bump versions either: it publishes the
+# newest CHANGELOG.md version exactly as written. Nothing in this repo auto-bumps.
 #
 #   1. Pick a registered pack (list comes from builds/Curseforge_IDs.json, written by
 #      "Register CurseForge ID", which also refreshes the dropdown).
-#   2. The new version is Beta: X.Y.Z -> X.(Y+1).0.
+#   2. The version is the newest changelog entry (no bump). Write the version in CHANGELOG.md.
 #   3. The changelog is GROUPED: every CHANGELOG.md entry newer than the last published version
 #      is merged under one heading, so a publish after several unpublished updates still shows
 #      all of them, grouped by section, from the last publish up to the latest.
@@ -124,8 +124,8 @@ jobs:
           CURSEFORGE_API_TOKEN: ${{ secrets.CURSEFORGE_API_TOKEN }}
           PROJECT_PATH: ${{ inputs.publish_project }}
           MAP_VARIANT: ${{ inputs.publish_map_variant }}
-          # Every upload is a CurseForge Release. The pack version step is unchanged (X.Y.Z).
-          RELEASE_TYPE: beta
+          # Every upload is a CurseForge Release. "keep" = no version bump.
+          RELEASE_TYPE: keep
           CURSEFORGE_CHANGELOG_STYLE: ${{ vars.CURSEFORGE_CHANGELOG_STYLE || 'spoiler' }}
           PACK_FILENAME_TEMPLATE: ${{ vars.PACK_FILENAME_TEMPLATE }}
         run: |

@@ -3,7 +3,9 @@
 
 Version rules:
   Every project version is X.Y.Z: X = Release generation, Y = Beta generation, Z = Update.
-  update   X.Y.Z -> X.Y.(Z+1) (normal build automation only).
+  keep     no bump: publishes the newest changelog version as written (default for the workflow);
+           merges every unpublished changelog entry since the last upload.
+  update   X.Y.Z -> X.Y.(Z+1) (manual build --bump only).
   beta     X.Y.Z -> X.(Y+1).0; merges unpublished changelog entries since the last upload.
   release  X.Y.Z -> (X+1).0.0; groups the complete release history.
   Legacy X.Y.Z.A maps to X.Z.A and legacy X.Y.Z maps to X.Z.0 because old Y was Alpha, Z was Beta and A was Update (default 0).
@@ -20,7 +22,7 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import prepare_curseforge_upload as release
 
 
-def publish(project_path, release_type="release", map_variant="default"):
+def publish(project_path, release_type="keep", map_variant="default"):
     category, project_name = release.project_from_path(project_path)
     pack_key = f"MCPEDL/{category}/{project_name}"
     info = release.read_info(pack_key)  # fails with a clear message if the pack is not in builds/Curseforge_IDs.json
@@ -80,7 +82,7 @@ def publish(project_path, release_type="release", map_variant="default"):
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--project", required=True, help="Exact MCPEDL category/project path")
-    parser.add_argument("--release-type", default="release", choices=("release", "beta"))
+    parser.add_argument("--release-type", default="keep", choices=("keep", "release", "beta"))
     parser.add_argument("--map-variant", default="default", choices=("default", "Creative", "Survival", "Hardcore", "all"))
     args = parser.parse_args()
     publish(args.project, args.release_type, args.map_variant)

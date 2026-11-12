@@ -426,6 +426,7 @@ def next_version(highest, release_type):
     major, minor, patch = highest[:3]
     if release_type == "release": return f"{major + 1}.0.0"
     if release_type == "beta": return f"{major}.{minor + 1}.0"
+    if release_type == "keep": return f"{major}.{minor}.{patch}"  # no bump: publish the newest changelog version as written
     return f"{major}.{minor}.{patch + 1}"
 
 def prior_version(version):
@@ -454,7 +455,7 @@ def combine_changelog(project_dir, changelog_path, last_published=None, today=No
     baseline_text = merge_baseline(release_type, {"last_published_version": last_published, "last_release_version": last_release})
     baseline = parse_version(baseline_text) if baseline_text else None
     merged = entries[:1] if baseline is None else [entry for entry in entries if entry[0] > baseline]
-    if not merged and release_type == "beta":
+    if not merged and release_type in {"beta", "keep"}:
         raise ValueError(f"Nothing new to publish: no changelog entry newer than v{baseline_text}. Add a changelog entry first.")
     history = [entry for entry in entries if _has_content(entry)]
     if not history: raise ValueError(f"Nothing to publish: {changelog_path} has no changelog bullets.")
@@ -537,8 +538,8 @@ def stage_upload_copy(package_path, release_type, project_name, map_variant="def
 
 def prepare(project_path, release_type, map_variant="default", rebuild=True, bump=True):
     category, project_name = project_from_path(project_path)
-    if release_type not in {"release", "beta"}:
-        raise ValueError("Release type must be release or beta")
+    if release_type not in {"release", "beta", "keep"}:
+        raise ValueError("Release type must be release, beta or keep")
     if map_variant not in {"default", "Creative", "Survival", "Hardcore"}:
         raise ValueError("Map variant must be default, Creative, Survival or Hardcore")
 
