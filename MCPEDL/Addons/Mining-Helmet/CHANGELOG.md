@@ -2,6 +2,16 @@
 
 ---
 
+## [1.14.4] - 2026-11-13 - Water Light
+
+### Added
+
+- **Water light**: Cursor Light now works when you look at water, and also when you are underwater.
+
+### Improved & Balanced
+
+- **Dim light at you**: The light at you is now a soft level 1 to 3 glow, while the light on what you look at keeps the full helmet power.
+
 ## [1.14.3] - 2026-11-13 - Light From You
 
 ### Improved & Balanced

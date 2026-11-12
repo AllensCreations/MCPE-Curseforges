@@ -2,6 +2,16 @@
 
 ---
 
+## 2026-11-13 - Mining Helmet Water Light
+
+### Added
+
+- **Mining Helmet water light**: Cursor Light works on water and underwater.
+
+### Improved & Balanced
+
+- **Mining Helmet dim self light**: The light at you is now level 1 to 3.
+
 ## 2026-11-13 - Mining Helmet Light From You
 
 ### Improved & Balanced

@@ -9,8 +9,8 @@
  * Restores placed light blocks back to air upon movement, unequip, death, or disconnect.
  *
  * Light modes (chosen by the Behavior Pack subpack, see scripts/mode.js):
- * - cursor (default): a light near you in the view direction (so it looks like it comes from you)
- *   plus a light at the block face you are looking at (no head fallback, no distance limit)
+ * - cursor (default): a dim light at yourself (level 1-3) plus a full-power light at the block
+ *   (or water) you are looking at (no head fallback, no distance limit)
  * - head: light is placed just above your head
  */
 import { world, system, EquipmentSlot, BlockPermutation } from "@minecraft/server";
@@ -27,7 +27,24 @@ const LIGHT_POWERS = {
 
 const LIGHT_UPDATE_INTERVAL = 2; // Run every 2 ticks (10 times/sec)
 const CURSOR_MAX_DISTANCE = 1000; // Effectively unlimited; the game only reaches loaded chunks
-const NEAR_LIGHT_DISTANCE = 2; // Source light in front of you, in blocks (keeps the light looking like it comes from you)
+const SELF_LIGHT_MIN = 1; // Dim light at yourself, lowest level
+const SELF_LIGHT_MAX = 3; // Dim light at yourself, highest level
+
+/**
+ * Light level of the dim light at yourself (1 to 3), scaled from the equipment power
+ * @param {number} power
+ */
+function getSelfLightLevel(power) {
+  return Math.max(SELF_LIGHT_MIN, Math.min(SELF_LIGHT_MAX, Math.round(power / 5)));
+}
+
+/**
+ * Checks if a block is water (placing a light there is undone by restoring the water)
+ * @param {string} typeId
+ */
+function isWaterBlock(typeId) {
+  return typeId === "minecraft:water" || typeId === "minecraft:flowing_water";
+}
 
 const FACE_OFFSETS = {
   Up: { x: 0, y: 1, z: 0 },
@@ -40,7 +57,7 @@ const FACE_OFFSETS = {
 
 /**
  * State map storing the active light blocks and light level per player
- * @type {Map<string, { dim: any, x: number, y: number, z: number, level: number }[]>}
+ * @type {Map<string, { dim: any, x: number, y: number, z: number, level: number, restore?: any }[]>}
  */
 const activePlayerLights = new Map();
 
@@ -59,21 +76,21 @@ function isLightBlock(typeId) {
 function canHoldLight(block) {
   if (!block) return false;
   try {
-    return block.isAir || isLightBlock(block.typeId);
+    return block.isAir || isLightBlock(block.typeId) || isWaterBlock(block.typeId);
   } catch (e) {
     return false;
   }
 }
 
 /**
- * Restores one placed light block back to air safely
- * @param {{ dim: any, x: number, y: number, z: number }} light
+ * Restores one placed light block back to air (or back to water) safely
+ * @param {{ dim: any, x: number, y: number, z: number, restore?: any }} light
  */
 function clearLightBlock(light) {
   try {
     const block = light.dim.getBlock({ x: light.x, y: light.y, z: light.z });
     if (block && isLightBlock(block.typeId)) {
-      block.setPermutation(BlockPermutation.resolve("minecraft:air"));
+      block.setPermutation(light.restore || BlockPermutation.resolve("minecraft:air"));
     }
   } catch (e) {
     // Gracefully handle unloaded chunks or edge conditions
@@ -102,25 +119,29 @@ function removePlayerLight(playerId) {
  * @param {number} y
  * @param {number} z
  * @param {number} level
+ * @returns {{ restore: any } | null} Placement info (restore = water to put back), or null if it failed
  */
 function placeLightBlock(dim, x, y, z, level) {
   try {
     const block = dim.getBlock({ x, y, z });
-    if (!canHoldLight(block)) return false;
+    if (!canHoldLight(block)) return null;
+
+    // Remember water so it can be put back when the light moves away
+    const restore = isWaterBlock(block.typeId) ? block.permutation : null;
 
     try {
       block.setPermutation(BlockPermutation.resolve("minecraft:light_block", { block_light_level: level }));
-      return true;
+      return { restore };
     } catch {
       try {
         block.setPermutation(BlockPermutation.resolve(`minecraft:light_block_${level}`));
-        return true;
+        return { restore };
       } catch {
-        return false;
+        return null;
       }
     }
   } catch {
-    return false;
+    return null;
   }
 }
 
@@ -155,47 +176,52 @@ function getPlayerLightPower(player) {
 }
 
 /**
- * Builds the light targets for a player. Each target is a list of fallback
- * positions; the first one that can hold a light block is used.
+ * Builds the light targets for a player. Each target has a light level and a list of
+ * fallback positions; the first one that can hold a light block is used.
+ * Targets are ordered brightest first.
  * @param {any} player
- * @returns {{x:number,y:number,z:number}[][]}
+ * @param {number} power
+ * @returns {{level:number, candidates:{x:number,y:number,z:number}[]}[]}
  */
-function getLightTargets(player) {
+function getLightTargets(player, power) {
   if (LIGHT_MODE === "cursor") {
     try {
+      const head = player.getHeadLocation();
+      const hx = Math.floor(head.x);
+      const hy = Math.floor(head.y);
+      const hz = Math.floor(head.z);
+
+      // Underwater the ray would stop at the water around you, so skip liquids there
+      let headInLiquid = false;
+      try {
+        headInLiquid = !!player.dimension.getBlock({ x: hx, y: hy, z: hz }).isLiquid;
+      } catch (e) {}
+
       const hit = player.getBlockFromViewDirection({
         maxDistance: CURSOR_MAX_DISTANCE,
-        includeLiquidBlocks: false,
+        includeLiquidBlocks: !headInLiquid,
         includePassableBlocks: false
       });
       // Nothing in view: no cursor light
       if (!hit || !hit.block) return [];
 
+      const offset = FACE_OFFSETS[hit.face] || FACE_OFFSETS.Up;
       const bx = hit.block.location.x;
       const by = hit.block.location.y;
       const bz = hit.block.location.z;
-      const offset = FACE_OFFSETS[hit.face] || FACE_OFFSETS.Up;
-      const targets = [];
 
-      // Source light a short way in front of you, so the light looks like it comes from you
-      const head = player.getHeadLocation();
-      const dir = player.getViewDirection();
-      const fl = hit.faceLocation || { x: 0.5, y: 0.5, z: 0.5 };
-      const hitDistance = Math.hypot(bx + fl.x - head.x, by + fl.y - head.y, bz + fl.z - head.z);
-      const nearDistance = Math.max(0, Math.min(NEAR_LIGHT_DISTANCE, hitDistance - 1));
-      targets.push([
+      return [
+        // Full power on the block (or water) face you are looking at
+        { level: power, candidates: [{ x: bx + offset.x, y: by + offset.y, z: bz + offset.z }] },
+        // Dim light at yourself (level 1 to 3)
         {
-          x: Math.floor(head.x + dir.x * nearDistance),
-          y: Math.floor(head.y + dir.y * nearDistance),
-          z: Math.floor(head.z + dir.z * nearDistance)
-        },
-        { x: Math.floor(head.x), y: Math.floor(head.y), z: Math.floor(head.z) }
-      ]);
-
-      // Light on the block face you are looking at
-      targets.push([{ x: bx + offset.x, y: by + offset.y, z: bz + offset.z }]);
-
-      return targets;
+          level: getSelfLightLevel(power),
+          candidates: [
+            { x: hx, y: hy, z: hz },
+            { x: hx, y: Math.floor(player.location.y + 0.3), z: hz }
+          ]
+        }
+      ];
     } catch (e) {
       // Unloaded chunk or nothing targetable: no cursor light
       return [];
@@ -203,13 +229,16 @@ function getLightTargets(player) {
   }
 
   // Head mode: just above the head, falling back to torso level
-  const hx = Math.floor(player.location.x);
-  const hz = Math.floor(player.location.z);
+  const x = Math.floor(player.location.x);
+  const z = Math.floor(player.location.z);
   return [
-    [
-      { x: hx, y: Math.floor(player.location.y + 1.6), z: hz },
-      { x: hx, y: Math.floor(player.location.y + 0.3), z: hz }
-    ]
+    {
+      level: power,
+      candidates: [
+        { x, y: Math.floor(player.location.y + 1.6), z },
+        { x, y: Math.floor(player.location.y + 0.3), z }
+      ]
+    }
   ];
 }
 
@@ -236,7 +265,7 @@ system.runInterval(() => {
       }
 
       const dim = player.dimension;
-      const targets = getLightTargets(player);
+      const targets = getLightTargets(player, power);
 
       // Cursor mode with nothing in view: no light
       if (targets.length === 0) {
@@ -247,29 +276,42 @@ system.runInterval(() => {
       const oldLights = activePlayerLights.get(playerId) || [];
       const newLights = [];
 
-      for (const group of targets) {
-        for (const candidate of group) {
+      for (const target of targets) {
+        for (const candidate of target.candidates) {
+          // Spot already used by a brighter light of this player
           const duplicate = newLights.some(
             (l) => l.x === candidate.x && l.y === candidate.y && l.z === candidate.z
           );
           if (duplicate) break;
 
-          // Already placed here with the exact power: keep it
+          // Already placed here with the exact level: keep it
           const existing = oldLights.find(
             (l) =>
               l.dim === dim &&
               l.x === candidate.x &&
               l.y === candidate.y &&
               l.z === candidate.z &&
-              l.level === power
+              l.level === target.level
           );
           if (existing) {
             newLights.push(existing);
             break;
           }
 
-          if (placeLightBlock(dim, candidate.x, candidate.y, candidate.z, power)) {
-            newLights.push({ dim, x: candidate.x, y: candidate.y, z: candidate.z, level: power });
+          // Same spot with another level: clear it first so water is restored before re-placing
+          const stale = oldLights.find(
+            (l) => l.dim === dim && l.x === candidate.x && l.y === candidate.y && l.z === candidate.z
+          );
+          const placed = placeLightBlock(dim, candidate.x, candidate.y, candidate.z, target.level);
+          if (placed) {
+            newLights.push({
+              dim,
+              x: candidate.x,
+              y: candidate.y,
+              z: candidate.z,
+              level: target.level,
+              restore: stale ? stale.restore || placed.restore : placed.restore
+            });
             break;
           }
         }
