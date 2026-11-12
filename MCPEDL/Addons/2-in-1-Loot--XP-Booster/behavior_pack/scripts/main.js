@@ -104,12 +104,6 @@ async function showForm(player, form) {
   return undefined;
 }
 
-function tierLegend(tiers, prefix) {
-  return tiers
-    .map((tier, index) => `${tier.color}${index + 1} ${tier.name} §8(${prefix}${tier.max}x)`)
-    .join("\n");
-}
-
 async function mainMenu(player) {
   const form = new ActionFormData()
     .title(TITLE)
@@ -126,18 +120,18 @@ async function mainMenu(player) {
 async function boosterMenu(player) {
   const lootCurrent = readIndex(player, LOOT_KEY, LOOT_TIERS);
   const xpCurrent = readIndex(player, XP_KEY, XP_TIERS);
+  const lootNow = LOOT_TIERS[lootCurrent];
+  const xpNow = XP_TIERS[xpCurrent];
   const form = new ModalFormData()
     .title(TITLE)
-    .label("§7Drag a slider, then press Apply. Loot rolls randomly like Fortune, so a tier's number is the best possible roll.")
+    .label("§7Drag a slider, then press Apply. The tier name shows after you apply. Loot rolls randomly like Fortune, so the number is the best possible roll.")
     .divider()
-    .label(tierLegend(LOOT_TIERS, "up to "))
-    .slider("§aLoot Drop Booster", 1, LOOT_TIERS.length, {
+    .slider(`§aLoot Booster Type: ${lootNow.color}${lootNow.name} §8(1-${LOOT_TIERS.length})`, 1, LOOT_TIERS.length, {
       defaultValue: lootCurrent + 1,
       valueStep: 1,
     })
     .divider()
-    .label(tierLegend(XP_TIERS, ""))
-    .slider("§bXP Gain Booster", 1, XP_TIERS.length, {
+    .slider(`§bXP Booster Type: ${xpNow.color}${xpNow.name} §8(1-${XP_TIERS.length})`, 1, XP_TIERS.length, {
       defaultValue: xpCurrent + 1,
       valueStep: 1,
     })
@@ -146,8 +140,8 @@ async function boosterMenu(player) {
   const response = await showForm(player, form);
   if (!response || !player.isValid) return;
 
-  const lootValue = response.formValues[3];
-  const xpValue = response.formValues[6];
+  const lootValue = response.formValues[2];
+  const xpValue = response.formValues[4];
   if (typeof lootValue !== "number" || typeof xpValue !== "number") return;
 
   const lootIndex = Math.min(Math.max(Math.round(lootValue) - 1, 0), LOOT_TIERS.length - 1);
@@ -158,8 +152,9 @@ async function boosterMenu(player) {
   const loot = LOOT_TIERS[lootIndex];
   const xp = XP_TIERS[xpIndex];
   player.onScreenDisplay.setActionBar(
-    `§6[BOOSTER] §aLoot: §f${loot.name} (${loot.max}x) §8| §bXP: §f${xp.name} (${xp.max}x)`
+    `§6[BOOSTER] §aLoot: ${loot.color}${loot.name} (${loot.max}x) §8| §bXP: ${xp.color}${xp.name} (${xp.max}x)`
   );
+  player.sendMessage(`§6[BOOSTER] §aLoot Booster Type: ${loot.color}${loot.name} §8| §bXP Booster Type: ${xp.color}${xp.name}`);
 }
 
 async function aboutMenu(player) {
