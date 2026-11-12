@@ -43,7 +43,7 @@ Protection cannot guarantee survival against every game mechanic, command, or de
 
 - Minecraft Bedrock Edition 1.26.x
 - Experimental features: The pack does not declare a requirement for experimental toggles.
-- Achievements: Likely achievement-friendly. Actual achievement availability can still depend on Minecraft version, platform, and world settings.
+- Achievements: Likely achievement-friendly.
 - Verification: Source created, not tested in game.
 
 ## Creator and Permissions
@@ -70,3 +70,4 @@ Protection cannot guarantee survival against every game mechanic, command, or de
 ## Search & Discovery Keywords
 
 Immortal Pets Bedrock add-on, pet protection Minecraft, companion survival protection, pet recovery mechanics, Minecraft Bedrock pets, Minecraft PE survival add-on, MCPEDL, CurseForge Bedrock, ALNStudios, Minecraft Bedrock add-on, MCPEDL add-on.
+
