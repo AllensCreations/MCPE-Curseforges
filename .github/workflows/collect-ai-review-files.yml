@@ -108,6 +108,7 @@ jobs:
             take "scripts/$f" "$OUT/tools/$f"
           done
           take assets/Images "$OUT/assets/Images"
+          take assets/cheatstick-ui "$OUT/assets/cheatstick-ui"
           if [ -d Mcpeworlds/assets ]; then
             while IFS= read -r f; do take "$f" "$OUT/$f"; done < <(find Mcpeworlds/assets -type f -size -2M | sort)
           fi
@@ -140,6 +141,7 @@ jobs:
           - `tools/crafting_template.py`, `generate_recipe_images.py`, `convert_crafting_recipe_svgs_to_png.py`, `CRAFTING_TABLE.png/.svg`: recipe images.
           - `tools/ensure_recipe_unlocks.py`, `manifest_tools.py`, `doc_template.py`, `make_pack_icon.py`, `optimize_images.py`, `build_test_world.py`: recipe unlocks, manifests, docs, icon, image size, test world.
           - `assets/Images/` and the mandatory pack assets under `Mcpeworlds/assets/`.
+          - `assets/cheatstick-ui/`: the Cheatstick UI components (textures, `design.json`, `README.txt`, `preview_reference.png`). Use them as the reference for any menu or UI you build: copy `textures/ui/cheatstick/` into the Resource Pack, follow the sizes, colors and layout in `design.json`, and match `preview_reference.png`. Do not invent a different style.
 
           ## CREATE a new pack
           1. Ask ONE line only if the request is unclear (type: addon, map, script or minigame). Otherwise proceed.

@@ -1,0 +1,149 @@
+{
+  "format": "cheatstick-ui-design",
+  "version": 1,
+  "units": "Minecraft GUI pixels (one unit = one game pixel at GUI scale 1)",
+  "target": "Form menu of the Cheat Stick add-on (the same layout is used for every menu)",
+  "backdrop": {
+    "dim": 0.5
+  },
+  "panel": {
+    "width": 190,
+    "padding": 8,
+    "bg": "#161a22",
+    "bgOpacity": 0.96,
+    "borderColor": "#3b82c4",
+    "borderWidth": 2,
+    "corners": "notched",
+    "maxHeight": 210
+  },
+  "title": {
+    "name": "@ALNStudios Cheatstick",
+    "version": "(3.0.2)",
+    "nameColor": "#ffaa00",
+    "versionColor": "#aaaaaa",
+    "barBg": "#0f1218",
+    "height": 18,
+    "fontSize": 8,
+    "align": "center"
+  },
+  "bodyText": {
+    "color": "#b8bcc6",
+    "fontSize": 8
+  },
+  "button": {
+    "height": 20,
+    "gap": 4,
+    "bg": "#232a36",
+    "hoverBg": "#2f4a6d",
+    "textColor": "#ffffff",
+    "borderColor": "#3d4556",
+    "borderWidth": 1,
+    "corners": "square",
+    "bevel": true,
+    "align": "center",
+    "fontSize": 8,
+    "showIcon": false,
+    "iconSize": 14
+  },
+  "screens": {
+    "main": {
+      "title": "Main menu",
+      "bodyText": "Choose a cheat category.",
+      "backButton": false,
+      "buttons": [
+        "Gamemode",
+        "Time",
+        "Weather",
+        "Survival",
+        "Effects",
+        "Travel"
+      ]
+    },
+    "gamemode": {
+      "title": "Gamemode",
+      "bodyText": "Choose a game mode.",
+      "backButton": true,
+      "buttons": [
+        "Survival",
+        "Creative",
+        "Hardcore",
+        "Difficulty"
+      ]
+    },
+    "time": {
+      "title": "Time",
+      "bodyText": "Choose the time of day.",
+      "backButton": true,
+      "buttons": [
+        "Day",
+        "Noon",
+        "Sunset",
+        "Night",
+        "Midnight",
+        "Sunrise"
+      ]
+    },
+    "weather": {
+      "title": "Weather",
+      "bodyText": "Choose the weather.",
+      "backButton": true,
+      "buttons": [
+        "Clear",
+        "Rain",
+        "Thunder"
+      ]
+    },
+    "survival": {
+      "title": "Survival",
+      "bodyText": "Choose a survival helper.",
+      "backButton": true,
+      "buttons": [
+        "Heal & Feed",
+        "Toggle Fly",
+        "Toggle Keep Inventory",
+        "Clear Nearby Hostile Mobs",
+        "Clear Dropped Items"
+      ]
+    },
+    "effects": {
+      "title": "Effects",
+      "bodyText": "Choose an effect (10 minutes).",
+      "backButton": true,
+      "buttons": [
+        "Haste",
+        "Speed",
+        "Night Vision",
+        "Jump Boost",
+        "Water Breathing",
+        "Fire Resistance",
+        "Regeneration",
+        "Clear Effects"
+      ]
+    },
+    "travel": {
+      "title": "Travel",
+      "bodyText": "Choose a travel helper.",
+      "backButton": true,
+      "buttons": [
+        "Back to Death Point",
+        "Set Spawn Here",
+        "Save",
+        "Load",
+        "Rename Slot"
+      ]
+    },
+    "slots": {
+      "title": "Save / Load slots",
+      "bodyText": "Choose a slot to teleport to.",
+      "backButton": true,
+      "buttons": [
+        "Slot 1: Empty",
+        "Slot 2: Base - 120, 64, -35 (Overworld)",
+        "Slot 3: Empty",
+        "Slot 4: Empty",
+        "Slot 5: Empty"
+      ]
+    }
+  },
+  "notes": "Corners: square, notched (one game-pixel step cut from each corner) or rounded (about 2 game pixels). Raised bevel means a light top-left and dark bottom-right inner edge. Preview font is a stand-in for the Minecraft font."
+}
