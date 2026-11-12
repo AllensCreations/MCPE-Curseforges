@@ -28,6 +28,7 @@ on:
         options:
           # BEGIN registered
           - "-"
+          - "MCPEDL/Addons/2-in-1-Loot--XP-Booster"
           - "MCPEDL/Addons/Cheat-Stick"
           - "MCPEDL/Addons/Monster-Companions"
           - "MCPEDL/Addons/Universal-Leash"
