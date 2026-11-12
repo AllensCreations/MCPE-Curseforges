@@ -7,7 +7,7 @@ Source files for established Minecraft Bedrock add-ons by ALNStudios.
 | Add-on | Source | Download |
 | :--- | :--- | :--- |
 | Ghast Mob Head Transformers | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/Ghast-Mob-Head-Transformers/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Ghast-Mob-Head-Transformers/GhastMobHeads%20V1.16.0.mcaddon) |
-| Immortal Pets | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/Immortal-Pets/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Immortal-Pets/ImmortalPets%20V1.10.0.mcaddon) |
+| Immortal Pets | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/Immortal-Pets/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Immortal-Pets/ImmortalPets%20V1.10.1.mcaddon) |
 | Mining Helmet | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/Mining-Helmet/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Mining-Helmet/MiningHelmet%20V1.14.0.mcaddon) |
 | Monster Companions | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/Monster-Companions/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Monster-Companions/MonsterCompanions%20V2.0.1.mcaddon) |
 | Passive Auto-Switch Tools | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/Passive-Auto-Switch-Tools/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Passive-Auto-Switch-Tools/AutoSwitchTools%20V1.16.0.mcaddon) |

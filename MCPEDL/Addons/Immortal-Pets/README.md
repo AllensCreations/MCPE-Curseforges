@@ -5,7 +5,7 @@ Download the current release of **Immortal Pets** for Minecraft Bedrock Edition.
 ## Download
 
 - **Package format:** `.mcaddon`
-- **Direct download:** [Download Immortal Pets (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Immortal-Pets/ImmortalPets%20V1.10.0.mcaddon)
+- **Direct download:** [Download Immortal Pets (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Immortal-Pets/ImmortalPets%20V1.10.1.mcaddon)
 
 ## Installation
 

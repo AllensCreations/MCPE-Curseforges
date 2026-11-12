@@ -8,7 +8,7 @@ This folder contains compiled release packages for **Immortal Pets** by ALNStudi
 
 | File Name | Format | Size | Description | Download Link |
 | :--- | :--- | :--- | :--- | :--- |
-| **`ImmortalPets V1.10.0.mcaddon`** | `.mcaddon` | ~6 KB | Complete Add-on package for Minecraft Bedrock. | [Download (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Immortal-Pets/ImmortalPets%20V1.10.0.mcaddon) |
+| **`ImmortalPets V1.10.1.mcaddon`** | `.mcaddon` | ~6 KB | Complete Add-on package for Minecraft Bedrock. | [Download (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Immortal-Pets/ImmortalPets%20V1.10.1.mcaddon) |
 
 ---
 
