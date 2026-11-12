@@ -1,15 +1,27 @@
 # Changelog — Waypoint Helper
 
-## [1.0.2] - 2026-11-12
+## [1.0.3] - 2026-11-12
 
 ### Added
-- **Cheatstick Menu Look**: All Waypoint Helper menus now use the Cheatstick panel, title bar and button textures with colored text. The pack is now a Complete Pack (.mcaddon) with a Resource Pack.
+- **Exit Button**: Every menu now starts with an Exit button that closes the Waypoint Helper. Menus opened from the main menu also have a Back button at the top.
+
+### Improved & Balanced
+- **Instant Menu Switching**: Moving between Waypoint Helper menus no longer plays the slow open and close animation.
 
 ### Fixed
-- **Menu Compass**: The Waypoint Helper no longer gives you a Compass when you spawn. Use any Compass you already own to open the menu.
+- **Title Bar**: The orange pack name and version in the title bar now show correctly.
+- **Button Look**: Buttons now have a flat dark fill with a thin raised edge instead of a blocky two-tone block.
 
 <details>
-<summary><b>1.0.x</b> (2 releases)</summary>
+<summary><b>1.0.x</b> (3 releases)</summary>
+
+### [1.0.2] - 2026-11-12
+
+#### Added
+- **Cheatstick Menu Look**: All Waypoint Helper menus now use the Cheatstick panel, title bar and button textures with colored text. The pack is now a Complete Pack (.mcaddon) with a Resource Pack.
+
+#### Fixed
+- **Menu Compass**: The Waypoint Helper no longer gives you a Compass when you spawn. Use any Compass you already own to open the menu.
 
 ### [1.0.1] - 2026-11-12
 

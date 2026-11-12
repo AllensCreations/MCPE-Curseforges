@@ -1,8 +1,8 @@
 {
-  "changelog_version": "1.0.2",
-  "manifest_version": "1.0.2",
+  "changelog_version": "1.0.3",
+  "manifest_version": "1.0.4",
   "packages": {
-    "Waypoint Helper by ALNStudios (V1.0.2).mcaddon": "84d3e46c56b5682d22f8616174a26e790aeca970bd84138e0c51f0da8f943fe4"
+    "Waypoint Helper by ALNStudios (V1.0.4).mcaddon": "26e5914a5b8877fe13d30a9b6c17cbe0d0ae4f813f8f64d6f58800842afabdb6"
   },
-  "source_sha256": "4a8e0e61e1b9508dd35506dd447718ac3b531d3f9320297735d2be17fe4b0d49"
+  "source_sha256": "01d58b45898f423c2377a408f9b0330c7e6c62b44f4e92c13d658b73efe14b0b"
 }
