@@ -17,6 +17,7 @@ CLI (explicit maintenance)
   python3 scripts/manifest_tools.py --project MCPEDL/Addons/Mining-Helmet --check
   python3 scripts/manifest_tools.py --project MCPEDL/Addons/Mining-Helmet --align
   python3 scripts/manifest_tools.py --project MCPEDL/Addons/Mining-Helmet --bump
+  python3 scripts/manifest_tools.py --project MCPEDL/Addons/Mining-Helmet --set 1.0.3
   python3 scripts/manifest_tools.py --all --check
 """
 import argparse
@@ -379,6 +380,7 @@ def main():
     mode.add_argument("--check", action="store_true", help="Report what --align would change; write nothing.")
     mode.add_argument("--align", action="store_true", help="Align every manifest to the highest version.")
     mode.add_argument("--bump", action="store_true", help="Align to highest X.Y.Z+1.")
+    mode.add_argument("--set", metavar="X.Y.Z", help="Align every manifest to this exact version (update scripts use it). Never lowers a version.")
     args = ap.parse_args()
 
     if args.all:
@@ -395,6 +397,14 @@ def main():
             print(f"{os.path.relpath(project, REPO_ROOT)}: no source manifest")
             continue
         target = bump_patch(high) if args.bump else None
+        if args.set:
+            target = parse_full(args.set)
+            if target is None:
+                print(f"--set needs exactly X.Y.Z, got: {args.set}", file=sys.stderr)
+                return 2
+            if target < high:
+                print(f"{os.path.relpath(project, REPO_ROOT)}: refusing to lower v{fmt(high)} to v{fmt(target)}", file=sys.stderr)
+                return 2
         _, changed = align_project_manifests(project, target=target, write=not args.check)
         label = os.path.relpath(project, REPO_ROOT)
         if changed:

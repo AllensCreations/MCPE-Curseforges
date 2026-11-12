@@ -118,7 +118,7 @@ jobs:
           3. `git pull --rebase`
           4. Apply ALL changes (code + docs) inside the script: heredocs for new/replaced files, inline python3 to patch many files. No separate downloads.
           5. Validate every changed .json with python3. Stop on error.
-          5b. Verify top CHANGELOG.md heading == new X.Y.Z == script filename version. Stop on mismatch. If project has manifests: check each source manifest `metadata.version` is X.Y.Z (Publish to CurseForge rewrites it; NEVER edit in script).
+          5b. Verify top CHANGELOG.md heading == new X.Y.Z == script filename version. Stop on mismatch. If project has manifests: run `python3 scripts/manifest_tools.py --project "$DEST" --set X.Y.Z` (sets header.version, metadata.version, title suffix, module/dependency versions in every source manifest; never lowers), then `python3 scripts/manifest_tools.py --project "$DEST" --check` and `python3 scripts/validate_manifest_titles.py --project "$DEST"`. Stop on error. Every update must change the manifests so the build changes. Never hand-edit manifest JSON for versions.
           5c. If INSTRUCTIONS.md or PACK_GENERATOR_INSTRUCTIONS.md changed: run `python3 scripts/check_instruction_files.py`. Stop on error
           6. `git add` changed paths only; `git commit -m "<short message>"`; `git push`
           6b. Add an entry to the ROOT `CHANGELOG.md` (repo-wide, newest first under `---`): `## YYYY-MM-DD - [Update Name]`, groups `### Added` / `### Improved & Balanced` / `### Fixed`, bullets `- **Title**: what changed`. Every script, tooling-only included.
@@ -138,7 +138,7 @@ jobs:
           - Beta: Y+1, Z=0 (1.2.4 -> 1.3.0). Only if requested.
           - Release: X+1, Y=0, Z=0 (1.3.0 -> 2.0.0). Only if requested.
           - New X.Y.Z goes in CHANGELOG heading + script filename.
-          - NEVER hand-edit manifest versions or README download links. Publish to CurseForge aligns the changelog version into header.version, metadata.version, module/dependency versions, titles, packages, snapshots. Build Changed Packs & Sync Catalogs only aligns a pack to its highest existing version and rebuilds; it never bumps.
+          - Manifest versions: set ONLY by the script via `manifest_tools.py --set X.Y.Z` (never hand-edit JSON). NEVER hand-edit README download links. Build Changed Packs & Sync Catalogs aligns a pack to its highest existing version and rebuilds; it never bumps. Publish to CurseForge uploads the newest changelog version.
           - NEVER put release version in README/DESCRIPTION titles. NEVER reuse a heading.
 
           ### Changelog views

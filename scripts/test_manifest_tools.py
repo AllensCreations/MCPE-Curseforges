@@ -152,5 +152,23 @@ class ManifestToolsTest(unittest.TestCase):
         self.assertEqual(bp["metadata"]["authors"], ["ALNStudios"])
 
 
+class SetVersionTest(unittest.TestCase):
+    def test_set_updates_every_manifest_and_never_lowers(self):
+        with tempfile.TemporaryDirectory() as root:
+            make_project(root)
+            sys.argv = ["manifest_tools.py", "--project", root, "--set", "1.0.3"]
+            self.assertEqual(mt.main(), 0)
+            for rel in ("behavior_pack", "resource_pack"):
+                with open(f"{root}/{rel}/manifest.json", encoding="utf-8") as fh:
+                    data = json.load(fh)
+                self.assertEqual(data["header"]["version"], [1, 0, 3])
+                self.assertEqual(data["metadata"]["version"], "1.0.3")
+                self.assertTrue(data["header"]["name"].endswith("(v1.0.3)"))
+            sys.argv = ["manifest_tools.py", "--project", root, "--set", "1.0.2"]
+            self.assertEqual(mt.main(), 2)
+            sys.argv = ["manifest_tools.py", "--project", root, "--set", "1.0"]
+            self.assertEqual(mt.main(), 2)
+
+
 if __name__ == "__main__":
     unittest.main(verbosity=2)

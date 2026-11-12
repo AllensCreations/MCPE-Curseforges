@@ -2,6 +2,12 @@
 
 ---
 
+## 2026-11-13 - Manifest Version On Every Update
+
+### Improved & Balanced
+- **Every update changes the build**: Update scripts now set the new version in every source manifest of the pack as well as in the CHANGELOG, using `python3 scripts/manifest_tools.py --project <folder> --set X.Y.Z`. The tool changes header, metadata, title, module and dependency versions together, keeps every pack UUID, and refuses to lower a version.
+- **AI instructions**: The Termux script rules in INSTRUCTIONS.md, PACK_GENERATOR_INSTRUCTIONS.md and the Collect Files for AI Review prompt now require this step.
+
 ## 2026-11-13 - Mining Helmet Water Light
 
 ### Added
