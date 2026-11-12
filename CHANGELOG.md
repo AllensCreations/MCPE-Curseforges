@@ -2,6 +2,16 @@
 
 ---
 
+## 2026-11-13 - Mining Helmet Cursor Light
+
+### Added
+
+- **Mining Helmet cursor light**: The helmet light follows the block you are looking at, with a Head Light subpack to keep the old behavior.
+
+### Improved & Balanced
+
+- **Mining Helmet default mode**: Cursor Light is the default light mode.
+
 ## 2026-11-13 - Immortal Pets 1.10.1
 
 ### Improved & Balanced

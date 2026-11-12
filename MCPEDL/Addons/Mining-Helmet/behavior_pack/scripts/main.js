@@ -7,8 +7,13 @@
  * - Lantern Helmet / Lantern: Level 15 (maximum bright emission)
  * - Torch Helmet / Torch: Level 10 (warm localized emission)
  * Restores placed light blocks back to air upon movement, unequip, death, or disconnect.
+ *
+ * Light modes (chosen by the Behavior Pack subpack, see scripts/mode.js):
+ * - cursor (default): light is placed at the block face you are looking at
+ * - head: light is placed just above your head
  */
 import { world, system, EquipmentSlot, BlockPermutation } from "@minecraft/server";
+import { LIGHT_MODE } from "./mode.js";
 
 const LIGHT_POWERS = {
   "custom:mining_helmet": 15,
@@ -20,6 +25,16 @@ const LIGHT_POWERS = {
 };
 
 const LIGHT_UPDATE_INTERVAL = 2; // Run every 2 ticks (10 times/sec)
+const CURSOR_MAX_DISTANCE = 24; // How far the cursor light can reach, in blocks
+
+const FACE_OFFSETS = {
+  Up: { x: 0, y: 1, z: 0 },
+  Down: { x: 0, y: -1, z: 0 },
+  North: { x: 0, y: 0, z: -1 },
+  South: { x: 0, y: 0, z: 1 },
+  East: { x: 1, y: 0, z: 0 },
+  West: { x: -1, y: 0, z: 0 }
+};
 
 /**
  * State map storing active light block coordinates and current light level per player
@@ -128,6 +143,43 @@ function getPlayerLightPower(player) {
 }
 
 /**
+ * Builds the ordered list of positions where the light may be placed
+ * @param {any} player
+ * @returns {{x:number,y:number,z:number}[]}
+ */
+function getLightCandidates(player) {
+  const candidates = [];
+
+  if (LIGHT_MODE === "cursor") {
+    try {
+      const hit = player.getBlockFromViewDirection({
+        maxDistance: CURSOR_MAX_DISTANCE,
+        includeLiquidBlocks: false,
+        includePassableBlocks: false
+      });
+      if (hit && hit.block) {
+        const offset = FACE_OFFSETS[hit.face] || FACE_OFFSETS.Up;
+        candidates.push({
+          x: hit.block.location.x + offset.x,
+          y: hit.block.location.y + offset.y,
+          z: hit.block.location.z + offset.z
+        });
+      }
+    } catch (e) {
+      // Fall back to head position below
+    }
+  }
+
+  // Head position (also the fallback for cursor mode when nothing is targeted)
+  const hx = Math.floor(player.location.x);
+  const hz = Math.floor(player.location.z);
+  candidates.push({ x: hx, y: Math.floor(player.location.y + 1.6), z: hz });
+  candidates.push({ x: hx, y: Math.floor(player.location.y + 0.3), z: hz });
+
+  return candidates;
+}
+
+/**
  * Main dynamic lighting loop
  */
 system.runInterval(() => {
@@ -150,36 +202,37 @@ system.runInterval(() => {
       }
 
       const dim = player.dimension;
-      const targetX = Math.floor(player.location.x);
-      const targetZ = Math.floor(player.location.z);
-
-      let headY = Math.floor(player.location.y + 1.6);
-      let targetY = headY;
-
+      const candidates = getLightCandidates(player);
       const currentLight = activePlayerLights.get(playerId);
 
-      // Check if light block is already positioned and has the exact light power
+      // Skip work if the light is already at the preferred position with the exact power
+      const first = candidates[0];
       if (
         currentLight &&
         currentLight.dim === dim &&
-        currentLight.x === targetX &&
-        currentLight.y === targetY &&
-        currentLight.z === targetZ &&
+        currentLight.x === first.x &&
+        currentLight.y === first.y &&
+        currentLight.z === first.z &&
         currentLight.level === power
       ) {
         continue;
       }
 
-      // Try placing at eye level first, fallback to torso level if head is inside a solid block
-      let placed = placeLightBlock(dim, targetX, targetY, targetZ, power);
-      if (!placed) {
-        targetY = Math.floor(player.location.y + 0.3);
-        placed = placeLightBlock(dim, targetX, targetY, targetZ, power);
+      // Use the first position that can hold a light block
+      let target = null;
+      for (const candidate of candidates) {
+        if (placeLightBlock(dim, candidate.x, candidate.y, candidate.z, power)) {
+          target = candidate;
+          break;
+        }
       }
 
-      if (!placed) {
+      if (!target) {
         continue;
       }
+      const targetX = target.x;
+      const targetY = target.y;
+      const targetZ = target.z;
 
       // Clean up previous position if player moved or light level changed
       if (
@@ -238,4 +291,4 @@ world.afterEvents.entityDie.subscribe((event) => {
   }
 });
 
-console.warn("[Mining Helmet] Dynamic light system initialized with power levels (Torch: 10, Lantern: 15).");
+console.warn(`[Mining Helmet] Dynamic light system initialized (mode: ${LIGHT_MODE}, Torch: 10, Lantern: 15).`);

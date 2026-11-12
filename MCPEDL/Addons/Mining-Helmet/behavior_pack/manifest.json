@@ -59,5 +59,17 @@
     ],
     "product_type": "addon",
     "version": "1.14.0"
-  }
+  },
+  "subpacks": [
+    {
+      "folder_name": "cursor_light",
+      "name": "Cursor Light (Default)",
+      "memory_tier": 1
+    },
+    {
+      "folder_name": "head_light",
+      "name": "Head Light",
+      "memory_tier": 0
+    }
+  ]
 }

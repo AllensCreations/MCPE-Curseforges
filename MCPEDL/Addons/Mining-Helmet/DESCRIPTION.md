@@ -11,7 +11,7 @@ Wearable light for cave mining and night exploration.
 
 ## Overview
 
-**Mining Helmet** adds wearable headgear with moving light to Minecraft Bedrock Edition. Equipped in your head armor slot, it continuously lights up your surroundings as you walk, run, and dig, leaving both hands free for your pickaxe, weapon, or shield.
+**Mining Helmet** adds wearable headgear with moving light to Minecraft Bedrock Edition. Equipped in your head armor slot, it continuously lights up your surroundings as you walk, run, and dig, leaving both hands free for your pickaxe, weapon, or shield. By default the light follows the spot you are looking at, and a Head Light subpack keeps it above your head instead.
 
 The helmet provides moving light while worn, and holding a Lantern or Torch can also provide handheld light.
 
@@ -88,6 +88,7 @@ Combine a standard **Torch** with a **Golden Helmet** to craft the Level 10 Mini
 1. Import the complete add-on and enable its included packs in your world settings.
 2. Craft the Lantern or Torch Mining Helmet using the listed ingredients.
 3. Equip the helmet in your head armor slot to carry its light with you. Holding a Lantern or Torch can also provide light.
+4. The light follows your cursor by default. To keep it above your head, choose the Head Light subpack in the Behavior Pack settings.
 
 ## Compatibility
 
