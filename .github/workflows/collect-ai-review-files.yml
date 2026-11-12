@@ -33,7 +33,7 @@ on:
         default: ""
         type: string
       commit_changelog_views:
-        description: "Also commit the refreshed changelog_views/ folder to the repo"
+        description: "Also commit the refreshed changelog_views/ and description_views/ folders to the repo"
         required: false
         default: false
         type: boolean
@@ -57,6 +57,9 @@ jobs:
 
       - name: Build changelog views (folded GitHub + CurseForge copies of every CHANGELOG.md)
         run: python3 scripts/build_changelog_views.py --all
+
+      - name: Build description views (CurseForge page of every DESCRIPTION.md)
+        run: python3 scripts/build_description_views.py --all
 
       - name: Choose mode
         id: mode
@@ -320,6 +323,7 @@ jobs:
               view_name = pathlib.PurePosixPath(d).name
               for ext in (".github.md", ".curseforge.html"):
                   add(root / "changelog_views" / (view_name + ext))
+              add(root / "description_views" / (view_name + ".curseforge.html"))
 
           files = sorted(selected, key=str.lower)
           if missing:
@@ -505,11 +509,11 @@ jobs:
         if: ${{ inputs.commit_changelog_views }}
         run: |
           set -euo pipefail
-          if [ -n "$(git status --porcelain changelog_views)" ]; then
+          if [ -n "$(git status --porcelain changelog_views description_views)" ]; then
             git config user.name "github-actions[bot]"
             git config user.email "github-actions[bot]@users.noreply.github.com"
-            git add changelog_views
-            git commit -m "chore(changelog): update changelog views [skip ci]"
+            git add changelog_views description_views
+            git commit -m "chore(docs): update changelog and description views [skip ci]"
             python3 scripts/git_push_retry.py --branch "${GITHUB_REF_NAME}"
           else
             echo "Changelog views are already up to date."

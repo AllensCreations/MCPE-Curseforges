@@ -2,6 +2,14 @@
 
 ---
 
+## 2026-11-13 - CurseForge Description Page
+
+### Added
+- **CurseForge description page**: Every pack now gets a ready-to-paste CurseForge page built from its DESCRIPTION.md: a banner with the pack name and tagline, feature cards, short install steps, a compatibility table and collapsed permissions. It uses only the HTML and styling CurseForge supports. The Verification line stays in DESCRIPTION.md and is not shown on the page.
+
+### Improved & Balanced
+- **One AI export**: Collect Files for AI Review is now a single mode. Type pack folders in paths and get the pack as one .txt plus one tools .txt, or type NEW for a new-pack kit. The separate Pack Creator Kit toggle is gone.
+
 ## 2026-11-12 - Short Pack Filenames
 
 ### Added
