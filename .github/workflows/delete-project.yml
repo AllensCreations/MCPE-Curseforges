@@ -3,73 +3,13 @@ name: "Delete Addon / Project (MCPEDL)"
 on:
   workflow_dispatch:
     inputs:
-      target_type:
-        description: "1. Select what type of project to delete"
+      directory:
+        description: "1. Project directory to delete (e.g. addons/Immortal-Pets, maps/Oneblock-SM, minigame/Shared-Hivemind-Inventory)"
         required: true
-        type: choice
-        options:
-          - "addons"
-          - "maps"
-          - "script"
-          - "minigame"
-
-      addon_target:
-        description: "2. If type is 'addons', select project"
-        required: false
-        type: choice
-        options:
-          - "none"
-          - "Fletching-Table-Arsenal"
-          - "Ghast-Mob-Head-Transformers"
-          - "Grand-Banquets"
-          - "Grimoire-Relics-V2"
-          - "Harvest-Intelligence"
-          - "Immortal-Pets"
-          - "Magnetic-Satchel"
-          - "Melody-Figurine"
-          - "Mining-Helmet"
-          - "Monster-Companions"
-          - "One-Block-Economy"
-          - "Passive-Auto-Switch-Tools"
-          - "Selective-Mob-Controller"
-          - "Smart-Tree-Capitator-and-Domino-Ore-Miner"
-          - "Sudden-Death-Roulette"
-          - "Swarm-Mob-Booster"
-          - "Tameable-Companion-Fox"
-          - "Universal-Clutch"
-          - "Vanilla-Quality-of-Life"
-
-      map_target:
-        description: "2. If type is 'maps', select project"
-        required: false
-        type: choice
-        options:
-          - "none"
-          - "OneBlock-Dirtbound-Kingdom-Beta"
-          - "OneBlock-Void-Survival"
-          - "Oneblock-SM"
-
-      script_target:
-        description: "2. If type is 'script', select project"
-        required: false
-        type: choice
-        options:
-          - "none"
-
-      minigame_target:
-        description: "2. If type is 'minigame', select project"
-        required: false
-        type: choice
-        options:
-          - "none"
-          - "Alphabet-Scavenger-Hunt"
-          - "Mob-Chaos-Behavioral-Roulette"
-          - "Shared-Hivemind-Inventory"
-          - "Tethered-Breaker-And-Builder"
-          - "Trivia-Vault-The-Locked-World"
+        type: string
 
       confirm:
-        description: "Confirm deletion (Safety check)"
+        description: "2. Confirm deletion (Safety check)"
         required: true
         type: choice
         options:
@@ -105,11 +45,7 @@ jobs:
       - name: Validate deletion request
         id: validate
         env:
-          TARGET_TYPE: ${{ inputs.target_type }}
-          ADDON_TARGET: ${{ inputs.addon_target }}
-          MAP_TARGET: ${{ inputs.map_target }}
-          SCRIPT_TARGET: ${{ inputs.script_target }}
-          MINIGAME_TARGET: ${{ inputs.minigame_target }}
+          DIRECTORY: ${{ inputs.directory }}
           CONFIRM: ${{ inputs.confirm }}
         run: |
           set -euo pipefail
@@ -122,45 +58,84 @@ jobs:
             exit 0
           fi
 
+          # Normalize the directory input:
+          # trim whitespace, strip leading "./" and "/", trailing "/", and optional "MCPEDL/" prefix
+          DIR="$(printf '%s' "$DIRECTORY" | sed -E 's/^[[:space:]]+//; s/[[:space:]]+$//')"
+          DIR="${DIR#./}"
+          DIR="${DIR#/}"
+          DIR="${DIR%/}"
+          DIR="${DIR#MCPEDL/}"
+
+          if [ -z "$DIR" ]; then
+            echo "::error::No directory provided."
+            exit 1
+          fi
+
+          # Block path traversal
+          case "$DIR" in
+            *..*)
+              echo "::error::Invalid directory (path traversal is not allowed): $DIR"
+              exit 1
+              ;;
+          esac
+
+          # Must be exactly <type>/<project-slug>
+          if ! printf '%s' "$DIR" | grep -Eq '^(addons|maps|script|minigame)/[A-Za-z0-9._-]+$'; then
+            echo "::error::Invalid directory '$DIR'. Expected format: <addons|maps|script|minigame>/<Project-Name>"
+            exit 1
+          fi
+
+          TARGET_TYPE="${DIR%%/*}"
+          TARGET_SLUG="${DIR#*/}"
+
+          # Soft check only: warn if the folder is not found in the usual locations
+          if [ ! -d "MCPEDL/$DIR" ] && [ ! -d "$DIR" ]; then
+            echo "::warning::Directory 'MCPEDL/$DIR' was not found in the repository. The deletion script will decide how to handle this."
+          fi
+
+          echo "Selected directory: $DIR"
+          echo "Selected category: $TARGET_TYPE"
+          echo "Selected project: $TARGET_SLUG"
+
+          {
+            echo "target_dir=$DIR"
+            echo "target_type=$TARGET_TYPE"
+            echo "target_slug=$TARGET_SLUG"
+          } >> "$GITHUB_OUTPUT"
+
+      - name: Process Project Deletion and Catalog Cleanup
+        id: delete
+        if: steps.validate.outputs.cancelled == 'false'
+        env:
+          TARGET_TYPE: ${{ steps.validate.outputs.target_type }}
+          TARGET_SLUG: ${{ steps.validate.outputs.target_slug }}
+          CONFIRM: ${{ inputs.confirm }}
+        run: |
+          set -euo pipefail
+
+          ADDON_TARGET="none"
+          MAP_TARGET="none"
+          SCRIPT_TARGET="none"
+          MINIGAME_TARGET="none"
+
           case "$TARGET_TYPE" in
             addons)
-              TARGET="$ADDON_TARGET"
+              ADDON_TARGET="$TARGET_SLUG"
               ;;
             maps)
-              TARGET="$MAP_TARGET"
+              MAP_TARGET="$TARGET_SLUG"
               ;;
             script)
-              TARGET="$SCRIPT_TARGET"
+              SCRIPT_TARGET="$TARGET_SLUG"
               ;;
             minigame)
-              TARGET="$MINIGAME_TARGET"
+              MINIGAME_TARGET="$TARGET_SLUG"
               ;;
             *)
               echo "::error::Invalid project category: $TARGET_TYPE"
               exit 1
               ;;
           esac
-
-          if [ -z "$TARGET" ] || [ "$TARGET" = "none" ]; then
-            echo "::error::No project selected for category '$TARGET_TYPE'."
-            exit 1
-          fi
-
-          echo "Selected category: $TARGET_TYPE"
-          echo "Selected project: $TARGET"
-
-      - name: Process Project Deletion and Catalog Cleanup
-        id: delete
-        if: steps.validate.outputs.cancelled == 'false'
-        env:
-          TARGET_TYPE: ${{ inputs.target_type }}
-          ADDON_TARGET: ${{ inputs.addon_target }}
-          MAP_TARGET: ${{ inputs.map_target }}
-          SCRIPT_TARGET: ${{ inputs.script_target }}
-          MINIGAME_TARGET: ${{ inputs.minigame_target }}
-          CONFIRM: ${{ inputs.confirm }}
-        run: |
-          set -euo pipefail
 
           python3 scripts/delete_project.py \
             --type "$TARGET_TYPE" \
@@ -292,11 +267,10 @@ jobs:
       - name: Job Summary
         if: always()
         env:
-          TARGET_TYPE: ${{ inputs.target_type }}
-          ADDON_TARGET: ${{ inputs.addon_target }}
-          MAP_TARGET: ${{ inputs.map_target }}
-          SCRIPT_TARGET: ${{ inputs.script_target }}
-          MINIGAME_TARGET: ${{ inputs.minigame_target }}
+          INPUT_DIRECTORY: ${{ inputs.directory }}
+          TARGET_DIR: ${{ steps.validate.outputs.target_dir }}
+          TARGET_TYPE: ${{ steps.validate.outputs.target_type }}
+          TARGET_SLUG: ${{ steps.validate.outputs.target_slug }}
           CONFIRM: ${{ inputs.confirm }}
           CANCELLED: ${{ steps.validate.outputs.cancelled }}
           DELETE_OUTCOME: ${{ steps.delete.outcome }}
@@ -309,27 +283,10 @@ jobs:
             echo ""
             echo "| Parameter | Value |"
             echo "| :--- | :--- |"
+            echo "| Directory Input | \`${INPUT_DIRECTORY:-none}\` |"
+            echo "| Resolved Directory | \`${TARGET_DIR:-not resolved}\` |"
             echo "| Category | \`${TARGET_TYPE:-unknown}\` |"
-
-            case "${TARGET_TYPE:-}" in
-              addons)
-                SELECTED="$ADDON_TARGET"
-                ;;
-              maps)
-                SELECTED="$MAP_TARGET"
-                ;;
-              script)
-                SELECTED="$SCRIPT_TARGET"
-                ;;
-              minigame)
-                SELECTED="$MINIGAME_TARGET"
-                ;;
-              *)
-                SELECTED="unknown"
-                ;;
-            esac
-
-            echo "| Selected Project | \`${SELECTED:-none}\` |"
+            echo "| Selected Project | \`${TARGET_SLUG:-none}\` |"
             echo "| Deleted Project | \`${DELETED_SLUG:-not reported}\` |"
             echo "| Project Type | \`${DELETED_TYPE:-not reported}\` |"
             echo "| Confirmation | \`${CONFIRM:-unknown}\` |"
