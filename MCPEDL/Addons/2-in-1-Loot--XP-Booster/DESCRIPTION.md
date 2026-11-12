@@ -5,13 +5,13 @@
 [![Minecraft Bedrock](https://img.shields.io/badge/Minecraft%20Bedrock-Stable%20Release-brightgreen?style=flat-square&logo=minecraft)](https://github.com/AllensCreations/MCPE-Curseforges)
 [![Format](https://img.shields.io/badge/Format-.MCPACK%20%7C%20.MCADDON%20%7C%20.MCWORLD-blue?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges)
 
-**Rename a Book to Booster, then set loot and XP multipliers from 1x up to 32x in a two-slider menu.**
+**Rename a Book to Booster, then pick Loot tiers up to 32x and XP tiers up to 64x from a styled menu.**
 
-> Adds a Booster menu with a Loot Drop slider and an XP Gain slider, each with six steps from 1x to 32x. Suits players who want faster farming without any custom items.
+> Adds a Booster menu with six Loot tiers up to 32x and seven XP tiers up to 64x. Suits players who want faster farming without any custom items.
 
 ## Overview
 
-You rename a Book to Booster on an anvil and right-click with it. A menu opens with two sliders, and your choices apply to every block you break, every mob you kill and every XP orb near you. Nothing is added to your inventory, and no custom items exist.
+You rename a Book to Booster on an anvil and right-click with it. A menu opens with a Loot Drop Booster, an XP Gain Booster and an About button, and your choices apply to every block you break, every mob you kill and every XP orb near you. Nothing is added to your inventory, and no custom items exist.
 
 ## Key Features
 
@@ -20,30 +20,33 @@ You rename a Book to Booster on an anvil and right-click with it. A menu opens w
 - **How It Works**: The name is not case sensitive, so "booster" and "BOOSTER" also work. The Book is never given automatically.
 - **Good To Know**: Each player keeps their own settings, which are saved between sessions.
 
-### Loot Drop Multiplier
-- **What Happens**: A slider sets drops to 1x, 2x, 4x, 8x, 16x or 32x for blocks you break and mobs you kill.
-- **How It Works**: At 4x, a stack of 3 dropped items becomes 3 plus 9 extra, so you receive 12 in total.
+### Loot Drop Booster
+- **What Happens**: Pick one of six tiers, from Normal to The Leprechaun, for blocks you break and mobs you kill.
+- **How It Works**: Drops roll randomly like Fortune. At The Leprechaun, a stack of 3 items can become anywhere from 3 to 96, so 32x is the best roll, not a guarantee.
 - **Good To Know**: Chests, trapped chests, barrels, ender chests and shulker boxes are never multiplied, and unstackable items such as tools are left alone.
 
-### XP Gain Multiplier
-- **What Happens**: A second slider multiplies the XP orbs near you by the same six steps, up to 32x.
-- **How It Works**: At 8x, each orb near you creates 7 extra orbs, and all of them fly straight to you.
+### XP Gain Booster
+- **What Happens**: Pick one of seven tiers, from Normal up to The Sage at 64x, and nearby XP orbs are multiplied by that exact amount.
+- **How It Works**: At Amazing, each orb near you creates 7 extra orbs, and all of them fly straight to you.
 - **Good To Know**: XP orbs within 8 blocks of you are collected instantly instead of drifting toward you.
 
+### About Screen
+- **What Happens**: An About button in the main menu explains each booster and how to open the menu.
+
 ### Redesigned UI
-- **What Happens**: A small Resource Pack named Redesigned UI carries the Cheatstick menu textures used by ALNStudios add-ons.
-- **Good To Know**: The Booster menu itself keeps the standard Minecraft form screen with a gold title.
+- **What Happens**: A small Resource Pack named Redesigned UI gives the Booster menus the Cheatstick look, with a dark panel, a blue border and colored tier names.
+- **Good To Know**: Enable the Resource Pack together with the Behavior Pack. Other menus in your world keep their normal look.
 
 ## How to Use
 
 1. Rename a Book or a Book and Quill to Booster on an anvil.
-2. Hold it and right-click to open the menu, then move both sliders.
-3. Press Apply Booster and check the Action Bar for your Loot and XP values.
+2. Hold it and right-click, then choose Loot Drop Booster or XP Gain Booster.
+3. Tap a tier and check the Action Bar for your Loot and XP values.
 
 ## Common Questions
 
 - **Does the multiplier apply to other players?**: No. Each player chooses their own Loot and XP multipliers.
-- **Can I turn it off?**: Yes. Set both sliders back to the first step, which is 1x (Normal).
+- **Can I turn it off?**: Yes. Set both boosters back to Normal.
 
 ## Compatibility
 
@@ -76,4 +79,3 @@ You rename a Book to Booster on an anvil and right-click with it. A menu opens w
 ## Search & Discovery Keywords
 
 Minecraft Bedrock add-on, 2-in-1 Loot & XP Booster Bedrock mod, loot multiplier, XP multiplier, renamed book menu, Minecraft PE survival, MCPEDL add-on, CurseForge Bedrock, ALNStudios.
-
