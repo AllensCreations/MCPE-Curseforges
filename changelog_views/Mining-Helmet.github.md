@@ -1,15 +1,26 @@
 # Changelog — Mining Helmet
 
-## [1.14.4] - 2026-11-13 - Water Light
+## [1.14.5] - 2026-11-13 - Mob Light and Falloff
 
 ### Added
-- **Water light**: Cursor Light now works when you look at water, and also when you are underwater.
+- **Mob light**: Cursor Light now lights up the mob you are looking at instead of the wall behind it.
 
 ### Improved & Balanced
-- **Dim light at you**: The light at you is now a soft level 1 to 3 glow, while the light on what you look at keeps the full helmet power.
+- **Distance falloff**: The light on what you look at fades from full power to level 10 on faraway targets. Torch helmets stay at level 10.
+- **Steady self light**: The light at you is now always level 2.
+- **Safer water**: Light only replaces still water, and flowing water is left untouched.
+- **Smoother performance**: The game skips extra checks while you hold your view steady.
 
 <details>
-<summary><b>1.14.x</b> (4 releases)</summary>
+<summary><b>1.14.x</b> (5 releases)</summary>
+
+### [1.14.4] - 2026-11-13 - Water Light
+
+#### Added
+- **Water light**: Cursor Light now works when you look at water, and also when you are underwater.
+
+#### Improved & Balanced
+- **Dim light at you**: The light at you is now a soft level 1 to 3 glow, while the light on what you look at keeps the full helmet power.
 
 ### [1.14.3] - 2026-11-13 - Light From You
 
