@@ -1,13 +1,19 @@
 # Changelog — Mining Helmet
 
-## [1.14.2] - 2026-11-13 - Unlimited Cursor Light
+## [1.14.3] - 2026-11-13 - Light From You
 
 ### Improved & Balanced
-- **Cursor Light range**: The light now follows whatever block you look at, no matter how far away it is.
-- **No head fallback**: Cursor Light no longer returns to your head when nothing is in view. The light turns off until you look at a block again.
+- **Light from you**: Cursor Light now also glows just in front of you, so it looks like the light comes from you even when you look through a one-block gap.
+- **Far light kept**: The light on the block you are looking at is still placed, with no distance limit.
 
 <details>
-<summary><b>1.14.x</b> (2 releases)</summary>
+<summary><b>1.14.x</b> (3 releases)</summary>
+
+### [1.14.2] - 2026-11-13 - Unlimited Cursor Light
+
+#### Improved & Balanced
+- **Cursor Light range**: The light now follows whatever block you look at, no matter how far away it is.
+- **No head fallback**: Cursor Light no longer returns to your head when nothing is in view. The light turns off until you look at a block again.
 
 ### [1.14.1] - 2026-11-13 - Cursor Light Mode
 
