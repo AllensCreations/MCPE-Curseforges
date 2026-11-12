@@ -17,6 +17,12 @@ name: Collect Files for AI Review
 #   Every run rebuilds changelog_views/ from each CHANGELOG.md with scripts/build_changelog_views.py
 #   and puts it in the download. The AI instructions below explain the views to the AI.
 #   Tick "commit_changelog_views" to also save the refreshed views to the repo (needs write access).
+# PACK CREATOR KIT (toggle "pack_creator_kit")
+#   Tick it to download pack-creator-kit.zip instead: START_HERE.md (what an AI agent must do to CREATE
+#   a new pack or UPDATE an existing one), PACK_GENERATOR_INSTRUCTIONS.md, INSTRUCTIONS.md and the helper
+#   files (payload builder, recipe image maker, crafting template, icon maker, listing images, mandatory
+#   assets). To update an existing pack, also type its folder in "kit_project" (e.g. MCPEDL/Addons/Mining-Helmet)
+#   and its current source files are added under existing_project/. The paths field is ignored in kit mode.
 # Save as: .github/workflows/collect-ai-review-files.yml
 
 on:
@@ -24,6 +30,16 @@ on:
     inputs:
       paths:
         description: "Leave empty for the standard review bundle. Or paths to export, comma-separated: files, folders or globs, e.g. MCPEDL/Addons/Grand-Banquets, scripts, .github/workflows"
+        required: false
+        default: ""
+        type: string
+      pack_creator_kit:
+        description: "Build the Pack Creator Kit zip (AI instructions + helper files to create or update a pack). Ignores paths."
+        required: false
+        default: false
+        type: boolean
+      kit_project:
+        description: "[kit] Only to UPDATE a pack: its folder, e.g. MCPEDL/Addons/Mining-Helmet. Empty = kit for a NEW pack."
         required: false
         default: ""
         type: string
@@ -57,16 +73,105 @@ jobs:
         id: mode
         env:
           PATHS: ${{ inputs.paths }}
+          KIT: ${{ inputs.pack_creator_kit }}
         run: |
-          if [ -z "$(echo "$PATHS" | tr -d '[:space:],')" ]; then
+          if [ "$KIT" = "true" ]; then
+            echo "kit=true" >> "$GITHUB_OUTPUT"
+            echo "default=false" >> "$GITHUB_OUTPUT"
+            echo "artifact_name=pack-creator-kit" >> "$GITHUB_OUTPUT"
+          elif [ -z "$(echo "$PATHS" | tr -d '[:space:],')" ]; then
             echo "default=true" >> "$GITHUB_OUTPUT"
             echo "artifact_name=ai-review-bundle" >> "$GITHUB_OUTPUT"
           else
             echo "default=false" >> "$GITHUB_OUTPUT"
           fi
 
+      - name: Build pack creator kit
+        if: steps.mode.outputs.kit == 'true'
+        env:
+          KIT_PROJECT: ${{ inputs.kit_project }}
+        run: |
+          set -euo pipefail
+          OUT=ai_review_bundle
+          mkdir -p "$OUT/tools" "$OUT/assets"
+          : > "$OUT/manifest.txt"
+          take() { # take <src> <dest>
+            if [ -e "$1" ]; then mkdir -p "$(dirname "$2")"; cp -r "$1" "$2"; echo "OK      $1" >> "$OUT/manifest.txt"
+            else echo "MISSING $1" >> "$OUT/manifest.txt"; fi
+          }
+          take PACK_GENERATOR_INSTRUCTIONS.md "$OUT/PACK_GENERATOR_INSTRUCTIONS.md"
+          take INSTRUCTIONS.md "$OUT/INSTRUCTIONS.md"
+          for f in build_payload.py import_project_payload.py crafting_template.py generate_recipe_images.py \
+                   convert_crafting_recipe_svgs_to_png.py ensure_recipe_unlocks.py make_pack_icon.py \
+                   optimize_images.py manifest_tools.py doc_template.py build_test_world.py \
+                   CRAFTING_TABLE.png CRAFTING_TABLE.svg; do
+            take "scripts/$f" "$OUT/tools/$f"
+          done
+          take assets/Images "$OUT/assets/Images"
+          if [ -d Mcpeworlds/assets ]; then
+            while IFS= read -r f; do take "$f" "$OUT/$f"; done < <(find Mcpeworlds/assets -type f -size -2M | sort)
+          fi
+
+          MODE="CREATE a NEW pack"
+          if [ -n "$(echo "$KIT_PROJECT" | tr -d '[:space:]')" ]; then
+            P="${KIT_PROJECT%/}"
+            case "$P" in *..*|/*) echo "::error::kit_project must be a repo folder such as MCPEDL/Addons/Mining-Helmet"; exit 1;; esac
+            [ -d "$P" ] || { echo "::error::kit_project folder not found: $P"; exit 1; }
+            while IFS= read -r f; do take "$f" "$OUT/existing_project/$f"; done < <(find "$P" -type f -size -2M \
+              ! -name '*.mcpack' ! -name '*.mcaddon' ! -name '*.mcworld' ! -name '*.zip' | sort)
+            VIEW="changelog_views/$(basename "$P")"
+            take "$VIEW.github.md" "$OUT/existing_project/$VIEW.github.md"
+            MODE="UPDATE the existing pack in $P"
+          fi
+
+          cat > "$OUT/START_HERE.md" <<'MD'
+          # Pack Creator Kit: START HERE (AI agent)
+
+          Task: __MODE__.
+
+          ## Read in this order
+          1. `PACK_GENERATOR_INSTRUCTIONS.md`: the rules for building a pack. Follow it exactly.
+          2. `INSTRUCTIONS.md`: maintenance rules. It wins on any conflict.
+          3. `existing_project/` (only present for an UPDATE): the current source of the pack. Inspect it before changing anything.
+
+          ## What is in this kit
+          - `tools/build_payload.py`: installs the mandatory repo assets that are missing, runs every structural check, builds the ZIP and writes the one-line `payload.b64`.
+          - `tools/import_project_payload.py`: the checks the repo runs when the payload is imported (same checks as above).
+          - `tools/crafting_template.py`, `generate_recipe_images.py`, `convert_crafting_recipe_svgs_to_png.py`, `CRAFTING_TABLE.png/.svg`: recipe images.
+          - `tools/ensure_recipe_unlocks.py`, `manifest_tools.py`, `doc_template.py`, `make_pack_icon.py`, `optimize_images.py`, `build_test_world.py`: recipe unlocks, manifests, docs, icon, image size, test world.
+          - `assets/Images/` and the mandatory pack assets under `Mcpeworlds/assets/`.
+
+          ## CREATE a new pack
+          1. Ask ONE line only if the request is unclear (type: addon, map, script or minigame). Otherwise proceed.
+          2. Build the project in `build/<Project-Name>/` with a `project.json`: `{"type": "addon|map|script|minigame", "name": "Display Name"}`.
+          3. Run `python tools/build_payload.py build/<Project-Name>`. Fix every reported error. Exit code 0 means the structural checks passed. It never proves the pack works in Minecraft.
+          4. Deliver `payload.b64` (one line of base64).
+
+          ## UPDATE an existing pack
+          1. Start from `existing_project/`. Change only what was requested. Smallest edits.
+          2. Keep pack and module UUIDs unchanged. Raise the version: an update is Z+1 (1.2.4 -> 1.2.5). Beta (Y+1) or Release (X+1) only if the user asks.
+          3. Add the new CHANGELOG.md entry for the new version, as the instruction files require.
+          4. Run `python tools/build_payload.py` on the updated project folder and deliver `payload.b64`.
+
+          ## How the user imports the result
+          - GitHub, workflow **Create Project from Base64**: paste the base64 into `payload_base64`, or commit `payload.b64` to `MCPEDL/incoming/` and type its name in `payload_file` (the extension is optional).
+          - `import_mode`: `create` for a new pack, `update` for an existing pack, `auto` to let the workflow decide.
+          - Then **Build Changed Packs & Sync Catalogs** builds the packages.
+
+          ## Never
+          - Invent features, versions, links, assets or test results.
+          - Claim anything was tested in Minecraft unless it was.
+          - Hand-edit manifest versions or README download links beyond what the instruction files allow.
+          MD
+          python3 - <<PY
+          import pathlib
+          p = pathlib.Path("$OUT/START_HERE.md")
+          p.write_text(p.read_text().replace("__MODE__", """$MODE"""))
+          PY
+          echo "Kit: $MODE"; cat "$OUT/manifest.txt"
+
       - name: Build path export (index, AI instructions and file contents in one MD)
-        if: steps.mode.outputs.default == 'false'
+        if: steps.mode.outputs.default == 'false' && steps.mode.outputs.kit != 'true'
         id: build
         env:
           PATHS: ${{ inputs.paths }}
@@ -505,6 +610,6 @@ jobs:
         run: |
           {
             echo "### Collect Files for AI Review"
-            echo "- Paths: \`${PATHS_IN:-(standard review bundle)}\`"
+            echo "- Paths: \`${PATHS_IN:-(standard review bundle)}\` (kit mode ignores paths)"
             echo "- Download **${NAME}.zip**: ${ARTIFACT_URL}"
           } >> "$GITHUB_STEP_SUMMARY"
