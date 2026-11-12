@@ -76,3 +76,4 @@ Right-click a Compass to open the Waypoint Helper menu. Save your current positi
 ## Search & Discovery Keywords
 
 Minecraft Bedrock add-on, Waypoint Helper Bedrock mod, waypoint teleport, save coordinates, rename waypoints, Compass menu, Minecraft PE survival, MCPEDL add-on, CurseForge Bedrock, ALNStudios.
+
