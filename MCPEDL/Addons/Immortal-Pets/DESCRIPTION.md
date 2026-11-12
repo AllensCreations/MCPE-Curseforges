@@ -5,11 +5,13 @@
 [![Minecraft Bedrock](https://img.shields.io/badge/Minecraft%20Bedrock-Stable%20Release-brightgreen?style=flat-square&logo=minecraft)](https://github.com/AllensCreations/MCPE-Curseforges)
 [![Format](https://img.shields.io/badge/Format-.MCPACK%20%7C%20.MCADDON%20%7C%20.MCWORLD-blue?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges)
 
+Pick which tamed companions to protect, and Immortal Pets keeps them safe in every dimension.
+
 ## Overview
 
 Immortal Pets automatically protects selected tamed companions in the Overworld, Nether, and End. Protection starts when a supported pet is tamed and is restored for existing pets as the world loads.
 
-## Features
+## Key Features
 
 - Infinite Resistance, Fire Resistance, and Water Breathing effects.
 - Automatic health recovery and poison-effect removal.
@@ -18,52 +20,36 @@ Immortal Pets automatically protects selected tamed companions in the Overworld,
 - **Special name rule:** A selected, tamed pet named EID is killed.
 - No custom gameplay items or player-run commands.
 
-## Protection Modes
+## How to Use
 
-Choose one subpack in Behavior Pack settings:
+1. Download the add-on and open it with Minecraft to import it.
+2. Turn on the Behavior Pack in your world's settings.
+3. Choose one protection mode in the Behavior Pack settings:
+   - 1 - Cat
+   - 2 - Wolf
+   - 3 - Parrot
+   - 4 - Horse
+   - 5 - Donkey
+   - 6 - Mule
+   - 7 - Skeleton Horse
+   - 8 - Zombie Horse
+   - 9 - All Supported Pets
+   - 10 - Llamas
+4. If no mode can be detected, All Supported Pets is used.
 
-1. Cat
-2. Wolf
-3. Parrot
-4. Horse
-5. Donkey
-6. Mule
-7. Skeleton Horse
-8. Zombie Horse
-9. All Supported Pets
-10. Llamas
+Protection cannot guarantee survival against every game mechanic, command, or despawn scenario. Test environmental damage and reload behavior in the target Bedrock version before relying on it for a permanent world.
 
 ## Compatibility
 
 - Minecraft Bedrock Edition 1.26.x
-- Behavior Pack (.mcpack)
-- Uses modern Minecraft Bedrock gameplay mechanics.
 - Experimental features: The pack does not declare a requirement for experimental toggles.
-- Achievement support: The add-on is designed without cheats or experimental toggles. Actual achievement availability can still depend on Minecraft version, platform, and world settings.
-
-Protection cannot guarantee survival against every game mechanic, command, or despawn scenario. Test environmental damage and reload behavior in the target Bedrock version before relying on it for a permanent world.
-- Achievements: Likely achievement-friendly.
+- Achievements: Likely achievement-friendly. Actual achievement availability can still depend on Minecraft version, platform, and world settings.
 - Verification: Source created, not tested in game.
-
-## Credits & Usage
-
-**Creator:** ALNStudios
-
-- Videos and showcases are welcome with proper credit.
-- Do not re-upload or redistribute the add-on without authorization.
-- Do not bypass original download sources through monetized redistribution.
-
-© All rights reserved for ALNStudios.
-
----
 
 ## Creator and Permissions
 
 - Creator: ALNStudios
-- Profiles: [CurseForge Profile](https://www.curseforge.com/members/allenscreations/projects) · [MCPEDL Profile](https://mcpedl.com/user/allenscreations/)
-
-<a href="https://www.curseforge.com/members/allenscreations/projects"><img src="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/assets/Images/curseforge.jpg" alt="CurseForge" width="45%"></a> <a href="https://mcpedl.com/user/allenscreations/"><img src="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/assets/Images/MCPEDL.jpg" alt="MCPEDL" width="45%"></a>
-- [MCPEDL Profile](https://mcpedl.com/user/alnstudios/)
+- Profiles: [CurseForge Profile](https://www.curseforge.com/members/allenscreations/projects) · [MCPEDL Profile](https://mcpedl.com/user/alnstudios/)
 
 <a href="https://www.curseforge.com/members/allenscreations/projects"><img src="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/assets/Images/curseforge.jpg" alt="CurseForge" width="45%"></a> <a href="https://mcpedl.com/user/alnstudios/"><img src="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/assets/Images/MCPEDL.jpg" alt="MCPEDL" width="45%"></a>
 
@@ -84,4 +70,3 @@ Protection cannot guarantee survival against every game mechanic, command, or de
 ## Search & Discovery Keywords
 
 Immortal Pets Bedrock add-on, pet protection Minecraft, companion survival protection, pet recovery mechanics, Minecraft Bedrock pets, Minecraft PE survival add-on, MCPEDL, CurseForge Bedrock, ALNStudios, Minecraft Bedrock add-on, MCPEDL add-on.
-

@@ -5,7 +5,7 @@ const STORAGE_KEY = "immortalpets:selected_mode";
 const PROTECTED_TAG = "immortalpets:protected";
 const TRIGGER_NAME = "EID";
 const DIMENSIONS = ["overworld", "nether", "the_end"];
-const FALLBACK_INTERVAL = 200; // 10 seconds at 20 ticks per second.
+const FALLBACK_INTERVAL = 200;
 
 const TARGETS = {
   cat: ["minecraft:cat"],
@@ -123,15 +123,12 @@ function registerPet(entity, applyEffects = true) {
   } catch {}
 
   clearPoison(entity);
-  // Event-driven registrations receive protection immediately. The fallback
-  // scan batches one function call per dimension to avoid per-entity commands.
   if (applyEffects) runProtectionFunction(entity);
   return true;
 }
 
 function handleDamage(entity) {
   if (!registerPet(entity)) return;
-  clearPoison(entity);
   restoreHealth(entity);
 }
 
@@ -143,8 +140,6 @@ world.afterEvents.entityTamed.subscribe((event) => {
 });
 
 world.afterEvents.entitySpawn.subscribe((event) => {
-  // Spawn events can fire before taming. This catches already-tamed entities
-  // when their chunk reloads; the fallback scan catches missed registrations.
   try {
     resolveMode();
     registerPet(event.entity);
@@ -186,7 +181,6 @@ function scanForExistingPets() {
       }
     }
 
-    // One function call per dimension per fallback scan, not one per entity.
     if (hasProtectedPet) {
       try {
         dimension.runCommand("function immortalpets/protect_pet");
@@ -195,6 +189,5 @@ function scanForExistingPets() {
   }
 }
 
-// Run once after startup, then every 10 seconds as a low-frequency fallback.
 system.runTimeout(scanForExistingPets, 1);
 system.runInterval(scanForExistingPets, FALLBACK_INTERVAL);

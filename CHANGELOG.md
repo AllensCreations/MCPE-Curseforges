@@ -2,6 +2,16 @@
 
 ---
 
+## 2026-11-13 - Immortal Pets 1.10.1
+
+### Improved & Balanced
+
+- **Immortal Pets 1.10.1**: Streamlined damage checks and a clearer description page with a How to Use section.
+
+### Fixed
+
+- **Immortal Pets MCPEDL link**: The description page now links to the correct MCPEDL profile.
+
 ## 2026-11-13 - Description Page Questions and Notes
 
 ### Improved & Balanced
