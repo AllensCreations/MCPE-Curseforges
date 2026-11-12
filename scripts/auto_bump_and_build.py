@@ -13,7 +13,7 @@ Features:
    - Master Builds Directory: builds/README.md (Catalog table row & download link)
    - Root Catalog: README.md (Catalog tables, overview header & download links)
 4. Names output packages from the manifest (header.name + version). Default shape:
-   "<Name> by ALNStudios (V#.#.#).<ext>"; override with metadata.package_filename in a
+   "<Shortcut> V#.#.#.<ext>"; override with metadata.package_filename in a
    manifest or the PACK_FILENAME_TEMPLATE variable.
 5. Injects new projects into catalog tables and updates Collection Size badge.
 """
@@ -296,7 +296,7 @@ def package_filename(project_path, version_str, ext):
     fallback = get_project_title(project_path)
     if manifest_tools:
         return f"{manifest_tools.package_basename(project_path, version_str, fallback)}.{ext}"
-    return f"{fallback} by ALNStudios (V{version_str}).{ext}"
+    return f"{re.sub(r'[^A-Za-z0-9]', '', fallback) or 'Pack'} V{version_str}.{ext}"
 
 
 def _get_pack_type(project_path, category, version_str="1.0.0"):

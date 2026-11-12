@@ -1,4 +1,4 @@
-# Instructions: Core Repository Policy (v7)
+# Instructions: Core Repository Policy (v8)
 
 Repo policy, docs, audit rules for ALNStudios/MCPE-Curseforges. Generating a new project: `PACK_GENERATOR_INSTRUCTIONS.md`.
 
@@ -97,7 +97,7 @@ Implementation:
 - Build sync: every processed project aligns all source manifests to one highest `X.Y.Z`: `header.version`, `metadata.version`, title suffix, module versions, same-project BP/RP deps. Fills `metadata.authors` (`ALNStudios`), optional `metadata.license`.
 - Snapshots: `builds/<pack>/versions/V<X.Y.Z>/` (packages, `source.zip`, `source.sha256`, `build_info.json`). Refreshed when source/packages differ. Last 5 kept.
 - NOTHING auto-bumps. Versions are written by hand in CHANGELOG.md. Publish to CurseForge uploads the newest changelog version as written and groups every entry since the last publish. The passive build (`Build Changed Packs & Sync Catalogs`) aligns each pack to its highest existing version and rebuilds. `--bump` / `AUTO_BUMP_MANIFEST=true` remain in `scripts/auto_bump_and_build.py` for manual use only.
-- Package name default: `<Name> by ALNStudios (VX.Y.Z).<ext>`. Custom via `metadata.package_filename` or `PACK_FILENAME_TEMPLATE`; MUST keep `(V{version})`.
+- Package name: `<Shortcut> VX.Y.Z.<ext>` (example `MiningHelmet V1.0.2.mcaddon`). Shortcut = short, letters and digits only (NEVER `-`, `_`, spaces, `by ALNStudios`, parentheses), close to the add-on name, kept in `scripts/pack_shortcuts.json` by project folder (fallback: folder name joined). Custom via `metadata.package_filename` or `PACK_FILENAME_TEMPLATE`; MUST contain `V{version}` and no parenthesis, else the default is used. CurseForge upload copy uses the same name. `python3 scripts/rename_packages.py --check|--apply` renames old packages and repairs references.
 - Creator name `ALNStudios`. `python3 scripts/rename_brand.py --apply` migrates old name. NEVER rename lowercase namespaces (`allenscreations:`).
 - Tools: `python3 scripts/manifest_tools.py --project <path> --check|--align|--bump` (`--all --check`). `sync_manifest_versions.py`: deps and `min_engine_version` maintenance; set `min_engine_version` by hand after lookup. `sync_project_docs.py` NOT in build: edit DESCRIPTION/CHANGELOG deliberately. `sync_readme_links.py [--check]` repairs README links (runs after every build).
 - LOCK: every `MCPEDL/Addons/` project has `LOCK` at root starting `ALNStudios Add-on Lock v1`. Importer creates it, build enforces it. Missing/invalid = release-blocking: report path, NEVER call build-ready. Safeguard only, not encryption.
@@ -433,6 +433,7 @@ CHANGELOG.md. Newest first. Groups: Added, Improved & Balanced, Fixed (bugs as i
 - [ ] Verification stated: source created | package built | in-game tested, never mixed.
 
 ## Version History
+- **v8:** Package names are `<Shortcut> VX.Y.Z.<ext>`; shortcut map in `scripts/pack_shortcuts.json`; `scripts/rename_packages.py` migrates old names.
 - **v7:** Every changelog entry has a Name. Root `CHANGELOG.md` for the whole repo, updated by every script and included in the AI review bundle.
 - **v6:** Nothing auto-bumps; build is passive; publish is its own workflow (no bump, groups changelog); Delete Package; scripts delete themselves after a successful push.
 - **v5:** Telegram-style rewrite. NEVER/ALWAYS tags. Task index, one file per task. Three-section reply format. Workflow table removed (read the workflow files). Legacy four-part version notes removed. Templates synced to `doc_template.py`. Size cap 50 KB (`scripts/check_instruction_files.py`).

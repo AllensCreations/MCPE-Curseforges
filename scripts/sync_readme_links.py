@@ -17,7 +17,7 @@ CATEGORIES = ("Addons", "Maps", "Script", "Minigame")
 PACKAGE_EXT = (".mcaddon", ".mcpack", ".mcworld")
 MODES = ("Creative", "Survival", "Hardcore")
 LINK_RE = re.compile(r"(\]\()((?:[^()\s]|\([^()]*\))+)(\))")
-VERSION_TOKEN = re.compile(r"\(V(\d+)\.(\d+)\.(\d+)(?:\.(\d+))?\)")
+VERSION_TOKEN = re.compile(r"(?:\(V|(?<= )V)(\d+)\.(\d+)\.(\d+)(?:\.(\d+))?\)?(?=\.[A-Za-z]+$|\s|$)")
 CELL_VERSION = re.compile(r"^(\s*)(v?)(\d+\.\d+\.\d+(?:\.\d+)?)(\s*)$")
 
 
@@ -31,7 +31,7 @@ def file_version(name):
 
 
 def shape(name):
-    return VERSION_TOKEN.sub("(V*)", name)
+    return VERSION_TOKEN.sub("V*", name)
 
 
 class Project:

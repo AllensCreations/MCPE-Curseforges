@@ -2,7 +2,7 @@
   "changelog_version": "1.19.0",
   "manifest_version": "1.19.0",
   "packages": {
-    "Trivia Vault The Locked World by ALNStudios (V1.19.0).mcaddon": "fe8fdb8317897027ccb45b8a7a15ef8c1e7583251f9546fc57342c7d8fe4c98d"
+    "TriviaVault V1.19.0.mcaddon": "fe8fdb8317897027ccb45b8a7a15ef8c1e7583251f9546fc57342c7d8fe4c98d"
   },
   "source_sha256": "bb62dfb6c26f0e893c7106d9822730ddf040ef60ca036aafa7e41eb86c33f050"
 }

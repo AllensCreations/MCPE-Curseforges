@@ -5,7 +5,7 @@ Download the current release of **Melody Figurine** for Minecraft Bedrock Editio
 ## Download
 
 - **Package format:** `.mcaddon`
-- **Direct download:** [Download Melody Figurine (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Melody-Figurine/Melody%20Figurine%20by%20ALNStudios%20%28V1.14.0%29.mcaddon)
+- **Direct download:** [Download Melody Figurine (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Melody-Figurine/MelodyFigurine%20V1.14.0.mcaddon)
 
 ## Installation
 

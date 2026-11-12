@@ -2,6 +2,18 @@
 
 ---
 
+## 2026-11-12 - Short Pack Filenames
+
+### Added
+- **Short package names**: Every package is now named like `MiningHelmet V1.0.2.mcaddon`, a short name close to the add-on name followed by the version. The long "by ALNStudios" part, hyphens, underscores and parentheses are gone, so imports no longer fail on long file names.
+- **Rename run**: `scripts/rename_packages.py` renames every existing package, including saved version snapshots, and fixes every README and build file that mentioned the old names.
+
+### Improved & Balanced
+- **CurseForge uploads**: The uploaded file uses the same short name instead of the long "Release - ... v(1.0.0)" name.
+
+### Fixed
+- **README links**: Download links in READMEs now follow the new short names.
+
 ## 2026-11-12 - Emissive Glowing Ores source added
 
 ### Added

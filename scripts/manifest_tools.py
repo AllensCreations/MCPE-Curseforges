@@ -38,7 +38,9 @@ FULL_RE = re.compile(r"^(\d+)\.(\d+)\.(\d+)$")
 AUTHOR = "ALNStudios"
 LEGACY_AUTHORS = ("ALNStudios",)
 FILENAME_TEMPLATE_ENV = "PACK_FILENAME_TEMPLATE"
-DEFAULT_FILENAME_TEMPLATE = "{title} by {author} (V{version})"
+DEFAULT_FILENAME_TEMPLATE = "{shortcut} V{version}"
+SHORTCUTS_FILE = os.path.join(os.path.dirname(os.path.abspath(__file__)), "pack_shortcuts.json")
+_SHORTCUT_SKIP_WORDS = {"and", "of", "the", "in", "a", "to", "for", "payload"}
 _PACK_WORD_RE = re.compile(r"\s+(?:BP|RP|Behavior Pack|Resource Pack|Behaviour Pack)\s*$", re.IGNORECASE)
 # The only derived copy a map build writes inside its own source tree (see the builder).
 DERIVED_WORLD_COPY = "world/behavior_packs/OneBlockVoid/"
@@ -282,6 +284,28 @@ def manifest_title(project_path):
     return titles.pop() if len(titles) == 1 else None
 
 
+def shortcut_from_slug(slug):
+    """Short alphanumeric name built from a project folder name: no hyphens, underscores or spaces."""
+    words = [w for w in re.split(r"[-_\s]+", slug) if w and w.lower() not in _SHORTCUT_SKIP_WORDS]
+    return re.sub(r"[^A-Za-z0-9]", "", "".join(w[:1].upper() + w[1:] for w in words)) or "Pack"
+
+
+def shortcut_for_slug(slug):
+    """Filename shortcut of a project: scripts/pack_shortcuts.json first, else built from the folder name."""
+    try:
+        with open(SHORTCUTS_FILE, encoding="utf-8") as fh:
+            value = json.load(fh).get(slug)
+    except (OSError, ValueError, AttributeError):
+        value = None
+    if isinstance(value, str) and re.fullmatch(r"[A-Za-z0-9]+", value):
+        return value
+    return shortcut_from_slug(slug)
+
+
+def package_shortcut(project_path):
+    return shortcut_for_slug(os.path.basename(os.path.normpath(project_path)))
+
+
 def _manifest_filename_template(project_path):
     for path in source_manifest_paths(project_path):
         try:
@@ -297,23 +321,25 @@ def package_basename(project_path, version_text, fallback_title):
     """File name (without extension) of the downloadable package.
 
     Title comes from the manifest header.name (fallback: the DESCRIPTION title) and the version
-    from the manifest. Template precedence: manifest metadata.package_filename, then the
-    PACK_FILENAME_TEMPLATE variable, then '{title} by {author} (V{version})'. Placeholders:
-    {title}, {version}, {author}. A template must keep the '(V{version})' token because the
-    README link repair finds packages by it; otherwise the default template is used.
+    from the manifest. Default: '<Shortcut> VX.Y.Z' (see package_shortcut). Template precedence:
+    manifest metadata.package_filename, then the PACK_FILENAME_TEMPLATE variable, then
+    '{shortcut} V{version}'. Placeholders: {shortcut}, {title}, {version}, {author}. A template
+    must contain 'V{version}' and no parenthesis because the README link repair finds packages by
+    it; otherwise (including the old '(V{version})' templates) the default template is used.
     """
     title = manifest_title(project_path) or fallback_title
+    shortcut = package_shortcut(project_path)
     template = (_manifest_filename_template(project_path)
                 or os.environ.get(FILENAME_TEMPLATE_ENV, "").strip()
                 or DEFAULT_FILENAME_TEMPLATE)
-    if "(V{version})" not in template:
-        print(f"WARNING: filename template {template!r} lacks '(V{{version}})'; using the default.", file=sys.stderr)
+    if "V{version}" not in template or "(" in template:
+        print(f"WARNING: filename template {template!r} needs 'V{{version}}' without parentheses; using the default.", file=sys.stderr)
         template = DEFAULT_FILENAME_TEMPLATE
     try:
-        name = template.format(title=title, version=version_text, author=AUTHOR)
+        name = template.format(shortcut=shortcut, title=title, version=version_text, author=AUTHOR)
     except (KeyError, IndexError, ValueError):
         print(f"WARNING: bad filename template {template!r}; using the default.", file=sys.stderr)
-        name = DEFAULT_FILENAME_TEMPLATE.format(title=title, version=version_text, author=AUTHOR)
+        name = DEFAULT_FILENAME_TEMPLATE.format(shortcut=shortcut, title=title, version=version_text, author=AUTHOR)
     return re.sub(r'[\\/*?:"<>|]', "", name).strip()
 
 

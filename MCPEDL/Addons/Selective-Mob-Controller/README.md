@@ -5,7 +5,7 @@ Download the current release of **Selective Mob Controller** for Minecraft Bedro
 ## Download
 
 - **Package format:** `.mcaddon`
-- **Direct download:** [Download Selective Mob Controller (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Selective-Mob-Controller/Selective%20Mob%20Controller%20by%20ALNStudios%20%28V1.5.0%29.mcaddon)
+- **Direct download:** [Download Selective Mob Controller (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Selective-Mob-Controller/MobController%20V1.5.0.mcaddon)
 
 ## Installation
 

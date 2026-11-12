@@ -1,4 +1,4 @@
-# Pack Generator Instructions (AI Agent, v19)
+# Pack Generator Instructions (AI Agent, v20)
 
 Builds a complete **addon**, **map**, **script**, or **minigame** from the user's idea. Returns ONE line of base64 for GitHub workflow **Create Project from Base64**.
 
@@ -66,7 +66,7 @@ Implementation:
 - Build sync: every processed project aligns all source manifests to one highest `X.Y.Z`: `header.version`, `metadata.version`, title suffix, module versions, same-project BP/RP deps. Fills `metadata.authors` (`ALNStudios`), optional `metadata.license`.
 - Snapshots: `builds/<pack>/versions/V<X.Y.Z>/` (packages, `source.zip`, `source.sha256`, `build_info.json`). Refreshed when source/packages differ. Last 5 kept.
 - NOTHING auto-bumps. Versions are written by hand in CHANGELOG.md. Publish to CurseForge uploads the newest changelog version as written and groups every entry since the last publish. The passive build (`Build Changed Packs & Sync Catalogs`) aligns each pack to its highest existing version and rebuilds. `--bump` / `AUTO_BUMP_MANIFEST=true` remain in `scripts/auto_bump_and_build.py` for manual use only.
-- Package name default: `<Name> by ALNStudios (VX.Y.Z).<ext>`. Custom via `metadata.package_filename` or `PACK_FILENAME_TEMPLATE`; MUST keep `(V{version})`.
+- Package name: `<Shortcut> VX.Y.Z.<ext>`; shortcut (letters and digits only) comes from `scripts/pack_shortcuts.json` by project folder, else the folder name joined. Custom via `metadata.package_filename` or `PACK_FILENAME_TEMPLATE`; MUST contain `V{version}` and no parenthesis.
 - Creator name `ALNStudios`. `python3 scripts/rename_brand.py --apply` migrates old name. NEVER rename lowercase namespaces (`allenscreations:`).
 - Tools: `python3 scripts/manifest_tools.py --project <path> --check|--align|--bump` (`--all --check`). `sync_manifest_versions.py`: deps and `min_engine_version` maintenance; set `min_engine_version` by hand after lookup. `sync_project_docs.py` NOT in build: edit DESCRIPTION/CHANGELOG deliberately. `sync_readme_links.py [--check]` repairs README links (runs after every build).
 - LOCK: every `MCPEDL/Addons/` project has `LOCK` at root starting `ALNStudios Add-on Lock v1`. Importer creates it, build enforces it. Missing/invalid = release-blocking: report path, NEVER call build-ready. Safeguard only, not encryption.

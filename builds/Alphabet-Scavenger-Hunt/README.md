@@ -8,7 +8,7 @@ This folder contains compiled release packages for **Alphabet Scavenger Hunt** b
 
 | File Name | Format | Size | Description | Download Link |
 | :--- | :--- | :--- | :--- | :--- |
-| **`Alphabet Scavenger Hunt by ALNStudios (V1.9.0).mcaddon`** | `.mcaddon` | ~303 KB | Complete bundle containing both Behavior Pack and Resource Pack. | [Download (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Alphabet-Scavenger-Hunt/Alphabet%20Scavenger%20Hunt%20by%20ALNStudios%20%28V1.9.0%29.mcaddon) |
+| **`AlphabetHunt V1.9.0.mcaddon`** | `.mcaddon` | ~303 KB | Complete bundle containing both Behavior Pack and Resource Pack. | [Download (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Alphabet-Scavenger-Hunt/AlphabetHunt%20V1.9.0.mcaddon) |
 
 ---
 

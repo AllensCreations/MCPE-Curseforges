@@ -93,21 +93,33 @@ class ManifestToolsTest(unittest.TestCase):
     def test_package_name_follows_manifest_title_and_version(self):
         mt.align_project_manifests(self.root)
         self.assertEqual(mt.manifest_title(self.root), "X")
-        self.assertEqual(mt.package_basename(self.root, "1.0.2", "Fallback"), "X by ALNStudios (V1.0.2)")
+        self.assertEqual(mt.package_basename(self.root, "1.0.2", "Fallback"), mt.package_shortcut(self.root) + " V1.0.2")
 
     def test_package_name_template_from_manifest_metadata(self):
         path = f"{self.root}/behavior_pack/manifest.json"
         data = json.load(open(path, encoding="utf-8"))
-        data["metadata"] = {"package_filename": "{title} - {author} (V{version})"}
+        data["metadata"] = {"package_filename": "{title} V{version}"}
         write(path, data)
-        self.assertEqual(mt.package_basename(self.root, "1.0.2", "F"), "X - ALNStudios (V1.0.2)")
+        self.assertEqual(mt.package_basename(self.root, "1.0.2", "F"), "X V1.0.2")
+
+    def test_old_parenthesis_template_falls_back_to_short_name(self):
+        path = f"{self.root}/behavior_pack/manifest.json"
+        data = json.load(open(path, encoding="utf-8"))
+        data["metadata"] = {"package_filename": "{title} by {author} (V{version})"}
+        write(path, data)
+        self.assertEqual(mt.package_basename(self.root, "1.0.2", "F"), mt.package_shortcut(self.root) + " V1.0.2")
+
+    def test_shortcuts_are_alphanumeric_and_mapped_ones_win(self):
+        self.assertEqual(mt.shortcut_for_slug("Mining-Helmet"), "MiningHelmet")
+        self.assertEqual(mt.shortcut_for_slug("Smart-Tree-Capitator-and-Domino-Ore-Miner"), "SmartCapitator")
+        self.assertEqual(mt.shortcut_from_slug("New-Cool_Thing-of-the-Year"), "NewCoolThingYear")
 
     def test_template_without_version_token_falls_back(self):
         path = f"{self.root}/behavior_pack/manifest.json"
         data = json.load(open(path, encoding="utf-8"))
         data["metadata"] = {"package_filename": "{title}"}
         write(path, data)
-        self.assertEqual(mt.package_basename(self.root, "1.0.2", "F"), "X by ALNStudios (V1.0.2)")
+        self.assertEqual(mt.package_basename(self.root, "1.0.2", "F"), mt.package_shortcut(self.root) + " V1.0.2")
 
     def test_bp_rp_suffix_words_are_dropped_and_disagreement_uses_fallback(self):
         write(f"{self.root}/behavior_pack/manifest.json", {"header": {"name": "Foo BP (v1.0.2)", "uuid": BP, "version": [1, 0, 2]}})
@@ -115,7 +127,7 @@ class ManifestToolsTest(unittest.TestCase):
         self.assertEqual(mt.manifest_title(self.root), "Foo")
         write(f"{self.root}/resource_pack/manifest.json", {"header": {"name": "Bar (v1.0.2)", "uuid": RP, "version": [1, 0, 2]}})
         self.assertIsNone(mt.manifest_title(self.root))
-        self.assertEqual(mt.package_basename(self.root, "1.0.2", "Desc Title"), "Desc Title by ALNStudios (V1.0.2)")
+        self.assertEqual(mt.package_basename(self.root, "1.0.2", "Desc Title"), mt.package_shortcut(self.root) + " V1.0.2")
 
     def test_legacy_four_part_title_is_rewritten_to_three_parts(self):
         path = f"{self.root}/behavior_pack/manifest.json"

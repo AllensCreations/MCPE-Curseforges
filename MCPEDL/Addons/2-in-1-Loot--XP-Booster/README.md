@@ -5,7 +5,7 @@ Download the current release of **2-in-1 Loot & XP Booster** for Minecraft Bedro
 ## Download
 
 - **Package format:** `.mcaddon`
-- **Direct download:** [Download 2-in-1 Loot & XP Booster (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/2-in-1-Loot--XP-Booster/2-in-1%20Loot%20%26%20XP%20Booster%20by%20ALNStudios%20%28V1.0.1%29.mcaddon)
+- **Direct download:** [Download 2-in-1 Loot & XP Booster (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/2-in-1-Loot--XP-Booster/LootXPBooster%20V1.0.1.mcaddon)
 
 ## Installation
 

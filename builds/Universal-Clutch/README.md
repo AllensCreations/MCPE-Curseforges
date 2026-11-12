@@ -8,7 +8,7 @@ This folder contains compiled release packages for **Universal Clutch** by ALNSt
 
 | File Name | Format | Size | Description | Download Link |
 | :--- | :--- | :--- | :--- | :--- |
-| **`Universal Clutch by ALNStudios (V1.5.0).mcaddon`** | `.mcaddon` | ~72 KB | Complete Add-on package for Minecraft Bedrock. | [Download (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Universal-Clutch/Universal%20Clutch%20by%20ALNStudios%20%28V1.5.0%29.mcaddon) |
+| **`UniversalClutch V1.5.0.mcaddon`** | `.mcaddon` | ~72 KB | Complete Add-on package for Minecraft Bedrock. | [Download (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Universal-Clutch/UniversalClutch%20V1.5.0.mcaddon) |
 
 ---
 

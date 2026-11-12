@@ -2,7 +2,7 @@
   "changelog_version": "1.0.0",
   "manifest_version": "1.0.0",
   "packages": {
-    "2-in-1 Loot & XP Booster by ALNStudios (V1.0.0).mcaddon": "09459ac9ec7d0b339e75d9c2ff769af1e6d7f2a2adf025f750f06155ddf6ddb5"
+    "LootXPBooster V1.0.0.mcaddon": "09459ac9ec7d0b339e75d9c2ff769af1e6d7f2a2adf025f750f06155ddf6ddb5"
   },
   "source_sha256": "3a8623761211a8b30a6ba85954e63dfd636d3ca0b273e7078e2d38b93e0332ec"
 }

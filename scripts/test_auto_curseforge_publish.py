@@ -186,17 +186,18 @@ class AutoPublishTests(unittest.TestCase):
         self.assertEqual(rel.baselines_after("release", info, "2.0.0"),
                          {"last_release_version": "2.0.0"})
 
-    def test_upload_copy_uses_type_prefix_and_no_by_suffix(self):
+    def test_upload_copy_uses_short_name_and_version(self):
         rel = publisher.release
-        self.assertEqual(rel.upload_name("beta", "Monster-Companions", ".mcaddon", "default", "1.2.5"), "Beta - Monster Companions v(1.2.5).mcaddon")
-        self.assertEqual(rel.upload_name("release", "Mining-Helmet", ".mcaddon", "default", "2.0.0"), "Release - Mining Helmet v(2.0.0).mcaddon")
+        self.assertEqual(rel.upload_name("beta", "Monster-Companions", ".mcaddon", "default", "1.2.5"), "MonsterCompanions V1.2.5.mcaddon")
+        self.assertEqual(rel.upload_name("release", "Mining-Helmet", ".mcaddon", "default", "2.0.0"), "MiningHelmet V2.0.0.mcaddon")
+        self.assertEqual(rel.upload_name("release", "Oneblock-SM", ".mcworld", "Creative", "1.0.0"), "OneblockSM V1.0.0 Creative.mcworld")
         
         with tempfile.TemporaryDirectory() as temp:
-            src = Path(temp) / "Pack by ALNStudios (V1.2.3).mcaddon"
+            src = Path(temp) / "Pack V1.2.3.mcaddon"
             src.write_bytes(b"x")
             with patch.dict(os.environ, {"RUNNER_TEMP": temp}):
                 staged = rel.stage_upload_copy(src, "beta", "Pack", "default", "1.1.0")
-            self.assertEqual(staged.name, "Beta - Pack v(1.1.0).mcaddon")
+            self.assertEqual(staged.name, "Pack V1.1.0.mcaddon")
             self.assertEqual(staged.read_bytes(), b"x")
 
     def test_legacy_four_part_version_mapping(self):

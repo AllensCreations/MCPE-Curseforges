@@ -8,7 +8,7 @@ This folder contains compiled release packages for **Smart Tree Capitator and Do
 
 | File Name | Format | Size | Description | Download Link |
 | :--- | :--- | :--- | :--- | :--- |
-| **`Smart Tree Capitator and Domino Ore Miner by ALNStudios (V1.11.0).mcaddon`** | `.mcaddon` | ~33 KB | Complete Add-on package for Minecraft Bedrock. | [Download (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Smart-Tree-Capitator-and-Domino-Ore-Miner/Smart%20Tree%20Capitator%20and%20Domino%20Ore%20Miner%20by%20ALNStudios%20%28V1.11.0%29.mcaddon) |
+| **`SmartCapitator V1.11.0.mcaddon`** | `.mcaddon` | ~33 KB | Complete Add-on package for Minecraft Bedrock. | [Download (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Smart-Tree-Capitator-and-Domino-Ore-Miner/SmartCapitator%20V1.11.0.mcaddon) |
 
 ---
 

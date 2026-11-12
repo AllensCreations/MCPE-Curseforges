@@ -5,7 +5,7 @@ Download the current release of **Magnetic Satchel** for Minecraft Bedrock Editi
 ## Download
 
 - **Package format:** `.mcaddon`
-- **Direct download:** [Download Magnetic Satchel (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Magnetic-Satchel/Magnetic%20Satchel%20by%20ALNStudios%20%28V1.8.0%29.mcaddon)
+- **Direct download:** [Download Magnetic Satchel (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Magnetic-Satchel/MagneticSatchel%20V1.8.0.mcaddon)
 
 ## Installation
 

@@ -527,12 +527,12 @@ def find_map_package(project_dir, built_name, variant):
     )
 
 def upload_name(release_type, project_name, extension, map_variant="default", version="", title=None):
-    """'Release - Mining Helmet v(2.0.0).mcaddon'; non-default maps add ' - Creative' etc.
-    title: the manifest's pack title when known, else the project folder name."""
-    title = title or project_name.replace("-", " ").replace("_", " ")
-    variant = "" if map_variant == "default" else f" - {map_variant}"
-    tag = f" v({version})" if version else ""
-    return f"{release_type.capitalize()} - {title}{variant}{tag}{extension}"
+    """'MiningHelmet V2.0.0.mcaddon'; non-default maps add ' Creative' etc. release_type and title
+    are kept for compatibility; the name is the project's filename shortcut plus the version."""
+    shortcut = builder.manifest_tools.shortcut_for_slug(project_name) if getattr(builder, "manifest_tools", None) else re.sub(r"[^A-Za-z0-9]", "", project_name) or "Pack"
+    variant = "" if map_variant == "default" else f" {map_variant}"
+    tag = f" V{version}" if version else ""
+    return f"{shortcut}{tag}{variant}{extension}"
 
 
 def stage_upload_copy(package_path, release_type, project_name, map_variant="default", version="", title=None):
