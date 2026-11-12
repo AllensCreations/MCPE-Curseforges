@@ -15,7 +15,9 @@
     "last_release_version": "1.10.0"
   },
   "MCPEDL/Addons/Mining-Helmet": {
-    "project_id": "1744147"
+    "project_id": "1744147",
+    "last_published_version": "1.14.5",
+    "last_release_version": "1.14.4"
   },
   "MCPEDL/Addons/Monster-Companions": {
     "project_id": "1742867",
