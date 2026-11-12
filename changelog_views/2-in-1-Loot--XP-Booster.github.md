@@ -4,7 +4,7 @@
 
 ### Improved & Balanced
 - **Three-button menu**: The Booster menu now has only XP & Loot Booster, About and Exit.
-- **One screen, two sliders**: XP & Loot Booster sets both boosters with a Loot slider and an XP slider, saved together with one Apply button.
+- **One screen, two sliders**: XP & Loot Booster sets both boosters with a Loot slider and an XP slider, saved together with one Apply button. Each slider is labeled with your current tier name, and the new tier names are shown in chat and the Action Bar after Apply.
 - **New About screen**: About now introduces ALNStudios and the two packs in this add-on.
 
 ### Fixed
