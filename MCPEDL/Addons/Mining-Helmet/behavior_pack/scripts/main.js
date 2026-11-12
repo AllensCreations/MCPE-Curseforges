@@ -9,8 +9,8 @@
  * Restores placed light blocks back to air upon movement, unequip, death, or disconnect.
  *
  * Light modes (chosen by the Behavior Pack subpack, see scripts/mode.js):
- * - cursor (default): a dim light at yourself (level 1-3) plus a full-power light at the block
- *   (or water) you are looking at (no head fallback, no distance limit)
+ * - cursor (default): a dim light at yourself (level 2) plus a light at the block, water or entity
+ *   you are looking at (distance falloff, no head fallback, no distance limit)
  * - head: light is placed just above your head
  */
 import { world, system, EquipmentSlot, BlockPermutation } from "@minecraft/server";
@@ -27,25 +27,6 @@ const LIGHT_POWERS = {
 
 const LIGHT_UPDATE_INTERVAL = 2; // Run every 2 ticks (10 times/sec)
 const CURSOR_MAX_DISTANCE = 1000; // Effectively unlimited; the game only reaches loaded chunks
-const SELF_LIGHT_MIN = 1; // Dim light at yourself, lowest level
-const SELF_LIGHT_MAX = 3; // Dim light at yourself, highest level
-
-/**
- * Light level of the dim light at yourself (1 to 3), scaled from the equipment power
- * @param {number} power
- */
-function getSelfLightLevel(power) {
-  return Math.max(SELF_LIGHT_MIN, Math.min(SELF_LIGHT_MAX, Math.round(power / 5)));
-}
-
-/**
- * Checks if a block is water (placing a light there is undone by restoring the water)
- * @param {string} typeId
- */
-function isWaterBlock(typeId) {
-  return typeId === "minecraft:water" || typeId === "minecraft:flowing_water";
-}
-
 const FACE_OFFSETS = {
   Up: { x: 0, y: 1, z: 0 },
   Down: { x: 0, y: -1, z: 0 },
@@ -55,11 +36,53 @@ const FACE_OFFSETS = {
   West: { x: -1, y: 0, z: 0 }
 };
 
+const SELF_LIGHT_LEVEL = 2; // Fixed dim light at yourself (keep between 1 and 3)
+
+// Distance falloff for the light on what you look at (power 15 fades to 10; power 10 never fades)
+const FALLOFF_START = 32; // Full power up to this distance, in blocks
+const FALLOFF_RANGE = 64; // Fade completes this many blocks after FALLOFF_START
+const FALLOFF_MIN_LEVEL = 10; // Lowest level the fade reaches
+
+// Cheaper raycast: skip recalculating while your view is unchanged
+const CURSOR_REFRESH_TICKS = 20; // Always recalculate at least once per second
+
+// Entities the cursor light ignores
+const IGNORED_ENTITIES = new Set(["minecraft:item", "minecraft:xp_orb", "minecraft:arrow", "minecraft:snowball"]);
+
+/**
+ * Light level of the light on what you look at, with distance falloff
+ * @param {number} power
+ * @param {number} distance
+ */
+function getFarLightLevel(power, distance) {
+  const floor = Math.min(power, FALLOFF_MIN_LEVEL);
+  const t = Math.max(0, Math.min(1, (distance - FALLOFF_START) / FALLOFF_RANGE));
+  return Math.round(power - (power - floor) * t);
+}
+
+/**
+ * Checks if a block is a still water source (flowing water is never replaced)
+ * @param {any} block
+ */
+function isWaterSource(block) {
+  try {
+    return block.typeId === "minecraft:water" && block.permutation.getState("liquid_depth") === 0;
+  } catch (e) {
+    return false;
+  }
+}
+
 /**
  * State map storing the active light blocks and light level per player
  * @type {Map<string, { dim: any, x: number, y: number, z: number, level: number, restore?: any }[]>}
  */
 const activePlayerLights = new Map();
+
+/**
+ * Per-player cursor cache used to skip raycasts while the view is unchanged
+ * @type {Map<string, { key: string, tick: number, hasEntity: boolean }>}
+ */
+const cursorCache = new Map();
 
 /**
  * Checks if a block is a light block
@@ -76,7 +99,7 @@ function isLightBlock(typeId) {
 function canHoldLight(block) {
   if (!block) return false;
   try {
-    return block.isAir || isLightBlock(block.typeId) || isWaterBlock(block.typeId);
+    return block.isAir || isLightBlock(block.typeId) || isWaterSource(block);
   } catch (e) {
     return false;
   }
@@ -100,8 +123,10 @@ function clearLightBlock(light) {
 /**
  * Restores all of a player's placed light blocks back to air safely
  * @param {string} playerId
+ * @param {boolean} [keepCache] Keep the cursor cache (used when nothing is in view)
  */
-function removePlayerLight(playerId) {
+function removePlayerLight(playerId, keepCache = false) {
+  if (!keepCache) cursorCache.delete(playerId);
   const lights = activePlayerLights.get(playerId);
   if (!lights) return;
 
@@ -126,8 +151,8 @@ function placeLightBlock(dim, x, y, z, level) {
     const block = dim.getBlock({ x, y, z });
     if (!canHoldLight(block)) return null;
 
-    // Remember water so it can be put back when the light moves away
-    const restore = isWaterBlock(block.typeId) ? block.permutation : null;
+    // Remember still water so it can be put back when the light moves away
+    const restore = isWaterSource(block) ? block.permutation : null;
 
     try {
       block.setPermutation(BlockPermutation.resolve("minecraft:light_block", { block_light_level: level }));
@@ -176,12 +201,33 @@ function getPlayerLightPower(player) {
 }
 
 /**
+ * Finds the nearest entity you are looking at, before the given distance
+ * @param {any} player
+ * @param {number} maxDistance
+ * @returns {{ entity: any, distance: number } | null}
+ */
+function getLookedAtEntity(player, maxDistance) {
+  try {
+    const found = player.getEntitiesFromViewDirection({
+      maxDistance,
+      ignoreBlockCollision: true // maxDistance is already the distance to the block in view
+    });
+    for (const item of found) {
+      const entity = item.entity;
+      if (!entity || entity.id === player.id || IGNORED_ENTITIES.has(entity.typeId)) continue;
+      return { entity, distance: item.distance };
+    }
+  } catch (e) {}
+  return null;
+}
+
+/**
  * Builds the light targets for a player. Each target has a light level and a list of
  * fallback positions; the first one that can hold a light block is used.
  * Targets are ordered brightest first.
  * @param {any} player
  * @param {number} power
- * @returns {{level:number, candidates:{x:number,y:number,z:number}[]}[]}
+ * @returns {{ targets: {level:number, candidates:{x:number,y:number,z:number}[]}[], hasEntity: boolean }}
  */
 function getLightTargets(player, power) {
   if (LIGHT_MODE === "cursor") {
@@ -202,44 +248,81 @@ function getLightTargets(player, power) {
         includeLiquidBlocks: !headInLiquid,
         includePassableBlocks: false
       });
-      // Nothing in view: no cursor light
-      if (!hit || !hit.block) return [];
 
-      const offset = FACE_OFFSETS[hit.face] || FACE_OFFSETS.Up;
-      const bx = hit.block.location.x;
-      const by = hit.block.location.y;
-      const bz = hit.block.location.z;
+      let blockDistance = CURSOR_MAX_DISTANCE;
+      if (hit && hit.block) {
+        const fl = hit.faceLocation || { x: 0.5, y: 0.5, z: 0.5 };
+        blockDistance = Math.hypot(
+          hit.block.location.x + fl.x - head.x,
+          hit.block.location.y + fl.y - head.y,
+          hit.block.location.z + fl.z - head.z
+        );
+      }
 
-      return [
-        // Full power on the block (or water) face you are looking at
-        { level: power, candidates: [{ x: bx + offset.x, y: by + offset.y, z: bz + offset.z }] },
-        // Dim light at yourself (level 1 to 3)
-        {
-          level: getSelfLightLevel(power),
-          candidates: [
-            { x: hx, y: hy, z: hz },
-            { x: hx, y: Math.floor(player.location.y + 0.3), z: hz }
-          ]
-        }
-      ];
+      // An entity in front of the block (or with no block at all) gets the light instead
+      const looked = getLookedAtEntity(player, blockDistance);
+
+      let farCandidates;
+      let farDistance;
+      if (looked) {
+        const eyes = looked.entity.getHeadLocation ? looked.entity.getHeadLocation() : looked.entity.location;
+        const feet = looked.entity.location;
+        farCandidates = [
+          { x: Math.floor(eyes.x), y: Math.floor(eyes.y), z: Math.floor(eyes.z) },
+          { x: Math.floor(feet.x), y: Math.floor(feet.y), z: Math.floor(feet.z) }
+        ];
+        farDistance = looked.distance;
+      } else if (hit && hit.block) {
+        const offset = FACE_OFFSETS[hit.face] || FACE_OFFSETS.Up;
+        farCandidates = [
+          {
+            x: hit.block.location.x + offset.x,
+            y: hit.block.location.y + offset.y,
+            z: hit.block.location.z + offset.z
+          }
+        ];
+        farDistance = blockDistance;
+      } else {
+        // Nothing in view: no cursor light
+        return { targets: [], hasEntity: false };
+      }
+
+      return {
+        hasEntity: !!looked,
+        targets: [
+          // Light on what you look at, fading with distance
+          { level: getFarLightLevel(power, farDistance), candidates: farCandidates },
+          // Dim light at yourself
+          {
+            level: SELF_LIGHT_LEVEL,
+            candidates: [
+              { x: hx, y: hy, z: hz },
+              { x: hx, y: Math.floor(player.location.y + 0.3), z: hz }
+            ]
+          }
+        ]
+      };
     } catch (e) {
       // Unloaded chunk or nothing targetable: no cursor light
-      return [];
+      return { targets: [], hasEntity: false };
     }
   }
 
   // Head mode: just above the head, falling back to torso level
   const x = Math.floor(player.location.x);
   const z = Math.floor(player.location.z);
-  return [
-    {
-      level: power,
-      candidates: [
-        { x, y: Math.floor(player.location.y + 1.6), z },
-        { x, y: Math.floor(player.location.y + 0.3), z }
-      ]
-    }
-  ];
+  return {
+    hasEntity: false,
+    targets: [
+      {
+        level: power,
+        candidates: [
+          { x, y: Math.floor(player.location.y + 1.6), z },
+          { x, y: Math.floor(player.location.y + 0.3), z }
+        ]
+      }
+    ]
+  };
 }
 
 /**
@@ -265,11 +348,36 @@ system.runInterval(() => {
       }
 
       const dim = player.dimension;
-      const targets = getLightTargets(player, power);
+
+      // Cursor mode: skip the raycasts while your view is unchanged (and no entity is lit)
+      let cacheKey = null;
+      if (LIGHT_MODE === "cursor") {
+        const eye = player.getHeadLocation();
+        const dir = player.getViewDirection();
+        cacheKey = [
+          eye.x.toFixed(1), eye.y.toFixed(1), eye.z.toFixed(1),
+          dir.x.toFixed(2), dir.y.toFixed(2), dir.z.toFixed(2),
+          power, dim.id
+        ].join(",");
+        const cached = cursorCache.get(playerId);
+        if (
+          cached &&
+          cached.key === cacheKey &&
+          !cached.hasEntity &&
+          system.currentTick - cached.tick < CURSOR_REFRESH_TICKS
+        ) {
+          continue;
+        }
+      }
+
+      const { targets, hasEntity } = getLightTargets(player, power);
+      if (cacheKey) {
+        cursorCache.set(playerId, { key: cacheKey, tick: system.currentTick, hasEntity });
+      }
 
       // Cursor mode with nothing in view: no light
       if (targets.length === 0) {
-        removePlayerLight(playerId);
+        removePlayerLight(playerId, true);
         continue;
       }
 

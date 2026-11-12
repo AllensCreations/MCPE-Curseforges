@@ -2,6 +2,19 @@
 
 ---
 
+## [1.14.5] - 2026-11-13 - Mob Light and Falloff
+
+### Added
+
+- **Mob light**: Cursor Light now lights up the mob you are looking at instead of the wall behind it.
+
+### Improved & Balanced
+
+- **Distance falloff**: The light on what you look at fades from full power to level 10 on faraway targets. Torch helmets stay at level 10.
+- **Steady self light**: The light at you is now always level 2.
+- **Safer water**: Light only replaces still water, and flowing water is left untouched.
+- **Smoother performance**: The game skips extra checks while you hold your view steady.
+
 ## [1.14.4] - 2026-11-13 - Water Light
 
 ### Added

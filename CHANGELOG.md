@@ -2,6 +2,16 @@
 
 ---
 
+## 2026-11-13 - Mining Helmet Mob Light and Falloff
+
+### Added
+
+- **Mining Helmet mob light**: Cursor Light lights the mob you look at.
+
+### Improved & Balanced
+
+- **Mining Helmet light tuning**: Distance falloff, a fixed level 2 self light, safer water handling and fewer checks while your view is steady.
+
 ## 2026-11-13 - Manifest Version On Every Update
 
 ### Improved & Balanced
