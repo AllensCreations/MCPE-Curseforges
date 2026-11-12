@@ -2,15 +2,20 @@
 
 ---
 
-## [1.0.3] - 2026-11-12
+## [1.1.0] - 2026-11-12
+
+**What's new in v1.1.0:** Packed with the v1.0.3 update.
 
 ### Added
+
 - **Exit Button**: Every menu now starts with an Exit button that closes the Waypoint Helper. Menus opened from the main menu also have a Back button at the top.
 
 ### Improved & Balanced
+
 - **Instant Menu Switching**: Moving between Waypoint Helper menus no longer plays the slow open and close animation.
 
 ### Fixed
+
 - **Title Bar**: The orange pack name and version in the title bar now show correctly.
 - **Button Look**: Buttons now have a flat dark fill with a thin raised edge instead of a blocky two-tone block.
 
@@ -22,10 +27,14 @@
 ### Fixed
 - **Menu Compass**: The Waypoint Helper no longer gives you a Compass when you spawn. Use any Compass you already own to open the menu.
 
+
+
 ## [1.0.1] - 2026-11-12
 
 ### Fixed
 - **Menu Compass**: The Waypoint Helper Compass is now given only once, the first time a player joins the world. It is no longer given again on respawn.
+
+
 
 ## [1.0.0] - 2026-11-12
 

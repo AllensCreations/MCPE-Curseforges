@@ -20,7 +20,9 @@
     "last_release_version": "2.0.0"
   },
   "MCPEDL/Addons/Waypoint-Helper": {
-    "project_id": "1799752"
+    "project_id": "1799752",
+    "last_published_version": "1.1.0",
+    "last_release_version": "1.0.0"
   },
   "MCPEDL/Maps/OneBlock-Void-Survival": {
     "project_id": "1740769",
