@@ -9,7 +9,8 @@
  * Restores placed light blocks back to air upon movement, unequip, death, or disconnect.
  *
  * Light modes (chosen by the Behavior Pack subpack, see scripts/mode.js):
- * - cursor (default): light is placed at the block face you are looking at (no head fallback)
+ * - cursor (default): a light near you in the view direction (so it looks like it comes from you)
+ *   plus a light at the block face you are looking at (no head fallback, no distance limit)
  * - head: light is placed just above your head
  */
 import { world, system, EquipmentSlot, BlockPermutation } from "@minecraft/server";
@@ -26,6 +27,7 @@ const LIGHT_POWERS = {
 
 const LIGHT_UPDATE_INTERVAL = 2; // Run every 2 ticks (10 times/sec)
 const CURSOR_MAX_DISTANCE = 1000; // Effectively unlimited; the game only reaches loaded chunks
+const NEAR_LIGHT_DISTANCE = 2; // Source light in front of you, in blocks (keeps the light looking like it comes from you)
 
 const FACE_OFFSETS = {
   Up: { x: 0, y: 1, z: 0 },
@@ -37,8 +39,8 @@ const FACE_OFFSETS = {
 };
 
 /**
- * State map storing active light block coordinates and current light level per player
- * @type {Map<string, { dim: any, x: number, y: number, z: number, level: number }>}
+ * State map storing the active light blocks and light level per player
+ * @type {Map<string, { dim: any, x: number, y: number, z: number, level: number }[]>}
  */
 const activePlayerLights = new Map();
 
@@ -64,13 +66,10 @@ function canHoldLight(block) {
 }
 
 /**
- * Restores a placed light block back to air safely
- * @param {string} playerId
+ * Restores one placed light block back to air safely
+ * @param {{ dim: any, x: number, y: number, z: number }} light
  */
-function removePlayerLight(playerId) {
-  const light = activePlayerLights.get(playerId);
-  if (!light) return;
-
+function clearLightBlock(light) {
   try {
     const block = light.dim.getBlock({ x: light.x, y: light.y, z: light.z });
     if (block && isLightBlock(block.typeId)) {
@@ -78,6 +77,19 @@ function removePlayerLight(playerId) {
     }
   } catch (e) {
     // Gracefully handle unloaded chunks or edge conditions
+  }
+}
+
+/**
+ * Restores all of a player's placed light blocks back to air safely
+ * @param {string} playerId
+ */
+function removePlayerLight(playerId) {
+  const lights = activePlayerLights.get(playerId);
+  if (!lights) return;
+
+  for (const light of lights) {
+    clearLightBlock(light);
   }
 
   activePlayerLights.delete(playerId);
@@ -143,13 +155,12 @@ function getPlayerLightPower(player) {
 }
 
 /**
- * Builds the ordered list of positions where the light may be placed
+ * Builds the light targets for a player. Each target is a list of fallback
+ * positions; the first one that can hold a light block is used.
  * @param {any} player
- * @returns {{x:number,y:number,z:number}[]}
+ * @returns {{x:number,y:number,z:number}[][]}
  */
-function getLightCandidates(player) {
-  const candidates = [];
-
+function getLightTargets(player) {
   if (LIGHT_MODE === "cursor") {
     try {
       const hit = player.getBlockFromViewDirection({
@@ -157,27 +168,49 @@ function getLightCandidates(player) {
         includeLiquidBlocks: false,
         includePassableBlocks: false
       });
-      if (hit && hit.block) {
-        const offset = FACE_OFFSETS[hit.face] || FACE_OFFSETS.Up;
-        candidates.push({
-          x: hit.block.location.x + offset.x,
-          y: hit.block.location.y + offset.y,
-          z: hit.block.location.z + offset.z
-        });
-      }
+      // Nothing in view: no cursor light
+      if (!hit || !hit.block) return [];
+
+      const bx = hit.block.location.x;
+      const by = hit.block.location.y;
+      const bz = hit.block.location.z;
+      const offset = FACE_OFFSETS[hit.face] || FACE_OFFSETS.Up;
+      const targets = [];
+
+      // Source light a short way in front of you, so the light looks like it comes from you
+      const head = player.getHeadLocation();
+      const dir = player.getViewDirection();
+      const fl = hit.faceLocation || { x: 0.5, y: 0.5, z: 0.5 };
+      const hitDistance = Math.hypot(bx + fl.x - head.x, by + fl.y - head.y, bz + fl.z - head.z);
+      const nearDistance = Math.max(0, Math.min(NEAR_LIGHT_DISTANCE, hitDistance - 1));
+      targets.push([
+        {
+          x: Math.floor(head.x + dir.x * nearDistance),
+          y: Math.floor(head.y + dir.y * nearDistance),
+          z: Math.floor(head.z + dir.z * nearDistance)
+        },
+        { x: Math.floor(head.x), y: Math.floor(head.y), z: Math.floor(head.z) }
+      ]);
+
+      // Light on the block face you are looking at
+      targets.push([{ x: bx + offset.x, y: by + offset.y, z: bz + offset.z }]);
+
+      return targets;
     } catch (e) {
-      // Nothing targetable (unloaded chunk or no block in view): no cursor light
+      // Unloaded chunk or nothing targetable: no cursor light
+      return [];
     }
-    return candidates;
   }
 
   // Head mode: just above the head, falling back to torso level
   const hx = Math.floor(player.location.x);
   const hz = Math.floor(player.location.z);
-  candidates.push({ x: hx, y: Math.floor(player.location.y + 1.6), z: hz });
-  candidates.push({ x: hx, y: Math.floor(player.location.y + 0.3), z: hz });
-
-  return candidates;
+  return [
+    [
+      { x: hx, y: Math.floor(player.location.y + 1.6), z: hz },
+      { x: hx, y: Math.floor(player.location.y + 0.3), z: hz }
+    ]
+  ];
 }
 
 /**
@@ -203,74 +236,61 @@ system.runInterval(() => {
       }
 
       const dim = player.dimension;
-      const candidates = getLightCandidates(player);
+      const targets = getLightTargets(player);
 
       // Cursor mode with nothing in view: no light
-      if (candidates.length === 0) {
+      if (targets.length === 0) {
         removePlayerLight(playerId);
         continue;
       }
 
-      const currentLight = activePlayerLights.get(playerId);
+      const oldLights = activePlayerLights.get(playerId) || [];
+      const newLights = [];
 
-      // Skip work if the light is already at the preferred position with the exact power
-      const first = candidates[0];
-      if (
-        currentLight &&
-        currentLight.dim === dim &&
-        currentLight.x === first.x &&
-        currentLight.y === first.y &&
-        currentLight.z === first.z &&
-        currentLight.level === power
-      ) {
-        continue;
-      }
+      for (const group of targets) {
+        for (const candidate of group) {
+          const duplicate = newLights.some(
+            (l) => l.x === candidate.x && l.y === candidate.y && l.z === candidate.z
+          );
+          if (duplicate) break;
 
-      // Use the first position that can hold a light block
-      let target = null;
-      for (const candidate of candidates) {
-        if (placeLightBlock(dim, candidate.x, candidate.y, candidate.z, power)) {
-          target = candidate;
-          break;
+          // Already placed here with the exact power: keep it
+          const existing = oldLights.find(
+            (l) =>
+              l.dim === dim &&
+              l.x === candidate.x &&
+              l.y === candidate.y &&
+              l.z === candidate.z &&
+              l.level === power
+          );
+          if (existing) {
+            newLights.push(existing);
+            break;
+          }
+
+          if (placeLightBlock(dim, candidate.x, candidate.y, candidate.z, power)) {
+            newLights.push({ dim, x: candidate.x, y: candidate.y, z: candidate.z, level: power });
+            break;
+          }
         }
       }
 
-      if (!target) {
+      // Nothing could be placed this tick: keep the previous lights
+      if (newLights.length === 0) {
         continue;
       }
-      const targetX = target.x;
-      const targetY = target.y;
-      const targetZ = target.z;
 
-      // Clean up previous position if player moved or light level changed
-      if (
-        currentLight &&
-        (currentLight.dim !== dim ||
-          currentLight.x !== targetX ||
-          currentLight.y !== targetY ||
-          currentLight.z !== targetZ ||
-          currentLight.level !== power)
-      ) {
-        try {
-          const oldBlock = currentLight.dim.getBlock({
-            x: currentLight.x,
-            y: currentLight.y,
-            z: currentLight.z
-          });
-          if (oldBlock && isLightBlock(oldBlock.typeId)) {
-            oldBlock.setPermutation(BlockPermutation.resolve("minecraft:air"));
-          }
-        } catch (e) {}
+      // Clean up previous positions that are no longer used
+      for (const old of oldLights) {
+        const stillUsed = newLights.some(
+          (l) => l.dim === old.dim && l.x === old.x && l.y === old.y && l.z === old.z
+        );
+        if (!stillUsed) {
+          clearLightBlock(old);
+        }
       }
 
-      // Update active light tracking
-      activePlayerLights.set(playerId, {
-        dim,
-        x: targetX,
-        y: targetY,
-        z: targetZ,
-        level: power
-      });
+      activePlayerLights.set(playerId, newLights);
     } catch (e) {}
   }
 }, LIGHT_UPDATE_INTERVAL);

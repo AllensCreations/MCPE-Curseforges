@@ -2,6 +2,12 @@
 
 ---
 
+## 2026-11-13 - Mining Helmet Light From You
+
+### Improved & Balanced
+
+- **Mining Helmet light from you**: Cursor Light also glows just in front of you so the light looks like it comes from you.
+
 ## 2026-11-13 - Mining Helmet Unlimited Cursor Light
 
 ### Improved & Balanced

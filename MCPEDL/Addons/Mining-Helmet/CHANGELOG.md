@@ -2,6 +2,13 @@
 
 ---
 
+## [1.14.3] - 2026-11-13 - Light From You
+
+### Improved & Balanced
+
+- **Light from you**: Cursor Light now also glows just in front of you, so it looks like the light comes from you even when you look through a one-block gap.
+- **Far light kept**: The light on the block you are looking at is still placed, with no distance limit.
+
 ## [1.14.2] - 2026-11-13 - Unlimited Cursor Light
 
 ### Improved & Balanced
