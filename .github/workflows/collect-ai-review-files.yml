@@ -101,6 +101,7 @@ jobs:
           }
           take PACK_GENERATOR_INSTRUCTIONS.md "$OUT/PACK_GENERATOR_INSTRUCTIONS.md"
           take INSTRUCTIONS.md "$OUT/INSTRUCTIONS.md"
+          take CHANGELOG.md "$OUT/CHANGELOG.md"
           for f in build_payload.py import_project_payload.py crafting_template.py generate_recipe_images.py \
                    convert_crafting_recipe_svgs_to_png.py ensure_recipe_unlocks.py make_pack_icon.py \
                    optimize_images.py manifest_tools.py doc_template.py build_test_world.py \
@@ -213,9 +214,10 @@ jobs:
           5b. Verify top CHANGELOG.md heading == new X.Y.Z == script filename version. Stop on mismatch. If project has manifests: check each source manifest `metadata.version` is X.Y.Z (Publish to CurseForge rewrites it; NEVER edit in script).
           5c. If INSTRUCTIONS.md or PACK_GENERATOR_INSTRUCTIONS.md changed: run `python3 scripts/check_instruction_files.py`. Stop on error
           6. `git add` changed paths only; `git commit -m "<short message>"`; `git push`
+          6b. Add an entry to the ROOT `CHANGELOG.md` (repo-wide, newest first under `---`): `## YYYY-MM-DD - [Update Name]`, groups `### Added` / `### Improved & Balanced` / `### Fixed`, bullets `- **Title**: what changed`. Every script, tooling-only included.
           7. After push, do NOT start any workflow. Build Changed Packs & Sync Catalogs runs by itself on every push and rebuilds everything. Nothing auto-bumps; Publish to CurseForge uploads the newest changelog version as written.
           8. Idempotent: skip anything already applied.
-          9. Last line, reached only after a successful push: `rm -f -- "$0"` (the script deletes itself).
+          9. Last line, reached only after a successful push: `rm -f -- "$SELF"` (the script deletes itself; save `SELF="$(readlink -f -- "$0")"` on line 2, before the `cd`).
 
           ## Docs (every update, same script)
           - Templates STRICT: README.md, DESCRIPTION.md, CHANGELOG.md match templates below exactly: same headings, text, order, labels, bullet format. NEVER add/remove/rename/merge/reorder sections. No boilerplate/extra text. No placeholders: fill every [bracket] with verified content. Accuracy + requested scope outrank template.
@@ -298,7 +300,7 @@ jobs:
           ```
 
           ### CHANGELOG.md
-          - `# Changelog — [Name]`, `---`, then newest first: `## [X.Y.Z] - YYYY-MM-DD` (date: `TZ=Asia/Singapore date +%F`).
+          - `# Changelog — [Name]`, `---`, then newest first: `## [X.Y.Z] - YYYY-MM-DD - [Update Name]` (date: `TZ=Asia/Singapore date +%F`). [Update Name] = short player-facing title (2-6 words) of what is new. REQUIRED on every new entry.
           - Groups: `### Added`, `### Improved & Balanced`, `### Fixed` (bugs as in-game experience). Omit empty groups. Each group >=1 bullet.
           - Entry: `- **Title**: player impact.`
           - NO links, URLs, badges, function/event names, unverified benefits. No boilerplate after title.
@@ -498,6 +500,7 @@ jobs:
           # 3. The files requested
           copy_item scripts/build_oneblock_variants_from_template.py
           copy_item INSTRUCTIONS.md
+          copy_item CHANGELOG.md
           copy_item changelog_views
           copy_item PACK_GENERATOR_INSTRUCTIONS.md
           copy_item .agents/skills/checkrm/SKILL.md

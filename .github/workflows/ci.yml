@@ -61,6 +61,7 @@ jobs:
           python scripts/test_migrate_three_part_versions.py
           python scripts/test_auto_curseforge_publish.py
           python scripts/test_delete_project.py
+          python scripts/test_changelog_names.py
           python scripts/test_check_instruction_files.py
 
       - name: Project pipeline self-test

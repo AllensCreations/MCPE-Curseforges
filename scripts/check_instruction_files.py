@@ -58,7 +58,7 @@ def fill(template):
     t = t.replace("[Pack Name]", "Test Pack").replace("[Add-on Name]", "Test Pack")
     t = t.replace("verified-direct-download-link", "https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/README.md")
     t = t.replace("verified-DESCRIPTION-link", "https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/Test-Pack/DESCRIPTION.md")
-    t = t.replace("YYYY-MM-DD", "2026-01-01")
+    t = t.replace("YYYY-MM-DD", "2026-01-01").replace("[Update Name]", "First Release")
     return t
 
 

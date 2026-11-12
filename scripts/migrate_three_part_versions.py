@@ -13,7 +13,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 import manifest_tools
 
 CATEGORIES = ("Addons", "Maps", "Script", "Minigame")
-HEADING = re.compile(r"^## \[(\d+\.\d+\.\d+(?:\.\d+)?)\] - (\d{4}-\d{2}-\d{2})\s*$")
+HEADING = re.compile(r"^## \[(\d+\.\d+\.\d+(?:\.\d+)?)\] - (\d{4}-\d{2}-\d{2})(?: - (\S.*?))?\s*$")
 VERSION = re.compile(r"^\d+\.\d+\.\d+(?:\.\d+)?$")
 
 def migrate_version(value):
@@ -79,7 +79,7 @@ def migrate_changelog(path, write=True):
             if current is not None:
                 sections.append(current)
             version = migrate_version(match.group(1))
-            current = [version, match.group(2), [f"## [{version}] - {match.group(2)}"]]
+            current = [version, match.group(2), [f"## [{version}] - {match.group(2)}" + (f" - {match.group(3).strip()}" if match.group(3) else "")]]
         elif current is None:
             preamble.append(line)
         else:

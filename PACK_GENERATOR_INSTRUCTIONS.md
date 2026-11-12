@@ -1,4 +1,4 @@
-# Pack Generator Instructions (AI Agent, v18)
+# Pack Generator Instructions (AI Agent, v19)
 
 Builds a complete **addon**, **map**, **script**, or **minigame** from the user's idea. Returns ONE line of base64 for GitHub workflow **Create Project from Base64**.
 
@@ -266,7 +266,7 @@ CHANGELOG.md. Newest first. Groups: Added, Improved & Balanced, Fixed (bugs as i
 
 ---
 
-## [1.0.0] - YYYY-MM-DD
+## [1.0.0] - YYYY-MM-DD - [Update Name]
 
 ### Added
 - **[Feature Title]**: [Clear summary of the new gameplay feature and how players use it].

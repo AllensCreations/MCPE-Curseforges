@@ -1,4 +1,4 @@
-# Instructions: Core Repository Policy (v6)
+# Instructions: Core Repository Policy (v7)
 
 Repo policy, docs, audit rules for ALNStudios/MCPE-Curseforges. Generating a new project: `PACK_GENERATOR_INSTRUCTIONS.md`.
 
@@ -37,7 +37,8 @@ Output ONLY, in order, exact headings:
 6. Run `python3 scripts/check_instruction_files.py` when an instruction file changed.
 7. `git add` changed paths only; `git commit -m "<short>"`; `git push`
 8. Idempotent: skip applied changes.
-9. After a successful push, delete the script itself: `rm -f -- "$0"` (last line, only reached when everything above passed).
+9. Add an entry to the root `CHANGELOG.md` (repo-wide, newest first under `---`): `## YYYY-MM-DD - [Update Name]`, then `### Added` / `### Improved & Balanced` / `### Fixed` with `- **Title**: what changed`. Every script does this, tooling-only changes included.
+10. After a successful push, delete the script itself: `rm -f -- "$SELF"` (SELF = absolute path saved before `cd`; last line, only reached when everything above passed).
 CHANGELOG.md mandatory in every project update (Part 2 format, new `X.Y.Z` heading == script filename version). NEVER edit manifest versions or README download links by hand (build aligns them).
 
 ## Precedence
@@ -366,7 +367,7 @@ CHANGELOG.md. Newest first. Groups: Added, Improved & Balanced, Fixed (bugs as i
 
 ---
 
-## [1.0.0] - YYYY-MM-DD
+## [1.0.0] - YYYY-MM-DD - [Update Name]
 
 ### Added
 - **[Feature Title]**: [Clear summary of the new gameplay feature and how players use it].
@@ -432,6 +433,7 @@ CHANGELOG.md. Newest first. Groups: Added, Improved & Balanced, Fixed (bugs as i
 - [ ] Verification stated: source created | package built | in-game tested, never mixed.
 
 ## Version History
+- **v7:** Every changelog entry has a Name. Root `CHANGELOG.md` for the whole repo, updated by every script and included in the AI review bundle.
 - **v6:** Nothing auto-bumps; build is passive; publish is its own workflow (no bump, groups changelog); Delete Package; scripts delete themselves after a successful push.
 - **v5:** Telegram-style rewrite. NEVER/ALWAYS tags. Task index, one file per task. Three-section reply format. Workflow table removed (read the workflow files). Legacy four-part version notes removed. Templates synced to `doc_template.py`. Size cap 50 KB (`scripts/check_instruction_files.py`).
 - **v4:** Reply format section.

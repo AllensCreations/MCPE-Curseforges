@@ -15,7 +15,7 @@ ROOT = Path(__file__).resolve().parents[1]
 OUT = ROOT / "changelog_views"
 CATEGORIES = ("Addons", "Maps", "Script", "Minigame")
 TITLE = re.compile(r"^# Changelog — (.+)$")
-ENTRY = re.compile(r"^## \[(\d+)\.(\d+)\.(\d+)(?:\.(\d+))?\] - (\d{4}-\d{2}-\d{2})$")
+ENTRY = re.compile(r"^## \[(\d+)\.(\d+)\.(\d+)(?:\.(\d+))?\] - (\d{4}-\d{2}-\d{2})(?: - (\S.*))?$")
 GROUP = re.compile(r"^### (.+)$")
 BULLET = re.compile(r"^- \*\*([^*]+)\*\*: (\S.*)$")
 
@@ -30,7 +30,7 @@ def parse(text):
             continue
         e = ENTRY.match(line)
         if e:
-            cur = {"v": tuple(int(x or 0) for x in e.groups()[:4]), "date": e.group(5), "groups": []}
+            cur = {"v": tuple(int(x or 0) for x in e.groups()[:4]), "date": e.group(5), "name": (e.group(6) or "").strip(), "groups": []}
             releases.append(cur)
             grp = None
             continue
@@ -62,7 +62,7 @@ def series(releases):
 
 
 def release_md(r, level):
-    out = [f"{'#' * level} [{ver(r)}] - {r['date']}", ""]
+    out = [f"{'#' * level} [{ver(r)}] - {r['date']}" + (f" - {r['name']}" if r.get("name") else ""), ""]
     for g in r["groups"]:
         out.append(f"{'#' * (level + 1)} {g['title']}")
         out.extend(f"- **{t}**: {x}" for t, x in g["items"])
@@ -84,7 +84,7 @@ def build_github(name, releases, keep_open):
 
 
 def release_html(r, level):
-    out = [f"<h{level}>{ver(r)} - {r['date']}</h{level}>"]
+    out = [f"<h{level}>{ver(r)} - {r['date']}" + (f" - {html.escape(r['name'])}" if r.get("name") else "") + f"</h{level}>"]
     for g in r["groups"]:
         out.append(f"<h{level + 1}>{html.escape(g['title'])}</h{level + 1}>")
         items = "".join(f"<li><strong>{html.escape(t)}</strong>: {html.escape(x)}</li>" for t, x in g["items"])

@@ -18,7 +18,7 @@ import auto_bump_and_build as builder
 
 REPO_ROOT = Path(builder.REPO_ROOT)
 CHANGELOG_HEADER = re.compile(
-    r"^## \[(\d+\.\d+\.\d+(?:\.\d+)?)\] - (\d{4}-\d{2}-\d{2})\s*$"
+    r"^## \[(\d+\.\d+\.\d+(?:\.\d+)?)\] - (\d{4}-\d{2}-\d{2})(?: - (\S.*?))?\s*$"
 )
 PACKAGE_EXTENSIONS = {
     "Addons": ".mcaddon",
@@ -343,19 +343,26 @@ def _updates(count):
     return f"{count} update" + ("s" if count != 1 else "")
 
 
-def _intro(new_version, versions):
+def _entry_name(entry):
+    match = CHANGELOG_HEADER.fullmatch(entry[2])
+    return (match.group(3) or "").strip() if match else ""
+
+
+def _intro(new_version, versions, names=()):
+    names = [name for name in names if name]
+    named = f" Includes: {'; '.join(names)}." if names else ""
     if len(versions) == 1:
-        return f"**What's new in v{new_version}:** Packed with the v{versions[0]} update."
+        return f"**What's new in v{new_version}:** Packed with the v{versions[0]} update.{named}"
     return (
         f"**What's new in v{new_version}:** Packed with {len(versions)} updates, "
-        f"from v{versions[-1]} through v{versions[0]}."
+        f"from v{versions[-1]} through v{versions[0]}.{named}"
     )
 
 
 def render_flat_entry(new_version, date_text, merged):
     """ONE markdown entry for beta (and for CHANGELOG.md): every merged entry grouped by heading."""
     body = _merge_bodies([entry[3].partition("\n")[2] for entry in merged])
-    return f"## [{new_version}] - {date_text}\n\n{_intro(new_version, [e[1] for e in merged])}\n\n{body}"
+    return f"## [{new_version}] - {date_text}\n\n{_intro(new_version, [e[1] for e in merged], [_entry_name(e) for e in merged])}\n\n{body}"
 
 
 def changelog_style():
@@ -485,7 +492,7 @@ def combine_changelog(project_dir, changelog_path, last_published=None, today=No
         match = CHANGELOG_HEADER.fullmatch(first)
         if match:
             normalized = ".".join(str(part) for part in parse_version(match.group(1)))
-            first = f"## [{normalized}] - {match.group(2)}"
+            first = f"## [{normalized}] - {match.group(2)}" + (f" - {match.group(3).strip()}" if match.group(3) else "")
         remaining.append(first + (sep + rest if sep else ""))
     changelog_path.write_text(preamble + file_entry + "\n\n" + "\n\n".join(remaining).lstrip(), encoding="utf-8")
     return new_version, upload_changelog

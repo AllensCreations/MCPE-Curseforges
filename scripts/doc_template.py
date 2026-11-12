@@ -312,7 +312,7 @@ def check_changelog(text, version, errors):
     versions, group_order, current, bullets_in_group = [], -1, None, 0
     in_entries = False
     for i, line in ne[2:]:
-        entry = re.match(r"^## \[(\d+\.\d+\.\d+(?:\.\d+)?)\] - (\d{4}-\d{2}-\d{2})$", line)
+        entry = re.match(r"^## \[(\d+\.\d+\.\d+(?:\.\d+)?)\] - (\d{4}-\d{2}-\d{2})(?: - \S.*)?$", line)
         group = re.match(r"^### (.+)$", line)
         bullet = re.match(r"^- \*\*[^*]+\*\*: \S", line)
         if entry:
@@ -412,7 +412,7 @@ def compliant_docs(ptype, name, version, ext=None, date="2026-01-01"):
                   )
               ) + "\n\n## Pack Information\n\n"
               f"For gameplay features, usage details, compatibility notes, and other project information, read the [full description]({base}/MCPEDL/{category}/{slug}/DESCRIPTION.md).\n")
-    changelog = (f"# Changelog — {name}\n\n---\n\n## [{version}] - {date}\n\n### Added\n- **First release**: Players can use the new creation.\n")
+    changelog = (f"# Changelog — {name}\n\n---\n\n## [{version}] - {date} - First Release\n\n### Added\n- **First release**: Players can use the new creation.\n")
     return {"README.md": readme, "DESCRIPTION.md": description, "CHANGELOG.md": changelog}
 
 
