@@ -2,6 +2,12 @@
 
 ---
 
+## 2026-11-13 - Description Page Title Fix
+
+### Fixed
+- **Description pages for every pack**: The CurseForge description page now builds for packs whose DESCRIPTION.md title uses a different dash, a colon, a version tag or no subtitle at all. A missing title falls back to the folder name.
+- **Export no longer stops**: A description page that cannot be built now shows a warning instead of failing Collect Files for AI Review.
+
 ## 2026-11-13 - CurseForge Description Page
 
 ### Added

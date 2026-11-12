@@ -137,12 +137,21 @@ def compat_table(body):
     return '<table style="width:100%"><tbody>' + "".join(rows) + "</tbody></table>"
 
 
-def render(md):
+def pack_name(pre, fallback):
+    """Name from the first '# ' title: any dash/colon subtitle and a trailing (vX.Y.Z) are dropped.
+    No title at all -> the folder name."""
+    head = re.search(r"(?m)^#\s+(.+?)\s*$", pre)
+    if head:
+        raw = re.sub(r"\s*\(v?\d+\.\d+\.\d+\)\s*$", "", head.group(1))
+        name = re.split(r"\s+[\u2014\u2013-]+\s+|:\s+", raw, maxsplit=1)[0].strip()
+        if name:
+            return name
+    return fallback.replace("-", " ").replace("_", " ").strip() or "Pack"
+
+
+def render(md, fallback=""):
     pre, sec = sections(md)
-    head = re.search(r"(?m)^# (.+?) — (.+)$", pre)
-    if not head:
-        raise ValueError("DESCRIPTION.md line 1 must be '# [Name] — [subtitle]'")
-    name = head.group(1).strip()
+    name = pack_name(pre, fallback)
     tagline = re.search(r"(?m)^\*\*(?!By )(.+)\*\*\s*$", pre)
     pitch = re.search(r"(?m)^>\s*(.+)$", pre)
     hero = ['<div style="background-color:#1b2430;color:#ffffff;text-align:center;border-radius:10px;line-height:1.5"><br>',
@@ -222,7 +231,7 @@ def main(argv=None):
     bad = 0
     for p in projects:
         try:
-            h = render((p / "DESCRIPTION.md").read_text(encoding="utf-8"))
+            h = render((p / "DESCRIPTION.md").read_text(encoding="utf-8"), p.name)
         except ValueError as e:
             print(f"FAIL {p.name}: {e}")
             bad += 1

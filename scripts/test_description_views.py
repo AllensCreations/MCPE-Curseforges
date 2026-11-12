@@ -26,6 +26,17 @@ class DescriptionViewTests(unittest.TestCase):
     def test_compat_has_three_rows(self):
         self.assertEqual(self.html.count("<tr>"), 3)
 
+    def test_other_title_styles_still_build(self):
+        body = "\n## Overview\n\nText.\n"
+        for title, want in (("# Grimoire Relics V2", "Grimoire Relics V2"),
+                            ("# Monster Companions - Tame mobs", "Monster Companions"),
+                            ("# Vanilla QoL \u2013 Small fixes (v1.2.0)", "Vanilla QoL"),
+                            ("# Passive Tools: Auto switch", "Passive Tools"),
+                            ("No title here", "Dirtbound Kingdom Beta")):
+            h = bdv.render(title + body, "Dirtbound-Kingdom-Beta")
+            self.assertIn(want, h)
+            self.assertEqual(bdv.check_html(h), [])
+
     def test_unsupported_html_is_caught(self):
         self.assertTrue(bdv.check_html("<script>x</script>"))
         self.assertTrue(bdv.check_html('<p style="padding:4px">x</p>'))
