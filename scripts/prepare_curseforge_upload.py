@@ -365,7 +365,7 @@ def changelog_style():
 
 def changelog_type(release_type):
     """CurseForge changelogType for an upload: html only when a fold layout is sent."""
-    return "html" if release_type != "beta" and changelog_style() == "spoiler" else "markdown"
+    return "markdown"
 
 
 def _fold(summary, inner, is_open, style, level):
@@ -411,17 +411,8 @@ def render_rollup(entries, new_version, release_type, style="spoiler"):
 
 def render_upload_changelog(new_version, date_text, merged, entries, release_type, style=None):
     """The changelog text sent to CurseForge: flat markdown for beta, grouped release history."""
-    if release_type == "beta":
-        return render_flat_entry(new_version, date_text, merged)
-    style = style or changelog_style()
-    intro = (
-        f"**What's new in v{new_version}:** Rolls up {_updates(len(entries))}, "
-        f"from v{entries[-1][1]} through v{entries[0][1]}, grouped by version."
-    )
-    rollup = render_rollup(entries, new_version, release_type, style)
-    if style == "spoiler":
-        return f"<h2>[{new_version}] - {date_text}</h2><p>{_inline_html(intro)}</p>{rollup}"
-    return f"## [{new_version}] - {date_text}\n\n{intro}\n\n{rollup}"
+    # Everything is a Release now: one flat entry, no per-version grouping.
+    return render_flat_entry(new_version, date_text, merged or entries)
 
 
 def merge_baseline(release_type, info):
@@ -601,14 +592,14 @@ def prepare(project_path, release_type, map_variant="default", rebuild=True, bum
         )
 
     package_path = stage_upload_copy(
-        package_path, release_type, project_name, map_variant, changelog_version,
+        package_path, "release", project_name, map_variant, changelog_version,
         title=builder.manifest_tools.manifest_title(str(project_dir)) if getattr(builder, "manifest_tools", None) else None,
     )
     metadata = {
         "changelog": changelog,
         "changelogType": changelog_type(release_type),
         "displayName": package_path.stem,
-        "releaseType": release_type,
+        "releaseType": "release",
     }
 
     runner_temp = Path(os.environ.get("RUNNER_TEMP", tempfile.gettempdir()))

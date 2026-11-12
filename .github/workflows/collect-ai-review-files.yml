@@ -178,7 +178,7 @@ jobs:
           6. `## Key Features`
           7. `## How to Use`
           8. `## Compatibility`: Minecraft Bedrock Edition, Experimental features, Achievements, Verification
-          9. `## Creator and Permissions`: `- Creator: ALNStudios`, `- Profiles:` CurseForge https://www.curseforge.com/members/allenscreations/projects · MCPEDL https://mcpedl.com/user/allenscreations/, then the two clickable listing images (HTML, `width="45%"`, no `height`, raw URLs `assets/Images/curseforge.jpg`, `assets/Images/MCPEDL.jpg`). NEVER edit/copy the images
+          9. `## Creator and Permissions`: `- Creator: ALNStudios`, `- Profiles:` CurseForge https://www.curseforge.com/members/allenscreations/projects · MCPEDL https://mcpedl.com/user/alnstudios/, then the two clickable listing images (HTML, `width="45%"`, no `height`, raw URLs `assets/Images/curseforge.jpg`, `assets/Images/MCPEDL.jpg`). NEVER edit/copy the images
           10. `## Guidelines and Attribution`
           11. `---` then `## Search & Discovery Keywords` from real features
           - Add-ons: Achievements line ALWAYS `Likely achievement-friendly`; add caveats if world settings/cheats can disable achievements.

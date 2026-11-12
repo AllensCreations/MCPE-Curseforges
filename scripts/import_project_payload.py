@@ -69,8 +69,14 @@ def resolve_payload(root: Path, payload_file: str | None) -> tuple[str, str | No
     env_text = os.environ.get("PROJECT_PAYLOAD") or os.environ.get("ONEBLOCK_PAYLOAD", "")
     path: Path | None = None
     if payload_file:
-        given = Path(payload_file)
+        given = Path(payload_file.strip())
         path = (incoming / given.name) if len(given.parts) == 1 else (root / given).resolve()
+        if not path.is_file() and not path.suffix:
+            # The extension is optional: "Monster-Companions" finds Monster-Companions.b64 (or .txt).
+            for ext in (".b64", ".txt"):
+                if path.with_name(path.name + ext).is_file():
+                    path = path.with_name(path.name + ext)
+                    break
         try:
             path.relative_to(incoming)
         except ValueError:
@@ -78,11 +84,14 @@ def resolve_payload(root: Path, payload_file: str | None) -> tuple[str, str | No
         if not path.is_file():
             fail(f"Payload file not found: {path.relative_to(root).as_posix()}")
     elif not env_text.strip():
-        found = sorted(incoming.glob("*.b64")) if incoming.is_dir() else []
+        # .b64, .txt, or no extension at all; dotfiles and READMEs are ignored.
+        found = sorted(f for f in incoming.iterdir()
+                       if f.is_file() and not f.name.startswith(".") and f.suffix.lower() in (".b64", ".txt", "")
+                       and f.stem.lower() != "readme") if incoming.is_dir() else []
         if not found:
-            fail("No payload: commit a .b64 file to MCPEDL/incoming/ or paste base64 into the workflow.")
+            fail("No payload: commit a payload file (.b64, .txt, or no extension) to MCPEDL/incoming/ or paste base64 into the workflow.")
         if len(found) > 1:
-            fail("Several .b64 files in MCPEDL/incoming/: " + ", ".join(f.name for f in found)
+            fail("Several payload files in MCPEDL/incoming/: " + ", ".join(f.name for f in found)
                  + ". Enter the file name in payload_file.")
         path = found[0]
     if path is not None:

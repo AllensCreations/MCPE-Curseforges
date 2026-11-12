@@ -15,7 +15,7 @@ name: Build Changed Packs & Sync Catalogs
 #     (written by "Register CurseForge ID", which also refreshes the dropdown).
 #     Versions are X.Y.Z everywhere: Update increments Z, Beta increments Y and resets Z, Release increments X and resets Y/Z.
 #     Minecraft Bedrock manifests, metadata, titles, changelogs, package filenames and snapshots stay synchronized.
-#     Publishing supports only Beta and Release; ordinary builds perform Updates.
+#     Every publish is uploaded as a Release (no Release/Beta split); the version numbering is unchanged.
 #     Set the repo variable CURSEFORGE_CHANGELOG_STYLE=plain to send markdown headings instead of spoiler folds.
 #     After a successful upload the build task runs automatically (all projects) in the same run.
 #
@@ -101,7 +101,6 @@ on:
           # BEGIN script
           - "-"
           - "Chrono-Bed"
-          - "Target-HUD-Entity-Inspector"
           # END script
       minigame:
         description: "[build] Project from MCPEDL/Minigame (only when scope = one project)"
@@ -152,7 +151,6 @@ on:
           - "MCPEDL/Addons/Vanilla-Quality-of-Life"
           - "MCPEDL/Maps/OneBlock-Void-Survival"
           - "MCPEDL/Minigame/Shared-Hivemind-Inventory"
-          - "MCPEDL/Script/Target-HUD-Entity-Inspector"
           # END registered
       publish_map_variant:
         description: "[publish] Maps only (default = auto, all = Creative + Survival + Hardcore)"
@@ -165,14 +163,6 @@ on:
           - Survival
           - Hardcore
           - all
-      publish_release_type:
-        description: "[publish] beta increments Y and resets Z; release increments X and resets Y/Z"
-        required: true
-        default: beta
-        type: choice
-        options:
-          - beta
-          - release
 
 # Least privilege by default; each job asks for what it needs.
 permissions:
@@ -233,7 +223,8 @@ jobs:
           CURSEFORGE_API_TOKEN: ${{ secrets.CURSEFORGE_API_TOKEN }}
           PROJECT_PATH: ${{ inputs.publish_project }}
           MAP_VARIANT: ${{ inputs.publish_map_variant }}
-          RELEASE_TYPE: ${{ inputs.publish_release_type }}
+          # Every upload is a CurseForge Release. The pack version step is unchanged (X.Y.Z).
+          RELEASE_TYPE: beta
           CURSEFORGE_CHANGELOG_STYLE: ${{ vars.CURSEFORGE_CHANGELOG_STYLE || 'spoiler' }}
           PACK_FILENAME_TEMPLATE: ${{ vars.PACK_FILENAME_TEMPLATE }}
         run: |

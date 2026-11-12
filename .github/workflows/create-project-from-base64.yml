@@ -6,7 +6,7 @@ name: Create Project from Base64
 #   map    -> MCPEDL/Maps/<Name>/      (+ Creative/Survival/Hardcore worlds)
 #   script   -> MCPEDL/Script/<Name>/    (.mcpack + Creative test world)
 #   minigame -> MCPEDL/Minigame/<Name>/  (.mcaddon + Controller + Creative test world)
-# Inputs: payload_base64, import_mode, commit_mode. The project name is read from
+# Inputs: payload_base64 OR payload_file (a file in MCPEDL/incoming/, extension optional), import_mode, commit_mode. The project name is read from
 # project.json inside the payload (spaces become hyphens).
 # import_mode:
 #   auto      -> update if the project already exists, otherwise create (default)
@@ -32,8 +32,14 @@ on:
           - update
           - overwrite
       payload_base64:
-        description: "Base64 of the project ZIP, single line. The project name is read from project.json inside it."
-        required: true
+        description: "Base64 of the project ZIP, single line. Leave empty when using payload_file."
+        required: false
+        default: ""
+        type: string
+      payload_file:
+        description: "File in MCPEDL/incoming/ (extension optional, e.g. Monster-Companions or Monster-Companions.b64). Empty = paste above, or the only file in the folder."
+        required: false
+        default: ""
         type: string
       commit_mode:
         description: "pull_request opens a PR to review (default); direct pushes straight to the branch"
@@ -59,6 +65,7 @@ jobs:
     env:
       IMPORT_MODE: ${{ inputs.import_mode }}
       PROJECT_PAYLOAD: ${{ inputs.payload_base64 }}
+      PAYLOAD_FILE: ${{ inputs.payload_file }}
       COMMIT_MODE: ${{ inputs.commit_mode }}
     steps:
       - name: Checkout repository
@@ -98,6 +105,7 @@ jobs:
         run: |
           set -euo pipefail
           ARGS=(--mode "$IMPORT_MODE" --github-output "$GITHUB_OUTPUT")
+          if [ -n "${PAYLOAD_FILE// /}" ]; then ARGS+=(--payload-file "$PAYLOAD_FILE"); fi
           python scripts/import_project_payload.py "${ARGS[@]}"
 
       # ---- maps: build the three OneBlock worlds ----

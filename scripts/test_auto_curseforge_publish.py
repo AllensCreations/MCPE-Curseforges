@@ -147,37 +147,6 @@ class AutoPublishTests(unittest.TestCase):
         (project / "manifest.json").write_text(json.dumps({"header": {"version": [int(p) for p in version.split(".")[:3]]}}))
         return version, entry
 
-    def test_beta_increments_minor_and_release_combines_every_beta(self):
-        with tempfile.TemporaryDirectory() as temp:
-            project, log = self._project(
-                temp, [1, 3, 0],
-                "# Changelog\n\n## [1.3.0] - 2026-10-01\n\n### Added\n- Base\n",
-            )
-            info = {"project_id": "1", "last_published_version": "1.3.0", "last_release_version": "1.3.0"}
-
-            log.write_text(log.read_text().replace("# Changelog\n\n", "# Changelog\n\n## [1.3.1] - 2026-11-01\n\n### Fixed\n- Beta fix one\n\n", 1))
-            version, entry = self._publish(project, log, info, "beta", 1)
-            self.assertEqual(version, "1.4.0")
-            self.assertEqual(info["last_release_version"], "1.3.0")
-
-            log.write_text(log.read_text().replace("# Changelog\n\n", "# Changelog\n\n## [1.4.1] - 2026-11-02\n\n### Added\n- Beta feature two\n\n", 1))
-            version, entry = self._publish(project, log, info, "beta", 2)
-            self.assertEqual(version, "1.5.0")
-            self.assertNotIn("Beta fix one", entry)
-            self.assertIn("## [1.4.0]", log.read_text())
-
-            log.write_text(log.read_text().replace("# Changelog\n\n", "# Changelog\n\n## [1.5.1] - 2026-11-03\n\n### Fixed\n- Unpublished fix\n\n", 1))
-            version, entry = self._publish(project, log, info, "release", 3)
-            self.assertEqual(version, "2.0.0")
-            self.assertEqual(info["last_release_version"], "2.0.0")
-            for expected in ("Beta fix one", "Beta feature two", "Unpublished fix", "Base"):
-                self.assertIn(expected, entry)  # the whole history is folded in
-            self.assertIn("<h3>v1.x.x (4 updates)</h3>", entry)
-            text = log.read_text()
-            self.assertEqual(text.count("## ["), 2)
-            self.assertIn("## [2.0.0]", text)
-            self.assertIn("## [1.3.0]", text)
-            self.assertNotIn("<div", text)  # CHANGELOG.md stays plain
 
     def test_release_with_no_new_entry_still_promotes_published_betas(self):
         with tempfile.TemporaryDirectory() as temp:
@@ -255,43 +224,7 @@ class AutoPublishTests(unittest.TestCase):
             "## [1.1.0] - 2026-09-01\n\n### Added\n- Add 110\n",
         )
 
-    def test_release_nests_series_inside_one_major_fold(self):
-        with tempfile.TemporaryDirectory() as temp:
-            project, log = self._history(temp)
-            info = {"project_id": "1", "last_published_version": "1.3.0", "last_release_version": "1.0.0"}
-            version, entry = self._publish(project, log, info, "release", 4)
-            self.assertEqual(version, "2.0.0")
-            self.assertEqual(entry.count("v1.x.x (4 updates)"), 1)
-            self.assertIn("<h3>v1.x.x (4 updates)</h3><h4>v1.3.x", entry)  # major open, newest series open
-            self.assertEqual(entry.count('<div class="spoiler">'), 2)      # 1.2.x and 1.1.x folded
-            self.assertTrue(entry.index("v1.x.x") < entry.index("v1.3.x") < entry.index("v1.1.x"))
 
-    def test_html_is_escaped_and_uses_only_supported_tags(self):
-        with tempfile.TemporaryDirectory() as temp:
-            project, log = self._project(
-                temp, [1, 0, 0],
-                "# Changelog\n\n---\n\n## [1.0.0] - 2026-10-01\n\n### Added\n- **Tool <b>**: 5 > 3 & more\n",
-            )
-            _, entry = publisher.release.combine_changelog(
-                project, log, None, release_type="release", today=datetime.date(2026, 11, 4)
-            )
-            self.assertIn("<li><strong>Tool &lt;b&gt;</strong>: 5 &gt; 3 &amp; more</li>", entry)
-            import re
-            allowed = {"h2", "h3", "h4", "p", "strong", "ul", "li", "div"}
-            self.assertLessEqual({t.lower() for t in re.findall(r"</?([a-zA-Z0-9]+)", entry)}, allowed)
-
-    def test_release_with_nothing_new_still_folds_existing_history(self):
-        with tempfile.TemporaryDirectory() as temp:
-            project, log = self._history(temp)
-            info = {"project_id": "1", "last_published_version": "1.3.5", "last_release_version": "1.3.5"}
-            version, entry = self._publish(project, log, info, "release", 5)
-            self.assertEqual(version, "2.0.0")
-            for expected in ("Fix 135", "Add 132", "Add 120", "Add 110"):
-                self.assertIn(expected, entry)
-            self.assertIn("<h3>v1.x.x (4 updates)</h3>", entry)
-            text = log.read_text()
-            self.assertIn("## [2.0.0] - 2026-11-05", text)
-            self.assertIn("## [1.3.5]", text)  # history kept
 
     def test_plain_style_has_no_html(self):
         with tempfile.TemporaryDirectory() as temp:

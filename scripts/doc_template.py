@@ -5,13 +5,17 @@
   python3 scripts/doc_template.py --project NAME  audit one project
   python3 scripts/doc_template.py PATH            audit a folder (a payload folder or a project folder)
 """
-import argparse, datetime, json, re, sys
+import argparse, datetime, json, os, re, sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 CF_URL = "https://www.curseforge.com/members/allenscreations/projects"
-MP_URL = "https://mcpedl.com/user/allenscreations/"
-IMG_BASE = "https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/assets/Images/"
+MP_URL = "https://mcpedl.com/user/alnstudios/"
+# The repo is private, so raw.githubusercontent.com URLs no longer load on CurseForge/MCPEDL.
+# Set LISTING_IMAGE_BASE (repo variable or env) to a PUBLIC folder holding curseforge.jpg and MCPEDL.jpg.
+IMG_BASE = os.environ.get("LISTING_IMAGE_BASE", "https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/assets/Images/")
+if not IMG_BASE.endswith("/"):
+    IMG_BASE += "/"
 IMG_MAX_BYTES = 200 * 1024
 LISTINGS = {
     "CurseForge": ("https://www.curseforge.com/", "curseforge.jpg", CF_URL),

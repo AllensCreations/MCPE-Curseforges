@@ -14,7 +14,7 @@ import sync_readme_links as srl
 ROOT = cmv.ROOT
 ALL_DOCS = ("readme", "description", "changelog")
 CF_URL = "https://www.curseforge.com/members/allenscreations/projects"
-MP_URL = "https://mcpedl.com/user/allenscreations/"
+MP_URL = "https://mcpedl.com/user/alnstudios/"
 
 from doc_template import (DESCRIPTION_BADGES, GUIDELINES, KEYWORD_ANCHORS,
                           apply_description_policy)  # noqa: E402

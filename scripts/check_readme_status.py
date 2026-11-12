@@ -452,7 +452,7 @@ Explore the verified gameplay and interactions described in the feature cards be
 ## Creator and Permissions
 
 - Creator: ALNStudios
-- Profiles: [CurseForge Profile](https://www.curseforge.com/members/allenscreations/projects) · [MCPEDL Profile](https://mcpedl.com/user/allenscreations/)
+- Profiles: [CurseForge Profile](https://www.curseforge.com/members/allenscreations/projects) · [MCPEDL Profile](https://mcpedl.com/user/alnstudios/)
 
 ## Guidelines and Attribution
 
