@@ -35,7 +35,7 @@ This directory stores compiled Add-ons (`.mcaddon`), Maps (`.mcworld`), Scripts 
 | **Talking Pirate Parrots** | Add-on (.mcaddon) | [Download (.mcaddon)](Talking-Pirate-Parrots_payload/Talking%20Pirate%20Parrots%20by%20ALNStudios%20%28V1.0.3%29.mcaddon) | [`Talking-Pirate-Parrots_payload/`](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/builds/Talking-Pirate-Parrots_payload/) |
 | **OP Sponge** | Add-on (.mcaddon) | [Download (.mcaddon)](OP-Sponge/OP%20Sponge%20by%20ALNStudios%20%28V1.0.1%29.mcaddon) | [`OP-Sponge/`](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/builds/OP-Sponge/) |
 | **Cheat Stick** | Add-on (.mcaddon) | [Download (.mcaddon)](Cheat-Stick/Cheat%20Stick%20by%20ALNStudios%20%28V3.0.0%29.mcaddon) | [`Cheat-Stick/`](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/builds/Cheat-Stick/) |
-| **2-in-1 Loot & XP Booster** | Add-on (.mcaddon) | [Download (.mcaddon)](2-in-1-Loot--XP-Booster/2-in-1%20Loot%20%26%20XP%20Booster%20by%20ALNStudios%20%28V1.0.0%29.mcaddon) | [`2-in-1-Loot--XP-Booster/`](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/builds/2-in-1-Loot--XP-Booster/) |
+| **2-in-1 Loot & XP Booster** | Add-on (.mcaddon) | [Download (.mcaddon)](2-in-1-Loot--XP-Booster/2-in-1%20Loot%20%26%20XP%20Booster%20by%20ALNStudios%20%28V1.0.1%29.mcaddon) | [`2-in-1-Loot--XP-Booster/`](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/builds/2-in-1-Loot--XP-Booster/) |
 
 ### Worlds and Maps
 
