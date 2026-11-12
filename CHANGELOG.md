@@ -2,6 +2,12 @@
 
 ---
 
+## 2026-11-13 - Description Page Questions and Notes
+
+### Improved & Balanced
+- **Common Questions on the page**: The CurseForge description page now shows the Common Questions section from DESCRIPTION.md instead of leaving it out.
+- **Cleaner feature cards**: Each card shows what happens in normal text, and extra notes such as How It Works and Good To Know appear below it in smaller grey text.
+
 ## 2026-11-13 - Description Page Title Fix
 
 ### Fixed

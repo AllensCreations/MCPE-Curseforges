@@ -117,14 +117,24 @@ def cards(body):
             if m.group(1) == "What Happens":
                 what = m.group(2)
             else:
-                extra.append(f"{m.group(1)}: {m.group(2)}")
+                extra.append((m.group(1), m.group(2)))
         txt = f"<strong>{inline(name)}</strong>"
         if what:
             txt += "<br>" + inline(what)
-        for e in extra:
-            txt += "<br>" + inline(e)
+        for label, e in extra:
+            txt += ('<br><span style="font-size:13px;color:#52606d">'
+                    f"<strong>{inline(label)}:</strong> {inline(e)}</span>")
         out.append(f"{CARD}<p>{txt}</p></div>")
     return '<div style="display:flex;flex-wrap:wrap;gap:12px">' + "".join(out) + "</div>"
+
+
+def questions(body):
+    out = []
+    for line in body.split("\n"):
+        m = re.match(r"^- \*\*([^*]+)\*\*:? (.*)$", line.strip())
+        if m:
+            out.append(f"<p><strong>{inline(m.group(1).rstrip(':'))}</strong><br>{inline(m.group(2))}</p>")
+    return "".join(out)
 
 
 def compat_table(body):
@@ -170,6 +180,8 @@ def render(md, fallback=""):
         parts += [h2.format("What You Get"), cards(sec["Key Features"])]
     if sec.get("How to Use", "").strip():
         parts += [h2.format("How to Play"), blocks_to_html(sec["How to Use"])]
+    if sec.get("Common Questions", "").strip():
+        parts += [h2.format("Common Questions"), questions(sec["Common Questions"])]
     parts += [h2.format("Install"), f"<ol>{INSTALL}</ol>"]
     if sec.get("Compatibility", "").strip():
         parts += [h2.format("Compatibility"), compat_table(sec["Compatibility"])]

@@ -37,6 +37,16 @@ class DescriptionViewTests(unittest.TestCase):
             self.assertIn(want, h)
             self.assertEqual(bdv.check_html(h), [])
 
+    def test_common_questions_and_card_extras_are_kept(self):
+        md = (self.md.replace("## Compatibility", "## Common Questions\n\n- **Can I turn it off?**: Yes. Set it to Normal.\n\n## Compatibility", 1)
+              .replace("- **What Happens**: Players can use feature 1 in the world.",
+                       "- **What Happens**: Players can use feature 1 in the world.\n- **Good To Know**: Extra note here.", 1))
+        h = bdv.render(md)
+        self.assertIn("Common Questions", h)
+        self.assertIn("Can I turn it off?", h)
+        self.assertIn("Good To Know:", h)
+        self.assertEqual(bdv.check_html(h), [])
+
     def test_unsupported_html_is_caught(self):
         self.assertTrue(bdv.check_html("<script>x</script>"))
         self.assertTrue(bdv.check_html('<p style="padding:4px">x</p>'))
