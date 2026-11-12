@@ -2,6 +2,11 @@
 
 ---
 
+## 2026-11-12 - Emissive Glowing Ores source added
+
+### Added
+- **Emissive Glowing Ores by ALNStudios**: Resource Pack source for glowing ore veins with no light emission, plus the script that builds the package.
+
 ## 2026-11-12 - Names On Every Changelog
 
 ### Added

@@ -1,0 +1,23 @@
+{
+  "format_version": 2,
+  "header": {
+    "name": "Emissive Glowing Ores (v1.0.0)",
+    "description": "Ore veins glow in dark caves without emitting light. by ALNStudios",
+    "uuid": "80cd16bc-ce62-4340-8d1b-e49fd62d5d4f",
+    "version": [1, 0, 0],
+    "min_engine_version": [1, 26, 60]
+  },
+  "modules": [
+    {
+      "type": "resources",
+      "description": "Emissive texture sets for vanilla ores",
+      "uuid": "925dfac2-2202-459a-9fb0-4c043f96ffa8",
+      "version": [1, 0, 0]
+    }
+  ],
+  "capabilities": ["pbr"],
+  "metadata": {
+    "authors": ["ALNStudios"],
+    "product_type": "addon"
+  }
+}
