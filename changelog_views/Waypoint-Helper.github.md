@@ -1,6 +1,6 @@
 # Changelog — Waypoint Helper
 
-## [1.0.3] - 2026-11-12
+## [1.1.0] - 2026-11-12
 
 ### Added
 - **Exit Button**: Every menu now starts with an Exit button that closes the Waypoint Helper. Menus opened from the main menu also have a Back button at the top.

@@ -5,7 +5,7 @@ Download the current release of **Waypoint Helper** for Minecraft Bedrock Editio
 ## Download
 
 - **Package format:** `.mcaddon`
-- **Direct download:** [Download Waypoint Helper (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Waypoint-Helper/Waypoint%20Helper%20by%20ALNStudios%20%28V1.0.4%29.mcaddon)
+- **Direct download:** [Download Waypoint Helper (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Waypoint-Helper/Waypoint%20Helper%20by%20ALNStudios%20%28V1.1.0%29.mcaddon)
 
 ## Installation
 
