@@ -13,8 +13,8 @@
           "value": 0
         },
         "minecraft:health": {
-          "max": 40,
-          "value": 40
+          "max": 10,
+          "value": 10
         },
         "minecraft:shooter": {
           "def": "minecraft:fireball"
@@ -24,6 +24,9 @@
           "attack_radius": 64,
           "charge_charged_trigger": 1.0,
           "charge_shoot_trigger": 2.0
+        },
+        "minecraft:experience_reward": {
+          "on_death": "query.last_hit_by_player ? 5 : 0"
         }
       },
       "ghast:skeleton": {
@@ -36,8 +39,18 @@
         "minecraft:behavior.ranged_attack": {
           "priority": 1,
           "attack_radius": 64,
-          "charge_charged_trigger": 0.5,
-          "charge_shoot_trigger": 1.0
+          "charge_charged_trigger": 0.6,
+          "charge_shoot_trigger": 1.2
+        },
+        "minecraft:health": {
+          "max": 20,
+          "value": 20
+        },
+        "minecraft:experience_reward": {
+          "on_death": "query.last_hit_by_player ? 5 : 0"
+        },
+        "minecraft:loot": {
+          "table": "loot_tables/entities/ghast_death_skeleton.json"
         }
       },
       "ghast:wither_skeleton": {
@@ -52,6 +65,32 @@
           "attack_radius": 64,
           "charge_charged_trigger": 1.2,
           "charge_shoot_trigger": 2.2
+        },
+        "minecraft:health": {
+          "max": 30,
+          "value": 30
+        },
+        "minecraft:experience_reward": {
+          "on_death": "query.last_hit_by_player ? 10 : 0"
+        },
+        "minecraft:loot": {
+          "table": "loot_tables/entities/ghast_death_wither_skeleton.json"
+        },
+        "minecraft:mob_effect": {
+          "effect_range": 8,
+          "effect_time": 3,
+          "cooldown_time": 3,
+          "mob_effect": "wither",
+          "entity_filter": {
+            "all_of": [
+              {
+                "operator": "==",
+                "subject": "other",
+                "test": "is_family",
+                "value": "player"
+              }
+            ]
+          }
         }
       },
       "ghast:zombie": {
@@ -68,6 +107,34 @@
           "attack_radius": 64,
           "charge_charged_trigger": 0.8,
           "charge_shoot_trigger": 1.6
+        },
+        "minecraft:health": {
+          "max": 25,
+          "value": 25
+        },
+        "minecraft:experience_reward": {
+          "on_death": "query.last_hit_by_player ? 5 : 0"
+        },
+        "minecraft:loot": {
+          "table": "loot_tables/entities/ghast_death_zombie.json"
+        },
+        "minecraft:spawn_entity": {
+          "entities": [
+            {
+              "min_wait_time": 45,
+              "max_wait_time": 75,
+              "num_to_spawn": 1,
+              "single_use": false,
+              "should_leash": false,
+              "spawn_entity": "minecraft:zombie",
+              "filters": {
+                "operator": "==",
+                "subject": "self",
+                "test": "has_target",
+                "value": true
+              }
+            }
+          ]
         }
       },
       "ghast:steve": {
@@ -83,6 +150,16 @@
           "attack_radius": 64,
           "charge_charged_trigger": 0.7,
           "charge_shoot_trigger": 1.4
+        },
+        "minecraft:health": {
+          "max": 25,
+          "value": 25
+        },
+        "minecraft:experience_reward": {
+          "on_death": "query.last_hit_by_player ? 5 : 0"
+        },
+        "minecraft:loot": {
+          "table": "loot_tables/entities/ghast_death_steve.json"
         }
       },
       "ghast:creeper": {
@@ -97,6 +174,20 @@
           "attack_radius": 64,
           "charge_charged_trigger": 1.5,
           "charge_shoot_trigger": 2.5
+        },
+        "minecraft:health": {
+          "max": 20,
+          "value": 20
+        },
+        "minecraft:experience_reward": {
+          "on_death": "query.last_hit_by_player ? 5 : 0"
+        },
+        "minecraft:loot": {
+          "table": "loot_tables/entities/ghast_death_creeper.json"
+        },
+        "minecraft:on_death": {
+          "event": "ghast:creeper_blast",
+          "target": "self"
         }
       },
       "ghast:piglin": {
@@ -109,8 +200,18 @@
         "minecraft:behavior.ranged_attack": {
           "priority": 1,
           "attack_radius": 64,
-          "charge_charged_trigger": 0.4,
-          "charge_shoot_trigger": 0.8
+          "charge_charged_trigger": 0.5,
+          "charge_shoot_trigger": 1.0
+        },
+        "minecraft:health": {
+          "max": 15,
+          "value": 15
+        },
+        "minecraft:experience_reward": {
+          "on_death": "query.last_hit_by_player ? 5 : 0"
+        },
+        "minecraft:loot": {
+          "table": "loot_tables/entities/ghast_death_piglin.json"
         }
       },
       "ghast:dragon": {
@@ -129,6 +230,50 @@
           "attack_radius": 64,
           "charge_charged_trigger": 2.0,
           "charge_shoot_trigger": 3.0
+        },
+        "minecraft:experience_reward": {
+          "on_death": "query.last_hit_by_player ? 50 : 0"
+        },
+        "minecraft:loot": {
+          "table": "loot_tables/entities/ghast_death_dragon.json"
+        }
+      },
+      "ghast:creeper_blast": {
+        "minecraft:explode": {
+          "fuse_length": 0,
+          "power": 3,
+          "causes_fire": false,
+          "breaks_blocks": true,
+          "destroy_affected_by_griefing": true
+        }
+      },
+      "ghast:piglin_bribed": {
+        "minecraft:behavior.nearest_attackable_target": {
+          "priority": 2,
+          "must_see": true,
+          "entity_types": [
+            {
+              "filters": {
+                "all_of": [
+                  {
+                    "operator": "==",
+                    "subject": "other",
+                    "test": "is_family",
+                    "value": "__nobody__"
+                  }
+                ]
+              },
+              "max_dist": 64
+            }
+          ]
+        },
+        "minecraft:timer": {
+          "time": 30,
+          "looping": false,
+          "time_down_event": {
+            "event": "ghast:piglin_calm_end",
+            "target": "self"
+          }
         }
       }
     },
@@ -797,6 +942,43 @@
                 ]
               }
             }
+          },
+          {
+            "interact_text": "action.interact.equip",
+            "use_item": true,
+            "play_sounds": "mob.piglin.admiring_item",
+            "on_interact": {
+              "event": "ghast:piglin_bribe",
+              "target": "self",
+              "filters": {
+                "all_of": [
+                  {
+                    "any_of": [
+                      {
+                        "operator": "==",
+                        "subject": "other",
+                        "test": "has_equipment",
+                        "value": "gold_ingot",
+                        "domain": "hand"
+                      },
+                      {
+                        "operator": "==",
+                        "subject": "other",
+                        "test": "has_equipment",
+                        "value": "minecraft:gold_ingot",
+                        "domain": "hand"
+                      }
+                    ]
+                  },
+                  {
+                    "operator": "==",
+                    "subject": "self",
+                    "test": "is_variant",
+                    "value": 6
+                  }
+                ]
+              }
+            }
           }
         ]
       }
@@ -876,7 +1058,9 @@
             "ghast:steve",
             "ghast:creeper",
             "ghast:piglin",
-            "ghast:dragon"
+            "ghast:dragon",
+            "ghast:creeper_blast",
+            "ghast:piglin_bribed"
           ]
         }
       },
@@ -894,7 +1078,9 @@
             "ghast:steve",
             "ghast:creeper",
             "ghast:piglin",
-            "ghast:dragon"
+            "ghast:dragon",
+            "ghast:creeper_blast",
+            "ghast:piglin_bribed"
           ]
         }
       },
@@ -912,7 +1098,9 @@
             "ghast:steve",
             "ghast:creeper",
             "ghast:piglin",
-            "ghast:dragon"
+            "ghast:dragon",
+            "ghast:creeper_blast",
+            "ghast:piglin_bribed"
           ]
         }
       },
@@ -930,7 +1118,9 @@
             "ghast:zombie",
             "ghast:creeper",
             "ghast:piglin",
-            "ghast:dragon"
+            "ghast:dragon",
+            "ghast:creeper_blast",
+            "ghast:piglin_bribed"
           ]
         }
       },
@@ -948,7 +1138,9 @@
             "ghast:zombie",
             "ghast:steve",
             "ghast:piglin",
-            "ghast:dragon"
+            "ghast:dragon",
+            "ghast:creeper_blast",
+            "ghast:piglin_bribed"
           ]
         }
       },
@@ -966,7 +1158,9 @@
             "ghast:zombie",
             "ghast:steve",
             "ghast:creeper",
-            "ghast:dragon"
+            "ghast:dragon",
+            "ghast:creeper_blast",
+            "ghast:piglin_bribed"
           ]
         }
       },
@@ -984,7 +1178,9 @@
             "ghast:zombie",
             "ghast:steve",
             "ghast:creeper",
-            "ghast:piglin"
+            "ghast:piglin",
+            "ghast:creeper_blast",
+            "ghast:piglin_bribed"
           ]
         }
       },
@@ -1002,7 +1198,30 @@
             "ghast:steve",
             "ghast:creeper",
             "ghast:piglin",
-            "ghast:dragon"
+            "ghast:dragon",
+            "ghast:creeper_blast",
+            "ghast:piglin_bribed"
+          ]
+        }
+      },
+      "ghast:creeper_blast": {
+        "add": {
+          "component_groups": [
+            "ghast:creeper_blast"
+          ]
+        }
+      },
+      "ghast:piglin_bribe": {
+        "add": {
+          "component_groups": [
+            "ghast:piglin_bribed"
+          ]
+        }
+      },
+      "ghast:piglin_calm_end": {
+        "remove": {
+          "component_groups": [
+            "ghast:piglin_bribed"
           ]
         }
       }

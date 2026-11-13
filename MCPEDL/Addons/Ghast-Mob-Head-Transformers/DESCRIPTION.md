@@ -26,6 +26,7 @@ Interact with any Ghast while holding a skull to trigger the transformation:
 ### Classic Ghast
 - **Item Required**: No head required
 - **Transformed Creature**: Classic Ghast
+- **Health**: 10
 - **Attack**: Giant Explosive Fireball (2.0s)
 - **Sound**: Classic Ghast screams
 - **Shears**: None
@@ -33,49 +34,67 @@ Interact with any Ghast while holding a skull to trigger the transformation:
 ### Skeleton Head
 - **Item Required**: Skeleton Skull
 - **Transformed Creature**: Giant Skeleton Head
-- **Attack**: Rapid Piercing Arrow (1.0s)
+- **Health**: 20
+- **Attack**: Rapid Piercing Arrow (1.2s)
+- **Death drop**: Skeleton Skull (33%)
 - **Sound**: Bone rattles and snaps
 - **Shears**: Skeleton Skull
 
 ### Wither Skeleton Head
 - **Item Required**: Wither Skeleton Skull
 - **Transformed Creature**: Giant Wither Skeleton
+- **Health**: 30
 - **Attack**: Explosive Wither Skull (2.2s)
+- **Ability**: Withering aura, inflicting Wither on players within 8 blocks
+- **Death drop**: Wither Skeleton Skull (33%)
 - **Sound**: Deep soul rattle
 - **Shears**: Wither Skeleton Skull
 
 ### Zombie Head
 - **Item Required**: Zombie Head
 - **Transformed Creature**: Giant Zombie Head
+- **Health**: 25
 - **Attack**: Splash Poison Potion (1.6s)
+- **Ability**: Summons a Zombie every 45-75s while it has a target
+- **Death drop**: Zombie Head (33%)
 - **Sound**: Undead zombie groans
 - **Shears**: Zombie Head
 
 ### Player Head
 - **Item Required**: Steve / Player Head
 - **Transformed Creature**: Giant Steve Head
+- **Health**: 25
 - **Attack**: Knockback Wind Charge (1.4s)
+- **Death drop**: Player Head (33%)
 - **Sound**: Wind charge burst
 - **Shears**: Player Head
 
 ### Creeper Head
 - **Item Required**: Creeper Head
 - **Transformed Creature**: Giant Creeper Head
-- **Attack**: High-Explosive Fireball (2.5s)
+- **Health**: 20
+- **Attack**: Slow Fireball (2.5s)
+- **Ability**: Detonates in a power-3 explosion when it dies
+- **Death drop**: Creeper Head (33%)
 - **Sound**: Terrifying fuse hiss
 - **Shears**: Creeper Head
 
 ### Piglin Head
 - **Item Required**: Piglin Head
 - **Transformed Creature**: Giant Piglin Head
-- **Attack**: Rapid Blazing Fireballs (0.8s)
+- **Health**: 15
+- **Attack**: Rapid Blazing Fireballs (1.0s)
+- **Ability**: Right-click with a Gold Ingot to calm it for 30 seconds
+- **Death drop**: Piglin Head (33%)
 - **Sound**: Aggressive piglin snorts
 - **Shears**: Piglin Head
 
 ### Ender Dragon Head
 - **Item Required**: Dragon Head
 - **Transformed Creature**: Colossal Ender Dragon Head
-- **Attack**: Lingering Dragon Fireball (3.0s, 100 HP)
+- **Health**: 100
+- **Attack**: Lingering Dragon Fireball (3.0s)
+- **Death drop**: Dragon Head (50%), 50 XP
 - **Sound**: Ender Dragon roar and growl
 - **Shears**: Dragon Head
 
@@ -86,6 +105,10 @@ Interact with any Ghast while holding a skull to trigger the transformation:
 - **Dynamic Charging Expressions**: When preparing to fire, transformed heads shift dynamically into angry, glowing, mouth-open attack expressions.
 - **Colossal Ender Dragon Head**: Equip a Dragon Head to transform the Ghast into an obsidian-scaled boss with 100 HP, 3D snout, horns, and lingering purple Dragon Fireballs.
 - **Resource Recovery**: Use Shears on a transformed Ghast to reclaim the head used for its transformation.
+- **Head Drops**: Killing a transformed Ghast as a player can drop its head (Looting increases the chance), plus Ghast Tears and Gunpowder.
+- **Per-Head Abilities**: Wither aura, Zombie summons, Creeper death blast, Piglin gold calming.
+- **Hard Mode Option**: A separate subpack doubles Ghast health and spawns more heads.
+- **Subpacks**: Natural Spawn, Manual Equip Only, and Hard Mode. Choose one in the pack settings.
 - **3D Hat, Snout, and Horn Geometry**: Features authentic 3D mob head modeling including Piglin snouts/ears and Ender Dragon snouts/horns.
 - **Clean Animations**: Tentacles tuck away smoothly while heads are equipped, restoring naturally upon shearing.
 
@@ -95,12 +118,14 @@ Interact with any Ghast while holding a skull to trigger the transformation:
 
 - Minecraft Bedrock Edition. Check the published package details for the supported game version.
 - Available as a complete add-on and as separate pack files where listed.
+- Requires Minecraft Bedrock 1.21.0 or newer (set by the pack manifests).
+- This add-on replaces the vanilla `minecraft:ghast` entity, so it will conflict with other add-ons that also change the Ghast. Use only one.
 
 ---
 
 ---
-- Experimental features: Not verified.
-- Achievements: Likely achievement-friendly.
+- Experimental features: Not tested. Wind Charge projectiles may depend on your game version.
+- Achievements: Not tested. Cheats or Experimental toggles disable achievements in Bedrock.
 - Verification: Source created, not tested in game.
 
 ## Creator and Permissions
