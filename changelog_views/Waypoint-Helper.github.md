@@ -1,16 +1,31 @@
 # Changelog — Waypoint Helper
 
-## [1.1.0] - 2026-11-12
+## [1.1.1] - 2026-11-13 - Teleport Countdown And Sounds
 
 ### Added
-- **Exit Button**: Every menu now starts with an Exit button that closes the Waypoint Helper. Menus opened from the main menu also have a Back button at the top.
+- **Teleport Countdown**: Loading a waypoint now counts down 3 seconds on the action bar before you teleport.
+- **Teleport Sounds**: A click plays on each countdown second and a teleport sound plays when you arrive.
 
 ### Improved & Balanced
+- **Dimension Colors**: The save message is now green in the Overworld, red in the Nether and yellow in The End.
+- **Action Bar Messages**: Save and teleport messages now show on the action bar instead of in chat.
+
+<details>
+<summary><b>1.1.x</b> (1 release)</summary>
+
+### [1.1.0] - 2026-11-12
+
+#### Added
+- **Exit Button**: Every menu now starts with an Exit button that closes the Waypoint Helper. Menus opened from the main menu also have a Back button at the top.
+
+#### Improved & Balanced
 - **Instant Menu Switching**: Moving between Waypoint Helper menus no longer plays the slow open and close animation.
 
-### Fixed
+#### Fixed
 - **Title Bar**: The orange pack name and version in the title bar now show correctly.
 - **Button Look**: Buttons now have a flat dark fill with a thin raised edge instead of a blocky two-tone block.
+
+</details>
 
 <details>
 <summary><b>1.0.x</b> (3 releases)</summary>
