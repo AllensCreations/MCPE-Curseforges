@@ -87,3 +87,4 @@ You rename a Book to Booster on an anvil and right-click with it. A menu opens w
 ## Search & Discovery Keywords
 
 Minecraft Bedrock add-on, 2-in-1 Loot & XP Booster Bedrock mod, loot multiplier, XP multiplier, renamed book menu, Minecraft PE survival, MCPEDL add-on, CurseForge Bedrock, ALNStudios.
+
