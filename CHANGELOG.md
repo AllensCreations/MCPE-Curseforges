@@ -2,6 +2,11 @@
 
 ---
 
+## 2026-11-13 - New Addon Enchanter
+
+### Added
+- **Enchanter**: New addon project created from a pack script.
+
 ## 2026-11-13 - Shared Hivemind Inventory 1.22.2 Death Drops Fix
 
 ### Fixed

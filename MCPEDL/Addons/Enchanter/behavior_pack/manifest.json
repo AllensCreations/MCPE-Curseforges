@@ -1,0 +1,48 @@
+{
+  "format_version": 2,
+  "header": {
+    "name": "Enchanter (v1.0.0)",
+    "description": "Rename a Book to Enchanter and use it to set enchantments by slider. by ALNStudios",
+    "uuid": "eb57d8aa-51d9-4278-9f64-a524ce41b8a8",
+    "version": [
+      1,
+      0,
+      0
+    ],
+    "min_engine_version": [
+      1,
+      26,
+      50
+    ]
+  },
+  "modules": [
+    {
+      "type": "script",
+      "language": "javascript",
+      "entry": "scripts/main.js",
+      "uuid": "89db0c21-f611-40bd-a9cd-2284f25297a0",
+      "version": [
+        1,
+        0,
+        0
+      ]
+    }
+  ],
+  "dependencies": [
+    {
+      "module_name": "@minecraft/server",
+      "version": "2.11.0"
+    },
+    {
+      "module_name": "@minecraft/server-ui",
+      "version": "2.3.0"
+    }
+  ],
+  "metadata": {
+    "authors": [
+      "ALNStudios"
+    ],
+    "product_type": "addon",
+    "version": "1.0.0"
+  }
+}
