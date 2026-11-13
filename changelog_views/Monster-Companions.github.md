@@ -1,6 +1,6 @@
 # Changelog — Monster Companions
 
-## [2.0.0.1] - 2026-11-11
+## [2.0.1] - 2026-11-13
 
 ### Added
 - **Pink eyes**: Tamed Zombies and Skeletons now have pink eyes, so you can tell them apart from wild ones.

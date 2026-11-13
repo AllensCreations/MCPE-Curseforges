@@ -1,6 +1,6 @@
 # Changelog — Enchanter
 
-## [1.0.1] - 2026-11-13 - Menu Redesign
+## [1.0.1] - 2026-11-13
 
 ### Added
 - **Main Menu**: Using the Enchanter Book now opens a menu with Enchanter, About and Exit.
