@@ -1,13 +1,13 @@
 {
   "format_version": 2,
   "header": {
-    "name": "Target HUD Entity Inspector (v1.1.0)",
+    "name": "Target HUD Entity Inspector (v1.1.1)",
     "description": "Shows the name, health bar and classification of the entity you are looking at on the Action Bar. by ALNStudios",
     "uuid": "2965654f-c2a4-4f4e-9b00-397ae4dc0c9a",
     "version": [
       1,
       1,
-      0
+      1
     ],
     "min_engine_version": [
       1,
@@ -24,7 +24,7 @@
       "version": [
         1,
         1,
-        0
+        1
       ],
       "entry": "scripts/main.js"
     }
@@ -40,6 +40,6 @@
       "ALNStudios"
     ],
     "license": "All rights reserved",
-    "version": "1.1.0"
+    "version": "1.1.1"
   }
 }

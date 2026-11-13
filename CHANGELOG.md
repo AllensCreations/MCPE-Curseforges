@@ -2,6 +2,27 @@
 
 ---
 
+## [1.0.10] - 2026-11-14 - Smooth Bar and Mob Gear
+
+### Added
+
+- **Held Item**: The item in the target's main hand now appears beside its armor.
+- **Armor on Mobs**: Mobs that wear armor now show their armor points, not only players.
+- **Pet Owners**: Pets tamed by other players now show as Tamed with the owner's name when that player is online.
+
+### Improved & Balanced
+
+- **Smooth Health Bar**: The bar now has 20 segments and turns from green to yellow to red as health drops.
+- **Adaptive Refresh**: The display updates every tick in a fight, every 2 ticks on a target and every 5 ticks while idle.
+- **Steadier Display**: An unchanged line is no longer sent over and over, which removes needless flicker.
+- **Absorption Marker**: A gold plus sign appears beside the health numbers when the target has Absorption.
+- **More Mobs Recognized**: More vanilla mobs have a type, and unknown mobs use their game family before falling back to Neutral.
+- **Any Tamed Animal**: Tamed animals other than Wolves and Cats now show as Tamed.
+
+### Fixed
+
+- **Hidden Targets**: Invisible mobs, invisible players and players in Spectator mode no longer show their health.
+
 ## [1.0.9] - 2026-11-14 - Last Death And Slot Cleanup
 
 ### Added

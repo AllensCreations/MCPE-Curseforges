@@ -1,8 +1,12 @@
 import { EquipmentSlot, system, world } from "@minecraft/server";
 
 const MAX_DISTANCE = 16;
-const UPDATE_INTERVAL_TICKS = 2;
-const BAR_SEGMENTS = 10;
+const COMBAT_INTERVAL_TICKS = 1;
+const TRACK_INTERVAL_TICKS = 2;
+const IDLE_INTERVAL_TICKS = 5;
+const COMBAT_TICKS = 60;
+const REFRESH_TICKS = 20;
+const BAR_SEGMENTS = 20;
 const ANGER_TICKS = 1200;
 const PRUNE_INTERVAL_TICKS = 200;
 const BLANK_BAR = " ";
@@ -12,7 +16,8 @@ const HOSTILE_MOBS = new Set([
   "wither_skeleton", "creeper", "spider", "cave_spider", "blaze", "ghast", "slime",
   "magma_cube", "witch", "phantom", "pillager", "vindicator", "evoker", "ravager",
   "vex", "guardian", "elder_guardian", "warden", "wither", "ender_dragon", "shulker",
-  "silverfish", "endermite", "hoglin", "zoglin", "piglin_brute", "creaking", "breeze"
+  "silverfish", "endermite", "hoglin", "zoglin", "piglin_brute", "creaking", "breeze",
+  "parched", "camel_husk", "zombie_nautilus"
 ]);
 
 const PASSIVE_MOBS = new Set([
@@ -20,8 +25,11 @@ const PASSIVE_MOBS = new Set([
   "skeleton_horse", "zombie_horse", "rabbit", "cat", "ocelot", "villager",
   "wandering_trader", "squid", "glow_squid", "cod", "salmon", "pufferfish",
   "tropical_fish", "turtle", "axolotl", "bat", "parrot", "fox", "camel", "sniffer",
-  "frog", "tadpole", "allay", "strider", "armadillo", "snow_golem"
+  "frog", "tadpole", "allay", "strider", "armadillo", "snow_golem", "happy_ghast",
+  "nautilus", "copper_golem"
 ]);
+
+const PASSIVE_FAMILIES = ["animal", "fish", "villager", "npc"];
 
 const TYPE_COLORS = {
   Player: "§b",
@@ -31,8 +39,6 @@ const TYPE_COLORS = {
   Neutral: "§e",
   Tamed: "§d"
 };
-
-const TAMEABLE_PETS = new Set(["wolf", "cat"]);
 
 const ARMOR_SLOTS = [
   EquipmentSlot.Head,
@@ -52,8 +58,23 @@ const ARMOR_POINTS = {
   turtle_helmet: 2
 };
 
-const lastShown = new Map();
 const angryUntil = new Map();
+const playerStates = new Map();
+
+function getState(playerId) {
+  let state = playerStates.get(playerId);
+  if (!state) {
+    state = { nextRun: 0, lastText: undefined, lastSent: 0, combatUntil: 0 };
+    playerStates.set(playerId, state);
+  }
+  return state;
+}
+
+function markCombat(playerId, now) {
+  const state = getState(playerId);
+  state.combatUntil = now + COMBAT_TICKS;
+  state.nextRun = Math.min(state.nextRun, now);
+}
 
 function stripNamespace(typeId) {
   const index = typeId.indexOf(":");
@@ -66,6 +87,29 @@ function titleCase(id) {
     .filter((part) => part.length > 0)
     .map((part) => part.charAt(0).toUpperCase() + part.slice(1))
     .join(" ");
+}
+
+function hasEffect(entity, effectId) {
+  try {
+    return Boolean(entity.getEffect(effectId));
+  } catch (error) {
+    return false;
+  }
+}
+
+function isSpectator(entity) {
+  if (entity.typeId !== "minecraft:player" || typeof entity.getGameMode !== "function") {
+    return false;
+  }
+  try {
+    return String(entity.getGameMode()).toLowerCase() === "spectator";
+  } catch (error) {
+    return false;
+  }
+}
+
+function isHidden(entity) {
+  return hasEffect(entity, "invisibility") || isSpectator(entity);
 }
 
 function getDisplayName(entity) {
@@ -90,37 +134,80 @@ function getBaseClassification(entity) {
     return "Passive";
   }
   const family = entity.getComponent("minecraft:type_family");
-  if (family && family.hasTypeFamily("monster")) {
-    return "Hostile";
+  if (family) {
+    if (family.hasTypeFamily("monster")) {
+      return "Hostile";
+    }
+    for (const name of PASSIVE_FAMILIES) {
+      if (family.hasTypeFamily(name)) {
+        return "Passive";
+      }
+    }
   }
   return "Neutral";
 }
 
-function isOwnTamedPet(entity, viewer) {
-  if (!TAMEABLE_PETS.has(stripNamespace(entity.typeId))) {
-    return false;
-  }
+function getTameInfo(entity, viewer) {
   const tameable = entity.getComponent("minecraft:tameable");
-  return Boolean(tameable) && tameable.isTamed && tameable.tamedToPlayerId === viewer.id;
-}
-
-function getArmorPoints(player) {
-  const equippable = player.getComponent("minecraft:equippable");
-  if (!equippable) {
-    return 0;
+  if (!tameable || !tameable.isTamed) {
+    return undefined;
   }
-  let total = 0;
-  for (const slot of ARMOR_SLOTS) {
-    const item = equippable.getEquipment(slot);
-    if (item) {
-      total += ARMOR_POINTS[stripNamespace(item.typeId)] ?? 0;
+  const ownerId = tameable.tamedToPlayerId;
+  if (ownerId !== undefined && ownerId === viewer.id) {
+    return { own: true, ownerName: undefined };
+  }
+  let ownerName;
+  if (ownerId !== undefined) {
+    for (const candidate of world.getAllPlayers()) {
+      if (candidate.id === ownerId) {
+        ownerName = candidate.name;
+        break;
+      }
     }
   }
-  return total;
+  return { own: false, ownerName };
 }
 
-function getClassification(entity, viewer) {
-  if (isOwnTamedPet(entity, viewer)) {
+function getArmorPoints(entity) {
+  try {
+    const equippable = entity.getComponent("minecraft:equippable");
+    if (!equippable) {
+      return 0;
+    }
+    let total = 0;
+    for (const slot of ARMOR_SLOTS) {
+      const item = equippable.getEquipment(slot);
+      if (item) {
+        total += ARMOR_POINTS[stripNamespace(item.typeId)] ?? 0;
+      }
+    }
+    return total;
+  } catch (error) {
+    return 0;
+  }
+}
+
+function getHeldItem(entity) {
+  try {
+    const equippable = entity.getComponent("minecraft:equippable");
+    if (!equippable) {
+      return undefined;
+    }
+    const item = equippable.getEquipment(EquipmentSlot.Mainhand);
+    if (!item) {
+      return undefined;
+    }
+    const label = typeof item.nameTag === "string" && item.nameTag.length > 0
+      ? item.nameTag
+      : titleCase(stripNamespace(item.typeId));
+    return item.amount > 1 ? `${label} x${item.amount}` : label;
+  } catch (error) {
+    return undefined;
+  }
+}
+
+function getClassification(entity, tameInfo) {
+  if (tameInfo) {
     return "Tamed";
   }
   const base = getBaseClassification(entity);
@@ -134,13 +221,23 @@ function getClassification(entity, viewer) {
   return base;
 }
 
+function getBarColor(ratio) {
+  if (ratio > 0.6) {
+    return "§a";
+  }
+  if (ratio > 0.3) {
+    return "§e";
+  }
+  return "§c";
+}
+
 function buildHealthBar(current, max) {
   const ratio = max > 0 ? Math.min(1, Math.max(0, current / max)) : 0;
   let filled = Math.round(ratio * BAR_SEGMENTS);
   if (current > 0 && filled === 0) {
     filled = 1;
   }
-  return `§c${"|".repeat(filled)}§8${".".repeat(BAR_SEGMENTS - filled)}`;
+  return `${getBarColor(ratio)}${"|".repeat(filled)}§8${"|".repeat(BAR_SEGMENTS - filled)}`;
 }
 
 function findTarget(player) {
@@ -175,6 +272,9 @@ function findTarget(player) {
     if (!entity.getComponent("minecraft:health")) {
       continue;
     }
+    if (isHidden(entity)) {
+      continue;
+    }
     return { entity, distance: hit.distance };
   }
   return undefined;
@@ -185,16 +285,33 @@ function buildActionBar(entity, viewer, distance) {
   const current = Math.ceil(health.currentValue);
   const max = Math.ceil(health.effectiveMax);
   const name = getDisplayName(entity);
-  const type = getClassification(entity, viewer);
+  const isPlayer = entity.typeId === "minecraft:player";
+  const tameInfo = getTameInfo(entity, viewer);
+  const type = getClassification(entity, tameInfo);
   const color = TYPE_COLORS[type] ?? "§f";
-  let line = `§f${name} §8| ${buildHealthBar(current, max)} §f${current}/${max}`;
-  if (entity.typeId === "minecraft:player") {
-    line += ` §8| §7Armor §f${getArmorPoints(entity)}`;
+  const absorbed = hasEffect(entity, "absorption") ? " §6+" : "";
+  let line = `§f${name} §8| ${buildHealthBar(current, max)} §f${current}/${max}${absorbed}`;
+  const armor = getArmorPoints(entity);
+  if (isPlayer || armor > 0) {
+    line += ` §8| §7Armor §f${armor}`;
   }
-  return `${line} §8| ${color}${type} §8| §7${Math.round(distance)}m`;
+  const held = getHeldItem(entity);
+  if (held) {
+    line += ` §8| §7Held §f${held}`;
+  }
+  let typeLabel = `${color}${type}`;
+  if (tameInfo && !tameInfo.own && tameInfo.ownerName) {
+    typeLabel += ` §7of ${tameInfo.ownerName}`;
+  }
+  return `${line} §8| ${typeLabel} §8| §7${Math.round(distance)}m`;
 }
 
-function updatePlayer(player) {
+function updatePlayer(player, now) {
+  const state = getState(player.id);
+  if (now < state.nextRun) {
+    return;
+  }
+
   let text;
   try {
     const target = findTarget(player);
@@ -206,12 +323,20 @@ function updatePlayer(player) {
   }
 
   if (text !== undefined) {
-    player.onScreenDisplay.setActionBar(text);
-    lastShown.set(player.id, true);
-  } else if (lastShown.get(player.id)) {
-    player.onScreenDisplay.setActionBar(BLANK_BAR);
-    lastShown.delete(player.id);
+    if (text !== state.lastText || now - state.lastSent >= REFRESH_TICKS) {
+      player.onScreenDisplay.setActionBar(text);
+      state.lastText = text;
+      state.lastSent = now;
+    }
+    state.nextRun = now + (now < state.combatUntil ? COMBAT_INTERVAL_TICKS : TRACK_INTERVAL_TICKS);
+    return;
   }
+
+  if (state.lastText !== undefined) {
+    player.onScreenDisplay.setActionBar(BLANK_BAR);
+    state.lastText = undefined;
+  }
+  state.nextRun = now + (now < state.combatUntil ? COMBAT_INTERVAL_TICKS : IDLE_INTERVAL_TICKS);
 }
 
 function pruneAnger() {
@@ -225,26 +350,35 @@ function pruneAnger() {
 
 export function startTargetHud() {
   system.runInterval(() => {
+    const now = system.currentTick;
     for (const player of world.getAllPlayers()) {
       if (!player.isValid) {
         continue;
       }
-      updatePlayer(player);
+      updatePlayer(player, now);
     }
-  }, UPDATE_INTERVAL_TICKS);
+  }, 1);
 
   system.runInterval(pruneAnger, PRUNE_INTERVAL_TICKS);
 
   world.afterEvents.entityHurt.subscribe((event) => {
-    const attacker = event.damageSource.damagingEntity;
-    if (!attacker || attacker.typeId !== "minecraft:player") {
-      return;
-    }
     const victim = event.hurtEntity;
-    if (!victim.isValid || victim.typeId === "minecraft:player") {
+    if (!victim.isValid) {
       return;
     }
-    angryUntil.set(victim.id, system.currentTick + ANGER_TICKS);
+    const now = system.currentTick;
+    const victimIsPlayer = victim.typeId === "minecraft:player";
+    if (victimIsPlayer) {
+      markCombat(victim.id, now);
+    }
+    const attacker = event.damageSource.damagingEntity;
+    if (!attacker || !attacker.isValid || attacker.typeId !== "minecraft:player") {
+      return;
+    }
+    markCombat(attacker.id, now);
+    if (!victimIsPlayer) {
+      angryUntil.set(victim.id, now + ANGER_TICKS);
+    }
   });
 
   world.afterEvents.entityDie.subscribe((event) => {
@@ -252,6 +386,6 @@ export function startTargetHud() {
   });
 
   world.afterEvents.playerLeave.subscribe((event) => {
-    lastShown.delete(event.playerId);
+    playerStates.delete(event.playerId);
   });
 }

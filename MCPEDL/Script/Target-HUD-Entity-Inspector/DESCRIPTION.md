@@ -5,9 +5,9 @@
 [![Minecraft Bedrock](https://img.shields.io/badge/Minecraft%20Bedrock-Stable%20Release-brightgreen?style=flat-square&logo=minecraft)](https://github.com/AllensCreations/MCPE-Curseforges)
 [![Format](https://img.shields.io/badge/Format-.MCPACK%20%7C%20.MCADDON%20%7C%20.MCWORLD-blue?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges)
 
-**Look at any mob or player within 16 blocks to see its name, a 10-segment health bar, its health numbers, its type and how far away it is.**
+**Look at any mob or player within 16 blocks to see its name, a smooth 20-segment health bar, its health numbers, its armor, the item it holds, its type and how far away it is.**
 
-> Shows the entity under your crosshair on the Action Bar with a bar such as ||||||.... beside the numbers. Neutral mobs you hurt switch to Aggressive, which suits players who fight near Wolves, Bees or Endermen.
+> Shows the entity under your crosshair on the Action Bar with a smooth color-changing bar beside the numbers. Neutral mobs you hurt switch to Aggressive, which suits players who fight near Wolves, Bees or Endermen.
 
 ## Overview
 
@@ -16,8 +16,9 @@ Aim at a mob or another player and a single line appears on the Action Bar. It d
 ## Key Features
 
 ### Health Bar
-- **What Happens**: A bar of 10 segments shows how much health the target has left, next to the exact numbers, for example 14/20.
-- **How It Works**: A Zombie at 14 of 20 health shows seven red segments and three grey ones.
+- **What Happens**: A smooth bar of 20 segments shows how much health the target has left, next to the exact numbers, for example 14/20.
+- **How It Works**: The bar is green above 60 percent health, yellow above 30 percent and red below that. A Zombie at 14 of 20 health shows fourteen green segments and six grey ones.
+- **Good To Know**: A gold plus sign beside the numbers means the target has Absorption.
 
 ### Mob Type
 - **What Happens**: The line names the type as Player, Hostile, Passive, Neutral or Aggressive, each in its own color.
@@ -28,12 +29,22 @@ Aim at a mob or another player and a single line appears on the Action Bar. It d
 - **What Happens**: The line ends with the distance to the target in blocks, for example 5m.
 
 ### Armor Points
-- **What Happens**: When you look at another player, their armor points appear beside their health.
-- **Good To Know**: Points are counted from the Leather, Copper, Golden, Chainmail, Iron, Diamond and Netherite armor they wear, plus a Turtle Shell helmet.
+- **What Happens**: When you look at a player, or at a mob wearing armor, the armor points appear beside the health.
+- **Good To Know**: Points are counted from the Leather, Copper, Golden, Chainmail, Iron, Diamond and Netherite armor they wear, plus a Turtle Shell helmet. Mobs without armor show no armor points.
 
 ### Tamed Pets
-- **What Happens**: Your own tamed Wolves and Cats show as Tamed, in their own color, instead of Neutral or Passive.
-- **Good To Know**: Pets tamed by other players keep their normal type.
+- **What Happens**: Tamed animals show as Tamed, in their own color, instead of Neutral or Passive. Pets tamed by other players also show their owner, such as Tamed of Steve.
+- **Good To Know**: The owner's name is shown only while that player is online.
+
+### Held Item
+- **What Happens**: The item in the target's main hand appears after its armor, with a count when it is a stack, for example Iron Sword.
+
+### Adaptive Refresh
+- **What Happens**: The display updates every tick while you are fighting, every 2 ticks while you look at a target and every 5 ticks while nothing is in view.
+- **Good To Know**: An unchanged line is sent again only about once a second, so the display stays steady.
+
+### Hidden Targets
+- **What Happens**: Invisible mobs, invisible players and players in Spectator mode are not shown.
 
 ### Instant Clear
 - **What Happens**: The line is removed right away when you stop looking at the target or a wall blocks your view.
