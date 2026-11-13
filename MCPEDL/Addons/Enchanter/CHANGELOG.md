@@ -2,12 +2,16 @@
 
 ---
 
-## [1.0.2] - 2026-11-13 - Spear Icons and Readable Menus
+## [1.0.2] - 2026-11-13
+
+**What's new in v1.0.2:** Packed with the v1.0.2 update. Includes: Spear Icons and Readable Menus.
 
 ### Improved & Balanced
+
 - **Readable Menus**: Menu text no longer uses colors that blend into the panel. The title keeps its gold and yellow.
 
 ### Fixed
+
 - **Spear Icons**: Spears now show their icons in the item list.
 - **Nautilus Armor Icons**: Nautilus armor now shows its icon in the item list.
 
@@ -24,6 +28,8 @@
 - **Action Bar Messages**: Results and warnings appear above your hotbar instead of in chat.
 - **Colored Menus**: Menus use the gold and yellow @ALNStudios title with the version and button icons.
 - **Item List**: Each item shows its slot and how many enchantments it already has.
+
+
 
 ## [1.0.0] - 2026-11-13 - First Release
 
