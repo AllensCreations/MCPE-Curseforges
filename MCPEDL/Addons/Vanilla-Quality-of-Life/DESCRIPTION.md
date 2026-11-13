@@ -23,7 +23,7 @@ Combines dynamic lighting, offhand quick-swap, automatic tool selection, tree ca
 
 ### Tool & Weapon Switching
 - **Vanilla Bedrock**: Manual hotbar selection
-- **With Vanilla QoL**: Automatic optimal tool/weapon swap when holding Slot 1
+- **With Vanilla QoL**: Automatic optimal tool/weapon swap from your hotbar when holding Slot 1, and the displaced item returns after you stop
 
 ### Tree Harvesting
 - **Vanilla Bedrock**: 1 log at a time
@@ -98,6 +98,8 @@ Combines dynamic lighting, offhand quick-swap, automatic tool selection, tree ca
 - Continuous switching: While you are actively hitting blocks, aiming at a different kind of block switches to its best tool. Auto-switch only acts while you are mining, never just from looking at a block.
 - Low durability penalty: Automatically favors healthy tools so nearly-broken tools aren't worn down.
 - Mending preference: When two tools are equally good for the job, the Mending tool that needs repair is used first.
+- Hotbar only: Only tools in your hotbar are used, so items in your backpack are never moved.
+- Swap-back: A moment after you stop mining or fighting, the item that was in Slot 1 returns to its original slot.
 
 #### 2. Smart Tree Capitator (Axe; sneak requirement depends on selected subpack)
 - With Sneak to Chain Mine (Default), sneak while chopping any tree log with an axe to fell the entire tree. Auto Chain Mine removes this requirement while the axe is held in selected hotbar slot 1:
@@ -107,7 +109,7 @@ Combines dynamic lighting, offhand quick-swap, automatic tool selection, tree ca
   - **House Protection (the canopy check)**: Requires natural-looking leaf canopy evidence for Overworld trees; wart blocks and shroomlights count only for crimson/warped fungi. Trees touching player-built blocks such as planks, doors, fences, glass, bricks, or storage are left standing, and logs more than 8 blocks from the broken log are ignored. This reduces false positives but cannot guarantee protection for every custom build.
   - **Natural Leaf Decay**: Preserves leaf canopies for authentic leaf decay drops (saplings, sticks, apples).
   - **Capacity Limit**: Up to 128 logs per tree operation.
-  - **Known Limits**: A very large tree can be only partly felled because of the 128-log cap. Logs more than 8 blocks sideways from the broken log are ignored, and trees touching player-built blocks are skipped, so chop those by hand.
+  - **Known Limits**: A very large tree can be only partly felled because of the 128-log cap. Logs more than 8 blocks sideways from the broken log are ignored, and trees touching player-built blocks are skipped, so chop those by hand. An action-bar message tells you when a tree was too large to fell completely.
   - **Grouped Drops**: Logs are merged into full stacks within 5-block areas so only a few item entities appear.
 
 #### 3. Domino Ore Miner (Pickaxe; sneak requirement depends on selected subpack)
@@ -115,7 +117,7 @@ Combines dynamic lighting, offhand quick-swap, automatic tool selection, tree ca
   - **connected-block Detection**: Sweeps faces, edges, and corners across all 3 spatial dimensions.
   - **Category Normalization**: Normalizes stone and deepslate variants (e.g. Coal Ore and Deepslate Coal Ore chain together).
   - **Fortune & Silk Touch**: Honors Silk Touch block drops and Fortune bonuses; Redstone Fortune adds extra dust instead of multiplying it.
-  - **Experience**: Chain-mined ores drop their normal experience as orbs when mined without Silk Touch.
+  - **Experience**: Chain-mined ores give their normal experience when mined without Silk Touch: up to 10 orbs per chain, with any extra experience going straight to you.
   - **Creative Mode**: Chain mining and felling use no tool durability and drop no items.
   - **Capacity Limit**: Up to 64 ore blocks per vein cluster.
   - **Grouped Drops**: Drops are merged into full stacks within 5-block areas so only a few item entities appear.
@@ -203,7 +205,7 @@ Combines dynamic lighting, offhand quick-swap, automatic tool selection, tree ca
 
 ## Compatibility & Packaging Formats
 
-- Minecraft Bedrock Edition. Check the current release listing for the supported version.
+- Minecraft Bedrock Edition 1.26.50 or newer.
 - Designed around Minecraft Bedrock gameplay mechanics
 - **Available Package Formats**:
   - **Complete **: 1-click full install with all features and companion visuals.

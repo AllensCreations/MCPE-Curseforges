@@ -1,13 +1,13 @@
 {
   "format_version": 2,
   "header": {
-    "name": "Vanilla Quality of Life (v2.1.0)",
+    "name": "Vanilla Quality of Life (v2.1.1)",
     "description": "Client entity locators and visual fixes for Vanilla Quality of Life. by ALNStudios",
     "uuid": "fd036566-d0b1-4f92-9b28-9dd45a376d44",
     "version": [
       2,
       1,
-      0
+      1
     ],
     "min_engine_version": [
       1,
@@ -23,7 +23,7 @@
       "version": [
         2,
         1,
-        0
+        1
       ]
     }
   ],
@@ -32,6 +32,6 @@
       "ALNStudios"
     ],
     "product_type": "addon",
-    "version": "2.1.0"
+    "version": "2.1.1"
   }
 }

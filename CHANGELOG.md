@@ -2,6 +2,18 @@
 
 ---
 
+## [1.0.11] - 2026-11-14 - Swap-Back and Chain Mining Polish
+
+### Added
+- **Swap-Back After Mining**: A moment after you stop mining or fighting, the item that was in Slot 1 returns to its original slot instead of staying swapped.
+- **Tree Size Message**: An action-bar message now tells you when a tree was too large to fell completely.
+
+### Improved & Balanced
+- **Faster Auto-Switch**: Auto-switch now waits only about a tenth of a second after a block breaks, so it keeps up with instant-break blocks.
+- **Hotbar-Only Tool Search**: Auto-switch now only uses tools from your hotbar, so items in your backpack are never moved.
+- **Chain Mining Experience**: Chain mining now spawns at most 10 experience orbs per chain and gives any extra experience straight to you, so far fewer orbs appear.
+- **Lighter Held Light Checks**: The held-light update does less work while you carry no light item.
+
 ## [1.0.10] - 2026-11-14 - Smooth Bar and Mob Gear
 
 ### Added

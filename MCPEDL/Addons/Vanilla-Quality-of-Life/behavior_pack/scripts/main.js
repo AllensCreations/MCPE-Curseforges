@@ -7,6 +7,7 @@ const CONFIG = {
   SWAP_WINDOW_TICKS: 14,
   SWAP_COOLDOWN_TICKS: 8,
   LIGHT_UPDATE_TICKS: 1,
+  IDLE_LIGHT_CHECK_TICKS: 5,
   STILL_SPEED_LIMIT: 0.03,
 
   AUTO_SWITCH_SLOT: 0,
@@ -19,8 +20,11 @@ const CONFIG = {
   RETRY_TICKS: 2,
   COMBAT_COOLDOWN_TICKS: 10,
   MINING_ACTIVE_TICKS: 10,
-  BREAK_SWITCH_DELAY_TICKS: 5,
+  BREAK_SWITCH_DELAY_TICKS: 2,
   SWAP_RESTORE_TICKS: 4,
+  SWAP_BACK_TICKS: 30,
+  TOOL_SEARCH_LAST_SLOT: 8,
+  PROTECTED_SLOTS: [],
   WEB_CHECK_INTERVAL: 2,
   WEB_INTERACTION_WINDOW: 12,
   WEB_COMBAT_COOLDOWN: 40,
@@ -38,6 +42,7 @@ const CONFIG = {
 
   CHAIN_PAUSE_TICKS: 40,
   DROP_GROUP_SIZE: 5,
+  XP_ORB_LIMIT: 10,
 
   DURABILITY_SAFETY_THRESHOLD: 0,
   ALERT_SOUND: "note.bass",
@@ -691,7 +696,9 @@ function switchPlayerSlot1Tool(player, category, blockTypeId) {
   let bestScore = -Infinity;
   let bestItem;
 
-  for (let slot = 1; slot < container.size; slot++) {
+  const lastSearchSlot = Math.min(container.size - 1, CONFIG.TOOL_SEARCH_LAST_SLOT);
+  for (let slot = 1; slot <= lastSearchSlot; slot++) {
+    if (CONFIG.PROTECTED_SLOTS.includes(slot)) continue;
     const item = container.getItem(slot);
     if (!item) continue;
     const score = scoreItem(item, category, slot, blockId);
@@ -718,12 +725,48 @@ function switchPlayerSlot1Tool(player, category, blockTypeId) {
   if (currentScore !== -Infinity && bestScore < currentScore + CONFIG.SWITCH_MARGIN && !repairSwap) return false;
 
   try {
+    const record = swapBack.get(player.id);
+    if (record) {
+      swapBack.delete(player.id);
+      if (isSwapBackValid(container, record)) {
+        container.swapItems(record.slot, CONFIG.AUTO_SWITCH_SLOT, container);
+        if (bestSlot === record.slot) {
+          lastSwap.set(player.id, { tick: system.currentTick, slot: record.slot });
+          return true;
+        }
+      }
+    }
+    const originalItem = container.getItem(CONFIG.AUTO_SWITCH_SLOT);
     container.swapItems(bestSlot, CONFIG.AUTO_SWITCH_SLOT, container);
+    swapBack.set(player.id, {
+      slot: bestSlot,
+      toolTypeId: container.getItem(CONFIG.AUTO_SWITCH_SLOT)?.typeId,
+      originalTypeId: originalItem?.typeId,
+    });
     lastSwap.set(player.id, { tick: system.currentTick, slot: bestSlot });
     return true;
   } catch {
     return false;
   }
+}
+
+function isSwapBackValid(container, record) {
+  return (
+    container.getItem(CONFIG.AUTO_SWITCH_SLOT)?.typeId === record.toolTypeId &&
+    container.getItem(record.slot)?.typeId === record.originalTypeId
+  );
+}
+
+function restoreSwappedItem(player) {
+  const record = swapBack.get(player.id);
+  if (!record) return;
+  swapBack.delete(player.id);
+  if (player.selectedSlotIndex === record.slot) return;
+  const container = getContainer(player);
+  if (!container || !isSwapBackValid(container, record)) return;
+  try {
+    container.swapItems(record.slot, CONFIG.AUTO_SWITCH_SLOT, container);
+  } catch (e) {}
 }
 
 function isCombatTarget(entity) {
@@ -889,6 +932,12 @@ function notifyToolProtection(player, remainingDurability) {
     player.onScreenDisplay.setActionBar(
       `§e[Tool Protection] §cStopped mining to save tool! §6(${remainingDurability} durability left)`
     );
+  } catch (e) {}
+}
+
+function notifyTreeTooLarge(player) {
+  try {
+    player.onScreenDisplay.setActionBar("§e[Tree Capitator] §6Tree too large, some logs were left standing");
   } catch (e) {}
 }
 
@@ -1116,6 +1165,7 @@ function executeTreeCapitator(player, dimension, startLoc, startBlockId, onCompl
     return;
   }
 
+  const capped = blocksToBreak.length >= CONFIG.MAX_TREE_BLOCKS;
   const creative = isGameMode(player, "creative");
   const drops = new Map();
   for (const pos of blocksToBreak) {
@@ -1134,6 +1184,7 @@ function executeTreeCapitator(player, dimension, startLoc, startBlockId, onCompl
     } catch (err) {}
   }
   spawnGroupedDrops(dimension, drops);
+  if (capped) notifyTreeTooLarge(player);
 
   if (onComplete) onComplete();
 }
@@ -1218,13 +1269,24 @@ const ORE_XP = {
   nether_gold: [0, 1],
 };
 
-function awardOreExperience(dimension, loc, category) {
+function rollOreExperience(category) {
   const range = ORE_XP[category];
-  if (!range) return;
-  const xp = Math.floor(Math.random() * (range[1] - range[0] + 1)) + range[0];
-  for (let i = 0; i < xp; i++) {
+  if (!range) return 0;
+  return Math.floor(Math.random() * (range[1] - range[0] + 1)) + range[0];
+}
+
+function awardChainExperience(player, dimension, loc, total) {
+  if (!loc || total <= 0) return;
+  const orbs = Math.min(total, CONFIG.XP_ORB_LIMIT);
+  for (let i = 0; i < orbs; i++) {
     try {
       dimension.spawnEntity("minecraft:xp_orb", { x: loc.x + 0.5, y: loc.y + 0.5, z: loc.z + 0.5 });
+    } catch (e) {}
+  }
+  const rest = total - orbs;
+  if (rest > 0) {
+    try {
+      player.addExperience(rest);
     } catch (e) {}
   }
 }
@@ -1307,6 +1369,8 @@ function executeDominoOreMiner(player, dimension, startLoc, startBlockId, onComp
   let fortuneLevel = 0;
   const creative = isGameMode(player, "creative");
   const drops = new Map();
+  let xpTotal = 0;
+  let xpPos;
 
   try {
     const enchantable = tool?.getComponent("minecraft:enchantable") || tool?.getComponent("enchantable");
@@ -1351,13 +1415,18 @@ function executeDominoOreMiner(player, dimension, startLoc, startBlockId, onComp
                 FORTUNE_AFFECTED_ORE_CATEGORIES.has(oreInfo.category)
               );
         addGroupedDrop(drops, blockData, dropId, count);
-        awardOreExperience(dimension, blockData, oreInfo.category);
+        const xp = rollOreExperience(oreInfo.category);
+        if (xp > 0) {
+          xpTotal += xp;
+          if (!xpPos) xpPos = blockData;
+        }
       }
       applyToolDurabilityDamage(player);
     } catch (err) {}
   }
 
   spawnGroupedDrops(dimension, drops);
+  awardChainExperience(player, dimension, xpPos, xpTotal);
 
   if (onComplete) onComplete();
 }
@@ -1365,6 +1434,7 @@ function executeDominoOreMiner(player, dimension, startLoc, startBlockId, onComp
 const activeMiningOperations = new Set();
 const chainPauseUntil = new Map();
 const lastSwap = new Map();
+const swapBack = new Map();
 
 world.beforeEvents.itemUse.subscribe((event) => {
   const player = event.source;
@@ -1551,7 +1621,7 @@ system.runInterval(() => {
         swapHands(player);
       }
 
-      if (doLight) {
+      if (doLight && (state.lightLevel > 0 || tick % CONFIG.IDLE_LIGHT_CHECK_TICKS === 0)) {
         updatePlayerLight(player, state);
       }
     } catch (e) {}
@@ -1641,6 +1711,17 @@ system.runInterval(() => {
       const last = miningActivity.get(player.id);
       if (last === undefined || now - last > CONFIG.MINING_ACTIVE_TICKS) {
         lastAutoSwitchKey.delete(player.id);
+        if (swapBack.has(player.id)) {
+          const idleSince = Math.max(
+            last ?? -Infinity,
+            lastBreakTick.get(player.id) ?? -Infinity,
+            recentCombat.get(player.id) ?? -Infinity,
+            lastSwap.get(player.id)?.tick ?? -Infinity
+          );
+          if (now - idleSince > CONFIG.SWAP_BACK_TICKS && now >= (chainPauseUntil.get(player.id) ?? 0)) {
+            restoreSwappedItem(player);
+          }
+        }
         continue;
       }
       if (player.selectedSlotIndex !== CONFIG.AUTO_SWITCH_SLOT) continue;
@@ -1696,6 +1777,7 @@ world.afterEvents.playerLeave.subscribe((event) => {
   clearPendingSwap(id);
   activeMiningOperations.delete(id);
   lastSwap.delete(id);
+  swapBack.delete(id);
   lastBreakTick.delete(id);
 });
 
