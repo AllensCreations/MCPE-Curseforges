@@ -2,11 +2,13 @@
 
 ---
 
-## [2.0.0.1] - 2026-11-11
+## [2.0.1] - 2026-11-13
+
+**What's new in v2.0.1:** Packed with the v2.0.1 update.
 
 ### Added
-- **Pink eyes**: Tamed Zombies and Skeletons now have pink eyes, so you can tell them apart from wild ones.
 
+- **Pink eyes**: Tamed Zombies and Skeletons now have pink eyes, so you can tell them apart from wild ones.
 ---
 
 ## [2.0.0] - 2026-11-08
@@ -29,6 +31,8 @@
 
 
 **What's new in v2.0.0:** Rolls up the existing changelog, from v1.0.7 through v1.3.0.
+
+
 
 ## [1.0.0] - 2026-11-04
 
@@ -69,6 +73,8 @@
 
 ---
 
+
+
 ## [1.13.0] - 2026-11-04
 
 ### Improved & Balanced
@@ -77,12 +83,16 @@
 
 ---
 
+
+
 ## [1.12.0] - 2026-11-03
 
 ### Improved & Balanced
 - **Taming feedback**: The on-screen "Companion tamed!" message has been removed. Hearts still appear when a mob is tamed.
 
 ---
+
+
 
 ## [1.11.0] - 2026-11-03
 
@@ -92,6 +102,8 @@
 
 ---
 
+
+
 ## [1.10.0] - 2026-10-29
 
 ### Fixed
@@ -100,6 +112,8 @@
 
 ---
 
+
+
 ## [1.6.0] - 2026-10-29
 
 ### Fixed
@@ -107,12 +121,16 @@
 
 ---
 
+
+
 ## [1.5.0] - 2026-10-29
 
 ### Added
 - **Witch healing**: A tamed Witch now occasionally throws a healing splash potion at you when you are hurt.
 
 ---
+
+
 
 ## [1.4.0] - 2026-10-29
 
@@ -124,6 +142,8 @@
 
 ---
 
+
+
 ## [1.8.0] - 2026-10-19
 
 ### Fixed
@@ -131,6 +151,8 @@
 - **Recipe organization:** Added a recipe category for the biscuit recipe to help Minecraft organize it consistently.
 
 ---
+
+
 
 ## [1.7.0] - 2026-10-19
 
