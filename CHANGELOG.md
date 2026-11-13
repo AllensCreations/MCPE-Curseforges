@@ -2,6 +2,14 @@
 
 ---
 
+## 2026-11-13 - Search And Replace Updates
+
+### Added
+- **Search-and-replace updates**: Every pack update is now a small list of exact find-and-replace edits instead of rewritten files. `scripts/make_update_script.py` builds the `.sh`, and `scripts/apply_update.py` applies the edits all-or-nothing, skips anything already applied, refuses a stale version, checks JSON and JavaScript, sets the manifest version and writes the pack and root changelog entries.
+
+### Improved & Balanced
+- **Smaller scripts**: The edits travel inside the `.sh` as readable text, so scripts are small, fast to review and cannot silently overwrite unrelated content.
+
 ## 2026-11-13 - One Reply Format And Vanilla Workarounds
 
 ### Added

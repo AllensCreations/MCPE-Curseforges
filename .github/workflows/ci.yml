@@ -63,6 +63,7 @@ jobs:
           python scripts/test_delete_project.py
           python scripts/test_changelog_names.py
           python scripts/test_make_pack_script.py
+          python scripts/test_update_tools.py
           python scripts/test_description_views.py
           python scripts/test_check_instruction_files.py
 

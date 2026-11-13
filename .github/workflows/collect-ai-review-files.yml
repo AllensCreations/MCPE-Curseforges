@@ -117,7 +117,7 @@ jobs:
           1. `#!/data/data/com.termux/files/usr/bin/bash` + `set -e`
           2. `cd "$HOME/MCPE-Curseforges"`; `git clone` repo URL first if folder missing
           3. `git pull --rebase`
-          4. Apply ALL changes (code + docs) inside the script: heredocs for new/replaced files, inline python3 to patch many files. No separate downloads.
+          4. Apply ALL changes as exact search-and-replace edits: write a spec and run `python3 scripts/make_update_script.py spec.txt` (format in `scripts/apply_update.py`; `--verify <clone>` dry-runs it). The tool applies edits atomically, sets the manifest version and writes both changelogs. NEVER rewrite whole files for small changes; `create`/`overwrite` only for new files or changes over 60% of a file. No separate downloads.
           5. Validate every changed .json with python3. Stop on error.
           5b. Verify top CHANGELOG.md heading == new X.Y.Z == script filename version. Stop on mismatch. If project has manifests: run `python3 scripts/manifest_tools.py --project "$DEST" --set X.Y.Z` (sets header.version, metadata.version, title suffix, module/dependency versions in every source manifest; never lowers), then `python3 scripts/manifest_tools.py --project "$DEST" --check` and `python3 scripts/validate_manifest_titles.py --project "$DEST"`. Stop on error. Every update must change the manifests so the build changes. Never hand-edit manifest JSON for versions.
           5c. If INSTRUCTIONS.md or PACK_GENERATOR_INSTRUCTIONS.md changed: run `python3 scripts/check_instruction_files.py`. Stop on error
@@ -379,7 +379,7 @@ jobs:
                   "build_payload.py", "import_project_payload.py", "crafting_template.py",
                   "generate_recipe_images.py", "convert_crafting_recipe_svgs_to_png.py",
                   "ensure_recipe_unlocks.py", "make_pack_icon.py", "optimize_images.py",
-                  "manifest_tools.py", "doc_template.py", "build_test_world.py", "make_pack_script.py", "CRAFTING_TABLE.svg")]
+                  "manifest_tools.py", "doc_template.py", "build_test_world.py", "make_pack_script.py", "make_update_script.py", "apply_update.py", "CRAFTING_TABLE.svg")]
           t_ok, t_missing, t_blocks = [], [], []
           for rel in tool_files:
               p = root / rel
