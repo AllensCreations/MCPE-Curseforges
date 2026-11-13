@@ -2,6 +2,12 @@
 
 ---
 
+## [1.0.6] - 2026-11-13 - CI Test Coverage
+
+### Improved & Balanced
+- **CI tests**: `test_rename_packages.py` now runs in the CI test step.
+- **Build Center CI**: `actions/checkout` pinned to the same commit SHA as the other workflows.
+
 ## [1.0.5] - 2026-11-13 - Behavior Pack Add-on Tag
 
 ### Fixed
