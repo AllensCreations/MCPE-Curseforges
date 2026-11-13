@@ -1,8 +1,8 @@
 {
-  "changelog_version": "1.1.0",
-  "manifest_version": "1.1.0",
+  "changelog_version": "1.1.1",
+  "manifest_version": "1.1.1",
   "packages": {
-    "TargetHUD V1.1.0.mcpack": "87e9ea65d26b247513feebeaa7c3f64abaf38a4d14ae10d1928760935530206b"
+    "TargetHUD V1.1.1.mcpack": "e889198739181c1757031cca8d89410743e6cab7a4b1138d303c909128116d3a"
   },
-  "source_sha256": "334e2e1779ef5e78dfee1cd8aa5a876bbcc3604c67aecc5e8089fff43fe31886"
+  "source_sha256": "673ec27f114689183ca0fe874e927ea75497e437deae9ce0305f0990587fc1f6"
 }

@@ -1,0 +1,8 @@
+{
+  "changelog_version": "1.1.1",
+  "manifest_version": "1.1.1",
+  "packages": {
+    "TargetHUD V1.1.1.mcpack": "e889198739181c1757031cca8d89410743e6cab7a4b1138d303c909128116d3a"
+  },
+  "source_sha256": "673ec27f114689183ca0fe874e927ea75497e437deae9ce0305f0990587fc1f6"
+}
