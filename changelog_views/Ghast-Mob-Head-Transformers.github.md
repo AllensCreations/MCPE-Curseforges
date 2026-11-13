@@ -1,6 +1,6 @@
 # Changelog — Ghast Mob Head Transformers
 
-## [1.16.1] - 2026-11-13 - Head Drops, Abilities and Fixes
+## [1.16.1] - 2026-11-13
 
 ### Fixed
 - **Dragon Head in subpacks**: The Dragon variant was missing from the Natural Spawn and Manual Only subpacks, so the Dragon Head transformation could not apply there. All subpacks now include it.
