@@ -1,26 +1,31 @@
 # Changelog — Team Inventory
 
-## [1.22.1] - 2026-11-13
+## [1.22.2] - 2026-11-13 - Death Drops Fix
 
-### Added
+### Fixed
+- **Death Drops**: The shared inventory now drops where a player dies and is then emptied for the team.
+
+<details>
+<summary><b>1.22.x</b> (2 releases)</summary>
+
+### [1.22.1] - 2026-11-13
+
+#### Added
 - **End Game Button**: The Controller menu has an End Game button. The host or an operator can end sharing without using a command, and the shared items are divided between players the same way.
 - **End Game Confirmation**: Choosing End Game now asks for confirmation first, so a stray tap no longer ends the game.
 - **Offline Player Shares**: Players who are offline when the game ends receive their share of the items the next time they join.
 - **Hard Mode Death Message**: When one player dies in Hard Mode, chat now says who died.
 
-### Improved & Balanced
+#### Improved & Balanced
 - **Start Message**: The chat message shown when sharing starts now lists the chosen Mode and Layout.
 - **Locked Menu Buttons**: The Mode and Layout buttons are marked as locked while sharing is running.
 - **Controller Name**: The Controller is now named ALNStudios Controller in game, matching its description.
 - **Larger Saves**: A bigger shared inventory can now be saved before the too-large warning appears.
 - **Lighter Syncing**: Item checks reuse earlier results instead of rebuilding them every tick.
 
-### Fixed
+#### Fixed
 - **Lost Items at End**: When the game ended in Personal layout and a player had no room, extra items could disappear. They now drop on the ground instead.
 - **Waiting Clears**: Starting a new game no longer skips cleaning the items of players who were offline when the last game ended.
-
-<details>
-<summary><b>1.22.x</b> (1 release)</summary>
 
 ### [1.22.0] - 2026-11-13 - Personal Layout
 
