@@ -1,8 +1,8 @@
 {
-  "changelog_version": "1.22.0",
-  "manifest_version": "1.22.0",
+  "changelog_version": "1.22.1",
+  "manifest_version": "1.22.1",
   "packages": {
-    "SharedHivemind V1.22.0.mcaddon": "562d667552f4c995a423fa4db8b1c350f48b05dd4e575775260ef4df4ee84fe2"
+    "SharedHivemind V1.22.1.mcaddon": "0f4645f35802c1aa1a63cb401e63334f40a42fca69677505288a26844d4512d6"
   },
-  "source_sha256": "52da6fbf98561605a4eb96e74a0ed7801414954a66507bd753a957efbd718c9e"
+  "source_sha256": "1d97bf810031ded61c652ef1099ba31a71763d64414ad9490a26f5ed2d0bd1ad"
 }

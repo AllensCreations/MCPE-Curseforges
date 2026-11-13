@@ -5,7 +5,7 @@ Download the current release of **Team Inventory** for Minecraft Bedrock Edition
 ## Download
 
 - **Package format:** `.mcaddon`
-- **Direct download:** [Download Team Inventory (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Shared-Hivemind-Inventory/SharedHivemind%20V1.22.0.mcaddon)
+- **Direct download:** [Download Team Inventory (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Shared-Hivemind-Inventory/SharedHivemind%20V1.22.1.mcaddon)
 
 ## Installation
 
