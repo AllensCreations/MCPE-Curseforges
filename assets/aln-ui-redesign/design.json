@@ -1,5 +1,5 @@
 {
-  "format": "cheatstick-ui-design",
+  "format": "aln-ui-redesign-design",
   "version": 1,
   "units": "Minecraft GUI pixels (one unit = one game pixel at GUI scale 1)",
   "target": "Form menu of the Cheat Stick add-on (the same layout is used for every menu)",

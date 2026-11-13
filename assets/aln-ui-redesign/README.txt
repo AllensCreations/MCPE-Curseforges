@@ -1,6 +1,6 @@
-Cheatstick UI components
+ALN UI Redesign components
 ========================
-Made by the Cheatstick UI Designer. All sizes are Minecraft GUI pixels (1 unit = 1 game pixel). Every PNG below is drawn at its true size.
+Made by the ALN UI Redesign Designer. All sizes are Minecraft GUI pixels (1 unit = 1 game pixel). Every PNG below is drawn at its true size.
 Put the textures folder in the Resource Pack. design.json holds every value; preview_reference.png shows the intended result (4x zoom).
 
 textures/ui/cheatstick/panel.png        8x8  nine-slice 3  (menu panel: fill, opacity 0.96, border 2, corners notched)

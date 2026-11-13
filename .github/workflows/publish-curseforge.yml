@@ -21,13 +21,14 @@ on:
   workflow_dispatch:
     inputs:
       publish_project:
-        description: "Registered pack"
+        description: "Registered pack, or ALL = every pack not yet published (unpublished or behind its newest changelog version)"
         required: true
         default: "-"
         type: choice
         options:
           # BEGIN registered
           - "-"
+          - "ALL"
           - "MCPEDL/Addons/2-in-1-Loot--XP-Booster"
           - "MCPEDL/Addons/Cheat-Stick"
           - "MCPEDL/Addons/Enchanter"
@@ -65,7 +66,7 @@ jobs:
       contents: write
       actions: write
     concurrency:
-      group: publish-curseforge-${{ inputs.publish_project }}
+      group: publish-curseforge-${{ inputs.publish_project == 'ALL' && 'all' || inputs.publish_project }}
       cancel-in-progress: false
     steps:
       - name: Check out source
@@ -112,6 +113,10 @@ jobs:
           [[ "$GITHUB_REF" == refs/heads/* ]] || { echo "::error::Run this workflow on a branch."; exit 1; }
           [ "$PROJECT_PATH" != "-" ] || { echo "::error::Pick a registered pack (run 'Register CurseForge ID' first if it is missing)."; exit 1; }
           [ -n "$CURSEFORGE_API_TOKEN" ] || { echo "::error::Add the CURSEFORGE_API_TOKEN repository secret."; exit 1; }
+          if [ "$PROJECT_PATH" = "ALL" ]; then
+            echo "Publish ALL: every unpublished or outdated registered pack will be uploaded."
+            exit 0
+          fi
           python3 - <<'PY'
           import os, sys
           sys.path.insert(0, "scripts")
@@ -125,6 +130,7 @@ jobs:
           PY
 
       - name: Bump version, group changelog since last publish, build and upload (once)
+        id: publish
         env:
           CURSEFORGE_API_TOKEN: ${{ secrets.CURSEFORGE_API_TOKEN }}
           PROJECT_PATH: ${{ inputs.publish_project }}
@@ -135,13 +141,51 @@ jobs:
           PACK_FILENAME_TEMPLATE: ${{ vars.PACK_FILENAME_TEMPLATE }}
         run: |
           set -euo pipefail
-          python3 scripts/auto_publish_curseforge.py \
-            --project "$PROJECT_PATH" \
-            --map-variant "$MAP_VARIANT" \
-            --release-type "$RELEASE_TYPE"
+          if [ "$PROJECT_PATH" != "ALL" ]; then
+            python3 scripts/auto_publish_curseforge.py \
+              --project "$PROJECT_PATH" \
+              --map-variant "$MAP_VARIANT" \
+              --release-type "$RELEASE_TYPE"
+            exit 0
+          fi
+          # Publish ALL: one pack at a time, each committed and pushed on its own so a later
+          # failure never loses an earlier upload. Failures are collected and reported at the end.
+          mapfile -t PENDING < <(python3 scripts/auto_publish_curseforge.py --list-pending)
+          if [ "${#PENDING[@]}" -eq 0 ]; then
+            echo "Nothing to publish: every registered pack is already up to date."
+            exit 0
+          fi
+          echo "Publishing ${#PENDING[@]} pack(s): ${PENDING[*]}"
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          BRANCH="${GITHUB_REF#refs/heads/}"
+          DONE=0
+          FAILED=()
+          for P in "${PENDING[@]}"; do
+            echo "::group::$P"
+            if python3 scripts/auto_publish_curseforge.py --project "$P" --map-variant "$MAP_VARIANT" --release-type "$RELEASE_TYPE"; then
+              DONE=$((DONE + 1))
+              git add -A
+              if ! git diff --cached --quiet; then
+                git commit -m "chore(curseforge): publish ${P##*/} [skip ci]"
+                python3 scripts/git_push_retry.py --branch "$BRANCH" || FAILED+=("$P (uploaded, push failed)")
+              fi
+            else
+              FAILED+=("$P")
+              git checkout -q -- . || true
+            fi
+            echo "::endgroup::"
+          done
+          echo "published=$DONE" >> "$GITHUB_OUTPUT"
+          echo "Published $DONE of ${#PENDING[@]} pack(s)."
+          if [ "${#FAILED[@]}" -gt 0 ]; then
+            echo "::error::Failed: ${FAILED[*]}"
+            exit 1
+          fi
 
       # Runs only after a successful upload, so a failed upload leaves the repo untouched.
       - name: Commit new version, merged changelog and saved release info
+        if: inputs.publish_project != 'ALL'
         env:
           PROJECT_PATH: ${{ inputs.publish_project }}
         run: |
@@ -160,7 +204,7 @@ jobs:
       # The passive build never runs after a [skip ci] commit, so start it once here. It picks up
       # the new version, rebuilds every package and re-syncs the catalogs and changelog views.
       - name: Start Build Changed Packs & Sync Catalogs
-        if: success()
+        if: success() || (always() && steps.publish.outputs.published != '' && steps.publish.outputs.published != '0')
         env:
           GH_TOKEN: ${{ github.token }}
         run: |

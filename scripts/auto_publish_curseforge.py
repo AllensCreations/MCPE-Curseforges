@@ -79,12 +79,38 @@ def publish(project_path, release_type="keep", map_variant="default"):
     return True
 
 
+def pending_packs():
+    """Registered packs not yet on CurseForge, or behind their newest CHANGELOG.md version."""
+    root = release.REPO_ROOT
+    found = []
+    for key in sorted(release.load_registry()):
+        log = root.joinpath(*key.split("/")) / "CHANGELOG.md"
+        if not log.is_file():
+            continue
+        try:
+            release.read_info(key)
+            latest = release.parse_version(release.latest_changelog_entry(log)[0])
+            last = release.load_registry()[key].get("last_published_version")
+            done = release.parse_version(last) if last else None
+        except ValueError:
+            continue
+        if done is None or latest > done:
+            found.append(key)
+    return found
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--project", required=True, help="Exact MCPEDL category/project path")
+    parser.add_argument("--project", help="Exact MCPEDL category/project path")
+    parser.add_argument("--list-pending", action="store_true", help="Print every pack that still needs publishing, one per line")
     parser.add_argument("--release-type", default="keep", choices=("keep", "release", "beta"))
     parser.add_argument("--map-variant", default="default", choices=("default", "Creative", "Survival", "Hardcore", "all"))
     args = parser.parse_args()
+    if args.list_pending:
+        print("\n".join(pending_packs()))
+        return
+    if not args.project:
+        parser.error("--project is required unless --list-pending is used")
     publish(args.project, args.release_type, args.map_variant)
 
 

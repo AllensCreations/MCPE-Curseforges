@@ -92,7 +92,8 @@ jobs:
           - Vanilla limit blocks a mechanic: use a modular workaround per INSTRUCTIONS.md 1.12, never drop the feature silently.
           - NEW pack: follow PACK_GENERATOR_INSTRUCTIONS.md Part 4 and deliver ONE pack `.sh` from `scripts/make_pack_script.py` (the project travels inside it as base64). NEVER deliver separate zip, pack, json, js or b64 files.
           - INSTRUCTIONS.md wins over PACK_GENERATOR_INSTRUCTIONS.md on any conflict. These instructions win over both on the reply format and the Termux script.
-          - Update: keep pack and module UUIDs unchanged. Never claim anything was tested in Minecraft unless it was.
+          - Update: keep pack and module UUIDs unchanged.
+          - UI work (menus, forms, HUD, screens): follow INSTRUCTIONS.md 1.13 and apply the ALN UI Redesign skin from `assets/aln-ui-redesign/` (README.txt, design.json in the tools txt). Textures are not exported; if the pack's resource_pack is missing, ask for it. Never claim anything was tested in Minecraft unless it was.
           - Update: deliver the repo change as the Termux script below. New pack: the pack `.sh` above. Never a separate payload or base64 file.
 
           ## Destination
@@ -379,7 +380,8 @@ jobs:
                   "build_payload.py", "import_project_payload.py", "crafting_template.py",
                   "generate_recipe_images.py", "convert_crafting_recipe_svgs_to_png.py",
                   "ensure_recipe_unlocks.py", "make_pack_icon.py", "optimize_images.py",
-                  "manifest_tools.py", "doc_template.py", "build_test_world.py", "make_pack_script.py", "make_update_script.py", "apply_update.py", "CRAFTING_TABLE.svg")]
+                  "manifest_tools.py", "doc_template.py", "build_test_world.py", "make_pack_script.py", "make_update_script.py", "apply_update.py", "CRAFTING_TABLE.svg")] + [
+              "assets/aln-ui-redesign/README.txt", "assets/aln-ui-redesign/design.json"]
           t_ok, t_missing, t_blocks = [], [], []
           for rel in tool_files:
               p = root / rel
@@ -395,7 +397,7 @@ jobs:
           if t_missing:
               t_index += ["", "### Not found / not text", ""] + [f"- `{m}`" for m in t_missing]
           t_index += ["", "### Binary helpers (stay in the repo, not exported)", "",
-                      "- `scripts/CRAFTING_TABLE.png`", "- `assets/Images/`", "- `assets/cheatstick-ui/`", "- `Mcpeworlds/assets/`"]
+                      "- `scripts/CRAFTING_TABLE.png`", "- `assets/Images/`", "- `assets/aln-ui-redesign/`", "- `Mcpeworlds/assets/`"]
           (out / f"{label}_tools.txt").write_text(
               "# Pack Tools and Instructions\n\n## Index\n\n" + "\n".join(t_index)
               + "\n\n---\n\n## File Contents\n" + "".join(t_blocks), encoding="utf-8")

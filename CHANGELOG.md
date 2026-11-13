@@ -2,6 +2,15 @@
 
 ---
 
+## 2026-11-13 - ALN UI Redesign and Publish ALL
+
+### Added
+- **Publish ALL**: The Publish to CurseForge workflow has a new ALL choice. It uploads every registered pack that was never published or is behind its newest changelog version, one pack at a time, each saved on its own, with failures listed at the end.
+- **ALN UI Redesign rule**: Any pack that adds or changes a menu, form, HUD or screen now follows the shared ALN UI Redesign skin and ships it in its Resource Pack.
+
+### Improved & Balanced
+- **ALN UI Redesign**: The Cheatstick UI folder is now assets/aln-ui-redesign, and its README and design file are included in the AI tools export.
+
 ## 2026-11-13 - Enchanter Menu Redesign
 
 ### Added

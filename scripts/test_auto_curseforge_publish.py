@@ -326,6 +326,24 @@ class PublishGroupingTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, "Nothing new to publish"):
             self.combine(last_published="1.2.3")
 
+    def test_pending_packs_lists_unpublished_and_outdated(self):
+        with tempfile.TemporaryDirectory() as temp:
+            root = Path(temp)
+            registry = {}
+            for name, changelog, last in (("New", "1.0.0", None), ("Behind", "1.2.0", "1.1.9"), ("Current", "2.0.0", "2.0.0")):
+                folder = root / "MCPEDL" / "Addons" / name
+                folder.mkdir(parents=True)
+                (folder / "CHANGELOG.md").write_text(f"# Changelog\n\n---\n\n## [{changelog}] - 2026-01-01\n\n### Added\n- **x**: y.\n", encoding="utf-8")
+                entry = {"project_id": "123"}
+                if last:
+                    entry["last_published_version"] = last
+                registry[f"MCPEDL/Addons/{name}"] = entry
+            (root / "builds").mkdir()
+            (root / "builds" / ".three_part_version_migrated").write_text("", encoding="utf-8")
+            (root / "builds" / "Curseforge_IDs.json").write_text(json.dumps(registry), encoding="utf-8")
+            with patch.object(publisher.release, "REPO_ROOT", root):
+                self.assertEqual(publisher.pending_packs(), ["MCPEDL/Addons/Behind", "MCPEDL/Addons/New"])
+
 
 if __name__ == "__main__":
     unittest.main()

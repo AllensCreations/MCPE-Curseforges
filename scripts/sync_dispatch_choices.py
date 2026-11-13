@@ -22,7 +22,7 @@ ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
 WORKFLOWS_DIR = os.path.join(ROOT, ".github", "workflows")
 PUBLISH_WORKFLOW = os.path.join(WORKFLOWS_DIR, "publish-curseforge.yml")
 CATEGORY_FOLDERS = ("Addons", "Maps", "Script", "Minigame")
-MAX_PROJECTS = 24
+MAX_PROJECTS = 23  # dropdown limit is 25: '-' and 'ALL' take two
 
 
 def projects(category):
@@ -68,6 +68,7 @@ def render_publish(lines):
                 print(f"WARNING: {len(names)} registered packs; only the first {MAX_PROJECTS} fit in the dropdown.")
                 names = names[:MAX_PROJECTS]
             out.append(f'{indent}- "-"')
+            out.append(f'{indent}- "ALL"')
             out.extend(f'{indent}- "{n}"' for n in names)
             out.append(lines[j])
             i = j + 1
