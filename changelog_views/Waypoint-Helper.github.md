@@ -1,22 +1,35 @@
 # Changelog — Waypoint Helper
 
-## [1.1.3] - 2026-11-13
+## [1.1.4] - 2026-11-14 - Delete And Safer Teleports
 
-### Fixed
+### Added
+- **Delete Slot**: A new Delete button on the main menu clears a saved slot after you confirm.
+- **Cancel On Move Or Damage**: Moving or taking damage during the countdown cancels the teleport.
+- **Teleport Cooldown**: There is a 10 second wait after each teleport before you can teleport again.
+- **Arrival Effect**: A portal particle effect plays where you arrive.
+- **Fall Protection**: You get 5 seconds of slow falling after you arrive.
+
+### Improved & Balanced
+- **Menu Colors**: Menu buttons and text now use the default color. Colors only appear in the title bar and on action bar messages.
+- **Action Bar Messages**: Rename, delete and spawn point messages now show on the action bar instead of in chat.
+
+<details>
+<summary><b>1.1.x</b> (2 releases)</summary>
+
+### [1.1.3] - 2026-11-13
+
+#### Fixed
 - **Add-on Tag**: The Behavior Pack is now marked as an add-on, matching the Resource Pack, so both packs are listed together as one add-on.
 - **Mid-Air Landing**: Loading a waypoint whose spot is now in the air no longer drops you from a height.
 
-### Added
+#### Added
 - **Solid Ground Landing**: After a teleport, the Waypoint Helper checks the spot you arrive at. If it is now empty air you land on the ground below, and if it is inside blocks you are moved up to open space.
 - **Teleport Countdown**: Loading a waypoint now counts down 3 seconds on the action bar before you teleport.
 - **Teleport Sounds**: A click plays on each countdown second and a teleport sound plays when you arrive.
 
-### Improved & Balanced
+#### Improved & Balanced
 - **Dimension Colors**: The save message is now green in the Overworld, red in the Nether and yellow in The End.
 - **Action Bar Messages**: Save and teleport messages now show on the action bar instead of in chat.
-
-<details>
-<summary><b>1.1.x</b> (1 release)</summary>
 
 ### [1.1.0] - 2026-11-12
 
