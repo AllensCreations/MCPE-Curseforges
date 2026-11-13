@@ -2,15 +2,19 @@
 
 ---
 
-## [1.0.1] - 2026-11-13 - Menu Redesign
+## [1.0.1] - 2026-11-13
+
+**What's new in v1.0.1:** Packed with the v1.0.1 update. Includes: Menu Redesign.
 
 ### Added
+
 - **Main Menu**: Using the Enchanter Book now opens a menu with Enchanter, About and Exit.
 - **About Screen**: Shows who made the add-on, its version, and where to find ALNStudios.
 - **Back Buttons**: The item list and the preset screen each have a Back button.
 - **Item Header**: The chosen item's name, slot and current enchantments appear above the sliders.
 
 ### Improved & Balanced
+
 - **Slider Dividers**: A divider now separates every slider.
 - **Action Bar Messages**: Results and warnings appear above your hotbar instead of in chat.
 - **Colored Menus**: Menus use the gold and yellow @ALNStudios title with the version, colored labels and button icons.
