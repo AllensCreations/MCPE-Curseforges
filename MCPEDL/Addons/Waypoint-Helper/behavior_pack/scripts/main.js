@@ -1,7 +1,7 @@
 import { world, system } from "@minecraft/server";
 import { ActionFormData, ModalFormData, FormCancelationReason } from "@minecraft/server-ui";
 
-const VERSION = "1.1.5";
+const VERSION = "1.1.6";
 const MENU_ITEM = "minecraft:compass";
 const TITLE = `WPH|§6@ALNStudios Waypoint Helper §7(${VERSION})`;
 const BASE_SLOTS = 10;
@@ -107,8 +107,8 @@ function coordText(slot) {
 
 function slotLabel(slot, index) {
   if (!slot) return `Slot ${index + 1}: Empty`;
-  if (slot.n) return `${index + 1}. ${slot.n}`;
-  return `${index + 1}. ${coordText(slot)}\n${dimensionName(slot.d)}`;
+  if (slot.n) return `${dimensionColor(slot.d)}${index + 1}. ${slot.n}`;
+  return `${dimensionColor(slot.d)}${index + 1}. ${coordText(slot)}\n${dimensionName(slot.d)}`;
 }
 
 function slotName(slot, index) {
@@ -150,7 +150,7 @@ async function pickSlot(player, mode, notice) {
     form.button("Back");
     const death = mode === "load" ? readStored(player, DEATH_KEY) : undefined;
     const offset = mode === "load" ? 3 : 2;
-    if (mode === "load") form.button(death ? `Last Death: ${coordText(death)}\n${dimensionName(death.d)}` : "Last Death: None");
+    if (mode === "load") form.button(death ? `${dimensionColor(death.d)}Last Death: ${coordText(death)}\n${dimensionName(death.d)}` : "Last Death: None");
     for (let i = 0; i < total; i++) form.button(slotLabel(slots[i], i));
     let next = total + offset;
     let addIndex = -1;

@@ -1,13 +1,13 @@
 {
   "format_version": 2,
   "header": {
-    "name": "Waypoint Helper (v1.1.5)",
+    "name": "Waypoint Helper (v1.1.6)",
     "description": "Save, rename and teleport to waypoint slots from one menu. by ALNStudios",
     "uuid": "3864a060-003f-4e0c-92c0-c44fa5c99799",
     "version": [
       1,
       1,
-      5
+      6
     ],
     "min_engine_version": [
       1,
@@ -23,7 +23,7 @@
       "version": [
         1,
         1,
-        5
+        6
       ],
       "entry": "scripts/main.js"
     }
@@ -34,7 +34,7 @@
       "version": [
         1,
         1,
-        5
+        6
       ]
     },
     {
@@ -51,6 +51,6 @@
       "ALNStudios"
     ],
     "product_type": "addon",
-    "version": "1.1.5"
+    "version": "1.1.6"
   }
 }

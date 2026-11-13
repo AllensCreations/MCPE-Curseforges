@@ -2,6 +2,11 @@
 
 ---
 
+## [1.1.6] - 2026-11-14 - Dimension Colors In Menus
+
+### Improved & Balanced
+- **Dimension Colors In Menus**: Saved slots and the Last Death button now show their text in green for the Overworld, red for the Nether and yellow for The End.
+
 ## [1.1.5] - 2026-11-13
 
 **What's new in v1.1.5:** Packed with 2 updates, from v1.1.4 through v1.1.5. Includes: Last Death And Slot Cleanup; Delete And Safer Teleports.
