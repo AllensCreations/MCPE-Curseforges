@@ -242,7 +242,6 @@ Add separate feature cards for meaningful mechanics. Put relevant item lists, mo
 - Minecraft Bedrock Edition: [verified minimum version, only if verified]
 - Experimental features: [verified status]
 - Achievements: Likely achievement-friendly. [For Add-ons; use a factual status for other pack types.]
-- Verification: [source created / package built / in-game tested; never conflate them]
 
 ## Creator and Permissions
 
