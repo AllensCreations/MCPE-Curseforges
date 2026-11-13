@@ -2,7 +2,7 @@
   "changelog_version": "1.0.0",
   "manifest_version": "1.0.0",
   "packages": {
-    "Enchanter V1.0.0.mcaddon": "3be08bf710e173e1087144be2c8af77ece651e88441032693b3118455ee317a4"
+    "Enchanter V1.0.0.mcaddon": "791c959d6ad6881e6062a7a728f29a7c1b972a644efb5b0ea48fa13d339ae7ea"
   },
-  "source_sha256": "7471098ebcf086003fadc5e5dc2b365327bae78ab7c734e66cf9fab2291f5f76"
+  "source_sha256": "96172e698466b8d8c20172df7765aa5555eb2fd9b68946f2375d5b8f78b5e240"
 }
