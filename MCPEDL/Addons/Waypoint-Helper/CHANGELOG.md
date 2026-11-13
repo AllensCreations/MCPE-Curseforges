@@ -2,26 +2,23 @@
 
 ---
 
-## [1.1.3] - 2026-11-13 - Behavior Pack Add-on Tag
+## [1.1.3] - 2026-11-13
+
+**What's new in v1.1.3:** Packed with 3 updates, from v1.1.1 through v1.1.3. Includes: Behavior Pack Add-on Tag; Safe Teleport Landing; Teleport Countdown And Sounds.
 
 ### Fixed
+
 - **Add-on Tag**: The Behavior Pack is now marked as an add-on, matching the Resource Pack, so both packs are listed together as one add-on.
-
-## [1.1.2] - 2026-11-13 - Safe Teleport Landing
-
-### Added
-- **Solid Ground Landing**: After a teleport, the Waypoint Helper checks the spot you arrive at. If it is now empty air you land on the ground below, and if it is inside blocks you are moved up to open space.
-
-### Fixed
 - **Mid-Air Landing**: Loading a waypoint whose spot is now in the air no longer drops you from a height.
 
-## [1.1.1] - 2026-11-13 - Teleport Countdown And Sounds
-
 ### Added
+
+- **Solid Ground Landing**: After a teleport, the Waypoint Helper checks the spot you arrive at. If it is now empty air you land on the ground below, and if it is inside blocks you are moved up to open space.
 - **Teleport Countdown**: Loading a waypoint now counts down 3 seconds on the action bar before you teleport.
 - **Teleport Sounds**: A click plays on each countdown second and a teleport sound plays when you arrive.
 
 ### Improved & Balanced
+
 - **Dimension Colors**: The save message is now green in the Overworld, red in the Nether and yellow in The End.
 - **Action Bar Messages**: Save and teleport messages now show on the action bar instead of in chat.
 
@@ -42,6 +39,8 @@
 - **Title Bar**: The orange pack name and version in the title bar now show correctly.
 - **Button Look**: Buttons now have a flat dark fill with a thin raised edge instead of a blocky two-tone block.
 
+
+
 ## [1.0.2] - 2026-11-12
 
 ### Added
@@ -52,10 +51,14 @@
 
 
 
+
+
 ## [1.0.1] - 2026-11-12
 
 ### Fixed
 - **Menu Compass**: The Waypoint Helper Compass is now given only once, the first time a player joins the world. It is no longer given again on respawn.
+
+
 
 
 
