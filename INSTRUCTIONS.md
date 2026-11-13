@@ -1,4 +1,4 @@
-# Instructions: Core Repository Policy (v8)
+# Instructions: Core Repository Policy (v9)
 
 Repo policy, docs, audit rules for ALNStudios/MCPE-Curseforges. Generating a new project: `PACK_GENERATOR_INSTRUCTIONS.md`.
 
@@ -219,6 +219,16 @@ Applies to every addon, map, script, minigame, item, entity, block, trade, recip
 - Any pack that adds or changes a menu, form, HUD or screen reads `README.txt` and `design.json` first and ships the skin in its Resource Pack: textures copied in (never linked), tokens reused (NEVER invent colors or layout). Version the Resource Pack with `manifest_tools.py --set` like every update.
 - Pack task needs the skin: ask for Collect Files `paths` = `assets/aln-ui-redesign, <pack folder>/resource_pack`. NEVER edit the shared folder from a pack task unless asked.
 - Menu text uses the shared Pixelify Sans glyph font in `assets/aln-ui-redesign/font/` (its README.txt has the steps): copy the glyph sheet into the Resource Pack `font/`, wrap strings with `pixelify()`.
+### 1.14 ALNStudios Redesigned UI Standard (every add-on with a menu)
+Placeholders `<PackName>`, `<MainAction>`, `<version>`. NEVER hardcode one pack.
+- Main menu: ONE ActionForm, exactly 3 buttons: `<MainAction>`, About, Exit. X also exits. Menus loop; every sub-screen has Back.
+- Title `§l§6@ALNStudios §e<PackName>§r (v<version>)` = the ONLY colored form text. Script version constant == manifest version, bumped together.
+- Colors ONLY in title and action bar. Body, labels, slider labels, buttons, summaries: default color + `§l`, `§r` after bold. NEVER `§f §7 §e §a` etc. in forms.
+- About: title `About ALNStudios`. Body: creator, `<PackName>` + version, one line on the pack, CurseForge and MCPEDL profile text (plain, not clickable), not-affiliated-with-Mojang line. One Back button to main menu. Icon = `assets/aln-ui-redesign/about_icon.png` shipped in the RP as `textures/ui/aln/about_icon` (no `.png`); RP or file missing: `textures/items/name_tag`.
+- Icons: every button. ONLY paths verified in Mojang `resource_pack/textures/item_texture.json` (bedrock-samples). NEVER guess; no verified path = no icon. `wooden_` -> `wood_`, `golden_` -> `gold_`. Spears `textures/items/spear/<wood|stone|copper|iron|gold|diamond|netherite>_spear`. Nautilus armor `textures/items/nautilus_armor/<material>_nautilus_armor`.
+- Feedback: `player.onScreenDisplay.setActionBar`, NEVER chat. Green success, yellow warning, red error. Second message chained with `system.runTimeout(..., 50)`.
+- Slider/modal forms: header = item or context name, label = current state, divider after every control. Optional form methods go through a guarded helper (a missing method NEVER crashes). Read `formValues` filtering numbers.
+- NEVER slide or fade animations in UI JSON. Use the skin in `assets/aln-ui-redesign/` (1.13) when available.
 
 ---
 
@@ -451,6 +461,7 @@ CHANGELOG.md. Newest first. Groups: Added, Improved & Balanced, Fixed (bugs as i
 - [ ] Verification stated: source created | package built | in-game tested, never mixed.
 
 ## Version History
+- **v9:** 1.14 ALNStudios Redesigned UI Standard (menus, icons, colors, action bar feedback, About screen).
 - **v8:** Package names are `<Shortcut> VX.Y.Z.<ext>`; shortcut map in `scripts/pack_shortcuts.json`; `scripts/rename_packages.py` migrates old names.
 - **v7:** Every changelog entry has a Name. Root `CHANGELOG.md` for the whole repo, updated by every script and included in the AI review bundle.
 - **v6:** Nothing auto-bumps; build is passive; publish is its own workflow (no bump, groups changelog); Delete Package; scripts delete themselves after a successful push.

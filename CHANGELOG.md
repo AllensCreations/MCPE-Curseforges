@@ -2,6 +2,11 @@
 
 ---
 
+## 2026-11-13 - ALNStudios UI Standard
+
+### Added
+- **ALNStudios Redesigned UI Standard**: Every add-on with a menu now follows one standard: a 3-button main menu, a fixed title, plain readable text, verified icons, an About screen and action bar feedback.
+
 ## 2026-11-13 - Enchanter Spear Icons and Readable Menus
 
 ### Improved & Balanced
