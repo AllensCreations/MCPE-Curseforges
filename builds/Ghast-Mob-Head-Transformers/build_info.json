@@ -1,8 +1,8 @@
 {
-  "changelog_version": "1.16.0",
-  "manifest_version": "1.16.0",
+  "changelog_version": "1.16.1",
+  "manifest_version": "1.16.1",
   "packages": {
-    "GhastMobHeads V1.16.0.mcaddon": "1a64cdc4bd352bd9acb9a29aba543db600d08d651631fd036a09928b2195a571"
+    "GhastMobHeads V1.16.1.mcaddon": "747c005683ae27d38a165041daa1ef92e059052b51d44e7eedff70d9bff68f54"
   },
-  "source_sha256": "5a4281e85be8d1266082af381d9c3c82d4397dd5f3090aadf7d8e8c6815ca43f"
+  "source_sha256": "5488a47e116cf2d7bb41abf134097db777e0e84486adef753fbca0f8bafc4f88"
 }

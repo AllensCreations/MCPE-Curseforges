@@ -5,7 +5,7 @@ Download the current release of **Ghast Mob Head Transformers** for Minecraft Be
 ## Download
 
 - **Package format:** `.mcaddon`
-- **Direct download:** [Download Ghast Mob Head Transformers (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Ghast-Mob-Head-Transformers/GhastMobHeads%20V1.16.0.mcaddon)
+- **Direct download:** [Download Ghast Mob Head Transformers (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Ghast-Mob-Head-Transformers/GhastMobHeads%20V1.16.1.mcaddon)
 
 ## Installation
 

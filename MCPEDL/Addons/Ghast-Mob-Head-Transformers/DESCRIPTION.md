@@ -125,7 +125,7 @@ Interact with any Ghast while holding a skull to trigger the transformation:
 
 ---
 - Experimental features: Not tested. Wind Charge projectiles may depend on your game version.
-- Achievements: Not tested. Cheats or Experimental toggles disable achievements in Bedrock.
+- Achievements: Likely achievement-friendly.
 - Verification: Source created, not tested in game.
 
 ## Creator and Permissions

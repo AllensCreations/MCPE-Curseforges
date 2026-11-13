@@ -8,7 +8,7 @@ This folder contains compiled release packages for **Ghast Mob Head Transformers
 
 | File Name | Format | Size | Description | Download Link |
 | :--- | :--- | :--- | :--- | :--- |
-| **`GhastMobHeads V1.16.0.mcaddon`** | `.mcaddon` | ~216 KB | Complete bundle containing both Behavior Pack and Resource Pack. | [Download (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Ghast-Mob-Head-Transformers/GhastMobHeads%20V1.16.0.mcaddon) |
+| **`GhastMobHeads V1.16.1.mcaddon`** | `.mcaddon` | ~224 KB | Complete bundle containing both Behavior Pack and Resource Pack. | [Download (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Ghast-Mob-Head-Transformers/GhastMobHeads%20V1.16.1.mcaddon) |
 
 ---
 
