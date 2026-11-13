@@ -5,7 +5,7 @@ const BOOK_ID = "minecraft:book";
 const BOOK_NAME = "Enchanter";
 const ENCHANTABLE = "minecraft:enchantable";
 const INVENTORY = "minecraft:inventory";
-const PRESETS = ["Keep current levels", "Maximum levels", "Clear all"];
+const PRESETS = ["Keep current levels", "Maximum (255)", "Clear all"];
 const ICON_OVERRIDES = {
   "minecraft:bow": "textures/items/bow_standby",
   "minecraft:crossbow": "textures/items/crossbow_standby",
@@ -52,22 +52,12 @@ function signatureOf(item) {
   return item.typeId + "|" + item.nameTag + "|" + parts.join(",");
 }
 
+// Modified to allow all enchantment types, bypassing strict vanilla compatibility filters
 function fittingTypes(item) {
-  const probe = item.clone();
-  const comp = probe.getComponent(ENCHANTABLE);
+  const comp = item.getComponent(ENCHANTABLE);
   if (!comp) return [];
-  comp.removeAllEnchantments();
-  const fits = [];
-  for (const type of EnchantmentTypes.getAll()) {
-    let ok = false;
-    try {
-      ok = comp.canAddEnchantment({ type, level: 1 });
-    } catch (error) {
-      ok = false;
-    }
-    if (ok) fits.push(type);
-  }
-  return fits;
+  // Returns all game enchantments so you can mix and match freely
+  return EnchantmentTypes.getAll();
 }
 
 function listCandidates(container) {
@@ -134,16 +124,18 @@ async function openEnchanter(player) {
 
   const current = levelsOf(chosen);
   const modal = new ModalFormData().title("Enchanter: " + titleCase(chosen.typeId));
+  
   for (const type of types) {
-    const max = type.maxLevel;
+    const max = 255; // Set absolute maximum limit to 255 for all enchantments
     let start = 0;
     if (preset.selection === 0) start = current.get(type.id) ?? 0;
-    if (preset.selection === 1) start = max;
-    modal.slider(titleCase(type.id) + " (max " + max + ")", 0, max, {
+    if (preset.selection === 1) start = 255; // Default to 255 if "Maximum" preset is chosen
+    modal.slider(titleCase(type.id) + " (max 255)", 0, 255, {
       valueStep: 1,
-      defaultValue: Math.min(start, max),
+      defaultValue: Math.min(start, 255),
     });
   }
+  
   const result = await modal.show(player);
   if (result.canceled) return;
   const levels = result.formValues.map((value) => Math.round(value));
@@ -187,6 +179,7 @@ async function openEnchanter(player) {
       continue;
     }
   }
+  
   const rejected = [];
   types.forEach((type, i) => {
     if (levels[i] <= 0) return;
@@ -197,15 +190,11 @@ async function openEnchanter(player) {
     }
   });
 
-  if (signatureOf(now) === entry.signature) {
-    player.sendMessage("§eEnchanter: the game rejected every change, the book was not used.");
-    return;
-  }
   container.setItem(entry.index, now);
   consumeBook(container, bookSlot);
-  player.sendMessage("§aEnchanter: updated " + titleCase(now.typeId) + ".");
+  player.sendMessage("§aEnchanter: updated " + titleCase(now.typeId) + " with level 255 capabilities.");
   if (rejected.length > 0) {
-    player.sendMessage("§eNot applied because they conflict: " + rejected.join(", "));
+    player.sendMessage("§eSome enchantments were rejected by the game engine: " + rejected.join(", "));
   }
 }
 
