@@ -2,7 +2,7 @@
   "changelog_version": "1.22.2",
   "manifest_version": "1.22.2",
   "packages": {
-    "SharedHivemind V1.22.2.mcaddon": "692188483c674d81748f2233c0dd57f956c3b57ed167924a243dc7a64b33958b"
+    "TeamInventory V1.22.2.mcaddon": "aca797c877a4c20585f4186bdb6b83d01af095516e86368c307f1d76a1b6804f"
   },
-  "source_sha256": "ff1995504394a79b7e307e6417c98b97352cba77486a99f011e14855ea0eb7ec"
+  "source_sha256": "66f7b93f581c69d878b1ab985d4c073f2391c2f5c9ab3b32b509f1fcd3de0ad9"
 }
