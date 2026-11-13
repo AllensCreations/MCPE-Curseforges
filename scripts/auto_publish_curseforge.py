@@ -22,6 +22,37 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import prepare_curseforge_upload as release
 
 
+def write_summary(markdown):
+    """Append to the GitHub run summary page (no-op outside GitHub Actions)."""
+    path = os.environ.get("GITHUB_STEP_SUMMARY")
+    if not path:
+        return
+    try:
+        with open(path, "a", encoding="utf-8") as fh:
+            fh.write(markdown.rstrip("\n") + "\n\n")
+    except OSError:
+        pass
+
+
+def changelog_excerpt(category, project_name, limit=30):
+    """Newest CHANGELOG.md entry of the pack, shortened. Empty string if unavailable."""
+    try:
+        text = (release.REPO_ROOT / "MCPEDL" / category / project_name / "CHANGELOG.md").read_text(encoding="utf-8")
+    except Exception:
+        return ""
+    lines, seen = [], False
+    for line in text.splitlines():
+        if line.startswith("## "):
+            if seen:
+                break
+            seen = True
+        if seen:
+            lines.append(line)
+    if len(lines) > limit:
+        lines = lines[:limit] + ["..."]
+    return "\n".join(lines)
+
+
 def publish(project_path, release_type="keep", map_variant="default"):
     category, project_name = release.project_from_path(project_path)
     pack_key = f"MCPEDL/{category}/{project_name}"
@@ -40,6 +71,7 @@ def publish(project_path, release_type="keep", map_variant="default"):
 
     project_id = None
     version = None
+    uploaded = []
     for index, variant in enumerate(variants):
         # Only the first variant bumps the version, merges the changelog and rebuilds.
         package_path, metadata_path, project_id, _, _, version = release.prepare(
@@ -74,8 +106,23 @@ def publish(project_path, release_type="keep", map_variant="default"):
         finally:
             metadata_path.unlink(missing_ok=True)
         print(f"Published {package_path.name} to CurseForge project {project_id}.")
+        uploaded.append(package_path.name)
 
     release.save_info(pack_key, project_id, version, **release.baselines_after(release_type, info, version))
+    previous = info.get("last_published_version") or "never"
+    excerpt = changelog_excerpt(category, project_name)
+    files = ", ".join(f"`{n}`" for n in uploaded)
+    write_summary(
+        f"### ✅ Published to CurseForge: {project_name}\n\n"
+        "| | |\n|---|---|\n"
+        f"| Version | `{version}` (previous: `{previous}`) |\n"
+        f"| Uploaded | {files} |\n"
+        f"| CurseForge project ID | `{project_id}` |\n"
+        "| Release type | Release |\n\n"
+        "**Next:** the new version and changelog are committed to the repo, then "
+        "*Build Changed Packs & Sync Catalogs* starts to refresh catalogs and README links."
+        + (f"\n\n<details><summary>Newest changelog entry</summary>\n\n{excerpt}\n\n</details>" if excerpt else "")
+    )
     return True
 
 
@@ -119,4 +166,6 @@ if __name__ == "__main__":
         main()
     except (OSError, ValueError, RuntimeError) as exc:
         print(f"::error::{exc}", file=sys.stderr)
+        _name = sys.argv[sys.argv.index("--project") + 1] if "--project" in sys.argv[:-1] else "pack"
+        write_summary(f"### ❌ Publish FAILED: {_name}\n\n`{exc}`\n\nNothing was committed to the repo for this pack.")
         sys.exit(1)

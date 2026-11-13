@@ -153,9 +153,15 @@ jobs:
           mapfile -t PENDING < <(python3 scripts/auto_publish_curseforge.py --list-pending)
           if [ "${#PENDING[@]}" -eq 0 ]; then
             echo "Nothing to publish: every registered pack is already up to date."
+            echo "### ℹ️ Nothing to publish: every registered pack is already up to date." >> "$GITHUB_STEP_SUMMARY"
             exit 0
           fi
           echo "Publishing ${#PENDING[@]} pack(s): ${PENDING[*]}"
+          {
+            echo "## Publish ALL: ${#PENDING[@]} pack(s) pending"
+            printf -- '- %s\n' "${PENDING[@]}"
+            echo ""
+          } >> "$GITHUB_STEP_SUMMARY"
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           BRANCH="${GITHUB_REF#refs/heads/}"
@@ -178,6 +184,10 @@ jobs:
           done
           echo "published=$DONE" >> "$GITHUB_OUTPUT"
           echo "Published $DONE of ${#PENDING[@]} pack(s)."
+          {
+            echo "## Result: $DONE of ${#PENDING[@]} published"
+            if [ "${#FAILED[@]}" -gt 0 ]; then printf -- '- ❌ %s\n' "${FAILED[@]}"; fi
+          } >> "$GITHUB_STEP_SUMMARY"
           if [ "${#FAILED[@]}" -gt 0 ]; then
             echo "::error::Failed: ${FAILED[*]}"
             exit 1
@@ -204,6 +214,7 @@ jobs:
       # The passive build never runs after a [skip ci] commit, so start it once here. It picks up
       # the new version, rebuilds every package and re-syncs the catalogs and changelog views.
       - name: Start Build Changed Packs & Sync Catalogs
+        id: build
         if: success() || (always() && steps.publish.outputs.published != '' && steps.publish.outputs.published != '0')
         env:
           GH_TOKEN: ${{ github.token }}
@@ -211,3 +222,24 @@ jobs:
           gh workflow run auto-version-bump.yml --ref "${GITHUB_REF#refs/heads/}" \
             && echo "Build Changed Packs & Sync Catalogs started." \
             || echo "::warning::Could not start the build; run Build Changed Packs & Sync Catalogs manually."
+
+      - name: Publish summary
+        if: always()
+        env:
+          PROJECT_PATH: ${{ inputs.publish_project }}
+          PUBLISH_OUTCOME: ${{ steps.publish.outcome }}
+          BUILD_OUTCOME: ${{ steps.build.outcome }}
+        run: |
+          icon() { case "$1" in success) echo "✅";; failure) echo "❌";; skipped) echo "⏭️ skipped";; cancelled) echo "🚫";; *) echo "$1";; esac; }
+          {
+            echo "## Publish status"
+            echo ""
+            echo "| Step | Result |"
+            echo "|---|---|"
+            echo "| Pack requested | \`$PROJECT_PATH\` |"
+            echo "| Upload to CurseForge | $(icon "$PUBLISH_OUTCOME") |"
+            echo "| Start catalog build | $(icon "$BUILD_OUTCOME") |"
+            echo ""
+            echo "Latest commits:"
+            git log -3 --pretty='- `%h` %s' 2>/dev/null || true
+          } >> "$GITHUB_STEP_SUMMARY"
