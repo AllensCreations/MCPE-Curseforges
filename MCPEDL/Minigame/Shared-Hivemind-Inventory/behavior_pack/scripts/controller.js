@@ -112,18 +112,20 @@ async function confirmEnd(player) {
   }
 }
 
-async function openController(player, attempt = 0) {
+export async function openController(player, attempt = 0) {
   const running = getState() === "running";
   const note = running
     ? "End Game stops the current game."
     : config.consumeOnStart
       ? (isCreative(player) ? "Creative: the Controller is kept." : "Start uses up the Controller.")
       : "The Controller is kept.";
+  const extras = config.extras(player);
   const form = new ActionFormData()
     .title(config.title)
     .body(`${config.gameInfo}\n\nState: ${getState()}\n${note}`)
     .button(running ? "End Game" : "Start")
     .button("How to play");
+  for (const extra of extras) form.button(extra.label);
   let res;
   try {
     res = await form.show(player);
@@ -141,6 +143,8 @@ async function openController(player, attempt = 0) {
     else runStart(player);
   } else if (res.selection === 1) {
     showHowToPlay(player);
+  } else {
+    extras[res.selection - 2]?.run(player);
   }
 }
 
@@ -154,6 +158,7 @@ export function registerController(options) {
     consumeOnStart: options?.consumeOnStart === true,
     onStart: options?.onStart ?? (() => {}),
     onEnd: options?.onEnd ?? (() => {}),
+    extras: options?.extras ?? (() => []),
   };
 
   world.afterEvents.itemUse.subscribe(({ source, itemStack }) => {

@@ -4,9 +4,6 @@
   "texture_data": {
     "controller": {
       "textures": "textures/items/controller"
-    },
-    "team_settings": {
-      "textures": "textures/items/team_settings"
     }
   }
 }

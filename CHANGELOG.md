@@ -2,6 +2,12 @@
 
 ---
 
+## 2026-11-13 - Shared Hivemind Inventory 1.22.3 Controller Merge
+
+### Improved & Balanced
+
+- **Single Controller**: Team Inventory now has the Team Settings options inside the Controller menu and no longer has a separate Team Settings item.
+
 ## 2026-11-13 - Team Inventory 1.22.2
 
 ### Added

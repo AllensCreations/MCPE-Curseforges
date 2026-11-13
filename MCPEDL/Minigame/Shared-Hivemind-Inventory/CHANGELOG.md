@@ -2,6 +2,12 @@
 
 ---
 
+## [1.22.3] - 2026-11-13 - Controller Merge
+
+### Improved & Balanced
+
+- **Single Controller**: Mode, Layout, Hard Health, Hard Hunger and the Team list are now in the Controller menu, so the separate Team Settings item is gone.
+
 ## [1.22.2] - 2026-11-13
 
 **What's new in v1.22.2:** Packed with the v1.22.2 update. Includes: Death Drops Fix.

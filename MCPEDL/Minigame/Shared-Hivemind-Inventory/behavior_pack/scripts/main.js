@@ -2,11 +2,11 @@ import { world, system, ItemStack, EquipmentSlot, EnchantmentTypes, EntityCompon
 import { ActionFormData, FormCancelationReason } from "@minecraft/server-ui";
 import { hardTick, hardReset, hardKillAll } from "./hard_mode.js";
 import { createLayout } from "./layout.js";
-import { registerController } from "./controller.js";
+import { registerController, openController } from "./controller.js";
 
 const NAMESPACE = "allenscreations";
 const CONTROLLER_ID = `${NAMESPACE}:controller`;
-const SETTINGS_ID = `${NAMESPACE}:team_settings`;
+const LEGACY_SETTINGS_ID = `${NAMESPACE}:team_settings`;
 const STATE_KEY = "game_state";
 const STORAGE_KEY = "allenscreations:hivemind_v106";
 const MEMBERS_KEY = "allenscreations:team_members";
@@ -19,9 +19,8 @@ const HARD_HUNGER_KEY = "allenscreations:hard_hunger";
 const NAMES_KEY = "allenscreations:team_names";
 const LAYOUT_KEY = "allenscreations:layout";
 const TITLE = "§l§bALN§dStudios §6Controller";
-const SETTINGS_TITLE = "§l§bALN§dStudios §6Team Settings";
-const GAME_INFO = "Everyone shares one inventory. Use the Team Settings item before Start to choose the mode and layout.";
-const HOW_TO_PLAY = "Use the Controller and choose Start. After a short countdown, everyone's main inventory, armor, offhand and Ender Chest items are combined into one shared inventory, and anything one player picks up, uses or drops changes it for the whole team.\n\nBefore Start, use the Team Settings item to choose Normal or Hard mode and a Shared or Personal layout. It also lists who is on the team.\n\nIf anyone dies, the whole shared inventory drops once and is emptied for the team. The Ender Chest is kept. Creative and Spectator players are not part of it.\n\nWith Personal layout, each player arranges their own inventory and hotbar while the items stay shared.\n\nIn Hard mode, health and hunger are shared too, and you can turn either one off in Team Settings. If one player dies, everyone dies.\n\nThe host or an operator ends the game with the End Game button or the function end_game. The shared items are then divided between the players, and anyone offline gets their share when they join again, so nothing is duplicated.";
+const GAME_INFO = "Everyone shares one inventory. Use this menu before Start to choose the mode and layout. Hard Health and Hard Hunger only apply in Hard mode.";
+const HOW_TO_PLAY = "Use the Controller and choose Start. After a short countdown, everyone's main inventory, armor, offhand and Ender Chest items are combined into one shared inventory, and anything one player picks up, uses or drops changes it for the whole team.\n\nBefore Start, use the Controller menu to choose Normal or Hard mode and a Shared or Personal layout. Its Team button lists who is on the team.\n\nIf anyone dies, the whole shared inventory drops once and is emptied for the team. The Ender Chest is kept. Creative and Spectator players are not part of it.\n\nWith Personal layout, each player arranges their own inventory and hotbar while the items stay shared.\n\nIn Hard mode, health and hunger are shared too, and you can turn either one off in the Controller menu. If one player dies, everyone dies.\n\nThe host or an operator ends the game with the End Game button or the function end_game. The shared items are then divided between the players, and anyone offline gets their share when they join again, so nothing is duplicated.";
 const OPERATOR_LEVEL = 2;
 const MAX_STORED = 30000;
 const MAX_CHUNKS = 4;
@@ -72,7 +71,7 @@ const isHard = () => safe(() => world.getDynamicProperty(HARD_KEY) === "1", fals
 const isPersonal = () => safe(() => world.getDynamicProperty(LAYOUT_KEY) === "personal", false);
 const isHardHealth = () => safe(() => world.getDynamicProperty(HARD_HEALTH_KEY) !== "0", true);
 const isHardHunger = () => safe(() => world.getDynamicProperty(HARD_HUNGER_KEY) !== "0", true);
-const isHostItem = (item) => item.typeId === CONTROLLER_ID || item.typeId === SETTINGS_ID;
+const isHostItem = (item) => item.typeId === CONTROLLER_ID || item.typeId === LEGACY_SETTINGS_ID;
 function equipmentOf(player) { return safe(() => player.getComponent("minecraft:equippable")); }
 function clone(item) { return item ? safe(() => item.clone(), undefined) : undefined; }
 function isAlive(player) {
@@ -496,24 +495,12 @@ function resetSharing() {
   safe(() => clearStored());
 }
 
-function hasItem(player, id) {
-  const inv = containerOf(player);
-  if (!inv) return false;
-  for (let i = 0; i < inv.size; i++) {
-    if (inv.getItem(i)?.typeId === id) return true;
-  }
-  return false;
-}
-function giveSettings(player) {
-  if (hasItem(player, SETTINGS_ID)) return;
-  containerOf(player)?.addItem(new ItemStack(SETTINGS_ID, 1));
-}
-function removeHostItems(player) {
+function removeHostItems(player, ids = [CONTROLLER_ID, LEGACY_SETTINGS_ID]) {
   const inv = containerOf(player);
   if (!inv) return;
   for (let i = 0; i < inv.size; i++) {
     const id = inv.getItem(i)?.typeId;
-    if (id === CONTROLLER_ID || id === SETTINGS_ID) inv.setItem(i, undefined);
+    if (id && ids.includes(id)) inv.setItem(i, undefined);
   }
 }
 
@@ -640,14 +627,14 @@ function teamText() {
 }
 
 async function showTeam(player) {
-  const form = new ActionFormData().title(SETTINGS_TITLE).body(teamText()).button("Back");
+  const form = new ActionFormData().title(TITLE).body(teamText()).button("Back");
   let res;
   try {
     res = await form.show(player);
   } catch (e) {
     return;
   }
-  if (!res.canceled) openSettings(player);
+  if (!res.canceled) openController(player);
 }
 
 function toggleSetting(player, key, on, off) {
@@ -656,36 +643,18 @@ function toggleSetting(player, key, on, off) {
     return;
   }
   safe(() => world.setDynamicProperty(key, safe(() => world.getDynamicProperty(key)) === on ? off : on));
-  system.run(() => openSettings(player));
+  system.run(() => openController(player));
 }
 
-async function openSettings(player, attempt = 0) {
+function controllerExtras() {
   const lock = isRunning() ? " (locked)" : "";
-  const form = new ActionFormData()
-    .title(SETTINGS_TITLE)
-    .body(`§7State: §f${getState()}\n§7Hard Health and Hard Hunger only apply in Hard mode.\n§7Settings can only be changed before Start.`)
-    .button(`Mode: ${isHard() ? "Hard" : "Normal"}${lock}`)
-    .button(`Layout: ${isPersonal() ? "Personal" : "Shared"}${lock}`)
-    .button(`Hard Health: ${isHardHealth() ? "Shared" : "Separate"}${lock}`)
-    .button(`Hard Hunger: ${isHardHunger() ? "Shared" : "Separate"}${lock}`)
-    .button("Team");
-  let res;
-  try {
-    res = await form.show(player);
-  } catch (e) {
-    return;
-  }
-  if (res.canceled) {
-    if (res.cancelationReason === FormCancelationReason.UserBusy && attempt < 5) {
-      system.runTimeout(() => openSettings(player, attempt + 1), 10);
-    }
-    return;
-  }
-  if (res.selection === 0) toggleSetting(player, HARD_KEY, "1", undefined);
-  else if (res.selection === 1) toggleSetting(player, LAYOUT_KEY, "personal", undefined);
-  else if (res.selection === 2) toggleSetting(player, HARD_HEALTH_KEY, "0", undefined);
-  else if (res.selection === 3) toggleSetting(player, HARD_HUNGER_KEY, "0", undefined);
-  else if (res.selection === 4) showTeam(player);
+  return [
+    { label: `Mode: ${isHard() ? "Hard" : "Normal"}${lock}`, run: p => toggleSetting(p, HARD_KEY, "1", undefined) },
+    { label: `Layout: ${isPersonal() ? "Personal" : "Shared"}${lock}`, run: p => toggleSetting(p, LAYOUT_KEY, "personal", undefined) },
+    { label: `Hard Health: ${isHardHealth() ? "Shared" : "Separate"}${lock}`, run: p => toggleSetting(p, HARD_HEALTH_KEY, "0", undefined) },
+    { label: `Hard Hunger: ${isHardHunger() ? "Shared" : "Separate"}${lock}`, run: p => toggleSetting(p, HARD_HUNGER_KEY, "0", undefined) },
+    { label: "Team", run: p => showTeam(p) }
+  ];
 }
 
 registerController({
@@ -693,23 +662,19 @@ registerController({
   gameInfo: GAME_INFO,
   howToPlay: HOW_TO_PLAY,
   consumeOnStart: true,
+  extras: controllerExtras,
   onStart: () => beginCountdown(),
   onEnd: () => endGame()
 });
 
 world.afterEvents.itemUse.subscribe(({ source, itemStack }) => {
-  const id = itemStack?.typeId;
-  if (id !== CONTROLLER_ID && id !== SETTINGS_ID) return;
-  if (!isHost(source)) {
-    removeHostItems(source);
-    source.sendMessage("Only the host or an operator can hold this item.");
-    return;
-  }
-  if (id === SETTINGS_ID) openSettings(source);
+  if (itemStack?.typeId !== CONTROLLER_ID || isHost(source)) return;
+  removeHostItems(source);
+  source.sendMessage("Only the host or an operator can hold this item.");
 });
 
 world.afterEvents.worldLoad.subscribe(() => {
-  for (const p of world.getAllPlayers()) if (isHost(p)) giveSettings(p);
+  for (const p of world.getAllPlayers()) if (isHost(p)) removeHostItems(p, [LEGACY_SETTINGS_ID]);
 });
 
 function dropSharedInventory(dead) {
@@ -766,7 +731,7 @@ world.afterEvents.playerSpawn.subscribe(event => {
     });
   }
   if (event.initialSpawn !== false) {
-    if (isHost(player)) system.run(() => giveSettings(player));
+    if (isHost(player)) system.run(() => removeHostItems(player, [LEGACY_SETTINGS_ID]));
     else system.run(() => removeHostItems(player));
     if (isRunning()) {
       system.run(() => {
