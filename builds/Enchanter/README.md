@@ -8,7 +8,7 @@ This folder contains compiled release packages for **Enchanter** by ALNStudios.
 
 | File Name | Format | Size | Description | Download Link |
 | :--- | :--- | :--- | :--- | :--- |
-| **`Enchanter V1.0.1.mcaddon`** | `.mcaddon` | ~129 KB | Complete Add-on package for Minecraft Bedrock. | [Download (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Enchanter/Enchanter%20V1.0.1.mcaddon) |
+| **`Enchanter V1.0.2.mcaddon`** | `.mcaddon` | ~129 KB | Complete Add-on package for Minecraft Bedrock. | [Download (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Enchanter/Enchanter%20V1.0.2.mcaddon) |
 
 ---
 

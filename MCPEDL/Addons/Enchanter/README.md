@@ -5,7 +5,7 @@ Download the current release of **Enchanter** for Minecraft Bedrock Edition.
 ## Download
 
 - **Package format:** `.mcaddon`
-- **Direct download:** [Download Enchanter (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Enchanter/Enchanter%20V1.0.1.mcaddon)
+- **Direct download:** [Download Enchanter (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Enchanter/Enchanter%20V1.0.2.mcaddon)
 
 ## Installation
 
