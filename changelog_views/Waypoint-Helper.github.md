@@ -1,29 +1,25 @@
 # Changelog — Waypoint Helper
 
-## [1.1.5] - 2026-11-14 - Last Death And Slot Cleanup
+## [1.1.5] - 2026-11-13
 
 ### Added
 - **Last Death**: Your death location is now saved automatically and shown as the first button in Load.
 - **Remove Extra Slots**: Delete now removes empty extra slots from the end of the list. The first 10 slots always stay.
-
-### Fixed
-- **Cooldown After Reload**: The teleport wait now carries over when the world reloads or you rejoin.
-
-<details>
-<summary><b>1.1.x</b> (3 releases)</summary>
-
-### [1.1.4] - 2026-11-14 - Delete And Safer Teleports
-
-#### Added
 - **Delete Slot**: A new Delete button on the main menu clears a saved slot after you confirm.
 - **Cancel On Move Or Damage**: Moving or taking damage during the countdown cancels the teleport.
 - **Teleport Cooldown**: There is a 10 second wait after each teleport before you can teleport again.
 - **Arrival Effect**: A portal particle effect plays where you arrive.
 - **Fall Protection**: You get 5 seconds of slow falling after you arrive.
 
-#### Improved & Balanced
+### Fixed
+- **Cooldown After Reload**: The teleport wait now carries over when the world reloads or you rejoin.
+
+### Improved & Balanced
 - **Menu Colors**: Menu buttons and text now use the default color. Colors only appear in the title bar and on action bar messages.
 - **Action Bar Messages**: Rename, delete and spawn point messages now show on the action bar instead of in chat.
+
+<details>
+<summary><b>1.1.x</b> (2 releases)</summary>
 
 ### [1.1.3] - 2026-11-13
 
