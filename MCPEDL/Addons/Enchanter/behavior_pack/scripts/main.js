@@ -52,12 +52,23 @@ function signatureOf(item) {
   return item.typeId + "|" + item.nameTag + "|" + parts.join(",");
 }
 
-// Modified to allow all enchantment types, bypassing strict vanilla compatibility filters
+// Filters out completely invalid item types (like bow enchants on a pickaxe) 
+// while keeping category stacking open.
 function fittingTypes(item) {
   const comp = item.getComponent(ENCHANTABLE);
   if (!comp) return [];
-  // Returns all game enchantments so you can mix and match freely
-  return EnchantmentTypes.getAll();
+  const fits = [];
+  for (const type of EnchantmentTypes.getAll()) {
+    let ok = false;
+    try {
+      // Test if the item accepts this enchantment type at a base level
+      ok = comp.canAddEnchantment({ type, level: 1 });
+    } catch (error) {
+      ok = false;
+    }
+    if (ok) fits.push(type);
+  }
+  return fits;
 }
 
 function listCandidates(container) {
@@ -126,10 +137,10 @@ async function openEnchanter(player) {
   const modal = new ModalFormData().title("Enchanter: " + titleCase(chosen.typeId));
   
   for (const type of types) {
-    const max = 255; // Set absolute maximum limit to 255 for all enchantments
+    const max = 255; // Maximum level set to 255
     let start = 0;
     if (preset.selection === 0) start = current.get(type.id) ?? 0;
-    if (preset.selection === 1) start = 255; // Default to 255 if "Maximum" preset is chosen
+    if (preset.selection === 1) start = 255;
     modal.slider(titleCase(type.id) + " (max 255)", 0, 255, {
       valueStep: 1,
       defaultValue: Math.min(start, 255),
@@ -194,7 +205,7 @@ async function openEnchanter(player) {
   consumeBook(container, bookSlot);
   player.sendMessage("§aEnchanter: updated " + titleCase(now.typeId) + " with level 255 capabilities.");
   if (rejected.length > 0) {
-    player.sendMessage("§eSome enchantments were rejected by the game engine: " + rejected.join(", "));
+    player.sendMessage("§eSome enchantments were rejected: " + rejected.join(", "));
   }
 }
 
