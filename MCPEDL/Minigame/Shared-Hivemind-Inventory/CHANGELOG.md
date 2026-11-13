@@ -2,15 +2,19 @@
 
 ---
 
-## [1.22.1] - 2026-11-13 - Offline Shares and Safer Ending
+## [1.22.1] - 2026-11-13
+
+**What's new in v1.22.1:** Packed with the v1.22.1 update. Includes: Offline Shares and Safer Ending.
 
 ### Added
+
 - **End Game Button**: The Controller menu has an End Game button. The host or an operator can end sharing without using a command, and the shared items are divided between players the same way.
 - **End Game Confirmation**: Choosing End Game now asks for confirmation first, so a stray tap no longer ends the game.
 - **Offline Player Shares**: Players who are offline when the game ends receive their share of the items the next time they join.
 - **Hard Mode Death Message**: When one player dies in Hard Mode, chat now says who died.
 
 ### Improved & Balanced
+
 - **Start Message**: The chat message shown when sharing starts now lists the chosen Mode and Layout.
 - **Locked Menu Buttons**: The Mode and Layout buttons are marked as locked while sharing is running.
 - **Controller Name**: The Controller is now named ALNStudios Controller in game, matching its description.
@@ -18,6 +22,7 @@
 - **Lighter Syncing**: Item checks reuse earlier results instead of rebuilding them every tick.
 
 ### Fixed
+
 - **Lost Items at End**: When the game ended in Personal layout and a player had no room, extra items could disappear. They now drop on the ground instead.
 - **Waiting Clears**: Starting a new game no longer skips cleaning the items of players who were offline when the last game ended.
 
@@ -72,6 +77,8 @@
 
 - **In-Game Title**: The in-game add-on title now shows the correct release version.
 - **Team Inventory Name**: Updated the in-game name to Team Inventory.
+
+
 
 ## [1.0.0] - 2026-11-04
 
