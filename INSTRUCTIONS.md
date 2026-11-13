@@ -1,4 +1,4 @@
-# Instructions: Core Repository Policy (v10)
+# Instructions: Core Repository Policy (v11)
 
 Repo policy, docs, audit rules for ALNStudios/MCPE-Curseforges. Generating a new project: `PACK_GENERATOR_INSTRUCTIONS.md`.
 
@@ -238,6 +238,7 @@ Part 1 wins on conflict. `scripts/doc_template.py` enforces the templates below 
 
 ### 2.1 Roles
 - README.md: version-free download landing page. Title, package format, direct link, 3 install steps, link to DESCRIPTION. NEVER gameplay text, badges, images, release version.
+- Root `README.md`: public introduction only (what ALNStudios makes, where to download, install steps, links to the catalogs, attribution). NEVER a pack list, tables, badges, images, versions. The build NEVER edits it.
 - DESCRIPTION.md: full product page. NEVER release version in title.
 - CHANGELOG.md: player-visible changes only. Plain text, only source of truth.
 - Catalogs (download source of truth, tables allowed): `MCPEDL/Addons/README.md#available-add-ons`, `MCPEDL/Maps/README.md#available-maps`, `MCPEDL/Script/README.md#available-scripts`, `MCPEDL/Minigame/README.md#available-minigames`, `builds/README.md#available-pack-and-map-builds`.
@@ -259,7 +260,7 @@ Part 1 wins on conflict. `scripts/doc_template.py` enforces the templates below 
 - Must render on GitHub, CurseForge, MCPEDL, Planet Minecraft.
 - NEVER Markdown tables in README/DESCRIPTION. Use `### Feature Name` cards with `- **What Happens**: ...`.
 - Paragraphs <=4 sentences. NEVER LaTeX. Use `->`.
-- README: NEVER badges/images. DESCRIPTION: exactly the 2 template badges (Minecraft Bedrock "Stable Release", never a version) plus the 2 listing images. Other images: requested item sprites, recipe diagrams only. Only exception: generated "Collection Size" badge in root README (NEVER hand-edit, NEVER copy).
+- README: NEVER badges/images. DESCRIPTION: exactly the 2 template badges (Minecraft Bedrock "Stable Release", never a version) plus the 2 listing images. Other images: requested item sprites, recipe diagrams only.
 - Listing images: HTML, `width="45%"`, NEVER `height`, full raw URL `https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/assets/Images/<file>` (`curseforge.jpg`, `MCPEDL.jpg`). NEVER edit/copy them. `scripts/optimize_images.py` compresses (800 px, 200 KB, JPEG).
 - NEVER duplicate version suffixes `(v1.2.0) (v1.2.1)`.
 - NEVER copy a legacy MCPEDL description to CurseForge unchanged.
@@ -418,13 +419,13 @@ CHANGELOG.md. Newest first. Groups: Added, Improved & Balanced, Fixed (bugs as i
 - ALWAYS discover real folder structure first. NEVER assume a path or substitute a similar project. Report ambiguity/missing target.
 
 ### 3.2 Procedure
-1. Discover: target project, README, DESCRIPTION, manifests, scripts, config, entities, items, blocks, recipes, functions, loot tables, lang files, assets; parent catalog, root README, builds README.
+1. Discover: target project, README, DESCRIPTION, manifests, scripts, config, entities, items, blocks, recipes, functions, loot tables, lang files, assets; parent catalog, builds README.
 2. Audit: `python3 scripts/check_readme_status.py` (missing/incomplete docs, add-on READMEs with product info, short map/script READMEs, broken relative links, orphan build dirs; `--fix` makes stub docs, review output). Script absent/fails: inspect manually, report.
 3. Verify facts BEFORE writing: what it does, features, activation/config, persistence, packs/deps, versions, limits, achievements/experiments (1.2). NEVER infer a feature from a name. Separate implemented from planned. Verify vanilla names/sprites against 3.3-3.4.
-4. References: before creating/rewriting README or DESCRIPTION read root README, category catalog, builds README, 2-3 well-documented same-category projects. Reuse conventions, NEVER project-specific claims. Verify their links/images/claims first.
+4. References: before creating/rewriting README or DESCRIPTION read category catalog, builds README, 2-3 well-documented same-category projects. Reuse conventions, NEVER project-specific claims. Verify their links/images/claims first.
 5. Write per Part 2. NEVER add an unimplemented feature because requested. Omit install steps if asked.
 6. Images/badges/links: README none. DESCRIPTION 2 template badges + listing images, no other badges. Other images: requested sprites, recipe diagrams. Confirm assets exist, absolute raw URLs, verify link targets. No placeholders.
-7. Sync catalogs and builds: check category catalog, root README, builds README. Update only relevant entries. Search first (no duplicates). Keep ordering. Inspect build scripts before running. `python3 scripts/auto_bump_and_build.py --project "<Project-Name>"` (never changes manifest versions). NEVER claim build/sync done if failed or not run.
+7. Sync catalogs and builds: check category catalog, builds README. Update only relevant entries. Search first (no duplicates). Keep ordering. Inspect build scripts before running. `python3 scripts/auto_bump_and_build.py --project "<Project-Name>"` (never changes manifest versions). NEVER claim build/sync done if failed or not run.
 8. Verify: re-read whole edited file (headings, lists, links); each feature has source evidence, no verified content lost; `python3 scripts/validate_manifest_titles.py --project <path>`; rerun `check_readme_status.py` (expect 0 needing update, `[LINK INTEGRITY] All relative links valid`); LOCK marker for `MCPEDL/Addons/`; review diff for scope. State any check not run.
 9. Report briefly: projects audited/updated, files changed, commands + results, missing assets/links/unverifiable info, remaining work. NEVER report success for an unrun or failed check.
 - Bulk remake: `python3 scripts/check_readme_status.py --remake standardize --all --check` previews; without `--check` writes. `standardize` keeps text, refreshes READMEs as version-free pages, strips versions from DESCRIPTION titles, fixes structure, adds missing CHANGELOG entry. `--remake rebuild --project <Name>` regenerates generic DESCRIPTION/README from source (`--all` needs `--confirm-rebuild`). Defaults (Verification, Achievements, Experimental features) are placeholders: replace with verified facts. `remake-docs.yml` = dry run + PR.
@@ -461,6 +462,7 @@ CHANGELOG.md. Newest first. Groups: Added, Improved & Balanced, Fixed (bugs as i
 - [ ] Verification stated: source created | package built | in-game tested, never mixed.
 
 ## Version History
+- **v11:** Root README is a public introduction, no pack list; the build never edits it.
 - **v10:** Repo version in `REPO_VERSION`; root CHANGELOG headings `## [X.Y.Z] - date - Name`; shown in the AI review bundle.
 - **v9:** 1.14 ALNStudios Redesigned UI Standard (menus, icons, colors, action bar feedback, About screen).
 - **v8:** Package names are `<Shortcut> VX.Y.Z.<ext>`; shortcut map in `scripts/pack_shortcuts.json`; `scripts/rename_packages.py` migrates old names.

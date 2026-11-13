@@ -2,6 +2,11 @@
 
 ---
 
+## [1.0.1] - 2026-11-13 - Public Repo README
+
+### Improved & Balanced
+- **Public Repo README**: The main README is now a short introduction for players: what ALNStudios makes, where to download, how to install, and links to each category list. It no longer lists every add-on, and the build no longer edits it.
+
 ## [1.0.0] - 2026-11-13 - Repo Version
 
 ### Added

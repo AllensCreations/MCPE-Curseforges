@@ -175,7 +175,7 @@ def detect_unregistered_projects(project_dirs):
             + glob.glob(os.path.join(build_dir, "*.mcaddon"))
             + glob.glob(os.path.join(build_dir, "*.mcworld"))
         )
-        in_root_readme = project_name in root_content
+        in_root_readme = True
 
         if not has_build_files or not in_root_readme:
             unregistered.append((project_path, category))
@@ -839,7 +839,8 @@ def update_builds_master_readme(project_name, category, new_ver_str, primary_fil
 
 
 def update_root_readme(project_name, category, new_ver_str, primary_file):
-    """Updates catalog table rows and detailed overview headers in root README.md."""
+    """Retired: the root README is a public introduction and is never edited by the build."""
+    return
     root_readme = os.path.join(REPO_ROOT, "README.md")
     if not os.path.isfile(root_readme):
         return
@@ -1060,7 +1061,6 @@ def register_new_project(project_path, category, version_str=None, primary_file=
             f"| [`{source_rel}/`]({source_url}) "
             f"| {tiny_desc} |"
         )
-    _insert_table_row(root_readme, root_section, root_row, skip_if_contains=project_name)
 
     # 3. builds/README table
     if kind == "addons":
@@ -1080,7 +1080,6 @@ def register_new_project(project_path, category, version_str=None, primary_file=
     _insert_table_row(builds_readme, builds_section, builds_row, skip_if_contains=project_name)
 
     # 4. Collection badge
-    _update_collection_badge(root_readme)
 
     print(f"  ✅ '{title}' registered in all catalog READMEs.")
 
