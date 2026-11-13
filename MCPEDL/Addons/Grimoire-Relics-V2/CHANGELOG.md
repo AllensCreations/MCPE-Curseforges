@@ -4,7 +4,10 @@
 
 ## [1.13.1] - 2026-11-13
 
+**What's new in v1.13.1:** Packed with the v1.13.1 update.
+
 ### Fixed
+
 - Solar Dawn, Stormcaller and Deep Delver now detect open sky while standing in tall grass, crops, flowers or snow layers.
 - Void Phantom rescue state resets on respawn, so a death mid-rescue no longer blocks future rescues or consumes a spare tome.
 - Deep Delver light blocks are removed in the dimension they were placed in.
@@ -21,11 +24,15 @@
 
 - **Clearer Tome Locations**: The description now lists every exploration chest that can contain Abyssal Tide, Deep Delver, Arcane Scholar, and Cursed Alchemist, and corrects a few wording mistakes. No gameplay changes.
 
+
+
 ## [1.12.0] - 2026-10-29
 
 ### Improved & Balanced
 
 - **Maintenance release**: Repackaged the pack; no gameplay changes were recorded.
+
+
 
 ## [1.6.0] - 2026-10-20
 
@@ -35,9 +42,13 @@
 
 ---
 
+
+
 ## [1.5.0] - 2026-10-19
 
 ---
+
+
 
 ## [1.3.0] - 2026-10-15
 
@@ -52,12 +63,16 @@
 
 ---
 
+
+
 ## [1.2.0] - 2026-10-15
 
   - Confined Void Phantom protection strictly to The End dimension (The End).
   - Initial integration of ground-proximity cushion landing.
 
 ---
+
+
 
 ## [1.1.0] - 2026-10-15
 
@@ -79,6 +94,8 @@
 - **Void Phantom Rescue:** Improved emergency rescue behavior in the Overworld, The End, and the Nether, with a safer landing and brief Slow Falling protection.
 
 ---
+
+
 
 ## [1.0.0] - 2026-10-15
 
