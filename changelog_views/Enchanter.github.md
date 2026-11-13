@@ -1,6 +1,6 @@
 # Changelog — Enchanter
 
-## [1.0.0] - 2026-11-13 - First Release
+## [1.0.0] - 2026-11-13
 
 ### Added
 - **Enchanter Book**: Rename a Book to Enchanter at an Anvil and use it to open the enchanting menu.
