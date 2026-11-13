@@ -1,6 +1,6 @@
 # Changelog — Team Inventory
 
-## [1.22.1] - 2026-11-13 - Offline Shares and Safer Ending
+## [1.22.1] - 2026-11-13
 
 ### Added
 - **End Game Button**: The Controller menu has an End Game button. The host or an operator can end sharing without using a command, and the shared items are divided between players the same way.
