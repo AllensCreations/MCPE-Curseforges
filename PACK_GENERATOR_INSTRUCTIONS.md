@@ -310,7 +310,8 @@ NEVER guess the type. At most ONE more question, only if the answer changes the 
 - Shell may be plain `sh`: NEVER brace expansion. After creating files, list them, confirm they exist.
 - `.sh` names: 1.1 rule (`(Repofilename)_(Version)_(Rand).sh`).
 - NEVER comments in `.js`, `.mcfunction`, `.json`. Prefer event-driven logic. NEVER claim a README/catalog link to a `.mcworld` that does not exist yet.
-- Build request = 4.11 format, nothing else. Non-build = three-section format (4.11).
+- Every reply = the three 4.11 sections (File Needed, Changelog, Termux Script). NEVER a Summary section.
+- Vanilla limit blocks a requested mechanic: follow 4.12.
 
 ### 4.2 Delivery layout
 ZIP root = project folder contents, built in `build/<Name>/`:
@@ -442,7 +443,7 @@ NEVER hand-write ZIP, base64 or the `.sh`. `scripts/make_pack_script.py` install
 1. Create `build/<Name>/` per 4.2 incl. `project.json` + BP manifest with looked-up `min_engine_version`. `build/` is scratch.
 2. Get `scripts/make_pack_script.py`, `build_payload.py`, `import_project_payload.py`, `doc_template.py` (repo or pasted), all in one folder next to `build/`.
 3. `python3 make_pack_script.py build/Name` (`--check-only` to test only).
-4. Fix every failure incl. every `DOC:`, rerun. Report the SELF-TEST PASSED + PACK SCRIPT OK + BUILD OK lines. Proves structure only. Node MUST be installed for syntax check; if output says not checked, say so.
+4. Fix every failure incl. every `DOC:`, rerun. Put the SELF-TEST PASSED + PACK SCRIPT OK + BUILD OK result after the file name in File Needed. Proves structure only. Node MUST be installed for syntax check; if output says not checked, say so.
 5. Run `python3 doc_template.py --style build/Name`; rewrite every STYLE hint with a specific fact, rebuild.
 6. Deliver ONLY `<Name>_<Version>_<Rand>.sh` (fresh Rand, 1.1 rule). NEVER retype or edit it.
 
@@ -458,7 +459,7 @@ NEVER hand-write ZIP, base64 or the `.sh`. `scripts/make_pack_script.py` install
 - [ ] No comments in scripts/functions/JSON. Versions `X.Y.Z` only.
 - [ ] No `Mcpeworlds/assets/` file copied except ledger/controller; nothing from `assets/Images/`.
 - [ ] Any `.sh` named `(Repofilename)_(Version)_(Rand).sh`, fresh Rand >=5.
-- [ ] Reply = only the five 4.11 blocks (or one exception).
+- [ ] Reply = only the three 4.11 sections (or one exception).
 
 ### 4.10 Build failures
 Paste the workflow error log back to the agent. Find the rule here and the check in `build_payload.py`/`doc_template.py`.
@@ -487,43 +488,29 @@ Paste the workflow error log back to the agent. Find the rule here and the check
 | `DOC: ...` | Fix exactly what it names; template in 2.5. |
 
 ### 4.11 Reply format
-BUILD request: reply = exactly these three blocks, this order, these headings. NOTHING before/after (no greeting, intro, offer, restated idea). Empty block: `None`.
+Every reply = exactly these three sections, this order, these headings (`INSTRUCTIONS.md` Reply Format). NOTHING before, between or after. NEVER a Summary section. Empty: `- None`.
 
-**1. PACK SCRIPT**
-`File: <Name>_<Version>_<Rand>.sh`, attached as the ONE downloadable file. No payload text, no other file.
+**File Needed:** the one pack `.sh`, attached as the downloadable file, then its check result on the same line, e.g. `<Name>_<Version>_<Rand>.sh (SELF-TEST PASSED, PACK SCRIPT OK, BUILD OK)`. No other file.
 
-**2. SUMMARY** exactly these lines, one short value each:
-```
-What it does:
-Target game version:
-min_engine_version: <value> (verified | not verified)
-Module versions: @minecraft/server <v>, @minecraft/server-ui <v> (checked <YYYY-MM-DD>)
-Achievements: <1.2 status>
-Experiments: <none detected | required: name | unknown>
-Icon asset: <repo copy, hash verified | none>
-Included add-ons: <names | None | not a script>
-Deviations from this file: <list | None>
-make_pack_script.py result: <SELF-TEST PASSED, PACK SCRIPT OK and BUILD OK lines, or exact failure>
-Verification: Source created, not tested in game.
-```
-`Not applicable` for lines that do not fit the type. NEVER write an unchecked value.
+**Changelog:** brief bullets: what the project does; `min_engine_version` and module versions with the check date (verified or not verified); deviations from this file or `None`; `Source created, not tested in game.`
 
-**3. NEXT STEPS** exactly:
+**Termux Script:** ONE fenced `bash` block with ONLY the run commands, nothing else inside it:
+```bash
+bash ~/storage/downloads/<file>.sh
+bash ~/storage/downloads/<file>.sh stage
 ```
-First time only (Termux): pkg update -y && pkg install -y git python && termux-setup-storage
-Then once: git config --global user.name "ALNStudios" && git config --global credential.helper store
-1. Save the .sh in your phone Downloads folder.
-2. Termux: bash ~/storage/downloads/<file>.sh
-   It creates the project, builds the worlds, commits and pushes. At the push prompt use your GitHub token as the password.
-3. Or via GitHub: bash ~/storage/downloads/<file>.sh stage, then GitHub, Actions, Create Project from Base64, Run workflow, payload_file = <file>.sh, merge the PR.
-   No Termux: upload the .sh to MCPEDL/incoming on GitHub (Add file, Upload files), then run the same workflow.
-4. Test the generated world (run artifacts or project folder) in Minecraft.
-5. Test-world add-ons: edit test_world.json, re-run the workflow.
-6. Build fails: paste the error back.
-```
+First line creates the project and pushes. Second line only stages it for GitHub workflow **Create Project from Base64** (`payload_file` = `<file>.sh`). Use one or both lines as the user needs.
 
-Exceptions (INSTEAD of the three blocks, nothing else):
+Exceptions (INSTEAD of the three sections, nothing else):
 - Cannot run code: `CANNOT BUILD` and one line why. No files, no base64.
 - Build failed, unfixable: `BUILD FAILED`, exact failing lines from `make_pack_script.py`, the rule each names. No `.sh`.
 - Type unknown: only the 4.0 question.
-- Not a build request (review, question, bug report, file or script change): `**File Needed:**`, `**Changelog:**`, `**Termux Script:**` only (`INSTRUCTIONS.md` Reply Format, `.sh` named per 1.1).
+
+### 4.12 Vanilla Limits and Workarounds
+Applies to every addon, map, script, minigame, item, entity, block, trade, recipe and enchantment, new or updated.
+- A hardcoded vanilla limit blocks the requested mechanic (examples: mutually exclusive enchantments, item, entity or component caps, trade or recipe limits) AND the standard approach (behavior JSON, commands, crafting, enchanting) fails: NEVER drop the feature silently. The standard approach works: use it, no workaround.
+- Lightest workaround first. 1) Data-driven: custom item, block, entity, recipe, loot, trade, spawn rule, animation controller, tag, component. 2) `@minecraft/server`: custom components, events, ItemStack and Entity APIs, dynamic properties, tags or scoreboard for state. 3) Structural: helper or proxy entity, swapped or replaced item or entity, tiered item variants, `.mcstructure` or template placement, function-driven effects.
+- NEVER invent an API, component, event or behavior. Use only what the looked-up stable version (1.2) provides and the repo scripts accept. Cannot verify: say so in DESCRIPTION.md.
+- Modular: one small file per workaround with one entry point (script: `behavior_pack/scripts/lib/<name>.js` imported relatively; data: its own function file, entity or item definition). Reuse an existing module. NEVER copy the logic per feature.
+- Safe: idempotent setup, caps and cleanup for spawned entities and loops, nothing that corrupts worlds or other packs.
+- Docs (Part 2): player-facing result only, no code or API names; the trade-off under Good To Know. State achievement and experiment impact per 1.2. NEVER claim tested in game unless tested.

@@ -7,7 +7,8 @@ Repo policy, docs, audit rules for ALNStudios/MCPE-Curseforges. Generating a new
 | :--- | :--- | :--- |
 | Docs (README/DESCRIPTION/CHANGELOG) | this file | 1.1, 1.2, 1.3, Part 2 |
 | Docs audit (`/checkrm`) | this file | Part 3, Part 2 |
-| Version, manifest, LOCK, recipe, function, build, workflow, OneBlock changes | this file | 1.1 to 1.11 |
+| Version, manifest, LOCK, recipe, function, build, workflow, OneBlock changes | this file | 1.1 to 1.12 |
+| New mechanic hits a vanilla limit | this file | 1.12 |
 | Recipe images, sprites | this file | 1.5, 3.3, 3.4 |
 | New addon / map / script / minigame | `PACK_GENERATOR_INSTRUCTIONS.md` | all |
 Read only the sections the task needs. NEVER load the other file for the same task.
@@ -22,10 +23,10 @@ Rules: no greeting, intro, outro, offers, restating. High technical accuracy.
 Output ONLY, in order, exact headings:
 1. **File Needed:** repo-root-relative path of each file created/edited.
 2. **Changelog:** bullets, brief.
-3. **Termux Script:** ONE fenced `bash` block: the run command for the `.sh` (named per 1.1).
+3. **Termux Script:** ONE fenced `bash` block holding ONLY the run commands (`bash ~/storage/downloads/<file>.sh`). The `.sh` is attached as the file, NEVER pasted here or in the reply. Commands live in this block only. NEVER a Summary section.
 - NEVER text before, between, after. NEVER rename/merge/reorder/skip a section. Nothing to report: `- None`.
 - Unclear request: ask ONE line, then proceed with defaults.
-- Exceptions: generator build reply (`PACK_GENERATOR_INSTRUCTIONS.md` 4.11).
+- New-pack build: same three sections, File Needed = the pack `.sh` (`PACK_GENERATOR_INSTRUCTIONS.md` 4.11).
 
 ## Termux Script Rules
 `<Repofilename>_<Version>_<RAND>.sh` as downloadable file. Order:
@@ -203,6 +204,15 @@ Open until confirmed in game. NEVER state as fact in docs.
 4. Controller kept while running, returned on respawn, End Game confirm, `consumeOnStart: true` work across rejoin/death/reload. Only tested with mocked modules.
 5. Shipped functions and Controller do not disable achievements unless an admin command is run.
 6. Experiment/achievement state of each `Mcpeworlds/` foundation.
+
+### 1.12 Vanilla Limits and Workarounds
+Applies to every addon, map, script, minigame, item, entity, block, trade, recipe and enchantment, new or updated.
+- A hardcoded vanilla limit blocks the requested mechanic (examples: mutually exclusive enchantments, item, entity or component caps, trade or recipe limits) AND the standard approach (behavior JSON, commands, crafting, enchanting) fails: NEVER drop the feature silently. The standard approach works: use it, no workaround.
+- Lightest workaround first. 1) Data-driven: custom item, block, entity, recipe, loot, trade, spawn rule, animation controller, tag, component. 2) `@minecraft/server`: custom components, events, ItemStack and Entity APIs, dynamic properties, tags or scoreboard for state. 3) Structural: helper or proxy entity, swapped or replaced item or entity, tiered item variants, `.mcstructure` or template placement, function-driven effects.
+- NEVER invent an API, component, event or behavior. Use only what the looked-up stable version (1.2) provides and the repo scripts accept. Cannot verify: say so in DESCRIPTION.md.
+- Modular: one small file per workaround with one entry point (script: `behavior_pack/scripts/lib/<name>.js` imported relatively; data: its own function file, entity or item definition). Reuse an existing module. NEVER copy the logic per feature.
+- Safe: idempotent setup, caps and cleanup for spawned entities and loops, nothing that corrupts worlds or other packs.
+- Docs (Part 2): player-facing result only, no code or API names; the trade-off under Good To Know. State achievement and experiment impact per 1.2. NEVER claim tested in game unless tested.
 
 ---
 

@@ -2,6 +2,14 @@
 
 ---
 
+## 2026-11-13 - One Reply Format And Vanilla Workarounds
+
+### Added
+- **Vanilla limit workarounds**: The AI instructions now say what to do when vanilla Minecraft hard-blocks a mechanic: use the lightest data-driven, script or structural workaround, keep each one in its own reusable module, never invent an API, and note the trade-off in the description.
+
+### Improved & Balanced
+- **One reply format**: Every reply, including a new pack, is now File Needed, Changelog and Termux Script. The Summary section is gone, and run commands sit alone in their own bash block.
+
 ## 2026-11-13 - New Addon Enchanter
 
 ### Added

@@ -15,7 +15,7 @@ name: Collect Files for AI Review
 #                         creating a NEW pack (type NEW: only the tools txt is built, no pack files).
 #                         The built-in AI prompt keeps the Termux .sh rules: (Repofilename)_(Version)_(Rand).sh,
 #                         CHANGELOG.md updated on every change with the X.Y.Z-only policy.
-#                         Replies use ONLY: File Needed, Changelog, Termux Script.
+#                         Replies use ONLY: File Needed, Changelog, Termux Script (commands in their own bash block). No Summary.
 # GitHub cannot push a download to your device by itself: open the run summary and tap the link.
 #
 # CHANGELOG VIEWS (merged from the old "Build Changelog Views" workflow)
@@ -89,6 +89,7 @@ jobs:
 
           ## Pack work (create or update)
           - UPDATE: the pack files are in `<name>.txt`. Change only what was requested.
+          - Vanilla limit blocks a mechanic: use a modular workaround per INSTRUCTIONS.md 1.12, never drop the feature silently.
           - NEW pack: follow PACK_GENERATOR_INSTRUCTIONS.md Part 4 and deliver ONE pack `.sh` from `scripts/make_pack_script.py` (the project travels inside it as base64). NEVER deliver separate zip, pack, json, js or b64 files.
           - INSTRUCTIONS.md wins over PACK_GENERATOR_INSTRUCTIONS.md on any conflict. These instructions win over both on the reply format and the Termux script.
           - Update: keep pack and module UUIDs unchanged. Never claim anything was tested in Minecraft unless it was.
@@ -223,7 +224,7 @@ jobs:
           Output ONLY these three sections, in order, exact headings:
           1. **File Needed:** repo-root-relative path of each file created/edited.
           2. **Changelog:** bullets, brief summary of changes.
-          3. **Termux Script:** ONE fenced `bash` block holding the run command: `bash ~/storage/downloads/<Repofilename>_<Version>_<RAND>.sh`
+          3. **Termux Script:** ONE fenced `bash` block holding ONLY the run commands: `bash ~/storage/downloads/<Repofilename>_<Version>_<RAND>.sh` (a new pack may add the same line with `stage`). The .sh is attached, NEVER pasted. NEVER a Summary section.
           - The .sh (`<Repofilename>_<Version>_<RAND>.sh`, random chars included) is the downloadable file. Exact same name in the command.
           - NEVER text before, between, after. NEVER rename/merge/reorder/skip a section. Nothing to report: `- None`.
           - Unclear request: ask ONE line, then proceed with defaults.
