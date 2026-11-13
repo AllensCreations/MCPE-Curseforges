@@ -7,7 +7,7 @@
 
 **Save up to 10 waypoints with a Compass, add more slots without limit, and teleport back to any of them.**
 
-> Waypoint Helper adds a Cheatstick-styled Compass menu with Save, Load and Rename for 10 starting waypoint slots. It suits players who want named teleport points without typing coordinates.
+> Waypoint Helper adds a Cheatstick-styled Compass menu with Save, Load, Rename and Delete for 10 starting waypoint slots. It suits players who want named teleport points without typing coordinates.
 
 ## Overview
 
@@ -28,6 +28,14 @@ Right-click a Compass to open the Waypoint Helper menu. Save your current positi
 - **What Happens**: Rename gives a saved slot a name of up to 24 characters. A named slot shows only its name, and its coordinates are hidden.
 - **Good To Know**: Leave the name empty to remove it and show the coordinates again. Empty slots cannot be renamed.
 
+### Delete
+- **What Happens**: Delete clears a saved slot after you confirm.
+- **Good To Know**: Deleting empties the slot so you can save there again. It does not remove slots you added.
+
+### Teleport Safety
+- **What Happens**: Moving or taking damage during the 3 second countdown cancels the teleport. After each teleport there is a 10 second wait before the next one.
+- **Good To Know**: A portal particle effect plays when you arrive, and you get 5 seconds of slow falling to avoid fall damage.
+
 ### Save Spawn Here
 - **What Happens**: Sets your respawn point to the block where you are standing in your current dimension.
 
@@ -35,7 +43,7 @@ Right-click a Compass to open the Waypoint Helper menu. Save your current positi
 - **What Happens**: Right-click any Compass to open the menu. The pack does not give you a Compass, so craft or take one yourself.
 
 ### Cheatstick Menu Look
-- **What Happens**: Menus use a dark panel, an orange title bar showing the pack name and version, and blue-highlighted buttons, with colored text for saved slots and messages.
+- **What Happens**: Menus use a dark panel, an orange title bar showing the pack name and version, and blue-highlighted buttons, with colored messages on the action bar.
 - **Good To Know**: The look comes from the Resource Pack, so activate it in your world's settings. Without it the menus use the plain Minecraft style.
 
 ## How to Use

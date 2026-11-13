@@ -2,6 +2,19 @@
 
 ---
 
+## [1.0.8] - 2026-11-14 - Delete And Safer Teleports
+
+### Added
+- **Delete Slot**: A new Delete button on the main menu clears a saved slot after you confirm.
+- **Cancel On Move Or Damage**: Moving or taking damage during the countdown cancels the teleport.
+- **Teleport Cooldown**: There is a 10 second wait after each teleport before you can teleport again.
+- **Arrival Effect**: A portal particle effect plays where you arrive.
+- **Fall Protection**: You get 5 seconds of slow falling after you arrive.
+
+### Improved & Balanced
+- **Menu Colors**: Menu buttons and text now use the default color. Colors only appear in the title bar and on action bar messages.
+- **Action Bar Messages**: Rename, delete and spawn point messages now show on the action bar instead of in chat.
+
 ## [1.0.7] - 2026-11-13 - CI Test Coverage and Logo Icons
 
 ### Improved & Balanced

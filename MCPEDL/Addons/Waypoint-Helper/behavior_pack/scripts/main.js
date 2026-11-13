@@ -1,7 +1,7 @@
 import { world, system } from "@minecraft/server";
 import { ActionFormData, ModalFormData, FormCancelationReason } from "@minecraft/server-ui";
 
-const VERSION = "1.1.2";
+const VERSION = "1.1.4";
 const MENU_ITEM = "minecraft:compass";
 const TITLE = `WPH|§6@ALNStudios Waypoint Helper §7(${VERSION})`;
 const BASE_SLOTS = 10;
@@ -10,20 +10,26 @@ const SLOT_PREFIX = "waypoint_slot_";
 const NAME_LIMIT = 24;
 const BUSY_RETRIES = 10;
 const BUSY_DELAY_TICKS = 10;
+
 const TELEPORT_SECONDS = 3;
+const TELEPORT_STEP_TICKS = 2;
+const TELEPORT_MOVE_LIMIT_SQ = 0.25;
+const TELEPORT_COOLDOWN_TICKS = 200;
+const FALL_PROTECTION_TICKS = 100;
 const TELEPORT_TICK_SOUND = "random.click";
 const TELEPORT_ARRIVE_SOUND = "mob.endermen.portal";
+const TELEPORT_CANCEL_SOUND = "note.bass";
+const ARRIVAL_PARTICLE = "minecraft:basic_portal_particle";
+const ARRIVAL_PARTICLE_COUNT = 24;
+const GROUND_SEARCH = 128;
+const SETTLE_TRIES = 30;
+const SETTLE_DELAY_TICKS = 2;
 
 const DIMENSION_COLORS = {
   "minecraft:overworld": "§a",
   "minecraft:nether": "§c",
   "minecraft:the_end": "§e",
 };
-
-const teleporting = new Set();
-const GROUND_SEARCH = 128;
-const SETTLE_TRIES = 30;
-const SETTLE_DELAY_TICKS = 2;
 
 const DIMENSION_NAMES = {
   "minecraft:overworld": "Overworld",
@@ -35,11 +41,14 @@ const PICKER = {
   save: { title: "Save Waypoint", body: "Choose a slot to save your current position." },
   load: { title: "Load Waypoint", body: "Choose a slot to teleport to." },
   rename: { title: "Rename Waypoint", body: "Choose a slot to rename. Named slots hide their coordinates." },
+  delete: { title: "Delete Waypoint", body: "Choose a slot to delete." },
 };
 
-const heading = (text, body) => `§l§f${text}§r\n${body}`;
+const heading = (text, body) => `§l${text}§r\n${body}`;
 
 const openMenus = new Set();
+const teleporting = new Map();
+const cooldowns = new Map();
 
 const wait = (ticks) => new Promise((resolve) => system.runTimeout(resolve, ticks));
 
@@ -75,6 +84,24 @@ function dimensionColor(id) {
   return DIMENSION_COLORS[id] ?? "§f";
 }
 
+function dimensionName(id) {
+  return DIMENSION_NAMES[id] ?? id;
+}
+
+function coordText(slot) {
+  return `${Math.floor(slot.x)}, ${Math.floor(slot.y)}, ${Math.floor(slot.z)}`;
+}
+
+function slotLabel(slot, index) {
+  if (!slot) return `Slot ${index + 1}: Empty`;
+  if (slot.n) return `${index + 1}. ${slot.n}`;
+  return `${index + 1}. ${coordText(slot)}\n${dimensionName(slot.d)}`;
+}
+
+function slotName(slot, index) {
+  return slot.n ? `"${slot.n}"` : `slot ${index + 1}`;
+}
+
 function playSound(player, soundId, pitch) {
   try {
     player.playSound(soundId, { volume: 1, pitch });
@@ -89,24 +116,6 @@ function actionBar(player, text) {
   } catch (error) {
     return;
   }
-}
-
-function dimensionName(id) {
-  return DIMENSION_NAMES[id] ?? id;
-}
-
-function coordText(slot) {
-  return `${Math.floor(slot.x)}, ${Math.floor(slot.y)}, ${Math.floor(slot.z)}`;
-}
-
-function slotLabel(slot, index) {
-  if (!slot) return `§7Slot ${index + 1}: Empty`;
-  if (slot.n) return `§6${index + 1}. §f${slot.n}`;
-  return `§6${index + 1}. §b${coordText(slot)}\n§7${dimensionName(slot.d)}`;
-}
-
-function slotTitle(slot, index) {
-  return slot.n ? `"${slot.n}"` : `slot ${index + 1} (${coordText(slot)})`;
 }
 
 async function show(form, player) {
@@ -124,13 +133,13 @@ async function pickSlot(player, mode, notice) {
     const slots = [];
     for (let i = 0; i < total; i++) slots.push(readSlot(player, i));
     const form = new ActionFormData().title(TITLE).body(heading(PICKER[mode].title, `${notice ? `${notice}\n` : ""}${PICKER[mode].body}`));
-    form.button("§cExit");
-    form.button("§7Back");
+    form.button("Exit");
+    form.button("Back");
     for (let i = 0; i < total; i++) form.button(slotLabel(slots[i], i));
     let next = total + 2;
     let addIndex = -1;
     if (mode === "save" && slots.every((slot) => slot)) {
-      form.button("§a+ Add Slot");
+      form.button("+ Add Slot");
       addIndex = next++;
     }
     const response = await show(form, player);
@@ -148,9 +157,21 @@ async function pickSlot(player, mode, notice) {
 async function confirmOverwrite(player, index, slot) {
   const form = new ActionFormData()
     .title(TITLE)
-    .body(heading("Overwrite Slot", `Slot ${index + 1} already holds §b${slot.n ? `"${slot.n}"` : coordText(slot)}§r.\nReplace it with your current position?`))
-    .button("§cExit")
-    .button("§eOverwrite")
+    .body(heading("Overwrite Slot", `Slot ${index + 1} already holds ${slot.n ? `"${slot.n}"` : coordText(slot)}.\nReplace it with your current position?`))
+    .button("Exit")
+    .button("Overwrite")
+    .button("Cancel");
+  const response = await show(form, player);
+  if (!response || response.canceled || response.selection === 0) return null;
+  return response.selection === 1;
+}
+
+async function confirmDelete(player, index, slot) {
+  const form = new ActionFormData()
+    .title(TITLE)
+    .body(heading("Delete Slot", `Slot ${index + 1} holds ${slot.n ? `"${slot.n}"` : coordText(slot)}.\nDelete it? This cannot be undone.`))
+    .button("Exit")
+    .button("Delete")
     .button("Cancel");
   const response = await show(form, player);
   if (!response || response.canceled || response.selection === 0) return null;
@@ -182,7 +203,7 @@ async function saveFlow(player) {
     };
     if (existing && existing.n) data.n = existing.n;
     writeSlot(player, pick.index, data);
-    actionBar(player, `${dimensionColor(data.d)}Saved ${data.n ? `"${data.n}"` : `slot ${pick.index + 1}`} (${dimensionName(data.d)}).`);
+    actionBar(player, `${dimensionColor(data.d)}Saved ${slotName(data, pick.index)} (${dimensionName(data.d)}).`);
     return "done";
   }
 }
@@ -220,6 +241,31 @@ function groundTarget(dimension, x, y, z) {
   return null;
 }
 
+function arrivalEffect(player) {
+  try {
+    const { x, y, z } = player.location;
+    for (let i = 0; i < ARRIVAL_PARTICLE_COUNT; i++) {
+      const angle = Math.random() * Math.PI * 2;
+      const radius = Math.random() * 0.8;
+      player.dimension.spawnParticle(ARRIVAL_PARTICLE, {
+        x: x + Math.cos(angle) * radius,
+        y: y + Math.random() * 2,
+        z: z + Math.sin(angle) * radius,
+      });
+    }
+  } catch (error) {
+    return;
+  }
+}
+
+function protectFromFall(player) {
+  try {
+    player.addEffect("slow_falling", FALL_PROTECTION_TICKS, { amplifier: 0, showParticles: false });
+  } catch (error) {
+    return;
+  }
+}
+
 function settleOnGround(player, color, tries = 0) {
   try {
     if (!player.isValid) return;
@@ -239,6 +285,7 @@ function settleOnGround(player, color, tries = 0) {
       return;
     }
     player.teleport({ x: location.x, y: target, z: location.z });
+    arrivalEffect(player);
     actionBar(player, `${color}Landing moved to solid ground.`);
   } catch (error) {
     if (tries < SETTLE_TRIES) system.runTimeout(() => settleOnGround(player, color, tries + 1), SETTLE_DELAY_TICKS);
@@ -250,35 +297,66 @@ function startTeleport(player, slot, label) {
     actionBar(player, "§eYou are already teleporting.");
     return;
   }
-  teleporting.add(player.id);
+  const readyAt = cooldowns.get(player.id) ?? 0;
+  if (readyAt > system.currentTick) {
+    actionBar(player, `§eTeleport ready in ${Math.ceil((readyAt - system.currentTick) / 20)} seconds.`);
+    return;
+  }
   const color = dimensionColor(slot.d);
-  let remaining = TELEPORT_SECONDS;
-  const step = () => {
+  const start = player.location;
+  const startDimension = player.dimension.id;
+  let remaining = TELEPORT_SECONDS * 20;
+  let shown = -1;
+  let handle;
+  const finish = () => {
+    system.clearRun(handle);
+    teleporting.delete(player.id);
+  };
+  const cancel = (reason) => {
+    finish();
+    actionBar(player, `§cTeleport cancelled: ${reason}.`);
+    playSound(player, TELEPORT_CANCEL_SOUND, 0.8);
+  };
+  handle = system.runInterval(() => {
     try {
       if (!player.isValid) {
-        teleporting.delete(player.id);
+        finish();
         return;
       }
-      if (remaining > 0) {
-        actionBar(player, `${color}Teleporting to ${label} in §l${remaining}§r${color}...`);
-        playSound(player, TELEPORT_TICK_SOUND, 1 + (TELEPORT_SECONDS - remaining) * 0.25);
-        remaining--;
-        system.runTimeout(step, 20);
+      const here = player.location;
+      const dx = here.x - start.x;
+      const dy = here.y - start.y;
+      const dz = here.z - start.z;
+      if (player.dimension.id !== startDimension || dx * dx + dy * dy + dz * dz > TELEPORT_MOVE_LIMIT_SQ) {
+        cancel("you moved");
         return;
       }
-      teleporting.delete(player.id);
-      if (teleportTo(player, slot)) {
-        playSound(player, TELEPORT_ARRIVE_SOUND, 1);
-        actionBar(player, `${color}Teleported to ${label}.`);
-        settleOnGround(player, color);
-      } else {
-        actionBar(player, "§cCould not teleport to that waypoint.");
+      if (remaining <= 0) {
+        finish();
+        if (teleportTo(player, slot)) {
+          cooldowns.set(player.id, system.currentTick + TELEPORT_COOLDOWN_TICKS);
+          protectFromFall(player);
+          playSound(player, TELEPORT_ARRIVE_SOUND, 1);
+          arrivalEffect(player);
+          actionBar(player, `${color}Teleported to ${label}.`);
+          settleOnGround(player, color);
+        } else {
+          actionBar(player, "§cCould not teleport to that waypoint.");
+        }
+        return;
       }
+      const seconds = Math.ceil(remaining / 20);
+      if (seconds !== shown) {
+        shown = seconds;
+        actionBar(player, `${color}Teleporting to ${label} in §l${seconds}§r${color}... Stay still.`);
+        playSound(player, TELEPORT_TICK_SOUND, 1 + (TELEPORT_SECONDS - seconds) * 0.25);
+      }
+      remaining -= TELEPORT_STEP_TICKS;
     } catch (error) {
-      teleporting.delete(player.id);
+      finish();
     }
-  };
-  step();
+  }, TELEPORT_STEP_TICKS);
+  teleporting.set(player.id, { cancel });
 }
 
 async function loadFlow(player) {
@@ -288,10 +366,10 @@ async function loadFlow(player) {
     if (pick.kind !== "slot") return pick.kind;
     const slot = readSlot(player, pick.index);
     if (!slot) {
-      notice = `§cSlot ${pick.index + 1} is empty.`;
+      notice = `Slot ${pick.index + 1} is empty.`;
       continue;
     }
-    startTeleport(player, slot, slot.n ? `"${slot.n}"` : `slot ${pick.index + 1}`);
+    startTeleport(player, slot, slotName(slot, pick.index));
     return "done";
   }
 }
@@ -303,24 +381,46 @@ async function renameFlow(player) {
     if (pick.kind !== "slot") return pick.kind;
     const slot = readSlot(player, pick.index);
     if (!slot) {
-      notice = `§cSlot ${pick.index + 1} is empty. Save a position there first.`;
+      notice = `Slot ${pick.index + 1} is empty. Save a position there first.`;
       continue;
     }
     const form = new ModalFormData()
       .title(TITLE)
-      .textField(`§l§fRename Slot ${pick.index + 1}§r\n§7Name (leave empty to show coordinates again)`, "Example: Home");
+      .textField(`§lRename Slot ${pick.index + 1}§r\nName (leave empty to show coordinates again)`, "Example: Home");
     const response = await show(form, player);
     if (!response || response.canceled) return "closed";
     const name = String(response.formValues[0] ?? "").replace(/§/g, "").trim().slice(0, NAME_LIMIT);
     if (name) {
       slot.n = name;
       writeSlot(player, pick.index, slot);
-      player.sendMessage(`§aSlot ${pick.index + 1} renamed to "${name}". Coordinates are hidden.`);
+      actionBar(player, `§aSlot ${pick.index + 1} renamed to "${name}". Coordinates are hidden.`);
     } else {
       delete slot.n;
       writeSlot(player, pick.index, slot);
-      player.sendMessage(`§aSlot ${pick.index + 1} name cleared. Coordinates are visible again.`);
+      actionBar(player, `§aSlot ${pick.index + 1} name cleared. Coordinates are visible again.`);
     }
+    return "done";
+  }
+}
+
+async function deleteFlow(player) {
+  let notice;
+  while (true) {
+    const pick = await pickSlot(player, "delete", notice);
+    if (pick.kind !== "slot") return pick.kind;
+    const slot = readSlot(player, pick.index);
+    if (!slot) {
+      notice = `Slot ${pick.index + 1} is empty.`;
+      continue;
+    }
+    const confirmed = await confirmDelete(player, pick.index, slot);
+    if (confirmed === null) return "closed";
+    if (!confirmed) {
+      notice = undefined;
+      continue;
+    }
+    player.setDynamicProperty(SLOT_PREFIX + pick.index, undefined);
+    actionBar(player, `§aDeleted ${slotName(slot, pick.index)}.`);
     return "done";
   }
 }
@@ -334,9 +434,9 @@ function saveSpawnHere(player) {
       z: Math.floor(player.location.z),
     };
     player.setSpawnPoint(location);
-    player.sendMessage(`§aSpawn point saved at ${location.x}, ${location.y}, ${location.z} (${dimensionName(player.dimension.id)}).`);
+    actionBar(player, `§aSpawn point saved at ${location.x}, ${location.y}, ${location.z} (${dimensionName(player.dimension.id)}).`);
   } catch (error) {
-    player.sendMessage("§cCould not save the spawn point here.");
+    actionBar(player, "§cCould not save the spawn point here.");
   }
 }
 
@@ -346,13 +446,14 @@ async function aboutScreen(player) {
     .body(
       heading(
         "About",
-        `Waypoint Helper by §6ALNStudios§r\n\nSlots start at §b${BASE_SLOTS}§r. When every slot is filled, Save shows a button to add one more, with no upper limit.\n\n` +
-          "§aSave§r stores your position. §bLoad§r teleports you there. §dRename§r gives a slot a name and hides its coordinates.\n\n" +
-          "§eSave Spawn Here§r sets your respawn point to where you stand.\n\nWaypoints belong to each player."
+        `Waypoint Helper by §lALNStudios§r\n\nSlots start at §l${BASE_SLOTS}§r. When every slot is filled, Save shows a button to add one more, with no upper limit.\n\n` +
+          `§lSave§r stores your position. §lLoad§r counts down ${TELEPORT_SECONDS} seconds, then teleports you there. Moving or taking damage cancels it, and there is a ${TELEPORT_COOLDOWN_TICKS / 20} second wait between teleports. ` +
+          "§lRename§r gives a slot a name and hides its coordinates. §lDelete§r clears a slot.\n\n" +
+          "§lSave Spawn Here§r sets your respawn point to where you stand.\n\nWaypoints belong to each player."
       )
     )
-    .button("§cExit")
-    .button("§7Back");
+    .button("Exit")
+    .button("Back");
   const response = await show(form, player);
   return !response || response.canceled || response.selection === 0 ? "closed" : "back";
 }
@@ -361,13 +462,14 @@ async function mainMenu(player) {
   while (true) {
     const form = new ActionFormData()
       .title(TITLE)
-      .body(heading("Main Menu", `Slots used: §b${usedCount(player)}§r / §b${slotCount(player)}§r`))
-      .button("§cExit")
-      .button("§eSave Spawn Here")
-      .button("§aSave")
-      .button("§bLoad")
-      .button("§dRename")
-      .button("§7About");
+      .body(heading("Main Menu", `Slots used: §l${usedCount(player)}§r / §l${slotCount(player)}§r`))
+      .button("Exit")
+      .button("Save Spawn Here")
+      .button("Save")
+      .button("Load")
+      .button("Rename")
+      .button("Delete")
+      .button("About");
     const response = await show(form, player);
     if (!response || response.canceled) return;
     let result = "back";
@@ -387,6 +489,9 @@ async function mainMenu(player) {
         result = await renameFlow(player);
         break;
       case 5:
+        result = await deleteFlow(player);
+        break;
+      case 6:
         result = await aboutScreen(player);
         break;
     }
@@ -409,4 +514,13 @@ async function openMenu(player) {
 world.afterEvents.itemUse.subscribe((event) => {
   if (event.itemStack.typeId !== MENU_ITEM) return;
   openMenu(event.source);
+});
+
+world.afterEvents.entityHurt.subscribe((event) => {
+  const state = teleporting.get(event.hurtEntity.id);
+  if (state) state.cancel("you took damage");
+});
+
+world.afterEvents.playerLeave.subscribe((event) => {
+  cooldowns.delete(event.playerId);
 });
