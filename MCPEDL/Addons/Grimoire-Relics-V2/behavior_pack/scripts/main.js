@@ -19,6 +19,13 @@ function st(p) {
 }
 
 const now = () => system.currentTick;
+const safeBlock = (dim, loc) => {
+  try {
+    return dim.getBlock(loc);
+  } catch (err) {
+    return undefined;
+  }
+};
 const health = (e) => e.getComponent("minecraft:health");
 
 function heal(e, amount) {
@@ -62,7 +69,7 @@ function raining(dim) {
 function outdoors(p) {
   try {
     const top = p.dimension.getTopmostBlock({ x: Math.floor(p.location.x), z: Math.floor(p.location.z) });
-    return !top || top.location.y < p.location.y;
+    return !top || top.location.y <= Math.floor(p.location.y);
   } catch (err) {
     return true;
   }
@@ -179,7 +186,7 @@ const RELICS = {
       const bx = Math.floor(l.x), by = Math.floor(l.y), bz = Math.floor(l.z);
       let fertilized = false;
       for (let dx = -3; dx <= 3; dx++) for (let dz = -3; dz <= 3; dz++) for (let dy = -1; dy <= 1; dy++) {
-        const b = p.dimension.getBlock({ x: bx + dx, y: by + dy, z: bz + dz });
+        const b = safeBlock(p.dimension, { x: bx + dx, y: by + dy, z: bz + dz });
         if (!b) continue;
         try {
           const perm = b.permutation;
@@ -207,8 +214,8 @@ const RELICS = {
       const bx = Math.floor(l.x), by = Math.floor(l.y) - 1, bz = Math.floor(l.z);
       let froze = false;
       for (let dx = -3; dx <= 3; dx++) for (let dz = -3; dz <= 3; dz++) {
-        const b = p.dimension.getBlock({ x: bx + dx, y: by, z: bz + dz });
-        const up = p.dimension.getBlock({ x: bx + dx, y: by + 1, z: bz + dz });
+        const b = safeBlock(p.dimension, { x: bx + dx, y: by, z: bz + dz });
+        const up = safeBlock(p.dimension, { x: bx + dx, y: by + 1, z: bz + dz });
         if (b && up && b.typeId === "minecraft:water" && up.isAir) {
           b.setType("minecraft:frosted_ice");
           froze = true;
@@ -250,6 +257,7 @@ const RELICS = {
         try {
           b.setType(id);
           s.light = pos;
+          s.lightDim = p.dimension.id;
           return;
         } catch (err) {}
       }
@@ -380,9 +388,13 @@ const RELICS = {
       const l = p.location, d = p.getViewDirection();
       const to = { x: l.x - d.x * 3, y: l.y, z: l.z - d.z * 3 };
       for (let i = 0; i < 8; i++) particle(p.dimension, "minecraft:basic_smoke_particle", { x: l.x, y: l.y + 0.3 + i * 0.2, z: l.z });
-      const feet = p.dimension.getBlock(to);
-      const head = p.dimension.getBlock({ x: to.x, y: to.y + 1, z: to.z });
-      if (feet && head && feet.isAir && head.isAir) p.teleport(to);
+      let clear = true;
+      for (let i = 1; i <= 3 && clear; i++) {
+        const f = safeBlock(p.dimension, { x: l.x - d.x * i, y: l.y, z: l.z - d.z * i });
+        const h = safeBlock(p.dimension, { x: l.x - d.x * i, y: l.y + 1, z: l.z - d.z * i });
+        clear = !!(f && h && f.isAir && h.isAir);
+      }
+      if (clear) p.teleport(to);
     }
   },
   "custom:tome_dragon": {
@@ -462,10 +474,12 @@ function consumeVoidRelic(p, s) {
 function clearLight(p, s) {
   if (!s.light) return;
   try {
-    const b = p.dimension.getBlock(s.light);
+    const d = world.getDimension(s.lightDim || p.dimension.id);
+    const b = d.getBlock(s.light);
     if (b && b.typeId.startsWith("minecraft:light_block")) b.setType("minecraft:air");
   } catch (err) {}
   s.light = null;
+  s.lightDim = null;
 }
 
 /* Offhand gate: every effect and trigger reads the live offhand slot */
@@ -483,12 +497,18 @@ function damageOffhand(p, amount = 1) {
     const dur = item.getComponent("minecraft:durability");
     if (!dur) return;
     
+    // Honor Unbreaking (script damage bypasses vanilla handling): 1/(level+1) chance to take damage.
+    try {
+      const ench = item.getComponent("minecraft:enchantable");
+      const ub = ench && ench.getEnchantment("unbreaking");
+      if (ub && ub.level > 0 && Math.random() >= 1 / (ub.level + 1)) return;
+    } catch (err) {}
     if (dur.damage + amount >= dur.maxDurability) {
       // Break the item
       eq.setEquipment(EquipmentSlot.Offhand, undefined);
       p.playSound("random.break");
-      p.dimension.spawnParticle("minecraft:item_break", { x: p.location.x, y: p.location.y + 1, z: p.location.z });
       p.onScreenDisplay.setActionBar("§cYour Grimoire has shattered!");
+      particle(p.dimension, "minecraft:item_break", { x: p.location.x, y: p.location.y + 1, z: p.location.z });
     } else {
       dur.damage += amount;
       eq.setEquipment(EquipmentSlot.Offhand, item);
@@ -614,15 +634,24 @@ world.afterEvents.entityHurt.subscribe((ev) => {
   } catch (err) {}
 });
 
+world.afterEvents.playerSpawn.subscribe((ev) => {
+  const s = states.get(ev.player.id);
+  if (!s) return;
+  s.voidRescueActive = false;
+  s.voidElevating = false;
+  s.voidDropping = false;
+  s.voidUsed = false;
+  s.lastXp = null;
+  clearLight(ev.player, s);
+});
+
 world.afterEvents.playerLeave.subscribe((ev) => {
   const s = states.get(ev.playerId);
   if (s && s.light) {
     try {
-      for (const dimName of ["overworld", "nether", "the_end"]) {
-        const d = world.getDimension(dimName);
-        const b = d && d.getBlock(s.light);
-        if (b && b.typeId.startsWith("minecraft:light_block")) b.setType("minecraft:air");
-      }
+      const d = world.getDimension(s.lightDim || "overworld");
+      const b = d && d.getBlock(s.light);
+      if (b && b.typeId.startsWith("minecraft:light_block")) b.setType("minecraft:air");
     } catch (err) {}
   }
   states.delete(ev.playerId);

@@ -2,6 +2,19 @@
 
 ---
 
+## [1.13.1] - 2026-11-13
+
+### Fixed
+- Solar Dawn, Stormcaller and Deep Delver now detect open sky while standing in tall grass, crops, flowers or snow layers.
+- Void Phantom rescue state resets on respawn, so a death mid-rescue no longer blocks future rescues or consumes a spare tome.
+- Deep Delver light blocks are removed in the dimension they were placed in.
+- Mirror Trickster blink can no longer pass through walls.
+- Grimoire shatter message and sound now always play.
+- Unbreaking now works on tomes (1/(level+1) chance to take damage).
+- Druid and Frost Weaver no longer abort when scanning near unloaded chunks.
+- Shipwreck loot table renamed to shipwreck_treasure.json so Abyssal Tide can generate.
+- Removed circular dependency (resource pack no longer depends on the behavior pack).
+
 ## [1.13.0] - 2026-11-04
 
 ### Improved & Balanced
