@@ -1,11 +1,12 @@
-import { world, EnchantmentTypes } from "@minecraft/server";
+import { world, system, EnchantmentTypes } from "@minecraft/server";
 import { ActionFormData, ModalFormData } from "@minecraft/server-ui";
 
+const VERSION = "1.0.1";
+const TITLE = "§l§6@ALNStudios §eEnchanter§r §7(v" + VERSION + ")";
 const BOOK_ID = "minecraft:book";
 const BOOK_NAME = "Enchanter";
 const ENCHANTABLE = "minecraft:enchantable";
 const INVENTORY = "minecraft:inventory";
-const PRESETS = ["Keep current levels", "Maximum levels", "Clear all"];
 const ICON_OVERRIDES = {
   "minecraft:bow": "textures/items/bow_standby",
   "minecraft:crossbow": "textures/items/crossbow_standby",
@@ -13,6 +14,18 @@ const ICON_OVERRIDES = {
   "minecraft:enchanted_book": "textures/items/book_enchanted",
 };
 const busy = new Set();
+
+function notify(player, text) {
+  try {
+    player.onScreenDisplay.setActionBar(text);
+  } catch (error) {
+    return;
+  }
+}
+
+function tryCall(target, method, ...args) {
+  if (typeof target[method] === "function") target[method](...args);
+}
 
 function isEnchanterBook(item) {
   return !!item && item.typeId === BOOK_ID && item.nameTag === BOOK_NAME;
@@ -70,6 +83,11 @@ function fittingTypes(item) {
   return fits;
 }
 
+function countText(count) {
+  if (count === 0) return "no enchantments";
+  return count + (count === 1 ? " enchantment" : " enchantments");
+}
+
 function listCandidates(container) {
   const entries = [];
   for (let i = 0; i < container.size; i++) {
@@ -80,7 +98,8 @@ function listCandidates(container) {
       index: i,
       typeId: item.typeId,
       signature: signatureOf(item),
-      label: titleCase(item.typeId) + "\nSlot " + (i + 1),
+      label:
+        "§l§e" + titleCase(item.typeId) + "§r\n§7Slot " + (i + 1) + " §8| §a" + countText(levelsOf(item).size),
       icon: iconFor(item.typeId),
     });
   }
@@ -98,55 +117,99 @@ function consumeBook(container, bookSlot) {
   }
 }
 
-async function openEnchanter(player) {
-  const bookSlot = player.selectedSlotIndex;
-  const container = player.getComponent(INVENTORY).container;
-  const entries = listCandidates(container);
-  if (entries.length === 0) {
-    player.sendMessage("§cEnchanter: no enchantable items in your inventory.");
-    return;
-  }
+async function mainMenu(player) {
+  const form = new ActionFormData()
+    .title(TITLE)
+    .body("§aSet exact enchantment levels with sliders.\n§7Each applied change uses one Enchanter Book.")
+    .button("§l§6Enchanter", "textures/items/book_enchanted")
+    .button("§l§eAbout", "textures/items/name_tag")
+    .button("§l§cExit", "textures/ui/cancel");
+  const result = await form.show(player);
+  return result.canceled ? 2 : result.selection;
+}
 
-  const pickForm = new ActionFormData().title("Enchanter").body("Choose an item to enchant.");
-  for (const entry of entries) pickForm.button(entry.label, entry.icon);
-  const picked = await pickForm.show(player);
-  if (picked.canceled) return;
-  const entry = entries[picked.selection];
+async function aboutScreen(player) {
+  const body = [
+    "§6@ALNStudios",
+    "§aCreator of Minecraft Bedrock add-ons.",
+    "",
+    "§eEnchanter §7v" + VERSION,
+    "§fChoose an item, set a level for each enchantment, and confirm. Enchantments you set replace the old ones.",
+    "",
+    "§6CurseForge: §fcurseforge.com/members/allenscreations/projects",
+    "§6MCPEDL: §fmcpedl.com/user/alnstudios",
+    "",
+    "§7Unofficial community creation. Not approved by or associated with Mojang or Microsoft.",
+  ].join("\n");
+  const form = new ActionFormData()
+    .title("§l§6About §eALNStudios")
+    .body(body)
+    .button("§l§aBack", "textures/ui/arrow_left");
+  await form.show(player);
+}
 
+async function pickItem(player, entries) {
+  const form = new ActionFormData().title(TITLE).body("§aChoose an item to enchant.");
+  for (const entry of entries) form.button(entry.label, entry.icon);
+  form.button("§l§cBack", "textures/ui/arrow_left");
+  const result = await form.show(player);
+  if (result.canceled) return -2;
+  if (result.selection === entries.length) return -1;
+  return result.selection;
+}
+
+async function configure(player, container, bookSlot, entry) {
   const chosen = container.getItem(entry.index);
   if (!chosen || chosen.typeId !== entry.typeId || signatureOf(chosen) !== entry.signature) {
-    player.sendMessage("§cEnchanter: that item changed, nothing was applied.");
-    return;
+    notify(player, "§cThat item changed. Nothing was applied.");
+    return "done";
   }
-
+  const name = titleCase(chosen.typeId);
   const types = fittingTypes(chosen);
   if (types.length === 0) {
-    player.sendMessage("§cEnchanter: this item accepts no enchantments.");
-    return;
+    notify(player, "§cThis item accepts no enchantments.");
+    return "back";
   }
 
   const presetForm = new ActionFormData()
-    .title("Enchanter")
-    .body("Starting levels for " + titleCase(chosen.typeId) + ".");
-  for (const preset of PRESETS) presetForm.button(preset);
+    .title(TITLE)
+    .body("§aItem: §f" + name + "\n§7Choose the starting levels.")
+    .button("§l§aKeep current levels")
+    .button("§l§6Maximum levels")
+    .button("§l§cClear all")
+    .button("§l§7Back", "textures/ui/arrow_left");
   const preset = await presetForm.show(player);
-  if (preset.canceled) return;
+  if (preset.canceled) return "done";
+  if (preset.selection === 3) return "back";
 
   const current = levelsOf(chosen);
-  const modal = new ModalFormData().title("Enchanter: " + titleCase(chosen.typeId));
+  const currentText =
+    current.size === 0
+      ? "none"
+      : [...current].map(([id, level]) => titleCase(id) + " " + level).join(", ");
+  const modal = new ModalFormData().title(TITLE);
+  tryCall(modal, "header", "§l§6" + name);
+  tryCall(modal, "label", "§7Slot " + (entry.index + 1) + "\n§aCurrent: §f" + currentText);
+  tryCall(modal, "divider");
   for (const type of types) {
     const max = type.maxLevel;
     let start = 0;
     if (preset.selection === 0) start = current.get(type.id) ?? 0;
     if (preset.selection === 1) start = max;
-    modal.slider(titleCase(type.id) + " (max " + max + ")", 0, max, {
+    modal.slider("§e" + titleCase(type.id) + " §7(max " + max + ")", 0, max, {
       valueStep: 1,
       defaultValue: Math.min(start, max),
     });
+    tryCall(modal, "divider");
   }
+  tryCall(modal, "submitButton", "§l§aContinue");
   const result = await modal.show(player);
-  if (result.canceled) return;
-  const levels = result.formValues.map((value) => Math.round(value));
+  if (result.canceled) return "done";
+  const levels = result.formValues.filter((value) => typeof value === "number").map((value) => Math.round(value));
+  if (levels.length !== types.length) {
+    notify(player, "§cEnchanter could not read the sliders. Nothing was applied.");
+    return "done";
+  }
 
   const lines = [];
   types.forEach((type, i) => {
@@ -157,26 +220,26 @@ async function openEnchanter(player) {
     else lines.push("§a+ " + titleCase(type.id) + " " + after);
   });
   if (lines.length === 0) {
-    player.sendMessage("§eEnchanter: no changes selected.");
-    return;
+    notify(player, "§eNo changes selected.");
+    return "done";
   }
 
   const confirmForm = new ActionFormData()
-    .title("Confirm")
-    .body(lines.join("\n§r") + "\n\n§rUses one Enchanter book.")
-    .button("Apply")
-    .button("Cancel");
+    .title(TITLE)
+    .body("§6" + name + "\n\n" + lines.join("\n§r") + "\n\n§r§7Uses one Enchanter Book.")
+    .button("§l§aApply", "textures/ui/check")
+    .button("§l§cCancel", "textures/ui/cancel");
   const confirmed = await confirmForm.show(player);
-  if (confirmed.canceled || confirmed.selection !== 0) return;
+  if (confirmed.canceled || confirmed.selection !== 0) return "done";
 
   const now = container.getItem(entry.index);
   if (!now || now.typeId !== entry.typeId || signatureOf(now) !== entry.signature) {
-    player.sendMessage("§cEnchanter: that item changed, nothing was applied.");
-    return;
+    notify(player, "§cThat item changed. Nothing was applied.");
+    return "done";
   }
   if (!isEnchanterBook(container.getItem(bookSlot))) {
-    player.sendMessage("§cEnchanter: the book is no longer in its slot, nothing was applied.");
-    return;
+    notify(player, "§cThe book is no longer in its slot. Nothing was applied.");
+    return "done";
   }
 
   const comp = now.getComponent(ENCHANTABLE);
@@ -198,14 +261,48 @@ async function openEnchanter(player) {
   });
 
   if (signatureOf(now) === entry.signature) {
-    player.sendMessage("§eEnchanter: the game rejected every change, the book was not used.");
-    return;
+    notify(player, "§eThe game rejected every change. The book was not used.");
+    return "done";
   }
   container.setItem(entry.index, now);
   consumeBook(container, bookSlot);
-  player.sendMessage("§aEnchanter: updated " + titleCase(now.typeId) + ".");
+  notify(player, "§aEnchanted §f" + name + "§a.");
   if (rejected.length > 0) {
-    player.sendMessage("§eNot applied because they conflict: " + rejected.join(", "));
+    system.runTimeout(() => {
+      notify(player, "§eNot applied, they conflict: " + rejected.join(", "));
+    }, 50);
+  }
+  return "done";
+}
+
+async function enchantFlow(player, container, bookSlot) {
+  while (true) {
+    const entries = listCandidates(container);
+    if (entries.length === 0) {
+      notify(player, "§cNo enchantable items in your inventory.");
+      return false;
+    }
+    const picked = await pickItem(player, entries);
+    if (picked === -2) return true;
+    if (picked === -1) return false;
+    const outcome = await configure(player, container, bookSlot, entries[picked]);
+    if (outcome !== "back") return true;
+  }
+}
+
+async function openMenu(player) {
+  const bookSlot = player.selectedSlotIndex;
+  const container = player.getComponent(INVENTORY).container;
+  while (true) {
+    const choice = await mainMenu(player);
+    if (choice === 0) {
+      const finished = await enchantFlow(player, container, bookSlot);
+      if (finished) return;
+    } else if (choice === 1) {
+      await aboutScreen(player);
+    } else {
+      return;
+    }
   }
 }
 
@@ -214,13 +311,7 @@ world.afterEvents.itemUse.subscribe((event) => {
   if (!isEnchanterBook(event.itemStack)) return;
   if (busy.has(player.id)) return;
   busy.add(player.id);
-  openEnchanter(player)
-    .catch(() => {
-      try {
-        player.sendMessage("§cEnchanter closed unexpectedly.");
-      } catch (error) {
-        return;
-      }
-    })
+  openMenu(player)
+    .catch(() => notify(player, "§cEnchanter closed unexpectedly."))
     .finally(() => busy.delete(player.id));
 });

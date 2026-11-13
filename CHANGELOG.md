@@ -2,6 +2,18 @@
 
 ---
 
+## 2026-11-13 - Enchanter Menu Redesign
+
+### Added
+- **Enchanter Main Menu**: Using the Enchanter Book opens a menu with Enchanter, About and Exit.
+- **Enchanter About Screen**: Shows the creator, the version and where to find ALNStudios.
+- **Enchanter Item Header**: The chosen item's name, slot and current enchantments appear above the sliders.
+
+### Improved & Balanced
+- **Enchanter Slider Dividers**: A divider now separates every slider.
+- **Enchanter Action Bar Messages**: Results and warnings appear above the hotbar instead of in chat.
+- **Enchanter Menus**: Gold and yellow title with the version, colored labels, button icons and Back buttons.
+
 ## 2026-11-13 - Shared Hivemind Inventory 1.22.3 Controller Merge
 
 ### Improved & Balanced

@@ -11,9 +11,13 @@
 
 ## Overview
 
-Rename a Book to Enchanter at an Anvil and use it. Choose an item from your inventory, pick a starting preset, and set a level for each enchantment on its slider. Confirm the summary and the item receives those enchantments, replacing the old ones. Vanilla Minecraft offers random choices at the Enchanting Table instead.
+Rename a Book to Enchanter at an Anvil and use it to open a menu with Enchanter, About and Exit. Pick an item, choose a starting preset, and set each enchantment with its slider. Confirm the summary and the item receives those levels, replacing the old enchantments. Vanilla Minecraft offers random choices at the Enchanting Table instead.
 
 ## Key Features
+
+### Main Menu
+- **What Happens**: Using the renamed Book opens a menu with Enchanter, About and Exit.
+- **Good To Know**: About shows who made the add-on and where to find more. Back buttons return you one step.
 
 ### Enchanter Book
 - **What Happens**: A Book renamed to Enchanter at an Anvil becomes a portable enchanting menu.
@@ -21,11 +25,11 @@ Rename a Book to Enchanter at an Anvil and use it. Choose an item from your inve
 - **Good To Know**: The name must read exactly Enchanter, with a capital E. An Enchanted Book does not work.
 
 ### Item Picker
-- **What Happens**: The menu lists every enchantable item in your inventory and hotbar, each with its icon and slot number.
+- **What Happens**: The menu lists every enchantable item in your inventory and hotbar, each with its icon, slot number and enchantment count.
 - **Good To Know**: Armor you are wearing and items in the off hand are not listed. Pick one item at a time.
 
 ### Level Sliders
-- **What Happens**: Every enchantment that fits the chosen item gets its own slider, from 0 up to that enchantment's level cap.
+- **What Happens**: Every enchantment that fits the chosen item gets its own slider with a divider, from 0 up to that enchantment's level cap. The item's name, slot and current enchantments sit above the sliders.
 - **How It Works**: Move Sharpness to its cap, leave Unbreaking at 3, and set Mending to 0 to remove it.
 - **Good To Know**: Enchantments that do not fit the item, such as Sharpness on boots, are hidden.
 
@@ -35,12 +39,12 @@ Rename a Book to Enchanter at an Anvil and use it. Choose an item from your inve
 
 ### Apply And Combine
 - **What Happens**: A summary lists every added and removed enchantment before anything changes. Apply replaces the item's enchantments with your slider levels.
-- **Good To Know**: Combinations the game refuses are skipped and named in chat. One Enchanter Book is used per applied change, and nothing is used if you cancel.
+- **Good To Know**: Combinations the game refuses are skipped and named above your hotbar. One Enchanter Book is used per applied change, and nothing is used if you cancel.
 
 ## How to Use
 
 1. Rename a Book to Enchanter at an Anvil.
-2. Hold the Enchanter Book and use it, then pick an item and a starting preset.
+2. Hold the Enchanter Book and use it, choose Enchanter, then pick an item and a starting preset.
 3. Set the sliders, choose Apply on the summary, and the item shows its new enchantments.
 
 ## Compatibility
@@ -74,4 +78,3 @@ Rename a Book to Enchanter at an Anvil and use it. Choose an item from your inve
 ## Search & Discovery Keywords
 
 Minecraft Bedrock add-on, Enchanter Bedrock mod, enchantment sliders, renamed Book, custom enchanting menu, Minecraft PE enchant, MCPEDL add-on, CurseForge Bedrock, ALNStudios.
-
