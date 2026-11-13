@@ -67,6 +67,8 @@ jobs:
           python scripts/test_description_views.py
           python scripts/test_check_instruction_files.py
           python scripts/test_rename_packages.py
+          python scripts/test_fetch_curseforge_logo.py
+          python scripts/test_rename_packages.py
 
       - name: Project pipeline self-test
         run: python scripts/selftest_project_types.py --fake-foundation

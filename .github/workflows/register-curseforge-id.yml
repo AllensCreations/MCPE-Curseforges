@@ -51,12 +51,23 @@ jobs:
           python3 scripts/sync_dispatch_choices.py
           cat builds/Curseforge_IDs.json
 
+      - name: Use the CurseForge logo as pack_icon when a pack has none
+        env:
+          PROJECT_PATH: ${{ inputs.project }}
+          CURSEFORGE_PROJECT_ID: ${{ inputs.curseforge_project_id }}
+          CURSEFORGE_API_KEY: ${{ secrets.CURSEFORGE_API_KEY }}
+        run: |
+          pip install pillow
+          python3 scripts/fetch_curseforge_logo.py --project "$PROJECT_PATH" --id "$CURSEFORGE_PROJECT_ID"
+
       - name: Commit
         env:
           HAS_PAT: ${{ secrets.WORKFLOW_PAT != '' }}
+          PROJECT_PATH: ${{ inputs.project }}
         run: |
           set -euo pipefail
           git add -A -- builds/Curseforge_IDs.json ':(glob)builds/Curseforge_IDs.json'
+          git add -- ":(glob)${PROJECT_PATH}/*/pack_icon.png" || true
           if [ "$HAS_PAT" = "true" ]; then
             git add -- .github/workflows/publish-curseforge.yml
           elif ! git diff --quiet -- .github/workflows/publish-curseforge.yml; then

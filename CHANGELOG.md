@@ -2,6 +2,14 @@
 
 ---
 
+## [1.0.7] - 2026-11-13 - CI Test Coverage and Logo Icons
+
+### Improved & Balanced
+- **CI tests**: `test_rename_packages.py` now runs in the CI test step.
+- **Agent rules**: `INSTRUCTIONS.md` now says scripts are reference only for AI agents; only test scripts may run.
+- **Build Center CI**: `actions/checkout` pinned to the same commit SHA as the other workflows.
+- **CurseForge logo**: registering a CurseForge ID now uses the project's CurseForge logo as `pack_icon.png` for any pack that has none (needs the `CURSEFORGE_API_KEY` secret). Packs with an icon are skipped.
+
 ## [1.0.6] - 2026-11-13 - CI Test Coverage
 
 ### Improved & Balanced
