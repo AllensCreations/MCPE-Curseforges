@@ -126,7 +126,20 @@
 </details>
 
 <details>
-<summary><b>1.0.x</b> (1 release)</summary>
+<summary><b>1.0.x</b> (2 releases)</summary>
+
+### [1.0.1] - 2026-11-13 - End Game Safety Fixes
+
+#### Added
+- **End Game Confirmation**: Choosing End Game in the Controller menu now asks for confirmation first, so a stray tap no longer ends the game.
+
+#### Improved & Balanced
+- **Start Message**: The chat message shown when sharing starts now lists the chosen Mode and Layout.
+- **Locked Menu Buttons**: The Mode and Layout buttons are marked as locked while sharing is running.
+- **Controller Name**: The Controller is now named ALNStudios Controller in game, matching its description.
+
+#### Fixed
+- **Lost Items at End**: When the game ended in Personal layout and a player had no room, extra items could disappear. They now drop on the ground instead.
 
 ### [1.0.0] - 2026-11-04
 
