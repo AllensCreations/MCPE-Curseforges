@@ -1,12 +1,17 @@
 # Changelog — Team Inventory
 
-## [1.22.2] - 2026-11-13
+## [1.22.3] - 2026-11-13 - Controller Merge
 
-### Fixed
-- **Death Drops**: The shared inventory now drops where a player dies and is then emptied for the team.
+### Improved & Balanced
+- **Single Controller**: Mode, Layout, Hard Health, Hard Hunger and the Team list are now in the Controller menu, so the separate Team Settings item is gone.
 
 <details>
-<summary><b>1.22.x</b> (2 releases)</summary>
+<summary><b>1.22.x</b> (3 releases)</summary>
+
+### [1.22.2] - 2026-11-13
+
+#### Fixed
+- **Death Drops**: The shared inventory now drops where a player dies and is then emptied for the team.
 
 ### [1.22.1] - 2026-11-13
 
