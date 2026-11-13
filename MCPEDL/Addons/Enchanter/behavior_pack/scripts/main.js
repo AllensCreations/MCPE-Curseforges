@@ -1,8 +1,8 @@
 import { world, system, EnchantmentTypes } from "@minecraft/server";
 import { ActionFormData, ModalFormData } from "@minecraft/server-ui";
 
-const VERSION = "1.0.1";
-const TITLE = "§l§6@ALNStudios §eEnchanter§r §7(v" + VERSION + ")";
+const VERSION = "1.0.2";
+const TITLE = "§l§6@ALNStudios §eEnchanter§r (v" + VERSION + ")";
 const BOOK_ID = "minecraft:book";
 const BOOK_NAME = "Enchanter";
 const ENCHANTABLE = "minecraft:enchantable";
@@ -45,6 +45,8 @@ function iconFor(typeId) {
     .replace(/^minecraft:/, "")
     .replace(/^wooden_/, "wood_")
     .replace(/^golden_/, "gold_");
+  if (name.endsWith("_spear")) return "textures/items/spear/" + name;
+  if (name.endsWith("_nautilus_armor")) return "textures/items/nautilus_armor/" + name;
   return "textures/items/" + name;
 }
 
@@ -99,7 +101,7 @@ function listCandidates(container) {
       typeId: item.typeId,
       signature: signatureOf(item),
       label:
-        "§l§e" + titleCase(item.typeId) + "§r\n§7Slot " + (i + 1) + " §8| §a" + countText(levelsOf(item).size),
+        "§l" + titleCase(item.typeId) + "§r\nSlot " + (i + 1) + " | " + countText(levelsOf(item).size),
       icon: iconFor(item.typeId),
     });
   }
@@ -120,38 +122,40 @@ function consumeBook(container, bookSlot) {
 async function mainMenu(player) {
   const form = new ActionFormData()
     .title(TITLE)
-    .body("§aSet exact enchantment levels with sliders.\n§7Each applied change uses one Enchanter Book.")
-    .button("§l§6Enchanter", "textures/items/book_enchanted")
-    .button("§l§eAbout", "textures/items/name_tag")
-    .button("§l§cExit", "textures/ui/cancel");
+    .body("Set exact enchantment levels with sliders.\nEach applied change uses one Enchanter Book.")
+    .button("§lEnchanter", "textures/items/book_enchanted")
+    .button("§lAbout", "textures/items/name_tag")
+    .button("§lExit", "textures/ui/cancel");
   const result = await form.show(player);
   return result.canceled ? 2 : result.selection;
 }
 
 async function aboutScreen(player) {
   const body = [
-    "§6@ALNStudios",
-    "§aCreator of Minecraft Bedrock add-ons.",
+    "§l@ALNStudios§r",
+    "Creator of Minecraft Bedrock add-ons.",
     "",
-    "§eEnchanter §7v" + VERSION,
-    "§fChoose an item, set a level for each enchantment, and confirm. Enchantments you set replace the old ones.",
+    "§lEnchanter§r v" + VERSION,
+    "Choose an item, set a level for each enchantment, and confirm. Enchantments you set replace the old ones.",
     "",
-    "§6CurseForge: §fcurseforge.com/members/allenscreations/projects",
-    "§6MCPEDL: §fmcpedl.com/user/alnstudios",
+    "§lCurseForge§r",
+    "curseforge.com/members/allenscreations/projects",
+    "§lMCPEDL§r",
+    "mcpedl.com/user/alnstudios",
     "",
-    "§7Unofficial community creation. Not approved by or associated with Mojang or Microsoft.",
+    "Unofficial community creation. Not approved by or associated with Mojang or Microsoft.",
   ].join("\n");
   const form = new ActionFormData()
     .title("§l§6About §eALNStudios")
     .body(body)
-    .button("§l§aBack", "textures/ui/arrow_left");
+    .button("§lBack", "textures/ui/arrow_left");
   await form.show(player);
 }
 
 async function pickItem(player, entries) {
-  const form = new ActionFormData().title(TITLE).body("§aChoose an item to enchant.");
+  const form = new ActionFormData().title(TITLE).body("Choose an item to enchant.");
   for (const entry of entries) form.button(entry.label, entry.icon);
-  form.button("§l§cBack", "textures/ui/arrow_left");
+  form.button("§lBack", "textures/ui/arrow_left");
   const result = await form.show(player);
   if (result.canceled) return -2;
   if (result.selection === entries.length) return -1;
@@ -173,11 +177,11 @@ async function configure(player, container, bookSlot, entry) {
 
   const presetForm = new ActionFormData()
     .title(TITLE)
-    .body("§aItem: §f" + name + "\n§7Choose the starting levels.")
-    .button("§l§aKeep current levels")
-    .button("§l§6Maximum levels")
-    .button("§l§cClear all")
-    .button("§l§7Back", "textures/ui/arrow_left");
+    .body("Item: " + name + "\nChoose the starting levels.")
+    .button("§lKeep current levels")
+    .button("§lMaximum levels")
+    .button("§lClear all")
+    .button("§lBack", "textures/ui/arrow_left");
   const preset = await presetForm.show(player);
   if (preset.canceled) return "done";
   if (preset.selection === 3) return "back";
@@ -188,21 +192,21 @@ async function configure(player, container, bookSlot, entry) {
       ? "none"
       : [...current].map(([id, level]) => titleCase(id) + " " + level).join(", ");
   const modal = new ModalFormData().title(TITLE);
-  tryCall(modal, "header", "§l§6" + name);
-  tryCall(modal, "label", "§7Slot " + (entry.index + 1) + "\n§aCurrent: §f" + currentText);
+  tryCall(modal, "header", name);
+  tryCall(modal, "label", "Slot " + (entry.index + 1) + "\nCurrent: " + currentText);
   tryCall(modal, "divider");
   for (const type of types) {
     const max = type.maxLevel;
     let start = 0;
     if (preset.selection === 0) start = current.get(type.id) ?? 0;
     if (preset.selection === 1) start = max;
-    modal.slider("§e" + titleCase(type.id) + " §7(max " + max + ")", 0, max, {
+    modal.slider(titleCase(type.id) + " (max " + max + ")", 0, max, {
       valueStep: 1,
       defaultValue: Math.min(start, max),
     });
     tryCall(modal, "divider");
   }
-  tryCall(modal, "submitButton", "§l§aContinue");
+  tryCall(modal, "submitButton", "§lContinue");
   const result = await modal.show(player);
   if (result.canceled) return "done";
   const levels = result.formValues.filter((value) => typeof value === "number").map((value) => Math.round(value));
@@ -216,8 +220,8 @@ async function configure(player, container, bookSlot, entry) {
     const before = current.get(type.id) ?? 0;
     const after = levels[i];
     if (before === after) return;
-    if (after === 0) lines.push("§c- " + titleCase(type.id) + " removed");
-    else lines.push("§a+ " + titleCase(type.id) + " " + after);
+    if (after === 0) lines.push("- " + titleCase(type.id) + " removed");
+    else lines.push("+ " + titleCase(type.id) + " " + after);
   });
   if (lines.length === 0) {
     notify(player, "§eNo changes selected.");
@@ -226,9 +230,9 @@ async function configure(player, container, bookSlot, entry) {
 
   const confirmForm = new ActionFormData()
     .title(TITLE)
-    .body("§6" + name + "\n\n" + lines.join("\n§r") + "\n\n§r§7Uses one Enchanter Book.")
-    .button("§l§aApply", "textures/ui/check")
-    .button("§l§cCancel", "textures/ui/cancel");
+    .body(name + "\n\n" + lines.join("\n") + "\n\nUses one Enchanter Book.")
+    .button("§lApply", "textures/ui/check")
+    .button("§lCancel", "textures/ui/cancel");
   const confirmed = await confirmForm.show(player);
   if (confirmed.canceled || confirmed.selection !== 0) return "done";
 

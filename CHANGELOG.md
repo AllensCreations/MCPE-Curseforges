@@ -2,6 +2,15 @@
 
 ---
 
+## 2026-11-13 - Enchanter Spear Icons and Readable Menus
+
+### Improved & Balanced
+- **Enchanter Readable Menus**: Menu text no longer uses colors that blend into the panel.
+
+### Fixed
+- **Enchanter Spear Icons**: Spears now show their icons in the item list.
+- **Enchanter Nautilus Armor Icons**: Nautilus armor now shows its icon in the item list.
+
 ## 2026-11-13 - ALN UI Redesign and Publish ALL
 
 ### Added
