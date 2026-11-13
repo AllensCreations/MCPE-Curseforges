@@ -45,7 +45,7 @@ Craft a Quiver from Leather and String, then use it to move arrows in and out. W
 
 - Minecraft Bedrock Edition: 1.26.60
 - Experimental features: No experiment requirement detected in the inspected files.
-- Achievements: Likely achievement-friendly. Cheats are not required.
+- Achievements: Likely achievement-friendly.
 - Verification: source created; not tested in game.
 
 ## Creator and Permissions
@@ -72,3 +72,4 @@ Craft a Quiver from Leather and String, then use it to move arrows in and out. W
 ## Search & Discovery Keywords
 
 Minecraft Bedrock add-on, ALN Quiver Bedrock mod, arrow storage, bow auto feed, Quiver, Minecraft PE survival, MCPEDL add-on, CurseForge Bedrock, ALNStudios.
+

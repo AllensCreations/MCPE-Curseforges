@@ -34,6 +34,7 @@ Source files for established Minecraft Bedrock add-ons by ALNStudios.
 | Waypoint Helper | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/Waypoint-Helper/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Waypoint-Helper/WaypointHelper%20V1.1.6.mcaddon) |
 | 2-in-1 Loot & XP Booster | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/2-in-1-Loot--XP-Booster/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/2-in-1-Loot--XP-Booster/LootXPBooster%20V1.0.2.mcaddon) |
 | Enchanter | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/Enchanter/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Enchanter/Enchanter%20V1.0.2.mcaddon) |
+| ALN Quiver | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/ALN-Quiver/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/ALN-Quiver/ALNQuiver%20V1.0.0.mcaddon) |
 
 Download links point to the currently published package files.
 

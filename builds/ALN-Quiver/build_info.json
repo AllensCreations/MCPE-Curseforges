@@ -1,0 +1,8 @@
+{
+  "changelog_version": "1.0.0",
+  "manifest_version": "1.0.0",
+  "packages": {
+    "ALNQuiver V1.0.0.mcaddon": "02d131afa0872aa6ac7ba0272ac9ef0517dd687d14e98c4f05ab675eef0df7e7"
+  },
+  "source_sha256": "a7303f5c9c67bc0da4b57ba42e259962c51bfb917596a188741dbc4cf6d08b72"
+}
