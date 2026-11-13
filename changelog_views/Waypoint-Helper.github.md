@@ -1,15 +1,20 @@
 # Changelog — Waypoint Helper
 
-## [1.1.2] - 2026-11-13 - Safe Teleport Landing
-
-### Added
-- **Solid Ground Landing**: After a teleport, the Waypoint Helper checks the spot you arrive at. If it is now empty air you land on the ground below, and if it is inside blocks you are moved up to open space.
+## [1.1.3] - 2026-11-13 - Behavior Pack Add-on Tag
 
 ### Fixed
-- **Mid-Air Landing**: Loading a waypoint whose spot is now in the air no longer drops you from a height.
+- **Add-on Tag**: The Behavior Pack is now marked as an add-on, matching the Resource Pack, so both packs are listed together as one add-on.
 
 <details>
-<summary><b>1.1.x</b> (2 releases)</summary>
+<summary><b>1.1.x</b> (3 releases)</summary>
+
+### [1.1.2] - 2026-11-13 - Safe Teleport Landing
+
+#### Added
+- **Solid Ground Landing**: After a teleport, the Waypoint Helper checks the spot you arrive at. If it is now empty air you land on the ground below, and if it is inside blocks you are moved up to open space.
+
+#### Fixed
+- **Mid-Air Landing**: Loading a waypoint whose spot is now in the air no longer drops you from a height.
 
 ### [1.1.1] - 2026-11-13 - Teleport Countdown And Sounds
 
