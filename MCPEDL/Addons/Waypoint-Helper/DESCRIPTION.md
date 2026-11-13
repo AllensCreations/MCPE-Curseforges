@@ -20,9 +20,9 @@ Right-click a Compass to open the Waypoint Helper menu. Save your current positi
 - **Good To Know**: There is no upper limit on slots. Waypoints are stored per player and are kept between play sessions.
 
 ### Save And Load
-- **What Happens**: Save stores your position, facing direction and dimension in the slot you choose. Load teleports you to the slot you choose.
+- **What Happens**: Save stores your position, facing direction and dimension in the slot you choose. Load counts down 3 seconds on the action bar with a sound on each second, then teleports you to the slot you choose with a teleport sound.
 - **How It Works**: Open the menu, tap Save, pick Slot 1. Later open the menu, tap Load, pick Slot 1.
-- **Good To Know**: Saving into a filled slot asks you to confirm before it replaces the old position. Loading an empty slot shows a notice instead of teleporting.
+- **Good To Know**: The save message is green in the Overworld, red in the Nether and yellow in The End. Saving into a filled slot asks you to confirm before it replaces the old position. Loading an empty slot shows a notice instead of teleporting.
 
 ### Rename
 - **What Happens**: Rename gives a saved slot a name of up to 24 characters. A named slot shows only its name, and its coordinates are hidden.

@@ -1,7 +1,7 @@
 import { world, system } from "@minecraft/server";
 import { ActionFormData, ModalFormData, FormCancelationReason } from "@minecraft/server-ui";
 
-const VERSION = "1.0.3";
+const VERSION = "1.1.1";
 const MENU_ITEM = "minecraft:compass";
 const TITLE = `WPH|§6@ALNStudios Waypoint Helper §7(${VERSION})`;
 const BASE_SLOTS = 10;
@@ -10,6 +10,17 @@ const SLOT_PREFIX = "waypoint_slot_";
 const NAME_LIMIT = 24;
 const BUSY_RETRIES = 10;
 const BUSY_DELAY_TICKS = 10;
+const TELEPORT_SECONDS = 3;
+const TELEPORT_TICK_SOUND = "random.click";
+const TELEPORT_ARRIVE_SOUND = "mob.endermen.portal";
+
+const DIMENSION_COLORS = {
+  "minecraft:overworld": "§a",
+  "minecraft:nether": "§c",
+  "minecraft:the_end": "§e",
+};
+
+const teleporting = new Set();
 
 const DIMENSION_NAMES = {
   "minecraft:overworld": "Overworld",
@@ -55,6 +66,26 @@ function usedCount(player) {
   const total = slotCount(player);
   for (let i = 0; i < total; i++) if (readSlot(player, i)) used++;
   return used;
+}
+
+function dimensionColor(id) {
+  return DIMENSION_COLORS[id] ?? "§f";
+}
+
+function playSound(player, soundId, pitch) {
+  try {
+    player.playSound(soundId, { volume: 1, pitch });
+  } catch (error) {
+    return;
+  }
+}
+
+function actionBar(player, text) {
+  try {
+    player.onScreenDisplay.setActionBar(text);
+  } catch (error) {
+    return;
+  }
 }
 
 function dimensionName(id) {
@@ -148,7 +179,7 @@ async function saveFlow(player) {
     };
     if (existing && existing.n) data.n = existing.n;
     writeSlot(player, pick.index, data);
-    player.sendMessage(`§aSaved ${data.n ? `"${data.n}"` : `slot ${pick.index + 1}`}.`);
+    actionBar(player, `${dimensionColor(data.d)}Saved ${data.n ? `"${data.n}"` : `slot ${pick.index + 1}`} (${dimensionName(data.d)}).`);
     return "done";
   }
 }
@@ -165,6 +196,41 @@ function teleportTo(player, slot) {
   }
 }
 
+function startTeleport(player, slot, label) {
+  if (teleporting.has(player.id)) {
+    actionBar(player, "§eYou are already teleporting.");
+    return;
+  }
+  teleporting.add(player.id);
+  const color = dimensionColor(slot.d);
+  let remaining = TELEPORT_SECONDS;
+  const step = () => {
+    try {
+      if (!player.isValid) {
+        teleporting.delete(player.id);
+        return;
+      }
+      if (remaining > 0) {
+        actionBar(player, `${color}Teleporting to ${label} in §l${remaining}§r${color}...`);
+        playSound(player, TELEPORT_TICK_SOUND, 1 + (TELEPORT_SECONDS - remaining) * 0.25);
+        remaining--;
+        system.runTimeout(step, 20);
+        return;
+      }
+      teleporting.delete(player.id);
+      if (teleportTo(player, slot)) {
+        playSound(player, TELEPORT_ARRIVE_SOUND, 1);
+        actionBar(player, `${color}Teleported to ${label}.`);
+      } else {
+        actionBar(player, "§cCould not teleport to that waypoint.");
+      }
+    } catch (error) {
+      teleporting.delete(player.id);
+    }
+  };
+  step();
+}
+
 async function loadFlow(player) {
   let notice;
   while (true) {
@@ -175,11 +241,7 @@ async function loadFlow(player) {
       notice = `§cSlot ${pick.index + 1} is empty.`;
       continue;
     }
-    if (!teleportTo(player, slot)) {
-      notice = "§cCould not teleport to that waypoint.";
-      continue;
-    }
-    player.sendMessage(`§aTeleported to ${slot.n ? `"${slot.n}"` : `slot ${pick.index + 1}`}.`);
+    startTeleport(player, slot, slot.n ? `"${slot.n}"` : `slot ${pick.index + 1}`);
     return "done";
   }
 }

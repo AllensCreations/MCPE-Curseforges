@@ -2,6 +2,16 @@
 
 ---
 
+## [1.0.3] - 2026-11-13 - Teleport Countdown And Sounds
+
+### Added
+- **Teleport Countdown**: Loading a waypoint now counts down 3 seconds on the action bar before you teleport.
+- **Teleport Sounds**: A click plays on each countdown second and a teleport sound plays when you arrive.
+
+### Improved & Balanced
+- **Dimension Colors**: The save message is now green in the Overworld, red in the Nether and yellow in The End.
+- **Action Bar Messages**: Save and teleport messages now show on the action bar instead of in chat.
+
 ## [1.0.2] - 2026-11-13 - Head Drops, Abilities and Fixes
 
 ### Fixed
