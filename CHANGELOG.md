@@ -2,6 +2,15 @@
 
 ---
 
+## [1.0.9] - 2026-11-14 - Last Death And Slot Cleanup
+
+### Added
+- **Last Death**: Your death location is now saved automatically and shown as the first button in Load.
+- **Remove Extra Slots**: Delete now removes empty extra slots from the end of the list. The first 10 slots always stay.
+
+### Fixed
+- **Cooldown After Reload**: The teleport wait now carries over when the world reloads or you rejoin.
+
 ## [1.0.8] - 2026-11-14 - Delete And Safer Teleports
 
 ### Added

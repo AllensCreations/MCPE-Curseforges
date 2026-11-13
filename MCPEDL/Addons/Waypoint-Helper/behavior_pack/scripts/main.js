@@ -1,12 +1,14 @@
 import { world, system } from "@minecraft/server";
 import { ActionFormData, ModalFormData, FormCancelationReason } from "@minecraft/server-ui";
 
-const VERSION = "1.1.4";
+const VERSION = "1.1.5";
 const MENU_ITEM = "minecraft:compass";
 const TITLE = `WPH|§6@ALNStudios Waypoint Helper §7(${VERSION})`;
 const BASE_SLOTS = 10;
 const COUNT_KEY = "waypoint_slot_count";
 const SLOT_PREFIX = "waypoint_slot_";
+const DEATH_KEY = "waypoint_last_death";
+const COOLDOWN_KEY = "waypoint_cooldown_until";
 const NAME_LIMIT = 24;
 const BUSY_RETRIES = 10;
 const BUSY_DELAY_TICKS = 10;
@@ -14,7 +16,7 @@ const BUSY_DELAY_TICKS = 10;
 const TELEPORT_SECONDS = 3;
 const TELEPORT_STEP_TICKS = 2;
 const TELEPORT_MOVE_LIMIT_SQ = 0.25;
-const TELEPORT_COOLDOWN_TICKS = 200;
+const TELEPORT_COOLDOWN_MS = 10000;
 const FALL_PROTECTION_TICKS = 100;
 const TELEPORT_TICK_SOUND = "random.click";
 const TELEPORT_ARRIVE_SOUND = "mob.endermen.portal";
@@ -41,14 +43,13 @@ const PICKER = {
   save: { title: "Save Waypoint", body: "Choose a slot to save your current position." },
   load: { title: "Load Waypoint", body: "Choose a slot to teleport to." },
   rename: { title: "Rename Waypoint", body: "Choose a slot to rename. Named slots hide their coordinates." },
-  delete: { title: "Delete Waypoint", body: "Choose a slot to delete." },
+  delete: { title: "Delete Waypoint", body: "Choose a slot to delete. Choosing an empty extra slot at the end removes it." },
 };
 
 const heading = (text, body) => `§l${text}§r\n${body}`;
 
 const openMenus = new Set();
 const teleporting = new Map();
-const cooldowns = new Map();
 
 const wait = (ticks) => new Promise((resolve) => system.runTimeout(resolve, ticks));
 
@@ -57,8 +58,8 @@ function slotCount(player) {
   return typeof value === "number" && value >= BASE_SLOTS ? Math.floor(value) : BASE_SLOTS;
 }
 
-function readSlot(player, index) {
-  const raw = player.getDynamicProperty(SLOT_PREFIX + index);
+function readStored(player, key) {
+  const raw = player.getDynamicProperty(key);
   if (typeof raw !== "string") return undefined;
   try {
     const data = JSON.parse(raw);
@@ -67,6 +68,10 @@ function readSlot(player, index) {
     return undefined;
   }
   return undefined;
+}
+
+function readSlot(player, index) {
+  return readStored(player, SLOT_PREFIX + index);
 }
 
 function writeSlot(player, index, data) {
@@ -78,6 +83,14 @@ function usedCount(player) {
   const total = slotCount(player);
   for (let i = 0; i < total; i++) if (readSlot(player, i)) used++;
   return used;
+}
+
+function trimExtraSlots(player) {
+  const before = slotCount(player);
+  let total = before;
+  while (total > BASE_SLOTS && !readSlot(player, total - 1)) total--;
+  if (total !== before) player.setDynamicProperty(COUNT_KEY, total);
+  return before - total;
 }
 
 function dimensionColor(id) {
@@ -135,8 +148,11 @@ async function pickSlot(player, mode, notice) {
     const form = new ActionFormData().title(TITLE).body(heading(PICKER[mode].title, `${notice ? `${notice}\n` : ""}${PICKER[mode].body}`));
     form.button("Exit");
     form.button("Back");
+    const death = mode === "load" ? readStored(player, DEATH_KEY) : undefined;
+    const offset = mode === "load" ? 3 : 2;
+    if (mode === "load") form.button(death ? `Last Death: ${coordText(death)}\n${dimensionName(death.d)}` : "Last Death: None");
     for (let i = 0; i < total; i++) form.button(slotLabel(slots[i], i));
-    let next = total + 2;
+    let next = total + offset;
     let addIndex = -1;
     if (mode === "save" && slots.every((slot) => slot)) {
       form.button("+ Add Slot");
@@ -150,7 +166,8 @@ async function pickSlot(player, mode, notice) {
       notice = `Slot ${total + 1} added.`;
       continue;
     }
-    return { kind: "slot", index: response.selection - 2 };
+    if (mode === "load" && response.selection === 2) return { kind: "death" };
+    return { kind: "slot", index: response.selection - offset };
   }
 }
 
@@ -297,9 +314,10 @@ function startTeleport(player, slot, label) {
     actionBar(player, "§eYou are already teleporting.");
     return;
   }
-  const readyAt = cooldowns.get(player.id) ?? 0;
-  if (readyAt > system.currentTick) {
-    actionBar(player, `§eTeleport ready in ${Math.ceil((readyAt - system.currentTick) / 20)} seconds.`);
+  const readyAt = player.getDynamicProperty(COOLDOWN_KEY);
+  const left = typeof readyAt === "number" ? readyAt - Date.now() : 0;
+  if (left > 0 && left <= TELEPORT_COOLDOWN_MS) {
+    actionBar(player, `§eTeleport ready in ${Math.ceil(left / 1000)} seconds.`);
     return;
   }
   const color = dimensionColor(slot.d);
@@ -334,7 +352,7 @@ function startTeleport(player, slot, label) {
       if (remaining <= 0) {
         finish();
         if (teleportTo(player, slot)) {
-          cooldowns.set(player.id, system.currentTick + TELEPORT_COOLDOWN_TICKS);
+          player.setDynamicProperty(COOLDOWN_KEY, Date.now() + TELEPORT_COOLDOWN_MS);
           protectFromFall(player);
           playSound(player, TELEPORT_ARRIVE_SOUND, 1);
           arrivalEffect(player);
@@ -363,6 +381,15 @@ async function loadFlow(player) {
   let notice;
   while (true) {
     const pick = await pickSlot(player, "load", notice);
+    if (pick.kind === "death") {
+      const death = readStored(player, DEATH_KEY);
+      if (!death) {
+        notice = "No death location saved yet.";
+        continue;
+      }
+      startTeleport(player, death, "your last death");
+      return "done";
+    }
     if (pick.kind !== "slot") return pick.kind;
     const slot = readSlot(player, pick.index);
     if (!slot) {
@@ -410,7 +437,12 @@ async function deleteFlow(player) {
     if (pick.kind !== "slot") return pick.kind;
     const slot = readSlot(player, pick.index);
     if (!slot) {
-      notice = `Slot ${pick.index + 1} is empty.`;
+      const removed = pick.index >= BASE_SLOTS ? trimExtraSlots(player) : 0;
+      if (removed > 0) {
+        actionBar(player, `§aRemoved ${removed} empty extra slot${removed === 1 ? "" : "s"}.`);
+        return "done";
+      }
+      notice = pick.index >= BASE_SLOTS ? `Slot ${pick.index + 1} is empty. Extra slots can only be removed from the end.` : `Slot ${pick.index + 1} is empty.`;
       continue;
     }
     const confirmed = await confirmDelete(player, pick.index, slot);
@@ -420,7 +452,8 @@ async function deleteFlow(player) {
       continue;
     }
     player.setDynamicProperty(SLOT_PREFIX + pick.index, undefined);
-    actionBar(player, `§aDeleted ${slotName(slot, pick.index)}.`);
+    const removed = trimExtraSlots(player);
+    actionBar(player, `§aDeleted ${slotName(slot, pick.index)}.${removed > 0 ? ` ${removed} empty extra slot${removed === 1 ? "" : "s"} removed.` : ""}`);
     return "done";
   }
 }
@@ -447,8 +480,8 @@ async function aboutScreen(player) {
       heading(
         "About",
         `Waypoint Helper by §lALNStudios§r\n\nSlots start at §l${BASE_SLOTS}§r. When every slot is filled, Save shows a button to add one more, with no upper limit.\n\n` +
-          `§lSave§r stores your position. §lLoad§r counts down ${TELEPORT_SECONDS} seconds, then teleports you there. Moving or taking damage cancels it, and there is a ${TELEPORT_COOLDOWN_TICKS / 20} second wait between teleports. ` +
-          "§lRename§r gives a slot a name and hides its coordinates. §lDelete§r clears a slot.\n\n" +
+          `§lSave§r stores your position. §lLoad§r counts down ${TELEPORT_SECONDS} seconds, then teleports you there. Moving or taking damage cancels it, and there is a ${TELEPORT_COOLDOWN_MS / 1000} second wait between teleports. ` +
+          "§lRename§r gives a slot a name and hides its coordinates. §lDelete§r clears a slot and removes empty extra slots from the end. §lLoad§r also lists where you last died.\n\n" +
           "§lSave Spawn Here§r sets your respawn point to where you stand.\n\nWaypoints belong to each player."
       )
     )
@@ -521,6 +554,25 @@ world.afterEvents.entityHurt.subscribe((event) => {
   if (state) state.cancel("you took damage");
 });
 
-world.afterEvents.playerLeave.subscribe((event) => {
-  cooldowns.delete(event.playerId);
-});
+world.afterEvents.entityDie.subscribe(
+  (event) => {
+    try {
+      const player = event.deadEntity;
+      const rotation = player.getRotation();
+      player.setDynamicProperty(
+        DEATH_KEY,
+        JSON.stringify({
+          x: Math.round(player.location.x * 100) / 100,
+          y: Math.round(player.location.y * 100) / 100,
+          z: Math.round(player.location.z * 100) / 100,
+          d: player.dimension.id,
+          rx: rotation.x,
+          ry: rotation.y,
+        })
+      );
+    } catch (error) {
+      return;
+    }
+  },
+  { entityTypes: ["minecraft:player"] }
+);

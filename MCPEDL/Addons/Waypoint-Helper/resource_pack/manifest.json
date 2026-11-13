@@ -1,13 +1,13 @@
 {
   "format_version": 2,
   "header": {
-    "name": "Waypoint Helper (v1.1.4)",
+    "name": "Waypoint Helper (v1.1.5)",
     "description": "Cheatstick-style menu textures for the add-on. by ALNStudios",
     "uuid": "da4e9100-513b-4456-b041-bbd208295ea1",
     "version": [
       1,
       1,
-      4
+      5
     ],
     "min_engine_version": [
       1,
@@ -22,7 +22,7 @@
       "version": [
         1,
         1,
-        4
+        5
       ]
     }
   ],
@@ -31,6 +31,6 @@
       "ALNStudios"
     ],
     "product_type": "addon",
-    "version": "1.1.4"
+    "version": "1.1.5"
   }
 }

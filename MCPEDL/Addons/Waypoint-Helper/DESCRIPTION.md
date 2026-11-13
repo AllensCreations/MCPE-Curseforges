@@ -28,12 +28,16 @@ Right-click a Compass to open the Waypoint Helper menu. Save your current positi
 - **What Happens**: Rename gives a saved slot a name of up to 24 characters. A named slot shows only its name, and its coordinates are hidden.
 - **Good To Know**: Leave the name empty to remove it and show the coordinates again. Empty slots cannot be renamed.
 
+### Last Death
+- **What Happens**: Your death location is saved automatically. It is the first button in the Load list, and loading it teleports you back with the same countdown.
+- **Good To Know**: Only your most recent death is kept. It is replaced each time you die.
+
 ### Delete
 - **What Happens**: Delete clears a saved slot after you confirm.
-- **Good To Know**: Deleting empties the slot so you can save there again. It does not remove slots you added.
+- **Good To Know**: Deleting empties the slot so you can save there again. Empty extra slots at the end of the list are removed, and the first 10 slots always stay.
 
 ### Teleport Safety
-- **What Happens**: Moving or taking damage during the 3 second countdown cancels the teleport. After each teleport there is a 10 second wait before the next one.
+- **What Happens**: Moving or taking damage during the 3 second countdown cancels the teleport. After each teleport there is a 10 second wait before the next one, even if you leave and rejoin.
 - **Good To Know**: A portal particle effect plays when you arrive, and you get 5 seconds of slow falling to avoid fall damage.
 
 ### Save Spawn Here
