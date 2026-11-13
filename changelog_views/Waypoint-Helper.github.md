@@ -1,8 +1,16 @@
 # Changelog — Waypoint Helper
 
-## [1.1.5] - 2026-11-13
+## [1.1.6] - 2026-11-14 - Dimension Colors In Menus
 
-### Added
+### Improved & Balanced
+- **Dimension Colors In Menus**: Saved slots and the Last Death button now show their text in green for the Overworld, red for the Nether and yellow for The End.
+
+<details>
+<summary><b>1.1.x</b> (3 releases)</summary>
+
+### [1.1.5] - 2026-11-13
+
+#### Added
 - **Last Death**: Your death location is now saved automatically and shown as the first button in Load.
 - **Remove Extra Slots**: Delete now removes empty extra slots from the end of the list. The first 10 slots always stay.
 - **Delete Slot**: A new Delete button on the main menu clears a saved slot after you confirm.
@@ -11,15 +19,12 @@
 - **Arrival Effect**: A portal particle effect plays where you arrive.
 - **Fall Protection**: You get 5 seconds of slow falling after you arrive.
 
-### Fixed
+#### Fixed
 - **Cooldown After Reload**: The teleport wait now carries over when the world reloads or you rejoin.
 
-### Improved & Balanced
+#### Improved & Balanced
 - **Menu Colors**: Menu buttons and text now use the default color. Colors only appear in the title bar and on action bar messages.
 - **Action Bar Messages**: Rename, delete and spawn point messages now show on the action bar instead of in chat.
-
-<details>
-<summary><b>1.1.x</b> (2 releases)</summary>
 
 ### [1.1.3] - 2026-11-13
 
