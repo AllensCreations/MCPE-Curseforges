@@ -1,6 +1,6 @@
 # Changelog — Team Inventory
 
-## [1.22.3] - 2026-11-13 - Controller Merge
+## [1.22.3] - 2026-11-13
 
 ### Improved & Balanced
 - **Single Controller**: Mode, Layout, Hard Health, Hard Hunger and the Team list are now in the Controller menu, so the separate Team Settings item is gone.
