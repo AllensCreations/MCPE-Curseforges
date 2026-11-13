@@ -1,4 +1,4 @@
-Import { world, EnchantmentTypes } from "@minecraft/server";
+import { world, EnchantmentTypes } from "@minecraft/server";
 import { ActionFormData, ModalFormData } from "@minecraft/server-ui";
 
 const BOOK_ID = "minecraft:book";
