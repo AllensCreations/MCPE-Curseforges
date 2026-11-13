@@ -1,7 +1,7 @@
 import { world, system } from "@minecraft/server";
 import { ActionFormData, ModalFormData, FormCancelationReason } from "@minecraft/server-ui";
 
-const VERSION = "1.1.1";
+const VERSION = "1.1.2";
 const MENU_ITEM = "minecraft:compass";
 const TITLE = `WPH|§6@ALNStudios Waypoint Helper §7(${VERSION})`;
 const BASE_SLOTS = 10;
@@ -21,6 +21,9 @@ const DIMENSION_COLORS = {
 };
 
 const teleporting = new Set();
+const GROUND_SEARCH = 128;
+const SETTLE_TRIES = 30;
+const SETTLE_DELAY_TICKS = 2;
 
 const DIMENSION_NAMES = {
   "minecraft:overworld": "Overworld",
@@ -196,6 +199,52 @@ function teleportTo(player, slot) {
   }
 }
 
+function groundTarget(dimension, x, y, z) {
+  const passable = (yy) => {
+    const block = dimension.getBlock({ x, y: yy, z });
+    return !!block && (block.isAir || (!block.isSolid && !block.isLiquid));
+  };
+  const holds = (yy) => {
+    const block = dimension.getBlock({ x, y: yy, z });
+    return !!block && (block.isSolid || block.isLiquid);
+  };
+  const range = dimension.heightRange;
+  if (!passable(y + 1)) {
+    const top = Math.min(y + GROUND_SEARCH, range.max - 1);
+    for (let yy = y + 2; yy < top; yy++) if (passable(yy) && passable(yy + 1) && holds(yy - 1)) return yy;
+    return null;
+  }
+  if (!passable(y) || holds(y - 1)) return y;
+  const bottom = Math.max(y - GROUND_SEARCH, range.min);
+  for (let yy = y - 2; yy > bottom; yy--) if (holds(yy)) return yy + 1;
+  return null;
+}
+
+function settleOnGround(player, color, tries = 0) {
+  try {
+    if (!player.isValid) return;
+    const location = player.location;
+    const x = Math.floor(location.x);
+    const y = Math.floor(location.y);
+    const z = Math.floor(location.z);
+    const target = groundTarget(player.dimension, x, y, z);
+    if (target === null) {
+      actionBar(player, "§eNo solid ground found at this waypoint.");
+      return;
+    }
+    if (target === y) return;
+    const below = player.dimension.getBlock({ x, y: target - 1, z });
+    if (below && below.typeId.includes("lava")) {
+      actionBar(player, "§cLava below this waypoint. Staying put.");
+      return;
+    }
+    player.teleport({ x: location.x, y: target, z: location.z });
+    actionBar(player, `${color}Landing moved to solid ground.`);
+  } catch (error) {
+    if (tries < SETTLE_TRIES) system.runTimeout(() => settleOnGround(player, color, tries + 1), SETTLE_DELAY_TICKS);
+  }
+}
+
 function startTeleport(player, slot, label) {
   if (teleporting.has(player.id)) {
     actionBar(player, "§eYou are already teleporting.");
@@ -221,6 +270,7 @@ function startTeleport(player, slot, label) {
       if (teleportTo(player, slot)) {
         playSound(player, TELEPORT_ARRIVE_SOUND, 1);
         actionBar(player, `${color}Teleported to ${label}.`);
+        settleOnGround(player, color);
       } else {
         actionBar(player, "§cCould not teleport to that waypoint.");
       }
