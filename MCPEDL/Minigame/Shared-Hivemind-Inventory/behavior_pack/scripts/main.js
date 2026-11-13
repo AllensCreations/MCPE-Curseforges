@@ -11,7 +11,7 @@ const CLEAR_KEY = "allenscreations:team_clear";
 const KEEP_KEY = "allenscreations:team_keep";
 const HARD_KEY = "allenscreations:hard_mode";
 const LAYOUT_KEY = "allenscreations:layout";
-const TITLE = "§l§bAllens§dCreations §6Controller";
+const TITLE = "§l§bALN§dStudios §6Controller";
 const HOW_TO_PLAY = "Use the Controller and choose Start. Everyone's main inventory, armor, offhand and Ender Chest items are combined into one shared inventory, and anything one player picks up, uses or drops changes it for the whole team.\n\nIf anyone dies, the whole shared inventory drops once and is emptied for the team. The Ender Chest is kept. Creative and Spectator players are not part of it.\n\nWith Personal layout, each player arranges their own inventory and hotbar while the items stay shared.\n\nIn Hard mode, health and hunger are shared too, and if one player dies, everyone dies.\n\nThe host or an operator ends the game with the End Game button or the function end_game. The shared items are then divided between the players and everyone else is emptied, so nothing is duplicated.";
 const OPERATOR_LEVEL = 2;
 const MAX_STORED = 30000;
@@ -446,13 +446,15 @@ function startGame(player) {
   applyKeepInventory();
   consumeController(player);
   world.sendMessage("§a[Team Inventory] Sharing started. Everyone's items are being combined.");
+  world.sendMessage(`§7[Team Inventory] Mode: §f${isHard() ? "Hard" : "Normal"}§7, Layout: §f${isPersonal() ? "Personal" : "Shared"}`);
 }
 function distribute(online, holder) {
   const states = new Map(online.map(p => [p.id, emptyState()]));
   let k = 0;
   for (const item of inventoryStacks()) {
     if (!item) continue;
-    placeItem(states.get(online[k++ % online.length].id), item);
+    if (!placeItem(states.get(online[k % online.length].id), item)) spawnSafely(holder, item);
+    k++;
   }
   const held = states.get(holder.id);
   for (let i = INV_SLOTS; i < SLOT_COUNT; i++) held.slots[i] = clone(master.slots[i]);
@@ -498,6 +500,34 @@ async function showHowToPlay(player) {
   if (!res.canceled && res.selection === 0) openController(player);
 }
 
+async function confirmEnd(player) {
+  if (!isRunning()) {
+    player.sendMessage("Not running.");
+    return;
+  }
+  const form = new ActionFormData()
+    .title(TITLE)
+    .body("End the game now? The shared items are divided between the players and everyone else is emptied.")
+    .button("End Game")
+    .button("Back");
+  let res;
+  try {
+    res = await form.show(player);
+  } catch (e) {
+    return;
+  }
+  if (res.canceled) return;
+  if (res.selection === 0) {
+    if (!isRunning()) {
+      player.sendMessage("The game already ended.");
+      return;
+    }
+    endGame(player);
+  } else {
+    openController(player);
+  }
+}
+
 async function openController(player, attempt = 0) {
   const note = isCreative(player) ? "Creative: the Controller is kept." : "Start uses up the Controller.";
   const form = new ActionFormData()
@@ -505,8 +535,8 @@ async function openController(player, attempt = 0) {
     .body(`§7State: §f${getState()}\n§7Mode: §f${isHard() ? "Hard" : "Normal"}\n§7Layout: §f${isPersonal() ? "Personal" : "Shared"}\n§7${note}`)
     .button("Start")
     .button("How to play")
-    .button(`Mode: ${isHard() ? "Hard" : "Normal"}`)
-    .button(`Layout: ${isPersonal() ? "Personal" : "Shared"}`)
+    .button(`Mode: ${isHard() ? "Hard" : "Normal"}${isRunning() ? " (locked)" : ""}`)
+    .button(`Layout: ${isPersonal() ? "Personal" : "Shared"}${isRunning() ? " (locked)" : ""}`)
     .button("End Game");
   let res;
   try {
@@ -547,7 +577,7 @@ async function openController(player, attempt = 0) {
       player.sendMessage("Not running.");
       return;
     }
-    endGame(player);
+    confirmEnd(player);
   }
 }
 

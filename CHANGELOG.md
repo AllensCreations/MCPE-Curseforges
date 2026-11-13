@@ -2,6 +2,18 @@
 
 ---
 
+## 2026-11-13 - Team Inventory End Game Safety
+
+### Added
+- **Team Inventory End Game Confirmation**: The Controller menu asks for confirmation before ending the game.
+
+### Improved & Balanced
+- **Team Inventory Menu**: Start message shows Mode and Layout, locked buttons are marked, and the Controller is named ALNStudios Controller.
+
+### Fixed
+- **Team Inventory Lost Items**: Items that did not fit when the game ended now drop on the ground.
+- **Team Inventory Docs**: Fixed the duplicated creator links in the description and the outdated manifest description.
+
 ## 2026-11-13 - New Packs As One Script
 
 ### Added
