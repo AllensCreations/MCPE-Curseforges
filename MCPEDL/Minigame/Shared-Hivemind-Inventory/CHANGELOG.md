@@ -2,7 +2,9 @@
 
 ---
 
-## [1.22.2] - 2026-11-13 - Death Drops Fix
+## [1.22.2] - 2026-11-13
+
+**What's new in v1.22.2:** Packed with the v1.22.2 update. Includes: Death Drops Fix.
 
 ### Fixed
 
@@ -31,6 +33,8 @@
 
 - **Lost Items at End**: When the game ended in Personal layout and a player had no room, extra items could disappear. They now drop on the ground instead.
 - **Waiting Clears**: Starting a new game no longer skips cleaning the items of players who were offline when the last game ended.
+
+
 
 ## [1.22.0] - 2026-11-13 - Personal Layout
 
@@ -83,6 +87,8 @@
 
 - **In-Game Title**: The in-game add-on title now shows the correct release version.
 - **Team Inventory Name**: Updated the in-game name to Team Inventory.
+
+
 
 
 
