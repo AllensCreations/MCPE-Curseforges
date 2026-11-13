@@ -5,7 +5,7 @@ Download the current release of **Vanilla Quality of Life** for Minecraft Bedroc
 ## Download
 
 - **Package format:** `.mcaddon`
-- **Direct download:** [Download Vanilla Quality of Life (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Vanilla-Quality-of-Life/VanillaQoL%20V2.1.0.mcaddon)
+- **Direct download:** [Download Vanilla Quality of Life (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Vanilla-Quality-of-Life/VanillaQoL%20V2.1.1.mcaddon)
 
 ## Installation
 

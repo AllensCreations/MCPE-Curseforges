@@ -1,8 +1,8 @@
 {
-  "changelog_version": "2.1.0",
-  "manifest_version": "2.1.0",
+  "changelog_version": "2.1.1",
+  "manifest_version": "2.1.1",
   "packages": {
-    "VanillaQoL V2.1.0.mcaddon": "f8d52e0d07e83f48f3b82331bbb12f4506850f62ed9c24b2b4222d4bcae95074"
+    "VanillaQoL V2.1.1.mcaddon": "d61ba2e935d1c842989a5bd326a39b27355e78d03171c1b060112daa45c60fb8"
   },
-  "source_sha256": "4380cf83d76237859cc000fa7fe2d19445749bc3a2b320172c062cd832f887cf"
+  "source_sha256": "1194d1227f2ab8e688c0b9d72ee3d7f999bc752e4b2e29f462616cf86fc11b36"
 }
