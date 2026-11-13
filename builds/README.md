@@ -36,7 +36,7 @@ This directory stores compiled Add-ons (`.mcaddon`), Maps (`.mcworld`), Scripts 
 | **OP Sponge** | Add-on (.mcaddon) | [Download (.mcaddon)](OP-Sponge/OPSponge%20V1.0.1.mcaddon) | [`OP-Sponge/`](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/builds/OP-Sponge/) |
 | **Cheat Stick** | Add-on (.mcaddon) | [Download (.mcaddon)](Cheat-Stick/CheatStick%20V3.0.0.mcaddon) | [`Cheat-Stick/`](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/builds/Cheat-Stick/) |
 | **2-in-1 Loot & XP Booster** | Add-on (.mcaddon) | [Download (.mcaddon)](2-in-1-Loot--XP-Booster/LootXPBooster%20V1.0.2.mcaddon) | [`2-in-1-Loot--XP-Booster/`](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/builds/2-in-1-Loot--XP-Booster/) |
-| **Enchanter** | Complete Pack (`.mcaddon`) | [Download (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Enchanter/Enchanter%20V1.0.0.mcaddon) | [`Enchanter/`](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/builds/Enchanter/) |
+| **Enchanter** | Add-on (.mcaddon) | [Download (.mcaddon)](Enchanter/Enchanter%20V1.0.0.mcaddon) | [`Enchanter/`](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/builds/Enchanter/) |
 
 ### Worlds and Maps
 
