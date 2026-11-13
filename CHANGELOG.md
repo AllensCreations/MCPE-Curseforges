@@ -2,6 +2,11 @@
 
 ---
 
+## 2026-11-13 - ALNStudios UI Icon Rule
+
+### Improved & Balanced
+- **ALNStudios UI Icon Rule**: The main action button shows an icon that matches the pack only when the pack needs one and a verified icon exists.
+
 ## 2026-11-13 - ALNStudios UI Standard
 
 ### Added
