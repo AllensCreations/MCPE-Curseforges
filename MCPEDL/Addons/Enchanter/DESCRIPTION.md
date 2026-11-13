@@ -74,3 +74,4 @@ Rename a Book to Enchanter at an Anvil and use it. Choose an item from your inve
 ## Search & Discovery Keywords
 
 Minecraft Bedrock add-on, Enchanter Bedrock mod, enchantment sliders, renamed Book, custom enchanting menu, Minecraft PE enchant, MCPEDL add-on, CurseForge Bedrock, ALNStudios.
+
