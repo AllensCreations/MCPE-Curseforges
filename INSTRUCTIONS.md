@@ -12,6 +12,7 @@ Repo policy, docs, audit rules for ALNStudios/MCPE-Curseforges. Generating a new
 | Recipe images, sprites | this file | 1.5, 3.3, 3.4 |
 | New addon / map / script / minigame | `PACK_GENERATOR_INSTRUCTIONS.md` | all |
 Read only the sections the task needs. NEVER load the other file for the same task.
+**Scripts are reference only:** AI agents NEVER run the scripts folder (read it to learn the workflow). Only test and selftest scripts may run. CI and Termux run the rest.
 
 ## Reply Format (STRICT, every repo edit, update, file request)
 ```
