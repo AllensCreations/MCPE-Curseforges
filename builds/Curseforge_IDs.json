@@ -10,7 +10,9 @@
     "last_release_version": "3.0.0"
   },
   "MCPEDL/Addons/Enchanter": {
-    "project_id": "1802037"
+    "project_id": "1802037",
+    "last_published_version": "1.0.0",
+    "last_release_version": "0.0.0"
   },
   "MCPEDL/Addons/Grimoire-Relics-V2": {
     "project_id": "1747867",
