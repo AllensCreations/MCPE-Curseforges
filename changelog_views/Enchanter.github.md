@@ -1,6 +1,6 @@
 # Changelog — Enchanter
 
-## [1.0.2] - 2026-11-13 - Spear Icons and Readable Menus
+## [1.0.2] - 2026-11-13
 
 ### Improved & Balanced
 - **Readable Menus**: Menu text no longer uses colors that blend into the panel. The title keeps its gold and yellow.
