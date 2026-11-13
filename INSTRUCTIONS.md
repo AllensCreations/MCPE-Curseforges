@@ -218,6 +218,7 @@ Applies to every addon, map, script, minigame, item, entity, block, trade, recip
 - `assets/aln-ui-redesign/` is the shared UI skin (formerly Cheatstick UI): `README.txt` (how to apply), `design.json` (tokens), `textures/`, `preview_reference.png`.
 - Any pack that adds or changes a menu, form, HUD or screen reads `README.txt` and `design.json` first and ships the skin in its Resource Pack: textures copied in (never linked), tokens reused (NEVER invent colors or layout). Version the Resource Pack with `manifest_tools.py --set` like every update.
 - Pack task needs the skin: ask for Collect Files `paths` = `assets/aln-ui-redesign, <pack folder>/resource_pack`. NEVER edit the shared folder from a pack task unless asked.
+- Menu text uses the shared Pixelify Sans glyph font in `assets/aln-ui-redesign/font/` (its README.txt has the steps): copy the glyph sheet into the Resource Pack `font/`, wrap strings with `pixelify()`.
 
 ---
 
