@@ -37,7 +37,7 @@ The host or an operator starts the shared inventory with the ALNStudios Controll
 - **What Happens**: The host or an operator can switch the Mode to Hard before choosing Start. Health and hunger are then shared by every player who takes part.
 - **Damage and Healing**: Damage taken by one player is taken by the whole team. Healing and eating raise the shared value once.
 - **Starting Values**: Everyone's health and hunger are set to the lowest among the players when the game starts.
-- **Deaths**: When one player dies, every other player who takes part dies too.
+- **Deaths**: When one player dies, every other player who takes part dies too, and chat says who died.
 
 ### Team Deaths
 - **What Happens**: The shared inventory drops once when a player dies and is then emptied for the team.
@@ -47,9 +47,17 @@ The host or an operator starts the shared inventory with the ALNStudios Controll
 - **What Happens**: The host or an operator chooses End Game in the Controller menu or uses the function end_game. The shared items are divided between players, the host keeps the armor and the shared Ender Chest items, and everyone else is emptied so items are not duplicated.
 - **Survival**: Start uses up the Controller, so run the function give_controller to get a new one before choosing End Game.
 - **Controller Replacement**: The host or an operator gets a new Controller when the game ends. The function give_controller also gives one.
+- **Offline Players**: Players who are offline when the game ends receive their share of the items the next time they join.
+- **Cheats**: The functions need cheats, which disable achievements in that world.
 
 ### Joining Players
 - **What Happens**: Players who join while sharing is running receive the team inventory. Their own items are replaced, so store anything personal before joining.
+
+### Saving and Limits
+- **What Happens**: The shared inventory is saved with the world and restored after a restart.
+- **After a Restart**: Only names, lore, durability and enchantments of items are restored. Shulker box and bundle contents, potion types, dyed colors, banner patterns and maps may be lost.
+- **Too Large to Save**: If the shared inventory becomes too large to save, players are warned and the saved copy is cleared until it is smaller.
+- **Creative and Spectator**: Players in these modes are not part of the shared inventory.
 
 ## How to Use
 
@@ -64,9 +72,6 @@ The host or an operator starts the shared inventory with the ALNStudios Controll
 - Experimental features: No experiment requirement detected in the inspected files.
 - Achievements: Likely achievement-friendly; world settings or cheats can disable achievements.
 - Verification: Source created, not tested in game.
-- After the world is restarted, only names, lore, durability and enchantments of items are restored. Shulker box and bundle contents, potion types, dyed colors, banner patterns and maps may be lost.
-- If the shared inventory becomes too large to save, players are warned and the saved copy is cleared until it is smaller.
-- Players in Creative or Spectator mode are not part of the shared inventory.
 
 ## Creator and Permissions
 

@@ -2,7 +2,26 @@
 
 ---
 
-## [1.22.0] - 2026-11-13
+## [1.22.1] - 2026-11-13 - Offline Shares and Safer Ending
+
+### Added
+- **End Game Button**: The Controller menu has an End Game button. The host or an operator can end sharing without using a command, and the shared items are divided between players the same way.
+- **End Game Confirmation**: Choosing End Game now asks for confirmation first, so a stray tap no longer ends the game.
+- **Offline Player Shares**: Players who are offline when the game ends receive their share of the items the next time they join.
+- **Hard Mode Death Message**: When one player dies in Hard Mode, chat now says who died.
+
+### Improved & Balanced
+- **Start Message**: The chat message shown when sharing starts now lists the chosen Mode and Layout.
+- **Locked Menu Buttons**: The Mode and Layout buttons are marked as locked while sharing is running.
+- **Controller Name**: The Controller is now named ALNStudios Controller in game, matching its description.
+- **Larger Saves**: A bigger shared inventory can now be saved before the too-large warning appears.
+- **Lighter Syncing**: Item checks reuse earlier results instead of rebuilding them every tick.
+
+### Fixed
+- **Lost Items at End**: When the game ended in Personal layout and a player had no room, extra items could disappear. They now drop on the ground instead.
+- **Waiting Clears**: Starting a new game no longer skips cleaning the items of players who were offline when the last game ended.
+
+## [1.22.0] - 2026-11-13 - Personal Layout
 
 **What's new in v1.22.0:** Packed with 12 updates, from v1.6.0 through v1.0.1. Includes: End Game Safety Fixes.
 
@@ -13,13 +32,12 @@
 - **Shared Ender Chest**: Every player's Ender Chest now holds the same items. Items from all Ender Chests are combined when the game starts, and the Ender Chest is not dropped when a player dies.
 - **Hard Mode**: The host or an operator can switch the Controller's Mode to Hard before starting. Health and hunger are then shared by the whole team, and when one player dies, everyone dies.
 - **ALNStudios Controller**: The host or an operator receives a Controller item. Using it opens a menu with Start and How to play. Starting uses it up in Survival and keeps it in Creative.
-- **Ending the Game**: The function end_game ends sharing and divides the shared items between players. The function give_controller gives a new Controller.
+- **Ending the Game**: An operator command ends sharing and divides the shared items between players. Another operator command gives a new Controller.
 - **Team Start**: Sharing now begins when the host chooses Start, and everyone's items are combined at that moment.
-- **Private Syncing Message:** Players receive a short shared-inventory syncing message when they join, without repeating it on death respawn.
----
-- **Persistent Shared Inventory:** Shared inventory state is retained when the world is restarted.
-- **Equipment Sharing:** Armor, offhand items, and the selected hotbar slot are included in the shared inventory.
-- **Conflict Feedback:** Players receive brief feedback when simultaneous slot changes conflict.
+- **Private Syncing Message**: Players receive a short shared-inventory syncing message when they join, without repeating it on death respawn.
+- **Persistent Shared Inventory**: Shared inventory state is retained when the world is restarted.
+- **Equipment Sharing**: Armor, offhand items, and the selected hotbar slot are included in the shared inventory.
+- **Conflict Feedback**: Players receive brief feedback when simultaneous slot changes conflict.
 
 ### Improved & Balanced
 
@@ -36,8 +54,8 @@
 - **Hotbar Selection**: Every player now keeps their own selected hotbar slot.
 - **Creative and Spectator**: Players in these modes no longer take part in the shared inventory.
 - **Restarts**: Items keep their full details after a restart when a teammate still holds the same item.
-- **World Settings:** The add-on leaves the world's inventory-on-death setting unchanged.
-- **Clearer Status:** Removed the always-visible status display and custom command controls.
+- **World Settings**: The add-on leaves the world's inventory-on-death setting unchanged.
+- **Clearer Status**: Removed the always-visible status display and custom command controls.
 
 ### Fixed
 
@@ -47,15 +65,13 @@
 - **Join Sync**: A player's inventory is checked after syncing and retried if it did not update.
 - **Saving**: Players are warned when the shared inventory is too large to save, and an outdated saved copy is no longer kept.
 - **Error Messages**: Internal error warnings are limited so they no longer flood chat.
----
-- **Join Notification:** The inventory-sync message is shown more reliably when players join.
-- **Join Notification:** Improved delivery of the inventory-sync message when players join.
+- **Join Notification**: The inventory-sync message is shown more reliably when players join.
+- **Join Notification**: Improved delivery of the inventory-sync message when players join.
 
-### Improved
+### Improved & Balanced
 
-- **In-Game Title:** The in-game add-on title now shows the correct release version.
----
-- **Team Inventory Name:** Updated the in-game name to Team Inventory.
+- **In-Game Title**: The in-game add-on title now shows the correct release version.
+- **Team Inventory Name**: Updated the in-game name to Team Inventory.
 
 ## [1.0.0] - 2026-11-04
 
@@ -65,4 +81,3 @@
 
 #### Added
 - **End Game Button**: The Controller menu now has an End Game button. The host or an operator can end sharing without using the function, and the shared items are divided between players the same way.
-

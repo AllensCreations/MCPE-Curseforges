@@ -9,12 +9,14 @@ const STORAGE_KEY = "allenscreations:hivemind_v106";
 const MEMBERS_KEY = "allenscreations:team_members";
 const CLEAR_KEY = "allenscreations:team_clear";
 const KEEP_KEY = "allenscreations:team_keep";
+const SHARE_PREFIX = "allenscreations:team_share_";
 const HARD_KEY = "allenscreations:hard_mode";
 const LAYOUT_KEY = "allenscreations:layout";
 const TITLE = "§l§bALN§dStudios §6Controller";
-const HOW_TO_PLAY = "Use the Controller and choose Start. Everyone's main inventory, armor, offhand and Ender Chest items are combined into one shared inventory, and anything one player picks up, uses or drops changes it for the whole team.\n\nIf anyone dies, the whole shared inventory drops once and is emptied for the team. The Ender Chest is kept. Creative and Spectator players are not part of it.\n\nWith Personal layout, each player arranges their own inventory and hotbar while the items stay shared.\n\nIn Hard mode, health and hunger are shared too, and if one player dies, everyone dies.\n\nThe host or an operator ends the game with the End Game button or the function end_game. The shared items are then divided between the players and everyone else is emptied, so nothing is duplicated.";
+const HOW_TO_PLAY = "Use the Controller and choose Start. Everyone's main inventory, armor, offhand and Ender Chest items are combined into one shared inventory, and anything one player picks up, uses or drops changes it for the whole team.\n\nIf anyone dies, the whole shared inventory drops once and is emptied for the team. The Ender Chest is kept. Creative and Spectator players are not part of it.\n\nWith Personal layout, each player arranges their own inventory and hotbar while the items stay shared.\n\nIn Hard mode, health and hunger are shared too, and if one player dies, everyone dies.\n\nThe host or an operator ends the game with the End Game button or the function end_game. The shared items are then divided between the players, and anyone offline gets their share when they join again, so nothing is duplicated.";
 const OPERATOR_LEVEL = 2;
 const MAX_STORED = 30000;
+const MAX_CHUNKS = 4;
 const MAX_APPLY_RETRIES = 10;
 const ERROR_COOLDOWN = 200;
 const INV_SLOTS = 36;
@@ -31,6 +33,8 @@ let tickBusy = false;
 let warnedSize = false;
 let needMerge = false;
 let rulesChecked = false;
+let hardMsgLock = false;
+let chunked = 0;
 let lastErrorTick = -ERROR_COOLDOWN;
 const snapshots = new Map();
 const pendingDeath = new Map();
@@ -103,10 +107,21 @@ function deserializeItem(data) {
     return item;
   });
 }
+const signatures = new WeakMap();
+function signatureOf(item) {
+  let s = signatures.get(item);
+  if (s === undefined) {
+    const data = serializeItem(item);
+    delete data.amount;
+    s = JSON.stringify(data);
+    signatures.set(item, s);
+  }
+  return s;
+}
 function sameItem(a, b) {
   if (!a || !b) return !a && !b;
   if (a.typeId !== b.typeId || a.amount !== b.amount) return false;
-  return JSON.stringify(serializeItem(a)) === JSON.stringify(serializeItem(b));
+  return signatureOf(a) === signatureOf(b);
 }
 function identityKey(item) {
   const s = serializeItem(item);
@@ -167,8 +182,8 @@ function deserializeState(data) {
 function persist() {
   if (!master) return;
   const json = JSON.stringify(serializeState(master));
-  if (json.length > MAX_STORED) {
-    safe(() => world.setDynamicProperty(STORAGE_KEY, undefined));
+  if (json.length > MAX_STORED * MAX_CHUNKS) {
+    safe(() => clearStored());
     if (!warnedSize) {
       warnedSize = true;
       safe(() => world.sendMessage("§e[Team Inventory] The shared inventory is too large to save. It will not persist until it is smaller."));
@@ -176,12 +191,41 @@ function persist() {
     return;
   }
   warnedSize = false;
-  safe(() => world.setDynamicProperty(STORAGE_KEY, json));
+  safe(() => writeStored(json));
 }
 function loadPersisted() {
-  const raw = safe(() => world.getDynamicProperty(STORAGE_KEY));
+  let raw = safe(() => world.getDynamicProperty(STORAGE_KEY));
   if (typeof raw !== "string" || !raw) return null;
+  if (raw.startsWith("chunks:")) {
+    const parts = Number.parseInt(raw.slice(7), 10);
+    if (!Number.isInteger(parts) || parts < 2 || parts > MAX_CHUNKS) return null;
+    raw = "";
+    for (let i = 0; i < parts; i++) {
+      const piece = safe(() => world.getDynamicProperty(`${STORAGE_KEY}:${i}`));
+      if (typeof piece !== "string") return null;
+      raw += piece;
+    }
+    chunked = parts;
+  }
   return safe(() => deserializeState(JSON.parse(raw)), null);
+}
+function clearStored() {
+  world.setDynamicProperty(STORAGE_KEY, undefined);
+  for (let i = 0; i < MAX_CHUNKS; i++) world.setDynamicProperty(`${STORAGE_KEY}:${i}`, undefined);
+  chunked = 0;
+}
+function writeStored(json) {
+  const parts = Math.ceil(json.length / MAX_STORED);
+  if (parts <= 1) {
+    if (chunked) clearStored();
+    world.setDynamicProperty(STORAGE_KEY, json);
+    return;
+  }
+  for (let i = 0; i < MAX_CHUNKS; i++) {
+    world.setDynamicProperty(`${STORAGE_KEY}:${i}`, i < parts ? json.slice(i * MAX_STORED, (i + 1) * MAX_STORED) : undefined);
+  }
+  world.setDynamicProperty(STORAGE_KEY, `chunks:${parts}`);
+  chunked = parts;
 }
 function emptyState() {
   return { slots: Array(SLOT_COUNT).fill(undefined), equipment: Object.fromEntries(EQUIPMENT_SLOTS.map(s => [s, undefined])) };
@@ -401,7 +445,7 @@ function resetSharing() {
   snapshots.clear();
   applyFails.clear();
   knownMembers.clear();
-  safe(() => world.setDynamicProperty(STORAGE_KEY, undefined));
+  safe(() => clearStored());
 }
 
 function hasController(player) {
@@ -442,41 +486,47 @@ function startGame(player) {
   needMerge = true;
   rulesChecked = true;
   saveSet(MEMBERS_KEY, new Set());
-  saveSet(CLEAR_KEY, new Set());
   applyKeepInventory();
   consumeController(player);
   world.sendMessage("§a[Team Inventory] Sharing started. Everyone's items are being combined.");
   world.sendMessage(`§7[Team Inventory] Mode: §f${isHard() ? "Hard" : "Normal"}§7, Layout: §f${isPersonal() ? "Personal" : "Shared"}`);
 }
-function distribute(online, holder) {
-  const states = new Map(online.map(p => [p.id, emptyState()]));
+function distribute(online, holder, others, shares) {
+  const ids = [...online.map(p => p.id), ...others];
+  const states = new Map(ids.map(id => [id, emptyState()]));
   let k = 0;
   for (const item of inventoryStacks()) {
     if (!item) continue;
-    if (!placeItem(states.get(online[k % online.length].id), item)) spawnSafely(holder, item);
+    if (!placeItem(states.get(ids[k % ids.length]), item)) spawnSafely(holder, item);
     k++;
   }
   const held = states.get(holder.id);
   for (let i = INV_SLOTS; i < SLOT_COUNT; i++) held.slots[i] = clone(master.slots[i]);
   for (const slot of EQUIPMENT_SLOTS) held.equipment[slot] = clone(master.equipment[slot]);
   for (const p of online) writeState(p, states.get(p.id), true);
+  for (const id of others) shares.set(id, states.get(id));
 }
 function endGame(source) {
   const online = sharingPlayers();
   const holder = online.find(p => p.id === source?.id && isHost(p)) ?? online.find(isHost) ?? online[0];
+  const onlineIds = new Set(online.map(p => p.id));
+  const others = [...loadSet(MEMBERS_KEY)].filter(id => !onlineIds.has(id));
   withSync(() => {
-    if (master && holder) distribute(online, holder);
+    const shares = new Map();
+    if (master && holder) distribute(online, holder, others, shares);
     else if (master && isAlive(source)) {
       const stacks = [...inventoryStacks(), ...master.slots.slice(INV_SLOTS), ...EQUIPMENT_SLOTS.map(s => master.equipment[s])].filter(Boolean);
       for (const item of stacks) spawnAt(source.dimension, item, source.location);
     }
-    const onlineIds = new Set(online.map(p => p.id));
     const pending = loadSet(CLEAR_KEY);
-    for (const id of loadSet(MEMBERS_KEY)) {
-      if (onlineIds.has(id)) continue;
+    for (const id of others) {
+      const state = shares.get(id) ?? emptyState();
       const other = world.getAllPlayers().find(p => p.id === id);
-      if (other && isAlive(other)) writeState(other, emptyState(), true);
-      else pending.add(id);
+      if (other && isAlive(other)) writeState(other, state, true);
+      else {
+        saveShare(id, state);
+        pending.add(id);
+      }
     }
     saveSet(CLEAR_KEY, pending);
   });
@@ -487,6 +537,19 @@ function endGame(source) {
   setState("ended");
   world.sendMessage(holder ? `§e[Team Inventory] Sharing ended. The shared items were divided between the players, and ${holder.name} holds the armor.` : "§e[Team Inventory] Sharing ended.");
   for (const p of world.getAllPlayers()) if (isHost(p)) giveController(p);
+}
+function saveShare(id, state) {
+  const data = {
+    slots: state.slots.map(serializeItem),
+    equipment: Object.fromEntries(EQUIPMENT_SLOTS.map(slot => [slot, serializeItem(state.equipment[slot])]))
+  };
+  safe(() => world.setDynamicProperty(SHARE_PREFIX + id, JSON.stringify(data)));
+}
+function takeShare(id) {
+  const raw = safe(() => world.getDynamicProperty(SHARE_PREFIX + id));
+  if (typeof raw !== "string") return null;
+  safe(() => world.setDynamicProperty(SHARE_PREFIX + id, undefined));
+  return safe(() => deserializeState(JSON.parse(raw)), null);
 }
 
 async function showHowToPlay(player) {
@@ -630,7 +693,7 @@ world.afterEvents.playerSpawn.subscribe(event => {
   const pending = loadSet(CLEAR_KEY);
   if (pending.has(player.id)) {
     system.run(() => {
-      withSync(() => writeState(player, emptyState(), true));
+      withSync(() => writeState(player, takeShare(player.id) ?? emptyState(), true));
       pending.delete(player.id);
       saveSet(CLEAR_KEY, pending);
     });
@@ -672,5 +735,10 @@ system.runInterval(() => {
 world.afterEvents.entityDie.subscribe(event => {
   const dead = event.deadEntity;
   if (dead.typeId !== "minecraft:player" || !isRunning() || !isHard() || isCreative(dead)) return;
+  if (!hardMsgLock) {
+    hardMsgLock = true;
+    safe(() => world.sendMessage(`§c[Team Inventory] ${dead.name} died, so the whole team dies.`));
+    system.runTimeout(() => { hardMsgLock = false; }, 40);
+  }
   hardKillAll(sharingPlayers());
 });

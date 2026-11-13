@@ -2,6 +2,22 @@
 
 ---
 
+## 2026-11-13 - Team Inventory 1.22.1
+
+### Added
+- **Team Inventory Offline Shares**: Players who are offline when the game ends receive their share the next time they join.
+- **Team Inventory End Game Confirmation**: The Controller menu asks for confirmation before ending the game.
+- **Team Inventory Hard Mode Message**: Chat names the player whose death ended a Hard Mode game.
+
+### Improved & Balanced
+- **Team Inventory Version Line**: Version numbering continues from 1.22.0 again, and the changelog is cleaned up to the template.
+- **Team Inventory Menu**: Start message shows Mode and Layout, locked buttons are marked, and the Controller is named ALNStudios Controller.
+- **Team Inventory Saves**: Larger shared inventories can be saved, and item checks reuse earlier results.
+
+### Fixed
+- **Team Inventory Lost Items**: Items that did not fit when the game ended now drop on the ground.
+- **Team Inventory Docs**: Fixed the duplicated creator links, outdated manifest description and the extra Compatibility lines in the description.
+
 ## 2026-11-13 - Team Inventory End Game Safety
 
 ### Added
