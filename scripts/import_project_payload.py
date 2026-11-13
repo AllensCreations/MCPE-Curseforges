@@ -63,6 +63,25 @@ def fail(msg: str) -> None:
     sys.exit(msg)
 
 
+SH_BEGIN = "#--- ALN PAYLOAD BEGIN ---"
+SH_END = "#--- ALN PAYLOAD END ---"
+
+
+def payload_from_text(text: str, name: str = "") -> str:
+    """A pack script (.sh) carries its base64 between two marker lines, each payload line starting with '#'.
+    The file is only read, never executed. Any other text is returned unchanged."""
+    lines = text.replace("\r\n", "\n").split("\n")
+    if SH_BEGIN not in lines:
+        if name.lower().endswith(".sh"):
+            fail(f"{name} has no payload block ({SH_BEGIN} ... {SH_END}).")
+        return text
+    start = lines.index(SH_BEGIN) + 1
+    if SH_END not in lines[start:]:
+        fail(f"{name or 'pack script'}: the payload block is not closed ({SH_END}).")
+    end = lines.index(SH_END, start)
+    return "".join(l.lstrip("#").strip() for l in lines[start:end])
+
+
 def resolve_payload(root: Path, payload_file: str | None) -> tuple[str, str | None]:
     """Return (base64 text, repo-relative payload path or None when the text came from the environment)."""
     incoming = (root / "MCPEDL" / "incoming").resolve()
@@ -73,7 +92,7 @@ def resolve_payload(root: Path, payload_file: str | None) -> tuple[str, str | No
         path = (incoming / given.name) if len(given.parts) == 1 else (root / given).resolve()
         if not path.is_file() and not path.suffix:
             # The extension is optional: "Monster-Companions" finds Monster-Companions.b64 (or .txt).
-            for ext in (".b64", ".txt"):
+            for ext in (".b64", ".txt", ".sh"):
                 if path.with_name(path.name + ext).is_file():
                     path = path.with_name(path.name + ext)
                     break
@@ -86,7 +105,7 @@ def resolve_payload(root: Path, payload_file: str | None) -> tuple[str, str | No
     elif not env_text.strip():
         # .b64, .txt, or no extension at all; dotfiles and READMEs are ignored.
         found = sorted(f for f in incoming.iterdir()
-                       if f.is_file() and not f.name.startswith(".") and f.suffix.lower() in (".b64", ".txt", "")
+                       if f.is_file() and not f.name.startswith(".") and f.suffix.lower() in (".b64", ".txt", ".sh", "")
                        and f.stem.lower() != "readme") if incoming.is_dir() else []
         if not found:
             fail("No payload: commit a payload file (.b64, .txt, or no extension) to MCPEDL/incoming/ or paste base64 into the workflow.")
@@ -97,6 +116,7 @@ def resolve_payload(root: Path, payload_file: str | None) -> tuple[str, str | No
     if path is not None:
         text = path.read_text(encoding="utf-8")
         rel = path.resolve().relative_to(root).as_posix()
+        text = payload_from_text(text, path.name)
     else:
         text, rel = env_text, None
     text = re.sub(r"\s+", "", text)

@@ -32,7 +32,7 @@ Output ONLY, in order, exact headings:
 1. `#!/data/data/com.termux/files/usr/bin/bash` + `set -e`
 2. `cd "$HOME/MCPE-Curseforges"` (clone first if missing)
 3. `git pull --rebase`
-4. Apply ALL changes inside the script (heredocs, inline python3). No separate files.
+4. Apply ALL changes inside the script (heredocs, inline python3). Deliver ONLY the `.sh`: NEVER a separate `.zip`, pack file (`.mcaddon`/`.mcworld`/`.mcpack`), `.json`, `.js` or `.b64`. Everything needed lives inside the `.sh`. A NEW project is one pack `.sh` from `scripts/make_pack_script.py` (base64 payload block inside; Part 4).
 5. Validate every changed `.json` with python3. Stop on error.
 6. Run `python3 scripts/check_instruction_files.py` when an instruction file changed.
 6b. Project update: after the CHANGELOG entry, run `python3 scripts/manifest_tools.py --project "$DEST" --set X.Y.Z`, then `--check` and `python3 scripts/validate_manifest_titles.py --project "$DEST"`. Stop on error.

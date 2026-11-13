@@ -37,7 +37,7 @@ on:
         default: ""
         type: string
       payload_file:
-        description: "File in MCPEDL/incoming/ (extension optional, e.g. Monster-Companions or Monster-Companions.b64). Empty = paste above, or the only file in the folder."
+        description: "File in MCPEDL/incoming/: a pack script (.sh, only its payload block is read, never run), .b64 or .txt. Extension optional, e.g. Monster-Companions_1.0.0_k7q2x.sh. Empty = paste above, or the only file in the folder."
         required: false
         default: ""
         type: string

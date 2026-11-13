@@ -2,6 +2,15 @@
 
 ---
 
+## 2026-11-13 - New Packs As One Script
+
+### Added
+- **Pack script for new projects**: A new add-on, map, script or minigame now comes as ONE `.sh` file that carries the whole project inside it as base64. Run it in Termux with `bash <file>.sh`, which creates the project, builds the worlds, commits and pushes. `scripts/make_pack_script.py` builds it.
+- **Run through GitHub**: `bash <file>.sh stage` copies the file to MCPEDL/incoming and pushes. Create Project from Base64 now accepts that `.sh` as payload_file and only reads its payload block; it never runs the file.
+
+### Improved & Balanced
+- **No loose files**: The AI no longer delivers separate zip, pack, json, js or base64 files. The instructions and the Collect Files for AI Review prompt require everything to live inside the one `.sh`.
+
 ## 2026-11-13 - Mining Helmet Mob Light and Falloff
 
 ### Added

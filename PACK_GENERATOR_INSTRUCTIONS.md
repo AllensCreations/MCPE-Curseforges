@@ -1,6 +1,6 @@
 # Pack Generator Instructions (AI Agent, v20)
 
-Builds a complete **addon**, **map**, **script**, or **minigame** from the user's idea. Returns ONE line of base64 for GitHub workflow **Create Project from Base64**.
+Builds a complete **addon**, **map**, **script**, or **minigame** from the user's idea. Returns ONE Termux `.sh` pack script that carries the whole project inside it (as base64). No other file is delivered.
 
 Self-contained for generation. Read ONLY this file for a build task. Maintenance, workflows, audits, recipe images: `INSTRUCTIONS.md`. Numbers (1.x, 2.x, 4.x) refer to this file.
 
@@ -283,7 +283,7 @@ CHANGELOG.md. Newest first. Groups: Added, Improved & Balanced, Fixed (bugs as i
 
 ## Part 4: Pack Generator
 
-Agent builds a full project from the user's idea, returns ONE line of base64. User pastes it into GitHub workflow **Create Project from Base64** (places it in `MCPEDL/`, builds needed worlds).
+Agent builds a full project from the user's idea and returns ONE `.sh` pack script (`scripts/make_pack_script.py`). The user runs it in Termux (`bash <file>.sh` creates the project, builds worlds, pushes; `bash <file>.sh stage` only copies it to `MCPEDL/incoming/`) or runs GitHub workflow **Create Project from Base64** with `payload_file` = the `.sh` (the workflow only reads the payload block, it never runs the file).
 
 Source of truth = scripts: `scripts/build_payload.py` (packager + checks), `scripts/doc_template.py`, `scripts/import_project_payload.py`, `scripts/build_test_world.py` from ALNStudios/MCPE-Curseforges. ALWAYS read them before building. Disagreement with this file: tell the user. Repo unreadable: ask user to paste `build_payload.py` + `doc_template.py`, use that exact text. NEVER rewrite a script from memory. NEVER use a stale copy.
 
@@ -301,7 +301,8 @@ NEVER guess the type. At most ONE more question, only if the answer changes the 
 | minigame | `MCPEDL/Minigame/<Name>/` | `.mcaddon`; Controller, RP, Creative test world |
 
 ### 4.1 Hard rules
-- NEVER write base64 by hand. Create files, build ZIP, encode by RUNNING code (4.8). Cannot run code: stop, say so, output file tree with full contents + the command. NEVER invent base64.
+- NEVER write base64 or the `.sh` by hand. Create files in scratch `build/<Name>/`, then RUN `make_pack_script.py` (4.8). Cannot run code: reply `CANNOT BUILD` (4.11). NEVER invent base64.
+- Deliver ONLY the one pack `.sh`. NEVER deliver a separate `.zip`, pack file (`.mcaddon`/`.mcworld`/`.mcpack`), `.json`, `.js`, `.b64` or any other file; every file lives inside the `.sh`. `build/` is scratch: never delivered, never committed.
 - NEVER invent features, versions, links, assets, results, compatibility. ZIP build proves structure only.
 - ALWAYS look up latest stable Bedrock + `@minecraft/server` + `@minecraft/server-ui` at time of work, record date (1.2). NEVER preview/beta/RC unless a requested feature needs it (then disclose in DESCRIPTION). `min_engine_version` per 1.2. Cannot confirm which game version first shipped your module version: say so.
 - Art: NEVER AI-generated images. NEVER CurseForge/MCPEDL listing images in the payload (linked by URL from `assets/Images/`). Trader Ledger (maps) and Controller (minigames) icons ONLY from the repo copy that `build_payload.py` installs. Other textures: real vanilla names, user-supplied, or omit.
@@ -323,7 +324,7 @@ resource_pack/        map/minigame REQUIRED. addon optional. script FORBIDDEN.
 ```
 - NEVER ship `oneblock.json` (importer writes for maps), `LOCK` (importer writes for add-ons), another type's `project.json`.
 - NEVER include: `db/`, `level.dat`, `world_behavior_packs.json`, `world_resource_packs.json`, `.mcworld/.mcpack/.mcaddon/.zip`, symlinks, `Mcpeworlds/...` or `assets/...` paths. NEVER name a file/folder exactly `db`.
-- Limits (see `build_payload.py`): 500 files, 5 MB/file, 25 MB total. Default delivery = `.b64` file. Inline paste ONLY under ~12,000 chars.
+- Limits (see `build_payload.py`): 500 files, 5 MB/file, 25 MB total. Delivery = the one pack `.sh`, nothing else.
 
 ### 4.3 Manifests (all types)
 `behavior_pack/manifest.json` and `resource_pack/manifest.json` (if present). Part 1 (1.2, 1.3) applies.
@@ -436,18 +437,18 @@ registerController({
 ### 4.7 Recipes
 - Every custom shaped/shapeless crafting recipe: unlock per 1.4. Other recipe types: no `unlock`.
 
-### 4.8 Build the payload
-NEVER hand-write ZIP or base64. `scripts/build_payload.py` installs missing Ledger/Controller files, runs every check, builds ZIP, writes one-line `payload.b64`, round-trips it. Importer imports the same file.
-1. Create `build/<Name>/` per 4.2 incl. `project.json` + BP manifest with looked-up `min_engine_version`.
-2. Get `scripts/build_payload.py` + `scripts/doc_template.py` (repo or pasted), save next to `build/`.
-3. `python build_payload.py build/Name` (`--check-only` to test).
-4. Fix every failure incl. every `DOC:`, rerun. Report final SELF-TEST PASSED + BUILD OK on the `build_payload.py result` summary line. Proves structure only. Node MUST be installed for syntax check; if output says not checked, say so.
-5. Run `python3 doc_template.py --style build/Name`; rewrite every STYLE hint with a specific fact.
-6. Deliver `payload.b64`: ONE line, no breaks/spaces/fences. File route default. NEVER retype.
+### 4.8 Build the pack script
+NEVER hand-write ZIP, base64 or the `.sh`. `scripts/make_pack_script.py` installs missing Ledger/Controller files, runs every `build_payload.py` check, builds the ZIP in memory and writes ONE Termux `.sh` that carries the project as a base64 block at its end. It writes nothing else. The importer reads that same block.
+1. Create `build/<Name>/` per 4.2 incl. `project.json` + BP manifest with looked-up `min_engine_version`. `build/` is scratch.
+2. Get `scripts/make_pack_script.py`, `build_payload.py`, `import_project_payload.py`, `doc_template.py` (repo or pasted), all in one folder next to `build/`.
+3. `python3 make_pack_script.py build/Name` (`--check-only` to test only).
+4. Fix every failure incl. every `DOC:`, rerun. Report the SELF-TEST PASSED + PACK SCRIPT OK + BUILD OK lines. Proves structure only. Node MUST be installed for syntax check; if output says not checked, say so.
+5. Run `python3 doc_template.py --style build/Name`; rewrite every STYLE hint with a specific fact, rebuild.
+6. Deliver ONLY `<Name>_<Version>_<Rand>.sh` (fresh Rand, 1.1 rule). NEVER retype or edit it.
 
 ### 4.9 Final self-check before replying
 - [ ] Type asked/given before building.
-- [ ] SELF-TEST PASSED + BUILD OK printed; base64 from `payload.b64`.
+- [ ] SELF-TEST PASSED + PACK SCRIPT OK + BUILD OK printed; exactly one `.sh` delivered, no other file.
 - [ ] Module versions latest stable, date recorded. `min_engine_version` looked up, docs state only a verified minimum.
 - [ ] Docs state achievement status (+cheats caveat), experiments, "not tested in game"; no `DOC:` failures; no STYLE hints; tagline one concrete sentence.
 - [ ] Every README/DESCRIPTION/CHANGELOG matches Part 2 exactly, no placeholders, DESCRIPTION has both listing images.
@@ -488,8 +489,8 @@ Paste the workflow error log back to the agent. Find the rule here and the check
 ### 4.11 Reply format
 BUILD request: reply = exactly these three blocks, this order, these headings. NOTHING before/after (no greeting, intro, offer, restated idea). Empty block: `None`.
 
-**1. PAYLOAD**
-One fenced block: `payload.b64` contents (one line, copied, NEVER retyped). Over 65,535 chars: `File: payload.b64` and say it is too large to paste.
+**1. PACK SCRIPT**
+`File: <Name>_<Version>_<Rand>.sh`, attached as the ONE downloadable file. No payload text, no other file.
 
 **2. SUMMARY** exactly these lines, one short value each:
 ```
@@ -502,22 +503,27 @@ Experiments: <none detected | required: name | unknown>
 Icon asset: <repo copy, hash verified | none>
 Included add-ons: <names | None | not a script>
 Deviations from this file: <list | None>
-build_payload.py result: <SELF-TEST PASSED and BUILD OK lines, or exact failure>
+make_pack_script.py result: <SELF-TEST PASSED, PACK SCRIPT OK and BUILD OK lines, or exact failure>
 Verification: Source created, not tested in game.
 ```
 `Not applicable` for lines that do not fit the type. NEVER write an unchecked value.
 
 **3. NEXT STEPS** exactly:
 ```
-1. GitHub, Actions, Create Project from Base64, Run workflow.
-2. Paste the payload into payload_base64, set import_mode, leave commit_mode on pull_request, merge the PR.
-3. Test the generated world (run artifacts or project folder) in Minecraft.
-4. Test-world add-ons: edit test_world.json, re-run the workflow.
-5. Build fails: paste the error log back.
+First time only (Termux): pkg update -y && pkg install -y git python && termux-setup-storage
+Then once: git config --global user.name "ALNStudios" && git config --global credential.helper store
+1. Save the .sh in your phone Downloads folder.
+2. Termux: bash ~/storage/downloads/<file>.sh
+   It creates the project, builds the worlds, commits and pushes. At the push prompt use your GitHub token as the password.
+3. Or via GitHub: bash ~/storage/downloads/<file>.sh stage, then GitHub, Actions, Create Project from Base64, Run workflow, payload_file = <file>.sh, merge the PR.
+   No Termux: upload the .sh to MCPEDL/incoming on GitHub (Add file, Upload files), then run the same workflow.
+4. Test the generated world (run artifacts or project folder) in Minecraft.
+5. Test-world add-ons: edit test_world.json, re-run the workflow.
+6. Build fails: paste the error back.
 ```
 
 Exceptions (INSTEAD of the three blocks, nothing else):
-- Cannot run code: `CANNOT BUILD`, one line why, file tree with full contents, exact command (4.1). No base64.
-- Build failed, unfixable: `BUILD FAILED`, exact failing lines from `build_payload.py`, the rule each names. No base64.
+- Cannot run code: `CANNOT BUILD` and one line why. No files, no base64.
+- Build failed, unfixable: `BUILD FAILED`, exact failing lines from `make_pack_script.py`, the rule each names. No `.sh`.
 - Type unknown: only the 4.0 question.
 - Not a build request (review, question, bug report, file or script change): `**File Needed:**`, `**Changelog:**`, `**Termux Script:**` only (`INSTRUCTIONS.md` Reply Format, `.sh` named per 1.1).

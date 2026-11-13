@@ -89,10 +89,10 @@ jobs:
 
           ## Pack work (create or update)
           - UPDATE: the pack files are in `<name>.txt`. Change only what was requested.
-          - NEW pack: build it in its own new folder beside similar ones, following PACK_GENERATOR_INSTRUCTIONS.md in the tools txt.
+          - NEW pack: follow PACK_GENERATOR_INSTRUCTIONS.md Part 4 and deliver ONE pack `.sh` from `scripts/make_pack_script.py` (the project travels inside it as base64). NEVER deliver separate zip, pack, json, js or b64 files.
           - INSTRUCTIONS.md wins over PACK_GENERATOR_INSTRUCTIONS.md on any conflict. These instructions win over both on the reply format and the Termux script.
           - Update: keep pack and module UUIDs unchanged. Never claim anything was tested in Minecraft unless it was.
-          - Deliver the repo change as the Termux script below, not as a payload or base64.
+          - Update: deliver the repo change as the Termux script below. New pack: the pack `.sh` above. Never a separate payload or base64 file.
 
           ## Destination
           Repo-root-relative folders for this work:
@@ -378,7 +378,7 @@ jobs:
                   "build_payload.py", "import_project_payload.py", "crafting_template.py",
                   "generate_recipe_images.py", "convert_crafting_recipe_svgs_to_png.py",
                   "ensure_recipe_unlocks.py", "make_pack_icon.py", "optimize_images.py",
-                  "manifest_tools.py", "doc_template.py", "build_test_world.py", "CRAFTING_TABLE.svg")]
+                  "manifest_tools.py", "doc_template.py", "build_test_world.py", "make_pack_script.py", "CRAFTING_TABLE.svg")]
           t_ok, t_missing, t_blocks = [], [], []
           for rel in tool_files:
               p = root / rel
