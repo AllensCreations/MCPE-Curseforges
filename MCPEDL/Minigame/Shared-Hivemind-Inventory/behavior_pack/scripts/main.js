@@ -38,6 +38,7 @@ let chunked = 0;
 let lastErrorTick = -ERROR_COOLDOWN;
 const snapshots = new Map();
 const pendingDeath = new Map();
+const lastSeen = new Map();
 const applyFails = new Map();
 const knownMembers = new Set();
 
@@ -404,6 +405,12 @@ function syncTick() {
     }
     const players = sharingPlayers();
     if (!players.length) return;
+    for (const p of players) {
+      safe(() => lastSeen.set(p.id, { dimension: p.dimension, location: { x: p.location.x, y: p.location.y, z: p.location.z } }));
+    }
+    if (system.currentTick % 40 === 0) {
+      safe(() => { if (world.gameRules.keepInventory !== true) world.gameRules.keepInventory = true; });
+    }
     if (!initialized) {
       initialize(players);
       trackMembers(players);
@@ -660,19 +667,23 @@ system.afterEvents.scriptEventReceive.subscribe(({ id, sourceEntity }) => {
 
 world.afterEvents.entityDie.subscribe(event => {
   const dead = event.deadEntity;
-  if (dead.typeId !== "minecraft:player" || !master || !isRunning() || isCreative(dead)) return;
-  const id = dead.id;
-  if (pendingDeath.has(id)) return;
+  if (safe(() => dead.typeId) !== "minecraft:player" || !master || !isRunning() || isCreative(dead)) return;
+  const id = safe(() => dead.id);
+  if (id === undefined || pendingDeath.has(id)) return;
   pendingDeath.set(id, true);
-  const dim = dead.dimension;
-  const loc = { x: dead.location.x, y: dead.location.y + 0.5, z: dead.location.z };
-  const vanillaDrops = safe(() => world.gameRules.keepInventory === false, false);
+  const seen = lastSeen.get(id);
+  const dim = safe(() => dead.dimension) ?? seen?.dimension ?? world.getDimension("overworld");
+  const at = safe(() => ({ x: dead.location.x, y: dead.location.y, z: dead.location.z })) ?? seen?.location ?? { x: 0, y: 64, z: 0 };
+  const loc = { x: at.x, y: at.y + 0.5, z: at.z };
+  safe(() => { world.gameRules.keepInventory = true; });
   const stacks = [...inventoryStacks(), ...EQUIPMENT_SLOTS.map(s => master.equipment[s])].filter(Boolean);
+  const failed = [];
   withSync(() => {
-    for (const item of stacks) if (!vanillaDrops) spawnAt(dim, item, loc);
+    for (const item of stacks) if (!spawnAt(dim, item, loc)) failed.push(item);
     const kept = master.slots.slice(INV_SLOTS);
     master = emptyState();
     kept.forEach((item, i) => { master.slots[INV_SLOTS + i] = item; });
+    safe(() => containerOf(dead)?.clearAll());
     for (const p of sharingPlayers()) applyState(p, master);
     if (isPersonal()) {
       layout.clear();
@@ -680,7 +691,12 @@ world.afterEvents.entityDie.subscribe(event => {
     }
     persist();
   });
-  system.runTimeout(() => pendingDeath.delete(id), 40);
+  if (failed.length) {
+    system.runTimeout(() => {
+      for (const item of failed) spawnAt(dim, item, loc);
+    }, 2);
+  }
+  system.runTimeout(() => { pendingDeath.delete(id); lastSeen.delete(id); }, 40);
 });
 
 world.beforeEvents.playerLeave.subscribe(event => {

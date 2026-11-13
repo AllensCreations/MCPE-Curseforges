@@ -2,6 +2,12 @@
 
 ---
 
+## [1.22.2] - 2026-11-13 - Death Drops Fix
+
+### Fixed
+
+- **Death Drops**: The shared inventory now drops where a player dies and is then emptied for the team.
+
 ## [1.22.1] - 2026-11-13
 
 **What's new in v1.22.1:** Packed with the v1.22.1 update. Includes: Offline Shares and Safer Ending.

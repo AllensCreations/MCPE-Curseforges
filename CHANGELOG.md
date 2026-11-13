@@ -2,6 +2,12 @@
 
 ---
 
+## 2026-11-13 - Shared Hivemind Inventory 1.22.2 Death Drops Fix
+
+### Fixed
+
+- **Death Drops**: Team Inventory now drops the shared inventory where a player dies and empties it for the team.
+
 ## 2026-11-13 - Team Inventory 1.22.1
 
 ### Added
