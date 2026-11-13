@@ -2,6 +2,16 @@
 
 ---
 
+## 2026-11-13 - Team Inventory 1.22.2
+
+### Added
+- **Team Inventory Team Settings**: A new item holds the Mode and Layout switches, Hard Mode health and hunger options, and a team list.
+- **Team Inventory Start Countdown**: Start now begins a five second countdown.
+
+### Improved & Balanced
+- **Team Inventory Controller**: The Controller now uses the standard menu, and inventory changes are picked up from the game's inventory-change event.
+- **Team Inventory Package Name**: The download is now named TeamInventory.
+
 ## 2026-11-13 - Update Size Rule
 
 ### Improved & Balanced

@@ -2,18 +2,26 @@ import { world, system, ItemStack, EquipmentSlot, EnchantmentTypes, EntityCompon
 import { ActionFormData, FormCancelationReason } from "@minecraft/server-ui";
 import { hardTick, hardReset, hardKillAll } from "./hard_mode.js";
 import { createLayout } from "./layout.js";
+import { registerController } from "./controller.js";
 
-const CONTROLLER_ID = "allenscreations:controller";
-const STATE_KEY = "allenscreations:team_state";
+const NAMESPACE = "allenscreations";
+const CONTROLLER_ID = `${NAMESPACE}:controller`;
+const SETTINGS_ID = `${NAMESPACE}:team_settings`;
+const STATE_KEY = "game_state";
 const STORAGE_KEY = "allenscreations:hivemind_v106";
 const MEMBERS_KEY = "allenscreations:team_members";
 const CLEAR_KEY = "allenscreations:team_clear";
 const KEEP_KEY = "allenscreations:team_keep";
 const SHARE_PREFIX = "allenscreations:team_share_";
 const HARD_KEY = "allenscreations:hard_mode";
+const HARD_HEALTH_KEY = "allenscreations:hard_health";
+const HARD_HUNGER_KEY = "allenscreations:hard_hunger";
+const NAMES_KEY = "allenscreations:team_names";
 const LAYOUT_KEY = "allenscreations:layout";
 const TITLE = "§l§bALN§dStudios §6Controller";
-const HOW_TO_PLAY = "Use the Controller and choose Start. Everyone's main inventory, armor, offhand and Ender Chest items are combined into one shared inventory, and anything one player picks up, uses or drops changes it for the whole team.\n\nIf anyone dies, the whole shared inventory drops once and is emptied for the team. The Ender Chest is kept. Creative and Spectator players are not part of it.\n\nWith Personal layout, each player arranges their own inventory and hotbar while the items stay shared.\n\nIn Hard mode, health and hunger are shared too, and if one player dies, everyone dies.\n\nThe host or an operator ends the game with the End Game button or the function end_game. The shared items are then divided between the players, and anyone offline gets their share when they join again, so nothing is duplicated.";
+const SETTINGS_TITLE = "§l§bALN§dStudios §6Team Settings";
+const GAME_INFO = "Everyone shares one inventory. Use the Team Settings item before Start to choose the mode and layout.";
+const HOW_TO_PLAY = "Use the Controller and choose Start. After a short countdown, everyone's main inventory, armor, offhand and Ender Chest items are combined into one shared inventory, and anything one player picks up, uses or drops changes it for the whole team.\n\nBefore Start, use the Team Settings item to choose Normal or Hard mode and a Shared or Personal layout. It also lists who is on the team.\n\nIf anyone dies, the whole shared inventory drops once and is emptied for the team. The Ender Chest is kept. Creative and Spectator players are not part of it.\n\nWith Personal layout, each player arranges their own inventory and hotbar while the items stay shared.\n\nIn Hard mode, health and hunger are shared too, and you can turn either one off in Team Settings. If one player dies, everyone dies.\n\nThe host or an operator ends the game with the End Game button or the function end_game. The shared items are then divided between the players, and anyone offline gets their share when they join again, so nothing is duplicated.";
 const OPERATOR_LEVEL = 2;
 const MAX_STORED = 30000;
 const MAX_CHUNKS = 4;
@@ -22,7 +30,8 @@ const ERROR_COOLDOWN = 200;
 const INV_SLOTS = 36;
 const ENDER_SLOTS = 27;
 const SLOT_COUNT = INV_SLOTS + ENDER_SLOTS;
-const SCAN_INTERVAL = 1;
+const SAFETY_SCAN = 5;
+const START_COUNTDOWN = 5;
 const ARMOR_SLOTS = [EquipmentSlot.Head, EquipmentSlot.Chest, EquipmentSlot.Legs, EquipmentSlot.Feet];
 const EQUIPMENT_SLOTS = [...ARMOR_SLOTS, EquipmentSlot.Offhand];
 
@@ -33,14 +42,16 @@ let tickBusy = false;
 let warnedSize = false;
 let needMerge = false;
 let rulesChecked = false;
+let counting = false;
+let countdownId = 0;
 let hardMsgLock = false;
 let chunked = 0;
 let lastErrorTick = -ERROR_COOLDOWN;
 const snapshots = new Map();
 const pendingDeath = new Map();
-const lastSeen = new Map();
 const applyFails = new Map();
 const knownMembers = new Set();
+const dirty = new Set();
 
 function safe(fn, fallback = undefined) { try { return fn(); } catch { return fallback; } }
 function withSync(fn) {
@@ -59,6 +70,9 @@ const containerOf = (player) => safe(() => player.getComponent(EntityComponentTy
 const enderOf = (player) => safe(() => player.getComponent("minecraft:ender_inventory")?.container);
 const isHard = () => safe(() => world.getDynamicProperty(HARD_KEY) === "1", false);
 const isPersonal = () => safe(() => world.getDynamicProperty(LAYOUT_KEY) === "personal", false);
+const isHardHealth = () => safe(() => world.getDynamicProperty(HARD_HEALTH_KEY) !== "0", true);
+const isHardHunger = () => safe(() => world.getDynamicProperty(HARD_HUNGER_KEY) !== "0", true);
+const isHostItem = (item) => item.typeId === CONTROLLER_ID || item.typeId === SETTINGS_ID;
 function equipmentOf(player) { return safe(() => player.getComponent("minecraft:equippable")); }
 function clone(item) { return item ? safe(() => item.clone(), undefined) : undefined; }
 function isAlive(player) {
@@ -153,7 +167,7 @@ function applyDeltas(base, deltas) {
   }
   return item;
 }
-function visible(item) { return item && item.typeId !== CONTROLLER_ID ? clone(item) : undefined; }
+function visible(item) { return item && !isHostItem(item) ? clone(item) : undefined; }
 function readPlayer(player) {
   const c = containerOf(player);
   if (!c) return null;
@@ -384,6 +398,28 @@ function initialize(players) {
   initialized = true;
   withSync(() => { for (const p of players) applyState(p, master); });
 }
+function loadNames() {
+  const raw = safe(() => world.getDynamicProperty(NAMES_KEY));
+  const names = typeof raw === "string" ? safe(() => JSON.parse(raw), {}) : {};
+  return names && typeof names === "object" && !Array.isArray(names) ? names : {};
+}
+function rememberNames(players) {
+  const names = loadNames();
+  let changed = false;
+  for (const p of players) {
+    if (names[p.id] !== p.name) {
+      names[p.id] = p.name;
+      changed = true;
+    }
+  }
+  if (changed) safe(() => world.setDynamicProperty(NAMES_KEY, JSON.stringify(names)));
+}
+function pruneNames(keep) {
+  const names = loadNames();
+  const next = {};
+  for (const id of keep) if (names[id]) next[id] = names[id];
+  safe(() => world.setDynamicProperty(NAMES_KEY, Object.keys(next).length ? JSON.stringify(next) : undefined));
+}
 function trackMembers(players) {
   const fresh = players.filter(p => !knownMembers.has(p.id));
   if (!fresh.length) return;
@@ -393,24 +429,27 @@ function trackMembers(players) {
     members.add(p.id);
   }
   saveSet(MEMBERS_KEY, members);
+  rememberNames(fresh);
 }
-function syncTick() {
+function hasStoredGame() {
+  return typeof safe(() => world.getDynamicProperty(STORAGE_KEY)) === "string";
+}
+function syncTick(full = true) {
   if (syncing || tickBusy) return;
   tickBusy = true;
   try {
-    if (!isRunning()) return;
+    if (counting) return;
+    if (!isRunning()) {
+      dirty.clear();
+      if (initialized || !hasStoredGame()) return;
+      safe(() => setState("running"));
+    }
     if (!rulesChecked) {
       rulesChecked = true;
       safe(() => { world.gameRules.keepInventory = true; });
     }
     const players = sharingPlayers();
     if (!players.length) return;
-    for (const p of players) {
-      safe(() => lastSeen.set(p.id, { dimension: p.dimension, location: { x: p.location.x, y: p.location.y, z: p.location.z } }));
-    }
-    if (system.currentTick % 40 === 0) {
-      safe(() => { if (world.gameRules.keepInventory !== true) world.gameRules.keepInventory = true; });
-    }
     if (!initialized) {
       initialize(players);
       trackMembers(players);
@@ -421,12 +460,14 @@ function syncTick() {
     if (isPersonal() && layout.step(players)) persist();
     const detected = [];
     for (const p of players) {
+      if (!full && !dirty.has(p.id)) continue;
       const before = snapshots.get(p.id);
       const current = readPlayer(p);
       if (!before || !current) continue;
       const diff = stateDiff(before, current);
       if (diff.slots.length || diff.equipment.length) detected.push({ player: p, current, previous: before });
     }
+    dirty.clear();
     if (detected.length) applyDetectedChanges(detected);
   } finally { tickBusy = false; }
 }
@@ -455,48 +496,55 @@ function resetSharing() {
   safe(() => clearStored());
 }
 
-function hasController(player) {
+function hasItem(player, id) {
   const inv = containerOf(player);
   if (!inv) return false;
   for (let i = 0; i < inv.size; i++) {
-    if (inv.getItem(i)?.typeId === CONTROLLER_ID) return true;
+    if (inv.getItem(i)?.typeId === id) return true;
   }
   return false;
 }
-function giveController(player) {
-  if (hasController(player)) return;
-  containerOf(player)?.addItem(new ItemStack(CONTROLLER_ID, 1));
+function giveSettings(player) {
+  if (hasItem(player, SETTINGS_ID)) return;
+  containerOf(player)?.addItem(new ItemStack(SETTINGS_ID, 1));
 }
-function removeController(player) {
+function removeHostItems(player) {
   const inv = containerOf(player);
-  if (!inv) return false;
+  if (!inv) return;
   for (let i = 0; i < inv.size; i++) {
-    if (inv.getItem(i)?.typeId === CONTROLLER_ID) {
-      inv.setItem(i, undefined);
-      return true;
-    }
-  }
-  return false;
-}
-function consumeController(player) {
-  if (isCreative(player)) return;
-  if (removeController(player)) {
-    player.playSound("random.break");
-    player.sendMessage("The Controller broke.");
+    const id = inv.getItem(i)?.typeId;
+    if (id === CONTROLLER_ID || id === SETTINGS_ID) inv.setItem(i, undefined);
   }
 }
 
-function startGame(player) {
+function beginCountdown() {
+  const token = ++countdownId;
+  counting = true;
+  let left = START_COUNTDOWN;
+  world.sendMessage(`§a[Team Inventory] Sharing starts in ${left} seconds. Mode: ${isHard() ? "Hard" : "Normal"}, Layout: ${isPersonal() ? "Personal" : "Shared"}.`);
+  const step = () => {
+    if (token !== countdownId || !isRunning()) return;
+    left--;
+    if (left <= 0) {
+      counting = false;
+      startSharing();
+      return;
+    }
+    for (const p of world.getAllPlayers()) safe(() => p.playSound("random.click"));
+    world.sendMessage(`§e[Team Inventory] ${left}...`);
+    system.runTimeout(step, 20);
+  };
+  system.runTimeout(step, 20);
+}
+function startSharing() {
   resetSharing();
   hardReset();
-  setState("running");
   needMerge = true;
   rulesChecked = true;
   saveSet(MEMBERS_KEY, new Set());
+  pruneNames(loadSet(CLEAR_KEY));
   applyKeepInventory();
-  consumeController(player);
   world.sendMessage("§a[Team Inventory] Sharing started. Everyone's items are being combined.");
-  world.sendMessage(`§7[Team Inventory] Mode: §f${isHard() ? "Hard" : "Normal"}§7, Layout: §f${isPersonal() ? "Personal" : "Shared"}`);
 }
 function distribute(online, holder, others, shares) {
   const ids = [...online.map(p => p.id), ...others];
@@ -514,6 +562,8 @@ function distribute(online, holder, others, shares) {
   for (const id of others) shares.set(id, states.get(id));
 }
 function endGame(source) {
+  countdownId++;
+  counting = false;
   const online = sharingPlayers();
   const holder = online.find(p => p.id === source?.id && isHost(p)) ?? online.find(isHost) ?? online[0];
   const onlineIds = new Set(online.map(p => p.id));
@@ -541,9 +591,7 @@ function endGame(source) {
   resetSharing();
   hardReset();
   restoreKeepInventory();
-  setState("ended");
   world.sendMessage(holder ? `§e[Team Inventory] Sharing ended. The shared items were divided between the players, and ${holder.name} holds the armor.` : "§e[Team Inventory] Sharing ended.");
-  for (const p of world.getAllPlayers()) if (isHost(p)) giveController(p);
 }
 function saveShare(id, state) {
   const data = {
@@ -559,55 +607,68 @@ function takeShare(id) {
   return safe(() => deserializeState(JSON.parse(raw)), null);
 }
 
-async function showHowToPlay(player) {
-  const form = new ActionFormData().title(TITLE).body(HOW_TO_PLAY).button("Back");
-  let res;
-  try {
-    res = await form.show(player);
-  } catch (e) {
-    return;
-  }
-  if (!res.canceled && res.selection === 0) openController(player);
-}
-
-async function confirmEnd(player) {
-  if (!isRunning()) {
-    player.sendMessage("Not running.");
-    return;
-  }
-  const form = new ActionFormData()
-    .title(TITLE)
-    .body("End the game now? The shared items are divided between the players and everyone else is emptied.")
-    .button("End Game")
-    .button("Back");
-  let res;
-  try {
-    res = await form.show(player);
-  } catch (e) {
-    return;
-  }
-  if (res.canceled) return;
-  if (res.selection === 0) {
-    if (!isRunning()) {
-      player.sendMessage("The game already ended.");
-      return;
+function teamText() {
+  const all = world.getAllPlayers();
+  const sharing = new Set(sharingPlayers().map(p => p.id));
+  const names = loadNames();
+  const nameOf = (id) => all.find(p => p.id === id)?.name ?? names[id] ?? "Unknown player";
+  const lines = [];
+  if (isRunning() && !counting) {
+    const members = loadSet(MEMBERS_KEY);
+    for (const id of sharing) members.add(id);
+    lines.push("§aSharing:");
+    for (const p of all) if (sharing.has(p.id)) lines.push(`- ${p.name}`);
+    const idle = all.filter(p => !sharing.has(p.id));
+    if (idle.length) {
+      lines.push("§eOnline, not sharing:");
+      for (const p of idle) lines.push(`- ${p.name}`);
     }
-    endGame(player);
+    const offline = [...members].filter(id => !all.some(p => p.id === id));
+    if (offline.length) {
+      lines.push("§7Offline team members:");
+      for (const id of offline) lines.push(`- ${nameOf(id)}`);
+    }
   } else {
-    openController(player);
+    lines.push(counting ? "§7The game is about to start." : "§7No game is running.");
   }
+  const waiting = [...loadSet(CLEAR_KEY)].filter(id => typeof safe(() => world.getDynamicProperty(SHARE_PREFIX + id)) === "string");
+  if (waiting.length) {
+    lines.push("§6Share waiting for:");
+    for (const id of waiting) lines.push(`- ${nameOf(id)}`);
+  }
+  return lines.join("\n");
 }
 
-async function openController(player, attempt = 0) {
-  const note = isCreative(player) ? "Creative: the Controller is kept." : "Start uses up the Controller.";
+async function showTeam(player) {
+  const form = new ActionFormData().title(SETTINGS_TITLE).body(teamText()).button("Back");
+  let res;
+  try {
+    res = await form.show(player);
+  } catch (e) {
+    return;
+  }
+  if (!res.canceled) openSettings(player);
+}
+
+function toggleSetting(player, key, on, off) {
+  if (isRunning()) {
+    player.sendMessage("Settings can only be changed before Start.");
+    return;
+  }
+  safe(() => world.setDynamicProperty(key, safe(() => world.getDynamicProperty(key)) === on ? off : on));
+  system.run(() => openSettings(player));
+}
+
+async function openSettings(player, attempt = 0) {
+  const lock = isRunning() ? " (locked)" : "";
   const form = new ActionFormData()
-    .title(TITLE)
-    .body(`§7State: §f${getState()}\n§7Mode: §f${isHard() ? "Hard" : "Normal"}\n§7Layout: §f${isPersonal() ? "Personal" : "Shared"}\n§7${note}`)
-    .button("Start")
-    .button("How to play")
-    .button(`Mode: ${isHard() ? "Hard" : "Normal"}${isRunning() ? " (locked)" : ""}`)
-    .button(`Layout: ${isPersonal() ? "Personal" : "Shared"}${isRunning() ? " (locked)" : ""}`)
-    .button("End Game");
+    .title(SETTINGS_TITLE)
+    .body(`§7State: §f${getState()}\n§7Hard Health and Hard Hunger only apply in Hard mode.\n§7Settings can only be changed before Start.`)
+    .button(`Mode: ${isHard() ? "Hard" : "Normal"}${lock}`)
+    .button(`Layout: ${isPersonal() ? "Personal" : "Shared"}${lock}`)
+    .button(`Hard Health: ${isHardHealth() ? "Shared" : "Separate"}${lock}`)
+    .button(`Hard Hunger: ${isHardHunger() ? "Shared" : "Separate"}${lock}`)
+    .button("Team");
   let res;
   try {
     res = await form.show(player);
@@ -616,74 +677,54 @@ async function openController(player, attempt = 0) {
   }
   if (res.canceled) {
     if (res.cancelationReason === FormCancelationReason.UserBusy && attempt < 5) {
-      system.runTimeout(() => openController(player, attempt + 1), 10);
+      system.runTimeout(() => openSettings(player, attempt + 1), 10);
     }
     return;
   }
-  if (res.selection === 0) {
-    if (getState() === "running") {
-      player.sendMessage("Already running.");
-      return;
-    }
-    startGame(player);
-  } else if (res.selection === 1) {
-    showHowToPlay(player);
-  } else if (res.selection === 2) {
-    if (getState() === "running") {
-      player.sendMessage("The mode can only be changed before Start.");
-      return;
-    }
-    safe(() => world.setDynamicProperty(HARD_KEY, isHard() ? undefined : "1"));
-    system.run(() => openController(player));
-  } else if (res.selection === 3) {
-    if (getState() === "running") {
-      player.sendMessage("The layout can only be changed before Start.");
-      return;
-    }
-    safe(() => world.setDynamicProperty(LAYOUT_KEY, isPersonal() ? undefined : "personal"));
-    system.run(() => openController(player));
-  } else if (res.selection === 4) {
-    if (!isRunning()) {
-      player.sendMessage("Not running.");
-      return;
-    }
-    confirmEnd(player);
-  }
+  if (res.selection === 0) toggleSetting(player, HARD_KEY, "1", undefined);
+  else if (res.selection === 1) toggleSetting(player, LAYOUT_KEY, "personal", undefined);
+  else if (res.selection === 2) toggleSetting(player, HARD_HEALTH_KEY, "0", undefined);
+  else if (res.selection === 3) toggleSetting(player, HARD_HUNGER_KEY, "0", undefined);
+  else if (res.selection === 4) showTeam(player);
 }
 
+registerController({
+  title: TITLE,
+  gameInfo: GAME_INFO,
+  howToPlay: HOW_TO_PLAY,
+  consumeOnStart: true,
+  onStart: () => beginCountdown(),
+  onEnd: () => endGame()
+});
+
 world.afterEvents.itemUse.subscribe(({ source, itemStack }) => {
-  if (itemStack?.typeId !== CONTROLLER_ID) return;
-  if (isHost(source)) {
-    openController(source);
+  const id = itemStack?.typeId;
+  if (id !== CONTROLLER_ID && id !== SETTINGS_ID) return;
+  if (!isHost(source)) {
+    removeHostItems(source);
+    source.sendMessage("Only the host or an operator can hold this item.");
     return;
   }
-  removeController(source);
-  source.sendMessage("Only the host or an operator can hold the Controller.");
+  if (id === SETTINGS_ID) openSettings(source);
 });
 
-system.afterEvents.scriptEventReceive.subscribe(({ id, sourceEntity }) => {
-  if (id === "allenscreations:end" && isRunning()) endGame(sourceEntity);
+world.afterEvents.worldLoad.subscribe(() => {
+  for (const p of world.getAllPlayers()) if (isHost(p)) giveSettings(p);
 });
 
-world.afterEvents.entityDie.subscribe(event => {
-  const dead = event.deadEntity;
-  if (safe(() => dead.typeId) !== "minecraft:player" || !master || !isRunning() || isCreative(dead)) return;
-  const id = safe(() => dead.id);
-  if (id === undefined || pendingDeath.has(id)) return;
+function dropSharedInventory(dead) {
+  const id = dead.id;
+  if (pendingDeath.has(id)) return;
   pendingDeath.set(id, true);
-  const seen = lastSeen.get(id);
-  const dim = safe(() => dead.dimension) ?? seen?.dimension ?? world.getDimension("overworld");
-  const at = safe(() => ({ x: dead.location.x, y: dead.location.y, z: dead.location.z })) ?? seen?.location ?? { x: 0, y: 64, z: 0 };
-  const loc = { x: at.x, y: at.y + 0.5, z: at.z };
-  safe(() => { world.gameRules.keepInventory = true; });
+  const dim = dead.dimension;
+  const loc = { x: dead.location.x, y: dead.location.y + 0.5, z: dead.location.z };
+  const vanillaDrops = safe(() => world.gameRules.keepInventory === false, false);
   const stacks = [...inventoryStacks(), ...EQUIPMENT_SLOTS.map(s => master.equipment[s])].filter(Boolean);
-  const failed = [];
   withSync(() => {
-    for (const item of stacks) if (!spawnAt(dim, item, loc)) failed.push(item);
+    for (const item of stacks) if (!vanillaDrops) spawnAt(dim, item, loc);
     const kept = master.slots.slice(INV_SLOTS);
     master = emptyState();
     kept.forEach((item, i) => { master.slots[INV_SLOTS + i] = item; });
-    safe(() => containerOf(dead)?.clearAll());
     for (const p of sharingPlayers()) applyState(p, master);
     if (isPersonal()) {
       layout.clear();
@@ -691,12 +732,22 @@ world.afterEvents.entityDie.subscribe(event => {
     }
     persist();
   });
-  if (failed.length) {
-    system.runTimeout(() => {
-      for (const item of failed) spawnAt(dim, item, loc);
-    }, 2);
+  system.runTimeout(() => pendingDeath.delete(id), 40);
+}
+function teamDeath(dead) {
+  if (!hardMsgLock) {
+    hardMsgLock = true;
+    safe(() => world.sendMessage(`§c[Team Inventory] ${dead.name} died, so the whole team dies.`));
+    system.runTimeout(() => { hardMsgLock = false; }, 40);
   }
-  system.runTimeout(() => { pendingDeath.delete(id); lastSeen.delete(id); }, 40);
+  hardKillAll(sharingPlayers());
+}
+
+world.afterEvents.entityDie.subscribe(event => {
+  const dead = event.deadEntity;
+  if (dead.typeId !== "minecraft:player" || !isRunning() || counting || isCreative(dead)) return;
+  if (master) dropSharedInventory(dead);
+  if (isHard()) teamDeath(dead);
 });
 
 world.beforeEvents.playerLeave.subscribe(event => {
@@ -715,8 +766,8 @@ world.afterEvents.playerSpawn.subscribe(event => {
     });
   }
   if (event.initialSpawn !== false) {
-    if (isHost(player) && (isCreative(player) || !isRunning())) system.run(() => giveController(player));
-    else if (!isHost(player)) system.run(() => removeController(player));
+    if (isHost(player)) system.run(() => giveSettings(player));
+    else system.run(() => removeHostItems(player));
     if (isRunning()) {
       system.run(() => {
         const result = safe(() => player.runCommand("function team_inventory/join_message"), null);
@@ -730,8 +781,15 @@ world.afterEvents.playerSpawn.subscribe(event => {
   applyFails.delete(player.id);
 });
 
-system.runInterval(() => {
-  try { syncTick(); }
+const hasInventoryEvent = typeof world.afterEvents.playerInventoryItemChange?.subscribe === "function";
+if (hasInventoryEvent) {
+  world.afterEvents.playerInventoryItemChange.subscribe(event => {
+    if (isRunning() && !counting) dirty.add(event.player.id);
+  });
+}
+
+function guardedTick(full) {
+  try { syncTick(full); }
   catch {
     syncing = false;
     if (system.currentTick - lastErrorTick >= ERROR_COOLDOWN) {
@@ -739,22 +797,16 @@ system.runInterval(() => {
       safe(() => world.sendMessage("§c[Team Inventory] Sync paused for this check after an internal error."));
     }
   }
-}, SCAN_INTERVAL);
+}
+
+system.runInterval(() => {
+  const full = !hasInventoryEvent || isPersonal() || system.currentTick % SAFETY_SCAN === 0;
+  if (full || dirty.size) guardedTick(full);
+}, 1);
 
 system.runInterval(() => {
   try {
-    if (isRunning() && isHard()) hardTick(sharingPlayers());
+    if (isRunning() && !counting && isHard()) hardTick(sharingPlayers(), { health: isHardHealth(), hunger: isHardHunger() });
     else hardReset();
   } catch {}
 }, 1);
-
-world.afterEvents.entityDie.subscribe(event => {
-  const dead = event.deadEntity;
-  if (dead.typeId !== "minecraft:player" || !isRunning() || !isHard() || isCreative(dead)) return;
-  if (!hardMsgLock) {
-    hardMsgLock = true;
-    safe(() => world.sendMessage(`§c[Team Inventory] ${dead.name} died, so the whole team dies.`));
-    system.runTimeout(() => { hardMsgLock = false; }, 40);
-  }
-  hardKillAll(sharingPlayers());
-});

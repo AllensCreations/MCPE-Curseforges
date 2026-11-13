@@ -54,7 +54,17 @@ export function hardKillAll(players) {
   system.runTimeout(() => { killing = false; }, 10);
 }
 
-export function hardTick(players) {
+export function hardTick(players, options = {}) {
+  const shareHealth = options.health !== false;
+  const shareHunger = options.hunger !== false;
+  if (!shareHealth) {
+    lastHealth.clear();
+    sharedHealth = null;
+  }
+  if (!shareHunger) {
+    lastHunger.clear();
+    sharedHunger = null;
+  }
   const hp = [];
   const fd = [];
   for (const p of players) {
@@ -63,23 +73,23 @@ export function hardTick(players) {
     if (h) hp.push({ player: p, comp: h });
     if (f) fd.push({ player: p, comp: f });
   }
-  if (!hp.length) {
-    hardReset();
-    return;
+  if (shareHealth) {
+    if (!hp.length) {
+      hardReset();
+      return;
+    }
+    prune(lastHealth, new Set(hp.map(e => e.player.id)));
+    const maxHp = Math.min(...hp.map(e => safe(() => e.comp.effectiveMax, 20)));
+    const nextHp = Math.min(Math.max(mergeValue(hp, lastHealth, sharedHealth, true), 0), maxHp);
+    if (nextHp <= 0) {
+      hardKillAll(players);
+      return;
+    }
+    sharedHealth = nextHp;
+    writeValue(hp, lastHealth, nextHp);
   }
-  prune(lastHealth, new Set(hp.map(e => e.player.id)));
-  prune(lastHunger, new Set(fd.map(e => e.player.id)));
-
-  const maxHp = Math.min(...hp.map(e => safe(() => e.comp.effectiveMax, 20)));
-  const nextHp = Math.min(Math.max(mergeValue(hp, lastHealth, sharedHealth, true), 0), maxHp);
-  if (nextHp <= 0) {
-    hardKillAll(players);
-    return;
-  }
-  sharedHealth = nextHp;
-  writeValue(hp, lastHealth, nextHp);
-
-  if (fd.length) {
+  if (shareHunger && fd.length) {
+    prune(lastHunger, new Set(fd.map(e => e.player.id)));
     const maxFood = Math.min(...fd.map(e => safe(() => e.comp.effectiveMax, 20)));
     const nextFood = Math.min(Math.max(mergeValue(fd, lastHunger, sharedHunger, false), 0), maxFood);
     sharedHunger = nextFood;

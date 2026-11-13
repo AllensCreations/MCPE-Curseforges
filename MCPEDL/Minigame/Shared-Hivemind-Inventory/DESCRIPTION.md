@@ -9,7 +9,7 @@ One inventory for the whole team. Team Inventory combines every player's main in
 
 ## Overview
 
-The host or an operator starts the shared inventory with the ALNStudios Controller. From that moment, anything one player picks up, uses or drops changes it for the whole team. The add-on keeps names, lore, durability and enchantments of items while the world is running. Team Inventory is a drop-in add-on: add it to any world and the Controller gives you the shared inventory, Hard Mode and Personal Layout without any extra setup.
+The host or an operator starts the shared inventory with the ALNStudios Controller. From that moment, anything one player picks up, uses or drops changes it for the whole team. The add-on keeps names, lore, durability and enchantments of items while the world is running. Team Inventory is a drop-in add-on: add it to any world and the Controller and Team Settings items give you the shared inventory, Hard Mode and Personal Layout without any extra setup.
 
 ## Key Features
 
@@ -18,9 +18,16 @@ The host or an operator starts the shared inventory with the ALNStudios Controll
 - **Simultaneous Changes**: When two players change the same stack at once, both changes are combined instead of lost or duplicated.
 
 ### ALNStudios Controller
-- **What Happens**: Only the host or an operator can hold and use the Controller. It offers Start, How to play, a Mode switch between Normal and Hard, a Layout switch between Shared and Personal, and an End Game button.
+- **What Happens**: Only the host or an operator can hold and use the Controller. It offers Start, How to play and, while a game runs, End Game with a confirmation.
+- **Countdown**: After Start, a five second countdown shows the chosen Mode and Layout before everyone's items are combined.
 - **Survival**: Start uses up the Controller.
 - **Creative**: The Controller is kept.
+
+### ALNStudios Team Settings
+- **What Happens**: The host or an operator also gets a Team Settings item. It switches the Mode between Normal and Hard, switches the Layout between Shared and Personal, and shows the team list.
+- **Hard Health and Hard Hunger**: In Hard Mode, shared health and shared hunger can each be turned off.
+- **Team List**: Shows who is sharing, who is online but not sharing, which team members are offline and whose share is waiting.
+- **Before Start**: Settings can only be changed before the game starts.
 
 ### Shared Ender Chest
 - **What Happens**: Every player's Ender Chest holds the same items, so something stored by one player can be taken out by another.
@@ -34,7 +41,7 @@ The host or an operator starts the shared inventory with the ALNStudios Controll
 - **Full Inventory**: If a player has no free space, the missing items arrive as soon as space is free.
 
 ### Hard Mode
-- **What Happens**: The host or an operator can switch the Mode to Hard before choosing Start. Health and hunger are then shared by every player who takes part.
+- **What Happens**: The host or an operator can switch the Mode to Hard before choosing Start. Health and hunger are then shared by every player who takes part, and either one can be turned off in Team Settings.
 - **Damage and Healing**: Damage taken by one player is taken by the whole team. Healing and eating raise the shared value once.
 - **Starting Values**: Everyone's health and hunger are set to the lowest among the players when the game starts.
 - **Deaths**: When one player dies, every other player who takes part dies too, and chat says who died.
@@ -62,7 +69,7 @@ The host or an operator starts the shared inventory with the ALNStudios Controll
 ## How to Use
 
 1. Import the pack and enable both the Behavior Pack and the Resource Pack in the settings of any world you want to play.
-2. The host or an operator uses the Controller, optionally switches the Mode to Hard or the Layout to Personal, and chooses Start.
+2. The host or an operator uses the Team Settings item to pick the Mode and Layout, then uses the Controller and chooses Start.
 3. Play together and coordinate item use with teammates.
 4. The host or an operator chooses End Game in the Controller menu, or runs the function end_game, to finish.
 
