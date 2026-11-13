@@ -1,0 +1,65 @@
+{
+  "format_version": 2,
+  "header": {
+    "name": "ALN Quiver (v1.0.0)",
+    "description": "Arrow-only quiver with auto-feed for bows and crossbows. by ALNStudios",
+    "uuid": "76981595-191b-4d38-8be5-d5996d5b2a76",
+    "version": [
+      1,
+      0,
+      0
+    ],
+    "min_engine_version": [
+      1,
+      26,
+      60
+    ]
+  },
+  "modules": [
+    {
+      "type": "data",
+      "uuid": "de26f014-0c41-4ab0-9adb-4bfcb9259ca3",
+      "version": [
+        1,
+        0,
+        0
+      ]
+    },
+    {
+      "type": "script",
+      "language": "javascript",
+      "uuid": "959c8e81-3a0a-4679-b3b0-6345986d8118",
+      "version": [
+        1,
+        0,
+        0
+      ],
+      "entry": "scripts/main.js"
+    }
+  ],
+  "dependencies": [
+    {
+      "uuid": "98cdbf0a-099d-430d-8d69-3d9fd94e4533",
+      "version": [
+        1,
+        0,
+        0
+      ]
+    },
+    {
+      "module_name": "@minecraft/server",
+      "version": "2.11.0"
+    },
+    {
+      "module_name": "@minecraft/server-ui",
+      "version": "2.3.0"
+    }
+  ],
+  "metadata": {
+    "authors": [
+      "ALNStudios"
+    ],
+    "product_type": "addon",
+    "version": "1.0.0"
+  }
+}

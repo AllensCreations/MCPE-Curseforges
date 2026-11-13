@@ -2,6 +2,11 @@
 
 ---
 
+## 2026-11-14 - New Addon ALN Quiver
+
+### Added
+- **ALN Quiver**: New addon project created from a pack script.
+
 ## [1.0.12] - 2026-11-14 - Dimension Colors In Menus
 
 ### Improved & Balanced

@@ -1,0 +1,15 @@
+{
+  "resource_pack_name": "aln-quiver",
+  "texture_name": "atlas.items",
+  "texture_data": {
+    "aln_quiver_empty": {
+      "textures": "textures/items/quiver"
+    },
+    "aln_quiver_half": {
+      "textures": "textures/items/quiver"
+    },
+    "aln_quiver_full": {
+      "textures": "textures/items/quiver"
+    }
+  }
+}
