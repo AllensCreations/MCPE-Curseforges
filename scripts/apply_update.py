@@ -240,7 +240,21 @@ def run(spec, root, date, dry=False):
     if rootspec:
         rc = root / "CHANGELOG.md"
         name, body = rootspec
-        files[rc], ch = add_entry(files.get(rc) or rc.read_text(encoding="utf-8"), f"## {date} - {name}", body)
+        rt = files.get(rc) or rc.read_text(encoding="utf-8")
+        vp = root / "REPO_VERSION"
+        dup = re.search(r"^## \[\d+\.\d+\.\d+\] - " + re.escape(f"{date} - {name}") + r"$", rt, re.M)
+        if dup or f"## {date} - {name}" in rt:
+            ch = False
+        else:
+            cur = vp.read_text(encoding="utf-8").strip() if vp.is_file() else ""
+            if re.match(r"^\d+\.\d+\.\d+$", cur):
+                a, b, c = (int(x) for x in cur.split("."))
+                cur = f"{a}.{b}.{c + 1}"
+            else:
+                cur = "1.0.0"
+            files[vp] = cur + "\n"
+            rt, ch = add_entry(rt, f"## [{cur}] - {date} - {name}", body)
+            files[rc] = rt
         notes.append(f"{'added   ' if ch else 'skipped '} CHANGELOG.md (root) entry")
     for p, t in files.items():
         if p.suffix == ".json" and t is not None:

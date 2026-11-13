@@ -1,4 +1,4 @@
-# Instructions: Core Repository Policy (v9)
+# Instructions: Core Repository Policy (v10)
 
 Repo policy, docs, audit rules for ALNStudios/MCPE-Curseforges. Generating a new project: `PACK_GENERATOR_INSTRUCTIONS.md`.
 
@@ -39,7 +39,7 @@ Output ONLY, in order, exact headings:
 6b. Project update: after the CHANGELOG entry, run `python3 scripts/manifest_tools.py --project "$DEST" --set X.Y.Z`, then `--check` and `python3 scripts/validate_manifest_titles.py --project "$DEST"`. Stop on error.
 7. `git add` changed paths only; `git commit -m "<short>"`; `git push`
 8. Idempotent: skip applied changes.
-9. Add an entry to the root `CHANGELOG.md` (repo-wide, newest first under `---`): `## YYYY-MM-DD - [Update Name]`, then `### Added` / `### Improved & Balanced` / `### Fixed` with `- **Title**: what changed`. Every script does this, tooling-only changes included.
+9. Add an entry to the root `CHANGELOG.md` (repo-wide, newest first under `---`): `## [X.Y.Z] - YYYY-MM-DD - [Update Name]` (X.Y.Z = `REPO_VERSION`, set by `apply_update.py`, never by hand), then `### Added` / `### Improved & Balanced` / `### Fixed` with `- **Title**: what changed`. Every script does this, tooling-only changes included.
 10. After a successful push, delete the script itself: `rm -f -- "$SELF"` (SELF = absolute path saved before `cd`; last line, only reached when everything above passed).
 CHANGELOG.md mandatory in every project update (Part 2 format, new `X.Y.Z` heading == script filename version). Manifest versions: the update script sets them with `manifest_tools.py --set X.Y.Z` (never by hand-editing JSON). NEVER edit README download links by hand (build aligns them).
 
@@ -461,6 +461,7 @@ CHANGELOG.md. Newest first. Groups: Added, Improved & Balanced, Fixed (bugs as i
 - [ ] Verification stated: source created | package built | in-game tested, never mixed.
 
 ## Version History
+- **v10:** Repo version in `REPO_VERSION`; root CHANGELOG headings `## [X.Y.Z] - date - Name`; shown in the AI review bundle.
 - **v9:** 1.14 ALNStudios Redesigned UI Standard (menus, icons, colors, action bar feedback, About screen).
 - **v8:** Package names are `<Shortcut> VX.Y.Z.<ext>`; shortcut map in `scripts/pack_shortcuts.json`; `scripts/rename_packages.py` migrates old names.
 - **v7:** Every changelog entry has a Name. Root `CHANGELOG.md` for the whole repo, updated by every script and included in the AI review bundle.

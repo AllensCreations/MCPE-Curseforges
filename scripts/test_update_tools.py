@@ -54,7 +54,7 @@ class UpdateTests(unittest.TestCase):
         self.assertEqual(self.js(), "const a = 1;\nconst a2 = 1;\nconst b = 20;\nconst c0 = 0;\nexport {};\n")
         self.assertEqual((self.p / "behavior_pack/new.txt").read_text(), "hello\n")
         self.assertIn("## [1.0.1] - 2026-11-13 - Tweak", (self.p / "CHANGELOG.md").read_text())
-        self.assertIn("## 2026-11-13 - Tweak", (self.root / "CHANGELOG.md").read_text())
+        self.assertIn("## [1.0.0] - 2026-11-13 - Tweak", (self.root / "CHANGELOG.md").read_text())
 
     def test_second_run_changes_nothing(self):
         s = spec("@@ file behavior_pack/main.js", "@@ replace", "const b = 2;", "@@ with", "const b = 20;")

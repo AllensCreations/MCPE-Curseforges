@@ -2,6 +2,11 @@
 
 ---
 
+## [1.0.0] - 2026-11-13 - Repo Version
+
+### Added
+- **Repo Version**: The whole repository now has one version, kept in REPO_VERSION. Every update raises it by one patch. It is the version in the root changelog headings, in the AI review bundle name and in its environment info.
+
 ## 2026-11-13 - ALNStudios UI Icon Rule
 
 ### Improved & Balanced

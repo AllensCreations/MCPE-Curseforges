@@ -2,7 +2,7 @@ name: Collect Files for AI Review
 
 # ONE workflow for everything you hand to an AI (replaces "Export Repo Content to MD").
 #   Leave "paths" empty : the standard review bundle (scripts, workflows, instruction files, icon
-#                         hashes, ALL_TEXT_FILES.txt). Download name: ai-review-bundle.zip
+#                         hashes, ALL_TEXT_FILES.txt). Download name: (X.Y.Z) ai-review-bundle.zip (repo version from REPO_VERSION)
 #   Type paths          : files, folders or globs, comma or newline separated
 #                         (e.g. MCPEDL/Addons/Grand-Banquets, scripts, MCPEDL/Maps/*/behavior_pack).
 #                         You get TWO plain .txt files inside a zip named after the first folder with its
@@ -68,7 +68,7 @@ jobs:
         run: |
           if [ -z "$(echo "$PATHS" | tr -d '[:space:],')" ]; then
             echo "default=true" >> "$GITHUB_OUTPUT"
-            echo "artifact_name=ai-review-bundle" >> "$GITHUB_OUTPUT"
+            echo "artifact_name=($(cat REPO_VERSION 2>/dev/null || echo 0.0.0)) ai-review-bundle" >> "$GITHUB_OUTPUT"
           else
             echo "default=false" >> "$GITHUB_OUTPUT"
           fi
@@ -123,7 +123,7 @@ jobs:
           5b. Verify top CHANGELOG.md heading == new X.Y.Z == script filename version. Stop on mismatch. If project has manifests: run `python3 scripts/manifest_tools.py --project "$DEST" --set X.Y.Z` (sets header.version, metadata.version, title suffix, module/dependency versions in every source manifest; never lowers), then `python3 scripts/manifest_tools.py --project "$DEST" --check` and `python3 scripts/validate_manifest_titles.py --project "$DEST"`. Stop on error. Every update must change the manifests so the build changes. Never hand-edit manifest JSON for versions.
           5c. If INSTRUCTIONS.md or PACK_GENERATOR_INSTRUCTIONS.md changed: run `python3 scripts/check_instruction_files.py`. Stop on error
           6. `git add` changed paths only; `git commit -m "<short message>"`; `git push`
-          6b. Add an entry to the ROOT `CHANGELOG.md` (repo-wide, newest first under `---`): `## YYYY-MM-DD - [Update Name]`, groups `### Added` / `### Improved & Balanced` / `### Fixed`, bullets `- **Title**: what changed`. Every script, tooling-only included.
+          6b. Add an entry to the ROOT `CHANGELOG.md` (repo-wide, newest first under `---`): `## [X.Y.Z] - YYYY-MM-DD - [Update Name]` (X.Y.Z = `REPO_VERSION`, set by the update tool, never by hand), groups `### Added` / `### Improved & Balanced` / `### Fixed`, bullets `- **Title**: what changed`. Every script, tooling-only included.
           7. After push, do NOT start any workflow. Build Changed Packs & Sync Catalogs runs by itself on every push and rebuilds everything. Nothing auto-bumps; Publish to CurseForge uploads the newest changelog version as written.
           8. Idempotent: skip anything already applied.
           9. Last line, reached only after a successful push: `rm -f -- "$SELF"` (the script deletes itself; save `SELF="$(readlink -f -- "$0")"` on line 2, before the `cd`).
@@ -473,6 +473,8 @@ jobs:
             echo "Default branch: ${{ github.event.repository.default_branch }}"
             echo "Ref: ${{ github.ref }}"
             echo "Python on runner: $(python3 --version 2>&1)"
+            echo "Repo version: $(cat REPO_VERSION 2>/dev/null || echo unknown)"
+            echo "Latest repo changelog entry: $(grep -m1 '^## ' CHANGELOG.md || echo none)"
           } > "$OUT/env_info.txt"
 
       - name: Build one readable TXT of all text files
