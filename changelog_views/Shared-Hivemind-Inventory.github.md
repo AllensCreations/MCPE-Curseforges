@@ -1,6 +1,6 @@
 # Changelog — Team Inventory
 
-## [1.22.2] - 2026-11-13 - Death Drops Fix
+## [1.22.2] - 2026-11-13
 
 ### Fixed
 - **Death Drops**: The shared inventory now drops where a player dies and is then emptied for the team.
