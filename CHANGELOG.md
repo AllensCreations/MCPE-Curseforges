@@ -2,6 +2,11 @@
 
 ---
 
+## 2026-11-13 - Update Size Rule
+
+### Improved & Balanced
+- **Update size rule**: The AI now picks the method by size. A small update uses exact search-and-replace edits. A large update, such as most of a file, many new files or a redesign, uses the best method (new or fully replaced files in the same script) instead of many fragile edits.
+
 ## 2026-11-13 - Search And Replace Updates
 
 ### Added
