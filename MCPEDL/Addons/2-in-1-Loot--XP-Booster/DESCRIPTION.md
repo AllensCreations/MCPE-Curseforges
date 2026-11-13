@@ -13,6 +13,14 @@
 
 You rename a Book to Booster on an anvil and right-click with it. A menu opens with three buttons: XP & Loot Booster, About and Exit. XP & Loot Booster has one slider for Loot and one for XP, and your choices apply to every block you break, every mob you kill and every XP orb near you. Nothing is added to your inventory, and no custom items exist.
 
+## Showcase / Previews
+
+### Booster Toggled On
+![Booster Toggled On](https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/8f0ab1fe93e6ba15024af670baf457deb090facd/MCPEDL/Addons/2-in-1-Loot--XP-Booster/Screen_Recording_20261113_131721.gif)
+
+### Booster Toggled Off
+![Booster Toggled Off](https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/85f45452b283e0f8505fb0935610ef1fb67677e3/MCPEDL/Addons/2-in-1-Loot--XP-Booster/Screen_Recording_20261113_131753.gif)
+
 ## Key Features
 
 ### Renamed Book Control Panel
@@ -79,4 +87,3 @@ You rename a Book to Booster on an anvil and right-click with it. A menu opens w
 ## Search & Discovery Keywords
 
 Minecraft Bedrock add-on, 2-in-1 Loot & XP Booster Bedrock mod, loot multiplier, XP multiplier, renamed book menu, Minecraft PE survival, MCPEDL add-on, CurseForge Bedrock, ALNStudios.
-
