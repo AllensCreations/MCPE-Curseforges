@@ -1,8 +1,8 @@
 {
-  "changelog_version": "1.13.0",
-  "manifest_version": "1.13.0",
+  "changelog_version": "1.13.1",
+  "manifest_version": "1.13.1",
   "packages": {
-    "GrimoireRelics V1.13.0.mcaddon": "cbd7d87167fcb00fb7a32e05b088b580805e76935e03270640bb52fc0c7e13ff"
+    "GrimoireRelics V1.13.1.mcaddon": "4d2c3c336dc3f263c9c6f362e735300b80161c6e44af66e249589763f192e74e"
   },
-  "source_sha256": "f8207c96c39a66c7446a28a0419d9a08e1797d5bfdab67d4eb5da2ae704d31ca"
+  "source_sha256": "bdce6a5c8c2694ed0bcfdf5e935047645840594efaaabd0bb3592a40d9c620be"
 }

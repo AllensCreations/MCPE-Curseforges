@@ -8,7 +8,7 @@ This folder contains compiled release packages for **Grimoire Relics V2** by ALN
 
 | File Name | Format | Size | Description | Download Link |
 | :--- | :--- | :--- | :--- | :--- |
-| **`GrimoireRelics V1.13.0.mcaddon`** | `.mcaddon` | ~43 KB | Complete bundle containing both Behavior Pack and Resource Pack. | [Download (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Grimoire-Relics-V2/GrimoireRelics%20V1.13.0.mcaddon) |
+| **`GrimoireRelics V1.13.1.mcaddon`** | `.mcaddon` | ~44 KB | Complete bundle containing both Behavior Pack and Resource Pack. | [Download (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Grimoire-Relics-V2/GrimoireRelics%20V1.13.1.mcaddon) |
 
 ---
 
