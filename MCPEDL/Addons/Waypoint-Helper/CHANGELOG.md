@@ -2,29 +2,21 @@
 
 ---
 
-## [1.1.10] - 2026-11-14 - Rename And Move Removed
+## [1.1.10] - 2026-11-14
+
+**What's new in v1.1.10:** Packed with 4 updates, from v1.1.7 through v1.1.10. Includes: Rename And Move Removed; Move Slots; Name On Save And Faster Fade; Bold Countdown Number.
 
 ### Improved & Balanced
+
 - **Rename And Move Removed**: The Rename and Move buttons are gone from the main menu. Name a slot when you save it, and save into the same slot again to change its name.
 - **Empty Name**: Leaving the name empty when you save now always shows the coordinates, even on a slot that had a name.
-
-## [1.1.9] - 2026-11-14 - Move Slots
-
-### Added
-- **Move Slot**: A new Move button on the main menu changes where a waypoint sits in your list. Pick the slot, then pick where it goes, and a filled slot swaps places with it.
-
-## [1.1.8] - 2026-11-14 - Name On Save And Faster Fade
-
-### Added
-- **Name On Save**: After you pick a slot, Save now asks you to name it. Leave the name empty to show the coordinates, or to keep the slot's current name.
-
-### Improved & Balanced
 - **Menu Fade-In**: Menus fade in again with a quick 0.12 second fade, much faster than the old animation.
-
-## [1.1.7] - 2026-11-14 - Bold Countdown Number
-
-### Improved & Balanced
 - **Countdown Number**: The seconds in the teleport countdown are now bold and white so they stand out from the rest of the message.
+
+### Added
+
+- **Move Slot**: A new Move button on the main menu changes where a waypoint sits in your list. Pick the slot, then pick where it goes, and a filled slot swaps places with it.
+- **Name On Save**: After you pick a slot, Save now asks you to name it. Leave the name empty to show the coordinates, or to keep the slot's current name.
 
 ## [1.1.6] - 2026-11-14
 
@@ -33,6 +25,8 @@
 ### Improved & Balanced
 
 - **Dimension Colors In Menus**: Saved slots and the Last Death button now show their text in green for the Overworld, red for the Nether and yellow for The End.
+
+
 
 ## [1.1.5] - 2026-11-13
 
@@ -59,6 +53,8 @@
 
 
 
+
+
 ## [1.1.3] - 2026-11-13
 
 **What's new in v1.1.3:** Packed with 3 updates, from v1.1.1 through v1.1.3. Includes: Behavior Pack Add-on Tag; Safe Teleport Landing; Teleport Countdown And Sounds.
@@ -78,6 +74,8 @@
 
 - **Dimension Colors**: The save message is now green in the Overworld, red in the Nether and yellow in The End.
 - **Action Bar Messages**: Save and teleport messages now show on the action bar instead of in chat.
+
+
 
 
 
@@ -106,6 +104,8 @@
 
 
 
+
+
 ## [1.0.2] - 2026-11-12
 
 ### Added
@@ -122,10 +122,14 @@
 
 
 
+
+
 ## [1.0.1] - 2026-11-12
 
 ### Fixed
 - **Menu Compass**: The Waypoint Helper Compass is now given only once, the first time a player joins the world. It is no longer given again on respawn.
+
+
 
 
 
