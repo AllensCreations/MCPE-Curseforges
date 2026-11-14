@@ -64,6 +64,9 @@
     "last_published_version": "1.22.3",
     "last_release_version": "1.0.0"
   },
+  "MCPEDL/Script/Always-Critical": {
+    "project_id": "1804718"
+  },
   "MCPEDL/Script/Target-HUD-Entity-Inspector": {
     "project_id": "1798491",
     "last_published_version": "1.1.1",

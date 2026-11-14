@@ -42,6 +42,7 @@ on:
           - "MCPEDL/Addons/Waypoint-Helper"
           - "MCPEDL/Maps/OneBlock-Void-Survival"
           - "MCPEDL/Minigame/Shared-Hivemind-Inventory"
+          - "MCPEDL/Script/Always-Critical"
           - "MCPEDL/Script/Target-HUD-Entity-Inspector"
           # END registered
       publish_map_variant:
