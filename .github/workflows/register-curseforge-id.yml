@@ -55,7 +55,7 @@ jobs:
         env:
           PROJECT_PATH: ${{ inputs.project }}
           CURSEFORGE_PROJECT_ID: ${{ inputs.curseforge_project_id }}
-          CURSEFORGE_API_KEY: ${{ secrets.CURSEFORGE_API_KEY }}
+          CURSEFORGE_API_TOKEN: ${{ secrets.CURSEFORGE_API_TOKEN }}
         run: |
           pip install -r requirements.txt
           python3 scripts/fetch_curseforge_logo.py --project "$PROJECT_PATH" --id "$CURSEFORGE_PROJECT_ID"
