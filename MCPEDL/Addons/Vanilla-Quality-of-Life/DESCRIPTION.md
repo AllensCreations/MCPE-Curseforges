@@ -130,3 +130,4 @@ Hit a block and the best tool from your hotbar swaps into Slot 1, then returns a
 ## Search & Discovery Keywords
 
 Minecraft Bedrock add-on, Vanilla Quality of Life Bedrock mod, MCPEDL add-on, CurseForge Bedrock, ALNStudios, tool auto switch, tree capitator, ore vein miner, offhand quick swap, universal leash.
+

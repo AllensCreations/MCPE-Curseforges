@@ -1,19 +1,28 @@
 # Changelog — Vanilla Quality of Life
 
-## [2.1.1] - 2026-11-14
+## [2.1.2] - 2026-11-14 - Description Rewrite
 
-### Added
+### Improved & Balanced
+- **Clearer Description**: The listing now follows the new layout with an overview, feature cards, step-by-step instructions, common questions, and a compatibility summary.
+
+### Fixed
+- **Leash Details**: The description no longer says the Warden and Wither can be leashed, and no longer claims a fixed number of leashable mobs.
+- **Creator Links**: The MCPEDL profile link and its image now appear once and point to the correct page.
+
+<details>
+<summary><b>2.1.x</b> (2 releases)</summary>
+
+### [2.1.1] - 2026-11-14
+
+#### Added
 - **Swap-Back After Mining**: A moment after you stop mining or fighting, the item that was in Slot 1 returns to its original slot instead of staying swapped.
 - **Tree Size Message**: An action-bar message now tells you when a tree was too large to fell completely.
 
-### Improved & Balanced
+#### Improved & Balanced
 - **Faster Auto-Switch**: Auto-switch now waits only about a tenth of a second after a block breaks, so it keeps up with instant-break blocks.
 - **Hotbar-Only Tool Search**: Auto-switch now only uses tools from your hotbar, so items in your backpack are never moved.
 - **Chain Mining Experience**: Chain mining now spawns at most 10 experience orbs per chain and gives any extra experience straight to you, so far fewer orbs appear.
 - **Lighter Held Light Checks**: The held-light update does less work while you carry no light item.
-
-<details>
-<summary><b>2.1.x</b> (1 release)</summary>
 
 ### [2.1.0] - 2026-11-07
 
