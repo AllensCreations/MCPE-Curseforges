@@ -131,7 +131,7 @@ NEVER guess the type. At most ONE more question, only if the answer changes the 
 - Deliver ONLY the one pack `.sh`. NEVER deliver a separate `.zip`, pack file (`.mcaddon`/`.mcworld`/`.mcpack`), `.json`, `.js`, `.b64` or any other file; every file lives inside the `.sh`. `build/` is scratch: never delivered, never committed.
 - NEVER invent features, versions, links, assets, results, compatibility. ZIP build proves structure only.
 - ALWAYS look up latest stable Bedrock + `@minecraft/server` + `@minecraft/server-ui` at time of work, record date (1.2). NEVER preview/beta/RC unless a requested feature needs it (then disclose in DESCRIPTION). `min_engine_version` per 1.2. Cannot confirm which game version first shipped your module version: say so.
-- Art: NEVER AI-generated images. NEVER CurseForge/MCPEDL listing images in the payload (linked by URL from `assets/Images/`). Trader Ledger (maps) and Controller (minigames) icons ONLY from the repo copy that `build_payload.py` installs. Other textures: real vanilla names, user-supplied, or omit.
+- Art: NEVER AI-generated images; new custom textures ONLY as pixel JSON (4.13). NEVER CurseForge/MCPEDL listing images in the payload (linked by URL from `assets/Images/`). Trader Ledger (maps) and Controller (minigames) icons ONLY from the repo copy that `build_payload.py` installs. Other textures: real vanilla names, user-supplied, pixel JSON (4.13), or omit.
 - Gap in the idea: choose the most reasonable option, state it in DESCRIPTION.md.
 - Shell may be plain `sh`: NEVER brace expansion. After creating files, list them, confirm they exist.
 - `.sh` names: 1.1 rule (`(Repofilename)_(Version)_(Rand).sh`).
@@ -148,6 +148,7 @@ test_world.json       script/minigame REQUIRED. addon optional. map: NEVER.
 behavior_pack/manifest.json
 behavior_pack/...     functions/ items/ blocks/ entities/ recipes/ loot_tables/ texts/ scripts/main.js
 resource_pack/        map/minigame REQUIRED. addon optional. script FORBIDDEN.
+texture_sources/      optional pixel JSON for custom textures (4.13). NEVER inside resource_pack/.
 ```
 - NEVER ship `oneblock.json` (importer writes for maps), `LOCK` (importer writes for add-ons), another type's `project.json`.
 - NEVER include: `db/`, `level.dat`, `world_behavior_packs.json`, `world_resource_packs.json`, `.mcworld/.mcpack/.mcaddon/.zip`, symlinks, `Mcpeworlds/...` or `assets/...` paths. NEVER name a file/folder exactly `db`.
@@ -267,9 +268,9 @@ registerController({
 ### 4.8 Build the pack script
 NEVER hand-write ZIP, base64 or the `.sh`. `scripts/make_pack_script.py` installs missing Ledger/Controller files, runs every `build_payload.py` check, builds the ZIP in memory and writes ONE Termux `.sh` that carries the project as a base64 block at its end. It writes nothing else. The importer reads that same block.
 1. Create `build/<Name>/` per 4.2 incl. `project.json` + BP manifest with looked-up `min_engine_version`. `build/` is scratch.
-2. Get `scripts/make_pack_script.py`, `build_payload.py`, `import_project_payload.py`, `doc_template.py` (repo or pasted), all in one folder next to `build/`.
-3. `python3 make_pack_script.py build/Name` (`--check-only` to test only).
-4. Fix every failure incl. every `DOC:`, rerun. Put the SELF-TEST PASSED + PACK SCRIPT OK + BUILD OK result after the file name in File Needed. Proves structure only. Node MUST be installed for syntax check; if output says not checked, say so.
+2. Get `scripts/make_pack_script.py`, `build_payload.py`, `import_project_payload.py`, `doc_template.py`, plus `pixel_json_to_png.py` when `texture_sources/` exists (repo or pasted), all in one folder next to `build/`.
+3. With `texture_sources/`: `python3 pixel_json_to_png.py build/Name` first, fix every FAIL line, rerun (4.13). Then `python3 make_pack_script.py build/Name` (`--check-only` to test only).
+4. Fix every failure incl. every `DOC:`, rerun. Put the SELF-TEST PASSED + PACK SCRIPT OK + BUILD OK (+ PIXEL TEXTURES OK when textures were drawn) result after the file name in File Needed. Proves structure only. Node MUST be installed for syntax check; if output says not checked, say so.
 5. Run `python3 doc_template.py --style build/Name`; rewrite every STYLE hint with a specific fact, rebuild.
 6. Deliver ONLY `<Name>_<Version>_<Rand>.sh` (fresh Rand, 1.1 rule). NEVER retype or edit it.
 
@@ -334,3 +335,14 @@ Exceptions (INSTEAD of the three sections, nothing else):
 
 ### 4.12 Vanilla Limits and Workarounds
 Same rules as `INSTRUCTIONS.md` 1.12. Read it when a mechanic hits a vanilla limit.
+### 4.13 Pixel textures (custom item and block art)
+- The ONLY way to draw new art: pixel JSON, rendered to PNG by `scripts/pixel_json_to_png.py`. NEVER AI-generated images, NEVER copied or guessed art. A vanilla look = use the real vanilla texture name instead. NEVER for `script` projects (no resource_pack).
+- Source: `texture_sources/<any>.json` = array of textures. NEVER inside `resource_pack/`. No comments.
+- One texture: `{"name": "shepherds_pie", "size": 16, "palette": {"0": "#00000000", "1": "#3d2817"}, "pixels": [[0, 0, 1, ...], ...]}`
+- `name`: lowercase letters, digits, `_`. It is the PNG name, the key in `resource_pack/textures/item_texture.json` and the item's `minecraft:icon`. ALWAYS register it there.
+- `size`: 16. 32, 64 or 128 ONLY on request. `pixels` = exactly `size` rows of exactly `size` palette indexes.
+- `palette`: keys are numbers in quotes, `"0"` = `#00000000` (transparent). Values `#RRGGBB` or `#RRGGBBAA`. Every index used MUST exist in the palette. Max 12 colors.
+- Optional `folder`: `items` (default), `blocks` or `items/<sub>`. The PNG goes to `resource_pack/textures/<folder>/<name>.png`.
+- Style: Minecraft pixel art, 1 px dark outline, 3 to 4 shades per material, light from the top left, no gradients, no anti-aliasing, readable at 16x16. Recolors share one grid with a different palette.
+- RUN `python3 pixel_json_to_png.py build/<Name>` BEFORE `make_pack_script.py` (4.8): it checks every texture, lists every problem together and writes the PNGs. Fix, rerun. NEVER hand-write a PNG or base64.
+- Ship the JSON AND the PNGs. The JSON is the source: later changes edit the JSON and rerun the script, NEVER the PNG. `--preview [file]` writes a review sheet outside the project: NEVER ship it.

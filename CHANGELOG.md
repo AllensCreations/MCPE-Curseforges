@@ -2,6 +2,17 @@
 
 ---
 
+## [1.0.22] - 2026-11-14 - Image Galleries and Pixel Textures
+
+### Added
+- **Description galleries**: the CurseForge page shows Screenshots, Custom Items and Crafting Recipes from each pack's `assets/snapshots`, `assets/items` and `assets/recipes` folders; the file name is the caption.
+- **Minimal description style**: `build_description_views.py --style minimal` follows the reader's CurseForge theme; `--style all` builds both styles.
+- **Pixel textures**: `pixel_json_to_png.py` turns `texture_sources/*.json` into PNG textures (standard library only); `PACK_GENERATOR_INSTRUCTIONS.md` 4.13 tells the agent how to write the JSON.
+### Improved & Balanced
+- **General recipe generator**: `generate_recipe_images.py` now covers every pack, lists all unresolved ingredients together, writes nothing on any problem and exports item sprites with `--item`; the workflow no longer names one pack.
+- **Responsive dark description page**: tighter padding, wrapping cards and badges, icon beside the title.
+- **Asset rule**: custom recipes and items always get their images in the pack's `assets` folders (`INSTRUCTIONS.md` 1.5, `DOCS_RULES.md`).
+
 ## [1.0.21] - 2026-11-14 - Remove Dead Code
 
 ### Improved & Balanced

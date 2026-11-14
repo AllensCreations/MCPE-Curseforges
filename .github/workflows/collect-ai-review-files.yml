@@ -59,7 +59,7 @@ jobs:
         run: python3 scripts/build_changelog_views.py --all
 
       - name: Build description views (CurseForge page of every DESCRIPTION.md)
-        run: python3 scripts/build_description_views.py --all || echo "::warning::Some description views could not be built (see log). The rest of the export continues."
+        run: python3 scripts/build_description_views.py --all --style all || echo "::warning::Some description views could not be built (see log). The rest of the export continues."
 
       - name: Choose mode
         id: mode
