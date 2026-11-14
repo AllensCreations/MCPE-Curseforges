@@ -2,7 +2,9 @@
 
 ---
 
-## [1.9.1] - 2026-11-15 - Victory Celebration
+## [1.9.1] - 2026-11-14
+
+**What's new in v1.9.1:** Packed with the v1.9.1 update. Includes: Victory Celebration.
 
 ### Added
 

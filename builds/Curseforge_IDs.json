@@ -60,7 +60,9 @@
     "last_release_version": "2.0.0"
   },
   "MCPEDL/Minigame/Alphabet-Scavenger-Hunt": {
-    "project_id": "1743214"
+    "project_id": "1743214",
+    "last_published_version": "1.9.1",
+    "last_release_version": "1.9.0"
   },
   "MCPEDL/Minigame/Shared-Hivemind-Inventory": {
     "project_id": "1769163",
