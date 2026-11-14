@@ -38,7 +38,8 @@ DEST="@@PROJECT@@"
 cd "$HOME"
 [ -d "$HOME/MCPE-Curseforges" ] || git clone "$REPO" "$HOME/MCPE-Curseforges"
 cd "$HOME/MCPE-Curseforges"
-git pull --rebase
+git checkout -q -- description_views image_prompts changelog_views 2>/dev/null || true
+git pull --rebase --autostash
 [ -f scripts/apply_update.py ] || { echo "ERROR: scripts/apply_update.py is missing in the repo. Apply the Search-Replace-Update script first."; exit 1; }
 
 SPEC="$(mktemp)"

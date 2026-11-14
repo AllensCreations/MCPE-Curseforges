@@ -2,6 +2,11 @@
 
 ---
 
+## [1.0.27] - 2026-11-14 - Safer Update Scripts
+
+### Fixed
+- **Pull no longer blocked**: update and pack scripts now discard the generated view and prompt folders and use an autostash pull, so uncommitted generated files no longer stop a script with "cannot pull with rebase".
+
 ## [1.0.26] - 2026-11-14 - Image Prompts Keep Brand
 
 ### Improved & Balanced
