@@ -41,6 +41,7 @@ on:
           - "MCPEDL/Addons/Vanilla-Quality-of-Life"
           - "MCPEDL/Addons/Waypoint-Helper"
           - "MCPEDL/Maps/OneBlock-Void-Survival"
+          - "MCPEDL/Minigame/Alphabet-Scavenger-Hunt"
           - "MCPEDL/Minigame/Shared-Hivemind-Inventory"
           - "MCPEDL/Script/Always-Critical"
           - "MCPEDL/Script/Target-HUD-Entity-Inspector"
