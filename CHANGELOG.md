@@ -2,6 +2,11 @@
 
 ---
 
+## [1.0.23] - 2026-11-14 - Byline Under Title
+
+### Improved & Balanced
+- **Byline**: the description page shows "by ALNStudios" under the pack title, in both styles.
+
 ## [1.0.22] - 2026-11-14 - Image Galleries and Pixel Textures
 
 ### Added

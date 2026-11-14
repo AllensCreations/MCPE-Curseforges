@@ -84,6 +84,12 @@ class DescriptionViewTests(unittest.TestCase):
                 self.assertIn("raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/MCPEDL/Addons/Demo-Pack/assets/snapshots/2-Early.gif", h)
             self.assertNotIn("Screenshots", bdv.render(self.md, "Demo-Pack"))
 
+    def test_byline_sits_under_the_title(self):
+        for st in bdv.STYLES:
+            h = bdv.render(self.md, "Demo-Pack", style=st)
+            self.assertEqual(h.count("by ALNStudios"), 1)
+            self.assertLess(h.index("</h1>"), h.index("by ALNStudios"))
+            self.assertEqual(bdv.check_html(h), [])
     def test_steps_use_badges(self):
         h = bdv.render(self.md.replace("Use the items and interactions provided in the world.", "1. First.\n2. Second."))
         self.assertIn("aspect-ratio", h)

@@ -86,6 +86,7 @@ PERMISSIONS = (
     "<li>Redistribution: Do not re-upload this pack or provide direct monetized download bypasses. Link to this page.</li>"
     "<li>Unofficial community creation. Not an official Minecraft product and not approved by or associated with "
     "Mojang or Microsoft.</li>")
+BYLINE = "by ALNStudios"
 INSTALL = ("Download the file from this page and open it with Minecraft.",
            "Create or edit a world and turn on the new pack(s) in its settings.",
            "Enable any Experimental toggles listed under Compatibility, then play.")
@@ -295,13 +296,14 @@ def pack_name(pre, fallback):
 
 def hero(name, tagline, pitch, icon_url, acc):
     title = f'<h1 style="color:{HEAD};font-size:28px;text-align:{{a}}">{esc(name)}</h1>'
+    by = f'<p style="color:{MUTED};font-size:14px;text-align:{{a}}">{BYLINE}</p>'
     tag = (f'<p style="color:{acc_text(acc)};font-size:16px;text-align:{{a}}"><strong>{inline(tagline)}</strong></p>' if tagline else "")
     if icon_url:
         head = (f'<table style="width:100%;border-width:0"><tbody><tr>'
                 f'<td style="width:90px;text-align:center"><img src="{icon_url}" alt="{esc(name)} icon" width="72" height="72"></td>'
-                f'<td style="text-align:left">{title.format(a="left")}{tag.format(a="left")}</td></tr></tbody></table>')
+                f'<td style="text-align:left">{title.format(a="left")}{by.format(a="left")}{tag.format(a="left")}</td></tr></tbody></table>')
     else:
-        head = title.format(a="center") + tag.format(a="center")
+        head = title.format(a="center") + by.format(a="center") + tag.format(a="center")
     pitch_html = (f'<p style="color:{SUB};text-align:center;margin-left:14px;margin-right:14px">{inline(pitch)}</p>' if pitch else "")
     return (f'<div style="background-color:{PANEL};border:1px solid {acc};border-radius:12px;line-height:1.5"><br>'
             f'{head}{pitch_html}<br></div>')
