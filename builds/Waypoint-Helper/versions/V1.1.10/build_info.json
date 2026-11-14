@@ -1,0 +1,8 @@
+{
+  "changelog_version": "1.1.10",
+  "manifest_version": "1.1.10",
+  "packages": {
+    "WaypointHelper V1.1.10.mcaddon": "68318c6b865a068e6a13bd72f7ff4fc81f748aafb25d93a3a02b7e89b9ed63ed"
+  },
+  "source_sha256": "673d8217813399c02c4c313b72689b08aa68ecc468ad67aa162a36a039656929"
+}

@@ -1,12 +1,18 @@
 # Changelog — Waypoint Helper
 
-## [1.1.9] - 2026-11-14 - Move Slots
+## [1.1.10] - 2026-11-14 - Rename And Move Removed
 
-### Added
-- **Move Slot**: A new Move button on the main menu changes where a waypoint sits in your list. Pick the slot, then pick where it goes, and a filled slot swaps places with it.
+### Improved & Balanced
+- **Rename And Move Removed**: The Rename and Move buttons are gone from the main menu. Name a slot when you save it, and save into the same slot again to change its name.
+- **Empty Name**: Leaving the name empty when you save now always shows the coordinates, even on a slot that had a name.
 
 <details>
-<summary><b>1.1.x</b> (6 releases)</summary>
+<summary><b>1.1.x</b> (7 releases)</summary>
+
+### [1.1.9] - 2026-11-14 - Move Slots
+
+#### Added
+- **Move Slot**: A new Move button on the main menu changes where a waypoint sits in your list. Pick the slot, then pick where it goes, and a filled slot swaps places with it.
 
 ### [1.1.8] - 2026-11-14 - Name On Save And Faster Fade
 
