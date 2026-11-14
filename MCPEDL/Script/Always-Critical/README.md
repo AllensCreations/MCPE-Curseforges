@@ -5,7 +5,7 @@ Download the current release of **Always Critical** for Minecraft Bedrock Editio
 ## Download
 
 - **Package format:** `.mcpack`
-- **Direct download:** [Download Always Critical (.mcpack)](../README.md#available-scripts)
+- **Direct download:** [Download Always Critical (.mcpack)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Always-Critical/AlwaysCritical%20V1.0.0.mcpack)
 
 ## Installation
 
@@ -15,4 +15,4 @@ Download the current release of **Always Critical** for Minecraft Bedrock Editio
 
 ## Pack Information
 
-For gameplay features, usage details, compatibility notes, and other project information, read the [full description](DESCRIPTION.md).
+For gameplay features, usage details, compatibility notes, and other project information, read the [full description](https://github.com/AllensCreations/MCPE-Curseforges/blob/main/MCPEDL/Script/Always-Critical/DESCRIPTION.md).

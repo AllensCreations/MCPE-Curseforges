@@ -60,3 +60,4 @@ Load the Behavior Pack in a world and fight as usual. Each hit a player lands on
 ## Search & Discovery Keywords
 
 Minecraft Bedrock add-on, Always Critical Bedrock mod, always critical hits, critical hit damage, critical hit sparks, Minecraft PE combat, MCPEDL add-on, CurseForge Bedrock, ALNStudios.
+
