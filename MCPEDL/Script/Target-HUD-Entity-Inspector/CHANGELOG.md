@@ -2,7 +2,9 @@
 
 ---
 
-## [1.1.1] - 2026-11-14 - Smooth Bar and Mob Gear
+## [1.1.1] - 2026-11-14
+
+**What's new in v1.1.1:** Packed with the v1.1.1 update. Includes: Smooth Bar and Mob Gear.
 
 ### Added
 
@@ -37,6 +39,8 @@
 
 - **Lower Minimum Version**: The Behavior Pack now asks for Minecraft 1.26.30 instead of 1.26.50.
 
+
+
 ## [1.0.1] - 2026-11-11
 
 ### Added
@@ -50,6 +54,8 @@
 
 ### Fixed
 - **Lingering Display**: The display is cleared at once when you look away from a mob, instead of fading out slowly.
+
+
 
 
 
