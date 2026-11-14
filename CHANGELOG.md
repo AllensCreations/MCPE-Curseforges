@@ -2,6 +2,11 @@
 
 ---
 
+## [1.0.24] - 2026-11-14 - Description Views On Build
+
+### Improved & Balanced
+- **Description Views Refresh**: CurseForge description pages in `description_views/` are now rebuilt and committed by Build Changed Packs & Sync Catalogs on every run, so new and changed projects stay current without a manual export.
+
 ## 2026-11-14 - New Script Always Critical
 
 ### Added
