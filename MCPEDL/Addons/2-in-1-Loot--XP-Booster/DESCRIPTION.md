@@ -7,11 +7,11 @@
 
 **Rename a Book to Booster, then pick Loot tiers up to 32x and XP tiers up to 64x from a styled menu.**
 
-> Adds a Booster menu with six Loot tiers up to 32x and seven XP tiers up to 64x. Suits players who want faster farming without any custom items.
+> Adds a Booster menu with six Loot tiers up to 32x and seven XP tiers up to 64x.
 
 ## Overview
 
-You rename a Book to Booster on an anvil and right-click with it. A menu opens with three buttons: XP & Loot Booster, About and Exit. XP & Loot Booster has one slider for Loot and one for XP, and your choices apply to every block you break, every mob you kill and every XP orb near you. Nothing is added to your inventory, and no custom items exist.
+You rename a Book to Booster on an anvil and right-click with it. A menu opens with three buttons: XP & Loot Booster, About and Exit.
 
 ## Showcase / Previews
 
@@ -25,17 +25,14 @@ You rename a Book to Booster on an anvil and right-click with it. A menu opens w
 
 ### Renamed Book Control Panel
 - **What Happens**: Rename a Book or a Book and Quill to "Booster" on an anvil, then right-click with it to open the Booster menu.
-- **How It Works**: The name is not case sensitive, so "booster" and "BOOSTER" also work. The Book is never given automatically.
 - **Good To Know**: Each player keeps their own settings, which are saved between sessions.
 
 ### Loot Drop Booster
 - **What Happens**: Drag the Loot slider across six tiers, from Normal to The Leprechaun, for blocks you break and mobs you kill.
-- **How It Works**: Drops roll randomly like Fortune. At The Leprechaun, a stack of 3 items can become anywhere from 3 to 96, so 32x is the best roll, not a guarantee.
 - **Good To Know**: Chests, trapped chests, barrels, ender chests and shulker boxes are never multiplied, and unstackable items such as tools are left alone.
 
 ### XP Gain Booster
 - **What Happens**: Drag the XP slider across seven tiers, from Normal up to The Sage at 64x, and nearby XP orbs are multiplied by that exact amount.
-- **How It Works**: At Amazing, each orb near you creates 7 extra orbs, and all of them fly straight to you.
 - **Good To Know**: XP orbs within 8 blocks of you are collected instantly instead of drifting toward you.
 
 ### About Screen
@@ -43,7 +40,7 @@ You rename a Book to Booster on an anvil and right-click with it. A menu opens w
 
 ### Redesigned UI
 - **What Happens**: A small Resource Pack named Redesigned UI gives the Booster menus the Cheatstick look, with a dark panel, a blue border and colored tier names.
-- **Good To Know**: Enable the Resource Pack together with the Behavior Pack. Other menus in your world keep their normal look.
+- **Good To Know**: Enable the Resource Pack together with the Behavior Pack.
 
 ## How to Use
 

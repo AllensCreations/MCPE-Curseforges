@@ -7,33 +7,28 @@
 
 **An Allay carries a Copper Golem and sorts your drops like a Copper Golem that can fly.**
 
-> Pair an Allay with a Copper Golem to create a flying sorting unit. It collects drops within 64 blocks and delivers them to nearby chests and barrels that already hold the same item.
+> Pair an Allay with a Copper Golem to create a flying sorting unit.
 
 ## Overview
 
-Right-click an Allay with a Copper Ingot to turn it into a flying sorting unit. The Copper Golem is held under the Allay instead of walking. Items dropped near the unit are collected and carried to the chest or barrel in its sorting area that already contains that item, with no setup beyond stocking one of each item in your storage.
+Right-click an Allay with a Copper Ingot to turn it into a flying sorting unit. The Copper Golem is held under the Allay instead of walking.
 
 ## Key Features
 
 ### Flying Sorting Unit
-- **What Happens**: Right-click an Allay with a Copper Ingot. A nearby Copper Golem joins the Allay, or a new one is created for the price of one Copper Ingot outside Creative mode.
-- **How It Works**: The Copper Golem is held under the Allay and follows it as it flies. Right-click the unit with Shears to release it.
+- **What Happens**: Right-click an Allay with a Copper Ingot.
 
 ### Copper Golem Style Sorting
-- **What Happens**: The unit delivers each item to a chest or barrel that already holds the same item. Items with no matching storage are left on the ground.
-- **How It Works**: The sorting area is the 25 by 25 block area, 17 blocks tall, centered on the spot where the unit was created. Right-click the unit with a Copper Ingot again to move the sorting area to where it hovers.
+- **What Happens**: The unit delivers each item to a chest or barrel that already holds the same item.
 
 ### 54-Slot Memory Buffer
 - **What Happens**: The unit holds collected items in a 54-slot buffer until it delivers them.
-- **How It Works**: Items with custom names, lore, enchantments, damage, or stored contents are left on the ground so no data is lost.
 
 ### 64-Block Collection Range
 - **What Happens**: Items that drop within 64 blocks of the unit and have matching storage are collected automatically.
-- **How It Works**: The unit flies to the item, picks it up, and flies to the matching container.
 
 ### Fast Sorting Feedback
 - **What Happens**: Spark particles and a note sound play when items are collected and when a delivery is completed.
-- **How It Works**: The action bar shows "Flying Sorting Unit Activated! Range: 64 Blocks." when a unit is created.
 
 ## How to Use
 
@@ -41,7 +36,6 @@ Right-click an Allay with a Copper Ingot to turn it into a flying sorting unit. 
 2. Put at least one of each item you want sorted into the chests or barrels near where the unit will work.
 3. Right-click an Allay with a Copper Ingot, ideally next to a Copper Golem.
 4. Drop or mine matching items near the unit and watch them get sorted.
-5. Right-click the unit with a Copper Ingot to move its sorting area to where it hovers.
 
 ## Compatibility
 

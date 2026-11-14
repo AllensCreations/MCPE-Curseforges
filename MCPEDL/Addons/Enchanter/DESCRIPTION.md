@@ -7,39 +7,36 @@
 
 **Rename a Book to Enchanter, then set Sharpness, Mending and every other fitting enchantment on any inventory item with sliders.**
 
-> Enchanter turns a renamed Book into a menu with one slider for each enchantment that fits your item. It suits players who want exact enchantment levels without the Enchanting Table.
+> Enchanter turns a renamed Book into a menu with one slider for each enchantment that fits your item.
 
 ## Overview
 
-Rename a Book to Enchanter at an Anvil and use it to open a menu with Enchanter, About and Exit. Pick an item, choose a starting preset, and set each enchantment with its slider. Confirm the summary and the item receives those levels, replacing the old enchantments. Vanilla Minecraft offers random choices at the Enchanting Table instead.
+Rename a Book to Enchanter at an Anvil and use it to open a menu with Enchanter, About and Exit. Pick an item, choose a starting preset, and set each enchantment with its slider.
 
 ## Key Features
 
 ### Main Menu
 - **What Happens**: Using the renamed Book opens a menu with Enchanter, About and Exit.
-- **Good To Know**: About shows who made the add-on and where to find more. Back buttons return you one step.
+- **Good To Know**: About shows who made the add-on and where to find more.
 
 ### Enchanter Book
 - **What Happens**: A Book renamed to Enchanter at an Anvil becomes a portable enchanting menu.
-- **How It Works**: Hold the renamed Book and use it to open the menu.
-- **Good To Know**: The name must read exactly Enchanter, with a capital E. An Enchanted Book does not work.
+- **Good To Know**: The name must read exactly Enchanter, with a capital E.
 
 ### Item Picker
 - **What Happens**: The menu lists every enchantable item in your inventory and hotbar, each with its icon, slot number and enchantment count.
-- **Good To Know**: Armor you are wearing and items in the off hand are not listed. Pick one item at a time.
+- **Good To Know**: Armor you are wearing and items in the off hand are not listed.
 
 ### Level Sliders
-- **What Happens**: Every enchantment that fits the chosen item gets its own slider with a divider, from 0 up to that enchantment's level cap. The item's name, slot and current enchantments sit above the sliders.
-- **How It Works**: Move Sharpness to its cap, leave Unbreaking at 3, and set Mending to 0 to remove it.
+- **What Happens**: Every enchantment that fits the chosen item gets its own slider with a divider, from 0 up to that enchantment's level cap.
 - **Good To Know**: Enchantments that do not fit the item, such as Sharpness on boots, are hidden.
 
 ### Starting Presets
 - **What Happens**: Before the sliders appear you choose Keep current levels, Maximum levels, or Clear all.
-- **How It Works**: The sliders start at those values, so Maximum lets you lower only the few you do not want.
 
 ### Apply And Combine
-- **What Happens**: A summary lists every added and removed enchantment before anything changes. Apply replaces the item's enchantments with your slider levels.
-- **Good To Know**: Combinations the game refuses are skipped and named above your hotbar. One Enchanter Book is used per applied change, and nothing is used if you cancel.
+- **What Happens**: A summary lists every added and removed enchantment before anything changes.
+- **Good To Know**: Combinations the game refuses are skipped and named above your hotbar.
 
 ## How to Use
 

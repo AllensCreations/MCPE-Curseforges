@@ -7,11 +7,11 @@
 
 **Tamed parrots speak up to 52 pirate voice lines when they spot mobs, watch you fight, or keep you company.**
 
-> Tamed parrots react with voiced lines across five groups: mob warnings, health alarms, exploration, player actions and idle jokes. Wild parrots stay silent, so only the parrots you have tamed ever talk.
+> Tamed parrots react with voiced lines across five groups: mob warnings, health alarms, exploration, player actions and idle jokes.
 
 ## Overview
 
-Tame a parrot and keep it close. As you explore, mine, fight and sleep, the parrot reacts to what happens around you with short pirate-themed lines. Vanilla parrots only squawk and imitate mobs, and they never comment on what you are doing.
+Tame a parrot and keep it close. As you explore, mine, fight and sleep, the parrot reacts to what happens around you with short pirate-themed lines.
 
 ## Key Features
 

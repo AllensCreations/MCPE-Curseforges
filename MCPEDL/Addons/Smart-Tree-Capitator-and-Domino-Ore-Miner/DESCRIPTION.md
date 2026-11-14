@@ -13,50 +13,25 @@ Fell entire trees and mine contiguous ore veins in a single sneak-break, protect
 
 ## Overview
 
-Mining large underground ore clusters and chopping tall trees one block at a time can take time.
-
-**Smart Tree Capitator & Domino Ore Miner** adds sneak-activated chain mining to Minecraft Bedrock Edition . Sneak while breaking a log or ore to fell the entire tree or harvest the connected ore vein in one action. Chain mining stops when the tool has 5 durability points remaining, helping prevent breakage.
-
-Standing upright leaves standard vanilla single-block mining untouched. The add-on adds no extra hunger or exhaustion penalties.
-
----
+Mining large underground ore clusters and chopping tall trees one block at a time can take time. **Smart Tree Capitator & Domino Ore Miner** adds sneak-activated chain mining to Minecraft Bedrock Edition . Sneak while breaking a log or ore to fell the entire tree or harvest the connected ore vein in one action.
 
 ## Key Features
 
 ### Sneak-Activated Mining
-- **Description**: Chains only while sneaking, keeping single-block mining intact when upright.
 
 ### Connected Tree Felling
-- **Description**: Follows connected logs and branches while matching wood types and protecting nearby builds.
 
 ### Connected Ore Mining
-- **Description**: Connects touching ore blocks, including diagonal connections, up to 64 blocks.
 
 ### Mineral Category Normalization
-- **Description**: Groups regular and deepslate ore variants so veins crossing stone layers mine together.
 
 ### Durability Safety Guard
-- **Description**: Automatically stops chain mining when tool durability reaches 5 points remaining.
 
 ### Unbreaking Respect
-- **Description**: Factors in vanilla Unbreaking enchantment probabilities (standard Unbreaking enchantment behavior).
 
 ### Fortune & Silk Touch Support
-- **Description**: Honors Silk Touch drops and vanilla Fortune item multipliers.
 
 ### Zero Hunger Penalties
-- **Description**: Applies no extra exhaustion or hunger drain beyond standard block breaking.
-
-### Instant Burst Mode
-- **Description**: Breaks the full cluster or felled tree in the in one action.
-
-### Natural Drops
-- **Description**: Drops items at each block's location with authentic survival physics.
-
-### Vanilla Leaf Decay
-- **Description**: Leaves canopies intact so leaves naturally decay into saplings and apples.
-
----
 
 ## How It Works
 

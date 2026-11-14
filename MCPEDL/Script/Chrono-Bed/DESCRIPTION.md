@@ -13,23 +13,19 @@
 
 Chrono-Bed changes how sleeping feels. Instead of waiting for the night to be skipped, the world speeds through the hours while you stay in bed, with a live clock on your screen and a ticking sound that rises in pitch as time speeds up.
 
-When morning arrives, the screen fades back in, a chime plays, and crops around you have grown in proportion to the time that passed.
-
 ## Key Features
 
 ### Bed Time-Lapse
 - **What Happens**: Using any bed at night in the Overworld starts a fast time-lapse that carries the world to 07:00.
-- **How It Works**: Time speeds up gradually the longer you stay in bed. If you leave the bed, the time-lapse stops where it is.
 
 ### Morning Clock Display
 - **What Happens**: A message above your hotbar shows the current in-game clock time counting toward 07:00.
 
 ### Crop Growth While You Sleep
 - **What Happens**: Wheat, carrots, potatoes, beetroot, nether wart, melon stems, and pumpkin stems near you advance through their growth stages in proportion to the time that passed.
-- **How It Works**: Plants within about 32 blocks sideways and 16 blocks up or down are affected, but only in loaded areas. Growth does not check light or farmland moisture.
 
 ### Sapling Preparation
-- **What Happens**: Saplings in the same area are readied to grow. They still turn into trees through normal game growth, not instantly.
+- **What Happens**: Saplings in the same area are readied to grow.
 
 ### Sound and Screen Effects
 - **What Happens**: A gentle ticking sound plays during the time-lapse, and a morning chime and a screen fade mark the moment it ends.
@@ -42,8 +38,6 @@ When morning arrives, the screen fades back in, a chime plays, and crops around 
 1. Add Chrono-Bed to your world and activate it in the world settings.
 2. Wait for night in the Overworld, then use any bed.
 3. Stay in bed until the morning message appears.
-
-Time advances for the whole world, including players who are not in bed. The time-lapse only starts at night and only in the Overworld.
 
 ## Compatibility
 

@@ -7,33 +7,31 @@
 
 **Look at any mob or player within 16 blocks to see its name, a smooth 20-segment health bar, its health numbers, its armor, the item it holds, its type and how far away it is.**
 
-> Shows the entity under your crosshair on the Action Bar with a smooth color-changing bar beside the numbers. Neutral mobs you hurt switch to Aggressive, which suits players who fight near Wolves, Bees or Endermen.
+> Shows the entity under your crosshair on the Action Bar with a smooth color-changing bar beside the numbers.
 
 ## Overview
 
-Aim at a mob or another player and a single line appears on the Action Bar. It disappears as soon as you look away or a block is in the way. Nothing changes in vanilla combat, items or mobs.
+Aim at a mob or another player and a single line appears on the Action Bar. It disappears as soon as you look away or a block is in the way.
 
 ## Key Features
 
 ### Health Bar
 - **What Happens**: A smooth bar of 20 segments shows how much health the target has left, next to the exact numbers, for example 14/20.
-- **How It Works**: The bar is green above 60 percent health, yellow above 30 percent and red below that. A Zombie at 14 of 20 health shows fourteen green segments and six grey ones.
 - **Good To Know**: A gold plus sign beside the numbers means the target has Absorption.
 
 ### Mob Type
 - **What Happens**: The line names the type as Player, Hostile, Passive, Neutral or Aggressive, each in its own color.
-- **How It Works**: Hit a Wolf, an Iron Golem or an Enderman and its type changes from Neutral to Aggressive.
-- **Good To Know**: Aggressive lasts one minute after your last hit on that mob, then returns to Neutral. Mobs hurt by something other than a player stay Neutral.
+- **Good To Know**: Aggressive lasts one minute after your last hit on that mob, then returns to Neutral.
 
 ### Distance Readout
 - **What Happens**: The line ends with the distance to the target in blocks, for example 5m.
 
 ### Armor Points
 - **What Happens**: When you look at a player, or at a mob wearing armor, the armor points appear beside the health.
-- **Good To Know**: Points are counted from the Leather, Copper, Golden, Chainmail, Iron, Diamond and Netherite armor they wear, plus a Turtle Shell helmet. Mobs without armor show no armor points.
+- **Good To Know**: Points are counted from the Leather, Copper, Golden, Chainmail, Iron, Diamond and Netherite armor they wear, plus a Turtle Shell helmet.
 
 ### Tamed Pets
-- **What Happens**: Tamed animals show as Tamed, in their own color, instead of Neutral or Passive. Pets tamed by other players also show their owner, such as Tamed of Steve.
+- **What Happens**: Tamed animals show as Tamed, in their own color, instead of Neutral or Passive.
 - **Good To Know**: The owner's name is shown only while that player is online.
 
 ### Held Item
@@ -45,9 +43,6 @@ Aim at a mob or another player and a single line appears on the Action Bar. It d
 
 ### Hidden Targets
 - **What Happens**: Invisible mobs, invisible players and players in Spectator mode are not shown.
-
-### Instant Clear
-- **What Happens**: The line is removed right away when you stop looking at the target or a wall blocks your view.
 
 ## How to Use
 

@@ -7,45 +7,40 @@
 
 **Craft Super Sponges that absorb up to 2,816 water blocks, or an Extreme Sponge that clears up to 100,000.**
 
-> Adds the OP Sponge, ten levels of Super Sponge, and an Extreme Sponge, powered up with sponge books from chests, Librarian villagers, or crafting. Draining a lake or a flooded cave takes one placed block.
+> Adds the OP Sponge, ten levels of Super Sponge, and an Extreme Sponge, powered up with sponge books from chests, Librarian villagers, or crafting.
 
 ## Overview
 
-Craft an OP Sponge, then combine it with a sponge book to make a Super Sponge or an Extreme Sponge. Place the sponge in or next to water and it removes the connected water around it, then turns into its filled version. Smelt a filled sponge in a furnace to get the same sponge back, dry and ready to use again.
+Craft an OP Sponge, then combine it with a sponge book to make a Super Sponge or an Extreme Sponge. Place the sponge in or next to water and it removes the connected water around it, then turns into its filled version.
 
 ## Key Features
 
 ### OP Sponge
 - **What Happens**: When placed, it absorbs up to 256 connected water blocks that are within 16 blocks of it, then becomes a Water-Filled OP Sponge.
-- **How It Works**: Place it in a lake, on the edge of an ocean, or next to a waterfall. The nearest water is removed first.
-- **Good To Know**: It only absorbs water. If there is no water in reach, it stays an OP Sponge. It uses the regular Sponge look, so the name in your inventory is the way to tell them apart.
+- **Good To Know**: It only absorbs water.
 
 ### Super Sponge I to X
-- **What Happens**: Each level absorbs more water. Super Sponge I absorbs up to 512 water blocks within 18 blocks. Each level adds 256 blocks and 2 blocks of reach, up to 2,816 blocks within 36 blocks at level X.
-- **How It Works**: Put an OP Sponge and a Super Sponge Book in the crafting grid to get the Super Sponge of that book's level.
-- **Good To Know**: Super Sponges and their filled versions glow like enchanted items in your inventory and hand. A placed block cannot glow, so a Super Sponge sends out sparkles when it absorbs water instead.
+- **What Happens**: Each level absorbs more water.
+- **Good To Know**: Super Sponges and their filled versions glow like enchanted items in your inventory and hand.
 
 ### Extreme Sponge I
 - **What Happens**: It keeps absorbing until no connected water is left in reach, up to 100,000 water blocks in one use.
-- **How It Works**: Put an OP Sponge and an Extreme Sponge I Book in the crafting grid, then place the sponge in an ocean or a flooded area.
 - **Good To Know**: A very large drain is spread over a short time, so the water disappears over a moment instead of all at once.
 
 ### Sponge Books
-- **What Happens**: There is a Super Sponge Book for each level from I to X, plus an Extreme Sponge I Book. Two books of the same level combine in the crafting grid into one book one level higher. Two Super Sponge X Books make an Extreme Sponge I Book.
-- **How It Works**: Books can be found in chests, bought from Librarian villagers, or combined from lower books.
-- **Good To Know**: These are custom books, not vanilla enchantments, so the enchanting table and the anvil do not offer them. Books do not stack.
+- **What Happens**: There is a Super Sponge Book for each level from I to X, plus an Extreme Sponge I Book.
+- **Good To Know**: These are custom books, not vanilla enchantments, so the enchanting table and the anvil do not offer them.
 
 ### Finding Books
-- **What Happens**: Sponge books can appear in shipwreck treasure chests, buried treasure, big ocean ruins, dungeons, stronghold libraries, ancient cities, desert temples, woodland mansions, jungle temples, and end city chests. Librarian villagers sell them for Emeralds and a Book, with higher levels unlocking as the villager levels up.
-- **Good To Know**: To add the books, this add-on replaces the vanilla loot lists of those chests and the Librarian trade list. Other add-ons that change the same chests or Librarian trades can conflict with it, and those lists will not pick up later vanilla changes to them.
+- **What Happens**: Sponge books can appear in shipwreck treasure chests, buried treasure, big ocean ruins, dungeons, stronghold libraries, ancient cities, desert temples, woodland mansions, jungle temples, and end city chests.
+- **Good To Know**: To add the books, this add-on replaces the vanilla loot lists of those chests and the Librarian trade list.
 
 ### Filled Sponges
-- **What Happens**: Every sponge has a Water-Filled version that you can pick up, carry, and place like any other block. Smelting it in a furnace gives back the dry sponge of the same level.
-- **Good To Know**: Filled sponges use the wet Sponge look. Filled Super and Extreme Sponges glow in your inventory.
+- **What Happens**: Every sponge has a Water-Filled version that you can pick up, carry, and place like any other block.
+- **Good To Know**: Filled sponges use the wet Sponge look.
 
 ### Crafting
-- **What Happens**: The OP Sponge is a Sponge combined with Prismarine Crystals. All recipes are shapeless and unlocked from the start.
-- **How It Works**: Put the ingredients anywhere in the crafting grid.
+- **What Happens**: The OP Sponge is a Sponge combined with Prismarine Crystals.
 
 ## How to Use
 

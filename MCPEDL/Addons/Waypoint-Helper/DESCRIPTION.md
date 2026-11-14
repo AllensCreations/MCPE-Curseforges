@@ -7,44 +7,43 @@
 
 **Save up to 10 waypoints with a Compass, add more slots without limit, and teleport back to any of them.**
 
-> Waypoint Helper adds a Cheatstick-styled Compass menu with Save, Load and Delete for 10 starting waypoint slots. It suits players who want named teleport points without typing coordinates.
+> Waypoint Helper adds a Cheatstick-styled Compass menu with Save, Load and Delete for 10 starting waypoint slots.
 
 ## Overview
 
-Right-click a Compass to open the Waypoint Helper menu. Save your current position into a slot, then pick that slot under Load to teleport back to it. Name a slot when you save it to label it, which hides its coordinates in the menu.
+Right-click a Compass to open the Waypoint Helper menu. Save your current position into a slot, then pick that slot under Load to teleport back to it.
 
 ## Key Features
 
 ### Waypoint Slots
-- **What Happens**: Each player has 10 slots. When all 10 are filled, the Save list shows an Add Slot button that adds one more slot each time you press it.
-- **Good To Know**: There is no upper limit on slots. Waypoints are stored per player and are kept between play sessions.
+- **What Happens**: Each player has 10 slots.
+- **Good To Know**: There is no upper limit on slots.
 
 ### Save And Load
-- **What Happens**: Save stores your position, facing direction and dimension in the slot you choose, then asks for an optional name of up to 24 characters. A named slot shows only its name, and its coordinates are hidden. Load counts down 3 seconds on the action bar with a sound on each second, then teleports you to the slot you choose with a teleport sound.
-- **How It Works**: Open the menu, tap Save, pick Slot 1. Later open the menu, tap Load, pick Slot 1.
-- **Good To Know**: Saved slots and the save message are green in the Overworld, red in the Nether and yellow in The End. Saving into a filled slot asks you to confirm before it replaces the old position. Loading an empty slot shows a notice instead of teleporting. If the saved spot is now in the air, you land on the ground below it, and if it is inside blocks you are moved up to open space. Ground is searched up to 128 blocks away, and nothing moves you onto lava.
+- **What Happens**: Save stores your position, facing direction and dimension in the slot you choose, then asks for an optional name of up to 24 characters.
+- **Good To Know**: Saved slots and the save message are green in the Overworld, red in the Nether and yellow in The End.
 
 ### Last Death
-- **What Happens**: Your death location is saved automatically. It is the first button in the Load list, and loading it teleports you back with the same countdown.
-- **Good To Know**: Only your most recent death is kept. It is replaced each time you die.
+- **What Happens**: Your death location is saved automatically.
+- **Good To Know**: Only your most recent death is kept.
 
 ### Delete
 - **What Happens**: Delete clears a saved slot after you confirm.
-- **Good To Know**: Deleting empties the slot so you can save there again. Empty extra slots at the end of the list are removed, and the first 10 slots always stay.
+- **Good To Know**: Deleting empties the slot so you can save there again.
 
 ### Teleport Safety
-- **What Happens**: Moving or taking damage during the 3 second countdown cancels the teleport. After each teleport there is a 10 second wait before the next one, even if you leave and rejoin.
+- **What Happens**: Moving or taking damage during the 3 second countdown cancels the teleport.
 - **Good To Know**: A portal particle effect plays when you arrive, and you get 5 seconds of slow falling to avoid fall damage.
 
 ### Save Spawn Here
 - **What Happens**: Sets your respawn point to the block where you are standing in your current dimension.
 
 ### Menu Compass
-- **What Happens**: Right-click any Compass to open the menu. The pack does not give you a Compass, so craft or take one yourself.
+- **What Happens**: Right-click any Compass to open the menu.
 
 ### Cheatstick Menu Look
 - **What Happens**: Menus use a dark panel, an orange title bar showing the pack name and version, and blue-highlighted buttons and a quick fade-in, with saved slots and action bar messages colored by dimension.
-- **Good To Know**: The look comes from the Resource Pack, so activate it in your world's settings. Without it the menus use the plain Minecraft style.
+- **Good To Know**: The look comes from the Resource Pack, so activate it in your world's settings.
 
 ## How to Use
 

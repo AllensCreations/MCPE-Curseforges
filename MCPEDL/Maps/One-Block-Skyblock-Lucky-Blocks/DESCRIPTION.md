@@ -7,16 +7,16 @@
 
 **Break the one lucky block on a 3x3 void island and climb 20 luck tiers, from Plains wood to Mythical netherite.**
 
-> Your rewards follow a natural Minecraft playthrough, moving quietly from wood and dirt to caves, the Nether, the End and beyond as you keep breaking. Seven in ten breaks bring good luck, and the other three bring trouble that grows with you.
+> Your rewards follow a natural Minecraft playthrough, moving quietly from wood and dirt to caves, the Nether, the End and beyond as you keep breaking.
 
 ## Overview
 
-You start on a 3x3 grass island floating in an empty void, next to a single lucky block in the center. Mine it, and it returns in the same spot with a new result: items, food, tools, friendly animals, potion effects, hostile mobs or short bursts of danger. Nothing tells you when you move forward; the results simply get stronger, and the trouble gets worse, the more blocks you have broken.
+You start on a 3x3 grass island floating in an empty void, next to a single lucky block in the center. Mine it, and it returns in the same spot with a new result: items, food, tools, friendly animals, potion effects, hostile mobs or short bursts of danger.
 
 ## Key Features
 
 ### One Central Lucky Block
-- **What Happens**: The lucky block sits at the center of the island and is replaced the moment you break it. It never drops itself as an item.
+- **What Happens**: The lucky block sits at the center of the island and is replaced the moment you break it.
 - **Good To Know**: If the center spot ever becomes empty, the lucky block is placed there again within about 5 seconds.
 
 ### 70/30 Luck
@@ -25,17 +25,14 @@ You start on a 3x3 grass island floating in an empty void, next to a single luck
 
 ### Silent Progression
 - **What Happens**: The results follow a playthrough: Plains, Forest, Stone Age, Farm and Village, Shallow Caves, Iron Age, Deep Caves, Diamond Age, Enchanting, Nether Gate, Nether Wastes, Fortress and Blaze, Ender Prep, Stronghold, Deep Dark, Ancient Wonders, Ocean Depths, End City, Beacon Rise and Mythical.
-- **How It Works**: Every 30 breaks the odds move up one step. The last step is reached after 450 breaks and then stays.
-- **Good To Know**: No message announces a step. You only see the tier and result of each break on the action bar and in chat.
+- **Good To Know**: No message announces a step.
 
 ### 20 Tiers of Good Luck and 20 of Bad Luck
-- **What Happens**: Good tiers run Common, Uncommon, Good, Nice, Great, Rare, Superb, Excellent, Fantastic, Epic, Heroic, Majestic, Glorious, Radiant, Exalted, Legendary, Ancient, Celestial, Divine and Mythical. Bad tiers run Petty, Unlucky, Bad, Nasty, Rough, Harsh, Grim, Dire, Wicked, Vile, Savage, Brutal, Ruthless, Sinister, Dreadful, Cursed, Hexed, Doomed, Calamitous and Mythical.
-- **How It Works**: At each step the current tier comes up 50% of the time. The next four tiers up come at 25%, 12.5%, 6.25% and 6.25%, so a lucky break can reach a few tiers ahead.
+- **What Happens**: Good tiers run Common, Uncommon, Good, Nice, Great, Rare, Superb, Excellent, Fantastic, Epic, Heroic, Majestic, Glorious, Radiant, Exalted, Legendary, Ancient, Celestial, Divine and Mythical.
 - **Good To Know**: Every tier has its own results, and late bad tiers are severe and can end a run.
 
 ### 120 Good Results and 81 Bad Results
-- **What Happens**: Early good results are mostly building materials such as Sapling Pack, Dirt Delivery, Oak Logs, Plank Bundle and Stone Delivery. Mid-game results include Stone Tool Set and Water Bucket. Later ones include Nether Kit, Eyes of Ender, Elytra, Beacon and Netherite Armor Set.
-- **How It Works**: Early bad results include Hunger Pangs, Zombie Pair and Lava Splash. Later ones include Blaze Ambush, Lightning Barrage, Ravager Trio and Warden's Wrath.
+- **What Happens**: Early good results are mostly building materials such as Sapling Pack, Dirt Delivery, Oak Logs, Plank Bundle and Stone Delivery.
 - **Good To Know**: Explosions from the lucky block do not break the island, but a hit or a blast can still knock you into the void.
 
 ### Starter Chest
@@ -48,7 +45,6 @@ You start on a 3x3 grass island floating in an empty void, next to a single luck
 
 ### Influence Your Luck
 - **What Happens**: The Four-Leaf Fortune and Golden Horseshoe results raise the good luck chance by 20 points for the next 5 and 10 breaks.
-- **How It Works**: The Jinx result lowers the good luck chance by 20 points for the next 5 breaks.
 
 ## How to Use
 
@@ -56,14 +52,12 @@ You start on a 3x3 grass island floating in an empty void, next to a single luck
 2. Break the lucky block in the center with any tool or your hand.
 3. Read the tier and result on the action bar, then pick up what dropped or deal with what appeared.
 4. Open the chest on the corner for your first saplings and tools.
-5. Keep breaking, and use the food, tools and armor you collect to survive the bad results.
 
 ## Common Questions
 
 - **Does the lucky block run out?**: No. It is placed again each time it is broken, so you can keep going without limit.
 - **Can I see which step I am on?**: No. Only the tier name and result of each break are shown.
 - **What happens after the last step?**: The odds stay there, with tiers from Legendary to Mythical.
-- **Do I need cheats?**: No. An optional setup command exists that needs cheats, and using cheats in a world disables achievements there.
 
 ## Compatibility
 

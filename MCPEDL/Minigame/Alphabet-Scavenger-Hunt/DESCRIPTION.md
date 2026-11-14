@@ -11,8 +11,6 @@ Race against the clock to find, gather, or craft an item whose name begins with 
 
 Take on 20 rounds, each with a new target letter and a 60-second timer. Complete a round to earn a preparation break; fail and your maximum health drops, making the next round even tougher.
 
-Start, restart, or end a run with the Controller item. The challenge is designed for solo play or a friendly competition in a shared world.
-
 ## Key Features
 
 ### Twenty-Round Challenge

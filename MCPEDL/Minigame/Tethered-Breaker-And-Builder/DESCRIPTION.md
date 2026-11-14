@@ -9,12 +9,12 @@ Work together as a mining-and-combat partner and a building specialist while an 
 
 ## Overview
 
-Two players share a 15-meter tether. The Breaker handles mining and combat but cannot place blocks or fluids. The Builder can construct and place fluids but cannot mine blocks or attack. Stretching too far pulls partners back together, and severe overextension causes non-lethal damage. Defeat the Ender Dragon together to win.
+Two players share a 15-meter tether. The Breaker handles mining and combat but cannot place blocks or fluids.
 
 ## Key Features
 
 ### Asymmetric Roles
-- **What Happens**: Each player chooses Breaker or Builder when the challenge starts. Each role can be held by one player.
+- **What Happens**: Each player chooses Breaker or Builder when the challenge starts.
 
 ### Elastic Tether
 - **What Happens**: Partners are pulled toward each other beyond 15 meters, with strain damage beyond 18 meters after a short grace period.
@@ -37,7 +37,6 @@ Two players share a 15-meter tether. The Breaker handles mining and combat but c
 2. The host or an operator uses the Controller and chooses Start.
 3. Each player picks a role from the menu.
 4. The Breaker gathers and defends while the Builder constructs. Stay within the leash range.
-5. Defeat the Ender Dragon to win.
 
 ## Compatibility
 

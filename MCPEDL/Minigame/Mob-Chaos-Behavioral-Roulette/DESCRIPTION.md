@@ -11,41 +11,22 @@ Mob Chaos: Behavioral Roulette turns every mob near you into a wildcard. While t
 
 Use the Controller to start the roulette. Every 30 seconds by default, mobs close to players are randomly given a borrowed trait for a short time: cows hover and drop beef, sheep catch fire and charge, pigs gain a creeper's fuse, and spiders blink behind you.
 
-Before each mutation, eerie blood-red glitch text flashes on your action bar or screen center, warning you of the incoming shift. Each mutation starts about 2 seconds after its warning, and most last roughly 15 to 30 seconds. Mutations wear off naturally, and ending the game removes every active mutation, though mobs already lost to a fuse explosion stay gone.
-
 ## Key Features
 
 ### Trait Swapping Roulette
 - **What Happens**: Every 30 seconds by default, mobs close to players are randomly given a borrowed trait for a short duration:
-  - Wings of the sky: hovering mobs that rain down their own drops from above.
-  - Burning hunger: mobs that catch fire and sprint at you.
-  - Springheels: mobs that bound through the air.
-  - Blink: mobs that appear right behind you.
-  - Ravager fury: mobs with huge health, heavy armor-like resistance, and a hard hit.
-  - Creeper fuse: mobs that hiss, then blow up.
-  - Ghost: mobs that vanish from sight and speed away.
-  - Wrong voice: mobs that cry out with another creature's sound.
-  - Zoomies: mobs that sprint in random directions at huge speed.
-  - Weeping statue: mobs that freeze while you look at them and rush you when you look away.
-  - Magnet: mobs that chase you without attacking.
-  - Panic run: mobs that flee from you.
-  - Switcheroo: a mob that trades places with you.
-  - Dance fever: mobs that spin, hop and play notes.
-  - Pinata: mobs that drop treats and burst into goodies at the end.
-  - Mitosis twins: mobs that split into temporary copies.
-  - Storm caller: mobs that call thunder.
 
 ### Anomaly Warning Alerts
-- **What Happens**: Right before each mutation wave, blood-red glitch text flashes on the action bar or screen center (e.g. `[ANOMALY DETECTED] The biological code is rewriting...`).
+- **What Happens**: Right before each mutation wave, blood-red glitch text flashes on the action bar or screen center (e.g.
 
 ### Chaos Events
-- **What Happens**: About one shuffle in five becomes a surprise event. A title appears on screen and many nearby mobs get the same mutation at once, such as a dance party or a stampede toward you. Chaos events can be turned off in the Controller.
+- **What Happens**: About one shuffle in five becomes a surprise event.
 
 ### ALNStudios Controller
-- **What Happens**: The Controller item is given to each player on spawn if they are not already carrying one. Right-click or hold it to open a form with Start, Restart, End, Block damage, Shuffle interval (15, 30 or 60 seconds), Mobs (All or Hostile only), Chaos events and Glitch text. In multiplayer, only operators can use it, and Start, Restart and End can also be triggered from commands and command blocks.
+- **What Happens**: The Controller item is given to each player on spawn if they are not already carrying one.
 
 ### Safety and Limits
-- **What Happens**: Up to 6 new mobs mutate per shuffle and up to 24 at once, within 48 blocks of a player. Villagers, wandering traders, iron golems, snow golems and tamed pets are never mutated, and mob attacks do not reach through walls or hurt Creative and Spectator players. Copies made by Mitosis twins vanish when their mutation ends or the game stops, and Storm caller only brings real lightning when Block damage is on.
+- **What Happens**: Up to 6 new mobs mutate per shuffle and up to 24 at once, within 48 blocks of a player.
 
 ## How to Use
 

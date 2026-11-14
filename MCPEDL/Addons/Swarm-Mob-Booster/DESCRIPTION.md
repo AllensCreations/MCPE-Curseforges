@@ -12,18 +12,12 @@ Increase the spawn frequency and group sizes of supported vanilla mobs across th
 ## Key Features
 
 ### Supported Mob Spawn Rules
-- **Description**: Adjusts spawn frequency and group sizes for the supported vanilla mobs.
 
 ### Three Density Presets
-- **Lite Swarm**: 25-mob density cap with groups of 4–8.
-- **Balanced Swarm**: 38-mob density cap with groups of 6–12.
-- **Maximum Swarm**: 50-mob density cap with groups of 10–18.
 
 ### Nearby Mob HUD
-- **Description**: Displays the nearby mob count, with separate counts for hostile and passive mobs.
 
 ### Ground-Item Handling
-- **Description**: Includes ground-item handling intended for high-density gameplay. Performance can vary with device, world settings, and the number of active entities.
 
 ## How It Works
 

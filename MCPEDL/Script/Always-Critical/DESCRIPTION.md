@@ -7,17 +7,16 @@
 
 **Every melee hit you land deals 1.5 times damage with critical hit sparks, no jumping required.**
 
-> Always Critical gives every player melee hit the 1.5x damage of a vanilla critical hit. It suits players who want critical damage without timing a jump before each swing.
+> Always Critical gives every player melee hit the 1.5x damage of a vanilla critical hit.
 
 ## Overview
 
-Load the Behavior Pack in a world and fight as usual. Each hit a player lands on a mob or another player deals 1.5 times its normal damage, and the target shows critical hit sparks. Vanilla Minecraft only gives this bonus when you hit while falling.
+Load the Behavior Pack in a world and fight as usual. Each hit a player lands on a mob or another player deals 1.5 times its normal damage, and the target shows critical hit sparks.
 
 ## Key Features
 
 ### Always Critical Damage
 - **What Happens**: Every melee hit a player lands deals 1.5 times its normal damage, whether you stand, walk, or swing at a target on the ground.
-- **How It Works**: Hit a Zombie while standing still. The hit deals the 1.5x critical damage and shows critical hit sparks on the Zombie.
 - **Good To Know**: Hits made while falling keep the vanilla critical bonus and are not boosted a second time.
 
 ### Critical Hit Sparks

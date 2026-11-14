@@ -13,31 +13,19 @@ Tame loyal foxes, command resting poses, and arm your companions with weapons.
 
 **Tameable Companion Fox** allows you to tame wild foxes into loyal, protective companions. Feed them sweet berries or glow berries to bond with them, command them to sit down with authentic curl-up resting animations, and even equip swords or axes directly into their mouths to turn them into powerful survival allies.
 
-Red and arctic foxes can become companions with the same core commands and equipment options.
-
----
-
 ## Key Features
 
 ### Berry Taming
-- **Description**: Tame wild red and arctic foxes using sweet berries or glow berries.
 
 ### Bodyguard Protection
-- **Description**: Tamed foxes bravely defend you by attacking hostile mobs that target you.
 
 ### Upgraded Vitality
-- **Description**: Companions receive a boosted 30 HP health pool for extra combat resilience.
 
 ### Sit & Stand Commands
-- **Description**: Simply tap with an empty hand to switch between following mode and cozy resting.
 
 ### Weapon Arming
-- **Description**: Hand any sword or axe to your fox to boost its attack power in combat.
 
 ### Healing Support
-- **Description**: Feed berries to your companion at any time to restore its health during battle.
-
----
 
 ## How It Works
 

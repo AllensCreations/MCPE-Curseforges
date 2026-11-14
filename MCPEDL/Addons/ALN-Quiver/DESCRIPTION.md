@@ -7,22 +7,21 @@
 
 **The Quiver holds up to 256 arrows and feeds your Bow or Crossbow one arrow at a time.**
 
-> This add-on adds the Quiver, a craftable item that only accepts standard arrows. It suits archers who want one item to carry their whole stock.
+> This add-on adds the Quiver, a craftable item that only accepts standard arrows.
 
 ## Overview
 
-Craft a Quiver from Leather and String, then use it to move arrows in and out. While you hold a Bow or Crossbow with the Quiver in your inventory, it lends you an arrow so you can keep shooting. The Quiver icon changes as it fills.
+Craft a Quiver from Leather and String, then use it to move arrows in and out. While you hold a Bow or Crossbow with the Quiver in your inventory, it lends you an arrow so you can keep shooting.
 
 ## Key Features
 
 ### Arrow-Only Storage
-- **What Happens**: The Quiver stores up to 256 standard arrows and refuses every other item. Its tooltip shows the stored amount as Capacity: count / 256.
-- **How It Works**: Use the Quiver, choose Manage Arrows, then Deposit All Arrows or Deposit 64 Arrows.
-- **Good To Know**: Tipped arrows are not stored, because their effect cannot be restored from the Quiver. The Quiver does not stack.
+- **What Happens**: The Quiver stores up to 256 standard arrows and refuses every other item.
+- **Good To Know**: Tipped arrows are not stored, because their effect cannot be restored from the Quiver.
 
 ### Auto-Feed
-- **What Happens**: With a Bow or Crossbow in hand and no loose arrows, one arrow is taken from the Quiver and placed in your inventory. After you shoot, the next arrow is supplied until the Quiver is empty.
-- **Good To Know**: Putting the weapon away returns an unused arrow to the Quiver. Creative mode players are not fed.
+- **What Happens**: With a Bow or Crossbow in hand and no loose arrows, one arrow is taken from the Quiver and placed in your inventory.
+- **Good To Know**: Putting the weapon away returns an unused arrow to the Quiver.
 
 ### Fill Icons
 - **What Happens**: The Quiver shows an empty icon at 0 arrows, a half icon at 1 to 127, and a full icon at 128 or more.

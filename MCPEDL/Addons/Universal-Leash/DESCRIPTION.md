@@ -7,23 +7,21 @@
 
 **Attach a lead to 98 entity types, including Villagers, Iron Golems, Creepers, and Endermen.**
 
-> Universal Leash lets you use a Lead on 98 entity types, from Cows and Zombies to Villagers and Iron Golems. Hostile mobs on a lead stop choosing new targets, so you can move them without a fight.
+> Universal Leash lets you use a Lead on 98 entity types, from Cows and Zombies to Villagers and Iron Golems.
 
 ## Overview
 
-Hold a Lead, right-click a mob, and it follows you like a leashed Horse or Cow would. The Warden, Wither, and Ender Dragon are left unchanged. A small Resource Pack moves the lead attachment point on Spiders and Cave Spiders to their body.
+Hold a Lead, right-click a mob, and it follows you like a leashed Horse or Cow would. The Warden, Wither, and Ender Dragon are left unchanged.
 
 ## Key Features
 
 ### Leash Almost Anything
 - **What Happens**: Use a Lead on 98 entity types, including Villagers, Wandering Traders, Iron Golems, Snow Golems, Zombies, Skeletons, Creepers, Endermen, Ghasts, and Phantoms.
-- **How It Works**: Right-click the mob with a Lead in hand, then tie the other end to a fence or keep holding it.
-- **Good To Know**: The lead uses three distances: 4 blocks, 6 blocks, and a 10-block maximum. Villagers do not open their trade window while you sneak, so sneak when you attach a lead to one.
+- **Good To Know**: The lead uses three distances: 4 blocks, 6 blocks, and a 10-block maximum.
 
 ### Hostile Mobs on a Lead
 - **What Happens**: Mobs such as Zombies, Skeletons, Creepers, and Endermen do not pick a new target while they are on a lead, and they do not fight back when you hit them.
-- **How It Works**: Lead the mob to a new spot, such as a mob farm, and release it there.
-- **Good To Know**: A mob that is already chasing you when you attach the lead may keep its current target until it loses track of you. Other mobs keep their normal behavior. This add-on replaces the built-in definitions of the leashable mobs, so another add-on that edits the same mobs may conflict with it.
+- **Good To Know**: A mob that is already chasing you when you attach the lead may keep its current target until it loses track of you.
 
 ### Spider Lead Position
 - **What Happens**: Leads attach to the center of the body of Spiders and Cave Spiders, inside their hitbox.
