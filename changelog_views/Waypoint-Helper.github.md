@@ -1,15 +1,20 @@
 # Changelog — Waypoint Helper
 
-## [1.1.8] - 2026-11-14 - Name On Save And Faster Fade
+## [1.1.9] - 2026-11-14 - Move Slots
 
 ### Added
-- **Name On Save**: After you pick a slot, Save now asks you to name it. Leave the name empty to show the coordinates, or to keep the slot's current name.
-
-### Improved & Balanced
-- **Menu Fade-In**: Menus fade in again with a quick 0.12 second fade, much faster than the old animation.
+- **Move Slot**: A new Move button on the main menu changes where a waypoint sits in your list. Pick the slot, then pick where it goes, and a filled slot swaps places with it.
 
 <details>
-<summary><b>1.1.x</b> (5 releases)</summary>
+<summary><b>1.1.x</b> (6 releases)</summary>
+
+### [1.1.8] - 2026-11-14 - Name On Save And Faster Fade
+
+#### Added
+- **Name On Save**: After you pick a slot, Save now asks you to name it. Leave the name empty to show the coordinates, or to keep the slot's current name.
+
+#### Improved & Balanced
+- **Menu Fade-In**: Menus fade in again with a quick 0.12 second fade, much faster than the old animation.
 
 ### [1.1.7] - 2026-11-14 - Bold Countdown Number
 
