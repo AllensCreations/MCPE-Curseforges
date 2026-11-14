@@ -2,6 +2,12 @@
 
 ---
 
+## [1.22.4] - 2026-11-15 - Personal Layout Throw Fix
+
+### Fixed
+
+- **Thrown Items**: In Personal layout, items one player throws away are now removed for the rest of the team, and a failed removal no longer brings the items back.
+
 ## [1.22.3] - 2026-11-13
 
 **What's new in v1.22.3:** Packed with the v1.22.3 update. Includes: Controller Merge.

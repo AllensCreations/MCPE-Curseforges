@@ -2,6 +2,12 @@
 
 ---
 
+## 2026-11-15 - Shared Hivemind Inventory 1.22.4 Personal Layout Throw Fix
+
+### Fixed
+
+- **Thrown Items**: Team Inventory now removes items a player throws away from the whole team in Personal layout.
+
 ## [1.0.28] - 2026-11-14 - Description Rewrite
 
 ### Improved & Balanced

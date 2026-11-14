@@ -38,12 +38,13 @@ export function createLayout(d) {
       const live = itemAt(c, i);
       if (!live || keyOf(live) !== key) continue;
       const take = Math.min(left, live.amount);
-      if (take >= live.amount) d.safe(() => c.setItem(i, undefined));
+      let ok;
+      if (take >= live.amount) ok = d.safe(() => { c.setItem(i, undefined); return true; }, false);
       else {
         live.amount -= take;
-        d.safe(() => c.setItem(i, live));
+        ok = d.safe(() => { c.setItem(i, live); return true; }, false);
       }
-      left -= take;
+      if (ok) left -= take;
     }
     return n - left;
   }
@@ -104,8 +105,8 @@ export function createLayout(d) {
       if (o - c > 0) ow.set(key, o - c); else ow.delete(key);
     }
     if (need > 0) {
-      removeUnits(player, key, need);
-      bump(base, key, -need);
+      const removed = removeUnits(player, key, need);
+      bump(base, key, -removed);
     }
   }
 
@@ -153,11 +154,13 @@ export function createLayout(d) {
       pending.delete(id);
     }
     const commits = [];
+    const scans = new Map();
     for (const p of players) {
       if (!baseline.has(p.id)) { adopt(p); continue; }
       retryOwed(p);
       const counts = scan(p);
       if (!counts) continue;
+      scans.set(p.id, counts);
       const base = baseline.get(p.id);
       const pend = pending.get(p.id);
       const diffs = new Map();
@@ -224,7 +227,26 @@ export function createLayout(d) {
       if (!eff) continue;
       for (const o of players) if (o.id !== c.p.id && baseline.has(o.id)) apply(o, c.key, eff);
     }
-    return commits.length > 0;
+    const touched = new Set();
+    for (const c of commits) {
+      if (c.replace) { touched.add(c.replace[0]); touched.add(c.replace[1]); } else touched.add(c.key);
+    }
+    let corrected = false;
+    for (const p of players) {
+      const counts = scans.get(p.id);
+      const base = baseline.get(p.id);
+      const pend = pending.get(p.id);
+      if (!counts || !base || !pend) continue;
+      for (const [key, have] of counts) {
+        if (touched.has(key) || pend.has(key) || (base.get(key) ?? 0) !== have) continue;
+        const want = pool.get(key) ?? 0;
+        if (have <= want) continue;
+        const removed = removeUnits(p, key, have - want);
+        bump(base, key, -removed);
+        if (removed > 0) corrected = true;
+      }
+    }
+    return commits.length > 0 || corrected;
   }
 
   function stacks() {
