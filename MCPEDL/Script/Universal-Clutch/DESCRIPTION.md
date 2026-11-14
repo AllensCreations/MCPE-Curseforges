@@ -1,4 +1,4 @@
-# Universal Clutch — Intelligent Fall Mitigation Add-on
+# Universal Clutch — Intelligent Fall Mitigation Script
 
 **By ALNStudios**
 
@@ -13,7 +13,7 @@ Automatically attempts a clutch when you fall while looking toward the ground. S
 
 ## Overview
 
-Universal Clutch provides a vanilla-faithful safety mechanic for Minecraft Bedrock players.  the system checks your fall and whether you are looking toward the ground.
+Universal Clutch provides a vanilla-faithful safety mechanic for Minecraft Bedrock players. The system checks your fall and whether you are looking toward the ground.
 
 When aiming down and falling beyond the configured block height threshold, the add-on acts shortly before impact, triggers an authentic arm swing animation with placement audio, deploys the appropriate clutch item from your mainhand or offhand, and automatically re-scoops placed water upon touchdown.
 
@@ -22,10 +22,10 @@ When aiming down and falling beyond the configured block height threshold, the a
 ## Key Features
 
 ### Multi-Item Clutch Support
-- **Description**: Automatically identifies and uses Water Buckets, Powder Snow Buckets, Twisted Vines, Hay Bales, Cobwebs, Slime Blocks, Scaffolding, Boats/Rafts, or Sweet Berries.
+- **Description**: Automatically identifies and uses Water Buckets, Powder Snow Buckets, Twisting Vines, Hay Bales, Cobwebs, Slime Blocks, Scaffolding, Boats/Rafts, or Sweet Berries.
 
 ### Dimension-Aware Clutches
-- **Description**: Automatically disables evaporating Water Buckets in the Nether, prioritizing Twisted Vines & Powder Snow Buckets instead.
+- **Description**: Automatically disables evaporating Water Buckets in the Nether, prioritizing Twisting Vines & Powder Snow Buckets instead.
 
 ### Dual Hand & Inventory Detection
 - **Description**: Evaluates mainhand items first, with failover to offhand, hotbar, and upper inventory.
@@ -42,9 +42,6 @@ When aiming down and falling beyond the configured block height threshold, the a
 ### Arm Placement Animation
 - **Description**: Triggers vanilla arm swing animations (the standard arm-swing animation) synced directly to placement audio.
 
-### Waterlogging Support
-- **Description**: Detects stairs, slabs, fences, walls, and trapdoors beneath the player and applies native waterlogged state states without destroying structures.
-
 ### Automatic Item Recovery
 - **Description**: Automatically retrieves placed water or powder snow 3 ticks after touchdown; verifies powder snow wasn't consumed to extinguish fire before re-scooping.
 
@@ -53,14 +50,14 @@ When aiming down and falling beyond the configured block height threshold, the a
 ## Supported Clutch Items and Behaviors
 
 ### Water Bucket
-- **Placement Target**: Surface (waterlog) or Impact Air
+- **Placement Target**: Impact Air Block
 - **Effect**: Negates fall damage; auto-scooped 3 ticks after landing (disabled in Nether)
 
 ### Powder Snow Bucket
 - **Placement Target**: Impact Air Block
 - **Effect**: Absorbs fall damage; auto-scooped 3 ticks after landing (unless melted by fire)
 
-### Twisted Vines
+### Twisting Vines
 - **Placement Target**: Top Face of Solid Ground Block
 - **Effect**: Nether-native climbing vine; resets vertical momentum and absorbs fall damage
 
@@ -129,7 +126,6 @@ Configurable via the Behavior Pack subpack settings slider in World Settings:
 
 - **Responsive Clutch Engine**: Attempts to place a suitable item shortly before impact; success depends on the fall and available items.
 - **Survival Balanced**: Consumes clutch items faithfully from your inventory or hand in Survival and Adventure modes.
-- **Waterlogging Support**: Supports clutching onto waterloggable blocks without awkward water spilling.
 - **Anti-Spam Cooldown**: Built-in placement cooldown guarantees one clean clutch per fall.
 
 ---

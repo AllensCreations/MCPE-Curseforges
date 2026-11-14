@@ -1,18 +1,18 @@
 {
   "format_version": 2,
   "header": {
-    "name": "Universal Clutch (v1.5.0)",
+    "name": "Universal Clutch (v1.5.1)",
     "description": "Vanilla-faithful automatic clutch placements when falling from dangerous heights. Choose between Full Mode, Simple Mode, and Extreme Mode in subpack settings. by ALNStudios",
     "uuid": "a452fcb1-dd72-41b0-aed0-273201968225",
     "version": [
       1,
       5,
-      0
+      1
     ],
     "min_engine_version": [
       1,
       21,
-      0
+      20
     ]
   },
   "modules": [
@@ -23,7 +23,7 @@
       "version": [
         1,
         5,
-        0
+        1
       ]
     },
     {
@@ -34,7 +34,7 @@
       "version": [
         1,
         5,
-        0
+        1
       ],
       "entry": "scripts/main.js"
     }
@@ -49,7 +49,7 @@
     {
       "folder_name": "full_mode",
       "name": "Full Mode (Auto-Switch Inventory)",
-      "memory_tier": 1
+      "memory_tier": 3
     },
     {
       "folder_name": "simple_mode",
@@ -59,7 +59,7 @@
     {
       "folder_name": "extreme_mode",
       "name": "Extreme Mode (Auto Smooth Look-Down & Auto-Switch)",
-      "memory_tier": 3
+      "memory_tier": 1
     }
   ],
   "metadata": {
@@ -67,6 +67,6 @@
       "ALNStudios"
     ],
     "product_type": "addon",
-    "version": "1.5.0"
+    "version": "1.5.1"
   }
 }

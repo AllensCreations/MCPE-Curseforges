@@ -2,6 +2,16 @@
 
 ---
 
+## [1.0.28] - 2026-11-14 - [Universal Clutch Script Move]
+
+### Improved & Balanced
+
+- **Universal Clutch**: Moved to the Script catalog as a .mcpack release with safer landings and a Full Mode default.
+
+### Fixed
+
+- **Universal Clutch**: Twisting Vines support, creative and spectator handling, totem fail-safe, and fall tracking fixes.
+
 ## [1.0.27] - 2026-11-14 - Safer Update Scripts
 
 ### Fixed
