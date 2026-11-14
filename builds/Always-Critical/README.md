@@ -8,7 +8,7 @@ This folder contains compiled release packages for **Always Critical** by ALNStu
 
 | File Name | Format | Size | Description | Download Link |
 | :--- | :--- | :--- | :--- | :--- |
-| **`AlwaysCritical V1.0.0.mcpack`** | `.mcpack` | ~1 KB | Script Behavior Pack archive ready for import. | [Download (.mcpack)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Always-Critical/AlwaysCritical%20V1.0.0.mcpack) |
+| **`AlwaysCritical V1.0.0.mcpack`** | `.mcpack` | ~134 KB | Script Behavior Pack archive ready for import. | [Download (.mcpack)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Always-Critical/AlwaysCritical%20V1.0.0.mcpack) |
 
 ---
 
