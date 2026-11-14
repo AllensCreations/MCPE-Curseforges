@@ -1,12 +1,20 @@
 # Changelog — Waypoint Helper
 
-## [1.1.7] - 2026-11-14 - Bold Countdown Number
+## [1.1.8] - 2026-11-14 - Name On Save And Faster Fade
+
+### Added
+- **Name On Save**: After you pick a slot, Save now asks you to name it. Leave the name empty to show the coordinates, or to keep the slot's current name.
 
 ### Improved & Balanced
-- **Countdown Number**: The seconds in the teleport countdown are now bold and white so they stand out from the rest of the message.
+- **Menu Fade-In**: Menus fade in again with a quick 0.12 second fade, much faster than the old animation.
 
 <details>
-<summary><b>1.1.x</b> (4 releases)</summary>
+<summary><b>1.1.x</b> (5 releases)</summary>
+
+### [1.1.7] - 2026-11-14 - Bold Countdown Number
+
+#### Improved & Balanced
+- **Countdown Number**: The seconds in the teleport countdown are now bold and white so they stand out from the rest of the message.
 
 ### [1.1.6] - 2026-11-14
 
