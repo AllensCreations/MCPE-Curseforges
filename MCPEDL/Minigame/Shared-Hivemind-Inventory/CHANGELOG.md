@@ -2,6 +2,19 @@
 
 ---
 
+## [1.22.5] - 2026-11-15 - Death Drops and Joining Fix
+
+### Fixed
+
+- **Death Drops**: The shared inventory now drops where a player dies, even when the death spot cannot be read, and Keep Inventory stays on while sharing.
+- **Item Details**: In Personal layout, teammates now get exact copies of items, so dye colors, banner patterns and trims are kept.
+- **Joining Players**: A player who joins while a game runs now adds their own items to the team instead of losing them.
+
+### Improved & Balanced
+
+- **Personal Layout Speed**: Personal layout checks inventories every 4 ticks instead of every tick.
+- **Save Limit Warning**: The team is warned when the shared inventory is close to the save limit.
+
 ## [1.22.4] - 2026-11-15 - Personal Layout Throw Fix
 
 ### Fixed

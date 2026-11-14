@@ -2,6 +2,13 @@
 
 ---
 
+## 2026-11-15 - Shared Hivemind Inventory 1.22.5 Death Drops and Joining Fix
+
+### Fixed
+
+- **Death Drops**: Team Inventory now reliably drops the shared inventory where a player dies.
+- **Joining Players**: Players who join mid-game now add their own items to the team.
+
 ## 2026-11-15 - Shared Hivemind Inventory 1.22.4 Personal Layout Throw Fix
 
 ### Fixed

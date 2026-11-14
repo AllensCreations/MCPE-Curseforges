@@ -35,7 +35,7 @@ The host or an operator starts the shared inventory with the ALNStudios Controll
 - **What Happens**: The host or an operator chooses End Game in the Controller menu or uses the function end_game.
 
 ### Joining Players
-- **What Happens**: Players who join while sharing is running receive the team inventory.
+- **What Happens**: Players who join while sharing is running add their own items to the team and receive the team inventory.
 
 ## How to Use
 

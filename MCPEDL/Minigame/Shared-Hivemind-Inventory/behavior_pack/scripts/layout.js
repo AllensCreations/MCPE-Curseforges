@@ -1,10 +1,11 @@
-const DEBOUNCE = 20;
+const DEBOUNCE = 5;
 
 export function createLayout(d) {
   let pool = new Map();
   const baseline = new Map();
   const owed = new Map();
   const pending = new Map();
+  const protos = new Map();
   let tickNo = 0;
 
   const keyOf = (item) => { const s = d.serializeItem(item); delete s.amount; return JSON.stringify(s); };
@@ -27,8 +28,21 @@ export function createLayout(d) {
       if (!item) continue;
       const k = keyOf(item);
       counts.set(k, (counts.get(k) ?? 0) + item.amount);
+      if (!protos.has(k)) {
+        const proto = d.safe(() => { const c = item.clone(); c.amount = 1; return c; });
+        if (proto) protos.set(k, proto);
+      }
     }
     return counts;
+  }
+
+  function make(key, proto, amount) {
+    const base = protos.get(key);
+    if (base) {
+      const c = d.safe(() => { const x = base.clone(); x.amount = amount; return x; });
+      if (c) return c;
+    }
+    return d.deserializeItem({ ...proto, amount });
   }
 
   function removeUnits(player, key, n) {
@@ -52,7 +66,7 @@ export function createLayout(d) {
   function addUnits(player, key, n) {
     const c = d.containerOf(player);
     const proto = JSON.parse(key);
-    const max = maxStack(proto);
+    const max = protos.get(key)?.maxAmount ?? maxStack(proto);
     let left = n;
     for (let i = 0; i < d.INV_SLOTS && left > 0; i++) {
       const live = itemAt(c, i);
@@ -65,7 +79,7 @@ export function createLayout(d) {
     for (let i = 0; i < d.INV_SLOTS && left > 0; i++) {
       if (d.safe(() => c.getItem(i))) continue;
       const m = Math.min(max, left);
-      const item = d.deserializeItem({ ...proto, amount: m });
+      const item = make(key, proto, m);
       if (!item) break;
       d.safe(() => c.setItem(i, item));
       left -= m;
@@ -80,7 +94,7 @@ export function createLayout(d) {
     for (let i = 0; i < d.INV_SLOTS && done < n; i++) {
       const live = itemAt(c, i);
       if (!live || keyOf(live) !== from) continue;
-      const item = d.deserializeItem({ ...proto, amount: live.amount });
+      const item = make(to, proto, live.amount);
       if (!item) continue;
       d.safe(() => c.setItem(i, item));
       done += live.amount;
@@ -132,6 +146,20 @@ export function createLayout(d) {
       const want = pool.get(key) ?? 0;
       const have = counts.get(key) ?? 0;
       if (want !== have) apply(player, key, want - have);
+    }
+  }
+
+  function prime(players) {
+    for (const p of players) scan(p);
+  }
+
+  function absorb(player, players) {
+    const counts = scan(player);
+    if (!counts) return;
+    for (const [k, n] of counts) bump(pool, k, n);
+    for (const o of players) {
+      if (o.id === player.id || !baseline.has(o.id)) continue;
+      for (const [k, n] of counts) apply(o, k, n);
     }
   }
 
@@ -253,9 +281,9 @@ export function createLayout(d) {
     const out = [];
     for (const [key, count] of pool) {
       const proto = JSON.parse(key);
-      const max = maxStack(proto);
+      const max = protos.get(key)?.maxAmount ?? maxStack(proto);
       for (let left = count; left > 0; left -= max) {
-        const item = d.deserializeItem({ ...proto, amount: Math.min(max, left) });
+        const item = make(key, proto, Math.min(max, left));
         if (item) out.push(item);
       }
     }
@@ -284,5 +312,5 @@ export function createLayout(d) {
     tickNo = 0;
   }
 
-  return { adopt, build, step, stacks, serialize, load, clear, reset };
+  return { adopt, build, prime, absorb, step, stacks, serialize, load, clear, reset };
 }
