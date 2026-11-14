@@ -40,6 +40,16 @@ class DescriptionViewTests(unittest.TestCase):
         h = bdv.render(md, "Demo-Pack")
         self.assertEqual(set(re.findall(r"background-color:(#[0-9a-fA-F]{6})", h)), {bdv.ACCENT})
 
+    def test_showcase_keeps_gifs_and_no_link_is_lost(self):
+        gif = "https://raw.githubusercontent.com/x/y/abc/Demo/clip.gif"
+        md = self.md.replace("## Key Features", f"## Showcase / Previews\n\n### Toggled On\n\nSee the menu: ![Toggled On]({gif})\n\n## Key Features", 1)
+        h = bdv.render(md, "Demo-Pack")
+        self.assertIn(">Showcase</h2>", h)
+        self.assertEqual(h.count(gif), 2)  # link + image
+        self.assertEqual(bdv.lost_links(md, h), [])
+        self.assertEqual(bdv.check_html(h), [])
+        self.assertEqual(bdv.lost_links("see https://example.com/missing", h), ["https://example.com/missing"])
+
     def test_one_accent_for_every_pack(self):
         self.assertEqual({bdv.accent_for(n) for n in ("Cheat-Stick", "Grand-Banquets", "Universal-Leash", "OP-Sponge")}, {"#15803d"})
         for bad in ("#fbbf24", "#b83a3a", "#b7791f", "#1f8a4c"):

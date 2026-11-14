@@ -417,6 +417,41 @@ def gallery(kind, entries):
     return '<div style="display:flex;flex-wrap:wrap;gap:10px">' + "".join(cells) + "</div>"
 
 
+def showcase(body):
+    """'## Showcase / Previews': one card per '### Title' with its image(s) (GIFs included) and caption. No link is dropped."""
+    chunks = [c for c in re.split(r"(?m)^(?=### )", body.strip("\n")) if c.strip()]
+    cells = []
+    for c in chunks:
+        lines = c.strip("\n").split("\n")
+        title = lines[0][4:].strip() if lines[0].startswith("### ") else ""
+        rest = "\n".join(lines[1:] if lines[0].startswith("### ") else lines)
+        imgs = re.findall(r"!\[([^\]]*)\]\(([^)\s]+)\)", rest)
+        text = re.sub(r"!\[[^\]]*\]\([^)\s]+\)", "", rest).strip().rstrip(":").strip()
+        text = " ".join(text.split())
+        shots = "".join(f'<p><a href="{u}"><img src="{u}" alt="{html.escape(a or title)}" style="width:100%"></a></p>' for a, u in imgs)
+        head = f'<p><strong>{inline(title)}</strong></p>' if title else ""
+        cap = f'<p style="color:{MUTED};font-size:13px">{inline(text)}</p>' if text else ""
+        cells.append(f'<div style="flex:1 1 300px;background-color:{PANEL};border:1px solid {LINE};border-radius:10px;text-align:center">'
+                     f'{head}{shots}{cap}</div>')
+    return '<div style="display:flex;flex-wrap:wrap;gap:10px">' + "".join(cells) + "</div>" if cells else ""
+
+
+LINK_SKIP = ("img.shields.io", "github.com/AllensCreations/MCPE-Curseforges)", "assets/Images/curseforge.jpg", "assets/Images/MCPEDL.jpg")
+
+
+def lost_links(md, page):
+    """URLs written in DESCRIPTION.md that are missing from the page (badges and the two profile banners are skipped on purpose)."""
+    urls = re.findall(r"https?://[^\s)>\"'<]+", md)
+    out = []
+    for u in dict.fromkeys(urls):
+        u = u.rstrip(".,;")
+        if any(k.rstrip(")") in u for k in LINK_SKIP) or u.rstrip("/") == "https://github.com/AllensCreations/MCPE-Curseforges":
+            continue
+        if u not in page:
+            out.append(u)
+    return out
+
+
 def render(md, fallback="", icon_url=None, latest=None, accent=None, style="minimal", media=None, min_version=""):
     """latest is accepted for old callers and ignored: the page has no changelog box."""
     set_style(style)
@@ -429,6 +464,11 @@ def render(md, fallback="", icon_url=None, latest=None, accent=None, style="mini
                   hero_badges(min_version, sec.get("Compatibility", "")))]
     if sec.get("Overview", "").strip():
         parts += [h2("About", acc), blocks_to_html(sec["Overview"], acc)]
+    for sname, sbody in sec.items():
+        if re.match(r"(?i)(showcase|previews?)", sname) and sbody.strip():
+            sc = showcase(sbody)
+            if sc:
+                parts += [h2("Showcase", acc), sc]
     media = media or {}
     if media.get("snapshots"):
         parts += [h2("Screenshots", acc), gallery("snapshots", media["snapshots"])]
@@ -574,6 +614,8 @@ def main(argv=None):
             print(f"FAIL {p.name}: {e}")
             bad += 1
             continue
+        for u in lost_links(md, h):
+            print(f"WARN {p.name}: link from DESCRIPTION.md is not on the page: {u}")
         errs = check_html(h)
         for e in errs:
             print(f"FAIL {p.name}: {e}")
