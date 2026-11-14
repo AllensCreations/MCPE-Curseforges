@@ -7,7 +7,7 @@ description_views/<n>.curseforge.html (paste it into the CurseForge project desc
 Look: "minimal" page (no page background, no text colors, so it follows the reader's light or dark theme). Pack icon + title hero with badges (lowest supported Minecraft version, Experimental: No,
 achievements), feature cards with an accent top bar,
 numbered step badges, collapsed Q&A spoilers, colored compatibility badges, and a Support section with the Ko-fi image.
-Every pack gets its own accent color (stable, picked from the pack name; override in ACCENT_OVERRIDES).
+Every pack uses the same dark green accent (ACCENT; per-pack override in ACCENT_OVERRIDES).
 Only tags, CSS and classes that CurseForge supports are used (self-checked on every build).
 
 Images: drop files into <pack>/assets/snapshots (screenshots, GIFs), <pack>/assets/recipes (crafting diagrams) and
@@ -56,7 +56,7 @@ STYLES = ("minimal",)  # the only published style: it follows the reader's theme
 SUFFIX = {"dark": ".dark", "minimal": ""}
 BG = PANEL = LINE = TEXT = HEAD = SUB = MUTED = LINK = ""
 ACCTXT = True
-INK = "#0b0f14"
+INK = "#ffffff"  # text on the dark green fills
 
 
 def set_style(name):
@@ -80,8 +80,8 @@ def acc_text(acc):
 
 
 set_style("minimal")
-PALETTE = ["#4ade80", "#38bdf8", "#fbbf24", "#f472b6", "#a78bfa", "#fb923c", "#2dd4bf", "#f87171", "#a3e635", "#60a5fa"]
-ACCENT_OVERRIDES = {}  # e.g. {"Mining-Helmet": "#fbbf24"}  (folder name -> color)
+ACCENT = "#15803d"  # dark green: the one accent color of every page
+ACCENT_OVERRIDES = {}  # optional per-pack color, e.g. {"Mining-Helmet": "#b45309"}; empty = every pack uses ACCENT
 
 PERMISSIONS = (
     "<li>Rights: All rights reserved for ALNStudios.</li>"
@@ -100,7 +100,7 @@ def esc(t):
 
 
 def accent_for(folder):
-    return ACCENT_OVERRIDES.get(folder) or PALETTE[zlib.crc32(folder.encode("utf-8")) % len(PALETTE)]
+    return ACCENT_OVERRIDES.get(folder) or ACCENT
 
 
 def inline(t):
@@ -242,22 +242,22 @@ def compat_badges(body):
             continue
         key, val = m.group(1), m.group(2)
         if key == "Minecraft Bedrock Edition":
-            out.append(_badge("Bedrock", val, "#1f8a4c"))
+            out.append(_badge("Bedrock", val, ACCENT))
         elif key == "Experimental features":
             if re.search(r"not verified|unknown", val, re.I):
-                color = "#5b6675"
+                color = ACCENT
             elif re.search(r"\b(no|none|not required|not needed)\b", val, re.I):
-                color = "#1f8a4c"
+                color = ACCENT
             else:
-                color = "#b7791f"
+                color = ACCENT
             out.append(_badge("Experimental", val, color))
         else:
             if re.search(r"\b(disabled?|disables|blocked|off)\b", val, re.I):
-                color = "#b83a3a"
+                color = ACCENT
             elif re.search(r"friendly|compatible|enabled|keeps", val, re.I):
-                color = "#1f8a4c"
+                color = ACCENT
             else:
-                color = "#5b6675"
+                color = ACCENT
             out.append(_badge("Achievements", val, color))
     return f'<div style="display:flex;flex-wrap:wrap;gap:8px">{"".join(out)}</div>'
 
@@ -310,15 +310,15 @@ def hero_badges(min_version, compat_body):
         elif m and m.group(1) == "Achievements":
             ach = m.group(2)
     if bedrock:
-        out.append(_badge("Bedrock", bedrock, "#1f8a4c"))
-    out.append(_badge("Experimental", "No", "#1f8a4c"))
+        out.append(_badge("Bedrock", bedrock, ACCENT))
+    out.append(_badge("Experimental", "No", ACCENT))
     if ach:
         if re.search(r"\b(disabled?|disables|blocked|off)\b", ach, re.I):
-            color = "#b83a3a"
+            color = ACCENT
         elif re.search(r"friendly|compatible|enabled|keeps", ach, re.I):
-            color = "#1f8a4c"
+            color = ACCENT
         else:
-            color = "#5b6675"
+            color = ACCENT
         out.append(_badge("Achievements", ach, color))
     return f'<div style="display:flex;flex-wrap:wrap;gap:8px;margin-left:14px;margin-right:14px">{"".join(out)}</div>'
 
@@ -337,7 +337,7 @@ def commands(body, acc):
     if not rows:
         return ""
     note = f'<p style="color:{MUTED};font-size:12px">Commands need cheats enabled. Cheats turn off achievements in that world.</p>'
-    return (f'<div style="background-color:{PANEL};border:1px solid {LINE};border-radius:10px">{bar("#fbbf24")}'
+    return (f'<div style="background-color:{PANEL};border:1px solid {LINE};border-radius:10px">{bar(acc)}'
             f'<div style="padding-left:12px;margin-right:12px"><table style="width:100%;border-width:0"><tbody>'
             f'{"".join(rows)}</tbody></table>{note}</div></div>')
 

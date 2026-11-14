@@ -34,10 +34,16 @@ class DescriptionViewTests(unittest.TestCase):
         self.assertEqual(self.html.count("assets/Images/ko-fi.png"), 1)
         self.assertLess(self.html.index("ko-fi.png"), self.html.index("Permissions and credits"))
 
-    def test_accent_is_stable_and_differs_per_pack(self):
-        a1 = bdv.accent_for("Mining-Helmet")
-        self.assertEqual(a1, bdv.accent_for("Mining-Helmet"))
-        self.assertGreater(len({bdv.accent_for(n) for n in ("Cheat-Stick", "Grand-Banquets", "Universal-Leash", "OP-Sponge")}), 1)
+    def test_only_one_fill_color(self):
+        import re
+        md = self.md.replace("## Compatibility", "## Commands\n\n- `/x 1`: Does x.\n\n## Compatibility", 1)
+        h = bdv.render(md, "Demo-Pack")
+        self.assertEqual(set(re.findall(r"background-color:(#[0-9a-fA-F]{6})", h)), {bdv.ACCENT})
+
+    def test_one_accent_for_every_pack(self):
+        self.assertEqual({bdv.accent_for(n) for n in ("Cheat-Stick", "Grand-Banquets", "Universal-Leash", "OP-Sponge")}, {"#15803d"})
+        for bad in ("#fbbf24", "#b83a3a", "#b7791f", "#1f8a4c"):
+            self.assertNotIn(bad, bdv.render(self.md, "Cheat-Stick", min_version="1.26+"))
 
     def test_icon_and_no_changelog_box(self):
         log = "# Changelog\n\n## [1.14.5] - 2026-11-12\n\n### Added\n- **Mob light**: Works.\n\n## [1.0.0] - 2026-01-01\n- Old.\n"
