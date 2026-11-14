@@ -1,31 +1,19 @@
 # Changelog — Waypoint Helper
 
-## [1.1.10] - 2026-11-14 - Rename And Move Removed
+## [1.1.10] - 2026-11-14
 
 ### Improved & Balanced
 - **Rename And Move Removed**: The Rename and Move buttons are gone from the main menu. Name a slot when you save it, and save into the same slot again to change its name.
 - **Empty Name**: Leaving the name empty when you save now always shows the coordinates, even on a slot that had a name.
+- **Menu Fade-In**: Menus fade in again with a quick 0.12 second fade, much faster than the old animation.
+- **Countdown Number**: The seconds in the teleport countdown are now bold and white so they stand out from the rest of the message.
 
-<details>
-<summary><b>1.1.x</b> (7 releases)</summary>
-
-### [1.1.9] - 2026-11-14 - Move Slots
-
-#### Added
+### Added
 - **Move Slot**: A new Move button on the main menu changes where a waypoint sits in your list. Pick the slot, then pick where it goes, and a filled slot swaps places with it.
-
-### [1.1.8] - 2026-11-14 - Name On Save And Faster Fade
-
-#### Added
 - **Name On Save**: After you pick a slot, Save now asks you to name it. Leave the name empty to show the coordinates, or to keep the slot's current name.
 
-#### Improved & Balanced
-- **Menu Fade-In**: Menus fade in again with a quick 0.12 second fade, much faster than the old animation.
-
-### [1.1.7] - 2026-11-14 - Bold Countdown Number
-
-#### Improved & Balanced
-- **Countdown Number**: The seconds in the teleport countdown are now bold and white so they stand out from the rest of the message.
+<details>
+<summary><b>1.1.x</b> (4 releases)</summary>
 
 ### [1.1.6] - 2026-11-14
 
