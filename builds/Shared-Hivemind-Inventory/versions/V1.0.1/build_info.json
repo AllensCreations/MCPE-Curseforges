@@ -1,8 +1,0 @@
-{
-  "changelog_version": "1.0.1",
-  "manifest_version": "1.0.1",
-  "packages": {
-    "SharedHivemind V1.0.1.mcaddon": "a329070799509766e9b4cad10c46ad5435da9f4f0b529621aff1abe6b97546fe"
-  },
-  "source_sha256": "52da6fbf98561605a4eb96e74a0ed7801414954a66507bd753a957efbd718c9e"
-}

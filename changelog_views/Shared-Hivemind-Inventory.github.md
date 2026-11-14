@@ -1,12 +1,17 @@
 # Changelog — Team Inventory
 
-## [1.22.3] - 2026-11-13
+## [1.22.4] - 2026-11-15 - Personal Layout Throw Fix
 
-### Improved & Balanced
-- **Single Controller**: Mode, Layout, Hard Health, Hard Hunger and the Team list are now in the Controller menu, so the separate Team Settings item is gone.
+### Fixed
+- **Thrown Items**: In Personal layout, items one player throws away are now removed for the rest of the team, and a failed removal no longer brings the items back.
 
 <details>
-<summary><b>1.22.x</b> (3 releases)</summary>
+<summary><b>1.22.x</b> (4 releases)</summary>
+
+### [1.22.3] - 2026-11-13
+
+#### Improved & Balanced
+- **Single Controller**: Mode, Layout, Hard Health, Hard Hunger and the Team list are now in the Controller menu, so the separate Team Settings item is gone.
 
 ### [1.22.2] - 2026-11-13
 
