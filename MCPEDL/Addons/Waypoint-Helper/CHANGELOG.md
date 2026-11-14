@@ -2,6 +2,11 @@
 
 ---
 
+## [1.1.9] - 2026-11-14 - Move Slots
+
+### Added
+- **Move Slot**: A new Move button on the main menu changes where a waypoint sits in your list. Pick the slot, then pick where it goes, and a filled slot swaps places with it.
+
 ## [1.1.8] - 2026-11-14 - Name On Save And Faster Fade
 
 ### Added

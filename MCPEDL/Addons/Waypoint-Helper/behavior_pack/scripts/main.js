@@ -1,7 +1,7 @@
 import { world, system } from "@minecraft/server";
 import { ActionFormData, ModalFormData, FormCancelationReason } from "@minecraft/server-ui";
 
-const VERSION = "1.1.8";
+const VERSION = "1.1.9";
 const MENU_ITEM = "minecraft:compass";
 const TITLE = `WPH|§6@ALNStudios Waypoint Helper §7(${VERSION})`;
 const BASE_SLOTS = 10;
@@ -44,6 +44,8 @@ const PICKER = {
   load: { title: "Load Waypoint", body: "Choose a slot to teleport to." },
   rename: { title: "Rename Waypoint", body: "Choose a slot to rename. Named slots hide their coordinates." },
   delete: { title: "Delete Waypoint", body: "Choose a slot to delete. Choosing an empty extra slot at the end removes it." },
+  move: { title: "Move Waypoint", body: "Choose the slot you want to move." },
+  moveTo: { title: "Move To", body: "Choose where it goes. A filled slot swaps places with it." },
 };
 
 const heading = (text, body) => `§l${text}§r\n${body}`;
@@ -468,6 +470,36 @@ async function deleteFlow(player) {
   }
 }
 
+async function moveFlow(player) {
+  let notice;
+  while (true) {
+    const from = await pickSlot(player, "move", notice);
+    if (from.kind !== "slot") return from.kind;
+    const source = readSlot(player, from.index);
+    if (!source) {
+      notice = `Slot ${from.index + 1} is empty.`;
+      continue;
+    }
+    const to = await pickSlot(player, "moveTo");
+    if (to.kind === "closed") return "closed";
+    if (to.kind !== "slot") {
+      notice = undefined;
+      continue;
+    }
+    if (to.index === from.index) {
+      notice = "Choose a different slot to move it to.";
+      continue;
+    }
+    const target = readSlot(player, to.index);
+    writeSlot(player, to.index, source);
+    if (target) writeSlot(player, from.index, target);
+    else player.setDynamicProperty(SLOT_PREFIX + from.index, undefined);
+    trimExtraSlots(player);
+    actionBar(player, `§aMoved ${slotName(source, from.index)} to slot ${to.index + 1}.${target ? ` The old slot ${to.index + 1} is now slot ${from.index + 1}.` : ""}`);
+    return "done";
+  }
+}
+
 function saveSpawnHere(player) {
   try {
     const location = {
@@ -491,7 +523,7 @@ async function aboutScreen(player) {
         "About",
         `Waypoint Helper by §lALNStudios§r\n\nSlots start at §l${BASE_SLOTS}§r. When every slot is filled, Save shows a button to add one more, with no upper limit.\n\n` +
           `§lSave§r stores your position and asks for an optional name. §lLoad§r counts down ${TELEPORT_SECONDS} seconds, then teleports you there. Moving or taking damage cancels it, and there is a ${TELEPORT_COOLDOWN_MS / 1000} second wait between teleports. ` +
-          "§lRename§r gives a slot a name and hides its coordinates. §lDelete§r clears a slot and removes empty extra slots from the end. §lLoad§r also lists where you last died.\n\n" +
+          "§lRename§r gives a slot a name and hides its coordinates. §lMove§r changes a slot's position and swaps places with a filled slot. §lDelete§r clears a slot and removes empty extra slots from the end. §lLoad§r also lists where you last died.\n\n" +
           "§lSave Spawn Here§r sets your respawn point to where you stand.\n\nWaypoints belong to each player."
       )
     )
@@ -511,6 +543,7 @@ async function mainMenu(player) {
       .button("Save")
       .button("Load")
       .button("Rename")
+      .button("Move")
       .button("Delete")
       .button("About");
     const response = await show(form, player);
@@ -532,9 +565,12 @@ async function mainMenu(player) {
         result = await renameFlow(player);
         break;
       case 5:
-        result = await deleteFlow(player);
+        result = await moveFlow(player);
         break;
       case 6:
+        result = await deleteFlow(player);
+        break;
+      case 7:
         result = await aboutScreen(player);
         break;
     }

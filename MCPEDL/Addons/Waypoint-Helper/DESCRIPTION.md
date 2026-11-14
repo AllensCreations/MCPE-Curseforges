@@ -7,7 +7,7 @@
 
 **Save up to 10 waypoints with a Compass, add more slots without limit, and teleport back to any of them.**
 
-> Waypoint Helper adds a Cheatstick-styled Compass menu with Save, Load, Rename and Delete for 10 starting waypoint slots. It suits players who want named teleport points without typing coordinates.
+> Waypoint Helper adds a Cheatstick-styled Compass menu with Save, Load, Rename, Move and Delete for 10 starting waypoint slots. It suits players who want named teleport points without typing coordinates.
 
 ## Overview
 
@@ -31,6 +31,10 @@ Right-click a Compass to open the Waypoint Helper menu. Save your current positi
 ### Last Death
 - **What Happens**: Your death location is saved automatically. It is the first button in the Load list, and loading it teleports you back with the same countdown.
 - **Good To Know**: Only your most recent death is kept. It is replaced each time you die.
+
+### Move
+- **What Happens**: Move picks a saved slot and then a new position for it. If the new position already holds a waypoint, the two slots swap places.
+- **Good To Know**: Empty slots cannot be moved. Moving a slot out of the extra slots at the end removes empty extra slots left behind.
 
 ### Delete
 - **What Happens**: Delete clears a saved slot after you confirm.
