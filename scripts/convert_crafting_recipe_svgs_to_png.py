@@ -2,10 +2,8 @@
 """Export SVG assets to PNG. Crafting-table PNG is a derivative of CRAFTING_TABLE.svg, never a separate reference."""
 from pathlib import Path
 from urllib.request import Request, urlopen
-from urllib.parse import urlparse
 import base64
 import re
-import sys
 
 import cairosvg
 

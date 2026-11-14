@@ -97,10 +97,6 @@ def parse_full(text):
     m = FULL_RE.fullmatch(str(text or "").strip())
     return [int(m.group(i)) for i in range(1, 4)] if m else None
 
-def full_of(data):
-    meta = data.get("metadata") if isinstance(data, dict) else None
-    return parse_full(meta.get("version")) if isinstance(meta, dict) else None
-
 def highest_full(project_path):
     return highest_version(project_path)
 

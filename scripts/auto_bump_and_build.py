@@ -154,35 +154,6 @@ def detect_changed_projects(changed_files, project_dirs):
     return sorted(changed_projects)
 
 
-def detect_unregistered_projects(project_dirs):
-    """
-    Returns list of (project_path, category) for projects that have no compiled
-    build files yet OR do not appear in the root README catalog.
-    """
-    root_readme = os.path.join(REPO_ROOT, "README.md")
-    root_content = ""
-    if os.path.isfile(root_readme):
-        with open(root_readme, encoding="utf-8") as f:
-            root_content = f.read()
-
-    unregistered = []
-    for project_path, category in project_dirs.items():
-        project_name = os.path.basename(project_path)
-        build_dir = os.path.join(REPO_ROOT, "builds", project_name)
-
-        has_build_files = os.path.isdir(build_dir) and bool(
-            glob.glob(os.path.join(build_dir, "*.mcpack"))
-            + glob.glob(os.path.join(build_dir, "*.mcaddon"))
-            + glob.glob(os.path.join(build_dir, "*.mcworld"))
-        )
-        in_root_readme = True
-
-        if not has_build_files or not in_root_readme:
-            unregistered.append((project_path, category))
-
-    return unregistered
-
-
 # ─────────────────────────────────────────────────────────────────────────────
 # Version helpers
 # ─────────────────────────────────────────────────────────────────────────────

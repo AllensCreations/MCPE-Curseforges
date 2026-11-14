@@ -103,41 +103,6 @@ def tag_prefix(tag_type: int, name: str) -> bytes:
     return bytes([tag_type]) + struct.pack("<H", len(encoded)) + encoded
 
 
-def patch_numeric_tag(raw: bytes, tag_type: int, name: str, value: int) -> bytes:
-    sizes = {1: 1, 3: 4, 4: 8}
-    if tag_type not in sizes:
-        raise ValueError(f"Unsupported numeric NBT type: {tag_type}")
-    prefix = tag_prefix(tag_type, name)
-    index = raw.find(prefix, 8)
-    if index < 0:
-        raise ValueError(f"Missing required NBT tag {name!r} in level.dat")
-    start = index + len(prefix)
-    size = sizes[tag_type]
-    if tag_type == 1:
-        packed = struct.pack("<b", value)
-    elif tag_type == 3:
-        packed = struct.pack("<i", value)
-    else:
-        packed = struct.pack("<q", value)
-    return raw[:start] + packed[:size] + raw[start + size:]
-
-
-def add_root_numeric_tag(raw: bytes, tag_type: int, name: str, value: int) -> bytes:
-    """Append a missing root-level numeric NBT tag before the root END marker."""
-    if len(raw) < 9 or raw[-1] != 0:
-        raise ValueError("Cannot safely append a root NBT tag: invalid compound terminator.")
-    if tag_type == 1:
-        packed = struct.pack("<b", value)
-    elif tag_type == 3:
-        packed = struct.pack("<i", value)
-    elif tag_type == 4:
-        packed = struct.pack("<q", value)
-    else:
-        raise ValueError(f"Unsupported root numeric NBT type: {tag_type}")
-    payload = raw[8:-1] + tag_prefix(tag_type, name) + packed + raw[-1:]
-    return raw[:4] + struct.pack("<I", len(payload)) + payload
-
-
 def patch_string_tag(raw: bytes, name: str, value: str) -> bytes:
     prefix = tag_prefix(8, name)
     index = raw.find(prefix, 8)

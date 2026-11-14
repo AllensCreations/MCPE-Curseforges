@@ -1,6 +1,5 @@
 #!/usr/bin/env python3
 """Search-and-replace updates: exact, atomic, idempotent, one .sh."""
-import json
 import os
 import stat
 import subprocess

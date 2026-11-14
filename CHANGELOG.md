@@ -2,6 +2,11 @@
 
 ---
 
+## [1.0.21] - 2026-11-14 - Remove Dead Code
+
+### Improved & Balanced
+- **Dead code removed**: six functions that nothing calls (`detect_unregistered_projects`, `patch_numeric_tag`, `add_root_numeric_tag`, `full_of`, `changelog_style`, `render_rollup`) and four unused imports.
+
 ## [1.0.20] - 2026-11-14 - Merge Docs Files and Shared Requirements
 
 ### Improved & Balanced

@@ -1,6 +1,5 @@
 import os
 import json
-from pathlib import Path
 from PIL import Image
 from crafting_template import compose_recipe_diagram
 

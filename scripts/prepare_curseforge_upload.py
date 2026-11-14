@@ -365,11 +365,6 @@ def render_flat_entry(new_version, date_text, merged):
     return f"## [{new_version}] - {date_text}\n\n{_intro(new_version, [e[1] for e in merged], [_entry_name(e) for e in merged])}\n\n{body}"
 
 
-def changelog_style():
-    """'spoiler' (default): HTML with CurseForge's div.spoiler folds. 'plain': markdown headings."""
-    return "plain" if os.environ.get(CHANGELOG_STYLE_ENV, "spoiler").strip().lower() == "plain" else "spoiler"
-
-
 def changelog_type(release_type):
     """CurseForge changelogType for an upload: html only when a fold layout is sent."""
     return "markdown"
@@ -395,25 +390,6 @@ def _series_block(major, minor, items, is_open, style, level):
     bodies = [item[3].partition("\n")[2] for item in reversed(items)]
     body = _sections_html(bodies) if style == "spoiler" else _merge_bodies(bodies)
     return _fold(f"v{major}.{minor}.x ({_updates(len(items))}, {span})", body, is_open, style, level)
-
-
-def render_rollup(entries, new_version, release_type, style="spoiler"):
-    """Group historical updates by Release major, then by Beta minor series."""
-    tree = {}
-    for entry in entries:
-        tree.setdefault(entry[0][0], {}).setdefault(entry[0][1], []).append(entry)
-    glue = "" if style == "spoiler" else "\n\n"
-    blocks = []
-    for major in sorted(tree, reverse=True):
-        first = not blocks
-        series = tree[major]
-        inner = [
-            _series_block(major, minor, series[minor], first and index == 0, style, 4)
-            for index, minor in enumerate(sorted(series, reverse=True))
-        ]
-        total = sum(len(items) for items in series.values())
-        blocks.append(_fold(f"v{major}.x.x ({_updates(total)})", glue.join(inner), first, style, 3))
-    return glue.join(blocks)
 
 
 def render_upload_changelog(new_version, date_text, merged, entries, release_type, style=None):
