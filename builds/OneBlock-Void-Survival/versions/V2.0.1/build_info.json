@@ -1,0 +1,8 @@
+{
+  "changelog_version": "2.0.1",
+  "manifest_version": "2.0.1",
+  "packages": {
+    "VoidSurvival V2.0.1.mcworld": "170a3de28468a24ff380b8763f41c1984ccd1bdd4740235f3333d05bde2a87ee"
+  },
+  "source_sha256": "0f1d5e6bfdca410caa2f5958ccd2a07ef833da4b3243d523afd3e043270d2e4b"
+}
