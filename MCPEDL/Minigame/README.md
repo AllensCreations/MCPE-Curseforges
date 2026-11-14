@@ -6,7 +6,7 @@ Source files for Minecraft Bedrock survival challenges and minigames by ALNStudi
 
 | Project | Source | Download |
 | :--- | :--- | :--- |
-| Alphabet Scavenger Hunt | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Minigame/Alphabet-Scavenger-Hunt/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Alphabet-Scavenger-Hunt/AlphabetHunt%20V1.9.0.mcaddon) |
+| Alphabet Scavenger Hunt | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Minigame/Alphabet-Scavenger-Hunt/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Alphabet-Scavenger-Hunt/AlphabetHunt%20V1.9.1.mcaddon) |
 | Team Inventory | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Minigame/Shared-Hivemind-Inventory/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Shared-Hivemind-Inventory/TeamInventory%20V1.22.6.mcaddon) |
 | Tethered: Breaker & Builder | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Minigame/Tethered-Breaker-And-Builder/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Tethered-Breaker-And-Builder/TetheredBuilder%20V1.12.0.mcaddon) |
 | Mob Chaos Behavioral Roulette | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Minigame/Mob-Chaos-Behavioral-Roulette) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Mob-Chaos-Behavioral-Roulette/MobChaos%20V1.4.2.mcaddon) |

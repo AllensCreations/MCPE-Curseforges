@@ -1,0 +1,8 @@
+{
+  "changelog_version": "1.9.1",
+  "manifest_version": "1.9.1",
+  "packages": {
+    "AlphabetHunt V1.9.1.mcaddon": "716cc71bcf0cf3a62c65dce3b021fe81efb68f3815189ab0bf860f5dd575ad75"
+  },
+  "source_sha256": "f0795197576792ad6be2bdedf4cd24575725db9d6b7ff3f0157dce35644710f4"
+}

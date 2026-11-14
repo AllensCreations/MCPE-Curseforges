@@ -54,7 +54,7 @@ This directory stores compiled Add-ons (`.mcaddon`), Maps (`.mcworld`), Scripts 
 
 | Project Name | Type | Download Link | Build Folder |
 | :--- | :--- | :--- | :--- |
-| **Alphabet Scavenger Hunt** | Minigame (.mcaddon) | [Download (.mcaddon)](Alphabet-Scavenger-Hunt/AlphabetHunt%20V1.9.0.mcaddon) | [`Alphabet-Scavenger-Hunt/`](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/builds/Alphabet-Scavenger-Hunt) |
+| **Alphabet Scavenger Hunt** | Minigame (.mcaddon) | [Download (.mcaddon)](Alphabet-Scavenger-Hunt/AlphabetHunt%20V1.9.1.mcaddon) | [`Alphabet-Scavenger-Hunt/`](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/builds/Alphabet-Scavenger-Hunt) |
 | **Team Inventory** | Minigame (.mcaddon) | [Download (.mcaddon)](Shared-Hivemind-Inventory/TeamInventory%20V1.22.6.mcaddon) | [`Shared-Hivemind-Inventory/`](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/builds/Shared-Hivemind-Inventory) |
 | **Tethered: Breaker & Builder** | Minigame (.mcaddon) | [Download (.mcaddon)](Tethered-Breaker-And-Builder/TetheredBuilder%20V1.12.0.mcaddon) | [`Tethered-Breaker-And-Builder/`](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/builds/Tethered-Breaker-And-Builder) |
 | **Trivia Vault The Locked World** | Minigame (.mcaddon) | [Download (.mcaddon)](Trivia-Vault-The-Locked-World/TriviaVault%20V1.19.0.mcaddon) | [`Trivia-Vault-The-Locked-World/`](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/builds/Trivia-Vault-The-Locked-World) |
