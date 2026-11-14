@@ -1,218 +1,107 @@
-# Vanilla Quality of Life
+# Vanilla Quality of Life — Survival convenience features for Minecraft Bedrock
 
 **By ALNStudios**
 
 [![Minecraft Bedrock](https://img.shields.io/badge/Minecraft%20Bedrock-Stable%20Release-brightgreen?style=flat-square&logo=minecraft)](https://github.com/AllensCreations/MCPE-Curseforges)
 [![Format](https://img.shields.io/badge/Format-.MCPACK%20%7C%20.MCADDON%20%7C%20.MCWORLD-blue?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges)
 
-**Survival convenience features for Minecraft Bedrock Edition**
+**Auto-switching tools, 128-log tree felling, and 64-ore vein mining with Tree Capitator and Domino Ore Miner for Minecraft Bedrock.**
 
-Combines dynamic lighting, offhand quick-swap, automatic tool selection, tree capitator, ore-vein mining, mob interactions, and crafting adjustments in one add-on.
-
----
+> Adds automatic tool and weapon switching, Tree Capitator, Domino Ore Miner, offhand quick-swap with moving held light, extra leashable mobs, new recipes, and Wandering Trader collector trades. It suits survival players who want fewer inventory chores.
 
 ## Overview
 
-**Vanilla Quality of Life** adds survival conveniences to Minecraft Bedrock Edition, including tool switching, tree and ore chain mining, offhand utilities, mob interactions, and crafting adjustments. Mining behavior can be selected through the pack’s subpack settings, including a preset that disables both mining features.
+Hit a block and the best tool from your hotbar swaps into Slot 1, then returns a moment after you stop. Sneak while chopping a log or mining an ore to fell the whole tree or take the connected vein. Offhand quick-swap, moving held light, leads for most mobs, stonecutter woodcutting, and extra recipes cover the rest of survival play. Three mining presets in the Behavior Pack's subpack settings choose whether chain mining needs sneaking, works automatically, or is off.
 
----
+## Key Features
 
-## Features and Specifications
+### Tool and Weapon Auto-Switch
+- **What Happens**: With Slot 1 selected, hitting a block or mob swaps the best tool from your hotbar into Slot 1, and the item that was there returns a moment after you stop.
+- **How It Works**: Stone, ores, and bricks pick the best Pickaxe by tier, Efficiency, and durability. Logs, wood, and planks pick an Axe, dirt, sand, gravel, and clay pick a Shovel, leaves and cobwebs pick Shears, and mobs pick the best Sword or Axe. Glass and ice pick a tool with Silk Touch if you carry one, and bookshelves prefer an Axe with Silk Touch.
+- **Good To Know**: Tools close to breaking are avoided, and a Mending tool that needs repair wins when two tools are equally good. Only hotbar tools are used, so items in your backpack are never moved. Auto-switch acts only while you are hitting blocks, never just from looking at them.
 
-### Feature Comparison Highlights
+### Tree Capitator
+- **What Happens**: Sneak while chopping a log with an Axe to fell the whole tree, up to 128 logs, with the drops merged into full stacks within 5-block areas.
+- **How It Works**: It follows connected logs upward and sideways from the log you broke, matches the wood species so an Oak tree only fells Oak, and needs a natural leaf canopy before it fells an Overworld tree. Wart blocks and Shroomlights count as canopy only for Crimson and Warped fungi.
+- **Good To Know**: Trees touching player-built blocks such as planks, doors, fences, glass, bricks, or storage are left standing, and logs more than 8 blocks sideways from the broken log are ignored. A very large tree can be only partly felled because of the 128-log cap, and an action-bar message tells you when that happens. Leaves stay in place and decay naturally, so saplings, sticks, and apples still drop.
 
-### Tool & Weapon Switching
-- **Vanilla Bedrock**: Manual hotbar selection
-- **With Vanilla QoL**: Automatic optimal tool/weapon swap from your hotbar when holding Slot 1, and the displaced item returns after you stop
+### Domino Ore Miner
+- **What Happens**: Sneak while mining an ore with a Pickaxe to harvest the connected vein, up to 64 ore blocks, or 4 for Ancient Debris.
+- **How It Works**: Veins connect across faces, edges, and corners, and stone and deepslate versions chain together, so Coal Ore and Deepslate Coal Ore mine as one vein. Silk Touch drops the ore blocks, Fortune adds extra drops, and Redstone gets extra dust instead of a multiplier.
+- **Good To Know**: Ores give their normal experience without Silk Touch, as up to 10 orbs per chain with any extra going straight to you. Drops merge into full stacks within 5-block areas so only a few item entities appear.
 
-### Tree Harvesting
-- **Vanilla Bedrock**: 1 log at a time
-- **With Vanilla QoL**: Fells entire trees up to 128 logs; the Auto Chain Mine subpack works without sneaking while an axe is held in selected hotbar slot 1
+### Mining Presets
+- **What Happens**: Three presets in the Behavior Pack's subpack settings choose how chain mining starts: Sneak to Chain Mine (Default), Auto Chain Mine: Tool in Slot 1, and Chain Mining Off (Other Features On).
+- **How It Works**: The default needs sneaking. Auto Chain Mine needs no sneaking but works only while an Axe or Pickaxe is held in Slot 1. Chain Mining Off disables both mining features while every other feature stays active.
+- **Good To Know**: Changing the preset may need the pack reactivated or the world reloaded.
 
-### Ore Vein Mining
-- **Vanilla Bedrock**: 1 ore block at a time
-- **With Vanilla QoL**: Domino mines contiguous ore veins across 26 neighbors; the Auto Chain Mine subpack works without sneaking while a pickaxe is held in selected hotbar slot 1
+### Tool Durability Guard
+- **What Happens**: Chain mining stops when your tool has 0 durability left, with a warning sound and an action-bar alert.
+- **How It Works**: Chain mining uses a tool down to 0 durability without breaking it, and the next use of that tool breaks it.
+- **Good To Know**: A tool at 0 durability breaks only the single block you hit and does not start Tree Capitator or Domino Ore Miner. In Creative mode chain mining uses no durability and drops no items.
 
-### Optional Mining Subpacks
-- **Auto Chain Mine: Tool in Slot 1**: Tree Capitator and Domino Ore Miner trigger without sneaking, but only while an axe or pickaxe is held in the first hotbar slot. Every log or ore you break with that tool is chain mined.
-- **Chain Mining Off (Other Features On)**: Disables Tree Capitator and Domino Ore Miner while every other feature stays active.
-- **Sneak to Chain Mine (Default)**: Tree Capitator and Domino Ore Miner are on and trigger only while you sneak, so normal chopping and mining stay unchanged.
-- Choose one preset in the Behavior Pack's subpack settings. Changes may require reactivating the pack or reloading the world.
-### Tool Durability Safety
-- **Vanilla Bedrock**: Tools break unexpectedly
-- **With Vanilla QoL**: Auto-halts chain mining when the tool has 0 durability left, with alert sounds
+### Offhand Quick-Swap and Held Light
+- **What Happens**: Double-sneak while standing still, or sneak and use in the air, to move your held item into your offhand.
+- **How It Works**: Torches, Soul Torches, Redstone Torches, Lanterns, Soul Lanterns, Clocks, Compasses, and Recovery Compasses swap this way. Held light moves with you: Torches give Light Level 14, Soul Torches and Soul Lanterns Level 10, Redstone Torches Level 7, and Lanterns, Glowstone, Sea Lanterns, Shroomlights, and Jack o'Lanterns Level 15.
 
-### Offhand Utilities & Lighting
-- **Vanilla Bedrock**: Shield and Totem only
-- **With Vanilla QoL**: Double-sneak offhand swap + real-time moving light from torches, lanterns, and glowing blocks
+### Universal Leads
+- **What Happens**: Leads work on Villagers, Iron Golems, Creepers, Endermen, Ghasts, and most other mobs, while the Warden, Wither, and Ender Dragon cannot be leashed.
+- **How It Works**: Hostile mobs attached to a lead do not attack players, so you can move them safely. Sneak-interacting with a Villager does not open the trading screen, so a lead can be attached.
 
-### Leashing Mobs
-- **Vanilla Bedrock**: Passive mobs only
-- **With Vanilla QoL**: Leash support extends to many additional mobs; the Warden, Wither, and Ender Dragon remain immune.
+### Pet and Mount Protection
+- **What Happens**: Tamed Wolves, Cats, Parrots, Horses, Donkeys, Mules, and Llamas take no damage from player melee attacks, sweeping strikes, and arrows.
+- **Good To Know**: Tamed animals are also immune to Creeper and TNT explosion damage.
 
-### Hostile Mob Aggro on Leads
-- **Vanilla Bedrock**: Hostile attacks continue
-- **With Vanilla QoL**: Pacified while attached to a lead
+### Fast Leaf Decay and Sleep
+- **What Happens**: Floating leaves from chopped trees decay faster, and one sleeping player skips the night.
+- **Good To Know**: The faster decay comes from a random tick speed of 4 that also speeds up crop growth. It is set once when the world first loads, so you can change it afterward in your world's game rules.
 
-### Pet Friendly-Fire
-- **Vanilla Bedrock**: Pets damaged by player attacks
-- **With Vanilla QoL**: Immune to player melee sweeps, arrows, and explosions
+### Stonecutter Woodcutting
+- **What Happens**: The Stonecutter cuts all 12 wood types: Oak, Spruce, Birch, Jungle, Acacia, Dark Oak, Mangrove, Cherry, Pale Oak, Bamboo, Crimson, and Warped.
+- **How It Works**: Logs give 4 Planks, 8 Slabs, or 4 Stairs. Planks give 2 Slabs, 1 Stair, 1 Trapdoor, 1 Fence, or 1 Fence Gate.
 
-### Leaf Decay Speed
-- **Vanilla Bedrock**: Standard leaf decay
-- **With Vanilla QoL**: Faster leaf decay and crop growth through a higher random tick speed, set once when the world first loads
+### Stackable Potions and Milk
+- **What Happens**: Potions, Splash Potions, Lingering Potions, and Milk Buckets stack up to 16 per slot.
 
-### Woodcutting in Stonecutter
-- **Vanilla Bedrock**: Not supported (stone only)
-- **With Vanilla QoL**: All 12 wood types supported at fair 1:1 ratios
+### Mob Head Drops and Shulker Shells
+- **What Happens**: Player kills have a 1.0% base chance to drop a mob head, plus 0.5% per Looting level, up to 2.5% at Looting III.
+- **How It Works**: Zombies, Husks, and Drowned drop a Zombie Head, Skeletons, Strays, and Bogged drop a Skeleton Skull, Creepers drop a Creeper Head, and Piglins and Zombified Piglins drop a Piglin Head. Wither Skeletons, the Ender Dragon, and slain players use the same chance for their own heads.
+- **Good To Know**: Shulkers drop 1 to 2 Shulker Shells per kill, with Looting adding more.
 
-### Potion & Milk Stacking
-- **Vanilla Bedrock**: 1 per inventory slot
-- **With Vanilla QoL**: Stacks up to 16
+### Wandering Trader Collector Trades
+- **What Happens**: Wandering Traders can offer collector trades that sell mob heads for 1 Diamond Block and 16 Emeralds.
+- **Good To Know**: Biome flora trades offer Spore Blossoms, Wither Roses, Nautilus Shells, Bundles, and the Heart of the Sea.
 
-### Shulker Shell Yield
-- **Vanilla Bedrock**: 0 to 1 shell per mob
-- **With Vanilla QoL**: 1 to 2 shells per Shulker kill (+1 with Looting)
-
-### Multiplayer Sleep
-- **Vanilla Bedrock**: All online players must sleep
-- **With Vanilla QoL**: 1 player sleeping skips the night
-
-### Mob Head Trophy Drops
-- **Vanilla Bedrock**: Requires Charged Creeper kill
-- **With Vanilla QoL**: 1.0% base drop chance on player kills (+0.5% per Looting)
-
----
-
-### Key Gameplay Mechanics
-
-#### 1. Passive Auto-Switch Tools (Slot 1)
-- Hold Slot 1 (first hotbar slot) to activate auto tool selection:
-  - Hit stone, ores, or brick -> Equips best Pickaxe (evaluating tier, efficiency, and durability).
-  - Hit logs, wood, or planks -> Equips best Axe.
-  - Hit dirt, sand, gravel, or clay -> Equips best Shovel.
-  - Hit leaves or cobwebs -> Equips Shears.
-  - Hit glass or ice -> Equips a tool enchanted with Silk Touch if you carry one.
-  - Hit bookshelves -> Prefers an Axe enchanted with Silk Touch.
-  - Attack hostile or passive mobs -> Equips best melee Weapon (Sword or Axe).
-- Continuous switching: While you are actively hitting blocks, aiming at a different kind of block switches to its best tool. Auto-switch only acts while you are mining, never just from looking at a block.
-- Low durability penalty: Automatically favors healthy tools so nearly-broken tools aren't worn down.
-- Mending preference: When two tools are equally good for the job, the Mending tool that needs repair is used first.
-- Hotbar only: Only tools in your hotbar are used, so items in your backpack are never moved.
-- Swap-back: A moment after you stop mining or fighting, the item that was in Slot 1 returns to its original slot.
-
-#### 2. Smart Tree Capitator (Axe; sneak requirement depends on selected subpack)
-- With Sneak to Chain Mine (Default), sneak while chopping any tree log with an axe to fell the entire tree. Auto Chain Mine removes this requirement while the axe is held in selected hotbar slot 1:
-  - **Upward-Biased connected-log search**: Connects same-level and upward logs, including diagonal branches, without searching below the stump.
-  - **Species Matching**: Enforces strict wood species matching (Oak only fells Oak) to prevent chain reactions into adjacent trees.
-  - **The Leaf Scan (Build & Bush Protection)**: Ignores player-placed decorative leaves (harvested with shears), protecting your custom bushes, hedges, and roof designs while exclusively verifying natural tree canopies.
-  - **House Protection (the canopy check)**: Requires natural-looking leaf canopy evidence for Overworld trees; wart blocks and shroomlights count only for crimson/warped fungi. Trees touching player-built blocks such as planks, doors, fences, glass, bricks, or storage are left standing, and logs more than 8 blocks from the broken log are ignored. This reduces false positives but cannot guarantee protection for every custom build.
-  - **Natural Leaf Decay**: Preserves leaf canopies for authentic leaf decay drops (saplings, sticks, apples).
-  - **Capacity Limit**: Up to 128 logs per tree operation.
-  - **Known Limits**: A very large tree can be only partly felled because of the 128-log cap. Logs more than 8 blocks sideways from the broken log are ignored, and trees touching player-built blocks are skipped, so chop those by hand. An action-bar message tells you when a tree was too large to fell completely.
-  - **Grouped Drops**: Logs are merged into full stacks within 5-block areas so only a few item entities appear.
-
-#### 3. Domino Ore Miner (Pickaxe; sneak requirement depends on selected subpack)
-- With Sneak to Chain Mine (Default), sneak while mining any mineral ore with a pickaxe to harvest the connected ore vein. Auto Chain Mine removes this requirement while the pickaxe is held in selected hotbar slot 1:
-  - **connected-block Detection**: Sweeps faces, edges, and corners across all 3 spatial dimensions.
-  - **Category Normalization**: Normalizes stone and deepslate variants (e.g. Coal Ore and Deepslate Coal Ore chain together).
-  - **Fortune & Silk Touch**: Honors Silk Touch block drops and Fortune bonuses; Redstone Fortune adds extra dust instead of multiplying it.
-  - **Experience**: Chain-mined ores give their normal experience when mined without Silk Touch: up to 10 orbs per chain, with any extra experience going straight to you.
-  - **Creative Mode**: Chain mining and felling use no tool durability and drop no items.
-  - **Capacity Limit**: Up to 64 ore blocks per vein cluster.
-  - **Grouped Drops**: Drops are merged into full stacks within 5-block areas so only a few item entities appear.
-
-#### 4. Durability Safety Guard
-- Automatically halts Tree Capitator and Domino Ore Miner operations if your tool has **0 durability remaining** or is gone. A tool at 0 durability breaks only the single block you hit and does not start either feature.
-- Plays a warning sound and displays an action-bar alert when the durability threshold is reached. Chain mining uses the tool down to 0 durability without breaking it; the next use of that tool breaks it.
-
-#### 5. Offhand Quick-Swap & Dynamic Handheld Lighting
-- Supported quick-swap items: Torches, Soul Torches, Redstone Torches, Lanterns, Soul Lanterns, Clocks, Compasses, Recovery Compasses.
-- Quick-swap gestures:
-  - **Double-sneak** (crouch twice within 0.7 seconds while standing still) to swap held item into offhand.
-  - **Sneak + Use/Tap in air** to swap held item into offhand.
-- Real-time dynamic light: Torches emit Light Level 14, Soul Torches and Soul Lanterns Level 10, Redstone Torches Level 7, and Lanterns Level 15 as you move. Glowstone, Sea Lanterns, Shroomlights, and Jack o'Lanterns also emit Level 15 while held.
-
-#### 6. Universal Leashing (101 Mobs)
-- Leash any entity: Villagers, Iron Golems, Hostiles, Creepers, Endermen, Wardens, Withers, and Ghasts.
-- Pacification on leads: Hostile mobs attached to leads do not attack players, allowing safe relocation.
-- Sneak-interaction on Villagers attaches leads without opening the trading UI.
-
-#### 7. Friendly-Fire Immunity for Pets and Mounts
-- Tamed Wolves, Cats, Parrots, Horses, Donkeys, Mules, and Llamas take no damage from player melee attacks, sweeping strikes, and projectile fire.
-- Tamed entities are immune to Creeper and TNT explosion damage.
-
-#### 8. Fast Leaf Decay
-- Floating leaves from chopped trees decay faster because the random tick speed is raised to 4 when the world first loads. This also speeds up crop growth, and you can change it afterward in your world's game rules.
-- Natural leaf drops such as saplings, sticks, and apples remain available as leaves decay.
-
-#### 9. Stonecutter Woodcutter Integration
-- Cut all 12 wood types (Oak, Spruce, Birch, Jungle, Acacia, Dark Oak, Mangrove, Cherry, Pale Oak, Bamboo, Crimson, Warped):
-  - Logs -> 4 Planks, 8 Slabs, 4 Stairs
-  - Planks -> 2 Slabs, 1 Stair, 1 Trapdoor, 1 Fence, 1 Fence Gate
-
-#### 10. Stackable Potions and Buckets
-- Standard Potions, Splash Potions, Lingering Potions, and Milk Buckets stack up to 16 per slot.
-
-#### 11. Mob Head Trophy System
-- Slain mobs have a 1.0% base drop chance (+0.5% per Looting level up to 2.5% max at Looting III) on player kills:
-  - Zombie, Husk, Drowned -> Zombie Head
-  - Skeleton, Stray, Bogged -> Skeleton Skull
-  - Creeper -> Creeper Head
-  - Piglin, Zombified Piglin -> Piglin Head
-  - Wither Skeleton -> 1.0% base drop rate (+0.5% per Looting level)
-  - Ender Dragon -> 1.0% drop chance (+0.5% per Looting level)
-  - PvP Player Kills -> Slain players have 1.0% drop chance (+0.5% per Looting level) for Player Head
-
-#### 12. Wandering Trader Collector Trades
-- Rare 2% spawn rate collector trades offering mob heads for **1 Diamond Block + 16 Emeralds**.
-- Biome flora trades: Spore Blossoms, Wither Roses, Nautilus Shells, Bundles, and Heart of the Sea.
-
----
-
-## Crafting and Recycling Recipes
-
-### Landscaping and Nature
-- Dirt + Any Seed -> 1 Grass Block
-- 3 Gravel -> 3 Flint (Shapeless)
-- 1 Cobblestone or Stone Brick + 1 Moss Block (or Vine) -> 1 Mossy Block
-- 4 String + 1 Slimeball -> 1 Cobweb
-- 1 Moss Block + 1 Flowering Azalea + 1 Vine -> 1 Spore Blossom
-- 1 Diorite + 1 Bone Meal -> 1 Calcite
-- 2 Basalt + 2 Cobblestone -> 4 Tuff Blocks
-- 1 Gold Block + 3 Stone + 2 Sticks -> 1 Bell
-- 1 Sandstone or Red Sandstone -> 4 Sand
-- 1 Ink Sac + 1 Glowstone Dust -> 1 Glow Ink Sac
-- 1 Quartz + 1 Lapis Lazuli + 2 Sand -> 2 Prismarine Shards
+### Landscaping and Nature Recipes
+- **What Happens**: New recipes turn common items into landscaping and nature blocks.
+- **How It Works**: Dirt and any Seed make 1 Grass Block. 3 Gravel make 3 Flint. A Cobblestone or Stone Brick with a Moss Block or Vine makes a Mossy Block. 4 String and 1 Slimeball make a Cobweb. A Moss Block, a Flowering Azalea, and a Vine make a Spore Blossom. A Diorite and a Bone Meal make a Calcite. 2 Basalt and 2 Cobblestone make 4 Tuff. A Gold Block, 3 Stone, and 2 Sticks make a Bell. A Sandstone or Red Sandstone makes 4 Sand. An Ink Sac and Glowstone Dust make a Glow Ink Sac. A Quartz, a Lapis Lazuli, and 2 Sand make 2 Prismarine Shards.
 
 ### Fair Crafting Yields
-- 6 Blocks -> 8 Stairs (all 95 stair variants)
-- 1 Iron Ingot + 2 Iron Nuggets -> 4 Chains
-- 3 Sugar Cane -> 6 Paper
-- 6 Glass Panes -> 2 Glass Blocks
-- 8 Concrete Powder + 1 Water Bottle -> 8 Solid Concrete + 1 Empty Glass Bottle
+- **What Happens**: Several vanilla recipes now return fairer amounts.
+- **How It Works**: 6 Blocks make 8 Stairs for all 95 stair variants. An Iron Ingot and 2 Iron Nuggets make 4 Chains. 3 Sugar Cane make 6 Paper. 6 Glass Panes make 2 Glass Blocks. 8 Concrete Powder and a Water Bottle make 8 Solid Concrete and an Empty Glass Bottle.
 
 ### Smelting and Recycling
-- Smelt Rotten Flesh in a furnace, smoker, or campfire -> Leather
-- 2 Slabs -> 1 Full Block
-- 4 Stairs -> 3 Full Blocks
-- 1 Wool (any color) -> 4 String
-- 1 Blast Furnace or Smoker -> 1 Furnace
-- Repeaters and Comparators accept Cobblestone, Deepslate, or Blackstone
-- Uncrafting support: Amethyst Blocks (4 shards), Quartz Blocks (4 quartz), Clay Blocks (4 clay balls), Glowstone Blocks (4 dust), Magma Blocks (4 cream), Honeycomb Blocks (4 honeycombs), Melons (9 slices), Nether Wart Blocks (9 nether wart)
+- **What Happens**: Rotten Flesh smelts into Leather in a furnace, smoker, or campfire, and several blocks can be turned back into their parts.
+- **How It Works**: 2 Slabs make 1 Full Block, 4 Stairs make 3 Full Blocks, a Wool of any color makes 4 String, and a Blast Furnace or Smoker makes a Furnace. Repeaters and Comparators accept Cobblestone, Deepslate, or Blackstone.
+- **Good To Know**: Amethyst Blocks, Quartz Blocks, Clay Blocks, Glowstone Blocks, Magma Blocks, Honeycomb Blocks, Melons, and Nether Wart Blocks can be uncrafted into their original items.
 
----
+## How to Use
 
-## Compatibility & Packaging Formats
+1. Import the complete add-on and enable both included packs in your world settings.
+2. Choose a mining preset in the Behavior Pack's subpack settings: Sneak to Chain Mine (Default), Auto Chain Mine: Tool in Slot 1, or Chain Mining Off (Other Features On).
+3. Put your tools in the hotbar, select Slot 1, and hit blocks or mobs to see the best tool swap in.
+4. Sneak while breaking a log with an Axe or an ore with a Pickaxe to fell the tree or mine the vein.
+5. Double-sneak while standing still to move a held Torch, Lantern, Clock, or Compass into your offhand.
 
-- Minecraft Bedrock Edition 1.26.50 or newer.
-- Designed around Minecraft Bedrock gameplay mechanics
-- **Available Package Formats**:
-  - **Complete **: 1-click full install with all features and companion visuals.
-  - **Behavior Pack**: Standalone gameplay and survival mechanics.
-  - **Resource Pack**: Visual lead attachments and companion animations.
+## Common Questions
 
----
+- **Why did a tree stay standing?**: Trees touching player-built blocks such as planks, doors, or fences are skipped, and a very large tree is cut off at 128 logs.
+- **Why did auto-switch ignore a tool in my backpack?**: Auto-switch only uses tools in your hotbar.
+- **What happens when a tool reaches 0 durability?**: Chain mining stops, and the next use of that tool breaks it.
+
+## Compatibility
+
+- Minecraft Bedrock Edition: 1.26.50 or newer.
 - Experimental features: Not verified.
 - Achievements: Likely achievement-friendly.
 - Verification: Source created, not tested in game.
@@ -220,10 +109,7 @@ Combines dynamic lighting, offhand quick-swap, automatic tool selection, tree ca
 ## Creator and Permissions
 
 - Creator: ALNStudios
-- Profiles: [CurseForge Profile](https://www.curseforge.com/members/allenscreations/projects) · [MCPEDL Profile](https://mcpedl.com/user/allenscreations/)
-
-<a href="https://www.curseforge.com/members/allenscreations/projects"><img src="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/assets/Images/curseforge.jpg" alt="CurseForge" width="45%"></a> <a href="https://mcpedl.com/user/allenscreations/"><img src="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/assets/Images/MCPEDL.jpg" alt="MCPEDL" width="45%"></a>
-- [MCPEDL Profile](https://mcpedl.com/user/alnstudios/)
+- Profiles: [CurseForge Profile](https://www.curseforge.com/members/allenscreations/projects) · [MCPEDL Profile](https://mcpedl.com/user/alnstudios/)
 
 <a href="https://www.curseforge.com/members/allenscreations/projects"><img src="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/assets/Images/curseforge.jpg" alt="CurseForge" width="45%"></a> <a href="https://mcpedl.com/user/alnstudios/"><img src="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/assets/Images/MCPEDL.jpg" alt="MCPEDL" width="45%"></a>
 
@@ -243,5 +129,4 @@ Combines dynamic lighting, offhand quick-swap, automatic tool selection, tree ca
 
 ## Search & Discovery Keywords
 
-Vanilla Quality of Life Minecraft Bedrock, Feature Comparison Highlights Bedrock, Tool & Weapon Switching Bedrock, Tree Harvesting Bedrock, Ore Vein Mining Bedrock, Minecraft PE survival, MCPEDL, CurseForge Bedrock, ALNStudios, Minecraft Bedrock add-on, MCPEDL add-on.
-
+Minecraft Bedrock add-on, Vanilla Quality of Life Bedrock mod, MCPEDL add-on, CurseForge Bedrock, ALNStudios, tool auto switch, tree capitator, ore vein miner, offhand quick swap, universal leash.

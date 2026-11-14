@@ -2,6 +2,15 @@
 
 ---
 
+## [1.0.28] - 2026-11-14 - Description Rewrite
+
+### Improved & Balanced
+- **Clearer Description**: The listing now follows the new layout with an overview, feature cards, step-by-step instructions, common questions, and a compatibility summary.
+
+### Fixed
+- **Leash Details**: The description no longer says the Warden and Wither can be leashed, and no longer claims a fixed number of leashable mobs.
+- **Creator Links**: The MCPEDL profile link and its image now appear once and point to the correct page.
+
 ## [1.0.29] - 2026-11-14 - [Universal Clutch Toggle]
 
 ### Added
