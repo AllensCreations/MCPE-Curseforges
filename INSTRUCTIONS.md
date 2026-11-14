@@ -114,7 +114,7 @@ Implementation:
 - Applies to all new recipes and any recipe touched. Check type against Samples first.
 
 ### 1.5 Recipe Images and Sprites
-- Optional. ONLY on request or project instructions, ONLY for DESCRIPTION. NEVER AI image generation unless asked.
+- ALWAYS: every custom crafting recipe gets a diagram. RUN `scripts/generate_recipe_images.py --project <pack>` (general generator for every pack, no per-pack registration) so the PNG lands in `<pack>/assets/recipes/`, NEVER skip. ALWAYS: every custom item the DESCRIPTION shows gets its sprite in `<pack>/assets/items/` (PNG, nearest-neighbor 128x128): `scripts/generate_recipe_images.py --project <pack> --item <id>`. `<pack>/assets/snapshots/` holds screenshots and GIFs the user uploads: NEVER rename, edit or delete. The file name is the caption on the page (`01-Cursor-Light.png` -> "Cursor Light"; a leading number only sets the order). `scripts/build_description_views.py` shows all three folders on the CurseForge page. Commit the images in the same task. ONLY for DESCRIPTION. NEVER AI image generation unless asked.
 - ALWAYS verified absolute raw GitHub URLs. Confirm image exists, committed, matches item/recipe. Remove outdated.
 - Sprites: real texture from add-on or authoritative vanilla source. Inventory-style, NEVER cropped world textures. Block-only: build small isometric cube from verified top+side faces, NEVER stretch one face.
 - Build diagrams by code from recipe JSON + add-on result texture + Samples vanilla textures (`BEDROCK_SAMPLES_ROOT`; workflow clones to `/tmp/bedrock-samples`). Recipe JSON authoritative. NEVER change a recipe to fit an image.

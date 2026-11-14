@@ -56,6 +56,34 @@ class DescriptionViewTests(unittest.TestCase):
         bdv.render(self.md)  # style resets cleanly
         self.assertIn("#12161c", bdv.render(self.md))
 
+    def test_captions_come_from_file_names(self):
+        self.assertEqual(bdv.caption_from("01-Cursor-Light_in_a_cave.gif"), "Cursor Light in a cave")
+        self.assertEqual(bdv.caption_from("Recipe_Mining-Helmet.png"), "Recipe Mining Helmet")
+        self.assertEqual(bdv.caption_from("12.png"), "12")
+
+    def test_media_sections_and_dedupe(self):
+        import tempfile
+        from pathlib import Path
+        with tempfile.TemporaryDirectory() as d:
+            root = Path(d)
+            pack = root / "MCPEDL" / "Addons" / "Demo-Pack"
+            for sub, names in (("snapshots", ["10-Late.png", "2-Early.gif"]), ("recipes", ["Helmet-recipe.png", "Used.png"]),
+                               ("items", ["Mining-Helmet.png"])):
+                (pack / "assets" / sub).mkdir(parents=True)
+                for n in names:
+                    (pack / "assets" / sub / n).write_bytes(b"x")
+            (pack / "assets" / "snapshots" / "notes.txt").write_text("ignore")
+            m = bdv.find_media(root, pack, "already ![x](u/Used.png)")
+            self.assertEqual([c for _, c in m["snapshots"]], ["Early", "Late"])  # natural order, .txt ignored
+            self.assertEqual([c for _, c in m["recipes"]], ["Helmet recipe"])      # Used.png is in DESCRIPTION.md
+            for st in bdv.STYLES:
+                h = bdv.render(self.md, "Demo-Pack", style=st, media=m)
+                self.assertEqual(bdv.check_html(h), [])
+                for title in ("Screenshots", "Custom Items", "Crafting Recipes"):
+                    self.assertEqual(h.count(f">{title}</h2>"), 1)
+                self.assertIn("raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/MCPEDL/Addons/Demo-Pack/assets/snapshots/2-Early.gif", h)
+            self.assertNotIn("Screenshots", bdv.render(self.md, "Demo-Pack"))
+
     def test_steps_use_badges(self):
         h = bdv.render(self.md.replace("Use the items and interactions provided in the world.", "1. First.\n2. Second."))
         self.assertIn("aspect-ratio", h)

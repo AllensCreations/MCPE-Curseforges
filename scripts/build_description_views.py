@@ -9,7 +9,12 @@ numbered step badges, collapsed Q&A spoilers, colored compatibility badges, and 
 Every pack gets its own accent color (stable, picked from the pack name; override in ACCENT_OVERRIDES).
 Only tags, CSS and classes that CurseForge supports are used (self-checked on every build).
 
-Run: python3 scripts/build_description_views.py --all | --project MCPEDL/Addons/<n> [--check] [--out DIR]
+Images: drop files into <pack>/assets/snapshots (screenshots, GIFs), <pack>/assets/recipes (crafting diagrams) and
+<pack>/assets/items (custom item sprites). The file name becomes the caption: "01-Cursor-Light_in_a_cave.gif" ->
+"Cursor Light in a cave" (a leading number only sets the order). They appear on the page automatically.
+
+Run: python3 scripts/build_description_views.py --init   (creates assets/snapshots in every pack)
+     python3 scripts/build_description_views.py --all | --project MCPEDL/Addons/<n> [--check] [--out DIR]
 NEVER edit the generated files by hand.
 """
 import argparse
@@ -311,7 +316,46 @@ def support(acc):
     return h2("Support", acc) + frame + links
 
 
-def render(md, fallback="", icon_url=None, latest=None, accent=None, style="dark"):
+IMG_EXT = {".png", ".jpg", ".jpeg", ".gif", ".webp"}
+MEDIA_KINDS = ("snapshots", "items", "recipes")
+
+
+def caption_from(name):
+    """'01-Cursor-Light_in_a_cave.gif' -> 'Cursor Light in a cave'."""
+    stem = Path(name).stem
+    stem = re.sub(r"^\d+[\s._-]+", "", stem)
+    return " ".join(stem.replace("-", " ").replace("_", " ").split()) or Path(name).stem
+
+
+def _natural(name):
+    return [int(t) if t.isdigit() else t.lower() for t in re.split(r"(\d+)", name)]
+
+
+def find_media(root, project, md_text=""):
+    """{'snapshots': [(url, caption)], 'items': [...], 'recipes': [...]}; files already used in DESCRIPTION.md are skipped."""
+    out = {}
+    for kind in MEDIA_KINDS:
+        folder = project / "assets" / kind
+        files = [f for f in folder.iterdir() if f.is_file() and f.suffix.lower() in IMG_EXT] if folder.is_dir() else []
+        out[kind] = [(RAW + quote(f.relative_to(root).as_posix()), caption_from(f.name))
+                     for f in sorted(files, key=lambda f: _natural(f.name)) if f.name not in md_text]
+    return out
+
+
+def gallery(kind, entries):
+    """Responsive image grid. Each image links to the full-size file; the caption sits under it."""
+    basis = {"snapshots": "1 1 300px", "recipes": "0 1 400px", "items": "0 1 120px"}[kind]
+    width = {"snapshots": "100%", "recipes": "100%", "items": "64px"}[kind]
+    cells = []
+    for url, cap in entries:
+        img = f'<img src="{url}" alt="{html.escape(cap)}" style="width:{width}">'
+        cells.append(f'<div style="flex:{basis};background-color:{PANEL};border:1px solid {LINE};border-radius:10px;'
+                     f'text-align:center"><p><a href="{url}">{img}</a></p>'
+                     f'<p style="color:{MUTED};font-size:13px">{esc(cap)}</p></div>')
+    return '<div style="display:flex;flex-wrap:wrap;gap:10px">' + "".join(cells) + "</div>"
+
+
+def render(md, fallback="", icon_url=None, latest=None, accent=None, style="dark", media=None):
     set_style(style)
     pre, sec = sections(md)
     name = pack_name(pre, fallback)
@@ -323,8 +367,15 @@ def render(md, fallback="", icon_url=None, latest=None, accent=None, style="dark
         parts += ["<br>", latest_box(latest, acc)]
     if sec.get("Overview", "").strip():
         parts += [h2("About", acc), blocks_to_html(sec["Overview"], acc)]
+    media = media or {}
+    if media.get("snapshots"):
+        parts += [h2("Screenshots", acc), gallery("snapshots", media["snapshots"])]
     if sec.get("Key Features", "").strip():
         parts += [h2("What You Get", acc), cards(sec["Key Features"], acc)]
+    if media.get("items"):
+        parts += [h2("Custom Items", acc), gallery("items", media["items"])]
+    if media.get("recipes"):
+        parts += [h2("Crafting Recipes", acc), gallery("recipes", media["recipes"])]
     if sec.get("How to Use", "").strip():
         parts += [h2("How to Play", acc), blocks_to_html(sec["How to Use"], acc, badges=True)]
     if sec.get("Common Questions", "").strip():
@@ -399,20 +450,28 @@ def main(argv=None):
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("--project", help="one pack folder, e.g. MCPEDL/Addons/Mining-Helmet")
     ap.add_argument("--all", action="store_true", help="every pack under MCPEDL/*/*")
+    ap.add_argument("--init", action="store_true", help="create assets/snapshots (with .gitkeep) in every pack, then exit")
     ap.add_argument("--check", action="store_true", help="only verify, write nothing; exit 1 if a view is missing or stale")
     ap.add_argument("--style", choices=STYLES + ("all",), default="dark",
                     help="dark (default), minimal (follows the reader's theme), or all")
     ap.add_argument("--out", default="description_views", help="output folder (default: description_views)")
     ap.add_argument("--root", default=".", help="repo root")
     a = ap.parse_args(argv)
-    if not a.project and not a.all:
-        ap.error("use --all or --project <folder>")
+    if not a.project and not a.all and not a.init:
+        ap.error("use --all, --project <folder> or --init")
     root = Path(a.root)
     out = root / a.out
     projects = find_projects(root, (root / a.project) if a.project else None)
     if not projects:
         print("No DESCRIPTION.md found.")
         return 1
+    if a.init:
+        for p in projects:
+            d = p / "assets" / "snapshots"
+            d.mkdir(parents=True, exist_ok=True)
+            (d / ".gitkeep").touch()
+        print(f"Created assets/snapshots in {len(projects)} pack(s). Drop images there; the file name becomes the caption.")
+        return 0
     bad = 0
     styles = STYLES if a.style == "all" else (a.style,)
     jobs = [(p, st) for p in projects for st in styles]
@@ -420,7 +479,8 @@ def main(argv=None):
         try:
             log = p / "CHANGELOG.md"
             latest = latest_update(log.read_text(encoding="utf-8")) if log.is_file() else None
-            h = render((p / "DESCRIPTION.md").read_text(encoding="utf-8"), p.name, find_icon_url(root, p), latest, style=st)
+            md = (p / "DESCRIPTION.md").read_text(encoding="utf-8")
+            h = render(md, p.name, find_icon_url(root, p), latest, style=st, media=find_media(root, p, md))
         except ValueError as e:
             print(f"FAIL {p.name}: {e}")
             bad += 1

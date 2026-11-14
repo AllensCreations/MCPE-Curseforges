@@ -26,7 +26,7 @@ Single source for every doc rule and template (2.1 to 2.5), the `/checkrm` audit
 - Must render on GitHub, CurseForge, MCPEDL, Planet Minecraft.
 - NEVER hand-written Markdown tables in README/DESCRIPTION (catalogs and generated CurseForge views may use tables). Use `### Feature Name` cards with `- **What Happens**: ...`.
 - Paragraphs <=4 sentences. NEVER LaTeX. Use `->`.
-- README: NEVER badges/images. DESCRIPTION: exactly the 2 template badges (Minecraft Bedrock "Stable Release", never a version) plus the 2 profile banners. Other images: requested item sprites, recipe diagrams only.
+- README: NEVER badges/images. DESCRIPTION: exactly the 2 template badges (Minecraft Bedrock "Stable Release", never a version) plus the 2 profile banners. Other images: item sprites (`assets/items/`), recipe diagrams (`assets/recipes/`), snapshots (`assets/snapshots/`) only.
 - Profile banners (distinct from the per-pack listing images in 1.5): HTML, `width="45%"`, NEVER `height`, full raw URL `https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/assets/Images/<file>` (`curseforge.jpg`, `MCPEDL.jpg`). NEVER edit/copy them. `scripts/optimize_images.py` compresses (800 px, 200 KB, JPEG).
 - NEVER duplicate version suffixes `(v1.2.0) (v1.2.1)`.
 - NEVER copy a legacy MCPEDL description to CurseForge unchanged.
@@ -177,7 +177,7 @@ CHANGELOG.md. Newest first. Groups: Added, Improved & Balanced, Fixed (bugs as i
 3. Verify facts BEFORE writing: what it does, features, activation/config, persistence, packs/deps, versions, limits, achievements/experiments (1.2). NEVER infer a feature from a name. Separate implemented from planned. Verify vanilla names/sprites against 3.3-3.4.
 4. References: before creating/rewriting README or DESCRIPTION read category catalog, builds README, 2-3 well-documented same-category projects. Reuse conventions, NEVER project-specific claims. Verify their links/images/claims first.
 5. Write per `DOCS_RULES.md`. NEVER add an unimplemented feature because requested. Omit install steps if asked.
-6. Images/badges/links: README none. DESCRIPTION 2 template badges + profile banners, no other badges. Other images: requested sprites, recipe diagrams. Confirm assets exist, absolute raw URLs, verify link targets. No placeholders.
+6. Images/badges/links: README none. DESCRIPTION 2 template badges + profile banners, no other badges. Other images: item sprites, recipe diagrams, snapshots from the pack's `assets/` folders (see 1.5). Confirm assets exist, absolute raw URLs, verify link targets. No placeholders.
 7. Sync catalogs and builds: check category catalog, builds README. Update only relevant entries. Search first (no duplicates). Keep ordering. Inspect build scripts before running. The `.sh` or CI runs `scripts/auto_bump_and_build.py --project "<Project-Name>"` (never changes manifest versions). NEVER claim build/sync done if failed or not run.
 8. Verify: re-read whole edited file (headings, lists, links); each feature has source evidence, no verified content lost; the `.sh` runs `scripts/validate_manifest_titles.py --project <path>` and `scripts/check_readme_status.py` (expect 0 needing update, `[LINK INTEGRITY] All relative links valid`); LOCK marker for `MCPEDL/Addons/`; review diff for scope. State any check not run.
 9. Report under **Changelog** (`INSTRUCTIONS.md` Reply Format): projects audited/updated, files changed, commands + results, missing assets/links/unverifiable info, remaining work. NEVER report success for an unrun or failed check.

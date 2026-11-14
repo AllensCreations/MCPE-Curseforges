@@ -55,8 +55,8 @@ jobs:
       - name: Generate Monster Companions recipe image
         run: python scripts/generate_monster_companions_recipe_image.py
 
-      - name: Generate Grimoire Relics recipe images
-        run: python scripts/generate_recipe_images.py
+      - name: Generate recipe images for every pack
+        run: python scripts/generate_recipe_images.py --all
 
       - name: Generate Grand Banquets item previews and recipe images
         run: python scripts/generate_grand_banquets_recipe_images.py
@@ -66,7 +66,7 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add MCPEDL/Addons/Monster-Companions/beast_biscuit_recipe.png
-          git add MCPEDL/Addons/Grimoire-Relics-V2/assets/recipes MCPEDL/Addons/Grimoire-Relics-V2/assets/all_recipes_sheet.png
+          find MCPEDL \( -path '*/assets/recipes/*.png' -o -name all_recipes_sheet.png \) -print0 | xargs -0 -r git add
           git add MCPEDL/Addons/Grand-Banquets/assets/recipes
           if [ -f scripts/CRAFTING_TABLE.png ]; then git add scripts/CRAFTING_TABLE.png; fi
           # Stage optional recipe SVG exports only when the files exist.
