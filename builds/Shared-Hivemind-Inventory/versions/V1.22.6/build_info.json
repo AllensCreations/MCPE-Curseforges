@@ -1,0 +1,8 @@
+{
+  "changelog_version": "1.22.6",
+  "manifest_version": "1.22.6",
+  "packages": {
+    "TeamInventory V1.22.6.mcaddon": "9dd9e6d4ea9abd656d7a4b8b8c73eb9b6fe69a652d1c86e6c059b46a6ce32059"
+  },
+  "source_sha256": "42285ba6ed9682163141082e067fe1326c459e7d03570a6afa9cbef19fba964f"
+}

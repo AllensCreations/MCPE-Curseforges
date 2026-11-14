@@ -1,18 +1,24 @@
 # Changelog — Team Inventory
 
-## [1.22.5] - 2026-11-15 - Death Drops and Joining Fix
+## [1.22.6] - 2026-11-15 - Personal Layout Removal
 
-### Fixed
+### Improved & Balanced
+- **Personal Layout Removed**: The Personal layout and its Controller button are gone. Everyone now shares one identical inventory, which keeps the add-on lighter on busy teams.
+- **Running Games**: A game that was running in Personal layout keeps its items and continues as a normal shared inventory.
+
+<details>
+<summary><b>1.22.x</b> (6 releases)</summary>
+
+### [1.22.5] - 2026-11-15 - Death Drops and Joining Fix
+
+#### Fixed
 - **Death Drops**: The shared inventory now drops where a player dies, even when the death spot cannot be read, and Keep Inventory stays on while sharing.
 - **Item Details**: In Personal layout, teammates now get exact copies of items, so dye colors, banner patterns and trims are kept.
 - **Joining Players**: A player who joins while a game runs now adds their own items to the team instead of losing them.
 
-### Improved & Balanced
+#### Improved & Balanced
 - **Personal Layout Speed**: Personal layout checks inventories every 4 ticks instead of every tick.
 - **Save Limit Warning**: The team is warned when the shared inventory is close to the save limit.
-
-<details>
-<summary><b>1.22.x</b> (5 releases)</summary>
 
 ### [1.22.4] - 2026-11-15 - Personal Layout Throw Fix
 
