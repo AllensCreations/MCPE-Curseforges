@@ -1,6 +1,6 @@
 # Changelog — Vanilla Quality of Life
 
-## [2.1.1] - 2026-11-14 - Swap-Back and Chain Mining Polish
+## [2.1.1] - 2026-11-14
 
 ### Added
 - **Swap-Back After Mining**: A moment after you stop mining or fighting, the item that was in Slot 1 returns to its original slot instead of staying swapped.

@@ -1,6 +1,6 @@
 # Changelog — Target HUD Entity Inspector
 
-## [1.1.1] - 2026-11-14 - Smooth Bar and Mob Gear
+## [1.1.1] - 2026-11-14
 
 ### Added
 - **Held Item**: The item in the target's main hand now appears beside its armor.

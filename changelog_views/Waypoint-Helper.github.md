@@ -1,6 +1,6 @@
 # Changelog — Waypoint Helper
 
-## [1.1.6] - 2026-11-14 - Dimension Colors In Menus
+## [1.1.6] - 2026-11-14
 
 ### Improved & Balanced
 - **Dimension Colors In Menus**: Saved slots and the Last Death button now show their text in green for the Overworld, red for the Nether and yellow for The End.
