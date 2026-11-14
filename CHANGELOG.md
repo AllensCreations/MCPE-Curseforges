@@ -2,6 +2,15 @@
 
 ---
 
+## [1.0.31] - 2026-11-15 - Island Build And Shifter Safety Fixes
+
+### Fixed
+
+- **Islands Built Complete**: An island is now only generated once all of the chunks around it are loaded, so islands no longer appear with missing chunks, cut-off edges or missing buildings. If the area is not ready yet, the island is built as soon as you get close enough.
+- **Island Trees**: Trees now grow on every island that is meant to have one, including the second tree on grassy and forest islands and the bee nests on the Cherry and Bee islands.
+- **Dimension Shifter Purchases**: Buying from the Dimension Shifter can no longer take your payment without giving you the item. Items that do not stack, such as the double Elytra deal in the End, now arrive as separate items, and your payment is returned if a purchase cannot be completed.
+- **Welcome Message**: The welcome message now shows only when you join the world, no longer every time you respawn after falling into the void.
+
 ## [1.0.30] - 2026-11-15 - Performance and Stability
 
 ### Added

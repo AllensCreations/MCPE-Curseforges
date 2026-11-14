@@ -2246,7 +2246,7 @@ function decorateSteppingPaths(dimension, theme, center, seed) {
 
 // Determines the tree placement, wood log type, leaf type, and accessories per theme
 function getIslandTreePlacement(theme, center) {
-  const { cx, cy, cz } = center;
+  const { x: cx, y: cy, z: cz } = center;
   switch (theme.id) {
     case "cherry_sanctuary":
       return { pos: { x: cx - 3, y: cy, z: cz - 2 }, log: "minecraft:cherry_log", leaves: "minecraft:cherry_leaves", beeNest: true };
@@ -3776,16 +3776,29 @@ function buildThemedStructure(dimension, theme, center) {
   return mobSpawned;
 }
 
+const ISLAND_FOOTPRINT = 26;
+
+export function isIslandFootprintLoaded(dimension, center) {
+  try {
+    const firstChunkX = (center.x - ISLAND_FOOTPRINT) >> 4;
+    const lastChunkX = (center.x + ISLAND_FOOTPRINT) >> 4;
+    const firstChunkZ = (center.z - ISLAND_FOOTPRINT) >> 4;
+    const lastChunkZ = (center.z + ISLAND_FOOTPRINT) >> 4;
+    for (let chunkX = firstChunkX; chunkX <= lastChunkX; chunkX++) {
+      for (let chunkZ = firstChunkZ; chunkZ <= lastChunkZ; chunkZ++) {
+        if (!dimension.getBlock({ x: chunkX * 16 + 8, y: center.y, z: chunkZ * 16 + 8 })) return false;
+      }
+    }
+    return true;
+  } catch (e) {
+    return false;
+  }
+}
+
 export function buildThemedIsland(dimension, theme, center) {
   const { x: cx, y: cy, z: cz } = center;
 
-  // Chunk loading safety check: verify island center block exists
-  try {
-    const centerBlock = dimension.getBlock({ x: cx, y: cy, z: cz });
-    if (!centerBlock) return 0; // Center chunk unloaded, defer build until loaded!
-  } catch (e) {
-    return 0;
-  }
+  if (!isIslandFootprintLoaded(dimension, center)) return 0;
 
   totalBlocksPlacedThisBuild = 0;
 

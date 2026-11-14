@@ -152,10 +152,39 @@ function getCardinalFromCoords(dx, dz) {
 
 // Drops item precisely hovering above OneBlock at (0.5, 65.2, 0.5) with zero velocity
 function hoverDropAboveOneBlock(dimension, itemStack) {
+  let itemEntity;
   try {
-    const itemEntity = dimension.spawnItem(itemStack, { x: 0.5, y: 65.2, z: 0.5 });
-    itemEntity.clearVelocity();
-  } catch (err) {}
+    itemEntity = dimension.spawnItem(itemStack, { x: 0.5, y: 65.2, z: 0.5 });
+  } catch (err) {
+    return false;
+  }
+  try { itemEntity.clearVelocity(); } catch (err) {}
+  return true;
+}
+
+function dropAtPlayer(player, itemStack) {
+  try {
+    player.dimension.spawnItem(itemStack, player.location);
+    return true;
+  } catch (err) {
+    return false;
+  }
+}
+
+function buildTradeStacks(itemId, count) {
+  const stacks = [];
+  try {
+    const maxAmount = Math.max(1, new ItemStack(itemId, 1).maxAmount);
+    let left = count;
+    while (left > 0) {
+      const amount = Math.min(left, maxAmount);
+      stacks.push(new ItemStack(itemId, amount));
+      left -= amount;
+    }
+  } catch (err) {
+    return [];
+  }
+  return stacks;
 }
 
 // Spawns a real Minecraft Chest block ABOVE ONEBLOCK_POS at (0, 65, 0) and populates it with items
@@ -792,17 +821,27 @@ function materializeIsland(dimension, theme, phaseIndex, totalCount) {
     try { dimension.runCommand(`tickingarea remove ${areaName}`); } catch (e) {}
     try { dimension.runCommand(`tickingarea add circle ${islandLoc.center.x} ${islandLoc.center.y} ${islandLoc.center.z} 3 ${areaName} true`); } catch (e) {}
 
-    system.runTimeout(() => {
+    const retryDelays = [20, 60, 120, 200];
+    const attemptBuild = (attempt) => {
+      let finished = false;
       try {
-        if (islandRebuildAllowed(theme.id) && !isIslandPhysicallyBuilt(dimension, islandLoc.center)) {
+        if (!islandRebuildAllowed(theme.id) || isIslandPhysicallyBuilt(dimension, islandLoc.center)) {
+          finished = true;
+        } else {
           const placed = buildThemedIsland(dimension, theme, islandLoc.center);
           if (placed > 0) {
             world.setDynamicProperty(`island_built_${theme.id}`, true);
+            finished = true;
           }
         }
       } catch (ie2) {}
-      try { dimension.runCommand(`tickingarea remove ${areaName}`); } catch (e) {}
-    }, 20);
+      if (finished || attempt >= retryDelays.length - 1) {
+        try { dimension.runCommand(`tickingarea remove ${areaName}`); } catch (e) {}
+      } else {
+        system.runTimeout(() => attemptBuild(attempt + 1), retryDelays[attempt + 1] - retryDelays[attempt]);
+      }
+    };
+    system.runTimeout(() => attemptBuild(0), retryDelays[0]);
   } catch (err) {}
 }
 
@@ -1893,6 +1932,13 @@ function openShifterTradeModal(player, dimKey) {
       return;
     }
 
+    const purchasedStacks = buildTradeStacks(selectedTrade.itemId, selectedTrade.itemCount);
+    if (purchasedStacks.length === 0) {
+      player.sendMessage("§c[Dimension Shifter] That item is unavailable right now. You were not charged.");
+      player.playSound("note.bass", { pitch: 0.8, volume: 1.0 });
+      return;
+    }
+
     let remainingToDeduct = selectedTrade.cost;
     for (let slot = 0; slot < inv.size; slot++) {
       if (remainingToDeduct <= 0) break;
@@ -1909,9 +1955,17 @@ function openShifterTradeModal(player, dimKey) {
       }
     }
 
+    let delivered = 0;
+    for (const stack of purchasedStacks) {
+      if (hoverDropAboveOneBlock(player.dimension, stack) || dropAtPlayer(player, stack)) delivered++;
+    }
+    if (delivered === 0) {
+      for (const refund of buildTradeStacks(selectedTrade.currency, selectedTrade.cost)) dropAtPlayer(player, refund);
+      player.sendMessage("§c[Dimension Shifter] The trade could not be completed. Your payment was returned.");
+      player.playSound("note.bass", { pitch: 0.8, volume: 1.0 });
+      return;
+    }
     selectedTrade.stock--;
-    const purchasedItem = new ItemStack(selectedTrade.itemId, selectedTrade.itemCount);
-    hoverDropAboveOneBlock(player.dimension, purchasedItem);
 
     const itemName = selectedTrade.itemId.replace("minecraft:", "").replace(/_/g, " ");
     player.sendMessage(`§a[Dimension Shifter] Trade complete! Purchased §e${selectedTrade.itemCount}x ${itemName}§a!`);
@@ -2372,7 +2426,7 @@ world.afterEvents.playerSpawn.subscribe((event) => {
         player.sendMessage("§e3. Bedrock Command: §7Type §b/scriptevent ob:menu§7 or §b/scriptevent ob:all§r\n");
       }
 
-        // Welcome introduction & creator thank you
+      if (initialSpawn) {
         player.sendMessage("\n§6==================================================");
         player.sendMessage("§e★ §6§lWELCOME TO ONEBLOCK VOID SURVIVAL! §e★");
         player.sendMessage("§fThank you so much for playing my game!");
@@ -2381,6 +2435,7 @@ world.afterEvents.playerSpawn.subscribe((event) => {
         player.sendMessage("§eLook at the floating holographic guide above the block to start!");
         player.sendMessage("§6==================================================\n");
         player.playSound("random.levelup", { pitch: 1.0, volume: 1.0 });
+      }
       } catch (e) {}
     });
 });
