@@ -2,6 +2,13 @@
 
 ---
 
+## [1.0.25] - 2026-11-14 - Image Prompts And Changed-Only Views
+
+### Added
+- **Logo and Banner image prompts**: every pack gets `image_prompts/<n>.md` with a Logo Prompt and a Banner Prompt built from its DESCRIPTION. Each prompt tells the image generator to use your attached logo and your in-game snapshots as references. Run `python3 scripts/build_image_prompts.py --all`.
+### Improved & Balanced
+- **Changed-only views**: Build Changed Packs & Sync Catalogs now rebuilds CurseForge description views and image prompts only for packs whose description, changelog, icon or images changed, using `--changed`. A first run builds everything once.
+
 ## [1.0.24] - 2026-11-14 - Description Views On Build
 
 ### Improved & Balanced

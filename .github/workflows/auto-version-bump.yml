@@ -7,7 +7,8 @@ name: Build Changed Packs & Sync Catalogs
 #   - Each pack's BP and RP manifests are aligned to the highest version already in the pack.
 #   - builds/<pack>/versions/V<X.Y.Z>/ (packages, source.zip, source.sha256, build_info.json) is
 #     created or REFRESHED IN PLACE whenever the source or the packages differ from the snapshot.
-#   - Catalogs, READMEs, download links, changelog views and CurseForge description views are re-synced.
+#   - Catalogs, READMEs, download links, changelog views, CurseForge description views and image prompts are re-synced.
+#     Description views and image prompts are rebuilt only for packs whose inputs changed.
 #
 # Publishing to CurseForge lives in its own workflow (publish-curseforge.yml). When a publish
 # succeeds it starts this workflow once so the catalogs pick up the new version.
@@ -134,8 +135,11 @@ jobs:
           } >> "$GITHUB_STEP_SUMMARY"
           exit "$STATUS"
 
-      - name: Refresh CurseForge description views
-        run: python3 scripts/build_description_views.py --all --style all || echo "::warning::Some description views could not be built (see log)."
+      - name: Refresh CurseForge description views (changed packs only)
+        run: python3 scripts/build_description_views.py --all --style all --changed || echo "::warning::Some description views could not be built (see log)."
+
+      - name: Refresh Logo and Banner image prompts (changed packs only)
+        run: python3 scripts/build_image_prompts.py --all --changed || echo "::warning::Some image prompts could not be built (see log)."
 
       - name: Verify builds/ snapshots match source and manifest versions (report only)
         continue-on-error: true
@@ -176,7 +180,7 @@ jobs:
           git config user.name  "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
 
-          for dir in MCPEDL builds changelog_views description_views; do
+          for dir in MCPEDL builds changelog_views description_views image_prompts; do
             if [ -d "$dir" ]; then git add "$dir"; fi
           done
           if [ -f README.md ]; then git add README.md; fi
