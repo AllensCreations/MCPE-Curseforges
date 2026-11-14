@@ -23,8 +23,33 @@ class DescriptionViewTests(unittest.TestCase):
         self.assertNotIn("Verification", self.html)
         self.assertNotIn("Tested", self.html)
 
-    def test_compat_has_three_rows(self):
-        self.assertEqual(self.html.count("<tr>"), 3)
+    def test_compat_has_three_badges(self):
+        for label in ("Bedrock:", "Experimental:", "Achievements:"):
+            self.assertEqual(self.html.count(label), 1)
+
+    def test_kofi_image_link_once(self):
+        self.assertEqual(self.html.count("https://ko-fi.com/alnstudios"), 2)  # image link + text link
+        self.assertEqual(self.html.count("assets/Images/ko-fi.png"), 1)
+        self.assertLess(self.html.index("ko-fi.png"), self.html.index("Permissions and credits"))
+
+    def test_accent_is_stable_and_differs_per_pack(self):
+        a1 = bdv.accent_for("Mining-Helmet")
+        self.assertEqual(a1, bdv.accent_for("Mining-Helmet"))
+        self.assertGreater(len({bdv.accent_for(n) for n in ("Cheat-Stick", "Grand-Banquets", "Universal-Leash", "OP-Sponge")}), 1)
+
+    def test_icon_and_latest_update(self):
+        log = "# Changelog\n\n## [1.14.5] - 2026-11-12\n\n### Added\n- **Mob light**: Works.\n\n## [1.0.0] - 2026-01-01\n- Old.\n"
+        u = bdv.latest_update(log)
+        self.assertEqual((u["version"], u["date"], len(u["bullets"])), ("1.14.5", "2026-11-12", 1))
+        h = bdv.render(self.md, "Demo-Pack", "https://raw.githubusercontent.com/x/y/main/icon.png", u)
+        self.assertIn("LATEST UPDATE", h)
+        self.assertIn('width="96"', h)
+        self.assertEqual(bdv.check_html(h), [])
+
+    def test_steps_use_badges(self):
+        h = bdv.render(self.md.replace("Use the items and interactions provided in the world.", "1. First.\n2. Second."))
+        self.assertIn("aspect-ratio", h)
+        self.assertEqual(bdv.check_html(h), [])
 
     def test_other_title_styles_still_build(self):
         body = "\n## Overview\n\nText.\n"
@@ -44,6 +69,7 @@ class DescriptionViewTests(unittest.TestCase):
         h = bdv.render(md)
         self.assertIn("Common Questions", h)
         self.assertIn("Can I turn it off?", h)
+        self.assertIn('class="spoiler"', h)
         self.assertIn("Good To Know:", h)
         self.assertEqual(bdv.check_html(h), [])
 
