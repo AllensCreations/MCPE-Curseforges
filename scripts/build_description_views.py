@@ -4,7 +4,7 @@
 DESCRIPTION.md stays the only source of truth. This script writes
 description_views/<n>.curseforge.html (paste it into the CurseForge project description).
 
-Look: dark "game store" page. Pack icon + title hero with badges (lowest supported Minecraft version, Experimental: No,
+Look: "minimal" page (no page background, no text colors, so it follows the reader's light or dark theme). Pack icon + title hero with badges (lowest supported Minecraft version, Experimental: No,
 achievements), feature cards with an accent top bar,
 numbered step badges, collapsed Q&A spoilers, colored compatibility badges, and a Support section with the Ko-fi image.
 Every pack gets its own accent color (stable, picked from the pack name; override in ACCENT_OVERRIDES).
@@ -52,8 +52,8 @@ THEMES = {
     "minimal": dict(BG="", PANEL="", LINE="#8a94a3", TEXT="", HEAD="", SUB="",
                     MUTED="#8a94a3", LINK="", ACCTXT=False),
 }
-STYLES = tuple(THEMES)
-SUFFIX = {"dark": "", "minimal": ".minimal"}
+STYLES = ("minimal",)  # the only published style: it follows the reader's theme (CurseForge and MCPEDL, light or dark)
+SUFFIX = {"dark": ".dark", "minimal": ""}
 BG = PANEL = LINE = TEXT = HEAD = SUB = MUTED = LINK = ""
 ACCTXT = True
 INK = "#0b0f14"
@@ -79,7 +79,7 @@ def acc_text(acc):
     return acc if ACCTXT else ""
 
 
-set_style("dark")
+set_style("minimal")
 PALETTE = ["#4ade80", "#38bdf8", "#fbbf24", "#f472b6", "#a78bfa", "#fb923c", "#2dd4bf", "#f87171", "#a3e635", "#60a5fa"]
 ACCENT_OVERRIDES = {}  # e.g. {"Mining-Helmet": "#fbbf24"}  (folder name -> color)
 
@@ -417,7 +417,7 @@ def gallery(kind, entries):
     return '<div style="display:flex;flex-wrap:wrap;gap:10px">' + "".join(cells) + "</div>"
 
 
-def render(md, fallback="", icon_url=None, latest=None, accent=None, style="dark", media=None, min_version=""):
+def render(md, fallback="", icon_url=None, latest=None, accent=None, style="minimal", media=None, min_version=""):
     """latest is accepted for old callers and ignored: the page has no changelog box."""
     set_style(style)
     pre, sec = sections(md)
@@ -525,8 +525,8 @@ def main(argv=None):
     ap.add_argument("--init", action="store_true", help="create assets/snapshots (with .gitkeep) in every pack, then exit")
     ap.add_argument("--check", action="store_true", help="only verify, write nothing; exit 1 if a view is missing or stale")
     ap.add_argument("--changed", action="store_true", help="skip packs whose inputs did not change since their view was written")
-    ap.add_argument("--style", choices=STYLES + ("all",), default="dark",
-                    help="dark (default), minimal (follows the reader's theme), or all")
+    ap.add_argument("--style", choices=STYLES + ("all",), default="minimal",
+                    help="minimal (default and only style; follows the reader's theme)")
     ap.add_argument("--out", default="description_views", help="output folder (default: description_views)")
     ap.add_argument("--root", default=".", help="repo root")
     a = ap.parse_args(argv)

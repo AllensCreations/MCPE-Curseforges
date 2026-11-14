@@ -12,6 +12,8 @@ class DescriptionViewTests(unittest.TestCase):
     def setUp(self):
         self.md = dt.compliant_docs("addon", "Demo Pack", "1.0.0")["DESCRIPTION.md"]
         self.html = bdv.render(self.md)
+        self.dark = bdv.render(self.md, style="dark")
+        bdv.set_style("minimal")
 
     def test_only_supported_html(self):
         self.assertEqual(bdv.check_html(self.html), [])
@@ -80,8 +82,8 @@ class DescriptionViewTests(unittest.TestCase):
         self.assertIn("ko-fi.png", h)
         self.assertIn("aspect-ratio", h)  # step badges still use the accent fill
         self.assertNotIn("Experimental toggles listed", h)
-        bdv.render(self.md)  # style resets cleanly
-        self.assertIn("#12161c", bdv.render(self.md))
+        self.assertIn("#12161c", bdv.render(self.md, style="dark"))  # dark still exists, but is not published
+        self.assertEqual(bdv.STYLES, ("minimal",))
 
     def test_captions_come_from_file_names(self):
         self.assertEqual(bdv.caption_from("01-Cursor-Light_in_a_cave.gif"), "Cursor Light in a cave")
