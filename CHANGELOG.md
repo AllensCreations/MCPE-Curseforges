@@ -2,6 +2,11 @@
 
 ---
 
+## 2026-11-14 - New Script Always Critical
+
+### Added
+- **Always Critical**: New script project created from a pack script.
+
 ## [1.0.23] - 2026-11-14 - Byline Under Title
 
 ### Improved & Balanced
