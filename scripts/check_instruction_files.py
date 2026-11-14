@@ -10,10 +10,11 @@ import re
 import sys
 from pathlib import Path
 
-MAX_BYTES = 50 * 1024
-FILES = ("INSTRUCTIONS.md", "PACK_GENERATOR_INSTRUCTIONS.md")
+MAX_BYTES = 60000
+FILES = ("INSTRUCTIONS.md", "PACK_GENERATOR_INSTRUCTIONS.md", "CHECKRM_REFERENCE.md")
 REQUIRED = {
-    "INSTRUCTIONS.md": ("## Read ONE File Per Task", "## Reply Format", "## Final Self-Check", "## Version History",
+    "CHECKRM_REFERENCE.md": ("### 3.1 Authority and Scope", "### 3.2 Procedure"),
+    "INSTRUCTIONS.md": ("## Read Only What the Task Needs", "## Reply Format", "## Final Self-Check", "## Version History",
                         "**File Needed:**", "**Changelog:**", "**Termux Script:**"),
     "PACK_GENERATOR_INSTRUCTIONS.md": ("### 4.9 Final self-check", "### 4.11 Reply format",
                                        "**File Needed:**", "**Changelog:**", "**Termux Script:**"),
@@ -119,7 +120,8 @@ def check(root):
             if needle not in text:
                 errors.append(f"{name}: required section/marker missing: {needle}")
         check_scripts_exist(name, text, root, errors)
-        check_templates(name, text, root, errors)
+        if name != "CHECKRM_REFERENCE.md":
+            check_templates(name, text, root, errors)
     return errors
 
 

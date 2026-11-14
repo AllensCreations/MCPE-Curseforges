@@ -2,6 +2,11 @@
 
 ---
 
+## [1.0.13] - 2026-11-14 - Instructions Cleanup
+
+### Improved & Balanced
+- **Instructions v12**: duplicate and contradicting rules removed; the docs audit part moved to `CHECKRM_REFERENCE.md`; the Dirtbound spec moved to its project folder; scripts are reference-only for AI agents (only test and spec-building scripts may run); size cap is now 60,000 bytes.
+
 ## 2026-11-14 - New Addon ALN Quiver
 
 ### Added
