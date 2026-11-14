@@ -2,6 +2,11 @@
 
 ---
 
+## [1.0.16] - 2026-11-14 - Bold Countdown Number
+
+### Improved & Balanced
+- **Countdown Number**: The seconds in the teleport countdown are now bold and white so they stand out from the rest of the message.
+
 ## [1.0.15] - 2026-11-14 - Tidy CI and Generator Rules
 
 ### Fixed

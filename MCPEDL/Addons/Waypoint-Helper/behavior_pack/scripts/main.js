@@ -1,7 +1,7 @@
 import { world, system } from "@minecraft/server";
 import { ActionFormData, ModalFormData, FormCancelationReason } from "@minecraft/server-ui";
 
-const VERSION = "1.1.6";
+const VERSION = "1.1.7";
 const MENU_ITEM = "minecraft:compass";
 const TITLE = `WPH|§6@ALNStudios Waypoint Helper §7(${VERSION})`;
 const BASE_SLOTS = 10;
@@ -366,7 +366,7 @@ function startTeleport(player, slot, label) {
       const seconds = Math.ceil(remaining / 20);
       if (seconds !== shown) {
         shown = seconds;
-        actionBar(player, `${color}Teleporting to ${label} in §l${seconds}§r${color}... Stay still.`);
+        actionBar(player, `${color}Teleporting to ${label} in §l§f${seconds}§r${color}... Stay still.`);
         playSound(player, TELEPORT_TICK_SOUND, 1 + (TELEPORT_SECONDS - seconds) * 0.25);
       }
       remaining -= TELEPORT_STEP_TICKS;

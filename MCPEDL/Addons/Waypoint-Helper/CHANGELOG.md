@@ -2,6 +2,11 @@
 
 ---
 
+## [1.1.7] - 2026-11-14 - Bold Countdown Number
+
+### Improved & Balanced
+- **Countdown Number**: The seconds in the teleport countdown are now bold and white so they stand out from the rest of the message.
+
 ## [1.1.6] - 2026-11-14
 
 **What's new in v1.1.6:** Packed with the v1.1.6 update. Includes: Dimension Colors In Menus.
