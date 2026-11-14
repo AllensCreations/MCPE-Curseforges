@@ -11,9 +11,10 @@ import sys
 from pathlib import Path
 
 MAX_BYTES = 60000
-FILES = ("INSTRUCTIONS.md", "PACK_GENERATOR_INSTRUCTIONS.md", "CHECKRM_REFERENCE.md")
+FILES = ("INSTRUCTIONS.md", "PACK_GENERATOR_INSTRUCTIONS.md", "CHECKRM_REFERENCE.md", "DOCS_RULES.md")
 REQUIRED = {
     "CHECKRM_REFERENCE.md": ("### 3.1 Authority and Scope", "### 3.2 Procedure"),
+    "DOCS_RULES.md": ("### 2.1 Roles", "### 2.5 Templates (STRICT)"),
     "INSTRUCTIONS.md": ("## Read Only What the Task Needs", "## Reply Format", "## Final Self-Check", "## Version History",
                         "**File Needed:**", "**Changelog:**", "**Termux Script:**"),
     "PACK_GENERATOR_INSTRUCTIONS.md": ("### 4.9 Final self-check", "### 4.11 Reply format",
@@ -101,6 +102,21 @@ def check_templates(name, text, root, errors):
         errors += [f"{name}: CHANGELOG template fails doc_template: {e}" for e in errs]
 
 
+def check_excerpt(texts, errors):
+    gen, core = texts.get("PACK_GENERATOR_INSTRUCTIONS.md"), texts.get("INSTRUCTIONS.md")
+    if not gen or not core:
+        return
+    start = gen.find("## Part 1 (excerpt)")
+    end = gen.find("## Part 2", start)
+    if start < 0 or end < 0:
+        errors.append("PACK_GENERATOR_INSTRUCTIONS.md: Part 1 excerpt markers missing.")
+        return
+    known = {line.strip() for line in core.split("\n")}
+    for line in gen[start:end].split("\n"):
+        s = line.strip()
+        if s and not s.startswith("#") and s != "---" and s not in known:
+            errors.append(f"PACK_GENERATOR_INSTRUCTIONS.md: Part 1 excerpt line differs from INSTRUCTIONS.md: {s[:70]}")
+
 def check(root):
     root = Path(root)
     errors = []
@@ -120,8 +136,9 @@ def check(root):
             if needle not in text:
                 errors.append(f"{name}: required section/marker missing: {needle}")
         check_scripts_exist(name, text, root, errors)
-        if name != "CHECKRM_REFERENCE.md":
+        if name == "DOCS_RULES.md":
             check_templates(name, text, root, errors)
+    check_excerpt(texts, errors)
     return errors
 
 

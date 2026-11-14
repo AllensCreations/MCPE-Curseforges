@@ -50,11 +50,14 @@ def main():
         edit(tmp, "INSTRUCTIONS.md", lambda t: t + "\nSee `scripts/no_such_script.py`.\n")
         assert has(cif.check(tmp), "missing file"), "missing script reference not caught"
         shutil.copy(ROOT / "INSTRUCTIONS.md", tmp / "INSTRUCTIONS.md")
-        edit(tmp, "PACK_GENERATOR_INSTRUCTIONS.md", lambda t: t.replace("- **Direct download:**", "- **Download:**", 1))
+        edit(tmp, "DOCS_RULES.md", lambda t: t.replace("- **Direct download:**", "- **Download:**", 1))
         assert has(cif.check(tmp), "README template"), "README template drift not caught"
-        shutil.copy(ROOT / "PACK_GENERATOR_INSTRUCTIONS.md", tmp / "PACK_GENERATOR_INSTRUCTIONS.md")
+        shutil.copy(ROOT / "DOCS_RULES.md", tmp / "DOCS_RULES.md")
         edit(tmp, "PACK_GENERATOR_INSTRUCTIONS.md", lambda t: t.replace("## Reply format", "## x").replace("### 4.11 Reply format", "### 4.11 x"))
         assert has(cif.check(tmp), "required section"), "missing section not caught"
+        shutil.copy(ROOT / "PACK_GENERATOR_INSTRUCTIONS.md", tmp / "PACK_GENERATOR_INSTRUCTIONS.md")
+        edit(tmp, "PACK_GENERATOR_INSTRUCTIONS.md", lambda t: t.replace("NEVER `[0,0,0]`.", "NEVER zero.", 1))
+        assert has(cif.check(tmp), "excerpt line differs"), "excerpt drift not caught"
     finally:
         shutil.rmtree(tmp, ignore_errors=True)
     print("test_check_instruction_files: OK")

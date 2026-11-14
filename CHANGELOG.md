@@ -2,6 +2,13 @@
 
 ---
 
+## [1.0.14] - 2026-11-14 - Single Source for Docs Rules
+
+### Improved & Balanced
+- **Docs rules in one file**: every README, DESCRIPTION and CHANGELOG rule and template now lives only in `DOCS_RULES.md`; both instruction files point to it, removing about 19 KB of duplicated text.
+- **Generator excerpt**: the Part 1 excerpt in the generator instructions is synced to `INSTRUCTIONS.md`, and `check_instruction_files.py` now fails when any excerpt line differs.
+- **Instruction sizes**: `INSTRUCTIONS.md` 32.8 KB (was 43.4 KB), generator instructions 33.2 KB (was 43.4 KB).
+
 ## [1.0.13] - 2026-11-14 - Instructions Cleanup
 
 ### Improved & Balanced

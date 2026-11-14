@@ -1,24 +1,23 @@
-# Pack Generator Instructions (AI Agent, v20)
+# Pack Generator Instructions (AI Agent, v21)
 
 Builds a complete **addon**, **map**, **script**, or **minigame** from the user's idea. Returns ONE Termux `.sh` pack script that carries the whole project inside it (as base64). No other file is delivered.
 
-Self-contained for generation. Read ONLY this file for a build task. Maintenance, workflows, audits, recipe images: `INSTRUCTIONS.md`. Numbers (1.x, 2.x, 4.x) refer to this file.
+Read this file and `DOCS_RULES.md` for a build task. Part 1 below is an excerpt of `INSTRUCTIONS.md`; the checker keeps its lines identical. Maintenance, workflows, audits, recipe images: `INSTRUCTIONS.md`. Numbers 1.x and 4.x refer to this file; 2.x to `DOCS_RULES.md`.
 
 | Part | Covers |
 | :--- | :--- |
 | 1 (excerpt) | Accuracy, versions, manifests, recipe unlock, functions, security, untested assumptions |
-| 2 | README, DESCRIPTION, CHANGELOG rules, templates |
+| 2 | In `DOCS_RULES.md`: README, DESCRIPTION, CHANGELOG rules, templates |
 | 4 | Generator: ask type, build, check, deliver, reply |
 
-Precedence: Part 1 wins. Part 2 follows Part 1. Part 4 follows both. `INSTRUCTIONS.md` wins on conflict. Accuracy and requested scope outrank any template. Script and file disagree: tell the user.
-Order of work: read Parts 1-2, then Part 4 from 4.0. Unclear request: ask ONE line, then proceed.
+Precedence: Part 1 wins. `DOCS_RULES.md` follows Part 1. Part 4 follows both. `INSTRUCTIONS.md` wins on conflict. Accuracy and requested scope outrank any template. Script and file disagree: tell the user.
+Order of work: read Part 1, `DOCS_RULES.md`, then Part 4 from 4.0. Unclear request: ask ONE line, then proceed.
 
 ---
 
 ## Part 1 (excerpt): Core Policy
 
 ### 1.1 Accuracy
-- Accuracy and requested scope outrank any template.
 - ALWAYS inspect source files before claims. Ask only if an unresolved choice affects gameplay, compatibility, distribution, data loss, or versioning. Else use defaults.
 - NEVER invent features, versions, links, assets, test results, compatibility, achievement support, performance, platform behavior. Separate verified facts from assumptions.
 - NEVER claim in-game test/function run/gameplay result unless tested in Minecraft. Archive/JSON/syntax checks prove structure only.
@@ -45,7 +44,7 @@ Achievements/experiments (every new pack, meaningful update):
 - Pack files NEVER establish an existing world's settings.
 - Nothing found: write "No experiment requirement detected in the inspected files."
 - Prefer stable implementation. NEVER silently weaken a feature to dodge an experiment.
-- Status: Likely achievement-friendly | Not achievement-friendly / may disable achievements | Unknown / needs confirmation. ALWAYS `Likely achievement-friendly` for `MCPEDL/Addons/` (keep caveats).
+- Status: Add-ons (`MCPEDL/Addons/`) = ALWAYS `Likely achievement-friendly` (add-ons are achievement-friendly by Mojang's rules; keep cheat/world caveats). Other types: Likely achievement-friendly | Not achievement-friendly / may disable achievements | Unknown / needs confirmation.
 - Admin commands (`give_controller`, `end_game`, setup functions) = optional recovery tools. Cheats disable achievements in that world: say so wherever documented.
 - Handoff: achievement status, experiments (none/required name/unknown), evidence, scope.
 
@@ -66,7 +65,7 @@ Implementation:
 - Build sync: every processed project aligns all source manifests to one highest `X.Y.Z`: `header.version`, `metadata.version`, title suffix, module versions, same-project BP/RP deps. Fills `metadata.authors` (`ALNStudios`), optional `metadata.license`.
 - Snapshots: `builds/<pack>/versions/V<X.Y.Z>/` (packages, `source.zip`, `source.sha256`, `build_info.json`). Refreshed when source/packages differ. Last 5 kept.
 - NOTHING auto-bumps. The new version is written in CHANGELOG.md AND, in the same update script, into every source manifest with `python3 scripts/manifest_tools.py --project <path> --set X.Y.Z` (header.version, metadata.version, title suffix, module and dependency versions; UUIDs untouched; never lowers), so every update changes the build. Publish to CurseForge uploads the newest changelog version as written and groups every entry since the last publish. The passive build (`Build Changed Packs & Sync Catalogs`) aligns each pack to its highest existing version and rebuilds. `--bump` / `AUTO_BUMP_MANIFEST=true` remain in `scripts/auto_bump_and_build.py` for manual use only.
-- Package name: `<Shortcut> VX.Y.Z.<ext>`; shortcut (letters and digits only) comes from `scripts/pack_shortcuts.json` by project folder, else the folder name joined. Custom via `metadata.package_filename` or `PACK_FILENAME_TEMPLATE`; MUST contain `V{version}` and no parenthesis.
+- Package name: `<Shortcut> VX.Y.Z.<ext>` (example `MiningHelmet V1.0.2.mcaddon`). Shortcut = short, letters and digits only (NEVER `-`, `_`, spaces, `by ALNStudios`, parentheses), close to the add-on name, kept in `scripts/pack_shortcuts.json` by project folder (fallback: folder name joined). Custom via `metadata.package_filename` or `PACK_FILENAME_TEMPLATE`; MUST contain `V{version}` and no parenthesis, else the default is used. CurseForge upload copy uses the same name. `python3 scripts/rename_packages.py --check|--apply` renames old packages and repairs references.
 - Creator name `ALNStudios`. `python3 scripts/rename_brand.py --apply` migrates old name. NEVER rename lowercase namespaces (`allenscreations:`).
 - Tools: `python3 scripts/manifest_tools.py --project <path> --check|--align|--bump` (`--all --check`). `sync_manifest_versions.py`: deps and `min_engine_version` maintenance; set `min_engine_version` by hand after lookup. `sync_project_docs.py` NOT in build: edit DESCRIPTION/CHANGELOG deliberately. `sync_readme_links.py [--check]` repairs README links (runs after every build).
 - LOCK: every `MCPEDL/Addons/` project has `LOCK` at root starting `ALNStudios Add-on Lock v1`. Importer creates it, build enforces it. Missing/invalid = release-blocking: report path, NEVER call build-ready. Safeguard only, not encryption.
@@ -81,202 +80,30 @@ Implementation:
 ### 1.6 Function Files
 Paths from repo root. A function file existing != it runs.
 - Functions: `<project>/behavior_pack/functions/<name>.mcfunction`. Tick: `functions/tick.json` `values` = names without suffix (`oneblock_tick`).
-- Before delivery: 1 inspect real manifest, functions, `tick.json`, install steps, report paths; 2 `tick.json` valid, right dir, names existing function; 3 check syntax, ids, coordinates, deps (scoreboards). NEVER make a score-dependent command the only initial-block path unless init guaranteed; 4 run available JSON/project validation, state what passed; 5 custom item delivered but block missing: diagnose item delivery and function execution separately (pack activation, world links, tick registration, name/path, command errors) BEFORE fallbacks or version bump.
+- Before delivery: 1 inspect real manifest, functions, `tick.json`, install steps, report paths; 2 `tick.json` valid, right dir, names existing function; 3 check syntax, ids, coordinates, deps (scoreboards). NEVER make a score-dependent command the only initial-block path unless init guaranteed; 4 validate JSON and `node --check` JS directly (project scripts run in the `.sh`), state what passed; 5 custom item delivered but block missing: diagnose item delivery and function execution separately (pack activation, world links, tick registration, name/path, command errors) BEFORE fallbacks or version bump.
 - NEVER claim `tick.json` missing without inspecting installed/packaged copy.
 
 ### 1.10 Review and Security
 AI payloads = untrusted until a person reviews. Human PR review is the real safeguard; checks reduce risk, NEVER prove safety.
 - ALWAYS review `behavior_pack/scripts/` and every `.mcfunction` in the PR before merge. `direct` commit only for a payload you made and checked. PR mode needs "Allow GitHub Actions to create and approve pull requests".
 - `build_payload.py` enforces: imports only `@minecraft/server`, `@minecraft/server-ui`, `@minecraft/vanilla-data`, relative files; `eval`/`Function` rejected; every `.js` passes `node --check`. Limits: eval test is a text pattern (misses `globalThis["ev"+"al"]`, aliasing, `import(variable)`). Reviewers MUST read scripts.
-- Importer: payload size capped; duplicate/case-colliding ZIP entries and control chars rejected; folder names differing only by case or existing under another type refused unless `overwrite`; overwrite lists deleted files. Declared ZIP sizes can be forged: count actual bytes while extracting, stop at limit.
 - UUIDs unique across `MCPEDL/` (own folder excluded). `min_engine_version` = real looked-up version.
 - NEVER `${{ inputs.* }}` or step outputs inside `run:`. Pass via `env:`, quote.
 - Docs MUST pass `build_payload.py` `DOC:` checks (failures, not warnings).
 
 ### 1.11 Known Untested Assumptions
 Open until confirmed in game. NEVER state as fact in docs.
-1. Void cleaner: Y=-64 fill succeeds for a player spawning in a fresh void world; conditional tag (4.5) retries correctly.
+1. Void cleaner: Y=-64 fill succeeds for a player spawning in a fresh void world; conditional tag (Dirtbound `SPEC.md`) retries correctly.
 2. World host reports as Operator via `playerPermissionLevel` with cheats off (Controller reaches host on achievement-eligible world).
 3. `isOp()` absent in 2.x `@minecraft/server` (Controller uses a helper). Re-check on every module bump.
-4. Controller kept while running, returned on respawn, End Game confirm, `consumeOnStart: true` work across rejoin/death/reload. Only tested with mocked modules.
+4. Controller behavior (1.7) across rejoin, death, reload. Tested only with mocked modules.
 5. Shipped functions and Controller do not disable achievements unless an admin command is run.
 6. Experiment/achievement state of each `Mcpeworlds/` foundation.
 
 ---
 
-## Part 2: Docs (README, DESCRIPTION, CHANGELOG)
-
-Part 1 wins on conflict. `scripts/doc_template.py` enforces the templates below (`DOC:` failures). Script and file disagree: report it, follow the script for what the build accepts.
-
-### 2.1 Roles
-- README.md: version-free download landing page. Title, package format, direct link, 3 install steps, link to DESCRIPTION. NEVER gameplay text, badges, images, release version.
-- DESCRIPTION.md: full product page. NEVER release version in title.
-- CHANGELOG.md: player-visible changes only. Plain text, only source of truth.
-- Catalogs (download source of truth, tables allowed): `MCPEDL/Addons/README.md#available-add-ons`, `MCPEDL/Maps/README.md#available-maps`, `MCPEDL/Script/README.md#available-scripts`, `MCPEDL/Minigame/README.md#available-minigames`, `builds/README.md#available-pack-and-map-builds`.
-- ALWAYS move verified player-facing text from a long README into DESCRIPTION before replacing it. NEVER lose verified info. NEVER duplicate full descriptions.
-
-### 2.2 Writing
-- ALWAYS player-facing: what players do, how it behaves in game, what they need.
-- ALWAYS in-game display names ("Diamond"). NEVER identifiers (`minecraft:diamond`), file/function/event/API/module names, JSON, config keys, tick intervals, code, hashes, build details.
-- NEVER write `Script API` or `@minecraft/server`. Use "modern Minecraft Bedrock mechanics".
-- NEVER BP/RP. Write "Behavior Pack", "Resource Pack", "Complete Pack (.mcaddon)".
-- NEVER code blocks or edit-JSON/JS instructions. Config = in-game options, commands, tags.
-- Tone: factual. NEVER hype, clickbait, rhetorical questions, filler, emojis.
-- ALWAYS verify exact values, recipes, requirements from source or tests.
-- NEVER claim "zero lag", universal multiplayer/Realms, achievement preservation, "no experimental features" without evidence for that exact claim. Exception: add-on Achievements line = `Likely achievement-friendly.` (keep cheats/world caveats).
-- ALWAYS say cheats are needed when documenting a cheat-only function, and that cheats disable achievements in that world.
-- Page quality: tagline = one concrete sentence (<=25 words, one verified number or item name) that doubles as CurseForge Summary. NEVER "adds items to the game". Explain a mechanic with one short example. One idea per feature card. Steps = numbered. Style check: `python3 scripts/doc_template.py --style <folder>`; rewrite every STYLE hint with a fact (advisory).
-
-### 2.3 Layout
-- Must render on GitHub, CurseForge, MCPEDL, Planet Minecraft.
-- NEVER Markdown tables in README/DESCRIPTION. Use `### Feature Name` cards with `- **What Happens**: ...`.
-- Paragraphs <=4 sentences. NEVER LaTeX. Use `->`.
-- README: NEVER badges/images. DESCRIPTION: exactly the 2 template badges (Minecraft Bedrock "Stable Release", never a version) plus the 2 listing images. Other images: requested item sprites, recipe diagrams only. Only exception: generated "Collection Size" badge in root README (NEVER hand-edit, NEVER copy).
-- Listing images: HTML, `width="45%"`, NEVER `height`, full raw URL `https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/assets/Images/<file>` (`curseforge.jpg`, `MCPEDL.jpg`). NEVER edit/copy them. `scripts/optimize_images.py` compresses (800 px, 200 KB, JPEG).
-- NEVER duplicate version suffixes `(v1.2.0) (v1.2.1)`.
-- NEVER copy a legacy MCPEDL description to CurseForge unchanged.
-- Repo links: relative. Published pages: full URLs `https://github.com/AllensCreations/MCPE-Curseforges/tree/main/<path>`, `.../raw/main/builds/<file>`.
-- Spoiler (CurseForge `</>`): `<h2>Title</h2><div class="spoiler">content</div>`. Preview first. HTML only for listing images and a verified spoiler.
-- Changelog views: `changelog_views/<Name>.github.md` + `.curseforge.html` generated by `scripts/build_changelog_views.py`. NEVER add HTML/folds/links to CHANGELOG.md. NEVER hand-edit views.
-- Description view: `description_views/<Name>.curseforge.html` generated from DESCRIPTION.md by `scripts/build_description_views.py` (hero, feature cards, compatibility table; CurseForge-supported HTML only). DESCRIPTION.md stays the source. NEVER hand-edit views.
-- Media: payloads contain no screenshots. Add them on the platform after publishing.
-
-### 2.4 Attribution and keywords
-- Creator links + listing images: DESCRIPTION only, in Creator and Permissions. NEVER in README, changelog, manifest description.
-- Attribution block (no links), directly before Keywords, exactly:
-
-```markdown
-## Guidelines and Attribution
-
-- Creator: ALNStudios
-- Rights & Reservation: All rights reserved for ALNStudios.
-- Content Creators: Content creators are permitted to feature this creation in videos and streams with credit to ALNStudios.
-- Redistribution: Do not re-upload this pack or provide direct monetized download bypasses. Link directly to the official repository page.
-- Disclaimer: This is an unofficial community creation. It is not an official Minecraft product and is not approved by or associated with Mojang or Microsoft.
-
----
-
-© All rights reserved for ALNStudios.
-
----
-```
-
-- Keywords: end of every DESCRIPTION, from real features. Anchors: `Minecraft Bedrock add-on`, `Minecraft PE mod`, `MCPEDL add-on`, `CurseForge Bedrock`, `ALNStudios`. Gameplay anchors only if verified.
-
-```markdown
-## Search & Discovery Keywords
-
-Minecraft Bedrock add-on, [Add-on Name] Bedrock mod, [feature 1], [feature 2], [item or mob name], Minecraft PE survival, MCPEDL add-on, CurseForge Bedrock, ALNStudios.
-```
-
-### 2.5 Templates (STRICT)
-- ALWAYS follow exactly: same headings, text, order, labels, bullet format. NEVER add/remove/rename/merge/reorder sections. NEVER boilerplate or text outside the template.
-- Only optional section: `## Common Questions`, directly after How to Use, lines `- **Question**: answer`. Omit whole section without verified answers.
-- ALWAYS replace every `[placeholder]` and `verified-...` marker. NEVER leave one.
-- `.mcworld` installs may vary; multiple verified world variants may be listed. Accuracy and requested scope outrank template.
-
-README.md (exactly 11 non-empty lines). Direct package URL if it exists, else official category catalog. Format = real (`.mcaddon`/`.mcpack`/`.mcworld`). `.mcworld` step 3 = `3. Find the imported world in your Worlds list and open it.` Preserve all verified world links.
-
-```markdown
-# [Pack Name]
-
-Download the current release of **[Pack Name]** for Minecraft Bedrock Edition.
-
-## Download
-
-- **Package format:** `.mcaddon`
-- **Direct download:** [Download [Pack Name] (.mcaddon)](verified-direct-download-link)
-
-## Installation
-
-1. Download the package using the link above.
-2. Open the downloaded file with Minecraft to import it.
-3. If the package contains a pack that must be enabled separately, activate it in your world's settings.
-
-## Pack Information
-
-For gameplay features, usage details, compatibility notes, and other project information, read the [full description](verified-DESCRIPTION-link).
-```
-
-DESCRIPTION.md (all project types; only Achievements wording is add-on specific). Portable Markdown. NEVER version in title, unverified features, placeholder images.
-
-```markdown
-# [Pack Name] — [Clear, factual subtitle]
-
-**By ALNStudios**
-
-[![Minecraft Bedrock](https://img.shields.io/badge/Minecraft%20Bedrock-Stable%20Release-brightgreen?style=flat-square&logo=minecraft)](https://github.com/AllensCreations/MCPE-Curseforges)
-[![Format](https://img.shields.io/badge/Format-.MCPACK%20%7C%20.MCADDON%20%7C%20.MCWORLD-blue?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges)
-
-**[One concrete sentence, 25 words or fewer, with one verified number or item name. It doubles as the CurseForge Summary.]**
-
-> [Two sentences at most. First: what the pack adds, with a verified name or number. Second: what changes in play or who it suits. Never write "adds items to the game".]
-
-## Overview
-
-[One short paragraph in plain words: what a player does with the pack from start to finish, and what is different from vanilla Minecraft.]
-
-## Key Features
-
-### [Feature Name]
-- **What Happens**: [One or two sentences of player-facing behavior with verified numbers, ranges, and item names.]
-- **How It Works**: [Optional. A short example such as "Right-click X with Y, then Z happens".]
-- **Good To Know**: [Optional. A verified limit, cost, or interaction players ask about.]
-
-Add separate feature cards for meaningful mechanics. Put relevant item lists, mob rosters, and verified crafting details inside the matching card; omit sections the pack does not need.
-
-## How to Use
-
-1. [First thing a player does, with the exact item or action.]
-2. [Next step.]
-3. [What they should see happen.]
-
-## Common Questions
-
-- **[Question players actually ask]**: [Verified answer in one or two sentences.]
-
-(The Common Questions section is optional. Include it only with verified answers; otherwise omit the whole section. It comes directly after How to Use.)
-
-## Compatibility
-
-- Minecraft Bedrock Edition: [verified minimum version, only if verified]
-- Experimental features: [verified status]
-- Achievements: Likely achievement-friendly. [For Add-ons; use a factual status for other pack types.]
-
-## Creator and Permissions
-
-- Creator: ALNStudios
-- Profiles: [CurseForge Profile](https://www.curseforge.com/members/allenscreations/projects) · [MCPEDL Profile](https://mcpedl.com/user/alnstudios/)
-
-<a href="https://www.curseforge.com/members/allenscreations/projects"><img src="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/assets/Images/curseforge.jpg" alt="CurseForge" width="45%"></a> <a href="https://mcpedl.com/user/alnstudios/"><img src="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/assets/Images/MCPEDL.jpg" alt="MCPEDL" width="45%"></a>
-
-## Guidelines and Attribution
-
-[Attribution block from Section 4.]
-
-## Search & Discovery Keywords
-
-[Keywords.]
-```
-
-CHANGELOG.md. Newest first. Groups: Added, Improved & Balanced, Fixed (bugs as in-game experience). NEVER links, URLs, badges, function/event names, JSON diffs, hashes, CI steps, unverified benefits. NEVER Keep a Changelog/SemVer mention. After the title go straight to entries.
-
-```markdown
-# Changelog — [Add-on Name]
-
----
-
-## [1.0.0] - YYYY-MM-DD - [Update Name]
-
-### Added
-- **[Feature Title]**: [Clear summary of the new gameplay feature and how players use it].
-
-### Improved & Balanced
-- **[Enhancement Title]**: [Player-friendly description of tuning, balance, or visual changes].
-
-### Fixed
-- **[Fix Title]**: [What in-game bug or glitch was resolved].
-```
+## Part 2: Docs (moved)
+Every README, DESCRIPTION and CHANGELOG rule and template: `DOCS_RULES.md` (sections 2.1 to 2.5). Read it before writing any doc.
 
 ---
 
@@ -451,7 +278,7 @@ NEVER hand-write ZIP, base64 or the `.sh`. `scripts/make_pack_script.py` install
 - [ ] SELF-TEST PASSED + PACK SCRIPT OK + BUILD OK printed; exactly one `.sh` delivered, no other file.
 - [ ] Module versions latest stable, date recorded. `min_engine_version` looked up, docs state only a verified minimum.
 - [ ] Docs state achievement status (+cheats caveat), experiments, "not tested in game"; no `DOC:` failures; no STYLE hints; tagline one concrete sentence.
-- [ ] Every README/DESCRIPTION/CHANGELOG matches Part 2 exactly, no placeholders, DESCRIPTION has both listing images.
+- [ ] Every README/DESCRIPTION/CHANGELOG matches `DOCS_RULES.md` exactly, no placeholders, DESCRIPTION has both listing images.
 - [ ] Map: `oneblock_setup` harmless+idempotent; `void_cleaner` ends with conditional `void_cleaned` tag.
 - [ ] Script: BP only, `.mcpack`, no Controller/RP, real `main.js` logic, listed add-ons exist.
 - [ ] Minigame: form exactly Start + How to play; real `gameInfo`/`howToPlay`; real logic calling `endGame()`; stuck-state recovery; listed add-ons exist.
@@ -481,10 +308,10 @@ Paste the workflow error log back to the agent. Find the rule here and the check
 | `Name clash` / `already exists` / `also exists under` | Other folder name or `overwrite` true. |
 | `add-on '<x>' not found` | Fix name in `test_world.json`. |
 | `missing the unlock context` | Add unlock (1.4). |
-| `clickable CurseForge image` / `clickable MCPEDL image` | Paste the exact HTML line from 2.5 into Creator and Permissions. |
+| `clickable CurseForge image` / `clickable MCPEDL image` | Paste the exact HTML line from `DOCS_RULES.md` 2.5 into Creator and Permissions. |
 | `run scripts/optimize_images.py` | Compress `assets/Images/` (workflow does it). |
-| `old hardcoded-version Minecraft Bedrock badge` | Use the version-free badge from 2.5. |
-| `DOC: ...` | Fix exactly what it names; template in 2.5. |
+| `old hardcoded-version Minecraft Bedrock badge` | Use the version-free badge from `DOCS_RULES.md` 2.5. |
+| `DOC: ...` | Fix exactly what it names; template in `DOCS_RULES.md` 2.5. |
 
 ### 4.11 Reply format
 Every reply = exactly these three sections, this order, these headings (`INSTRUCTIONS.md` Reply Format). NOTHING before, between or after. NEVER a Summary section. Empty: `- None`.
@@ -512,4 +339,4 @@ Applies to every addon, map, script, minigame, item, entity, block, trade, recip
 - NEVER invent an API, component, event or behavior. Use only what the looked-up stable version (1.2) provides and the repo scripts accept. Cannot verify: say so in DESCRIPTION.md.
 - Modular: one small file per workaround with one entry point (script: `behavior_pack/scripts/lib/<name>.js` imported relatively; data: its own function file, entity or item definition). Reuse an existing module. NEVER copy the logic per feature.
 - Safe: idempotent setup, caps and cleanup for spawned entities and loops, nothing that corrupts worlds or other packs.
-- Docs (Part 2): player-facing result only, no code or API names; the trade-off under Good To Know. State achievement and experiment impact per 1.2. NEVER claim tested in game unless tested.
+- Docs (`DOCS_RULES.md`): player-facing result only, no code or API names; the trade-off under Good To Know. State achievement and experiment impact per 1.2. NEVER claim tested in game unless tested.

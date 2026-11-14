@@ -1,9 +1,9 @@
 # CHECKRM Reference: Docs Audit, Wiki and Samples (v1)
 
-Moved from `INSTRUCTIONS.md` Part 3. `INSTRUCTIONS.md` Part 1 and Part 2 win on conflict. Numbers 3.x refer to this file; 1.x and 2.x to `INSTRUCTIONS.md`.
+Moved from `INSTRUCTIONS.md` Part 3. `INSTRUCTIONS.md` Part 1 wins on conflict; doc rules are in `DOCS_RULES.md`. Numbers 3.x refer to this file; 1.x and 2.x to `INSTRUCTIONS.md`.
 
 ### 3.1 Authority and Scope
-- `INSTRUCTIONS.md` Parts 1-2 authoritative. Unreadable: stop, report. NEVER work from memory.
+- `INSTRUCTIONS.md` Part 1 and `DOCS_RULES.md` authoritative. Unreadable: stop, report. NEVER work from memory.
 - Docs and catalog maintenance ONLY. NEVER change gameplay code, manifests, UUIDs, versions, deps, pack settings, assets, workflows, release config unless explicitly asked. "Documentation-only" = touch none of those.
 - Modes: repo-wide (`/checkrm`, "all projects", no single project named) | single project (name/slug/folder, or create/repair/update one project's docs).
 - ALWAYS discover real folder structure first. NEVER assume a path or substitute a similar project. Report ambiguity/missing target.
@@ -13,7 +13,7 @@ Moved from `INSTRUCTIONS.md` Part 3. `INSTRUCTIONS.md` Part 1 and Part 2 win on 
 2. Audit by reading (agents do not run `scripts/check_readme_status.py`; the `.sh` runs it). It checks: missing/incomplete docs, add-on READMEs with product info, short map/script READMEs, broken relative links, orphan build dirs. Cover the same ground by hand and report.
 3. Verify facts BEFORE writing: what it does, features, activation/config, persistence, packs/deps, versions, limits, achievements/experiments (1.2). NEVER infer a feature from a name. Separate implemented from planned. Verify vanilla names/sprites against 3.3-3.4.
 4. References: before creating/rewriting README or DESCRIPTION read category catalog, builds README, 2-3 well-documented same-category projects. Reuse conventions, NEVER project-specific claims. Verify their links/images/claims first.
-5. Write per Part 2. NEVER add an unimplemented feature because requested. Omit install steps if asked.
+5. Write per `DOCS_RULES.md`. NEVER add an unimplemented feature because requested. Omit install steps if asked.
 6. Images/badges/links: README none. DESCRIPTION 2 template badges + profile banners, no other badges. Other images: requested sprites, recipe diagrams. Confirm assets exist, absolute raw URLs, verify link targets. No placeholders.
 7. Sync catalogs and builds: check category catalog, builds README. Update only relevant entries. Search first (no duplicates). Keep ordering. Inspect build scripts before running. The `.sh` or CI runs `scripts/auto_bump_and_build.py --project "<Project-Name>"` (never changes manifest versions). NEVER claim build/sync done if failed or not run.
 8. Verify: re-read whole edited file (headings, lists, links); each feature has source evidence, no verified content lost; the `.sh` runs `scripts/validate_manifest_titles.py --project <path>` and `scripts/check_readme_status.py` (expect 0 needing update, `[LINK INTEGRITY] All relative links valid`); LOCK marker for `MCPEDL/Addons/`; review diff for scope. State any check not run.
