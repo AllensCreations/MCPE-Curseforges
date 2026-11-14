@@ -2,6 +2,12 @@
 
 ---
 
+## [1.0.19] - 2026-11-14 - Rename And Move Removed
+
+### Improved & Balanced
+- **Rename And Move Removed**: The Rename and Move buttons are gone from the main menu. Name a slot when you save it, and save into the same slot again to change its name.
+- **Empty Name**: Leaving the name empty when you save now always shows the coordinates, even on a slot that had a name.
+
 ## [1.0.18] - 2026-11-14 - Move Slots
 
 ### Added

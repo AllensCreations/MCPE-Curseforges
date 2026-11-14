@@ -1,7 +1,7 @@
 import { world, system } from "@minecraft/server";
 import { ActionFormData, ModalFormData, FormCancelationReason } from "@minecraft/server-ui";
 
-const VERSION = "1.1.9";
+const VERSION = "1.1.10";
 const MENU_ITEM = "minecraft:compass";
 const TITLE = `WPH|§6@ALNStudios Waypoint Helper §7(${VERSION})`;
 const BASE_SLOTS = 10;
@@ -42,10 +42,7 @@ const DIMENSION_NAMES = {
 const PICKER = {
   save: { title: "Save Waypoint", body: "Choose a slot to save your current position." },
   load: { title: "Load Waypoint", body: "Choose a slot to teleport to." },
-  rename: { title: "Rename Waypoint", body: "Choose a slot to rename. Named slots hide their coordinates." },
   delete: { title: "Delete Waypoint", body: "Choose a slot to delete. Choosing an empty extra slot at the end removes it." },
-  move: { title: "Move Waypoint", body: "Choose the slot you want to move." },
-  moveTo: { title: "Move To", body: "Choose where it goes. A filled slot swaps places with it." },
 };
 
 const heading = (text, body) => `§l${text}§r\n${body}`;
@@ -220,13 +217,11 @@ async function saveFlow(player) {
       rx: rotation.x,
       ry: rotation.y,
     };
-    const hint = existing && existing.n ? `empty keeps "${existing.n}"` : "empty shows coordinates";
-    const nameForm = new ModalFormData().title(TITLE).textField(`§lName Slot ${pick.index + 1}§r\nName (${hint})`, "Example: Home");
+    const nameForm = new ModalFormData().title(TITLE).textField(`§lName Slot ${pick.index + 1}§r\nName (empty shows coordinates)`, "Example: Home");
     const nameResponse = await show(nameForm, player);
     if (!nameResponse || nameResponse.canceled) return "closed";
     const name = cleanName(nameResponse.formValues[0]);
     if (name) data.n = name;
-    else if (existing && existing.n) data.n = existing.n;
     writeSlot(player, pick.index, data);
     actionBar(player, `${dimensionColor(data.d)}Saved ${slotName(data, pick.index)} (${dimensionName(data.d)}).`);
     return "done";
@@ -413,35 +408,6 @@ async function loadFlow(player) {
   }
 }
 
-async function renameFlow(player) {
-  let notice;
-  while (true) {
-    const pick = await pickSlot(player, "rename", notice);
-    if (pick.kind !== "slot") return pick.kind;
-    const slot = readSlot(player, pick.index);
-    if (!slot) {
-      notice = `Slot ${pick.index + 1} is empty. Save a position there first.`;
-      continue;
-    }
-    const form = new ModalFormData()
-      .title(TITLE)
-      .textField(`§lRename Slot ${pick.index + 1}§r\nName (leave empty to show coordinates again)`, "Example: Home");
-    const response = await show(form, player);
-    if (!response || response.canceled) return "closed";
-    const name = cleanName(response.formValues[0]);
-    if (name) {
-      slot.n = name;
-      writeSlot(player, pick.index, slot);
-      actionBar(player, `§aSlot ${pick.index + 1} renamed to "${name}". Coordinates are hidden.`);
-    } else {
-      delete slot.n;
-      writeSlot(player, pick.index, slot);
-      actionBar(player, `§aSlot ${pick.index + 1} name cleared. Coordinates are visible again.`);
-    }
-    return "done";
-  }
-}
-
 async function deleteFlow(player) {
   let notice;
   while (true) {
@@ -470,36 +436,6 @@ async function deleteFlow(player) {
   }
 }
 
-async function moveFlow(player) {
-  let notice;
-  while (true) {
-    const from = await pickSlot(player, "move", notice);
-    if (from.kind !== "slot") return from.kind;
-    const source = readSlot(player, from.index);
-    if (!source) {
-      notice = `Slot ${from.index + 1} is empty.`;
-      continue;
-    }
-    const to = await pickSlot(player, "moveTo");
-    if (to.kind === "closed") return "closed";
-    if (to.kind !== "slot") {
-      notice = undefined;
-      continue;
-    }
-    if (to.index === from.index) {
-      notice = "Choose a different slot to move it to.";
-      continue;
-    }
-    const target = readSlot(player, to.index);
-    writeSlot(player, to.index, source);
-    if (target) writeSlot(player, from.index, target);
-    else player.setDynamicProperty(SLOT_PREFIX + from.index, undefined);
-    trimExtraSlots(player);
-    actionBar(player, `§aMoved ${slotName(source, from.index)} to slot ${to.index + 1}.${target ? ` The old slot ${to.index + 1} is now slot ${from.index + 1}.` : ""}`);
-    return "done";
-  }
-}
-
 function saveSpawnHere(player) {
   try {
     const location = {
@@ -523,7 +459,7 @@ async function aboutScreen(player) {
         "About",
         `Waypoint Helper by §lALNStudios§r\n\nSlots start at §l${BASE_SLOTS}§r. When every slot is filled, Save shows a button to add one more, with no upper limit.\n\n` +
           `§lSave§r stores your position and asks for an optional name. §lLoad§r counts down ${TELEPORT_SECONDS} seconds, then teleports you there. Moving or taking damage cancels it, and there is a ${TELEPORT_COOLDOWN_MS / 1000} second wait between teleports. ` +
-          "§lRename§r gives a slot a name and hides its coordinates. §lMove§r changes a slot's position and swaps places with a filled slot. §lDelete§r clears a slot and removes empty extra slots from the end. §lLoad§r also lists where you last died.\n\n" +
+          "§lDelete§r clears a slot and removes empty extra slots from the end. §lLoad§r also lists where you last died.\n\n" +
           "§lSave Spawn Here§r sets your respawn point to where you stand.\n\nWaypoints belong to each player."
       )
     )
@@ -542,8 +478,6 @@ async function mainMenu(player) {
       .button("Save Spawn Here")
       .button("Save")
       .button("Load")
-      .button("Rename")
-      .button("Move")
       .button("Delete")
       .button("About");
     const response = await show(form, player);
@@ -562,15 +496,9 @@ async function mainMenu(player) {
         result = await loadFlow(player);
         break;
       case 4:
-        result = await renameFlow(player);
-        break;
-      case 5:
-        result = await moveFlow(player);
-        break;
-      case 6:
         result = await deleteFlow(player);
         break;
-      case 7:
+      case 5:
         result = await aboutScreen(player);
         break;
     }

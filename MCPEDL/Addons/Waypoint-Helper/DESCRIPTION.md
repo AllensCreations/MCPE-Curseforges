@@ -1,4 +1,4 @@
-# Waypoint Helper — Ten Waypoint Slots With Save, Load And Rename
+# Waypoint Helper — Ten Waypoint Slots With Save, Load And Delete
 
 **By ALNStudios**
 
@@ -7,11 +7,11 @@
 
 **Save up to 10 waypoints with a Compass, add more slots without limit, and teleport back to any of them.**
 
-> Waypoint Helper adds a Cheatstick-styled Compass menu with Save, Load, Rename, Move and Delete for 10 starting waypoint slots. It suits players who want named teleport points without typing coordinates.
+> Waypoint Helper adds a Cheatstick-styled Compass menu with Save, Load and Delete for 10 starting waypoint slots. It suits players who want named teleport points without typing coordinates.
 
 ## Overview
 
-Right-click a Compass to open the Waypoint Helper menu. Save your current position into a slot, then pick that slot under Load to teleport back to it. Rename a slot to label it, which hides its coordinates in the menu.
+Right-click a Compass to open the Waypoint Helper menu. Save your current position into a slot, then pick that slot under Load to teleport back to it. Name a slot when you save it to label it, which hides its coordinates in the menu.
 
 ## Key Features
 
@@ -20,21 +20,13 @@ Right-click a Compass to open the Waypoint Helper menu. Save your current positi
 - **Good To Know**: There is no upper limit on slots. Waypoints are stored per player and are kept between play sessions.
 
 ### Save And Load
-- **What Happens**: Save stores your position, facing direction and dimension in the slot you choose, then asks for an optional name. Load counts down 3 seconds on the action bar with a sound on each second, then teleports you to the slot you choose with a teleport sound.
+- **What Happens**: Save stores your position, facing direction and dimension in the slot you choose, then asks for an optional name of up to 24 characters. A named slot shows only its name, and its coordinates are hidden. Load counts down 3 seconds on the action bar with a sound on each second, then teleports you to the slot you choose with a teleport sound.
 - **How It Works**: Open the menu, tap Save, pick Slot 1. Later open the menu, tap Load, pick Slot 1.
 - **Good To Know**: Saved slots and the save message are green in the Overworld, red in the Nether and yellow in The End. Saving into a filled slot asks you to confirm before it replaces the old position. Loading an empty slot shows a notice instead of teleporting. If the saved spot is now in the air, you land on the ground below it, and if it is inside blocks you are moved up to open space. Ground is searched up to 128 blocks away, and nothing moves you onto lava.
-
-### Rename
-- **What Happens**: Rename gives a saved slot a name of up to 24 characters. A named slot shows only its name, and its coordinates are hidden.
-- **Good To Know**: Leave the name empty to remove it and show the coordinates again. Empty slots cannot be renamed.
 
 ### Last Death
 - **What Happens**: Your death location is saved automatically. It is the first button in the Load list, and loading it teleports you back with the same countdown.
 - **Good To Know**: Only your most recent death is kept. It is replaced each time you die.
-
-### Move
-- **What Happens**: Move picks a saved slot and then a new position for it. If the new position already holds a waypoint, the two slots swap places.
-- **Good To Know**: Empty slots cannot be moved. Moving a slot out of the extra slots at the end removes empty extra slots left behind.
 
 ### Delete
 - **What Happens**: Delete clears a saved slot after you confirm.
@@ -64,7 +56,7 @@ Right-click a Compass to open the Waypoint Helper menu. Save your current positi
 
 - **How do I get more than 10 slots?**: Fill all 10 slots, then open Save. An Add Slot button appears and adds one slot per press.
 - **Why do the menus look plain?**: The Resource Pack is not active. Activate it in your world's settings.
-- **Does Rename change where a slot teleports me?**: No. Rename only changes the label and hides the coordinates.
+- **How do I rename a slot?**: Save into the same slot again, confirm the overwrite and enter a new name.
 
 ## Compatibility
 
@@ -96,5 +88,5 @@ Right-click a Compass to open the Waypoint Helper menu. Save your current positi
 
 ## Search & Discovery Keywords
 
-Minecraft Bedrock add-on, Waypoint Helper Bedrock mod, waypoint teleport, save coordinates, rename waypoints, Compass menu, Minecraft PE survival, MCPEDL add-on, CurseForge Bedrock, ALNStudios.
+Minecraft Bedrock add-on, Waypoint Helper Bedrock mod, waypoint teleport, save coordinates, name waypoints, Compass menu, Minecraft PE survival, MCPEDL add-on, CurseForge Bedrock, ALNStudios.
 
