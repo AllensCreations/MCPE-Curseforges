@@ -2,7 +2,9 @@
 
 ---
 
-## [2.0.1] - 2026-11-15 - Island Build And Shifter Safety Fixes
+## [2.0.1] - 2026-11-14
+
+**What's new in v2.0.1:** Packed with the v2.0.1 update. Includes: Island Build And Shifter Safety Fixes.
 
 ### Fixed
 
@@ -23,6 +25,8 @@
 
 - **Island Lamp Posts**: Fence and lantern posts now stand on solid island ground instead of on rooftops or on the thin edge of an island.
 
+
+
 ## [1.19.0] - 2026-11-03
 
 ### Added
@@ -35,11 +39,15 @@
 - **Floating Island Chests**: Treasure chests inside island buildings now always have a floor under them.
 - **Island Progress Never Resets**: An island that has already been built keeps its core progress, even if the island is generated again.
 
+
+
 ## [1.18.0] - 2026-10-30
 
 ### Improved & Balanced
 
 - **Content update**: Updated gameplay scripts and world data.
+
+
 
 ## [1.17.0] - 2026-10-30
 
@@ -47,17 +55,23 @@
 
 - **Content update**: Updated gameplay scripts and world data.
 
+
+
 ## [1.16.0] - 2026-10-30
 
 ### Improved & Balanced
 
 - **Content update**: Updated gameplay scripts and world data.
 
+
+
 ## [1.15.0] - 2026-10-29
 
 ### Improved & Balanced
 
 - **Content update**: Updated gameplay scripts and world data.
+
+
 
 ## Unreleased
 
@@ -73,6 +87,8 @@
 - **Island Discovered Message**: The large centered title is now a small action bar message.
 - **Chat Command Leftovers Removed**: Unused chat command code that cannot work in current Minecraft was removed.
 
+
+
 ## [1.14.0] - 2026-10-29
 
 ### Added
@@ -82,6 +98,8 @@
 ### Improved & Balanced
 - **Hardcore Is No Longer Forced**: Permanent Spectator Mode after death and the locked Hard difficulty now apply only to the Hardcore world. The Survival world uses normal respawning, and the Creative world starts every player in Creative mode.
 - **Admin World Removed**: The separate Admin world is no longer included.
+
+
 
 ## Unreleased (fixes after v1.2.6)
 
