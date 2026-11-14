@@ -2,30 +2,22 @@
 
 ---
 
-## [1.22.6] - 2026-11-15 - Personal Layout Removal
+## [1.22.6] - 2026-11-14
+
+**What's new in v1.22.6:** Packed with 3 updates, from v1.22.4 through v1.22.6. Includes: Personal Layout Removal; Death Drops and Joining Fix; Personal Layout Throw Fix.
 
 ### Improved & Balanced
 
 - **Personal Layout Removed**: The Personal layout and its Controller button are gone. Everyone now shares one identical inventory, which keeps the add-on lighter on busy teams.
 - **Running Games**: A game that was running in Personal layout keeps its items and continues as a normal shared inventory.
-
-## [1.22.5] - 2026-11-15 - Death Drops and Joining Fix
+- **Personal Layout Speed**: Personal layout checks inventories every 4 ticks instead of every tick.
+- **Save Limit Warning**: The team is warned when the shared inventory is close to the save limit.
 
 ### Fixed
 
 - **Death Drops**: The shared inventory now drops where a player dies, even when the death spot cannot be read, and Keep Inventory stays on while sharing.
 - **Item Details**: In Personal layout, teammates now get exact copies of items, so dye colors, banner patterns and trims are kept.
 - **Joining Players**: A player who joins while a game runs now adds their own items to the team instead of losing them.
-
-### Improved & Balanced
-
-- **Personal Layout Speed**: Personal layout checks inventories every 4 ticks instead of every tick.
-- **Save Limit Warning**: The team is warned when the shared inventory is close to the save limit.
-
-## [1.22.4] - 2026-11-15 - Personal Layout Throw Fix
-
-### Fixed
-
 - **Thrown Items**: In Personal layout, items one player throws away are now removed for the rest of the team, and a failed removal no longer brings the items back.
 
 ## [1.22.3] - 2026-11-13
@@ -36,6 +28,8 @@
 
 - **Single Controller**: Mode, Layout, Hard Health, Hard Hunger and the Team list are now in the Controller menu, so the separate Team Settings item is gone.
 
+
+
 ## [1.22.2] - 2026-11-13
 
 **What's new in v1.22.2:** Packed with the v1.22.2 update. Includes: Death Drops Fix.
@@ -43,6 +37,8 @@
 ### Fixed
 
 - **Death Drops**: The shared inventory now drops where a player dies and is then emptied for the team.
+
+
 
 
 
@@ -69,6 +65,8 @@
 
 - **Lost Items at End**: When the game ended in Personal layout and a player had no room, extra items could disappear. They now drop on the ground instead.
 - **Waiting Clears**: Starting a new game no longer skips cleaning the items of players who were offline when the last game ended.
+
+
 
 
 
@@ -125,6 +123,8 @@
 
 - **In-Game Title**: The in-game add-on title now shows the correct release version.
 - **Team Inventory Name**: Updated the in-game name to Team Inventory.
+
+
 
 
 
