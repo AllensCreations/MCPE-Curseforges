@@ -4,16 +4,16 @@ Copy a prompt below into your image generator. Attach your own images first so t
 
 ## Reference Images
 
-- **Logo reference**: attach your own logo. The generator must keep it exactly as it is.
+- **Logo reference**: attach your own logo. The generator uses it only for brand colors and mood. The result must be a new design, not a copy.
 - **Snapshot references**: attach 1 to 4 of your in-game snapshots of this pack. The generator copies their look, not their screen layout.
 
 ## Logo Prompt
 
 ```text
-Use the attached logo image as the main reference. Keep its shapes, colors and symbols exactly as they are. Do not redesign it, add new symbols or change its colors.
+Use the attached logo only as a brand reference for its color palette and overall mood. Do not copy it. Create a new, original logo with a different composition and a different main symbol. Do not just recolor, resize, crop, mirror or tweak the attached logo.
 Create a clean, square (1:1) logo image for the Minecraft Bedrock add-on "Sudden Death Roulette". ESCALATING SURVIVAL CHALLENGE & PERILOUS DIAMOND HUNT
-Match the blocky look of the attached in-game snapshots. Center the logo, use a simple background, and keep it readable at small sizes.
-Text: only "Sudden Death Roulette", spelled exactly, and only if the attached logo already has text. Otherwise use no text.
+Base the main symbol on the pack idea above. Match the blocky look of the attached in-game snapshots. Center the logo, use a simple background, and keep it readable at small sizes.
+Text: "Sudden Death Roulette" and, in small letters, "ALNStudios". ALNStudios is the brand name, so always keep it and never remove or change it. Spell both exactly.
 Do not add Minecraft, Mojang or Microsoft logos, watermarks, or characters from other games.
 ```
 
@@ -22,8 +22,8 @@ Do not add Minecraft, Mojang or Microsoft logos, watermarks, or characters from 
 ```text
 Create a wide (16:9) banner image for the Minecraft Bedrock add-on "Sudden Death Roulette". ESCALATING SURVIVAL CHALLENGE & PERILOUS DIAMOND HUNT
 Use the attached in-game snapshots as scene and style references: copy their blocky look, lighting, colors and the kind of scenery they show. Make a new composition inspired by them. Do not copy the on-screen HUD, chat or hotbar.
-Place the attached logo in the banner exactly as it is, large enough to read, on the left or center.
-Text: only "Sudden Death Roulette" and, in small letters, "by ALNStudios". Spell both exactly.
+Use the attached logo only as a brand reference for its colors and mood. Do not copy it. Put a new, original logo design in the banner, large enough to read, on the left or center.
+Text: "Sudden Death Roulette" and, in small letters, "by ALNStudios". ALNStudios is the brand name, so always keep it and never remove or change it. Spell both exactly.
 Leave clear space around the logo. No Minecraft, Mojang or Microsoft logos, no watermarks.
 ```
 
