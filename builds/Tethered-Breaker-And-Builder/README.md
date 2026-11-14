@@ -8,7 +8,7 @@ This folder contains compiled release packages for **Tethered Breaker and Builde
 
 | File Name | Format | Size | Description | Download Link |
 | :--- | :--- | :--- | :--- | :--- |
-| **`TetheredBuilder V1.12.0.mcaddon`** | `.mcaddon` | ~298 KB | Complete bundle containing both Behavior Pack and Resource Pack. | [Download (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Tethered-Breaker-And-Builder/TetheredBuilder%20V1.12.0.mcaddon) |
+| **`TetheredBuilder V1.12.1.mcaddon`** | `.mcaddon` | ~299 KB | Complete bundle containing both Behavior Pack and Resource Pack. | [Download (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Tethered-Breaker-And-Builder/TetheredBuilder%20V1.12.1.mcaddon) |
 
 ---
 

@@ -1,8 +1,8 @@
 {
-  "changelog_version": "1.12.0",
-  "manifest_version": "1.12.0",
+  "changelog_version": "1.12.1",
+  "manifest_version": "1.12.1",
   "packages": {
-    "TetheredBuilder V1.12.0.mcaddon": "78e29fda1d2c16f1aaca50a29ca5586f1d07585335fbf666c0a3946bd8930577"
+    "TetheredBuilder V1.12.1.mcaddon": "9def2010d3ed5b5f9506e0ad3158ce88e412f2f85d77425a6a48525a3c31f7ec"
   },
-  "source_sha256": "0d56461c48e9925a0c6baf551d78b70f61f449a3f6b7300ae7950aeed5f94f97"
+  "source_sha256": "8a2bfcb34c341e06fd4e2a8dddcbe48fa1098fd0f659e7981d1d0bfdc42b556b"
 }
