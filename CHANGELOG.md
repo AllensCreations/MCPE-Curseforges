@@ -2,6 +2,11 @@
 
 ---
 
+## [1.0.26] - 2026-11-14 - Image Prompts Keep Brand
+
+### Improved & Balanced
+- **Logo and Banner prompts**: the attached logo is now a brand reference only (colors and mood). The generator must make a new, original design with a different main symbol, not a copy or small tweak. "ALNStudios" always stays on the image and is never removed or changed.
+
 ## [1.0.25] - 2026-11-14 - Image Prompts And Changed-Only Views
 
 ### Added
