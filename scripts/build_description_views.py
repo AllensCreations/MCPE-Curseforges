@@ -4,7 +4,8 @@
 DESCRIPTION.md stays the only source of truth. This script writes
 description_views/<n>.curseforge.html (paste it into the CurseForge project description).
 
-Look: dark "game store" page. Pack icon + title hero, latest-update box, feature cards with an accent top bar,
+Look: dark "game store" page. Pack icon + title hero with badges (lowest supported Minecraft version, Experimental: No,
+achievements), feature cards with an accent top bar,
 numbered step badges, collapsed Q&A spoilers, colored compatibility badges, and a Support section with the Ko-fi image.
 Every pack gets its own accent color (stable, picked from the pack name; override in ACCENT_OVERRIDES).
 Only tags, CSS and classes that CurseForge supports are used (self-checked on every build).
@@ -91,7 +92,7 @@ PERMISSIONS = (
 BYLINE = "by ALNStudios"
 INSTALL = ("Download the file from this page and open it with Minecraft.",
            "Create or edit a world and turn on the new pack(s) in its settings.",
-           "Enable any Experimental toggles listed under Compatibility, then play.")
+           "Play. No Experimental toggles needed.")
 
 
 def esc(t):
@@ -284,6 +285,63 @@ def latest_box(u, acc):
     return panel(inner, acc)
 
 
+def find_min_version(project):
+    """Lowest header.min_engine_version of the pack's manifests as '1.26+' (stable API only), or ''."""
+    lows = []
+    for mf in project.glob("**/manifest.json"):
+        try:
+            v = json.loads(mf.read_text(encoding="utf-8"))["header"]["min_engine_version"]
+        except (ValueError, KeyError, TypeError, OSError):
+            continue
+        if isinstance(v, list) and len(v) >= 2 and all(isinstance(x, int) for x in v[:2]):
+            lows.append(tuple(v[:2]))
+    return f"{min(lows)[0]}.{min(lows)[1]}+" if lows else ""
+
+
+def hero_badges(min_version, compat_body):
+    """Badge row inside the hero: lowest Minecraft version, Experimental always No (stable API), achievements."""
+    out = []
+    bedrock = min_version
+    ach = ""
+    for line in compat_body.split("\n"):
+        m = re.match(r"^- (Minecraft Bedrock Edition|Achievements): (.*)$", line.strip())
+        if m and m.group(1) == "Minecraft Bedrock Edition" and not bedrock:
+            bedrock = m.group(2)
+        elif m and m.group(1) == "Achievements":
+            ach = m.group(2)
+    if bedrock:
+        out.append(_badge("Bedrock", bedrock, "#1f8a4c"))
+    out.append(_badge("Experimental", "No", "#1f8a4c"))
+    if ach:
+        if re.search(r"\b(disabled?|disables|blocked|off)\b", ach, re.I):
+            color = "#b83a3a"
+        elif re.search(r"friendly|compatible|enabled|keeps", ach, re.I):
+            color = "#1f8a4c"
+        else:
+            color = "#5b6675"
+        out.append(_badge("Achievements", ach, color))
+    return f'<div style="display:flex;flex-wrap:wrap;gap:8px;margin-left:14px;margin-right:14px">{"".join(out)}</div>'
+
+
+COMMAND_LINE = re.compile(r"^-\s+(?:\*\*)?`?(/[^`*:]+?)`?(?:\*\*)?\s*(?::|\u2014|\u2013|->)\s*(.+)$")
+
+
+def commands(body, acc):
+    """Own display for pack commands: one row per '- `/command args`: what it does' line."""
+    rows = []
+    for line in body.split("\n"):
+        m = COMMAND_LINE.match(line.strip())
+        if m:
+            rows.append(f'<tr><td style="width:42%;text-align:left"><code>{esc(m.group(1).strip())}</code></td>'
+                        f'<td style="text-align:left;color:{TEXT}">{inline(m.group(2))}</td></tr>')
+    if not rows:
+        return ""
+    note = f'<p style="color:{MUTED};font-size:12px">Commands need cheats enabled. Cheats turn off achievements in that world.</p>'
+    return (f'<div style="background-color:{PANEL};border:1px solid {LINE};border-radius:10px">{bar("#fbbf24")}'
+            f'<div style="padding-left:12px;margin-right:12px"><table style="width:100%;border-width:0"><tbody>'
+            f'{"".join(rows)}</tbody></table>{note}</div></div>')
+
+
 def pack_name(pre, fallback):
     """Name from the first '# ' title: any dash/colon subtitle and a trailing (vX.Y.Z) are dropped.
     No title at all -> the folder name."""
@@ -296,7 +354,7 @@ def pack_name(pre, fallback):
     return fallback.replace("-", " ").replace("_", " ").strip() or "Pack"
 
 
-def hero(name, tagline, pitch, icon_url, acc):
+def hero(name, tagline, pitch, icon_url, acc, badges=""):
     title = f'<h1 style="color:{HEAD};font-size:28px;text-align:{{a}}">{esc(name)}</h1>'
     by = f'<p style="color:{MUTED};font-size:14px;text-align:{{a}}">{BYLINE}</p>'
     tag = (f'<p style="color:{acc_text(acc)};font-size:16px;text-align:{{a}}"><strong>{inline(tagline)}</strong></p>' if tagline else "")
@@ -308,7 +366,7 @@ def hero(name, tagline, pitch, icon_url, acc):
         head = title.format(a="center") + by.format(a="center") + tag.format(a="center")
     pitch_html = (f'<p style="color:{SUB};text-align:center;margin-left:14px;margin-right:14px">{inline(pitch)}</p>' if pitch else "")
     return (f'<div style="background-color:{PANEL};border:1px solid {acc};border-radius:12px;line-height:1.5"><br>'
-            f'{head}{pitch_html}<br></div>')
+            f'{head}{pitch_html}<br>{badges}<br></div>')
 
 
 def support(acc):
@@ -359,16 +417,16 @@ def gallery(kind, entries):
     return '<div style="display:flex;flex-wrap:wrap;gap:10px">' + "".join(cells) + "</div>"
 
 
-def render(md, fallback="", icon_url=None, latest=None, accent=None, style="dark", media=None):
+def render(md, fallback="", icon_url=None, latest=None, accent=None, style="dark", media=None, min_version=""):
+    """latest is accepted for old callers and ignored: the page has no changelog box."""
     set_style(style)
     pre, sec = sections(md)
     name = pack_name(pre, fallback)
     acc = accent or accent_for(fallback or name)
     tagline = re.search(r"(?m)^\*\*(?!By )(.+)\*\*\s*$", pre)
     pitch = re.search(r"(?m)^>\s*(.+)$", pre)
-    parts = [hero(name, tagline.group(1) if tagline else "", pitch.group(1) if pitch else "", icon_url, acc)]
-    if latest:
-        parts += ["<br>", latest_box(latest, acc)]
+    parts = [hero(name, tagline.group(1) if tagline else "", pitch.group(1) if pitch else "", icon_url, acc,
+                  hero_badges(min_version, sec.get("Compatibility", "")))]
     if sec.get("Overview", "").strip():
         parts += [h2("About", acc), blocks_to_html(sec["Overview"], acc)]
     media = media or {}
@@ -381,12 +439,13 @@ def render(md, fallback="", icon_url=None, latest=None, accent=None, style="dark
     if media.get("recipes"):
         parts += [h2("Crafting Recipes", acc), gallery("recipes", media["recipes"])]
     if sec.get("How to Use", "").strip():
-        parts += [h2("How to Play", acc), blocks_to_html(sec["How to Use"], acc, badges=True)]
+        parts += [h2("Get Started", acc), blocks_to_html(sec["How to Use"], acc, badges=True)]
+    cmd = commands(sec.get("Commands", ""), acc) if sec.get("Commands", "").strip() else ""
+    if cmd:
+        parts += [h2("Commands", acc), cmd]
     if sec.get("Common Questions", "").strip():
         parts += [h2("Common Questions", acc), questions(sec["Common Questions"])]
     parts += [h2("Install", acc), steps(INSTALL, acc)]
-    if sec.get("Compatibility", "").strip():
-        parts += [h2("Compatibility", acc), compat_badges(sec["Compatibility"])]
     parts.append(support(acc))
     parts.append("<hr>")
     parts.append(f'<p style="text-align:center;color:{MUTED};font-size:13px"><strong>By ALNStudios</strong></p>')
@@ -454,8 +513,8 @@ SCRIPT_SIG = hashlib.sha256(Path(__file__).read_bytes()).hexdigest()
 MANIFEST = ".inputs.json"
 
 
-def input_key(md, changelog, icon, media, style):
-    raw = json.dumps([SCRIPT_SIG, md, changelog, icon, media, style], sort_keys=True, default=str)
+def input_key(md, changelog, icon, media, style, min_version=""):
+    raw = json.dumps([SCRIPT_SIG, md, changelog, icon, media, style, min_version], sort_keys=True, default=str)
     return hashlib.sha256(raw.encode("utf-8")).hexdigest()
 
 
@@ -500,16 +559,17 @@ def main(argv=None):
     for p, st in jobs:
         try:
             log = p / "CHANGELOG.md"
-            latest = latest_update(log.read_text(encoding="utf-8")) if log.is_file() else None
+            latest = None
             md = (p / "DESCRIPTION.md").read_text(encoding="utf-8")
             icon = find_icon_url(root, p)
             media = find_media(root, p, md)
-            key = input_key(md, log.read_text(encoding="utf-8") if log.is_file() else "", icon, media, st)
+            minv = find_min_version(p)
+            key = input_key(md, "", icon, media, st, minv)
             target = out / f"{p.name}.curseforge{SUFFIX[st]}.html"
             if a.changed and not a.check and target.is_file() and seen.get(target.name) == key:
                 skipped += 1
                 continue
-            h = render(md, p.name, icon, latest, style=st, media=media)
+            h = render(md, p.name, icon, latest, style=st, media=media, min_version=minv)
         except ValueError as e:
             print(f"FAIL {p.name}: {e}")
             bad += 1

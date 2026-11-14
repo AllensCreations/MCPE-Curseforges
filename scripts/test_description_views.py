@@ -23,7 +23,7 @@ class DescriptionViewTests(unittest.TestCase):
         self.assertNotIn("Verification", self.html)
         self.assertNotIn("Tested", self.html)
 
-    def test_compat_has_three_badges(self):
+    def test_hero_has_three_badges(self):
         for label in ("Bedrock:", "Experimental:", "Achievements:"):
             self.assertEqual(self.html.count(label), 1)
 
@@ -37,14 +37,40 @@ class DescriptionViewTests(unittest.TestCase):
         self.assertEqual(a1, bdv.accent_for("Mining-Helmet"))
         self.assertGreater(len({bdv.accent_for(n) for n in ("Cheat-Stick", "Grand-Banquets", "Universal-Leash", "OP-Sponge")}), 1)
 
-    def test_icon_and_latest_update(self):
+    def test_icon_and_no_changelog_box(self):
         log = "# Changelog\n\n## [1.14.5] - 2026-11-12\n\n### Added\n- **Mob light**: Works.\n\n## [1.0.0] - 2026-01-01\n- Old.\n"
         u = bdv.latest_update(log)
         self.assertEqual((u["version"], u["date"], len(u["bullets"])), ("1.14.5", "2026-11-12", 1))
         h = bdv.render(self.md, "Demo-Pack", "https://raw.githubusercontent.com/x/y/main/icon.png", u)
-        self.assertIn("LATEST UPDATE", h)
+        self.assertNotIn("LATEST UPDATE", h)
+        self.assertNotIn("1.14.5", h)
         self.assertIn('width="72"', h)
         self.assertEqual(bdv.check_html(h), [])
+
+    def test_badges_min_version_and_experimental_always_no(self):
+        h = bdv.render(self.md, "Demo-Pack", min_version="1.26+")
+        self.assertIn("Bedrock: 1.26+", h)
+        self.assertIn("Experimental: No", h)
+        self.assertEqual(h.count("Experimental:"), 1)
+
+    def test_find_min_version_takes_lowest(self):
+        import json
+        with tempfile.TemporaryDirectory() as d:
+            pack = Path(d)
+            for sub, v in (("bp", [1, 26, 0]), ("rp", [1, 21, 40])):
+                (pack / sub).mkdir()
+                (pack / sub / "manifest.json").write_text(json.dumps({"header": {"min_engine_version": v}}))
+            self.assertEqual(bdv.find_min_version(pack), "1.21+")
+            self.assertEqual(bdv.find_min_version(Path(d) / "nothing"), "")
+
+    def test_commands_get_their_own_display(self):
+        md = self.md.replace("## Compatibility", "## Commands\n\n- `/givemelight 5`: Gives 5 Cursor Lights.\n- `/lightoff`: Turns the light off.\n\n## Compatibility", 1)
+        h = bdv.render(md)
+        self.assertEqual(h.count(">Commands</h2>"), 1)
+        self.assertIn("<code>/givemelight 5</code>", h)
+        self.assertIn("Commands need cheats enabled", h)
+        self.assertEqual(bdv.check_html(h), [])
+        self.assertNotIn(">Commands</h2>", bdv.render(self.md))
 
     def test_minimal_follows_reader_theme(self):
         h = bdv.render(self.md, "Demo-Pack", style="minimal")
@@ -53,6 +79,7 @@ class DescriptionViewTests(unittest.TestCase):
             self.assertNotIn(bad, h)
         self.assertIn("ko-fi.png", h)
         self.assertIn("aspect-ratio", h)  # step badges still use the accent fill
+        self.assertNotIn("Experimental toggles listed", h)
         bdv.render(self.md)  # style resets cleanly
         self.assertIn("#12161c", bdv.render(self.md))
 

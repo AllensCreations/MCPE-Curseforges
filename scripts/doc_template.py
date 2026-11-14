@@ -241,17 +241,21 @@ def check_description(text, version, errors, ptype="addon", images_dir=None):
     elif len(after) < 2 or after[1].startswith(("#", "-", "|", "*")):
         errors.append(f"DOC: {n} needs a short summary paragraph after the By line and before ## Overview.")
     names = [s[0] for s in sections]
-    qa_at = names.index("How to Use") + 1 if "How to Use" in names else None
-    if qa_at is not None and qa_at < len(names) and names[qa_at] == "Common Questions":
-        qa_body = sections[qa_at][1]
-        sections = sections[:qa_at] + sections[qa_at + 1:]
+    for opt in ("Commands", "Common Questions"):
+        at = names.index("How to Use") + 1 if "How to Use" in names else None
+        if at is None or at >= len(names) or names[at] != opt:
+            continue
+        opt_body = sections[at][1]
+        sections = sections[:at] + sections[at + 1:]
         names = [s[0] for s in sections]
-        qa_lines = [l for l in qa_body.split("\n") if l.strip()]
-        if not qa_lines:
-            errors.append(f"DOC: {n} '## Common Questions' must not be empty; remove it or add verified questions.")
-        for l in qa_lines:
-            if not re.match(r"^- \*\*[^*]+\*\*: \S", l):
-                errors.append(f"DOC: {n} '## Common Questions' lines must read '- **Question**: answer'.")
+        opt_lines = [l for l in opt_body.split("\n") if l.strip()]
+        if not opt_lines:
+            errors.append(f"DOC: {n} '## {opt}' must not be empty; remove it or add verified lines.")
+        pat = r"^- \*\*[^*]+\*\*: \S" if opt == "Common Questions" else r"^- `?/\S.*`?: \S"
+        for l in opt_lines:
+            if not re.match(pat, l):
+                want = "- **Question**: answer" if opt == "Common Questions" else "- `/command options`: what it does"
+                errors.append(f"DOC: {n} '## {opt}' lines must read '{want}'.")
                 break
     if names != list(DESCRIPTION_SECTIONS):
         errors.append(f"DOC: {n} the ## sections must be exactly, in this order: {', '.join(DESCRIPTION_SECTIONS)}. Found: {', '.join(names) or 'none'}.")
