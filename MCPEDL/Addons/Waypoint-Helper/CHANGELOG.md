@@ -2,9 +2,12 @@
 
 ---
 
-## [1.1.6] - 2026-11-14 - Dimension Colors In Menus
+## [1.1.6] - 2026-11-14
+
+**What's new in v1.1.6:** Packed with the v1.1.6 update. Includes: Dimension Colors In Menus.
 
 ### Improved & Balanced
+
 - **Dimension Colors In Menus**: Saved slots and the Last Death button now show their text in green for the Overworld, red for the Nether and yellow for The End.
 
 ## [1.1.5] - 2026-11-13
@@ -30,6 +33,8 @@
 - **Menu Colors**: Menu buttons and text now use the default color. Colors only appear in the title bar and on action bar messages.
 - **Action Bar Messages**: Rename, delete and spawn point messages now show on the action bar instead of in chat.
 
+
+
 ## [1.1.3] - 2026-11-13
 
 **What's new in v1.1.3:** Packed with 3 updates, from v1.1.1 through v1.1.3. Includes: Behavior Pack Add-on Tag; Safe Teleport Landing; Teleport Countdown And Sounds.
@@ -49,6 +54,8 @@
 
 - **Dimension Colors**: The save message is now green in the Overworld, red in the Nether and yellow in The End.
 - **Action Bar Messages**: Save and teleport messages now show on the action bar instead of in chat.
+
+
 
 
 
@@ -73,6 +80,8 @@
 
 
 
+
+
 ## [1.0.2] - 2026-11-12
 
 ### Added
@@ -87,10 +96,14 @@
 
 
 
+
+
 ## [1.0.1] - 2026-11-12
 
 ### Fixed
 - **Menu Compass**: The Waypoint Helper Compass is now given only once, the first time a player joins the world. It is no longer given again on respawn.
+
+
 
 
 
