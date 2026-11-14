@@ -2,6 +2,16 @@
 
 ---
 
+## [1.0.29] - 2026-11-14 - [Universal Clutch Toggle]
+
+### Added
+
+- **Universal Clutch**: Per-player on/off commands.
+
+### Improved & Balanced
+
+- **Universal Clutch**: No camera movement or velocity reset; Extreme Mode no longer needs looking down.
+
 ## [1.0.28] - 2026-11-14 - [Universal Clutch Script Move]
 
 ### Improved & Balanced

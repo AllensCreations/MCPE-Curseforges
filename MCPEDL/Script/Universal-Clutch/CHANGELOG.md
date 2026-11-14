@@ -2,6 +2,17 @@
 
 ---
 
+## [1.5.2] - 2026-11-14
+
+### Added
+
+- **On/Off Command**: Each player can turn Universal Clutch off or on with /scriptevent clutch:off and /scriptevent clutch:on. The choice is saved per player.
+
+### Improved & Balanced
+
+- **Natural Falling**: The camera is never moved or forced, and your falling speed is no longer reset.
+- **Extreme Mode**: Now works without looking down.
+
 ## [1.5.1] - 2026-11-14
 
 ### Improved & Balanced

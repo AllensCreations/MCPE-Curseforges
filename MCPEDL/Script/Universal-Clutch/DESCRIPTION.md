@@ -93,7 +93,7 @@ When aiming down and falling beyond the configured block height threshold, the a
 
 ## When It Activates
 
-The player must be falling from the selected height threshold while looking down, and the add-on attempts placement close to impact.
+The player must be falling from the selected height threshold while looking down (not required in Extreme Mode), and the add-on attempts placement close to impact.
 
 ---
 
@@ -103,14 +103,16 @@ The player must be falling from the selected height threshold while looking down
 
 Universal Clutch supports three distinct operating modes selectable via subpack settings slider in World Settings or customizable per-player in-game:
 
+Each player can turn Universal Clutch off or on with the commands `/scriptevent clutch:off` and `/scriptevent clutch:on` (cheats required). The setting is saved per player.
+
 ### Operating Modes
 
 - **Full Mode (Auto-Switch Inventory):**
   If a clutch item is not already held in hand, the system automatically scans your hotbar and upper inventory for available clutch items, switches or swaps it directly into your active hand, executes the clutch placement, and remains holding the switched item. Requires the player to aim downward (looking down toward the ground).
 - **Simple Mode (Held Item Only):**
   Clutch placements only trigger if you are actively holding a supported clutch item in your mainhand or offhand slot. If holding a sword, pickaxe, or empty hand, no placement will occur. Requires the player to aim downward (looking down toward the ground).
-- **Extreme Mode (Auto Smooth Look-Down & Auto-Switch):**
-  When falling from dangerous heights, the add-on automatically and smoothly tilts the player's camera pitch downward toward the impact surface, scans and auto-switches to the best available clutch item in inventory, places it 1–2 ticks before impact, and remains holding the switched item. **No-Item Limitation:** If no suitable clutch item is available, the add-on cannot assist with the fall.
+- **Extreme Mode (Auto-Switch, No Look-Down Needed):**
+  When falling from dangerous heights, the add-on does not require you to look down, scans and auto-switches to the best available clutch item in inventory, places it 1–2 ticks before impact, and remains holding the switched item. **No-Item Limitation:** If no suitable clutch item is available, the add-on cannot assist with the fall.
 
 ### Built-in Subpack Presets
 
@@ -118,7 +120,7 @@ Configurable via the Behavior Pack subpack settings slider in World Settings:
 
 1. **Full Mode (Auto-Switch Inventory):** Recommended default. Automatically detects, equips, and places clutch items from inventory, keeping the switched item active.
 2. **Simple Mode (Held Item Only):** Traditional manual clutching. Only executes if a supported clutch item is already held in mainhand or offhand.
-3. **Extreme Mode (Auto Smooth Look-Down & Auto-Switch):** Hands-free safety system with auto smooth camera rotation and auto item switching. If inventory has no clutch item, the add-on cannot assist.
+3. **Extreme Mode (Auto-Switch, No Look-Down Needed):** Hands-free safety system with auto item switching that works without looking down. If inventory has no clutch item, the add-on cannot assist.
 
 #---
 

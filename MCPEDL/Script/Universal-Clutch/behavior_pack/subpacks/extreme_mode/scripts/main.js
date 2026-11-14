@@ -57,6 +57,8 @@ const NO_CLUTCH_SURFACES = new Set([
   "minecraft:twisting_vines", "minecraft:weeping_vines", "minecraft:honey_block", "minecraft:bubble_column"
 ]);
 
+const ENABLED_PROPERTY = "clutch_enabled";
+
 const activeWaterClutches = new Map();
 const activePowderSnowClutches = new Map();
 const lastClutchTick = new Map();
@@ -86,6 +88,14 @@ function getPlayerThreshold(player) {
     }
   } catch {}
   return DEFAULT_THRESHOLD;
+}
+
+function isClutchEnabled(player) {
+  try {
+    return player.getDynamicProperty(ENABLED_PROPERTY) !== false;
+  } catch {
+    return true;
+  }
 }
 
 function isInactiveGameMode(player) {
@@ -425,7 +435,6 @@ function placeBoatClutch(dimension, airBlock, entityType, player, distToSurface,
           const rideable = boat.getComponent("minecraft:rideable");
           if (rideable) {
             rideable.addRider(player);
-            try { player.clearVelocity(); } catch {}
           }
         }
       } catch {}
@@ -505,7 +514,6 @@ function executeClutch(player, velocity, clutchData, ground, distToSurface) {
       try {
         airBlockAbove.setType("minecraft:water");
         placed = true;
-        try { player.clearVelocity(); } catch {}
         consumeClutchItem(player, clutchData, "minecraft:bucket");
         activeWaterClutches.set(player.id, {
           player,
@@ -523,7 +531,6 @@ function executeClutch(player, velocity, clutchData, ground, distToSurface) {
       try {
         airBlockAbove.setType("minecraft:powder_snow");
         placed = true;
-        try { player.clearVelocity(); } catch {}
         consumeClutchItem(player, clutchData, "minecraft:bucket");
         activePowderSnowClutches.set(player.id, {
           player,
@@ -543,7 +550,6 @@ function executeClutch(player, velocity, clutchData, ground, distToSurface) {
         if (airBlockAbove.typeId === definition.blockId) {
           consumeClutchItem(player, clutchData);
           placed = true;
-          try { player.clearVelocity(); } catch {}
         }
       } catch {}
       break;
@@ -610,7 +616,7 @@ system.runInterval(() => {
       try {
         blocked = player.isGliding || player.isInWater || player.isSwimming;
       } catch {}
-      if (blocked || isInactiveGameMode(player)) {
+      if (blocked || isInactiveGameMode(player) || !isClutchEnabled(player)) {
         fallTrackers.delete(player.id);
         continue;
       }
@@ -633,17 +639,7 @@ system.runInterval(() => {
       const fallSpeed = Math.abs(vel.y);
 
       if (mode === "extreme") {
-        const hasClutch = hasAnyClutchItem(player);
-        if (!hasClutch && !hasTotemOfUndying(player)) continue;
-        if (hasClutch) {
-          const r = player.getRotation();
-          const TARGET_PITCH = 82;
-          if (r.x < TARGET_PITCH) {
-            const gap = TARGET_PITCH - r.x;
-            const newPitch = Math.min(TARGET_PITCH, r.x + Math.min(gap, Math.max(12, gap * 0.5)));
-            try { player.setRotation({ x: newPitch, y: r.y }); } catch {}
-          }
-        }
+        if (!hasAnyClutchItem(player) && !hasTotemOfUndying(player)) continue;
       }
 
       if (currentTick - (lastClutchTick.get(player.id) ?? -100) < 25) continue;
@@ -657,10 +653,6 @@ system.runInterval(() => {
       const isBoat = clutchData?.definition?.category === "boat";
       const maxTrigger = isBoat ? 4.5 : Math.max(2.2, fallSpeed * 1.6 + 0.4);
       if (distToSurface > maxTrigger) continue;
-
-      if (mode === "extreme" && rot.x < 70) {
-        try { player.setRotation({ x: 82, y: rot.y }); } catch {}
-      }
 
       if (clutchData) {
         executeClutch(player, vel, clutchData, ground, distToSurface);
@@ -676,4 +668,15 @@ world.afterEvents.playerLeave.subscribe((event) => {
   lastClutchTick.delete(event.playerId);
   activeWaterClutches.delete(event.playerId);
   activePowderSnowClutches.delete(event.playerId);
+});
+
+system.afterEvents.scriptEventReceive.subscribe((event) => {
+  if (event.id !== "clutch:on" && event.id !== "clutch:off") return;
+  const player = event.sourceEntity;
+  if (!player || player.typeId !== "minecraft:player") return;
+  const enable = event.id === "clutch:on";
+  try {
+    player.setDynamicProperty(ENABLED_PROPERTY, enable);
+    player.sendMessage(enable ? "§aUniversal Clutch: ON" : "§cUniversal Clutch: OFF");
+  } catch {}
 });
