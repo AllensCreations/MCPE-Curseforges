@@ -1,12 +1,17 @@
 # Changelog — Waypoint Helper
 
-## [1.1.6] - 2026-11-14
+## [1.1.7] - 2026-11-14 - Bold Countdown Number
 
 ### Improved & Balanced
-- **Dimension Colors In Menus**: Saved slots and the Last Death button now show their text in green for the Overworld, red for the Nether and yellow for The End.
+- **Countdown Number**: The seconds in the teleport countdown are now bold and white so they stand out from the rest of the message.
 
 <details>
-<summary><b>1.1.x</b> (3 releases)</summary>
+<summary><b>1.1.x</b> (4 releases)</summary>
+
+### [1.1.6] - 2026-11-14
+
+#### Improved & Balanced
+- **Dimension Colors In Menus**: Saved slots and the Last Death button now show their text in green for the Overworld, red for the Nether and yellow for The End.
 
 ### [1.1.5] - 2026-11-13
 

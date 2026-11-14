@@ -67,7 +67,7 @@ This directory stores compiled Add-ons (`.mcaddon`), Maps (`.mcworld`), Scripts 
 | *No standalone Script packs currently published.* | | | |
 | **Chrono-Bed** | Script Pack (.mcpack) | [Download (.mcpack)](Chrono-Bed/ChronoBed%20V1.0.0.mcpack) | [`Chrono-Bed/`](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/builds/Chrono-Bed/) |
 | **Target HUD Entity Inspector** | Script Pack (.mcpack) | [Download (.mcpack)](Target-HUD-Entity-Inspector/TargetHUD%20V1.1.1.mcpack) | [`Target-HUD-Entity-Inspector/`](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/builds/Target-HUD-Entity-Inspector/) |
-| **Waypoint Helper** | Add-on (.mcaddon) | [Download (.mcaddon)](Waypoint-Helper/WaypointHelper%20V1.1.6.mcaddon) | [`Waypoint-Helper/`](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/builds/Waypoint-Helper/) |
+| **Waypoint Helper** | Add-on (.mcaddon) | [Download (.mcaddon)](Waypoint-Helper/WaypointHelper%20V1.1.7.mcaddon) | [`Waypoint-Helper/`](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/builds/Waypoint-Helper/) |
 
 ---
 

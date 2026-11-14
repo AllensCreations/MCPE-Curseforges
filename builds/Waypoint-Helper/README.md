@@ -8,7 +8,7 @@ This folder contains compiled release packages for **Waypoint Helper** by ALNStu
 
 | File Name | Format | Size | Description | Download Link |
 | :--- | :--- | :--- | :--- | :--- |
-| **`WaypointHelper V1.1.6.mcaddon`** | `.mcaddon` | ~286 KB | Complete bundle containing both Behavior Pack and Resource Pack. | [Download (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Waypoint-Helper/WaypointHelper%20V1.1.6.mcaddon) |
+| **`WaypointHelper V1.1.7.mcaddon`** | `.mcaddon` | ~286 KB | Complete bundle containing both Behavior Pack and Resource Pack. | [Download (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Waypoint-Helper/WaypointHelper%20V1.1.7.mcaddon) |
 
 ---
 
