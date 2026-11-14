@@ -4,6 +4,8 @@
 
 ## [1.5.2] - 2026-11-14
 
+**What's new in v1.5.2:** Packed with the v1.5.2 update.
+
 ### Added
 
 - **On/Off Command**: Each player can turn Universal Clutch off or on with /scriptevent clutch:off and /scriptevent clutch:on. The choice is saved per player.
@@ -30,6 +32,8 @@
 - **Fall Height**: Fall height no longer carries over after swimming, gliding, or leaving the game.
 - **Water Recovery**: Fixed an error when a player left within a moment of landing.
 - **Minimum Version**: The Behavior Pack now requires Minecraft 1.21.20 or newer.
+
+
 
 ## [1.5.0] - 2026-10-29
 
