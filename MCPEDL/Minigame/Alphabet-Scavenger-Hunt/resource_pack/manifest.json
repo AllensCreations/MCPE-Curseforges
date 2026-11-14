@@ -1,13 +1,13 @@
 {
   "format_version": 2,
   "header": {
-    "name": "Alphabet Scavenger Hunt (v1.9.0)",
+    "name": "Alphabet Scavenger Hunt (v1.9.1)",
     "description": "Controller icon resources. by ALNStudios",
     "uuid": "a5f9a639-fe66-47df-8519-bb256701a77e",
     "version": [
       1,
       9,
-      0
+      1
     ],
     "min_engine_version": [
       1,
@@ -22,7 +22,7 @@
       "version": [
         1,
         9,
-        0
+        1
       ]
     }
   ],
@@ -31,6 +31,6 @@
       "ALNStudios"
     ],
     "product_type": "addon",
-    "version": "1.9.0"
+    "version": "1.9.1"
   }
 }

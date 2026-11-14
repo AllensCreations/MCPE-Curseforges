@@ -33,9 +33,20 @@ const SOUND_FAIL = "random.break";
 const SOUND_CAVE = "ambient.cave";
 const SOUND_COUNTDOWN = "random.click";
 const SOUND_VICTORY = "ui.toast.challenge_complete";
+const SOUND_FIREWORKS = ["firework.blast", "firework.large_blast", "firework.twinkle"];
+
+// Victory celebration (kept small on purpose so it never lags)
+const CELEBRATION_BURST_INTERVAL_TICKS = 10;  // one burst every half second
+const CELEBRATION_BURST_COUNT = 14;           // about 7 seconds of fireworks
+const CELEBRATION_MAX_ROCKETS_PER_BURST = 4;  // hard cap on live rockets
+const CELEBRATION_MAX_SPOTS_PER_BURST = 4;    // hard cap on particle spots
+const CELEBRATION_END_DELAY_TICKS = 240;      // 12s, then the run is closed
+const CELEBRATION_PARTICLES = ["minecraft:totem_particle", "minecraft:endrod", "minecraft:villager_happy"];
+const FIREWORK_ROCKET_ID = "minecraft:fireworks_rocket";
 
 // Bossbar identifier
 const BOSSBAR_ID = "scavenger_hunt";
+const BOSSBAR_MAX_FAILURES = 3;
 
 // Dynamic Property Keys
 const PROP_PENALTY_HP = "scavenger_penalty_hp";
@@ -60,59 +71,101 @@ class ScavengerHuntManager {
     this.targetLetter = "";
     this.timerSeconds = 0;
     this.lastLetter = "";
+
+    // Players who died during the current run (co-op: the run only fails when all are out)
+    this.eliminated = new Set();
+
+    // Celebration handles
+    this.fireworksRun = null;
+    this.celebrationEnd = null;
+
+    // Bossbar throttling
+    this.bossbarReady = false;
+    this.bossbarBroken = false;
+    this.bossbarFailures = 0;
+    this.lastBossbarKey = "";
   }
 
-  /**
-   * Initializes or refreshes the native top-screen bossbar
-   */
+  // --------------------------------------------------------------------------
+  // Bossbar (throttled: only sends commands when something actually changed)
+  // --------------------------------------------------------------------------
+
   initBossbar() {
     try {
       const overworld = world.getDimension("overworld");
       overworld.runCommand(`bossbar add ${BOSSBAR_ID} "Alphabet Scavenger Hunt"`);
-      overworld.runCommand(`bossbar set ${BOSSBAR_ID} players @a`);
-      overworld.runCommand(`bossbar set ${BOSSBAR_ID} style progress`);
     } catch (e) {
       // Bossbar may already exist
     }
-  }
-
-  /**
-   * Updates the native top-screen bossbar
-   * @param {string} title
-   * @param {number} value
-   * @param {number} max
-   * @param {string} color (pink, blue, red, green, yellow, purple, white)
-   */
-  updateBossbar(title, value, max, color = "yellow") {
     try {
       const overworld = world.getDimension("overworld");
       overworld.runCommand(`bossbar set ${BOSSBAR_ID} players @a`);
-      overworld.runCommand(`bossbar set ${BOSSBAR_ID} name "${title}"`);
-      overworld.runCommand(`bossbar set ${BOSSBAR_ID} max ${Math.max(1, max)}`);
-      overworld.runCommand(`bossbar set ${BOSSBAR_ID} value ${Math.max(0, value)}`);
-      overworld.runCommand(`bossbar set ${BOSSBAR_ID} color ${color}`);
-      overworld.runCommand(`bossbar set ${BOSSBAR_ID} visible true`);
+      overworld.runCommand(`bossbar set ${BOSSBAR_ID} style progress`);
     } catch (e) {}
+    this.bossbarReady = true;
   }
 
   /**
-   * Hides the native bossbar
+   * Updates the native top-screen bossbar. Skips the work when nothing changed.
+   * After repeated failures the bossbar is switched off for the session so it
+   * never wastes server time (the action bar still shows everything).
    */
+  updateBossbar(title, value, max, color = "yellow") {
+    if (this.bossbarBroken) return;
+    const key = `${title}|${value}|${max}|${color}`;
+    if (key === this.lastBossbarKey) return;
+    this.lastBossbarKey = key;
+    if (!this.bossbarReady) this.initBossbar();
+
+    const safeTitle = String(title).replace(/"/g, "'");
+    let ok = false;
+    try {
+      const overworld = world.getDimension("overworld");
+      const res = overworld.runCommand(`bossbar set ${BOSSBAR_ID} name "${safeTitle}"`);
+      ok = !res || res.successCount === undefined || res.successCount > 0;
+      if (ok) {
+        overworld.runCommand(`bossbar set ${BOSSBAR_ID} players @a`);
+        overworld.runCommand(`bossbar set ${BOSSBAR_ID} max ${Math.max(1, max)}`);
+        overworld.runCommand(`bossbar set ${BOSSBAR_ID} value ${Math.max(0, value)}`);
+        overworld.runCommand(`bossbar set ${BOSSBAR_ID} color ${color}`);
+        overworld.runCommand(`bossbar set ${BOSSBAR_ID} visible true`);
+      }
+    } catch (e) {
+      ok = false;
+    }
+
+    if (ok) {
+      this.bossbarFailures = 0;
+    } else {
+      this.bossbarFailures++;
+      if (this.bossbarFailures >= BOSSBAR_MAX_FAILURES) this.bossbarBroken = true;
+    }
+  }
+
   hideBossbar() {
+    this.lastBossbarKey = "";
+    if (this.bossbarBroken) return;
     try {
       const overworld = world.getDimension("overworld");
       overworld.runCommand(`bossbar set ${BOSSBAR_ID} visible false`);
     } catch (e) {}
   }
 
+  // --------------------------------------------------------------------------
+  // Run lifecycle
+  // --------------------------------------------------------------------------
+
   /**
    * Starts a brand new challenge run
    */
   startNewRun() {
+    this.stopCelebration();
+    this.eliminated.clear();
     this.currentRound = 0;
     this.state = GameState.INTERMISSION;
     this.timerSeconds = 10; // 10s warmup for Round 1
     this.lastLetter = "";
+    this.lastBossbarKey = "";
     this.initBossbar();
 
     // Reset health penalties for all active players
@@ -127,6 +180,25 @@ class ScavengerHuntManager {
     world.sendMessage("Find items matching the target letter in your inventory!");
     world.sendMessage(`Complete all ${TOTAL_ROUNDS} Rounds or suffer Permanent Max HP Loss!`);
     world.sendMessage("========================================");
+  }
+
+  /**
+   * Called by the Controller when the run ends (manual End, game over, or after the victory show)
+   */
+  handleEnd() {
+    this.stopCelebration();
+    const previous = this.state;
+    if (previous === GameState.ACTIVE || previous === GameState.INTERMISSION) {
+      this.state = GameState.IDLE;
+      this.hideBossbar();
+      world.sendMessage("[Scavenger Hunt] The challenge has ended.");
+    } else if (previous === GameState.VICTORY) {
+      this.state = GameState.IDLE;
+      this.hideBossbar();
+    }
+    // Penalties only last for one run
+    this.resetAllPenalties();
+    this.eliminated.clear();
   }
 
   /**
@@ -154,7 +226,6 @@ class ScavengerHuntManager {
         player.playSound("note.pling", { volume: 1.0, pitch: 1.2 });
       } catch (e) {}
     }
-    endGame();
 
     world.sendMessage(
       `§e[Round ${this.currentRound}/${TOTAL_ROUNDS}] §fTarget Letter: §b[ ${this.targetLetter} ] §f-- Time: §c60 seconds§f!`
@@ -197,13 +268,16 @@ class ScavengerHuntManager {
     let anyPlayerAlive = false;
 
     for (const player of world.getAllPlayers()) {
-      if (!player.isValid()) continue;
+      if (!player.isValid() || this.eliminated.has(player.id)) continue;
 
       const newAllowedHp = this.applyHealthPenalty(player);
       if (newAllowedHp > 0) {
         anyPlayerAlive = true;
       }
     }
+
+    // A penalty hit may have just finished the last player
+    if (this.state === GameState.FAILED) return;
 
     if (!anyPlayerAlive) {
       this.triggerGameOver();
@@ -288,6 +362,10 @@ class ScavengerHuntManager {
     } catch (e) {}
   }
 
+  resetAllPenalties() {
+    for (const player of world.getAllPlayers()) this.resetPlayerPenalties(player);
+  }
+
   /**
    * Gets current penalty HP for display
    * @param {import("@minecraft/server").Player} player
@@ -298,23 +376,129 @@ class ScavengerHuntManager {
   }
 
   /**
-   * Triggers victory state with celebratory effects
+   * A player died during the run. In co-op the run continues until everyone is out.
+   * @param {import("@minecraft/server").Entity} dead
+   */
+  handlePlayerDeath(dead) {
+    if (this.state !== GameState.ACTIVE && this.state !== GameState.INTERMISSION) return;
+    this.eliminated.add(dead.id);
+    try {
+      world.sendMessage(`§c[OUT] ${dead.name} was eliminated.`);
+    } catch (e) {}
+
+    const everyoneOut = world.getAllPlayers().every((p) => this.eliminated.has(p.id));
+    if (everyoneOut) this.triggerGameOver();
+  }
+
+  // --------------------------------------------------------------------------
+  // Victory celebration
+  // --------------------------------------------------------------------------
+
+  /**
+   * Triggers victory state with title, sounds and fireworks
    */
   triggerVictory() {
+    if (this.state === GameState.VICTORY) return;
     this.state = GameState.VICTORY;
     this.updateBossbar("[VICTORY] CHALLENGE COMPLETE (20/20)!", 100, 100, "green");
 
     world.sendMessage("========================================");
-    world.sendMessage("[VICTORY] CHALLENGE COMPLETE!");
-    world.sendMessage("You survived all 20 Rounds of the Alphabet Scavenger Hunt!");
+    world.sendMessage("§6[VICTORY] CONGRATULATIONS! CHALLENGE COMPLETE!");
+    world.sendMessage("§aYou survived all 20 Rounds of the Alphabet Scavenger Hunt!");
     world.sendMessage("========================================");
+
+    this.startCelebration();
+  }
+
+  startCelebration() {
+    this.stopCelebration();
 
     for (const player of world.getAllPlayers()) {
       if (!player.isValid()) continue;
       try {
+        player.onScreenDisplay.setTitle("§6§lCONGRATULATIONS!", {
+          subtitle: `§aAll ${TOTAL_ROUNDS} rounds complete!`,
+          fadeInDuration: 10,
+          stayDuration: 120,
+          fadeOutDuration: 30,
+        });
         player.playSound(SOUND_VICTORY, { volume: 1.0, pitch: 1.0 });
-        player.dimension.runCommand(`execute at @a run summon fireworks_rocket ~ ~2 ~`);
+        player.playSound(SOUND_SUCCESS, { volume: 1.0, pitch: 1.0 });
       } catch (e) {}
+    }
+
+    let bursts = 0;
+    this.fireworksRun = system.runInterval(() => {
+      if (this.state !== GameState.VICTORY || bursts >= CELEBRATION_BURST_COUNT) {
+        this.stopFireworks();
+        return;
+      }
+      bursts++;
+      this.fireworkBurst();
+    }, CELEBRATION_BURST_INTERVAL_TICKS);
+
+    // Close the run after the show so the Controller comes back and a new run can start
+    this.celebrationEnd = system.runTimeout(() => {
+      this.celebrationEnd = null;
+      if (this.state === GameState.VICTORY) endGame();
+    }, CELEBRATION_END_DELAY_TICKS);
+  }
+
+  /**
+   * One capped burst: a few rockets, a few particle spots, firework sounds.
+   * Total entities and particles per burst stay small so nothing lags.
+   */
+  fireworkBurst() {
+    let rockets = 0;
+    let spots = 0;
+
+    for (const player of world.getAllPlayers()) {
+      if (!player.isValid()) continue;
+      if (rockets >= CELEBRATION_MAX_ROCKETS_PER_BURST && spots >= CELEBRATION_MAX_SPOTS_PER_BURST) break;
+
+      const base = player.location;
+      const dimension = player.dimension;
+      const angle = Math.random() * Math.PI * 2;
+      const distance = 3 + Math.random() * 5;
+      const x = base.x + Math.cos(angle) * distance;
+      const z = base.z + Math.sin(angle) * distance;
+
+      if (rockets < CELEBRATION_MAX_ROCKETS_PER_BURST) {
+        try {
+          dimension.spawnEntity(FIREWORK_ROCKET_ID, { x, y: base.y, z });
+          rockets++;
+        } catch (e) {}
+      }
+
+      if (spots < CELEBRATION_MAX_SPOTS_PER_BURST) {
+        const y = base.y + 7 + Math.random() * 4;
+        for (const name of CELEBRATION_PARTICLES) {
+          try {
+            dimension.spawnParticle(name, { x, y, z });
+          } catch (e) {}
+        }
+        spots++;
+      }
+
+      try {
+        const sound = SOUND_FIREWORKS[Math.floor(Math.random() * SOUND_FIREWORKS.length)];
+        player.playSound(sound, { volume: 1.0, pitch: 0.9 + Math.random() * 0.3 });
+      } catch (e) {}
+    }
+  }
+
+  stopFireworks() {
+    if (this.fireworksRun !== null) {
+      system.clearRun(this.fireworksRun);
+      this.fireworksRun = null;
+    }
+  }
+
+  stopCelebration() {
+    this.stopFireworks();
+    if (this.celebrationEnd !== null) {
+      system.clearRun(this.celebrationEnd);
+      this.celebrationEnd = null;
     }
   }
 
@@ -322,12 +506,13 @@ class ScavengerHuntManager {
    * Triggers mission failure state
    */
   triggerGameOver() {
+    if (this.state === GameState.FAILED) return;
     this.state = GameState.FAILED;
     this.updateBossbar("[GAME OVER] MISSION FAILED!", 0, 100, "red");
 
     world.sendMessage("========================================");
     world.sendMessage("[GAME OVER] MISSION FAILED!");
-    world.sendMessage("Vitality depleted from permanent penalties.");
+    world.sendMessage("Every player was eliminated.");
     world.sendMessage("========================================");
     endGame();
   }
@@ -338,24 +523,32 @@ export const manager = new ScavengerHuntManager();
 registerController({
   title: "Alphabet Scavenger Hunt",
   gameInfo: "Type: Survival scavenger challenge\nPlayers: Solo or co-op\nGoal: Complete 20 rounds by finding an inventory item that begins with each target letter.",
-  howToPlay: "Start the challenge from the Controller. Each round gives players 60 seconds to find an item whose name begins with the displayed letter. A missed round permanently reduces maximum health. Complete 20 rounds to win; if every player loses all vitality, the challenge ends. The Controller can end or restart the run.",
+  howToPlay: "Start the challenge from the Controller. Each round gives players 60 seconds to find an item whose name begins with the displayed letter. A missed round permanently reduces maximum health. Complete 20 rounds to win and enjoy the fireworks; if every player is eliminated, the challenge ends. The Controller can end or restart the run.",
   onStart: () => manager.startNewRun(),
-  onEnd: () => {
-    if (manager.state === GameState.ACTIVE || manager.state === GameState.INTERMISSION) {
-      manager.state = GameState.IDLE;
-      manager.hideBossbar();
-      world.sendMessage("[Scavenger Hunt] The challenge has ended.");
-    }
-  },
+  onEnd: () => manager.handleEnd(),
 });
 
 // ============================================================================
 // 3. INVENTORY VERIFICATION USING PRISMARINEJS MINECRAFT-DATA
 // ============================================================================
 
+// Match results are cached per item type and letter, so each item is only analysed once.
+const matchCache = new Map();
+
+function typeMatchesLetter(typeId, letter) {
+  const key = `${letter}|${typeId}`;
+  let result = matchCache.get(key);
+  if (result === undefined) {
+    // Anvil renames are intentionally ignored so a renamed item can not win a round
+    result = itemMatchesTargetLetter(typeId, letter, null);
+    matchCache.set(key, result);
+  }
+  return result;
+}
+
 /**
  * Scans player inventory for an item starting with the target letter.
- * Supports identifier tokens, official display names, and anvil renames.
+ * Supports identifier tokens and official display names.
  *
  * @param {import("@minecraft/server").Player} player
  * @param {string} letter
@@ -366,13 +559,11 @@ export function scanPlayerInventoryForLetter(player, letter) {
     const inv = player.getComponent("minecraft:inventory");
     if (!inv || !inv.container) return null;
 
-    for (let slot = 0; slot < inv.container.size; slot++) {
-      const item = inv.container.getItem(slot);
-      if (item && item.typeId) {
-        const customName = item.nameTag || null;
-        if (itemMatchesTargetLetter(item.typeId, letter, customName)) {
-          return item.typeId;
-        }
+    const container = inv.container;
+    for (let slot = 0; slot < container.size; slot++) {
+      const item = container.getItem(slot);
+      if (item && item.typeId && typeMatchesLetter(item.typeId, letter)) {
+        return item.typeId;
       }
     }
   } catch (e) {}
@@ -380,30 +571,24 @@ export function scanPlayerInventoryForLetter(player, letter) {
 }
 
 // ============================================================================
-// 4. CORE ENGINE TICK LOOP & TOP-SCREEN UI
+// 4. CORE ENGINE LOOPS & TOP-SCREEN UI
 // ============================================================================
 
-let secondTickAccumulator = 0;
-
+// Game logic and UI: once per second (was every tick)
 system.runInterval(() => {
   const players = world.getAllPlayers();
   if (players.length === 0) return;
+  onSecondTick(players);
+  renderTopScreenUI(players);
+}, 20);
 
-  // Enforce permanent health clamp on every tick for all players
-  for (const player of players) {
+// Health clamp: twice per second, and it exits instantly for players without a penalty
+system.runInterval(() => {
+  if (manager.state === GameState.IDLE) return;
+  for (const player of world.getAllPlayers()) {
     manager.enforceHealthClamp(player);
   }
-
-  // 1-Second Timer Tick (every 20 ticks)
-  secondTickAccumulator++;
-  if (secondTickAccumulator >= 20) {
-    secondTickAccumulator = 0;
-    onSecondTick(players);
-  }
-
-  // Render top-screen UI strictly without emojis
-  renderTopScreenUI(players);
-}, 1);
+}, 10);
 
 /**
  * Main 1-second game timer routine
@@ -416,7 +601,7 @@ function onSecondTick(players) {
   if (manager.state === GameState.ACTIVE) {
     // 1. Scan player inventories for target letter item
     for (const player of players) {
-      if (!player.isValid()) continue;
+      if (!player.isValid() || manager.eliminated.has(player.id)) continue;
       const matchedTypeId = scanPlayerInventoryForLetter(player, manager.targetLetter);
       if (matchedTypeId) {
         manager.completeRound(player, matchedTypeId);
@@ -457,7 +642,7 @@ function onSecondTick(players) {
 }
 
 /**
- * Displays objective at top of screen strictly via Bossbar and Action Bar.
+ * Displays objective at top of screen via Bossbar (once, shared) and Action Bar (per player).
  * ZERO emojis used in all display strings.
  *
  * @param {import("@minecraft/server").Player[]} players
@@ -467,79 +652,86 @@ function renderTopScreenUI(players) {
   const time = manager.timerSeconds;
   const letter = manager.targetLetter;
 
+  let bossbarTitle = "";
+  let bossbarColor = "yellow";
+  let bossbarVal = time;
+  let bossbarMax = ROUND_DURATION_SECONDS;
+
+  switch (manager.state) {
+    case GameState.IDLE:
+      bossbarTitle = "Alphabet Scavenger Hunt";
+      bossbarColor = "white";
+      bossbarVal = 0;
+      bossbarMax = 1;
+      break;
+    case GameState.ACTIVE:
+      bossbarTitle = `Round ${round}/${TOTAL_ROUNDS} | Letter: [ ${letter} ] | Time: ${time}s`;
+      bossbarColor = time <= 15 ? "red" : time <= 30 ? "yellow" : "green";
+      break;
+    case GameState.INTERMISSION:
+      bossbarTitle = round === 0
+        ? `Get Ready | First Letter in ${time}s`
+        : `Intermission | Next Letter in ${time}s | Round ${round}/${TOTAL_ROUNDS}`;
+      bossbarColor = "blue";
+      bossbarMax = round === 0 ? 10 : INTERMISSION_DURATION_SECONDS;
+      break;
+    case GameState.VICTORY:
+      bossbarTitle = `[ VICTORY ] All ${TOTAL_ROUNDS} Rounds Conquered!`;
+      bossbarColor = "green";
+      bossbarVal = 100;
+      bossbarMax = 100;
+      break;
+    case GameState.FAILED:
+      bossbarTitle = "[ MISSION FAILED ] Every player was eliminated.";
+      bossbarColor = "red";
+      bossbarVal = 0;
+      bossbarMax = 100;
+      break;
+  }
+
+  // One shared bossbar update (skipped automatically when nothing changed)
+  manager.updateBossbar(bossbarTitle, bossbarVal, bossbarMax, bossbarColor);
+
   for (const player of players) {
     if (!player.isValid()) continue;
 
     const penaltyHp = manager.getPlayerPenaltyHp(player);
     const penaltyText = penaltyHp > 0 ? `-${penaltyHp} HP` : `0 HP`;
-
     let topText = "";
-    let bossbarTitle = "";
-    let bossbarColor = "yellow";
-    let bossbarVal = time;
-    let bossbarMax = ROUND_DURATION_SECONDS;
 
     switch (manager.state) {
       case GameState.IDLE:
         topText = "§e[ Alphabet Scavenger ] §fUse the Controller to start";
-        bossbarTitle = "Alphabet Scavenger Hunt";
-        bossbarColor = "white";
-        bossbarVal = 0;
-        bossbarMax = 1;
         break;
-
       case GameState.ACTIVE:
         // Format: [ Round 5/20 ] Letter: [ C ] | Time: 42s | Penalty: -2 HP
         topText = `§e[ Round ${round}/${TOTAL_ROUNDS} ] §fLetter: §b[ ${letter} ] §f| Time: §c${time}s §f| Penalty: §c${penaltyText}`;
-        bossbarTitle = `Round ${round}/${TOTAL_ROUNDS} | Letter: [ ${letter} ] | Time: ${time}s | Penalty: ${penaltyText}`;
-        bossbarColor = time <= 15 ? "red" : time <= 30 ? "yellow" : "green";
-        bossbarVal = time;
-        bossbarMax = ROUND_DURATION_SECONDS;
         break;
-
       case GameState.INTERMISSION:
-        topText = `§a[ Round ${round}/${TOTAL_ROUNDS} Complete ] §fNext Letter In: §e${time}s §f| Penalty: §c${penaltyText}`;
-        bossbarTitle = `Intermission | Next Letter in ${time}s | Round ${round}/${TOTAL_ROUNDS} | Penalty: ${penaltyText}`;
-        bossbarColor = "blue";
-        bossbarVal = time;
-        bossbarMax = INTERMISSION_DURATION_SECONDS;
+        topText = round === 0
+          ? `§a[ Get Ready ] §fFirst Letter In: §e${time}s`
+          : `§a[ Round ${round}/${TOTAL_ROUNDS} Complete ] §fNext Letter In: §e${time}s §f| Penalty: §c${penaltyText}`;
         break;
-
       case GameState.VICTORY:
-        topText = `§6[ CHALLENGE COMPLETE (20/20) ] §aAll 20 Rounds Conquered!`;
-        bossbarTitle = `[ VICTORY ] All 20 Rounds Conquered!`;
-        bossbarColor = "green";
-        bossbarVal = 100;
-        bossbarMax = 100;
+        topText = `§6[ CHALLENGE COMPLETE (${TOTAL_ROUNDS}/${TOTAL_ROUNDS}) ] §aAll ${TOTAL_ROUNDS} Rounds Conquered!`;
         break;
-
       case GameState.FAILED:
         topText = "§4[ MISSION FAILED ] §cUse the Controller to restart.";
-        bossbarTitle = `[ MISSION FAILED ] Vitality exhausted.`;
-        bossbarColor = "red";
-        bossbarVal = 0;
-        bossbarMax = 100;
         break;
     }
 
-    // 1. Script API Action Bar displayed at top of screen above hotbar
     try {
       player.onScreenDisplay.setActionBar(topText);
     } catch (e) {}
-
-    // 2. Update Bossbar at the absolute very top of the screen
-    manager.updateBossbar(bossbarTitle, bossbarVal, bossbarMax, bossbarColor);
   }
 }
 
 // ============================================================================
-// Player Death Check: End run if killed by penalty or in combat during run
+// Player Death Check: a death eliminates that player; the run ends when all are out
 world.afterEvents.entityDie.subscribe((event) => {
   const dead = event.deadEntity;
   if (dead && dead.typeId === "minecraft:player") {
-    if (manager.state === GameState.ACTIVE || manager.state === GameState.INTERMISSION) {
-      manager.triggerGameOver();
-    }
+    manager.handlePlayerDeath(dead);
   }
 });
 

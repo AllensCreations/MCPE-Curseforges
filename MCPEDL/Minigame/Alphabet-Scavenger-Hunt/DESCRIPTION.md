@@ -31,6 +31,9 @@ Take on 20 rounds, each with a new target letter and a 60-second timer. Complete
 ### Clear Round Feedback
 - **What Happens**: Keep track of your round, target letter, timer, and penalties with on-screen updates and audio warnings.
 
+### Victory Celebration
+- **What Happens**: Finish all 20 rounds to see a Congratulations title and a fireworks display, then start a new run from the Controller.
+
 ### Controller Item
 - **What Happens**: Use the Controller to start, restart, or end a challenge without typing commands.
 
