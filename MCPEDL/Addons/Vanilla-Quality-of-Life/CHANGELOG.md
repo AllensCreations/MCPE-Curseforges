@@ -2,12 +2,16 @@
 
 ---
 
-## [2.1.2] - 2026-11-14 - Description Rewrite
+## [2.1.2] - 2026-11-14
+
+**What's new in v2.1.2:** Packed with the v2.1.2 update. Includes: Description Rewrite.
 
 ### Improved & Balanced
+
 - **Clearer Description**: The listing now follows the new layout with an overview, feature cards, step-by-step instructions, common questions, and a compatibility summary.
 
 ### Fixed
+
 - **Leash Details**: The description no longer says the Warden and Wither can be leashed, and no longer claims a fixed number of leashable mobs.
 - **Creator Links**: The MCPEDL profile link and its image now appear once and point to the correct page.
 
@@ -27,6 +31,8 @@
 - **Chain Mining Experience**: Chain mining now spawns at most 10 experience orbs per chain and gives any extra experience straight to you, so far fewer orbs appear.
 - **Lighter Held Light Checks**: The held-light update does less work while you carry no light item.
 
+
+
 ## [2.1.0] - 2026-11-07
 
 **What's new in v2.0.1.0:** Packed with the v2.0.0.1 update.
@@ -41,6 +47,8 @@
 - **Mending Preference**: When two tools are equally good for a job, auto-switch now uses the Mending tool that needs repair first.
 - **Grouped Chain Drops**: Tree Capitator and Domino Ore Miner now merge their drops into full stacks within 5-block areas, so far fewer item entities appear.
 - **Direct Block Breaking**: Tree Capitator and Domino Ore Miner now break blocks and place their drops directly instead of running game commands.
+
+
 
 
 
@@ -64,6 +72,8 @@
 
 
 
+
+
 ## [1.0.0] - 2026-11-02
 
 **What's new in v1.4.0:** Packed with the v1.3.30 update.
@@ -81,12 +91,16 @@
 
 
 
+
+
 ## [1.29.0] - 2026-11-02
 
 ### Fixed
 - **Tool Durability**: Tree Capitator and Domino Ore Miner now reliably wear down the tool you used, even if auto-switch changes your held item right afterward.
 - **Mangrove Trees**: Mangrove trees with moss carpet around their roots are now felled, and breaking Muddy Mangrove Roots no longer switches you to a shovel.
 - **Auto-Switch After Chain Mining**: Auto-switch now waits about two seconds after a tree or ore vein is chain mined before it can change your tool.
+
+
 
 
 
@@ -99,6 +113,8 @@
 
 
 
+
+
 ## [1.27.0] - 2026-11-01
 
 ### Fixed
@@ -107,11 +123,15 @@
 
 
 
+
+
 ## [1.26.0] - 2026-10-29
 
 ### Improved & Balanced
 
 - **Maintenance release**: Repackaged the pack; no gameplay changes were recorded.
+
+
 
 
 
@@ -127,10 +147,14 @@
 
 
 
+
+
 ## [1.3.22] — 2026-10-28
 
 ### Improved & Balanced
 - **Continuous Auto-Switch**: While you keep mining, aiming at a different kind of block, such as moving from stone to dirt, now switches to the best tool without stopping.
+
+
 
 
 
@@ -152,11 +176,15 @@
 
 
 
+
+
 ## [1.3.17] — 2026-10-18
 
 ### Fixed
 - Corrected offhand torch stack updates so placing any supported torch consumes exactly one item in Survival and Adventure modes.
 - Corrected wall-mounted orientation for regular torches, Soul Torches, and Redstone Torches so they face their supporting block instead of breaking immediately.
+
+
 
 
 
@@ -174,12 +202,16 @@
 
 
 
+
+
 ## [1.3.13] — 2026-10-17
 
 ### Changed
 - Standardized the available mining presets so players can choose the intended tool behavior.
 - Kept the no-sneak behavior limited to Tree Capitator and Domino Ore Miner; the required tool must be held in selected hotbar slot 1.
 - Removed outdated mining preset options.
+
+
 
 
 
@@ -193,11 +225,15 @@
 
 
 
+
+
 ## [1.3.6] — 2026-10-17
 
 ### Fixed
 - Added a **Default (All Features)** mining preset.
 - Kept the default configuration enabled for both Tree Capitator and Vein Miner.
+
+
 
 
 
@@ -211,12 +247,16 @@
 
 
 
+
+
 ## [1.3.2] — 2026-10-16
 
 ### Added & Improved
 - **The Leaf Scan (Player-Placed Leaves Ignored)**: Overworld tree canopy detection now evaluates natural leaf growth. Decorative leaves harvested with shears and placed manually by players are recognized as custom decorations and completely ignored, preventing custom hedges, bushes, and decorative roof foliage from falsely triggering tree felling or getting destroyed. Only naturally grown leaves and Nether canopies validate the tree canopy.
 
 ---
+
+
 
 
 
@@ -231,6 +271,8 @@
 - **Stonecutter Woodcutter All 12 Woods**: Added full Stonecutter recipe support for Pale Oak (Logs to Planks, Slabs, Stairs, Fences, Fence Gates, and Trapdoors), completing support for all 12 wood variants in Minecraft Bedrock.
 
 ---
+
+
 
 
 
@@ -266,12 +308,16 @@ This major milestone integrates **Passive Auto-Switch Tools**, **Smart Tree Capi
 
 
 
+
+
 ## [1.2.6] — 2026-10-14
 
 ### Added
 - **Offhand Quick-Swap**: Double-sneak gesture or sneak+use in air to quickly swap Torches, Lanterns, Clocks, and Compasses between mainhand and offhand.
 
 ---
+
+
 
 
 
@@ -287,6 +333,8 @@ This major milestone integrates **Passive Auto-Switch Tools**, **Smart Tree Capi
 
 
 
+
+
 ## [1.1.0] — 2026-10-05
 
 ### Added
@@ -294,6 +342,8 @@ This major milestone integrates **Passive Auto-Switch Tools**, **Smart Tree Capi
 - **Stackable Potions & Milk**: Potions, Splash Potions, Lingering Potions, and Milk Buckets stack up to 16 per inventory slot.
 
 ---
+
+
 
 
 
