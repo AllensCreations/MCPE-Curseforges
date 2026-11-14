@@ -86,7 +86,7 @@ def sections(text):
 
 
 def h2(title, acc):
-    return f'<h2 style="color:#ffffff;text-align:left"><span style="color:{acc}">&#9670;</span> {title}</h2>'
+    return f'<h2 style="color:#ffffff;text-align:left;font-size:22px">{title}</h2>'
 
 
 def bar(acc):
@@ -96,14 +96,14 @@ def bar(acc):
 
 def panel(inner, acc):
     return (f'<div style="background-color:{PANEL};border:1px solid {LINE};border-radius:10px">{bar(acc)}'
-            f'<div style="padding-left:16px;margin-right:16px">{inner}</div></div>')
+            f'<div style="padding-left:12px;margin-right:12px">{inner}</div></div>')
 
 
 def steps(items, acc):
     """Numbered badge rows (1, 2, 3...)."""
     rows = "".join(
-        f'<tr><td style="width:56px;text-align:center"><div style="background-color:{acc};color:{INK};font-weight:bold;'
-        f'font-size:18px;text-align:center;border-radius:50%;width:36px;aspect-ratio:1/1;line-height:36px">{i}</div></td>'
+        f'<tr><td style="width:44px;text-align:center"><div style="background-color:{acc};color:{INK};font-weight:bold;'
+        f'font-size:15px;text-align:center;border-radius:50%;width:30px;aspect-ratio:1/1;line-height:30px">{i}</div></td>'
         f'<td style="text-align:left;color:{TEXT}">{inline(t)}</td></tr>'
         for i, t in enumerate(items, 1))
     return f'<table style="width:100%;border-width:0"><tbody>{rows}</tbody></table>'
@@ -163,15 +163,15 @@ def cards(body, acc):
                 what = m.group(2)
             else:
                 extra.append((m.group(1), m.group(2)))
-        txt = f'<strong style="color:#ffffff;font-size:17px">{inline(name)}</strong>'
+        txt = f'<strong style="color:#ffffff;font-size:16px">{inline(name)}</strong>'
         if what:
             txt += f'<br><span style="color:{TEXT}">{inline(what)}</span>'
         for label, e in extra:
             txt += (f'<br><span style="font-size:13px;color:{MUTED}">'
                     f"<strong>{inline(label)}:</strong> {inline(e)}</span>")
-        out.append(f'<div style="flex:1;min-width:230px;background-color:{PANEL};border:1px solid {LINE};border-radius:10px">'
-                   f'{bar(acc)}<div style="padding-left:14px;margin-right:14px"><p>{txt}</p></div></div>')
-    return '<div style="display:flex;flex-wrap:wrap;gap:12px">' + "".join(out) + "</div>"
+        out.append(f'<div style="flex:1;min-width:180px;background-color:{PANEL};border:1px solid {LINE};border-radius:10px">'
+                   f'{bar(acc)}<div style="padding-left:12px;margin-right:12px"><p>{txt}</p></div></div>')
+    return '<div style="display:flex;flex-wrap:wrap;gap:10px">' + "".join(out) + "</div>"
 
 
 def questions(body):
@@ -187,8 +187,8 @@ def questions(body):
 
 
 def _badge(label, text, color):
-    return (f'<span style="background-color:{color};color:#ffffff;border-radius:6px;font-weight:bold">'
-            f'&nbsp; {label}: {inline(text.rstrip("."))} &nbsp;</span>')
+    return (f'<div style="background-color:{color};color:#ffffff;border-radius:6px;font-weight:bold;font-size:14px;'
+            f'line-height:2">&nbsp;&nbsp;{label}: {inline(text.rstrip("."))}&nbsp;&nbsp;</div>')
 
 
 def compat_badges(body):
@@ -217,7 +217,7 @@ def compat_badges(body):
             else:
                 color = "#5b6675"
             out.append(_badge("Achievements", val, color))
-    return f'<p style="line-height:2.4">{" ".join(out)}</p>'
+    return f'<div style="display:flex;flex-wrap:wrap;gap:8px">{"".join(out)}</div>'
 
 
 def latest_update(changelog_text):
@@ -236,7 +236,7 @@ def latest_box(u, acc):
     head = f'<strong>LATEST UPDATE &nbsp;&middot;&nbsp; v{u["version"]} &nbsp;&middot;&nbsp; {u["date"]}</strong>'
     inner = f'<p style="color:{acc};font-size:13px">{head}</p>'
     if u["title"]:
-        inner += f'<p style="color:#ffffff;font-size:17px"><strong>{inline(u["title"])}</strong></p>'
+        inner += f'<p style="color:#ffffff;font-size:16px"><strong>{inline(u["title"])}</strong></p>'
     if u["bullets"]:
         inner += f'<ul style="color:{TEXT}">' + "".join(f"<li>{inline(b)}</li>" for b in u["bullets"]) + "</ul>"
     inner += f'<p style="color:{MUTED};font-size:12px">Full history: see the Changelog tab.</p>'
@@ -256,15 +256,15 @@ def pack_name(pre, fallback):
 
 
 def hero(name, tagline, pitch, icon_url, acc):
-    title = f'<h1 style="color:#ffffff;font-size:34px;text-align:{{a}}">{esc(name)}</h1>'
-    tag = (f'<p style="color:{acc};font-size:18px;text-align:{{a}}"><strong>{inline(tagline)}</strong></p>' if tagline else "")
+    title = f'<h1 style="color:#ffffff;font-size:28px;text-align:{{a}}">{esc(name)}</h1>'
+    tag = (f'<p style="color:{acc};font-size:16px;text-align:{{a}}"><strong>{inline(tagline)}</strong></p>' if tagline else "")
     if icon_url:
         head = (f'<table style="width:100%;border-width:0"><tbody><tr>'
-                f'<td style="width:130px;text-align:center"><img src="{icon_url}" alt="{esc(name)} icon" width="96" height="96"></td>'
+                f'<td style="width:90px;text-align:center"><img src="{icon_url}" alt="{esc(name)} icon" width="72" height="72"></td>'
                 f'<td style="text-align:left">{title.format(a="left")}{tag.format(a="left")}</td></tr></tbody></table>')
     else:
         head = title.format(a="center") + tag.format(a="center")
-    pitch_html = (f'<p style="color:#c5ced9;text-align:center;margin-left:30px;margin-right:30px">{inline(pitch)}</p>' if pitch else "")
+    pitch_html = (f'<p style="color:#c5ced9;text-align:center;margin-left:14px;margin-right:14px">{inline(pitch)}</p>' if pitch else "")
     return (f'<div style="background-color:{PANEL};border:1px solid {acc};border-radius:12px;line-height:1.5"><br>'
             f'{head}{pitch_html}<br></div>')
 
@@ -307,8 +307,8 @@ def render(md, fallback="", icon_url=None, latest=None, accent=None):
     if kw:
         parts.append(f'<p style="text-align:center;color:{MUTED};font-size:12px">{esc(" ".join(kw.split()))}</p>')
     # one dark wrapper: left padding on the outer box, right gap on the inner box (padding-left is the only padding CurseForge keeps)
-    return (f'<div style="background-color:{BG};color:{TEXT};border-radius:14px;padding-left:22px">'
-            f'<div style="margin-right:22px"><br>' + "\n".join(parts) + "<br></div></div>\n")
+    return (f'<div style="background-color:{BG};color:{TEXT};border-radius:12px;padding-left:12px">'
+            f'<div style="margin-right:12px"><br>' + "\n".join(parts) + "<br></div></div>\n")
 
 
 def check_html(h):

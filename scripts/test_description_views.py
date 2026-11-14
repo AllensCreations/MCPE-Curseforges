@@ -43,7 +43,7 @@ class DescriptionViewTests(unittest.TestCase):
         self.assertEqual((u["version"], u["date"], len(u["bullets"])), ("1.14.5", "2026-11-12", 1))
         h = bdv.render(self.md, "Demo-Pack", "https://raw.githubusercontent.com/x/y/main/icon.png", u)
         self.assertIn("LATEST UPDATE", h)
-        self.assertIn('width="96"', h)
+        self.assertIn('width="72"', h)
         self.assertEqual(bdv.check_html(h), [])
 
     def test_steps_use_badges(self):
