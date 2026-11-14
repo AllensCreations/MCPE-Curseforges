@@ -1,13 +1,13 @@
 {
   "format_version": 2,
   "header": {
-    "name": "Tethered Breaker and Builder (v1.12.0)",
+    "name": "Tethered Breaker and Builder (v1.12.1)",
     "description": "2-Player Asymmetric Co-op challenge with a dynamic elastic leash. by ALNStudios",
     "uuid": "57d260b6-c748-4db4-8feb-0d5d6be74613",
     "version": [
       1,
       12,
-      0
+      1
     ],
     "min_engine_version": [
       1,
@@ -24,7 +24,7 @@
       "version": [
         1,
         12,
-        0
+        1
       ],
       "entry": "scripts/main.js"
     }
@@ -35,7 +35,7 @@
       "version": [
         1,
         12,
-        0
+        1
       ]
     },
     {
@@ -52,6 +52,6 @@
       "ALNStudios"
     ],
     "product_type": "addon",
-    "version": "1.12.0"
+    "version": "1.12.1"
   }
 }

@@ -7,12 +7,30 @@ const OPERATOR_LEVEL = 2;
 
 let config = null;
 let registered = false;
+let stateCache;
+const stateListeners = [];
 
 const getState = () => {
-  const v = world.getDynamicProperty(STATE_KEY);
-  return typeof v === "string" ? v : "idle";
+  if (stateCache === undefined) {
+    try {
+      const v = world.getDynamicProperty(STATE_KEY);
+      stateCache = typeof v === "string" ? v : "idle";
+    } catch {
+      return "idle";
+    }
+  }
+  return stateCache;
 };
-const setState = (s) => world.setDynamicProperty(STATE_KEY, s);
+const setState = (s) => {
+  stateCache = s;
+  try { world.setDynamicProperty(STATE_KEY, s); } catch {}
+  for (const fn of stateListeners) {
+    try { fn(s); } catch {}
+  }
+};
+export const isRunning = () => getState() === "running";
+export const onStateChange = (fn) => { stateListeners.push(fn); };
+
 const isCreative = (player) => player.getGameMode() === GameMode.Creative;
 const isHost = (player) => (typeof player.isOp === "function" ? player.isOp() : player.playerPermissionLevel === OPERATOR_LEVEL);
 const containerOf = (player) => player.getComponent(EntityComponentTypes.Inventory)?.container;
@@ -128,8 +146,7 @@ export function registerController(options) {
     if (id === "allenscreations:end") endGame();
   });
 
-  world.afterEvents.playerSpawn.subscribe(({ player, initialSpawn }) => {
-    if (!initialSpawn) return;
+  world.afterEvents.playerSpawn.subscribe(({ player }) => {
     if (isHost(player) && (isCreative(player) || getState() !== "running")) giveController(player);
   });
 }

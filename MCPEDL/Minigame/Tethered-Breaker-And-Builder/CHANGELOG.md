@@ -2,6 +2,20 @@
 
 ---
 
+## [1.12.1] - 2026-11-15 - Performance and Stability
+
+### Added
+- **Waiting for partner**: If your partner leaves or has not chosen a role yet, the screen says you are waiting and the leash timers pause.
+- **Role menu protection**: Players are protected for five seconds while the role menu is open.
+### Improved & Balanced
+- **Smoother gameplay**: The leash, restrictions and on-screen display do far less work, which cuts lag, especially on phones and busy worlds.
+- **Lighter beam**: The leash beam is drawn less often with fewer particles, and is hidden when partners are very close.
+- **Steadier on-screen display**: The leash distance is shown in half-meter steps and only refreshes when it changes.
+- **No cost between games**: The pack does no leash work until a challenge is started and stops when it ends.
+### Fixed
+- **Restriction messages**: Messages explaining blocked actions now appear right away, even before both roles are chosen.
+- **Controller after respawn**: The host or an operator gets the Controller back after respawning when no challenge is running.
+
 ## [1.12.0] - 2026-10-29
 
 ### Improved & Balanced

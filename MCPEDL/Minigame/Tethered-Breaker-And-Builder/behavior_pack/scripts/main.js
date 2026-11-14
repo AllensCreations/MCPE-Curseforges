@@ -1,6 +1,6 @@
 import { world, system, GameMode, EntityDamageCause } from "@minecraft/server";
 import { ActionFormData } from "@minecraft/server-ui";
-import { registerController, endGame } from "./controller.js";
+import { registerController, endGame, isRunning, onStateChange } from "./controller.js";
 
 const CONFIG = {
   TICK_STEP: 2,
@@ -14,17 +14,37 @@ const CONFIG = {
   STRAIN_DAMAGE: 2,
   STRAIN_INTERVAL_TICKS: 20,
   STRAIN_MIN_HEALTH: 2,
-  MAX_BEAM_PARTICLES: 32,
+  BEAM_INTERVAL_TICKS: 4,
+  BEAM_MIN_DISTANCE: 4,
+  BEAM_SPACING: 1.25,
+  MAX_BEAM_PARTICLES: 12,
+  HUD_REFRESH_TICKS: 20,
+  WAIT_HUD_TICKS: 20,
   MAX_PULL: 0.6,
   RESPAWN_DELAY_TICKS: 10,
   RESPAWN_GRACE_TICKS: 100,
+  PROMPT_GRACE_TICKS: 100,
   NOTICE_TICKS: 60,
+  NOTICE_REPEAT_TICKS: 20,
   PROMPT_SWEEP_TICKS: 200
 };
+
+const TENSE_SQ = CONFIG.TENSE_DISTANCE * CONFIG.TENSE_DISTANCE;
+const MAX_SQ = CONFIG.MAX_TETHER_DISTANCE * CONFIG.MAX_TETHER_DISTANCE;
+const DAMAGE_SQ = CONFIG.DAMAGE_DISTANCE * CONFIG.DAMAGE_DISTANCE;
+const RECALL_SQ = CONFIG.RECALL_DISTANCE * CONFIG.RECALL_DISTANCE;
+const BEAM_MIN_SQ = CONFIG.BEAM_MIN_DISTANCE * CONFIG.BEAM_MIN_DISTANCE;
 
 const ROLE_PROP = "tether:role";
 const BREAKER = "breaker";
 const BUILDER = "builder";
+const WAIT_TEXT = "§7[LEASH: WAITING] §fWaiting for your partner";
+const PARTICLES = [
+  "minecraft:villager_happy",
+  "minecraft:electric_spark_particle",
+  "minecraft:basic_flame_particle",
+  "minecraft:basic_flame_particle"
+];
 
 const FORBIDDEN_EXACT = new Set([
   "minecraft:flint_and_steel", "minecraft:fire_charge", "minecraft:armor_stand",
@@ -33,36 +53,62 @@ const FORBIDDEN_EXACT = new Set([
 ]);
 
 const notices = new Map();
-const lastSound = new Map();
+const hudState = new Map();
+const roles = new Map();
+const placerCache = new Map();
 const promptPending = new Set();
-const tether = { dimTicks: 0, farTicks: 0, strainTicks: 0, soundCd: 0 };
+const tether = { dimTicks: 0, farTicks: 0, strainTicks: 0, soundCd: 0, beamCd: 0, waitCd: 0, key: -1, text: "" };
+const beamPos = { x: 0, y: 0, z: 0 };
+const kb = { x: 0, z: 0 };
 
-const running = () => world.getDynamicProperty("game_state") === "running";
+let pair = null;
+let pairDirty = true;
+let tickId;
+let sweepId;
 
-function isPlacerItem(id) {
-  if (!id) return false;
+function computePlacer(id) {
   if (FORBIDDEN_EXACT.has(id)) return true;
   if (id === "minecraft:milk_bucket" || id === "minecraft:bucket") return false;
   return id.endsWith("_bucket") || id.endsWith("_spawn_egg") || id.endsWith("_boat") ||
     id.endsWith("_chest_boat") || id.endsWith("_raft") || id.endsWith("_chest_raft") || id.endsWith("minecart");
 }
 
+function isPlacerItem(id) {
+  if (!id) return false;
+  let v = placerCache.get(id);
+  if (v === undefined) {
+    v = computePlacer(id);
+    placerCache.set(id, v);
+  }
+  return v;
+}
+
 function getRole(player) {
-  try { return player?.getDynamicProperty(ROLE_PROP); } catch { return undefined; }
+  const id = player?.id;
+  if (id === undefined) return undefined;
+  const cached = roles.get(id);
+  if (cached !== undefined) return cached || undefined;
+  let v;
+  try { v = player.getDynamicProperty(ROLE_PROP); } catch { return undefined; }
+  const role = v === BREAKER || v === BUILDER ? v : undefined;
+  roles.set(id, role ?? "");
+  return role;
 }
 
 function setRole(player, role) {
   try {
     player.setDynamicProperty(ROLE_PROP, role);
+    roles.set(player.id, role ?? "");
     player.removeTag("role_breaker");
     player.removeTag("role_builder");
     if (role) player.addTag(role === BREAKER ? "role_breaker" : "role_builder");
   } catch {}
+  pairDirty = true;
 }
 
-const canPlace = (p) => !running() || getRole(p) === BUILDER;
-const canBreak = (p) => !running() || getRole(p) === BREAKER;
-const canAttack = (p) => !running() || getRole(p) === BREAKER;
+const canPlace = (p) => !isRunning() || getRole(p) === BUILDER;
+const canBreak = (p) => !isRunning() || getRole(p) === BREAKER;
+const canAttack = (p) => !isRunning() || getRole(p) === BREAKER;
 
 function roleTaken(role, except) {
   return world.getAllPlayers().some((p) => p.id !== except?.id && getRole(p) === role);
@@ -70,18 +116,32 @@ function roleTaken(role, except) {
 
 function notify(player, text) {
   const now = system.currentTick;
-  notices.set(player.id, { text, until: now + CONFIG.NOTICE_TICKS });
-  if ((lastSound.get(player.id) ?? -100) + 20 > now) return;
-  lastSound.set(player.id, now);
+  let n = notices.get(player.id);
+  if (!n) {
+    n = { text, until: 0, shown: -1000, sound: -1000 };
+    notices.set(player.id, n);
+  }
+  n.text = text;
+  n.until = now + CONFIG.NOTICE_TICKS;
+  const showNow = now - n.shown >= CONFIG.NOTICE_REPEAT_TICKS;
+  const soundNow = now - n.sound >= CONFIG.NOTICE_REPEAT_TICKS;
+  if (!showNow && !soundNow) return;
+  if (showNow) n.shown = now;
+  if (soundNow) n.sound = now;
   system.run(() => {
-    try { if (player.isValid) player.playSound("note.bass", { volume: 0.5, pitch: 0.6 }); } catch {}
+    try {
+      if (!player.isValid) return;
+      if (showNow) player.onScreenDisplay.setActionBar(text);
+      if (soundNow) player.playSound("note.bass", { volume: 0.5, pitch: 0.6 });
+    } catch {}
   });
 }
 
 function promptRole(player) {
   try {
-    if (!running() || !player?.isValid || getRole(player) || promptPending.has(player.id)) return;
+    if (!isRunning() || !player?.isValid || getRole(player) || promptPending.has(player.id)) return;
     promptPending.add(player.id);
+    try { player.addEffect("resistance", CONFIG.PROMPT_GRACE_TICKS, { amplifier: 4, showParticles: false }); } catch {}
     const takenBreaker = roleTaken(BREAKER, player);
     const takenBuilder = roleTaken(BUILDER, player);
     new ActionFormData()
@@ -97,7 +157,7 @@ function promptRole(player) {
       .show(player)
       .then((res) => {
         promptPending.delete(player.id);
-        if (!running() || !player.isValid || getRole(player) || res.canceled) return;
+        if (!isRunning() || !player.isValid || getRole(player) || res.canceled) return;
         const role = res.selection === 0 ? BREAKER : BUILDER;
         if (roleTaken(role, player)) {
           player.sendMessage("§c[TETHERED] That role is already taken. Pick the other one.");
@@ -116,13 +176,13 @@ function promptRole(player) {
   }
 }
 
-system.runInterval(() => {
-  if (!running()) return;
+function sweep() {
+  if (!isRunning()) return;
   for (const p of world.getAllPlayers()) if (!getRole(p)) promptRole(p);
-}, CONFIG.PROMPT_SWEEP_TICKS);
+}
 
 world.beforeEvents.playerInteractWithBlock.subscribe((ev) => {
-  if (!running()) return;
+  if (!isRunning()) return;
   const p = ev.player;
   const id = ev.itemStack?.typeId;
   if (!id) return;
@@ -140,6 +200,7 @@ world.beforeEvents.playerInteractWithBlock.subscribe((ev) => {
 });
 
 world.afterEvents.playerPlaceBlock.subscribe((ev) => {
+  if (!isRunning()) return;
   const p = ev.player;
   if (canPlace(p)) return;
   try {
@@ -156,23 +217,36 @@ world.afterEvents.playerPlaceBlock.subscribe((ev) => {
 });
 
 world.beforeEvents.playerBreakBlock.subscribe((ev) => {
-  if (canBreak(ev.player)) return;
+  if (!isRunning() || canBreak(ev.player)) return;
   ev.cancel = true;
   notify(ev.player, "§cOnly the Breaker can break blocks!");
 });
 
 world.beforeEvents.entityHurt.subscribe((ev) => {
+  if (!isRunning()) return;
   const attacker = ev.damageSource?.damagingEntity;
   if (attacker?.typeId !== "minecraft:player" || attacker.id === ev.hurtEntity?.id || canAttack(attacker)) return;
   ev.cancel = true;
   notify(attacker, "§cOnly the Breaker can attack!");
 });
 
-function getPair() {
-  const players = world.getAllPlayers().filter((p) => p.isValid);
-  const breaker = players.find((p) => getRole(p) === BREAKER);
-  const builder = players.find((p) => getRole(p) === BUILDER);
+function computePair() {
+  let breaker;
+  let builder;
+  for (const p of world.getAllPlayers()) {
+    if (!p.isValid) continue;
+    const r = getRole(p);
+    if (r === BREAKER && !breaker) breaker = p;
+    else if (r === BUILDER && !builder) builder = p;
+  }
   return breaker && builder ? { breaker, builder } : null;
+}
+
+function getPair() {
+  if (!pairDirty && (pair === null || (pair.breaker.isValid && pair.builder.isValid))) return pair;
+  pairDirty = false;
+  pair = computePair();
+  return pair;
 }
 
 function mode(p) {
@@ -187,8 +261,18 @@ function isAlive(p) {
 }
 
 function hud(p, text) {
+  const now = system.currentTick;
   const n = notices.get(p.id);
-  try { p.onScreenDisplay.setActionBar(n && n.until > system.currentTick ? n.text : text); } catch {}
+  const out = n && n.until > now ? n.text : text;
+  let s = hudState.get(p.id);
+  if (s === undefined) {
+    s = { text: "", tick: -1000 };
+    hudState.set(p.id, s);
+  }
+  if (s.text === out && now - s.tick < CONFIG.HUD_REFRESH_TICKS) return;
+  s.text = out;
+  s.tick = now;
+  try { p.onScreenDisplay.setActionBar(out); } catch {}
 }
 
 function resetTether() {
@@ -196,6 +280,8 @@ function resetTether() {
   tether.farTicks = 0;
   tether.strainTicks = 0;
   tether.soundCd = 0;
+  tether.beamCd = 0;
+  tether.key = -1;
 }
 
 function safeTeleport(p, target) {
@@ -208,23 +294,26 @@ function safeTeleport(p, target) {
 }
 
 function renderBeam(dim, a, b, dist, particle) {
-  const steps = Math.min(CONFIG.MAX_BEAM_PARTICLES, Math.max(2, Math.floor(dist)));
-  for (let i = 1; i < steps; i++) {
-    const t = i / steps;
-    try {
-      dim.spawnParticle(particle, {
-        x: a.x + (b.x - a.x) * t,
-        y: a.y + 1.1 + (b.y - a.y) * t,
-        z: a.z + (b.z - a.z) * t
-      });
-    } catch {}
-  }
+  const steps = Math.min(CONFIG.MAX_BEAM_PARTICLES, Math.max(2, Math.floor(dist / CONFIG.BEAM_SPACING)));
+  const sx = (b.x - a.x) / steps;
+  const sy = (b.y - a.y) / steps;
+  const sz = (b.z - a.z) / steps;
+  try {
+    for (let i = 1; i < steps; i++) {
+      beamPos.x = a.x + sx * i;
+      beamPos.y = a.y + 1.1 + sy * i;
+      beamPos.z = a.z + sz * i;
+      dim.spawnParticle(particle, beamPos);
+    }
+  } catch {}
 }
 
 function pull(p, dx, dz, strength) {
   const m = mode(p);
   if (m === GameMode.Creative || m === GameMode.Spectator) return;
-  try { p.applyKnockback({ x: dx * strength, z: dz * strength }, 0); } catch {}
+  kb.x = dx * strength;
+  kb.z = dz * strength;
+  try { p.applyKnockback(kb, 0); } catch {}
 }
 
 function anchored(p) {
@@ -240,11 +329,27 @@ function strain(p) {
   } catch {}
 }
 
+function leashText(level, d) {
+  if (level === 0) return `§a[LEASH: SLACK] §fDistance: ${d}m`;
+  if (level === 1) return `§e[LEASH: TENSE] §fDistance: ${d}m`;
+  if (level === 2) return `§6[LEASH: OVERSTRETCHED] §fDistance: ${d}m`;
+  return `§c[LEASH: STRAINED] §fDistance: ${d}m! Damage incoming`;
+}
+
+function waitForPartner(step) {
+  resetTether();
+  tether.waitCd += step;
+  if (tether.waitCd < CONFIG.WAIT_HUD_TICKS) return;
+  tether.waitCd = 0;
+  for (const p of world.getAllPlayers()) if (getRole(p)) hud(p, WAIT_TEXT);
+}
+
 function tick() {
-  const pair = running() ? getPair() : null;
-  if (!pair) { resetTether(); return; }
-  const { breaker: A, builder: B } = pair;
+  if (!isRunning()) return;
   const step = CONFIG.TICK_STEP;
+  const pr = getPair();
+  if (!pr) { waitForPartner(step); return; }
+  const { breaker: A, builder: B } = pr;
 
   if (!isAlive(A) || !isAlive(B)) { resetTether(); return; }
   if (mode(A) === GameMode.Spectator || mode(B) === GameMode.Spectator) {
@@ -273,15 +378,16 @@ function tick() {
   const dx = lb.x - la.x;
   const dy = lb.y - la.y;
   const dz = lb.z - la.z;
-  const dist = Math.sqrt(dx * dx + dy * dy + dz * dz);
+  const d2 = dx * dx + dy * dy + dz * dz;
 
-  if (dist > CONFIG.RECALL_DISTANCE) {
+  if (d2 > RECALL_SQ) {
     tether.farTicks += step;
     tether.strainTicks = 0;
     const left = Math.max(0, Math.ceil((CONFIG.RECALL_TICKS - tether.farTicks) / 20));
-    const text = `§c[LEASH: SNAPPED] §f${Math.floor(dist)}m apart. Recall in ${left}s`;
+    const text = `§c[LEASH: SNAPPED] §f${Math.floor(Math.sqrt(d2))}m apart. Recall in ${left}s`;
     hud(A, text);
     hud(B, text);
+    tether.key = -1;
     if (tether.farTicks >= CONFIG.RECALL_TICKS) {
       safeTeleport(B, A);
       tether.farTicks = 0;
@@ -290,25 +396,28 @@ function tick() {
   }
   tether.farTicks = 0;
 
-  const d = dist.toFixed(1);
-  let particle = "minecraft:villager_happy";
-  let text = `§a[LEASH: SLACK] §fDistance: ${d}m`;
-  if (dist >= CONFIG.TENSE_DISTANCE && dist <= CONFIG.MAX_TETHER_DISTANCE) {
-    particle = "minecraft:electric_spark_particle";
-    text = `§e[LEASH: TENSE] §fDistance: ${d}m`;
-  } else if (dist > CONFIG.MAX_TETHER_DISTANCE && dist <= CONFIG.DAMAGE_DISTANCE) {
-    particle = "minecraft:basic_flame_particle";
-    text = `§6[LEASH: OVERSTRETCHED] §fDistance: ${d}m`;
-  } else if (dist > CONFIG.DAMAGE_DISTANCE) {
-    particle = "minecraft:basic_flame_particle";
-    text = `§c[LEASH: STRAINED] §fDistance: ${d}m! Damage incoming`;
+  let level = 0;
+  if (d2 > DAMAGE_SQ) level = 3;
+  else if (d2 > MAX_SQ) level = 2;
+  else if (d2 >= TENSE_SQ) level = 1;
+
+  const dist = Math.sqrt(d2);
+  const half = Math.round(dist * 2);
+  const key = level * 10000 + half;
+  if (key !== tether.key) {
+    tether.key = key;
+    tether.text = leashText(level, (half / 2).toFixed(1));
   }
 
-  renderBeam(A.dimension, la, lb, dist, particle);
-  hud(A, text);
-  hud(B, text);
+  tether.beamCd += step;
+  if (tether.beamCd >= CONFIG.BEAM_INTERVAL_TICKS) {
+    tether.beamCd = 0;
+    if (d2 >= BEAM_MIN_SQ) renderBeam(A.dimension, la, lb, dist, PARTICLES[level]);
+  }
+  hud(A, tether.text);
+  hud(B, tether.text);
 
-  if (dist <= CONFIG.MAX_TETHER_DISTANCE) {
+  if (level < 2) {
     tether.strainTicks = 0;
     tether.soundCd = 0;
     return;
@@ -338,7 +447,7 @@ function tick() {
     } catch {}
   }
 
-  if (dist <= CONFIG.DAMAGE_DISTANCE) {
+  if (level === 2) {
     tether.strainTicks = 0;
     return;
   }
@@ -350,21 +459,47 @@ function tick() {
   }
 }
 
-system.runInterval(tick, CONFIG.TICK_STEP);
+function syncLoops() {
+  if (isRunning()) {
+    if (tickId === undefined) tickId = system.runInterval(tick, CONFIG.TICK_STEP);
+    if (sweepId === undefined) sweepId = system.runInterval(sweep, CONFIG.PROMPT_SWEEP_TICKS);
+    return;
+  }
+  if (tickId !== undefined) {
+    system.clearRun(tickId);
+    tickId = undefined;
+  }
+  if (sweepId !== undefined) {
+    system.clearRun(sweepId);
+    sweepId = undefined;
+  }
+  pair = null;
+  hudState.clear();
+  resetTether();
+  tether.waitCd = 0;
+}
+
+onStateChange(() => {
+  pairDirty = true;
+  syncLoops();
+});
+system.run(syncLoops);
 
 world.afterEvents.playerSpawn.subscribe(({ player, initialSpawn }) => {
-  if (!running()) return;
+  pairDirty = true;
+  if (initialSpawn) roles.delete(player.id);
+  if (!isRunning()) return;
   if (initialSpawn) {
     if (!getRole(player)) system.runTimeout(() => promptRole(player), 40);
     return;
   }
   system.runTimeout(() => {
     try {
-      if (!running() || !player.isValid) return;
+      if (!isRunning() || !player.isValid) return;
       if (!getRole(player)) { promptRole(player); return; }
-      const pair = getPair();
-      if (!pair || (player.id !== pair.breaker.id && player.id !== pair.builder.id)) return;
-      const partner = player.id === pair.breaker.id ? pair.builder : pair.breaker;
+      const pr = getPair();
+      if (!pr || (player.id !== pr.breaker.id && player.id !== pr.builder.id)) return;
+      const partner = player.id === pr.breaker.id ? pr.builder : pr.breaker;
       if (!partner.isValid || !isAlive(partner)) return;
       safeTeleport(player, partner);
       player.addEffect("resistance", CONFIG.RESPAWN_GRACE_TICKS, { amplifier: 4, showParticles: false });
@@ -377,12 +512,14 @@ world.afterEvents.playerSpawn.subscribe(({ player, initialSpawn }) => {
 
 world.afterEvents.playerLeave.subscribe(({ playerId }) => {
   notices.delete(playerId);
-  lastSound.delete(playerId);
+  hudState.delete(playerId);
+  roles.delete(playerId);
   promptPending.delete(playerId);
+  pairDirty = true;
 });
 
 world.afterEvents.entityDie.subscribe(({ deadEntity }) => {
-  if (!running() || deadEntity?.typeId !== "minecraft:ender_dragon") return;
+  if (!isRunning() || deadEntity?.typeId !== "minecraft:ender_dragon") return;
   world.sendMessage("§6[TETHERED] The Ender Dragon has fallen. The tethered pair wins!");
   endGame();
 });
@@ -400,15 +537,15 @@ function forceRole(target, role) {
 }
 
 system.afterEvents.scriptEventReceive.subscribe((ev) => {
-  if (!running()) return;
+  if (!isRunning()) return;
   if (ev.id === "tether:reset") {
     for (const p of world.getAllPlayers()) setRole(p, undefined);
     world.sendMessage("§c[TETHERED] All roles have been reset.");
   } else if (ev.id === "tether:swap") {
-    const pair = getPair();
-    if (!pair) return;
-    setRole(pair.breaker, BUILDER);
-    setRole(pair.builder, BREAKER);
+    const pr = getPair();
+    if (!pr) return;
+    setRole(pr.breaker, BUILDER);
+    setRole(pr.builder, BREAKER);
     world.sendMessage("§e[TETHERED] Roles swapped.");
   } else if (ev.id === "tether:breaker" || ev.id === "tether:builder") {
     const target = resolveTarget(ev);
@@ -432,6 +569,7 @@ registerController({
   onEnd: () => {
     resetTether();
     notices.clear();
+    hudState.clear();
     for (const p of world.getAllPlayers()) setRole(p, undefined);
     world.sendMessage("§c[TETHERED] The challenge has ended. Restrictions are lifted.");
   }
