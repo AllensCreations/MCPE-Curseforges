@@ -1,6 +1,6 @@
 # Changelog — Vanilla Quality of Life
 
-## [2.1.2] - 2026-11-14 - Description Rewrite
+## [2.1.2] - 2026-11-14
 
 ### Improved & Balanced
 - **Clearer Description**: The listing now follows the new layout with an overview, feature cards, step-by-step instructions, common questions, and a compatibility summary.
