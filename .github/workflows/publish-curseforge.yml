@@ -44,6 +44,7 @@ on:
           - "MCPEDL/Minigame/Shared-Hivemind-Inventory"
           - "MCPEDL/Script/Always-Critical"
           - "MCPEDL/Script/Target-HUD-Entity-Inspector"
+          - "MCPEDL/Script/Universal-Clutch"
           # END registered
       publish_map_variant:
         description: "Maps only (default = auto, all = Creative + Survival + Hardcore)"
