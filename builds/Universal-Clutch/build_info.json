@@ -1,8 +1,8 @@
 {
-  "changelog_version": "1.5.1",
-  "manifest_version": "1.5.1",
+  "changelog_version": "1.5.2",
+  "manifest_version": "1.5.2",
   "packages": {
-    "UniversalClutch V1.5.1.mcpack": "d90abfdce451709cea0429742831a7a258690882b02b3abedbed24ad5523b528"
+    "UniversalClutch V1.5.2.mcpack": "4759822c031930964ba6af0d34dfcd1f6d52842cb24e6cfd7f2af179cd5ac6f0"
   },
-  "source_sha256": "db6bd44ddfcde15ec3f4239970ac2e32624160afb2b0e8376eb607c7a9076a5c"
+  "source_sha256": "2636e846b8253f8db9fcc8dcb6ee124b06ad108b1fd41c5f288d2c82b72b1f8d"
 }
