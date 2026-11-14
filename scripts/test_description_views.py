@@ -46,6 +46,16 @@ class DescriptionViewTests(unittest.TestCase):
         self.assertIn('width="72"', h)
         self.assertEqual(bdv.check_html(h), [])
 
+    def test_minimal_follows_reader_theme(self):
+        h = bdv.render(self.md, "Demo-Pack", style="minimal")
+        self.assertEqual(bdv.check_html(h), [])
+        for bad in ("#12161c", "#1b222c", "#dfe5ec", 'style=""', "color:;", ";;"):
+            self.assertNotIn(bad, h)
+        self.assertIn("ko-fi.png", h)
+        self.assertIn("aspect-ratio", h)  # step badges still use the accent fill
+        bdv.render(self.md)  # style resets cleanly
+        self.assertIn("#12161c", bdv.render(self.md))
+
     def test_steps_use_badges(self):
         h = bdv.render(self.md.replace("Use the items and interactions provided in the world.", "1. First.\n2. Second."))
         self.assertIn("aspect-ratio", h)

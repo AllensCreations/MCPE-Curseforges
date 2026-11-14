@@ -36,9 +36,42 @@ ALLOWED_CSS = set("font-family font-weight font-style font-size color background
 ALLOWED_CLASSES = {"spoiler"}
 MAX_FONT = 40
 
-# Dark store palette
-BG, PANEL, LINE = "#12161c", "#1b222c", "#2a3441"
-TEXT, MUTED, INK, LINK = "#dfe5ec", "#8b98a8", "#0b0f14", "#7cc4ff"
+# Styles. "dark" = dark store page. "minimal" = no page background and no text colors, so it follows the reader's
+# CurseForge theme (light or dark); accent color is only used as solid fills.
+THEMES = {
+    "dark": dict(BG="#12161c", PANEL="#1b222c", LINE="#2a3441", TEXT="#dfe5ec", HEAD="#ffffff", SUB="#c5ced9",
+                 MUTED="#8b98a8", LINK="#7cc4ff", ACCTXT=True),
+    "minimal": dict(BG="", PANEL="", LINE="#8a94a3", TEXT="", HEAD="", SUB="",
+                    MUTED="#8a94a3", LINK="", ACCTXT=False),
+}
+STYLES = tuple(THEMES)
+SUFFIX = {"dark": "", "minimal": ".minimal"}
+BG = PANEL = LINE = TEXT = HEAD = SUB = MUTED = LINK = ""
+ACCTXT = True
+INK = "#0b0f14"
+
+
+def set_style(name):
+    global BG, PANEL, LINE, TEXT, HEAD, SUB, MUTED, LINK, ACCTXT
+    t = THEMES[name]
+    BG, PANEL, LINE, TEXT, HEAD, SUB, MUTED, LINK, ACCTXT = (
+        t["BG"], t["PANEL"], t["LINE"], t["TEXT"], t["HEAD"], t["SUB"], t["MUTED"], t["LINK"], t["ACCTXT"])
+
+
+def tidy(h):
+    """Drop color declarations that a style leaves empty, so the reader's theme colors show through."""
+    h = re.sub(r"(?<![-\w])(?:background-)?color:\s*(?=[;\"])", "", h)
+    h = re.sub(r";{2,}", ";", h)
+    h = h.replace('style=";', 'style="')
+    return re.sub(r' style=""', "", h)
+
+
+def acc_text(acc):
+    """Accent as text color only on the dark style (bright accents are unreadable on a light page)."""
+    return acc if ACCTXT else ""
+
+
+set_style("dark")
 PALETTE = ["#4ade80", "#38bdf8", "#fbbf24", "#f472b6", "#a78bfa", "#fb923c", "#2dd4bf", "#f87171", "#a3e635", "#60a5fa"]
 ACCENT_OVERRIDES = {}  # e.g. {"Mining-Helmet": "#fbbf24"}  (folder name -> color)
 
@@ -86,7 +119,7 @@ def sections(text):
 
 
 def h2(title, acc):
-    return f'<h2 style="color:#ffffff;text-align:left;font-size:22px">{title}</h2>'
+    return f'<h2 style="color:{HEAD};text-align:left;font-size:22px">{title}</h2>'
 
 
 def bar(acc):
@@ -131,7 +164,7 @@ def blocks_to_html(body, acc, badges=False):
             flush()
         elif s.startswith("### "):
             flush()
-            out.append(f'<h3 style="color:#ffffff">{inline(s[4:])}</h3>')
+            out.append(f'<h3 style="color:{HEAD}">{inline(s[4:])}</h3>')
         elif m_ol or m_ul:
             want = "ol" if m_ol else "ul"
             if kind != want:
@@ -163,7 +196,7 @@ def cards(body, acc):
                 what = m.group(2)
             else:
                 extra.append((m.group(1), m.group(2)))
-        txt = f'<strong style="color:#ffffff;font-size:16px">{inline(name)}</strong>'
+        txt = f'<strong style="color:{HEAD};font-size:16px">{inline(name)}</strong>'
         if what:
             txt += f'<br><span style="color:{TEXT}">{inline(what)}</span>'
         for label, e in extra:
@@ -234,9 +267,9 @@ def latest_update(changelog_text):
 
 def latest_box(u, acc):
     head = f'<strong>LATEST UPDATE &nbsp;&middot;&nbsp; v{u["version"]} &nbsp;&middot;&nbsp; {u["date"]}</strong>'
-    inner = f'<p style="color:{acc};font-size:13px">{head}</p>'
+    inner = f'<p style="color:{acc_text(acc)};font-size:13px">{head}</p>'
     if u["title"]:
-        inner += f'<p style="color:#ffffff;font-size:16px"><strong>{inline(u["title"])}</strong></p>'
+        inner += f'<p style="color:{HEAD};font-size:16px"><strong>{inline(u["title"])}</strong></p>'
     if u["bullets"]:
         inner += f'<ul style="color:{TEXT}">' + "".join(f"<li>{inline(b)}</li>" for b in u["bullets"]) + "</ul>"
     inner += f'<p style="color:{MUTED};font-size:12px">Full history: see the Changelog tab.</p>'
@@ -256,15 +289,15 @@ def pack_name(pre, fallback):
 
 
 def hero(name, tagline, pitch, icon_url, acc):
-    title = f'<h1 style="color:#ffffff;font-size:28px;text-align:{{a}}">{esc(name)}</h1>'
-    tag = (f'<p style="color:{acc};font-size:16px;text-align:{{a}}"><strong>{inline(tagline)}</strong></p>' if tagline else "")
+    title = f'<h1 style="color:{HEAD};font-size:28px;text-align:{{a}}">{esc(name)}</h1>'
+    tag = (f'<p style="color:{acc_text(acc)};font-size:16px;text-align:{{a}}"><strong>{inline(tagline)}</strong></p>' if tagline else "")
     if icon_url:
         head = (f'<table style="width:100%;border-width:0"><tbody><tr>'
                 f'<td style="width:90px;text-align:center"><img src="{icon_url}" alt="{esc(name)} icon" width="72" height="72"></td>'
                 f'<td style="text-align:left">{title.format(a="left")}{tag.format(a="left")}</td></tr></tbody></table>')
     else:
         head = title.format(a="center") + tag.format(a="center")
-    pitch_html = (f'<p style="color:#c5ced9;text-align:center;margin-left:14px;margin-right:14px">{inline(pitch)}</p>' if pitch else "")
+    pitch_html = (f'<p style="color:{SUB};text-align:center;margin-left:14px;margin-right:14px">{inline(pitch)}</p>' if pitch else "")
     return (f'<div style="background-color:{PANEL};border:1px solid {acc};border-radius:12px;line-height:1.5"><br>'
             f'{head}{pitch_html}<br></div>')
 
@@ -278,7 +311,8 @@ def support(acc):
     return h2("Support", acc) + frame + links
 
 
-def render(md, fallback="", icon_url=None, latest=None, accent=None):
+def render(md, fallback="", icon_url=None, latest=None, accent=None, style="dark"):
+    set_style(style)
     pre, sec = sections(md)
     name = pack_name(pre, fallback)
     acc = accent or accent_for(fallback or name)
@@ -307,8 +341,13 @@ def render(md, fallback="", icon_url=None, latest=None, accent=None):
     if kw:
         parts.append(f'<p style="text-align:center;color:{MUTED};font-size:12px">{esc(" ".join(kw.split()))}</p>')
     # one dark wrapper: left padding on the outer box, right gap on the inner box (padding-left is the only padding CurseForge keeps)
-    return (f'<div style="background-color:{BG};color:{TEXT};border-radius:12px;padding-left:12px">'
-            f'<div style="margin-right:12px"><br>' + "\n".join(parts) + "<br></div></div>\n")
+    body = "\n".join(parts)
+    if BG:
+        h = (f'<div style="background-color:{BG};color:{TEXT};border-radius:12px;padding-left:12px">'
+             f'<div style="margin-right:12px"><br>{body}<br></div></div>\n')
+    else:
+        h = f"<div>{body}</div>\n"
+    return tidy(h)
 
 
 def check_html(h):
@@ -361,6 +400,8 @@ def main(argv=None):
     ap.add_argument("--project", help="one pack folder, e.g. MCPEDL/Addons/Mining-Helmet")
     ap.add_argument("--all", action="store_true", help="every pack under MCPEDL/*/*")
     ap.add_argument("--check", action="store_true", help="only verify, write nothing; exit 1 if a view is missing or stale")
+    ap.add_argument("--style", choices=STYLES + ("all",), default="dark",
+                    help="dark (default), minimal (follows the reader's theme), or all")
     ap.add_argument("--out", default="description_views", help="output folder (default: description_views)")
     ap.add_argument("--root", default=".", help="repo root")
     a = ap.parse_args(argv)
@@ -373,11 +414,13 @@ def main(argv=None):
         print("No DESCRIPTION.md found.")
         return 1
     bad = 0
-    for p in projects:
+    styles = STYLES if a.style == "all" else (a.style,)
+    jobs = [(p, st) for p in projects for st in styles]
+    for p, st in jobs:
         try:
             log = p / "CHANGELOG.md"
             latest = latest_update(log.read_text(encoding="utf-8")) if log.is_file() else None
-            h = render((p / "DESCRIPTION.md").read_text(encoding="utf-8"), p.name, find_icon_url(root, p), latest)
+            h = render((p / "DESCRIPTION.md").read_text(encoding="utf-8"), p.name, find_icon_url(root, p), latest, style=st)
         except ValueError as e:
             print(f"FAIL {p.name}: {e}")
             bad += 1
@@ -386,7 +429,7 @@ def main(argv=None):
         for e in errs:
             print(f"FAIL {p.name}: {e}")
         bad += len(errs)
-        target = out / f"{p.name}.curseforge.html"
+        target = out / f"{p.name}.curseforge{SUFFIX[st]}.html"
         if a.check:
             if not target.is_file() or target.read_text(encoding="utf-8") != h:
                 print(f"STALE {target}")
@@ -394,7 +437,7 @@ def main(argv=None):
         else:
             out.mkdir(parents=True, exist_ok=True)
             target.write_text(h, encoding="utf-8")
-    print(f"{'Checked' if a.check else 'Built'} {len(projects)} description view(s), {bad} problem(s).")
+    print(f"{'Checked' if a.check else 'Built'} {len(jobs)} description view(s), {bad} problem(s).")
     return 1 if bad else 0
 
 
