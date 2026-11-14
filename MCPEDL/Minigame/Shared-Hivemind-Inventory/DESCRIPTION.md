@@ -22,9 +22,6 @@ The host or an operator starts the shared inventory with the ALNStudios Controll
 ### Shared Ender Chest
 - **What Happens**: Every player's Ender Chest holds the same items, so something stored by one player can be taken out by another.
 
-### Personal Layout
-- **What Happens**: When the Layout is Personal, the team still shares the same items, but each player arranges their own main inventory and hotbar.
-
 ### Hard Mode
 - **What Happens**: The host or an operator can switch the Mode to Hard before choosing Start.
 
@@ -40,7 +37,7 @@ The host or an operator starts the shared inventory with the ALNStudios Controll
 ## How to Use
 
 1. Import the pack and enable both the Behavior Pack and the Resource Pack in the settings of any world you want to play.
-2. The host or an operator uses the Controller to pick the Mode and Layout, then chooses Start.
+2. The host or an operator uses the Controller to pick the Mode, then chooses Start.
 3. Play together and coordinate item use with teammates.
 4. The host or an operator chooses End Game in the Controller menu, or runs the function end_game, to finish.
 
@@ -74,5 +71,5 @@ The host or an operator starts the shared inventory with the ALNStudios Controll
 
 ## Search & Discovery Keywords
 
-Minecraft Bedrock add-on, Team Inventory Bedrock mod, shared inventory, multiplayer shared items, shared armor and offhand, shared ender chest, shared health and hunger, hard mode, personal inventory layout, works in any world, team survival inventory, Minecraft PE multiplayer, MCPEDL add-on, CurseForge Bedrock, ALNStudios.
+Minecraft Bedrock add-on, Team Inventory Bedrock mod, shared inventory, multiplayer shared items, shared armor and offhand, shared ender chest, shared health and hunger, hard mode, works in any world, team survival inventory, Minecraft PE multiplayer, MCPEDL add-on, CurseForge Bedrock, ALNStudios.
 

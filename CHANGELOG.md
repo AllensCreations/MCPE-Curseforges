@@ -2,6 +2,12 @@
 
 ---
 
+## 2026-11-15 - Shared Hivemind Inventory 1.22.6 Personal Layout Removal
+
+### Improved & Balanced
+
+- **Personal Layout Removed**: Team Inventory no longer has the Personal layout, so every player shares one identical inventory and the add-on runs lighter.
+
 ## 2026-11-15 - Shared Hivemind Inventory 1.22.5 Death Drops and Joining Fix
 
 ### Fixed

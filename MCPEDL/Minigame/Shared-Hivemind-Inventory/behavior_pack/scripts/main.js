@@ -1,7 +1,6 @@
 import { world, system, ItemStack, EquipmentSlot, EnchantmentTypes, EntityComponentTypes, GameMode } from "@minecraft/server";
 import { ActionFormData, FormCancelationReason } from "@minecraft/server-ui";
 import { hardTick, hardReset, hardKillAll } from "./hard_mode.js";
-import { createLayout } from "./layout.js";
 import { registerController, openController } from "./controller.js";
 
 const NAMESPACE = "allenscreations";
@@ -19,8 +18,8 @@ const HARD_HUNGER_KEY = "allenscreations:hard_hunger";
 const NAMES_KEY = "allenscreations:team_names";
 const LAYOUT_KEY = "allenscreations:layout";
 const TITLE = "§l§bALN§dStudios §6Controller";
-const GAME_INFO = "Everyone shares one inventory. Use this menu before Start to choose the mode and layout. Hard Health and Hard Hunger only apply in Hard mode.";
-const HOW_TO_PLAY = "Use the Controller and choose Start. After a short countdown, everyone's main inventory, armor, offhand and Ender Chest items are combined into one shared inventory, and anything one player picks up, uses or drops changes it for the whole team.\n\nPlayers who join while a game runs add their own items to the team.\n\nBefore Start, use the Controller menu to choose Normal or Hard mode and a Shared or Personal layout. Its Team button lists who is on the team.\n\nIf anyone dies, the whole shared inventory drops once and is emptied for the team. The Ender Chest is kept. Creative and Spectator players are not part of it.\n\nWith Personal layout, each player arranges their own inventory and hotbar while the items stay shared.\n\nIn Hard mode, health and hunger are shared too, and you can turn either one off in the Controller menu. If one player dies, everyone dies.\n\nThe host or an operator ends the game with the End Game button or the function end_game. The shared items are then divided between the players, and anyone offline gets their share when they join again, so nothing is duplicated.";
+const GAME_INFO = "Everyone shares one inventory. Use this menu before Start to choose the mode. Hard Health and Hard Hunger only apply in Hard mode.";
+const HOW_TO_PLAY = "Use the Controller and choose Start. After a short countdown, everyone's main inventory, armor, offhand and Ender Chest items are combined into one shared inventory, and anything one player picks up, uses or drops changes it for the whole team.\n\nPlayers who join while a game runs add their own items to the team.\n\nBefore Start, use the Controller menu to choose Normal or Hard mode. Its Team button lists who is on the team.\n\nIf anyone dies, the whole shared inventory drops once and is emptied for the team. The Ender Chest is kept. Creative and Spectator players are not part of it.\n\nIn Hard mode, health and hunger are shared too, and you can turn either one off in the Controller menu. If one player dies, everyone dies.\n\nThe host or an operator ends the game with the End Game button or the function end_game. The shared items are then divided between the players, and anyone offline gets their share when they join again, so nothing is duplicated.";
 const OPERATOR_LEVEL = 2;
 const MAX_STORED = 30000;
 const MAX_CHUNKS = 4;
@@ -31,7 +30,6 @@ const ENDER_SLOTS = 27;
 const SLOT_COUNT = INV_SLOTS + ENDER_SLOTS;
 const SAFETY_SCAN = 5;
 const START_COUNTDOWN = 5;
-const PERSONAL_SCAN = 4;
 const ARMOR_SLOTS = [EquipmentSlot.Head, EquipmentSlot.Chest, EquipmentSlot.Legs, EquipmentSlot.Feet];
 const EQUIPMENT_SLOTS = [...ARMOR_SLOTS, EquipmentSlot.Offhand];
 
@@ -72,7 +70,6 @@ const isHost = (player) => safe(() => (typeof player.isOp === "function" ? playe
 const containerOf = (player) => safe(() => player.getComponent(EntityComponentTypes.Inventory)?.container);
 const enderOf = (player) => safe(() => player.getComponent("minecraft:ender_inventory")?.container);
 const isHard = () => safe(() => world.getDynamicProperty(HARD_KEY) === "1", false);
-const isPersonal = () => safe(() => world.getDynamicProperty(LAYOUT_KEY) === "personal", false);
 const isHardHealth = () => safe(() => world.getDynamicProperty(HARD_HEALTH_KEY) !== "0", true);
 const isHardHunger = () => safe(() => world.getDynamicProperty(HARD_HUNGER_KEY) !== "0", true);
 const isHostItem = (item) => item.typeId === CONTROLLER_ID || item.typeId === LEGACY_SETTINGS_ID;
@@ -188,8 +185,7 @@ function readPlayer(player) {
   const c = containerOf(player);
   if (!c) return null;
   const e = enderOf(player);
-  const personal = isPersonal();
-  const slots = Array.from({ length: SLOT_COUNT }, (_, i) => visible(safe(() => (i < INV_SLOTS ? (personal ? undefined : c.getItem(i)) : e?.getItem(i - INV_SLOTS)))));
+  const slots = Array.from({ length: SLOT_COUNT }, (_, i) => visible(safe(() => (i < INV_SLOTS ? c.getItem(i) : e?.getItem(i - INV_SLOTS)))));
   const eq = equipmentOf(player);
   const equipment = {};
   for (const slot of EQUIPMENT_SLOTS) equipment[slot] = visible(safe(() => eq?.getEquipment(slot)));
@@ -198,8 +194,7 @@ function readPlayer(player) {
 function serializeState(state) {
   return {
     slots: state.slots.map(serializeItem),
-    equipment: Object.fromEntries(EQUIPMENT_SLOTS.map(slot => [slot, serializeItem(state.equipment[slot])])),
-    pool: isPersonal() ? layout.serialize() : undefined
+    equipment: Object.fromEntries(EQUIPMENT_SLOTS.map(slot => [slot, serializeItem(state.equipment[slot])]))
   };
 }
 function deserializeState(data) {
@@ -272,8 +267,7 @@ function stateDiff(a, b) {
   const equipment = EQUIPMENT_SLOTS.filter(s => !sameItem(a.equipment[s], b.equipment[s]));
   return { slots, equipment };
 }
-function writeState(player, state, full = false) {
-  const skipInv = isPersonal() && !full;
+function writeState(player, state) {
   const c = containerOf(player);
   const eq = equipmentOf(player);
   if (!c) return;
@@ -281,7 +275,7 @@ function writeState(player, state, full = false) {
   for (let i = 0; i < SLOT_COUNT; i++) {
     const box = i < INV_SLOTS ? c : ender;
     const at = i < INV_SLOTS ? i : i - INV_SLOTS;
-    if (!box || (skipInv && i < INV_SLOTS)) continue;
+    if (!box) continue;
     const live = safe(() => box.getItem(at));
     if (!sameItem(visible(live), state.slots[i])) safe(() => box.setItem(at, clone(state.slots[i])));
   }
@@ -316,9 +310,8 @@ function spawnAt(dimension, item, location) {
   return !!safe(() => { dimension.spawnItem(clone(item), location); return true; }, false);
 }
 function spawnSafely(player, item) { return spawnAt(player.dimension, item, player.location); }
-const layout = createLayout({ INV_SLOTS, safe, containerOf, visible, serializeItem, deserializeItem });
 function inventoryStacks() {
-  return isPersonal() ? layout.stacks() : master.slots.slice(0, INV_SLOTS).filter(Boolean);
+  return master.slots.slice(0, INV_SLOTS).filter(Boolean);
 }
 function placeItem(state, item, ender = false) {
   const from = ender ? INV_SLOTS : 0;
@@ -400,11 +393,8 @@ function applyDetectedChanges(detected) {
   }
 }
 function absorbJoiner(player, players) {
-  if (isPersonal()) layout.absorb(player, players);
-  else {
-    mergeInto(master, player);
-    for (const o of players) if (o.id !== player.id) applyState(o, master);
-  }
+  mergeInto(master, player);
+  for (const o of players) if (o.id !== player.id) applyState(o, master);
   persist();
   safe(() => player.sendMessage("§a[Team Inventory] §fYour items were added to the team inventory."));
 }
@@ -414,6 +404,11 @@ function initialize(players) {
   const members = loadSet(MEMBERS_KEY);
   const joiners = merge || !members.size ? [] : players.filter(p => !members.has(p.id));
   master = merge ? null : loadPersisted();
+  if (master?.pool) {
+    const first = players[0] ? readPlayer(players[0]) : null;
+    if (first) for (let i = 0; i < INV_SLOTS; i++) master.slots[i] = first.slots[i];
+    delete master.pool;
+  }
   if (master) {
     adoptLive(master, players);
     for (const p of joiners) {
@@ -425,14 +420,6 @@ function initialize(players) {
     master = emptyState();
     if (merge) for (const p of players) mergeInto(master, p);
     else if (players[0]) mergeInto(master, players[0]);
-  }
-  if (isPersonal()) {
-    layout.prime(players);
-    if (merge) layout.build(players);
-    else if (master.pool) layout.load(master.pool);
-    else layout.build(players.slice(0, 1));
-    if (!merge) for (const p of joiners) layout.absorb(p, []);
-    for (const p of players) layout.adopt(p);
   }
   persist();
   initialized = true;
@@ -507,7 +494,6 @@ function syncTick(full = true) {
       withSync(() => applyState(p, master));
     }
     trackMembers(players);
-    if (full && isPersonal() && layout.step(players)) persist();
     const detected = [];
     for (const p of players) {
       if (!full && !dirty.has(p.id)) continue;
@@ -537,7 +523,6 @@ function restoreKeepInventory() {
 }
 function resetSharing() {
   master = null;
-  layout.reset();
   initialized = false;
   needMerge = false;
   snapshots.clear();
@@ -559,7 +544,7 @@ function beginCountdown() {
   const token = ++countdownId;
   counting = true;
   let left = START_COUNTDOWN;
-  world.sendMessage(`§a[Team Inventory] Sharing starts in ${left} seconds. Mode: ${isHard() ? "Hard" : "Normal"}, Layout: ${isPersonal() ? "Personal" : "Shared"}.`);
+  world.sendMessage(`§a[Team Inventory] Sharing starts in ${left} seconds. Mode: ${isHard() ? "Hard" : "Normal"}.`);
   const step = () => {
     if (token !== countdownId || !isRunning()) return;
     left--;
@@ -596,7 +581,7 @@ function distribute(online, holder, others, shares) {
   const held = states.get(holder.id);
   for (let i = INV_SLOTS; i < SLOT_COUNT; i++) held.slots[i] = clone(master.slots[i]);
   for (const slot of EQUIPMENT_SLOTS) held.equipment[slot] = clone(master.equipment[slot]);
-  for (const p of online) writeState(p, states.get(p.id), true);
+  for (const p of online) writeState(p, states.get(p.id));
   for (const id of others) shares.set(id, states.get(id));
 }
 function endGame(source) {
@@ -617,7 +602,7 @@ function endGame(source) {
     for (const id of others) {
       const state = shares.get(id) ?? emptyState();
       const other = world.getAllPlayers().find(p => p.id === id);
-      if (other && isAlive(other)) writeState(other, state, true);
+      if (other && isAlive(other)) writeState(other, state);
       else {
         saveShare(id, state);
         pending.add(id);
@@ -701,7 +686,6 @@ function controllerExtras() {
   const lock = isRunning() ? " (locked)" : "";
   return [
     { label: `Mode: ${isHard() ? "Hard" : "Normal"}${lock}`, run: p => toggleSetting(p, HARD_KEY, "1", undefined) },
-    { label: `Layout: ${isPersonal() ? "Personal" : "Shared"}${lock}`, run: p => toggleSetting(p, LAYOUT_KEY, "personal", undefined) },
     { label: `Hard Health: ${isHardHealth() ? "Shared" : "Separate"}${lock}`, run: p => toggleSetting(p, HARD_HEALTH_KEY, "0", undefined) },
     { label: `Hard Hunger: ${isHardHunger() ? "Shared" : "Separate"}${lock}`, run: p => toggleSetting(p, HARD_HUNGER_KEY, "0", undefined) },
     { label: "Team", run: p => showTeam(p) }
@@ -725,6 +709,7 @@ world.afterEvents.itemUse.subscribe(({ source, itemStack }) => {
 });
 
 world.afterEvents.worldLoad.subscribe(() => {
+  safe(() => world.setDynamicProperty(LAYOUT_KEY, undefined));
   for (const p of world.getAllPlayers()) if (isHost(p)) removeHostItems(p, [LEGACY_SETTINGS_ID]);
 });
 
@@ -746,10 +731,6 @@ function dropSharedInventory(dead) {
     kept.forEach((item, i) => { master.slots[INV_SLOTS + i] = item; });
     safe(() => containerOf(dead)?.clearAll());
     for (const p of sharingPlayers()) applyState(p, master);
-    if (isPersonal()) {
-      layout.clear();
-      for (const p of sharingPlayers()) layout.adopt(p);
-    }
     persist();
   });
   if (failed.length) {
@@ -786,7 +767,7 @@ world.afterEvents.playerSpawn.subscribe(event => {
   const pending = loadSet(CLEAR_KEY);
   if (pending.has(player.id)) {
     system.run(() => {
-      withSync(() => writeState(player, takeShare(player.id) ?? emptyState(), true));
+      withSync(() => writeState(player, takeShare(player.id) ?? emptyState()));
       pending.delete(player.id);
       saveSet(CLEAR_KEY, pending);
     });
@@ -827,7 +808,7 @@ function guardedTick(full) {
 }
 
 system.runInterval(() => {
-  const full = isPersonal() ? system.currentTick % PERSONAL_SCAN === 0 : !hasInventoryEvent || system.currentTick % SAFETY_SCAN === 0;
+  const full = !hasInventoryEvent || system.currentTick % SAFETY_SCAN === 0;
   if (full || dirty.size) guardedTick(full);
 }, 1);
 

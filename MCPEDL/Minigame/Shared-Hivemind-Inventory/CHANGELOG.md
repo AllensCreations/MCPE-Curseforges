@@ -2,6 +2,13 @@
 
 ---
 
+## [1.22.6] - 2026-11-15 - Personal Layout Removal
+
+### Improved & Balanced
+
+- **Personal Layout Removed**: The Personal layout and its Controller button are gone. Everyone now shares one identical inventory, which keeps the add-on lighter on busy teams.
+- **Running Games**: A game that was running in Personal layout keeps its items and continues as a normal shared inventory.
+
 ## [1.22.5] - 2026-11-15 - Death Drops and Joining Fix
 
 ### Fixed
