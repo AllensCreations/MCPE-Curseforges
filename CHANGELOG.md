@@ -2,6 +2,16 @@
 
 ---
 
+## [1.0.15] - 2026-11-14 - Tidy CI and Generator Rules
+
+### Fixed
+- **CI tests**: `test_rename_packages.py` was listed twice in the CI test step; it now runs once.
+- **Build Center CI**: `actions/setup-node` is pinned to a commit SHA like the other workflows.
+
+### Improved & Balanced
+- **Vanilla limits rule**: the generator instructions now point to `INSTRUCTIONS.md` 1.12 instead of carrying a second copy.
+- **Controller line**: removed a section number that does not exist in the generator instructions.
+
 ## [1.0.14] - 2026-11-14 - Single Source for Docs Rules
 
 ### Improved & Balanced

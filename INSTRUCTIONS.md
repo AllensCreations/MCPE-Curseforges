@@ -194,7 +194,7 @@ Open until confirmed in game. NEVER state as fact in docs.
 1. Void cleaner: Y=-64 fill succeeds for a player spawning in a fresh void world; conditional tag (Dirtbound `SPEC.md`) retries correctly.
 2. World host reports as Operator via `playerPermissionLevel` with cheats off (Controller reaches host on achievement-eligible world).
 3. `isOp()` absent in 2.x `@minecraft/server` (Controller uses a helper). Re-check on every module bump.
-4. Controller behavior (1.7) across rejoin, death, reload. Tested only with mocked modules.
+4. Controller behavior across rejoin, death, reload. Tested only with mocked modules.
 5. Shipped functions and Controller do not disable achievements unless an admin command is run.
 6. Experiment/achievement state of each `Mcpeworlds/` foundation.
 

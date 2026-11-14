@@ -96,7 +96,7 @@ Open until confirmed in game. NEVER state as fact in docs.
 1. Void cleaner: Y=-64 fill succeeds for a player spawning in a fresh void world; conditional tag (Dirtbound `SPEC.md`) retries correctly.
 2. World host reports as Operator via `playerPermissionLevel` with cheats off (Controller reaches host on achievement-eligible world).
 3. `isOp()` absent in 2.x `@minecraft/server` (Controller uses a helper). Re-check on every module bump.
-4. Controller behavior (1.7) across rejoin, death, reload. Tested only with mocked modules.
+4. Controller behavior across rejoin, death, reload. Tested only with mocked modules.
 5. Shipped functions and Controller do not disable achievements unless an admin command is run.
 6. Experiment/achievement state of each `Mcpeworlds/` foundation.
 
@@ -333,10 +333,4 @@ Exceptions (INSTEAD of the three sections, nothing else):
 - Type unknown: only the 4.0 question.
 
 ### 4.12 Vanilla Limits and Workarounds
-Applies to every addon, map, script, minigame, item, entity, block, trade, recipe and enchantment, new or updated.
-- A hardcoded vanilla limit blocks the requested mechanic (examples: mutually exclusive enchantments, item, entity or component caps, trade or recipe limits) AND the standard approach (behavior JSON, commands, crafting, enchanting) fails: NEVER drop the feature silently. The standard approach works: use it, no workaround.
-- Lightest workaround first. 1) Data-driven: custom item, block, entity, recipe, loot, trade, spawn rule, animation controller, tag, component. 2) `@minecraft/server`: custom components, events, ItemStack and Entity APIs, dynamic properties, tags or scoreboard for state. 3) Structural: helper or proxy entity, swapped or replaced item or entity, tiered item variants, `.mcstructure` or template placement, function-driven effects.
-- NEVER invent an API, component, event or behavior. Use only what the looked-up stable version (1.2) provides and the repo scripts accept. Cannot verify: say so in DESCRIPTION.md.
-- Modular: one small file per workaround with one entry point (script: `behavior_pack/scripts/lib/<name>.js` imported relatively; data: its own function file, entity or item definition). Reuse an existing module. NEVER copy the logic per feature.
-- Safe: idempotent setup, caps and cleanup for spawned entities and loops, nothing that corrupts worlds or other packs.
-- Docs (`DOCS_RULES.md`): player-facing result only, no code or API names; the trade-off under Good To Know. State achievement and experiment impact per 1.2. NEVER claim tested in game unless tested.
+Same rules as `INSTRUCTIONS.md` 1.12. Read it when a mechanic hits a vanilla limit.
