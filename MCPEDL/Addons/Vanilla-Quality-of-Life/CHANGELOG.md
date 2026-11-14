@@ -2,13 +2,17 @@
 
 ---
 
-## [2.1.1] - 2026-11-14 - Swap-Back and Chain Mining Polish
+## [2.1.1] - 2026-11-14
+
+**What's new in v2.1.1:** Packed with the v2.1.1 update. Includes: Swap-Back and Chain Mining Polish.
 
 ### Added
+
 - **Swap-Back After Mining**: A moment after you stop mining or fighting, the item that was in Slot 1 returns to its original slot instead of staying swapped.
 - **Tree Size Message**: An action-bar message now tells you when a tree was too large to fell completely.
 
 ### Improved & Balanced
+
 - **Faster Auto-Switch**: Auto-switch now waits only about a tenth of a second after a block breaks, so it keeps up with instant-break blocks.
 - **Hotbar-Only Tool Search**: Auto-switch now only uses tools from your hotbar, so items in your backpack are never moved.
 - **Chain Mining Experience**: Chain mining now spawns at most 10 experience orbs per chain and gives any extra experience straight to you, so far fewer orbs appear.
@@ -29,6 +33,8 @@
 - **Grouped Chain Drops**: Tree Capitator and Domino Ore Miner now merge their drops into full stacks within 5-block areas, so far fewer item entities appear.
 - **Direct Block Breaking**: Tree Capitator and Domino Ore Miner now break blocks and place their drops directly instead of running game commands.
 
+
+
 ## [2.0.0] - 2026-11-06
 
 **What's new in v2.0.0.0:** Packed with 2 updates, from v1.4.1 through v1.4.2.
@@ -47,6 +53,8 @@
 - **Zero Durability Tools**: A tool at 0 durability now breaks only the single block you hit and no longer starts Tree Capitator or Domino Ore Miner.
 - **Durability Floor**: Tree Capitator and Domino Ore Miner now use your tool down to 0 durability without breaking it, and the next use of that tool breaks it.
 
+
+
 ## [1.0.0] - 2026-11-02
 
 **What's new in v1.4.0:** Packed with the v1.3.30 update.
@@ -62,12 +70,16 @@
 - **Durability After Auto-Switch**: If auto-switch changes your tool at the same moment a tree or ore vein is chain mined, the tool you actually mined with is put back in your hand and takes the durability loss instead of the new tool.
 - **Switch Delay After Breaking**: Auto-switch now waits a few ticks after any block breaks before changing your tool, so the tool you broke the block with keeps its durability loss.
 
+
+
 ## [1.29.0] - 2026-11-02
 
 ### Fixed
 - **Tool Durability**: Tree Capitator and Domino Ore Miner now reliably wear down the tool you used, even if auto-switch changes your held item right afterward.
 - **Mangrove Trees**: Mangrove trees with moss carpet around their roots are now felled, and breaking Muddy Mangrove Roots no longer switches you to a shovel.
 - **Auto-Switch After Chain Mining**: Auto-switch now waits about two seconds after a tree or ore vein is chain mined before it can change your tool.
+
+
 
 ## [1.28.0] - 2026-11-01
 
@@ -76,17 +88,23 @@
 
 - **Resource Pack Included**: The Behavior Pack now requires its Resource Pack, so both are enabled together when you activate it.
 
+
+
 ## [1.27.0] - 2026-11-01
 
 ### Fixed
 
 - **Enchanted Tool Offhand Swap**: Swapping an enchanted or damaged tool into your offhand with a torch no longer resets it, so enchantments and remaining durability are kept.
 
+
+
 ## [1.26.0] - 2026-10-29
 
 ### Improved & Balanced
 
 - **Maintenance release**: Repackaged the pack; no gameplay changes were recorded.
+
+
 
 ## [1.3.24] — 2026-10-29
 
@@ -98,10 +116,14 @@
 - **Auto-Switch With Chain Mining**: Auto-switch now pauses briefly while a tree or ore vein is being mined so the tool in hand cannot change during it.
 - **Broken Tool Chain Mining**: Tree Capitator and Domino Ore Miner no longer keep breaking blocks after the tool has broken or has no durability left.
 
+
+
 ## [1.3.22] — 2026-10-28
 
 ### Improved & Balanced
 - **Continuous Auto-Switch**: While you keep mining, aiming at a different kind of block, such as moving from stone to dirt, now switches to the best tool without stopping.
+
+
 
 ## [1.3.21] — 2026-10-28
 
@@ -119,11 +141,15 @@
 - **Accidental Hand Swap**: Quickly tapping sneak while moving or in the air, such as while bridging, no longer swaps your hands.
 - **Leftover Light Blocks**: Moving light blocks left behind after a crash or reload are now removed the next time the world loads.
 
+
+
 ## [1.3.17] — 2026-10-18
 
 ### Fixed
 - Corrected offhand torch stack updates so placing any supported torch consumes exactly one item in Survival and Adventure modes.
 - Corrected wall-mounted orientation for regular torches, Soul Torches, and Redstone Torches so they face their supporting block instead of breaking immediately.
+
+
 
 ## [1.3.15] — 2026-10-18
 
@@ -137,12 +163,16 @@
 - Restricted Fortune multipliers to eligible ore categories, excluding raw iron, raw gold, and ancient debris.
 - Tightened tree-canopy checks to reduce false positives from blocks below the trunk and unrelated Nether canopy blocks.
 
+
+
 ## [1.3.13] — 2026-10-17
 
 ### Changed
 - Standardized the available mining presets so players can choose the intended tool behavior.
 - Kept the no-sneak behavior limited to Tree Capitator and Domino Ore Miner; the required tool must be held in selected hotbar slot 1.
 - Removed outdated mining preset options.
+
+
 
 ## [1.3.9] — 2026-10-17
 
@@ -152,11 +182,15 @@
 - Kept the sneak requirement for mining in the Default preset and left other add-on features unchanged.
 - Kept the included packs on the same release.
 
+
+
 ## [1.3.6] — 2026-10-17
 
 ### Fixed
 - Added a **Default (All Features)** mining preset.
 - Kept the default configuration enabled for both Tree Capitator and Vein Miner.
+
+
 
 ## [1.3.3] — 2026-10-17
 
@@ -166,12 +200,16 @@
 
 ---
 
+
+
 ## [1.3.2] — 2026-10-16
 
 ### Added & Improved
 - **The Leaf Scan (Player-Placed Leaves Ignored)**: Overworld tree canopy detection now evaluates natural leaf growth. Decorative leaves harvested with shears and placed manually by players are recognized as custom decorations and completely ignored, preventing custom hedges, bushes, and decorative roof foliage from falsely triggering tree felling or getting destroyed. Only naturally grown leaves and Nether canopies validate the tree canopy.
 
 ---
+
+
 
 ## [1.3.1] — 2026-10-15
 
@@ -184,6 +222,8 @@
 - **Stonecutter Woodcutter All 12 Woods**: Added full Stonecutter recipe support for Pale Oak (Logs to Planks, Slabs, Stairs, Fences, Fence Gates, and Trapdoors), completing support for all 12 wood variants in Minecraft Bedrock.
 
 ---
+
+
 
 ## [1.3.0] — 2026-10-15
 
@@ -215,12 +255,16 @@ This major milestone integrates **Passive Auto-Switch Tools**, **Smart Tree Capi
 
 ---
 
+
+
 ## [1.2.6] — 2026-10-14
 
 ### Added
 - **Offhand Quick-Swap**: Double-sneak gesture or sneak+use in air to quickly swap Torches, Lanterns, Clocks, and Compasses between mainhand and offhand.
 
 ---
+
+
 
 ## [1.2.0] — 2026-10-10
 
@@ -232,6 +276,8 @@ This major milestone integrates **Passive Auto-Switch Tools**, **Smart Tree Capi
 
 ---
 
+
+
 ## [1.1.0] — 2026-10-05
 
 ### Added
@@ -239,6 +285,8 @@ This major milestone integrates **Passive Auto-Switch Tools**, **Smart Tree Capi
 - **Stackable Potions & Milk**: Potions, Splash Potions, Lingering Potions, and Milk Buckets stack up to 16 per inventory slot.
 
 ---
+
+
 
 ## [1.0.0] — 2026-09-28
 
