@@ -70,7 +70,9 @@
     "last_release_version": "1.0.0"
   },
   "MCPEDL/Minigame/Tethered-Breaker-And-Builder": {
-    "project_id": "1768897"
+    "project_id": "1768897",
+    "last_published_version": "1.12.1",
+    "last_release_version": "1.12.0"
   },
   "MCPEDL/Script/Always-Critical": {
     "project_id": "1804718",
