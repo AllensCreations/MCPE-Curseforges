@@ -56,7 +56,7 @@ jobs:
           python-version: "3.14"
 
       - name: Install build dependency
-        run: python3 -m pip install pillow
+        run: python3 -m pip install -r requirements.txt
 
       # The passive build also writes to builds/ and the READMEs. Let a running build finish first.
       - name: Wait for running builds to finish

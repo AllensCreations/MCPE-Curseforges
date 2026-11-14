@@ -41,11 +41,8 @@ jobs:
         with:
           python-version: '3.14'
 
-      - name: Install image library
-        run: python -m pip install --disable-pip-version-check Pillow
-
-      - name: Install SVG to PNG converter
-        run: python -m pip install --disable-pip-version-check CairoSVG
+      - name: Install image libraries
+        run: python -m pip install --disable-pip-version-check -r requirements.txt
 
       - name: Export crafting recipe SVGs as PNGs
         run: python scripts/convert_crafting_recipe_svgs_to_png.py
@@ -67,7 +64,7 @@ jobs:
       - name: Commit generated images
         run: |
           git config user.name "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add MCPEDL/Addons/Monster-Companions/beast_biscuit_recipe.png
           git add MCPEDL/Addons/Grimoire-Relics-V2/assets/recipes MCPEDL/Addons/Grimoire-Relics-V2/assets/all_recipes_sheet.png
           git add MCPEDL/Addons/Grand-Banquets/assets/recipes

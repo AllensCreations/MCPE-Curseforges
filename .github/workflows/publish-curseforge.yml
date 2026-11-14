@@ -100,7 +100,7 @@ jobs:
           python-version: '3.14'
 
       - name: Install build dependency
-        run: python3 -m pip install pillow
+        run: python3 -m pip install -r requirements.txt
 
       - name: Migrate legacy project versions before publishing
         run: python3 scripts/migrate_three_part_versions.py
@@ -164,7 +164,7 @@ jobs:
             echo ""
           } >> "$GITHUB_STEP_SUMMARY"
           git config user.name "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           BRANCH="${GITHUB_REF#refs/heads/}"
           DONE=0
           FAILED=()
@@ -208,7 +208,7 @@ jobs:
             exit 0
           fi
           git config user.name "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git commit -m "chore(curseforge): publish $NAME [skip ci]"
           python3 scripts/git_push_retry.py --branch "${GITHUB_REF#refs/heads/}"
 

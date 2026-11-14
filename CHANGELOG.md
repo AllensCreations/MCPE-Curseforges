@@ -2,6 +2,13 @@
 
 ---
 
+## [1.0.20] - 2026-11-14 - Merge Docs Files and Shared Requirements
+
+### Improved & Balanced
+- **One docs file**: the audit procedure and Wiki and Samples references are now Part 3 of `DOCS_RULES.md`; `CHECKRM_REFERENCE.md` is removed.
+- **Instructions**: the workflow entry-point list in 1.8 is removed because it drifts; read the workflow file instead.
+- **Workflows**: one `requirements.txt` for every Python install, and one commit identity for all automated commits.
+
 ## [1.0.19] - 2026-11-14 - Rename And Move Removed
 
 ### Improved & Balanced

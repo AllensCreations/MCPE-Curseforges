@@ -180,7 +180,7 @@ jobs:
         run: |
           set -euo pipefail
           git config user.name "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           BRANCH="import/${NAME}-${GITHUB_RUN_ID}"
           if [ "$COMMIT_MODE" = "pull_request" ]; then
             git checkout -b "$BRANCH"

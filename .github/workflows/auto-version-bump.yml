@@ -62,7 +62,7 @@ jobs:
       - name: Convert icon files to pack_icon.png
         run: |
           set -euo pipefail
-          pip install pillow
+          pip install -r requirements.txt
           python3 scripts/make_pack_icon.py
 
       - name: Rebuild packages & register new projects
@@ -171,7 +171,7 @@ jobs:
         run: |
           set -euo pipefail
           git config user.name  "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
 
           for dir in MCPEDL builds changelog_views; do
             if [ -d "$dir" ]; then git add "$dir"; fi

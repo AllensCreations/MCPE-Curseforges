@@ -11,10 +11,9 @@ import sys
 from pathlib import Path
 
 MAX_BYTES = 60000
-FILES = ("INSTRUCTIONS.md", "PACK_GENERATOR_INSTRUCTIONS.md", "CHECKRM_REFERENCE.md", "DOCS_RULES.md")
+FILES = ("INSTRUCTIONS.md", "PACK_GENERATOR_INSTRUCTIONS.md", "DOCS_RULES.md")
 REQUIRED = {
-    "CHECKRM_REFERENCE.md": ("### 3.1 Authority and Scope", "### 3.2 Procedure"),
-    "DOCS_RULES.md": ("### 2.1 Roles", "### 2.5 Templates (STRICT)"),
+    "DOCS_RULES.md": ("### 2.1 Roles", "### 2.5 Templates (STRICT)", "### 3.1 Authority and Scope", "### 3.2 Procedure"),
     "INSTRUCTIONS.md": ("## Read Only What the Task Needs", "## Reply Format", "## Final Self-Check", "## Version History",
                         "**File Needed:**", "**Changelog:**", "**Termux Script:**"),
     "PACK_GENERATOR_INSTRUCTIONS.md": ("### 4.9 Final self-check", "### 4.11 Reply format",

@@ -7,7 +7,7 @@ description: Audit, repair, and synchronize README, DESCRIPTION, and CHANGELOG d
 
 ## Authority
 
-- `INSTRUCTIONS.md` is the only policy source. Part 1 is core policy, `DOCS_RULES.md` holds every README, DESCRIPTION, and CHANGELOG rule and template, and `CHECKRM_REFERENCE.md` holds the audit workflow with the Minecraft Wiki and Bedrock Samples references. This skill is a short working checklist and never restates or overrides them. On any conflict, `INSTRUCTIONS.md` wins.
+- `INSTRUCTIONS.md` is the only policy source. Part 1 is core policy, `DOCS_RULES.md` holds every README, DESCRIPTION, and CHANGELOG rule and template, and its Part 3 holds the audit workflow with the Minecraft Wiki and Bedrock Samples references. This skill is a short working checklist and never restates or overrides them. On any conflict, `INSTRUCTIONS.md` wins.
 - There is no separate `README_GUIDELINES.md`. If `INSTRUCTIONS.md` cannot be read, stop and report it instead of working from memory.
 - The user's explicit scope and source accuracy outrank any template.
 - When the user wants the changes delivered as a Termux script to run on their phone, hand the edits to the `mcpe-pack-update` skill instead of applying them here.
@@ -24,7 +24,7 @@ Discover the real folder structure first. Do not assume a folder or file exists,
 
 ## Procedure
 
-Full wording is in `CHECKRM_REFERENCE.md`, Section 3.2.
+Full wording is in `DOCS_RULES.md`, Section 3.2.
 
 1. **Discover.** Target project, its README, DESCRIPTION, CHANGELOG, manifests, scripts, entities, items, blocks, recipes, functions, loot tables, language files, and assets, plus the category catalog, root README, and `builds/README.md`.
 2. **Audit status.** Repository-wide: `python3 scripts/check_readme_status.py`. It reports stubs, incomplete DESCRIPTION files, READMEs that hold product text instead of a download link, broken relative links, and orphaned build directories. If it is absent or fails, inspect manually and report the limitation.
@@ -48,7 +48,7 @@ Full wording is in `CHECKRM_REFERENCE.md`, Section 3.2.
 
 ## Wiki and Samples references
 
-Details are in `CHECKRM_REFERENCE.md`, Sections 3.3 and 3.4. The rules that matter most:
+Details are in `DOCS_RULES.md`, Sections 3.3 and 3.4. The rules that matter most:
 
 - **Authority split.** Identifiers, textures, recipes, and components come from Mojang Bedrock Samples. Display names follow the Minecraft Wiki's Bedrock name, confirmed against `resource_pack/texts/en_US.lang`. The lang file wins when the Wiki disagrees or is unreachable; report the disagreement.
 - **Never title-case an identifier** (`experience_bottle` is Bottle o' Enchanting, `hay_block` is Hay Bale, `wooden_door` is Oak Door).

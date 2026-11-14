@@ -375,7 +375,7 @@ jobs:
           (out / name).write_text(content, encoding="utf-8")
 
           # OTHER: instruction files + helper scripts in ONE txt (text only; binaries are named in the index)
-          tool_files = ["PACK_GENERATOR_INSTRUCTIONS.md", "INSTRUCTIONS.md", "CHECKRM_REFERENCE.md", "DOCS_RULES.md"] + [
+          tool_files = ["PACK_GENERATOR_INSTRUCTIONS.md", "INSTRUCTIONS.md", "DOCS_RULES.md"] + [
               "scripts/" + t for t in (
                   "build_payload.py", "import_project_payload.py", "crafting_template.py",
                   "generate_recipe_images.py", "convert_crafting_recipe_svgs_to_png.py",
@@ -441,7 +441,6 @@ jobs:
           # 3. The files requested
           copy_item scripts/build_oneblock_variants_from_template.py
           copy_item INSTRUCTIONS.md
-          copy_item CHECKRM_REFERENCE.md
           copy_item DOCS_RULES.md
           copy_item CHANGELOG.md
           copy_item changelog_views
@@ -519,7 +518,7 @@ jobs:
           set -euo pipefail
           if [ -n "$(git status --porcelain changelog_views description_views)" ]; then
             git config user.name "github-actions[bot]"
-            git config user.email "github-actions[bot]@users.noreply.github.com"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
             git add changelog_views description_views
             git commit -m "chore(docs): update changelog and description views [skip ci]"
             python3 scripts/git_push_retry.py --branch "${GITHUB_REF_NAME}"

@@ -1,15 +1,15 @@
-# Instructions: Core Repository Policy (v13)
+# Instructions: Core Repository Policy (v14)
 
 Repo policy, docs rules for AllensCreations/MCPE-Curseforges (creator name `ALNStudios`). Generating a new project: `PACK_GENERATOR_INSTRUCTIONS.md`.
 
 ## Read Only What the Task Needs
 | Task | Read | Sections |
 | :--- | :--- | :--- |
-| Docs (README/DESCRIPTION/CHANGELOG) | this file + `DOCS_RULES.md` | 1.1 to 1.3; all |
-| Docs audit (`/checkrm`) | this file + `DOCS_RULES.md` + `CHECKRM_REFERENCE.md` | 1.1; all; 3.1 to 3.4 |
+| Docs (README/DESCRIPTION/CHANGELOG) | this file + `DOCS_RULES.md` | 1.1 to 1.3; 2.1 to 2.5 |
+| Docs audit (`/checkrm`) | this file + `DOCS_RULES.md` | 1.1; all of `DOCS_RULES.md` |
 | Version, manifest, LOCK, recipe, function, build, workflow, OneBlock changes | this file | 1.1 to 1.12 |
 | New mechanic hits a vanilla limit | this file | 1.12 |
-| Recipe images, sprites | this file + `CHECKRM_REFERENCE.md` | 1.5; 3.3, 3.4 |
+| Recipe images, sprites | this file + `DOCS_RULES.md` | 1.5; 3.3, 3.4 |
 | New addon / map / script / minigame | `PACK_GENERATOR_INSTRUCTIONS.md` | all |
 Read only the files and sections the task needs. Changing an instruction file: read both.
 
@@ -47,7 +47,7 @@ Every project update writes CHANGELOG.md (Part 2 format; heading version == `.sh
 - Project checks (`check_readme_status.py`, `validate_manifest_titles.py`, `manifest_tools.py --check`): the agent reads and reports; the `.sh` runs them.
 
 ## Precedence
-Part 1 wins. `DOCS_RULES.md` and `CHECKRM_REFERENCE.md` never override it. Generator file never overrides this file. Accuracy and requested scope outrank any template. Section numbers refer to this file.
+Part 1 wins. `DOCS_RULES.md` never overrides it. Generator file never overrides this file. Accuracy and requested scope outrank any template. Section numbers refer to this file.
 
 ---
 
@@ -168,7 +168,7 @@ Project specs live in the project folder (Dirtbound: `MCPEDL/Maps/OneBlock-Dirtb
 - Workflows: `.github/workflows/`. ALWAYS read the actual file before editing or describing it. NEVER claim a run succeeded unless checked. NEVER trust summaries of workflows (they drift).
 - Retired, NEVER recreate or reference: `update-min-version.yml`, `scripts/update_min_version.py`, `create-addon-scaffold.yml`, `test-crafting-template.yml`, `create-mcpe-world.yml`, `scripts/create_mcpe_world.py`, `scripts/check_generator_sync.py`.
 - Version rules (1.3) changing workflow behavior: update the workflow in the same change.
-- Key entry points: `auto-version-bump.yml` (Build Changed Packs & Sync Catalogs: passive, runs on every push, builds ALL, NEVER bumps), `publish-curseforge.yml` (ONLY CurseForge upload path; no bump; groups changelog since last publish), `delete-project.yml` (Delete Package: package + builds, changelog views, registry, catalog rows, dropdown), `collect-ai-review-files.yml` (AI hand-off: empty paths = bundle; paths = `.b64` Markdown export zipped as `(X.Y.Z) Filename.zip`), `create-project-from-base64.yml` (`commit_mode` default `pull_request`), `ci.yml` (PR checks).
+- Entry points: read the workflow file; never rely on a summary of it.
 - Helper scripts: `scripts/` (read each script for options). `scripts/check_instruction_files.py` fails CI when an instruction file breaks size/format rules.
 
 ### 1.9 Repository Layout
@@ -226,13 +226,8 @@ Placeholders `<PackName>`, `<MainAction>`, `<version>`. NEVER hardcode one pack.
 
 ---
 
-## Part 2: Docs (moved)
-Every README, DESCRIPTION and CHANGELOG rule and template: `DOCS_RULES.md` (sections 2.1 to 2.5).
-
----
-
-## Part 3: Docs Audit and References (moved)
-Procedure for `/checkrm` and the Minecraft Wiki and Bedrock Samples references: `CHECKRM_REFERENCE.md` (sections 3.1 to 3.4).
+## Parts 2 and 3: Docs, Audit, References (moved)
+`DOCS_RULES.md`: README, DESCRIPTION and CHANGELOG rules and templates (2.1 to 2.5); `/checkrm` audit procedure and the Minecraft Wiki and Bedrock Samples references (3.1 to 3.4).
 
 ---
 
@@ -245,6 +240,6 @@ Procedure for `/checkrm` and the Minecraft Wiki and Bedrock Samples references: 
 - [ ] Changed JSON validated. Instruction file changed: `scripts/check_instruction_files.py` passes.
 
 ## Version History
+- **v14:** `CHECKRM_REFERENCE.md` merged into `DOCS_RULES.md` (Part 3); 1.8 entry-point list removed; one `requirements.txt` for workflows.
 - **v13:** Docs rules and templates moved to `DOCS_RULES.md` (single source for both instruction files); the generator's Part 1 excerpt is kept identical to this file by the checker.
 - **v12:** Part 3 moved to `CHECKRM_REFERENCE.md`; Dirtbound spec moved to its project folder; scripts reference-only for agents; duplicates and contradictions removed; size cap 60,000 bytes.
-- **v11:** Root README is a public introduction, no pack list; the build never edits it.
