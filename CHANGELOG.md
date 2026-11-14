@@ -2,6 +2,14 @@
 
 ---
 
+## [1.0.17] - 2026-11-14 - Name On Save And Faster Fade
+
+### Added
+- **Name On Save**: After you pick a slot, Save now asks you to name it. Leave the name empty to show the coordinates, or to keep the slot's current name.
+
+### Improved & Balanced
+- **Menu Fade-In**: Menus fade in again with a quick 0.12 second fade, much faster than the old animation.
+
 ## [1.0.16] - 2026-11-14 - Bold Countdown Number
 
 ### Improved & Balanced

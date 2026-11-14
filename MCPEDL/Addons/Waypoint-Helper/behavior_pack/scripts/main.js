@@ -1,7 +1,7 @@
 import { world, system } from "@minecraft/server";
 import { ActionFormData, ModalFormData, FormCancelationReason } from "@minecraft/server-ui";
 
-const VERSION = "1.1.7";
+const VERSION = "1.1.8";
 const MENU_ITEM = "minecraft:compass";
 const TITLE = `WPH|§6@ALNStudios Waypoint Helper §7(${VERSION})`;
 const BASE_SLOTS = 10;
@@ -218,11 +218,21 @@ async function saveFlow(player) {
       rx: rotation.x,
       ry: rotation.y,
     };
-    if (existing && existing.n) data.n = existing.n;
+    const hint = existing && existing.n ? `empty keeps "${existing.n}"` : "empty shows coordinates";
+    const nameForm = new ModalFormData().title(TITLE).textField(`§lName Slot ${pick.index + 1}§r\nName (${hint})`, "Example: Home");
+    const nameResponse = await show(nameForm, player);
+    if (!nameResponse || nameResponse.canceled) return "closed";
+    const name = cleanName(nameResponse.formValues[0]);
+    if (name) data.n = name;
+    else if (existing && existing.n) data.n = existing.n;
     writeSlot(player, pick.index, data);
     actionBar(player, `${dimensionColor(data.d)}Saved ${slotName(data, pick.index)} (${dimensionName(data.d)}).`);
     return "done";
   }
+}
+
+function cleanName(value) {
+  return String(value ?? "").replace(/§/g, "").trim().slice(0, NAME_LIMIT);
 }
 
 function teleportTo(player, slot) {
@@ -416,7 +426,7 @@ async function renameFlow(player) {
       .textField(`§lRename Slot ${pick.index + 1}§r\nName (leave empty to show coordinates again)`, "Example: Home");
     const response = await show(form, player);
     if (!response || response.canceled) return "closed";
-    const name = String(response.formValues[0] ?? "").replace(/§/g, "").trim().slice(0, NAME_LIMIT);
+    const name = cleanName(response.formValues[0]);
     if (name) {
       slot.n = name;
       writeSlot(player, pick.index, slot);
@@ -480,7 +490,7 @@ async function aboutScreen(player) {
       heading(
         "About",
         `Waypoint Helper by §lALNStudios§r\n\nSlots start at §l${BASE_SLOTS}§r. When every slot is filled, Save shows a button to add one more, with no upper limit.\n\n` +
-          `§lSave§r stores your position. §lLoad§r counts down ${TELEPORT_SECONDS} seconds, then teleports you there. Moving or taking damage cancels it, and there is a ${TELEPORT_COOLDOWN_MS / 1000} second wait between teleports. ` +
+          `§lSave§r stores your position and asks for an optional name. §lLoad§r counts down ${TELEPORT_SECONDS} seconds, then teleports you there. Moving or taking damage cancels it, and there is a ${TELEPORT_COOLDOWN_MS / 1000} second wait between teleports. ` +
           "§lRename§r gives a slot a name and hides its coordinates. §lDelete§r clears a slot and removes empty extra slots from the end. §lLoad§r also lists where you last died.\n\n" +
           "§lSave Spawn Here§r sets your respawn point to where you stand.\n\nWaypoints belong to each player."
       )

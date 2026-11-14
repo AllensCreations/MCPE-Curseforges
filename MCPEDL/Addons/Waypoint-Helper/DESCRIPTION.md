@@ -20,7 +20,7 @@ Right-click a Compass to open the Waypoint Helper menu. Save your current positi
 - **Good To Know**: There is no upper limit on slots. Waypoints are stored per player and are kept between play sessions.
 
 ### Save And Load
-- **What Happens**: Save stores your position, facing direction and dimension in the slot you choose. Load counts down 3 seconds on the action bar with a sound on each second, then teleports you to the slot you choose with a teleport sound.
+- **What Happens**: Save stores your position, facing direction and dimension in the slot you choose, then asks for an optional name. Load counts down 3 seconds on the action bar with a sound on each second, then teleports you to the slot you choose with a teleport sound.
 - **How It Works**: Open the menu, tap Save, pick Slot 1. Later open the menu, tap Load, pick Slot 1.
 - **Good To Know**: Saved slots and the save message are green in the Overworld, red in the Nether and yellow in The End. Saving into a filled slot asks you to confirm before it replaces the old position. Loading an empty slot shows a notice instead of teleporting. If the saved spot is now in the air, you land on the ground below it, and if it is inside blocks you are moved up to open space. Ground is searched up to 128 blocks away, and nothing moves you onto lava.
 
@@ -47,7 +47,7 @@ Right-click a Compass to open the Waypoint Helper menu. Save your current positi
 - **What Happens**: Right-click any Compass to open the menu. The pack does not give you a Compass, so craft or take one yourself.
 
 ### Cheatstick Menu Look
-- **What Happens**: Menus use a dark panel, an orange title bar showing the pack name and version, and blue-highlighted buttons, with saved slots and action bar messages colored by dimension.
+- **What Happens**: Menus use a dark panel, an orange title bar showing the pack name and version, and blue-highlighted buttons and a quick fade-in, with saved slots and action bar messages colored by dimension.
 - **Good To Know**: The look comes from the Resource Pack, so activate it in your world's settings. Without it the menus use the plain Minecraft style.
 
 ## How to Use
