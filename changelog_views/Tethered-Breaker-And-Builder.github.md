@@ -1,6 +1,6 @@
 # Changelog — Tethered: Breaker and Builder
 
-## [1.12.1] - 2026-11-15 - Performance and Stability
+## [1.12.1] - 2026-11-14
 
 ### Added
 - **Waiting for partner**: If your partner leaves or has not chosen a role yet, the screen says you are waiting and the leash timers pause.
