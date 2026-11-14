@@ -1,6 +1,6 @@
 # Changelog — Alphabet Scavenger Hunt
 
-## [1.9.1] - 2026-11-15 - Victory Celebration
+## [1.9.1] - 2026-11-14
 
 ### Added
 - **Victory Celebration**: Finishing all 20 rounds now shows a Congratulations title and a fireworks display, then the Controller comes back so you can play again.
