@@ -109,6 +109,19 @@ export const EXTRA_CORES = {
     "<PLAYER> morning is coming", "<PLAYER> thanks for skipping the night",
   ],
 
+  bot_sleep: [
+    "ok i am going to bed", "night everyone, going to sleep", "it is late, off to bed", "going to sleep before the phantoms come",
+    "bed time, see you tomorrow", "i am calling it a night", "sleeping now, wake me if something explodes", "heading to bed, gn all",
+    "need sleep, my eyes hurt", "gn smp, skipping the night",
+  ],
+  bot_sleep_reply: [
+    "gn, sleep well", "night, see you tomorrow", "sleep tight", "good night, i will keep watch",
+    "gn, do not let the phantoms bite", "see you in the morning", "sweet dreams", "night night",
+  ],
+  bot_death_self: [
+    "ugh not again", "my items are all gone", "that {mob} came out of nowhere", "i was right at my base too",
+    "someone help me find my stuff", "i should have worn my helmet", "respawning now, do not touch my chest", "that is on me, i was not paying attention",
+  ],
   weather_rain: [
     "it is raining at my base", "rain again, my {farm} is happy though", "the rain sounds so cozy", "rain means fishing time",
     "i love how the {biome} looks in the rain", "the lightning rod on my {build} finally has a job", "puddles everywhere near spawn",

@@ -33,6 +33,10 @@ You play your world as usual. Between 6 and 14 virtual players are online at any
 - **What Happens**: Every 1.5 to 3 minutes the virtual players start a 2 to 5 message conversation about weather, farms, trading, raids, bosses, pets, music and more, from short scripted chats to small PvP dramas between three of them.
 - **Good To Know**: Conversations are spaced out so replies appear one after another. Overlapping events wait in a short queue instead of flooding the chat.
 
+### Bedtime and Mishaps
+- **What Happens**: On about one night in twenty, a virtual player says they are off to bed and others wish them goodnight. From time to time a virtual player also dies, with the usual death message in chat, and the others react.
+- **Good To Know**: Both are only chat messages, and nothing happens to the world or to you.
+
 ## How to Use
 
 1. Import the pack and add the Behavior Pack to your world.

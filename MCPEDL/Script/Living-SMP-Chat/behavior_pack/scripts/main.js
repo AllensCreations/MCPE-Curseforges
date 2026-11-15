@@ -1,7 +1,7 @@
 import { world, system } from "@minecraft/server";
 import { startSessionSimulator } from "./smp_roster.js";
 import { coordHint } from "./chat_generator.js";
-import { ambientConversation, reactToDeath, reactToOre, reactToEvent, welcomeBack } from "./chat_director.js";
+import { ambientConversation, botSleeps, reactToDeath, reactToOre, reactToEvent, welcomeBack } from "./chat_director.js";
 
 const ORES = {
   "minecraft:diamond_ore": "diamond",
@@ -10,6 +10,8 @@ const ORES = {
 };
 const ORE_COOLDOWN = 1200;
 const EVENT_COOLDOWN = 3600;
+const SLEEP_CHANCE = 0.05;
+let lastSleepDay = -1;
 
 const rand = (a, b) => a + Math.floor(Math.random() * (b - a + 1));
 
@@ -73,6 +75,17 @@ system.runInterval(() => {
   ambientTimer += 40;
   const now = system.currentTick;
   const players = world.getAllPlayers();
+
+  try {
+    const timeOfDay = world.getTimeOfDay();
+    if (timeOfDay >= 13000 && timeOfDay < 23000) {
+      const day = world.getDay();
+      if (day !== lastSleepDay) {
+        lastSleepDay = day;
+        if (players.length > 0 && Math.random() < SLEEP_CHANCE) system.runTimeout(() => botSleeps(), rand(100, 2400));
+      }
+    }
+  } catch (e) {}
 
   for (const p of players) {
     try {

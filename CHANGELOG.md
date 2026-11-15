@@ -2,6 +2,12 @@
 
 ---
 
+## [1.0.58] - 2026-11-16 - Bedtime and Mishaps
+
+### Added
+- **Bedtime Chat**: on about one night in twenty, a virtual player says they are going to bed and one or two others wish them goodnight.
+- **Virtual Deaths**: now and then a virtual player dies to a creeper, a zombie, a skeleton, a spider, lava, a fall, the void, drowning or fire. The usual death message appears in chat, then the victim and the others react.
+
 ## [1.0.57] - 2026-11-16 - Lighter Lock Checks
 
 ### Improved & Balanced

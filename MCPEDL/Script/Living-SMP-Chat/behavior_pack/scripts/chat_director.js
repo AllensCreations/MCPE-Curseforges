@@ -92,6 +92,36 @@ function dramaChain() {
   ]);
 }
 
+const VANILLA_DEATHS = [
+  { kind: "creeper", cause: "a creeper", msg: "was blown up by Creeper" },
+  { kind: "mob", cause: "a zombie", msg: "was slain by Zombie" },
+  { kind: "mob", cause: "a skeleton", msg: "was shot by Skeleton" },
+  { kind: "mob", cause: "a spider", msg: "was slain by Spider" },
+  { kind: "lava", cause: "lava", msg: "tried to swim in lava" },
+  { kind: "fall", cause: "fall damage", msg: "hit the ground too hard" },
+  { kind: "void", cause: "the void", msg: "fell out of the world" },
+  { kind: "generic", cause: "something", msg: "drowned" },
+  { kind: "generic", cause: "something", msg: "burned to death" },
+];
+
+export function botSleeps() {
+  const bots = pickOnline(rand(2, 3));
+  if (bots.length < 2) return;
+  playConversation(chain(bots, ["bot_sleep", "bot_sleep_reply", "bot_sleep_reply"], {}), { priority: true });
+}
+
+function botDeath() {
+  const bots = pickOnline(3);
+  if (bots.length < 2) return;
+  const victim = bots[0];
+  const d = VANILLA_DEATHS[rand(0, VANILLA_DEATHS.length - 1)];
+  const lines = [{ text: victim.name + " " + d.msg }];
+  lines.push({ bot: bots[1], text: assembleMessage("death_" + d.kind, { player: victim.name, cause: d.cause, speaker: bots[1] }) });
+  lines.push({ bot: victim, text: assembleMessage("bot_death_self", { speaker: victim }) });
+  if (bots[2]) lines.push({ bot: bots[2], text: assembleMessage("death_followup", { speaker: bots[2] }) });
+  playConversation(lines);
+}
+
 const TOPICS = [
   "weather_rain", "weather_storm", "night_falls", "morning", "farm_talk", "trade_talk", "raid_talk", "base_tour",
   "redstone_talk", "pvp_talk", "boss_dragon", "boss_wither", "nether_roof", "fishing", "explore", "pets",
@@ -124,8 +154,9 @@ export function ambientConversation() {
   if (players.length === 0) return;
   const player = players[rand(0, players.length - 1)].name;
   const roll = Math.random();
-  if (roll < 0.15) return void dramaChain();
-  if (roll < 0.4) return void dialogChat(player);
+  if (roll < 0.08) return void botDeath();
+  if (roll < 0.2) return void dramaChain();
+  if (roll < 0.42) return void dialogChat(player);
   if (roll < 0.7) return void topicChat(player);
   const cats = roll < 0.8
     ? ["banter_video", "banter_video", "support_reply", "banter_video", "support_reply"]
