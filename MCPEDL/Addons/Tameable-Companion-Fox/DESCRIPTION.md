@@ -19,7 +19,8 @@ Tame loyal foxes, command them to sit, and arm your companions with weapons.
 - **What Happens**: Each sweet berry or glow berry you feed a wild fox has a 75% chance of taming it.
 
 ### Bodyguard Protection
-- **What Happens**: A tamed fox follows you and attacks mobs that hurt you or that you hurt. Its attack deals 4 damage.
+- **What Happens**: A tamed fox follows you, attacks mobs that hurt you or that you hurt, and goes after hostile mobs it can see within 16 blocks. Its attack deals 4 damage.
+- **Good To Know**: Tamed foxes leave creepers alone.
 
 ### Upgraded Vitality
 - **What Happens**: A tamed fox has 30 health, up from the 20 of a wild fox.
@@ -28,8 +29,8 @@ Tame loyal foxes, command them to sit, and arm your companions with weapons.
 - **What Happens**: Interact with a tamed fox using an empty hand to make it sit and stay in place. Interact again to make it stand up and follow you.
 
 ### Weapon Arming
-- **What Happens**: Interact with a tamed fox while holding a sword or axe to hand it over. A fox holding a sword deals 6 damage, and a fox holding an axe deals 8 damage.
-- **Good To Know**: Wooden, stone, golden, iron, diamond, and netherite swords and axes are accepted. An armed fox drops its weapon when it dies.
+- **What Happens**: Interact with your own tamed fox while holding a sword or axe to hand it over. A fox holding a sword deals 6 damage and chases targets faster. A fox holding an axe deals 8 damage and leaps higher.
+- **Good To Know**: Wooden, stone, golden, iron, diamond, and netherite swords and axes are accepted. Sneak and interact with an empty hand to take the weapon back. An armed fox drops its weapon when it dies.
 
 ### Healing Support
 - **What Happens**: Feeding a hurt tamed fox sweet berries or glow berries restores 4 health.
@@ -38,7 +39,7 @@ Tame loyal foxes, command them to sit, and arm your companions with weapons.
 
 1. Hold sweet berries or glow berries and interact with a wild fox until it is tamed.
 2. Interact with your fox using an empty hand to make it sit, and interact again to make it stand up and follow you.
-3. Hold a sword or axe and interact with your fox to arm it.
+3. Hold a sword or axe and interact with your fox to arm it. Sneak and interact with an empty hand to take the weapon back.
 4. Feed your fox sweet berries or glow berries when it is hurt to restore its health.
 
 ## Compatibility
@@ -72,4 +73,3 @@ Tame loyal foxes, command them to sit, and arm your companions with weapons.
 ## Search & Discovery Keywords
 
 Tameable Companion Fox Minecraft Bedrock, Berry Taming Bedrock, Bodyguard Protection Bedrock, Upgraded Vitality Bedrock, Sit & Stand Commands Bedrock, Weapon Arming Bedrock, Healing Support Bedrock, Minecraft PE survival, MCPEDL, CurseForge Bedrock, ALNStudios, Minecraft Bedrock add-on, MCPEDL add-on.
-

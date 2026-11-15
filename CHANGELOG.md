@@ -2,6 +2,17 @@
 
 ---
 
+## [1.0.52] - 2026-11-16 - Fox Combat Upgrade
+
+### Added
+- **Weapon Styles**: A fox holding a sword chases targets faster, and a fox holding an axe leaps higher.
+- **Take Weapon Back**: Sneak and interact with an empty hand to take the weapon from your fox.
+- **Hostile Mob Defense**: Tamed foxes attack hostile mobs they can see within 16 blocks, except creepers.
+
+### Improved & Balanced
+- **Owner Only Arming**: Only a fox's owner can hand it a weapon.
+- **Translated Prompts**: The weapon prompts now use language files so they can be translated.
+
 ## [1.0.51] - 2026-11-16 - Give Weapon Prompt
 
 ### Fixed

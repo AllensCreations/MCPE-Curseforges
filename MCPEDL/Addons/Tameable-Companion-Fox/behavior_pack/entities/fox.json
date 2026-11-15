@@ -57,6 +57,21 @@
         "minecraft:behavior.owner_hurt_by_target": {
           "priority": 3
         },
+        "minecraft:behavior.nearest_attackable_target": {
+          "priority": 4,
+          "must_see": true,
+          "entity_types": [
+            {
+              "filters": {
+                "all_of": [
+                  { "test": "is_family", "subject": "other", "value": "monster" },
+                  { "test": "is_family", "subject": "other", "operator": "!=", "value": "creeper" }
+                ]
+              },
+              "max_dist": 16
+            }
+          ]
+        },
         "minecraft:healable": {
           "items": [
             {
@@ -76,6 +91,7 @@
                 "filters": {
                   "all_of": [
                     { "test": "is_family", "subject": "other", "value": "player" },
+                    { "test": "is_owner", "subject": "other", "value": true },
                     {
                       "any_of": [
                         { "test": "has_equipment", "subject": "other", "domain": "hand", "value": "wooden_sword" },
@@ -93,7 +109,7 @@
               },
               "use_item": true,
               "equip_item_slot": "slot.weapon.mainhand",
-              "interact_text": "Give Weapon",
+              "interact_text": "action.interact.fox_give_weapon",
               "swing": true
             },
             {
@@ -101,6 +117,7 @@
                 "filters": {
                   "all_of": [
                     { "test": "is_family", "subject": "other", "value": "player" },
+                    { "test": "is_owner", "subject": "other", "value": true },
                     {
                       "any_of": [
                         { "test": "has_equipment", "subject": "other", "domain": "hand", "value": "wooden_axe" },
@@ -118,7 +135,24 @@
               },
               "use_item": true,
               "equip_item_slot": "slot.weapon.mainhand",
-              "interact_text": "Give Weapon",
+              "interact_text": "action.interact.fox_give_weapon",
+              "swing": true
+            },
+            {
+              "on_interact": {
+                "filters": {
+                  "all_of": [
+                    { "test": "is_family", "subject": "other", "value": "player" },
+                    { "test": "is_owner", "subject": "other", "value": true },
+                    { "test": "is_sneak_held", "subject": "other", "value": true },
+                    { "test": "all_slots_empty", "subject": "other", "domain": "hand" }
+                  ]
+                },
+                "event": "fox:disarm",
+                "target": "self"
+              },
+              "take_item": true,
+              "interact_text": "action.interact.fox_take_weapon",
               "swing": true
             }
           ]
@@ -127,11 +161,21 @@
       "fox:armed_sword": {
         "minecraft:attack": {
           "damage": 6
+        },
+        "minecraft:behavior.melee_attack": {
+          "priority": 4,
+          "speed_multiplier": 1.5,
+          "track_target": true
         }
       },
       "fox:armed_axe": {
         "minecraft:attack": {
           "damage": 8
+        },
+        "minecraft:behavior.leap_at_target": {
+          "priority": 3,
+          "yd": 0.6,
+          "must_be_on_ground": true
         }
       }
     },
@@ -252,6 +296,11 @@
         },
         "add": {
           "component_groups": ["fox:armed_sword"]
+        }
+      },
+      "fox:disarm": {
+        "remove": {
+          "component_groups": ["fox:armed_sword", "fox:armed_axe"]
         }
       },
       "fox:equip_axe": {
