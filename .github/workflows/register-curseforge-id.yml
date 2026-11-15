@@ -4,8 +4,12 @@ name: Register CurseForge ID
 # packs; old builds/<pack>/Curseforge_Info.json files are folded in automatically), then
 # refreshes the "Registered pack" dropdown of Publish to CurseForge from that registry.
 # Re-running for an already registered pack overwrites its stored ID.
-# Needs the WORKFLOW_PAT secret to push the edited workflow file; without it the ID is
-# still saved but the dropdown is not updated.
+#
+# Secrets:
+#   CF_CONSOLE_KEY - Core API key from console.curseforge.com (used here to fetch the logo)
+#   CF_AUTHOR_KEY  - author upload token (used by Publish to CurseForge, not here)
+#   WORKFLOW_PAT   - needed to push the edited workflow file; without it the ID is
+#                    still saved but the dropdown is not updated.
 
 on:
   workflow_dispatch:
@@ -15,7 +19,7 @@ on:
         required: true
         type: string
       curseforge_project_id:
-        description: CurseForge project ID (digits only)
+        description: CurseForge project ID (digits only). Existing pack = overwrite its ID.
         required: true
         type: string
 
@@ -57,8 +61,8 @@ jobs:
         env:
           PROJECT_PATH: ${{ inputs.project }}
           CURSEFORGE_PROJECT_ID: ${{ inputs.curseforge_project_id }}
-          CURSEFORGE_API_KEY: ${{ secrets.CURSEFORGE_API_TOKEN }}
-          CURSEFORGE_API_TOKEN: ${{ secrets.CURSEFORGE_API_TOKEN }}
+          # The script reads CURSEFORGE_API_KEY; it is fed from the console key secret.
+          CURSEFORGE_API_KEY: ${{ secrets.CF_CONSOLE_KEY }}
         run: |
           pip install -r requirements.txt
           python3 scripts/fetch_curseforge_logo.py --project "$PROJECT_PATH" --id "$CURSEFORGE_PROJECT_ID"
