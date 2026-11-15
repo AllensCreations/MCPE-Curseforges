@@ -2,15 +2,20 @@
 
 ---
 
-## [1.0.2] - 2026-11-15 - Controller Auto Destroy
+## [1.0.2] - 2026-11-15
+
+**What's new in v1.0.2:** Packed with the v1.0.2 update. Includes: Controller Auto Destroy.
 
 ### Improved & Balanced
+
 - **Controller Auto Destroy**: The Controller is now used up when a game starts (Creative mode keeps it), and the host receives a new one when the game ends.
 
 ## [1.0.1] - 2026-11-15 - Import Fix
 
 ### Fixed
 - **Pack Import**: The packs now import in Minecraft. The minimum game version they declared was higher than Minecraft accepts.
+
+
 
 ## [1.0.0] - 2026-11-15 - Chaos Edition Launch
 
