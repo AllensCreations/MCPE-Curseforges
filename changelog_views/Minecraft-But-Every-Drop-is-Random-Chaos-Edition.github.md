@@ -1,12 +1,17 @@
 # Changelog — Minecraft, But Every Drop is Random: Chaos Edition
 
-## [1.0.1] - 2026-11-15 - Import Fix
+## [1.0.2] - 2026-11-15 - Controller Auto Destroy
 
-### Fixed
-- **Pack Import**: The packs now import in Minecraft. The minimum game version they declared was higher than Minecraft accepts.
+### Improved & Balanced
+- **Controller Auto Destroy**: The Controller is now used up when a game starts (Creative mode keeps it), and the host receives a new one when the game ends.
 
 <details>
-<summary><b>1.0.x</b> (1 release)</summary>
+<summary><b>1.0.x</b> (2 releases)</summary>
+
+### [1.0.1] - 2026-11-15 - Import Fix
+
+#### Fixed
+- **Pack Import**: The packs now import in Minecraft. The minimum game version they declared was higher than Minecraft accepts.
 
 ### [1.0.0] - 2026-11-15 - Chaos Edition Launch
 
