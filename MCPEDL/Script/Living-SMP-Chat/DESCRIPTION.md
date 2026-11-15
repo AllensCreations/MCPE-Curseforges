@@ -4,6 +4,7 @@
 
 [![Minecraft Bedrock](https://img.shields.io/badge/Minecraft%20Bedrock-Stable%20Release-brightgreen?style=flat-square&logo=minecraft)](https://github.com/AllensCreations/MCPE-Curseforges)
 [![Format](https://img.shields.io/badge/Format-.MCPACK%20%7C%20.MCADDON%20%7C%20.MCWORLD-blue?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges)
+
 **40 virtual SMP members chat, join and leave, and react when you die or mine Diamond Ore and Ancient Debris.**
 > Living SMP Chat fills the chat with a friendly roster of 40 virtual players who talk to each other and to you. It suits solo worlds that feel too quiet.
 

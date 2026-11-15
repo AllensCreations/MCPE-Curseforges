@@ -11,7 +11,7 @@ Copy a prompt below into your image generator. Attach your own images first so t
 
 ```text
 Use the attached logo only as a brand reference for its color palette and overall mood. Do not copy it. Create a new, original logo with a different composition and a different main symbol. Do not just recolor, resize, crop, mirror or tweak the attached logo.
-Create a clean, square (1:1) logo image for the Minecraft Bedrock add-on "Living SMP Chat". 18 virtual SMP members chat, join and leave, and react when you die or mine Diamond Ore and Ancient Debris.
+Create a clean, square (1:1) logo image for the Minecraft Bedrock add-on "Living SMP Chat". 40 virtual SMP members chat, join and leave, and react when you die or mine Diamond Ore and Ancient Debris.
 Base the main symbol on the pack idea above. Match the blocky look of the attached in-game snapshots. Center the logo, use a simple background, and keep it readable at small sizes.
 Text: "Living SMP Chat" and, in small letters, "ALNStudios". ALNStudios is the brand name, so always keep it and never remove or change it. Spell both exactly.
 Do not add Minecraft, Mojang or Microsoft logos, watermarks, or characters from other games.
@@ -20,7 +20,7 @@ Do not add Minecraft, Mojang or Microsoft logos, watermarks, or characters from 
 ## Banner Prompt
 
 ```text
-Create a wide (16:9) banner image for the Minecraft Bedrock add-on "Living SMP Chat". 18 virtual SMP members chat, join and leave, and react when you die or mine Diamond Ore and Ancient Debris.
+Create a wide (16:9) banner image for the Minecraft Bedrock add-on "Living SMP Chat". 40 virtual SMP members chat, join and leave, and react when you die or mine Diamond Ore and Ancient Debris.
 Use the attached in-game snapshots as scene and style references: copy their blocky look, lighting, colors and the kind of scenery they show. Make a new composition inspired by them. Do not copy the on-screen HUD, chat or hotbar.
 Use the attached logo only as a brand reference for its colors and mood. Do not copy it. Put a new, original logo design in the banner, large enough to read, on the left or center.
 Hint at these pack features visually: Virtual SMP Roster, Death Reactions, Ore Celebrations, Welcome Back, Sleep and Travel Chat, Ambient Banter.
