@@ -23,7 +23,7 @@ Do not add Minecraft, Mojang or Microsoft logos, watermarks, or characters from 
 Create a wide (16:9) banner image for the Minecraft Bedrock add-on "Minecraft, But Every Drop is Random". Every block and mob drop turns into a different item, and defeating the Ender Dragon wins the run.
 Use the attached in-game snapshots as scene and style references: copy their blocky look, lighting, colors and the kind of scenery they show. Make a new composition inspired by them. Do not copy the on-screen HUD, chat or hotbar.
 Use the attached logo only as a brand reference for its colors and mood. Do not copy it. Put a new, original logo design in the banner, large enough to read, on the left or center.
-Hint at these pack features visually: Randomized Drops, Fresh Table Every Run, Chaos Drop Feed, Reshuffle Outside a Game, Controller.
+Hint at these pack features visually: Randomized Drops, Fresh Table Every Run, Reshuffle Outside a Game, Controller.
 Text: "Minecraft, But Every Drop is Random" and, in small letters, "by ALNStudios". ALNStudios is the brand name, so always keep it and never remove or change it. Spell both exactly.
 Leave clear space around the logo. No Minecraft, Mojang or Microsoft logos, no watermarks.
 ```

@@ -5,7 +5,7 @@ Download the current release of **Minecraft, But Every Drop is Random Chaos Edit
 ## Download
 
 - **Package format:** `.mcaddon`
-- **Direct download:** [Download Minecraft, But Every Drop is Random Chaos Edition (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Minecraft-But-Every-Drop-is-Random-Chaos-Edition/MinecraftButEveryDropIsRandomChaosEdition%20V1.0.2.mcaddon)
+- **Direct download:** [Download Minecraft, But Every Drop is Random Chaos Edition (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Minecraft-But-Every-Drop-is-Random-Chaos-Edition/MinecraftButEveryDropIsRandomChaosEdition%20V1.0.3.mcaddon)
 
 ## Installation
 

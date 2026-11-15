@@ -59,7 +59,7 @@ This directory stores compiled Add-ons (`.mcaddon`), Maps (`.mcworld`), Scripts 
 | **Tethered: Breaker & Builder** | Minigame (.mcaddon) | [Download (.mcaddon)](Tethered-Breaker-And-Builder/TetheredBuilder%20V1.12.1.mcaddon) | [`Tethered-Breaker-And-Builder/`](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/builds/Tethered-Breaker-And-Builder) |
 | **Trivia Vault The Locked World** | Minigame (.mcaddon) | [Download (.mcaddon)](Trivia-Vault-The-Locked-World/TriviaVault%20V1.19.0.mcaddon) | [`Trivia-Vault-The-Locked-World/`](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/builds/Trivia-Vault-The-Locked-World) |
 | **Mob Chaos Behavioral Roulette** | Minigame (.mcaddon) | [Download (.mcaddon)](Mob-Chaos-Behavioral-Roulette/MobChaos%20V1.4.2.mcaddon) | [`Mob-Chaos-Behavioral-Roulette/`](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/builds/Mob-Chaos-Behavioral-Roulette) |
-| **Minecraft, But Every Drop is Random Chaos Edition** | Minigame (.mcaddon) | [Download (.mcaddon)](Minecraft-But-Every-Drop-is-Random-Chaos-Edition/MinecraftButEveryDropIsRandomChaosEdition%20V1.0.2.mcaddon) | [`Minecraft-But-Every-Drop-is-Random-Chaos-Edition/`](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/builds/Minecraft-But-Every-Drop-is-Random-Chaos-Edition/) |
+| **Minecraft, But Every Drop is Random Chaos Edition** | Minigame (.mcaddon) | [Download (.mcaddon)](Minecraft-But-Every-Drop-is-Random-Chaos-Edition/MinecraftButEveryDropIsRandomChaosEdition%20V1.0.3.mcaddon) | [`Minecraft-But-Every-Drop-is-Random-Chaos-Edition/`](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/builds/Minecraft-But-Every-Drop-is-Random-Chaos-Edition/) |
 
 ### Script Packs
 
