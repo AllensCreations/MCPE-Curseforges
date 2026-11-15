@@ -1,13 +1,19 @@
 # Changelog — Living SMP Chat
 
-## [1.0.6] - 2026-11-16 - Bedtime and Mishaps
+## [1.0.7] - 2026-11-16 - Night Skip
 
-### Added
-- **Bedtime Chat**: on about one night in twenty, a virtual player says they are going to bed and one or two others wish them goodnight.
-- **Virtual Deaths**: now and then a virtual player dies to a creeper, a zombie, a skeleton, a spider, lava, a fall, the void, drowning or fire. The usual death message appears in chat, then the victim and the others react.
+### Changed
+- **Real Night Skip**: when a virtual player goes to bed on one of those nights, the night now really skips to morning after the goodnight chat, the weather clears, and someone says good morning.
+- **Docs**: the description now says plainly that this changes the time of day for everyone.
 
 <details>
-<summary><b>1.0.x</b> (3 releases)</summary>
+<summary><b>1.0.x</b> (4 releases)</summary>
+
+### [1.0.6] - 2026-11-16 - Bedtime and Mishaps
+
+#### Added
+- **Bedtime Chat**: on about one night in twenty, a virtual player says they are going to bed and one or two others wish them goodnight.
+- **Virtual Deaths**: now and then a virtual player dies to a creeper, a zombie, a skeleton, a spider, lava, a fall, the void, drowning or fire. The usual death message appears in chat, then the victim and the others react.
 
 ### [1.0.5] - 2026-11-15
 
