@@ -2,6 +2,14 @@
 
 ---
 
+## [1.0.48] - 2026-11-16 - Listing Kits
+
+### Added
+- **Listing Kit**: Every pack gets description_views/<Name>.listing.md with the package name, a summary of at most 256 characters, the description HTML and the Logo and Banner AI image prompts. Each one is in its own code block, so GitHub shows a Copy button.
+
+### Improved & Balanced
+- **Auto Refresh**: Build Changed Packs & Sync Catalogs and Collect Files now rebuild the Listing Kits. The summary is the DESCRIPTION tagline, shortened to 256 characters if needed.
+
 ## [1.0.47] - 2026-11-16 - Controller ALN UI
 
 ### Improved & Balanced

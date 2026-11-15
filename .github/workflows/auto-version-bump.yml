@@ -141,6 +141,9 @@ jobs:
       - name: Refresh Logo and Banner image prompts (changed packs only)
         run: python3 scripts/build_image_prompts.py --all --changed || echo "::warning::Some image prompts could not be built (see log)."
 
+      - name: Refresh Listing Kits (name, summary, description HTML, image prompts)
+        run: python3 scripts/build_listing_kits.py --all || echo "::warning::Some listing kits could not be built (see log)."
+
       - name: Verify builds/ snapshots match source and manifest versions (report only)
         continue-on-error: true
         run: |

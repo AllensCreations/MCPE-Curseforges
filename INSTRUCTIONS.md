@@ -1,4 +1,4 @@
-# Instructions: Core Repository Policy (v17)
+# Instructions: Core Repository Policy (v18)
 
 Repo policy, docs rules for AllensCreations/MCPE-Curseforges (creator name `ALNStudios`). Generating a new project: `PACK_GENERATOR_INSTRUCTIONS.md`.
 
@@ -241,6 +241,7 @@ Placeholders `<PackName>`, `<MainAction>`, `<version>`. NEVER hardcode one pack.
 - [ ] Changed JSON validated. Instruction file changed: `scripts/check_instruction_files.py` passes.
 
 ## Version History
+- **v18:** Listing Kit per pack (`description_views/<Name>.listing.md`): name, summary, description HTML and image prompts with Copy buttons.
 - **v17:** Controller menu follows the ALN UI Redesign / 1.14 (3-button main menu, About, skin font, ALNStudios title, action bar feedback). `registerController` needs `title`, `version` (== Behavior Pack version), `about`.
 - **v16:** Test World removed. Importer creates `assets/` per project. New pack skill `mcpe-new-pack` (`SKILL.md` at the root of every AI review zip). Register CurseForge ID starts the build.
 - **v15:** `min_engine_version` is written as `[1, RELEASE, PATCH]` (game 26.60 = `[1, 26, 60]`, never `[26, 60, 0]`), docs use `1.26.60`.
