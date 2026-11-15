@@ -2,6 +2,11 @@
 
 ---
 
+## 2026-11-15 - New Script Gameplay Optimizer
+
+### Added
+- **Gameplay Optimizer**: New script project created from a pack script.
+
 ## [1.0.42] - 2026-11-15 - Give Weapon Prompt
 
 ### Fixed
