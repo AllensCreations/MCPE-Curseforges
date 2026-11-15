@@ -2,6 +2,11 @@
 
 ---
 
+## [1.8.2] - 2026-11-15 - Give Weapon Prompt
+
+### Fixed
+- **Give Weapon Prompt**: The prompt for handing a tamed fox a sword or axe now reads Give Weapon instead of showing a raw text key.
+
 ## [1.8.1] - 2026-11-15 - Fox Arming and Healing
 
 ### Added

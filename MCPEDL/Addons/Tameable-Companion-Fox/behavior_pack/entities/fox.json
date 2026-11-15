@@ -93,7 +93,7 @@
               },
               "use_item": true,
               "equip_item_slot": "slot.weapon.mainhand",
-              "interact_text": "action.interact.equip",
+              "interact_text": "Give Weapon",
               "swing": true
             },
             {
@@ -118,7 +118,7 @@
               },
               "use_item": true,
               "equip_item_slot": "slot.weapon.mainhand",
-              "interact_text": "action.interact.equip",
+              "interact_text": "Give Weapon",
               "swing": true
             }
           ]
