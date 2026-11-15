@@ -1,0 +1,8 @@
+{
+  "changelog_version": "1.8.2",
+  "manifest_version": "1.8.2",
+  "packages": {
+    "CompanionFox V1.8.2.mcaddon": "f330ab3a3910180e1afa0892c736a3a063599d59917cb2ec054f276b880b5309"
+  },
+  "source_sha256": "a9f1718c68b552b6d039a2c9d0af8404c8a304205d65a18eb882d7692bc46aa2"
+}
