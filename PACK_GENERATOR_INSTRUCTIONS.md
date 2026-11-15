@@ -1,4 +1,4 @@
-# Pack Generator Instructions (AI Agent, v21)
+# Pack Generator Instructions (AI Agent, v22)
 
 Builds a complete **addon**, **map**, **script**, or **minigame** from the user's idea. Returns ONE Termux `.sh` pack script that carries the whole project inside it (as base64). No other file is delivered.
 
@@ -34,7 +34,7 @@ Latest stable:
 - Game version and module version are separate. NEVER infer one from the other.
 
 Engine:
-- `min_engine_version` = lowest game version the pack needs. 3-integer array, real looked-up value. NEVER `[0,0,0]`. NEVER hardcode a minimum in docs.
+- `min_engine_version` = lowest game version the pack needs. 3-integer array in the manifest form `[1, RELEASE, PATCH]`: game 26.60 = `[1, 26, 60]`, NEVER `[26, 60, 0]` (Minecraft rejects it and caps at the highest released version). Real looked-up value, NEVER `[0,0,0]`. NEVER hardcode a minimum in docs; a documented minimum uses the same form (`1.26.60`).
 - Manifest `format_version` = 2. Item/block `format_version` NEVER newer than `min_engine_version`.
 - Compatibility line states only a verified minimum. NEVER "or newer" unverified.
 - Updating old pack: ALWAYS keep UUIDs, persistent ids, working behavior. Upgrade deps deliberately. Raising `min_engine_version` drops players: say so in CHANGELOG.
@@ -156,7 +156,7 @@ texture_sources/      optional pixel JSON for custom textures (4.13). NEVER insi
 
 ### 4.3 Manifests (all types)
 `behavior_pack/manifest.json` and `resource_pack/manifest.json` (if present). Part 1 (1.2, 1.3) applies.
-- `format_version` 2. `min_engine_version` = looked-up 3-int array, NEVER `[0,0,0]`.
+- `format_version` 2. `min_engine_version` = looked-up `[1, RELEASE, PATCH]` (game 26.60 = `[1, 26, 60]`, NEVER `[26, 60, 0]`), NEVER `[0,0,0]`.
 - `header.name` = `Add-on Name (vX.Y.Z)`: one terminal suffix == `header.version`. Both packs same version.
 - `header.description` contains `by ALNStudios` exactly once. NEVER in name.
 - Fresh unique v4 UUIDs for every header and module. NEVER reuse/copy from examples.
@@ -172,7 +172,7 @@ texture_sources/      optional pixel JSON for custom textures (4.13). NEVER insi
     "description": "Textures for the add-on. by ALNStudios",
     "uuid": "<fresh uuid v4>",
     "version": [1, 0, 0],
-    "min_engine_version": [LOOKED_UP_MAJOR, LOOKED_UP_MINOR, LOOKED_UP_PATCH]
+    "min_engine_version": [1, LOOKED_UP_RELEASE, LOOKED_UP_PATCH]
   },
   "modules": [
     { "type": "resources", "uuid": "<fresh uuid v4>", "version": [1, 0, 0] }
@@ -277,7 +277,7 @@ NEVER hand-write ZIP, base64 or the `.sh`. `scripts/make_pack_script.py` install
 ### 4.9 Final self-check before replying
 - [ ] Type asked/given before building.
 - [ ] SELF-TEST PASSED + PACK SCRIPT OK + BUILD OK printed; exactly one `.sh` delivered, no other file.
-- [ ] Module versions latest stable, date recorded. `min_engine_version` looked up, docs state only a verified minimum.
+- [ ] Module versions latest stable, date recorded. `min_engine_version` looked up in the form `[1, RELEASE, PATCH]`, docs state only a verified minimum.
 - [ ] Docs state achievement status (+cheats caveat), experiments, "not tested in game"; no `DOC:` failures; no STYLE hints; tagline one concrete sentence.
 - [ ] Every README/DESCRIPTION/CHANGELOG matches `DOCS_RULES.md` exactly, no placeholders, DESCRIPTION has both listing images.
 - [ ] Map: `oneblock_setup` harmless+idempotent; `void_cleaner` ends with conditional `void_cleaned` tag.
@@ -304,6 +304,7 @@ Paste the workflow error log back to the agent. Find the rule here and the check
 | `registerController needs ...` | Fill the call's fields. |
 | `import ... is not allowed` / `eval and the Function constructor` / `syntax error` | Fix the named line. |
 | `min_engine_version must be 3 integers` | Use looked-up game version. |
+| Minecraft import: `min_engine_version` too high ("highest value we accept") | Use `[1, RELEASE, PATCH]` (game 26.60 = `[1, 26, 60]`), at most the highest released version. |
 | `format_version ... newer than min_engine_version` | Raise `min_engine_version` or lower item `format_version`. |
 | `is already used by MCPEDL/...` | Fresh UUIDs. |
 | `Name clash` / `already exists` / `also exists under` | Other folder name or `overwrite` true. |

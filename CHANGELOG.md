@@ -2,6 +2,11 @@
 
 ---
 
+## [1.0.35] - 2026-11-15 - Min Engine Form
+
+### Fixed
+- **Minimum Game Version**: The instructions now require the minimum game version in the form 1.26.60 (1, release, patch), never 26.60, so packs import in Minecraft.
+
 ## [1.0.34] - 2026-11-15 - Import Fix
 
 ### Fixed
