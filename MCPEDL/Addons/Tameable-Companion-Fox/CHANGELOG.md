@@ -2,6 +2,17 @@
 
 ---
 
+## [1.8.4] - 2026-11-16 - Fox Tool Attacks
+
+### Added
+- **Tool Arming**: Pickaxes, shovels, and hoes can now be handed to a tamed fox along with swords and axes.
+- **Pickaxe Style**: A pickaxe fox deals 5 damage and slows what it hits for 3 seconds.
+- **Shovel Style**: A shovel fox deals 5 damage and attacks from farther away.
+- **Hoe Style**: A hoe fox deals 4 damage and poisons what it hits for 4 seconds.
+
+### Improved & Balanced
+- **Tool Prompt**: The prompt for handing over a tool now reads Give Tool.
+
 ## [1.8.3] - 2026-11-16 - Fox Combat Upgrade
 
 ### Added
