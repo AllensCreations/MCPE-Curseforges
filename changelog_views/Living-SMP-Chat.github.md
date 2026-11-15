@@ -1,16 +1,23 @@
 # Changelog — Living SMP Chat
 
-## [1.0.2] - 2026-11-15
+## [1.0.3] - 2026-11-15 - Smoother Performance
 
-### Added
+### Fixed
+- **Lag Spikes**: the search for nearby spawners is now spread over a few seconds in small steps instead of one big sweep, and it skips repeat searches when you have not moved.
+- **Lighter Background Work**: the checks for sleeping and dimension changes run half as often, and the startup count of chat lines was removed.
+- **No Lag Jokes**: the virtual players no longer joke about lag spikes, so real lag is not confused with chat.
+
+<details>
+<summary><b>1.0.x</b> (2 releases)</summary>
+
+### [1.0.2] - 2026-11-15
+
+#### Added
 - **40 Virtual Players**: 22 new virtual players join the roster of 18, and between 6 and 14 are online at a time.
 - **550 New Lines and 24 New Topics**: weather, night and morning, farms, trading, raids, base tours, redstone, PvP, the dragon and the wither, the nether roof, fishing, exploring, pets, horses and boats, food, music, server events, build progress, lost items, mining and enchanting.
 - **Scripted Mini Chats**: 40 short back-and-forth conversations between two or three players.
 - **Bigger Variety**: new openers, endings and word banks lift the pool to millions of different lines, and the same line is not repeated back to back.
 - **Spawner Tips**: once in a while a virtual player tells you the real position of a Monster Spawner close to you, usually a dungeon, and a second player replies. About one in three tips drops a minus sign and is corrected by the same player about two minutes later. Each spawner is announced only once, and nothing is said when none is nearby.
-
-<details>
-<summary><b>1.0.x</b> (1 release)</summary>
 
 ### [1.0.0] - 2026-11-15
 
