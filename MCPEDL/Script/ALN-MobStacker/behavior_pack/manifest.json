@@ -1,0 +1,44 @@
+{
+  "format_version": 2,
+  "header": {
+    "name": "ALN:MobStacker (v1.0.0)",
+    "description": "Stacks nearby identical farm animals and grinder mobs into one counted mob to cut entity lag. by ALNStudios",
+    "uuid": "e42a0f6c-e2a5-4f8f-ab41-4e25ba6cee40",
+    "version": [
+      1,
+      0,
+      0
+    ],
+    "min_engine_version": [
+      1,
+      26,
+      60
+    ]
+  },
+  "modules": [
+    {
+      "type": "script",
+      "language": "javascript",
+      "entry": "scripts/main.js",
+      "uuid": "7c42741a-ae21-4cec-8bef-ea682106eed4",
+      "version": [
+        1,
+        0,
+        0
+      ]
+    }
+  ],
+  "dependencies": [
+    {
+      "module_name": "@minecraft/server",
+      "version": "2.11.0"
+    }
+  ],
+  "metadata": {
+    "authors": [
+      "ALNStudios"
+    ],
+    "product_type": "addon",
+    "version": "1.0.0"
+  }
+}

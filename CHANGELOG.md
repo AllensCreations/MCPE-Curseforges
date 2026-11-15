@@ -2,6 +2,11 @@
 
 ---
 
+## 2026-11-16 - New Script ALN MobStacker
+
+### Added
+- **ALN MobStacker**: New script project created from a pack script.
+
 ## [1.0.49] - 2026-11-16 - Listing Kit Only
 
 ### Improved & Balanced
