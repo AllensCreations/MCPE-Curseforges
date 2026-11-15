@@ -1,22 +1,23 @@
 import { world, system, ItemStack } from "@minecraft/server";
-import { getReplacement, isRare } from "./random_loot_table.js";
+import { getReplacement } from "./random_loot_table.js";
 
 const PROCESSED_TAG = "aln_randomized";
 const ITEM_ENTITY = "minecraft:item";
 const PLAYER_ENTITY = "minecraft:player";
-const RADIUS = 1.5;
+const RADIUS_SQUARED = 1.5 * 1.5;
 const ZONE_TICKS = 3;
 const MAX_STACKS = 64;
 
 let active = false;
 let zones = [];
-const recentSpawns = new Map();
+let pending = [];
+const maxAmounts = new Map();
 
 export function setActive(value) {
   active = value === true;
   if (!active) {
     zones = [];
-    recentSpawns.clear();
+    pending = [];
   }
 }
 
@@ -24,32 +25,25 @@ export function isActive() {
   return active;
 }
 
-function distanceSquared(a, b) {
+function isNear(a, b) {
   const dx = a.x - b.x;
   const dy = a.y - b.y;
   const dz = a.z - b.z;
-  return dx * dx + dy * dy + dz * dz;
+  return dx * dx + dy * dy + dz * dz <= RADIUS_SQUARED;
 }
 
-function announce(player, originalStack, replacementStack) {
-  if (!player) return;
-  try {
-    player.onScreenDisplay.setActionBar({
-      rawtext: [
-        { text: "§d[CHAOS DROP] §f" },
-        { translate: originalStack.localizationKey },
-        { text: " §7-> §a" },
-        { translate: replacementStack.localizationKey },
-        { text: "!" }
-      ]
-    });
-  } catch (e) {}
+function getMaxAmount(typeId) {
+  let amount = maxAmounts.get(typeId);
+  if (amount === undefined) {
+    amount = Math.max(1, new ItemStack(typeId, 1).maxAmount);
+    maxAmounts.set(typeId, amount);
+  }
+  return amount;
 }
 
-function processItem(entity, player) {
+function processItem(entity) {
   try {
     if (!entity.isValid) return;
-    if (entity.typeId !== ITEM_ENTITY) return;
     if (entity.hasTag(PROCESSED_TAG)) return;
     const component = entity.getComponent("minecraft:item");
     if (!component) return;
@@ -61,8 +55,7 @@ function processItem(entity, player) {
     }
     const dimension = entity.dimension;
     const location = entity.location;
-    const sample = new ItemStack(replacementId, 1);
-    const maxAmount = Math.max(1, sample.maxAmount);
+    const maxAmount = getMaxAmount(replacementId);
     let remaining = original.amount;
     let stacks = 0;
     while (remaining > 0 && stacks < MAX_STACKS) {
@@ -73,61 +66,39 @@ function processItem(entity, player) {
       stacks += 1;
     }
     entity.remove();
-    if (isRare(replacementId)) announce(player, original, sample);
   } catch (e) {}
 }
 
-function pruneZones(tick) {
-  zones = zones.filter((zone) => tick - zone.tick <= ZONE_TICKS);
+function prune(tick) {
+  if (zones.length > 0) zones = zones.filter((zone) => tick - zone.tick <= ZONE_TICKS);
+  if (pending.length > 0) pending = pending.filter((item) => tick - item.tick <= ZONE_TICKS);
 }
 
-function pruneSpawns(tick) {
-  if (recentSpawns.size < 128) return;
-  for (const [id, spawnTick] of recentSpawns) {
-    if (tick - spawnTick > ZONE_TICKS) recentSpawns.delete(id);
-  }
-}
-
-function openZone(dimension, location, player) {
+function openZone(dimensionId, location) {
   const tick = system.currentTick;
-  pruneZones(tick);
-  zones.push({ dimension, location, player, tick });
-  let nearby;
-  try {
-    nearby = dimension.getEntities({
-      type: ITEM_ENTITY,
-      location,
-      maxDistance: RADIUS,
-      excludeTags: [PROCESSED_TAG]
-    });
-  } catch (e) {
-    return;
+  prune(tick);
+  zones.push({ dimensionId, location, tick });
+  if (pending.length === 0) return;
+  const rest = [];
+  for (const item of pending) {
+    if (item.dimensionId === dimensionId && isNear(item.location, location)) processItem(item.entity);
+    else rest.push(item);
   }
-  for (const entity of nearby) {
-    const spawnTick = recentSpawns.get(entity.id);
-    if (spawnTick !== undefined && tick - spawnTick <= ZONE_TICKS) processItem(entity, player);
-  }
+  pending = rest;
 }
 
 function onItemSpawned(entity) {
   const tick = system.currentTick;
-  recentSpawns.set(entity.id, tick);
-  pruneSpawns(tick);
-  pruneZones(tick);
-  let dimension;
-  let location;
-  try {
-    dimension = entity.dimension;
-    location = entity.location;
-  } catch (e) {
-    return;
-  }
+  prune(tick);
+  const dimensionId = entity.dimension.id;
+  const location = entity.location;
   for (const zone of zones) {
-    if (zone.dimension.id !== dimension.id) continue;
-    if (distanceSquared(zone.location, location) > RADIUS * RADIUS) continue;
-    processItem(entity, zone.player);
-    return;
+    if (zone.dimensionId === dimensionId && isNear(zone.location, location)) {
+      processItem(entity);
+      return;
+    }
   }
+  pending.push({ entity, dimensionId, location, tick });
 }
 
 export function registerDropHooks() {
@@ -138,23 +109,19 @@ export function registerDropHooks() {
     } catch (e) {}
   });
 
-  world.afterEvents.playerBreakBlock.subscribe(({ player, block, dimension }) => {
+  world.afterEvents.playerBreakBlock.subscribe(({ block, dimension }) => {
     if (!active) return;
     try {
       const center = { x: block.location.x + 0.5, y: block.location.y + 0.5, z: block.location.z + 0.5 };
-      openZone(dimension, center, player);
+      openZone(dimension.id, center);
     } catch (e) {}
   });
 
-  world.afterEvents.entityDie.subscribe(({ deadEntity, damageSource }) => {
+  world.afterEvents.entityDie.subscribe(({ deadEntity }) => {
     if (!active) return;
     try {
       if (deadEntity.typeId === PLAYER_ENTITY) return;
-      const location = deadEntity.location;
-      const dimension = deadEntity.dimension;
-      const attacker = damageSource ? damageSource.damagingEntity : undefined;
-      const player = attacker && attacker.typeId === PLAYER_ENTITY ? attacker : undefined;
-      openZone(dimension, location, player);
+      openZone(deadEntity.dimension.id, deadEntity.location);
     } catch (e) {}
   });
 }

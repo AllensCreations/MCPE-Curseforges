@@ -2,6 +2,15 @@
 
 ---
 
+## [1.0.39] - 2026-11-15 - Smoother Drops
+
+### Fixed
+- **Lag Spikes**: Drop swapping no longer scans the area around every broken block or defeated mob, so mining and fighting stay smooth.
+### Removed
+- **Chaos Drop Feed**: Rare swaps no longer show the original and the new item on the action bar.
+### Improved & Balanced
+- **Mystery Messages**: Starting and reshuffling now show scrambled text that signals something is happening, instead of an item count and a run code.
+
 ## [1.0.38] - 2026-11-15 - Status Effects and Defeated Flash
 
 ### Added

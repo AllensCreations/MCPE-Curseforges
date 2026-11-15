@@ -65,19 +65,6 @@ const POOL_NAMES = [
   "green_dye", "black_dye", "music_disc_13", "music_disc_cat", "music_disc_pigstep", "dragon_egg"
 ];
 
-const RARE_NAMES = [
-  "netherite_ingot", "netherite_scrap", "netherite_block", "ancient_debris", "diamond", "diamond_block",
-  "emerald_block", "diamond_sword", "diamond_pickaxe", "diamond_axe", "diamond_shovel", "diamond_hoe",
-  "diamond_helmet", "diamond_chestplate", "diamond_leggings", "diamond_boots", "netherite_sword",
-  "netherite_pickaxe", "netherite_axe", "netherite_shovel", "netherite_hoe", "netherite_helmet",
-  "netherite_chestplate", "netherite_leggings", "netherite_boots", "elytra", "totem_of_undying", "nether_star",
-  "beacon", "conduit", "enchanted_golden_apple", "trident", "heart_of_the_sea", "nautilus_shell", "shulker_shell",
-  "dragon_breath", "dragon_egg", "mace", "breeze_rod", "echo_shard", "enchanted_book",
-  "netherite_upgrade_smithing_template"
-];
-
-const rareSet = new Set(RARE_NAMES.map((name) => NAMESPACE + name));
-
 let pool = [];
 let mapping = new Map();
 let seed = 0;
@@ -183,16 +170,3 @@ export function getReplacement(typeId) {
   return pool[hashId(typeId, seed) % pool.length];
 }
 
-export function isRare(typeId) {
-  return rareSet.has(typeId);
-}
-
-export function getSeed() {
-  ensureReady();
-  return seed;
-}
-
-export function getPoolSize() {
-  ensureReady();
-  return pool.length;
-}

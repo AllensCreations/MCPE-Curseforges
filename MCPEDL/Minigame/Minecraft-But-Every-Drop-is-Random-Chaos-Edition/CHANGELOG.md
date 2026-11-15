@@ -2,6 +2,15 @@
 
 ---
 
+## [1.0.3] - 2026-11-15 - Smoother Drops
+
+### Fixed
+- **Lag Spikes**: Drop swapping no longer scans the area around every broken block or defeated mob, so mining and fighting stay smooth.
+### Removed
+- **Chaos Drop Feed**: Rare swaps no longer show the original and the new item on the action bar.
+### Improved & Balanced
+- **Mystery Messages**: Starting and reshuffling now show scrambled text that signals something is happening, instead of an item count and a run code.
+
 ## [1.0.2] - 2026-11-15
 
 **What's new in v1.0.2:** Packed with the v1.0.2 update. Includes: Controller Auto Destroy.

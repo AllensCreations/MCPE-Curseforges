@@ -24,10 +24,6 @@ The host opens the Controller and presses Start. From then on, each item that dr
 - **What Happens**: Pressing Start shuffles a new table, and no item is swapped for itself.
 - **Good To Know**: The table cannot be reshuffled while a game is running.
 
-### Chaos Drop Feed
-- **What Happens**: When a rare item such as a Diamond, an Elytra or a Totem of Undying drops from a swap, the action bar shows the original item and the new item.
-- **Good To Know**: The message appears for the player who broke the block or defeated the mob.
-
 ### Reshuffle Outside a Game
 - **What Happens**: Any player can reshuffle the table while no game is running, by using the command or by sneaking while using a Book.
 - **Good To Know**: Starting a game always shuffles a new table anyway.
