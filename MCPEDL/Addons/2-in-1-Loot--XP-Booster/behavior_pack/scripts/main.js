@@ -1,24 +1,14 @@
 import { world, system, EntityComponentTypes } from "@minecraft/server";
 import { ActionFormData, ModalFormData, FormCancelationReason } from "@minecraft/server-ui";
 
-const TITLE = "§6[ ALNStudios Booster ]";
-const LOOT_TIERS = [
-  { name: "Normal", color: "§7", max: 1 },
-  { name: "Quite Good", color: "§a", max: 2 },
-  { name: "Great", color: "§b", max: 4 },
-  { name: "Amazing", color: "§d", max: 8 },
-  { name: "Insane", color: "§c", max: 16 },
-  { name: "The Leprechaun", color: "§6", max: 32 },
-];
-const XP_TIERS = [
-  { name: "Normal", color: "§7", max: 1 },
-  { name: "Quite Good", color: "§a", max: 2 },
-  { name: "Great", color: "§b", max: 4 },
-  { name: "Amazing", color: "§d", max: 8 },
-  { name: "Insane", color: "§c", max: 16 },
-  { name: "Legendary", color: "§e", max: 32 },
-  { name: "The Sage", color: "§6", max: 64 },
-];
+const PACK_NAME = "2-in-1 Loot & XP Booster";
+const VERSION = "1.0.3";
+const TITLE = `§l§6@ALNStudios §e${PACK_NAME}§r (v${VERSION})`;
+const ABOUT_TITLE = "About ALNStudios";
+const ICON_MAIN = "textures/items/experience_bottle";
+const ICON_ABOUT = "textures/items/name_tag";
+const ICON_EXIT = "textures/items/door_wood";
+const LEVELS = [1, 2, 4, 8, 16, 32, 64];
 const LOOT_KEY = "aln_loot_index";
 const XP_KEY = "aln_xp_index";
 const BOOK_IDS = new Set(["minecraft:book", "minecraft:writable_book"]);
@@ -60,18 +50,28 @@ const EXCLUDED_BLOCKS = new Set([
 ]);
 const recentItems = new Map();
 const openMenus = new Set();
+const boosts = new Map();
 
-function readIndex(player, key, tiers) {
+function readIndex(player, key) {
   const value = player.getDynamicProperty(key);
-  return Number.isInteger(value) && value >= 0 && value < tiers.length ? value : 0;
+  return Number.isInteger(value) && value >= 0 && value < LEVELS.length ? value : 0;
 }
 
-function lootTier(player) {
-  return LOOT_TIERS[readIndex(player, LOOT_KEY, LOOT_TIERS)];
+function getBoost(player) {
+  let boost = boosts.get(player.id);
+  if (!boost) {
+    boost = { loot: readIndex(player, LOOT_KEY), xp: readIndex(player, XP_KEY) };
+    boosts.set(player.id, boost);
+  }
+  return boost;
 }
 
-function xpTier(player) {
-  return XP_TIERS[readIndex(player, XP_KEY, XP_TIERS)];
+function lootMultiplier(player) {
+  return LEVELS[getBoost(player).loot];
+}
+
+function xpMultiplier(player) {
+  return LEVELS[getBoost(player).xp];
 }
 
 function isExcludedBlock(typeId) {
@@ -83,9 +83,20 @@ function isExcludedBlock(typeId) {
 }
 
 function statusLine(player) {
-  const loot = lootTier(player);
-  const xp = xpTier(player);
-  return `§aLoot: ${loot.color}${loot.name} §8| §bXP: ${xp.color}${xp.name}`;
+  return `Loot Booster: ${lootMultiplier(player)}x | XP Booster: ${xpMultiplier(player)}x`;
+}
+
+function bold(text) {
+  return `§l${text}§r`;
+}
+
+function addIfSupported(form, method, ...args) {
+  if (typeof form[method] !== "function") return;
+  try {
+    form[method](...args);
+  } catch (error) {
+    return;
+  }
 }
 
 async function showForm(player, form) {
@@ -104,82 +115,83 @@ async function showForm(player, form) {
   return undefined;
 }
 
-async function mainMenu(player) {
+async function mainScreen(player) {
   const form = new ActionFormData()
     .title(TITLE)
-    .body(`§7Tune your boosters.\n${statusLine(player)}`)
-    .button("§bXP & Loot Booster")
-    .button("§eAbout")
-    .button("§cExit");
+    .body(`Tune your boosters.\n${statusLine(player)}`)
+    .button(bold("XP & Loot Booster"), ICON_MAIN)
+    .button(bold("About"), ICON_ABOUT)
+    .button(bold("Exit"), ICON_EXIT);
   const response = await showForm(player, form);
-  if (!response) return;
-  if (response.selection === 0) await boosterMenu(player);
-  else if (response.selection === 1) await aboutMenu(player);
+  if (!response) return undefined;
+  if (response.selection === 0) return "booster";
+  if (response.selection === 1) return "about";
+  return undefined;
 }
 
-async function boosterMenu(player) {
-  const lootCurrent = readIndex(player, LOOT_KEY, LOOT_TIERS);
-  const xpCurrent = readIndex(player, XP_KEY, XP_TIERS);
-  const lootNow = LOOT_TIERS[lootCurrent];
-  const xpNow = XP_TIERS[xpCurrent];
-  const form = new ModalFormData()
-    .title(TITLE)
-    .label("§7Drag a slider, then press Apply. The tier name shows after you apply. Loot rolls randomly like Fortune, so the number is the best possible roll.")
-    .divider()
-    .slider(`§aLoot Booster Type: ${lootNow.color}${lootNow.name} §8(1-${LOOT_TIERS.length})`, 1, LOOT_TIERS.length, {
-      defaultValue: lootCurrent + 1,
-      valueStep: 1,
-    })
-    .divider()
-    .slider(`§bXP Booster Type: ${xpNow.color}${xpNow.name} §8(1-${XP_TIERS.length})`, 1, XP_TIERS.length, {
-      defaultValue: xpCurrent + 1,
-      valueStep: 1,
-    })
-    .submitButton("§aApply");
+async function boosterScreen(player) {
+  const boost = getBoost(player);
+  const form = new ModalFormData().title(TITLE);
+  addIfSupported(form, "header", bold("XP & Loot Booster"));
+  addIfSupported(form, "label", statusLine(player));
+  addIfSupported(form, "divider");
+  addIfSupported(form, "label", `Slider positions 1 to ${LEVELS.length} = ${LEVELS.map((level) => `${level}x`).join(", ")}`);
+  addIfSupported(form, "divider");
+  form.slider(bold("Loot Booster"), 1, LEVELS.length, { defaultValue: boost.loot + 1, valueStep: 1 });
+  addIfSupported(form, "divider");
+  form.slider(bold("XP Booster"), 1, LEVELS.length, { defaultValue: boost.xp + 1, valueStep: 1 });
+  addIfSupported(form, "divider");
+  addIfSupported(form, "submitButton", bold("Apply"));
 
   const response = await showForm(player, form);
-  if (!response || !player.isValid) return;
+  if (!response || !player.isValid) return "main";
 
-  const lootValue = response.formValues[2];
-  const xpValue = response.formValues[4];
-  if (typeof lootValue !== "number" || typeof xpValue !== "number") return;
+  const values = (response.formValues ?? []).filter((value) => typeof value === "number");
+  if (values.length < 2) return "main";
 
-  const lootIndex = Math.min(Math.max(Math.round(lootValue) - 1, 0), LOOT_TIERS.length - 1);
-  const xpIndex = Math.min(Math.max(Math.round(xpValue) - 1, 0), XP_TIERS.length - 1);
+  const lootIndex = Math.min(Math.max(Math.round(values[0]) - 1, 0), LEVELS.length - 1);
+  const xpIndex = Math.min(Math.max(Math.round(values[1]) - 1, 0), LEVELS.length - 1);
   player.setDynamicProperty(LOOT_KEY, lootIndex);
   player.setDynamicProperty(XP_KEY, xpIndex);
+  boosts.set(player.id, { loot: lootIndex, xp: xpIndex });
   player.playSound("random.orb");
-  const loot = LOOT_TIERS[lootIndex];
-  const xp = XP_TIERS[xpIndex];
-  player.onScreenDisplay.setActionBar(
-    `§6[BOOSTER] §aLoot: ${loot.color}${loot.name} (${loot.max}x) §8| §bXP: ${xp.color}${xp.name} (${xp.max}x)`
-  );
-  player.sendMessage(`§6[BOOSTER] §aLoot Booster Type: ${loot.color}${loot.name} §8| §bXP Booster Type: ${xp.color}${xp.name}`);
+  player.onScreenDisplay.setActionBar(`§aLoot Booster set to ${LEVELS[lootIndex]}x`);
+  system.runTimeout(() => {
+    if (player.isValid) player.onScreenDisplay.setActionBar(`§aXP Booster set to ${LEVELS[xpIndex]}x`);
+  }, 50);
+  return "main";
 }
 
-async function aboutMenu(player) {
+async function aboutScreen(player) {
   const lines = [
-    "§6ALNStudios",
-    "§7ALNStudios makes Minecraft Bedrock add-ons, maps, scripts and minigames.",
+    "Creator: ALNStudios",
+    `${PACK_NAME} v${VERSION}`,
+    "Adds Loot and XP multipliers from 1x to 64x, with a Behavior Pack for the multipliers and a Redesigned UI Resource Pack for the menu look.",
     "",
-    "§bThis add-on §7v1.0.2",
-    "§eXP & Loot Booster §7(Behavior Pack) - Adds the Booster menu. One slider sets your Loot Drop tier (up to 32x, Fortune-style random rolls) and another sets your XP Gain tier (up to 64x, orbs collected instantly).",
-    "§eRedesigned UI §7(Resource Pack) - Gives the Booster action menus the Cheatstick look. Enable it together with the Behavior Pack.",
+    "CurseForge profile: curseforge.com/members/allenscreations/projects",
+    "MCPEDL profile: mcpedl.com/user/alnstudios",
     "",
-    "§bOpen this menu §7- Rename a Book to Booster on an anvil, then right-click.",
-    "",
-    "§8Chests, barrels, ender chests and shulker boxes are never multiplied.",
-    "§6by ALNStudios",
+    "Unofficial community creation, not approved by or associated with Mojang or Microsoft.",
   ];
-  const form = new ActionFormData().title(TITLE).body(lines.join("\n")).button("§7Back");
-  const response = await showForm(player, form);
-  if (response) await mainMenu(player);
+  const form = new ActionFormData().title(ABOUT_TITLE).body(lines.join("\n")).button(bold("Back"));
+  await showForm(player, form);
+  return "main";
+}
+
+async function runMenus(player) {
+  let screen = "main";
+  while (screen && player.isValid) {
+    if (screen === "main") screen = await mainScreen(player);
+    else if (screen === "booster") screen = await boosterScreen(player);
+    else if (screen === "about") screen = await aboutScreen(player);
+    else screen = undefined;
+  }
 }
 
 function openPanel(player) {
   if (openMenus.has(player.id)) return;
   openMenus.add(player.id);
-  mainMenu(player)
+  runMenus(player)
     .catch(() => {})
     .finally(() => openMenus.delete(player.id));
 }
@@ -193,12 +205,18 @@ world.afterEvents.itemUse.subscribe((event) => {
   openPanel(source);
 });
 
+world.afterEvents.playerLeave.subscribe(({ playerId }) => {
+  boosts.delete(playerId);
+  openMenus.delete(playerId);
+});
+
 world.afterEvents.entitySpawn.subscribe(({ entity }) => {
   if (!entity.isValid || entity.typeId !== "minecraft:item") return;
   recentItems.set(entity.id, system.currentTick);
 });
 
 system.runInterval(() => {
+  if (recentItems.size === 0) return;
   const now = system.currentTick;
   for (const [id, tick] of recentItems) {
     if (now - tick > 40) recentItems.delete(id);
@@ -252,7 +270,7 @@ function multiplyDrops(dimension, center, radius, maxMultiplier) {
 
 world.afterEvents.playerBreakBlock.subscribe((event) => {
   const { player, block, brokenBlockPermutation, dimension } = event;
-  const maxMultiplier = lootTier(player).max;
+  const maxMultiplier = lootMultiplier(player);
   if (maxMultiplier <= 1) return;
   if (isExcludedBlock(brokenBlockPermutation.type.id)) return;
 
@@ -269,25 +287,27 @@ world.afterEvents.entityDie.subscribe(({ deadEntity, damageSource }) => {
   const id = deadEntity.typeId;
   if (id.endsWith("chest_minecart") || id.endsWith("hopper_minecart") || id.endsWith("chest_boat")) return;
 
-  const maxMultiplier = lootTier(killer).max;
+  const maxMultiplier = lootMultiplier(killer);
   if (maxMultiplier <= 1) return;
 
   const dimension = deadEntity.dimension;
   const location = deadEntity.location;
   system.run(() => multiplyDrops(dimension, location, MOB_RADIUS, maxMultiplier));
 });
+
 system.runInterval(() => {
   for (const player of world.getAllPlayers()) {
     if (!player.isValid) continue;
-    const multiplier = xpTier(player).max;
+    const multiplier = xpMultiplier(player);
     if (multiplier <= 1) continue;
 
     const dimension = player.dimension;
+    const location = player.location;
     let orbs;
     try {
       orbs = dimension.getEntities({
         type: "minecraft:xp_orb",
-        location: player.location,
+        location,
         maxDistance: XP_RADIUS,
       });
     } catch (error) {
@@ -303,12 +323,12 @@ system.runInterval(() => {
           if (budget < extra) continue;
           orb.addTag(XP_TAG);
           for (let i = 0; i < extra; i++) {
-            const bonus = dimension.spawnEntity("minecraft:xp_orb", player.location);
+            const bonus = dimension.spawnEntity("minecraft:xp_orb", location);
             bonus.addTag(XP_TAG);
           }
           budget -= extra;
         }
-        orb.teleport(player.location);
+        orb.teleport(location);
       } catch (error) {
         continue;
       }

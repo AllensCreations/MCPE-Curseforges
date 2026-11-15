@@ -5,9 +5,9 @@
 [![Minecraft Bedrock](https://img.shields.io/badge/Minecraft%20Bedrock-Stable%20Release-brightgreen?style=flat-square&logo=minecraft)](https://github.com/AllensCreations/MCPE-Curseforges)
 [![Format](https://img.shields.io/badge/Format-.MCPACK%20%7C%20.MCADDON%20%7C%20.MCWORLD-blue?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges)
 
-**Rename a Book to Booster, then pick Loot tiers up to 32x and XP tiers up to 64x from a styled menu.**
+**Rename a Book to Booster, then set Loot and XP from 1x up to 64x with two sliders.**
 
-> Adds a Booster menu with six Loot tiers up to 32x and seven XP tiers up to 64x.
+> Adds a Booster menu with a Loot slider and an XP slider, each from 1x up to 64x.
 
 ## Overview
 
@@ -28,18 +28,18 @@ You rename a Book to Booster on an anvil and right-click with it. A menu opens w
 - **Good To Know**: Each player keeps their own settings, which are saved between sessions.
 
 ### Loot Drop Booster
-- **What Happens**: Drag the Loot slider across six tiers, from Normal to The Leprechaun, for blocks you break and mobs you kill.
-- **Good To Know**: Chests, trapped chests, barrels, ender chests and shulker boxes are never multiplied, and unstackable items such as tools are left alone.
+- **What Happens**: Drag the Loot slider across seven levels, 1x, 2x, 4x, 8x, 16x, 32x and 64x, for blocks you break and mobs you kill.
+- **Good To Know**: Each drop rolls a random bonus up to the level you pick. Chests, trapped chests, barrels, ender chests and shulker boxes are never multiplied, and unstackable items such as tools are left alone.
 
 ### XP Gain Booster
-- **What Happens**: Drag the XP slider across seven tiers, from Normal up to The Sage at 64x, and nearby XP orbs are multiplied by that exact amount.
+- **What Happens**: Drag the XP slider across seven levels, from 1x up to 64x, and nearby XP orbs are multiplied by that exact amount.
 - **Good To Know**: XP orbs within 8 blocks of you are collected instantly instead of drifting toward you.
 
 ### About Screen
-- **What Happens**: The About button introduces ALNStudios and the two packs in this add-on, and explains how to open the menu.
+- **What Happens**: The About button shows the creator, the add-on version, a short note on both packs, the CurseForge and MCPEDL profiles and an unofficial-product notice.
 
 ### Redesigned UI
-- **What Happens**: A small Resource Pack named Redesigned UI gives the Booster menus the Cheatstick look, with a dark panel, a blue border and colored tier names.
+- **What Happens**: A small Resource Pack named Redesigned UI gives the Booster menus the ALNStudios look, with a dark panel, a blue border, a gold title and icon buttons.
 - **Good To Know**: Enable the Resource Pack together with the Behavior Pack.
 
 ## How to Use

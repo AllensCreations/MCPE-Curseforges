@@ -2,6 +2,15 @@
 
 ---
 
+## [1.0.3] - 2026-11-16 - Simplified Booster Sliders
+
+### Improved & Balanced
+- **Plain multiplier sliders**: The Loot and XP sliders now use the same seven levels, 1x, 2x, 4x, 8x, 16x, 32x and 64x, and the tier names are gone.
+- **Loot up to 64x**: Loot can now reach 64x, matching XP. Your saved Loot and XP levels carry over unchanged.
+- **ALNStudios look**: The menus follow the ALNStudios Redesigned UI standard with a gold title, bold buttons with icons and a Back button on About.
+- **Menus keep going**: After Apply or Back the main menu opens again. Exit or the close button closes it.
+- **Action Bar feedback**: Applied settings now show on the Action Bar instead of in chat.
+
 ## [1.0.2] - 2026-11-12
 
 **What's new in v1.0.2:** Packed with the v1.0.2 update. Includes: Simplified Booster Menu.
