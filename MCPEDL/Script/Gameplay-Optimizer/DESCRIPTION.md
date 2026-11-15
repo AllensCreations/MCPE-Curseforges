@@ -75,3 +75,4 @@ Sneak and use a Clock to open the menu, then pick Optimizer Settings. The menu h
 ## Search & Discovery Keywords
 
 Minecraft Bedrock add-on, Gameplay Optimizer Bedrock mod, dropped item limit, potion particle hiding, portal preloading, Clock menu, Minecraft PE survival, MCPEDL add-on, CurseForge Bedrock, ALNStudios.
+

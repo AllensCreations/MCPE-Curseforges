@@ -1,0 +1,8 @@
+{
+  "changelog_version": "1.0.0",
+  "manifest_version": "1.0.0",
+  "packages": {
+    "GameplayOptimizer V1.0.0.mcpack": "8e59e73bd8a49be138eb234de697f05fc39eef458ba93242cbbf9767557c89d1"
+  },
+  "source_sha256": "738742e0472ef4f1db7bef873b4dd345f3a9c27c5682f69358b9e4aad6b9413c"
+}

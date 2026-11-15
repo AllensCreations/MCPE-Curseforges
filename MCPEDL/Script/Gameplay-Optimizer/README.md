@@ -5,7 +5,7 @@ Download the current release of **Gameplay Optimizer** for Minecraft Bedrock Edi
 ## Download
 
 - **Package format:** `.mcpack`
-- **Direct download:** [Download Gameplay Optimizer (.mcpack)](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Script/README.md)
+- **Direct download:** [Download Gameplay Optimizer (.mcpack)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Gameplay-Optimizer/GameplayOptimizer%20V1.0.0.mcpack)
 
 ## Installation
 
@@ -15,4 +15,4 @@ Download the current release of **Gameplay Optimizer** for Minecraft Bedrock Edi
 
 ## Pack Information
 
-For gameplay features, usage details, compatibility notes, and other project information, read the [full description](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Script/Gameplay-Optimizer/DESCRIPTION.md).
+For gameplay features, usage details, compatibility notes, and other project information, read the [full description](https://github.com/AllensCreations/MCPE-Curseforges/blob/main/MCPEDL/Script/Gameplay-Optimizer/DESCRIPTION.md).

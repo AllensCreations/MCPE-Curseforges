@@ -71,6 +71,7 @@ This directory stores compiled Add-ons (`.mcaddon`), Maps (`.mcworld`), Scripts 
 | **Waypoint Helper** | Add-on (.mcaddon) | [Download (.mcaddon)](Waypoint-Helper/WaypointHelper%20V1.1.10.mcaddon) | [`Waypoint-Helper/`](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/builds/Waypoint-Helper/) |
 | **Always Critical** | Script Pack (.mcpack) | [Download (.mcpack)](Always-Critical/AlwaysCritical%20V1.0.0.mcpack) | [`Always-Critical/`](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/builds/Always-Critical/) |
 | **Living SMP Chat** | Script Pack (.mcpack) | [Download (.mcpack)](Living-SMP-Chat/LivingSMPChat%20V1.0.2.mcpack) | [`Living-SMP-Chat/`](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/builds/Living-SMP-Chat/) |
+| **Gameplay Optimizer** | Script Pack (`.mcpack`) | [Download (.mcpack)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Gameplay-Optimizer/GameplayOptimizer%20V1.0.0.mcpack) | [`Gameplay-Optimizer/`](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/builds/Gameplay-Optimizer/) |
 
 ---
 
