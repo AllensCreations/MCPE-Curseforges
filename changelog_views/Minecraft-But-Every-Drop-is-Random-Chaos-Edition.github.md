@@ -1,6 +1,6 @@
 # Changelog — Minecraft, But Every Drop is Random: Chaos Edition
 
-## [1.0.2] - 2026-11-15 - Controller Auto Destroy
+## [1.0.2] - 2026-11-15
 
 ### Improved & Balanced
 - **Controller Auto Destroy**: The Controller is now used up when a game starts (Creative mode keeps it), and the host receives a new one when the game ends.

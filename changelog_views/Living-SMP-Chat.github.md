@@ -1,20 +1,16 @@
 # Changelog — Living SMP Chat
 
-## [1.0.2] - 2026-11-15 - Big Chat Expansion
+## [1.0.2] - 2026-11-15
 
 ### Added
 - **40 Virtual Players**: 22 new virtual players join the roster of 18, and between 6 and 14 are online at a time.
 - **550 New Lines and 24 New Topics**: weather, night and morning, farms, trading, raids, base tours, redstone, PvP, the dragon and the wither, the nether roof, fishing, exploring, pets, horses and boats, food, music, server events, build progress, lost items, mining and enchanting.
 - **Scripted Mini Chats**: 40 short back-and-forth conversations between two or three players.
 - **Bigger Variety**: new openers, endings and word banks lift the pool to millions of different lines, and the same line is not repeated back to back.
+- **Spawner Tips**: once in a while a virtual player tells you the real position of a Monster Spawner close to you, usually a dungeon, and a second player replies. About one in three tips drops a minus sign and is corrected by the same player about two minutes later. Each spawner is announced only once, and nothing is said when none is nearby.
 
 <details>
-<summary><b>1.0.x</b> (2 releases)</summary>
-
-### [1.0.1] - 2026-11-15 - Spawner Tips
-
-#### Added
-- **Spawner Tips**: once in a while a virtual player tells you the real position of a Monster Spawner close to you, usually a dungeon, and a second player replies. About one in three tips drops a minus sign and is corrected by the same player about two minutes later. Each spawner is announced only once, and nothing is said when none is nearby.
+<summary><b>1.0.x</b> (1 release)</summary>
 
 ### [1.0.0] - 2026-11-15
 
