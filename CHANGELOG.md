@@ -2,6 +2,11 @@
 
 ---
 
+## 2026-11-15 - New Minigame Minecraft But Every Drop is Random Chaos Edition
+
+### Added
+- **Minecraft But Every Drop is Random Chaos Edition**: New minigame project created from a pack script.
+
 ## [1.0.33] - 2026-11-15 - Big Chat Expansion
 
 ### Added
