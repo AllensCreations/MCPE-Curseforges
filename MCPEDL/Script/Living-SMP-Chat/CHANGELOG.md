@@ -2,6 +2,13 @@
 
 ---
 
+## [1.0.3] - 2026-11-15 - Smoother Performance
+
+### Fixed
+- **Lag Spikes**: the search for nearby spawners is now spread over a few seconds in small steps instead of one big sweep, and it skips repeat searches when you have not moved.
+- **Lighter Background Work**: the checks for sleeping and dimension changes run half as often, and the startup count of chat lines was removed.
+- **No Lag Jokes**: the virtual players no longer joke about lag spikes, so real lag is not confused with chat.
+
 ## [1.0.2] - 2026-11-15
 
 **What's new in v1.0.2:** Packed with 2 updates, from v1.0.1 through v1.0.2. Includes: Big Chat Expansion; Spawner Tips.

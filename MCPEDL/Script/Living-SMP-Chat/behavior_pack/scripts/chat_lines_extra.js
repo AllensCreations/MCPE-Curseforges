@@ -81,10 +81,6 @@ export const EXTRA_CORES = {
     "the roof on that tower is perfect", "i found a cool palette for the market", "the lake build looks so real", "the new bridge needs lanterns",
     "someone made a giant statue near spawn", "my {build} is finally taking shape",
   ],
-  banter_lag: [
-    "the server stuttered for a second", "did the chunks unload for anyone else", "my game froze when i opened the chest", "ping went up for a sec, now it is fine",
-    "my fps drops near the farms", "is the tick rate normal again",
-  ],
   drama_kill: [
     "<BOT_A> just won a duel against <BOT_B>", "<BOT_B> lost a duel to <BOT_A> at spawn", "<BOT_A> did the sweep attack on <BOT_B>", "<BOT_A> trapped <BOT_B> with lava",
     "<BOT_B> ran into <BOT_A>'s trap", "<BOT_A> ambushed <BOT_B> in the nether",
@@ -139,7 +135,7 @@ export const EXTRA_CORES = {
   ],
   farm_talk: [
     "my {farm} finally works", "the {farm} gives {num} items per hour", "i rebuilt the {farm} for the third time", "the {farm} needs a hopper fix",
-    "{adj} {farm}, you have to see it", "my {farm} is down to a few blocks of lag", "anyone want free {food} from the {farm}?", "i have been working on the {farm} for {time}",
+    "{adj} {farm}, you have to see it", "anyone want free {food} from the {farm}?", "i have been working on the {farm} for {time}",
     "the {farm} is almost auto", "collection system for the {farm} done",
   ],
   trade_talk: [
@@ -265,7 +261,6 @@ export const DIALOGS = [
   [[0, "anyone want to trade {food}?"], [1, "i have {num} of it"], [0, "i will give you iron for it"], [1, "deal"]],
   [[0, "what music do you play while building?"], [1, "lofi beats"], [2, "game soundtracks mostly"], [0, "nice, i will try lofi"]],
   [[0, "i tamed {num} cats"], [1, "of course you did"], [2, "name one after me"], [0, "okay, it is called <BOT_C>"]],
-  [[0, "lag at the {farm} again"], [1, "turn off the hoppers when not in use"], [2, "or limit the mobs"], [0, "good tips, thanks"]],
   [[0, "my {tool} broke mid fight"], [1, "bad luck"], [2, "mending would have saved it"], [0, "i know, next time"]],
   [[0, "did anyone see the storm?"], [1, "yes, it hit my roof"], [2, "lightning set my {build} on fire"], [0, "ouch, need water buckets"]],
   [[0, "i am going to sleep now"], [1, "good night"], [2, "night, see you tomorrow"], [0, "see you"]],

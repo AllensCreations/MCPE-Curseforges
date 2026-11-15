@@ -35,7 +35,7 @@ You play your world as usual. Between 6 and 14 virtual players are online at any
 
 ### Spawner Tips
 - **What Happens**: Rarely, a virtual player points you to a Monster Spawner near you and gives its real coordinates, usually a dungeon. About one in three tips drops a minus sign, and the same player corrects it between 100 and 150 seconds later.
-- **Good To Know**: Only spawners in loaded areas of the Overworld, within 16 blocks of you sideways, are found. Tips come at least 15 minutes apart, a spawner is announced once, and nothing is said when none is nearby. It can also be a mineshaft spawner.
+- **Good To Know**: Only spawners in loaded areas of the Overworld, within 16 blocks of you sideways, are found. Tips come at least 15 minutes apart, a spawner is announced once, and nothing is said when none is nearby. The search is spread over a few seconds so the game stays smooth. It can also be a mineshaft spawner.
 
 ## How to Use
 

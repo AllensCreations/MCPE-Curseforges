@@ -130,9 +130,9 @@ export function ambientConversation() {
   const cats = roll < 0.8
     ? ["banter_video", "banter_video", "support_reply", "banter_video", "support_reply"]
     : roll < 0.9
-      ? ["banter_build", "banter_build", "support_reply", "banter_lag"]
+      ? ["banter_build", "banter_build", "support_reply", "banter_build"]
       : roll < 0.95
-        ? ["banter_lag", "support_reply", "banter_build"]
+        ? ["banter_video", "support_reply", "banter_build"]
         : ["greeting_anyone", "greeting_hello", "support_reply"];
   const n = Math.min(cats.length, rand(2, 5));
   const bots = pickOnline(n);

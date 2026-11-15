@@ -2,6 +2,13 @@
 
 ---
 
+## [1.0.44] - 2026-11-15 - Smoother Performance
+
+### Fixed
+- **Lag Spikes**: the search for nearby spawners is now spread over a few seconds in small steps instead of one big sweep, and it skips repeat searches when you have not moved.
+- **Lighter Background Work**: the checks for sleeping and dimension changes run half as often, and the startup count of chat lines was removed.
+- **No Lag Jokes**: the virtual players no longer joke about lag spikes, so real lag is not confused with chat.
+
 ## [1.0.43] - 2026-11-15 - Piston Safety and Iron Door Feel
 
 ### Added

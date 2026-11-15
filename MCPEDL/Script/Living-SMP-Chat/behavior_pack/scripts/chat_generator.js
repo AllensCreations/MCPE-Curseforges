@@ -4,7 +4,7 @@ const TAILS = ["", "lol", "lmao", "haha", "xD", "fr", "tbh", "ngl", "istg", "bru
 
 const FLAVOR = {
   Builder: ["gotta finish my wall", "need more concrete", "still doing the roof", "palette check later", "my build is getting huge"],
-  Redstoner: ["my farm is still glitchy", "need more observers", "clock is off by a tick", "hopper chain is cursed", "tick lag again"],
+  Redstoner: ["my farm is still glitchy", "need more observers", "clock is off by a tick", "hopper chain is cursed", "need to tidy my wires"],
   PvPer: ["need a rematch", "gap me later", "crits only", "my armor is mending", "duel at spawn?"],
   Wholesome: ["love this server", "you all are the best", "made cookies irl", "so cozy today", "<3"],
   Chaotic: ["i have a plan (bad)", "tnt is a lifestyle", "do not check my chest", "trust me", "chaos mode on"],
@@ -90,17 +90,13 @@ const C = {
     "my farm finally works", "we need a bigger storage room", "the mega build is coming along",
     "someone needs to light up the spawn area", "the shopping district is getting huge",
   ],
-  banter_lag: [
-    "lag spike??", "anyone else lagging?", "my ping just jumped", "the server froze for a sec",
-    "chunks are loading slow for me", "tps feels low right now", "i rubberbanded so hard", "that was a lag spike for sure",
-  ],
   drama_kill: [
     "<BOT_A> just clapped <BOT_B>", "<BOT_A> got <BOT_B> with a crit", "oh no, <BOT_A> and <BOT_B> are dueling",
     "<BOT_B> just lost to <BOT_A>", "<BOT_A> sniped <BOT_B> with an arrow", "<BOT_A> sent <BOT_B> back to spawn",
     "pvp at spawn, <BOT_A> wins", "<BOT_A> got the kill on <BOT_B>",
   ],
   drama_complain: [
-    "<BOT_A> that was not fair", "i was afk, <BOT_A> cheated", "you hit me with a lag hit, <BOT_A>",
+    "<BOT_A> that was not fair", "i was afk, <BOT_A> cheated", "you hit me with a cheap hit, <BOT_A>",
     "rematch <BOT_A>, now", "i lost my good sword, <BOT_A>", "<BOT_A> you owe me a golden apple",
     "i was not even ready", "no totem, no mercy, <BOT_A>",
   ],
