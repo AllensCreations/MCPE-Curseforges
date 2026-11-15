@@ -2,6 +2,11 @@
 
 ---
 
+## [1.0.1] - 2026-11-15 - Import Fix
+
+### Fixed
+- **Pack Import**: The packs now import in Minecraft. The minimum game version they declared was higher than Minecraft accepts.
+
 ## [1.0.0] - 2026-11-15 - Chaos Edition Launch
 
 ### Added

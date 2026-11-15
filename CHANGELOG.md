@@ -2,6 +2,11 @@
 
 ---
 
+## [1.0.34] - 2026-11-15 - Import Fix
+
+### Fixed
+- **Pack Import**: The packs now import in Minecraft. The minimum game version they declared was higher than Minecraft accepts.
+
 ## 2026-11-15 - New Minigame Minecraft But Every Drop is Random Chaos Edition
 
 ### Added
