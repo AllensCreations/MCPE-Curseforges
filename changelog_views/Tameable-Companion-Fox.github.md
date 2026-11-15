@@ -1,6 +1,6 @@
 # Changelog — Tameable Companion Fox
 
-## [1.8.2] - 2026-11-15 - Give Weapon Prompt
+## [1.8.2] - 2026-11-15
 
 ### Fixed
 - **Give Weapon Prompt**: The prompt for handing a tamed fox a sword or axe now reads Give Weapon instead of showing a raw text key.

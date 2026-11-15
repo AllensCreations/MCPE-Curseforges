@@ -1,23 +1,19 @@
 # Changelog — Minecraft, But Every Drop is Random: Chaos Edition
 
-## [1.0.4] - 2026-11-15 - Burst Smoothing
+## [1.0.4] - 2026-11-15
 
 ### Fixed
 - **Lag Spikes**: Large bursts of drops, such as a big tree, TNT or a mob farm, are now swapped a few at a time instead of all in one moment, so the game stays smooth.
-
-<details>
-<summary><b>1.0.x</b> (4 releases)</summary>
-
-### [1.0.3] - 2026-11-15 - Smoother Drops
-
-#### Fixed
 - **Lag Spikes**: Drop swapping no longer scans the area around every broken block or defeated mob, so mining and fighting stay smooth.
 
-#### Removed
+### Removed
 - **Chaos Drop Feed**: Rare swaps no longer show the original and the new item on the action bar.
 
-#### Improved & Balanced
+### Improved & Balanced
 - **Mystery Messages**: Starting and reshuffling now show scrambled text that signals something is happening, instead of an item count and a run code.
+
+<details>
+<summary><b>1.0.x</b> (3 releases)</summary>
 
 ### [1.0.2] - 2026-11-15
 
