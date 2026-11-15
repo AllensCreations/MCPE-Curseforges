@@ -32,6 +32,7 @@ You play your world as usual. Between 6 and 14 virtual players are online at any
 ### Ambient Banter
 - **What Happens**: Every 1.5 to 3 minutes the virtual players start a 2 to 5 message conversation about weather, farms, trading, raids, bosses, pets, music and more, from short scripted chats to small PvP dramas between three of them.
 - **Good To Know**: Conversations are spaced out so replies appear one after another. Overlapping events wait in a short queue instead of flooding the chat.
+
 ## How to Use
 
 1. Import the pack and add the Behavior Pack to your world.
