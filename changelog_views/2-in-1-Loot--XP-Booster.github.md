@@ -1,17 +1,26 @@
 # Changelog — 2-in-1 Loot & XP Booster
 
-## [1.0.2] - 2026-11-12
+## [1.0.3] - 2026-11-16 - Simplified Booster Sliders
 
 ### Improved & Balanced
+- **Plain multiplier sliders**: The Loot and XP sliders now use the same seven levels, 1x, 2x, 4x, 8x, 16x, 32x and 64x, and the tier names are gone.
+- **Loot up to 64x**: Loot can now reach 64x, matching XP. Your saved Loot and XP levels carry over unchanged.
+- **ALNStudios look**: The menus follow the ALNStudios Redesigned UI standard with a gold title, bold buttons with icons and a Back button on About.
+- **Menus keep going**: After Apply or Back the main menu opens again. Exit or the close button closes it.
+- **Action Bar feedback**: Applied settings now show on the Action Bar instead of in chat.
+
+<details>
+<summary><b>1.0.x</b> (3 releases)</summary>
+
+### [1.0.2] - 2026-11-12
+
+#### Improved & Balanced
 - **Three-button menu**: The Booster menu now has only XP & Loot Booster, About and Exit.
 - **One screen, two sliders**: XP & Loot Booster sets both boosters with a Loot slider and an XP slider, saved together with one Apply button. Each slider is labeled with your current tier name, and the new tier names are shown in chat and the Action Bar after Apply.
 - **New About screen**: About now introduces ALNStudios and the two packs in this add-on.
 
-### Fixed
+#### Fixed
 - **Menu stays out of the way**: Exit closes the menu without changing your settings.
-
-<details>
-<summary><b>1.0.x</b> (2 releases)</summary>
 
 ### [1.0.1] - 2026-11-12 - Redesigned Menu and Tiers
 
