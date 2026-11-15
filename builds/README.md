@@ -31,7 +31,7 @@ This directory stores compiled Add-ons (`.mcaddon`), Maps (`.mcworld`), Scripts 
 | **Fletching Table Arsenal** | Add-on (.mcaddon) | [Download (.mcaddon)](Fletching-Table-Arsenal/FletchingArsenal%20V1.0.0.mcaddon) | [`Fletching-Table-Arsenal/`](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/builds/Fletching-Table-Arsenal) |
 | **Copper-Carrier Logistics** | Add-on (.mcaddon) | [Download (.mcaddon)](Copper-Carrier-Logistics/CopperCarrier%20V1.1.0.mcaddon) | [`Copper-Carrier-Logistics/`](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/builds/Copper-Carrier-Logistics/) |
 | **Universal Leash** | Add-on (.mcaddon) | [Download (.mcaddon)](Universal-Leash/UniversalLeash%20V2.0.0.mcaddon) | [`Universal-Leash/`](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/builds/Universal-Leash/) |
-| **Padlock & Key** | Add-on (.mcaddon) | [Download (.mcaddon)](Padlock-and-Key/PadlockKey%20V1.0.6.mcaddon) | [`Padlock-and-Key/`](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/builds/Padlock-and-Key/) |
+| **Padlock & Key** | Add-on (.mcaddon) | [Download (.mcaddon)](Padlock-and-Key/PadlockKey%20V1.0.7.mcaddon) | [`Padlock-and-Key/`](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/builds/Padlock-and-Key/) |
 | **Talking Pirate Parrots** | Add-on (.mcaddon) | [Download (.mcaddon)](Talking-Pirate-Parrots_payload/PirateParrots%20V1.0.3.mcaddon) | [`Talking-Pirate-Parrots_payload/`](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/builds/Talking-Pirate-Parrots_payload/) |
 | **OP Sponge** | Add-on (.mcaddon) | [Download (.mcaddon)](OP-Sponge/OPSponge%20V1.0.1.mcaddon) | [`OP-Sponge/`](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/builds/OP-Sponge/) |
 | **Cheat Stick** | Add-on (.mcaddon) | [Download (.mcaddon)](Cheat-Stick/CheatStick%20V3.0.0.mcaddon) | [`Cheat-Stick/`](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/builds/Cheat-Stick/) |
@@ -71,7 +71,7 @@ This directory stores compiled Add-ons (`.mcaddon`), Maps (`.mcworld`), Scripts 
 | **Waypoint Helper** | Add-on (.mcaddon) | [Download (.mcaddon)](Waypoint-Helper/WaypointHelper%20V1.1.10.mcaddon) | [`Waypoint-Helper/`](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/builds/Waypoint-Helper/) |
 | **Always Critical** | Script Pack (.mcpack) | [Download (.mcpack)](Always-Critical/AlwaysCritical%20V1.0.0.mcpack) | [`Always-Critical/`](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/builds/Always-Critical/) |
 | **Living SMP Chat** | Script Pack (.mcpack) | [Download (.mcpack)](Living-SMP-Chat/LivingSMPChat%20V1.0.2.mcpack) | [`Living-SMP-Chat/`](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/builds/Living-SMP-Chat/) |
-| **Gameplay Optimizer** | Script Pack (`.mcpack`) | [Download (.mcpack)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Gameplay-Optimizer/GameplayOptimizer%20V1.0.0.mcpack) | [`Gameplay-Optimizer/`](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/builds/Gameplay-Optimizer/) |
+| **Gameplay Optimizer** | Script Pack (.mcpack) | [Download (.mcpack)](Gameplay-Optimizer/GameplayOptimizer%20V1.0.0.mcpack) | [`Gameplay-Optimizer/`](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/builds/Gameplay-Optimizer/) |
 
 ---
 

@@ -1,12 +1,26 @@
 # Changelog — Padlock & Key
 
-## [1.0.4.2] - 2026-11-11
+## [1.0.7] - 2026-11-15 - Piston Safety and Iron Door Feel
+
+### Added
+- **Piston Safety**: A Piston cannot be placed aimed at a locked block, and a block cannot be locked while a Piston is aimed at it. If a locked block still gets moved, for example in a Slime Block machine, its lock moves with it and the block stays locked.
+- **Lock Cleanup**: Locks left behind by a block that no longer exists are removed automatically, so a new block placed there never inherits an old lock.
 
 ### Improved & Balanced
-- **Immovable Locks**: Pistons can no longer push or pull a locked block or the block under a locked container. Locked blocks stay where they are.
+- **Iron Door Feel**: Locked doors, trapdoors and fence gates cannot be opened by hand, like an Iron Door. If one still opens, it snaps shut again. Redstone can still open them.
+- **Protected Door Floor**: The block under a locked door can no longer be broken or blown up until the door is unlocked.
+
+### Fixed
+- **Pistons Unlocked Blocks**: Pushing or pulling a locked block with a Piston no longer leaves it unlocked.
+- **Copper Chest Pairs**: A Copper Chest next to a locked Copper Chest now counts as part of the same lock.
 
 <details>
-<summary><b>1.0.x</b> (6 releases)</summary>
+<summary><b>1.0.x</b> (7 releases)</summary>
+
+### [1.0.4.2] - 2026-11-11
+
+#### Improved & Balanced
+- **Immovable Locks**: Pistons can no longer push or pull a locked block or the block under a locked container. Locked blocks stay where they are.
 
 ### [1.0.4.1] - 2026-11-11
 
