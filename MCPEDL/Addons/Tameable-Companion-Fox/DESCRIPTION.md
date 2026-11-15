@@ -73,3 +73,4 @@ Tame loyal foxes, command them to sit, and arm your companions with weapons.
 ## Search & Discovery Keywords
 
 Tameable Companion Fox Minecraft Bedrock, Berry Taming Bedrock, Bodyguard Protection Bedrock, Upgraded Vitality Bedrock, Sit & Stand Commands Bedrock, Weapon Arming Bedrock, Healing Support Bedrock, Minecraft PE survival, MCPEDL, CurseForge Bedrock, ALNStudios, Minecraft Bedrock add-on, MCPEDL add-on.
+

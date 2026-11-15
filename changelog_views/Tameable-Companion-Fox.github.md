@@ -1,12 +1,23 @@
 # Changelog — Tameable Companion Fox
 
-## [1.8.2] - 2026-11-16 - Give Weapon Prompt
+## [1.8.3] - 2026-11-16 - Fox Combat Upgrade
 
-### Fixed
-- **Give Weapon Prompt**: The prompt for handing a tamed fox a sword or axe now reads Give Weapon instead of showing a raw text key.
+### Added
+- **Weapon Styles**: A fox holding a sword chases targets faster, and a fox holding an axe leaps higher.
+- **Take Weapon Back**: Sneak and interact with an empty hand to take the weapon from your fox.
+- **Hostile Mob Defense**: Tamed foxes attack hostile mobs they can see within 16 blocks, except creepers.
+
+### Improved & Balanced
+- **Owner Only Arming**: Only a fox's owner can hand it a weapon.
+- **Translated Prompts**: The weapon prompts now use language files so they can be translated.
 
 <details>
-<summary><b>1.8.x</b> (3 releases)</summary>
+<summary><b>1.8.x</b> (4 releases)</summary>
+
+### [1.8.2] - 2026-11-16 - Give Weapon Prompt
+
+#### Fixed
+- **Give Weapon Prompt**: The prompt for handing a tamed fox a sword or axe now reads Give Weapon instead of showing a raw text key.
 
 ### [1.8.2] - 2026-11-15
 
