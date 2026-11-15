@@ -1,23 +1,29 @@
 # Changelog — Living SMP Chat
 
-## [1.0.5] - 2026-11-15
+## [1.0.6] - 2026-11-16 - Bedtime and Mishaps
 
-### Removed
+### Added
+- **Bedtime Chat**: on about one night in twenty, a virtual player says they are going to bed and one or two others wish them goodnight.
+- **Virtual Deaths**: now and then a virtual player dies to a creeper, a zombie, a skeleton, a spider, lava, a fall, the void, drowning or fire. The usual death message appears in chat, then the victim and the others react.
+
+<details>
+<summary><b>1.0.x</b> (3 releases)</summary>
+
+### [1.0.5] - 2026-11-15
+
+#### Removed
 - **Location Tips**: the virtual players no longer point out dungeons, strongholds, trial chambers or ancient cities, and the matching coordinate corrections are gone too.
 - **Lighter Pack**: the background search for nearby structures was removed completely, so there is nothing left that scans blocks around you.
 
-### Changed
+#### Changed
 - **More Than Dungeons**: the rare location tip can now point to a real dungeon, stronghold, trial chamber or ancient city near you, with real coordinates.
 - **Rarer Tips**: every 2 to 4 minutes there is only a 5% chance a search even starts, and tips stay at least 15 minutes apart. Rarer searches also mean less work for the game.
 - **Why Not the Locate Command**: the game gives add-ons no way to read what the locate command finds, so the tip checks for real structure blocks close to you instead.
 
-### Fixed
+#### Fixed
 - **Lag Spikes**: the search for nearby spawners is now spread over a few seconds in small steps instead of one big sweep, and it skips repeat searches when you have not moved.
 - **Lighter Background Work**: the checks for sleeping and dimension changes run half as often, and the startup count of chat lines was removed.
 - **No Lag Jokes**: the virtual players no longer joke about lag spikes, so real lag is not confused with chat.
-
-<details>
-<summary><b>1.0.x</b> (2 releases)</summary>
 
 ### [1.0.2] - 2026-11-15
 
