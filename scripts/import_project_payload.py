@@ -328,6 +328,7 @@ def main() -> None:
             t = stage / rel
             t.parent.mkdir(parents=True, exist_ok=True)
             t.write_bytes(data)
+        bp.install_skin(stage, root)
         fails, warns, _, _ = bp.run_checks(stage, repo_root=root, folder=args.name)
         pj = bp.read_project(stage) or {}
         ptype = pj.get("type")

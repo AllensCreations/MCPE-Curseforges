@@ -21,12 +21,31 @@ DEST_DIR = {"addon": "Addons", "map": "Maps", "script": "Script", "minigame": "M
 MIN_ITEM_FORMAT = [1, 20, 80]
 CONTROLLER_LABELS = ("Start", "How to play")
 CONTROLLER_JS_REL = "behavior_pack/scripts/controller.js"
+PIXELIFY_JS_REL = "behavior_pack/scripts/lib/pixelify.js"
+PIXELIFY_JS = r'''// Pixelify Sans glyph mapper (page F0). Spaces and section-sign color codes stay vanilla.
+const PAGE = 0x00F0;
+export function pixelify(text) {
+  let out = "";
+  for (const ch of String(text)) {
+    const c = ch.codePointAt(0);
+    out += c > 0x20 && c < 0x7F ? String.fromCharCode(PAGE + c) : ch;
+  }
+  return out;
+}
+'''
+SKIN_REL = "assets/aln-ui-redesign"  # repo copy, used by the importer (binary files are never in a payload)
+SKIN_FILES = (("font/glyph_F0.png", "resource_pack/font/glyph_F0.png"),
+              ("font/PixelifySans-OFL.txt", "resource_pack/font/PixelifySans-OFL.txt"))
+SKIN_ABOUT = ("about_icon.png", "about_icon.jpg")  # shipped as resource_pack/textures/ui/aln/<same name>
 CONTROLLER_JS = r'''import { world, system, ItemStack, EntityComponentTypes, GameMode } from "@minecraft/server";
 import { ActionFormData, FormCancelationReason } from "@minecraft/server-ui";
+import { pixelify } from "./lib/pixelify.js";
 
 const CONTROLLER_ID = "allenscreations:controller";
 const STATE_KEY = "game_state";
 const OPERATOR_LEVEL = 2;
+const ABOUT_ICON = "textures/ui/aln/about_icon";
+const EXIT_ICON = "textures/items/door_wood";
 
 let config = null;
 let registered = false;
@@ -39,6 +58,23 @@ const setState = (s) => world.setDynamicProperty(STATE_KEY, s);
 const isCreative = (player) => player.getGameMode() === GameMode.Creative;
 const isHost = (player) => (typeof player.isOp === "function" ? player.isOp() : player.playerPermissionLevel === OPERATOR_LEVEL);
 const containerOf = (player) => player.getComponent(EntityComponentTypes.Inventory)?.container;
+
+const plain = (s) => String(s ?? "").replace(/§./g, "");
+const bold = (s) => `§l${pixelify(plain(s))}§r`;
+const mainTitle = () => `§l§6${pixelify("@ALNStudios")} §e${pixelify(plain(config.title))}§r ${pixelify(`(v${config.version})`)}`;
+const tell = (player, color, text) => {
+  try {
+    player.onScreenDisplay.setActionBar(`${color}${text}`);
+  } catch (e) {}
+};
+
+async function show(form, player) {
+  try {
+    return await form.show(player);
+  } catch (e) {
+    return undefined;
+  }
+}
 
 function hasController(player) {
   const inv = containerOf(player);
@@ -62,7 +98,7 @@ function consumeController(player) {
     if (inv.getItem(i)?.typeId === CONTROLLER_ID) {
       inv.setItem(i, undefined);
       player.playSound("random.break");
-      player.sendMessage("The Controller broke.");
+      tell(player, "§e", "The Controller broke.");
       return;
     }
   }
@@ -70,7 +106,7 @@ function consumeController(player) {
 
 function runStart(player) {
   if (getState() === "running") {
-    player.sendMessage("Already running.");
+    tell(player, "§e", "Already running.");
     return;
   }
   setState("running");
@@ -80,7 +116,7 @@ function runStart(player) {
   } catch (e) {
     setState("idle");
     giveController(player);
-    player.sendMessage("The game could not start.");
+    tell(player, "§c", "The game could not start.");
   }
 }
 
@@ -95,37 +131,51 @@ export function endGame() {
   for (const p of world.getAllPlayers()) if (isHost(p)) giveController(p);
 }
 
-async function showHowToPlay(player) {
-  const form = new ActionFormData().title("How to play").body(config.howToPlay).button("Back");
-  let res;
-  try {
-    res = await form.show(player);
-  } catch (e) {
+async function openStart(player) {
+  if (getState() === "running") {
+    tell(player, "§e", "Already running.");
     return;
   }
-  if (!res.canceled && res.selection === 0) openController(player);
+  const form = new ActionFormData()
+    .title(bold("How to play"))
+    .body(bold(config.howToPlay))
+    .button(bold("Start Game"))
+    .button(bold("Back"));
+  const res = await show(form, player);
+  if (!res || res.canceled) return;
+  if (res.selection === 0) runStart(player);
+  else openController(player);
+}
+
+async function openAbout(player) {
+  const body = [
+    "Creator: ALNStudios",
+    `${plain(config.title)} v${config.version}`,
+    plain(config.about),
+    "CurseForge: allenscreations",
+    "MCPEDL: alnstudios",
+    "Not affiliated with Mojang.",
+  ].join("\n");
+  const form = new ActionFormData().title(bold("About ALNStudios")).body(bold(body)).button(bold("Back"));
+  const res = await show(form, player);
+  if (res && !res.canceled) openController(player);
 }
 
 async function confirmEnd(player) {
   if (getState() !== "running") {
-    player.sendMessage("No game is running.");
+    tell(player, "§e", "No game is running.");
     return;
   }
   const form = new ActionFormData()
-    .title("End game?")
-    .body("This stops the game that is running now.")
-    .button("End Game")
-    .button("Back");
-  let res;
-  try {
-    res = await form.show(player);
-  } catch (e) {
-    return;
-  }
-  if (res.canceled) return;
+    .title(bold("End game?"))
+    .body(bold("This stops the game that is running now."))
+    .button(bold("End Game"))
+    .button(bold("Back"));
+  const res = await show(form, player);
+  if (!res || res.canceled) return;
   if (res.selection === 0) {
     if (getState() !== "running") {
-      player.sendMessage("The game already ended.");
+      tell(player, "§e", "The game already ended.");
       return;
     }
     world.sendMessage(`${player.name} ended the game.`);
@@ -143,16 +193,13 @@ async function openController(player, attempt = 0) {
       ? (isCreative(player) ? "Creative: the Controller is kept." : "Start uses up the Controller.")
       : "The Controller is kept.";
   const form = new ActionFormData()
-    .title(config.title)
-    .body(`${config.gameInfo}\n\nState: ${getState()}\n${note}`)
-    .button(running ? "End Game" : "Start")
-    .button("How to play");
-  let res;
-  try {
-    res = await form.show(player);
-  } catch (e) {
-    return;
-  }
+    .title(mainTitle())
+    .body(bold(`${config.gameInfo}\n\nState: ${getState()}\n${note}`))
+    .button(bold(running ? "End Game" : "Start"))
+    .button(bold("About"), ABOUT_ICON)
+    .button(bold("Exit"), EXIT_ICON);
+  const res = await show(form, player);
+  if (!res) return;
   if (res.canceled) {
     if (res.cancelationReason === FormCancelationReason.UserBusy && attempt < 5) {
       system.runTimeout(() => openController(player, attempt + 1), 10);
@@ -161,9 +208,9 @@ async function openController(player, attempt = 0) {
   }
   if (res.selection === 0) {
     if (running) confirmEnd(player);
-    else runStart(player);
+    else openStart(player);
   } else if (res.selection === 1) {
-    showHowToPlay(player);
+    openAbout(player);
   }
 }
 
@@ -172,6 +219,8 @@ export function registerController(options) {
   registered = true;
   config = {
     title: options?.title ?? "Controller",
+    version: options?.version ?? "1.0.0",
+    about: options?.about ?? "",
     gameInfo: options?.gameInfo ?? "",
     howToPlay: options?.howToPlay ?? "",
     consumeOnStart: options?.consumeOnStart === true,
@@ -331,6 +380,32 @@ def _install_icon(root, key, png_bytes, entry, label, base_texture):
         print(f"repaired   item_texture.json {key} entry")
 
 
+def install_skin(root, repo_root):
+    """Controller projects: copy the ALN UI Redesign font and About icon from the repo into the Resource Pack
+    (copy, never link). Existing files stay. Returns the list of problems (empty = fine)."""
+    pj = read_project(root)
+    if not isinstance(pj, dict) or not wants_controller(pj):
+        return []
+    src = Path(repo_root) / SKIN_REL
+    pairs = list(SKIN_FILES)
+    about = next((n for n in SKIN_ABOUT if (src / n).is_file()), None)
+    if about:
+        pairs.append((about, f"resource_pack/textures/ui/aln/{about}"))
+    problems = []
+    for s, d in pairs:
+        if not (src / s).is_file():
+            problems.append(f"repo skin file {SKIN_REL}/{s} is missing")
+            continue
+        out = root / d
+        if not out.exists():
+            out.parent.mkdir(parents=True, exist_ok=True)
+            out.write_bytes((src / s).read_bytes())
+            print("installed  " + d)
+    if not about:
+        problems.append(f"repo skin file {SKIN_REL}/about_icon.png or about_icon.jpg is missing")
+    return problems
+
+
 def install_assets(root):
     """Create the mandatory icon + item files if missing. Never overwrites an existing PNG."""
     pj = read_project(root)
@@ -364,6 +439,11 @@ def install_assets(root):
             print("installed  behavior_pack/functions/end_game.mcfunction")
         mjs = root / "behavior_pack/scripts/main.js"
         cjs = root / CONTROLLER_JS_REL
+        pjs = root / PIXELIFY_JS_REL
+        if not pjs.exists() and mjs.is_file() and "registerController(" in mjs.read_text(encoding="utf-8"):
+            pjs.parent.mkdir(parents=True, exist_ok=True)
+            pjs.write_text(PIXELIFY_JS, encoding="utf-8", newline="\n")
+            print("installed  " + PIXELIFY_JS_REL)
         if not cjs.exists() and mjs.is_file() and "registerController(" in mjs.read_text(encoding="utf-8"):
             cjs.parent.mkdir(parents=True, exist_ok=True)
             cjs.write_text(CONTROLLER_JS, encoding="utf-8", newline="\n")
@@ -671,10 +751,26 @@ def run_checks(root, repo_root=None, folder=None):
                           "controller.js must be the unchanged generator copy")
                 check(re.search(r"from\s+[\"']\./controller\.js[\"']", js) is not None,
                       "main.js: must import registerController from ./controller.js")
-                for key in ("gameInfo", "howToPlay"):
+                for key in ("title", "about", "gameInfo", "howToPlay"):
                     check(re.search(r"\b" + key + r"\s*:\s*(?![\"'`]{2})\S", js) is not None,
                           f"main.js: registerController needs a non-empty {key}")
                 check(re.search(r"\bonStart\s*[:(]", js) is not None, "main.js: registerController needs onStart")
+                mv = re.search(r"\bversion\s*:\s*[\"'](\d+\.\d+\.\d+)[\"']", js)
+                check(mv is not None, "main.js: registerController needs version: \"X.Y.Z\" (the Behavior Pack version)")
+                bpv = (jload("behavior_pack/manifest.json") or {}).get("header", {}).get("version")
+                if mv and isinstance(bpv, list):
+                    check(mv.group(1) == ".".join(str(x) for x in bpv),
+                          f"main.js: registerController version {mv.group(1)} must equal the Behavior Pack manifest version")
+                pj_js = root / PIXELIFY_JS_REL
+                check(pj_js.is_file() and pj_js.read_text(encoding="utf-8").replace("\r\n", "\n") == PIXELIFY_JS,
+                      f"{PIXELIFY_JS_REL} must be the unchanged generator copy")
+                if repo_root:
+                    for msg in install_skin(root, repo_root):
+                        check(False, msg)
+                    for s, d in SKIN_FILES:
+                        ref, got = Path(repo_root) / SKIN_REL / s, root / d
+                        check(got.is_file() and ref.is_file() and got.read_bytes() == ref.read_bytes(),
+                              f"{d} must be a byte-for-byte copy of the repo skin file")
                 if "allenscreations:controller" in js:
                     warns.append("main.js mentions the controller item; controller.js already handles it")
             else:

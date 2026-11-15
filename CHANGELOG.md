@@ -2,6 +2,14 @@
 
 ---
 
+## [1.0.47] - 2026-11-16 - Controller ALN UI
+
+### Improved & Balanced
+- **Controller Menu**: The Controller now opens the ALN UI Redesign main menu with Start, About and Exit, the ALNStudios title, bold text and the Pixelify font.
+- **About Page**: Every minigame gets an About page with creator, version, a short pack line and profiles.
+- **Skin Files**: The importer copies the skin font and About icon from assets/aln-ui-redesign into each minigame.
+- **Controller Options**: registerController now needs version (same as the Behavior Pack version) and about.
+
 ## [1.0.46] - 2026-11-15 - Locator Removed
 
 ### Removed

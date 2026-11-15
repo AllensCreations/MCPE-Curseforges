@@ -1,4 +1,4 @@
-# Pack Generator Instructions (AI Agent, v23)
+# Pack Generator Instructions (AI Agent, v24)
 
 Builds a complete **addon**, **map**, **script**, or **minigame** from the user's idea. Returns ONE Termux `.sh` pack script that carries the whole project inside it (as base64). No other file is delivered.
 
@@ -230,13 +230,13 @@ resource_pack/manifest.json
 resource_pack/textures/item_texture.json
 resource_pack/textures/items/controller.png    16 x 16, from repo, NEVER redrawn
 ```
-Controller (item `allenscreations:controller`; NEVER opt out): form with **Start**, **How to play** (this order); while running the first button = **End Game**.
-- Only host/operator gets/uses it, via `isHost` in `controller.js`, NEVER `player.isOp()` alone. Start works while not running (re-read state after form closes). Running: End Game -> confirm form (**End Game** / **Back**) -> `endGame()`, no cheats. How to play: rules + Back.
+Controller (item `allenscreations:controller`; NEVER opt out): ALN UI Redesign main menu per `INSTRUCTIONS.md` 1.13/1.14 with exactly 3 buttons **Start**, **About**, **Exit** (this order); while running the first button = **End Game**. All of it lives in `controller.js`: NEVER build another form.
+- Only host/operator gets/uses it, via `isHost` in `controller.js`, NEVER `player.isOp()` alone. Start works while not running (re-read state after form closes). Running: End Game -> confirm form (**End Game** / **Back**) -> `endGame()`, no cheats. Start opens How to play (rules, **Start Game**, **Back**). About: creator, pack + version, one line, profiles, Back.
 - KEPT while the game runs. `consumeOnStart: true` restores old behavior (Start consumes first Controller unless `getGameMode()` is `GameMode.Creative`; End Game then only reachable by a host still carrying one).
 - Game logic calls `endGame()` on win/lose. `endGame()` sets `ended`, gives host/operator a fresh Controller if none.
 - Stuck state: NEVER `running` after reload with no live game. Reset to `idle` on world load, give Controller (1.11 item 4). `give_controller`/`end_game` need cheats: last resort.
 - Giving: host/operator on every spawn incl. death when carrying none (`consumeOnStart: true`: first spawn when not `running`; Creative operators always). State `idle|running|ended` in a world dynamic property.
-- Form shows state and whether Controller is kept. NEVER add Restart/other buttons. Fill `gameInfo` and `howToPlay` with real goal, controls, ending.
+- Form shows state and whether Controller is kept. NEVER add Restart/other buttons. Fill `about`, `gameInfo` and `howToPlay` with real text and NO `§` color codes. Colors, the ALNStudios title, bold text, Pixelify font and action bar feedback are done by `controller.js`. The importer copies the skin font + About icon from `assets/aln-ui-redesign/` into the RP and `lib/pixelify.js` is installed with `controller.js`: NEVER ship or edit them.
 - `controller.js` installed when `main.js` calls `registerController(`; check fails if it differs, NEVER edit. Write BP manifest with looked-up `min_engine_version` BEFORE running the script (item JSON takes `format_version` from it). You write `resource_pack/manifest.json` (4.3, fresh UUIDs, same version) and add its dependency + `@minecraft/server-ui` to the BP manifest. NEVER copy anything else from `Mcpeworlds/assets/`.
 `main.js` template:
 ```js
@@ -248,6 +248,8 @@ function win() {
 }
 registerController({
   title: "Sample Game",
+  version: "1.0.0",
+  about: "One plain sentence about the pack.",
   gameInfo: "Type: Challenge\nPlayers: 1 or more\nGoal: Replace this text with a short description of the game.",
   howToPlay: "Goal: replace this text.\nControls: replace this text.\nHow it ends: replace this text.",
   onStart: () => {
@@ -258,7 +260,7 @@ registerController({
   },
 });
 ```
-- `title`, `gameInfo`, `howToPlay` required; `consumeOnStart` optional (default false). `onStart(player)` throws: state -> `idle`, Controller returned. `onEnd()` runs via `endGame()`. Script event `allenscreations:end` also ends the game. Template `win()` only sends a message: REPLACE with real logic. Old inline Controllers pass with a warning.
+- `title`, `version` (EXACTLY the Behavior Pack manifest version, bump both together), `about`, `gameInfo`, `howToPlay` required; `consumeOnStart` optional (default false). `onStart(player)` throws: state -> `idle`, Controller returned. `onEnd()` runs via `endGame()`. Script event `allenscreations:end` also ends the game. Template `win()` only sends a message: REPLACE with real logic. Old inline Controllers pass with a warning.
 
 ### 4.7 Recipes
 - Every custom shaped/shapeless crafting recipe: unlock per 1.4. Other recipe types: no `unlock`.
@@ -280,7 +282,7 @@ NEVER hand-write ZIP, base64 or the `.sh`. `scripts/make_pack_script.py` install
 - [ ] Every README/DESCRIPTION/CHANGELOG matches `DOCS_RULES.md` exactly, no placeholders, DESCRIPTION has both listing images.
 - [ ] Map: `oneblock_setup` harmless+idempotent; `void_cleaner` ends with conditional `void_cleaned` tag.
 - [ ] Script: BP only, `.mcpack`, no Controller/RP, real `main.js` logic.
-- [ ] Minigame: form exactly Start + How to play; real `gameInfo`/`howToPlay`; real logic calling `endGame()`; stuck-state recovery.
+- [ ] Minigame: Controller unchanged; `title`, `version` == BP manifest, `about`, real `gameInfo`/`howToPlay` without color codes; real logic calling `endGame()`; stuck-state recovery.
 - [ ] No comments in scripts/functions/JSON. Versions `X.Y.Z` only.
 - [ ] No `Mcpeworlds/assets/` file copied except ledger/controller; nothing from `assets/Images/`.
 - [ ] Any `.sh` named `(Repofilename)_(Version)_(Rand).sh`, fresh Rand >=5.
@@ -299,7 +301,7 @@ Paste the workflow error log back to the agent. Find the rule here and the check
 | `missing required file` | Add the file for your type. |
 | `is not a byte-for-byte copy` | Use the repo PNG unchanged. |
 | `controller.js must be the unchanged generator copy` | Delete it, rerun the script. |
-| `registerController needs ...` | Fill the call's fields. |
+| `registerController needs ...` | Fill the call's fields (`version` must equal the BP manifest version). |
 | `import ... is not allowed` / `eval and the Function constructor` / `syntax error` | Fix the named line. |
 | `min_engine_version must be 3 integers` | Use looked-up game version. |
 | Minecraft import: `min_engine_version` too high ("highest value we accept") | Use `[1, RELEASE, PATCH]` (game 26.60 = `[1, 26, 60]`), at most the highest released version. |

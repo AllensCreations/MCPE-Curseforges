@@ -30,7 +30,7 @@ description: Create a NEW addon, map, script or minigame for the MCPE-Curseforge
 - Every custom crafting recipe needs `AlwaysUnlocked` (1.4). Every custom recipe and item shown in DESCRIPTION gets its image from `scripts/generate_recipe_images.py` after import (1.5).
 - Docs follow the templates in `DOCS_RULES.md` 2.5 exactly: README is the 11-line download landing page, DESCRIPTION has the exact section order, both badges and both listing images, and says `not tested in game`, the achievement status and the experiments status.
 - No comments in `.js`, `.mcfunction` or `.json`. Versions are `X.Y.Z` only. `by ALNStudios` appears once per description, never in a name.
-- Map: `void_cleaner` first in `tick.json`, exact fill line, conditional `void_cleaned` tag, Trader Ledger from the repo copy. Minigame: Controller from the repo copy, real `gameInfo` and `howToPlay`, real logic that calls `endGame()`. Script: Behavior Pack only, `.mcpack`.
+- Map: `void_cleaner` first in `tick.json`, exact fill line, conditional `void_cleaned` tag, Trader Ledger from the repo copy. Minigame: Controller from the repo copy (it already is the ALN UI Redesign menu: never edit or replace it), `registerController` with `title`, `version` equal to the BP manifest, `about`, real `gameInfo` and `howToPlay` with no color codes, real logic that calls `endGame()`. NEVER build your own form. Script: Behavior Pack only, `.mcpack`.
 - Never claim anything was tested in Minecraft. The checks prove structure only.
 
 ## After the pack is in the repo

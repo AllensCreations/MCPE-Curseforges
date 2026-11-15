@@ -81,6 +81,8 @@ function win() {
 
 registerController({
   title: "Sample Game",
+  version: "1.0.0",
+  about: "A sample challenge game.",
   gameInfo: "Type: Challenge\nPlayers: 1 or more\nGoal: Replace this text with a short description of the game.",
   howToPlay: "Goal: replace this text.\nControls: replace this text.\nHow it ends: replace this text.",
   onStart: () => {
@@ -189,6 +191,10 @@ def main() -> int:
         root = Path(tmp)
         shutil.copytree(REPO / "scripts", root / "scripts", ignore=shutil.ignore_patterns("__pycache__"))
         shutil.copytree(REPO / "Mcpeworlds" / "assets", root / "Mcpeworlds" / "assets")
+        skin = root / "assets" / "aln-ui-redesign"  # stand-in files: the importer only copies and compares bytes
+        for rel in ("font/glyph_F0.png", "font/PixelifySans-OFL.txt", "about_icon.jpg"):
+            (skin / rel).parent.mkdir(parents=True, exist_ok=True)
+            (skin / rel).write_bytes(b"skin-" + rel.encode())
         spec = importlib.util.spec_from_file_location("selftest_auto_bump", root / "scripts/auto_bump_and_build.py")
         pack_builder = importlib.util.module_from_spec(spec)
         spec.loader.exec_module(pack_builder)
@@ -338,6 +344,9 @@ def main() -> int:
         r, log = do_import(root, d, out)
         sd = root / "MCPEDL/Minigame/Sample-Minigame"
         ok(r == 0 and (sd / "project.json").is_file(), "minigame: imported into MCPEDL/Minigame")
+        ok(all((sd / x).is_file() for x in ("resource_pack/font/glyph_F0.png", "resource_pack/font/PixelifySans-OFL.txt",
+                                            "resource_pack/textures/ui/aln/about_icon.jpg", "behavior_pack/scripts/lib/pixelify.js")),
+           "minigame: importer installed the ALN UI skin (font, About icon, pixelify.js)")
         ok(all((sd / "assets" / k / ".gitkeep").is_file() for k in ("snapshots", "recipes", "items")),
            "minigame: importer created assets/snapshots, assets/recipes and assets/items")
         primary, built = pack_builder.rebuild_project_packages(str(sd), "MCPEDL/Minigame")
@@ -411,7 +420,10 @@ def main() -> int:
         reject("CHANGELOG with a link", lambda d: write(d / "CHANGELOG.md", (d / "CHANGELOG.md").read_text().replace("Players can use the new creation.", "See https://example.com now.")), "links or URLs", ptype="addon")
         reject("minigame README with a Markdown table", lambda d: write(d / "README.md", (d / "README.md").read_text() + "\n| a | b |\n"), "Markdown table")
         reject("tampered controller.png", lambda d: (d / "resource_pack/textures/items/controller.png").write_bytes(b"\x89PNG\r\n\x1a\n" + b"0" * 40), "controller.png")
-        reject("controller.js edited (How to play removed)", lambda d: write(d / "behavior_pack/scripts/controller.js", (d / "behavior_pack/scripts/controller.js").read_text().replace('.button("How to play")', "")), "unchanged generator copy")
+        reject("controller.js edited (How to play removed)", lambda d: write(d / "behavior_pack/scripts/controller.js", (d / "behavior_pack/scripts/controller.js").read_text().replace('.button(bold("About"), ABOUT_ICON)', "")), "unchanged generator copy")
+        reject("main.js version differs from the manifest", lambda d: write(d / "behavior_pack/scripts/main.js", MAIN_JS.replace('version: "1.0.0"', 'version: "9.9.9"')), "must equal the Behavior Pack manifest version")
+        reject("main.js without about", lambda d: write(d / "behavior_pack/scripts/main.js", MAIN_JS.replace("about:", "abouts:")), "non-empty about")
+        reject("pixelify.js edited", lambda d: write(d / "behavior_pack/scripts/lib/pixelify.js", "export const pixelify = (t) => t;\n"), "pixelify.js must be the unchanged generator copy")
         reject("main.js without gameInfo", lambda d: write(d / "behavior_pack/scripts/main.js", MAIN_JS.replace("gameInfo:", "gameinfo:")), "non-empty gameInfo")
         reject("main.js with an empty howToPlay", lambda d: write(d / "behavior_pack/scripts/main.js", re.sub(r"howToPlay: \"[^\n]*\",", "howToPlay: \"\",", MAIN_JS)), "non-empty howToPlay")
         reject("map whose void cleaner adds the tag without checking the core Bedrock", lambda d: write(d / "behavior_pack/functions/void_cleaner.mcfunction", "execute as @a[tag=!void_cleaned] run fill -16 -64 -16 16 -64 16 air\nexecute as @a[tag=!void_cleaned] run tag @s add void_cleaned\n"), "core Bedrock", ptype="map")

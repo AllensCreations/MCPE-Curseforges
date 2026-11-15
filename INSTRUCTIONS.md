@@ -1,4 +1,4 @@
-# Instructions: Core Repository Policy (v16)
+# Instructions: Core Repository Policy (v17)
 
 Repo policy, docs rules for AllensCreations/MCPE-Curseforges (creator name `ALNStudios`). Generating a new project: `PACK_GENERATOR_INSTRUCTIONS.md`.
 
@@ -156,8 +156,8 @@ Payload import:
 
 Scripts and minigames:
 - Script project `MCPEDL/Script/<Name>/`: script BP, `.mcpack`. Minigame `MCPEDL/Minigame/<Name>/`: BP + RP, `.mcaddon`.
-- Every Minigame ships Controller (`allenscreations:controller`, `controller.png` 16x16 at `Mcpeworlds/assets/resources_pack/textures/items/controller.png`). Opens form: **Start** + **How to play**; while running first button = **End Game**. State (idle/running/ended) in a world dynamic property. NEVER opt out.
-- Only host/operator gets and uses it. Start works while idle. End Game asks confirm, calls `endGame()`, needs no cheats. How to play = second button, rules page + Back. Game ends via win/lose logic calling `endGame()`.
+- Every Minigame ships Controller (`allenscreations:controller`, `controller.png` 16x16 at `Mcpeworlds/assets/resources_pack/textures/items/controller.png`). Opens the ALN UI Redesign main menu (1.14): exactly 3 buttons, **Start**, **About**, **Exit**; while running the first button = **End Game**. The importer installs the skin font, `pixelify.js` and the About icon into the minigame. State (idle/running/ended) in a world dynamic property. NEVER opt out.
+- Only host/operator gets and uses it. Start works while idle. End Game asks confirm, calls `endGame()`, needs no cheats. Start opens the How to play page (Start Game + Back) before the game begins. About page has creator, version, one line on the pack, profiles and a Back button. Game ends via win/lose logic calling `endGame()`.
 - Controller KEPT while game runs. `consumeOnStart: true` in `registerController` restores old behavior (Start consumes first Controller unless Creative; End Game only reachable by host still carrying one). Host/operator gets one on every spawn (incl. death) when carrying none; game end gives a fresh one.
 - Stuck state: NEVER stay `running` forever. On world load, a script that cannot restore a live game resets to `idle` and gives Controller. `give_controller.mcfunction`, `end_game.mcfunction` ship with every Controller minigame but need cheats: last resort, NEVER only recovery.
 - No test world (removed, NEVER recreate). The importer rejects a payload that ships `test_world.json`. Experiments/achievement state of a world come from the foundation, unverified.
@@ -241,6 +241,7 @@ Placeholders `<PackName>`, `<MainAction>`, `<version>`. NEVER hardcode one pack.
 - [ ] Changed JSON validated. Instruction file changed: `scripts/check_instruction_files.py` passes.
 
 ## Version History
+- **v17:** Controller menu follows the ALN UI Redesign / 1.14 (3-button main menu, About, skin font, ALNStudios title, action bar feedback). `registerController` needs `title`, `version` (== Behavior Pack version), `about`.
 - **v16:** Test World removed. Importer creates `assets/` per project. New pack skill `mcpe-new-pack` (`SKILL.md` at the root of every AI review zip). Register CurseForge ID starts the build.
 - **v15:** `min_engine_version` is written as `[1, RELEASE, PATCH]` (game 26.60 = `[1, 26, 60]`, never `[26, 60, 0]`), docs use `1.26.60`.
 - **v14:** `CHECKRM_REFERENCE.md` merged into `DOCS_RULES.md` (Part 3); 1.8 entry-point list removed; one `requirements.txt` for workflows.
