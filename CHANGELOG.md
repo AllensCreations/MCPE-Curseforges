@@ -2,6 +2,12 @@
 
 ---
 
+## [1.0.59] - 2026-11-16 - Night Skip
+
+### Changed
+- **Real Night Skip**: when a virtual player goes to bed on one of those nights, the night now really skips to morning after the goodnight chat, the weather clears, and someone says good morning.
+- **Docs**: the description now says plainly that this changes the time of day for everyone.
+
 ## [1.0.58] - 2026-11-16 - Bedtime and Mishaps
 
 ### Added

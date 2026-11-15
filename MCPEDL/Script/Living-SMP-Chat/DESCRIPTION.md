@@ -34,8 +34,8 @@ You play your world as usual. Between 6 and 14 virtual players are online at any
 - **Good To Know**: Conversations are spaced out so replies appear one after another. Overlapping events wait in a short queue instead of flooding the chat.
 
 ### Bedtime and Mishaps
-- **What Happens**: On about one night in twenty, a virtual player says they are off to bed and others wish them goodnight. From time to time a virtual player also dies, with the usual death message in chat, and the others react.
-- **Good To Know**: Both are only chat messages, and nothing happens to the world or to you.
+- **What Happens**: On about one night in twenty, a virtual player says they are off to bed, others wish them goodnight, and the night then skips to morning. From time to time a virtual player also dies, with the usual death message in chat, and the others react.
+- **Good To Know**: Virtual deaths are only chat messages. The night skip does change the time of day for everyone, and the weather clears. It never touches your items or position.
 
 ## How to Use
 

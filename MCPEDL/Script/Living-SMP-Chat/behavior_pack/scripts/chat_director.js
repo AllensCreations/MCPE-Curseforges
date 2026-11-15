@@ -21,6 +21,10 @@ function runNext() {
   for (const line of lines) {
     system.runTimeout(() => {
 
+      if (line.run) {
+        line.run();
+        return;
+      }
       if (line.bot && !isOnline(line.bot)) return;
       world.sendMessage(line.bot ? formatChat(line.bot, line.text) : line.text);
     }, t);
@@ -33,7 +37,7 @@ function runNext() {
 }
 
 export function playConversation(linesArray, options = {}) {
-  const lines = (linesArray || []).filter((l) => l && l.text);
+  const lines = (linesArray || []).filter((l) => l && (l.text || l.run));
   if (lines.length === 0) return false;
   if (options.priority) queue.unshift(lines);
   else if (busy || queue.length > 0) return false;
@@ -104,10 +108,30 @@ const VANILLA_DEATHS = [
   { kind: "generic", cause: "something", msg: "burned to death" },
 ];
 
+function skipNight() {
+  try {
+    const timeOfDay = world.getTimeOfDay();
+    if (timeOfDay < 12500 || timeOfDay >= 23000) return;
+    world.setAbsoluteTime(world.getAbsoluteTime() + (24000 - timeOfDay));
+  } catch (e) {
+    return;
+  }
+  try {
+    world.getDimension("overworld").setWeather("Clear");
+  } catch (e) {}
+  world.sendMessage("§7Sleeping through this night");
+  system.runTimeout(() => {
+    const bot = pickOnline(1)[0];
+    if (bot) world.sendMessage(formatChat(bot, assembleMessage("bot_wake", { speaker: bot })));
+  }, rand(40, 100));
+}
+
 export function botSleeps() {
   const bots = pickOnline(rand(2, 3));
   if (bots.length < 2) return;
-  playConversation(chain(bots, ["bot_sleep", "bot_sleep_reply", "bot_sleep_reply"], {}), { priority: true });
+  const lines = chain(bots, ["bot_sleep", "bot_sleep_reply", "bot_sleep_reply"], {});
+  lines.push({ run: skipNight });
+  playConversation(lines, { priority: true });
 }
 
 function botDeath() {

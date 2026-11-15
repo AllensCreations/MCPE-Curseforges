@@ -118,6 +118,10 @@ export const EXTRA_CORES = {
     "gn, sleep well", "night, see you tomorrow", "sleep tight", "good night, i will keep watch",
     "gn, do not let the phantoms bite", "see you in the morning", "sweet dreams", "night night",
   ],
+  bot_wake: [
+    "good morning everyone", "wow that was fast", "morning, thanks for skipping the night", "sleep skip, nice",
+    "i love when the night skips", "new day, let's go", "morning already? ok", "well rested now",
+  ],
   bot_death_self: [
     "ugh not again", "my items are all gone", "that {mob} came out of nowhere", "i was right at my base too",
     "someone help me find my stuff", "i should have worn my helmet", "respawning now, do not touch my chest", "that is on me, i was not paying attention",
