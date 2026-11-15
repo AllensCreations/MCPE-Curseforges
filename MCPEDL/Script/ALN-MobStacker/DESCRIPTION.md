@@ -18,14 +18,14 @@ Build a farm or grinder as usual. Mobs of the same kind that stand close togethe
 ### Mob Merging
 - **What Happens**: Identical mobs within 4 blocks of each other merge into one mob about once a second. The merged mob shows a label such as `[x12] Cow` in gold and white.
 - **How It Works**: Twenty cows packed in a pen become one Cow labelled `[x20]`. The label appears when you look at the mob.
-- **Good To Know**: There is no stack size limit. Mobs absorbed into a stack disappear without dropping anything, including any gear they were carrying.
+- **Good To Know**: There is no stack size limit. Mobs absorbed into a stack disappear without dropping anything.
 
 ### Supported Mobs
 - **What Happens**: Farm animals: Cow, Pig, Sheep, Chicken, Rabbit, Mooshroom, Goat, Frog. Grinder mobs: Zombie, Skeleton, Spider, Cave Spider, Creeper, Drowned, Husk, Stray, Blaze, Magma Cube, Slime, Enderman, Witch, Zombified Piglin, Guardian, Bogged, Breeze.
 
 ### Merge Rules
 - **What Happens**: Adults merge with adults and babies merge with babies. Sheep merge only with sheep of the same color and shear state, and slimes and magma cubes merge only with the same size.
-- **Good To Know**: Tamed mobs, leashed mobs and mobs you named with a Name Tag never merge into a stack.
+- **Good To Know**: Tamed mobs, leashed mobs, mobs you named with a Name Tag and mobs wearing armor or holding items never merge into a stack. Skeletons, Strays and Boggeds holding only their bow still merge.
 
 ### One-by-One Unpeeling
 - **What Happens**: Killing a stacked mob normally removes one mob from the stack. The stack stays in place with its count lowered by one, and the mob you killed drops its normal loot.
@@ -33,7 +33,7 @@ Build a farm or grinder as usual. Mobs of the same kind that stand close togethe
 
 ### Sneak Kill
 - **What Happens**: Sneak while you kill a stacked mob and the whole remaining stack is cleared at once. The extra mobs drop their loot and experience together, and an action bar message shows the stack size, mob name and Looting level.
-- **Good To Know**: Sneak Kill drops the regular items of each mob type. Rare drops and cooked meat are not included.
+- **Good To Know**: Sneak Kill drops the regular items of each mob type, and rare drops are not included. Cow, Pig, Sheep, Chicken, Rabbit and Mooshroom stacks that are burning when you kill them drop cooked meat.
 
 ### Looting Bonus
 - **What Happens**: Looting on the weapon in your main hand, levels 1 to 3, raises the drops of each extra mob in a Sneak Kill. Each extra mob multiplies its drops by a random 1 up to the Looting level plus 1.

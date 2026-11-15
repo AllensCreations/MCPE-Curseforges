@@ -1,5 +1,6 @@
 import { EntityComponentTypes, EquipmentSlot, ItemStack, world } from "@minecraft/server";
 import {
+  COOKED_BY_RAW,
   FARM_ANIMAL_SET,
   LOOT,
   STACKABLE_MOBS,
@@ -63,7 +64,7 @@ function rollExperience(def, meta) {
   return randomInt(def.xp[0], def.xp[1]);
 }
 
-function computeDrops(typeId, meta, units, looting) {
+function computeDrops(typeId, meta, units, looting, burning) {
   const base = LOOT[typeId];
   const totals = new Map();
   let xp = 0;
@@ -79,6 +80,15 @@ function computeDrops(typeId, meta, units, looting) {
   if (scale !== 1) {
     xp = Math.round(xp * scale);
     for (const [id, amount] of totals) totals.set(id, Math.round(amount * scale));
+  }
+  if (burning) {
+    for (const [raw, cooked] of Object.entries(COOKED_BY_RAW)) {
+      const amount = totals.get(raw);
+      if (amount) {
+        totals.delete(raw);
+        totals.set(cooked, amount);
+      }
+    }
   }
   return { totals, xp };
 }
@@ -110,6 +120,14 @@ function spawnDrops(dimension, location, totals, xp) {
     } catch (error) {
       return;
     }
+  }
+}
+
+function isBurning(entity) {
+  try {
+    return entity.getComponent(EntityComponentTypes.OnFire) !== undefined;
+  } catch (error) {
+    return false;
   }
 }
 
@@ -174,7 +192,7 @@ function handleDeath(event) {
 
   if (isPlayerKill && killer.isSneaking) {
     const looting = lootingLevel(killer);
-    const { totals, xp } = computeDrops(typeId, meta, count - 1, looting);
+    const { totals, xp } = computeDrops(typeId, meta, count - 1, looting, isBurning(dead));
     spawnDrops(dimension, location, totals, xp);
     killer.onScreenDisplay.setActionBar(
       "§6[MobStacker] §aCleared x" + count + " " + mobName(typeId, meta.isBaby) + " §7(Looting " + looting + ")"

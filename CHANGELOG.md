@@ -2,6 +2,17 @@
 
 ---
 
+## [1.0.50] - 2026-11-16 - Gear Safe Stacking
+
+### Added
+- **Cooked Meat Drops**: A Sneak Kill on a burning stack of Cows, Pigs, Sheep, Chickens, Rabbits or Mooshrooms now drops cooked meat.
+
+### Improved & Balanced
+- **Gear Safe Stacking**: Mobs wearing armor or holding items are no longer merged, so their gear is never lost. Skeletons, Strays and Boggeds holding only their bow still stack.
+
+### Fixed
+- **Sheep Mutton Drops**: A Sneak Kill on a stack of Sheep now drops Raw Mutton.
+
 ## 2026-11-16 - New Script ALN MobStacker
 
 ### Added

@@ -1,4 +1,4 @@
-import { EntityComponentTypes } from "@minecraft/server";
+import { EntityComponentTypes, EquipmentSlot } from "@minecraft/server";
 
 export const MAX_STACK_SIZE = Infinity;
 export const MERGE_RADIUS = 4.0;
@@ -55,6 +55,29 @@ const BABY_SPAWN_EVENTS = {
 
 const SLIME_SIZE_EVENTS = { 1: "spawn_small", 2: "spawn_medium", 4: "spawn_large" };
 
+const GEAR_SLOTS = [
+  EquipmentSlot.Head,
+  EquipmentSlot.Chest,
+  EquipmentSlot.Legs,
+  EquipmentSlot.Feet,
+  EquipmentSlot.Mainhand,
+  EquipmentSlot.Offhand,
+];
+
+const DEFAULT_HELD_ITEM = {
+  "minecraft:skeleton": "minecraft:bow",
+  "minecraft:stray": "minecraft:bow",
+  "minecraft:bogged": "minecraft:bow",
+};
+
+export const COOKED_BY_RAW = {
+  "minecraft:beef": "minecraft:cooked_beef",
+  "minecraft:porkchop": "minecraft:cooked_porkchop",
+  "minecraft:muttonRaw": "minecraft:muttonCooked",
+  "minecraft:chicken": "minecraft:cooked_chicken",
+  "minecraft:rabbit": "minecraft:cooked_rabbit",
+};
+
 export const WOOL_BY_COLOR = [
   "minecraft:white_wool",
   "minecraft:orange_wool",
@@ -77,7 +100,7 @@ export const WOOL_BY_COLOR = [
 export const LOOT = {
   "minecraft:cow": { xp: [1, 3], drops: [["minecraft:leather", 0, 2], ["minecraft:beef", 1, 3]] },
   "minecraft:pig": { xp: [1, 3], drops: [["minecraft:porkchop", 1, 3]] },
-  "minecraft:sheep": { xp: [1, 3], drops: [["minecraft:mutton", 1, 2]] },
+  "minecraft:sheep": { xp: [1, 3], drops: [["minecraft:muttonRaw", 1, 2]] },
   "minecraft:chicken": { xp: [1, 3], drops: [["minecraft:feather", 0, 2], ["minecraft:chicken", 1, 1]] },
   "minecraft:rabbit": { xp: [1, 3], drops: [["minecraft:rabbit_hide", 0, 1], ["minecraft:rabbit", 0, 1]] },
   "minecraft:mooshroom": { xp: [1, 3], drops: [["minecraft:leather", 0, 2], ["minecraft:beef", 1, 3]] },
@@ -165,8 +188,25 @@ export function mergeKey(typeId, meta) {
   return [typeId, meta.isBaby, meta.sheared, meta.charged, meta.color, meta.variant, meta.mark, meta.skin].join("|");
 }
 
+function hasGear(entity) {
+  const equippable = component(entity, EntityComponentTypes.Equippable);
+  if (!equippable) return false;
+  for (const slot of GEAR_SLOTS) {
+    try {
+      const item = equippable.getEquipment(slot);
+      if (!item) continue;
+      if (slot === EquipmentSlot.Mainhand && item.typeId === DEFAULT_HELD_ITEM[entity.typeId]) continue;
+      return true;
+    } catch (error) {
+      return false;
+    }
+  }
+  return false;
+}
+
 export function isStackExcluded(entity) {
   if (component(entity, EntityComponentTypes.IsTamed) !== undefined) return true;
+  if (hasGear(entity)) return true;
   const leash = component(entity, EntityComponentTypes.Leashable);
   if (leash && leash.isLeashed) return true;
   const name = entity.nameTag;
