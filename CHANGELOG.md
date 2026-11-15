@@ -2,6 +2,12 @@
 
 ---
 
+## [1.0.46] - 2026-11-15 - Locator Removed
+
+### Removed
+- **Location Tips**: the virtual players no longer point out dungeons, strongholds, trial chambers or ancient cities, and the matching coordinate corrections are gone too.
+- **Lighter Pack**: the background search for nearby structures was removed completely, so there is nothing left that scans blocks around you.
+
 ## [1.0.45] - 2026-11-15 - Structure Tips
 
 ### Changed

@@ -32,10 +32,6 @@ You play your world as usual. Between 6 and 14 virtual players are online at any
 ### Ambient Banter
 - **What Happens**: Every 1.5 to 3 minutes the virtual players start a 2 to 5 message conversation about weather, farms, trading, raids, bosses, pets, music and more, from short scripted chats to small PvP dramas between three of them.
 - **Good To Know**: Conversations are spaced out so replies appear one after another. Overlapping events wait in a short queue instead of flooding the chat.
-### Structure Tips
-- **What Happens**: Rarely, a virtual player points you to a real dungeon, stronghold, trial chamber or ancient city near you and gives its real coordinates. About one in three tips drops a minus sign, and the same player corrects it between 100 and 150 seconds later.
-- **Good To Know**: Only places in loaded areas of the Overworld, within 16 blocks of you sideways, are found, and the check has a 5% chance to run every 2 to 4 minutes. Tips come at least 15 minutes apart, a place is announced once, and nothing is said when none is nearby. The search is spread over a few seconds so the game stays smooth. A dungeon can also be a mineshaft spawner.
-
 ## How to Use
 
 1. Import the pack and add the Behavior Pack to your world.

@@ -114,25 +114,6 @@ const C = {
     "<PLAYER> watch out for endermen", "<PLAYER> entered the end, wow", "bring a water bucket <PLAYER>",
     "<PLAYER> found the end portal", "<PLAYER> is going for the elytra",
   ],
-  locator_spawner: [
-    "<PLAYER> i found <STRUCTURE> at <COORDS>", "found <STRUCTURE> at <COORDS>, <PLAYER> check it out", "<PLAYER> there is <STRUCTURE> at <COORDS>",
-    "i spotted <STRUCTURE> at <COORDS>", "<PLAYER> <STRUCTURE> is sitting at <COORDS>", "i came across <STRUCTURE> at <COORDS>",
-    "<PLAYER> found you <STRUCTURE> at <COORDS>", "<STRUCTURE> at <COORDS>, worth a visit <PLAYER>",
-  ],
-  locator_reply_any: [
-    "nice find, write that down", "i want to see it too", "save those coords, ok", "i will check it out later",
-    "that is worth a trip", "bring torches, it is dark down there", "good spot, thanks", "mark it on your map",
-  ],
-  locator_reply: [
-    "nice find, bring torches", "free loot, go for it", "take a sword and some food with you",
-    "dungeon chests are worth it", "do not forget a sword", "i will come along if you want",
-    "mark it on your map", "that is a good one to find",
-  ],
-  locator_fix: [
-    "sorry, i dropped a minus sign, it is <COORDS>", "oops, wrong coords, the right ones are <COORDS>", "typo, it should be <COORDS>",
-    "my bad, one number is negative, <COORDS>", "correction: <COORDS>", "wait, it has a negative, so <COORDS>",
-    "ignore the last coords, use <COORDS>", "<PLAYER> sorry, the real spot is <COORDS>",
-  ],
   sleeping: [
     "<PLAYER> is sleeping, goodnight", "<PLAYER> skipped the night", "sweet dreams <PLAYER>",
     "<PLAYER> is in bed, no phantoms", "night skip by <PLAYER>, thanks", "<PLAYER> is catching some sleep",
@@ -178,10 +159,8 @@ function resolve(raw, ctx) {
     "<BOT_A>": ctx.botA || "someone",
     "<BOT_B>": ctx.botB || "someone",
     "<BOT_C>": ctx.botC || "someone",
-    "<COORDS>": ctx.coords || "somewhere",
-    "<STRUCTURE>": ctx.structure || "something",
   };
-  return text.replace(/<(PLAYER|CAUSE|ITEM|COORD_HINT|BOT_A|BOT_B|BOT_C|COORDS|STRUCTURE)>/g, (m) => map[m]);
+  return text.replace(/<(PLAYER|CAUSE|ITEM|COORD_HINT|BOT_A|BOT_B|BOT_C)>/g, (m) => map[m]);
 }
 
 export function assembleMessage(category, ctx = {}) {

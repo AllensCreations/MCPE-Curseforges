@@ -108,10 +108,6 @@ export const EXTRA_CORES = {
     "<PLAYER> night night", "<PLAYER> went to bed, no more phantoms", "<PLAYER> is sleeping, shh", "<PLAYER> gets the sleep bonus",
     "<PLAYER> morning is coming", "<PLAYER> thanks for skipping the night",
   ],
-  locator_reply: [
-    "wait is that a real dungeon?", "that spawner has loot nearby", "take a bucket of water just in case", "do not break the spawner, use it",
-    "bring some torches, it is dark down there", "good find, tell us what is inside",
-  ],
 
   weather_rain: [
     "it is raining at my base", "rain again, my {farm} is happy though", "the rain sounds so cozy", "rain means fishing time",
