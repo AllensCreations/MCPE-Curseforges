@@ -2,9 +2,12 @@
 
 ---
 
-## [1.8.2] - 2026-11-15 - Give Weapon Prompt
+## [1.8.2] - 2026-11-15
+
+**What's new in v1.8.2:** Packed with the v1.8.2 update. Includes: Give Weapon Prompt.
 
 ### Fixed
+
 - **Give Weapon Prompt**: The prompt for handing a tamed fox a sword or axe now reads Give Weapon instead of showing a raw text key.
 
 ## [1.8.1] - 2026-11-15 - Fox Arming and Healing
@@ -21,6 +24,8 @@
 ### Fixed
 - **Fox Pack Folder**: The fox now sits in the same Behavior Pack folder as the pack manifest so it is included in the package.
 - **Fox Settings**: Corrected misspelled and unsupported fox settings for leaping, equipment drops, name tags, taming chance, and sitting.
+
+
 
 ## [1.8.0] - 2026-10-29
 

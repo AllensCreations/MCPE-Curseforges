@@ -40,7 +40,9 @@
     "last_release_version": "2.0.0"
   },
   "MCPEDL/Addons/Tameable-Companion-Fox": {
-    "project_id": "1807465"
+    "project_id": "1807465",
+    "last_published_version": "1.8.2",
+    "last_release_version": "1.8.1"
   },
   "MCPEDL/Addons/Universal-Leash": {
     "project_id": "1795874",
