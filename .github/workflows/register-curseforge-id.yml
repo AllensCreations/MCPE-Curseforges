@@ -3,6 +3,7 @@ name: Register CurseForge ID
 # Run once per pack. Adds/updates the pack in builds/Curseforge_IDs.json (one registry for all
 # packs; old builds/<pack>/Curseforge_Info.json files are folded in automatically), then
 # refreshes the "Registered pack" dropdown of Publish to CurseForge from that registry.
+# Re-running for an already registered pack overwrites its stored ID.
 # Needs the WORKFLOW_PAT secret to push the edited workflow file; without it the ID is
 # still saved but the dropdown is not updated.
 
@@ -47,6 +48,7 @@ jobs:
         run: |
           set -euo pipefail
           [[ "$GITHUB_REF" == refs/heads/* ]] || { echo "::error::Run this workflow on a branch."; exit 1; }
+          [[ "$CURSEFORGE_PROJECT_ID" =~ ^[0-9]+$ ]] || { echo "::error::Project ID must be digits only."; exit 1; }
           python3 scripts/register_curseforge_id.py --project "$PROJECT_PATH" --id "$CURSEFORGE_PROJECT_ID"
           python3 scripts/sync_dispatch_choices.py
           cat builds/Curseforge_IDs.json
@@ -55,6 +57,7 @@ jobs:
         env:
           PROJECT_PATH: ${{ inputs.project }}
           CURSEFORGE_PROJECT_ID: ${{ inputs.curseforge_project_id }}
+          CURSEFORGE_API_KEY: ${{ secrets.CURSEFORGE_API_TOKEN }}
           CURSEFORGE_API_TOKEN: ${{ secrets.CURSEFORGE_API_TOKEN }}
         run: |
           pip install -r requirements.txt
@@ -64,6 +67,7 @@ jobs:
         env:
           HAS_PAT: ${{ secrets.WORKFLOW_PAT != '' }}
           PROJECT_PATH: ${{ inputs.project }}
+          CURSEFORGE_PROJECT_ID: ${{ inputs.curseforge_project_id }}
         run: |
           set -euo pipefail
           git add -A -- builds/Curseforge_IDs.json ':(glob)builds/Curseforge_IDs.json'
@@ -75,11 +79,11 @@ jobs:
             git checkout -- .github/workflows/publish-curseforge.yml
           fi
           if git diff --cached --quiet; then
-            echo "Already registered."
+            echo "Already registered with this exact ID. Nothing to change."
             exit 0
           fi
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git commit -m "chore(curseforge): register project ID [skip ci]"
+          git commit -m "chore(curseforge): register/update ${PROJECT_PATH} -> ${CURSEFORGE_PROJECT_ID} [skip ci]"
           git pull --rebase origin "${GITHUB_REF#refs/heads/}" --autostash
           git push origin "HEAD:${GITHUB_REF}"
