@@ -62,7 +62,6 @@ jobs:
 
       - name: Build description views (CurseForge page of every DESCRIPTION.md)
         run: |
-          python3 scripts/build_description_views.py --all --style all || echo "::warning::Some description views could not be built (see log). The rest of the export continues."
           python3 scripts/build_listing_kits.py --all || echo "::warning::Some listing kits could not be built (see log). The rest of the export continues."
 
       - name: Choose mode
@@ -329,7 +328,6 @@ jobs:
               view_name = pathlib.PurePosixPath(d).name
               for ext in (".github.md", ".curseforge.html"):
                   add(root / "changelog_views" / (view_name + ext))
-              add(root / "description_views" / (view_name + ".curseforge.html"))
               add(root / "description_views" / (view_name + ".listing.md"))
 
           files = sorted(selected, key=str.lower)

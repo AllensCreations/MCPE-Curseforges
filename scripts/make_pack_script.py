@@ -58,7 +58,7 @@ case "$ACTION" in create|stage) ;; *) echo "Usage: bash $SCRIPT_NAME [create|sta
 cd "$HOME"
 [ -d "$HOME/MCPE-Curseforges" ] || git clone "$REPO" "$HOME/MCPE-Curseforges"
 cd "$HOME/MCPE-Curseforges"
-git checkout -q -- description_views image_prompts changelog_views 2>/dev/null || true
+git checkout -q -- description_views changelog_views 2>/dev/null || true
 git pull --rebase --autostash
 
 for f in scripts/import_project_payload.py scripts/build_payload.py scripts/manifest_tools.py; do

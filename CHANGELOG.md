@@ -2,6 +2,12 @@
 
 ---
 
+## [1.0.49] - 2026-11-16 - Listing Kit Only
+
+### Improved & Balanced
+- **Listing Kit Only**: The separate description views (.curseforge.html) and the image_prompts folder are gone. The Listing Kit of each pack holds the name, summary, description HTML and image prompts.
+- **Cleanup**: This update deletes the old description_views HTML files and the image_prompts folder. Build Changed Packs & Sync Catalogs no longer rebuilds them.
+
 ## [1.0.48] - 2026-11-16 - Listing Kits
 
 ### Added

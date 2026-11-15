@@ -1,8 +1,9 @@
 #!/usr/bin/env python3
-"""Build the CurseForge page for each pack from its DESCRIPTION.md.
+"""Renderer library: the CurseForge description HTML built from a pack's DESCRIPTION.md.
 
-DESCRIPTION.md stays the only source of truth. This script writes
-description_views/<n>.curseforge.html (paste it into the CurseForge project description).
+It writes no files. scripts/build_listing_kits.py calls it and puts the HTML into description_views/<n>.listing.md
+(the only generated listing file; the separate .curseforge.html views were removed).
+DESCRIPTION.md stays the only source of truth.
 
 Look: "minimal" page (no page background, no text colors, so it follows the reader's light or dark theme). Pack icon + title hero with badges (lowest supported Minecraft version, Experimental: No,
 achievements), feature cards with an accent top bar,
@@ -14,9 +15,7 @@ Images: drop files into <pack>/assets/snapshots (screenshots, GIFs), <pack>/asse
 <pack>/assets/items (custom item sprites). The file name becomes the caption: "01-Cursor-Light_in_a_cave.gif" ->
 "Cursor Light in a cave" (a leading number only sets the order). They appear on the page automatically.
 
-Run: python3 scripts/build_description_views.py --init   (creates assets/snapshots in every pack)
-     python3 scripts/build_description_views.py --all | --project MCPEDL/Addons/<n> [--check] [--out DIR]
-NEVER edit the generated files by hand.
+Run: python3 scripts/build_listing_kits.py --all | --project MCPEDL/Addons/<n> [--check]
 """
 import argparse
 import hashlib
@@ -556,87 +555,3 @@ MANIFEST = ".inputs.json"
 def input_key(md, changelog, icon, media, style, min_version=""):
     raw = json.dumps([SCRIPT_SIG, md, changelog, icon, media, style, min_version], sort_keys=True, default=str)
     return hashlib.sha256(raw.encode("utf-8")).hexdigest()
-
-
-def main(argv=None):
-    ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
-    ap.add_argument("--project", help="one pack folder, e.g. MCPEDL/Addons/Mining-Helmet")
-    ap.add_argument("--all", action="store_true", help="every pack under MCPEDL/*/*")
-    ap.add_argument("--init", action="store_true", help="create assets/snapshots (with .gitkeep) in every pack, then exit")
-    ap.add_argument("--check", action="store_true", help="only verify, write nothing; exit 1 if a view is missing or stale")
-    ap.add_argument("--changed", action="store_true", help="skip packs whose inputs did not change since their view was written")
-    ap.add_argument("--style", choices=STYLES + ("all",), default="minimal",
-                    help="minimal (default and only style; follows the reader's theme)")
-    ap.add_argument("--out", default="description_views", help="output folder (default: description_views)")
-    ap.add_argument("--root", default=".", help="repo root")
-    a = ap.parse_args(argv)
-    if not a.project and not a.all and not a.init:
-        ap.error("use --all, --project <folder> or --init")
-    root = Path(a.root)
-    out = root / a.out
-    projects = find_projects(root, (root / a.project) if a.project else None)
-    if not projects:
-        print("No DESCRIPTION.md found.")
-        return 1
-    if a.init:
-        for p in projects:
-            d = p / "assets" / "snapshots"
-            d.mkdir(parents=True, exist_ok=True)
-            (d / ".gitkeep").touch()
-        print(f"Created assets/snapshots in {len(projects)} pack(s). Drop images there; the file name becomes the caption.")
-        return 0
-    bad = 0
-    skipped = 0
-    manifest = out / MANIFEST
-    seen = {}
-    if manifest.is_file():
-        try:
-            seen = json.loads(manifest.read_text(encoding="utf-8"))
-        except ValueError:
-            seen = {}
-    styles = STYLES if a.style == "all" else (a.style,)
-    jobs = [(p, st) for p in projects for st in styles]
-    for p, st in jobs:
-        try:
-            log = p / "CHANGELOG.md"
-            latest = None
-            md = (p / "DESCRIPTION.md").read_text(encoding="utf-8")
-            icon = find_icon_url(root, p)
-            media = find_media(root, p, md)
-            minv = find_min_version(p)
-            key = input_key(md, "", icon, media, st, minv)
-            target = out / f"{p.name}.curseforge{SUFFIX[st]}.html"
-            if a.changed and not a.check and target.is_file() and seen.get(target.name) == key:
-                skipped += 1
-                continue
-            h = render(md, p.name, icon, latest, style=st, media=media, min_version=minv)
-        except ValueError as e:
-            print(f"FAIL {p.name}: {e}")
-            bad += 1
-            continue
-        for u in lost_links(md, h):
-            print(f"WARN {p.name}: link from DESCRIPTION.md is not on the page: {u}")
-        errs = check_html(h)
-        for e in errs:
-            print(f"FAIL {p.name}: {e}")
-        bad += len(errs)
-        target = out / f"{p.name}.curseforge{SUFFIX[st]}.html"
-        if a.check:
-            if not target.is_file() or target.read_text(encoding="utf-8") != h:
-                print(f"STALE {target}")
-                bad += 1
-        else:
-            out.mkdir(parents=True, exist_ok=True)
-            target.write_text(h, encoding="utf-8")
-            seen[target.name] = key
-    if not a.check:
-        out.mkdir(parents=True, exist_ok=True)
-        data = json.dumps(seen, indent=1, sort_keys=True) + "\n"
-        if not manifest.is_file() or manifest.read_text(encoding="utf-8") != data:
-            manifest.write_text(data, encoding="utf-8")
-    print(f"{'Checked' if a.check else 'Built'} {len(jobs) - skipped} description view(s), skipped {skipped} unchanged, {bad} problem(s).")
-    return 1 if bad else 0
-
-
-if __name__ == "__main__":
-    sys.exit(main())

@@ -172,10 +172,13 @@ class DescriptionViewTests(unittest.TestCase):
             pack = Path(d) / "MCPEDL" / "Addons" / "Demo-Pack"
             pack.mkdir(parents=True)
             (pack / "DESCRIPTION.md").write_text(self.md, encoding="utf-8")
-            self.assertEqual(bdv.main(["--root", d, "--all"]), 0)
-            self.assertEqual(bdv.main(["--root", d, "--all", "--check"]), 0)
-            (Path(d) / "description_views" / "Demo-Pack.curseforge.html").write_text("old", encoding="utf-8")
-            self.assertEqual(bdv.main(["--root", d, "--all", "--check"]), 1)
+            import build_listing_kits as blk
+            self.assertEqual(blk.main(["--root", d, "--all"]), 0)
+            self.assertEqual(blk.main(["--root", d, "--all", "--check"]), 0)
+            self.assertEqual(sorted(p.name for p in (Path(d) / "description_views").iterdir()), ["Demo-Pack.listing.md"])
+            self.assertFalse((Path(d) / "image_prompts").exists())
+            (Path(d) / "description_views" / "Demo-Pack.listing.md").write_text("old", encoding="utf-8")
+            self.assertEqual(blk.main(["--root", d, "--all", "--check"]), 1)
 
 
 if __name__ == "__main__":

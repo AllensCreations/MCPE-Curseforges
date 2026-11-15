@@ -1,12 +1,10 @@
 #!/usr/bin/env python3
-"""Build a Logo and Banner image prompt file for each pack from its DESCRIPTION.md.
+"""Library: the Logo and Banner image prompt text built from a pack's DESCRIPTION.md.
 
-Output: image_prompts/<n>.md. Copy the prompts into your image generator and attach your own logo and
-in-game snapshots as reference images. This script only writes prompt text, it never makes images.
+It writes no files. scripts/build_listing_kits.py calls it and puts the prompts into description_views/<n>.listing.md
+(the separate image_prompts/ files were removed). Prompt text only, it never makes images.
 
-Run: python3 scripts/build_image_prompts.py --all | --project MCPEDL/Addons/<n> [--changed] [--check] [--out DIR]
-  --changed  skip every pack whose DESCRIPTION.md did not change since its prompt file was written
-NEVER edit the generated files by hand.
+Run: python3 scripts/build_listing_kits.py --all | --project MCPEDL/Addons/<n> [--check]
 """
 import argparse
 import hashlib
@@ -77,59 +75,3 @@ def render(md, fallback):
         "",
     ]
     return "\n".join(lines)
-
-
-def main(argv=None):
-    ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
-    ap.add_argument("--project", help="one pack folder, e.g. MCPEDL/Addons/Mining-Helmet")
-    ap.add_argument("--all", action="store_true", help="every pack under MCPEDL/*/*")
-    ap.add_argument("--changed", action="store_true", help="only packs whose DESCRIPTION.md changed")
-    ap.add_argument("--check", action="store_true", help="write nothing; exit 1 if a prompt file is missing or stale")
-    ap.add_argument("--out", default="image_prompts", help="output folder (default: image_prompts)")
-    ap.add_argument("--root", default=".", help="repo root")
-    a = ap.parse_args(argv)
-    if not a.project and not a.all:
-        ap.error("use --all or --project <folder>")
-    root = Path(a.root)
-    out = root / a.out
-    projects = bdv.find_projects(root, (root / a.project) if a.project else None)
-    if not projects:
-        print("No DESCRIPTION.md found.")
-        return 1
-    manifest = out / MANIFEST
-    seen = {}
-    if manifest.is_file():
-        try:
-            seen = json.loads(manifest.read_text(encoding="utf-8"))
-        except ValueError:
-            seen = {}
-    built = skipped = bad = 0
-    for p in projects:
-        md = (p / "DESCRIPTION.md").read_text(encoding="utf-8")
-        key = hashlib.sha256((SIG + md).encode("utf-8")).hexdigest()
-        target = out / f"{p.name}.md"
-        text = render(md, p.name)
-        if a.check:
-            if not target.is_file() or target.read_text(encoding="utf-8") != text:
-                print(f"STALE {target}")
-                bad += 1
-            continue
-        if a.changed and target.is_file() and seen.get(target.name) == key:
-            skipped += 1
-            continue
-        out.mkdir(parents=True, exist_ok=True)
-        target.write_text(text, encoding="utf-8")
-        seen[target.name] = key
-        built += 1
-    if not a.check and (built or not manifest.is_file()):
-        out.mkdir(parents=True, exist_ok=True)
-        manifest.write_text(json.dumps(seen, indent=1, sort_keys=True) + "\n", encoding="utf-8")
-    if a.check:
-        print(f"Checked {len(projects)} image prompt file(s), {bad} problem(s).")
-    else:
-        print(f"Built {built} image prompt file(s), skipped {skipped} unchanged.")
-    return 1 if bad else 0
-
-
-if __name__ == "__main__":
-    sys.exit(main())

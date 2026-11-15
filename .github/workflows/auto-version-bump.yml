@@ -135,12 +135,6 @@ jobs:
           } >> "$GITHUB_STEP_SUMMARY"
           exit "$STATUS"
 
-      - name: Refresh CurseForge description views (changed packs only)
-        run: python3 scripts/build_description_views.py --all --style all --changed || echo "::warning::Some description views could not be built (see log)."
-
-      - name: Refresh Logo and Banner image prompts (changed packs only)
-        run: python3 scripts/build_image_prompts.py --all --changed || echo "::warning::Some image prompts could not be built (see log)."
-
       - name: Refresh Listing Kits (name, summary, description HTML, image prompts)
         run: python3 scripts/build_listing_kits.py --all || echo "::warning::Some listing kits could not be built (see log)."
 
@@ -183,7 +177,7 @@ jobs:
           git config user.name  "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
 
-          for dir in MCPEDL builds changelog_views description_views image_prompts; do
+          for dir in MCPEDL builds changelog_views description_views; do
             if [ -d "$dir" ]; then git add "$dir"; fi
           done
           if [ -f README.md ]; then git add README.md; fi
