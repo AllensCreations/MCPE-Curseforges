@@ -37,6 +37,7 @@ on:
           - "MCPEDL/Addons/Immortal-Pets"
           - "MCPEDL/Addons/Mining-Helmet"
           - "MCPEDL/Addons/Monster-Companions"
+          - "MCPEDL/Addons/Tameable-Companion-Fox"
           - "MCPEDL/Addons/Universal-Leash"
           - "MCPEDL/Addons/Vanilla-Quality-of-Life"
           - "MCPEDL/Addons/Waypoint-Helper"
