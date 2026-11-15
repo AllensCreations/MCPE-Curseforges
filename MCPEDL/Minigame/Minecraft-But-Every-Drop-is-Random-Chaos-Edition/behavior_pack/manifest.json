@@ -1,13 +1,13 @@
 {
   "format_version": 2,
   "header": {
-    "name": "Minecraft, But Every Drop is Random: Chaos Edition (v1.0.1)",
+    "name": "Minecraft, But Every Drop is Random: Chaos Edition (v1.0.2)",
     "description": "Every block and mob drop turns into a different item, reshuffled for each run. by ALNStudios",
     "uuid": "d89cb4b0-9297-4930-b11c-6aa1e4256b05",
     "version": [
       1,
       0,
-      1
+      2
     ],
     "min_engine_version": [
       1,
@@ -22,7 +22,7 @@
       "version": [
         1,
         0,
-        1
+        2
       ]
     },
     {
@@ -32,7 +32,7 @@
       "version": [
         1,
         0,
-        1
+        2
       ],
       "entry": "scripts/main.js"
     }
@@ -43,7 +43,7 @@
       "version": [
         1,
         0,
-        1
+        2
       ]
     },
     {
@@ -60,6 +60,6 @@
       "ALNStudios"
     ],
     "product_type": "addon",
-    "version": "1.0.1"
+    "version": "1.0.2"
   }
 }

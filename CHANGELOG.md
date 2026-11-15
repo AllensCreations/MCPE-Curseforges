@@ -2,6 +2,11 @@
 
 ---
 
+## [1.0.36] - 2026-11-15 - Controller Auto Destroy
+
+### Improved & Balanced
+- **Controller Auto Destroy**: The Controller is now used up when a game starts (Creative mode keeps it), and the host receives a new one when the game ends.
+
 ## [1.0.35] - 2026-11-15 - Min Engine Form
 
 ### Fixed

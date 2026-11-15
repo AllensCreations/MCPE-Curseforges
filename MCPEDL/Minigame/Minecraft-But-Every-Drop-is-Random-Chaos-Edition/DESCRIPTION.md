@@ -11,7 +11,7 @@
 
 ## Overview
 
-The host opens the Controller and presses Start. From then on, each item that drops from a broken block or a defeated mob is replaced by another item, and the stack size stays the same. The same item always turns into the same replacement during one run, so players can learn the table as they go. The run ends when the Ender Dragon falls or the host ends the game.
+The host opens the Controller and presses Start. From then on, each item that drops from a broken block or a defeated mob is replaced by another item, and the stack size stays the same. The same item always turns into the same replacement during one run, so players can learn the table as they go. The Controller is used up when the game starts, and the run ends when the Ender Dragon falls.
 
 ## Key Features
 
@@ -33,8 +33,8 @@ The host opens the Controller and presses Start. From then on, each item that dr
 - **Good To Know**: Starting a game always shuffles a new table anyway.
 
 ### Controller
-- **What Happens**: The host and operators receive the Controller. It opens a menu with Start and How to play, and shows End Game while a game runs.
-- **Good To Know**: The Controller is kept while the game runs.
+- **What Happens**: The host and operators receive the Controller. It opens a menu with Start and How to play.
+- **Good To Know**: Start uses up the Controller, except in Creative mode, and a new one is given to the host and operators when the game ends.
 
 ## How to Use
 
@@ -49,7 +49,7 @@ The host opens the Controller and presses Start. From then on, each item that dr
 ## Common Questions
 
 - **Can I reshuffle during a game?**: No. The table stays fixed while a game runs, so each run keeps one set of swaps.
-- **Do I lose the Controller if I die?**: Operators receive a new Controller when they respawn without one.
+- **What happens to the Controller when a game starts?**: It is used up unless you are in Creative mode, and a new one is given to the host and operators when the game ends.
 
 ## Compatibility
 

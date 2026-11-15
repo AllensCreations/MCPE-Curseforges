@@ -1,13 +1,13 @@
 {
   "format_version": 2,
   "header": {
-    "name": "Minecraft, But Every Drop is Random: Chaos Edition (v1.0.1)",
+    "name": "Minecraft, But Every Drop is Random: Chaos Edition (v1.0.2)",
     "description": "Controller icon for the minigame. by ALNStudios",
     "uuid": "a0033158-5884-4ee5-abf0-8c443a11a422",
     "version": [
       1,
       0,
-      1
+      2
     ],
     "min_engine_version": [
       1,
@@ -22,7 +22,7 @@
       "version": [
         1,
         0,
-        1
+        2
       ]
     }
   ],
@@ -31,6 +31,6 @@
       "ALNStudios"
     ],
     "product_type": "addon",
-    "version": "1.0.1"
+    "version": "1.0.2"
   }
 }

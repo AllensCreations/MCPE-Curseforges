@@ -33,8 +33,9 @@ function win() {
 
 registerController({
   title: "Every Drop is Random",
+  consumeOnStart: true,
   gameInfo: "Type: Challenge\nPlayers: 1 or more\nGoal: Defeat the Ender Dragon while every block and mob drop is swapped for a different item.",
-  howToPlay: "Goal: Defeat the Ender Dragon.\nRules: While a game runs, every item dropped by a broken block or a defeated mob is replaced by another item. The same item always turns into the same replacement during one run, and each Start shuffles a new table. Rare swaps show the original and the new item on the action bar.\nReshuffle: Outside a game, use the command aln:reshuffle or sneak and use a Book.\nHow it ends: Defeating the Ender Dragon wins, or the host ends the game from the Controller.",
+  howToPlay: "Goal: Defeat the Ender Dragon.\nRules: While a game runs, every item dropped by a broken block or a defeated mob is replaced by another item. The same item always turns into the same replacement during one run, and each Start shuffles a new table. Rare swaps show the original and the new item on the action bar.\nReshuffle: Outside a game, use the command aln:reshuffle or sneak and use a Book.\nController: Start uses up the Controller (Creative keeps it), and a new one is given when the game ends.\nHow it ends: Defeating the Ender Dragon wins the run.",
   onStart: () => {
     const seed = reshuffle();
     setActive(true);
