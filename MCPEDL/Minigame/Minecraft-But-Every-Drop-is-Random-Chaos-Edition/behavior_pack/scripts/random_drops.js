@@ -11,6 +11,8 @@ const MAX_STACKS = 64;
 let active = false;
 let zones = [];
 let pending = [];
+const queue = [];
+let jobRunning = false;
 const maxAmounts = new Map();
 
 export function setActive(value) {
@@ -18,6 +20,7 @@ export function setActive(value) {
   if (!active) {
     zones = [];
     pending = [];
+    queue.length = 0;
   }
 }
 
@@ -69,6 +72,27 @@ function processItem(entity) {
   } catch (e) {}
 }
 
+function* drain() {
+  try {
+    let index = 0;
+    while (index < queue.length) {
+      processItem(queue[index]);
+      index += 1;
+      yield;
+    }
+  } finally {
+    queue.length = 0;
+    jobRunning = false;
+  }
+}
+
+function enqueue(entity) {
+  queue.push(entity);
+  if (jobRunning) return;
+  jobRunning = true;
+  system.runJob(drain());
+}
+
 function prune(tick) {
   if (zones.length > 0) zones = zones.filter((zone) => tick - zone.tick <= ZONE_TICKS);
   if (pending.length > 0) pending = pending.filter((item) => tick - item.tick <= ZONE_TICKS);
@@ -81,7 +105,7 @@ function openZone(dimensionId, location) {
   if (pending.length === 0) return;
   const rest = [];
   for (const item of pending) {
-    if (item.dimensionId === dimensionId && isNear(item.location, location)) processItem(item.entity);
+    if (item.dimensionId === dimensionId && isNear(item.location, location)) enqueue(item.entity);
     else rest.push(item);
   }
   pending = rest;
@@ -94,7 +118,7 @@ function onItemSpawned(entity) {
   const location = entity.location;
   for (const zone of zones) {
     if (zone.dimensionId === dimensionId && isNear(zone.location, location)) {
-      processItem(entity);
+      enqueue(entity);
       return;
     }
   }

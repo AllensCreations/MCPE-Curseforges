@@ -2,6 +2,11 @@
 
 ---
 
+## [1.0.4] - 2026-11-15 - Burst Smoothing
+
+### Fixed
+- **Lag Spikes**: Large bursts of drops, such as a big tree, TNT or a mob farm, are now swapped a few at a time instead of all in one moment, so the game stays smooth.
+
 ## [1.0.3] - 2026-11-15 - Smoother Drops
 
 ### Fixed
