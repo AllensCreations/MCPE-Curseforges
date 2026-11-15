@@ -1,0 +1,30 @@
+{
+  "format_version": "1.21.60",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "aln:copper_dagger_recipe"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      "C",
+      "S"
+    ],
+    "key": {
+      "C": {
+        "item": "minecraft:copper_ingot"
+      },
+      "S": {
+        "item": "minecraft:stick"
+      }
+    },
+    "unlock": {
+      "context": "AlwaysUnlocked"
+    },
+    "result": {
+      "item": "aln:copper_dagger",
+      "count": 1
+    }
+  }
+}

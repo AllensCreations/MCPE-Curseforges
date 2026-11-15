@@ -1,0 +1,36 @@
+{
+  "format_version": 2,
+  "header": {
+    "name": "Expanded Basic Arsenal (v1.0.0)",
+    "description": "Textures and names for the five Expanded Basic Arsenal weapons. by ALNStudios",
+    "uuid": "63a9ddbd-938e-4e3f-9a49-60d183f08dbb",
+    "version": [
+      1,
+      0,
+      0
+    ],
+    "min_engine_version": [
+      1,
+      26,
+      60
+    ]
+  },
+  "modules": [
+    {
+      "type": "resources",
+      "uuid": "47481b6e-1535-4f50-b3e1-6feb80b94353",
+      "version": [
+        1,
+        0,
+        0
+      ]
+    }
+  ],
+  "metadata": {
+    "authors": [
+      "ALNStudios"
+    ],
+    "product_type": "addon",
+    "version": "1.0.0"
+  }
+}

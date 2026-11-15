@@ -1,0 +1,32 @@
+{
+  "format_version": "1.21.60",
+  "minecraft:item": {
+    "description": {
+      "identifier": "aln:wooden_club",
+      "menu_category": {
+        "category": "equipment",
+        "group": "itemGroup.name.sword"
+      }
+    },
+    "components": {
+      "minecraft:max_stack_size": 1,
+      "minecraft:icon": {
+        "textures": {
+          "default": "aln_wooden_club"
+        }
+      },
+      "minecraft:display_name": {
+        "value": "item.aln:wooden_club.name"
+      },
+      "minecraft:durability": {
+        "max_durability": 150
+      },
+      "minecraft:damage": 5,
+      "minecraft:use_modifiers": {
+        "use_duration": 0,
+        "movement_modifier": 1
+      },
+      "minecraft:hand_equipped": true
+    }
+  }
+}

@@ -1,0 +1,36 @@
+{
+  "resource_pack_name": "expanded_basic_arsenal",
+  "texture_name": "atlas.items",
+  "texture_data": {
+    "aln_slingshot_standby": {
+      "textures": "textures/items/aln_slingshot_standby"
+    },
+    "aln_slingshot_pulling_0": {
+      "textures": "textures/items/aln_slingshot_pulling_0"
+    },
+    "aln_slingshot_pulling_1": {
+      "textures": "textures/items/aln_slingshot_pulling_1"
+    },
+    "aln_slingshot_pulling_2": {
+      "textures": "textures/items/aln_slingshot_pulling_2"
+    },
+    "aln_wooden_club": {
+      "textures": "textures/items/aln_wooden_club"
+    },
+    "aln_flint_spear": {
+      "textures": "textures/items/aln_flint_spear"
+    },
+    "aln_blowgun": {
+      "textures": "textures/items/aln_blowgun"
+    },
+    "aln_copper_dagger": {
+      "textures": "textures/items/aln_copper_dagger"
+    },
+    "aln_pebble": {
+      "textures": "textures/items/aln_pebble"
+    },
+    "aln_dart": {
+      "textures": "textures/items/aln_dart"
+    }
+  }
+}

@@ -1,0 +1,31 @@
+{
+  "format_version": "1.21.60",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "aln:slingshot_recipe"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      "STS",
+      " S ",
+      " S "
+    ],
+    "key": {
+      "S": {
+        "item": "minecraft:stick"
+      },
+      "T": {
+        "item": "minecraft:string"
+      }
+    },
+    "unlock": {
+      "context": "AlwaysUnlocked"
+    },
+    "result": {
+      "item": "aln:slingshot",
+      "count": 1
+    }
+  }
+}

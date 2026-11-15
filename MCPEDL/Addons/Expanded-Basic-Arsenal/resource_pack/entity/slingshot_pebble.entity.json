@@ -1,0 +1,20 @@
+{
+  "format_version": "1.10.0",
+  "minecraft:client_entity": {
+    "description": {
+      "identifier": "aln:slingshot_pebble",
+      "materials": {
+        "default": "snowball"
+      },
+      "textures": {
+        "default": "textures/items/aln_pebble"
+      },
+      "geometry": {
+        "default": "geometry.item_sprite"
+      },
+      "render_controllers": [
+        "controller.render.item_sprite"
+      ]
+    }
+  }
+}

@@ -2,6 +2,11 @@
 
 ---
 
+## 2026-11-16 - New Addon Expanded Basic Arsenal
+
+### Added
+- **Expanded Basic Arsenal**: New addon project created from a pack script.
+
 ## [1.0.54] - 2026-11-16 - Fox Tool Balance
 
 ### Improved & Balanced

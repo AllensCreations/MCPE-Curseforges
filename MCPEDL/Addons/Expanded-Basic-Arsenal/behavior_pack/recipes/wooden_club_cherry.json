@@ -1,0 +1,31 @@
+{
+  "format_version": "1.21.60",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "aln:wooden_club_cherry_recipe"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      " L ",
+      " L ",
+      " S "
+    ],
+    "key": {
+      "L": {
+        "item": "minecraft:stripped_cherry_log"
+      },
+      "S": {
+        "item": "minecraft:stick"
+      }
+    },
+    "unlock": {
+      "context": "AlwaysUnlocked"
+    },
+    "result": {
+      "item": "aln:wooden_club",
+      "count": 1
+    }
+  }
+}
