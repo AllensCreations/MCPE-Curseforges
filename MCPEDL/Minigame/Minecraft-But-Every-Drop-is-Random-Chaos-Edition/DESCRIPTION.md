@@ -82,3 +82,4 @@ The host opens the Controller and presses Start. From then on, each item that dr
 ## Search & Discovery Keywords
 
 Minecraft Bedrock add-on, Minecraft But Every Drop is Random Bedrock mod, random drops, drop randomizer, Ender Dragon challenge, Minecraft PE survival, MCPEDL add-on, CurseForge Bedrock, ALNStudios.
+

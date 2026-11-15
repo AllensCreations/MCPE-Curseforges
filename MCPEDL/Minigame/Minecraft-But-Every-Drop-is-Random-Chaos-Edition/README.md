@@ -1,11 +1,11 @@
-# Minecraft, But Every Drop is Random: Chaos Edition
+# Minecraft, But Every Drop is Random Chaos Edition
 
-Download the current release of **Minecraft, But Every Drop is Random: Chaos Edition** for Minecraft Bedrock Edition.
+Download the current release of **Minecraft, But Every Drop is Random Chaos Edition** for Minecraft Bedrock Edition.
 
 ## Download
 
 - **Package format:** `.mcaddon`
-- **Direct download:** [Download Minecraft, But Every Drop is Random: Chaos Edition (.mcaddon)](../README.md#available-minigames)
+- **Direct download:** [Download Minecraft, But Every Drop is Random Chaos Edition (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Minecraft-But-Every-Drop-is-Random-Chaos-Edition/MinecraftButEveryDropIsRandomChaosEdition%20V1.0.0.mcaddon)
 
 ## Installation
 
@@ -15,4 +15,4 @@ Download the current release of **Minecraft, But Every Drop is Random: Chaos Edi
 
 ## Pack Information
 
-For gameplay features, usage details, compatibility notes, and other project information, read the [full description](DESCRIPTION.md).
+For gameplay features, usage details, compatibility notes, and other project information, read the [full description](https://github.com/AllensCreations/MCPE-Curseforges/blob/main/MCPEDL/Minigame/Minecraft-But-Every-Drop-is-Random-Chaos-Edition/DESCRIPTION.md).

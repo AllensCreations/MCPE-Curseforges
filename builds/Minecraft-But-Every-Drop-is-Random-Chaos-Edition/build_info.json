@@ -1,0 +1,8 @@
+{
+  "changelog_version": "1.0.0",
+  "manifest_version": "1.0.0",
+  "packages": {
+    "MinecraftButEveryDropIsRandomChaosEdition V1.0.0.mcaddon": "e581a9ffde9218991eaea39f61b58a76fbd6f28830242f8d86000546112f272a"
+  },
+  "source_sha256": "8eaf511985dada2c592c3b4b2cbfe2f2eea13b33956b350ec14907e95c730332"
+}
