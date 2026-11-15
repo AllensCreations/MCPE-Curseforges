@@ -2,6 +2,11 @@
 
 ---
 
+## 2026-11-15 - New Script Living SMP Chat
+
+### Added
+- **Living SMP Chat**: New script project created from a pack script.
+
 ## [1.0.31] - 2026-11-15 - Island Build And Shifter Safety Fixes
 
 ### Fixed
