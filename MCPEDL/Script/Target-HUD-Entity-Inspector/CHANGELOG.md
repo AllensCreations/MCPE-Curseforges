@@ -2,7 +2,9 @@
 
 ---
 
-## [1.1.2] - 2026-11-15 - Status Effects and Defeated Flash
+## [1.1.2] - 2026-11-15
+
+**What's new in v1.1.2:** Packed with the v1.1.2 update. Includes: Status Effects and Defeated Flash.
 
 ### Added
 
@@ -42,6 +44,8 @@
 
 - **Hidden Targets**: Invisible mobs, invisible players and players in Spectator mode no longer show their health.
 
+
+
 ## [1.1.0] - 2026-11-11
 
 **What's new in v1.1.0:** Packed with the v1.0.2 update.
@@ -58,6 +62,8 @@
 
 
 
+
+
 ## [1.0.1] - 2026-11-11
 
 ### Added
@@ -71,6 +77,8 @@
 
 ### Fixed
 - **Lingering Display**: The display is cleared at once when you look away from a mob, instead of fading out slowly.
+
+
 
 
 
