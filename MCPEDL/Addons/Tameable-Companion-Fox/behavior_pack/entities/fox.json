@@ -1,0 +1,267 @@
+{
+  "format_version": "1.21.0",
+  "minecraft:entity": {
+    "description": {
+      "identifier": "minecraft:fox",
+      "is_spawnable": true,
+      "is_summonable": true,
+      "is_experimental": false
+    },
+    "component_groups": {
+      "fox:red": {
+        "minecraft:variant": {
+          "value": 0
+        }
+      },
+      "fox:arctic": {
+        "minecraft:variant": {
+          "value": 1
+        }
+      },
+      "fox:wild": {
+        "minecraft:tameable": {
+          "probability": 0.75,
+          "tame_items": ["sweet_berries", "glow_berries"],
+          "tame_event": {
+            "event": "minecraft:on_tame",
+            "target": "self"
+          }
+        },
+        "minecraft:behavior.panic": {
+          "priority": 1,
+          "speed_multiplier": 1.25
+        }
+      },
+      "fox:tamed": {
+        "minecraft:is_tamed": {},
+        "minecraft:health": {
+          "value": 30,
+          "max": 30
+        },
+        "minecraft:nameable": {
+          "always_show": true
+        },
+        "minecraft:sittable": {},
+        "minecraft:behavior.stay_while_sitting": {
+          "priority": 1
+        },
+        "minecraft:behavior.follow_owner": {
+          "priority": 5,
+          "speed_multiplier": 1.0,
+          "start_distance": 10,
+          "stop_distance": 2
+        },
+        "minecraft:behavior.owner_hurt_target": {
+          "priority": 2
+        },
+        "minecraft:behavior.owner_hurt_by_target": {
+          "priority": 3
+        },
+        "minecraft:healable": {
+          "items": [
+            {
+              "item": "sweet_berries",
+              "heal_amount": 4
+            },
+            {
+              "item": "glow_berries",
+              "heal_amount": 4
+            }
+          ]
+        },
+        "minecraft:interact": {
+          "interactions": [
+            {
+              "on_interact": {
+                "filters": {
+                  "all_of": [
+                    { "test": "is_family", "subject": "other", "value": "player" },
+                    {
+                      "any_of": [
+                        { "test": "has_equipment", "subject": "other", "domain": "hand", "value": "wooden_sword" },
+                        { "test": "has_equipment", "subject": "other", "domain": "hand", "value": "stone_sword" },
+                        { "test": "has_equipment", "subject": "other", "domain": "hand", "value": "golden_sword" },
+                        { "test": "has_equipment", "subject": "other", "domain": "hand", "value": "iron_sword" },
+                        { "test": "has_equipment", "subject": "other", "domain": "hand", "value": "diamond_sword" },
+                        { "test": "has_equipment", "subject": "other", "domain": "hand", "value": "netherite_sword" }
+                      ]
+                    }
+                  ]
+                },
+                "event": "fox:equip_sword",
+                "target": "self"
+              },
+              "use_item": true,
+              "equip_item_slot": "slot.weapon.mainhand",
+              "interact_text": "action.interact.equip",
+              "swing": true
+            },
+            {
+              "on_interact": {
+                "filters": {
+                  "all_of": [
+                    { "test": "is_family", "subject": "other", "value": "player" },
+                    {
+                      "any_of": [
+                        { "test": "has_equipment", "subject": "other", "domain": "hand", "value": "wooden_axe" },
+                        { "test": "has_equipment", "subject": "other", "domain": "hand", "value": "stone_axe" },
+                        { "test": "has_equipment", "subject": "other", "domain": "hand", "value": "golden_axe" },
+                        { "test": "has_equipment", "subject": "other", "domain": "hand", "value": "iron_axe" },
+                        { "test": "has_equipment", "subject": "other", "domain": "hand", "value": "diamond_axe" },
+                        { "test": "has_equipment", "subject": "other", "domain": "hand", "value": "netherite_axe" }
+                      ]
+                    }
+                  ]
+                },
+                "event": "fox:equip_axe",
+                "target": "self"
+              },
+              "use_item": true,
+              "equip_item_slot": "slot.weapon.mainhand",
+              "interact_text": "action.interact.equip",
+              "swing": true
+            }
+          ]
+        }
+      },
+      "fox:armed_sword": {
+        "minecraft:attack": {
+          "damage": 6
+        }
+      },
+      "fox:armed_axe": {
+        "minecraft:attack": {
+          "damage": 8
+        }
+      }
+    },
+    "components": {
+      "minecraft:is_hidden_when_invisible": {},
+      "minecraft:type_family": {
+        "family": ["fox", "lightweight", "mob"]
+      },
+      "minecraft:breathable": {
+        "total_supply": 15,
+        "suffocate_time": 0
+      },
+      "minecraft:collision_box": {
+        "width": 0.6,
+        "height": 0.7
+      },
+      "minecraft:nameable": {},
+      "minecraft:health": {
+        "value": 20,
+        "max": 20
+      },
+      "minecraft:movement": {
+        "value": 0.3
+      },
+      "minecraft:navigation.walk": {
+        "can_path_over_water": true,
+        "avoid_water": true,
+        "avoid_damage_blocks": true
+      },
+      "minecraft:movement.basic": {},
+      "minecraft:jump.static": {},
+      "minecraft:can_climb": {},
+      "minecraft:attack": {
+        "damage": 4
+      },
+      "minecraft:despawn": {
+        "despawn_from_distance": {}
+      },
+      "minecraft:leashable": {
+        "soft_distance": 4.0,
+        "hard_distance": 6.0,
+        "max_distance": 10.0
+      },
+      "minecraft:physics": {},
+      "minecraft:pushable": {
+        "is_pushable": true,
+        "is_pushable_by_piston": true
+      },
+      "minecraft:behavior.float": {
+        "priority": 0
+      },
+      "minecraft:behavior.leap_at_target": {
+        "priority": 3,
+        "yd": 0.4,
+        "must_be_on_ground": true
+      },
+      "minecraft:behavior.melee_attack": {
+        "priority": 4,
+        "speed_multiplier": 1.25,
+        "track_target": true
+      },
+      "minecraft:behavior.random_stroll": {
+        "priority": 6,
+        "speed_multiplier": 1.0
+      },
+      "minecraft:behavior.look_at_player": {
+        "priority": 7,
+        "look_distance": 6.0
+      },
+      "minecraft:equipment": {
+        "slot_drop_chance": [
+          {
+            "slot": "slot.weapon.mainhand",
+            "drop_chance": 1.0
+          }
+        ]
+      }
+    },
+    "events": {
+      "minecraft:entity_spawned": {
+        "sequence": [
+          {
+            "add": {
+              "component_groups": ["fox:wild"]
+            }
+          },
+          {
+            "filters": {
+              "test": "is_snow_covered",
+              "value": true
+            },
+            "add": {
+              "component_groups": ["fox:arctic"]
+            }
+          },
+          {
+            "filters": {
+              "test": "is_snow_covered",
+              "value": false
+            },
+            "add": {
+              "component_groups": ["fox:red"]
+            }
+          }
+        ]
+      },
+      "minecraft:on_tame": {
+        "remove": {
+          "component_groups": ["fox:wild"]
+        },
+        "add": {
+          "component_groups": ["fox:tamed"]
+        }
+      },
+      "fox:equip_sword": {
+        "remove": {
+          "component_groups": ["fox:armed_axe"]
+        },
+        "add": {
+          "component_groups": ["fox:armed_sword"]
+        }
+      },
+      "fox:equip_axe": {
+        "remove": {
+          "component_groups": ["fox:armed_sword"]
+        },
+        "add": {
+          "component_groups": ["fox:armed_axe"]
+        }
+      }
+    }
+  }
+}
