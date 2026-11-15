@@ -1,0 +1,68 @@
+# Listing Kit: Minecraft, But Every Drop is Random
+
+Tap the Copy button on a block, then paste it into the CurseForge listing. Generated from DESCRIPTION.md: edit that, not this file.
+
+## Package Name
+
+```text
+Minecraft, But Every Drop is Random
+```
+
+## Summary (98/256)
+
+```text
+Every block and mob drop turns into a different item, and defeating the Ender Dragon wins the run.
+```
+
+## Description (HTML)
+
+Paste into the CurseForge description editor in source (HTML) mode.
+
+```html
+<div><div style="border:1px solid #15803d;border-radius:12px;line-height:1.5"><br><table style="width:100%;border-width:0"><tbody><tr><td style="width:90px;text-align:center"><img src="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/MCPEDL/Minigame/Minecraft-But-Every-Drop-is-Random-Chaos-Edition/resource_pack/pack_icon.png" alt="Minecraft, But Every Drop is Random icon" width="72" height="72"></td><td style="text-align:left"><h1 style="font-size:28px;text-align:left">Minecraft, But Every Drop is Random</h1><p style="color:#8a94a3;font-size:14px;text-align:left">by ALNStudios</p><p style="font-size:16px;text-align:left"><strong>Every block and mob drop turns into a different item, and defeating the Ender Dragon wins the run.</strong></p></td></tr></tbody></table><p style="text-align:center;margin-left:14px;margin-right:14px">This minigame swaps every drop, from Dirt to Rotten Flesh, for another item from a shuffled table. It suits survival challenge runs where nobody knows what the next block will give.</p><br><div style="display:flex;flex-wrap:wrap;gap:8px;margin-left:14px;margin-right:14px"><div style="background-color:#15803d;color:#ffffff;border-radius:6px;font-weight:bold;font-size:14px;line-height:2">&nbsp;&nbsp;Bedrock: 1.26+&nbsp;&nbsp;</div><div style="background-color:#15803d;color:#ffffff;border-radius:6px;font-weight:bold;font-size:14px;line-height:2">&nbsp;&nbsp;Experimental: No&nbsp;&nbsp;</div><div style="background-color:#15803d;color:#ffffff;border-radius:6px;font-weight:bold;font-size:14px;line-height:2">&nbsp;&nbsp;Achievements: Likely achievement-friendly. The optional recovery commands for giving the Controller and ending the game need cheats, and cheats disable achievements in that world&nbsp;&nbsp;</div></div><br></div>
+<h2 style="text-align:left;font-size:22px">About</h2>
+<p>The host opens the Controller and presses Start. From then on, each item that drops from a broken block or a defeated mob is replaced by another item, and the stack size stays the same. The same item always turns into the same replacement during one run, so players can learn the table as they go. The Controller is used up when the game starts, and the run ends when the Ender Dragon falls.</p>
+<h2 style="text-align:left;font-size:22px">What You Get</h2>
+<div style="display:flex;flex-wrap:wrap;gap:10px"><div style="flex:1;min-width:180px;border:1px solid #8a94a3;border-radius:10px"><div style="background-color:#15803d;font-size:4px;line-height:4px;border-radius:10px">&nbsp;</div><div style="padding-left:12px;margin-right:12px"><p><strong style="font-size:16px">Randomized Drops</strong><br><span>Blocks and mobs drop a different item than normal, and the number of items stays the same. Items that cannot stack as high as the original are split into several stacks.</span><br><span style="font-size:13px;color:#8a94a3"><strong>How It Works:</strong> If Oak Log is swapped for a Golden Apple in your run, every Oak Log you break gives Golden Apples for the rest of that run.</span><br><span style="font-size:13px;color:#8a94a3"><strong>Good To Know:</strong> Items dropped by players on death are not swapped.</span></p></div></div><div style="flex:1;min-width:180px;border:1px solid #8a94a3;border-radius:10px"><div style="background-color:#15803d;font-size:4px;line-height:4px;border-radius:10px">&nbsp;</div><div style="padding-left:12px;margin-right:12px"><p><strong style="font-size:16px">Fresh Table Every Run</strong><br><span>Pressing Start shuffles a new table, and no item is swapped for itself.</span><br><span style="font-size:13px;color:#8a94a3"><strong>Good To Know:</strong> The table cannot be reshuffled while a game is running.</span></p></div></div><div style="flex:1;min-width:180px;border:1px solid #8a94a3;border-radius:10px"><div style="background-color:#15803d;font-size:4px;line-height:4px;border-radius:10px">&nbsp;</div><div style="padding-left:12px;margin-right:12px"><p><strong style="font-size:16px">Reshuffle Outside a Game</strong><br><span>Any player can reshuffle the table while no game is running, by using the command or by sneaking while using a Book.</span><br><span style="font-size:13px;color:#8a94a3"><strong>Good To Know:</strong> Starting a game always shuffles a new table anyway.</span></p></div></div><div style="flex:1;min-width:180px;border:1px solid #8a94a3;border-radius:10px"><div style="background-color:#15803d;font-size:4px;line-height:4px;border-radius:10px">&nbsp;</div><div style="padding-left:12px;margin-right:12px"><p><strong style="font-size:16px">Controller</strong><br><span>The host and operators receive the Controller. It opens a menu with Start and How to play.</span><br><span style="font-size:13px;color:#8a94a3"><strong>Good To Know:</strong> Start uses up the Controller, except in Creative mode, and a new one is given to the host and operators when the game ends.</span></p></div></div></div>
+<h2 style="text-align:left;font-size:22px">Get Started</h2>
+<table style="width:100%;border-width:0"><tbody><tr><td style="width:44px;text-align:center"><div style="background-color:#15803d;color:#ffffff;font-weight:bold;font-size:15px;text-align:center;border-radius:50%;width:30px;aspect-ratio:1/1;line-height:30px">1</div></td><td style="text-align:left;">Enable the Behavior Pack and the Resource Pack in a world and take the Controller.</td></tr><tr><td style="width:44px;text-align:center"><div style="background-color:#15803d;color:#ffffff;font-weight:bold;font-size:15px;text-align:center;border-radius:50%;width:30px;aspect-ratio:1/1;line-height:30px">2</div></td><td style="text-align:left;">Use the Controller and press Start.</td></tr><tr><td style="width:44px;text-align:center"><div style="background-color:#15803d;color:#ffffff;font-weight:bold;font-size:15px;text-align:center;border-radius:50%;width:30px;aspect-ratio:1/1;line-height:30px">3</div></td><td style="text-align:left;">Break blocks and defeat mobs, then defeat the Ender Dragon to win.</td></tr></tbody></table>
+<h2 style="text-align:left;font-size:22px">Commands</h2>
+<div style="border:1px solid #8a94a3;border-radius:10px"><div style="background-color:#15803d;font-size:4px;line-height:4px;border-radius:10px">&nbsp;</div><div style="padding-left:12px;margin-right:12px"><table style="width:100%;border-width:0"><tbody><tr><td style="width:42%;text-align:left"><code>/aln</code></td><td style="text-align:left;">reshuffle`: Reshuffles the random drop table while no game is running.</td></tr></tbody></table><p style="color:#8a94a3;font-size:12px">Commands need cheats enabled. Cheats turn off achievements in that world.</p></div></div>
+<h2 style="text-align:left;font-size:22px">Common Questions</h2>
+<div class="spoiler" title="Can I reshuffle during a game?" data-title="Can I reshuffle during a game?"><p><strong>Can I reshuffle during a game?</strong><br>No. The table stays fixed while a game runs, so each run keeps one set of swaps.</p></div><div class="spoiler" title="What happens to the Controller when a game starts?" data-title="What happens to the Controller when a game starts?"><p><strong>What happens to the Controller when a game starts?</strong><br>It is used up unless you are in Creative mode, and a new one is given to the host and operators when the game ends.</p></div>
+<h2 style="text-align:left;font-size:22px">Install</h2>
+<table style="width:100%;border-width:0"><tbody><tr><td style="width:44px;text-align:center"><div style="background-color:#15803d;color:#ffffff;font-weight:bold;font-size:15px;text-align:center;border-radius:50%;width:30px;aspect-ratio:1/1;line-height:30px">1</div></td><td style="text-align:left;">Download the file from this page and open it with Minecraft.</td></tr><tr><td style="width:44px;text-align:center"><div style="background-color:#15803d;color:#ffffff;font-weight:bold;font-size:15px;text-align:center;border-radius:50%;width:30px;aspect-ratio:1/1;line-height:30px">2</div></td><td style="text-align:left;">Create or edit a world and turn on the new pack(s) in its settings.</td></tr><tr><td style="width:44px;text-align:center"><div style="background-color:#15803d;color:#ffffff;font-weight:bold;font-size:15px;text-align:center;border-radius:50%;width:30px;aspect-ratio:1/1;line-height:30px">3</div></td><td style="text-align:left;">Play. No Experimental toggles needed.</td></tr></tbody></table>
+<h2 style="text-align:left;font-size:22px">Support</h2><div style="border:1px solid #8a94a3;border-radius:12px;text-align:center"><br><a href="https://ko-fi.com/alnstudios"><img src="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/assets/Images/ko-fi.png" alt="Support ALNStudios on Ko-fi" width="250"></a><br><br></div><p style="text-align:center"><a href="https://www.curseforge.com/members/allenscreations/projects"><strong>CurseForge</strong></a> &nbsp;|&nbsp; <a href="https://mcpedl.com/user/alnstudios/"><strong>MCPEDL</strong></a> &nbsp;|&nbsp; <a href="https://ko-fi.com/alnstudios"><strong>Ko-fi</strong></a></p>
+<hr>
+<p style="text-align:center;color:#8a94a3;font-size:13px"><strong>By ALNStudios</strong></p>
+<div class="spoiler"><p style="font-size:13px"><strong>Permissions and credits</strong></p><ul style="font-size:13px"><li>Rights: All rights reserved for ALNStudios.</li><li>Content creators: You may feature this creation in videos and streams with credit to ALNStudios.</li><li>Redistribution: Do not re-upload this pack or provide direct monetized download bypasses. Link to this page.</li><li>Unofficial community creation. Not an official Minecraft product and not approved by or associated with Mojang or Microsoft.</li></ul></div>
+<p style="text-align:center;color:#8a94a3;font-size:12px">Minecraft Bedrock add-on, Minecraft But Every Drop is Random Bedrock mod, random drops, drop randomizer, Ender Dragon challenge, Minecraft PE survival, MCPEDL add-on, CurseForge Bedrock, ALNStudios.</p></div>
+```
+
+## AI Image Prompts
+
+### Reference Images
+
+- **Logo reference**: attach your own logo. The generator uses it only for brand colors and mood. The result must be a new design, not a copy.
+- **Snapshot references**: attach 1 to 4 of your in-game snapshots of this pack. The generator copies their look, not their screen layout.
+
+### Logo Prompt
+
+```text
+Use the attached logo only as a brand reference for its color palette and overall mood. Do not copy it. Create a new, original logo with a different composition and a different main symbol. Do not just recolor, resize, crop, mirror or tweak the attached logo.
+Create a clean, square (1:1) logo image for the Minecraft Bedrock add-on "Minecraft, But Every Drop is Random". Every block and mob drop turns into a different item, and defeating the Ender Dragon wins the run.
+Base the main symbol on the pack idea above. Match the blocky look of the attached in-game snapshots. Center the logo, use a simple background, and keep it readable at small sizes.
+Text: "Minecraft, But Every Drop is Random" and, in small letters, "ALNStudios". ALNStudios is the brand name, so always keep it and never remove or change it. Spell both exactly.
+Do not add Minecraft, Mojang or Microsoft logos, watermarks, or characters from other games.
+```
+
+### Banner Prompt
+
+```text
+Create a wide (16:9) banner image for the Minecraft Bedrock add-on "Minecraft, But Every Drop is Random". Every block and mob drop turns into a different item, and defeating the Ender Dragon wins the run.
+Use the attached in-game snapshots as scene and style references: copy their blocky look, lighting, colors and the kind of scenery they show. Make a new composition inspired by them. Do not copy the on-screen HUD, chat or hotbar.
+Use the attached logo only as a brand reference for its colors and mood. Do not copy it. Put a new, original logo design in the banner, large enough to read, on the left or center.
+Hint at these pack features visually: Randomized Drops, Fresh Table Every Run, Reshuffle Outside a Game, Controller.
+Text: "Minecraft, But Every Drop is Random" and, in small letters, "by ALNStudios". ALNStudios is the brand name, so always keep it and never remove or change it. Spell both exactly.
+Leave clear space around the logo. No Minecraft, Mojang or Microsoft logos, no watermarks.
+```
