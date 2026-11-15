@@ -2,6 +2,19 @@
 
 ---
 
+## [1.13.2] - 2026-11-16
+
+### Fixed
+
+- **Abyssal Tide in Shipwrecks**: Shipwreck Treasure now uses the correct loot table name so Abyssal Tide can be added to those chests.
+- **Stormcaller Speed**: Speed III now follows rain and thunder on all supported game versions.
+- **Potion Effects Kept**: Putting a tome away no longer cancels long-lasting potion or beacon effects of the same type.
+
+### Improved & Balanced
+
+- **Accurate Descriptions**: Tomes that block damage now say they heal the damage back, so a fatal hit is not prevented. Deep Delver's light, the hidden status icons and the Enchanted Golden Apple change in Ancient City and Bastion chests are now documented.
+- **Branding**: The relic attunement message now reads ALNSTUDIOS.
+
 ## [1.13.1] - 2026-11-13
 
 **What's new in v1.13.1:** Packed with the v1.13.1 update.

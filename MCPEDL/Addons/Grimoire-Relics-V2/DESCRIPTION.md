@@ -26,7 +26,7 @@ Grimoire Relics V2 adds a collection of magical tomes to Minecraft Bedrock Editi
 - **Acquisition**: Craftable; also found in Shipwreck Treasure
 
 ### <img src="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/MCPEDL/Addons/Grimoire-Relics-V2/assets/items/tome_zephyr.png" width="20" height="20" alt="Zephyr Wind"> **Zephyr Wind**
-- **Abilities & Mechanics**: Speed II + Jump Boost I. Auto Slow Falling when plunging (while falling quickly). Full fall damage immunity.
+- **Abilities & Mechanics**: Speed II + Jump Boost I. Auto Slow Falling when plunging (while falling quickly). Fall damage is healed back right after it lands; a fatal fall is not prevented.
 - **Acquisition**: Craftable
 
 ### <img src="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/MCPEDL/Addons/Grimoire-Relics-V2/assets/items/tome_lich.png" width="20" height="20" alt="Necrotic Lich"> **Necrotic Lich**
@@ -54,7 +54,7 @@ Grimoire Relics V2 adds a collection of magical tomes to Minecraft Bedrock Editi
 - **Acquisition**: Craftable
 
 ### <img src="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/MCPEDL/Addons/Grimoire-Relics-V2/assets/items/tome_frost.png" width="20" height="20" alt="Frost Weaver"> **Frost Weaver**
-- **Abilities & Mechanics**: Frost Walker II (freezes water underfoot into frosted ice, unless sneaking). Complete immunity to powder snow freezing.
+- **Abilities & Mechanics**: Frost Walker II (freezes water underfoot into frosted ice, unless sneaking). Powder snow freezing damage is healed back right after it lands.
 - **Acquisition**: Craftable
 
 ### <img src="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/MCPEDL/Addons/Grimoire-Relics-V2/assets/items/tome_storm.png" width="20" height="20" alt="Stormcaller"> **Stormcaller**
@@ -62,7 +62,7 @@ Grimoire Relics V2 adds a collection of magical tomes to Minecraft Bedrock Editi
 - **Acquisition**: Craftable
 
 ### <img src="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/MCPEDL/Addons/Grimoire-Relics-V2/assets/items/tome_delver.png" width="20" height="20" alt="Deep Delver"> **Deep Delver**
-- **Abilities & Mechanics**: Permanent Haste II. Provides nearby light when exploring dark areas below Y=55.
+- **Abilities & Mechanics**: Permanent Haste II. Places a light block at your feet while you are below Y=55 and not under open sky.
 - **Acquisition**: Craftable; also found in Dungeon Monster Rooms
 
 ### <img src="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/MCPEDL/Addons/Grimoire-Relics-V2/assets/items/tome_void.png" width="20" height="20" alt="Void Phantom"> **Void Phantom**
@@ -90,11 +90,11 @@ Grimoire Relics V2 adds a collection of magical tomes to Minecraft Bedrock Editi
 - **Acquisition**: Craftable; also found in Stronghold Libraries
 
 ### <img src="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/MCPEDL/Addons/Grimoire-Relics-V2/assets/items/tome_mirror.png" width="20" height="20" alt="Mirror Trickster"> **Mirror Trickster**
-- **Abilities & Mechanics**: Elusive Phase: 25% chance upon taking damage to negate all incoming damage and blink 3 blocks backward through smoke.
+- **Abilities & Mechanics**: Elusive Phase: 25% chance upon taking damage to heal that damage back and blink 3 blocks backward through smoke. A fatal hit is not prevented.
 - **Acquisition**: **Ancient Relic (Loot Only)**: Ancient Cities
 
 ### <img src="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/MCPEDL/Addons/Grimoire-Relics-V2/assets/items/tome_dragon.png" width="20" height="20" alt="Cataclysm Dragon"> **Cataclysm Dragon**
-- **Abilities & Mechanics**: Strength II and Resistance I. Complete immunity to dragon breath and explosions (recovers damage as health).
+- **Abilities & Mechanics**: Strength II and Resistance I. Dragon breath and explosion damage is healed back right after it lands; a fatal hit is not prevented.
 - **Acquisition**: **Ancient Relic (Loot Only)**: End Cities
 
 ---
@@ -133,6 +133,7 @@ The pack includes exploration loot entries for Ancient Relics. Their intended lo
 - **Stronghold Libraries**: **Arcane Scholar** and **Cursed Alchemist**.
 - **Shipwreck Treasuries**: **Abyssal Tide**.
 - **Monster Rooms / Simple Dungeons**: **Blood Vampire** and **Deep Delver**.
+- **Enchanted Golden Apples**: No longer appear in Ancient City and Bastion Treasure chests; the tomes take their place.
 
 ---
 
@@ -141,6 +142,7 @@ The pack includes exploration loot entries for Ancient Relics. Their intended lo
 - **Offhand use**: Equip a tome in your offhand to activate its abilities.
 - **Item descriptions**: Tome lore describes its main abilities and conditions.
 - **Recipe guide**: The image above shows the crafting patterns for craftable tomes.
+- **Status icons**: The Resource Pack hides the on-screen status effect icons.
 
 ---
 
@@ -160,10 +162,7 @@ If a feature is broken or does not work as described, please leave a comment on 
 ## Creator and Permissions
 
 - Creator: ALNStudios
-- Profiles: [CurseForge Profile](https://www.curseforge.com/members/allenscreations/projects) · [MCPEDL Profile](https://mcpedl.com/user/allenscreations/)
-
-<a href="https://www.curseforge.com/members/allenscreations/projects"><img src="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/assets/Images/curseforge.jpg" alt="CurseForge" width="45%"></a> <a href="https://mcpedl.com/user/allenscreations/"><img src="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/assets/Images/MCPEDL.jpg" alt="MCPEDL" width="45%"></a>
-- [MCPEDL Profile](https://mcpedl.com/user/alnstudios/)
+- Profiles: [CurseForge Profile](https://www.curseforge.com/members/allenscreations/projects) · [MCPEDL Profile](https://mcpedl.com/user/alnstudios/)
 
 <a href="https://www.curseforge.com/members/allenscreations/projects"><img src="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/assets/Images/curseforge.jpg" alt="CurseForge" width="45%"></a> <a href="https://mcpedl.com/user/alnstudios/"><img src="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/assets/Images/MCPEDL.jpg" alt="MCPEDL" width="45%"></a>
 

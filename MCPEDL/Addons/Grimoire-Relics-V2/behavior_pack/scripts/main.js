@@ -2,6 +2,7 @@ import { world, system, EquipmentSlot } from "@minecraft/server";
 
 const EFFECT_TICKS = 60;
 const NV_TICKS = 260;
+const OWN_TICKS = 640;
 const MELEE = "entityAttack";
 const states = new Map();
 const badParticles = new Set();
@@ -47,6 +48,15 @@ function dropFx(e, ids) {
   }
 }
 
+function dropOwn(e, ids) {
+  for (const id of ids) {
+    try {
+      const f = e.getEffect(id);
+      if (f && f.duration >= 0 && f.duration <= OWN_TICKS) e.removeEffect(id);
+    } catch (err) {}
+  }
+}
+
 function particle(dim, id, loc) {
   if (badParticles.has(id)) return;
   try {
@@ -56,6 +66,8 @@ function particle(dim, id, loc) {
   }
 }
 
+let wet = false;
+
 function raining(dim) {
   try {
     if (typeof dim.getWeather === "function") {
@@ -63,8 +75,17 @@ function raining(dim) {
       return w === "Rain" || w === "Thunder";
     }
   } catch (err) {}
-  return false;
+  return wet;
 }
+
+try {
+  if (world.afterEvents.weatherChange) {
+    world.afterEvents.weatherChange.subscribe((ev) => {
+      const w = ev.newWeather !== undefined ? String(ev.newWeather) : ev.lightning ? "Thunder" : ev.raining ? "Rain" : "Clear";
+      wet = w === "Rain" || w === "Thunder";
+    });
+  }
+} catch (err) {}
 
 function outdoors(p) {
   try {
@@ -121,7 +142,7 @@ const RELICS = {
     }
   },
   "custom:tome_zephyr": {
-    name: "Zephyr Wind", info: ["Speed II + Jump Boost I", "Auto Slow Falling when plunging", "No fall damage"],
+    name: "Zephyr Wind", info: ["Speed II + Jump Boost I", "Auto Slow Falling when plunging", "Fall damage healed back"],
     particle: "minecraft:white_smoke_particle", py: 0.3, ids: ["speed", "jump_boost", "slow_falling"],
     effects: (p) => {
       const l = [["speed", 1], ["jump_boost", 0]];
@@ -206,7 +227,7 @@ const RELICS = {
     }
   },
   "custom:tome_frost": {
-    name: "Frost Weaver", info: ["Frost Walker II: walk on water", "Immune to powder snow freezing"],
+    name: "Frost Weaver", info: ["Frost Walker II: walk on water", "Powder snow damage healed back"],
     particle: "minecraft:snowflake_particle", ids: [],
     tick: (p) => {
       if (p.isSneaking) return;
@@ -233,7 +254,7 @@ const RELICS = {
   "custom:tome_storm": {
     name: "Stormcaller", info: ["Speed III outdoors in rain or thunder", "15% lightning on melee attackers"],
     particle: "minecraft:electric_spark_particle", ids: ["speed"],
-    effects: (p) => (raining(p.dimension) && outdoors(p) ? [["speed", 2]] : []),
+    effects: (p) => (p.dimension.id === "minecraft:overworld" && raining(p.dimension) && outdoors(p) ? [["speed", 2]] : []),
     onHurt: (p, ev, a) => {
       if (a && a.id !== p.id && ev.damageSource.cause === MELEE && Math.random() < 0.15) {
         a.dimension.spawnEntity("minecraft:lightning_bolt", a.location);
@@ -251,7 +272,7 @@ const RELICS = {
       const dark = !outdoors(p) && l.y < 55;
       if (s.light && (!dark || s.light.x !== pos.x || s.light.y !== pos.y || s.light.z !== pos.z)) clearLight(p, s);
       if (!dark || s.light) return;
-      const b = p.dimension.getBlock(pos);
+      const b = safeBlock(p.dimension, pos);
       if (!b || !b.isAir) return;
       for (const id of ["minecraft:light_block_12", "minecraft:light_block"]) {
         try {
@@ -379,7 +400,7 @@ const RELICS = {
     }
   },
   "custom:tome_mirror": {
-    name: "Mirror Trickster", info: ["25% to negate damage", "and blink 3 blocks backward"],
+    name: "Mirror Trickster", info: ["25% to heal back a hit", "and blink 3 blocks backward"],
     particle: "minecraft:endrod", ids: [],
     onHurt: (p, ev) => {
       if (Math.random() >= 0.25) return;
@@ -398,7 +419,7 @@ const RELICS = {
     }
   },
   "custom:tome_dragon": {
-    name: "Cataclysm Dragon", info: ["Strength II + Resistance I", "Immune to dragon breath and explosions"],
+    name: "Cataclysm Dragon", info: ["Strength II + Resistance I", "Heals dragon breath and explosion damage"],
     particle: "minecraft:dragon_breath_trail", ids: ["strength", "resistance"],
     effects: () => [["strength", 1], ["resistance", 0]],
     onHurt: (p, ev) => {
@@ -545,7 +566,7 @@ function ensureLore(p) {
 function release(p, s) {
   const old = RELICS[s.relic];
   if (!old) return;
-  dropFx(p, old.ids);
+  dropOwn(p, old.ids);
   if (old.end) old.end(p, s);
   s.peak = {};
 }
@@ -556,7 +577,7 @@ function attune(p, s, id) {
   const cfg = RELICS[id];
   if (!cfg) return;
   if (cfg.onEquip) cfg.onEquip(p, s);
-  p.onScreenDisplay.setActionBar("§6[ ALLENS CREATIONS ] §d✦ Relic Attuned: " + cfg.name + " ✦");
+  p.onScreenDisplay.setActionBar("§6[ ALNSTUDIOS ] §d✦ Relic Attuned: " + cfg.name + " ✦");
   system.runTimeout(() => {
     try {
       if (s.relic === id) p.onScreenDisplay.setActionBar("§7" + cfg.info.join(" §8|§7 "));
