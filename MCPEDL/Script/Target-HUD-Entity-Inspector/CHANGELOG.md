@@ -2,6 +2,23 @@
 
 ---
 
+## [1.1.2] - 2026-11-15 - Status Effects and Defeated Flash
+
+### Added
+
+- **Status Effects**: Key effects on the target, such as Poison II 13s, now show with their level and time left, and Burning shows while the target is on fire.
+- **Defeated Flash**: When you finish off a mob or player, Defeated and its name flash on the Action Bar for a moment.
+
+### Improved & Balanced
+
+- **Compact Layout**: When the line is too long for the screen, it switches to a shorter version with a 10-segment bar, shorter names and fewer effects.
+- **Gear Reading**: Armor and the held item are now read piece by piece, so one unreadable piece no longer hides the rest.
+
+### Fixed
+
+- **Name Colors**: Mobs renamed with color or format codes no longer recolor or garble the display.
+- **Dead Targets**: A target with no health left is no longer shown at 0 health.
+
 ## [1.1.1] - 2026-11-14
 
 **What's new in v1.1.1:** Packed with the v1.1.1 update. Includes: Smooth Bar and Mob Gear.

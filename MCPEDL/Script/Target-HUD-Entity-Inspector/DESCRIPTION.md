@@ -5,7 +5,7 @@
 [![Minecraft Bedrock](https://img.shields.io/badge/Minecraft%20Bedrock-Stable%20Release-brightgreen?style=flat-square&logo=minecraft)](https://github.com/AllensCreations/MCPE-Curseforges)
 [![Format](https://img.shields.io/badge/Format-.MCPACK%20%7C%20.MCADDON%20%7C%20.MCWORLD-blue?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges)
 
-**Look at any mob or player within 16 blocks to see its name, a smooth 20-segment health bar, its health numbers, its armor, the item it holds, its type and how far away it is.**
+**Look at any mob or player within 16 blocks to see its name, a smooth 20-segment health bar, its health numbers, its armor, the item it holds, its main status effects, its type and how far away it is.**
 
 > Shows the entity under your crosshair on the Action Bar with a smooth color-changing bar beside the numbers.
 
@@ -31,18 +31,29 @@ Aim at a mob or another player and a single line appears on the Action Bar. It d
 - **Good To Know**: Points are counted from the Leather, Copper, Golden, Chainmail, Iron, Diamond and Netherite armor they wear, plus a Turtle Shell helmet.
 
 ### Tamed Pets
-- **What Happens**: Tamed animals show as Tamed, in their own color, instead of Neutral or Passive.
+- **What Happens**: Tamed animals show as Tamed, in their own color, instead of Neutral or Passive. Pets tamed by other players also show their owner, such as Tamed of Steve.
 - **Good To Know**: The owner's name is shown only while that player is online.
 
 ### Held Item
 - **What Happens**: The item in the target's main hand appears after its armor, with a count when it is a stack, for example Iron Sword.
+
+### Status Effects
+- **What Happens**: Key effects on the target appear with their level and time left, for example Poison II 13s. Burning shows while the target is on fire.
+- **Good To Know**: Wither, Poison, Slowness, Weakness, Regeneration, Strength, Speed, Resistance and Fire Resistance are shown, up to three at a time and fewer when the line is long. Effects that last an hour or more show no time left.
+
+### Defeated Flash
+- **What Happens**: When you finish off a mob or player, Defeated and its name flash on the Action Bar for about a second and a half.
+
+### Compact Layout
+- **What Happens**: When the line would be too long for the screen, it switches to a shorter version with a 10-segment bar, shorter names and fewer effects.
+- **Good To Know**: If there is still not enough room, the effects and then the held item are dropped.
 
 ### Adaptive Refresh
 - **What Happens**: The display updates every tick while you are fighting, every 2 ticks while you look at a target and every 5 ticks while nothing is in view.
 - **Good To Know**: An unchanged line is sent again only about once a second, so the display stays steady.
 
 ### Hidden Targets
-- **What Happens**: Invisible mobs, invisible players and players in Spectator mode are not shown.
+- **What Happens**: Invisible mobs, invisible players and players in Spectator mode are not shown. Targets with no health left are not shown either.
 
 ## How to Use
 

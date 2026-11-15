@@ -6,7 +6,11 @@ const TRACK_INTERVAL_TICKS = 2;
 const IDLE_INTERVAL_TICKS = 5;
 const COMBAT_TICKS = 60;
 const REFRESH_TICKS = 20;
+const FLASH_TICKS = 30;
 const BAR_SEGMENTS = 20;
+const COMPACT_BAR_SEGMENTS = 10;
+const MAX_LINE_WIDTH = 66;
+const EFFECT_LIMITS = [3, 2, 1, 0, 0];
 const ANGER_TICKS = 1200;
 const PRUNE_INTERVAL_TICKS = 200;
 const BLANK_BAR = " ";
@@ -40,6 +44,20 @@ const TYPE_COLORS = {
   Tamed: "§d"
 };
 
+const KEY_EFFECTS = [
+  ["wither", true],
+  ["poison", true],
+  ["slowness", true],
+  ["weakness", true],
+  ["regeneration", false],
+  ["strength", false],
+  ["speed", false],
+  ["resistance", false],
+  ["fire_resistance", false]
+];
+
+const ROMAN = ["", "", "II", "III", "IV", "V"];
+
 const ARMOR_SLOTS = [
   EquipmentSlot.Head,
   EquipmentSlot.Chest,
@@ -64,7 +82,7 @@ const playerStates = new Map();
 function getState(playerId) {
   let state = playerStates.get(playerId);
   if (!state) {
-    state = { nextRun: 0, lastText: undefined, lastSent: 0, combatUntil: 0 };
+    state = { nextRun: 0, lastText: undefined, lastSent: 0, combatUntil: 0, flashUntil: 0, flashText: "" };
     playerStates.set(playerId, state);
   }
   return state;
@@ -74,6 +92,35 @@ function markCombat(playerId, now) {
   const state = getState(playerId);
   state.combatUntil = now + COMBAT_TICKS;
   state.nextRun = Math.min(state.nextRun, now);
+}
+
+function startFlash(playerId, label, now) {
+  const state = getState(playerId);
+  state.flashText = `§aDefeated §f${cleanText(label)}`;
+  state.flashUntil = now + FLASH_TICKS;
+  state.nextRun = Math.min(state.nextRun, now);
+}
+
+function cleanText(text) {
+  return String(text).replace(/§.?/g, "");
+}
+
+function shorten(text, limit) {
+  return text.length > limit ? `${text.slice(0, limit - 1)}.` : text;
+}
+
+function measureWidth(text) {
+  let width = 0;
+  for (const ch of cleanText(text)) {
+    if (ch === "|" || ch === ".") {
+      width += 0.4;
+    } else if (ch === " ") {
+      width += 0.7;
+    } else {
+      width += 1;
+    }
+  }
+  return width;
 }
 
 function stripNamespace(typeId) {
@@ -114,10 +161,10 @@ function isHidden(entity) {
 
 function getDisplayName(entity) {
   if (entity.typeId === "minecraft:player") {
-    return entity.name;
+    return cleanText(entity.name);
   }
   if (typeof entity.nameTag === "string" && entity.nameTag.length > 0) {
-    return entity.nameTag;
+    return cleanText(entity.nameTag);
   }
   return titleCase(stripNamespace(entity.typeId));
 }
@@ -160,7 +207,7 @@ function getTameInfo(entity, viewer) {
   if (ownerId !== undefined) {
     for (const candidate of world.getAllPlayers()) {
       if (candidate.id === ownerId) {
-        ownerName = candidate.name;
+        ownerName = cleanText(candidate.name);
         break;
       }
     }
@@ -168,42 +215,102 @@ function getTameInfo(entity, viewer) {
   return { own: false, ownerName };
 }
 
-function getArmorPoints(entity) {
+function getEquippable(entity) {
   try {
-    const equippable = entity.getComponent("minecraft:equippable");
-    if (!equippable) {
-      return 0;
-    }
-    let total = 0;
-    for (const slot of ARMOR_SLOTS) {
+    return entity.getComponent("minecraft:equippable");
+  } catch (error) {
+    return undefined;
+  }
+}
+
+function getArmorPoints(entity) {
+  const equippable = getEquippable(entity);
+  if (!equippable) {
+    return 0;
+  }
+  let total = 0;
+  for (const slot of ARMOR_SLOTS) {
+    try {
       const item = equippable.getEquipment(slot);
       if (item) {
         total += ARMOR_POINTS[stripNamespace(item.typeId)] ?? 0;
       }
+    } catch (error) {
+      continue;
     }
-    return total;
-  } catch (error) {
-    return 0;
   }
+  return total;
 }
 
 function getHeldItem(entity) {
+  const equippable = getEquippable(entity);
+  if (!equippable) {
+    return undefined;
+  }
   try {
-    const equippable = entity.getComponent("minecraft:equippable");
-    if (!equippable) {
-      return undefined;
-    }
     const item = equippable.getEquipment(EquipmentSlot.Mainhand);
     if (!item) {
       return undefined;
     }
     const label = typeof item.nameTag === "string" && item.nameTag.length > 0
-      ? item.nameTag
+      ? cleanText(item.nameTag)
       : titleCase(stripNamespace(item.typeId));
     return item.amount > 1 ? `${label} x${item.amount}` : label;
   } catch (error) {
     return undefined;
   }
+}
+
+function getEffectId(effect) {
+  if (typeof effect.typeId === "string") {
+    return stripNamespace(effect.typeId);
+  }
+  if (typeof effect.displayName === "string") {
+    return effect.displayName.toLowerCase().trim().replace(/\s+(i|ii|iii|iv|v)$/, "").replace(/\s+/g, "_");
+  }
+  return "";
+}
+
+function formatDuration(ticks) {
+  const seconds = Math.ceil(ticks / 20);
+  if (seconds >= 60) {
+    const rest = seconds % 60;
+    return `${Math.floor(seconds / 60)}:${rest < 10 ? "0" : ""}${rest}`;
+  }
+  return `${seconds}s`;
+}
+
+function getEffectTags(entity) {
+  const tags = [];
+  if (entity.isOnFire === true) {
+    tags.push("§6Burning");
+  }
+  let effects;
+  try {
+    effects = entity.getEffects();
+  } catch (error) {
+    return tags;
+  }
+  const byId = new Map();
+  for (const effect of effects) {
+    byId.set(getEffectId(effect), effect);
+  }
+  for (const [id, bad] of KEY_EFFECTS) {
+    const effect = byId.get(id);
+    if (!effect) {
+      continue;
+    }
+    let text = titleCase(id);
+    const level = effect.amplifier + 1;
+    if (level >= 2) {
+      text += ` ${ROMAN[level] ?? level}`;
+    }
+    if (typeof effect.duration === "number" && effect.duration > 0 && effect.duration < 72000) {
+      text += ` ${formatDuration(effect.duration)}`;
+    }
+    tags.push(`${bad ? "§c" : "§a"}${text}`);
+  }
+  return tags;
 }
 
 function getClassification(entity, tameInfo) {
@@ -231,13 +338,13 @@ function getBarColor(ratio) {
   return "§c";
 }
 
-function buildHealthBar(current, max) {
+function buildHealthBar(current, max, segments) {
   const ratio = max > 0 ? Math.min(1, Math.max(0, current / max)) : 0;
-  let filled = Math.round(ratio * BAR_SEGMENTS);
+  let filled = Math.round(ratio * segments);
   if (current > 0 && filled === 0) {
     filled = 1;
   }
-  return `${getBarColor(ratio)}${"|".repeat(filled)}§8${"|".repeat(BAR_SEGMENTS - filled)}`;
+  return `${getBarColor(ratio)}${"|".repeat(filled)}§8${"|".repeat(segments - filled)}`;
 }
 
 function findTarget(player) {
@@ -269,7 +376,8 @@ function findTarget(player) {
     if (hit.distance > blockDistance) {
       continue;
     }
-    if (!entity.getComponent("minecraft:health")) {
+    const health = entity.getComponent("minecraft:health");
+    if (!health || health.currentValue <= 0) {
       continue;
     }
     if (isHidden(entity)) {
@@ -280,30 +388,60 @@ function findTarget(player) {
   return undefined;
 }
 
-function buildActionBar(entity, viewer, distance) {
+function collectInfo(entity, viewer, distance) {
   const health = entity.getComponent("minecraft:health");
-  const current = Math.ceil(health.currentValue);
-  const max = Math.ceil(health.effectiveMax);
-  const name = getDisplayName(entity);
   const isPlayer = entity.typeId === "minecraft:player";
   const tameInfo = getTameInfo(entity, viewer);
   const type = getClassification(entity, tameInfo);
-  const color = TYPE_COLORS[type] ?? "§f";
-  const absorbed = hasEffect(entity, "absorption") ? " §6+" : "";
-  let line = `§f${name} §8| ${buildHealthBar(current, max)} §f${current}/${max}${absorbed}`;
   const armor = getArmorPoints(entity);
-  if (isPlayer || armor > 0) {
-    line += ` §8| §7Armor §f${armor}`;
+  return {
+    name: getDisplayName(entity),
+    current: Math.ceil(health.currentValue),
+    max: Math.ceil(health.effectiveMax),
+    absorbed: hasEffect(entity, "absorption") ? " §6+" : "",
+    showArmor: isPlayer || armor > 0,
+    armor,
+    held: getHeldItem(entity),
+    effects: getEffectTags(entity),
+    type,
+    color: TYPE_COLORS[type] ?? "§f",
+    owner: tameInfo && !tameInfo.own ? tameInfo.ownerName : undefined,
+    distance: Math.round(distance)
+  };
+}
+
+function formatLine(info, level) {
+  const compact = level >= 1;
+  const segments = compact ? COMPACT_BAR_SEGMENTS : BAR_SEGMENTS;
+  const name = compact ? shorten(info.name, 14) : info.name;
+  let line = `§f${name} §8| ${buildHealthBar(info.current, info.max, segments)} §f${info.current}/${info.max}${info.absorbed}`;
+  if (info.showArmor) {
+    line += compact ? ` §8| §7A §f${info.armor}` : ` §8| §7Armor §f${info.armor}`;
   }
-  const held = getHeldItem(entity);
-  if (held) {
-    line += ` §8| §7Held §f${held}`;
+  if (info.held && level < 4) {
+    line += compact ? ` §8| §f${shorten(info.held, 12)}` : ` §8| §7Held §f${info.held}`;
   }
-  let typeLabel = `${color}${type}`;
-  if (tameInfo && !tameInfo.own && tameInfo.ownerName) {
-    typeLabel += ` §7of ${tameInfo.ownerName}`;
+  const effects = info.effects.slice(0, EFFECT_LIMITS[level]);
+  for (const tag of effects) {
+    line += ` §8| ${tag}`;
   }
-  return `${line} §8| ${typeLabel} §8| §7${Math.round(distance)}m`;
+  let typeLabel = `${info.color}${info.type}`;
+  if (!compact && info.owner) {
+    typeLabel += ` §7of ${info.owner}`;
+  }
+  return `${line} §8| ${typeLabel} §8| §7${info.distance}m`;
+}
+
+function buildActionBar(entity, viewer, distance) {
+  const info = collectInfo(entity, viewer, distance);
+  let line = "";
+  for (let level = 0; level < EFFECT_LIMITS.length; level++) {
+    line = formatLine(info, level);
+    if (measureWidth(line) <= MAX_LINE_WIDTH) {
+      return line;
+    }
+  }
+  return line;
 }
 
 function updatePlayer(player, now) {
@@ -313,13 +451,17 @@ function updatePlayer(player, now) {
   }
 
   let text;
-  try {
-    const target = findTarget(player);
-    if (target) {
-      text = buildActionBar(target.entity, player, target.distance);
+  if (now < state.flashUntil) {
+    text = state.flashText;
+  } else {
+    try {
+      const target = findTarget(player);
+      if (target) {
+        text = buildActionBar(target.entity, player, target.distance);
+      }
+    } catch (error) {
+      text = undefined;
     }
-  } catch (error) {
-    text = undefined;
   }
 
   if (text !== undefined) {
@@ -382,7 +524,26 @@ export function startTargetHud() {
   });
 
   world.afterEvents.entityDie.subscribe((event) => {
-    angryUntil.delete(event.deadEntity.id);
+    const dead = event.deadEntity;
+    let label = "Target";
+    let deadId;
+    try {
+      deadId = dead.id;
+      label = getDisplayName(dead);
+    } catch (error) {
+      label = "Target";
+    }
+    if (deadId !== undefined) {
+      angryUntil.delete(deadId);
+    }
+    try {
+      const attacker = event.damageSource.damagingEntity;
+      if (attacker && attacker.isValid && attacker.typeId === "minecraft:player" && attacker.id !== deadId) {
+        startFlash(attacker.id, label, system.currentTick);
+      }
+    } catch (error) {
+      return;
+    }
   });
 
   world.afterEvents.playerLeave.subscribe((event) => {
