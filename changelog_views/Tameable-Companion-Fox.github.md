@@ -1,18 +1,29 @@
 # Changelog — Tameable Companion Fox
 
-## [1.8.3] - 2026-11-16 - Fox Combat Upgrade
+## [1.8.4] - 2026-11-16 - Fox Tool Attacks
 
 ### Added
+- **Tool Arming**: Pickaxes, shovels, and hoes can now be handed to a tamed fox along with swords and axes.
+- **Pickaxe Style**: A pickaxe fox deals 5 damage and slows what it hits for 3 seconds.
+- **Shovel Style**: A shovel fox deals 5 damage and attacks from farther away.
+- **Hoe Style**: A hoe fox deals 4 damage and poisons what it hits for 4 seconds.
+
+### Improved & Balanced
+- **Tool Prompt**: The prompt for handing over a tool now reads Give Tool.
+
+<details>
+<summary><b>1.8.x</b> (5 releases)</summary>
+
+### [1.8.3] - 2026-11-16 - Fox Combat Upgrade
+
+#### Added
 - **Weapon Styles**: A fox holding a sword chases targets faster, and a fox holding an axe leaps higher.
 - **Take Weapon Back**: Sneak and interact with an empty hand to take the weapon from your fox.
 - **Hostile Mob Defense**: Tamed foxes attack hostile mobs they can see within 16 blocks, except creepers.
 
-### Improved & Balanced
+#### Improved & Balanced
 - **Owner Only Arming**: Only a fox's owner can hand it a weapon.
 - **Translated Prompts**: The weapon prompts now use language files so they can be translated.
-
-<details>
-<summary><b>1.8.x</b> (4 releases)</summary>
 
 ### [1.8.2] - 2026-11-16 - Give Weapon Prompt
 
