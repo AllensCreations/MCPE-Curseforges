@@ -49,9 +49,21 @@ def block(text, lang):
     return f"{f}{lang}\n{text}\n{f}"
 
 
+def first_paragraph(md):
+    pre, _ = bdv.sections(md)
+    for para in re.split(r"\n\s*\n", pre):
+        s = para.strip()
+        if not s or s.startswith(("#", "[![", "![", ">", "---", "<")) or re.match(r"\*\*By ", s):
+            continue
+        return s
+    return ""
+
+
 def render_kit(root, project):
     md = (project / "DESCRIPTION.md").read_text(encoding="utf-8")
     name, tagline, _ = bip.facts(md, project.name)
+    if not tagline:
+        tagline = first_paragraph(md)
     if not tagline:
         raise ValueError("DESCRIPTION.md has no bold tagline line to use as the summary")
     summary = make_summary(tagline)
