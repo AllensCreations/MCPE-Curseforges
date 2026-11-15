@@ -1,11 +1,11 @@
-# ALN:MobStacker
+# ALNMobStacker
 
-Download the current release of **ALN:MobStacker** for Minecraft Bedrock Edition.
+Download the current release of **ALNMobStacker** for Minecraft Bedrock Edition.
 
 ## Download
 
 - **Package format:** `.mcpack`
-- **Direct download:** [Download ALN:MobStacker (.mcpack)](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Script/README.md)
+- **Direct download:** [Download ALNMobStacker (.mcpack)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/ALN-MobStacker/ALNMobStacker%20V1.0.0.mcpack)
 
 ## Installation
 
@@ -15,4 +15,4 @@ Download the current release of **ALN:MobStacker** for Minecraft Bedrock Edition
 
 ## Pack Information
 
-For gameplay features, usage details, compatibility notes, and other project information, read the [full description](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Script/ALN-MobStacker/DESCRIPTION.md).
+For gameplay features, usage details, compatibility notes, and other project information, read the [full description](https://github.com/AllensCreations/MCPE-Curseforges/blob/main/MCPEDL/Script/ALN-MobStacker/DESCRIPTION.md).

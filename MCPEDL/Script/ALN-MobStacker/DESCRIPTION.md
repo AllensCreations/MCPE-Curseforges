@@ -81,3 +81,4 @@ Build a farm or grinder as usual. Mobs of the same kind that stand close togethe
 ## Search & Discovery Keywords
 
 Minecraft Bedrock add-on, ALN:MobStacker Bedrock mod, mob stacker, mob farm, grinder, Looting, Minecraft PE survival, MCPEDL add-on, CurseForge Bedrock, ALNStudios.
+
