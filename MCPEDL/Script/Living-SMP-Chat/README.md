@@ -5,7 +5,7 @@ Download the current release of **Living SMP Chat** for Minecraft Bedrock Editio
 ## Download
 
 - **Package format:** `.mcpack`
-- **Direct download:** [Download Living SMP Chat (.mcpack)](https://github.com/AllensCreations/MCPE-Curseforges/blob/main/MCPEDL/Script/README.md#available-scripts)
+- **Direct download:** [Download Living SMP Chat (.mcpack)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Living-SMP-Chat/LivingSMPChat%20V1.0.0.mcpack)
 
 ## Installation
 
@@ -15,4 +15,4 @@ Download the current release of **Living SMP Chat** for Minecraft Bedrock Editio
 
 ## Pack Information
 
-For gameplay features, usage details, compatibility notes, and other project information, read the [full description](DESCRIPTION.md).
+For gameplay features, usage details, compatibility notes, and other project information, read the [full description](https://github.com/AllensCreations/MCPE-Curseforges/blob/main/MCPEDL/Script/Living-SMP-Chat/DESCRIPTION.md).

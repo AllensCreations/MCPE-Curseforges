@@ -77,3 +77,4 @@ You play your world as usual. Between 5 and 10 virtual players are online at any
 ## Search & Discovery Keywords
 
 Minecraft Bedrock add-on, Living SMP Chat Bedrock mod, virtual SMP players, fake server chat, Diamond Ore reactions, Ancient Debris, Minecraft PE survival, MCPEDL add-on, CurseForge Bedrock, ALNStudios.
+
