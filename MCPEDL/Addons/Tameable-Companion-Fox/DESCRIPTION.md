@@ -19,8 +19,8 @@ Tame loyal foxes, command them to sit, and arm them with tools that each change 
 - **What Happens**: Each sweet berry or glow berry you feed a wild fox has a 75% chance of taming it.
 
 ### Bodyguard Protection
-- **What Happens**: A tamed fox follows you, attacks mobs that hurt you or that you hurt, and goes after hostile mobs it can see within 16 blocks. Its attack deals 4 damage.
-- **Good To Know**: Tamed foxes leave creepers alone.
+- **What Happens**: A tamed fox follows you, attacks mobs that hurt you or that you hurt, and goes after hostile mobs it can see within 16 blocks. Its bare attack deals 4 damage.
+- **Good To Know**: Tamed foxes leave creepers and wardens alone.
 
 ### Upgraded Vitality
 - **What Happens**: A tamed fox has 30 health, up from the 20 of a wild fox.
@@ -29,23 +29,26 @@ Tame loyal foxes, command them to sit, and arm them with tools that each change 
 - **What Happens**: Interact with a tamed fox using an empty hand to make it sit and stay in place. Interact again to make it stand up and follow you.
 
 ### Weapon Arming
-- **What Happens**: Interact with your own tamed fox while holding a sword, axe, pickaxe, shovel, or hoe to hand it over. Each tool gives the fox a different attack style.
-- **Good To Know**: Wooden, stone, golden, iron, diamond, and netherite tools are accepted. Sneak and interact with an empty hand to take the tool back. An armed fox drops its tool when it dies.
+- **What Happens**: Interact with your own tamed fox while holding a sword, axe, pickaxe, shovel, or hoe to hand it over. The fox's damage depends on the tool it holds, and each tool gives it a different attack style.
+- **Good To Know**: Wooden and golden tools deal the least damage, and stone, iron, diamond, and netherite tools deal more in that order. Sneak and interact with an empty hand to take the tool back. An armed fox drops its tool when it dies.
 
 ### Sword Style
-- **What Happens**: A fox holding a sword deals 6 damage and chases its targets faster.
+- **What Happens**: A fox holding a sword deals 5 to 9 damage and chases its targets faster.
 
 ### Axe Style
-- **What Happens**: A fox holding an axe deals 8 damage and leaps higher at its targets.
+- **What Happens**: A fox holding an axe deals 7 to 11 damage and leaps higher at its targets.
+- **Good To Know**: Axe attacks are slower, landing once every 1.5 seconds.
 
 ### Pickaxe Style
-- **What Happens**: A fox holding a pickaxe deals 5 damage and slows whatever it hits for 3 seconds.
+- **What Happens**: A fox holding a pickaxe deals 4 to 8 damage and slows what it hits for 3 seconds.
+- **Good To Know**: The slow can only trigger once every 8 seconds, and swapping tools starts that wait again.
 
 ### Shovel Style
-- **What Happens**: A fox holding a shovel deals 5 damage and attacks from farther away.
+- **What Happens**: A fox holding a shovel deals 4 to 8 damage and attacks from farther away.
 
 ### Hoe Style
-- **What Happens**: A fox holding a hoe deals 4 damage and poisons whatever it hits for 4 seconds.
+- **What Happens**: A fox holding a hoe deals 4 to 8 damage and poisons what it hits for 4 seconds.
+- **Good To Know**: The poison can only trigger once every 8 seconds, and swapping tools starts that wait again. Hoe attacks land once every 1.2 seconds.
 
 ### Healing Support
 - **What Happens**: Feeding a hurt tamed fox sweet berries or glow berries restores 4 health.
@@ -88,4 +91,3 @@ Tame loyal foxes, command them to sit, and arm them with tools that each change 
 ## Search & Discovery Keywords
 
 Tameable Companion Fox Minecraft Bedrock, Berry Taming Bedrock, Bodyguard Protection Bedrock, Upgraded Vitality Bedrock, Sit & Stand Commands Bedrock, Weapon Arming Bedrock, Tool Attack Styles Bedrock, Healing Support Bedrock, Minecraft PE survival, MCPEDL, CurseForge Bedrock, ALNStudios, Minecraft Bedrock add-on, MCPEDL add-on.
-

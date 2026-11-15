@@ -2,6 +2,18 @@
 
 ---
 
+## [1.8.5] - 2026-11-16 - Fox Tool Balance
+
+### Improved & Balanced
+- **Material Damage**: A fox's damage now depends on the tool it holds. Wooden and golden tools hit the softest, then stone, iron, diamond, and netherite.
+- **Effect Cooldowns**: Pickaxe slowness and hoe poison can only trigger once every 8 seconds.
+- **Swap Protection**: Swapping tools starts the effect cooldown, so it cannot be reset by switching.
+- **Attack Pace**: Axe attacks land every 1.5 seconds and hoe attacks every 1.2 seconds.
+- **Warden Safety**: Tamed foxes no longer pick fights with wardens.
+
+### Fixed
+- **Shovel Reach**: A shovel now lets the fox attack from farther away than a bare fox, as described.
+
 ## [1.8.4] - 2026-11-16 - Fox Tool Attacks
 
 ### Added
