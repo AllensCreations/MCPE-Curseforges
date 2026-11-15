@@ -1,13 +1,30 @@
 # Changelog — Target HUD Entity Inspector
 
-## [1.1.1] - 2026-11-14
+## [1.1.2] - 2026-11-15 - Status Effects and Defeated Flash
 
 ### Added
+- **Status Effects**: Key effects on the target, such as Poison II 13s, now show with their level and time left, and Burning shows while the target is on fire.
+- **Defeated Flash**: When you finish off a mob or player, Defeated and its name flash on the Action Bar for a moment.
+
+### Improved & Balanced
+- **Compact Layout**: When the line is too long for the screen, it switches to a shorter version with a 10-segment bar, shorter names and fewer effects.
+- **Gear Reading**: Armor and the held item are now read piece by piece, so one unreadable piece no longer hides the rest.
+
+### Fixed
+- **Name Colors**: Mobs renamed with color or format codes no longer recolor or garble the display.
+- **Dead Targets**: A target with no health left is no longer shown at 0 health.
+
+<details>
+<summary><b>1.1.x</b> (2 releases)</summary>
+
+### [1.1.1] - 2026-11-14
+
+#### Added
 - **Held Item**: The item in the target's main hand now appears beside its armor.
 - **Armor on Mobs**: Mobs that wear armor now show their armor points, not only players.
 - **Pet Owners**: Pets tamed by other players now show as Tamed with the owner's name when that player is online.
 
-### Improved & Balanced
+#### Improved & Balanced
 - **Smooth Health Bar**: The bar now has 20 segments and turns from green to yellow to red as health drops.
 - **Adaptive Refresh**: The display updates every tick in a fight, every 2 ticks on a target and every 5 ticks while idle.
 - **Steadier Display**: An unchanged line is no longer sent over and over, which removes needless flicker.
@@ -15,11 +32,8 @@
 - **More Mobs Recognized**: More vanilla mobs have a type, and unknown mobs use their game family before falling back to Neutral.
 - **Any Tamed Animal**: Tamed animals other than Wolves and Cats now show as Tamed.
 
-### Fixed
+#### Fixed
 - **Hidden Targets**: Invisible mobs, invisible players and players in Spectator mode no longer show their health.
-
-<details>
-<summary><b>1.1.x</b> (1 release)</summary>
 
 ### [1.1.0] - 2026-11-11
 

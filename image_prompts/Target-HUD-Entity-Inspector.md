@@ -11,7 +11,7 @@ Copy a prompt below into your image generator. Attach your own images first so t
 
 ```text
 Use the attached logo only as a brand reference for its color palette and overall mood. Do not copy it. Create a new, original logo with a different composition and a different main symbol. Do not just recolor, resize, crop, mirror or tweak the attached logo.
-Create a clean, square (1:1) logo image for the Minecraft Bedrock add-on "Target HUD Entity Inspector". Look at any mob or player within 16 blocks to see its name, a smooth 20-segment health bar, its health numbers, its armor, the item it holds, its type and how far away it is.
+Create a clean, square (1:1) logo image for the Minecraft Bedrock add-on "Target HUD Entity Inspector". Look at any mob or player within 16 blocks to see its name, a smooth 20-segment health bar, its health numbers, its armor, the item it holds, its main status effects, its type and how far away it is.
 Base the main symbol on the pack idea above. Match the blocky look of the attached in-game snapshots. Center the logo, use a simple background, and keep it readable at small sizes.
 Text: "Target HUD Entity Inspector" and, in small letters, "ALNStudios". ALNStudios is the brand name, so always keep it and never remove or change it. Spell both exactly.
 Do not add Minecraft, Mojang or Microsoft logos, watermarks, or characters from other games.
@@ -20,7 +20,7 @@ Do not add Minecraft, Mojang or Microsoft logos, watermarks, or characters from 
 ## Banner Prompt
 
 ```text
-Create a wide (16:9) banner image for the Minecraft Bedrock add-on "Target HUD Entity Inspector". Look at any mob or player within 16 blocks to see its name, a smooth 20-segment health bar, its health numbers, its armor, the item it holds, its type and how far away it is.
+Create a wide (16:9) banner image for the Minecraft Bedrock add-on "Target HUD Entity Inspector". Look at any mob or player within 16 blocks to see its name, a smooth 20-segment health bar, its health numbers, its armor, the item it holds, its main status effects, its type and how far away it is.
 Use the attached in-game snapshots as scene and style references: copy their blocky look, lighting, colors and the kind of scenery they show. Make a new composition inspired by them. Do not copy the on-screen HUD, chat or hotbar.
 Use the attached logo only as a brand reference for its colors and mood. Do not copy it. Put a new, original logo design in the banner, large enough to read, on the left or center.
 Hint at these pack features visually: Health Bar, Mob Type, Distance Readout, Armor Points, Tamed Pets.
