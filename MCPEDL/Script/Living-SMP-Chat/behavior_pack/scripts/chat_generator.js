@@ -1,3 +1,4 @@
+import { BANKS, EXTRA_CORES, EXTRA_OPENERS, EXTRA_TAILS } from "./chat_lines_extra.js";
 const OPENERS = ["", "yo", "bro", "ngl", "okay but", "honestly", "wait", "lmao", "bruh", "ok", "oh", "nah", "dude", "hey", "ayo", "fr", "uh"];
 const TAILS = ["", "lol", "lmao", "haha", "xD", "fr", "tbh", "ngl", "istg", "bruh", "lmaooo", "man", "dude", "mate", "honestly"];
 
@@ -140,6 +141,10 @@ const C = {
   ],
 };
 
+for (const k of Object.keys(EXTRA_CORES)) C[k] = (C[k] || []).concat(EXTRA_CORES[k]);
+OPENERS.push(...EXTRA_OPENERS);
+TAILS.push(...EXTRA_TAILS);
+
 const recent = [];
 const recentSet = new Set();
 const MAX_RECENT = 400;
@@ -160,8 +165,12 @@ export function coordHint(location, dimensionId) {
   const z = Math.round(location.z / 100) * 100;
   return pick([`near x ${x}`, `around z ${z}`, `${where}`, `somewhere near ${x}, ${z}`]);
 }
+function fillSlots(text) {
+  return text.replace(/\{(\w+)\}/g, (m, k) => (BANKS[k] ? pick(BANKS[k]) : m));
+}
 
-function resolve(text, ctx) {
+function resolve(raw, ctx) {
+  const text = fillSlots(raw);
   const map = {
     "<PLAYER>": ctx.player || "someone",
     "<CAUSE>": ctx.cause || "something",
@@ -169,9 +178,10 @@ function resolve(text, ctx) {
     "<COORD_HINT>": ctx.coordHint || "nearby",
     "<BOT_A>": ctx.botA || "someone",
     "<BOT_B>": ctx.botB || "someone",
+    "<BOT_C>": ctx.botC || "someone",
     "<COORDS>": ctx.coords || "somewhere",
   };
-  return text.replace(/<(PLAYER|CAUSE|ITEM|COORD_HINT|BOT_A|BOT_B|COORDS)>/g, (m) => map[m]);
+  return text.replace(/<(PLAYER|CAUSE|ITEM|COORD_HINT|BOT_A|BOT_B|BOT_C|COORDS)>/g, (m) => map[m]);
 }
 
 export function assembleMessage(category, ctx = {}) {
@@ -191,11 +201,27 @@ export function assembleMessage(category, ctx = {}) {
   return line;
 }
 
+export function renderLine(text, ctx = {}) {
+  const line = resolve(text, ctx);
+  remember(line);
+  return line;
+}
+
 export const CATEGORY_NAMES = Object.keys(C);
+
+function slotCombos(core) {
+  let n = 1;
+  for (const m of core.matchAll(/\{(\w+)\}/g)) n *= BANKS[m[1]] ? BANKS[m[1]].length : 1;
+  return n;
+}
 
 export function totalVariations() {
   let total = 0;
-  for (const k of CATEGORY_NAMES) total += OPENERS.length * C[k].length * TAILS.length;
+  for (const k of CATEGORY_NAMES) {
+    let cores = 0;
+    for (const core of C[k]) cores += slotCombos(core);
+    total += OPENERS.length * cores * TAILS.length;
+  }
   return total;
 }
 

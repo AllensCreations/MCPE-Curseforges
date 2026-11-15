@@ -2,6 +2,14 @@
 
 ---
 
+## [1.0.2] - 2026-11-15 - Big Chat Expansion
+
+### Added
+- **40 Virtual Players**: 22 new virtual players join the roster of 18, and between 6 and 14 are online at a time.
+- **550 New Lines and 24 New Topics**: weather, night and morning, farms, trading, raids, base tours, redstone, PvP, the dragon and the wither, the nether roof, fishing, exploring, pets, horses and boats, food, music, server events, build progress, lost items, mining and enchanting.
+- **Scripted Mini Chats**: 40 short back-and-forth conversations between two or three players.
+- **Bigger Variety**: new openers, endings and word banks lift the pool to millions of different lines, and the same line is not repeated back to back.
+
 ## [1.0.1] - 2026-11-15 - Spawner Tips
 
 ### Added

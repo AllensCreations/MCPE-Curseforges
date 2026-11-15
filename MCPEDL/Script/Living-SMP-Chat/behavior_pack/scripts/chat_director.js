@@ -1,6 +1,7 @@
 import { world, system } from "@minecraft/server";
 import { formatChat, isOnline, pickOnline } from "./smp_roster.js";
-import { assembleMessage, pickItem } from "./chat_generator.js";
+import { assembleMessage, pickItem, renderLine } from "./chat_generator.js";
+import { DIALOGS } from "./chat_lines_extra.js";
 
 const MIN_DELAY = 35;
 const MAX_DELAY = 100;
@@ -91,17 +92,46 @@ function dramaChain() {
   ]);
 }
 
+const TOPICS = [
+  "weather_rain", "weather_storm", "night_falls", "morning", "farm_talk", "trade_talk", "raid_talk", "base_tour",
+  "redstone_talk", "pvp_talk", "boss_dragon", "boss_wither", "nether_roof", "fishing", "explore", "pets",
+  "horses_boats", "food_talk", "music_talk", "server_event", "building_progress", "lost_items", "mining_talk", "enchant_talk",
+];
+
+function topicChat(player) {
+  const topic = TOPICS[rand(0, TOPICS.length - 1)];
+  const bots = pickOnline(rand(2, 4));
+  if (bots.length < 2) return;
+  playConversation(chain(bots, [topic, topic, "support_reply", topic], { player }));
+}
+
+function dialogChat(player) {
+  const script = DIALOGS[rand(0, DIALOGS.length - 1)];
+  const need = Math.min(3, script.reduce((m, l) => Math.max(m, l[0] + 1), 1));
+  const bots = pickOnline(need);
+  if (bots.length < need) return;
+  const ctx = {
+    player,
+    botA: bots[0].name,
+    botB: bots[1] ? bots[1].name : "",
+    botC: bots[2] ? bots[2].name : "",
+  };
+  playConversation(script.map(([i, text]) => ({ bot: bots[i], text: renderLine(text, { ...ctx, speaker: bots[i] }) })));
+}
+
 export function ambientConversation() {
   const players = world.getAllPlayers();
   if (players.length === 0) return;
   const player = players[rand(0, players.length - 1)].name;
   const roll = Math.random();
-  if (roll < 0.25) return void dramaChain();
-  const cats = roll < 0.45
+  if (roll < 0.15) return void dramaChain();
+  if (roll < 0.4) return void dialogChat(player);
+  if (roll < 0.7) return void topicChat(player);
+  const cats = roll < 0.8
     ? ["banter_video", "banter_video", "support_reply", "banter_video", "support_reply"]
-    : roll < 0.65
+    : roll < 0.9
       ? ["banter_build", "banter_build", "support_reply", "banter_lag"]
-      : roll < 0.8
+      : roll < 0.95
         ? ["banter_lag", "support_reply", "banter_build"]
         : ["greeting_anyone", "greeting_hello", "support_reply"];
   const n = Math.min(cats.length, rand(2, 5));

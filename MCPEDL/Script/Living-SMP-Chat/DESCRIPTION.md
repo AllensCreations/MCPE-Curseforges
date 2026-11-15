@@ -4,19 +4,16 @@
 
 [![Minecraft Bedrock](https://img.shields.io/badge/Minecraft%20Bedrock-Stable%20Release-brightgreen?style=flat-square&logo=minecraft)](https://github.com/AllensCreations/MCPE-Curseforges)
 [![Format](https://img.shields.io/badge/Format-.MCPACK%20%7C%20.MCADDON%20%7C%20.MCWORLD-blue?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges)
-
-**18 virtual SMP members chat, join and leave, and react when you die or mine Diamond Ore and Ancient Debris.**
-
-> Living SMP Chat fills the chat with a friendly roster of 18 virtual players who talk to each other and to you. It suits solo worlds that feel too quiet.
+**40 virtual SMP members chat, join and leave, and react when you die or mine Diamond Ore and Ancient Debris.**
+> Living SMP Chat fills the chat with a friendly roster of 40 virtual players who talk to each other and to you. It suits solo worlds that feel too quiet.
 
 ## Overview
-
-You play your world as usual. Between 5 and 10 virtual players are online at any time and they join and leave with the normal yellow messages. They greet you when you join, react to your deaths and ore finds, and hold short conversations on their own. Nothing is added to the world: only chat messages appear.
+You play your world as usual. Between 6 and 14 virtual players are online at any time and they join and leave with the normal yellow messages. They greet you when you join, react to your deaths and ore finds, and hold short conversations on their own. Nothing is added to the world: only chat messages appear.
 
 ## Key Features
 
 ### Virtual SMP Roster
-- **What Happens**: 18 virtual players with Builder, Redstoner, PvPer, Wholesome and Chaotic personalities take turns online. Only the players who are online speak.
+- **What Happens**: 40 virtual players with Builder, Redstoner, PvPer, Wholesome and Chaotic personalities take turns online. Only the players who are online speak.
 - **Good To Know**: The online group is kept between sessions.
 
 ### Death Reactions
@@ -32,7 +29,7 @@ You play your world as usual. Between 5 and 10 virtual players are online at any
 - **Good To Know**: Sleep and travel comments are limited to one every 3 minutes for each kind.
 
 ### Ambient Banter
-- **What Happens**: Every 1.5 to 3 minutes the virtual players start a 2 to 5 message conversation about videos, builds, lag, or a small PvP drama between three of them.
+- **What Happens**: Every 1.5 to 3 minutes the virtual players start a 2 to 5 message conversation about weather, farms, trading, raids, bosses, pets, music and more, from short scripted chats to small PvP dramas between three of them.
 - **Good To Know**: Conversations are spaced out so replies appear one after another. Overlapping events wait in a short queue instead of flooding the chat.
 
 ### Spawner Tips

@@ -19,10 +19,31 @@ export const ROSTER = [
   { name: "LlamaLarry", color: "6", type: "Chaotic" },
   { name: "NoodleNinja_X", color: "9", type: "Chaotic" },
   { name: "PhantomPax", color: "3", type: "Chaotic" },
+  { name: "ObsidianOllie", color: "8", type: "Builder" },
+  { name: "CopperCleo", color: "6", type: "Builder" },
+  { name: "CathedralCal", color: "b", type: "Builder" },
+  { name: "LanternLeo", color: "e", type: "Builder" },
+  { name: "TerracottaTess", color: "6", type: "Builder" },
+  { name: "ComparatorCass", color: "9", type: "Redstoner" },
+  { name: "PistonPete", color: "3", type: "Redstoner" },
+  { name: "ClockworkCal", color: "7", type: "Redstoner" },
+  { name: "SorterSid", color: "b", type: "Redstoner" },
+  { name: "TridentTobi", color: "3", type: "PvPer" },
+  { name: "ShieldSage", color: "8", type: "PvPer" },
+  { name: "BladeBrooke", color: "c", type: "PvPer" },
+  { name: "ArrowAsh", color: "7", type: "PvPer" },
+  { name: "AxolotlAmy", color: "d", type: "Wholesome" },
+  { name: "MooshroomMia", color: "c", type: "Wholesome" },
+  { name: "HoneyHana", color: "e", type: "Wholesome" },
+  { name: "BeaconBen", color: "b", type: "Wholesome" },
+  { name: "PiglinPete", color: "6", type: "Chaotic" },
+  { name: "WardenWill", color: "5", type: "Chaotic" },
+  { name: "SculkSam", color: "2", type: "Chaotic" },
+  { name: "EndermanEli", color: "5", type: "Chaotic" },
+  { name: "GlitchGus", color: "9", type: "Chaotic" },
 ];
-
-export const MIN_ONLINE = 5;
-export const MAX_ONLINE = 10;
+export const MIN_ONLINE = 6;
+export const MAX_ONLINE = 14;
 const SAVE_KEY = "alnstudios:living_smp_online";
 
 const online = new Set();
@@ -95,7 +116,7 @@ export function startSessionSimulator() {
   load();
   if (online.size < MIN_ONLINE || online.size > MAX_ONLINE) {
     online.clear();
-    for (const b of shuffle(ROSTER).slice(0, rand(6, 8))) online.add(b.name);
+    for (const b of shuffle(ROSTER).slice(0, rand(8, 11))) online.add(b.name);
     save();
   }
   const schedule = () => {
