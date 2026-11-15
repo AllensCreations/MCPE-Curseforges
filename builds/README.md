@@ -38,6 +38,7 @@ This directory stores compiled Add-ons (`.mcaddon`), Maps (`.mcworld`), Scripts 
 | **2-in-1 Loot & XP Booster** | Add-on (.mcaddon) | [Download (.mcaddon)](2-in-1-Loot--XP-Booster/LootXPBooster%20V1.0.2.mcaddon) | [`2-in-1-Loot--XP-Booster/`](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/builds/2-in-1-Loot--XP-Booster/) |
 | **Enchanter** | Add-on (.mcaddon) | [Download (.mcaddon)](Enchanter/Enchanter%20V1.0.2.mcaddon) | [`Enchanter/`](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/builds/Enchanter/) |
 | **ALN Quiver** | Add-on (.mcaddon) | [Download (.mcaddon)](ALN-Quiver/ALNQuiver%20V1.0.0.mcaddon) | [`ALN-Quiver/`](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/builds/ALN-Quiver/) |
+| **Expanded Basic Arsenal** | Complete Pack (`.mcaddon`) | [Download (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Expanded-Basic-Arsenal/ExpandedBasicArsenal%20V1.0.0.mcaddon) | [`Expanded-Basic-Arsenal/`](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/builds/Expanded-Basic-Arsenal/) |
 
 ### Worlds and Maps
 

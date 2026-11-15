@@ -58,7 +58,7 @@ Craft a weapon from first-day materials, then pick the one that fits the fight. 
 
 - Minecraft Bedrock Edition: 1.26.60
 - Experimental features: No experiment requirement detected in the inspected files.
-- Achievements: Likely achievement-friendly. Giving yourself the weapons with commands needs cheats, which disable achievements in that world.
+- Achievements: Likely achievement-friendly.
 - Verification: Source created, not tested in game.
 
 ## Creator and Permissions
@@ -85,3 +85,4 @@ Craft a weapon from first-day materials, then pick the one that fits the fight. 
 ## Search & Discovery Keywords
 
 Minecraft Bedrock add-on, Expanded Basic Arsenal Bedrock mod, Minecraft slingshot, Minecraft blowgun, Minecraft throwable spear, copper dagger, wooden club, Minecraft PE survival, MCPEDL add-on, CurseForge Bedrock, ALNStudios.
+

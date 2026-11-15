@@ -1,0 +1,8 @@
+{
+  "changelog_version": "1.0.0",
+  "manifest_version": "1.0.0",
+  "packages": {
+    "ExpandedBasicArsenal V1.0.0.mcaddon": "ce634ef2dbadff36e6ef66f7790afab2ad59f8888c0a281b7e14ff4cadf71dfe"
+  },
+  "source_sha256": "465e060320488b65b1a79eff224dba2a3a00f5ab8d773a145b8a609bbb6dd52f"
+}
