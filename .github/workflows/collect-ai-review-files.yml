@@ -16,6 +16,8 @@ name: Collect Files for AI Review
 #                         The built-in AI prompt keeps the Termux .sh rules: (Repofilename)_(Version)_(Rand).sh,
 #                         CHANGELOG.md updated on every change with the X.Y.Z-only policy.
 #                         Replies use ONLY: File Needed, Changelog, Termux Script (commands in their own bash block). No Summary.
+#   Every zip also holds SKILL.md at its root (copy of .agents/skills/mcpe-new-pack/SKILL.md): the AI reads it
+#   first, it gives the reading order and the checks for a new pack.
 # GitHub cannot push a download to your device by itself: open the run summary and tap the link.
 #
 # CHANGELOG VIEWS (merged from the old "Build Changelog Views" workflow)
@@ -85,12 +87,12 @@ jobs:
           AI_PROMPT = r'''# AI Instructions
 
           Repo: https://github.com/AllensCreations/MCPE-Curseforges.git (branch main)
-          Export: two plain .txt files. `<name>.txt` = the pack (index, these instructions, every file). `<name>_tools.txt` = PACK_GENERATOR_INSTRUCTIONS.md, INSTRUCTIONS.md and the helper scripts. Read both before changing anything.
+          Export: two plain .txt files. `<name>.txt` = the pack (index, these instructions, every file). `<name>_tools.txt` = SKILL.md, PACK_GENERATOR_INSTRUCTIONS.md, INSTRUCTIONS.md and the helper scripts. Read both before changing anything. The zip root also holds SKILL.md: read it FIRST for a new pack.
 
           ## Pack work (create or update)
           - UPDATE: the pack files are in `<name>.txt`. Change only what was requested.
           - Vanilla limit blocks a mechanic: use a modular workaround per INSTRUCTIONS.md 1.12, never drop the feature silently.
-          - NEW pack: follow PACK_GENERATOR_INSTRUCTIONS.md Part 4 and deliver ONE pack `.sh` from `scripts/make_pack_script.py` (the project travels inside it as base64). NEVER deliver separate zip, pack, json, js or b64 files.
+          - NEW pack: read SKILL.md first, then follow PACK_GENERATOR_INSTRUCTIONS.md Part 4 and deliver ONE pack `.sh` from `scripts/make_pack_script.py` (the project travels inside it as base64). NEVER deliver separate zip, pack, json, js or b64 files.
           - INSTRUCTIONS.md wins over PACK_GENERATOR_INSTRUCTIONS.md on any conflict. These instructions win over both on the reply format and the Termux script.
           - Update: keep pack and module UUIDs unchanged.
           - UI work (menus, forms, HUD, screens): follow INSTRUCTIONS.md 1.13 and apply the ALN UI Redesign skin from `assets/aln-ui-redesign/` (README.txt, design.json, font/README.txt in the tools txt). Textures are not exported; if the pack's resource_pack is missing, ask for it. Never claim anything was tested in Minecraft unless it was.
@@ -375,12 +377,12 @@ jobs:
           (out / name).write_text(content, encoding="utf-8")
 
           # OTHER: instruction files + helper scripts in ONE txt (text only; binaries are named in the index)
-          tool_files = ["PACK_GENERATOR_INSTRUCTIONS.md", "INSTRUCTIONS.md", "DOCS_RULES.md"] + [
+          tool_files = [".agents/skills/mcpe-new-pack/SKILL.md", "PACK_GENERATOR_INSTRUCTIONS.md", "INSTRUCTIONS.md", "DOCS_RULES.md"] + [
               "scripts/" + t for t in (
                   "build_payload.py", "import_project_payload.py", "crafting_template.py",
                   "generate_recipe_images.py", "convert_crafting_recipe_svgs_to_png.py",
                   "ensure_recipe_unlocks.py", "make_pack_icon.py", "optimize_images.py",
-                  "manifest_tools.py", "doc_template.py", "build_test_world.py", "make_pack_script.py", "make_update_script.py", "apply_update.py", "CRAFTING_TABLE.svg")] + [
+                  "manifest_tools.py", "doc_template.py", "pixel_json_to_png.py", "make_pack_script.py", "make_update_script.py", "apply_update.py", "CRAFTING_TABLE.svg")] + [
               "assets/aln-ui-redesign/README.txt", "assets/aln-ui-redesign/design.json",
               "assets/aln-ui-redesign/font/README.txt", "assets/aln-ui-redesign/font/pixelify.js"]
           t_ok, t_missing, t_blocks = [], [], []
@@ -446,6 +448,7 @@ jobs:
           copy_item changelog_views
           copy_item PACK_GENERATOR_INSTRUCTIONS.md
           copy_item .agents/skills/checkrm/SKILL.md
+          copy_item .agents/skills/mcpe-new-pack/SKILL.md
           copy_item Mcpeworlds/assets/resources_pack/textures/items/trader_ledger.png
           copy_item Mcpeworlds/assets/resources_pack/textures/items/controller.png
           copy_item Mcpeworlds/assets/resources_pack/textures/item_texture.json
@@ -511,6 +514,18 @@ jobs:
           cat ai_review_bundle/manifest.txt
           echo "=== trader ledger ==="
           cat ai_review_bundle/trader_ledger_sha256.txt
+
+      - name: Add SKILL.md to the zip root
+        run: |
+          set -euo pipefail
+          SKILL=.agents/skills/mcpe-new-pack/SKILL.md
+          mkdir -p ai_review_bundle
+          if [ -f "$SKILL" ]; then
+            cp "$SKILL" ai_review_bundle/SKILL.md
+            echo "SKILL.md added to the bundle root."
+          else
+            echo "::warning::$SKILL not found: the bundle has no SKILL.md."
+          fi
 
       - name: Commit refreshed changelog views (optional)
         if: ${{ inputs.commit_changelog_views }}

@@ -376,10 +376,6 @@ def _png_size(d):
     return struct.unpack(">II", d[16:24])
 
 
-def _is_test_world_output(path):
-    return path.name.endswith(" - Test.mcworld")
-
-
 def _has_comment(src):
     i, n, q = 0, len(src), None
     while i < n:
@@ -419,8 +415,8 @@ def _node_syntax(path):
 
 def run_checks(root, repo_root=None, folder=None):
     """Return (fails, warns, file_count, total_bytes).
-    repo_root (importer only): compare icons to the repo copies and verify test_world includes exist.
-    folder (importer only): the folder name the project will get, so it cannot include itself."""
+    repo_root (importer only): compare icons to the repo copies.
+    folder (importer only): the folder name the project will get."""
     root = Path(root)
     fails, warns = [], []
 
@@ -445,9 +441,9 @@ def run_checks(root, repo_root=None, folder=None):
             check(pj.get("controller", True) is not False, "minigame projects must use the Controller item")
     strict = {"project.json", "behavior_pack/manifest.json", "resource_pack/manifest.json", "behavior_pack/functions/tick.json",
               "resource_pack/textures/item_texture.json", "behavior_pack/items/trader_ledger.json",
-              "behavior_pack/items/controller.json", "test_world.json", "oneblock.json"}
+              "behavior_pack/items/controller.json", "oneblock.json"}
 
-    files = [p for p in root.rglob("*") if p.is_file() and not _is_test_world_output(p)]
+    files = [p for p in root.rglob("*") if p.is_file()]
     total = 0
     check(len(files) <= MAX_FILES, f"{len(files)} files (max {MAX_FILES})")
     for p in files:
@@ -462,6 +458,7 @@ def run_checks(root, repo_root=None, folder=None):
         check(not rel.lower().endswith(BLOCKED), f"{rel}: nested archive")
         check(not p.is_symlink(), f"{rel}: symlink")
         check(not rel.startswith("Mcpeworlds/"), f"{rel}: Mcpeworlds paths must not be shipped")
+        check(low.name != "test_world.json", f"{rel}: test worlds were removed; delete test_world.json")
         if low.suffix == ".json" and rel not in strict and not rel.startswith("behavior_pack/recipes/"):
             jload(rel, strict=False)
     check(total <= MAX_TOTAL, f"total {total} bytes (max 25 MB)")
@@ -476,7 +473,6 @@ def run_checks(root, repo_root=None, folder=None):
             check((root / rel).is_file(), f"missing required file: {rel}")
     if ptype in ("script", "minigame"):
         check((root / "behavior_pack/scripts/main.js").is_file(), "missing required file: behavior_pack/scripts/main.js")
-        check((root / "test_world.json").is_file(), f"missing required file: test_world.json ({ptype} projects always get a test world)")
     if ptype == "script":
         check(not (root / "resource_pack").exists(), "script projects must be Behavior Pack-only so the package is a .mcpack")
     if ptype == "minigame":
@@ -710,32 +706,6 @@ def run_checks(root, repo_root=None, folder=None):
         if any(ln.lstrip().startswith("#") for ln in fn.read_text(encoding="utf-8").splitlines()):
             warns.append(fn.relative_to(root).as_posix() + ": remove comments (no comments in functions)")
 
-    # Test worlds use the Creative foundation for add-ons, scripts, and minigames.
-    tw_p = root / "test_world.json"
-    if tw_p.is_file():
-        if ptype == "map":
-            warns.append("test_world.json is ignored for maps (maps already build Creative/Survival/Hardcore worlds)")
-        tw = jload("test_world.json")
-        if isinstance(tw, dict):
-            check(tw.get("mode", "Creative") == "Creative", "test_world.json: test worlds must use the Creative foundation")
-            inc = tw.get("include_addons", [])
-            check(isinstance(inc, list) and len(inc) <= 10 and all(isinstance(x, str) and NAME_RE.match(x) for x in inc),
-                  "test_world.json: include_addons must be a list of up to 10 add-on folder names")
-            if isinstance(inc, list):
-                check(len(inc) == len(set(inc)), "test_world.json: duplicate include_addons entry")
-                if folder:
-                    check(folder not in inc, "test_world.json: a project cannot include itself")
-                if repo_root:
-                    for n in inc:
-                        ok = any((Path(repo_root) / "MCPEDL" / "Addons" / n / pk / "manifest.json").is_file()
-                                 for pk in ("behavior_pack", "resource_pack"))
-                        check(ok, f"test_world.json: add-on '{n}' not found under MCPEDL/Addons")
-            for k in tw:
-                if k not in ("mode", "include_addons"):
-                    warns.append(f"test_world.json: unknown key '{k}' ignored")
-        elif tw is not None:
-            fails.append("test_world.json must be a JSON object")
-
     readme, desc_p, chg = root / "README.md", root / "DESCRIPTION.md", root / "CHANGELOG.md"
     rtext = readme.read_text(encoding="utf-8") if readme.is_file() else ""
     dtext = desc_p.read_text(encoding="utf-8") if desc_p.is_file() else ""
@@ -803,7 +773,7 @@ def pack(root, out):
     buf = io.BytesIO()
     with zipfile.ZipFile(buf, "w", zipfile.ZIP_DEFLATED) as z:
         for p in sorted(root.rglob("*")):
-            if p.is_file() and not _is_test_world_output(p):
+            if p.is_file():
                 info = zipfile.ZipInfo(p.relative_to(root).as_posix(), date_time=(2020, 1, 1, 0, 0, 0))
                 info.compress_type = zipfile.ZIP_DEFLATED
                 info.external_attr = 0o644 << 16
@@ -815,7 +785,7 @@ def pack(root, out):
     want = {
         p.relative_to(root).as_posix()
         for p in root.rglob("*")
-        if p.is_file() and not _is_test_world_output(p)
+        if p.is_file()
     }
     if back.testzip() is not None or names != want:
         print(f"ROUND-TRIP FAILED: {back.testzip()} / diff {sorted(names ^ want)}")

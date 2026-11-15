@@ -101,6 +101,40 @@ class UpdateTests(unittest.TestCase):
         self.assertNotEqual(bad.returncode, 0)
 
 
+    def test_delete_file_removes_tracked_files_and_older_apply_update_still_works(self):
+        git = lambda *a: subprocess.run(["git", *a], cwd=self.root, capture_output=True, text=True, check=True)
+        git("init", "-q")
+        git("config", "user.email", "t@t")
+        git("config", "user.name", "t")
+        (self.root / "scripts").mkdir()
+        (self.root / "scripts/old.py").write_text("x\n")
+        (self.p / "test_world.json").write_text("{}\n")
+        (self.p / "Demo - Test.mcworld").write_bytes(b"w")
+        git("add", "-A")
+        git("commit", "-q", "-m", "init")
+        text = "\n".join(["@@ version 1.0.1", "@@ project .", "@@ delete-file scripts/old.py",
+                          "@@ delete-file MCPEDL/*/*/test_world.json", "@@ delete-file MCPEDL/*/*/* - Test.mcworld",
+                          "@@ delete-file scripts/missing.py", "@@ root-changelog Cleanup", "### Fixed", "- **Fix**: Gone."]) + "\n"
+        sp = self.root / "spec.txt"
+        sp.write_text(text)
+        out = self.root / "out"
+        r = subprocess.run([sys.executable, str(SCRIPTS / "make_update_script.py"), str(sp), "--rand", "abc12",
+                            "--out-dir", str(out)], capture_output=True, text=True)
+        self.assertEqual(r.returncode, 0, r.stdout + r.stderr)
+        sh = out / "Repo_1.0.1_abc12.sh"
+        self.assertEqual(subprocess.run(["bash", "-n", str(sh)]).returncode, 0)
+        body = sh.read_text()
+        self.assertIn("grep -v '^@@ delete-file '", body)
+        listing = subprocess.run(["bash", "-c", "cd \"$1\" && git ls-files -z -- \":(glob)$2\"", "_", str(self.root),
+                                  "MCPEDL/*/*/* - Test.mcworld"], capture_output=True, text=True).stdout
+        self.assertEqual(listing.strip("\0"), "MCPEDL/Addons/Demo/Demo - Test.mcworld")
+        for bad in ("@@ delete-file ../x", "@@ delete-file /etc/passwd", "@@ delete-file :(top)x", "@@ delete-file a;b"):
+            sp.write_text("@@ version 1.0.1\n@@ project .\n" + bad + "\n")
+            r = subprocess.run([sys.executable, str(SCRIPTS / "make_update_script.py"), str(sp), "--out-dir", str(out)],
+                               capture_output=True, text=True)
+            self.assertNotEqual(r.returncode, 0, bad)
+            self.assertIn("unsafe delete-file path", r.stdout, bad)
+
     def fake_node(self, out, code):
         d = self.root / "bin"
         d.mkdir(exist_ok=True)

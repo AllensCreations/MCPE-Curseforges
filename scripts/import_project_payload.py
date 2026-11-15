@@ -4,8 +4,11 @@
 Supports four project types, read from project.json inside the payload:
   addon    -> MCPEDL/Addons/<Name>/    (LOCK markers are written here)
   map      -> MCPEDL/Maps/<Name>/      (OneBlock; oneblock.json is written here)
-  script   -> MCPEDL/Script/<Name>/    (Creative test world)
-  minigame -> MCPEDL/Minigame/<Name>/  (Controller and Creative test world)
+  script   -> MCPEDL/Script/<Name>/
+  minigame -> MCPEDL/Minigame/<Name>/  (Controller)
+
+Every imported project also gets an assets/ folder (snapshots/, recipes/, items/, each with a .gitkeep) when
+it is missing. Existing files in it are never touched. The build and the recipe-image workflow fill it.
 
 Modes (--mode):
   auto      update when the project already exists, otherwise create (the workflow's default)
@@ -51,6 +54,7 @@ ALL_DIRS = ("Addons", "Maps", "Script", "Minigame")
 COMPAT = {"addon": ("Addons",), "map": ("Maps",), "script": ("Script",), "minigame": ("Minigame",)}
 MODES = ("auto", "create", "update", "overwrite")
 PACKS = ("behavior_pack", "resource_pack")
+ASSET_FOLDERS = ("snapshots", "recipes", "items")
 MAX_B64 = 36_000_000
 CONTROL = re.compile(r"[\x00-\x1f\x7f]")
 LOCK_ROOT = ("ALNStudios Add-on Lock v1\n\nRequired repository marker for build validation.\n"
@@ -257,6 +261,19 @@ def check_identity(stage: Path, dest: Path, mode: str, errors: list[str], warns:
                               f"{'.'.join(map(str, ov))}. Bump the version before updating.")
 
 
+def ensure_assets(dest: Path) -> list[str]:
+    """Create <dest>/assets/{snapshots,recipes,items}/.gitkeep where missing. Never touches existing files."""
+    made = []
+    for kind in ASSET_FOLDERS:
+        keep = dest / "assets" / kind / ".gitkeep"
+        has_files = (dest / "assets" / kind).is_dir() and any((dest / "assets" / kind).iterdir())
+        if not has_files and not keep.exists():
+            keep.parent.mkdir(parents=True, exist_ok=True)
+            keep.touch()
+            made.append(f"assets/{kind}")
+    return made
+
+
 def merge_into(stage: Path, dest: Path, ptype: str) -> tuple[list[str], list[str], int, int]:
     """Copy payload files over the existing project. Never deletes. Returns added, changed, unchanged, kept."""
     staged = {p.relative_to(stage).as_posix(): p for p in stage.rglob("*") if p.is_file()}
@@ -393,13 +410,15 @@ def main() -> None:
                 shutil.rmtree(dest)  # replace the whole folder so no stale files remain
             staging.rename(dest)
 
-    has_tw = ptype in ("addon", "script", "minigame")
+    made = ensure_assets(dest)
+    if made:
+        print("Created asset folder(s): " + ", ".join(f"{dest.relative_to(root).as_posix()}/{m}" for m in made))
     print(f"Imported {len(files)} file(s) as {ptype} into {dest.relative_to(root)} (mode: {mode})")
     print("Structural validation passed. This does not prove it works in Minecraft.")
     if args.github_output:
         with open(args.github_output, "a", encoding="utf-8") as fh:
             fh.write(f"type={ptype}\ndest={dest.relative_to(root).as_posix()}\nname={args.name}\n"
-                     f"mode={mode}\npayload_path={payload_rel or ''}\nhas_test_world={'true' if has_tw else 'false'}\n")
+                     f"mode={mode}\npayload_path={payload_rel or ''}\n")
 
 
 if __name__ == "__main__":

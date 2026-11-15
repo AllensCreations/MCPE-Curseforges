@@ -108,7 +108,6 @@ CREATED=1
 python3 scripts/import_project_payload.py --mode create --payload-file "$NAME.b64" --github-output "$GO"
 TYPE="$(sed -n 's/^type=//p' "$GO")"
 DEST_REAL="$(sed -n 's/^dest=//p' "$GO")"
-HAS_TW="$(sed -n 's/^has_test_world=//p' "$GO")"
 
 if [ "$TYPE" = "map" ]; then
   for m in Creative Survival Hardcore; do
@@ -116,9 +115,6 @@ if [ "$TYPE" = "map" ]; then
   done
   python3 scripts/build_oneblock_variants_from_template.py
   python3 scripts/sync_oneblock_map_readmes.py
-fi
-if [ "$HAS_TW" = "true" ]; then
-  python3 scripts/build_test_world.py --project "$DEST_REAL"
 fi
 python3 scripts/manifest_tools.py --project "$DEST_REAL" --align
 python3 scripts/validate_manifest_titles.py --project "$DEST_REAL"
@@ -183,7 +179,7 @@ def wrap(b64: str, width=100) -> str:
 def make(root: Path, out_dir: Path, rand: str) -> Path:
     pj = bp.read_project(root)
     files = {p.relative_to(root).as_posix(): p.read_bytes()
-             for p in root.rglob("*") if p.is_file() and not bp._is_test_world_output(p)}
+             for p in root.rglob("*") if p.is_file()}
     name = ipp.name_from_project_json(files)
     if not bp.NAME_RE.match(name):
         fail("Name: 1-64 chars, letters/numbers/. _ - only, starting with a letter or number.")

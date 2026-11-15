@@ -19,7 +19,7 @@ REQUIRED = {
     "PACK_GENERATOR_INSTRUCTIONS.md": ("### 4.9 Final self-check", "### 4.11 Reply format",
                                        "**File Needed:**", "**Changelog:**", "**Termux Script:**"),
 }
-RETIRED = {"update_min_version.py", "create_mcpe_world.py", "check_generator_sync.py"}
+RETIRED = {"update_min_version.py", "create_mcpe_world.py", "check_generator_sync.py", "build_test_world.py"}
 FOUR_PART = re.compile(r"(?<![\w.])\d+\.\d+\.\d+\.\d+(?![\w.])")
 PLACEHOLDER_FOUR = re.compile(r"X\.Y\.Z\.A|x\.y\.z\.a", re.I)
 

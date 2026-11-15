@@ -4,8 +4,9 @@ name: Create Project from Base64
 # The ZIP's project.json decides the type:
 #   addon  -> MCPEDL/Addons/<Name>/
 #   map    -> MCPEDL/Maps/<Name>/      (+ Creative/Survival/Hardcore worlds)
-#   script   -> MCPEDL/Script/<Name>/    (.mcpack + Creative test world)
-#   minigame -> MCPEDL/Minigame/<Name>/  (.mcaddon + Controller + Creative test world)
+#   script   -> MCPEDL/Script/<Name>/    (.mcpack)
+#   minigame -> MCPEDL/Minigame/<Name>/  (.mcaddon + Controller)
+# Every project also gets assets/snapshots, assets/recipes and assets/items (with .gitkeep) from the importer.
 # Inputs: payload_base64 OR payload_file (a file in MCPEDL/incoming/, extension optional), import_mode, commit_mode. The project name is read from
 # project.json inside the payload (spaces become hyphens).
 # import_mode:
@@ -127,15 +128,8 @@ jobs:
         if: ${{ steps.import.outputs.type == 'map' }}
         run: python scripts/sync_oneblock_map_readmes.py
 
-      # ---- Addons, Scripts, and Minigames: build a Creative test world ----
-      - name: Build test world (Add-on / Script / Minigame)
-        if: ${{ steps.import.outputs.has_test_world == 'true' }}
-        env:
-          DEST: ${{ steps.import.outputs.dest }}
-        run: python scripts/build_test_world.py --project "$DEST"
-
       - name: Verify generated worlds are database-free
-        if: ${{ steps.import.outputs.type == 'map' || steps.import.outputs.has_test_world == 'true' }}
+        if: ${{ steps.import.outputs.type == 'map' }}
         shell: bash
         env:
           DEST: ${{ steps.import.outputs.dest }}
@@ -159,7 +153,7 @@ jobs:
           PY
 
       - name: Upload worlds as artifact
-        if: ${{ steps.import.outputs.type == 'map' || steps.import.outputs.has_test_world == 'true' }}
+        if: ${{ steps.import.outputs.type == 'map' }}
         uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         with:
           name: ${{ steps.import.outputs.name }}-worlds

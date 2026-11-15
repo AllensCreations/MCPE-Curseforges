@@ -2,7 +2,7 @@
 """End-to-end self-test of the addon / map / script pipeline, in a throwaway copy of the repo.
 
 Builds a sample payload of each type with scripts/build_payload.py, imports it with
-scripts/import_project_payload.py, builds the test world (scripts/build_test_world.py) and the
+scripts/import_project_payload.py, checks the assets/ folder the importer creates and builds the
 OneBlock worlds (existing builder), then proves that broken payloads are rejected.
 Uses the real Mcpeworlds/<mode> foundations when present; use --fake-foundation to fabricate
 minimal ones (only for sandbox runs). Structural only: no Minecraft involved.
@@ -124,8 +124,6 @@ def sample(root: Path, ptype: str, name: str, **kw) -> Path:
         write(d / "behavior_pack/functions/void_cleaner.mcfunction", "execute as @a[tag=!void_cleaned] run fill -16 -64 -16 16 -64 16 air\nsetblock 0 -1 0 bedrock\nexecute as @a[tag=!void_cleaned] if block 0 -1 0 bedrock run tag @s add void_cleaned\n")
         write(d / "behavior_pack/functions/oneblock_tick.mcfunction", "scoreboard objectives add sample dummy\n")
         write(d / "behavior_pack/functions/oneblock_setup.mcfunction", "scoreboard objectives add sample dummy\n")
-    if ptype in ("script", "minigame"):
-        write(d / "test_world.json", json.dumps({"mode": "Creative", "include_addons": kw.get("include", [])}))
     return d
 
 
@@ -331,7 +329,7 @@ def main() -> int:
         ok(r == 0, "addon: overwrite works")
 
         # 2. minigame with controller + included add-on
-        d = sample(root, "minigame", "Sample-Minigame", include=["Sample-Addon"])
+        d = sample(root, "minigame", "Sample-Minigame")
         (r, log), out = build_payload(root, d)
         ok(r == 0, "minigame: build_payload installs controller assets and passes")
         ok((d / "resource_pack/textures/items/controller.png").read_bytes() == (REPO / "Mcpeworlds/assets/resources_pack/textures/items/controller.png").read_bytes(),
@@ -339,29 +337,19 @@ def main() -> int:
         ok("\"End Game\"" in (d / "behavior_pack/scripts/controller.js").read_text(encoding="utf-8"), "minigame: controller.js has the End Game button")
         r, log = do_import(root, d, out)
         sd = root / "MCPEDL/Minigame/Sample-Minigame"
-        ok(r == 0 and (sd / "test_world.json").is_file(), "minigame: imported into MCPEDL/Minigame")
+        ok(r == 0 and (sd / "project.json").is_file(), "minigame: imported into MCPEDL/Minigame")
+        ok(all((sd / "assets" / k / ".gitkeep").is_file() for k in ("snapshots", "recipes", "items")),
+           "minigame: importer created assets/snapshots, assets/recipes and assets/items")
         primary, built = pack_builder.rebuild_project_packages(str(sd), "MCPEDL/Minigame")
         ok(primary and primary.endswith(".mcaddon") and [item[1] for item in built] == ["mcaddon"],
            "minigame: release builder emits only .mcaddon")
-        r, log = run([str(root / "scripts/build_test_world.py"), "--project", "MCPEDL/Minigame/Sample-Minigame"], root)
-        wp = sd / "Sample Minigame - Test.mcworld"
-        ok(r == 0 and wp.is_file(), "minigame: Creative test world built")
-        if wp.is_file():
-            z = zipfile.ZipFile(wp)
-            n = z.namelist()
-            bl = json.loads(z.read("world_behavior_packs.json"))
-            ok(len(bl) == 2 and any(x.startswith("behavior_packs/Sample-Minigame_BP/") for x in n)
-               and any(x.startswith("behavior_packs/Sample-Addon_BP/") for x in n), "minigame: test world holds the minigame and included add-on")
-            ok(not any(x.startswith("db/") for x in n) and "level.dat" in n, "minigame: test world is database-free")
-            ok(z.read("levelname.txt").decode() == "Sample Minigame - Test", "minigame: world is named '<name> - Test'")
-            (r, log), out = build_payload(root, d)
-            if r == 0:
-                with zipfile.ZipFile(io.BytesIO(base64.b64decode(out.read_text(encoding="ascii")))) as payload:
-                    names = payload.namelist()
-                ok(not any(name.endswith(" - Test.mcworld") for name in names),
-                   "minigame: generated test world is excluded from payload")
-            else:
-                ok(False, "minigame: generated test world is excluded from payload")
+        (r, log), out = build_payload(root, d)
+        ok(r == 0 and not (sd / "test_world.json").exists() and not list(sd.glob("* - Test.mcworld")),
+           "minigame: no test world is created or shipped")
+        write(d / "test_world.json", "{}")
+        (r, log), _ = build_payload(root, d)
+        ok(r != 0 and "test worlds were removed" in log, "minigame: a payload with test_world.json is rejected")
+        (d / "test_world.json").unlink()
 
         # 3. standalone Script projects remain BP-only and import into Script/
         d = sample(root, "script", "Sample-Script")
@@ -422,8 +410,6 @@ def main() -> int:
         reject("add-on DESCRIPTION with an edited attribution block", lambda d: write(d / "DESCRIPTION.md", (d / "DESCRIPTION.md").read_text().replace("Do not re-upload this pack", "Feel free to re-upload this pack")), "attribution block", ptype="addon")
         reject("CHANGELOG with a link", lambda d: write(d / "CHANGELOG.md", (d / "CHANGELOG.md").read_text().replace("Players can use the new creation.", "See https://example.com now.")), "links or URLs", ptype="addon")
         reject("minigame README with a Markdown table", lambda d: write(d / "README.md", (d / "README.md").read_text() + "\n| a | b |\n"), "Markdown table")
-        reject("minigame without test_world.json", lambda d: (d / "test_world.json").unlink(), "test_world.json")
-        reject("minigame including an add-on that does not exist", lambda d: write(d / "test_world.json", json.dumps({"include_addons": ["Nope-Addon"]})), "not found")
         reject("tampered controller.png", lambda d: (d / "resource_pack/textures/items/controller.png").write_bytes(b"\x89PNG\r\n\x1a\n" + b"0" * 40), "controller.png")
         reject("controller.js edited (How to play removed)", lambda d: write(d / "behavior_pack/scripts/controller.js", (d / "behavior_pack/scripts/controller.js").read_text().replace('.button("How to play")', "")), "unchanged generator copy")
         reject("main.js without gameInfo", lambda d: write(d / "behavior_pack/scripts/main.js", MAIN_JS.replace("gameInfo:", "gameinfo:")), "non-empty gameInfo")
@@ -436,7 +422,6 @@ def main() -> int:
         reject("payload reusing UUIDs of an imported project", lambda d: write(d / "behavior_pack/manifest.json", (root / "MCPEDL/Addons/Sample-Addon/behavior_pack/manifest.json").read_text()), "already used by")
         reject("world data (db folder)", lambda d: write(d / "behavior_pack/db/x.json", "{}"), "world data")
         reject("map without the void cleaner line", lambda d: write(d / "behavior_pack/functions/void_cleaner.mcfunction", "say hi\n"), "void_cleaner", ptype="map")
-        reject("non-Creative test world foundation", lambda d: write(d / "test_world.json", json.dumps({"mode": "Survival"})), "Creative foundation")
         d = sample(root, "addon", "Furnace-Addon")
         write(d / "behavior_pack/recipes/f.json", json.dumps({"format_version": "1.20.10", "minecraft:recipe_furnace": {"description": {"identifier": "x:f"}, "tags": ["furnace"], "input": "minecraft:sand", "output": "minecraft:glass"}}))
         write(d / "behavior_pack/recipes/ok.json", json.dumps({"format_version": "1.20.10", "minecraft:recipe_shapeless": {"description": {"identifier": "x:s"}, "tags": ["crafting_table"], "ingredients": [{"item": "minecraft:stick"}], "result": {"item": "minecraft:stick"}, "unlock": [{"context": "AlwaysUnlocked"}]}}))

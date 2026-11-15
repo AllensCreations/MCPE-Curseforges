@@ -1,4 +1,4 @@
-# Instructions: Core Repository Policy (v15)
+# Instructions: Core Repository Policy (v16)
 
 Repo policy, docs rules for AllensCreations/MCPE-Curseforges (creator name `ALNStudios`). Generating a new project: `PACK_GENERATOR_INSTRUCTIONS.md`.
 
@@ -139,7 +139,7 @@ General:
 - `Mcpeworlds/{Creative,Survival,Hardcore}/` = ONLY world foundations (convenience targets, not a usage limit). NEVER old world ZIPs, `Oneblock-assets.mcworld`, `assets/Void_For_Workv2.mcworld`, persisted `assets/oneblock-template/`.
 - NEVER create/fabricate/borrow/require `db/CURRENT` or LevelDB data (database-free void design). NEVER modify source foundations; build renames only the staged copy's world name.
 - Build: `build-oneblock-variants.yml` copies each foundation to staging, keeps its `level.dat`, adds map BP + RP, packages `.mcworld` into `MCPEDL/Maps/<Map-Name>/`. Source: `MCPEDL/Maps/<Map-Name>/behavior_pack/`, `resource_pack/`.
-- Maps ship Creative+Survival+Hardcore worlds. Add-ons/Scripts/Minigames: Creative test world only (fixed). NEVER separate tester package or `Tester Build/`. Add-on workflows NEVER misclassify a Map.
+- Maps ship Creative+Survival+Hardcore worlds. Add-ons/Scripts/Minigames ship no world: the Test World was removed. NEVER `test_world.json`, `<Name> - Test.mcworld`, a separate tester package or `Tester Build/`. Add-on workflows NEVER misclassify a Map.
 - One OneBlock gameplay pack per world (maps only). Installing a different one: remove the old pack folders + link entries from all 3 modes first. NEVER touch unrelated packs.
 - Install per mode (identical in all three): `behavior_pack/` -> `<mode>/behavior_packs/<Map-Name>_BP/`, `resource_pack/` -> `<mode>/resource_packs/<Map-Name>_RP/`. Update = replace whole folder. Link files at world root `world_behavior_packs.json` / `world_resource_packs.json`: `[{ "pack_id": "<manifest header uuid>", "version": [1, 0, 0] }]`, replace same `pack_id` on update. NEVER invent UUID/version. Unresolved deps: stop, report path.
 - Map README: download-focused. Link only compiled `.mcworld` that exist. NEVER claim an archive matches source unless checked. Same for `MCPEDL/Maps/README.md`.
@@ -147,26 +147,27 @@ General:
 Payload import:
 - `PACK_GENERATOR_INSTRUCTIONS.md` is the generator file. Agent asks type (addon|map|script|minigame), returns single-line base64 ZIP made by running code, NEVER by hand. `project.json` = `{"type": "...", "name": "..."}`.
 - `create-project-from-base64.yml`: folder name + base64 (or `.b64` under `MCPEDL/incoming/`) -> `scripts/import_project_payload.py` -> imports `scripts/build_payload.py` (same checks agent-side and repo-side).
-- Destinations: addon `MCPEDL/Addons/<Name>/` (`.mcaddon`, Creative test world, importer writes `LOCK`); map `MCPEDL/Maps/<Name>/` (`.mcworld`, importer writes `oneblock.json`, builds 3 worlds); script `MCPEDL/Script/<Name>/` (`.mcpack`, Creative test world, no Controller); minigame `MCPEDL/Minigame/<Name>/` (`.mcaddon`, Controller, Creative test world).
+- Destinations: addon `MCPEDL/Addons/<Name>/` (`.mcaddon`, importer writes `LOCK`); map `MCPEDL/Maps/<Name>/` (`.mcworld`, importer writes `oneblock.json`, builds 3 worlds); script `MCPEDL/Script/<Name>/` (`.mcpack`, no Controller); minigame `MCPEDL/Minigame/<Name>/` (`.mcaddon`, Controller).
+- Importer creates `assets/snapshots/`, `assets/recipes/` and `assets/items/` (each with `.gitkeep`) in every imported project when missing, never touching existing files. Payloads NEVER ship `assets/`.
 - Importer validates BEFORE writing. Rejects unsafe paths, symlinks, world data (`db/`, `level.dat`), nested archives, shipped link files, disallowed types, bad manifests, recipes without unlock, per-type misses. Icons MUST match repo copies in `Mcpeworlds/assets/resources_pack/textures/items/` byte for byte. Payload size capped; duplicate/case-colliding ZIP entries and control chars rejected; folder names differing only by case or existing under another type refused unless `overwrite` (lists deleted files); count actual bytes while extracting (declared ZIP sizes can be forged).
 - Map requires: `tick.json` lists `void_cleaner` first; `void_cleaner.mcfunction` starts with the Y=-64 fill line; `oneblock_setup.mcfunction` exists; Trader Ledger item + texture entry + `trader_ledger.png`. Others need no void cleaner/ledger.
 - Folder name typed per run. NEVER hardcode. Payload with only `oneblock.json` still = map.
 - Sections 1.3, 1.4, 1.6, 1.7 change: ALWAYS update `PACK_GENERATOR_INSTRUCTIONS.md`, `scripts/build_payload.py`, importer in the same change, then `scripts/selftest_project_types.py`. This file wins on conflict.
 
 Scripts and minigames:
-- Script project `MCPEDL/Script/<Name>/`: script BP + Creative `test_world.json`, `.mcpack`. Minigame `MCPEDL/Minigame/<Name>/`: BP + RP + Creative `test_world.json`, `.mcaddon`.
+- Script project `MCPEDL/Script/<Name>/`: script BP, `.mcpack`. Minigame `MCPEDL/Minigame/<Name>/`: BP + RP, `.mcaddon`.
 - Every Minigame ships Controller (`allenscreations:controller`, `controller.png` 16x16 at `Mcpeworlds/assets/resources_pack/textures/items/controller.png`). Opens form: **Start** + **How to play**; while running first button = **End Game**. State (idle/running/ended) in a world dynamic property. NEVER opt out.
 - Only host/operator gets and uses it. Start works while idle. End Game asks confirm, calls `endGame()`, needs no cheats. How to play = second button, rules page + Back. Game ends via win/lose logic calling `endGame()`.
 - Controller KEPT while game runs. `consumeOnStart: true` in `registerController` restores old behavior (Start consumes first Controller unless Creative; End Game only reachable by host still carrying one). Host/operator gets one on every spawn (incl. death) when carrying none; game end gives a fresh one.
 - Stuck state: NEVER stay `running` forever. On world load, a script that cannot restore a live game resets to `idle` and gives Controller. `give_controller.mcfunction`, `end_game.mcfunction` ship with every Controller minigame but need cheats: last resort, NEVER only recovery.
-- `test_world.json` = `{"mode": "Creative", "include_addons": ["Name", ...]}`. Includes from `MCPEDL/Addons/` only. `scripts/build_test_world.py [--project <folder>]` copies Creative foundation, installs project + includes, links packs, writes `<Name> - Test.mcworld` in project folder. Fails on missing include, duplicate UUIDs, unresolved dependency. Add-ons may omit `test_world.json`; Script/Minigame require it. Experiments/achievement state come from the foundation, unverified.
-- Verify: manifest, `tick.json`, functions wired (1.6); installed pack matches source per mode; link entry matches manifest UUID+version; RP dependency resolves; script syntax checks pass. Importer, `build_oneblock_variants_from_template.py` (`verify_archive`), `build_test_world.py`, `scripts/selftest_project_types.py` run these. State exactly what passed. Structure checks NEVER prove Minecraft loaded the world.
+- No test world (removed, NEVER recreate). The importer rejects a payload that ships `test_world.json`. Experiments/achievement state of a world come from the foundation, unverified.
+- Verify: manifest, `tick.json`, functions wired (1.6); installed pack matches source per mode; link entry matches manifest UUID+version; RP dependency resolves; script syntax checks pass. Importer, `build_oneblock_variants_from_template.py` (`verify_archive`), `scripts/selftest_project_types.py` run these. State exactly what passed. Structure checks NEVER prove Minecraft loaded the world.
 
 Project specs live in the project folder (Dirtbound: `MCPEDL/Maps/OneBlock-Dirtbound-Kingdom-Beta/SPEC.md`).
 
 ### 1.8 Workflows
 - Workflows: `.github/workflows/`. ALWAYS read the actual file before editing or describing it. NEVER claim a run succeeded unless checked. NEVER trust summaries of workflows (they drift).
-- Retired, NEVER recreate or reference: `update-min-version.yml`, `scripts/update_min_version.py`, `create-addon-scaffold.yml`, `test-crafting-template.yml`, `create-mcpe-world.yml`, `scripts/create_mcpe_world.py`, `scripts/check_generator_sync.py`.
+- Retired, NEVER recreate or reference: `update-min-version.yml`, `scripts/update_min_version.py`, `create-addon-scaffold.yml`, `test-crafting-template.yml`, `create-mcpe-world.yml`, `scripts/create_mcpe_world.py`, `scripts/check_generator_sync.py`, `scripts/build_test_world.py`, `test_world.json`, `<Name> - Test.mcworld`.
 - Version rules (1.3) changing workflow behavior: update the workflow in the same change.
 - Entry points: read the workflow file; never rely on a summary of it.
 - Helper scripts: `scripts/` (read each script for options). `scripts/check_instruction_files.py` fails CI when an instruction file breaks size/format rules.
@@ -240,6 +241,7 @@ Placeholders `<PackName>`, `<MainAction>`, `<version>`. NEVER hardcode one pack.
 - [ ] Changed JSON validated. Instruction file changed: `scripts/check_instruction_files.py` passes.
 
 ## Version History
+- **v16:** Test World removed. Importer creates `assets/` per project. New pack skill `mcpe-new-pack` (`SKILL.md` at the root of every AI review zip). Register CurseForge ID starts the build.
 - **v15:** `min_engine_version` is written as `[1, RELEASE, PATCH]` (game 26.60 = `[1, 26, 60]`, never `[26, 60, 0]`), docs use `1.26.60`.
 - **v14:** `CHECKRM_REFERENCE.md` merged into `DOCS_RULES.md` (Part 3); 1.8 entry-point list removed; one `requirements.txt` for workflows.
 - **v13:** Docs rules and templates moved to `DOCS_RULES.md` (single source for both instruction files); the generator's Part 1 excerpt is kept identical to this file by the checker.

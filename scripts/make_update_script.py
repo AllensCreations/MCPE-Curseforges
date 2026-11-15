@@ -7,6 +7,10 @@ small, readable and the only thing delivered. The .sh pulls, applies the edits w
 (exact unique match, all-or-nothing, idempotent), sets the manifest version, writes both changelogs,
 commits and pushes.
 
+File removal: a line "@@ delete-file <path or glob>" (repo-root-relative, tracked files only, * does not cross a
+folder, e.g. "scripts/old.py" or "MCPEDL/*/*/test_world.json") makes the .sh run "git rm" on every match. The
+line is taken out of the spec before apply_update.py reads it, so older copies of apply_update.py still work.
+
 Usage: python3 make_update_script.py spec.txt [--rand k7q2x] [--out-dir .] [--verify PATH_TO_REPO_CLONE]
   --verify  dry-runs the spec against a local clone and refuses to build if any edit would fail.
 Run the .sh:  bash ~/storage/downloads/<file>.sh
@@ -24,6 +28,8 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 import apply_update as au  # noqa: E402
 
 BEGIN, END = "#--- ALN UPDATE BEGIN ---", "#--- ALN UPDATE END ---"
+DELETE = "@@ delete-file "
+DELETE_RE = re.compile(r"^[A-Za-z0-9._][A-Za-z0-9._ */-]*$")
 REPO_URL = "https://github.com/AllensCreations/MCPE-Curseforges.git"
 
 TEMPLATE = r'''#!/data/data/com.termux/files/usr/bin/bash
@@ -43,12 +49,15 @@ git pull --rebase --autostash
 [ -f scripts/apply_update.py ] || { echo "ERROR: scripts/apply_update.py is missing in the repo. Apply the Search-Replace-Update script first."; exit 1; }
 
 SPEC="$(mktemp)"
+EDITS="$(mktemp)"
+DELETES="$(mktemp)"
 TOUCHED="$(mktemp)"
 DONE=0
 cleanup() {
   rc=$?
-  rm -f -- "$SPEC" "$TOUCHED"
+  rm -f -- "$SPEC" "$EDITS" "$DELETES" "$TOUCHED"
   if [ "$rc" -ne 0 ] && [ "$DONE" != "1" ]; then
+    git reset -q 2>/dev/null || true
     git checkout -q -- . 2>/dev/null || true
     [ "$DEST" != "." ] && git clean -fdq -- "$DEST" 2>/dev/null || true
     echo "Failed. Nothing was pushed."
@@ -59,12 +68,26 @@ trap cleanup EXIT
 sed -n '/^#--- ALN UPDATE BEGIN ---$/,/^#--- ALN UPDATE END ---$/p' "$SELF" | sed '1d;$d' | sed 's/^#//' > "$SPEC"
 [ -s "$SPEC" ] || { echo "ERROR: the edit block is missing from this file."; exit 1; }
 
+grep '^@@ delete-file ' "$SPEC" | sed 's/^@@ delete-file //' > "$DELETES" || true
+grep -v '^@@ delete-file ' "$SPEC" > "$EDITS" || true
+
 DATE="$(TZ=Asia/Singapore date +%F)"
-python3 scripts/apply_update.py "$SPEC" --date "$DATE" --touched "$TOUCHED"
+python3 scripts/apply_update.py "$EDITS" --date "$DATE" --touched "$TOUCHED"
 
 if git diff --name-only | grep -q "INSTRUCTIONS.md"; then
   python3 scripts/check_instruction_files.py
 fi
+
+while IFS= read -r pat; do
+  [ -n "$pat" ] || continue
+  found=0
+  while IFS= read -r -d '' f; do
+    git rm -q -f -- "$f"
+    echo "deleted  $f"
+    found=1
+  done < <(git ls-files -z -- ":(glob)$pat")
+  [ "$found" = "1" ] || echo "skipped  $pat (no tracked file matches)"
+done < "$DELETES"
 
 while IFS= read -r f; do
   [ -n "$f" ] && git add -- "$f"
@@ -95,8 +118,12 @@ def main():
     ap.add_argument("--verify", help="path of a local clone of the repo to dry-run against")
     a = ap.parse_args()
     text = Path(a.spec).read_text(encoding="utf-8").replace("\r\n", "\n")
+    deletes = [l[len(DELETE):].strip() for l in text.split("\n") if l.startswith(DELETE)]
+    for d in deletes:
+        if not DELETE_RE.match(d) or ".." in d.split("/") or ":" in d:
+            fail(f"SPEC ERROR: unsafe delete-file path: {d!r}")
     try:
-        spec = au.parse(text)
+        spec = au.parse("\n".join(l for l in text.split("\n") if not l.startswith(DELETE)))
     except au.Fail as e:
         fail(f"SPEC ERROR: {e}")
     rand = a.rand or "".join(secrets.choice(string.ascii_lowercase + string.digits) for _ in range(6))
@@ -106,7 +133,7 @@ def main():
     name = "Repo" if proj == "." else proj.split("/")[-1]
     if not re.fullmatch(r"[A-Za-z0-9._-]{1,64}", name):
         fail(f"Project folder name not usable in a file name: {name}")
-    if not spec["ops"] and not spec["changelog"]:
+    if not spec["ops"] and not spec["changelog"] and not deletes:
         fail("SPEC ERROR: no edits and no changelog.")
     if proj != "." and not spec["changelog"]:
         fail("SPEC ERROR: a project update needs '@@ changelog <Update Name>' (CHANGELOG.md is mandatory).")

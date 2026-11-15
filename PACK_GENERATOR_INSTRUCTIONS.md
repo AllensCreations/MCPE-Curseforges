@@ -1,8 +1,8 @@
-# Pack Generator Instructions (AI Agent, v22)
+# Pack Generator Instructions (AI Agent, v23)
 
 Builds a complete **addon**, **map**, **script**, or **minigame** from the user's idea. Returns ONE Termux `.sh` pack script that carries the whole project inside it (as base64). No other file is delivered.
 
-Read this file and `DOCS_RULES.md` for a build task. Part 1 below is an excerpt of `INSTRUCTIONS.md`; the checker keeps its lines identical. Maintenance, workflows, audits, recipe images: `INSTRUCTIONS.md`. Numbers 1.x and 4.x refer to this file; 2.x to `DOCS_RULES.md`.
+Read `.agents/skills/mcpe-new-pack/SKILL.md` first (it is also `SKILL.md` at the root of the AI review zip), then this file and `DOCS_RULES.md` for a build task. Part 1 below is an excerpt of `INSTRUCTIONS.md`; the checker keeps its lines identical. Maintenance, workflows, audits, recipe images: `INSTRUCTIONS.md`. Numbers 1.x and 4.x refer to this file; 2.x to `DOCS_RULES.md`.
 
 | Part | Covers |
 | :--- | :--- |
@@ -111,7 +111,7 @@ Every README, DESCRIPTION and CHANGELOG rule and template: `DOCS_RULES.md` (sect
 
 Agent builds a full project from the user's idea and returns ONE `.sh` pack script (`scripts/make_pack_script.py`). The user runs it in Termux (`bash <file>.sh` creates the project, builds worlds, pushes; `bash <file>.sh stage` only copies it to `MCPEDL/incoming/`) or runs GitHub workflow **Create Project from Base64** with `payload_file` = the `.sh` (the workflow only reads the payload block, it never runs the file).
 
-Source of truth = scripts: `scripts/build_payload.py` (packager + checks), `scripts/doc_template.py`, `scripts/import_project_payload.py`, `scripts/build_test_world.py` from ALNStudios/MCPE-Curseforges. ALWAYS read them before building. Disagreement with this file: tell the user. Repo unreadable: ask user to paste `build_payload.py` + `doc_template.py`, use that exact text. NEVER rewrite a script from memory. NEVER use a stale copy.
+Source of truth = scripts: `scripts/build_payload.py` (packager + checks), `scripts/doc_template.py`, `scripts/import_project_payload.py` from ALNStudios/MCPE-Curseforges. ALWAYS read them before building. Disagreement with this file: tell the user. Repo unreadable: ask user to paste `build_payload.py` + `doc_template.py`, use that exact text. NEVER rewrite a script from memory. NEVER use a stale copy.
 
 ### 4.0 Ask the type first
 Type unknown: ask exactly this, wait:
@@ -121,10 +121,10 @@ NEVER guess the type. At most ONE more question, only if the answer changes the 
 
 | Type | Folder | Extra |
 |---|---|---|
-| addon | `MCPEDL/Addons/<Name>/` | `.mcaddon`; Creative test world |
+| addon | `MCPEDL/Addons/<Name>/` | `.mcaddon` |
 | map | `MCPEDL/Maps/<Name>/` | `.mcworld`; Creative, Survival, Hardcore worlds |
-| script | `MCPEDL/Script/<Name>/` | `.mcpack`; BP only; Creative test world |
-| minigame | `MCPEDL/Minigame/<Name>/` | `.mcaddon`; Controller, RP, Creative test world |
+| script | `MCPEDL/Script/<Name>/` | `.mcpack`; BP only |
+| minigame | `MCPEDL/Minigame/<Name>/` | `.mcaddon`; Controller, RP |
 
 ### 4.1 Hard rules
 - NEVER write base64 or the `.sh` by hand. Create files in scratch `build/<Name>/`, then RUN `make_pack_script.py` (4.8). Cannot run code: reply `CANNOT BUILD` (4.11). NEVER invent base64.
@@ -144,7 +144,6 @@ ZIP root = project folder contents, built in `build/<Name>/`:
 ```
 project.json          REQUIRED: {"type": "addon|map|script|minigame", "name": "Display Name"}
 README.md  DESCRIPTION.md  CHANGELOG.md
-test_world.json       script/minigame REQUIRED. addon optional. map: NEVER.
 behavior_pack/manifest.json
 behavior_pack/...     functions/ items/ blocks/ entities/ recipes/ loot_tables/ texts/ scripts/main.js
 resource_pack/        map/minigame REQUIRED. addon optional. script FORBIDDEN.
@@ -153,6 +152,7 @@ texture_sources/      optional pixel JSON for custom textures (4.13). NEVER insi
 - NEVER ship `oneblock.json` (importer writes for maps), `LOCK` (importer writes for add-ons), another type's `project.json`.
 - NEVER include: `db/`, `level.dat`, `world_behavior_packs.json`, `world_resource_packs.json`, `.mcworld/.mcpack/.mcaddon/.zip`, symlinks, `Mcpeworlds/...` or `assets/...` paths. NEVER name a file/folder exactly `db`.
 - Limits (see `build_payload.py`): 500 files, 5 MB/file, 25 MB total. Delivery = the one pack `.sh`, nothing else.
+- NEVER create `test_world.json` or promise a test world (removed). The importer creates `assets/snapshots/`, `assets/recipes/`, `assets/items/` itself: NEVER ship `assets/`.
 
 ### 4.3 Manifests (all types)
 `behavior_pack/manifest.json` and `resource_pack/manifest.json` (if present). Part 1 (1.2, 1.3) applies.
@@ -184,7 +184,7 @@ texture_sources/      optional pixel JSON for custom textures (4.13). NEVER insi
 ### 4.4 Type: addon
 - `.mcaddon`. BP required, RP optional. No void cleaner, ledger, Controller.
 - `functions/tick.json` names MUST exist as `functions/<name>.mcfunction`.
-- `test_world.json` optional (Creative). NEVER create `LOCK`.
+- NEVER create `LOCK`.
 
 ### 4.5 Type: map (OneBlock)
 Works in any database-free void world. NEVER depend on terrain, database, world settings.
@@ -214,9 +214,9 @@ Pipeline (Dirtbound design) unless user says otherwise. `void_cleaner.mcfunction
 - Script teleport only in script, state it in summary. Idea cannot fit the `void_cleaner`-first pipeline: say so, NEVER silently change it.
 
 ### 4.6 Types: script and minigame
-Script: standalone BP for general logic. `project.json` type `script`, `behavior_pack/manifest.json`, `behavior_pack/scripts/main.js`, required Creative `test_world.json`. NEVER RP or Controller. Always `.mcpack`.
+Script: standalone BP for general logic. `project.json` type `script`, `behavior_pack/manifest.json`, `behavior_pack/scripts/main.js`. NEVER RP or Controller. Always `.mcpack`.
 
-Minigame: playable challenge driven by a script. `project.json` type `minigame`, BP + RP, required Creative `test_world.json`. Always `.mcaddon`. Uses the Controller.
+Minigame: playable challenge driven by a script. `project.json` type `minigame`, BP + RP. Always `.mcaddon`. Uses the Controller.
 
 Required (`build_payload.py` installs Controller files if missing):
 ```
@@ -229,7 +229,6 @@ behavior_pack/functions/end_game.mcfunction
 resource_pack/manifest.json
 resource_pack/textures/item_texture.json
 resource_pack/textures/items/controller.png    16 x 16, from repo, NEVER redrawn
-test_world.json
 ```
 Controller (item `allenscreations:controller`; NEVER opt out): form with **Start**, **How to play** (this order); while running the first button = **End Game**.
 - Only host/operator gets/uses it, via `isHost` in `controller.js`, NEVER `player.isOp()` alone. Start works while not running (re-read state after form closes). Running: End Game -> confirm form (**End Game** / **Back**) -> `endGame()`, no cheats. How to play: rules + Back.
@@ -260,7 +259,6 @@ registerController({
 });
 ```
 - `title`, `gameInfo`, `howToPlay` required; `consumeOnStart` optional (default false). `onStart(player)` throws: state -> `idle`, Controller returned. `onEnd()` runs via `endGame()`. Script event `allenscreations:end` also ends the game. Template `win()` only sends a message: REPLACE with real logic. Old inline Controllers pass with a warning.
-- `test_world.json` (required script/minigame, optional addon; empty list if none): `{ "mode": "Creative", "include_addons": ["Magnetic-Satchel", "Mining-Helmet"] }`. `mode` MUST be `Creative`. `include_addons` = existing `MCPEDL/Addons/` folder names, <=10, no duplicates; importer rejects missing. ONLY add-ons the user named or the idea clearly needs; cannot verify a name: ask once. Workflow builds `<Name> - Test.mcworld`; fails on duplicate UUIDs/unresolved deps. README NEVER claims the `.mcworld` exists. Terrain: build from script/functions, NEVER world data.
 
 ### 4.7 Recipes
 - Every custom shaped/shapeless crafting recipe: unlock per 1.4. Other recipe types: no `unlock`.
@@ -281,8 +279,8 @@ NEVER hand-write ZIP, base64 or the `.sh`. `scripts/make_pack_script.py` install
 - [ ] Docs state achievement status (+cheats caveat), experiments, "not tested in game"; no `DOC:` failures; no STYLE hints; tagline one concrete sentence.
 - [ ] Every README/DESCRIPTION/CHANGELOG matches `DOCS_RULES.md` exactly, no placeholders, DESCRIPTION has both listing images.
 - [ ] Map: `oneblock_setup` harmless+idempotent; `void_cleaner` ends with conditional `void_cleaned` tag.
-- [ ] Script: BP only, `.mcpack`, no Controller/RP, real `main.js` logic, listed add-ons exist.
-- [ ] Minigame: form exactly Start + How to play; real `gameInfo`/`howToPlay`; real logic calling `endGame()`; stuck-state recovery; listed add-ons exist.
+- [ ] Script: BP only, `.mcpack`, no Controller/RP, real `main.js` logic.
+- [ ] Minigame: form exactly Start + How to play; real `gameInfo`/`howToPlay`; real logic calling `endGame()`; stuck-state recovery.
 - [ ] No comments in scripts/functions/JSON. Versions `X.Y.Z` only.
 - [ ] No `Mcpeworlds/assets/` file copied except ledger/controller; nothing from `assets/Images/`.
 - [ ] Any `.sh` named `(Repofilename)_(Version)_(Rand).sh`, fresh Rand >=5.
@@ -308,7 +306,7 @@ Paste the workflow error log back to the agent. Find the rule here and the check
 | `format_version ... newer than min_engine_version` | Raise `min_engine_version` or lower item `format_version`. |
 | `is already used by MCPEDL/...` | Fresh UUIDs. |
 | `Name clash` / `already exists` / `also exists under` | Other folder name or `overwrite` true. |
-| `add-on '<x>' not found` | Fix name in `test_world.json`. |
+| `test worlds were removed` | Delete `test_world.json` from the project (no test world exists anymore). |
 | `missing the unlock context` | Add unlock (1.4). |
 | `clickable CurseForge image` / `clickable MCPEDL image` | Paste the exact HTML line from `DOCS_RULES.md` 2.5 into Creator and Permissions. |
 | `run scripts/optimize_images.py` | Compress `assets/Images/` (workflow does it). |

@@ -51,7 +51,23 @@ class PackScriptTests(unittest.TestCase):
         shutil.copy(sh, inc / sh.name)
         code, log = run(self.root, "scripts/import_project_payload.py", "--mode", "create", "--payload-file", sh.name)
         self.assertEqual(code, 0, log)
-        self.assertTrue((self.root / "MCPEDL/Addons/Sample-Addon/project.json").is_file())
+        dest = self.root / "MCPEDL/Addons/Sample-Addon"
+        self.assertTrue((dest / "project.json").is_file())
+        for kind in ("snapshots", "recipes", "items"):
+            self.assertTrue((dest / "assets" / kind / ".gitkeep").is_file(), kind)
+        self.assertNotIn("has_test_world", log)
+
+    def test_ensure_assets_is_safe_to_repeat(self):
+        dest = self.root / "MCPEDL/Addons/Plain"
+        dest.mkdir(parents=True)
+        self.assertEqual(ipp.ensure_assets(dest), ["assets/snapshots", "assets/recipes", "assets/items"])
+        self.assertEqual(ipp.ensure_assets(dest), [])
+        shot = dest / "assets/snapshots/01-Hero.png"
+        shot.write_bytes(b"png")
+        (dest / "assets/snapshots/.gitkeep").unlink()
+        self.assertEqual(ipp.ensure_assets(dest), [])
+        self.assertEqual(shot.read_bytes(), b"png")
+        self.assertFalse((dest / "assets/snapshots/.gitkeep").exists())
 
     def test_sh_without_payload_is_rejected(self):
         with self.assertRaises(SystemExit):

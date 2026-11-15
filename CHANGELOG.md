@@ -2,6 +2,16 @@
 
 ---
 
+## [1.0.37] - 2026-11-15 - Pack Skill and Assets
+
+### Added
+- **New Pack Skill**: Every AI review zip now has a SKILL.md at its root with the reading order and the checks for a new pack, so an AI follows the instructions.
+- **Pack Assets Folder**: Every new pack gets assets/snapshots, assets/recipes and assets/items automatically.
+
+### Improved & Balanced
+- **Register CurseForge ID**: After the ID is saved it starts Build Changed Packs & Sync Catalogs by itself.
+- **Test World Removed**: Add-ons, scripts and minigames no longer get a test world. A payload with test_world.json is rejected.
+
 ## [1.0.36] - 2026-11-15 - Controller Auto Destroy
 
 ### Improved & Balanced
