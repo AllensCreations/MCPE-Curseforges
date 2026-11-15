@@ -2,6 +2,11 @@
 
 ---
 
+## [1.0.8] - 2026-11-16 - Lighter Lock Checks
+
+### Improved & Balanced
+- **Lighter Lock Checks**: Explosions, Pistons, Hopper Minecart checks and lock cleanup now do far less work. Worlds with many locks or large redstone farms run smoother.
+
 ## [1.0.7] - 2026-11-16 - Piston Safety and Iron Door Feel
 
 ### Added

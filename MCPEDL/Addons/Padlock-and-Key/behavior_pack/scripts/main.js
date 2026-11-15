@@ -1,6 +1,7 @@
 import { world, system, EquipmentSlot, ItemStack } from "@minecraft/server";
 import {
   HOPPER_ID,
+  clearLock,
   dimensionFromCode,
   findLock,
   hasHopperBelow,
@@ -10,9 +11,13 @@ import {
   isLockedFloor,
   isOpenable,
   listLocks,
+  lockCount,
   lockParts,
+  lockPassword,
   lockPosition,
+  locksNear,
   propertyKey,
+  setLock,
 } from "./lib/lockdata.js";
 import { followLocks, isPending, isPiston, pistonAimedAt, pistonChainHitsLock } from "./lib/pistons.js";
 import { holdShut, openState } from "./lib/doors.js";
@@ -28,6 +33,8 @@ const DIMENSION_NAMES = ["overworld", "nether", "the_end"];
 
 const recentKeyBlockUse = new Map();
 const staleStrikes = new Map();
+const SWEEP_BATCH = 40;
+let sweepQueue = [];
 
 function say(player, text) {
   player.onScreenDisplay.setActionBar(text);
@@ -90,7 +97,7 @@ function lockBlock(player, block, password) {
     return;
   }
   const origin = lockPosition(block);
-  world.setDynamicProperty(propertyKey(block.dimension, origin.x, origin.y, origin.z), password);
+  setLock(propertyKey(block.dimension, origin.x, origin.y, origin.z), password);
   consumeOne(slot);
   giveNamed(player, GLOW_KEY_ID, password);
   say(player, `Locked! Key: ${password}`);
@@ -99,7 +106,7 @@ function lockBlock(player, block, password) {
 
 function releaseLock(player, dimension, at, lock) {
   const slot = findKeySlot(player, lock.password);
-  world.setDynamicProperty(lock.key, undefined);
+  clearLock(lock.key);
   if (slot) consumeOne(slot);
   giveNamed(player, PADLOCK_ID, lock.password);
   dimension.spawnParticle("minecraft:totem_particle", at);
@@ -236,7 +243,7 @@ world.afterEvents.playerPlaceBlock.subscribe((event) => {
   if (!isLockable(block)) return;
   const origin = lockPosition(block);
   const key = propertyKey(block.dimension, origin.x, origin.y, origin.z);
-  if (world.getDynamicProperty(key) !== undefined) world.setDynamicProperty(key, undefined);
+  if (lockPassword(key) !== undefined) clearLock(key);
 });
 
 world.afterEvents.playerLeave.subscribe((event) => {
@@ -244,13 +251,28 @@ world.afterEvents.playerLeave.subscribe((event) => {
 });
 
 world.beforeEvents.explosion.subscribe((event) => {
-  const safe = event.getImpactedBlocks().filter((block) => !(isLockable(block) && findLock(block)) && !isLockedFloor(block));
-  event.setImpactedBlocks(safe);
+  if (lockCount() === 0) return;
+  const impacted = event.getImpactedBlocks();
+  if (impacted.length === 0) return;
+  let minX = Infinity;
+  let maxX = -Infinity;
+  let minZ = Infinity;
+  let maxZ = -Infinity;
+  for (const block of impacted) {
+    const { x, z } = block.location;
+    if (x < minX) minX = x;
+    if (x > maxX) maxX = x;
+    if (z < minZ) minZ = z;
+    if (z > maxZ) maxZ = z;
+  }
+  if (!locksNear(event.dimension, minX - 1, maxX + 1, minZ - 1, maxZ + 1)) return;
+  event.setImpactedBlocks(impacted.filter((block) => !(isLockable(block) && findLock(block)) && !isLockedFloor(block)));
 });
 
 world.afterEvents.pistonActivate.subscribe(followLocks);
 
 system.runInterval(() => {
+  if (lockCount() === 0) return;
   for (const name of DIMENSION_NAMES) {
     try {
       const dimension = world.getDimension(name);
@@ -268,12 +290,15 @@ system.runInterval(() => {
       continue;
     }
   }
-}, 5);
+}, 10);
 
 system.runInterval(() => {
-  const seen = new Set();
-  for (const entry of listLocks()) {
-    seen.add(entry.key);
+  if (sweepQueue.length === 0) sweepQueue = listLocks();
+  for (const entry of sweepQueue.splice(0, SWEEP_BATCH)) {
+    if (lockPassword(entry.key) === undefined) {
+      staleStrikes.delete(entry.key);
+      continue;
+    }
     if (isPending(entry.key)) continue;
     const dimension = dimensionFromCode(entry.code);
     if (!dimension) continue;
@@ -290,13 +315,10 @@ system.runInterval(() => {
     }
     const strikes = (staleStrikes.get(entry.key) ?? 0) + 1;
     if (strikes >= 2) {
-      world.setDynamicProperty(entry.key, undefined);
+      clearLock(entry.key);
       staleStrikes.delete(entry.key);
     } else {
       staleStrikes.set(entry.key, strikes);
     }
   }
-  for (const key of staleStrikes.keys()) {
-    if (!seen.has(key)) staleStrikes.delete(key);
-  }
-}, 100);
+}, 40);

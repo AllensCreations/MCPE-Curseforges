@@ -1,5 +1,5 @@
-import { system, world } from "@minecraft/server";
-import { findLock, isLockable, isLockedFloor, propertyKey } from "./lockdata.js";
+import { system } from "@minecraft/server";
+import { clearLock, findLock, isLockable, isLockedFloor, lockPassword, locksNear, propertyKey, setLock } from "./lockdata.js";
 
 const FACING_VECTORS = [
   { x: 0, y: -1, z: 0 },
@@ -85,18 +85,19 @@ function finish(plans) {
     if (!origin || !dest || !isLockable(dest)) continue;
     if (plan.type && dest.typeId !== plan.type) continue;
     if (isLockable(origin) && !toKeys.has(plan.fromKey)) continue;
-    const taken = world.getDynamicProperty(plan.toKey);
-    if (typeof taken === "string" && !fromKeys.has(plan.toKey)) continue;
+    if (lockPassword(plan.toKey) !== undefined && !fromKeys.has(plan.toKey)) continue;
     valid.push(plan);
   }
-  for (const plan of valid) world.setDynamicProperty(plan.fromKey, undefined);
-  for (const plan of valid) world.setDynamicProperty(plan.toKey, plan.password);
+  for (const plan of valid) clearLock(plan.fromKey);
+  for (const plan of valid) setLock(plan.toKey, plan.password);
   for (const plan of plans) pendingKeys.delete(plan.fromKey);
 }
 
 export function followLocks(event) {
   const { piston, block, isExpanding } = event;
   const dimension = block.dimension;
+  const at = block.location;
+  if (!locksNear(dimension, at.x - 16, at.x + 16, at.z - 16, at.z + 16)) return;
   const index = facingIndex(block);
   if (index < 0) return;
   const facing = FACING_VECTORS[index];
@@ -113,8 +114,8 @@ export function followLocks(event) {
     for (const origin of [seed, shifted(seed, dir, -1)]) {
       const fromKey = propertyKey(dimension, origin.x, origin.y, origin.z);
       if (plans.has(fromKey) || pendingKeys.has(fromKey)) continue;
-      const password = world.getDynamicProperty(fromKey);
-      if (typeof password !== "string") continue;
+      const password = lockPassword(fromKey);
+      if (password === undefined) continue;
       const here = blockAt(dimension, origin);
       const to = shifted(origin, dir, 1);
       plans.set(fromKey, {

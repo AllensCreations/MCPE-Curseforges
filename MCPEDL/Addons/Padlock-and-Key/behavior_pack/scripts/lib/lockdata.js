@@ -100,15 +100,81 @@ export function dimensionFromCode(code) {
   }
 }
 
-export function listLocks() {
-  const entries = [];
-  for (const key of world.getDynamicPropertyIds()) {
-    const parsed = parseKey(key);
-    if (!parsed) continue;
-    const password = world.getDynamicProperty(key);
-    if (typeof password === "string") entries.push({ key, ...parsed, password });
+const locks = new Map();
+const chunkCounts = new Map();
+let indexReady = false;
+
+function chunkKey(code, x, z) {
+  return `${code}:${x >> 4},${z >> 4}`;
+}
+
+function track(key, password) {
+  const parsed = parseKey(key);
+  if (!parsed) return;
+  if (!locks.has(key)) {
+    const chunk = chunkKey(parsed.code, parsed.x, parsed.z);
+    chunkCounts.set(chunk, (chunkCounts.get(chunk) ?? 0) + 1);
   }
-  return entries;
+  locks.set(key, { ...parsed, password });
+}
+
+function untrack(key) {
+  const entry = locks.get(key);
+  if (!entry) return;
+  locks.delete(key);
+  const chunk = chunkKey(entry.code, entry.x, entry.z);
+  const left = (chunkCounts.get(chunk) ?? 1) - 1;
+  if (left > 0) chunkCounts.set(chunk, left);
+  else chunkCounts.delete(chunk);
+}
+
+function ensureIndex() {
+  if (indexReady) return;
+  for (const key of world.getDynamicPropertyIds()) {
+    if (!key.startsWith(PROPERTY_PREFIX)) continue;
+    const password = world.getDynamicProperty(key);
+    if (typeof password === "string") track(key, password);
+  }
+  indexReady = true;
+}
+
+export function lockCount() {
+  ensureIndex();
+  return locks.size;
+}
+
+export function lockPassword(key) {
+  ensureIndex();
+  return locks.get(key)?.password;
+}
+
+export function setLock(key, password) {
+  ensureIndex();
+  world.setDynamicProperty(key, password);
+  track(key, password);
+}
+
+export function clearLock(key) {
+  ensureIndex();
+  world.setDynamicProperty(key, undefined);
+  untrack(key);
+}
+
+export function listLocks() {
+  ensureIndex();
+  return [...locks.entries()].map(([key, entry]) => ({ key, ...entry }));
+}
+
+export function locksNear(dimension, minX, maxX, minZ, maxZ) {
+  ensureIndex();
+  if (locks.size === 0) return false;
+  const code = DIMENSION_CODES[dimension.id] ?? dimension.id;
+  for (let cx = minX >> 4; cx <= maxX >> 4; cx++) {
+    for (let cz = minZ >> 4; cz <= maxZ >> 4; cz++) {
+      if (chunkCounts.has(`${code}:${cx},${cz}`)) return true;
+    }
+  }
+  return false;
 }
 
 export function chestParts(block) {
@@ -132,17 +198,18 @@ export function lockParts(block) {
 }
 
 export function findLock(block) {
+  const here = block.location;
+  if (!locksNear(block.dimension, here.x - 1, here.x + 1, here.z - 1, here.z + 1)) return null;
   const origin = lockPosition(block);
   const ownKey = propertyKey(block.dimension, origin.x, origin.y, origin.z);
-  const own = world.getDynamicProperty(ownKey);
-  if (typeof own === "string") return { key: ownKey, password: own };
+  const own = lockPassword(ownKey);
+  if (own !== undefined) return { key: ownKey, password: own };
   if (!isPairable(block)) return null;
   for (const part of chestParts(block)) {
     if (part === block) continue;
-    const { x, y, z } = part.location;
-    const key = propertyKey(block.dimension, x, y, z);
-    const value = world.getDynamicProperty(key);
-    if (typeof value === "string") return { key, password: value };
+    const key = propertyKey(block.dimension, part.location.x, part.location.y, part.location.z);
+    const value = lockPassword(key);
+    if (value !== undefined) return { key, password: value };
   }
   return null;
 }
@@ -159,6 +226,8 @@ export function hasSolidFloor(block) {
 }
 
 export function isLockedFloor(block) {
+  const here = block.location;
+  if (!locksNear(block.dimension, here.x - 1, here.x + 1, here.z - 1, here.z + 1)) return false;
   const above = block.above();
   if (!above || !isLockable(above)) return false;
   if (!isContainer(above) && !isDoor(above)) return false;
