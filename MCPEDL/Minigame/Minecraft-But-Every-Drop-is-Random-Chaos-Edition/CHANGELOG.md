@@ -2,18 +2,21 @@
 
 ---
 
-## [1.0.4] - 2026-11-15 - Burst Smoothing
+## [1.0.4] - 2026-11-15
+
+**What's new in v1.0.4:** Packed with 2 updates, from v1.0.3 through v1.0.4. Includes: Burst Smoothing; Smoother Drops.
 
 ### Fixed
+
 - **Lag Spikes**: Large bursts of drops, such as a big tree, TNT or a mob farm, are now swapped a few at a time instead of all in one moment, so the game stays smooth.
-
-## [1.0.3] - 2026-11-15 - Smoother Drops
-
-### Fixed
 - **Lag Spikes**: Drop swapping no longer scans the area around every broken block or defeated mob, so mining and fighting stay smooth.
+
 ### Removed
+
 - **Chaos Drop Feed**: Rare swaps no longer show the original and the new item on the action bar.
+
 ### Improved & Balanced
+
 - **Mystery Messages**: Starting and reshuffling now show scrambled text that signals something is happening, instead of an item count and a run code.
 
 ## [1.0.2] - 2026-11-15
@@ -24,10 +27,14 @@
 
 - **Controller Auto Destroy**: The Controller is now used up when a game starts (Creative mode keeps it), and the host receives a new one when the game ends.
 
+
+
 ## [1.0.1] - 2026-11-15 - Import Fix
 
 ### Fixed
 - **Pack Import**: The packs now import in Minecraft. The minimum game version they declared was higher than Minecraft accepts.
+
+
 
 
 
