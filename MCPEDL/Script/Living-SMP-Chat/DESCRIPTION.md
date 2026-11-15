@@ -35,6 +35,10 @@ You play your world as usual. Between 5 and 10 virtual players are online at any
 - **What Happens**: Every 1.5 to 3 minutes the virtual players start a 2 to 5 message conversation about videos, builds, lag, or a small PvP drama between three of them.
 - **Good To Know**: Conversations are spaced out so replies appear one after another. Overlapping events wait in a short queue instead of flooding the chat.
 
+### Spawner Tips
+- **What Happens**: Rarely, a virtual player points you to a Monster Spawner near you and gives its real coordinates, usually a dungeon. About one in three tips drops a minus sign, and the same player corrects it between 100 and 150 seconds later.
+- **Good To Know**: Only spawners in loaded areas of the Overworld, within 16 blocks of you sideways, are found. Tips come at least 15 minutes apart, a spawner is announced once, and nothing is said when none is nearby. It can also be a mineshaft spawner.
+
 ## How to Use
 
 1. Import the pack and add the Behavior Pack to your world.

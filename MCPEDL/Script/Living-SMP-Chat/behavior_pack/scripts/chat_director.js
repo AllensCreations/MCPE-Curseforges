@@ -109,3 +109,29 @@ export function ambientConversation() {
   if (bots.length < 2) return;
   playConversation(chain(bots, cats, { player }));
 }
+
+const formatCoords = (a) => "x " + a[0] + ", y " + a[1] + ", z " + a[2];
+
+export function announceSpawner(player, loc) {
+  const bots = pickOnline(2);
+  if (bots.length < 2) return false;
+  const real = [loc.x, loc.y, loc.z];
+  const negatives = [0, 1, 2].filter((i) => real[i] < 0);
+  const slip = negatives.length > 0 && Math.random() < 0.35;
+  const shown = real.slice();
+  if (slip) {
+    const i = negatives[rand(0, negatives.length - 1)];
+    shown[i] = Math.abs(shown[i]);
+  }
+  const lines = chain(bots, ["locator_spawner", "locator_reply"], { player, coords: formatCoords(shown) });
+  if (!playConversation(lines)) return false;
+  if (slip) {
+    system.runTimeout(() => {
+      const bot = isOnline(bots[0]) ? bots[0] : pickOnline(1)[0];
+      if (!bot) return;
+      const text = assembleMessage("locator_fix", { player, coords: formatCoords(real), speaker: bot });
+      playConversation([{ bot, text }], { priority: true });
+    }, rand(2000, 3000));
+  }
+  return true;
+}

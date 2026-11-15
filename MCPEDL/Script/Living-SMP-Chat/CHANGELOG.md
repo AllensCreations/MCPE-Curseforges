@@ -2,6 +2,11 @@
 
 ---
 
+## [1.0.1] - 2026-11-15 - Spawner Tips
+
+### Added
+- **Spawner Tips**: once in a while a virtual player tells you the real position of a Monster Spawner close to you, usually a dungeon, and a second player replies. About one in three tips drops a minus sign and is corrected by the same player about two minutes later. Each spawner is announced only once, and nothing is said when none is nearby.
+
 ## [1.0.0] - 2026-11-15
 
 **What's new in v1.0.0:** Packed with the v1.0.0 update. Includes: Living SMP Chat.

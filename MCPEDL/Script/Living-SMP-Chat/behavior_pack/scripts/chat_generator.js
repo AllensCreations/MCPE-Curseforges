@@ -117,6 +117,22 @@ const C = {
     "<PLAYER> watch out for endermen", "<PLAYER> entered the end, wow", "bring a water bucket <PLAYER>",
     "<PLAYER> found the end portal", "<PLAYER> is going for the elytra",
   ],
+  locator_spawner: [
+    "found a spawner at <COORDS>, probably a dungeon", "there is a dungeon spawner at <COORDS>, <PLAYER> check it out",
+    "<PLAYER> i spotted a spawner at <COORDS>", "<PLAYER> a spawner is sitting at <COORDS>",
+    "dungeon loot at <COORDS>, <PLAYER> go grab it", "<PLAYER> a spawner at <COORDS> if you want mob drops",
+    "i came across a spawner at <COORDS>", "<PLAYER> found you a dungeon spot at <COORDS>",
+  ],
+  locator_reply: [
+    "nice find, bring torches", "free loot, go for it", "take a sword and some food with you",
+    "dungeon chests are worth it", "do not forget a sword", "i will come along if you want",
+    "mark it on your map", "that is a good one to find",
+  ],
+  locator_fix: [
+    "sorry, i dropped a minus sign, it is <COORDS>", "oops, wrong coords, the right ones are <COORDS>", "typo, it should be <COORDS>",
+    "my bad, one number is negative, <COORDS>", "correction: <COORDS>", "wait, it has a negative, so <COORDS>",
+    "ignore the last coords, use <COORDS>", "<PLAYER> sorry, the real spot is <COORDS>",
+  ],
   sleeping: [
     "<PLAYER> is sleeping, goodnight", "<PLAYER> skipped the night", "sweet dreams <PLAYER>",
     "<PLAYER> is in bed, no phantoms", "night skip by <PLAYER>, thanks", "<PLAYER> is catching some sleep",
@@ -153,8 +169,9 @@ function resolve(text, ctx) {
     "<COORD_HINT>": ctx.coordHint || "nearby",
     "<BOT_A>": ctx.botA || "someone",
     "<BOT_B>": ctx.botB || "someone",
+    "<COORDS>": ctx.coords || "somewhere",
   };
-  return text.replace(/<(PLAYER|CAUSE|ITEM|COORD_HINT|BOT_A|BOT_B)>/g, (m) => map[m]);
+  return text.replace(/<(PLAYER|CAUSE|ITEM|COORD_HINT|BOT_A|BOT_B|COORDS)>/g, (m) => map[m]);
 }
 
 export function assembleMessage(category, ctx = {}) {
