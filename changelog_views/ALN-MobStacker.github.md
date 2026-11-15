@@ -1,8 +1,24 @@
 # Changelog — ALN:MobStacker
 
-## [1.0.0] - 2026-11-16 - First Release
+## [1.0.1] - 2026-11-16 - Gear Safe Stacking
 
 ### Added
+- **Cooked Meat Drops**: A Sneak Kill on a burning stack of Cows, Pigs, Sheep, Chickens, Rabbits or Mooshrooms now drops cooked meat.
+
+### Improved & Balanced
+- **Gear Safe Stacking**: Mobs wearing armor or holding items are no longer merged, so their gear is never lost. Skeletons, Strays and Boggeds holding only their bow still stack.
+
+### Fixed
+- **Sheep Mutton Drops**: A Sneak Kill on a stack of Sheep now drops Raw Mutton.
+
+<details>
+<summary><b>1.0.x</b> (1 release)</summary>
+
+### [1.0.0] - 2026-11-16 - First Release
+
+#### Added
 - **Mob Merging**: Identical farm animals and grinder mobs within 4 blocks merge into one mob with a gold count label and no stack size limit.
 - **One-by-One Unpeeling**: Killing a stacked mob removes one from the stack and keeps the rest in place.
 - **Sneak Kill**: Sneaking during a kill clears the whole stack with drops and experience scaled by Looting.
+
+</details>

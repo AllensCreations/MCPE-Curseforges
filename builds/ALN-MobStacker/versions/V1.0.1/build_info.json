@@ -1,0 +1,8 @@
+{
+  "changelog_version": "1.0.1",
+  "manifest_version": "1.0.1",
+  "packages": {
+    "ALNMobStacker V1.0.1.mcpack": "2eabbfbff12ec504252ba6cc0a760ca80c291f1661355eb90e81416003ba6309"
+  },
+  "source_sha256": "762ab1fa187d91c1a1c7bcb0544273404ef76f83ae5d655ff5b871fe52e24c56"
+}
