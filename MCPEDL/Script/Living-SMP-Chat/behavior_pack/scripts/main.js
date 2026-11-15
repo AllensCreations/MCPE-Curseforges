@@ -1,4 +1,4 @@
-import { world, system, BlockVolume } from "@minecraft/server";
+import { world, system, BlockVolume, BlockTypes } from "@minecraft/server";
 import { startSessionSimulator } from "./smp_roster.js";
 import { coordHint } from "./chat_generator.js";
 import { announceSpawner, ambientConversation, reactToDeath, reactToOre, reactToEvent, welcomeBack } from "./chat_director.js";
@@ -12,6 +12,15 @@ const ORE_COOLDOWN = 1200;
 const EVENT_COOLDOWN = 3600;
 
 const ENABLE_SPAWNER_TIPS = true;
+const TIP_CHANCE = 0.05;
+const LANDMARKS = {
+  "minecraft:mob_spawner": "a dungeon",
+  "minecraft:trial_spawner": "a trial chamber",
+  "minecraft:end_portal_frame": "a stronghold",
+  "minecraft:reinforced_deepslate": "an ancient city",
+};
+let landmarkIds = null;
+const cellKey = (label, x, y, z) => label + ":" + Math.floor(x / 48) + "," + Math.floor(y / 32) + "," + Math.floor(z / 48);
 const SCAN_RADIUS = 16;
 const SCAN_DEPTH = 40;
 const SCAN_UP = 10;
@@ -48,12 +57,12 @@ function finishScan(job) {
   scanJob = null;
   if (!job.best) {
     lastEmptyScan = { x: job.x, y: job.y, z: job.z };
-    nextLocator = rand(9000, 18000);
+    nextLocator = rand(2400, 4800);
     return;
   }
   lastEmptyScan = null;
   if (announceSpawner(job.name, job.best)) {
-    announcedSpawners.add(job.best.x + "," + job.best.y + "," + job.best.z);
+    announcedSpawners.add(job.best.key);
     if (announcedSpawners.size > 200) announcedSpawners.clear();
     nextLocator = rand(18000, 30000);
   } else {
@@ -70,14 +79,18 @@ system.runInterval(() => {
       { x: job.x - SCAN_RADIUS, y: job.nextY, z: job.z - SCAN_RADIUS },
       { x: job.x + SCAN_RADIUS, y: top, z: job.z + SCAN_RADIUS }
     );
-    const found = job.dimension.getBlocks(volume, { includeTypes: ["minecraft:mob_spawner"] }, false);
+    if (!landmarkIds) landmarkIds = Object.keys(LANDMARKS).filter((id) => BlockTypes.get(id));
+    const found = job.dimension.getBlocks(volume, { includeTypes: landmarkIds }, false);
     for (const loc of found.getBlockLocationIterator()) {
-      const key = loc.x + "," + loc.y + "," + loc.z;
+      const block = job.dimension.getBlock(loc);
+      const label = block ? LANDMARKS[block.typeId] : undefined;
+      if (!label) continue;
+      const key = cellKey(label, loc.x, loc.y, loc.z);
       if (announcedSpawners.has(key)) continue;
       const dist = (loc.x - job.x) ** 2 + (loc.y - job.y) ** 2 + (loc.z - job.z) ** 2;
       if (dist < job.bestDist) {
         job.bestDist = dist;
-        job.best = { x: loc.x, y: loc.y, z: loc.z };
+        job.best = { x: loc.x, y: loc.y, z: loc.z, label, key };
       }
     }
     job.nextY = top + 1;
@@ -182,12 +195,13 @@ system.runInterval(() => {
 
   if (ENABLE_SPAWNER_TIPS && !scanJob && players.length > 0 && locatorTimer >= nextLocator) {
     locatorTimer = 0;
-    const target = players[rand(0, players.length - 1)];
-    let started = false;
-    try {
-      started = startScan(target);
-    } catch (e) {}
-    if (!started) nextLocator = rand(9000, 18000);
+    nextLocator = rand(2400, 4800);
+    if (Math.random() < TIP_CHANCE) {
+      const target = players[rand(0, players.length - 1)];
+      try {
+        startScan(target);
+      } catch (e) {}
+    }
   }
 
   if (players.length > 0 && ambientTimer >= nextAmbient) {

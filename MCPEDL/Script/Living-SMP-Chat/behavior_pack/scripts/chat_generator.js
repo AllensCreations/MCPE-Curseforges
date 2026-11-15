@@ -115,10 +115,13 @@ const C = {
     "<PLAYER> found the end portal", "<PLAYER> is going for the elytra",
   ],
   locator_spawner: [
-    "found a spawner at <COORDS>, probably a dungeon", "there is a dungeon spawner at <COORDS>, <PLAYER> check it out",
-    "<PLAYER> i spotted a spawner at <COORDS>", "<PLAYER> a spawner is sitting at <COORDS>",
-    "dungeon loot at <COORDS>, <PLAYER> go grab it", "<PLAYER> a spawner at <COORDS> if you want mob drops",
-    "i came across a spawner at <COORDS>", "<PLAYER> found you a dungeon spot at <COORDS>",
+    "<PLAYER> i found <STRUCTURE> at <COORDS>", "found <STRUCTURE> at <COORDS>, <PLAYER> check it out", "<PLAYER> there is <STRUCTURE> at <COORDS>",
+    "i spotted <STRUCTURE> at <COORDS>", "<PLAYER> <STRUCTURE> is sitting at <COORDS>", "i came across <STRUCTURE> at <COORDS>",
+    "<PLAYER> found you <STRUCTURE> at <COORDS>", "<STRUCTURE> at <COORDS>, worth a visit <PLAYER>",
+  ],
+  locator_reply_any: [
+    "nice find, write that down", "i want to see it too", "save those coords, ok", "i will check it out later",
+    "that is worth a trip", "bring torches, it is dark down there", "good spot, thanks", "mark it on your map",
   ],
   locator_reply: [
     "nice find, bring torches", "free loot, go for it", "take a sword and some food with you",
@@ -176,8 +179,9 @@ function resolve(raw, ctx) {
     "<BOT_B>": ctx.botB || "someone",
     "<BOT_C>": ctx.botC || "someone",
     "<COORDS>": ctx.coords || "somewhere",
+    "<STRUCTURE>": ctx.structure || "something",
   };
-  return text.replace(/<(PLAYER|CAUSE|ITEM|COORD_HINT|BOT_A|BOT_B|BOT_C|COORDS)>/g, (m) => map[m]);
+  return text.replace(/<(PLAYER|CAUSE|ITEM|COORD_HINT|BOT_A|BOT_B|BOT_C|COORDS|STRUCTURE)>/g, (m) => map[m]);
 }
 
 export function assembleMessage(category, ctx = {}) {

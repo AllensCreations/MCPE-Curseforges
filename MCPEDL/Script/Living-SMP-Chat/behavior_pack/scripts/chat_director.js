@@ -153,7 +153,8 @@ export function announceSpawner(player, loc) {
     const i = negatives[rand(0, negatives.length - 1)];
     shown[i] = Math.abs(shown[i]);
   }
-  const lines = chain(bots, ["locator_spawner", "locator_reply"], { player, coords: formatCoords(shown) });
+  const reply = loc.label === "a dungeon" ? "locator_reply" : "locator_reply_any";
+  const lines = chain(bots, ["locator_spawner", reply], { player, coords: formatCoords(shown), structure: loc.label });
   if (!playConversation(lines)) return false;
   if (slip) {
     system.runTimeout(() => {

@@ -2,6 +2,13 @@
 
 ---
 
+## [1.0.45] - 2026-11-15 - Structure Tips
+
+### Changed
+- **More Than Dungeons**: the rare location tip can now point to a real dungeon, stronghold, trial chamber or ancient city near you, with real coordinates.
+- **Rarer Tips**: every 2 to 4 minutes there is only a 5% chance a search even starts, and tips stay at least 15 minutes apart. Rarer searches also mean less work for the game.
+- **Why Not the Locate Command**: the game gives add-ons no way to read what the locate command finds, so the tip checks for real structure blocks close to you instead.
+
 ## [1.0.44] - 2026-11-15 - Smoother Performance
 
 ### Fixed
