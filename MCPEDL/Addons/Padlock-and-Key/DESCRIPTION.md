@@ -21,6 +21,7 @@ Craft a Padlock, rename it on an anvil, and use it on a supported block. The blo
 
 ### Key
 - **What Happens**: The Key opens a locked container while it is held in your main hand or your offhand and its name matches the password exactly.
+- **How It Works**: Locked doors, trapdoors and fence gates cannot be opened by hand, even with the Key, just like an Iron Door. If one still opens, it snaps shut again.
 - **Good To Know**: Without a matching Key, the block stays shut, and you see text above your hotbar with angry villager particles.
 
 ### Permanent Unlock
@@ -29,7 +30,7 @@ Craft a Padlock, rename it on an anvil, and use it on a supported block. The blo
 
 ### Break Protection
 - **What Happens**: A locked block cannot be broken unless you hold the matching Key in either hand.
-- **Good To Know**: Hoppers cannot be placed directly under a locked block, and a block cannot be locked while a Hopper sits under it.
+- **Good To Know**: Hoppers cannot be placed directly under a locked block, and a block cannot be locked while a Hopper sits under it. Explosions do not destroy locked blocks, and the block under a locked container or door is protected from breaking and explosions. Redstone can still open a locked door, trapdoor or fence gate, like an Iron Door. Mobs that break doors, such as Zombies, are not stopped.
 
 ### Key Copies
 - **What Happens**: Hold a Key in your main hand and an Iron Nugget in your offhand, then use the Key to get one extra Key with the same name.
@@ -37,7 +38,7 @@ Craft a Padlock, rename it on an anvil, and use it on a supported block. The blo
 
 ### Lockable Blocks
 - **What Happens**: Chest, Trapped Chest, every Copper Chest, Ender Chest, Barrel, every Shulker Box, Furnace, Blast Furnace, Smoker, Hopper, Brewing Stand, Dispenser, Dropper, Crafter, Decorated Pot, every door, every Fence Gate, every Trapdoor, and Chiseled Bookshelf can be locked.
-- **Good To Know**: Lock data is saved with the world, and each dimension keeps its own locks.
+- **Good To Know**: Lock data is saved with the world, and each dimension keeps its own locks. A Piston cannot be placed aimed at a locked block, and a block cannot be locked while a Piston is aimed at it. If a Piston still moves a locked block, for example in a Slime Block machine, the lock moves with it and the block stays locked. Locks left behind by a block that no longer exists are removed automatically.
 
 ## How to Use
 
@@ -60,10 +61,7 @@ Craft a Padlock, rename it on an anvil, and use it on a supported block. The blo
 ## Creator and Permissions
 
 - Creator: ALNStudios
-- Profiles: [CurseForge Profile](https://www.curseforge.com/members/allenscreations/projects) · [MCPEDL Profile](https://mcpedl.com/user/allenscreations/)
-
-<a href="https://www.curseforge.com/members/allenscreations/projects"><img src="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/assets/Images/curseforge.jpg" alt="CurseForge" width="45%"></a> <a href="https://mcpedl.com/user/allenscreations/"><img src="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/assets/Images/MCPEDL.jpg" alt="MCPEDL" width="45%"></a>
-- [MCPEDL Profile](https://mcpedl.com/user/alnstudios/)
+- Profiles: [CurseForge Profile](https://www.curseforge.com/members/allenscreations/projects) · [MCPEDL Profile](https://mcpedl.com/user/alnstudios/)
 
 <a href="https://www.curseforge.com/members/allenscreations/projects"><img src="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/assets/Images/curseforge.jpg" alt="CurseForge" width="45%"></a> <a href="https://mcpedl.com/user/alnstudios/"><img src="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/assets/Images/MCPEDL.jpg" alt="MCPEDL" width="45%"></a>
 

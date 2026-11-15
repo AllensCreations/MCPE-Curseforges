@@ -1,137 +1,36 @@
 import { world, system, EquipmentSlot, ItemStack } from "@minecraft/server";
+import {
+  HOPPER_ID,
+  dimensionFromCode,
+  findLock,
+  hasHopperBelow,
+  hasSolidFloor,
+  isContainer,
+  isLockable,
+  isLockedFloor,
+  isOpenable,
+  listLocks,
+  lockParts,
+  lockPosition,
+  propertyKey,
+} from "./lib/lockdata.js";
+import { followLocks, isPending, isPiston, pistonAimedAt, pistonChainHitsLock } from "./lib/pistons.js";
+import { holdShut, openState } from "./lib/doors.js";
 
 const PADLOCK_ID = "pnk:padlock";
 const KEY_ID = "pnk:key";
 const GLOW_KEY_ID = "pnk:key_glow";
 const KEY_IDS = new Set([KEY_ID, GLOW_KEY_ID]);
 const NUGGET_ID = "minecraft:iron_nugget";
-const HOPPER_ID = "minecraft:hopper";
-const PROPERTY_PREFIX = "lock:";
 const REVEAL_PASSWORD_ON_DENY = false;
-
-const EXACT_NAMES = new Set([
-  "chest",
-  "trapped_chest",
-  "barrel",
-  "furnace",
-  "lit_furnace",
-  "blast_furnace",
-  "lit_blast_furnace",
-  "smoker",
-  "lit_smoker",
-  "hopper",
-  "brewing_stand",
-  "dispenser",
-  "dropper",
-  "chiseled_bookshelf",
-  "crafter",
-  "decorated_pot",
-]);
-const NAME_SUFFIXES = ["_door", "trapdoor", "fence_gate", "shulker_box", "chest"];
-const CHEST_IDS = new Set(["minecraft:chest", "minecraft:trapped_chest"]);
-const DIMENSION_CODES = {
-  "minecraft:overworld": "o",
-  "minecraft:nether": "n",
-  "minecraft:the_end": "e",
-};
-const SIDES = [
-  { x: 1, z: 0 },
-  { x: -1, z: 0 },
-  { x: 0, z: 1 },
-  { x: 0, z: -1 },
-];
+const HOPPER_CART_ID = "minecraft:hopper_minecart";
+const DIMENSION_NAMES = ["overworld", "nether", "the_end"];
 
 const recentKeyBlockUse = new Map();
+const staleStrikes = new Map();
 
 function say(player, text) {
   player.onScreenDisplay.setActionBar(text);
-}
-
-function isLockable(block) {
-  const id = block.typeId;
-  if (!id.startsWith("minecraft:")) return false;
-  const name = id.slice(10);
-  return EXACT_NAMES.has(name) || NAME_SUFFIXES.some((suffix) => name.endsWith(suffix));
-}
-
-function isUpperDoorHalf(block) {
-  return block.typeId.endsWith("_door") && block.permutation.getState("upper_block_bit") === true;
-}
-
-function lockPosition(block) {
-  const { x, y, z } = block.location;
-  return { x, y: isUpperDoorHalf(block) ? y - 1 : y, z };
-}
-
-function propertyKey(dimension, x, y, z) {
-  const code = DIMENSION_CODES[dimension.id] ?? dimension.id;
-  return `${PROPERTY_PREFIX}${code}:${x},${y},${z}`;
-}
-
-function findLock(block) {
-  const origin = lockPosition(block);
-  const ownKey = propertyKey(block.dimension, origin.x, origin.y, origin.z);
-  const own = world.getDynamicProperty(ownKey);
-  if (typeof own === "string") return { key: ownKey, password: own };
-  if (!CHEST_IDS.has(block.typeId)) return null;
-  for (const side of SIDES) {
-    const x = origin.x + side.x;
-    const z = origin.z + side.z;
-    const neighbor = block.dimension.getBlock({ x, y: origin.y, z });
-    if (!neighbor || neighbor.typeId !== block.typeId) continue;
-    const neighborKey = propertyKey(block.dimension, x, origin.y, z);
-    const value = world.getDynamicProperty(neighborKey);
-    if (typeof value === "string") return { key: neighborKey, password: value };
-  }
-  return null;
-}
-
-function hasHopperBelow(block) {
-  const parts = [block];
-  if (CHEST_IDS.has(block.typeId)) {
-    for (const side of SIDES) {
-      const neighbor = block.dimension.getBlock({
-        x: block.location.x + side.x,
-        y: block.location.y,
-        z: block.location.z + side.z,
-      });
-      if (neighbor && neighbor.typeId === block.typeId) parts.push(neighbor);
-    }
-  }
-  return parts.some((part) => part.below()?.typeId === HOPPER_ID);
-}
-
-function isOpenable(block) {
-  const id = block.typeId;
-  return id.endsWith("_door") || id.endsWith("trapdoor") || id.includes("fence_gate");
-}
-
-function isContainer(block) {
-  return isLockable(block) && !isOpenable(block);
-}
-
-function hasSolidFloor(block) {
-  const parts = [block];
-  if (CHEST_IDS.has(block.typeId)) {
-    for (const side of SIDES) {
-      const neighbor = block.dimension.getBlock({
-        x: block.location.x + side.x,
-        y: block.location.y,
-        z: block.location.z + side.z,
-      });
-      if (neighbor && neighbor.typeId === block.typeId) parts.push(neighbor);
-    }
-  }
-  return parts.every((part) => {
-    const below = part.below();
-    return !!below && !below.isAir && !below.isLiquid && below.typeId !== HOPPER_ID && !below.typeId.endsWith("rail");
-  });
-}
-
-function isLockedFloor(block) {
-  const above = block.above();
-  if (!above || !isContainer(above)) return false;
-  return findLock(above) !== null;
 }
 
 function getContainer(player) {
@@ -169,18 +68,25 @@ function effectLocation(block, lift) {
   return { x: x + 0.5, y: y + lift, z: z + 0.5 };
 }
 
+function refuse(player, text) {
+  say(player, text);
+  player.playSound("break.amethyst_block");
+}
+
 function lockBlock(player, block, password) {
   const slot = getContainer(player)?.getSlot(player.selectedSlotIndex);
   if (!slot || !slot.hasItem() || slot.typeId !== PADLOCK_ID || slot.nameTag !== password) return;
   if (!isLockable(block) || findLock(block)) return;
   if (hasHopperBelow(block)) {
-    say(player, "Can't lock! Remove the Hopper below first");
-    player.playSound("break.amethyst_block");
+    refuse(player, "Can't lock! Remove the Hopper below first");
     return;
   }
   if (isContainer(block) && !hasSolidFloor(block)) {
-    say(player, "Can't lock! Needs a block below (no Hopper, rail or liquid)");
-    player.playSound("break.amethyst_block");
+    refuse(player, "Can't lock! Needs a block below (no Hopper, rail or liquid)");
+    return;
+  }
+  if (lockParts(block).some((part) => pistonAimedAt(part))) {
+    refuse(player, "Can't lock! A Piston is aimed at it");
     return;
   }
   const origin = lockPosition(block);
@@ -248,9 +154,18 @@ world.beforeEvents.playerInteractWithBlock.subscribe((event) => {
     return;
   }
 
+  const openable = isOpenable(block);
+  const location = block.location;
+  const wasOpen = openable ? openState(block) : undefined;
+
   if (!hasCorrectKey(player, lock.password)) {
     event.cancel = true;
-    if (isFirstEvent) system.run(() => denyAccess(player, block, lock.password));
+    if (isFirstEvent) {
+      system.run(() => {
+        denyAccess(player, block, lock.password);
+        if (openable) holdShut(block.dimension, location, wasOpen);
+      });
+    }
     return;
   }
 
@@ -260,9 +175,14 @@ world.beforeEvents.playerInteractWithBlock.subscribe((event) => {
     return;
   }
 
-  if (isOpenable(block)) {
+  if (openable) {
     event.cancel = true;
-    if (isFirstEvent) system.run(() => say(player, "Locked! Sneak and use the Key to unlock"));
+    if (isFirstEvent) {
+      system.run(() => {
+        say(player, "Locked! Sneak and use the Key to unlock");
+        holdShut(block.dimension, location, wasOpen);
+      });
+    }
   }
 });
 
@@ -302,10 +222,16 @@ world.afterEvents.playerPlaceBlock.subscribe((event) => {
     if (above && isLockable(above) && findLock(above)) {
       block.setType("minecraft:air");
       getContainer(player)?.addItem(new ItemStack(HOPPER_ID, 1));
-      say(player, "Can't place! A Hopper would empty the locked block");
-      player.playSound("break.amethyst_block");
+      refuse(player, "Can't place! A Hopper would empty the locked block");
       return;
     }
+  }
+  if (isPiston(block) && pistonChainHitsLock(block)) {
+    const typeId = block.typeId;
+    block.setType("minecraft:air");
+    getContainer(player)?.addItem(new ItemStack(typeId, 1));
+    refuse(player, "Can't place! This Piston would move a locked block");
+    return;
   }
   if (!isLockable(block)) return;
   const origin = lockPosition(block);
@@ -322,71 +248,7 @@ world.beforeEvents.explosion.subscribe((event) => {
   event.setImpactedBlocks(safe);
 });
 
-const FACING_VECTORS = [
-  { x: 0, y: -1, z: 0 },
-  { x: 0, y: 1, z: 0 },
-  { x: 0, y: 0, z: -1 },
-  { x: 0, y: 0, z: 1 },
-  { x: -1, y: 0, z: 0 },
-  { x: 1, y: 0, z: 0 },
-];
-const HOPPER_CART_ID = "minecraft:hopper_minecart";
-const DIMENSION_NAMES = ["overworld", "nether", "the_end"];
-
-function shifted(pos, dir, steps) {
-  return { x: pos.x + dir.x * steps, y: pos.y + dir.y * steps, z: pos.z + dir.z * steps };
-}
-
-function migrateLocks(dimension, origins, dir) {
-  const moves = [];
-  const seen = new Set();
-  for (const origin of origins) {
-    const key = propertyKey(dimension, origin.x, origin.y, origin.z);
-    if (seen.has(key)) continue;
-    seen.add(key);
-    const password = world.getDynamicProperty(key);
-    if (typeof password !== "string") continue;
-    const dest = shifted(origin, dir, 1);
-    const destBlock = dimension.getBlock(dest);
-    if (!destBlock || !isLockable(destBlock)) continue;
-    moves.push({ key, destKey: propertyKey(dimension, dest.x, dest.y, dest.z), password });
-  }
-  for (const move of moves) world.setDynamicProperty(move.key, undefined);
-  for (const move of moves) world.setDynamicProperty(move.destKey, move.password);
-}
-
-world.afterEvents.pistonActivate.subscribe((event) => {
-  const { piston, block, isExpanding } = event;
-  const dimension = block.dimension;
-  const facing = FACING_VECTORS[block.permutation.getState("facing_direction")];
-  if (!facing) return;
-  const dir = isExpanding ? facing : shifted({ x: 0, y: 0, z: 0 }, facing, -1);
-  const origin = block.location;
-  let attached = [];
-  try {
-    attached = piston.getAttachedBlocksLocations();
-  } catch (error) {
-    attached = [];
-  }
-  system.runTimeout(() => {
-    const origins = [];
-    for (const location of attached) {
-      origins.push(location);
-      origins.push(shifted(location, dir, -1));
-    }
-    if (isExpanding) {
-      for (let step = 2; step <= 13; step++) {
-        const spot = shifted(origin, facing, step);
-        const spotBlock = dimension.getBlock(spot);
-        if (!spotBlock || spotBlock.isAir || spotBlock.isLiquid) break;
-        origins.push(shifted(spot, facing, -1));
-      }
-    } else {
-      origins.push(shifted(origin, facing, 2));
-    }
-    migrateLocks(dimension, origins, dir);
-  }, 5);
-});
+world.afterEvents.pistonActivate.subscribe(followLocks);
 
 system.runInterval(() => {
   for (const name of DIMENSION_NAMES) {
@@ -408,27 +270,33 @@ system.runInterval(() => {
   }
 }, 5);
 
-world.beforeEvents.pistonActivate?.subscribe((event) => {
-  const { piston, block } = event;
-  const dimension = block.dimension;
-  let attached = [];
-  try {
-    attached = piston.getAttachedBlocksLocations();
-  } catch (error) {
-    return;
-  }
-  for (const location of attached) {
-    const moving = dimension.getBlock(location);
-    if (!moving) continue;
-    if ((isLockable(moving) && findLock(moving)) || isLockedFloor(moving)) {
-      event.cancel = true;
-      const at = block.location;
-      system.run(() => {
-        for (const player of dimension.getPlayers({ location: at, maxDistance: 8 })) {
-          say(player, "Locked! Pistons can't move a locked block");
-        }
-      });
-      return;
+system.runInterval(() => {
+  const seen = new Set();
+  for (const entry of listLocks()) {
+    seen.add(entry.key);
+    if (isPending(entry.key)) continue;
+    const dimension = dimensionFromCode(entry.code);
+    if (!dimension) continue;
+    let block;
+    try {
+      block = dimension.getBlock({ x: entry.x, y: entry.y, z: entry.z });
+    } catch (error) {
+      continue;
+    }
+    if (!block) continue;
+    if (isLockable(block) || block.typeId === "minecraft:moving_block") {
+      staleStrikes.delete(entry.key);
+      continue;
+    }
+    const strikes = (staleStrikes.get(entry.key) ?? 0) + 1;
+    if (strikes >= 2) {
+      world.setDynamicProperty(entry.key, undefined);
+      staleStrikes.delete(entry.key);
+    } else {
+      staleStrikes.set(entry.key, strikes);
     }
   }
-});
+  for (const key of staleStrikes.keys()) {
+    if (!seen.has(key)) staleStrikes.delete(key);
+  }
+}, 100);
