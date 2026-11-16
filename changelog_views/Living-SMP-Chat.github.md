@@ -1,19 +1,27 @@
 # Changelog — Living SMP Chat
 
-## [1.0.8] - 2026-11-16
+## [1.0.9] - 2026-11-16 - Better Writing
 
-### Added
+### Changed
+- **Smoother Sentences**: openers and endings that read oddly with some lines were removed, so chat messages sound more natural.
+- **Questions Stay Questions**: lines that ask something no longer get a statement ending tacked on.
+- **Fitting Side Remarks**: the extra personality remark is now only added to casual chat, never to reactions to deaths, ores, sleeping or fights.
+- **Better Amounts**: the counts used in lines (like a dozen or a couple of) read more naturally.
+
+<details>
+<summary><b>1.0.x</b> (4 releases)</summary>
+
+### [1.0.8] - 2026-11-16
+
+#### Added
 - **Two Options**: the pack now has a Just Chat SMP option and a World Changes option. Just Chat SMP keeps everything as chat messages, and World Changes lets the bedtime night skip really change the time and weather.
 - **Default**: Just Chat SMP is the default, so the night no longer skips unless you choose World Changes.
 - **Bedtime Chat**: on about one night in twenty, a virtual player says they are going to bed and one or two others wish them goodnight.
 - **Virtual Deaths**: now and then a virtual player dies to a creeper, a zombie, a skeleton, a spider, lava, a fall, the void, drowning or fire. The usual death message appears in chat, then the victim and the others react.
 
-### Changed
+#### Changed
 - **Real Night Skip**: when a virtual player goes to bed on one of those nights, the night now really skips to morning after the goodnight chat, the weather clears, and someone says good morning.
 - **Docs**: the description now says plainly that this changes the time of day for everyone.
-
-<details>
-<summary><b>1.0.x</b> (3 releases)</summary>
 
 ### [1.0.5] - 2026-11-15
 

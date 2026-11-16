@@ -40,7 +40,7 @@ This directory stores compiled Add-ons (`.mcaddon`), Maps (`.mcworld`), Scripts 
 | **ALN Quiver** | Add-on (.mcaddon) | [Download (.mcaddon)](ALN-Quiver/ALNQuiver%20V1.0.0.mcaddon) | [`ALN-Quiver/`](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/builds/ALN-Quiver/) |
 | **Expanded Basic Arsenal** | Add-on (.mcaddon) | [Download (.mcaddon)](Expanded-Basic-Arsenal/ExpandedBasicArsenal%20V1.0.0.mcaddon) | [`Expanded-Basic-Arsenal/`](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/builds/Expanded-Basic-Arsenal/) |
 | **ALN Wireless Headphones** | Add-on (.mcaddon) | [Download (.mcaddon)](ALN-Wireless-Headphones/ALNWirelessHeadphones%20V1.0.0.mcaddon) | [`ALN-Wireless-Headphones/`](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/builds/ALN-Wireless-Headphones/) |
-| **ALN MoreDiscs** | Complete Pack (`.mcaddon`) | [Download (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/ALN-MoreDiscs/ALNMoreDiscs%20V1.0.0.mcaddon) | [`ALN-MoreDiscs/`](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/builds/ALN-MoreDiscs/) |
+| **ALN MoreDiscs** | Add-on (.mcaddon) | [Download (.mcaddon)](ALN-MoreDiscs/ALNMoreDiscs%20V1.0.0.mcaddon) | [`ALN-MoreDiscs/`](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/builds/ALN-MoreDiscs/) |
 
 ### Worlds and Maps
 
@@ -73,7 +73,7 @@ This directory stores compiled Add-ons (`.mcaddon`), Maps (`.mcworld`), Scripts 
 | **Target HUD Entity Inspector** | Script Pack (.mcpack) | [Download (.mcpack)](Target-HUD-Entity-Inspector/TargetHUD%20V1.1.2.mcpack) | [`Target-HUD-Entity-Inspector/`](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/builds/Target-HUD-Entity-Inspector/) |
 | **Waypoint Helper** | Add-on (.mcaddon) | [Download (.mcaddon)](Waypoint-Helper/WaypointHelper%20V1.1.10.mcaddon) | [`Waypoint-Helper/`](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/builds/Waypoint-Helper/) |
 | **Always Critical** | Script Pack (.mcpack) | [Download (.mcpack)](Always-Critical/AlwaysCritical%20V1.0.0.mcpack) | [`Always-Critical/`](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/builds/Always-Critical/) |
-| **Living SMP Chat** | Script Pack (.mcpack) | [Download (.mcpack)](Living-SMP-Chat/LivingSMPChat%20V1.0.8.mcpack) | [`Living-SMP-Chat/`](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/builds/Living-SMP-Chat/) |
+| **Living SMP Chat** | Script Pack (.mcpack) | [Download (.mcpack)](Living-SMP-Chat/LivingSMPChat%20V1.0.9.mcpack) | [`Living-SMP-Chat/`](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/builds/Living-SMP-Chat/) |
 | **Gameplay Optimizer** | Script Pack (.mcpack) | [Download (.mcpack)](Gameplay-Optimizer/GameplayOptimizer%20V1.0.0.mcpack) | [`Gameplay-Optimizer/`](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/builds/Gameplay-Optimizer/) |
 | **ALNMobStacker** | Script Pack (.mcpack) | [Download (.mcpack)](ALN-MobStacker/ALNMobStacker%20V1.0.1.mcpack) | [`ALN-MobStacker/`](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/builds/ALN-MobStacker/) |
 
