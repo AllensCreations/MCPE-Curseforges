@@ -9,12 +9,11 @@ export const BANKS = {
   adj: ["huge", "tiny", "cursed", "gorgeous", "messy", "insane", "clean", "unreal", "chunky", "cozy", "sketchy", "legendary"],
   mood: ["so tired", "hyped", "bored", "focused", "chilled", "a little lost", "ready", "curious", "pumped", "sleepy"],
   time: ["an hour", "ten minutes", "two days", "three hours", "half a day", "a week", "twenty minutes", "a long time"],
-  num: ["three", "five", "a dozen", "about twenty", "two stacks of", "half a stack of", "way too many", "exactly seven"],
+  num: ["three", "five", "a dozen", "about twenty", "a couple of", "ten", "way too many", "exactly seven"],
   mat: ["oak", "spruce", "stone bricks", "white concrete", "copper", "dark oak", "cherry planks", "bamboo", "sandstone", "blackstone"],
 };
-
-export const EXTRA_OPENERS = ["real talk", "so", "guys", "lowkey", "update:", "side note:", "random but", "plot twist:", "hot take:", "psa:", "ahem", "ok so", "hmm", "alright", "also", "no because", "sorry but", "imagine", "listen", "um"];
-export const EXTRA_TAILS = ["right?", "anyone?", "thoughts?", "haha yeah", "i swear", "for real", "no joke", "xd", "lol same", "let's go", "send help", "classic", "so good", "as usual", "again", "honestly same"];
+export const EXTRA_OPENERS = ["real talk", "so", "guys", "lowkey", "ok so", "hmm", "alright", "also", "no because", "listen"];
+export const EXTRA_TAILS = ["i swear", "for real", "no joke", "as usual"];
 
 export const EXTRA_CORES = {
   death_creeper: [

@@ -1,5 +1,5 @@
 import { BANKS, EXTRA_CORES, EXTRA_OPENERS, EXTRA_TAILS } from "./chat_lines_extra.js";
-const OPENERS = ["", "yo", "bro", "ngl", "okay but", "honestly", "wait", "lmao", "bruh", "ok", "oh", "nah", "dude", "hey", "ayo", "fr", "uh"];
+const OPENERS = ["", "yo", "bro", "ngl", "honestly", "wait", "lmao", "bruh", "ok", "oh", "nah", "dude", "hey", "ayo", "fr", "uh"];
 const TAILS = ["", "lol", "lmao", "haha", "xD", "fr", "tbh", "ngl", "istg", "bruh", "lmaooo", "man", "dude", "mate", "honestly"];
 
 const FLAVOR = {
@@ -163,17 +163,22 @@ function resolve(raw, ctx) {
   return text.replace(/<(PLAYER|CAUSE|ITEM|COORD_HINT|BOT_A|BOT_B|BOT_C)>/g, (m) => map[m]);
 }
 
+const NO_FLAVOR = /^(death_|ore_|dim_|sleeping|drama_|support_|bot_|greeting_hello|greeting_wb)/;
+
 export function assembleMessage(category, ctx = {}) {
   const cores = C[category] || C.death_generic;
   let line = "";
   for (let attempt = 0; attempt < 14; attempt++) {
+    const core = pick(cores);
+    const asks = core.indexOf("?") !== -1;
     const parts = [];
-    if (Math.random() < 0.8) parts.push(pick(OPENERS));
-    parts.push(pick(cores));
-    if (Math.random() < 0.7) parts.push(pick(TAILS));
-    const flavors = ctx.speaker && FLAVOR[ctx.speaker.type];
-    if (flavors && Math.random() < 0.25) parts.push("- " + pick(flavors));
-    line = resolve(parts.filter(Boolean).join(" "), ctx);
+    if (Math.random() < (asks ? 0.4 : 0.8)) parts.push(pick(OPENERS));
+    parts.push(core);
+    if (!asks && Math.random() < 0.7) parts.push(pick(TAILS));
+    let text = parts.filter(Boolean).join(" ");
+    const flavors = !asks && !NO_FLAVOR.test(category) && ctx.speaker && FLAVOR[ctx.speaker.type];
+    if (flavors && Math.random() < 0.25) text += ", " + pick(flavors);
+    line = resolve(text, ctx);
     if (!recentSet.has(line)) break;
   }
   remember(line);

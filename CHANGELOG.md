@@ -2,6 +2,14 @@
 
 ---
 
+## [1.0.64] - 2026-11-16 - Better Writing
+
+### Changed
+- **Smoother Sentences**: openers and endings that read oddly with some lines were removed, so chat messages sound more natural.
+- **Questions Stay Questions**: lines that ask something no longer get a statement ending tacked on.
+- **Fitting Side Remarks**: the extra personality remark is now only added to casual chat, never to reactions to deaths, ores, sleeping or fights.
+- **Better Amounts**: the counts used in lines (like a dozen or a couple of) read more naturally.
+
 ## 2026-11-16 - New Addon ALN MoreDiscs
 
 ### Added
