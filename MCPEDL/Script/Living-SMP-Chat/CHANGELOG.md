@@ -2,23 +2,21 @@
 
 ---
 
-## [1.0.8] - 2026-11-16 - Pack Options
+## [1.0.8] - 2026-11-16
+
+**What's new in v1.0.8:** Packed with 3 updates, from v1.0.6 through v1.0.8. Includes: Pack Options; Night Skip; Bedtime and Mishaps.
 
 ### Added
+
 - **Two Options**: the pack now has a Just Chat SMP option and a World Changes option. Just Chat SMP keeps everything as chat messages, and World Changes lets the bedtime night skip really change the time and weather.
 - **Default**: Just Chat SMP is the default, so the night no longer skips unless you choose World Changes.
-
-## [1.0.7] - 2026-11-16 - Night Skip
-
-### Changed
-- **Real Night Skip**: when a virtual player goes to bed on one of those nights, the night now really skips to morning after the goodnight chat, the weather clears, and someone says good morning.
-- **Docs**: the description now says plainly that this changes the time of day for everyone.
-
-## [1.0.6] - 2026-11-16 - Bedtime and Mishaps
-
-### Added
 - **Bedtime Chat**: on about one night in twenty, a virtual player says they are going to bed and one or two others wish them goodnight.
 - **Virtual Deaths**: now and then a virtual player dies to a creeper, a zombie, a skeleton, a spider, lava, a fall, the void, drowning or fire. The usual death message appears in chat, then the victim and the others react.
+
+### Changed
+
+- **Real Night Skip**: when a virtual player goes to bed on one of those nights, the night now really skips to morning after the goodnight chat, the weather clears, and someone says good morning.
+- **Docs**: the description now says plainly that this changes the time of day for everyone.
 
 ## [1.0.5] - 2026-11-15
 
@@ -41,6 +39,8 @@
 - **Lighter Background Work**: the checks for sleeping and dimension changes run half as often, and the startup count of chat lines was removed.
 - **No Lag Jokes**: the virtual players no longer joke about lag spikes, so real lag is not confused with chat.
 
+
+
 ## [1.0.2] - 2026-11-15
 
 **What's new in v1.0.2:** Packed with 2 updates, from v1.0.1 through v1.0.2. Includes: Big Chat Expansion; Spawner Tips.
@@ -52,6 +52,8 @@
 - **Scripted Mini Chats**: 40 short back-and-forth conversations between two or three players.
 - **Bigger Variety**: new openers, endings and word banks lift the pool to millions of different lines, and the same line is not repeated back to back.
 - **Spawner Tips**: once in a while a virtual player tells you the real position of a Monster Spawner close to you, usually a dungeon, and a second player replies. About one in three tips drops a minus sign and is corrected by the same player about two minutes later. Each spawner is announced only once, and nothing is said when none is nearby.
+
+
 
 
 
