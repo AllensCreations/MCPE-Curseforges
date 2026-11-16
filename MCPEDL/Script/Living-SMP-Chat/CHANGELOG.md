@@ -2,23 +2,21 @@
 
 ---
 
-## [1.0.11] - 2026-11-16 - Shoutout Mini Chats
+## [1.0.11] - 2026-11-16
+
+**What's new in v1.0.11:** Packed with 3 updates, from v1.0.9 through v1.0.11. Includes: Shoutout Mini Chats; Replies and Personality; Better Writing.
 
 ### Added
+
 - **Shoutout Mini Chats**: about half of the ALNStudios shoutouts are now short back-and-forth chats between two or three players, like asking who made the add-on and suggesting a follow. The other half stay the single plug with a reply.
-
-## [1.0.10] - 2026-11-16 - Replies and Personality
-
-### Added
 - **Replies to Your Chat**: virtual players answer when you say hello, thank them, ask a question, laugh, say goodnight, or type one of their names.
 - **Catchphrases**: each virtual player now has a catchphrase they use now and then.
 - **Name Slips**: once in a while a virtual player slips and uses a made-up first name, and the others react.
 - **Quiet Options**: each option now also comes in a Quiet version where the virtual players chat about half as often.
 - **Shoutouts**: now and then a virtual player asks if you know ALNStudios and suggests following him, at most once every 20 minutes.
 
-## [1.0.9] - 2026-11-16 - Better Writing
-
 ### Changed
+
 - **Smoother Sentences**: openers and endings that read oddly with some lines were removed, so chat messages sound more natural.
 - **Questions Stay Questions**: lines that ask something no longer get a statement ending tacked on.
 - **Fitting Side Remarks**: the extra personality remark is now only added to casual chat, never to reactions to deaths, ores, sleeping or fights.
@@ -39,6 +37,8 @@
 
 - **Real Night Skip**: when a virtual player goes to bed on one of those nights, the night now really skips to morning after the goodnight chat, the weather clears, and someone says good morning.
 - **Docs**: the description now says plainly that this changes the time of day for everyone.
+
+
 
 ## [1.0.5] - 2026-11-15
 
@@ -63,6 +63,8 @@
 
 
 
+
+
 ## [1.0.2] - 2026-11-15
 
 **What's new in v1.0.2:** Packed with 2 updates, from v1.0.1 through v1.0.2. Includes: Big Chat Expansion; Spawner Tips.
@@ -74,6 +76,8 @@
 - **Scripted Mini Chats**: 40 short back-and-forth conversations between two or three players.
 - **Bigger Variety**: new openers, endings and word banks lift the pool to millions of different lines, and the same line is not repeated back to back.
 - **Spawner Tips**: once in a while a virtual player tells you the real position of a Monster Spawner close to you, usually a dungeon, and a second player replies. About one in three tips drops a minus sign and is corrected by the same player about two minutes later. Each spawner is announced only once, and nothing is said when none is nearby.
+
+
 
 
 
