@@ -1,13 +1,13 @@
 {
   "format_version": 2,
   "header": {
-    "name": "Living SMP Chat (v1.0.7)",
+    "name": "Living SMP Chat (v1.0.8)",
     "description": "A friendly Hermitcraft-style SMP simulated in chat. by ALNStudios",
     "uuid": "28cb2073-113a-4f4f-b874-8fe3eec80f6b",
     "version": [
       1,
       0,
-      7
+      8
     ],
     "min_engine_version": [
       1,
@@ -23,7 +23,7 @@
       "version": [
         1,
         0,
-        7
+        8
       ],
       "entry": "scripts/main.js"
     }
@@ -34,10 +34,22 @@
       "version": "2.11.0"
     }
   ],
+  "subpacks": [
+    {
+      "folder_name": "subpack_world",
+      "name": "World Changes",
+      "memory_tier": 0
+    },
+    {
+      "folder_name": "subpack_chat",
+      "name": "Just Chat SMP",
+      "memory_tier": 4
+    }
+  ],
   "metadata": {
     "authors": [
       "ALNStudios"
     ],
-    "version": "1.0.7"
+    "version": "1.0.8"
   }
 }

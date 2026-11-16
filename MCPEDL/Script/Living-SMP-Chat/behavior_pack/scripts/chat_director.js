@@ -2,6 +2,7 @@ import { world, system } from "@minecraft/server";
 import { formatChat, isOnline, pickOnline } from "./smp_roster.js";
 import { assembleMessage, pickItem, renderLine } from "./chat_generator.js";
 import { DIALOGS } from "./chat_lines_extra.js";
+import { WORLD_CHANGES } from "./mode.js";
 
 const MIN_DELAY = 35;
 const MAX_DELAY = 100;
@@ -130,7 +131,7 @@ export function botSleeps() {
   const bots = pickOnline(rand(2, 3));
   if (bots.length < 2) return;
   const lines = chain(bots, ["bot_sleep", "bot_sleep_reply", "bot_sleep_reply"], {});
-  lines.push({ run: skipNight });
+  if (WORLD_CHANGES) lines.push({ run: skipNight });
   playConversation(lines, { priority: true });
 }
 

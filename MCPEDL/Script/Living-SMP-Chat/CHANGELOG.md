@@ -2,6 +2,12 @@
 
 ---
 
+## [1.0.8] - 2026-11-16 - Pack Options
+
+### Added
+- **Two Options**: the pack now has a Just Chat SMP option and a World Changes option. Just Chat SMP keeps everything as chat messages, and World Changes lets the bedtime night skip really change the time and weather.
+- **Default**: Just Chat SMP is the default, so the night no longer skips unless you choose World Changes.
+
 ## [1.0.7] - 2026-11-16 - Night Skip
 
 ### Changed
