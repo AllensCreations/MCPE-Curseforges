@@ -2,6 +2,11 @@
 
 ---
 
+## 2026-11-16 - New Addon ALN MoreDiscs
+
+### Added
+- **ALN MoreDiscs**: New addon project created from a pack script.
+
 ## [1.0.63] - 2026-11-16 - Recipes and Descriptions In One Build
 
 ### Improved & Balanced

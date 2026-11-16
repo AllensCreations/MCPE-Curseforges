@@ -1,0 +1,21 @@
+{
+  "resource_pack_name": "aln_morediscs",
+  "texture_name": "atlas.items",
+  "texture_data": {
+    "aln_disc_1": {
+      "textures": "textures/items/aln_disc_1"
+    },
+    "aln_disc_2": {
+      "textures": "textures/items/aln_disc_2"
+    },
+    "aln_disc_3": {
+      "textures": "textures/items/aln_disc_3"
+    },
+    "aln_disc_4": {
+      "textures": "textures/items/aln_disc_4"
+    },
+    "aln_disc_5": {
+      "textures": "textures/items/aln_disc_5"
+    }
+  }
+}

@@ -1,0 +1,60 @@
+{
+  "format_version": "1.14.0",
+  "sound_definitions": {
+    "record.aln_track_1": {
+      "category": "record",
+      "max_distance": 64,
+      "sounds": [
+        {
+          "name": "sounds/music/aln_track_1",
+          "stream": true,
+          "volume": 1.0
+        }
+      ]
+    },
+    "record.aln_track_2": {
+      "category": "record",
+      "max_distance": 64,
+      "sounds": [
+        {
+          "name": "sounds/music/aln_track_2",
+          "stream": true,
+          "volume": 1.0
+        }
+      ]
+    },
+    "record.aln_track_3": {
+      "category": "record",
+      "max_distance": 64,
+      "sounds": [
+        {
+          "name": "sounds/music/aln_track_3",
+          "stream": true,
+          "volume": 1.0
+        }
+      ]
+    },
+    "record.aln_track_4": {
+      "category": "record",
+      "max_distance": 64,
+      "sounds": [
+        {
+          "name": "sounds/music/aln_track_4",
+          "stream": true,
+          "volume": 1.0
+        }
+      ]
+    },
+    "record.aln_track_5": {
+      "category": "record",
+      "max_distance": 64,
+      "sounds": [
+        {
+          "name": "sounds/music/aln_track_5",
+          "stream": true,
+          "volume": 1.0
+        }
+      ]
+    }
+  }
+}
