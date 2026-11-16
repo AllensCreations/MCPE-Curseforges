@@ -1,16 +1,23 @@
 # Changelog — 2-in-1 Loot & XP Booster
 
-## [1.0.3] - 2026-11-16
+## [1.0.4] - 2026-11-16 - Loot Cap and Boosters Switch
 
 ### Improved & Balanced
+- **Loot back to 32x**: The Loot slider has six levels, 1x up to 32x. XP keeps seven levels up to 64x. A saved Loot level above 32x drops to 32x.
+- **Boosters switch**: A new on/off switch on the XP & Loot Booster screen turns both boosters off and on without losing your levels.
+- **XP orb limit**: Extra XP orbs are now capped per moment across all players, which protects busy servers.
+
+<details>
+<summary><b>1.0.x</b> (4 releases)</summary>
+
+### [1.0.3] - 2026-11-16
+
+#### Improved & Balanced
 - **Plain multiplier sliders**: The Loot and XP sliders now use the same seven levels, 1x, 2x, 4x, 8x, 16x, 32x and 64x, and the tier names are gone.
 - **Loot up to 64x**: Loot can now reach 64x, matching XP. Your saved Loot and XP levels carry over unchanged.
 - **ALNStudios look**: The menus follow the ALNStudios Redesigned UI standard with a gold title, bold buttons with icons and a Back button on About.
 - **Menus keep going**: After Apply or Back the main menu opens again. Exit or the close button closes it.
 - **Action Bar feedback**: Applied settings now show on the Action Bar instead of in chat.
-
-<details>
-<summary><b>1.0.x</b> (3 releases)</summary>
 
 ### [1.0.2] - 2026-11-12
 

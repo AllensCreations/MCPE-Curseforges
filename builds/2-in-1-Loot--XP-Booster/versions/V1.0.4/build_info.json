@@ -1,0 +1,8 @@
+{
+  "changelog_version": "1.0.4",
+  "manifest_version": "1.0.4",
+  "packages": {
+    "LootXPBooster V1.0.4.mcaddon": "b81e9fa9fa6602ff9b2af9c904cea2574d69f8e022c772703254a55237475328"
+  },
+  "source_sha256": "877ec551721ca85c690a676366d27e930b673e506ceb3f2e2bcb23a427f7f480"
+}
