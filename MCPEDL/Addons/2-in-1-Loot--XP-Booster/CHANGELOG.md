@@ -2,6 +2,13 @@
 
 ---
 
+## [1.0.4] - 2026-11-16 - Loot Cap and Boosters Switch
+
+### Improved & Balanced
+- **Loot back to 32x**: The Loot slider has six levels, 1x up to 32x. XP keeps seven levels up to 64x. A saved Loot level above 32x drops to 32x.
+- **Boosters switch**: A new on/off switch on the XP & Loot Booster screen turns both boosters off and on without losing your levels.
+- **XP orb limit**: Extra XP orbs are now capped per moment across all players, which protects busy servers.
+
 ## [1.0.3] - 2026-11-16
 
 **What's new in v1.0.3:** Packed with the v1.0.3 update. Includes: Simplified Booster Sliders.

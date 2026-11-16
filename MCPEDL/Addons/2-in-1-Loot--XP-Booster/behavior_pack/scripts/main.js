@@ -2,15 +2,17 @@ import { world, system, EntityComponentTypes } from "@minecraft/server";
 import { ActionFormData, ModalFormData, FormCancelationReason } from "@minecraft/server-ui";
 
 const PACK_NAME = "2-in-1 Loot & XP Booster";
-const VERSION = "1.0.3";
+const VERSION = "1.0.4";
 const TITLE = `§l§6@ALNStudios §e${PACK_NAME}§r (v${VERSION})`;
 const ABOUT_TITLE = "About ALNStudios";
 const ICON_MAIN = "textures/items/experience_bottle";
 const ICON_ABOUT = "textures/items/name_tag";
 const ICON_EXIT = "textures/items/door_wood";
-const LEVELS = [1, 2, 4, 8, 16, 32, 64];
+const LOOT_LEVELS = [1, 2, 4, 8, 16, 32];
+const XP_LEVELS = [1, 2, 4, 8, 16, 32, 64];
 const LOOT_KEY = "aln_loot_index";
 const XP_KEY = "aln_xp_index";
+const ENABLED_KEY = "aln_boost_enabled";
 const BOOK_IDS = new Set(["minecraft:book", "minecraft:writable_book"]);
 const TRIGGER_NAME = "booster";
 const DROP_TAG = "aln_boosted_drop";
@@ -19,7 +21,7 @@ const BLOCK_RADIUS = 1.5;
 const MOB_RADIUS = 2.2;
 const XP_RADIUS = 8;
 const XP_INTERVAL_TICKS = 2;
-const MAX_XP_SPAWNS_PER_PASS = 256;
+const MAX_XP_SPAWNS_PER_PASS = 128;
 const SPAWN_WINDOW_TICKS = 4;
 const MAX_FORM_RETRIES = 8;
 const EXCLUDED_BLOCKS = new Set([
@@ -52,26 +54,33 @@ const recentItems = new Map();
 const openMenus = new Set();
 const boosts = new Map();
 
-function readIndex(player, key) {
+function readIndex(player, key, levels) {
   const value = player.getDynamicProperty(key);
-  return Number.isInteger(value) && value >= 0 && value < LEVELS.length ? value : 0;
+  if (!Number.isInteger(value) || value < 0) return 0;
+  return Math.min(value, levels.length - 1);
 }
 
 function getBoost(player) {
   let boost = boosts.get(player.id);
   if (!boost) {
-    boost = { loot: readIndex(player, LOOT_KEY), xp: readIndex(player, XP_KEY) };
+    boost = {
+      loot: readIndex(player, LOOT_KEY, LOOT_LEVELS),
+      xp: readIndex(player, XP_KEY, XP_LEVELS),
+      on: player.getDynamicProperty(ENABLED_KEY) !== false,
+    };
     boosts.set(player.id, boost);
   }
   return boost;
 }
 
 function lootMultiplier(player) {
-  return LEVELS[getBoost(player).loot];
+  const boost = getBoost(player);
+  return boost.on ? LOOT_LEVELS[boost.loot] : 1;
 }
 
 function xpMultiplier(player) {
-  return LEVELS[getBoost(player).xp];
+  const boost = getBoost(player);
+  return boost.on ? XP_LEVELS[boost.xp] : 1;
 }
 
 function isExcludedBlock(typeId) {
@@ -83,7 +92,11 @@ function isExcludedBlock(typeId) {
 }
 
 function statusLine(player) {
-  return `Loot Booster: ${lootMultiplier(player)}x | XP Booster: ${xpMultiplier(player)}x`;
+  const boost = getBoost(player);
+  const loot = LOOT_LEVELS[boost.loot];
+  const xp = XP_LEVELS[boost.xp];
+  if (!boost.on) return `Boosters are off. Saved: Loot ${loot}x | XP ${xp}x`;
+  return `Loot Booster: ${loot}x | XP Booster: ${xp}x`;
 }
 
 function bold(text) {
@@ -129,35 +142,49 @@ async function mainScreen(player) {
   return undefined;
 }
 
+function levelText(levels) {
+  return levels.map((level) => `${level}x`).join(", ");
+}
+
 async function boosterScreen(player) {
   const boost = getBoost(player);
   const form = new ModalFormData().title(TITLE);
   addIfSupported(form, "header", bold("XP & Loot Booster"));
   addIfSupported(form, "label", statusLine(player));
   addIfSupported(form, "divider");
-  addIfSupported(form, "label", `Slider positions 1 to ${LEVELS.length} = ${LEVELS.map((level) => `${level}x`).join(", ")}`);
+  form.toggle(bold("Boosters On"), { defaultValue: boost.on });
   addIfSupported(form, "divider");
-  form.slider(bold("Loot Booster"), 1, LEVELS.length, { defaultValue: boost.loot + 1, valueStep: 1 });
+  addIfSupported(form, "label", `Loot slider 1 to ${LOOT_LEVELS.length} = ${levelText(LOOT_LEVELS)}`);
+  form.slider(bold("Loot Booster"), 1, LOOT_LEVELS.length, { defaultValue: boost.loot + 1, valueStep: 1 });
   addIfSupported(form, "divider");
-  form.slider(bold("XP Booster"), 1, LEVELS.length, { defaultValue: boost.xp + 1, valueStep: 1 });
+  addIfSupported(form, "label", `XP slider 1 to ${XP_LEVELS.length} = ${levelText(XP_LEVELS)}`);
+  form.slider(bold("XP Booster"), 1, XP_LEVELS.length, { defaultValue: boost.xp + 1, valueStep: 1 });
   addIfSupported(form, "divider");
   addIfSupported(form, "submitButton", bold("Apply"));
 
   const response = await showForm(player, form);
   if (!response || !player.isValid) return "main";
 
-  const values = (response.formValues ?? []).filter((value) => typeof value === "number");
-  if (values.length < 2) return "main";
+  const values = response.formValues ?? [];
+  const switches = values.filter((value) => typeof value === "boolean");
+  const sliders = values.filter((value) => typeof value === "number");
+  if (switches.length < 1 || sliders.length < 2) return "main";
 
-  const lootIndex = Math.min(Math.max(Math.round(values[0]) - 1, 0), LEVELS.length - 1);
-  const xpIndex = Math.min(Math.max(Math.round(values[1]) - 1, 0), LEVELS.length - 1);
+  const on = switches[0];
+  const lootIndex = Math.min(Math.max(Math.round(sliders[0]) - 1, 0), LOOT_LEVELS.length - 1);
+  const xpIndex = Math.min(Math.max(Math.round(sliders[1]) - 1, 0), XP_LEVELS.length - 1);
   player.setDynamicProperty(LOOT_KEY, lootIndex);
   player.setDynamicProperty(XP_KEY, xpIndex);
-  boosts.set(player.id, { loot: lootIndex, xp: xpIndex });
+  player.setDynamicProperty(ENABLED_KEY, on);
+  boosts.set(player.id, { loot: lootIndex, xp: xpIndex, on });
   player.playSound("random.orb");
-  player.onScreenDisplay.setActionBar(`§aLoot Booster set to ${LEVELS[lootIndex]}x`);
+  if (!on) {
+    player.onScreenDisplay.setActionBar("§eBoosters turned off");
+    return "main";
+  }
+  player.onScreenDisplay.setActionBar(`§aLoot Booster set to ${LOOT_LEVELS[lootIndex]}x`);
   system.runTimeout(() => {
-    if (player.isValid) player.onScreenDisplay.setActionBar(`§aXP Booster set to ${LEVELS[xpIndex]}x`);
+    if (player.isValid) player.onScreenDisplay.setActionBar(`§aXP Booster set to ${XP_LEVELS[xpIndex]}x`);
   }, 50);
   return "main";
 }
@@ -166,7 +193,7 @@ async function aboutScreen(player) {
   const lines = [
     "Creator: ALNStudios",
     `${PACK_NAME} v${VERSION}`,
-    "Adds Loot and XP multipliers from 1x to 64x, with a Behavior Pack for the multipliers and a Redesigned UI Resource Pack for the menu look.",
+    "Adds Loot multipliers up to 32x and XP multipliers up to 64x, with a Behavior Pack for the multipliers and a Redesigned UI Resource Pack for the menu look.",
     "",
     "CurseForge profile: curseforge.com/members/allenscreations/projects",
     "MCPEDL profile: mcpedl.com/user/alnstudios",
@@ -296,6 +323,7 @@ world.afterEvents.entityDie.subscribe(({ deadEntity, damageSource }) => {
 });
 
 system.runInterval(() => {
+  let budget = MAX_XP_SPAWNS_PER_PASS;
   for (const player of world.getAllPlayers()) {
     if (!player.isValid) continue;
     const multiplier = xpMultiplier(player);
@@ -314,7 +342,6 @@ system.runInterval(() => {
       continue;
     }
 
-    let budget = MAX_XP_SPAWNS_PER_PASS;
     for (const orb of orbs) {
       try {
         if (!orb.isValid) continue;
