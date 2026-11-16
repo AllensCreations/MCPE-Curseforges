@@ -2,14 +2,13 @@
 
 ---
 
-## [1.0.7] - 2026-11-16 - Fortune and Looting Style Loot
+## [1.0.7] - 2026-11-16
+
+**What's new in v1.0.7:** Packed with 2 updates, from v1.0.6 through v1.0.7. Includes: Fortune and Looting Style Loot; Ores and Mob Loot Only.
 
 ### Improved & Balanced
+
 - **More Fortune-style loot**: The Loot booster now also multiplies drops from amethyst clusters, glowstone, sea lanterns, melons, nether wart, sweet berries, wheat, carrots, potatoes and beetroot, on top of ores, ancient debris, gilded blackstone and mob loot.
-
-## [1.0.6] - 2026-11-16 - Ores and Mob Loot Only
-
-### Improved & Balanced
 - **Loot only where it counts**: The Loot booster now multiplies drops from ores, ancient debris, gilded blackstone and mobs you kill. Normal blocks such as dirt, stone, wood and crops drop as usual.
 
 ## [1.0.5] - 2026-11-16
@@ -20,6 +19,8 @@
 
 - **Apply closes the menu**: Pressing Apply on the XP & Loot Booster screen now closes the menu instead of returning to the main menu.
 
+
+
 ## [1.0.4] - 2026-11-16
 
 **What's new in v1.0.4:** Packed with the v1.0.4 update. Includes: Loot Cap and Boosters Switch.
@@ -29,6 +30,8 @@
 - **Loot back to 32x**: The Loot slider has six levels, 1x up to 32x. XP keeps seven levels up to 64x. A saved Loot level above 32x drops to 32x.
 - **Boosters switch**: A new on/off switch on the XP & Loot Booster screen turns both boosters off and on without losing your levels.
 - **XP orb limit**: Extra XP orbs are now capped per moment across all players, which protects busy servers.
+
+
 
 
 
@@ -43,6 +46,8 @@
 - **ALNStudios look**: The menus follow the ALNStudios Redesigned UI standard with a gold title, bold buttons with icons and a Back button on About.
 - **Menus keep going**: After Apply or Back the main menu opens again. Exit or the close button closes it.
 - **Action Bar feedback**: Applied settings now show on the Action Bar instead of in chat.
+
+
 
 
 
@@ -68,6 +73,8 @@
 
 
 
+
+
 ## [1.0.1] - 2026-11-12 - Redesigned Menu and Tiers
 
 ### Added
@@ -79,6 +86,8 @@
 - **Fortune-style loot**: Drops roll a random bonus up to the tier's maximum instead of always using it. Loot tops out at 32x.
 - **XP maximum**: XP can now reach 64x.
 - **Colored text**: Tier names and menu labels use distinct colors.
+
+
 
 
 
