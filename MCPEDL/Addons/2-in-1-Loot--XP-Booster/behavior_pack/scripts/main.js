@@ -2,7 +2,7 @@ import { world, system, EntityComponentTypes } from "@minecraft/server";
 import { ActionFormData, ModalFormData, FormCancelationReason } from "@minecraft/server-ui";
 
 const PACK_NAME = "2-in-1 Loot & XP Booster";
-const VERSION = "1.0.4";
+const VERSION = "1.0.5";
 const TITLE = `§l§6@ALNStudios §e${PACK_NAME}§r (v${VERSION})`;
 const ABOUT_TITLE = "About ALNStudios";
 const ICON_MAIN = "textures/items/experience_bottle";
@@ -180,13 +180,13 @@ async function boosterScreen(player) {
   player.playSound("random.orb");
   if (!on) {
     player.onScreenDisplay.setActionBar("§eBoosters turned off");
-    return "main";
+    return undefined;
   }
   player.onScreenDisplay.setActionBar(`§aLoot Booster set to ${LOOT_LEVELS[lootIndex]}x`);
   system.runTimeout(() => {
     if (player.isValid) player.onScreenDisplay.setActionBar(`§aXP Booster set to ${XP_LEVELS[xpIndex]}x`);
   }, 50);
-  return "main";
+  return undefined;
 }
 
 async function aboutScreen(player) {

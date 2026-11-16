@@ -2,6 +2,12 @@
 
 ---
 
+## [1.0.5] - 2026-11-16 - Apply Closes Menu
+
+### Improved & Balanced
+
+- **Apply closes the menu**: Pressing Apply on the XP & Loot Booster screen now closes the menu instead of returning to the main menu.
+
 ## [1.0.4] - 2026-11-16
 
 **What's new in v1.0.4:** Packed with the v1.0.4 update. Includes: Loot Cap and Boosters Switch.
