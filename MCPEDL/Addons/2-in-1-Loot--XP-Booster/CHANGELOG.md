@@ -2,9 +2,12 @@
 
 ---
 
-## [1.0.3] - 2026-11-16 - Simplified Booster Sliders
+## [1.0.3] - 2026-11-16
+
+**What's new in v1.0.3:** Packed with the v1.0.3 update. Includes: Simplified Booster Sliders.
 
 ### Improved & Balanced
+
 - **Plain multiplier sliders**: The Loot and XP sliders now use the same seven levels, 1x, 2x, 4x, 8x, 16x, 32x and 64x, and the tier names are gone.
 - **Loot up to 64x**: Loot can now reach 64x, matching XP. Your saved Loot and XP levels carry over unchanged.
 - **ALNStudios look**: The menus follow the ALNStudios Redesigned UI standard with a gold title, bold buttons with icons and a Back button on About.
@@ -25,6 +28,8 @@
 
 - **Menu stays out of the way**: Exit closes the menu without changing your settings.
 
+
+
 ## [1.0.1] - 2026-11-12 - Redesigned Menu and Tiers
 
 ### Added
@@ -36,6 +41,8 @@
 - **Fortune-style loot**: Drops roll a random bonus up to the tier's maximum instead of always using it. Loot tops out at 32x.
 - **XP maximum**: XP can now reach 64x.
 - **Colored text**: Tier names and menu labels use distinct colors.
+
+
 
 
 
