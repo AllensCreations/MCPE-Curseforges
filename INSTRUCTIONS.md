@@ -1,4 +1,4 @@
-# Instructions: Core Repository Policy (v20)
+# Instructions: Core Repository Policy (v21)
 
 Repo policy, docs rules for AllensCreations/MCPE-Curseforges (creator name `ALNStudios`). Generating a new project: `PACK_GENERATOR_INSTRUCTIONS.md`.
 
@@ -9,6 +9,7 @@ Repo policy, docs rules for AllensCreations/MCPE-Curseforges (creator name `ALNS
 | Docs audit (`/checkrm`) | this file + `DOCS_RULES.md` | 1.1; all of `DOCS_RULES.md` |
 | Version, manifest, LOCK, recipe, function, build, workflow, OneBlock changes | this file | 1.1 to 1.12 |
 | New mechanic hits a vanilla limit | this file | 1.12 |
+| Script API code, manifests, textures, error fixes | this file | 1.2, 1.15 |
 | Recipe images, sprites | this file + `DOCS_RULES.md` | 1.5; 3.3, 3.4 |
 | New addon / map / script / minigame | `PACK_GENERATOR_INSTRUCTIONS.md` | all |
 Read only the files and sections the task needs. Changing an instruction file: read both.
@@ -225,6 +226,14 @@ Placeholders `<PackName>`, `<MainAction>`, `<version>`. NEVER hardcode one pack.
 - Slider/modal forms: header = item or context name, label = current state, divider after every control. Optional form methods go through a guarded helper (a missing method NEVER crashes). Read `formValues` filtering numbers.
 - NEVER slide or fade animations in UI JSON. Use the skin in `assets/aln-ui-redesign/` (1.13).
 
+### 1.15 Bedrock Developer Role and Trusted Sources
+- Role: expert Minecraft Bedrock Add-on and Script API developer. Build and maintain complete Behavior Packs, Resource Packs and Script API modules. Official NPM packages first (`@minecraft/server`, `@minecraft/server-ui`, `@minecraft/math`); on any error, deprecated API or version mismatch verify against the official GitHub repositories and Microsoft Learn below.
+- Structure: valid `manifest.json` (1.3), fresh v4 UUIDs for new packs only (NEVER regenerate existing ones), accurate module dependencies, clean JavaScript. NEVER ship TypeScript (`build_payload.py` allows only `.js`). `@minecraft/math` is NOT in `ALLOWED_MODULES` of `build_payload.py` (1.10): NEVER import or depend on it in a payload until the allow-list lists it; use plain JavaScript vector math and say so in the handoff.
+- Assets: binary PNGs live in the Resource Pack `textures/` folder, registered by JSON (`textures/item_texture.json`, `textures/terrain_texture.json`), NEVER mixed with the registration files. Recipes reference vanilla item identifiers directly. NEVER duplicate vanilla PNGs unless needed as templates.
+- Trusted sources (rely strictly and exclusively on these; NEVER invent API methods, outdated syntax or item ids): Microsoft Learn Script API (https://learn.microsoft.com/en-us/minecraft/creator/scriptapi/); NPM `@minecraft/server` (https://www.npmjs.com/package/@minecraft/server), `@minecraft/server-ui` (https://www.npmjs.com/package/@minecraft/server-ui), `@minecraft/math` (https://www.npmjs.com/package/@minecraft/math); Microsoft Scripting Samples (https://github.com/microsoft/minecraft-scripting-samples); Microsoft Add-On Samples (https://github.com/microsoft/minecraft-samples); Mojang Bedrock Samples (https://github.com/Mojang/bedrock-samples) with `resource_pack/textures` and `behavior_pack/recipes` for vanilla textures, recipes, definitions. Priority and disagreements follow 1.1: report, NEVER choose silently.
+- Failure (script does not load, texture does not render, syntax changed in a newer update): read the sample repositories and Learn docs above for the exact updated syntax, manifest dependency versions, valid vanilla identifiers and working patterns BEFORE rewriting code.
+- Output: complete ready-to-use files with exact repo-root-relative paths, delivered ONLY as the single `.sh` and reply format above (Reply Format, Termux Script Rules).
+
 ---
 
 ## Parts 2 and 3: Docs, Audit, References (moved)
@@ -241,6 +250,7 @@ Placeholders `<PackName>`, `<MainAction>`, `<version>`. NEVER hardcode one pack.
 - [ ] Changed JSON validated. Instruction file changed: `scripts/check_instruction_files.py` passes.
 
 ## Version History
+- **v21:** New 1.15 (Bedrock Developer Role and Trusted Sources): official NPM packages first, the trusted source list, texture/registration split, failure procedure. `@minecraft/math` stays blocked by the payload allow-list until `build_payload.py` lists it.
 - **v19:** The separate description views (`<Name>.curseforge.html`) and `image_prompts/` were removed. The Listing Kit is the only generated listing file.
 - **v20:** The description HTML has no pack logo. New look: rounded hero (title, tagline pill, badge pills), green heading chips, feature cards with a green title header, rounded step badges. A command like `/give @s aln:item` keeps its colon.
 - **v18:** Listing Kit per pack (`description_views/<Name>.listing.md`): name, summary, description HTML and image prompts with Copy buttons.

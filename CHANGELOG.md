@@ -2,6 +2,11 @@
 
 ---
 
+## [1.0.76] - 2026-11-16 - Bedrock Developer Rules
+
+### Added
+- **Bedrock developer rules**: New section 1.15 in the instructions: official NPM packages first, the trusted source list, PNG and texture-registration split, and the failure procedure. Generator instructions mirror it.
+
 ## 2026-11-16 - Update Addon ALN MoreDiscs
 
 ### Added
