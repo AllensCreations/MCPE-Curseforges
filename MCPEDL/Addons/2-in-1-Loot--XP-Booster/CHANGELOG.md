@@ -2,6 +2,14 @@
 
 ---
 
+## [1.0.13] - 2026-11-16 - Drop Limit and Cleaner Menus
+
+### Improved & Balanced
+
+- **Drop limit**: Extra Loot drops are now capped per moment, which protects busy servers and big farms.
+- **Lighter farms**: The Loot booster no longer tracks item drops while nobody online has it turned on.
+- **Clean Action Bar**: Pressing Apply twice quickly no longer shows an outdated Action Bar message.
+
 ## [1.0.12] - 2026-11-16 - Orb XP Restored
 
 ### Improved & Balanced

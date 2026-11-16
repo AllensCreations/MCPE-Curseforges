@@ -2,7 +2,7 @@ import { world, system, EntityComponentTypes } from "@minecraft/server";
 import { ActionFormData, ModalFormData, FormCancelationReason } from "@minecraft/server-ui";
 
 const PACK_NAME = "2-in-1 Loot & XP Booster";
-const VERSION = "1.0.12";
+const VERSION = "1.0.13";
 const TITLE = `§l§6@ALNStudios §e${PACK_NAME}§r (v${VERSION})`;
 const ABOUT_TITLE = "About ALNStudios";
 const ICON_MAIN = "textures/items/experience_bottle";
@@ -19,6 +19,8 @@ const DROP_TAG = "aln_boosted_drop";
 const XP_TAG = "aln_boosted_xp";
 const XP_RADIUS = 8;
 const MAX_XP_SPAWNS_PER_PASS = 128;
+const MAX_LOOT_SPAWNS_PER_TICK = 64;
+const BAR_DELAY_TICKS = 50;
 const BLOCK_RADIUS = 1.5;
 const MOB_RADIUS = 2.2;
 const XP_INTERVAL_TICKS = 2;
@@ -49,6 +51,10 @@ const LOOT_BLOCKS = new Set([
   "minecraft:sweet_berry_bush",
 ]);
 const recentItems = new Map();
+const barTimers = new Map();
+let lootActive = false;
+let lootTick = -1;
+let lootSpawned = 0;
 const openMenus = new Set();
 const boosts = new Map();
 const claims = [];
@@ -183,14 +189,22 @@ async function boosterScreen(player) {
   player.setDynamicProperty(ENABLED_KEY, on);
   boosts.set(player.id, { loot: lootIndex, xp: xpIndex, on });
   player.playSound("random.orb");
+  refreshLootActive();
+  const pending = barTimers.get(player.id);
+  if (pending !== undefined) {
+    system.clearRun(pending);
+    barTimers.delete(player.id);
+  }
   if (!on) {
     player.onScreenDisplay.setActionBar("§eBoosters turned off");
     return undefined;
   }
   player.onScreenDisplay.setActionBar(`§aLoot Booster set to ${LOOT_LEVELS[lootIndex]}x`);
-  system.runTimeout(() => {
+  const timer = system.runTimeout(() => {
+    barTimers.delete(player.id);
     if (player.isValid) player.onScreenDisplay.setActionBar(`§aXP Booster set to ${XP_LEVELS[xpIndex]}x`);
-  }, 50);
+  }, BAR_DELAY_TICKS);
+  barTimers.set(player.id, timer);
   return undefined;
 }
 
@@ -240,12 +254,31 @@ world.afterEvents.itemUse.subscribe((event) => {
 world.afterEvents.playerLeave.subscribe(({ playerId }) => {
   boosts.delete(playerId);
   openMenus.delete(playerId);
+  const pending = barTimers.get(playerId);
+  if (pending !== undefined) {
+    system.clearRun(pending);
+    barTimers.delete(playerId);
+  }
 });
 
 world.afterEvents.entitySpawn.subscribe(({ entity }) => {
+  if (!lootActive) return;
   if (!entity.isValid || entity.typeId !== "minecraft:item") return;
   recentItems.set(entity.id, system.currentTick);
 });
+
+function refreshLootActive() {
+  let active = false;
+  for (const player of world.getAllPlayers()) {
+    if (player.isValid && lootMultiplier(player) > 1) {
+      active = true;
+      break;
+    }
+  }
+  lootActive = active;
+}
+
+system.runInterval(refreshLootActive, 20);
 
 system.runInterval(() => {
   if (recentItems.size === 0) return;
@@ -309,6 +342,10 @@ function rollMultiplier(max) {
 function multiplyDrops(dimension, radius, maxMultiplier, claim) {
   if (maxMultiplier <= 1) return;
   const now = system.currentTick;
+  if (now !== lootTick) {
+    lootTick = now;
+    lootSpawned = 0;
+  }
   let found;
   try {
     found = dimension.getEntities({
@@ -334,12 +371,13 @@ function multiplyDrops(dimension, radius, maxMultiplier, claim) {
 
       let remaining = stack.amount * (rollMultiplier(maxMultiplier) - 1);
       const location = entity.location;
-      while (remaining > 0) {
+      while (remaining > 0 && lootSpawned < MAX_LOOT_SPAWNS_PER_TICK) {
         const amount = Math.min(stack.maxAmount, remaining);
         const copy = stack.clone();
         copy.amount = amount;
         const spawned = dimension.spawnItem(copy, location);
         spawned.addTag(DROP_TAG);
+        lootSpawned++;
         remaining -= amount;
       }
     } catch (error) {
