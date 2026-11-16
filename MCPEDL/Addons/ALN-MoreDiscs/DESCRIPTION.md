@@ -62,7 +62,7 @@ Craft a disc at a Crafting Table, put it in a Jukebox and the matching track pla
 
 - Minecraft Bedrock Edition: 1.26.60
 - Experimental features: No experiment requirement detected in the inspected files.
-- Achievements: Likely achievement-friendly. Crafting and Jukebox use need no cheats.
+- Achievements: Likely achievement-friendly.
 - Verification: Source created, package built, not tested in game.
 
 ## Creator and Permissions
@@ -89,3 +89,4 @@ Craft a disc at a Crafting Table, put it in a Jukebox and the matching track pla
 ## Search & Discovery Keywords
 
 Minecraft Bedrock add-on, ALN MoreDiscs Bedrock mod, custom music discs, Jukebox music, Note Block recipe, Minecraft PE survival, MCPEDL add-on, CurseForge Bedrock, ALNStudios.
+

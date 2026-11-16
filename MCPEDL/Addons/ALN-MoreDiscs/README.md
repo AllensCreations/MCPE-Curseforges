@@ -5,7 +5,7 @@ Download the current release of **ALN MoreDiscs** for Minecraft Bedrock Edition.
 ## Download
 
 - **Package format:** `.mcaddon`
-- **Direct download:** [Download ALN MoreDiscs (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/blob/main/MCPEDL/Addons/README.md#available-add-ons)
+- **Direct download:** [Download ALN MoreDiscs (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/ALN-MoreDiscs/ALNMoreDiscs%20V1.1.0.mcaddon)
 
 ## Installation
 
