@@ -2,6 +2,11 @@
 
 ---
 
+## [1.0.70] - 2026-11-16 - Ores and Mob Loot Only
+
+### Improved & Balanced
+- **Loot only where it counts**: The Loot booster now multiplies drops from ores, ancient debris, gilded blackstone and mobs you kill. Normal blocks such as dirt, stone, wood and crops drop as usual.
+
 ## [1.0.69] - 2026-11-16 - Item Sprites In The Build
 
 ### Added

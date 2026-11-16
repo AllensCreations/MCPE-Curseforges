@@ -2,7 +2,7 @@ import { world, system, EntityComponentTypes } from "@minecraft/server";
 import { ActionFormData, ModalFormData, FormCancelationReason } from "@minecraft/server-ui";
 
 const PACK_NAME = "2-in-1 Loot & XP Booster";
-const VERSION = "1.0.5";
+const VERSION = "1.0.6";
 const TITLE = `§l§6@ALNStudios §e${PACK_NAME}§r (v${VERSION})`;
 const ABOUT_TITLE = "About ALNStudios";
 const ICON_MAIN = "textures/items/experience_bottle";
@@ -24,32 +24,7 @@ const XP_INTERVAL_TICKS = 2;
 const MAX_XP_SPAWNS_PER_PASS = 128;
 const SPAWN_WINDOW_TICKS = 4;
 const MAX_FORM_RETRIES = 8;
-const EXCLUDED_BLOCKS = new Set([
-  "minecraft:chest",
-  "minecraft:trapped_chest",
-  "minecraft:barrel",
-  "minecraft:ender_chest",
-  "minecraft:furnace",
-  "minecraft:lit_furnace",
-  "minecraft:blast_furnace",
-  "minecraft:lit_blast_furnace",
-  "minecraft:smoker",
-  "minecraft:lit_smoker",
-  "minecraft:hopper",
-  "minecraft:dropper",
-  "minecraft:dispenser",
-  "minecraft:crafter",
-  "minecraft:brewing_stand",
-  "minecraft:decorated_pot",
-  "minecraft:chiseled_bookshelf",
-  "minecraft:lectern",
-  "minecraft:jukebox",
-  "minecraft:campfire",
-  "minecraft:soul_campfire",
-  "minecraft:flower_pot",
-  "minecraft:suspicious_sand",
-  "minecraft:suspicious_gravel",
-]);
+const LOOT_BLOCKS = new Set(["minecraft:ancient_debris", "minecraft:gilded_blackstone"]);
 const recentItems = new Map();
 const openMenus = new Set();
 const boosts = new Map();
@@ -83,12 +58,8 @@ function xpMultiplier(player) {
   return boost.on ? XP_LEVELS[boost.xp] : 1;
 }
 
-function isExcludedBlock(typeId) {
-  return (
-    EXCLUDED_BLOCKS.has(typeId) ||
-    typeId.endsWith("shulker_box") ||
-    typeId.endsWith("copper_chest")
-  );
+function isLootBlock(typeId) {
+  return typeId.endsWith("_ore") || LOOT_BLOCKS.has(typeId);
 }
 
 function statusLine(player) {
@@ -299,7 +270,7 @@ world.afterEvents.playerBreakBlock.subscribe((event) => {
   const { player, block, brokenBlockPermutation, dimension } = event;
   const maxMultiplier = lootMultiplier(player);
   if (maxMultiplier <= 1) return;
-  if (isExcludedBlock(brokenBlockPermutation.type.id)) return;
+  if (!isLootBlock(brokenBlockPermutation.type.id)) return;
 
   const origin = block.location;
   const center = { x: origin.x + 0.5, y: origin.y + 0.5, z: origin.z + 0.5 };
