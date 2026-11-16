@@ -2,7 +2,7 @@ import { world, system, EntityComponentTypes } from "@minecraft/server";
 import { ActionFormData, ModalFormData, FormCancelationReason } from "@minecraft/server-ui";
 
 const PACK_NAME = "2-in-1 Loot & XP Booster";
-const VERSION = "1.0.6";
+const VERSION = "1.0.7";
 const TITLE = `§l§6@ALNStudios §e${PACK_NAME}§r (v${VERSION})`;
 const ABOUT_TITLE = "About ALNStudios";
 const ICON_MAIN = "textures/items/experience_bottle";
@@ -24,7 +24,20 @@ const XP_INTERVAL_TICKS = 2;
 const MAX_XP_SPAWNS_PER_PASS = 128;
 const SPAWN_WINDOW_TICKS = 4;
 const MAX_FORM_RETRIES = 8;
-const LOOT_BLOCKS = new Set(["minecraft:ancient_debris", "minecraft:gilded_blackstone"]);
+const LOOT_BLOCKS = new Set([
+  "minecraft:ancient_debris",
+  "minecraft:gilded_blackstone",
+  "minecraft:amethyst_cluster",
+  "minecraft:glowstone",
+  "minecraft:sea_lantern",
+  "minecraft:melon_block",
+  "minecraft:wheat",
+  "minecraft:carrots",
+  "minecraft:potatoes",
+  "minecraft:beetroot",
+  "minecraft:nether_wart",
+  "minecraft:sweet_berry_bush",
+]);
 const recentItems = new Map();
 const openMenus = new Set();
 const boosts = new Map();

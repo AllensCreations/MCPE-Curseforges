@@ -2,6 +2,11 @@
 
 ---
 
+## [1.0.7] - 2026-11-16 - Fortune and Looting Style Loot
+
+### Improved & Balanced
+- **More Fortune-style loot**: The Loot booster now also multiplies drops from amethyst clusters, glowstone, sea lanterns, melons, nether wart, sweet berries, wheat, carrots, potatoes and beetroot, on top of ores, ancient debris, gilded blackstone and mob loot.
+
 ## [1.0.6] - 2026-11-16 - Ores and Mob Loot Only
 
 ### Improved & Balanced
