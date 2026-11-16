@@ -1,12 +1,18 @@
 # Changelog — 2-in-1 Loot & XP Booster
 
-## [1.0.8] - 2026-11-16 - Book Only Trigger
+## [1.0.9] - 2026-11-16 - Silk Touch and Pixel Text
 
 ### Improved & Balanced
-- **Book only**: The Booster menu now opens only from a plain Book renamed to Booster. A Book and Quill no longer opens it.
+- **Silk Touch safe**: Mining with Silk Touch now drops the block once. The Loot booster no longer multiplies it.
+- **Pixel text**: The Booster menus now use the Pixelify Sans pixel font. Enable the Redesigned UI Resource Pack together with the Behavior Pack.
 
 <details>
-<summary><b>1.0.x</b> (7 releases)</summary>
+<summary><b>1.0.x</b> (8 releases)</summary>
+
+### [1.0.8] - 2026-11-16 - Book Only Trigger
+
+#### Improved & Balanced
+- **Book only**: The Booster menu now opens only from a plain Book renamed to Booster. A Book and Quill no longer opens it.
 
 ### [1.0.7] - 2026-11-16
 
