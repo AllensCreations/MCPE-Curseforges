@@ -39,8 +39,8 @@ You rename a Book to Booster on an anvil and right-click with it. A menu opens w
 - **What Happens**: The About button shows the creator, the add-on version, a short note on both packs, the CurseForge and MCPEDL profiles and an unofficial-product notice.
 
 ### Redesigned UI
-- **What Happens**: A small Resource Pack named Redesigned UI gives the Booster menus the ALNStudios look, with a dark panel, a blue border, a gold title, pixel-style text and icon buttons.
-- **Good To Know**: Enable the Resource Pack together with the Behavior Pack. Without it the menu text will not display correctly.
+- **What Happens**: A small Resource Pack named Redesigned UI gives the Booster menus the ALNStudios look, with a dark panel, a blue border, a gold title and icon buttons.
+- **Good To Know**: Enable the Resource Pack together with the Behavior Pack.
 
 ## How to Use
 

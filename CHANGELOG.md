@@ -2,6 +2,11 @@
 
 ---
 
+## [1.0.74] - 2026-11-16 - Normal Font Restored
+
+### Improved & Balanced
+- **Normal font restored**: The Booster menus use the normal Minecraft font again. The pixel font and its files are removed.
+
 ## [1.0.73] - 2026-11-16 - Silk Touch and Pixel Text
 
 ### Improved & Balanced

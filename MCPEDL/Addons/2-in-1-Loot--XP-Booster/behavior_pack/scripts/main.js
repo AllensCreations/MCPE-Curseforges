@@ -1,11 +1,10 @@
 import { world, system, EntityComponentTypes } from "@minecraft/server";
 import { ActionFormData, ModalFormData, FormCancelationReason } from "@minecraft/server-ui";
-import { pixelify } from "./lib/pixelify.js";
 
 const PACK_NAME = "2-in-1 Loot & XP Booster";
-const VERSION = "1.0.9";
-const TITLE = `§l§6${pixelify("@ALNStudios")} §e${pixelify(PACK_NAME)}§r ${pixelify(`(v${VERSION})`)}`;
-const ABOUT_TITLE = pixelify("About ALNStudios");
+const VERSION = "1.0.10";
+const TITLE = `§l§6@ALNStudios §e${PACK_NAME}§r (v${VERSION})`;
+const ABOUT_TITLE = "About ALNStudios";
 const ICON_MAIN = "textures/items/experience_bottle";
 const ICON_ABOUT = "textures/items/name_tag";
 const ICON_EXIT = "textures/items/door_wood";
@@ -95,7 +94,7 @@ function statusLine(player) {
 }
 
 function bold(text) {
-  return `§l${pixelify(text)}§r`;
+  return `§l${text}§r`;
 }
 
 function addIfSupported(form, method, ...args) {
@@ -126,7 +125,7 @@ async function showForm(player, form) {
 async function mainScreen(player) {
   const form = new ActionFormData()
     .title(TITLE)
-    .body(pixelify(`Tune your boosters.\n${statusLine(player)}`))
+    .body(`Tune your boosters.\n${statusLine(player)}`)
     .button(bold("XP & Loot Booster"), ICON_MAIN)
     .button(bold("About"), ICON_ABOUT)
     .button(bold("Exit"), ICON_EXIT);
@@ -145,14 +144,14 @@ async function boosterScreen(player) {
   const boost = getBoost(player);
   const form = new ModalFormData().title(TITLE);
   addIfSupported(form, "header", bold("XP & Loot Booster"));
-  addIfSupported(form, "label", pixelify(statusLine(player)));
+  addIfSupported(form, "label", statusLine(player));
   addIfSupported(form, "divider");
   form.toggle(bold("Boosters On"), { defaultValue: boost.on });
   addIfSupported(form, "divider");
-  addIfSupported(form, "label", pixelify(`Loot slider 1 to ${LOOT_LEVELS.length} = ${levelText(LOOT_LEVELS)}`));
+  addIfSupported(form, "label", `Loot slider 1 to ${LOOT_LEVELS.length} = ${levelText(LOOT_LEVELS)}`);
   form.slider(bold("Loot Booster"), 1, LOOT_LEVELS.length, { defaultValue: boost.loot + 1, valueStep: 1 });
   addIfSupported(form, "divider");
-  addIfSupported(form, "label", pixelify(`XP slider 1 to ${XP_LEVELS.length} = ${levelText(XP_LEVELS)}`));
+  addIfSupported(form, "label", `XP slider 1 to ${XP_LEVELS.length} = ${levelText(XP_LEVELS)}`);
   form.slider(bold("XP Booster"), 1, XP_LEVELS.length, { defaultValue: boost.xp + 1, valueStep: 1 });
   addIfSupported(form, "divider");
   addIfSupported(form, "submitButton", bold("Apply"));
@@ -195,7 +194,7 @@ async function aboutScreen(player) {
     "",
     "Unofficial community creation, not approved by or associated with Mojang or Microsoft.",
   ];
-  const form = new ActionFormData().title(ABOUT_TITLE).body(pixelify(lines.join("\n"))).button(bold("Back"));
+  const form = new ActionFormData().title(ABOUT_TITLE).body(lines.join("\n")).button(bold("Back"));
   await showForm(player, form);
   return "main";
 }
