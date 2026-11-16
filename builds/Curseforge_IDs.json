@@ -39,6 +39,9 @@
     "last_published_version": "2.0.1",
     "last_release_version": "2.0.0"
   },
+  "MCPEDL/Addons/Padlock-and-Key": {
+    "project_id": "1809473"
+  },
   "MCPEDL/Addons/Tameable-Companion-Fox": {
     "project_id": "1807465",
     "last_published_version": "1.8.5",
