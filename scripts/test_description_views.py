@@ -26,8 +26,8 @@ class DescriptionViewTests(unittest.TestCase):
         self.assertNotIn("Tested", self.html)
 
     def test_hero_has_three_badges(self):
-        for label in ("Bedrock:", "Experimental:", "Achievements:"):
-            self.assertEqual(self.html.count(label), 1)
+        for label in ("Bedrock", "Experimental", "Achievements"):
+            self.assertEqual(self.html.count(f"{label}</strong>:"), 1)
 
     def test_kofi_image_link_once(self):
         self.assertEqual(self.html.count("https://ko-fi.com/alnstudios"), 2)  # image link + text link
@@ -38,13 +38,13 @@ class DescriptionViewTests(unittest.TestCase):
         import re
         md = self.md.replace("## Compatibility", "## Commands\n\n- `/x 1`: Does x.\n\n## Compatibility", 1)
         h = bdv.render(md, "Demo-Pack")
-        self.assertEqual(set(re.findall(r"background-color:(#[0-9a-fA-F]{6})", h)), {bdv.ACCENT})
+        self.assertEqual(set(re.findall(r"background-color:(#[0-9a-fA-F]{6})", h)), {bdv.ACCENT, bdv.SOFT})  # green fills + light green badge pills
 
     def test_showcase_keeps_gifs_and_no_link_is_lost(self):
         gif = "https://raw.githubusercontent.com/x/y/abc/Demo/clip.gif"
         md = self.md.replace("## Key Features", f"## Showcase / Previews\n\n### Toggled On\n\nSee the menu: ![Toggled On]({gif})\n\n## Key Features", 1)
         h = bdv.render(md, "Demo-Pack")
-        self.assertIn(">Showcase</h2>", h)
+        self.assertIn("Showcase&nbsp;&nbsp;</span></h2>", h)
         self.assertEqual(h.count(gif), 2)  # link + image
         self.assertEqual(bdv.lost_links(md, h), [])
         self.assertEqual(bdv.check_html(h), [])
@@ -62,14 +62,15 @@ class DescriptionViewTests(unittest.TestCase):
         h = bdv.render(self.md, "Demo-Pack", "https://raw.githubusercontent.com/x/y/main/icon.png", u)
         self.assertNotIn("LATEST UPDATE", h)
         self.assertNotIn("1.14.5", h)
-        self.assertIn('width="72"', h)
+        self.assertNotIn("<img", h.split("</h1>")[0])  # the hero has no logo, even when an icon URL is passed
+        self.assertNotIn("icon.png", h)
         self.assertEqual(bdv.check_html(h), [])
 
     def test_badges_min_version_and_experimental_always_no(self):
         h = bdv.render(self.md, "Demo-Pack", min_version="1.26+")
-        self.assertIn("Bedrock: 1.26+", h)
-        self.assertIn("Experimental: No", h)
-        self.assertEqual(h.count("Experimental:"), 1)
+        self.assertIn("Bedrock</strong>: 1.26+", h)
+        self.assertIn("Experimental</strong>: No", h)
+        self.assertEqual(h.count("Experimental</strong>:"), 1)
 
     def test_find_min_version_takes_lowest(self):
         import json
@@ -84,11 +85,17 @@ class DescriptionViewTests(unittest.TestCase):
     def test_commands_get_their_own_display(self):
         md = self.md.replace("## Compatibility", "## Commands\n\n- `/givemelight 5`: Gives 5 Cursor Lights.\n- `/lightoff`: Turns the light off.\n\n## Compatibility", 1)
         h = bdv.render(md)
-        self.assertEqual(h.count(">Commands</h2>"), 1)
+        self.assertEqual(h.count("Commands&nbsp;&nbsp;</span></h2>"), 1)
         self.assertIn("<code>/givemelight 5</code>", h)
         self.assertIn("Commands need cheats enabled", h)
         self.assertEqual(bdv.check_html(h), [])
-        self.assertNotIn(">Commands</h2>", bdv.render(self.md))
+        self.assertNotIn("Commands&nbsp;&nbsp;</span></h2>", bdv.render(self.md))
+
+    def test_command_with_a_namespace_colon(self):
+        md = self.md.replace("## Compatibility", "## Commands\n\n- `/give @s aln:mining_helmet`: Gives you the helmet.\n\n## Compatibility", 1)
+        h = bdv.render(md)
+        self.assertIn("<code>/give @s aln:mining_helmet</code>", h)
+        self.assertIn("Gives you the helmet.", h)
 
     def test_minimal_follows_reader_theme(self):
         h = bdv.render(self.md, "Demo-Pack", style="minimal")
@@ -125,7 +132,7 @@ class DescriptionViewTests(unittest.TestCase):
                 h = bdv.render(self.md, "Demo-Pack", style=st, media=m)
                 self.assertEqual(bdv.check_html(h), [])
                 for title in ("Screenshots", "Custom Items", "Crafting Recipes"):
-                    self.assertEqual(h.count(f">{title}</h2>"), 1)
+                    self.assertEqual(h.count(f"{title}&nbsp;&nbsp;</span></h2>"), 1)
                 self.assertIn("raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/MCPEDL/Addons/Demo-Pack/assets/snapshots/2-Early.gif", h)
             self.assertNotIn("Screenshots", bdv.render(self.md, "Demo-Pack"))
 

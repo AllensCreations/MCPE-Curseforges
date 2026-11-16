@@ -2,6 +2,13 @@
 
 ---
 
+## [1.0.62] - 2026-11-16 - Soft Description Design
+
+### Improved & Balanced
+- **Description Design**: The CurseForge description HTML has a new look: a rounded hero with the tagline in a green pill, green heading chips, feature cards with a green title header and rounded step badges. The pack logo is no longer in the hero.
+### Fixed
+- **Commands**: A command with a colon in its name, such as `/give @s aln:item`, is no longer cut in half in the Commands table.
+
 ## 2026-11-16 - New Addon ALN Wireless Headphones
 
 ### Added

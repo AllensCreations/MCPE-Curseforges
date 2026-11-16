@@ -5,9 +5,9 @@ It writes no files. scripts/build_listing_kits.py calls it and puts the HTML int
 (the only generated listing file; the separate .curseforge.html views were removed).
 DESCRIPTION.md stays the only source of truth.
 
-Look: "minimal" page (no page background, no text colors, so it follows the reader's light or dark theme). Pack icon + title hero with badges (lowest supported Minecraft version, Experimental: No,
-achievements), feature cards with an accent top bar,
-numbered step badges, collapsed Q&A spoilers, colored compatibility badges, and a Support section with the Ko-fi image.
+Look: "minimal" page (no page background, no text colors, so it follows the reader's light or dark theme). Logo-free hero (rounded frame, title, tagline pill) with badges (lowest supported Minecraft version, Experimental: No,
+achievements), feature cards with a green title header,
+rounded numbered step badges, green heading chips, collapsed Q&A spoilers, colored compatibility badges, and a Support section with the Ko-fi image.
 Every pack uses the same dark green accent (ACCENT; per-pack override in ACCENT_OVERRIDES).
 Only tags, CSS and classes that CurseForge supports are used (self-checked on every build).
 
@@ -56,6 +56,9 @@ SUFFIX = {"dark": ".dark", "minimal": ""}
 BG = PANEL = LINE = TEXT = HEAD = SUB = MUTED = LINK = ""
 ACCTXT = True
 INK = "#ffffff"  # text on the dark green fills
+SOFT = "#dcfce7"  # light green pill fill (badges); its text is DEEP
+DEEP = "#14532d"
+RADIUS = "16px"
 
 
 def set_style(name):
@@ -127,7 +130,9 @@ def sections(text):
 
 
 def h2(title, acc):
-    return f'<h2 style="color:{HEAD};text-align:left;font-size:22px">{title}</h2>'
+    """Section heading: the title sits in a green rounded chip."""
+    return (f'<h2 style="font-size:17px;text-align:left"><span style="background-color:{acc};color:{INK};border-radius:20px">'
+            f'&nbsp;&nbsp;{title}&nbsp;&nbsp;</span></h2>')
 
 
 def bar(acc):
@@ -141,13 +146,13 @@ def panel(inner, acc):
 
 
 def steps(items, acc):
-    """Numbered badge rows (1, 2, 3...)."""
+    """Numbered rounded-square badges (1, 2, 3...) inside one rounded panel."""
     rows = "".join(
         f'<tr><td style="width:44px;text-align:center"><div style="background-color:{acc};color:{INK};font-weight:bold;'
-        f'font-size:15px;text-align:center;border-radius:50%;width:30px;aspect-ratio:1/1;line-height:30px">{i}</div></td>'
+        f'font-size:15px;text-align:center;border-radius:10px;width:30px;aspect-ratio:1/1;line-height:30px">{i}</div></td>'
         f'<td style="text-align:left;color:{TEXT}">{inline(t)}</td></tr>'
         for i, t in enumerate(items, 1))
-    return f'<table style="width:100%;border-width:0"><tbody>{rows}</tbody></table>'
+    return f'<table style="width:100%;border:1px solid {LINE};border-radius:{RADIUS}"><tbody>{rows}</tbody></table>'
 
 
 def blocks_to_html(body, acc, badges=False):
@@ -190,6 +195,7 @@ def blocks_to_html(body, acc, badges=False):
 
 
 def cards(body, acc):
+    """Feature cards: a green title header with the description underneath."""
     chunks = [c for c in re.split(r"(?m)^(?=### )", body.strip("\n")) if c.strip()]
     out = []
     for c in chunks:
@@ -204,14 +210,14 @@ def cards(body, acc):
                 what = m.group(2)
             else:
                 extra.append((m.group(1), m.group(2)))
-        txt = f'<strong style="color:{HEAD};font-size:16px">{inline(name)}</strong>'
-        if what:
-            txt += f'<br><span style="color:{TEXT}">{inline(what)}</span>'
+        txt = f'<span style="color:{TEXT}">{inline(what)}</span>' if what else ""
         for label, e in extra:
             txt += (f'<br><span style="font-size:13px;color:{MUTED}">'
                     f"<strong>{inline(label)}:</strong> {inline(e)}</span>")
-        out.append(f'<div style="flex:1;min-width:180px;background-color:{PANEL};border:1px solid {LINE};border-radius:10px">'
-                   f'{bar(acc)}<div style="padding-left:12px;margin-right:12px"><p>{txt}</p></div></div>')
+        out.append(f'<div style="flex:1;min-width:200px;background-color:{PANEL};border:1px solid {LINE};border-radius:{RADIUS}">'
+                   f'<div style="background-color:{acc};color:{INK};border-radius:{RADIUS};font-size:16px;line-height:2.2">'
+                   f'<strong>&nbsp;&nbsp;{inline(name)}</strong></div>'
+                   f'<div style="margin-left:12px;margin-right:12px"><p>{txt}</p></div></div>')
     return '<div style="display:flex;flex-wrap:wrap;gap:10px">' + "".join(out) + "</div>"
 
 
@@ -227,9 +233,10 @@ def questions(body):
     return "".join(out)
 
 
-def _badge(label, text, color):
-    return (f'<div style="background-color:{color};color:#ffffff;border-radius:6px;font-weight:bold;font-size:14px;'
-            f'line-height:2">&nbsp;&nbsp;{label}: {inline(text.rstrip("."))}&nbsp;&nbsp;</div>')
+def _badge(label, text, color=None):
+    """Light green pill with dark green text (readable on a light or a dark page)."""
+    return (f'<div style="background-color:{SOFT};color:{DEEP};border-radius:20px;font-size:14px;line-height:2">'
+            f'<strong>&nbsp;&nbsp;{label}</strong>: {inline(text.rstrip("."))}&nbsp;&nbsp;</div>')
 
 
 def compat_badges(body):
@@ -322,6 +329,7 @@ def hero_badges(min_version, compat_body):
     return f'<div style="display:flex;flex-wrap:wrap;gap:8px;margin-left:14px;margin-right:14px">{"".join(out)}</div>'
 
 
+COMMAND_TICKED = re.compile(r"^-\s+(?:\*\*)?`(/[^`]+)`(?:\*\*)?\s*(?::|\u2014|\u2013|->)\s*(.+)$")  # command in backticks may contain a colon (aln:item)
 COMMAND_LINE = re.compile(r"^-\s+(?:\*\*)?`?(/[^`*:]+?)`?(?:\*\*)?\s*(?::|\u2014|\u2013|->)\s*(.+)$")
 
 
@@ -329,14 +337,14 @@ def commands(body, acc):
     """Own display for pack commands: one row per '- `/command args`: what it does' line."""
     rows = []
     for line in body.split("\n"):
-        m = COMMAND_LINE.match(line.strip())
+        m = COMMAND_TICKED.match(line.strip()) or COMMAND_LINE.match(line.strip())
         if m:
             rows.append(f'<tr><td style="width:42%;text-align:left"><code>{esc(m.group(1).strip())}</code></td>'
                         f'<td style="text-align:left;color:{TEXT}">{inline(m.group(2))}</td></tr>')
     if not rows:
         return ""
     note = f'<p style="color:{MUTED};font-size:12px">Commands need cheats enabled. Cheats turn off achievements in that world.</p>'
-    return (f'<div style="background-color:{PANEL};border:1px solid {LINE};border-radius:10px">{bar(acc)}'
+    return (f'<div style="background-color:{PANEL};border:1px solid {LINE};border-radius:{RADIUS}">'
             f'<div style="padding-left:12px;margin-right:12px"><table style="width:100%;border-width:0"><tbody>'
             f'{"".join(rows)}</tbody></table>{note}</div></div>')
 
@@ -354,22 +362,18 @@ def pack_name(pre, fallback):
 
 
 def hero(name, tagline, pitch, icon_url, acc, badges=""):
-    title = f'<h1 style="color:{HEAD};font-size:28px;text-align:{{a}}">{esc(name)}</h1>'
-    by = f'<p style="color:{MUTED};font-size:14px;text-align:{{a}}">{BYLINE}</p>'
-    tag = (f'<p style="color:{acc_text(acc)};font-size:16px;text-align:{{a}}"><strong>{inline(tagline)}</strong></p>' if tagline else "")
-    if icon_url:
-        head = (f'<table style="width:100%;border-width:0"><tbody><tr>'
-                f'<td style="width:90px;text-align:center"><img src="{icon_url}" alt="{esc(name)} icon" width="72" height="72"></td>'
-                f'<td style="text-align:left">{title.format(a="left")}{by.format(a="left")}{tag.format(a="left")}</td></tr></tbody></table>')
-    else:
-        head = title.format(a="center") + by.format(a="center") + tag.format(a="center")
-    pitch_html = (f'<p style="color:{SUB};text-align:center;margin-left:14px;margin-right:14px">{inline(pitch)}</p>' if pitch else "")
-    return (f'<div style="background-color:{PANEL};border:1px solid {acc};border-radius:12px;line-height:1.5"><br>'
-            f'{head}{pitch_html}<br>{badges}<br></div>')
+    """Rounded frame: title, byline, tagline in a green pill, pitch, badges. No logo (icon_url is accepted and ignored)."""
+    pill = (f'<p style="text-align:center"><span style="background-color:{acc};color:{INK};border-radius:20px;font-size:16px">'
+            f'&nbsp;&nbsp;<strong>{inline(tagline)}</strong>&nbsp;&nbsp;</span></p>' if tagline else "")
+    pitch_html = (f'<p style="color:{SUB};text-align:center;margin-left:16px;margin-right:16px">{inline(pitch)}</p>' if pitch else "")
+    return (f'<div style="background-color:{PANEL};border:2px solid {acc};border-radius:18px;line-height:1.5"><br>'
+            f'<h1 style="color:{HEAD};font-size:34px;text-align:center">{esc(name)}</h1>'
+            f'<p style="color:{MUTED};font-size:14px;text-align:center">{BYLINE}</p>'
+            f'{pill}{pitch_html}{badges}<br></div>')
 
 
 def support(acc):
-    frame = (f'<div style="background-color:{PANEL};border:1px solid {LINE};border-radius:12px;text-align:center"><br>'
+    frame = (f'<div style="background-color:{PANEL};border:1px solid {LINE};border-radius:{RADIUS};text-align:center"><br>'
              f'<a href="{KOFI_URL}"><img src="{KOFI_IMG}" alt="Support ALNStudios on Ko-fi" width="250"></a><br><br></div>')
     links = (f'<p style="text-align:center"><a style="color:{LINK}" href="{CF_URL}"><strong>CurseForge</strong></a>'
              f' &nbsp;|&nbsp; <a style="color:{LINK}" href="{MP_URL}"><strong>MCPEDL</strong></a>'
@@ -410,7 +414,7 @@ def gallery(kind, entries):
     cells = []
     for url, cap in entries:
         img = f'<img src="{url}" alt="{html.escape(cap)}" style="width:{width}">'
-        cells.append(f'<div style="flex:{basis};background-color:{PANEL};border:1px solid {LINE};border-radius:10px;'
+        cells.append(f'<div style="flex:{basis};background-color:{PANEL};border:1px solid {LINE};border-radius:{RADIUS};'
                      f'text-align:center"><p><a href="{url}">{img}</a></p>'
                      f'<p style="color:{MUTED};font-size:13px">{esc(cap)}</p></div>')
     return '<div style="display:flex;flex-wrap:wrap;gap:10px">' + "".join(cells) + "</div>"
@@ -430,7 +434,7 @@ def showcase(body):
         shots = "".join(f'<p><a href="{u}"><img src="{u}" alt="{html.escape(a or title)}" style="width:100%"></a></p>' for a, u in imgs)
         head = f'<p><strong>{inline(title)}</strong></p>' if title else ""
         cap = f'<p style="color:{MUTED};font-size:13px">{inline(text)}</p>' if text else ""
-        cells.append(f'<div style="flex:1 1 300px;background-color:{PANEL};border:1px solid {LINE};border-radius:10px;text-align:center">'
+        cells.append(f'<div style="flex:1 1 300px;background-color:{PANEL};border:1px solid {LINE};border-radius:{RADIUS};text-align:center">'
                      f'{head}{shots}{cap}</div>')
     return '<div style="display:flex;flex-wrap:wrap;gap:10px">' + "".join(cells) + "</div>" if cells else ""
 

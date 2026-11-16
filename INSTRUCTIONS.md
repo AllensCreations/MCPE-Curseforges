@@ -1,4 +1,4 @@
-# Instructions: Core Repository Policy (v19)
+# Instructions: Core Repository Policy (v20)
 
 Repo policy, docs rules for AllensCreations/MCPE-Curseforges (creator name `ALNStudios`). Generating a new project: `PACK_GENERATOR_INSTRUCTIONS.md`.
 
@@ -242,6 +242,7 @@ Placeholders `<PackName>`, `<MainAction>`, `<version>`. NEVER hardcode one pack.
 
 ## Version History
 - **v19:** The separate description views (`<Name>.curseforge.html`) and `image_prompts/` were removed. The Listing Kit is the only generated listing file.
+- **v20:** The description HTML has no pack logo. New look: rounded hero (title, tagline pill, badge pills), green heading chips, feature cards with a green title header, rounded step badges. A command like `/give @s aln:item` keeps its colon.
 - **v18:** Listing Kit per pack (`description_views/<Name>.listing.md`): name, summary, description HTML and image prompts with Copy buttons.
 - **v17:** Controller menu follows the ALN UI Redesign / 1.14 (3-button main menu, About, skin font, ALNStudios title, action bar feedback). `registerController` needs `title`, `version` (== Behavior Pack version), `about`.
 - **v16:** Test World removed. Importer creates `assets/` per project. New pack skill `mcpe-new-pack` (`SKILL.md` at the root of every AI review zip). Register CurseForge ID starts the build.

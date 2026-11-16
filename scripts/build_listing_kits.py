@@ -67,7 +67,7 @@ def render_kit(root, project):
     if not tagline:
         raise ValueError("DESCRIPTION.md has no bold tagline line to use as the summary")
     summary = make_summary(tagline)
-    html = bdv.render(md, project.name, bdv.find_icon_url(root, project), None, style="minimal",
+    html = bdv.render(md, project.name, None, None, style="minimal",
                       media=bdv.find_media(root, project, md), min_version=bdv.find_min_version(project))
     errs = bdv.check_html(html)
     if errs:
