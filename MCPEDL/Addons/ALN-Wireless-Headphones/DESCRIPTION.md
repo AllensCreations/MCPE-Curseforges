@@ -45,7 +45,7 @@ Craft the Wireless Headphones, hold them, and sneak while using a Jukebox that h
 
 - Minecraft Bedrock Edition: 1.26.60
 - Experimental features: No experiment requirement detected in the inspected files.
-- Achievements: Likely achievement-friendly. Cheats and some world settings still disable achievements.
+- Achievements: Likely achievement-friendly.
 - Verification: Source created, not tested in game.
 
 ## Creator and Permissions
@@ -72,3 +72,4 @@ Craft the Wireless Headphones, hold them, and sneak while using a Jukebox that h
 ## Search & Discovery Keywords
 
 Minecraft Bedrock add-on, ALN Wireless Headphones Bedrock mod, Jukebox headphones, music disc Action Bar, Wireless Headphones helmet, Minecraft PE survival, MCPEDL add-on, CurseForge Bedrock, ALNStudios.
+

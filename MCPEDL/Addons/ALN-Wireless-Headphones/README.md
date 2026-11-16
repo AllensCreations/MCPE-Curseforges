@@ -5,7 +5,7 @@ Download the current release of **ALN Wireless Headphones** for Minecraft Bedroc
 ## Download
 
 - **Package format:** `.mcaddon`
-- **Direct download:** [Download ALN Wireless Headphones (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/README.md)
+- **Direct download:** [Download ALN Wireless Headphones (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/ALN-Wireless-Headphones/ALNWirelessHeadphones%20V1.0.0.mcaddon)
 
 ## Installation
 
@@ -15,4 +15,4 @@ Download the current release of **ALN Wireless Headphones** for Minecraft Bedroc
 
 ## Pack Information
 
-For gameplay features, usage details, compatibility notes, and other project information, read the [full description](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/ALN-Wireless-Headphones/DESCRIPTION.md).
+For gameplay features, usage details, compatibility notes, and other project information, read the [full description](https://github.com/AllensCreations/MCPE-Curseforges/blob/main/MCPEDL/Addons/ALN-Wireless-Headphones/DESCRIPTION.md).

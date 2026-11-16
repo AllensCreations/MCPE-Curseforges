@@ -1,0 +1,66 @@
+# Listing Kit: ALN Wireless Headphones
+
+Tap the Copy button on a block, then paste it into the CurseForge listing. Generated from DESCRIPTION.md: edit that, not this file.
+
+## Package Name
+
+```text
+ALN Wireless Headphones
+```
+
+## Summary (109/256)
+
+```text
+Pair Wireless Headphones to a Jukebox once, then wear them to see its track name and time on your Action Bar.
+```
+
+## Description (HTML)
+
+Paste into the CurseForge description editor in source (HTML) mode.
+
+```html
+<div><div style="border:1px solid #15803d;border-radius:12px;line-height:1.5"><br><h1 style="font-size:28px;text-align:center">ALN Wireless Headphones</h1><p style="color:#8a94a3;font-size:14px;text-align:center">by ALNStudios</p><p style="font-size:16px;text-align:center"><strong>Pair Wireless Headphones to a Jukebox once, then wear them to see its track name and time on your Action Bar.</strong></p><p style="text-align:center;margin-left:14px;margin-right:14px">This pack adds one helmet, Wireless Headphones, that links to a Jukebox holding a music disc. Players who build far from their music room can still see what is playing and how far along it is.</p><br><div style="display:flex;flex-wrap:wrap;gap:8px;margin-left:14px;margin-right:14px"><div style="background-color:#15803d;color:#ffffff;border-radius:6px;font-weight:bold;font-size:14px;line-height:2">&nbsp;&nbsp;Bedrock: 1.26+&nbsp;&nbsp;</div><div style="background-color:#15803d;color:#ffffff;border-radius:6px;font-weight:bold;font-size:14px;line-height:2">&nbsp;&nbsp;Experimental: No&nbsp;&nbsp;</div><div style="background-color:#15803d;color:#ffffff;border-radius:6px;font-weight:bold;font-size:14px;line-height:2">&nbsp;&nbsp;Achievements: Likely achievement-friendly&nbsp;&nbsp;</div></div><br></div>
+<h2 style="text-align:left;font-size:22px">About</h2>
+<p>Craft the Wireless Headphones, hold them, and sneak while using a Jukebox that has a music disc inside. Put the headphones on your head and the Action Bar shows the track and a timer for as long as you wear them. Take them off and the display clears.</p>
+<h2 style="text-align:left;font-size:22px">What You Get</h2>
+<div style="display:flex;flex-wrap:wrap;gap:10px"><div style="flex:1;min-width:180px;border:1px solid #8a94a3;border-radius:10px"><div style="background-color:#15803d;font-size:4px;line-height:4px;border-radius:10px">&nbsp;</div><div style="padding-left:12px;margin-right:12px"><p><strong style="font-size:16px">Wireless Headphones</strong><br><span>A helmet that stacks to 1 and goes in the head slot. It gives no armor protection.</span><br><span style="font-size:13px;color:#8a94a3"><strong>How It Works:</strong> Craft it with 2 Iron Ingots, 1 Redstone Dust and 2 Leather. Row 1 is Iron Ingot, Redstone Dust, Iron Ingot. Row 2 is Leather, empty, Leather.</span><br><span style="font-size:13px;color:#8a94a3"><strong>Good To Know:</strong> The recipe is unlocked from the start. The helmet has no worn model, so it appears only in the inventory and hand.</span></p></div></div><div style="flex:1;min-width:180px;border:1px solid #8a94a3;border-radius:10px"><div style="background-color:#15803d;font-size:4px;line-height:4px;border-radius:10px">&nbsp;</div><div style="padding-left:12px;margin-right:12px"><p><strong style="font-size:16px">Jukebox Pairing</strong><br><span>Sneak and use the headphones on a Jukebox that holds a music disc. A chime plays and the Action Bar confirms the pairing.</span><br><span style="font-size:13px;color:#8a94a3"><strong>How It Works:</strong> Hold the headphones, crouch, then use them on the Jukebox. The paired position is saved on that item and shown in its lore.</span><br><span style="font-size:13px;color:#8a94a3"><strong>Good To Know:</strong> A Jukebox with no disc is refused. Pairing again overwrites the old link.</span></p></div></div><div style="flex:1;min-width:180px;border:1px solid #8a94a3;border-radius:10px"><div style="background-color:#15803d;font-size:4px;line-height:4px;border-radius:10px">&nbsp;</div><div style="padding-left:12px;margin-right:12px"><p><strong style="font-size:16px">Live Action Bar Player</strong><br><span>While worn, the Action Bar shows the disc as artist and title, plus elapsed and total time.</span><br><span style="font-size:13px;color:#8a94a3"><strong>How It Works:</strong> A paired Jukebox playing cat shows the track name with a time such as 0:42 out of 3:05.</span><br><span style="font-size:13px;color:#8a94a3"><strong>Good To Know:</strong> The display needs the Jukebox area to be loaded. If it is not, the bar says the signal is lost. Total times are listed for the 22 vanilla discs; other discs show no total.</span></p></div></div></div>
+<h2 style="text-align:left;font-size:22px">Get Started</h2>
+<table style="width:100%;border-width:0"><tbody><tr><td style="width:44px;text-align:center"><div style="background-color:#15803d;color:#ffffff;font-weight:bold;font-size:15px;text-align:center;border-radius:50%;width:30px;aspect-ratio:1/1;line-height:30px">1</div></td><td style="text-align:left;">Craft the Wireless Headphones at a Crafting Table.</td></tr><tr><td style="width:44px;text-align:center"><div style="background-color:#15803d;color:#ffffff;font-weight:bold;font-size:15px;text-align:center;border-radius:50%;width:30px;aspect-ratio:1/1;line-height:30px">2</div></td><td style="text-align:left;">Hold them, sneak, and use them on a Jukebox that has a music disc.</td></tr><tr><td style="width:44px;text-align:center"><div style="background-color:#15803d;color:#ffffff;font-weight:bold;font-size:15px;text-align:center;border-radius:50%;width:30px;aspect-ratio:1/1;line-height:30px">3</div></td><td style="text-align:left;">Wear them in the helmet slot and watch the Action Bar for the track and timer.</td></tr></tbody></table>
+<h2 style="text-align:left;font-size:22px">Common Questions</h2>
+<div class="spoiler" title="Does the timer start from the beginning of the song?" data-title="Does the timer start from the beginning of the song?"><p><strong>Does the timer start from the beginning of the song?</strong><br>The timer starts when the Jukebox is seen playing. A disc started by a player counts from about the moment it began, and a disc that was already playing before pairing starts at 0:00.</p></div><div class="spoiler" title="What happens when I take the headphones off?" data-title="What happens when I take the headphones off?"><p><strong>What happens when I take the headphones off?</strong><br>The Action Bar feed is cleared right away. Wear them again to resume the display.</p></div>
+<h2 style="text-align:left;font-size:22px">Install</h2>
+<table style="width:100%;border-width:0"><tbody><tr><td style="width:44px;text-align:center"><div style="background-color:#15803d;color:#ffffff;font-weight:bold;font-size:15px;text-align:center;border-radius:50%;width:30px;aspect-ratio:1/1;line-height:30px">1</div></td><td style="text-align:left;">Download the file from this page and open it with Minecraft.</td></tr><tr><td style="width:44px;text-align:center"><div style="background-color:#15803d;color:#ffffff;font-weight:bold;font-size:15px;text-align:center;border-radius:50%;width:30px;aspect-ratio:1/1;line-height:30px">2</div></td><td style="text-align:left;">Create or edit a world and turn on the new pack(s) in its settings.</td></tr><tr><td style="width:44px;text-align:center"><div style="background-color:#15803d;color:#ffffff;font-weight:bold;font-size:15px;text-align:center;border-radius:50%;width:30px;aspect-ratio:1/1;line-height:30px">3</div></td><td style="text-align:left;">Play. No Experimental toggles needed.</td></tr></tbody></table>
+<h2 style="text-align:left;font-size:22px">Support</h2><div style="border:1px solid #8a94a3;border-radius:12px;text-align:center"><br><a href="https://ko-fi.com/alnstudios"><img src="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/assets/Images/ko-fi.png" alt="Support ALNStudios on Ko-fi" width="250"></a><br><br></div><p style="text-align:center"><a href="https://www.curseforge.com/members/allenscreations/projects"><strong>CurseForge</strong></a> &nbsp;|&nbsp; <a href="https://mcpedl.com/user/alnstudios/"><strong>MCPEDL</strong></a> &nbsp;|&nbsp; <a href="https://ko-fi.com/alnstudios"><strong>Ko-fi</strong></a></p>
+<hr>
+<p style="text-align:center;color:#8a94a3;font-size:13px"><strong>By ALNStudios</strong></p>
+<div class="spoiler"><p style="font-size:13px"><strong>Permissions and credits</strong></p><ul style="font-size:13px"><li>Rights: All rights reserved for ALNStudios.</li><li>Content creators: You may feature this creation in videos and streams with credit to ALNStudios.</li><li>Redistribution: Do not re-upload this pack or provide direct monetized download bypasses. Link to this page.</li><li>Unofficial community creation. Not an official Minecraft product and not approved by or associated with Mojang or Microsoft.</li></ul></div>
+<p style="text-align:center;color:#8a94a3;font-size:12px">Minecraft Bedrock add-on, ALN Wireless Headphones Bedrock mod, Jukebox headphones, music disc Action Bar, Wireless Headphones helmet, Minecraft PE survival, MCPEDL add-on, CurseForge Bedrock, ALNStudios.</p></div>
+```
+
+## AI Image Prompts
+
+### Reference Images
+
+- **Logo reference**: attach your own logo. The generator uses it only for brand colors and mood. The result must be a new design, not a copy.
+- **Snapshot references**: attach 1 to 4 of your in-game snapshots of this pack. The generator copies their look, not their screen layout.
+
+### Logo Prompt
+
+```text
+Use the attached logo only as a brand reference for its color palette and overall mood. Do not copy it. Create a new, original logo with a different composition and a different main symbol. Do not just recolor, resize, crop, mirror or tweak the attached logo.
+Create a clean, square (1:1) logo image for the Minecraft Bedrock add-on "ALN Wireless Headphones". Pair Wireless Headphones to a Jukebox once, then wear them to see its track name and time on your Action Bar.
+Base the main symbol on the pack idea above. Match the blocky look of the attached in-game snapshots. Center the logo, use a simple background, and keep it readable at small sizes.
+Text: "ALN Wireless Headphones" and, in small letters, "ALNStudios". ALNStudios is the brand name, so always keep it and never remove or change it. Spell both exactly.
+Do not add Minecraft, Mojang or Microsoft logos, watermarks, or characters from other games.
+```
+
+### Banner Prompt
+
+```text
+Create a wide (16:9) banner image for the Minecraft Bedrock add-on "ALN Wireless Headphones". Pair Wireless Headphones to a Jukebox once, then wear them to see its track name and time on your Action Bar.
+Use the attached in-game snapshots as scene and style references: copy their blocky look, lighting, colors and the kind of scenery they show. Make a new composition inspired by them. Do not copy the on-screen HUD, chat or hotbar.
+Use the attached logo only as a brand reference for its colors and mood. Do not copy it. Put a new, original logo design in the banner, large enough to read, on the left or center.
+Hint at these pack features visually: Wireless Headphones, Jukebox Pairing, Live Action Bar Player.
+Text: "ALN Wireless Headphones" and, in small letters, "by ALNStudios". ALNStudios is the brand name, so always keep it and never remove or change it. Spell both exactly.
+Leave clear space around the logo. No Minecraft, Mojang or Microsoft logos, no watermarks.
+```
