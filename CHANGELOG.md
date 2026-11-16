@@ -2,6 +2,14 @@
 
 ---
 
+## [1.0.75] - 2026-11-16 - Direct XP and Fair Drops
+
+### Improved & Balanced
+- **Exact XP**: The XP booster now adds the extra XP straight to you instead of spawning extra orbs, so the amount is exact and there is far less lag. XP orbs are no longer pulled to you instantly.
+- **Your XP only**: Other players' XP orbs are never touched.
+- **Real mobs only**: Armor stands, boats and minecarts are no longer treated as mob loot.
+- **Fair drops**: Block and mob drops now go to the nearest player who caused them, so nobody multiplies another player's drops on a shared server.
+
 ## [1.0.74] - 2026-11-16 - Normal Font Restored
 
 ### Improved & Balanced

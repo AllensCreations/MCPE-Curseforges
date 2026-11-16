@@ -2,7 +2,7 @@ import { world, system, EntityComponentTypes } from "@minecraft/server";
 import { ActionFormData, ModalFormData, FormCancelationReason } from "@minecraft/server-ui";
 
 const PACK_NAME = "2-in-1 Loot & XP Booster";
-const VERSION = "1.0.10";
+const VERSION = "1.0.11";
 const TITLE = `§l§6@ALNStudios §e${PACK_NAME}§r (v${VERSION})`;
 const ABOUT_TITLE = "About ALNStudios";
 const ICON_MAIN = "textures/items/experience_bottle";
@@ -16,14 +16,21 @@ const ENABLED_KEY = "aln_boost_enabled";
 const BOOK_ID = "minecraft:book";
 const TRIGGER_NAME = "booster";
 const DROP_TAG = "aln_boosted_drop";
-const XP_TAG = "aln_boosted_xp";
 const BLOCK_RADIUS = 1.5;
 const MOB_RADIUS = 2.2;
-const XP_RADIUS = 8;
 const XP_INTERVAL_TICKS = 2;
-const MAX_XP_SPAWNS_PER_PASS = 128;
 const SPAWN_WINDOW_TICKS = 4;
+const CLAIM_LIFETIME_TICKS = 10;
 const MAX_FORM_RETRIES = 8;
+const NON_MOB_TYPES = new Set([
+  "minecraft:armor_stand",
+  "minecraft:player",
+  "minecraft:ender_crystal",
+  "minecraft:xp_orb",
+  "minecraft:item",
+  "minecraft:painting",
+]);
+const NON_MOB_FAMILIES = ["inanimate", "projectile", "minecart", "boat"];
 const LOOT_BLOCKS = new Set([
   "minecraft:ancient_debris",
   "minecraft:gilded_blackstone",
@@ -41,6 +48,8 @@ const LOOT_BLOCKS = new Set([
 const recentItems = new Map();
 const openMenus = new Set();
 const boosts = new Map();
+const lastXp = new Map();
+const claims = [];
 
 function readIndex(player, key, levels) {
   const value = player.getDynamicProperty(key);
@@ -228,6 +237,7 @@ world.afterEvents.itemUse.subscribe((event) => {
 
 world.afterEvents.playerLeave.subscribe(({ playerId }) => {
   boosts.delete(playerId);
+  lastXp.delete(playerId);
   openMenus.delete(playerId);
 });
 
@@ -244,18 +254,65 @@ system.runInterval(() => {
   }
 }, 40);
 
+system.runInterval(() => {
+  if (claims.length === 0) return;
+  const now = system.currentTick;
+  let expired = 0;
+  while (expired < claims.length && now - claims[expired].tick > CLAIM_LIFETIME_TICKS) expired++;
+  if (expired > 0) claims.splice(0, expired);
+}, CLAIM_LIFETIME_TICKS);
+
+function addClaim(dimension, center, ownerId) {
+  const claim = {
+    dim: dimension.id,
+    x: center.x,
+    y: center.y,
+    z: center.z,
+    tick: system.currentTick,
+    owner: ownerId,
+  };
+  claims.push(claim);
+  return claim;
+}
+
+function distanceSquared(a, b) {
+  const dx = a.x - b.x;
+  const dy = a.y - b.y;
+  const dz = a.z - b.z;
+  return dx * dx + dy * dy + dz * dz;
+}
+
+function isNearestClaim(claim, location) {
+  const own = distanceSquared(claim, location);
+  for (const other of claims) {
+    if (other === claim || other.dim !== claim.dim) continue;
+    if (Math.abs(other.tick - claim.tick) > SPAWN_WINDOW_TICKS) continue;
+    if (distanceSquared(other, location) < own) return false;
+  }
+  return true;
+}
+
+function isMob(entity) {
+  if (NON_MOB_TYPES.has(entity.typeId)) return false;
+  try {
+    return !NON_MOB_FAMILIES.some((family) => entity.matches({ families: [family] }));
+  } catch (error) {
+    return true;
+  }
+}
+
 function rollMultiplier(max) {
   return 1 + Math.floor(Math.random() * max);
 }
 
-function multiplyDrops(dimension, center, radius, maxMultiplier) {
+function multiplyDrops(dimension, radius, maxMultiplier, claim) {
   if (maxMultiplier <= 1) return;
   const now = system.currentTick;
   let found;
   try {
     found = dimension.getEntities({
       type: "minecraft:item",
-      location: center,
+      location: claim,
       maxDistance: radius,
     });
   } catch (error) {
@@ -267,6 +324,7 @@ function multiplyDrops(dimension, center, radius, maxMultiplier) {
       if (!entity.isValid || entity.hasTag(DROP_TAG)) continue;
       const born = recentItems.get(entity.id);
       if (born === undefined || now - born > SPAWN_WINDOW_TICKS) continue;
+      if (!isNearestClaim(claim, entity.location)) continue;
       entity.addTag(DROP_TAG);
 
       const component = entity.getComponent(EntityComponentTypes.Item);
@@ -291,69 +349,54 @@ function multiplyDrops(dimension, center, radius, maxMultiplier) {
 
 world.afterEvents.playerBreakBlock.subscribe((event) => {
   const { player, block, brokenBlockPermutation, dimension, itemStackBeforeBreak } = event;
+  const origin = block.location;
+  const center = { x: origin.x + 0.5, y: origin.y + 0.5, z: origin.z + 0.5 };
+  const claim = addClaim(dimension, center, player.id);
+
   const maxMultiplier = lootMultiplier(player);
   if (maxMultiplier <= 1) return;
   if (!isLootBlock(brokenBlockPermutation.type.id)) return;
   if (hasSilkTouch(itemStackBeforeBreak)) return;
 
-  const origin = block.location;
-  const center = { x: origin.x + 0.5, y: origin.y + 0.5, z: origin.z + 0.5 };
-  system.run(() => multiplyDrops(dimension, center, BLOCK_RADIUS, maxMultiplier));
+  system.run(() => multiplyDrops(dimension, BLOCK_RADIUS, maxMultiplier, claim));
 });
 
 world.afterEvents.entityDie.subscribe(({ deadEntity, damageSource }) => {
   const killer = damageSource ? damageSource.damagingEntity : undefined;
   if (!killer || killer.typeId !== "minecraft:player") return;
-  if (deadEntity.typeId === "minecraft:player") return;
+  if (!isMob(deadEntity)) return;
 
-  const id = deadEntity.typeId;
-  if (id.endsWith("chest_minecart") || id.endsWith("hopper_minecart") || id.endsWith("chest_boat")) return;
+  const dimension = deadEntity.dimension;
+  const claim = addClaim(dimension, deadEntity.location, killer.id);
 
   const maxMultiplier = lootMultiplier(killer);
   if (maxMultiplier <= 1) return;
 
-  const dimension = deadEntity.dimension;
-  const location = deadEntity.location;
-  system.run(() => multiplyDrops(dimension, location, MOB_RADIUS, maxMultiplier));
+  system.run(() => multiplyDrops(dimension, MOB_RADIUS, maxMultiplier, claim));
 });
 
 system.runInterval(() => {
-  let budget = MAX_XP_SPAWNS_PER_PASS;
   for (const player of world.getAllPlayers()) {
     if (!player.isValid) continue;
-    const multiplier = xpMultiplier(player);
-    if (multiplier <= 1) continue;
-
-    const dimension = player.dimension;
-    const location = player.location;
-    let orbs;
+    let total;
     try {
-      orbs = dimension.getEntities({
-        type: "minecraft:xp_orb",
-        location,
-        maxDistance: XP_RADIUS,
-      });
+      total = player.getTotalXp();
     } catch (error) {
       continue;
     }
 
-    for (const orb of orbs) {
-      try {
-        if (!orb.isValid) continue;
-        if (!orb.hasTag(XP_TAG)) {
-          const extra = multiplier - 1;
-          if (budget < extra) continue;
-          orb.addTag(XP_TAG);
-          for (let i = 0; i < extra; i++) {
-            const bonus = dimension.spawnEntity("minecraft:xp_orb", location);
-            bonus.addTag(XP_TAG);
-          }
-          budget -= extra;
+    const previous = lastXp.get(player.id);
+    if (previous !== undefined && total > previous) {
+      const extra = Math.floor((total - previous) * (xpMultiplier(player) - 1));
+      if (extra > 0) {
+        try {
+          player.addExperience(extra);
+          total = player.getTotalXp();
+        } catch (error) {
+          total = previous;
         }
-        orb.teleport(location);
-      } catch (error) {
-        continue;
       }
     }
+    lastXp.set(player.id, total);
   }
 }, XP_INTERVAL_TICKS);

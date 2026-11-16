@@ -1,13 +1,13 @@
 {
   "format_version": 2,
   "header": {
-    "name": "Redesigned UI (v1.0.10)",
+    "name": "Redesigned UI (v1.0.11)",
     "description": "ALNStudios Redesigned UI skin for the Booster menus. by ALNStudios",
     "uuid": "c36706a8-ddfe-419f-bd1b-69d929186543",
     "version": [
       1,
       0,
-      10
+      11
     ],
     "min_engine_version": [
       1,
@@ -22,7 +22,7 @@
       "version": [
         1,
         0,
-        10
+        11
       ]
     }
   ],
@@ -31,6 +31,6 @@
       "ALNStudios"
     ],
     "product_type": "addon",
-    "version": "1.0.10"
+    "version": "1.0.11"
   }
 }
