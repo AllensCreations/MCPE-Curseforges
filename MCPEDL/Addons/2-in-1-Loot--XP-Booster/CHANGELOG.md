@@ -2,7 +2,9 @@
 
 ---
 
-## [1.0.5] - 2026-11-16 - Apply Closes Menu
+## [1.0.5] - 2026-11-16
+
+**What's new in v1.0.5:** Packed with the v1.0.5 update. Includes: Apply Closes Menu.
 
 ### Improved & Balanced
 
@@ -18,6 +20,8 @@
 - **Boosters switch**: A new on/off switch on the XP & Loot Booster screen turns both boosters off and on without losing your levels.
 - **XP orb limit**: Extra XP orbs are now capped per moment across all players, which protects busy servers.
 
+
+
 ## [1.0.3] - 2026-11-16
 
 **What's new in v1.0.3:** Packed with the v1.0.3 update. Includes: Simplified Booster Sliders.
@@ -29,6 +33,8 @@
 - **ALNStudios look**: The menus follow the ALNStudios Redesigned UI standard with a gold title, bold buttons with icons and a Back button on About.
 - **Menus keep going**: After Apply or Back the main menu opens again. Exit or the close button closes it.
 - **Action Bar feedback**: Applied settings now show on the Action Bar instead of in chat.
+
+
 
 
 
@@ -50,6 +56,8 @@
 
 
 
+
+
 ## [1.0.1] - 2026-11-12 - Redesigned Menu and Tiers
 
 ### Added
@@ -61,6 +69,8 @@
 - **Fortune-style loot**: Drops roll a random bonus up to the tier's maximum instead of always using it. Loot tops out at 32x.
 - **XP maximum**: XP can now reach 64x.
 - **Colored text**: Tier names and menu labels use distinct colors.
+
+
 
 
 
