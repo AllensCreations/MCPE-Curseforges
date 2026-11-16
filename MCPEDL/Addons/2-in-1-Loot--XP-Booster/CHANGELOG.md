@@ -2,6 +2,14 @@
 
 ---
 
+## [1.0.12] - 2026-11-16 - Orb XP Restored
+
+### Improved & Balanced
+
+- **Orb XP back**: The XP booster multiplies XP orbs again, so Mending repairs your gear from the extra XP. Orbs near you are collected instantly.
+- **Your orbs only**: Only the orbs closest to you are multiplied, so other players' orbs are never touched.
+- **XP orb limit**: Extra orbs are capped per moment to protect busy servers.
+
 ## [1.0.11] - 2026-11-16 - Direct XP and Fair Drops
 
 ### Improved & Balanced

@@ -2,7 +2,7 @@ import { world, system, EntityComponentTypes } from "@minecraft/server";
 import { ActionFormData, ModalFormData, FormCancelationReason } from "@minecraft/server-ui";
 
 const PACK_NAME = "2-in-1 Loot & XP Booster";
-const VERSION = "1.0.11";
+const VERSION = "1.0.12";
 const TITLE = `§l§6@ALNStudios §e${PACK_NAME}§r (v${VERSION})`;
 const ABOUT_TITLE = "About ALNStudios";
 const ICON_MAIN = "textures/items/experience_bottle";
@@ -16,6 +16,9 @@ const ENABLED_KEY = "aln_boost_enabled";
 const BOOK_ID = "minecraft:book";
 const TRIGGER_NAME = "booster";
 const DROP_TAG = "aln_boosted_drop";
+const XP_TAG = "aln_boosted_xp";
+const XP_RADIUS = 8;
+const MAX_XP_SPAWNS_PER_PASS = 128;
 const BLOCK_RADIUS = 1.5;
 const MOB_RADIUS = 2.2;
 const XP_INTERVAL_TICKS = 2;
@@ -48,7 +51,6 @@ const LOOT_BLOCKS = new Set([
 const recentItems = new Map();
 const openMenus = new Set();
 const boosts = new Map();
-const lastXp = new Map();
 const claims = [];
 
 function readIndex(player, key, levels) {
@@ -237,7 +239,6 @@ world.afterEvents.itemUse.subscribe((event) => {
 
 world.afterEvents.playerLeave.subscribe(({ playerId }) => {
   boosts.delete(playerId);
-  lastXp.delete(playerId);
   openMenus.delete(playerId);
 });
 
@@ -376,27 +377,48 @@ world.afterEvents.entityDie.subscribe(({ deadEntity, damageSource }) => {
 });
 
 system.runInterval(() => {
+  let budget = MAX_XP_SPAWNS_PER_PASS;
   for (const player of world.getAllPlayers()) {
     if (!player.isValid) continue;
-    let total;
+    const multiplier = xpMultiplier(player);
+    if (multiplier <= 1) continue;
+
+    const dimension = player.dimension;
+    const location = player.location;
+    let orbs;
     try {
-      total = player.getTotalXp();
+      orbs = dimension.getEntities({
+        type: "minecraft:xp_orb",
+        location,
+        maxDistance: XP_RADIUS,
+      });
     } catch (error) {
       continue;
     }
 
-    const previous = lastXp.get(player.id);
-    if (previous !== undefined && total > previous) {
-      const extra = Math.floor((total - previous) * (xpMultiplier(player) - 1));
-      if (extra > 0) {
-        try {
-          player.addExperience(extra);
-          total = player.getTotalXp();
-        } catch (error) {
-          total = previous;
+    for (const orb of orbs) {
+      try {
+        if (!orb.isValid) continue;
+        const nearest = dimension.getPlayers({
+          location: orb.location,
+          maxDistance: XP_RADIUS,
+          closest: 1,
+        });
+        if (nearest.length === 0 || nearest[0].id !== player.id) continue;
+        if (!orb.hasTag(XP_TAG)) {
+          const extra = multiplier - 1;
+          if (budget < extra) continue;
+          orb.addTag(XP_TAG);
+          for (let i = 0; i < extra; i++) {
+            const bonus = dimension.spawnEntity("minecraft:xp_orb", location);
+            bonus.addTag(XP_TAG);
+          }
+          budget -= extra;
         }
+        orb.teleport(location);
+      } catch (error) {
+        continue;
       }
     }
-    lastXp.set(player.id, total);
   }
 }, XP_INTERVAL_TICKS);

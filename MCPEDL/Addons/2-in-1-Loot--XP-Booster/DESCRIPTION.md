@@ -32,8 +32,8 @@ You rename a Book to Booster on an anvil and right-click with it. A menu opens w
 - **Good To Know**: Each drop rolls a random bonus up to the level you pick. It works like a Fortune and Looting bonus, but with its own random roll. Ores, ancient debris, gilded blackstone, amethyst clusters, glowstone, sea lanterns, melons, nether wart, sweet berries, wheat, carrots, potatoes, beetroot and mob loot are multiplied, so normal blocks such as dirt, stone and wood drop as usual, and unstackable items such as tools are left alone. Mining with Silk Touch drops the block once and is never multiplied. Fortune still works, and the booster multiplies on top of it. Only real mobs count, so armor stands, boats and minecarts are not multiplied, and each drop goes to the nearest player who caused it.
 
 ### XP Gain Booster
-- **What Happens**: Drag the XP slider across seven levels, 1x, 2x, 4x, 8x, 16x, 32x and 64x, and the XP you gain is multiplied by that amount.
-- **Good To Know**: The extra XP is added straight to you, so only your own XP is multiplied and other players are never affected. XP you spend, such as on enchanting, is not multiplied.
+- **What Happens**: Drag the XP slider across seven levels, 1x, 2x, 4x, 8x, 16x, 32x and 64x, and each XP orb near you is turned into that many orbs.
+- **Good To Know**: The orbs are collected instantly, so Mending repairs your gear from the extra XP. Only the orbs closest to you are multiplied, so other players' orbs are never affected, and extra orbs are capped per moment to protect busy servers.
 
 ### About Screen
 - **What Happens**: The About button shows the creator, the add-on version, a short note on both packs, the CurseForge and MCPEDL profiles and an unofficial-product notice.
