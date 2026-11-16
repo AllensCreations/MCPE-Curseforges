@@ -1,8 +1,9 @@
 import { world, system } from "@minecraft/server";
-import { formatChat, isOnline, pickOnline } from "./smp_roster.js";
+import { ROSTER, formatChat, isOnline, pickOnline } from "./smp_roster.js";
+import { REAL_NAMES } from "./smp_voices.js";
 import { assembleMessage, pickItem, renderLine } from "./chat_generator.js";
 import { DIALOGS } from "./chat_lines_extra.js";
-import { WORLD_CHANGES } from "./mode.js";
+import { WORLD_CHANGES, CHAT_PACE } from "./mode.js";
 
 const MIN_DELAY = 35;
 const MAX_DELAY = 100;
@@ -147,6 +148,61 @@ function botDeath() {
   playConversation(lines);
 }
 
+let lastReplyTick = -1000;
+let lastBrandTick = -100000;
+
+export function replyToChat(sender, message) {
+  const text = String(message || "").trim();
+  if (!text || text.startsWith("/") || text.length > 200) return;
+  const lower = text.toLowerCase();
+  const now = system.currentTick;
+  const mentioned = ROSTER.find((b) => isOnline(b) && lower.includes(b.name.toLowerCase()));
+  let category = null;
+  if (mentioned) category = "chat_mention";
+  else if (/\b(gn|good ?night|nighty|night night)\b/.test(lower)) category = "chat_gn";
+  else if (/\b(thanks|thank you|thx|ty)\b/.test(lower)) category = "chat_thanks";
+  else if (/\b(hi|hello|hey|yo|sup|hallo|hola|morning|gm|wb)\b/.test(lower)) category = "chat_hi";
+  else if (/\b(lol|lmao|haha|xd)\b/.test(lower)) category = "chat_laugh";
+  else if (lower.includes("?")) category = "chat_question";
+  else if (Math.random() < 0.2 / CHAT_PACE) category = "chat_react";
+  if (!category) return;
+  if (!mentioned && now - lastReplyTick < 300 * CHAT_PACE) return;
+  if (category === "chat_question" && Math.random() > 0.6 / CHAT_PACE) return;
+  const bots = mentioned ? [mentioned] : pickOnline(rand(1, 2));
+  if (bots.length === 0) return;
+  lastReplyTick = now;
+  const lines = bots.map((bot, i) => ({
+    bot,
+    text: assembleMessage(i === 0 ? category : "support_reply", { player: sender, speaker: bot }),
+  }));
+  system.runTimeout(() => playConversation(lines, { priority: true }), rand(30, 90));
+}
+
+function brandChat() {
+  const now = system.currentTick;
+  if (now - lastBrandTick < 24000) return;
+  const bots = pickOnline(2);
+  if (bots.length < 2) return;
+  const lines = [
+    { bot: bots[0], text: assembleMessage("brand_plug", { speaker: bots[0] }) },
+    { bot: bots[1], text: assembleMessage("brand_reply", { speaker: bots[1] }) },
+  ];
+  if (playConversation(lines)) lastBrandTick = now;
+}
+
+function slipChat() {
+  const bots = pickOnline(2);
+  if (bots.length < 2) return;
+  const realName = REAL_NAMES[bots[0].name];
+  if (!realName) return;
+  const ctx = { botA: bots[0].name, realName };
+  playConversation([
+    { bot: bots[0], text: assembleMessage("slip", { ...ctx, speaker: bots[0] }) },
+    { bot: bots[1], text: assembleMessage("slip_reply", { ...ctx, speaker: bots[1] }) },
+    { bot: bots[0], text: assembleMessage("slip_end", { ...ctx, speaker: bots[0] }) },
+  ]);
+}
+
 const TOPICS = [
   "weather_rain", "weather_storm", "night_falls", "morning", "farm_talk", "trade_talk", "raid_talk", "base_tour",
   "redstone_talk", "pvp_talk", "boss_dragon", "boss_wither", "nether_roof", "fishing", "explore", "pets",
@@ -179,7 +235,9 @@ export function ambientConversation() {
   if (players.length === 0) return;
   const player = players[rand(0, players.length - 1)].name;
   const roll = Math.random();
-  if (roll < 0.08) return void botDeath();
+  if (roll < 0.03) return void brandChat();
+  if (roll < 0.06) return void slipChat();
+  if (roll < 0.11) return void botDeath();
   if (roll < 0.2) return void dramaChain();
   if (roll < 0.42) return void dialogChat(player);
   if (roll < 0.7) return void topicChat(player);

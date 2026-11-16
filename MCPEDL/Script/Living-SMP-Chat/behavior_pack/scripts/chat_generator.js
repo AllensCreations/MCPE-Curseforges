@@ -1,4 +1,5 @@
 import { BANKS, EXTRA_CORES, EXTRA_OPENERS, EXTRA_TAILS } from "./chat_lines_extra.js";
+import { CATCHPHRASES } from "./smp_voices.js";
 const OPENERS = ["", "yo", "bro", "ngl", "honestly", "wait", "lmao", "bruh", "ok", "oh", "nah", "dude", "hey", "ayo", "fr", "uh"];
 const TAILS = ["", "lol", "lmao", "haha", "xD", "fr", "tbh", "ngl", "istg", "bruh", "lmaooo", "man", "dude", "mate", "honestly"];
 
@@ -159,11 +160,12 @@ function resolve(raw, ctx) {
     "<BOT_A>": ctx.botA || "someone",
     "<BOT_B>": ctx.botB || "someone",
     "<BOT_C>": ctx.botC || "someone",
+    "<REALNAME>": ctx.realName || "someone",
   };
-  return text.replace(/<(PLAYER|CAUSE|ITEM|COORD_HINT|BOT_A|BOT_B|BOT_C)>/g, (m) => map[m]);
+  return text.replace(/<(PLAYER|CAUSE|ITEM|COORD_HINT|BOT_A|BOT_B|BOT_C|REALNAME)>/g, (m) => map[m]);
 }
 
-const NO_FLAVOR = /^(death_|ore_|dim_|sleeping|drama_|support_|bot_|greeting_hello|greeting_wb)/;
+const NO_FLAVOR = /^(death_|ore_|dim_|sleeping|drama_|support_|bot_|chat_|slip|brand_|greeting_hello|greeting_wb)/;
 
 export function assembleMessage(category, ctx = {}) {
   const cores = C[category] || C.death_generic;
@@ -178,6 +180,8 @@ export function assembleMessage(category, ctx = {}) {
     let text = parts.filter(Boolean).join(" ");
     const flavors = !asks && !NO_FLAVOR.test(category) && ctx.speaker && FLAVOR[ctx.speaker.type];
     if (flavors && Math.random() < 0.25) text += ", " + pick(flavors);
+    const phrase = !asks && !NO_FLAVOR.test(category) && ctx.speaker && CATCHPHRASES[ctx.speaker.name];
+    if (phrase && Math.random() < 0.12) text += ", " + phrase;
     line = resolve(text, ctx);
     if (!recentSet.has(line)) break;
   }

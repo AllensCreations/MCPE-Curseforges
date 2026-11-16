@@ -1,7 +1,8 @@
 import { world, system } from "@minecraft/server";
 import { startSessionSimulator } from "./smp_roster.js";
 import { coordHint } from "./chat_generator.js";
-import { ambientConversation, botSleeps, reactToDeath, reactToOre, reactToEvent, welcomeBack } from "./chat_director.js";
+import { CHAT_PACE } from "./mode.js";
+import { ambientConversation, replyToChat, botSleeps, reactToDeath, reactToOre, reactToEvent, welcomeBack } from "./chat_director.js";
 
 const ORES = {
   "minecraft:diamond_ore": "diamond",
@@ -68,7 +69,7 @@ world.afterEvents.playerSpawn.subscribe((ev) => {
 });
 
 const playerState = new Map();
-let nextAmbient = rand(1800, 3600);
+let nextAmbient = rand(1800, 3600) * CHAT_PACE;
 let ambientTimer = 0;
 
 system.runInterval(() => {
@@ -116,7 +117,7 @@ system.runInterval(() => {
 
   if (players.length > 0 && ambientTimer >= nextAmbient) {
     ambientTimer = 0;
-    nextAmbient = rand(1800, 3600);
+    nextAmbient = rand(1800, 3600) * CHAT_PACE;
     ambientConversation();
   }
 }, 40);
@@ -124,3 +125,12 @@ system.runInterval(() => {
 world.afterEvents.playerLeave.subscribe((ev) => {
   playerState.delete(ev.playerId);
 });
+try {
+  if (world.afterEvents.chatSend) {
+    world.afterEvents.chatSend.subscribe((ev) => {
+      try {
+        replyToChat(ev.sender.name, ev.message);
+      } catch (e) {}
+    });
+  }
+} catch (e) {}

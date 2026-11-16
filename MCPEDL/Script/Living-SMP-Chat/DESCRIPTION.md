@@ -38,8 +38,21 @@ You play your world as usual. Between 6 and 14 virtual players are online at any
 - **Good To Know**: Virtual deaths are only chat messages. With World Changes, the night skip does change the time of day for everyone and clears the weather. It never touches your items or position.
 
 ### Pack Options
-- **What Happens**: The pack offers two options: Just Chat SMP keeps everything in chat, and World Changes lets the bedtime night skip really change the world.
+- **What Happens**: The pack offers four options: Just Chat SMP and World Changes, each with a Quiet version. Just Chat SMP keeps everything in chat, World Changes lets the bedtime night skip really change the world, and Quiet makes the virtual players chat about half as often.
 - **Good To Know**: Just Chat SMP is the default. Switch options from the pack's settings in your world.
+
+
+### Replies to Your Chat
+- **What Happens**: Virtual players answer when you say hello, thank them, ask a question, laugh, say goodnight, or type one of their names.
+- **Good To Know**: They do not answer every message and they wait a few seconds before replying. If your version of Minecraft does not let add-ons read chat, this part simply stays quiet.
+
+### Personalities
+- **What Happens**: Each virtual player has a catchphrase, and now and then one of them slips and uses a first name, like a real person typing in the wrong account.
+- **Good To Know**: The first names are made up and do not belong to anyone in particular.
+
+### Shoutouts
+- **What Happens**: Once in a while a virtual player asks if you know ALNStudios and suggests following him.
+- **Good To Know**: It happens at most once every 20 minutes.
 
 ## How to Use
 

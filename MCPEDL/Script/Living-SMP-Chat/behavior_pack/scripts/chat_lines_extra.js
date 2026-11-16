@@ -117,6 +117,53 @@ export const EXTRA_CORES = {
     "gn, sleep well", "night, see you tomorrow", "sleep tight", "good night, i will keep watch",
     "gn, do not let the phantoms bite", "see you in the morning", "sweet dreams", "night night",
   ],
+  brand_plug: [
+    "did you know ALNStudios? please follow him", "psa: ALNStudios made this add-on, go follow him", "this chat is brought to you by ALNStudios, follow him for more add-ons",
+    "have you followed ALNStudios yet? you should", "shoutout to ALNStudios for this smp, please follow him", "ALNStudios makes the best add-ons, follow him",
+    "quick reminder: follow ALNStudios for more packs", "if you like this server, follow ALNStudios", "whoever made this, ALNStudios, deserves a follow",
+    "go check out ALNStudios, you will like his add-ons",
+  ],
+  brand_reply: [
+    "already followed him", "just followed, thanks for the reminder", "yes, his add-ons are great", "following him now",
+    "i will check it out later", "good call, done",
+  ],
+  slip: [
+    "oops, my real name is <REALNAME>, forget i said that", "wait, my mom just called me <REALNAME> and i answered here", "lol i almost signed that as <REALNAME>",
+    "call me <REALNAME>, everyone does irl", "ah, i typed <REALNAME> instead of <BOT_A>", "my friends irl call me <REALNAME>",
+    "whoops, <REALNAME> here, i mean <BOT_A>", "i keep forgetting <BOT_A> is not my real name, it is <REALNAME>",
+  ],
+  slip_reply: [
+    "wait, your name is <REALNAME>?", "<REALNAME>, nice to meet you for real", "ha, <REALNAME> it is then",
+    "i will keep that secret, <REALNAME>", "okay <REALNAME>, noted", "did you just say your real name?",
+  ],
+  slip_end: [
+    "please forget that", "do not tell anyone", "that was an accident, i swear", "ok moving on", "just call me <BOT_A>",
+  ],
+  chat_hi: [
+    "hey <PLAYER>, good to see you", "hi <PLAYER>, how is it going?", "hello <PLAYER>, welcome to the chat", "yo <PLAYER>, what are you up to?",
+    "hey <PLAYER>, glad you are here", "hi <PLAYER>, come say hi at spawn", "hello <PLAYER>, anything fun planned?", "hey there <PLAYER>",
+  ],
+  chat_gn: [
+    "gn <PLAYER>, sleep well", "night <PLAYER>, see you tomorrow", "sweet dreams <PLAYER>", "good night <PLAYER>, watch out for phantoms",
+    "gn <PLAYER>", "sleep tight <PLAYER>",
+  ],
+  chat_thanks: [
+    "no problem <PLAYER>", "anytime <PLAYER>", "you are welcome <PLAYER>", "happy to help <PLAYER>", "of course <PLAYER>", "glad it helped <PLAYER>",
+  ],
+  chat_laugh: [
+    "haha right?", "i am dying over here", "that got me too", "okay that was funny", "same, i am laughing", "classic <PLAYER>",
+  ],
+  chat_question: [
+    "good question <PLAYER>, i am not sure", "hmm, i would ask at spawn", "i think the answer is yes", "i think it depends",
+    "no idea, but i am curious too", "maybe try it and see", "ask me again after i finish this build", "that is a good one <PLAYER>",
+  ],
+  chat_mention: [
+    "yeah <PLAYER>, i am here", "you called, <PLAYER>?", "what is up <PLAYER>?", "hey <PLAYER>, did you need something?",
+    "i heard my name, hi <PLAYER>", "right here <PLAYER>", "yes <PLAYER>?", "hi <PLAYER>, what is going on?",
+  ],
+  chat_react: [
+    "ha, same", "that makes sense", "i was thinking that too", "fair point <PLAYER>", "love that", "nice one <PLAYER>", "ok that is true", "interesting, tell us more",
+  ],
   bot_wake: [
     "good morning everyone", "wow that was fast", "morning, thanks for skipping the night", "sleep skip, nice",
     "i love when the night skips", "new day, let's go", "morning already? ok", "well rested now",
