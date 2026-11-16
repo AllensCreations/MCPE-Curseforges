@@ -1,12 +1,30 @@
 # Changelog — Padlock & Key
 
-## [1.0.8] - 2026-11-16 - Lighter Lock Checks
+## [1.4.2] - 2026-11-16
 
 ### Improved & Balanced
 - **Lighter Lock Checks**: Explosions, Pistons, Hopper Minecart checks and lock cleanup now do far less work. Worlds with many locks or large redstone farms run smoother.
 
 <details>
-<summary><b>1.0.x</b> (9 releases)</summary>
+<summary><b>1.4.x</b> (2 releases)</summary>
+
+### [1.4.2] - 2026-11-11
+
+#### Improved & Balanced
+- **Immovable Locks**: Pistons can no longer push or pull a locked block or the block under a locked container. Locked blocks stay where they are.
+
+### [1.4.1] - 2026-11-11
+
+#### Added
+- **Hopper Minecart Guard**: A Hopper Minecart that ends up under a locked container is destroyed, so it can no longer pull items from it.
+
+#### Fixed
+- **Pistons Keep Locks**: Locked blocks pushed or pulled by a Piston now keep their lock instead of becoming public.
+
+</details>
+
+<details>
+<summary><b>1.0.x</b> (7 releases)</summary>
 
 ### [1.0.7] - 2026-11-16 - Piston Safety and Iron Door Feel
 
@@ -35,19 +53,6 @@
 #### Fixed
 - **Pistons Unlocked Blocks**: Pushing or pulling a locked block with a Piston no longer leaves it unlocked.
 - **Copper Chest Pairs**: A Copper Chest next to a locked Copper Chest now counts as part of the same lock.
-
-### [1.0.4.2] - 2026-11-11
-
-#### Improved & Balanced
-- **Immovable Locks**: Pistons can no longer push or pull a locked block or the block under a locked container. Locked blocks stay where they are.
-
-### [1.0.4.1] - 2026-11-11
-
-#### Added
-- **Hopper Minecart Guard**: A Hopper Minecart that ends up under a locked container is destroyed, so it can no longer pull items from it.
-
-#### Fixed
-- **Pistons Keep Locks**: Locked blocks pushed or pulled by a Piston now keep their lock instead of becoming public.
 
 ### [1.0.4] - 2026-11-10
 

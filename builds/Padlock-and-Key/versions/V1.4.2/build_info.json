@@ -1,0 +1,8 @@
+{
+  "changelog_version": "1.4.2",
+  "manifest_version": "1.4.2",
+  "packages": {
+    "PadlockKey V1.4.2.mcaddon": "fde50313ca9e6f466421fb66bf551e24e428095ddb7c60719608b566d728a7e2"
+  },
+  "source_sha256": "19eb409b1847f2d49eff3df415c6521a109695dbcc1790871ad54934b4976d1d"
+}

@@ -1,6 +1,6 @@
 # Changelog — 2-in-1 Loot & XP Booster
 
-## [1.0.4] - 2026-11-16 - Loot Cap and Boosters Switch
+## [1.0.4] - 2026-11-16
 
 ### Improved & Balanced
 - **Loot back to 32x**: The Loot slider has six levels, 1x up to 32x. XP keeps seven levels up to 64x. A saved Loot level above 32x drops to 32x.
