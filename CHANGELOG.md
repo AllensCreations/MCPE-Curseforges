@@ -2,6 +2,13 @@
 
 ---
 
+## [1.0.69] - 2026-11-16 - Item Sprites In The Build
+
+### Added
+- **Item sprites from recipes**: `generate_recipe_images.py --items-from-recipes` copies the sprite of every custom item that has a crafting recipe to `assets/items/` (128x128, nearest-neighbor), and the build runs it, so the Custom Items section of each description fills itself.
+### Improved & Balanced
+- **Recipe rule**: agents no longer run the recipe generator; the build makes the recipe images and item sprites (`INSTRUCTIONS.md` 1.5).
+
 ## [1.0.68] - 2026-11-16 - Persistent Stacks
 
 ### Added

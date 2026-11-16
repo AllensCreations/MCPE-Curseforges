@@ -165,6 +165,27 @@ class WriteTests(Base):
         names = [p.name for p in gri.find_packs(self.root, None, True)]
         self.assertEqual(names, ["Demo", "Grand-Banquets"])
 
+    def test_items_from_recipes_exports_custom_results_only(self):
+        wj(self.pack / "behavior_pack" / "recipes" / "vanilla_out.json", {"minecraft:recipe_shapeless": {
+            "tags": ["crafting_table"], "ingredients": [{"item": "minecraft:stick"}], "result": {"item": "minecraft:bone"}}})
+        wj(self.pack / "behavior_pack" / "recipes" / "helmet_alt.json", json.loads(
+            (self.pack / "behavior_pack" / "recipes" / "helmet.json").read_text()))
+        rc = gri.main(["--root", str(self.root), "--samples", str(self.samples), "--items-from-recipes"])
+        self.assertEqual(rc, 0)
+        items = self.pack / "assets" / "items"
+        self.assertEqual(sorted(p.name for p in items.iterdir()), ["demo_helmet.png", "demo_wand.png"])
+        with Image.open(items / "demo_wand.png") as im:
+            self.assertEqual(im.size, (128, 128))
+
+    def test_items_from_recipes_needs_the_flag_and_waits_for_a_clean_pack(self):
+        gri.main(["--root", str(self.root), "--samples", str(self.samples)])
+        self.assertFalse((self.pack / "assets" / "items").exists())
+        wj(self.pack / "behavior_pack" / "recipes" / "bad.json", {"minecraft:recipe_shapeless": {
+            "tags": ["crafting_table"], "ingredients": [{"item": "minecraft:mystery"}], "result": {"item": "custom:demo_wand"}}})
+        rc = gri.main(["--root", str(self.root), "--samples", str(self.samples), "--items-from-recipes"])
+        self.assertEqual(rc, 1)
+        self.assertFalse((self.pack / "assets" / "items").exists())
+
     def test_item_export_is_128_nearest(self):
         written, problems = gri.export_items(self.pack, ["custom:demo_wand", "custom:missing"], self.samples)
         self.assertEqual([w.name for w in written], ["demo_wand.png"])

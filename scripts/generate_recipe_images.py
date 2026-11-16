@@ -21,6 +21,8 @@ Usage
                                                              automatically when that file already exists)
   python3 scripts/generate_recipe_images.py --project MCPEDL/Addons/<pack> --item custom:my_item [--item ...]
                                                              copy item sprites to <pack>/assets/items/ (128x128)
+  python3 scripts/generate_recipe_images.py --all --items-from-recipes
+                                                             also copy the sprite of every custom item that has a recipe
   --include-dedicated   also process packs that still have their own generator script (skipped by default)
 """
 from __future__ import annotations
@@ -367,7 +369,7 @@ def plan_pack(pack: Path, samples_root: Path = None):
         if out_name in names_used:
             out_name = f"{slug}_{f.stem}_recipe.png"
         names_used[out_name] = f
-        jobs.append(dict(file=f, kind=kind, data=data, count=count, icons=icons, result=result_icon, out=out_name))
+        jobs.append(dict(file=f, kind=kind, data=data, count=count, icons=icons, result=result_icon, result_id=result_id, out=out_name))
     return jobs, skipped, problems
 
 
@@ -411,6 +413,17 @@ def export_items(pack: Path, item_ids: list[str], samples_root: Path = None):
     return written, problems
 
 
+def custom_result_ids(jobs: list) -> list[str]:
+    """Custom (non-vanilla) result items of the planned recipes, in order, without duplicates."""
+    seen, out = set(), []
+    for job in jobs:
+        rid = job["result_id"]
+        if ":" in rid and not rid.startswith("minecraft:") and rid not in seen:
+            seen.add(rid)
+            out.append(rid)
+    return out
+
+
 def find_packs(root: Path, project: str | None, include_dedicated: bool):
     if project:
         p = Path(project)
@@ -427,6 +440,7 @@ def main(argv=None):
     ap.add_argument("--check", action="store_true", help="resolve everything and write nothing")
     ap.add_argument("--sheet", action="store_true", help="also write assets/all_recipes_sheet.png")
     ap.add_argument("--item", action="append", default=[], metavar="ID", help="export this custom item's sprite (repeatable)")
+    ap.add_argument("--items-from-recipes", action="store_true", help="also export the sprite of every custom item that has a recipe")
     ap.add_argument("--include-dedicated", action="store_true", help="also process packs with their own generator")
     ap.add_argument("--root", default=str(ROOT), help="repo root")
     ap.add_argument("--samples", help="Bedrock Samples folder (default: env BEDROCK_SAMPLES_ROOT or /tmp/bedrock-samples)")
@@ -462,6 +476,13 @@ def main(argv=None):
         print(f"{pack.name}: {len(jobs)} recipe image(s)" + (f", {len(skipped)} other recipe(s) skipped" if skipped else ""))
         for w in written:
             print(f"  wrote {w.relative_to(root)}")
+        if a.items_from_recipes and jobs:
+            sprites, sprite_problems = export_items(pack, custom_result_ids(jobs), samples)
+            for p in sprite_problems:
+                print(f"FAIL {pack.name}: {p}")
+            bad += len(sprite_problems)
+            for w in sprites:
+                print(f"  wrote {w.relative_to(root)}")
     print("Done." if not bad else f"{bad} problem(s). See FAIL lines.")
     return 1 if bad else 0
 
