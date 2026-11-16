@@ -16,6 +16,21 @@
     },
     "aln_disc_5": {
       "textures": "textures/items/aln_disc_5"
+    },
+    "aln_disc_6": {
+      "textures": "textures/items/aln_disc_6"
+    },
+    "aln_disc_7": {
+      "textures": "textures/items/aln_disc_7"
+    },
+    "aln_disc_8": {
+      "textures": "textures/items/aln_disc_8"
+    },
+    "aln_disc_9": {
+      "textures": "textures/items/aln_disc_9"
+    },
+    "aln_disc_10": {
+      "textures": "textures/items/aln_disc_10"
     }
   }
 }

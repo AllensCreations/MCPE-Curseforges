@@ -19,7 +19,7 @@
       },
       "minecraft:max_stack_size": 1,
       "minecraft:record": {
-        "comparator_signal": 7,
+        "comparator_signal": 5,
         "duration": 85,
         "sound_event": "record.aln_track_3"
       }

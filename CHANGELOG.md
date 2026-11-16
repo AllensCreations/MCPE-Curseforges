@@ -2,6 +2,11 @@
 
 ---
 
+## 2026-11-16 - Update Addon ALN MoreDiscs
+
+### Added
+- **ALN MoreDiscs**: Ten music discs with new vanilla-style icons (version 1.1.0).
+
 ## [1.0.75] - 2026-11-16 - Direct XP and Fair Drops
 
 ### Improved & Balanced

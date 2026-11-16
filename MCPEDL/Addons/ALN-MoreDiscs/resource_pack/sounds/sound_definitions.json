@@ -55,6 +55,61 @@
           "volume": 1.0
         }
       ]
+    },
+    "record.aln_track_6": {
+      "category": "record",
+      "max_distance": 64,
+      "sounds": [
+        {
+          "name": "sounds/music/aln_track_6",
+          "stream": true,
+          "volume": 1.0
+        }
+      ]
+    },
+    "record.aln_track_7": {
+      "category": "record",
+      "max_distance": 64,
+      "sounds": [
+        {
+          "name": "sounds/music/aln_track_7",
+          "stream": true,
+          "volume": 1.0
+        }
+      ]
+    },
+    "record.aln_track_8": {
+      "category": "record",
+      "max_distance": 64,
+      "sounds": [
+        {
+          "name": "sounds/music/aln_track_8",
+          "stream": true,
+          "volume": 1.0
+        }
+      ]
+    },
+    "record.aln_track_9": {
+      "category": "record",
+      "max_distance": 64,
+      "sounds": [
+        {
+          "name": "sounds/music/aln_track_9",
+          "stream": true,
+          "volume": 1.0
+        }
+      ]
+    },
+    "record.aln_track_10": {
+      "category": "record",
+      "max_distance": 64,
+      "sounds": [
+        {
+          "name": "sounds/music/aln_track_10",
+          "stream": true,
+          "volume": 1.0
+        }
+      ]
     }
   }
 }

@@ -5,7 +5,12 @@ const DISCS = {
   "aln:disc_2": { track: 2, title: "Ember Lantern", seconds: 82, sound: "record.aln_track_2" },
   "aln:disc_3": { track: 3, title: "Quiet Tides", seconds: 85, sound: "record.aln_track_3" },
   "aln:disc_4": { track: 4, title: "Crystal Caverns", seconds: 58, sound: "record.aln_track_4" },
-  "aln:disc_5": { track: 5, title: "Starlight Express", seconds: 70, sound: "record.aln_track_5" }
+  "aln:disc_5": { track: 5, title: "Starlight Express", seconds: 70, sound: "record.aln_track_5" },
+  "aln:disc_6": { track: 6, title: "Midnight Drive", seconds: 75, sound: "record.aln_track_6" },
+  "aln:disc_7": { track: 7, title: "Sunlit Meadow", seconds: 55, sound: "record.aln_track_7" },
+  "aln:disc_8": { track: 8, title: "Deepslate Echoes", seconds: 85, sound: "record.aln_track_8" },
+  "aln:disc_9": { track: 9, title: "Pixel Parade", seconds: 71, sound: "record.aln_track_9" },
+  "aln:disc_10": { track: 10, title: "Golden Hour", seconds: 84, sound: "record.aln_track_10" }
 };
 
 const JUKEBOX = "minecraft:jukebox";
