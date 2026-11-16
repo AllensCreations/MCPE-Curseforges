@@ -1,0 +1,9 @@
+{
+  "resource_pack_name": "aln_wireless_headphones",
+  "texture_name": "atlas.items",
+  "texture_data": {
+    "aln_headphones": {
+      "textures": "textures/items/aln_headphones"
+    }
+  }
+}

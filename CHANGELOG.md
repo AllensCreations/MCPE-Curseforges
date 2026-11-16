@@ -2,6 +2,11 @@
 
 ---
 
+## 2026-11-16 - New Addon ALN Wireless Headphones
+
+### Added
+- **ALN Wireless Headphones**: New addon project created from a pack script.
+
 ## [1.0.61] - 2026-11-16 - Loot Cap and Boosters Switch
 
 ### Improved & Balanced
