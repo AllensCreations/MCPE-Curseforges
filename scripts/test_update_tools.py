@@ -101,6 +101,18 @@ class UpdateTests(unittest.TestCase):
         self.assertNotEqual(bad.returncode, 0)
 
 
+    def test_repo_level_version_must_be_the_next_repo_version(self):
+        (self.root / "REPO_VERSION").write_text("1.0.5\n")
+        body = ["@@ project .", "@@ file note.txt", "@@ create", "hi", "@@ root-changelog Note", "### Fixed", "- **Fix**: x."]
+        with self.assertRaises(au.Fail) as bad:
+            self.run_spec("\n".join(["@@ version 1.0.9"] + body))
+        self.assertEqual(bad.exception.code, 3)
+        self.assertIn("@@ version 1.0.6", str(bad.exception))
+        self.assertFalse((self.root / "note.txt").exists())
+        self.run_spec("\n".join(["@@ version 1.0.6"] + body))
+        self.assertEqual((self.root / "REPO_VERSION").read_text().strip(), "1.0.6")
+        self.assertIn("## [1.0.6] - 2026-11-13 - Note", (self.root / "CHANGELOG.md").read_text())
+
     def test_delete_file_removes_tracked_files_and_older_apply_update_still_works(self):
         git = lambda *a: subprocess.run(["git", *a], cwd=self.root, capture_output=True, text=True, check=True)
         git("init", "-q")

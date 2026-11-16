@@ -9,6 +9,9 @@ name: Build Changed Packs & Sync Catalogs
 #     created or REFRESHED IN PLACE whenever the source or the packages differ from the snapshot.
 #   - Catalogs, READMEs, download links, changelog views, CurseForge description views and image prompts are re-synced.
 #     Description views and image prompts are rebuilt only for packs whose inputs changed.
+#   - Pixel textures are re-rendered from each pack's texture_sources, and crafting recipe images are regenerated
+#     (only when recipes, textures or generators changed) BEFORE the Listing Kits are rebuilt, so one run and one
+#     commit keep recipes, images and descriptions in step. Generator problems are warnings and never block the build.
 #
 # Publishing to CurseForge lives in its own workflow (publish-curseforge.yml). When a publish
 # succeeds it starts this workflow once so the catalogs pick up the new version.
@@ -60,6 +63,13 @@ jobs:
       - name: Ensure custom crafting recipes are always unlocked
         run: python3 scripts/ensure_recipe_unlocks.py
 
+      - name: Render pixel textures from texture_sources
+        run: |
+          set -uo pipefail
+          for dir in MCPEDL/*/*; do
+            [ -d "$dir/texture_sources" ] || continue
+            python3 scripts/pixel_json_to_png.py "$dir" || echo "::warning::Pixel textures of $dir could not be rendered (see log)."
+          done
       - name: Convert icon files to pack_icon.png
         run: |
           set -euo pipefail
@@ -135,6 +145,46 @@ jobs:
           } >> "$GITHUB_STEP_SUMMARY"
           exit "$STATUS"
 
+      - name: Decide whether recipe images need a refresh
+        id: recipes
+        run: |
+          set -uo pipefail
+          need=false
+          if [ "${{ github.event_name }}" != "push" ]; then
+            need=true
+          elif changed="$(git diff --name-only "${{ github.event.before }}" "${{ github.sha }}" 2>/dev/null)"; then
+            if echo "$changed" | grep -Eq '(behavior_pack/recipes/|resource_pack/textures/|texture_sources/|scripts/(crafting_template|generate_[a-z_]*recipe[a-z_]*|convert_crafting_recipe_svgs_to_png|pixel_json_to_png)\.py|CRAFTING_)'; then
+              need=true
+            fi
+          else
+            need=true
+          fi
+          echo "needed=$need" >> "$GITHUB_OUTPUT"
+          echo "Recipe images need a refresh: $need"
+
+      - name: Export crafting recipe SVGs as PNGs
+        if: steps.recipes.outputs.needed == 'true'
+        run: python3 scripts/convert_crafting_recipe_svgs_to_png.py || echo "::warning::Recipe SVG export failed (see log)."
+
+      - name: Get official Mojang Bedrock Samples textures
+        if: steps.recipes.outputs.needed == 'true'
+        run: |
+          set -euo pipefail
+          git clone --depth 1 https://github.com/Mojang/bedrock-samples.git /tmp/bedrock-samples
+          echo "BEDROCK_SAMPLES_ROOT=/tmp/bedrock-samples" >> "$GITHUB_ENV"
+
+      - name: Generate crafting recipe images (every pack)
+        if: steps.recipes.outputs.needed == 'true'
+        run: |
+          set -uo pipefail
+          status=0
+          python3 scripts/generate_monster_companions_recipe_image.py || status=1
+          python3 scripts/generate_recipe_images.py --all || status=1
+          python3 scripts/generate_grand_banquets_recipe_images.py || status=1
+          if [ "$status" != "0" ]; then
+            echo "::warning::Some recipe images could not be generated (see log). The rest of the build continues."
+          fi
+
       - name: Refresh Listing Kits (name, summary, description HTML, image prompts)
         run: python3 scripts/build_listing_kits.py --all || echo "::warning::Some listing kits could not be built (see log)."
 
@@ -181,6 +231,8 @@ jobs:
             if [ -d "$dir" ]; then git add "$dir"; fi
           done
           if [ -f README.md ]; then git add README.md; fi
+          if [ -f scripts/CRAFTING_TABLE.png ]; then git add scripts/CRAFTING_TABLE.png; fi
+          if compgen -G "assets/CRAFTING_RECIPE*.png" > /dev/null; then git add assets/CRAFTING_RECIPE*.png; fi
           if [ -f Mcpeworlds/README.md ]; then git add Mcpeworlds/README.md; fi
 
           if git diff --cached --quiet; then

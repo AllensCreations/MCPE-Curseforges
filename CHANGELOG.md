@@ -2,6 +2,14 @@
 
 ---
 
+## [1.0.63] - 2026-11-16 - Recipes and Descriptions In One Build
+
+### Improved & Balanced
+- **One build for images and descriptions**: Build Changed Packs & Sync Catalogs now renders pixel textures, regenerates the crafting recipe images and then rebuilds the Listing Kits in one run and one commit, so a new recipe or texture reaches the description right away. Generator problems are warnings and never block the build.
+- **Recipe workflow**: Generate Crafting Recipe Images is now manual only.
+### Fixed
+- **Update script version**: a repo-level update script now refuses to run when its `@@ version` is not the next repo version, so the `.sh` name, the root changelog and `REPO_VERSION` always agree.
+
 ## [1.0.62] - 2026-11-16 - Soft Description Design
 
 ### Improved & Balanced

@@ -250,6 +250,9 @@ def run(spec, root, date, dry=False):
             if re.match(r"^\d+\.\d+\.\d+$", cur):
                 a, b, c = (int(x) for x in cur.split("."))
                 cur = f"{a}.{b}.{c + 1}"
+                if repo_level and ver != cur:
+                    raise Fail(f"stale script: the repo goes to {cur}, but this script is named for {ver}. "
+                               f"Use '@@ version {cur}'.", 3)
             else:
                 cur = "1.0.0"
             files[vp] = cur + "\n"

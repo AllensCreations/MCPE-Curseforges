@@ -36,7 +36,7 @@ Output ONLY, in order, exact headings:
 6b. Project update: after the CHANGELOG entry, run `python3 scripts/manifest_tools.py --project "$DEST" --set X.Y.Z`, then `--check` and `python3 scripts/validate_manifest_titles.py --project "$DEST"`. Stop on error.
 7. `git add` changed paths only; `git commit -m "<short>"`; `git push`
 8. Idempotent: skip applied changes.
-9. Add an entry to the root `CHANGELOG.md` (repo-wide, newest first under `---`): `## [X.Y.Z] - YYYY-MM-DD - [Update Name]` (X.Y.Z = `REPO_VERSION`, set by `apply_update.py`, never by hand), then `### Added` / `### Improved & Balanced` / `### Fixed` with `- **Title**: what changed`. Every script does this, tooling-only changes included.
+9. Add an entry to the root `CHANGELOG.md` (repo-wide, newest first under `---`): `## [X.Y.Z] - YYYY-MM-DD - [Update Name]` (X.Y.Z = `REPO_VERSION` + 0.0.1, set by `apply_update.py`, never by hand; a repo-level script's `@@ version` and `.sh` name MUST equal it, the script refuses otherwise), then `### Added` / `### Improved & Balanced` / `### Fixed` with `- **Title**: what changed`. Every script does this, tooling-only changes included.
 10. After a successful push, delete the script itself: `rm -f -- "$SELF"` (SELF = absolute path saved before `cd`; last line, only reached when everything above passed).
 Every project update writes CHANGELOG.md (Part 2 format; heading version == `.sh` name version). Manifest versions: 1.3. NEVER edit README download links by hand (build aligns them).
 
