@@ -1,12 +1,17 @@
 # Changelog — 2-in-1 Loot & XP Booster
 
-## [1.0.5] - 2026-11-16
+## [1.0.6] - 2026-11-16 - Ores and Mob Loot Only
 
 ### Improved & Balanced
-- **Apply closes the menu**: Pressing Apply on the XP & Loot Booster screen now closes the menu instead of returning to the main menu.
+- **Loot only where it counts**: The Loot booster now multiplies drops from ores, ancient debris, gilded blackstone and mobs you kill. Normal blocks such as dirt, stone, wood and crops drop as usual.
 
 <details>
-<summary><b>1.0.x</b> (5 releases)</summary>
+<summary><b>1.0.x</b> (6 releases)</summary>
+
+### [1.0.5] - 2026-11-16
+
+#### Improved & Balanced
+- **Apply closes the menu**: Pressing Apply on the XP & Loot Booster screen now closes the menu instead of returning to the main menu.
 
 ### [1.0.4] - 2026-11-16
 
