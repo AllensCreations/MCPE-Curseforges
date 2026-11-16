@@ -2,9 +2,12 @@
 
 ---
 
-## [1.0.4] - 2026-11-16 - Loot Cap and Boosters Switch
+## [1.0.4] - 2026-11-16
+
+**What's new in v1.0.4:** Packed with the v1.0.4 update. Includes: Loot Cap and Boosters Switch.
 
 ### Improved & Balanced
+
 - **Loot back to 32x**: The Loot slider has six levels, 1x up to 32x. XP keeps seven levels up to 64x. A saved Loot level above 32x drops to 32x.
 - **Boosters switch**: A new on/off switch on the XP & Loot Booster screen turns both boosters off and on without losing your levels.
 - **XP orb limit**: Extra XP orbs are now capped per moment across all players, which protects busy servers.
@@ -20,6 +23,8 @@
 - **ALNStudios look**: The menus follow the ALNStudios Redesigned UI standard with a gold title, bold buttons with icons and a Back button on About.
 - **Menus keep going**: After Apply or Back the main menu opens again. Exit or the close button closes it.
 - **Action Bar feedback**: Applied settings now show on the Action Bar instead of in chat.
+
+
 
 ## [1.0.2] - 2026-11-12
 
@@ -37,6 +42,8 @@
 
 
 
+
+
 ## [1.0.1] - 2026-11-12 - Redesigned Menu and Tiers
 
 ### Added
@@ -48,6 +55,8 @@
 - **Fortune-style loot**: Drops roll a random bonus up to the tier's maximum instead of always using it. Loot tops out at 32x.
 - **XP maximum**: XP can now reach 64x.
 - **Colored text**: Tier names and menu labels use distinct colors.
+
+
 
 
 
