@@ -1,6 +1,6 @@
 # Changelog — 2-in-1 Loot & XP Booster
 
-## [1.0.3] - 2026-11-16 - Simplified Booster Sliders
+## [1.0.3] - 2026-11-16
 
 ### Improved & Balanced
 - **Plain multiplier sliders**: The Loot and XP sliders now use the same seven levels, 1x, 2x, 4x, 8x, 16x, 32x and 64x, and the tier names are gone.

@@ -1,6 +1,6 @@
 # Changelog — Tameable Companion Fox
 
-## [1.8.5] - 2026-11-16 - Fox Tool Balance
+## [1.8.5] - 2026-11-16
 
 ### Improved & Balanced
 - **Material Damage**: A fox's damage now depends on the tool it holds. Wooden and golden tools hit the softest, then stone, iron, diamond, and netherite.
@@ -8,34 +8,24 @@
 - **Swap Protection**: Swapping tools starts the effect cooldown, so it cannot be reset by switching.
 - **Attack Pace**: Axe attacks land every 1.5 seconds and hoe attacks every 1.2 seconds.
 - **Warden Safety**: Tamed foxes no longer pick fights with wardens.
+- **Tool Prompt**: The prompt for handing over a tool now reads Give Tool.
+- **Owner Only Arming**: Only a fox's owner can hand it a weapon.
+- **Translated Prompts**: The weapon prompts now use language files so they can be translated.
 
 ### Fixed
 - **Shovel Reach**: A shovel now lets the fox attack from farther away than a bare fox, as described.
 
-<details>
-<summary><b>1.8.x</b> (6 releases)</summary>
-
-### [1.8.4] - 2026-11-16 - Fox Tool Attacks
-
-#### Added
+### Added
 - **Tool Arming**: Pickaxes, shovels, and hoes can now be handed to a tamed fox along with swords and axes.
 - **Pickaxe Style**: A pickaxe fox deals 5 damage and slows what it hits for 3 seconds.
 - **Shovel Style**: A shovel fox deals 5 damage and attacks from farther away.
 - **Hoe Style**: A hoe fox deals 4 damage and poisons what it hits for 4 seconds.
-
-#### Improved & Balanced
-- **Tool Prompt**: The prompt for handing over a tool now reads Give Tool.
-
-### [1.8.3] - 2026-11-16 - Fox Combat Upgrade
-
-#### Added
 - **Weapon Styles**: A fox holding a sword chases targets faster, and a fox holding an axe leaps higher.
 - **Take Weapon Back**: Sneak and interact with an empty hand to take the weapon from your fox.
 - **Hostile Mob Defense**: Tamed foxes attack hostile mobs they can see within 16 blocks, except creepers.
 
-#### Improved & Balanced
-- **Owner Only Arming**: Only a fox's owner can hand it a weapon.
-- **Translated Prompts**: The weapon prompts now use language files so they can be translated.
+<details>
+<summary><b>1.8.x</b> (4 releases)</summary>
 
 ### [1.8.2] - 2026-11-16 - Give Weapon Prompt
 
