@@ -2,6 +2,11 @@
 
 ---
 
+## [1.0.72] - 2026-11-16 - Book Only Trigger
+
+### Improved & Balanced
+- **Book only**: The Booster menu now opens only from a plain Book renamed to Booster. A Book and Quill no longer opens it.
+
 ## [1.0.71] - 2026-11-16 - Fortune and Looting Style Loot
 
 ### Improved & Balanced

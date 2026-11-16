@@ -2,6 +2,11 @@
 
 ---
 
+## [1.0.8] - 2026-11-16 - Book Only Trigger
+
+### Improved & Balanced
+- **Book only**: The Booster menu now opens only from a plain Book renamed to Booster. A Book and Quill no longer opens it.
+
 ## [1.0.7] - 2026-11-16
 
 **What's new in v1.0.7:** Packed with 2 updates, from v1.0.6 through v1.0.7. Includes: Fortune and Looting Style Loot; Ores and Mob Loot Only.

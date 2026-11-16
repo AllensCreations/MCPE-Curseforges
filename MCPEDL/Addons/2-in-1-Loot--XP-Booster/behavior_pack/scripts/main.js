@@ -2,7 +2,7 @@ import { world, system, EntityComponentTypes } from "@minecraft/server";
 import { ActionFormData, ModalFormData, FormCancelationReason } from "@minecraft/server-ui";
 
 const PACK_NAME = "2-in-1 Loot & XP Booster";
-const VERSION = "1.0.7";
+const VERSION = "1.0.8";
 const TITLE = `§l§6@ALNStudios §e${PACK_NAME}§r (v${VERSION})`;
 const ABOUT_TITLE = "About ALNStudios";
 const ICON_MAIN = "textures/items/experience_bottle";
@@ -13,7 +13,7 @@ const XP_LEVELS = [1, 2, 4, 8, 16, 32, 64];
 const LOOT_KEY = "aln_loot_index";
 const XP_KEY = "aln_xp_index";
 const ENABLED_KEY = "aln_boost_enabled";
-const BOOK_IDS = new Set(["minecraft:book", "minecraft:writable_book"]);
+const BOOK_ID = "minecraft:book";
 const TRIGGER_NAME = "booster";
 const DROP_TAG = "aln_boosted_drop";
 const XP_TAG = "aln_boosted_xp";
@@ -210,7 +210,7 @@ function openPanel(player) {
 world.afterEvents.itemUse.subscribe((event) => {
   const { itemStack, source } = event;
   if (!itemStack || !source || source.typeId !== "minecraft:player") return;
-  if (!BOOK_IDS.has(itemStack.typeId)) return;
+  if (itemStack.typeId !== BOOK_ID) return;
   const name = itemStack.nameTag;
   if (typeof name !== "string" || name.trim().toLowerCase() !== TRIGGER_NAME) return;
   openPanel(source);

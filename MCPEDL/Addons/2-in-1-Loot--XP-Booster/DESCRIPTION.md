@@ -24,7 +24,7 @@ You rename a Book to Booster on an anvil and right-click with it. A menu opens w
 ## Key Features
 
 ### Renamed Book Control Panel
-- **What Happens**: Rename a Book or a Book and Quill to "Booster" on an anvil, then right-click with it to open the Booster menu.
+- **What Happens**: Rename a Book to "Booster" on an anvil, then right-click with it to open the Booster menu.
 - **Good To Know**: Each player keeps their own settings, which are saved between sessions.
 
 ### Loot Drop Booster
@@ -44,7 +44,7 @@ You rename a Book to Booster on an anvil and right-click with it. A menu opens w
 
 ## How to Use
 
-1. Rename a Book or a Book and Quill to Booster on an anvil.
+1. Rename a Book to Booster on an anvil.
 2. Hold it and right-click, then choose XP & Loot Booster.
 3. Drag the Loot and XP sliders, switch Boosters on or off, press Apply and check the Action Bar for your values.
 
