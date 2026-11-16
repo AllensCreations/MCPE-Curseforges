@@ -1,13 +1,26 @@
 # Changelog — ALN MoreDiscs
 
-## [1.1.0] - 2026-11-16 - Ten Discs
+## [1.1.1] - 2026-11-17 - Disc Group
 
 ### Added
+- **Creative Group**: All ten discs now sit together in their own ALN MoreDiscs group in the Items tab of the creative inventory.
+
+### Fixed
+- **Disc Group**: The discs now use their own group name instead of the vanilla music disc group name.
+
+<details>
+<summary><b>1.1.x</b> (1 release)</summary>
+
+### [1.1.0] - 2026-11-16 - Ten Discs
+
+#### Added
 - **Five New Discs**: Track 6 Midnight Drive, Track 7 Sunlit Meadow, Track 8 Deepslate Echoes, Track 9 Pixel Parade and Track 10 Golden Hour, each an original track.
 - **New Recipes**: The new discs use the same recipe layout with Iron Ingot, Gold Ingot, Emerald, Nether Quartz or Blaze Powder as the accent item.
 
-### Improved & Balanced
+#### Improved & Balanced
 - **Disc Icons**: All ten discs now use a tilted vanilla-style disc icon with a label color of their own.
+
+</details>
 
 <details>
 <summary><b>1.0.x</b> (1 release)</summary>
