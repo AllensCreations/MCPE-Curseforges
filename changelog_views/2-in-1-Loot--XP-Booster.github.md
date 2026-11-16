@@ -1,13 +1,18 @@
 # Changelog — 2-in-1 Loot & XP Booster
 
-## [1.0.7] - 2026-11-16
+## [1.0.8] - 2026-11-16 - Book Only Trigger
 
 ### Improved & Balanced
-- **More Fortune-style loot**: The Loot booster now also multiplies drops from amethyst clusters, glowstone, sea lanterns, melons, nether wart, sweet berries, wheat, carrots, potatoes and beetroot, on top of ores, ancient debris, gilded blackstone and mob loot.
-- **Loot only where it counts**: The Loot booster now multiplies drops from ores, ancient debris, gilded blackstone and mobs you kill. Normal blocks such as dirt, stone, wood and crops drop as usual.
+- **Book only**: The Booster menu now opens only from a plain Book renamed to Booster. A Book and Quill no longer opens it.
 
 <details>
-<summary><b>1.0.x</b> (6 releases)</summary>
+<summary><b>1.0.x</b> (7 releases)</summary>
+
+### [1.0.7] - 2026-11-16
+
+#### Improved & Balanced
+- **More Fortune-style loot**: The Loot booster now also multiplies drops from amethyst clusters, glowstone, sea lanterns, melons, nether wart, sweet berries, wheat, carrots, potatoes and beetroot, on top of ores, ancient debris, gilded blackstone and mob loot.
+- **Loot only where it counts**: The Loot booster now multiplies drops from ores, ancient debris, gilded blackstone and mobs you kill. Normal blocks such as dirt, stone, wood and crops drop as usual.
 
 ### [1.0.5] - 2026-11-16
 

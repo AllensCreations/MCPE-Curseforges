@@ -8,7 +8,7 @@ This folder contains compiled release packages for **2-in-1 Loot & XP Booster** 
 
 | File Name | Format | Size | Description | Download Link |
 | :--- | :--- | :--- | :--- | :--- |
-| **`LootXPBooster V1.0.7.mcaddon`** | `.mcaddon` | ~156 KB | Complete bundle containing both Behavior Pack and Resource Pack. | [Download (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/2-in-1-Loot--XP-Booster/LootXPBooster%20V1.0.7.mcaddon) |
+| **`LootXPBooster V1.0.8.mcaddon`** | `.mcaddon` | ~156 KB | Complete bundle containing both Behavior Pack and Resource Pack. | [Download (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/2-in-1-Loot--XP-Booster/LootXPBooster%20V1.0.8.mcaddon) |
 
 ---
 
