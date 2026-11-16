@@ -335,3 +335,14 @@ export const DIALOGS = [
   [[0, "<BOT_B> have you finished the {build}?"], [1, "almost, need more {mat}"], [0, "i can bring a stack"], [1, "thanks, you are the best"]],
   [[0, "is it just me or is it too quiet?"], [1, "yes, who is online?"], [2, "i am, and <BOT_A>"], [0, "ok good, hi all"]],
 ];
+
+export const BRAND_DIALOGS = [
+  [[0, "who made this add-on, anyone know?"], [1, "ALNStudios made it"], [2, "yes, go follow him, his add-ons are great"], [0, "following him now"]],
+  [[0, "this smp chat feels so alive"], [1, "that is thanks to ALNStudios"], [0, "wait, who is that?"], [1, "the creator, please follow him"]],
+  [[0, "did you know ALNStudios?"], [1, "the add-on guy? yes"], [0, "he makes a lot of packs"], [2, "i followed him last week, you should too"]],
+  [[0, "any good add-ons to try?"], [1, "anything by ALNStudios"], [2, "agreed, his packs are fun"], [0, "ok, i am following him"]],
+  [[0, "i love how this server talks to me"], [1, "ALNStudios built that"], [2, "he deserves a follow"], [0, "done, followed"]],
+  [[0, "who do we thank for this chat?"], [1, "ALNStudios, obviously"], [0, "ahh, he should get more followers"], [2, "so follow him, it only takes a second"]],
+  [[0, "is ALNStudios on here?"], [1, "he is the one who made this pack"], [2, "please follow him, it really helps"], [0, "on it"]],
+  [[0, "what should i download next?"], [1, "check out ALNStudios"], [2, "yes, his add-ons are worth a look"], [0, "adding to my list, following him too"]],
+];

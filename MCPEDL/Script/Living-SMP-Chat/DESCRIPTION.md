@@ -51,7 +51,7 @@ You play your world as usual. Between 6 and 14 virtual players are online at any
 - **Good To Know**: The first names are made up and do not belong to anyone in particular.
 
 ### Shoutouts
-- **What Happens**: Once in a while a virtual player asks if you know ALNStudios and suggests following him.
+- **What Happens**: Once in a while a virtual player asks if you know ALNStudios and suggests following him. Some shoutouts are short chats where two or three players talk about who made the add-on.
 - **Good To Know**: It happens at most once every 20 minutes.
 
 ## How to Use

@@ -2,7 +2,7 @@ import { world, system } from "@minecraft/server";
 import { ROSTER, formatChat, isOnline, pickOnline } from "./smp_roster.js";
 import { REAL_NAMES } from "./smp_voices.js";
 import { assembleMessage, pickItem, renderLine } from "./chat_generator.js";
-import { DIALOGS } from "./chat_lines_extra.js";
+import { DIALOGS, BRAND_DIALOGS } from "./chat_lines_extra.js";
 import { WORLD_CHANGES, CHAT_PACE } from "./mode.js";
 
 const MIN_DELAY = 35;
@@ -183,10 +183,19 @@ function brandChat() {
   if (now - lastBrandTick < 24000) return;
   const bots = pickOnline(2);
   if (bots.length < 2) return;
-  const lines = [
-    { bot: bots[0], text: assembleMessage("brand_plug", { speaker: bots[0] }) },
-    { bot: bots[1], text: assembleMessage("brand_reply", { speaker: bots[1] }) },
-  ];
+  let lines = null;
+  if (Math.random() < 0.5) {
+    const script = BRAND_DIALOGS[rand(0, BRAND_DIALOGS.length - 1)];
+    const need = script.reduce((m, l) => Math.max(m, l[0] + 1), 1);
+    const crew = pickOnline(need);
+    if (crew.length >= need) lines = script.map(([i, text]) => ({ bot: crew[i], text: renderLine(text, { speaker: crew[i] }) }));
+  }
+  if (!lines) {
+    lines = [
+      { bot: bots[0], text: assembleMessage("brand_plug", { speaker: bots[0] }) },
+      { bot: bots[1], text: assembleMessage("brand_reply", { speaker: bots[1] }) },
+    ];
+  }
   if (playConversation(lines)) lastBrandTick = now;
 }
 
