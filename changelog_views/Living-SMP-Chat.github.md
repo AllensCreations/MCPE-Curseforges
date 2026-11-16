@@ -1,16 +1,21 @@
 # Changelog — Living SMP Chat
 
-## [1.0.10] - 2026-11-16 - Replies and Personality
+## [1.0.11] - 2026-11-16 - Shoutout Mini Chats
 
 ### Added
+- **Shoutout Mini Chats**: about half of the ALNStudios shoutouts are now short back-and-forth chats between two or three players, like asking who made the add-on and suggesting a follow. The other half stay the single plug with a reply.
+
+<details>
+<summary><b>1.0.x</b> (6 releases)</summary>
+
+### [1.0.10] - 2026-11-16 - Replies and Personality
+
+#### Added
 - **Replies to Your Chat**: virtual players answer when you say hello, thank them, ask a question, laugh, say goodnight, or type one of their names.
 - **Catchphrases**: each virtual player now has a catchphrase they use now and then.
 - **Name Slips**: once in a while a virtual player slips and uses a made-up first name, and the others react.
 - **Quiet Options**: each option now also comes in a Quiet version where the virtual players chat about half as often.
 - **Shoutouts**: now and then a virtual player asks if you know ALNStudios and suggests following him, at most once every 20 minutes.
-
-<details>
-<summary><b>1.0.x</b> (5 releases)</summary>
 
 ### [1.0.9] - 2026-11-16 - Better Writing
 
