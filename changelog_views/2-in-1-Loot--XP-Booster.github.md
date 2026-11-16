@@ -1,6 +1,6 @@
 # Changelog — 2-in-1 Loot & XP Booster
 
-## [1.0.5] - 2026-11-16 - Apply Closes Menu
+## [1.0.5] - 2026-11-16
 
 ### Improved & Balanced
 - **Apply closes the menu**: Pressing Apply on the XP & Loot Booster screen now closes the menu instead of returning to the main menu.
