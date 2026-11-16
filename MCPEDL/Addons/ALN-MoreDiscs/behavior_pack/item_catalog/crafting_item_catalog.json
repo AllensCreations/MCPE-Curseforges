@@ -1,0 +1,30 @@
+{
+  "format_version": "1.26.60",
+  "minecraft:crafting_items_catalog": {
+    "categories": [
+      {
+        "category_name": "items",
+        "groups": [
+          {
+            "group_identifier": {
+              "icon": "aln:disc_1",
+              "name": "aln:itemGroup.name.morediscs"
+            },
+            "items": [
+              "aln:disc_1",
+              "aln:disc_2",
+              "aln:disc_3",
+              "aln:disc_4",
+              "aln:disc_5",
+              "aln:disc_6",
+              "aln:disc_7",
+              "aln:disc_8",
+              "aln:disc_9",
+              "aln:disc_10"
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}

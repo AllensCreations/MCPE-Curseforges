@@ -2,6 +2,14 @@
 
 ---
 
+## [1.1.1] - 2026-11-17 - Disc Group
+
+### Added
+- **Creative Group**: All ten discs now sit together in their own ALN MoreDiscs group in the Items tab of the creative inventory.
+
+### Fixed
+- **Disc Group**: The discs now use their own group name instead of the vanilla music disc group name.
+
 ## [1.1.0] - 2026-11-16 - Ten Discs
 
 ### Added

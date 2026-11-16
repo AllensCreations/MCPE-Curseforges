@@ -1,13 +1,13 @@
 {
   "format_version": 2,
   "header": {
-    "name": "ALN MoreDiscs (v1.1.0)",
+    "name": "ALN MoreDiscs (v1.1.1)",
     "description": "ALN:MoreDiscs by ALNStudios: Adds 10 custom music discs for Jukeboxes & Wireless Headphones. Create custom personal packs at: https://alnstudios-more-discs.vercel.app",
     "uuid": "96a63a52-ef96-468f-ae36-b6d52dd57ac2",
     "version": [
       1,
       1,
-      0
+      1
     ],
     "min_engine_version": [
       1,
@@ -24,7 +24,7 @@
       "version": [
         1,
         1,
-        0
+        1
       ]
     }
   ],
@@ -34,7 +34,7 @@
       "version": [
         1,
         1,
-        0
+        1
       ]
     },
     {
@@ -47,6 +47,6 @@
       "ALNStudios"
     ],
     "product_type": "addon",
-    "version": "1.1.0"
+    "version": "1.1.1"
   }
 }
