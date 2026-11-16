@@ -40,6 +40,7 @@ This directory stores compiled Add-ons (`.mcaddon`), Maps (`.mcworld`), Scripts 
 | **ALN Quiver** | Add-on (.mcaddon) | [Download (.mcaddon)](ALN-Quiver/ALNQuiver%20V1.0.0.mcaddon) | [`ALN-Quiver/`](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/builds/ALN-Quiver/) |
 | **Expanded Basic Arsenal** | Add-on (.mcaddon) | [Download (.mcaddon)](Expanded-Basic-Arsenal/ExpandedBasicArsenal%20V1.0.0.mcaddon) | [`Expanded-Basic-Arsenal/`](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/builds/Expanded-Basic-Arsenal/) |
 | **ALN Wireless Headphones** | Add-on (.mcaddon) | [Download (.mcaddon)](ALN-Wireless-Headphones/ALNWirelessHeadphones%20V1.0.0.mcaddon) | [`ALN-Wireless-Headphones/`](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/builds/ALN-Wireless-Headphones/) |
+| **ALN MoreDiscs** | Complete Pack (`.mcaddon`) | [Download (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/ALN-MoreDiscs/ALNMoreDiscs%20V1.0.0.mcaddon) | [`ALN-MoreDiscs/`](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/builds/ALN-MoreDiscs/) |
 
 ### Worlds and Maps
 

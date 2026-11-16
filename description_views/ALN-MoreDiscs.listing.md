@@ -1,0 +1,66 @@
+# Listing Kit: ALN MoreDiscs
+
+Tap the Copy button on a block, then paste it into the CurseForge listing. Generated from DESCRIPTION.md: edit that, not this file.
+
+## Package Name
+
+```text
+ALN MoreDiscs
+```
+
+## Summary (113/256)
+
+```text
+Craft five original music discs, each with its own 58 to 85 second track, and play them in a Jukebox in Survival.
+```
+
+## Description (HTML)
+
+Paste into the CurseForge description editor in source (HTML) mode.
+
+```html
+<div><div style="border:2px solid #15803d;border-radius:18px;line-height:1.5"><br><h1 style="font-size:34px;text-align:center">ALN MoreDiscs</h1><p style="color:#8a94a3;font-size:14px;text-align:center">by ALNStudios</p><p style="text-align:center"><span style="background-color:#15803d;color:#ffffff;border-radius:20px;font-size:16px">&nbsp;&nbsp;<strong>Craft five original music discs, each with its own 58 to 85 second track, and play them in a Jukebox in Survival.</strong>&nbsp;&nbsp;</span></p><p style="text-align:center;margin-left:16px;margin-right:16px">ALN MoreDiscs adds five music discs, Track 1 to Track 5, each crafted from Paper, Coal, Flint, a Note Block and one accent item. They give a Jukebox new music without any other add-on.</p><div style="display:flex;flex-wrap:wrap;gap:8px;margin-left:14px;margin-right:14px"><div style="background-color:#dcfce7;color:#14532d;border-radius:20px;font-size:14px;line-height:2"><strong>&nbsp;&nbsp;Bedrock</strong>: 1.26+&nbsp;&nbsp;</div><div style="background-color:#dcfce7;color:#14532d;border-radius:20px;font-size:14px;line-height:2"><strong>&nbsp;&nbsp;Experimental</strong>: No&nbsp;&nbsp;</div><div style="background-color:#dcfce7;color:#14532d;border-radius:20px;font-size:14px;line-height:2"><strong>&nbsp;&nbsp;Achievements</strong>: Likely achievement-friendly&nbsp;&nbsp;</div></div><br></div>
+<h2 style="font-size:17px;text-align:left"><span style="background-color:#15803d;color:#ffffff;border-radius:20px">&nbsp;&nbsp;About&nbsp;&nbsp;</span></h2>
+<p>Craft a disc at a Crafting Table, put it in a Jukebox and the matching track plays. Every track is an original piece made for this pack, so the five discs add music to your world without using any existing songs. The discs also announce which track is playing and for how long, so ALN Wireless Headphones can show it.</p>
+<h2 style="font-size:17px;text-align:left"><span style="background-color:#15803d;color:#ffffff;border-radius:20px">&nbsp;&nbsp;What You Get&nbsp;&nbsp;</span></h2>
+<div style="display:flex;flex-wrap:wrap;gap:10px"><div style="flex:1;min-width:200px;border:1px solid #8a94a3;border-radius:16px"><div style="background-color:#15803d;color:#ffffff;border-radius:16px;font-size:16px;line-height:2.2"><strong>&nbsp;&nbsp;Five Original Tracks</strong></div><div style="margin-left:12px;margin-right:12px"><p><span>The pack adds five discs with one track each. The track list is below.</span><br><span style="font-size:13px;color:#8a94a3"><strong>Good To Know:</strong> Each disc stacks to 1, like a vanilla music disc.</span></p></div></div><div style="flex:1;min-width:200px;border:1px solid #8a94a3;border-radius:16px"><div style="background-color:#15803d;color:#ffffff;border-radius:16px;font-size:16px;line-height:2.2"><strong>&nbsp;&nbsp;Survival Crafting</strong></div><div style="margin-left:12px;margin-right:12px"><p><span>Craft each disc at a Crafting Table. Top row: Paper, Coal, Paper. Middle row: Flint, Note Block, Flint. Bottom row: Paper, the accent item, Paper.</span><br><span style="font-size:13px;color:#8a94a3"><strong>How It Works:</strong> The accent item picks the track: Redstone Dust for Track 1, Lapis Lazuli for Track 2, Amethyst Shard for Track 3, Glowstone Dust for Track 4, Copper Ingot for Track 5.</span><br><span style="font-size:13px;color:#8a94a3"><strong>Good To Know:</strong> All five recipes are unlocked from the start, so no cheats and no recipe discovery are needed.</span></p></div></div><div style="flex:1;min-width:200px;border:1px solid #8a94a3;border-radius:16px"><div style="background-color:#15803d;color:#ffffff;border-radius:16px;font-size:16px;line-height:2.2"><strong>&nbsp;&nbsp;Jukebox Playback</strong></div><div style="margin-left:12px;margin-right:12px"><p><span>Use a disc on a Jukebox to play it, and use the Jukebox again to take the disc back out. Note particles rise from the Jukebox while a track plays.</span><br><span style="font-size:13px;color:#8a94a3"><strong>Good To Know:</strong> Breaking the Jukebox or taking the disc out ends the track.</span></p></div></div><div style="flex:1;min-width:200px;border:1px solid #8a94a3;border-radius:16px"><div style="background-color:#15803d;color:#ffffff;border-radius:16px;font-size:16px;line-height:2.2"><strong>&nbsp;&nbsp;ALN Wireless Headphones Support</strong></div><div style="margin-left:12px;margin-right:12px"><p><span>When a disc starts or stops, the pack announces the track number, the track name and its length so ALN Wireless Headphones can show them.</span><br><span style="font-size:13px;color:#8a94a3"><strong>Good To Know:</strong> This has not been tested together with ALN Wireless Headphones in game.</span></p></div></div><div style="flex:1;min-width:200px;border:1px solid #8a94a3;border-radius:16px"><div style="background-color:#15803d;color:#ffffff;border-radius:16px;font-size:16px;line-height:2.2"><strong>&nbsp;&nbsp;Make Your Own Discs</strong></div><div style="margin-left:12px;margin-right:12px"><p><span>The free web tool at https://alnstudios-more-discs.vercel.app is meant to turn your own audio files into a personal pack on your own device.</span><br><span style="font-size:13px;color:#8a94a3"><strong>Good To Know:</strong> ALNStudios only distributes the five original tracks. Audio you convert yourself must be for private, personal play, and you are responsible for having the right to use it.</span></p></div></div></div>
+<h2 style="font-size:17px;text-align:left"><span style="background-color:#15803d;color:#ffffff;border-radius:20px">&nbsp;&nbsp;Get Started&nbsp;&nbsp;</span></h2>
+<table style="width:100%;border:1px solid #8a94a3;border-radius:16px"><tbody><tr><td style="width:44px;text-align:center"><div style="background-color:#15803d;color:#ffffff;font-weight:bold;font-size:15px;text-align:center;border-radius:10px;width:30px;aspect-ratio:1/1;line-height:30px">1</div></td><td style="text-align:left;">Open the Crafting Table and craft a disc with the recipe above.</td></tr><tr><td style="width:44px;text-align:center"><div style="background-color:#15803d;color:#ffffff;font-weight:bold;font-size:15px;text-align:center;border-radius:10px;width:30px;aspect-ratio:1/1;line-height:30px">2</div></td><td style="text-align:left;">Right-click a Jukebox while holding the disc.</td></tr><tr><td style="width:44px;text-align:center"><div style="background-color:#15803d;color:#ffffff;font-weight:bold;font-size:15px;text-align:center;border-radius:10px;width:30px;aspect-ratio:1/1;line-height:30px">3</div></td><td style="text-align:left;">Listen for the track and watch the note particles rise from the Jukebox.</td></tr><tr><td style="width:44px;text-align:center"><div style="background-color:#15803d;color:#ffffff;font-weight:bold;font-size:15px;text-align:center;border-radius:10px;width:30px;aspect-ratio:1/1;line-height:30px">4</div></td><td style="text-align:left;">Right-click the Jukebox again to take the disc out and stop the track.</td></tr></tbody></table>
+<h2 style="font-size:17px;text-align:left"><span style="background-color:#15803d;color:#ffffff;border-radius:20px">&nbsp;&nbsp;Common Questions&nbsp;&nbsp;</span></h2>
+<div class="spoiler" title="Do I need cheats to get the discs?" data-title="Do I need cheats to get the discs?"><p><strong>Do I need cheats to get the discs?</strong><br>No. All five discs are craftable in Survival and their recipes are unlocked from the start.</p></div><div class="spoiler" title="Can I use my own music?" data-title="Can I use my own music?"><p><strong>Can I use my own music?</strong><br>ALNStudios ships only the five original tracks. The linked web tool is the route for personal packs, for private use only.</p></div>
+<h2 style="font-size:17px;text-align:left"><span style="background-color:#15803d;color:#ffffff;border-radius:20px">&nbsp;&nbsp;Install&nbsp;&nbsp;</span></h2>
+<table style="width:100%;border:1px solid #8a94a3;border-radius:16px"><tbody><tr><td style="width:44px;text-align:center"><div style="background-color:#15803d;color:#ffffff;font-weight:bold;font-size:15px;text-align:center;border-radius:10px;width:30px;aspect-ratio:1/1;line-height:30px">1</div></td><td style="text-align:left;">Download the file from this page and open it with Minecraft.</td></tr><tr><td style="width:44px;text-align:center"><div style="background-color:#15803d;color:#ffffff;font-weight:bold;font-size:15px;text-align:center;border-radius:10px;width:30px;aspect-ratio:1/1;line-height:30px">2</div></td><td style="text-align:left;">Create or edit a world and turn on the new pack(s) in its settings.</td></tr><tr><td style="width:44px;text-align:center"><div style="background-color:#15803d;color:#ffffff;font-weight:bold;font-size:15px;text-align:center;border-radius:10px;width:30px;aspect-ratio:1/1;line-height:30px">3</div></td><td style="text-align:left;">Play. No Experimental toggles needed.</td></tr></tbody></table>
+<h2 style="font-size:17px;text-align:left"><span style="background-color:#15803d;color:#ffffff;border-radius:20px">&nbsp;&nbsp;Support&nbsp;&nbsp;</span></h2><div style="border:1px solid #8a94a3;border-radius:16px;text-align:center"><br><a href="https://ko-fi.com/alnstudios"><img src="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/assets/Images/ko-fi.png" alt="Support ALNStudios on Ko-fi" width="250"></a><br><br></div><p style="text-align:center"><a href="https://www.curseforge.com/members/allenscreations/projects"><strong>CurseForge</strong></a> &nbsp;|&nbsp; <a href="https://mcpedl.com/user/alnstudios/"><strong>MCPEDL</strong></a> &nbsp;|&nbsp; <a href="https://ko-fi.com/alnstudios"><strong>Ko-fi</strong></a></p>
+<hr>
+<p style="text-align:center;color:#8a94a3;font-size:13px"><strong>By ALNStudios</strong></p>
+<div class="spoiler"><p style="font-size:13px"><strong>Permissions and credits</strong></p><ul style="font-size:13px"><li>Rights: All rights reserved for ALNStudios.</li><li>Content creators: You may feature this creation in videos and streams with credit to ALNStudios.</li><li>Redistribution: Do not re-upload this pack or provide direct monetized download bypasses. Link to this page.</li><li>Unofficial community creation. Not an official Minecraft product and not approved by or associated with Mojang or Microsoft.</li></ul></div>
+<p style="text-align:center;color:#8a94a3;font-size:12px">Minecraft Bedrock add-on, ALN MoreDiscs Bedrock mod, custom music discs, Jukebox music, Note Block recipe, Minecraft PE survival, MCPEDL add-on, CurseForge Bedrock, ALNStudios.</p></div>
+```
+
+## AI Image Prompts
+
+### Reference Images
+
+- **Logo reference**: attach your own logo. The generator uses it only for brand colors and mood. The result must be a new design, not a copy.
+- **Snapshot references**: attach 1 to 4 of your in-game snapshots of this pack. The generator copies their look, not their screen layout.
+
+### Logo Prompt
+
+```text
+Use the attached logo only as a brand reference for its color palette and overall mood. Do not copy it. Create a new, original logo with a different composition and a different main symbol. Do not just recolor, resize, crop, mirror or tweak the attached logo.
+Create a clean, square (1:1) logo image for the Minecraft Bedrock add-on "ALN MoreDiscs". Craft five original music discs, each with its own 58 to 85 second track, and play them in a Jukebox in Survival.
+Base the main symbol on the pack idea above. Match the blocky look of the attached in-game snapshots. Center the logo, use a simple background, and keep it readable at small sizes.
+Text: "ALN MoreDiscs" and, in small letters, "ALNStudios". ALNStudios is the brand name, so always keep it and never remove or change it. Spell both exactly.
+Do not add Minecraft, Mojang or Microsoft logos, watermarks, or characters from other games.
+```
+
+### Banner Prompt
+
+```text
+Create a wide (16:9) banner image for the Minecraft Bedrock add-on "ALN MoreDiscs". Craft five original music discs, each with its own 58 to 85 second track, and play them in a Jukebox in Survival.
+Use the attached in-game snapshots as scene and style references: copy their blocky look, lighting, colors and the kind of scenery they show. Make a new composition inspired by them. Do not copy the on-screen HUD, chat or hotbar.
+Use the attached logo only as a brand reference for its colors and mood. Do not copy it. Put a new, original logo design in the banner, large enough to read, on the left or center.
+Hint at these pack features visually: Five Original Tracks, Survival Crafting, Jukebox Playback, ALN Wireless Headphones Support, Make Your Own Discs.
+Text: "ALN MoreDiscs" and, in small letters, "by ALNStudios". ALNStudios is the brand name, so always keep it and never remove or change it. Spell both exactly.
+Leave clear space around the logo. No Minecraft, Mojang or Microsoft logos, no watermarks.
+```
