@@ -2,6 +2,12 @@
 
 ---
 
+## [1.0.9] - 2026-11-16 - Silk Touch and Pixel Text
+
+### Improved & Balanced
+- **Silk Touch safe**: Mining with Silk Touch now drops the block once. The Loot booster no longer multiplies it.
+- **Pixel text**: The Booster menus now use the Pixelify Sans pixel font. Enable the Redesigned UI Resource Pack together with the Behavior Pack.
+
 ## [1.0.8] - 2026-11-16 - Book Only Trigger
 
 ### Improved & Balanced

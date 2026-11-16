@@ -1,10 +1,11 @@
 import { world, system, EntityComponentTypes } from "@minecraft/server";
 import { ActionFormData, ModalFormData, FormCancelationReason } from "@minecraft/server-ui";
+import { pixelify } from "./lib/pixelify.js";
 
 const PACK_NAME = "2-in-1 Loot & XP Booster";
-const VERSION = "1.0.8";
-const TITLE = `§l§6@ALNStudios §e${PACK_NAME}§r (v${VERSION})`;
-const ABOUT_TITLE = "About ALNStudios";
+const VERSION = "1.0.9";
+const TITLE = `§l§6${pixelify("@ALNStudios")} §e${pixelify(PACK_NAME)}§r ${pixelify(`(v${VERSION})`)}`;
+const ABOUT_TITLE = pixelify("About ALNStudios");
 const ICON_MAIN = "textures/items/experience_bottle";
 const ICON_ABOUT = "textures/items/name_tag";
 const ICON_EXIT = "textures/items/door_wood";
@@ -75,6 +76,16 @@ function isLootBlock(typeId) {
   return typeId.endsWith("_ore") || LOOT_BLOCKS.has(typeId);
 }
 
+function hasSilkTouch(itemStack) {
+  if (!itemStack) return false;
+  try {
+    const enchantable = itemStack.getComponent("minecraft:enchantable");
+    return Boolean(enchantable && enchantable.hasEnchantment("minecraft:silk_touch"));
+  } catch (error) {
+    return false;
+  }
+}
+
 function statusLine(player) {
   const boost = getBoost(player);
   const loot = LOOT_LEVELS[boost.loot];
@@ -84,7 +95,7 @@ function statusLine(player) {
 }
 
 function bold(text) {
-  return `§l${text}§r`;
+  return `§l${pixelify(text)}§r`;
 }
 
 function addIfSupported(form, method, ...args) {
@@ -115,7 +126,7 @@ async function showForm(player, form) {
 async function mainScreen(player) {
   const form = new ActionFormData()
     .title(TITLE)
-    .body(`Tune your boosters.\n${statusLine(player)}`)
+    .body(pixelify(`Tune your boosters.\n${statusLine(player)}`))
     .button(bold("XP & Loot Booster"), ICON_MAIN)
     .button(bold("About"), ICON_ABOUT)
     .button(bold("Exit"), ICON_EXIT);
@@ -134,14 +145,14 @@ async function boosterScreen(player) {
   const boost = getBoost(player);
   const form = new ModalFormData().title(TITLE);
   addIfSupported(form, "header", bold("XP & Loot Booster"));
-  addIfSupported(form, "label", statusLine(player));
+  addIfSupported(form, "label", pixelify(statusLine(player)));
   addIfSupported(form, "divider");
   form.toggle(bold("Boosters On"), { defaultValue: boost.on });
   addIfSupported(form, "divider");
-  addIfSupported(form, "label", `Loot slider 1 to ${LOOT_LEVELS.length} = ${levelText(LOOT_LEVELS)}`);
+  addIfSupported(form, "label", pixelify(`Loot slider 1 to ${LOOT_LEVELS.length} = ${levelText(LOOT_LEVELS)}`));
   form.slider(bold("Loot Booster"), 1, LOOT_LEVELS.length, { defaultValue: boost.loot + 1, valueStep: 1 });
   addIfSupported(form, "divider");
-  addIfSupported(form, "label", `XP slider 1 to ${XP_LEVELS.length} = ${levelText(XP_LEVELS)}`);
+  addIfSupported(form, "label", pixelify(`XP slider 1 to ${XP_LEVELS.length} = ${levelText(XP_LEVELS)}`));
   form.slider(bold("XP Booster"), 1, XP_LEVELS.length, { defaultValue: boost.xp + 1, valueStep: 1 });
   addIfSupported(form, "divider");
   addIfSupported(form, "submitButton", bold("Apply"));
@@ -184,7 +195,7 @@ async function aboutScreen(player) {
     "",
     "Unofficial community creation, not approved by or associated with Mojang or Microsoft.",
   ];
-  const form = new ActionFormData().title(ABOUT_TITLE).body(lines.join("\n")).button(bold("Back"));
+  const form = new ActionFormData().title(ABOUT_TITLE).body(pixelify(lines.join("\n"))).button(bold("Back"));
   await showForm(player, form);
   return "main";
 }
@@ -280,10 +291,11 @@ function multiplyDrops(dimension, center, radius, maxMultiplier) {
 }
 
 world.afterEvents.playerBreakBlock.subscribe((event) => {
-  const { player, block, brokenBlockPermutation, dimension } = event;
+  const { player, block, brokenBlockPermutation, dimension, itemStackBeforeBreak } = event;
   const maxMultiplier = lootMultiplier(player);
   if (maxMultiplier <= 1) return;
   if (!isLootBlock(brokenBlockPermutation.type.id)) return;
+  if (hasSilkTouch(itemStackBeforeBreak)) return;
 
   const origin = block.location;
   const center = { x: origin.x + 0.5, y: origin.y + 0.5, z: origin.z + 0.5 };

@@ -29,7 +29,7 @@ You rename a Book to Booster on an anvil and right-click with it. A menu opens w
 
 ### Loot Drop Booster
 - **What Happens**: Drag the Loot slider across six levels, 1x, 2x, 4x, 8x, 16x and 32x, for ores, crops and other Fortune-style blocks you break and for mobs you kill.
-- **Good To Know**: Each drop rolls a random bonus up to the level you pick. It works like a Fortune and Looting bonus, but with its own random roll. Ores, ancient debris, gilded blackstone, amethyst clusters, glowstone, sea lanterns, melons, nether wart, sweet berries, wheat, carrots, potatoes, beetroot and mob loot are multiplied, so normal blocks such as dirt, stone and wood drop as usual, and unstackable items such as tools are left alone.
+- **Good To Know**: Each drop rolls a random bonus up to the level you pick. It works like a Fortune and Looting bonus, but with its own random roll. Ores, ancient debris, gilded blackstone, amethyst clusters, glowstone, sea lanterns, melons, nether wart, sweet berries, wheat, carrots, potatoes, beetroot and mob loot are multiplied, so normal blocks such as dirt, stone and wood drop as usual, and unstackable items such as tools are left alone. Mining with Silk Touch drops the block once and is never multiplied. Fortune still works, and the booster multiplies on top of it.
 
 ### XP Gain Booster
 - **What Happens**: Drag the XP slider across seven levels, from 1x up to 64x, and nearby XP orbs are multiplied by that exact amount.
@@ -39,8 +39,8 @@ You rename a Book to Booster on an anvil and right-click with it. A menu opens w
 - **What Happens**: The About button shows the creator, the add-on version, a short note on both packs, the CurseForge and MCPEDL profiles and an unofficial-product notice.
 
 ### Redesigned UI
-- **What Happens**: A small Resource Pack named Redesigned UI gives the Booster menus the ALNStudios look, with a dark panel, a blue border, a gold title and icon buttons.
-- **Good To Know**: Enable the Resource Pack together with the Behavior Pack.
+- **What Happens**: A small Resource Pack named Redesigned UI gives the Booster menus the ALNStudios look, with a dark panel, a blue border, a gold title, pixel-style text and icon buttons.
+- **Good To Know**: Enable the Resource Pack together with the Behavior Pack. Without it the menu text will not display correctly.
 
 ## How to Use
 
@@ -51,7 +51,7 @@ You rename a Book to Booster on an anvil and right-click with it. A menu opens w
 ## Common Questions
 
 - **Does the multiplier apply to other players?**: No. Each player chooses their own Loot and XP multipliers.
-- **Can I turn it off?**: Yes. Set both boosters back to Normal.
+- **Can I turn it off?**: Yes. Open XP & Loot Booster, switch Boosters Off and press Apply. Your levels are kept.
 
 ## Compatibility
 
