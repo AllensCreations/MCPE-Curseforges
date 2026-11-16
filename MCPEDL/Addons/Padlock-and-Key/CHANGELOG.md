@@ -2,9 +2,12 @@
 
 ---
 
-## [1.0.8] - 2026-11-16 - Lighter Lock Checks
+## [1.4.2] - 2026-11-16
+
+**What's new in v1.4.2:** Packed with the v1.0.8 update. Includes: Lighter Lock Checks.
 
 ### Improved & Balanced
+
 - **Lighter Lock Checks**: Explosions, Pistons, Hopper Minecart checks and lock cleanup now do far less work. Worlds with many locks or large redstone farms run smoother.
 
 ## [1.0.7] - 2026-11-16 - Piston Safety and Iron Door Feel
@@ -21,6 +24,8 @@
 - **Pistons Unlocked Blocks**: Pushing or pulling a locked block with a Piston no longer leaves it unlocked.
 - **Copper Chest Pairs**: A Copper Chest next to a locked Copper Chest now counts as part of the same lock.
 
+
+
 ## [1.0.7] - 2026-11-15 - Piston Safety and Iron Door Feel
 
 ### Added
@@ -35,18 +40,24 @@
 - **Pistons Unlocked Blocks**: Pushing or pulling a locked block with a Piston no longer leaves it unlocked.
 - **Copper Chest Pairs**: A Copper Chest next to a locked Copper Chest now counts as part of the same lock.
 
-## [1.0.4.2] - 2026-11-11
+
+
+## [1.4.2] - 2026-11-11
 
 ### Improved & Balanced
 - **Immovable Locks**: Pistons can no longer push or pull a locked block or the block under a locked container. Locked blocks stay where they are.
 
-## [1.0.4.1] - 2026-11-11
+
+
+## [1.4.1] - 2026-11-11
 
 ### Added
 - **Hopper Minecart Guard**: A Hopper Minecart that ends up under a locked container is destroyed, so it can no longer pull items from it.
 
 ### Fixed
 - **Pistons Keep Locks**: Locked blocks pushed or pulled by a Piston now keep their lock instead of becoming public.
+
+
 
 ## [1.0.4] - 2026-11-10
 
@@ -59,16 +70,22 @@
 ### Fixed
 - **Floor Check**: Locking no longer asks for a solid block when another block already sits under the container. Open air, liquids, Hoppers and rails under it still stop the lock.
 
+
+
 ## [1.0.3] - 2026-11-10
 
 ### Added
 - **Locked Floor**: The block directly under a locked container can no longer be broken or blown up until the lock is removed.
 - **Solid Floor Needed**: A container can only be locked when a solid block sits under it, so hoppers and hopper minecart rails cannot be placed there.
 
+
+
 ## [1.0.2] - 2026-11-10
 
 ### Added
 - **Blast Protection**: Explosions no longer destroy locked blocks. Everything around them can still be damaged.
+
+
 
 ## [1.0.1] - 2026-11-10
 
@@ -80,6 +97,8 @@
 ### Improved & Balanced
 - **Subtext Messages**: Lock, unlock, denied and copy messages now show above your hotbar instead of in chat.
 - **Break With Key**: A locked block can now be broken while you hold its matching Key. The lock is removed, the Key disperses, and the Padlock returns. Without the Key, the block still cannot be broken.
+
+
 
 ## [1.0.0] - 2026-11-10
 
