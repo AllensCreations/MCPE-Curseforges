@@ -4,6 +4,8 @@
 
 ## [1.13.2] - 2026-11-16
 
+**What's new in v1.13.2:** Packed with the v1.13.2 update.
+
 ### Fixed
 
 - **Abyssal Tide in Shipwrecks**: Shipwreck Treasure now uses the correct loot table name so Abyssal Tide can be added to those chests.
@@ -31,6 +33,8 @@
 - Shipwreck loot table renamed to shipwreck_treasure.json so Abyssal Tide can generate.
 - Removed circular dependency (resource pack no longer depends on the behavior pack).
 
+
+
 ## [1.13.0] - 2026-11-04
 
 ### Improved & Balanced
@@ -39,11 +43,15 @@
 
 
 
+
+
 ## [1.12.0] - 2026-10-29
 
 ### Improved & Balanced
 
 - **Maintenance release**: Repackaged the pack; no gameplay changes were recorded.
+
+
 
 
 
@@ -57,9 +65,13 @@
 
 
 
+
+
 ## [1.5.0] - 2026-10-19
 
 ---
+
+
 
 
 
@@ -78,12 +90,16 @@
 
 
 
+
+
 ## [1.2.0] - 2026-10-15
 
   - Confined Void Phantom protection strictly to The End dimension (The End).
   - Initial integration of ground-proximity cushion landing.
 
 ---
+
+
 
 
 
@@ -107,6 +123,8 @@
 - **Void Phantom Rescue:** Improved emergency rescue behavior in the Overworld, The End, and the Nether, with a safer landing and brief Slow Falling protection.
 
 ---
+
+
 
 
 
