@@ -1,15 +1,23 @@
 # Changelog — 2-in-1 Loot & XP Booster
 
-## [1.0.10] - 2026-11-16
+## [1.0.11] - 2026-11-16 - Direct XP and Fair Drops
 
 ### Improved & Balanced
+- **Exact XP**: The XP booster now adds the extra XP straight to you instead of spawning extra orbs, so the amount is exact and there is far less lag. XP orbs are no longer pulled to you instantly.
+- **Your XP only**: Other players' XP orbs are never touched.
+- **Real mobs only**: Armor stands, boats and minecarts are no longer treated as mob loot.
+- **Fair drops**: Block and mob drops now go to the nearest player who caused them, so nobody multiplies another player's drops on a shared server.
+
+<details>
+<summary><b>1.0.x</b> (8 releases)</summary>
+
+### [1.0.10] - 2026-11-16
+
+#### Improved & Balanced
 - **Normal font restored**: The Booster menus use the normal Minecraft font again. The pixel font and its files are removed.
 - **Silk Touch safe**: Mining with Silk Touch now drops the block once. The Loot booster no longer multiplies it.
 - **Pixel text**: The Booster menus now use the Pixelify Sans pixel font. Enable the Redesigned UI Resource Pack together with the Behavior Pack.
 - **Book only**: The Booster menu now opens only from a plain Book renamed to Booster. A Book and Quill no longer opens it.
-
-<details>
-<summary><b>1.0.x</b> (7 releases)</summary>
 
 ### [1.0.7] - 2026-11-16
 
