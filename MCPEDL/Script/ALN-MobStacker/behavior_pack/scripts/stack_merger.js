@@ -1,20 +1,26 @@
 import { system, world } from "@minecraft/server";
 import {
   DIMENSION_IDS,
+  JOBS_PER_TICK,
+  MAX_ENTITIES_PER_JOB,
   MAX_STACK_SIZE,
   MERGE_INTERVAL_TICKS,
   MERGE_RADIUS,
+  PERSISTENT_TAG,
   STACKABLE_MOBS,
   applyStack,
   getStackCount,
   isStackExcluded,
   mergeKey,
   readMeta,
-  rememberStack,
+  restoreAppearance,
+  spawnOptionsFor,
   stackCache,
 } from "./stack_config.js";
 
 const RADIUS_SQUARED = MERGE_RADIUS * MERGE_RADIUS;
+const queue = [];
+const cursors = new Map();
 
 function cellOf(location) {
   return [
@@ -26,6 +32,29 @@ function cellOf(location) {
 
 function cellKey(x, y, z) {
   return x + "," + y + "," + z;
+}
+
+function placeHost(host, total) {
+  const entity = host.entity;
+  if (entity.hasTag(PERSISTENT_TAG)) {
+    applyStack(entity, total, host.meta);
+    return;
+  }
+  let fresh;
+  try {
+    fresh = entity.dimension.spawnEntity(entity.typeId, host.location, spawnOptionsFor(entity.typeId, host.meta, true));
+  } catch (error) {
+    fresh = undefined;
+  }
+  if (!fresh) {
+    applyStack(entity, total, host.meta);
+    return;
+  }
+  restoreAppearance(fresh, host.meta);
+  fresh.addTag(PERSISTENT_TAG);
+  stackCache.delete(entity.id);
+  entity.remove();
+  applyStack(fresh, total, host.meta);
 }
 
 function mergeGroup(group) {
@@ -67,62 +96,75 @@ function mergeGroup(group) {
         }
       }
     }
-    if (absorbed > 0 && host.entity.isValid) {
-      applyStack(host.entity, total, host.meta);
-    } else if (host.count > 1 && host.entity.isValid) {
-      rememberStack(host.entity, host.count, host.meta);
+    if (host.entity.isValid && (absorbed > 0 || host.count > 1)) {
+      placeHost(host, total);
     }
   }
 }
 
-function mergeDimension(dimension) {
-  for (const typeId of STACKABLE_MOBS) {
-    let entities;
+function runJob(job) {
+  let entities = job.dimension.getEntities({ type: job.typeId });
+  if (entities.length === 0) return;
+  if (entities.length > MAX_ENTITIES_PER_JOB) {
+    const key = job.dimension.id + "|" + job.typeId;
+    const start = (cursors.get(key) ?? 0) % entities.length;
+    const end = start + MAX_ENTITIES_PER_JOB;
+    cursors.set(key, end >= entities.length ? 0 : end);
+    entities = entities.slice(start, end);
+  }
+  const groups = new Map();
+  for (const entity of entities) {
     try {
-      entities = dimension.getEntities({ type: typeId });
+      if (!entity.isValid || isStackExcluded(entity)) continue;
+      const meta = readMeta(entity);
+      const location = entity.location;
+      const key = mergeKey(job.typeId, meta);
+      if (!groups.has(key)) groups.set(key, []);
+      groups.get(key).push({
+        entity,
+        meta,
+        location,
+        cell: cellOf(location),
+        count: getStackCount(entity),
+      });
     } catch (error) {
       continue;
     }
-    if (entities.length === 0) continue;
-    const groups = new Map();
-    for (const entity of entities) {
-      try {
-        if (!entity.isValid || isStackExcluded(entity)) continue;
-        const meta = readMeta(entity);
-        const location = entity.location;
-        const key = mergeKey(typeId, meta);
-        if (!groups.has(key)) groups.set(key, []);
-        groups.get(key).push({
-          entity,
-          meta,
-          location,
-          cell: cellOf(location),
-          count: getStackCount(entity),
-        });
-      } catch (error) {
-        continue;
-      }
+  }
+  for (const group of groups.values()) {
+    try {
+      mergeGroup(group);
+    } catch (error) {
+      continue;
     }
-    for (const group of groups.values()) {
-      try {
-        mergeGroup(group);
-      } catch (error) {
-        continue;
-      }
+  }
+}
+
+function buildQueue() {
+  if (queue.length > 0) return;
+  for (const id of DIMENSION_IDS) {
+    try {
+      const dimension = world.getDimension(id);
+      if (dimension.getPlayers().length === 0) continue;
+      for (const typeId of STACKABLE_MOBS) queue.push({ dimension, typeId });
+    } catch (error) {
+      continue;
     }
   }
 }
 
 export function startMerger() {
+  system.runInterval(buildQueue, MERGE_INTERVAL_TICKS);
+
   system.runInterval(() => {
-    for (const id of DIMENSION_IDS) {
+    for (let i = 0; i < JOBS_PER_TICK && queue.length > 0; i++) {
       try {
-        mergeDimension(world.getDimension(id));
+        runJob(queue.shift());
       } catch (error) {
         continue;
       }
     }
-  }, MERGE_INTERVAL_TICKS);
+  }, 1);
 
   world.afterEvents.entityRemove.subscribe((event) => {
     stackCache.delete(event.removedEntityId);

@@ -6,6 +6,9 @@ export const MERGE_INTERVAL_TICKS = 25;
 export const STACK_COUNT_PROPERTY = "aln_stack_count";
 export const STACK_TAG = "aln_stacked_mob";
 export const NAME_PREFIX = "§6[x";
+export const PERSISTENT_TAG = "aln_persistent_host";
+export const JOBS_PER_TICK = 4;
+export const MAX_ENTITIES_PER_JOB = 300;
 export const DIMENSION_IDS = ["overworld", "nether", "the_end"];
 
 const FARM_ANIMALS = [
@@ -102,16 +105,30 @@ export const LOOT = {
   "minecraft:pig": { xp: [1, 3], drops: [["minecraft:porkchop", 1, 3]] },
   "minecraft:sheep": { xp: [1, 3], drops: [["minecraft:muttonRaw", 1, 2]] },
   "minecraft:chicken": { xp: [1, 3], drops: [["minecraft:feather", 0, 2], ["minecraft:chicken", 1, 1]] },
-  "minecraft:rabbit": { xp: [1, 3], drops: [["minecraft:rabbit_hide", 0, 1], ["minecraft:rabbit", 0, 1]] },
+  "minecraft:rabbit": {
+    xp: [1, 3],
+    drops: [["minecraft:rabbit_hide", 0, 1], ["minecraft:rabbit", 0, 1]],
+    rare: [{ ids: ["minecraft:rabbit_foot"], chance: 0.1, bonus: 0.03 }],
+  },
   "minecraft:mooshroom": { xp: [1, 3], drops: [["minecraft:leather", 0, 2], ["minecraft:beef", 1, 3]] },
   "minecraft:goat": { xp: [1, 3], drops: [] },
   "minecraft:frog": { xp: [1, 3], drops: [] },
-  "minecraft:zombie": { xp: [5, 5], babyXp: 12, drops: [["minecraft:rotten_flesh", 0, 2]] },
+  "minecraft:zombie": {
+    xp: [5, 5],
+    babyXp: 12,
+    drops: [["minecraft:rotten_flesh", 0, 2]],
+    rare: [{ ids: ["minecraft:iron_ingot", "minecraft:carrot", "minecraft:potato"], chance: 0.025, bonus: 0.01 }],
+  },
   "minecraft:skeleton": { xp: [5, 5], drops: [["minecraft:arrow", 0, 2], ["minecraft:bone", 0, 2]] },
   "minecraft:spider": { xp: [5, 5], drops: [["minecraft:string", 0, 2], ["minecraft:spider_eye", 0, 1]] },
   "minecraft:cave_spider": { xp: [5, 5], drops: [["minecraft:string", 0, 2], ["minecraft:spider_eye", 0, 1]] },
   "minecraft:creeper": { xp: [5, 5], drops: [["minecraft:gunpowder", 0, 2]] },
-  "minecraft:drowned": { xp: [5, 5], babyXp: 12, drops: [["minecraft:rotten_flesh", 0, 2]] },
+  "minecraft:drowned": {
+    xp: [5, 5],
+    babyXp: 12,
+    drops: [["minecraft:rotten_flesh", 0, 2]],
+    rare: [{ ids: ["minecraft:copper_ingot"], chance: 0.11, bonus: 0.02 }],
+  },
   "minecraft:husk": { xp: [5, 5], babyXp: 12, drops: [["minecraft:rotten_flesh", 0, 2]] },
   "minecraft:stray": { xp: [5, 5], drops: [["minecraft:arrow", 0, 2], ["minecraft:bone", 0, 2]] },
   "minecraft:blaze": { xp: [10, 10], drops: [["minecraft:blaze_rod", 0, 1]] },
@@ -137,8 +154,20 @@ export const LOOT = {
     xp: [5, 5],
     babyXp: 12,
     drops: [["minecraft:rotten_flesh", 0, 1], ["minecraft:gold_nugget", 0, 1]],
+    rare: [{ ids: ["minecraft:gold_ingot"], chance: 0.025, bonus: 0.01 }],
   },
-  "minecraft:guardian": { xp: [10, 10], drops: [["minecraft:prismarine_shard", 0, 2]] },
+  "minecraft:guardian": {
+    xp: [10, 10],
+    drops: [["minecraft:prismarine_shard", 0, 2]],
+    rolled: {
+      rolls: [1, 1],
+      entries: [
+        ["minecraft:fish", 1, 1, 2],
+        ["minecraft:prismarine_crystals", 1, 1, 2],
+        [null, 0, 0, 1],
+      ],
+    },
+  },
   "minecraft:bogged": { xp: [5, 5], drops: [["minecraft:arrow", 0, 2], ["minecraft:bone", 0, 2]] },
   "minecraft:breeze": { xp: [10, 10], drops: [["minecraft:breeze_rod", 1, 2]] },
 };

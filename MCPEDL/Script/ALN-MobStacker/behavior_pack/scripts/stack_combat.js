@@ -3,6 +3,7 @@ import {
   COOKED_BY_RAW,
   FARM_ANIMAL_SET,
   LOOT,
+  PERSISTENT_TAG,
   STACKABLE_MOBS,
   STACK_COUNT_PROPERTY,
   WOOL_BY_COLOR,
@@ -26,7 +27,7 @@ function lootMultiplier(looting) {
 }
 
 function addTotal(totals, id, amount) {
-  if (amount > 0) totals.set(id, (totals.get(id) ?? 0) + amount);
+  if (id && amount > 0) totals.set(id, (totals.get(id) ?? 0) + amount);
 }
 
 function pickWeighted(entries) {
@@ -49,6 +50,13 @@ function rollUnit(typeId, def, meta, looting, totals) {
     for (let r = 0; r < rolls; r++) {
       const entry = pickWeighted(def.rolled.entries);
       addTotal(totals, entry[0], randomInt(entry[1], entry[2]) * lootMultiplier(looting));
+    }
+  }
+  if (def.rare) {
+    for (const rare of def.rare) {
+      if (Math.random() < rare.chance + rare.bonus * looting) {
+        addTotal(totals, rare.ids[randomInt(0, rare.ids.length - 1)], 1);
+      }
     }
   }
   if (typeId === "minecraft:sheep" && !meta.sheared) {
@@ -177,7 +185,10 @@ function readDeadStack(dead) {
 function respawnStack(dimension, typeId, location, remaining, meta) {
   const entity = dimension.spawnEntity(typeId, location, spawnOptionsFor(typeId, meta, remaining > 1));
   restoreAppearance(entity, meta);
-  if (remaining > 1) applyStack(entity, remaining, meta);
+  if (remaining > 1) {
+    entity.addTag(PERSISTENT_TAG);
+    applyStack(entity, remaining, meta);
+  }
 }
 
 function handleDeath(event) {

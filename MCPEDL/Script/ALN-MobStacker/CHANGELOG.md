@@ -2,6 +2,18 @@
 
 ---
 
+## [1.0.2] - 2026-11-16 - Persistent Stacks
+
+### Added
+- **Rare Drops**: A Sneak Kill now rolls the rare drops of Rabbits (Rabbit's Foot), Zombies (Iron Ingot, Carrot or Potato), Zombified Piglins (Gold Ingot) and Drowned (Copper Ingot) at their vanilla chances, raised by Looting.
+
+### Improved & Balanced
+- **Persistent Stacks**: Merged stacks are now spawned to stay in the world, so they should not despawn when you walk away.
+- **Batched Merging**: Merging is now done in small batches and skips dimensions with no players, so large farms should cause less stutter.
+
+### Fixed
+- **Guardian Drops**: A Sneak Kill on a stack of Guardians now includes Raw Fish and Prismarine Crystals.
+
 ## [1.0.1] - 2026-11-16 - Gear Safe Stacking
 
 ### Added
