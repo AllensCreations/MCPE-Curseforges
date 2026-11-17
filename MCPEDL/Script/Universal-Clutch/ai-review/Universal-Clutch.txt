@@ -4,8 +4,8 @@
 
 - **Export request:** `MCPEDL/Script/Universal-Clutch`
 - **Destination:** `MCPEDL/Script/Universal-Clutch`
-- **CURRENT VERSION: 1.5.5 / NEXT UPDATE: 1.5.6**  (`MCPEDL/Script/Universal-Clutch/CHANGELOG.md`)
-- **Text files:** 15
+- **CURRENT VERSION: 1.5.6 / NEXT UPDATE: 1.5.7**  (`MCPEDL/Script/Universal-Clutch/CHANGELOG.md`)
+- **Text files:** 16
 - **Skipped binary:** 4
 - **Paths not found:** 0
 
@@ -26,6 +26,7 @@
 - `MCPEDL/Script/Universal-Clutch/DESCRIPTION.md`
 - `MCPEDL/Script/Universal-Clutch/project.json`
 - `MCPEDL/Script/Universal-Clutch/README.md`
+- `MCPEDL/Script/Universal-Clutch/sync_modes.py`
 
 ### Skipped (binary)
 
@@ -198,28 +199,34 @@ git config --global credential.helper store
 
 ## File Contents
 
-## FILE: changelog_views/Universal-Clutch.curseforge.html (3 lines, 3016 bytes)
+## FILE: changelog_views/Universal-Clutch.curseforge.html (3 lines, 3304 bytes)
 
 ```
-<h2>1.5.5 - 2026-11-17 - Instant Boat Clutch</h2><h3>Improved &amp; Balanced</h3><ul><li><strong>Instant Boat Seating</strong>: The boat is placed and you are seated in it at the same moment.</li></ul><h3>Fixed</h3><ul><li><strong>Boat After Death</strong>: Fixed being moved into the boat after respawning when you died during a boat clutch.</li></ul>
-<h2>1.5.x (4 releases)</h2><div class="spoiler"><h3>1.5.4 - 2026-11-17</h3><h4>Improved &amp; Balanced</h4><ul><li><strong>Closer to Vanilla</strong>: Clutch items now trigger at most about 7 blocks above the ground, closer to normal play.</li><li><strong>Boat Reach</strong>: The boat now appears up to 7 blocks above the ground.</li><li><strong>Earlier Placement</strong>: Clutch items are now placed from higher above the ground, giving you more time to land on them.</li><li><strong>Boat Timing</strong>: The boat now appears higher above the ground and seats you later, in time with your fall.</li></ul><h4>Fixed</h4><ul><li><strong>Late Placement</strong>: Fixed falls that ended before the clutch item was placed.</li><li><strong>Landing Inside Blocks</strong>: Fixed landing inside a placed block instead of on top of it.</li></ul><h3>1.5.2 - 2026-11-14</h3><h4>Added</h4><ul><li><strong>On/Off Command</strong>: Each player can turn Universal Clutch off or on with /scriptevent clutch:off and /scriptevent clutch:on. The choice is saved per player.</li></ul><h4>Improved &amp; Balanced</h4><ul><li><strong>Natural Falling</strong>: The camera is never moved or forced, and your falling speed is no longer reset.</li><li><strong>Extreme Mode</strong>: Now works without looking down.</li></ul><h3>1.5.1 - 2026-11-14</h3><h4>Improved &amp; Balanced</h4><ul><li><strong>Script Pack</strong>: Universal Clutch is now released as a Script pack (.mcpack).</li><li><strong>Default Mode</strong>: Full Mode is now the default subpack on every device.</li><li><strong>Safer Landings</strong>: No item is used when you would land in water, lava, or on a soft block.</li><li><strong>Totem Fail-Safe</strong>: The Totem of Undying is only equipped when the fall would be fatal, and keeps its name and data.</li><li><strong>Creative and Spectator</strong>: Clutching no longer triggers in Creative or Spectator mode.</li></ul><h4>Fixed</h4><ul><li><strong>Twisting Vines</strong>: Twisting Vines are now recognized as a clutch item.</li><li><strong>Waterlogging</strong>: Removed the waterlogging claim; water is always placed in the air block above the ground.</li><li><strong>Fall Height</strong>: Fall height no longer carries over after swimming, gliding, or leaving the game.</li><li><strong>Water Recovery</strong>: Fixed an error when a player left within a moment of landing.</li><li><strong>Minimum Version</strong>: The Behavior Pack now requires Minecraft 1.21.20 or newer.</li></ul><h3>1.5.0 - 2026-10-29</h3><h4>Improved &amp; Balanced</h4><ul><li><strong>Changelog started</strong>: Version history is recorded from this release onward.</li></ul></div>
+<h2>1.5.6 - 2026-11-17 - Lighter Performance</h2><h3>Improved &amp; Balanced</h3><ul><li><strong>Lighter Performance</strong>: Universal Clutch does less work for players who are not falling.</li><li><strong>Extreme Mode</strong>: Checks your inventory less often during a fall.</li></ul>
+<h2>1.5.x (5 releases)</h2><div class="spoiler"><h3>1.5.5 - 2026-11-17 - Instant Boat Clutch</h3><h4>Improved &amp; Balanced</h4><ul><li><strong>Instant Boat Seating</strong>: The boat is placed and you are seated in it at the same moment.</li></ul><h4>Fixed</h4><ul><li><strong>Boat After Death</strong>: Fixed being moved into the boat after respawning when you died during a boat clutch.</li></ul><h3>1.5.4 - 2026-11-17</h3><h4>Improved &amp; Balanced</h4><ul><li><strong>Closer to Vanilla</strong>: Clutch items now trigger at most about 7 blocks above the ground, closer to normal play.</li><li><strong>Boat Reach</strong>: The boat now appears up to 7 blocks above the ground.</li><li><strong>Earlier Placement</strong>: Clutch items are now placed from higher above the ground, giving you more time to land on them.</li><li><strong>Boat Timing</strong>: The boat now appears higher above the ground and seats you later, in time with your fall.</li></ul><h4>Fixed</h4><ul><li><strong>Late Placement</strong>: Fixed falls that ended before the clutch item was placed.</li><li><strong>Landing Inside Blocks</strong>: Fixed landing inside a placed block instead of on top of it.</li></ul><h3>1.5.2 - 2026-11-14</h3><h4>Added</h4><ul><li><strong>On/Off Command</strong>: Each player can turn Universal Clutch off or on with /scriptevent clutch:off and /scriptevent clutch:on. The choice is saved per player.</li></ul><h4>Improved &amp; Balanced</h4><ul><li><strong>Natural Falling</strong>: The camera is never moved or forced, and your falling speed is no longer reset.</li><li><strong>Extreme Mode</strong>: Now works without looking down.</li></ul><h3>1.5.1 - 2026-11-14</h3><h4>Improved &amp; Balanced</h4><ul><li><strong>Script Pack</strong>: Universal Clutch is now released as a Script pack (.mcpack).</li><li><strong>Default Mode</strong>: Full Mode is now the default subpack on every device.</li><li><strong>Safer Landings</strong>: No item is used when you would land in water, lava, or on a soft block.</li><li><strong>Totem Fail-Safe</strong>: The Totem of Undying is only equipped when the fall would be fatal, and keeps its name and data.</li><li><strong>Creative and Spectator</strong>: Clutching no longer triggers in Creative or Spectator mode.</li></ul><h4>Fixed</h4><ul><li><strong>Twisting Vines</strong>: Twisting Vines are now recognized as a clutch item.</li><li><strong>Waterlogging</strong>: Removed the waterlogging claim; water is always placed in the air block above the ground.</li><li><strong>Fall Height</strong>: Fall height no longer carries over after swimming, gliding, or leaving the game.</li><li><strong>Water Recovery</strong>: Fixed an error when a player left within a moment of landing.</li><li><strong>Minimum Version</strong>: The Behavior Pack now requires Minecraft 1.21.20 or newer.</li></ul><h3>1.5.0 - 2026-10-29</h3><h4>Improved &amp; Balanced</h4><ul><li><strong>Changelog started</strong>: Version history is recorded from this release onward.</li></ul></div>
 ```
 
-## FILE: changelog_views/Universal-Clutch.github.md (57 lines, 2516 bytes)
+## FILE: changelog_views/Universal-Clutch.github.md (63 lines, 2751 bytes)
 
 ```
 # Changelog — Universal Clutch
 
-## [1.5.5] - 2026-11-17 - Instant Boat Clutch
+## [1.5.6] - 2026-11-17 - Lighter Performance
 
 ### Improved & Balanced
-- **Instant Boat Seating**: The boat is placed and you are seated in it at the same moment.
-
-### Fixed
-- **Boat After Death**: Fixed being moved into the boat after respawning when you died during a boat clutch.
+- **Lighter Performance**: Universal Clutch does less work for players who are not falling.
+- **Extreme Mode**: Checks your inventory less often during a fall.
 
 <details>
-<summary><b>1.5.x</b> (4 releases)</summary>
+<summary><b>1.5.x</b> (5 releases)</summary>
+
+### [1.5.5] - 2026-11-17 - Instant Boat Clutch
+
+#### Improved & Balanced
+- **Instant Boat Seating**: The boat is placed and you are seated in it at the same moment.
+
+#### Fixed
+- **Boat After Death**: Fixed being moved into the boat after respawning when you died during a boat clutch.
 
 ### [1.5.4] - 2026-11-17
 
@@ -349,7 +356,7 @@ Standalone Minecraft Bedrock Script packs by ALNStudios. Script projects use the
 | Target HUD Entity Inspector | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Script/Target-HUD-Entity-Inspector/) | [MCPACK](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Target-HUD-Entity-Inspector/TargetHUD%20V1.1.2.mcpack) |
 | Waypoint Helper | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Script/Waypoint-Helper/) | [MCPACK](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Waypoint-Helper/WaypointHelper%20V1.1.10.mcaddon) |
 | Always Critical | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Script/Always-Critical/) | [MCPACK](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Always-Critical/AlwaysCritical%20V1.0.0.mcpack) |
-| Universal Clutch | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Script/Universal-Clutch) | [MCPACK](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Universal-Clutch/UniversalClutch%20V1.5.5.mcpack) |
+| Universal Clutch | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Script/Universal-Clutch) | [MCPACK](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Universal-Clutch/UniversalClutch%20V1.5.6.mcpack) |
 | Living SMP Chat | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Script/Living-SMP-Chat/) | [MCPACK](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Living-SMP-Chat/LivingSMPChat%20V1.0.11.mcpack) |
 | Gameplay Optimizer | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Script/Gameplay-Optimizer/) | [MCPACK](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Gameplay-Optimizer/GameplayOptimizer%20V1.0.0.mcpack) |
 | ALNMobStacker | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Script/ALN-MobStacker/) | [MCPACK](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/ALN-MobStacker/ALNMobStacker%20V1.0.5.mcpack) |
@@ -385,13 +392,13 @@ Videos and streams are welcome with credit. Redistribution of original or modifi
 {
   "format_version": 2,
   "header": {
-    "name": "Universal Clutch (v1.5.5)",
+    "name": "Universal Clutch (v1.5.6)",
     "description": "Vanilla-faithful automatic clutch placements when falling from dangerous heights. Choose between Full Mode, Simple Mode, and Extreme Mode in subpack settings. by ALNStudios",
     "uuid": "a452fcb1-dd72-41b0-aed0-273201968225",
     "version": [
       1,
       5,
-      5
+      6
     ],
     "min_engine_version": [
       1,
@@ -407,7 +414,7 @@ Videos and streams are welcome with credit. Redistribution of original or modifi
       "version": [
         1,
         5,
-        5
+        6
       ]
     },
     {
@@ -418,7 +425,7 @@ Videos and streams are welcome with credit. Redistribution of original or modifi
       "version": [
         1,
         5,
-        5
+        6
       ],
       "entry": "scripts/main.js"
     }
@@ -451,12 +458,12 @@ Videos and streams are welcome with credit. Redistribution of original or modifi
       "ALNStudios"
     ],
     "product_type": "addon",
-    "version": "1.5.5"
+    "version": "1.5.6"
   }
 }
 ```
 
-## FILE: MCPEDL/Script/Universal-Clutch/behavior_pack/scripts/main.js (707 lines, 23152 bytes)
+## FILE: MCPEDL/Script/Universal-Clutch/behavior_pack/scripts/main.js (722 lines, 23661 bytes)
 
 ```
 import { world, system, ItemStack } from "@minecraft/server";
@@ -1073,6 +1080,15 @@ system.runInterval(() => {
         continue;
       }
 
+      let notFalling = true;
+      try {
+        notFalling = vel.y > -0.15 || player.isOnGround;
+      } catch {}
+      if (notFalling) {
+        fallTrackers.delete(player.id);
+        continue;
+      }
+
       let blocked = false;
       try {
         blocked = player.isGliding || player.isInWater || player.isSwimming;
@@ -1100,7 +1116,13 @@ system.runInterval(() => {
       const fallSpeed = Math.abs(vel.y);
 
       if (mode === "extreme") {
-        if (!hasAnyClutchItem(player) && !hasTotemOfUndying(player)) continue;
+        if (tracker) {
+          if (tracker.itemTick === undefined || currentTick - tracker.itemTick >= 10) {
+            tracker.hasItems = hasAnyClutchItem(player) || hasTotemOfUndying(player);
+            tracker.itemTick = currentTick;
+          }
+          if (!tracker.hasItems) continue;
+        } else if (!hasAnyClutchItem(player) && !hasTotemOfUndying(player)) continue;
       }
 
       if (currentTick - (lastClutchTick.get(player.id) ?? -100) < 25) continue;
@@ -1167,7 +1189,7 @@ system.afterEvents.scriptEventReceive.subscribe((event) => {
 });
 ```
 
-## FILE: MCPEDL/Script/Universal-Clutch/behavior_pack/subpacks/extreme_mode/scripts/main.js (707 lines, 23155 bytes)
+## FILE: MCPEDL/Script/Universal-Clutch/behavior_pack/subpacks/extreme_mode/scripts/main.js (722 lines, 23664 bytes)
 
 ```
 import { world, system, ItemStack } from "@minecraft/server";
@@ -1784,6 +1806,15 @@ system.runInterval(() => {
         continue;
       }
 
+      let notFalling = true;
+      try {
+        notFalling = vel.y > -0.15 || player.isOnGround;
+      } catch {}
+      if (notFalling) {
+        fallTrackers.delete(player.id);
+        continue;
+      }
+
       let blocked = false;
       try {
         blocked = player.isGliding || player.isInWater || player.isSwimming;
@@ -1811,7 +1842,13 @@ system.runInterval(() => {
       const fallSpeed = Math.abs(vel.y);
 
       if (mode === "extreme") {
-        if (!hasAnyClutchItem(player) && !hasTotemOfUndying(player)) continue;
+        if (tracker) {
+          if (tracker.itemTick === undefined || currentTick - tracker.itemTick >= 10) {
+            tracker.hasItems = hasAnyClutchItem(player) || hasTotemOfUndying(player);
+            tracker.itemTick = currentTick;
+          }
+          if (!tracker.hasItems) continue;
+        } else if (!hasAnyClutchItem(player) && !hasTotemOfUndying(player)) continue;
       }
 
       if (currentTick - (lastClutchTick.get(player.id) ?? -100) < 25) continue;
@@ -1878,7 +1915,7 @@ system.afterEvents.scriptEventReceive.subscribe((event) => {
 });
 ```
 
-## FILE: MCPEDL/Script/Universal-Clutch/behavior_pack/subpacks/full_mode/scripts/main.js (707 lines, 23152 bytes)
+## FILE: MCPEDL/Script/Universal-Clutch/behavior_pack/subpacks/full_mode/scripts/main.js (722 lines, 23661 bytes)
 
 ```
 import { world, system, ItemStack } from "@minecraft/server";
@@ -2495,6 +2532,15 @@ system.runInterval(() => {
         continue;
       }
 
+      let notFalling = true;
+      try {
+        notFalling = vel.y > -0.15 || player.isOnGround;
+      } catch {}
+      if (notFalling) {
+        fallTrackers.delete(player.id);
+        continue;
+      }
+
       let blocked = false;
       try {
         blocked = player.isGliding || player.isInWater || player.isSwimming;
@@ -2522,7 +2568,13 @@ system.runInterval(() => {
       const fallSpeed = Math.abs(vel.y);
 
       if (mode === "extreme") {
-        if (!hasAnyClutchItem(player) && !hasTotemOfUndying(player)) continue;
+        if (tracker) {
+          if (tracker.itemTick === undefined || currentTick - tracker.itemTick >= 10) {
+            tracker.hasItems = hasAnyClutchItem(player) || hasTotemOfUndying(player);
+            tracker.itemTick = currentTick;
+          }
+          if (!tracker.hasItems) continue;
+        } else if (!hasAnyClutchItem(player) && !hasTotemOfUndying(player)) continue;
       }
 
       if (currentTick - (lastClutchTick.get(player.id) ?? -100) < 25) continue;
@@ -2589,7 +2641,7 @@ system.afterEvents.scriptEventReceive.subscribe((event) => {
 });
 ```
 
-## FILE: MCPEDL/Script/Universal-Clutch/behavior_pack/subpacks/simple_mode/scripts/main.js (707 lines, 23154 bytes)
+## FILE: MCPEDL/Script/Universal-Clutch/behavior_pack/subpacks/simple_mode/scripts/main.js (722 lines, 23663 bytes)
 
 ```
 import { world, system, ItemStack } from "@minecraft/server";
@@ -3206,6 +3258,15 @@ system.runInterval(() => {
         continue;
       }
 
+      let notFalling = true;
+      try {
+        notFalling = vel.y > -0.15 || player.isOnGround;
+      } catch {}
+      if (notFalling) {
+        fallTrackers.delete(player.id);
+        continue;
+      }
+
       let blocked = false;
       try {
         blocked = player.isGliding || player.isInWater || player.isSwimming;
@@ -3233,7 +3294,13 @@ system.runInterval(() => {
       const fallSpeed = Math.abs(vel.y);
 
       if (mode === "extreme") {
-        if (!hasAnyClutchItem(player) && !hasTotemOfUndying(player)) continue;
+        if (tracker) {
+          if (tracker.itemTick === undefined || currentTick - tracker.itemTick >= 10) {
+            tracker.hasItems = hasAnyClutchItem(player) || hasTotemOfUndying(player);
+            tracker.itemTick = currentTick;
+          }
+          if (!tracker.hasItems) continue;
+        } else if (!hasAnyClutchItem(player) && !hasTotemOfUndying(player)) continue;
       }
 
       if (currentTick - (lastClutchTick.get(player.id) ?? -100) < 25) continue;
@@ -3300,12 +3367,19 @@ system.afterEvents.scriptEventReceive.subscribe((event) => {
 });
 ```
 
-## FILE: MCPEDL/Script/Universal-Clutch/CHANGELOG.md (73 lines, 2651 bytes)
+## FILE: MCPEDL/Script/Universal-Clutch/CHANGELOG.md (80 lines, 2884 bytes)
 
 ```
 # Changelog — Universal Clutch
 
 ---
+
+## [1.5.6] - 2026-11-17 - Lighter Performance
+
+### Improved & Balanced
+
+- **Lighter Performance**: Universal Clutch does less work for players who are not falling.
+- **Extreme Mode**: Checks your inventory less often during a fall.
 
 ## [1.5.5] - 2026-11-17 - Instant Boat Clutch
 
@@ -3571,7 +3645,7 @@ Download the current release of **Universal Clutch** for Minecraft Bedrock Editi
 ## Download
 
 - **Package format:** `.mcpack`
-- **Direct download:** [Download Universal Clutch (.mcpack)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Universal-Clutch/UniversalClutch%20V1.5.5.mcpack)
+- **Direct download:** [Download Universal Clutch (.mcpack)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Universal-Clutch/UniversalClutch%20V1.5.6.mcpack)
 
 ## Installation
 
@@ -3582,4 +3656,35 @@ Download the current release of **Universal Clutch** for Minecraft Bedrock Editi
 ## Pack Information
 
 For gameplay features, usage details, compatibility notes, and other project information, read the [full description](https://github.com/AllensCreations/MCPE-Curseforges/blob/main/MCPEDL/Script/Universal-Clutch/DESCRIPTION.md).
+```
+
+## FILE: MCPEDL/Script/Universal-Clutch/sync_modes.py (27 lines, 972 bytes)
+
+```
+#!/usr/bin/env python3
+"""Regenerate the subpack main.js copies from behavior_pack/scripts/main.js.
+
+Edit only behavior_pack/scripts/main.js, then run this script. The Full, Simple
+and Extreme copies differ from it only in the DEFAULT_MODE line.
+"""
+import os
+import sys
+
+root = os.path.dirname(os.path.abspath(__file__))
+base_path = os.path.join(root, "behavior_pack", "scripts", "main.js")
+
+with open(base_path, encoding="utf-8", newline="") as f:
+    src = f.read()
+
+marker = 'const DEFAULT_MODE = "full";'
+if src.count(marker) != 1:
+    sys.exit("Base main.js must contain exactly one: " + marker)
+
+for mode in ("full", "simple", "extreme"):
+    out = src.replace(marker, 'const DEFAULT_MODE = "%s";' % mode)
+    path = os.path.join(root, "behavior_pack", "subpacks", mode + "_mode", "scripts", "main.js")
+    os.makedirs(os.path.dirname(path), exist_ok=True)
+    with open(path, "w", encoding="utf-8", newline="") as f:
+        f.write(out)
+    print("synced", mode)
 ```
