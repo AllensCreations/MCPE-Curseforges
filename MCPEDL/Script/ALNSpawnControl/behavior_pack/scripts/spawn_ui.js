@@ -74,23 +74,24 @@ function openMainMenu(player) {
   }
 
   const form = new ActionFormData();
-  form.title("§2§lALN:SpawnControl");
+  form.title("ALN: Spawn Control");
   form.body(
-    `§7Manage world mob spawns with precision.\n\n` +
-    `§fActive Status:\n` +
-    `§a✔ Allowed: §f${allowedCount} mobs\n` +
-    `§c✖ Blocked: §f${blockedCount} mobs\n` +
-    `§e⚡ Blocked Spawns This Session: §f${getBlockedCount()}\n` +
-    `§b⚙ Filter Mode: §f${config.blockSpawnEggs ? "All Sources (Inc. Eggs)" : "Natural Only"}\n` +
-    `§d🔒 Admin Tag Lock: §f${config.adminOnly ? "Enabled" : "Disabled"}`
+    `Manage world mob spawns with precision.\n\n` +
+    `Active Status:\n` +
+    `✔ Allowed: ${allowedCount} mobs\n` +
+    `✖ Blocked: ${blockedCount} mobs\n` +
+    `⚡ Blocked Spawns This Session: ${getBlockedCount()}\n` +
+    `⚙ Filter Mode: ${config.blockSpawnEggs ? "All Sources (Inc. Eggs)" : "Natural Only"}\n` +
+    `🔒 Admin Tag Lock: ${config.adminOnly ? "Enabled" : "Disabled"}`
   );
 
-  form.button("§1Overworld Hostiles\n§8Zombie, Creeper, Breeze...", "textures/ui/icon_hostile");
-  form.button("§2Passive & Neutral Mobs\n§8Cow, Sheep, Villager...", "textures/ui/icon_passive");
-  form.button("§4Nether & End Mobs\n§8Blaze, Ghast, Piglin...", "textures/ui/icon_nether");
-  form.button("§5Bosses & Rare Mobs\n§8Warden, Wither, Dragon...", "textures/ui/icon_boss");
-  form.button("§6⚡ Quick Presets\n§8Enable/Disable Groups", "textures/ui/icon_presets");
-  form.button("§3⚙ Global Filter Settings\n§8Mode & Admin Lock", "textures/ui/icon_settings");
+  // Buttons with no color formatting and no texture icon paths
+  form.button("Overworld Hostiles\nZombie, Creeper, Breeze...");
+  form.button("Passive & Neutral Mobs\nCow, Sheep, Villager...");
+  form.button("Nether & End Mobs\nBlaze, Ghast, Piglin...");
+  form.button("Bosses & Rare Mobs\nWarden, Wither, Dragon...");
+  form.button("⚡ Quick Presets\nEnable/Disable Groups");
+  form.button("⚙ Global Filter Settings\nMode & Admin Lock");
 
   form.show(player).then((response) => {
     if (response.canceled) {
