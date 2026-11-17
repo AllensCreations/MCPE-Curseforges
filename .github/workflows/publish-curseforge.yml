@@ -48,6 +48,7 @@ on:
           - "MCPEDL/Minigame/Shared-Hivemind-Inventory"
           - "MCPEDL/Minigame/Tethered-Breaker-And-Builder"
           - "MCPEDL/Script/ALNSpawnControl"
+          - "MCPEDL/Script/Command-Vault"
           - "MCPEDL/Script/Living-SMP-Chat"
           - "MCPEDL/Script/Target-HUD-Entity-Inspector"
           - "MCPEDL/Script/Universal-Clutch"

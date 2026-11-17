@@ -94,6 +94,9 @@
     "last_published_version": "1.0.0",
     "last_release_version": "0.0.0"
   },
+  "MCPEDL/Script/Command-Vault": {
+    "project_id": "1813175"
+  },
   "MCPEDL/Script/Living-SMP-Chat": {
     "project_id": "1806402",
     "last_published_version": "1.0.11",
