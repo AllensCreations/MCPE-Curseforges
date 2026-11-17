@@ -192,19 +192,19 @@ git config --global credential.helper store
 
 ## File Contents
 
-## FILE: changelog_views/Command-Vault.curseforge.html (3 lines, 839 bytes)
+## FILE: changelog_views/Command-Vault.curseforge.html (3 lines, 814 bytes)
 
 ```
-<h2>2.0.0 - 2026-11-18 - Delete Command Feature</h2><h3>Added</h3><ul><li><strong>Delete Command Button</strong>: New main menu button opens a multi-select modal form.</li><li><strong>Multi-Toggle Deletion Form</strong>: Individual toggle per saved command; delete multiple macros in one operation.</li><li><strong>Batch Delete Feedback</strong>: Action bar shows count deleted and plays a break sound on success.</li></ul>
+<h2>2.0.0 - 2026-11-17</h2><h3>Added</h3><ul><li><strong>Delete Command Button</strong>: New main menu button opens a multi-select modal form.</li><li><strong>Multi-Toggle Deletion Form</strong>: Individual toggle per saved command; delete multiple macros in one operation.</li><li><strong>Batch Delete Feedback</strong>: Action bar shows count deleted and plays a break sound on success.</li></ul>
 <h2>1.0.x (1 release)</h2><div class="spoiler"><h3>1.0.0 - 2026-11-18</h3><h4>Added</h4><ul><li><strong>Command Vault Form UI</strong>: Action and modal menus for saving, browsing, and executing command macros.</li><li><strong>Dynamic Property Storage</strong>: Persistent per-player command list storage.</li><li><strong>Anvil Key Activation</strong>: Trigger the menu using an Anvil-renamed book.</li></ul></div>
 ```
 
-## FILE: changelog_views/Command-Vault.github.md (21 lines, 741 bytes)
+## FILE: changelog_views/Command-Vault.github.md (21 lines, 716 bytes)
 
 ```
 # Changelog — Command Vault
 
-## [2.0.0] - 2026-11-18 - Delete Command Feature
+## [2.0.0] - 2026-11-17
 
 ### Added
 - **Delete Command Button**: New main menu button opens a multi-select modal form.
@@ -633,16 +633,19 @@ world.afterEvents.itemUse.subscribe((event) => {
 });
 ```
 
-## FILE: MCPEDL/Script/Command-Vault/CHANGELOG.md (18 lines, 677 bytes)
+## FILE: MCPEDL/Script/Command-Vault/CHANGELOG.md (21 lines, 745 bytes)
 
 ```
 # Changelog — Command Vault
 
 ---
 
-## [2.0.0] - 2026-11-18 - Delete Command Feature
+## [2.0.0] - 2026-11-17
+
+**What's new in v2.0.0:** Packed with the v2.0.0 update. Includes: Delete Command Feature.
 
 ### Added
+
 - **Delete Command Button**: New main menu button opens a multi-select modal form.
 - **Multi-Toggle Deletion Form**: Individual toggle per saved command; delete multiple macros in one operation.
 - **Batch Delete Feedback**: Action bar shows count deleted and plays a break sound on success.

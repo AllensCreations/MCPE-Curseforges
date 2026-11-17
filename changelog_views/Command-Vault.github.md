@@ -1,6 +1,6 @@
 # Changelog — Command Vault
 
-## [2.0.0] - 2026-11-18 - Delete Command Feature
+## [2.0.0] - 2026-11-17
 
 ### Added
 - **Delete Command Button**: New main menu button opens a multi-select modal form.
