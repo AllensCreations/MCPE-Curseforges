@@ -2,6 +2,15 @@
 
 ---
 
+## [1.0.4] - 2026-11-17 - Separate Baby Stacks
+
+### Improved & Balanced
+- **Baby and Adult Stacks**: Babies and adults of every mob type stay in separate stacks again, and a killed stack mob is replaced by the same kind.
+- **Zombie Variants**: Zombies, Husks, Drowned and Zombified Piglins each keep their own stack, and armored ones stay separate again.
+
+### Fixed
+- **Random Babies**: Adult stacks no longer turn into random baby mobs when a mob is killed.
+
 ## [1.0.3] - 2026-11-17 - Mixed Zombie Stacks
 
 ### Added

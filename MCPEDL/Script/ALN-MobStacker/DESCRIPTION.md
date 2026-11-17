@@ -24,13 +24,13 @@ Build a farm or grinder as usual. Mobs of the same kind that stand close togethe
 - **What Happens**: Farm animals: Cow, Pig, Sheep, Chicken, Rabbit, Mooshroom, Goat, Frog. Grinder mobs: Zombie, Skeleton, Spider, Cave Spider, Creeper, Drowned, Husk, Stray, Blaze, Magma Cube, Slime, Enderman, Witch, Zombified Piglin, Guardian, Bogged, Breeze.
 
 ### Merge Rules
-- **What Happens**: Adults merge with adults and babies merge with babies, except Zombies, Husks, Drowned and Zombified Piglins, which share one stack of babies and adults. Sheep merge only with sheep of the same color and shear state, and slimes and magma cubes merge only with the same size.
-- **Good To Know**: Tamed mobs, leashed mobs and mobs you named with a Name Tag never merge into a stack. Other mobs wearing armor or holding items stay separate, except Zombies, Husks, Drowned and Zombified Piglins, which merge and lose their gear. Skeletons, Strays and Boggeds holding only their bow still merge.
+- **What Happens**: Adults merge with adults and babies merge with babies, and the two never share a stack. Zombies, Husks, Drowned and Zombified Piglins each keep their own stacks. Sheep merge only with sheep of the same color and shear state, and slimes and magma cubes merge only with the same size.
+- **Good To Know**: Tamed mobs, leashed mobs and mobs you named with a Name Tag never merge into a stack. Mobs wearing armor or holding items stay separate, including armored Zombies. Skeletons, Strays and Boggeds holding only their bow still merge.
 
 ### One-by-One Unpeeling
 - **What Happens**: Killing a stacked mob normally removes one mob from the stack. The stack stays in place with its count lowered by one, and the mob you killed drops its normal loot.
 - **How It Works**: Mobs that die to fall damage, lava, fire or a trident lose one from the stack each time, so a grinder keeps working on the same stack.
-- **Good To Know**: Each Zombie, Husk, Drowned or Zombified Piglin that replaces a killed one is a fresh random spawn, so it can be a baby or wear armor at the usual chances of a normal spawn.
+- **Good To Know**: A baby stack is replaced by a baby and an adult stack by an adult, so a stack never turns into the other kind.
 
 ### Sneak Kill
 - **What Happens**: Sneak while you kill a stacked mob and the whole remaining stack is cleared at once. The extra mobs drop their loot and experience together, and an action bar message shows the stack size, mob name and Looting level.

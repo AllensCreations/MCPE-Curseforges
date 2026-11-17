@@ -45,13 +45,18 @@ const GRINDER_MOBS = [
 export const STACKABLE_MOBS = new Set([...FARM_ANIMALS, ...GRINDER_MOBS]);
 export const FARM_ANIMAL_SET = new Set(FARM_ANIMALS);
 
-export const MIXED_SPAWN_MOBS = new Set([
-  "minecraft:zombie",
-  "minecraft:husk",
-  "minecraft:drowned",
-  "minecraft:zombie_pigman",
-]);
-export const MIXED_BABY_CHANCE = 0.05;
+export const MAX_SPAWN_TRIES = 8;
+
+const ADULT_SPAWN_EVENTS = {
+  "minecraft:cow": "minecraft:spawn_adult",
+  "minecraft:pig": "minecraft:spawn_adult",
+  "minecraft:chicken": "minecraft:spawn_adult",
+  "minecraft:sheep": "spawn_adult",
+  "minecraft:zombie": "minecraft:as_adult",
+  "minecraft:husk": "minecraft:as_adult",
+  "minecraft:drowned": "minecraft:as_adult",
+  "minecraft:zombie_pigman": "spawn_adult",
+};
 
 const NAME_OVERRIDES = {
   "minecraft:zombie_pigman": "Zombified Piglin",
@@ -211,7 +216,7 @@ export function readMeta(entity) {
   const mark = component(entity, EntityComponentTypes.MarkVariant);
   const skin = component(entity, EntityComponentTypes.SkinId);
   return {
-    isBaby: !MIXED_SPAWN_MOBS.has(entity.typeId) && component(entity, EntityComponentTypes.IsBaby) !== undefined,
+    isBaby: component(entity, EntityComponentTypes.IsBaby) !== undefined,
     sheared: component(entity, EntityComponentTypes.IsSheared) !== undefined,
     charged: component(entity, EntityComponentTypes.IsCharged) !== undefined,
     color: color ? color.value : -1,
@@ -243,7 +248,7 @@ function hasGear(entity) {
 
 export function isStackExcluded(entity) {
   if (component(entity, EntityComponentTypes.IsTamed) !== undefined) return true;
-  if (!MIXED_SPAWN_MOBS.has(entity.typeId) && hasGear(entity)) return true;
+  if (!entity.hasTag(STACK_TAG) && hasGear(entity)) return true;
   const leash = component(entity, EntityComponentTypes.Leashable);
   if (leash && leash.isLeashed) return true;
   const name = entity.nameTag;
@@ -288,7 +293,19 @@ export function spawnOptionsFor(typeId, meta, persistent) {
   } else if (meta.variant > 0 && SLIME_SIZE_EVENTS[meta.variant] && (typeId === "minecraft:slime" || typeId === "minecraft:magma_cube")) {
     options.spawnEvent = SLIME_SIZE_EVENTS[meta.variant];
   }
+  if (!options.spawnEvent && ADULT_SPAWN_EVENTS[typeId]) options.spawnEvent = ADULT_SPAWN_EVENTS[typeId];
   return options;
+}
+
+export function spawnMatching(dimension, typeId, location, meta, persistent) {
+  const options = spawnOptionsFor(typeId, meta, persistent);
+  for (let attempt = 0; attempt < MAX_SPAWN_TRIES; attempt++) {
+    const entity = dimension.spawnEntity(typeId, location, options);
+    const isBaby = component(entity, EntityComponentTypes.IsBaby) !== undefined;
+    if (isBaby === meta.isBaby) return entity;
+    entity.remove();
+  }
+  return dimension.spawnEntity(typeId, location, options);
 }
 
 export function restoreAppearance(entity, meta) {

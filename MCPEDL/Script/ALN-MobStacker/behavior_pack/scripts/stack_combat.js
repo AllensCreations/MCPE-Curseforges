@@ -3,8 +3,6 @@ import {
   COOKED_BY_RAW,
   FARM_ANIMAL_SET,
   LOOT,
-  MIXED_BABY_CHANCE,
-  MIXED_SPAWN_MOBS,
   PERSISTENT_TAG,
   STACKABLE_MOBS,
   STACK_COUNT_PROPERTY,
@@ -13,7 +11,7 @@ import {
   mobName,
   readMeta,
   restoreAppearance,
-  spawnOptionsFor,
+  spawnMatching,
   stackCache,
 } from "./stack_config.js";
 
@@ -70,9 +68,7 @@ function rollUnit(typeId, def, meta, looting, totals) {
 function rollExperience(def, meta) {
   if (FARM_ANIMAL_SET.has(def.typeId) && meta.isBaby) return 0;
   if (def.xp === "variant") return meta.variant > 0 ? meta.variant : 1;
-  if (def.babyXp && (meta.isBaby || (MIXED_SPAWN_MOBS.has(def.typeId) && Math.random() < MIXED_BABY_CHANCE))) {
-    return def.babyXp;
-  }
+  if (meta.isBaby && def.babyXp) return def.babyXp;
   return randomInt(def.xp[0], def.xp[1]);
 }
 
@@ -187,7 +183,7 @@ function readDeadStack(dead) {
 }
 
 function respawnStack(dimension, typeId, location, remaining, meta) {
-  const entity = dimension.spawnEntity(typeId, location, spawnOptionsFor(typeId, meta, remaining > 1));
+  const entity = spawnMatching(dimension, typeId, location, meta, remaining > 1);
   restoreAppearance(entity, meta);
   if (remaining > 1) {
     entity.addTag(PERSISTENT_TAG);

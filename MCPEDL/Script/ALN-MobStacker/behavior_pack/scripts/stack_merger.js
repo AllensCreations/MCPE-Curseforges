@@ -14,7 +14,7 @@ import {
   mergeKey,
   readMeta,
   restoreAppearance,
-  spawnOptionsFor,
+  spawnMatching,
   stackCache,
 } from "./stack_config.js";
 
@@ -42,7 +42,7 @@ function placeHost(host, total) {
   }
   let fresh;
   try {
-    fresh = entity.dimension.spawnEntity(entity.typeId, host.location, spawnOptionsFor(entity.typeId, host.meta, true));
+    fresh = spawnMatching(entity.dimension, entity.typeId, host.location, host.meta, true);
   } catch (error) {
     fresh = undefined;
   }
