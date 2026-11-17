@@ -45,3 +45,15 @@ export function saveCommand(player, label, commandStr) {
     return { success: false, command: sanitized, message: String(err) };
   }
 }
+export function deleteCommandsByIndex(player, indicesToDelete) {
+  const current = getSavedCommands(player);
+  const deleteSet = new Set(indicesToDelete);
+  const remaining = current.filter((_, idx) => !deleteSet.has(idx));
+
+  try {
+    player.setDynamicProperty(PROP_KEY, JSON.stringify(remaining));
+    return { success: true, deletedCount: current.length - remaining.length };
+  } catch (err) {
+    return { success: false, deletedCount: 0, message: String(err) };
+  }
+}

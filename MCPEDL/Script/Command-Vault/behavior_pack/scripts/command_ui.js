@@ -1,5 +1,5 @@
 import { ActionFormData, ModalFormData } from "@minecraft/server-ui";
-import { getSavedCommands, saveCommand } from "./command_storage.js";
+import { deleteCommandsByIndex, getSavedCommands, saveCommand } from "./command_storage.js";
 
 export function openMainMenu(player) {
   const commands = getSavedCommands(player);
@@ -8,8 +8,9 @@ export function openMainMenu(player) {
     .body(`§7Saved Commands: §b${commands.length}`)
     .button("§aCreate Command", "textures/items/book_writable")
     .button("§eExecute Command", "textures/items/repeater")
+    .button("§cDelete Command", "textures/ui/cancel")
     .button("§bAbout", "textures/items/paper")
-    .button("§cExit", "textures/ui/cancel");
+    .button("§8Exit", "textures/ui/cancel");
 
   form.show(player).then((res) => {
     if (res.canceled) return;
@@ -22,9 +23,12 @@ export function openMainMenu(player) {
         openExecuteCommandScreen(player);
         break;
       case 2:
-        openAboutScreen(player);
+        openDeleteCommandScreen(player);
         break;
       case 3:
+        openAboutScreen(player);
+        break;
+      case 4:
       default:
         break;
     }
@@ -100,6 +104,55 @@ export function openExecuteCommandScreen(player) {
   }).catch(() => {});
 }
 
+export function openDeleteCommandScreen(player) {
+  const commands = getSavedCommands(player);
+  if (commands.length === 0) {
+    player.onScreenDisplay.setActionBar("§c[CommandVault] §fNo saved commands to delete!");
+    openMainMenu(player);
+    return;
+  }
+
+  const form = new ModalFormData()
+    .title("§c§lDelete Commands");
+
+  for (const c of commands) {
+    const itemLabel = (c.label && c.label !== c.command)
+      ? `${c.label} (/${c.command})`
+      : `/${c.command}`;
+    form.toggle(`Delete ${itemLabel}`, false);
+  }
+
+  form.submitButton("Delete Selected");
+
+  form.show(player).then((res) => {
+    if (res.canceled) {
+      openMainMenu(player);
+      return;
+    }
+
+    const indicesToDelete = [];
+    res.formValues.forEach((val, idx) => {
+      if (val === true) {
+        indicesToDelete.push(idx);
+      }
+    });
+
+    if (indicesToDelete.length === 0) {
+      player.onScreenDisplay.setActionBar("§e[CommandVault] §fNo commands selected for deletion.");
+    } else {
+      const result = deleteCommandsByIndex(player, indicesToDelete);
+      if (result.success) {
+        player.playSound("random.break");
+        player.onScreenDisplay.setActionBar(`§c[CommandVault] §fDeleted §e${result.deletedCount} §fcommand(s).`);
+      } else {
+        player.onScreenDisplay.setActionBar(`§c[CommandVault] §fError: ${result.message || "Failed to delete commands."}`);
+      }
+    }
+
+    openMainMenu(player);
+  }).catch(() => {});
+}
+
 export function openAboutScreen(player) {
   const form = new ActionFormData()
     .title("§b§lAbout ALN:CommandVault")
@@ -110,7 +163,8 @@ export function openAboutScreen(player) {
       "1. Rename a vanilla Book or Quill to 'Command Vault' on an Anvil.\n" +
       "2. Right-click or hold the book to open the vault menu.\n" +
       "3. Use 'Create Command' to save commands with custom labels.\n" +
-      "4. Execute saved macros directly with player command authority."
+      "4. Execute saved macros directly with player command authority.\n" +
+      "5. Use 'Delete Command' to toggle and remove multiple saved macros."
     )
     .button("§7Back to Menu", "textures/ui/refresh_light");
 

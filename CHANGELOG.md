@@ -2,6 +2,13 @@
 
 ---
 
+## [v100] - 2026-11-18 - Delete Command Feature
+
+### Added
+- **Delete Command Button**: New main menu button opens a multi-select modal form.
+- **Multi-Toggle Deletion Form**: Individual toggle per saved command; delete multiple macros in one operation.
+- **Batch Delete Feedback**: Action bar shows count deleted and plays a break sound on success.
+
 ## [v99] - 2026-11-18 - AI Review Kits (3-mode), MCPEDL Catalog Kits Table & Auto-Commit Views
 
 ### Added
