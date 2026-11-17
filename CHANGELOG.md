@@ -2,6 +2,16 @@
 
 ---
 
+## [v90] - 2026-11-17 - Higher Clutch Reach
+
+### Improved & Balanced
+
+- **Universal Clutch 1.5.3**: Clutch items and boats are now placed from higher above the ground.
+
+### Fixed
+
+- **Universal Clutch 1.5.3**: Fixed late placement and landing inside placed blocks.
+
 ## [v89] - 2026-11-17 - Gzip Bedrock Reference
 
 ### Improved & Balanced

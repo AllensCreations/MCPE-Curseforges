@@ -427,7 +427,7 @@ function placeBoatClutch(dimension, airBlock, entityType, player, distToSurface,
     if (!boat) return false;
 
     const speed = Math.max(0.5, Math.abs(fallSpeed));
-    const delayTicks = Math.max(1, Math.min(2, Math.round(distToSurface / speed)));
+    const delayTicks = Math.max(1, Math.min(5, Math.round(distToSurface / speed)));
 
     system.runTimeout(() => {
       try {
@@ -647,11 +647,11 @@ system.runInterval(() => {
       const rot = player.getRotation();
       if (mode !== "extreme" && rot.x < 55) continue;
 
-      if (distToSurface > Math.max(4.5, fallSpeed * 1.6 + 0.4)) continue;
+      if (distToSurface > Math.max(8, fallSpeed * 2.6 + 1.5)) continue;
 
       const clutchData = acquireClutchItem(player, mode);
       const isBoat = clutchData?.definition?.category === "boat";
-      const maxTrigger = isBoat ? 4.5 : Math.max(2.2, fallSpeed * 1.6 + 0.4);
+      const maxTrigger = isBoat ? 8 : Math.max(4, fallSpeed * 2.6 + 1.5);
       if (distToSurface > maxTrigger) continue;
 
       if (clutchData) {

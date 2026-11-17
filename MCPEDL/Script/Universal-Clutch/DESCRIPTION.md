@@ -34,7 +34,7 @@ When aiming down and falling beyond the configured block height threshold, the a
 - **Description**: When falling to certain death with no clutch item, automatically searches inventory and equips a Totem of Undying into the offhand slot before impact.
 
 ### Authentic Boat Placement
-- **Description**: Spawns the boat at maximum player reach distance (~4.5 blocks) first, then seats the player with a slight delay upon touchdown. Strictly no teleportation.
+- **Description**: Spawns the boat from high above the ground first, then seats the player with a slight delay upon touchdown. Strictly no teleportation.
 
 ### Timed Placement
 - **Description**: Uses velocity-based vertical raycasting to trigger placements shortly before impact rather than snapping prematurely.
@@ -79,7 +79,7 @@ When aiming down and falling beyond the configured block height threshold, the a
 
 ### Boat / Raft
 - **Placement Target**: Impact Air Coordinate
-- **Effect**: Placed at max reach distance (~4.5 blocks) first, auto-riding player with slight delay
+- **Effect**: Placed from high above the ground first, auto-riding player with slight delay
 
 ### Sweet Berries
 - **Placement Target**: Impact Air Block
@@ -112,7 +112,7 @@ Each player can turn Universal Clutch off or on with the commands `/scriptevent 
 - **Simple Mode (Held Item Only):**
   Clutch placements only trigger if you are actively holding a supported clutch item in your mainhand or offhand slot. If holding a sword, pickaxe, or empty hand, no placement will occur. Requires the player to aim downward (looking down toward the ground).
 - **Extreme Mode (Auto-Switch, No Look-Down Needed):**
-  When falling from dangerous heights, the add-on does not require you to look down, scans and auto-switches to the best available clutch item in inventory, places it 1–2 ticks before impact, and remains holding the switched item. **No-Item Limitation:** If no suitable clutch item is available, the add-on cannot assist with the fall.
+  When falling from dangerous heights, the add-on does not require you to look down, scans and auto-switches to the best available clutch item in inventory, places it shortly before impact, and remains holding the switched item. **No-Item Limitation:** If no suitable clutch item is available, the add-on cannot assist with the fall.
 
 ### Built-in Subpack Presets
 

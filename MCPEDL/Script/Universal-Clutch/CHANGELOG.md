@@ -2,6 +2,18 @@
 
 ---
 
+## [1.5.3] - 2026-11-17 - Higher Clutch Reach
+
+### Improved & Balanced
+
+- **Earlier Placement**: Clutch items are now placed from higher above the ground, giving you more time to land on them.
+- **Boat Timing**: The boat now appears higher above the ground and seats you later, in time with your fall.
+
+### Fixed
+
+- **Late Placement**: Fixed falls that ended before the clutch item was placed.
+- **Landing Inside Blocks**: Fixed landing inside a placed block instead of on top of it.
+
 ## [1.5.2] - 2026-11-14
 
 **What's new in v1.5.2:** Packed with the v1.5.2 update.
