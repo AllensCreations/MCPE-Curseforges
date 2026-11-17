@@ -2,25 +2,18 @@
 
 ---
 
-## [1.0.13] - 2026-11-16 - Drop Limit and Cleaner Menus
+## [1.0.13] - 2026-11-17
+
+**What's new in v1.0.13:** Packed with 3 updates, from v1.0.11 through v1.0.13. Includes: Drop Limit and Cleaner Menus; Orb XP Restored; Direct XP and Fair Drops.
 
 ### Improved & Balanced
 
 - **Drop limit**: Extra Loot drops are now capped per moment, which protects busy servers and big farms.
 - **Lighter farms**: The Loot booster no longer tracks item drops while nobody online has it turned on.
 - **Clean Action Bar**: Pressing Apply twice quickly no longer shows an outdated Action Bar message.
-
-## [1.0.12] - 2026-11-16 - Orb XP Restored
-
-### Improved & Balanced
-
 - **Orb XP back**: The XP booster multiplies XP orbs again, so Mending repairs your gear from the extra XP. Orbs near you are collected instantly.
 - **Your orbs only**: Only the orbs closest to you are multiplied, so other players' orbs are never touched.
 - **XP orb limit**: Extra orbs are capped per moment to protect busy servers.
-
-## [1.0.11] - 2026-11-16 - Direct XP and Fair Drops
-
-### Improved & Balanced
 - **Exact XP**: The XP booster now adds the extra XP straight to you instead of spawning extra orbs, so the amount is exact and there is far less lag. XP orbs are no longer pulled to you instantly.
 - **Your XP only**: Other players' XP orbs are never touched.
 - **Real mobs only**: Armor stands, boats and minecarts are no longer treated as mob loot.
@@ -37,6 +30,8 @@
 - **Pixel text**: The Booster menus now use the Pixelify Sans pixel font. Enable the Redesigned UI Resource Pack together with the Behavior Pack.
 - **Book only**: The Booster menu now opens only from a plain Book renamed to Booster. A Book and Quill no longer opens it.
 
+
+
 ## [1.0.7] - 2026-11-16
 
 **What's new in v1.0.7:** Packed with 2 updates, from v1.0.6 through v1.0.7. Includes: Fortune and Looting Style Loot; Ores and Mob Loot Only.
@@ -48,6 +43,8 @@
 
 
 
+
+
 ## [1.0.5] - 2026-11-16
 
 **What's new in v1.0.5:** Packed with the v1.0.5 update. Includes: Apply Closes Menu.
@@ -55,6 +52,8 @@
 ### Improved & Balanced
 
 - **Apply closes the menu**: Pressing Apply on the XP & Loot Booster screen now closes the menu instead of returning to the main menu.
+
+
 
 
 
@@ -76,6 +75,8 @@
 
 
 
+
+
 ## [1.0.3] - 2026-11-16
 
 **What's new in v1.0.3:** Packed with the v1.0.3 update. Includes: Simplified Booster Sliders.
@@ -87,6 +88,8 @@
 - **ALNStudios look**: The menus follow the ALNStudios Redesigned UI standard with a gold title, bold buttons with icons and a Back button on About.
 - **Menus keep going**: After Apply or Back the main menu opens again. Exit or the close button closes it.
 - **Action Bar feedback**: Applied settings now show on the Action Bar instead of in chat.
+
+
 
 
 
@@ -120,6 +123,8 @@
 
 
 
+
+
 ## [1.0.1] - 2026-11-12 - Redesigned Menu and Tiers
 
 ### Added
@@ -131,6 +136,8 @@
 - **Fortune-style loot**: Drops roll a random bonus up to the tier's maximum instead of always using it. Loot tops out at 32x.
 - **XP maximum**: XP can now reach 64x.
 - **Colored text**: Tier names and menu labels use distinct colors.
+
+
 
 
 
