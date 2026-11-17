@@ -118,6 +118,8 @@ if [ "$TYPE" = "map" ]; then
 fi
 python3 scripts/manifest_tools.py --project "$DEST_REAL" --align
 python3 scripts/validate_manifest_titles.py --project "$DEST_REAL"
+python3 scripts/build_listing_kits.py --project "$DEST_REAL" 2>/dev/null || true
+python3 scripts/build_changelog_views.py --project "$NAME" 2>/dev/null || true
 
 NAME="$NAME" DISPLAY_NAME="$DISPLAY_NAME" TYPE="$TYPE" python3 - <<'ALN_LOG'
 import os, pathlib, subprocess
@@ -131,7 +133,7 @@ if f"## {date} - {title}" not in t:
     p.write_text(t[:i] + "\n" + entry.rstrip("\n") + "\n" + t[i:], encoding="utf-8")
 ALN_LOG
 
-git add -A -- "$DEST_REAL" CHANGELOG.md
+git add -A -- "$DEST_REAL" CHANGELOG.md description_views/ changelog_views/
 if git diff --cached --quiet; then
   echo "Nothing to commit"
 else

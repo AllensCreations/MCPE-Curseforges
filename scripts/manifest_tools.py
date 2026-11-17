@@ -328,11 +328,11 @@ def package_basename(project_path, version_text, fallback_title):
     """File name (without extension) of the downloadable package.
 
     Title comes from the manifest header.name (fallback: the DESCRIPTION title) and the version
-    from the manifest. Default: '<Shortcut> VX.Y.Z' (see package_shortcut). Template precedence:
-    manifest metadata.package_filename, then the PACK_FILENAME_TEMPLATE variable, then
-    '{shortcut} V{version}'. Placeholders: {shortcut}, {title}, {version}, {author}. A template
-    must contain 'V{version}' and no parenthesis because the README link repair finds packages by
-    it; otherwise (including the old '(V{version})' templates) the default template is used.
+    from the manifest. Default: '<Shortcut> VX' (or '<Shortcut> VX.Y.Z'; see package_shortcut).
+    Template precedence: manifest metadata.package_filename, then the PACK_FILENAME_TEMPLATE
+    variable, then '{shortcut} V{version}'. Placeholders: {shortcut}, {title}, {version}, {author}.
+    A template must contain 'V{version}' and no parenthesis because the README link repair finds
+    packages by it; otherwise (including the old '(V{version})' templates) the default template is used.
     """
     title = manifest_title(project_path) or fallback_title
     shortcut = package_shortcut(project_path)
@@ -342,11 +342,13 @@ def package_basename(project_path, version_text, fallback_title):
     if "V{version}" not in template or "(" in template:
         print(f"WARNING: filename template {template!r} needs 'V{{version}}' without parentheses; using the default.", file=sys.stderr)
         template = DEFAULT_FILENAME_TEMPLATE
+    v_parts = str(version_text).split(".")
+    display_ver = v_parts[0] if (len(v_parts) == 3 and v_parts[1] == "0" and v_parts[2] == "0") else str(version_text)
     try:
-        name = template.format(shortcut=shortcut, title=title, version=version_text, author=AUTHOR)
+        name = template.format(shortcut=shortcut, title=title, version=display_ver, author=AUTHOR)
     except (KeyError, IndexError, ValueError):
         print(f"WARNING: bad filename template {template!r}; using the default.", file=sys.stderr)
-        name = DEFAULT_FILENAME_TEMPLATE.format(shortcut=shortcut, title=title, version=version_text, author=AUTHOR)
+        name = DEFAULT_FILENAME_TEMPLATE.format(shortcut=shortcut, title=title, version=display_ver, author=AUTHOR)
     return re.sub(r'[\\/*?:"<>|]', "", name).strip()
 
 

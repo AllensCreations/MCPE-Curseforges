@@ -2,6 +2,14 @@
 
 ---
 
+## [v101] - 2026-11-18 - Package Filename vX Scheme & Auto-Build Views on Pack Creation
+
+### Added
+- **Auto-build Views on Pack Script Execution**: `make_pack_script.py` now runs `build_listing_kits.py` and `build_changelog_views.py` when creating a new pack, staging `description_views/` and `changelog_views/` into the initial commit.
+
+### Improved & Balanced
+- **Package Filename `vX` Format**: Updated `INSTRUCTIONS.md`, `PACK_GENERATOR_INSTRUCTIONS.md`, and `manifest_tools.py` so package filenames format as `<Shortcut> VX.<ext>` (e.g. `V2` instead of `V2.0.0`) when minor and patch versions are zero, maintaining compatibility with legacy `X.Y.Z`.
+
 ## [v100] - 2026-11-18 - Delete Command Feature
 
 ### Added
