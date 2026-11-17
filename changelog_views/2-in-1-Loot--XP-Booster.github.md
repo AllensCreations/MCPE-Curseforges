@@ -1,14 +1,20 @@
 # Changelog — 2-in-1 Loot & XP Booster
 
-## [1.0.14] - 2026-11-17 - Smoother Boosters and Safer Loot
+## [1.0.15] - 2026-11-17 - Crop and Carrier Fixes
 
-### Improved & Balanced
+### Fixed
+- **Fully grown crops only**: Wheat, carrots, potatoes, beetroot, nether wart and sweet berries are multiplied only when fully grown, so replanting and breaking young crops no longer gives free items.
+- **Carrier mobs skipped**: Donkeys, mules, llamas, allays, foxes and villagers no longer multiply the items they carry when killed.
+
+<details>
+<summary><b>1.0.x</b> (10 releases)</summary>
+
+### [1.0.14] - 2026-11-17 - Smoother Boosters and Safer Loot
+
+#### Improved & Balanced
 - **No place-and-break farming**: Ancient debris, melons, glowstone and sea lanterns are no longer multiplied, because they drop themselves or can be crafted back into the same block.
 - **Lighter XP checks**: The XP booster now works out which player an orb belongs to once per pass and no longer moves orbs that are already next to you, which reduces lag in busy XP farms.
 - **Item tracking limit**: The Loot booster stops tracking new item drops once a very large number are waiting, which protects busy servers.
-
-<details>
-<summary><b>1.0.x</b> (9 releases)</summary>
 
 ### [1.0.13] - 2026-11-17
 
