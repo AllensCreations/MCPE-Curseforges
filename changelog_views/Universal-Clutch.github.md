@@ -1,19 +1,27 @@
 # Changelog — Universal Clutch
 
-## [1.5.4] - 2026-11-17
+## [1.5.5] - 2026-11-17 - Instant Boat Clutch
 
 ### Improved & Balanced
+- **Instant Boat Seating**: The boat is placed and you are seated in it at the same moment.
+
+### Fixed
+- **Boat After Death**: Fixed being moved into the boat after respawning when you died during a boat clutch.
+
+<details>
+<summary><b>1.5.x</b> (4 releases)</summary>
+
+### [1.5.4] - 2026-11-17
+
+#### Improved & Balanced
 - **Closer to Vanilla**: Clutch items now trigger at most about 7 blocks above the ground, closer to normal play.
 - **Boat Reach**: The boat now appears up to 7 blocks above the ground.
 - **Earlier Placement**: Clutch items are now placed from higher above the ground, giving you more time to land on them.
 - **Boat Timing**: The boat now appears higher above the ground and seats you later, in time with your fall.
 
-### Fixed
+#### Fixed
 - **Late Placement**: Fixed falls that ended before the clutch item was placed.
 - **Landing Inside Blocks**: Fixed landing inside a placed block instead of on top of it.
-
-<details>
-<summary><b>1.5.x</b> (3 releases)</summary>
 
 ### [1.5.2] - 2026-11-14
 
