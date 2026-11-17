@@ -2,6 +2,12 @@
 
 ---
 
+## [v93] - 2026-11-17 - Clearer Workflow Name
+
+### Improved & Balanced
+- **Clearer workflow file name**: The build workflow file is now build-and-sync.yml, because it never bumps versions. The name shown in Actions (Build Changed Packs & Sync Catalogs) is the same, and every workflow that starts it was updated.
+- **Stronger CI check**: CI now checks the YAML of every workflow file, and fails if a workflow starts another workflow by a file name that does not exist.
+
 ## [v92] - 2026-11-17 - Bone Meal and Drop Timing
 
 ### Fixed

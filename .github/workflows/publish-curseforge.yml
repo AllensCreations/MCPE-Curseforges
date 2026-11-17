@@ -92,7 +92,7 @@ jobs:
           for attempt in $(seq 1 60); do
             busy=0
             for status in in_progress queued; do
-              count="$(gh run list --workflow auto-version-bump.yml --status "$status" --json databaseId --jq length 2>/dev/null || echo 0)"
+              count="$(gh run list --workflow build-and-sync.yml --status "$status" --json databaseId --jq length 2>/dev/null || echo 0)"
               busy=$((busy + count))
             done
             [ "$busy" -eq 0 ] && exit 0
@@ -227,7 +227,7 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          gh workflow run auto-version-bump.yml --ref "${GITHUB_REF#refs/heads/}" \
+          gh workflow run build-and-sync.yml --ref "${GITHUB_REF#refs/heads/}" \
             && echo "Build Changed Packs & Sync Catalogs started." \
             || echo "::warning::Could not start the build; run Build Changed Packs & Sync Catalogs manually."
 

@@ -4,7 +4,7 @@ name: Register CurseForge ID
 # packs; old builds/<pack>/Curseforge_Info.json files are folded in automatically), then
 # refreshes the "Registered pack" dropdown of Publish to CurseForge from that registry.
 # Re-running for an already registered pack overwrites its stored ID.
-# After the ID step the workflow starts "Build Changed Packs & Sync Catalogs" (auto-version-bump.yml)
+# After the ID step the workflow starts "Build Changed Packs & Sync Catalogs" (build-and-sync.yml)
 # once, because the [skip ci] commit below never triggers it. The build never bumps a version.
 #
 # Secrets:
@@ -99,6 +99,6 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          gh workflow run auto-version-bump.yml --ref "${GITHUB_REF#refs/heads/}" \
+          gh workflow run build-and-sync.yml --ref "${GITHUB_REF#refs/heads/}" \
             && echo "Build Changed Packs & Sync Catalogs started." \
             || echo "::warning::Could not start the build; run Build Changed Packs & Sync Catalogs manually."

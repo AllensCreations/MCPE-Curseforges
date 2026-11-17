@@ -4,7 +4,7 @@
 One workflow is managed: publish-curseforge.yml
   publish_project   one list of registered packs only (those listed in builds/Curseforge_IDs.json)
 
-The build workflow (auto-version-bump.yml, "Build Changed Packs & Sync Catalogs") and the delete
+The build workflow (build-and-sync.yml, "Build Changed Packs & Sync Catalogs") and the delete
 workflow have no pack dropdowns any more, so there is nothing else to keep in sync.
 
   python3 scripts/sync_dispatch_choices.py           rewrite the dropdown list

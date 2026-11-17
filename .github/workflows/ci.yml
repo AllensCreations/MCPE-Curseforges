@@ -40,10 +40,16 @@ jobs:
       - name: Manifest versions, UUIDs and dependencies
         run: python scripts/check_manifest_versions.py
 
-      - name: Validate build, publish and delete workflow YAML
+      - name: Validate every workflow YAML and the workflow names other workflows start
         run: |
-          for workflow in auto-version-bump publish-curseforge delete-project register-curseforge-id; do
-            ruby -e 'require "yaml"; YAML.load_file(ARGV[0]); puts "#{ARGV[0]}: valid YAML"' ".github/workflows/${workflow}.yml"
+          for workflow in .github/workflows/*.yml; do
+            ruby -e 'require "yaml"; YAML.load_file(ARGV[0]); puts "#{ARGV[0]}: valid YAML"' "$workflow"
+          done
+          for ref in $(grep -rhoE '(--workflow|gh workflow run) [A-Za-z0-9_-]+\.yml' .github | awk '{print $NF}' | sort -u); do
+            if [ ! -f ".github/workflows/$ref" ]; then
+              echo "::error::A workflow starts or lists .github/workflows/$ref, but that file does not exist."
+              exit 1
+            fi
           done
 
       - name: Release dropdowns in sync
