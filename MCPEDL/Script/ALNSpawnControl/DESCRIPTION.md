@@ -17,8 +17,13 @@ Rename a vanilla Book to "Spawn Manager" on an Anvil and use it to open the cont
 
 ### Categorized Mob Rosters
 - **What Happens**: Individual toggle switches govern 58 standard mobs organized across 4 distinct groups: Overworld Hostiles, Passive & Neutral Mobs, Nether & End Mobs, and Bosses & Rare Mobs.
-- **How It Works**: Open any category to adjust individual toggles, such as turning off Creeper or Phantom while keeping Zombie and Skeleton active.
+- **How It Works**: Open any category to adjust individual toggles, such as turning off Creeper or Phantom while keeping Zombie and Skeleton active. Each category includes a dedicated back switch to return to the dashboard.
 - **Good To Know**: All mobs are enabled by default. Mobs that are toggled off are removed immediately when spawning occurs.
+
+### Custom Mob Spawner & Farm Control
+- **What Happens**: Fine-tune mob farms and monster spawners by permitting only chosen mob types to spawn while blocking all unwanted background spawns.
+- **Good for Chosen Mob Spawner**: Perfect for mob spawner chambers and specialized drop farms (such as Skeleton, Blaze, Witch, or Creeper farms). Disabling other competing mob spawns maximizes spawner efficiency, frees up mob caps, and prevents unwanted entities from crowding your spawn areas.
+- **How It Works**: Disable unneeded hostiles to maximize spawn rates for chosen creatures, or block specific mob types around complex farms without breaking the target mob grinder.
 
 ### Quick Presets
 - **What Happens**: One-tap buttons allow bulk configuration: Enable All Mobs, Disable All Hostiles, Disable All Passive Mobs, or Disable Everything for an empty mob world.
@@ -79,4 +84,3 @@ Rename a vanilla Book to "Spawn Manager" on an Anvil and use it to open the cont
 ## Search & Discovery Keywords
 
 Minecraft Bedrock add-on, ALN:SpawnControl Bedrock mod, mob spawn whitelist, custom mob toggle, spawn manager book, Minecraft PE survival, MCPEDL add-on, CurseForge Bedrock, ALNStudios.
-

@@ -76,21 +76,21 @@ function openMainMenu(player) {
   const form = new ActionFormData();
   form.title("§2§lALN:SpawnControl");
   form.body(
-    `Manage world mob spawns with precision.\n\n` +
-    `Active Status:\n` +
-    `Allowed: ${allowedCount} mobs\n` +
-    `Blocked: ${blockedCount} mobs\n` +
-    `Blocked Spawns This Session: ${getBlockedCount()}\n` +
-    `Filter Mode: ${config.blockSpawnEggs ? "All Sources (Inc. Eggs)" : "Natural Only"}\n` +
-    `Admin Tag Lock: ${config.adminOnly ? "Enabled" : "Disabled"}`
+    `§7Manage world mob spawns with precision.\n\n` +
+    `§fActive Status:\n` +
+    `§a✔ Allowed: §f${allowedCount} mobs\n` +
+    `§c✖ Blocked: §f${blockedCount} mobs\n` +
+    `§e⚡ Blocked Spawns This Session: §f${getBlockedCount()}\n` +
+    `§b⚙ Filter Mode: §f${config.blockSpawnEggs ? "All Sources (Inc. Eggs)" : "Natural Only"}\n` +
+    `§d🔒 Admin Tag Lock: §f${config.adminOnly ? "Enabled" : "Disabled"}`
   );
 
-  form.button("§1§lOverworld Hostiles");
-  form.button("§2§lPassive & Neutral Mobs");
-  form.button("§4§lNether & End Mobs");
-  form.button("§5§lBosses & Rare Mobs");
-  form.button("§6§lQuick Presets");
-  form.button("§3§lGlobal Filter Settings");
+  form.button("§1Overworld Hostiles\n§8Zombie, Creeper, Breeze...");
+  form.button("§2Passive & Neutral Mobs\n§8Cow, Sheep, Villager...");
+  form.button("§4Nether & End Mobs\n§8Blaze, Ghast, Piglin...");
+  form.button("§5Bosses & Rare Mobs\n§8Warden, Wither, Dragon...");
+  form.button("§6⚡ Quick Presets\n§8Enable/Disable Groups");
+  form.button("§3⚙ Global Filter Settings\n§8Mode & Admin Lock");
 
   form.show(player).then((response) => {
     if (response.canceled) {
@@ -127,29 +127,10 @@ function openCategoryMenu(player, categoryKey) {
   }
 
   const rules = getSpawnRules(world);
-  const form = new ActionFormData();
-  form.title(`§2§l${category.name}`);
-  form.body(`Configure spawn rules for ${category.name}:`);
-
-  for (const mob of category.mobs) {
-    const isAllowed = rules[mob.id] !== false;
-    // Using simple text buttons for toggling since ActionFormData allows easy custom back buttons, 
-    // or keeping ModalFormData if preferred. Using ModalFormData per original structure with a Back option handled via ActionFormData wrapper:
-  }
-
-  // To cleanly incorporate a Back button into category selection while keeping toggles, 
-  // we can use ActionFormData that opens a Modal for the toggles, or list items. 
-  // Below is the direct Modal implementation converted to include navigation via Action form or standard approach:
-  openCategoryModal(player, categoryKey);
-}
-
-function openCategoryModal(player, categoryKey) {
-  const category = MOB_CATEGORIES[categoryKey];
-  if (!category) return;
-
-  const rules = getSpawnRules(world);
   const form = new ModalFormData();
-  form.title(`§2§l${category.name}`);
+  form.title(`§2${category.name}`);
+
+  form.toggle("§e« Back to Main Menu §7(Turn ON to return)", { defaultValue: false });
 
   for (const mob of category.mobs) {
     const isAllowed = rules[mob.id] !== false;
@@ -157,35 +138,37 @@ function openCategoryModal(player, categoryKey) {
   }
 
   form.show(player).then((response) => {
-    if (response.canceled) {
+    if (response.canceled || !response.formValues) {
+      return;
+    }
+
+    const backSelected = Boolean(response.formValues[0]);
+    if (backSelected) {
       system.run(() => openMainMenu(player));
       return;
     }
-    
-    if (!response.formValues) return;
 
     const currentRules = getSpawnRules(world);
     category.mobs.forEach((mob, index) => {
-      const val = response.formValues[index];
+      const val = response.formValues[index + 1];
       currentRules[mob.id] = Boolean(val);
     });
 
     saveSpawnRules(world, currentRules);
     player.onScreenDisplay.setActionBar(`§a[SpawnControl] §fUpdated ${category.name} spawn rules!`);
-    system.run(() => openMainMenu(player));
   });
 }
 
 function openPresetsMenu(player) {
   const form = new ActionFormData();
-  form.title("§6§lQuick Presets");
-  form.body("Choose a preset to apply instant spawn rule sets across categories:");
+  form.title("§6⚡ Quick Presets");
+  form.body("§7Choose a preset to apply instant spawn rule sets across categories:");
 
-  form.button("§a§lEnable All Mobs");
-  form.button("§c§lDisable All Hostiles");
-  form.button("§e§lDisable All Passive Mobs");
-  form.button("§4§lDisable Everything");
-  form.button("§b§lBack to Dashboard");
+  form.button("§aEnable All Mobs\n§8Allow all mobs to spawn");
+  form.button("§cDisable All Hostiles\n§8Block all hostile & Nether threats");
+  form.button("§eDisable All Passive Mobs\n§8Block all farm animals & pets");
+  form.button("§4Disable Everything\n§8Completely empty mob world");
+  form.button("§7« Back to Dashboard\n§8Return to main menu");
 
   form.show(player).then((response) => {
     if (response.canceled) {
@@ -238,23 +221,27 @@ function openPresetsMenu(player) {
 function openGlobalSettingsMenu(player) {
   const config = getSpawnConfig(world);
   const form = new ModalFormData();
-  form.title("§3§lGlobal Filter Settings");
+  form.title("§3⚙ Global Filter Settings");
 
+  form.toggle("§e« Back to Main Menu §7(Turn ON to return)", { defaultValue: false });
   form.toggle("Include Spawn Eggs & Summon Commands", { defaultValue: config.blockSpawnEggs });
   form.toggle("Admin Tag Lock (player tag: aln_admin)", { defaultValue: config.adminOnly });
   form.toggle("Purge Loaded Disabled Mobs Now", { defaultValue: false });
 
   form.show(player).then((response) => {
-    if (response.canceled) {
+    if (response.canceled || !response.formValues) {
+      return;
+    }
+
+    const backSelected = Boolean(response.formValues[0]);
+    if (backSelected) {
       system.run(() => openMainMenu(player));
       return;
     }
 
-    if (!response.formValues) return;
-
-    const blockSpawnEggs = Boolean(response.formValues[0]);
-    const adminOnly = Boolean(response.formValues[1]);
-    const purgeNow = Boolean(response.formValues[2]);
+    const blockSpawnEggs = Boolean(response.formValues[1]);
+    const adminOnly = Boolean(response.formValues[2]);
+    const purgeNow = Boolean(response.formValues[3]);
 
     saveSpawnConfig(world, { blockSpawnEggs, adminOnly });
 
@@ -263,7 +250,6 @@ function openGlobalSettingsMenu(player) {
     } else {
       player.onScreenDisplay.setActionBar("§a[SpawnControl] §fSaved global filter settings!");
     }
-    system.run(() => openMainMenu(player));
   });
 }
 
