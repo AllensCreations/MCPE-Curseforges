@@ -13,8 +13,7 @@ const XP_LEVELS = [1, 2, 4, 8, 16, 32, 64];
 const LOOT_KEY = "aln_loot_index";
 const XP_KEY = "aln_xp_index";
 const ENABLED_KEY = "aln_boost_enabled";
-const BOOK_ID = "minecraft:book";
-const TRIGGER_NAME = "booster";
+const STICK_ID = "minecraft:stick";
 const DROP_TAG = "aln_boosted_drop";
 const XP_TAG = "aln_boosted_xp";
 const XP_RADIUS = 8;
@@ -274,9 +273,7 @@ function openPanel(player) {
 world.afterEvents.itemUse.subscribe((event) => {
   const { itemStack, source } = event;
   if (!itemStack || !source || source.typeId !== "minecraft:player") return;
-  if (itemStack.typeId !== BOOK_ID) return;
-  const name = itemStack.nameTag;
-  if (typeof name !== "string" || name.trim().toLowerCase() !== TRIGGER_NAME) return;
+  if (itemStack.typeId !== STICK_ID) return;
   openPanel(source);
 });
 

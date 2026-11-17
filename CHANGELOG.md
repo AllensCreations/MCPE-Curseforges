@@ -2,6 +2,11 @@
 
 ---
 
+## [v104] - 2026-11-18 - Stick Activation for Booster Menu
+
+### Improved & Balanced
+- **Normal Stick Activation**: Replaced the anvil-renamed book requirement with an immediate normal Stick trigger, allowing players to open the booster panel instantly using any standard vanilla Stick.
+
 ## [v103] - 2026-11-18 - Fix Submenu Transitions
 
 ### Fixed
