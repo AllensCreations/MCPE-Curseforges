@@ -1,6 +1,6 @@
 # Changelog — ALN:SpawnControl
 
-## [1.0.0] - 2026-11-17 - First Release
+## [1.0.0] - 2026-11-17
 
 ### Added
 - **Spawn Manager Book**: Right-click a Book or Writable Book renamed to "Spawn Manager" to open the interactive control panel.
