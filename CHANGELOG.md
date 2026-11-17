@@ -2,6 +2,12 @@
 
 ---
 
+## [v85] - 2026-11-17 - Bedrock Reference and Auto Review
+
+### Added
+- **Bedrock Reference**: A weekly workflow converts the vanilla Bedrock samples into one JSON file in reference/bedrock-samples for add-on work.
+- **Package AI Review Files**: Every package update now refreshes an AI review file inside the package folder, plus one shared tools file.
+
 ## [v84] - 2026-11-17 - Armor Drops and Smoother Loot
 
 ### Added

@@ -1,0 +1,72 @@
+name: Sync Bedrock Samples Reference
+
+# Pulls the newest Mojang/bedrock-samples (text files only, no textures/sounds), converts every
+# behavior_pack + resource_pack JSON into ONE minified JSON and saves it in the repo:
+#   reference/bedrock-samples/bedrock-samples.min.json   (the reference for creating and updating add-ons)
+#   reference/bedrock-samples/README.md                   (source commit, engine version, section counts)
+# Runs every Monday, and on demand. A run with no upstream change commits nothing.
+# The commit carries [skip ci], so Build Changed Packs & Sync Catalogs does not rebuild packs for it.
+# Save as: .github/workflows/sync-bedrock-samples.yml
+
+on:
+  schedule:
+    - cron: "43 3 * * 1"
+  workflow_dispatch:
+    inputs:
+      ref:
+        description: "bedrock-samples branch, tag or commit to read (leave empty for the default branch)"
+        required: false
+        default: ""
+        type: string
+
+permissions:
+  contents: write
+
+concurrency:
+  group: sync-bedrock-samples
+  cancel-in-progress: false
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+
+      - name: Set up Python
+        uses: actions/setup-python@6d4fd22b20465ccc0f7354476588e8df7c9ca0e0 # v7.1.0
+        with:
+          python-version: '3.14'
+
+      - name: Fetch bedrock-samples (text files only)
+        env:
+          REF: ${{ inputs.ref }}
+        run: |
+          set -euo pipefail
+          SRC="$RUNNER_TEMP/bedrock-samples"
+          git clone --depth 1 --filter=blob:none --sparse ${REF:+--branch "$REF"} \
+            https://github.com/Mojang/bedrock-samples.git "$SRC"
+          git -C "$SRC" sparse-checkout set --no-cone \
+            '/behavior_pack/' '/resource_pack/'
+          # drop binaries so the converter only walks text
+          find "$SRC/behavior_pack" "$SRC/resource_pack" -type f \
+            ! \( -name '*.json' -o -name '*.lang' \) -delete
+          echo "Upstream commit: $(git -C "$SRC" rev-parse HEAD)"
+
+      - name: Convert to one minimal JSON
+        run: python3 scripts/build_bedrock_reference.py --src "$RUNNER_TEMP/bedrock-samples" --out reference/bedrock-samples
+
+      - name: Commit when it changed
+        run: |
+          set -euo pipefail
+          git add reference/bedrock-samples
+          if git diff --cached --quiet; then
+            echo "Reference is already up to date." | tee -a "$GITHUB_STEP_SUMMARY"
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git commit -m "chore(reference): update bedrock-samples reference [skip ci]"
+          python3 scripts/git_push_retry.py --branch "${GITHUB_REF_NAME}"
+          echo "Updated reference/bedrock-samples from Mojang/bedrock-samples." >> "$GITHUB_STEP_SUMMARY"
