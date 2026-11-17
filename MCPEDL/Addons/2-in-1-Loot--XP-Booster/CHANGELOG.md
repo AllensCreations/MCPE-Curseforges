@@ -2,21 +2,16 @@
 
 ---
 
-## [1.0.16] - 2026-11-17 - Bone Meal and Drop Timing
+## [1.0.16] - 2026-11-17
+
+**What's new in v1.0.16:** Packed with 3 updates, from v1.0.14 through v1.0.16. Includes: Bone Meal and Drop Timing; Crop and Carrier Fixes; Smoother Boosters and Safer Loot.
 
 ### Fixed
 
 - **Bone meal crops**: Crops sped up with bone meal are no longer multiplied when broken.
 - **Nearby items left alone**: Only items that drop the instant you break a block or kill a mob are multiplied, so items thrown or dropped nearby a moment earlier or later are no longer multiplied.
-
-## [1.0.15] - 2026-11-17 - Crop and Carrier Fixes
-
-### Fixed
-
 - **Fully grown crops only**: Wheat, carrots, potatoes, beetroot, nether wart and sweet berries are multiplied only when fully grown, so replanting and breaking young crops no longer gives free items.
 - **Carrier mobs skipped**: Donkeys, mules, llamas, allays, foxes and villagers no longer multiply the items they carry when killed.
-
-## [1.0.14] - 2026-11-17 - Smoother Boosters and Safer Loot
 
 ### Improved & Balanced
 
@@ -41,6 +36,8 @@
 - **Real mobs only**: Armor stands, boats and minecarts are no longer treated as mob loot.
 - **Fair drops**: Block and mob drops now go to the nearest player who caused them, so nobody multiplies another player's drops on a shared server.
 
+
+
 ## [1.0.10] - 2026-11-16
 
 **What's new in v1.0.10:** Packed with 3 updates, from v1.0.8 through v1.0.10. Includes: Normal Font Restored; Silk Touch and Pixel Text; Book Only Trigger.
@@ -51,6 +48,8 @@
 - **Silk Touch safe**: Mining with Silk Touch now drops the block once. The Loot booster no longer multiplies it.
 - **Pixel text**: The Booster menus now use the Pixelify Sans pixel font. Enable the Redesigned UI Resource Pack together with the Behavior Pack.
 - **Book only**: The Booster menu now opens only from a plain Book renamed to Booster. A Book and Quill no longer opens it.
+
+
 
 
 
@@ -67,6 +66,8 @@
 
 
 
+
+
 ## [1.0.5] - 2026-11-16
 
 **What's new in v1.0.5:** Packed with the v1.0.5 update. Includes: Apply Closes Menu.
@@ -74,6 +75,8 @@
 ### Improved & Balanced
 
 - **Apply closes the menu**: Pressing Apply on the XP & Loot Booster screen now closes the menu instead of returning to the main menu.
+
+
 
 
 
@@ -99,6 +102,8 @@
 
 
 
+
+
 ## [1.0.3] - 2026-11-16
 
 **What's new in v1.0.3:** Packed with the v1.0.3 update. Includes: Simplified Booster Sliders.
@@ -110,6 +115,8 @@
 - **ALNStudios look**: The menus follow the ALNStudios Redesigned UI standard with a gold title, bold buttons with icons and a Back button on About.
 - **Menus keep going**: After Apply or Back the main menu opens again. Exit or the close button closes it.
 - **Action Bar feedback**: Applied settings now show on the Action Bar instead of in chat.
+
+
 
 
 
@@ -147,6 +154,8 @@
 
 
 
+
+
 ## [1.0.1] - 2026-11-12 - Redesigned Menu and Tiers
 
 ### Added
@@ -158,6 +167,8 @@
 - **Fortune-style loot**: Drops roll a random bonus up to the tier's maximum instead of always using it. Loot tops out at 32x.
 - **XP maximum**: XP can now reach 64x.
 - **Colored text**: Tier names and menu labels use distinct colors.
+
+
 
 
 
