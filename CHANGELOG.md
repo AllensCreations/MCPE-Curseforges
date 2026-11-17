@@ -2,6 +2,12 @@
 
 ---
 
+## [v91] - 2026-11-17 - Vanilla-Like Clutch Reach
+
+### Improved & Balanced
+
+- **Universal Clutch 1.5.4**: Clutch and boat placement reach is now capped at about 7 blocks above the ground.
+
 ## [v90] - 2026-11-17 - Higher Clutch Reach
 
 ### Improved & Balanced

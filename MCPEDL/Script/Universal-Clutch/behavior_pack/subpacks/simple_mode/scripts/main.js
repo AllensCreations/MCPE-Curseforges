@@ -647,11 +647,11 @@ system.runInterval(() => {
       const rot = player.getRotation();
       if (mode !== "extreme" && rot.x < 55) continue;
 
-      if (distToSurface > Math.max(8, fallSpeed * 2.6 + 1.5)) continue;
+      if (distToSurface > 7) continue;
 
       const clutchData = acquireClutchItem(player, mode);
       const isBoat = clutchData?.definition?.category === "boat";
-      const maxTrigger = isBoat ? 8 : Math.max(4, fallSpeed * 2.6 + 1.5);
+      const maxTrigger = isBoat ? 7 : Math.min(7, Math.max(4, fallSpeed * 2.6 + 1.5));
       if (distToSurface > maxTrigger) continue;
 
       if (clutchData) {

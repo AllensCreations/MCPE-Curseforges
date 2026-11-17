@@ -2,6 +2,13 @@
 
 ---
 
+## [1.5.4] - 2026-11-17 - Vanilla-Like Clutch Reach
+
+### Improved & Balanced
+
+- **Closer to Vanilla**: Clutch items now trigger at most about 7 blocks above the ground, closer to normal play.
+- **Boat Reach**: The boat now appears up to 7 blocks above the ground.
+
 ## [1.5.3] - 2026-11-17 - Higher Clutch Reach
 
 ### Improved & Balanced
