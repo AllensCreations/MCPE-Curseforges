@@ -2,6 +2,15 @@
 
 ---
 
+## [v82] - 2026-11-17 - Mixed Zombie Stacks
+
+### Added
+- **Random Spawn Stacks**: Zombie, Husk, Drowned and Zombified Piglin stacks now mix babies and adults, and each mob that replaces a killed one is a fresh random spawn that can be a baby or wear armor like a normal spawn.
+
+### Improved & Balanced
+- **Mixed Merging**: These four mobs now merge even when wearing armor or holding items, so their gear is not kept.
+- **Sneak Kill Experience**: A Sneak Kill on these four mobs now counts about one baby in twenty for the baby experience bonus.
+
 ## [v81] - 2026-11-17 - Leaner Review Bundle
 
 ### Improved & Balanced

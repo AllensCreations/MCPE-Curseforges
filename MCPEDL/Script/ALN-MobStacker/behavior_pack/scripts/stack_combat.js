@@ -3,6 +3,8 @@ import {
   COOKED_BY_RAW,
   FARM_ANIMAL_SET,
   LOOT,
+  MIXED_BABY_CHANCE,
+  MIXED_SPAWN_MOBS,
   PERSISTENT_TAG,
   STACKABLE_MOBS,
   STACK_COUNT_PROPERTY,
@@ -68,7 +70,9 @@ function rollUnit(typeId, def, meta, looting, totals) {
 function rollExperience(def, meta) {
   if (FARM_ANIMAL_SET.has(def.typeId) && meta.isBaby) return 0;
   if (def.xp === "variant") return meta.variant > 0 ? meta.variant : 1;
-  if (meta.isBaby && def.babyXp) return def.babyXp;
+  if (def.babyXp && (meta.isBaby || (MIXED_SPAWN_MOBS.has(def.typeId) && Math.random() < MIXED_BABY_CHANCE))) {
+    return def.babyXp;
+  }
   return randomInt(def.xp[0], def.xp[1]);
 }
 

@@ -45,6 +45,14 @@ const GRINDER_MOBS = [
 export const STACKABLE_MOBS = new Set([...FARM_ANIMALS, ...GRINDER_MOBS]);
 export const FARM_ANIMAL_SET = new Set(FARM_ANIMALS);
 
+export const MIXED_SPAWN_MOBS = new Set([
+  "minecraft:zombie",
+  "minecraft:husk",
+  "minecraft:drowned",
+  "minecraft:zombie_pigman",
+]);
+export const MIXED_BABY_CHANCE = 0.05;
+
 const NAME_OVERRIDES = {
   "minecraft:zombie_pigman": "Zombified Piglin",
 };
@@ -203,7 +211,7 @@ export function readMeta(entity) {
   const mark = component(entity, EntityComponentTypes.MarkVariant);
   const skin = component(entity, EntityComponentTypes.SkinId);
   return {
-    isBaby: component(entity, EntityComponentTypes.IsBaby) !== undefined,
+    isBaby: !MIXED_SPAWN_MOBS.has(entity.typeId) && component(entity, EntityComponentTypes.IsBaby) !== undefined,
     sheared: component(entity, EntityComponentTypes.IsSheared) !== undefined,
     charged: component(entity, EntityComponentTypes.IsCharged) !== undefined,
     color: color ? color.value : -1,
@@ -235,7 +243,7 @@ function hasGear(entity) {
 
 export function isStackExcluded(entity) {
   if (component(entity, EntityComponentTypes.IsTamed) !== undefined) return true;
-  if (hasGear(entity)) return true;
+  if (!MIXED_SPAWN_MOBS.has(entity.typeId) && hasGear(entity)) return true;
   const leash = component(entity, EntityComponentTypes.Leashable);
   if (leash && leash.isLeashed) return true;
   const name = entity.nameTag;
