@@ -2,6 +2,14 @@
 
 ---
 
+## [v81] - 2026-11-17 - Leaner Review Bundle
+
+### Improved & Balanced
+- **Smaller review bundle**: The standard AI review download no longer holds the combined text copy, a second SKILL.md at the root, or the generated changelog views. Only the files an update needs are left.
+- **Shorter autobump workflow**: The five repeated steps that log a result and add it to the run summary now use one small helper script, with a test.
+### Fixed
+- **Recipe image rule**: The instructions now point to the autobump workflow for recipe images, because the manual workflow no longer starts on pushes.
+
 ## [1.0.80] - 2026-11-17 - Autobump Cleanup and Single Repo Version
 
 ### Improved & Balanced

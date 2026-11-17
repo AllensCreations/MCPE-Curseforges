@@ -2,7 +2,7 @@ name: Collect Files for AI Review
 
 # ONE workflow for everything you hand to an AI (replaces "Export Repo Content to MD").
 #   Leave "paths" empty : the standard review bundle (scripts, workflows, instruction files, icon
-#                         hashes, ALL_TEXT_FILES.txt). Download name: (N) ai-review-bundle.zip (repo version from REPO_VERSION)
+#                         hashes; only the files an update needs, no combined copy). Download name: (N) ai-review-bundle.zip (repo version from REPO_VERSION)
 #   Type paths          : files, folders or globs, comma or newline separated
 #                         (e.g. MCPEDL/Addons/Grand-Banquets, scripts, MCPEDL/Maps/*/behavior_pack).
 #                         You get TWO plain .txt files inside a zip named after the first folder with its
@@ -16,13 +16,13 @@ name: Collect Files for AI Review
 #                         The built-in AI prompt keeps the Termux .sh rules: (Repofilename)_(Version)_(Rand).sh,
 #                         CHANGELOG.md updated on every change with the X.Y.Z-only policy.
 #                         Replies use ONLY: File Needed, Changelog, Termux Script (commands in their own bash block). No Summary.
-#   Every zip also holds SKILL.md at its root (copy of .agents/skills/mcpe-new-pack/SKILL.md): the AI reads it
-#   first, it gives the reading order and the checks for a new pack.
+#   The paths zips also hold SKILL.md at their root (copy of .agents/skills/mcpe-new-pack/SKILL.md): the AI reads it
+#   first, it gives the reading order and the checks for a new pack. The standard bundle has it once, under files/.
 # GitHub cannot push a download to your device by itself: open the run summary and tap the link.
 #
 # CHANGELOG VIEWS (merged from the old "Build Changelog Views" workflow)
 #   Every run rebuilds changelog_views/ from each CHANGELOG.md with scripts/build_changelog_views.py
-#   and puts it in the download. The AI instructions below explain the views to the AI.
+#   and puts it in the paths downloads (not in the standard bundle). The AI instructions below explain the views to the AI.
 #   Tick "commit_changelog_views" to also save the refreshed views to the repo (needs write access).
 # Save as: .github/workflows/collect-ai-review-files.yml
 
@@ -446,7 +446,6 @@ jobs:
           copy_item INSTRUCTIONS.md
           copy_item DOCS_RULES.md
           copy_item CHANGELOG.md
-          copy_item changelog_views
           copy_item PACK_GENERATOR_INSTRUCTIONS.md
           copy_item .agents/skills/checkrm/SKILL.md
           copy_item .agents/skills/mcpe-new-pack/SKILL.md
@@ -482,32 +481,6 @@ jobs:
             echo "Latest repo changelog entry: $(grep -m1 '^## ' CHANGELOG.md || echo none)"
           } > "$OUT/env_info.txt"
 
-      - name: Build one readable TXT of all text files
-        if: steps.mode.outputs.default == 'true'
-        run: |
-          python3 - <<'PY'
-          import os, pathlib
-          root = pathlib.Path("ai_review_bundle")
-          files_dir = root / "files"
-          text_ext = {".py", ".yml", ".yaml", ".json", ".md", ".txt", ".js", ".mcfunction", ".lang", ".sh", ".html"}
-          out = root / "ALL_TEXT_FILES.txt"
-          items = sorted(p for p in files_dir.rglob("*") if p.is_file())
-          included = []
-          with out.open("w", encoding="utf-8") as fh:
-              fh.write("TABLE OF CONTENTS\n")
-              for p in items:
-                  if p.suffix.lower() in text_ext:
-                      included.append(p)
-                      fh.write(f"- {p.relative_to(files_dir).as_posix()}\n")
-              fh.write(f"\nTotal text files: {len(included)}\n\n")
-              for p in included:
-                  rel = p.relative_to(files_dir).as_posix()
-                  fh.write(f"\n===== FILE: {rel} =====\n")
-                  fh.write(p.read_text(encoding="utf-8", errors="replace"))
-                  fh.write(f"\n===== END FILE: {rel} =====\n")
-          print(f"Wrote {out} with {len(included)} files")
-          PY
-
       - name: Show what was collected
         if: steps.mode.outputs.default == 'true'
         run: |
@@ -517,6 +490,7 @@ jobs:
           cat ai_review_bundle/trader_ledger_sha256.txt
 
       - name: Add SKILL.md to the zip root
+        if: steps.mode.outputs.default != 'true'
         run: |
           set -euo pipefail
           SKILL=.agents/skills/mcpe-new-pack/SKILL.md

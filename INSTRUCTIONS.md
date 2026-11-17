@@ -1,4 +1,4 @@
-# Instructions: Core Repository Policy (v22)
+# Instructions: Core Repository Policy (v23)
 
 Repo policy, docs rules for AllensCreations/MCPE-Curseforges (creator name `ALNStudios`). Generating a new project: `PACK_GENERATOR_INSTRUCTIONS.md`.
 
@@ -125,7 +125,7 @@ Implementation:
 - Wiki images: CC BY-NC-SA, conflicts with monetized pages. ONLY with explicit user approval of that image. Names `Invicon_<Title_Case_Name>.png`, `ItemSprite_<lowercase-hyphenated-name>.png`. Open file page, confirm license. Record file page URL, license, date in generator header comment or `scripts/ASSET_SOURCES.md`; add attribution to DESCRIPTION. NEVER bulk-copy. Wiki blocked: report, fall back to Samples.
 - ALWAYS map every ingredient to a texture first (filenames differ from ids; `textures/items/` or `textures/blocks/`; verify path + item). NEVER substitute or skip. Report all unresolved together, stop.
 - Optional per-pack listing images (distinct from the profile banners in 2.3; user supplies both): clickable in Creator and Permissions, 16:9 JPEG `assets/Images/<slug>-curseforge.jpg`, `<slug>-mcpedl.jpg`, link to verified pack listing. NEVER placeholders or invented URLs. Pair only if both images and both URLs exist.
-- Generators: `scripts/`, fail clearly on missing Samples/texture/recipe. Register in `.github/workflows/generate-recipe-images.yml` (`push.paths`, run step, commit step; keep `workflow_dispatch`). Workflow commits PNGs `[skip ci]`. NEVER call images published until workflow succeeded and PNGs exist.
+- Generators: `scripts/`, fail clearly on missing Samples/texture/recipe. Register in `.github/workflows/auto-version-bump.yml` (run step in the recipe images step, `git add` in the commit step) and mirror the same command in the manual fallback `.github/workflows/generate-recipe-images.yml`. Workflow commits PNGs `[skip ci]`. NEVER call images published until workflow succeeded and PNGs exist.
 - Technical reference: Bedrock Wiki explains; verify schema/ids/format version against Samples + current docs. Cite it as community docs; link, NEVER copy.
 
 ### 1.6 Function Files
@@ -250,6 +250,7 @@ Placeholders `<PackName>`, `<MainAction>`, `<version>`. NEVER hardcode one pack.
 - [ ] Changed JSON validated. Instruction file changed: `scripts/check_instruction_files.py` passes.
 
 ## Version History
+- **v23:** Recipe image generators are registered in `auto-version-bump.yml` (it builds them on every run that touches recipes or textures); `generate-recipe-images.yml` is only the manual fallback with the same commands.
 - **v22:** The repo version is a single number (`REPO_VERSION` = `80`, written `v80`), no longer X.Y.Z. Next = number + 1. Root changelog headings are `## [vN]`; repo-level scripts are `@@ version N` and named `Repo_vN_<Rand>.sh`. Pack versions stay X.Y.Z.
 - **v21:** New 1.15 (Bedrock Developer Role and Trusted Sources): official NPM packages first, the trusted source list, texture/registration split, failure procedure. `@minecraft/math` stays blocked by the payload allow-list until `build_payload.py` lists it.
 - **v19:** The separate description views (`<Name>.curseforge.html`) and `image_prompts/` were removed. The Listing Kit is the only generated listing file.

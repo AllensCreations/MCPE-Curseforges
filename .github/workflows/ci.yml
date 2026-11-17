@@ -69,6 +69,7 @@ jobs:
           python scripts/test_generate_recipe_images.py
           python scripts/test_pixel_json_to_png.py
           python scripts/test_check_instruction_files.py
+          python scripts/test_step_summary.py
           python scripts/test_rename_packages.py
           python scripts/test_fetch_curseforge_logo.py
 

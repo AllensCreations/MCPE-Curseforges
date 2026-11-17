@@ -8,7 +8,7 @@ description: Create a NEW addon, map, script or minigame for the MCPE-Curseforge
 ## Authority
 
 - This skill is the entry point and a checklist. It never restates or overrides policy. The rules live in `PACK_GENERATOR_INSTRUCTIONS.md` (Part 4), `INSTRUCTIONS.md` and `DOCS_RULES.md`. On any conflict `INSTRUCTIONS.md` wins, then `DOCS_RULES.md`, then the generator file.
-- In the AI review bundle zip every repo path below sits under `files/` (the same files are also in `*_tools.txt` and `ALL_TEXT_FILES.txt`).
+- In the AI review bundle zip every repo path below sits under `files/` (the same files are also in `*_tools.txt`).
 - If a required file cannot be read, stop and say which one. NEVER work from memory or from an old copy.
 - Updating an existing pack is a different job: use the `mcpe-pack-update` skill and `INSTRUCTIONS.md` "Termux Script Rules".
 
