@@ -2,17 +2,14 @@
 
 ---
 
-## [1.5.6] - 2026-11-17 - Lighter Performance
+## [1.5.6] - 2026-11-17
+
+**What's new in v1.5.6:** Packed with 2 updates, from v1.5.5 through v1.5.6. Includes: Lighter Performance; Instant Boat Clutch.
 
 ### Improved & Balanced
 
 - **Lighter Performance**: Universal Clutch does less work for players who are not falling.
 - **Extreme Mode**: Checks your inventory less often during a fall.
-
-## [1.5.5] - 2026-11-17 - Instant Boat Clutch
-
-### Improved & Balanced
-
 - **Instant Boat Seating**: The boat is placed and you are seated in it at the same moment.
 
 ### Fixed
@@ -35,6 +32,8 @@
 - **Late Placement**: Fixed falls that ended before the clutch item was placed.
 - **Landing Inside Blocks**: Fixed landing inside a placed block instead of on top of it.
 
+
+
 ## [1.5.2] - 2026-11-14
 
 **What's new in v1.5.2:** Packed with the v1.5.2 update.
@@ -47,6 +46,8 @@
 
 - **Natural Falling**: The camera is never moved or forced, and your falling speed is no longer reset.
 - **Extreme Mode**: Now works without looking down.
+
+
 
 
 
@@ -67,6 +68,8 @@
 - **Fall Height**: Fall height no longer carries over after swimming, gliding, or leaving the game.
 - **Water Recovery**: Fixed an error when a player left within a moment of landing.
 - **Minimum Version**: The Behavior Pack now requires Minecraft 1.21.20 or newer.
+
+
 
 
 
