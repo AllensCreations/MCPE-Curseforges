@@ -5,9 +5,25 @@ Moved out of .github/workflows/collect-ai-review-files.yml so the same code serv
 automatic per-package run (scripts/auto_ai_review.py).
   PATHS=<comma/newline separated paths>   (NEW = new-pack kit)
   AI_OUT=<output folder>                  default ai_review_bundle
-  AI_SKIP_TOOLS=1                         do not write <label>_tools.txt
+  EXPORT_MODE=update_pack|new_pack|repo_maintenance
+                                          update_pack (default): pack .txt only, NO tools.txt (fastest; ~60 KB)
+                                          new_pack: lean kit — SKILL.md + instruction markdowns only, NO Python scripts
+                                          repo_maintenance: full bundle with all scripts
+  AI_SKIP_TOOLS=1                         legacy override: do not write <label>_tools.txt (overrides EXPORT_MODE)
 """
 import os, re, pathlib
+
+EXPORT_MODE = os.environ.get("EXPORT_MODE", "update_pack").strip().lower()
+# Lean tool list for new_pack: instructions and UI kit only, no Python scripts
+LEAN_TOOL_FILES = [
+    ".agents/skills/mcpe-new-pack/SKILL.md",
+    "PACK_GENERATOR_INSTRUCTIONS.md",
+    "INSTRUCTIONS.md",
+    "DOCS_RULES.md",
+    "assets/aln-ui-redesign/README.txt",
+    "assets/aln-ui-redesign/design.json",
+    "assets/aln-ui-redesign/font/README.txt",
+]
 
 AI_PROMPT = r'''# AI Instructions
 
@@ -308,14 +324,21 @@ content = ("# Repo Export\n\n## Index\n\n" + "\n".join(index) + "\n\n---\n\n"
 (out / name).write_text(content, encoding="utf-8")
 
 # OTHER: instruction files + helper scripts in ONE txt (text only; binaries are named in the index)
-tool_files = [".agents/skills/mcpe-new-pack/SKILL.md", "PACK_GENERATOR_INSTRUCTIONS.md", "INSTRUCTIONS.md", "DOCS_RULES.md"] + [
-    "scripts/" + t for t in (
-        "build_payload.py", "import_project_payload.py", "crafting_template.py",
-        "generate_recipe_images.py", "convert_crafting_recipe_svgs_to_png.py",
-        "ensure_recipe_unlocks.py", "make_pack_icon.py", "optimize_images.py",
-        "manifest_tools.py", "doc_template.py", "pixel_json_to_png.py", "make_pack_script.py", "make_update_script.py", "apply_update.py", "CRAFTING_TABLE.svg")] + [
-    "assets/aln-ui-redesign/README.txt", "assets/aln-ui-redesign/design.json",
-    "assets/aln-ui-redesign/font/README.txt", "assets/aln-ui-redesign/font/pixelify.js"]
+# Skip tools.txt entirely for update_pack mode (or when AI_SKIP_TOOLS=1) — pack .txt has everything needed
+skip_tools = os.environ.get("AI_SKIP_TOOLS") == "1" or EXPORT_MODE == "update_pack"
+# new_pack: lean kit (instructions + UI assets only, no Python scripts)
+# repo_maintenance: full bundle with all scripts
+if EXPORT_MODE == "new_pack":
+    tool_files = LEAN_TOOL_FILES
+else:
+    tool_files = [".agents/skills/mcpe-new-pack/SKILL.md", "PACK_GENERATOR_INSTRUCTIONS.md", "INSTRUCTIONS.md", "DOCS_RULES.md"] + [
+        "scripts/" + t for t in (
+            "build_payload.py", "import_project_payload.py", "crafting_template.py",
+            "generate_recipe_images.py", "convert_crafting_recipe_svgs_to_png.py",
+            "ensure_recipe_unlocks.py", "make_pack_icon.py", "optimize_images.py",
+            "manifest_tools.py", "doc_template.py", "pixel_json_to_png.py", "make_pack_script.py", "make_update_script.py", "apply_update.py", "CRAFTING_TABLE.svg")] + [
+        "assets/aln-ui-redesign/README.txt", "assets/aln-ui-redesign/design.json",
+        "assets/aln-ui-redesign/font/README.txt", "assets/aln-ui-redesign/font/pixelify.js"]
 t_ok, t_missing, t_blocks = [], [], []
 for rel in tool_files:
     p = root / rel
@@ -332,10 +355,10 @@ if t_missing:
     t_index += ["", "### Not found / not text", ""] + [f"- `{m}`" for m in t_missing]
 t_index += ["", "### Binary helpers (stay in the repo, not exported)", "",
             "- `scripts/CRAFTING_TABLE.png`", "- `assets/Images/`", "- `assets/aln-ui-redesign/`", "- `Mcpeworlds/assets/`"]
-if os.environ.get("AI_SKIP_TOOLS") != "1": (out / f"{label}_tools.txt").write_text(
+if not skip_tools: (out / f"{label}_tools.txt").write_text(
     "# Pack Tools and Instructions\n\n## Index\n\n" + "\n".join(t_index)
     + "\n\n---\n\n## File Contents\n" + "".join(t_blocks), encoding="utf-8")
 with open(os.environ.get("GITHUB_OUTPUT") or os.devnull, "a", encoding="utf-8") as fh:
     fh.write(f"label={label}\n")
     fh.write(f"artifact_name={'(' + top_versions[0] + ') ' + label if top_versions else label}\n")
-print(f"Exported {len(files)} files into {out}/{name} and {len(t_ok)} tool files into {label}_tools.txt; skipped {len(skipped)} binary; {len(missing)} path(s) not found.")
+print(f"Exported {len(files)} files into {out}/{name}" + (f" and {len(t_ok)} tool files into {label}_tools.txt" if not skip_tools else f" (tools.txt skipped: mode={EXPORT_MODE})") + f"; skipped {len(skipped)} binary; {len(missing)} path(s) not found.")

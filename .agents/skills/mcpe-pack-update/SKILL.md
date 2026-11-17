@@ -7,7 +7,7 @@ description: Use for any change to an existing project, workflow, script or doc 
 
 ## Authority
 
-- `INSTRUCTIONS.md` is the policy source. `PACK_GENERATOR_INSTRUCTIONS.md` is its standalone copy for generation. The script flow is defined by the AI prompt inside `.github/workflows/export-repo-to-txt.yml`. This skill is a short working checklist and never restates or overrides them.
+- `INSTRUCTIONS.md` is the policy source. `PACK_GENERATOR_INSTRUCTIONS.md` is its standalone copy for generation. The script flow is defined by the AI prompt inside `.github/workflows/collect-ai-review-files.yml`. This skill is a short working checklist and never restates or overrides them.
 - **Precedence** (as in `PACK_GENERATOR_INSTRUCTIONS.md`): factual accuracy and the user's requested scope, then Part 1, then Part 2, then this skill. Part 4 of the generator file never overrides Parts 1 and 2.
 - If these files disagree with each other or with a script in `scripts/`, tell the user exactly what differs instead of choosing silently. If `INSTRUCTIONS.md` cannot be read, stop and report it instead of working from memory.
 - Add-on Achievements line: always `Likely achievement-friendly.` Keep any cheats or world-setting caveat that applies.
@@ -20,7 +20,7 @@ description: Use for any change to an existing project, workflow, script or doc 
 
 ## Procedure
 
-1. Read `INSTRUCTIONS.md` Parts 1 and 2 and the AI prompt in `.github/workflows/export-repo-to-txt.yml` from the current clone before writing anything.
+1. Read `INSTRUCTIONS.md` Parts 1 and 2 and the AI prompt in `.github/workflows/collect-ai-review-files.yml` from the current clone before writing anything.
 2. Find the destination folder: the path the user named, otherwise the matching project folder. Do not substitute a similar name; report ambiguity or a missing target. Ask at most one question, and only if the answer changes gameplay, compatibility, distribution, data loss or versioning.
 3. Read the real source (manifests, scripts, items, recipes, loot tables, functions, lang files) before writing any claim. Source priority when sources disagree, and report the disagreement: the project's own files, Mojang Bedrock Samples, official Minecraft Creator Documentation, Minecraft Wiki, Bedrock Wiki.
 4. Make the smallest possible change. No unrelated rewrites. Never invent features, versions, links, assets, test results or compatibility. Never write comments in shipped `.js`, `.mcfunction` or `.json` files.

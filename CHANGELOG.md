@@ -2,6 +2,19 @@
 
 ---
 
+## [v95] - 2026-11-18 - Workflow Toggles, Publish Fix & Tooling Polish
+
+### Fixed
+- **CurseForge Publish**: Filter blank lines from `--list-pending` output so an empty project name never causes `--project is required` failures when publishing ALL packs.
+- **apply_update.py VER regex**: Bare integers (e.g. `2`) now correctly rejected for pack-level `@@ version` specs; only `vX` or `X.Y.Z` are accepted. All 11 update-tool tests pass.
+
+### Added
+- **AI Review 3-Mode Toggle**: `collect-ai-review-files.yml` now exposes a `mode` choice dropdown (`update_pack`, `new_pack`, `repo_maintenance`) plus a `pack_path` text input, replacing the opaque free-text `paths` field.
+- **`collect_ai_review.py` EXPORT_MODE**: `update_pack` skips `tools.txt` entirely (~80 k tokens saved); `new_pack` emits a lean kit (SKILL.md + instruction markdowns only, no Python scripts); `repo_maintenance` keeps the full bundle.
+
+### Improved & Balanced
+- **SKILL.md reference**: Updated stale `export-repo-to-txt.yml` link to `collect-ai-review-files.yml` in `.agents/skills/mcpe-pack-update/SKILL.md`.
+
 ## [v94] - 2026-11-17 - Single-Version vX Scheme & Tooling Migration
 
 ### Added

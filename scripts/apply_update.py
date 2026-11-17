@@ -40,7 +40,7 @@ from pathlib import Path
 NAMES = {"version", "project", "file", "replace", "replace-all", "insert-after", "insert-before", "delete", "with",
          "append", "create", "overwrite", "changelog", "root-changelog"}
 NEEDS_WITH = {"replace", "replace-all", "insert-after", "insert-before"}
-VER = re.compile(r"^\d+\.\d+\.\d+$")
+VER = re.compile(r"^(?:v\d+|\d+\.\d+\.\d+)$", re.IGNORECASE)
 REPO_VER = re.compile(r"^(?:\d+\.\d+\.)?(\d+)$")
 
 
@@ -94,7 +94,7 @@ def parse(text):
             spec["ops"].append({"op": name, "file": cur, "old": body, "new": new})
     repo = (spec["project"] or "").strip().rstrip("/") == "."
     if not spec["version"] or not (REPO_VER if repo else VER).match(spec["version"]):
-        raise Fail("spec needs '@@ version X.Y.Z' (a repo-level spec uses just the number, '@@ version 80')")
+        raise Fail("spec needs '@@ version vX or X.Y.Z' (a repo-level spec uses just the number, '@@ version 80')")
     if not spec["project"]:
         raise Fail("spec needs '@@ project <folder>'")
     return spec
@@ -147,7 +147,13 @@ def apply_op(t, o):
 
 
 def vtuple(v):
-    return tuple(int(x) for x in v.split("."))
+    cleaned = str(v or "").strip().lstrip("vV")
+    parts = [int(p) for p in cleaned.split(".")]
+    if len(parts) == 1:
+        return (parts[0], 0, 0)
+    if len(parts) == 3:
+        return (parts[0], parts[1], parts[2])
+    return tuple(parts)
 
 
 def current_highest(proj):
@@ -161,7 +167,7 @@ def current_highest(proj):
             pass
     c = proj / "CHANGELOG.md"
     if c.is_file():
-        m = re.search(r"(?m)^## \[(\d+\.\d+\.\d+)\]", c.read_text(encoding="utf-8"))
+        m = re.search(r"(?m)^## \[(?:v)?(\d+(?:\.\d+\.\d+)?)\]", c.read_text(encoding="utf-8"))
         if m:
             best = max(best or (0, 0, 0), vtuple(m.group(1)))
     return best
@@ -204,9 +210,13 @@ def run(spec, root, date, dry=False):
     if not repo_level:
         hi = current_highest(proj)
         want = vtuple(ver)
-        if hi is not None and hi != want and (hi[0], hi[1], hi[2] + 1) != want:
+        allowed = [hi] if hi is not None else []
+        if hi is not None:
+            allowed.append((hi[0], hi[1], hi[2] + 1))
+            allowed.append((hi[0] + 1, 0, 0))
+        if hi is not None and want not in allowed:
             raise Fail(f"stale script: {project} is at {'.'.join(map(str, hi))}, this script makes {ver}. "
-                       "Expected the new version to be exactly one patch above.", 3)
+                       "Expected the new version to be the next single version or patch above.", 3)
     files, notes = {}, []
     for o in spec["ops"]:
         rel = o["file"]
