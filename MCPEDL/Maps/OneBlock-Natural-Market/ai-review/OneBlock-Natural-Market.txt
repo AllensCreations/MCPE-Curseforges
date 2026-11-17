@@ -1,0 +1,1459 @@
+# Repo Export
+
+## Index
+
+- **Export request:** `MCPEDL/Maps/OneBlock-Natural-Market`
+- **Destination:** `MCPEDL/Maps/OneBlock-Natural-Market`
+- **CURRENT VERSION: 1.0.2 / NEXT UPDATE: 1.0.3**  (`MCPEDL/Maps/OneBlock-Natural-Market/CHANGELOG.md`)
+- **Text files:** 19
+- **Skipped binary:** 8
+- **Paths not found:** 0
+
+### Files in this export
+
+- `changelog_views/OneBlock-Natural-Market.curseforge.html`
+- `changelog_views/OneBlock-Natural-Market.github.md`
+- `description_views/OneBlock-Natural-Market.listing.md`
+- `MCPEDL/Maps/OneBlock-Natural-Market/assets/snapshots/.gitkeep`
+- `MCPEDL/Maps/OneBlock-Natural-Market/behavior_pack/functions/oneblock_setup.mcfunction`
+- `MCPEDL/Maps/OneBlock-Natural-Market/behavior_pack/functions/oneblock_tick.mcfunction`
+- `MCPEDL/Maps/OneBlock-Natural-Market/behavior_pack/functions/tick.json`
+- `MCPEDL/Maps/OneBlock-Natural-Market/behavior_pack/functions/void_cleaner.mcfunction`
+- `MCPEDL/Maps/OneBlock-Natural-Market/behavior_pack/items/trader_ledger.json`
+- `MCPEDL/Maps/OneBlock-Natural-Market/behavior_pack/manifest.json`
+- `MCPEDL/Maps/OneBlock-Natural-Market/behavior_pack/scripts/main.js`
+- `MCPEDL/Maps/OneBlock-Natural-Market/CHANGELOG.md`
+- `MCPEDL/Maps/OneBlock-Natural-Market/DESCRIPTION.md`
+- `MCPEDL/Maps/OneBlock-Natural-Market/oneblock.json`
+- `MCPEDL/Maps/OneBlock-Natural-Market/README.md`
+- `MCPEDL/Maps/OneBlock-Natural-Market/resource_pack/manifest.json`
+- `MCPEDL/Maps/OneBlock-Natural-Market/resource_pack/textures/item_texture.json`
+- `MCPEDL/Maps/OneBlock-Natural-Market/resource_pack/ui/server_form.json`
+- `MCPEDL/Maps/README.md`
+
+### Skipped (binary)
+
+- `MCPEDL/Maps/OneBlock-Natural-Market/OneBlock Natural Market - Creative.mcworld`
+- `MCPEDL/Maps/OneBlock-Natural-Market/OneBlock Natural Market - Hardcore.mcworld`
+- `MCPEDL/Maps/OneBlock-Natural-Market/OneBlock Natural Market - Survival.mcworld`
+- `MCPEDL/Maps/OneBlock-Natural-Market/resource_pack/textures/items/trader_ledger.png`
+- `MCPEDL/Maps/OneBlock-Natural-Market/resource_pack/textures/ui/natural_market/chest_panel.png`
+- `MCPEDL/Maps/OneBlock-Natural-Market/resource_pack/textures/ui/natural_market/slot.png`
+- `MCPEDL/Maps/OneBlock-Natural-Market/resource_pack/textures/ui/natural_market/slot_hover.png`
+- `MCPEDL/Maps/OneBlock-Natural-Market/resource_pack/textures/ui/natural_market/slot_pressed.png`
+
+---
+
+## AI Instructions
+
+Repo: https://github.com/AllensCreations/MCPE-Curseforges.git (branch main)
+Export: two plain .txt files. `<name>.txt` = the pack (index, these instructions, every file). `<name>_tools.txt` = SKILL.md, PACK_GENERATOR_INSTRUCTIONS.md, INSTRUCTIONS.md and the helper scripts. Read both before changing anything. The zip root also holds SKILL.md: read it FIRST for a new pack.
+
+## Pack work (create or update)
+- UPDATE: the pack files are in `<name>.txt`. Change only what was requested.
+- Vanilla limit blocks a mechanic: use a modular workaround per INSTRUCTIONS.md 1.12, never drop the feature silently.
+- NEW pack: read SKILL.md first, then follow PACK_GENERATOR_INSTRUCTIONS.md Part 4 and deliver ONE pack `.sh` from `scripts/make_pack_script.py` (the project travels inside it as base64). NEVER deliver separate zip, pack, json, js or b64 files.
+- INSTRUCTIONS.md wins over PACK_GENERATOR_INSTRUCTIONS.md on any conflict. These instructions win over both on the reply format and the Termux script.
+- Update: keep pack and module UUIDs unchanged.
+- Vanilla reference: `reference/bedrock-samples/bedrock-samples.min.json` (repo, ~5 MB, NOT in this export) holds every vanilla Mojang behavior/resource pack JSON as one object (`.behavior_pack.entities.zombie`, `.behavior_pack.recipes`, `.resource_pack.entity` ...). Never guess a vanilla component, event, loot or recipe shape: list the exact section under File Needed, then copy the shape from it.
+- UI work (menus, forms, HUD, screens): follow INSTRUCTIONS.md 1.13 and apply the ALN UI Redesign skin from `assets/aln-ui-redesign/` (README.txt, design.json, font/README.txt in the tools txt). Textures are not exported; if the pack's resource_pack is missing, ask for it. Never claim anything was tested in Minecraft unless it was.
+- Update: deliver the repo change as the Termux script below. New pack: the pack `.sh` above. Never a separate payload or base64 file.
+
+## Destination
+Repo-root-relative folders for this work:
+- MCPEDL/Maps/OneBlock-Natural-Market
+- .sh paths start at repo root, stay inside these folders. New files go here too.
+- First folder -> `DEST=` variable at script top. Use it for every path and `git add`.
+
+## Rules
+1. NEVER invent features, versions, links, assets, test results.
+2. Output only what changed. Smallest edits. No unrelated rewrites.
+3. No notes/summaries/explanations unless asked.
+4. Any project type (add-on, map, script, workflow, website). Keep folder layout. New project = own new folder beside similar ones.
+
+## Update request = ONE Termux script
+- Name: `<Repofilename>_<Version>_<RAND>.sh` (e.g. `Monster-Companions_1.2.4_k7q2x.sh`). Deliver as downloadable file.
+- Repofilename: project/folder/file changed. No extension, no spaces (hyphens ok).
+- Version: new X.Y.Z. Update = Z+1. Beta/Release only if requested (see Versions).
+- RAND: >=5 random lowercase letters/digits. Fresh every script. NEVER reuse (earlier reply or existing file), so a new script never overwrites or re-runs an old one.
+- Same exact name in reply steps.
+Script order:
+1. `#!/data/data/com.termux/files/usr/bin/bash` + `set -e`
+2. `cd "$HOME/MCPE-Curseforges"`; `git clone` repo URL first if folder missing
+3. `git pull --rebase`
+4. Apply ALL changes as exact search-and-replace edits: write a spec and run `python3 scripts/make_update_script.py spec.txt` (format in `scripts/apply_update.py`; `--verify <clone>` dry-runs it). The tool applies edits atomically, sets the manifest version and writes both changelogs. Size decides the method. SMALL update (a few edits, under about 60% of any file touched): search and replace only. LARGE update (most of a file, many new files, a redesign): use the best method, `@@ create`/`@@ overwrite` in the same spec, never many fragile edits. Either way ONE `.sh`. No separate downloads.
+5. Validate every changed .json with python3. Stop on error.
+5b. Verify top CHANGELOG.md heading == new X.Y.Z == script filename version. Stop on mismatch. If project has manifests: run `python3 scripts/manifest_tools.py --project "$DEST" --set X.Y.Z` (sets header.version, metadata.version, title suffix, module/dependency versions in every source manifest; never lowers), then `python3 scripts/manifest_tools.py --project "$DEST" --check` and `python3 scripts/validate_manifest_titles.py --project "$DEST"`. Stop on error. Every update must change the manifests so the build changes. Never hand-edit manifest JSON for versions.
+5c. If INSTRUCTIONS.md or PACK_GENERATOR_INSTRUCTIONS.md changed: run `python3 scripts/check_instruction_files.py`. Stop on error
+6. `git add` changed paths only; `git commit -m "<short message>"`; `git push`
+6b. Add an entry to the ROOT `CHANGELOG.md` (repo-wide, newest first under `---`): `## [vN] - YYYY-MM-DD - [Update Name]` (N = `REPO_VERSION` + 1, a single whole number such as v80, set by the update tool, never by hand), groups `### Added` / `### Improved & Balanced` / `### Fixed`, bullets `- **Title**: what changed`. Every script, tooling-only included.
+7. After push, do NOT start any workflow. Build Changed Packs & Sync Catalogs runs by itself on every push and rebuilds everything. Nothing auto-bumps; Publish to CurseForge uploads the newest changelog version as written.
+8. Idempotent: skip anything already applied.
+9. Last line, reached only after a successful push: `rm -f -- "$SELF"` (the script deletes itself; save `SELF="$(readlink -f -- "$0")"` on line 2, before the `cd`).
+
+## Docs (every update, same script)
+- Templates STRICT: README.md, DESCRIPTION.md, CHANGELOG.md match templates below exactly: same headings, text, order, labels, bullet format. NEVER add/remove/rename/merge/reorder sections. No boilerplate/extra text. No placeholders: fill every [bracket] with verified content. Accuracy + requested scope outrank template.
+- CHANGELOG.md: MANDATORY every update, no exceptions. Add new release entry for the change.
+- README.md + DESCRIPTION.md: after change, analyze both in destination folder. Edit ONLY if change makes them inaccurate/incomplete. NEVER remove verified content.
+
+### Versions (X.Y.Z ONLY)
+- Format: exactly X.Y.Z everywhere. NEVER X.Y.Z.A. No fourth part. No Alpha.
+- X = Release, Y = Beta, Z = Update.
+- Update: Z+1 (1.2.3 -> 1.2.4). Default.
+- Beta: Y+1, Z=0 (1.2.4 -> 1.3.0). Only if requested.
+- Release: X+1, Y=0, Z=0 (1.3.0 -> 2.0.0). Only if requested.
+- New X.Y.Z goes in CHANGELOG heading + script filename.
+- Manifest versions: set ONLY by the script via `manifest_tools.py --set X.Y.Z` (never hand-edit JSON). NEVER hand-edit README download links. Build Changed Packs & Sync Catalogs aligns a pack to its highest existing version and rebuilds; it never bumps. Publish to CurseForge uploads the newest changelog version.
+- NEVER put release version in README/DESCRIPTION titles. NEVER reuse a heading.
+
+### Changelog views
+- `changelog_views/<Name>.github.md` (newest open, older folded by minor series) and `changelog_views/<Name>.curseforge.html` (CurseForge spoilers, paste into project description): generated from CHANGELOG.md by `scripts/build_changelog_views.py`.
+- CHANGELOG.md = plain text, exact template format, only source of truth. NEVER add HTML/fold markup/links to it. NEVER edit views by hand. NEVER create/change views inside the .sh.
+- Refresh: Build Changed Packs & Sync Catalogs; Collect Files for AI Review (tick commit_changelog_views to save); or `python3 scripts/build_changelog_views.py --project <Name>`.
+
+### Writing
+- Player-facing only. In-game display names, never identifiers, file names, JSON, events, code.
+- "Behavior Pack" / "Resource Pack", NEVER BP/RP.
+- README: no code blocks, emojis, hype, badges.
+- DESCRIPTION: exactly the two Minecraft Bedrock + Format badges from repo template, no others. May keep existing item sprites + recipe diagrams.
+- No Markdown tables. Use `### Feature Name` cards with `- **What Happens**: ...` bullets.
+- Paragraphs <=4 sentences. Verified facts only. Verification line = source created | package built | in-game tested, NEVER mixed.
+
+### README.md (add-on): download landing page only, EXACTLY 11 non-empty lines
+```
+# [Name]
+
+Download the current release of **[Name]** for Minecraft Bedrock Edition.
+
+## Download
+
+- **Package format:** `.mcaddon`
+- **Direct download:** [Download [Name] (.mcaddon)](link)
+
+## Installation
+
+1. Download the package using the link above.
+2. Open the downloaded file with Minecraft to import it.
+3. If the package contains a pack that must be enabled separately, activate it in your world's settings.
+
+## Pack Information
+
+For gameplay features, usage details, compatibility notes, and other project information, read the [full description](DESCRIPTION link).
+```
+Maps/scripts/minigames: same landing page. Use real package format; .mcworld = tell players to open the imported world. Product details live in DESCRIPTION.md.
+
+### DESCRIPTION.md order
+1. `# [Name] — [subtitle]` (no release version)
+2. `**By ALNStudios**`
+3. Two exact badges (Minecraft Bedrock "Stable Release", Format) from repo template
+4. Summary
+5. `## Overview`
+6. `## Key Features`
+7. `## How to Use`
+8. `## Compatibility`: Minecraft Bedrock Edition, Experimental features, Achievements, Verification
+9. `## Creator and Permissions`: `- Creator: ALNStudios`, `- Profiles:` CurseForge https://www.curseforge.com/members/allenscreations/projects · MCPEDL https://mcpedl.com/user/alnstudios/, then the two clickable listing images (HTML, `width="45%"`, no `height`, raw URLs `assets/Images/curseforge.jpg`, `assets/Images/MCPEDL.jpg`). NEVER edit/copy the images
+10. `## Guidelines and Attribution`
+11. `---` then `## Search & Discovery Keywords` from real features
+- Add-ons: Achievements line ALWAYS `Likely achievement-friendly`; add caveats if world settings/cheats can disable achievements.
+
+### Guidelines and Attribution block, exactly
+```
+- Creator: ALNStudios
+- Rights & Reservation: All rights reserved for ALNStudios.
+- Content Creators: Content creators are permitted to feature this creation in videos and streams with credit to ALNStudios.
+- Redistribution: Do not re-upload this pack or provide direct monetized download bypasses. Link directly to the official repository page.
+- Disclaimer: This is an unofficial community creation. It is not an official Minecraft product and is not approved by or associated with Mojang or Microsoft.
+
+---
+
+© All rights reserved for ALNStudios.
+
+---
+```
+
+### CHANGELOG.md
+- `# Changelog — [Name]`, `---`, then newest first: `## [X.Y.Z] - YYYY-MM-DD - [Update Name]` (date: `TZ=Asia/Singapore date +%F`). [Update Name] = short player-facing title (2-6 words) of what is new. REQUIRED on every new entry.
+- Groups: `### Added`, `### Improved & Balanced`, `### Fixed` (bugs as in-game experience). Omit empty groups. Each group >=1 bullet.
+- Entry: `- **Title**: player impact.`
+- NO links, URLs, badges, function/event names, unverified benefits. No boilerplate after title.
+- Insert new entry directly under `---`, above previous release. NEVER edit/delete older entries.
+
+## Reply Format (STRICT)
+```
+[SYSTEM_CONFIG]
+Mode: Direct Execution
+Token_Efficiency: Maximum
+Rules: no greeting, intro, outro, offers, restating. High technical accuracy.
+```
+Output ONLY these three sections, in order, exact headings:
+1. **File Needed:** repo-root-relative path of each file created/edited.
+2. **Changelog:** bullets, brief summary of changes.
+3. **Termux Script:** ONE fenced `bash` block holding ONLY the run commands: `bash ~/storage/downloads/<Repofilename>_<Version>_<RAND>.sh` (a new pack may add the same line with `stage`). The .sh is attached, NEVER pasted. NEVER a Summary section.
+- The .sh (`<Repofilename>_<Version>_<RAND>.sh`, random chars included) is the downloadable file. Exact same name in the command.
+- NEVER text before, between, after. NEVER rename/merge/reorder/skip a section. Nothing to report: `- None`.
+- Unclear request: ask ONE line, then proceed with defaults.
+- First-time Termux setup, ONLY if the user asks:
+```
+pkg update -y && pkg install -y git python curl
+termux-setup-storage
+git config --global user.name "ALNStudios"
+git config --global user.email "your-email@example.com"
+git config --global credential.helper store
+```
+- Push password = GitHub Personal Access Token (repo + workflow scopes), NOT account password. Same token starts the build after push.
+
+---
+
+## File Contents
+
+## FILE: changelog_views/OneBlock-Natural-Market.curseforge.html (2 lines, 90 bytes)
+
+```
+<h2>1.0.2 - 2026-11-11</h2><h3>Improved</h3><ul></ul><h3>Compatibility note</h3><ul></ul>
+```
+
+## FILE: changelog_views/OneBlock-Natural-Market.github.md (8 lines, 103 bytes)
+
+```
+# Changelog — OneBlock Natural Market
+
+## [1.0.2] - 2026-11-11
+
+### Improved
+
+### Compatibility note
+```
+
+## FILE: description_views/OneBlock-Natural-Market.listing.md (65 lines, 10145 bytes)
+
+````
+# Listing Kit: OneBlock Natural Market
+
+Tap the Copy button on a block, then paste it into the CurseForge listing. Generated from DESCRIPTION.md: edit that, not this file.
+
+## Package Name
+
+```text
+OneBlock Natural Market
+```
+
+## Summary (93/256)
+
+```text
+Use the Natural Market Ledger to buy supplies for a regenerating OneBlock survival challenge.
+```
+
+## Description (HTML)
+
+Paste into the CurseForge description editor in source (HTML) mode.
+
+```html
+<div><div style="border:2px solid #15803d;border-radius:18px;line-height:1.5"><br><h1 style="font-size:34px;text-align:center">OneBlock Natural Market</h1><p style="color:#8a94a3;font-size:14px;text-align:center">by ALNStudios</p><p style="text-align:center"><span style="background-color:#15803d;color:#ffffff;border-radius:20px;font-size:16px">&nbsp;&nbsp;<strong>Use the Natural Market Ledger to buy supplies for a regenerating OneBlock survival challenge.</strong>&nbsp;&nbsp;</span></p><div style="display:flex;flex-wrap:wrap;gap:8px;margin-left:14px;margin-right:14px"><div style="background-color:#dcfce7;color:#14532d;border-radius:20px;font-size:14px;line-height:2"><strong>&nbsp;&nbsp;Bedrock</strong>: 1.26+&nbsp;&nbsp;</div><div style="background-color:#dcfce7;color:#14532d;border-radius:20px;font-size:14px;line-height:2"><strong>&nbsp;&nbsp;Experimental</strong>: No&nbsp;&nbsp;</div></div><br></div>
+<h2 style="font-size:17px;text-align:left"><span style="background-color:#15803d;color:#ffffff;border-radius:20px">&nbsp;&nbsp;About&nbsp;&nbsp;</span></h2>
+<p>Start on a small void platform with the central block at (0, 0, 0). Breaking it earns Coins and advances shared progression. Use the Natural Market Ledger to buy supplies and expand the central block's eligible regeneration pool.</p>
+<h2 style="font-size:17px;text-align:left"><span style="background-color:#15803d;color:#ffffff;border-radius:20px">&nbsp;&nbsp;What You Get&nbsp;&nbsp;</span></h2>
+<div style="display:flex;flex-wrap:wrap;gap:10px"><div style="flex:1;min-width:200px;border:1px solid #8a94a3;border-radius:16px"><div style="background-color:#15803d;color:#ffffff;border-radius:16px;font-size:16px;line-height:2.2"><strong>&nbsp;&nbsp;Regenerating OneBlock</strong></div><div style="margin-left:12px;margin-right:12px"><p></p></div></div><div style="flex:1;min-width:200px;border:1px solid #8a94a3;border-radius:16px"><div style="background-color:#15803d;color:#ffffff;border-radius:16px;font-size:16px;line-height:2.2"><strong>&nbsp;&nbsp;Natural Market Ledger</strong></div><div style="margin-left:12px;margin-right:12px"><p></p></div></div><div style="flex:1;min-width:200px;border:1px solid #8a94a3;border-radius:16px"><div style="background-color:#15803d;color:#ffffff;border-radius:16px;font-size:16px;line-height:2.2"><strong>&nbsp;&nbsp;Coins and Selling</strong></div><div style="margin-left:12px;margin-right:12px"><p></p></div></div><div style="flex:1;min-width:200px;border:1px solid #8a94a3;border-radius:16px"><div style="background-color:#15803d;color:#ffffff;border-radius:16px;font-size:16px;line-height:2.2"><strong>&nbsp;&nbsp;Progression and Supply Pool</strong></div><div style="margin-left:12px;margin-right:12px"><p></p></div></div></div>
+<h2 style="font-size:17px;text-align:left"><span style="background-color:#15803d;color:#ffffff;border-radius:20px">&nbsp;&nbsp;Get Started&nbsp;&nbsp;</span></h2>
+<table style="width:100%;border:1px solid #8a94a3;border-radius:16px"><tbody><tr><td style="width:44px;text-align:center"><div style="background-color:#15803d;color:#ffffff;font-weight:bold;font-size:15px;text-align:center;border-radius:10px;width:30px;aspect-ratio:1/1;line-height:30px">1</div></td><td style="text-align:left;">Import the Creative world first for initial checks.</td></tr><tr><td style="width:44px;text-align:center"><div style="background-color:#15803d;color:#ffffff;font-weight:bold;font-size:15px;text-align:center;border-radius:10px;width:30px;aspect-ratio:1/1;line-height:30px">2</div></td><td style="text-align:left;">Use the Natural Market Ledger from your inventory.</td></tr><tr><td style="width:44px;text-align:center"><div style="background-color:#15803d;color:#ffffff;font-weight:bold;font-size:15px;text-align:center;border-radius:10px;width:30px;aspect-ratio:1/1;line-height:30px">3</div></td><td style="text-align:left;">Tap a category, then tap a supply slot to buy its listed bundle.</td></tr><tr><td style="width:44px;text-align:center"><div style="background-color:#15803d;color:#ffffff;font-weight:bold;font-size:15px;text-align:center;border-radius:10px;width:30px;aspect-ratio:1/1;line-height:30px">4</div></td><td style="text-align:left;">Break the central block to earn Coins and progress.</td></tr><tr><td style="width:44px;text-align:center"><div style="background-color:#15803d;color:#ffffff;font-weight:bold;font-size:15px;text-align:center;border-radius:10px;width:30px;aspect-ratio:1/1;line-height:30px">5</div></td><td style="text-align:left;">Use the selling option in the market to exchange eligible catalogue items for Coins.</td></tr></tbody></table>
+<h2 style="font-size:17px;text-align:left"><span style="background-color:#15803d;color:#ffffff;border-radius:20px">&nbsp;&nbsp;Install&nbsp;&nbsp;</span></h2>
+<table style="width:100%;border:1px solid #8a94a3;border-radius:16px"><tbody><tr><td style="width:44px;text-align:center"><div style="background-color:#15803d;color:#ffffff;font-weight:bold;font-size:15px;text-align:center;border-radius:10px;width:30px;aspect-ratio:1/1;line-height:30px">1</div></td><td style="text-align:left;">Download the file from this page and open it with Minecraft.</td></tr><tr><td style="width:44px;text-align:center"><div style="background-color:#15803d;color:#ffffff;font-weight:bold;font-size:15px;text-align:center;border-radius:10px;width:30px;aspect-ratio:1/1;line-height:30px">2</div></td><td style="text-align:left;">Create or edit a world and turn on the new pack(s) in its settings.</td></tr><tr><td style="width:44px;text-align:center"><div style="background-color:#15803d;color:#ffffff;font-weight:bold;font-size:15px;text-align:center;border-radius:10px;width:30px;aspect-ratio:1/1;line-height:30px">3</div></td><td style="text-align:left;">Play. No Experimental toggles needed.</td></tr></tbody></table>
+<h2 style="font-size:17px;text-align:left"><span style="background-color:#15803d;color:#ffffff;border-radius:20px">&nbsp;&nbsp;Support&nbsp;&nbsp;</span></h2><div style="border:1px solid #8a94a3;border-radius:16px;text-align:center"><br><a href="https://ko-fi.com/alnstudios"><img src="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/assets/Images/ko-fi.png" alt="Support ALNStudios on Ko-fi" width="250"></a><br><br></div><p style="text-align:center"><a href="https://www.curseforge.com/members/allenscreations/projects"><strong>CurseForge</strong></a> &nbsp;|&nbsp; <a href="https://mcpedl.com/user/alnstudios/"><strong>MCPEDL</strong></a> &nbsp;|&nbsp; <a href="https://ko-fi.com/alnstudios"><strong>Ko-fi</strong></a></p>
+<hr>
+<p style="text-align:center;color:#8a94a3;font-size:13px"><strong>By ALNStudios</strong></p>
+<div class="spoiler"><p style="font-size:13px"><strong>Permissions and credits</strong></p><ul style="font-size:13px"><li>Rights: All rights reserved for ALNStudios.</li><li>Content creators: You may feature this creation in videos and streams with credit to ALNStudios.</li><li>Redistribution: Do not re-upload this pack or provide direct monetized download bypasses. Link to this page.</li><li>Unofficial community creation. Not an official Minecraft product and not approved by or associated with Mojang or Microsoft.</li></ul></div>
+<p style="text-align:center;color:#8a94a3;font-size:12px">Minecraft Bedrock add-on, OneBlock Natural Market Bedrock mod, Minecraft PE survival, MCPEDL add-on, CurseForge Bedrock, ALNStudios.</p></div>
+```
+
+## AI Image Prompts
+
+### Reference Images
+
+- **Logo reference**: attach your own logo. The generator uses it only for brand colors and mood. The result must be a new design, not a copy.
+- **Snapshot references**: attach 1 to 4 of your in-game snapshots of this pack. The generator copies their look, not their screen layout.
+
+### Logo Prompt
+
+```text
+Use the attached logo only as a brand reference for its color palette and overall mood. Do not copy it. Create a new, original logo with a different composition and a different main symbol. Do not just recolor, resize, crop, mirror or tweak the attached logo.
+Create a clean, square (1:1) logo image for the Minecraft Bedrock add-on "OneBlock Natural Market". Use the Natural Market Ledger to buy supplies for a regenerating OneBlock survival challenge.
+Base the main symbol on the pack idea above. Match the blocky look of the attached in-game snapshots. Center the logo, use a simple background, and keep it readable at small sizes.
+Text: "OneBlock Natural Market" and, in small letters, "ALNStudios". ALNStudios is the brand name, so always keep it and never remove or change it. Spell both exactly.
+Do not add Minecraft, Mojang or Microsoft logos, watermarks, or characters from other games.
+```
+
+### Banner Prompt
+
+```text
+Create a wide (16:9) banner image for the Minecraft Bedrock add-on "OneBlock Natural Market". Use the Natural Market Ledger to buy supplies for a regenerating OneBlock survival challenge.
+Use the attached in-game snapshots as scene and style references: copy their blocky look, lighting, colors and the kind of scenery they show. Make a new composition inspired by them. Do not copy the on-screen HUD, chat or hotbar.
+Use the attached logo only as a brand reference for its colors and mood. Do not copy it. Put a new, original logo design in the banner, large enough to read, on the left or center.
+Hint at these pack features visually: Regenerating OneBlock, Natural Market Ledger, Coins and Selling, Progression and Supply Pool.
+Text: "OneBlock Natural Market" and, in small letters, "by ALNStudios". ALNStudios is the brand name, so always keep it and never remove or change it. Spell both exactly.
+Leave clear space around the logo. No Minecraft, Mojang or Microsoft logos, no watermarks.
+```
+````
+
+## FILE: MCPEDL/Maps/OneBlock-Natural-Market/assets/snapshots/.gitkeep (1 lines, 0 bytes)
+
+```
+
+```
+
+## FILE: MCPEDL/Maps/OneBlock-Natural-Market/behavior_pack/functions/oneblock_setup.mcfunction (2 lines, 56 bytes)
+
+```
+execute if block 0 -1 0 air run setblock 0 -1 0 bedrock
+```
+
+## FILE: MCPEDL/Maps/OneBlock-Natural-Market/behavior_pack/functions/oneblock_tick.mcfunction (4 lines, 219 bytes)
+
+```
+execute as @a[tag=void_cleaned,tag=!oneblock_ready] run scriptevent allenscreations:oneblock_ready
+tag @a[tag=void_cleaned,tag=!oneblock_ready] add oneblock_ready
+execute if block 0 -1 0 air run setblock 0 -1 0 bedrock
+```
+
+## FILE: MCPEDL/Maps/OneBlock-Natural-Market/behavior_pack/functions/tick.json (7 lines, 62 bytes)
+
+```
+{
+  "values": [
+    "void_cleaner",
+    "oneblock_tick"
+  ]
+}
+```
+
+## FILE: MCPEDL/Maps/OneBlock-Natural-Market/behavior_pack/functions/void_cleaner.mcfunction (8 lines, 523 bytes)
+
+```
+execute as @a[tag=!void_cleaned] run fill -16 -64 -16 16 -64 16 air
+execute as @a[tag=!void_cleaned] run tp @s 0 1 0
+execute as @a[tag=!void_cleaned] run setblock 0 -1 0 bedrock
+execute as @a[tag=!void_cleaned] if block 0 0 0 air run setblock 0 0 0 minecraft:grass_block
+execute as @a[tag=!void_cleaned] run setworldspawn 0 1 0
+execute as @a[tag=!void_cleaned] run tellraw @s {"rawtext":[{"text":"§aOneBlock Natural Market is ready."}]}
+execute as @a[tag=!void_cleaned] if block 0 -1 0 bedrock run tag @s add void_cleaned
+```
+
+## FILE: MCPEDL/Maps/OneBlock-Natural-Market/behavior_pack/items/trader_ledger.json (28 lines, 602 bytes)
+
+```
+{
+  "format_version": "1.20.80",
+  "minecraft:item": {
+    "description": {
+      "identifier": "allenscreations:trader_ledger",
+      "menu_category": {
+        "category": "items"
+      }
+    },
+    "components": {
+      "minecraft:max_stack_size": 1,
+      "minecraft:icon": {
+        "textures": {
+          "default": "trader_ledger"
+        }
+      },
+      "minecraft:display_name": {
+        "value": "Natural Market Ledger"
+      },
+      "minecraft:use_animation": "spyglass",
+      "minecraft:use_modifiers": {
+        "use_duration": 0.1,
+        "movement_modifier": 1
+      }
+    }
+  }
+}
+```
+
+## FILE: MCPEDL/Maps/OneBlock-Natural-Market/behavior_pack/manifest.json (66 lines, 1173 bytes)
+
+```
+{
+  "format_version": 2,
+  "header": {
+    "name": "OneBlock Natural Market (v1.0.2)",
+    "description": "OneBlock survival with a progression market and regenerating core. by ALNStudios",
+    "uuid": "77f07d1a-fa7a-437d-8fea-72068be05162",
+    "version": [
+      1,
+      0,
+      2
+    ],
+    "min_engine_version": [
+      1,
+      26,
+      50
+    ]
+  },
+  "modules": [
+    {
+      "type": "data",
+      "uuid": "6382a3dd-3398-4ec5-851b-748d052c0e36",
+      "version": [
+        1,
+        0,
+        2
+      ]
+    },
+    {
+      "type": "script",
+      "language": "javascript",
+      "uuid": "645e0490-52c0-4f43-b412-0f20375a92fc",
+      "version": [
+        1,
+        0,
+        2
+      ],
+      "entry": "scripts/main.js"
+    }
+  ],
+  "dependencies": [
+    {
+      "uuid": "187333a6-4353-4003-b379-471f85ce9021",
+      "version": [
+        1,
+        0,
+        2
+      ]
+    },
+    {
+      "module_name": "@minecraft/server",
+      "version": "2.10.0"
+    },
+    {
+      "module_name": "@minecraft/server-ui",
+      "version": "2.2.0"
+    }
+  ],
+  "metadata": {
+    "authors": [
+      "ALNStudios"
+    ],
+    "product_type": "addon",
+    "version": "1.0.2"
+  }
+}
+```
+
+## FILE: MCPEDL/Maps/OneBlock-Natural-Market/behavior_pack/scripts/main.js (486 lines, 28633 bytes)
+
+```
+import { world, system, ItemStack, ItemTypes } from "@minecraft/server";
+import { ActionFormData, MessageFormData } from "@minecraft/server-ui";
+
+const CORE = { x: 0, y: 0, z: 0 };
+const BEDROCK = { x: 0, y: -1, z: 0 };
+const LEDGER = "allenscreations:trader_ledger";
+const COINS = "obm_coins";
+const MINED = "obm_mined";
+const TOTAL = "obm_total";
+const GLOBAL_KEY = "OneBlockNaturalMarket";
+const POOL_KEY = "obm_purchased_blocks";
+const READY_EVENT = "allenscreations:oneblock_ready";
+const CATEGORIES = [
+  { name: "Building Blocks", icon: "textures/blocks/stone" },
+  { name: "Tools & Gear", icon: "textures/items/iron_pickaxe" },
+  { name: "Farming", icon: "textures/items/wheat" },
+  { name: "Food", icon: "textures/items/bread" },
+  { name: "Combat", icon: "textures/items/iron_sword" },
+  { name: "Ores & Minerals", icon: "textures/items/diamond" },
+  { name: "Redstone", icon: "textures/items/redstone" },
+  { name: "Mob Drops", icon: "textures/items/bone" },
+  { name: "Nether", icon: "textures/blocks/netherrack" },
+  { name: "Endgame", icon: "textures/items/ender_pearl" }
+];
+const MILESTONES = [
+  { unlock: 0, id: "minecraft:dirt", reward: 1 },
+  { unlock: 50, id: "minecraft:oak_log", reward: 1 },
+  { unlock: 150, id: "minecraft:cobblestone", reward: 2 },
+  { unlock: 350, id: "minecraft:coal_ore", reward: 2 },
+  { unlock: 700, id: "minecraft:iron_ore", reward: 3 },
+  { unlock: 1200, id: "minecraft:gold_ore", reward: 3 },
+  { unlock: 2000, id: "minecraft:diamond_ore", reward: 4 },
+  { unlock: 3000, id: "minecraft:obsidian", reward: 5 },
+  { unlock: 4500, id: "minecraft:ancient_debris", reward: 6 },
+  { unlock: 6000, id: "minecraft:netherite_block", reward: 8 }
+];
+const CATALOG = [
+  ["dirt", 2, 16, "Building Blocks", 0, true, "textures/blocks/dirt"],
+  ["coarse_dirt", 2, 16, "Building Blocks", 0, true, "textures/blocks/coarse_dirt"],
+  ["sand", 2, 16, "Building Blocks", 0, true, "textures/blocks/sand"],
+  ["gravel", 2, 16, "Building Blocks", 0, true, "textures/blocks/gravel"],
+  ["oak_log", 3, 8, "Building Blocks", 0, true, "textures/blocks/log_oak"],
+  ["oak_planks", 2, 16, "Building Blocks", 0, true, "textures/blocks/planks_oak"],
+  ["stick", 2, 16, "Tools & Gear", 0, false, "textures/items/stick"],
+  ["crafting_table", 5, 1, "Building Blocks", 0, true, "textures/blocks/crafting_table_front"],
+  ["torch", 2, 16, "Building Blocks", 0, true, "textures/blocks/torch_on"],
+  ["bread", 4, 4, "Food", 0, false, "textures/items/bread"],
+  ["wheat_seeds", 2, 16, "Farming", 0, false, "textures/items/seeds_wheat"],
+  ["oak_sapling", 4, 4, "Farming", 0, true, "textures/blocks/sapling_oak"],
+  ["chest", 8, 1, "Building Blocks", 0, true, "textures/blocks/chest_front"],
+  ["furnace", 10, 1, "Building Blocks", 0, true, "textures/blocks/furnace_front"],
+  ["wooden_pickaxe", 8, 1, "Tools & Gear", 0, false, "textures/items/wood_pickaxe"],
+  ["wooden_axe", 8, 1, "Tools & Gear", 0, false, "textures/items/wood_axe"],
+  ["wooden_shovel", 5, 1, "Tools & Gear", 0, false, "textures/items/wood_shovel"],
+  ["wooden_sword", 6, 1, "Combat", 0, false, "textures/items/wood_sword"],
+  ["cobblestone", 3, 16, "Building Blocks", 1, true, "textures/blocks/cobblestone"],
+  ["stone", 5, 16, "Building Blocks", 1, true, "textures/blocks/stone"],
+  ["glass", 6, 16, "Building Blocks", 1, true, "textures/blocks/glass"],
+  ["bricks", 12, 8, "Building Blocks", 1, true, "textures/blocks/brick"],
+  ["oak_door", 6, 4, "Building Blocks", 1, true, "textures/blocks/door_oak_lower"],
+  ["oak_fence", 5, 8, "Building Blocks", 1, true, "textures/blocks/fence_oak"],
+  ["ladder", 4, 8, "Building Blocks", 1, true, "textures/blocks/ladder"],
+  ["stone_pickaxe", 16, 1, "Tools & Gear", 1, false, "textures/items/stone_pickaxe"],
+  ["stone_axe", 15, 1, "Tools & Gear", 1, false, "textures/items/stone_axe"],
+  ["stone_sword", 14, 1, "Combat", 1, false, "textures/items/stone_sword"],
+  ["stone_shovel", 10, 1, "Tools & Gear", 1, false, "textures/items/stone_shovel"],
+  ["carrot", 3, 8, "Farming", 1, false, "textures/items/carrot"],
+  ["potato", 3, 8, "Farming", 1, false, "textures/items/potato"],
+  ["wheat", 4, 8, "Farming", 1, false, "textures/items/wheat"],
+  ["composter", 8, 1, "Farming", 1, true, "textures/blocks/composter_side"],
+  ["bucket", 18, 1, "Farming", 1, false, "textures/items/bucket_empty"],
+  ["iron_ingot", 20, 2, "Ores & Minerals", 2, false, "textures/items/iron_ingot"],
+  ["coal", 8, 8, "Ores & Minerals", 2, false, "textures/items/coal"],
+  ["coal_ore", 12, 4, "Ores & Minerals", 2, true, "textures/blocks/coal_ore"],
+  ["iron_ore", 22, 4, "Ores & Minerals", 2, true, "textures/blocks/iron_ore"],
+  ["stone_bricks", 10, 16, "Building Blocks", 2, true, "textures/blocks/stonebrick"],
+  ["lantern", 12, 4, "Building Blocks", 2, true, "textures/blocks/lantern"],
+  ["iron_pickaxe", 45, 1, "Tools & Gear", 2, false, "textures/items/iron_pickaxe"],
+  ["iron_axe", 40, 1, "Tools & Gear", 2, false, "textures/items/iron_axe"],
+  ["iron_sword", 38, 1, "Combat", 2, false, "textures/items/iron_sword"],
+  ["iron_shovel", 24, 1, "Tools & Gear", 2, false, "textures/items/iron_shovel"],
+  ["shield", 35, 1, "Combat", 2, false, "textures/items/shield"],
+  ["bow", 30, 1, "Combat", 2, false, "textures/items/bow_standby"],
+  ["arrow", 3, 16, "Combat", 2, false, "textures/items/arrow"],
+  ["pumpkin_seeds", 4, 8, "Farming", 2, false, "textures/items/seeds_pumpkin"],
+  ["melon_seeds", 4, 8, "Farming", 2, false, "textures/items/seeds_melon"],
+  ["hay_block", 10, 4, "Farming", 2, true, "textures/blocks/hay_block_side"],
+  ["redstone", 14, 8, "Redstone", 3, false, "textures/items/redstone_dust"],
+  ["redstone_torch", 12, 8, "Redstone", 3, true, "textures/blocks/redstone_torch_on"],
+  ["lever", 8, 4, "Redstone", 3, true, "textures/blocks/lever"],
+  ["piston", 25, 2, "Redstone", 3, true, "textures/blocks/piston_top"],
+  ["dispenser", 18, 1, "Redstone", 3, true, "textures/blocks/dispenser_front_horizontal"],
+  ["hopper", 30, 1, "Redstone", 3, true, "textures/blocks/hopper"],
+  ["iron_block", 90, 2, "Ores & Minerals", 3, true, "textures/blocks/iron_block"],
+  ["gold_ingot", 35, 2, "Ores & Minerals", 3, false, "textures/items/gold_ingot"],
+  ["gold_ore", 38, 4, "Ores & Minerals", 3, true, "textures/blocks/gold_ore"],
+  ["anvil", 70, 1, "Tools & Gear", 3, true, "textures/blocks/anvil_base"],
+  ["fishing_rod", 25, 1, "Tools & Gear", 3, false, "textures/items/fishing_rod_uncast"],
+  ["shears", 28, 1, "Tools & Gear", 3, false, "textures/items/shears"],
+  ["apple", 5, 8, "Food", 3, false, "textures/items/apple"],
+  ["cooked_beef", 8, 8, "Food", 3, false, "textures/items/beef_cooked"],
+  ["bone", 8, 8, "Mob Drops", 3, false, "textures/items/bone"],
+  ["string", 8, 8, "Mob Drops", 3, false, "textures/items/string"],
+  ["rotten_flesh", 3, 8, "Mob Drops", 3, false, "textures/items/rotten_flesh"],
+  ["golden_apple", 80, 1, "Food", 4, false, "textures/items/apple_golden"],
+  ["diamond", 60, 2, "Ores & Minerals", 4, false, "textures/items/diamond"],
+  ["diamond_ore", 90, 4, "Ores & Minerals", 4, true, "textures/blocks/diamond_ore"],
+  ["emerald", 65, 2, "Ores & Minerals", 4, false, "textures/items/emerald"],
+  ["emerald_ore", 95, 4, "Ores & Minerals", 4, true, "textures/blocks/emerald_ore"],
+  ["lapis_lazuli", 18, 8, "Ores & Minerals", 4, false, "textures/items/dye_powder_blue"],
+  ["enchanting_table", 120, 1, "Tools & Gear", 4, true, "textures/blocks/enchanting_table_side"],
+  ["diamond_pickaxe", 140, 1, "Tools & Gear", 4, false, "textures/items/diamond_pickaxe"],
+  ["diamond_sword", 120, 1, "Combat", 4, false, "textures/items/diamond_sword"],
+  ["diamond_axe", 130, 1, "Tools & Gear", 4, false, "textures/items/diamond_axe"],
+  ["experience_bottle", 25, 4, "Tools & Gear", 4, false, "textures/items/experience_bottle"],
+  ["ender_pearl", 35, 2, "Endgame", 5, false, "textures/items/ender_pearl"],
+  ["blaze_rod", 40, 2, "Nether", 5, false, "textures/items/blaze_rod"],
+  ["blaze_powder", 24, 4, "Nether", 5, false, "textures/items/blaze_powder"],
+  ["netherrack", 12, 16, "Nether", 5, true, "textures/blocks/netherrack"],
+  ["soul_sand", 15, 8, "Nether", 5, true, "textures/blocks/soul_sand"],
+  ["nether_brick", 18, 8, "Nether", 5, true, "textures/blocks/nether_brick"],
+  ["magma_block", 20, 8, "Nether", 5, true, "textures/blocks/magma"],
+  ["obsidian", 30, 4, "Nether", 6, true, "textures/blocks/obsidian"],
+  ["crying_obsidian", 45, 4, "Nether", 6, true, "textures/blocks/crying_obsidian"],
+  ["ghast_tear", 55, 1, "Mob Drops", 6, false, "textures/items/ghast_tear"],
+  ["nether_wart", 18, 8, "Farming", 6, false, "textures/items/nether_wart"],
+  ["quartz", 24, 8, "Nether", 6, false, "textures/items/quartz"],
+  ["quartz_block", 28, 8, "Nether", 6, true, "textures/blocks/quartz_block_side"],
+  ["ender_eye", 65, 2, "Endgame", 7, false, "textures/items/ender_eye"],
+  ["end_stone", 25, 16, "Endgame", 7, true, "textures/blocks/end_stone"],
+  ["purpur_block", 32, 8, "Endgame", 7, true, "textures/blocks/purpur_block"],
+  ["chorus_fruit", 20, 4, "Endgame", 7, false, "textures/items/chorus_fruit"],
+  ["shulker_shell", 75, 1, "Endgame", 7, false, "textures/items/shulker_shell"],
+  ["elytra", 800, 1, "Endgame", 8, false, "textures/items/elytra"],
+  ["shulker_box", 150, 1, "Endgame", 8, true, "textures/blocks/shulker_top"],
+  ["nether_star", 600, 1, "Endgame", 8, false, "textures/items/nether_star"],
+  ["beacon", 750, 1, "Endgame", 8, true, "textures/blocks/beacon"],
+  ["ancient_debris", 250, 2, "Nether", 8, true, "textures/blocks/ancient_debris_side"],
+  ["netherite_ingot", 500, 1, "Ores & Minerals", 9, false, "textures/items/netherite_ingot"],
+  ["netherite_block", 1200, 1, "Endgame", 9, true, "textures/blocks/netherite_block"],
+  ["totem_of_undying", 900, 1, "Combat", 9, false, "textures/items/totem"],
+  ["enchanted_golden_apple", 500, 1, "Food", 9, false, "textures/items/apple_golden"],
+  ["spruce_log", 3, 8, "Building Blocks", 0, true, "textures/blocks/log_spruce"],
+  ["birch_log", 3, 8, "Building Blocks", 0, true, "textures/blocks/log_birch"],
+  ["jungle_log", 3, 8, "Building Blocks", 0, true, "textures/blocks/log_jungle"],
+  ["acacia_log", 3, 8, "Building Blocks", 0, true, "textures/blocks/log_acacia"],
+  ["dark_oak_log", 3, 8, "Building Blocks", 0, true, "textures/blocks/log_big_oak"],
+  ["mangrove_log", 4, 8, "Building Blocks", 1, true, "textures/blocks/mangrove_log"],
+  ["cherry_log", 4, 8, "Building Blocks", 1, true, "textures/blocks/cherry_log"],
+  ["spruce_planks", 2, 16, "Building Blocks", 0, true, "textures/blocks/planks_spruce"],
+  ["birch_planks", 2, 16, "Building Blocks", 0, true, "textures/blocks/planks_birch"],
+  ["dark_oak_planks", 2, 16, "Building Blocks", 1, true, "textures/blocks/planks_big_oak"],
+  ["sandstone", 4, 16, "Building Blocks", 1, true, "textures/blocks/sandstone_normal"],
+  ["red_sandstone", 5, 16, "Building Blocks", 2, true, "textures/blocks/red_sandstone_normal"],
+  ["moss_block", 8, 8, "Building Blocks", 2, true, "textures/blocks/moss_block"],
+  ["mossy_cobblestone", 7, 16, "Building Blocks", 2, true, "textures/blocks/cobblestone_mossy"],
+  ["granite", 4, 16, "Building Blocks", 1, true, "textures/blocks/stone_granite"],
+  ["diorite", 4, 16, "Building Blocks", 1, true, "textures/blocks/stone_diorite"],
+  ["andesite", 4, 16, "Building Blocks", 1, true, "textures/blocks/stone_andesite"],
+  ["deepslate", 8, 16, "Building Blocks", 3, true, "textures/blocks/deepslate/deepslate"],
+  ["calcite", 7, 16, "Building Blocks", 3, true, "textures/blocks/calcite"],
+  ["tuff", 6, 16, "Building Blocks", 3, true, "textures/blocks/tuff"],
+  ["terracotta", 8, 16, "Building Blocks", 3, true, "textures/blocks/hardened_clay"],
+  ["white_wool", 6, 16, "Building Blocks", 1, true, "textures/blocks/wool_colored_white"],
+  ["blue_wool", 7, 16, "Building Blocks", 2, true, "textures/blocks/wool_colored_blue"],
+  ["packed_ice", 12, 8, "Building Blocks", 4, true, "textures/blocks/ice_packed"],
+  ["snow_block", 5, 8, "Building Blocks", 2, true, "textures/blocks/snow"],
+  ["brick_block", 12, 8, "Building Blocks", 2, true, "textures/blocks/brick"],
+  ["stone_hoe", 12, 1, "Tools & Gear", 1, false, "textures/items/stone_hoe"],
+  ["iron_hoe", 28, 1, "Tools & Gear", 2, false, "textures/items/iron_hoe"],
+  ["diamond_hoe", 95, 1, "Tools & Gear", 4, false, "textures/items/diamond_hoe"],
+  ["golden_pickaxe", 22, 1, "Tools & Gear", 3, false, "textures/items/gold_pickaxe"],
+  ["golden_axe", 20, 1, "Tools & Gear", 3, false, "textures/items/gold_axe"],
+  ["golden_sword", 18, 1, "Combat", 3, false, "textures/items/gold_sword"],
+  ["crossbow", 48, 1, "Combat", 4, false, "textures/items/crossbow_standby"],
+  ["trident", 280, 1, "Combat", 7, false, "textures/items/trident"],
+  ["beetroot", 3, 8, "Farming", 1, false, "textures/items/beetroot"],
+  ["beetroot_seeds", 3, 8, "Farming", 1, false, "textures/items/seeds_beetroot"],
+  ["melon_slice", 3, 8, "Food", 1, false, "textures/items/melon"],
+  ["pumpkin", 4, 4, "Farming", 1, true, "textures/blocks/pumpkin_side"],
+  ["sugar_cane", 3, 8, "Farming", 1, true, "textures/blocks/reeds"],
+  ["bamboo", 4, 8, "Farming", 1, true, "textures/blocks/bamboo_stalk"],
+  ["cocoa_beans", 4, 8, "Farming", 2, false, "textures/items/dye_powder_brown"],
+  ["sweet_berries", 5, 8, "Farming", 2, false, "textures/items/sweet_berries"],
+  ["cooked_chicken", 7, 8, "Food", 2, false, "textures/items/chicken_cooked"],
+  ["cooked_porkchop", 8, 8, "Food", 2, false, "textures/items/porkchop_cooked"],
+  ["cooked_mutton", 8, 8, "Food", 3, false, "textures/items/mutton_cooked"],
+  ["baked_potato", 5, 8, "Food", 2, false, "textures/items/potato_baked"],
+  ["golden_carrot", 18, 4, "Food", 4, false, "textures/items/carrot_golden"],
+  ["pumpkin_pie", 10, 4, "Food", 3, false, "textures/items/pumpkin_pie"],
+  ["cookie", 4, 8, "Food", 1, false, "textures/items/cookie"],
+  ["cake", 20, 1, "Food", 3, false, "textures/items/cake"],
+  ["redstone_block", 60, 2, "Redstone", 4, true, "textures/blocks/redstone_block"],
+  ["repeater", 18, 4, "Redstone", 3, true, "textures/blocks/repeater"],
+  ["comparator", 24, 2, "Redstone", 4, true, "textures/blocks/comparator"],
+  ["observer", 28, 2, "Redstone", 4, true, "textures/blocks/observer"],
+  ["dropper", 18, 2, "Redstone", 3, true, "textures/blocks/dropper_front_horizontal"],
+  ["sticky_piston", 32, 2, "Redstone", 4, true, "textures/blocks/piston_top_sticky"],
+  ["daylight_detector", 26, 1, "Redstone", 4, true, "textures/blocks/daylight_detector_top"],
+  ["target", 22, 2, "Redstone", 4, true, "textures/blocks/target_side"],
+  ["tripwire_hook", 8, 4, "Redstone", 3, false, "textures/items/tripwire_hook"],
+  ["spider_eye", 8, 8, "Mob Drops", 3, false, "textures/items/spider_eye"],
+  ["gunpowder", 10, 8, "Mob Drops", 3, false, "textures/items/gunpowder"],
+  ["slime_ball", 18, 4, "Mob Drops", 4, false, "textures/items/slimeball"],
+  ["leather", 8, 8, "Mob Drops", 3, false, "textures/items/leather"],
+  ["feather", 5, 8, "Mob Drops", 2, false, "textures/items/feather"],
+  ["ink_sac", 7, 8, "Mob Drops", 3, false, "textures/items/dye_powder_black"],
+  ["prismarine_shard", 18, 4, "Mob Drops", 5, false, "textures/items/prismarine_shard"],
+  ["prismarine_crystals", 20, 4, "Mob Drops", 5, false, "textures/items/prismarine_crystals"],
+  ["rabbit_hide", 6, 8, "Mob Drops", 3, false, "textures/items/rabbit_hide"],
+  ["nautilus_shell", 45, 1, "Mob Drops", 6, false, "textures/items/nautilus"],
+  ["basalt", 10, 16, "Nether", 5, true, "textures/blocks/basalt_side"],
+  ["blackstone", 10, 16, "Nether", 5, true, "textures/blocks/blackstone"],
+  ["polished_blackstone", 12, 16, "Nether", 6, true, "textures/blocks/polished_blackstone"],
+  ["crimson_stem", 8, 8, "Nether", 5, true, "textures/blocks/huge_fungus/crimson_stem"],
+  ["warped_stem", 8, 8, "Nether", 5, true, "textures/blocks/huge_fungus/warped_stem"],
+  ["glowstone_dust", 15, 8, "Nether", 5, false, "textures/items/glowstone_dust"],
+  ["soul_torch", 5, 8, "Nether", 5, true, "textures/blocks/soul_torch"],
+  ["ender_chest", 120, 1, "Endgame", 6, true, "textures/blocks/ender_chest_front"],
+  ["end_crystal", 120, 1, "Endgame", 8, false, "textures/items/end_crystal"],
+  ["dragon_breath", 90, 1, "Endgame", 8, false, "textures/items/dragon_breath"],
+  ["conduit", 350, 1, "Endgame", 8, true, "textures/blocks/conduit"],
+  ["heart_of_the_sea", 160, 1, "Endgame", 7, false, "textures/items/heartofthesea"]
+].map(([raw, price, amount, category, tier, block, icon]) => ({
+  id: "minecraft:" + raw, raw, price, amount, category, tier, block, icon,
+  name: raw.split("_").map(s => s[0].toUpperCase() + s.slice(1)).join(" ")
+}));
+
+const objectiveCache = new Map();
+function objective(name) {
+  let obj = objectiveCache.get(name);
+  if (!obj) {
+    obj = world.scoreboard.getObjective(name) ?? world.scoreboard.addObjective(name, name);
+    objectiveCache.set(name, obj);
+  }
+  return obj;
+}
+function readScore(name, identity) {
+  try { return objective(name).getScore(identity) ?? 0; } catch { return 0; }
+}
+function writeScore(name, identity, value) {
+  try { objective(name).setScore(identity, Math.max(0, Math.floor(value))); return true; } catch { return false; }
+}
+function balance(player) { return readScore(COINS, player); }
+function personalBreaks(player) { return readScore(MINED, player); }
+function totalBreaks() { return readScore(TOTAL, GLOBAL_KEY); }
+function setBalance(player, amount) { return writeScore(COINS, player, amount); }
+function inventoryOf(player) { return player.getComponent("minecraft:inventory")?.container; }
+function itemAvailable(item) {
+  try { return !!ItemTypes.get(item.id); } catch { return false; }
+}
+function tell(player, message) { try { player.sendMessage("§6[Natural Market] §r" + message); } catch {} }
+function showBalance(player) {
+  try { player.onScreenDisplay.setActionBar("§6Coins: §e" + balance(player) + " §8| §7Blocks: §f" + personalBreaks(player)); } catch {}
+}
+function hasLedger(player) {
+  const inv = inventoryOf(player);
+  if (!inv) return false;
+  for (let i = 0; i < inv.size; i++) if (inv.getItem(i)?.typeId === LEDGER) return true;
+  return false;
+}
+function grantLedger(player) {
+  if (hasLedger(player)) return true;
+  const inv = inventoryOf(player);
+  if (!inv || inv.emptySlotsCount < 1) {
+    tell(player, "Free one inventory slot and rejoin to receive your Natural Market Ledger.");
+    return false;
+  }
+  try {
+    inv.addItem(new ItemStack(LEDGER, 1));
+    tell(player, "Your Natural Market Ledger is ready. Use it to open the market.");
+    return true;
+  } catch { return false; }
+}
+function hasScore(name, player) {
+  try { return objective(name).getScore(player) !== undefined; } catch { return false; }
+}
+function initializePlayer(player) {
+  if (!hasScore(COINS, player)) writeScore(COINS, player, 50);
+  if (!hasScore(MINED, player)) writeScore(MINED, player, 0);
+  showBalance(player);
+  grantLedger(player);
+}
+function unlockedTier(player) {
+  let tier = 0;
+  const breaks = personalBreaks(player);
+  for (let i = 0; i < MILESTONES.length; i++) if (breaks >= MILESTONES[i].unlock) tier = i;
+  return tier;
+}
+function showForm(form, player, retries = 0) {
+  return form.show(player).then(result => {
+    if (result.canceled && result.cancelationReason === "UserBusy" && retries < 20) {
+      return new Promise(resolve => system.runTimeout(() => resolve(showForm(form, player, retries + 1)), 10));
+    }
+    return result;
+  });
+}
+function currentPool() {
+  const pool = new Set(MILESTONES.filter(m => totalBreaks() >= m.unlock).map(m => m.id));
+  try {
+    const stored = world.getDynamicProperty(POOL_KEY);
+    if (typeof stored === "string") {
+      for (const id of JSON.parse(stored)) if (typeof id === "string" && !["minecraft:water", "minecraft:flowing_water", "minecraft:lava", "minecraft:flowing_lava"].includes(id)) pool.add(id);
+    }
+  } catch {}
+  return [...pool];
+}
+function addBlockToPool(item) {
+  if (!item.block || ["minecraft:water", "minecraft:flowing_water", "minecraft:lava", "minecraft:flowing_lava"].includes(item.id)) return;
+  const stored = currentPool();
+  if (!stored.includes(item.id)) stored.push(item.id);
+  try { world.setDynamicProperty(POOL_KEY, JSON.stringify(stored)); } catch {}
+}
+function coreBlock() {
+  const pool = currentPool();
+  return pool[Math.floor(Math.random() * pool.length)] ?? "minecraft:dirt";
+}
+function ensureCore() {
+  const players = world.getAllPlayers();
+  if (!players.some(p => p.hasTag("void_cleaned"))) return;
+  try {
+    const dimension = world.getDimension("overworld");
+    const bedrock = dimension.getBlock(BEDROCK);
+    if (bedrock && bedrock.typeId === "minecraft:air") bedrock.setType("minecraft:bedrock");
+    const core = dimension.getBlock(CORE);
+    if (core && (core.typeId === "minecraft:air" || core.typeId === "minecraft:grass_block")) core.setType(coreBlock());
+  } catch {}
+}
+function marketMain(player) {
+  const form = new ActionFormData()
+    .title("NATURAL MARKET")
+    .body("§6Coins: §e" + balance(player) + "§r\nPersonal breaks: " + personalBreaks(player) +
+      "\nShared breaks: " + totalBreaks() + "\nUnlocked tier: " + (unlockedTier(player) + 1) + " / 10\n\nChoose a market section.");
+  form.button("Building Blocks", CATEGORIES[0].icon)
+    .button("Tools & Gear", CATEGORIES[1].icon)
+    .button("Farming", CATEGORIES[2].icon)
+    .button("Food", CATEGORIES[3].icon)
+    .button("Combat", CATEGORIES[4].icon)
+    .button("Ores & Minerals", CATEGORIES[5].icon)
+    .button("Redstone", CATEGORIES[6].icon)
+    .button("Mob Drops", CATEGORIES[7].icon)
+    .button("Nether", CATEGORIES[8].icon)
+    .button("Endgame", CATEGORIES[9].icon)
+    .button("Sell Eligible Items", "textures/items/gold_ingot")
+    .button("Balance & Progress", "textures/items/emerald");
+  showForm(form, player).then(r => {
+    if (r.canceled) return;
+    if (r.selection < CATEGORIES.length) return showCategory(player, CATEGORIES[r.selection].name);
+    if (r.selection === CATEGORIES.length) return sellEligible(player);
+    if (r.selection === CATEGORIES.length + 1) {
+      const next = MILESTONES.find(m => m.unlock > personalBreaks(player));
+      tell(player, "Balance: " + balance(player) + " Coins. Personal breaks: " + personalBreaks(player) +
+        ". Shared breaks: " + totalBreaks() + ". " + (next ? "Next core milestone: " + next.unlock + " shared breaks." : "All core milestones reached."));
+      showBalance(player);
+    }
+  }).catch(() => tell(player, "The market menu could not open. Try using the Ledger again."));
+}
+function showCategory(player, category, page = 0) {
+  const tier = unlockedTier(player);
+  const items = CATALOG.filter(item => item.category === category && item.tier <= tier && itemAvailable(item));
+  const locked = CATALOG.filter(item => item.category === category && item.tier > tier);
+  const pageSize = 25;
+  const pageCount = Math.max(1, Math.ceil(items.length / pageSize));
+  const safePage = Math.max(0, Math.min(page, pageCount - 1));
+  const visible = items.slice(safePage * pageSize, (safePage + 1) * pageSize);
+  const form = new ActionFormData().title(category.toUpperCase())
+    .body("§6Coins: §e" + balance(player) + "§r  |  Page " + (safePage + 1) + "/" + pageCount +
+      "\nTap a supply slot to buy the listed bundle." +
+      (locked.length ? "\nMore supplies unlock as you mine the core." : ""));
+  for (const item of visible) {
+    form.button(item.name + "\n§e" + item.amount + "x · " + (item.price * item.amount) + " Coins", item.icon);
+  }
+  if (safePage + 1 < pageCount) form.button("Next Page ▶", "textures/ui/arrow_dark_right");
+  form.button("◀ Back to Market", "textures/items/book_normal");
+  showForm(form, player).then(r => {
+    if (r.canceled) return;
+    if (r.selection < visible.length) return purchase(player, visible[r.selection]);
+    const nextIndex = visible.length;
+    if (safePage + 1 < pageCount && r.selection === nextIndex) return showCategory(player, category, safePage + 1);
+    return marketMain(player);
+  }).catch(() => tell(player, "This category could not open."));
+}
+function purchase(player, item) {
+  if (item.tier > unlockedTier(player)) return tell(player, "Mine more central blocks to unlock this supply.");
+  const inv = inventoryOf(player);
+  if (!inv) return tell(player, "Your inventory is unavailable.");
+  const funds = balance(player);
+  const totalPrice = item.price * item.amount;
+  if (funds < totalPrice) return tell(player, "Not enough Coins. You need " + totalPrice + " Coins.");
+  let stack;
+  try { stack = new ItemStack(item.id, item.amount); } catch { return tell(player, "This item is not available in the current game version."); }
+  if (!setBalance(player, funds - totalPrice)) return tell(player, "Your balance could not be updated; no purchase was made.");
+  let leftover;
+  try { leftover = inv.addItem(stack); } catch { leftover = stack; }
+  const delivered = item.amount - (leftover?.amount ?? 0);
+  const charged = delivered * item.price;
+  if (charged < totalPrice) setBalance(player, balance(player) + totalPrice - charged);
+  if (delivered <= 0) return tell(player, "Inventory full. No Coins were taken.");
+  if (delivered < item.amount) tell(player, "Only " + delivered + " item(s) fit; charged " + charged + " Coins.");
+  else tell(player, "Purchased " + delivered + " × " + item.name + " for " + charged + " Coins.");
+  addBlockToPool(item);
+  showBalance(player);
+}
+function sellEligible(player) {
+  const inv = inventoryOf(player);
+  if (!inv) return tell(player, "Your inventory is unavailable.");
+  const values = new Map(CATALOG.map(item => [item.id, Math.max(1, Math.floor(item.price / 2))]));
+  const slots = [];
+  let payout = 0, count = 0;
+  for (let i = 0; i < inv.size; i++) {
+    const stack = inv.getItem(i);
+    if (!stack) continue;
+    const unit = values.get(stack.typeId);
+    if (!unit) continue;
+    slots.push(i);
+    payout += unit * stack.amount;
+    count += stack.amount;
+  }
+  if (!count) return tell(player, "You have no eligible market items to sell.");
+  const form = new MessageFormData().title("SELL ELIGIBLE ITEMS")
+    .body("Sell " + count + " eligible item(s) for " + payout + " Coins? Items not listed in the market are kept.")
+    .button1("Sell")
+    .button2("Cancel");
+  showForm(form, player).then(r => {
+    if (r.canceled || r.selection !== 0) return;
+    if (!setBalance(player, balance(player) + payout)) return tell(player, "Balance update failed; your items were kept.");
+    for (const slot of slots) inv.setItem(slot, undefined);
+    tell(player, "Sold " + count + " eligible item(s) for " + payout + " Coins.");
+    showBalance(player);
+  }).catch(() => tell(player, "The sell confirmation could not open."));
+}
+let coreBreakPending = false;
+function onCoreBreak(player) {
+  const personal = personalBreaks(player) + 1;
+  const total = totalBreaks() + 1;
+  writeScore(MINED, player, personal);
+  writeScore(TOTAL, GLOBAL_KEY, total);
+  const milestone = [...MILESTONES].reverse().find(m => total >= m.unlock) ?? MILESTONES[0];
+  writeScore(COINS, player, balance(player) + milestone.reward);
+  if (MILESTONES.some(m => m.unlock > 0 && m.unlock === total)) {
+    world.sendMessage("§6[Natural Market] §rA new core milestone has been reached. More block types can now appear.");
+  }
+  tell(player, "Core mined: +" + milestone.reward + " Coins.");
+  showBalance(player);
+}
+world.afterEvents.scriptEventReceive.subscribe(event => {
+  if (event.id !== READY_EVENT) return;
+  system.run(() => ensureCore());
+});
+world.afterEvents.itemUse.subscribe(event => {
+  if (event.itemStack?.typeId !== LEDGER) return;
+  const player = event.source;
+  if (player?.typeId === "minecraft:player") system.run(() => marketMain(player));
+});
+world.afterEvents.playerBreakBlock.subscribe(event => {
+  const location = event.block.location;
+  const player = event.player;
+  if (!player || event.block.dimension.id !== "minecraft:overworld") return;
+  if (location.x !== CORE.x || location.y !== CORE.y || location.z !== CORE.z || coreBreakPending) return;
+  coreBreakPending = true;
+  system.runTimeout(() => {
+    try {
+      if (player.hasTag("void_cleaned")) {
+        onCoreBreak(player);
+        const block = world.getDimension("overworld").getBlock(CORE);
+        if (block && block.typeId === "minecraft:air") block.setType(coreBlock());
+      }
+    } catch {}
+    coreBreakPending = false;
+  }, 1);
+});
+world.afterEvents.playerSpawn.subscribe(event => {
+  system.runTimeout(() => {
+    initializePlayer(event.player);
+    if (event.player.hasTag("void_cleaned")) ensureCore();
+  }, 10);
+});
+world.afterEvents.playerLeave.subscribe(event => {
+  objectiveCache.clear();
+});
+system.run(() => {
+  objective(COINS);
+  objective(MINED);
+  objective(TOTAL);
+});
+```
+
+## FILE: MCPEDL/Maps/OneBlock-Natural-Market/CHANGELOG.md (16 lines, 928 bytes)
+
+```
+# Changelog — OneBlock Natural Market
+
+---
+
+## [1.0.2] - 2026-11-11
+
+### Improved
+- Reworked the Ledger's Action Form presentation with a wood-framed market panel and individual inventory-style slot backgrounds.
+- Added distinct default, hover, and pressed slot states while retaining Minecraft item icons and the existing 3 × 9 button grid.
+- Kept the category catalogue's 25-item page size so the Next Page and Back controls fit in the remaining two slots.
+
+### Compatibility note
+- This remains a simulated inventory-style Action Form, not a native chest container. It does not provide draggable item slots or vanilla container transfer behavior.
+- The visual layer uses legacy resource-pack JSON UI, which Minecraft is deprecating in favor of Ore UI. Future game updates may require maintenance.
+- No experimental gameplay toggle was added. Source structure is updated; Minecraft in-game rendering has not been verified.
+```
+
+## FILE: MCPEDL/Maps/OneBlock-Natural-Market/DESCRIPTION.md (80 lines, 4650 bytes)
+
+```
+# OneBlock Natural Market — A OneBlock economy and supply shop
+
+**By ALNStudios**
+
+[![Minecraft Bedrock](https://img.shields.io/badge/Minecraft%20Bedrock-Stable%20Release-brightgreen?style=flat-square&logo=minecraft)](https://github.com/AllensCreations/MCPE-Curseforges)
+[![Format](https://img.shields.io/badge/Format-.MCPACK%20%7C%20.MCADDON%20%7C%20.MCWORLD-blue?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges)
+
+**Use the Natural Market Ledger to buy supplies for a regenerating OneBlock survival challenge.**
+
+## Overview
+
+Start on a small void platform with the central block at (0, 0, 0). Breaking it earns Coins and advances shared progression. Use the Natural Market Ledger to buy supplies and expand the central block's eligible regeneration pool.
+
+## Key Features
+
+### Regenerating OneBlock
+- The central block returns after a successful break.
+- The available natural block pool expands as shared mining milestones are reached.
+- The starting core is Dirt and is managed by the map script after one-time void setup.
+
+### Natural Market Ledger
+- Opens a **3-row by 9-column chest-inspired market panel** with a wood-toned frame, individual slot backgrounds, hover/pressed states, and Minecraft item icons.
+- Tap a supply slot to purchase its displayed bundle directly; no separate purchase-confirmation screen.
+- Large categories use pages that reserve two slots for navigation controls.
+- The catalogue contains more than 180 configured supplies across ten categories. Entries unavailable in the current game version are hidden.
+- This is a simulated layout for the standard server Action Form. It is **not a real vanilla chest container screen** and does not support draggable slots or native container transfers.
+
+### Coins and Selling
+- Successful central-block breaks award Coins.
+- Eligible catalogue items can be sold through the Ledger.
+- The balance appears in menu text and action-bar messages, not a sidebar scoreboard.
+
+### Progression and Supply Pool
+- Personal mining milestones unlock additional market supplies.
+- Purchased eligible blocks can be added to the central block's regeneration pool.
+- Liquids are excluded from the purchased regeneration pool.
+
+## How to Use
+
+1. Import the Creative world first for initial checks.
+2. Use the Natural Market Ledger from your inventory.
+3. Tap a category, then tap a supply slot to buy its listed bundle.
+4. Break the central block to earn Coins and progress.
+5. Use the selling option in the market to exchange eligible catalogue items for Coins.
+
+## Compatibility and Limitations
+
+- Minecraft Bedrock Edition: minimum engine version 1.26.50.
+- Stable Script API dependencies: `@minecraft/server` 2.10.0 and `@minecraft/server-ui` 2.2.0.
+- Experimental features: No experiment requirement detected in the inspected files.
+- UI compatibility: The market's chest-inspired appearance is a resource-pack JSON UI customization of the standard Action Form. Minecraft is deprecating JSON UI in favor of Ore UI, so future game updates may require UI maintenance or a fallback to ordinary forms.
+- Achievements: Unknown / needs confirmation because the foundation world's settings have not been verified.
+- Verification: Source updated; no package build or in-game test has been run for this UI revision.
+
+## Creator and Permissions
+
+- Creator: ALNStudios
+- Profiles: [CurseForge Profile](https://www.curseforge.com/members/allenscreations/projects) · [MCPEDL Profile](https://mcpedl.com/user/alnstudios/)
+
+<a href="https://www.curseforge.com/members/allenscreations/projects"><img src="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/assets/Images/curseforge.jpg" alt="CurseForge" width="45%"></a> <a href="https://mcpedl.com/user/alnstudios/"><img src="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/assets/Images/MCPEDL.jpg" alt="MCPEDL" width="45%"></a>
+
+## Guidelines and Attribution
+
+- Creator: ALNStudios
+- Rights & Reservation: All rights reserved for ALNStudios.
+- Content Creators: Content creators are permitted to feature this creation in videos and streams with credit to ALNStudios.
+- Redistribution: Do not re-upload this pack or provide direct monetized download bypasses. Link directly to the official repository page.
+- Disclaimer: This is an unofficial community creation. It is not an official Minecraft product and is not approved by or associated with Mojang or Microsoft.
+
+---
+
+© All rights reserved for ALNStudios.
+
+---
+
+## Search & Discovery Keywords
+
+Minecraft Bedrock add-on, OneBlock Natural Market Bedrock mod, Minecraft PE survival, MCPEDL add-on, CurseForge Bedrock, ALNStudios.
+```
+
+## FILE: MCPEDL/Maps/OneBlock-Natural-Market/oneblock.json (5 lines, 59 bytes)
+
+```
+{
+  "enabled": true,
+  "name": "OneBlock Natural Market"
+}
+```
+
+## FILE: MCPEDL/Maps/OneBlock-Natural-Market/README.md (19 lines, 1174 bytes)
+
+```
+# OneBlock Natural Market
+
+Download the current release of **OneBlock Natural Market** for Minecraft Bedrock Edition.
+
+## Download
+
+- **Package format:** `.mcworld`
+- **Direct download:** [Download OneBlock Natural Market (.mcworld)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/MCPEDL/Maps/OneBlock-Natural-Market/OneBlock%20Natural%20Market%20-%20Creative.mcworld) · [Download Survival World](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/MCPEDL/Maps/OneBlock-Natural-Market/OneBlock%20Natural%20Market%20-%20Survival.mcworld) · [Download Hardcore World](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/MCPEDL/Maps/OneBlock-Natural-Market/OneBlock%20Natural%20Market%20-%20Hardcore.mcworld)
+
+## Installation
+
+1. Download the package using the link above.
+2. Open the downloaded file with Minecraft to import it.
+3. Find the imported world in your Worlds list and open it.
+
+## Pack Information
+
+For gameplay features, usage details, compatibility notes, and other project information, read the [full description](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/MCPEDL/Maps/OneBlock-Natural-Market/DESCRIPTION.md).
+```
+
+## FILE: MCPEDL/Maps/OneBlock-Natural-Market/resource_pack/manifest.json (37 lines, 629 bytes)
+
+```
+{
+  "format_version": 2,
+  "header": {
+    "name": "OneBlock Natural Market (v1.0.2)",
+    "description": "Trader Ledger icon for OneBlock Natural Market. by ALNStudios",
+    "uuid": "187333a6-4353-4003-b379-471f85ce9021",
+    "version": [
+      1,
+      0,
+      2
+    ],
+    "min_engine_version": [
+      1,
+      26,
+      50
+    ]
+  },
+  "modules": [
+    {
+      "type": "resources",
+      "uuid": "bdbf7c5c-5c34-4d6d-93c9-16a468f66b52",
+      "version": [
+        1,
+        0,
+        2
+      ]
+    }
+  ],
+  "metadata": {
+    "authors": [
+      "ALNStudios"
+    ],
+    "product_type": "addon",
+    "version": "1.0.2"
+  }
+}
+```
+
+## FILE: MCPEDL/Maps/OneBlock-Natural-Market/resource_pack/textures/item_texture.json (10 lines, 190 bytes)
+
+```
+{
+  "resource_pack_name": "oneblock_natural_market",
+  "texture_name": "atlas.items",
+  "texture_data": {
+    "trader_ledger": {
+      "textures": "textures/items/trader_ledger"
+    }
+  }
+}
+```
+
+## FILE: MCPEDL/Maps/OneBlock-Natural-Market/resource_pack/ui/server_form.json (303 lines, 8552 bytes)
+
+```
+{
+  "namespace": "server_form",
+  "long_form@common_dialogs.main_panel_no_buttons": {
+    "$title_panel": "common_dialogs.standard_title_label",
+    "$title_size": [
+      "100% - 15px",
+      10
+    ],
+    "$title_max_size": [
+      "100% - 15px",
+      10
+    ],
+    "size": [
+      460,
+      350
+    ],
+    "$text_name": "#title_text",
+    "$title_text_binding_type": "none",
+    "$child_control": "server_form.long_form_panel",
+    "layer": 2
+  },
+  "long_form_panel": {
+    "type": "panel",
+    "size": [
+      "100%",
+      "100%"
+    ],
+    "controls": [
+      {
+        "chest_backdrop": {
+          "type": "image",
+          "layer": -2,
+          "size": [
+            "100%",
+            "100%"
+          ],
+          "texture": "textures/ui/natural_market/chest_panel",
+          "texture_file_system": true
+        }
+      },
+      {
+        "market_scroller": {
+          "type": "panel",
+          "size": [
+            "100%",
+            "100%"
+          ],
+          "controls": [
+            {
+              "scrolling_panel": {
+                "type": "panel",
+                "size": [
+                  "100% - 12px",
+                  "100% - 10px"
+                ],
+                "anchor_from": "top_left",
+                "anchor_to": "top_left",
+                "offset": [
+                  6,
+                  5
+                ],
+                "controls": [
+                  {
+                    "scrolling_content": {
+                      "type": "panel",
+                      "size": [
+                        "100%",
+                        "100%c"
+                      ],
+                      "controls": [
+                        {
+                          "scrolling_panel_ref": {
+                            "type": "panel",
+                            "size": [
+                              "100%",
+                              "100%c"
+                            ],
+                            "controls": [
+                              {
+                                "scrolling_panel_content": {
+                                  "type": "panel",
+                                  "size": [
+                                    "100%",
+                                    "100%c"
+                                  ],
+                                  "controls": [
+                                    {
+                                      "main_label": {
+                                        "type": "label",
+                                        "offset": [
+                                          7,
+                                          5
+                                        ],
+                                        "color": "$main_header_text_color",
+                                        "size": [
+                                          "100%",
+                                          "default"
+                                        ],
+                                        "anchor_from": "top_left",
+                                        "anchor_to": "top_left",
+                                        "text": "#form_text"
+                                      }
+                                    },
+                                    {
+                                      "top_gap": {
+                                        "type": "panel",
+                                        "size": [
+                                          "100%",
+                                          8
+                                        ]
+                                      }
+                                    },
+                                    {
+                                      "button_grid": {
+                                        "type": "panel",
+                                        "size": [
+                                          "100%",
+                                          "100%c"
+                                        ],
+                                        "controls": [
+                                          {
+                                            "long_form_dynamic_buttons_panel@server_form.long_form_dynamic_buttons_panel": {}
+                                          }
+                                        ]
+                                      }
+                                    }
+                                  ]
+                                }
+                              }
+                            ]
+                          }
+                        }
+                      ]
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      }
+    ]
+  },
+  "long_form_dynamic_buttons_panel": {
+    "type": "grid",
+    "size": [
+      "100% - 8px",
+      "100%c"
+    ],
+    "offset": [
+      4,
+      0
+    ],
+    "grid_dimensions": [
+      3,
+      9
+    ],
+    "grid_fill_direction": "horizontal",
+    "grid_rescaling_type": "horizontal",
+    "grid_item_template": "server_form.dynamic_button",
+    "collection_name": "form_buttons",
+    "bindings": [
+      {
+        "binding_name": "#form_button_contents",
+        "binding_name_override": "#collection_length"
+      },
+      {
+        "binding_name": "#form_button_length",
+        "binding_name_override": "#maximum_grid_items"
+      }
+    ]
+  },
+  "dynamic_button": {
+    "type": "button",
+    "size": [
+      "100%",
+      54
+    ],
+    "sound_name": "random.click",
+    "default_control": "default",
+    "hover_control": "hover",
+    "pressed_control": "pressed",
+    "button_mappings": [
+      {
+        "from_button_id": "button.menu_select",
+        "to_button_id": "button.form_button_click",
+        "mapping_type": "pressed"
+      },
+      {
+        "from_button_id": "button.menu_ok",
+        "to_button_id": "button.form_button_click",
+        "mapping_type": "focused"
+      }
+    ],
+    "controls": [
+      {
+        "default": {
+          "type": "image",
+          "layer": 0,
+          "size": [
+            "100%",
+            "100%"
+          ],
+          "texture": "textures/ui/natural_market/slot",
+          "texture_file_system": true
+        }
+      },
+      {
+        "hover": {
+          "type": "image",
+          "layer": 0,
+          "size": [
+            "100%",
+            "100%"
+          ],
+          "texture": "textures/ui/natural_market/slot_hover",
+          "texture_file_system": true
+        }
+      },
+      {
+        "pressed": {
+          "type": "image",
+          "layer": 0,
+          "size": [
+            "100%",
+            "100%"
+          ],
+          "texture": "textures/ui/natural_market/slot_pressed",
+          "texture_file_system": true
+        }
+      },
+      {
+        "slot_icon": {
+          "type": "image",
+          "layer": 2,
+          "size": [
+            24,
+            24
+          ],
+          "anchor_from": "top_middle",
+          "anchor_to": "top_middle",
+          "offset": [
+            0,
+            2
+          ],
+          "bindings": [
+            {
+              "binding_name": "#form_button_texture",
+              "binding_name_override": "#texture",
+              "binding_type": "collection",
+              "binding_collection_name": "form_buttons"
+            },
+            {
+              "binding_name": "#form_button_texture_file_system",
+              "binding_name_override": "#texture_file_system",
+              "binding_type": "collection",
+              "binding_collection_name": "form_buttons"
+            }
+          ]
+        }
+      },
+      {
+        "slot_label": {
+          "type": "label",
+          "layer": 3,
+          "size": [
+            "100% - 2px",
+            25
+          ],
+          "anchor_from": "bottom_middle",
+          "anchor_to": "bottom_middle",
+          "offset": [
+            0,
+            -1
+          ],
+          "text_alignment": "center",
+          "font_size": "extra_small",
+          "color": "$title_text_color",
+          "text": "#form_button_text",
+          "bindings": [
+            {
+              "binding_name": "#form_button_text",
+              "binding_type": "collection",
+              "binding_collection_name": "form_buttons",
+              "binding_name_override": "#text"
+            },
+            {
+              "binding_type": "collection_details",
+              "binding_collection_name": "form_buttons"
+            }
+          ]
+        }
+      }
+    ],
+    "bindings": [
+      {
+        "binding_type": "collection_details",
+        "binding_collection_name": "form_buttons"
+      }
+    ]
+  }
+}
+```
+
+## FILE: MCPEDL/Maps/README.md (29 lines, 3364 bytes)
+
+```
+# Maps and Worlds
+
+Minecraft Bedrock maps and custom worlds by ALNStudios. OneBlock maps are available with Creative, Survival, and Hardcore foundations.
+
+## Available Maps
+
+| Map | Source | Download |
+| :--- | :--- | :--- |
+| OneBlock Void Survival | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Maps/OneBlock-Void-Survival/) | [MCWORLD](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/OneBlock-Void-Survival/VoidSurvival%20V2.0.1.mcworld) |
+| OneBlock Dirtbound Kingdom Beta | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Maps/OneBlock-Dirtbound-Kingdom-Beta/) | [Creative](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/MCPEDL/Maps/OneBlock-Dirtbound-Kingdom-Beta/OneBlock%20Dirtbound%20Kingdom%20Beta%20-%20Creative.mcworld) · [Survival](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/MCPEDL/Maps/OneBlock-Dirtbound-Kingdom-Beta/OneBlock%20Dirtbound%20Kingdom%20Beta%20-%20Survival.mcworld) · [Hardcore](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/MCPEDL/Maps/OneBlock-Dirtbound-Kingdom-Beta/OneBlock%20Dirtbound%20Kingdom%20Beta%20-%20Hardcore.mcworld) |
+| OneBlock Sovereign Market | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Maps/Oneblock-SM/) | [Creative](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/MCPEDL/Maps/Oneblock-SM/OneBlock%20Sovereign%20Market%20-%20Creative.mcworld) · [Survival](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/MCPEDL/Maps/Oneblock-SM/OneBlock%20Sovereign%20Market%20-%20Survival.mcworld) · [Hardcore](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/MCPEDL/Maps/Oneblock-SM/OneBlock%20Sovereign%20Market%20-%20Hardcore.mcworld) |
+| OneBlock Phase Evolution | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Maps/OneBlock-Phase-Evolution/) | [MCWORLD](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/MCPEDL/Maps/OneBlock-Phase-Evolution/OneBlock%20Phase%20Evolution%20-%20Creative.mcworld) |
+| One Block Skyblock Lucky Blocks | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Maps/One-Block-Skyblock-Lucky-Blocks/) | [MCWORLD](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/MCPEDL/Maps/One-Block-Skyblock-Lucky-Blocks/One%20Block%20Skyblock%20Lucky%20Blocks%20-%20Creative.mcworld) |
+| OneBlock Natural Market | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Maps/OneBlock-Natural-Market/) | [MCWORLD](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/MCPEDL/Maps/OneBlock-Natural-Market/OneBlock%20Natural%20Market%20-%20Creative.mcworld) |
+
+Both OneBlock maps use separate mode-specific foundations. Archives receive structural validation but have not been tested in-game.
+
+## Attribution
+
+Created by ALNStudios. All rights reserved.
+
+Videos and streams are welcome with credit. Redistribution of original or modified files without permission is prohibited.
+
+## Related Directories
+
+- [Add-ons](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/README.md)
+- [Scripts](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Script/README.md)
+- [Minigames](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Minigame/README.md)
+```

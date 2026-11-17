@@ -1,0 +1,930 @@
+# Repo Export
+
+## Index
+
+- **Export request:** `MCPEDL/Script/Gameplay-Optimizer`
+- **Destination:** `MCPEDL/Script/Gameplay-Optimizer`
+- **CURRENT VERSION: 1.0.0 / NEXT UPDATE: 1.0.1**  (`MCPEDL/Script/Gameplay-Optimizer/CHANGELOG.md`)
+- **Text files:** 18
+- **Skipped binary:** 0
+- **Paths not found:** 0
+
+### Files in this export
+
+- `changelog_views/Gameplay-Optimizer.curseforge.html`
+- `changelog_views/Gameplay-Optimizer.github.md`
+- `description_views/Gameplay-Optimizer.listing.md`
+- `MCPEDL/Script/Gameplay-Optimizer/assets/items/.gitkeep`
+- `MCPEDL/Script/Gameplay-Optimizer/assets/recipes/.gitkeep`
+- `MCPEDL/Script/Gameplay-Optimizer/assets/snapshots/.gitkeep`
+- `MCPEDL/Script/Gameplay-Optimizer/behavior_pack/manifest.json`
+- `MCPEDL/Script/Gameplay-Optimizer/behavior_pack/scripts/lib/effects.js`
+- `MCPEDL/Script/Gameplay-Optimizer/behavior_pack/scripts/lib/itemcap.js`
+- `MCPEDL/Script/Gameplay-Optimizer/behavior_pack/scripts/lib/menu.js`
+- `MCPEDL/Script/Gameplay-Optimizer/behavior_pack/scripts/lib/portal.js`
+- `MCPEDL/Script/Gameplay-Optimizer/behavior_pack/scripts/lib/settings.js`
+- `MCPEDL/Script/Gameplay-Optimizer/behavior_pack/scripts/main.js`
+- `MCPEDL/Script/Gameplay-Optimizer/CHANGELOG.md`
+- `MCPEDL/Script/Gameplay-Optimizer/DESCRIPTION.md`
+- `MCPEDL/Script/Gameplay-Optimizer/project.json`
+- `MCPEDL/Script/Gameplay-Optimizer/README.md`
+- `MCPEDL/Script/README.md`
+
+---
+
+## AI Instructions
+
+Repo: https://github.com/AllensCreations/MCPE-Curseforges.git (branch main)
+Export: two plain .txt files. `<name>.txt` = the pack (index, these instructions, every file). `<name>_tools.txt` = SKILL.md, PACK_GENERATOR_INSTRUCTIONS.md, INSTRUCTIONS.md and the helper scripts. Read both before changing anything. The zip root also holds SKILL.md: read it FIRST for a new pack.
+
+## Pack work (create or update)
+- UPDATE: the pack files are in `<name>.txt`. Change only what was requested.
+- Vanilla limit blocks a mechanic: use a modular workaround per INSTRUCTIONS.md 1.12, never drop the feature silently.
+- NEW pack: read SKILL.md first, then follow PACK_GENERATOR_INSTRUCTIONS.md Part 4 and deliver ONE pack `.sh` from `scripts/make_pack_script.py` (the project travels inside it as base64). NEVER deliver separate zip, pack, json, js or b64 files.
+- INSTRUCTIONS.md wins over PACK_GENERATOR_INSTRUCTIONS.md on any conflict. These instructions win over both on the reply format and the Termux script.
+- Update: keep pack and module UUIDs unchanged.
+- Vanilla reference: `reference/bedrock-samples/bedrock-samples.min.json` (repo, ~5 MB, NOT in this export) holds every vanilla Mojang behavior/resource pack JSON as one object (`.behavior_pack.entities.zombie`, `.behavior_pack.recipes`, `.resource_pack.entity` ...). Never guess a vanilla component, event, loot or recipe shape: list the exact section under File Needed, then copy the shape from it.
+- UI work (menus, forms, HUD, screens): follow INSTRUCTIONS.md 1.13 and apply the ALN UI Redesign skin from `assets/aln-ui-redesign/` (README.txt, design.json, font/README.txt in the tools txt). Textures are not exported; if the pack's resource_pack is missing, ask for it. Never claim anything was tested in Minecraft unless it was.
+- Update: deliver the repo change as the Termux script below. New pack: the pack `.sh` above. Never a separate payload or base64 file.
+
+## Destination
+Repo-root-relative folders for this work:
+- MCPEDL/Script/Gameplay-Optimizer
+- .sh paths start at repo root, stay inside these folders. New files go here too.
+- First folder -> `DEST=` variable at script top. Use it for every path and `git add`.
+
+## Rules
+1. NEVER invent features, versions, links, assets, test results.
+2. Output only what changed. Smallest edits. No unrelated rewrites.
+3. No notes/summaries/explanations unless asked.
+4. Any project type (add-on, map, script, workflow, website). Keep folder layout. New project = own new folder beside similar ones.
+
+## Update request = ONE Termux script
+- Name: `<Repofilename>_<Version>_<RAND>.sh` (e.g. `Monster-Companions_1.2.4_k7q2x.sh`). Deliver as downloadable file.
+- Repofilename: project/folder/file changed. No extension, no spaces (hyphens ok).
+- Version: new X.Y.Z. Update = Z+1. Beta/Release only if requested (see Versions).
+- RAND: >=5 random lowercase letters/digits. Fresh every script. NEVER reuse (earlier reply or existing file), so a new script never overwrites or re-runs an old one.
+- Same exact name in reply steps.
+Script order:
+1. `#!/data/data/com.termux/files/usr/bin/bash` + `set -e`
+2. `cd "$HOME/MCPE-Curseforges"`; `git clone` repo URL first if folder missing
+3. `git pull --rebase`
+4. Apply ALL changes as exact search-and-replace edits: write a spec and run `python3 scripts/make_update_script.py spec.txt` (format in `scripts/apply_update.py`; `--verify <clone>` dry-runs it). The tool applies edits atomically, sets the manifest version and writes both changelogs. Size decides the method. SMALL update (a few edits, under about 60% of any file touched): search and replace only. LARGE update (most of a file, many new files, a redesign): use the best method, `@@ create`/`@@ overwrite` in the same spec, never many fragile edits. Either way ONE `.sh`. No separate downloads.
+5. Validate every changed .json with python3. Stop on error.
+5b. Verify top CHANGELOG.md heading == new X.Y.Z == script filename version. Stop on mismatch. If project has manifests: run `python3 scripts/manifest_tools.py --project "$DEST" --set X.Y.Z` (sets header.version, metadata.version, title suffix, module/dependency versions in every source manifest; never lowers), then `python3 scripts/manifest_tools.py --project "$DEST" --check` and `python3 scripts/validate_manifest_titles.py --project "$DEST"`. Stop on error. Every update must change the manifests so the build changes. Never hand-edit manifest JSON for versions.
+5c. If INSTRUCTIONS.md or PACK_GENERATOR_INSTRUCTIONS.md changed: run `python3 scripts/check_instruction_files.py`. Stop on error
+6. `git add` changed paths only; `git commit -m "<short message>"`; `git push`
+6b. Add an entry to the ROOT `CHANGELOG.md` (repo-wide, newest first under `---`): `## [vN] - YYYY-MM-DD - [Update Name]` (N = `REPO_VERSION` + 1, a single whole number such as v80, set by the update tool, never by hand), groups `### Added` / `### Improved & Balanced` / `### Fixed`, bullets `- **Title**: what changed`. Every script, tooling-only included.
+7. After push, do NOT start any workflow. Build Changed Packs & Sync Catalogs runs by itself on every push and rebuilds everything. Nothing auto-bumps; Publish to CurseForge uploads the newest changelog version as written.
+8. Idempotent: skip anything already applied.
+9. Last line, reached only after a successful push: `rm -f -- "$SELF"` (the script deletes itself; save `SELF="$(readlink -f -- "$0")"` on line 2, before the `cd`).
+
+## Docs (every update, same script)
+- Templates STRICT: README.md, DESCRIPTION.md, CHANGELOG.md match templates below exactly: same headings, text, order, labels, bullet format. NEVER add/remove/rename/merge/reorder sections. No boilerplate/extra text. No placeholders: fill every [bracket] with verified content. Accuracy + requested scope outrank template.
+- CHANGELOG.md: MANDATORY every update, no exceptions. Add new release entry for the change.
+- README.md + DESCRIPTION.md: after change, analyze both in destination folder. Edit ONLY if change makes them inaccurate/incomplete. NEVER remove verified content.
+
+### Versions (X.Y.Z ONLY)
+- Format: exactly X.Y.Z everywhere. NEVER X.Y.Z.A. No fourth part. No Alpha.
+- X = Release, Y = Beta, Z = Update.
+- Update: Z+1 (1.2.3 -> 1.2.4). Default.
+- Beta: Y+1, Z=0 (1.2.4 -> 1.3.0). Only if requested.
+- Release: X+1, Y=0, Z=0 (1.3.0 -> 2.0.0). Only if requested.
+- New X.Y.Z goes in CHANGELOG heading + script filename.
+- Manifest versions: set ONLY by the script via `manifest_tools.py --set X.Y.Z` (never hand-edit JSON). NEVER hand-edit README download links. Build Changed Packs & Sync Catalogs aligns a pack to its highest existing version and rebuilds; it never bumps. Publish to CurseForge uploads the newest changelog version.
+- NEVER put release version in README/DESCRIPTION titles. NEVER reuse a heading.
+
+### Changelog views
+- `changelog_views/<Name>.github.md` (newest open, older folded by minor series) and `changelog_views/<Name>.curseforge.html` (CurseForge spoilers, paste into project description): generated from CHANGELOG.md by `scripts/build_changelog_views.py`.
+- CHANGELOG.md = plain text, exact template format, only source of truth. NEVER add HTML/fold markup/links to it. NEVER edit views by hand. NEVER create/change views inside the .sh.
+- Refresh: Build Changed Packs & Sync Catalogs; Collect Files for AI Review (tick commit_changelog_views to save); or `python3 scripts/build_changelog_views.py --project <Name>`.
+
+### Writing
+- Player-facing only. In-game display names, never identifiers, file names, JSON, events, code.
+- "Behavior Pack" / "Resource Pack", NEVER BP/RP.
+- README: no code blocks, emojis, hype, badges.
+- DESCRIPTION: exactly the two Minecraft Bedrock + Format badges from repo template, no others. May keep existing item sprites + recipe diagrams.
+- No Markdown tables. Use `### Feature Name` cards with `- **What Happens**: ...` bullets.
+- Paragraphs <=4 sentences. Verified facts only. Verification line = source created | package built | in-game tested, NEVER mixed.
+
+### README.md (add-on): download landing page only, EXACTLY 11 non-empty lines
+```
+# [Name]
+
+Download the current release of **[Name]** for Minecraft Bedrock Edition.
+
+## Download
+
+- **Package format:** `.mcaddon`
+- **Direct download:** [Download [Name] (.mcaddon)](link)
+
+## Installation
+
+1. Download the package using the link above.
+2. Open the downloaded file with Minecraft to import it.
+3. If the package contains a pack that must be enabled separately, activate it in your world's settings.
+
+## Pack Information
+
+For gameplay features, usage details, compatibility notes, and other project information, read the [full description](DESCRIPTION link).
+```
+Maps/scripts/minigames: same landing page. Use real package format; .mcworld = tell players to open the imported world. Product details live in DESCRIPTION.md.
+
+### DESCRIPTION.md order
+1. `# [Name] — [subtitle]` (no release version)
+2. `**By ALNStudios**`
+3. Two exact badges (Minecraft Bedrock "Stable Release", Format) from repo template
+4. Summary
+5. `## Overview`
+6. `## Key Features`
+7. `## How to Use`
+8. `## Compatibility`: Minecraft Bedrock Edition, Experimental features, Achievements, Verification
+9. `## Creator and Permissions`: `- Creator: ALNStudios`, `- Profiles:` CurseForge https://www.curseforge.com/members/allenscreations/projects · MCPEDL https://mcpedl.com/user/alnstudios/, then the two clickable listing images (HTML, `width="45%"`, no `height`, raw URLs `assets/Images/curseforge.jpg`, `assets/Images/MCPEDL.jpg`). NEVER edit/copy the images
+10. `## Guidelines and Attribution`
+11. `---` then `## Search & Discovery Keywords` from real features
+- Add-ons: Achievements line ALWAYS `Likely achievement-friendly`; add caveats if world settings/cheats can disable achievements.
+
+### Guidelines and Attribution block, exactly
+```
+- Creator: ALNStudios
+- Rights & Reservation: All rights reserved for ALNStudios.
+- Content Creators: Content creators are permitted to feature this creation in videos and streams with credit to ALNStudios.
+- Redistribution: Do not re-upload this pack or provide direct monetized download bypasses. Link directly to the official repository page.
+- Disclaimer: This is an unofficial community creation. It is not an official Minecraft product and is not approved by or associated with Mojang or Microsoft.
+
+---
+
+© All rights reserved for ALNStudios.
+
+---
+```
+
+### CHANGELOG.md
+- `# Changelog — [Name]`, `---`, then newest first: `## [X.Y.Z] - YYYY-MM-DD - [Update Name]` (date: `TZ=Asia/Singapore date +%F`). [Update Name] = short player-facing title (2-6 words) of what is new. REQUIRED on every new entry.
+- Groups: `### Added`, `### Improved & Balanced`, `### Fixed` (bugs as in-game experience). Omit empty groups. Each group >=1 bullet.
+- Entry: `- **Title**: player impact.`
+- NO links, URLs, badges, function/event names, unverified benefits. No boilerplate after title.
+- Insert new entry directly under `---`, above previous release. NEVER edit/delete older entries.
+
+## Reply Format (STRICT)
+```
+[SYSTEM_CONFIG]
+Mode: Direct Execution
+Token_Efficiency: Maximum
+Rules: no greeting, intro, outro, offers, restating. High technical accuracy.
+```
+Output ONLY these three sections, in order, exact headings:
+1. **File Needed:** repo-root-relative path of each file created/edited.
+2. **Changelog:** bullets, brief summary of changes.
+3. **Termux Script:** ONE fenced `bash` block holding ONLY the run commands: `bash ~/storage/downloads/<Repofilename>_<Version>_<RAND>.sh` (a new pack may add the same line with `stage`). The .sh is attached, NEVER pasted. NEVER a Summary section.
+- The .sh (`<Repofilename>_<Version>_<RAND>.sh`, random chars included) is the downloadable file. Exact same name in the command.
+- NEVER text before, between, after. NEVER rename/merge/reorder/skip a section. Nothing to report: `- None`.
+- Unclear request: ask ONE line, then proceed with defaults.
+- First-time Termux setup, ONLY if the user asks:
+```
+pkg update -y && pkg install -y git python curl
+termux-setup-storage
+git config --global user.name "ALNStudios"
+git config --global user.email "your-email@example.com"
+git config --global credential.helper store
+```
+- Push password = GitHub Personal Access Token (repo + workflow scopes), NOT account password. Same token starts the build after push.
+
+---
+
+## File Contents
+
+## FILE: changelog_views/Gameplay-Optimizer.curseforge.html (2 lines, 640 bytes)
+
+```
+<h2>1.0.0 - 2026-11-15 - First Release</h2><h3>Added</h3><ul><li><strong>Settings Menu</strong>: Sneak and use a Clock to open a menu that shows the three optimizer switches and lets an operator change them.</li><li><strong>Dropped Item Limit</strong>: An optional limit from 50 to 500 dropped items per dimension, removing the oldest dropped item when the limit is passed.</li><li><strong>Potion Particle Hiding</strong>: Effects that players receive are reapplied with their particles turned off.</li><li><strong>Portal Preloading</strong>: Standing in a Nether portal asks the game to start loading the area on the other side.</li></ul>
+```
+
+## FILE: changelog_views/Gameplay-Optimizer.github.md (10 lines, 584 bytes)
+
+```
+# Changelog — Gameplay Optimizer
+
+## [1.0.0] - 2026-11-15 - First Release
+
+### Added
+- **Settings Menu**: Sneak and use a Clock to open a menu that shows the three optimizer switches and lets an operator change them.
+- **Dropped Item Limit**: An optional limit from 50 to 500 dropped items per dimension, removing the oldest dropped item when the limit is passed.
+- **Potion Particle Hiding**: Effects that players receive are reapplied with their particles turned off.
+- **Portal Preloading**: Standing in a Nether portal asks the game to start loading the area on the other side.
+```
+
+## FILE: description_views/Gameplay-Optimizer.listing.md (67 lines, 13380 bytes)
+
+````
+# Listing Kit: Gameplay Optimizer
+
+Tap the Copy button on a block, then paste it into the CurseForge listing. Generated from DESCRIPTION.md: edit that, not this file.
+
+## Package Name
+
+```text
+Gameplay Optimizer
+```
+
+## Summary (140/256)
+
+```text
+Limits dropped items to between 50 and 500 per dimension, hides potion particles, and preloads Nether portal destinations from a Clock menu.
+```
+
+## Description (HTML)
+
+Paste into the CurseForge description editor in source (HTML) mode.
+
+```html
+<div><div style="border:2px solid #15803d;border-radius:18px;line-height:1.5"><br><h1 style="font-size:34px;text-align:center">Gameplay Optimizer</h1><p style="color:#8a94a3;font-size:14px;text-align:center">by ALNStudios</p><p style="text-align:center"><span style="background-color:#15803d;color:#ffffff;border-radius:20px;font-size:16px">&nbsp;&nbsp;<strong>Limits dropped items to between 50 and 500 per dimension, hides potion particles, and preloads Nether portal destinations from a Clock menu.</strong>&nbsp;&nbsp;</span></p><p style="text-align:center;margin-left:16px;margin-right:16px">Gameplay Optimizer adds one settings menu, opened by sneaking and using a Clock, with three switches. It suits worlds with item farms, frequent potion effects, or Nether portal trips that stall on arrival.</p><div style="display:flex;flex-wrap:wrap;gap:8px;margin-left:14px;margin-right:14px"><div style="background-color:#dcfce7;color:#14532d;border-radius:20px;font-size:14px;line-height:2"><strong>&nbsp;&nbsp;Bedrock</strong>: 1.26+&nbsp;&nbsp;</div><div style="background-color:#dcfce7;color:#14532d;border-radius:20px;font-size:14px;line-height:2"><strong>&nbsp;&nbsp;Experimental</strong>: No&nbsp;&nbsp;</div><div style="background-color:#dcfce7;color:#14532d;border-radius:20px;font-size:14px;line-height:2"><strong>&nbsp;&nbsp;Achievements</strong>: Unknown / needs confirmation&nbsp;&nbsp;</div></div><br></div>
+<h2 style="font-size:17px;text-align:left"><span style="background-color:#15803d;color:#ffffff;border-radius:20px">&nbsp;&nbsp;About&nbsp;&nbsp;</span></h2>
+<p>Sneak and use a Clock to open the menu, then pick Optimizer Settings. The menu has a switch for the dropped item limit, one for potion particle hiding, and one for portal preloading. Settings are saved in the world and apply to every player in it.</p>
+<h2 style="font-size:17px;text-align:left"><span style="background-color:#15803d;color:#ffffff;border-radius:20px">&nbsp;&nbsp;What You Get&nbsp;&nbsp;</span></h2>
+<div style="display:flex;flex-wrap:wrap;gap:10px"><div style="flex:1;min-width:200px;border:1px solid #8a94a3;border-radius:16px"><div style="background-color:#15803d;color:#ffffff;border-radius:16px;font-size:16px;line-height:2.2"><strong>&nbsp;&nbsp;Dropped Item Limit</strong></div><div style="margin-left:12px;margin-right:12px"><p><span>When switched on, the pack keeps the number of dropped items in each dimension at or below a limit you choose from 50 to 500, in steps of 50. When a new drop passes the limit, the oldest tracked dropped item is removed.</span><br><span style="font-size:13px;color:#8a94a3"><strong>How It Works:</strong> With the limit set to 200, the 201st dropped item in the Overworld makes the oldest dropped item in the Overworld disappear.</span><br><span style="font-size:13px;color:#8a94a3"><strong>Good To Know:</strong> This switch is off by default. Removed items are gone for good, including valuable ones. Only items dropped after the world loaded and after the switch was turned on are counted.</span></p></div></div><div style="flex:1;min-width:200px;border:1px solid #8a94a3;border-radius:16px"><div style="background-color:#15803d;color:#ffffff;border-radius:16px;font-size:16px;line-height:2.2"><strong>&nbsp;&nbsp;Potion Particle Hiding</strong></div><div style="margin-left:12px;margin-right:12px"><p><span>When switched on, effects that players receive from potions, beacons and similar sources are reapplied with the swirling particles turned off.</span><br><span style="font-size:13px;color:#8a94a3"><strong>Good To Know:</strong> This switch is on by default. Only players are affected. Instant effects such as Instant Health are skipped, and every other particle in the game is unchanged.</span></p></div></div><div style="flex:1;min-width:200px;border:1px solid #8a94a3;border-radius:16px"><div style="background-color:#15803d;color:#ffffff;border-radius:16px;font-size:16px;line-height:2.2"><strong>&nbsp;&nbsp;Portal Preloading</strong></div><div style="margin-left:12px;margin-right:12px"><p><span>While you stand inside a Nether portal, the pack asks the game to start loading the matching spot on the other side: Overworld coordinates divided by 8, or Nether coordinates multiplied by 8. The loaded area is released about 5 seconds after you arrive, or after 20 seconds at most.</span><br><span style="font-size:13px;color:#8a94a3"><strong>Good To Know:</strong> This switch is on by default. The effect on portal trip time was not measured, and loading an area early adds work while you wait. If the game has no room for another loaded area, the step is skipped.</span></p></div></div><div style="flex:1;min-width:200px;border:1px solid #8a94a3;border-radius:16px"><div style="background-color:#15803d;color:#ffffff;border-radius:16px;font-size:16px;line-height:2.2"><strong>&nbsp;&nbsp;Settings Menu</strong></div><div style="margin-left:12px;margin-right:12px"><p><span>The main menu shows the state of all three switches and has Optimizer Settings, About and Exit buttons. The settings screen has a toggle for each feature, a slider for the item limit, and a Save button.</span><br><span style="font-size:13px;color:#8a94a3"><strong>Good To Know:</strong> Operators can change the settings, and so can a player who is alone in the world. Other players can open the menu and read the status.</span></p></div></div></div>
+<h2 style="font-size:17px;text-align:left"><span style="background-color:#15803d;color:#ffffff;border-radius:20px">&nbsp;&nbsp;Get Started&nbsp;&nbsp;</span></h2>
+<table style="width:100%;border:1px solid #8a94a3;border-radius:16px"><tbody><tr><td style="width:44px;text-align:center"><div style="background-color:#15803d;color:#ffffff;font-weight:bold;font-size:15px;text-align:center;border-radius:10px;width:30px;aspect-ratio:1/1;line-height:30px">1</div></td><td style="text-align:left;">Import the .mcpack file and add the pack to your world's Behavior Packs.</td></tr><tr><td style="width:44px;text-align:center"><div style="background-color:#15803d;color:#ffffff;font-weight:bold;font-size:15px;text-align:center;border-radius:10px;width:30px;aspect-ratio:1/1;line-height:30px">2</div></td><td style="text-align:left;">Hold a Clock, sneak, and use it to open the Gameplay Optimizer menu.</td></tr><tr><td style="width:44px;text-align:center"><div style="background-color:#15803d;color:#ffffff;font-weight:bold;font-size:15px;text-align:center;border-radius:10px;width:30px;aspect-ratio:1/1;line-height:30px">3</div></td><td style="text-align:left;">Choose Optimizer Settings, change the switches, and press Save. The main menu then shows the new state.</td></tr></tbody></table>
+<h2 style="font-size:17px;text-align:left"><span style="background-color:#15803d;color:#ffffff;border-radius:20px">&nbsp;&nbsp;Common Questions&nbsp;&nbsp;</span></h2>
+<div class="spoiler" title="Does it raise my frame rate?" data-title="Does it raise my frame rate?"><p><strong>Does it raise my frame rate?</strong><br>Frame rate was not measured. The pack limits dropped items, hides potion particles and preloads portal destinations, and it does not change any video setting.</p></div><div class="spoiler" title="Does it hide every particle?" data-title="Does it hide every particle?"><p><strong>Does it hide every particle?</strong><br>No. Only the particles of effects that players receive are hidden.</p></div><div class="spoiler" title="Will the item limit delete my items?" data-title="Will the item limit delete my items?"><p><strong>Will the item limit delete my items?</strong><br>Only when the limit is switched on and the number of dropped items goes over it. The oldest dropped items are removed first.</p></div>
+<h2 style="font-size:17px;text-align:left"><span style="background-color:#15803d;color:#ffffff;border-radius:20px">&nbsp;&nbsp;Install&nbsp;&nbsp;</span></h2>
+<table style="width:100%;border:1px solid #8a94a3;border-radius:16px"><tbody><tr><td style="width:44px;text-align:center"><div style="background-color:#15803d;color:#ffffff;font-weight:bold;font-size:15px;text-align:center;border-radius:10px;width:30px;aspect-ratio:1/1;line-height:30px">1</div></td><td style="text-align:left;">Download the file from this page and open it with Minecraft.</td></tr><tr><td style="width:44px;text-align:center"><div style="background-color:#15803d;color:#ffffff;font-weight:bold;font-size:15px;text-align:center;border-radius:10px;width:30px;aspect-ratio:1/1;line-height:30px">2</div></td><td style="text-align:left;">Create or edit a world and turn on the new pack(s) in its settings.</td></tr><tr><td style="width:44px;text-align:center"><div style="background-color:#15803d;color:#ffffff;font-weight:bold;font-size:15px;text-align:center;border-radius:10px;width:30px;aspect-ratio:1/1;line-height:30px">3</div></td><td style="text-align:left;">Play. No Experimental toggles needed.</td></tr></tbody></table>
+<h2 style="font-size:17px;text-align:left"><span style="background-color:#15803d;color:#ffffff;border-radius:20px">&nbsp;&nbsp;Support&nbsp;&nbsp;</span></h2><div style="border:1px solid #8a94a3;border-radius:16px;text-align:center"><br><a href="https://ko-fi.com/alnstudios"><img src="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/assets/Images/ko-fi.png" alt="Support ALNStudios on Ko-fi" width="250"></a><br><br></div><p style="text-align:center"><a href="https://www.curseforge.com/members/allenscreations/projects"><strong>CurseForge</strong></a> &nbsp;|&nbsp; <a href="https://mcpedl.com/user/alnstudios/"><strong>MCPEDL</strong></a> &nbsp;|&nbsp; <a href="https://ko-fi.com/alnstudios"><strong>Ko-fi</strong></a></p>
+<hr>
+<p style="text-align:center;color:#8a94a3;font-size:13px"><strong>By ALNStudios</strong></p>
+<div class="spoiler"><p style="font-size:13px"><strong>Permissions and credits</strong></p><ul style="font-size:13px"><li>Rights: All rights reserved for ALNStudios.</li><li>Content creators: You may feature this creation in videos and streams with credit to ALNStudios.</li><li>Redistribution: Do not re-upload this pack or provide direct monetized download bypasses. Link to this page.</li><li>Unofficial community creation. Not an official Minecraft product and not approved by or associated with Mojang or Microsoft.</li></ul></div>
+<p style="text-align:center;color:#8a94a3;font-size:12px">Minecraft Bedrock add-on, Gameplay Optimizer Bedrock mod, dropped item limit, potion particle hiding, portal preloading, Clock menu, Minecraft PE survival, MCPEDL add-on, CurseForge Bedrock, ALNStudios.</p></div>
+```
+
+## AI Image Prompts
+
+### Reference Images
+
+- **Logo reference**: attach your own logo. The generator uses it only for brand colors and mood. The result must be a new design, not a copy.
+- **Snapshot references**: attach 1 to 4 of your in-game snapshots of this pack. The generator copies their look, not their screen layout.
+
+### Logo Prompt
+
+```text
+Use the attached logo only as a brand reference for its color palette and overall mood. Do not copy it. Create a new, original logo with a different composition and a different main symbol. Do not just recolor, resize, crop, mirror or tweak the attached logo.
+Create a clean, square (1:1) logo image for the Minecraft Bedrock add-on "Gameplay Optimizer". Limits dropped items to between 50 and 500 per dimension, hides potion particles, and preloads Nether portal destinations from a Clock menu.
+Base the main symbol on the pack idea above. Match the blocky look of the attached in-game snapshots. Center the logo, use a simple background, and keep it readable at small sizes.
+Text: "Gameplay Optimizer" and, in small letters, "ALNStudios". ALNStudios is the brand name, so always keep it and never remove or change it. Spell both exactly.
+Do not add Minecraft, Mojang or Microsoft logos, watermarks, or characters from other games.
+```
+
+### Banner Prompt
+
+```text
+Create a wide (16:9) banner image for the Minecraft Bedrock add-on "Gameplay Optimizer". Limits dropped items to between 50 and 500 per dimension, hides potion particles, and preloads Nether portal destinations from a Clock menu.
+Use the attached in-game snapshots as scene and style references: copy their blocky look, lighting, colors and the kind of scenery they show. Make a new composition inspired by them. Do not copy the on-screen HUD, chat or hotbar.
+Use the attached logo only as a brand reference for its colors and mood. Do not copy it. Put a new, original logo design in the banner, large enough to read, on the left or center.
+Hint at these pack features visually: Dropped Item Limit, Potion Particle Hiding, Portal Preloading, Settings Menu.
+Text: "Gameplay Optimizer" and, in small letters, "by ALNStudios". ALNStudios is the brand name, so always keep it and never remove or change it. Spell both exactly.
+Leave clear space around the logo. No Minecraft, Mojang or Microsoft logos, no watermarks.
+```
+````
+
+## FILE: MCPEDL/Script/Gameplay-Optimizer/assets/items/.gitkeep (1 lines, 0 bytes)
+
+```
+
+```
+
+## FILE: MCPEDL/Script/Gameplay-Optimizer/assets/recipes/.gitkeep (1 lines, 0 bytes)
+
+```
+
+```
+
+## FILE: MCPEDL/Script/Gameplay-Optimizer/assets/snapshots/.gitkeep (1 lines, 0 bytes)
+
+```
+
+```
+
+## FILE: MCPEDL/Script/Gameplay-Optimizer/behavior_pack/manifest.json (49 lines, 906 bytes)
+
+```
+{
+  "format_version": 2,
+  "header": {
+    "name": "Gameplay Optimizer (v1.0.0)",
+    "description": "Limits dropped items, hides potion particles and preloads portal destinations. by ALNStudios",
+    "uuid": "79220f41-a6d7-4f22-b0a5-30a2cfbc2f7b",
+    "version": [
+      1,
+      0,
+      0
+    ],
+    "min_engine_version": [
+      1,
+      26,
+      60
+    ]
+  },
+  "modules": [
+    {
+      "type": "script",
+      "language": "javascript",
+      "uuid": "214b0df4-62ad-44b9-be64-193d61a1862b",
+      "version": [
+        1,
+        0,
+        0
+      ],
+      "entry": "scripts/main.js"
+    }
+  ],
+  "dependencies": [
+    {
+      "module_name": "@minecraft/server",
+      "version": "2.11.0"
+    },
+    {
+      "module_name": "@minecraft/server-ui",
+      "version": "2.3.0"
+    }
+  ],
+  "metadata": {
+    "authors": [
+      "ALNStudios"
+    ],
+    "product_type": "addon",
+    "version": "1.0.0"
+  }
+}
+```
+
+## FILE: MCPEDL/Script/Gameplay-Optimizer/behavior_pack/scripts/lib/effects.js (31 lines, 1012 bytes)
+
+```
+import { world, system } from "@minecraft/server";
+import { getSettings } from "./settings.js";
+
+const PLAYER_TYPE = "minecraft:player";
+const MIN_DURATION_TICKS = 10;
+const SKIPPED = new Set(["minecraft:instant_health", "minecraft:instant_damage", "minecraft:saturation"]);
+const pending = new Set();
+
+export function startEffectParticles() {
+  world.afterEvents.effectAdd.subscribe(({ entity, effect }) => {
+    if (!getSettings().hideParticles) return;
+    if (!entity || entity.typeId !== PLAYER_TYPE || !effect) return;
+    if (SKIPPED.has(effect.typeId) || effect.duration < MIN_DURATION_TICKS) return;
+    const key = `${entity.id}|${effect.typeId}`;
+    if (pending.has(key)) {
+      pending.delete(key);
+      return;
+    }
+    pending.add(key);
+    system.runTimeout(() => pending.delete(key), 40);
+    try {
+      entity.addEffect(effect.typeId, effect.duration, {
+        amplifier: effect.amplifier,
+        showParticles: false,
+      });
+    } catch (e) {
+      pending.delete(key);
+    }
+  });
+}
+```
+
+## FILE: MCPEDL/Script/Gameplay-Optimizer/behavior_pack/scripts/lib/itemcap.js (39 lines, 949 bytes)
+
+```
+import { world } from "@minecraft/server";
+import { getSettings } from "./settings.js";
+
+const ITEM_TYPE = "minecraft:item";
+const tracked = new Map();
+
+function isLive(entity) {
+  try {
+    const flag = entity.isValid;
+    return typeof flag === "function" ? flag.call(entity) : flag === true;
+  } catch (e) {
+    return false;
+  }
+}
+
+export function resetItemTracking() {
+  tracked.clear();
+}
+
+export function startItemCap() {
+  world.afterEvents.entitySpawn.subscribe(({ entity }) => {
+    const settings = getSettings();
+    if (!settings.itemCap) return;
+    if (!isLive(entity) || entity.typeId !== ITEM_TYPE) return;
+    const key = entity.dimension.id;
+    const live = (tracked.get(key) ?? []).filter(isLive);
+    live.push(entity);
+    while (live.length > settings.itemLimit) {
+      const oldest = live.shift();
+      try {
+        oldest.remove();
+      } catch (e) {
+        continue;
+      }
+    }
+    tracked.set(key, live);
+  });
+}
+```
+
+## FILE: MCPEDL/Script/Gameplay-Optimizer/behavior_pack/scripts/lib/menu.js (134 lines, 4720 bytes)
+
+```
+import { world, system } from "@minecraft/server";
+import { ActionFormData, ModalFormData, FormCancelationReason } from "@minecraft/server-ui";
+import {
+  getSettings,
+  saveSettings,
+  ITEM_LIMIT_MIN,
+  ITEM_LIMIT_MAX,
+  ITEM_LIMIT_STEP,
+} from "./settings.js";
+import { resetItemTracking } from "./itemcap.js";
+
+const PACK_NAME = "Gameplay Optimizer";
+const PACK_VERSION = "1.0.0";
+const OPEN_ITEM = "minecraft:clock";
+const OPERATOR_LEVEL = 2;
+const ABOUT_ICON = "textures/items/name_tag";
+const TITLE = `§l§6@ALNStudios §e${PACK_NAME}§r (v${PACK_VERSION})`;
+
+const isOperator = (player) =>
+  typeof player.isOp === "function" ? player.isOp() : player.playerPermissionLevel === OPERATOR_LEVEL;
+
+const canEdit = (player) => isOperator(player) || world.getAllPlayers().length === 1;
+
+const addOptional = (form, method, ...args) => (typeof form[method] === "function" ? form[method](...args) : form);
+
+const onOff = (flag) => (flag ? "On" : "Off");
+
+function notify(player, message) {
+  try {
+    player.onScreenDisplay.setActionBar(message);
+  } catch (e) {
+    return;
+  }
+}
+
+function statusBody(settings) {
+  return [
+    `§lDropped item limit:§r ${settings.itemCap ? `On, ${settings.itemLimit} per dimension` : "Off"}`,
+    `§lHide effect particles:§r ${onOff(settings.hideParticles)}`,
+    `§lPortal preloading:§r ${onOff(settings.portalPreload)}`,
+  ].join("\n");
+}
+
+async function showAbout(player) {
+  const body = [
+    "§lCreator:§r ALNStudios",
+    `§l${PACK_NAME}:§r version ${PACK_VERSION}`,
+    "Limits dropped items, hides potion effect particles and preloads portal destinations.",
+    "CurseForge: ALNStudios (allenscreations)",
+    "MCPEDL: alnstudios",
+    "This is an unofficial community creation, not affiliated with Mojang or Microsoft.",
+  ].join("\n");
+  const form = new ActionFormData().title("About ALNStudios").body(body).button("Back", ABOUT_ICON);
+  try {
+    await form.show(player);
+  } catch (e) {
+    return;
+  }
+  openMain(player);
+}
+
+async function showSettings(player) {
+  const settings = getSettings();
+  if (!canEdit(player)) {
+    notify(player, "§cOnly an operator can change these settings.");
+    return openMain(player);
+  }
+  let form = new ModalFormData().title(`${PACK_NAME} Settings`);
+  form = addOptional(form, "header", "Dropped Items");
+  form = addOptional(form, "label", `Now: ${settings.itemCap ? "On" : "Off"}`);
+  form = form.toggle("Limit dropped items", { defaultValue: settings.itemCap });
+  form = addOptional(form, "divider");
+  form = form.slider("Items kept per dimension", ITEM_LIMIT_MIN, ITEM_LIMIT_MAX, {
+    defaultValue: settings.itemLimit,
+    valueStep: ITEM_LIMIT_STEP,
+  });
+  form = addOptional(form, "divider");
+  form = addOptional(form, "header", "Effects");
+  form = addOptional(form, "label", `Now: ${onOff(settings.hideParticles)}`);
+  form = form.toggle("Hide effect particles", { defaultValue: settings.hideParticles });
+  form = addOptional(form, "divider");
+  form = addOptional(form, "header", "Portals");
+  form = addOptional(form, "label", `Now: ${onOff(settings.portalPreload)}`);
+  form = form.toggle("Preload portal destination", { defaultValue: settings.portalPreload });
+  form = addOptional(form, "divider");
+  form = form.submitButton("Save");
+  let res;
+  try {
+    res = await form.show(player);
+  } catch (e) {
+    return;
+  }
+  if (res.canceled) return openMain(player);
+  const values = (res.formValues ?? []).filter((v) => typeof v === "boolean" || typeof v === "number");
+  if (values.length !== 4) {
+    notify(player, "§cThe settings could not be read.");
+    return openMain(player);
+  }
+  const [itemCap, itemLimit, hideParticles, portalPreload] = values;
+  const saved = saveSettings({ itemCap, itemLimit, hideParticles, portalPreload });
+  if (!itemCap) resetItemTracking();
+  notify(player, saved ? "§aSettings saved." : "§cThe settings could not be saved.");
+  return openMain(player);
+}
+
+async function openMain(player, attempt = 0) {
+  const form = new ActionFormData()
+    .title(TITLE)
+    .body(statusBody(getSettings()))
+    .button("Optimizer Settings")
+    .button("About", ABOUT_ICON)
+    .button("Exit");
+  let res;
+  try {
+    res = await form.show(player);
+  } catch (e) {
+    return;
+  }
+  if (res.canceled) {
+    if (res.cancelationReason === FormCancelationReason.UserBusy && attempt < 5) {
+      system.runTimeout(() => openMain(player, attempt + 1), 10);
+    }
+    return;
+  }
+  if (res.selection === 0) return showSettings(player);
+  if (res.selection === 1) return showAbout(player);
+}
+
+export function startMenu() {
+  world.afterEvents.itemUse.subscribe(({ source, itemStack }) => {
+    if (itemStack?.typeId === OPEN_ITEM && source.isSneaking) openMain(source);
+  });
+}
+```
+
+## FILE: MCPEDL/Script/Gameplay-Optimizer/behavior_pack/scripts/lib/portal.js (117 lines, 3317 bytes)
+
+```
+import { world, system } from "@minecraft/server";
+import { getSettings } from "./settings.js";
+
+const PORTAL_BLOCK = "minecraft:portal";
+const OVERWORLD = "minecraft:overworld";
+const NETHER = "minecraft:nether";
+const CHECK_TICKS = 10;
+const MAX_TICKS = 400;
+const HOLD_TICKS = 100;
+const HALF_SPAN = 16;
+const OUTSIDE_LIMIT = 3;
+const AREA_PREFIX = "aln_portal_";
+const active = new Map();
+
+function manager() {
+  return world.tickingAreaManager;
+}
+
+function release(playerId) {
+  const state = active.get(playerId);
+  if (!state) return;
+  active.delete(playerId);
+  try {
+    const mgr = manager();
+    if (mgr && mgr.hasTickingArea(state.area)) mgr.removeTickingArea(state.area);
+  } catch (e) {
+    return;
+  }
+}
+
+function inPortal(player) {
+  try {
+    return player.dimension.getBlock(player.location)?.typeId === PORTAL_BLOCK;
+  } catch (e) {
+    return false;
+  }
+}
+
+function destinationOf(player) {
+  const from = player.dimension.id;
+  const loc = player.location;
+  const y = Math.min(120, Math.max(0, Math.floor(loc.y)));
+  if (from === OVERWORLD) {
+    return { dimensionId: NETHER, x: Math.floor(loc.x / 8), y, z: Math.floor(loc.z / 8) };
+  }
+  if (from === NETHER) {
+    return { dimensionId: OVERWORLD, x: Math.floor(loc.x * 8), y, z: Math.floor(loc.z * 8) };
+  }
+  return null;
+}
+
+function begin(player, now) {
+  const mgr = manager();
+  if (!mgr) return;
+  const target = destinationOf(player);
+  if (!target) return;
+  const options = {
+    dimension: world.getDimension(target.dimensionId),
+    from: { x: target.x - HALF_SPAN, y: target.y, z: target.z - HALF_SPAN },
+    to: { x: target.x + HALF_SPAN, y: target.y, z: target.z + HALF_SPAN },
+  };
+  if (!mgr.hasCapacity(options)) return;
+  const area = `${AREA_PREFIX}${player.id}`;
+  if (mgr.hasTickingArea(area)) return;
+  active.set(player.id, { area, started: now, outside: 0, holding: false });
+  mgr.createTickingArea(area, options).catch(() => release(player.id));
+}
+
+function sweep() {
+  const settings = getSettings();
+  if (!settings.portalPreload && active.size === 0) return;
+  const now = system.currentTick;
+  const present = new Set();
+  for (const player of world.getAllPlayers()) {
+    present.add(player.id);
+    const state = active.get(player.id);
+    const inside = inPortal(player);
+    if (!state) {
+      if (settings.portalPreload && inside) {
+        try {
+          begin(player, now);
+        } catch (e) {
+          release(player.id);
+        }
+      }
+      continue;
+    }
+    if (state.holding) continue;
+    state.outside = inside ? 0 : state.outside + 1;
+    if (state.outside >= OUTSIDE_LIMIT || now - state.started > MAX_TICKS) release(player.id);
+  }
+  for (const id of [...active.keys()]) {
+    if (!present.has(id)) release(id);
+  }
+}
+
+export function startPortalPreload() {
+  world.afterEvents.worldLoad.subscribe(() => {
+    try {
+      manager()?.removeAllTickingAreas();
+    } catch (e) {
+      active.clear();
+    }
+    active.clear();
+    system.runInterval(sweep, CHECK_TICKS);
+  });
+
+  world.afterEvents.playerDimensionChange.subscribe(({ player }) => {
+    const state = active.get(player.id);
+    if (!state) return;
+    state.holding = true;
+    system.runTimeout(() => release(player.id), HOLD_TICKS);
+  });
+
+  world.afterEvents.playerLeave.subscribe(({ playerId }) => release(playerId));
+}
+```
+
+## FILE: MCPEDL/Script/Gameplay-Optimizer/behavior_pack/scripts/lib/settings.js (54 lines, 1394 bytes)
+
+```
+import { world } from "@minecraft/server";
+
+const KEY = "aln_gameplay_optimizer_settings";
+
+export const ITEM_LIMIT_MIN = 50;
+export const ITEM_LIMIT_MAX = 500;
+export const ITEM_LIMIT_STEP = 50;
+
+const DEFAULTS = {
+  itemCap: false,
+  itemLimit: 200,
+  hideParticles: true,
+  portalPreload: true,
+};
+
+let cache = null;
+
+function sanitize(raw) {
+  const out = { ...DEFAULTS };
+  if (raw && typeof raw === "object") {
+    if (typeof raw.itemCap === "boolean") out.itemCap = raw.itemCap;
+    if (typeof raw.hideParticles === "boolean") out.hideParticles = raw.hideParticles;
+    if (typeof raw.portalPreload === "boolean") out.portalPreload = raw.portalPreload;
+    if (typeof raw.itemLimit === "number" && Number.isFinite(raw.itemLimit)) {
+      const stepped = Math.round(raw.itemLimit / ITEM_LIMIT_STEP) * ITEM_LIMIT_STEP;
+      out.itemLimit = Math.min(ITEM_LIMIT_MAX, Math.max(ITEM_LIMIT_MIN, stepped));
+    }
+  }
+  return out;
+}
+
+export function getSettings() {
+  if (cache) return cache;
+  let saved = null;
+  try {
+    const raw = world.getDynamicProperty(KEY);
+    if (typeof raw === "string") saved = JSON.parse(raw);
+  } catch (e) {
+    saved = null;
+  }
+  cache = sanitize(saved);
+  return cache;
+}
+
+export function saveSettings(next) {
+  cache = sanitize(next);
+  try {
+    world.setDynamicProperty(KEY, JSON.stringify(cache));
+  } catch (e) {
+    return false;
+  }
+  return true;
+}
+```
+
+## FILE: MCPEDL/Script/Gameplay-Optimizer/behavior_pack/scripts/main.js (10 lines, 279 bytes)
+
+```
+import { startMenu } from "./lib/menu.js";
+import { startItemCap } from "./lib/itemcap.js";
+import { startEffectParticles } from "./lib/effects.js";
+import { startPortalPreload } from "./lib/portal.js";
+
+startMenu();
+startItemCap();
+startEffectParticles();
+startPortalPreload();
+```
+
+## FILE: MCPEDL/Script/Gameplay-Optimizer/CHANGELOG.md (12 lines, 589 bytes)
+
+```
+# Changelog — Gameplay Optimizer
+
+---
+
+## [1.0.0] - 2026-11-15 - First Release
+
+### Added
+- **Settings Menu**: Sneak and use a Clock to open a menu that shows the three optimizer switches and lets an operator change them.
+- **Dropped Item Limit**: An optional limit from 50 to 500 dropped items per dimension, removing the oldest dropped item when the limit is passed.
+- **Potion Particle Hiding**: Effects that players receive are reapplied with their particles turned off.
+- **Portal Preloading**: Standing in a Nether portal asks the game to start loading the area on the other side.
+```
+
+## FILE: MCPEDL/Script/Gameplay-Optimizer/DESCRIPTION.md (79 lines, 5431 bytes)
+
+```
+# Gameplay Optimizer — Item limits, quiet potions and portal preloading
+
+**By ALNStudios**
+
+[![Minecraft Bedrock](https://img.shields.io/badge/Minecraft%20Bedrock-Stable%20Release-brightgreen?style=flat-square&logo=minecraft)](https://github.com/AllensCreations/MCPE-Curseforges)
+[![Format](https://img.shields.io/badge/Format-.MCPACK%20%7C%20.MCADDON%20%7C%20.MCWORLD-blue?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges)
+
+**Limits dropped items to between 50 and 500 per dimension, hides potion particles, and preloads Nether portal destinations from a Clock menu.**
+
+> Gameplay Optimizer adds one settings menu, opened by sneaking and using a Clock, with three switches. It suits worlds with item farms, frequent potion effects, or Nether portal trips that stall on arrival.
+
+## Overview
+
+Sneak and use a Clock to open the menu, then pick Optimizer Settings. The menu has a switch for the dropped item limit, one for potion particle hiding, and one for portal preloading. Settings are saved in the world and apply to every player in it.
+
+## Key Features
+
+### Dropped Item Limit
+- **What Happens**: When switched on, the pack keeps the number of dropped items in each dimension at or below a limit you choose from 50 to 500, in steps of 50. When a new drop passes the limit, the oldest tracked dropped item is removed.
+- **How It Works**: With the limit set to 200, the 201st dropped item in the Overworld makes the oldest dropped item in the Overworld disappear.
+- **Good To Know**: This switch is off by default. Removed items are gone for good, including valuable ones. Only items dropped after the world loaded and after the switch was turned on are counted.
+
+### Potion Particle Hiding
+- **What Happens**: When switched on, effects that players receive from potions, beacons and similar sources are reapplied with the swirling particles turned off.
+- **Good To Know**: This switch is on by default. Only players are affected. Instant effects such as Instant Health are skipped, and every other particle in the game is unchanged.
+
+### Portal Preloading
+- **What Happens**: While you stand inside a Nether portal, the pack asks the game to start loading the matching spot on the other side: Overworld coordinates divided by 8, or Nether coordinates multiplied by 8. The loaded area is released about 5 seconds after you arrive, or after 20 seconds at most.
+- **Good To Know**: This switch is on by default. The effect on portal trip time was not measured, and loading an area early adds work while you wait. If the game has no room for another loaded area, the step is skipped.
+
+### Settings Menu
+- **What Happens**: The main menu shows the state of all three switches and has Optimizer Settings, About and Exit buttons. The settings screen has a toggle for each feature, a slider for the item limit, and a Save button.
+- **Good To Know**: Operators can change the settings, and so can a player who is alone in the world. Other players can open the menu and read the status.
+
+## How to Use
+
+1. Import the .mcpack file and add the pack to your world's Behavior Packs.
+2. Hold a Clock, sneak, and use it to open the Gameplay Optimizer menu.
+3. Choose Optimizer Settings, change the switches, and press Save. The main menu then shows the new state.
+
+## Common Questions
+
+- **Does it raise my frame rate?**: Frame rate was not measured. The pack limits dropped items, hides potion particles and preloads portal destinations, and it does not change any video setting.
+- **Does it hide every particle?**: No. Only the particles of effects that players receive are hidden.
+- **Will the item limit delete my items?**: Only when the limit is switched on and the number of dropped items goes over it. The oldest dropped items are removed first.
+
+## Compatibility
+
+- Minecraft Bedrock Edition: 1.26.60
+- Experimental features: No experiment requirement detected in the inspected files.
+- Achievements: Unknown / needs confirmation.
+- Verification: Source created, not tested in game.
+
+## Creator and Permissions
+
+- Creator: ALNStudios
+- Profiles: [CurseForge Profile](https://www.curseforge.com/members/allenscreations/projects) · [MCPEDL Profile](https://mcpedl.com/user/alnstudios/)
+
+<a href="https://www.curseforge.com/members/allenscreations/projects"><img src="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/assets/Images/curseforge.jpg" alt="CurseForge" width="45%"></a> <a href="https://mcpedl.com/user/alnstudios/"><img src="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/assets/Images/MCPEDL.jpg" alt="MCPEDL" width="45%"></a>
+
+## Guidelines and Attribution
+
+- Creator: ALNStudios
+- Rights & Reservation: All rights reserved for ALNStudios.
+- Content Creators: Content creators are permitted to feature this creation in videos and streams with credit to ALNStudios.
+- Redistribution: Do not re-upload this pack or provide direct monetized download bypasses. Link directly to the official repository page.
+- Disclaimer: This is an unofficial community creation. It is not an official Minecraft product and is not approved by or associated with Mojang or Microsoft.
+
+---
+
+© All rights reserved for ALNStudios.
+
+---
+
+## Search & Discovery Keywords
+
+Minecraft Bedrock add-on, Gameplay Optimizer Bedrock mod, dropped item limit, potion particle hiding, portal preloading, Clock menu, Minecraft PE survival, MCPEDL add-on, CurseForge Bedrock, ALNStudios.
+```
+
+## FILE: MCPEDL/Script/Gameplay-Optimizer/project.json (4 lines, 54 bytes)
+
+```
+{
+  "type": "script",
+  "name": "Gameplay Optimizer"
+}
+```
+
+## FILE: MCPEDL/Script/Gameplay-Optimizer/README.md (19 lines, 817 bytes)
+
+```
+# Gameplay Optimizer
+
+Download the current release of **Gameplay Optimizer** for Minecraft Bedrock Edition.
+
+## Download
+
+- **Package format:** `.mcpack`
+- **Direct download:** [Download Gameplay Optimizer (.mcpack)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Gameplay-Optimizer/GameplayOptimizer%20V1.0.0.mcpack)
+
+## Installation
+
+1. Download the package using the link above.
+2. Open the downloaded file with Minecraft to import it.
+3. If the package contains a pack that must be enabled separately, activate it in your world's settings.
+
+## Pack Information
+
+For gameplay features, usage details, compatibility notes, and other project information, read the [full description](https://github.com/AllensCreations/MCPE-Curseforges/blob/main/MCPEDL/Script/Gameplay-Optimizer/DESCRIPTION.md).
+```
+
+## FILE: MCPEDL/Script/README.md (30 lines, 2858 bytes)
+
+```
+# Scripts
+
+Standalone Minecraft Bedrock Script packs by ALNStudios. Script projects use the `.mcpack` format and are tested with the Creative foundation.
+
+## Available Scripts
+
+| Project | Source | Download |
+| :--- | :--- | :--- |
+| *No standalone Script packs currently published.* | | |
+| Chrono-Bed | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Script/Chrono-Bed/) | [MCPACK](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Chrono-Bed/ChronoBed%20V1.0.0.mcpack) |
+| Target HUD Entity Inspector | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Script/Target-HUD-Entity-Inspector/) | [MCPACK](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Target-HUD-Entity-Inspector/TargetHUD%20V1.1.2.mcpack) |
+| Waypoint Helper | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Script/Waypoint-Helper/) | [MCPACK](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Waypoint-Helper/WaypointHelper%20V1.1.10.mcaddon) |
+| Always Critical | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Script/Always-Critical/) | [MCPACK](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Always-Critical/AlwaysCritical%20V1.0.0.mcpack) |
+| Universal Clutch | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Script/Universal-Clutch) | [MCPACK](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Universal-Clutch/UniversalClutch%20V1.5.2.mcpack) |
+| Living SMP Chat | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Script/Living-SMP-Chat/) | [MCPACK](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Living-SMP-Chat/LivingSMPChat%20V1.0.11.mcpack) |
+| Gameplay Optimizer | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Script/Gameplay-Optimizer/) | [MCPACK](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Gameplay-Optimizer/GameplayOptimizer%20V1.0.0.mcpack) |
+| ALNMobStacker | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Script/ALN-MobStacker/) | [MCPACK](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/ALN-MobStacker/ALNMobStacker%20V1.0.5.mcpack) |
+
+## Attribution
+
+Created by ALNStudios. All rights reserved.
+
+Videos and streams are welcome with credit. Redistribution of original or modified files without permission is prohibited.
+
+## Related Directories
+
+- [Add-ons](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons#available-add-ons)
+- [Maps](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Maps#available-maps)
+- [Minigames](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Minigame#available-minigames)
+```

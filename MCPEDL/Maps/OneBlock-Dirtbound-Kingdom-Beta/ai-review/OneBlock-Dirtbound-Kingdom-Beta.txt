@@ -1,0 +1,1453 @@
+# Repo Export
+
+## Index
+
+- **Export request:** `MCPEDL/Maps/OneBlock-Dirtbound-Kingdom-Beta`
+- **Destination:** `MCPEDL/Maps/OneBlock-Dirtbound-Kingdom-Beta`
+- **CURRENT VERSION: 0.28.0 / NEXT UPDATE: 0.28.1**  (`MCPEDL/Maps/OneBlock-Dirtbound-Kingdom-Beta/CHANGELOG.md`)
+- **Text files:** 22
+- **Skipped binary:** 4
+- **Paths not found:** 0
+
+### Files in this export
+
+- `changelog_views/OneBlock-Dirtbound-Kingdom-Beta.curseforge.html`
+- `changelog_views/OneBlock-Dirtbound-Kingdom-Beta.github.md`
+- `description_views/OneBlock-Dirtbound-Kingdom-Beta.listing.md`
+- `MCPEDL/Maps/OneBlock-Dirtbound-Kingdom-Beta/assets/snapshots/.gitkeep`
+- `MCPEDL/Maps/OneBlock-Dirtbound-Kingdom-Beta/behavior_pack/functions/balance_display.mcfunction`
+- `MCPEDL/Maps/OneBlock-Dirtbound-Kingdom-Beta/behavior_pack/functions/bonus_spawn.mcfunction`
+- `MCPEDL/Maps/OneBlock-Dirtbound-Kingdom-Beta/behavior_pack/functions/give_trader.mcfunction`
+- `MCPEDL/Maps/OneBlock-Dirtbound-Kingdom-Beta/behavior_pack/functions/oneblock_setup.mcfunction`
+- `MCPEDL/Maps/OneBlock-Dirtbound-Kingdom-Beta/behavior_pack/functions/oneblock_tick.mcfunction`
+- `MCPEDL/Maps/OneBlock-Dirtbound-Kingdom-Beta/behavior_pack/functions/tick.json`
+- `MCPEDL/Maps/OneBlock-Dirtbound-Kingdom-Beta/behavior_pack/functions/void_cleaner.mcfunction`
+- `MCPEDL/Maps/OneBlock-Dirtbound-Kingdom-Beta/behavior_pack/items/trader_ledger.json`
+- `MCPEDL/Maps/OneBlock-Dirtbound-Kingdom-Beta/behavior_pack/manifest.json`
+- `MCPEDL/Maps/OneBlock-Dirtbound-Kingdom-Beta/behavior_pack/scripts/main.js`
+- `MCPEDL/Maps/OneBlock-Dirtbound-Kingdom-Beta/CHANGELOG.md`
+- `MCPEDL/Maps/OneBlock-Dirtbound-Kingdom-Beta/DESCRIPTION.md`
+- `MCPEDL/Maps/OneBlock-Dirtbound-Kingdom-Beta/oneblock.json`
+- `MCPEDL/Maps/OneBlock-Dirtbound-Kingdom-Beta/README.md`
+- `MCPEDL/Maps/OneBlock-Dirtbound-Kingdom-Beta/resource_pack/manifest.json`
+- `MCPEDL/Maps/OneBlock-Dirtbound-Kingdom-Beta/resource_pack/textures/item_texture.json`
+- `MCPEDL/Maps/OneBlock-Dirtbound-Kingdom-Beta/SPEC.md`
+- `MCPEDL/Maps/README.md`
+
+### Skipped (binary)
+
+- `MCPEDL/Maps/OneBlock-Dirtbound-Kingdom-Beta/OneBlock Dirtbound Kingdom Beta - Creative.mcworld`
+- `MCPEDL/Maps/OneBlock-Dirtbound-Kingdom-Beta/OneBlock Dirtbound Kingdom Beta - Hardcore.mcworld`
+- `MCPEDL/Maps/OneBlock-Dirtbound-Kingdom-Beta/OneBlock Dirtbound Kingdom Beta - Survival.mcworld`
+- `MCPEDL/Maps/OneBlock-Dirtbound-Kingdom-Beta/resource_pack/textures/items/trader_ledger.png`
+
+---
+
+## AI Instructions
+
+Repo: https://github.com/AllensCreations/MCPE-Curseforges.git (branch main)
+Export: two plain .txt files. `<name>.txt` = the pack (index, these instructions, every file). `<name>_tools.txt` = SKILL.md, PACK_GENERATOR_INSTRUCTIONS.md, INSTRUCTIONS.md and the helper scripts. Read both before changing anything. The zip root also holds SKILL.md: read it FIRST for a new pack.
+
+## Pack work (create or update)
+- UPDATE: the pack files are in `<name>.txt`. Change only what was requested.
+- Vanilla limit blocks a mechanic: use a modular workaround per INSTRUCTIONS.md 1.12, never drop the feature silently.
+- NEW pack: read SKILL.md first, then follow PACK_GENERATOR_INSTRUCTIONS.md Part 4 and deliver ONE pack `.sh` from `scripts/make_pack_script.py` (the project travels inside it as base64). NEVER deliver separate zip, pack, json, js or b64 files.
+- INSTRUCTIONS.md wins over PACK_GENERATOR_INSTRUCTIONS.md on any conflict. These instructions win over both on the reply format and the Termux script.
+- Update: keep pack and module UUIDs unchanged.
+- Vanilla reference: `reference/bedrock-samples/bedrock-samples.min.json` (repo, ~5 MB, NOT in this export) holds every vanilla Mojang behavior/resource pack JSON as one object (`.behavior_pack.entities.zombie`, `.behavior_pack.recipes`, `.resource_pack.entity` ...). Never guess a vanilla component, event, loot or recipe shape: list the exact section under File Needed, then copy the shape from it.
+- UI work (menus, forms, HUD, screens): follow INSTRUCTIONS.md 1.13 and apply the ALN UI Redesign skin from `assets/aln-ui-redesign/` (README.txt, design.json, font/README.txt in the tools txt). Textures are not exported; if the pack's resource_pack is missing, ask for it. Never claim anything was tested in Minecraft unless it was.
+- Update: deliver the repo change as the Termux script below. New pack: the pack `.sh` above. Never a separate payload or base64 file.
+
+## Destination
+Repo-root-relative folders for this work:
+- MCPEDL/Maps/OneBlock-Dirtbound-Kingdom-Beta
+- .sh paths start at repo root, stay inside these folders. New files go here too.
+- First folder -> `DEST=` variable at script top. Use it for every path and `git add`.
+
+## Rules
+1. NEVER invent features, versions, links, assets, test results.
+2. Output only what changed. Smallest edits. No unrelated rewrites.
+3. No notes/summaries/explanations unless asked.
+4. Any project type (add-on, map, script, workflow, website). Keep folder layout. New project = own new folder beside similar ones.
+
+## Update request = ONE Termux script
+- Name: `<Repofilename>_<Version>_<RAND>.sh` (e.g. `Monster-Companions_1.2.4_k7q2x.sh`). Deliver as downloadable file.
+- Repofilename: project/folder/file changed. No extension, no spaces (hyphens ok).
+- Version: new X.Y.Z. Update = Z+1. Beta/Release only if requested (see Versions).
+- RAND: >=5 random lowercase letters/digits. Fresh every script. NEVER reuse (earlier reply or existing file), so a new script never overwrites or re-runs an old one.
+- Same exact name in reply steps.
+Script order:
+1. `#!/data/data/com.termux/files/usr/bin/bash` + `set -e`
+2. `cd "$HOME/MCPE-Curseforges"`; `git clone` repo URL first if folder missing
+3. `git pull --rebase`
+4. Apply ALL changes as exact search-and-replace edits: write a spec and run `python3 scripts/make_update_script.py spec.txt` (format in `scripts/apply_update.py`; `--verify <clone>` dry-runs it). The tool applies edits atomically, sets the manifest version and writes both changelogs. Size decides the method. SMALL update (a few edits, under about 60% of any file touched): search and replace only. LARGE update (most of a file, many new files, a redesign): use the best method, `@@ create`/`@@ overwrite` in the same spec, never many fragile edits. Either way ONE `.sh`. No separate downloads.
+5. Validate every changed .json with python3. Stop on error.
+5b. Verify top CHANGELOG.md heading == new X.Y.Z == script filename version. Stop on mismatch. If project has manifests: run `python3 scripts/manifest_tools.py --project "$DEST" --set X.Y.Z` (sets header.version, metadata.version, title suffix, module/dependency versions in every source manifest; never lowers), then `python3 scripts/manifest_tools.py --project "$DEST" --check` and `python3 scripts/validate_manifest_titles.py --project "$DEST"`. Stop on error. Every update must change the manifests so the build changes. Never hand-edit manifest JSON for versions.
+5c. If INSTRUCTIONS.md or PACK_GENERATOR_INSTRUCTIONS.md changed: run `python3 scripts/check_instruction_files.py`. Stop on error
+6. `git add` changed paths only; `git commit -m "<short message>"`; `git push`
+6b. Add an entry to the ROOT `CHANGELOG.md` (repo-wide, newest first under `---`): `## [vN] - YYYY-MM-DD - [Update Name]` (N = `REPO_VERSION` + 1, a single whole number such as v80, set by the update tool, never by hand), groups `### Added` / `### Improved & Balanced` / `### Fixed`, bullets `- **Title**: what changed`. Every script, tooling-only included.
+7. After push, do NOT start any workflow. Build Changed Packs & Sync Catalogs runs by itself on every push and rebuilds everything. Nothing auto-bumps; Publish to CurseForge uploads the newest changelog version as written.
+8. Idempotent: skip anything already applied.
+9. Last line, reached only after a successful push: `rm -f -- "$SELF"` (the script deletes itself; save `SELF="$(readlink -f -- "$0")"` on line 2, before the `cd`).
+
+## Docs (every update, same script)
+- Templates STRICT: README.md, DESCRIPTION.md, CHANGELOG.md match templates below exactly: same headings, text, order, labels, bullet format. NEVER add/remove/rename/merge/reorder sections. No boilerplate/extra text. No placeholders: fill every [bracket] with verified content. Accuracy + requested scope outrank template.
+- CHANGELOG.md: MANDATORY every update, no exceptions. Add new release entry for the change.
+- README.md + DESCRIPTION.md: after change, analyze both in destination folder. Edit ONLY if change makes them inaccurate/incomplete. NEVER remove verified content.
+
+### Versions (X.Y.Z ONLY)
+- Format: exactly X.Y.Z everywhere. NEVER X.Y.Z.A. No fourth part. No Alpha.
+- X = Release, Y = Beta, Z = Update.
+- Update: Z+1 (1.2.3 -> 1.2.4). Default.
+- Beta: Y+1, Z=0 (1.2.4 -> 1.3.0). Only if requested.
+- Release: X+1, Y=0, Z=0 (1.3.0 -> 2.0.0). Only if requested.
+- New X.Y.Z goes in CHANGELOG heading + script filename.
+- Manifest versions: set ONLY by the script via `manifest_tools.py --set X.Y.Z` (never hand-edit JSON). NEVER hand-edit README download links. Build Changed Packs & Sync Catalogs aligns a pack to its highest existing version and rebuilds; it never bumps. Publish to CurseForge uploads the newest changelog version.
+- NEVER put release version in README/DESCRIPTION titles. NEVER reuse a heading.
+
+### Changelog views
+- `changelog_views/<Name>.github.md` (newest open, older folded by minor series) and `changelog_views/<Name>.curseforge.html` (CurseForge spoilers, paste into project description): generated from CHANGELOG.md by `scripts/build_changelog_views.py`.
+- CHANGELOG.md = plain text, exact template format, only source of truth. NEVER add HTML/fold markup/links to it. NEVER edit views by hand. NEVER create/change views inside the .sh.
+- Refresh: Build Changed Packs & Sync Catalogs; Collect Files for AI Review (tick commit_changelog_views to save); or `python3 scripts/build_changelog_views.py --project <Name>`.
+
+### Writing
+- Player-facing only. In-game display names, never identifiers, file names, JSON, events, code.
+- "Behavior Pack" / "Resource Pack", NEVER BP/RP.
+- README: no code blocks, emojis, hype, badges.
+- DESCRIPTION: exactly the two Minecraft Bedrock + Format badges from repo template, no others. May keep existing item sprites + recipe diagrams.
+- No Markdown tables. Use `### Feature Name` cards with `- **What Happens**: ...` bullets.
+- Paragraphs <=4 sentences. Verified facts only. Verification line = source created | package built | in-game tested, NEVER mixed.
+
+### README.md (add-on): download landing page only, EXACTLY 11 non-empty lines
+```
+# [Name]
+
+Download the current release of **[Name]** for Minecraft Bedrock Edition.
+
+## Download
+
+- **Package format:** `.mcaddon`
+- **Direct download:** [Download [Name] (.mcaddon)](link)
+
+## Installation
+
+1. Download the package using the link above.
+2. Open the downloaded file with Minecraft to import it.
+3. If the package contains a pack that must be enabled separately, activate it in your world's settings.
+
+## Pack Information
+
+For gameplay features, usage details, compatibility notes, and other project information, read the [full description](DESCRIPTION link).
+```
+Maps/scripts/minigames: same landing page. Use real package format; .mcworld = tell players to open the imported world. Product details live in DESCRIPTION.md.
+
+### DESCRIPTION.md order
+1. `# [Name] — [subtitle]` (no release version)
+2. `**By ALNStudios**`
+3. Two exact badges (Minecraft Bedrock "Stable Release", Format) from repo template
+4. Summary
+5. `## Overview`
+6. `## Key Features`
+7. `## How to Use`
+8. `## Compatibility`: Minecraft Bedrock Edition, Experimental features, Achievements, Verification
+9. `## Creator and Permissions`: `- Creator: ALNStudios`, `- Profiles:` CurseForge https://www.curseforge.com/members/allenscreations/projects · MCPEDL https://mcpedl.com/user/alnstudios/, then the two clickable listing images (HTML, `width="45%"`, no `height`, raw URLs `assets/Images/curseforge.jpg`, `assets/Images/MCPEDL.jpg`). NEVER edit/copy the images
+10. `## Guidelines and Attribution`
+11. `---` then `## Search & Discovery Keywords` from real features
+- Add-ons: Achievements line ALWAYS `Likely achievement-friendly`; add caveats if world settings/cheats can disable achievements.
+
+### Guidelines and Attribution block, exactly
+```
+- Creator: ALNStudios
+- Rights & Reservation: All rights reserved for ALNStudios.
+- Content Creators: Content creators are permitted to feature this creation in videos and streams with credit to ALNStudios.
+- Redistribution: Do not re-upload this pack or provide direct monetized download bypasses. Link directly to the official repository page.
+- Disclaimer: This is an unofficial community creation. It is not an official Minecraft product and is not approved by or associated with Mojang or Microsoft.
+
+---
+
+© All rights reserved for ALNStudios.
+
+---
+```
+
+### CHANGELOG.md
+- `# Changelog — [Name]`, `---`, then newest first: `## [X.Y.Z] - YYYY-MM-DD - [Update Name]` (date: `TZ=Asia/Singapore date +%F`). [Update Name] = short player-facing title (2-6 words) of what is new. REQUIRED on every new entry.
+- Groups: `### Added`, `### Improved & Balanced`, `### Fixed` (bugs as in-game experience). Omit empty groups. Each group >=1 bullet.
+- Entry: `- **Title**: player impact.`
+- NO links, URLs, badges, function/event names, unverified benefits. No boilerplate after title.
+- Insert new entry directly under `---`, above previous release. NEVER edit/delete older entries.
+
+## Reply Format (STRICT)
+```
+[SYSTEM_CONFIG]
+Mode: Direct Execution
+Token_Efficiency: Maximum
+Rules: no greeting, intro, outro, offers, restating. High technical accuracy.
+```
+Output ONLY these three sections, in order, exact headings:
+1. **File Needed:** repo-root-relative path of each file created/edited.
+2. **Changelog:** bullets, brief summary of changes.
+3. **Termux Script:** ONE fenced `bash` block holding ONLY the run commands: `bash ~/storage/downloads/<Repofilename>_<Version>_<RAND>.sh` (a new pack may add the same line with `stage`). The .sh is attached, NEVER pasted. NEVER a Summary section.
+- The .sh (`<Repofilename>_<Version>_<RAND>.sh`, random chars included) is the downloadable file. Exact same name in the command.
+- NEVER text before, between, after. NEVER rename/merge/reorder/skip a section. Nothing to report: `- None`.
+- Unclear request: ask ONE line, then proceed with defaults.
+- First-time Termux setup, ONLY if the user asks:
+```
+pkg update -y && pkg install -y git python curl
+termux-setup-storage
+git config --global user.name "ALNStudios"
+git config --global user.email "your-email@example.com"
+git config --global credential.helper store
+```
+- Push password = GitHub Personal Access Token (repo + workflow scopes), NOT account password. Same token starts the build after push.
+
+---
+
+## File Contents
+
+## FILE: changelog_views/OneBlock-Dirtbound-Kingdom-Beta.curseforge.html (21 lines, 2397 bytes)
+
+```
+<h2>0.28.0 - 2026-10-29</h2><h3>Improved &amp; Balanced</h3><ul><li><strong>Maintenance release</strong>: Repackaged the pack; no gameplay changes were recorded.</li></ul>
+<h2>0.25.x (1 release)</h2><div class="spoiler"><h3>0.25.0 - 2026-10-22</h3><h4>Build &amp; Packaging</h4><ul></ul></div>
+<h2>0.24.x (1 release)</h2><div class="spoiler"><h3>0.24.0 - 2026-10-21</h3><h4>Improved &amp; Balanced</h4><ul></ul></div>
+<h2>0.23.x (1 release)</h2><div class="spoiler"><h3>0.23.0 - 2026-10-21</h3><h4>Changed</h4><ul></ul></div>
+<h2>0.22.x (1 release)</h2><div class="spoiler"><h3>0.22.0 - 2026-10-21</h3><h4>Changed</h4><ul></ul><h4>Fixed</h4><ul></ul></div>
+<h2>0.21.x (1 release)</h2><div class="spoiler"><h3>0.21.0 - 2026-10-21</h3><h4>Fixed</h4><ul></ul></div>
+<h2>0.20.x (1 release)</h2><div class="spoiler"><h3>0.20.0 - 2026-10-21</h3><h4>Fixed</h4><ul></ul></div>
+<h2>0.18.x (1 release)</h2><div class="spoiler"><h3>0.18.0 - 2026-10-21</h3><h4>Fixed</h4><ul></ul></div>
+<h2>0.17.x (1 release)</h2><div class="spoiler"><h3>0.17.0 - 2026-10-21</h3><h4>Fixed</h4><ul></ul></div>
+<h2>0.16.x (1 release)</h2><div class="spoiler"><h3>0.16.0 - 2026-10-21</h3><h4>Fixed</h4><ul></ul><h4>Improved</h4><ul></ul></div>
+<h2>0.15.x (1 release)</h2><div class="spoiler"><h3>0.15.0 - 2026-10-21</h3><h4>Fixed</h4><ul></ul></div>
+<h2>0.14.x (1 release)</h2><div class="spoiler"><h3>0.14.0 - 2026-10-21</h3><h4>Improved &amp; Balanced</h4><ul></ul></div>
+<h2>0.13.x (1 release)</h2><div class="spoiler"><h3>0.13.0 - 2026-10-21</h3><h4>Added</h4><ul></ul><h4>Improved &amp; Balanced</h4><ul></ul></div>
+<h2>0.11.x (1 release)</h2><div class="spoiler"><h3>0.11.0 - 2026-10-21</h3><h4>Fixed</h4><ul></ul><h4>Improved &amp; Balanced</h4><ul></ul></div>
+<h2>0.10.x (1 release)</h2><div class="spoiler"><h3>0.10.0 - 2026-10-21</h3><h4>Changed</h4><ul></ul></div>
+<h2>0.8.x (1 release)</h2><div class="spoiler"><h3>0.8.0 - 2026-10-21</h3><h4>Fixed</h4><ul></ul></div>
+<h2>0.7.x (1 release)</h2><div class="spoiler"><h3>0.7.0 - 2026-10-21</h3><h4>Fixed</h4><ul></ul></div>
+<h2>0.6.x (1 release)</h2><div class="spoiler"><h3>0.6.0 - 2026-10-21</h3><h4>Improved</h4><ul></ul></div>
+<h2>0.5.x (1 release)</h2><div class="spoiler"><h3>0.5.0 - 2026-10-21</h3><h4>Added</h4><ul></ul><h4>Improved</h4><ul></ul></div>
+<h2>0.3.x (1 release)</h2><div class="spoiler"><h3>0.3.0 - 2026-10-21</h3><h4>Improved</h4><ul></ul></div>
+```
+
+## FILE: changelog_views/OneBlock-Dirtbound-Kingdom-Beta.github.md (188 lines, 2351 bytes)
+
+```
+# Changelog — OneBlock Dirtbound Kingdom Beta
+
+## [0.28.0] - 2026-10-29
+
+### Improved & Balanced
+- **Maintenance release**: Repackaged the pack; no gameplay changes were recorded.
+
+<details>
+<summary><b>0.25.x</b> (1 release)</summary>
+
+### [0.25.0] - 2026-10-22
+
+#### Build & Packaging
+
+</details>
+
+<details>
+<summary><b>0.24.x</b> (1 release)</summary>
+
+### [0.24.0] - 2026-10-21
+
+#### Improved & Balanced
+
+</details>
+
+<details>
+<summary><b>0.23.x</b> (1 release)</summary>
+
+### [0.23.0] - 2026-10-21
+
+#### Changed
+
+</details>
+
+<details>
+<summary><b>0.22.x</b> (1 release)</summary>
+
+### [0.22.0] - 2026-10-21
+
+#### Changed
+
+#### Fixed
+
+</details>
+
+<details>
+<summary><b>0.21.x</b> (1 release)</summary>
+
+### [0.21.0] - 2026-10-21
+
+#### Fixed
+
+</details>
+
+<details>
+<summary><b>0.20.x</b> (1 release)</summary>
+
+### [0.20.0] - 2026-10-21
+
+#### Fixed
+
+</details>
+
+<details>
+<summary><b>0.18.x</b> (1 release)</summary>
+
+### [0.18.0] - 2026-10-21
+
+#### Fixed
+
+</details>
+
+<details>
+<summary><b>0.17.x</b> (1 release)</summary>
+
+### [0.17.0] - 2026-10-21
+
+#### Fixed
+
+</details>
+
+<details>
+<summary><b>0.16.x</b> (1 release)</summary>
+
+### [0.16.0] - 2026-10-21
+
+#### Fixed
+
+#### Improved
+
+</details>
+
+<details>
+<summary><b>0.15.x</b> (1 release)</summary>
+
+### [0.15.0] - 2026-10-21
+
+#### Fixed
+
+</details>
+
+<details>
+<summary><b>0.14.x</b> (1 release)</summary>
+
+### [0.14.0] - 2026-10-21
+
+#### Improved & Balanced
+
+</details>
+
+<details>
+<summary><b>0.13.x</b> (1 release)</summary>
+
+### [0.13.0] - 2026-10-21
+
+#### Added
+
+#### Improved & Balanced
+
+</details>
+
+<details>
+<summary><b>0.11.x</b> (1 release)</summary>
+
+### [0.11.0] - 2026-10-21
+
+#### Fixed
+
+#### Improved & Balanced
+
+</details>
+
+<details>
+<summary><b>0.10.x</b> (1 release)</summary>
+
+### [0.10.0] - 2026-10-21
+
+#### Changed
+
+</details>
+
+<details>
+<summary><b>0.8.x</b> (1 release)</summary>
+
+### [0.8.0] - 2026-10-21
+
+#### Fixed
+
+</details>
+
+<details>
+<summary><b>0.7.x</b> (1 release)</summary>
+
+### [0.7.0] - 2026-10-21
+
+#### Fixed
+
+</details>
+
+<details>
+<summary><b>0.6.x</b> (1 release)</summary>
+
+### [0.6.0] - 2026-10-21
+
+#### Improved
+
+</details>
+
+<details>
+<summary><b>0.5.x</b> (1 release)</summary>
+
+### [0.5.0] - 2026-10-21
+
+#### Added
+
+#### Improved
+
+</details>
+
+<details>
+<summary><b>0.3.x</b> (1 release)</summary>
+
+### [0.3.0] - 2026-10-21
+
+#### Improved
+
+</details>
+```
+
+## FILE: description_views/OneBlock-Dirtbound-Kingdom-Beta.listing.md (60 lines, 6533 bytes)
+
+````
+# Listing Kit: OneBlock Dirtbound Kingdom Beta
+
+Tap the Copy button on a block, then paste it into the CurseForge listing. Generated from DESCRIPTION.md: edit that, not this file.
+
+## Package Name
+
+```text
+OneBlock Dirtbound Kingdom Beta
+```
+
+## Summary (223/256)
+
+```text
+OneBlock Dirtbound Kingdom Beta is a database-free void-survival challenge built around a shared central block, a OneCoins economy, and ten stages of increasingly valuable resources. Creative is the sole in-game test world.
+```
+
+## Description (HTML)
+
+Paste into the CurseForge description editor in source (HTML) mode.
+
+```html
+<div><div style="border:2px solid #15803d;border-radius:18px;line-height:1.5"><br><h1 style="font-size:34px;text-align:center">OneBlock Dirtbound Kingdom Beta</h1><p style="color:#8a94a3;font-size:14px;text-align:center">by ALNStudios</p><div style="display:flex;flex-wrap:wrap;gap:8px;margin-left:14px;margin-right:14px"><div style="background-color:#dcfce7;color:#14532d;border-radius:20px;font-size:14px;line-height:2"><strong>&nbsp;&nbsp;Bedrock</strong>: 1.26+&nbsp;&nbsp;</div><div style="background-color:#dcfce7;color:#14532d;border-radius:20px;font-size:14px;line-height:2"><strong>&nbsp;&nbsp;Experimental</strong>: No&nbsp;&nbsp;</div></div><br></div>
+<h2 style="font-size:17px;text-align:left"><span style="background-color:#15803d;color:#ffffff;border-radius:20px">&nbsp;&nbsp;About&nbsp;&nbsp;</span></h2>
+<p>The central block is at <strong>(0, 0, 0)</strong>, with Bedrock directly below and player spawn above it. First-time setup clears the starting area and prepares the platform before progression begins.</p>
+<h2 style="font-size:17px;text-align:left"><span style="background-color:#15803d;color:#ffffff;border-radius:20px">&nbsp;&nbsp;Install&nbsp;&nbsp;</span></h2>
+<table style="width:100%;border:1px solid #8a94a3;border-radius:16px"><tbody><tr><td style="width:44px;text-align:center"><div style="background-color:#15803d;color:#ffffff;font-weight:bold;font-size:15px;text-align:center;border-radius:10px;width:30px;aspect-ratio:1/1;line-height:30px">1</div></td><td style="text-align:left;">Download the file from this page and open it with Minecraft.</td></tr><tr><td style="width:44px;text-align:center"><div style="background-color:#15803d;color:#ffffff;font-weight:bold;font-size:15px;text-align:center;border-radius:10px;width:30px;aspect-ratio:1/1;line-height:30px">2</div></td><td style="text-align:left;">Create or edit a world and turn on the new pack(s) in its settings.</td></tr><tr><td style="width:44px;text-align:center"><div style="background-color:#15803d;color:#ffffff;font-weight:bold;font-size:15px;text-align:center;border-radius:10px;width:30px;aspect-ratio:1/1;line-height:30px">3</div></td><td style="text-align:left;">Play. No Experimental toggles needed.</td></tr></tbody></table>
+<h2 style="font-size:17px;text-align:left"><span style="background-color:#15803d;color:#ffffff;border-radius:20px">&nbsp;&nbsp;Support&nbsp;&nbsp;</span></h2><div style="border:1px solid #8a94a3;border-radius:16px;text-align:center"><br><a href="https://ko-fi.com/alnstudios"><img src="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/assets/Images/ko-fi.png" alt="Support ALNStudios on Ko-fi" width="250"></a><br><br></div><p style="text-align:center"><a href="https://www.curseforge.com/members/allenscreations/projects"><strong>CurseForge</strong></a> &nbsp;|&nbsp; <a href="https://mcpedl.com/user/alnstudios/"><strong>MCPEDL</strong></a> &nbsp;|&nbsp; <a href="https://ko-fi.com/alnstudios"><strong>Ko-fi</strong></a></p>
+<hr>
+<p style="text-align:center;color:#8a94a3;font-size:13px"><strong>By ALNStudios</strong></p>
+<div class="spoiler"><p style="font-size:13px"><strong>Permissions and credits</strong></p><ul style="font-size:13px"><li>Rights: All rights reserved for ALNStudios.</li><li>Content creators: You may feature this creation in videos and streams with credit to ALNStudios.</li><li>Redistribution: Do not re-upload this pack or provide direct monetized download bypasses. Link to this page.</li><li>Unofficial community creation. Not an official Minecraft product and not approved by or associated with Mojang or Microsoft.</li></ul></div>
+<p style="text-align:center;color:#8a94a3;font-size:12px">OneBlock Dirtbound Kingdom Beta, OneBlock void survival, OneCoins economy, central block progression, Trader Ledger shop, Minecraft Bedrock survival map, Minecraft PE map, MCPEDL, CurseForge Bedrock, ALNStudios, Minecraft Bedrock add-on, MCPEDL add-on.</p></div>
+```
+
+## AI Image Prompts
+
+### Reference Images
+
+- **Logo reference**: attach your own logo. The generator uses it only for brand colors and mood. The result must be a new design, not a copy.
+- **Snapshot references**: attach 1 to 4 of your in-game snapshots of this pack. The generator copies their look, not their screen layout.
+
+### Logo Prompt
+
+```text
+Use the attached logo only as a brand reference for its color palette and overall mood. Do not copy it. Create a new, original logo with a different composition and a different main symbol. Do not just recolor, resize, crop, mirror or tweak the attached logo.
+Create a clean, square (1:1) logo image for the Minecraft Bedrock add-on "OneBlock Dirtbound Kingdom Beta".
+Base the main symbol on the pack idea above. Match the blocky look of the attached in-game snapshots. Center the logo, use a simple background, and keep it readable at small sizes.
+Text: "OneBlock Dirtbound Kingdom Beta" and, in small letters, "ALNStudios". ALNStudios is the brand name, so always keep it and never remove or change it. Spell both exactly.
+Do not add Minecraft, Mojang or Microsoft logos, watermarks, or characters from other games.
+```
+
+### Banner Prompt
+
+```text
+Create a wide (16:9) banner image for the Minecraft Bedrock add-on "OneBlock Dirtbound Kingdom Beta".
+Use the attached in-game snapshots as scene and style references: copy their blocky look, lighting, colors and the kind of scenery they show. Make a new composition inspired by them. Do not copy the on-screen HUD, chat or hotbar.
+Use the attached logo only as a brand reference for its colors and mood. Do not copy it. Put a new, original logo design in the banner, large enough to read, on the left or center.
+Text: "OneBlock Dirtbound Kingdom Beta" and, in small letters, "by ALNStudios". ALNStudios is the brand name, so always keep it and never remove or change it. Spell both exactly.
+Leave clear space around the logo. No Minecraft, Mojang or Microsoft logos, no watermarks.
+```
+````
+
+## FILE: MCPEDL/Maps/OneBlock-Dirtbound-Kingdom-Beta/assets/snapshots/.gitkeep (1 lines, 0 bytes)
+
+```
+
+```
+
+## FILE: MCPEDL/Maps/OneBlock-Dirtbound-Kingdom-Beta/behavior_pack/functions/balance_display.mcfunction (3 lines, 224 bytes)
+
+```
+# Show each player's current OneCoins balance as actionbar text.
+titleraw @s actionbar {"rawtext":[{"text":"§6Dirtbound §8| §eBalance: §f"},{"score":{"name":"@s","objective":"dirtbound_coins"}},{"text":" §6OneCoins"}]}
+```
+
+## FILE: MCPEDL/Maps/OneBlock-Dirtbound-Kingdom-Beta/behavior_pack/functions/bonus_spawn.mcfunction (3 lines, 124 bytes)
+
+```
+# Place the optional bonus block above the new spawn/core area.
+execute if block 1 1 0 air run setblock 1 1 0 emerald_block
+```
+
+## FILE: MCPEDL/Maps/OneBlock-Dirtbound-Kingdom-Beta/behavior_pack/functions/give_trader.mcfunction (2 lines, 40 bytes)
+
+```
+give @s allenscreations:trader_ledger 1
+```
+
+## FILE: MCPEDL/Maps/OneBlock-Dirtbound-Kingdom-Beta/behavior_pack/functions/oneblock_setup.mcfunction (4 lines, 205 bytes)
+
+```
+# Run the Void Cleaner; its per-player void_cleaned tag guards first-join setup.
+# The cleaner sets the spawn at (0,1,0), Bedrock at (0,-1,0), and grass at the core position (0,0,0).
+function void_cleaner
+```
+
+## FILE: MCPEDL/Maps/OneBlock-Dirtbound-Kingdom-Beta/behavior_pack/functions/oneblock_tick.mcfunction (9 lines, 370 bytes)
+
+```
+# One-time setup invokes the per-player Void Cleaner; no other player teleportation occurs.
+function oneblock_setup
+
+# Ongoing safety recovery protects only the core foundation.
+execute if block 0 -1 0 air run setblock 0 -1 0 bedrock
+
+# Balance is displayed as actionbar text instead of a sidebar scoreboard.
+execute as @a[tag=void_cleaned] run function balance_display
+```
+
+## FILE: MCPEDL/Maps/OneBlock-Dirtbound-Kingdom-Beta/behavior_pack/functions/tick.json (6 lines, 61 bytes)
+
+```
+{
+  "values": [
+    "void_cleaner",
+    "oneblock_tick"
+  ]
+}
+```
+
+## FILE: MCPEDL/Maps/OneBlock-Dirtbound-Kingdom-Beta/behavior_pack/functions/void_cleaner.mcfunction (11 lines, 767 bytes)
+
+```
+# One-time per-player void cleanup and spawn setup for Dirtbound.
+# Test fixes by importing the rebuilt Creative world as a new world; existing worlds keep their saved pack and player tags.
+# Clear the full 33x33 square on Y=-64, from X/Z -16 through +16 (not just 0 through 15), then establish the starting block and spawn.
+execute as @a[tag=!void_cleaned] run fill -16 -64 -16 16 -64 16 air
+execute as @a[tag=!void_cleaned] run tp @s 0 1 0
+execute as @a[tag=!void_cleaned] run setblock 0 -1 0 bedrock
+execute as @a[tag=!void_cleaned] run setblock 0 0 0 minecraft:grass_block
+execute as @a[tag=!void_cleaned] run setworldspawn 0 1 0
+execute as @a[tag=!void_cleaned] run tellraw @a {"rawtext":[{"text":"§aDone cleaning"}]}
+tag @a[tag=!void_cleaned] add void_cleaned
+```
+
+## FILE: MCPEDL/Maps/OneBlock-Dirtbound-Kingdom-Beta/behavior_pack/items/trader_ledger.json (28 lines, 596 bytes)
+
+```
+{
+  "format_version": "1.20.80",
+  "minecraft:item": {
+    "description": {
+      "identifier": "allenscreations:trader_ledger",
+      "menu_category": {
+        "category": "items"
+      }
+    },
+    "components": {
+      "minecraft:max_stack_size": 1,
+      "minecraft:icon": {
+        "textures": {
+          "default": "trader_ledger"
+        }
+      },
+      "minecraft:display_name": {
+        "value": "OneBlock Trader"
+      },
+      "minecraft:use_animation": "spyglass",
+      "minecraft:use_modifiers": {
+        "use_duration": 0.1,
+        "movement_modifier": 1
+      }
+    }
+  }
+}
+```
+
+## FILE: MCPEDL/Maps/OneBlock-Dirtbound-Kingdom-Beta/behavior_pack/manifest.json (66 lines, 1207 bytes)
+
+```
+{
+  "format_version": 2,
+  "header": {
+    "name": "OneBlock Dirtbound Kingdom Beta (v0.28.1)",
+    "description": "OneBlock survival economy with an interactive Trader item and 180 purchasable supplies. by ALNStudios",
+    "uuid": "8d4d93bf-c8b2-4df4-9f28-52f4f8f08b10",
+    "version": [
+      0,
+      28,
+      1
+    ],
+    "min_engine_version": [
+      1,
+      26,
+      0
+    ]
+  },
+  "modules": [
+    {
+      "type": "data",
+      "uuid": "6cf34061-8f23-43aa-8a11-8320c8f9a5d4",
+      "version": [
+        0,
+        28,
+        1
+      ]
+    },
+    {
+      "type": "script",
+      "language": "javascript",
+      "uuid": "a2dcb37f-22c9-47b4-8b17-1bd3c0a91f65",
+      "version": [
+        0,
+        28,
+        1
+      ],
+      "entry": "scripts/main.js"
+    }
+  ],
+  "dependencies": [
+    {
+      "uuid": "e8d8136a-7a5b-4818-b813-61c21f2e71ad",
+      "version": [
+        0,
+        28,
+        1
+      ]
+    },
+    {
+      "module_name": "@minecraft/server",
+      "version": "2.10.0"
+    },
+    {
+      "module_name": "@minecraft/server-ui",
+      "version": "2.2.0"
+    }
+  ],
+  "metadata": {
+    "authors": [
+      "ALNStudios"
+    ],
+    "product_type": "addon",
+    "version": "0.28.1"
+  }
+}
+```
+
+## FILE: MCPEDL/Maps/OneBlock-Dirtbound-Kingdom-Beta/behavior_pack/scripts/main.js (396 lines, 22423 bytes)
+
+```
+import { world, system, ItemStack, ItemTypes } from "@minecraft/server";
+import { ActionFormData, MessageFormData } from "@minecraft/server-ui";
+
+// ---------------------------------------------------------------------------
+// Config
+// ---------------------------------------------------------------------------
+const ORIGIN = { x: 0, y: 0, z: 0 };
+const BONUS_POS = { x: 1, y: 1, z: 0 };
+const OVERWORLD = "minecraft:overworld";
+// Core only initializes once some player has the "void_cleaned" tag (set by your own function/pack).
+// Set to false if you don't use a void-cleanup step.
+const REQUIRE_VOID_TAG = true;
+
+const TRADER_ITEM = "allenscreations:trader_ledger";
+const COINS = "dirtbound_coins", MINED = "dirtbound_blocks", CORE = "dirtbound_core", PRESTIGE = "dirtbound_prestige";
+
+const STAGES = [
+  { name: "Forgotten Soil", unlock: 0, block: "dirt", reward: 1 },
+  { name: "Stone Core", unlock: 50, block: "stone", reward: 2 },
+  { name: "Cobbleheart", unlock: 150, block: "cobblestone", reward: 2 },
+  { name: "Iron Heart", unlock: 350, block: "iron_ore", reward: 3 },
+  { name: "Golden Core", unlock: 700, block: "gold_ore", reward: 3 },
+  { name: "Diamond Core", unlock: 1200, block: "diamond_ore", reward: 4 },
+  { name: "Ancient Core", unlock: 2000, block: "ancient_debris", reward: 5 },
+  { name: "Obsidian Core", unlock: 3000, block: "obsidian", reward: 6 },
+  { name: "Crying Core", unlock: 4500, block: "crying_obsidian", reward: 7 },
+  { name: "Kingdom Core", unlock: 6000, block: "netherite_block", reward: 8 }
+];
+const STAGE_BLOCK_IDS = new Set(STAGES.map(s => "minecraft:" + s.block));
+const STAGE_REWARDS = [
+  { blocks: 50, coins: 25 }, { blocks: 150, coins: 50 }, { blocks: 350, coins: 75 },
+  { blocks: 700, coins: 100 }, { blocks: 1200, coins: 150 }, { blocks: 2000, coins: 200 },
+  { blocks: 3000, coins: 300 }, { blocks: 4500, coins: 500 }, { blocks: 6000, coins: 1000 }
+];
+
+// ---------------------------------------------------------------------------
+// Shop data (items are listed once, in the earliest tier they appear in)
+// ---------------------------------------------------------------------------
+const RAW = [
+  ["Castaway", 0, "oak_log oak_planks stick crafting_table wooden_pickaxe wooden_axe wooden_shovel torch bread wheat_seeds oak_sapling dirt cobblestone bowl baked_potato chest furnace bone_meal"],
+  ["Settler", 50, "stone glass oak_fence oak_door lantern carrot potato beetroot_seeds wheat bucket water_bucket iron_nugget iron_ingot stone_pickaxe stone_axe stone_sword shield fishing_rod"],
+  ["Homesteader", 150, "iron_pickaxe iron_axe iron_shovel iron_sword iron_hoe iron_helmet iron_chestplate iron_leggings iron_boots shears milk_bucket composter hay_block pumpkin_seeds melon_seeds lead name_tag campfire barrel smoker"],
+  ["Miner", 350, "rail powered_rail minecart anvil redstone redstone_torch lever stone_button piston dispenser dropper iron_door cauldron compass clock bow arrow golden_apple stonecutter_block"],
+  ["Explorer", 700, "diamond diamond_pickaxe diamond_axe diamond_sword diamond_shovel diamond_hoe enchanting_table book lapis_lazuli bookshelf empty_map spyglass potion golden_carrot ender_pearl obsidian crying_obsidian ender_eye"],
+  ["Engineer", 1200, "hopper observer sticky_piston repeater comparator redstone_block target daylight_detector tripwire_hook trapped_chest blast_furnace loom cartography_table smithing_table lightning_rod crafter heavy_weighted_pressure_plate bell lectern"],
+  ["Netherbound", 2000, "flint_and_steel fire_charge golden_sword golden_helmet magma_cream blaze_powder blaze_rod nether_wart soul_sand netherrack nether_brick quartz glowstone_dust ghast_tear spectral_arrow magma_block shroomlight warped_stem"],
+  ["Enchanter", 3000, "experience_bottle enchanted_book grindstone totem_of_undying shulker_shell ender_chest beacon nether_star brewing_stand dragon_breath phantom_membrane turtle_helmet conduit heart_of_the_sea"],
+  ["End Challenger", 4500, "diamond_helmet diamond_chestplate diamond_leggings diamond_boots trident crossbow firework_rocket end_crystal elytra shulker_box end_stone purpur_block chorus_fruit recovery_compass turtle_scute prismarine_crystals"],
+  ["Kingdom Master", 6000, "netherite_ingot netherite_scrap netherite_upgrade_smithing_template netherite_pickaxe netherite_axe netherite_sword netherite_helmet netherite_chestplate netherite_leggings netherite_boots dragon_egg respawn_anchor enchanted_golden_apple lodestone"]
+];
+
+// Per-item prices (per single item). Anything not listed falls back to TIER_DEFAULT or gear math.
+const TIER_DEFAULT = [2, 3, 5, 8, 12, 18, 24, 32, 45, 60];
+const VALUES = {
+  dirt: 3, oak_planks: 1, stick: 1, torch: 1, cobblestone: 1, stone: 2, glass: 3, oak_log: 3,
+  bread: 3, baked_potato: 3, bone_meal: 2, chest: 6, furnace: 8, crafting_table: 6,
+  iron_nugget: 2, iron_ingot: 10, bucket: 25, water_bucket: 28, shield: 30, fishing_rod: 14, shears: 22,
+  milk_bucket: 28, name_tag: 30, lead: 14, compass: 40, clock: 40, anvil: 60, golden_apple: 60,
+  arrow: 2, bow: 20, powered_rail: 8, minecart: 25, stonecutter_block: 18,
+  diamond: 40, enchanting_table: 120, bookshelf: 40, lapis_lazuli: 6, spyglass: 30, ender_pearl: 15,
+  obsidian: 10, crying_obsidian: 14, ender_eye: 25, crafter: 40, bell: 35, lectern: 20,
+  magma_cream: 12, blaze_rod: 20, nether_wart: 6, ghast_tear: 40, golden_sword: 25, golden_helmet: 40,
+  experience_bottle: 18, enchanted_book: 90, totem_of_undying: 200, shulker_shell: 40, ender_chest: 90,
+  beacon: 600, nether_star: 500, dragon_breath: 40, phantom_membrane: 15, turtle_helmet: 70,
+  conduit: 300, heart_of_the_sea: 150, trident: 250, crossbow: 40, elytra: 500, shulker_box: 80,
+  end_crystal: 60, recovery_compass: 150, turtle_scute: 15, firework_rocket: 6,
+  netherite_ingot: 400, netherite_scrap: 100, netherite_upgrade_smithing_template: 150,
+  dragon_egg: 800, respawn_anchor: 120, enchanted_golden_apple: 400, lodestone: 90
+};
+const MAT = { wooden: 2, stone: 3, iron: 8, golden: 10, diamond: 30, netherite: 80 };
+const PART = { pickaxe: 3, axe: 3, sword: 2, shovel: 1, hoe: 2, helmet: 5, chestplate: 8, leggings: 7, boots: 4 };
+const SINGLES = new Set(["diamond", "netherite_ingot", "nether_star", "beacon", "elytra", "dragon_egg", "totem_of_undying",
+  "trident", "conduit", "enchanted_golden_apple", "shulker_box", "ender_chest", "compass", "clock", "spyglass",
+  "lodestone", "respawn_anchor", "enchanting_table", "anvil", "crafter", "lectern", "bell", "end_crystal",
+  "recovery_compass", "heart_of_the_sea", "enchanted_book", "potion", "shield", "bow", "crossbow", "fishing_rod", "shears"]);
+const TIER_QTY = [8, 8, 6, 4, 4, 3, 3, 2, 2, 1];
+
+function unitValue(id, tier) {
+  if (VALUES[id] !== undefined) return VALUES[id];
+  const m = id.match(/^(wooden|stone|iron|golden|diamond|netherite)_(pickaxe|axe|sword|shovel|hoe|helmet|chestplate|leggings|boots)$/);
+  if (m) return MAT[m[1]] * PART[m[2]];
+  return TIER_DEFAULT[tier];
+}
+const prettyName = id => id.split("_").map(w => w[0].toUpperCase() + w.slice(1)).join(" ");
+function itemExists(typeId) { try { return !!ItemTypes.get(typeId); } catch { return true; } }
+
+let SHOPS = [];
+function buildShops() {
+  const seen = new Set(), skipped = [];
+  SHOPS = RAW.map(([name, unlock, ids], tier) => {
+    const items = [];
+    for (const raw of ids.split(" ")) {
+      if (seen.has(raw)) continue;
+      const typeId = "minecraft:" + raw;
+      if (!itemExists(typeId)) { skipped.push(raw); continue; }
+      let amount = SINGLES.has(raw) ? 1 : TIER_QTY[tier];
+      try { amount = Math.max(1, Math.min(amount, new ItemStack(typeId, 1).maxAmount)); } catch { skipped.push(raw); continue; }
+      seen.add(raw);
+      items.push({ id: typeId, name: prettyName(raw) + " ×" + amount, amount, price: Math.max(1, Math.round(unitValue(raw, tier) * amount)) });
+    }
+    return { name: name + " Supplies", unlock, items };
+  });
+  if (skipped.length) console.warn("[Dirtbound] Skipped invalid item IDs: " + skipped.join(", "));
+}
+
+// ---------------------------------------------------------------------------
+// Scoreboard helpers (players are passed directly so identities get created)
+// ---------------------------------------------------------------------------
+const objCache = new Map();
+function objective(n) {
+  let o = objCache.get(n);
+  if (!o) {
+    o = world.scoreboard.getObjective(n) ?? world.scoreboard.addObjective(n, n === COINS ? "§6Dirtbound Kingdom §8| §eOneCoins" : n);
+    objCache.set(n, o);
+  }
+  return o;
+}
+function score(n, p) { try { return objective(n).getScore(p) ?? 0; } catch { objCache.delete(n); return 0; } }
+function hasScore(n, p) { try { return objective(n).getScore(p) !== undefined; } catch { objCache.delete(n); return false; } }
+function setScore(n, p, v) { try { objective(n).setScore(p, Math.max(0, Math.floor(v))); return true; } catch { objCache.delete(n); return false; } }
+function globalScore(key) { try { return objective(CORE).getScore(key) ?? 0; } catch { objCache.delete(CORE); return 0; } }
+function setGlobal(key, v) { try { objective(CORE).setScore(key, Math.max(0, Math.floor(v))); return true; } catch { objCache.delete(CORE); return false; } }
+
+const ready = new Set();
+function initialize(p) {
+  if (ready.has(p.id)) return;
+  let ok = true;
+  if (!hasScore(COINS, p)) ok = setScore(COINS, p, 50) && ok;
+  if (!hasScore(MINED, p)) ok = setScore(MINED, p, 0) && ok;
+  if (!hasScore(PRESTIGE, p)) ok = setScore(PRESTIGE, p, 0) && ok;
+  if (ok) ready.add(p.id);
+}
+const balance = p => score(COINS, p), mined = p => score(MINED, p), prestige = p => score(PRESTIGE, p);
+
+// ---------------------------------------------------------------------------
+// Misc helpers
+// ---------------------------------------------------------------------------
+function tell(p, m) { try { p.sendMessage("§6[Dirtbound] §f" + m); } catch {} }
+function invOf(p) { return p.getComponent("minecraft:inventory")?.container; }
+function hasTrader(p) {
+  const inv = invOf(p); if (!inv) return false;
+  for (let i = 0; i < inv.size; i++) if (inv.getItem(i)?.typeId === TRADER_ITEM) return true;
+  return false;
+}
+function recoverTrader(p) {
+  if (hasTrader(p)) return true;
+  const inv = invOf(p);
+  if (!inv || inv.emptySlotsCount < 1) return false;
+  try { inv.addItem(new ItemStack(TRADER_ITEM, 1)); tell(p, "Your Trader Ledger was restored."); return true; } catch { return false; }
+}
+function stageFor(count) { let n = 0; for (let i = 0; i < STAGES.length; i++) if (count >= STAGES[i].unlock) n = i; return n; }
+function shopTierIndex(count) { let n = 0; for (let i = 0; i < SHOPS.length; i++) if (count >= SHOPS[i].unlock) n = i; return n; }
+function updateCoreStage() { setGlobal("#stage", stageFor(globalScore("#breaks"))); }
+
+// Retries the form if the player's chat/menu was open (UserBusy)
+function showForm(form, p, tries = 0) {
+  return form.show(p).then(r => {
+    if (r.canceled && r.cancelationReason === "UserBusy" && tries < 30)
+      return new Promise(res => system.runTimeout(() => res(showForm(form, p, tries + 1)), 10));
+    return r;
+  });
+}
+
+// ---------------------------------------------------------------------------
+// Menus
+// ---------------------------------------------------------------------------
+function showMain(p) {
+  initialize(p);
+  const total = SHOPS.reduce((n, s) => n + s.items.length, 0);
+  const tier = SHOPS[shopTierIndex(mined(p))];
+  const form = new ActionFormData().title("DIRTBOUND TRADER")
+    .body("OneCoins: §e" + balance(p) + "§r\nYour blocks mined: " + mined(p) + "\nShop tier (personal): " + (tier ? tier.name : "-") +
+      "\nCore stage (shared): " + STAGES[stageFor(globalScore("#breaks"))].name + "\nPrestige " + prestige(p) +
+      "\n" + total + " supplies across " + SHOPS.length + " tiers.")
+    .button("Browse Supplies").button("Sell All Dirt").button("Recover Trader Ledger").button("Balance & Progress").button("Kingdom Prestige");
+  showForm(form, p).then(r => {
+    if (r.canceled) return;
+    if (r.selection === 0) showShop(p);
+    else if (r.selection === 1) sellDirt(p);
+    else if (r.selection === 2) { if (recoverTrader(p)) tell(p, "Trader access restored."); else tell(p, "Make one inventory slot free, then recover the Ledger here."); }
+    else if (r.selection === 3) {
+      const next = SHOPS.find(s => s.unlock > mined(p));
+      tell(p, "Balance: " + balance(p) + " OneCoins. Your blocks mined: " + mined(p) + ". Shared core stage: " + STAGES[stageFor(globalScore("#breaks"))].name +
+        " (" + globalScore("#breaks") + " total breaks). " + (next ? "Next shop tier: " + next.name + " at " + next.unlock + " of your own breaks." : "All shop tiers unlocked."));
+    } else if (r.selection === 4) showPrestige(p);
+  }).catch(() => tell(p, "Trader UI failed to open. Interact with the Trader Post or Ledger again."));
+}
+
+function showShop(p) {
+  const count = mined(p);
+  const f = new ActionFormData().title("SUPPLY TIERS").body("Balance: " + balance(p) + " OneCoins\nChoose a tier. Locked tiers show how many of your own breaks they need.");
+  for (const s of SHOPS) f.button(count >= s.unlock ? s.name + " (" + s.items.length + " items)" : s.name + "\n§8Unlock at " + s.unlock + " blocks");
+  f.button("Back");
+  showForm(f, p).then(r => {
+    if (r.canceled) return;
+    if (r.selection === SHOPS.length) return showMain(p);
+    const s = SHOPS[r.selection]; if (!s) return;
+    if (count < s.unlock) { tell(p, s.name + " unlocks after " + s.unlock + " personal blocks mined."); return showShop(p); }
+    showProducts(p, s);
+  }).catch(() => tell(p, "Supply Shop failed to open."));
+}
+
+function showProducts(p, s) {
+  const f = new ActionFormData().title(s.name).body("Balance: " + balance(p) + " OneCoins\nChoose an item.");
+  for (const item of s.items) f.button(item.name + "\n§e" + item.price + " OneCoins");
+  f.button("Back to Tiers");
+  showForm(f, p).then(r => {
+    if (r.canceled) return;
+    if (r.selection === s.items.length) return showShop(p);
+    const item = s.items[r.selection];
+    if (item) purchase(p, item, s);
+  }).catch(() => tell(p, "Item list failed to open."));
+}
+
+// Charges first, then delivers; refunds anything not delivered.
+function purchase(p, item, s) {
+  initialize(p);
+  if (mined(p) < s.unlock) return tell(p, "That tier is locked.");
+  const funds = balance(p);
+  if (funds < item.price) return tell(p, "Not enough OneCoins. Need " + item.price + ", have " + funds + ".");
+  const inv = invOf(p);
+  if (!inv || inv.emptySlotsCount < 1) return tell(p, "Make at least one free inventory slot first.");
+  if (!setScore(COINS, p, funds - item.price)) return tell(p, "Could not update your balance. No items were given.");
+  let delivered = 0;
+  try {
+    const left = inv.addItem(new ItemStack(item.id, item.amount));
+    delivered = item.amount - (left?.amount ?? 0);
+  } catch { delivered = 0; }
+  const charged = delivered > 0 ? Math.ceil(item.price * delivered / item.amount) : 0;
+  if (charged < item.price) setScore(COINS, p, balance(p) + (item.price - charged));
+  if (delivered <= 0) return tell(p, "Purchase failed or inventory full. No coins were taken.");
+  tell(p, delivered < item.amount
+    ? "Limited space: delivered " + delivered + " item(s), charged " + charged + " OneCoins."
+    : "Purchased " + item.name + " for " + charged + " OneCoins. Balance: " + balance(p) + ".");
+}
+
+function sellDirt(p) {
+  initialize(p);
+  const inv = invOf(p); if (!inv) return tell(p, "Inventory unavailable.");
+  let sold = 0; const slots = [];
+  for (let i = 0; i < inv.size; i++) {
+    const st = inv.getItem(i);
+    if (st?.typeId === "minecraft:dirt") { sold += st.amount; slots.push(i); }
+  }
+  if (!sold) return tell(p, "No Dirt to sell.");
+  if (!setScore(COINS, p, balance(p) + sold)) return tell(p, "Balance is not ready; no Dirt was removed.");
+  for (const i of slots) inv.setItem(i, undefined);
+  tell(p, "Sold " + sold + " Dirt for " + sold + " OneCoins. Balance: " + balance(p) + ".");
+}
+
+function showPrestige(p) {
+  if (mined(p) < 6000) return tell(p, "Kingdom Prestige unlocks after 6,000 personal core breaks.");
+  const form = new MessageFormData().title("KINGDOM PRESTIGE")
+    .body("Reset your personal mining progress and shop unlocks for +500 OneCoins and a permanent Prestige level (+10% coins per core break each level)? Stage bonus payouts only count on your first run. The shared core stays at its current stage. This cannot be undone.")
+    .button1("Cancel").button2("Prestige");
+  showForm(form, p).then(r => {
+    if (r.canceled || r.selection !== 1) return;
+    if (mined(p) < 6000) return tell(p, "Kingdom Prestige unlocks after 6,000 personal core breaks.");
+    const coins = balance(p) + 500, level = prestige(p) + 1;
+    if (!setScore(MINED, p, 0)) return tell(p, "Prestige could not be completed. Try again.");
+    setScore(COINS, p, coins);
+    setScore(PRESTIGE, p, level);
+    tell(p, "Prestige " + level + " reached! Personal progress reset; +500 OneCoins awarded. The shared core remains evolved.");
+  }).catch(() => tell(p, "Prestige menu could not open."));
+}
+
+// ---------------------------------------------------------------------------
+// Core + bonus logic
+// ---------------------------------------------------------------------------
+function spawnMobWave(p) {
+  try {
+    for (let i = 0; i < 3; i++) {
+      p.dimension.spawnEntity(i === 1 ? "minecraft:spider" : "minecraft:zombie", { x: p.location.x + (i - 1) * 2, y: p.location.y, z: p.location.z + 2 });
+    }
+    tell(p, "§cCore Surge! Three hostile mobs have appeared. Defeat them for survival loot.");
+  } catch { tell(p, "Core Surge triggered, but there was not enough room to spawn its challenge."); }
+}
+
+function spawnBonus() {
+  try {
+    const dim = world.getDimension("overworld");
+    const b = dim.getBlock(BONUS_POS);
+    if (!b || b.typeId !== "minecraft:air") return false;
+    b.setType("minecraft:emerald_block");
+    setGlobal("#bonus", 1);
+    world.sendMessage("§6[Dirtbound] §fA Bonus Core appeared beside the OneBlock! Break the Emerald Block for a coin reward.");
+    return true;
+  } catch { return false; }
+}
+
+// Places the correct stage block if the origin is empty (or holds an outdated stage block).
+function placeCore(dimension) {
+  try {
+    const block = dimension.getBlock(ORIGIN);
+    if (!block) return false;
+    const target = "minecraft:" + STAGES[stageFor(globalScore("#breaks"))].block;
+    const id = block.typeId;
+    if (id === "minecraft:air" || id === "minecraft:grass_block" || (STAGE_BLOCK_IDS.has(id) && id !== target)) block.setType(target);
+    return true;
+  } catch { return false; }
+}
+
+function onCoreBreak(p) {
+  initialize(p);
+  const personal = mined(p) + 1;
+  const total = globalScore("#breaks") + 1;
+  setScore(MINED, p, personal);
+  setGlobal("#breaks", total);
+  updateCoreStage();
+
+  const pres = prestige(p);
+  let gain = Math.max(1, Math.round(STAGES[stageFor(total)].reward * (1 + 0.1 * pres)));
+
+  const stageReward = STAGE_REWARDS.find(r => r.blocks === personal);
+  if (stageReward && pres === 0) { gain += stageReward.coins; tell(p, personal + " personal breaks! Stage bonus: +" + stageReward.coins + " OneCoins."); }
+  if (personal % 250 === 0) { gain += 20; tell(p, "Milestone reached: " + personal + " personal breaks. +20 bonus OneCoins."); }
+  if (total % 500 === 0) { gain += 50; tell(p, "Core Surge milestone! +50 OneCoins."); spawnMobWave(p); }
+  setScore(COINS, p, balance(p) + gain);
+
+  if (Math.random() < 1 / 40) spawnBonus();
+  for (const s of SHOPS) if (s.unlock > 0 && s.unlock === personal) tell(p, "New shop unlocked: " + s.name + "!");
+  const newStage = STAGES.find(s => s.unlock > 0 && s.unlock === total);
+  if (newStage) world.sendMessage("§6[Dirtbound] §fThe central OneBlock evolved into the " + newStage.name + "! It is tougher to mine; use better pickaxes.");
+}
+
+// ---------------------------------------------------------------------------
+// Events
+// ---------------------------------------------------------------------------
+world.afterEvents.itemUse.subscribe(e => {
+  if (e.itemStack?.typeId !== TRADER_ITEM) return;
+  const p = e.source;
+  if (p?.typeId === "minecraft:player") system.run(() => showMain(p));
+});
+
+world.afterEvents.playerBreakBlock.subscribe(e => {
+  const b = e.block, loc = b.location, p = e.player;
+  if (!p || b.dimension.id !== OVERWORLD) return;
+
+  // Bonus block: must actually have been the emerald block
+  if (loc.x === BONUS_POS.x && loc.y === BONUS_POS.y && loc.z === BONUS_POS.z) {
+    if (globalScore("#bonus") === 1 && e.brokenBlockPermutation.type.id === "minecraft:emerald_block") {
+      setGlobal("#bonus", 0);
+      setScore(COINS, p, balance(p) + 30);
+      tell(p, "Bonus Core collected! +30 OneCoins.");
+      if (Math.random() < 0.2) spawnMobWave(p);
+    }
+    return;
+  }
+
+  if (loc.x !== ORIGIN.x || loc.y !== ORIGIN.y || loc.z !== ORIGIN.z) return;
+  system.run(() => { onCoreBreak(p); placeCore(b.dimension); });
+});
+
+world.afterEvents.playerSpawn.subscribe(e => system.runTimeout(() => {
+  try { initialize(e.player); recoverTrader(e.player); } catch {}
+}, 5));
+world.afterEvents.playerLeave.subscribe(e => ready.delete(e.playerId));
+
+// ---------------------------------------------------------------------------
+// Loops
+// ---------------------------------------------------------------------------
+let coreReady = false;
+const initLoop = system.runInterval(() => {
+  try {
+    if (REQUIRE_VOID_TAG && !world.getAllPlayers().some(p => p.hasTag("void_cleaned"))) return;
+    if (placeCore(world.getDimension("overworld"))) { coreReady = true; system.clearRun(initLoop); }
+  } catch {}
+}, 10);
+
+// Watchdog: restores the core if explosions/pistons/etc. destroy it, and clears a stuck bonus flag
+system.runInterval(() => {
+  if (!coreReady) return;
+  const dim = world.getDimension("overworld");
+  placeCore(dim);
+  if (globalScore("#bonus") === 1) {
+    try {
+      const b = dim.getBlock(BONUS_POS);
+      if (b && b.typeId !== "minecraft:emerald_block") setGlobal("#bonus", 0);
+    } catch {}
+  }
+}, 20);
+
+system.runInterval(() => {
+  for (const p of world.getAllPlayers()) {
+    try { initialize(p); recoverTrader(p); } catch {}
+  }
+}, 40);
+
+system.run(() => {
+  objective(COINS); objective(MINED); objective(CORE); objective(PRESTIGE);
+  buildShops();
+  if (globalScore("#stage") === 0) setGlobal("#stage", 0);
+  if (globalScore("#breaks") === 0) setGlobal("#breaks", 0);
+  if (globalScore("#bonus") === 0) setGlobal("#bonus", 0);
+});
+```
+
+## FILE: MCPEDL/Maps/OneBlock-Dirtbound-Kingdom-Beta/CHANGELOG.md (159 lines, 7282 bytes)
+
+```
+# Changelog — OneBlock Dirtbound Kingdom Beta
+
+---
+
+## [0.28.0] - 2026-10-29
+
+### Improved & Balanced
+
+- **Maintenance release**: Repackaged the pack; no gameplay changes were recorded.
+
+## [0.25.0] - 2026-10-22
+
+### Build & Packaging
+- Use the valid `level.dat` from each matching `Mcpeworlds/Creative/`, `Survival/`, and `Hardcore/` foundation.
+- Preserve the intentional database-free void-world structure; do not require or create `db/CURRENT` or LevelDB data.
+- Integrate the current Behavior Pack and Resource Pack into each generated `.mcworld`.
+- Automatically rebuild all three world archives on relevant source/foundation changes, with structural checks before replacing published files.
+- Verify that `void_cleaner` remains first in the packaged `functions/tick.json`.
+
+## [0.24.0] - 2026-10-21
+
+### Improved & Balanced
+- **Cleaner Starting Area:** The starting area is cleared before the central block progression begins.
+- **Trader Ledger Shop Access:** The Trader Ledger is the only way to open the shop.
+- **Live Balance Display:** The OneCoins balance appears in the action bar instead of a sidebar display.
+
+## [0.23.0] - 2026-10-21
+
+### Changed
+- Removed the lectern and all physical Trader Post blocks.
+- Made the custom Trader Ledger item the only way to open the shop.
+- Removed the old lectern-based shop access; the Trader Ledger is the only way to open the shop.
+
+## [0.22.0] - 2026-10-21
+
+### Changed
+- Changed the original shop station during the transition to item-only shop access.
+- Replaced the sidebar balance with live OneCoins text in the action bar.
+- Simplified currency and mining status text; no special Minecoin or wooden-pickaxe symbols are required.
+
+### Fixed
+- Balance text refreshes regularly and displays the live player balance.
+
+---
+
+## [0.21.0] - 2026-10-21
+
+### Fixed
+- **Reliable world setup:** The starting area is cleaned before OneBlock progression begins.
+- **Stable Core Startup:** The central block initializes after the starting-area cleanup.
+
+## [0.20.0] - 2026-10-21
+
+### Fixed
+- **Startup core recovery:** The central block is restored when missing during world startup or player entry, without replacing an occupied core.
+- **Progression stability:** Routine world maintenance no longer replaces the evolving central block.
+- **Pack version alignment:** The Behavior Pack and Resource Pack use matching release versions.
+
+## [0.18.0] - 2026-10-21
+
+### Fixed
+- **Reliable Starting Block:** The central Dirt can recover if saved progression information is unavailable.
+- **Correct Starting Location:** World spawn is configured during setup without teleporting players who are already online.
+- **Restored Foundation:** Missing Bedrock footing is restored automatically.
+
+## [0.17.0] - 2026-10-21
+
+### Fixed
+- **Reliable starting platform:** The OneBlock now initializes as Dirt at 0 64 0, with a Bedrock footing at 0 63 0.
+- **Correct World Spawn:** The starting spawn is set during one-time setup without moving players who are already online.
+- **Platform Protection:** The Bedrock footing is restored if it is missing.
+
+## [0.16.0] - 2026-10-21
+
+### Fixed
+- **Core spawning fallback:** The central block can recover as Dirt when progression information is unavailable, while later stages remain protected.
+
+### Improved
+- **Permanent colored scoreboard:** Added a persistent colored sidebar showing players' OneCoins balances.
+
+## [0.15.0] - 2026-10-21
+
+### Fixed
+- **Immediate Core Restoration:** The central block returns after a successful break, using the newly unlocked stage when progression changes.
+- **Consistent mining rewards:** Core restoration does not trigger a second player-break reward.
+
+## [0.14.0] - 2026-10-21
+
+### Improved & Balanced
+- **Core difficulty curve:** Reordered the late-game blocks so Ancient Debris precedes Obsidian, followed by Crying Obsidian and a Block of Netherite.
+- **Shared progress display:** The status bar now shows both the current core stage and the world's total core-break count.
+
+## [0.13.0] - 2026-10-21
+
+### Added
+- **Permanent Trader Post:** Open the shop from the base station, recover a missing Trader Ledger, and keep access even after losing the item.
+- **Ten evolving core stages:** The central block progresses from Dirt through increasingly tough stone, ore, ancient debris, obsidian, and a Block of Netherite as the world reaches 6,000 total breaks.
+- **Bonus Emerald Block:** Find an occasional bonus block and claim 30 OneCoins, with a chance of a hostile encounter.
+- **Core Surge events:** Every 500 world-wide breaks grants a coin bonus and starts a hostile mob challenge.
+- **Kingdom Prestige:** Players who reach 6,000 personal breaks may reset their own shop progress for bonus coins and a permanent Prestige level.
+
+### Improved & Balanced
+- **Tier-based mining rewards:** Later core stages grant more OneCoins per break to help fund better tools and supplies.
+- **Regular milestones:** Every 250 personal breaks grants a small bonus, alongside the larger shop-tier rewards.
+- **Trader recovery:** The Ledger is automatically restored when missing and inventory space is available.
+
+## [0.11.0] - 2026-10-21
+
+### Fixed
+- **Mining Progress:** Breaking the central block advances the mining counter and updates the OneCoin balance.
+- **Dirt sales:** Dirt is only removed after the balance update succeeds, preventing lost inventory when the economy is not ready.
+
+### Improved & Balanced
+- **Longer progression:** Expanded tier milestones through 6,000 central-block breaks.
+- **Mining rewards:** Earn 1 OneCoin for each central block broken and 1 OneCoin for each Dirt block sold.
+- **Milestone bonuses:** Receive additional OneCoins at each progression unlock, with larger rewards reserved for later milestones.
+- **Clearer status display:** Added distinct pickaxe and coin indicators to the live status bar and trading menus.
+
+## [0.10.0] - 2026-10-21
+
+### Changed
+- **Core Recovery:** The central Dirt returns when its position is empty, without replacing another block.
+- Added the custom OneBlock Trader item.
+- Kept shop access, currency, purchases, and progression together in the add-on.
+
+## [0.8.0] - 2026-10-21
+
+### Fixed
+- Fixed a problem that prevented the trading interface from loading.
+
+## [0.7.0] - 2026-10-21
+
+### Fixed
+- **Central Block Startup:** Improved the starting block setup so the central block appears when the world is ready.
+- Set the intended world difficulty and Survival gameplay defaults.
+- Players enter Survival when joining the challenge.
+
+## [0.6.0] - 2026-10-21
+
+### Improved
+- Tuned tier pricing and purchase quantities to keep starter supplies affordable and rare endgame equipment costly.
+
+## [0.5.0] - 2026-10-21
+
+### Added
+- Expanded the Trader shop to 180 purchasable entries across ten progression tiers.
+- Added mining milestones from the Settler tier through Kingdom Master.
+
+### Improved
+- Adjusted shop prices to scale with progression and keep starter supplies accessible.
+- Purchases deduct coins only for items successfully delivered.
+
+## [0.3.0] - 2026-10-21
+
+### Improved
+- Replaced chat commands with an interactive OneBlock Trader item and Trading UI.
+- Moved Dirt selling, supply purchases, currency, and phase progression into the menu.
+- Added a custom inventory icon for the Trader item.
+```
+
+## FILE: MCPEDL/Maps/OneBlock-Dirtbound-Kingdom-Beta/DESCRIPTION.md (88 lines, 5923 bytes)
+
+```
+# OneBlock Dirtbound Kingdom Beta
+
+**By ALNStudios**
+
+[![Minecraft Bedrock](https://img.shields.io/badge/Minecraft%20Bedrock-Stable%20Release-brightgreen?style=flat-square&logo=minecraft)](https://github.com/AllensCreations/MCPE-Curseforges)
+[![Format](https://img.shields.io/badge/Format-.MCPACK%20%7C%20.MCADDON%20%7C%20.MCWORLD-blue?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges)
+
+OneBlock Dirtbound Kingdom Beta is a database-free void-survival challenge built around a shared central block, a OneCoins economy, and ten stages of increasingly valuable resources. Creative is the sole in-game test world. The Creative, Survival, and Hardcore world archives are built from their matching `Mcpeworlds/` foundations and the current add-on packs.
+
+## Overview
+
+The central block is at **(0, 0, 0)**, with Bedrock directly below and player spawn above it. First-time setup clears the starting area and prepares the platform before progression begins.
+
+## Ten Core Stages
+
+The central block changes as the world's total number of successful breaks increases. Each break awards OneCoins based on the current stage.
+
+- **0 breaks — Forgotten Soil:** Dirt; 1 OneCoin per break.
+- **50 breaks — Stone Core:** Stone; 2 OneCoins per break.
+- **150 breaks — Cobbleheart:** Cobblestone; 2 OneCoins per break.
+- **350 breaks — Iron Heart:** Iron Ore; 3 OneCoins per break.
+- **700 breaks — Golden Core:** Gold Ore; 3 OneCoins per break.
+- **1,200 breaks — Diamond Core:** Diamond Ore; 4 OneCoins per break.
+- **2,000 breaks — Ancient Core:** Ancient Debris; 5 OneCoins per break.
+- **3,000 breaks — Obsidian Core:** Obsidian; 6 OneCoins per break.
+- **4,500 breaks — Crying Core:** Crying Obsidian; 7 OneCoins per break.
+- **6,000 breaks — Kingdom Core:** Block of Netherite; 8 OneCoins per break.
+
+Use appropriate pickaxes as the core becomes harder. World-wide core progression is shared, while shop unlocks and personal milestones are tracked per player.
+
+## Trader Ledger and Shop
+
+- Use the custom **OneBlock Trader Ledger** item to open the shop. It is the only shop access method; there is no physical Trader Post block.
+- Starting balance: 50 OneCoins. Selling Dirt grants 1 OneCoin per block.
+- The shop contains 180 purchase options across ten tiers, with prices increasing as equipment improves.
+- Unlocking a shop tier grants a one-time coin bonus. Every 250 personal core breaks grants another 20 OneCoins.
+- Every 500 world-wide core breaks triggers a Core Surge, awarding 50 OneCoins and spawning three hostile mobs near the player who reaches the milestone.
+- A bonus Emerald Block can appear above the platform. Breaking it grants 30 OneCoins and has a 20% chance to trigger a hostile mob wave.
+- After 6,000 personal breaks, Kingdom Prestige lets a player reset personal shop progress for 500 OneCoins and one permanent Prestige level. The shared core does not reset.
+
+## Balance Display
+
+Your current OneCoins balance appears in the action bar and updates regularly. The map does not use a sidebar balance display.
+
+## Installation and Testing
+
+1. Import the Creative world into Minecraft Bedrock Edition first.
+2. Use Creative as the only test world and check the starting platform, central block, mining rewards, progression, and Trader Ledger.
+3. The published Creative, Survival, and Hardcore archives may not include the latest source changes. Source checks alone do not prove in-game gameplay works.
+4. The OneBlock workflow automatically rebuilds all three `.mcworld` archives when relevant map sources, `Mcpeworlds/` foundations, builder code, or instructions change. Manual dispatch remains available. Each archive copies its mode's valid `level.dat` and installs the current Behavior Pack and Resource Pack. The deliberate absence of `db/CURRENT` and LevelDB data is preserved; no database is created, borrowed, or fabricated. Structural checks do not replace in-game testing.
+
+## Compatibility and Limitations
+
+- Intended target: Minecraft Bedrock Edition 1.26+.
+- Package format: complete world.
+- Creative is the only designated test world; Survival and Hardcore variants are kept alongside it.
+- Experimental settings, achievement support, and multiplayer balance have not been verified in-game.
+- Minecraft Bedrock Edition: 1.26.0 or newer.
+- Experimental features: Not verified.
+- Achievements: Unknown / needs confirmation.
+- Verification: Source created, not tested in game.
+
+## Creator and Permissions
+
+- Creator: ALNStudios
+- Profiles: [CurseForge Profile](https://www.curseforge.com/members/allenscreations/projects) · [MCPEDL Profile](https://mcpedl.com/user/alnstudios/)
+
+<a href="https://www.curseforge.com/members/allenscreations/projects"><img src="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/assets/Images/curseforge.jpg" alt="CurseForge" width="45%"></a> <a href="https://mcpedl.com/user/alnstudios/"><img src="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/assets/Images/MCPEDL.jpg" alt="MCPEDL" width="45%"></a>
+
+## Guidelines and Attribution
+
+- Creator: ALNStudios
+- Rights & Reservation: All rights reserved for ALNStudios.
+- Content Creators: Content creators are permitted to feature this creation in videos and streams with credit to ALNStudios.
+- Redistribution: Do not re-upload this pack or provide direct monetized download bypasses. Link directly to the official repository page.
+- Disclaimer: This is an unofficial community creation. It is not an official Minecraft product and is not approved by or associated with Mojang or Microsoft.
+
+---
+
+© All rights reserved for ALNStudios.
+
+---
+
+## Search & Discovery Keywords
+
+OneBlock Dirtbound Kingdom Beta, OneBlock void survival, OneCoins economy, central block progression, Trader Ledger shop, Minecraft Bedrock survival map, Minecraft PE map, MCPEDL, CurseForge Bedrock, ALNStudios, Minecraft Bedrock add-on, MCPEDL add-on.
+```
+
+## FILE: MCPEDL/Maps/OneBlock-Dirtbound-Kingdom-Beta/oneblock.json (5 lines, 67 bytes)
+
+```
+{
+  "enabled": true,
+  "name": "OneBlock Dirtbound Kingdom Beta"
+}
+```
+
+## FILE: MCPEDL/Maps/OneBlock-Dirtbound-Kingdom-Beta/README.md (19 lines, 1260 bytes)
+
+```
+# OneBlock Dirtbound Kingdom Beta
+
+Download the current release of **OneBlock Dirtbound Kingdom Beta** for Minecraft Bedrock Edition.
+
+## Download
+
+- **Package format:** `.mcworld`
+- **Direct download:** [Download OneBlock Dirtbound Kingdom Beta (.mcworld)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/MCPEDL/Maps/OneBlock-Dirtbound-Kingdom-Beta/OneBlock%20Dirtbound%20Kingdom%20Beta%20-%20Creative.mcworld) · [Download Survival World](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/MCPEDL/Maps/OneBlock-Dirtbound-Kingdom-Beta/OneBlock%20Dirtbound%20Kingdom%20Beta%20-%20Survival.mcworld) · [Download Hardcore World](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/MCPEDL/Maps/OneBlock-Dirtbound-Kingdom-Beta/OneBlock%20Dirtbound%20Kingdom%20Beta%20-%20Hardcore.mcworld)
+
+## Installation
+
+1. Download the package using the link above.
+2. Open the downloaded file with Minecraft to import it.
+3. Find the imported world in your Worlds list and open it.
+
+## Pack Information
+
+For gameplay features, usage details, compatibility notes, and other project information, read the [full description](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/MCPEDL/Maps/OneBlock-Dirtbound-Kingdom-Beta/DESCRIPTION.md).
+```
+
+## FILE: MCPEDL/Maps/OneBlock-Dirtbound-Kingdom-Beta/resource_pack/manifest.json (37 lines, 642 bytes)
+
+```
+{
+  "format_version": 2,
+  "header": {
+    "name": "OneBlock Dirtbound Kingdom Beta (v0.28.1)",
+    "description": "Custom Trader item texture for Dirtbound Kingdom. by ALNStudios",
+    "uuid": "e8d8136a-7a5b-4818-b813-61c21f2e71ad",
+    "version": [
+      0,
+      28,
+      1
+    ],
+    "min_engine_version": [
+      1,
+      26,
+      0
+    ]
+  },
+  "modules": [
+    {
+      "type": "resources",
+      "uuid": "fa89d5ac-9dd7-42a5-9f2f-941ab4e13f68",
+      "version": [
+        0,
+        28,
+        1
+      ]
+    }
+  ],
+  "metadata": {
+    "authors": [
+      "ALNStudios"
+    ],
+    "product_type": "addon",
+    "version": "0.28.1"
+  }
+}
+```
+
+## FILE: MCPEDL/Maps/OneBlock-Dirtbound-Kingdom-Beta/resource_pack/textures/item_texture.json (10 lines, 184 bytes)
+
+```
+{
+  "resource_pack_name": "dirtbound_kingdom",
+  "texture_name": "atlas.items",
+  "texture_data": {
+    "trader_ledger": {
+      "textures": "textures/items/trader_ledger"
+    }
+  }
+}
+```
+
+## FILE: MCPEDL/Maps/OneBlock-Dirtbound-Kingdom-Beta/SPEC.md (13 lines, 1469 bytes)
+
+```
+# Dirtbound Kingdom: Technical Spec (v1)
+
+Moved from `INSTRUCTIONS.md` 1.7.
+
+- Core `(0,0,0)`, Bedrock `(0,-1,0)`, spawn `(0,1,0)`. Trader Ledger = only shop access. No physical Trader Post.
+- `void_cleaner.mcfunction`, once per player, guarded `tag=!void_cleaned`, order: 1 `execute as @a[tag=!void_cleaned] run fill -16 -64 -16 16 -64 16 air` (33x33 = 1,089 blocks; `fill 0 -64 0 15 -64 15 air` = 256, WRONG); 2 teleport untagged player to `(0,1,0)` (only function-side teleport); 3 Bedrock `(0,-1,0)`; 4 grass placeholder `(0,0,0)`; 5 world spawn `(0,1,0)`; 6 cleaning notice; 7 add `void_cleaned` ONLY once core Bedrock exists.
+- Chunk loading: Bedrock does not keep spawn chunks loaded; fill on unloaded chunks fails silently. Final tag MUST be conditional: `execute as @a[tag=!void_cleaned] if block 0 -1 0 bedrock run tag @s add void_cleaned`. Guard the notice against retry spam. Unverified until tested in game (1.11).
+- NEVER expand cleanup beyond this layer without approval.
+- `tick.json`: `void_cleaner` before `oneblock_tick`. `oneblock_tick` restores only missing Bedrock. NEVER reset spawn, teleport, place/replace core.
+- Script API owns core `(0,0,0)`, break rewards, stage progression; waits for `void_cleaned` before replacing the placeholder.
+- Player tags persist: a source fix NEVER patches an imported world. Test with a fresh import.
+- Mechanics change: update source, player docs, test checklists together; reinstall into all 3 world folders.
+```
+
+## FILE: MCPEDL/Maps/README.md (29 lines, 3364 bytes)
+
+```
+# Maps and Worlds
+
+Minecraft Bedrock maps and custom worlds by ALNStudios. OneBlock maps are available with Creative, Survival, and Hardcore foundations.
+
+## Available Maps
+
+| Map | Source | Download |
+| :--- | :--- | :--- |
+| OneBlock Void Survival | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Maps/OneBlock-Void-Survival/) | [MCWORLD](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/OneBlock-Void-Survival/VoidSurvival%20V2.0.1.mcworld) |
+| OneBlock Dirtbound Kingdom Beta | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Maps/OneBlock-Dirtbound-Kingdom-Beta/) | [Creative](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/MCPEDL/Maps/OneBlock-Dirtbound-Kingdom-Beta/OneBlock%20Dirtbound%20Kingdom%20Beta%20-%20Creative.mcworld) · [Survival](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/MCPEDL/Maps/OneBlock-Dirtbound-Kingdom-Beta/OneBlock%20Dirtbound%20Kingdom%20Beta%20-%20Survival.mcworld) · [Hardcore](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/MCPEDL/Maps/OneBlock-Dirtbound-Kingdom-Beta/OneBlock%20Dirtbound%20Kingdom%20Beta%20-%20Hardcore.mcworld) |
+| OneBlock Sovereign Market | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Maps/Oneblock-SM/) | [Creative](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/MCPEDL/Maps/Oneblock-SM/OneBlock%20Sovereign%20Market%20-%20Creative.mcworld) · [Survival](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/MCPEDL/Maps/Oneblock-SM/OneBlock%20Sovereign%20Market%20-%20Survival.mcworld) · [Hardcore](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/MCPEDL/Maps/Oneblock-SM/OneBlock%20Sovereign%20Market%20-%20Hardcore.mcworld) |
+| OneBlock Phase Evolution | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Maps/OneBlock-Phase-Evolution/) | [MCWORLD](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/MCPEDL/Maps/OneBlock-Phase-Evolution/OneBlock%20Phase%20Evolution%20-%20Creative.mcworld) |
+| One Block Skyblock Lucky Blocks | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Maps/One-Block-Skyblock-Lucky-Blocks/) | [MCWORLD](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/MCPEDL/Maps/One-Block-Skyblock-Lucky-Blocks/One%20Block%20Skyblock%20Lucky%20Blocks%20-%20Creative.mcworld) |
+| OneBlock Natural Market | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Maps/OneBlock-Natural-Market/) | [MCWORLD](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/MCPEDL/Maps/OneBlock-Natural-Market/OneBlock%20Natural%20Market%20-%20Creative.mcworld) |
+
+Both OneBlock maps use separate mode-specific foundations. Archives receive structural validation but have not been tested in-game.
+
+## Attribution
+
+Created by ALNStudios. All rights reserved.
+
+Videos and streams are welcome with credit. Redistribution of original or modified files without permission is prohibited.
+
+## Related Directories
+
+- [Add-ons](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/README.md)
+- [Scripts](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Script/README.md)
+- [Minigames](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Minigame/README.md)
+```

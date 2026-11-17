@@ -1,0 +1,1991 @@
+# Repo Export
+
+## Index
+
+- **Export request:** `MCPEDL/Addons/Waypoint-Helper`
+- **Destination:** `MCPEDL/Addons/Waypoint-Helper`
+- **CURRENT VERSION: 1.1.10 / NEXT UPDATE: 1.1.11**  (`MCPEDL/Addons/Waypoint-Helper/CHANGELOG.md`)
+- **Text files:** 20
+- **Skipped binary:** 9
+- **Paths not found:** 0
+
+### Files in this export
+
+- `changelog_views/Waypoint-Helper.curseforge.html`
+- `changelog_views/Waypoint-Helper.github.md`
+- `description_views/Waypoint-Helper.listing.md`
+- `MCPEDL/Addons/README.md`
+- `MCPEDL/Addons/Waypoint-Helper/assets/snapshots/.gitkeep`
+- `MCPEDL/Addons/Waypoint-Helper/behavior_pack/LOCK`
+- `MCPEDL/Addons/Waypoint-Helper/behavior_pack/manifest.json`
+- `MCPEDL/Addons/Waypoint-Helper/behavior_pack/scripts/main.js`
+- `MCPEDL/Addons/Waypoint-Helper/CHANGELOG.md`
+- `MCPEDL/Addons/Waypoint-Helper/DESCRIPTION.md`
+- `MCPEDL/Addons/Waypoint-Helper/LOCK`
+- `MCPEDL/Addons/Waypoint-Helper/project.json`
+- `MCPEDL/Addons/Waypoint-Helper/README.md`
+- `MCPEDL/Addons/Waypoint-Helper/resource_pack/LOCK`
+- `MCPEDL/Addons/Waypoint-Helper/resource_pack/manifest.json`
+- `MCPEDL/Addons/Waypoint-Helper/resource_pack/textures/ui/cheatstick/button.json`
+- `MCPEDL/Addons/Waypoint-Helper/resource_pack/textures/ui/cheatstick/button_hover.json`
+- `MCPEDL/Addons/Waypoint-Helper/resource_pack/textures/ui/cheatstick/button_pressed.json`
+- `MCPEDL/Addons/Waypoint-Helper/resource_pack/textures/ui/cheatstick/panel.json`
+- `MCPEDL/Addons/Waypoint-Helper/resource_pack/ui/server_form.json`
+
+### Skipped (binary)
+
+- `MCPEDL/Addons/Waypoint-Helper/behavior_pack/pack_icon.png`
+- `MCPEDL/Addons/Waypoint-Helper/pack_icon.png`
+- `MCPEDL/Addons/Waypoint-Helper/resource_pack/pack_icon.png`
+- `MCPEDL/Addons/Waypoint-Helper/resource_pack/textures/ui/cheatstick/backdrop.png`
+- `MCPEDL/Addons/Waypoint-Helper/resource_pack/textures/ui/cheatstick/button.png`
+- `MCPEDL/Addons/Waypoint-Helper/resource_pack/textures/ui/cheatstick/button_hover.png`
+- `MCPEDL/Addons/Waypoint-Helper/resource_pack/textures/ui/cheatstick/button_pressed.png`
+- `MCPEDL/Addons/Waypoint-Helper/resource_pack/textures/ui/cheatstick/panel.png`
+- `MCPEDL/Addons/Waypoint-Helper/resource_pack/textures/ui/cheatstick/title_bar.png`
+
+---
+
+## AI Instructions
+
+Repo: https://github.com/AllensCreations/MCPE-Curseforges.git (branch main)
+Export: two plain .txt files. `<name>.txt` = the pack (index, these instructions, every file). `<name>_tools.txt` = SKILL.md, PACK_GENERATOR_INSTRUCTIONS.md, INSTRUCTIONS.md and the helper scripts. Read both before changing anything. The zip root also holds SKILL.md: read it FIRST for a new pack.
+
+## Pack work (create or update)
+- UPDATE: the pack files are in `<name>.txt`. Change only what was requested.
+- Vanilla limit blocks a mechanic: use a modular workaround per INSTRUCTIONS.md 1.12, never drop the feature silently.
+- NEW pack: read SKILL.md first, then follow PACK_GENERATOR_INSTRUCTIONS.md Part 4 and deliver ONE pack `.sh` from `scripts/make_pack_script.py` (the project travels inside it as base64). NEVER deliver separate zip, pack, json, js or b64 files.
+- INSTRUCTIONS.md wins over PACK_GENERATOR_INSTRUCTIONS.md on any conflict. These instructions win over both on the reply format and the Termux script.
+- Update: keep pack and module UUIDs unchanged.
+- Vanilla reference: `reference/bedrock-samples/bedrock-samples.min.json` (repo, ~5 MB, NOT in this export) holds every vanilla Mojang behavior/resource pack JSON as one object (`.behavior_pack.entities.zombie`, `.behavior_pack.recipes`, `.resource_pack.entity` ...). Never guess a vanilla component, event, loot or recipe shape: list the exact section under File Needed, then copy the shape from it.
+- UI work (menus, forms, HUD, screens): follow INSTRUCTIONS.md 1.13 and apply the ALN UI Redesign skin from `assets/aln-ui-redesign/` (README.txt, design.json, font/README.txt in the tools txt). Textures are not exported; if the pack's resource_pack is missing, ask for it. Never claim anything was tested in Minecraft unless it was.
+- Update: deliver the repo change as the Termux script below. New pack: the pack `.sh` above. Never a separate payload or base64 file.
+
+## Destination
+Repo-root-relative folders for this work:
+- MCPEDL/Addons/Waypoint-Helper
+- .sh paths start at repo root, stay inside these folders. New files go here too.
+- First folder -> `DEST=` variable at script top. Use it for every path and `git add`.
+
+## Rules
+1. NEVER invent features, versions, links, assets, test results.
+2. Output only what changed. Smallest edits. No unrelated rewrites.
+3. No notes/summaries/explanations unless asked.
+4. Any project type (add-on, map, script, workflow, website). Keep folder layout. New project = own new folder beside similar ones.
+
+## Update request = ONE Termux script
+- Name: `<Repofilename>_<Version>_<RAND>.sh` (e.g. `Monster-Companions_1.2.4_k7q2x.sh`). Deliver as downloadable file.
+- Repofilename: project/folder/file changed. No extension, no spaces (hyphens ok).
+- Version: new X.Y.Z. Update = Z+1. Beta/Release only if requested (see Versions).
+- RAND: >=5 random lowercase letters/digits. Fresh every script. NEVER reuse (earlier reply or existing file), so a new script never overwrites or re-runs an old one.
+- Same exact name in reply steps.
+Script order:
+1. `#!/data/data/com.termux/files/usr/bin/bash` + `set -e`
+2. `cd "$HOME/MCPE-Curseforges"`; `git clone` repo URL first if folder missing
+3. `git pull --rebase`
+4. Apply ALL changes as exact search-and-replace edits: write a spec and run `python3 scripts/make_update_script.py spec.txt` (format in `scripts/apply_update.py`; `--verify <clone>` dry-runs it). The tool applies edits atomically, sets the manifest version and writes both changelogs. Size decides the method. SMALL update (a few edits, under about 60% of any file touched): search and replace only. LARGE update (most of a file, many new files, a redesign): use the best method, `@@ create`/`@@ overwrite` in the same spec, never many fragile edits. Either way ONE `.sh`. No separate downloads.
+5. Validate every changed .json with python3. Stop on error.
+5b. Verify top CHANGELOG.md heading == new X.Y.Z == script filename version. Stop on mismatch. If project has manifests: run `python3 scripts/manifest_tools.py --project "$DEST" --set X.Y.Z` (sets header.version, metadata.version, title suffix, module/dependency versions in every source manifest; never lowers), then `python3 scripts/manifest_tools.py --project "$DEST" --check` and `python3 scripts/validate_manifest_titles.py --project "$DEST"`. Stop on error. Every update must change the manifests so the build changes. Never hand-edit manifest JSON for versions.
+5c. If INSTRUCTIONS.md or PACK_GENERATOR_INSTRUCTIONS.md changed: run `python3 scripts/check_instruction_files.py`. Stop on error
+6. `git add` changed paths only; `git commit -m "<short message>"`; `git push`
+6b. Add an entry to the ROOT `CHANGELOG.md` (repo-wide, newest first under `---`): `## [vN] - YYYY-MM-DD - [Update Name]` (N = `REPO_VERSION` + 1, a single whole number such as v80, set by the update tool, never by hand), groups `### Added` / `### Improved & Balanced` / `### Fixed`, bullets `- **Title**: what changed`. Every script, tooling-only included.
+7. After push, do NOT start any workflow. Build Changed Packs & Sync Catalogs runs by itself on every push and rebuilds everything. Nothing auto-bumps; Publish to CurseForge uploads the newest changelog version as written.
+8. Idempotent: skip anything already applied.
+9. Last line, reached only after a successful push: `rm -f -- "$SELF"` (the script deletes itself; save `SELF="$(readlink -f -- "$0")"` on line 2, before the `cd`).
+
+## Docs (every update, same script)
+- Templates STRICT: README.md, DESCRIPTION.md, CHANGELOG.md match templates below exactly: same headings, text, order, labels, bullet format. NEVER add/remove/rename/merge/reorder sections. No boilerplate/extra text. No placeholders: fill every [bracket] with verified content. Accuracy + requested scope outrank template.
+- CHANGELOG.md: MANDATORY every update, no exceptions. Add new release entry for the change.
+- README.md + DESCRIPTION.md: after change, analyze both in destination folder. Edit ONLY if change makes them inaccurate/incomplete. NEVER remove verified content.
+
+### Versions (X.Y.Z ONLY)
+- Format: exactly X.Y.Z everywhere. NEVER X.Y.Z.A. No fourth part. No Alpha.
+- X = Release, Y = Beta, Z = Update.
+- Update: Z+1 (1.2.3 -> 1.2.4). Default.
+- Beta: Y+1, Z=0 (1.2.4 -> 1.3.0). Only if requested.
+- Release: X+1, Y=0, Z=0 (1.3.0 -> 2.0.0). Only if requested.
+- New X.Y.Z goes in CHANGELOG heading + script filename.
+- Manifest versions: set ONLY by the script via `manifest_tools.py --set X.Y.Z` (never hand-edit JSON). NEVER hand-edit README download links. Build Changed Packs & Sync Catalogs aligns a pack to its highest existing version and rebuilds; it never bumps. Publish to CurseForge uploads the newest changelog version.
+- NEVER put release version in README/DESCRIPTION titles. NEVER reuse a heading.
+
+### Changelog views
+- `changelog_views/<Name>.github.md` (newest open, older folded by minor series) and `changelog_views/<Name>.curseforge.html` (CurseForge spoilers, paste into project description): generated from CHANGELOG.md by `scripts/build_changelog_views.py`.
+- CHANGELOG.md = plain text, exact template format, only source of truth. NEVER add HTML/fold markup/links to it. NEVER edit views by hand. NEVER create/change views inside the .sh.
+- Refresh: Build Changed Packs & Sync Catalogs; Collect Files for AI Review (tick commit_changelog_views to save); or `python3 scripts/build_changelog_views.py --project <Name>`.
+
+### Writing
+- Player-facing only. In-game display names, never identifiers, file names, JSON, events, code.
+- "Behavior Pack" / "Resource Pack", NEVER BP/RP.
+- README: no code blocks, emojis, hype, badges.
+- DESCRIPTION: exactly the two Minecraft Bedrock + Format badges from repo template, no others. May keep existing item sprites + recipe diagrams.
+- No Markdown tables. Use `### Feature Name` cards with `- **What Happens**: ...` bullets.
+- Paragraphs <=4 sentences. Verified facts only. Verification line = source created | package built | in-game tested, NEVER mixed.
+
+### README.md (add-on): download landing page only, EXACTLY 11 non-empty lines
+```
+# [Name]
+
+Download the current release of **[Name]** for Minecraft Bedrock Edition.
+
+## Download
+
+- **Package format:** `.mcaddon`
+- **Direct download:** [Download [Name] (.mcaddon)](link)
+
+## Installation
+
+1. Download the package using the link above.
+2. Open the downloaded file with Minecraft to import it.
+3. If the package contains a pack that must be enabled separately, activate it in your world's settings.
+
+## Pack Information
+
+For gameplay features, usage details, compatibility notes, and other project information, read the [full description](DESCRIPTION link).
+```
+Maps/scripts/minigames: same landing page. Use real package format; .mcworld = tell players to open the imported world. Product details live in DESCRIPTION.md.
+
+### DESCRIPTION.md order
+1. `# [Name] — [subtitle]` (no release version)
+2. `**By ALNStudios**`
+3. Two exact badges (Minecraft Bedrock "Stable Release", Format) from repo template
+4. Summary
+5. `## Overview`
+6. `## Key Features`
+7. `## How to Use`
+8. `## Compatibility`: Minecraft Bedrock Edition, Experimental features, Achievements, Verification
+9. `## Creator and Permissions`: `- Creator: ALNStudios`, `- Profiles:` CurseForge https://www.curseforge.com/members/allenscreations/projects · MCPEDL https://mcpedl.com/user/alnstudios/, then the two clickable listing images (HTML, `width="45%"`, no `height`, raw URLs `assets/Images/curseforge.jpg`, `assets/Images/MCPEDL.jpg`). NEVER edit/copy the images
+10. `## Guidelines and Attribution`
+11. `---` then `## Search & Discovery Keywords` from real features
+- Add-ons: Achievements line ALWAYS `Likely achievement-friendly`; add caveats if world settings/cheats can disable achievements.
+
+### Guidelines and Attribution block, exactly
+```
+- Creator: ALNStudios
+- Rights & Reservation: All rights reserved for ALNStudios.
+- Content Creators: Content creators are permitted to feature this creation in videos and streams with credit to ALNStudios.
+- Redistribution: Do not re-upload this pack or provide direct monetized download bypasses. Link directly to the official repository page.
+- Disclaimer: This is an unofficial community creation. It is not an official Minecraft product and is not approved by or associated with Mojang or Microsoft.
+
+---
+
+© All rights reserved for ALNStudios.
+
+---
+```
+
+### CHANGELOG.md
+- `# Changelog — [Name]`, `---`, then newest first: `## [X.Y.Z] - YYYY-MM-DD - [Update Name]` (date: `TZ=Asia/Singapore date +%F`). [Update Name] = short player-facing title (2-6 words) of what is new. REQUIRED on every new entry.
+- Groups: `### Added`, `### Improved & Balanced`, `### Fixed` (bugs as in-game experience). Omit empty groups. Each group >=1 bullet.
+- Entry: `- **Title**: player impact.`
+- NO links, URLs, badges, function/event names, unverified benefits. No boilerplate after title.
+- Insert new entry directly under `---`, above previous release. NEVER edit/delete older entries.
+
+## Reply Format (STRICT)
+```
+[SYSTEM_CONFIG]
+Mode: Direct Execution
+Token_Efficiency: Maximum
+Rules: no greeting, intro, outro, offers, restating. High technical accuracy.
+```
+Output ONLY these three sections, in order, exact headings:
+1. **File Needed:** repo-root-relative path of each file created/edited.
+2. **Changelog:** bullets, brief summary of changes.
+3. **Termux Script:** ONE fenced `bash` block holding ONLY the run commands: `bash ~/storage/downloads/<Repofilename>_<Version>_<RAND>.sh` (a new pack may add the same line with `stage`). The .sh is attached, NEVER pasted. NEVER a Summary section.
+- The .sh (`<Repofilename>_<Version>_<RAND>.sh`, random chars included) is the downloadable file. Exact same name in the command.
+- NEVER text before, between, after. NEVER rename/merge/reorder/skip a section. Nothing to report: `- None`.
+- Unclear request: ask ONE line, then proceed with defaults.
+- First-time Termux setup, ONLY if the user asks:
+```
+pkg update -y && pkg install -y git python curl
+termux-setup-storage
+git config --global user.name "ALNStudios"
+git config --global user.email "your-email@example.com"
+git config --global credential.helper store
+```
+- Push password = GitHub Personal Access Token (repo + workflow scopes), NOT account password. Same token starts the build after push.
+
+---
+
+## File Contents
+
+## FILE: changelog_views/Waypoint-Helper.curseforge.html (4 lines, 5982 bytes)
+
+```
+<h2>1.1.10 - 2026-11-14</h2><h3>Improved &amp; Balanced</h3><ul><li><strong>Rename And Move Removed</strong>: The Rename and Move buttons are gone from the main menu. Name a slot when you save it, and save into the same slot again to change its name.</li><li><strong>Empty Name</strong>: Leaving the name empty when you save now always shows the coordinates, even on a slot that had a name.</li><li><strong>Menu Fade-In</strong>: Menus fade in again with a quick 0.12 second fade, much faster than the old animation.</li><li><strong>Countdown Number</strong>: The seconds in the teleport countdown are now bold and white so they stand out from the rest of the message.</li></ul><h3>Added</h3><ul><li><strong>Move Slot</strong>: A new Move button on the main menu changes where a waypoint sits in your list. Pick the slot, then pick where it goes, and a filled slot swaps places with it.</li><li><strong>Name On Save</strong>: After you pick a slot, Save now asks you to name it. Leave the name empty to show the coordinates, or to keep the slot&#x27;s current name.</li></ul>
+<h2>1.1.x (4 releases)</h2><div class="spoiler"><h3>1.1.6 - 2026-11-14</h3><h4>Improved &amp; Balanced</h4><ul><li><strong>Dimension Colors In Menus</strong>: Saved slots and the Last Death button now show their text in green for the Overworld, red for the Nether and yellow for The End.</li></ul><h3>1.1.5 - 2026-11-13</h3><h4>Added</h4><ul><li><strong>Last Death</strong>: Your death location is now saved automatically and shown as the first button in Load.</li><li><strong>Remove Extra Slots</strong>: Delete now removes empty extra slots from the end of the list. The first 10 slots always stay.</li><li><strong>Delete Slot</strong>: A new Delete button on the main menu clears a saved slot after you confirm.</li><li><strong>Cancel On Move Or Damage</strong>: Moving or taking damage during the countdown cancels the teleport.</li><li><strong>Teleport Cooldown</strong>: There is a 10 second wait after each teleport before you can teleport again.</li><li><strong>Arrival Effect</strong>: A portal particle effect plays where you arrive.</li><li><strong>Fall Protection</strong>: You get 5 seconds of slow falling after you arrive.</li></ul><h4>Fixed</h4><ul><li><strong>Cooldown After Reload</strong>: The teleport wait now carries over when the world reloads or you rejoin.</li></ul><h4>Improved &amp; Balanced</h4><ul><li><strong>Menu Colors</strong>: Menu buttons and text now use the default color. Colors only appear in the title bar and on action bar messages.</li><li><strong>Action Bar Messages</strong>: Rename, delete and spawn point messages now show on the action bar instead of in chat.</li></ul><h3>1.1.3 - 2026-11-13</h3><h4>Fixed</h4><ul><li><strong>Add-on Tag</strong>: The Behavior Pack is now marked as an add-on, matching the Resource Pack, so both packs are listed together as one add-on.</li><li><strong>Mid-Air Landing</strong>: Loading a waypoint whose spot is now in the air no longer drops you from a height.</li></ul><h4>Added</h4><ul><li><strong>Solid Ground Landing</strong>: After a teleport, the Waypoint Helper checks the spot you arrive at. If it is now empty air you land on the ground below, and if it is inside blocks you are moved up to open space.</li><li><strong>Teleport Countdown</strong>: Loading a waypoint now counts down 3 seconds on the action bar before you teleport.</li><li><strong>Teleport Sounds</strong>: A click plays on each countdown second and a teleport sound plays when you arrive.</li></ul><h4>Improved &amp; Balanced</h4><ul><li><strong>Dimension Colors</strong>: The save message is now green in the Overworld, red in the Nether and yellow in The End.</li><li><strong>Action Bar Messages</strong>: Save and teleport messages now show on the action bar instead of in chat.</li></ul><h3>1.1.0 - 2026-11-12</h3><h4>Added</h4><ul><li><strong>Exit Button</strong>: Every menu now starts with an Exit button that closes the Waypoint Helper. Menus opened from the main menu also have a Back button at the top.</li></ul><h4>Improved &amp; Balanced</h4><ul><li><strong>Instant Menu Switching</strong>: Moving between Waypoint Helper menus no longer plays the slow open and close animation.</li></ul><h4>Fixed</h4><ul><li><strong>Title Bar</strong>: The orange pack name and version in the title bar now show correctly.</li><li><strong>Button Look</strong>: Buttons now have a flat dark fill with a thin raised edge instead of a blocky two-tone block.</li></ul></div>
+<h2>1.0.x (3 releases)</h2><div class="spoiler"><h3>1.0.2 - 2026-11-12</h3><h4>Added</h4><ul><li><strong>Cheatstick Menu Look</strong>: All Waypoint Helper menus now use the Cheatstick panel, title bar and button textures with colored text. The pack is now a Complete Pack (.mcaddon) with a Resource Pack.</li></ul><h4>Fixed</h4><ul><li><strong>Menu Compass</strong>: The Waypoint Helper no longer gives you a Compass when you spawn. Use any Compass you already own to open the menu.</li></ul><h3>1.0.1 - 2026-11-12</h3><h4>Fixed</h4><ul><li><strong>Menu Compass</strong>: The Waypoint Helper Compass is now given only once, the first time a player joins the world. It is no longer given again on respawn.</li></ul><h3>1.0.0 - 2026-11-12</h3><h4>Added</h4><ul><li><strong>Waypoint Menu</strong>: Use a Compass to open a menu with Save Spawn Here, Save, Load, Rename and About.</li><li><strong>Waypoint Slots</strong>: Every player starts with 10 slots. Once all slots are filled, Save offers an Add Slot button that adds one more slot each time, with no upper limit.</li><li><strong>Save and Load</strong>: Save stores your position, facing and dimension in a slot. Load teleports you back to it.</li><li><strong>Rename</strong>: Give a slot a name. A named slot shows only its name and hides its coordinates. Leaving the name empty shows the coordinates again.</li><li><strong>Save Spawn Here</strong>: Sets your respawn point to the spot where you are standing.</li></ul></div>
+```
+
+## FILE: changelog_views/Waypoint-Helper.github.md (96 lines, 5143 bytes)
+
+```
+# Changelog — Waypoint Helper
+
+## [1.1.10] - 2026-11-14
+
+### Improved & Balanced
+- **Rename And Move Removed**: The Rename and Move buttons are gone from the main menu. Name a slot when you save it, and save into the same slot again to change its name.
+- **Empty Name**: Leaving the name empty when you save now always shows the coordinates, even on a slot that had a name.
+- **Menu Fade-In**: Menus fade in again with a quick 0.12 second fade, much faster than the old animation.
+- **Countdown Number**: The seconds in the teleport countdown are now bold and white so they stand out from the rest of the message.
+
+### Added
+- **Move Slot**: A new Move button on the main menu changes where a waypoint sits in your list. Pick the slot, then pick where it goes, and a filled slot swaps places with it.
+- **Name On Save**: After you pick a slot, Save now asks you to name it. Leave the name empty to show the coordinates, or to keep the slot's current name.
+
+<details>
+<summary><b>1.1.x</b> (4 releases)</summary>
+
+### [1.1.6] - 2026-11-14
+
+#### Improved & Balanced
+- **Dimension Colors In Menus**: Saved slots and the Last Death button now show their text in green for the Overworld, red for the Nether and yellow for The End.
+
+### [1.1.5] - 2026-11-13
+
+#### Added
+- **Last Death**: Your death location is now saved automatically and shown as the first button in Load.
+- **Remove Extra Slots**: Delete now removes empty extra slots from the end of the list. The first 10 slots always stay.
+- **Delete Slot**: A new Delete button on the main menu clears a saved slot after you confirm.
+- **Cancel On Move Or Damage**: Moving or taking damage during the countdown cancels the teleport.
+- **Teleport Cooldown**: There is a 10 second wait after each teleport before you can teleport again.
+- **Arrival Effect**: A portal particle effect plays where you arrive.
+- **Fall Protection**: You get 5 seconds of slow falling after you arrive.
+
+#### Fixed
+- **Cooldown After Reload**: The teleport wait now carries over when the world reloads or you rejoin.
+
+#### Improved & Balanced
+- **Menu Colors**: Menu buttons and text now use the default color. Colors only appear in the title bar and on action bar messages.
+- **Action Bar Messages**: Rename, delete and spawn point messages now show on the action bar instead of in chat.
+
+### [1.1.3] - 2026-11-13
+
+#### Fixed
+- **Add-on Tag**: The Behavior Pack is now marked as an add-on, matching the Resource Pack, so both packs are listed together as one add-on.
+- **Mid-Air Landing**: Loading a waypoint whose spot is now in the air no longer drops you from a height.
+
+#### Added
+- **Solid Ground Landing**: After a teleport, the Waypoint Helper checks the spot you arrive at. If it is now empty air you land on the ground below, and if it is inside blocks you are moved up to open space.
+- **Teleport Countdown**: Loading a waypoint now counts down 3 seconds on the action bar before you teleport.
+- **Teleport Sounds**: A click plays on each countdown second and a teleport sound plays when you arrive.
+
+#### Improved & Balanced
+- **Dimension Colors**: The save message is now green in the Overworld, red in the Nether and yellow in The End.
+- **Action Bar Messages**: Save and teleport messages now show on the action bar instead of in chat.
+
+### [1.1.0] - 2026-11-12
+
+#### Added
+- **Exit Button**: Every menu now starts with an Exit button that closes the Waypoint Helper. Menus opened from the main menu also have a Back button at the top.
+
+#### Improved & Balanced
+- **Instant Menu Switching**: Moving between Waypoint Helper menus no longer plays the slow open and close animation.
+
+#### Fixed
+- **Title Bar**: The orange pack name and version in the title bar now show correctly.
+- **Button Look**: Buttons now have a flat dark fill with a thin raised edge instead of a blocky two-tone block.
+
+</details>
+
+<details>
+<summary><b>1.0.x</b> (3 releases)</summary>
+
+### [1.0.2] - 2026-11-12
+
+#### Added
+- **Cheatstick Menu Look**: All Waypoint Helper menus now use the Cheatstick panel, title bar and button textures with colored text. The pack is now a Complete Pack (.mcaddon) with a Resource Pack.
+
+#### Fixed
+- **Menu Compass**: The Waypoint Helper no longer gives you a Compass when you spawn. Use any Compass you already own to open the menu.
+
+### [1.0.1] - 2026-11-12
+
+#### Fixed
+- **Menu Compass**: The Waypoint Helper Compass is now given only once, the first time a player joins the world. It is no longer given again on respawn.
+
+### [1.0.0] - 2026-11-12
+
+#### Added
+- **Waypoint Menu**: Use a Compass to open a menu with Save Spawn Here, Save, Load, Rename and About.
+- **Waypoint Slots**: Every player starts with 10 slots. Once all slots are filled, Save offers an Add Slot button that adds one more slot each time, with no upper limit.
+- **Save and Load**: Save stores your position, facing and dimension in a slot. Load teleports you back to it.
+- **Rename**: Give a slot a name. A named slot shows only its name and hides its coordinates. Leaving the name empty shows the coordinates again.
+- **Save Spawn Here**: Sets your respawn point to the spot where you are standing.
+
+</details>
+```
+
+## FILE: description_views/Waypoint-Helper.listing.md (67 lines, 13501 bytes)
+
+````
+# Listing Kit: Waypoint Helper
+
+Tap the Copy button on a block, then paste it into the CurseForge listing. Generated from DESCRIPTION.md: edit that, not this file.
+
+## Package Name
+
+```text
+Waypoint Helper
+```
+
+## Summary (103/256)
+
+```text
+Save up to 10 waypoints with a Compass, add more slots without limit, and teleport back to any of them.
+```
+
+## Description (HTML)
+
+Paste into the CurseForge description editor in source (HTML) mode.
+
+```html
+<div><div style="border:2px solid #15803d;border-radius:18px;line-height:1.5"><br><h1 style="font-size:34px;text-align:center">Waypoint Helper</h1><p style="color:#8a94a3;font-size:14px;text-align:center">by ALNStudios</p><p style="text-align:center"><span style="background-color:#15803d;color:#ffffff;border-radius:20px;font-size:16px">&nbsp;&nbsp;<strong>Save up to 10 waypoints with a Compass, add more slots without limit, and teleport back to any of them.</strong>&nbsp;&nbsp;</span></p><p style="text-align:center;margin-left:16px;margin-right:16px">Waypoint Helper adds a Cheatstick-styled Compass menu with Save, Load and Delete for 10 starting waypoint slots.</p><div style="display:flex;flex-wrap:wrap;gap:8px;margin-left:14px;margin-right:14px"><div style="background-color:#dcfce7;color:#14532d;border-radius:20px;font-size:14px;line-height:2"><strong>&nbsp;&nbsp;Bedrock</strong>: 1.26+&nbsp;&nbsp;</div><div style="background-color:#dcfce7;color:#14532d;border-radius:20px;font-size:14px;line-height:2"><strong>&nbsp;&nbsp;Experimental</strong>: No&nbsp;&nbsp;</div><div style="background-color:#dcfce7;color:#14532d;border-radius:20px;font-size:14px;line-height:2"><strong>&nbsp;&nbsp;Achievements</strong>: Likely achievement-friendly&nbsp;&nbsp;</div></div><br></div>
+<h2 style="font-size:17px;text-align:left"><span style="background-color:#15803d;color:#ffffff;border-radius:20px">&nbsp;&nbsp;About&nbsp;&nbsp;</span></h2>
+<p>Right-click a Compass to open the Waypoint Helper menu. Save your current position into a slot, then pick that slot under Load to teleport back to it.</p>
+<h2 style="font-size:17px;text-align:left"><span style="background-color:#15803d;color:#ffffff;border-radius:20px">&nbsp;&nbsp;What You Get&nbsp;&nbsp;</span></h2>
+<div style="display:flex;flex-wrap:wrap;gap:10px"><div style="flex:1;min-width:200px;border:1px solid #8a94a3;border-radius:16px"><div style="background-color:#15803d;color:#ffffff;border-radius:16px;font-size:16px;line-height:2.2"><strong>&nbsp;&nbsp;Waypoint Slots</strong></div><div style="margin-left:12px;margin-right:12px"><p><span>Each player has 10 slots.</span><br><span style="font-size:13px;color:#8a94a3"><strong>Good To Know:</strong> There is no upper limit on slots.</span></p></div></div><div style="flex:1;min-width:200px;border:1px solid #8a94a3;border-radius:16px"><div style="background-color:#15803d;color:#ffffff;border-radius:16px;font-size:16px;line-height:2.2"><strong>&nbsp;&nbsp;Save And Load</strong></div><div style="margin-left:12px;margin-right:12px"><p><span>Save stores your position, facing direction and dimension in the slot you choose, then asks for an optional name of up to 24 characters.</span><br><span style="font-size:13px;color:#8a94a3"><strong>Good To Know:</strong> Saved slots and the save message are green in the Overworld, red in the Nether and yellow in The End.</span></p></div></div><div style="flex:1;min-width:200px;border:1px solid #8a94a3;border-radius:16px"><div style="background-color:#15803d;color:#ffffff;border-radius:16px;font-size:16px;line-height:2.2"><strong>&nbsp;&nbsp;Last Death</strong></div><div style="margin-left:12px;margin-right:12px"><p><span>Your death location is saved automatically.</span><br><span style="font-size:13px;color:#8a94a3"><strong>Good To Know:</strong> Only your most recent death is kept.</span></p></div></div><div style="flex:1;min-width:200px;border:1px solid #8a94a3;border-radius:16px"><div style="background-color:#15803d;color:#ffffff;border-radius:16px;font-size:16px;line-height:2.2"><strong>&nbsp;&nbsp;Delete</strong></div><div style="margin-left:12px;margin-right:12px"><p><span>Delete clears a saved slot after you confirm.</span><br><span style="font-size:13px;color:#8a94a3"><strong>Good To Know:</strong> Deleting empties the slot so you can save there again.</span></p></div></div><div style="flex:1;min-width:200px;border:1px solid #8a94a3;border-radius:16px"><div style="background-color:#15803d;color:#ffffff;border-radius:16px;font-size:16px;line-height:2.2"><strong>&nbsp;&nbsp;Teleport Safety</strong></div><div style="margin-left:12px;margin-right:12px"><p><span>Moving or taking damage during the 3 second countdown cancels the teleport.</span><br><span style="font-size:13px;color:#8a94a3"><strong>Good To Know:</strong> A portal particle effect plays when you arrive, and you get 5 seconds of slow falling to avoid fall damage.</span></p></div></div><div style="flex:1;min-width:200px;border:1px solid #8a94a3;border-radius:16px"><div style="background-color:#15803d;color:#ffffff;border-radius:16px;font-size:16px;line-height:2.2"><strong>&nbsp;&nbsp;Save Spawn Here</strong></div><div style="margin-left:12px;margin-right:12px"><p><span>Sets your respawn point to the block where you are standing in your current dimension.</span></p></div></div><div style="flex:1;min-width:200px;border:1px solid #8a94a3;border-radius:16px"><div style="background-color:#15803d;color:#ffffff;border-radius:16px;font-size:16px;line-height:2.2"><strong>&nbsp;&nbsp;Menu Compass</strong></div><div style="margin-left:12px;margin-right:12px"><p><span>Right-click any Compass to open the menu.</span></p></div></div><div style="flex:1;min-width:200px;border:1px solid #8a94a3;border-radius:16px"><div style="background-color:#15803d;color:#ffffff;border-radius:16px;font-size:16px;line-height:2.2"><strong>&nbsp;&nbsp;Cheatstick Menu Look</strong></div><div style="margin-left:12px;margin-right:12px"><p><span>Menus use a dark panel, an orange title bar showing the pack name and version, and blue-highlighted buttons and a quick fade-in, with saved slots and action bar messages colored by dimension.</span><br><span style="font-size:13px;color:#8a94a3"><strong>Good To Know:</strong> The look comes from the Resource Pack, so activate it in your world's settings.</span></p></div></div></div>
+<h2 style="font-size:17px;text-align:left"><span style="background-color:#15803d;color:#ffffff;border-radius:20px">&nbsp;&nbsp;Get Started&nbsp;&nbsp;</span></h2>
+<table style="width:100%;border:1px solid #8a94a3;border-radius:16px"><tbody><tr><td style="width:44px;text-align:center"><div style="background-color:#15803d;color:#ffffff;font-weight:bold;font-size:15px;text-align:center;border-radius:10px;width:30px;aspect-ratio:1/1;line-height:30px">1</div></td><td style="text-align:left;">Right-click a Compass to open the Waypoint Helper menu.</td></tr><tr><td style="width:44px;text-align:center"><div style="background-color:#15803d;color:#ffffff;font-weight:bold;font-size:15px;text-align:center;border-radius:10px;width:30px;aspect-ratio:1/1;line-height:30px">2</div></td><td style="text-align:left;">Tap Save and choose a slot to store your current position.</td></tr><tr><td style="width:44px;text-align:center"><div style="background-color:#15803d;color:#ffffff;font-weight:bold;font-size:15px;text-align:center;border-radius:10px;width:30px;aspect-ratio:1/1;line-height:30px">3</div></td><td style="text-align:left;">Tap Load and choose that slot to teleport back to it.</td></tr></tbody></table>
+<h2 style="font-size:17px;text-align:left"><span style="background-color:#15803d;color:#ffffff;border-radius:20px">&nbsp;&nbsp;Common Questions&nbsp;&nbsp;</span></h2>
+<div class="spoiler" title="How do I get more than 10 slots?" data-title="How do I get more than 10 slots?"><p><strong>How do I get more than 10 slots?</strong><br>Fill all 10 slots, then open Save. An Add Slot button appears and adds one slot per press.</p></div><div class="spoiler" title="Why do the menus look plain?" data-title="Why do the menus look plain?"><p><strong>Why do the menus look plain?</strong><br>The Resource Pack is not active. Activate it in your world's settings.</p></div><div class="spoiler" title="How do I rename a slot?" data-title="How do I rename a slot?"><p><strong>How do I rename a slot?</strong><br>Save into the same slot again, confirm the overwrite and enter a new name.</p></div>
+<h2 style="font-size:17px;text-align:left"><span style="background-color:#15803d;color:#ffffff;border-radius:20px">&nbsp;&nbsp;Install&nbsp;&nbsp;</span></h2>
+<table style="width:100%;border:1px solid #8a94a3;border-radius:16px"><tbody><tr><td style="width:44px;text-align:center"><div style="background-color:#15803d;color:#ffffff;font-weight:bold;font-size:15px;text-align:center;border-radius:10px;width:30px;aspect-ratio:1/1;line-height:30px">1</div></td><td style="text-align:left;">Download the file from this page and open it with Minecraft.</td></tr><tr><td style="width:44px;text-align:center"><div style="background-color:#15803d;color:#ffffff;font-weight:bold;font-size:15px;text-align:center;border-radius:10px;width:30px;aspect-ratio:1/1;line-height:30px">2</div></td><td style="text-align:left;">Create or edit a world and turn on the new pack(s) in its settings.</td></tr><tr><td style="width:44px;text-align:center"><div style="background-color:#15803d;color:#ffffff;font-weight:bold;font-size:15px;text-align:center;border-radius:10px;width:30px;aspect-ratio:1/1;line-height:30px">3</div></td><td style="text-align:left;">Play. No Experimental toggles needed.</td></tr></tbody></table>
+<h2 style="font-size:17px;text-align:left"><span style="background-color:#15803d;color:#ffffff;border-radius:20px">&nbsp;&nbsp;Support&nbsp;&nbsp;</span></h2><div style="border:1px solid #8a94a3;border-radius:16px;text-align:center"><br><a href="https://ko-fi.com/alnstudios"><img src="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/assets/Images/ko-fi.png" alt="Support ALNStudios on Ko-fi" width="250"></a><br><br></div><p style="text-align:center"><a href="https://www.curseforge.com/members/allenscreations/projects"><strong>CurseForge</strong></a> &nbsp;|&nbsp; <a href="https://mcpedl.com/user/alnstudios/"><strong>MCPEDL</strong></a> &nbsp;|&nbsp; <a href="https://ko-fi.com/alnstudios"><strong>Ko-fi</strong></a></p>
+<hr>
+<p style="text-align:center;color:#8a94a3;font-size:13px"><strong>By ALNStudios</strong></p>
+<div class="spoiler"><p style="font-size:13px"><strong>Permissions and credits</strong></p><ul style="font-size:13px"><li>Rights: All rights reserved for ALNStudios.</li><li>Content creators: You may feature this creation in videos and streams with credit to ALNStudios.</li><li>Redistribution: Do not re-upload this pack or provide direct monetized download bypasses. Link to this page.</li><li>Unofficial community creation. Not an official Minecraft product and not approved by or associated with Mojang or Microsoft.</li></ul></div>
+<p style="text-align:center;color:#8a94a3;font-size:12px">Minecraft Bedrock add-on, Waypoint Helper Bedrock mod, waypoint teleport, save coordinates, name waypoints, Compass menu, Minecraft PE survival, MCPEDL add-on, CurseForge Bedrock, ALNStudios.</p></div>
+```
+
+## AI Image Prompts
+
+### Reference Images
+
+- **Logo reference**: attach your own logo. The generator uses it only for brand colors and mood. The result must be a new design, not a copy.
+- **Snapshot references**: attach 1 to 4 of your in-game snapshots of this pack. The generator copies their look, not their screen layout.
+
+### Logo Prompt
+
+```text
+Use the attached logo only as a brand reference for its color palette and overall mood. Do not copy it. Create a new, original logo with a different composition and a different main symbol. Do not just recolor, resize, crop, mirror or tweak the attached logo.
+Create a clean, square (1:1) logo image for the Minecraft Bedrock add-on "Waypoint Helper". Save up to 10 waypoints with a Compass, add more slots without limit, and teleport back to any of them.
+Base the main symbol on the pack idea above. Match the blocky look of the attached in-game snapshots. Center the logo, use a simple background, and keep it readable at small sizes.
+Text: "Waypoint Helper" and, in small letters, "ALNStudios". ALNStudios is the brand name, so always keep it and never remove or change it. Spell both exactly.
+Do not add Minecraft, Mojang or Microsoft logos, watermarks, or characters from other games.
+```
+
+### Banner Prompt
+
+```text
+Create a wide (16:9) banner image for the Minecraft Bedrock add-on "Waypoint Helper". Save up to 10 waypoints with a Compass, add more slots without limit, and teleport back to any of them.
+Use the attached in-game snapshots as scene and style references: copy their blocky look, lighting, colors and the kind of scenery they show. Make a new composition inspired by them. Do not copy the on-screen HUD, chat or hotbar.
+Use the attached logo only as a brand reference for its colors and mood. Do not copy it. Put a new, original logo design in the banner, large enough to read, on the left or center.
+Hint at these pack features visually: Waypoint Slots, Save And Load, Last Death, Delete, Teleport Safety.
+Text: "Waypoint Helper" and, in small letters, "by ALNStudios". ALNStudios is the brand name, so always keep it and never remove or change it. Spell both exactly.
+Leave clear space around the logo. No Minecraft, Mojang or Microsoft logos, no watermarks.
+```
+````
+
+## FILE: MCPEDL/Addons/README.md (54 lines, 8991 bytes)
+
+```
+# Add-ons
+
+Source files for established Minecraft Bedrock add-ons by ALNStudios.
+
+## Available Add-ons
+
+| Add-on | Source | Download |
+| :--- | :--- | :--- |
+| Ghast Mob Head Transformers | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/Ghast-Mob-Head-Transformers/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Ghast-Mob-Head-Transformers/GhastMobHeads%20V1.16.1.mcaddon) |
+| Immortal Pets | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/Immortal-Pets/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Immortal-Pets/ImmortalPets%20V1.10.1.mcaddon) |
+| Mining Helmet | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/Mining-Helmet/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Mining-Helmet/MiningHelmet%20V1.14.5.mcaddon) |
+| Monster Companions | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/Monster-Companions/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Monster-Companions/MonsterCompanions%20V2.0.1.mcaddon) |
+| Passive Auto-Switch Tools | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/Passive-Auto-Switch-Tools/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Passive-Auto-Switch-Tools/AutoSwitchTools%20V1.16.0.mcaddon) |
+| Tameable Companion Fox | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/Tameable-Companion-Fox/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Tameable-Companion-Fox/CompanionFox%20V1.8.5.mcaddon) |
+| Vanilla Quality of Life | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/Vanilla-Quality-of-Life/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Vanilla-Quality-of-Life/VanillaQoL%20V2.1.2.mcaddon) |
+| Grimoire Relics V2 | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/Grimoire-Relics-V2/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Grimoire-Relics-V2/GrimoireRelics%20V1.13.2.mcaddon) |
+| Grand Banquets | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/Grand-Banquets/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Grand-Banquets/GrandBanquets%20V1.6.0.mcaddon) |
+| Magnetic Satchel | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/Magnetic-Satchel) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Magnetic-Satchel/MagneticSatchel%20V1.8.0.mcaddon) |
+| Sudden Death Roulette The Diamond Race | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/Sudden-Death-Roulette) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Sudden-Death-Roulette/SuddenDeath%20V1.4.0.mcaddon) |
+| Smart Tree Capitator and Domino Ore Miner | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/Smart-Tree-Capitator-and-Domino-Ore-Miner) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Smart-Tree-Capitator-and-Domino-Ore-Miner/SmartCapitator%20V1.11.0.mcaddon) |
+| Harvest Intelligence | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/Harvest-Intelligence) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Harvest-Intelligence/HarvestIntel%20V1.6.0.mcaddon) |
+| Fletching Table Arsenal | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/Fletching-Table-Arsenal/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Fletching-Table-Arsenal/FletchingArsenal%20V1.0.0.mcaddon) |
+| Melody Figurine | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/Melody-Figurine/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Melody-Figurine/MelodyFigurine%20V1.14.0.mcaddon) |
+| One-Block Hardcore Survival Economy | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/One-Block-Economy/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/One-Block-Economy/OneBlockEconomy%20V1.4.0.mcaddon) |
+| Selective Mob Controller | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/Selective-Mob-Controller/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Selective-Mob-Controller/MobController%20V1.5.0.mcaddon) |
+| Swarm Mob Booster | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/Swarm-Mob-Booster/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Swarm-Mob-Booster/SwarmBooster%20V1.8.0.mcaddon) |
+| Copper-Carrier Logistics | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/Copper-Carrier-Logistics/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Copper-Carrier-Logistics/CopperCarrier%20V1.1.0.mcaddon) |
+| Universal Leash | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/Universal-Leash/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Universal-Leash/UniversalLeash%20V2.0.0.mcaddon) |
+| Padlock & Key | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/Padlock-and-Key/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Padlock-and-Key/PadlockKey%20V1.4.2.mcaddon) |
+| Talking Pirate Parrots | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/Talking-Pirate-Parrots_payload/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Talking-Pirate-Parrots_payload/PirateParrots%20V1.0.3.mcaddon) |
+| OP Sponge | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/OP-Sponge/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/OP-Sponge/OPSponge%20V1.0.1.mcaddon) |
+| Cheat Stick | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/Cheat-Stick/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Cheat-Stick/CheatStick%20V3.0.0.mcaddon) |
+| Waypoint Helper | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/Waypoint-Helper/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Waypoint-Helper/WaypointHelper%20V1.1.10.mcaddon) |
+| 2-in-1 Loot & XP Booster | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/2-in-1-Loot--XP-Booster/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/2-in-1-Loot--XP-Booster/LootXPBooster%20V1.0.13.mcaddon) |
+| Enchanter | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/Enchanter/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Enchanter/Enchanter%20V1.0.2.mcaddon) |
+| ALN Quiver | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/ALN-Quiver/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/ALN-Quiver/ALNQuiver%20V1.0.0.mcaddon) |
+| Expanded Basic Arsenal | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/Expanded-Basic-Arsenal/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Expanded-Basic-Arsenal/ExpandedBasicArsenal%20V1.0.0.mcaddon) |
+| ALN Wireless Headphones | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/ALN-Wireless-Headphones/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/ALN-Wireless-Headphones/ALNWirelessHeadphones%20V1.0.0.mcaddon) |
+| ALN MoreDiscs | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/ALN-MoreDiscs/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/ALN-MoreDiscs/ALNMoreDiscs%20V1.1.1.mcaddon) |
+
+Download links point to the currently published package files.
+
+## Attribution
+
+Created by ALNStudios. All rights reserved.
+
+Videos and streams are welcome with credit. Redistribution of original or modified files without permission is prohibited.
+
+## Related Directories
+
+- [Maps](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Maps#available-maps)
+- [Scripts](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Script#available-scripts)
+- [Minigames](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Minigame#available-minigames)
+```
+
+## FILE: MCPEDL/Addons/Waypoint-Helper/assets/snapshots/.gitkeep (1 lines, 0 bytes)
+
+```
+
+```
+
+## FILE: MCPEDL/Addons/Waypoint-Helper/behavior_pack/LOCK (5 lines, 160 bytes)
+
+```
+ALNStudios Add-on Lock v1
+
+Pack marker included in the exported Minecraft Bedrock pack.
+This marker does not encrypt the pack or prevent extraction or editing.
+```
+
+## FILE: MCPEDL/Addons/Waypoint-Helper/behavior_pack/manifest.json (57 lines, 1012 bytes)
+
+```
+{
+  "format_version": 2,
+  "header": {
+    "name": "Waypoint Helper (v1.1.10)",
+    "description": "Save, name and teleport to waypoint slots from one menu. by ALNStudios",
+    "uuid": "3864a060-003f-4e0c-92c0-c44fa5c99799",
+    "version": [
+      1,
+      1,
+      10
+    ],
+    "min_engine_version": [
+      1,
+      26,
+      60
+    ]
+  },
+  "modules": [
+    {
+      "type": "script",
+      "language": "javascript",
+      "uuid": "3275d534-4f40-4bc7-9a05-d157d4f5bf94",
+      "version": [
+        1,
+        1,
+        10
+      ],
+      "entry": "scripts/main.js"
+    }
+  ],
+  "dependencies": [
+    {
+      "uuid": "da4e9100-513b-4456-b041-bbd208295ea1",
+      "version": [
+        1,
+        1,
+        10
+      ]
+    },
+    {
+      "module_name": "@minecraft/server",
+      "version": "2.11.0"
+    },
+    {
+      "module_name": "@minecraft/server-ui",
+      "version": "2.3.0"
+    }
+  ],
+  "metadata": {
+    "authors": [
+      "ALNStudios"
+    ],
+    "product_type": "addon",
+    "version": "1.1.10"
+  }
+}
+```
+
+## FILE: MCPEDL/Addons/Waypoint-Helper/behavior_pack/scripts/main.js (553 lines, 18252 bytes)
+
+```
+import { world, system } from "@minecraft/server";
+import { ActionFormData, ModalFormData, FormCancelationReason } from "@minecraft/server-ui";
+
+const VERSION = "1.1.10";
+const MENU_ITEM = "minecraft:compass";
+const TITLE = `WPH|§6@ALNStudios Waypoint Helper §7(${VERSION})`;
+const BASE_SLOTS = 10;
+const COUNT_KEY = "waypoint_slot_count";
+const SLOT_PREFIX = "waypoint_slot_";
+const DEATH_KEY = "waypoint_last_death";
+const COOLDOWN_KEY = "waypoint_cooldown_until";
+const NAME_LIMIT = 24;
+const BUSY_RETRIES = 10;
+const BUSY_DELAY_TICKS = 10;
+
+const TELEPORT_SECONDS = 3;
+const TELEPORT_STEP_TICKS = 2;
+const TELEPORT_MOVE_LIMIT_SQ = 0.25;
+const TELEPORT_COOLDOWN_MS = 10000;
+const FALL_PROTECTION_TICKS = 100;
+const TELEPORT_TICK_SOUND = "random.click";
+const TELEPORT_ARRIVE_SOUND = "mob.endermen.portal";
+const TELEPORT_CANCEL_SOUND = "note.bass";
+const ARRIVAL_PARTICLE = "minecraft:basic_portal_particle";
+const ARRIVAL_PARTICLE_COUNT = 24;
+const GROUND_SEARCH = 128;
+const SETTLE_TRIES = 30;
+const SETTLE_DELAY_TICKS = 2;
+
+const DIMENSION_COLORS = {
+  "minecraft:overworld": "§a",
+  "minecraft:nether": "§c",
+  "minecraft:the_end": "§e",
+};
+
+const DIMENSION_NAMES = {
+  "minecraft:overworld": "Overworld",
+  "minecraft:nether": "Nether",
+  "minecraft:the_end": "The End",
+};
+
+const PICKER = {
+  save: { title: "Save Waypoint", body: "Choose a slot to save your current position." },
+  load: { title: "Load Waypoint", body: "Choose a slot to teleport to." },
+  delete: { title: "Delete Waypoint", body: "Choose a slot to delete. Choosing an empty extra slot at the end removes it." },
+};
+
+const heading = (text, body) => `§l${text}§r\n${body}`;
+
+const openMenus = new Set();
+const teleporting = new Map();
+
+const wait = (ticks) => new Promise((resolve) => system.runTimeout(resolve, ticks));
+
+function slotCount(player) {
+  const value = player.getDynamicProperty(COUNT_KEY);
+  return typeof value === "number" && value >= BASE_SLOTS ? Math.floor(value) : BASE_SLOTS;
+}
+
+function readStored(player, key) {
+  const raw = player.getDynamicProperty(key);
+  if (typeof raw !== "string") return undefined;
+  try {
+    const data = JSON.parse(raw);
+    if (data && typeof data.x === "number" && typeof data.y === "number" && typeof data.z === "number" && typeof data.d === "string") return data;
+  } catch (error) {
+    return undefined;
+  }
+  return undefined;
+}
+
+function readSlot(player, index) {
+  return readStored(player, SLOT_PREFIX + index);
+}
+
+function writeSlot(player, index, data) {
+  player.setDynamicProperty(SLOT_PREFIX + index, JSON.stringify(data));
+}
+
+function usedCount(player) {
+  let used = 0;
+  const total = slotCount(player);
+  for (let i = 0; i < total; i++) if (readSlot(player, i)) used++;
+  return used;
+}
+
+function trimExtraSlots(player) {
+  const before = slotCount(player);
+  let total = before;
+  while (total > BASE_SLOTS && !readSlot(player, total - 1)) total--;
+  if (total !== before) player.setDynamicProperty(COUNT_KEY, total);
+  return before - total;
+}
+
+function dimensionColor(id) {
+  return DIMENSION_COLORS[id] ?? "§f";
+}
+
+function dimensionName(id) {
+  return DIMENSION_NAMES[id] ?? id;
+}
+
+function coordText(slot) {
+  return `${Math.floor(slot.x)}, ${Math.floor(slot.y)}, ${Math.floor(slot.z)}`;
+}
+
+function slotLabel(slot, index) {
+  if (!slot) return `Slot ${index + 1}: Empty`;
+  if (slot.n) return `${dimensionColor(slot.d)}${index + 1}. ${slot.n}`;
+  return `${dimensionColor(slot.d)}${index + 1}. ${coordText(slot)}\n${dimensionName(slot.d)}`;
+}
+
+function slotName(slot, index) {
+  return slot.n ? `"${slot.n}"` : `slot ${index + 1}`;
+}
+
+function playSound(player, soundId, pitch) {
+  try {
+    player.playSound(soundId, { volume: 1, pitch });
+  } catch (error) {
+    return;
+  }
+}
+
+function actionBar(player, text) {
+  try {
+    player.onScreenDisplay.setActionBar(text);
+  } catch (error) {
+    return;
+  }
+}
+
+async function show(form, player) {
+  for (let attempt = 0; attempt <= BUSY_RETRIES; attempt++) {
+    const response = await form.show(player);
+    if (response.cancelationReason !== FormCancelationReason.UserBusy) return response;
+    await wait(BUSY_DELAY_TICKS);
+  }
+  return undefined;
+}
+
+async function pickSlot(player, mode, notice) {
+  while (true) {
+    const total = slotCount(player);
+    const slots = [];
+    for (let i = 0; i < total; i++) slots.push(readSlot(player, i));
+    const form = new ActionFormData().title(TITLE).body(heading(PICKER[mode].title, `${notice ? `${notice}\n` : ""}${PICKER[mode].body}`));
+    form.button("Exit");
+    form.button("Back");
+    const death = mode === "load" ? readStored(player, DEATH_KEY) : undefined;
+    const offset = mode === "load" ? 3 : 2;
+    if (mode === "load") form.button(death ? `${dimensionColor(death.d)}Last Death: ${coordText(death)}\n${dimensionName(death.d)}` : "Last Death: None");
+    for (let i = 0; i < total; i++) form.button(slotLabel(slots[i], i));
+    let next = total + offset;
+    let addIndex = -1;
+    if (mode === "save" && slots.every((slot) => slot)) {
+      form.button("+ Add Slot");
+      addIndex = next++;
+    }
+    const response = await show(form, player);
+    if (!response || response.canceled || response.selection === 0) return { kind: "closed" };
+    if (response.selection === 1) return { kind: "back" };
+    if (response.selection === addIndex) {
+      player.setDynamicProperty(COUNT_KEY, total + 1);
+      notice = `Slot ${total + 1} added.`;
+      continue;
+    }
+    if (mode === "load" && response.selection === 2) return { kind: "death" };
+    return { kind: "slot", index: response.selection - offset };
+  }
+}
+
+async function confirmOverwrite(player, index, slot) {
+  const form = new ActionFormData()
+    .title(TITLE)
+    .body(heading("Overwrite Slot", `Slot ${index + 1} already holds ${slot.n ? `"${slot.n}"` : coordText(slot)}.\nReplace it with your current position?`))
+    .button("Exit")
+    .button("Overwrite")
+    .button("Cancel");
+  const response = await show(form, player);
+  if (!response || response.canceled || response.selection === 0) return null;
+  return response.selection === 1;
+}
+
+async function confirmDelete(player, index, slot) {
+  const form = new ActionFormData()
+    .title(TITLE)
+    .body(heading("Delete Slot", `Slot ${index + 1} holds ${slot.n ? `"${slot.n}"` : coordText(slot)}.\nDelete it? This cannot be undone.`))
+    .button("Exit")
+    .button("Delete")
+    .button("Cancel");
+  const response = await show(form, player);
+  if (!response || response.canceled || response.selection === 0) return null;
+  return response.selection === 1;
+}
+
+async function saveFlow(player) {
+  let notice;
+  while (true) {
+    const pick = await pickSlot(player, "save", notice);
+    if (pick.kind !== "slot") return pick.kind;
+    const existing = readSlot(player, pick.index);
+    if (existing) {
+      const confirmed = await confirmOverwrite(player, pick.index, existing);
+      if (confirmed === null) return "closed";
+      if (!confirmed) {
+        notice = undefined;
+        continue;
+      }
+    }
+    const rotation = player.getRotation();
+    const data = {
+      x: Math.round(player.location.x * 100) / 100,
+      y: Math.round(player.location.y * 100) / 100,
+      z: Math.round(player.location.z * 100) / 100,
+      d: player.dimension.id,
+      rx: rotation.x,
+      ry: rotation.y,
+    };
+    const nameForm = new ModalFormData().title(TITLE).textField(`§lName Slot ${pick.index + 1}§r\nName (empty shows coordinates)`, "Example: Home");
+    const nameResponse = await show(nameForm, player);
+    if (!nameResponse || nameResponse.canceled) return "closed";
+    const name = cleanName(nameResponse.formValues[0]);
+    if (name) data.n = name;
+    writeSlot(player, pick.index, data);
+    actionBar(player, `${dimensionColor(data.d)}Saved ${slotName(data, pick.index)} (${dimensionName(data.d)}).`);
+    return "done";
+  }
+}
+
+function cleanName(value) {
+  return String(value ?? "").replace(/§/g, "").trim().slice(0, NAME_LIMIT);
+}
+
+function teleportTo(player, slot) {
+  try {
+    player.teleport(
+      { x: slot.x, y: slot.y, z: slot.z },
+      { dimension: world.getDimension(slot.d), rotation: { x: slot.rx ?? 0, y: slot.ry ?? 0 } }
+    );
+    return true;
+  } catch (error) {
+    return false;
+  }
+}
+
+function groundTarget(dimension, x, y, z) {
+  const passable = (yy) => {
+    const block = dimension.getBlock({ x, y: yy, z });
+    return !!block && (block.isAir || (!block.isSolid && !block.isLiquid));
+  };
+  const holds = (yy) => {
+    const block = dimension.getBlock({ x, y: yy, z });
+    return !!block && (block.isSolid || block.isLiquid);
+  };
+  const range = dimension.heightRange;
+  if (!passable(y + 1)) {
+    const top = Math.min(y + GROUND_SEARCH, range.max - 1);
+    for (let yy = y + 2; yy < top; yy++) if (passable(yy) && passable(yy + 1) && holds(yy - 1)) return yy;
+    return null;
+  }
+  if (!passable(y) || holds(y - 1)) return y;
+  const bottom = Math.max(y - GROUND_SEARCH, range.min);
+  for (let yy = y - 2; yy > bottom; yy--) if (holds(yy)) return yy + 1;
+  return null;
+}
+
+function arrivalEffect(player) {
+  try {
+    const { x, y, z } = player.location;
+    for (let i = 0; i < ARRIVAL_PARTICLE_COUNT; i++) {
+      const angle = Math.random() * Math.PI * 2;
+      const radius = Math.random() * 0.8;
+      player.dimension.spawnParticle(ARRIVAL_PARTICLE, {
+        x: x + Math.cos(angle) * radius,
+        y: y + Math.random() * 2,
+        z: z + Math.sin(angle) * radius,
+      });
+    }
+  } catch (error) {
+    return;
+  }
+}
+
+function protectFromFall(player) {
+  try {
+    player.addEffect("slow_falling", FALL_PROTECTION_TICKS, { amplifier: 0, showParticles: false });
+  } catch (error) {
+    return;
+  }
+}
+
+function settleOnGround(player, color, tries = 0) {
+  try {
+    if (!player.isValid) return;
+    const location = player.location;
+    const x = Math.floor(location.x);
+    const y = Math.floor(location.y);
+    const z = Math.floor(location.z);
+    const target = groundTarget(player.dimension, x, y, z);
+    if (target === null) {
+      actionBar(player, "§eNo solid ground found at this waypoint.");
+      return;
+    }
+    if (target === y) return;
+    const below = player.dimension.getBlock({ x, y: target - 1, z });
+    if (below && below.typeId.includes("lava")) {
+      actionBar(player, "§cLava below this waypoint. Staying put.");
+      return;
+    }
+    player.teleport({ x: location.x, y: target, z: location.z });
+    arrivalEffect(player);
+    actionBar(player, `${color}Landing moved to solid ground.`);
+  } catch (error) {
+    if (tries < SETTLE_TRIES) system.runTimeout(() => settleOnGround(player, color, tries + 1), SETTLE_DELAY_TICKS);
+  }
+}
+
+function startTeleport(player, slot, label) {
+  if (teleporting.has(player.id)) {
+    actionBar(player, "§eYou are already teleporting.");
+    return;
+  }
+  const readyAt = player.getDynamicProperty(COOLDOWN_KEY);
+  const left = typeof readyAt === "number" ? readyAt - Date.now() : 0;
+  if (left > 0 && left <= TELEPORT_COOLDOWN_MS) {
+    actionBar(player, `§eTeleport ready in ${Math.ceil(left / 1000)} seconds.`);
+    return;
+  }
+  const color = dimensionColor(slot.d);
+  const start = player.location;
+  const startDimension = player.dimension.id;
+  let remaining = TELEPORT_SECONDS * 20;
+  let shown = -1;
+  let handle;
+  const finish = () => {
+    system.clearRun(handle);
+    teleporting.delete(player.id);
+  };
+  const cancel = (reason) => {
+    finish();
+    actionBar(player, `§cTeleport cancelled: ${reason}.`);
+    playSound(player, TELEPORT_CANCEL_SOUND, 0.8);
+  };
+  handle = system.runInterval(() => {
+    try {
+      if (!player.isValid) {
+        finish();
+        return;
+      }
+      const here = player.location;
+      const dx = here.x - start.x;
+      const dy = here.y - start.y;
+      const dz = here.z - start.z;
+      if (player.dimension.id !== startDimension || dx * dx + dy * dy + dz * dz > TELEPORT_MOVE_LIMIT_SQ) {
+        cancel("you moved");
+        return;
+      }
+      if (remaining <= 0) {
+        finish();
+        if (teleportTo(player, slot)) {
+          player.setDynamicProperty(COOLDOWN_KEY, Date.now() + TELEPORT_COOLDOWN_MS);
+          protectFromFall(player);
+          playSound(player, TELEPORT_ARRIVE_SOUND, 1);
+          arrivalEffect(player);
+          actionBar(player, `${color}Teleported to ${label}.`);
+          settleOnGround(player, color);
+        } else {
+          actionBar(player, "§cCould not teleport to that waypoint.");
+        }
+        return;
+      }
+      const seconds = Math.ceil(remaining / 20);
+      if (seconds !== shown) {
+        shown = seconds;
+        actionBar(player, `${color}Teleporting to ${label} in §l§f${seconds}§r${color}... Stay still.`);
+        playSound(player, TELEPORT_TICK_SOUND, 1 + (TELEPORT_SECONDS - seconds) * 0.25);
+      }
+      remaining -= TELEPORT_STEP_TICKS;
+    } catch (error) {
+      finish();
+    }
+  }, TELEPORT_STEP_TICKS);
+  teleporting.set(player.id, { cancel });
+}
+
+async function loadFlow(player) {
+  let notice;
+  while (true) {
+    const pick = await pickSlot(player, "load", notice);
+    if (pick.kind === "death") {
+      const death = readStored(player, DEATH_KEY);
+      if (!death) {
+        notice = "No death location saved yet.";
+        continue;
+      }
+      startTeleport(player, death, "your last death");
+      return "done";
+    }
+    if (pick.kind !== "slot") return pick.kind;
+    const slot = readSlot(player, pick.index);
+    if (!slot) {
+      notice = `Slot ${pick.index + 1} is empty.`;
+      continue;
+    }
+    startTeleport(player, slot, slotName(slot, pick.index));
+    return "done";
+  }
+}
+
+async function deleteFlow(player) {
+  let notice;
+  while (true) {
+    const pick = await pickSlot(player, "delete", notice);
+    if (pick.kind !== "slot") return pick.kind;
+    const slot = readSlot(player, pick.index);
+    if (!slot) {
+      const removed = pick.index >= BASE_SLOTS ? trimExtraSlots(player) : 0;
+      if (removed > 0) {
+        actionBar(player, `§aRemoved ${removed} empty extra slot${removed === 1 ? "" : "s"}.`);
+        return "done";
+      }
+      notice = pick.index >= BASE_SLOTS ? `Slot ${pick.index + 1} is empty. Extra slots can only be removed from the end.` : `Slot ${pick.index + 1} is empty.`;
+      continue;
+    }
+    const confirmed = await confirmDelete(player, pick.index, slot);
+    if (confirmed === null) return "closed";
+    if (!confirmed) {
+      notice = undefined;
+      continue;
+    }
+    player.setDynamicProperty(SLOT_PREFIX + pick.index, undefined);
+    const removed = trimExtraSlots(player);
+    actionBar(player, `§aDeleted ${slotName(slot, pick.index)}.${removed > 0 ? ` ${removed} empty extra slot${removed === 1 ? "" : "s"} removed.` : ""}`);
+    return "done";
+  }
+}
+
+function saveSpawnHere(player) {
+  try {
+    const location = {
+      dimension: player.dimension,
+      x: Math.floor(player.location.x),
+      y: Math.floor(player.location.y),
+      z: Math.floor(player.location.z),
+    };
+    player.setSpawnPoint(location);
+    actionBar(player, `§aSpawn point saved at ${location.x}, ${location.y}, ${location.z} (${dimensionName(player.dimension.id)}).`);
+  } catch (error) {
+    actionBar(player, "§cCould not save the spawn point here.");
+  }
+}
+
+async function aboutScreen(player) {
+  const form = new ActionFormData()
+    .title(TITLE)
+    .body(
+      heading(
+        "About",
+        `Waypoint Helper by §lALNStudios§r\n\nSlots start at §l${BASE_SLOTS}§r. When every slot is filled, Save shows a button to add one more, with no upper limit.\n\n` +
+          `§lSave§r stores your position and asks for an optional name. §lLoad§r counts down ${TELEPORT_SECONDS} seconds, then teleports you there. Moving or taking damage cancels it, and there is a ${TELEPORT_COOLDOWN_MS / 1000} second wait between teleports. ` +
+          "§lDelete§r clears a slot and removes empty extra slots from the end. §lLoad§r also lists where you last died.\n\n" +
+          "§lSave Spawn Here§r sets your respawn point to where you stand.\n\nWaypoints belong to each player."
+      )
+    )
+    .button("Exit")
+    .button("Back");
+  const response = await show(form, player);
+  return !response || response.canceled || response.selection === 0 ? "closed" : "back";
+}
+
+async function mainMenu(player) {
+  while (true) {
+    const form = new ActionFormData()
+      .title(TITLE)
+      .body(heading("Main Menu", `Slots used: §l${usedCount(player)}§r / §l${slotCount(player)}§r`))
+      .button("Exit")
+      .button("Save Spawn Here")
+      .button("Save")
+      .button("Load")
+      .button("Delete")
+      .button("About");
+    const response = await show(form, player);
+    if (!response || response.canceled) return;
+    let result = "back";
+    switch (response.selection) {
+      case 0:
+        return;
+      case 1:
+        saveSpawnHere(player);
+        return;
+      case 2:
+        result = await saveFlow(player);
+        break;
+      case 3:
+        result = await loadFlow(player);
+        break;
+      case 4:
+        result = await deleteFlow(player);
+        break;
+      case 5:
+        result = await aboutScreen(player);
+        break;
+    }
+    if (result !== "back") return;
+  }
+}
+
+async function openMenu(player) {
+  if (openMenus.has(player.id)) return;
+  openMenus.add(player.id);
+  try {
+    await mainMenu(player);
+  } catch (error) {
+    return;
+  } finally {
+    openMenus.delete(player.id);
+  }
+}
+
+world.afterEvents.itemUse.subscribe((event) => {
+  if (event.itemStack.typeId !== MENU_ITEM) return;
+  openMenu(event.source);
+});
+
+world.afterEvents.entityHurt.subscribe((event) => {
+  const state = teleporting.get(event.hurtEntity.id);
+  if (state) state.cancel("you took damage");
+});
+
+world.afterEvents.entityDie.subscribe(
+  (event) => {
+    try {
+      const player = event.deadEntity;
+      const rotation = player.getRotation();
+      player.setDynamicProperty(
+        DEATH_KEY,
+        JSON.stringify({
+          x: Math.round(player.location.x * 100) / 100,
+          y: Math.round(player.location.y * 100) / 100,
+          z: Math.round(player.location.z * 100) / 100,
+          d: player.dimension.id,
+          rx: rotation.x,
+          ry: rotation.y,
+        })
+      );
+    } catch (error) {
+      return;
+    }
+  },
+  { entityTypes: ["minecraft:player"] }
+);
+```
+
+## FILE: MCPEDL/Addons/Waypoint-Helper/CHANGELOG.md (150 lines, 5689 bytes)
+
+```
+# Changelog — Waypoint Helper
+
+---
+
+## [1.1.10] - 2026-11-14
+
+**What's new in v1.1.10:** Packed with 4 updates, from v1.1.7 through v1.1.10. Includes: Rename And Move Removed; Move Slots; Name On Save And Faster Fade; Bold Countdown Number.
+
+### Improved & Balanced
+
+- **Rename And Move Removed**: The Rename and Move buttons are gone from the main menu. Name a slot when you save it, and save into the same slot again to change its name.
+- **Empty Name**: Leaving the name empty when you save now always shows the coordinates, even on a slot that had a name.
+- **Menu Fade-In**: Menus fade in again with a quick 0.12 second fade, much faster than the old animation.
+- **Countdown Number**: The seconds in the teleport countdown are now bold and white so they stand out from the rest of the message.
+
+### Added
+
+- **Move Slot**: A new Move button on the main menu changes where a waypoint sits in your list. Pick the slot, then pick where it goes, and a filled slot swaps places with it.
+- **Name On Save**: After you pick a slot, Save now asks you to name it. Leave the name empty to show the coordinates, or to keep the slot's current name.
+
+## [1.1.6] - 2026-11-14
+
+**What's new in v1.1.6:** Packed with the v1.1.6 update. Includes: Dimension Colors In Menus.
+
+### Improved & Balanced
+
+- **Dimension Colors In Menus**: Saved slots and the Last Death button now show their text in green for the Overworld, red for the Nether and yellow for The End.
+
+
+
+## [1.1.5] - 2026-11-13
+
+**What's new in v1.1.5:** Packed with 2 updates, from v1.1.4 through v1.1.5. Includes: Last Death And Slot Cleanup; Delete And Safer Teleports.
+
+### Added
+
+- **Last Death**: Your death location is now saved automatically and shown as the first button in Load.
+- **Remove Extra Slots**: Delete now removes empty extra slots from the end of the list. The first 10 slots always stay.
+- **Delete Slot**: A new Delete button on the main menu clears a saved slot after you confirm.
+- **Cancel On Move Or Damage**: Moving or taking damage during the countdown cancels the teleport.
+- **Teleport Cooldown**: There is a 10 second wait after each teleport before you can teleport again.
+- **Arrival Effect**: A portal particle effect plays where you arrive.
+- **Fall Protection**: You get 5 seconds of slow falling after you arrive.
+
+### Fixed
+
+- **Cooldown After Reload**: The teleport wait now carries over when the world reloads or you rejoin.
+
+### Improved & Balanced
+
+- **Menu Colors**: Menu buttons and text now use the default color. Colors only appear in the title bar and on action bar messages.
+- **Action Bar Messages**: Rename, delete and spawn point messages now show on the action bar instead of in chat.
+
+
+
+
+
+## [1.1.3] - 2026-11-13
+
+**What's new in v1.1.3:** Packed with 3 updates, from v1.1.1 through v1.1.3. Includes: Behavior Pack Add-on Tag; Safe Teleport Landing; Teleport Countdown And Sounds.
+
+### Fixed
+
+- **Add-on Tag**: The Behavior Pack is now marked as an add-on, matching the Resource Pack, so both packs are listed together as one add-on.
+- **Mid-Air Landing**: Loading a waypoint whose spot is now in the air no longer drops you from a height.
+
+### Added
+
+- **Solid Ground Landing**: After a teleport, the Waypoint Helper checks the spot you arrive at. If it is now empty air you land on the ground below, and if it is inside blocks you are moved up to open space.
+- **Teleport Countdown**: Loading a waypoint now counts down 3 seconds on the action bar before you teleport.
+- **Teleport Sounds**: A click plays on each countdown second and a teleport sound plays when you arrive.
+
+### Improved & Balanced
+
+- **Dimension Colors**: The save message is now green in the Overworld, red in the Nether and yellow in The End.
+- **Action Bar Messages**: Save and teleport messages now show on the action bar instead of in chat.
+
+
+
+
+
+
+
+## [1.1.0] - 2026-11-12
+
+**What's new in v1.1.0:** Packed with the v1.0.3 update.
+
+### Added
+
+- **Exit Button**: Every menu now starts with an Exit button that closes the Waypoint Helper. Menus opened from the main menu also have a Back button at the top.
+
+### Improved & Balanced
+
+- **Instant Menu Switching**: Moving between Waypoint Helper menus no longer plays the slow open and close animation.
+
+### Fixed
+
+- **Title Bar**: The orange pack name and version in the title bar now show correctly.
+- **Button Look**: Buttons now have a flat dark fill with a thin raised edge instead of a blocky two-tone block.
+
+
+
+
+
+
+
+
+
+## [1.0.2] - 2026-11-12
+
+### Added
+- **Cheatstick Menu Look**: All Waypoint Helper menus now use the Cheatstick panel, title bar and button textures with colored text. The pack is now a Complete Pack (.mcaddon) with a Resource Pack.
+
+### Fixed
+- **Menu Compass**: The Waypoint Helper no longer gives you a Compass when you spawn. Use any Compass you already own to open the menu.
+
+
+
+
+
+
+
+
+
+
+
+## [1.0.1] - 2026-11-12
+
+### Fixed
+- **Menu Compass**: The Waypoint Helper Compass is now given only once, the first time a player joins the world. It is no longer given again on respawn.
+
+
+
+
+
+
+
+
+
+
+
+## [1.0.0] - 2026-11-12
+
+### Added
+- **Waypoint Menu**: Use a Compass to open a menu with Save Spawn Here, Save, Load, Rename and About.
+- **Waypoint Slots**: Every player starts with 10 slots. Once all slots are filled, Save offers an Add Slot button that adds one more slot each time, with no upper limit.
+- **Save and Load**: Save stores your position, facing and dimension in a slot. Load teleports you back to it.
+- **Rename**: Give a slot a name. A named slot shows only its name and hides its coordinates. Leaving the name empty shows the coordinates again.
+- **Save Spawn Here**: Sets your respawn point to the spot where you are standing.
+```
+
+## FILE: MCPEDL/Addons/Waypoint-Helper/DESCRIPTION.md (92 lines, 4567 bytes)
+
+```
+# Waypoint Helper — Ten Waypoint Slots With Save, Load And Delete
+
+**By ALNStudios**
+
+[![Minecraft Bedrock](https://img.shields.io/badge/Minecraft%20Bedrock-Stable%20Release-brightgreen?style=flat-square&logo=minecraft)](https://github.com/AllensCreations/MCPE-Curseforges)
+[![Format](https://img.shields.io/badge/Format-.MCPACK%20%7C%20.MCADDON%20%7C%20.MCWORLD-blue?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges)
+
+**Save up to 10 waypoints with a Compass, add more slots without limit, and teleport back to any of them.**
+
+> Waypoint Helper adds a Cheatstick-styled Compass menu with Save, Load and Delete for 10 starting waypoint slots.
+
+## Overview
+
+Right-click a Compass to open the Waypoint Helper menu. Save your current position into a slot, then pick that slot under Load to teleport back to it.
+
+## Key Features
+
+### Waypoint Slots
+- **What Happens**: Each player has 10 slots.
+- **Good To Know**: There is no upper limit on slots.
+
+### Save And Load
+- **What Happens**: Save stores your position, facing direction and dimension in the slot you choose, then asks for an optional name of up to 24 characters.
+- **Good To Know**: Saved slots and the save message are green in the Overworld, red in the Nether and yellow in The End.
+
+### Last Death
+- **What Happens**: Your death location is saved automatically.
+- **Good To Know**: Only your most recent death is kept.
+
+### Delete
+- **What Happens**: Delete clears a saved slot after you confirm.
+- **Good To Know**: Deleting empties the slot so you can save there again.
+
+### Teleport Safety
+- **What Happens**: Moving or taking damage during the 3 second countdown cancels the teleport.
+- **Good To Know**: A portal particle effect plays when you arrive, and you get 5 seconds of slow falling to avoid fall damage.
+
+### Save Spawn Here
+- **What Happens**: Sets your respawn point to the block where you are standing in your current dimension.
+
+### Menu Compass
+- **What Happens**: Right-click any Compass to open the menu.
+
+### Cheatstick Menu Look
+- **What Happens**: Menus use a dark panel, an orange title bar showing the pack name and version, and blue-highlighted buttons and a quick fade-in, with saved slots and action bar messages colored by dimension.
+- **Good To Know**: The look comes from the Resource Pack, so activate it in your world's settings.
+
+## How to Use
+
+1. Right-click a Compass to open the Waypoint Helper menu.
+2. Tap Save and choose a slot to store your current position.
+3. Tap Load and choose that slot to teleport back to it.
+
+## Common Questions
+
+- **How do I get more than 10 slots?**: Fill all 10 slots, then open Save. An Add Slot button appears and adds one slot per press.
+- **Why do the menus look plain?**: The Resource Pack is not active. Activate it in your world's settings.
+- **How do I rename a slot?**: Save into the same slot again, confirm the overwrite and enter a new name.
+
+## Compatibility
+
+- Minecraft Bedrock Edition: not verified
+- Experimental features: No experiment requirement detected in the inspected files.
+- Achievements: Likely achievement-friendly.
+- Verification: source created. Not tested in game.
+
+## Creator and Permissions
+
+- Creator: ALNStudios
+- Profiles: [CurseForge Profile](https://www.curseforge.com/members/allenscreations/projects) · [MCPEDL Profile](https://mcpedl.com/user/alnstudios/)
+
+<a href="https://www.curseforge.com/members/allenscreations/projects"><img src="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/assets/Images/curseforge.jpg" alt="CurseForge" width="45%"></a> <a href="https://mcpedl.com/user/alnstudios/"><img src="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/assets/Images/MCPEDL.jpg" alt="MCPEDL" width="45%"></a>
+
+## Guidelines and Attribution
+
+- Creator: ALNStudios
+- Rights & Reservation: All rights reserved for ALNStudios.
+- Content Creators: Content creators are permitted to feature this creation in videos and streams with credit to ALNStudios.
+- Redistribution: Do not re-upload this pack or provide direct monetized download bypasses. Link directly to the official repository page.
+- Disclaimer: This is an unofficial community creation. It is not an official Minecraft product and is not approved by or associated with Mojang or Microsoft.
+
+---
+
+© All rights reserved for ALNStudios.
+
+---
+
+## Search & Discovery Keywords
+
+Minecraft Bedrock add-on, Waypoint Helper Bedrock mod, waypoint teleport, save coordinates, name waypoints, Compass menu, Minecraft PE survival, MCPEDL add-on, CurseForge Bedrock, ALNStudios.
+```
+
+## FILE: MCPEDL/Addons/Waypoint-Helper/LOCK (5 lines, 167 bytes)
+
+```
+ALNStudios Add-on Lock v1
+
+Required repository marker for build validation.
+This marker does not encrypt source files or prevent extraction of distributable packages.
+```
+
+## FILE: MCPEDL/Addons/Waypoint-Helper/project.json (4 lines, 50 bytes)
+
+```
+{
+  "type": "addon",
+  "name": "Waypoint Helper"
+}
+```
+
+## FILE: MCPEDL/Addons/Waypoint-Helper/README.md (19 lines, 803 bytes)
+
+```
+# Waypoint Helper
+
+Download the current release of **Waypoint Helper** for Minecraft Bedrock Edition.
+
+## Download
+
+- **Package format:** `.mcaddon`
+- **Direct download:** [Download Waypoint Helper (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Waypoint-Helper/WaypointHelper%20V1.1.10.mcaddon)
+
+## Installation
+
+1. Download the package using the link above.
+2. Open the downloaded file with Minecraft to import it.
+3. If the package contains a pack that must be enabled separately, activate it in your world's settings.
+
+## Pack Information
+
+For gameplay features, usage details, compatibility notes, and other project information, read the [full description](https://github.com/AllensCreations/MCPE-Curseforges/blob/main/MCPEDL/Addons/Waypoint-Helper/DESCRIPTION.md).
+```
+
+## FILE: MCPEDL/Addons/Waypoint-Helper/resource_pack/LOCK (5 lines, 160 bytes)
+
+```
+ALNStudios Add-on Lock v1
+
+Pack marker included in the exported Minecraft Bedrock pack.
+This marker does not encrypt the pack or prevent extraction or editing.
+```
+
+## FILE: MCPEDL/Addons/Waypoint-Helper/resource_pack/manifest.json (37 lines, 624 bytes)
+
+```
+{
+  "format_version": 2,
+  "header": {
+    "name": "Waypoint Helper (v1.1.10)",
+    "description": "Cheatstick-style menu textures for the add-on. by ALNStudios",
+    "uuid": "da4e9100-513b-4456-b041-bbd208295ea1",
+    "version": [
+      1,
+      1,
+      10
+    ],
+    "min_engine_version": [
+      1,
+      26,
+      60
+    ]
+  },
+  "modules": [
+    {
+      "type": "resources",
+      "uuid": "16d00aa4-b669-409a-a689-1d97f3f6e636",
+      "version": [
+        1,
+        1,
+        10
+      ]
+    }
+  ],
+  "metadata": {
+    "authors": [
+      "ALNStudios"
+    ],
+    "product_type": "addon",
+    "version": "1.1.10"
+  }
+}
+```
+
+## FILE: MCPEDL/Addons/Waypoint-Helper/resource_pack/textures/ui/cheatstick/button.json (1 lines, 42 bytes)
+
+```
+{"nineslice_size": 2, "base_size": [6, 6]}
+```
+
+## FILE: MCPEDL/Addons/Waypoint-Helper/resource_pack/textures/ui/cheatstick/button_hover.json (1 lines, 42 bytes)
+
+```
+{"nineslice_size": 2, "base_size": [6, 6]}
+```
+
+## FILE: MCPEDL/Addons/Waypoint-Helper/resource_pack/textures/ui/cheatstick/button_pressed.json (1 lines, 42 bytes)
+
+```
+{"nineslice_size": 2, "base_size": [6, 6]}
+```
+
+## FILE: MCPEDL/Addons/Waypoint-Helper/resource_pack/textures/ui/cheatstick/panel.json (1 lines, 38 bytes)
+
+```
+{"nineslice_size":3,"base_size":[8,8]}
+```
+
+## FILE: MCPEDL/Addons/Waypoint-Helper/resource_pack/ui/server_form.json (543 lines, 14310 bytes)
+
+```
+{
+  "namespace": "server_form",
+  "wp_fade_in": {
+    "anim_type": "alpha",
+    "easing": "linear",
+    "duration": 0.12,
+    "from": 0,
+    "to": 1
+  },
+  "main_screen_content": {
+    "type": "panel",
+    "size": [
+      0,
+      0
+    ],
+    "controls": [
+      {
+        "server_form_factory": {
+          "type": "factory",
+          "control_ids": {
+            "long_form": "@server_form.wp_long_form_router",
+            "custom_form": "@server_form.wp_custom_form_router"
+          }
+        }
+      }
+    ]
+  },
+  "wp_long_form_router": {
+    "type": "panel",
+    "size": [
+      0,
+      0
+    ],
+    "controls": [
+      {
+        "wp_themed": {
+          "anims": [
+            "@server_form.wp_fade_in"
+          ],
+          "type": "panel",
+          "size": [
+            190,
+            210
+          ],
+          "layer": 2,
+          "bindings": [
+            {
+              "binding_name": "#title_text"
+            },
+            {
+              "binding_type": "view",
+              "source_property_name": "(not ((#title_text - 'WPH|') = #title_text))",
+              "target_property_name": "#visible"
+            }
+          ],
+          "controls": [
+            {
+              "backdrop": {
+                "type": "image",
+                "texture": "textures/ui/cheatstick/backdrop",
+                "size": [
+                  4000,
+                  4000
+                ],
+                "keep_ratio": false,
+                "layer": 0
+              }
+            },
+            {
+              "panel": {
+                "type": "image",
+                "texture": "textures/ui/cheatstick/panel",
+                "nineslice_size": 3,
+                "size": [
+                  "100%",
+                  "100%"
+                ],
+                "layer": 1
+              }
+            },
+            {
+              "title_bar": {
+                "type": "image",
+                "texture": "textures/ui/cheatstick/title_bar",
+                "size": [
+                  "100% - 4px",
+                  18
+                ],
+                "offset": [
+                  2,
+                  2
+                ],
+                "anchor_from": "top_left",
+                "anchor_to": "top_left",
+                "layer": 2,
+                "controls": [
+                  {
+                    "title_label": {
+                      "type": "label",
+                      "color": [
+                        1,
+                        1,
+                        1
+                      ],
+                      "shadow": true,
+                      "anchor_from": "center",
+                      "anchor_to": "center",
+                      "size": [
+                        "100% - 8px",
+                        "default"
+                      ],
+                      "text_alignment": "center",
+                      "layer": 3,
+                      "bindings": [
+                        {
+                          "binding_name": "#title_text"
+                        },
+                        {
+                          "binding_type": "view",
+                          "source_property_name": "(#title_text - 'WPH|')",
+                          "target_property_name": "#text"
+                        }
+                      ]
+                    }
+                  }
+                ],
+                "keep_ratio": false
+              }
+            },
+            {
+              "content_area": {
+                "type": "panel",
+                "size": [
+                  "100% - 16px",
+                  "100% - 32px"
+                ],
+                "offset": [
+                  8,
+                  24
+                ],
+                "anchor_from": "top_left",
+                "anchor_to": "top_left",
+                "layer": 3,
+                "controls": [
+                  {
+                    "scrolling_panel@common.scrolling_panel": {
+                      "anchor_to": "top_left",
+                      "anchor_from": "top_left",
+                      "$show_background": false,
+                      "size": [
+                        "100%",
+                        "100%"
+                      ],
+                      "$scrolling_content": "server_form.wp_scrolling_content",
+                      "$scroll_size": [
+                        5,
+                        "100% - 4px"
+                      ],
+                      "$scrolling_pane_size": [
+                        "100% - 4px",
+                        "100% - 2px"
+                      ],
+                      "$scrolling_pane_offset": [
+                        2,
+                        0
+                      ],
+                      "$scroll_bar_right_padding_size": [
+                        0,
+                        0
+                      ]
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      },
+      {
+        "wp_vanilla@server_form.long_form": {
+          "bindings": [
+            {
+              "binding_name": "#title_text"
+            },
+            {
+              "binding_type": "view",
+              "source_property_name": "((#title_text - 'WPH|') = #title_text)",
+              "target_property_name": "#visible"
+            }
+          ]
+        }
+      }
+    ]
+  },
+  "wp_custom_form_router": {
+    "type": "panel",
+    "size": [
+      0,
+      0
+    ],
+    "controls": [
+      {
+        "wp_themed": {
+          "anims": [
+            "@server_form.wp_fade_in"
+          ],
+          "type": "panel",
+          "size": [
+            190,
+            210
+          ],
+          "layer": 2,
+          "bindings": [
+            {
+              "binding_name": "#title_text"
+            },
+            {
+              "binding_type": "view",
+              "source_property_name": "(not ((#title_text - 'WPH|') = #title_text))",
+              "target_property_name": "#visible"
+            }
+          ],
+          "controls": [
+            {
+              "backdrop": {
+                "type": "image",
+                "texture": "textures/ui/cheatstick/backdrop",
+                "size": [
+                  4000,
+                  4000
+                ],
+                "keep_ratio": false,
+                "layer": 0
+              }
+            },
+            {
+              "panel": {
+                "type": "image",
+                "texture": "textures/ui/cheatstick/panel",
+                "nineslice_size": 3,
+                "size": [
+                  "100%",
+                  "100%"
+                ],
+                "layer": 1
+              }
+            },
+            {
+              "title_bar": {
+                "type": "image",
+                "texture": "textures/ui/cheatstick/title_bar",
+                "size": [
+                  "100% - 4px",
+                  18
+                ],
+                "offset": [
+                  2,
+                  2
+                ],
+                "anchor_from": "top_left",
+                "anchor_to": "top_left",
+                "layer": 2,
+                "controls": [
+                  {
+                    "title_label": {
+                      "type": "label",
+                      "color": [
+                        1,
+                        1,
+                        1
+                      ],
+                      "shadow": true,
+                      "anchor_from": "center",
+                      "anchor_to": "center",
+                      "size": [
+                        "100% - 8px",
+                        "default"
+                      ],
+                      "text_alignment": "center",
+                      "layer": 3,
+                      "bindings": [
+                        {
+                          "binding_name": "#title_text"
+                        },
+                        {
+                          "binding_type": "view",
+                          "source_property_name": "(#title_text - 'WPH|')",
+                          "target_property_name": "#text"
+                        }
+                      ]
+                    }
+                  }
+                ],
+                "keep_ratio": false
+              }
+            },
+            {
+              "content_area": {
+                "type": "panel",
+                "size": [
+                  "100% - 16px",
+                  "100% - 32px"
+                ],
+                "offset": [
+                  8,
+                  24
+                ],
+                "anchor_from": "top_left",
+                "anchor_to": "top_left",
+                "layer": 3,
+                "controls": [
+                  {
+                    "custom_content@server_form.custom_form_panel": {
+                      "size": [
+                        "100%",
+                        "100%"
+                      ]
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      },
+      {
+        "wp_vanilla@server_form.custom_form": {
+          "bindings": [
+            {
+              "binding_name": "#title_text"
+            },
+            {
+              "binding_type": "view",
+              "source_property_name": "((#title_text - 'WPH|') = #title_text)",
+              "target_property_name": "#visible"
+            }
+          ]
+        }
+      }
+    ]
+  },
+  "wp_scrolling_content": {
+    "type": "stack_panel",
+    "size": [
+      "100% - 4px",
+      "100%c"
+    ],
+    "orientation": "vertical",
+    "anchor_from": "top_left",
+    "anchor_to": "top_left",
+    "controls": [
+      {
+        "label_panel": {
+          "type": "panel",
+          "size": [
+            "100%",
+            "100%c"
+          ],
+          "controls": [
+            {
+              "main_label": {
+                "type": "label",
+                "color": [
+                  0.722,
+                  0.737,
+                  0.776
+                ],
+                "size": [
+                  "100%",
+                  "default"
+                ],
+                "anchor_from": "top_left",
+                "anchor_to": "top_left",
+                "text": "#form_text",
+                "bindings": [
+                  {
+                    "binding_name": "#form_text"
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      },
+      {
+        "padding": {
+          "type": "panel",
+          "size": [
+            "100%",
+            6
+          ]
+        }
+      },
+      {
+        "wp_buttons@server_form.wp_buttons_panel": {}
+      }
+    ]
+  },
+  "wp_buttons_panel": {
+    "type": "stack_panel",
+    "size": [
+      "100%",
+      "100%c"
+    ],
+    "orientation": "vertical",
+    "anchor_from": "top_middle",
+    "anchor_to": "top_middle",
+    "factory": {
+      "name": "buttons",
+      "control_ids": {
+        "button": "server_form.wp_button"
+      }
+    },
+    "collection_name": "form_buttons",
+    "bindings": [
+      {
+        "binding_name": "#form_button_contents",
+        "binding_name_override": "#collection_length"
+      }
+    ]
+  },
+  "wp_button": {
+    "type": "panel",
+    "size": [
+      "100%",
+      24
+    ],
+    "controls": [
+      {
+        "wp_form_button": {
+          "type": "button",
+          "size": [
+            "100%",
+            20
+          ],
+          "anchor_from": "top_left",
+          "anchor_to": "top_left",
+          "default_control": "default",
+          "hover_control": "hover",
+          "pressed_control": "pressed",
+          "button_mappings": [
+            {
+              "from_button_id": "button.menu_select",
+              "to_button_id": "button.form_button_click",
+              "mapping_type": "pressed"
+            },
+            {
+              "from_button_id": "button.menu_ok",
+              "to_button_id": "button.form_button_click",
+              "mapping_type": "focused"
+            }
+          ],
+          "bindings": [
+            {
+              "binding_type": "collection_details",
+              "binding_collection_name": "form_buttons"
+            }
+          ],
+          "controls": [
+            {
+              "default": {
+                "type": "image",
+                "texture": "textures/ui/cheatstick/button",
+                "nineslice_size": 2,
+                "size": [
+                  "100%",
+                  "100%"
+                ],
+                "layer": 1
+              }
+            },
+            {
+              "hover": {
+                "type": "image",
+                "texture": "textures/ui/cheatstick/button_hover",
+                "nineslice_size": 2,
+                "size": [
+                  "100%",
+                  "100%"
+                ],
+                "layer": 1
+              }
+            },
+            {
+              "pressed": {
+                "type": "image",
+                "texture": "textures/ui/cheatstick/button_pressed",
+                "nineslice_size": 2,
+                "size": [
+                  "100%",
+                  "100%"
+                ],
+                "layer": 1
+              }
+            },
+            {
+              "button_label": {
+                "type": "label",
+                "color": [
+                  1,
+                  1,
+                  1
+                ],
+                "shadow": true,
+                "layer": 3,
+                "anchor_from": "center",
+                "anchor_to": "center",
+                "size": [
+                  "100% - 6px",
+                  "default"
+                ],
+                "max_size": [
+                  "100% - 6px",
+                  18
+                ],
+                "text_alignment": "center",
+                "text": "#form_button_text",
+                "bindings": [
+                  {
+                    "binding_name": "#form_button_text",
+                    "binding_type": "collection",
+                    "binding_collection_name": "form_buttons"
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      }
+    ]
+  },
+  "third_party_server_screen@common.base_screen": {
+    "$screen_animations": [],
+    "$screen_content": "server_form.main_screen_content",
+    "button_mappings": [
+      {
+        "from_button_id": "button.menu_cancel",
+        "to_button_id": "button.menu_exit",
+        "mapping_type": "global"
+      }
+    ]
+  }
+}
+```

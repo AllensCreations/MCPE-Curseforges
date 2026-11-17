@@ -1,0 +1,1478 @@
+# Repo Export
+
+## Index
+
+- **Export request:** `MCPEDL/Minigame/Mob-Chaos-Behavioral-Roulette`
+- **Destination:** `MCPEDL/Minigame/Mob-Chaos-Behavioral-Roulette`
+- **CURRENT VERSION: 1.4.2 / NEXT UPDATE: 1.4.3**  (`MCPEDL/Minigame/Mob-Chaos-Behavioral-Roulette/CHANGELOG.md`)
+- **Text files:** 18
+- **Skipped binary:** 1
+- **Paths not found:** 0
+
+### Files in this export
+
+- `changelog_views/Mob-Chaos-Behavioral-Roulette.curseforge.html`
+- `changelog_views/Mob-Chaos-Behavioral-Roulette.github.md`
+- `description_views/Mob-Chaos-Behavioral-Roulette.listing.md`
+- `MCPEDL/Minigame/Mob-Chaos-Behavioral-Roulette/assets/snapshots/.gitkeep`
+- `MCPEDL/Minigame/Mob-Chaos-Behavioral-Roulette/behavior_pack/functions/end_game.mcfunction`
+- `MCPEDL/Minigame/Mob-Chaos-Behavioral-Roulette/behavior_pack/functions/give_controller.mcfunction`
+- `MCPEDL/Minigame/Mob-Chaos-Behavioral-Roulette/behavior_pack/functions/restart_game.mcfunction`
+- `MCPEDL/Minigame/Mob-Chaos-Behavioral-Roulette/behavior_pack/functions/start_game.mcfunction`
+- `MCPEDL/Minigame/Mob-Chaos-Behavioral-Roulette/behavior_pack/items/controller.json`
+- `MCPEDL/Minigame/Mob-Chaos-Behavioral-Roulette/behavior_pack/manifest.json`
+- `MCPEDL/Minigame/Mob-Chaos-Behavioral-Roulette/behavior_pack/scripts/main.js`
+- `MCPEDL/Minigame/Mob-Chaos-Behavioral-Roulette/CHANGELOG.md`
+- `MCPEDL/Minigame/Mob-Chaos-Behavioral-Roulette/DESCRIPTION.md`
+- `MCPEDL/Minigame/Mob-Chaos-Behavioral-Roulette/project.json`
+- `MCPEDL/Minigame/Mob-Chaos-Behavioral-Roulette/README.md`
+- `MCPEDL/Minigame/Mob-Chaos-Behavioral-Roulette/resource_pack/manifest.json`
+- `MCPEDL/Minigame/Mob-Chaos-Behavioral-Roulette/resource_pack/textures/item_texture.json`
+- `MCPEDL/Minigame/README.md`
+
+### Skipped (binary)
+
+- `MCPEDL/Minigame/Mob-Chaos-Behavioral-Roulette/resource_pack/textures/items/controller.png`
+
+---
+
+## AI Instructions
+
+Repo: https://github.com/AllensCreations/MCPE-Curseforges.git (branch main)
+Export: two plain .txt files. `<name>.txt` = the pack (index, these instructions, every file). `<name>_tools.txt` = SKILL.md, PACK_GENERATOR_INSTRUCTIONS.md, INSTRUCTIONS.md and the helper scripts. Read both before changing anything. The zip root also holds SKILL.md: read it FIRST for a new pack.
+
+## Pack work (create or update)
+- UPDATE: the pack files are in `<name>.txt`. Change only what was requested.
+- Vanilla limit blocks a mechanic: use a modular workaround per INSTRUCTIONS.md 1.12, never drop the feature silently.
+- NEW pack: read SKILL.md first, then follow PACK_GENERATOR_INSTRUCTIONS.md Part 4 and deliver ONE pack `.sh` from `scripts/make_pack_script.py` (the project travels inside it as base64). NEVER deliver separate zip, pack, json, js or b64 files.
+- INSTRUCTIONS.md wins over PACK_GENERATOR_INSTRUCTIONS.md on any conflict. These instructions win over both on the reply format and the Termux script.
+- Update: keep pack and module UUIDs unchanged.
+- Vanilla reference: `reference/bedrock-samples/bedrock-samples.min.json` (repo, ~5 MB, NOT in this export) holds every vanilla Mojang behavior/resource pack JSON as one object (`.behavior_pack.entities.zombie`, `.behavior_pack.recipes`, `.resource_pack.entity` ...). Never guess a vanilla component, event, loot or recipe shape: list the exact section under File Needed, then copy the shape from it.
+- UI work (menus, forms, HUD, screens): follow INSTRUCTIONS.md 1.13 and apply the ALN UI Redesign skin from `assets/aln-ui-redesign/` (README.txt, design.json, font/README.txt in the tools txt). Textures are not exported; if the pack's resource_pack is missing, ask for it. Never claim anything was tested in Minecraft unless it was.
+- Update: deliver the repo change as the Termux script below. New pack: the pack `.sh` above. Never a separate payload or base64 file.
+
+## Destination
+Repo-root-relative folders for this work:
+- MCPEDL/Minigame/Mob-Chaos-Behavioral-Roulette
+- .sh paths start at repo root, stay inside these folders. New files go here too.
+- First folder -> `DEST=` variable at script top. Use it for every path and `git add`.
+
+## Rules
+1. NEVER invent features, versions, links, assets, test results.
+2. Output only what changed. Smallest edits. No unrelated rewrites.
+3. No notes/summaries/explanations unless asked.
+4. Any project type (add-on, map, script, workflow, website). Keep folder layout. New project = own new folder beside similar ones.
+
+## Update request = ONE Termux script
+- Name: `<Repofilename>_<Version>_<RAND>.sh` (e.g. `Monster-Companions_1.2.4_k7q2x.sh`). Deliver as downloadable file.
+- Repofilename: project/folder/file changed. No extension, no spaces (hyphens ok).
+- Version: new X.Y.Z. Update = Z+1. Beta/Release only if requested (see Versions).
+- RAND: >=5 random lowercase letters/digits. Fresh every script. NEVER reuse (earlier reply or existing file), so a new script never overwrites or re-runs an old one.
+- Same exact name in reply steps.
+Script order:
+1. `#!/data/data/com.termux/files/usr/bin/bash` + `set -e`
+2. `cd "$HOME/MCPE-Curseforges"`; `git clone` repo URL first if folder missing
+3. `git pull --rebase`
+4. Apply ALL changes as exact search-and-replace edits: write a spec and run `python3 scripts/make_update_script.py spec.txt` (format in `scripts/apply_update.py`; `--verify <clone>` dry-runs it). The tool applies edits atomically, sets the manifest version and writes both changelogs. Size decides the method. SMALL update (a few edits, under about 60% of any file touched): search and replace only. LARGE update (most of a file, many new files, a redesign): use the best method, `@@ create`/`@@ overwrite` in the same spec, never many fragile edits. Either way ONE `.sh`. No separate downloads.
+5. Validate every changed .json with python3. Stop on error.
+5b. Verify top CHANGELOG.md heading == new X.Y.Z == script filename version. Stop on mismatch. If project has manifests: run `python3 scripts/manifest_tools.py --project "$DEST" --set X.Y.Z` (sets header.version, metadata.version, title suffix, module/dependency versions in every source manifest; never lowers), then `python3 scripts/manifest_tools.py --project "$DEST" --check` and `python3 scripts/validate_manifest_titles.py --project "$DEST"`. Stop on error. Every update must change the manifests so the build changes. Never hand-edit manifest JSON for versions.
+5c. If INSTRUCTIONS.md or PACK_GENERATOR_INSTRUCTIONS.md changed: run `python3 scripts/check_instruction_files.py`. Stop on error
+6. `git add` changed paths only; `git commit -m "<short message>"`; `git push`
+6b. Add an entry to the ROOT `CHANGELOG.md` (repo-wide, newest first under `---`): `## [vN] - YYYY-MM-DD - [Update Name]` (N = `REPO_VERSION` + 1, a single whole number such as v80, set by the update tool, never by hand), groups `### Added` / `### Improved & Balanced` / `### Fixed`, bullets `- **Title**: what changed`. Every script, tooling-only included.
+7. After push, do NOT start any workflow. Build Changed Packs & Sync Catalogs runs by itself on every push and rebuilds everything. Nothing auto-bumps; Publish to CurseForge uploads the newest changelog version as written.
+8. Idempotent: skip anything already applied.
+9. Last line, reached only after a successful push: `rm -f -- "$SELF"` (the script deletes itself; save `SELF="$(readlink -f -- "$0")"` on line 2, before the `cd`).
+
+## Docs (every update, same script)
+- Templates STRICT: README.md, DESCRIPTION.md, CHANGELOG.md match templates below exactly: same headings, text, order, labels, bullet format. NEVER add/remove/rename/merge/reorder sections. No boilerplate/extra text. No placeholders: fill every [bracket] with verified content. Accuracy + requested scope outrank template.
+- CHANGELOG.md: MANDATORY every update, no exceptions. Add new release entry for the change.
+- README.md + DESCRIPTION.md: after change, analyze both in destination folder. Edit ONLY if change makes them inaccurate/incomplete. NEVER remove verified content.
+
+### Versions (X.Y.Z ONLY)
+- Format: exactly X.Y.Z everywhere. NEVER X.Y.Z.A. No fourth part. No Alpha.
+- X = Release, Y = Beta, Z = Update.
+- Update: Z+1 (1.2.3 -> 1.2.4). Default.
+- Beta: Y+1, Z=0 (1.2.4 -> 1.3.0). Only if requested.
+- Release: X+1, Y=0, Z=0 (1.3.0 -> 2.0.0). Only if requested.
+- New X.Y.Z goes in CHANGELOG heading + script filename.
+- Manifest versions: set ONLY by the script via `manifest_tools.py --set X.Y.Z` (never hand-edit JSON). NEVER hand-edit README download links. Build Changed Packs & Sync Catalogs aligns a pack to its highest existing version and rebuilds; it never bumps. Publish to CurseForge uploads the newest changelog version.
+- NEVER put release version in README/DESCRIPTION titles. NEVER reuse a heading.
+
+### Changelog views
+- `changelog_views/<Name>.github.md` (newest open, older folded by minor series) and `changelog_views/<Name>.curseforge.html` (CurseForge spoilers, paste into project description): generated from CHANGELOG.md by `scripts/build_changelog_views.py`.
+- CHANGELOG.md = plain text, exact template format, only source of truth. NEVER add HTML/fold markup/links to it. NEVER edit views by hand. NEVER create/change views inside the .sh.
+- Refresh: Build Changed Packs & Sync Catalogs; Collect Files for AI Review (tick commit_changelog_views to save); or `python3 scripts/build_changelog_views.py --project <Name>`.
+
+### Writing
+- Player-facing only. In-game display names, never identifiers, file names, JSON, events, code.
+- "Behavior Pack" / "Resource Pack", NEVER BP/RP.
+- README: no code blocks, emojis, hype, badges.
+- DESCRIPTION: exactly the two Minecraft Bedrock + Format badges from repo template, no others. May keep existing item sprites + recipe diagrams.
+- No Markdown tables. Use `### Feature Name` cards with `- **What Happens**: ...` bullets.
+- Paragraphs <=4 sentences. Verified facts only. Verification line = source created | package built | in-game tested, NEVER mixed.
+
+### README.md (add-on): download landing page only, EXACTLY 11 non-empty lines
+```
+# [Name]
+
+Download the current release of **[Name]** for Minecraft Bedrock Edition.
+
+## Download
+
+- **Package format:** `.mcaddon`
+- **Direct download:** [Download [Name] (.mcaddon)](link)
+
+## Installation
+
+1. Download the package using the link above.
+2. Open the downloaded file with Minecraft to import it.
+3. If the package contains a pack that must be enabled separately, activate it in your world's settings.
+
+## Pack Information
+
+For gameplay features, usage details, compatibility notes, and other project information, read the [full description](DESCRIPTION link).
+```
+Maps/scripts/minigames: same landing page. Use real package format; .mcworld = tell players to open the imported world. Product details live in DESCRIPTION.md.
+
+### DESCRIPTION.md order
+1. `# [Name] — [subtitle]` (no release version)
+2. `**By ALNStudios**`
+3. Two exact badges (Minecraft Bedrock "Stable Release", Format) from repo template
+4. Summary
+5. `## Overview`
+6. `## Key Features`
+7. `## How to Use`
+8. `## Compatibility`: Minecraft Bedrock Edition, Experimental features, Achievements, Verification
+9. `## Creator and Permissions`: `- Creator: ALNStudios`, `- Profiles:` CurseForge https://www.curseforge.com/members/allenscreations/projects · MCPEDL https://mcpedl.com/user/alnstudios/, then the two clickable listing images (HTML, `width="45%"`, no `height`, raw URLs `assets/Images/curseforge.jpg`, `assets/Images/MCPEDL.jpg`). NEVER edit/copy the images
+10. `## Guidelines and Attribution`
+11. `---` then `## Search & Discovery Keywords` from real features
+- Add-ons: Achievements line ALWAYS `Likely achievement-friendly`; add caveats if world settings/cheats can disable achievements.
+
+### Guidelines and Attribution block, exactly
+```
+- Creator: ALNStudios
+- Rights & Reservation: All rights reserved for ALNStudios.
+- Content Creators: Content creators are permitted to feature this creation in videos and streams with credit to ALNStudios.
+- Redistribution: Do not re-upload this pack or provide direct monetized download bypasses. Link directly to the official repository page.
+- Disclaimer: This is an unofficial community creation. It is not an official Minecraft product and is not approved by or associated with Mojang or Microsoft.
+
+---
+
+© All rights reserved for ALNStudios.
+
+---
+```
+
+### CHANGELOG.md
+- `# Changelog — [Name]`, `---`, then newest first: `## [X.Y.Z] - YYYY-MM-DD - [Update Name]` (date: `TZ=Asia/Singapore date +%F`). [Update Name] = short player-facing title (2-6 words) of what is new. REQUIRED on every new entry.
+- Groups: `### Added`, `### Improved & Balanced`, `### Fixed` (bugs as in-game experience). Omit empty groups. Each group >=1 bullet.
+- Entry: `- **Title**: player impact.`
+- NO links, URLs, badges, function/event names, unverified benefits. No boilerplate after title.
+- Insert new entry directly under `---`, above previous release. NEVER edit/delete older entries.
+
+## Reply Format (STRICT)
+```
+[SYSTEM_CONFIG]
+Mode: Direct Execution
+Token_Efficiency: Maximum
+Rules: no greeting, intro, outro, offers, restating. High technical accuracy.
+```
+Output ONLY these three sections, in order, exact headings:
+1. **File Needed:** repo-root-relative path of each file created/edited.
+2. **Changelog:** bullets, brief summary of changes.
+3. **Termux Script:** ONE fenced `bash` block holding ONLY the run commands: `bash ~/storage/downloads/<Repofilename>_<Version>_<RAND>.sh` (a new pack may add the same line with `stage`). The .sh is attached, NEVER pasted. NEVER a Summary section.
+- The .sh (`<Repofilename>_<Version>_<RAND>.sh`, random chars included) is the downloadable file. Exact same name in the command.
+- NEVER text before, between, after. NEVER rename/merge/reorder/skip a section. Nothing to report: `- None`.
+- Unclear request: ask ONE line, then proceed with defaults.
+- First-time Termux setup, ONLY if the user asks:
+```
+pkg update -y && pkg install -y git python curl
+termux-setup-storage
+git config --global user.name "ALNStudios"
+git config --global user.email "your-email@example.com"
+git config --global credential.helper store
+```
+- Push password = GitHub Personal Access Token (repo + workflow scopes), NOT account password. Same token starts the build after push.
+
+---
+
+## File Contents
+
+## FILE: changelog_views/Mob-Chaos-Behavioral-Roulette.curseforge.html (3 lines, 3015 bytes)
+
+```
+<h2>1.4.2 - 2026-11-06</h2><h3>Added</h3><ul><li><strong>Zoomies</strong>: Mobs sprint in random directions at huge speed.</li><li><strong>Weeping statue</strong>: Mobs freeze solid while you look at them and rush you the moment you look away.</li><li><strong>Magnet</strong>: Mobs chase you relentlessly without attacking.</li><li><strong>Panic run</strong>: Mobs flee from you in terror.</li><li><strong>Switcheroo</strong>: A mob swaps places with you.</li><li><strong>Dance fever</strong>: Mobs spin, hop and play notes.</li><li><strong>Pinata</strong>: Mobs drop treats while mutated and burst into a pile of goodies when it ends.</li><li><strong>Mitosis twins</strong>: Mobs split into temporary copies that vanish when the mutation ends.</li><li><strong>Storm caller</strong>: Mobs rumble with thunder; real lightning strikes nearby only when Block damage is on.</li><li><strong>Chaos events</strong>: About one shuffle in five becomes a surprise event with an on-screen title, where many nearby mobs get the same mutation at once. They can be turned off in the Controller.</li></ul>
+<h2>1.4.x (2 releases)</h2><div class="spoiler"><h3>1.4.1 - 2026-11-06</h3><h4>Added</h4><ul><li><strong>Start and Restart commands</strong>: Start, Restart and End can now all be triggered from commands and command blocks.</li><li><strong>Controller settings</strong>: The Controller form now has buttons for Block damage, Shuffle interval (15, 30 or 60 seconds), Mobs (All or Hostile only) and Glitch text.</li><li><strong>Controller on respawn</strong>: You get a new Controller after respawning if you are not carrying one.</li><li><strong>Mutation end cue</strong>: A soft pop sounds when a mob&#x27;s mutation wears off.</li></ul><h4>Improved &amp; Balanced</h4><ul><li><strong>Safer mutations</strong>: Villagers, wandering traders, iron golems, snow golems and tamed pets are no longer mutated.</li><li><strong>Block damage off by default</strong>: Fuse explosions no longer break blocks unless Block damage is turned on in the Controller.</li><li><strong>Ravager Fury</strong>: Hits now deal less damage and no longer reach through walls or hurt Creative and Spectator players; Burning Hunger follows the same rules.</li><li><strong>Multiplayer control</strong>: With more than one player online, only operators can use the Controller.</li><li><strong>Controller wording</strong>: The state now reads Running, Ended or Not started.</li></ul><h4>Fixed</h4><ul><li><strong>End command</strong>: The End command now actually ends the game.</li><li><strong>Blink</strong>: Mobs no longer blink into solid blocks behind you.</li><li><strong>Wings of the sky</strong>: Hovering mobs no longer overshoot their height limit.</li><li><strong>Restart</strong>: Restarting no longer shows the game-ended message before the new game starts.</li></ul><h3>1.4.0 - 2026-10-29</h3><h4>Improved &amp; Balanced</h4><ul><li><strong>Maintenance release</strong>: Repackaged the pack; no gameplay changes were recorded.</li></ul></div>
+```
+
+## FILE: changelog_views/Mob-Chaos-Behavioral-Roulette.github.md (47 lines, 2544 bytes)
+
+```
+# Changelog — Mob Chaos Behavioral Roulette
+
+## [1.4.2] - 2026-11-06
+
+### Added
+- **Zoomies**: Mobs sprint in random directions at huge speed.
+- **Weeping statue**: Mobs freeze solid while you look at them and rush you the moment you look away.
+- **Magnet**: Mobs chase you relentlessly without attacking.
+- **Panic run**: Mobs flee from you in terror.
+- **Switcheroo**: A mob swaps places with you.
+- **Dance fever**: Mobs spin, hop and play notes.
+- **Pinata**: Mobs drop treats while mutated and burst into a pile of goodies when it ends.
+- **Mitosis twins**: Mobs split into temporary copies that vanish when the mutation ends.
+- **Storm caller**: Mobs rumble with thunder; real lightning strikes nearby only when Block damage is on.
+- **Chaos events**: About one shuffle in five becomes a surprise event with an on-screen title, where many nearby mobs get the same mutation at once. They can be turned off in the Controller.
+
+<details>
+<summary><b>1.4.x</b> (2 releases)</summary>
+
+### [1.4.1] - 2026-11-06
+
+#### Added
+- **Start and Restart commands**: Start, Restart and End can now all be triggered from commands and command blocks.
+- **Controller settings**: The Controller form now has buttons for Block damage, Shuffle interval (15, 30 or 60 seconds), Mobs (All or Hostile only) and Glitch text.
+- **Controller on respawn**: You get a new Controller after respawning if you are not carrying one.
+- **Mutation end cue**: A soft pop sounds when a mob's mutation wears off.
+
+#### Improved & Balanced
+- **Safer mutations**: Villagers, wandering traders, iron golems, snow golems and tamed pets are no longer mutated.
+- **Block damage off by default**: Fuse explosions no longer break blocks unless Block damage is turned on in the Controller.
+- **Ravager Fury**: Hits now deal less damage and no longer reach through walls or hurt Creative and Spectator players; Burning Hunger follows the same rules.
+- **Multiplayer control**: With more than one player online, only operators can use the Controller.
+- **Controller wording**: The state now reads Running, Ended or Not started.
+
+#### Fixed
+- **End command**: The End command now actually ends the game.
+- **Blink**: Mobs no longer blink into solid blocks behind you.
+- **Wings of the sky**: Hovering mobs no longer overshoot their height limit.
+- **Restart**: Restarting no longer shows the game-ended message before the new game starts.
+
+### [1.4.0] - 2026-10-29
+
+#### Improved & Balanced
+- **Maintenance release**: Repackaged the pack; no gameplay changes were recorded.
+
+</details>
+```
+
+## FILE: description_views/Mob-Chaos-Behavioral-Roulette.listing.md (65 lines, 10570 bytes)
+
+````
+# Listing Kit: Mob Chaos
+
+Tap the Copy button on a block, then paste it into the CurseForge listing. Generated from DESCRIPTION.md: edit that, not this file.
+
+## Package Name
+
+```text
+Mob Chaos
+```
+
+## Summary (177/256)
+
+```text
+Mob Chaos: Behavioral Roulette turns every mob near you into a wildcard. While the game runs, nearby creatures randomly borrow abilities, sounds, and traits from other entities.
+```
+
+## Description (HTML)
+
+Paste into the CurseForge description editor in source (HTML) mode.
+
+```html
+<div><div style="border:2px solid #15803d;border-radius:18px;line-height:1.5"><br><h1 style="font-size:34px;text-align:center">Mob Chaos</h1><p style="color:#8a94a3;font-size:14px;text-align:center">by ALNStudios</p><div style="display:flex;flex-wrap:wrap;gap:8px;margin-left:14px;margin-right:14px"><div style="background-color:#dcfce7;color:#14532d;border-radius:20px;font-size:14px;line-height:2"><strong>&nbsp;&nbsp;Bedrock</strong>: 1.26+&nbsp;&nbsp;</div><div style="background-color:#dcfce7;color:#14532d;border-radius:20px;font-size:14px;line-height:2"><strong>&nbsp;&nbsp;Experimental</strong>: No&nbsp;&nbsp;</div><div style="background-color:#dcfce7;color:#14532d;border-radius:20px;font-size:14px;line-height:2"><strong>&nbsp;&nbsp;Achievements</strong>: Likely achievement-friendly; cheats or world settings may disable achievements&nbsp;&nbsp;</div></div><br></div>
+<h2 style="font-size:17px;text-align:left"><span style="background-color:#15803d;color:#ffffff;border-radius:20px">&nbsp;&nbsp;About&nbsp;&nbsp;</span></h2>
+<p>Use the Controller to start the roulette. Every 30 seconds by default, mobs close to players are randomly given a borrowed trait for a short time: cows hover and drop beef, sheep catch fire and charge, pigs gain a creeper's fuse, and spiders blink behind you.</p>
+<h2 style="font-size:17px;text-align:left"><span style="background-color:#15803d;color:#ffffff;border-radius:20px">&nbsp;&nbsp;What You Get&nbsp;&nbsp;</span></h2>
+<div style="display:flex;flex-wrap:wrap;gap:10px"><div style="flex:1;min-width:200px;border:1px solid #8a94a3;border-radius:16px"><div style="background-color:#15803d;color:#ffffff;border-radius:16px;font-size:16px;line-height:2.2"><strong>&nbsp;&nbsp;Trait Swapping Roulette</strong></div><div style="margin-left:12px;margin-right:12px"><p><span>Every 30 seconds by default, mobs close to players are randomly given a borrowed trait for a short duration:</span></p></div></div><div style="flex:1;min-width:200px;border:1px solid #8a94a3;border-radius:16px"><div style="background-color:#15803d;color:#ffffff;border-radius:16px;font-size:16px;line-height:2.2"><strong>&nbsp;&nbsp;Anomaly Warning Alerts</strong></div><div style="margin-left:12px;margin-right:12px"><p><span>Right before each mutation wave, blood-red glitch text flashes on the action bar or screen center (e.g.</span></p></div></div><div style="flex:1;min-width:200px;border:1px solid #8a94a3;border-radius:16px"><div style="background-color:#15803d;color:#ffffff;border-radius:16px;font-size:16px;line-height:2.2"><strong>&nbsp;&nbsp;Chaos Events</strong></div><div style="margin-left:12px;margin-right:12px"><p><span>About one shuffle in five becomes a surprise event.</span></p></div></div><div style="flex:1;min-width:200px;border:1px solid #8a94a3;border-radius:16px"><div style="background-color:#15803d;color:#ffffff;border-radius:16px;font-size:16px;line-height:2.2"><strong>&nbsp;&nbsp;ALNStudios Controller</strong></div><div style="margin-left:12px;margin-right:12px"><p><span>The Controller item is given to each player on spawn if they are not already carrying one.</span></p></div></div><div style="flex:1;min-width:200px;border:1px solid #8a94a3;border-radius:16px"><div style="background-color:#15803d;color:#ffffff;border-radius:16px;font-size:16px;line-height:2.2"><strong>&nbsp;&nbsp;Safety and Limits</strong></div><div style="margin-left:12px;margin-right:12px"><p><span>Up to 6 new mobs mutate per shuffle and up to 24 at once, within 48 blocks of a player.</span></p></div></div></div>
+<h2 style="font-size:17px;text-align:left"><span style="background-color:#15803d;color:#ffffff;border-radius:20px">&nbsp;&nbsp;Get Started&nbsp;&nbsp;</span></h2>
+<table style="width:100%;border:1px solid #8a94a3;border-radius:16px"><tbody><tr><td style="width:44px;text-align:center"><div style="background-color:#15803d;color:#ffffff;font-weight:bold;font-size:15px;text-align:center;border-radius:10px;width:30px;aspect-ratio:1/1;line-height:30px">1</div></td><td style="text-align:left;">Import the pack and enable the Behavior Pack and Resource Pack in your world settings.</td></tr><tr><td style="width:44px;text-align:center"><div style="background-color:#15803d;color:#ffffff;font-weight:bold;font-size:15px;text-align:center;border-radius:10px;width:30px;aspect-ratio:1/1;line-height:30px">2</div></td><td style="text-align:left;">Use the Controller item and choose Start.</td></tr><tr><td style="width:44px;text-align:center"><div style="background-color:#15803d;color:#ffffff;font-weight:bold;font-size:15px;text-align:center;border-radius:10px;width:30px;aspect-ratio:1/1;line-height:30px">3</div></td><td style="text-align:left;">Survive against chaotic mutating creatures.</td></tr><tr><td style="width:44px;text-align:center"><div style="background-color:#15803d;color:#ffffff;font-weight:bold;font-size:15px;text-align:center;border-radius:10px;width:30px;aspect-ratio:1/1;line-height:30px">4</div></td><td style="text-align:left;">Use the Controller to choose End when finished.</td></tr></tbody></table>
+<h2 style="font-size:17px;text-align:left"><span style="background-color:#15803d;color:#ffffff;border-radius:20px">&nbsp;&nbsp;Install&nbsp;&nbsp;</span></h2>
+<table style="width:100%;border:1px solid #8a94a3;border-radius:16px"><tbody><tr><td style="width:44px;text-align:center"><div style="background-color:#15803d;color:#ffffff;font-weight:bold;font-size:15px;text-align:center;border-radius:10px;width:30px;aspect-ratio:1/1;line-height:30px">1</div></td><td style="text-align:left;">Download the file from this page and open it with Minecraft.</td></tr><tr><td style="width:44px;text-align:center"><div style="background-color:#15803d;color:#ffffff;font-weight:bold;font-size:15px;text-align:center;border-radius:10px;width:30px;aspect-ratio:1/1;line-height:30px">2</div></td><td style="text-align:left;">Create or edit a world and turn on the new pack(s) in its settings.</td></tr><tr><td style="width:44px;text-align:center"><div style="background-color:#15803d;color:#ffffff;font-weight:bold;font-size:15px;text-align:center;border-radius:10px;width:30px;aspect-ratio:1/1;line-height:30px">3</div></td><td style="text-align:left;">Play. No Experimental toggles needed.</td></tr></tbody></table>
+<h2 style="font-size:17px;text-align:left"><span style="background-color:#15803d;color:#ffffff;border-radius:20px">&nbsp;&nbsp;Support&nbsp;&nbsp;</span></h2><div style="border:1px solid #8a94a3;border-radius:16px;text-align:center"><br><a href="https://ko-fi.com/alnstudios"><img src="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/assets/Images/ko-fi.png" alt="Support ALNStudios on Ko-fi" width="250"></a><br><br></div><p style="text-align:center"><a href="https://www.curseforge.com/members/allenscreations/projects"><strong>CurseForge</strong></a> &nbsp;|&nbsp; <a href="https://mcpedl.com/user/alnstudios/"><strong>MCPEDL</strong></a> &nbsp;|&nbsp; <a href="https://ko-fi.com/alnstudios"><strong>Ko-fi</strong></a></p>
+<hr>
+<p style="text-align:center;color:#8a94a3;font-size:13px"><strong>By ALNStudios</strong></p>
+<div class="spoiler"><p style="font-size:13px"><strong>Permissions and credits</strong></p><ul style="font-size:13px"><li>Rights: All rights reserved for ALNStudios.</li><li>Content creators: You may feature this creation in videos and streams with credit to ALNStudios.</li><li>Redistribution: Do not re-upload this pack or provide direct monetized download bypasses. Link to this page.</li><li>Unofficial community creation. Not an official Minecraft product and not approved by or associated with Mojang or Microsoft.</li></ul></div>
+<p style="text-align:center;color:#8a94a3;font-size:12px">Minecraft Bedrock add-on, Mob Chaos Behavioral Roulette Bedrock mod, mutating mobs Minecraft Bedrock, chaotic mob traits, creeper fuse animals, flying cows Bedrock, mob dance party, mob chaos events, mobs swap places, Minecraft PE minigame, MCPEDL add-on, CurseForge Bedrock, ALNStudios.</p></div>
+```
+
+## AI Image Prompts
+
+### Reference Images
+
+- **Logo reference**: attach your own logo. The generator uses it only for brand colors and mood. The result must be a new design, not a copy.
+- **Snapshot references**: attach 1 to 4 of your in-game snapshots of this pack. The generator copies their look, not their screen layout.
+
+### Logo Prompt
+
+```text
+Use the attached logo only as a brand reference for its color palette and overall mood. Do not copy it. Create a new, original logo with a different composition and a different main symbol. Do not just recolor, resize, crop, mirror or tweak the attached logo.
+Create a clean, square (1:1) logo image for the Minecraft Bedrock add-on "Mob Chaos".
+Base the main symbol on the pack idea above. Match the blocky look of the attached in-game snapshots. Center the logo, use a simple background, and keep it readable at small sizes.
+Text: "Mob Chaos" and, in small letters, "ALNStudios". ALNStudios is the brand name, so always keep it and never remove or change it. Spell both exactly.
+Do not add Minecraft, Mojang or Microsoft logos, watermarks, or characters from other games.
+```
+
+### Banner Prompt
+
+```text
+Create a wide (16:9) banner image for the Minecraft Bedrock add-on "Mob Chaos".
+Use the attached in-game snapshots as scene and style references: copy their blocky look, lighting, colors and the kind of scenery they show. Make a new composition inspired by them. Do not copy the on-screen HUD, chat or hotbar.
+Use the attached logo only as a brand reference for its colors and mood. Do not copy it. Put a new, original logo design in the banner, large enough to read, on the left or center.
+Hint at these pack features visually: Trait Swapping Roulette, Anomaly Warning Alerts, Chaos Events, ALNStudios Controller, Safety and Limits.
+Text: "Mob Chaos" and, in small letters, "by ALNStudios". ALNStudios is the brand name, so always keep it and never remove or change it. Spell both exactly.
+Leave clear space around the logo. No Minecraft, Mojang or Microsoft logos, no watermarks.
+```
+````
+
+## FILE: MCPEDL/Minigame/Mob-Chaos-Behavioral-Roulette/assets/snapshots/.gitkeep (1 lines, 0 bytes)
+
+```
+
+```
+
+## FILE: MCPEDL/Minigame/Mob-Chaos-Behavioral-Roulette/behavior_pack/functions/end_game.mcfunction (2 lines, 32 bytes)
+
+```
+scriptevent allenscreations:end
+```
+
+## FILE: MCPEDL/Minigame/Mob-Chaos-Behavioral-Roulette/behavior_pack/functions/give_controller.mcfunction (2 lines, 35 bytes)
+
+```
+give @s allenscreations:controller
+```
+
+## FILE: MCPEDL/Minigame/Mob-Chaos-Behavioral-Roulette/behavior_pack/functions/restart_game.mcfunction (2 lines, 36 bytes)
+
+```
+scriptevent allenscreations:restart
+```
+
+## FILE: MCPEDL/Minigame/Mob-Chaos-Behavioral-Roulette/behavior_pack/functions/start_game.mcfunction (2 lines, 34 bytes)
+
+```
+scriptevent allenscreations:start
+```
+
+## FILE: MCPEDL/Minigame/Mob-Chaos-Behavioral-Roulette/behavior_pack/items/controller.json (28 lines, 585 bytes)
+
+```
+{
+  "format_version": "1.20.80",
+  "minecraft:item": {
+    "description": {
+      "identifier": "allenscreations:controller",
+      "menu_category": {
+        "category": "items"
+      }
+    },
+    "components": {
+      "minecraft:max_stack_size": 1,
+      "minecraft:icon": {
+        "textures": {
+          "default": "controller"
+        }
+      },
+      "minecraft:display_name": {
+        "value": "Controller"
+      },
+      "minecraft:use_animation": "spyglass",
+      "minecraft:use_modifiers": {
+        "use_duration": 0.1,
+        "movement_modifier": 1
+      }
+    }
+  }
+}
+```
+
+## FILE: MCPEDL/Minigame/Mob-Chaos-Behavioral-Roulette/behavior_pack/manifest.json (57 lines, 1025 bytes)
+
+```
+{
+  "format_version": 2,
+  "header": {
+    "name": "Mob Chaos Behavioral Roulette (v1.4.2)",
+    "description": "Every mob near you randomly steals another creature's traits. by ALNStudios",
+    "uuid": "19a64dcf-4564-41be-a8b5-4927f4cf19d6",
+    "version": [
+      1,
+      4,
+      2
+    ],
+    "min_engine_version": [
+      1,
+      26,
+      0
+    ]
+  },
+  "modules": [
+    {
+      "type": "script",
+      "language": "javascript",
+      "uuid": "46b053df-6ac5-4b33-80cc-ca508a6bbe6f",
+      "version": [
+        1,
+        4,
+        2
+      ],
+      "entry": "scripts/main.js"
+    }
+  ],
+  "dependencies": [
+    {
+      "uuid": "d5db9770-bad9-4a54-9780-b2e6a8a08166",
+      "version": [
+        1,
+        4,
+        2
+      ]
+    },
+    {
+      "module_name": "@minecraft/server",
+      "version": "2.10.0"
+    },
+    {
+      "module_name": "@minecraft/server-ui",
+      "version": "2.2.0"
+    }
+  ],
+  "metadata": {
+    "authors": [
+      "ALNStudios"
+    ],
+    "product_type": "addon",
+    "version": "1.4.2"
+  }
+}
+```
+
+## FILE: MCPEDL/Minigame/Mob-Chaos-Behavioral-Roulette/behavior_pack/scripts/main.js (775 lines, 24501 bytes)
+
+```
+import { world, system, ItemStack, EntityComponentTypes } from "@minecraft/server";
+import { ActionFormData } from "@minecraft/server-ui";
+
+const CONTROLLER_ID = "allenscreations:controller";
+const STATE_KEY = "game_state";
+const BLOCK_KEY = "block_damage";
+const INTERVAL_KEY = "shuffle_seconds";
+const HOSTILE_KEY = "hostile_only";
+const MUTE_KEY = "mute_glitch";
+const NO_CHAOS_KEY = "no_chaos_events";
+
+const LOOP_TICKS = 10;
+const SHUFFLE_OPTIONS = [15, 30, 60];
+const WARNING_DELAY_TICKS = 40;
+const SEARCH_RADIUS = 48;
+const WARN_RADIUS = 32;
+const MAX_NEW_PER_SHUFFLE = 6;
+const MAX_ACTIVE = 24;
+const WARN_COOLDOWN_TICKS = 30;
+const CHAOS_EVENT_CHANCE = 0.2;
+const MAX_NEW_CHAOS = 12;
+const CLONE_TAG = "mc_clone";
+
+const SKIP_TYPES = [
+  "minecraft:player", "minecraft:ender_dragon", "minecraft:wither", "minecraft:warden",
+  "minecraft:armor_stand", "minecraft:npc", "minecraft:agent", "minecraft:ender_crystal",
+  "minecraft:item", "minecraft:xp_orb", "minecraft:lightning_bolt", "minecraft:tripod_camera",
+  "minecraft:minecart", "minecraft:chest_minecart", "minecraft:boat", "minecraft:chest_boat",
+  "minecraft:villager", "minecraft:villager_v2", "minecraft:wandering_trader",
+  "minecraft:iron_golem", "minecraft:snow_golem",
+];
+
+const LOOT = {
+  "minecraft:cow": "minecraft:beef", "minecraft:mooshroom": "minecraft:beef",
+  "minecraft:pig": "minecraft:porkchop", "minecraft:chicken": "minecraft:chicken",
+  "minecraft:sheep": "minecraft:mutton", "minecraft:rabbit": "minecraft:rabbit",
+  "minecraft:cod": "minecraft:cod", "minecraft:salmon": "minecraft:salmon",
+  "minecraft:zombie": "minecraft:rotten_flesh", "minecraft:skeleton": "minecraft:bone",
+  "minecraft:spider": "minecraft:string", "minecraft:creeper": "minecraft:gunpowder",
+};
+const FALLBACK_LOOT = ["minecraft:bone", "minecraft:feather", "minecraft:leather", "minecraft:string"];
+
+const SOUNDS = [
+  "mob.cow.say", "mob.creeper.say", "mob.ghast.moan", "mob.zombie.say", "mob.cat.meow",
+  "mob.wolf.growl", "mob.endermen.scream", "mob.pig.say", "mob.sheep.say", "mob.chicken.say",
+];
+
+const GENERIC_WARNINGS = [
+  "[ANOMALY DETECTED] The biological code is rewriting...",
+  "[SYSTEM WARNING] A creature has traded its soul with the void...",
+  "[REALITY GLITCH] Something here no longer obeys its nature...",
+  "[ERROR 0x00MOB] Instinct table corrupted. Reassigning...",
+  "[ANOMALY DETECTED] Do not trust what you see...",
+];
+
+const getState = () => {
+  const v = world.getDynamicProperty(STATE_KEY);
+  return typeof v === "string" ? v : "idle";
+};
+const setState = (s) => world.setDynamicProperty(STATE_KEY, s);
+
+const getFlag = (key) => world.getDynamicProperty(key) === true;
+const blockDamage = () => getFlag(BLOCK_KEY);
+const chaosEnabled = () => !getFlag(NO_CHAOS_KEY);
+const hostileOnly = () => getFlag(HOSTILE_KEY);
+const shuffleSeconds = () => {
+  const v = world.getDynamicProperty(INTERVAL_KEY);
+  return SHUFFLE_OPTIONS.includes(v) ? v : 30;
+};
+const shuffleTicks = () => shuffleSeconds() * 20;
+const isMuted = (p) => {
+  try {
+    return p.getDynamicProperty(MUTE_KEY) === true;
+  } catch (err) {
+    return false;
+  }
+};
+
+const rand = (a, b) => a + Math.floor(Math.random() * (b - a + 1));
+const pick = (arr) => arr[Math.floor(Math.random() * arr.length)];
+const niceName = (typeId) => typeId.replace("minecraft:", "").split("_").join(" ");
+
+function glitch(text) {
+  let out = "";
+  for (const ch of text) {
+    out += ch !== " " && Math.random() < 0.07 ? "§k" + ch + "§r§c" : ch;
+  }
+  return "§c" + out;
+}
+
+function valid(e) {
+  try {
+    return !!e && e.isValid;
+  } catch (err) {
+    return false;
+  }
+}
+
+const lastWarn = new Map();
+
+function warn(dimension, location, text, bigChance = 0) {
+  let players = [];
+  try {
+    players = dimension.getPlayers({ location, maxDistance: WARN_RADIUS });
+  } catch (err) {
+    return;
+  }
+  const now = system.currentTick;
+  for (const p of players) {
+    if (isMuted(p)) continue;
+    if (now - (lastWarn.get(p.id) ?? -999) < WARN_COOLDOWN_TICKS) continue;
+    lastWarn.set(p.id, now);
+    try {
+      p.onScreenDisplay.setActionBar(glitch(text));
+      if (Math.random() < bigChance) {
+        p.onScreenDisplay.setTitle("§4§k||", {
+          subtitle: glitch(text),
+          fadeInDuration: 4,
+          stayDuration: 30,
+          fadeOutDuration: 10,
+        });
+      }
+    } catch (err) {
+      // Player left or screen unavailable; ignore.
+    }
+  }
+}
+
+function nearestPlayer(entity, radius) {
+  try {
+    return entity.dimension.getPlayers({ location: entity.location, maxDistance: radius, closest: 1 })[0];
+  } catch (err) {
+    return undefined;
+  }
+}
+
+function targetable(p) {
+  try {
+    const mode = String(p.getGameMode()).toLowerCase();
+    return mode !== "creative" && mode !== "spectator";
+  } catch (err) {
+    return true;
+  }
+}
+
+function wallBetween(a, b) {
+  try {
+    const from = { x: a.location.x, y: a.location.y + 1, z: a.location.z };
+    const dx = b.location.x - from.x;
+    const dy = b.location.y + 1 - from.y;
+    const dz = b.location.z - from.z;
+    const len = Math.hypot(dx, dy, dz);
+    if (len < 0.5) return false;
+    const hit = a.dimension.getBlockFromRay(from, { x: dx / len, y: dy / len, z: dz / len }, { maxDistance: len });
+    return !!hit;
+  } catch (err) {
+    return false;
+  }
+}
+
+function addFx(en, name, ticks, amp) {
+  try {
+    en.entity.addEffect(name, Math.max(ticks, 20), { amplifier: amp, showParticles: false });
+    if (!en.fx.includes(name)) en.fx.push(name);
+  } catch (err) {
+    // Effect not applicable to this mob; ignore.
+  }
+}
+
+function lunge(en, power, lift = 0.2) {
+  const p = nearestPlayer(en.entity, 24);
+  if (!p) return;
+  const l = en.entity.location;
+  const dx = p.location.x - l.x;
+  const dz = p.location.z - l.z;
+  const len = Math.hypot(dx, dz) || 1;
+  try {
+    en.entity.applyImpulse({ x: (dx / len) * power, y: lift, z: (dz / len) * power });
+  } catch (err) {
+    // Mob cannot be pushed; ignore.
+  }
+}
+
+function strike(en, radius, damage) {
+  const p = nearestPlayer(en.entity, radius);
+  if (!p || !targetable(p) || wallBetween(en.entity, p)) return;
+  try {
+    p.applyDamage(damage, { cause: "entityAttack" });
+  } catch (err) {
+    // Player not damageable right now; ignore.
+  }
+}
+
+function sound(entity, id, pitch = 1) {
+  try {
+    entity.dimension.playSound(id, entity.location, { volume: 1.5, pitch });
+  } catch (err) {
+    // Sound unavailable; ignore.
+  }
+}
+
+function puff(entity, id) {
+  try {
+    entity.dimension.spawnParticle(id, entity.location);
+  } catch (err) {
+    // Particle unavailable; ignore.
+  }
+}
+
+function drive(en, power, lift, sign = 1) {
+  const p = nearestPlayer(en.entity, 24);
+  if (!p) return;
+  const l = en.entity.location;
+  const dx = p.location.x - l.x;
+  const dz = p.location.z - l.z;
+  const dist = Math.hypot(dx, dz);
+  if (sign > 0 && dist < 1.5) return;
+  const len = dist || 1;
+  try {
+    en.entity.applyImpulse({ x: (dx / len) * power * sign, y: lift, z: (dz / len) * power * sign });
+  } catch (err) {
+    // Mob cannot be pushed; ignore.
+  }
+}
+
+function beingWatched(en, p) {
+  try {
+    const v = p.getViewDirection();
+    const dx = en.entity.location.x - p.location.x;
+    const dy = en.entity.location.y - p.location.y;
+    const dz = en.entity.location.z - p.location.z;
+    const len = Math.hypot(dx, dy, dz) || 1;
+    const dot = (v.x * dx + v.y * dy + v.z * dz) / len;
+    return dot > 0.6 && !wallBetween(en.entity, p);
+  } catch (err) {
+    return false;
+  }
+}
+
+const PINATA_ITEMS = [
+  "minecraft:cookie", "minecraft:bread", "minecraft:golden_carrot", "minecraft:apple",
+  "minecraft:emerald", "minecraft:experience_bottle",
+];
+
+function dropPinata(entity, count) {
+  for (let i = 0; i < count; i++) {
+    try {
+      entity.dimension.spawnItem(new ItemStack(pick(PINATA_ITEMS), 1), entity.location);
+    } catch (err) { }
+  }
+}
+
+const MUTATIONS = {
+  flight: {
+    every: 30, dur: [300, 500],
+    warn: (n) => `[ANOMALY DETECTED] A ${n} has stolen the wings of the sky...`,
+    start: (en) => { en.cap = en.entity.location.y + 14; },
+    act: (en) => {
+      const e = en.entity;
+      if (e.location.y < en.cap - 3) {
+        addFx(en, "levitation", 24, 0);
+      } else {
+        try { e.removeEffect("levitation"); } catch (err) { }
+      }
+      addFx(en, "slow_falling", 60, 0);
+      if (en.n % 4 === 0) {
+        const item = LOOT[e.typeId] ?? pick(FALLBACK_LOOT);
+        try {
+          e.dimension.spawnItem(new ItemStack(item, 1), e.location);
+        } catch (err) { }
+      }
+    },
+  },
+  burning: {
+    every: 20, dur: [300, 500],
+    warn: (n) => `[SYSTEM WARNING] A ${n} burns with a hunger for flesh...`,
+    start: (en) => addFx(en, "speed", en.endAt - system.currentTick, 2),
+    act: (en) => {
+      try { en.entity.setOnFire(5, false); } catch (err) { }
+      lunge(en, 0.7);
+      strike(en, 2.5, 3);
+    },
+  },
+  leaper: {
+    every: 25, dur: [300, 450],
+    warn: (n) => `[REALITY GLITCH] A ${n} has forgotten gravity...`,
+    start: (en) => addFx(en, "jump_boost", en.endAt - system.currentTick, 5),
+    act: (en) => { lunge(en, 0.5, 0.9); },
+  },
+  teleporter: {
+    every: 60, dur: [400, 600],
+    warn: (n) => `[SYSTEM WARNING] A ${n} is learning to blink through space...`,
+    act: (en) => {
+      const p = nearestPlayer(en.entity, 24);
+      if (!p) return;
+      const d = Math.hypot(p.location.x - en.entity.location.x, p.location.z - en.entity.location.z);
+      if (d < 4) return;
+      const v = p.getViewDirection();
+      const hl = Math.hypot(v.x, v.z) || 1;
+      const target = { x: p.location.x - (v.x / hl) * 2, y: p.location.y, z: p.location.z - (v.z / hl) * 2 };
+      try {
+        const bx = Math.floor(target.x);
+        const by = Math.floor(target.y);
+        const bz = Math.floor(target.z);
+        const feet = p.dimension.getBlock({ x: bx, y: by, z: bz });
+        const head = p.dimension.getBlock({ x: bx, y: by + 1, z: bz });
+        if (!feet?.isAir || !head?.isAir) return;
+        en.entity.teleport(target, { dimension: p.dimension, facingLocation: p.location });
+        sound(en.entity, "mob.endermen.portal");
+      } catch (err) {
+        return;
+      }
+      warn(p.dimension, p.location, "[ANOMALY DETECTED] Something is standing right behind you...", 0.4);
+    },
+  },
+  ravager: {
+    every: 20, dur: [400, 600],
+    warn: (n) => `[ANOMALY DETECTED] A ${n} now carries the ferocity of a Ravager...`,
+    start: (en) => {
+      const t = en.endAt - system.currentTick;
+      addFx(en, "health_boost", t, 9);
+      addFx(en, "resistance", t, 3);
+      addFx(en, "strength", t, 4);
+      addFx(en, "speed", t, 1);
+      try { en.entity.addEffect("instant_health", 1, { amplifier: 4, showParticles: false }); } catch (err) { }
+    },
+    act: (en) => {
+      lunge(en, 0.8);
+      strike(en, 3.5, 4);
+    },
+  },
+  fuse: {
+    every: 10, dur: [120, 120],
+    warn: (n) => `[SYSTEM WARNING] A ${n} has inherited a creeper's fuse...`,
+    act: (en) => {
+      const e = en.entity;
+      if (en.n === 1) {
+        sound(e, "random.fuse");
+        addFx(en, "slowness", 60, 2);
+      }
+      if (en.n === 6) {
+        const loc = e.location;
+        const dim = e.dimension;
+        try {
+          dim.createExplosion(loc, 3, { breaksBlocks: blockDamage(), causesFire: false });
+        } catch (err) { }
+        try { e.kill(); } catch (err) { }
+        en.done = true;
+      }
+    },
+  },
+  ghost: {
+    every: 40, dur: [300, 500],
+    warn: (n) => `[ERROR 0x00MOB] A ${n} slips out of sight...`,
+    start: (en) => {
+      const t = en.endAt - system.currentTick;
+      addFx(en, "invisibility", t, 0);
+      addFx(en, "speed", t, 2);
+    },
+    act: (en) => { sound(en.entity, "mob.ghast.moan", 0.7); },
+  },
+  audio: {
+    every: 30, dur: [300, 450],
+    warn: (n) => `[REALITY GLITCH] The voice of a ${n} no longer belongs to it...`,
+    act: (en) => { sound(en.entity, pick(SOUNDS), 0.6 + Math.random() * 0.9); },
+  },
+  zoomies: {
+    every: 15, dur: [250, 400],
+    warn: (n) => `[SYSTEM WARNING] A ${n} has gone completely feral with speed...`,
+    start: (en) => addFx(en, "speed", en.endAt - system.currentTick, 3),
+    act: (en) => {
+      const a = Math.random() * Math.PI * 2;
+      try {
+        en.entity.applyImpulse({ x: Math.cos(a) * 0.6, y: 0.25, z: Math.sin(a) * 0.6 });
+      } catch (err) { }
+    },
+  },
+  angel: {
+    every: 10, dur: [400, 600],
+    warn: (n) => `[ANOMALY DETECTED] A ${n} only moves when you look away...`,
+    act: (en) => {
+      const p = nearestPlayer(en.entity, 32);
+      if (!p) return;
+      if (beingWatched(en, p)) {
+        addFx(en, "slowness", 20, 6);
+      } else {
+        try { en.entity.removeEffect("slowness"); } catch (err) { }
+        addFx(en, "speed", 20, 1);
+        lunge(en, 0.9, 0.1);
+        strike(en, 2, 4);
+      }
+    },
+  },
+  magnet: {
+    every: 10, dur: [300, 450],
+    warn: (n) => `[REALITY GLITCH] A ${n} cannot stop following you...`,
+    start: (en) => addFx(en, "speed", en.endAt - system.currentTick, 1),
+    act: (en) => { drive(en, 0.45, 0.05); },
+  },
+  runaway: {
+    every: 10, dur: [300, 450],
+    warn: (n) => `[SYSTEM WARNING] A ${n} is terrified of you...`,
+    start: (en) => addFx(en, "speed", en.endAt - system.currentTick, 2),
+    act: (en) => { drive(en, 0.6, 0.1, -1); },
+  },
+  switcheroo: {
+    every: 100, dur: [300, 500],
+    warn: (n) => `[REALITY GLITCH] A ${n} is about to trade places with you...`,
+    act: (en) => {
+      const e = en.entity;
+      const p = nearestPlayer(e, 24);
+      if (!p) return;
+      const d = Math.hypot(p.location.x - e.location.x, p.location.z - e.location.z);
+      if (d < 3) return;
+      try {
+        const a = e.location;
+        const b = p.location;
+        const ed = e.dimension;
+        const pd = p.dimension;
+        p.teleport(a, { dimension: ed });
+        e.teleport(b, { dimension: pd });
+        sound(e, "mob.endermen.portal");
+        puff(e, "minecraft:villager_happy");
+      } catch (err) {
+        return;
+      }
+      warn(p.dimension, p.location, `[REALITY GLITCH] You just traded places with a ${en.name}!`, 0.6);
+    },
+  },
+  dancer: {
+    every: 10, dur: [300, 450],
+    warn: (n) => `[ANOMALY DETECTED] A ${n} cannot stop dancing...`,
+    act: (en) => {
+      const e = en.entity;
+      try { e.setRotation({ x: 0, y: (en.n * 50) % 360 }); } catch (err) { }
+      try {
+        if (e.isOnGround) e.applyImpulse({ x: 0, y: 0.3, z: 0 });
+      } catch (err) { }
+      sound(e, "note.harp", 0.6 + (en.n % 8) * 0.15);
+    },
+  },
+  pinata: {
+    every: 40, dur: [300, 400],
+    warn: (n) => `[SYSTEM WARNING] A ${n} has turned into a pinata...`,
+    act: (en) => {
+      dropPinata(en.entity, 1);
+      sound(en.entity, "random.pop", 1.2);
+    },
+    end: (en) => {
+      dropPinata(en.entity, 6);
+      sound(en.entity, "random.levelup", 1);
+      puff(en.entity, "minecraft:totem_particle");
+    },
+  },
+  mitosis: {
+    every: 100, dur: [300, 400],
+    warn: (n) => `[ANOMALY DETECTED] A ${n} is splitting into more of itself...`,
+    start: (en) => { en.clones = []; },
+    act: (en) => {
+      const e = en.entity;
+      if (en.clones.length >= 2) return;
+      try {
+        const loc = e.location;
+        const c = e.dimension.spawnEntity(e.typeId, {
+          x: loc.x + rand(-1, 1), y: loc.y, z: loc.z + rand(-1, 1),
+        });
+        c.addTag(CLONE_TAG);
+        en.clones.push(c);
+        puff(c, "minecraft:villager_happy");
+      } catch (err) { }
+    },
+  },
+  storm: {
+    every: 50, dur: [250, 400],
+    warn: (n) => `[SYSTEM WARNING] A ${n} is calling down the storm...`,
+    act: (en) => {
+      const e = en.entity;
+      sound(e, "ambient.weather.thunder", 1);
+      if (!blockDamage()) return;
+      try {
+        const loc = e.location;
+        e.dimension.spawnEntity("minecraft:lightning_bolt", {
+          x: loc.x + rand(-3, 3), y: loc.y, z: loc.z + rand(-3, 3),
+        });
+      } catch (err) { }
+    },
+  },
+};
+const WHEEL = [
+  "flight", "flight", "burning", "burning", "leaper", "teleporter", "teleporter",
+  "ravager", "fuse", "ghost", "audio", "audio",
+  "zoomies", "zoomies", "angel", "magnet", "magnet", "runaway", "switcheroo",
+  "dancer", "dancer", "pinata", "pinata", "mitosis", "storm",
+];
+
+const CHAOS_EVENTS = [
+  { key: "magnet", title: "MAGNET MADNESS", sub: "Everything is coming for you..." },
+  { key: "dancer", title: "DANCE PARTY", sub: "Nobody can stop moving..." },
+  { key: "zoomies", title: "ZOOMIES", sub: "Gotta go fast..." },
+  { key: "pinata", title: "PINATA TIME", sub: "Something sweet is about to happen..." },
+  { key: "runaway", title: "PANIC", sub: "They are all terrified of you..." },
+  { key: "storm", title: "STORM CALLER", sub: "The sky is angry..." },
+  { key: "angel", title: "DON'T BLINK", sub: "Do not look away..." },
+];
+
+const entries = new Map();
+let nextShuffle = 0;
+
+function eligible(e) {
+  try {
+    if (!valid(e) || !e.typeId.startsWith("minecraft:") || SKIP_TYPES.includes(e.typeId)) return false;
+    if (entries.has(e.id)) return false;
+    if (e.hasTag(CLONE_TAG)) return false;
+    if (e.getComponent("minecraft:is_tamed")) return false;
+    if (hostileOnly() && !e.matches({ families: ["monster"] })) return false;
+    const h = e.getComponent("minecraft:health");
+    return !!h && h.currentValue > 0;
+  } catch (err) {
+    return false;
+  }
+}
+
+function queueMutation(e, forceKey) {
+  const key = forceKey ?? pick(WHEEL);
+  const mut = MUTATIONS[key];
+  const now = system.currentTick;
+  const dur = rand(mut.dur[0], mut.dur[1]);
+  const en = {
+    entity: e, id: e.id, mut, name: niceName(e.typeId), started: false, done: false,
+    n: 0, fx: [], startAt: now + WARNING_DELAY_TICKS, endAt: now + WARNING_DELAY_TICKS + dur, nextAct: 0,
+  };
+  entries.set(e.id, en);
+  const text = forceKey || Math.random() < 0.5 ? mut.warn(en.name) : pick(GENERIC_WARNINGS);
+  warn(e.dimension, e.location, text, 0.35);
+}
+
+function spin(forceKey) {
+  const maxNew = forceKey ? MAX_NEW_CHAOS : MAX_NEW_PER_SHUFFLE;
+  let created = 0;
+  for (const player of world.getAllPlayers()) {
+    if (created >= maxNew || entries.size >= MAX_ACTIVE) break;
+    let near = [];
+    try {
+      near = player.dimension.getEntities({
+        location: player.location, maxDistance: SEARCH_RADIUS, excludeTypes: SKIP_TYPES,
+      });
+    } catch (err) {
+      continue;
+    }
+    for (let i = near.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [near[i], near[j]] = [near[j], near[i]];
+    }
+    for (const e of near) {
+      if (created >= maxNew || entries.size >= MAX_ACTIVE) break;
+      if (!eligible(e)) continue;
+      queueMutation(e, forceKey);
+      created++;
+    }
+  }
+}
+
+function announceChaos(ev) {
+  world.sendMessage(`§4§lCHAOS EVENT: ${ev.title}`);
+  for (const p of world.getAllPlayers()) {
+    if (isMuted(p)) continue;
+    try {
+      p.onScreenDisplay.setTitle(`§4${ev.title}`, {
+        subtitle: glitch(ev.sub),
+        fadeInDuration: 6,
+        stayDuration: 40,
+        fadeOutDuration: 10,
+      });
+    } catch (err) { }
+  }
+}
+
+function runShuffle() {
+  if (chaosEnabled() && Math.random() < CHAOS_EVENT_CHANCE) {
+    const ev = pick(CHAOS_EVENTS);
+    announceChaos(ev);
+    spin(ev.key);
+  } else {
+    spin();
+  }
+}
+
+function purgeClones() {
+  for (const id of ["overworld", "nether", "the_end"]) {
+    try {
+      for (const c of world.getDimension(id).getEntities({ tags: [CLONE_TAG] })) {
+        try { c.remove(); } catch (err) { }
+      }
+    } catch (err) { }
+  }
+}
+
+function finish(en) {
+  const e = en.entity;
+  for (const c of en.clones ?? []) {
+    try { if (valid(c)) c.remove(); } catch (err) { }
+  }
+  if (!valid(e)) return;
+  if (en.started) {
+    try { en.mut.end?.(en); } catch (err) { }
+  }
+  for (const name of en.fx) {
+    try { e.removeEffect(name); } catch (err) { }
+  }
+  try { e.extinguishFire(); } catch (err) { }
+  if (en.started) sound(e, "random.pop", 0.8);
+}
+
+function clearAll() {
+  for (const en of entries.values()) finish(en);
+  entries.clear();
+  purgeClones();
+}
+
+function step(en, now) {
+  if (!valid(en.entity)) {
+    entries.delete(en.id);
+    return;
+  }
+  if (!en.started) {
+    if (now < en.startAt) return;
+    en.started = true;
+    en.mut.start?.(en);
+    en.nextAct = now;
+  }
+  if (en.done || now >= en.endAt) {
+    finish(en);
+    entries.delete(en.id);
+    return;
+  }
+  if (now >= en.nextAct) {
+    en.nextAct = now + en.mut.every;
+    en.n++;
+    en.mut.act?.(en, now);
+  }
+}
+
+system.runInterval(() => {
+  if (getState() !== "running") return;
+  const now = system.currentTick;
+  if (nextShuffle === 0) nextShuffle = now + 100;
+  if (now >= nextShuffle) {
+    nextShuffle = now + shuffleTicks();
+    runShuffle();
+  }
+  for (const en of [...entries.values()]) {
+    try {
+      step(en, now);
+    } catch (err) {
+      entries.delete(en.id);
+    }
+  }
+}, LOOP_TICKS);
+
+function startGame() {
+  setState("running");
+  world.sendMessage("§4Mob Chaos: the roulette is spinning. Nothing here is what it seems.");
+  nextShuffle = system.currentTick + 20;
+}
+
+function endGame() {
+  setState("ended");
+  clearAll();
+  nextShuffle = 0;
+  world.sendMessage("§7Mob Chaos ended. Nature settles back into its old habits.");
+}
+
+function restartGame() {
+  clearAll();
+  lastWarn.clear();
+  startGame();
+}
+
+function canControl(player) {
+  try {
+    if (world.getAllPlayers().length <= 1) return true;
+    return player.isOp();
+  } catch (err) {
+    return true;
+  }
+}
+
+const STATE_LABELS = { running: "Running", ended: "Ended", idle: "Not started" };
+
+async function openController(player, attempt = 0) {
+  if (!canControl(player)) {
+    player.sendMessage("§cOnly operators can use the Controller.");
+    return;
+  }
+  const state = getState();
+  const seconds = shuffleSeconds();
+  const form = new ActionFormData()
+    .title("Controller")
+    .body(`State: ${STATE_LABELS[state] ?? "Not started"}`)
+    .button("Start")
+    .button("Restart")
+    .button("End")
+    .button(`Block damage: ${blockDamage() ? "On" : "Off"}`)
+    .button(`Shuffle every ${seconds} seconds`)
+    .button(`Mobs: ${hostileOnly() ? "Hostile only" : "All"}`)
+    .button(`Glitch text: ${isMuted(player) ? "Off" : "On"}`)
+    .button(`Chaos events: ${chaosEnabled() ? "On" : "Off"}`);
+  let res;
+  try {
+    res = await form.show(player);
+  } catch (e) {
+    return;
+  }
+  if (res.canceled) {
+    if (String(res.cancelationReason) === "UserBusy" && attempt < 5) {
+      system.runTimeout(() => openController(player, attempt + 1), 10);
+    }
+    return;
+  }
+  if (res.selection === 0) {
+    state === "running" ? player.sendMessage("Already running.") : startGame();
+  } else if (res.selection === 1) {
+    restartGame();
+  } else if (res.selection === 2) {
+    state === "running" ? endGame() : player.sendMessage("Nothing to end.");
+  } else if (res.selection === 3) {
+    world.setDynamicProperty(BLOCK_KEY, !blockDamage());
+    system.runTimeout(() => openController(player), 2);
+  } else if (res.selection === 4) {
+    const next = SHUFFLE_OPTIONS[(SHUFFLE_OPTIONS.indexOf(seconds) + 1) % SHUFFLE_OPTIONS.length];
+    world.setDynamicProperty(INTERVAL_KEY, next);
+    nextShuffle = 0;
+    system.runTimeout(() => openController(player), 2);
+  } else if (res.selection === 5) {
+    world.setDynamicProperty(HOSTILE_KEY, !hostileOnly());
+    system.runTimeout(() => openController(player), 2);
+  } else if (res.selection === 6) {
+    player.setDynamicProperty(MUTE_KEY, !isMuted(player));
+    system.runTimeout(() => openController(player), 2);
+  } else if (res.selection === 7) {
+    world.setDynamicProperty(NO_CHAOS_KEY, chaosEnabled());
+    system.runTimeout(() => openController(player), 2);
+  }
+}
+
+world.afterEvents.itemUse.subscribe(({ source, itemStack }) => {
+  if (itemStack?.typeId === CONTROLLER_ID) openController(source);
+});
+
+system.afterEvents.scriptEventReceive.subscribe(({ id }) => {
+  if (id === "allenscreations:start") {
+    if (getState() !== "running") startGame();
+  } else if (id === "allenscreations:restart") {
+    restartGame();
+  } else if (id === "allenscreations:end") {
+    if (getState() === "running") endGame();
+  }
+});
+
+function giveController(player) {
+  const inv = player.getComponent(EntityComponentTypes.Inventory)?.container;
+  if (!inv) return;
+  for (let i = 0; i < inv.size; i++) {
+    if (inv.getItem(i)?.typeId === CONTROLLER_ID) return;
+  }
+  inv.addItem(new ItemStack(CONTROLLER_ID, 1));
+}
+world.afterEvents.playerSpawn.subscribe(({ player }) => {
+  giveController(player);
+});
+
+world.afterEvents.playerLeave.subscribe(({ playerId }) => {
+  lastWarn.delete(playerId);
+});
+```
+
+## FILE: MCPEDL/Minigame/Mob-Chaos-Behavioral-Roulette/CHANGELOG.md (52 lines, 2607 bytes)
+
+```
+# Changelog — Mob Chaos Behavioral Roulette
+
+---
+
+## [1.4.2] - 2026-11-06
+
+### Added
+
+- **Zoomies**: Mobs sprint in random directions at huge speed.
+- **Weeping statue**: Mobs freeze solid while you look at them and rush you the moment you look away.
+- **Magnet**: Mobs chase you relentlessly without attacking.
+- **Panic run**: Mobs flee from you in terror.
+- **Switcheroo**: A mob swaps places with you.
+- **Dance fever**: Mobs spin, hop and play notes.
+- **Pinata**: Mobs drop treats while mutated and burst into a pile of goodies when it ends.
+- **Mitosis twins**: Mobs split into temporary copies that vanish when the mutation ends.
+- **Storm caller**: Mobs rumble with thunder; real lightning strikes nearby only when Block damage is on.
+- **Chaos events**: About one shuffle in five becomes a surprise event with an on-screen title, where many nearby mobs get the same mutation at once. They can be turned off in the Controller.
+
+## [1.4.1] - 2026-11-06
+
+### Added
+
+- **Start and Restart commands**: Start, Restart and End can now all be triggered from commands and command blocks.
+- **Controller settings**: The Controller form now has buttons for Block damage, Shuffle interval (15, 30 or 60 seconds), Mobs (All or Hostile only) and Glitch text.
+- **Controller on respawn**: You get a new Controller after respawning if you are not carrying one.
+- **Mutation end cue**: A soft pop sounds when a mob's mutation wears off.
+
+### Improved & Balanced
+
+- **Safer mutations**: Villagers, wandering traders, iron golems, snow golems and tamed pets are no longer mutated.
+- **Block damage off by default**: Fuse explosions no longer break blocks unless Block damage is turned on in the Controller.
+- **Ravager Fury**: Hits now deal less damage and no longer reach through walls or hurt Creative and Spectator players; Burning Hunger follows the same rules.
+- **Multiplayer control**: With more than one player online, only operators can use the Controller.
+- **Controller wording**: The state now reads Running, Ended or Not started.
+
+### Fixed
+
+- **End command**: The End command now actually ends the game.
+- **Blink**: Mobs no longer blink into solid blocks behind you.
+- **Wings of the sky**: Hovering mobs no longer overshoot their height limit.
+- **Restart**: Restarting no longer shows the game-ended message before the new game starts.
+
+## v1.0.0
+- First release: Controller with Start / Restart / End, eight mob mutations, glitch warning text, test world setup.
+
+## [1.4.0] - 2026-10-29
+
+### Improved & Balanced
+
+- **Maintenance release**: Repackaged the pack; no gameplay changes were recorded.
+```
+
+## FILE: MCPEDL/Minigame/Mob-Chaos-Behavioral-Roulette/DESCRIPTION.md (71 lines, 3718 bytes)
+
+```
+# Mob Chaos: Behavioral Roulette — Wildcard Mob Mutation Minigame
+
+**By ALNStudios**
+
+[![Minecraft Bedrock](https://img.shields.io/badge/Minecraft%20Bedrock-Stable%20Release-brightgreen?style=flat-square&logo=minecraft)](https://github.com/AllensCreations/MCPE-Curseforges)
+[![Format](https://img.shields.io/badge/Format-.MCPACK%20%7C%20.MCADDON%20%7C%20.MCWORLD-blue?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges)
+
+Mob Chaos: Behavioral Roulette turns every mob near you into a wildcard. While the game runs, nearby creatures randomly borrow abilities, sounds, and traits from other entities.
+
+## Overview
+
+Use the Controller to start the roulette. Every 30 seconds by default, mobs close to players are randomly given a borrowed trait for a short time: cows hover and drop beef, sheep catch fire and charge, pigs gain a creeper's fuse, and spiders blink behind you.
+
+## Key Features
+
+### Trait Swapping Roulette
+- **What Happens**: Every 30 seconds by default, mobs close to players are randomly given a borrowed trait for a short duration:
+
+### Anomaly Warning Alerts
+- **What Happens**: Right before each mutation wave, blood-red glitch text flashes on the action bar or screen center (e.g.
+
+### Chaos Events
+- **What Happens**: About one shuffle in five becomes a surprise event.
+
+### ALNStudios Controller
+- **What Happens**: The Controller item is given to each player on spawn if they are not already carrying one.
+
+### Safety and Limits
+- **What Happens**: Up to 6 new mobs mutate per shuffle and up to 24 at once, within 48 blocks of a player.
+
+## How to Use
+
+1. Import the pack and enable the Behavior Pack and Resource Pack in your world settings.
+2. Use the Controller item and choose Start.
+3. Survive against chaotic mutating creatures.
+4. Use the Controller to choose End when finished.
+
+## Compatibility
+
+- Minecraft Bedrock Edition: 1.26.0 or newer.
+- Experimental features: No experimental features required.
+- Achievements: Likely achievement-friendly; cheats or world settings may disable achievements.
+- Verification: Source created, not tested in game.
+- Fuse explosions do not break blocks by default; turn on Block damage in the Controller to allow it.
+
+## Creator and Permissions
+
+- Creator: ALNStudios
+- Profiles: [CurseForge Profile](https://www.curseforge.com/members/allenscreations/projects) · [MCPEDL Profile](https://mcpedl.com/user/alnstudios/)
+
+<a href="https://www.curseforge.com/members/allenscreations/projects"><img src="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/assets/Images/curseforge.jpg" alt="CurseForge" width="45%"></a> <a href="https://mcpedl.com/user/alnstudios/"><img src="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/assets/Images/MCPEDL.jpg" alt="MCPEDL" width="45%"></a>
+
+## Guidelines and Attribution
+
+- Creator: ALNStudios
+- Rights & Reservation: All rights reserved for ALNStudios.
+- Content Creators: Content creators are permitted to feature this creation in videos and streams with credit to ALNStudios.
+- Redistribution: Do not re-upload this pack or provide direct monetized download bypasses. Link directly to the official repository page.
+- Disclaimer: This is an unofficial community creation. It is not an official Minecraft product and is not approved by or associated with Mojang or Microsoft.
+
+---
+
+© All rights reserved for ALNStudios.
+
+---
+
+## Search & Discovery Keywords
+
+Minecraft Bedrock add-on, Mob Chaos Behavioral Roulette Bedrock mod, mutating mobs Minecraft Bedrock, chaotic mob traits, creeper fuse animals, flying cows Bedrock, mob dance party, mob chaos events, mobs swap places, Minecraft PE minigame, MCPEDL add-on, CurseForge Bedrock, ALNStudios.
+```
+
+## FILE: MCPEDL/Minigame/Mob-Chaos-Behavioral-Roulette/project.json (5 lines, 69 bytes)
+
+```
+{
+  "type": "minigame",
+  "name": "Mob Chaos: Behavioral Roulette"
+}
+```
+
+## FILE: MCPEDL/Minigame/Mob-Chaos-Behavioral-Roulette/README.md (19 lines, 868 bytes)
+
+```
+# Mob Chaos Behavioral Roulette
+
+Download the current release of **Mob Chaos Behavioral Roulette** for Minecraft Bedrock Edition.
+
+## Download
+
+- **Package format:** `.mcaddon`
+- **Direct download:** [Download Mob Chaos Behavioral Roulette (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Mob-Chaos-Behavioral-Roulette/MobChaos%20V1.4.2.mcaddon)
+
+## Installation
+
+1. Download the package using the link above.
+2. Open the downloaded file with Minecraft to import it.
+3. If the package contains a pack that must be enabled separately, activate it in your world's settings.
+
+## Pack Information
+
+For gameplay features, usage details, compatibility notes, and other project information, read the [full description](https://github.com/AllensCreations/MCPE-Curseforges/blob/main/MCPEDL/Minigame/Mob-Chaos-Behavioral-Roulette/DESCRIPTION.md).
+```
+
+## FILE: MCPEDL/Minigame/Mob-Chaos-Behavioral-Roulette/resource_pack/manifest.json (37 lines, 625 bytes)
+
+```
+{
+  "format_version": 2,
+  "header": {
+    "name": "Mob Chaos Behavioral Roulette (v1.4.2)",
+    "description": "Controller item texture for Mob Chaos. by ALNStudios",
+    "uuid": "d5db9770-bad9-4a54-9780-b2e6a8a08166",
+    "version": [
+      1,
+      4,
+      2
+    ],
+    "min_engine_version": [
+      1,
+      26,
+      0
+    ]
+  },
+  "modules": [
+    {
+      "type": "resources",
+      "uuid": "33826e9e-246d-4cf5-8ab8-e1da0e68ea9e",
+      "version": [
+        1,
+        4,
+        2
+      ]
+    }
+  ],
+  "metadata": {
+    "authors": [
+      "ALNStudios"
+    ],
+    "product_type": "addon",
+    "version": "1.4.2"
+  }
+}
+```
+
+## FILE: MCPEDL/Minigame/Mob-Chaos-Behavioral-Roulette/resource_pack/textures/item_texture.json (10 lines, 176 bytes)
+
+```
+{
+  "resource_pack_name": "allenscreations",
+  "texture_name": "atlas.items",
+  "texture_data": {
+    "controller": {
+      "textures": "textures/items/controller"
+    }
+  }
+}
+```
+
+## FILE: MCPEDL/Minigame/README.md (29 lines, 2582 bytes)
+
+```
+# Minigames
+
+Source files for Minecraft Bedrock survival challenges and minigames by ALNStudios.
+
+## Available Minigames
+
+| Project | Source | Download |
+| :--- | :--- | :--- |
+| Alphabet Scavenger Hunt | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Minigame/Alphabet-Scavenger-Hunt/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Alphabet-Scavenger-Hunt/AlphabetHunt%20V1.9.1.mcaddon) |
+| Team Inventory | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Minigame/Shared-Hivemind-Inventory/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Shared-Hivemind-Inventory/TeamInventory%20V1.22.6.mcaddon) |
+| Tethered: Breaker & Builder | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Minigame/Tethered-Breaker-And-Builder/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Tethered-Breaker-And-Builder/TetheredBuilder%20V1.12.1.mcaddon) |
+| Mob Chaos Behavioral Roulette | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Minigame/Mob-Chaos-Behavioral-Roulette) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Mob-Chaos-Behavioral-Roulette/MobChaos%20V1.4.2.mcaddon) |
+| Trivia Vault The Locked World | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Minigame/Trivia-Vault-The-Locked-World) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Trivia-Vault-The-Locked-World/TriviaVault%20V1.19.0.mcaddon) |
+| Minecraft, But Every Drop is Random Chaos Edition | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Minigame/Minecraft-But-Every-Drop-is-Random-Chaos-Edition/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Minecraft-But-Every-Drop-is-Random-Chaos-Edition/MinecraftButEveryDropIsRandomChaosEdition%20V1.0.4.mcaddon) |
+
+Download links point to the currently published package files.
+
+## Attribution
+
+Created by ALNStudios. All rights reserved.
+
+Videos and streams are welcome with credit. Redistribution of original or modified files without permission is prohibited.
+
+## Related Directories
+
+- [Add-ons](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons#available-add-ons)
+- [Maps](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Maps#available-maps)
+- [Scripts](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Script#available-scripts)
+```

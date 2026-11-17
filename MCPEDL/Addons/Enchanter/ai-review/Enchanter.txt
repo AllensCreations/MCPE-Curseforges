@@ -1,0 +1,935 @@
+# Repo Export
+
+## Index
+
+- **Export request:** `MCPEDL/Addons/Enchanter`
+- **Destination:** `MCPEDL/Addons/Enchanter`
+- **CURRENT VERSION: 1.0.2 / NEXT UPDATE: 1.0.3**  (`MCPEDL/Addons/Enchanter/CHANGELOG.md`)
+- **Text files:** 13
+- **Skipped binary:** 2
+- **Paths not found:** 0
+
+### Files in this export
+
+- `changelog_views/Enchanter.curseforge.html`
+- `changelog_views/Enchanter.github.md`
+- `description_views/Enchanter.listing.md`
+- `MCPEDL/Addons/Enchanter/assets/snapshots/.gitkeep`
+- `MCPEDL/Addons/Enchanter/behavior_pack/LOCK`
+- `MCPEDL/Addons/Enchanter/behavior_pack/manifest.json`
+- `MCPEDL/Addons/Enchanter/behavior_pack/scripts/main.js`
+- `MCPEDL/Addons/Enchanter/CHANGELOG.md`
+- `MCPEDL/Addons/Enchanter/DESCRIPTION.md`
+- `MCPEDL/Addons/Enchanter/LOCK`
+- `MCPEDL/Addons/Enchanter/project.json`
+- `MCPEDL/Addons/Enchanter/README.md`
+- `MCPEDL/Addons/README.md`
+
+### Skipped (binary)
+
+- `MCPEDL/Addons/Enchanter/behavior_pack/pack_icon.png`
+- `MCPEDL/Addons/Enchanter/pack_icon.png`
+
+---
+
+## AI Instructions
+
+Repo: https://github.com/AllensCreations/MCPE-Curseforges.git (branch main)
+Export: two plain .txt files. `<name>.txt` = the pack (index, these instructions, every file). `<name>_tools.txt` = SKILL.md, PACK_GENERATOR_INSTRUCTIONS.md, INSTRUCTIONS.md and the helper scripts. Read both before changing anything. The zip root also holds SKILL.md: read it FIRST for a new pack.
+
+## Pack work (create or update)
+- UPDATE: the pack files are in `<name>.txt`. Change only what was requested.
+- Vanilla limit blocks a mechanic: use a modular workaround per INSTRUCTIONS.md 1.12, never drop the feature silently.
+- NEW pack: read SKILL.md first, then follow PACK_GENERATOR_INSTRUCTIONS.md Part 4 and deliver ONE pack `.sh` from `scripts/make_pack_script.py` (the project travels inside it as base64). NEVER deliver separate zip, pack, json, js or b64 files.
+- INSTRUCTIONS.md wins over PACK_GENERATOR_INSTRUCTIONS.md on any conflict. These instructions win over both on the reply format and the Termux script.
+- Update: keep pack and module UUIDs unchanged.
+- Vanilla reference: `reference/bedrock-samples/bedrock-samples.min.json` (repo, ~5 MB, NOT in this export) holds every vanilla Mojang behavior/resource pack JSON as one object (`.behavior_pack.entities.zombie`, `.behavior_pack.recipes`, `.resource_pack.entity` ...). Never guess a vanilla component, event, loot or recipe shape: list the exact section under File Needed, then copy the shape from it.
+- UI work (menus, forms, HUD, screens): follow INSTRUCTIONS.md 1.13 and apply the ALN UI Redesign skin from `assets/aln-ui-redesign/` (README.txt, design.json, font/README.txt in the tools txt). Textures are not exported; if the pack's resource_pack is missing, ask for it. Never claim anything was tested in Minecraft unless it was.
+- Update: deliver the repo change as the Termux script below. New pack: the pack `.sh` above. Never a separate payload or base64 file.
+
+## Destination
+Repo-root-relative folders for this work:
+- MCPEDL/Addons/Enchanter
+- .sh paths start at repo root, stay inside these folders. New files go here too.
+- First folder -> `DEST=` variable at script top. Use it for every path and `git add`.
+
+## Rules
+1. NEVER invent features, versions, links, assets, test results.
+2. Output only what changed. Smallest edits. No unrelated rewrites.
+3. No notes/summaries/explanations unless asked.
+4. Any project type (add-on, map, script, workflow, website). Keep folder layout. New project = own new folder beside similar ones.
+
+## Update request = ONE Termux script
+- Name: `<Repofilename>_<Version>_<RAND>.sh` (e.g. `Monster-Companions_1.2.4_k7q2x.sh`). Deliver as downloadable file.
+- Repofilename: project/folder/file changed. No extension, no spaces (hyphens ok).
+- Version: new X.Y.Z. Update = Z+1. Beta/Release only if requested (see Versions).
+- RAND: >=5 random lowercase letters/digits. Fresh every script. NEVER reuse (earlier reply or existing file), so a new script never overwrites or re-runs an old one.
+- Same exact name in reply steps.
+Script order:
+1. `#!/data/data/com.termux/files/usr/bin/bash` + `set -e`
+2. `cd "$HOME/MCPE-Curseforges"`; `git clone` repo URL first if folder missing
+3. `git pull --rebase`
+4. Apply ALL changes as exact search-and-replace edits: write a spec and run `python3 scripts/make_update_script.py spec.txt` (format in `scripts/apply_update.py`; `--verify <clone>` dry-runs it). The tool applies edits atomically, sets the manifest version and writes both changelogs. Size decides the method. SMALL update (a few edits, under about 60% of any file touched): search and replace only. LARGE update (most of a file, many new files, a redesign): use the best method, `@@ create`/`@@ overwrite` in the same spec, never many fragile edits. Either way ONE `.sh`. No separate downloads.
+5. Validate every changed .json with python3. Stop on error.
+5b. Verify top CHANGELOG.md heading == new X.Y.Z == script filename version. Stop on mismatch. If project has manifests: run `python3 scripts/manifest_tools.py --project "$DEST" --set X.Y.Z` (sets header.version, metadata.version, title suffix, module/dependency versions in every source manifest; never lowers), then `python3 scripts/manifest_tools.py --project "$DEST" --check` and `python3 scripts/validate_manifest_titles.py --project "$DEST"`. Stop on error. Every update must change the manifests so the build changes. Never hand-edit manifest JSON for versions.
+5c. If INSTRUCTIONS.md or PACK_GENERATOR_INSTRUCTIONS.md changed: run `python3 scripts/check_instruction_files.py`. Stop on error
+6. `git add` changed paths only; `git commit -m "<short message>"`; `git push`
+6b. Add an entry to the ROOT `CHANGELOG.md` (repo-wide, newest first under `---`): `## [vN] - YYYY-MM-DD - [Update Name]` (N = `REPO_VERSION` + 1, a single whole number such as v80, set by the update tool, never by hand), groups `### Added` / `### Improved & Balanced` / `### Fixed`, bullets `- **Title**: what changed`. Every script, tooling-only included.
+7. After push, do NOT start any workflow. Build Changed Packs & Sync Catalogs runs by itself on every push and rebuilds everything. Nothing auto-bumps; Publish to CurseForge uploads the newest changelog version as written.
+8. Idempotent: skip anything already applied.
+9. Last line, reached only after a successful push: `rm -f -- "$SELF"` (the script deletes itself; save `SELF="$(readlink -f -- "$0")"` on line 2, before the `cd`).
+
+## Docs (every update, same script)
+- Templates STRICT: README.md, DESCRIPTION.md, CHANGELOG.md match templates below exactly: same headings, text, order, labels, bullet format. NEVER add/remove/rename/merge/reorder sections. No boilerplate/extra text. No placeholders: fill every [bracket] with verified content. Accuracy + requested scope outrank template.
+- CHANGELOG.md: MANDATORY every update, no exceptions. Add new release entry for the change.
+- README.md + DESCRIPTION.md: after change, analyze both in destination folder. Edit ONLY if change makes them inaccurate/incomplete. NEVER remove verified content.
+
+### Versions (X.Y.Z ONLY)
+- Format: exactly X.Y.Z everywhere. NEVER X.Y.Z.A. No fourth part. No Alpha.
+- X = Release, Y = Beta, Z = Update.
+- Update: Z+1 (1.2.3 -> 1.2.4). Default.
+- Beta: Y+1, Z=0 (1.2.4 -> 1.3.0). Only if requested.
+- Release: X+1, Y=0, Z=0 (1.3.0 -> 2.0.0). Only if requested.
+- New X.Y.Z goes in CHANGELOG heading + script filename.
+- Manifest versions: set ONLY by the script via `manifest_tools.py --set X.Y.Z` (never hand-edit JSON). NEVER hand-edit README download links. Build Changed Packs & Sync Catalogs aligns a pack to its highest existing version and rebuilds; it never bumps. Publish to CurseForge uploads the newest changelog version.
+- NEVER put release version in README/DESCRIPTION titles. NEVER reuse a heading.
+
+### Changelog views
+- `changelog_views/<Name>.github.md` (newest open, older folded by minor series) and `changelog_views/<Name>.curseforge.html` (CurseForge spoilers, paste into project description): generated from CHANGELOG.md by `scripts/build_changelog_views.py`.
+- CHANGELOG.md = plain text, exact template format, only source of truth. NEVER add HTML/fold markup/links to it. NEVER edit views by hand. NEVER create/change views inside the .sh.
+- Refresh: Build Changed Packs & Sync Catalogs; Collect Files for AI Review (tick commit_changelog_views to save); or `python3 scripts/build_changelog_views.py --project <Name>`.
+
+### Writing
+- Player-facing only. In-game display names, never identifiers, file names, JSON, events, code.
+- "Behavior Pack" / "Resource Pack", NEVER BP/RP.
+- README: no code blocks, emojis, hype, badges.
+- DESCRIPTION: exactly the two Minecraft Bedrock + Format badges from repo template, no others. May keep existing item sprites + recipe diagrams.
+- No Markdown tables. Use `### Feature Name` cards with `- **What Happens**: ...` bullets.
+- Paragraphs <=4 sentences. Verified facts only. Verification line = source created | package built | in-game tested, NEVER mixed.
+
+### README.md (add-on): download landing page only, EXACTLY 11 non-empty lines
+```
+# [Name]
+
+Download the current release of **[Name]** for Minecraft Bedrock Edition.
+
+## Download
+
+- **Package format:** `.mcaddon`
+- **Direct download:** [Download [Name] (.mcaddon)](link)
+
+## Installation
+
+1. Download the package using the link above.
+2. Open the downloaded file with Minecraft to import it.
+3. If the package contains a pack that must be enabled separately, activate it in your world's settings.
+
+## Pack Information
+
+For gameplay features, usage details, compatibility notes, and other project information, read the [full description](DESCRIPTION link).
+```
+Maps/scripts/minigames: same landing page. Use real package format; .mcworld = tell players to open the imported world. Product details live in DESCRIPTION.md.
+
+### DESCRIPTION.md order
+1. `# [Name] — [subtitle]` (no release version)
+2. `**By ALNStudios**`
+3. Two exact badges (Minecraft Bedrock "Stable Release", Format) from repo template
+4. Summary
+5. `## Overview`
+6. `## Key Features`
+7. `## How to Use`
+8. `## Compatibility`: Minecraft Bedrock Edition, Experimental features, Achievements, Verification
+9. `## Creator and Permissions`: `- Creator: ALNStudios`, `- Profiles:` CurseForge https://www.curseforge.com/members/allenscreations/projects · MCPEDL https://mcpedl.com/user/alnstudios/, then the two clickable listing images (HTML, `width="45%"`, no `height`, raw URLs `assets/Images/curseforge.jpg`, `assets/Images/MCPEDL.jpg`). NEVER edit/copy the images
+10. `## Guidelines and Attribution`
+11. `---` then `## Search & Discovery Keywords` from real features
+- Add-ons: Achievements line ALWAYS `Likely achievement-friendly`; add caveats if world settings/cheats can disable achievements.
+
+### Guidelines and Attribution block, exactly
+```
+- Creator: ALNStudios
+- Rights & Reservation: All rights reserved for ALNStudios.
+- Content Creators: Content creators are permitted to feature this creation in videos and streams with credit to ALNStudios.
+- Redistribution: Do not re-upload this pack or provide direct monetized download bypasses. Link directly to the official repository page.
+- Disclaimer: This is an unofficial community creation. It is not an official Minecraft product and is not approved by or associated with Mojang or Microsoft.
+
+---
+
+© All rights reserved for ALNStudios.
+
+---
+```
+
+### CHANGELOG.md
+- `# Changelog — [Name]`, `---`, then newest first: `## [X.Y.Z] - YYYY-MM-DD - [Update Name]` (date: `TZ=Asia/Singapore date +%F`). [Update Name] = short player-facing title (2-6 words) of what is new. REQUIRED on every new entry.
+- Groups: `### Added`, `### Improved & Balanced`, `### Fixed` (bugs as in-game experience). Omit empty groups. Each group >=1 bullet.
+- Entry: `- **Title**: player impact.`
+- NO links, URLs, badges, function/event names, unverified benefits. No boilerplate after title.
+- Insert new entry directly under `---`, above previous release. NEVER edit/delete older entries.
+
+## Reply Format (STRICT)
+```
+[SYSTEM_CONFIG]
+Mode: Direct Execution
+Token_Efficiency: Maximum
+Rules: no greeting, intro, outro, offers, restating. High technical accuracy.
+```
+Output ONLY these three sections, in order, exact headings:
+1. **File Needed:** repo-root-relative path of each file created/edited.
+2. **Changelog:** bullets, brief summary of changes.
+3. **Termux Script:** ONE fenced `bash` block holding ONLY the run commands: `bash ~/storage/downloads/<Repofilename>_<Version>_<RAND>.sh` (a new pack may add the same line with `stage`). The .sh is attached, NEVER pasted. NEVER a Summary section.
+- The .sh (`<Repofilename>_<Version>_<RAND>.sh`, random chars included) is the downloadable file. Exact same name in the command.
+- NEVER text before, between, after. NEVER rename/merge/reorder/skip a section. Nothing to report: `- None`.
+- Unclear request: ask ONE line, then proceed with defaults.
+- First-time Termux setup, ONLY if the user asks:
+```
+pkg update -y && pkg install -y git python curl
+termux-setup-storage
+git config --global user.name "ALNStudios"
+git config --global user.email "your-email@example.com"
+git config --global credential.helper store
+```
+- Push password = GitHub Personal Access Token (repo + workflow scopes), NOT account password. Same token starts the build after push.
+
+---
+
+## File Contents
+
+## FILE: changelog_views/Enchanter.curseforge.html (3 lines, 2078 bytes)
+
+```
+<h2>1.0.2 - 2026-11-13</h2><h3>Improved &amp; Balanced</h3><ul><li><strong>Readable Menus</strong>: Menu text no longer uses colors that blend into the panel. The title keeps its gold and yellow.</li></ul><h3>Fixed</h3><ul><li><strong>Spear Icons</strong>: Spears now show their icons in the item list.</li><li><strong>Nautilus Armor Icons</strong>: Nautilus armor now shows its icon in the item list.</li></ul>
+<h2>1.0.x (2 releases)</h2><div class="spoiler"><h3>1.0.1 - 2026-11-13 - Menu Redesign</h3><h4>Added</h4><ul><li><strong>Main Menu</strong>: Using the Enchanter Book now opens a menu with Enchanter, About and Exit.</li><li><strong>About Screen</strong>: Shows who made the add-on, its version, and where to find ALNStudios.</li><li><strong>Back Buttons</strong>: The item list and the preset screen each have a Back button.</li><li><strong>Item Header</strong>: The chosen item&#x27;s name, slot and current enchantments appear above the sliders.</li></ul><h4>Improved &amp; Balanced</h4><ul><li><strong>Slider Dividers</strong>: A divider now separates every slider.</li><li><strong>Action Bar Messages</strong>: Results and warnings appear above your hotbar instead of in chat.</li><li><strong>Colored Menus</strong>: Menus use the gold and yellow @ALNStudios title with the version and button icons.</li><li><strong>Item List</strong>: Each item shows its slot and how many enchantments it already has.</li></ul><h3>1.0.0 - 2026-11-13 - First Release</h3><h4>Added</h4><ul><li><strong>Enchanter Book</strong>: Rename a Book to Enchanter at an Anvil and use it to open the enchanting menu.</li><li><strong>Item Picker</strong>: Choose any enchantable item from your inventory and hotbar, shown with its icon.</li><li><strong>Level Sliders</strong>: Set each fitting enchantment from 0 to its level cap, where 0 removes it.</li><li><strong>Starting Presets</strong>: Begin from Keep current levels, Maximum levels, or Clear all.</li><li><strong>Confirm Summary</strong>: Review every added and removed enchantment before one Enchanter Book is used.</li></ul></div>
+```
+
+## FILE: changelog_views/Enchanter.github.md (39 lines, 1738 bytes)
+
+```
+# Changelog — Enchanter
+
+## [1.0.2] - 2026-11-13
+
+### Improved & Balanced
+- **Readable Menus**: Menu text no longer uses colors that blend into the panel. The title keeps its gold and yellow.
+
+### Fixed
+- **Spear Icons**: Spears now show their icons in the item list.
+- **Nautilus Armor Icons**: Nautilus armor now shows its icon in the item list.
+
+<details>
+<summary><b>1.0.x</b> (2 releases)</summary>
+
+### [1.0.1] - 2026-11-13 - Menu Redesign
+
+#### Added
+- **Main Menu**: Using the Enchanter Book now opens a menu with Enchanter, About and Exit.
+- **About Screen**: Shows who made the add-on, its version, and where to find ALNStudios.
+- **Back Buttons**: The item list and the preset screen each have a Back button.
+- **Item Header**: The chosen item's name, slot and current enchantments appear above the sliders.
+
+#### Improved & Balanced
+- **Slider Dividers**: A divider now separates every slider.
+- **Action Bar Messages**: Results and warnings appear above your hotbar instead of in chat.
+- **Colored Menus**: Menus use the gold and yellow @ALNStudios title with the version and button icons.
+- **Item List**: Each item shows its slot and how many enchantments it already has.
+
+### [1.0.0] - 2026-11-13 - First Release
+
+#### Added
+- **Enchanter Book**: Rename a Book to Enchanter at an Anvil and use it to open the enchanting menu.
+- **Item Picker**: Choose any enchantable item from your inventory and hotbar, shown with its icon.
+- **Level Sliders**: Set each fitting enchantment from 0 to its level cap, where 0 removes it.
+- **Starting Presets**: Begin from Keep current levels, Maximum levels, or Clear all.
+- **Confirm Summary**: Review every added and removed enchantment before one Enchanter Book is used.
+
+</details>
+```
+
+## FILE: description_views/Enchanter.listing.md (65 lines, 11842 bytes)
+
+````
+# Listing Kit: Enchanter
+
+Tap the Copy button on a block, then paste it into the CurseForge listing. Generated from DESCRIPTION.md: edit that, not this file.
+
+## Package Name
+
+```text
+Enchanter
+```
+
+## Summary (127/256)
+
+```text
+Rename a Book to Enchanter, then set Sharpness, Mending and every other fitting enchantment on any inventory item with sliders.
+```
+
+## Description (HTML)
+
+Paste into the CurseForge description editor in source (HTML) mode.
+
+```html
+<div><div style="border:2px solid #15803d;border-radius:18px;line-height:1.5"><br><h1 style="font-size:34px;text-align:center">Enchanter</h1><p style="color:#8a94a3;font-size:14px;text-align:center">by ALNStudios</p><p style="text-align:center"><span style="background-color:#15803d;color:#ffffff;border-radius:20px;font-size:16px">&nbsp;&nbsp;<strong>Rename a Book to Enchanter, then set Sharpness, Mending and every other fitting enchantment on any inventory item with sliders.</strong>&nbsp;&nbsp;</span></p><p style="text-align:center;margin-left:16px;margin-right:16px">Enchanter turns a renamed Book into a menu with one slider for each enchantment that fits your item.</p><div style="display:flex;flex-wrap:wrap;gap:8px;margin-left:14px;margin-right:14px"><div style="background-color:#dcfce7;color:#14532d;border-radius:20px;font-size:14px;line-height:2"><strong>&nbsp;&nbsp;Bedrock</strong>: 1.26+&nbsp;&nbsp;</div><div style="background-color:#dcfce7;color:#14532d;border-radius:20px;font-size:14px;line-height:2"><strong>&nbsp;&nbsp;Experimental</strong>: No&nbsp;&nbsp;</div><div style="background-color:#dcfce7;color:#14532d;border-radius:20px;font-size:14px;line-height:2"><strong>&nbsp;&nbsp;Achievements</strong>: Likely achievement-friendly&nbsp;&nbsp;</div></div><br></div>
+<h2 style="font-size:17px;text-align:left"><span style="background-color:#15803d;color:#ffffff;border-radius:20px">&nbsp;&nbsp;About&nbsp;&nbsp;</span></h2>
+<p>Rename a Book to Enchanter at an Anvil and use it to open a menu with Enchanter, About and Exit. Pick an item, choose a starting preset, and set each enchantment with its slider.</p>
+<h2 style="font-size:17px;text-align:left"><span style="background-color:#15803d;color:#ffffff;border-radius:20px">&nbsp;&nbsp;What You Get&nbsp;&nbsp;</span></h2>
+<div style="display:flex;flex-wrap:wrap;gap:10px"><div style="flex:1;min-width:200px;border:1px solid #8a94a3;border-radius:16px"><div style="background-color:#15803d;color:#ffffff;border-radius:16px;font-size:16px;line-height:2.2"><strong>&nbsp;&nbsp;Main Menu</strong></div><div style="margin-left:12px;margin-right:12px"><p><span>Using the renamed Book opens a menu with Enchanter, About and Exit.</span><br><span style="font-size:13px;color:#8a94a3"><strong>Good To Know:</strong> About shows who made the add-on and where to find more.</span></p></div></div><div style="flex:1;min-width:200px;border:1px solid #8a94a3;border-radius:16px"><div style="background-color:#15803d;color:#ffffff;border-radius:16px;font-size:16px;line-height:2.2"><strong>&nbsp;&nbsp;Enchanter Book</strong></div><div style="margin-left:12px;margin-right:12px"><p><span>A Book renamed to Enchanter at an Anvil becomes a portable enchanting menu.</span><br><span style="font-size:13px;color:#8a94a3"><strong>Good To Know:</strong> The name must read exactly Enchanter, with a capital E.</span></p></div></div><div style="flex:1;min-width:200px;border:1px solid #8a94a3;border-radius:16px"><div style="background-color:#15803d;color:#ffffff;border-radius:16px;font-size:16px;line-height:2.2"><strong>&nbsp;&nbsp;Item Picker</strong></div><div style="margin-left:12px;margin-right:12px"><p><span>The menu lists every enchantable item in your inventory and hotbar, each with its icon, slot number and enchantment count.</span><br><span style="font-size:13px;color:#8a94a3"><strong>Good To Know:</strong> Armor you are wearing and items in the off hand are not listed.</span></p></div></div><div style="flex:1;min-width:200px;border:1px solid #8a94a3;border-radius:16px"><div style="background-color:#15803d;color:#ffffff;border-radius:16px;font-size:16px;line-height:2.2"><strong>&nbsp;&nbsp;Level Sliders</strong></div><div style="margin-left:12px;margin-right:12px"><p><span>Every enchantment that fits the chosen item gets its own slider with a divider, from 0 up to that enchantment's level cap.</span><br><span style="font-size:13px;color:#8a94a3"><strong>Good To Know:</strong> Enchantments that do not fit the item, such as Sharpness on boots, are hidden.</span></p></div></div><div style="flex:1;min-width:200px;border:1px solid #8a94a3;border-radius:16px"><div style="background-color:#15803d;color:#ffffff;border-radius:16px;font-size:16px;line-height:2.2"><strong>&nbsp;&nbsp;Starting Presets</strong></div><div style="margin-left:12px;margin-right:12px"><p><span>Before the sliders appear you choose Keep current levels, Maximum levels, or Clear all.</span></p></div></div><div style="flex:1;min-width:200px;border:1px solid #8a94a3;border-radius:16px"><div style="background-color:#15803d;color:#ffffff;border-radius:16px;font-size:16px;line-height:2.2"><strong>&nbsp;&nbsp;Apply And Combine</strong></div><div style="margin-left:12px;margin-right:12px"><p><span>A summary lists every added and removed enchantment before anything changes.</span><br><span style="font-size:13px;color:#8a94a3"><strong>Good To Know:</strong> Combinations the game refuses are skipped and named above your hotbar.</span></p></div></div></div>
+<h2 style="font-size:17px;text-align:left"><span style="background-color:#15803d;color:#ffffff;border-radius:20px">&nbsp;&nbsp;Get Started&nbsp;&nbsp;</span></h2>
+<table style="width:100%;border:1px solid #8a94a3;border-radius:16px"><tbody><tr><td style="width:44px;text-align:center"><div style="background-color:#15803d;color:#ffffff;font-weight:bold;font-size:15px;text-align:center;border-radius:10px;width:30px;aspect-ratio:1/1;line-height:30px">1</div></td><td style="text-align:left;">Rename a Book to Enchanter at an Anvil.</td></tr><tr><td style="width:44px;text-align:center"><div style="background-color:#15803d;color:#ffffff;font-weight:bold;font-size:15px;text-align:center;border-radius:10px;width:30px;aspect-ratio:1/1;line-height:30px">2</div></td><td style="text-align:left;">Hold the Enchanter Book and use it, choose Enchanter, then pick an item and a starting preset.</td></tr><tr><td style="width:44px;text-align:center"><div style="background-color:#15803d;color:#ffffff;font-weight:bold;font-size:15px;text-align:center;border-radius:10px;width:30px;aspect-ratio:1/1;line-height:30px">3</div></td><td style="text-align:left;">Set the sliders, choose Apply on the summary, and the item shows its new enchantments.</td></tr></tbody></table>
+<h2 style="font-size:17px;text-align:left"><span style="background-color:#15803d;color:#ffffff;border-radius:20px">&nbsp;&nbsp;Install&nbsp;&nbsp;</span></h2>
+<table style="width:100%;border:1px solid #8a94a3;border-radius:16px"><tbody><tr><td style="width:44px;text-align:center"><div style="background-color:#15803d;color:#ffffff;font-weight:bold;font-size:15px;text-align:center;border-radius:10px;width:30px;aspect-ratio:1/1;line-height:30px">1</div></td><td style="text-align:left;">Download the file from this page and open it with Minecraft.</td></tr><tr><td style="width:44px;text-align:center"><div style="background-color:#15803d;color:#ffffff;font-weight:bold;font-size:15px;text-align:center;border-radius:10px;width:30px;aspect-ratio:1/1;line-height:30px">2</div></td><td style="text-align:left;">Create or edit a world and turn on the new pack(s) in its settings.</td></tr><tr><td style="width:44px;text-align:center"><div style="background-color:#15803d;color:#ffffff;font-weight:bold;font-size:15px;text-align:center;border-radius:10px;width:30px;aspect-ratio:1/1;line-height:30px">3</div></td><td style="text-align:left;">Play. No Experimental toggles needed.</td></tr></tbody></table>
+<h2 style="font-size:17px;text-align:left"><span style="background-color:#15803d;color:#ffffff;border-radius:20px">&nbsp;&nbsp;Support&nbsp;&nbsp;</span></h2><div style="border:1px solid #8a94a3;border-radius:16px;text-align:center"><br><a href="https://ko-fi.com/alnstudios"><img src="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/assets/Images/ko-fi.png" alt="Support ALNStudios on Ko-fi" width="250"></a><br><br></div><p style="text-align:center"><a href="https://www.curseforge.com/members/allenscreations/projects"><strong>CurseForge</strong></a> &nbsp;|&nbsp; <a href="https://mcpedl.com/user/alnstudios/"><strong>MCPEDL</strong></a> &nbsp;|&nbsp; <a href="https://ko-fi.com/alnstudios"><strong>Ko-fi</strong></a></p>
+<hr>
+<p style="text-align:center;color:#8a94a3;font-size:13px"><strong>By ALNStudios</strong></p>
+<div class="spoiler"><p style="font-size:13px"><strong>Permissions and credits</strong></p><ul style="font-size:13px"><li>Rights: All rights reserved for ALNStudios.</li><li>Content creators: You may feature this creation in videos and streams with credit to ALNStudios.</li><li>Redistribution: Do not re-upload this pack or provide direct monetized download bypasses. Link to this page.</li><li>Unofficial community creation. Not an official Minecraft product and not approved by or associated with Mojang or Microsoft.</li></ul></div>
+<p style="text-align:center;color:#8a94a3;font-size:12px">Minecraft Bedrock add-on, Enchanter Bedrock mod, enchantment sliders, renamed Book, custom enchanting menu, Minecraft PE enchant, MCPEDL add-on, CurseForge Bedrock, ALNStudios.</p></div>
+```
+
+## AI Image Prompts
+
+### Reference Images
+
+- **Logo reference**: attach your own logo. The generator uses it only for brand colors and mood. The result must be a new design, not a copy.
+- **Snapshot references**: attach 1 to 4 of your in-game snapshots of this pack. The generator copies their look, not their screen layout.
+
+### Logo Prompt
+
+```text
+Use the attached logo only as a brand reference for its color palette and overall mood. Do not copy it. Create a new, original logo with a different composition and a different main symbol. Do not just recolor, resize, crop, mirror or tweak the attached logo.
+Create a clean, square (1:1) logo image for the Minecraft Bedrock add-on "Enchanter". Rename a Book to Enchanter, then set Sharpness, Mending and every other fitting enchantment on any inventory item with sliders.
+Base the main symbol on the pack idea above. Match the blocky look of the attached in-game snapshots. Center the logo, use a simple background, and keep it readable at small sizes.
+Text: "Enchanter" and, in small letters, "ALNStudios". ALNStudios is the brand name, so always keep it and never remove or change it. Spell both exactly.
+Do not add Minecraft, Mojang or Microsoft logos, watermarks, or characters from other games.
+```
+
+### Banner Prompt
+
+```text
+Create a wide (16:9) banner image for the Minecraft Bedrock add-on "Enchanter". Rename a Book to Enchanter, then set Sharpness, Mending and every other fitting enchantment on any inventory item with sliders.
+Use the attached in-game snapshots as scene and style references: copy their blocky look, lighting, colors and the kind of scenery they show. Make a new composition inspired by them. Do not copy the on-screen HUD, chat or hotbar.
+Use the attached logo only as a brand reference for its colors and mood. Do not copy it. Put a new, original logo design in the banner, large enough to read, on the left or center.
+Hint at these pack features visually: Main Menu, Enchanter Book, Item Picker, Level Sliders, Starting Presets.
+Text: "Enchanter" and, in small letters, "by ALNStudios". ALNStudios is the brand name, so always keep it and never remove or change it. Spell both exactly.
+Leave clear space around the logo. No Minecraft, Mojang or Microsoft logos, no watermarks.
+```
+````
+
+## FILE: MCPEDL/Addons/Enchanter/assets/snapshots/.gitkeep (1 lines, 0 bytes)
+
+```
+
+```
+
+## FILE: MCPEDL/Addons/Enchanter/behavior_pack/LOCK (5 lines, 160 bytes)
+
+```
+ALNStudios Add-on Lock v1
+
+Pack marker included in the exported Minecraft Bedrock pack.
+This marker does not encrypt the pack or prevent extraction or editing.
+```
+
+## FILE: MCPEDL/Addons/Enchanter/behavior_pack/manifest.json (49 lines, 887 bytes)
+
+```
+{
+  "format_version": 2,
+  "header": {
+    "name": "Enchanter (v1.0.2)",
+    "description": "Rename a Book to Enchanter and use it to set enchantments by slider. by ALNStudios",
+    "uuid": "eb57d8aa-51d9-4278-9f64-a524ce41b8a8",
+    "version": [
+      1,
+      0,
+      2
+    ],
+    "min_engine_version": [
+      1,
+      26,
+      50
+    ]
+  },
+  "modules": [
+    {
+      "type": "script",
+      "language": "javascript",
+      "entry": "scripts/main.js",
+      "uuid": "89db0c21-f611-40bd-a9cd-2284f25297a0",
+      "version": [
+        1,
+        0,
+        2
+      ]
+    }
+  ],
+  "dependencies": [
+    {
+      "module_name": "@minecraft/server",
+      "version": "2.11.0"
+    },
+    {
+      "module_name": "@minecraft/server-ui",
+      "version": "2.3.0"
+    }
+  ],
+  "metadata": {
+    "authors": [
+      "ALNStudios"
+    ],
+    "product_type": "addon",
+    "version": "1.0.2"
+  }
+}
+```
+
+## FILE: MCPEDL/Addons/Enchanter/behavior_pack/scripts/main.js (322 lines, 10250 bytes)
+
+```
+import { world, system, EnchantmentTypes } from "@minecraft/server";
+import { ActionFormData, ModalFormData } from "@minecraft/server-ui";
+
+const VERSION = "1.0.2";
+const TITLE = "§l§6@ALNStudios §eEnchanter§r (v" + VERSION + ")";
+const BOOK_ID = "minecraft:book";
+const BOOK_NAME = "Enchanter";
+const ENCHANTABLE = "minecraft:enchantable";
+const INVENTORY = "minecraft:inventory";
+const ICON_OVERRIDES = {
+  "minecraft:bow": "textures/items/bow_standby",
+  "minecraft:crossbow": "textures/items/crossbow_standby",
+  "minecraft:fishing_rod": "textures/items/fishing_rod_uncast",
+  "minecraft:enchanted_book": "textures/items/book_enchanted",
+};
+const busy = new Set();
+
+function notify(player, text) {
+  try {
+    player.onScreenDisplay.setActionBar(text);
+  } catch (error) {
+    return;
+  }
+}
+
+function tryCall(target, method, ...args) {
+  if (typeof target[method] === "function") target[method](...args);
+}
+
+function isEnchanterBook(item) {
+  return !!item && item.typeId === BOOK_ID && item.nameTag === BOOK_NAME;
+}
+
+function titleCase(id) {
+  return id
+    .replace(/^minecraft:/, "")
+    .split("_")
+    .map((word) => (word ? word[0].toUpperCase() + word.slice(1) : word))
+    .join(" ");
+}
+
+function iconFor(typeId) {
+  if (ICON_OVERRIDES[typeId]) return ICON_OVERRIDES[typeId];
+  const name = typeId
+    .replace(/^minecraft:/, "")
+    .replace(/^wooden_/, "wood_")
+    .replace(/^golden_/, "gold_");
+  if (name.endsWith("_spear")) return "textures/items/spear/" + name;
+  if (name.endsWith("_nautilus_armor")) return "textures/items/nautilus_armor/" + name;
+  return "textures/items/" + name;
+}
+
+function levelsOf(item) {
+  const map = new Map();
+  const comp = item.getComponent(ENCHANTABLE);
+  if (!comp) return map;
+  for (const enchant of comp.getEnchantments()) {
+    map.set(enchant.type.id, enchant.level);
+  }
+  return map;
+}
+
+function signatureOf(item) {
+  const parts = [];
+  for (const [id, level] of levelsOf(item)) parts.push(id + ":" + level);
+  parts.sort();
+  return item.typeId + "|" + item.nameTag + "|" + parts.join(",");
+}
+
+function fittingTypes(item) {
+  const probe = item.clone();
+  const comp = probe.getComponent(ENCHANTABLE);
+  if (!comp) return [];
+  comp.removeAllEnchantments();
+  const fits = [];
+  for (const type of EnchantmentTypes.getAll()) {
+    let ok = false;
+    try {
+      ok = comp.canAddEnchantment({ type, level: 1 });
+    } catch (error) {
+      ok = false;
+    }
+    if (ok) fits.push(type);
+  }
+  return fits;
+}
+
+function countText(count) {
+  if (count === 0) return "no enchantments";
+  return count + (count === 1 ? " enchantment" : " enchantments");
+}
+
+function listCandidates(container) {
+  const entries = [];
+  for (let i = 0; i < container.size; i++) {
+    const item = container.getItem(i);
+    if (!item || isEnchanterBook(item)) continue;
+    if (!item.getComponent(ENCHANTABLE)) continue;
+    entries.push({
+      index: i,
+      typeId: item.typeId,
+      signature: signatureOf(item),
+      label:
+        "§l" + titleCase(item.typeId) + "§r\nSlot " + (i + 1) + " | " + countText(levelsOf(item).size),
+      icon: iconFor(item.typeId),
+    });
+  }
+  return entries;
+}
+
+function consumeBook(container, bookSlot) {
+  const book = container.getItem(bookSlot);
+  if (!isEnchanterBook(book)) return;
+  if (book.amount > 1) {
+    book.amount -= 1;
+    container.setItem(bookSlot, book);
+  } else {
+    container.setItem(bookSlot, undefined);
+  }
+}
+
+async function mainMenu(player) {
+  const form = new ActionFormData()
+    .title(TITLE)
+    .body("Set exact enchantment levels with sliders.\nEach applied change uses one Enchanter Book.")
+    .button("§lEnchanter", "textures/items/book_enchanted")
+    .button("§lAbout", "textures/items/name_tag")
+    .button("§lExit", "textures/ui/cancel");
+  const result = await form.show(player);
+  return result.canceled ? 2 : result.selection;
+}
+
+async function aboutScreen(player) {
+  const body = [
+    "§l@ALNStudios§r",
+    "Creator of Minecraft Bedrock add-ons.",
+    "",
+    "§lEnchanter§r v" + VERSION,
+    "Choose an item, set a level for each enchantment, and confirm. Enchantments you set replace the old ones.",
+    "",
+    "§lCurseForge§r",
+    "curseforge.com/members/allenscreations/projects",
+    "§lMCPEDL§r",
+    "mcpedl.com/user/alnstudios",
+    "",
+    "Unofficial community creation. Not approved by or associated with Mojang or Microsoft.",
+  ].join("\n");
+  const form = new ActionFormData()
+    .title("§l§6About §eALNStudios")
+    .body(body)
+    .button("§lBack", "textures/ui/arrow_left");
+  await form.show(player);
+}
+
+async function pickItem(player, entries) {
+  const form = new ActionFormData().title(TITLE).body("Choose an item to enchant.");
+  for (const entry of entries) form.button(entry.label, entry.icon);
+  form.button("§lBack", "textures/ui/arrow_left");
+  const result = await form.show(player);
+  if (result.canceled) return -2;
+  if (result.selection === entries.length) return -1;
+  return result.selection;
+}
+
+async function configure(player, container, bookSlot, entry) {
+  const chosen = container.getItem(entry.index);
+  if (!chosen || chosen.typeId !== entry.typeId || signatureOf(chosen) !== entry.signature) {
+    notify(player, "§cThat item changed. Nothing was applied.");
+    return "done";
+  }
+  const name = titleCase(chosen.typeId);
+  const types = fittingTypes(chosen);
+  if (types.length === 0) {
+    notify(player, "§cThis item accepts no enchantments.");
+    return "back";
+  }
+
+  const presetForm = new ActionFormData()
+    .title(TITLE)
+    .body("Item: " + name + "\nChoose the starting levels.")
+    .button("§lKeep current levels")
+    .button("§lMaximum levels")
+    .button("§lClear all")
+    .button("§lBack", "textures/ui/arrow_left");
+  const preset = await presetForm.show(player);
+  if (preset.canceled) return "done";
+  if (preset.selection === 3) return "back";
+
+  const current = levelsOf(chosen);
+  const currentText =
+    current.size === 0
+      ? "none"
+      : [...current].map(([id, level]) => titleCase(id) + " " + level).join(", ");
+  const modal = new ModalFormData().title(TITLE);
+  tryCall(modal, "header", name);
+  tryCall(modal, "label", "Slot " + (entry.index + 1) + "\nCurrent: " + currentText);
+  tryCall(modal, "divider");
+  for (const type of types) {
+    const max = type.maxLevel;
+    let start = 0;
+    if (preset.selection === 0) start = current.get(type.id) ?? 0;
+    if (preset.selection === 1) start = max;
+    modal.slider(titleCase(type.id) + " (max " + max + ")", 0, max, {
+      valueStep: 1,
+      defaultValue: Math.min(start, max),
+    });
+    tryCall(modal, "divider");
+  }
+  tryCall(modal, "submitButton", "§lContinue");
+  const result = await modal.show(player);
+  if (result.canceled) return "done";
+  const levels = result.formValues.filter((value) => typeof value === "number").map((value) => Math.round(value));
+  if (levels.length !== types.length) {
+    notify(player, "§cEnchanter could not read the sliders. Nothing was applied.");
+    return "done";
+  }
+
+  const lines = [];
+  types.forEach((type, i) => {
+    const before = current.get(type.id) ?? 0;
+    const after = levels[i];
+    if (before === after) return;
+    if (after === 0) lines.push("- " + titleCase(type.id) + " removed");
+    else lines.push("+ " + titleCase(type.id) + " " + after);
+  });
+  if (lines.length === 0) {
+    notify(player, "§eNo changes selected.");
+    return "done";
+  }
+
+  const confirmForm = new ActionFormData()
+    .title(TITLE)
+    .body(name + "\n\n" + lines.join("\n") + "\n\nUses one Enchanter Book.")
+    .button("§lApply", "textures/ui/check")
+    .button("§lCancel", "textures/ui/cancel");
+  const confirmed = await confirmForm.show(player);
+  if (confirmed.canceled || confirmed.selection !== 0) return "done";
+
+  const now = container.getItem(entry.index);
+  if (!now || now.typeId !== entry.typeId || signatureOf(now) !== entry.signature) {
+    notify(player, "§cThat item changed. Nothing was applied.");
+    return "done";
+  }
+  if (!isEnchanterBook(container.getItem(bookSlot))) {
+    notify(player, "§cThe book is no longer in its slot. Nothing was applied.");
+    return "done";
+  }
+
+  const comp = now.getComponent(ENCHANTABLE);
+  for (const type of types) {
+    try {
+      comp.removeEnchantment(type);
+    } catch (error) {
+      continue;
+    }
+  }
+  const rejected = [];
+  types.forEach((type, i) => {
+    if (levels[i] <= 0) return;
+    try {
+      comp.addEnchantment({ type, level: levels[i] });
+    } catch (error) {
+      rejected.push(titleCase(type.id));
+    }
+  });
+
+  if (signatureOf(now) === entry.signature) {
+    notify(player, "§eThe game rejected every change. The book was not used.");
+    return "done";
+  }
+  container.setItem(entry.index, now);
+  consumeBook(container, bookSlot);
+  notify(player, "§aEnchanted §f" + name + "§a.");
+  if (rejected.length > 0) {
+    system.runTimeout(() => {
+      notify(player, "§eNot applied, they conflict: " + rejected.join(", "));
+    }, 50);
+  }
+  return "done";
+}
+
+async function enchantFlow(player, container, bookSlot) {
+  while (true) {
+    const entries = listCandidates(container);
+    if (entries.length === 0) {
+      notify(player, "§cNo enchantable items in your inventory.");
+      return false;
+    }
+    const picked = await pickItem(player, entries);
+    if (picked === -2) return true;
+    if (picked === -1) return false;
+    const outcome = await configure(player, container, bookSlot, entries[picked]);
+    if (outcome !== "back") return true;
+  }
+}
+
+async function openMenu(player) {
+  const bookSlot = player.selectedSlotIndex;
+  const container = player.getComponent(INVENTORY).container;
+  while (true) {
+    const choice = await mainMenu(player);
+    if (choice === 0) {
+      const finished = await enchantFlow(player, container, bookSlot);
+      if (finished) return;
+    } else if (choice === 1) {
+      await aboutScreen(player);
+    } else {
+      return;
+    }
+  }
+}
+
+world.afterEvents.itemUse.subscribe((event) => {
+  const player = event.source;
+  if (!isEnchanterBook(event.itemStack)) return;
+  if (busy.has(player.id)) return;
+  busy.add(player.id);
+  openMenu(player)
+    .catch(() => notify(player, "§cEnchanter closed unexpectedly."))
+    .finally(() => busy.delete(player.id));
+});
+```
+
+## FILE: MCPEDL/Addons/Enchanter/CHANGELOG.md (42 lines, 1774 bytes)
+
+```
+# Changelog — Enchanter
+
+---
+
+## [1.0.2] - 2026-11-13
+
+**What's new in v1.0.2:** Packed with the v1.0.2 update. Includes: Spear Icons and Readable Menus.
+
+### Improved & Balanced
+
+- **Readable Menus**: Menu text no longer uses colors that blend into the panel. The title keeps its gold and yellow.
+
+### Fixed
+
+- **Spear Icons**: Spears now show their icons in the item list.
+- **Nautilus Armor Icons**: Nautilus armor now shows its icon in the item list.
+
+## [1.0.1] - 2026-11-13 - Menu Redesign
+
+### Added
+- **Main Menu**: Using the Enchanter Book now opens a menu with Enchanter, About and Exit.
+- **About Screen**: Shows who made the add-on, its version, and where to find ALNStudios.
+- **Back Buttons**: The item list and the preset screen each have a Back button.
+- **Item Header**: The chosen item's name, slot and current enchantments appear above the sliders.
+
+### Improved & Balanced
+- **Slider Dividers**: A divider now separates every slider.
+- **Action Bar Messages**: Results and warnings appear above your hotbar instead of in chat.
+- **Colored Menus**: Menus use the gold and yellow @ALNStudios title with the version and button icons.
+- **Item List**: Each item shows its slot and how many enchantments it already has.
+
+
+
+## [1.0.0] - 2026-11-13 - First Release
+
+### Added
+- **Enchanter Book**: Rename a Book to Enchanter at an Anvil and use it to open the enchanting menu.
+- **Item Picker**: Choose any enchantable item from your inventory and hotbar, shown with its icon.
+- **Level Sliders**: Set each fitting enchantment from 0 to its level cap, where 0 removes it.
+- **Starting Presets**: Begin from Keep current levels, Maximum levels, or Clear all.
+- **Confirm Summary**: Review every added and removed enchantment before one Enchanter Book is used.
+```
+
+## FILE: MCPEDL/Addons/Enchanter/DESCRIPTION.md (79 lines, 4052 bytes)
+
+```
+# Enchanter — Set Every Enchantment Level With Sliders
+
+**By ALNStudios**
+
+[![Minecraft Bedrock](https://img.shields.io/badge/Minecraft%20Bedrock-Stable%20Release-brightgreen?style=flat-square&logo=minecraft)](https://github.com/AllensCreations/MCPE-Curseforges)
+[![Format](https://img.shields.io/badge/Format-.MCPACK%20%7C%20.MCADDON%20%7C%20.MCWORLD-blue?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges)
+
+**Rename a Book to Enchanter, then set Sharpness, Mending and every other fitting enchantment on any inventory item with sliders.**
+
+> Enchanter turns a renamed Book into a menu with one slider for each enchantment that fits your item.
+
+## Overview
+
+Rename a Book to Enchanter at an Anvil and use it to open a menu with Enchanter, About and Exit. Pick an item, choose a starting preset, and set each enchantment with its slider.
+
+## Key Features
+
+### Main Menu
+- **What Happens**: Using the renamed Book opens a menu with Enchanter, About and Exit.
+- **Good To Know**: About shows who made the add-on and where to find more.
+
+### Enchanter Book
+- **What Happens**: A Book renamed to Enchanter at an Anvil becomes a portable enchanting menu.
+- **Good To Know**: The name must read exactly Enchanter, with a capital E.
+
+### Item Picker
+- **What Happens**: The menu lists every enchantable item in your inventory and hotbar, each with its icon, slot number and enchantment count.
+- **Good To Know**: Armor you are wearing and items in the off hand are not listed.
+
+### Level Sliders
+- **What Happens**: Every enchantment that fits the chosen item gets its own slider with a divider, from 0 up to that enchantment's level cap.
+- **Good To Know**: Enchantments that do not fit the item, such as Sharpness on boots, are hidden.
+
+### Starting Presets
+- **What Happens**: Before the sliders appear you choose Keep current levels, Maximum levels, or Clear all.
+
+### Apply And Combine
+- **What Happens**: A summary lists every added and removed enchantment before anything changes.
+- **Good To Know**: Combinations the game refuses are skipped and named above your hotbar.
+
+## How to Use
+
+1. Rename a Book to Enchanter at an Anvil.
+2. Hold the Enchanter Book and use it, choose Enchanter, then pick an item and a starting preset.
+3. Set the sliders, choose Apply on the summary, and the item shows its new enchantments.
+
+## Compatibility
+
+- Minecraft Bedrock Edition: The pack declares 1.26.50 as its minimum; this has not been confirmed in game.
+- Experimental features: No experiment requirement detected in the inspected files.
+- Achievements: Likely achievement-friendly.
+- Verification: Source created, not tested in game.
+
+## Creator and Permissions
+
+- Creator: ALNStudios
+- Profiles: [CurseForge Profile](https://www.curseforge.com/members/allenscreations/projects) · [MCPEDL Profile](https://mcpedl.com/user/alnstudios/)
+
+<a href="https://www.curseforge.com/members/allenscreations/projects"><img src="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/assets/Images/curseforge.jpg" alt="CurseForge" width="45%"></a> <a href="https://mcpedl.com/user/alnstudios/"><img src="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/assets/Images/MCPEDL.jpg" alt="MCPEDL" width="45%"></a>
+
+## Guidelines and Attribution
+
+- Creator: ALNStudios
+- Rights & Reservation: All rights reserved for ALNStudios.
+- Content Creators: Content creators are permitted to feature this creation in videos and streams with credit to ALNStudios.
+- Redistribution: Do not re-upload this pack or provide direct monetized download bypasses. Link directly to the official repository page.
+- Disclaimer: This is an unofficial community creation. It is not an official Minecraft product and is not approved by or associated with Mojang or Microsoft.
+
+---
+
+© All rights reserved for ALNStudios.
+
+---
+
+## Search & Discovery Keywords
+
+Minecraft Bedrock add-on, Enchanter Bedrock mod, enchantment sliders, renamed Book, custom enchanting menu, Minecraft PE enchant, MCPEDL add-on, CurseForge Bedrock, ALNStudios.
+```
+
+## FILE: MCPEDL/Addons/Enchanter/LOCK (5 lines, 167 bytes)
+
+```
+ALNStudios Add-on Lock v1
+
+Required repository marker for build validation.
+This marker does not encrypt source files or prevent extraction of distributable packages.
+```
+
+## FILE: MCPEDL/Addons/Enchanter/project.json (4 lines, 44 bytes)
+
+```
+{
+  "type": "addon",
+  "name": "Enchanter"
+}
+```
+
+## FILE: MCPEDL/Addons/Enchanter/README.md (19 lines, 767 bytes)
+
+```
+# Enchanter
+
+Download the current release of **Enchanter** for Minecraft Bedrock Edition.
+
+## Download
+
+- **Package format:** `.mcaddon`
+- **Direct download:** [Download Enchanter (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Enchanter/Enchanter%20V1.0.2.mcaddon)
+
+## Installation
+
+1. Download the package using the link above.
+2. Open the downloaded file with Minecraft to import it.
+3. If the package contains a pack that must be enabled separately, activate it in your world's settings.
+
+## Pack Information
+
+For gameplay features, usage details, compatibility notes, and other project information, read the [full description](https://github.com/AllensCreations/MCPE-Curseforges/blob/main/MCPEDL/Addons/Enchanter/DESCRIPTION.md).
+```
+
+## FILE: MCPEDL/Addons/README.md (54 lines, 8991 bytes)
+
+```
+# Add-ons
+
+Source files for established Minecraft Bedrock add-ons by ALNStudios.
+
+## Available Add-ons
+
+| Add-on | Source | Download |
+| :--- | :--- | :--- |
+| Ghast Mob Head Transformers | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/Ghast-Mob-Head-Transformers/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Ghast-Mob-Head-Transformers/GhastMobHeads%20V1.16.1.mcaddon) |
+| Immortal Pets | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/Immortal-Pets/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Immortal-Pets/ImmortalPets%20V1.10.1.mcaddon) |
+| Mining Helmet | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/Mining-Helmet/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Mining-Helmet/MiningHelmet%20V1.14.5.mcaddon) |
+| Monster Companions | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/Monster-Companions/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Monster-Companions/MonsterCompanions%20V2.0.1.mcaddon) |
+| Passive Auto-Switch Tools | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/Passive-Auto-Switch-Tools/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Passive-Auto-Switch-Tools/AutoSwitchTools%20V1.16.0.mcaddon) |
+| Tameable Companion Fox | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/Tameable-Companion-Fox/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Tameable-Companion-Fox/CompanionFox%20V1.8.5.mcaddon) |
+| Vanilla Quality of Life | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/Vanilla-Quality-of-Life/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Vanilla-Quality-of-Life/VanillaQoL%20V2.1.2.mcaddon) |
+| Grimoire Relics V2 | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/Grimoire-Relics-V2/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Grimoire-Relics-V2/GrimoireRelics%20V1.13.2.mcaddon) |
+| Grand Banquets | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/Grand-Banquets/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Grand-Banquets/GrandBanquets%20V1.6.0.mcaddon) |
+| Magnetic Satchel | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/Magnetic-Satchel) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Magnetic-Satchel/MagneticSatchel%20V1.8.0.mcaddon) |
+| Sudden Death Roulette The Diamond Race | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/Sudden-Death-Roulette) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Sudden-Death-Roulette/SuddenDeath%20V1.4.0.mcaddon) |
+| Smart Tree Capitator and Domino Ore Miner | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/Smart-Tree-Capitator-and-Domino-Ore-Miner) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Smart-Tree-Capitator-and-Domino-Ore-Miner/SmartCapitator%20V1.11.0.mcaddon) |
+| Harvest Intelligence | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/Harvest-Intelligence) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Harvest-Intelligence/HarvestIntel%20V1.6.0.mcaddon) |
+| Fletching Table Arsenal | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/Fletching-Table-Arsenal/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Fletching-Table-Arsenal/FletchingArsenal%20V1.0.0.mcaddon) |
+| Melody Figurine | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/Melody-Figurine/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Melody-Figurine/MelodyFigurine%20V1.14.0.mcaddon) |
+| One-Block Hardcore Survival Economy | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/One-Block-Economy/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/One-Block-Economy/OneBlockEconomy%20V1.4.0.mcaddon) |
+| Selective Mob Controller | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/Selective-Mob-Controller/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Selective-Mob-Controller/MobController%20V1.5.0.mcaddon) |
+| Swarm Mob Booster | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/Swarm-Mob-Booster/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Swarm-Mob-Booster/SwarmBooster%20V1.8.0.mcaddon) |
+| Copper-Carrier Logistics | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/Copper-Carrier-Logistics/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Copper-Carrier-Logistics/CopperCarrier%20V1.1.0.mcaddon) |
+| Universal Leash | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/Universal-Leash/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Universal-Leash/UniversalLeash%20V2.0.0.mcaddon) |
+| Padlock & Key | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/Padlock-and-Key/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Padlock-and-Key/PadlockKey%20V1.4.2.mcaddon) |
+| Talking Pirate Parrots | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/Talking-Pirate-Parrots_payload/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Talking-Pirate-Parrots_payload/PirateParrots%20V1.0.3.mcaddon) |
+| OP Sponge | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/OP-Sponge/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/OP-Sponge/OPSponge%20V1.0.1.mcaddon) |
+| Cheat Stick | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/Cheat-Stick/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Cheat-Stick/CheatStick%20V3.0.0.mcaddon) |
+| Waypoint Helper | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/Waypoint-Helper/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Waypoint-Helper/WaypointHelper%20V1.1.10.mcaddon) |
+| 2-in-1 Loot & XP Booster | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/2-in-1-Loot--XP-Booster/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/2-in-1-Loot--XP-Booster/LootXPBooster%20V1.0.13.mcaddon) |
+| Enchanter | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/Enchanter/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Enchanter/Enchanter%20V1.0.2.mcaddon) |
+| ALN Quiver | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/ALN-Quiver/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/ALN-Quiver/ALNQuiver%20V1.0.0.mcaddon) |
+| Expanded Basic Arsenal | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/Expanded-Basic-Arsenal/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Expanded-Basic-Arsenal/ExpandedBasicArsenal%20V1.0.0.mcaddon) |
+| ALN Wireless Headphones | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/ALN-Wireless-Headphones/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/ALN-Wireless-Headphones/ALNWirelessHeadphones%20V1.0.0.mcaddon) |
+| ALN MoreDiscs | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/ALN-MoreDiscs/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/ALN-MoreDiscs/ALNMoreDiscs%20V1.1.1.mcaddon) |
+
+Download links point to the currently published package files.
+
+## Attribution
+
+Created by ALNStudios. All rights reserved.
+
+Videos and streams are welcome with credit. Redistribution of original or modified files without permission is prohibited.
+
+## Related Directories
+
+- [Maps](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Maps#available-maps)
+- [Scripts](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Script#available-scripts)
+- [Minigames](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Minigame#available-minigames)
+```

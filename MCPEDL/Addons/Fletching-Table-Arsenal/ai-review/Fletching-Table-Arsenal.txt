@@ -1,0 +1,1379 @@
+# Repo Export
+
+## Index
+
+- **Export request:** `MCPEDL/Addons/Fletching-Table-Arsenal`
+- **Destination:** `MCPEDL/Addons/Fletching-Table-Arsenal`
+- **CURRENT VERSION: 1.0.0 / NEXT UPDATE: 1.0.1**  (`MCPEDL/Addons/Fletching-Table-Arsenal/CHANGELOG.md`)
+- **Text files:** 18
+- **Skipped binary:** 0
+- **Paths not found:** 0
+
+### Files in this export
+
+- `changelog_views/Fletching-Table-Arsenal.curseforge.html`
+- `changelog_views/Fletching-Table-Arsenal.github.md`
+- `description_views/Fletching-Table-Arsenal.listing.md`
+- `MCPEDL/Addons/Fletching-Table-Arsenal/assets/snapshots/.gitkeep`
+- `MCPEDL/Addons/Fletching-Table-Arsenal/behavior_pack/LOCK`
+- `MCPEDL/Addons/Fletching-Table-Arsenal/behavior_pack/manifest.json`
+- `MCPEDL/Addons/Fletching-Table-Arsenal/behavior_pack/scripts/fletcher.js`
+- `MCPEDL/Addons/Fletching-Table-Arsenal/behavior_pack/scripts/impact.js`
+- `MCPEDL/Addons/Fletching-Table-Arsenal/behavior_pack/scripts/main.js`
+- `MCPEDL/Addons/Fletching-Table-Arsenal/CHANGELOG.md`
+- `MCPEDL/Addons/Fletching-Table-Arsenal/DESCRIPTION.md`
+- `MCPEDL/Addons/Fletching-Table-Arsenal/LOCK`
+- `MCPEDL/Addons/Fletching-Table-Arsenal/project.json`
+- `MCPEDL/Addons/Fletching-Table-Arsenal/README.md`
+- `MCPEDL/Addons/Fletching-Table-Arsenal/resource_pack/LOCK`
+- `MCPEDL/Addons/Fletching-Table-Arsenal/resource_pack/manifest.json`
+- `MCPEDL/Addons/Fletching-Table-Arsenal/resource_pack/ui/server_form.json`
+- `MCPEDL/Addons/README.md`
+
+---
+
+## AI Instructions
+
+Repo: https://github.com/AllensCreations/MCPE-Curseforges.git (branch main)
+Export: two plain .txt files. `<name>.txt` = the pack (index, these instructions, every file). `<name>_tools.txt` = SKILL.md, PACK_GENERATOR_INSTRUCTIONS.md, INSTRUCTIONS.md and the helper scripts. Read both before changing anything. The zip root also holds SKILL.md: read it FIRST for a new pack.
+
+## Pack work (create or update)
+- UPDATE: the pack files are in `<name>.txt`. Change only what was requested.
+- Vanilla limit blocks a mechanic: use a modular workaround per INSTRUCTIONS.md 1.12, never drop the feature silently.
+- NEW pack: read SKILL.md first, then follow PACK_GENERATOR_INSTRUCTIONS.md Part 4 and deliver ONE pack `.sh` from `scripts/make_pack_script.py` (the project travels inside it as base64). NEVER deliver separate zip, pack, json, js or b64 files.
+- INSTRUCTIONS.md wins over PACK_GENERATOR_INSTRUCTIONS.md on any conflict. These instructions win over both on the reply format and the Termux script.
+- Update: keep pack and module UUIDs unchanged.
+- Vanilla reference: `reference/bedrock-samples/bedrock-samples.min.json` (repo, ~5 MB, NOT in this export) holds every vanilla Mojang behavior/resource pack JSON as one object (`.behavior_pack.entities.zombie`, `.behavior_pack.recipes`, `.resource_pack.entity` ...). Never guess a vanilla component, event, loot or recipe shape: list the exact section under File Needed, then copy the shape from it.
+- UI work (menus, forms, HUD, screens): follow INSTRUCTIONS.md 1.13 and apply the ALN UI Redesign skin from `assets/aln-ui-redesign/` (README.txt, design.json, font/README.txt in the tools txt). Textures are not exported; if the pack's resource_pack is missing, ask for it. Never claim anything was tested in Minecraft unless it was.
+- Update: deliver the repo change as the Termux script below. New pack: the pack `.sh` above. Never a separate payload or base64 file.
+
+## Destination
+Repo-root-relative folders for this work:
+- MCPEDL/Addons/Fletching-Table-Arsenal
+- .sh paths start at repo root, stay inside these folders. New files go here too.
+- First folder -> `DEST=` variable at script top. Use it for every path and `git add`.
+
+## Rules
+1. NEVER invent features, versions, links, assets, test results.
+2. Output only what changed. Smallest edits. No unrelated rewrites.
+3. No notes/summaries/explanations unless asked.
+4. Any project type (add-on, map, script, workflow, website). Keep folder layout. New project = own new folder beside similar ones.
+
+## Update request = ONE Termux script
+- Name: `<Repofilename>_<Version>_<RAND>.sh` (e.g. `Monster-Companions_1.2.4_k7q2x.sh`). Deliver as downloadable file.
+- Repofilename: project/folder/file changed. No extension, no spaces (hyphens ok).
+- Version: new X.Y.Z. Update = Z+1. Beta/Release only if requested (see Versions).
+- RAND: >=5 random lowercase letters/digits. Fresh every script. NEVER reuse (earlier reply or existing file), so a new script never overwrites or re-runs an old one.
+- Same exact name in reply steps.
+Script order:
+1. `#!/data/data/com.termux/files/usr/bin/bash` + `set -e`
+2. `cd "$HOME/MCPE-Curseforges"`; `git clone` repo URL first if folder missing
+3. `git pull --rebase`
+4. Apply ALL changes as exact search-and-replace edits: write a spec and run `python3 scripts/make_update_script.py spec.txt` (format in `scripts/apply_update.py`; `--verify <clone>` dry-runs it). The tool applies edits atomically, sets the manifest version and writes both changelogs. Size decides the method. SMALL update (a few edits, under about 60% of any file touched): search and replace only. LARGE update (most of a file, many new files, a redesign): use the best method, `@@ create`/`@@ overwrite` in the same spec, never many fragile edits. Either way ONE `.sh`. No separate downloads.
+5. Validate every changed .json with python3. Stop on error.
+5b. Verify top CHANGELOG.md heading == new X.Y.Z == script filename version. Stop on mismatch. If project has manifests: run `python3 scripts/manifest_tools.py --project "$DEST" --set X.Y.Z` (sets header.version, metadata.version, title suffix, module/dependency versions in every source manifest; never lowers), then `python3 scripts/manifest_tools.py --project "$DEST" --check` and `python3 scripts/validate_manifest_titles.py --project "$DEST"`. Stop on error. Every update must change the manifests so the build changes. Never hand-edit manifest JSON for versions.
+5c. If INSTRUCTIONS.md or PACK_GENERATOR_INSTRUCTIONS.md changed: run `python3 scripts/check_instruction_files.py`. Stop on error
+6. `git add` changed paths only; `git commit -m "<short message>"`; `git push`
+6b. Add an entry to the ROOT `CHANGELOG.md` (repo-wide, newest first under `---`): `## [vN] - YYYY-MM-DD - [Update Name]` (N = `REPO_VERSION` + 1, a single whole number such as v80, set by the update tool, never by hand), groups `### Added` / `### Improved & Balanced` / `### Fixed`, bullets `- **Title**: what changed`. Every script, tooling-only included.
+7. After push, do NOT start any workflow. Build Changed Packs & Sync Catalogs runs by itself on every push and rebuilds everything. Nothing auto-bumps; Publish to CurseForge uploads the newest changelog version as written.
+8. Idempotent: skip anything already applied.
+9. Last line, reached only after a successful push: `rm -f -- "$SELF"` (the script deletes itself; save `SELF="$(readlink -f -- "$0")"` on line 2, before the `cd`).
+
+## Docs (every update, same script)
+- Templates STRICT: README.md, DESCRIPTION.md, CHANGELOG.md match templates below exactly: same headings, text, order, labels, bullet format. NEVER add/remove/rename/merge/reorder sections. No boilerplate/extra text. No placeholders: fill every [bracket] with verified content. Accuracy + requested scope outrank template.
+- CHANGELOG.md: MANDATORY every update, no exceptions. Add new release entry for the change.
+- README.md + DESCRIPTION.md: after change, analyze both in destination folder. Edit ONLY if change makes them inaccurate/incomplete. NEVER remove verified content.
+
+### Versions (X.Y.Z ONLY)
+- Format: exactly X.Y.Z everywhere. NEVER X.Y.Z.A. No fourth part. No Alpha.
+- X = Release, Y = Beta, Z = Update.
+- Update: Z+1 (1.2.3 -> 1.2.4). Default.
+- Beta: Y+1, Z=0 (1.2.4 -> 1.3.0). Only if requested.
+- Release: X+1, Y=0, Z=0 (1.3.0 -> 2.0.0). Only if requested.
+- New X.Y.Z goes in CHANGELOG heading + script filename.
+- Manifest versions: set ONLY by the script via `manifest_tools.py --set X.Y.Z` (never hand-edit JSON). NEVER hand-edit README download links. Build Changed Packs & Sync Catalogs aligns a pack to its highest existing version and rebuilds; it never bumps. Publish to CurseForge uploads the newest changelog version.
+- NEVER put release version in README/DESCRIPTION titles. NEVER reuse a heading.
+
+### Changelog views
+- `changelog_views/<Name>.github.md` (newest open, older folded by minor series) and `changelog_views/<Name>.curseforge.html` (CurseForge spoilers, paste into project description): generated from CHANGELOG.md by `scripts/build_changelog_views.py`.
+- CHANGELOG.md = plain text, exact template format, only source of truth. NEVER add HTML/fold markup/links to it. NEVER edit views by hand. NEVER create/change views inside the .sh.
+- Refresh: Build Changed Packs & Sync Catalogs; Collect Files for AI Review (tick commit_changelog_views to save); or `python3 scripts/build_changelog_views.py --project <Name>`.
+
+### Writing
+- Player-facing only. In-game display names, never identifiers, file names, JSON, events, code.
+- "Behavior Pack" / "Resource Pack", NEVER BP/RP.
+- README: no code blocks, emojis, hype, badges.
+- DESCRIPTION: exactly the two Minecraft Bedrock + Format badges from repo template, no others. May keep existing item sprites + recipe diagrams.
+- No Markdown tables. Use `### Feature Name` cards with `- **What Happens**: ...` bullets.
+- Paragraphs <=4 sentences. Verified facts only. Verification line = source created | package built | in-game tested, NEVER mixed.
+
+### README.md (add-on): download landing page only, EXACTLY 11 non-empty lines
+```
+# [Name]
+
+Download the current release of **[Name]** for Minecraft Bedrock Edition.
+
+## Download
+
+- **Package format:** `.mcaddon`
+- **Direct download:** [Download [Name] (.mcaddon)](link)
+
+## Installation
+
+1. Download the package using the link above.
+2. Open the downloaded file with Minecraft to import it.
+3. If the package contains a pack that must be enabled separately, activate it in your world's settings.
+
+## Pack Information
+
+For gameplay features, usage details, compatibility notes, and other project information, read the [full description](DESCRIPTION link).
+```
+Maps/scripts/minigames: same landing page. Use real package format; .mcworld = tell players to open the imported world. Product details live in DESCRIPTION.md.
+
+### DESCRIPTION.md order
+1. `# [Name] — [subtitle]` (no release version)
+2. `**By ALNStudios**`
+3. Two exact badges (Minecraft Bedrock "Stable Release", Format) from repo template
+4. Summary
+5. `## Overview`
+6. `## Key Features`
+7. `## How to Use`
+8. `## Compatibility`: Minecraft Bedrock Edition, Experimental features, Achievements, Verification
+9. `## Creator and Permissions`: `- Creator: ALNStudios`, `- Profiles:` CurseForge https://www.curseforge.com/members/allenscreations/projects · MCPEDL https://mcpedl.com/user/alnstudios/, then the two clickable listing images (HTML, `width="45%"`, no `height`, raw URLs `assets/Images/curseforge.jpg`, `assets/Images/MCPEDL.jpg`). NEVER edit/copy the images
+10. `## Guidelines and Attribution`
+11. `---` then `## Search & Discovery Keywords` from real features
+- Add-ons: Achievements line ALWAYS `Likely achievement-friendly`; add caveats if world settings/cheats can disable achievements.
+
+### Guidelines and Attribution block, exactly
+```
+- Creator: ALNStudios
+- Rights & Reservation: All rights reserved for ALNStudios.
+- Content Creators: Content creators are permitted to feature this creation in videos and streams with credit to ALNStudios.
+- Redistribution: Do not re-upload this pack or provide direct monetized download bypasses. Link directly to the official repository page.
+- Disclaimer: This is an unofficial community creation. It is not an official Minecraft product and is not approved by or associated with Mojang or Microsoft.
+
+---
+
+© All rights reserved for ALNStudios.
+
+---
+```
+
+### CHANGELOG.md
+- `# Changelog — [Name]`, `---`, then newest first: `## [X.Y.Z] - YYYY-MM-DD - [Update Name]` (date: `TZ=Asia/Singapore date +%F`). [Update Name] = short player-facing title (2-6 words) of what is new. REQUIRED on every new entry.
+- Groups: `### Added`, `### Improved & Balanced`, `### Fixed` (bugs as in-game experience). Omit empty groups. Each group >=1 bullet.
+- Entry: `- **Title**: player impact.`
+- NO links, URLs, badges, function/event names, unverified benefits. No boilerplate after title.
+- Insert new entry directly under `---`, above previous release. NEVER edit/delete older entries.
+
+## Reply Format (STRICT)
+```
+[SYSTEM_CONFIG]
+Mode: Direct Execution
+Token_Efficiency: Maximum
+Rules: no greeting, intro, outro, offers, restating. High technical accuracy.
+```
+Output ONLY these three sections, in order, exact headings:
+1. **File Needed:** repo-root-relative path of each file created/edited.
+2. **Changelog:** bullets, brief summary of changes.
+3. **Termux Script:** ONE fenced `bash` block holding ONLY the run commands: `bash ~/storage/downloads/<Repofilename>_<Version>_<RAND>.sh` (a new pack may add the same line with `stage`). The .sh is attached, NEVER pasted. NEVER a Summary section.
+- The .sh (`<Repofilename>_<Version>_<RAND>.sh`, random chars included) is the downloadable file. Exact same name in the command.
+- NEVER text before, between, after. NEVER rename/merge/reorder/skip a section. Nothing to report: `- None`.
+- Unclear request: ask ONE line, then proceed with defaults.
+- First-time Termux setup, ONLY if the user asks:
+```
+pkg update -y && pkg install -y git python curl
+termux-setup-storage
+git config --global user.name "ALNStudios"
+git config --global user.email "your-email@example.com"
+git config --global credential.helper store
+```
+- Push password = GitHub Personal Access Token (repo + workflow scopes), NOT account password. Same token starts the build after push.
+
+---
+
+## File Contents
+
+## FILE: changelog_views/Fletching-Table-Arsenal.curseforge.html (2 lines, 684 bytes)
+
+```
+<h2>1.0.0 - 2026-10-29</h2><h3>Added</h3><ul><li><strong>Fletcher&#x27;s Workbench</strong>: Right-click a Fletching Table to open a menu that converts Arrows into specialized ammunition.</li><li><strong>Explosive Arrows</strong>: A small blast on impact that does not break blocks.</li><li><strong>Teleportation Arrows</strong>: Teleports the archer to the impact point.</li><li><strong>Frost Arrows</strong>: Slows and weakens targets and puts out fire on them.</li><li><strong>Workbench screen</strong>: A Resource Pack styles the menu with a dark input panel and slot-framed icons.</li><li><strong>Incendiary Arrows</strong>: Sets targets and nearby open space on fire.</li></ul>
+```
+
+## FILE: changelog_views/Fletching-Table-Arsenal.github.md (12 lines, 590 bytes)
+
+```
+# Changelog — Fletching Table Arsenal
+
+## [1.0.0] - 2026-10-29
+
+### Added
+- **Fletcher's Workbench**: Right-click a Fletching Table to open a menu that converts Arrows into specialized ammunition.
+- **Explosive Arrows**: A small blast on impact that does not break blocks.
+- **Teleportation Arrows**: Teleports the archer to the impact point.
+- **Frost Arrows**: Slows and weakens targets and puts out fire on them.
+- **Workbench screen**: A Resource Pack styles the menu with a dark input panel and slot-framed icons.
+- **Incendiary Arrows**: Sets targets and nearby open space on fire.
+```
+
+## FILE: description_views/Fletching-Table-Arsenal.listing.md (65 lines, 9641 bytes)
+
+````
+# Listing Kit: Fletching Table Arsenal
+
+Tap the Copy button on a block, then paste it into the CurseForge listing. Generated from DESCRIPTION.md: edit that, not this file.
+
+## Package Name
+
+```text
+Fletching Table Arsenal
+```
+
+## Summary (159/256)
+
+```text
+Right-click a Fletching Table to open the Fletcher's Workbench and convert ordinary Arrows into four specialized types of ammunition, using only vanilla items.
+```
+
+## Description (HTML)
+
+Paste into the CurseForge description editor in source (HTML) mode.
+
+```html
+<div><div style="border:2px solid #15803d;border-radius:18px;line-height:1.5"><br><h1 style="font-size:34px;text-align:center">Fletching Table Arsenal</h1><p style="color:#8a94a3;font-size:14px;text-align:center">by ALNStudios</p><div style="display:flex;flex-wrap:wrap;gap:8px;margin-left:14px;margin-right:14px"><div style="background-color:#dcfce7;color:#14532d;border-radius:20px;font-size:14px;line-height:2"><strong>&nbsp;&nbsp;Bedrock</strong>: 1.21+&nbsp;&nbsp;</div><div style="background-color:#dcfce7;color:#14532d;border-radius:20px;font-size:14px;line-height:2"><strong>&nbsp;&nbsp;Experimental</strong>: No&nbsp;&nbsp;</div><div style="background-color:#dcfce7;color:#14532d;border-radius:20px;font-size:14px;line-height:2"><strong>&nbsp;&nbsp;Achievements</strong>: Likely achievement-friendly&nbsp;&nbsp;</div></div><br></div>
+<h2 style="font-size:17px;text-align:left"><span style="background-color:#15803d;color:#ffffff;border-radius:20px">&nbsp;&nbsp;About&nbsp;&nbsp;</span></h2>
+<p>The Fletching Table becomes a working archery station. A menu shows your current supplies and whether each conversion is ready. Every conversion turns 16 plain Arrows into 16 specialized Arrows, renamed and color-coded so they are easy to spot in your inventory.</p>
+<h2 style="font-size:17px;text-align:left"><span style="background-color:#15803d;color:#ffffff;border-radius:20px">&nbsp;&nbsp;What You Get&nbsp;&nbsp;</span></h2>
+<div style="display:flex;flex-wrap:wrap;gap:10px"><div style="flex:1;min-width:200px;border:1px solid #8a94a3;border-radius:16px"><div style="background-color:#15803d;color:#ffffff;border-radius:16px;font-size:16px;line-height:2.2"><strong>&nbsp;&nbsp;Explosive Arrows</strong></div><div style="margin-left:12px;margin-right:12px"><p><span>Costs 16 Arrows and 2 Gunpowder. On impact the arrow detonates with a small blast that hurts nearby targets but does not break blocks.</span></p></div></div><div style="flex:1;min-width:200px;border:1px solid #8a94a3;border-radius:16px"><div style="background-color:#15803d;color:#ffffff;border-radius:16px;font-size:16px;line-height:2.2"><strong>&nbsp;&nbsp;Teleportation Arrows</strong></div><div style="margin-left:12px;margin-right:12px"><p><span>Costs 16 Arrows and 1 Ender Pearl. On impact the archer is teleported to where the arrow landed.</span></p></div></div><div style="flex:1;min-width:200px;border:1px solid #8a94a3;border-radius:16px"><div style="background-color:#15803d;color:#ffffff;border-radius:16px;font-size:16px;line-height:2.2"><strong>&nbsp;&nbsp;Frost Arrows</strong></div><div style="margin-left:12px;margin-right:12px"><p><span>Costs 16 Arrows and 4 Snowballs. Targets that are hit are slowed and weakened for a short time, and any fire on them is put out.</span></p></div></div><div style="flex:1;min-width:200px;border:1px solid #8a94a3;border-radius:16px"><div style="background-color:#15803d;color:#ffffff;border-radius:16px;font-size:16px;line-height:2.2"><strong>&nbsp;&nbsp;Incendiary Arrows</strong></div><div style="margin-left:12px;margin-right:12px"><p><span>Costs 16 Arrows and 1 Fire Charge. Targets that are hit are set on fire, and arrows that land on a block can ignite the open space beside it.</span></p></div></div></div>
+<h2 style="font-size:17px;text-align:left"><span style="background-color:#15803d;color:#ffffff;border-radius:20px">&nbsp;&nbsp;Get Started&nbsp;&nbsp;</span></h2>
+<ul><li>Right-click a Fletching Table to open the Fletcher's Workbench. Sneak while right-clicking to place blocks against the table as usual.</li><li>Pick a conversion. If you have the materials, they are removed from your inventory and the new Arrows are added. If not, a warning appears above your hotbar.</li><li>Only plain Arrows with no custom name count toward the cost.</li><li>Enable the Resource Pack to get the stone-style workbench screen with slot-framed icons. Without it, the menu uses the standard Minecraft form look.</li><li>Fire the specialized Arrows from a Bow. Crossbows are not supported.</li><li>Specialized Arrows are chosen from the first matching stack in your inventory when you start drawing the Bow.</li></ul>
+<h2 style="font-size:17px;text-align:left"><span style="background-color:#15803d;color:#ffffff;border-radius:20px">&nbsp;&nbsp;Install&nbsp;&nbsp;</span></h2>
+<table style="width:100%;border:1px solid #8a94a3;border-radius:16px"><tbody><tr><td style="width:44px;text-align:center"><div style="background-color:#15803d;color:#ffffff;font-weight:bold;font-size:15px;text-align:center;border-radius:10px;width:30px;aspect-ratio:1/1;line-height:30px">1</div></td><td style="text-align:left;">Download the file from this page and open it with Minecraft.</td></tr><tr><td style="width:44px;text-align:center"><div style="background-color:#15803d;color:#ffffff;font-weight:bold;font-size:15px;text-align:center;border-radius:10px;width:30px;aspect-ratio:1/1;line-height:30px">2</div></td><td style="text-align:left;">Create or edit a world and turn on the new pack(s) in its settings.</td></tr><tr><td style="width:44px;text-align:center"><div style="background-color:#15803d;color:#ffffff;font-weight:bold;font-size:15px;text-align:center;border-radius:10px;width:30px;aspect-ratio:1/1;line-height:30px">3</div></td><td style="text-align:left;">Play. No Experimental toggles needed.</td></tr></tbody></table>
+<h2 style="font-size:17px;text-align:left"><span style="background-color:#15803d;color:#ffffff;border-radius:20px">&nbsp;&nbsp;Support&nbsp;&nbsp;</span></h2><div style="border:1px solid #8a94a3;border-radius:16px;text-align:center"><br><a href="https://ko-fi.com/alnstudios"><img src="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/assets/Images/ko-fi.png" alt="Support ALNStudios on Ko-fi" width="250"></a><br><br></div><p style="text-align:center"><a href="https://www.curseforge.com/members/allenscreations/projects"><strong>CurseForge</strong></a> &nbsp;|&nbsp; <a href="https://mcpedl.com/user/alnstudios/"><strong>MCPEDL</strong></a> &nbsp;|&nbsp; <a href="https://ko-fi.com/alnstudios"><strong>Ko-fi</strong></a></p>
+<hr>
+<p style="text-align:center;color:#8a94a3;font-size:13px"><strong>By ALNStudios</strong></p>
+<div class="spoiler"><p style="font-size:13px"><strong>Permissions and credits</strong></p><ul style="font-size:13px"><li>Rights: All rights reserved for ALNStudios.</li><li>Content creators: You may feature this creation in videos and streams with credit to ALNStudios.</li><li>Redistribution: Do not re-upload this pack or provide direct monetized download bypasses. Link to this page.</li><li>Unofficial community creation. Not an official Minecraft product and not approved by or associated with Mojang or Microsoft.</li></ul></div>
+<p style="text-align:center;color:#8a94a3;font-size:12px">Minecraft Bedrock add-on, Fletching Table Arsenal Bedrock mod, tactical arrows, explosive arrows, teleportation arrows, frost arrows, incendiary arrows, fletching table menu, Minecraft PE survival, MCPEDL add-on, CurseForge Bedrock, ALNStudios.</p></div>
+```
+
+## AI Image Prompts
+
+### Reference Images
+
+- **Logo reference**: attach your own logo. The generator uses it only for brand colors and mood. The result must be a new design, not a copy.
+- **Snapshot references**: attach 1 to 4 of your in-game snapshots of this pack. The generator copies their look, not their screen layout.
+
+### Logo Prompt
+
+```text
+Use the attached logo only as a brand reference for its color palette and overall mood. Do not copy it. Create a new, original logo with a different composition and a different main symbol. Do not just recolor, resize, crop, mirror or tweak the attached logo.
+Create a clean, square (1:1) logo image for the Minecraft Bedrock add-on "Fletching Table Arsenal".
+Base the main symbol on the pack idea above. Match the blocky look of the attached in-game snapshots. Center the logo, use a simple background, and keep it readable at small sizes.
+Text: "Fletching Table Arsenal" and, in small letters, "ALNStudios". ALNStudios is the brand name, so always keep it and never remove or change it. Spell both exactly.
+Do not add Minecraft, Mojang or Microsoft logos, watermarks, or characters from other games.
+```
+
+### Banner Prompt
+
+```text
+Create a wide (16:9) banner image for the Minecraft Bedrock add-on "Fletching Table Arsenal".
+Use the attached in-game snapshots as scene and style references: copy their blocky look, lighting, colors and the kind of scenery they show. Make a new composition inspired by them. Do not copy the on-screen HUD, chat or hotbar.
+Use the attached logo only as a brand reference for its colors and mood. Do not copy it. Put a new, original logo design in the banner, large enough to read, on the left or center.
+Hint at these pack features visually: Explosive Arrows, Teleportation Arrows, Frost Arrows, Incendiary Arrows.
+Text: "Fletching Table Arsenal" and, in small letters, "by ALNStudios". ALNStudios is the brand name, so always keep it and never remove or change it. Spell both exactly.
+Leave clear space around the logo. No Minecraft, Mojang or Microsoft logos, no watermarks.
+```
+````
+
+## FILE: MCPEDL/Addons/Fletching-Table-Arsenal/assets/snapshots/.gitkeep (1 lines, 0 bytes)
+
+```
+
+```
+
+## FILE: MCPEDL/Addons/Fletching-Table-Arsenal/behavior_pack/LOCK (5 lines, 160 bytes)
+
+```
+ALNStudios Add-on Lock v1
+
+Pack marker included in the exported Minecraft Bedrock pack.
+This marker does not encrypt the pack or prevent extraction or editing.
+```
+
+## FILE: MCPEDL/Addons/Fletching-Table-Arsenal/behavior_pack/manifest.json (57 lines, 1019 bytes)
+
+```
+{
+  "format_version": 2,
+  "header": {
+    "name": "Fletching Table Arsenal (v1.0.0)",
+    "description": "Turns the Fletching Table into a tactical arrow workstation. by ALNStudios",
+    "uuid": "5b1557e6-7066-47b6-87c8-3accb36a3615",
+    "version": [
+      1,
+      0,
+      0
+    ],
+    "min_engine_version": [
+      1,
+      21,
+      80
+    ]
+  },
+  "modules": [
+    {
+      "type": "script",
+      "language": "javascript",
+      "uuid": "547934ae-ad8d-4872-88eb-aba8cff1a970",
+      "version": [
+        1,
+        0,
+        0
+      ],
+      "entry": "scripts/main.js"
+    }
+  ],
+  "dependencies": [
+    {
+      "uuid": "67cd68eb-664f-4890-a864-43ab6cf80597",
+      "version": [
+        1,
+        0,
+        0
+      ]
+    },
+    {
+      "module_name": "@minecraft/server",
+      "version": "1.19.0"
+    },
+    {
+      "module_name": "@minecraft/server-ui",
+      "version": "1.3.0"
+    }
+  ],
+  "metadata": {
+    "authors": [
+      "ALNStudios"
+    ],
+    "product_type": "addon",
+    "version": "1.0.0"
+  }
+}
+```
+
+## FILE: MCPEDL/Addons/Fletching-Table-Arsenal/behavior_pack/scripts/fletcher.js (233 lines, 8510 bytes)
+
+```
+import { system, ItemStack } from "@minecraft/server";
+import { ActionFormData, FormCancelationReason } from "@minecraft/server-ui";
+
+export const ARROW_ID = "minecraft:arrow";
+export const BATCH_SIZE = 16;
+
+const isPlainArrow = (item) => item.typeId === ARROW_ID && !item.nameTag && item.getLore().length === 0;
+const isItem = (id) => (item) => item.typeId === id;
+
+export const RECIPES = [
+  {
+    key: "explosive",
+    tag: "fa_explosive",
+    color: "§c",
+    menuName: "Explosive Arrows",
+    itemName: "§l§cExplosive Arrow",
+    lore: ["§7Fletcher's Workbench ammunition", "§8Detonates on impact"],
+    icon: "textures/items/gunpowder",
+    effect: "Detonates on impact with a small blast that spares your blocks.",
+    particles: ["minecraft:basic_flame_particle", "minecraft:basic_smoke_particle"],
+    needs: [
+      { name: ["Arrow", "Arrows"], amount: 16, match: isPlainArrow },
+      { name: ["Gunpowder", "Gunpowder"], amount: 2, match: isItem("minecraft:gunpowder") }
+    ]
+  },
+  {
+    key: "teleport",
+    tag: "fa_teleport",
+    color: "§d",
+    menuName: "Teleportation Arrows",
+    itemName: "§l§dTeleportation Arrow",
+    lore: ["§7Fletcher's Workbench ammunition", "§8Teleports the archer to the impact point"],
+    icon: "textures/items/ender_pearl",
+    effect: "Teleports you to the point where the arrow lands.",
+    particles: ["minecraft:endrod", "minecraft:villager_happy"],
+    needs: [
+      { name: ["Arrow", "Arrows"], amount: 16, match: isPlainArrow },
+      { name: ["Ender Pearl", "Ender Pearls"], amount: 1, match: isItem("minecraft:ender_pearl") }
+    ]
+  },
+  {
+    key: "frost",
+    tag: "fa_frost",
+    color: "§b",
+    menuName: "Frost Arrows",
+    itemName: "§l§bFrost Arrow",
+    lore: ["§7Fletcher's Workbench ammunition", "§8Chills and slows targets"],
+    icon: "textures/items/snowball",
+    effect: "Slows and weakens targets and puts out fire on them.",
+    particles: ["minecraft:ice_evaporation_emitter", "minecraft:critical_hit_emitter"],
+    needs: [
+      { name: ["Arrow", "Arrows"], amount: 16, match: isPlainArrow },
+      { name: ["Snowball", "Snowballs"], amount: 4, match: isItem("minecraft:snowball") }
+    ]
+  },
+  {
+    key: "incendiary",
+    tag: "fa_incendiary",
+    color: "§6",
+    menuName: "Incendiary Arrows",
+    itemName: "§l§6Incendiary Arrow",
+    lore: ["§7Fletcher's Workbench ammunition", "§8Sets targets and ground ablaze"],
+    icon: "textures/items/fireball",
+    effect: "Ignites targets and the open ground beside the impact.",
+    particles: ["minecraft:basic_flame_particle", "minecraft:lava_particle"],
+    needs: [
+      { name: ["Arrow", "Arrows"], amount: 16, match: isPlainArrow },
+      { name: ["Fire Charge", "Fire Charges"], amount: 1, match: isItem("minecraft:fire_charge") }
+    ]
+  }
+];
+
+const active = new Set();
+
+const wait = (ticks) => new Promise((resolve) => system.runTimeout(resolve, ticks));
+
+const label = (need, amount = need.amount) => `${amount} ${need.name[amount === 1 ? 0 : 1]}`;
+
+function countMatching(container, match) {
+  let total = 0;
+  for (let i = 0; i < container.size; i++) {
+    const item = container.getItem(i);
+    if (item && match(item)) total += item.amount;
+  }
+  return total;
+}
+
+function removeMatching(container, match, amount) {
+  let left = amount;
+  for (let i = 0; i < container.size && left > 0; i++) {
+    const item = container.getItem(i);
+    if (!item || !match(item)) continue;
+    const taken = Math.min(item.amount, left);
+    left -= taken;
+    if (item.amount === taken) {
+      container.setItem(i, undefined);
+    } else {
+      item.amount -= taken;
+      container.setItem(i, item);
+    }
+  }
+  return left === 0;
+}
+
+export function checkRecipe(container, recipe) {
+  const needs = recipe.needs.map((need) => ({ need, have: countMatching(container, need.match) }));
+  return { needs, ready: needs.every((entry) => entry.have >= entry.need.amount) };
+}
+
+function burst(dimension, center, particles, count) {
+  for (let i = 0; i < count; i++) {
+    const location = {
+      x: center.x + (Math.random() - 0.5) * 1.4,
+      y: center.y + Math.random() * 0.9,
+      z: center.z + (Math.random() - 0.5) * 1.4
+    };
+    for (const particle of particles) {
+      try {
+        dimension.spawnParticle(particle, location);
+      } catch {
+        continue;
+      }
+    }
+  }
+}
+
+export function craft(player, recipe, dimension, center) {
+  const container = player.getComponent("minecraft:inventory").container;
+  const status = checkRecipe(container, recipe);
+  if (!status.ready) {
+    player.onScreenDisplay.setActionBar("§c[FLETCHER] §fInsufficient materials in inventory!");
+    player.playSound("note.bass", { volume: 0.8, pitch: 0.7 });
+    return false;
+  }
+  for (const need of recipe.needs) removeMatching(container, need.match, need.amount);
+  const result = new ItemStack(ARROW_ID, BATCH_SIZE);
+  result.nameTag = recipe.itemName;
+  result.setLore(recipe.lore);
+  const leftover = container.addItem(result);
+  if (leftover) dimension.spawnItem(leftover, player.location);
+  player.playSound("random.bow", { volume: 1, pitch: 1 });
+  player.onScreenDisplay.setActionBar(`§6[FLETCHER] §fCrafted §a${BATCH_SIZE}x ${recipe.itemName}§f!`);
+  burst(dimension, center, ["minecraft:villager_happy", ...recipe.particles], 10);
+  return true;
+}
+
+function buildForm(container) {
+  const form = new ActionFormData().title("§6[ FLETCHER'S WORKBENCH ]");
+  const seen = new Set();
+  const supplies = [];
+  for (const recipe of RECIPES) {
+    for (const need of recipe.needs) {
+      if (seen.has(need.name[1])) continue;
+      seen.add(need.name[1]);
+      supplies.push(`§7${need.name[1]} §f${countMatching(container, need.match)}`);
+    }
+  }
+  form.body(
+    "Select an ammunition conversion to process using your inventory supplies:\n\n" +
+      "§8Your supplies\n" + supplies.join("  §8|  ") + "\n"
+  );
+  for (const recipe of RECIPES) {
+    const status = checkRecipe(container, recipe);
+    const cost = recipe.needs.map((need) => label(need)).join(" + ");
+    const state = status.ready ? "§2[READY]" : "§4[MISSING]";
+    form.button(`§l${recipe.color}${recipe.menuName} §r§8x${BATCH_SIZE}\n§8${cost}  ${state}`, recipe.icon);
+  }
+  return form;
+}
+
+function buildDetailForm(container, recipe) {
+  const status = checkRecipe(container, recipe);
+  const slots = status.needs
+    .map(({ need, have }) => `§8[ ${have >= need.amount ? "§a" : "§c"}${label(need)} §8]`)
+    .join(" §7+ ");
+  const stock = status.needs
+    .map(({ need, have }) => `${have >= need.amount ? "§a" : "§c"}${have}§8/§7${need.amount} §7${need.name[1]}`)
+    .join("  §8|  ");
+  const form = new ActionFormData().title("§6[ FLETCHER'S WORKBENCH ]");
+  form.body(
+    `${recipe.color}§l${recipe.menuName}\n\n§8INPUT\n${slots}\n\n§8OUTPUT\n§8[ ${recipe.color}${BATCH_SIZE}x ${recipe.menuName} §8]\n\n` +
+      `§8STOCK\n${stock}\n\n§8EFFECT\n§7${recipe.effect}\n`
+  );
+  form.button(
+    status.ready ? `§2§lCRAFT §r§8x${BATCH_SIZE}` : "§4§lCRAFT §r§8(missing materials)",
+    recipe.icon
+  );
+  form.button("§8« Back to recipes");
+  return form;
+}
+
+async function showForm(player, form) {
+  for (let attempt = 0; attempt < 10; attempt++) {
+    const response = await form.show(player);
+    if (response.cancelationReason !== FormCancelationReason.UserBusy) return response;
+    await wait(10);
+  }
+  return undefined;
+}
+
+export async function openWorkbench(player, block) {
+  if (active.has(player.id)) return;
+  active.add(player.id);
+  const dimension = block.dimension;
+  const center = { x: block.location.x + 0.5, y: block.location.y + 1.05, z: block.location.z + 0.5 };
+  try {
+    player.playSound("random.click", { volume: 0.6, pitch: 1.2 });
+    let view = -1;
+    while (true) {
+      const container = player.getComponent("minecraft:inventory").container;
+      if (view < 0) {
+        const response = await showForm(player, buildForm(container));
+        if (!response || response.canceled) break;
+        view = response.selection;
+        continue;
+      }
+      const recipe = RECIPES[view];
+      const response = await showForm(player, buildDetailForm(container, recipe));
+      if (!response || response.canceled) break;
+      if (response.selection === 0) {
+        craft(player, recipe, dimension, center);
+        await wait(6);
+      } else {
+        view = -1;
+      }
+    }
+  } catch (error) {
+    console.warn(`[Fletching Table Arsenal] ${error}`);
+  } finally {
+    active.delete(player.id);
+  }
+}
+```
+
+## FILE: MCPEDL/Addons/Fletching-Table-Arsenal/behavior_pack/scripts/impact.js (194 lines, 6640 bytes)
+
+```
+import { world, system } from "@minecraft/server";
+import { RECIPES, ARROW_ID } from "./fletcher.js";
+
+const BOW_ID = "minecraft:bow";
+const PENDING_TTL = 1200;
+const MAX_TRACKED = 48;
+const EXPLOSION_RADIUS = 2.5;
+const EXPLOSION_BREAKS_BLOCKS = false;
+
+const FACE_NORMALS = {
+  Up: { x: 0, y: 1, z: 0 },
+  Down: { x: 0, y: -1, z: 0 },
+  North: { x: 0, y: 0, z: -1 },
+  South: { x: 0, y: 0, z: 1 },
+  East: { x: 1, y: 0, z: 0 },
+  West: { x: -1, y: 0, z: 0 }
+};
+
+const pending = new Map();
+const tracked = new Set();
+
+function detectLoadedArrow(player) {
+  const candidates = [];
+  try {
+    const offhand = player.getComponent("minecraft:equippable").getEquipment("Offhand");
+    if (offhand) candidates.push(offhand);
+  } catch {
+    candidates.length = 0;
+  }
+  const container = player.getComponent("minecraft:inventory").container;
+  for (let i = 0; i < container.size; i++) {
+    const item = container.getItem(i);
+    if (item) candidates.push(item);
+  }
+  const arrow = candidates.find((item) => item.typeId === ARROW_ID);
+  if (!arrow) return undefined;
+  return RECIPES.find((recipe) => recipe.itemName === arrow.nameTag);
+}
+
+function soundAt(dimension, location, id, volume = 1, pitch = 1) {
+  for (const player of dimension.getPlayers({ location, maxDistance: 32 })) {
+    player.playSound(id, { location, volume, pitch });
+  }
+}
+
+function particlesAt(dimension, location, names, count) {
+  for (let i = 0; i < count; i++) {
+    const point = {
+      x: location.x + (Math.random() - 0.5) * 1.2,
+      y: location.y + Math.random() * 1.2,
+      z: location.z + (Math.random() - 0.5) * 1.2
+    };
+    for (const name of names) {
+      try {
+        dimension.spawnParticle(name, point);
+      } catch {
+        continue;
+      }
+    }
+  }
+}
+
+function offsetByFace(location, face, scale) {
+  const normal = FACE_NORMALS[face] ?? FACE_NORMALS.Up;
+  return { x: location.x + normal.x * scale, y: location.y + normal.y * scale, z: location.z + normal.z * scale };
+}
+
+const effects = {
+  explosive({ dimension, location, source, projectile }) {
+    const options = { breaksBlocks: EXPLOSION_BREAKS_BLOCKS, causesFire: false };
+    if (source) options.source = source;
+    dimension.createExplosion(location, EXPLOSION_RADIUS, options);
+    projectile.remove();
+  },
+
+  teleport({ dimension, location, source, projectile, hitEntity, face }) {
+    if (!source || source.typeId !== "minecraft:player") return;
+    const origin = source.location;
+    const originDimension = source.dimension;
+    let destination = hitEntity ? hitEntity.location : offsetByFace(location, face, face === "Down" ? 1.9 : 0.6);
+    source.teleport(destination, { dimension });
+    particlesAt(originDimension, origin, ["minecraft:endrod", "minecraft:villager_happy"], 14);
+    particlesAt(dimension, destination, ["minecraft:endrod", "minecraft:villager_happy"], 14);
+    soundAt(originDimension, origin, "mob.endermen.portal", 0.8, 1);
+    soundAt(dimension, destination, "mob.endermen.portal", 0.8, 1.2);
+    projectile.remove();
+  },
+
+  frost({ dimension, location, hitEntity }) {
+    if (hitEntity) {
+      hitEntity.addEffect("slowness", 160, { amplifier: 3 });
+      hitEntity.addEffect("weakness", 160, { amplifier: 0 });
+      hitEntity.extinguishFire();
+    }
+    particlesAt(dimension, location, ["minecraft:ice_evaporation_emitter", "minecraft:critical_hit_emitter"], 12);
+    soundAt(dimension, location, "random.glass", 0.8, 1.4);
+  },
+
+  incendiary({ dimension, location, hitEntity, block, face }) {
+    if (hitEntity) {
+      hitEntity.setOnFire(8, true);
+    } else if (block) {
+      const normal = FACE_NORMALS[face] ?? FACE_NORMALS.Up;
+      const target = block.offset(normal);
+      if (target && target.typeId === "minecraft:air") target.setType("minecraft:fire");
+    }
+    particlesAt(dimension, location, ["minecraft:basic_flame_particle", "minecraft:lava_particle"], 12);
+    soundAt(dimension, location, "fire.ignite", 1, 1);
+  }
+};
+
+function handleHit(event, hitEntity, blockHit) {
+  const projectile = event.projectile;
+  const recipe = RECIPES.find((entry) => projectile.hasTag(entry.tag));
+  if (!recipe) return;
+  projectile.removeTag(recipe.tag);
+  tracked.delete(projectile);
+  effects[recipe.key]({
+    dimension: event.dimension,
+    location: event.location,
+    source: event.source,
+    projectile,
+    hitEntity,
+    block: blockHit?.block,
+    face: blockHit?.face
+  });
+}
+
+export function registerImpactSystem() {
+  world.afterEvents.itemStartUse.subscribe((event) => {
+    const player = event.source;
+    if (player.typeId !== "minecraft:player" || event.itemStack?.typeId !== BOW_ID) return;
+    const recipe = detectLoadedArrow(player);
+    if (recipe) pending.set(player.id, { recipe, tick: system.currentTick });
+    else pending.delete(player.id);
+  });
+
+  world.afterEvents.entitySpawn.subscribe((event) => {
+    const arrow = event.entity;
+    if (arrow.typeId !== ARROW_ID || pending.size === 0) return;
+    let best;
+    let bestDistance = 5;
+    for (const player of arrow.dimension.getPlayers({ location: arrow.location, maxDistance: 5 })) {
+      const entry = pending.get(player.id);
+      if (!entry || system.currentTick - entry.tick > PENDING_TTL) continue;
+      const dx = player.location.x - arrow.location.x;
+      const dy = player.location.y - arrow.location.y;
+      const dz = player.location.z - arrow.location.z;
+      const distance = Math.sqrt(dx * dx + dy * dy + dz * dz);
+      if (distance < bestDistance) {
+        bestDistance = distance;
+        best = { id: player.id, recipe: entry.recipe };
+      }
+    }
+    if (!best) return;
+    pending.delete(best.id);
+    arrow.addTag(best.recipe.tag);
+    if (tracked.size < MAX_TRACKED) tracked.add(arrow);
+  });
+
+  world.afterEvents.projectileHitEntity.subscribe((event) => {
+    try {
+      handleHit(event, event.getEntityHit()?.entity, undefined);
+    } catch (error) {
+      console.warn(`[Fletching Table Arsenal] ${error}`);
+    }
+  });
+
+  world.afterEvents.projectileHitBlock.subscribe((event) => {
+    try {
+      handleHit(event, undefined, event.getBlockHit());
+    } catch (error) {
+      console.warn(`[Fletching Table Arsenal] ${error}`);
+    }
+  });
+
+  system.runInterval(() => {
+    for (const arrow of tracked) {
+      try {
+        const recipe = RECIPES.find((entry) => arrow.hasTag(entry.tag));
+        if (!recipe) {
+          tracked.delete(arrow);
+          continue;
+        }
+        arrow.dimension.spawnParticle(recipe.particles[0], arrow.location);
+      } catch {
+        tracked.delete(arrow);
+      }
+    }
+  }, 2);
+
+  world.afterEvents.playerLeave.subscribe((event) => pending.delete(event.playerId));
+}
+```
+
+## FILE: MCPEDL/Addons/Fletching-Table-Arsenal/behavior_pack/scripts/main.js (16 lines, 521 bytes)
+
+```
+import { world, system } from "@minecraft/server";
+import { openWorkbench } from "./fletcher.js";
+import { registerImpactSystem } from "./impact.js";
+
+const FLETCHING_TABLE = "minecraft:fletching_table";
+
+world.beforeEvents.playerInteractWithBlock.subscribe((event) => {
+  const { player, block } = event;
+  if (block.typeId !== FLETCHING_TABLE || player.isSneaking) return;
+  event.cancel = true;
+  if (event.isFirstEvent === false) return;
+  system.run(() => openWorkbench(player, block));
+});
+
+registerImpactSystem();
+```
+
+## FILE: MCPEDL/Addons/Fletching-Table-Arsenal/CHANGELOG.md (14 lines, 595 bytes)
+
+```
+# Changelog — Fletching Table Arsenal
+
+---
+
+## [1.0.0] - 2026-10-29
+
+### Added
+- **Fletcher's Workbench**: Right-click a Fletching Table to open a menu that converts Arrows into specialized ammunition.
+- **Explosive Arrows**: A small blast on impact that does not break blocks.
+- **Teleportation Arrows**: Teleports the archer to the impact point.
+- **Frost Arrows**: Slows and weakens targets and puts out fire on them.
+- **Workbench screen**: A Resource Pack styles the menu with a dark input panel and slot-framed icons.
+- **Incendiary Arrows**: Sets targets and nearby open space on fire.
+```
+
+## FILE: MCPEDL/Addons/Fletching-Table-Arsenal/DESCRIPTION.md (69 lines, 4024 bytes)
+
+```
+# Fletching Table Arsenal — Tactical Arrow Workstation
+
+**By ALNStudios**
+
+[![Minecraft Bedrock](https://img.shields.io/badge/Minecraft%20Bedrock-Stable%20Release-brightgreen?style=flat-square&logo=minecraft)](https://github.com/AllensCreations/MCPE-Curseforges)
+[![Format](https://img.shields.io/badge/Format-.MCPACK%20%7C%20.MCADDON%20%7C%20.MCWORLD-blue?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges)
+
+Right-click a Fletching Table to open the Fletcher's Workbench and convert ordinary Arrows into four specialized types of ammunition, using only vanilla items.
+
+## Overview
+
+The Fletching Table becomes a working archery station. A menu shows your current supplies and whether each conversion is ready. Every conversion turns 16 plain Arrows into 16 specialized Arrows, renamed and color-coded so they are easy to spot in your inventory.
+
+## Key Features
+
+### Explosive Arrows
+- **What Happens**: Costs 16 Arrows and 2 Gunpowder. On impact the arrow detonates with a small blast that hurts nearby targets but does not break blocks.
+
+### Teleportation Arrows
+- **What Happens**: Costs 16 Arrows and 1 Ender Pearl. On impact the archer is teleported to where the arrow landed.
+
+### Frost Arrows
+- **What Happens**: Costs 16 Arrows and 4 Snowballs. Targets that are hit are slowed and weakened for a short time, and any fire on them is put out.
+
+### Incendiary Arrows
+- **What Happens**: Costs 16 Arrows and 1 Fire Charge. Targets that are hit are set on fire, and arrows that land on a block can ignite the open space beside it.
+
+## How to Use
+
+- Right-click a Fletching Table to open the Fletcher's Workbench. Sneak while right-clicking to place blocks against the table as usual.
+- Pick a conversion. If you have the materials, they are removed from your inventory and the new Arrows are added. If not, a warning appears above your hotbar.
+- Only plain Arrows with no custom name count toward the cost.
+- Enable the Resource Pack to get the stone-style workbench screen with slot-framed icons. Without it, the menu uses the standard Minecraft form look.
+- Fire the specialized Arrows from a Bow. Crossbows are not supported.
+- Specialized Arrows are chosen from the first matching stack in your inventory when you start drawing the Bow.
+
+## Compatibility
+
+- Minecraft Bedrock Edition: minimum version not verified; the pack declares 1.21.80.
+- Experimental features: No experiment requirement detected in the inspected files.
+- Achievements: Likely achievement-friendly.
+- Verification: Source created, not tested in game.
+
+## Creator and Permissions
+
+- Creator: ALNStudios
+- Profiles: [CurseForge Profile](https://www.curseforge.com/members/allenscreations/projects) · [MCPEDL Profile](https://mcpedl.com/user/alnstudios/)
+
+<a href="https://www.curseforge.com/members/allenscreations/projects"><img src="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/assets/Images/curseforge.jpg" alt="CurseForge" width="45%"></a> <a href="https://mcpedl.com/user/alnstudios/"><img src="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/assets/Images/MCPEDL.jpg" alt="MCPEDL" width="45%"></a>
+
+## Guidelines and Attribution
+
+- Creator: ALNStudios
+- Rights & Reservation: All rights reserved for ALNStudios.
+- Content Creators: Content creators are permitted to feature this creation in videos and streams with credit to ALNStudios.
+- Redistribution: Do not re-upload this pack or provide direct monetized download bypasses. Link directly to the official repository page.
+- Disclaimer: This is an unofficial community creation. It is not an official Minecraft product and is not approved by or associated with Mojang or Microsoft.
+
+---
+
+© All rights reserved for ALNStudios.
+
+---
+
+## Search & Discovery Keywords
+
+Minecraft Bedrock add-on, Fletching Table Arsenal Bedrock mod, tactical arrows, explosive arrows, teleportation arrows, frost arrows, incendiary arrows, fletching table menu, Minecraft PE survival, MCPEDL add-on, CurseForge Bedrock, ALNStudios.
+```
+
+## FILE: MCPEDL/Addons/Fletching-Table-Arsenal/LOCK (5 lines, 167 bytes)
+
+```
+ALNStudios Add-on Lock v1
+
+Required repository marker for build validation.
+This marker does not encrypt source files or prevent extraction of distributable packages.
+```
+
+## FILE: MCPEDL/Addons/Fletching-Table-Arsenal/project.json (4 lines, 58 bytes)
+
+```
+{
+  "type": "addon",
+  "name": "Fletching Table Arsenal"
+}
+```
+
+## FILE: MCPEDL/Addons/Fletching-Table-Arsenal/README.md (19 lines, 844 bytes)
+
+```
+# Fletching Table Arsenal
+
+Download the current release of **Fletching Table Arsenal** for Minecraft Bedrock Edition.
+
+## Download
+
+- **Package format:** `.mcaddon`
+- **Direct download:** [Download Fletching Table Arsenal (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Fletching-Table-Arsenal/FletchingArsenal%20V1.0.0.mcaddon)
+
+## Installation
+
+1. Download the package using the link above.
+2. Open the downloaded file with Minecraft to import it.
+3. If the package contains a pack that must be enabled separately, activate it in your world's settings.
+
+## Pack Information
+
+For gameplay features, usage details, compatibility notes, and other project information, read the [full description](https://github.com/AllensCreations/MCPE-Curseforges/blob/main/MCPEDL/Addons/Fletching-Table-Arsenal/DESCRIPTION.md).
+```
+
+## FILE: MCPEDL/Addons/Fletching-Table-Arsenal/resource_pack/LOCK (5 lines, 160 bytes)
+
+```
+ALNStudios Add-on Lock v1
+
+Pack marker included in the exported Minecraft Bedrock pack.
+This marker does not encrypt the pack or prevent extraction or editing.
+```
+
+## FILE: MCPEDL/Addons/Fletching-Table-Arsenal/resource_pack/manifest.json (36 lines, 604 bytes)
+
+```
+{
+  "format_version": 2,
+  "header": {
+    "name": "Fletching Table Arsenal (v1.0.0)",
+    "description": "Workbench screen styling for the arrow workstation. by ALNStudios",
+    "uuid": "67cd68eb-664f-4890-a864-43ab6cf80597",
+    "version": [
+      1,
+      0,
+      0
+    ],
+    "min_engine_version": [
+      1,
+      21,
+      80
+    ]
+  },
+  "modules": [
+    {
+      "type": "resources",
+      "uuid": "1b0cfa68-86f1-4fc3-8839-891319fa5d5f",
+      "version": [
+        1,
+        0,
+        0
+      ]
+    }
+  ],
+  "metadata": {
+    "authors": [
+      "ALNStudios"
+    ],
+    "version": "1.0.0"
+  }
+}
+```
+
+## FILE: MCPEDL/Addons/Fletching-Table-Arsenal/resource_pack/ui/server_form.json (319 lines, 7682 bytes)
+
+```
+{
+  "namespace": "server_form",
+  "long_form@common_dialogs.main_panel_no_buttons": {
+    "$title_panel": "common_dialogs.standard_title_label",
+    "$title_size": [
+      "100% - 15px",
+      10
+    ],
+    "$title_max_size": [
+      "100% - 15px",
+      10
+    ],
+    "size": [
+      225,
+      200
+    ],
+    "$text_name": "#title_text",
+    "$title_text_binding_type": "none",
+    "$child_control": "server_form.long_form_panel",
+    "layer": 2,
+    "bindings": [
+      {
+        "binding_name": "#title_text"
+      },
+      {
+        "binding_type": "view",
+        "source_property_name": "((#title_text - 'WORKBENCH') = #title_text)",
+        "target_property_name": "#visible"
+      }
+    ]
+  },
+  "main_screen_content": {
+    "modifications": [
+      {
+        "array_name": "controls",
+        "operation": "insert_back",
+        "value": [
+          {
+            "fwb_form@server_form.fwb_form": {}
+          }
+        ]
+      }
+    ]
+  },
+  "fwb_form@common_dialogs.main_panel_no_buttons": {
+    "$title_panel": "common_dialogs.standard_title_label",
+    "$title_size": [
+      "100% - 15px",
+      10
+    ],
+    "$title_max_size": [
+      "100% - 15px",
+      10
+    ],
+    "size": [
+      240,
+      214
+    ],
+    "$text_name": "#title_text",
+    "$title_text_binding_type": "none",
+    "$child_control": "server_form.fwb_panel",
+    "layer": 2,
+    "bindings": [
+      {
+        "binding_name": "#title_text"
+      },
+      {
+        "binding_type": "view",
+        "source_property_name": "(not ((#title_text - 'WORKBENCH') = #title_text))",
+        "target_property_name": "#visible"
+      }
+    ]
+  },
+  "fwb_panel": {
+    "type": "stack_panel",
+    "size": [
+      "100%",
+      "100%"
+    ],
+    "orientation": "vertical",
+    "layer": 1,
+    "anchor_from": "top_left",
+    "anchor_to": "top_left",
+    "controls": [
+      {
+        "scrolling_panel@common.scrolling_panel": {
+          "anchor_to": "top_left",
+          "anchor_from": "top_left",
+          "$show_background": false,
+          "size": [
+            "100%",
+            "100%"
+          ],
+          "$scrolling_content": "server_form.fwb_scrolling_content",
+          "$scroll_size": [
+            5,
+            "100% - 4px"
+          ],
+          "$scrolling_pane_size": [
+            "100% - 4px",
+            "100% - 2px"
+          ],
+          "$scrolling_pane_offset": [
+            2,
+            0
+          ],
+          "$scroll_bar_right_padding_size": [
+            0,
+            0
+          ]
+        }
+      }
+    ]
+  },
+  "fwb_scrolling_content": {
+    "type": "stack_panel",
+    "size": [
+      "100% - 4px",
+      "100%c"
+    ],
+    "orientation": "vertical",
+    "anchor_from": "top_left",
+    "anchor_to": "top_left",
+    "controls": [
+      {
+        "fwb_inset": {
+          "type": "panel",
+          "size": [
+            "100%",
+            "100%c"
+          ],
+          "controls": [
+            {
+              "fwb_inset_bg": {
+                "type": "image",
+                "texture": "textures/ui/Black",
+                "alpha": 0.45,
+                "size": [
+                  "100%",
+                  "100%"
+                ],
+                "layer": 1
+              }
+            },
+            {
+              "fwb_inset_label": {
+                "type": "label",
+                "layer": 2,
+                "offset": [
+                  6,
+                  5
+                ],
+                "color": "$main_header_text_color",
+                "size": [
+                  "100% - 12px",
+                  "default"
+                ],
+                "anchor_from": "top_left",
+                "anchor_to": "top_left",
+                "text": "#form_text"
+              }
+            }
+          ]
+        }
+      },
+      {
+        "fwb_gap": {
+          "type": "panel",
+          "size": [
+            "100%",
+            6
+          ]
+        }
+      },
+      {
+        "fwb_buttons_wrap": {
+          "type": "panel",
+          "size": [
+            "100%",
+            "100%c"
+          ],
+          "controls": [
+            {
+              "fwb_buttons@server_form.fwb_buttons_panel": {}
+            }
+          ]
+        }
+      }
+    ]
+  },
+  "fwb_buttons_panel": {
+    "type": "stack_panel",
+    "size": [
+      "100% - 4px",
+      "100%c"
+    ],
+    "offset": [
+      2,
+      0
+    ],
+    "orientation": "vertical",
+    "anchor_from": "top_middle",
+    "anchor_to": "top_middle",
+    "factory": {
+      "name": "buttons",
+      "control_ids": {
+        "button": "server_form.fwb_button",
+        "label": "@server_form.dynamic_label",
+        "header": "@server_form.dynamic_header",
+        "divider": "@settings_common.option_group_section_divider"
+      }
+    },
+    "collection_name": "form_buttons",
+    "bindings": [
+      {
+        "binding_name": "#form_button_contents",
+        "binding_name_override": "#collection_length"
+      }
+    ]
+  },
+  "fwb_button": {
+    "type": "stack_panel",
+    "size": [
+      "100%",
+      36
+    ],
+    "orientation": "horizontal",
+    "controls": [
+      {
+        "slot_panel": {
+          "type": "panel",
+          "size": [
+            38,
+            "100%"
+          ],
+          "bindings": [
+            {
+              "binding_type": "view",
+              "source_control_name": "slot_icon",
+              "resolve_sibling_scope": true,
+              "source_property_name": "(not (#texture = ''))",
+              "target_property_name": "#visible"
+            }
+          ],
+          "controls": [
+            {
+              "slot_frame": {
+                "type": "image",
+                "texture": "textures/ui/item_cell",
+                "size": [
+                  36,
+                  36
+                ],
+                "layer": 1
+              }
+            },
+            {
+              "slot_icon": {
+                "type": "image",
+                "layer": 2,
+                "size": [
+                  28,
+                  28
+                ],
+                "offset": [
+                  0,
+                  0
+                ],
+                "bindings": [
+                  {
+                    "binding_name": "#form_button_texture",
+                    "binding_name_override": "#texture",
+                    "binding_type": "collection",
+                    "binding_collection_name": "form_buttons"
+                  },
+                  {
+                    "binding_name": "#form_button_texture_file_system",
+                    "binding_name_override": "#texture_file_system",
+                    "binding_type": "collection",
+                    "binding_collection_name": "form_buttons"
+                  },
+                  {
+                    "binding_type": "view",
+                    "source_property_name": "(not ((#texture = '') or (#texture = 'loading')))",
+                    "target_property_name": "#visible"
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      },
+      {
+        "form_button@common_buttons.light_text_button": {
+          "$pressed_button_name": "button.form_button_click",
+          "anchor_from": "top_left",
+          "anchor_to": "top_left",
+          "size": [
+            "fill",
+            36
+          ],
+          "$button_text": "#form_button_text",
+          "$button_text_binding_type": "collection",
+          "$button_text_grid_collection_name": "form_buttons",
+          "$button_text_max_size": [
+            "100%",
+            32
+          ],
+          "bindings": [
+            {
+              "binding_type": "collection_details",
+              "binding_collection_name": "form_buttons"
+            }
+          ]
+        }
+      }
+    ]
+  }
+}
+```
+
+## FILE: MCPEDL/Addons/README.md (54 lines, 8991 bytes)
+
+```
+# Add-ons
+
+Source files for established Minecraft Bedrock add-ons by ALNStudios.
+
+## Available Add-ons
+
+| Add-on | Source | Download |
+| :--- | :--- | :--- |
+| Ghast Mob Head Transformers | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/Ghast-Mob-Head-Transformers/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Ghast-Mob-Head-Transformers/GhastMobHeads%20V1.16.1.mcaddon) |
+| Immortal Pets | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/Immortal-Pets/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Immortal-Pets/ImmortalPets%20V1.10.1.mcaddon) |
+| Mining Helmet | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/Mining-Helmet/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Mining-Helmet/MiningHelmet%20V1.14.5.mcaddon) |
+| Monster Companions | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/Monster-Companions/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Monster-Companions/MonsterCompanions%20V2.0.1.mcaddon) |
+| Passive Auto-Switch Tools | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/Passive-Auto-Switch-Tools/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Passive-Auto-Switch-Tools/AutoSwitchTools%20V1.16.0.mcaddon) |
+| Tameable Companion Fox | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/Tameable-Companion-Fox/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Tameable-Companion-Fox/CompanionFox%20V1.8.5.mcaddon) |
+| Vanilla Quality of Life | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/Vanilla-Quality-of-Life/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Vanilla-Quality-of-Life/VanillaQoL%20V2.1.2.mcaddon) |
+| Grimoire Relics V2 | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/Grimoire-Relics-V2/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Grimoire-Relics-V2/GrimoireRelics%20V1.13.2.mcaddon) |
+| Grand Banquets | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/Grand-Banquets/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Grand-Banquets/GrandBanquets%20V1.6.0.mcaddon) |
+| Magnetic Satchel | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/Magnetic-Satchel) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Magnetic-Satchel/MagneticSatchel%20V1.8.0.mcaddon) |
+| Sudden Death Roulette The Diamond Race | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/Sudden-Death-Roulette) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Sudden-Death-Roulette/SuddenDeath%20V1.4.0.mcaddon) |
+| Smart Tree Capitator and Domino Ore Miner | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/Smart-Tree-Capitator-and-Domino-Ore-Miner) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Smart-Tree-Capitator-and-Domino-Ore-Miner/SmartCapitator%20V1.11.0.mcaddon) |
+| Harvest Intelligence | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/Harvest-Intelligence) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Harvest-Intelligence/HarvestIntel%20V1.6.0.mcaddon) |
+| Fletching Table Arsenal | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/Fletching-Table-Arsenal/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Fletching-Table-Arsenal/FletchingArsenal%20V1.0.0.mcaddon) |
+| Melody Figurine | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/Melody-Figurine/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Melody-Figurine/MelodyFigurine%20V1.14.0.mcaddon) |
+| One-Block Hardcore Survival Economy | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/One-Block-Economy/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/One-Block-Economy/OneBlockEconomy%20V1.4.0.mcaddon) |
+| Selective Mob Controller | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/Selective-Mob-Controller/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Selective-Mob-Controller/MobController%20V1.5.0.mcaddon) |
+| Swarm Mob Booster | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/Swarm-Mob-Booster/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Swarm-Mob-Booster/SwarmBooster%20V1.8.0.mcaddon) |
+| Copper-Carrier Logistics | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/Copper-Carrier-Logistics/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Copper-Carrier-Logistics/CopperCarrier%20V1.1.0.mcaddon) |
+| Universal Leash | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/Universal-Leash/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Universal-Leash/UniversalLeash%20V2.0.0.mcaddon) |
+| Padlock & Key | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/Padlock-and-Key/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Padlock-and-Key/PadlockKey%20V1.4.2.mcaddon) |
+| Talking Pirate Parrots | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/Talking-Pirate-Parrots_payload/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Talking-Pirate-Parrots_payload/PirateParrots%20V1.0.3.mcaddon) |
+| OP Sponge | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/OP-Sponge/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/OP-Sponge/OPSponge%20V1.0.1.mcaddon) |
+| Cheat Stick | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/Cheat-Stick/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Cheat-Stick/CheatStick%20V3.0.0.mcaddon) |
+| Waypoint Helper | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/Waypoint-Helper/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Waypoint-Helper/WaypointHelper%20V1.1.10.mcaddon) |
+| 2-in-1 Loot & XP Booster | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/2-in-1-Loot--XP-Booster/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/2-in-1-Loot--XP-Booster/LootXPBooster%20V1.0.13.mcaddon) |
+| Enchanter | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/Enchanter/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Enchanter/Enchanter%20V1.0.2.mcaddon) |
+| ALN Quiver | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/ALN-Quiver/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/ALN-Quiver/ALNQuiver%20V1.0.0.mcaddon) |
+| Expanded Basic Arsenal | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/Expanded-Basic-Arsenal/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Expanded-Basic-Arsenal/ExpandedBasicArsenal%20V1.0.0.mcaddon) |
+| ALN Wireless Headphones | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/ALN-Wireless-Headphones/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/ALN-Wireless-Headphones/ALNWirelessHeadphones%20V1.0.0.mcaddon) |
+| ALN MoreDiscs | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/ALN-MoreDiscs/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/ALN-MoreDiscs/ALNMoreDiscs%20V1.1.1.mcaddon) |
+
+Download links point to the currently published package files.
+
+## Attribution
+
+Created by ALNStudios. All rights reserved.
+
+Videos and streams are welcome with credit. Redistribution of original or modified files without permission is prohibited.
+
+## Related Directories
+
+- [Maps](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Maps#available-maps)
+- [Scripts](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Script#available-scripts)
+- [Minigames](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Minigame#available-minigames)
+```

@@ -1,0 +1,3439 @@
+# Repo Export
+
+## Index
+
+- **Export request:** `MCPEDL/Script/Universal-Clutch`
+- **Destination:** `MCPEDL/Script/Universal-Clutch`
+- **CURRENT VERSION: 1.5.2 / NEXT UPDATE: 1.5.3**  (`MCPEDL/Script/Universal-Clutch/CHANGELOG.md`)
+- **Text files:** 15
+- **Skipped binary:** 4
+- **Paths not found:** 0
+
+### Files in this export
+
+- `changelog_views/Universal-Clutch.curseforge.html`
+- `changelog_views/Universal-Clutch.github.md`
+- `description_views/Universal-Clutch.listing.md`
+- `MCPEDL/Script/README.md`
+- `MCPEDL/Script/Universal-Clutch/assets/snapshots/.gitkeep`
+- `MCPEDL/Script/Universal-Clutch/assets/snapshots/Images/.gitkeep`
+- `MCPEDL/Script/Universal-Clutch/behavior_pack/manifest.json`
+- `MCPEDL/Script/Universal-Clutch/behavior_pack/scripts/main.js`
+- `MCPEDL/Script/Universal-Clutch/behavior_pack/subpacks/extreme_mode/scripts/main.js`
+- `MCPEDL/Script/Universal-Clutch/behavior_pack/subpacks/full_mode/scripts/main.js`
+- `MCPEDL/Script/Universal-Clutch/behavior_pack/subpacks/simple_mode/scripts/main.js`
+- `MCPEDL/Script/Universal-Clutch/CHANGELOG.md`
+- `MCPEDL/Script/Universal-Clutch/DESCRIPTION.md`
+- `MCPEDL/Script/Universal-Clutch/project.json`
+- `MCPEDL/Script/Universal-Clutch/README.md`
+
+### Skipped (binary)
+
+- `MCPEDL/Script/Universal-Clutch/assets/snapshots/Images/universal-clutch-2-curseforge.jpg`
+- `MCPEDL/Script/Universal-Clutch/assets/snapshots/Images/universal-clutch-curseforge.jpg`
+- `MCPEDL/Script/Universal-Clutch/behavior_pack/pack_icon.png`
+- `MCPEDL/Script/Universal-Clutch/pack_icon.png`
+
+---
+
+## AI Instructions
+
+Repo: https://github.com/AllensCreations/MCPE-Curseforges.git (branch main)
+Export: two plain .txt files. `<name>.txt` = the pack (index, these instructions, every file). `<name>_tools.txt` = SKILL.md, PACK_GENERATOR_INSTRUCTIONS.md, INSTRUCTIONS.md and the helper scripts. Read both before changing anything. The zip root also holds SKILL.md: read it FIRST for a new pack.
+
+## Pack work (create or update)
+- UPDATE: the pack files are in `<name>.txt`. Change only what was requested.
+- Vanilla limit blocks a mechanic: use a modular workaround per INSTRUCTIONS.md 1.12, never drop the feature silently.
+- NEW pack: read SKILL.md first, then follow PACK_GENERATOR_INSTRUCTIONS.md Part 4 and deliver ONE pack `.sh` from `scripts/make_pack_script.py` (the project travels inside it as base64). NEVER deliver separate zip, pack, json, js or b64 files.
+- INSTRUCTIONS.md wins over PACK_GENERATOR_INSTRUCTIONS.md on any conflict. These instructions win over both on the reply format and the Termux script.
+- Update: keep pack and module UUIDs unchanged.
+- Vanilla reference: `reference/bedrock-samples/bedrock-samples.min.json` (repo, ~5 MB, NOT in this export) holds every vanilla Mojang behavior/resource pack JSON as one object (`.behavior_pack.entities.zombie`, `.behavior_pack.recipes`, `.resource_pack.entity` ...). Never guess a vanilla component, event, loot or recipe shape: list the exact section under File Needed, then copy the shape from it.
+- UI work (menus, forms, HUD, screens): follow INSTRUCTIONS.md 1.13 and apply the ALN UI Redesign skin from `assets/aln-ui-redesign/` (README.txt, design.json, font/README.txt in the tools txt). Textures are not exported; if the pack's resource_pack is missing, ask for it. Never claim anything was tested in Minecraft unless it was.
+- Update: deliver the repo change as the Termux script below. New pack: the pack `.sh` above. Never a separate payload or base64 file.
+
+## Destination
+Repo-root-relative folders for this work:
+- MCPEDL/Script/Universal-Clutch
+- .sh paths start at repo root, stay inside these folders. New files go here too.
+- First folder -> `DEST=` variable at script top. Use it for every path and `git add`.
+
+## Rules
+1. NEVER invent features, versions, links, assets, test results.
+2. Output only what changed. Smallest edits. No unrelated rewrites.
+3. No notes/summaries/explanations unless asked.
+4. Any project type (add-on, map, script, workflow, website). Keep folder layout. New project = own new folder beside similar ones.
+
+## Update request = ONE Termux script
+- Name: `<Repofilename>_<Version>_<RAND>.sh` (e.g. `Monster-Companions_1.2.4_k7q2x.sh`). Deliver as downloadable file.
+- Repofilename: project/folder/file changed. No extension, no spaces (hyphens ok).
+- Version: new X.Y.Z. Update = Z+1. Beta/Release only if requested (see Versions).
+- RAND: >=5 random lowercase letters/digits. Fresh every script. NEVER reuse (earlier reply or existing file), so a new script never overwrites or re-runs an old one.
+- Same exact name in reply steps.
+Script order:
+1. `#!/data/data/com.termux/files/usr/bin/bash` + `set -e`
+2. `cd "$HOME/MCPE-Curseforges"`; `git clone` repo URL first if folder missing
+3. `git pull --rebase`
+4. Apply ALL changes as exact search-and-replace edits: write a spec and run `python3 scripts/make_update_script.py spec.txt` (format in `scripts/apply_update.py`; `--verify <clone>` dry-runs it). The tool applies edits atomically, sets the manifest version and writes both changelogs. Size decides the method. SMALL update (a few edits, under about 60% of any file touched): search and replace only. LARGE update (most of a file, many new files, a redesign): use the best method, `@@ create`/`@@ overwrite` in the same spec, never many fragile edits. Either way ONE `.sh`. No separate downloads.
+5. Validate every changed .json with python3. Stop on error.
+5b. Verify top CHANGELOG.md heading == new X.Y.Z == script filename version. Stop on mismatch. If project has manifests: run `python3 scripts/manifest_tools.py --project "$DEST" --set X.Y.Z` (sets header.version, metadata.version, title suffix, module/dependency versions in every source manifest; never lowers), then `python3 scripts/manifest_tools.py --project "$DEST" --check` and `python3 scripts/validate_manifest_titles.py --project "$DEST"`. Stop on error. Every update must change the manifests so the build changes. Never hand-edit manifest JSON for versions.
+5c. If INSTRUCTIONS.md or PACK_GENERATOR_INSTRUCTIONS.md changed: run `python3 scripts/check_instruction_files.py`. Stop on error
+6. `git add` changed paths only; `git commit -m "<short message>"`; `git push`
+6b. Add an entry to the ROOT `CHANGELOG.md` (repo-wide, newest first under `---`): `## [vN] - YYYY-MM-DD - [Update Name]` (N = `REPO_VERSION` + 1, a single whole number such as v80, set by the update tool, never by hand), groups `### Added` / `### Improved & Balanced` / `### Fixed`, bullets `- **Title**: what changed`. Every script, tooling-only included.
+7. After push, do NOT start any workflow. Build Changed Packs & Sync Catalogs runs by itself on every push and rebuilds everything. Nothing auto-bumps; Publish to CurseForge uploads the newest changelog version as written.
+8. Idempotent: skip anything already applied.
+9. Last line, reached only after a successful push: `rm -f -- "$SELF"` (the script deletes itself; save `SELF="$(readlink -f -- "$0")"` on line 2, before the `cd`).
+
+## Docs (every update, same script)
+- Templates STRICT: README.md, DESCRIPTION.md, CHANGELOG.md match templates below exactly: same headings, text, order, labels, bullet format. NEVER add/remove/rename/merge/reorder sections. No boilerplate/extra text. No placeholders: fill every [bracket] with verified content. Accuracy + requested scope outrank template.
+- CHANGELOG.md: MANDATORY every update, no exceptions. Add new release entry for the change.
+- README.md + DESCRIPTION.md: after change, analyze both in destination folder. Edit ONLY if change makes them inaccurate/incomplete. NEVER remove verified content.
+
+### Versions (X.Y.Z ONLY)
+- Format: exactly X.Y.Z everywhere. NEVER X.Y.Z.A. No fourth part. No Alpha.
+- X = Release, Y = Beta, Z = Update.
+- Update: Z+1 (1.2.3 -> 1.2.4). Default.
+- Beta: Y+1, Z=0 (1.2.4 -> 1.3.0). Only if requested.
+- Release: X+1, Y=0, Z=0 (1.3.0 -> 2.0.0). Only if requested.
+- New X.Y.Z goes in CHANGELOG heading + script filename.
+- Manifest versions: set ONLY by the script via `manifest_tools.py --set X.Y.Z` (never hand-edit JSON). NEVER hand-edit README download links. Build Changed Packs & Sync Catalogs aligns a pack to its highest existing version and rebuilds; it never bumps. Publish to CurseForge uploads the newest changelog version.
+- NEVER put release version in README/DESCRIPTION titles. NEVER reuse a heading.
+
+### Changelog views
+- `changelog_views/<Name>.github.md` (newest open, older folded by minor series) and `changelog_views/<Name>.curseforge.html` (CurseForge spoilers, paste into project description): generated from CHANGELOG.md by `scripts/build_changelog_views.py`.
+- CHANGELOG.md = plain text, exact template format, only source of truth. NEVER add HTML/fold markup/links to it. NEVER edit views by hand. NEVER create/change views inside the .sh.
+- Refresh: Build Changed Packs & Sync Catalogs; Collect Files for AI Review (tick commit_changelog_views to save); or `python3 scripts/build_changelog_views.py --project <Name>`.
+
+### Writing
+- Player-facing only. In-game display names, never identifiers, file names, JSON, events, code.
+- "Behavior Pack" / "Resource Pack", NEVER BP/RP.
+- README: no code blocks, emojis, hype, badges.
+- DESCRIPTION: exactly the two Minecraft Bedrock + Format badges from repo template, no others. May keep existing item sprites + recipe diagrams.
+- No Markdown tables. Use `### Feature Name` cards with `- **What Happens**: ...` bullets.
+- Paragraphs <=4 sentences. Verified facts only. Verification line = source created | package built | in-game tested, NEVER mixed.
+
+### README.md (add-on): download landing page only, EXACTLY 11 non-empty lines
+```
+# [Name]
+
+Download the current release of **[Name]** for Minecraft Bedrock Edition.
+
+## Download
+
+- **Package format:** `.mcaddon`
+- **Direct download:** [Download [Name] (.mcaddon)](link)
+
+## Installation
+
+1. Download the package using the link above.
+2. Open the downloaded file with Minecraft to import it.
+3. If the package contains a pack that must be enabled separately, activate it in your world's settings.
+
+## Pack Information
+
+For gameplay features, usage details, compatibility notes, and other project information, read the [full description](DESCRIPTION link).
+```
+Maps/scripts/minigames: same landing page. Use real package format; .mcworld = tell players to open the imported world. Product details live in DESCRIPTION.md.
+
+### DESCRIPTION.md order
+1. `# [Name] — [subtitle]` (no release version)
+2. `**By ALNStudios**`
+3. Two exact badges (Minecraft Bedrock "Stable Release", Format) from repo template
+4. Summary
+5. `## Overview`
+6. `## Key Features`
+7. `## How to Use`
+8. `## Compatibility`: Minecraft Bedrock Edition, Experimental features, Achievements, Verification
+9. `## Creator and Permissions`: `- Creator: ALNStudios`, `- Profiles:` CurseForge https://www.curseforge.com/members/allenscreations/projects · MCPEDL https://mcpedl.com/user/alnstudios/, then the two clickable listing images (HTML, `width="45%"`, no `height`, raw URLs `assets/Images/curseforge.jpg`, `assets/Images/MCPEDL.jpg`). NEVER edit/copy the images
+10. `## Guidelines and Attribution`
+11. `---` then `## Search & Discovery Keywords` from real features
+- Add-ons: Achievements line ALWAYS `Likely achievement-friendly`; add caveats if world settings/cheats can disable achievements.
+
+### Guidelines and Attribution block, exactly
+```
+- Creator: ALNStudios
+- Rights & Reservation: All rights reserved for ALNStudios.
+- Content Creators: Content creators are permitted to feature this creation in videos and streams with credit to ALNStudios.
+- Redistribution: Do not re-upload this pack or provide direct monetized download bypasses. Link directly to the official repository page.
+- Disclaimer: This is an unofficial community creation. It is not an official Minecraft product and is not approved by or associated with Mojang or Microsoft.
+
+---
+
+© All rights reserved for ALNStudios.
+
+---
+```
+
+### CHANGELOG.md
+- `# Changelog — [Name]`, `---`, then newest first: `## [X.Y.Z] - YYYY-MM-DD - [Update Name]` (date: `TZ=Asia/Singapore date +%F`). [Update Name] = short player-facing title (2-6 words) of what is new. REQUIRED on every new entry.
+- Groups: `### Added`, `### Improved & Balanced`, `### Fixed` (bugs as in-game experience). Omit empty groups. Each group >=1 bullet.
+- Entry: `- **Title**: player impact.`
+- NO links, URLs, badges, function/event names, unverified benefits. No boilerplate after title.
+- Insert new entry directly under `---`, above previous release. NEVER edit/delete older entries.
+
+## Reply Format (STRICT)
+```
+[SYSTEM_CONFIG]
+Mode: Direct Execution
+Token_Efficiency: Maximum
+Rules: no greeting, intro, outro, offers, restating. High technical accuracy.
+```
+Output ONLY these three sections, in order, exact headings:
+1. **File Needed:** repo-root-relative path of each file created/edited.
+2. **Changelog:** bullets, brief summary of changes.
+3. **Termux Script:** ONE fenced `bash` block holding ONLY the run commands: `bash ~/storage/downloads/<Repofilename>_<Version>_<RAND>.sh` (a new pack may add the same line with `stage`). The .sh is attached, NEVER pasted. NEVER a Summary section.
+- The .sh (`<Repofilename>_<Version>_<RAND>.sh`, random chars included) is the downloadable file. Exact same name in the command.
+- NEVER text before, between, after. NEVER rename/merge/reorder/skip a section. Nothing to report: `- None`.
+- Unclear request: ask ONE line, then proceed with defaults.
+- First-time Termux setup, ONLY if the user asks:
+```
+pkg update -y && pkg install -y git python curl
+termux-setup-storage
+git config --global user.name "ALNStudios"
+git config --global user.email "your-email@example.com"
+git config --global credential.helper store
+```
+- Push password = GitHub Personal Access Token (repo + workflow scopes), NOT account password. Same token starts the build after push.
+
+---
+
+## File Contents
+
+## FILE: changelog_views/Universal-Clutch.curseforge.html (3 lines, 1873 bytes)
+
+```
+<h2>1.5.2 - 2026-11-14</h2><h3>Added</h3><ul><li><strong>On/Off Command</strong>: Each player can turn Universal Clutch off or on with /scriptevent clutch:off and /scriptevent clutch:on. The choice is saved per player.</li></ul><h3>Improved &amp; Balanced</h3><ul><li><strong>Natural Falling</strong>: The camera is never moved or forced, and your falling speed is no longer reset.</li><li><strong>Extreme Mode</strong>: Now works without looking down.</li></ul>
+<h2>1.5.x (2 releases)</h2><div class="spoiler"><h3>1.5.1 - 2026-11-14</h3><h4>Improved &amp; Balanced</h4><ul><li><strong>Script Pack</strong>: Universal Clutch is now released as a Script pack (.mcpack).</li><li><strong>Default Mode</strong>: Full Mode is now the default subpack on every device.</li><li><strong>Safer Landings</strong>: No item is used when you would land in water, lava, or on a soft block.</li><li><strong>Totem Fail-Safe</strong>: The Totem of Undying is only equipped when the fall would be fatal, and keeps its name and data.</li><li><strong>Creative and Spectator</strong>: Clutching no longer triggers in Creative or Spectator mode.</li></ul><h4>Fixed</h4><ul><li><strong>Twisting Vines</strong>: Twisting Vines are now recognized as a clutch item.</li><li><strong>Waterlogging</strong>: Removed the waterlogging claim; water is always placed in the air block above the ground.</li><li><strong>Fall Height</strong>: Fall height no longer carries over after swimming, gliding, or leaving the game.</li><li><strong>Water Recovery</strong>: Fixed an error when a player left within a moment of landing.</li><li><strong>Minimum Version</strong>: The Behavior Pack now requires Minecraft 1.21.20 or newer.</li></ul><h3>1.5.0 - 2026-10-29</h3><h4>Improved &amp; Balanced</h4><ul><li><strong>Changelog started</strong>: Version history is recorded from this release onward.</li></ul></div>
+```
+
+## FILE: changelog_views/Universal-Clutch.github.md (37 lines, 1579 bytes)
+
+```
+# Changelog — Universal Clutch
+
+## [1.5.2] - 2026-11-14
+
+### Added
+- **On/Off Command**: Each player can turn Universal Clutch off or on with /scriptevent clutch:off and /scriptevent clutch:on. The choice is saved per player.
+
+### Improved & Balanced
+- **Natural Falling**: The camera is never moved or forced, and your falling speed is no longer reset.
+- **Extreme Mode**: Now works without looking down.
+
+<details>
+<summary><b>1.5.x</b> (2 releases)</summary>
+
+### [1.5.1] - 2026-11-14
+
+#### Improved & Balanced
+- **Script Pack**: Universal Clutch is now released as a Script pack (.mcpack).
+- **Default Mode**: Full Mode is now the default subpack on every device.
+- **Safer Landings**: No item is used when you would land in water, lava, or on a soft block.
+- **Totem Fail-Safe**: The Totem of Undying is only equipped when the fall would be fatal, and keeps its name and data.
+- **Creative and Spectator**: Clutching no longer triggers in Creative or Spectator mode.
+
+#### Fixed
+- **Twisting Vines**: Twisting Vines are now recognized as a clutch item.
+- **Waterlogging**: Removed the waterlogging claim; water is always placed in the air block above the ground.
+- **Fall Height**: Fall height no longer carries over after swimming, gliding, or leaving the game.
+- **Water Recovery**: Fixed an error when a player left within a moment of landing.
+- **Minimum Version**: The Behavior Pack now requires Minecraft 1.21.20 or newer.
+
+### [1.5.0] - 2026-10-29
+
+#### Improved & Balanced
+- **Changelog started**: Version history is recorded from this release onward.
+
+</details>
+```
+
+## FILE: description_views/Universal-Clutch.listing.md (63 lines, 11666 bytes)
+
+````
+# Listing Kit: Universal Clutch
+
+Tap the Copy button on a block, then paste it into the CurseForge listing. Generated from DESCRIPTION.md: edit that, not this file.
+
+## Package Name
+
+```text
+Universal Clutch
+```
+
+## Summary (49/256)
+
+```text
+AUTOMATIC CLUTCH SYSTEM & FALL PROTECTION UTILITY
+```
+
+## Description (HTML)
+
+Paste into the CurseForge description editor in source (HTML) mode.
+
+```html
+<div><div style="border:2px solid #15803d;border-radius:18px;line-height:1.5"><br><h1 style="font-size:34px;text-align:center">Universal Clutch</h1><p style="color:#8a94a3;font-size:14px;text-align:center">by ALNStudios</p><p style="text-align:center"><span style="background-color:#15803d;color:#ffffff;border-radius:20px;font-size:16px">&nbsp;&nbsp;<strong>AUTOMATIC CLUTCH SYSTEM &amp; FALL PROTECTION UTILITY</strong>&nbsp;&nbsp;</span></p><div style="display:flex;flex-wrap:wrap;gap:8px;margin-left:14px;margin-right:14px"><div style="background-color:#dcfce7;color:#14532d;border-radius:20px;font-size:14px;line-height:2"><strong>&nbsp;&nbsp;Bedrock</strong>: 1.21+&nbsp;&nbsp;</div><div style="background-color:#dcfce7;color:#14532d;border-radius:20px;font-size:14px;line-height:2"><strong>&nbsp;&nbsp;Experimental</strong>: No&nbsp;&nbsp;</div><div style="background-color:#dcfce7;color:#14532d;border-radius:20px;font-size:14px;line-height:2"><strong>&nbsp;&nbsp;Achievements</strong>: Likely achievement-friendly&nbsp;&nbsp;</div></div><br></div>
+<h2 style="font-size:17px;text-align:left"><span style="background-color:#15803d;color:#ffffff;border-radius:20px">&nbsp;&nbsp;About&nbsp;&nbsp;</span></h2>
+<p>Universal Clutch provides a vanilla-faithful safety mechanic for Minecraft Bedrock players. The system checks your fall and whether you are looking toward the ground.</p><p>When aiming down and falling beyond the configured block height threshold, the add-on acts shortly before impact, triggers an authentic arm swing animation with placement audio, deploys the appropriate clutch item from your mainhand or offhand, and automatically re-scoops placed water upon touchdown.</p>
+<h2 style="font-size:17px;text-align:left"><span style="background-color:#15803d;color:#ffffff;border-radius:20px">&nbsp;&nbsp;What You Get&nbsp;&nbsp;</span></h2>
+<div style="display:flex;flex-wrap:wrap;gap:10px"><div style="flex:1;min-width:200px;border:1px solid #8a94a3;border-radius:16px"><div style="background-color:#15803d;color:#ffffff;border-radius:16px;font-size:16px;line-height:2.2"><strong>&nbsp;&nbsp;Multi-Item Clutch Support</strong></div><div style="margin-left:12px;margin-right:12px"><p><br><span style="font-size:13px;color:#8a94a3"><strong>Description:</strong> Automatically identifies and uses Water Buckets, Powder Snow Buckets, Twisting Vines, Hay Bales, Cobwebs, Slime Blocks, Scaffolding, Boats/Rafts, or Sweet Berries.</span></p></div></div><div style="flex:1;min-width:200px;border:1px solid #8a94a3;border-radius:16px"><div style="background-color:#15803d;color:#ffffff;border-radius:16px;font-size:16px;line-height:2.2"><strong>&nbsp;&nbsp;Dimension-Aware Clutches</strong></div><div style="margin-left:12px;margin-right:12px"><p><br><span style="font-size:13px;color:#8a94a3"><strong>Description:</strong> Automatically disables evaporating Water Buckets in the Nether, prioritizing Twisting Vines &amp; Powder Snow Buckets instead.</span></p></div></div><div style="flex:1;min-width:200px;border:1px solid #8a94a3;border-radius:16px"><div style="background-color:#15803d;color:#ffffff;border-radius:16px;font-size:16px;line-height:2.2"><strong>&nbsp;&nbsp;Dual Hand &amp; Inventory Detection</strong></div><div style="margin-left:12px;margin-right:12px"><p><br><span style="font-size:13px;color:#8a94a3"><strong>Description:</strong> Evaluates mainhand items first, with failover to offhand, hotbar, and upper inventory.</span></p></div></div><div style="flex:1;min-width:200px;border:1px solid #8a94a3;border-radius:16px"><div style="background-color:#15803d;color:#ffffff;border-radius:16px;font-size:16px;line-height:2.2"><strong>&nbsp;&nbsp;Totem of Undying Fail-Safe</strong></div><div style="margin-left:12px;margin-right:12px"><p><br><span style="font-size:13px;color:#8a94a3"><strong>Description:</strong> When falling to certain death with no clutch item, automatically searches inventory and equips a Totem of Undying into the offhand slot before impact.</span></p></div></div><div style="flex:1;min-width:200px;border:1px solid #8a94a3;border-radius:16px"><div style="background-color:#15803d;color:#ffffff;border-radius:16px;font-size:16px;line-height:2.2"><strong>&nbsp;&nbsp;Authentic Boat Placement</strong></div><div style="margin-left:12px;margin-right:12px"><p><br><span style="font-size:13px;color:#8a94a3"><strong>Description:</strong> Spawns the boat at maximum player reach distance (~4.5 blocks) first, then seats the player with a slight delay upon touchdown. Strictly no teleportation.</span></p></div></div><div style="flex:1;min-width:200px;border:1px solid #8a94a3;border-radius:16px"><div style="background-color:#15803d;color:#ffffff;border-radius:16px;font-size:16px;line-height:2.2"><strong>&nbsp;&nbsp;Timed Placement</strong></div><div style="margin-left:12px;margin-right:12px"><p><br><span style="font-size:13px;color:#8a94a3"><strong>Description:</strong> Uses velocity-based vertical raycasting to trigger placements shortly before impact rather than snapping prematurely.</span></p></div></div><div style="flex:1;min-width:200px;border:1px solid #8a94a3;border-radius:16px"><div style="background-color:#15803d;color:#ffffff;border-radius:16px;font-size:16px;line-height:2.2"><strong>&nbsp;&nbsp;Arm Placement Animation</strong></div><div style="margin-left:12px;margin-right:12px"><p><br><span style="font-size:13px;color:#8a94a3"><strong>Description:</strong> Triggers vanilla arm swing animations (the standard arm-swing animation) synced directly to placement audio.</span></p></div></div><div style="flex:1;min-width:200px;border:1px solid #8a94a3;border-radius:16px"><div style="background-color:#15803d;color:#ffffff;border-radius:16px;font-size:16px;line-height:2.2"><strong>&nbsp;&nbsp;Automatic Item Recovery</strong></div><div style="margin-left:12px;margin-right:12px"><p><br><span style="font-size:13px;color:#8a94a3"><strong>Description:</strong> Automatically retrieves placed water or powder snow 3 ticks after touchdown; verifies powder snow wasn't consumed to extinguish fire before re-scooping.</span></p></div></div></div>
+<h2 style="font-size:17px;text-align:left"><span style="background-color:#15803d;color:#ffffff;border-radius:20px">&nbsp;&nbsp;Install&nbsp;&nbsp;</span></h2>
+<table style="width:100%;border:1px solid #8a94a3;border-radius:16px"><tbody><tr><td style="width:44px;text-align:center"><div style="background-color:#15803d;color:#ffffff;font-weight:bold;font-size:15px;text-align:center;border-radius:10px;width:30px;aspect-ratio:1/1;line-height:30px">1</div></td><td style="text-align:left;">Download the file from this page and open it with Minecraft.</td></tr><tr><td style="width:44px;text-align:center"><div style="background-color:#15803d;color:#ffffff;font-weight:bold;font-size:15px;text-align:center;border-radius:10px;width:30px;aspect-ratio:1/1;line-height:30px">2</div></td><td style="text-align:left;">Create or edit a world and turn on the new pack(s) in its settings.</td></tr><tr><td style="width:44px;text-align:center"><div style="background-color:#15803d;color:#ffffff;font-weight:bold;font-size:15px;text-align:center;border-radius:10px;width:30px;aspect-ratio:1/1;line-height:30px">3</div></td><td style="text-align:left;">Play. No Experimental toggles needed.</td></tr></tbody></table>
+<h2 style="font-size:17px;text-align:left"><span style="background-color:#15803d;color:#ffffff;border-radius:20px">&nbsp;&nbsp;Support&nbsp;&nbsp;</span></h2><div style="border:1px solid #8a94a3;border-radius:16px;text-align:center"><br><a href="https://ko-fi.com/alnstudios"><img src="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/assets/Images/ko-fi.png" alt="Support ALNStudios on Ko-fi" width="250"></a><br><br></div><p style="text-align:center"><a href="https://www.curseforge.com/members/allenscreations/projects"><strong>CurseForge</strong></a> &nbsp;|&nbsp; <a href="https://mcpedl.com/user/alnstudios/"><strong>MCPEDL</strong></a> &nbsp;|&nbsp; <a href="https://ko-fi.com/alnstudios"><strong>Ko-fi</strong></a></p>
+<hr>
+<p style="text-align:center;color:#8a94a3;font-size:13px"><strong>By ALNStudios</strong></p>
+<div class="spoiler"><p style="font-size:13px"><strong>Permissions and credits</strong></p><ul style="font-size:13px"><li>Rights: All rights reserved for ALNStudios.</li><li>Content creators: You may feature this creation in videos and streams with credit to ALNStudios.</li><li>Redistribution: Do not re-upload this pack or provide direct monetized download bypasses. Link to this page.</li><li>Unofficial community creation. Not an official Minecraft product and not approved by or associated with Mojang or Microsoft.</li></ul></div>
+<p style="text-align:center;color:#8a94a3;font-size:12px">Universal Clutch Minecraft Bedrock, Multi-Item Clutch Support Bedrock, Dimension-Aware Clutches Bedrock, Dual Hand &amp; Inventory Detection Bedrock, Totem of Undying Fail-Safe Bedrock, Minecraft PE survival, MCPEDL, CurseForge Bedrock, ALNStudios, Minecraft Bedrock add-on, MCPEDL add-on.</p></div>
+```
+
+## AI Image Prompts
+
+### Reference Images
+
+- **Logo reference**: attach your own logo. The generator uses it only for brand colors and mood. The result must be a new design, not a copy.
+- **Snapshot references**: attach 1 to 4 of your in-game snapshots of this pack. The generator copies their look, not their screen layout.
+
+### Logo Prompt
+
+```text
+Use the attached logo only as a brand reference for its color palette and overall mood. Do not copy it. Create a new, original logo with a different composition and a different main symbol. Do not just recolor, resize, crop, mirror or tweak the attached logo.
+Create a clean, square (1:1) logo image for the Minecraft Bedrock add-on "Universal Clutch". AUTOMATIC CLUTCH SYSTEM & FALL PROTECTION UTILITY
+Base the main symbol on the pack idea above. Match the blocky look of the attached in-game snapshots. Center the logo, use a simple background, and keep it readable at small sizes.
+Text: "Universal Clutch" and, in small letters, "ALNStudios". ALNStudios is the brand name, so always keep it and never remove or change it. Spell both exactly.
+Do not add Minecraft, Mojang or Microsoft logos, watermarks, or characters from other games.
+```
+
+### Banner Prompt
+
+```text
+Create a wide (16:9) banner image for the Minecraft Bedrock add-on "Universal Clutch". AUTOMATIC CLUTCH SYSTEM & FALL PROTECTION UTILITY
+Use the attached in-game snapshots as scene and style references: copy their blocky look, lighting, colors and the kind of scenery they show. Make a new composition inspired by them. Do not copy the on-screen HUD, chat or hotbar.
+Use the attached logo only as a brand reference for its colors and mood. Do not copy it. Put a new, original logo design in the banner, large enough to read, on the left or center.
+Hint at these pack features visually: Multi-Item Clutch Support, Dimension-Aware Clutches, Dual Hand & Inventory Detection, Totem of Undying Fail-Safe, Authentic Boat Placement.
+Text: "Universal Clutch" and, in small letters, "by ALNStudios". ALNStudios is the brand name, so always keep it and never remove or change it. Spell both exactly.
+Leave clear space around the logo. No Minecraft, Mojang or Microsoft logos, no watermarks.
+```
+````
+
+## FILE: MCPEDL/Script/README.md (30 lines, 2858 bytes)
+
+```
+# Scripts
+
+Standalone Minecraft Bedrock Script packs by ALNStudios. Script projects use the `.mcpack` format and are tested with the Creative foundation.
+
+## Available Scripts
+
+| Project | Source | Download |
+| :--- | :--- | :--- |
+| *No standalone Script packs currently published.* | | |
+| Chrono-Bed | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Script/Chrono-Bed/) | [MCPACK](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Chrono-Bed/ChronoBed%20V1.0.0.mcpack) |
+| Target HUD Entity Inspector | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Script/Target-HUD-Entity-Inspector/) | [MCPACK](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Target-HUD-Entity-Inspector/TargetHUD%20V1.1.2.mcpack) |
+| Waypoint Helper | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Script/Waypoint-Helper/) | [MCPACK](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Waypoint-Helper/WaypointHelper%20V1.1.10.mcaddon) |
+| Always Critical | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Script/Always-Critical/) | [MCPACK](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Always-Critical/AlwaysCritical%20V1.0.0.mcpack) |
+| Universal Clutch | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Script/Universal-Clutch) | [MCPACK](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Universal-Clutch/UniversalClutch%20V1.5.2.mcpack) |
+| Living SMP Chat | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Script/Living-SMP-Chat/) | [MCPACK](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Living-SMP-Chat/LivingSMPChat%20V1.0.11.mcpack) |
+| Gameplay Optimizer | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Script/Gameplay-Optimizer/) | [MCPACK](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Gameplay-Optimizer/GameplayOptimizer%20V1.0.0.mcpack) |
+| ALNMobStacker | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Script/ALN-MobStacker/) | [MCPACK](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/ALN-MobStacker/ALNMobStacker%20V1.0.5.mcpack) |
+
+## Attribution
+
+Created by ALNStudios. All rights reserved.
+
+Videos and streams are welcome with credit. Redistribution of original or modified files without permission is prohibited.
+
+## Related Directories
+
+- [Add-ons](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons#available-add-ons)
+- [Maps](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Maps#available-maps)
+- [Minigames](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Minigame#available-minigames)
+```
+
+## FILE: MCPEDL/Script/Universal-Clutch/assets/snapshots/.gitkeep (1 lines, 0 bytes)
+
+```
+
+```
+
+## FILE: MCPEDL/Script/Universal-Clutch/assets/snapshots/Images/.gitkeep (2 lines, 1 bytes)
+
+```
+
+```
+
+## FILE: MCPEDL/Script/Universal-Clutch/behavior_pack/manifest.json (73 lines, 1554 bytes)
+
+```
+{
+  "format_version": 2,
+  "header": {
+    "name": "Universal Clutch (v1.5.2)",
+    "description": "Vanilla-faithful automatic clutch placements when falling from dangerous heights. Choose between Full Mode, Simple Mode, and Extreme Mode in subpack settings. by ALNStudios",
+    "uuid": "a452fcb1-dd72-41b0-aed0-273201968225",
+    "version": [
+      1,
+      5,
+      2
+    ],
+    "min_engine_version": [
+      1,
+      21,
+      20
+    ]
+  },
+  "modules": [
+    {
+      "description": "Universal Clutch Data Module",
+      "type": "data",
+      "uuid": "4b007efc-0319-422a-b56e-3abcfbb0d82e",
+      "version": [
+        1,
+        5,
+        2
+      ]
+    },
+    {
+      "description": "Universal Clutch Script Module",
+      "type": "script",
+      "language": "javascript",
+      "uuid": "95d7461f-8e92-498c-8748-6952e4266dcd",
+      "version": [
+        1,
+        5,
+        2
+      ],
+      "entry": "scripts/main.js"
+    }
+  ],
+  "dependencies": [
+    {
+      "module_name": "@minecraft/server",
+      "version": "1.13.0"
+    }
+  ],
+  "subpacks": [
+    {
+      "folder_name": "full_mode",
+      "name": "Full Mode (Auto-Switch Inventory)",
+      "memory_tier": 3
+    },
+    {
+      "folder_name": "simple_mode",
+      "name": "Simple Mode (Held Item Only)",
+      "memory_tier": 2
+    },
+    {
+      "folder_name": "extreme_mode",
+      "name": "Extreme Mode (Auto-Switch, No Look-Down Needed)",
+      "memory_tier": 1
+    }
+  ],
+  "metadata": {
+    "authors": [
+      "ALNStudios"
+    ],
+    "product_type": "addon",
+    "version": "1.5.2"
+  }
+}
+```
+
+## FILE: MCPEDL/Script/Universal-Clutch/behavior_pack/scripts/main.js (683 lines, 22593 bytes)
+
+```
+import { world, system, ItemStack } from "@minecraft/server";
+
+const DEFAULT_MODE = "full";
+const DEFAULT_THRESHOLD = 8;
+const ANIM = "animation.player.attack_bare_hand";
+
+const CLUTCH_REGISTRY = {
+  "minecraft:water_bucket": { name: "Water Bucket", category: "water", placeSound: "bucket.empty_water" },
+  "minecraft:powder_snow_bucket": { name: "Powder Snow Bucket", category: "powder_snow", placeSound: "bucket.empty_powder_snow" },
+  "minecraft:twisting_vines": { name: "Twisting Vines", category: "vines", blockId: "minecraft:twisting_vines", placeSound: "dig.grass" },
+  "minecraft:hay_block": { name: "Hay Bale", category: "block", blockId: "minecraft:hay_block", placeSound: "dig.grass" },
+  "minecraft:web": { name: "Cobweb", category: "block", blockId: "minecraft:web", placeSound: "dig.cloth" },
+  "minecraft:slime": { name: "Slime Block", category: "block", blockId: "minecraft:slime", placeSound: "dig.slime" },
+  "minecraft:scaffolding": { name: "Scaffolding", category: "block", blockId: "minecraft:scaffolding", placeSound: "block.scaffolding.place" },
+  "minecraft:sweet_berries": { name: "Sweet Berries", category: "sweet_berries", blockId: "minecraft:sweet_berry_bush", placeSound: "block.sweet_berry_bush.place" }
+};
+
+const OVERWORLD_CLUTCH_PRIORITY = [
+  "minecraft:water_bucket",
+  "minecraft:slime",
+  "minecraft:web",
+  "minecraft:hay_block",
+  "minecraft:powder_snow_bucket",
+  "minecraft:twisting_vines",
+  "boat",
+  "minecraft:scaffolding",
+  "minecraft:sweet_berries"
+];
+
+const NETHER_CLUTCH_PRIORITY = [
+  "minecraft:twisting_vines",
+  "minecraft:powder_snow_bucket",
+  "minecraft:hay_block",
+  "minecraft:slime",
+  "minecraft:web",
+  "boat",
+  "minecraft:scaffolding"
+];
+
+const PASSABLE_OR_AIR_BLOCKS = new Set([
+  "minecraft:air", "minecraft:cave_air", "minecraft:void_air",
+  "minecraft:short_grass", "minecraft:tall_grass", "minecraft:fern", "minecraft:large_fern",
+  "minecraft:snow_layer", "minecraft:deadbush",
+  "minecraft:dandelion", "minecraft:poppy", "minecraft:blue_orchid", "minecraft:allium",
+  "minecraft:azure_bluet", "minecraft:red_tulip", "minecraft:orange_tulip", "minecraft:white_tulip",
+  "minecraft:pink_tulip", "minecraft:oxeye_daisy", "minecraft:cornflower", "minecraft:lily_of_the_valley",
+  "minecraft:wither_rose", "minecraft:sunflower", "minecraft:lilac", "minecraft:rose_bush", "minecraft:peony",
+  "minecraft:torch", "minecraft:soul_torch", "minecraft:redwood_torch", "minecraft:redstone_wire",
+  "minecraft:rail", "minecraft:golden_rail", "minecraft:detector_rail", "minecraft:activator_rail",
+  "minecraft:tripwire", "minecraft:string", "minecraft:lever", "minecraft:stone_button", "minecraft:wooden_button"
+]);
+
+const NO_CLUTCH_SURFACES = new Set([
+  "minecraft:water", "minecraft:flowing_water", "minecraft:lava", "minecraft:flowing_lava",
+  "minecraft:hay_block", "minecraft:slime", "minecraft:web", "minecraft:powder_snow",
+  "minecraft:vine", "minecraft:ladder", "minecraft:scaffolding", "minecraft:sweet_berry_bush",
+  "minecraft:twisting_vines", "minecraft:weeping_vines", "minecraft:honey_block", "minecraft:bubble_column"
+]);
+
+const ENABLED_PROPERTY = "clutch_enabled";
+
+const activeWaterClutches = new Map();
+const activePowderSnowClutches = new Map();
+const lastClutchTick = new Map();
+const fallTrackers = new Map();
+
+function getClutchPriority(dimensionId) {
+  return dimensionId === "minecraft:nether" ? NETHER_CLUTCH_PRIORITY : OVERWORLD_CLUTCH_PRIORITY;
+}
+
+function getPlayerMode(player) {
+  try {
+    const tags = player.getTags();
+    if (tags.includes("clutch_mode:extreme")) return "extreme";
+    if (tags.includes("clutch_mode:full")) return "full";
+    if (tags.includes("clutch_mode:simple")) return "simple";
+  } catch {}
+  return DEFAULT_MODE;
+}
+
+function getPlayerThreshold(player) {
+  try {
+    for (const tag of player.getTags()) {
+      if (tag.startsWith("clutch_threshold:")) {
+        const val = parseInt(tag.split(":")[1], 10);
+        if (!isNaN(val) && val > 0) return val;
+      }
+    }
+  } catch {}
+  return DEFAULT_THRESHOLD;
+}
+
+function isClutchEnabled(player) {
+  try {
+    return player.getDynamicProperty(ENABLED_PROPERTY) !== false;
+  } catch {
+    return true;
+  }
+}
+
+function isInactiveGameMode(player) {
+  try {
+    return player.matches({ gameMode: "creative" }) || player.matches({ gameMode: "spectator" });
+  } catch {
+    return false;
+  }
+}
+
+function isCreative(player) {
+  try {
+    return player.matches({ gameMode: "creative" });
+  } catch {
+    return false;
+  }
+}
+
+function trackPlayerFall(player, vel) {
+  const loc = player.location;
+  let tracker = fallTrackers.get(player.id);
+  const isFallingDown = vel.y < -0.15 && !player.isOnGround;
+
+  if (!isFallingDown) {
+    fallTrackers.delete(player.id);
+    return 0;
+  }
+  if (!tracker) {
+    tracker = { startY: loc.y, fallDist: 0 };
+    fallTrackers.set(player.id, tracker);
+  } else {
+    if (loc.y > tracker.startY) tracker.startY = loc.y;
+    tracker.fallDist = Math.max(0, tracker.startY - loc.y);
+  }
+  return tracker.fallDist;
+}
+
+function isBoatId(typeId) {
+  return typeId.endsWith("_boat") || typeId.endsWith("_raft");
+}
+
+function resolveClutchItem(itemStack) {
+  if (!itemStack || !itemStack.typeId) return null;
+  const typeId = itemStack.typeId;
+  if (CLUTCH_REGISTRY[typeId]) return { ...CLUTCH_REGISTRY[typeId], typeId };
+  if (isBoatId(typeId)) {
+    const isChest = typeId.includes("chest_boat") || typeId.includes("chest_raft");
+    return {
+      name: "Boat",
+      category: "boat",
+      typeId,
+      entityType: isChest ? "minecraft:chest_boat" : "minecraft:boat",
+      placeSound: "step.wood"
+    };
+  }
+  return null;
+}
+
+function usableInDimension(itemStack, isNether) {
+  return !!itemStack && !(isNether && itemStack.typeId === "minecraft:water_bucket");
+}
+
+function itemMatchesPriority(itemStack, key) {
+  if (!itemStack || !itemStack.typeId) return false;
+  if (key === "boat") return isBoatId(itemStack.typeId);
+  return itemStack.typeId === key;
+}
+
+function findBestClutchItemInInventory(container, dimensionId) {
+  if (!container) return null;
+  for (const key of getClutchPriority(dimensionId)) {
+    for (let slot = 0; slot < 9 && slot < container.size; slot++) {
+      const item = container.getItem(slot);
+      if (item && itemMatchesPriority(item, key)) return { slot, item, inHotbar: true };
+    }
+    for (let slot = 9; slot < container.size; slot++) {
+      const item = container.getItem(slot);
+      if (item && itemMatchesPriority(item, key)) return { slot, item, inHotbar: false };
+    }
+  }
+  return null;
+}
+
+function hasAnyClutchItem(player) {
+  try {
+    const isNether = player.dimension?.id === "minecraft:nether";
+    const equippable = player.getComponent("minecraft:equippable");
+    if (equippable) {
+      for (const slot of ["Mainhand", "Offhand"]) {
+        const it = equippable.getEquipment(slot);
+        if (usableInDimension(it, isNether) && resolveClutchItem(it)) return true;
+      }
+    }
+    const container = player.getComponent("minecraft:inventory")?.container;
+    if (container) {
+      for (let i = 0; i < container.size; i++) {
+        const it = container.getItem(i);
+        if (usableInDimension(it, isNether) && resolveClutchItem(it)) return true;
+      }
+    }
+  } catch {}
+  return false;
+}
+
+function hasTotemOfUndying(player) {
+  try {
+    const equippable = player.getComponent("minecraft:equippable");
+    if (equippable) {
+      if (equippable.getEquipment("Offhand")?.typeId === "minecraft:totem_of_undying") return true;
+      if (equippable.getEquipment("Mainhand")?.typeId === "minecraft:totem_of_undying") return true;
+    }
+    const container = player.getComponent("minecraft:inventory")?.container;
+    if (container) {
+      for (let i = 0; i < container.size; i++) {
+        if (container.getItem(i)?.typeId === "minecraft:totem_of_undying") return true;
+      }
+    }
+  } catch {}
+  return false;
+}
+
+function isFallLethal(player, fallDist) {
+  try {
+    const health = player.getComponent("minecraft:health")?.currentValue ?? 20;
+    return Math.ceil(fallDist - 3) >= health;
+  } catch {
+    return true;
+  }
+}
+
+function tryTriggerTotemFailSafe(player, fallDist) {
+  try {
+    if (!isFallLethal(player, fallDist)) return false;
+    const equippable = player.getComponent("minecraft:equippable");
+    if (!equippable) return false;
+
+    const currentOffhand = equippable.getEquipment("Offhand");
+    if (currentOffhand?.typeId === "minecraft:totem_of_undying") return true;
+    if (equippable.getEquipment("Mainhand")?.typeId === "minecraft:totem_of_undying") return true;
+
+    const container = player.getComponent("minecraft:inventory")?.container;
+    if (!container) return false;
+
+    let totemSlot = -1;
+    for (let slot = 0; slot < container.size; slot++) {
+      if (container.getItem(slot)?.typeId === "minecraft:totem_of_undying") {
+        totemSlot = slot;
+        break;
+      }
+    }
+    if (totemSlot === -1) return false;
+
+    const totemItem = container.getItem(totemSlot).clone();
+    container.setItem(totemSlot, currentOffhand ?? undefined);
+    equippable.setEquipment("Offhand", totemItem);
+
+    try {
+      player.playAnimation(ANIM);
+      player.dimension.playSound("armor.equip_generic", player.location, { volume: 1.0, pitch: 1.0 });
+    } catch {}
+    return true;
+  } catch {
+    return false;
+  }
+}
+
+function acquireClutchItem(player, mode) {
+  const equippable = player.getComponent("minecraft:equippable");
+  const container = player.getComponent("minecraft:inventory")?.container;
+  const isNether = player.dimension?.id === "minecraft:nether";
+
+  const mainhand = equippable?.getEquipment("Mainhand");
+  if (usableInDimension(mainhand, isNether)) {
+    const def = resolveClutchItem(mainhand);
+    if (def) return { itemStack: mainhand, isOffhand: false, containerSlot: player.selectedSlotIndex, definition: def };
+  }
+
+  const offhand = equippable?.getEquipment("Offhand");
+  if (usableInDimension(offhand, isNether)) {
+    const def = resolveClutchItem(offhand);
+    if (def) return { itemStack: offhand, isOffhand: true, containerSlot: null, definition: def };
+  }
+
+  if (mode === "simple" || !container) return null;
+
+  const match = findBestClutchItemInInventory(container, player.dimension?.id);
+  if (!match) return null;
+
+  if (match.inHotbar) {
+    player.selectedSlotIndex = match.slot;
+    const switched = container.getItem(match.slot);
+    const definition = resolveClutchItem(switched);
+    if (!definition) return null;
+    return { itemStack: switched, isOffhand: false, containerSlot: match.slot, definition };
+  }
+
+  try {
+    const heldSlot = player.selectedSlotIndex;
+    const hotbarItem = container.getItem(heldSlot);
+    const invItem = container.getItem(match.slot);
+    container.setItem(heldSlot, invItem);
+    container.setItem(match.slot, hotbarItem);
+    const switched = container.getItem(heldSlot);
+    const definition = resolveClutchItem(switched);
+    if (!definition) return null;
+    return { itemStack: switched, isOffhand: false, containerSlot: heldSlot, definition };
+  } catch {
+    return null;
+  }
+}
+
+function isPassableOrAir(block) {
+  if (!block) return false;
+  if (block.isAir) return true;
+  return PASSABLE_OR_AIR_BLOCKS.has(block.typeId);
+}
+
+function findGroundBelow(dimension, location) {
+  const px = Math.floor(location.x);
+  const pz = Math.floor(location.z);
+  const startY = Math.floor(location.y);
+  const minY = Math.max(dimension.minHeight ?? -64, startY - 16);
+
+  for (let y = startY; y >= minY; y--) {
+    let block;
+    try {
+      block = dimension.getBlock({ x: px, y, z: pz });
+    } catch {
+      return null;
+    }
+    if (!block) return null;
+    if (isPassableOrAir(block)) continue;
+    if (NO_CLUTCH_SURFACES.has(block.typeId)) return null;
+
+    let airAbove;
+    try {
+      airAbove = dimension.getBlock({ x: px, y: y + 1, z: pz });
+    } catch {
+      return null;
+    }
+    if (!airAbove || !isPassableOrAir(airAbove)) return null;
+    return { surfaceBlock: block, airBlockAbove: airAbove, surfaceY: y };
+  }
+  return null;
+}
+
+function swapInto(player, clutchData, fromType, toType) {
+  try {
+    if (isCreative(player)) return;
+    const makeItem = () => new ItemStack(toType, 1);
+
+    if (clutchData.isOffhand) {
+      const equippable = player.getComponent("minecraft:equippable");
+      const off = equippable?.getEquipment("Offhand");
+      if (off && off.typeId === fromType) {
+        equippable.setEquipment("Offhand", makeItem());
+        return;
+      }
+    } else {
+      const container = player.getComponent("minecraft:inventory")?.container;
+      if (container && clutchData.containerSlot !== null) {
+        const item = container.getItem(clutchData.containerSlot);
+        if (item && item.typeId === fromType) {
+          container.setItem(clutchData.containerSlot, makeItem());
+          return;
+        }
+      }
+    }
+
+    const container = player.getComponent("minecraft:inventory")?.container;
+    if (!container) return;
+    for (let i = 0; i < container.size; i++) {
+      const item = container.getItem(i);
+      if (item && item.typeId === fromType) {
+        if (item.amount === 1) {
+          container.setItem(i, makeItem());
+        } else {
+          item.amount -= 1;
+          container.setItem(i, item);
+          container.addItem(makeItem());
+        }
+        return;
+      }
+    }
+  } catch {}
+}
+
+function consumeClutchItem(player, clutchData, replacementTypeId) {
+  try {
+    if (isCreative(player)) return;
+
+    if (clutchData.isOffhand) {
+      const equippable = player.getComponent("minecraft:equippable");
+      const offhand = equippable?.getEquipment("Offhand");
+      if (!offhand) return;
+      if (replacementTypeId) {
+        equippable.setEquipment("Offhand", new ItemStack(replacementTypeId, 1));
+      } else if (offhand.amount > 1) {
+        offhand.amount -= 1;
+        equippable.setEquipment("Offhand", offhand);
+      } else {
+        equippable.setEquipment("Offhand", undefined);
+      }
+      return;
+    }
+
+    const container = player.getComponent("minecraft:inventory")?.container;
+    if (!container || clutchData.containerSlot === null) return;
+    const current = container.getItem(clutchData.containerSlot);
+    if (!current) return;
+    if (replacementTypeId) {
+      container.setItem(clutchData.containerSlot, new ItemStack(replacementTypeId, 1));
+    } else if (current.amount > 1) {
+      current.amount -= 1;
+      container.setItem(clutchData.containerSlot, current);
+    } else {
+      container.setItem(clutchData.containerSlot, undefined);
+    }
+  } catch {}
+}
+
+function placeBoatClutch(dimension, airBlock, entityType, player, distToSurface, fallSpeed) {
+  try {
+    const boat = dimension.spawnEntity(entityType, {
+      x: airBlock.location.x + 0.5,
+      y: airBlock.location.y,
+      z: airBlock.location.z + 0.5
+    });
+    if (!boat) return false;
+
+    const speed = Math.max(0.5, Math.abs(fallSpeed));
+    const delayTicks = Math.max(1, Math.min(2, Math.round(distToSurface / speed)));
+
+    system.runTimeout(() => {
+      try {
+        if (boat.isValid() && player.isValid()) {
+          const rideable = boat.getComponent("minecraft:rideable");
+          if (rideable) {
+            rideable.addRider(player);
+          }
+        }
+      } catch {}
+    }, delayTicks);
+    return true;
+  } catch {
+    return false;
+  }
+}
+
+function isDead(player) {
+  try {
+    return (player.getComponent("minecraft:health")?.currentValue ?? 20) <= 0;
+  } catch {
+    return false;
+  }
+}
+
+function executeAutoScoop(clutch) {
+  const { player, playerId, targetPos, dimension, clutchData } = clutch;
+  try {
+    if (!player.isValid() || isDead(player)) return;
+
+    try {
+      const block = dimension.getBlock(targetPos);
+      if (block && (block.typeId === "minecraft:water" || block.typeId === "minecraft:flowing_water")) {
+        block.setType("minecraft:air");
+      }
+    } catch {}
+
+    try { dimension.playSound("bucket.fill_water", player.location, { volume: 1.0, pitch: 1.0 }); } catch {}
+    try { player.playAnimation(ANIM); } catch {}
+    swapInto(player, clutchData, "minecraft:bucket", "minecraft:water_bucket");
+  } catch {
+  } finally {
+    activeWaterClutches.delete(playerId);
+  }
+}
+
+function executeAutoScoopPowderSnow(clutch) {
+  const { player, playerId, targetPos, dimension, clutchData } = clutch;
+  try {
+    if (!player.isValid() || isDead(player)) return;
+
+    let stillSnow = false;
+    try {
+      const block = dimension.getBlock(targetPos);
+      if (block && block.typeId === "minecraft:powder_snow") {
+        stillSnow = true;
+        block.setType("minecraft:air");
+      }
+    } catch {}
+
+    if (stillSnow) {
+      try { dimension.playSound("bucket.fill_powder_snow", player.location, { volume: 1.0, pitch: 1.0 }); } catch {}
+      try { player.playAnimation(ANIM); } catch {}
+      swapInto(player, clutchData, "minecraft:bucket", "minecraft:powder_snow_bucket");
+    }
+  } catch {
+  } finally {
+    activePowderSnowClutches.delete(playerId);
+  }
+}
+
+function executeClutch(player, velocity, clutchData, ground, distToSurface) {
+  const { definition } = clutchData;
+  const { airBlockAbove } = ground;
+  const dimension = player.dimension;
+
+  try { player.playAnimation(ANIM); } catch {}
+  try { dimension.playSound(definition.placeSound, player.location, { volume: 1.0, pitch: 1.0 }); } catch {}
+
+  let placed = false;
+
+  switch (definition.category) {
+    case "water": {
+      try {
+        airBlockAbove.setType("minecraft:water");
+        placed = true;
+        consumeClutchItem(player, clutchData, "minecraft:bucket");
+        activeWaterClutches.set(player.id, {
+          player,
+          playerId: player.id,
+          targetPos: airBlockAbove.location,
+          dimension,
+          deployedTick: system.currentTick,
+          scheduled: false,
+          clutchData
+        });
+      } catch {}
+      break;
+    }
+    case "powder_snow": {
+      try {
+        airBlockAbove.setType("minecraft:powder_snow");
+        placed = true;
+        consumeClutchItem(player, clutchData, "minecraft:bucket");
+        activePowderSnowClutches.set(player.id, {
+          player,
+          playerId: player.id,
+          targetPos: airBlockAbove.location,
+          dimension,
+          deployedTick: system.currentTick,
+          scheduled: false,
+          clutchData
+        });
+      } catch {}
+      break;
+    }
+    case "vines": {
+      try {
+        airBlockAbove.setType(definition.blockId);
+        if (airBlockAbove.typeId === definition.blockId) {
+          consumeClutchItem(player, clutchData);
+          placed = true;
+        }
+      } catch {}
+      break;
+    }
+    case "block":
+    case "sweet_berries": {
+      try {
+        airBlockAbove.setType(definition.blockId);
+        consumeClutchItem(player, clutchData);
+        placed = true;
+      } catch {}
+      break;
+    }
+    case "boat": {
+      if (placeBoatClutch(dimension, airBlockAbove, definition.entityType, player, distToSurface, velocity.y)) {
+        consumeClutchItem(player, clutchData);
+        placed = true;
+      }
+      break;
+    }
+  }
+
+  if (placed) lastClutchTick.set(player.id, system.currentTick);
+}
+
+function processPending(map, executor, currentTick) {
+  for (const [playerId, clutch] of map.entries()) {
+    let valid = false;
+    try { valid = clutch.player.isValid(); } catch {}
+    if (!valid) {
+      map.delete(playerId);
+      continue;
+    }
+    if (clutch.scheduled) continue;
+
+    let vel = { x: 0, y: 0, z: 0 };
+    try { vel = clutch.player.getVelocity(); } catch {}
+    const landed = clutch.player.isOnGround === true || Math.abs(vel.y) < 0.1 || currentTick - clutch.deployedTick > 15;
+    if (landed) {
+      clutch.scheduled = true;
+      system.runTimeout(() => executor(clutch), 3);
+    }
+  }
+}
+
+system.runInterval(() => {
+  const currentTick = system.currentTick;
+
+  processPending(activeWaterClutches, executeAutoScoop, currentTick);
+  processPending(activePowderSnowClutches, executeAutoScoopPowderSnow, currentTick);
+
+  for (const player of world.getAllPlayers()) {
+    try {
+      if (!player.isValid()) continue;
+
+      let vel;
+      try {
+        vel = player.getVelocity();
+      } catch {
+        continue;
+      }
+
+      let blocked = false;
+      try {
+        blocked = player.isGliding || player.isInWater || player.isSwimming;
+      } catch {}
+      if (blocked || isInactiveGameMode(player) || !isClutchEnabled(player)) {
+        fallTrackers.delete(player.id);
+        continue;
+      }
+
+      const currentFallDist = trackPlayerFall(player, vel);
+      if (vel.y > -0.5) continue;
+
+      const threshold = getPlayerThreshold(player);
+      const ground = findGroundBelow(player.dimension, player.location);
+      if (!ground) continue;
+
+      const distToSurface = player.location.y - (ground.surfaceY + 1);
+      if (distToSurface < 0.1) continue;
+
+      const tracker = fallTrackers.get(player.id);
+      const totalDrop = tracker ? tracker.startY - (ground.surfaceY + 1) : currentFallDist;
+      if (currentFallDist < threshold && totalDrop < threshold) continue;
+
+      const mode = getPlayerMode(player);
+      const fallSpeed = Math.abs(vel.y);
+
+      if (mode === "extreme") {
+        if (!hasAnyClutchItem(player) && !hasTotemOfUndying(player)) continue;
+      }
+
+      if (currentTick - (lastClutchTick.get(player.id) ?? -100) < 25) continue;
+
+      const rot = player.getRotation();
+      if (mode !== "extreme" && rot.x < 55) continue;
+
+      if (distToSurface > Math.max(4.5, fallSpeed * 1.6 + 0.4)) continue;
+
+      const clutchData = acquireClutchItem(player, mode);
+      const isBoat = clutchData?.definition?.category === "boat";
+      const maxTrigger = isBoat ? 4.5 : Math.max(2.2, fallSpeed * 1.6 + 0.4);
+      if (distToSurface > maxTrigger) continue;
+
+      if (clutchData) {
+        executeClutch(player, vel, clutchData, ground, distToSurface);
+      } else {
+        tryTriggerTotemFailSafe(player, Math.max(currentFallDist, totalDrop));
+      }
+    } catch {}
+  }
+}, 1);
+
+world.afterEvents.playerLeave.subscribe((event) => {
+  fallTrackers.delete(event.playerId);
+  lastClutchTick.delete(event.playerId);
+  activeWaterClutches.delete(event.playerId);
+  activePowderSnowClutches.delete(event.playerId);
+});
+
+system.afterEvents.scriptEventReceive.subscribe((event) => {
+  if (event.id !== "clutch:on" && event.id !== "clutch:off") return;
+  const player = event.sourceEntity;
+  if (!player || player.typeId !== "minecraft:player") return;
+  const enable = event.id === "clutch:on";
+  try {
+    player.setDynamicProperty(ENABLED_PROPERTY, enable);
+    player.sendMessage(enable ? "§aUniversal Clutch: ON" : "§cUniversal Clutch: OFF");
+  } catch {}
+});
+```
+
+## FILE: MCPEDL/Script/Universal-Clutch/behavior_pack/subpacks/extreme_mode/scripts/main.js (683 lines, 22596 bytes)
+
+```
+import { world, system, ItemStack } from "@minecraft/server";
+
+const DEFAULT_MODE = "extreme";
+const DEFAULT_THRESHOLD = 8;
+const ANIM = "animation.player.attack_bare_hand";
+
+const CLUTCH_REGISTRY = {
+  "minecraft:water_bucket": { name: "Water Bucket", category: "water", placeSound: "bucket.empty_water" },
+  "minecraft:powder_snow_bucket": { name: "Powder Snow Bucket", category: "powder_snow", placeSound: "bucket.empty_powder_snow" },
+  "minecraft:twisting_vines": { name: "Twisting Vines", category: "vines", blockId: "minecraft:twisting_vines", placeSound: "dig.grass" },
+  "minecraft:hay_block": { name: "Hay Bale", category: "block", blockId: "minecraft:hay_block", placeSound: "dig.grass" },
+  "minecraft:web": { name: "Cobweb", category: "block", blockId: "minecraft:web", placeSound: "dig.cloth" },
+  "minecraft:slime": { name: "Slime Block", category: "block", blockId: "minecraft:slime", placeSound: "dig.slime" },
+  "minecraft:scaffolding": { name: "Scaffolding", category: "block", blockId: "minecraft:scaffolding", placeSound: "block.scaffolding.place" },
+  "minecraft:sweet_berries": { name: "Sweet Berries", category: "sweet_berries", blockId: "minecraft:sweet_berry_bush", placeSound: "block.sweet_berry_bush.place" }
+};
+
+const OVERWORLD_CLUTCH_PRIORITY = [
+  "minecraft:water_bucket",
+  "minecraft:slime",
+  "minecraft:web",
+  "minecraft:hay_block",
+  "minecraft:powder_snow_bucket",
+  "minecraft:twisting_vines",
+  "boat",
+  "minecraft:scaffolding",
+  "minecraft:sweet_berries"
+];
+
+const NETHER_CLUTCH_PRIORITY = [
+  "minecraft:twisting_vines",
+  "minecraft:powder_snow_bucket",
+  "minecraft:hay_block",
+  "minecraft:slime",
+  "minecraft:web",
+  "boat",
+  "minecraft:scaffolding"
+];
+
+const PASSABLE_OR_AIR_BLOCKS = new Set([
+  "minecraft:air", "minecraft:cave_air", "minecraft:void_air",
+  "minecraft:short_grass", "minecraft:tall_grass", "minecraft:fern", "minecraft:large_fern",
+  "minecraft:snow_layer", "minecraft:deadbush",
+  "minecraft:dandelion", "minecraft:poppy", "minecraft:blue_orchid", "minecraft:allium",
+  "minecraft:azure_bluet", "minecraft:red_tulip", "minecraft:orange_tulip", "minecraft:white_tulip",
+  "minecraft:pink_tulip", "minecraft:oxeye_daisy", "minecraft:cornflower", "minecraft:lily_of_the_valley",
+  "minecraft:wither_rose", "minecraft:sunflower", "minecraft:lilac", "minecraft:rose_bush", "minecraft:peony",
+  "minecraft:torch", "minecraft:soul_torch", "minecraft:redwood_torch", "minecraft:redstone_wire",
+  "minecraft:rail", "minecraft:golden_rail", "minecraft:detector_rail", "minecraft:activator_rail",
+  "minecraft:tripwire", "minecraft:string", "minecraft:lever", "minecraft:stone_button", "minecraft:wooden_button"
+]);
+
+const NO_CLUTCH_SURFACES = new Set([
+  "minecraft:water", "minecraft:flowing_water", "minecraft:lava", "minecraft:flowing_lava",
+  "minecraft:hay_block", "minecraft:slime", "minecraft:web", "minecraft:powder_snow",
+  "minecraft:vine", "minecraft:ladder", "minecraft:scaffolding", "minecraft:sweet_berry_bush",
+  "minecraft:twisting_vines", "minecraft:weeping_vines", "minecraft:honey_block", "minecraft:bubble_column"
+]);
+
+const ENABLED_PROPERTY = "clutch_enabled";
+
+const activeWaterClutches = new Map();
+const activePowderSnowClutches = new Map();
+const lastClutchTick = new Map();
+const fallTrackers = new Map();
+
+function getClutchPriority(dimensionId) {
+  return dimensionId === "minecraft:nether" ? NETHER_CLUTCH_PRIORITY : OVERWORLD_CLUTCH_PRIORITY;
+}
+
+function getPlayerMode(player) {
+  try {
+    const tags = player.getTags();
+    if (tags.includes("clutch_mode:extreme")) return "extreme";
+    if (tags.includes("clutch_mode:full")) return "full";
+    if (tags.includes("clutch_mode:simple")) return "simple";
+  } catch {}
+  return DEFAULT_MODE;
+}
+
+function getPlayerThreshold(player) {
+  try {
+    for (const tag of player.getTags()) {
+      if (tag.startsWith("clutch_threshold:")) {
+        const val = parseInt(tag.split(":")[1], 10);
+        if (!isNaN(val) && val > 0) return val;
+      }
+    }
+  } catch {}
+  return DEFAULT_THRESHOLD;
+}
+
+function isClutchEnabled(player) {
+  try {
+    return player.getDynamicProperty(ENABLED_PROPERTY) !== false;
+  } catch {
+    return true;
+  }
+}
+
+function isInactiveGameMode(player) {
+  try {
+    return player.matches({ gameMode: "creative" }) || player.matches({ gameMode: "spectator" });
+  } catch {
+    return false;
+  }
+}
+
+function isCreative(player) {
+  try {
+    return player.matches({ gameMode: "creative" });
+  } catch {
+    return false;
+  }
+}
+
+function trackPlayerFall(player, vel) {
+  const loc = player.location;
+  let tracker = fallTrackers.get(player.id);
+  const isFallingDown = vel.y < -0.15 && !player.isOnGround;
+
+  if (!isFallingDown) {
+    fallTrackers.delete(player.id);
+    return 0;
+  }
+  if (!tracker) {
+    tracker = { startY: loc.y, fallDist: 0 };
+    fallTrackers.set(player.id, tracker);
+  } else {
+    if (loc.y > tracker.startY) tracker.startY = loc.y;
+    tracker.fallDist = Math.max(0, tracker.startY - loc.y);
+  }
+  return tracker.fallDist;
+}
+
+function isBoatId(typeId) {
+  return typeId.endsWith("_boat") || typeId.endsWith("_raft");
+}
+
+function resolveClutchItem(itemStack) {
+  if (!itemStack || !itemStack.typeId) return null;
+  const typeId = itemStack.typeId;
+  if (CLUTCH_REGISTRY[typeId]) return { ...CLUTCH_REGISTRY[typeId], typeId };
+  if (isBoatId(typeId)) {
+    const isChest = typeId.includes("chest_boat") || typeId.includes("chest_raft");
+    return {
+      name: "Boat",
+      category: "boat",
+      typeId,
+      entityType: isChest ? "minecraft:chest_boat" : "minecraft:boat",
+      placeSound: "step.wood"
+    };
+  }
+  return null;
+}
+
+function usableInDimension(itemStack, isNether) {
+  return !!itemStack && !(isNether && itemStack.typeId === "minecraft:water_bucket");
+}
+
+function itemMatchesPriority(itemStack, key) {
+  if (!itemStack || !itemStack.typeId) return false;
+  if (key === "boat") return isBoatId(itemStack.typeId);
+  return itemStack.typeId === key;
+}
+
+function findBestClutchItemInInventory(container, dimensionId) {
+  if (!container) return null;
+  for (const key of getClutchPriority(dimensionId)) {
+    for (let slot = 0; slot < 9 && slot < container.size; slot++) {
+      const item = container.getItem(slot);
+      if (item && itemMatchesPriority(item, key)) return { slot, item, inHotbar: true };
+    }
+    for (let slot = 9; slot < container.size; slot++) {
+      const item = container.getItem(slot);
+      if (item && itemMatchesPriority(item, key)) return { slot, item, inHotbar: false };
+    }
+  }
+  return null;
+}
+
+function hasAnyClutchItem(player) {
+  try {
+    const isNether = player.dimension?.id === "minecraft:nether";
+    const equippable = player.getComponent("minecraft:equippable");
+    if (equippable) {
+      for (const slot of ["Mainhand", "Offhand"]) {
+        const it = equippable.getEquipment(slot);
+        if (usableInDimension(it, isNether) && resolveClutchItem(it)) return true;
+      }
+    }
+    const container = player.getComponent("minecraft:inventory")?.container;
+    if (container) {
+      for (let i = 0; i < container.size; i++) {
+        const it = container.getItem(i);
+        if (usableInDimension(it, isNether) && resolveClutchItem(it)) return true;
+      }
+    }
+  } catch {}
+  return false;
+}
+
+function hasTotemOfUndying(player) {
+  try {
+    const equippable = player.getComponent("minecraft:equippable");
+    if (equippable) {
+      if (equippable.getEquipment("Offhand")?.typeId === "minecraft:totem_of_undying") return true;
+      if (equippable.getEquipment("Mainhand")?.typeId === "minecraft:totem_of_undying") return true;
+    }
+    const container = player.getComponent("minecraft:inventory")?.container;
+    if (container) {
+      for (let i = 0; i < container.size; i++) {
+        if (container.getItem(i)?.typeId === "minecraft:totem_of_undying") return true;
+      }
+    }
+  } catch {}
+  return false;
+}
+
+function isFallLethal(player, fallDist) {
+  try {
+    const health = player.getComponent("minecraft:health")?.currentValue ?? 20;
+    return Math.ceil(fallDist - 3) >= health;
+  } catch {
+    return true;
+  }
+}
+
+function tryTriggerTotemFailSafe(player, fallDist) {
+  try {
+    if (!isFallLethal(player, fallDist)) return false;
+    const equippable = player.getComponent("minecraft:equippable");
+    if (!equippable) return false;
+
+    const currentOffhand = equippable.getEquipment("Offhand");
+    if (currentOffhand?.typeId === "minecraft:totem_of_undying") return true;
+    if (equippable.getEquipment("Mainhand")?.typeId === "minecraft:totem_of_undying") return true;
+
+    const container = player.getComponent("minecraft:inventory")?.container;
+    if (!container) return false;
+
+    let totemSlot = -1;
+    for (let slot = 0; slot < container.size; slot++) {
+      if (container.getItem(slot)?.typeId === "minecraft:totem_of_undying") {
+        totemSlot = slot;
+        break;
+      }
+    }
+    if (totemSlot === -1) return false;
+
+    const totemItem = container.getItem(totemSlot).clone();
+    container.setItem(totemSlot, currentOffhand ?? undefined);
+    equippable.setEquipment("Offhand", totemItem);
+
+    try {
+      player.playAnimation(ANIM);
+      player.dimension.playSound("armor.equip_generic", player.location, { volume: 1.0, pitch: 1.0 });
+    } catch {}
+    return true;
+  } catch {
+    return false;
+  }
+}
+
+function acquireClutchItem(player, mode) {
+  const equippable = player.getComponent("minecraft:equippable");
+  const container = player.getComponent("minecraft:inventory")?.container;
+  const isNether = player.dimension?.id === "minecraft:nether";
+
+  const mainhand = equippable?.getEquipment("Mainhand");
+  if (usableInDimension(mainhand, isNether)) {
+    const def = resolveClutchItem(mainhand);
+    if (def) return { itemStack: mainhand, isOffhand: false, containerSlot: player.selectedSlotIndex, definition: def };
+  }
+
+  const offhand = equippable?.getEquipment("Offhand");
+  if (usableInDimension(offhand, isNether)) {
+    const def = resolveClutchItem(offhand);
+    if (def) return { itemStack: offhand, isOffhand: true, containerSlot: null, definition: def };
+  }
+
+  if (mode === "simple" || !container) return null;
+
+  const match = findBestClutchItemInInventory(container, player.dimension?.id);
+  if (!match) return null;
+
+  if (match.inHotbar) {
+    player.selectedSlotIndex = match.slot;
+    const switched = container.getItem(match.slot);
+    const definition = resolveClutchItem(switched);
+    if (!definition) return null;
+    return { itemStack: switched, isOffhand: false, containerSlot: match.slot, definition };
+  }
+
+  try {
+    const heldSlot = player.selectedSlotIndex;
+    const hotbarItem = container.getItem(heldSlot);
+    const invItem = container.getItem(match.slot);
+    container.setItem(heldSlot, invItem);
+    container.setItem(match.slot, hotbarItem);
+    const switched = container.getItem(heldSlot);
+    const definition = resolveClutchItem(switched);
+    if (!definition) return null;
+    return { itemStack: switched, isOffhand: false, containerSlot: heldSlot, definition };
+  } catch {
+    return null;
+  }
+}
+
+function isPassableOrAir(block) {
+  if (!block) return false;
+  if (block.isAir) return true;
+  return PASSABLE_OR_AIR_BLOCKS.has(block.typeId);
+}
+
+function findGroundBelow(dimension, location) {
+  const px = Math.floor(location.x);
+  const pz = Math.floor(location.z);
+  const startY = Math.floor(location.y);
+  const minY = Math.max(dimension.minHeight ?? -64, startY - 16);
+
+  for (let y = startY; y >= minY; y--) {
+    let block;
+    try {
+      block = dimension.getBlock({ x: px, y, z: pz });
+    } catch {
+      return null;
+    }
+    if (!block) return null;
+    if (isPassableOrAir(block)) continue;
+    if (NO_CLUTCH_SURFACES.has(block.typeId)) return null;
+
+    let airAbove;
+    try {
+      airAbove = dimension.getBlock({ x: px, y: y + 1, z: pz });
+    } catch {
+      return null;
+    }
+    if (!airAbove || !isPassableOrAir(airAbove)) return null;
+    return { surfaceBlock: block, airBlockAbove: airAbove, surfaceY: y };
+  }
+  return null;
+}
+
+function swapInto(player, clutchData, fromType, toType) {
+  try {
+    if (isCreative(player)) return;
+    const makeItem = () => new ItemStack(toType, 1);
+
+    if (clutchData.isOffhand) {
+      const equippable = player.getComponent("minecraft:equippable");
+      const off = equippable?.getEquipment("Offhand");
+      if (off && off.typeId === fromType) {
+        equippable.setEquipment("Offhand", makeItem());
+        return;
+      }
+    } else {
+      const container = player.getComponent("minecraft:inventory")?.container;
+      if (container && clutchData.containerSlot !== null) {
+        const item = container.getItem(clutchData.containerSlot);
+        if (item && item.typeId === fromType) {
+          container.setItem(clutchData.containerSlot, makeItem());
+          return;
+        }
+      }
+    }
+
+    const container = player.getComponent("minecraft:inventory")?.container;
+    if (!container) return;
+    for (let i = 0; i < container.size; i++) {
+      const item = container.getItem(i);
+      if (item && item.typeId === fromType) {
+        if (item.amount === 1) {
+          container.setItem(i, makeItem());
+        } else {
+          item.amount -= 1;
+          container.setItem(i, item);
+          container.addItem(makeItem());
+        }
+        return;
+      }
+    }
+  } catch {}
+}
+
+function consumeClutchItem(player, clutchData, replacementTypeId) {
+  try {
+    if (isCreative(player)) return;
+
+    if (clutchData.isOffhand) {
+      const equippable = player.getComponent("minecraft:equippable");
+      const offhand = equippable?.getEquipment("Offhand");
+      if (!offhand) return;
+      if (replacementTypeId) {
+        equippable.setEquipment("Offhand", new ItemStack(replacementTypeId, 1));
+      } else if (offhand.amount > 1) {
+        offhand.amount -= 1;
+        equippable.setEquipment("Offhand", offhand);
+      } else {
+        equippable.setEquipment("Offhand", undefined);
+      }
+      return;
+    }
+
+    const container = player.getComponent("minecraft:inventory")?.container;
+    if (!container || clutchData.containerSlot === null) return;
+    const current = container.getItem(clutchData.containerSlot);
+    if (!current) return;
+    if (replacementTypeId) {
+      container.setItem(clutchData.containerSlot, new ItemStack(replacementTypeId, 1));
+    } else if (current.amount > 1) {
+      current.amount -= 1;
+      container.setItem(clutchData.containerSlot, current);
+    } else {
+      container.setItem(clutchData.containerSlot, undefined);
+    }
+  } catch {}
+}
+
+function placeBoatClutch(dimension, airBlock, entityType, player, distToSurface, fallSpeed) {
+  try {
+    const boat = dimension.spawnEntity(entityType, {
+      x: airBlock.location.x + 0.5,
+      y: airBlock.location.y,
+      z: airBlock.location.z + 0.5
+    });
+    if (!boat) return false;
+
+    const speed = Math.max(0.5, Math.abs(fallSpeed));
+    const delayTicks = Math.max(1, Math.min(2, Math.round(distToSurface / speed)));
+
+    system.runTimeout(() => {
+      try {
+        if (boat.isValid() && player.isValid()) {
+          const rideable = boat.getComponent("minecraft:rideable");
+          if (rideable) {
+            rideable.addRider(player);
+          }
+        }
+      } catch {}
+    }, delayTicks);
+    return true;
+  } catch {
+    return false;
+  }
+}
+
+function isDead(player) {
+  try {
+    return (player.getComponent("minecraft:health")?.currentValue ?? 20) <= 0;
+  } catch {
+    return false;
+  }
+}
+
+function executeAutoScoop(clutch) {
+  const { player, playerId, targetPos, dimension, clutchData } = clutch;
+  try {
+    if (!player.isValid() || isDead(player)) return;
+
+    try {
+      const block = dimension.getBlock(targetPos);
+      if (block && (block.typeId === "minecraft:water" || block.typeId === "minecraft:flowing_water")) {
+        block.setType("minecraft:air");
+      }
+    } catch {}
+
+    try { dimension.playSound("bucket.fill_water", player.location, { volume: 1.0, pitch: 1.0 }); } catch {}
+    try { player.playAnimation(ANIM); } catch {}
+    swapInto(player, clutchData, "minecraft:bucket", "minecraft:water_bucket");
+  } catch {
+  } finally {
+    activeWaterClutches.delete(playerId);
+  }
+}
+
+function executeAutoScoopPowderSnow(clutch) {
+  const { player, playerId, targetPos, dimension, clutchData } = clutch;
+  try {
+    if (!player.isValid() || isDead(player)) return;
+
+    let stillSnow = false;
+    try {
+      const block = dimension.getBlock(targetPos);
+      if (block && block.typeId === "minecraft:powder_snow") {
+        stillSnow = true;
+        block.setType("minecraft:air");
+      }
+    } catch {}
+
+    if (stillSnow) {
+      try { dimension.playSound("bucket.fill_powder_snow", player.location, { volume: 1.0, pitch: 1.0 }); } catch {}
+      try { player.playAnimation(ANIM); } catch {}
+      swapInto(player, clutchData, "minecraft:bucket", "minecraft:powder_snow_bucket");
+    }
+  } catch {
+  } finally {
+    activePowderSnowClutches.delete(playerId);
+  }
+}
+
+function executeClutch(player, velocity, clutchData, ground, distToSurface) {
+  const { definition } = clutchData;
+  const { airBlockAbove } = ground;
+  const dimension = player.dimension;
+
+  try { player.playAnimation(ANIM); } catch {}
+  try { dimension.playSound(definition.placeSound, player.location, { volume: 1.0, pitch: 1.0 }); } catch {}
+
+  let placed = false;
+
+  switch (definition.category) {
+    case "water": {
+      try {
+        airBlockAbove.setType("minecraft:water");
+        placed = true;
+        consumeClutchItem(player, clutchData, "minecraft:bucket");
+        activeWaterClutches.set(player.id, {
+          player,
+          playerId: player.id,
+          targetPos: airBlockAbove.location,
+          dimension,
+          deployedTick: system.currentTick,
+          scheduled: false,
+          clutchData
+        });
+      } catch {}
+      break;
+    }
+    case "powder_snow": {
+      try {
+        airBlockAbove.setType("minecraft:powder_snow");
+        placed = true;
+        consumeClutchItem(player, clutchData, "minecraft:bucket");
+        activePowderSnowClutches.set(player.id, {
+          player,
+          playerId: player.id,
+          targetPos: airBlockAbove.location,
+          dimension,
+          deployedTick: system.currentTick,
+          scheduled: false,
+          clutchData
+        });
+      } catch {}
+      break;
+    }
+    case "vines": {
+      try {
+        airBlockAbove.setType(definition.blockId);
+        if (airBlockAbove.typeId === definition.blockId) {
+          consumeClutchItem(player, clutchData);
+          placed = true;
+        }
+      } catch {}
+      break;
+    }
+    case "block":
+    case "sweet_berries": {
+      try {
+        airBlockAbove.setType(definition.blockId);
+        consumeClutchItem(player, clutchData);
+        placed = true;
+      } catch {}
+      break;
+    }
+    case "boat": {
+      if (placeBoatClutch(dimension, airBlockAbove, definition.entityType, player, distToSurface, velocity.y)) {
+        consumeClutchItem(player, clutchData);
+        placed = true;
+      }
+      break;
+    }
+  }
+
+  if (placed) lastClutchTick.set(player.id, system.currentTick);
+}
+
+function processPending(map, executor, currentTick) {
+  for (const [playerId, clutch] of map.entries()) {
+    let valid = false;
+    try { valid = clutch.player.isValid(); } catch {}
+    if (!valid) {
+      map.delete(playerId);
+      continue;
+    }
+    if (clutch.scheduled) continue;
+
+    let vel = { x: 0, y: 0, z: 0 };
+    try { vel = clutch.player.getVelocity(); } catch {}
+    const landed = clutch.player.isOnGround === true || Math.abs(vel.y) < 0.1 || currentTick - clutch.deployedTick > 15;
+    if (landed) {
+      clutch.scheduled = true;
+      system.runTimeout(() => executor(clutch), 3);
+    }
+  }
+}
+
+system.runInterval(() => {
+  const currentTick = system.currentTick;
+
+  processPending(activeWaterClutches, executeAutoScoop, currentTick);
+  processPending(activePowderSnowClutches, executeAutoScoopPowderSnow, currentTick);
+
+  for (const player of world.getAllPlayers()) {
+    try {
+      if (!player.isValid()) continue;
+
+      let vel;
+      try {
+        vel = player.getVelocity();
+      } catch {
+        continue;
+      }
+
+      let blocked = false;
+      try {
+        blocked = player.isGliding || player.isInWater || player.isSwimming;
+      } catch {}
+      if (blocked || isInactiveGameMode(player) || !isClutchEnabled(player)) {
+        fallTrackers.delete(player.id);
+        continue;
+      }
+
+      const currentFallDist = trackPlayerFall(player, vel);
+      if (vel.y > -0.5) continue;
+
+      const threshold = getPlayerThreshold(player);
+      const ground = findGroundBelow(player.dimension, player.location);
+      if (!ground) continue;
+
+      const distToSurface = player.location.y - (ground.surfaceY + 1);
+      if (distToSurface < 0.1) continue;
+
+      const tracker = fallTrackers.get(player.id);
+      const totalDrop = tracker ? tracker.startY - (ground.surfaceY + 1) : currentFallDist;
+      if (currentFallDist < threshold && totalDrop < threshold) continue;
+
+      const mode = getPlayerMode(player);
+      const fallSpeed = Math.abs(vel.y);
+
+      if (mode === "extreme") {
+        if (!hasAnyClutchItem(player) && !hasTotemOfUndying(player)) continue;
+      }
+
+      if (currentTick - (lastClutchTick.get(player.id) ?? -100) < 25) continue;
+
+      const rot = player.getRotation();
+      if (mode !== "extreme" && rot.x < 55) continue;
+
+      if (distToSurface > Math.max(4.5, fallSpeed * 1.6 + 0.4)) continue;
+
+      const clutchData = acquireClutchItem(player, mode);
+      const isBoat = clutchData?.definition?.category === "boat";
+      const maxTrigger = isBoat ? 4.5 : Math.max(2.2, fallSpeed * 1.6 + 0.4);
+      if (distToSurface > maxTrigger) continue;
+
+      if (clutchData) {
+        executeClutch(player, vel, clutchData, ground, distToSurface);
+      } else {
+        tryTriggerTotemFailSafe(player, Math.max(currentFallDist, totalDrop));
+      }
+    } catch {}
+  }
+}, 1);
+
+world.afterEvents.playerLeave.subscribe((event) => {
+  fallTrackers.delete(event.playerId);
+  lastClutchTick.delete(event.playerId);
+  activeWaterClutches.delete(event.playerId);
+  activePowderSnowClutches.delete(event.playerId);
+});
+
+system.afterEvents.scriptEventReceive.subscribe((event) => {
+  if (event.id !== "clutch:on" && event.id !== "clutch:off") return;
+  const player = event.sourceEntity;
+  if (!player || player.typeId !== "minecraft:player") return;
+  const enable = event.id === "clutch:on";
+  try {
+    player.setDynamicProperty(ENABLED_PROPERTY, enable);
+    player.sendMessage(enable ? "§aUniversal Clutch: ON" : "§cUniversal Clutch: OFF");
+  } catch {}
+});
+```
+
+## FILE: MCPEDL/Script/Universal-Clutch/behavior_pack/subpacks/full_mode/scripts/main.js (683 lines, 22593 bytes)
+
+```
+import { world, system, ItemStack } from "@minecraft/server";
+
+const DEFAULT_MODE = "full";
+const DEFAULT_THRESHOLD = 8;
+const ANIM = "animation.player.attack_bare_hand";
+
+const CLUTCH_REGISTRY = {
+  "minecraft:water_bucket": { name: "Water Bucket", category: "water", placeSound: "bucket.empty_water" },
+  "minecraft:powder_snow_bucket": { name: "Powder Snow Bucket", category: "powder_snow", placeSound: "bucket.empty_powder_snow" },
+  "minecraft:twisting_vines": { name: "Twisting Vines", category: "vines", blockId: "minecraft:twisting_vines", placeSound: "dig.grass" },
+  "minecraft:hay_block": { name: "Hay Bale", category: "block", blockId: "minecraft:hay_block", placeSound: "dig.grass" },
+  "minecraft:web": { name: "Cobweb", category: "block", blockId: "minecraft:web", placeSound: "dig.cloth" },
+  "minecraft:slime": { name: "Slime Block", category: "block", blockId: "minecraft:slime", placeSound: "dig.slime" },
+  "minecraft:scaffolding": { name: "Scaffolding", category: "block", blockId: "minecraft:scaffolding", placeSound: "block.scaffolding.place" },
+  "minecraft:sweet_berries": { name: "Sweet Berries", category: "sweet_berries", blockId: "minecraft:sweet_berry_bush", placeSound: "block.sweet_berry_bush.place" }
+};
+
+const OVERWORLD_CLUTCH_PRIORITY = [
+  "minecraft:water_bucket",
+  "minecraft:slime",
+  "minecraft:web",
+  "minecraft:hay_block",
+  "minecraft:powder_snow_bucket",
+  "minecraft:twisting_vines",
+  "boat",
+  "minecraft:scaffolding",
+  "minecraft:sweet_berries"
+];
+
+const NETHER_CLUTCH_PRIORITY = [
+  "minecraft:twisting_vines",
+  "minecraft:powder_snow_bucket",
+  "minecraft:hay_block",
+  "minecraft:slime",
+  "minecraft:web",
+  "boat",
+  "minecraft:scaffolding"
+];
+
+const PASSABLE_OR_AIR_BLOCKS = new Set([
+  "minecraft:air", "minecraft:cave_air", "minecraft:void_air",
+  "minecraft:short_grass", "minecraft:tall_grass", "minecraft:fern", "minecraft:large_fern",
+  "minecraft:snow_layer", "minecraft:deadbush",
+  "minecraft:dandelion", "minecraft:poppy", "minecraft:blue_orchid", "minecraft:allium",
+  "minecraft:azure_bluet", "minecraft:red_tulip", "minecraft:orange_tulip", "minecraft:white_tulip",
+  "minecraft:pink_tulip", "minecraft:oxeye_daisy", "minecraft:cornflower", "minecraft:lily_of_the_valley",
+  "minecraft:wither_rose", "minecraft:sunflower", "minecraft:lilac", "minecraft:rose_bush", "minecraft:peony",
+  "minecraft:torch", "minecraft:soul_torch", "minecraft:redwood_torch", "minecraft:redstone_wire",
+  "minecraft:rail", "minecraft:golden_rail", "minecraft:detector_rail", "minecraft:activator_rail",
+  "minecraft:tripwire", "minecraft:string", "minecraft:lever", "minecraft:stone_button", "minecraft:wooden_button"
+]);
+
+const NO_CLUTCH_SURFACES = new Set([
+  "minecraft:water", "minecraft:flowing_water", "minecraft:lava", "minecraft:flowing_lava",
+  "minecraft:hay_block", "minecraft:slime", "minecraft:web", "minecraft:powder_snow",
+  "minecraft:vine", "minecraft:ladder", "minecraft:scaffolding", "minecraft:sweet_berry_bush",
+  "minecraft:twisting_vines", "minecraft:weeping_vines", "minecraft:honey_block", "minecraft:bubble_column"
+]);
+
+const ENABLED_PROPERTY = "clutch_enabled";
+
+const activeWaterClutches = new Map();
+const activePowderSnowClutches = new Map();
+const lastClutchTick = new Map();
+const fallTrackers = new Map();
+
+function getClutchPriority(dimensionId) {
+  return dimensionId === "minecraft:nether" ? NETHER_CLUTCH_PRIORITY : OVERWORLD_CLUTCH_PRIORITY;
+}
+
+function getPlayerMode(player) {
+  try {
+    const tags = player.getTags();
+    if (tags.includes("clutch_mode:extreme")) return "extreme";
+    if (tags.includes("clutch_mode:full")) return "full";
+    if (tags.includes("clutch_mode:simple")) return "simple";
+  } catch {}
+  return DEFAULT_MODE;
+}
+
+function getPlayerThreshold(player) {
+  try {
+    for (const tag of player.getTags()) {
+      if (tag.startsWith("clutch_threshold:")) {
+        const val = parseInt(tag.split(":")[1], 10);
+        if (!isNaN(val) && val > 0) return val;
+      }
+    }
+  } catch {}
+  return DEFAULT_THRESHOLD;
+}
+
+function isClutchEnabled(player) {
+  try {
+    return player.getDynamicProperty(ENABLED_PROPERTY) !== false;
+  } catch {
+    return true;
+  }
+}
+
+function isInactiveGameMode(player) {
+  try {
+    return player.matches({ gameMode: "creative" }) || player.matches({ gameMode: "spectator" });
+  } catch {
+    return false;
+  }
+}
+
+function isCreative(player) {
+  try {
+    return player.matches({ gameMode: "creative" });
+  } catch {
+    return false;
+  }
+}
+
+function trackPlayerFall(player, vel) {
+  const loc = player.location;
+  let tracker = fallTrackers.get(player.id);
+  const isFallingDown = vel.y < -0.15 && !player.isOnGround;
+
+  if (!isFallingDown) {
+    fallTrackers.delete(player.id);
+    return 0;
+  }
+  if (!tracker) {
+    tracker = { startY: loc.y, fallDist: 0 };
+    fallTrackers.set(player.id, tracker);
+  } else {
+    if (loc.y > tracker.startY) tracker.startY = loc.y;
+    tracker.fallDist = Math.max(0, tracker.startY - loc.y);
+  }
+  return tracker.fallDist;
+}
+
+function isBoatId(typeId) {
+  return typeId.endsWith("_boat") || typeId.endsWith("_raft");
+}
+
+function resolveClutchItem(itemStack) {
+  if (!itemStack || !itemStack.typeId) return null;
+  const typeId = itemStack.typeId;
+  if (CLUTCH_REGISTRY[typeId]) return { ...CLUTCH_REGISTRY[typeId], typeId };
+  if (isBoatId(typeId)) {
+    const isChest = typeId.includes("chest_boat") || typeId.includes("chest_raft");
+    return {
+      name: "Boat",
+      category: "boat",
+      typeId,
+      entityType: isChest ? "minecraft:chest_boat" : "minecraft:boat",
+      placeSound: "step.wood"
+    };
+  }
+  return null;
+}
+
+function usableInDimension(itemStack, isNether) {
+  return !!itemStack && !(isNether && itemStack.typeId === "minecraft:water_bucket");
+}
+
+function itemMatchesPriority(itemStack, key) {
+  if (!itemStack || !itemStack.typeId) return false;
+  if (key === "boat") return isBoatId(itemStack.typeId);
+  return itemStack.typeId === key;
+}
+
+function findBestClutchItemInInventory(container, dimensionId) {
+  if (!container) return null;
+  for (const key of getClutchPriority(dimensionId)) {
+    for (let slot = 0; slot < 9 && slot < container.size; slot++) {
+      const item = container.getItem(slot);
+      if (item && itemMatchesPriority(item, key)) return { slot, item, inHotbar: true };
+    }
+    for (let slot = 9; slot < container.size; slot++) {
+      const item = container.getItem(slot);
+      if (item && itemMatchesPriority(item, key)) return { slot, item, inHotbar: false };
+    }
+  }
+  return null;
+}
+
+function hasAnyClutchItem(player) {
+  try {
+    const isNether = player.dimension?.id === "minecraft:nether";
+    const equippable = player.getComponent("minecraft:equippable");
+    if (equippable) {
+      for (const slot of ["Mainhand", "Offhand"]) {
+        const it = equippable.getEquipment(slot);
+        if (usableInDimension(it, isNether) && resolveClutchItem(it)) return true;
+      }
+    }
+    const container = player.getComponent("minecraft:inventory")?.container;
+    if (container) {
+      for (let i = 0; i < container.size; i++) {
+        const it = container.getItem(i);
+        if (usableInDimension(it, isNether) && resolveClutchItem(it)) return true;
+      }
+    }
+  } catch {}
+  return false;
+}
+
+function hasTotemOfUndying(player) {
+  try {
+    const equippable = player.getComponent("minecraft:equippable");
+    if (equippable) {
+      if (equippable.getEquipment("Offhand")?.typeId === "minecraft:totem_of_undying") return true;
+      if (equippable.getEquipment("Mainhand")?.typeId === "minecraft:totem_of_undying") return true;
+    }
+    const container = player.getComponent("minecraft:inventory")?.container;
+    if (container) {
+      for (let i = 0; i < container.size; i++) {
+        if (container.getItem(i)?.typeId === "minecraft:totem_of_undying") return true;
+      }
+    }
+  } catch {}
+  return false;
+}
+
+function isFallLethal(player, fallDist) {
+  try {
+    const health = player.getComponent("minecraft:health")?.currentValue ?? 20;
+    return Math.ceil(fallDist - 3) >= health;
+  } catch {
+    return true;
+  }
+}
+
+function tryTriggerTotemFailSafe(player, fallDist) {
+  try {
+    if (!isFallLethal(player, fallDist)) return false;
+    const equippable = player.getComponent("minecraft:equippable");
+    if (!equippable) return false;
+
+    const currentOffhand = equippable.getEquipment("Offhand");
+    if (currentOffhand?.typeId === "minecraft:totem_of_undying") return true;
+    if (equippable.getEquipment("Mainhand")?.typeId === "minecraft:totem_of_undying") return true;
+
+    const container = player.getComponent("minecraft:inventory")?.container;
+    if (!container) return false;
+
+    let totemSlot = -1;
+    for (let slot = 0; slot < container.size; slot++) {
+      if (container.getItem(slot)?.typeId === "minecraft:totem_of_undying") {
+        totemSlot = slot;
+        break;
+      }
+    }
+    if (totemSlot === -1) return false;
+
+    const totemItem = container.getItem(totemSlot).clone();
+    container.setItem(totemSlot, currentOffhand ?? undefined);
+    equippable.setEquipment("Offhand", totemItem);
+
+    try {
+      player.playAnimation(ANIM);
+      player.dimension.playSound("armor.equip_generic", player.location, { volume: 1.0, pitch: 1.0 });
+    } catch {}
+    return true;
+  } catch {
+    return false;
+  }
+}
+
+function acquireClutchItem(player, mode) {
+  const equippable = player.getComponent("minecraft:equippable");
+  const container = player.getComponent("minecraft:inventory")?.container;
+  const isNether = player.dimension?.id === "minecraft:nether";
+
+  const mainhand = equippable?.getEquipment("Mainhand");
+  if (usableInDimension(mainhand, isNether)) {
+    const def = resolveClutchItem(mainhand);
+    if (def) return { itemStack: mainhand, isOffhand: false, containerSlot: player.selectedSlotIndex, definition: def };
+  }
+
+  const offhand = equippable?.getEquipment("Offhand");
+  if (usableInDimension(offhand, isNether)) {
+    const def = resolveClutchItem(offhand);
+    if (def) return { itemStack: offhand, isOffhand: true, containerSlot: null, definition: def };
+  }
+
+  if (mode === "simple" || !container) return null;
+
+  const match = findBestClutchItemInInventory(container, player.dimension?.id);
+  if (!match) return null;
+
+  if (match.inHotbar) {
+    player.selectedSlotIndex = match.slot;
+    const switched = container.getItem(match.slot);
+    const definition = resolveClutchItem(switched);
+    if (!definition) return null;
+    return { itemStack: switched, isOffhand: false, containerSlot: match.slot, definition };
+  }
+
+  try {
+    const heldSlot = player.selectedSlotIndex;
+    const hotbarItem = container.getItem(heldSlot);
+    const invItem = container.getItem(match.slot);
+    container.setItem(heldSlot, invItem);
+    container.setItem(match.slot, hotbarItem);
+    const switched = container.getItem(heldSlot);
+    const definition = resolveClutchItem(switched);
+    if (!definition) return null;
+    return { itemStack: switched, isOffhand: false, containerSlot: heldSlot, definition };
+  } catch {
+    return null;
+  }
+}
+
+function isPassableOrAir(block) {
+  if (!block) return false;
+  if (block.isAir) return true;
+  return PASSABLE_OR_AIR_BLOCKS.has(block.typeId);
+}
+
+function findGroundBelow(dimension, location) {
+  const px = Math.floor(location.x);
+  const pz = Math.floor(location.z);
+  const startY = Math.floor(location.y);
+  const minY = Math.max(dimension.minHeight ?? -64, startY - 16);
+
+  for (let y = startY; y >= minY; y--) {
+    let block;
+    try {
+      block = dimension.getBlock({ x: px, y, z: pz });
+    } catch {
+      return null;
+    }
+    if (!block) return null;
+    if (isPassableOrAir(block)) continue;
+    if (NO_CLUTCH_SURFACES.has(block.typeId)) return null;
+
+    let airAbove;
+    try {
+      airAbove = dimension.getBlock({ x: px, y: y + 1, z: pz });
+    } catch {
+      return null;
+    }
+    if (!airAbove || !isPassableOrAir(airAbove)) return null;
+    return { surfaceBlock: block, airBlockAbove: airAbove, surfaceY: y };
+  }
+  return null;
+}
+
+function swapInto(player, clutchData, fromType, toType) {
+  try {
+    if (isCreative(player)) return;
+    const makeItem = () => new ItemStack(toType, 1);
+
+    if (clutchData.isOffhand) {
+      const equippable = player.getComponent("minecraft:equippable");
+      const off = equippable?.getEquipment("Offhand");
+      if (off && off.typeId === fromType) {
+        equippable.setEquipment("Offhand", makeItem());
+        return;
+      }
+    } else {
+      const container = player.getComponent("minecraft:inventory")?.container;
+      if (container && clutchData.containerSlot !== null) {
+        const item = container.getItem(clutchData.containerSlot);
+        if (item && item.typeId === fromType) {
+          container.setItem(clutchData.containerSlot, makeItem());
+          return;
+        }
+      }
+    }
+
+    const container = player.getComponent("minecraft:inventory")?.container;
+    if (!container) return;
+    for (let i = 0; i < container.size; i++) {
+      const item = container.getItem(i);
+      if (item && item.typeId === fromType) {
+        if (item.amount === 1) {
+          container.setItem(i, makeItem());
+        } else {
+          item.amount -= 1;
+          container.setItem(i, item);
+          container.addItem(makeItem());
+        }
+        return;
+      }
+    }
+  } catch {}
+}
+
+function consumeClutchItem(player, clutchData, replacementTypeId) {
+  try {
+    if (isCreative(player)) return;
+
+    if (clutchData.isOffhand) {
+      const equippable = player.getComponent("minecraft:equippable");
+      const offhand = equippable?.getEquipment("Offhand");
+      if (!offhand) return;
+      if (replacementTypeId) {
+        equippable.setEquipment("Offhand", new ItemStack(replacementTypeId, 1));
+      } else if (offhand.amount > 1) {
+        offhand.amount -= 1;
+        equippable.setEquipment("Offhand", offhand);
+      } else {
+        equippable.setEquipment("Offhand", undefined);
+      }
+      return;
+    }
+
+    const container = player.getComponent("minecraft:inventory")?.container;
+    if (!container || clutchData.containerSlot === null) return;
+    const current = container.getItem(clutchData.containerSlot);
+    if (!current) return;
+    if (replacementTypeId) {
+      container.setItem(clutchData.containerSlot, new ItemStack(replacementTypeId, 1));
+    } else if (current.amount > 1) {
+      current.amount -= 1;
+      container.setItem(clutchData.containerSlot, current);
+    } else {
+      container.setItem(clutchData.containerSlot, undefined);
+    }
+  } catch {}
+}
+
+function placeBoatClutch(dimension, airBlock, entityType, player, distToSurface, fallSpeed) {
+  try {
+    const boat = dimension.spawnEntity(entityType, {
+      x: airBlock.location.x + 0.5,
+      y: airBlock.location.y,
+      z: airBlock.location.z + 0.5
+    });
+    if (!boat) return false;
+
+    const speed = Math.max(0.5, Math.abs(fallSpeed));
+    const delayTicks = Math.max(1, Math.min(2, Math.round(distToSurface / speed)));
+
+    system.runTimeout(() => {
+      try {
+        if (boat.isValid() && player.isValid()) {
+          const rideable = boat.getComponent("minecraft:rideable");
+          if (rideable) {
+            rideable.addRider(player);
+          }
+        }
+      } catch {}
+    }, delayTicks);
+    return true;
+  } catch {
+    return false;
+  }
+}
+
+function isDead(player) {
+  try {
+    return (player.getComponent("minecraft:health")?.currentValue ?? 20) <= 0;
+  } catch {
+    return false;
+  }
+}
+
+function executeAutoScoop(clutch) {
+  const { player, playerId, targetPos, dimension, clutchData } = clutch;
+  try {
+    if (!player.isValid() || isDead(player)) return;
+
+    try {
+      const block = dimension.getBlock(targetPos);
+      if (block && (block.typeId === "minecraft:water" || block.typeId === "minecraft:flowing_water")) {
+        block.setType("minecraft:air");
+      }
+    } catch {}
+
+    try { dimension.playSound("bucket.fill_water", player.location, { volume: 1.0, pitch: 1.0 }); } catch {}
+    try { player.playAnimation(ANIM); } catch {}
+    swapInto(player, clutchData, "minecraft:bucket", "minecraft:water_bucket");
+  } catch {
+  } finally {
+    activeWaterClutches.delete(playerId);
+  }
+}
+
+function executeAutoScoopPowderSnow(clutch) {
+  const { player, playerId, targetPos, dimension, clutchData } = clutch;
+  try {
+    if (!player.isValid() || isDead(player)) return;
+
+    let stillSnow = false;
+    try {
+      const block = dimension.getBlock(targetPos);
+      if (block && block.typeId === "minecraft:powder_snow") {
+        stillSnow = true;
+        block.setType("minecraft:air");
+      }
+    } catch {}
+
+    if (stillSnow) {
+      try { dimension.playSound("bucket.fill_powder_snow", player.location, { volume: 1.0, pitch: 1.0 }); } catch {}
+      try { player.playAnimation(ANIM); } catch {}
+      swapInto(player, clutchData, "minecraft:bucket", "minecraft:powder_snow_bucket");
+    }
+  } catch {
+  } finally {
+    activePowderSnowClutches.delete(playerId);
+  }
+}
+
+function executeClutch(player, velocity, clutchData, ground, distToSurface) {
+  const { definition } = clutchData;
+  const { airBlockAbove } = ground;
+  const dimension = player.dimension;
+
+  try { player.playAnimation(ANIM); } catch {}
+  try { dimension.playSound(definition.placeSound, player.location, { volume: 1.0, pitch: 1.0 }); } catch {}
+
+  let placed = false;
+
+  switch (definition.category) {
+    case "water": {
+      try {
+        airBlockAbove.setType("minecraft:water");
+        placed = true;
+        consumeClutchItem(player, clutchData, "minecraft:bucket");
+        activeWaterClutches.set(player.id, {
+          player,
+          playerId: player.id,
+          targetPos: airBlockAbove.location,
+          dimension,
+          deployedTick: system.currentTick,
+          scheduled: false,
+          clutchData
+        });
+      } catch {}
+      break;
+    }
+    case "powder_snow": {
+      try {
+        airBlockAbove.setType("minecraft:powder_snow");
+        placed = true;
+        consumeClutchItem(player, clutchData, "minecraft:bucket");
+        activePowderSnowClutches.set(player.id, {
+          player,
+          playerId: player.id,
+          targetPos: airBlockAbove.location,
+          dimension,
+          deployedTick: system.currentTick,
+          scheduled: false,
+          clutchData
+        });
+      } catch {}
+      break;
+    }
+    case "vines": {
+      try {
+        airBlockAbove.setType(definition.blockId);
+        if (airBlockAbove.typeId === definition.blockId) {
+          consumeClutchItem(player, clutchData);
+          placed = true;
+        }
+      } catch {}
+      break;
+    }
+    case "block":
+    case "sweet_berries": {
+      try {
+        airBlockAbove.setType(definition.blockId);
+        consumeClutchItem(player, clutchData);
+        placed = true;
+      } catch {}
+      break;
+    }
+    case "boat": {
+      if (placeBoatClutch(dimension, airBlockAbove, definition.entityType, player, distToSurface, velocity.y)) {
+        consumeClutchItem(player, clutchData);
+        placed = true;
+      }
+      break;
+    }
+  }
+
+  if (placed) lastClutchTick.set(player.id, system.currentTick);
+}
+
+function processPending(map, executor, currentTick) {
+  for (const [playerId, clutch] of map.entries()) {
+    let valid = false;
+    try { valid = clutch.player.isValid(); } catch {}
+    if (!valid) {
+      map.delete(playerId);
+      continue;
+    }
+    if (clutch.scheduled) continue;
+
+    let vel = { x: 0, y: 0, z: 0 };
+    try { vel = clutch.player.getVelocity(); } catch {}
+    const landed = clutch.player.isOnGround === true || Math.abs(vel.y) < 0.1 || currentTick - clutch.deployedTick > 15;
+    if (landed) {
+      clutch.scheduled = true;
+      system.runTimeout(() => executor(clutch), 3);
+    }
+  }
+}
+
+system.runInterval(() => {
+  const currentTick = system.currentTick;
+
+  processPending(activeWaterClutches, executeAutoScoop, currentTick);
+  processPending(activePowderSnowClutches, executeAutoScoopPowderSnow, currentTick);
+
+  for (const player of world.getAllPlayers()) {
+    try {
+      if (!player.isValid()) continue;
+
+      let vel;
+      try {
+        vel = player.getVelocity();
+      } catch {
+        continue;
+      }
+
+      let blocked = false;
+      try {
+        blocked = player.isGliding || player.isInWater || player.isSwimming;
+      } catch {}
+      if (blocked || isInactiveGameMode(player) || !isClutchEnabled(player)) {
+        fallTrackers.delete(player.id);
+        continue;
+      }
+
+      const currentFallDist = trackPlayerFall(player, vel);
+      if (vel.y > -0.5) continue;
+
+      const threshold = getPlayerThreshold(player);
+      const ground = findGroundBelow(player.dimension, player.location);
+      if (!ground) continue;
+
+      const distToSurface = player.location.y - (ground.surfaceY + 1);
+      if (distToSurface < 0.1) continue;
+
+      const tracker = fallTrackers.get(player.id);
+      const totalDrop = tracker ? tracker.startY - (ground.surfaceY + 1) : currentFallDist;
+      if (currentFallDist < threshold && totalDrop < threshold) continue;
+
+      const mode = getPlayerMode(player);
+      const fallSpeed = Math.abs(vel.y);
+
+      if (mode === "extreme") {
+        if (!hasAnyClutchItem(player) && !hasTotemOfUndying(player)) continue;
+      }
+
+      if (currentTick - (lastClutchTick.get(player.id) ?? -100) < 25) continue;
+
+      const rot = player.getRotation();
+      if (mode !== "extreme" && rot.x < 55) continue;
+
+      if (distToSurface > Math.max(4.5, fallSpeed * 1.6 + 0.4)) continue;
+
+      const clutchData = acquireClutchItem(player, mode);
+      const isBoat = clutchData?.definition?.category === "boat";
+      const maxTrigger = isBoat ? 4.5 : Math.max(2.2, fallSpeed * 1.6 + 0.4);
+      if (distToSurface > maxTrigger) continue;
+
+      if (clutchData) {
+        executeClutch(player, vel, clutchData, ground, distToSurface);
+      } else {
+        tryTriggerTotemFailSafe(player, Math.max(currentFallDist, totalDrop));
+      }
+    } catch {}
+  }
+}, 1);
+
+world.afterEvents.playerLeave.subscribe((event) => {
+  fallTrackers.delete(event.playerId);
+  lastClutchTick.delete(event.playerId);
+  activeWaterClutches.delete(event.playerId);
+  activePowderSnowClutches.delete(event.playerId);
+});
+
+system.afterEvents.scriptEventReceive.subscribe((event) => {
+  if (event.id !== "clutch:on" && event.id !== "clutch:off") return;
+  const player = event.sourceEntity;
+  if (!player || player.typeId !== "minecraft:player") return;
+  const enable = event.id === "clutch:on";
+  try {
+    player.setDynamicProperty(ENABLED_PROPERTY, enable);
+    player.sendMessage(enable ? "§aUniversal Clutch: ON" : "§cUniversal Clutch: OFF");
+  } catch {}
+});
+```
+
+## FILE: MCPEDL/Script/Universal-Clutch/behavior_pack/subpacks/simple_mode/scripts/main.js (683 lines, 22595 bytes)
+
+```
+import { world, system, ItemStack } from "@minecraft/server";
+
+const DEFAULT_MODE = "simple";
+const DEFAULT_THRESHOLD = 8;
+const ANIM = "animation.player.attack_bare_hand";
+
+const CLUTCH_REGISTRY = {
+  "minecraft:water_bucket": { name: "Water Bucket", category: "water", placeSound: "bucket.empty_water" },
+  "minecraft:powder_snow_bucket": { name: "Powder Snow Bucket", category: "powder_snow", placeSound: "bucket.empty_powder_snow" },
+  "minecraft:twisting_vines": { name: "Twisting Vines", category: "vines", blockId: "minecraft:twisting_vines", placeSound: "dig.grass" },
+  "minecraft:hay_block": { name: "Hay Bale", category: "block", blockId: "minecraft:hay_block", placeSound: "dig.grass" },
+  "minecraft:web": { name: "Cobweb", category: "block", blockId: "minecraft:web", placeSound: "dig.cloth" },
+  "minecraft:slime": { name: "Slime Block", category: "block", blockId: "minecraft:slime", placeSound: "dig.slime" },
+  "minecraft:scaffolding": { name: "Scaffolding", category: "block", blockId: "minecraft:scaffolding", placeSound: "block.scaffolding.place" },
+  "minecraft:sweet_berries": { name: "Sweet Berries", category: "sweet_berries", blockId: "minecraft:sweet_berry_bush", placeSound: "block.sweet_berry_bush.place" }
+};
+
+const OVERWORLD_CLUTCH_PRIORITY = [
+  "minecraft:water_bucket",
+  "minecraft:slime",
+  "minecraft:web",
+  "minecraft:hay_block",
+  "minecraft:powder_snow_bucket",
+  "minecraft:twisting_vines",
+  "boat",
+  "minecraft:scaffolding",
+  "minecraft:sweet_berries"
+];
+
+const NETHER_CLUTCH_PRIORITY = [
+  "minecraft:twisting_vines",
+  "minecraft:powder_snow_bucket",
+  "minecraft:hay_block",
+  "minecraft:slime",
+  "minecraft:web",
+  "boat",
+  "minecraft:scaffolding"
+];
+
+const PASSABLE_OR_AIR_BLOCKS = new Set([
+  "minecraft:air", "minecraft:cave_air", "minecraft:void_air",
+  "minecraft:short_grass", "minecraft:tall_grass", "minecraft:fern", "minecraft:large_fern",
+  "minecraft:snow_layer", "minecraft:deadbush",
+  "minecraft:dandelion", "minecraft:poppy", "minecraft:blue_orchid", "minecraft:allium",
+  "minecraft:azure_bluet", "minecraft:red_tulip", "minecraft:orange_tulip", "minecraft:white_tulip",
+  "minecraft:pink_tulip", "minecraft:oxeye_daisy", "minecraft:cornflower", "minecraft:lily_of_the_valley",
+  "minecraft:wither_rose", "minecraft:sunflower", "minecraft:lilac", "minecraft:rose_bush", "minecraft:peony",
+  "minecraft:torch", "minecraft:soul_torch", "minecraft:redwood_torch", "minecraft:redstone_wire",
+  "minecraft:rail", "minecraft:golden_rail", "minecraft:detector_rail", "minecraft:activator_rail",
+  "minecraft:tripwire", "minecraft:string", "minecraft:lever", "minecraft:stone_button", "minecraft:wooden_button"
+]);
+
+const NO_CLUTCH_SURFACES = new Set([
+  "minecraft:water", "minecraft:flowing_water", "minecraft:lava", "minecraft:flowing_lava",
+  "minecraft:hay_block", "minecraft:slime", "minecraft:web", "minecraft:powder_snow",
+  "minecraft:vine", "minecraft:ladder", "minecraft:scaffolding", "minecraft:sweet_berry_bush",
+  "minecraft:twisting_vines", "minecraft:weeping_vines", "minecraft:honey_block", "minecraft:bubble_column"
+]);
+
+const ENABLED_PROPERTY = "clutch_enabled";
+
+const activeWaterClutches = new Map();
+const activePowderSnowClutches = new Map();
+const lastClutchTick = new Map();
+const fallTrackers = new Map();
+
+function getClutchPriority(dimensionId) {
+  return dimensionId === "minecraft:nether" ? NETHER_CLUTCH_PRIORITY : OVERWORLD_CLUTCH_PRIORITY;
+}
+
+function getPlayerMode(player) {
+  try {
+    const tags = player.getTags();
+    if (tags.includes("clutch_mode:extreme")) return "extreme";
+    if (tags.includes("clutch_mode:full")) return "full";
+    if (tags.includes("clutch_mode:simple")) return "simple";
+  } catch {}
+  return DEFAULT_MODE;
+}
+
+function getPlayerThreshold(player) {
+  try {
+    for (const tag of player.getTags()) {
+      if (tag.startsWith("clutch_threshold:")) {
+        const val = parseInt(tag.split(":")[1], 10);
+        if (!isNaN(val) && val > 0) return val;
+      }
+    }
+  } catch {}
+  return DEFAULT_THRESHOLD;
+}
+
+function isClutchEnabled(player) {
+  try {
+    return player.getDynamicProperty(ENABLED_PROPERTY) !== false;
+  } catch {
+    return true;
+  }
+}
+
+function isInactiveGameMode(player) {
+  try {
+    return player.matches({ gameMode: "creative" }) || player.matches({ gameMode: "spectator" });
+  } catch {
+    return false;
+  }
+}
+
+function isCreative(player) {
+  try {
+    return player.matches({ gameMode: "creative" });
+  } catch {
+    return false;
+  }
+}
+
+function trackPlayerFall(player, vel) {
+  const loc = player.location;
+  let tracker = fallTrackers.get(player.id);
+  const isFallingDown = vel.y < -0.15 && !player.isOnGround;
+
+  if (!isFallingDown) {
+    fallTrackers.delete(player.id);
+    return 0;
+  }
+  if (!tracker) {
+    tracker = { startY: loc.y, fallDist: 0 };
+    fallTrackers.set(player.id, tracker);
+  } else {
+    if (loc.y > tracker.startY) tracker.startY = loc.y;
+    tracker.fallDist = Math.max(0, tracker.startY - loc.y);
+  }
+  return tracker.fallDist;
+}
+
+function isBoatId(typeId) {
+  return typeId.endsWith("_boat") || typeId.endsWith("_raft");
+}
+
+function resolveClutchItem(itemStack) {
+  if (!itemStack || !itemStack.typeId) return null;
+  const typeId = itemStack.typeId;
+  if (CLUTCH_REGISTRY[typeId]) return { ...CLUTCH_REGISTRY[typeId], typeId };
+  if (isBoatId(typeId)) {
+    const isChest = typeId.includes("chest_boat") || typeId.includes("chest_raft");
+    return {
+      name: "Boat",
+      category: "boat",
+      typeId,
+      entityType: isChest ? "minecraft:chest_boat" : "minecraft:boat",
+      placeSound: "step.wood"
+    };
+  }
+  return null;
+}
+
+function usableInDimension(itemStack, isNether) {
+  return !!itemStack && !(isNether && itemStack.typeId === "minecraft:water_bucket");
+}
+
+function itemMatchesPriority(itemStack, key) {
+  if (!itemStack || !itemStack.typeId) return false;
+  if (key === "boat") return isBoatId(itemStack.typeId);
+  return itemStack.typeId === key;
+}
+
+function findBestClutchItemInInventory(container, dimensionId) {
+  if (!container) return null;
+  for (const key of getClutchPriority(dimensionId)) {
+    for (let slot = 0; slot < 9 && slot < container.size; slot++) {
+      const item = container.getItem(slot);
+      if (item && itemMatchesPriority(item, key)) return { slot, item, inHotbar: true };
+    }
+    for (let slot = 9; slot < container.size; slot++) {
+      const item = container.getItem(slot);
+      if (item && itemMatchesPriority(item, key)) return { slot, item, inHotbar: false };
+    }
+  }
+  return null;
+}
+
+function hasAnyClutchItem(player) {
+  try {
+    const isNether = player.dimension?.id === "minecraft:nether";
+    const equippable = player.getComponent("minecraft:equippable");
+    if (equippable) {
+      for (const slot of ["Mainhand", "Offhand"]) {
+        const it = equippable.getEquipment(slot);
+        if (usableInDimension(it, isNether) && resolveClutchItem(it)) return true;
+      }
+    }
+    const container = player.getComponent("minecraft:inventory")?.container;
+    if (container) {
+      for (let i = 0; i < container.size; i++) {
+        const it = container.getItem(i);
+        if (usableInDimension(it, isNether) && resolveClutchItem(it)) return true;
+      }
+    }
+  } catch {}
+  return false;
+}
+
+function hasTotemOfUndying(player) {
+  try {
+    const equippable = player.getComponent("minecraft:equippable");
+    if (equippable) {
+      if (equippable.getEquipment("Offhand")?.typeId === "minecraft:totem_of_undying") return true;
+      if (equippable.getEquipment("Mainhand")?.typeId === "minecraft:totem_of_undying") return true;
+    }
+    const container = player.getComponent("minecraft:inventory")?.container;
+    if (container) {
+      for (let i = 0; i < container.size; i++) {
+        if (container.getItem(i)?.typeId === "minecraft:totem_of_undying") return true;
+      }
+    }
+  } catch {}
+  return false;
+}
+
+function isFallLethal(player, fallDist) {
+  try {
+    const health = player.getComponent("minecraft:health")?.currentValue ?? 20;
+    return Math.ceil(fallDist - 3) >= health;
+  } catch {
+    return true;
+  }
+}
+
+function tryTriggerTotemFailSafe(player, fallDist) {
+  try {
+    if (!isFallLethal(player, fallDist)) return false;
+    const equippable = player.getComponent("minecraft:equippable");
+    if (!equippable) return false;
+
+    const currentOffhand = equippable.getEquipment("Offhand");
+    if (currentOffhand?.typeId === "minecraft:totem_of_undying") return true;
+    if (equippable.getEquipment("Mainhand")?.typeId === "minecraft:totem_of_undying") return true;
+
+    const container = player.getComponent("minecraft:inventory")?.container;
+    if (!container) return false;
+
+    let totemSlot = -1;
+    for (let slot = 0; slot < container.size; slot++) {
+      if (container.getItem(slot)?.typeId === "minecraft:totem_of_undying") {
+        totemSlot = slot;
+        break;
+      }
+    }
+    if (totemSlot === -1) return false;
+
+    const totemItem = container.getItem(totemSlot).clone();
+    container.setItem(totemSlot, currentOffhand ?? undefined);
+    equippable.setEquipment("Offhand", totemItem);
+
+    try {
+      player.playAnimation(ANIM);
+      player.dimension.playSound("armor.equip_generic", player.location, { volume: 1.0, pitch: 1.0 });
+    } catch {}
+    return true;
+  } catch {
+    return false;
+  }
+}
+
+function acquireClutchItem(player, mode) {
+  const equippable = player.getComponent("minecraft:equippable");
+  const container = player.getComponent("minecraft:inventory")?.container;
+  const isNether = player.dimension?.id === "minecraft:nether";
+
+  const mainhand = equippable?.getEquipment("Mainhand");
+  if (usableInDimension(mainhand, isNether)) {
+    const def = resolveClutchItem(mainhand);
+    if (def) return { itemStack: mainhand, isOffhand: false, containerSlot: player.selectedSlotIndex, definition: def };
+  }
+
+  const offhand = equippable?.getEquipment("Offhand");
+  if (usableInDimension(offhand, isNether)) {
+    const def = resolveClutchItem(offhand);
+    if (def) return { itemStack: offhand, isOffhand: true, containerSlot: null, definition: def };
+  }
+
+  if (mode === "simple" || !container) return null;
+
+  const match = findBestClutchItemInInventory(container, player.dimension?.id);
+  if (!match) return null;
+
+  if (match.inHotbar) {
+    player.selectedSlotIndex = match.slot;
+    const switched = container.getItem(match.slot);
+    const definition = resolveClutchItem(switched);
+    if (!definition) return null;
+    return { itemStack: switched, isOffhand: false, containerSlot: match.slot, definition };
+  }
+
+  try {
+    const heldSlot = player.selectedSlotIndex;
+    const hotbarItem = container.getItem(heldSlot);
+    const invItem = container.getItem(match.slot);
+    container.setItem(heldSlot, invItem);
+    container.setItem(match.slot, hotbarItem);
+    const switched = container.getItem(heldSlot);
+    const definition = resolveClutchItem(switched);
+    if (!definition) return null;
+    return { itemStack: switched, isOffhand: false, containerSlot: heldSlot, definition };
+  } catch {
+    return null;
+  }
+}
+
+function isPassableOrAir(block) {
+  if (!block) return false;
+  if (block.isAir) return true;
+  return PASSABLE_OR_AIR_BLOCKS.has(block.typeId);
+}
+
+function findGroundBelow(dimension, location) {
+  const px = Math.floor(location.x);
+  const pz = Math.floor(location.z);
+  const startY = Math.floor(location.y);
+  const minY = Math.max(dimension.minHeight ?? -64, startY - 16);
+
+  for (let y = startY; y >= minY; y--) {
+    let block;
+    try {
+      block = dimension.getBlock({ x: px, y, z: pz });
+    } catch {
+      return null;
+    }
+    if (!block) return null;
+    if (isPassableOrAir(block)) continue;
+    if (NO_CLUTCH_SURFACES.has(block.typeId)) return null;
+
+    let airAbove;
+    try {
+      airAbove = dimension.getBlock({ x: px, y: y + 1, z: pz });
+    } catch {
+      return null;
+    }
+    if (!airAbove || !isPassableOrAir(airAbove)) return null;
+    return { surfaceBlock: block, airBlockAbove: airAbove, surfaceY: y };
+  }
+  return null;
+}
+
+function swapInto(player, clutchData, fromType, toType) {
+  try {
+    if (isCreative(player)) return;
+    const makeItem = () => new ItemStack(toType, 1);
+
+    if (clutchData.isOffhand) {
+      const equippable = player.getComponent("minecraft:equippable");
+      const off = equippable?.getEquipment("Offhand");
+      if (off && off.typeId === fromType) {
+        equippable.setEquipment("Offhand", makeItem());
+        return;
+      }
+    } else {
+      const container = player.getComponent("minecraft:inventory")?.container;
+      if (container && clutchData.containerSlot !== null) {
+        const item = container.getItem(clutchData.containerSlot);
+        if (item && item.typeId === fromType) {
+          container.setItem(clutchData.containerSlot, makeItem());
+          return;
+        }
+      }
+    }
+
+    const container = player.getComponent("minecraft:inventory")?.container;
+    if (!container) return;
+    for (let i = 0; i < container.size; i++) {
+      const item = container.getItem(i);
+      if (item && item.typeId === fromType) {
+        if (item.amount === 1) {
+          container.setItem(i, makeItem());
+        } else {
+          item.amount -= 1;
+          container.setItem(i, item);
+          container.addItem(makeItem());
+        }
+        return;
+      }
+    }
+  } catch {}
+}
+
+function consumeClutchItem(player, clutchData, replacementTypeId) {
+  try {
+    if (isCreative(player)) return;
+
+    if (clutchData.isOffhand) {
+      const equippable = player.getComponent("minecraft:equippable");
+      const offhand = equippable?.getEquipment("Offhand");
+      if (!offhand) return;
+      if (replacementTypeId) {
+        equippable.setEquipment("Offhand", new ItemStack(replacementTypeId, 1));
+      } else if (offhand.amount > 1) {
+        offhand.amount -= 1;
+        equippable.setEquipment("Offhand", offhand);
+      } else {
+        equippable.setEquipment("Offhand", undefined);
+      }
+      return;
+    }
+
+    const container = player.getComponent("minecraft:inventory")?.container;
+    if (!container || clutchData.containerSlot === null) return;
+    const current = container.getItem(clutchData.containerSlot);
+    if (!current) return;
+    if (replacementTypeId) {
+      container.setItem(clutchData.containerSlot, new ItemStack(replacementTypeId, 1));
+    } else if (current.amount > 1) {
+      current.amount -= 1;
+      container.setItem(clutchData.containerSlot, current);
+    } else {
+      container.setItem(clutchData.containerSlot, undefined);
+    }
+  } catch {}
+}
+
+function placeBoatClutch(dimension, airBlock, entityType, player, distToSurface, fallSpeed) {
+  try {
+    const boat = dimension.spawnEntity(entityType, {
+      x: airBlock.location.x + 0.5,
+      y: airBlock.location.y,
+      z: airBlock.location.z + 0.5
+    });
+    if (!boat) return false;
+
+    const speed = Math.max(0.5, Math.abs(fallSpeed));
+    const delayTicks = Math.max(1, Math.min(2, Math.round(distToSurface / speed)));
+
+    system.runTimeout(() => {
+      try {
+        if (boat.isValid() && player.isValid()) {
+          const rideable = boat.getComponent("minecraft:rideable");
+          if (rideable) {
+            rideable.addRider(player);
+          }
+        }
+      } catch {}
+    }, delayTicks);
+    return true;
+  } catch {
+    return false;
+  }
+}
+
+function isDead(player) {
+  try {
+    return (player.getComponent("minecraft:health")?.currentValue ?? 20) <= 0;
+  } catch {
+    return false;
+  }
+}
+
+function executeAutoScoop(clutch) {
+  const { player, playerId, targetPos, dimension, clutchData } = clutch;
+  try {
+    if (!player.isValid() || isDead(player)) return;
+
+    try {
+      const block = dimension.getBlock(targetPos);
+      if (block && (block.typeId === "minecraft:water" || block.typeId === "minecraft:flowing_water")) {
+        block.setType("minecraft:air");
+      }
+    } catch {}
+
+    try { dimension.playSound("bucket.fill_water", player.location, { volume: 1.0, pitch: 1.0 }); } catch {}
+    try { player.playAnimation(ANIM); } catch {}
+    swapInto(player, clutchData, "minecraft:bucket", "minecraft:water_bucket");
+  } catch {
+  } finally {
+    activeWaterClutches.delete(playerId);
+  }
+}
+
+function executeAutoScoopPowderSnow(clutch) {
+  const { player, playerId, targetPos, dimension, clutchData } = clutch;
+  try {
+    if (!player.isValid() || isDead(player)) return;
+
+    let stillSnow = false;
+    try {
+      const block = dimension.getBlock(targetPos);
+      if (block && block.typeId === "minecraft:powder_snow") {
+        stillSnow = true;
+        block.setType("minecraft:air");
+      }
+    } catch {}
+
+    if (stillSnow) {
+      try { dimension.playSound("bucket.fill_powder_snow", player.location, { volume: 1.0, pitch: 1.0 }); } catch {}
+      try { player.playAnimation(ANIM); } catch {}
+      swapInto(player, clutchData, "minecraft:bucket", "minecraft:powder_snow_bucket");
+    }
+  } catch {
+  } finally {
+    activePowderSnowClutches.delete(playerId);
+  }
+}
+
+function executeClutch(player, velocity, clutchData, ground, distToSurface) {
+  const { definition } = clutchData;
+  const { airBlockAbove } = ground;
+  const dimension = player.dimension;
+
+  try { player.playAnimation(ANIM); } catch {}
+  try { dimension.playSound(definition.placeSound, player.location, { volume: 1.0, pitch: 1.0 }); } catch {}
+
+  let placed = false;
+
+  switch (definition.category) {
+    case "water": {
+      try {
+        airBlockAbove.setType("minecraft:water");
+        placed = true;
+        consumeClutchItem(player, clutchData, "minecraft:bucket");
+        activeWaterClutches.set(player.id, {
+          player,
+          playerId: player.id,
+          targetPos: airBlockAbove.location,
+          dimension,
+          deployedTick: system.currentTick,
+          scheduled: false,
+          clutchData
+        });
+      } catch {}
+      break;
+    }
+    case "powder_snow": {
+      try {
+        airBlockAbove.setType("minecraft:powder_snow");
+        placed = true;
+        consumeClutchItem(player, clutchData, "minecraft:bucket");
+        activePowderSnowClutches.set(player.id, {
+          player,
+          playerId: player.id,
+          targetPos: airBlockAbove.location,
+          dimension,
+          deployedTick: system.currentTick,
+          scheduled: false,
+          clutchData
+        });
+      } catch {}
+      break;
+    }
+    case "vines": {
+      try {
+        airBlockAbove.setType(definition.blockId);
+        if (airBlockAbove.typeId === definition.blockId) {
+          consumeClutchItem(player, clutchData);
+          placed = true;
+        }
+      } catch {}
+      break;
+    }
+    case "block":
+    case "sweet_berries": {
+      try {
+        airBlockAbove.setType(definition.blockId);
+        consumeClutchItem(player, clutchData);
+        placed = true;
+      } catch {}
+      break;
+    }
+    case "boat": {
+      if (placeBoatClutch(dimension, airBlockAbove, definition.entityType, player, distToSurface, velocity.y)) {
+        consumeClutchItem(player, clutchData);
+        placed = true;
+      }
+      break;
+    }
+  }
+
+  if (placed) lastClutchTick.set(player.id, system.currentTick);
+}
+
+function processPending(map, executor, currentTick) {
+  for (const [playerId, clutch] of map.entries()) {
+    let valid = false;
+    try { valid = clutch.player.isValid(); } catch {}
+    if (!valid) {
+      map.delete(playerId);
+      continue;
+    }
+    if (clutch.scheduled) continue;
+
+    let vel = { x: 0, y: 0, z: 0 };
+    try { vel = clutch.player.getVelocity(); } catch {}
+    const landed = clutch.player.isOnGround === true || Math.abs(vel.y) < 0.1 || currentTick - clutch.deployedTick > 15;
+    if (landed) {
+      clutch.scheduled = true;
+      system.runTimeout(() => executor(clutch), 3);
+    }
+  }
+}
+
+system.runInterval(() => {
+  const currentTick = system.currentTick;
+
+  processPending(activeWaterClutches, executeAutoScoop, currentTick);
+  processPending(activePowderSnowClutches, executeAutoScoopPowderSnow, currentTick);
+
+  for (const player of world.getAllPlayers()) {
+    try {
+      if (!player.isValid()) continue;
+
+      let vel;
+      try {
+        vel = player.getVelocity();
+      } catch {
+        continue;
+      }
+
+      let blocked = false;
+      try {
+        blocked = player.isGliding || player.isInWater || player.isSwimming;
+      } catch {}
+      if (blocked || isInactiveGameMode(player) || !isClutchEnabled(player)) {
+        fallTrackers.delete(player.id);
+        continue;
+      }
+
+      const currentFallDist = trackPlayerFall(player, vel);
+      if (vel.y > -0.5) continue;
+
+      const threshold = getPlayerThreshold(player);
+      const ground = findGroundBelow(player.dimension, player.location);
+      if (!ground) continue;
+
+      const distToSurface = player.location.y - (ground.surfaceY + 1);
+      if (distToSurface < 0.1) continue;
+
+      const tracker = fallTrackers.get(player.id);
+      const totalDrop = tracker ? tracker.startY - (ground.surfaceY + 1) : currentFallDist;
+      if (currentFallDist < threshold && totalDrop < threshold) continue;
+
+      const mode = getPlayerMode(player);
+      const fallSpeed = Math.abs(vel.y);
+
+      if (mode === "extreme") {
+        if (!hasAnyClutchItem(player) && !hasTotemOfUndying(player)) continue;
+      }
+
+      if (currentTick - (lastClutchTick.get(player.id) ?? -100) < 25) continue;
+
+      const rot = player.getRotation();
+      if (mode !== "extreme" && rot.x < 55) continue;
+
+      if (distToSurface > Math.max(4.5, fallSpeed * 1.6 + 0.4)) continue;
+
+      const clutchData = acquireClutchItem(player, mode);
+      const isBoat = clutchData?.definition?.category === "boat";
+      const maxTrigger = isBoat ? 4.5 : Math.max(2.2, fallSpeed * 1.6 + 0.4);
+      if (distToSurface > maxTrigger) continue;
+
+      if (clutchData) {
+        executeClutch(player, vel, clutchData, ground, distToSurface);
+      } else {
+        tryTriggerTotemFailSafe(player, Math.max(currentFallDist, totalDrop));
+      }
+    } catch {}
+  }
+}, 1);
+
+world.afterEvents.playerLeave.subscribe((event) => {
+  fallTrackers.delete(event.playerId);
+  lastClutchTick.delete(event.playerId);
+  activeWaterClutches.delete(event.playerId);
+  activePowderSnowClutches.delete(event.playerId);
+});
+
+system.afterEvents.scriptEventReceive.subscribe((event) => {
+  if (event.id !== "clutch:on" && event.id !== "clutch:off") return;
+  const player = event.sourceEntity;
+  if (!player || player.typeId !== "minecraft:player") return;
+  const enable = event.id === "clutch:on";
+  try {
+    player.setDynamicProperty(ENABLED_PROPERTY, enable);
+    player.sendMessage(enable ? "§aUniversal Clutch: ON" : "§cUniversal Clutch: OFF");
+  } catch {}
+});
+```
+
+## FILE: MCPEDL/Script/Universal-Clutch/CHANGELOG.md (43 lines, 1576 bytes)
+
+```
+# Changelog — Universal Clutch
+
+---
+
+## [1.5.2] - 2026-11-14
+
+**What's new in v1.5.2:** Packed with the v1.5.2 update.
+
+### Added
+
+- **On/Off Command**: Each player can turn Universal Clutch off or on with /scriptevent clutch:off and /scriptevent clutch:on. The choice is saved per player.
+
+### Improved & Balanced
+
+- **Natural Falling**: The camera is never moved or forced, and your falling speed is no longer reset.
+- **Extreme Mode**: Now works without looking down.
+
+## [1.5.1] - 2026-11-14
+
+### Improved & Balanced
+
+- **Script Pack**: Universal Clutch is now released as a Script pack (.mcpack).
+- **Default Mode**: Full Mode is now the default subpack on every device.
+- **Safer Landings**: No item is used when you would land in water, lava, or on a soft block.
+- **Totem Fail-Safe**: The Totem of Undying is only equipped when the fall would be fatal, and keeps its name and data.
+- **Creative and Spectator**: Clutching no longer triggers in Creative or Spectator mode.
+
+### Fixed
+
+- **Twisting Vines**: Twisting Vines are now recognized as a clutch item.
+- **Waterlogging**: Removed the waterlogging claim; water is always placed in the air block above the ground.
+- **Fall Height**: Fall height no longer carries over after swimming, gliding, or leaving the game.
+- **Water Recovery**: Fixed an error when a player left within a moment of landing.
+- **Minimum Version**: The Behavior Pack now requires Minecraft 1.21.20 or newer.
+
+
+
+## [1.5.0] - 2026-10-29
+
+### Improved & Balanced
+
+- **Changelog started**: Version history is recorded from this release onward.
+```
+
+## FILE: MCPEDL/Script/Universal-Clutch/DESCRIPTION.md (172 lines, 8703 bytes)
+
+```
+# Universal Clutch — Intelligent Fall Mitigation Script
+
+**By ALNStudios**
+
+[![Minecraft Bedrock](https://img.shields.io/badge/Minecraft%20Bedrock-Stable%20Release-brightgreen?style=flat-square&logo=minecraft)](https://github.com/AllensCreations/MCPE-Curseforges)
+[![Format](https://img.shields.io/badge/Format-.MCPACK%20%7C%20.MCADDON%20%7C%20.MCWORLD-blue?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges)
+
+**AUTOMATIC CLUTCH SYSTEM & FALL PROTECTION UTILITY**
+
+Automatically attempts a clutch when you fall while looking toward the ground. Supported items can reduce or prevent fall damage, and placed water or powder snow may be collected again after landing.
+
+---
+
+## Overview
+
+Universal Clutch provides a vanilla-faithful safety mechanic for Minecraft Bedrock players. The system checks your fall and whether you are looking toward the ground.
+
+When aiming down and falling beyond the configured block height threshold, the add-on acts shortly before impact, triggers an authentic arm swing animation with placement audio, deploys the appropriate clutch item from your mainhand or offhand, and automatically re-scoops placed water upon touchdown.
+
+---
+
+## Key Features
+
+### Multi-Item Clutch Support
+- **Description**: Automatically identifies and uses Water Buckets, Powder Snow Buckets, Twisting Vines, Hay Bales, Cobwebs, Slime Blocks, Scaffolding, Boats/Rafts, or Sweet Berries.
+
+### Dimension-Aware Clutches
+- **Description**: Automatically disables evaporating Water Buckets in the Nether, prioritizing Twisting Vines & Powder Snow Buckets instead.
+
+### Dual Hand & Inventory Detection
+- **Description**: Evaluates mainhand items first, with failover to offhand, hotbar, and upper inventory.
+
+### Totem of Undying Fail-Safe
+- **Description**: When falling to certain death with no clutch item, automatically searches inventory and equips a Totem of Undying into the offhand slot before impact.
+
+### Authentic Boat Placement
+- **Description**: Spawns the boat at maximum player reach distance (~4.5 blocks) first, then seats the player with a slight delay upon touchdown. Strictly no teleportation.
+
+### Timed Placement
+- **Description**: Uses velocity-based vertical raycasting to trigger placements shortly before impact rather than snapping prematurely.
+
+### Arm Placement Animation
+- **Description**: Triggers vanilla arm swing animations (the standard arm-swing animation) synced directly to placement audio.
+
+### Automatic Item Recovery
+- **Description**: Automatically retrieves placed water or powder snow 3 ticks after touchdown; verifies powder snow wasn't consumed to extinguish fire before re-scooping.
+
+---
+
+## Supported Clutch Items and Behaviors
+
+### Water Bucket
+- **Placement Target**: Impact Air Block
+- **Effect**: Negates fall damage; auto-scooped 3 ticks after landing (disabled in Nether)
+
+### Powder Snow Bucket
+- **Placement Target**: Impact Air Block
+- **Effect**: Absorbs fall damage; auto-scooped 3 ticks after landing (unless melted by fire)
+
+### Twisting Vines
+- **Placement Target**: Top Face of Solid Ground Block
+- **Effect**: Nether-native climbing vine; resets vertical momentum and absorbs fall damage
+
+### Hay Bale
+- **Placement Target**: Impact Air Block
+- **Effect**: Reduces fall damage by 80% upon touchdown
+
+### Cobweb
+- **Placement Target**: Impact Air Block
+- **Effect**: Decelerates player velocity and completely negates fall damage
+
+### Slime Block
+- **Placement Target**: Impact Air Block
+- **Effect**: Completely eliminates fall damage and bounces player upward
+
+### Scaffolding
+- **Placement Target**: Impact Air Block
+- **Effect**: Traverses falling entity momentum and absorbs fall damage
+
+### Boat / Raft
+- **Placement Target**: Impact Air Coordinate
+- **Effect**: Placed at max reach distance (~4.5 blocks) first, auto-riding player with slight delay
+
+### Sweet Berries
+- **Placement Target**: Impact Air Block
+- **Effect**: Places sweet berry bush to decelerate and cancel fall damage
+
+### Totem of Undying
+- **Placement Target**: Offhand Slot (Emergency Swap)
+- **Effect**: Auto-equipped when falling with no clutch items to attempt to prevent a fatal fall
+
+---
+
+## When It Activates
+
+The player must be falling from the selected height threshold while looking down (not required in Extreme Mode), and the add-on attempts placement close to impact.
+
+---
+
+---
+
+## Operating Modes & Subpack Configuration
+
+Universal Clutch supports three distinct operating modes selectable via subpack settings slider in World Settings or customizable per-player in-game:
+
+Each player can turn Universal Clutch off or on with the commands `/scriptevent clutch:off` and `/scriptevent clutch:on` (cheats required). The setting is saved per player.
+
+### Operating Modes
+
+- **Full Mode (Auto-Switch Inventory):**
+  If a clutch item is not already held in hand, the system automatically scans your hotbar and upper inventory for available clutch items, switches or swaps it directly into your active hand, executes the clutch placement, and remains holding the switched item. Requires the player to aim downward (looking down toward the ground).
+- **Simple Mode (Held Item Only):**
+  Clutch placements only trigger if you are actively holding a supported clutch item in your mainhand or offhand slot. If holding a sword, pickaxe, or empty hand, no placement will occur. Requires the player to aim downward (looking down toward the ground).
+- **Extreme Mode (Auto-Switch, No Look-Down Needed):**
+  When falling from dangerous heights, the add-on does not require you to look down, scans and auto-switches to the best available clutch item in inventory, places it 1–2 ticks before impact, and remains holding the switched item. **No-Item Limitation:** If no suitable clutch item is available, the add-on cannot assist with the fall.
+
+### Built-in Subpack Presets
+
+Configurable via the Behavior Pack subpack settings slider in World Settings:
+
+1. **Full Mode (Auto-Switch Inventory):** Recommended default. Automatically detects, equips, and places clutch items from inventory, keeping the switched item active.
+2. **Simple Mode (Held Item Only):** Traditional manual clutching. Only executes if a supported clutch item is already held in mainhand or offhand.
+3. **Extreme Mode (Auto-Switch, No Look-Down Needed):** Hands-free safety system with auto item switching that works without looking down. If inventory has no clutch item, the add-on cannot assist.
+
+#---
+
+## Highlights & Performance
+
+- **Responsive Clutch Engine**: Attempts to place a suitable item shortly before impact; success depends on the fall and available items.
+- **Survival Balanced**: Consumes clutch items faithfully from your inventory or hand in Survival and Adventure modes.
+- **Anti-Spam Cooldown**: Built-in placement cooldown guarantees one clean clutch per fall.
+
+---
+
+## Compatibility
+
+- Minecraft Bedrock Edition 1.21.0+
+- Compatible with Bedrock 1.21.50+ and 1.26.0+ releases
+- Check the current pack listing for setup requirements.
+- Multiplayer behavior should be checked in the target game version.
+
+---
+- Experimental features: Not verified.
+- Achievements: Likely achievement-friendly.
+- Verification: Source created, not tested in game.
+
+## Creator and Permissions
+
+- Creator: ALNStudios
+- Profiles: [CurseForge Profile](https://www.curseforge.com/members/allenscreations/projects) · [MCPEDL Profile](https://mcpedl.com/user/alnstudios/)
+
+<a href="https://www.curseforge.com/members/allenscreations/projects"><img src="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/assets/Images/curseforge.jpg" alt="CurseForge" width="45%"></a> <a href="https://mcpedl.com/user/alnstudios/"><img src="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/assets/Images/MCPEDL.jpg" alt="MCPEDL" width="45%"></a>
+
+## Guidelines and Attribution
+
+- Creator: ALNStudios
+- Rights & Reservation: All rights reserved for ALNStudios.
+- Content Creators: Content creators are permitted to feature this creation in videos and streams with credit to ALNStudios.
+- Redistribution: Do not re-upload this pack or provide direct monetized download bypasses. Link directly to the official repository page.
+- Disclaimer: This is an unofficial community creation. It is not an official Minecraft product and is not approved by or associated with Mojang or Microsoft.
+
+---
+
+© All rights reserved for ALNStudios.
+
+---
+
+## Search & Discovery Keywords
+
+Universal Clutch Minecraft Bedrock, Multi-Item Clutch Support Bedrock, Dimension-Aware Clutches Bedrock, Dual Hand & Inventory Detection Bedrock, Totem of Undying Fail-Safe Bedrock, Minecraft PE survival, MCPEDL, CurseForge Bedrock, ALNStudios, Minecraft Bedrock add-on, MCPEDL add-on.
+```
+
+## FILE: MCPEDL/Script/Universal-Clutch/project.json (5 lines, 53 bytes)
+
+```
+{
+  "type": "script",
+  "name": "Universal Clutch"
+}
+```
+
+## FILE: MCPEDL/Script/Universal-Clutch/README.md (19 lines, 805 bytes)
+
+```
+# Universal Clutch
+
+Download the current release of **Universal Clutch** for Minecraft Bedrock Edition.
+
+## Download
+
+- **Package format:** `.mcpack`
+- **Direct download:** [Download Universal Clutch (.mcpack)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Universal-Clutch/UniversalClutch%20V1.5.2.mcpack)
+
+## Installation
+
+1. Download the package using the link above.
+2. Open the downloaded file with Minecraft to import it.
+3. If the package contains a pack that must be enabled separately, activate it in your world's settings.
+
+## Pack Information
+
+For gameplay features, usage details, compatibility notes, and other project information, read the [full description](https://github.com/AllensCreations/MCPE-Curseforges/blob/main/MCPEDL/Script/Universal-Clutch/DESCRIPTION.md).
+```

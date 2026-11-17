@@ -1,0 +1,1736 @@
+# Repo Export
+
+## Index
+
+- **Export request:** `MCPEDL/Addons/Padlock-and-Key`
+- **Destination:** `MCPEDL/Addons/Padlock-and-Key`
+- **CURRENT VERSION: 1.4.2 / NEXT UPDATE: 1.4.3**  (`MCPEDL/Addons/Padlock-and-Key/CHANGELOG.md`)
+- **Text files:** 23
+- **Skipped binary:** 6
+- **Paths not found:** 0
+
+### Files in this export
+
+- `changelog_views/Padlock-and-Key.curseforge.html`
+- `changelog_views/Padlock-and-Key.github.md`
+- `description_views/Padlock-and-Key.listing.md`
+- `MCPEDL/Addons/Padlock-and-Key/assets/snapshots/.gitkeep`
+- `MCPEDL/Addons/Padlock-and-Key/behavior_pack/items/key.json`
+- `MCPEDL/Addons/Padlock-and-Key/behavior_pack/items/key_glow.json`
+- `MCPEDL/Addons/Padlock-and-Key/behavior_pack/items/padlock.json`
+- `MCPEDL/Addons/Padlock-and-Key/behavior_pack/LOCK`
+- `MCPEDL/Addons/Padlock-and-Key/behavior_pack/manifest.json`
+- `MCPEDL/Addons/Padlock-and-Key/behavior_pack/recipes/padlock.json`
+- `MCPEDL/Addons/Padlock-and-Key/behavior_pack/scripts/lib/doors.js`
+- `MCPEDL/Addons/Padlock-and-Key/behavior_pack/scripts/lib/lockdata.js`
+- `MCPEDL/Addons/Padlock-and-Key/behavior_pack/scripts/lib/pistons.js`
+- `MCPEDL/Addons/Padlock-and-Key/behavior_pack/scripts/main.js`
+- `MCPEDL/Addons/Padlock-and-Key/CHANGELOG.md`
+- `MCPEDL/Addons/Padlock-and-Key/DESCRIPTION.md`
+- `MCPEDL/Addons/Padlock-and-Key/LOCK`
+- `MCPEDL/Addons/Padlock-and-Key/project.json`
+- `MCPEDL/Addons/Padlock-and-Key/README.md`
+- `MCPEDL/Addons/Padlock-and-Key/resource_pack/LOCK`
+- `MCPEDL/Addons/Padlock-and-Key/resource_pack/manifest.json`
+- `MCPEDL/Addons/Padlock-and-Key/resource_pack/textures/item_texture.json`
+- `MCPEDL/Addons/README.md`
+
+### Skipped (binary)
+
+- `MCPEDL/Addons/Padlock-and-Key/assets/items/padlock.png`
+- `MCPEDL/Addons/Padlock-and-Key/assets/recipes/padlock_recipe.png`
+- `MCPEDL/Addons/Padlock-and-Key/behavior_pack/pack_icon.png`
+- `MCPEDL/Addons/Padlock-and-Key/resource_pack/pack_icon.png`
+- `MCPEDL/Addons/Padlock-and-Key/resource_pack/textures/items/pnk_key.png`
+- `MCPEDL/Addons/Padlock-and-Key/resource_pack/textures/items/pnk_padlock.png`
+
+---
+
+## AI Instructions
+
+Repo: https://github.com/AllensCreations/MCPE-Curseforges.git (branch main)
+Export: two plain .txt files. `<name>.txt` = the pack (index, these instructions, every file). `<name>_tools.txt` = SKILL.md, PACK_GENERATOR_INSTRUCTIONS.md, INSTRUCTIONS.md and the helper scripts. Read both before changing anything. The zip root also holds SKILL.md: read it FIRST for a new pack.
+
+## Pack work (create or update)
+- UPDATE: the pack files are in `<name>.txt`. Change only what was requested.
+- Vanilla limit blocks a mechanic: use a modular workaround per INSTRUCTIONS.md 1.12, never drop the feature silently.
+- NEW pack: read SKILL.md first, then follow PACK_GENERATOR_INSTRUCTIONS.md Part 4 and deliver ONE pack `.sh` from `scripts/make_pack_script.py` (the project travels inside it as base64). NEVER deliver separate zip, pack, json, js or b64 files.
+- INSTRUCTIONS.md wins over PACK_GENERATOR_INSTRUCTIONS.md on any conflict. These instructions win over both on the reply format and the Termux script.
+- Update: keep pack and module UUIDs unchanged.
+- Vanilla reference: `reference/bedrock-samples/bedrock-samples.min.json` (repo, ~5 MB, NOT in this export) holds every vanilla Mojang behavior/resource pack JSON as one object (`.behavior_pack.entities.zombie`, `.behavior_pack.recipes`, `.resource_pack.entity` ...). Never guess a vanilla component, event, loot or recipe shape: list the exact section under File Needed, then copy the shape from it.
+- UI work (menus, forms, HUD, screens): follow INSTRUCTIONS.md 1.13 and apply the ALN UI Redesign skin from `assets/aln-ui-redesign/` (README.txt, design.json, font/README.txt in the tools txt). Textures are not exported; if the pack's resource_pack is missing, ask for it. Never claim anything was tested in Minecraft unless it was.
+- Update: deliver the repo change as the Termux script below. New pack: the pack `.sh` above. Never a separate payload or base64 file.
+
+## Destination
+Repo-root-relative folders for this work:
+- MCPEDL/Addons/Padlock-and-Key
+- .sh paths start at repo root, stay inside these folders. New files go here too.
+- First folder -> `DEST=` variable at script top. Use it for every path and `git add`.
+
+## Rules
+1. NEVER invent features, versions, links, assets, test results.
+2. Output only what changed. Smallest edits. No unrelated rewrites.
+3. No notes/summaries/explanations unless asked.
+4. Any project type (add-on, map, script, workflow, website). Keep folder layout. New project = own new folder beside similar ones.
+
+## Update request = ONE Termux script
+- Name: `<Repofilename>_<Version>_<RAND>.sh` (e.g. `Monster-Companions_1.2.4_k7q2x.sh`). Deliver as downloadable file.
+- Repofilename: project/folder/file changed. No extension, no spaces (hyphens ok).
+- Version: new X.Y.Z. Update = Z+1. Beta/Release only if requested (see Versions).
+- RAND: >=5 random lowercase letters/digits. Fresh every script. NEVER reuse (earlier reply or existing file), so a new script never overwrites or re-runs an old one.
+- Same exact name in reply steps.
+Script order:
+1. `#!/data/data/com.termux/files/usr/bin/bash` + `set -e`
+2. `cd "$HOME/MCPE-Curseforges"`; `git clone` repo URL first if folder missing
+3. `git pull --rebase`
+4. Apply ALL changes as exact search-and-replace edits: write a spec and run `python3 scripts/make_update_script.py spec.txt` (format in `scripts/apply_update.py`; `--verify <clone>` dry-runs it). The tool applies edits atomically, sets the manifest version and writes both changelogs. Size decides the method. SMALL update (a few edits, under about 60% of any file touched): search and replace only. LARGE update (most of a file, many new files, a redesign): use the best method, `@@ create`/`@@ overwrite` in the same spec, never many fragile edits. Either way ONE `.sh`. No separate downloads.
+5. Validate every changed .json with python3. Stop on error.
+5b. Verify top CHANGELOG.md heading == new X.Y.Z == script filename version. Stop on mismatch. If project has manifests: run `python3 scripts/manifest_tools.py --project "$DEST" --set X.Y.Z` (sets header.version, metadata.version, title suffix, module/dependency versions in every source manifest; never lowers), then `python3 scripts/manifest_tools.py --project "$DEST" --check` and `python3 scripts/validate_manifest_titles.py --project "$DEST"`. Stop on error. Every update must change the manifests so the build changes. Never hand-edit manifest JSON for versions.
+5c. If INSTRUCTIONS.md or PACK_GENERATOR_INSTRUCTIONS.md changed: run `python3 scripts/check_instruction_files.py`. Stop on error
+6. `git add` changed paths only; `git commit -m "<short message>"`; `git push`
+6b. Add an entry to the ROOT `CHANGELOG.md` (repo-wide, newest first under `---`): `## [vN] - YYYY-MM-DD - [Update Name]` (N = `REPO_VERSION` + 1, a single whole number such as v80, set by the update tool, never by hand), groups `### Added` / `### Improved & Balanced` / `### Fixed`, bullets `- **Title**: what changed`. Every script, tooling-only included.
+7. After push, do NOT start any workflow. Build Changed Packs & Sync Catalogs runs by itself on every push and rebuilds everything. Nothing auto-bumps; Publish to CurseForge uploads the newest changelog version as written.
+8. Idempotent: skip anything already applied.
+9. Last line, reached only after a successful push: `rm -f -- "$SELF"` (the script deletes itself; save `SELF="$(readlink -f -- "$0")"` on line 2, before the `cd`).
+
+## Docs (every update, same script)
+- Templates STRICT: README.md, DESCRIPTION.md, CHANGELOG.md match templates below exactly: same headings, text, order, labels, bullet format. NEVER add/remove/rename/merge/reorder sections. No boilerplate/extra text. No placeholders: fill every [bracket] with verified content. Accuracy + requested scope outrank template.
+- CHANGELOG.md: MANDATORY every update, no exceptions. Add new release entry for the change.
+- README.md + DESCRIPTION.md: after change, analyze both in destination folder. Edit ONLY if change makes them inaccurate/incomplete. NEVER remove verified content.
+
+### Versions (X.Y.Z ONLY)
+- Format: exactly X.Y.Z everywhere. NEVER X.Y.Z.A. No fourth part. No Alpha.
+- X = Release, Y = Beta, Z = Update.
+- Update: Z+1 (1.2.3 -> 1.2.4). Default.
+- Beta: Y+1, Z=0 (1.2.4 -> 1.3.0). Only if requested.
+- Release: X+1, Y=0, Z=0 (1.3.0 -> 2.0.0). Only if requested.
+- New X.Y.Z goes in CHANGELOG heading + script filename.
+- Manifest versions: set ONLY by the script via `manifest_tools.py --set X.Y.Z` (never hand-edit JSON). NEVER hand-edit README download links. Build Changed Packs & Sync Catalogs aligns a pack to its highest existing version and rebuilds; it never bumps. Publish to CurseForge uploads the newest changelog version.
+- NEVER put release version in README/DESCRIPTION titles. NEVER reuse a heading.
+
+### Changelog views
+- `changelog_views/<Name>.github.md` (newest open, older folded by minor series) and `changelog_views/<Name>.curseforge.html` (CurseForge spoilers, paste into project description): generated from CHANGELOG.md by `scripts/build_changelog_views.py`.
+- CHANGELOG.md = plain text, exact template format, only source of truth. NEVER add HTML/fold markup/links to it. NEVER edit views by hand. NEVER create/change views inside the .sh.
+- Refresh: Build Changed Packs & Sync Catalogs; Collect Files for AI Review (tick commit_changelog_views to save); or `python3 scripts/build_changelog_views.py --project <Name>`.
+
+### Writing
+- Player-facing only. In-game display names, never identifiers, file names, JSON, events, code.
+- "Behavior Pack" / "Resource Pack", NEVER BP/RP.
+- README: no code blocks, emojis, hype, badges.
+- DESCRIPTION: exactly the two Minecraft Bedrock + Format badges from repo template, no others. May keep existing item sprites + recipe diagrams.
+- No Markdown tables. Use `### Feature Name` cards with `- **What Happens**: ...` bullets.
+- Paragraphs <=4 sentences. Verified facts only. Verification line = source created | package built | in-game tested, NEVER mixed.
+
+### README.md (add-on): download landing page only, EXACTLY 11 non-empty lines
+```
+# [Name]
+
+Download the current release of **[Name]** for Minecraft Bedrock Edition.
+
+## Download
+
+- **Package format:** `.mcaddon`
+- **Direct download:** [Download [Name] (.mcaddon)](link)
+
+## Installation
+
+1. Download the package using the link above.
+2. Open the downloaded file with Minecraft to import it.
+3. If the package contains a pack that must be enabled separately, activate it in your world's settings.
+
+## Pack Information
+
+For gameplay features, usage details, compatibility notes, and other project information, read the [full description](DESCRIPTION link).
+```
+Maps/scripts/minigames: same landing page. Use real package format; .mcworld = tell players to open the imported world. Product details live in DESCRIPTION.md.
+
+### DESCRIPTION.md order
+1. `# [Name] — [subtitle]` (no release version)
+2. `**By ALNStudios**`
+3. Two exact badges (Minecraft Bedrock "Stable Release", Format) from repo template
+4. Summary
+5. `## Overview`
+6. `## Key Features`
+7. `## How to Use`
+8. `## Compatibility`: Minecraft Bedrock Edition, Experimental features, Achievements, Verification
+9. `## Creator and Permissions`: `- Creator: ALNStudios`, `- Profiles:` CurseForge https://www.curseforge.com/members/allenscreations/projects · MCPEDL https://mcpedl.com/user/alnstudios/, then the two clickable listing images (HTML, `width="45%"`, no `height`, raw URLs `assets/Images/curseforge.jpg`, `assets/Images/MCPEDL.jpg`). NEVER edit/copy the images
+10. `## Guidelines and Attribution`
+11. `---` then `## Search & Discovery Keywords` from real features
+- Add-ons: Achievements line ALWAYS `Likely achievement-friendly`; add caveats if world settings/cheats can disable achievements.
+
+### Guidelines and Attribution block, exactly
+```
+- Creator: ALNStudios
+- Rights & Reservation: All rights reserved for ALNStudios.
+- Content Creators: Content creators are permitted to feature this creation in videos and streams with credit to ALNStudios.
+- Redistribution: Do not re-upload this pack or provide direct monetized download bypasses. Link directly to the official repository page.
+- Disclaimer: This is an unofficial community creation. It is not an official Minecraft product and is not approved by or associated with Mojang or Microsoft.
+
+---
+
+© All rights reserved for ALNStudios.
+
+---
+```
+
+### CHANGELOG.md
+- `# Changelog — [Name]`, `---`, then newest first: `## [X.Y.Z] - YYYY-MM-DD - [Update Name]` (date: `TZ=Asia/Singapore date +%F`). [Update Name] = short player-facing title (2-6 words) of what is new. REQUIRED on every new entry.
+- Groups: `### Added`, `### Improved & Balanced`, `### Fixed` (bugs as in-game experience). Omit empty groups. Each group >=1 bullet.
+- Entry: `- **Title**: player impact.`
+- NO links, URLs, badges, function/event names, unverified benefits. No boilerplate after title.
+- Insert new entry directly under `---`, above previous release. NEVER edit/delete older entries.
+
+## Reply Format (STRICT)
+```
+[SYSTEM_CONFIG]
+Mode: Direct Execution
+Token_Efficiency: Maximum
+Rules: no greeting, intro, outro, offers, restating. High technical accuracy.
+```
+Output ONLY these three sections, in order, exact headings:
+1. **File Needed:** repo-root-relative path of each file created/edited.
+2. **Changelog:** bullets, brief summary of changes.
+3. **Termux Script:** ONE fenced `bash` block holding ONLY the run commands: `bash ~/storage/downloads/<Repofilename>_<Version>_<RAND>.sh` (a new pack may add the same line with `stage`). The .sh is attached, NEVER pasted. NEVER a Summary section.
+- The .sh (`<Repofilename>_<Version>_<RAND>.sh`, random chars included) is the downloadable file. Exact same name in the command.
+- NEVER text before, between, after. NEVER rename/merge/reorder/skip a section. Nothing to report: `- None`.
+- Unclear request: ask ONE line, then proceed with defaults.
+- First-time Termux setup, ONLY if the user asks:
+```
+pkg update -y && pkg install -y git python curl
+termux-setup-storage
+git config --global user.name "ALNStudios"
+git config --global user.email "your-email@example.com"
+git config --global credential.helper store
+```
+- Push password = GitHub Personal Access Token (repo + workflow scopes), NOT account password. Same token starts the build after push.
+
+---
+
+## File Contents
+
+## FILE: changelog_views/Padlock-and-Key.curseforge.html (4 lines, 6202 bytes)
+
+```
+<h2>1.4.2 - 2026-11-16</h2><h3>Improved &amp; Balanced</h3><ul><li><strong>Lighter Lock Checks</strong>: Explosions, Pistons, Hopper Minecart checks and lock cleanup now do far less work. Worlds with many locks or large redstone farms run smoother.</li></ul>
+<h2>1.4.x (2 releases)</h2><div class="spoiler"><h3>1.4.2 - 2026-11-11</h3><h4>Improved &amp; Balanced</h4><ul><li><strong>Immovable Locks</strong>: Pistons can no longer push or pull a locked block or the block under a locked container. Locked blocks stay where they are.</li></ul><h3>1.4.1 - 2026-11-11</h3><h4>Added</h4><ul><li><strong>Hopper Minecart Guard</strong>: A Hopper Minecart that ends up under a locked container is destroyed, so it can no longer pull items from it.</li></ul><h4>Fixed</h4><ul><li><strong>Pistons Keep Locks</strong>: Locked blocks pushed or pulled by a Piston now keep their lock instead of becoming public.</li></ul></div>
+<h2>1.0.x (7 releases)</h2><div class="spoiler"><h3>1.0.7 - 2026-11-16 - Piston Safety and Iron Door Feel</h3><h4>Added</h4><ul><li><strong>Piston Safety</strong>: A Piston cannot be placed aimed at a locked block, and a block cannot be locked while a Piston is aimed at it. If a locked block still gets moved, for example in a Slime Block machine, its lock moves with it and the block stays locked.</li><li><strong>Lock Cleanup</strong>: Locks left behind by a block that no longer exists are removed automatically, so a new block placed there never inherits an old lock.</li></ul><h4>Improved &amp; Balanced</h4><ul><li><strong>Iron Door Feel</strong>: Locked doors, trapdoors and fence gates cannot be opened by hand, like an Iron Door. If one still opens, it snaps shut again. Redstone can still open them.</li><li><strong>Protected Door Floor</strong>: The block under a locked door can no longer be broken or blown up until the door is unlocked.</li></ul><h4>Fixed</h4><ul><li><strong>Pistons Unlocked Blocks</strong>: Pushing or pulling a locked block with a Piston no longer leaves it unlocked.</li><li><strong>Copper Chest Pairs</strong>: A Copper Chest next to a locked Copper Chest now counts as part of the same lock.</li></ul><h3>1.0.7 - 2026-11-15 - Piston Safety and Iron Door Feel</h3><h4>Added</h4><ul><li><strong>Piston Safety</strong>: A Piston cannot be placed aimed at a locked block, and a block cannot be locked while a Piston is aimed at it. If a locked block still gets moved, for example in a Slime Block machine, its lock moves with it and the block stays locked.</li><li><strong>Lock Cleanup</strong>: Locks left behind by a block that no longer exists are removed automatically, so a new block placed there never inherits an old lock.</li></ul><h4>Improved &amp; Balanced</h4><ul><li><strong>Iron Door Feel</strong>: Locked doors, trapdoors and fence gates cannot be opened by hand, like an Iron Door. If one still opens, it snaps shut again. Redstone can still open them.</li><li><strong>Protected Door Floor</strong>: The block under a locked door can no longer be broken or blown up until the door is unlocked.</li></ul><h4>Fixed</h4><ul><li><strong>Pistons Unlocked Blocks</strong>: Pushing or pulling a locked block with a Piston no longer leaves it unlocked.</li><li><strong>Copper Chest Pairs</strong>: A Copper Chest next to a locked Copper Chest now counts as part of the same lock.</li></ul><h3>1.0.4 - 2026-11-10</h3><h4>Added</h4><ul><li><strong>More Lockable Storage</strong>: Every Chest type, including Copper Chests, plus Crafters and Decorated Pots can now be locked.</li></ul><h4>Improved &amp; Balanced</h4><ul><li><strong>Locked Doors Stay Shut</strong>: Locked doors, trapdoors and fence gates no longer open when right-clicked, even with the matching Key. Sneak and right-click with the Key to unlock them.</li></ul><h4>Fixed</h4><ul><li><strong>Floor Check</strong>: Locking no longer asks for a solid block when another block already sits under the container. Open air, liquids, Hoppers and rails under it still stop the lock.</li></ul><h3>1.0.3 - 2026-11-10</h3><h4>Added</h4><ul><li><strong>Locked Floor</strong>: The block directly under a locked container can no longer be broken or blown up until the lock is removed.</li><li><strong>Solid Floor Needed</strong>: A container can only be locked when a solid block sits under it, so hoppers and hopper minecart rails cannot be placed there.</li></ul><h3>1.0.2 - 2026-11-10</h3><h4>Added</h4><ul><li><strong>Blast Protection</strong>: Explosions no longer destroy locked blocks. Everything around them can still be damaged.</li></ul><h3>1.0.1 - 2026-11-10</h3><h4>Added</h4><ul><li><strong>Glowing Key</strong>: Keys you receive from locking or copying now have an enchanted glow.</li><li><strong>Padlock Return</strong>: Unlocking a block with Sneak + Key disperses that Key and returns the Padlock with the same name to your inventory.</li><li><strong>Hopper Guard</strong>: Hoppers cannot be placed directly under a locked block, and a block cannot be locked while a Hopper sits under it.</li></ul><h4>Improved &amp; Balanced</h4><ul><li><strong>Subtext Messages</strong>: Lock, unlock, denied and copy messages now show above your hotbar instead of in chat.</li><li><strong>Break With Key</strong>: A locked block can now be broken while you hold its matching Key. The lock is removed, the Key disperses, and the Padlock returns. Without the Key, the block still cannot be broken.</li></ul><h3>1.0.0 - 2026-11-10</h3><h4>Added</h4><ul><li><strong>Padlock</strong>: Craft it with 1 Iron Ingot and 1 Amethyst Shard, rename it on an anvil, then use it on a chest, door, or other supported block to lock it with that name as the password.</li><li><strong>Key</strong>: Locking a block gives you 1 Key with the same name. Hold the Key in either hand to open the locked block.</li><li><strong>Permanent unlock</strong>: Sneak and right-click a locked block with the correct Key to remove the lock.</li><li><strong>Break protection</strong>: Locked blocks cannot be broken by anyone until they are unlocked.</li><li><strong>Key copies</strong>: Hold a Key in your main hand and an Iron Nugget in your offhand, then use the Key to make one extra Key with the same name.</li></ul></div>
+```
+
+## FILE: changelog_views/Padlock-and-Key.github.md (100 lines, 5415 bytes)
+
+```
+# Changelog — Padlock & Key
+
+## [1.4.2] - 2026-11-16
+
+### Improved & Balanced
+- **Lighter Lock Checks**: Explosions, Pistons, Hopper Minecart checks and lock cleanup now do far less work. Worlds with many locks or large redstone farms run smoother.
+
+<details>
+<summary><b>1.4.x</b> (2 releases)</summary>
+
+### [1.4.2] - 2026-11-11
+
+#### Improved & Balanced
+- **Immovable Locks**: Pistons can no longer push or pull a locked block or the block under a locked container. Locked blocks stay where they are.
+
+### [1.4.1] - 2026-11-11
+
+#### Added
+- **Hopper Minecart Guard**: A Hopper Minecart that ends up under a locked container is destroyed, so it can no longer pull items from it.
+
+#### Fixed
+- **Pistons Keep Locks**: Locked blocks pushed or pulled by a Piston now keep their lock instead of becoming public.
+
+</details>
+
+<details>
+<summary><b>1.0.x</b> (7 releases)</summary>
+
+### [1.0.7] - 2026-11-16 - Piston Safety and Iron Door Feel
+
+#### Added
+- **Piston Safety**: A Piston cannot be placed aimed at a locked block, and a block cannot be locked while a Piston is aimed at it. If a locked block still gets moved, for example in a Slime Block machine, its lock moves with it and the block stays locked.
+- **Lock Cleanup**: Locks left behind by a block that no longer exists are removed automatically, so a new block placed there never inherits an old lock.
+
+#### Improved & Balanced
+- **Iron Door Feel**: Locked doors, trapdoors and fence gates cannot be opened by hand, like an Iron Door. If one still opens, it snaps shut again. Redstone can still open them.
+- **Protected Door Floor**: The block under a locked door can no longer be broken or blown up until the door is unlocked.
+
+#### Fixed
+- **Pistons Unlocked Blocks**: Pushing or pulling a locked block with a Piston no longer leaves it unlocked.
+- **Copper Chest Pairs**: A Copper Chest next to a locked Copper Chest now counts as part of the same lock.
+
+### [1.0.7] - 2026-11-15 - Piston Safety and Iron Door Feel
+
+#### Added
+- **Piston Safety**: A Piston cannot be placed aimed at a locked block, and a block cannot be locked while a Piston is aimed at it. If a locked block still gets moved, for example in a Slime Block machine, its lock moves with it and the block stays locked.
+- **Lock Cleanup**: Locks left behind by a block that no longer exists are removed automatically, so a new block placed there never inherits an old lock.
+
+#### Improved & Balanced
+- **Iron Door Feel**: Locked doors, trapdoors and fence gates cannot be opened by hand, like an Iron Door. If one still opens, it snaps shut again. Redstone can still open them.
+- **Protected Door Floor**: The block under a locked door can no longer be broken or blown up until the door is unlocked.
+
+#### Fixed
+- **Pistons Unlocked Blocks**: Pushing or pulling a locked block with a Piston no longer leaves it unlocked.
+- **Copper Chest Pairs**: A Copper Chest next to a locked Copper Chest now counts as part of the same lock.
+
+### [1.0.4] - 2026-11-10
+
+#### Added
+- **More Lockable Storage**: Every Chest type, including Copper Chests, plus Crafters and Decorated Pots can now be locked.
+
+#### Improved & Balanced
+- **Locked Doors Stay Shut**: Locked doors, trapdoors and fence gates no longer open when right-clicked, even with the matching Key. Sneak and right-click with the Key to unlock them.
+
+#### Fixed
+- **Floor Check**: Locking no longer asks for a solid block when another block already sits under the container. Open air, liquids, Hoppers and rails under it still stop the lock.
+
+### [1.0.3] - 2026-11-10
+
+#### Added
+- **Locked Floor**: The block directly under a locked container can no longer be broken or blown up until the lock is removed.
+- **Solid Floor Needed**: A container can only be locked when a solid block sits under it, so hoppers and hopper minecart rails cannot be placed there.
+
+### [1.0.2] - 2026-11-10
+
+#### Added
+- **Blast Protection**: Explosions no longer destroy locked blocks. Everything around them can still be damaged.
+
+### [1.0.1] - 2026-11-10
+
+#### Added
+- **Glowing Key**: Keys you receive from locking or copying now have an enchanted glow.
+- **Padlock Return**: Unlocking a block with Sneak + Key disperses that Key and returns the Padlock with the same name to your inventory.
+- **Hopper Guard**: Hoppers cannot be placed directly under a locked block, and a block cannot be locked while a Hopper sits under it.
+
+#### Improved & Balanced
+- **Subtext Messages**: Lock, unlock, denied and copy messages now show above your hotbar instead of in chat.
+- **Break With Key**: A locked block can now be broken while you hold its matching Key. The lock is removed, the Key disperses, and the Padlock returns. Without the Key, the block still cannot be broken.
+
+### [1.0.0] - 2026-11-10
+
+#### Added
+- **Padlock**: Craft it with 1 Iron Ingot and 1 Amethyst Shard, rename it on an anvil, then use it on a chest, door, or other supported block to lock it with that name as the password.
+- **Key**: Locking a block gives you 1 Key with the same name. Hold the Key in either hand to open the locked block.
+- **Permanent unlock**: Sneak and right-click a locked block with the correct Key to remove the lock.
+- **Break protection**: Locked blocks cannot be broken by anyone until they are unlocked.
+- **Key copies**: Hold a Key in your main hand and an Iron Nugget in your offhand, then use the Key to make one extra Key with the same name.
+
+</details>
+```
+
+## FILE: description_views/Padlock-and-Key.listing.md (71 lines, 15349 bytes)
+
+````
+# Listing Kit: Padlock & Key
+
+Tap the Copy button on a block, then paste it into the CurseForge listing. Generated from DESCRIPTION.md: edit that, not this file.
+
+## Package Name
+
+```text
+Padlock & Key
+```
+
+## Summary (104/256)
+
+```text
+Craft a Padlock from 1 Iron Ingot and 1 Amethyst Shard, name it on an anvil, and lock any chest or door.
+```
+
+## Description (HTML)
+
+Paste into the CurseForge description editor in source (HTML) mode.
+
+```html
+<div><div style="border:2px solid #15803d;border-radius:18px;line-height:1.5"><br><h1 style="font-size:34px;text-align:center">Padlock &amp; Key</h1><p style="color:#8a94a3;font-size:14px;text-align:center">by ALNStudios</p><p style="text-align:center"><span style="background-color:#15803d;color:#ffffff;border-radius:20px;font-size:16px">&nbsp;&nbsp;<strong>Craft a Padlock from 1 Iron Ingot and 1 Amethyst Shard, name it on an anvil, and lock any chest or door.</strong>&nbsp;&nbsp;</span></p><p style="text-align:center;margin-left:16px;margin-right:16px">Padlock &amp; Key adds a Padlock crafted from 1 Iron Ingot and 1 Amethyst Shard, plus a Key that is handed to you when you lock something.</p><div style="display:flex;flex-wrap:wrap;gap:8px;margin-left:14px;margin-right:14px"><div style="background-color:#dcfce7;color:#14532d;border-radius:20px;font-size:14px;line-height:2"><strong>&nbsp;&nbsp;Bedrock</strong>: 1.21+&nbsp;&nbsp;</div><div style="background-color:#dcfce7;color:#14532d;border-radius:20px;font-size:14px;line-height:2"><strong>&nbsp;&nbsp;Experimental</strong>: No&nbsp;&nbsp;</div><div style="background-color:#dcfce7;color:#14532d;border-radius:20px;font-size:14px;line-height:2"><strong>&nbsp;&nbsp;Achievements</strong>: Likely achievement-friendly&nbsp;&nbsp;</div></div><br></div>
+<h2 style="font-size:17px;text-align:left"><span style="background-color:#15803d;color:#ffffff;border-radius:20px">&nbsp;&nbsp;About&nbsp;&nbsp;</span></h2>
+<p>Craft a Padlock, rename it on an anvil, and use it on a supported block. The block locks, the Padlock is used up, and you receive a Key carrying the same name.</p>
+<h2 style="font-size:17px;text-align:left"><span style="background-color:#15803d;color:#ffffff;border-radius:20px">&nbsp;&nbsp;What You Get&nbsp;&nbsp;</span></h2>
+<div style="display:flex;flex-wrap:wrap;gap:10px"><div style="flex:1;min-width:200px;border:1px solid #8a94a3;border-radius:16px"><div style="background-color:#15803d;color:#ffffff;border-radius:16px;font-size:16px;line-height:2.2"><strong>&nbsp;&nbsp;Padlock</strong></div><div style="margin-left:12px;margin-right:12px"><p><span>The Padlock is crafted with 1 Iron Ingot and 1 Amethyst Shard.</span><br><span style="font-size:13px;color:#8a94a3"><strong>Good To Know:</strong> An unnamed Padlock does not lock anything.</span></p></div></div><div style="flex:1;min-width:200px;border:1px solid #8a94a3;border-radius:16px"><div style="background-color:#15803d;color:#ffffff;border-radius:16px;font-size:16px;line-height:2.2"><strong>&nbsp;&nbsp;Key</strong></div><div style="margin-left:12px;margin-right:12px"><p><span>The Key opens a locked container while it is held in your main hand or your offhand and its name matches the password exactly.</span><br><span style="font-size:13px;color:#8a94a3"><strong>How It Works:</strong> Locked doors, trapdoors and fence gates cannot be opened by hand, even with the Key, just like an Iron Door. If one still opens, it snaps shut again.</span><br><span style="font-size:13px;color:#8a94a3"><strong>Good To Know:</strong> Without a matching Key, the block stays shut, and you see text above your hotbar with angry villager particles.</span></p></div></div><div style="flex:1;min-width:200px;border:1px solid #8a94a3;border-radius:16px"><div style="background-color:#15803d;color:#ffffff;border-radius:16px;font-size:16px;line-height:2.2"><strong>&nbsp;&nbsp;Permanent Unlock</strong></div><div style="margin-left:12px;margin-right:12px"><p><span>Sneak and right-click a locked block while holding the matching Key to remove the lock completely.</span><br><span style="font-size:13px;color:#8a94a3"><strong>Good To Know:</strong> A normal right-click with the Key only opens a locked container and never removes the lock.</span></p></div></div><div style="flex:1;min-width:200px;border:1px solid #8a94a3;border-radius:16px"><div style="background-color:#15803d;color:#ffffff;border-radius:16px;font-size:16px;line-height:2.2"><strong>&nbsp;&nbsp;Break Protection</strong></div><div style="margin-left:12px;margin-right:12px"><p><span>A locked block cannot be broken unless you hold the matching Key in either hand.</span><br><span style="font-size:13px;color:#8a94a3"><strong>Good To Know:</strong> Hoppers cannot be placed directly under a locked block, and a block cannot be locked while a Hopper sits under it. Explosions do not destroy locked blocks, and the block under a locked container or door is protected from breaking and explosions. Redstone can still open a locked door, trapdoor or fence gate, like an Iron Door. Mobs that break doors, such as Zombies, are not stopped.</span></p></div></div><div style="flex:1;min-width:200px;border:1px solid #8a94a3;border-radius:16px"><div style="background-color:#15803d;color:#ffffff;border-radius:16px;font-size:16px;line-height:2.2"><strong>&nbsp;&nbsp;Key Copies</strong></div><div style="margin-left:12px;margin-right:12px"><p><span>Hold a Key in your main hand and an Iron Nugget in your offhand, then use the Key to get one extra Key with the same name.</span><br><span style="font-size:13px;color:#8a94a3"><strong>Good To Know:</strong> Crafting cannot carry a custom name, so copies are made by using the Key instead of in a crafting grid.</span></p></div></div><div style="flex:1;min-width:200px;border:1px solid #8a94a3;border-radius:16px"><div style="background-color:#15803d;color:#ffffff;border-radius:16px;font-size:16px;line-height:2.2"><strong>&nbsp;&nbsp;Lockable Blocks</strong></div><div style="margin-left:12px;margin-right:12px"><p><span>Chest, Trapped Chest, every Copper Chest, Ender Chest, Barrel, every Shulker Box, Furnace, Blast Furnace, Smoker, Hopper, Brewing Stand, Dispenser, Dropper, Crafter, Decorated Pot, every door, every Fence Gate, every Trapdoor, and Chiseled Bookshelf can be locked.</span><br><span style="font-size:13px;color:#8a94a3"><strong>Good To Know:</strong> Lock data is saved with the world, and each dimension keeps its own locks. A Piston cannot be placed aimed at a locked block, and a block cannot be locked while a Piston is aimed at it. If a Piston still moves a locked block, for example in a Slime Block machine, the lock moves with it and the block stays locked. Locks left behind by a block that no longer exists are removed automatically.</span></p></div></div></div>
+<h2 style="font-size:17px;text-align:left"><span style="background-color:#15803d;color:#ffffff;border-radius:20px">&nbsp;&nbsp;Custom Items&nbsp;&nbsp;</span></h2>
+<div style="display:flex;flex-wrap:wrap;gap:10px"><div style="flex:0 1 120px;border:1px solid #8a94a3;border-radius:16px;text-align:center"><p><a href="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/MCPEDL/Addons/Padlock-and-Key/assets/items/padlock.png"><img src="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/MCPEDL/Addons/Padlock-and-Key/assets/items/padlock.png" alt="padlock" style="width:64px"></a></p><p style="color:#8a94a3;font-size:13px">padlock</p></div></div>
+<h2 style="font-size:17px;text-align:left"><span style="background-color:#15803d;color:#ffffff;border-radius:20px">&nbsp;&nbsp;Crafting Recipes&nbsp;&nbsp;</span></h2>
+<div style="display:flex;flex-wrap:wrap;gap:10px"><div style="flex:0 1 400px;border:1px solid #8a94a3;border-radius:16px;text-align:center"><p><a href="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/MCPEDL/Addons/Padlock-and-Key/assets/recipes/padlock_recipe.png"><img src="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/MCPEDL/Addons/Padlock-and-Key/assets/recipes/padlock_recipe.png" alt="padlock recipe" style="width:100%"></a></p><p style="color:#8a94a3;font-size:13px">padlock recipe</p></div></div>
+<h2 style="font-size:17px;text-align:left"><span style="background-color:#15803d;color:#ffffff;border-radius:20px">&nbsp;&nbsp;Get Started&nbsp;&nbsp;</span></h2>
+<table style="width:100%;border:1px solid #8a94a3;border-radius:16px"><tbody><tr><td style="width:44px;text-align:center"><div style="background-color:#15803d;color:#ffffff;font-weight:bold;font-size:15px;text-align:center;border-radius:10px;width:30px;aspect-ratio:1/1;line-height:30px">1</div></td><td style="text-align:left;">Craft a Padlock with 1 Iron Ingot and 1 Amethyst Shard, then rename it on an anvil to your password.</td></tr><tr><td style="width:44px;text-align:center"><div style="background-color:#15803d;color:#ffffff;font-weight:bold;font-size:15px;text-align:center;border-radius:10px;width:30px;aspect-ratio:1/1;line-height:30px">2</div></td><td style="text-align:left;">Right-click a Chest, door, or other supported block with the Padlock to lock it and receive a Key.</td></tr><tr><td style="width:44px;text-align:center"><div style="background-color:#15803d;color:#ffffff;font-weight:bold;font-size:15px;text-align:center;border-radius:10px;width:30px;aspect-ratio:1/1;line-height:30px">3</div></td><td style="text-align:left;">Hold the Key in either hand and right-click a container to open it, or sneak and right-click any locked block to unlock it for good.</td></tr></tbody></table>
+<h2 style="font-size:17px;text-align:left"><span style="background-color:#15803d;color:#ffffff;border-radius:20px">&nbsp;&nbsp;Common Questions&nbsp;&nbsp;</span></h2>
+<div class="spoiler" title="Can I break a locked Chest?" data-title="Can I break a locked Chest?"><p><strong>Can I break a locked Chest?</strong><br>Only while you hold its matching Key in either hand. Breaking it removes the lock, disperses the Key, and returns the Padlock.</p></div><div class="spoiler" title="Does the Padlock work when it has no custom name?" data-title="Does the Padlock work when it has no custom name?"><p><strong>Does the Padlock work when it has no custom name?</strong><br>No. Rename it on an anvil first.</p></div>
+<h2 style="font-size:17px;text-align:left"><span style="background-color:#15803d;color:#ffffff;border-radius:20px">&nbsp;&nbsp;Install&nbsp;&nbsp;</span></h2>
+<table style="width:100%;border:1px solid #8a94a3;border-radius:16px"><tbody><tr><td style="width:44px;text-align:center"><div style="background-color:#15803d;color:#ffffff;font-weight:bold;font-size:15px;text-align:center;border-radius:10px;width:30px;aspect-ratio:1/1;line-height:30px">1</div></td><td style="text-align:left;">Download the file from this page and open it with Minecraft.</td></tr><tr><td style="width:44px;text-align:center"><div style="background-color:#15803d;color:#ffffff;font-weight:bold;font-size:15px;text-align:center;border-radius:10px;width:30px;aspect-ratio:1/1;line-height:30px">2</div></td><td style="text-align:left;">Create or edit a world and turn on the new pack(s) in its settings.</td></tr><tr><td style="width:44px;text-align:center"><div style="background-color:#15803d;color:#ffffff;font-weight:bold;font-size:15px;text-align:center;border-radius:10px;width:30px;aspect-ratio:1/1;line-height:30px">3</div></td><td style="text-align:left;">Play. No Experimental toggles needed.</td></tr></tbody></table>
+<h2 style="font-size:17px;text-align:left"><span style="background-color:#15803d;color:#ffffff;border-radius:20px">&nbsp;&nbsp;Support&nbsp;&nbsp;</span></h2><div style="border:1px solid #8a94a3;border-radius:16px;text-align:center"><br><a href="https://ko-fi.com/alnstudios"><img src="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/assets/Images/ko-fi.png" alt="Support ALNStudios on Ko-fi" width="250"></a><br><br></div><p style="text-align:center"><a href="https://www.curseforge.com/members/allenscreations/projects"><strong>CurseForge</strong></a> &nbsp;|&nbsp; <a href="https://mcpedl.com/user/alnstudios/"><strong>MCPEDL</strong></a> &nbsp;|&nbsp; <a href="https://ko-fi.com/alnstudios"><strong>Ko-fi</strong></a></p>
+<hr>
+<p style="text-align:center;color:#8a94a3;font-size:13px"><strong>By ALNStudios</strong></p>
+<div class="spoiler"><p style="font-size:13px"><strong>Permissions and credits</strong></p><ul style="font-size:13px"><li>Rights: All rights reserved for ALNStudios.</li><li>Content creators: You may feature this creation in videos and streams with credit to ALNStudios.</li><li>Redistribution: Do not re-upload this pack or provide direct monetized download bypasses. Link to this page.</li><li>Unofficial community creation. Not an official Minecraft product and not approved by or associated with Mojang or Microsoft.</li></ul></div>
+<p style="text-align:center;color:#8a94a3;font-size:12px">Minecraft Bedrock add-on, Padlock &amp; Key Bedrock mod, chest lock, door lock, password lock, Padlock, Key, anvil rename, Minecraft PE survival, MCPEDL add-on, CurseForge Bedrock, ALNStudios.</p></div>
+```
+
+## AI Image Prompts
+
+### Reference Images
+
+- **Logo reference**: attach your own logo. The generator uses it only for brand colors and mood. The result must be a new design, not a copy.
+- **Snapshot references**: attach 1 to 4 of your in-game snapshots of this pack. The generator copies their look, not their screen layout.
+
+### Logo Prompt
+
+```text
+Use the attached logo only as a brand reference for its color palette and overall mood. Do not copy it. Create a new, original logo with a different composition and a different main symbol. Do not just recolor, resize, crop, mirror or tweak the attached logo.
+Create a clean, square (1:1) logo image for the Minecraft Bedrock add-on "Padlock & Key". Craft a Padlock from 1 Iron Ingot and 1 Amethyst Shard, name it on an anvil, and lock any chest or door.
+Base the main symbol on the pack idea above. Match the blocky look of the attached in-game snapshots. Center the logo, use a simple background, and keep it readable at small sizes.
+Text: "Padlock & Key" and, in small letters, "ALNStudios". ALNStudios is the brand name, so always keep it and never remove or change it. Spell both exactly.
+Do not add Minecraft, Mojang or Microsoft logos, watermarks, or characters from other games.
+```
+
+### Banner Prompt
+
+```text
+Create a wide (16:9) banner image for the Minecraft Bedrock add-on "Padlock & Key". Craft a Padlock from 1 Iron Ingot and 1 Amethyst Shard, name it on an anvil, and lock any chest or door.
+Use the attached in-game snapshots as scene and style references: copy their blocky look, lighting, colors and the kind of scenery they show. Make a new composition inspired by them. Do not copy the on-screen HUD, chat or hotbar.
+Use the attached logo only as a brand reference for its colors and mood. Do not copy it. Put a new, original logo design in the banner, large enough to read, on the left or center.
+Hint at these pack features visually: Padlock, Key, Permanent Unlock, Break Protection, Key Copies.
+Text: "Padlock & Key" and, in small letters, "by ALNStudios". ALNStudios is the brand name, so always keep it and never remove or change it. Spell both exactly.
+Leave clear space around the logo. No Minecraft, Mojang or Microsoft logos, no watermarks.
+```
+````
+
+## FILE: MCPEDL/Addons/Padlock-and-Key/assets/snapshots/.gitkeep (1 lines, 0 bytes)
+
+```
+
+```
+
+## FILE: MCPEDL/Addons/Padlock-and-Key/behavior_pack/items/key.json (23 lines, 408 bytes)
+
+```
+{
+  "format_version": "1.21.60",
+  "minecraft:item": {
+    "description": {
+      "identifier": "pnk:key",
+      "menu_category": {
+        "category": "items"
+      }
+    },
+    "components": {
+      "minecraft:icon": {
+        "textures": {
+          "default": "pnk_key"
+        }
+      },
+      "minecraft:display_name": {
+        "value": "Key"
+      },
+      "minecraft:max_stack_size": 16
+    }
+  }
+}
+```
+
+## FILE: MCPEDL/Addons/Padlock-and-Key/behavior_pack/items/key_glow.json (26 lines, 470 bytes)
+
+```
+{
+  "format_version": "1.21.60",
+  "minecraft:item": {
+    "description": {
+      "identifier": "pnk:key_glow",
+      "menu_category": {
+        "category": "none"
+      }
+    },
+    "components": {
+      "minecraft:icon": {
+        "textures": {
+          "default": "pnk_key"
+        }
+      },
+      "minecraft:display_name": {
+        "value": "Key"
+      },
+      "minecraft:glint": {
+        "value": true
+      },
+      "minecraft:max_stack_size": 16
+    }
+  }
+}
+```
+
+## FILE: MCPEDL/Addons/Padlock-and-Key/behavior_pack/items/padlock.json (23 lines, 420 bytes)
+
+```
+{
+  "format_version": "1.21.60",
+  "minecraft:item": {
+    "description": {
+      "identifier": "pnk:padlock",
+      "menu_category": {
+        "category": "items"
+      }
+    },
+    "components": {
+      "minecraft:icon": {
+        "textures": {
+          "default": "pnk_padlock"
+        }
+      },
+      "minecraft:display_name": {
+        "value": "Padlock"
+      },
+      "minecraft:max_stack_size": 16
+    }
+  }
+}
+```
+
+## FILE: MCPEDL/Addons/Padlock-and-Key/behavior_pack/LOCK (5 lines, 160 bytes)
+
+```
+ALNStudios Add-on Lock v1
+
+Pack marker included in the exported Minecraft Bedrock pack.
+This marker does not encrypt the pack or prevent extraction or editing.
+```
+
+## FILE: MCPEDL/Addons/Padlock-and-Key/behavior_pack/manifest.json (62 lines, 1056 bytes)
+
+```
+{
+  "format_version": 2,
+  "header": {
+    "name": "Padlock & Key (v1.4.2)",
+    "description": "Password locks for chests, doors and more. by ALNStudios",
+    "uuid": "1f5df9cb-a6fb-4490-9a2b-71d54e078955",
+    "version": [
+      1,
+      4,
+      2
+    ],
+    "min_engine_version": [
+      1,
+      21,
+      60
+    ]
+  },
+  "modules": [
+    {
+      "type": "data",
+      "uuid": "83ae2bde-46f2-4423-a729-979a1ba1b80e",
+      "version": [
+        1,
+        4,
+        2
+      ]
+    },
+    {
+      "type": "script",
+      "language": "javascript",
+      "uuid": "a8c47918-c2f6-4519-9dd6-ad4c947edb05",
+      "version": [
+        1,
+        4,
+        2
+      ],
+      "entry": "scripts/main.js"
+    }
+  ],
+  "dependencies": [
+    {
+      "uuid": "898a1a08-c06f-4deb-85ac-3c59298af3e4",
+      "version": [
+        1,
+        4,
+        2
+      ]
+    },
+    {
+      "module_name": "@minecraft/server",
+      "version": "1.17.0"
+    }
+  ],
+  "metadata": {
+    "authors": [
+      "ALNStudios"
+    ],
+    "product_type": "addon",
+    "version": "1.4.2"
+  }
+}
+```
+
+## FILE: MCPEDL/Addons/Padlock-and-Key/behavior_pack/recipes/padlock.json (29 lines, 465 bytes)
+
+```
+{
+  "format_version": "1.20.10",
+  "minecraft:recipe_shapeless": {
+    "description": {
+      "identifier": "pnk:padlock"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "ingredients": [
+      {
+        "item": "minecraft:iron_ingot"
+      },
+      {
+        "item": "minecraft:amethyst_shard"
+      }
+    ],
+    "unlock": [
+      {
+        "context": "AlwaysUnlocked"
+      }
+    ],
+    "result": {
+      "item": "pnk:padlock",
+      "count": 1
+    }
+  }
+}
+```
+
+## FILE: MCPEDL/Addons/Padlock-and-Key/behavior_pack/scripts/lib/doors.js (49 lines, 1379 bytes)
+
+```
+import { system } from "@minecraft/server";
+import { isDoor, isUpperDoorHalf } from "./lockdata.js";
+
+function partsAt(dimension, location) {
+  const block = dimension.getBlock(location);
+  if (!block) return [];
+  if (!isDoor(block)) return [block];
+  const lowerY = isUpperDoorHalf(block) ? location.y - 1 : location.y;
+  return [
+    dimension.getBlock({ x: location.x, y: lowerY, z: location.z }),
+    dimension.getBlock({ x: location.x, y: lowerY + 1, z: location.z }),
+  ].filter(Boolean);
+}
+
+function readOpen(block) {
+  const value = block.permutation.getState("open_bit");
+  return typeof value === "boolean" ? value : undefined;
+}
+
+function writeOpen(block, value) {
+  try {
+    block.setPermutation(block.permutation.withState("open_bit", value));
+  } catch (error) {
+    return;
+  }
+}
+
+export function openState(block) {
+  return readOpen(block);
+}
+
+export function holdShut(dimension, location, wasOpen) {
+  const parts = partsAt(dimension, location);
+  for (const part of parts) {
+    const current = readOpen(part);
+    if (current === undefined) continue;
+    writeOpen(part, !current);
+    writeOpen(part, current);
+  }
+  if (wasOpen !== false) return;
+  for (const delay of [2, 5]) {
+    system.runTimeout(() => {
+      for (const part of partsAt(dimension, location)) {
+        if (readOpen(part) === true) writeOpen(part, false);
+      }
+    }, delay);
+  }
+}
+```
+
+## FILE: MCPEDL/Addons/Padlock-and-Key/behavior_pack/scripts/lib/lockdata.js (236 lines, 6537 bytes)
+
+```
+import { world } from "@minecraft/server";
+
+export const PROPERTY_PREFIX = "lock:";
+export const HOPPER_ID = "minecraft:hopper";
+
+const EXACT_NAMES = new Set([
+  "chest",
+  "trapped_chest",
+  "barrel",
+  "furnace",
+  "lit_furnace",
+  "blast_furnace",
+  "lit_blast_furnace",
+  "smoker",
+  "lit_smoker",
+  "hopper",
+  "brewing_stand",
+  "dispenser",
+  "dropper",
+  "chiseled_bookshelf",
+  "crafter",
+  "decorated_pot",
+]);
+const NAME_SUFFIXES = ["_door", "trapdoor", "fence_gate", "shulker_box", "chest"];
+const DIMENSION_CODES = {
+  "minecraft:overworld": "o",
+  "minecraft:nether": "n",
+  "minecraft:the_end": "e",
+};
+const CODE_DIMENSIONS = {
+  o: "minecraft:overworld",
+  n: "minecraft:nether",
+  e: "minecraft:the_end",
+};
+
+export const SIDES = [
+  { x: 1, z: 0 },
+  { x: -1, z: 0 },
+  { x: 0, z: 1 },
+  { x: 0, z: -1 },
+];
+
+export function isLockable(block) {
+  const id = block.typeId;
+  if (!id.startsWith("minecraft:")) return false;
+  const name = id.slice(10);
+  return EXACT_NAMES.has(name) || NAME_SUFFIXES.some((suffix) => name.endsWith(suffix));
+}
+
+export function isDoor(block) {
+  return block.typeId.endsWith("_door");
+}
+
+export function isOpenable(block) {
+  const id = block.typeId;
+  return id.endsWith("_door") || id.endsWith("trapdoor") || id.includes("fence_gate");
+}
+
+export function isContainer(block) {
+  return isLockable(block) && !isOpenable(block);
+}
+
+function isPairable(block) {
+  const id = block.typeId;
+  return id.endsWith("chest") && !id.endsWith("ender_chest");
+}
+
+export function isUpperDoorHalf(block) {
+  return isDoor(block) && block.permutation.getState("upper_block_bit") === true;
+}
+
+export function lockPosition(block) {
+  const { x, y, z } = block.location;
+  return { x, y: isUpperDoorHalf(block) ? y - 1 : y, z };
+}
+
+export function propertyKeyFor(code, x, y, z) {
+  return `${PROPERTY_PREFIX}${code}:${x},${y},${z}`;
+}
+
+export function propertyKey(dimension, x, y, z) {
+  return propertyKeyFor(DIMENSION_CODES[dimension.id] ?? dimension.id, x, y, z);
+}
+
+export function parseKey(key) {
+  if (!key.startsWith(PROPERTY_PREFIX)) return undefined;
+  const rest = key.slice(PROPERTY_PREFIX.length);
+  const cut = rest.lastIndexOf(":");
+  if (cut < 1) return undefined;
+  const [x, y, z] = rest.slice(cut + 1).split(",").map(Number);
+  if (![x, y, z].every(Number.isInteger)) return undefined;
+  return { code: rest.slice(0, cut), x, y, z };
+}
+
+export function dimensionFromCode(code) {
+  try {
+    return world.getDimension(CODE_DIMENSIONS[code] ?? code);
+  } catch (error) {
+    return undefined;
+  }
+}
+
+const locks = new Map();
+const chunkCounts = new Map();
+let indexReady = false;
+
+function chunkKey(code, x, z) {
+  return `${code}:${x >> 4},${z >> 4}`;
+}
+
+function track(key, password) {
+  const parsed = parseKey(key);
+  if (!parsed) return;
+  if (!locks.has(key)) {
+    const chunk = chunkKey(parsed.code, parsed.x, parsed.z);
+    chunkCounts.set(chunk, (chunkCounts.get(chunk) ?? 0) + 1);
+  }
+  locks.set(key, { ...parsed, password });
+}
+
+function untrack(key) {
+  const entry = locks.get(key);
+  if (!entry) return;
+  locks.delete(key);
+  const chunk = chunkKey(entry.code, entry.x, entry.z);
+  const left = (chunkCounts.get(chunk) ?? 1) - 1;
+  if (left > 0) chunkCounts.set(chunk, left);
+  else chunkCounts.delete(chunk);
+}
+
+function ensureIndex() {
+  if (indexReady) return;
+  for (const key of world.getDynamicPropertyIds()) {
+    if (!key.startsWith(PROPERTY_PREFIX)) continue;
+    const password = world.getDynamicProperty(key);
+    if (typeof password === "string") track(key, password);
+  }
+  indexReady = true;
+}
+
+export function lockCount() {
+  ensureIndex();
+  return locks.size;
+}
+
+export function lockPassword(key) {
+  ensureIndex();
+  return locks.get(key)?.password;
+}
+
+export function setLock(key, password) {
+  ensureIndex();
+  world.setDynamicProperty(key, password);
+  track(key, password);
+}
+
+export function clearLock(key) {
+  ensureIndex();
+  world.setDynamicProperty(key, undefined);
+  untrack(key);
+}
+
+export function listLocks() {
+  ensureIndex();
+  return [...locks.entries()].map(([key, entry]) => ({ key, ...entry }));
+}
+
+export function locksNear(dimension, minX, maxX, minZ, maxZ) {
+  ensureIndex();
+  if (locks.size === 0) return false;
+  const code = DIMENSION_CODES[dimension.id] ?? dimension.id;
+  for (let cx = minX >> 4; cx <= maxX >> 4; cx++) {
+    for (let cz = minZ >> 4; cz <= maxZ >> 4; cz++) {
+      if (chunkCounts.has(`${code}:${cx},${cz}`)) return true;
+    }
+  }
+  return false;
+}
+
+export function chestParts(block) {
+  const parts = [block];
+  if (!isPairable(block)) return parts;
+  for (const side of SIDES) {
+    const neighbor = block.dimension.getBlock({
+      x: block.location.x + side.x,
+      y: block.location.y,
+      z: block.location.z + side.z,
+    });
+    if (neighbor && neighbor.typeId === block.typeId) parts.push(neighbor);
+  }
+  return parts;
+}
+
+export function lockParts(block) {
+  if (!isDoor(block)) return chestParts(block);
+  const lower = lockPosition(block);
+  return [block.dimension.getBlock(lower), block.dimension.getBlock({ x: lower.x, y: lower.y + 1, z: lower.z })].filter(Boolean);
+}
+
+export function findLock(block) {
+  const here = block.location;
+  if (!locksNear(block.dimension, here.x - 1, here.x + 1, here.z - 1, here.z + 1)) return null;
+  const origin = lockPosition(block);
+  const ownKey = propertyKey(block.dimension, origin.x, origin.y, origin.z);
+  const own = lockPassword(ownKey);
+  if (own !== undefined) return { key: ownKey, password: own };
+  if (!isPairable(block)) return null;
+  for (const part of chestParts(block)) {
+    if (part === block) continue;
+    const key = propertyKey(block.dimension, part.location.x, part.location.y, part.location.z);
+    const value = lockPassword(key);
+    if (value !== undefined) return { key, password: value };
+  }
+  return null;
+}
+
+export function hasHopperBelow(block) {
+  return chestParts(block).some((part) => part.below()?.typeId === HOPPER_ID);
+}
+
+export function hasSolidFloor(block) {
+  return chestParts(block).every((part) => {
+    const below = part.below();
+    return !!below && !below.isAir && !below.isLiquid && below.typeId !== HOPPER_ID && !below.typeId.endsWith("rail");
+  });
+}
+
+export function isLockedFloor(block) {
+  const here = block.location;
+  if (!locksNear(block.dimension, here.x - 1, here.x + 1, here.z - 1, here.z + 1)) return false;
+  const above = block.above();
+  if (!above || !isLockable(above)) return false;
+  if (!isContainer(above) && !isDoor(above)) return false;
+  return findLock(above) !== null;
+}
+```
+
+## FILE: MCPEDL/Addons/Padlock-and-Key/behavior_pack/scripts/lib/pistons.js (146 lines, 4790 bytes)
+
+```
+import { system } from "@minecraft/server";
+import { clearLock, findLock, isLockable, isLockedFloor, lockPassword, locksNear, propertyKey, setLock } from "./lockdata.js";
+
+const FACING_VECTORS = [
+  { x: 0, y: -1, z: 0 },
+  { x: 0, y: 1, z: 0 },
+  { x: 0, y: 0, z: -1 },
+  { x: 0, y: 0, z: 1 },
+  { x: -1, y: 0, z: 0 },
+  { x: 1, y: 0, z: 0 },
+];
+const PISTON_IDS = new Set(["minecraft:piston", "minecraft:sticky_piston"]);
+const MOVING_ID = "minecraft:moving_block";
+const MAX_PUSH = 12;
+const MAX_WAIT_TICKS = 40;
+
+const pendingKeys = new Set();
+
+function shifted(pos, dir, steps) {
+  return { x: pos.x + dir.x * steps, y: pos.y + dir.y * steps, z: pos.z + dir.z * steps };
+}
+
+function facingIndex(block) {
+  const index = block.permutation.getState("facing_direction");
+  return typeof index === "number" && FACING_VECTORS[index] ? index : -1;
+}
+
+function blockAt(dimension, pos) {
+  try {
+    return dimension.getBlock(pos);
+  } catch (error) {
+    return undefined;
+  }
+}
+
+function isProtected(block) {
+  return (isLockable(block) && findLock(block) !== null) || isLockedFloor(block);
+}
+
+export function isPiston(block) {
+  return PISTON_IDS.has(block.typeId);
+}
+
+export function isPending(key) {
+  return pendingKeys.has(key);
+}
+
+export function pistonChainHitsLock(piston) {
+  const index = facingIndex(piston);
+  if (index < 0) return false;
+  for (let step = 1; step <= MAX_PUSH; step++) {
+    const cell = blockAt(piston.dimension, shifted(piston.location, FACING_VECTORS[index], step));
+    if (!cell || cell.isAir || cell.isLiquid) return false;
+    if (isProtected(cell)) return true;
+  }
+  return false;
+}
+
+export function pistonAimedAt(block) {
+  for (let index = 0; index < FACING_VECTORS.length; index++) {
+    for (let step = 1; step <= MAX_PUSH; step++) {
+      const cell = blockAt(block.dimension, shifted(block.location, FACING_VECTORS[index], -step));
+      if (!cell || cell.isAir || cell.isLiquid) break;
+      if (isPiston(cell) && facingIndex(cell) === index) return true;
+    }
+  }
+  return false;
+}
+
+function settled(plans) {
+  return plans.every((plan) => {
+    const origin = blockAt(plan.dimension, plan.origin);
+    const dest = blockAt(plan.dimension, plan.to);
+    return !!origin && !!dest && origin.typeId !== MOVING_ID && dest.typeId !== MOVING_ID;
+  });
+}
+
+function finish(plans) {
+  const toKeys = new Set(plans.map((plan) => plan.toKey));
+  const fromKeys = new Set(plans.map((plan) => plan.fromKey));
+  const valid = [];
+  for (const plan of plans) {
+    const origin = blockAt(plan.dimension, plan.origin);
+    const dest = blockAt(plan.dimension, plan.to);
+    if (!origin || !dest || !isLockable(dest)) continue;
+    if (plan.type && dest.typeId !== plan.type) continue;
+    if (isLockable(origin) && !toKeys.has(plan.fromKey)) continue;
+    if (lockPassword(plan.toKey) !== undefined && !fromKeys.has(plan.toKey)) continue;
+    valid.push(plan);
+  }
+  for (const plan of valid) clearLock(plan.fromKey);
+  for (const plan of valid) setLock(plan.toKey, plan.password);
+  for (const plan of plans) pendingKeys.delete(plan.fromKey);
+}
+
+export function followLocks(event) {
+  const { piston, block, isExpanding } = event;
+  const dimension = block.dimension;
+  const at = block.location;
+  if (!locksNear(dimension, at.x - 16, at.x + 16, at.z - 16, at.z + 16)) return;
+  const index = facingIndex(block);
+  if (index < 0) return;
+  const facing = FACING_VECTORS[index];
+  const dir = isExpanding ? facing : shifted({ x: 0, y: 0, z: 0 }, facing, -1);
+  const seeds = [];
+  try {
+    for (const location of piston.getAttachedBlocksLocations()) seeds.push(location);
+  } catch (error) {
+    seeds.length = 0;
+  }
+  for (let step = 1; step <= MAX_PUSH + 1; step++) seeds.push(shifted(block.location, facing, step));
+  const plans = new Map();
+  for (const seed of seeds) {
+    for (const origin of [seed, shifted(seed, dir, -1)]) {
+      const fromKey = propertyKey(dimension, origin.x, origin.y, origin.z);
+      if (plans.has(fromKey) || pendingKeys.has(fromKey)) continue;
+      const password = lockPassword(fromKey);
+      if (password === undefined) continue;
+      const here = blockAt(dimension, origin);
+      const to = shifted(origin, dir, 1);
+      plans.set(fromKey, {
+        dimension,
+        origin,
+        to,
+        fromKey,
+        toKey: propertyKey(dimension, to.x, to.y, to.z),
+        password,
+        type: here && isLockable(here) ? here.typeId : undefined,
+      });
+    }
+  }
+  if (plans.size === 0) return;
+  const list = [...plans.values()];
+  for (const plan of list) pendingKeys.add(plan.fromKey);
+  let waited = 0;
+  const step = () => {
+    waited += 1;
+    if (!settled(list) && waited < MAX_WAIT_TICKS) {
+      system.runTimeout(step, 1);
+      return;
+    }
+    finish(list);
+  };
+  system.runTimeout(step, 2);
+}
+```
+
+## FILE: MCPEDL/Addons/Padlock-and-Key/behavior_pack/scripts/main.js (325 lines, 10492 bytes)
+
+```
+import { world, system, EquipmentSlot, ItemStack } from "@minecraft/server";
+import {
+  HOPPER_ID,
+  clearLock,
+  dimensionFromCode,
+  findLock,
+  hasHopperBelow,
+  hasSolidFloor,
+  isContainer,
+  isLockable,
+  isLockedFloor,
+  isOpenable,
+  listLocks,
+  lockCount,
+  lockParts,
+  lockPassword,
+  lockPosition,
+  locksNear,
+  propertyKey,
+  setLock,
+} from "./lib/lockdata.js";
+import { followLocks, isPending, isPiston, pistonAimedAt, pistonChainHitsLock } from "./lib/pistons.js";
+import { holdShut, openState } from "./lib/doors.js";
+
+const PADLOCK_ID = "pnk:padlock";
+const KEY_ID = "pnk:key";
+const GLOW_KEY_ID = "pnk:key_glow";
+const KEY_IDS = new Set([KEY_ID, GLOW_KEY_ID]);
+const NUGGET_ID = "minecraft:iron_nugget";
+const REVEAL_PASSWORD_ON_DENY = false;
+const HOPPER_CART_ID = "minecraft:hopper_minecart";
+const DIMENSION_NAMES = ["overworld", "nether", "the_end"];
+
+const recentKeyBlockUse = new Map();
+const staleStrikes = new Map();
+const SWEEP_BATCH = 40;
+let sweepQueue = [];
+
+function say(player, text) {
+  player.onScreenDisplay.setActionBar(text);
+}
+
+function getContainer(player) {
+  return player.getComponent("minecraft:inventory")?.container;
+}
+
+function findKeySlot(player, password) {
+  const equippable = player.getComponent("minecraft:equippable");
+  if (!equippable) return undefined;
+  for (const id of [EquipmentSlot.Mainhand, EquipmentSlot.Offhand]) {
+    const slot = equippable.getEquipmentSlot(id);
+    if (slot.hasItem() && KEY_IDS.has(slot.typeId) && slot.nameTag === password) return slot;
+  }
+  return undefined;
+}
+
+function hasCorrectKey(player, password) {
+  return findKeySlot(player, password) !== undefined;
+}
+
+function consumeOne(slot) {
+  if (slot.amount > 1) slot.amount -= 1;
+  else slot.setItem(undefined);
+}
+
+function giveNamed(player, id, name) {
+  const item = new ItemStack(id, 1);
+  item.nameTag = name;
+  const leftover = getContainer(player)?.addItem(item);
+  if (leftover) player.dimension.spawnItem(leftover, player.location);
+}
+
+function effectLocation(block, lift) {
+  const { x, y, z } = block.location;
+  return { x: x + 0.5, y: y + lift, z: z + 0.5 };
+}
+
+function refuse(player, text) {
+  say(player, text);
+  player.playSound("break.amethyst_block");
+}
+
+function lockBlock(player, block, password) {
+  const slot = getContainer(player)?.getSlot(player.selectedSlotIndex);
+  if (!slot || !slot.hasItem() || slot.typeId !== PADLOCK_ID || slot.nameTag !== password) return;
+  if (!isLockable(block) || findLock(block)) return;
+  if (hasHopperBelow(block)) {
+    refuse(player, "Can't lock! Remove the Hopper below first");
+    return;
+  }
+  if (isContainer(block) && !hasSolidFloor(block)) {
+    refuse(player, "Can't lock! Needs a block below (no Hopper, rail or liquid)");
+    return;
+  }
+  if (lockParts(block).some((part) => pistonAimedAt(part))) {
+    refuse(player, "Can't lock! A Piston is aimed at it");
+    return;
+  }
+  const origin = lockPosition(block);
+  setLock(propertyKey(block.dimension, origin.x, origin.y, origin.z), password);
+  consumeOne(slot);
+  giveNamed(player, GLOW_KEY_ID, password);
+  say(player, `Locked! Key: ${password}`);
+  player.playSound("random.anvil_use");
+}
+
+function releaseLock(player, dimension, at, lock) {
+  const slot = findKeySlot(player, lock.password);
+  clearLock(lock.key);
+  if (slot) consumeOne(slot);
+  giveNamed(player, PADLOCK_ID, lock.password);
+  dimension.spawnParticle("minecraft:totem_particle", at);
+  dimension.spawnParticle("minecraft:villager_happy", at);
+  player.playSound("random.orb");
+}
+
+function unlockBlock(player, block, lock) {
+  releaseLock(player, block.dimension, effectLocation(block, 1.2), lock);
+  say(player, "Unlocked! Key dispersed, Padlock returned");
+}
+
+function denyAccess(player, block, password) {
+  const hint = REVEAL_PASSWORD_ON_DENY
+    ? `Locked! Need key named: ${password}`
+    : "Locked! Need a key with the correct name";
+  say(player, hint);
+  player.playSound("break.amethyst_block");
+  block.dimension.spawnParticle("minecraft:villager_angry", effectLocation(block, 1.2));
+}
+
+function copyKey(player) {
+  if (recentKeyBlockUse.get(player.id) >= system.currentTick - 2) return;
+  const equippable = player.getComponent("minecraft:equippable");
+  if (!equippable) return;
+  const key = equippable.getEquipment(EquipmentSlot.Mainhand);
+  const nuggetSlot = equippable.getEquipmentSlot(EquipmentSlot.Offhand);
+  if (!key || !KEY_IDS.has(key.typeId) || !key.nameTag) return;
+  if (!nuggetSlot.hasItem() || nuggetSlot.typeId !== NUGGET_ID) return;
+  consumeOne(nuggetSlot);
+  giveNamed(player, GLOW_KEY_ID, key.nameTag);
+  say(player, `Key copied! Key: ${key.nameTag}`);
+  player.playSound("random.orb");
+}
+
+world.beforeEvents.playerInteractWithBlock.subscribe((event) => {
+  const { player, block, itemStack, isFirstEvent } = event;
+  if (itemStack && KEY_IDS.has(itemStack.typeId)) recentKeyBlockUse.set(player.id, system.currentTick);
+  if (!isLockable(block)) return;
+  const lock = findLock(block);
+
+  if (!lock) {
+    if (itemStack?.typeId !== PADLOCK_ID) return;
+    event.cancel = true;
+    if (!isFirstEvent) return;
+    const password = itemStack.nameTag;
+    if (!password) {
+      system.run(() => say(player, "Rename the Padlock on an anvil first. The name is the password."));
+      return;
+    }
+    system.run(() => lockBlock(player, block, password));
+    return;
+  }
+
+  const openable = isOpenable(block);
+  const location = block.location;
+  const wasOpen = openable ? openState(block) : undefined;
+
+  if (!hasCorrectKey(player, lock.password)) {
+    event.cancel = true;
+    if (isFirstEvent) {
+      system.run(() => {
+        denyAccess(player, block, lock.password);
+        if (openable) holdShut(block.dimension, location, wasOpen);
+      });
+    }
+    return;
+  }
+
+  if (player.isSneaking) {
+    event.cancel = true;
+    if (isFirstEvent) system.run(() => unlockBlock(player, block, lock));
+    return;
+  }
+
+  if (openable) {
+    event.cancel = true;
+    if (isFirstEvent) {
+      system.run(() => {
+        say(player, "Locked! Sneak and use the Key to unlock");
+        holdShut(block.dimension, location, wasOpen);
+      });
+    }
+  }
+});
+
+world.beforeEvents.playerBreakBlock.subscribe((event) => {
+  const { player, block } = event;
+  const lock = isLockable(block) ? findLock(block) : null;
+  if (!lock) {
+    if (isLockedFloor(block)) {
+      event.cancel = true;
+      system.run(() => say(player, "Protected! Unlock the block above first"));
+    }
+    return;
+  }
+  if (!hasCorrectKey(player, lock.password)) {
+    event.cancel = true;
+    system.run(() => say(player, "Locked! Hold the matching Key to break it"));
+    return;
+  }
+  const dimension = block.dimension;
+  const at = effectLocation(block, 0.8);
+  system.run(() => {
+    releaseLock(player, dimension, at, lock);
+    say(player, "Lock removed! Key dispersed, Padlock returned");
+  });
+});
+
+world.beforeEvents.itemUse.subscribe((event) => {
+  const { source, itemStack } = event;
+  if (!itemStack || !KEY_IDS.has(itemStack.typeId) || !itemStack.nameTag) return;
+  system.run(() => copyKey(source));
+});
+
+world.afterEvents.playerPlaceBlock.subscribe((event) => {
+  const { block, player } = event;
+  if (block.typeId === HOPPER_ID) {
+    const above = block.above();
+    if (above && isLockable(above) && findLock(above)) {
+      block.setType("minecraft:air");
+      getContainer(player)?.addItem(new ItemStack(HOPPER_ID, 1));
+      refuse(player, "Can't place! A Hopper would empty the locked block");
+      return;
+    }
+  }
+  if (isPiston(block) && pistonChainHitsLock(block)) {
+    const typeId = block.typeId;
+    block.setType("minecraft:air");
+    getContainer(player)?.addItem(new ItemStack(typeId, 1));
+    refuse(player, "Can't place! This Piston would move a locked block");
+    return;
+  }
+  if (!isLockable(block)) return;
+  const origin = lockPosition(block);
+  const key = propertyKey(block.dimension, origin.x, origin.y, origin.z);
+  if (lockPassword(key) !== undefined) clearLock(key);
+});
+
+world.afterEvents.playerLeave.subscribe((event) => {
+  recentKeyBlockUse.delete(event.playerId);
+});
+
+world.beforeEvents.explosion.subscribe((event) => {
+  if (lockCount() === 0) return;
+  const impacted = event.getImpactedBlocks();
+  if (impacted.length === 0) return;
+  let minX = Infinity;
+  let maxX = -Infinity;
+  let minZ = Infinity;
+  let maxZ = -Infinity;
+  for (const block of impacted) {
+    const { x, z } = block.location;
+    if (x < minX) minX = x;
+    if (x > maxX) maxX = x;
+    if (z < minZ) minZ = z;
+    if (z > maxZ) maxZ = z;
+  }
+  if (!locksNear(event.dimension, minX - 1, maxX + 1, minZ - 1, maxZ + 1)) return;
+  event.setImpactedBlocks(impacted.filter((block) => !(isLockable(block) && findLock(block)) && !isLockedFloor(block)));
+});
+
+world.afterEvents.pistonActivate.subscribe(followLocks);
+
+system.runInterval(() => {
+  if (lockCount() === 0) return;
+  for (const name of DIMENSION_NAMES) {
+    try {
+      const dimension = world.getDimension(name);
+      for (const cart of dimension.getEntities({ type: HOPPER_CART_ID })) {
+        const { x, y, z } = cart.location;
+        const above = dimension.getBlock({ x: Math.floor(x), y: Math.floor(y) + 1, z: Math.floor(z) });
+        if (!above || !isContainer(above) || !findLock(above)) continue;
+        for (const player of dimension.getPlayers({ location: cart.location, maxDistance: 12 })) {
+          say(player, "Hopper Minecart destroyed! It was under a locked block");
+        }
+        dimension.spawnParticle("minecraft:villager_angry", { x, y: y + 0.5, z });
+        cart.kill();
+      }
+    } catch (error) {
+      continue;
+    }
+  }
+}, 10);
+
+system.runInterval(() => {
+  if (sweepQueue.length === 0) sweepQueue = listLocks();
+  for (const entry of sweepQueue.splice(0, SWEEP_BATCH)) {
+    if (lockPassword(entry.key) === undefined) {
+      staleStrikes.delete(entry.key);
+      continue;
+    }
+    if (isPending(entry.key)) continue;
+    const dimension = dimensionFromCode(entry.code);
+    if (!dimension) continue;
+    let block;
+    try {
+      block = dimension.getBlock({ x: entry.x, y: entry.y, z: entry.z });
+    } catch (error) {
+      continue;
+    }
+    if (!block) continue;
+    if (isLockable(block) || block.typeId === "minecraft:moving_block") {
+      staleStrikes.delete(entry.key);
+      continue;
+    }
+    const strikes = (staleStrikes.get(entry.key) ?? 0) + 1;
+    if (strikes >= 2) {
+      clearLock(entry.key);
+      staleStrikes.delete(entry.key);
+    } else {
+      staleStrikes.set(entry.key, strikes);
+    }
+  }
+}, 40);
+```
+
+## FILE: MCPEDL/Addons/Padlock-and-Key/CHANGELOG.md (111 lines, 5364 bytes)
+
+```
+# Changelog — Padlock & Key
+
+---
+
+## [1.4.2] - 2026-11-16
+
+**What's new in v1.4.2:** Packed with the v1.0.8 update. Includes: Lighter Lock Checks.
+
+### Improved & Balanced
+
+- **Lighter Lock Checks**: Explosions, Pistons, Hopper Minecart checks and lock cleanup now do far less work. Worlds with many locks or large redstone farms run smoother.
+
+## [1.0.7] - 2026-11-16 - Piston Safety and Iron Door Feel
+
+### Added
+- **Piston Safety**: A Piston cannot be placed aimed at a locked block, and a block cannot be locked while a Piston is aimed at it. If a locked block still gets moved, for example in a Slime Block machine, its lock moves with it and the block stays locked.
+- **Lock Cleanup**: Locks left behind by a block that no longer exists are removed automatically, so a new block placed there never inherits an old lock.
+
+### Improved & Balanced
+- **Iron Door Feel**: Locked doors, trapdoors and fence gates cannot be opened by hand, like an Iron Door. If one still opens, it snaps shut again. Redstone can still open them.
+- **Protected Door Floor**: The block under a locked door can no longer be broken or blown up until the door is unlocked.
+
+### Fixed
+- **Pistons Unlocked Blocks**: Pushing or pulling a locked block with a Piston no longer leaves it unlocked.
+- **Copper Chest Pairs**: A Copper Chest next to a locked Copper Chest now counts as part of the same lock.
+
+
+
+## [1.0.7] - 2026-11-15 - Piston Safety and Iron Door Feel
+
+### Added
+- **Piston Safety**: A Piston cannot be placed aimed at a locked block, and a block cannot be locked while a Piston is aimed at it. If a locked block still gets moved, for example in a Slime Block machine, its lock moves with it and the block stays locked.
+- **Lock Cleanup**: Locks left behind by a block that no longer exists are removed automatically, so a new block placed there never inherits an old lock.
+
+### Improved & Balanced
+- **Iron Door Feel**: Locked doors, trapdoors and fence gates cannot be opened by hand, like an Iron Door. If one still opens, it snaps shut again. Redstone can still open them.
+- **Protected Door Floor**: The block under a locked door can no longer be broken or blown up until the door is unlocked.
+
+### Fixed
+- **Pistons Unlocked Blocks**: Pushing or pulling a locked block with a Piston no longer leaves it unlocked.
+- **Copper Chest Pairs**: A Copper Chest next to a locked Copper Chest now counts as part of the same lock.
+
+
+
+## [1.4.2] - 2026-11-11
+
+### Improved & Balanced
+- **Immovable Locks**: Pistons can no longer push or pull a locked block or the block under a locked container. Locked blocks stay where they are.
+
+
+
+## [1.4.1] - 2026-11-11
+
+### Added
+- **Hopper Minecart Guard**: A Hopper Minecart that ends up under a locked container is destroyed, so it can no longer pull items from it.
+
+### Fixed
+- **Pistons Keep Locks**: Locked blocks pushed or pulled by a Piston now keep their lock instead of becoming public.
+
+
+
+## [1.0.4] - 2026-11-10
+
+### Added
+- **More Lockable Storage**: Every Chest type, including Copper Chests, plus Crafters and Decorated Pots can now be locked.
+
+### Improved & Balanced
+- **Locked Doors Stay Shut**: Locked doors, trapdoors and fence gates no longer open when right-clicked, even with the matching Key. Sneak and right-click with the Key to unlock them.
+
+### Fixed
+- **Floor Check**: Locking no longer asks for a solid block when another block already sits under the container. Open air, liquids, Hoppers and rails under it still stop the lock.
+
+
+
+## [1.0.3] - 2026-11-10
+
+### Added
+- **Locked Floor**: The block directly under a locked container can no longer be broken or blown up until the lock is removed.
+- **Solid Floor Needed**: A container can only be locked when a solid block sits under it, so hoppers and hopper minecart rails cannot be placed there.
+
+
+
+## [1.0.2] - 2026-11-10
+
+### Added
+- **Blast Protection**: Explosions no longer destroy locked blocks. Everything around them can still be damaged.
+
+
+
+## [1.0.1] - 2026-11-10
+
+### Added
+- **Glowing Key**: Keys you receive from locking or copying now have an enchanted glow.
+- **Padlock Return**: Unlocking a block with Sneak + Key disperses that Key and returns the Padlock with the same name to your inventory.
+- **Hopper Guard**: Hoppers cannot be placed directly under a locked block, and a block cannot be locked while a Hopper sits under it.
+
+### Improved & Balanced
+- **Subtext Messages**: Lock, unlock, denied and copy messages now show above your hotbar instead of in chat.
+- **Break With Key**: A locked block can now be broken while you hold its matching Key. The lock is removed, the Key disperses, and the Padlock returns. Without the Key, the block still cannot be broken.
+
+
+
+## [1.0.0] - 2026-11-10
+
+### Added
+- **Padlock**: Craft it with 1 Iron Ingot and 1 Amethyst Shard, rename it on an anvil, then use it on a chest, door, or other supported block to lock it with that name as the password.
+- **Key**: Locking a block gives you 1 Key with the same name. Hold the Key in either hand to open the locked block.
+- **Permanent unlock**: Sneak and right-click a locked block with the correct Key to remove the lock.
+- **Break protection**: Locked blocks cannot be broken by anyone until they are unlocked.
+- **Key copies**: Hold a Key in your main hand and an Iron Nugget in your offhand, then use the Key to make one extra Key with the same name.
+```
+
+## FILE: MCPEDL/Addons/Padlock-and-Key/DESCRIPTION.md (86 lines, 5560 bytes)
+
+```
+# Padlock & Key — Password Locks for Chests and Doors
+
+**By ALNStudios**
+
+[![Minecraft Bedrock](https://img.shields.io/badge/Minecraft%20Bedrock-Stable%20Release-brightgreen?style=flat-square&logo=minecraft)](https://github.com/AllensCreations/MCPE-Curseforges)
+[![Format](https://img.shields.io/badge/Format-.MCPACK%20%7C%20.MCADDON%20%7C%20.MCWORLD-blue?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges)
+
+**Craft a Padlock from 1 Iron Ingot and 1 Amethyst Shard, name it on an anvil, and lock any chest or door.**
+
+> Padlock & Key adds a Padlock crafted from 1 Iron Ingot and 1 Amethyst Shard, plus a Key that is handed to you when you lock something.
+
+## Overview
+
+Craft a Padlock, rename it on an anvil, and use it on a supported block. The block locks, the Padlock is used up, and you receive a Key carrying the same name.
+
+## Key Features
+
+### Padlock
+- **What Happens**: The Padlock is crafted with 1 Iron Ingot and 1 Amethyst Shard.
+- **Good To Know**: An unnamed Padlock does not lock anything.
+
+### Key
+- **What Happens**: The Key opens a locked container while it is held in your main hand or your offhand and its name matches the password exactly.
+- **How It Works**: Locked doors, trapdoors and fence gates cannot be opened by hand, even with the Key, just like an Iron Door. If one still opens, it snaps shut again.
+- **Good To Know**: Without a matching Key, the block stays shut, and you see text above your hotbar with angry villager particles.
+
+### Permanent Unlock
+- **What Happens**: Sneak and right-click a locked block while holding the matching Key to remove the lock completely.
+- **Good To Know**: A normal right-click with the Key only opens a locked container and never removes the lock.
+
+### Break Protection
+- **What Happens**: A locked block cannot be broken unless you hold the matching Key in either hand.
+- **Good To Know**: Hoppers cannot be placed directly under a locked block, and a block cannot be locked while a Hopper sits under it. Explosions do not destroy locked blocks, and the block under a locked container or door is protected from breaking and explosions. Redstone can still open a locked door, trapdoor or fence gate, like an Iron Door. Mobs that break doors, such as Zombies, are not stopped.
+
+### Key Copies
+- **What Happens**: Hold a Key in your main hand and an Iron Nugget in your offhand, then use the Key to get one extra Key with the same name.
+- **Good To Know**: Crafting cannot carry a custom name, so copies are made by using the Key instead of in a crafting grid.
+
+### Lockable Blocks
+- **What Happens**: Chest, Trapped Chest, every Copper Chest, Ender Chest, Barrel, every Shulker Box, Furnace, Blast Furnace, Smoker, Hopper, Brewing Stand, Dispenser, Dropper, Crafter, Decorated Pot, every door, every Fence Gate, every Trapdoor, and Chiseled Bookshelf can be locked.
+- **Good To Know**: Lock data is saved with the world, and each dimension keeps its own locks. A Piston cannot be placed aimed at a locked block, and a block cannot be locked while a Piston is aimed at it. If a Piston still moves a locked block, for example in a Slime Block machine, the lock moves with it and the block stays locked. Locks left behind by a block that no longer exists are removed automatically.
+
+## How to Use
+
+1. Craft a Padlock with 1 Iron Ingot and 1 Amethyst Shard, then rename it on an anvil to your password.
+2. Right-click a Chest, door, or other supported block with the Padlock to lock it and receive a Key.
+3. Hold the Key in either hand and right-click a container to open it, or sneak and right-click any locked block to unlock it for good.
+
+## Common Questions
+
+- **Can I break a locked Chest?**: Only while you hold its matching Key in either hand. Breaking it removes the lock, disperses the Key, and returns the Padlock.
+- **Does the Padlock work when it has no custom name?**: No. Rename it on an anvil first.
+
+## Compatibility
+
+- Minecraft Bedrock Edition: 1.21.60 minimum
+- Experimental features: No experiment requirement detected in the inspected files.
+- Achievements: Likely achievement-friendly.
+- Verification: Source created, not tested in game.
+
+## Creator and Permissions
+
+- Creator: ALNStudios
+- Profiles: [CurseForge Profile](https://www.curseforge.com/members/allenscreations/projects) · [MCPEDL Profile](https://mcpedl.com/user/alnstudios/)
+
+<a href="https://www.curseforge.com/members/allenscreations/projects"><img src="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/assets/Images/curseforge.jpg" alt="CurseForge" width="45%"></a> <a href="https://mcpedl.com/user/alnstudios/"><img src="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/assets/Images/MCPEDL.jpg" alt="MCPEDL" width="45%"></a>
+
+## Guidelines and Attribution
+
+- Creator: ALNStudios
+- Rights & Reservation: All rights reserved for ALNStudios.
+- Content Creators: Content creators are permitted to feature this creation in videos and streams with credit to ALNStudios.
+- Redistribution: Do not re-upload this pack or provide direct monetized download bypasses. Link directly to the official repository page.
+- Disclaimer: This is an unofficial community creation. It is not an official Minecraft product and is not approved by or associated with Mojang or Microsoft.
+
+---
+
+© All rights reserved for ALNStudios.
+
+---
+
+## Search & Discovery Keywords
+
+Minecraft Bedrock add-on, Padlock & Key Bedrock mod, chest lock, door lock, password lock, Padlock, Key, anvil rename, Minecraft PE survival, MCPEDL add-on, CurseForge Bedrock, ALNStudios.
+```
+
+## FILE: MCPEDL/Addons/Padlock-and-Key/LOCK (5 lines, 167 bytes)
+
+```
+ALNStudios Add-on Lock v1
+
+Required repository marker for build validation.
+This marker does not encrypt source files or prevent extraction of distributable packages.
+```
+
+## FILE: MCPEDL/Addons/Padlock-and-Key/project.json (5 lines, 49 bytes)
+
+```
+{
+  "type": "addon",
+  "name": "Padlock & Key"
+}
+```
+
+## FILE: MCPEDL/Addons/Padlock-and-Key/README.md (19 lines, 792 bytes)
+
+```
+# Padlock & Key
+
+Download the current release of **Padlock & Key** for Minecraft Bedrock Edition.
+
+## Download
+
+- **Package format:** `.mcaddon`
+- **Direct download:** [Download Padlock & Key (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Padlock-and-Key/PadlockKey%20V1.4.2.mcaddon)
+
+## Installation
+
+1. Download the package using the link above.
+2. Open the downloaded file with Minecraft to import it.
+3. If the package contains a pack that must be enabled separately, activate it in your world's settings.
+
+## Pack Information
+
+For gameplay features, usage details, compatibility notes, and other project information, read the [full description](https://github.com/AllensCreations/MCPE-Curseforges/blob/main/MCPEDL/Addons/Padlock-and-Key/DESCRIPTION.md).
+```
+
+## FILE: MCPEDL/Addons/Padlock-and-Key/resource_pack/LOCK (5 lines, 160 bytes)
+
+```
+ALNStudios Add-on Lock v1
+
+Pack marker included in the exported Minecraft Bedrock pack.
+This marker does not encrypt the pack or prevent extraction or editing.
+```
+
+## FILE: MCPEDL/Addons/Padlock-and-Key/resource_pack/manifest.json (37 lines, 603 bytes)
+
+```
+{
+  "format_version": 2,
+  "header": {
+    "name": "Padlock & Key (v1.4.2)",
+    "description": "Item icons for Padlock and Key. by ALNStudios",
+    "uuid": "898a1a08-c06f-4deb-85ac-3c59298af3e4",
+    "version": [
+      1,
+      4,
+      2
+    ],
+    "min_engine_version": [
+      1,
+      21,
+      60
+    ]
+  },
+  "modules": [
+    {
+      "type": "resources",
+      "uuid": "89ad6eb4-a938-4618-83da-41ed5ff90b55",
+      "version": [
+        1,
+        4,
+        2
+      ]
+    }
+  ],
+  "metadata": {
+    "authors": [
+      "ALNStudios"
+    ],
+    "product_type": "addon",
+    "version": "1.4.2"
+  }
+}
+```
+
+## FILE: MCPEDL/Addons/Padlock-and-Key/resource_pack/textures/item_texture.json (13 lines, 245 bytes)
+
+```
+{
+  "resource_pack_name": "padlock-and-key",
+  "texture_name": "atlas.items",
+  "texture_data": {
+    "pnk_padlock": {
+      "textures": "textures/items/pnk_padlock"
+    },
+    "pnk_key": {
+      "textures": "textures/items/pnk_key"
+    }
+  }
+}
+```
+
+## FILE: MCPEDL/Addons/README.md (54 lines, 8991 bytes)
+
+```
+# Add-ons
+
+Source files for established Minecraft Bedrock add-ons by ALNStudios.
+
+## Available Add-ons
+
+| Add-on | Source | Download |
+| :--- | :--- | :--- |
+| Ghast Mob Head Transformers | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/Ghast-Mob-Head-Transformers/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Ghast-Mob-Head-Transformers/GhastMobHeads%20V1.16.1.mcaddon) |
+| Immortal Pets | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/Immortal-Pets/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Immortal-Pets/ImmortalPets%20V1.10.1.mcaddon) |
+| Mining Helmet | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/Mining-Helmet/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Mining-Helmet/MiningHelmet%20V1.14.5.mcaddon) |
+| Monster Companions | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/Monster-Companions/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Monster-Companions/MonsterCompanions%20V2.0.1.mcaddon) |
+| Passive Auto-Switch Tools | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/Passive-Auto-Switch-Tools/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Passive-Auto-Switch-Tools/AutoSwitchTools%20V1.16.0.mcaddon) |
+| Tameable Companion Fox | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/Tameable-Companion-Fox/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Tameable-Companion-Fox/CompanionFox%20V1.8.5.mcaddon) |
+| Vanilla Quality of Life | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/Vanilla-Quality-of-Life/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Vanilla-Quality-of-Life/VanillaQoL%20V2.1.2.mcaddon) |
+| Grimoire Relics V2 | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/Grimoire-Relics-V2/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Grimoire-Relics-V2/GrimoireRelics%20V1.13.2.mcaddon) |
+| Grand Banquets | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/Grand-Banquets/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Grand-Banquets/GrandBanquets%20V1.6.0.mcaddon) |
+| Magnetic Satchel | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/Magnetic-Satchel) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Magnetic-Satchel/MagneticSatchel%20V1.8.0.mcaddon) |
+| Sudden Death Roulette The Diamond Race | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/Sudden-Death-Roulette) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Sudden-Death-Roulette/SuddenDeath%20V1.4.0.mcaddon) |
+| Smart Tree Capitator and Domino Ore Miner | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/Smart-Tree-Capitator-and-Domino-Ore-Miner) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Smart-Tree-Capitator-and-Domino-Ore-Miner/SmartCapitator%20V1.11.0.mcaddon) |
+| Harvest Intelligence | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/Harvest-Intelligence) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Harvest-Intelligence/HarvestIntel%20V1.6.0.mcaddon) |
+| Fletching Table Arsenal | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/Fletching-Table-Arsenal/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Fletching-Table-Arsenal/FletchingArsenal%20V1.0.0.mcaddon) |
+| Melody Figurine | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/Melody-Figurine/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Melody-Figurine/MelodyFigurine%20V1.14.0.mcaddon) |
+| One-Block Hardcore Survival Economy | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/One-Block-Economy/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/One-Block-Economy/OneBlockEconomy%20V1.4.0.mcaddon) |
+| Selective Mob Controller | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/Selective-Mob-Controller/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Selective-Mob-Controller/MobController%20V1.5.0.mcaddon) |
+| Swarm Mob Booster | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/Swarm-Mob-Booster/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Swarm-Mob-Booster/SwarmBooster%20V1.8.0.mcaddon) |
+| Copper-Carrier Logistics | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/Copper-Carrier-Logistics/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Copper-Carrier-Logistics/CopperCarrier%20V1.1.0.mcaddon) |
+| Universal Leash | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/Universal-Leash/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Universal-Leash/UniversalLeash%20V2.0.0.mcaddon) |
+| Padlock & Key | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/Padlock-and-Key/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Padlock-and-Key/PadlockKey%20V1.4.2.mcaddon) |
+| Talking Pirate Parrots | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/Talking-Pirate-Parrots_payload/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Talking-Pirate-Parrots_payload/PirateParrots%20V1.0.3.mcaddon) |
+| OP Sponge | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/OP-Sponge/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/OP-Sponge/OPSponge%20V1.0.1.mcaddon) |
+| Cheat Stick | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/Cheat-Stick/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Cheat-Stick/CheatStick%20V3.0.0.mcaddon) |
+| Waypoint Helper | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/Waypoint-Helper/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Waypoint-Helper/WaypointHelper%20V1.1.10.mcaddon) |
+| 2-in-1 Loot & XP Booster | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/2-in-1-Loot--XP-Booster/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/2-in-1-Loot--XP-Booster/LootXPBooster%20V1.0.13.mcaddon) |
+| Enchanter | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/Enchanter/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Enchanter/Enchanter%20V1.0.2.mcaddon) |
+| ALN Quiver | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/ALN-Quiver/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/ALN-Quiver/ALNQuiver%20V1.0.0.mcaddon) |
+| Expanded Basic Arsenal | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/Expanded-Basic-Arsenal/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Expanded-Basic-Arsenal/ExpandedBasicArsenal%20V1.0.0.mcaddon) |
+| ALN Wireless Headphones | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/ALN-Wireless-Headphones/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/ALN-Wireless-Headphones/ALNWirelessHeadphones%20V1.0.0.mcaddon) |
+| ALN MoreDiscs | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/ALN-MoreDiscs/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/ALN-MoreDiscs/ALNMoreDiscs%20V1.1.1.mcaddon) |
+
+Download links point to the currently published package files.
+
+## Attribution
+
+Created by ALNStudios. All rights reserved.
+
+Videos and streams are welcome with credit. Redistribution of original or modified files without permission is prohibited.
+
+## Related Directories
+
+- [Maps](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Maps#available-maps)
+- [Scripts](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Script#available-scripts)
+- [Minigames](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Minigame#available-minigames)
+```

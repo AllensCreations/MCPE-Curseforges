@@ -1,0 +1,2132 @@
+# Repo Export
+
+## Index
+
+- **Export request:** `MCPEDL/Maps/Oneblock-SM`
+- **Destination:** `MCPEDL/Maps/Oneblock-SM`
+- **CURRENT VERSION: 1.6.0 / NEXT UPDATE: 1.6.1**  (`MCPEDL/Maps/Oneblock-SM/CHANGELOG.md`)
+- **Text files:** 23
+- **Skipped binary:** 4
+- **Paths not found:** 0
+
+### Files in this export
+
+- `changelog_views/Oneblock-SM.curseforge.html`
+- `changelog_views/Oneblock-SM.github.md`
+- `description_views/Oneblock-SM.listing.md`
+- `MCPEDL/Maps/Oneblock-SM/assets/snapshots/.gitkeep`
+- `MCPEDL/Maps/Oneblock-SM/behavior_pack/functions/give_trader.mcfunction`
+- `MCPEDL/Maps/Oneblock-SM/behavior_pack/functions/oneblock_setup.mcfunction`
+- `MCPEDL/Maps/Oneblock-SM/behavior_pack/functions/oneblock_tick.mcfunction`
+- `MCPEDL/Maps/Oneblock-SM/behavior_pack/functions/tick.json`
+- `MCPEDL/Maps/Oneblock-SM/behavior_pack/functions/void_cleaner.mcfunction`
+- `MCPEDL/Maps/Oneblock-SM/behavior_pack/items/trader_ledger.json`
+- `MCPEDL/Maps/Oneblock-SM/behavior_pack/manifest.json`
+- `MCPEDL/Maps/Oneblock-SM/behavior_pack/scripts/config.js`
+- `MCPEDL/Maps/Oneblock-SM/behavior_pack/scripts/game.js`
+- `MCPEDL/Maps/Oneblock-SM/behavior_pack/scripts/main.js`
+- `MCPEDL/Maps/Oneblock-SM/behavior_pack/scripts/store.js`
+- `MCPEDL/Maps/Oneblock-SM/behavior_pack/scripts/ui.js`
+- `MCPEDL/Maps/Oneblock-SM/CHANGELOG.md`
+- `MCPEDL/Maps/Oneblock-SM/DESCRIPTION.md`
+- `MCPEDL/Maps/Oneblock-SM/oneblock.json`
+- `MCPEDL/Maps/Oneblock-SM/README.md`
+- `MCPEDL/Maps/Oneblock-SM/resource_pack/manifest.json`
+- `MCPEDL/Maps/Oneblock-SM/resource_pack/textures/item_texture.json`
+- `MCPEDL/Maps/README.md`
+
+### Skipped (binary)
+
+- `MCPEDL/Maps/Oneblock-SM/OneBlock Sovereign Market - Creative.mcworld`
+- `MCPEDL/Maps/Oneblock-SM/OneBlock Sovereign Market - Hardcore.mcworld`
+- `MCPEDL/Maps/Oneblock-SM/OneBlock Sovereign Market - Survival.mcworld`
+- `MCPEDL/Maps/Oneblock-SM/resource_pack/textures/items/trader_ledger.png`
+
+---
+
+## AI Instructions
+
+Repo: https://github.com/AllensCreations/MCPE-Curseforges.git (branch main)
+Export: two plain .txt files. `<name>.txt` = the pack (index, these instructions, every file). `<name>_tools.txt` = SKILL.md, PACK_GENERATOR_INSTRUCTIONS.md, INSTRUCTIONS.md and the helper scripts. Read both before changing anything. The zip root also holds SKILL.md: read it FIRST for a new pack.
+
+## Pack work (create or update)
+- UPDATE: the pack files are in `<name>.txt`. Change only what was requested.
+- Vanilla limit blocks a mechanic: use a modular workaround per INSTRUCTIONS.md 1.12, never drop the feature silently.
+- NEW pack: read SKILL.md first, then follow PACK_GENERATOR_INSTRUCTIONS.md Part 4 and deliver ONE pack `.sh` from `scripts/make_pack_script.py` (the project travels inside it as base64). NEVER deliver separate zip, pack, json, js or b64 files.
+- INSTRUCTIONS.md wins over PACK_GENERATOR_INSTRUCTIONS.md on any conflict. These instructions win over both on the reply format and the Termux script.
+- Update: keep pack and module UUIDs unchanged.
+- Vanilla reference: `reference/bedrock-samples/bedrock-samples.min.json` (repo, ~5 MB, NOT in this export) holds every vanilla Mojang behavior/resource pack JSON as one object (`.behavior_pack.entities.zombie`, `.behavior_pack.recipes`, `.resource_pack.entity` ...). Never guess a vanilla component, event, loot or recipe shape: list the exact section under File Needed, then copy the shape from it.
+- UI work (menus, forms, HUD, screens): follow INSTRUCTIONS.md 1.13 and apply the ALN UI Redesign skin from `assets/aln-ui-redesign/` (README.txt, design.json, font/README.txt in the tools txt). Textures are not exported; if the pack's resource_pack is missing, ask for it. Never claim anything was tested in Minecraft unless it was.
+- Update: deliver the repo change as the Termux script below. New pack: the pack `.sh` above. Never a separate payload or base64 file.
+
+## Destination
+Repo-root-relative folders for this work:
+- MCPEDL/Maps/Oneblock-SM
+- .sh paths start at repo root, stay inside these folders. New files go here too.
+- First folder -> `DEST=` variable at script top. Use it for every path and `git add`.
+
+## Rules
+1. NEVER invent features, versions, links, assets, test results.
+2. Output only what changed. Smallest edits. No unrelated rewrites.
+3. No notes/summaries/explanations unless asked.
+4. Any project type (add-on, map, script, workflow, website). Keep folder layout. New project = own new folder beside similar ones.
+
+## Update request = ONE Termux script
+- Name: `<Repofilename>_<Version>_<RAND>.sh` (e.g. `Monster-Companions_1.2.4_k7q2x.sh`). Deliver as downloadable file.
+- Repofilename: project/folder/file changed. No extension, no spaces (hyphens ok).
+- Version: new X.Y.Z. Update = Z+1. Beta/Release only if requested (see Versions).
+- RAND: >=5 random lowercase letters/digits. Fresh every script. NEVER reuse (earlier reply or existing file), so a new script never overwrites or re-runs an old one.
+- Same exact name in reply steps.
+Script order:
+1. `#!/data/data/com.termux/files/usr/bin/bash` + `set -e`
+2. `cd "$HOME/MCPE-Curseforges"`; `git clone` repo URL first if folder missing
+3. `git pull --rebase`
+4. Apply ALL changes as exact search-and-replace edits: write a spec and run `python3 scripts/make_update_script.py spec.txt` (format in `scripts/apply_update.py`; `--verify <clone>` dry-runs it). The tool applies edits atomically, sets the manifest version and writes both changelogs. Size decides the method. SMALL update (a few edits, under about 60% of any file touched): search and replace only. LARGE update (most of a file, many new files, a redesign): use the best method, `@@ create`/`@@ overwrite` in the same spec, never many fragile edits. Either way ONE `.sh`. No separate downloads.
+5. Validate every changed .json with python3. Stop on error.
+5b. Verify top CHANGELOG.md heading == new X.Y.Z == script filename version. Stop on mismatch. If project has manifests: run `python3 scripts/manifest_tools.py --project "$DEST" --set X.Y.Z` (sets header.version, metadata.version, title suffix, module/dependency versions in every source manifest; never lowers), then `python3 scripts/manifest_tools.py --project "$DEST" --check` and `python3 scripts/validate_manifest_titles.py --project "$DEST"`. Stop on error. Every update must change the manifests so the build changes. Never hand-edit manifest JSON for versions.
+5c. If INSTRUCTIONS.md or PACK_GENERATOR_INSTRUCTIONS.md changed: run `python3 scripts/check_instruction_files.py`. Stop on error
+6. `git add` changed paths only; `git commit -m "<short message>"`; `git push`
+6b. Add an entry to the ROOT `CHANGELOG.md` (repo-wide, newest first under `---`): `## [vN] - YYYY-MM-DD - [Update Name]` (N = `REPO_VERSION` + 1, a single whole number such as v80, set by the update tool, never by hand), groups `### Added` / `### Improved & Balanced` / `### Fixed`, bullets `- **Title**: what changed`. Every script, tooling-only included.
+7. After push, do NOT start any workflow. Build Changed Packs & Sync Catalogs runs by itself on every push and rebuilds everything. Nothing auto-bumps; Publish to CurseForge uploads the newest changelog version as written.
+8. Idempotent: skip anything already applied.
+9. Last line, reached only after a successful push: `rm -f -- "$SELF"` (the script deletes itself; save `SELF="$(readlink -f -- "$0")"` on line 2, before the `cd`).
+
+## Docs (every update, same script)
+- Templates STRICT: README.md, DESCRIPTION.md, CHANGELOG.md match templates below exactly: same headings, text, order, labels, bullet format. NEVER add/remove/rename/merge/reorder sections. No boilerplate/extra text. No placeholders: fill every [bracket] with verified content. Accuracy + requested scope outrank template.
+- CHANGELOG.md: MANDATORY every update, no exceptions. Add new release entry for the change.
+- README.md + DESCRIPTION.md: after change, analyze both in destination folder. Edit ONLY if change makes them inaccurate/incomplete. NEVER remove verified content.
+
+### Versions (X.Y.Z ONLY)
+- Format: exactly X.Y.Z everywhere. NEVER X.Y.Z.A. No fourth part. No Alpha.
+- X = Release, Y = Beta, Z = Update.
+- Update: Z+1 (1.2.3 -> 1.2.4). Default.
+- Beta: Y+1, Z=0 (1.2.4 -> 1.3.0). Only if requested.
+- Release: X+1, Y=0, Z=0 (1.3.0 -> 2.0.0). Only if requested.
+- New X.Y.Z goes in CHANGELOG heading + script filename.
+- Manifest versions: set ONLY by the script via `manifest_tools.py --set X.Y.Z` (never hand-edit JSON). NEVER hand-edit README download links. Build Changed Packs & Sync Catalogs aligns a pack to its highest existing version and rebuilds; it never bumps. Publish to CurseForge uploads the newest changelog version.
+- NEVER put release version in README/DESCRIPTION titles. NEVER reuse a heading.
+
+### Changelog views
+- `changelog_views/<Name>.github.md` (newest open, older folded by minor series) and `changelog_views/<Name>.curseforge.html` (CurseForge spoilers, paste into project description): generated from CHANGELOG.md by `scripts/build_changelog_views.py`.
+- CHANGELOG.md = plain text, exact template format, only source of truth. NEVER add HTML/fold markup/links to it. NEVER edit views by hand. NEVER create/change views inside the .sh.
+- Refresh: Build Changed Packs & Sync Catalogs; Collect Files for AI Review (tick commit_changelog_views to save); or `python3 scripts/build_changelog_views.py --project <Name>`.
+
+### Writing
+- Player-facing only. In-game display names, never identifiers, file names, JSON, events, code.
+- "Behavior Pack" / "Resource Pack", NEVER BP/RP.
+- README: no code blocks, emojis, hype, badges.
+- DESCRIPTION: exactly the two Minecraft Bedrock + Format badges from repo template, no others. May keep existing item sprites + recipe diagrams.
+- No Markdown tables. Use `### Feature Name` cards with `- **What Happens**: ...` bullets.
+- Paragraphs <=4 sentences. Verified facts only. Verification line = source created | package built | in-game tested, NEVER mixed.
+
+### README.md (add-on): download landing page only, EXACTLY 11 non-empty lines
+```
+# [Name]
+
+Download the current release of **[Name]** for Minecraft Bedrock Edition.
+
+## Download
+
+- **Package format:** `.mcaddon`
+- **Direct download:** [Download [Name] (.mcaddon)](link)
+
+## Installation
+
+1. Download the package using the link above.
+2. Open the downloaded file with Minecraft to import it.
+3. If the package contains a pack that must be enabled separately, activate it in your world's settings.
+
+## Pack Information
+
+For gameplay features, usage details, compatibility notes, and other project information, read the [full description](DESCRIPTION link).
+```
+Maps/scripts/minigames: same landing page. Use real package format; .mcworld = tell players to open the imported world. Product details live in DESCRIPTION.md.
+
+### DESCRIPTION.md order
+1. `# [Name] — [subtitle]` (no release version)
+2. `**By ALNStudios**`
+3. Two exact badges (Minecraft Bedrock "Stable Release", Format) from repo template
+4. Summary
+5. `## Overview`
+6. `## Key Features`
+7. `## How to Use`
+8. `## Compatibility`: Minecraft Bedrock Edition, Experimental features, Achievements, Verification
+9. `## Creator and Permissions`: `- Creator: ALNStudios`, `- Profiles:` CurseForge https://www.curseforge.com/members/allenscreations/projects · MCPEDL https://mcpedl.com/user/alnstudios/, then the two clickable listing images (HTML, `width="45%"`, no `height`, raw URLs `assets/Images/curseforge.jpg`, `assets/Images/MCPEDL.jpg`). NEVER edit/copy the images
+10. `## Guidelines and Attribution`
+11. `---` then `## Search & Discovery Keywords` from real features
+- Add-ons: Achievements line ALWAYS `Likely achievement-friendly`; add caveats if world settings/cheats can disable achievements.
+
+### Guidelines and Attribution block, exactly
+```
+- Creator: ALNStudios
+- Rights & Reservation: All rights reserved for ALNStudios.
+- Content Creators: Content creators are permitted to feature this creation in videos and streams with credit to ALNStudios.
+- Redistribution: Do not re-upload this pack or provide direct monetized download bypasses. Link directly to the official repository page.
+- Disclaimer: This is an unofficial community creation. It is not an official Minecraft product and is not approved by or associated with Mojang or Microsoft.
+
+---
+
+© All rights reserved for ALNStudios.
+
+---
+```
+
+### CHANGELOG.md
+- `# Changelog — [Name]`, `---`, then newest first: `## [X.Y.Z] - YYYY-MM-DD - [Update Name]` (date: `TZ=Asia/Singapore date +%F`). [Update Name] = short player-facing title (2-6 words) of what is new. REQUIRED on every new entry.
+- Groups: `### Added`, `### Improved & Balanced`, `### Fixed` (bugs as in-game experience). Omit empty groups. Each group >=1 bullet.
+- Entry: `- **Title**: player impact.`
+- NO links, URLs, badges, function/event names, unverified benefits. No boilerplate after title.
+- Insert new entry directly under `---`, above previous release. NEVER edit/delete older entries.
+
+## Reply Format (STRICT)
+```
+[SYSTEM_CONFIG]
+Mode: Direct Execution
+Token_Efficiency: Maximum
+Rules: no greeting, intro, outro, offers, restating. High technical accuracy.
+```
+Output ONLY these three sections, in order, exact headings:
+1. **File Needed:** repo-root-relative path of each file created/edited.
+2. **Changelog:** bullets, brief summary of changes.
+3. **Termux Script:** ONE fenced `bash` block holding ONLY the run commands: `bash ~/storage/downloads/<Repofilename>_<Version>_<RAND>.sh` (a new pack may add the same line with `stage`). The .sh is attached, NEVER pasted. NEVER a Summary section.
+- The .sh (`<Repofilename>_<Version>_<RAND>.sh`, random chars included) is the downloadable file. Exact same name in the command.
+- NEVER text before, between, after. NEVER rename/merge/reorder/skip a section. Nothing to report: `- None`.
+- Unclear request: ask ONE line, then proceed with defaults.
+- First-time Termux setup, ONLY if the user asks:
+```
+pkg update -y && pkg install -y git python curl
+termux-setup-storage
+git config --global user.name "ALNStudios"
+git config --global user.email "your-email@example.com"
+git config --global credential.helper store
+```
+- Push password = GitHub Personal Access Token (repo + workflow scopes), NOT account password. Same token starts the build after push.
+
+---
+
+## File Contents
+
+## FILE: changelog_views/Oneblock-SM.curseforge.html (6 lines, 3747 bytes)
+
+```
+<h2>1.6.0 - 2026-10-29</h2><h3>Fixed</h3><ul><li><strong>Auto-Miner Without Setup</strong>: The Auto-Miner no longer needs the welcome setup to have run for your character. It works for any player in the Overworld.</li><li><strong>Auto-Miner Never Stalls</strong>: A mined block that has no item form no longer stops the Auto-Miner as if the chest were full. It is skipped and mining continues.</li></ul>
+<h2>1.5.x (1 release)</h2><div class="spoiler"><h3>1.5.0 - 2026-10-29</h3><h4>Fixed</h4><ul><li><strong>Auto-Miner Start</strong>: The Auto-Miner now mines whatever block is at the OneBlock position as soon as it is ON, without waiting for a hand break first.</li><li><strong>Auto-Miner Warnings</strong>: If a block above the OneBlock stops the collection chest from being placed, the Auto-Miner now tells you on the action bar instead of silently doing nothing.</li></ul></div>
+<h2>1.4.x (1 release)</h2><div class="spoiler"><h3>1.4.0 - 2026-10-29</h3><h4>Fixed</h4><ul><li><strong>Continuous Auto-Mining</strong>: The Auto-Miner now moves straight on to the next block at its tool speed. A break that could not happen, such as while the OneBlock was being replaced, is retried on the next tick instead of after a full wait, and mining time no longer runs while the collection chest is full.</li></ul></div>
+<h2>1.3.x (1 release)</h2><div class="spoiler"><h3>1.3.0 - 2026-10-29</h3><h4>Improved &amp; Balanced</h4><ul><li><strong>Tool-Named Auto-Miner</strong>: The five Auto-Miner levels are now Wooden, Copper, Iron, Gold and Diamond. Speeds and prices are unchanged.</li></ul><h4>Fixed</h4><ul><li><strong>Auto-Miner Break Effect</strong>: Every Auto-Miner break now plays the block-destroy effect. Before, the two fastest levels showed it only on every fourth break.</li><li><strong>Island Border Outside the Permit</strong>: The border ring is now placed just outside the permitted area, so it can no longer be mined for Polished Deepslate. Rings left by earlier permits are removed when you buy the next one.</li></ul></div>
+<h2>1.2.x (1 release)</h2><div class="spoiler"><h3>1.2.0 - 2026-10-29</h3><h4>Improved &amp; Balanced</h4><ul><li><strong>Auto-Miner Stone Drops</strong>: The Auto-Miner now stores Cobblestone when the OneBlock is Stone, like mining by hand.</li><li><strong>Island Size Check</strong>: Placing, breaking and using blocks no longer rereads the saved world data to find the island size.</li></ul><h4>Fixed</h4><ul><li><strong>Water and Lava Cleanup on Large Islands</strong>: On islands of 81 x 81 and larger, stray water and lava were not removed. Cleanup now works on every island size.</li><li><strong>Auto-Miner Toggle</strong>: Switching the Auto-Miner ON and OFF repeatedly gave extra instant breaks. Each instant break now uses part of the day&#x27;s mining time.</li><li><strong>Auto-Miner Drops</strong>: Deepslate, Clay, Melon, Nether Gold Ore, Mycelium and mushroom blocks mined by the Auto-Miner now become items the market buys.</li><li><strong>Island Permit Charge</strong>: A permit is no longer charged when part of the new border area is not loaded. You are asked to stand near the OneBlock and try again.</li><li><strong>OneBlock Respawn</strong>: The OneBlock could stay missing after being broken if an error happened while the next block was being created. It now recovers.</li><li><strong>Plot Edge Protection</strong>: Boats, minecarts, armor stands, item frames, paintings, end crystals, spawn eggs, flint and steel and fire charges can no longer be used at the edge of your island to place things outside the permitted area.</li><li><strong>OneBlock Explosion Protection</strong>: Explosions no longer destroy the OneBlock, the chest above it or the foundation Bedrock.</li></ul></div>
+```
+
+## FILE: changelog_views/Oneblock-SM.github.md (63 lines, 3420 bytes)
+
+```
+# Changelog — OneBlock Sovereign Market
+
+## [1.6.0] - 2026-10-29
+
+### Fixed
+- **Auto-Miner Without Setup**: The Auto-Miner no longer needs the welcome setup to have run for your character. It works for any player in the Overworld.
+- **Auto-Miner Never Stalls**: A mined block that has no item form no longer stops the Auto-Miner as if the chest were full. It is skipped and mining continues.
+
+<details>
+<summary><b>1.5.x</b> (1 release)</summary>
+
+### [1.5.0] - 2026-10-29
+
+#### Fixed
+- **Auto-Miner Start**: The Auto-Miner now mines whatever block is at the OneBlock position as soon as it is ON, without waiting for a hand break first.
+- **Auto-Miner Warnings**: If a block above the OneBlock stops the collection chest from being placed, the Auto-Miner now tells you on the action bar instead of silently doing nothing.
+
+</details>
+
+<details>
+<summary><b>1.4.x</b> (1 release)</summary>
+
+### [1.4.0] - 2026-10-29
+
+#### Fixed
+- **Continuous Auto-Mining**: The Auto-Miner now moves straight on to the next block at its tool speed. A break that could not happen, such as while the OneBlock was being replaced, is retried on the next tick instead of after a full wait, and mining time no longer runs while the collection chest is full.
+
+</details>
+
+<details>
+<summary><b>1.3.x</b> (1 release)</summary>
+
+### [1.3.0] - 2026-10-29
+
+#### Improved & Balanced
+- **Tool-Named Auto-Miner**: The five Auto-Miner levels are now Wooden, Copper, Iron, Gold and Diamond. Speeds and prices are unchanged.
+
+#### Fixed
+- **Auto-Miner Break Effect**: Every Auto-Miner break now plays the block-destroy effect. Before, the two fastest levels showed it only on every fourth break.
+- **Island Border Outside the Permit**: The border ring is now placed just outside the permitted area, so it can no longer be mined for Polished Deepslate. Rings left by earlier permits are removed when you buy the next one.
+
+</details>
+
+<details>
+<summary><b>1.2.x</b> (1 release)</summary>
+
+### [1.2.0] - 2026-10-29
+
+#### Improved & Balanced
+- **Auto-Miner Stone Drops**: The Auto-Miner now stores Cobblestone when the OneBlock is Stone, like mining by hand.
+- **Island Size Check**: Placing, breaking and using blocks no longer rereads the saved world data to find the island size.
+
+#### Fixed
+- **Water and Lava Cleanup on Large Islands**: On islands of 81 x 81 and larger, stray water and lava were not removed. Cleanup now works on every island size.
+- **Auto-Miner Toggle**: Switching the Auto-Miner ON and OFF repeatedly gave extra instant breaks. Each instant break now uses part of the day's mining time.
+- **Auto-Miner Drops**: Deepslate, Clay, Melon, Nether Gold Ore, Mycelium and mushroom blocks mined by the Auto-Miner now become items the market buys.
+- **Island Permit Charge**: A permit is no longer charged when part of the new border area is not loaded. You are asked to stand near the OneBlock and try again.
+- **OneBlock Respawn**: The OneBlock could stay missing after being broken if an error happened while the next block was being created. It now recovers.
+- **Plot Edge Protection**: Boats, minecarts, armor stands, item frames, paintings, end crystals, spawn eggs, flint and steel and fire charges can no longer be used at the edge of your island to place things outside the permitted area.
+- **OneBlock Explosion Protection**: Explosions no longer destroy the OneBlock, the chest above it or the foundation Bedrock.
+
+</details>
+```
+
+## FILE: description_views/Oneblock-SM.listing.md (58 lines, 6108 bytes)
+
+````
+# Listing Kit: OneBlock
+
+Tap the Copy button on a block, then paste it into the CurseForge listing. Generated from DESCRIPTION.md: edit that, not this file.
+
+## Package Name
+
+```text
+OneBlock
+```
+
+## Summary (254/256)
+
+```text
+- Start on a small 9 x 9 void island with one OneBlock that produces Dirt. A short How to Play guide opens first and must be read once. - Mining the OneBlock gives you items. Dirt sells for 1 :minecoin: each in the Trader's Ledger, like every other item.
+```
+
+## Description (HTML)
+
+Paste into the CurseForge description editor in source (HTML) mode.
+
+```html
+<div><div style="border:2px solid #15803d;border-radius:18px;line-height:1.5"><br><h1 style="font-size:34px;text-align:center">OneBlock</h1><p style="color:#8a94a3;font-size:14px;text-align:center">by ALNStudios</p><div style="display:flex;flex-wrap:wrap;gap:8px;margin-left:14px;margin-right:14px"><div style="background-color:#dcfce7;color:#14532d;border-radius:20px;font-size:14px;line-height:2"><strong>&nbsp;&nbsp;Bedrock</strong>: 1.26+&nbsp;&nbsp;</div><div style="background-color:#dcfce7;color:#14532d;border-radius:20px;font-size:14px;line-height:2"><strong>&nbsp;&nbsp;Experimental</strong>: No&nbsp;&nbsp;</div><div style="background-color:#dcfce7;color:#14532d;border-radius:20px;font-size:14px;line-height:2"><strong>&nbsp;&nbsp;Achievements</strong>: Unknown / needs confirmation&nbsp;&nbsp;</div></div><br></div>
+<h2 style="font-size:17px;text-align:left"><span style="background-color:#15803d;color:#ffffff;border-radius:20px">&nbsp;&nbsp;Install&nbsp;&nbsp;</span></h2>
+<table style="width:100%;border:1px solid #8a94a3;border-radius:16px"><tbody><tr><td style="width:44px;text-align:center"><div style="background-color:#15803d;color:#ffffff;font-weight:bold;font-size:15px;text-align:center;border-radius:10px;width:30px;aspect-ratio:1/1;line-height:30px">1</div></td><td style="text-align:left;">Download the file from this page and open it with Minecraft.</td></tr><tr><td style="width:44px;text-align:center"><div style="background-color:#15803d;color:#ffffff;font-weight:bold;font-size:15px;text-align:center;border-radius:10px;width:30px;aspect-ratio:1/1;line-height:30px">2</div></td><td style="text-align:left;">Create or edit a world and turn on the new pack(s) in its settings.</td></tr><tr><td style="width:44px;text-align:center"><div style="background-color:#15803d;color:#ffffff;font-weight:bold;font-size:15px;text-align:center;border-radius:10px;width:30px;aspect-ratio:1/1;line-height:30px">3</div></td><td style="text-align:left;">Play. No Experimental toggles needed.</td></tr></tbody></table>
+<h2 style="font-size:17px;text-align:left"><span style="background-color:#15803d;color:#ffffff;border-radius:20px">&nbsp;&nbsp;Support&nbsp;&nbsp;</span></h2><div style="border:1px solid #8a94a3;border-radius:16px;text-align:center"><br><a href="https://ko-fi.com/alnstudios"><img src="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/assets/Images/ko-fi.png" alt="Support ALNStudios on Ko-fi" width="250"></a><br><br></div><p style="text-align:center"><a href="https://www.curseforge.com/members/allenscreations/projects"><strong>CurseForge</strong></a> &nbsp;|&nbsp; <a href="https://mcpedl.com/user/alnstudios/"><strong>MCPEDL</strong></a> &nbsp;|&nbsp; <a href="https://ko-fi.com/alnstudios"><strong>Ko-fi</strong></a></p>
+<hr>
+<p style="text-align:center;color:#8a94a3;font-size:13px"><strong>By ALNStudios</strong></p>
+<div class="spoiler"><p style="font-size:13px"><strong>Permissions and credits</strong></p><ul style="font-size:13px"><li>Rights: All rights reserved for ALNStudios.</li><li>Content creators: You may feature this creation in videos and streams with credit to ALNStudios.</li><li>Redistribution: Do not re-upload this pack or provide direct monetized download bypasses. Link to this page.</li><li>Unofficial community creation. Not an official Minecraft product and not approved by or associated with Mojang or Microsoft.</li></ul></div>
+<p style="text-align:center;color:#8a94a3;font-size:12px">Minecraft Bedrock add-on, OneBlock Sovereign Market Bedrock mod, Minecraft PE survival, MCPEDL add-on, CurseForge Bedrock, ALNStudios.</p></div>
+```
+
+## AI Image Prompts
+
+### Reference Images
+
+- **Logo reference**: attach your own logo. The generator uses it only for brand colors and mood. The result must be a new design, not a copy.
+- **Snapshot references**: attach 1 to 4 of your in-game snapshots of this pack. The generator copies their look, not their screen layout.
+
+### Logo Prompt
+
+```text
+Use the attached logo only as a brand reference for its color palette and overall mood. Do not copy it. Create a new, original logo with a different composition and a different main symbol. Do not just recolor, resize, crop, mirror or tweak the attached logo.
+Create a clean, square (1:1) logo image for the Minecraft Bedrock add-on "OneBlock".
+Base the main symbol on the pack idea above. Match the blocky look of the attached in-game snapshots. Center the logo, use a simple background, and keep it readable at small sizes.
+Text: "OneBlock" and, in small letters, "ALNStudios". ALNStudios is the brand name, so always keep it and never remove or change it. Spell both exactly.
+Do not add Minecraft, Mojang or Microsoft logos, watermarks, or characters from other games.
+```
+
+### Banner Prompt
+
+```text
+Create a wide (16:9) banner image for the Minecraft Bedrock add-on "OneBlock".
+Use the attached in-game snapshots as scene and style references: copy their blocky look, lighting, colors and the kind of scenery they show. Make a new composition inspired by them. Do not copy the on-screen HUD, chat or hotbar.
+Use the attached logo only as a brand reference for its colors and mood. Do not copy it. Put a new, original logo design in the banner, large enough to read, on the left or center.
+Text: "OneBlock" and, in small letters, "by ALNStudios". ALNStudios is the brand name, so always keep it and never remove or change it. Spell both exactly.
+Leave clear space around the logo. No Minecraft, Mojang or Microsoft logos, no watermarks.
+```
+````
+
+## FILE: MCPEDL/Maps/Oneblock-SM/assets/snapshots/.gitkeep (1 lines, 0 bytes)
+
+```
+
+```
+
+## FILE: MCPEDL/Maps/Oneblock-SM/behavior_pack/functions/give_trader.mcfunction (2 lines, 40 bytes)
+
+```
+give @s allenscreations:trader_ledger 1
+```
+
+## FILE: MCPEDL/Maps/Oneblock-SM/behavior_pack/functions/oneblock_setup.mcfunction (3 lines, 136 bytes)
+
+```
+# Optional manual setup, safe to run repeatedly. Not listed in tick.json.
+scoreboard objectives add osm_marker dummy "Sovereign Market"
+```
+
+## FILE: MCPEDL/Maps/Oneblock-SM/behavior_pack/functions/oneblock_tick.mcfunction (3 lines, 177 bytes)
+
+```
+# Restore only missing foundation Bedrock, and only after a player finished setup
+execute if entity @a[tag=void_cleaned] unless block 0 -1 0 bedrock run setblock 0 -1 0 bedrock
+```
+
+## FILE: MCPEDL/Maps/Oneblock-SM/behavior_pack/functions/tick.json (7 lines, 62 bytes)
+
+```
+{
+  "values": [
+    "void_cleaner",
+    "oneblock_tick"
+  ]
+}
+```
+
+## FILE: MCPEDL/Maps/Oneblock-SM/behavior_pack/functions/void_cleaner.mcfunction (13 lines, 1051 bytes)
+
+```
+execute as @a[tag=!void_cleaned] run fill -16 -64 -16 16 -64 16 air
+# Starter island: 9x9, two layers, built once (skipped when the core foundation already exists)
+execute as @a[tag=!void_cleaned] unless block 0 -1 0 bedrock run fill -4 -2 -4 4 -2 4 dirt
+execute as @a[tag=!void_cleaned] unless block 0 -1 0 bedrock run fill -4 -1 -4 4 -1 4 grass_block
+execute as @a[tag=!void_cleaned] run tp @s 0 1 0
+execute as @a[tag=!void_cleaned] unless block 0 -1 0 bedrock run setblock 0 -1 0 bedrock
+execute as @a[tag=!void_cleaned] if block 0 0 0 air run setblock 0 0 0 dirt
+execute as @a[tag=!void_cleaned] run setworldspawn 0 1 0
+execute as @a[tag=!void_cleaned] run spawnpoint @s 0 1 0
+execute as @a[tag=!void_cleaned] run tellraw @s {"rawtext":[{"text":"Welcome to OneBlock: Sovereign Market. Mine the block, then use the Trader Ledger."}]}
+execute as @a[tag=!void_cleaned] run tellraw @s {"rawtext":[{"text":"Read the short How to Play guide first. Your Trader Ledger is in hotbar slot 9."}]}
+execute as @a[tag=!void_cleaned] run tag @s add void_cleaned
+```
+
+## FILE: MCPEDL/Maps/Oneblock-SM/behavior_pack/items/trader_ledger.json (28 lines, 596 bytes)
+
+```
+{
+  "format_version": "1.20.80",
+  "minecraft:item": {
+    "description": {
+      "identifier": "allenscreations:trader_ledger",
+      "menu_category": {
+        "category": "items"
+      }
+    },
+    "components": {
+      "minecraft:max_stack_size": 1,
+      "minecraft:icon": {
+        "textures": {
+          "default": "trader_ledger"
+        }
+      },
+      "minecraft:display_name": {
+        "value": "Trader's Ledger"
+      },
+      "minecraft:use_animation": "spyglass",
+      "minecraft:use_modifiers": {
+        "use_duration": 0.1,
+        "movement_modifier": 1
+      }
+    }
+  }
+}
+```
+
+## FILE: MCPEDL/Maps/Oneblock-SM/behavior_pack/manifest.json (66 lines, 1166 bytes)
+
+```
+{
+  "format_version": 2,
+  "header": {
+    "name": "OneBlock Sovereign Market (v1.6.1)",
+    "description": "Dirt-to-sovereignty OneBlock economy with a Trader Ledger. by ALNStudios",
+    "uuid": "5f751626-2798-46f7-9cae-ebd3e2394e78",
+    "version": [
+      1,
+      6,
+      1
+    ],
+    "min_engine_version": [
+      1,
+      26,
+      40
+    ]
+  },
+  "modules": [
+    {
+      "type": "data",
+      "uuid": "792d4b4c-f64c-4c5b-a4c0-b00cd82199b1",
+      "version": [
+        1,
+        6,
+        1
+      ]
+    },
+    {
+      "type": "script",
+      "language": "javascript",
+      "uuid": "dc5d90e4-0963-4ceb-ad54-038f8039bcc6",
+      "version": [
+        1,
+        6,
+        1
+      ],
+      "entry": "scripts/main.js"
+    }
+  ],
+  "dependencies": [
+    {
+      "uuid": "4b6073aa-4c92-4e1b-bbdb-85207021b512",
+      "version": [
+        1,
+        6,
+        1
+      ]
+    },
+    {
+      "module_name": "@minecraft/server",
+      "version": "2.9.0"
+    },
+    {
+      "module_name": "@minecraft/server-ui",
+      "version": "2.1.0"
+    }
+  ],
+  "metadata": {
+    "authors": [
+      "ALNStudios"
+    ],
+    "product_type": "addon",
+    "version": "1.6.1"
+  }
+}
+```
+
+## FILE: MCPEDL/Maps/Oneblock-SM/behavior_pack/scripts/config.js (172 lines, 16088 bytes)
+
+```
+// All tunable numbers live here. Block and item ids are written without the "minecraft:" prefix.
+export const CURRENCY = ":minecoin:";
+export const LEDGER_ID = "allenscreations:trader_ledger";
+export const CORE = { x: 0, y: 0, z: 0 };
+export const FLOOR_Y = -1;
+export const BORDER_BLOCK = "polished_deepslate";
+export const ISLAND_CAP = 129;
+export const MAX_BALANCE = 2000000000;
+export const HISTORY_MAX = 15;
+export const MAX_CHESTS_PER_PLAYER = 3;
+export const MARKET_CFG = { depth: 80, halfLifeMin: 20, maxSupply: 5000, rotateMs: 7200000, hot: 1.25, cold: 0.85 };
+
+// Island levels: permitted build area is x/z in [min, max]. Each level contains the previous one.
+// 9, 17, 33 and 65 are fixed. After that every level adds 1 block per side (67, 69, 71 ... up to ISLAND_CAP),
+// and each permit costs about 10 percent more than the one before it (rounded to 50).
+const FIXED_ISLANDS = [
+  { name: "Starter Island", size: 9, min: -4, max: 4, cost: 0 },
+  { name: "First Expansion", size: 17, min: -8, max: 8, cost: 250 },
+  { name: "Development Expansion", size: 33, min: -16, max: 16, cost: 1000 },
+  { name: "Industrial Expansion", size: 65, min: -32, max: 32, cost: 4000 },
+];
+const FRONTIER_ISLANDS = [];
+for (let k = 0, size = 67; size <= ISLAND_CAP; k++, size += 2) {
+  FRONTIER_ISLANDS.push({ name: "Frontier Permit " + size, size, min: -(size - 1) / 2, max: (size - 1) / 2, cost: Math.round((5000 * Math.pow(1.1, k)) / 50) * 50 });
+}
+export const ISLAND_LEVELS = FIXED_ISLANDS.concat(FRONTIER_ISLANDS);
+
+// Block licenses. blocks = { block id: spawn weight }.
+export const LICENSES = [
+  { id: "t1", name: "Tier 1: Dirt Foundation", cost: 0, req: null, blocks: { dirt: 100 } },
+  { id: "t1b", name: "Tier 1 Option: Soil Variety", cost: 25, req: "t1", blocks: { grass_block: 20, coarse_dirt: 15, podzol: 10, dirt_with_roots: 8, mycelium: 6, moss_block: 8 } },
+  { id: "t2", name: "Tier 2: Woodland", cost: 40, req: "t1", blocks: { oak_log: 6, birch_log: 6, spruce_log: 6, jungle_log: 6, acacia_log: 6, dark_oak_log: 6, mangrove_log: 6, cherry_log: 6, pale_oak_log: 6, oak_leaves: 5, birch_leaves: 5, spruce_leaves: 5, jungle_leaves: 5, acacia_leaves: 5, dark_oak_leaves: 5, mangrove_leaves: 5, cherry_leaves: 5, pale_oak_leaves: 5, azalea_leaves: 5, azalea_leaves_flowered: 4, mangrove_roots: 4 } },
+  { id: "t3", name: "Tier 3: Stoneworks", cost: 150, req: "t2", blocks: { stone: 30, cobblestone: 30, andesite: 12, diorite: 12, granite: 12, tuff: 10, gravel: 10, mossy_cobblestone: 4, deepslate: 10, sandstone: 8 } },
+  { id: "t4", name: "Tier 4: The Ore Rush", cost: 400, req: "t3", blocks: { coal_ore: 20, copper_ore: 14, iron_ore: 12, deepslate_coal_ore: 6, deepslate_copper_ore: 5, deepslate_iron_ore: 4 } },
+  { id: "t5", name: "Tier 5: Precious Resources", cost: 900, req: "t4", blocks: { gold_ore: 8, redstone_ore: 12, lapis_ore: 8, quartz_ore: 6, nether_gold_ore: 6, deepslate_gold_ore: 3, deepslate_redstone_ore: 4, deepslate_lapis_ore: 3 } },
+  { id: "t6", name: "Tier 6: Rare Minerals", cost: 2000, req: "t5", blocks: { diamond_ore: 3, emerald_ore: 3, amethyst_block: 4, calcite: 4, smooth_basalt: 4, dripstone_block: 4, deepslate_diamond_ore: 1, deepslate_emerald_ore: 1 } },
+  { id: "t7", name: "Tier 7: Earth and Nature", cost: 4000, req: "t6", blocks: { sand: 14, red_sand: 10, clay: 14, mud: 10, hardened_clay: 10, white_terracotta: 4, orange_terracotta: 4, yellow_terracotta: 4, brown_terracotta: 4, red_terracotta: 4, light_gray_terracotta: 4, red_sandstone: 8, brown_mushroom_block: 4, red_mushroom_block: 4, bone_block: 4, pumpkin: 6, melon_block: 6 } },
+  { id: "t8", name: "Tier 8: Nether Materials", cost: 8000, req: "t7", blocks: { netherrack: 20, basalt: 10, blackstone: 10, magma: 6, glowstone: 6, soul_sand: 5, soul_soil: 6, crimson_stem: 6, warped_stem: 6, nether_wart_block: 6, warped_wart_block: 6, shroomlight: 4 } },
+  { id: "t9", name: "Tier 9: Forbidden Riches", cost: 16000, req: "t8", blocks: { obsidian: 6, crying_obsidian: 3, ancient_debris: 2 } },
+  { id: "t10", name: "Tier 10: Sovereign Endgame", cost: 32000, req: "t9", blocks: { end_stone: 10 } },
+];
+
+// Never allowed in the regeneration pool, whatever the tables say.
+export const UNSAFE_BLOCK = /water|lava|fire|tnt|portal|command|structure|barrier|spawner|piston|powder|bedrock|sponge/;
+
+export const CATS = ["wood", "stone", "ore", "gem", "earth", "nether", "end", "mob", "crop"];
+
+// [item id, base, min, max, required license, category]. Dirt sells like any other item.
+export const MARKET = [
+  ["dirt", 1, 1, 2, "t1", "earth"], ["moss_block", 3, 2, 5, "t1b", "earth"],
+  ["oak_log", 3, 2, 5, "t2", "wood"], ["birch_log", 3, 2, 5, "t2", "wood"], ["spruce_log", 3, 2, 5, "t2", "wood"],
+  ["jungle_log", 4, 2, 6, "t2", "wood"], ["acacia_log", 3, 2, 5, "t2", "wood"], ["dark_oak_log", 4, 2, 6, "t2", "wood"],
+  ["mangrove_log", 4, 2, 6, "t2", "wood"], ["mangrove_roots", 3, 2, 5, "t2", "wood"],
+  ["cobblestone", 2, 1, 3, "t3", "stone"], ["stone", 3, 1, 5, "t3", "stone"], ["andesite", 2, 1, 3, "t3", "stone"],
+  ["diorite", 2, 1, 3, "t3", "stone"], ["granite", 2, 1, 3, "t3", "stone"], ["tuff", 2, 1, 3, "t3", "stone"], ["gravel", 2, 1, 3, "t3", "stone"],
+  ["cobbled_deepslate", 3, 2, 4, "t3", "stone"], ["sandstone", 3, 2, 5, "t3", "stone"],
+  ["gold_nugget", 3, 2, 5, "t5", "ore"],
+  ["calcite", 4, 3, 6, "t6", "gem"], ["smooth_basalt", 3, 2, 5, "t6", "gem"], ["dripstone_block", 3, 2, 5, "t6", "gem"],
+  ["red_sandstone", 4, 2, 6, "t7", "earth"], ["bone_block", 5, 3, 8, "t7", "earth"], ["pumpkin", 3, 2, 5, "t7", "crop"], ["melon_slice", 2, 1, 3, "t7", "crop"],
+  ["red_mushroom", 2, 1, 3, "t7", "crop"], ["brown_mushroom", 2, 1, 3, "t7", "crop"],
+  ["crimson_stem", 5, 3, 8, "t8", "nether"], ["warped_stem", 5, 3, 8, "t8", "nether"], ["nether_wart_block", 4, 2, 6, "t8", "nether"],
+  ["warped_wart_block", 4, 2, 6, "t8", "nether"], ["shroomlight", 6, 3, 9, "t8", "nether"], ["soul_soil", 3, 2, 5, "t8", "nether"],
+  ["coal", 6, 3, 9, "t4", "ore"], ["raw_copper", 5, 3, 8, "t4", "ore"], ["raw_iron", 9, 5, 14, "t4", "ore"],
+  ["copper_ingot", 8, 5, 12, "t4", "ore"], ["iron_ingot", 12, 7, 18, "t4", "ore"],
+  ["redstone", 4, 2, 7, "t5", "ore"], ["lapis_lazuli", 6, 3, 10, "t5", "ore"], ["quartz", 9, 5, 14, "t5", "ore"],
+  ["raw_gold", 20, 12, 30, "t5", "ore"], ["gold_ingot", 28, 16, 42, "t5", "ore"],
+  ["amethyst_shard", 10, 6, 15, "t6", "gem"], ["emerald", 90, 55, 135, "t6", "gem"], ["diamond", 120, 70, 180, "t6", "gem"],
+  ["sand", 3, 2, 5, "t7", "earth"], ["red_sand", 4, 2, 6, "t7", "earth"], ["clay_ball", 3, 2, 5, "t7", "earth"],
+  ["mud", 3, 2, 5, "t7", "earth"], ["hardened_clay", 5, 3, 8, "t7", "earth"],
+  ["netherrack", 1, 1, 2, "t8", "nether"], ["basalt", 3, 2, 5, "t8", "nether"], ["blackstone", 3, 2, 5, "t8", "nether"],
+  ["magma", 4, 2, 6, "t8", "nether"], ["glowstone_dust", 6, 3, 9, "t8", "nether"],
+  ["obsidian", 40, 25, 60, "t9", "nether"], ["crying_obsidian", 70, 42, 105, "t9", "nether"], ["ancient_debris", 300, 200, 450, "t9", "nether"],
+  ["end_stone", 6, 3, 9, "t10", "end"],
+  ["rotten_flesh", 2, 1, 3, "t1", "mob"], ["bone", 3, 2, 5, "t1", "mob"], ["string", 4, 2, 6, "t1", "mob"],
+  ["feather", 2, 1, 3, "t1", "mob"], ["leather", 4, 2, 6, "t1", "mob"], ["gunpowder", 8, 5, 12, "t1", "mob"],
+  ["ender_pearl", 25, 15, 38, "t1", "mob"], ["blaze_rod", 30, 18, 45, "t1", "mob"],
+  ["wheat", 3, 2, 5, "t1", "crop"], ["carrot", 2, 1, 3, "t1", "crop"], ["potato", 2, 1, 3, "t1", "crop"], ["beetroot", 2, 1, 3, "t1", "crop"],
+];
+
+// Biome Chest: each chest picks one biome the player's licenses allow, then rolls that biome's loot.
+export const BIOMES = [
+  { name: "Cherry Grove", loot: [["cherry_sapling", 20, 1, 3, "t2"], ["cherry_log", 15, 2, 5, "t2"], ["pink_petals", 15, 1, 4, "t2"], ["cherry_leaves", 12, 4, 8, "t2"], ["stick", 10, 2, 6, "t2"]] },
+  { name: "Mangrove Swamp", loot: [["mangrove_propagule", 20, 1, 3, "t2"], ["mangrove_log", 15, 2, 5, "t2"], ["mud", 15, 3, 8, "t7"], ["mangrove_leaves", 12, 4, 8, "t2"], ["stick", 10, 2, 6, "t2"]] },
+  { name: "Jungle", loot: [["jungle_sapling", 20, 1, 3, "t2"], ["jungle_log", 15, 2, 5, "t2"], ["cocoa_beans", 15, 2, 6, "t2"], ["melon_seeds", 12, 2, 6, "t2"], ["bamboo", 10, 4, 10, "t2"]] },
+  { name: "Dark Forest", loot: [["dark_oak_sapling", 20, 1, 3, "t2"], ["dark_oak_log", 15, 2, 5, "t2"], ["red_mushroom", 12, 1, 4, "t2"], ["brown_mushroom", 12, 1, 4, "t2"], ["dark_oak_leaves", 12, 4, 8, "t2"]] },
+  { name: "Savanna", loot: [["acacia_sapling", 20, 1, 3, "t2"], ["acacia_log", 15, 2, 5, "t2"], ["wheat_seeds", 15, 2, 6, "t1"], ["acacia_leaves", 12, 4, 8, "t2"], ["stick", 10, 2, 6, "t2"]] },
+  { name: "Taiga", loot: [["spruce_sapling", 20, 1, 3, "t2"], ["spruce_log", 15, 2, 5, "t2"], ["sweet_berries", 15, 2, 6, "t2"], ["spruce_leaves", 12, 4, 8, "t2"], ["stick", 10, 2, 6, "t2"]] },
+  { name: "Desert", loot: [["cactus", 20, 1, 3, "t3"], ["dead_bush", 15, 1, 3, "t3"], ["sugar_cane", 15, 2, 6, "t3"], ["sand", 12, 4, 10, "t7"], ["bamboo", 10, 2, 6, "t2"]] },
+  { name: "Pale Garden", loot: [["pale_oak_sapling", 20, 1, 3, "t3"], ["pale_oak_log", 15, 2, 5, "t3"], ["pale_moss_carpet", 12, 2, 6, "t3"], ["pale_oak_leaves", 12, 4, 8, "t3"]] },
+];
+
+// Natural Loot Contracts. loot = [item id, weight, min amount, max amount, required license].
+export const CONTRACTS = [
+  { id: "basic", name: "Basic Supply Chest", cost: 100, req: "t1", intervalMs: 300000, rolls: [3, 5], loot: [
+    ["dirt", 30, 3, 8, "t1"], ["wheat_seeds", 20, 1, 4, "t1"], ["bread", 10, 1, 2, "t1"], ["apple", 10, 1, 2, "t1"],
+    ["carrot", 8, 1, 3, "t1"], ["potato", 8, 1, 3, "t1"], ["oak_log", 20, 2, 5, "t2"], ["stick", 15, 2, 6, "t2"]] },
+  { id: "builder", name: "Builder's Chest", cost: 350, req: "t3", intervalMs: 450000, rolls: [3, 5], loot: [
+    ["cobblestone", 30, 8, 24, "t3"], ["stone", 15, 4, 12, "t3"], ["andesite", 10, 4, 10, "t3"], ["oak_log", 20, 4, 10, "t2"],
+    ["tuff", 12, 4, 12, "t3"], ["spruce_log", 10, 4, 10, "t2"], ["gravel", 8, 4, 12, "t3"], ["sandstone", 10, 4, 12, "t3"]] },
+  { id: "biome", name: "Biome Chest", cost: 600, req: "t2", intervalMs: 360000, rolls: [3, 5], loot: [], biomes: BIOMES },
+  { id: "miner", name: "Miner's Chest", cost: 900, req: "t4", intervalMs: 600000, rolls: [3, 5], loot: [
+    ["coal", 30, 4, 10, "t4"], ["raw_copper", 20, 3, 8, "t4"], ["raw_iron", 18, 2, 6, "t4"], ["raw_gold", 6, 1, 3, "t5"],
+    ["torch", 12, 4, 12, "t4"], ["iron_nugget", 10, 3, 9, "t4"]] },
+  { id: "treasure", name: "Treasure Chest", cost: 2500, req: "t5", intervalMs: 900000, rolls: [2, 3], loot: [
+    ["iron_ingot", 14, 3, 8, "t4"], ["redstone", 15, 4, 12, "t5"], ["lapis_lazuli", 14, 4, 10, "t5"], ["gold_ingot", 6, 2, 5, "t5"],
+    ["amethyst_shard", 10, 2, 6, "t6"], ["emerald", 3, 1, 3, "t6"], ["diamond", 3, 1, 2, "t6"]] },
+  { id: "sovereign", name: "Sovereign Chest", cost: 7500, req: "t8", intervalMs: 1200000, rolls: [3, 5], loot: [
+    ["gold_ingot", 14, 4, 10, "t5"], ["emerald", 10, 2, 4, "t6"], ["diamond", 8, 1, 3, "t6"], ["obsidian", 10, 2, 5, "t9"],
+    ["end_stone", 12, 8, 16, "t10"], ["blackstone", 8, 4, 12, "t8"], ["netherrack", 10, 8, 24, "t8"], ["ancient_debris", 1, 1, 1, "t9"]] },
+];
+
+export const nice = (id) => id.replace("minecraft:", "").split("_").map((w) => w[0].toUpperCase() + w.slice(1)).join(" ");
+
+// Dirt keeps at least this share of the OneBlock pool once any other license is owned.
+export const DIRT_SHARE = 0.25;
+// Loot and chest contents must never contain fluids, buckets, biome or structure items.
+export const LOOT_DENY = /bucket|water|lava|fluid|milk|honey|powder|snow|ice|structure|spawn_egg|command|barrier|firework|map|tnt|fire|portal|sponge|bedrock|shulker|jigsaw|debug|border|light_block|knowledge|allow|deny|reserved|moving|chalkboard|info_update|lightning|dragon_egg|mob_head|player_head|written|spawner|end_portal/;
+
+// Feature 5: contract upgrades (level 1 to 3). Each level adds one roll and cuts the wait time.
+export const UPGRADE_MAX = 3;
+export const UPGRADE_CUT = 0.2;
+
+// Feature 6: golden chests. [item id, min, max, required license]
+export const GOLDEN_CHANCE = 0.1;
+export const GOLDEN_LOOT = [
+  ["amethyst_shard", 2, 4, "t6"], ["gold_ingot", 2, 4, "t5"], ["diamond", 1, 2, "t6"], ["emerald", 1, 3, "t6"],
+];
+
+// Feature 9: achievements. Each grants coins once.
+export const ACHIEVEMENTS = [
+  { id: "first_diamond", name: "Diamond Drop", desc: "Mine a diamond from the OneBlock", reward: 50 },
+  { id: "first_contract", name: "Chest Hunter", desc: "Activate a Natural Loot Contract", reward: 50 },
+  { id: "sell_1000", name: "Market Regular", desc: "Sell 1,000 items", reward: 150 },
+  { id: "island_max", name: "Frontier Owner", desc: "Reach the largest island", reward: 300 },
+  { id: "all_licenses", name: "Sovereign Collector", desc: "Own every block license", reward: 500 },
+  { id: "tutorial", name: "Quick Learner", desc: "Finish the How to Play guide", reward: 25 },
+];
+
+// One-tap shop: only purchases at or above this many coins ask for a confirmation.
+export const BIG_CONFIRM = 2000;
+
+// Auto-Miner: permanent world-wide levels. step = ticks between OneBlock breaks (1 tick at the top level).
+// Each Minecraft day it runs AUTO_DAILY_TICKS (2 minutes) and then reports that it is exhausted.
+export const AUTO_LEVELS = [
+  { name: "Wooden", cost: 100, step: 10 },
+  { name: "Copper", cost: 400, step: 6 },
+  { name: "Iron", cost: 1500, step: 4 },
+  { name: "Gold", cost: 5000, step: 2 },
+  { name: "Diamond", cost: 15000, step: 1 },
+];
+export const AUTO_DAILY_TICKS = 2400;
+
+// Basic Supply Chest: chance per OneBlock break (times the contract level) that the OneBlock becomes a loot chest.
+export const BASIC_CHEST_CHANCE = 0.05;
+
+// How to Play guide shown from the Trader's Ledger. One page per screen, kept short for small displays.
+export const TUTORIAL_PAGES = [
+  { title: "Welcome", body: "Break the OneBlock in the middle of your island. It drops Dirt at first, and Dirt sells for 1 coin each in Sell Items.\n\nKeep mining: the OneBlock always gives you a new block. Every 100th break gives a bonus, and a gold block is a jackpot.\n\nYour Trader's Ledger is in hotbar slot 9. Use it any time to open this menu." },
+  { title: "Block Licenses", body: "Block Licenses add new blocks to the OneBlock. At the start it only makes Dirt.\n\nGood first buy: Tier 2: Woodland for 40 coins adds logs and leaves.\n\nEach tier unlocks more, and rare blocks stay rare." },
+  { title: "Selling Items", body: "You earn coins by selling items. Dirt, logs, stone and ores all sell in Sell Items.\n\nPrices move: the more you sell, the lower the price goes, and it recovers over time. Check Market Prices for goods in high demand." },
+  { title: "Loot Contracts", body: "Natural Loot Contracts bring you free loot chests. Loot only includes items your licenses allow.\n\nBasic Supply Chest makes the OneBlock itself turn into a chest now and then. The other contracts place chests on your island.\n\nEach contract can be upgraded up to level 3." },
+  { title: "Island & Auto-Miner", body: "Island permits make your build area bigger. You can only build and break blocks inside the permitted area. Your area is surrounded by a ring of polished deepslate just outside it. The island is shared by everyone in this world.\n\nThe Auto-Miner breaks the OneBlock for you for about 2 minutes per Minecraft day. Drops go into the chest above the OneBlock. Higher levels mine faster." },
+  { title: "Ready to Go", body: "That is everything you need.\n\nQuick plan: mine Dirt, buy Tier 2, sell logs, then save up for contracts and bigger tiers.\n\nCheck Achievements for bonus coins. Finish this guide now for the Quick Learner reward." },
+];
+
+// OneBlock extras (hand mining only; the Auto-Miner never triggers them).
+export const MILESTONE_EVERY = 100;      // every 100th hand break: coin bonus now plus a bonus loot chest next
+export const MILESTONE_COINS_PER_TIER = 25;
+export const JACKPOT_CHANCE = 0.01;      // chance per break that the next OneBlock is a gold block jackpot
+export const JACKPOT_MIN_PER_TIER = 20;  // payout = random 20..60 coins per owned tier
+export const JACKPOT_MAX_PER_TIER = 60;
+```
+
+## FILE: MCPEDL/Maps/Oneblock-SM/behavior_pack/scripts/game.js (647 lines, 30665 bytes)
+
+```
+import { world, system, BlockTypes, ItemStack } from "@minecraft/server";
+import { CORE, FLOOR_Y, CURRENCY, LICENSES, UNSAFE_BLOCK, ISLAND_LEVELS, CONTRACTS, MAX_CHESTS_PER_PLAYER, LEDGER_ID, nice, DIRT_SHARE, LOOT_DENY, BIOMES, ACHIEVEMENTS, GOLDEN_CHANCE, GOLDEN_LOOT, UPGRADE_MAX, UPGRADE_CUT, AUTO_LEVELS, AUTO_DAILY_TICKS, BASIC_CHEST_CHANCE, BORDER_BLOCK, MILESTONE_EVERY, MILESTONE_COINS_PER_TIER, JACKPOT_CHANCE, JACKPOT_MIN_PER_TIER, JACKPOT_MAX_PER_TIER } from "./config.js";
+import { loadPlayer, savePlayer, loadWorld, saveWorld, hasLic, canAfford, addCoins, spend, log, islandLevel, inBounds, ITEMS, quote, recordSale, highestTier } from "./store.js";
+
+const dimOf = () => world.getDimension("overworld");
+const rnd = (a, b) => a + Math.floor(Math.random() * (b - a + 1));
+const full = (id) => "minecraft:" + id;
+
+// ---- OneBlock core ----
+export const core = { armed: false, pending: false, jackpot: false };
+export const isCore = (b) => b.dimension.id === "minecraft:overworld" && b.x === CORE.x && b.y === CORE.y && b.z === CORE.z;
+export const isFoundation = (b) => b.dimension.id === "minecraft:overworld" && b.x === CORE.x && b.y === CORE.y - 1 && b.z === CORE.z;
+
+const validBlock = new Map();
+export function usable(id) {
+  if (!validBlock.has(id)) validBlock.set(id, !UNSAFE_BLOCK.test(id) && !!BlockTypes.get(id));
+  return validBlock.get(id);
+}
+
+export function poolFor(d) {
+  const pool = [];
+  for (const L of LICENSES) {
+    if (!hasLic(d, L.id)) continue;
+    for (const [b, w] of Object.entries(L.blocks)) {
+      if (usable(full(b)) && w > 0) pool.push([full(b), w]);
+    }
+  }
+  if (!pool.length) return [["minecraft:dirt", 1]];
+  // Dirt floor: keep Dirt at a minimum share so rarer blocks cannot crowd it out.
+  const i = pool.findIndex((e) => e[0] === "minecraft:dirt");
+  if (i >= 0) {
+    const others = pool.reduce((s, e, k) => (k === i ? s : s + e[1]), 0);
+    pool[i][1] = Math.max(pool[i][1], Math.ceil((others * DIRT_SHARE) / (1 - DIRT_SHARE)));
+  }
+  return pool;
+}
+
+export function pickBlock(pool) {
+  let r = Math.random() * pool.reduce((s, e) => s + e[1], 0);
+  for (const [id, w] of pool) { r -= w; if (r < 0) return id; }
+  return pool[0][0];
+}
+
+// auto = true when the Auto-Miner breaks the block: no jackpot and no milestone bonus, but chests still appear.
+export function regenerate(player, auto = false) {
+  const b = dimOf().getBlock(CORE);
+  if (!b) return false;
+  let d = null;
+  try { d = player ? loadPlayer(player) : null; } catch (e) { d = null; }
+  let id = pickBlock(d ? poolFor(d) : [["minecraft:dirt", 1]]);
+  core.jackpot = false;
+  let chest = false, bonus = false;
+  if (d && !auto && d.bonus) {
+    // Milestone reward: the next OneBlock is a bonus loot chest.
+    chest = true; bonus = true;
+    d.bonus = false;
+    savePlayer(player, d);
+  } else if (d && !auto && Math.random() < JACKPOT_CHANCE) {
+    id = "minecraft:gold_block";
+    core.jackpot = true;
+  } else if (d && d.con.includes("basic") && Math.random() < BASIC_CHEST_CHANCE * ((d.up && d.up.basic) || 1)) {
+    // Basic Supply Chest contract: the OneBlock sometimes turns into a loot chest instead of a block.
+    chest = true;
+  }
+  if (chest) id = "minecraft:chest";
+  try { b.setType(id); } catch (e) {
+    chest = false; bonus = false; core.jackpot = false;
+    try { b.setType("minecraft:dirt"); } catch (e2) { return false; }
+  }
+  if (chest) { try { fillOneBlockChest(b, d, bonus); } catch (e) { console.warn("[SovereignMarket] oneblock chest: " + e); } }
+  if (core.jackpot && player) { try { player.onScreenDisplay.setActionBar("\u00a76JACKPOT block! Break it for coins."); } catch (e) { /* ignore */ } }
+  core.armed = true;
+  core.pending = false;
+  return true;
+}
+
+// Fills a chest-shaped OneBlock. Bonus chests roll the loot of every contract the player's licenses allow.
+function fillOneBlockChest(block, d, bonus) {
+  let entries, rolls;
+  if (bonus) {
+    entries = CONTRACTS.flatMap((c) => c.loot).filter((x) => hasLic(d, x[4]) && BlockOrItemOk(x[0]));
+    rolls = rnd(6, 8);
+  } else {
+    const C = CONTRACTS.find((c) => c.id === "basic");
+    const lvl = (d.up && d.up.basic) || 1;
+    entries = C.loot.filter((x) => hasLic(d, x[4]) && BlockOrItemOk(x[0]));
+    rolls = rnd(C.rolls[0] + lvl - 1, C.rolls[1] + lvl - 1);
+  }
+  const cont = block.getComponent("minecraft:inventory")?.container;
+  if (!cont || !entries.length) return;
+  const total = entries.reduce((sum, e) => sum + e[1], 0);
+  for (let r = 0; r < rolls; r++) {
+    let pick = Math.random() * total, e = entries[0];
+    for (const c of entries) { pick -= c[1]; if (pick < 0) { e = c; break; } }
+    const slot = rnd(0, cont.size - 1);
+    if (cont.getItem(slot)) continue;
+    cont.setItem(slot, new ItemStack(full(e[0]), rnd(e[2], e[3])));
+  }
+}
+
+// Recovery: re-arm after reloads, regenerate if the core vanished (only once a player finished setup).
+export function coreWatch() {
+  const ready = world.getAllPlayers().some((p) => p.hasTag("void_cleaned") && p.dimension.id === "minecraft:overworld");
+  if (!ready) return;
+  const b = dimOf().getBlock(CORE);
+  if (!b) return;
+  if (!b.isAir) { core.armed = true; core.pending = false; return; }
+  if (!core.pending) {
+    core.pending = true;
+    system.run(() => {
+      let ok = false;
+      try { ok = regenerate(null); } catch (e) { console.warn("[SovereignMarket] regenerate: " + e); }
+      if (!ok) core.pending = false;
+    });
+  }
+}
+
+
+// ---- Auto-Miner (permanent levels, 2 minutes per Minecraft day) ----
+const currentDay = () => world.getDay();
+
+// Cached record: undefined = not loaded yet, null = not owned. The per-tick check reads only this variable.
+let autoCache;
+let autoWait = 0; // ticks since the last Auto-Miner break; a missed break is retried on the next tick
+function autoState() {
+  if (autoCache === undefined) {
+    const a = loadWorld().autoMine;
+    autoCache = a && a.lvl ? a : null;
+  }
+  return autoCache;
+}
+function persistAuto() {
+  const w = loadWorld();
+  w.autoMine = autoCache || null;
+  saveWorld(w);
+}
+function rolloverAuto(a) {
+  const day = currentDay();
+  if (a.day === day) return;
+  a.day = day; a.used = 0; a.msg = false; a.full = false;
+  persistAuto();
+}
+
+export function autoStatus() {
+  const a = autoState();
+  if (a) rolloverAuto(a);
+  const level = a ? a.lvl : 0;
+  const used = a ? a.used || 0 : 0;
+  return {
+    level,
+    on: !!a && a.on !== false,
+    step: level ? AUTO_LEVELS[level - 1].step : 0,
+    next: AUTO_LEVELS[level] || null,
+    leftSecs: Math.ceil(Math.max(0, AUTO_DAILY_TICKS - used) / 20),
+  };
+}
+
+export function buyAutoLevel(p) {
+  const a = autoState();
+  const level = a ? a.lvl : 0;
+  const nxt = AUTO_LEVELS[level];
+  if (!nxt) return { ok: false, msg: "The Auto-Miner is already at the maximum level." };
+  const d = loadPlayer(p);
+  if (!spend(d, nxt.cost)) return { ok: false, msg: "Not enough " + CURRENCY + ". You need " + nxt.cost + ", you have " + d.coins + "." };
+  autoCache = { lvl: level + 1, on: a ? a.on !== false : true, day: a ? a.day : currentDay(), used: a ? a.used || 0 : 0, msg: a ? !!a.msg : false, full: false };
+  log(d, "Bought " + nxt.name + " Auto-Miner for " + nxt.cost);
+  savePlayer(p, d);
+  persistAuto();
+  return { ok: true, msg: nxt.name + " Auto-Miner ready: it breaks the OneBlock every " + nxt.step + " tick" + (nxt.step === 1 ? "" : "s") + ", about 2 minutes per Minecraft day. Balance: " + d.coins + " " + CURRENCY };
+}
+
+export function toggleAuto(p) {
+  const a = autoState();
+  if (!a) return { ok: false, msg: "You do not own the Auto-Miner yet." };
+  a.on = a.on === false;
+  persistAuto();
+  if (a.on) {
+    // Break the OneBlock right away so the player sees it start.
+    rolloverAuto(a);
+    // The instant break uses the same daily time as a normal break, so toggling cannot give free breaks.
+    if ((a.used || 0) < AUTO_DAILY_TICKS) {
+      let broke = false;
+      try { broke = mineOnce(p, a, true); } catch (e) { /* ignore */ }
+      if (broke) {
+        autoWait = 0;
+        a.used = Math.min(AUTO_DAILY_TICKS, (a.used || 0) + AUTO_LEVELS[a.lvl - 1].step);
+        persistAuto();
+      }
+    }
+  }
+  return { ok: true, msg: "Auto-Miner is now " + (a.on ? "ON" : "OFF") + "." };
+}
+
+const AUTO_DROPS = {
+  "minecraft:grass_block": "minecraft:dirt", "minecraft:coal_ore": "minecraft:coal", "minecraft:deepslate_coal_ore": "minecraft:coal",
+  "minecraft:copper_ore": "minecraft:raw_copper", "minecraft:deepslate_copper_ore": "minecraft:raw_copper",
+  "minecraft:iron_ore": "minecraft:raw_iron", "minecraft:deepslate_iron_ore": "minecraft:raw_iron",
+  "minecraft:gold_ore": "minecraft:raw_gold", "minecraft:deepslate_gold_ore": "minecraft:raw_gold",
+  "minecraft:redstone_ore": "minecraft:redstone", "minecraft:deepslate_redstone_ore": "minecraft:redstone",
+  "minecraft:lapis_ore": "minecraft:lapis_lazuli", "minecraft:deepslate_lapis_ore": "minecraft:lapis_lazuli",
+  "minecraft:diamond_ore": "minecraft:diamond", "minecraft:deepslate_diamond_ore": "minecraft:diamond",
+  "minecraft:emerald_ore": "minecraft:emerald", "minecraft:deepslate_emerald_ore": "minecraft:emerald",
+  "minecraft:quartz_ore": "minecraft:quartz", "minecraft:glowstone": "minecraft:glowstone_dust",
+  "minecraft:stone": "minecraft:cobblestone", "minecraft:deepslate": "minecraft:cobbled_deepslate", "minecraft:clay": "minecraft:clay_ball",
+  "minecraft:melon_block": "minecraft:melon_slice", "minecraft:nether_gold_ore": "minecraft:gold_nugget", "minecraft:mycelium": "minecraft:dirt",
+  "minecraft:red_mushroom_block": "minecraft:red_mushroom", "minecraft:brown_mushroom_block": "minecraft:brown_mushroom"
+};
+
+function storeAutoDrop(container, blockId) {
+  let stack;
+  try { stack = new ItemStack(AUTO_DROPS[blockId] || blockId, 1); } catch (e) { return true; } // no item form: skip it so the miner never stalls
+  for (let i = 0; i < container.size; i++) {
+    const old = container.getItem(i);
+    if (old && old.typeId === stack.typeId && old.amount < old.maxAmount) {
+      const moved = Math.min(stack.amount, old.maxAmount - old.amount);
+      old.amount += moved;
+      stack.amount -= moved;
+      container.setItem(i, old);
+      if (stack.amount <= 0) return true;
+    }
+  }
+  for (let i = 0; i < container.size; i++) {
+    if (!container.getItem(i)) { container.setItem(i, stack); return true; }
+  }
+  return false;
+}
+
+// Moves everything from a chest-shaped OneBlock into the collection chest. False if the collection chest is full.
+function moveChestLoot(coreBlock, dest) {
+  const inv = coreBlock.getComponent("minecraft:inventory")?.container;
+  if (!inv) return true;
+  for (let i = 0; i < inv.size; i++) {
+    const it = inv.getItem(i);
+    if (!it) continue;
+    const left = dest.addItem(it);
+    inv.setItem(i, left);
+    if (left) return false;
+  }
+  return true;
+}
+
+// Break animation: a real "destroy" setblock plays the crack particles and sound. Its item drops are removed,
+// because what the OneBlock held was already stored in the collection chest.
+function breakEffect(dim) {
+  try { dim.runCommand("setblock " + CORE.x + " " + CORE.y + " " + CORE.z + " air destroy"); } catch (e) { return; }
+  const sweep = () => {
+    try {
+      for (const e of dim.getEntities({ type: "minecraft:item", location: { x: CORE.x + 0.5, y: CORE.y + 0.5, z: CORE.z + 0.5 }, maxDistance: 1.5 })) e.remove();
+    } catch (e) { /* ignore */ }
+  };
+  sweep();
+  system.run(sweep);
+}
+
+let lastHint = -1000;
+function hint(player, text) {
+  if (system.currentTick - lastHint < 100) return;
+  lastHint = system.currentTick;
+  try { player.onScreenDisplay.setActionBar("\u00a7c" + text); player.sendMessage("\u00a7c" + text); } catch (e) { /* ignore */ }
+}
+
+function mineOnce(player, a, fx) {
+  if (core.pending) return; // works on whatever block is at the OneBlock position, no earlier hand break needed
+  const dim = dimOf();
+  let chestBlock = dim.getBlock({ x: CORE.x, y: CORE.y + 1, z: CORE.z });
+  if (!chestBlock) return;
+  if (chestBlock.typeId !== "minecraft:chest") {
+    if (!chestBlock.isAir) { hint(player, "Auto-Miner: the block above the OneBlock must be empty so the collection chest can go there. Remove it."); return; }
+    try { chestBlock.setType("minecraft:chest"); } catch (e) { return; }
+    chestBlock = dim.getBlock({ x: CORE.x, y: CORE.y + 1, z: CORE.z });
+  }
+  const container = chestBlock?.getComponent("minecraft:inventory")?.container;
+  const coreBlock = dim.getBlock(CORE);
+  if (!container || !coreBlock || coreBlock.isAir) return;
+  const stored = coreBlock.typeId === "minecraft:chest" ? moveChestLoot(coreBlock, container) : storeAutoDrop(container, coreBlock.typeId);
+  if (!stored) {
+    if (!a.full) {
+      a.full = true;
+      persistAuto();
+      try { player.sendMessage("Auto-Miner paused: the collection chest above the OneBlock is full. Empty it to resume."); } catch (e) { /* ignore */ }
+    }
+    return;
+  }
+  a.full = false;
+  core.armed = false;
+  core.pending = true;
+  if (fx) breakEffect(dim);
+  if (!regenerate(player, true)) { core.pending = false; return false; }
+  return true;
+}
+
+function announceExhausted(player, a) {
+  a.msg = true;
+  persistAuto();
+  try {
+    player.sendMessage("\u00a7cAuto-mining is exhausted. It recharges when the next Minecraft day begins.");
+    player.onScreenDisplay.setActionBar("\u00a7cAuto-mining exhausted");
+  } catch (e) { /* ignore */ }
+}
+
+export function autoMineTick() {
+  const a = autoState();
+  if (!a || a.on === false) return; // idle: no world read, no player scan
+  rolloverAuto(a);
+  if ((a.used || 0) >= AUTO_DAILY_TICKS && a.msg) return;
+  // Any player in the Overworld is enough: the miner works on whatever OneBlock is there, no setup tag needed.
+  const player = world.getAllPlayers().find((p) => p.dimension.id === "minecraft:overworld");
+  if (!player) return;
+  if ((a.used || 0) >= AUTO_DAILY_TICKS) { announceExhausted(player, a); return; }
+  if (a.full) {
+    // Paused because the collection chest is full: mining time does not run, and the next break happens the moment there is room.
+    if (mineOnce(player, a, true)) autoWait = 0;
+    return;
+  }
+  a.used = (a.used || 0) + 1;
+  if (a.used % 20 === 0) persistAuto();
+  const step = AUTO_LEVELS[a.lvl - 1].step;
+  if (a.used % 10 === 1) { try { player.onScreenDisplay.setActionBar("\u00a7b" + AUTO_LEVELS[a.lvl - 1].name + " Auto-Miner   " + Math.ceil((AUTO_DAILY_TICKS - a.used) / 20) + "s left"); } catch (e) { /* ignore */ } }
+  // Every break plays the block-destroy effect.
+  autoWait++;
+  if (autoWait >= step && mineOnce(player, a, true)) autoWait = 0;
+  if (a.used >= AUTO_DAILY_TICKS) announceExhausted(player, a);
+}
+
+// ---- Wallet ----
+// Called for every hand break of the OneBlock. Dirt no longer pays: items are sold at the market.
+// Handles the jackpot block and the milestone bonus.
+export function onHandBreak(p, typeId) {
+  const d = loadPlayer(p);
+  d.mined += 1;
+  const tier = highestTier(d);
+  const notes = [];
+  if (core.jackpot && typeId === "minecraft:gold_block") {
+    const amt = rnd(JACKPOT_MIN_PER_TIER * tier, JACKPOT_MAX_PER_TIER * tier);
+    addCoins(d, amt);
+    log(d, "Jackpot block: +" + amt);
+    notes.push("\u00a76JACKPOT! +" + amt + " " + CURRENCY);
+  }
+  if (d.mined % MILESTONE_EVERY === 0) {
+    const c = MILESTONE_COINS_PER_TIER * tier;
+    addCoins(d, c);
+    d.bonus = true;
+    log(d, "Milestone " + d.mined + " breaks: +" + c);
+    notes.push("\u00a7aMilestone: " + d.mined + " breaks! +" + c + " " + CURRENCY + ". Your next OneBlock is a bonus chest.");
+  }
+  savePlayer(p, d);
+  for (const n of notes) { try { p.sendMessage(n); p.onScreenDisplay.setActionBar(n); } catch (e) { /* ignore */ } }
+}
+
+// Has this player finished the mandatory How to Play guide?
+export const tutorialDone = (p, d) => !!d.tutDone || (d.ach || []).includes("tutorial") || p.hasTag("tutorial_done");
+
+// ---- Licenses ----
+export function buyLicense(p, id) {
+  const L = LICENSES.find((x) => x.id === id);
+  const d = loadPlayer(p);
+  if (!L || L.cost <= 0) return { ok: false, msg: "That license cannot be purchased." };
+  if (hasLic(d, id)) return { ok: false, msg: "You already own " + L.name + "." };
+  if (L.req && !hasLic(d, L.req)) return { ok: false, msg: "Requires " + LICENSES.find((x) => x.id === L.req).name + " first." };
+  if (!spend(d, L.cost)) return { ok: false, msg: "Not enough " + CURRENCY + ". You need " + L.cost + ", you have " + d.coins + "." };
+  d.lic.push(id);
+  log(d, "Bought " + L.name + " for " + L.cost);
+  if (d.lic.length >= LICENSES.length) grantAch(p, d, "all_licenses");
+  savePlayer(p, d);
+  return { ok: true, msg: "License purchased: " + L.name + ". Its blocks can now appear at the OneBlock. Balance: " + d.coins + " " + CURRENCY };
+}
+
+// ---- Selling ----
+const plain = (it) => !it.nameTag && it.getLore().length === 0;
+export function inventoryCounts(p) {
+  const c = p.getComponent("minecraft:inventory").container;
+  const m = new Map();
+  for (let i = 0; i < c.size; i++) {
+    const it = c.getItem(i);
+    if (it && ITEMS.has(it.typeId) && plain(it)) m.set(it.typeId, (m.get(it.typeId) || 0) + it.amount);
+  }
+  return m;
+}
+function removeItems(p, id, qty) {
+  const c = p.getComponent("minecraft:inventory").container;
+  let left = qty;
+  for (let i = 0; i < c.size && left > 0; i++) {
+    const it = c.getItem(i);
+    if (!it || it.typeId !== id || !plain(it)) continue;
+    const take = Math.min(left, it.amount);
+    if (take === it.amount) c.setItem(i, undefined);
+    else { it.amount -= take; c.setItem(i, it); }
+    left -= take;
+  }
+  return qty - left;
+}
+export function sell(p, id, qty) {
+  const it = ITEMS.get(id);
+  const d = loadPlayer(p);
+  if (!it) return { ok: false, msg: "The market does not buy that item." };
+  if (!hasLic(d, it.lic)) return { ok: false, msg: "You need " + LICENSES.find((l) => l.id === it.lic).name + " to trade this item." };
+  if (!Number.isSafeInteger(qty) || qty < 1) return { ok: false, msg: "Invalid quantity." };
+  const have = inventoryCounts(p).get(id) || 0;
+  if (have < qty) return { ok: false, msg: "You only have " + have + " of that item now. Nothing was sold." };
+  const removed = removeItems(p, id, qty);
+  if (removed < 1) return { ok: false, msg: "Could not remove items. Nothing was sold." };
+  const w = loadWorld();
+  const q = quote(w, id, removed);
+  const before = q.unit;
+  addCoins(d, q.total);
+  recordSale(w, id, removed);
+  const after = quote(w, id, 1).unit;
+  log(d, "Sold " + removed + " " + nice(id) + " for " + q.total);
+  d.sold = (d.sold || 0) + removed;
+  if (d.sold >= 1000) grantAch(p, d, "sell_1000");
+  savePlayer(p, d);
+  saveWorld(w);
+  return { ok: true, msg: "Receipt: sold " + removed + " " + nice(id) + " for " + q.total + " " + CURRENCY + ".\nMarket price: " + Math.round(before * 10) / 10 + " -> " + Math.round(after * 10) / 10 + " each.\nBalance: " + d.coins + " " + CURRENCY };
+}
+
+// ---- Island expansion ----
+export function buyIsland(p, targetIdx) {
+  const w = loadWorld();
+  const d = loadPlayer(p);
+  const cur = Math.min(Math.max(0, w.lvl | 0), ISLAND_LEVELS.length - 1);
+  if (targetIdx !== cur + 1 || !ISLAND_LEVELS[targetIdx]) return { ok: false, msg: "That permit is no longer available. Nothing was charged." };
+  const N = ISLAND_LEVELS[targetIdx];
+  const O = ISLAND_LEVELS[cur];
+  if (!canAfford(d, N.cost)) return { ok: false, msg: "Not enough " + CURRENCY + ". You need " + N.cost + ", you have " + d.coins + "." };
+  const dim = dimOf();
+  // Every block of the new border must be loaded, or the ring would be drawn only in part after the coins are taken.
+  for (let i = N.min - 1; i <= N.max + 1; i++) {
+    if (![[i, N.min - 1], [i, N.max + 1], [N.min - 1, i], [N.max + 1, i]].every(([x, z]) => dim.getBlock({ x, y: FLOOR_Y, z }))) return { ok: false, msg: "The new area is not loaded. Stand near the OneBlock and try again. Nothing was charged." };
+  }
+  // Only the border is drawn: the old border is removed and a new ring is placed just outside the new area.
+  // Nothing inside the area is filled, so players build their own land.
+  // o = 1 gives the ring just outside the permitted area, where players cannot break or place blocks.
+  const edges = (L, o = 0) => { const lo = L.min - o, hi = L.max + o; return [[lo, lo, hi, lo], [lo, hi, hi, hi], [lo, lo + 1, lo, hi - 1], [hi, lo + 1, hi, hi - 1]]; };
+  for (const [x1, z1, x2, z2] of [...edges(O), ...edges(O, 1)]) {
+    try { dim.runCommand("fill " + x1 + " " + FLOOR_Y + " " + z1 + " " + x2 + " " + FLOOR_Y + " " + z2 + " air replace " + BORDER_BLOCK); } catch (e) { /* no old border here */ }
+  }
+  for (const [x1, z1, x2, z2] of edges(N, 1)) {
+    for (const under of ["air", "grass_block"]) {
+      try { dim.runCommand("fill " + x1 + " " + FLOOR_Y + " " + z1 + " " + x2 + " " + FLOOR_Y + " " + z2 + " " + BORDER_BLOCK + " replace " + under); } catch (e) { /* nothing to replace */ }
+    }
+  }
+  spend(d, N.cost);
+  w.lvl = targetIdx;
+  log(d, "Bought " + N.name + " (" + N.size + "x" + N.size + ") for " + N.cost);
+  if (targetIdx === ISLAND_LEVELS.length - 1) grantAch(p, d, "island_max");
+  savePlayer(p, d);
+  saveWorld(w);
+  return { ok: true, msg: N.name + " granted. Your island may now be built on up to " + N.size + " x " + N.size + " blocks around the OneBlock. Balance: " + d.coins + " " + CURRENCY };
+}
+
+// ---- Loot contracts ----
+export function buyContract(p, id) {
+  const C = CONTRACTS.find((c) => c.id === id);
+  const d = loadPlayer(p);
+  if (!C) return { ok: false, msg: "Unknown contract." };
+  if (d.con.includes(id)) return { ok: false, msg: C.name + " is already active. You were not charged." };
+  if (!hasLic(d, C.req)) return { ok: false, msg: "Requires " + LICENSES.find((l) => l.id === C.req).name + "." };
+  if (!spend(d, C.cost)) return { ok: false, msg: "Not enough " + CURRENCY + ". You need " + C.cost + ", you have " + d.coins + "." };
+  d.con.push(id);
+  log(d, "Activated " + C.name + " for " + C.cost);
+  grantAch(p, d, "first_contract");
+  savePlayer(p, d);
+  nextAt.set(p.id + ":" + id, Date.now() + C.intervalMs);
+  return { ok: true, msg: C.name + " is active. Chests will appear on your island over time. Balance: " + d.coins + " " + CURRENCY };
+}
+export function cancelContract(p, id) {
+  const d = loadPlayer(p);
+  if (!d.con.includes(id)) return { ok: false, msg: "That contract is not active." };
+  d.con = d.con.filter((c) => c !== id);
+  log(d, "Cancelled " + CONTRACTS.find((c) => c.id === id).name);
+  savePlayer(p, d);
+  return { ok: true, msg: "Contract cancelled. No refund is issued." };
+}
+
+const nextAt = new Map();
+function trySpawn(p, C, d) {
+  const dim = dimOf();
+  const w = loadWorld();
+  // Drop records for chests that no longer exist; keep records whose area is unloaded.
+  w.chests = w.chests.filter((r) => { const b = dim.getBlock({ x: r.x, y: r.y, z: r.z }); return !b || b.typeId === "minecraft:chest"; });
+  if (w.chests.filter((r) => r.o === p.id).length >= MAX_CHESTS_PER_PLAYER) { saveWorld(w); return false; }
+  const L = ISLAND_LEVELS[islandLevel()];
+  const options = (C.biomes ? C.biomes : [{ name: C.name, loot: C.loot }]).map((b) => ({ b, e: b.loot.filter((x) => hasLic(d, x[4]) && BlockOrItemOk(x[0])) })).filter((o) => o.e.length);
+  if (!options.length) return false;
+  const pick = options[rnd(0, options.length - 1)];
+  const entries = pick.e;
+  const label = C.biomes ? pick.b.name + " Biome Chest" : C.name;
+  for (let t = 0; t < 40; t++) {
+    const x = rnd(L.min, L.max), z = rnd(L.min, L.max);
+    if (x === CORE.x && z === CORE.z) continue;
+    const floor = dim.getBlock({ x, y: FLOOR_Y, z });
+    const spot = dim.getBlock({ x, y: FLOOR_Y + 1, z });
+    const above = dim.getBlock({ x, y: FLOOR_Y + 2, z });
+    if (!floor || !spot || !above) continue;
+    if (floor.isAir || floor.isLiquid || floor.typeId === "minecraft:bedrock" || !spot.isAir || !above.isAir) continue;
+    if (nearLiquid(dim, x, FLOOR_Y + 1, z)) continue;
+    if (w.chests.some((r) => r.x === x && r.z === z)) continue;
+    spot.setType("minecraft:chest");
+    const cont = spot.getComponent("minecraft:inventory").container;
+    const lvl = (d.up && d.up[C.id]) || 1;
+    const rolls = rnd(C.rolls[0] + lvl - 1, C.rolls[1] + lvl - 1);
+    const total = entries.reduce((s, e) => s + e[1], 0);
+    for (let r = 0; r < rolls; r++) {
+      let pick = Math.random() * total, e = entries[0];
+      for (const c of entries) { pick -= c[1]; if (pick < 0) { e = c; break; } }
+      const slot = rnd(0, cont.size - 1);
+      if (cont.getItem(slot)) continue;
+      cont.setItem(slot, new ItemStack(full(e[0]), rnd(e[2], e[3])));
+    }
+    const golden = Math.random() < GOLDEN_CHANCE;
+    if (golden) {
+      const gl = GOLDEN_LOOT.filter((x) => hasLic(d, x[3]));
+      if (gl.length) {
+        const pick2 = gl[rnd(0, gl.length - 1)];
+        for (let s = 0; s < cont.size; s++) {
+          if (!cont.getItem(s)) { cont.setItem(s, new ItemStack(full(pick2[0]), rnd(pick2[1], pick2[2]))); break; }
+        }
+      }
+    }
+    w.chests.push({ x, y: FLOOR_Y + 1, z, o: p.id, c: C.id, g: golden ? 1 : 0 });
+    saveWorld(w);
+    p.sendMessage((golden ? "Golden " : "") + label + " has appeared on your island at " + x + ", " + (FLOOR_Y + 1) + ", " + z + ".");
+    return true;
+  }
+  saveWorld(w);
+  return false;
+}
+const itemOk = new Map();
+function BlockOrItemOk(id) {
+  if (!itemOk.has(id)) { let ok = true; try { new ItemStack(full(id), 1); } catch (e) { ok = false; } itemOk.set(id, ok && !UNSAFE_BLOCK.test(id) && !LOOT_DENY.test(id)); }
+  return itemOk.get(id);
+}
+
+export function contractTick() {
+  const now = Date.now();
+  for (const p of world.getAllPlayers()) {
+    if (p.dimension.id !== "minecraft:overworld" || !p.hasTag("void_cleaned")) continue;
+    const d = loadPlayer(p);
+    for (const id of d.con) {
+      const C = CONTRACTS.find((c) => c.id === id);
+      if (!C || id === "basic") continue; // Basic Supply Chest lives inside the OneBlock pool, not on a timer
+      const key = p.id + ":" + id;
+      if (!nextAt.has(key)) nextAt.set(key, now + intervalFor(d, C));
+      if (now >= nextAt.get(key)) {
+        nextAt.set(key, now + intervalFor(d, C));
+        try { trySpawn(p, C, d); } catch (e) { console.warn("[SovereignMarket] chest spawn failed: " + e); }
+      }
+    }
+  }
+}
+
+// ---- Ledger item: always kept in the last hotbar slot (slot 9) ----
+export const LEDGER_SLOT = 8;
+export function ensureLedger(p) {
+  const c = p.getComponent("minecraft:inventory").container;
+  // Remove any extra ledgers from other slots (only one is allowed).
+  for (let i = 0; i < c.size; i++) {
+    if (i === LEDGER_SLOT) continue;
+    const it = c.getItem(i);
+    if (it && it.typeId === LEDGER_ID) c.setItem(i, undefined);
+  }
+  const cur = c.getItem(LEDGER_SLOT);
+  if (cur && cur.typeId === LEDGER_ID) {
+    if (cur.amount !== 1) { cur.amount = 1; c.setItem(LEDGER_SLOT, cur); }
+    return;
+  }
+  // Move whatever occupies slot 9 out of the way, without deleting it.
+  if (cur) {
+    let empty = -1;
+    for (let i = 0; i < c.size; i++) if (!c.getItem(i)) { empty = i; break; }
+    if (empty >= 0) c.setItem(empty, cur);
+    else p.dimension.spawnItem(cur, p.location);
+  }
+  c.setItem(LEDGER_SLOT, new ItemStack(LEDGER_ID, 1));
+}
+
+// Removes ledgers lying on the ground near a player, so a thrown ledger never duplicates.
+export function clearDroppedLedgers(p) {
+  try {
+    for (const e of p.dimension.getEntities({ type: "minecraft:item", location: p.location, maxDistance: 8 })) {
+      const s = e.getComponent("minecraft:item") && e.getComponent("minecraft:item").itemStack;
+      if (s && s.typeId === LEDGER_ID) e.remove();
+    }
+  } catch (e) { /* ignore */ }
+}
+
+// True if any block in the 3x3x3 box is liquid or unloaded. Chests never spawn beside water or lava.
+function nearLiquid(dim, x, y, z) {
+  for (let dx = -1; dx <= 1; dx++) for (let dy = -1; dy <= 1; dy++) for (let dz = -1; dz <= 1; dz++) {
+    const b = dim.getBlock({ x: x + dx, y: y + dy, z: z + dz });
+    if (!b || b.isLiquid) return true;
+  }
+  return false;
+}
+
+// Startup audit: logs every loot id and license block that the game does not recognize, so typos are visible.
+export function auditLoot() {
+  const bad = new Set();
+  for (const C of CONTRACTS) for (const e of C.loot) if (!BlockOrItemOk(e[0])) bad.add("loot:" + e[0]);
+  for (const B of BIOMES) for (const e of B.loot) if (!BlockOrItemOk(e[0])) bad.add("biome:" + e[0]);
+  for (const L of LICENSES) for (const b of Object.keys(L.blocks)) if (!usable("minecraft:" + b)) bad.add("block:" + b);
+  if (bad.size) console.warn("[SovereignMarket] skipped unknown ids: " + [...bad].join(", "));
+  else console.warn("[SovereignMarket] loot and block ids all recognized");
+}
+
+// Removes stray liquid from the permitted island area (replace only; never touches other blocks).
+// Works in stripes of 32 rows so every fill stays under the fill command's 32,768 block cap on any island size.
+export function sweepLiquids() {
+  const L = ISLAND_LEVELS[islandLevel()];
+  const dim = dimOf();
+  for (const f of ["flowing_water", "water", "flowing_lava", "lava"]) {
+    for (let z = L.min; z <= L.max; z += 32) {
+      const z2 = Math.min(L.max, z + 31);
+      try { dim.runCommand("fill " + L.min + " 0 " + z + " " + L.max + " 4 " + z2 + " air replace " + f); } catch (e) { /* none found */ }
+    }
+  }
+}
+
+// ---- Feature 5: contract upgrades ----
+export const intervalFor = (d, C) => Math.round(C.intervalMs * (1 - UPGRADE_CUT * (((d.up && d.up[C.id]) || 1) - 1)));
+export function upgradeCost(C, lvl) { return Math.round(C.cost * 0.5 * (lvl + 1)); }
+export function upgradeContract(p, id) {
+  const C = CONTRACTS.find((c) => c.id === id);
+  const d = loadPlayer(p);
+  if (!C || !d.con.includes(id)) return { ok: false, msg: "That contract is not active." };
+  const lvl = (d.up && d.up[id]) || 1;
+  if (lvl >= UPGRADE_MAX) return { ok: false, msg: C.name + " is already at the maximum level." };
+  const cost = upgradeCost(C, lvl);
+  if (!spend(d, cost)) return { ok: false, msg: "Not enough " + CURRENCY + ". You need " + cost + ", you have " + d.coins + "." };
+  d.up = { ...(d.up || {}), [id]: lvl + 1 };
+  log(d, "Upgraded " + C.name + " to level " + (lvl + 1) + " for " + cost);
+  savePlayer(p, d);
+  return { ok: true, msg: C.name + " is now level " + (lvl + 1) + ". Balance: " + d.coins + " " + CURRENCY };
+}
+
+// ---- Feature 9: achievements ----
+export function grantAch(p, d, id) {
+  if (!d.ach) d.ach = [];
+  if (d.ach.includes(id)) return;
+  const A = ACHIEVEMENTS.find((a) => a.id === id);
+  if (!A) return;
+  d.ach.push(id);
+  addCoins(d, A.reward);
+  log(d, "Achievement: " + A.name + " (+" + A.reward + ")");
+  try { p.sendMessage("\u00a7aAchievement unlocked: " + A.name + " (+" + A.reward + " " + CURRENCY + ")"); } catch (e) { /* player left */ }
+}
+```
+
+## FILE: MCPEDL/Maps/Oneblock-SM/behavior_pack/scripts/main.js (185 lines, 8720 bytes)
+
+```
+import { world, system } from "@minecraft/server";
+import { LEDGER_ID, CORE } from "./config.js";
+import { inBounds, loadWorld, ITEMS, snapshot, loadPlayer, savePlayer } from "./store.js";
+import { core, isCore, isFoundation, regenerate, coreWatch, onHandBreak, tutorialDone, contractTick, ensureLedger, auditLoot, sweepLiquids, grantAch, clearDroppedLedgers, autoMineTick } from "./game.js";
+import { openLedger, runTutorial } from "./ui.js";
+
+// Each subscription is isolated so one unsupported event cannot stop the rest of the add-on.
+function on(label, fn) {
+  try { fn(); } catch (e) { console.warn("[SovereignMarket] could not subscribe " + label + ": " + e); }
+}
+
+const lastWarn = new Map();
+const PLOT_MSG = "Plot not owned. You can only build inside your island area. Buy the next permit at the Trader's Ledger.";
+const warn = (p, msg) => {
+  const t = Date.now();
+  if (t - (lastWarn.get(p.id) || 0) < 1500) return;
+  lastWarn.set(p.id, t);
+  system.run(() => {
+    try {
+      p.onScreenDisplay.setTitle("\u00a7cPlot not owned", { subtitle: "Buy the next permit at the Trader's Ledger", fadeInDuration: 4, stayDuration: 50, fadeOutDuration: 10 });
+      p.sendMessage("\u00a7c" + msg);
+    } catch (e) { /* ignore */ }
+  });
+};
+
+// Mandatory How to Play guide: until it is finished the player cannot move, build, break or open the Ledger.
+const tutLocked = new Set();
+const tutSession = new Set();
+const unlocked = new Set();
+function setMove(p, enabled) {
+  try { p.runCommand("inputpermission set @s movement " + (enabled ? "enabled" : "disabled")); } catch (e) { /* command unavailable */ }
+}
+
+on("itemUse", () => world.afterEvents.itemUse.subscribe((ev) => {
+  if (tutLocked.has(ev.source.id)) return;
+  if (ev.itemStack && ev.itemStack.typeId === LEDGER_ID) openLedger(ev.source);
+}));
+
+on("playerBreakBlock (after)", () => world.afterEvents.playerBreakBlock.subscribe((ev) => {
+  if (!isCore(ev.block) || !core.armed) return;
+  core.armed = false;
+  core.pending = true;
+  const player = ev.player;
+  try {
+    onHandBreak(player, ev.brokenBlockPermutation.type.id);
+    if (/diamond_ore$/.test(ev.brokenBlockPermutation.type.id)) {
+      const dd = loadPlayer(player);
+      grantAch(player, dd, "first_diamond");
+      savePlayer(player, dd);
+    }
+  } catch (e) { console.warn("[SovereignMarket] break reward: " + e); }
+  system.run(() => {
+    let ok = false;
+    try { ok = regenerate(player); } catch (e) { console.warn("[SovereignMarket] regenerate: " + e); }
+    if (!ok) core.pending = false;
+  });
+}));
+
+on("playerBreakBlock (before)", () => world.beforeEvents.playerBreakBlock.subscribe((ev) => {
+  if (tutLocked.has(ev.player.id)) { ev.cancel = true; return; }
+  const b = ev.block;
+  if (isFoundation(b)) { ev.cancel = true; return; }
+  if (b.dimension.id === "minecraft:overworld" && !inBounds(b.x, b.z)) { ev.cancel = true; warn(ev.player, PLOT_MSG); }
+}));
+
+on("playerPlaceBlock (before)", () => world.beforeEvents.playerPlaceBlock.subscribe((ev) => {
+  if (tutLocked.has(ev.player.id)) { ev.cancel = true; return; }
+  const b = ev.block;
+  if (b.dimension.id !== "minecraft:overworld") return;
+  if (isCore(b) || isFoundation(b)) { ev.cancel = true; return; }
+  if (!inBounds(b.x, b.z)) { ev.cancel = true; warn(ev.player, PLOT_MSG); }
+}));
+
+const FACE = { Up: [0, 1, 0], Down: [0, -1, 0], North: [0, 0, -1], South: [0, 0, 1], East: [1, 0, 0], West: [-1, 0, 0] };
+const EDGE_ITEMS = /bucket$|flint_and_steel$|fire_charge$|spawn_egg$|_boat$|_raft$|minecart$|armor_stand$|end_crystal$|item_frame$|painting$/;
+
+on("playerInteractWithBlock (before)", () => world.beforeEvents.playerInteractWithBlock.subscribe((ev) => {
+  if (tutLocked.has(ev.player.id)) { ev.cancel = true; return; }
+  const b = ev.block;
+  if (b.dimension.id !== "minecraft:overworld") return;
+  if (!inBounds(b.x, b.z)) { ev.cancel = true; return; }
+  // Buckets, boats, minecarts, fire and similar items act on the far side of the clicked face, so check that target too.
+  const id = ev.itemStack && ev.itemStack.typeId;
+  const f = FACE[String(ev.blockFace)];
+  if (id && EDGE_ITEMS.test(id) && f && !inBounds(b.x + f[0], b.z + f[2])) { ev.cancel = true; warn(ev.player, PLOT_MSG); }
+}));
+
+// Backup enforcement. If a "before" event is missing or misses a case, the block is undone right after it happens.
+on("playerPlaceBlock (after, plot guard)", () => world.afterEvents.playerPlaceBlock.subscribe((ev) => {
+  const b = ev.block;
+  if (b.dimension.id !== "minecraft:overworld" || inBounds(b.x, b.z)) return;
+  const player = ev.player;
+  system.run(() => {
+    try {
+      const stack = b.getItemStack(1, true);
+      b.setType("minecraft:air");
+      const gm = String(player.getGameMode()).toLowerCase();
+      if (stack && (gm === "survival" || gm === "adventure")) player.getComponent("minecraft:inventory").container.addItem(stack);
+    } catch (e) { /* ignore */ }
+    warn(player, PLOT_MSG);
+  });
+}));
+
+on("playerBreakBlock (after, plot guard)", () => world.afterEvents.playerBreakBlock.subscribe((ev) => {
+  const b = ev.block;
+  if (b.dimension.id !== "minecraft:overworld" || inBounds(b.x, b.z)) return;
+  const perm = ev.brokenBlockPermutation;
+  system.run(() => {
+    try {
+      b.setPermutation(perm);
+      for (const e of b.dimension.getEntities({ type: "minecraft:item", location: { x: b.x + 0.5, y: b.y + 0.5, z: b.z + 0.5 }, maxDistance: 2 })) e.remove();
+    } catch (e) { /* ignore */ }
+    warn(ev.player, PLOT_MSG);
+  });
+}));
+
+// Explosions cannot remove the OneBlock, the collection chest above it or the foundation Bedrock.
+on("explosion (before)", () => world.beforeEvents.explosion.subscribe((ev) => {
+  try {
+    const all = ev.getImpactedBlocks();
+    const keep = all.filter((b) => !(b.dimension.id === "minecraft:overworld" && b.x === CORE.x && b.z === CORE.z && b.y >= CORE.y - 1 && b.y <= CORE.y + 1));
+    if (keep.length !== all.length) ev.setImpactedBlocks(keep);
+  } catch (e) { /* ignore */ }
+}));
+
+on("playerSpawn", () => world.afterEvents.playerSpawn.subscribe((ev) => {
+  const p = ev.player;
+  system.runTimeout(() => { try { ensureLedger(p); } catch (e) { /* player left */ } }, 40);
+}));
+
+// Opens the mandatory guide for anyone who has not finished it, and frees players who have.
+// Operators can skip it for a player with: /tag <player> add tutorial_done
+system.runInterval(() => {
+  for (const p of world.getAllPlayers()) {
+    try {
+      if (!p.hasTag("void_cleaned")) continue; // starter island not built yet
+      if (tutorialDone(p, loadPlayer(p))) {
+        tutLocked.delete(p.id);
+        if (!unlocked.has(p.id)) { setMove(p, true); unlocked.add(p.id); }
+        continue;
+      }
+      if (tutSession.has(p.id)) continue;
+      tutSession.add(p.id);
+      tutLocked.add(p.id);
+      unlocked.delete(p.id);
+      setMove(p, false);
+      runTutorial(p).catch((e) => console.warn("[SovereignMarket] tutorial: " + e)).finally(() => tutSession.delete(p.id));
+    } catch (e) { /* player left */ }
+  }
+}, 20);
+
+on("playerLeave", () => world.afterEvents.playerLeave.subscribe((ev) => {
+  tutLocked.delete(ev.playerId);
+  tutSession.delete(ev.playerId);
+  unlocked.delete(ev.playerId);
+  lastWarn.delete(ev.playerId);
+}));
+
+system.runInterval(() => { try { coreWatch(); } catch (e) { console.warn("[SovereignMarket] watch: " + e); } }, 20);
+system.runInterval(() => { try { autoMineTick(); } catch (e) { console.warn("[SovereignMarket] auto-mine: " + e); } }, 1);
+system.runInterval(() => { try { contractTick(); } catch (e) { console.warn("[SovereignMarket] contracts: " + e); } }, 200);
+
+// Admin market report: /scriptevent osm:market (sender needs the osm_admin tag: /tag @s add osm_admin)
+on("scriptEvent", () => system.afterEvents.scriptEventReceive.subscribe((ev) => {
+  if (ev.id !== "osm:market") return;
+  const p = ev.sourceEntity;
+  if (!p || p.typeId !== "minecraft:player" || !p.hasTag("osm_admin")) return;
+  const w = loadWorld();
+  for (const id of ITEMS.keys()) {
+    const s = snapshot(w, id);
+    p.sendMessage(id.replace("minecraft:", "") + "  price " + (Math.round(s.price * 10) / 10) + "  supply " + s.supply + "  demand " + s.demand + "  " + s.dir);
+  }
+}));
+
+system.runTimeout(() => { try { auditLoot(); } catch (e) { console.warn("[SovereignMarket] audit: " + e); } }, 40);
+system.runInterval(() => { try { sweepLiquids(); } catch (e) { console.warn("[SovereignMarket] liquid sweep: " + e); } }, 600);
+
+// Keep the Trader's Ledger in hotbar slot 9 at all times, and return it if it is thrown away.
+system.runInterval(() => {
+  for (const p of world.getAllPlayers()) { try { ensureLedger(p); } catch (e) { /* player left */ } }
+}, 10);
+system.runInterval(() => {
+  for (const p of world.getAllPlayers()) clearDroppedLedgers(p);
+}, 40);
+```
+
+## FILE: MCPEDL/Maps/Oneblock-SM/behavior_pack/scripts/store.js (101 lines, 4745 bytes)
+
+```
+import { world } from "@minecraft/server";
+import { MAX_BALANCE, HISTORY_MAX, MARKET, MARKET_CFG as C, CATS, ISLAND_LEVELS, LICENSES } from "./config.js";
+
+const PKEY = "osm:player";
+const WKEY = "osm:world";
+const freshPlayer = () => ({ v: 1, coins: 0, lic: ["t1"], con: [], hist: [], mined: 0, tx: 0, up: {}, ach: [], sold: 0 });
+const freshWorld = () => ({ v: 1, lvl: 0, market: {}, chests: [], autoMine: null });
+
+function read(holder, key, fresh) {
+  const raw = holder.getDynamicProperty(key);
+  if (typeof raw !== "string") return fresh();
+  try {
+    const d = Object.assign(fresh(), JSON.parse(raw));
+    if (!Number.isSafeInteger(d.coins) || d.coins < 0) d.coins = 0;
+    return d;
+  } catch (e) {
+    // Keep the unreadable record so nothing is silently destroyed.
+    try { holder.setDynamicProperty(key + "_corrupt", raw); } catch (e2) { /* ignore */ }
+    console.warn("[SovereignMarket] unreadable " + key + ", starting fresh copy");
+    return fresh();
+  }
+}
+
+export const loadPlayer = (p) => read(p, PKEY, freshPlayer);
+export const savePlayer = (p, d) => p.setDynamicProperty(PKEY, JSON.stringify(d));
+let levelCache = -1; // island level kept in memory so block events do not reread the saved world data
+export const loadWorld = () => read(world, WKEY, freshWorld);
+export const saveWorld = (w) => {
+  world.setDynamicProperty(WKEY, JSON.stringify(w));
+  levelCache = Math.min(Math.max(0, w.lvl | 0), ISLAND_LEVELS.length - 1);
+};
+
+export const hasLic = (d, id) => d.lic.includes(id);
+export const canAfford = (d, n) => Number.isSafeInteger(n) && n >= 0 && d.coins >= n;
+export function addCoins(d, n) { d.coins = Math.min(MAX_BALANCE, d.coins + Math.max(0, Math.floor(n))); }
+export function spend(d, n) { if (!canAfford(d, n)) return false; d.coins -= n; return true; }
+export function log(d, text) {
+  d.tx += 1;
+  d.hist.unshift(text);
+  if (d.hist.length > HISTORY_MAX) d.hist.length = HISTORY_MAX;
+}
+export const islandLevel = () => {
+  if (levelCache < 0) levelCache = Math.min(Math.max(0, loadWorld().lvl | 0), ISLAND_LEVELS.length - 1);
+  return levelCache;
+};
+export const inBounds = (x, z) => {
+  const L = ISLAND_LEVELS[islandLevel()];
+  return x >= L.min && x <= L.max && z >= L.min && z <= L.max;
+};
+export const highestTier = (d) => LICENSES.filter((l) => /^t\d+$/.test(l.id) && d.lic.includes(l.id)).length;
+
+// ---- Market pricing ----
+export const ITEMS = new Map(MARKET.map(([id, base, min, max, lic, cat]) => ["minecraft:" + id, { id: "minecraft:" + id, base, min, max, lic, cat }]));
+
+const decayed = (rec, now) => (rec ? rec.s * Math.pow(0.5, Math.max(0, (now - rec.t) / (C.halfLifeMin * 60000))) : 0);
+
+export function demandState(cat, now = Date.now()) {
+  const b = Math.floor(now / C.rotateMs);
+  const hot = CATS[(b * 5 + 3) % CATS.length];
+  let cold = CATS[(b * 7 + 1) % CATS.length];
+  if (cold === hot) cold = CATS[(b * 7 + 2) % CATS.length];
+  if (cat === hot) return { m: C.hot, label: "High" };
+  if (cat === cold) return { m: C.cold, label: "Low" };
+  return { m: 1, label: "Normal" };
+}
+
+const unit = (it, S, dm) => Math.min(it.max, Math.max(it.min, (it.base * dm) / (1 + S / C.depth)));
+
+// Marginal pricing: each extra unit is priced at higher supply, so splitting a sale never beats one big sale.
+export function quote(w, itemId, qty, now = Date.now()) {
+  const it = ITEMS.get(itemId);
+  if (!it || !Number.isSafeInteger(qty) || qty < 1) return null;
+  const S = decayed(w.market[itemId], now);
+  const dm = demandState(it.cat, now).m;
+  let sum = 0;
+  for (let i = 0; i < qty; i++) sum += unit(it, S + i, dm);
+  return { total: Math.max(1, Math.floor(sum)), unit: unit(it, S, dm) };
+}
+
+export function recordSale(w, itemId, qty, now = Date.now()) {
+  const it = ITEMS.get(itemId);
+  const S = Math.min(C.maxSupply, decayed(w.market[itemId], now) + qty);
+  w.market[itemId] = { s: Math.round(S * 100) / 100, t: now, p: Math.round(unit(it, S, demandState(it.cat, now).m) * 100) / 100 };
+}
+
+export function snapshot(w, itemId, now = Date.now()) {
+  const it = ITEMS.get(itemId);
+  const rec = w.market[itemId];
+  const S = decayed(rec, now);
+  const dem = demandState(it.cat, now);
+  const price = unit(it, S, dem.m);
+  const supply = S < 15 ? "Low" : S < C.depth ? "Moderate" : "High";
+  let dir = "Stable";
+  if (rec && price > rec.p * 1.02) dir = "Rising";
+  else if (rec && price < rec.p * 0.98) dir = "Falling";
+  const drop = Math.round((1 - 1 / (1 + S / C.depth)) * 100);
+  const why = (S < 1 ? "No recent sales." : "Recent sales cut the price by " + drop + " percent, easing as supply clears.") +
+    (dem.label === "High" ? " Demand is high (+25 percent)." : dem.label === "Low" ? " Demand is low (-15 percent)." : "");
+  return { price, supply, demand: dem.label, dir, why };
+}
+```
+
+## FILE: MCPEDL/Maps/Oneblock-SM/behavior_pack/scripts/ui.js (233 lines, 13071 bytes)
+
+```
+import { system } from "@minecraft/server";
+import { ActionFormData } from "@minecraft/server-ui";
+import { CURRENCY, LICENSES, ISLAND_LEVELS, CONTRACTS, CATS, nice, ACHIEVEMENTS, UPGRADE_MAX, BIG_CONFIRM, BASIC_CHEST_CHANCE, TUTORIAL_PAGES, AUTO_LEVELS } from "./config.js";
+import { loadPlayer, savePlayer, loadWorld, hasLic, islandLevel, highestTier, ITEMS, quote, snapshot, demandState } from "./store.js";
+import { inventoryCounts, sell, buyLicense, buyIsland, buyContract, upgradeContract, upgradeCost, intervalFor, autoStatus, buyAutoLevel, toggleAuto, grantAch, tutorialDone } from "./game.js";
+
+const wait = (t) => new Promise((r) => system.runTimeout(r, t));
+const busy = new Set();
+const fmt = (n) => (Math.round(n * 10) / 10).toString();
+
+async function show(p, form) {
+  for (let i = 0; i < 15; i++) {
+    const r = await form.show(p);
+    if (r.canceled && r.cancelationReason === "UserBusy") { await wait(20); continue; }
+    return r;
+  }
+  return { canceled: true };
+}
+
+async function note(p, title, body) {
+  await show(p, new ActionFormData().title(title).body(body).button("Back"));
+}
+
+async function confirm(p, title, body, yes) {
+  const r = await show(p, new ActionFormData().title(title).body(body).button(yes).button("Cancel"));
+  return !r.canceled && r.selection === 0;
+}
+
+// One-tap shop screen. build(d) returns rows: { text, run?, cost?, confirm?, info? }.
+// Tapping a row with run() buys it immediately and the same screen reopens with the result on top,
+// the button already showing its next state (Buy -> Owned, Activate -> Upgrade Lv2 -> Lv3 -> MAX).
+// Rows without run() are status rows: tapping one shows its info line. Only purchases of
+// BIG_CONFIRM coins or more ask for a confirmation first.
+async function shop(p, title, intro, build) {
+  let msg = "";
+  for (;;) {
+    const d = loadPlayer(p);
+    const rows = build(d);
+    const f = new ActionFormData().title(title).body((msg ? msg + "\n\n" : "") + "Balance: " + d.coins + " " + CURRENCY + (intro ? "\n" + intro : ""));
+    for (const r of rows) f.button(r.text);
+    f.button("Back");
+    const res = await show(p, f);
+    if (res.canceled || res.selection === rows.length) return;
+    const row = rows[res.selection];
+    if (!row.run) { msg = row.info ? "\u00a77" + row.info : ""; continue; }
+    if (row.cost >= BIG_CONFIRM && !(await confirm(p, title, row.confirm || "Spend " + row.cost + " " + CURRENCY + "?", "Buy for " + row.cost))) { msg = ""; continue; }
+    try {
+      const r = row.run();
+      msg = (r.ok ? "\u00a7a" : "\u00a7c") + r.msg;
+    } catch (e) {
+      console.warn("[SovereignMarket] shop error: " + e);
+      msg = "\u00a7cSomething went wrong. Nothing was charged.";
+    }
+  }
+}
+
+export async function openLedger(p) {
+  if (busy.has(p.id)) return;
+  busy.add(p.id);
+  try { await mainMenu(p); } catch (e) { console.warn("[SovereignMarket] ledger error: " + e); } finally { busy.delete(p.id); }
+}
+
+// One short hint that follows the player's progress. Returns "" when there is nothing useful to say.
+function hintFor(d) {
+  const next = ISLAND_LEVELS[islandLevel() + 1];
+  if (!hasLic(d, "t2")) {
+    if (d.coins >= 40) return "You can afford Tier 2: Woodland. Open Block Licenses.";
+    if (!d.mined) return "Break the OneBlock to get Dirt and other items.";
+    if (!(d.sold || 0)) return "Sell your Dirt in Sell Items. It pays 1 coin each.";
+    return "Save 40 coins for Tier 2: Woodland (logs and leaves).";
+  }
+  if (!(d.sold || 0)) return "Sell your logs and other items in Sell Items to earn more coins.";
+  if (!d.con.length && d.coins >= 100) return "Activate a loot contract in Natural Loot Contracts.";
+  if (next && d.coins >= next.cost) return "You can afford the next island permit.";
+  return "";
+}
+
+async function mainMenu(p) {
+  for (;;) {
+    const d = loadPlayer(p);
+    const L = ISLAND_LEVELS[islandLevel()];
+    const next = ISLAND_LEVELS[islandLevel() + 1];
+    const hot = CATS.find((c) => demandState(c).label === "High");
+    const hint = hintFor(d);
+    const body = (hint ? "\u00a7eHint: " + hint + "\u00a7r\n\n" : "") + "Balance: " + d.coins + " " + CURRENCY + "\nOneBlock tier: " + highestTier(d) + " of 10\nIsland: " + L.size + " x " + L.size +
+      (next ? " (next permit: " + next.cost + ")" : " (maximum)") + "\nMarket: high demand for " + hot + " goods\nActive contracts: " + d.con.length +
+      "\nBreaks: " + d.mined + " (bonus every 100)" +
+      "\n\nEvery item sells at the market, Dirt included.";
+    const items = [];
+    if (!tutorialDone(p, d)) items.push(["How to Play", runTutorial]); // disappears once the guide has been read
+    items.push(["Sell Items", sellMenu], ["Market Prices", priceMenu], ["Block Licenses", licenseMenu], ["Natural Loot Contracts", contractMenu], ["Island & Auto-Mine", perksMenu], ["Achievements", achMenu]);
+    const f = new ActionFormData().title("Trader's Ledger").body(body);
+    for (const it of items) f.button(it[0]);
+    f.button("Exit");
+    const r = await show(p, f);
+    if (r.canceled || r.selection === items.length) return;
+    await items[r.selection][1](p);
+  }
+}
+
+// ---- How to Play (mandatory, read once) ----
+// The guide cannot be closed: pressing close reopens the same page. Finishing it sets a permanent flag,
+// pays the Quick Learner reward, and the Ledger button disappears.
+export async function runTutorial(p) {
+  const alive = () => { try { return typeof p.isValid === "function" ? p.isValid() : p.isValid !== false; } catch (e) { return false; } };
+  let i = 0;
+  while (alive()) {
+    const page = TUTORIAL_PAGES[i];
+    const last = i === TUTORIAL_PAGES.length - 1;
+    const f = new ActionFormData().title("How to Play (" + (i + 1) + "/" + TUTORIAL_PAGES.length + ")").body("\u00a76" + page.title + "\u00a7r\n\n" + page.body);
+    const acts = [];
+    f.button(last ? "Done" : "Next"); acts.push(last ? "done" : "next");
+    if (i > 0) { f.button("Previous"); acts.push("prev"); }
+    let r;
+    try { r = await f.show(p); } catch (e) { return; }
+    if (r.canceled) { await wait(r.cancelationReason === "UserBusy" ? 20 : 8); continue; }
+    const act = acts[r.selection];
+    if (act === "next") i++;
+    else if (act === "prev") i--;
+    else if (act === "done") {
+      const d = loadPlayer(p);
+      d.tutDone = true;
+      grantAch(p, d, "tutorial");
+      savePlayer(p, d);
+      return;
+    }
+  }
+}
+
+async function sellMenu(p) {
+  for (;;) {
+    const counts = inventoryCounts(p);
+    const d = loadPlayer(p);
+    const w = loadWorld();
+    const rows = [...counts.entries()].filter(([id]) => hasLic(d, ITEMS.get(id).lic));
+    if (!rows.length) return note(p, "Sell Items", "You have no items the market will buy right now.\nSome items need a block license first.");
+    const f = new ActionFormData().title("Sell Items").body("Balance: " + d.coins + " " + CURRENCY + "\nChoose an item.");
+    for (const [id, n] of rows) f.button(nice(id) + "  x" + n + "\nNow " + fmt(snapshot(w, id).price) + " each");
+    f.button("Back");
+    const r = await show(p, f);
+    if (r.canceled || r.selection === rows.length) return;
+    await sellItem(p, rows[r.selection][0]);
+  }
+}
+
+async function sellItem(p, id) {
+  const have = inventoryCounts(p).get(id) || 0;
+  if (!have) return;
+  const opts = [1, 10, 32, 64].filter((q) => q < have);
+  opts.push(have);
+  const f = new ActionFormData().title(nice(id)).body("You have " + have + ". Choose how many to sell.");
+  for (const q of opts) f.button(q === have ? "Sell all (" + q + ")" : "Sell " + q);
+  f.button("Back");
+  const r = await show(p, f);
+  if (r.canceled || r.selection === opts.length) return;
+  const qty = opts[r.selection];
+  const est = quote(loadWorld(), id, qty);
+  if (!est) return;
+  const ok = await confirm(p, "Confirm Sale", "Sell " + qty + " " + nice(id) + "\nEstimated total: " + est.total + " " + CURRENCY + "\nThe final price is recalculated when you confirm.", "Confirm sale");
+  if (!ok) return;
+  const res = sell(p, id, qty);
+  await note(p, res.ok ? "Sale Complete" : "Sale Failed", res.msg);
+}
+
+async function priceMenu(p) {
+  for (;;) {
+    const f = new ActionFormData().title("Market Prices").body("Choose a category. Prices fall as you sell and recover over time.");
+    for (const c of CATS) f.button(c[0].toUpperCase() + c.slice(1) + " goods" + (demandState(c).label === "High" ? "\nHigh demand" : ""));
+    f.button("Back");
+    const r = await show(p, f);
+    if (r.canceled || r.selection === CATS.length) return;
+    const w = loadWorld();
+    const cat = CATS[r.selection];
+    const lines = [];
+    for (const it of ITEMS.values()) {
+      if (it.cat !== cat) continue;
+      const s = snapshot(w, it.id);
+      lines.push(nice(it.id) + "\nBase " + it.base + "  Now " + fmt(s.price) + "  (" + it.min + " to " + it.max + ")\nSupply " + s.supply + ", demand " + s.demand + ", " + s.dir + "\n" + s.why + "\n");
+    }
+    await note(p, cat + " goods", lines.join("\n"));
+  }
+}
+
+const blocksOf = (l) => { const n = Object.keys(l.blocks).map(nice); return n.slice(0, 12).join(", ") + (n.length > 12 ? ", and " + (n.length - 12) + " more" : ""); };
+
+async function licenseMenu(p) {
+  await shop(p, "Block Licenses", "Tap a license to buy it. Rare blocks stay rare.", (d) =>
+    LICENSES.filter((l) => l.cost > 0).map((l) => {
+      if (hasLic(d, l.id)) return { text: "\u00a72" + l.name + "\nOwned", info: l.name + " adds: " + blocksOf(l) };
+      if (l.req && !hasLic(d, l.req)) return { text: "\u00a78" + l.name + "\nLocked", info: "Requires " + LICENSES.find((x) => x.id === l.req).name + " first." };
+      return { text: l.name + "\nBuy for " + l.cost + " " + CURRENCY, cost: l.cost, confirm: l.name + "\nAdds: " + blocksOf(l), run: () => buyLicense(p, l.id) };
+    }));
+}
+
+async function contractMenu(p) {
+  await shop(p, "Natural Loot Contracts", "One button per contract: activate it, then upgrade the same button.", (d) =>
+    CONTRACTS.map((c) => {
+      if (!hasLic(d, c.req)) return { text: "\u00a78" + c.name + "\nLocked", info: "Requires " + LICENSES.find((l) => l.id === c.req).name + "." };
+      if (!d.con.includes(c.id)) return { text: c.name + "\nActivate for " + c.cost + " " + CURRENCY, cost: c.cost, confirm: c.id === "basic" ? c.name + ": the OneBlock sometimes turns into a loot chest." : c.name + ": a chest about every " + Math.round(c.intervalMs / 60000) + " minutes, up to 3 at a time.", run: () => buyContract(p, c.id) };
+      const lvl = (d.up && d.up[c.id]) || 1;
+      if (lvl >= UPGRADE_MAX) return { text: "\u00a76" + c.name + "  Lv" + lvl + " MAX\n" + (c.id === "basic" ? "OneBlock chest chance " + Math.round(BASIC_CHEST_CHANCE * lvl * 100) + "%" : "Chest every ~" + Math.round(intervalFor(d, c) / 60000) + " min"), info: c.name + " is at the maximum level." };
+      const cost = upgradeCost(c, lvl);
+      return { text: "\u00a7a" + c.name + "  Lv" + lvl + "\nUpgrade to Lv" + (lvl + 1) + ": " + cost + " " + CURRENCY, cost, confirm: c.name + ": upgrade to level " + (lvl + 1) + ". Each level adds one loot roll and shortens the wait.", run: () => upgradeContract(p, c.id) };
+    }));
+}
+
+async function perksMenu(p) {
+  await shop(p, "Island & Auto-Mine", "The island and the auto-miner are shared by everyone in this world.", () => {
+    const rows = [];
+    const idx = islandLevel();
+    const L = ISLAND_LEVELS[idx];
+    const next = ISLAND_LEVELS[idx + 1];
+    rows.push(next
+      ? { text: "Island " + L.size + "x" + L.size + "\nExpand to " + next.size + "x" + next.size + ": " + next.cost + " " + CURRENCY, cost: next.cost, confirm: next.name + " (" + next.size + " x " + next.size + "). The island is shared by everyone in this world.", run: () => buyIsland(p, idx + 1) }
+      : { text: "\u00a76Island " + L.size + "x" + L.size + " MAX\nEvery permit owned", info: "You own every island permit." });
+
+    const s = autoStatus();
+    const per = (n) => (n === 1 ? "every tick" : "every " + n + " ticks");
+    rows.push(s.next
+      ? { text: "Auto-Miner: " + (s.level ? AUTO_LEVELS[s.level - 1].name : "not owned") + "\n" + (s.level ? "Upgrade to " : "Buy ") + s.next.name + ": " + s.next.cost + " " + CURRENCY, cost: s.next.cost, confirm: s.next.name + " Auto-Miner: breaks the OneBlock " + per(s.next.step) + " for about 2 minutes per Minecraft day. Drops go to the chest above the OneBlock.", run: () => buyAutoLevel(p) }
+      : { text: "\u00a76" + AUTO_LEVELS[s.level - 1].name + " Auto-Miner MAX\nBreaks the OneBlock " + per(s.step), info: "The Auto-Miner is at the maximum level." });
+    if (s.level) rows.push({ text: "Auto-Miner: " + (s.on ? "\u00a72ON" : "\u00a7cOFF") + "\n" + (s.leftSecs > 0 ? s.leftSecs + "s left today. Tap to toggle" : "Exhausted. Recharges next day"), run: () => toggleAuto(p) });
+    return rows;
+  });
+}
+
+async function achMenu(p) {
+  const d = loadPlayer(p);
+  const done = d.ach || [];
+  const lines = ACHIEVEMENTS.map((a) => (done.includes(a.id) ? "[Done] " : "[Locked] ") + a.name + "\n" + a.desc + " (+" + a.reward + " " + CURRENCY + ")");
+  await note(p, "Achievements", done.length + " of " + ACHIEVEMENTS.length + " unlocked\n\n" + lines.join("\n\n"));
+}
+```
+
+## FILE: MCPEDL/Maps/Oneblock-SM/CHANGELOG.md (91 lines, 7428 bytes)
+
+```
+# Changelog — OneBlock Sovereign Market
+
+---
+
+## [1.6.0] - 2026-10-29
+
+### Fixed
+- **Auto-Miner Without Setup**: The Auto-Miner no longer needs the welcome setup to have run for your character. It works for any player in the Overworld.
+- **Auto-Miner Never Stalls**: A mined block that has no item form no longer stops the Auto-Miner as if the chest were full. It is skipped and mining continues.
+
+## [1.5.0] - 2026-10-29
+
+### Fixed
+- **Auto-Miner Start**: The Auto-Miner now mines whatever block is at the OneBlock position as soon as it is ON, without waiting for a hand break first.
+- **Auto-Miner Warnings**: If a block above the OneBlock stops the collection chest from being placed, the Auto-Miner now tells you on the action bar instead of silently doing nothing.
+
+## [1.4.0] - 2026-10-29
+
+### Fixed
+- **Continuous Auto-Mining**: The Auto-Miner now moves straight on to the next block at its tool speed. A break that could not happen, such as while the OneBlock was being replaced, is retried on the next tick instead of after a full wait, and mining time no longer runs while the collection chest is full.
+
+## [1.3.0] - 2026-10-29
+
+### Improved & Balanced
+- **Tool-Named Auto-Miner**: The five Auto-Miner levels are now Wooden, Copper, Iron, Gold and Diamond. Speeds and prices are unchanged.
+
+### Fixed
+- **Auto-Miner Break Effect**: Every Auto-Miner break now plays the block-destroy effect. Before, the two fastest levels showed it only on every fourth break.
+- **Island Border Outside the Permit**: The border ring is now placed just outside the permitted area, so it can no longer be mined for Polished Deepslate. Rings left by earlier permits are removed when you buy the next one.
+
+## [1.2.0] - 2026-10-29
+
+### Improved & Balanced
+- **Auto-Miner Stone Drops**: The Auto-Miner now stores Cobblestone when the OneBlock is Stone, like mining by hand.
+- **Island Size Check**: Placing, breaking and using blocks no longer rereads the saved world data to find the island size.
+
+### Fixed
+- **Water and Lava Cleanup on Large Islands**: On islands of 81 x 81 and larger, stray water and lava were not removed. Cleanup now works on every island size.
+- **Auto-Miner Toggle**: Switching the Auto-Miner ON and OFF repeatedly gave extra instant breaks. Each instant break now uses part of the day's mining time.
+- **Auto-Miner Drops**: Deepslate, Clay, Melon, Nether Gold Ore, Mycelium and mushroom blocks mined by the Auto-Miner now become items the market buys.
+- **Island Permit Charge**: A permit is no longer charged when part of the new border area is not loaded. You are asked to stand near the OneBlock and try again.
+- **OneBlock Respawn**: The OneBlock could stay missing after being broken if an error happened while the next block was being created. It now recovers.
+- **Plot Edge Protection**: Boats, minecarts, armor stands, item frames, paintings, end crystals, spawn eggs, flint and steel and fire charges can no longer be used at the edge of your island to place things outside the permitted area.
+- **OneBlock Explosion Protection**: Explosions no longer destroy the OneBlock, the chest above it or the foundation Bedrock.
+
+## 1.0.0
+- First version: Dirt-only OneBlock, wallet, Trader's Ledger, ten license tiers, supply-and-demand market, five loot contracts, six island levels.
+- Starter island is 9 x 9 and centered on the OneBlock. Island sizes are now 9, 17, 33, 65, 67, 69, all odd and centered on the OneBlock.
+- Building outside the permitted area shows a "Plot not owned" warning.
+
+## 1.0.1
+- Loot and chest contents exclude fluids, buckets, biome and structure items. Chests never spawn beside liquid.
+- Dirt keeps at least 25 percent of the OneBlock pool once other licenses are owned.
+- Stray water and lava are removed from the island area every 30 seconds.
+- Island expansion fills only empty space in the new ring.
+- Admin market report via /scriptevent osm:market (osm_admin tag).
+- Startup log lists unknown loot and block ids.
+
+## 1.0.2
+- The Trader's Ledger stays in hotbar slot 9 and returns within half a second if thrown away. Dropped copies are removed.
+
+## 1.0.3
+- One-tap shop: every license, contract and perk is a single button that buys on tap and then shows its next state (Buy, Owned; Activate, Upgrade Lv2, Upgrade Lv3, MAX). The menu reopens in place with the result on top. Only purchases of 2,000 coins or more ask for confirmation.
+- Island permits and the Auto-Mining Subscription now share one screen, "Island & Auto-Mine".
+- Auto-mining no longer reads the saved world data every tick. The subscription is cached, so the per-tick check is near zero when nobody has a subscription.
+- Pack versions, changelog and descriptions now match (1.0.3).
+
+## 1.0.4
+- Auto-Miner rebuilt: five permanent levels (every 10, 6, 4, 2, then 1 tick per OneBlock break), an ON/OFF toggle, and about 2 minutes of mining per Minecraft day. When the time runs out it shows "Auto-mining is exhausted". Each break plays the block-destroy animation and stores what the OneBlock held in the chest above it.
+- Basic Supply Chest now lives inside the OneBlock: with the contract active, the OneBlock sometimes turns into a loot chest (5 percent per level). It no longer spawns chests randomly on the island.
+- Transaction History removed from the Ledger.
+- Market prices react more strongly to every sale, and the sale receipt shows the price before and after.
+- Plot protection: bucket placement is checked, and placed or broken blocks outside the permitted area are undone as a backup.
+
+## 1.0.5
+- How to Play guide in the Trader's Ledger: six short pages covering mining, licenses, selling, contracts, the island and the Auto-Miner.
+- A progress hint at the top of the Ledger menu that follows what the player has done so far.
+- New achievement "Quick Learner": finish the guide for 25 coins.
+- New players see a short tip pointing to How to Play when they first join.
+
+## 1.0.6
+- Removed an incorrect line about Sell All from the How to Play guide.
+
+## 1.1.0
+- Dirt no longer pays coins when you break the OneBlock. Dirt is now an item you sell at the market like any other (1 coin minimum each).
+- How to Play is mandatory and read once. New and existing players cannot move, build or open the Ledger until they finish it. Close is gone, pressing it reopens the page, and the Ledger button disappears afterwards. Operators can skip it with `/tag <player> add tutorial_done`.
+- Island expansion draws only a border (polished deepslate) and no longer fills grass. Sizes are 9, 17, 33, 65, then 67, 69, 71 and so on, up to 129. From 67 on, each permit costs about 10 percent more than the last.
+- Auto-Miner: toggling it ON breaks the OneBlock immediately, a countdown shows on the action bar, and fast levels show the break effect every 4th break.
+- OneBlock additions: every 100th hand break pays a tier-based coin bonus and the next OneBlock becomes a bonus loot chest; a 1 percent gold block jackpot pays 20 to 60 coins per owned tier. Neither triggers from the Auto-Miner.
+- Block pools now contain only blocks that generate naturally. Removed: planks, stripped logs, polished stone variants, stone, mud, nether and end bricks, packed mud, raw metal blocks, purpur and dyed terracotta. Added natural blocks such as mycelium, moss, azalea leaves, deepslate, sandstone, calcite, mushroom blocks, pumpkin, melon, nether stems and soul soil. Contract loot no longer contains planks or glass.
+```
+
+## FILE: MCPEDL/Maps/Oneblock-SM/DESCRIPTION.md (54 lines, 4656 bytes)
+
+```
+# OneBlock: Sovereign Market — Dirt-to-Sovereignty OneBlock Economy
+
+**By ALNStudios**
+
+[![Minecraft Bedrock](https://img.shields.io/badge/Minecraft%20Bedrock-Stable%20Release-brightgreen?style=flat-square&logo=minecraft)](https://github.com/AllensCreations/MCPE-Curseforges)
+[![Format](https://img.shields.io/badge/Format-.MCPACK%20%7C%20.MCADDON%20%7C%20.MCWORLD-blue?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges)
+
+- Start on a small 9 x 9 void island with one OneBlock that produces Dirt. A short How to Play guide opens first and must be read once.
+- Mining the OneBlock gives you items. Dirt sells for 1 :minecoin: each in the Trader's Ledger, like every other item.
+- Trader's Ledger: sell items, read market prices, buy block licenses, activate loot contracts, buy island permits, buy the Auto-Miner, and review your achievements. The ledger is an item kept in hotbar slot 9 for every player.
+- How to Play: a short in-game guide in the Ledger, plus a hint at the top of the menu that follows your progress. Finishing the guide earns the Quick Learner achievement.
+- One-tap shop: every license, contract, island permit and auto-mine purchase is a single button. Tap to buy; the button then shows its next state (Owned, Upgrade, MAX). Purchases of 2,000 coins or more ask for confirmation first.
+- Ten license tiers widen the pool of blocks the OneBlock can produce. Only naturally generated blocks appear (logs, ores, stone, sand, nether and end blocks, and more). Rare blocks stay rare, and liquids never appear.
+- Market prices respond to supply (your recent sales) and a rotating demand schedule.
+- Six Natural Loot Contracts, with loot limited to what your licenses allow. Five spawn loot chests on your island over time; the Basic Supply Chest instead makes the OneBlock itself sometimes turn into a loot chest. Each contract can be upgraded to level 3 for an extra loot roll and a faster wait or higher chest chance. About one island chest in ten is a golden chest with bonus gems.
+- Auto-Miner: five permanent levels named after tools (Wooden, Copper, Iron, Gold, Diamond) that break the OneBlock every 10, 6, 4, 2, then 1 tick, with the block-destroy animation on every break. It runs about 2 minutes per Minecraft day, then reports that auto-mining is exhausted. Drops go into a chest directly above the OneBlock, and it has an ON/OFF toggle. If something blocks the spot for the collection chest, it tells you on the action bar. Mining time does not run while that chest is full.
+- Every 100th break pays a coin bonus and turns the next OneBlock into a bonus loot chest. About 1 break in 100 produces a gold block jackpot that pays coins when broken.
+- Six achievements pay one-time coin rewards.
+- Island permits grow the build area 9, 17, 33, 65, then 1 block per side at a time (67, 69, 71 and so on up to 129). Only the border is drawn, just outside the permitted area, so you build your own land inside it. Building outside your plot shows a "Plot not owned" warning.
+- Stray water and lava are removed from the island area every 30 seconds.
+
+## Compatibility
+
+- Minecraft Bedrock Edition: 1.26.40 or newer.
+- Experimental features: Not verified.
+- Achievements: Unknown / needs confirmation.
+- Verification: Source created, not tested in game.
+
+## Creator and Permissions
+
+- Creator: ALNStudios
+- Profiles: [CurseForge Profile](https://www.curseforge.com/members/allenscreations/projects) · [MCPEDL Profile](https://mcpedl.com/user/alnstudios/)
+
+<a href="https://www.curseforge.com/members/allenscreations/projects"><img src="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/assets/Images/curseforge.jpg" alt="CurseForge" width="45%"></a> <a href="https://mcpedl.com/user/alnstudios/"><img src="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/assets/Images/MCPEDL.jpg" alt="MCPEDL" width="45%"></a>
+
+## Guidelines and Attribution
+
+- Creator: ALNStudios
+- Rights & Reservation: All rights reserved for ALNStudios.
+- Content Creators: Content creators are permitted to feature this creation in videos and streams with credit to ALNStudios.
+- Redistribution: Do not re-upload this pack or provide direct monetized download bypasses. Link directly to the official repository page.
+- Disclaimer: This is an unofficial community creation. It is not an official Minecraft product and is not approved by or associated with Mojang or Microsoft.
+
+---
+
+© All rights reserved for ALNStudios.
+
+---
+
+## Search & Discovery Keywords
+
+Minecraft Bedrock add-on, OneBlock Sovereign Market Bedrock mod, Minecraft PE survival, MCPEDL add-on, CurseForge Bedrock, ALNStudios.
+```
+
+## FILE: MCPEDL/Maps/Oneblock-SM/oneblock.json (5 lines, 61 bytes)
+
+```
+{
+  "enabled": true,
+  "name": "OneBlock Sovereign Market"
+}
+```
+
+## FILE: MCPEDL/Maps/Oneblock-SM/README.md (19 lines, 1138 bytes)
+
+```
+# OneBlock Sovereign Market
+
+Download the current release of **OneBlock Sovereign Market** for Minecraft Bedrock Edition.
+
+## Download
+
+- **Package format:** `.mcworld`
+- **Direct download:** [Download OneBlock Sovereign Market (.mcworld)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/MCPEDL/Maps/Oneblock-SM/OneBlock%20Sovereign%20Market%20-%20Creative.mcworld) · [Download Survival World](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/MCPEDL/Maps/Oneblock-SM/OneBlock%20Sovereign%20Market%20-%20Survival.mcworld) · [Download Hardcore World](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/MCPEDL/Maps/Oneblock-SM/OneBlock%20Sovereign%20Market%20-%20Hardcore.mcworld)
+
+## Installation
+
+1. Download the package using the link above.
+2. Open the downloaded file with Minecraft to import it.
+3. Find the imported world in your Worlds list and open it.
+
+## Pack Information
+
+For gameplay features, usage details, compatibility notes, and other project information, read the [full description](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/MCPEDL/Maps/Oneblock-SM/DESCRIPTION.md).
+```
+
+## FILE: MCPEDL/Maps/Oneblock-SM/resource_pack/manifest.json (37 lines, 633 bytes)
+
+```
+{
+  "format_version": 2,
+  "header": {
+    "name": "OneBlock Sovereign Market (v1.6.1)",
+    "description": "Trader Ledger icon for OneBlock Sovereign Market. by ALNStudios",
+    "uuid": "4b6073aa-4c92-4e1b-bbdb-85207021b512",
+    "version": [
+      1,
+      6,
+      1
+    ],
+    "min_engine_version": [
+      1,
+      26,
+      40
+    ]
+  },
+  "modules": [
+    {
+      "type": "resources",
+      "uuid": "a10fbad8-a7bf-496e-9c07-4198ab993c01",
+      "version": [
+        1,
+        6,
+        1
+      ]
+    }
+  ],
+  "metadata": {
+    "authors": [
+      "ALNStudios"
+    ],
+    "product_type": "addon",
+    "version": "1.6.1"
+  }
+}
+```
+
+## FILE: MCPEDL/Maps/Oneblock-SM/resource_pack/textures/item_texture.json (10 lines, 184 bytes)
+
+```
+{
+  "resource_pack_name": "dirtbound_kingdom",
+  "texture_name": "atlas.items",
+  "texture_data": {
+    "trader_ledger": {
+      "textures": "textures/items/trader_ledger"
+    }
+  }
+}
+```
+
+## FILE: MCPEDL/Maps/README.md (29 lines, 3364 bytes)
+
+```
+# Maps and Worlds
+
+Minecraft Bedrock maps and custom worlds by ALNStudios. OneBlock maps are available with Creative, Survival, and Hardcore foundations.
+
+## Available Maps
+
+| Map | Source | Download |
+| :--- | :--- | :--- |
+| OneBlock Void Survival | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Maps/OneBlock-Void-Survival/) | [MCWORLD](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/OneBlock-Void-Survival/VoidSurvival%20V2.0.1.mcworld) |
+| OneBlock Dirtbound Kingdom Beta | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Maps/OneBlock-Dirtbound-Kingdom-Beta/) | [Creative](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/MCPEDL/Maps/OneBlock-Dirtbound-Kingdom-Beta/OneBlock%20Dirtbound%20Kingdom%20Beta%20-%20Creative.mcworld) · [Survival](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/MCPEDL/Maps/OneBlock-Dirtbound-Kingdom-Beta/OneBlock%20Dirtbound%20Kingdom%20Beta%20-%20Survival.mcworld) · [Hardcore](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/MCPEDL/Maps/OneBlock-Dirtbound-Kingdom-Beta/OneBlock%20Dirtbound%20Kingdom%20Beta%20-%20Hardcore.mcworld) |
+| OneBlock Sovereign Market | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Maps/Oneblock-SM/) | [Creative](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/MCPEDL/Maps/Oneblock-SM/OneBlock%20Sovereign%20Market%20-%20Creative.mcworld) · [Survival](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/MCPEDL/Maps/Oneblock-SM/OneBlock%20Sovereign%20Market%20-%20Survival.mcworld) · [Hardcore](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/MCPEDL/Maps/Oneblock-SM/OneBlock%20Sovereign%20Market%20-%20Hardcore.mcworld) |
+| OneBlock Phase Evolution | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Maps/OneBlock-Phase-Evolution/) | [MCWORLD](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/MCPEDL/Maps/OneBlock-Phase-Evolution/OneBlock%20Phase%20Evolution%20-%20Creative.mcworld) |
+| One Block Skyblock Lucky Blocks | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Maps/One-Block-Skyblock-Lucky-Blocks/) | [MCWORLD](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/MCPEDL/Maps/One-Block-Skyblock-Lucky-Blocks/One%20Block%20Skyblock%20Lucky%20Blocks%20-%20Creative.mcworld) |
+| OneBlock Natural Market | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Maps/OneBlock-Natural-Market/) | [MCWORLD](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/MCPEDL/Maps/OneBlock-Natural-Market/OneBlock%20Natural%20Market%20-%20Creative.mcworld) |
+
+Both OneBlock maps use separate mode-specific foundations. Archives receive structural validation but have not been tested in-game.
+
+## Attribution
+
+Created by ALNStudios. All rights reserved.
+
+Videos and streams are welcome with credit. Redistribution of original or modified files without permission is prohibited.
+
+## Related Directories
+
+- [Add-ons](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/README.md)
+- [Scripts](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Script/README.md)
+- [Minigames](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Minigame/README.md)
+```
