@@ -2,6 +2,11 @@
 
 ---
 
+## 2026-11-17 - New Addon ALN Pointer
+
+### Added
+- **ALN Pointer**: New addon project created from a pack script.
+
 ## [v93] - 2026-11-17 - Clearer Workflow Name
 
 ### Improved & Balanced
