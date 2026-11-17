@@ -2,6 +2,14 @@
 
 ---
 
+## [v97] - 2026-11-18 - AI Review update_pack Fallback & Instruction Policy Alignment
+
+### Fixed
+- **AI Review update_pack empty path fallback**: When `mode=update_pack` is dispatched with an empty `pack_path`, fallback to standard `repo_maintenance` export instead of failing with `Nothing matched`.
+
+### Improved & Balanced
+- **Instruction Policy Alignment (v25 & v27)**: Updated `INSTRUCTIONS.md` and `PACK_GENERATOR_INSTRUCTIONS.md` (Section 1.3, Termux script rules, and manifest rules) to document the single-number `vX` scheme (manifest `[X, 0, 0]`, title `(vX)`), the 3-mode AI review selector, and the gzipped Bedrock samples reference.
+
 ## [v96] - 2026-11-18 - Restore Pack Generator Tools to AI Review Export
 
 ### Fixed

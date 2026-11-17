@@ -117,11 +117,21 @@ jobs:
             echo "paths=NEW" >> "$GITHUB_OUTPUT"
           else
             # update_pack (default)
-            echo "auto=false" >> "$GITHUB_OUTPUT"
-            echo "default=false" >> "$GITHUB_OUTPUT"
-            echo "export_mode=update_pack" >> "$GITHUB_OUTPUT"
-            echo "paths=${PACK_PATH}" >> "$GITHUB_OUTPUT"
+            if [ -z "$(echo "${PACK_PATH}" | tr -d [:space:])" ]; then
+              # Empty pack_path fallback to standard review bundle
+              echo "auto=false" >> "$GITHUB_OUTPUT"
+              echo "default=true" >> "$GITHUB_OUTPUT"
+              echo "export_mode=repo_maintenance" >> "$GITHUB_OUTPUT"
+              echo "paths=" >> "$GITHUB_OUTPUT"
+              echo "artifact_name=($(cat REPO_VERSION 2>/dev/null || echo 0)) ai-review-bundle" >> "$GITHUB_OUTPUT"
+            else
+              echo "auto=false" >> "$GITHUB_OUTPUT"
+              echo "default=false" >> "$GITHUB_OUTPUT"
+              echo "export_mode=update_pack" >> "$GITHUB_OUTPUT"
+              echo "paths=${PACK_PATH}" >> "$GITHUB_OUTPUT"
+            fi
           fi
+
 
       - name: Refresh per-package AI review files (automatic run)
         if: steps.mode.outputs.auto == 'true'

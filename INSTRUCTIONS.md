@@ -1,4 +1,5 @@
-# Instructions: Core Repository Policy (v24)
+# Instructions: Core Repository Policy (v25)
+
 
 Repo policy, docs rules for AllensCreations/MCPE-Curseforges (creator name `ALNStudios`). Generating a new project: `PACK_GENERATOR_INSTRUCTIONS.md`.
 
@@ -34,10 +35,12 @@ Output ONLY, in order, exact headings:
 4. Apply ALL changes inside the script. PROJECT UPDATE = search and replace: write a spec and run `python3 scripts/make_update_script.py spec.txt` (format in `scripts/apply_update.py`: `@@ replace`/`replace-all`/`insert-after`/`insert-before`/`delete`/`append`/`create`, exact match, atomic, idempotent; `--verify <clone>` dry-runs it). Size decides the method. SMALL update (a few edits, under about 60% of any file touched): search and replace only. LARGE update (most of a file, many new files, a redesign): use the best method, `@@ create`/`@@ overwrite` in the same spec, never many fragile edits. Either way ONE `.sh`. The tool also sets the manifest version, validates JSON/JS, writes both changelogs. Deliver ONLY the `.sh`: NEVER a separate `.zip`, pack file (`.mcaddon`/`.mcworld`/`.mcpack`), `.json`, `.js` or `.b64`. A NEW project is one pack `.sh` from `scripts/make_pack_script.py` (`PACK_GENERATOR_INSTRUCTIONS.md` Part 4).
 5. Validate every changed `.json` with python3. Stop on error.
 6. Run `python3 scripts/check_instruction_files.py` when an instruction file changed.
-6b. Project update: after the CHANGELOG entry, run `python3 scripts/manifest_tools.py --project "$DEST" --set X.Y.Z`, then `--check` and `python3 scripts/validate_manifest_titles.py --project "$DEST"`. Stop on error.
+6b. Project update: after the CHANGELOG entry, run `python3 scripts/manifest_tools.py --project "$DEST" --set vX` (or `X.0.0`), then `--check`
+ and `python3 scripts/validate_manifest_titles.py --project "$DEST"`. Stop on error.
 7. `git add` changed paths only; `git commit -m "<short>"`; `git push`
 8. Idempotent: skip applied changes.
-9. Add an entry to the root `CHANGELOG.md` (repo-wide, newest first under `---`): `## [vN] - YYYY-MM-DD - [Update Name]` (N = `REPO_VERSION` + 1, a single whole number such as v80, no dots; set by `apply_update.py`, never by hand; a repo-level script's `@@ version` (just the number) and its `.sh` name `Repo_vN_<Rand>.sh` MUST equal it, the script refuses otherwise; pack versions stay X.Y.Z), then `### Added` / `### Improved & Balanced` / `### Fixed` with `- **Title**: what changed`. Every script does this, tooling-only changes included.
+9. Add an entry to the root `CHANGELOG.md` (repo-wide, newest first under `---`): `## [vN] - YYYY-MM-DD - [Update Name]` (N = `REPO_VERSION` + 1, a single whole number such as v80, no dots; set by `apply_update.py`, never by hand; a repo-level script's `@@ version` (just the number) and its `.sh` name `Repo_vN_<Rand>.sh` MUST equal it, the script refuses otherwise; pack versions use vX
+), then `### Added` / `### Improved & Balanced` / `### Fixed` with `- **Title**: what changed`. Every script does this, tooling-only changes included.
 10. After a successful push, delete the script itself: `rm -f -- "$SELF"` (SELF = absolute path saved before `cd`; last line, only reached when everything above passed).
 Every project update writes CHANGELOG.md (Part 2 format; heading version == `.sh` name version). Manifest versions: 1.3. NEVER edit README download links by hand (build aligns them).
 
@@ -58,10 +61,12 @@ Part 1 wins. `DOCS_RULES.md` never overrides it. Generator file never overrides 
 - ALWAYS inspect source files before claims. Ask only if an unresolved choice affects gameplay, compatibility, distribution, data loss, or versioning. Else use defaults.
 - NEVER invent features, versions, links, assets, test results, compatibility, achievement support, performance, platform behavior. Separate verified facts from assumptions.
 - NEVER claim in-game test/function run/gameplay result unless tested in Minecraft. Archive/JSON/syntax checks prove structure only.
-- Source priority (report disagreements, NEVER choose silently): 1 add-on's own files; 2 Mojang Bedrock Samples (https://github.com/Mojang/bedrock-samples): vanilla ids, textures, recipes, components, formats; 3 Minecraft Creator Docs (https://learn.microsoft.com/en-us/minecraft/creator/?view=minecraft-bedrock-stable): stable versions, API; 4 Minecraft Wiki (https://minecraft.wiki/): display names, edition, icon look; 5 Bedrock Wiki (https://wiki.bedrock.dev/): formats, techniques. Sources 4-5 NEVER override 1-3 on ids, versions, API.
+- Source priority (report disagreements, NEVER choose silently): 1 add-on's own files; 2 Mojang Bedrock Samples (reference/bedrock-samples/bedrock-samples.min.json.gz, https://github.com/Mojang/bedrock-samples): vanilla ids, textures, recipes, components, formats;
+ 3 Minecraft Creator Docs (https://learn.microsoft.com/en-us/minecraft/creator/?view=minecraft-bedrock-stable): stable versions, API; 4 Minecraft Wiki (https://minecraft.wiki/): display names, edition, icon look; 5 Bedrock Wiki (https://wiki.bedrock.dev/): formats, techniques. Sources 4-5 NEVER override 1-3 on ids, versions, API.
 - NEVER comments in shipped `.js`, `.mcfunction`, `.json`. Explanations go in docs or handoff.
 - NEVER imply Mojang/Microsoft endorsement.
-- `.sh` names: `(Repofilename)_(Version)_(Rand).sh`. Repofilename = project/folder/file changed, no extension, no spaces (hyphens). Version = new `X.Y.Z`, instruction version (`v5`) or repo version (`v80`). Rand = >=5 random lowercase/digits, fresh each time (`head -c 200 /dev/urandom | tr -dc 'a-z0-9' | head -c 6`), NEVER reused. Example `Dirtbound_1.2.0_k7q2x.sh`. Same name in reply and run command.
+- `.sh` names: `(Repofilename)_(Version)_(Rand).sh`. Repofilename = project/folder/file changed, no extension, no spaces (hyphens). Version = new `vX` (e.g. `v2`, or legacy `X.Y.Z`), instruction version (`v5`) or repo version (`v80`). Rand = >=5 random lowercase/digits, fresh each time (`head -c 200 /dev/urandom | tr -dc 'a-z0-9' | head -c 6`), NEVER reused. Example `Dirtbound_v2_k7q2x.sh`. Same name in reply and run command.
+
 
 ### 1.2 Versions and Compatibility
 Latest stable:
@@ -94,14 +99,16 @@ Implementation:
 6. Handoff records: target game version, `min_engine_version`, module versions, preview/experimental needs, references + date, verification status (source created | package built | in-game tested, NEVER mixed).
 
 ### 1.3 Version Format and Manifests
-- Version = `X.Y.Z` ONLY (Bedrock `header.version` = 3 non-negative ints). NEVER `X.Y.Z.A`. No fourth part, no Alpha. Same `X.Y.Z` in `metadata.version`, `(vX.Y.Z)` titles, changelog headings, package names, README links, snapshots.
-- X = Release, Y = Beta, Z = Update. Update: Z+1 (1.2.3 -> 1.2.4). Beta: Y+1, Z=0 (1.2.4 -> 1.3.0). Release: X+1, Y=Z=0 (1.3.0 -> 2.0.0). Default = Update. Beta/Release only on request or CurseForge publish task.
-- Manifest title = `Add-on Name (vX.Y.Z)` (e.g. `Vanilla Quality of Life (v1.3.4)`). Exactly one terminal suffix, equals `header.version`, BP/RP match. NEVER duplicate suffixes. `scripts/validate_manifest_titles.py [--project <path>]` fails the job on violation (also notes non-fail: format_version != 2, missing/zero `min_engine_version`, missing `metadata.authors`).
+- Version = `vX` format (single whole number, e.g. `v2`, `v3`; Bedrock `header.version` maps to `[X, 0, 0]`; legacy `X.Y.Z` supported). NEVER `X.Y.Z.A`. No fourth part, no Alpha. Same version in `metadata.version`, `(vX)` titles, changelog headings, package names, README links, snapshots.
+- Update: X+1 (v1 -> v2, v2 -> v3; legacy 1.2.3 converts to v2). Manifest title suffix equals version (e.g. `(v2)`).
+- Manifest title = `Add-on Name (vX)` (e.g. `Vanilla Quality of Life (v2)`). Exactly one terminal suffix, equals `header.version` (or major integer), BP/RP match. NEVER duplicate suffixes. `scripts/validate_manifest_titles.py [--project <path>]` fails the job on violation (also notes non-fail: format_version != 2, missing/zero `min_engine_version`, missing `metadata.authors`).
+
 - `header.description` contains `by ALNStudios` exactly once. NEVER attribution in title.
 - NEVER change pack UUIDs or world storage keys to rename a title. NEVER regenerate header UUIDs (breaks worlds).
 - Build sync: every processed project aligns all source manifests to one highest `X.Y.Z`: `header.version`, `metadata.version`, title suffix, module versions, same-project BP/RP deps. Fills `metadata.authors` (`ALNStudios`), optional `metadata.license`.
 - Snapshots: `builds/<pack>/versions/V<X.Y.Z>/` (packages, `source.zip`, `source.sha256`, `build_info.json`). Refreshed when source/packages differ. Last 5 kept.
-- NOTHING auto-bumps. The new version is written in CHANGELOG.md AND, in the same update script, into every source manifest with `python3 scripts/manifest_tools.py --project <path> --set X.Y.Z` (header.version, metadata.version, title suffix, module and dependency versions; UUIDs untouched; never lowers), so every update changes the build. Publish to CurseForge uploads the newest changelog version as written and groups every entry since the last publish. The passive build (`Build Changed Packs & Sync Catalogs`) aligns each pack to its highest existing version and rebuilds. `--bump` / `AUTO_BUMP_MANIFEST=true` remain in `scripts/auto_bump_and_build.py` for manual use only.
+- NOTHING auto-bumps. The new version is written in CHANGELOG.md AND, in the same update script, into every source manifest with `python3 scripts/manifest_tools.py --project <path> --set vX` (header.version, metadata.version, title suffix, module and dependency versions; UUIDs untouched; never lowers)
+, so every update changes the build. Publish to CurseForge uploads the newest changelog version as written and groups every entry since the last publish. The passive build (`Build Changed Packs & Sync Catalogs`) aligns each pack to its highest existing version and rebuilds. `--bump` / `AUTO_BUMP_MANIFEST=true` remain in `scripts/auto_bump_and_build.py` for manual use only.
 - Package name: `<Shortcut> VX.Y.Z.<ext>` (example `MiningHelmet V1.0.2.mcaddon`). Shortcut = short, letters and digits only (NEVER `-`, `_`, spaces, `by ALNStudios`, parentheses), close to the add-on name, kept in `scripts/pack_shortcuts.json` by project folder (fallback: folder name joined). Custom via `metadata.package_filename` or `PACK_FILENAME_TEMPLATE`; MUST contain `V{version}` and no parenthesis, else the default is used. CurseForge upload copy uses the same name. `python3 scripts/rename_packages.py --check|--apply` renames old packages and repairs references.
 - Creator name `ALNStudios`. `python3 scripts/rename_brand.py --apply` migrates old name. NEVER rename lowercase namespaces (`allenscreations:`).
 - Tools: `python3 scripts/manifest_tools.py --project <path> --check|--align|--bump` (`--all --check`). `sync_manifest_versions.py`: deps and `min_engine_version` maintenance; set `min_engine_version` by hand after lookup. `sync_project_docs.py` NOT in build: edit DESCRIPTION/CHANGELOG deliberately. `sync_readme_links.py [--check]` repairs README links (runs after every build).
@@ -250,7 +257,9 @@ Placeholders `<PackName>`, `<MainAction>`, `<version>`. NEVER hardcode one pack.
 - [ ] Changed JSON validated. Instruction file changed: `scripts/check_instruction_files.py` passes.
 
 ## Version History
-- **v24:** The build workflow file is now `build-and-sync.yml` (display name "Build Changed Packs & Sync Catalogs" unchanged). Callers start it by that file name; CI fails when a workflow starts a file that does not exist.
+- **v25:** Updated instructions to reflect single-version `vX` scheme (Bedrock `[X, 0, 0]`), 3-mode AI review export (`update_pack`, `new_pack`, `repo_maintenance`), and gzipped Bedrock reference.
+- **v24:** The build workflow file is now `build-and-sync.yml`
+ (display name "Build Changed Packs & Sync Catalogs" unchanged). Callers start it by that file name; CI fails when a workflow starts a file that does not exist.
 - **v23:** Recipe image generators are registered in `auto-version-bump.yml` (it builds them on every run that touches recipes or textures); `generate-recipe-images.yml` is only the manual fallback with the same commands.
 - **v22:** The repo version is a single number (`REPO_VERSION` = `80`, written `v80`), no longer X.Y.Z. Next = number + 1. Root changelog headings are `## [vN]`; repo-level scripts are `@@ version N` and named `Repo_vN_<Rand>.sh`. Pack versions stay X.Y.Z.
 - **v21:** New 1.15 (Bedrock Developer Role and Trusted Sources): official NPM packages first, the trusted source list, texture/registration split, failure procedure. `@minecraft/math` stays blocked by the payload allow-list until `build_payload.py` lists it.
