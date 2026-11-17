@@ -1,3 +1,4 @@
+import { system } from "@minecraft/server";
 import { ActionFormData, ModalFormData } from "@minecraft/server-ui";
 import { deleteCommandsByIndex, getSavedCommands, saveCommand } from "./command_storage.js";
 
@@ -15,23 +16,25 @@ export function openMainMenu(player) {
   form.show(player).then((res) => {
     if (res.canceled) return;
 
-    switch (res.selection) {
-      case 0:
-        openCreateCommandScreen(player);
-        break;
-      case 1:
-        openExecuteCommandScreen(player);
-        break;
-      case 2:
-        openDeleteCommandScreen(player);
-        break;
-      case 3:
-        openAboutScreen(player);
-        break;
-      case 4:
-      default:
-        break;
-    }
+    system.run(() => {
+      switch (res.selection) {
+        case 0:
+          openCreateCommandScreen(player);
+          break;
+        case 1:
+          openExecuteCommandScreen(player);
+          break;
+        case 2:
+          openDeleteCommandScreen(player);
+          break;
+        case 3:
+          openAboutScreen(player);
+          break;
+        case 4:
+        default:
+          break;
+      }
+    });
   }).catch(() => {});
 }
 
@@ -44,7 +47,7 @@ export function openCreateCommandScreen(player) {
 
   form.show(player).then((res) => {
     if (res.canceled) {
-      openMainMenu(player);
+      system.run(() => openMainMenu(player));
       return;
     }
 
@@ -58,7 +61,7 @@ export function openCreateCommandScreen(player) {
       player.onScreenDisplay.setActionBar(`§c[CommandVault] §fError: ${result.message || "Failed to save command."}`);
     }
 
-    openMainMenu(player);
+    system.run(() => openMainMenu(player));
   }).catch(() => {});
 }
 
@@ -66,7 +69,7 @@ export function openExecuteCommandScreen(player) {
   const commands = getSavedCommands(player);
   if (commands.length === 0) {
     player.onScreenDisplay.setActionBar("§c[CommandVault] §fNo saved commands yet! Use Create Command first.");
-    openMainMenu(player);
+    system.run(() => openMainMenu(player));
     return;
   }
 
@@ -84,14 +87,14 @@ export function openExecuteCommandScreen(player) {
 
   form.show(player).then((res) => {
     if (res.canceled) {
-      openMainMenu(player);
+      system.run(() => openMainMenu(player));
       return;
     }
 
     const [selectedIndex] = res.formValues;
     const target = commands[selectedIndex];
     if (!target || !target.command) {
-      openMainMenu(player);
+      system.run(() => openMainMenu(player));
       return;
     }
 
@@ -108,7 +111,7 @@ export function openDeleteCommandScreen(player) {
   const commands = getSavedCommands(player);
   if (commands.length === 0) {
     player.onScreenDisplay.setActionBar("§c[CommandVault] §fNo saved commands to delete!");
-    openMainMenu(player);
+    system.run(() => openMainMenu(player));
     return;
   }
 
@@ -126,16 +129,18 @@ export function openDeleteCommandScreen(player) {
 
   form.show(player).then((res) => {
     if (res.canceled) {
-      openMainMenu(player);
+      system.run(() => openMainMenu(player));
       return;
     }
 
     const indicesToDelete = [];
-    res.formValues.forEach((val, idx) => {
-      if (val === true) {
-        indicesToDelete.push(idx);
-      }
-    });
+    if (Array.isArray(res.formValues)) {
+      res.formValues.forEach((val, idx) => {
+        if (val === true) {
+          indicesToDelete.push(idx);
+        }
+      });
+    }
 
     if (indicesToDelete.length === 0) {
       player.onScreenDisplay.setActionBar("§e[CommandVault] §fNo commands selected for deletion.");
@@ -149,7 +154,7 @@ export function openDeleteCommandScreen(player) {
       }
     }
 
-    openMainMenu(player);
+    system.run(() => openMainMenu(player));
   }).catch(() => {});
 }
 
@@ -170,6 +175,6 @@ export function openAboutScreen(player) {
 
   form.show(player).then((res) => {
     if (res.canceled) return;
-    openMainMenu(player);
+    system.run(() => openMainMenu(player));
   }).catch(() => {});
 }

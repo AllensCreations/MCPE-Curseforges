@@ -1,13 +1,13 @@
 {
   "format_version": 2,
   "header": {
-    "name": "Command Vault (v2)",
+    "name": "Command Vault (v2.0.1)",
     "description": "Saved command macro and quick-execute UI menu. by ALNStudios",
     "uuid": "20d71889-5d8a-4e87-a926-3fe7365a2bf7",
     "version": [
       2,
       0,
-      0
+      1
     ],
     "min_engine_version": [
       1,
@@ -23,7 +23,7 @@
       "version": [
         2,
         0,
-        0
+        1
       ],
       "entry": "scripts/main.js"
     }
@@ -42,7 +42,7 @@
     "authors": [
       "ALNStudios"
     ],
-    "version": "2.0.0",
+    "version": "2.0.1",
     "product_type": "addon"
   }
 }

@@ -2,6 +2,11 @@
 
 ---
 
+## [2.0.1] - 2026-11-18 - Fix Submenu Transitions
+
+### Fixed
+- **Submenu Dialog Stalling**: Wrapped submenu transitions in `system.run()` to prevent Minecraft Bedrock from silently ignoring consecutive modal form requests when clicking Delete Command.
+
 ## [2.0.0] - 2026-11-17
 
 **What's new in v2.0.0:** Packed with the v2.0.0 update. Includes: Delete Command Feature.
