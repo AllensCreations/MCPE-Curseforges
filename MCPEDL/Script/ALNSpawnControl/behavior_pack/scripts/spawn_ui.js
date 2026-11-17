@@ -74,24 +74,23 @@ function openMainMenu(player) {
   }
 
   const form = new ActionFormData();
-  form.title("ALN: Spawn Control");
+  form.title("§2§lALN:SpawnControl");
   form.body(
     `Manage world mob spawns with precision.\n\n` +
     `Active Status:\n` +
-    `✔ Allowed: ${allowedCount} mobs\n` +
-    `✖ Blocked: ${blockedCount} mobs\n` +
-    `⚡ Blocked Spawns This Session: ${getBlockedCount()}\n` +
-    `⚙ Filter Mode: ${config.blockSpawnEggs ? "All Sources (Inc. Eggs)" : "Natural Only"}\n` +
-    `🔒 Admin Tag Lock: ${config.adminOnly ? "Enabled" : "Disabled"}`
+    `Allowed: ${allowedCount} mobs\n` +
+    `Blocked: ${blockedCount} mobs\n` +
+    `Blocked Spawns This Session: ${getBlockedCount()}\n` +
+    `Filter Mode: ${config.blockSpawnEggs ? "All Sources (Inc. Eggs)" : "Natural Only"}\n` +
+    `Admin Tag Lock: ${config.adminOnly ? "Enabled" : "Disabled"}`
   );
 
-  // Buttons with no color formatting and no texture icon paths
-  form.button("Overworld Hostiles\nZombie, Creeper, Breeze...");
-  form.button("Passive & Neutral Mobs\nCow, Sheep, Villager...");
-  form.button("Nether & End Mobs\nBlaze, Ghast, Piglin...");
-  form.button("Bosses & Rare Mobs\nWarden, Wither, Dragon...");
-  form.button("⚡ Quick Presets\nEnable/Disable Groups");
-  form.button("⚙ Global Filter Settings\nMode & Admin Lock");
+  form.button("§1§lOverworld Hostiles");
+  form.button("§2§lPassive & Neutral Mobs");
+  form.button("§4§lNether & End Mobs");
+  form.button("§5§lBosses & Rare Mobs");
+  form.button("§6§lQuick Presets");
+  form.button("§3§lGlobal Filter Settings");
 
   form.show(player).then((response) => {
     if (response.canceled) {
@@ -128,8 +127,29 @@ function openCategoryMenu(player, categoryKey) {
   }
 
   const rules = getSpawnRules(world);
+  const form = new ActionFormData();
+  form.title(`§2§l${category.name}`);
+  form.body(`Configure spawn rules for ${category.name}:`);
+
+  for (const mob of category.mobs) {
+    const isAllowed = rules[mob.id] !== false;
+    // Using simple text buttons for toggling since ActionFormData allows easy custom back buttons, 
+    // or keeping ModalFormData if preferred. Using ModalFormData per original structure with a Back option handled via ActionFormData wrapper:
+  }
+
+  // To cleanly incorporate a Back button into category selection while keeping toggles, 
+  // we can use ActionFormData that opens a Modal for the toggles, or list items. 
+  // Below is the direct Modal implementation converted to include navigation via Action form or standard approach:
+  openCategoryModal(player, categoryKey);
+}
+
+function openCategoryModal(player, categoryKey) {
+  const category = MOB_CATEGORIES[categoryKey];
+  if (!category) return;
+
+  const rules = getSpawnRules(world);
   const form = new ModalFormData();
-  form.title(`§2${category.name}`);
+  form.title(`§2§l${category.name}`);
 
   for (const mob of category.mobs) {
     const isAllowed = rules[mob.id] !== false;
@@ -137,9 +157,12 @@ function openCategoryMenu(player, categoryKey) {
   }
 
   form.show(player).then((response) => {
-    if (response.canceled || !response.formValues) {
+    if (response.canceled) {
+      system.run(() => openMainMenu(player));
       return;
     }
+    
+    if (!response.formValues) return;
 
     const currentRules = getSpawnRules(world);
     category.mobs.forEach((mob, index) => {
@@ -149,19 +172,20 @@ function openCategoryMenu(player, categoryKey) {
 
     saveSpawnRules(world, currentRules);
     player.onScreenDisplay.setActionBar(`§a[SpawnControl] §fUpdated ${category.name} spawn rules!`);
+    system.run(() => openMainMenu(player));
   });
 }
 
 function openPresetsMenu(player) {
   const form = new ActionFormData();
-  form.title("§6⚡ Quick Presets");
-  form.body("§7Choose a preset to apply instant spawn rule sets across categories:");
+  form.title("§6§lQuick Presets");
+  form.body("Choose a preset to apply instant spawn rule sets across categories:");
 
-  form.button("§aEnable All Mobs\n§8Allow all mobs to spawn");
-  form.button("§cDisable All Hostiles\n§8Block all hostile & Nether threats");
-  form.button("§eDisable All Passive Mobs\n§8Block all farm animals & pets");
-  form.button("§4Disable Everything\n§8Completely empty mob world");
-  form.button("§7« Back to Dashboard\n§8Return to main menu");
+  form.button("§a§lEnable All Mobs");
+  form.button("§c§lDisable All Hostiles");
+  form.button("§e§lDisable All Passive Mobs");
+  form.button("§4§lDisable Everything");
+  form.button("§b§lBack to Dashboard");
 
   form.show(player).then((response) => {
     if (response.canceled) {
@@ -214,16 +238,19 @@ function openPresetsMenu(player) {
 function openGlobalSettingsMenu(player) {
   const config = getSpawnConfig(world);
   const form = new ModalFormData();
-  form.title("§3⚙ Global Filter Settings");
+  form.title("§3§lGlobal Filter Settings");
 
   form.toggle("Include Spawn Eggs & Summon Commands", { defaultValue: config.blockSpawnEggs });
   form.toggle("Admin Tag Lock (player tag: aln_admin)", { defaultValue: config.adminOnly });
   form.toggle("Purge Loaded Disabled Mobs Now", { defaultValue: false });
 
   form.show(player).then((response) => {
-    if (response.canceled || !response.formValues) {
+    if (response.canceled) {
+      system.run(() => openMainMenu(player));
       return;
     }
+
+    if (!response.formValues) return;
 
     const blockSpawnEggs = Boolean(response.formValues[0]);
     const adminOnly = Boolean(response.formValues[1]);
@@ -236,6 +263,7 @@ function openGlobalSettingsMenu(player) {
     } else {
       player.onScreenDisplay.setActionBar("§a[SpawnControl] §fSaved global filter settings!");
     }
+    system.run(() => openMainMenu(player));
   });
 }
 
