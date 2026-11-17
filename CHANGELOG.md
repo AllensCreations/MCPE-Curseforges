@@ -2,6 +2,17 @@
 
 ---
 
+## [v86] - 2026-11-17 - MCPEDL Index README
+
+### Added
+- **MCPEDL README**: `MCPEDL/README.md` lists every pack grouped by type with Source, Download pack and AI review links; `mcpedl-readme.yml` rebuilds it on every pack or build change and after the catalog build.
+
+### Improved & Balanced
+- **Docs rules**: `DOCS_RULES.md` 2.1 names the generated `MCPEDL/README.md`.
+
+### Fixed
+- **Cleanup**: removes leftover retired files (`test_world.json`, Test worlds, retired scripts and workflows) when tracked; missing ones are skipped.
+
 ## [v85] - 2026-11-17 - Bedrock Reference and Auto Review
 
 ### Added
