@@ -501,11 +501,6 @@ def _read_text(path):
         return None
 
 
-def _build_packages(project_name):
-    """{filename: sha256} of the packages currently in builds/<project>/."""
-    return _package_hashes(project_name)
-
-
 def should_bump_project(snapshot_state, source_changed_in_diff=False, is_new=False):
     """Decide whether an existing project's source change warrants an Update bump.
 
@@ -541,7 +536,7 @@ def snapshot_status(project_name, version_str, source_hash):
     for name in os.listdir(vdir):
         if name.lower().endswith(PACKAGE_EXTS):
             saved[name] = _sha256_file(os.path.join(vdir, name))
-    if saved != _build_packages(project_name):
+    if saved != _package_hashes(project_name):
         return "packages_stale"
     return "current"
 
@@ -560,7 +555,7 @@ def _build_info(project_path, project_name, version_str, source_hash):
         "manifest_version": version_str,
         "changelog_version": manifest_tools.latest_changelog_version(project_path) if manifest_tools else None,
         "source_sha256": source_hash,
-        "packages": _build_packages(project_name),
+        "packages": _package_hashes(project_name),
     }
     return json.dumps(info, indent=2, sort_keys=True) + "\n"
 
@@ -1080,6 +1075,15 @@ def verify_snapshots(project_dirs):
     return 1 if bad else 0
 
 
+def _source_changed_for_bump(base, project_dirs):
+    """Projects whose source changed in the Git diff (only needed when --bump is on)."""
+    try:
+        return set(detect_changed_projects(get_git_diff_files(base), project_dirs))
+    except subprocess.CalledProcessError as exc:
+        print(f"[Build] Could not inspect source changes for bump detection: {exc}", file=sys.stderr)
+        return set()
+
+
 def main():
     parser = argparse.ArgumentParser(
         description="Build packs and synchronize project catalogs."
@@ -1125,12 +1129,7 @@ def main():
         print("[Build] Mode: ALL (explicit override) — processing every project in repository...")
         changed_projects = sorted(list(project_dirs.keys()))
         if args.bump:
-            try:
-                source_changed_projects = set(detect_changed_projects(
-                    get_git_diff_files(args.base), project_dirs
-                ))
-            except subprocess.CalledProcessError as exc:
-                print(f"[Build] Could not inspect source changes for bump detection: {exc}", file=sys.stderr)
+            source_changed_projects = _source_changed_for_bump(args.base, project_dirs)
     elif args.project:
         print(f"[Build] Mode: EXPLICIT PROJECT — {args.project}")
         matched = [
@@ -1147,12 +1146,7 @@ def main():
             sys.exit(1)
         changed_projects = matched
         if args.bump:
-            try:
-                source_changed_projects = set(detect_changed_projects(
-                    get_git_diff_files(args.base), project_dirs
-                ))
-            except subprocess.CalledProcessError as exc:
-                print(f"[Build] Could not inspect source changes for bump detection: {exc}", file=sys.stderr)
+            source_changed_projects = _source_changed_for_bump(args.base, project_dirs)
     else:
         print(f"[Build] Checking changed files (base: {args.base or 'auto'})...")
         try:
@@ -1205,7 +1199,7 @@ def main():
                     lock_content = lock_file.read()
             except OSError:
                 lock_content = ""
-            if not lock_content.startswith(("ALNStudios Add-on Lock v1", "ALNStudios Add-on Lock v1")):
+            if not lock_content.startswith("ALNStudios Add-on Lock v1"):
                 print(f"[Build] Missing/invalid LOCK marker, creating: {os.path.relpath(lock_path, REPO_ROOT)}")
                 with open(lock_path, "w", encoding="utf-8", newline="\n") as lock_file:
                     lock_file.write(
@@ -1215,7 +1209,7 @@ def main():
 
         proj_name = os.path.basename(cp)
         category_readme = os.path.join(REPO_ROOT, cat, "README.md")
-        category_text = open(category_readme, encoding="utf-8").read() if os.path.isfile(category_readme) else ""
+        category_text = _read_text(category_readme) or ""
         is_new = proj_name not in category_text
 
         print(f"\nProcessing {os.path.relpath(cp, REPO_ROOT)} {'(NEW)' if is_new else ''}...")
@@ -1274,11 +1268,11 @@ def main():
             ):
                 rebuilt_projects.append(f"{cat}/{proj_name}")
 
-        # ── Synchronize all Directory README files & links ─────────────────
         # ── Save this version into builds/<project>/versions/ ───────────────
         if primary_file and proj_name not in TEST_GATED_WORLD_PROJECTS:
-            snap_result = save_version_snapshot(cp, proj_name, new_v, source_hash)
+            save_version_snapshot(cp, proj_name, new_v, source_hash)
 
+        # ── Synchronize all Directory README files & links ─────────────────
         update_readmes(cp, cat, old_v, new_v, primary_file, built_files)
 
         # ── Register if new ───────────────────────────────────────────────

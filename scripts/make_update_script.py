@@ -143,7 +143,8 @@ def main():
         except au.Fail as e:
             fail(f"VERIFY FAILED: {e}", e.code)
         print(f"VERIFY OK (dry run): {len(touched)} file(s) would change")
-    script = f"{name}_{spec['version']}_{rand}.sh"
+    label = f"v{spec['version']}" if proj == "." and spec["version"].isdigit() else spec["version"]
+    script = f"{name}_{label}_{rand}.sh"
     block = BEGIN + "\n" + "\n".join("#" + l for l in text.rstrip("\n").split("\n")) + "\n" + END
     body = (TEMPLATE.replace("@@SCRIPT@@", script).replace("@@VERSION@@", spec["version"])
             .replace("@@PROJECT@@", proj).replace("@@REPO@@", REPO_URL).replace("@@BLOCK@@", block))

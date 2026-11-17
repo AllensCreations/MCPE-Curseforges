@@ -32,6 +32,7 @@ permissions:
 jobs:
   build:
     runs-on: ubuntu-latest
+    timeout-minutes: 45
     permissions:
       contents: write
     concurrency:
@@ -53,6 +54,10 @@ jobs:
         uses: actions/setup-python@6d4fd22b20465ccc0f7354476588e8df7c9ca0e0 # v7.1.0
         with:
           python-version: '3.14'
+          cache: pip
+
+      - name: Install Python dependencies
+        run: pip install --disable-pip-version-check -r requirements.txt
 
       - name: Migrate legacy X.Y.Z.A versions and changelogs to X.Y.Z
         run: python3 scripts/migrate_three_part_versions.py
@@ -70,11 +75,9 @@ jobs:
             [ -d "$dir/texture_sources" ] || continue
             python3 scripts/pixel_json_to_png.py "$dir" || echo "::warning::Pixel textures of $dir could not be rendered (see log)."
           done
+
       - name: Convert icon files to pack_icon.png
-        run: |
-          set -euo pipefail
-          pip install -r requirements.txt
-          python3 scripts/make_pack_icon.py
+        run: python3 scripts/make_pack_icon.py
 
       - name: Rebuild packages & register new projects
         id: process
@@ -91,9 +94,11 @@ jobs:
           python3 scripts/auto_bump_and_build.py --all
 
       # Generic pack builds do not create .mcworld files. Rebuild eligible OneBlock
-      # archives here before synchronizing links; test-gated maps remain owned by
-      # their dedicated world-build workflow.
+      # archives on the daily and manual runs. On pushes, "Build OneBlock Creative, Survival,
+      # and Hardcore Worlds" already rebuilds them (same paths trigger it), so doing it here
+      # too only made two workflows race to commit the same binaries.
       - name: Rebuild non-test-gated OneBlock world archives
+        if: ${{ github.event_name != 'push' }}
         env:
           ONEBLOCK_TEST_GATED_MAPS: OneBlock-Dirtbound-Kingdom-Beta
         shell: bash

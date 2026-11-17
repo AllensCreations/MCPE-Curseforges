@@ -53,7 +53,7 @@ class UpdateTests(unittest.TestCase):
         self.assertEqual(self.js(), "const a = 1;\nconst a2 = 1;\nconst b = 20;\nconst c0 = 0;\nexport {};\n")
         self.assertEqual((self.p / "behavior_pack/new.txt").read_text(), "hello\n")
         self.assertIn("## [1.0.1] - 2026-11-13 - Tweak", (self.p / "CHANGELOG.md").read_text())
-        self.assertIn("## [1.0.0] - 2026-11-13 - Tweak", (self.root / "CHANGELOG.md").read_text())
+        self.assertIn("## [v1] - 2026-11-13 - Tweak", (self.root / "CHANGELOG.md").read_text())
 
     def test_second_run_changes_nothing(self):
         s = spec("@@ file behavior_pack/main.js", "@@ replace", "const b = 2;", "@@ with", "const b = 20;")
@@ -102,16 +102,38 @@ class UpdateTests(unittest.TestCase):
 
 
     def test_repo_level_version_must_be_the_next_repo_version(self):
-        (self.root / "REPO_VERSION").write_text("1.0.5\n")
+        (self.root / "REPO_VERSION").write_text("5\n")
         body = ["@@ project .", "@@ file note.txt", "@@ create", "hi", "@@ root-changelog Note", "### Fixed", "- **Fix**: x."]
         with self.assertRaises(au.Fail) as bad:
-            self.run_spec("\n".join(["@@ version 1.0.9"] + body))
+            self.run_spec("\n".join(["@@ version 9"] + body))
         self.assertEqual(bad.exception.code, 3)
-        self.assertIn("@@ version 1.0.6", str(bad.exception))
+        self.assertIn("@@ version 6", str(bad.exception))
         self.assertFalse((self.root / "note.txt").exists())
-        self.run_spec("\n".join(["@@ version 1.0.6"] + body))
-        self.assertEqual((self.root / "REPO_VERSION").read_text().strip(), "1.0.6")
-        self.assertIn("## [1.0.6] - 2026-11-13 - Note", (self.root / "CHANGELOG.md").read_text())
+        self.run_spec("\n".join(["@@ version 6"] + body))
+        self.assertEqual((self.root / "REPO_VERSION").read_text().strip(), "6")
+        self.assertIn("## [v6] - 2026-11-13 - Note", (self.root / "CHANGELOG.md").read_text())
+
+    def test_old_three_part_repo_version_continues_as_a_single_number(self):
+        (self.root / "REPO_VERSION").write_text("1.0.79\n")
+        body = ["@@ project .", "@@ file note.txt", "@@ create", "hi", "@@ root-changelog Note", "### Fixed", "- **Fix**: x."]
+        with self.assertRaises(au.Fail) as bad:
+            self.run_spec("\n".join(["@@ version 81"] + body))
+        self.assertEqual(bad.exception.code, 3)
+        self.assertIn("@@ version 80", str(bad.exception))
+        self.run_spec("\n".join(["@@ version 80"] + body))
+        self.assertEqual((self.root / "REPO_VERSION").read_text().strip(), "80")
+        self.assertIn("## [v80] - 2026-11-13 - Note", (self.root / "CHANGELOG.md").read_text())
+
+    def test_repo_level_script_is_named_with_a_v_and_project_versions_stay_three_part(self):
+        sp = self.root / "spec.txt"
+        out = self.root / "out"
+        sp.write_text("@@ version 2\n@@ project .\n@@ file a.txt\n@@ create\nx\n@@ root-changelog Note\n### Fixed\n- **Fix**: x.\n")
+        r = subprocess.run([sys.executable, str(SCRIPTS / "make_update_script.py"), str(sp), "--rand", "abc12",
+                            "--out-dir", str(out)], capture_output=True, text=True)
+        self.assertEqual(r.returncode, 0, r.stdout + r.stderr)
+        self.assertEqual([f.name for f in out.iterdir()], ["Repo_v2_abc12.sh"])
+        with self.assertRaises(au.Fail):
+            au.parse("@@ version 2\n@@ project MCPEDL/Addons/Demo\n")
 
     def test_delete_file_removes_tracked_files_and_older_apply_update_still_works(self):
         git = lambda *a: subprocess.run(["git", *a], cwd=self.root, capture_output=True, text=True, check=True)

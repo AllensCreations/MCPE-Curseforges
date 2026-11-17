@@ -1,4 +1,4 @@
-# Pack Generator Instructions (AI Agent, v25)
+# Pack Generator Instructions (AI Agent, v26)
 
 Builds a complete **addon**, **map**, **script**, or **minigame** from the user's idea. Returns ONE Termux `.sh` pack script that carries the whole project inside it (as base64). No other file is delivered.
 
@@ -24,7 +24,7 @@ Order of work: read Part 1, `DOCS_RULES.md`, then Part 4 from 4.0. Unclear reque
 - Source priority (report disagreements, NEVER choose silently): 1 add-on's own files; 2 Mojang Bedrock Samples (https://github.com/Mojang/bedrock-samples): vanilla ids, textures, recipes, components, formats; 3 Minecraft Creator Docs (https://learn.microsoft.com/en-us/minecraft/creator/?view=minecraft-bedrock-stable): stable versions, API; 4 Minecraft Wiki (https://minecraft.wiki/): display names, edition, icon look; 5 Bedrock Wiki (https://wiki.bedrock.dev/): formats, techniques. Sources 4-5 NEVER override 1-3 on ids, versions, API.
 - NEVER comments in shipped `.js`, `.mcfunction`, `.json`. Explanations go in docs or handoff.
 - NEVER imply Mojang/Microsoft endorsement.
-- `.sh` names: `(Repofilename)_(Version)_(Rand).sh`. Repofilename = project/folder/file changed, no extension, no spaces (hyphens). Version = new `X.Y.Z` or instruction version (`v5`). Rand = >=5 random lowercase/digits, fresh each time (`head -c 200 /dev/urandom | tr -dc 'a-z0-9' | head -c 6`), NEVER reused. Example `Dirtbound_1.2.0_k7q2x.sh`. Same name in reply and run command.
+- `.sh` names: `(Repofilename)_(Version)_(Rand).sh`. Repofilename = project/folder/file changed, no extension, no spaces (hyphens). Version = new `X.Y.Z`, instruction version (`v5`) or repo version (`v80`). Rand = >=5 random lowercase/digits, fresh each time (`head -c 200 /dev/urandom | tr -dc 'a-z0-9' | head -c 6`), NEVER reused. Example `Dirtbound_1.2.0_k7q2x.sh`. Same name in reply and run command.
 
 ### 1.2 Versions and Compatibility
 Latest stable:

@@ -7,6 +7,7 @@ checked in memory first, nothing is written if any edit fails. Safe to run twice
 Spec format (lines starting with "@@ " are directives; a content line that must start with "@@" is written
 "@@@"; the first "@" is removed):
   @@ version 1.2.4                      new X.Y.Z (must be the current highest + 0.0.1, or already applied)
+                                        repo level (@@ project .): just the number, e.g. @@ version 80 (= REPO_VERSION + 1)
   @@ project MCPEDL/Addons/Mining-Helmet   folder every @@ file path is relative to ("." = repo root, no version step)
   @@ file behavior_pack/scripts/main.js
   @@ replace                            exact text that must occur ONCE (partial lines are fine)
@@ -40,6 +41,7 @@ NAMES = {"version", "project", "file", "replace", "replace-all", "insert-after",
          "append", "create", "overwrite", "changelog", "root-changelog"}
 NEEDS_WITH = {"replace", "replace-all", "insert-after", "insert-before"}
 VER = re.compile(r"^\d+\.\d+\.\d+$")
+REPO_VER = re.compile(r"^(?:\d+\.\d+\.)?(\d+)$")
 
 
 class Fail(Exception):
@@ -90,8 +92,9 @@ def parse(text):
                 new = "\n".join(toks[i][2])
                 i += 1
             spec["ops"].append({"op": name, "file": cur, "old": body, "new": new})
-    if not spec["version"] or not VER.match(spec["version"]):
-        raise Fail("spec needs '@@ version X.Y.Z'")
+    repo = (spec["project"] or "").strip().rstrip("/") == "."
+    if not spec["version"] or not (REPO_VER if repo else VER).match(spec["version"]):
+        raise Fail("spec needs '@@ version X.Y.Z' (a repo-level spec uses just the number, '@@ version 80')")
     if not spec["project"]:
         raise Fail("spec needs '@@ project <folder>'")
     return spec
@@ -242,21 +245,21 @@ def run(spec, root, date, dry=False):
         name, body = rootspec
         rt = files.get(rc) or rc.read_text(encoding="utf-8")
         vp = root / "REPO_VERSION"
-        dup = re.search(r"^## \[\d+\.\d+\.\d+\] - " + re.escape(f"{date} - {name}") + r"$", rt, re.M)
+        dup = re.search(r"^## \[v?\d+(?:\.\d+\.\d+)?\] - " + re.escape(f"{date} - {name}") + r"$", rt, re.M)
         if dup or f"## {date} - {name}" in rt:
             ch = False
         else:
             cur = vp.read_text(encoding="utf-8").strip() if vp.is_file() else ""
-            if re.match(r"^\d+\.\d+\.\d+$", cur):
-                a, b, c = (int(x) for x in cur.split("."))
-                cur = f"{a}.{b}.{c + 1}"
-                if repo_level and ver != cur:
+            old_ver = REPO_VER.match(cur)
+            if old_ver:
+                cur = str(int(old_ver.group(1)) + 1)
+                if repo_level and REPO_VER.match(ver).group(1) != cur:
                     raise Fail(f"stale script: the repo goes to {cur}, but this script is named for {ver}. "
                                f"Use '@@ version {cur}'.", 3)
             else:
-                cur = "1.0.0"
+                cur = "1"
             files[vp] = cur + "\n"
-            rt, ch = add_entry(rt, f"## [{cur}] - {date} - {name}", body)
+            rt, ch = add_entry(rt, f"## [v{cur}] - {date} - {name}", body)
             files[rc] = rt
         notes.append(f"{'added   ' if ch else 'skipped '} CHANGELOG.md (root) entry")
     for p, t in files.items():

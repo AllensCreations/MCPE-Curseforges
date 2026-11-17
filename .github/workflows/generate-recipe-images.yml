@@ -43,7 +43,7 @@ jobs:
         run: python scripts/generate_monster_companions_recipe_image.py
 
       - name: Generate recipe images for every pack
-        run: python scripts/generate_recipe_images.py --all
+        run: python scripts/generate_recipe_images.py --all --items-from-recipes
 
       - name: Generate Grand Banquets item previews and recipe images
         run: python scripts/generate_grand_banquets_recipe_images.py

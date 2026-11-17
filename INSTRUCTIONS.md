@@ -1,4 +1,4 @@
-# Instructions: Core Repository Policy (v21)
+# Instructions: Core Repository Policy (v22)
 
 Repo policy, docs rules for AllensCreations/MCPE-Curseforges (creator name `ALNStudios`). Generating a new project: `PACK_GENERATOR_INSTRUCTIONS.md`.
 
@@ -37,7 +37,7 @@ Output ONLY, in order, exact headings:
 6b. Project update: after the CHANGELOG entry, run `python3 scripts/manifest_tools.py --project "$DEST" --set X.Y.Z`, then `--check` and `python3 scripts/validate_manifest_titles.py --project "$DEST"`. Stop on error.
 7. `git add` changed paths only; `git commit -m "<short>"`; `git push`
 8. Idempotent: skip applied changes.
-9. Add an entry to the root `CHANGELOG.md` (repo-wide, newest first under `---`): `## [X.Y.Z] - YYYY-MM-DD - [Update Name]` (X.Y.Z = `REPO_VERSION` + 0.0.1, set by `apply_update.py`, never by hand; a repo-level script's `@@ version` and `.sh` name MUST equal it, the script refuses otherwise), then `### Added` / `### Improved & Balanced` / `### Fixed` with `- **Title**: what changed`. Every script does this, tooling-only changes included.
+9. Add an entry to the root `CHANGELOG.md` (repo-wide, newest first under `---`): `## [vN] - YYYY-MM-DD - [Update Name]` (N = `REPO_VERSION` + 1, a single whole number such as v80, no dots; set by `apply_update.py`, never by hand; a repo-level script's `@@ version` (just the number) and its `.sh` name `Repo_vN_<Rand>.sh` MUST equal it, the script refuses otherwise; pack versions stay X.Y.Z), then `### Added` / `### Improved & Balanced` / `### Fixed` with `- **Title**: what changed`. Every script does this, tooling-only changes included.
 10. After a successful push, delete the script itself: `rm -f -- "$SELF"` (SELF = absolute path saved before `cd`; last line, only reached when everything above passed).
 Every project update writes CHANGELOG.md (Part 2 format; heading version == `.sh` name version). Manifest versions: 1.3. NEVER edit README download links by hand (build aligns them).
 
@@ -61,7 +61,7 @@ Part 1 wins. `DOCS_RULES.md` never overrides it. Generator file never overrides 
 - Source priority (report disagreements, NEVER choose silently): 1 add-on's own files; 2 Mojang Bedrock Samples (https://github.com/Mojang/bedrock-samples): vanilla ids, textures, recipes, components, formats; 3 Minecraft Creator Docs (https://learn.microsoft.com/en-us/minecraft/creator/?view=minecraft-bedrock-stable): stable versions, API; 4 Minecraft Wiki (https://minecraft.wiki/): display names, edition, icon look; 5 Bedrock Wiki (https://wiki.bedrock.dev/): formats, techniques. Sources 4-5 NEVER override 1-3 on ids, versions, API.
 - NEVER comments in shipped `.js`, `.mcfunction`, `.json`. Explanations go in docs or handoff.
 - NEVER imply Mojang/Microsoft endorsement.
-- `.sh` names: `(Repofilename)_(Version)_(Rand).sh`. Repofilename = project/folder/file changed, no extension, no spaces (hyphens). Version = new `X.Y.Z` or instruction version (`v5`). Rand = >=5 random lowercase/digits, fresh each time (`head -c 200 /dev/urandom | tr -dc 'a-z0-9' | head -c 6`), NEVER reused. Example `Dirtbound_1.2.0_k7q2x.sh`. Same name in reply and run command.
+- `.sh` names: `(Repofilename)_(Version)_(Rand).sh`. Repofilename = project/folder/file changed, no extension, no spaces (hyphens). Version = new `X.Y.Z`, instruction version (`v5`) or repo version (`v80`). Rand = >=5 random lowercase/digits, fresh each time (`head -c 200 /dev/urandom | tr -dc 'a-z0-9' | head -c 6`), NEVER reused. Example `Dirtbound_1.2.0_k7q2x.sh`. Same name in reply and run command.
 
 ### 1.2 Versions and Compatibility
 Latest stable:
@@ -250,6 +250,7 @@ Placeholders `<PackName>`, `<MainAction>`, `<version>`. NEVER hardcode one pack.
 - [ ] Changed JSON validated. Instruction file changed: `scripts/check_instruction_files.py` passes.
 
 ## Version History
+- **v22:** The repo version is a single number (`REPO_VERSION` = `80`, written `v80`), no longer X.Y.Z. Next = number + 1. Root changelog headings are `## [vN]`; repo-level scripts are `@@ version N` and named `Repo_vN_<Rand>.sh`. Pack versions stay X.Y.Z.
 - **v21:** New 1.15 (Bedrock Developer Role and Trusted Sources): official NPM packages first, the trusted source list, texture/registration split, failure procedure. `@minecraft/math` stays blocked by the payload allow-list until `build_payload.py` lists it.
 - **v19:** The separate description views (`<Name>.curseforge.html`) and `image_prompts/` were removed. The Listing Kit is the only generated listing file.
 - **v20:** The description HTML has no pack logo. New look: rounded hero (title, tagline pill, badge pills), green heading chips, feature cards with a green title header, rounded step badges. A command like `/give @s aln:item` keeps its colon.

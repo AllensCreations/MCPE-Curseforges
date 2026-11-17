@@ -2,6 +2,18 @@
 
 ---
 
+## [1.0.80] - 2026-11-17 - Autobump Cleanup and Single Repo Version
+
+### Improved & Balanced
+- **Single repo version**: The repository version is now one number (v80) instead of X.Y.Z. Every update adds 1. Pack versions stay X.Y.Z.
+- **Faster builds**: Python packages are now cached between runs and installed in their own step.
+- **One OneBlock build**: On code pushes, OneBlock worlds are rebuilt by one workflow instead of two workflows saving the same files at once.
+- **Build time limit**: The autobump workflow now stops itself after 45 minutes if something hangs.
+- **Matching recipe images**: The manual recipe image workflow now also makes item sprites from recipes, like the autobump does.
+### Fixed
+- **Duplicate checks**: The CI no longer runs the same two tests twice.
+- **Cleaner build script**: Removed a duplicated check and a copied block of code from the autobump script, and closed a file it left open.
+
 ## [1.0.79] - 2026-11-17 - Disc Group
 
 ### Added
