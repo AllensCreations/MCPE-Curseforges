@@ -168,8 +168,8 @@ def main() -> int:
             lines = [START, "", "Latest AI review files (one per package, refreshed after every package update):", ""]
             if (ROOT / OUT_DIR / "tools.txt").is_file():
                 lines.append(f"- [Tools and instructions]({link(OUT_DIR + '/tools.txt')})")
-            if (ROOT / "reference/bedrock-samples/bedrock-samples.min.json").is_file():
-                lines.append(f"- [Vanilla Bedrock reference (JSON)]({link('reference/bedrock-samples/bedrock-samples.min.json')})")
+            if (ROOT / "reference/bedrock-samples/bedrock-samples.min.json.gz").is_file():
+                lines.append(f"- [Vanilla Bedrock reference (JSON, gzip)]({link('reference/bedrock-samples/bedrock-samples.min.json.gz')})")
             for cat in CATEGORIES:
                 items = [e for e in entries if e[0] == cat]
                 if items:

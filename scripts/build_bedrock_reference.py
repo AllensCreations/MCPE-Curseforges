@@ -4,10 +4,11 @@
   python3 scripts/build_bedrock_reference.py --src <bedrock-samples clone> [--out reference/bedrock-samples]
 
 Writes (only when the content changed, so a run with no upstream change commits nothing):
-  <out>/bedrock-samples.min.json   every vanilla behavior_pack + resource_pack JSON file, minified, in one object
+  <out>/bedrock-samples.min.json.gz   every vanilla behavior_pack + resource_pack JSON file, minified, in one gzip file
+                                      (about 5 times smaller; the older plain .min.json is removed when found)
   <out>/README.md                  where the data came from (commit, version), section counts, how to look things up
 
-Shape of bedrock-samples.min.json:
+Shape of bedrock-samples.min.json.gz once unzipped:
   {"_meta": {...source commit, min engine version, counts, unparsed files...},
    "behavior_pack":  {"entities": {"zombie": {...}}, "items": {...}, "blocks": {...}, "recipes": {...},
                       "loot_tables": {"chests/x": {...}}, "spawn_rules": {...}, "trading": {...}, "biomes": {...}, ...},
@@ -19,6 +20,7 @@ Vanilla files contain // comments and trailing commas: they are cleaned with a s
 A file that still cannot be parsed is listed in _meta.unparsed and never stops the run.
 """
 import argparse
+import gzip
 import json
 import re
 import sys
@@ -157,6 +159,9 @@ def main() -> int:
     }
     doc = {"_meta": meta, "behavior_pack": bp, "resource_pack": rp}
     payload = json.dumps(doc, ensure_ascii=False, separators=(",", ":")) + "\n"
+    payload = json.dumps(doc, ensure_ascii=False, separators=(",", ":")) + "\n"
+    raw = payload.encode("utf-8")
+    packed = gzip.compress(raw, 9, mtime=0)
 
     lines = [
         "# Bedrock Samples Reference",
@@ -165,8 +170,8 @@ def main() -> int:
         "",
         f"- Source: https://github.com/Mojang/bedrock-samples (commit `{sha[:12] or 'unknown'}`)",
         f"- Minimum engine version in the samples: `{'.'.join(map(str, min_engine)) if min_engine else 'unknown'}`",
-        f"- Size: {len(payload.encode('utf-8')) / 1e6:.2f} MB, one file: `bedrock-samples.min.json`",
-        "- Look up: `jq '.behavior_pack.entities.zombie' bedrock-samples.min.json`",
+        f"- Size: {len(raw) / 1e6:.2f} MB unzipped, {len(packed) / 1e6:.2f} MB gzipped, one file: `bedrock-samples.min.json.gz`",
+        "- Look up: `zcat bedrock-samples.min.json.gz | jq '.behavior_pack.entities.zombie'`",
         "- Keys are the file path inside the section without `.json` (e.g. `loot_tables[\"chests/ancient_city\"]`).",
         "",
         "## Sections",
@@ -178,13 +183,20 @@ def main() -> int:
 
     out.mkdir(parents=True, exist_ok=True)
     changed = False
-    for name, text in (("bedrock-samples.min.json", payload), ("README.md", readme)):
-        target = out / name
-        if not target.exists() or target.read_text(encoding="utf-8") != text:
-            target.write_text(text, encoding="utf-8")
-            changed = True
-    print(f"{'Updated' if changed else 'Unchanged'}: {out}/bedrock-samples.min.json "
-          f"({len(payload) / 1e6:.2f} MB, {sum(counts.values())} files, {len(unparsed)} unparsed)")
+    target = out / "bedrock-samples.min.json.gz"
+    if not target.exists() or target.read_bytes() != packed:
+        target.write_bytes(packed)
+        changed = True
+    target = out / "README.md"
+    if not target.exists() or target.read_text(encoding="utf-8") != readme:
+        target.write_text(readme, encoding="utf-8")
+        changed = True
+    legacy = out / "bedrock-samples.min.json"
+    if legacy.exists():
+        legacy.unlink()
+        changed = True
+    print(f"{'Updated' if changed else 'Unchanged'}: {out}/bedrock-samples.min.json.gz "
+          f"({len(raw) / 1e6:.2f} MB raw, {len(packed) / 1e6:.2f} MB gzipped, {sum(counts.values())} files, {len(unparsed)} unparsed)")
     return 0
 
 

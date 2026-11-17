@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+import gzip
 import json
 import sys
 import tempfile
@@ -33,9 +34,10 @@ class BuildTests(unittest.TestCase):
             try:
                 sys.argv = ["x", "--src", str(src), "--out", str(out), "--sha", "abc123def456"]
                 self.assertEqual(bbr.main(), 0)
-                first = (out / "bedrock-samples.min.json").read_text(encoding="utf-8")
+                first_bytes = (out / "bedrock-samples.min.json.gz").read_bytes()
+                first = gzip.decompress(first_bytes).decode("utf-8")
                 self.assertEqual(bbr.main(), 0)
-                self.assertEqual(first, (out / "bedrock-samples.min.json").read_text(encoding="utf-8"))
+                self.assertEqual(first_bytes, (out / "bedrock-samples.min.json.gz").read_bytes())
             finally:
                 sys.argv = argv
             doc = json.loads(first)

@@ -2,6 +2,11 @@
 
 ---
 
+## [v89] - 2026-11-17 - Gzip Bedrock Reference
+
+### Improved & Balanced
+- **Smaller Bedrock reference**: the vanilla reference is now stored as `bedrock-samples.min.json.gz` (about 8 MB instead of about 39 MB). The next Sync Bedrock Samples Reference run replaces the old plain file; unchanged upstream still commits nothing.
+
 ## [v88] - 2026-11-17 - AI Review Direct Link
 
 ### Improved & Balanced

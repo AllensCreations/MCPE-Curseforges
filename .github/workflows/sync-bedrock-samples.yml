@@ -2,7 +2,7 @@ name: Sync Bedrock Samples Reference
 
 # Pulls the newest Mojang/bedrock-samples (text files only, no textures/sounds), converts every
 # behavior_pack + resource_pack JSON into ONE minified JSON and saves it in the repo:
-#   reference/bedrock-samples/bedrock-samples.min.json   (the reference for creating and updating add-ons)
+#   reference/bedrock-samples/bedrock-samples.min.json.gz   (gzip, about 5 times smaller; the reference for creating and updating add-ons)
 #   reference/bedrock-samples/README.md                   (source commit, engine version, section counts)
 # Runs every Monday, and on demand. A run with no upstream change commits nothing.
 # The commit carries [skip ci], so Build Changed Packs & Sync Catalogs does not rebuild packs for it.
