@@ -51,16 +51,7 @@ on:
         required: false
         default: ""
         type: string
-      refresh_package_files:
-        description: "Refresh the per-package ai-review files and the root README list now (same as the automatic run; ignores mode/pack_path)"
-        required: false
-        default: false
-        type: boolean
-      commit_changelog_views:
-        description: "Also commit the refreshed changelog_views/ and description_views/ folders to the repo"
-        required: false
-        default: false
-        type: boolean
+
 
 permissions:
   contents: write
@@ -97,9 +88,9 @@ jobs:
           MODE: ${{ inputs.mode }}
           PACK_PATH: ${{ inputs.pack_path }}
           EVENT: ${{ github.event_name }}
-          REFRESH: ${{ inputs.refresh_package_files }}
-        run: |
-          if [ "$EVENT" = "workflow_run" ] || [ "$REFRESH" = "true" ]; then
+          run: |
+          if [ "$EVENT" = "workflow_run" ]; then
+
             echo "auto=true" >> "$GITHUB_OUTPUT"
             echo "default=false" >> "$GITHUB_OUTPUT"
             echo "export_mode=repo_maintenance" >> "$GITHUB_OUTPUT"
@@ -136,7 +127,8 @@ jobs:
       - name: Refresh per-package AI review files (automatic run)
         if: steps.mode.outputs.auto == 'true'
         id: auto
-        run: python3 scripts/auto_ai_review.py ${{ github.event_name == 'workflow_dispatch' && inputs.refresh_package_files && '--all' || '' }}
+        run: python3 scripts/auto_ai_review.py
+
 
       - name: Commit the refreshed AI review files
         if: steps.mode.outputs.auto == 'true' && steps.auto.outputs.changed == 'true'
@@ -254,8 +246,7 @@ jobs:
             echo "::warning::$SKILL not found: the bundle has no SKILL.md."
           fi
 
-      - name: Commit refreshed changelog views (optional)
-        if: ${{ inputs.commit_changelog_views }}
+      - name: Commit refreshed changelog and description views
         run: |
           set -euo pipefail
           if [ -n "$(git status --porcelain changelog_views description_views)" ]; then
@@ -267,6 +258,7 @@ jobs:
           else
             echo "Changelog views are already up to date."
           fi
+
 
       - name: Pick download name
         if: steps.mode.outputs.auto != 'true'
@@ -299,9 +291,9 @@ jobs:
             echo "### Collect Files for AI Review"
             if [ "$AUTO" = "true" ]; then
               echo "- Automatic per-package refresh: changed files = ${CHANGED:-false}"
-              echo "- Files are in each package folder under \`ai-review/\`, tools in \`ai-review/tools.txt\`"
+              echo "- Files are in each package folder under \`ai-review/\`, tools in \`ai-review/tools.txt\`, \`ai-review/New-Pack_tools.txt\`, \`ai-review/Update-Pack_tools.txt\`"
             else
-              echo "- Paths: \`${PATHS_IN:-(standard review bundle)}\` (NEW = new-pack kit)"
+              echo "- Paths: \`${PATHS_IN:-(standard review bundle)}\` (NEW = new-pack kit, UPDATE = update-pack kit, REPO = repo-maintenance kit)"
               echo "- Download **${NAME}.zip**: ${ARTIFACT_URL}"
             fi
           } >> "$GITHUB_STEP_SUMMARY"

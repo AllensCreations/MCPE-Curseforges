@@ -134,7 +134,7 @@ def main() -> int:
             entries.append((cat, name, top_version(pack), txt.relative_to(ROOT).as_posix()))
             print(f"Built {txt.relative_to(ROOT)}")
 
-        # Tools: one copy for the whole repo
+        # Tools: three root kits for the whole repo
         tool_paths = []
         for pat in TOOL_INPUTS:
             target = ROOT / pat
@@ -144,22 +144,25 @@ def main() -> int:
                 tool_paths += [p for p in target.rglob("*") if p.is_file()]
             elif target.is_file():
                 tool_paths.append(target)
-        tools_dir, tools_txt = ROOT / OUT_DIR, ROOT / OUT_DIR / "tools.txt"
-        tools_stamp = tools_dir / ".tools-hash"
+        tools_dir = ROOT / OUT_DIR
         tools_hash = digest(tool_paths)
-        if args.all or not tools_txt.is_file() or not tools_stamp.is_file() or tools_stamp.read_text().strip() != tools_hash:
-            out = Path(tmp) / "tools"
-            try:
-                run_collector("NEW", out, skip_tools=False)
-                made = sorted(out.glob("*_tools.txt"))
-                if made:
-                    tools_dir.mkdir(exist_ok=True)
-                    shutil.copyfile(made[0], tools_txt)
-                    tools_stamp.write_text(tools_hash + "\n", encoding="utf-8")
-                    changed.append(tools_txt.relative_to(ROOT).as_posix())
-                    print(f"Built {tools_txt.relative_to(ROOT)}")
-            except subprocess.CalledProcessError:
-                print("::warning::tools.txt could not be built; skipped.")
+        for kit_name, paths_kw in (("tools.txt", "REPO"), ("New-Pack_tools.txt", "NEW"), ("Update-Pack_tools.txt", "UPDATE")):
+            kit_path  = tools_dir / kit_name
+            kit_stamp = tools_dir / f".{kit_name.replace('.txt', '')}-hash"
+            if args.all or not kit_path.is_file() or not kit_stamp.is_file() or kit_stamp.read_text().strip() != tools_hash:
+                out = Path(tmp) / f"kit_{paths_kw}"
+                try:
+                    run_collector(paths_kw, out, skip_tools=False)
+                    made = sorted(out.glob("*_tools.txt"))
+                    if made:
+                        tools_dir.mkdir(exist_ok=True)
+                        shutil.copyfile(made[0], kit_path)
+                        kit_stamp.write_text(tools_hash + "\n", encoding="utf-8")
+                        changed.append(kit_path.relative_to(ROOT).as_posix())
+                        print(f"Built {kit_path.relative_to(ROOT)}")
+                except subprocess.CalledProcessError:
+                    print(f"::warning::{kit_name} could not be built; skipped.")
+
 
     # Root README list (only between the markers)
     readme = ROOT / "README.md"

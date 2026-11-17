@@ -2,6 +2,17 @@
 
 ---
 
+## [v99] - 2026-11-18 - AI Review Kits (3-mode), MCPEDL Catalog Kits Table & Auto-Commit Views
+
+### Added
+- **3-Mode AI Review Kits in `auto_ai_review.py`**: Now generates all three root kits on every build — `ai-review/New-Pack_tools.txt`, `ai-review/Update-Pack_tools.txt`, and `ai-review/tools.txt` (repo-maintenance) — with per-kit hash stamps so unchanged kits are skipped.
+- **AI Review Kits table in `MCPEDL/README.md`**: `build_mcpedl_readme.py` now inserts a `## AI Review Kits` section above the category tables with direct download links to all three root kits.
+- **`UPDATE` and `REPO` PATHS keywords in `collect_ai_review.py`**: `PATHS=UPDATE` builds an update-pack tools kit; `PATHS=REPO` / `MAINTENANCE` / `TOOLS` builds the full repo-maintenance kit; `PATHS=NEW` unchanged.
+
+### Improved & Balanced
+- **Auto-commit changelog and description views**: `collect-ai-review-files.yml` now always commits refreshed `changelog_views/` and `description_views/` (no checkbox needed); the `commit_changelog_views` input is removed.
+- **Remove `refresh_package_files` toggle**: The per-package AI review auto-refresh checkbox is removed; the step always runs (auto=true path) and only commits when files changed.
+
 ## 2026-11-18 - New Script Command Vault
 
 ### Added

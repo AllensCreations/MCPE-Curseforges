@@ -190,9 +190,13 @@ git config --global credential.helper store
 '''
 
 raw_paths = [p.strip().strip("'\"") for p in re.split(r"[,\n]", os.environ["PATHS"]) if p.strip()]
-new_pack = [p.upper() for p in raw_paths] == ["NEW"]   # new-pack kit: tools txt only
-if new_pack:
+_kw = [p.upper() for p in raw_paths]
+new_pack      = _kw == ["NEW"]          # new-pack kit: tools txt only
+update_kit    = _kw == ["UPDATE"]       # update-pack tools kit
+repo_kit      = _kw in (["REPO"], ["MAINTENANCE"], ["TOOLS"])  # repo-maintenance tools kit
+if new_pack or update_kit or repo_kit:
     raw_paths = []
+
 
 def safe(x):
     return re.sub(r"[^A-Za-z0-9._-]+", "_", x).strip("_.")
@@ -209,7 +213,11 @@ def auto_label():
     label = "+".join(names[:3]) + ("+more" if len(names) > 3 else "")
     return label[:80]
 
-label = "New-Pack" if new_pack else (auto_label() or "export")
+label = ("New-Pack" if new_pack else
+         "Update-Pack" if update_kit else
+         "Repo-Maintenance" if repo_kit else
+         (auto_label() or "export"))
+
 
 root = pathlib.Path(".").resolve()
 SKIP_DIRS = {".git", "db", "node_modules", "__pycache__", "exports", "ai-review"}
@@ -280,8 +288,9 @@ files = sorted(selected, key=str.lower)
 if missing:
     for m in missing:
         print(f"::warning::Path not found or not allowed: {m}")
-if not files and not new_pack:
+if not files and not (new_pack or update_kit or repo_kit):
     raise SystemExit("::error::Nothing matched. Check the paths (case-sensitive, relative to the repo root).")
+
 
 # Detect the current version from every exported CHANGELOG.md (top release heading)
 version_lines, top_versions = [], []
@@ -333,12 +342,13 @@ content = ("# Repo Export\n\n## Index\n\n" + "\n".join(index) + "\n\n---\n\n"
 
 # OTHER: instruction files + helper scripts in ONE txt (text only; binaries are named in the index)
 # Skip tools.txt entirely for update_pack mode (or when AI_SKIP_TOOLS=1) — pack .txt has everything needed
-skip_tools = os.environ.get("AI_SKIP_TOOLS") == "1" or EXPORT_MODE == "update_pack"
-# new_pack: lean kit (instructions + UI assets only, no Python scripts)
-# repo_maintenance: full bundle with all scripts
-if EXPORT_MODE == "new_pack":
+skip_tools = os.environ.get("AI_SKIP_TOOLS") == "1" or (EXPORT_MODE == "update_pack" and not update_kit and not repo_kit)
+# new_pack / UPDATE keyword: lean kit (instructions + UI assets only, no Python scripts)
+# repo_maintenance / REPO keyword: full bundle with all scripts
+if EXPORT_MODE == "new_pack" or new_pack or update_kit:
     tool_files = LEAN_TOOL_FILES
 else:
+
     tool_files = [".agents/skills/mcpe-new-pack/SKILL.md", "PACK_GENERATOR_INSTRUCTIONS.md", "INSTRUCTIONS.md", "DOCS_RULES.md"] + [
         "scripts/" + t for t in (
             "build_payload.py", "import_project_payload.py", "crafting_template.py",

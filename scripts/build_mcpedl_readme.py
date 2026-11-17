@@ -20,10 +20,17 @@ from urllib.parse import quote
 CATEGORIES = (("Addons", "Add-ons"), ("Maps", "Maps"), ("Script", "Scripts"), ("Minigame", "Minigames"))
 CHANGELOG_TOP = re.compile(r"(?m)^## \[(\d+\.\d+\.\d+)\]")
 RAW = "https://github.com/AllensCreations/MCPE-Curseforges/raw/main/"
+GITHUB_RAW = "https://github.com/AllensCreations/MCPE-Curseforges/raw/main/"
+AI_KITS = (
+    ("New Pack Kit", "ai-review/New-Pack_tools.txt"),
+    ("Update Pack Kit", "ai-review/Update-Pack_tools.txt"),
+    ("Repo Maintenance Kit", "ai-review/tools.txt"),
+)
 HEADER = (
     "# MCPEDL Catalog\n\n"
     "Generated file. Do not edit by hand: it is rebuilt with every build.\n"
 )
+
 
 
 def link(base, target):
@@ -56,7 +63,19 @@ def pack_version(project):
 def render(root):
     mcpedl = root / "MCPEDL"
     sections, counts, warnings = [], [], []
+
+    # AI Review Kits section
+    kit_rows = ["| Kit | Download |", "| :-- | :-- |"]
+    for kit_label, kit_rel in AI_KITS:
+        kit_path = root / kit_rel
+        if kit_path.is_file():
+            kit_rows.append(f"| **{kit_label}** | [Download]({GITHUB_RAW}{kit_rel}) |")
+        else:
+            kit_rows.append(f"| **{kit_label}** | *(not yet built)* |")
+    ai_kits_section = "## AI Review Kits\n\n" + "\n".join(kit_rows) + "\n"
+
     for cat, label in CATEGORIES:
+
         base = mcpedl / cat
         projects = sorted((p for p in base.iterdir() if p.is_dir() and not p.name.startswith(".")),
                           key=lambda p: pack_title(p).lower()) if base.is_dir() else []
@@ -73,9 +92,11 @@ def render(root):
             rows.append(f"| **{title}** | {pack_version(p)} | [Source]({link(mcpedl, p)}) | {ai} |")
         sections.append(f"## {label}\n\n" + "\n".join(rows) + "\n")
     body = HEADER + ("\n" + " · ".join(counts) + "\n" if counts else "\nNo packs yet.\n")
+    body += "\n" + ai_kits_section
     if sections:
         body += "\n" + "\n".join(sections)
     return body, warnings
+
 
 
 def main():
