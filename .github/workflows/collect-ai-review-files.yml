@@ -38,13 +38,21 @@ name: Collect Files for AI Review
 on:
   workflow_dispatch:
     inputs:
-      paths:
-        description: "Leave empty for the standard review bundle. Or paths to export, comma-separated: files, folders or globs, e.g. MCPEDL/Addons/Grand-Banquets, scripts, .github/workflows. Type NEW for a new-pack kit (tools txt only)."
+      mode:
+        description: "Export mode"
+        type: choice
+        default: "update_pack"
+        options:
+          - "update_pack"
+          - "new_pack"
+          - "repo_maintenance"
+      pack_path:
+        description: "update_pack: pack folder path (e.g. MCPEDL/Addons/Mining-Helmet). Ignored for new_pack and repo_maintenance."
         required: false
         default: ""
         type: string
       refresh_package_files:
-        description: "Refresh the per-package ai-review files and the root README list now (same as the automatic run; ignores Paths)"
+        description: "Refresh the per-package ai-review files and the root README list now (same as the automatic run; ignores mode/pack_path)"
         required: false
         default: false
         type: boolean
@@ -86,20 +94,33 @@ jobs:
       - name: Choose mode
         id: mode
         env:
-          PATHS: ${{ inputs.paths }}
+          MODE: ${{ inputs.mode }}
+          PACK_PATH: ${{ inputs.pack_path }}
           EVENT: ${{ github.event_name }}
           REFRESH: ${{ inputs.refresh_package_files }}
         run: |
           if [ "$EVENT" = "workflow_run" ] || [ "$REFRESH" = "true" ]; then
             echo "auto=true" >> "$GITHUB_OUTPUT"
             echo "default=false" >> "$GITHUB_OUTPUT"
-          elif [ -z "$(echo "$PATHS" | tr -d '[:space:],')" ]; then
+            echo "export_mode=repo_maintenance" >> "$GITHUB_OUTPUT"
+            echo "paths=" >> "$GITHUB_OUTPUT"
+          elif [ "$MODE" = "repo_maintenance" ]; then
             echo "auto=false" >> "$GITHUB_OUTPUT"
             echo "default=true" >> "$GITHUB_OUTPUT"
+            echo "export_mode=repo_maintenance" >> "$GITHUB_OUTPUT"
+            echo "paths=" >> "$GITHUB_OUTPUT"
             echo "artifact_name=($(cat REPO_VERSION 2>/dev/null || echo 0)) ai-review-bundle" >> "$GITHUB_OUTPUT"
-          else
+          elif [ "$MODE" = "new_pack" ]; then
             echo "auto=false" >> "$GITHUB_OUTPUT"
             echo "default=false" >> "$GITHUB_OUTPUT"
+            echo "export_mode=new_pack" >> "$GITHUB_OUTPUT"
+            echo "paths=NEW" >> "$GITHUB_OUTPUT"
+          else
+            # update_pack (default)
+            echo "auto=false" >> "$GITHUB_OUTPUT"
+            echo "default=false" >> "$GITHUB_OUTPUT"
+            echo "export_mode=update_pack" >> "$GITHUB_OUTPUT"
+            echo "paths=${PACK_PATH}" >> "$GITHUB_OUTPUT"
           fi
 
       - name: Refresh per-package AI review files (automatic run)
@@ -127,7 +148,9 @@ jobs:
         if: steps.mode.outputs.default == 'false' && steps.mode.outputs.auto != 'true'
         id: build
         env:
-          PATHS: ${{ inputs.paths }}
+          PATHS: ${{ steps.mode.outputs.paths }}
+          EXPORT_MODE: ${{ steps.mode.outputs.export_mode }}
+          AI_SKIP_TOOLS: ${{ steps.mode.outputs.export_mode == 'update_pack' && '1' || '' }}
         run: python3 scripts/collect_ai_review.py
 
       - name: Gather standard review files
@@ -256,7 +279,7 @@ jobs:
       - name: Summary
         if: ${{ always() }}
         env:
-          PATHS_IN: ${{ inputs.paths }}
+          PATHS_IN: ${{ steps.mode.outputs.paths }}
           NAME: ${{ steps.name.outputs.artifact_name }}
           ARTIFACT_URL: ${{ steps.upload.outputs.artifact-url }}
           AUTO: ${{ steps.mode.outputs.auto }}
