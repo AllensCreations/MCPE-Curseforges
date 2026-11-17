@@ -2,6 +2,13 @@
 
 ---
 
+## [1.5.6] - 2026-11-17 - Lighter Performance
+
+### Improved & Balanced
+
+- **Lighter Performance**: Universal Clutch does less work for players who are not falling.
+- **Extreme Mode**: Checks your inventory less often during a fall.
+
 ## [1.5.5] - 2026-11-17 - Instant Boat Clutch
 
 ### Improved & Balanced

@@ -612,6 +612,15 @@ system.runInterval(() => {
         continue;
       }
 
+      let notFalling = true;
+      try {
+        notFalling = vel.y > -0.15 || player.isOnGround;
+      } catch {}
+      if (notFalling) {
+        fallTrackers.delete(player.id);
+        continue;
+      }
+
       let blocked = false;
       try {
         blocked = player.isGliding || player.isInWater || player.isSwimming;
@@ -639,7 +648,13 @@ system.runInterval(() => {
       const fallSpeed = Math.abs(vel.y);
 
       if (mode === "extreme") {
-        if (!hasAnyClutchItem(player) && !hasTotemOfUndying(player)) continue;
+        if (tracker) {
+          if (tracker.itemTick === undefined || currentTick - tracker.itemTick >= 10) {
+            tracker.hasItems = hasAnyClutchItem(player) || hasTotemOfUndying(player);
+            tracker.itemTick = currentTick;
+          }
+          if (!tracker.hasItems) continue;
+        } else if (!hasAnyClutchItem(player) && !hasTotemOfUndying(player)) continue;
       }
 
       if (currentTick - (lastClutchTick.get(player.id) ?? -100) < 25) continue;

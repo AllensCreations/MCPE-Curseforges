@@ -2,6 +2,12 @@
 
 ---
 
+## [v93] - 2026-11-17 - Lighter Performance
+
+### Improved & Balanced
+
+- **Universal Clutch 1.5.6**: Less work per tick for players who are not falling, and fewer inventory checks in Extreme Mode.
+
 ## [v92] - 2026-11-17 - Instant Boat Clutch
 
 ### Improved & Balanced
