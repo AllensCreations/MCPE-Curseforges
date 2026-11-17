@@ -1,16 +1,25 @@
 # Changelog — ALN:MobStacker
 
-## [1.0.3] - 2026-11-17 - Mixed Zombie Stacks
-
-### Added
-- **Random Spawn Stacks**: Zombie, Husk, Drowned and Zombified Piglin stacks now mix babies and adults, and each mob that replaces a killed one is a fresh random spawn that can be a baby or wear armor like a normal spawn.
+## [1.0.4] - 2026-11-17 - Separate Baby Stacks
 
 ### Improved & Balanced
-- **Mixed Merging**: These four mobs now merge even when wearing armor or holding items, so their gear is not kept.
-- **Sneak Kill Experience**: A Sneak Kill on these four mobs now counts about one baby in twenty for the baby experience bonus.
+- **Baby and Adult Stacks**: Babies and adults of every mob type stay in separate stacks again, and a killed stack mob is replaced by the same kind.
+- **Zombie Variants**: Zombies, Husks, Drowned and Zombified Piglins each keep their own stack, and armored ones stay separate again.
+
+### Fixed
+- **Random Babies**: Adult stacks no longer turn into random baby mobs when a mob is killed.
 
 <details>
-<summary><b>1.0.x</b> (3 releases)</summary>
+<summary><b>1.0.x</b> (4 releases)</summary>
+
+### [1.0.3] - 2026-11-17 - Mixed Zombie Stacks
+
+#### Added
+- **Random Spawn Stacks**: Zombie, Husk, Drowned and Zombified Piglin stacks now mix babies and adults, and each mob that replaces a killed one is a fresh random spawn that can be a baby or wear armor like a normal spawn.
+
+#### Improved & Balanced
+- **Mixed Merging**: These four mobs now merge even when wearing armor or holding items, so their gear is not kept.
+- **Sneak Kill Experience**: A Sneak Kill on these four mobs now counts about one baby in twenty for the baby experience bonus.
 
 ### [1.0.2] - 2026-11-16 - Persistent Stacks
 
