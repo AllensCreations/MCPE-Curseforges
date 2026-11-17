@@ -2,6 +2,13 @@
 
 ---
 
+## [1.0.15] - 2026-11-17 - Crop and Carrier Fixes
+
+### Fixed
+
+- **Fully grown crops only**: Wheat, carrots, potatoes, beetroot, nether wart and sweet berries are multiplied only when fully grown, so replanting and breaking young crops no longer gives free items.
+- **Carrier mobs skipped**: Donkeys, mules, llamas, allays, foxes and villagers no longer multiply the items they carry when killed.
+
 ## [1.0.14] - 2026-11-17 - Smoother Boosters and Safer Loot
 
 ### Improved & Balanced

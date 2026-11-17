@@ -2,7 +2,7 @@ import { world, system, EntityComponentTypes } from "@minecraft/server";
 import { ActionFormData, ModalFormData, FormCancelationReason } from "@minecraft/server-ui";
 
 const PACK_NAME = "2-in-1 Loot & XP Booster";
-const VERSION = "1.0.14";
+const VERSION = "1.0.15";
 const TITLE = `§l§6@ALNStudios §e${PACK_NAME}§r (v${VERSION})`;
 const ABOUT_TITLE = "About ALNStudios";
 const ICON_MAIN = "textures/items/experience_bottle";
@@ -36,6 +36,16 @@ const NON_MOB_TYPES = new Set([
   "minecraft:xp_orb",
   "minecraft:item",
   "minecraft:painting",
+  "minecraft:donkey",
+  "minecraft:mule",
+  "minecraft:llama",
+  "minecraft:trader_llama",
+  "minecraft:allay",
+  "minecraft:fox",
+  "minecraft:villager",
+  "minecraft:villager_v2",
+  "minecraft:wandering_trader",
+  "minecraft:copper_golem",
 ]);
 const NON_MOB_FAMILIES = ["inanimate", "projectile", "minecart", "boat"];
 const LOOT_BLOCKS = new Set([
@@ -48,6 +58,14 @@ const LOOT_BLOCKS = new Set([
   "minecraft:nether_wart",
   "minecraft:sweet_berry_bush",
 ]);
+const GROWTH_RULES = {
+  "minecraft:wheat": ["growth", 7],
+  "minecraft:carrots": ["growth", 7],
+  "minecraft:potatoes": ["growth", 7],
+  "minecraft:beetroot": ["growth", 7],
+  "minecraft:nether_wart": ["age", 3],
+  "minecraft:sweet_berry_bush": ["growth", 3],
+};
 const recentItems = new Map();
 const barTimers = new Map();
 let lootActive = false;
@@ -88,6 +106,16 @@ function xpMultiplier(player) {
 
 function isLootBlock(typeId) {
   return typeId.endsWith("_ore") || LOOT_BLOCKS.has(typeId);
+}
+
+function isGrown(permutation) {
+  const rule = GROWTH_RULES[permutation.type.id];
+  if (!rule) return true;
+  try {
+    return permutation.getState(rule[0]) === rule[1];
+  } catch (error) {
+    return false;
+  }
 }
 
 function hasSilkTouch(itemStack) {
@@ -394,6 +422,7 @@ world.afterEvents.playerBreakBlock.subscribe((event) => {
   const maxMultiplier = lootMultiplier(player);
   if (maxMultiplier <= 1) return;
   if (!isLootBlock(brokenBlockPermutation.type.id)) return;
+  if (!isGrown(brokenBlockPermutation)) return;
   if (hasSilkTouch(itemStackBeforeBreak)) return;
 
   system.run(() => multiplyDrops(dimension, BLOCK_RADIUS, maxMultiplier, claim));
