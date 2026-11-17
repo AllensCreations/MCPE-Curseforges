@@ -45,7 +45,7 @@ Single source for every doc rule and template (2.1 to 2.5), the `/checkrm` audit
 
 ### 2.5 Templates (STRICT)
 - ALWAYS follow exactly: same headings, text, order, labels, bullet format. NEVER add/remove/rename/merge/reorder sections. NEVER boilerplate or text outside the template.
-- Only optional sections, in this order directly after How to Use: `## Commands` (lines `- `/command options`: what it does`; only for packs with real player commands) then `## Common Questions` (lines `- **Question**: answer`). Omit a whole section without verified content. The CurseForge view shows Commands in its own box with a cheats note.
+- Only optional sections, in this order directly after How to Use: `## Commands` (lines `- `/command options`: what it does`; only for packs with real player commands) then `## Common Questions` (engaging hook Q&A connected to the pack's best highlights, features, or player benefits; lines `- **Question**: answer`). Omit a whole section without verified content. The CurseForge view shows Commands in its own box with a cheats note, and renders Common Questions as minimal collapsible spoilers.
 - ALWAYS replace every `[placeholder]` and `verified-...` marker. NEVER leave one.
 - `.mcworld` installs may vary; multiple verified world variants may be listed. 
 

@@ -2,6 +2,12 @@
 
 ---
 
+## [v102] - 2026-11-18 - Bold Parenthesized Naming Convention & Engaging Hook Questions
+
+### Improved & Balanced
+- **Bold Parenthesized Naming Convention in Instructions**: Updated naming documentation rules across `INSTRUCTIONS.md` and `PACK_GENERATOR_INSTRUCTIONS.md` to format name references in bold with parentheses (e.g. **`(<Shortcut> VX.<ext>)`**).
+- **Hook Questions Guidance in Docs**: Clarified in `DOCS_RULES.md` that optional Common Questions should act as engaging hook Q&As connected to the pack's best highlights and benefits while keeping HTML description views minimal.
+
 ## [v101] - 2026-11-18 - Package Filename vX Scheme & Auto-Build Views on Pack Creation
 
 ### Added
