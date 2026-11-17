@@ -200,18 +200,18 @@ git config --global credential.helper store
 
 ## File Contents
 
-## FILE: changelog_views/OneBlock-Phase-Evolution.curseforge.html (2 lines, 1009 bytes)
+## FILE: changelog_views/OneBlock-Phase-Evolution.curseforge.html (2 lines, 1006 bytes)
 
 ```
-<h2>1.0.0 - 2026-11-03</h2><h3>Added</h3><ul><li><strong>Automatic Team Inventory</strong>: Combined main inventory, armor, offhand, and Ender Chest for eligible multiplayer participants.</li><li><strong>Persistent shared items</strong>: Restored shared inventory after world restarts and dropped shared main inventory and equipment once when a participant dies.</li><li><strong>Twelve cumulative phases</strong>: Expanded the regenerating block pool as the shared break counter reaches progression milestones.</li></ul><h3>Improved &amp; Balanced</h3><ul><li><strong>Two-tick synchronization</strong>: Kept the shared inventory responsive while avoiding a full inventory scan every single tick.</li><li><strong>Weighted resource pool</strong>: Kept all unlocked phases eligible, with the newest phase receiving the highest phase-selection weight.</li></ul><h3>Fixed</h3><ul><li><strong>Separate progression state</strong>: Kept the OneBlock break counter independent from shared inventory storage.</li></ul>
+<h2>v2 - 2026-11-03</h2><h3>Added</h3><ul><li><strong>Automatic Team Inventory</strong>: Combined main inventory, armor, offhand, and Ender Chest for eligible multiplayer participants.</li><li><strong>Persistent shared items</strong>: Restored shared inventory after world restarts and dropped shared main inventory and equipment once when a participant dies.</li><li><strong>Twelve cumulative phases</strong>: Expanded the regenerating block pool as the shared break counter reaches progression milestones.</li></ul><h3>Improved &amp; Balanced</h3><ul><li><strong>Two-tick synchronization</strong>: Kept the shared inventory responsive while avoiding a full inventory scan every single tick.</li><li><strong>Weighted resource pool</strong>: Kept all unlocked phases eligible, with the newest phase receiving the highest phase-selection weight.</li></ul><h3>Fixed</h3><ul><li><strong>Separate progression state</strong>: Kept the OneBlock break counter independent from shared inventory storage.</li></ul>
 ```
 
-## FILE: changelog_views/OneBlock-Phase-Evolution.github.md (16 lines, 893 bytes)
+## FILE: changelog_views/OneBlock-Phase-Evolution.github.md (16 lines, 890 bytes)
 
 ```
 # Changelog — OneBlock Phase Evolution
 
-## [1.0.0] - 2026-11-03
+## [v2] - 2026-11-03
 
 ### Added
 - **Automatic Team Inventory**: Combined main inventory, armor, offhand, and Ender Chest for eligible multiplayer participants.
@@ -414,9 +414,9 @@ execute as @a[tag=!void_cleaned] if block 0 -1 0 bedrock run tag @s add void_cle
     {
       "uuid": "551a6d82-52da-49ef-ba82-c006d32ed4d4",
       "version": [
-        1,
+        2,
         0,
-        1
+        0
       ]
     },
     {
@@ -1019,7 +1019,7 @@ Minecraft Bedrock maps and custom worlds by ALNStudios. OneBlock maps are availa
 
 | Map | Source | Download |
 | :--- | :--- | :--- |
-| OneBlock Void Survival | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Maps/OneBlock-Void-Survival/) | [MCWORLD](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/OneBlock-Void-Survival/VoidSurvival%20V2.0.1.mcworld) |
+| OneBlock Void Survival | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Maps/OneBlock-Void-Survival/) | [MCWORLD](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/OneBlock-Void-Survival/VoidSurvival%20V3.0.0.mcworld) |
 | OneBlock Dirtbound Kingdom Beta | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Maps/OneBlock-Dirtbound-Kingdom-Beta/) | [Creative](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/MCPEDL/Maps/OneBlock-Dirtbound-Kingdom-Beta/OneBlock%20Dirtbound%20Kingdom%20Beta%20-%20Creative.mcworld) · [Survival](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/MCPEDL/Maps/OneBlock-Dirtbound-Kingdom-Beta/OneBlock%20Dirtbound%20Kingdom%20Beta%20-%20Survival.mcworld) · [Hardcore](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/MCPEDL/Maps/OneBlock-Dirtbound-Kingdom-Beta/OneBlock%20Dirtbound%20Kingdom%20Beta%20-%20Hardcore.mcworld) |
 | OneBlock Sovereign Market | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Maps/Oneblock-SM/) | [Creative](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/MCPEDL/Maps/Oneblock-SM/OneBlock%20Sovereign%20Market%20-%20Creative.mcworld) · [Survival](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/MCPEDL/Maps/Oneblock-SM/OneBlock%20Sovereign%20Market%20-%20Survival.mcworld) · [Hardcore](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/MCPEDL/Maps/Oneblock-SM/OneBlock%20Sovereign%20Market%20-%20Hardcore.mcworld) |
 | OneBlock Phase Evolution | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Maps/OneBlock-Phase-Evolution/) | [MCWORLD](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/MCPEDL/Maps/OneBlock-Phase-Evolution/OneBlock%20Phase%20Evolution%20-%20Creative.mcworld) |

@@ -188,18 +188,18 @@ git config --global credential.helper store
 
 ## File Contents
 
-## FILE: changelog_views/Always-Critical.curseforge.html (2 lines, 352 bytes)
+## FILE: changelog_views/Always-Critical.curseforge.html (2 lines, 349 bytes)
 
 ```
-<h2>1.0.0 - 2026-11-14</h2><h3>Added</h3><ul><li><strong>Always Critical</strong>: Every melee hit a player lands deals 1.5 times the normal damage, the same bonus as a vanilla critical hit, without jumping or falling first.</li><li><strong>Critical Hit Sparks</strong>: Each boosted hit shows the standard critical hit sparks on the target.</li></ul>
+<h2>v2 - 2026-11-14</h2><h3>Added</h3><ul><li><strong>Always Critical</strong>: Every melee hit a player lands deals 1.5 times the normal damage, the same bonus as a vanilla critical hit, without jumping or falling first.</li><li><strong>Critical Hit Sparks</strong>: Each boosted hit shows the standard critical hit sparks on the target.</li></ul>
 ```
 
-## FILE: changelog_views/Always-Critical.github.md (8 lines, 331 bytes)
+## FILE: changelog_views/Always-Critical.github.md (8 lines, 328 bytes)
 
 ```
 # Changelog — Always Critical
 
-## [1.0.0] - 2026-11-14
+## [v2] - 2026-11-14
 
 ### Added
 - **Always Critical**: Every melee hit a player lands deals 1.5 times the normal damage, the same bonus as a vanilla critical hit, without jumping or falling first.
@@ -458,7 +458,7 @@ Download the current release of **Always Critical** for Minecraft Bedrock Editio
 ## Download
 
 - **Package format:** `.mcpack`
-- **Direct download:** [Download Always Critical (.mcpack)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Always-Critical/AlwaysCritical%20V1.0.0.mcpack)
+- **Direct download:** [Download Always Critical (.mcpack)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Always-Critical/AlwaysCritical%20V2.0.0.mcpack)
 
 ## Installation
 
@@ -471,7 +471,7 @@ Download the current release of **Always Critical** for Minecraft Bedrock Editio
 For gameplay features, usage details, compatibility notes, and other project information, read the [full description](https://github.com/AllensCreations/MCPE-Curseforges/blob/main/MCPEDL/Script/Always-Critical/DESCRIPTION.md).
 ```
 
-## FILE: MCPEDL/Script/README.md (31 lines, 3111 bytes)
+## FILE: MCPEDL/Script/README.md (31 lines, 3109 bytes)
 
 ```
 # Scripts
@@ -483,15 +483,15 @@ Standalone Minecraft Bedrock Script packs by ALNStudios. Script projects use the
 | Project | Source | Download |
 | :--- | :--- | :--- |
 | *No standalone Script packs currently published.* | | |
-| Chrono-Bed | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Script/Chrono-Bed/) | [MCPACK](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Chrono-Bed/ChronoBed%20V1.0.0.mcpack) |
-| Target HUD Entity Inspector | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Script/Target-HUD-Entity-Inspector/) | [MCPACK](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Target-HUD-Entity-Inspector/TargetHUD%20V1.1.2.mcpack) |
-| Waypoint Helper | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Script/Waypoint-Helper/) | [MCPACK](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Waypoint-Helper/WaypointHelper%20V1.1.10.mcaddon) |
-| Always Critical | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Script/Always-Critical/) | [MCPACK](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Always-Critical/AlwaysCritical%20V1.0.0.mcpack) |
-| Universal Clutch | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Script/Universal-Clutch) | [MCPACK](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Universal-Clutch/UniversalClutch%20V1.5.6.mcpack) |
-| Living SMP Chat | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Script/Living-SMP-Chat/) | [MCPACK](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Living-SMP-Chat/LivingSMPChat%20V1.0.11.mcpack) |
-| Gameplay Optimizer | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Script/Gameplay-Optimizer/) | [MCPACK](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Gameplay-Optimizer/GameplayOptimizer%20V1.0.0.mcpack) |
-| ALNMobStacker | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Script/ALN-MobStacker/) | [MCPACK](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/ALN-MobStacker/ALNMobStacker%20V1.0.5.mcpack) |
-| ALNSpawnControl | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Script/ALNSpawnControl/) | [MCPACK](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/ALNSpawnControl/ALNSpawnControl%20V1.0.0.mcpack) |
+| Chrono-Bed | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Script/Chrono-Bed/) | [MCPACK](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Chrono-Bed/ChronoBed%20V2.0.0.mcpack) |
+| Target HUD Entity Inspector | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Script/Target-HUD-Entity-Inspector/) | [MCPACK](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Target-HUD-Entity-Inspector/TargetHUD%20V2.0.0.mcpack) |
+| Waypoint Helper | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Script/Waypoint-Helper/) | [MCPACK](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Waypoint-Helper/WaypointHelper%20V2.0.0.mcaddon) |
+| Always Critical | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Script/Always-Critical/) | [MCPACK](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Always-Critical/AlwaysCritical%20V2.0.0.mcpack) |
+| Universal Clutch | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Script/Universal-Clutch) | [MCPACK](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Universal-Clutch/UniversalClutch%20V2.0.0.mcpack) |
+| Living SMP Chat | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Script/Living-SMP-Chat/) | [MCPACK](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Living-SMP-Chat/LivingSMPChat%20V2.0.0.mcpack) |
+| Gameplay Optimizer | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Script/Gameplay-Optimizer/) | [MCPACK](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Gameplay-Optimizer/GameplayOptimizer%20V2.0.0.mcpack) |
+| ALNMobStacker | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Script/ALN-MobStacker/) | [MCPACK](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/ALN-MobStacker/ALNMobStacker%20V2.0.0.mcpack) |
+| ALNSpawnControl | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Script/ALNSpawnControl/) | [MCPACK](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/ALNSpawnControl/ALNSpawnControl%20V2.0.0.mcpack) |
 
 ## Attribution
 

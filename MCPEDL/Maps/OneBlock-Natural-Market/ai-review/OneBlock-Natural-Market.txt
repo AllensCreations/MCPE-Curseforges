@@ -203,18 +203,18 @@ git config --global credential.helper store
 
 ## File Contents
 
-## FILE: changelog_views/OneBlock-Natural-Market.curseforge.html (2 lines, 90 bytes)
+## FILE: changelog_views/OneBlock-Natural-Market.curseforge.html (2 lines, 87 bytes)
 
 ```
-<h2>1.0.2 - 2026-11-11</h2><h3>Improved</h3><ul></ul><h3>Compatibility note</h3><ul></ul>
+<h2>v2 - 2026-11-11</h2><h3>Improved</h3><ul></ul><h3>Compatibility note</h3><ul></ul>
 ```
 
-## FILE: changelog_views/OneBlock-Natural-Market.github.md (8 lines, 103 bytes)
+## FILE: changelog_views/OneBlock-Natural-Market.github.md (8 lines, 100 bytes)
 
 ```
 # Changelog — OneBlock Natural Market
 
-## [1.0.2] - 2026-11-11
+## [v2] - 2026-11-11
 
 ### Improved
 
@@ -411,9 +411,9 @@ execute as @a[tag=!void_cleaned] if block 0 -1 0 bedrock run tag @s add void_cle
     {
       "uuid": "187333a6-4353-4003-b379-471f85ce9021",
       "version": [
-        1,
+        2,
         0,
-        2
+        0
       ]
     },
     {
@@ -1433,7 +1433,7 @@ Minecraft Bedrock maps and custom worlds by ALNStudios. OneBlock maps are availa
 
 | Map | Source | Download |
 | :--- | :--- | :--- |
-| OneBlock Void Survival | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Maps/OneBlock-Void-Survival/) | [MCWORLD](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/OneBlock-Void-Survival/VoidSurvival%20V2.0.1.mcworld) |
+| OneBlock Void Survival | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Maps/OneBlock-Void-Survival/) | [MCWORLD](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/OneBlock-Void-Survival/VoidSurvival%20V3.0.0.mcworld) |
 | OneBlock Dirtbound Kingdom Beta | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Maps/OneBlock-Dirtbound-Kingdom-Beta/) | [Creative](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/MCPEDL/Maps/OneBlock-Dirtbound-Kingdom-Beta/OneBlock%20Dirtbound%20Kingdom%20Beta%20-%20Creative.mcworld) · [Survival](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/MCPEDL/Maps/OneBlock-Dirtbound-Kingdom-Beta/OneBlock%20Dirtbound%20Kingdom%20Beta%20-%20Survival.mcworld) · [Hardcore](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/MCPEDL/Maps/OneBlock-Dirtbound-Kingdom-Beta/OneBlock%20Dirtbound%20Kingdom%20Beta%20-%20Hardcore.mcworld) |
 | OneBlock Sovereign Market | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Maps/Oneblock-SM/) | [Creative](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/MCPEDL/Maps/Oneblock-SM/OneBlock%20Sovereign%20Market%20-%20Creative.mcworld) · [Survival](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/MCPEDL/Maps/Oneblock-SM/OneBlock%20Sovereign%20Market%20-%20Survival.mcworld) · [Hardcore](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/MCPEDL/Maps/Oneblock-SM/OneBlock%20Sovereign%20Market%20-%20Hardcore.mcworld) |
 | OneBlock Phase Evolution | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Maps/OneBlock-Phase-Evolution/) | [MCWORLD](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/MCPEDL/Maps/OneBlock-Phase-Evolution/OneBlock%20Phase%20Evolution%20-%20Creative.mcworld) |

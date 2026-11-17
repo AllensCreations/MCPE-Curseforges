@@ -197,20 +197,20 @@ git config --global credential.helper store
 
 ## File Contents
 
-## FILE: changelog_views/Tethered-Breaker-And-Builder.curseforge.html (4 lines, 3496 bytes)
+## FILE: changelog_views/Tethered-Breaker-And-Builder.curseforge.html (4 lines, 3492 bytes)
 
 ```
-<h2>1.12.1 - 2026-11-14</h2><h3>Added</h3><ul><li><strong>Waiting for partner</strong>: If your partner leaves or has not chosen a role yet, the screen says you are waiting and the leash timers pause.</li><li><strong>Role menu protection</strong>: Players are protected for five seconds while the role menu is open.</li></ul><h3>Improved &amp; Balanced</h3><ul><li><strong>Smoother gameplay</strong>: The leash, restrictions and on-screen display do far less work, which cuts lag, especially on phones and busy worlds.</li><li><strong>Lighter beam</strong>: The leash beam is drawn less often with fewer particles, and is hidden when partners are very close.</li><li><strong>Steadier on-screen display</strong>: The leash distance is shown in half-meter steps and only refreshes when it changes.</li><li><strong>No cost between games</strong>: The pack does no leash work until a challenge is started and stops when it ends.</li></ul><h3>Fixed</h3><ul><li><strong>Restriction messages</strong>: Messages explaining blocked actions now appear right away, even before both roles are chosen.</li><li><strong>Controller after respawn</strong>: The host or an operator gets the Controller back after respawning when no challenge is running.</li></ul>
+<h2>v2 - 2026-11-14</h2><h3>Added</h3><ul><li><strong>Waiting for partner</strong>: If your partner leaves or has not chosen a role yet, the screen says you are waiting and the leash timers pause.</li><li><strong>Role menu protection</strong>: Players are protected for five seconds while the role menu is open.</li></ul><h3>Improved &amp; Balanced</h3><ul><li><strong>Smoother gameplay</strong>: The leash, restrictions and on-screen display do far less work, which cuts lag, especially on phones and busy worlds.</li><li><strong>Lighter beam</strong>: The leash beam is drawn less often with fewer particles, and is hidden when partners are very close.</li><li><strong>Steadier on-screen display</strong>: The leash distance is shown in half-meter steps and only refreshes when it changes.</li><li><strong>No cost between games</strong>: The pack does no leash work until a challenge is started and stops when it ends.</li></ul><h3>Fixed</h3><ul><li><strong>Restriction messages</strong>: Messages explaining blocked actions now appear right away, even before both roles are chosen.</li><li><strong>Controller after respawn</strong>: The host or an operator gets the Controller back after respawning when no challenge is running.</li></ul>
 <h2>1.12.x (1 release)</h2><div class="spoiler"><h3>1.12.0 - 2026-10-29</h3><h4>Improved &amp; Balanced</h4><ul><li><strong>Maintenance release</strong>: Repackaged the pack; no gameplay changes were recorded.</li></ul></div>
 <h2>1.7.x (1 release)</h2><div class="spoiler"><h3>1.7.0 - 2026-10-27</h3><h4>Added</h4><ul><li><strong>Controller</strong>: The host or an operator starts the challenge from the ALNStudios Controller. Roles and the leash are active only while the challenge is running.</li><li><strong>Win condition</strong>: Defeating the Ender Dragon ends the challenge.</li><li><strong>Recall</strong>: Partners who stay more than 64 blocks apart, or in different dimensions, are brought together.</li></ul><h4>Improved &amp; Balanced</h4><ul><li><strong>Role choice</strong>: Each role can be held by one player. Players without a role cannot build, mine or fight, and are asked again until they choose.</li><li><strong>Breaker limits</strong>: Spawn eggs, boats, minecarts, armor stands, item frames, paintings, end crystals and bone meal are now blocked along with buckets and fire. Anything placed anyway is removed and returned.</li><li><strong>Builder limits</strong>: Builders can no longer hurt anything with bows, tridents or thrown items, or set off TNT.</li><li><strong>Gentler leash</strong>: The pull is weaker and stays horizontal. Strain damage starts after 3 seconds and never takes you below one heart. Creative and spectator players are not pulled.</li></ul><h4>Fixed</h4><ul><li><strong>Pack failed to work</strong>: The pack stopped working after the role menu in current versions of Minecraft. The leash, restrictions and respawn support now work.</li><li><strong>Role cheating</strong>: Closing the role menu no longer removes restrictions, and roles cannot be changed with the tag command.</li><li><strong>Lag from distant partners</strong>: Very distant partners no longer cause lag from beam particles.</li><li><strong>Joining</strong>: Joining the world no longer teleports you to your partner.</li><li><strong>Restriction messages</strong>: Messages explaining blocked actions now stay on screen.</li><li><strong>Description</strong>: Removed the claim that the Builder has exclusive crafting.</li></ul></div>
 ```
 
-## FILE: changelog_views/Tethered-Breaker-And-Builder.github.md (54 lines, 3053 bytes)
+## FILE: changelog_views/Tethered-Breaker-And-Builder.github.md (54 lines, 3049 bytes)
 
 ```
 # Changelog — Tethered: Breaker and Builder
 
-## [1.12.1] - 2026-11-14
+## [v2] - 2026-11-14
 
 ### Added
 - **Waiting for partner**: If your partner leaves or has not chosen a role yet, the screen says you are waiting and the leash timers pause.
@@ -332,7 +332,7 @@ Leave clear space around the logo. No Minecraft, Mojang or Microsoft logos, no w
 ```
 ````
 
-## FILE: MCPEDL/Minigame/README.md (29 lines, 2582 bytes)
+## FILE: MCPEDL/Minigame/README.md (29 lines, 2579 bytes)
 
 ```
 # Minigames
@@ -343,12 +343,12 @@ Source files for Minecraft Bedrock survival challenges and minigames by ALNStudi
 
 | Project | Source | Download |
 | :--- | :--- | :--- |
-| Alphabet Scavenger Hunt | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Minigame/Alphabet-Scavenger-Hunt/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Alphabet-Scavenger-Hunt/AlphabetHunt%20V1.9.1.mcaddon) |
-| Team Inventory | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Minigame/Shared-Hivemind-Inventory/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Shared-Hivemind-Inventory/TeamInventory%20V1.22.6.mcaddon) |
-| Tethered: Breaker & Builder | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Minigame/Tethered-Breaker-And-Builder/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Tethered-Breaker-And-Builder/TetheredBuilder%20V1.12.1.mcaddon) |
-| Mob Chaos Behavioral Roulette | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Minigame/Mob-Chaos-Behavioral-Roulette) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Mob-Chaos-Behavioral-Roulette/MobChaos%20V1.4.2.mcaddon) |
-| Trivia Vault The Locked World | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Minigame/Trivia-Vault-The-Locked-World) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Trivia-Vault-The-Locked-World/TriviaVault%20V1.19.0.mcaddon) |
-| Minecraft, But Every Drop is Random Chaos Edition | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Minigame/Minecraft-But-Every-Drop-is-Random-Chaos-Edition/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Minecraft-But-Every-Drop-is-Random-Chaos-Edition/MinecraftButEveryDropIsRandomChaosEdition%20V1.0.4.mcaddon) |
+| Alphabet Scavenger Hunt | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Minigame/Alphabet-Scavenger-Hunt/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Alphabet-Scavenger-Hunt/AlphabetHunt%20V2.0.0.mcaddon) |
+| Team Inventory | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Minigame/Shared-Hivemind-Inventory/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Shared-Hivemind-Inventory/TeamInventory%20V2.0.0.mcaddon) |
+| Tethered: Breaker & Builder | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Minigame/Tethered-Breaker-And-Builder/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Tethered-Breaker-And-Builder/TetheredBuilder%20V2.0.0.mcaddon) |
+| Mob Chaos Behavioral Roulette | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Minigame/Mob-Chaos-Behavioral-Roulette) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Mob-Chaos-Behavioral-Roulette/MobChaos%20V2.0.0.mcaddon) |
+| Trivia Vault The Locked World | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Minigame/Trivia-Vault-The-Locked-World) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Trivia-Vault-The-Locked-World/TriviaVault%20V2.0.0.mcaddon) |
+| Minecraft, But Every Drop is Random Chaos Edition | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Minigame/Minecraft-But-Every-Drop-is-Random-Chaos-Edition/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Minecraft-But-Every-Drop-is-Random-Chaos-Edition/MinecraftButEveryDropIsRandomChaosEdition%20V2.0.0.mcaddon) |
 
 Download links point to the currently published package files.
 
@@ -415,7 +415,7 @@ give @s allenscreations:controller
 }
 ```
 
-## FILE: MCPEDL/Minigame/Tethered-Breaker-And-Builder/behavior_pack/manifest.json (58 lines, 1089 bytes)
+## FILE: MCPEDL/Minigame/Tethered-Breaker-And-Builder/behavior_pack/manifest.json (58 lines, 1088 bytes)
 
 ```
 {
@@ -453,9 +453,9 @@ give @s allenscreations:controller
     {
       "uuid": "f3a1c7e2-6b84-4d19-9a52-0c7e5d8b1a36",
       "version": [
-        1,
-        12,
-        1
+        2,
+        0,
+        0
       ]
     },
     {
@@ -1355,7 +1355,7 @@ Minecraft Bedrock co-op challenge, Tethered Breaker and Builder, asymmetric two-
 {"type": "minigame", "name": "Tethered Breaker and Builder"}
 ```
 
-## FILE: MCPEDL/Minigame/Tethered-Breaker-And-Builder/README.md (19 lines, 871 bytes)
+## FILE: MCPEDL/Minigame/Tethered-Breaker-And-Builder/README.md (19 lines, 870 bytes)
 
 ```
 # Tethered Breaker and Builder
@@ -1365,7 +1365,7 @@ Download the current release of **Tethered Breaker and Builder** for Minecraft B
 ## Download
 
 - **Package format:** `.mcaddon`
-- **Direct download:** [Download Tethered Breaker and Builder (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Tethered-Breaker-And-Builder/TetheredBuilder%20V1.12.1.mcaddon)
+- **Direct download:** [Download Tethered Breaker and Builder (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Tethered-Breaker-And-Builder/TetheredBuilder%20V2.0.0.mcaddon)
 
 ## Installation
 

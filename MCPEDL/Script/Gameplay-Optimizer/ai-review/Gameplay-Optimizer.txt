@@ -191,18 +191,18 @@ git config --global credential.helper store
 
 ## File Contents
 
-## FILE: changelog_views/Gameplay-Optimizer.curseforge.html (2 lines, 640 bytes)
+## FILE: changelog_views/Gameplay-Optimizer.curseforge.html (2 lines, 637 bytes)
 
 ```
-<h2>1.0.0 - 2026-11-15 - First Release</h2><h3>Added</h3><ul><li><strong>Settings Menu</strong>: Sneak and use a Clock to open a menu that shows the three optimizer switches and lets an operator change them.</li><li><strong>Dropped Item Limit</strong>: An optional limit from 50 to 500 dropped items per dimension, removing the oldest dropped item when the limit is passed.</li><li><strong>Potion Particle Hiding</strong>: Effects that players receive are reapplied with their particles turned off.</li><li><strong>Portal Preloading</strong>: Standing in a Nether portal asks the game to start loading the area on the other side.</li></ul>
+<h2>v2 - 2026-11-15 - First Release</h2><h3>Added</h3><ul><li><strong>Settings Menu</strong>: Sneak and use a Clock to open a menu that shows the three optimizer switches and lets an operator change them.</li><li><strong>Dropped Item Limit</strong>: An optional limit from 50 to 500 dropped items per dimension, removing the oldest dropped item when the limit is passed.</li><li><strong>Potion Particle Hiding</strong>: Effects that players receive are reapplied with their particles turned off.</li><li><strong>Portal Preloading</strong>: Standing in a Nether portal asks the game to start loading the area on the other side.</li></ul>
 ```
 
-## FILE: changelog_views/Gameplay-Optimizer.github.md (10 lines, 584 bytes)
+## FILE: changelog_views/Gameplay-Optimizer.github.md (10 lines, 581 bytes)
 
 ```
 # Changelog — Gameplay Optimizer
 
-## [1.0.0] - 2026-11-15 - First Release
+## [v2] - 2026-11-15 - First Release
 
 ### Added
 - **Settings Menu**: Sneak and use a Clock to open a menu that shows the three optimizer switches and lets an operator change them.
@@ -879,7 +879,7 @@ Download the current release of **Gameplay Optimizer** for Minecraft Bedrock Edi
 ## Download
 
 - **Package format:** `.mcpack`
-- **Direct download:** [Download Gameplay Optimizer (.mcpack)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Gameplay-Optimizer/GameplayOptimizer%20V1.0.0.mcpack)
+- **Direct download:** [Download Gameplay Optimizer (.mcpack)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Gameplay-Optimizer/GameplayOptimizer%20V2.0.0.mcpack)
 
 ## Installation
 
@@ -892,7 +892,7 @@ Download the current release of **Gameplay Optimizer** for Minecraft Bedrock Edi
 For gameplay features, usage details, compatibility notes, and other project information, read the [full description](https://github.com/AllensCreations/MCPE-Curseforges/blob/main/MCPEDL/Script/Gameplay-Optimizer/DESCRIPTION.md).
 ```
 
-## FILE: MCPEDL/Script/README.md (31 lines, 3111 bytes)
+## FILE: MCPEDL/Script/README.md (31 lines, 3109 bytes)
 
 ```
 # Scripts
@@ -904,15 +904,15 @@ Standalone Minecraft Bedrock Script packs by ALNStudios. Script projects use the
 | Project | Source | Download |
 | :--- | :--- | :--- |
 | *No standalone Script packs currently published.* | | |
-| Chrono-Bed | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Script/Chrono-Bed/) | [MCPACK](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Chrono-Bed/ChronoBed%20V1.0.0.mcpack) |
-| Target HUD Entity Inspector | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Script/Target-HUD-Entity-Inspector/) | [MCPACK](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Target-HUD-Entity-Inspector/TargetHUD%20V1.1.2.mcpack) |
-| Waypoint Helper | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Script/Waypoint-Helper/) | [MCPACK](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Waypoint-Helper/WaypointHelper%20V1.1.10.mcaddon) |
-| Always Critical | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Script/Always-Critical/) | [MCPACK](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Always-Critical/AlwaysCritical%20V1.0.0.mcpack) |
-| Universal Clutch | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Script/Universal-Clutch) | [MCPACK](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Universal-Clutch/UniversalClutch%20V1.5.6.mcpack) |
-| Living SMP Chat | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Script/Living-SMP-Chat/) | [MCPACK](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Living-SMP-Chat/LivingSMPChat%20V1.0.11.mcpack) |
-| Gameplay Optimizer | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Script/Gameplay-Optimizer/) | [MCPACK](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Gameplay-Optimizer/GameplayOptimizer%20V1.0.0.mcpack) |
-| ALNMobStacker | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Script/ALN-MobStacker/) | [MCPACK](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/ALN-MobStacker/ALNMobStacker%20V1.0.5.mcpack) |
-| ALNSpawnControl | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Script/ALNSpawnControl/) | [MCPACK](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/ALNSpawnControl/ALNSpawnControl%20V1.0.0.mcpack) |
+| Chrono-Bed | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Script/Chrono-Bed/) | [MCPACK](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Chrono-Bed/ChronoBed%20V2.0.0.mcpack) |
+| Target HUD Entity Inspector | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Script/Target-HUD-Entity-Inspector/) | [MCPACK](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Target-HUD-Entity-Inspector/TargetHUD%20V2.0.0.mcpack) |
+| Waypoint Helper | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Script/Waypoint-Helper/) | [MCPACK](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Waypoint-Helper/WaypointHelper%20V2.0.0.mcaddon) |
+| Always Critical | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Script/Always-Critical/) | [MCPACK](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Always-Critical/AlwaysCritical%20V2.0.0.mcpack) |
+| Universal Clutch | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Script/Universal-Clutch) | [MCPACK](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Universal-Clutch/UniversalClutch%20V2.0.0.mcpack) |
+| Living SMP Chat | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Script/Living-SMP-Chat/) | [MCPACK](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Living-SMP-Chat/LivingSMPChat%20V2.0.0.mcpack) |
+| Gameplay Optimizer | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Script/Gameplay-Optimizer/) | [MCPACK](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Gameplay-Optimizer/GameplayOptimizer%20V2.0.0.mcpack) |
+| ALNMobStacker | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Script/ALN-MobStacker/) | [MCPACK](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/ALN-MobStacker/ALNMobStacker%20V2.0.0.mcpack) |
+| ALNSpawnControl | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Script/ALNSpawnControl/) | [MCPACK](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/ALNSpawnControl/ALNSpawnControl%20V2.0.0.mcpack) |
 
 ## Attribution
 

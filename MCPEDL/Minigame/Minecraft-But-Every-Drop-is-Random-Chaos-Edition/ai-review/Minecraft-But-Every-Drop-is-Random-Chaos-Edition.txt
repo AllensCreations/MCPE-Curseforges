@@ -197,19 +197,19 @@ git config --global credential.helper store
 
 ## File Contents
 
-## FILE: changelog_views/Minecraft-But-Every-Drop-is-Random-Chaos-Edition.curseforge.html (3 lines, 2221 bytes)
+## FILE: changelog_views/Minecraft-But-Every-Drop-is-Random-Chaos-Edition.curseforge.html (3 lines, 2218 bytes)
 
 ```
-<h2>1.0.4 - 2026-11-15</h2><h3>Fixed</h3><ul><li><strong>Lag Spikes</strong>: Large bursts of drops, such as a big tree, TNT or a mob farm, are now swapped a few at a time instead of all in one moment, so the game stays smooth.</li><li><strong>Lag Spikes</strong>: Drop swapping no longer scans the area around every broken block or defeated mob, so mining and fighting stay smooth.</li></ul><h3>Removed</h3><ul><li><strong>Chaos Drop Feed</strong>: Rare swaps no longer show the original and the new item on the action bar.</li></ul><h3>Improved &amp; Balanced</h3><ul><li><strong>Mystery Messages</strong>: Starting and reshuffling now show scrambled text that signals something is happening, instead of an item count and a run code.</li></ul>
+<h2>v2 - 2026-11-15</h2><h3>Fixed</h3><ul><li><strong>Lag Spikes</strong>: Large bursts of drops, such as a big tree, TNT or a mob farm, are now swapped a few at a time instead of all in one moment, so the game stays smooth.</li><li><strong>Lag Spikes</strong>: Drop swapping no longer scans the area around every broken block or defeated mob, so mining and fighting stay smooth.</li></ul><h3>Removed</h3><ul><li><strong>Chaos Drop Feed</strong>: Rare swaps no longer show the original and the new item on the action bar.</li></ul><h3>Improved &amp; Balanced</h3><ul><li><strong>Mystery Messages</strong>: Starting and reshuffling now show scrambled text that signals something is happening, instead of an item count and a run code.</li></ul>
 <h2>1.0.x (3 releases)</h2><div class="spoiler"><h3>1.0.2 - 2026-11-15</h3><h4>Improved &amp; Balanced</h4><ul><li><strong>Controller Auto Destroy</strong>: The Controller is now used up when a game starts (Creative mode keeps it), and the host receives a new one when the game ends.</li></ul><h3>1.0.1 - 2026-11-15 - Import Fix</h3><h4>Fixed</h4><ul><li><strong>Pack Import</strong>: The packs now import in Minecraft. The minimum game version they declared was higher than Minecraft accepts.</li></ul><h3>1.0.0 - 2026-11-15 - Chaos Edition Launch</h3><h4>Added</h4><ul><li><strong>Random Drops Challenge</strong>: Every item dropped by a broken block or a defeated mob is replaced by a different item while a game is running, and each replacement keeps the original stack size.</li><li><strong>Run Table</strong>: Each item always turns into the same replacement during a run, and every Start shuffles a new table for a new run.</li><li><strong>Chaos Drop Feed</strong>: Rare swaps, such as a Diamond or an Elytra, show the original item and the new item on the action bar.</li><li><strong>Reshuffle Command and Book</strong>: Outside a game, the aln:reshuffle command or sneaking while using a Book reshuffles the table.</li><li><strong>Controller</strong>: The host opens a menu with Start and How to play, and ends the game from the same item.</li><li><strong>Dragon Win</strong>: Defeating the Ender Dragon during a game wins the run and ends the game.</li></ul></div>
 ```
 
-## FILE: changelog_views/Minecraft-But-Every-Drop-is-Random-Chaos-Edition.github.md (39 lines, 1990 bytes)
+## FILE: changelog_views/Minecraft-But-Every-Drop-is-Random-Chaos-Edition.github.md (39 lines, 1987 bytes)
 
 ```
 # Changelog — Minecraft, But Every Drop is Random: Chaos Edition
 
-## [1.0.4] - 2026-11-15
+## [v2] - 2026-11-15
 
 ### Fixed
 - **Lag Spikes**: Large bursts of drops, such as a big tree, TNT or a mob farm, are now swapped a few at a time instead of all in one moment, so the game stays smooth.
@@ -410,9 +410,9 @@ give @s allenscreations:controller
     {
       "uuid": "a0033158-5884-4ee5-abf0-8c443a11a422",
       "version": [
-        1,
+        2,
         0,
-        4
+        0
       ]
     },
     {
@@ -1198,7 +1198,7 @@ Download the current release of **Minecraft, But Every Drop is Random Chaos Edit
 ## Download
 
 - **Package format:** `.mcaddon`
-- **Direct download:** [Download Minecraft, But Every Drop is Random Chaos Edition (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Minecraft-But-Every-Drop-is-Random-Chaos-Edition/MinecraftButEveryDropIsRandomChaosEdition%20V1.0.4.mcaddon)
+- **Direct download:** [Download Minecraft, But Every Drop is Random Chaos Edition (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Minecraft-But-Every-Drop-is-Random-Chaos-Edition/MinecraftButEveryDropIsRandomChaosEdition%20V2.0.0.mcaddon)
 
 ## Installation
 
@@ -1266,7 +1266,7 @@ For gameplay features, usage details, compatibility notes, and other project inf
 }
 ```
 
-## FILE: MCPEDL/Minigame/README.md (29 lines, 2582 bytes)
+## FILE: MCPEDL/Minigame/README.md (29 lines, 2579 bytes)
 
 ```
 # Minigames
@@ -1277,12 +1277,12 @@ Source files for Minecraft Bedrock survival challenges and minigames by ALNStudi
 
 | Project | Source | Download |
 | :--- | :--- | :--- |
-| Alphabet Scavenger Hunt | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Minigame/Alphabet-Scavenger-Hunt/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Alphabet-Scavenger-Hunt/AlphabetHunt%20V1.9.1.mcaddon) |
-| Team Inventory | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Minigame/Shared-Hivemind-Inventory/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Shared-Hivemind-Inventory/TeamInventory%20V1.22.6.mcaddon) |
-| Tethered: Breaker & Builder | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Minigame/Tethered-Breaker-And-Builder/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Tethered-Breaker-And-Builder/TetheredBuilder%20V1.12.1.mcaddon) |
-| Mob Chaos Behavioral Roulette | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Minigame/Mob-Chaos-Behavioral-Roulette) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Mob-Chaos-Behavioral-Roulette/MobChaos%20V1.4.2.mcaddon) |
-| Trivia Vault The Locked World | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Minigame/Trivia-Vault-The-Locked-World) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Trivia-Vault-The-Locked-World/TriviaVault%20V1.19.0.mcaddon) |
-| Minecraft, But Every Drop is Random Chaos Edition | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Minigame/Minecraft-But-Every-Drop-is-Random-Chaos-Edition/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Minecraft-But-Every-Drop-is-Random-Chaos-Edition/MinecraftButEveryDropIsRandomChaosEdition%20V1.0.4.mcaddon) |
+| Alphabet Scavenger Hunt | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Minigame/Alphabet-Scavenger-Hunt/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Alphabet-Scavenger-Hunt/AlphabetHunt%20V2.0.0.mcaddon) |
+| Team Inventory | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Minigame/Shared-Hivemind-Inventory/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Shared-Hivemind-Inventory/TeamInventory%20V2.0.0.mcaddon) |
+| Tethered: Breaker & Builder | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Minigame/Tethered-Breaker-And-Builder/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Tethered-Breaker-And-Builder/TetheredBuilder%20V2.0.0.mcaddon) |
+| Mob Chaos Behavioral Roulette | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Minigame/Mob-Chaos-Behavioral-Roulette) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Mob-Chaos-Behavioral-Roulette/MobChaos%20V2.0.0.mcaddon) |
+| Trivia Vault The Locked World | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Minigame/Trivia-Vault-The-Locked-World) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Trivia-Vault-The-Locked-World/TriviaVault%20V2.0.0.mcaddon) |
+| Minecraft, But Every Drop is Random Chaos Edition | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Minigame/Minecraft-But-Every-Drop-is-Random-Chaos-Edition/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Minecraft-But-Every-Drop-is-Random-Chaos-Edition/MinecraftButEveryDropIsRandomChaosEdition%20V2.0.0.mcaddon) |
 
 Download links point to the currently published package files.
 
