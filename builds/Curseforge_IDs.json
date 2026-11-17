@@ -90,7 +90,9 @@
     "last_release_version": "1.12.0"
   },
   "MCPEDL/Script/ALNSpawnControl": {
-    "project_id": "1812574"
+    "project_id": "1812574",
+    "last_published_version": "1.0.0",
+    "last_release_version": "0.0.0"
   },
   "MCPEDL/Script/Living-SMP-Chat": {
     "project_id": "1806402",
