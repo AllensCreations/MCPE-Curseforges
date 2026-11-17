@@ -2,7 +2,7 @@
   "changelog_version": "2.0.0",
   "manifest_version": "2.0.0",
   "packages": {
-    "HarvestIntel V2.0.0.mcaddon": "f80dcb68a9ce1f1e475c09f1ec89d21f1cd631f16e4abc129244928d9293f56d"
+    "HarvestIntel V2.mcaddon": "f80dcb68a9ce1f1e475c09f1ec89d21f1cd631f16e4abc129244928d9293f56d"
   },
   "source_sha256": "e9b77e61cdeba197b94ffa1e89aab9e8aaed2d97fa19df64a642a20d02537449"
 }

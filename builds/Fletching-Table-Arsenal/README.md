@@ -8,7 +8,7 @@ This folder contains compiled release packages for **Fletching Table Arsenal** b
 
 | File Name | Format | Size | Description | Download Link |
 | :--- | :--- | :--- | :--- | :--- |
-| **`FletchingArsenal V2.0.0.mcaddon`** | `.mcaddon` | ~9 KB | Complete bundle containing both Behavior Pack and Resource Pack. | [Download (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Fletching-Table-Arsenal/FletchingArsenal%20V2.0.0.mcaddon) |
+| **`FletchingArsenal V2.mcaddon`** | `.mcaddon` | ~9 KB | Complete bundle containing both Behavior Pack and Resource Pack. | [Download (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Fletching-Table-Arsenal/FletchingArsenal%20V2.mcaddon) |
 
 ---
 

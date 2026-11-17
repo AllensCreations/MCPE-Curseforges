@@ -2,7 +2,7 @@
   "changelog_version": "2.0.0",
   "manifest_version": "2.0.0",
   "packages": {
-    "MagneticSatchel V2.0.0.mcaddon": "65948bd5badfd5a4b31a34f4169272f5af9d3ae97c545ff03847dc82a56a29bc"
+    "MagneticSatchel V2.mcaddon": "65948bd5badfd5a4b31a34f4169272f5af9d3ae97c545ff03847dc82a56a29bc"
   },
   "source_sha256": "2da298b838e03bdaa61a77d61a369bcbac2ef40ddd40280bf480a510a28cb9c2"
 }

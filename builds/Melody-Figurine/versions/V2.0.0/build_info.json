@@ -2,7 +2,7 @@
   "changelog_version": "2.0.0",
   "manifest_version": "2.0.0",
   "packages": {
-    "MelodyFigurine V2.0.0.mcaddon": "081db840ce3de0053d0ac0b57407f330a3086b67b2ab80738f88c90cce721483"
+    "MelodyFigurine V2.mcaddon": "081db840ce3de0053d0ac0b57407f330a3086b67b2ab80738f88c90cce721483"
   },
   "source_sha256": "58d0e8563537159025f56f96bd4ef370a7c46fb882a35ccf4480978ffc11419e"
 }

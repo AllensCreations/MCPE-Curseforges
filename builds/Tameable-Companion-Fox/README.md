@@ -8,7 +8,7 @@ This folder contains compiled release packages for **Tameable Companion Fox** by
 
 | File Name | Format | Size | Description | Download Link |
 | :--- | :--- | :--- | :--- | :--- |
-| **`CompanionFox V2.0.0.mcaddon`** | `.mcaddon` | ~259 KB | Complete bundle containing both Behavior Pack and Resource Pack. | [Download (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Tameable-Companion-Fox/CompanionFox%20V2.0.0.mcaddon) |
+| **`CompanionFox V2.mcaddon`** | `.mcaddon` | ~259 KB | Complete bundle containing both Behavior Pack and Resource Pack. | [Download (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Tameable-Companion-Fox/CompanionFox%20V2.mcaddon) |
 
 ---
 

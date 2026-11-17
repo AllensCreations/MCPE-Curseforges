@@ -2,7 +2,7 @@
   "changelog_version": "2.0.0",
   "manifest_version": "2.0.0",
   "packages": {
-    "LootXPBooster V2.0.0.mcaddon": "52996ab4446c48b30140f065ba7daa45371b3f90c2378693cdb881affaa2fc49"
+    "LootXPBooster V2.mcaddon": "52996ab4446c48b30140f065ba7daa45371b3f90c2378693cdb881affaa2fc49"
   },
   "source_sha256": "b21c815acca2a78661028091e1ba532f54efcb131b338d11d3fbd6313752c919"
 }

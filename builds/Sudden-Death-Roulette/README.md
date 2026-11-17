@@ -8,7 +8,7 @@ This folder contains compiled release packages for **Sudden Death Roulette** by 
 
 | File Name | Format | Size | Description | Download Link |
 | :--- | :--- | :--- | :--- | :--- |
-| **`SuddenDeath V2.0.0.mcaddon`** | `.mcaddon` | ~4 KB | Complete Add-on package for Minecraft Bedrock. | [Download (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Sudden-Death-Roulette/SuddenDeath%20V2.0.0.mcaddon) |
+| **`SuddenDeath V2.mcaddon`** | `.mcaddon` | ~4 KB | Complete Add-on package for Minecraft Bedrock. | [Download (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Sudden-Death-Roulette/SuddenDeath%20V2.mcaddon) |
 
 ---
 

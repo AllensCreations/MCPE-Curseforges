@@ -8,7 +8,7 @@ This folder contains compiled release packages for **Mob Chaos Behavioral Roulet
 
 | File Name | Format | Size | Description | Download Link |
 | :--- | :--- | :--- | :--- | :--- |
-| **`MobChaos V2.0.0.mcaddon`** | `.mcaddon` | ~10 KB | Complete bundle containing both Behavior Pack and Resource Pack. | [Download (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Mob-Chaos-Behavioral-Roulette/MobChaos%20V2.0.0.mcaddon) |
+| **`MobChaos V2.mcaddon`** | `.mcaddon` | ~10 KB | Complete bundle containing both Behavior Pack and Resource Pack. | [Download (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Mob-Chaos-Behavioral-Roulette/MobChaos%20V2.mcaddon) |
 
 ---
 

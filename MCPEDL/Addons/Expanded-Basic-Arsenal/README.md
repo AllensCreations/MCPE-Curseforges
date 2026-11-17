@@ -5,7 +5,7 @@ Download the current release of **Expanded Basic Arsenal** for Minecraft Bedrock
 ## Download
 
 - **Package format:** `.mcaddon`
-- **Direct download:** [Download Expanded Basic Arsenal (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Expanded-Basic-Arsenal/ExpandedBasicArsenal%20V2.0.0.mcaddon)
+- **Direct download:** [Download Expanded Basic Arsenal (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Expanded-Basic-Arsenal/ExpandedBasicArsenal%20V2.mcaddon)
 
 ## Installation
 

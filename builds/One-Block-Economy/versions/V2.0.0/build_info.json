@@ -2,7 +2,7 @@
   "changelog_version": "2.0.0",
   "manifest_version": "2.0.0",
   "packages": {
-    "OneBlockEconomy V2.0.0.mcaddon": "68c17ecdaf263a50d7391e3e2f8172c2f13b1fb9fb5d621c12f1ad642232c0ee"
+    "OneBlockEconomy V2.mcaddon": "68c17ecdaf263a50d7391e3e2f8172c2f13b1fb9fb5d621c12f1ad642232c0ee"
   },
   "source_sha256": "7eb774bb637ee56d6129bd8b6fbe656d03e368b99256a17454785a5861500a29"
 }

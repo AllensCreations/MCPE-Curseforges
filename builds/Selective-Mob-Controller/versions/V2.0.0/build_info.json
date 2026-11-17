@@ -2,7 +2,7 @@
   "changelog_version": "2.0.0",
   "manifest_version": "2.0.0",
   "packages": {
-    "MobController V2.0.0.mcaddon": "1e2ba92a687b3d0c9726f766c1eb219b92814afa93ac62163515bc4068a2fe95"
+    "MobController V2.mcaddon": "1e2ba92a687b3d0c9726f766c1eb219b92814afa93ac62163515bc4068a2fe95"
   },
   "source_sha256": "3c7ce86243c3eea0532b2a88ab77c8ddb3ad36c94df2dd0ce0861b8e286fff82"
 }

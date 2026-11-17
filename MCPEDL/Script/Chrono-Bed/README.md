@@ -5,7 +5,7 @@ Download the current release of **Chrono-Bed** for Minecraft Bedrock Edition.
 ## Download
 
 - **Package format:** `.mcpack`
-- **Direct download:** [Download Chrono-Bed (.mcpack)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Chrono-Bed/ChronoBed%20V2.0.0.mcpack)
+- **Direct download:** [Download Chrono-Bed (.mcpack)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Chrono-Bed/ChronoBed%20V2.mcpack)
 
 ## Installation
 

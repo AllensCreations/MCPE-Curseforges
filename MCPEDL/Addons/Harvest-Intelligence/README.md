@@ -5,7 +5,7 @@ Download the current release of **Harvest Intelligence** for Minecraft Bedrock E
 ## Download
 
 - **Package format:** `.mcaddon`
-- **Direct download:** [Download Harvest Intelligence (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Harvest-Intelligence/HarvestIntel%20V2.0.0.mcaddon)
+- **Direct download:** [Download Harvest Intelligence (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Harvest-Intelligence/HarvestIntel%20V2.mcaddon)
 
 ## Installation
 

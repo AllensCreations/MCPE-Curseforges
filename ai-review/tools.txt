@@ -89,10 +89,10 @@ description: Create a NEW addon, map, script or minigame for the MCPE-Curseforge
 - [ ] Reply = **File Needed**, **Changelog**, **Termux Script**, in that order, no text before, between or after, no Summary. The `.sh` is attached, never pasted.
 ```
 
-## FILE: PACK_GENERATOR_INSTRUCTIONS.md (365 lines, 36965 bytes)
+## FILE: PACK_GENERATOR_INSTRUCTIONS.md (365 lines, 36983 bytes)
 
 ````
-# Pack Generator Instructions (AI Agent, v27)
+# Pack Generator Instructions (AI Agent, v28)
 
 
 Builds a complete **addon**, **map**, **script**, or **minigame** from the user's idea. Returns ONE Termux `.sh` pack script that carries the whole project inside it (as base64). No other file is delivered.
@@ -164,7 +164,7 @@ Implementation:
 - Snapshots: `builds/<pack>/versions/V<X.Y.Z>/` (packages, `source.zip`, `source.sha256`, `build_info.json`). Refreshed when source/packages differ. Last 5 kept.
 - NOTHING auto-bumps. The new version is written in CHANGELOG.md AND, in the same update script, into every source manifest with `python3 scripts/manifest_tools.py --project <path> --set vX` (header.version, metadata.version, title suffix, module and dependency versions; UUIDs untouched; never lowers)
 , so every update changes the build. Publish to CurseForge uploads the newest changelog version as written and groups every entry since the last publish. The passive build (`Build Changed Packs & Sync Catalogs`) aligns each pack to its highest existing version and rebuilds. `--bump` / `AUTO_BUMP_MANIFEST=true` remain in `scripts/auto_bump_and_build.py` for manual use only.
-- Package name: `<Shortcut> VX.Y.Z.<ext>` (example `MiningHelmet V1.0.2.mcaddon`). Shortcut = short, letters and digits only (NEVER `-`, `_`, spaces, `by ALNStudios`, parentheses), close to the add-on name, kept in `scripts/pack_shortcuts.json` by project folder (fallback: folder name joined). Custom via `metadata.package_filename` or `PACK_FILENAME_TEMPLATE`; MUST contain `V{version}` and no parenthesis, else the default is used. CurseForge upload copy uses the same name. `python3 scripts/rename_packages.py --check|--apply` renames old packages and repairs references.
+- Package name: `<Shortcut> VX.<ext>` (example `MiningHelmet V1.mcaddon`, or legacy `VX.Y.Z.<ext>`). Shortcut = short, letters and digits only (NEVER `-`, `_`, spaces, `by ALNStudios`, parentheses), close to the add-on name, kept in `scripts/pack_shortcuts.json` by project folder (fallback: folder name joined). Custom via `metadata.package_filename` or `PACK_FILENAME_TEMPLATE`; MUST contain `V{version}` and no parenthesis, else the default is used. CurseForge upload copy uses the same name. `python3 scripts/rename_packages.py --check|--apply` renames old packages and repairs references.
 - Creator name `ALNStudios`. `python3 scripts/rename_brand.py --apply` migrates old name. NEVER rename lowercase namespaces (`allenscreations:`).
 - Tools: `python3 scripts/manifest_tools.py --project <path> --check|--align|--bump` (`--all --check`). `sync_manifest_versions.py`: deps and `min_engine_version` maintenance; set `min_engine_version` by hand after lookup. `sync_project_docs.py` NOT in build: edit DESCRIPTION/CHANGELOG deliberately. `sync_readme_links.py [--check]` repairs README links (runs after every build).
 - LOCK: every `MCPEDL/Addons/` project has `LOCK` at root starting `ALNStudios Add-on Lock v1`. Importer creates it, build enforces it. Missing/invalid = release-blocking: report path, NEVER call build-ready. Safeguard only, not encryption.
@@ -458,10 +458,10 @@ Same rules as `INSTRUCTIONS.md` 1.12. Read it when a mechanic hits a vanilla lim
 - Ship the JSON AND the PNGs. The JSON is the source: later changes edit the JSON and rerun the script, NEVER the PNG. `--preview [file]` writes a review sheet outside the project: NEVER ship it.
 ````
 
-## FILE: INSTRUCTIONS.md (275 lines, 38683 bytes)
+## FILE: INSTRUCTIONS.md (276 lines, 38900 bytes)
 
 ````
-# Instructions: Core Repository Policy (v25)
+# Instructions: Core Repository Policy (v26)
 
 
 Repo policy, docs rules for AllensCreations/MCPE-Curseforges (creator name `ALNStudios`). Generating a new project: `PACK_GENERATOR_INSTRUCTIONS.md`.
@@ -572,7 +572,7 @@ Implementation:
 - Snapshots: `builds/<pack>/versions/V<X.Y.Z>/` (packages, `source.zip`, `source.sha256`, `build_info.json`). Refreshed when source/packages differ. Last 5 kept.
 - NOTHING auto-bumps. The new version is written in CHANGELOG.md AND, in the same update script, into every source manifest with `python3 scripts/manifest_tools.py --project <path> --set vX` (header.version, metadata.version, title suffix, module and dependency versions; UUIDs untouched; never lowers)
 , so every update changes the build. Publish to CurseForge uploads the newest changelog version as written and groups every entry since the last publish. The passive build (`Build Changed Packs & Sync Catalogs`) aligns each pack to its highest existing version and rebuilds. `--bump` / `AUTO_BUMP_MANIFEST=true` remain in `scripts/auto_bump_and_build.py` for manual use only.
-- Package name: `<Shortcut> VX.Y.Z.<ext>` (example `MiningHelmet V1.0.2.mcaddon`). Shortcut = short, letters and digits only (NEVER `-`, `_`, spaces, `by ALNStudios`, parentheses), close to the add-on name, kept in `scripts/pack_shortcuts.json` by project folder (fallback: folder name joined). Custom via `metadata.package_filename` or `PACK_FILENAME_TEMPLATE`; MUST contain `V{version}` and no parenthesis, else the default is used. CurseForge upload copy uses the same name. `python3 scripts/rename_packages.py --check|--apply` renames old packages and repairs references.
+- Package name: `<Shortcut> VX.<ext>` (example `MiningHelmet V1.mcaddon`, or legacy `VX.Y.Z.<ext>`). Shortcut = short, letters and digits only (NEVER `-`, `_`, spaces, `by ALNStudios`, parentheses), close to the add-on name, kept in `scripts/pack_shortcuts.json` by project folder (fallback: folder name joined). Custom via `metadata.package_filename` or `PACK_FILENAME_TEMPLATE`; MUST contain `V{version}` and no parenthesis, else the default is used. CurseForge upload copy uses the same name. `python3 scripts/rename_packages.py --check|--apply` renames old packages and repairs references.
 - Creator name `ALNStudios`. `python3 scripts/rename_brand.py --apply` migrates old name. NEVER rename lowercase namespaces (`allenscreations:`).
 - Tools: `python3 scripts/manifest_tools.py --project <path> --check|--align|--bump` (`--all --check`). `sync_manifest_versions.py`: deps and `min_engine_version` maintenance; set `min_engine_version` by hand after lookup. `sync_project_docs.py` NOT in build: edit DESCRIPTION/CHANGELOG deliberately. `sync_readme_links.py [--check]` repairs README links (runs after every build).
 - LOCK: every `MCPEDL/Addons/` project has `LOCK` at root starting `ALNStudios Add-on Lock v1`. Importer creates it, build enforces it. Missing/invalid = release-blocking: report path, NEVER call build-ready. Safeguard only, not encryption.
@@ -720,6 +720,7 @@ Placeholders `<PackName>`, `<MainAction>`, `<version>`. NEVER hardcode one pack.
 - [ ] Changed JSON validated. Instruction file changed: `scripts/check_instruction_files.py` passes.
 
 ## Version History
+- **v26:** Standardized downloadable build package filenames to `VX` format (`<Shortcut> VX.<ext>`); updated `make_pack_script.py` to auto-build description and changelog views on new pack creation.
 - **v25:** Updated instructions to reflect single-version `vX` scheme (Bedrock `[X, 0, 0]`), 3-mode AI review export (`update_pack`, `new_pack`, `repo_maintenance`), and gzipped Bedrock reference.
 - **v24:** The build workflow file is now `build-and-sync.yml`
  (display name "Build Changed Packs & Sync Catalogs" unchanged). Callers start it by that file name; CI fails when a workflow starts a file that does not exist.
@@ -3286,7 +3287,7 @@ if __name__ == "__main__":
     raise SystemExit(main())
 ```
 
-## FILE: scripts/manifest_tools.py (434 lines, 18851 bytes)
+## FILE: scripts/manifest_tools.py (436 lines, 19031 bytes)
 
 ```
 #!/usr/bin/env python3
@@ -3619,11 +3620,11 @@ def package_basename(project_path, version_text, fallback_title):
     """File name (without extension) of the downloadable package.
 
     Title comes from the manifest header.name (fallback: the DESCRIPTION title) and the version
-    from the manifest. Default: '<Shortcut> VX.Y.Z' (see package_shortcut). Template precedence:
-    manifest metadata.package_filename, then the PACK_FILENAME_TEMPLATE variable, then
-    '{shortcut} V{version}'. Placeholders: {shortcut}, {title}, {version}, {author}. A template
-    must contain 'V{version}' and no parenthesis because the README link repair finds packages by
-    it; otherwise (including the old '(V{version})' templates) the default template is used.
+    from the manifest. Default: '<Shortcut> VX' (or '<Shortcut> VX.Y.Z'; see package_shortcut).
+    Template precedence: manifest metadata.package_filename, then the PACK_FILENAME_TEMPLATE
+    variable, then '{shortcut} V{version}'. Placeholders: {shortcut}, {title}, {version}, {author}.
+    A template must contain 'V{version}' and no parenthesis because the README link repair finds
+    packages by it; otherwise (including the old '(V{version})' templates) the default template is used.
     """
     title = manifest_title(project_path) or fallback_title
     shortcut = package_shortcut(project_path)
@@ -3633,11 +3634,13 @@ def package_basename(project_path, version_text, fallback_title):
     if "V{version}" not in template or "(" in template:
         print(f"WARNING: filename template {template!r} needs 'V{{version}}' without parentheses; using the default.", file=sys.stderr)
         template = DEFAULT_FILENAME_TEMPLATE
+    v_parts = str(version_text).split(".")
+    display_ver = v_parts[0] if (len(v_parts) == 3 and v_parts[1] == "0" and v_parts[2] == "0") else str(version_text)
     try:
-        name = template.format(shortcut=shortcut, title=title, version=version_text, author=AUTHOR)
+        name = template.format(shortcut=shortcut, title=title, version=display_ver, author=AUTHOR)
     except (KeyError, IndexError, ValueError):
         print(f"WARNING: bad filename template {template!r}; using the default.", file=sys.stderr)
-        name = DEFAULT_FILENAME_TEMPLATE.format(shortcut=shortcut, title=title, version=version_text, author=AUTHOR)
+        name = DEFAULT_FILENAME_TEMPLATE.format(shortcut=shortcut, title=title, version=display_ver, author=AUTHOR)
     return re.sub(r'[\\/*?:"<>|]', "", name).strip()
 
 
@@ -4514,7 +4517,7 @@ if __name__ == "__main__":
     sys.exit(main())
 ```
 
-## FILE: scripts/make_pack_script.py (248 lines, 9902 bytes)
+## FILE: scripts/make_pack_script.py (250 lines, 10098 bytes)
 
 ```
 #!/usr/bin/env python3
@@ -4637,6 +4640,8 @@ if [ "$TYPE" = "map" ]; then
 fi
 python3 scripts/manifest_tools.py --project "$DEST_REAL" --align
 python3 scripts/validate_manifest_titles.py --project "$DEST_REAL"
+python3 scripts/build_listing_kits.py --project "$DEST_REAL" 2>/dev/null || true
+python3 scripts/build_changelog_views.py --project "$NAME" 2>/dev/null || true
 
 NAME="$NAME" DISPLAY_NAME="$DISPLAY_NAME" TYPE="$TYPE" python3 - <<'ALN_LOG'
 import os, pathlib, subprocess
@@ -4650,7 +4655,7 @@ if f"## {date} - {title}" not in t:
     p.write_text(t[:i] + "\n" + entry.rstrip("\n") + "\n" + t[i:], encoding="utf-8")
 ALN_LOG
 
-git add -A -- "$DEST_REAL" CHANGELOG.md
+git add -A -- "$DEST_REAL" CHANGELOG.md description_views/ changelog_views/
 if git diff --cached --quiet; then
   echo "Nothing to commit"
 else

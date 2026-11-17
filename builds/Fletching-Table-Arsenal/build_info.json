@@ -2,7 +2,7 @@
   "changelog_version": "2.0.0",
   "manifest_version": "2.0.0",
   "packages": {
-    "FletchingArsenal V2.0.0.mcaddon": "3fd27750cffcb05796d4a3f759037b837ba648adf48a2738024787f9228cc181"
+    "FletchingArsenal V2.mcaddon": "3fd27750cffcb05796d4a3f759037b837ba648adf48a2738024787f9228cc181"
   },
   "source_sha256": "6b76a370ab5f2adb099458155072f634175b1cf7a674d0372c66e661321206a5"
 }

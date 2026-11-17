@@ -2,7 +2,7 @@
   "changelog_version": "2.0.0",
   "manifest_version": "2.0.0",
   "packages": {
-    "GhastMobHeads V2.0.0.mcaddon": "e5578cb89410dc94b516e96146f306c917c6f0ee9efb3934c1537f58166b03f3"
+    "GhastMobHeads V2.mcaddon": "e5578cb89410dc94b516e96146f306c917c6f0ee9efb3934c1537f58166b03f3"
   },
   "source_sha256": "cb5ce8a85cd61aadd6e679aa0dae519156ecd88f017cf777a1faec0560468c68"
 }

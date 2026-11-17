@@ -2,7 +2,7 @@
   "changelog_version": "2.0.0",
   "manifest_version": "2.0.0",
   "packages": {
-    "SwarmBooster V2.0.0.mcaddon": "caaa146e4182de7212102b51a4233a4cb15a0903d063302e25cdcda389f7ceac"
+    "SwarmBooster V2.mcaddon": "caaa146e4182de7212102b51a4233a4cb15a0903d063302e25cdcda389f7ceac"
   },
   "source_sha256": "a4470aa1fd60b13c76d9d090be8494c157d23455c26892dc9041f597f59a4d20"
 }

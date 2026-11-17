@@ -2,7 +2,7 @@
   "changelog_version": "3.0.0",
   "manifest_version": "3.0.0",
   "packages": {
-    "MonsterCompanions V3.0.0.mcaddon": "9f76c12fdab97d94f9aac9f45ec6e82578041dc91176ca565d22367746f93d79"
+    "MonsterCompanions V3.mcaddon": "9f76c12fdab97d94f9aac9f45ec6e82578041dc91176ca565d22367746f93d79"
   },
   "source_sha256": "79fd9a1d73887b5355cec63271d653688e2f596f3684c79163ad3642b5a1399a"
 }

@@ -8,7 +8,7 @@ This folder contains compiled release packages for **Cheat Stick** by ALNStudios
 
 | File Name | Format | Size | Description | Download Link |
 | :--- | :--- | :--- | :--- | :--- |
-| **`CheatStick V4.0.0.mcaddon`** | `.mcaddon` | ~112 KB | Complete Add-on package for Minecraft Bedrock. | [Download (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Cheat-Stick/CheatStick%20V4.0.0.mcaddon) |
+| **`CheatStick V4.mcaddon`** | `.mcaddon` | ~112 KB | Complete Add-on package for Minecraft Bedrock. | [Download (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Cheat-Stick/CheatStick%20V4.mcaddon) |
 
 ---
 
