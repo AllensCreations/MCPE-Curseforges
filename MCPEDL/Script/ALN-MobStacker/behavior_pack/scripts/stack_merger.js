@@ -1,6 +1,7 @@
 import { system, world } from "@minecraft/server";
 import {
   DIMENSION_IDS,
+  FARM_ANIMAL_SET,
   JOBS_PER_TICK,
   MAX_ENTITIES_PER_JOB,
   MAX_STACK_SIZE,
@@ -36,7 +37,7 @@ function cellKey(x, y, z) {
 
 function placeHost(host, total) {
   const entity = host.entity;
-  if (entity.hasTag(PERSISTENT_TAG)) {
+  if (entity.hasTag(PERSISTENT_TAG) || (host.meta.isBaby && FARM_ANIMAL_SET.has(entity.typeId))) {
     applyStack(entity, total, host.meta);
     return;
   }

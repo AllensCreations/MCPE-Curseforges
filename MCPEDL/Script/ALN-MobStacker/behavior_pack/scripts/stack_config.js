@@ -46,6 +46,33 @@ export const STACKABLE_MOBS = new Set([...FARM_ANIMALS, ...GRINDER_MOBS]);
 export const FARM_ANIMAL_SET = new Set(FARM_ANIMALS);
 
 export const MAX_SPAWN_TRIES = 8;
+export const GEAR_DROP_CHANCE = 0.01;
+export const GEAR_DROP_ITEMS = [
+  "minecraft:leather_helmet",
+  "minecraft:leather_chestplate",
+  "minecraft:leather_leggings",
+  "minecraft:leather_boots",
+  "minecraft:copper_helmet",
+  "minecraft:copper_chestplate",
+  "minecraft:copper_leggings",
+  "minecraft:copper_boots",
+  "minecraft:golden_helmet",
+  "minecraft:golden_chestplate",
+  "minecraft:golden_leggings",
+  "minecraft:golden_boots",
+  "minecraft:chainmail_helmet",
+  "minecraft:chainmail_chestplate",
+  "minecraft:chainmail_leggings",
+  "minecraft:chainmail_boots",
+  "minecraft:iron_helmet",
+  "minecraft:iron_chestplate",
+  "minecraft:iron_leggings",
+  "minecraft:iron_boots",
+  "minecraft:diamond_helmet",
+  "minecraft:diamond_chestplate",
+  "minecraft:diamond_leggings",
+  "minecraft:diamond_boots",
+];
 
 const ADULT_SPAWN_EVENTS = {
   "minecraft:cow": "minecraft:spawn_adult",
@@ -131,6 +158,7 @@ export const LOOT = {
     babyXp: 12,
     drops: [["minecraft:rotten_flesh", 0, 2]],
     rare: [{ ids: ["minecraft:iron_ingot", "minecraft:carrot", "minecraft:potato"], chance: 0.025, bonus: 0.01 }],
+    gear: true,
   },
   "minecraft:skeleton": { xp: [5, 5], drops: [["minecraft:arrow", 0, 2], ["minecraft:bone", 0, 2]] },
   "minecraft:spider": { xp: [5, 5], drops: [["minecraft:string", 0, 2], ["minecraft:spider_eye", 0, 1]] },
@@ -142,7 +170,7 @@ export const LOOT = {
     drops: [["minecraft:rotten_flesh", 0, 2]],
     rare: [{ ids: ["minecraft:copper_ingot"], chance: 0.11, bonus: 0.02 }],
   },
-  "minecraft:husk": { xp: [5, 5], babyXp: 12, drops: [["minecraft:rotten_flesh", 0, 2]] },
+  "minecraft:husk": { xp: [5, 5], babyXp: 12, drops: [["minecraft:rotten_flesh", 0, 2]], gear: true },
   "minecraft:stray": { xp: [5, 5], drops: [["minecraft:arrow", 0, 2], ["minecraft:bone", 0, 2]] },
   "minecraft:blaze": { xp: [10, 10], drops: [["minecraft:blaze_rod", 0, 1]] },
   "minecraft:magma_cube": { xp: "variant", drops: [["minecraft:magma_cream", 0, 1]] },

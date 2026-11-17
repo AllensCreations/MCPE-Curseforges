@@ -1,7 +1,9 @@
-import { EntityComponentTypes, EquipmentSlot, ItemStack, world } from "@minecraft/server";
+import { EntityComponentTypes, EquipmentSlot, ItemStack, system, world } from "@minecraft/server";
 import {
   COOKED_BY_RAW,
   FARM_ANIMAL_SET,
+  GEAR_DROP_CHANCE,
+  GEAR_DROP_ITEMS,
   LOOT,
   PERSISTENT_TAG,
   STACKABLE_MOBS,
@@ -16,7 +18,8 @@ import {
 } from "./stack_config.js";
 
 const SAMPLE_LIMIT = 200;
-const MAX_ITEM_ENTITIES = 512;
+const MAX_ITEM_ENTITIES = 256;
+const ITEMS_PER_TICK = 32;
 
 function randomInt(min, max) {
   return min + Math.floor(Math.random() * (max - min + 1));
@@ -51,6 +54,9 @@ function rollUnit(typeId, def, meta, looting, totals) {
       const entry = pickWeighted(def.rolled.entries);
       addTotal(totals, entry[0], randomInt(entry[1], entry[2]) * lootMultiplier(looting));
     }
+  }
+  if (def.gear && Math.random() < GEAR_DROP_CHANCE) {
+    addTotal(totals, GEAR_DROP_ITEMS[randomInt(0, GEAR_DROP_ITEMS.length - 1)], 1);
   }
   if (def.rare) {
     for (const rare of def.rare) {
@@ -102,7 +108,7 @@ function computeDrops(typeId, meta, units, looting, burning) {
 }
 
 function spawnDrops(dimension, location, totals, xp) {
-  let spawned = 0;
+  const pending = [];
   for (const [id, amount] of totals) {
     let remaining = amount;
     let maxAmount = 64;
@@ -111,17 +117,28 @@ function spawnDrops(dimension, location, totals, xp) {
     } catch (error) {
       continue;
     }
-    while (remaining > 0 && spawned < MAX_ITEM_ENTITIES) {
+    while (remaining > 0 && pending.length < MAX_ITEM_ENTITIES) {
       const size = Math.min(remaining, maxAmount);
       try {
-        dimension.spawnItem(new ItemStack(id, size), location);
+        pending.push(new ItemStack(id, size));
       } catch (error) {
         break;
       }
       remaining -= size;
-      spawned++;
     }
   }
+  let index = 0;
+  const handle = system.runInterval(() => {
+    for (let n = 0; n < ITEMS_PER_TICK && index < pending.length; n++) {
+      try {
+        dimension.spawnItem(pending[index], location);
+      } catch (error) {
+        index = pending.length;
+      }
+      index++;
+    }
+    if (index >= pending.length) system.clearRun(handle);
+  }, 1);
   if (xp > 0) {
     try {
       dimension.spawnXp(location, xp);

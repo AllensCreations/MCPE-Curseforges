@@ -18,7 +18,7 @@ Build a farm or grinder as usual. Mobs of the same kind that stand close togethe
 ### Mob Merging
 - **What Happens**: Identical mobs within 4 blocks of each other merge into one mob about once a second. The merged mob shows a label such as `[x12] Cow` in gold and white.
 - **How It Works**: Twenty cows packed in a pen become one Cow labelled `[x20]`. The label appears when you look at the mob.
-- **Good To Know**: There is no stack size limit. Mobs absorbed into a stack disappear without dropping anything. Merged stacks are set to stay in the world, so they should not despawn when you walk away.
+- **Good To Know**: There is no stack size limit. Mobs absorbed into a stack disappear without dropping anything. Merged stacks are set to stay in the world, so they should not despawn when you walk away. Baby farm animal stacks keep their original mob, so its growth is not reset, but killing one mob of a baby stack spawns a new baby that starts growing from the beginning.
 
 ### Supported Mobs
 - **What Happens**: Farm animals: Cow, Pig, Sheep, Chicken, Rabbit, Mooshroom, Goat, Frog. Grinder mobs: Zombie, Skeleton, Spider, Cave Spider, Creeper, Drowned, Husk, Stray, Blaze, Magma Cube, Slime, Enderman, Witch, Zombified Piglin, Guardian, Bogged, Breeze.
@@ -34,7 +34,7 @@ Build a farm or grinder as usual. Mobs of the same kind that stand close togethe
 
 ### Sneak Kill
 - **What Happens**: Sneak while you kill a stacked mob and the whole remaining stack is cleared at once. The extra mobs drop their loot and experience together, and an action bar message shows the stack size, mob name and Looting level.
-- **Good To Know**: Sneak Kill drops the regular items of each mob type, plus the rare drops of Rabbits, Zombies, Zombified Piglins and Drowned at their vanilla chances. Cow, Pig, Sheep, Chicken, Rabbit and Mooshroom stacks that are burning when you kill them drop cooked meat.
+- **Good To Know**: Sneak Kill drops the regular items of each mob type, plus the rare drops of Rabbits, Zombies, Zombified Piglins and Drowned at their vanilla chances. Zombie and Husk stacks also have a small chance of dropping a piece of armor for each extra mob. Cow, Pig, Sheep, Chicken, Rabbit and Mooshroom stacks that are burning when you kill them drop cooked meat. Big piles of drops appear over a few ticks, up to 256 item piles per kill.
 
 ### Looting Bonus
 - **What Happens**: Looting on the weapon in your main hand, levels 1 to 3, raises the drops of each extra mob in a Sneak Kill. Each extra mob multiplies its drops by a random 1 up to the Looting level plus 1.
