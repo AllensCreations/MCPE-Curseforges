@@ -2,6 +2,16 @@
 
 ---
 
+## [v92] - 2026-11-17 - Instant Boat Clutch
+
+### Improved & Balanced
+
+- **Universal Clutch 1.5.5**: The boat is placed and the player is seated in it at the same moment.
+
+### Fixed
+
+- **Universal Clutch 1.5.5**: Fixed being moved into the boat after respawning following a boat clutch death.
+
 ## [v91] - 2026-11-17 - Vanilla-Like Clutch Reach
 
 ### Improved & Balanced

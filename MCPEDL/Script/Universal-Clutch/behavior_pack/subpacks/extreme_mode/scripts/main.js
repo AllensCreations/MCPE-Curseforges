@@ -63,6 +63,7 @@ const activeWaterClutches = new Map();
 const activePowderSnowClutches = new Map();
 const lastClutchTick = new Map();
 const fallTrackers = new Map();
+const clutchBoats = new Map();
 
 function getClutchPriority(dimensionId) {
   return dimensionId === "minecraft:nether" ? NETHER_CLUTCH_PRIORITY : OVERWORLD_CLUTCH_PRIORITY;
@@ -426,19 +427,18 @@ function placeBoatClutch(dimension, airBlock, entityType, player, distToSurface,
     });
     if (!boat) return false;
 
-    const speed = Math.max(0.5, Math.abs(fallSpeed));
-    const delayTicks = Math.max(1, Math.min(5, Math.round(distToSurface / speed)));
+    clutchBoats.set(player.id, boat);
 
-    system.runTimeout(() => {
+    const seatPlayer = () => {
       try {
-        if (boat.isValid() && player.isValid()) {
-          const rideable = boat.getComponent("minecraft:rideable");
-          if (rideable) {
-            rideable.addRider(player);
-          }
-        }
-      } catch {}
-    }, delayTicks);
+        if (!boat.isValid() || !player.isValid() || isDead(player)) return true;
+        const rideable = boat.getComponent("minecraft:rideable");
+        return rideable ? rideable.addRider(player) !== false : false;
+      } catch {
+        return false;
+      }
+    };
+    if (!seatPlayer()) system.runTimeout(seatPlayer, 1);
     return true;
   } catch {
     return false;
@@ -663,7 +663,31 @@ system.runInterval(() => {
   }
 }, 1);
 
+function clearClutchBoat(playerId) {
+  const boat = clutchBoats.get(playerId);
+  clutchBoats.delete(playerId);
+  try {
+    if (boat && boat.isValid()) boat.remove();
+  } catch {}
+}
+
+world.afterEvents.entityDie.subscribe((event) => {
+  try {
+    const dead = event.deadEntity;
+    if (dead.typeId !== "minecraft:player") return;
+    clearClutchBoat(dead.id);
+  } catch {}
+});
+
+world.afterEvents.playerSpawn.subscribe((event) => {
+  try {
+    if (event.initialSpawn) return;
+    clearClutchBoat(event.player.id);
+  } catch {}
+});
+
 world.afterEvents.playerLeave.subscribe((event) => {
+  clutchBoats.delete(event.playerId);
   fallTrackers.delete(event.playerId);
   lastClutchTick.delete(event.playerId);
   activeWaterClutches.delete(event.playerId);

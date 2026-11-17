@@ -34,7 +34,7 @@ When aiming down and falling beyond the configured block height threshold, the a
 - **Description**: When falling to certain death with no clutch item, automatically searches inventory and equips a Totem of Undying into the offhand slot before impact.
 
 ### Authentic Boat Placement
-- **Description**: Spawns the boat about 7 blocks above the ground first, then seats the player with a slight delay upon touchdown. Strictly no teleportation.
+- **Description**: Places the boat on the ground below and seats the player in it at the same moment, from about 7 blocks up. The boat is removed if the player dies.
 
 ### Timed Placement
 - **Description**: Uses velocity-based vertical raycasting to trigger placements shortly before impact rather than snapping prematurely.
@@ -79,7 +79,7 @@ When aiming down and falling beyond the configured block height threshold, the a
 
 ### Boat / Raft
 - **Placement Target**: Impact Air Coordinate
-- **Effect**: Placed about 7 blocks above the ground first, auto-riding player with slight delay
+- **Effect**: Placed on the ground below with the player seated in it at once, from about 7 blocks up
 
 ### Sweet Berries
 - **Placement Target**: Impact Air Block

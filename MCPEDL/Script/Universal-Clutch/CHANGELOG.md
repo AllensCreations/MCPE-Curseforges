@@ -2,6 +2,16 @@
 
 ---
 
+## [1.5.5] - 2026-11-17 - Instant Boat Clutch
+
+### Improved & Balanced
+
+- **Instant Boat Seating**: The boat is placed and you are seated in it at the same moment.
+
+### Fixed
+
+- **Boat After Death**: Fixed being moved into the boat after respawning when you died during a boat clutch.
+
 ## [1.5.4] - 2026-11-17
 
 **What's new in v1.5.4:** Packed with 2 updates, from v1.5.3 through v1.5.4. Includes: Vanilla-Like Clutch Reach; Higher Clutch Reach.
