@@ -2,6 +2,11 @@
 
 ---
 
+## 2026-11-18 - New Script Command Vault
+
+### Added
+- **Command Vault**: New script project created from a pack script.
+
 ## [v98] - 2026-11-18 - Auto AI Review & MCPEDL Catalog Sync in Build Workflow
 
 ### Added
