@@ -2,7 +2,7 @@
 
 ---
 
-## [1.0.0] - 2026-11-11
+## [v2] - 2026-11-11
 
 ### Added
 - **Pirate Voices**: Tamed parrots now speak pirate-themed lines when they notice nearby mobs, when you are hurt or low on health, and when you enter caves, the Nether, lava areas or the night.

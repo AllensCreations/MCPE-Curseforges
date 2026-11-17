@@ -2,7 +2,7 @@
 
 ---
 
-## [1.5.6] - 2026-11-17
+## [v2] - 2026-11-17
 
 **What's new in v1.5.6:** Packed with 2 updates, from v1.5.5 through v1.5.6. Includes: Lighter Performance; Instant Boat Clutch.
 

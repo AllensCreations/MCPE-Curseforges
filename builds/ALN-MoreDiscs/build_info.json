@@ -1,8 +1,8 @@
 {
-  "changelog_version": "1.1.1",
-  "manifest_version": "1.1.1",
+  "changelog_version": "2.0.0",
+  "manifest_version": "2.0.0",
   "packages": {
-    "ALNMoreDiscs V1.1.1.mcaddon": "09fc7de8b45067083929ab8836ca7b162a2647004de1fbefe864bf028e9923c8"
+    "ALNMoreDiscs V2.0.0.mcaddon": "fc21810e5d024dd82d9a3841037efe5550bb0e0f2fd2359ed652c5176acc4a91"
   },
-  "source_sha256": "ca58a7908d55a9724847efd1b8321cfe0dd87578150224eb8cdaa12879046929"
+  "source_sha256": "cc0b8a3e6ce62b73fd9ca07caf72ae56cbc1036faa34a5c463327d3810fb5ee6"
 }

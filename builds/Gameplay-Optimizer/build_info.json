@@ -1,8 +1,8 @@
 {
-  "changelog_version": "1.0.0",
-  "manifest_version": "1.0.0",
+  "changelog_version": "2.0.0",
+  "manifest_version": "2.0.0",
   "packages": {
-    "GameplayOptimizer V1.0.0.mcpack": "8e59e73bd8a49be138eb234de697f05fc39eef458ba93242cbbf9767557c89d1"
+    "GameplayOptimizer V2.0.0.mcpack": "a88c1c66baca20bec64b2b2a86277a17177f1af67ac3461fe0f3e9d265a3b739"
   },
-  "source_sha256": "2aae5fa1d57aba61da2f947d40c9a04fdd2a9ed1add849364c0b9d51c7417106"
+  "source_sha256": "dc1ca8bfe3dba8810bc2c642469a048cd027ad1b0f34cb160d7a2718cd1039e3"
 }

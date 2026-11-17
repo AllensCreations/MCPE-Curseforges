@@ -451,10 +451,10 @@ Same rules as `INSTRUCTIONS.md` 1.12. Read it when a mechanic hits a vanilla lim
 - Ship the JSON AND the PNGs. The JSON is the source: later changes edit the JSON and rerun the script, NEVER the PNG. `--preview [file]` writes a review sheet outside the project: NEVER ship it.
 ````
 
-## FILE: INSTRUCTIONS.md (265 lines, 38203 bytes)
+## FILE: INSTRUCTIONS.md (266 lines, 38423 bytes)
 
 ````
-# Instructions: Core Repository Policy (v23)
+# Instructions: Core Repository Policy (v24)
 
 Repo policy, docs rules for AllensCreations/MCPE-Curseforges (creator name `ALNStudios`). Generating a new project: `PACK_GENERATOR_INSTRUCTIONS.md`.
 
@@ -581,7 +581,7 @@ Implementation:
 - Wiki images: CC BY-NC-SA, conflicts with monetized pages. ONLY with explicit user approval of that image. Names `Invicon_<Title_Case_Name>.png`, `ItemSprite_<lowercase-hyphenated-name>.png`. Open file page, confirm license. Record file page URL, license, date in generator header comment or `scripts/ASSET_SOURCES.md`; add attribution to DESCRIPTION. NEVER bulk-copy. Wiki blocked: report, fall back to Samples.
 - ALWAYS map every ingredient to a texture first (filenames differ from ids; `textures/items/` or `textures/blocks/`; verify path + item). NEVER substitute or skip. Report all unresolved together, stop.
 - Optional per-pack listing images (distinct from the profile banners in 2.3; user supplies both): clickable in Creator and Permissions, 16:9 JPEG `assets/Images/<slug>-curseforge.jpg`, `<slug>-mcpedl.jpg`, link to verified pack listing. NEVER placeholders or invented URLs. Pair only if both images and both URLs exist.
-- Generators: `scripts/`, fail clearly on missing Samples/texture/recipe. Register in `.github/workflows/auto-version-bump.yml` (run step in the recipe images step, `git add` in the commit step) and mirror the same command in the manual fallback `.github/workflows/generate-recipe-images.yml`. Workflow commits PNGs `[skip ci]`. NEVER call images published until workflow succeeded and PNGs exist.
+- Generators: `scripts/`, fail clearly on missing Samples/texture/recipe. Register in `.github/workflows/build-and-sync.yml` (run step in the recipe images step, `git add` in the commit step) and mirror the same command in the manual fallback `.github/workflows/generate-recipe-images.yml`. Workflow commits PNGs `[skip ci]`. NEVER call images published until workflow succeeded and PNGs exist.
 - Technical reference: Bedrock Wiki explains; verify schema/ids/format version against Samples + current docs. Cite it as community docs; link, NEVER copy.
 
 ### 1.6 Function Files
@@ -706,6 +706,7 @@ Placeholders `<PackName>`, `<MainAction>`, `<version>`. NEVER hardcode one pack.
 - [ ] Changed JSON validated. Instruction file changed: `scripts/check_instruction_files.py` passes.
 
 ## Version History
+- **v24:** The build workflow file is now `build-and-sync.yml` (display name "Build Changed Packs & Sync Catalogs" unchanged). Callers start it by that file name; CI fails when a workflow starts a file that does not exist.
 - **v23:** Recipe image generators are registered in `auto-version-bump.yml` (it builds them on every run that touches recipes or textures); `generate-recipe-images.yml` is only the manual fallback with the same commands.
 - **v22:** The repo version is a single number (`REPO_VERSION` = `80`, written `v80`), no longer X.Y.Z. Next = number + 1. Root changelog headings are `## [vN]`; repo-level scripts are `@@ version N` and named `Repo_vN_<Rand>.sh`. Pack versions stay X.Y.Z.
 - **v21:** New 1.15 (Bedrock Developer Role and Trusted Sources): official NPM packages first, the trusted source list, texture/registration split, failure procedure. `@minecraft/math` stays blocked by the payload allow-list until `build_payload.py` lists it.
@@ -3269,7 +3270,7 @@ if __name__ == "__main__":
     raise SystemExit(main())
 ```
 
-## FILE: scripts/manifest_tools.py (419 lines, 18207 bytes)
+## FILE: scripts/manifest_tools.py (432 lines, 18744 bytes)
 
 ```
 #!/usr/bin/env python3
@@ -3307,9 +3308,9 @@ INSTALLED_COPY_PARTS = {"world", "worlds", "behavior_packs", "resource_packs"}
 JUNK_DIRS = {"__pycache__", ".git", ".github", "node_modules"}
 JUNK_FILES = {".ds_store", "thumbs.db", "desktop.ini", ".gitkeep"}
 BINARY_EXT = {".mcpack", ".mcaddon", ".mcworld", ".zip"}
-TITLE_SUFFIX_RE = re.compile(r"(?:\s*\(v\d+\.\d+\.\d+(?:\.\d+)?\))+\s*$")
-HAS_SUFFIX_RE = re.compile(r"\(v\d+\.\d+\.\d+(?:\.\d+)?\)\s*$")
-FULL_RE = re.compile(r"^(\d+)\.(\d+)\.(\d+)$")
+TITLE_SUFFIX_RE = re.compile(r"(?:\s*\(v(?:\d+(?:\.\d+\.\d+)?)\))+\s*$", re.IGNORECASE)
+HAS_SUFFIX_RE = re.compile(r"\(v(?:\d+(?:\.\d+\.\d+)?)\)\s*$", re.IGNORECASE)
+FULL_RE = re.compile(r"^(?:v)?(\d+)(?:\.(\d+)\.(\d+))?$", re.IGNORECASE)
 AUTHOR = "ALNStudios"
 LEGACY_AUTHORS = ("ALNStudios",)
 FILENAME_TEMPLATE_ENV = "PACK_FILENAME_TEMPLATE"
@@ -3367,9 +3368,16 @@ def highest_version(project_path):
 
 
 def parse_full(text):
-    """Parse the only supported project version format: X.Y.Z."""
-    m = FULL_RE.fullmatch(str(text or "").strip())
-    return [int(m.group(i)) for i in range(1, 4)] if m else None
+    """Parse supported project version format: vX or X.Y.Z."""
+    cleaned = str(text or "").strip()
+    m = FULL_RE.fullmatch(cleaned)
+    if not m:
+        return None
+    major = int(m.group(1))
+    # If 3 parts were given
+    if m.group(2) is not None and m.group(3) is not None:
+        return [major, int(m.group(2)), int(m.group(3))]
+    return [major, 0, 0]
 
 def highest_full(project_path):
     return highest_version(project_path)
@@ -3377,7 +3385,8 @@ def highest_full(project_path):
 def bump_patch(version):
     if not is_triple(version):
         raise ValueError("Version must contain exactly three non-negative integers")
-    return [version[0], version[1], version[2] + 1]
+    # For single version bump (vX -> v(X+1)), increment the first element
+    return [version[0] + 1, 0, 0]
 
 def _retitle(name, version_text):
     """Replace an existing terminal (vX.Y.Z) suffix. Titles without one are left alone:
@@ -3615,18 +3624,23 @@ def package_basename(project_path, version_text, fallback_title):
 
 
 def latest_changelog_version(project_path):
-    """First '## [X.Y.Z]' heading of CHANGELOG.md, or None."""
+    """First '## [vX]' or '## [X.Y.Z]' heading of CHANGELOG.md, or None."""
     path = os.path.join(project_path, "CHANGELOG.md")
     try:
         with open(path, encoding="utf-8") as fh:
             for line in fh:
-                m = re.match(r"^## \[(\d+\.\d+\.\d+(?:\.\d+)?)\]", line)
+                m = re.match(r"^## \[(?:v)?(\d+(?:\.\d+\.\d+(?:\.\d+)?)?)\]", line, re.IGNORECASE)
                 if m:
-                    parts = parse_full(m.group(1))
-                    if len(m.group(1).split(".")) == 4:
-                        raw = [int(p) for p in m.group(1).split(".")]
-                        parts = [raw[0], raw[2], raw[3]]
-                    return fmt(parts) if parts else None
+                    ver_raw = m.group(1)
+                    if "." in ver_raw:
+                        parts = parse_full(ver_raw)
+                        if len(ver_raw.split(".")) == 4:
+                            raw = [int(p) for p in ver_raw.split(".")]
+                            parts = [raw[0], raw[2], raw[3]]
+                        return fmt(parts) if parts else None
+                    else:
+                        num = int(ver_raw)
+                        return f"{num}.0.0"
     except OSError:
         pass
     return None

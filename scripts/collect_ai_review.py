@@ -37,9 +37,9 @@ __DEST__
 4. Any project type (add-on, map, script, workflow, website). Keep folder layout. New project = own new folder beside similar ones.
 
 ## Update request = ONE Termux script
-- Name: `<Repofilename>_<Version>_<RAND>.sh` (e.g. `Monster-Companions_1.2.4_k7q2x.sh`). Deliver as downloadable file.
+- Name: `<Repofilename>_<Version>_<RAND>.sh` (e.g. `Monster-Companions_v2_k7q2x.sh`). Deliver as downloadable file.
 - Repofilename: project/folder/file changed. No extension, no spaces (hyphens ok).
-- Version: new X.Y.Z. Update = Z+1. Beta/Release only if requested (see Versions).
+- Version: new vX format. Update = X+1 (e.g., v1 -> v2, or legacy 1.3.4 -> v2).
 - RAND: >=5 random lowercase letters/digits. Fresh every script. NEVER reuse (earlier reply or existing file), so a new script never overwrites or re-runs an old one.
 - Same exact name in reply steps.
 Script order:
@@ -48,7 +48,7 @@ Script order:
 3. `git pull --rebase`
 4. Apply ALL changes as exact search-and-replace edits: write a spec and run `python3 scripts/make_update_script.py spec.txt` (format in `scripts/apply_update.py`; `--verify <clone>` dry-runs it). The tool applies edits atomically, sets the manifest version and writes both changelogs. Size decides the method. SMALL update (a few edits, under about 60% of any file touched): search and replace only. LARGE update (most of a file, many new files, a redesign): use the best method, `@@ create`/`@@ overwrite` in the same spec, never many fragile edits. Either way ONE `.sh`. No separate downloads.
 5. Validate every changed .json with python3. Stop on error.
-5b. Verify top CHANGELOG.md heading == new X.Y.Z == script filename version. Stop on mismatch. If project has manifests: run `python3 scripts/manifest_tools.py --project "$DEST" --set X.Y.Z` (sets header.version, metadata.version, title suffix, module/dependency versions in every source manifest; never lowers), then `python3 scripts/manifest_tools.py --project "$DEST" --check` and `python3 scripts/validate_manifest_titles.py --project "$DEST"`. Stop on error. Every update must change the manifests so the build changes. Never hand-edit manifest JSON for versions.
+5b. Verify top CHANGELOG.md heading == new vX == script filename version. Stop on mismatch. If project has manifests: run `python3 scripts/manifest_tools.py --project "$DEST" --set X.0.0` (or `vX`), then `python3 scripts/manifest_tools.py --project "$DEST" --check` and `python3 scripts/validate_manifest_titles.py --project "$DEST"`. Stop on error. Every update must change the manifests so the build changes. Never hand-edit manifest JSON for versions.
 5c. If INSTRUCTIONS.md or PACK_GENERATOR_INSTRUCTIONS.md changed: run `python3 scripts/check_instruction_files.py`. Stop on error
 6. `git add` changed paths only; `git commit -m "<short message>"`; `git push`
 6b. Add an entry to the ROOT `CHANGELOG.md` (repo-wide, newest first under `---`): `## [vN] - YYYY-MM-DD - [Update Name]` (N = `REPO_VERSION` + 1, a single whole number such as v80, set by the update tool, never by hand), groups `### Added` / `### Improved & Balanced` / `### Fixed`, bullets `- **Title**: what changed`. Every script, tooling-only included.
@@ -61,14 +61,11 @@ Script order:
 - CHANGELOG.md: MANDATORY every update, no exceptions. Add new release entry for the change.
 - README.md + DESCRIPTION.md: after change, analyze both in destination folder. Edit ONLY if change makes them inaccurate/incomplete. NEVER remove verified content.
 
-### Versions (X.Y.Z ONLY)
-- Format: exactly X.Y.Z everywhere. NEVER X.Y.Z.A. No fourth part. No Alpha.
-- X = Release, Y = Beta, Z = Update.
-- Update: Z+1 (1.2.3 -> 1.2.4). Default.
-- Beta: Y+1, Z=0 (1.2.4 -> 1.3.0). Only if requested.
-- Release: X+1, Y=0, Z=0 (1.3.0 -> 2.0.0). Only if requested.
-- New X.Y.Z goes in CHANGELOG heading + script filename.
-- Manifest versions: set ONLY by the script via `manifest_tools.py --set X.Y.Z` (never hand-edit JSON). NEVER hand-edit README download links. Build Changed Packs & Sync Catalogs aligns a pack to its highest existing version and rebuilds; it never bumps. Publish to CurseForge uploads the newest changelog version.
+### Versions (vX ONLY)
+- Format: single-number version `vX` (e.g. `v2`, `v3`). Old 3-part versions X.Y.Z convert by incrementing major (X+1).
+- Update: X+1 (v1 -> v2, v2 -> v3).
+- New vX goes in CHANGELOG heading + script filename.
+- Manifest versions: Bedrock requires a 3-integer array, so `vX` is mapped internally to `[X, 0, 0]` by `manifest_tools.py --set vX` (never hand-edit JSON). NEVER hand-edit README download links. Build Changed Packs & Sync Catalogs aligns a pack to its highest existing version and rebuilds.
 - NEVER put release version in README/DESCRIPTION titles. NEVER reuse a heading.
 
 ### Changelog views
@@ -137,7 +134,7 @@ Maps/scripts/minigames: same landing page. Use real package format; .mcworld = t
 ```
 
 ### CHANGELOG.md
-- `# Changelog — [Name]`, `---`, then newest first: `## [X.Y.Z] - YYYY-MM-DD - [Update Name]` (date: `TZ=Asia/Singapore date +%F`). [Update Name] = short player-facing title (2-6 words) of what is new. REQUIRED on every new entry.
+- `# Changelog — [Name]`, `---`, then newest first: `## [vX] - YYYY-MM-DD - [Update Name]` (date: `TZ=Asia/Singapore date +%F`). [Update Name] = short player-facing title (2-6 words) of what is new. REQUIRED on every new entry.
 - Groups: `### Added`, `### Improved & Balanced`, `### Fixed` (bugs as in-game experience). Omit empty groups. Each group >=1 bullet.
 - Entry: `- **Title**: player impact.`
 - NO links, URLs, badges, function/event names, unverified benefits. No boilerplate after title.
@@ -268,14 +265,22 @@ for rel in files:
     if pathlib.PurePosixPath(rel).name != "CHANGELOG.md":
         continue
     text = selected[rel].read_text(encoding="utf-8", errors="replace")
-    mv = re.search(r"^## \[(\d+)\.(\d+)\.(\d+)(?:\.(\d+))?\]", text, re.M)
+    mv = re.search(r"^## \[(?:v)?(\d+)(?:\.(\d+)\.(\d+)(?:\.(\d+))?)?\]", text, re.M)
     if mv:
-        a, b, c, d = mv.groups()
-        if d is not None:  # legacy X.Y.Z.A -> X.Z.A
-            a, b, c = a, c, d
-        a, b, c = int(a), int(b), int(c)
-        version_lines.append(f"CURRENT VERSION: {a}.{b}.{c} / NEXT UPDATE: {a}.{b}.{c + 1}  ({rel})")
-        top_versions.append(f"{a}.{b}.{c}")
+        first, b, c, d = mv.groups()
+        if b is not None and c is not None:
+            if d is not None:  # legacy X.Y.Z.A -> X.Z.A
+                first, b, c = first, c, d
+            a, b, c = int(first), int(b), int(c)
+            # Legacy X.Y.Z converts to v(X+1)
+            v_curr = f"v{a}"
+            v_next = f"v{a + 1}"
+            version_lines.append(f"CURRENT VERSION: {v_curr} / NEXT UPDATE: {v_next}  ({rel})")
+            top_versions.append(v_curr)
+        else:
+            v_num = int(first)
+            version_lines.append(f"CURRENT VERSION: v{v_num} / NEXT UPDATE: v{v_num + 1}  ({rel})")
+            top_versions.append(f"v{v_num}")
 
 blocks = []
 for rel in files:

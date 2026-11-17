@@ -1,6 +1,6 @@
 # Changelog — ALN Wireless Headphones
 
-## [1.0.0] - 2026-11-16 - First Release
+## [v2] - 2026-11-16 - First Release
 
 ### Added
 - **Wireless Headphones**: A craftable helmet made from 2 Iron Ingots, 1 Redstone Dust and 2 Leather that streams a paired Jukebox to your Action Bar.

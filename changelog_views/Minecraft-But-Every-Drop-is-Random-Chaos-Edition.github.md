@@ -1,6 +1,6 @@
 # Changelog — Minecraft, But Every Drop is Random: Chaos Edition
 
-## [1.0.4] - 2026-11-15
+## [v2] - 2026-11-15
 
 ### Fixed
 - **Lag Spikes**: Large bursts of drops, such as a big tree, TNT or a mob farm, are now swapped a few at a time instead of all in one moment, so the game stays smooth.

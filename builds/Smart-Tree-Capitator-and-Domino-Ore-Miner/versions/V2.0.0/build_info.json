@@ -1,0 +1,8 @@
+{
+  "changelog_version": "2.0.0",
+  "manifest_version": "2.0.0",
+  "packages": {
+    "SmartCapitator V2.0.0.mcaddon": "929e3efa317c4f291e8723312c0682a1855abf816a6d59bb407bc7b0eef19b43"
+  },
+  "source_sha256": "7842aaa534ede04ab4bcbc3590605d56ef1aa56f5146d21e61d59b67a5c24876"
+}

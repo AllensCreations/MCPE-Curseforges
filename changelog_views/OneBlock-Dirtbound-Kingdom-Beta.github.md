@@ -1,6 +1,6 @@
 # Changelog — OneBlock Dirtbound Kingdom Beta
 
-## [0.28.0] - 2026-10-29
+## [v1] - 2026-10-29
 
 ### Improved & Balanced
 - **Maintenance release**: Repackaged the pack; no gameplay changes were recorded.

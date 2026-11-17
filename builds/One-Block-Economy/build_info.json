@@ -1,8 +1,8 @@
 {
-  "changelog_version": "1.4.0",
-  "manifest_version": "1.4.0",
+  "changelog_version": "2.0.0",
+  "manifest_version": "2.0.0",
   "packages": {
-    "OneBlockEconomy V1.4.0.mcaddon": "1caa1785893dff7f529017c4143ce9bf6c0ed8acb7791e012b8a28d10d1f369f"
+    "OneBlockEconomy V2.0.0.mcaddon": "68c17ecdaf263a50d7391e3e2f8172c2f13b1fb9fb5d621c12f1ad642232c0ee"
   },
-  "source_sha256": "379a246cd62dd88d9cef28d8c940d240a7a9e62494d08e75a6e37ca075bd48ca"
+  "source_sha256": "17f1385c75194381800b4ada08bff83da8da082da6e52218a0b3f11357b0dfe4"
 }

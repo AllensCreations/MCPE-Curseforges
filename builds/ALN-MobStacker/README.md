@@ -8,7 +8,7 @@ This folder contains compiled release packages for **ALNMobStacker** by ALNStudi
 
 | File Name | Format | Size | Description | Download Link |
 | :--- | :--- | :--- | :--- | :--- |
-| **`ALNMobStacker V1.0.5.mcpack`** | `.mcpack` | ~8 KB | Script Behavior Pack archive ready for import. | [Download (.mcpack)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/ALN-MobStacker/ALNMobStacker%20V1.0.5.mcpack) |
+| **`ALNMobStacker V2.0.0.mcpack`** | `.mcpack` | ~8 KB | Script Behavior Pack archive ready for import. | [Download (.mcpack)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/ALN-MobStacker/ALNMobStacker%20V2.0.0.mcpack) |
 
 ---
 

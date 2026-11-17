@@ -5,7 +5,7 @@ Download the current release of **Smart Tree Capitator and Domino Ore Miner** fo
 ## Download
 
 - **Package format:** `.mcaddon`
-- **Direct download:** [Download Smart Tree Capitator and Domino Ore Miner (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Smart-Tree-Capitator-and-Domino-Ore-Miner/SmartCapitator%20V1.11.0.mcaddon)
+- **Direct download:** [Download Smart Tree Capitator and Domino Ore Miner (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Smart-Tree-Capitator-and-Domino-Ore-Miner/SmartCapitator%20V2.0.0.mcaddon)
 
 ## Installation
 

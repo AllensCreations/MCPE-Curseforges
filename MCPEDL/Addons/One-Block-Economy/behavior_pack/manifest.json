@@ -1,12 +1,12 @@
 {
   "format_version": 2,
   "header": {
-    "name": "One-Block Hardcore Survival Economy (v1.4.0)",
+    "name": "One-Block Hardcore Survival Economy (v2)",
     "description": "One-Block: Hardcore Survival Economy. A 20-phase single-block regeneration engine with break milestones, a Wandering Trader every 250 blocks and a void safeguard. by ALNStudios",
     "uuid": "449be628-2f33-4c58-843f-bd7a316f7123",
     "version": [
-      1,
-      4,
+      2,
+      0,
       0
     ],
     "min_engine_version": [
@@ -21,8 +21,8 @@
       "language": "javascript",
       "uuid": "45380eba-96d5-4431-8876-5af1576f0d85",
       "version": [
-        1,
-        4,
+        2,
+        0,
         0
       ],
       "entry": "scripts/main.js"
@@ -39,6 +39,6 @@
       "ALNStudios"
     ],
     "product_type": "addon",
-    "version": "1.4.0"
+    "version": "2.0.0"
   }
 }

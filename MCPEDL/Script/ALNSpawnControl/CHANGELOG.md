@@ -2,7 +2,7 @@
 
 ---
 
-## [1.0.0] - 2026-11-17
+## [v2] - 2026-11-17
 
 **What's new in v1.0.0:** Packed with the v1.0.0 update. Includes: First Release.
 

@@ -1,6 +1,6 @@
 # Changelog — Fletching Table Arsenal
 
-## [1.0.0] - 2026-10-29
+## [v2] - 2026-10-29
 
 ### Added
 - **Fletcher's Workbench**: Right-click a Fletching Table to open a menu that converts Arrows into specialized ammunition.

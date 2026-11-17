@@ -1,13 +1,13 @@
 {
   "format_version": 2,
   "header": {
-    "name": "Tameable Companion Fox (v1.8.5)",
+    "name": "Tameable Companion Fox (v2)",
     "description": "Resource pack for Tameable Companion Fox. by ALNStudios",
     "uuid": "996c09c4-1460-4a46-b37c-3a164534b33f",
     "version": [
-      1,
-      8,
-      5
+      2,
+      0,
+      0
     ],
     "min_engine_version": [
       1,
@@ -20,9 +20,9 @@
       "type": "resources",
       "uuid": "e9c739ea-d2b3-4984-aab2-f995b137ce69",
       "version": [
-        1,
-        8,
-        5
+        2,
+        0,
+        0
       ]
     }
   ],
@@ -31,6 +31,6 @@
       "ALNStudios"
     ],
     "product_type": "addon",
-    "version": "1.8.5"
+    "version": "2.0.0"
   }
 }

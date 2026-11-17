@@ -2,7 +2,7 @@
 
 ---
 
-## [1.22.6] - 2026-11-14
+## [v2] - 2026-11-14
 
 **What's new in v1.22.6:** Packed with 3 updates, from v1.22.4 through v1.22.6. Includes: Personal Layout Removal; Death Drops and Joining Fix; Personal Layout Throw Fix.
 

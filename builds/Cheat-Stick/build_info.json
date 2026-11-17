@@ -1,8 +1,8 @@
 {
-  "changelog_version": "3.0.0",
-  "manifest_version": "3.0.0",
+  "changelog_version": "4.0.0",
+  "manifest_version": "4.0.0",
   "packages": {
-    "CheatStick V3.0.0.mcaddon": "a84332739f928faae5f62f381c31666dd0ecc83e977f591eee58b56b4370a23c"
+    "CheatStick V4.0.0.mcaddon": "43cb6e519fb7c0a871f1fb4b708db775db8dbe685b5edde6636fcf2809f4bb33"
   },
-  "source_sha256": "99a25373fef7291f31e84b3f00ec1fc64c3dc486295a4fd4fcf826d54b2a8ac7"
+  "source_sha256": "cc19a4e67c8605e1aefb9f7b583895889ac58f61da3a3a61d2c2509516e81272"
 }

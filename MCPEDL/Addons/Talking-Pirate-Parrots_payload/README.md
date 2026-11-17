@@ -5,7 +5,7 @@ Download the current release of **Talking Pirate Parrots** for Minecraft Bedrock
 ## Download
 
 - **Package format:** `.mcaddon`
-- **Direct download:** [Download Talking Pirate Parrots (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Talking-Pirate-Parrots_payload/PirateParrots%20V1.0.3.mcaddon)
+- **Direct download:** [Download Talking Pirate Parrots (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Talking-Pirate-Parrots_payload/PirateParrots%20V2.0.0.mcaddon)
 
 ## Installation
 

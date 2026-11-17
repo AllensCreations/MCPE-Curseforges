@@ -2,7 +2,7 @@
 
 ---
 
-## [1.6.0] - 2026-10-29
+## [v2] - 2026-10-29
 
 ### Fixed
 - **Auto-Miner Without Setup**: The Auto-Miner no longer needs the welcome setup to have run for your character. It works for any player in the Overworld.

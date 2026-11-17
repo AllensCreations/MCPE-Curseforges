@@ -2,7 +2,7 @@
 
 ---
 
-## [1.0.16] - 2026-11-17
+## [v2] - 2026-11-17
 
 **What's new in v1.0.16:** Packed with 3 updates, from v1.0.14 through v1.0.16. Includes: Bone Meal and Drop Timing; Crop and Carrier Fixes; Smoother Boosters and Safer Loot.
 

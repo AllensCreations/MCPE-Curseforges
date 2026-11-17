@@ -1,13 +1,13 @@
 {
   "format_version": 2,
   "header": {
-    "name": "Tethered Breaker and Builder (v1.12.1)",
+    "name": "Tethered Breaker and Builder (v2)",
     "description": "Controller icon for the Tethered challenge. by ALNStudios",
     "uuid": "f3a1c7e2-6b84-4d19-9a52-0c7e5d8b1a36",
     "version": [
-      1,
-      12,
-      1
+      2,
+      0,
+      0
     ],
     "min_engine_version": [
       1,
@@ -20,9 +20,9 @@
       "type": "resources",
       "uuid": "8c2e94d7-1f60-4b3a-a7d5-39e0b6c4f812",
       "version": [
-        1,
-        12,
-        1
+        2,
+        0,
+        0
       ]
     }
   ],
@@ -31,6 +31,6 @@
       "ALNStudios"
     ],
     "product_type": "addon",
-    "version": "1.12.1"
+    "version": "2.0.0"
   }
 }

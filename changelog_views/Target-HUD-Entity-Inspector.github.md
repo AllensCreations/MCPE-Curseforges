@@ -1,6 +1,6 @@
 # Changelog — Target HUD Entity Inspector
 
-## [1.1.2] - 2026-11-15
+## [v2] - 2026-11-15
 
 ### Added
 - **Status Effects**: Key effects on the target, such as Poison II 13s, now show with their level and time left, and Burning shows while the target is on fire.

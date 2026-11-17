@@ -1,6 +1,6 @@
 # Changelog — Trivia Vault: The Locked World
 
-## [1.19.0] - 2026-11-01
+## [v2] - 2026-11-01
 
 ### Improved & Balanced
 - **Content update**: Updated gameplay scripts.

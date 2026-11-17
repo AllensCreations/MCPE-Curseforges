@@ -1,6 +1,6 @@
 # Changelog — Universal Leash
 
-## [2.0.0] - 2026-11-10
+## [v3] - 2026-11-10
 
 ### Fixed
 - **Spider Lead Height**: The lead on Spiders and Cave Spiders now attaches at the middle of their hitbox, about 0.45 and 0.25 blocks above the ground.

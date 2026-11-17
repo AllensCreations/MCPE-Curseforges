@@ -1,8 +1,8 @@
 {
-  "changelog_version": "1.8.0",
-  "manifest_version": "1.8.0",
+  "changelog_version": "2.0.0",
+  "manifest_version": "2.0.0",
   "packages": {
-    "MagneticSatchel V1.8.0.mcaddon": "98b9670ab5dc7dbaae82b6cae8e403757b7822d37e84422bbaf48f2adb5bb5e3"
+    "MagneticSatchel V2.0.0.mcaddon": "65948bd5badfd5a4b31a34f4169272f5af9d3ae97c545ff03847dc82a56a29bc"
   },
-  "source_sha256": "efea88c7cd68cf02c4357cec8aa9cf672be57bff5d2a0ed56f3388a41f07413d"
+  "source_sha256": "f1f416a532dfc6b1dfb3385243ca0ae1176aee1b8394aa3ed80db3d2962738d9"
 }

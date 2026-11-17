@@ -2,7 +2,7 @@
 
 ---
 
-## [2.0.1] - 2026-11-14
+## [v3] - 2026-11-14
 
 **What's new in v2.0.1:** Packed with the v2.0.1 update. Includes: Island Build And Shifter Safety Fixes.
 

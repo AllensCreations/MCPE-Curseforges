@@ -2,7 +2,7 @@
 
 ---
 
-## [1.0.0] - 2026-11-10
+## [v2] - 2026-11-10
 
 ### Added
 - **Starter chest**: A chest on the island corner holds 3 Oak Saplings, 4 Bone Meal, 4 Bread, a Bucket and a Luck Ledger.

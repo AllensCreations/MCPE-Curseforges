@@ -2,7 +2,7 @@
 
 ---
 
-## [1.0.4] - 2026-11-15
+## [v2] - 2026-11-15
 
 **What's new in v1.0.4:** Packed with 2 updates, from v1.0.3 through v1.0.4. Includes: Burst Smoothing; Smoother Drops.
 

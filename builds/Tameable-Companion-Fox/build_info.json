@@ -1,8 +1,8 @@
 {
-  "changelog_version": "1.8.5",
-  "manifest_version": "1.8.5",
+  "changelog_version": "2.0.0",
+  "manifest_version": "2.0.0",
   "packages": {
-    "CompanionFox V1.8.5.mcaddon": "a8ac5a0a6d2a42f56445037ce7abaa1cc320b7cdc0650665892f9fef4858dd97"
+    "CompanionFox V2.0.0.mcaddon": "53f729c09aded3410020630446eca90749dbb5031e602da960aa4ebfe7319f01"
   },
-  "source_sha256": "7c1fcef1e8616d6468310a943ddcb616950d5a92739d820ee5b81c328cee1e47"
+  "source_sha256": "da36fd59970ecd519348130b984b2179f2dacc2766140e90e71483b367c0f607"
 }

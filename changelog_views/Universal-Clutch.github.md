@@ -1,6 +1,6 @@
 # Changelog — Universal Clutch
 
-## [1.5.6] - 2026-11-17
+## [v2] - 2026-11-17
 
 ### Improved & Balanced
 - **Lighter Performance**: Universal Clutch does less work for players who are not falling.

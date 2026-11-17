@@ -1,13 +1,13 @@
 {
   "format_version": 2,
   "header": {
-    "name": "Living SMP Chat (v1.0.11)",
+    "name": "Living SMP Chat (v2)",
     "description": "A friendly Hermitcraft-style SMP simulated in chat. by ALNStudios",
     "uuid": "28cb2073-113a-4f4f-b874-8fe3eec80f6b",
     "version": [
-      1,
+      2,
       0,
-      11
+      0
     ],
     "min_engine_version": [
       1,
@@ -21,9 +21,9 @@
       "language": "javascript",
       "uuid": "f3ef870d-3551-4d04-ad01-cf4912b593fa",
       "version": [
-        1,
+        2,
         0,
-        11
+        0
       ],
       "entry": "scripts/main.js"
     }
@@ -60,6 +60,6 @@
     "authors": [
       "ALNStudios"
     ],
-    "version": "1.0.11"
+    "version": "2.0.0"
   }
 }

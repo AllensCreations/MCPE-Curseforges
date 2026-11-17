@@ -1,8 +1,8 @@
 {
-  "changelog_version": "1.1.0",
-  "manifest_version": "1.1.0",
+  "changelog_version": "2.0.0",
+  "manifest_version": "2.0.0",
   "packages": {
-    "CopperCarrier V1.1.0.mcaddon": "79d2f0557114e10dfdd12718908663377ba1543909f3d1c3c50c3aae5d8daa61"
+    "CopperCarrier V2.0.0.mcaddon": "8420a225f16ab7126bf7084fe649dafc3867ea1f0329fe06556f358dd0856b5a"
   },
-  "source_sha256": "a3f30e48cfc6985948282e9c8b0323b5242b08a512eff5d8eaf1fb80bda92f6a"
+  "source_sha256": "e88e384c7c5d565651167987251050b04e1058066f0108233464bee57dd48fc8"
 }

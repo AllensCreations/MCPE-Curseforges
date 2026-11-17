@@ -1,8 +1,8 @@
 {
-  "changelog_version": "1.8.0",
-  "manifest_version": "1.8.0",
+  "changelog_version": "2.0.0",
+  "manifest_version": "2.0.0",
   "packages": {
-    "SwarmBooster V1.8.0.mcaddon": "003810afa05fc274c2521ade6e507ec96a3ac17c5e557d58f043b15bc333e88d"
+    "SwarmBooster V2.0.0.mcaddon": "caaa146e4182de7212102b51a4233a4cb15a0903d063302e25cdcda389f7ceac"
   },
-  "source_sha256": "e818ce2e24ff0451a054cd957f0cf7eb2356e3f3226d7e8e5f0ebf22bfdc025d"
+  "source_sha256": "65771b3c6f568c34cf98e2e83efbd08694d344b4c8bb3e201c767d86748d032d"
 }

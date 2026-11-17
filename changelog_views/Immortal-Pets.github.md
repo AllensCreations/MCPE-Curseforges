@@ -1,6 +1,6 @@
 # Changelog — Immortal Pets
 
-## [1.10.1] - 2026-11-12
+## [v2] - 2026-11-12
 
 ### Improved & Balanced
 - **Streamlined damage checks**: Hurt pets now go through one protection pass, with the same poison removal and health recovery as before.

@@ -1,6 +1,6 @@
 # Changelog — ALN MoreDiscs
 
-## [1.1.1] - 2026-11-17 - Disc Group
+## [v2] - 2026-11-17 - Disc Group
 
 ### Added
 - **Creative Group**: All ten discs now sit together in their own ALN MoreDiscs group in the Items tab of the creative inventory.

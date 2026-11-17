@@ -2,7 +2,7 @@
 
 ---
 
-## [3.0.0] - 2026-11-11
+## [v4] - 2026-11-11
 
 **What's new in v3.0.0:** Packed with the v2.1.0 update.
 

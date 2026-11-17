@@ -8,7 +8,7 @@ This folder contains compiled release packages for **ALN MoreDiscs** by ALNStudi
 
 | File Name | Format | Size | Description | Download Link |
 | :--- | :--- | :--- | :--- | :--- |
-| **`ALNMoreDiscs V1.1.1.mcaddon`** | `.mcaddon` | ~7.1 MB | Complete bundle containing both Behavior Pack and Resource Pack. | [Download (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/ALN-MoreDiscs/ALNMoreDiscs%20V1.1.1.mcaddon) |
+| **`ALNMoreDiscs V2.0.0.mcaddon`** | `.mcaddon` | ~7.1 MB | Complete bundle containing both Behavior Pack and Resource Pack. | [Download (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/ALN-MoreDiscs/ALNMoreDiscs%20V2.0.0.mcaddon) |
 
 ---
 

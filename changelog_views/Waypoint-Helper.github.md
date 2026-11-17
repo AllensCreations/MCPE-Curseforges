@@ -1,6 +1,6 @@
 # Changelog — Waypoint Helper
 
-## [1.1.10] - 2026-11-14
+## [v2] - 2026-11-14
 
 ### Improved & Balanced
 - **Rename And Move Removed**: The Rename and Move buttons are gone from the main menu. Name a slot when you save it, and save into the same slot again to change its name.

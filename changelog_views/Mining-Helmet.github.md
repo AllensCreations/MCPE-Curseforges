@@ -1,6 +1,6 @@
 # Changelog — Mining Helmet
 
-## [1.14.5] - 2026-11-12
+## [v2] - 2026-11-12
 
 ### Added
 - **Mob light**: Cursor Light now lights up the mob you are looking at instead of the wall behind it.

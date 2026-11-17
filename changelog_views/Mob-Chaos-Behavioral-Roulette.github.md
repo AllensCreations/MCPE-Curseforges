@@ -1,6 +1,6 @@
 # Changelog — Mob Chaos Behavioral Roulette
 
-## [1.4.2] - 2026-11-06
+## [v2] - 2026-11-06
 
 ### Added
 - **Zoomies**: Mobs sprint in random directions at huge speed.

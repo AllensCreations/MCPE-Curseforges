@@ -1,8 +1,8 @@
 {
-  "changelog_version": "1.16.0",
-  "manifest_version": "1.16.0",
+  "changelog_version": "2.0.0",
+  "manifest_version": "2.0.0",
   "packages": {
-    "AutoSwitchTools V1.16.0.mcaddon": "b393300cb316deeb5ba4eaa33563a896235a2bc50430cde7ac31a1661e1990c2"
+    "AutoSwitchTools V2.0.0.mcaddon": "616204e3c17be9bbf37b615812e4cff4be105d16cbc6ac0bd71b2c029f4cc22b"
   },
-  "source_sha256": "63f09e57f714d63e5e8da53c7502d31e62361133ed546721c0ebc43aa30a0342"
+  "source_sha256": "f2008519b4f38e6ea1f61b220c7d12fb081582e2f5835edb036cd41987898555"
 }

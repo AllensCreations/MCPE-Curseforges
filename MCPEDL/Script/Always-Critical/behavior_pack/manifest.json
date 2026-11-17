@@ -1,11 +1,11 @@
 {
   "format_version": 2,
   "header": {
-    "name": "Always Critical (v1.0.0)",
+    "name": "Always Critical (v2)",
     "description": "Every player melee hit deals critical-hit damage without jumping. by ALNStudios",
     "uuid": "2acf510d-d885-4b40-91fc-84463b499383",
     "version": [
-      1,
+      2,
       0,
       0
     ],
@@ -21,7 +21,7 @@
       "language": "javascript",
       "uuid": "66c65e32-6548-4c86-9035-2cb4daad41a0",
       "version": [
-        1,
+        2,
         0,
         0
       ],
@@ -38,6 +38,6 @@
     "authors": [
       "ALNStudios"
     ],
-    "version": "1.0.0"
+    "version": "2.0.0"
   }
 }

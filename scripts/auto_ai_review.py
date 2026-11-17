@@ -55,9 +55,10 @@ def files_under(folder: Path):
 def top_version(pack: Path) -> str:
     log = pack / "CHANGELOG.md"
     if log.is_file():
-        m = re.search(r"^## \[(\d+\.\d+\.\d+)", log.read_text(encoding="utf-8", errors="replace"), re.M)
+        m = re.search(r"^## \[(?:v)?(\d+(?:\.\d+\.\d+)?)", log.read_text(encoding="utf-8", errors="replace"), re.M)
         if m:
-            return m.group(1)
+            val = m.group(1)
+            return f"v{val}" if "." not in val else val
     return ""
 
 

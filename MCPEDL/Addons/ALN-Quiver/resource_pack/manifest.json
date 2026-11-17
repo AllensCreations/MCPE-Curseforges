@@ -1,11 +1,11 @@
 {
   "format_version": 2,
   "header": {
-    "name": "ALN Quiver (v1.0.0)",
+    "name": "ALN Quiver (v2)",
     "description": "Textures for the add-on. by ALNStudios",
     "uuid": "98cdbf0a-099d-430d-8d69-3d9fd94e4533",
     "version": [
-      1,
+      2,
       0,
       0
     ],
@@ -20,7 +20,7 @@
       "type": "resources",
       "uuid": "554b7da5-384e-48cc-a20f-ff0d4b400d22",
       "version": [
-        1,
+        2,
         0,
         0
       ]
@@ -31,6 +31,6 @@
       "ALNStudios"
     ],
     "product_type": "addon",
-    "version": "1.0.0"
+    "version": "2.0.0"
   }
 }

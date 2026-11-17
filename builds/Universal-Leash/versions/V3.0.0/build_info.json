@@ -1,0 +1,8 @@
+{
+  "changelog_version": "3.0.0",
+  "manifest_version": "3.0.0",
+  "packages": {
+    "UniversalLeash V3.0.0.mcaddon": "a01d110f387708404d3f8d9659fae8005a6a1cd38909f40e6dd4d6f8b5c98c31"
+  },
+  "source_sha256": "4174bd0841d781edeef47a3436c3b68669bfd681b3535407f739be079dd0a2f6"
+}

@@ -1,8 +1,8 @@
 {
-  "changelog_version": "1.0.11",
-  "manifest_version": "1.0.11",
+  "changelog_version": "2.0.0",
+  "manifest_version": "2.0.0",
   "packages": {
-    "LivingSMPChat V1.0.11.mcpack": "d7f06944814fef3dcb276a44fa4112c9d39a87e4eb48442ec6d38e14e028af0c"
+    "LivingSMPChat V2.0.0.mcpack": "baf62def44ae6478ed9fbbbac3deb43feadde903bef47cdb745b8cdd26a2c4bf"
   },
-  "source_sha256": "6aa24ca898b5d2f5b9235a366ae71eb2e74c279a6aabd53178ec220b7b39497a"
+  "source_sha256": "cc11efc9ed31b6cde38eddcacd5e3073a88323e63efb8150f26dca04256901bc"
 }

@@ -1,13 +1,13 @@
 {
   "format_version": 2,
   "header": {
-    "name": "OneBlock Sovereign Market (v1.6.1)",
+    "name": "OneBlock Sovereign Market (v2)",
     "description": "Dirt-to-sovereignty OneBlock economy with a Trader Ledger. by ALNStudios",
     "uuid": "5f751626-2798-46f7-9cae-ebd3e2394e78",
     "version": [
-      1,
-      6,
-      1
+      2,
+      0,
+      0
     ],
     "min_engine_version": [
       1,
@@ -20,9 +20,9 @@
       "type": "data",
       "uuid": "792d4b4c-f64c-4c5b-a4c0-b00cd82199b1",
       "version": [
-        1,
-        6,
-        1
+        2,
+        0,
+        0
       ]
     },
     {
@@ -30,9 +30,9 @@
       "language": "javascript",
       "uuid": "dc5d90e4-0963-4ceb-ad54-038f8039bcc6",
       "version": [
-        1,
-        6,
-        1
+        2,
+        0,
+        0
       ],
       "entry": "scripts/main.js"
     }
@@ -41,9 +41,9 @@
     {
       "uuid": "4b6073aa-4c92-4e1b-bbdb-85207021b512",
       "version": [
-        1,
-        6,
-        1
+        2,
+        0,
+        0
       ]
     },
     {
@@ -60,6 +60,6 @@
       "ALNStudios"
     ],
     "product_type": "addon",
-    "version": "1.6.1"
+    "version": "2.0.0"
   }
 }

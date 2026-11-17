@@ -2,7 +2,7 @@
 
 ---
 
-## [1.0.5] - 2026-11-17 - Armor Drops and Smoother Loot
+## [v2] - 2026-11-17 - Armor Drops and Smoother Loot
 
 ### Added
 - **Armor Drops**: A Sneak Kill on Zombie and Husk stacks now has a small chance per extra mob to drop a piece of armor.

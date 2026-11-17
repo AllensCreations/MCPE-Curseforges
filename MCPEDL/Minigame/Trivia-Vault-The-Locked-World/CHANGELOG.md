@@ -13,7 +13,7 @@
 - Trivia questions now appear directly, without the extra “Answer the question” screen.
 - Removed hints and lifelines.
 
-## [1.19.0] - 2026-11-01
+## [v2] - 2026-11-01
 
 ### Improved & Balanced
 

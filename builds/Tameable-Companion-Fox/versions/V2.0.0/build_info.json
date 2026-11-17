@@ -1,0 +1,8 @@
+{
+  "changelog_version": "2.0.0",
+  "manifest_version": "2.0.0",
+  "packages": {
+    "CompanionFox V2.0.0.mcaddon": "53f729c09aded3410020630446eca90749dbb5031e602da960aa4ebfe7319f01"
+  },
+  "source_sha256": "da36fd59970ecd519348130b984b2179f2dacc2766140e90e71483b367c0f607"
+}

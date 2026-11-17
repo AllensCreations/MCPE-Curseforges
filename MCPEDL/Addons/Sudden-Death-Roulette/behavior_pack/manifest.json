@@ -1,12 +1,12 @@
 {
   "format_version": 2,
   "header": {
-    "name": "Sudden Death Roulette (v1.4.0)",
+    "name": "Sudden Death Roulette (v2)",
     "description": "Sudden Death Roulette: The Diamond Race. Find a diamond before the Grim claims you. Escalating random death rolls, three warnings and a jumpscare elimination. by ALNStudios",
     "uuid": "36ea54e6-d805-45bc-910f-952d9dc48214",
     "version": [
-      1,
-      4,
+      2,
+      0,
       0
     ],
     "min_engine_version": [
@@ -21,8 +21,8 @@
       "language": "javascript",
       "uuid": "69b526db-8265-4a35-9118-9e7b25aa224e",
       "version": [
-        1,
-        4,
+        2,
+        0,
         0
       ],
       "entry": "scripts/main.js"
@@ -39,6 +39,6 @@
       "ALNStudios"
     ],
     "product_type": "addon",
-    "version": "1.4.0"
+    "version": "2.0.0"
   }
 }

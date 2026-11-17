@@ -2,7 +2,7 @@
 
 ---
 
-## [1.1.2] - 2026-11-15
+## [v2] - 2026-11-15
 
 **What's new in v1.1.2:** Packed with the v1.1.2 update. Includes: Status Effects and Defeated Flash.
 

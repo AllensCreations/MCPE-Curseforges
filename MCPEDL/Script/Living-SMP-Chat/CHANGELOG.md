@@ -2,7 +2,7 @@
 
 ---
 
-## [1.0.11] - 2026-11-16
+## [v2] - 2026-11-16
 
 **What's new in v1.0.11:** Packed with 3 updates, from v1.0.9 through v1.0.11. Includes: Shoutout Mini Chats; Replies and Personality; Better Writing.
 

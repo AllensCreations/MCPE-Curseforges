@@ -2,7 +2,7 @@
 
 ---
 
-## [1.12.1] - 2026-11-14
+## [v2] - 2026-11-14
 
 **What's new in v1.12.1:** Packed with the v1.12.1 update. Includes: Performance and Stability.
 

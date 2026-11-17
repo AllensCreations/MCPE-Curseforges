@@ -1,8 +1,8 @@
 {
-  "changelog_version": "1.0.0",
-  "manifest_version": "1.0.0",
+  "changelog_version": "2.0.0",
+  "manifest_version": "2.0.0",
   "packages": {
-    "ALNQuiver V1.0.0.mcaddon": "02d131afa0872aa6ac7ba0272ac9ef0517dd687d14e98c4f05ab675eef0df7e7"
+    "ALNQuiver V2.0.0.mcaddon": "74c97d081d03f54785856520aa66ef81ea29c653486509f6417a0726d4593688"
   },
-  "source_sha256": "4042ddb69a9a4b216c14f0d7bfc7ce4fe4bb72ddb5114a4d03b2e3869c03417c"
+  "source_sha256": "b7c9574f455fbcdb558aa95a244dcbd613832827239b35d50f532f036f12b1bc"
 }

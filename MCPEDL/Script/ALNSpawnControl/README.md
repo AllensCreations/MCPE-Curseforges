@@ -5,7 +5,7 @@ Download the current release of **ALNSpawnControl** for Minecraft Bedrock Editio
 ## Download
 
 - **Package format:** `.mcpack`
-- **Direct download:** [Download ALNSpawnControl (.mcpack)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/ALNSpawnControl/ALNSpawnControl%20V1.0.0.mcpack)
+- **Direct download:** [Download ALNSpawnControl (.mcpack)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/ALNSpawnControl/ALNSpawnControl%20V2.0.0.mcpack)
 
 ## Installation
 

@@ -1,8 +1,8 @@
 {
-  "changelog_version": "1.19.0",
-  "manifest_version": "1.19.0",
+  "changelog_version": "2.0.0",
+  "manifest_version": "2.0.0",
   "packages": {
-    "TriviaVault V1.19.0.mcaddon": "fe8fdb8317897027ccb45b8a7a15ef8c1e7583251f9546fc57342c7d8fe4c98d"
+    "TriviaVault V2.0.0.mcaddon": "f54f5a6a468c8823a173a25948e574c66889d5c67b8e5dd223236f7ad17eb887"
   },
-  "source_sha256": "7c8d4ec7c3d58c3055657c33632eac194854b039e216d7a9920bc0038850dd69"
+  "source_sha256": "daf08254bd566075d3125882ad3da28a104482ea6dc734a6a643945798e79d99"
 }

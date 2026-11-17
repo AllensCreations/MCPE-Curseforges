@@ -4,7 +4,7 @@ All notable updates and improvements to the **Selective Mob Controller** add-on 
 
 ---
 
-## [1.5.0] - 2026-10-29
+## [v2] - 2026-10-29
 
 ### Improved & Balanced
 

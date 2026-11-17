@@ -1,11 +1,11 @@
 {
   "format_version": 2,
   "header": {
-    "name": "Expanded Basic Arsenal (v1.0.0)",
+    "name": "Expanded Basic Arsenal (v2)",
     "description": "Adds five early-game weapons: Slingshot, Wooden Club, Flint Spear, Blowgun and Copper Dagger. by ALNStudios",
     "uuid": "e8d3f5d3-780c-440b-91d9-bb147e14a854",
     "version": [
-      1,
+      2,
       0,
       0
     ],
@@ -20,7 +20,7 @@
       "type": "data",
       "uuid": "83e8b2df-2c1d-45c1-8332-29697ea436af",
       "version": [
-        1,
+        2,
         0,
         0
       ]
@@ -30,7 +30,7 @@
       "language": "javascript",
       "uuid": "19c2a3e6-6bd9-454b-bd0c-a7282e07af17",
       "version": [
-        1,
+        2,
         0,
         0
       ],
@@ -41,7 +41,7 @@
     {
       "uuid": "63a9ddbd-938e-4e3f-9a49-60d183f08dbb",
       "version": [
-        1,
+        2,
         0,
         0
       ]
@@ -56,6 +56,6 @@
       "ALNStudios"
     ],
     "product_type": "addon",
-    "version": "1.0.0"
+    "version": "2.0.0"
   }
 }

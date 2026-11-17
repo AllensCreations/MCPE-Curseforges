@@ -8,7 +8,7 @@ This folder contains compiled release packages for **ALN Quiver** by ALNStudios.
 
 | File Name | Format | Size | Description | Download Link |
 | :--- | :--- | :--- | :--- | :--- |
-| **`ALNQuiver V1.0.0.mcaddon`** | `.mcaddon` | ~7 KB | Complete bundle containing both Behavior Pack and Resource Pack. | [Download (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/ALN-Quiver/ALNQuiver%20V1.0.0.mcaddon) |
+| **`ALNQuiver V2.0.0.mcaddon`** | `.mcaddon` | ~7 KB | Complete bundle containing both Behavior Pack and Resource Pack. | [Download (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/ALN-Quiver/ALNQuiver%20V2.0.0.mcaddon) |
 
 ---
 

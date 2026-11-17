@@ -1,8 +1,8 @@
 {
-  "changelog_version": "1.0.0",
-  "manifest_version": "1.0.0",
+  "changelog_version": "2.0.0",
+  "manifest_version": "2.0.0",
   "packages": {
-    "ChronoBed V1.0.0.mcpack": "3cfb0299abca275d4169d7e9f92b5650df6c531939b64b0bf0a3f3e9d2870013"
+    "ChronoBed V2.0.0.mcpack": "3301642e2d1490971a40bbbe0e43c0ee420edeb86dca18669f1abbfc66f8af70"
   },
-  "source_sha256": "17a4262218c68bdee4c41e142484f194a035b2260ba3b6f22ad197e6e549d9fa"
+  "source_sha256": "4a5cf9932563e2fa2d0c4254694afb4b59dd3c3c19fcd9c5f4b8c0887c5165fe"
 }

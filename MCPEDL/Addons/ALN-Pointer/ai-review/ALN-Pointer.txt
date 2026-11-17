@@ -1,0 +1,1471 @@
+# Repo Export
+
+## Index
+
+- **Export request:** `MCPEDL/Addons/ALN-Pointer`
+- **Destination:** `MCPEDL/Addons/ALN-Pointer`
+- **CURRENT VERSION: v2 / NEXT UPDATE: v3**  (`MCPEDL/Addons/ALN-Pointer/CHANGELOG.md`)
+- **Text files:** 26
+- **Skipped binary:** 1
+- **Paths not found:** 0
+
+### Files in this export
+
+- `changelog_views/ALN-Pointer.curseforge.html`
+- `changelog_views/ALN-Pointer.github.md`
+- `description_views/ALN-Pointer.listing.md`
+- `MCPEDL/Addons/ALN-Pointer/assets/items/.gitkeep`
+- `MCPEDL/Addons/ALN-Pointer/assets/recipes/.gitkeep`
+- `MCPEDL/Addons/ALN-Pointer/assets/snapshots/.gitkeep`
+- `MCPEDL/Addons/ALN-Pointer/behavior_pack/items/aln_pointer.json`
+- `MCPEDL/Addons/ALN-Pointer/behavior_pack/LOCK`
+- `MCPEDL/Addons/ALN-Pointer/behavior_pack/manifest.json`
+- `MCPEDL/Addons/ALN-Pointer/behavior_pack/scripts/lib/bowaim.js`
+- `MCPEDL/Addons/ALN-Pointer/behavior_pack/scripts/lib/combat.js`
+- `MCPEDL/Addons/ALN-Pointer/behavior_pack/scripts/lib/info.js`
+- `MCPEDL/Addons/ALN-Pointer/behavior_pack/scripts/lib/loops.js`
+- `MCPEDL/Addons/ALN-Pointer/behavior_pack/scripts/lib/menu.js`
+- `MCPEDL/Addons/ALN-Pointer/behavior_pack/scripts/lib/store.js`
+- `MCPEDL/Addons/ALN-Pointer/behavior_pack/scripts/main.js`
+- `MCPEDL/Addons/ALN-Pointer/CHANGELOG.md`
+- `MCPEDL/Addons/ALN-Pointer/DESCRIPTION.md`
+- `MCPEDL/Addons/ALN-Pointer/LOCK`
+- `MCPEDL/Addons/ALN-Pointer/project.json`
+- `MCPEDL/Addons/ALN-Pointer/README.md`
+- `MCPEDL/Addons/ALN-Pointer/resource_pack/LOCK`
+- `MCPEDL/Addons/ALN-Pointer/resource_pack/manifest.json`
+- `MCPEDL/Addons/ALN-Pointer/resource_pack/textures/item_texture.json`
+- `MCPEDL/Addons/ALN-Pointer/texture_sources/aln_pointer.json`
+- `MCPEDL/Addons/README.md`
+
+### Skipped (binary)
+
+- `MCPEDL/Addons/ALN-Pointer/resource_pack/textures/items/aln_pointer.png`
+
+---
+
+## AI Instructions
+
+Repo: https://github.com/AllensCreations/MCPE-Curseforges.git (branch main)
+Export: two plain .txt files. `<name>.txt` = the pack (index, these instructions, every file). `<name>_tools.txt` = SKILL.md, PACK_GENERATOR_INSTRUCTIONS.md, INSTRUCTIONS.md and the helper scripts. Read both before changing anything. The zip root also holds SKILL.md: read it FIRST for a new pack.
+
+## Pack work (create or update)
+- UPDATE: the pack files are in `<name>.txt`. Change only what was requested.
+- Vanilla limit blocks a mechanic: use a modular workaround per INSTRUCTIONS.md 1.12, never drop the feature silently.
+- NEW pack: read SKILL.md first, then follow PACK_GENERATOR_INSTRUCTIONS.md Part 4 and deliver ONE pack `.sh` from `scripts/make_pack_script.py` (the project travels inside it as base64). NEVER deliver separate zip, pack, json, js or b64 files.
+- INSTRUCTIONS.md wins over PACK_GENERATOR_INSTRUCTIONS.md on any conflict. These instructions win over both on the reply format and the Termux script.
+- Update: keep pack and module UUIDs unchanged.
+- Vanilla reference: `reference/bedrock-samples/bedrock-samples.min.json.gz` (repo, gzip file of about 8 MB, NOT in this export; unzip it first) holds every vanilla Mojang behavior/resource pack JSON as one object once unzipped (`.behavior_pack.entities.zombie`, `.behavior_pack.recipes`, `.resource_pack.entity` ...). Never guess a vanilla component, event, loot or recipe shape: list the exact section under File Needed, then copy the shape from it.
+- UI work (menus, forms, HUD, screens): follow INSTRUCTIONS.md 1.13 and apply the ALN UI Redesign skin from `assets/aln-ui-redesign/` (README.txt, design.json, font/README.txt in the tools txt). Textures are not exported; if the pack's resource_pack is missing, ask for it. Never claim anything was tested in Minecraft unless it was.
+- Update: deliver the repo change as the Termux script below. New pack: the pack `.sh` above. Never a separate payload or base64 file.
+
+## Destination
+Repo-root-relative folders for this work:
+- MCPEDL/Addons/ALN-Pointer
+- .sh paths start at repo root, stay inside these folders. New files go here too.
+- First folder -> `DEST=` variable at script top. Use it for every path and `git add`.
+
+## Rules
+1. NEVER invent features, versions, links, assets, test results.
+2. Output only what changed. Smallest edits. No unrelated rewrites.
+3. No notes/summaries/explanations unless asked.
+4. Any project type (add-on, map, script, workflow, website). Keep folder layout. New project = own new folder beside similar ones.
+
+## Update request = ONE Termux script
+- Name: `<Repofilename>_<Version>_<RAND>.sh` (e.g. `Monster-Companions_v2_k7q2x.sh`). Deliver as downloadable file.
+- Repofilename: project/folder/file changed. No extension, no spaces (hyphens ok).
+- Version: new vX format. Update = X+1 (e.g., v1 -> v2, or legacy 1.3.4 -> v2).
+- RAND: >=5 random lowercase letters/digits. Fresh every script. NEVER reuse (earlier reply or existing file), so a new script never overwrites or re-runs an old one.
+- Same exact name in reply steps.
+Script order:
+1. `#!/data/data/com.termux/files/usr/bin/bash` + `set -e`
+2. `cd "$HOME/MCPE-Curseforges"`; `git clone` repo URL first if folder missing
+3. `git pull --rebase`
+4. Apply ALL changes as exact search-and-replace edits: write a spec and run `python3 scripts/make_update_script.py spec.txt` (format in `scripts/apply_update.py`; `--verify <clone>` dry-runs it). The tool applies edits atomically, sets the manifest version and writes both changelogs. Size decides the method. SMALL update (a few edits, under about 60% of any file touched): search and replace only. LARGE update (most of a file, many new files, a redesign): use the best method, `@@ create`/`@@ overwrite` in the same spec, never many fragile edits. Either way ONE `.sh`. No separate downloads.
+5. Validate every changed .json with python3. Stop on error.
+5b. Verify top CHANGELOG.md heading == new vX == script filename version. Stop on mismatch. If project has manifests: run `python3 scripts/manifest_tools.py --project "$DEST" --set X.0.0` (or `vX`), then `python3 scripts/manifest_tools.py --project "$DEST" --check` and `python3 scripts/validate_manifest_titles.py --project "$DEST"`. Stop on error. Every update must change the manifests so the build changes. Never hand-edit manifest JSON for versions.
+5c. If INSTRUCTIONS.md or PACK_GENERATOR_INSTRUCTIONS.md changed: run `python3 scripts/check_instruction_files.py`. Stop on error
+6. `git add` changed paths only; `git commit -m "<short message>"`; `git push`
+6b. Add an entry to the ROOT `CHANGELOG.md` (repo-wide, newest first under `---`): `## [vN] - YYYY-MM-DD - [Update Name]` (N = `REPO_VERSION` + 1, a single whole number such as v80, set by the update tool, never by hand), groups `### Added` / `### Improved & Balanced` / `### Fixed`, bullets `- **Title**: what changed`. Every script, tooling-only included.
+7. After push, do NOT start any workflow. Build Changed Packs & Sync Catalogs runs by itself on every push and rebuilds everything. Nothing auto-bumps; Publish to CurseForge uploads the newest changelog version as written.
+8. Idempotent: skip anything already applied.
+9. Last line, reached only after a successful push: `rm -f -- "$SELF"` (the script deletes itself; save `SELF="$(readlink -f -- "$0")"` on line 2, before the `cd`).
+
+## Docs (every update, same script)
+- Templates STRICT: README.md, DESCRIPTION.md, CHANGELOG.md match templates below exactly: same headings, text, order, labels, bullet format. NEVER add/remove/rename/merge/reorder sections. No boilerplate/extra text. No placeholders: fill every [bracket] with verified content. Accuracy + requested scope outrank template.
+- CHANGELOG.md: MANDATORY every update, no exceptions. Add new release entry for the change.
+- README.md + DESCRIPTION.md: after change, analyze both in destination folder. Edit ONLY if change makes them inaccurate/incomplete. NEVER remove verified content.
+
+### Versions (vX ONLY)
+- Format: single-number version `vX` (e.g. `v2`, `v3`). Old 3-part versions X.Y.Z convert by incrementing major (X+1).
+- Update: X+1 (v1 -> v2, v2 -> v3).
+- New vX goes in CHANGELOG heading + script filename.
+- Manifest versions: Bedrock requires a 3-integer array, so `vX` is mapped internally to `[X, 0, 0]` by `manifest_tools.py --set vX` (never hand-edit JSON). NEVER hand-edit README download links. Build Changed Packs & Sync Catalogs aligns a pack to its highest existing version and rebuilds.
+- NEVER put release version in README/DESCRIPTION titles. NEVER reuse a heading.
+
+### Changelog views
+- `changelog_views/<Name>.github.md` (newest open, older folded by minor series) and `changelog_views/<Name>.curseforge.html` (CurseForge spoilers, paste into project description): generated from CHANGELOG.md by `scripts/build_changelog_views.py`.
+- CHANGELOG.md = plain text, exact template format, only source of truth. NEVER add HTML/fold markup/links to it. NEVER edit views by hand. NEVER create/change views inside the .sh.
+- Refresh: Build Changed Packs & Sync Catalogs; Collect Files for AI Review (tick commit_changelog_views to save); or `python3 scripts/build_changelog_views.py --project <Name>`.
+
+### Writing
+- Player-facing only. In-game display names, never identifiers, file names, JSON, events, code.
+- "Behavior Pack" / "Resource Pack", NEVER BP/RP.
+- README: no code blocks, emojis, hype, badges.
+- DESCRIPTION: exactly the two Minecraft Bedrock + Format badges from repo template, no others. May keep existing item sprites + recipe diagrams.
+- No Markdown tables. Use `### Feature Name` cards with `- **What Happens**: ...` bullets.
+- Paragraphs <=4 sentences. Verified facts only. Verification line = source created | package built | in-game tested, NEVER mixed.
+
+### README.md (add-on): download landing page only, EXACTLY 11 non-empty lines
+```
+# [Name]
+
+Download the current release of **[Name]** for Minecraft Bedrock Edition.
+
+## Download
+
+- **Package format:** `.mcaddon`
+- **Direct download:** [Download [Name] (.mcaddon)](link)
+
+## Installation
+
+1. Download the package using the link above.
+2. Open the downloaded file with Minecraft to import it.
+3. If the package contains a pack that must be enabled separately, activate it in your world's settings.
+
+## Pack Information
+
+For gameplay features, usage details, compatibility notes, and other project information, read the [full description](DESCRIPTION link).
+```
+Maps/scripts/minigames: same landing page. Use real package format; .mcworld = tell players to open the imported world. Product details live in DESCRIPTION.md.
+
+### DESCRIPTION.md order
+1. `# [Name] — [subtitle]` (no release version)
+2. `**By ALNStudios**`
+3. Two exact badges (Minecraft Bedrock "Stable Release", Format) from repo template
+4. Summary
+5. `## Overview`
+6. `## Key Features`
+7. `## How to Use`
+8. `## Compatibility`: Minecraft Bedrock Edition, Experimental features, Achievements, Verification
+9. `## Creator and Permissions`: `- Creator: ALNStudios`, `- Profiles:` CurseForge https://www.curseforge.com/members/allenscreations/projects · MCPEDL https://mcpedl.com/user/alnstudios/, then the two clickable listing images (HTML, `width="45%"`, no `height`, raw URLs `assets/Images/curseforge.jpg`, `assets/Images/MCPEDL.jpg`). NEVER edit/copy the images
+10. `## Guidelines and Attribution`
+11. `---` then `## Search & Discovery Keywords` from real features
+- Add-ons: Achievements line ALWAYS `Likely achievement-friendly`; add caveats if world settings/cheats can disable achievements.
+
+### Guidelines and Attribution block, exactly
+```
+- Creator: ALNStudios
+- Rights & Reservation: All rights reserved for ALNStudios.
+- Content Creators: Content creators are permitted to feature this creation in videos and streams with credit to ALNStudios.
+- Redistribution: Do not re-upload this pack or provide direct monetized download bypasses. Link directly to the official repository page.
+- Disclaimer: This is an unofficial community creation. It is not an official Minecraft product and is not approved by or associated with Mojang or Microsoft.
+
+---
+
+© All rights reserved for ALNStudios.
+
+---
+```
+
+### CHANGELOG.md
+- `# Changelog — [Name]`, `---`, then newest first: `## [vX] - YYYY-MM-DD - [Update Name]` (date: `TZ=Asia/Singapore date +%F`). [Update Name] = short player-facing title (2-6 words) of what is new. REQUIRED on every new entry.
+- Groups: `### Added`, `### Improved & Balanced`, `### Fixed` (bugs as in-game experience). Omit empty groups. Each group >=1 bullet.
+- Entry: `- **Title**: player impact.`
+- NO links, URLs, badges, function/event names, unverified benefits. No boilerplate after title.
+- Insert new entry directly under `---`, above previous release. NEVER edit/delete older entries.
+
+## Reply Format (STRICT)
+```
+[SYSTEM_CONFIG]
+Mode: Direct Execution
+Token_Efficiency: Maximum
+Rules: no greeting, intro, outro, offers, restating. High technical accuracy.
+```
+Output ONLY these three sections, in order, exact headings:
+1. **File Needed:** repo-root-relative path of each file created/edited.
+2. **Changelog:** bullets, brief summary of changes.
+3. **Termux Script:** ONE fenced `bash` block holding ONLY the run commands: `bash ~/storage/downloads/<Repofilename>_<Version>_<RAND>.sh` (a new pack may add the same line with `stage`). The .sh is attached, NEVER pasted. NEVER a Summary section.
+- The .sh (`<Repofilename>_<Version>_<RAND>.sh`, random chars included) is the downloadable file. Exact same name in the command.
+- NEVER text before, between, after. NEVER rename/merge/reorder/skip a section. Nothing to report: `- None`.
+- Unclear request: ask ONE line, then proceed with defaults.
+- First-time Termux setup, ONLY if the user asks:
+```
+pkg update -y && pkg install -y git python curl
+termux-setup-storage
+git config --global user.name "ALNStudios"
+git config --global user.email "your-email@example.com"
+git config --global credential.helper store
+```
+- Push password = GitHub Personal Access Token (repo + workflow scopes), NOT account password. Same token starts the build after push.
+
+---
+
+## File Contents
+
+## FILE: changelog_views/ALN-Pointer.curseforge.html (2 lines, 1366 bytes)
+
+```
+<h2>1.0.0 - 2026-11-16 - First Release</h2><h3>Added</h3><ul><li><strong>ALN Pointer</strong>: A cursor-shaped item that opens the ALNStudios menu. You get one the first time you join a world, and it is in the Equipment tab of the Creative inventory.</li><li><strong>Combat Toggles Menu</strong>: A screen with 7 switches and a short explanation under each. Apply saves them for you and closes the menu, and each player keeps their own settings.</li><li><strong>Auto Totem</strong>: Moves a Totem of Undying from your inventory into your off hand before a hit that would kill you.</li><li><strong>Infinite Totem</strong>: Puts a new Totem of Undying in your off hand before a deadly hit when you have none left.</li><li><strong>Aura Mode</strong>: Hits up to 3 nearby hostile mobs and players within 4 blocks for 5 damage every half second.</li><li><strong>Always Critical</strong>: Every melee hit deals 1.5 times damage and shows the critical hit sparks.</li><li><strong>Bow Aimbot</strong>: Arrows from a bow or crossbow steer toward the target nearest your crosshair within 48 blocks.</li><li><strong>Always Water Clutch</strong>: Places water where you land after a fall of 3 blocks or more, then removes it after about 2 seconds.</li><li><strong>Shield Always Active</strong>: Blocks melee hits and arrows from the front whenever you carry a shield.</li></ul>
+```
+
+## FILE: changelog_views/ALN-Pointer.github.md (15 lines, 1208 bytes)
+
+```
+# Changelog — ALN Pointer
+
+## [1.0.0] - 2026-11-16 - First Release
+
+### Added
+- **ALN Pointer**: A cursor-shaped item that opens the ALNStudios menu. You get one the first time you join a world, and it is in the Equipment tab of the Creative inventory.
+- **Combat Toggles Menu**: A screen with 7 switches and a short explanation under each. Apply saves them for you and closes the menu, and each player keeps their own settings.
+- **Auto Totem**: Moves a Totem of Undying from your inventory into your off hand before a hit that would kill you.
+- **Infinite Totem**: Puts a new Totem of Undying in your off hand before a deadly hit when you have none left.
+- **Aura Mode**: Hits up to 3 nearby hostile mobs and players within 4 blocks for 5 damage every half second.
+- **Always Critical**: Every melee hit deals 1.5 times damage and shows the critical hit sparks.
+- **Bow Aimbot**: Arrows from a bow or crossbow steer toward the target nearest your crosshair within 48 blocks.
+- **Always Water Clutch**: Places water where you land after a fall of 3 blocks or more, then removes it after about 2 seconds.
+- **Shield Always Active**: Blocks melee hits and arrows from the front whenever you carry a shield.
+```
+
+## FILE: description_views/ALN-Pointer.listing.md (67 lines, 17532 bytes)
+
+````
+# Listing Kit: ALN Pointer
+
+Tap the Copy button on a block, then paste it into the CurseForge listing. Generated from DESCRIPTION.md: edit that, not this file.
+
+## Package Name
+
+```text
+ALN Pointer
+```
+
+## Summary (107/256)
+
+```text
+Use the ALN Pointer item to switch 7 PVP toggles on or off per player, including Auto Totem and Bow Aimbot.
+```
+
+## Description (HTML)
+
+Paste into the CurseForge description editor in source (HTML) mode.
+
+```html
+<div><div style="border:2px solid #15803d;border-radius:18px;line-height:1.5"><br><h1 style="font-size:34px;text-align:center">ALN Pointer</h1><p style="color:#8a94a3;font-size:14px;text-align:center">by ALNStudios</p><p style="text-align:center"><span style="background-color:#15803d;color:#ffffff;border-radius:20px;font-size:16px">&nbsp;&nbsp;<strong>Use the ALN Pointer item to switch 7 PVP toggles on or off per player, including Auto Totem and Bow Aimbot.</strong>&nbsp;&nbsp;</span></p><p style="text-align:center;margin-left:16px;margin-right:16px">The ALN Pointer is a cursor-shaped item that opens a menu with 7 toggles, each saved separately for every player. It suits friends who practice PVP in a world they own and want to pick their own settings.</p><div style="display:flex;flex-wrap:wrap;gap:8px;margin-left:14px;margin-right:14px"><div style="background-color:#dcfce7;color:#14532d;border-radius:20px;font-size:14px;line-height:2"><strong>&nbsp;&nbsp;Bedrock</strong>: 1.26+&nbsp;&nbsp;</div><div style="background-color:#dcfce7;color:#14532d;border-radius:20px;font-size:14px;line-height:2"><strong>&nbsp;&nbsp;Experimental</strong>: No&nbsp;&nbsp;</div><div style="background-color:#dcfce7;color:#14532d;border-radius:20px;font-size:14px;line-height:2"><strong>&nbsp;&nbsp;Achievements</strong>: Likely achievement-friendly&nbsp;&nbsp;</div></div><br></div>
+<h2 style="font-size:17px;text-align:left"><span style="background-color:#15803d;color:#ffffff;border-radius:20px">&nbsp;&nbsp;About&nbsp;&nbsp;</span></h2>
+<p>You get an ALN Pointer, use it, and pick the toggles you want in the ALNStudios menu. The toggles then run by themselves whenever you fight, shoot or fall, and vanilla Minecraft has no equivalent switches. The features are cheat-style helpers, so use them only on worlds where everyone agrees.</p>
+<h2 style="font-size:17px;text-align:left"><span style="background-color:#15803d;color:#ffffff;border-radius:20px">&nbsp;&nbsp;What You Get&nbsp;&nbsp;</span></h2>
+<div style="display:flex;flex-wrap:wrap;gap:10px"><div style="flex:1;min-width:200px;border:1px solid #8a94a3;border-radius:16px"><div style="background-color:#15803d;color:#ffffff;border-radius:16px;font-size:16px;line-height:2.2"><strong>&nbsp;&nbsp;ALN Pointer Item</strong></div><div style="margin-left:12px;margin-right:12px"><p><span>A cursor-shaped item that opens the toggle menu when you use it. You receive one the first time you join a world, and it also sits in the Equipment tab of the Creative inventory.</span><br><span style="font-size:13px;color:#8a94a3"><strong>How It Works:</strong> Hold the pointer and use it, like right-clicking on PC or tapping on mobile.</span><br><span style="font-size:13px;color:#8a94a3"><strong>Good To Know:</strong> If your inventory is full on first join, the pointer is offered again on your next join.</span></p></div></div><div style="flex:1;min-width:200px;border:1px solid #8a94a3;border-radius:16px"><div style="background-color:#15803d;color:#ffffff;border-radius:16px;font-size:16px;line-height:2.2"><strong>&nbsp;&nbsp;Combat Toggles Menu</strong></div><div style="margin-left:12px;margin-right:12px"><p><span>The main menu has three buttons: Combat Toggles, About and Exit. Combat Toggles lists 7 switches with a one-line explanation under each, and Apply saves them and closes the menu.</span><br><span style="font-size:13px;color:#8a94a3"><strong>How It Works:</strong> Flip the switches you want, then tap Apply. Closing the screen without Apply brings you back to the main menu.</span><br><span style="font-size:13px;color:#8a94a3"><strong>Good To Know:</strong> Toggles are saved per player, so each person in a world picks their own.</span></p></div></div><div style="flex:1;min-width:200px;border:1px solid #8a94a3;border-radius:16px"><div style="background-color:#15803d;color:#ffffff;border-radius:16px;font-size:16px;line-height:2.2"><strong>&nbsp;&nbsp;Auto Totem</strong></div><div style="margin-left:12px;margin-right:12px"><p><span>When a hit would kill you and you hold no Totem of Undying, one from your inventory moves into your off hand first, so the totem saves you.</span><br><span style="font-size:13px;color:#8a94a3"><strong>How It Works:</strong> Keep a Totem of Undying anywhere in your inventory and switch Auto Totem on.</span><br><span style="font-size:13px;color:#8a94a3"><strong>Good To Know:</strong> It does nothing without a totem in your inventory, and it cannot help against the void or the kill command.</span></p></div></div><div style="flex:1;min-width:200px;border:1px solid #8a94a3;border-radius:16px"><div style="background-color:#15803d;color:#ffffff;border-radius:16px;font-size:16px;line-height:2.2"><strong>&nbsp;&nbsp;Infinite Totem</strong></div><div style="margin-left:12px;margin-right:12px"><p><span>Works like Auto Totem, and when you have no totem at all it puts a new Totem of Undying in your off hand before a deadly hit.</span><br><span style="font-size:13px;color:#8a94a3"><strong>How It Works:</strong> Switch it on and keep fighting. Each totem that pops is replaced before the next deadly hit.</span><br><span style="font-size:13px;color:#8a94a3"><strong>Good To Know:</strong> An item that was in your off hand moves to your inventory, or drops at your feet if the inventory is full.</span></p></div></div><div style="flex:1;min-width:200px;border:1px solid #8a94a3;border-radius:16px"><div style="background-color:#15803d;color:#ffffff;border-radius:16px;font-size:16px;line-height:2.2"><strong>&nbsp;&nbsp;Aura Mode</strong></div><div style="margin-left:12px;margin-right:12px"><p><span>Every half second, you hit up to 3 of the nearest hostile mobs and other players within 4 blocks for 5 damage (2.5 hearts), without clicking.</span><br><span style="font-size:13px;color:#8a94a3"><strong>How It Works:</strong> Stand near enemies with Aura Mode on and they take damage automatically.</span><br><span style="font-size:13px;color:#8a94a3"><strong>Good To Know:</strong> Players in Creative or Spectator mode are never hit, and passive mobs are left alone.</span></p></div></div><div style="flex:1;min-width:200px;border:1px solid #8a94a3;border-radius:16px"><div style="background-color:#15803d;color:#ffffff;border-radius:16px;font-size:16px;line-height:2.2"><strong>&nbsp;&nbsp;Always Critical</strong></div><div style="margin-left:12px;margin-right:12px"><p><span>Every melee hit you land deals 1.5 times damage and shows the critical hit sparks, the same bonus as a vanilla critical hit, without jumping first.</span><br><span style="font-size:13px;color:#8a94a3"><strong>How It Works:</strong> Hit a mob or player with a sword or axe while Always Critical is on.</span><br><span style="font-size:13px;color:#8a94a3"><strong>Good To Know:</strong> A hit made while you are already falling is left as vanilla, so the bonus never stacks.</span></p></div></div><div style="flex:1;min-width:200px;border:1px solid #8a94a3;border-radius:16px"><div style="background-color:#15803d;color:#ffffff;border-radius:16px;font-size:16px;line-height:2.2"><strong>&nbsp;&nbsp;Bow Aimbot</strong></div><div style="margin-left:12px;margin-right:12px"><p><span>Arrows you shoot from a bow or crossbow steer toward the hostile mob or player closest to your crosshair within 48 blocks and 25 degrees of where you look.</span><br><span style="font-size:13px;color:#8a94a3"><strong>How It Works:</strong> Aim roughly at a target and release. The arrow leads a moving target and allows for arrow drop.</span><br><span style="font-size:13px;color:#8a94a3"><strong>Good To Know:</strong> If nothing is near your crosshair, the arrow flies as normal.</span></p></div></div><div style="flex:1;min-width:200px;border:1px solid #8a94a3;border-radius:16px"><div style="background-color:#15803d;color:#ffffff;border-radius:16px;font-size:16px;line-height:2.2"><strong>&nbsp;&nbsp;Always Water Clutch</strong></div><div style="margin-left:12px;margin-right:12px"><p><span>When you fall 3 blocks or more and the ground is close, a water block appears in the space you land in, so the fall does no damage, and it disappears after about 2 seconds.</span><br><span style="font-size:13px;color:#8a94a3"><strong>How It Works:</strong> Switch it on and jump. No water bucket is needed.</span><br><span style="font-size:13px;color:#8a94a3"><strong>Good To Know:</strong> It does not trigger in Creative or Spectator mode, while gliding or flying, or over water.</span></p></div></div><div style="flex:1;min-width:200px;border:1px solid #8a94a3;border-radius:16px"><div style="background-color:#15803d;color:#ffffff;border-radius:16px;font-size:16px;line-height:2.2"><strong>&nbsp;&nbsp;Shield Always Active</strong></div><div style="margin-left:12px;margin-right:12px"><p><span>While you carry a shield in either hand, every melee hit and arrow from the front half of your view is fully blocked, even if you are not holding the block button.</span><br><span style="font-size:13px;color:#8a94a3"><strong>How It Works:</strong> Keep a shield in your hand or off hand and switch Shield Always Active on.</span><br><span style="font-size:13px;color:#8a94a3"><strong>Good To Know:</strong> Hits from behind and other damage, such as fire or explosions, are not blocked.</span></p></div></div></div>
+<h2 style="font-size:17px;text-align:left"><span style="background-color:#15803d;color:#ffffff;border-radius:20px">&nbsp;&nbsp;Get Started&nbsp;&nbsp;</span></h2>
+<table style="width:100%;border:1px solid #8a94a3;border-radius:16px"><tbody><tr><td style="width:44px;text-align:center"><div style="background-color:#15803d;color:#ffffff;font-weight:bold;font-size:15px;text-align:center;border-radius:10px;width:30px;aspect-ratio:1/1;line-height:30px">1</div></td><td style="text-align:left;">Join your world and find the ALN Pointer in your inventory, or take it from the Equipment tab of the Creative inventory.</td></tr><tr><td style="width:44px;text-align:center"><div style="background-color:#15803d;color:#ffffff;font-weight:bold;font-size:15px;text-align:center;border-radius:10px;width:30px;aspect-ratio:1/1;line-height:30px">2</div></td><td style="text-align:left;">Hold the ALN Pointer and use it to open the ALNStudios menu, then tap Combat Toggles.</td></tr><tr><td style="width:44px;text-align:center"><div style="background-color:#15803d;color:#ffffff;font-weight:bold;font-size:15px;text-align:center;border-radius:10px;width:30px;aspect-ratio:1/1;line-height:30px">3</div></td><td style="text-align:left;">Switch on the toggles you want and tap Apply. The action bar shows how many toggles are on.</td></tr><tr><td style="width:44px;text-align:center"><div style="background-color:#15803d;color:#ffffff;font-weight:bold;font-size:15px;text-align:center;border-radius:10px;width:30px;aspect-ratio:1/1;line-height:30px">4</div></td><td style="text-align:left;">Use the pointer again any time to change your toggles.</td></tr></tbody></table>
+<h2 style="font-size:17px;text-align:left"><span style="background-color:#15803d;color:#ffffff;border-radius:20px">&nbsp;&nbsp;Common Questions&nbsp;&nbsp;</span></h2>
+<div class="spoiler" title="How do I get another pointer?" data-title="How do I get another pointer?"><p><strong>How do I get another pointer?</strong><br>Take one from the Equipment tab of the Creative inventory, or use the command /give @s allenscreations:aln_pointer, which needs cheats.</p></div><div class="spoiler" title="Do my toggles affect other players?" data-title="Do my toggles affect other players?"><p><strong>Do my toggles affect other players?</strong><br>No. Each player has their own saved toggles, and a toggle only changes what that player does.</p></div><div class="spoiler" title="Can I use it on a server?" data-title="Can I use it on a server?"><p><strong>Can I use it on a server?</strong><br>These features act like cheats. Many servers ban them, so use them only where the owner and the other players agree.</p></div>
+<h2 style="font-size:17px;text-align:left"><span style="background-color:#15803d;color:#ffffff;border-radius:20px">&nbsp;&nbsp;Install&nbsp;&nbsp;</span></h2>
+<table style="width:100%;border:1px solid #8a94a3;border-radius:16px"><tbody><tr><td style="width:44px;text-align:center"><div style="background-color:#15803d;color:#ffffff;font-weight:bold;font-size:15px;text-align:center;border-radius:10px;width:30px;aspect-ratio:1/1;line-height:30px">1</div></td><td style="text-align:left;">Download the file from this page and open it with Minecraft.</td></tr><tr><td style="width:44px;text-align:center"><div style="background-color:#15803d;color:#ffffff;font-weight:bold;font-size:15px;text-align:center;border-radius:10px;width:30px;aspect-ratio:1/1;line-height:30px">2</div></td><td style="text-align:left;">Create or edit a world and turn on the new pack(s) in its settings.</td></tr><tr><td style="width:44px;text-align:center"><div style="background-color:#15803d;color:#ffffff;font-weight:bold;font-size:15px;text-align:center;border-radius:10px;width:30px;aspect-ratio:1/1;line-height:30px">3</div></td><td style="text-align:left;">Play. No Experimental toggles needed.</td></tr></tbody></table>
+<h2 style="font-size:17px;text-align:left"><span style="background-color:#15803d;color:#ffffff;border-radius:20px">&nbsp;&nbsp;Support&nbsp;&nbsp;</span></h2><div style="border:1px solid #8a94a3;border-radius:16px;text-align:center"><br><a href="https://ko-fi.com/alnstudios"><img src="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/assets/Images/ko-fi.png" alt="Support ALNStudios on Ko-fi" width="250"></a><br><br></div><p style="text-align:center"><a href="https://www.curseforge.com/members/allenscreations/projects"><strong>CurseForge</strong></a> &nbsp;|&nbsp; <a href="https://mcpedl.com/user/alnstudios/"><strong>MCPEDL</strong></a> &nbsp;|&nbsp; <a href="https://ko-fi.com/alnstudios"><strong>Ko-fi</strong></a></p>
+<hr>
+<p style="text-align:center;color:#8a94a3;font-size:13px"><strong>By ALNStudios</strong></p>
+<div class="spoiler"><p style="font-size:13px"><strong>Permissions and credits</strong></p><ul style="font-size:13px"><li>Rights: All rights reserved for ALNStudios.</li><li>Content creators: You may feature this creation in videos and streams with credit to ALNStudios.</li><li>Redistribution: Do not re-upload this pack or provide direct monetized download bypasses. Link to this page.</li><li>Unofficial community creation. Not an official Minecraft product and not approved by or associated with Mojang or Microsoft.</li></ul></div>
+<p style="text-align:center;color:#8a94a3;font-size:12px">Minecraft Bedrock add-on, ALN Pointer Bedrock mod, Minecraft PE PVP toggles, Auto Totem, Infinite Totem, Aura Mode, Always Critical, Bow Aimbot, Water Clutch, Minecraft PE mouse pointer item, MCPEDL add-on, CurseForge Bedrock, ALNStudios.</p></div>
+```
+
+## AI Image Prompts
+
+### Reference Images
+
+- **Logo reference**: attach your own logo. The generator uses it only for brand colors and mood. The result must be a new design, not a copy.
+- **Snapshot references**: attach 1 to 4 of your in-game snapshots of this pack. The generator copies their look, not their screen layout.
+
+### Logo Prompt
+
+```text
+Use the attached logo only as a brand reference for its color palette and overall mood. Do not copy it. Create a new, original logo with a different composition and a different main symbol. Do not just recolor, resize, crop, mirror or tweak the attached logo.
+Create a clean, square (1:1) logo image for the Minecraft Bedrock add-on "ALN Pointer". Use the ALN Pointer item to switch 7 PVP toggles on or off per player, including Auto Totem and Bow Aimbot.
+Base the main symbol on the pack idea above. Match the blocky look of the attached in-game snapshots. Center the logo, use a simple background, and keep it readable at small sizes.
+Text: "ALN Pointer" and, in small letters, "ALNStudios". ALNStudios is the brand name, so always keep it and never remove or change it. Spell both exactly.
+Do not add Minecraft, Mojang or Microsoft logos, watermarks, or characters from other games.
+```
+
+### Banner Prompt
+
+```text
+Create a wide (16:9) banner image for the Minecraft Bedrock add-on "ALN Pointer". Use the ALN Pointer item to switch 7 PVP toggles on or off per player, including Auto Totem and Bow Aimbot.
+Use the attached in-game snapshots as scene and style references: copy their blocky look, lighting, colors and the kind of scenery they show. Make a new composition inspired by them. Do not copy the on-screen HUD, chat or hotbar.
+Use the attached logo only as a brand reference for its colors and mood. Do not copy it. Put a new, original logo design in the banner, large enough to read, on the left or center.
+Hint at these pack features visually: ALN Pointer Item, Combat Toggles Menu, Auto Totem, Infinite Totem, Aura Mode.
+Text: "ALN Pointer" and, in small letters, "by ALNStudios". ALNStudios is the brand name, so always keep it and never remove or change it. Spell both exactly.
+Leave clear space around the logo. No Minecraft, Mojang or Microsoft logos, no watermarks.
+```
+````
+
+## FILE: MCPEDL/Addons/ALN-Pointer/assets/items/.gitkeep (1 lines, 0 bytes)
+
+```
+
+```
+
+## FILE: MCPEDL/Addons/ALN-Pointer/assets/recipes/.gitkeep (1 lines, 0 bytes)
+
+```
+
+```
+
+## FILE: MCPEDL/Addons/ALN-Pointer/assets/snapshots/.gitkeep (1 lines, 0 bytes)
+
+```
+
+```
+
+## FILE: MCPEDL/Addons/ALN-Pointer/behavior_pack/items/aln_pointer.json (23 lines, 452 bytes)
+
+```
+{
+  "format_version": "1.21.60",
+  "minecraft:item": {
+    "description": {
+      "identifier": "allenscreations:aln_pointer",
+      "menu_category": {
+        "category": "equipment"
+      }
+    },
+    "components": {
+      "minecraft:max_stack_size": 1,
+      "minecraft:icon": {
+        "textures": {
+          "default": "aln_pointer"
+        }
+      },
+      "minecraft:display_name": {
+        "value": "§l§6ALN §ePointer"
+      }
+    }
+  }
+}
+```
+
+## FILE: MCPEDL/Addons/ALN-Pointer/behavior_pack/LOCK (5 lines, 160 bytes)
+
+```
+ALNStudios Add-on Lock v1
+
+Pack marker included in the exported Minecraft Bedrock pack.
+This marker does not encrypt the pack or prevent extraction or editing.
+```
+
+## FILE: MCPEDL/Addons/ALN-Pointer/behavior_pack/manifest.json (66 lines, 1139 bytes)
+
+```
+{
+  "format_version": 2,
+  "header": {
+    "name": "ALN Pointer (v2)",
+    "description": "A pointer item that opens a menu of PVP toggles. by ALNStudios",
+    "uuid": "eec0404f-e785-480e-839e-0da27c699c31",
+    "version": [
+      2,
+      0,
+      0
+    ],
+    "min_engine_version": [
+      1,
+      26,
+      60
+    ]
+  },
+  "modules": [
+    {
+      "type": "data",
+      "uuid": "13407ddf-e15f-4d9c-90ec-eaa908a586a1",
+      "version": [
+        2,
+        0,
+        0
+      ]
+    },
+    {
+      "type": "script",
+      "language": "javascript",
+      "uuid": "63e54d22-75a9-41f8-9e7e-67b0553aace3",
+      "entry": "scripts/main.js",
+      "version": [
+        2,
+        0,
+        0
+      ]
+    }
+  ],
+  "dependencies": [
+    {
+      "uuid": "8232add1-8bcd-4f9b-92e8-59dfc483f35f",
+      "version": [
+        1,
+        0,
+        0
+      ]
+    },
+    {
+      "module_name": "@minecraft/server",
+      "version": "2.11.0"
+    },
+    {
+      "module_name": "@minecraft/server-ui",
+      "version": "2.3.0"
+    }
+  ],
+  "metadata": {
+    "authors": [
+      "ALNStudios"
+    ],
+    "product_type": "addon",
+    "version": "2.0.0"
+  }
+}
+```
+
+## FILE: MCPEDL/Addons/ALN-Pointer/behavior_pack/scripts/lib/bowaim.js (78 lines, 2572 bytes)
+
+```
+import { world, system, EntityComponentTypes, GameMode } from "@minecraft/server";
+import { PLAYER_ID } from "./info.js";
+import { isOn } from "./store.js";
+
+const ARROW = "minecraft:arrow";
+const RANGE = 48;
+const MIN_COS = Math.cos((25 * Math.PI) / 180);
+const GRAVITY = 0.05;
+const MIN_SPEED = 0.8;
+
+const minus = (a, b) => ({ x: a.x - b.x, y: a.y - b.y, z: a.z - b.z });
+const length = (v) => Math.hypot(v.x, v.y, v.z);
+
+function candidates(owner) {
+  const options = { location: owner.location, maxDistance: RANGE };
+  const mobs = owner.dimension.getEntities({ ...options, families: ["monster"] });
+  const players = owner.dimension.getPlayers({ ...options, excludeGameModes: [GameMode.Creative, GameMode.Spectator] });
+  return [...mobs, ...players].filter((e) => e.id !== owner.id);
+}
+
+function pickTarget(owner) {
+  const eye = owner.getHeadLocation();
+  const view = owner.getViewDirection();
+  let best;
+  let bestCos = MIN_COS;
+  for (const entity of candidates(owner)) {
+    const offset = minus(entity.getHeadLocation(), eye);
+    const distance = length(offset);
+    if (distance < 1) continue;
+    const cos = (view.x * offset.x + view.y * offset.y + view.z * offset.z) / distance;
+    if (cos > bestCos) {
+      bestCos = cos;
+      best = entity;
+    }
+  }
+  return best;
+}
+
+function aimPoint(from, target, speed) {
+  const head = target.getHeadLocation();
+  const motion = target.getVelocity();
+  let point = head;
+  for (let i = 0; i < 2; i++) {
+    const t = length(minus(point, from)) / speed;
+    point = {
+      x: head.x + motion.x * t,
+      y: head.y + motion.y * t + 0.5 * GRAVITY * t * t,
+      z: head.z + motion.z * t,
+    };
+  }
+  return point;
+}
+
+function steer(arrow) {
+  try {
+    if (!arrow.isValid) return;
+    const projectile = arrow.getComponent(EntityComponentTypes.Projectile);
+    const owner = projectile?.owner;
+    if (!owner || owner.typeId !== PLAYER_ID || !isOn(owner, "bowAimbot")) return;
+    const speed = length(arrow.getVelocity());
+    if (speed < MIN_SPEED) return;
+    const target = pickTarget(owner);
+    if (!target) return;
+    const from = arrow.location;
+    const direction = minus(aimPoint(from, target, speed), from);
+    const size = length(direction);
+    if (size < 0.001) return;
+    projectile.shoot({ x: (direction.x / size) * speed, y: (direction.y / size) * speed, z: (direction.z / size) * speed });
+  } catch (e) {}
+}
+
+export function initBowAim() {
+  world.afterEvents.entitySpawn.subscribe(({ entity }) => {
+    if (entity.typeId !== ARROW) return;
+    system.run(() => steer(entity));
+  });
+}
+```
+
+## FILE: MCPEDL/Addons/ALN-Pointer/behavior_pack/scripts/lib/combat.js (89 lines, 3445 bytes)
+
+```
+import { world, system, EntityComponentTypes, EntityDamageCause, EquipmentSlot, ItemStack } from "@minecraft/server";
+import { PLAYER_ID } from "./info.js";
+import { isOn } from "./store.js";
+
+const TOTEM = "minecraft:totem_of_undying";
+const SHIELD = "minecraft:shield";
+const SPARKS = "minecraft:critical_hit_emitter";
+const CRIT = 1.5;
+const NO_TOTEM = new Set([EntityDamageCause.void, EntityDamageCause.suicide]);
+const BLOCKED = new Set([EntityDamageCause.entityAttack, EntityDamageCause.projectile]);
+const replaying = new Set();
+
+const slot = (p, which) => p.getComponent(EntityComponentTypes.Equippable)?.getEquipmentSlot(which);
+const bag = (p) => p.getComponent(EntityComponentTypes.Inventory)?.container;
+const hands = (p) => [slot(p, EquipmentSlot.Mainhand)?.getItem()?.typeId, slot(p, EquipmentSlot.Offhand)?.getItem()?.typeId];
+
+function totemIndex(p) {
+  const inv = bag(p);
+  for (let i = 0; inv && i < inv.size; i++) if (inv.getItem(i)?.typeId === TOTEM) return i;
+  return -1;
+}
+
+function equipTotem(p) {
+  const off = slot(p, EquipmentSlot.Offhand);
+  if (!off || hands(p).includes(TOTEM)) return;
+  const inv = bag(p);
+  const i = totemIndex(p);
+  const old = off.getItem();
+  if (i >= 0) {
+    off.setItem(inv.getItem(i));
+    inv.setItem(i, old);
+    return;
+  }
+  off.setItem(new ItemStack(TOTEM, 1));
+  const left = old && (inv ? inv.addItem(old) : old);
+  if (left) p.dimension.spawnItem(left, p.location);
+}
+
+function facing(p, src) {
+  const o = src.damagingProjectile?.location ?? src.damagingEntity?.location;
+  if (!o) return false;
+  const v = p.getViewDirection();
+  const dx = o.x - p.location.x;
+  const dz = o.z - p.location.z;
+  return dx * v.x + dz * v.z > 0;
+}
+
+function replayOptions(src) {
+  const by = src.damagingEntity?.isValid ? src.damagingEntity : undefined;
+  const proj = src.damagingProjectile?.isValid ? src.damagingProjectile : undefined;
+  return proj ? { damagingEntity: by, damagingProjectile: proj } : { cause: src.cause, damagingEntity: by };
+}
+
+function onHurt(event) {
+  const victim = event.hurtEntity;
+  const src = event.damageSource;
+  const hitter = src.damagingEntity;
+  if (src.cause === EntityDamageCause.entityAttack && hitter?.typeId === PLAYER_ID && isOn(hitter, "alwaysCritical") && !hitter.isFalling) {
+    event.damage *= CRIT;
+    system.run(() => victim.isValid && victim.dimension.spawnParticle(SPARKS, victim.getHeadLocation()));
+  }
+  if (victim.typeId !== PLAYER_ID) return;
+  if (isOn(victim, "shield") && BLOCKED.has(src.cause) && hands(victim).includes(SHIELD) && facing(victim, src)) {
+    event.cancel = true;
+    system.run(() => victim.isValid && victim.playSound("item.shield.block"));
+    return;
+  }
+  const infinite = isOn(victim, "infiniteTotem");
+  if (!infinite && !isOn(victim, "autoTotem")) return;
+  if (NO_TOTEM.has(src.cause) || replaying.has(victim.id) || hands(victim).includes(TOTEM)) return;
+  if (!infinite && totemIndex(victim) < 0) return;
+  const health = victim.getComponent(EntityComponentTypes.Health);
+  if (!health || health.currentValue - event.damage > 0) return;
+  const amount = event.damage;
+  event.cancel = true;
+  replaying.add(victim.id);
+  system.run(() => {
+    if (victim.isValid) {
+      equipTotem(victim);
+      victim.applyDamage(amount, replayOptions(src));
+    }
+    system.runTimeout(() => replaying.delete(victim.id), 5);
+  });
+}
+
+export function initCombat() {
+  world.beforeEvents.entityHurt.subscribe(onHurt);
+}
+```
+
+## FILE: MCPEDL/Addons/ALN-Pointer/behavior_pack/scripts/lib/info.js (5 lines, 179 bytes)
+
+```
+export const PACK_NAME = "ALN Pointer";
+export const PACK_VERSION = "1.0.0";
+export const POINTER_ID = "allenscreations:aln_pointer";
+export const PLAYER_ID = "minecraft:player";
+```
+
+## FILE: MCPEDL/Addons/ALN-Pointer/behavior_pack/scripts/lib/loops.js (68 lines, 2388 bytes)
+
+```
+import { world, system, EntityDamageCause, GameMode } from "@minecraft/server";
+import { isOn, anyOn } from "./store.js";
+
+const AURA_RANGE = 4;
+const AURA_DAMAGE = 5;
+const AURA_TARGETS = 3;
+const MIN_FALL = 3;
+const WATER_LIFETIME = 40;
+const falls = new Map();
+
+const dist = (a, e) => Math.hypot(e.location.x - a.x, e.location.y - a.y, e.location.z - a.z);
+const skip = (p) => p.getGameMode() === GameMode.Creative || p.getGameMode() === GameMode.Spectator;
+
+function aura(p) {
+  const opts = { location: p.location, maxDistance: AURA_RANGE };
+  const found = new Map();
+  const mobs = p.dimension.getEntities({ ...opts, families: ["monster"] });
+  const foes = p.dimension.getPlayers({ ...opts, excludeGameModes: [GameMode.Creative, GameMode.Spectator] });
+  for (const e of [...mobs, ...foes]) if (e.id !== p.id) found.set(e.id, e);
+  [...found.values()]
+    .sort((a, b) => dist(p.location, a) - dist(p.location, b))
+    .slice(0, AURA_TARGETS)
+    .forEach((t) => t.applyDamage(AURA_DAMAGE, { cause: EntityDamageCause.entityAttack, damagingEntity: p }));
+}
+
+function clutch(p) {
+  if (skip(p) || p.isOnGround || !p.isFalling || p.isGliding || p.isFlying || p.isInWater) {
+    falls.delete(p.id);
+    return;
+  }
+  const y = p.location.y;
+  const peak = Math.max(falls.get(p.id) ?? y, y);
+  falls.set(p.id, peak);
+  const vy = p.getVelocity().y;
+  if (peak - y < MIN_FALL || vy > -0.2) return;
+  const hit = p.dimension.getBlockFromRay(p.location, { x: 0, y: -1, z: 0 }, {
+    maxDistance: Math.max(4, -vy * 3),
+    includeLiquidBlocks: false,
+    includePassableBlocks: false,
+  });
+  const spot = hit?.block.above();
+  if (!spot?.isAir) return;
+  spot.setType("minecraft:water");
+  falls.delete(p.id);
+  const dim = p.dimension;
+  const at = spot.location;
+  system.runTimeout(() => {
+    const b = dim.getBlock(at);
+    if (b?.typeId === "minecraft:water") b.setType("minecraft:air");
+  }, WATER_LIFETIME);
+}
+
+function each(id, fn) {
+  if (!anyOn(id)) return;
+  for (const p of world.getAllPlayers()) {
+    if (!p.isValid || !isOn(p, id)) continue;
+    try {
+      fn(p);
+    } catch (e) {}
+  }
+}
+
+export function initLoops() {
+  system.runInterval(() => each("aura", (p) => p.getGameMode() !== GameMode.Spectator && aura(p)), 10);
+  system.runInterval(() => each("waterClutch", clutch), 2);
+  world.afterEvents.playerLeave.subscribe(({ playerId }) => falls.delete(playerId));
+}
+```
+
+## FILE: MCPEDL/Addons/ALN-Pointer/behavior_pack/scripts/lib/menu.js (93 lines, 3243 bytes)
+
+```
+import { system } from "@minecraft/server";
+import { ActionFormData, ModalFormData, FormCancelationReason } from "@minecraft/server-ui";
+import { PACK_NAME, PACK_VERSION } from "./info.js";
+import { FEATURES, isOn, applyValues, activeNames } from "./store.js";
+
+const ABOUT_ICON = "textures/items/name_tag";
+const EXIT_ICON = "textures/items/door_wood";
+
+const plain = (s) => String(s ?? "").replace(/§./g, "");
+const bold = (s) => `§l${plain(s)}§r`;
+const mainTitle = () => `§l§6@ALNStudios §e${PACK_NAME}§r (v${PACK_VERSION})`;
+const wait = (ticks) => new Promise((resolve) => system.runTimeout(resolve, ticks));
+const opt = (form, name, ...args) => (typeof form[name] === "function" ? form[name](...args) : form);
+
+function tell(player, color, text) {
+  try {
+    player.onScreenDisplay.setActionBar(`${color}${text}`);
+  } catch (e) {}
+}
+
+async function present(form, player) {
+  for (let attempt = 0; attempt < 6; attempt++) {
+    let res;
+    try {
+      res = await form.show(player);
+    } catch (e) {
+      return undefined;
+    }
+    if (res.canceled && res.cancelationReason === FormCancelationReason.UserBusy) {
+      await wait(10);
+      continue;
+    }
+    return res;
+  }
+  return undefined;
+}
+
+async function openAbout(player) {
+  const body = [
+    "Creator: ALNStudios",
+    `${PACK_NAME} v${PACK_VERSION}`,
+    "A pointer item that opens a menu of PVP toggles.",
+    "CurseForge: allenscreations",
+    "MCPEDL: alnstudios",
+    "Not affiliated with Mojang.",
+  ].join("\n");
+  const form = new ActionFormData().title(bold("About ALNStudios")).body(bold(body)).button(bold("Back"));
+  const res = await present(form, player);
+  if (res && !res.canceled) openMain(player);
+}
+
+async function openToggles(player) {
+  let form = new ModalFormData().title(bold("Combat Toggles"));
+  form = opt(form, "header", bold(PACK_NAME));
+  form = opt(form, "label", bold(`${activeNames(player).length} of ${FEATURES.length} on`));
+  form = opt(form, "divider");
+  for (const feature of FEATURES) {
+    form = form.toggle(bold(feature.name), { defaultValue: isOn(player, feature.id) });
+    form = opt(form, "label", bold(feature.info));
+    form = opt(form, "divider");
+  }
+  form = opt(form, "submitButton", bold("Apply"));
+  const res = await present(form, player);
+  if (!res) return;
+  if (res.canceled) {
+    openMain(player);
+    return;
+  }
+  const values = (res.formValues ?? []).filter((v) => typeof v === "boolean");
+  if (values.length !== FEATURES.length) {
+    tell(player, "§c", "The toggles could not be read.");
+    return;
+  }
+  applyValues(player, values);
+  const count = values.filter((v) => v).length;
+  tell(player, "§a", `${count} of ${FEATURES.length} toggles on.`);
+}
+
+export async function openMain(player) {
+  const active = activeNames(player);
+  const body = active.length ? `On: ${active.join(", ")}` : "No toggles are on.";
+  const form = new ActionFormData()
+    .title(mainTitle())
+    .body(bold(body))
+    .button(bold("Combat Toggles"))
+    .button(bold("About"), ABOUT_ICON)
+    .button(bold("Exit"), EXIT_ICON);
+  const res = await present(form, player);
+  if (!res || res.canceled) return;
+  if (res.selection === 0) openToggles(player);
+  else if (res.selection === 1) openAbout(player);
+}
+```
+
+## FILE: MCPEDL/Addons/ALN-Pointer/behavior_pack/scripts/lib/store.js (58 lines, 1908 bytes)
+
+```
+import { world } from "@minecraft/server";
+
+export const FEATURES = [
+  { id: "autoTotem", name: "Auto Totem", info: "Moves a Totem of Undying into your hand before a deadly hit." },
+  { id: "infiniteTotem", name: "Infinite Totem", info: "Gives you a new Totem of Undying whenever you hold none." },
+  { id: "aura", name: "Aura Mode", info: "Hits hostile mobs and players within 4 blocks." },
+  { id: "alwaysCritical", name: "Always Critical", info: "Every melee hit deals 1.5 times damage." },
+  { id: "bowAimbot", name: "Bow Aimbot", info: "Arrows you shoot steer toward the target you aim at." },
+  { id: "waterClutch", name: "Always Water Clutch", info: "Places temporary water under you before a long fall lands." },
+  { id: "shield", name: "Shield Always Active", info: "Blocks hits from the front while you carry a shield." },
+];
+
+const KEY = "aln_pointer_toggles";
+const cache = new Map();
+
+function load(player) {
+  const raw = player.getDynamicProperty(KEY);
+  let data = {};
+  if (typeof raw === "string") {
+    try {
+      const parsed = JSON.parse(raw);
+      if (parsed && typeof parsed === "object") data = parsed;
+    } catch (e) {}
+  }
+  cache.set(player.id, data);
+  return data;
+}
+
+const read = (player) => cache.get(player.id) ?? load(player);
+
+export function isOn(player, id) {
+  return read(player)[id] === true;
+}
+
+export function activeNames(player) {
+  return FEATURES.filter((f) => isOn(player, f.id)).map((f) => f.name);
+}
+
+export function applyValues(player, values) {
+  const data = {};
+  FEATURES.forEach((f, i) => {
+    data[f.id] = values[i] === true;
+  });
+  cache.set(player.id, data);
+  player.setDynamicProperty(KEY, JSON.stringify(data));
+}
+
+export function anyOn(id) {
+  for (const player of world.getAllPlayers()) {
+    if (isOn(player, id)) return true;
+  }
+  return false;
+}
+
+world.afterEvents.playerLeave.subscribe(({ playerId }) => {
+  cache.delete(playerId);
+});
+```
+
+## FILE: MCPEDL/Addons/ALN-Pointer/behavior_pack/scripts/main.js (25 lines, 894 bytes)
+
+```
+import { world, ItemStack, EntityComponentTypes } from "@minecraft/server";
+import { POINTER_ID } from "./lib/info.js";
+import { openMain } from "./lib/menu.js";
+import { initCombat } from "./lib/combat.js";
+import { initLoops } from "./lib/loops.js";
+import { initBowAim } from "./lib/bowaim.js";
+
+const GIVEN_KEY = "aln_pointer_given";
+
+world.afterEvents.itemUse.subscribe(({ source, itemStack }) => {
+  if (itemStack?.typeId === POINTER_ID) openMain(source);
+});
+
+world.afterEvents.playerSpawn.subscribe(({ player, initialSpawn }) => {
+  if (!initialSpawn || player.getDynamicProperty(GIVEN_KEY) === true) return;
+  const inventory = player.getComponent(EntityComponentTypes.Inventory)?.container;
+  if (!inventory) return;
+  const left = inventory.addItem(new ItemStack(POINTER_ID, 1));
+  if (!left) player.setDynamicProperty(GIVEN_KEY, true);
+});
+
+initCombat();
+initLoops();
+initBowAim();
+```
+
+## FILE: MCPEDL/Addons/ALN-Pointer/CHANGELOG.md (17 lines, 1210 bytes)
+
+```
+# Changelog — ALN Pointer
+
+---
+
+## [v2] - 2026-11-16 - First Release
+
+### Added
+- **ALN Pointer**: A cursor-shaped item that opens the ALNStudios menu. You get one the first time you join a world, and it is in the Equipment tab of the Creative inventory.
+- **Combat Toggles Menu**: A screen with 7 switches and a short explanation under each. Apply saves them for you and closes the menu, and each player keeps their own settings.
+- **Auto Totem**: Moves a Totem of Undying from your inventory into your off hand before a hit that would kill you.
+- **Infinite Totem**: Puts a new Totem of Undying in your off hand before a deadly hit when you have none left.
+- **Aura Mode**: Hits up to 3 nearby hostile mobs and players within 4 blocks for 5 damage every half second.
+- **Always Critical**: Every melee hit deals 1.5 times damage and shows the critical hit sparks.
+- **Bow Aimbot**: Arrows from a bow or crossbow steer toward the target nearest your crosshair within 48 blocks.
+- **Always Water Clutch**: Places water where you land after a fall of 3 blocks or more, then removes it after about 2 seconds.
+- **Shield Always Active**: Blocks melee hits and arrows from the front whenever you carry a shield.
+```
+
+## FILE: MCPEDL/Addons/ALN-Pointer/DESCRIPTION.md (108 lines, 7291 bytes)
+
+```
+# ALN Pointer — A pointer item that opens a menu of 7 PVP toggles
+
+**By ALNStudios**
+
+[![Minecraft Bedrock](https://img.shields.io/badge/Minecraft%20Bedrock-Stable%20Release-brightgreen?style=flat-square&logo=minecraft)](https://github.com/AllensCreations/MCPE-Curseforges)
+[![Format](https://img.shields.io/badge/Format-.MCPACK%20%7C%20.MCADDON%20%7C%20.MCWORLD-blue?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges)
+
+**Use the ALN Pointer item to switch 7 PVP toggles on or off per player, including Auto Totem and Bow Aimbot.**
+
+> The ALN Pointer is a cursor-shaped item that opens a menu with 7 toggles, each saved separately for every player. It suits friends who practice PVP in a world they own and want to pick their own settings.
+
+## Overview
+
+You get an ALN Pointer, use it, and pick the toggles you want in the ALNStudios menu. The toggles then run by themselves whenever you fight, shoot or fall, and vanilla Minecraft has no equivalent switches. The features are cheat-style helpers, so use them only on worlds where everyone agrees.
+
+## Key Features
+
+### ALN Pointer Item
+- **What Happens**: A cursor-shaped item that opens the toggle menu when you use it. You receive one the first time you join a world, and it also sits in the Equipment tab of the Creative inventory.
+- **How It Works**: Hold the pointer and use it, like right-clicking on PC or tapping on mobile.
+- **Good To Know**: If your inventory is full on first join, the pointer is offered again on your next join.
+
+### Combat Toggles Menu
+- **What Happens**: The main menu has three buttons: Combat Toggles, About and Exit. Combat Toggles lists 7 switches with a one-line explanation under each, and Apply saves them and closes the menu.
+- **How It Works**: Flip the switches you want, then tap Apply. Closing the screen without Apply brings you back to the main menu.
+- **Good To Know**: Toggles are saved per player, so each person in a world picks their own.
+
+### Auto Totem
+- **What Happens**: When a hit would kill you and you hold no Totem of Undying, one from your inventory moves into your off hand first, so the totem saves you.
+- **How It Works**: Keep a Totem of Undying anywhere in your inventory and switch Auto Totem on.
+- **Good To Know**: It does nothing without a totem in your inventory, and it cannot help against the void or the kill command.
+
+### Infinite Totem
+- **What Happens**: Works like Auto Totem, and when you have no totem at all it puts a new Totem of Undying in your off hand before a deadly hit.
+- **How It Works**: Switch it on and keep fighting. Each totem that pops is replaced before the next deadly hit.
+- **Good To Know**: An item that was in your off hand moves to your inventory, or drops at your feet if the inventory is full.
+
+### Aura Mode
+- **What Happens**: Every half second, you hit up to 3 of the nearest hostile mobs and other players within 4 blocks for 5 damage (2.5 hearts), without clicking.
+- **How It Works**: Stand near enemies with Aura Mode on and they take damage automatically.
+- **Good To Know**: Players in Creative or Spectator mode are never hit, and passive mobs are left alone.
+
+### Always Critical
+- **What Happens**: Every melee hit you land deals 1.5 times damage and shows the critical hit sparks, the same bonus as a vanilla critical hit, without jumping first.
+- **How It Works**: Hit a mob or player with a sword or axe while Always Critical is on.
+- **Good To Know**: A hit made while you are already falling is left as vanilla, so the bonus never stacks.
+
+### Bow Aimbot
+- **What Happens**: Arrows you shoot from a bow or crossbow steer toward the hostile mob or player closest to your crosshair within 48 blocks and 25 degrees of where you look.
+- **How It Works**: Aim roughly at a target and release. The arrow leads a moving target and allows for arrow drop.
+- **Good To Know**: If nothing is near your crosshair, the arrow flies as normal.
+
+### Always Water Clutch
+- **What Happens**: When you fall 3 blocks or more and the ground is close, a water block appears in the space you land in, so the fall does no damage, and it disappears after about 2 seconds.
+- **How It Works**: Switch it on and jump. No water bucket is needed.
+- **Good To Know**: It does not trigger in Creative or Spectator mode, while gliding or flying, or over water.
+
+### Shield Always Active
+- **What Happens**: While you carry a shield in either hand, every melee hit and arrow from the front half of your view is fully blocked, even if you are not holding the block button.
+- **How It Works**: Keep a shield in your hand or off hand and switch Shield Always Active on.
+- **Good To Know**: Hits from behind and other damage, such as fire or explosions, are not blocked.
+
+## How to Use
+
+1. Join your world and find the ALN Pointer in your inventory, or take it from the Equipment tab of the Creative inventory.
+2. Hold the ALN Pointer and use it to open the ALNStudios menu, then tap Combat Toggles.
+3. Switch on the toggles you want and tap Apply. The action bar shows how many toggles are on.
+4. Use the pointer again any time to change your toggles.
+
+## Common Questions
+
+- **How do I get another pointer?**: Take one from the Equipment tab of the Creative inventory, or use the command /give @s allenscreations:aln_pointer, which needs cheats.
+- **Do my toggles affect other players?**: No. Each player has their own saved toggles, and a toggle only changes what that player does.
+- **Can I use it on a server?**: These features act like cheats. Many servers ban them, so use them only where the owner and the other players agree.
+
+## Compatibility
+
+- Minecraft Bedrock Edition: 1.26.60
+- Experimental features: No experiment requirement detected in the inspected files.
+- Achievements: Likely achievement-friendly.
+- Verification: Source created, not tested in game.
+
+## Creator and Permissions
+
+- Creator: ALNStudios
+- Profiles: [CurseForge Profile](https://www.curseforge.com/members/allenscreations/projects) · [MCPEDL Profile](https://mcpedl.com/user/alnstudios/)
+
+<a href="https://www.curseforge.com/members/allenscreations/projects"><img src="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/assets/Images/curseforge.jpg" alt="CurseForge" width="45%"></a> <a href="https://mcpedl.com/user/alnstudios/"><img src="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/assets/Images/MCPEDL.jpg" alt="MCPEDL" width="45%"></a>
+
+## Guidelines and Attribution
+
+- Creator: ALNStudios
+- Rights & Reservation: All rights reserved for ALNStudios.
+- Content Creators: Content creators are permitted to feature this creation in videos and streams with credit to ALNStudios.
+- Redistribution: Do not re-upload this pack or provide direct monetized download bypasses. Link directly to the official repository page.
+- Disclaimer: This is an unofficial community creation. It is not an official Minecraft product and is not approved by or associated with Mojang or Microsoft.
+
+---
+
+© All rights reserved for ALNStudios.
+
+---
+
+## Search & Discovery Keywords
+
+Minecraft Bedrock add-on, ALN Pointer Bedrock mod, Minecraft PE PVP toggles, Auto Totem, Infinite Totem, Aura Mode, Always Critical, Bow Aimbot, Water Clutch, Minecraft PE mouse pointer item, MCPEDL add-on, CurseForge Bedrock, ALNStudios.
+```
+
+## FILE: MCPEDL/Addons/ALN-Pointer/LOCK (5 lines, 167 bytes)
+
+```
+ALNStudios Add-on Lock v1
+
+Required repository marker for build validation.
+This marker does not encrypt source files or prevent extraction of distributable packages.
+```
+
+## FILE: MCPEDL/Addons/ALN-Pointer/project.json (5 lines, 47 bytes)
+
+```
+{
+  "type": "addon",
+  "name": "ALN Pointer"
+}
+```
+
+## FILE: MCPEDL/Addons/ALN-Pointer/README.md (19 lines, 778 bytes)
+
+```
+# ALN Pointer
+
+Download the current release of **ALN Pointer** for Minecraft Bedrock Edition.
+
+## Download
+
+- **Package format:** `.mcaddon`
+- **Direct download:** [Download ALN Pointer (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/ALN-Pointer/ALNPointer%20V1.0.0.mcaddon)
+
+## Installation
+
+1. Download the package using the link above.
+2. Open the downloaded file with Minecraft to import it.
+3. If the package contains a pack that must be enabled separately, activate it in your world's settings.
+
+## Pack Information
+
+For gameplay features, usage details, compatibility notes, and other project information, read the [full description](https://github.com/AllensCreations/MCPE-Curseforges/blob/main/MCPEDL/Addons/ALN-Pointer/DESCRIPTION.md).
+```
+
+## FILE: MCPEDL/Addons/ALN-Pointer/resource_pack/LOCK (5 lines, 160 bytes)
+
+```
+ALNStudios Add-on Lock v1
+
+Pack marker included in the exported Minecraft Bedrock pack.
+This marker does not encrypt the pack or prevent extraction or editing.
+```
+
+## FILE: MCPEDL/Addons/ALN-Pointer/resource_pack/manifest.json (37 lines, 587 bytes)
+
+```
+{
+  "format_version": 2,
+  "header": {
+    "name": "ALN Pointer (v2)",
+    "description": "Pointer item texture. by ALNStudios",
+    "uuid": "8232add1-8bcd-4f9b-92e8-59dfc483f35f",
+    "version": [
+      2,
+      0,
+      0
+    ],
+    "min_engine_version": [
+      1,
+      26,
+      60
+    ]
+  },
+  "modules": [
+    {
+      "type": "resources",
+      "uuid": "83f195c6-92d3-428a-b707-06188b6a5f8d",
+      "version": [
+        2,
+        0,
+        0
+      ]
+    }
+  ],
+  "metadata": {
+    "authors": [
+      "ALNStudios"
+    ],
+    "product_type": "addon",
+    "version": "2.0.0"
+  }
+}
+```
+
+## FILE: MCPEDL/Addons/ALN-Pointer/resource_pack/textures/item_texture.json (10 lines, 174 bytes)
+
+```
+{
+  "resource_pack_name": "aln_pointer",
+  "texture_name": "atlas.items",
+  "texture_data": {
+    "aln_pointer": {
+      "textures": "textures/items/aln_pointer"
+    }
+  }
+}
+```
+
+## FILE: MCPEDL/Addons/ALN-Pointer/texture_sources/aln_pointer.json (303 lines, 3261 bytes)
+
+```
+[
+  {
+    "name": "aln_pointer",
+    "size": 16,
+    "palette": {
+      "0": "#00000000",
+      "1": "#161616",
+      "2": "#ffffff",
+      "3": "#bdbdbd"
+    },
+    "pixels": [
+      [
+        1,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        1,
+        1,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        1,
+        2,
+        1,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        1,
+        2,
+        3,
+        1,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        1,
+        2,
+        2,
+        3,
+        1,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        1,
+        2,
+        2,
+        2,
+        3,
+        1,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        1,
+        2,
+        2,
+        2,
+        2,
+        3,
+        1,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        1,
+        2,
+        2,
+        2,
+        2,
+        2,
+        3,
+        1,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        1,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        3,
+        1,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        1,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        3,
+        1,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        1,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        2,
+        3,
+        1,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        1,
+        2,
+        2,
+        2,
+        2,
+        2,
+        1,
+        1,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        1,
+        2,
+        2,
+        1,
+        2,
+        3,
+        1,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        1,
+        2,
+        1,
+        0,
+        1,
+        2,
+        3,
+        1,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        1,
+        1,
+        0,
+        0,
+        0,
+        1,
+        2,
+        3,
+        1,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        1,
+        1,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    ]
+  }
+]
+```
+
+## FILE: MCPEDL/Addons/README.md (55 lines, 9229 bytes)
+
+```
+# Add-ons
+
+Source files for established Minecraft Bedrock add-ons by ALNStudios.
+
+## Available Add-ons
+
+| Add-on | Source | Download |
+| :--- | :--- | :--- |
+| Ghast Mob Head Transformers | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/Ghast-Mob-Head-Transformers/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Ghast-Mob-Head-Transformers/GhastMobHeads%20V1.16.1.mcaddon) |
+| Immortal Pets | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/Immortal-Pets/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Immortal-Pets/ImmortalPets%20V1.10.1.mcaddon) |
+| Mining Helmet | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/Mining-Helmet/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Mining-Helmet/MiningHelmet%20V1.14.5.mcaddon) |
+| Monster Companions | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/Monster-Companions/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Monster-Companions/MonsterCompanions%20V2.0.1.mcaddon) |
+| Passive Auto-Switch Tools | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/Passive-Auto-Switch-Tools/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Passive-Auto-Switch-Tools/AutoSwitchTools%20V1.16.0.mcaddon) |
+| Tameable Companion Fox | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/Tameable-Companion-Fox/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Tameable-Companion-Fox/CompanionFox%20V1.8.5.mcaddon) |
+| Vanilla Quality of Life | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/Vanilla-Quality-of-Life/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Vanilla-Quality-of-Life/VanillaQoL%20V2.1.2.mcaddon) |
+| Grimoire Relics V2 | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/Grimoire-Relics-V2/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Grimoire-Relics-V2/GrimoireRelics%20V1.13.2.mcaddon) |
+| Grand Banquets | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/Grand-Banquets/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Grand-Banquets/GrandBanquets%20V1.6.0.mcaddon) |
+| Magnetic Satchel | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/Magnetic-Satchel) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Magnetic-Satchel/MagneticSatchel%20V1.8.0.mcaddon) |
+| Sudden Death Roulette The Diamond Race | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/Sudden-Death-Roulette) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Sudden-Death-Roulette/SuddenDeath%20V1.4.0.mcaddon) |
+| Smart Tree Capitator and Domino Ore Miner | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/Smart-Tree-Capitator-and-Domino-Ore-Miner) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Smart-Tree-Capitator-and-Domino-Ore-Miner/SmartCapitator%20V1.11.0.mcaddon) |
+| Harvest Intelligence | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/Harvest-Intelligence) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Harvest-Intelligence/HarvestIntel%20V1.6.0.mcaddon) |
+| Fletching Table Arsenal | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/Fletching-Table-Arsenal/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Fletching-Table-Arsenal/FletchingArsenal%20V1.0.0.mcaddon) |
+| Melody Figurine | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/Melody-Figurine/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Melody-Figurine/MelodyFigurine%20V1.14.0.mcaddon) |
+| One-Block Hardcore Survival Economy | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/One-Block-Economy/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/One-Block-Economy/OneBlockEconomy%20V1.4.0.mcaddon) |
+| Selective Mob Controller | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/Selective-Mob-Controller/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Selective-Mob-Controller/MobController%20V1.5.0.mcaddon) |
+| Swarm Mob Booster | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/Swarm-Mob-Booster/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Swarm-Mob-Booster/SwarmBooster%20V1.8.0.mcaddon) |
+| Copper-Carrier Logistics | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/Copper-Carrier-Logistics/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Copper-Carrier-Logistics/CopperCarrier%20V1.1.0.mcaddon) |
+| Universal Leash | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/Universal-Leash/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Universal-Leash/UniversalLeash%20V2.0.0.mcaddon) |
+| Padlock & Key | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/Padlock-and-Key/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Padlock-and-Key/PadlockKey%20V1.4.2.mcaddon) |
+| Talking Pirate Parrots | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/Talking-Pirate-Parrots_payload/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Talking-Pirate-Parrots_payload/PirateParrots%20V1.0.3.mcaddon) |
+| OP Sponge | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/OP-Sponge/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/OP-Sponge/OPSponge%20V1.0.1.mcaddon) |
+| Cheat Stick | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/Cheat-Stick/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Cheat-Stick/CheatStick%20V3.0.0.mcaddon) |
+| Waypoint Helper | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/Waypoint-Helper/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Waypoint-Helper/WaypointHelper%20V1.1.10.mcaddon) |
+| 2-in-1 Loot & XP Booster | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/2-in-1-Loot--XP-Booster/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/2-in-1-Loot--XP-Booster/LootXPBooster%20V1.0.16.mcaddon) |
+| Enchanter | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/Enchanter/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Enchanter/Enchanter%20V1.0.2.mcaddon) |
+| ALN Quiver | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/ALN-Quiver/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/ALN-Quiver/ALNQuiver%20V1.0.0.mcaddon) |
+| Expanded Basic Arsenal | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/Expanded-Basic-Arsenal/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Expanded-Basic-Arsenal/ExpandedBasicArsenal%20V1.0.0.mcaddon) |
+| ALN Wireless Headphones | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/ALN-Wireless-Headphones/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/ALN-Wireless-Headphones/ALNWirelessHeadphones%20V1.0.0.mcaddon) |
+| ALN MoreDiscs | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/ALN-MoreDiscs/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/ALN-MoreDiscs/ALNMoreDiscs%20V1.1.1.mcaddon) |
+| ALN Pointer | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/ALN-Pointer/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/ALN-Pointer/ALNPointer%20V1.0.0.mcaddon) |
+
+Download links point to the currently published package files.
+
+## Attribution
+
+Created by ALNStudios. All rights reserved.
+
+Videos and streams are welcome with credit. Redistribution of original or modified files without permission is prohibited.
+
+## Related Directories
+
+- [Maps](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Maps#available-maps)
+- [Scripts](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Script#available-scripts)
+- [Minigames](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Minigame#available-minigames)
+```

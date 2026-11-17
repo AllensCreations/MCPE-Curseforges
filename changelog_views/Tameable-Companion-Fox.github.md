@@ -1,6 +1,6 @@
 # Changelog — Tameable Companion Fox
 
-## [1.8.5] - 2026-11-16
+## [v2] - 2026-11-16
 
 ### Improved & Balanced
 - **Material Damage**: A fox's damage now depends on the tool it holds. Wooden and golden tools hit the softest, then stone, iron, diamond, and netherite.

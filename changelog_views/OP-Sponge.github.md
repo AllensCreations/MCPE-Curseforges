@@ -1,6 +1,6 @@
 # Changelog — OP Sponge
 
-## [1.0.1] - 2026-11-11
+## [v2] - 2026-11-11
 
 ### Added
 - **Super Sponge I to X**: Ten sponge levels. Super Sponge I absorbs up to 512 water blocks within 18 blocks, and each level adds 256 blocks and 2 blocks of reach, up to 2,816 blocks within 36 blocks at level X.

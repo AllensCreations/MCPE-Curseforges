@@ -2,6 +2,16 @@
 
 ---
 
+## [v94] - 2026-11-17 - Single-Version vX Scheme & Tooling Migration
+
+### Added
+- **Single-version support**: Added vX format compatibility across changelog parser, AI review collector, and manifest tooling.
+- **ALNSpawnControl and ALN Pointer reviews**: Added comprehensive AI review export files and source hashes for ALNSpawnControl and ALN Pointer.
+
+### Improved & Balanced
+- **Manifest tooling alignment**: Updated manifest tools and manifest title validator to correctly reconcile single-version titles `(vN)` with 3-integer Bedrock array versions `[N, 0, 0]`.
+- **Changelog views**: Rebuilt all package changelog views to reflect the updated release headers.
+
 ## 2026-11-17 - New Script ALNSpawnControl
 
 ### Added

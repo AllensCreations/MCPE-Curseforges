@@ -2,7 +2,7 @@
 
 ---
 
-## [1.0.0] - 2026-11-15 - First Release
+## [v2] - 2026-11-15 - First Release
 
 ### Added
 - **Slingshot**: Pull back in three stages for 2, 4 or 6 damage, firing Flint or Cobblestone from your inventory.

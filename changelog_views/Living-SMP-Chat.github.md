@@ -1,6 +1,6 @@
 # Changelog — Living SMP Chat
 
-## [1.0.11] - 2026-11-16
+## [v2] - 2026-11-16
 
 ### Added
 - **Shoutout Mini Chats**: about half of the ALNStudios shoutouts are now short back-and-forth chats between two or three players, like asking who made the add-on and suggesting a follow. The other half stay the single plug with a reply.

@@ -2,7 +2,7 @@
 
 ---
 
-## [2.1.2] - 2026-11-14
+## [v3] - 2026-11-14
 
 **What's new in v2.1.2:** Packed with the v2.1.2 update. Includes: Description Rewrite.
 

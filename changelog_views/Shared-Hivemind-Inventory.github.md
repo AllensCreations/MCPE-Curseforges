@@ -1,6 +1,6 @@
 # Changelog — Team Inventory
 
-## [1.22.6] - 2026-11-14
+## [v2] - 2026-11-14
 
 ### Improved & Balanced
 - **Personal Layout Removed**: The Personal layout and its Controller button are gone. Everyone now shares one identical inventory, which keeps the add-on lighter on busy teams.

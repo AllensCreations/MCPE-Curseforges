@@ -2,7 +2,7 @@
 
 ---
 
-## [1.0.2] - 2026-11-11
+## [v2] - 2026-11-11
 
 ### Improved
 - Reworked the Ledger's Action Form presentation with a wood-framed market panel and individual inventory-style slot backgrounds.

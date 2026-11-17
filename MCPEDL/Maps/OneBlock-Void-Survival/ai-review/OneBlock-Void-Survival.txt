@@ -4,7 +4,7 @@
 
 - **Export request:** `MCPEDL/Maps/OneBlock-Void-Survival`
 - **Destination:** `MCPEDL/Maps/OneBlock-Void-Survival`
-- **CURRENT VERSION: 2.0.1 / NEXT UPDATE: 2.0.2**  (`MCPEDL/Maps/OneBlock-Void-Survival/CHANGELOG.md`)
+- **CURRENT VERSION: v3 / NEXT UPDATE: v4**  (`MCPEDL/Maps/OneBlock-Void-Survival/CHANGELOG.md`)
 - **Text files:** 61
 - **Skipped binary:** 7
 - **Paths not found:** 0
@@ -96,7 +96,7 @@ Export: two plain .txt files. `<name>.txt` = the pack (index, these instructions
 - NEW pack: read SKILL.md first, then follow PACK_GENERATOR_INSTRUCTIONS.md Part 4 and deliver ONE pack `.sh` from `scripts/make_pack_script.py` (the project travels inside it as base64). NEVER deliver separate zip, pack, json, js or b64 files.
 - INSTRUCTIONS.md wins over PACK_GENERATOR_INSTRUCTIONS.md on any conflict. These instructions win over both on the reply format and the Termux script.
 - Update: keep pack and module UUIDs unchanged.
-- Vanilla reference: `reference/bedrock-samples/bedrock-samples.min.json` (repo, ~5 MB, NOT in this export) holds every vanilla Mojang behavior/resource pack JSON as one object (`.behavior_pack.entities.zombie`, `.behavior_pack.recipes`, `.resource_pack.entity` ...). Never guess a vanilla component, event, loot or recipe shape: list the exact section under File Needed, then copy the shape from it.
+- Vanilla reference: `reference/bedrock-samples/bedrock-samples.min.json.gz` (repo, gzip file of about 8 MB, NOT in this export; unzip it first) holds every vanilla Mojang behavior/resource pack JSON as one object once unzipped (`.behavior_pack.entities.zombie`, `.behavior_pack.recipes`, `.resource_pack.entity` ...). Never guess a vanilla component, event, loot or recipe shape: list the exact section under File Needed, then copy the shape from it.
 - UI work (menus, forms, HUD, screens): follow INSTRUCTIONS.md 1.13 and apply the ALN UI Redesign skin from `assets/aln-ui-redesign/` (README.txt, design.json, font/README.txt in the tools txt). Textures are not exported; if the pack's resource_pack is missing, ask for it. Never claim anything was tested in Minecraft unless it was.
 - Update: deliver the repo change as the Termux script below. New pack: the pack `.sh` above. Never a separate payload or base64 file.
 
@@ -113,9 +113,9 @@ Repo-root-relative folders for this work:
 4. Any project type (add-on, map, script, workflow, website). Keep folder layout. New project = own new folder beside similar ones.
 
 ## Update request = ONE Termux script
-- Name: `<Repofilename>_<Version>_<RAND>.sh` (e.g. `Monster-Companions_1.2.4_k7q2x.sh`). Deliver as downloadable file.
+- Name: `<Repofilename>_<Version>_<RAND>.sh` (e.g. `Monster-Companions_v2_k7q2x.sh`). Deliver as downloadable file.
 - Repofilename: project/folder/file changed. No extension, no spaces (hyphens ok).
-- Version: new X.Y.Z. Update = Z+1. Beta/Release only if requested (see Versions).
+- Version: new vX format. Update = X+1 (e.g., v1 -> v2, or legacy 1.3.4 -> v2).
 - RAND: >=5 random lowercase letters/digits. Fresh every script. NEVER reuse (earlier reply or existing file), so a new script never overwrites or re-runs an old one.
 - Same exact name in reply steps.
 Script order:
@@ -124,7 +124,7 @@ Script order:
 3. `git pull --rebase`
 4. Apply ALL changes as exact search-and-replace edits: write a spec and run `python3 scripts/make_update_script.py spec.txt` (format in `scripts/apply_update.py`; `--verify <clone>` dry-runs it). The tool applies edits atomically, sets the manifest version and writes both changelogs. Size decides the method. SMALL update (a few edits, under about 60% of any file touched): search and replace only. LARGE update (most of a file, many new files, a redesign): use the best method, `@@ create`/`@@ overwrite` in the same spec, never many fragile edits. Either way ONE `.sh`. No separate downloads.
 5. Validate every changed .json with python3. Stop on error.
-5b. Verify top CHANGELOG.md heading == new X.Y.Z == script filename version. Stop on mismatch. If project has manifests: run `python3 scripts/manifest_tools.py --project "$DEST" --set X.Y.Z` (sets header.version, metadata.version, title suffix, module/dependency versions in every source manifest; never lowers), then `python3 scripts/manifest_tools.py --project "$DEST" --check` and `python3 scripts/validate_manifest_titles.py --project "$DEST"`. Stop on error. Every update must change the manifests so the build changes. Never hand-edit manifest JSON for versions.
+5b. Verify top CHANGELOG.md heading == new vX == script filename version. Stop on mismatch. If project has manifests: run `python3 scripts/manifest_tools.py --project "$DEST" --set X.0.0` (or `vX`), then `python3 scripts/manifest_tools.py --project "$DEST" --check` and `python3 scripts/validate_manifest_titles.py --project "$DEST"`. Stop on error. Every update must change the manifests so the build changes. Never hand-edit manifest JSON for versions.
 5c. If INSTRUCTIONS.md or PACK_GENERATOR_INSTRUCTIONS.md changed: run `python3 scripts/check_instruction_files.py`. Stop on error
 6. `git add` changed paths only; `git commit -m "<short message>"`; `git push`
 6b. Add an entry to the ROOT `CHANGELOG.md` (repo-wide, newest first under `---`): `## [vN] - YYYY-MM-DD - [Update Name]` (N = `REPO_VERSION` + 1, a single whole number such as v80, set by the update tool, never by hand), groups `### Added` / `### Improved & Balanced` / `### Fixed`, bullets `- **Title**: what changed`. Every script, tooling-only included.
@@ -137,14 +137,11 @@ Script order:
 - CHANGELOG.md: MANDATORY every update, no exceptions. Add new release entry for the change.
 - README.md + DESCRIPTION.md: after change, analyze both in destination folder. Edit ONLY if change makes them inaccurate/incomplete. NEVER remove verified content.
 
-### Versions (X.Y.Z ONLY)
-- Format: exactly X.Y.Z everywhere. NEVER X.Y.Z.A. No fourth part. No Alpha.
-- X = Release, Y = Beta, Z = Update.
-- Update: Z+1 (1.2.3 -> 1.2.4). Default.
-- Beta: Y+1, Z=0 (1.2.4 -> 1.3.0). Only if requested.
-- Release: X+1, Y=0, Z=0 (1.3.0 -> 2.0.0). Only if requested.
-- New X.Y.Z goes in CHANGELOG heading + script filename.
-- Manifest versions: set ONLY by the script via `manifest_tools.py --set X.Y.Z` (never hand-edit JSON). NEVER hand-edit README download links. Build Changed Packs & Sync Catalogs aligns a pack to its highest existing version and rebuilds; it never bumps. Publish to CurseForge uploads the newest changelog version.
+### Versions (vX ONLY)
+- Format: single-number version `vX` (e.g. `v2`, `v3`). Old 3-part versions X.Y.Z convert by incrementing major (X+1).
+- Update: X+1 (v1 -> v2, v2 -> v3).
+- New vX goes in CHANGELOG heading + script filename.
+- Manifest versions: Bedrock requires a 3-integer array, so `vX` is mapped internally to `[X, 0, 0]` by `manifest_tools.py --set vX` (never hand-edit JSON). NEVER hand-edit README download links. Build Changed Packs & Sync Catalogs aligns a pack to its highest existing version and rebuilds.
 - NEVER put release version in README/DESCRIPTION titles. NEVER reuse a heading.
 
 ### Changelog views
@@ -213,7 +210,7 @@ Maps/scripts/minigames: same landing page. Use real package format; .mcworld = t
 ```
 
 ### CHANGELOG.md
-- `# Changelog — [Name]`, `---`, then newest first: `## [X.Y.Z] - YYYY-MM-DD - [Update Name]` (date: `TZ=Asia/Singapore date +%F`). [Update Name] = short player-facing title (2-6 words) of what is new. REQUIRED on every new entry.
+- `# Changelog — [Name]`, `---`, then newest first: `## [vX] - YYYY-MM-DD - [Update Name]` (date: `TZ=Asia/Singapore date +%F`). [Update Name] = short player-facing title (2-6 words) of what is new. REQUIRED on every new entry.
 - Groups: `### Added`, `### Improved & Balanced`, `### Fixed` (bugs as in-game experience). Omit empty groups. Each group >=1 bullet.
 - Entry: `- **Title**: player impact.`
 - NO links, URLs, badges, function/event names, unverified benefits. No boilerplate after title.
@@ -360,19 +357,19 @@ Leave clear space around the logo. No Minecraft, Mojang or Microsoft logos, no w
 }
 ```
 
-## FILE: MCPEDL/Maps/OneBlock-Void-Survival/behavior_pack/manifest.json (60 lines, 1212 bytes)
+## FILE: MCPEDL/Maps/OneBlock-Void-Survival/behavior_pack/manifest.json (60 lines, 1208 bytes)
 
 ```
 {
   "format_version": 2,
   "header": {
     "description": "Void survival map featuring progressive block mining, 43 procedural theme islands, and vanilla survival compatibility. by ALNStudios",
-    "name": "OneBlock Void Survival (v2.0.1)",
+    "name": "OneBlock Void Survival (v3)",
     "uuid": "6f42a0f9-6c11-4974-9bb5-075b3447d2d9",
     "version": [
-      2,
+      3,
       0,
-      1
+      0
     ],
     "min_engine_version": [
       1,
@@ -386,9 +383,9 @@ Leave clear space around the logo. No Minecraft, Mojang or Microsoft logos, no w
       "type": "data",
       "uuid": "2c9d7c28-b4b1-4719-9983-13324e2aaad2",
       "version": [
-        2,
+        3,
         0,
-        1
+        0
       ]
     },
     {
@@ -397,9 +394,9 @@ Leave clear space around the logo. No Minecraft, Mojang or Microsoft logos, no w
       "language": "javascript",
       "uuid": "f1351b45-2285-40d1-8e52-14ee221313d3",
       "version": [
-        2,
+        3,
         0,
-        1
+        0
       ],
       "entry": "scripts/main.js"
     }
@@ -419,7 +416,7 @@ Leave clear space around the logo. No Minecraft, Mojang or Microsoft logos, no w
       "ALNStudios"
     ],
     "product_type": "addon",
-    "version": "2.0.1"
+    "version": "3.0.0"
   }
 }
 ```
@@ -9087,14 +9084,14 @@ def main():
 main()
 ```
 
-## FILE: MCPEDL/Maps/OneBlock-Void-Survival/CHANGELOG.md (153 lines, 8530 bytes)
+## FILE: MCPEDL/Maps/OneBlock-Void-Survival/CHANGELOG.md (153 lines, 8527 bytes)
 
 ```
 # Changelog
 
 ---
 
-## [2.0.1] - 2026-11-14
+## [v3] - 2026-11-14
 
 **What's new in v2.0.1:** Packed with the v2.0.1 update. Includes: Island Build And Shifter Safety Fixes.
 

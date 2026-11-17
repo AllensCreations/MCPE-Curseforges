@@ -1,13 +1,13 @@
 {
   "format_version": 2,
   "header": {
-    "name": "Alphabet Scavenger Hunt (v1.9.1)",
+    "name": "Alphabet Scavenger Hunt (v2)",
     "description": "High-stakes 20-round survival challenge. Scavenge items matching the target letter before the 60s timer expires or suffer permanent max health decay!. by ALNStudios",
     "uuid": "ada4eaa0-2796-4c73-a8c2-7e60d04fcf18",
     "version": [
-      1,
-      9,
-      1
+      2,
+      0,
+      0
     ],
     "min_engine_version": [
       1,
@@ -21,9 +21,9 @@
       "type": "data",
       "uuid": "b4ab001a-a533-49f9-a560-6918fb5b0b06",
       "version": [
-        1,
-        9,
-        1
+        2,
+        0,
+        0
       ]
     },
     {
@@ -33,9 +33,9 @@
       "entry": "scripts/main.js",
       "uuid": "950c903e-42a2-48f3-8e64-60f2af35b73e",
       "version": [
-        1,
-        9,
-        1
+        2,
+        0,
+        0
       ]
     }
   ],
@@ -43,9 +43,9 @@
     {
       "uuid": "a5f9a639-fe66-47df-8519-bb256701a77e",
       "version": [
-        1,
-        9,
-        1
+        2,
+        0,
+        0
       ]
     },
     {
@@ -62,6 +62,6 @@
       "ALNStudios"
     ],
     "product_type": "addon",
-    "version": "1.9.1"
+    "version": "2.0.0"
   }
 }

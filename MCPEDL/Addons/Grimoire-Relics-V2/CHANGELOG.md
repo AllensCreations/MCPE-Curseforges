@@ -2,7 +2,7 @@
 
 ---
 
-## [1.13.2] - 2026-11-16
+## [v2] - 2026-11-16
 
 **What's new in v1.13.2:** Packed with the v1.13.2 update.
 

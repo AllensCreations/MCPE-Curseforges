@@ -1,8 +1,8 @@
 {
-  "changelog_version": "1.0.0",
-  "manifest_version": "1.0.0",
+  "changelog_version": "2.0.0",
+  "manifest_version": "2.0.0",
   "packages": {
-    "ALNSpawnControl V1.0.0.mcpack": "1282d5f67aa0a01daf97de5e87ee343796d5d3dbd1cfc7d2e88bc384d1b620d9"
+    "ALNSpawnControl V2.0.0.mcpack": "8935463e8d7e62533b1f5c573ac6276bcf302b933fe199becd69cf7233f6ec43"
   },
-  "source_sha256": "7a0ced1d61eb5ce80d7ae90be07e0f82bc741ce04e4cded3c2d51c9d868d1f14"
+  "source_sha256": "6b269ffc9df36a42cefb7d36e771632174f9eb2355ab4edaa59860627e9943ab"
 }

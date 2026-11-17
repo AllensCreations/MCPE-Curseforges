@@ -1,8 +1,8 @@
 {
-  "changelog_version": "1.10.1",
-  "manifest_version": "1.10.1",
+  "changelog_version": "2.0.0",
+  "manifest_version": "2.0.0",
   "packages": {
-    "ImmortalPets V1.10.1.mcaddon": "507ad3e258b32274837596c983e23526ed7cfa92f170c1cd8f48e923ce82cb06"
+    "ImmortalPets V2.0.0.mcaddon": "6de464dc99098745027fcfc376a953b901c0152eb25b2da34368d52179ea30f6"
   },
-  "source_sha256": "09d46d427e470a67f4b299291ea2550f2792f4a4247f874a2cc0e428b171553d"
+  "source_sha256": "b58e73e1a72ec2b0aa1ea80dc594d4ee4c1655216e7d4851f13ea506db4639ca"
 }

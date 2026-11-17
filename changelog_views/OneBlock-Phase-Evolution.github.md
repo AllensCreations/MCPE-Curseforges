@@ -1,6 +1,6 @@
 # Changelog — OneBlock Phase Evolution
 
-## [1.0.0] - 2026-11-03
+## [v2] - 2026-11-03
 
 ### Added
 - **Automatic Team Inventory**: Combined main inventory, armor, offhand, and Ender Chest for eligible multiplayer participants.

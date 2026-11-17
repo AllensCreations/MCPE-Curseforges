@@ -33,9 +33,9 @@ INSTALLED_COPY_PARTS = {"world", "worlds", "behavior_packs", "resource_packs"}
 JUNK_DIRS = {"__pycache__", ".git", ".github", "node_modules"}
 JUNK_FILES = {".ds_store", "thumbs.db", "desktop.ini", ".gitkeep"}
 BINARY_EXT = {".mcpack", ".mcaddon", ".mcworld", ".zip"}
-TITLE_SUFFIX_RE = re.compile(r"(?:\s*\(v\d+\.\d+\.\d+(?:\.\d+)?\))+\s*$")
-HAS_SUFFIX_RE = re.compile(r"\(v\d+\.\d+\.\d+(?:\.\d+)?\)\s*$")
-FULL_RE = re.compile(r"^(\d+)\.(\d+)\.(\d+)$")
+TITLE_SUFFIX_RE = re.compile(r"(?:\s*\(v(?:\d+(?:\.\d+)*)\))+\s*$", re.IGNORECASE)
+HAS_SUFFIX_RE = re.compile(r"\(v(?:\d+(?:\.\d+)*)\)\s*$", re.IGNORECASE)
+FULL_RE = re.compile(r"^(?:v)?(\d+)(?:\.(\d+)\.(\d+))?$", re.IGNORECASE)
 AUTHOR = "ALNStudios"
 LEGACY_AUTHORS = ("ALNStudios",)
 FILENAME_TEMPLATE_ENV = "PACK_FILENAME_TEMPLATE"
@@ -93,9 +93,16 @@ def highest_version(project_path):
 
 
 def parse_full(text):
-    """Parse the only supported project version format: X.Y.Z."""
-    m = FULL_RE.fullmatch(str(text or "").strip())
-    return [int(m.group(i)) for i in range(1, 4)] if m else None
+    """Parse supported project version format: vX or X.Y.Z."""
+    cleaned = str(text or "").strip()
+    m = FULL_RE.fullmatch(cleaned)
+    if not m:
+        return None
+    major = int(m.group(1))
+    # If 3 parts were given
+    if m.group(2) is not None and m.group(3) is not None:
+        return [major, int(m.group(2)), int(m.group(3))]
+    return [major, 0, 0]
 
 def highest_full(project_path):
     return highest_version(project_path)
@@ -103,6 +110,8 @@ def highest_full(project_path):
 def bump_patch(version):
     if not is_triple(version):
         raise ValueError("Version must contain exactly three non-negative integers")
+    if version[1] == 0 and version[2] == 0:
+        return [version[0] + 1, 0, 0]
     return [version[0], version[1], version[2] + 1]
 
 def _retitle(name, version_text):
@@ -185,7 +194,8 @@ def align_project_manifests(project_path, target=None, write=True, metadata=True
         header["version"] = target
         for module in data.get("modules", []) or []:
             if isinstance(module, dict) and isinstance(module.get("version"), list): module["version"] = target
-        retitled = _retitle(header.get("name"), target_text)
+        title_text = str(target[0]) if (target[1] == 0 and target[2] == 0) else target_text
+        retitled = _retitle(header.get("name"), title_text)
         if retitled != header.get("name"): header["name"] = retitled
         deps = data.get("dependencies", [])
         for dep in deps if isinstance(deps, list) else []:
@@ -341,18 +351,23 @@ def package_basename(project_path, version_text, fallback_title):
 
 
 def latest_changelog_version(project_path):
-    """First '## [X.Y.Z]' heading of CHANGELOG.md, or None."""
+    """First '## [vX]' or '## [X.Y.Z]' heading of CHANGELOG.md, or None."""
     path = os.path.join(project_path, "CHANGELOG.md")
     try:
         with open(path, encoding="utf-8") as fh:
             for line in fh:
-                m = re.match(r"^## \[(\d+\.\d+\.\d+(?:\.\d+)?)\]", line)
+                m = re.match(r"^## \[(?:v)?(\d+(?:\.\d+\.\d+(?:\.\d+)?)?)\]", line, re.IGNORECASE)
                 if m:
-                    parts = parse_full(m.group(1))
-                    if len(m.group(1).split(".")) == 4:
-                        raw = [int(p) for p in m.group(1).split(".")]
-                        parts = [raw[0], raw[2], raw[3]]
-                    return fmt(parts) if parts else None
+                    ver_raw = m.group(1)
+                    if "." in ver_raw:
+                        parts = parse_full(ver_raw)
+                        if len(ver_raw.split(".")) == 4:
+                            raw = [int(p) for p in ver_raw.split(".")]
+                            parts = [raw[0], raw[2], raw[3]]
+                        return fmt(parts) if parts else None
+                    else:
+                        num = int(ver_raw)
+                        return f"{num}.0.0"
     except OSError:
         pass
     return None

@@ -1,6 +1,6 @@
 # Changelog — Padlock & Key
 
-## [1.4.2] - 2026-11-16
+## [v2] - 2026-11-16
 
 ### Improved & Balanced
 - **Lighter Lock Checks**: Explosions, Pistons, Hopper Minecart checks and lock cleanup now do far less work. Worlds with many locks or large redstone farms run smoother.

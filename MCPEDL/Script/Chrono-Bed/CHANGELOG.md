@@ -2,7 +2,7 @@
 
 ---
 
-## [1.0.0] - 2026-11-04
+## [v2] - 2026-11-04
 
 ### Added
 - **Bed Time-Lapse**: Sleeping at night now carries the world to 07:00 in an accelerating time-lapse.

@@ -2,7 +2,7 @@
 
 ---
 
-## [1.8.5] - 2026-11-16
+## [v2] - 2026-11-16
 
 **What's new in v1.8.5:** Packed with 3 updates, from v1.8.3 through v1.8.5. Includes: Fox Tool Balance; Fox Tool Attacks; Fox Combat Upgrade.
 

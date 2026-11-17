@@ -1,6 +1,6 @@
 # Changelog — 2-in-1 Loot & XP Booster
 
-## [1.0.16] - 2026-11-17
+## [v2] - 2026-11-17
 
 ### Fixed
 - **Bone meal crops**: Crops sped up with bone meal are no longer multiplied when broken.

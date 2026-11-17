@@ -15,7 +15,7 @@ ROOT = Path(__file__).resolve().parents[1]
 OUT = ROOT / "changelog_views"
 CATEGORIES = ("Addons", "Maps", "Script", "Minigame")
 TITLE = re.compile(r"^# Changelog — (.+)$")
-ENTRY = re.compile(r"^## \[(\d+)\.(\d+)\.(\d+)(?:\.(\d+))?\] - (\d{4}-\d{2}-\d{2})(?: - (\S.*))?$")
+ENTRY = re.compile(r"^## \[(?:v)?(\d+)(?:\.(\d+))?(?:\.(\d+))?(?:\.(\d+))?\] - (\d{4}-\d{2}-\d{2})(?: - (\S.*))?$", re.IGNORECASE)
 GROUP = re.compile(r"^### (.+)$")
 BULLET = re.compile(r"^- \*\*([^*]+)\*\*: (\S.*)$")
 
@@ -30,7 +30,9 @@ def parse(text):
             continue
         e = ENTRY.match(line)
         if e:
-            cur = {"v": tuple(int(x or 0) for x in e.groups()[:4]), "date": e.group(5), "name": (e.group(6) or "").strip(), "groups": []}
+            raw_v = tuple(int(x or 0) for x in e.groups()[:4])
+            is_single = e.group(2) is None and e.group(3) is None and e.group(4) is None
+            cur = {"v": raw_v, "is_single": is_single, "date": e.group(5), "name": (e.group(6) or "").strip(), "groups": []}
             releases.append(cur)
             grp = None
             continue
@@ -47,6 +49,8 @@ def parse(text):
 
 
 def ver(r):
+    if r.get("is_single"):
+        return f"v{r['v'][0]}"
     return ".".join(map(str, r["v"] if r["v"][3] else r["v"][:3]))
 
 

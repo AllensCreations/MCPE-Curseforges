@@ -2,7 +2,7 @@
 
 ---
 
-## [1.1.10] - 2026-11-14
+## [v2] - 2026-11-14
 
 **What's new in v1.1.10:** Packed with 4 updates, from v1.1.7 through v1.1.10. Includes: Rename And Move Removed; Move Slots; Name On Save And Faster Fade; Bold Countdown Number.
 

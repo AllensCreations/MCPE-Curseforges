@@ -5,7 +5,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 PROJECT_ROOT = ROOT / "MCPEDL"
-TITLE_RE = re.compile(r"^(.+?) \(v(\d+\.\d+\.\d+)\)$")
+TITLE_RE = re.compile(r"^(.+?) \(v(\d+(?:\.\d+\.\d+)?)\)$")
 ATTRIBUTION = "by ALNStudios"
 
 def advisories(paths):
@@ -44,8 +44,10 @@ def validate(paths):
         if not match: errors.append(f"{rel}: header.name must end with exactly one (vX.Y.Z) suffix.")
         else:
             shown = match.group(2)
-            if expected is not None and shown != expected: errors.append(f"{rel}: title version v{shown} does not match manifest version v{expected}.")
-            records.append((path, shown))
+            valid = (shown == expected) or (version is not None and len(version) == 3 and version[1] == 0 and version[2] == 0 and shown == str(version[0]))
+            if expected is not None and not valid: errors.append(f"{rel}: title version v{shown} does not match manifest version v{expected}.")
+            norm_shown = f"{shown}.0.0" if "." not in shown else shown
+            records.append((path, norm_shown))
         desc = header.get("description")
         if not isinstance(desc, str) or desc.count(ATTRIBUTION) != 1: errors.append(f"{rel}: header.description must contain {ATTRIBUTION!r} exactly once.")
     pairs = {}

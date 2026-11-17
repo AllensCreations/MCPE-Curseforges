@@ -5,7 +5,7 @@ Download the current release of **Universal Leash** for Minecraft Bedrock Editio
 ## Download
 
 - **Package format:** `.mcaddon`
-- **Direct download:** [Download Universal Leash (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Universal-Leash/UniversalLeash%20V2.0.0.mcaddon)
+- **Direct download:** [Download Universal Leash (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Universal-Leash/UniversalLeash%20V3.0.0.mcaddon)
 
 ## Installation
 

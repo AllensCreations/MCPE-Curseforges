@@ -1,0 +1,8 @@
+{
+  "changelog_version": "2.0.0",
+  "manifest_version": "2.0.0",
+  "packages": {
+    "AlwaysCritical V2.0.0.mcpack": "dc56d8cddfd8cc2e75630241683b7975272e86bc978cd42299d42a73757d4ed3"
+  },
+  "source_sha256": "7341288e22c129423045f8ab0b97de942164d6dcd872beff9254c616732819d4"
+}

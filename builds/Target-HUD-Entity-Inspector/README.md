@@ -8,7 +8,7 @@ This folder contains compiled release packages for **Target HUD Entity Inspector
 
 | File Name | Format | Size | Description | Download Link |
 | :--- | :--- | :--- | :--- | :--- |
-| **`TargetHUD V1.1.2.mcpack`** | `.mcpack` | ~115 KB | Script Behavior Pack archive ready for import. | [Download (.mcpack)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Target-HUD-Entity-Inspector/TargetHUD%20V1.1.2.mcpack) |
+| **`TargetHUD V2.0.0.mcpack`** | `.mcpack` | ~115 KB | Script Behavior Pack archive ready for import. | [Download (.mcpack)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Target-HUD-Entity-Inspector/TargetHUD%20V2.0.0.mcpack) |
 
 ---
 

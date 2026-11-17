@@ -1,6 +1,6 @@
 # Changelog — ALN Quiver
 
-## [1.0.0] - 2026-11-14 - Quiver Release
+## [v2] - 2026-11-14 - Quiver Release
 
 ### Added
 - **Quiver**: A craftable item that stores up to 256 standard arrows and shows its stored amount in its tooltip.

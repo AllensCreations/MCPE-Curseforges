@@ -2,7 +2,7 @@
 
 ---
 
-## [1.0.0] - 2026-11-16 - First Release
+## [v2] - 2026-11-16 - First Release
 
 ### Added
 - **ALN Pointer**: A cursor-shaped item that opens the ALNStudios menu. You get one the first time you join a world, and it is in the Equipment tab of the Creative inventory.

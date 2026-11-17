@@ -1,8 +1,8 @@
 {
-  "changelog_version": "1.14.0",
-  "manifest_version": "1.14.0",
+  "changelog_version": "2.0.0",
+  "manifest_version": "2.0.0",
   "packages": {
-    "MelodyFigurine V1.14.0.mcaddon": "663874c7c0745676b3f72e7727c1da0d31c7dba216a2fbb30196d364aa5320f0"
+    "MelodyFigurine V2.0.0.mcaddon": "081db840ce3de0053d0ac0b57407f330a3086b67b2ab80738f88c90cce721483"
   },
-  "source_sha256": "4b7680fb6d9bff85dcc9d53e9bc2d648587a9bbfb0484f75cd11c701347d6748"
+  "source_sha256": "aad76ce235598c26486005790395c70b6292551b65a6551f51f4b91332568858"
 }

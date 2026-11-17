@@ -2,7 +2,7 @@
 
 ---
 
-## [1.0.2] - 2026-11-13
+## [v2] - 2026-11-13
 
 **What's new in v1.0.2:** Packed with the v1.0.2 update. Includes: Spear Icons and Readable Menus.
 

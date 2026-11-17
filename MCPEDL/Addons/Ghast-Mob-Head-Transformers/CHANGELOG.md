@@ -2,7 +2,7 @@
 
 ---
 
-## [1.16.1] - 2026-11-13
+## [v2] - 2026-11-13
 
 **What's new in v1.16.1:** Packed with the v1.16.1 update. Includes: Head Drops, Abilities and Fixes.
 

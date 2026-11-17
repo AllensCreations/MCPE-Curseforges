@@ -5,7 +5,7 @@ Download the current release of **Trivia Vault The Locked World** for Minecraft 
 ## Download
 
 - **Package format:** `.mcaddon`
-- **Direct download:** [Download Trivia Vault The Locked World (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Trivia-Vault-The-Locked-World/TriviaVault%20V1.19.0.mcaddon)
+- **Direct download:** [Download Trivia Vault The Locked World (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Trivia-Vault-The-Locked-World/TriviaVault%20V2.0.0.mcaddon)
 
 ## Installation
 

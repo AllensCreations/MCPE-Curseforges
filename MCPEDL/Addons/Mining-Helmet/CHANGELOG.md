@@ -2,7 +2,7 @@
 
 ---
 
-## [1.14.5] - 2026-11-12
+## [v2] - 2026-11-12
 
 **What's new in v1.14.5:** Packed with the v1.14.5 update. Includes: Mob Light and Falloff.
 

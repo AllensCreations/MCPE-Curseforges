@@ -5,7 +5,7 @@ Download the current release of **Mob Chaos Behavioral Roulette** for Minecraft 
 ## Download
 
 - **Package format:** `.mcaddon`
-- **Direct download:** [Download Mob Chaos Behavioral Roulette (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Mob-Chaos-Behavioral-Roulette/MobChaos%20V1.4.2.mcaddon)
+- **Direct download:** [Download Mob Chaos Behavioral Roulette (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Mob-Chaos-Behavioral-Roulette/MobChaos%20V2.0.0.mcaddon)
 
 ## Installation
 

@@ -8,7 +8,7 @@ This folder contains compiled release packages for **Universal Clutch** by ALNSt
 
 | File Name | Format | Size | Description | Download Link |
 | :--- | :--- | :--- | :--- | :--- |
-| **`UniversalClutch V1.5.6.mcpack`** | `.mcpack` | ~118 KB | Script Behavior Pack archive ready for import. | [Download (.mcpack)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Universal-Clutch/UniversalClutch%20V1.5.6.mcpack) |
+| **`UniversalClutch V2.0.0.mcpack`** | `.mcpack` | ~118 KB | Script Behavior Pack archive ready for import. | [Download (.mcpack)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Universal-Clutch/UniversalClutch%20V2.0.0.mcpack) |
 
 ---
 

@@ -1,11 +1,11 @@
 {
   "format_version": 2,
   "header": {
-    "name": "Expanded Basic Arsenal (v1.0.0)",
+    "name": "Expanded Basic Arsenal (v2)",
     "description": "Textures and names for the five Expanded Basic Arsenal weapons. by ALNStudios",
     "uuid": "63a9ddbd-938e-4e3f-9a49-60d183f08dbb",
     "version": [
-      1,
+      2,
       0,
       0
     ],
@@ -20,7 +20,7 @@
       "type": "resources",
       "uuid": "47481b6e-1535-4f50-b3e1-6feb80b94353",
       "version": [
-        1,
+        2,
         0,
         0
       ]
@@ -31,6 +31,6 @@
       "ALNStudios"
     ],
     "product_type": "addon",
-    "version": "1.0.0"
+    "version": "2.0.0"
   }
 }

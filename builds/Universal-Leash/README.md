@@ -8,7 +8,7 @@ This folder contains compiled release packages for **Universal Leash** by ALNStu
 
 | File Name | Format | Size | Description | Download Link |
 | :--- | :--- | :--- | :--- | :--- |
-| **`UniversalLeash V2.0.0.mcaddon`** | `.mcaddon` | ~226 KB | Complete bundle containing both Behavior Pack and Resource Pack. | [Download (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Universal-Leash/UniversalLeash%20V2.0.0.mcaddon) |
+| **`UniversalLeash V3.0.0.mcaddon`** | `.mcaddon` | ~226 KB | Complete bundle containing both Behavior Pack and Resource Pack. | [Download (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Universal-Leash/UniversalLeash%20V3.0.0.mcaddon) |
 
 ---
 
