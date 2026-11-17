@@ -6,7 +6,7 @@
 - **Destination:** `MCPEDL/Script/Command-Vault`
 - **CURRENT VERSION: v2 / NEXT UPDATE: v3**  (`MCPEDL/Script/Command-Vault/CHANGELOG.md`)
 - **Text files:** 15
-- **Skipped binary:** 0
+- **Skipped binary:** 1
 - **Paths not found:** 0
 
 ### Files in this export
@@ -26,6 +26,10 @@
 - `MCPEDL/Script/Command-Vault/project.json`
 - `MCPEDL/Script/Command-Vault/README.md`
 - `MCPEDL/Script/README.md`
+
+### Skipped (binary)
+
+- `MCPEDL/Script/Command-Vault/behavior_pack/pack_icon.png`
 
 ---
 

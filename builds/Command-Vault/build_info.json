@@ -2,7 +2,7 @@
   "changelog_version": "2.0.0",
   "manifest_version": "2.0.0",
   "packages": {
-    "CommandVault V2.0.0.mcpack": "08e8d3eef4834308c7d18b3ebfaa7bc9bd191d7ccab6f9ccf5ca3aaa5392c7fa"
+    "CommandVault V2.0.0.mcpack": "b2459a2bfc7c7756346ee65ed164f286fbb795384b11ce806ad31616bfcfe1c0"
   },
-  "source_sha256": "20ddfcc8cb7f221871722e07b5445e43ceb80d3c9f6d4f936c8d7eb8350cdce5"
+  "source_sha256": "29b6786cb28e6e38b60a5070e0934094243e5017612969d5ebdaab6efe48f089"
 }
