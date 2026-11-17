@@ -2,6 +2,14 @@
 
 ---
 
+## [1.0.14] - 2026-11-17 - Smoother Boosters and Safer Loot
+
+### Improved & Balanced
+
+- **No place-and-break farming**: Ancient debris, melons, glowstone and sea lanterns are no longer multiplied, because they drop themselves or can be crafted back into the same block.
+- **Lighter XP checks**: The XP booster now works out which player an orb belongs to once per pass and no longer moves orbs that are already next to you, which reduces lag in busy XP farms.
+- **Item tracking limit**: The Loot booster stops tracking new item drops once a very large number are waiting, which protects busy servers.
+
 ## [1.0.13] - 2026-11-17
 
 **What's new in v1.0.13:** Packed with 3 updates, from v1.0.11 through v1.0.13. Includes: Drop Limit and Cleaner Menus; Orb XP Restored; Direct XP and Fair Drops.

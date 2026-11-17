@@ -2,7 +2,7 @@ import { world, system, EntityComponentTypes } from "@minecraft/server";
 import { ActionFormData, ModalFormData, FormCancelationReason } from "@minecraft/server-ui";
 
 const PACK_NAME = "2-in-1 Loot & XP Booster";
-const VERSION = "1.0.13";
+const VERSION = "1.0.14";
 const TITLE = `§l§6@ALNStudios §e${PACK_NAME}§r (v${VERSION})`;
 const ABOUT_TITLE = "About ALNStudios";
 const ICON_MAIN = "textures/items/experience_bottle";
@@ -20,6 +20,8 @@ const XP_TAG = "aln_boosted_xp";
 const XP_RADIUS = 8;
 const MAX_XP_SPAWNS_PER_PASS = 128;
 const MAX_LOOT_SPAWNS_PER_TICK = 64;
+const MAX_RECENT_ITEMS = 2000;
+const XP_PICKUP_SQUARED = 1;
 const BAR_DELAY_TICKS = 50;
 const BLOCK_RADIUS = 1.5;
 const MOB_RADIUS = 2.2;
@@ -37,12 +39,8 @@ const NON_MOB_TYPES = new Set([
 ]);
 const NON_MOB_FAMILIES = ["inanimate", "projectile", "minecart", "boat"];
 const LOOT_BLOCKS = new Set([
-  "minecraft:ancient_debris",
   "minecraft:gilded_blackstone",
   "minecraft:amethyst_cluster",
-  "minecraft:glowstone",
-  "minecraft:sea_lantern",
-  "minecraft:melon_block",
   "minecraft:wheat",
   "minecraft:carrots",
   "minecraft:potatoes",
@@ -264,6 +262,7 @@ world.afterEvents.playerLeave.subscribe(({ playerId }) => {
 world.afterEvents.entitySpawn.subscribe(({ entity }) => {
   if (!lootActive) return;
   if (!entity.isValid || entity.typeId !== "minecraft:item") return;
+  if (recentItems.size >= MAX_RECENT_ITEMS) return;
   recentItems.set(entity.id, system.currentTick);
 });
 
@@ -414,9 +413,20 @@ world.afterEvents.entityDie.subscribe(({ deadEntity, damageSource }) => {
   system.run(() => multiplyDrops(dimension, MOB_RADIUS, maxMultiplier, claim));
 });
 
+function hasNearerPlayer(orbLocation, player, players) {
+  const own = distanceSquared(orbLocation, player.location);
+  for (const other of players) {
+    if (other.id === player.id || !other.isValid) continue;
+    if (other.dimension.id !== player.dimension.id) continue;
+    if (distanceSquared(orbLocation, other.location) < own) return true;
+  }
+  return false;
+}
+
 system.runInterval(() => {
   let budget = MAX_XP_SPAWNS_PER_PASS;
-  for (const player of world.getAllPlayers()) {
+  const players = world.getAllPlayers();
+  for (const player of players) {
     if (!player.isValid) continue;
     const multiplier = xpMultiplier(player);
     if (multiplier <= 1) continue;
@@ -437,12 +447,8 @@ system.runInterval(() => {
     for (const orb of orbs) {
       try {
         if (!orb.isValid) continue;
-        const nearest = dimension.getPlayers({
-          location: orb.location,
-          maxDistance: XP_RADIUS,
-          closest: 1,
-        });
-        if (nearest.length === 0 || nearest[0].id !== player.id) continue;
+        const orbLocation = orb.location;
+        if (hasNearerPlayer(orbLocation, player, players)) continue;
         if (!orb.hasTag(XP_TAG)) {
           const extra = multiplier - 1;
           if (budget < extra) continue;
@@ -453,7 +459,7 @@ system.runInterval(() => {
           }
           budget -= extra;
         }
-        orb.teleport(location);
+        if (distanceSquared(orbLocation, location) > XP_PICKUP_SQUARED) orb.teleport(location);
       } catch (error) {
         continue;
       }
