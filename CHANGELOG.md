@@ -2,6 +2,18 @@
 
 ---
 
+## [v87] - 2026-11-17 - One Build for AI Review and MCPEDL README
+
+### Added
+- **AI review in the main build**: Build Changed Packs & Sync Catalogs now refreshes every package's AI review file in the same run and commit, so each update ships with its review.
+
+### Improved & Balanced
+- **Minimal MCPEDL README**: `MCPEDL/README.md` lists Pack, Version, Source and AI review. The download column is gone and the AI review links to each package's own file.
+- **One workflow**: the separate MCPEDL README workflow is removed and Collect Files for AI Review no longer starts after the build (manual runs stay).
+
+### Fixed
+- **AI review link**: the README now points at `MCPEDL/<Type>/<Name>/ai-review/<Name>.txt` instead of looking for a zip.
+
 ## [v86] - 2026-11-17 - MCPEDL Index README
 
 ### Added

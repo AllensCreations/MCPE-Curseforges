@@ -26,8 +26,8 @@ name: Collect Files for AI Review
 #   Tick "commit_changelog_views" to also save the refreshed views to the repo (needs write access).
 #
 # AUTOMATIC PER-PACKAGE FILES (new)
-#   After every run of "Build Changed Packs & Sync Catalogs" (push, nightly, manual) this workflow starts by itself
-#   and runs scripts/auto_ai_review.py. Every package whose files changed gets ONE fresh file inside its own folder:
+#   "Build Changed Packs & Sync Catalogs" runs scripts/auto_ai_review.py itself (push, nightly, manual); this workflow only
+#   repeats it on demand (refresh_package_files). Every package whose files changed gets ONE fresh file inside its own folder:
 #     MCPEDL/<Category>/<Name>/ai-review/<Name>.txt     (same content as the manual paths run)
 #   plus ai-review/tools.txt once for the whole repo (instruction files and helper scripts).
 #   The root README.md list of download links is refreshed when README.md holds the two lines
@@ -36,10 +36,6 @@ name: Collect Files for AI Review
 # Save as: .github/workflows/collect-ai-review-files.yml
 
 on:
-  workflow_run:
-    workflows: ["Build Changed Packs & Sync Catalogs"]
-    types: [completed]
-    branches: [main]
   workflow_dispatch:
     inputs:
       paths:
