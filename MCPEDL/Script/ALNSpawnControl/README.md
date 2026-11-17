@@ -1,11 +1,11 @@
-# ALN:SpawnControl
+# ALNSpawnControl
 
-Download the current release of **ALN:SpawnControl** for Minecraft Bedrock Edition.
+Download the current release of **ALNSpawnControl** for Minecraft Bedrock Edition.
 
 ## Download
 
 - **Package format:** `.mcpack`
-- **Direct download:** [Download ALN:SpawnControl (.mcpack)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/ALN-SpawnControl/ALNSpawnControl%20V1.0.0.mcpack)
+- **Direct download:** [Download ALNSpawnControl (.mcpack)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/ALNSpawnControl/ALNSpawnControl%20V1.0.0.mcpack)
 
 ## Installation
 
@@ -15,4 +15,4 @@ Download the current release of **ALN:SpawnControl** for Minecraft Bedrock Editi
 
 ## Pack Information
 
-For gameplay features, usage details, compatibility notes, and other project information, read the [full description](https://github.com/AllensCreations/MCPE-Curseforges/blob/main/MCPEDL/Script/ALN-SpawnControl/DESCRIPTION.md).
+For gameplay features, usage details, compatibility notes, and other project information, read the [full description](https://github.com/AllensCreations/MCPE-Curseforges/blob/main/MCPEDL/Script/ALNSpawnControl/DESCRIPTION.md).

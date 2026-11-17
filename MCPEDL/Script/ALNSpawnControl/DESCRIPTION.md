@@ -79,3 +79,4 @@ Rename a vanilla Book to "Spawn Manager" on an Anvil and use it to open the cont
 ## Search & Discovery Keywords
 
 Minecraft Bedrock add-on, ALN:SpawnControl Bedrock mod, mob spawn whitelist, custom mob toggle, spawn manager book, Minecraft PE survival, MCPEDL add-on, CurseForge Bedrock, ALNStudios.
+

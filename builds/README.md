@@ -41,7 +41,7 @@ This directory stores compiled Add-ons (`.mcaddon`), Maps (`.mcworld`), Scripts 
 | **Expanded Basic Arsenal** | Add-on (.mcaddon) | [Download (.mcaddon)](Expanded-Basic-Arsenal/ExpandedBasicArsenal%20V1.0.0.mcaddon) | [`Expanded-Basic-Arsenal/`](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/builds/Expanded-Basic-Arsenal/) |
 | **ALN Wireless Headphones** | Add-on (.mcaddon) | [Download (.mcaddon)](ALN-Wireless-Headphones/ALNWirelessHeadphones%20V1.0.0.mcaddon) | [`ALN-Wireless-Headphones/`](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/builds/ALN-Wireless-Headphones/) |
 | **ALN MoreDiscs** | Add-on (.mcaddon) | [Download (.mcaddon)](ALN-MoreDiscs/ALNMoreDiscs%20V1.1.1.mcaddon) | [`ALN-MoreDiscs/`](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/builds/ALN-MoreDiscs/) |
-| **ALN Pointer** | Complete Pack (`.mcaddon`) | [Download (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/ALN-Pointer/ALNPointer%20V1.0.0.mcaddon) | [`ALN-Pointer/`](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/builds/ALN-Pointer/) |
+| **ALN Pointer** | Add-on (.mcaddon) | [Download (.mcaddon)](ALN-Pointer/ALNPointer%20V1.0.0.mcaddon) | [`ALN-Pointer/`](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/builds/ALN-Pointer/) |
 
 ### Worlds and Maps
 
@@ -77,6 +77,7 @@ This directory stores compiled Add-ons (`.mcaddon`), Maps (`.mcworld`), Scripts 
 | **Living SMP Chat** | Script Pack (.mcpack) | [Download (.mcpack)](Living-SMP-Chat/LivingSMPChat%20V1.0.11.mcpack) | [`Living-SMP-Chat/`](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/builds/Living-SMP-Chat/) |
 | **Gameplay Optimizer** | Script Pack (.mcpack) | [Download (.mcpack)](Gameplay-Optimizer/GameplayOptimizer%20V1.0.0.mcpack) | [`Gameplay-Optimizer/`](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/builds/Gameplay-Optimizer/) |
 | **ALNMobStacker** | Script Pack (.mcpack) | [Download (.mcpack)](ALN-MobStacker/ALNMobStacker%20V1.0.5.mcpack) | [`ALN-MobStacker/`](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/builds/ALN-MobStacker/) |
+| **ALNSpawnControl** | Script Pack (`.mcpack`) | [Download (.mcpack)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/ALNSpawnControl/ALNSpawnControl%20V1.0.0.mcpack) | [`ALNSpawnControl/`](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/builds/ALNSpawnControl/) |
 
 ---
 
