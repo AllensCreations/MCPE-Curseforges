@@ -4,6 +4,14 @@ Generated file. Do not edit by hand: it is rebuilt with every build.
 
 32 Add-ons · 6 Maps · 9 Scripts · 6 Minigames
 
+## AI Review Kits
+
+| Kit | Download |
+| :-- | :-- |
+| **New Pack Kit** | *(not yet built)* |
+| **Update Pack Kit** | [Download](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/ai-review/Update-Pack_tools.txt) |
+| **Repo Maintenance Kit** | [Download](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/ai-review/tools.txt) |
+
 ## Add-ons
 
 | Pack | Version | Source | AI review |
