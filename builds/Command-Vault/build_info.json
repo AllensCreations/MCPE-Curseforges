@@ -1,0 +1,8 @@
+{
+  "changelog_version": "1.0.0",
+  "manifest_version": "1.0.0",
+  "packages": {
+    "CommandVault V1.0.0.mcpack": "254faab1e73331df85dc883c61b8cd35567eb3bcb3514ec694ef511bcf34f5e8"
+  },
+  "source_sha256": "8c9781bde81412f4b64f9a8269e242e18f67c10bb06985fceff8b5bfda1cde9f"
+}

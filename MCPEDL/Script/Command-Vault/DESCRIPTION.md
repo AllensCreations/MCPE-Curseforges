@@ -68,3 +68,4 @@ Command Vault gives players an intuitive, menu-driven way to store and run comma
 ## Search & Discovery Keywords
 
 Minecraft Bedrock add-on, Command Vault Bedrock mod, command macro UI, quick execute commands, Minecraft PE command menu, MCPEDL add-on, CurseForge Bedrock, ALNStudios.
+

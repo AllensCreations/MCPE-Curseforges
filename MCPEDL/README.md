@@ -2,7 +2,7 @@
 
 Generated file. Do not edit by hand: it is rebuilt with every build.
 
-32 Add-ons · 6 Maps · 8 Scripts · 6 Minigames
+32 Add-ons · 6 Maps · 9 Scripts · 6 Minigames
 
 ## Add-ons
 
@@ -60,6 +60,7 @@ Generated file. Do not edit by hand: it is rebuilt with every build.
 | **ALN:SpawnControl** | - | [Source](Script/ALNSpawnControl) | [Download](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/MCPEDL/Script/ALNSpawnControl/ai-review/ALNSpawnControl.txt) |
 | **Always Critical** | - | [Source](Script/Always-Critical) | [Download](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/MCPEDL/Script/Always-Critical/ai-review/Always-Critical.txt) |
 | **Chrono-Bed** | - | [Source](Script/Chrono-Bed) | [Download](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/MCPEDL/Script/Chrono-Bed/ai-review/Chrono-Bed.txt) |
+| **Command Vault** | 1.0.0 | [Source](Script/Command-Vault) | [Download](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/MCPEDL/Script/Command-Vault/ai-review/Command-Vault.txt) |
 | **Gameplay Optimizer** | - | [Source](Script/Gameplay-Optimizer) | [Download](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/MCPEDL/Script/Gameplay-Optimizer/ai-review/Gameplay-Optimizer.txt) |
 | **Living SMP Chat** | 1.0.8 | [Source](Script/Living-SMP-Chat) | [Download](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/MCPEDL/Script/Living-SMP-Chat/ai-review/Living-SMP-Chat.txt) |
 | **Target HUD Entity Inspector** | 1.1.1 | [Source](Script/Target-HUD-Entity-Inspector) | [Download](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/MCPEDL/Script/Target-HUD-Entity-Inspector/ai-review/Target-HUD-Entity-Inspector.txt) |
