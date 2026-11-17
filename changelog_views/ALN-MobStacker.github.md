@@ -1,16 +1,25 @@
 # Changelog — ALN:MobStacker
 
-## [1.0.4] - 2026-11-17 - Separate Baby Stacks
+## [1.0.5] - 2026-11-17 - Armor Drops and Smoother Loot
+
+### Added
+- **Armor Drops**: A Sneak Kill on Zombie and Husk stacks now has a small chance per extra mob to drop a piece of armor.
 
 ### Improved & Balanced
+- **Smoother Loot**: Sneak Kill drops now appear over a few ticks instead of all at once, and a single kill spawns at most 256 item piles.
+- **Baby Farm Stacks**: Baby farm animal stacks now keep their original mob, so its growth timer is no longer reset when the stack forms.
+
+<details>
+<summary><b>1.0.x</b> (5 releases)</summary>
+
+### [1.0.4] - 2026-11-17 - Separate Baby Stacks
+
+#### Improved & Balanced
 - **Baby and Adult Stacks**: Babies and adults of every mob type stay in separate stacks again, and a killed stack mob is replaced by the same kind.
 - **Zombie Variants**: Zombies, Husks, Drowned and Zombified Piglins each keep their own stack, and armored ones stay separate again.
 
-### Fixed
+#### Fixed
 - **Random Babies**: Adult stacks no longer turn into random baby mobs when a mob is killed.
-
-<details>
-<summary><b>1.0.x</b> (4 releases)</summary>
 
 ### [1.0.3] - 2026-11-17 - Mixed Zombie Stacks
 
