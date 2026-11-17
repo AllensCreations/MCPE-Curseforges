@@ -77,7 +77,7 @@ This directory stores compiled Add-ons (`.mcaddon`), Maps (`.mcworld`), Scripts 
 | **Living SMP Chat** | Script Pack (.mcpack) | [Download (.mcpack)](Living-SMP-Chat/LivingSMPChat%20V1.0.11.mcpack) | [`Living-SMP-Chat/`](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/builds/Living-SMP-Chat/) |
 | **Gameplay Optimizer** | Script Pack (.mcpack) | [Download (.mcpack)](Gameplay-Optimizer/GameplayOptimizer%20V1.0.0.mcpack) | [`Gameplay-Optimizer/`](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/builds/Gameplay-Optimizer/) |
 | **ALNMobStacker** | Script Pack (.mcpack) | [Download (.mcpack)](ALN-MobStacker/ALNMobStacker%20V1.0.5.mcpack) | [`ALN-MobStacker/`](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/builds/ALN-MobStacker/) |
-| **ALNSpawnControl** | Script Pack (`.mcpack`) | [Download (.mcpack)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/ALNSpawnControl/ALNSpawnControl%20V1.0.0.mcpack) | [`ALNSpawnControl/`](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/builds/ALNSpawnControl/) |
+| **ALNSpawnControl** | Script Pack (.mcpack) | [Download (.mcpack)](ALNSpawnControl/ALNSpawnControl%20V1.0.0.mcpack) | [`ALNSpawnControl/`](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/builds/ALNSpawnControl/) |
 
 ---
 
