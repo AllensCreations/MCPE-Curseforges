@@ -2,7 +2,7 @@ import { world, system, EntityComponentTypes } from "@minecraft/server";
 import { ActionFormData, ModalFormData, FormCancelationReason } from "@minecraft/server-ui";
 
 const PACK_NAME = "2-in-1 Loot & XP Booster";
-const VERSION = "1.0.15";
+const VERSION = "1.0.16";
 const TITLE = `§l§6@ALNStudios §e${PACK_NAME}§r (v${VERSION})`;
 const ABOUT_TITLE = "About ALNStudios";
 const ICON_MAIN = "textures/items/experience_bottle";
@@ -27,6 +27,8 @@ const BLOCK_RADIUS = 1.5;
 const MOB_RADIUS = 2.2;
 const XP_INTERVAL_TICKS = 2;
 const SPAWN_WINDOW_TICKS = 4;
+const DROP_TICK_SLACK = 2;
+const MAX_FERTILIZED = 4096;
 const CLAIM_LIFETIME_TICKS = 10;
 const MAX_FORM_RETRIES = 8;
 const NON_MOB_TYPES = new Set([
@@ -67,6 +69,7 @@ const GROWTH_RULES = {
   "minecraft:sweet_berry_bush": ["growth", 3],
 };
 const recentItems = new Map();
+const fertilized = new Set();
 const barTimers = new Map();
 let lootActive = false;
 let lootTick = -1;
@@ -388,7 +391,7 @@ function multiplyDrops(dimension, radius, maxMultiplier, claim) {
     try {
       if (!entity.isValid || entity.hasTag(DROP_TAG)) continue;
       const born = recentItems.get(entity.id);
-      if (born === undefined || now - born > SPAWN_WINDOW_TICKS) continue;
+      if (born === undefined || Math.abs(born - claim.tick) > DROP_TICK_SLACK) continue;
       if (!isNearestClaim(claim, entity.location)) continue;
       entity.addTag(DROP_TAG);
 
@@ -413,16 +416,33 @@ function multiplyDrops(dimension, radius, maxMultiplier, claim) {
   }
 }
 
+function blockKey(dimension, location) {
+  return `${dimension.id}:${location.x},${location.y},${location.z}`;
+}
+
+world.afterEvents.playerInteractWithBlock.subscribe(({ block, itemStack }) => {
+  if (!itemStack || itemStack.typeId !== "minecraft:bone_meal") return;
+  if (!GROWTH_RULES[block.typeId]) return;
+  fertilized.add(blockKey(block.dimension, block.location));
+  if (fertilized.size > MAX_FERTILIZED) fertilized.delete(fertilized.values().next().value);
+});
+
+world.afterEvents.playerPlaceBlock.subscribe(({ block }) => {
+  fertilized.delete(blockKey(block.dimension, block.location));
+});
+
 world.afterEvents.playerBreakBlock.subscribe((event) => {
   const { player, block, brokenBlockPermutation, dimension, itemStackBeforeBreak } = event;
   const origin = block.location;
   const center = { x: origin.x + 0.5, y: origin.y + 0.5, z: origin.z + 0.5 };
   const claim = addClaim(dimension, center, player.id);
+  const wasFertilized = fertilized.delete(blockKey(dimension, origin));
 
   const maxMultiplier = lootMultiplier(player);
   if (maxMultiplier <= 1) return;
   if (!isLootBlock(brokenBlockPermutation.type.id)) return;
   if (!isGrown(brokenBlockPermutation)) return;
+  if (wasFertilized) return;
   if (hasSilkTouch(itemStackBeforeBreak)) return;
 
   system.run(() => multiplyDrops(dimension, BLOCK_RADIUS, maxMultiplier, claim));

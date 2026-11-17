@@ -2,6 +2,13 @@
 
 ---
 
+## [1.0.16] - 2026-11-17 - Bone Meal and Drop Timing
+
+### Fixed
+
+- **Bone meal crops**: Crops sped up with bone meal are no longer multiplied when broken.
+- **Nearby items left alone**: Only items that drop the instant you break a block or kill a mob are multiplied, so items thrown or dropped nearby a moment earlier or later are no longer multiplied.
+
 ## [1.0.15] - 2026-11-17 - Crop and Carrier Fixes
 
 ### Fixed
