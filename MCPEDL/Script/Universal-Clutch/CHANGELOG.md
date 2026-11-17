@@ -2,17 +2,14 @@
 
 ---
 
-## [1.5.4] - 2026-11-17 - Vanilla-Like Clutch Reach
+## [1.5.4] - 2026-11-17
+
+**What's new in v1.5.4:** Packed with 2 updates, from v1.5.3 through v1.5.4. Includes: Vanilla-Like Clutch Reach; Higher Clutch Reach.
 
 ### Improved & Balanced
 
 - **Closer to Vanilla**: Clutch items now trigger at most about 7 blocks above the ground, closer to normal play.
 - **Boat Reach**: The boat now appears up to 7 blocks above the ground.
-
-## [1.5.3] - 2026-11-17 - Higher Clutch Reach
-
-### Improved & Balanced
-
 - **Earlier Placement**: Clutch items are now placed from higher above the ground, giving you more time to land on them.
 - **Boat Timing**: The boat now appears higher above the ground and seats you later, in time with your fall.
 
@@ -34,6 +31,8 @@
 - **Natural Falling**: The camera is never moved or forced, and your falling speed is no longer reset.
 - **Extreme Mode**: Now works without looking down.
 
+
+
 ## [1.5.1] - 2026-11-14
 
 ### Improved & Balanced
@@ -51,6 +50,8 @@
 - **Fall Height**: Fall height no longer carries over after swimming, gliding, or leaving the game.
 - **Water Recovery**: Fixed an error when a player left within a moment of landing.
 - **Minimum Version**: The Behavior Pack now requires Minecraft 1.21.20 or newer.
+
+
 
 
 
