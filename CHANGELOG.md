@@ -2,6 +2,11 @@
 
 ---
 
+## 2026-11-17 - New Script ALNSpawnControl
+
+### Added
+- **ALNSpawnControl**: New script project created from a pack script.
+
 ## 2026-11-17 - New Addon ALN Pointer
 
 ### Added
