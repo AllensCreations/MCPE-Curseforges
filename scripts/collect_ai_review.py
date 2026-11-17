@@ -14,15 +14,23 @@ automatic per-package run (scripts/auto_ai_review.py).
 import os, re, pathlib
 
 EXPORT_MODE = os.environ.get("EXPORT_MODE", "update_pack").strip().lower()
-# Lean tool list for new_pack: instructions and UI kit only, no Python scripts
+# Tool files for new_pack: instructions, UI assets, and generator/validator scripts per SKILL.md & PACK_GENERATOR_INSTRUCTIONS.md
 LEAN_TOOL_FILES = [
     ".agents/skills/mcpe-new-pack/SKILL.md",
     "PACK_GENERATOR_INSTRUCTIONS.md",
     "INSTRUCTIONS.md",
     "DOCS_RULES.md",
+    "scripts/make_pack_script.py",
+    "scripts/build_payload.py",
+    "scripts/import_project_payload.py",
+    "scripts/doc_template.py",
+    "scripts/pixel_json_to_png.py",
+    "scripts/crafting_template.py",
+    "scripts/CRAFTING_TABLE.svg",
     "assets/aln-ui-redesign/README.txt",
     "assets/aln-ui-redesign/design.json",
     "assets/aln-ui-redesign/font/README.txt",
+    "assets/aln-ui-redesign/font/pixelify.js",
 ]
 
 AI_PROMPT = r'''# AI Instructions

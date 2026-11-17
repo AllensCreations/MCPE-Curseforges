@@ -2,6 +2,11 @@
 
 ---
 
+## [v96] - 2026-11-18 - Restore Pack Generator Tools to AI Review Export
+
+### Fixed
+- **AI Review new_pack tool files**: Restored essential pack-generator scripts (`make_pack_script.py`, `build_payload.py`, `import_project_payload.py`, `doc_template.py`, `pixel_json_to_png.py`, `crafting_template.py`, `CRAFTING_TABLE.svg`) to `New-Pack_tools.txt` in accordance with `PACK_GENERATOR_INSTRUCTIONS.md` and `SKILL.md`.
+
 ## [v95] - 2026-11-18 - Workflow Toggles, Publish Fix & Tooling Polish
 
 ### Fixed
