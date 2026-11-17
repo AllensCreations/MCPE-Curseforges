@@ -192,24 +192,35 @@ git config --global credential.helper store
 
 ## File Contents
 
-## FILE: changelog_views/Command-Vault.curseforge.html (3 lines, 814 bytes)
+## FILE: changelog_views/Command-Vault.curseforge.html (4 lines, 1154 bytes)
 
 ```
-<h2>2.0.0 - 2026-11-17</h2><h3>Added</h3><ul><li><strong>Delete Command Button</strong>: New main menu button opens a multi-select modal form.</li><li><strong>Multi-Toggle Deletion Form</strong>: Individual toggle per saved command; delete multiple macros in one operation.</li><li><strong>Batch Delete Feedback</strong>: Action bar shows count deleted and plays a break sound on success.</li></ul>
+<h2>2.0.1 - 2026-11-18 - Fix Submenu Transitions</h2><h3>Fixed</h3><ul><li><strong>Submenu Dialog Stalling</strong>: Wrapped submenu transitions in `system.run()` to prevent Minecraft Bedrock from silently ignoring consecutive modal form requests when clicking Delete Command.</li></ul>
+<h2>2.0.x (1 release)</h2><div class="spoiler"><h3>2.0.0 - 2026-11-17</h3><h4>Added</h4><ul><li><strong>Delete Command Button</strong>: New main menu button opens a multi-select modal form.</li><li><strong>Multi-Toggle Deletion Form</strong>: Individual toggle per saved command; delete multiple macros in one operation.</li><li><strong>Batch Delete Feedback</strong>: Action bar shows count deleted and plays a break sound on success.</li></ul></div>
 <h2>1.0.x (1 release)</h2><div class="spoiler"><h3>1.0.0 - 2026-11-18</h3><h4>Added</h4><ul><li><strong>Command Vault Form UI</strong>: Action and modal menus for saving, browsing, and executing command macros.</li><li><strong>Dynamic Property Storage</strong>: Persistent per-player command list storage.</li><li><strong>Anvil Key Activation</strong>: Trigger the menu using an Anvil-renamed book.</li></ul></div>
 ```
 
-## FILE: changelog_views/Command-Vault.github.md (21 lines, 716 bytes)
+## FILE: changelog_views/Command-Vault.github.md (31 lines, 1038 bytes)
 
 ```
 # Changelog — Command Vault
 
-## [2.0.0] - 2026-11-17
+## [2.0.1] - 2026-11-18 - Fix Submenu Transitions
 
-### Added
+### Fixed
+- **Submenu Dialog Stalling**: Wrapped submenu transitions in `system.run()` to prevent Minecraft Bedrock from silently ignoring consecutive modal form requests when clicking Delete Command.
+
+<details>
+<summary><b>2.0.x</b> (1 release)</summary>
+
+### [2.0.0] - 2026-11-17
+
+#### Added
 - **Delete Command Button**: New main menu button opens a multi-select modal form.
 - **Multi-Toggle Deletion Form**: Individual toggle per saved command; delete multiple macros in one operation.
 - **Batch Delete Feedback**: Action bar shows count deleted and plays a break sound on success.
+
+</details>
 
 <details>
 <summary><b>1.0.x</b> (1 release)</summary>
@@ -311,19 +322,19 @@ Leave clear space around the logo. No Minecraft, Mojang or Microsoft logos, no w
 
 ```
 
-## FILE: MCPEDL/Script/Command-Vault/behavior_pack/manifest.json (49 lines, 865 bytes)
+## FILE: MCPEDL/Script/Command-Vault/behavior_pack/manifest.json (49 lines, 869 bytes)
 
 ```
 {
   "format_version": 2,
   "header": {
-    "name": "Command Vault (v2)",
+    "name": "Command Vault (v2.0.1)",
     "description": "Saved command macro and quick-execute UI menu. by ALNStudios",
     "uuid": "20d71889-5d8a-4e87-a926-3fe7365a2bf7",
     "version": [
       2,
       0,
-      0
+      1
     ],
     "min_engine_version": [
       1,
@@ -339,7 +350,7 @@ Leave clear space around the logo. No Minecraft, Mojang or Microsoft logos, no w
       "version": [
         2,
         0,
-        0
+        1
       ],
       "entry": "scripts/main.js"
     }
@@ -358,7 +369,7 @@ Leave clear space around the logo. No Minecraft, Mojang or Microsoft logos, no w
     "authors": [
       "ALNStudios"
     ],
-    "version": "2.0.0",
+    "version": "2.0.1",
     "product_type": "addon"
   }
 }
@@ -428,9 +439,10 @@ export function deleteCommandsByIndex(player, indicesToDelete) {
 }
 ```
 
-## FILE: MCPEDL/Script/Command-Vault/behavior_pack/scripts/command_ui.js (176 lines, 5545 bytes)
+## FILE: MCPEDL/Script/Command-Vault/behavior_pack/scripts/command_ui.js (181 lines, 5873 bytes)
 
 ```
+import { system } from "@minecraft/server";
 import { ActionFormData, ModalFormData } from "@minecraft/server-ui";
 import { deleteCommandsByIndex, getSavedCommands, saveCommand } from "./command_storage.js";
 
@@ -448,23 +460,25 @@ export function openMainMenu(player) {
   form.show(player).then((res) => {
     if (res.canceled) return;
 
-    switch (res.selection) {
-      case 0:
-        openCreateCommandScreen(player);
-        break;
-      case 1:
-        openExecuteCommandScreen(player);
-        break;
-      case 2:
-        openDeleteCommandScreen(player);
-        break;
-      case 3:
-        openAboutScreen(player);
-        break;
-      case 4:
-      default:
-        break;
-    }
+    system.run(() => {
+      switch (res.selection) {
+        case 0:
+          openCreateCommandScreen(player);
+          break;
+        case 1:
+          openExecuteCommandScreen(player);
+          break;
+        case 2:
+          openDeleteCommandScreen(player);
+          break;
+        case 3:
+          openAboutScreen(player);
+          break;
+        case 4:
+        default:
+          break;
+      }
+    });
   }).catch(() => {});
 }
 
@@ -477,7 +491,7 @@ export function openCreateCommandScreen(player) {
 
   form.show(player).then((res) => {
     if (res.canceled) {
-      openMainMenu(player);
+      system.run(() => openMainMenu(player));
       return;
     }
 
@@ -491,7 +505,7 @@ export function openCreateCommandScreen(player) {
       player.onScreenDisplay.setActionBar(`§c[CommandVault] §fError: ${result.message || "Failed to save command."}`);
     }
 
-    openMainMenu(player);
+    system.run(() => openMainMenu(player));
   }).catch(() => {});
 }
 
@@ -499,7 +513,7 @@ export function openExecuteCommandScreen(player) {
   const commands = getSavedCommands(player);
   if (commands.length === 0) {
     player.onScreenDisplay.setActionBar("§c[CommandVault] §fNo saved commands yet! Use Create Command first.");
-    openMainMenu(player);
+    system.run(() => openMainMenu(player));
     return;
   }
 
@@ -517,14 +531,14 @@ export function openExecuteCommandScreen(player) {
 
   form.show(player).then((res) => {
     if (res.canceled) {
-      openMainMenu(player);
+      system.run(() => openMainMenu(player));
       return;
     }
 
     const [selectedIndex] = res.formValues;
     const target = commands[selectedIndex];
     if (!target || !target.command) {
-      openMainMenu(player);
+      system.run(() => openMainMenu(player));
       return;
     }
 
@@ -541,7 +555,7 @@ export function openDeleteCommandScreen(player) {
   const commands = getSavedCommands(player);
   if (commands.length === 0) {
     player.onScreenDisplay.setActionBar("§c[CommandVault] §fNo saved commands to delete!");
-    openMainMenu(player);
+    system.run(() => openMainMenu(player));
     return;
   }
 
@@ -559,16 +573,18 @@ export function openDeleteCommandScreen(player) {
 
   form.show(player).then((res) => {
     if (res.canceled) {
-      openMainMenu(player);
+      system.run(() => openMainMenu(player));
       return;
     }
 
     const indicesToDelete = [];
-    res.formValues.forEach((val, idx) => {
-      if (val === true) {
-        indicesToDelete.push(idx);
-      }
-    });
+    if (Array.isArray(res.formValues)) {
+      res.formValues.forEach((val, idx) => {
+        if (val === true) {
+          indicesToDelete.push(idx);
+        }
+      });
+    }
 
     if (indicesToDelete.length === 0) {
       player.onScreenDisplay.setActionBar("§e[CommandVault] §fNo commands selected for deletion.");
@@ -582,7 +598,7 @@ export function openDeleteCommandScreen(player) {
       }
     }
 
-    openMainMenu(player);
+    system.run(() => openMainMenu(player));
   }).catch(() => {});
 }
 
@@ -603,7 +619,7 @@ export function openAboutScreen(player) {
 
   form.show(player).then((res) => {
     if (res.canceled) return;
-    openMainMenu(player);
+    system.run(() => openMainMenu(player));
   }).catch(() => {});
 }
 ```
@@ -633,12 +649,17 @@ world.afterEvents.itemUse.subscribe((event) => {
 });
 ```
 
-## FILE: MCPEDL/Script/Command-Vault/CHANGELOG.md (21 lines, 745 bytes)
+## FILE: MCPEDL/Script/Command-Vault/CHANGELOG.md (26 lines, 998 bytes)
 
 ```
 # Changelog — Command Vault
 
 ---
+
+## [2.0.1] - 2026-11-18 - Fix Submenu Transitions
+
+### Fixed
+- **Submenu Dialog Stalling**: Wrapped submenu transitions in `system.run()` to prevent Minecraft Bedrock from silently ignoring consecutive modal form requests when clicking Delete Command.
 
 ## [2.0.0] - 2026-11-17
 
@@ -742,7 +763,7 @@ Minecraft Bedrock add-on, Command Vault Bedrock mod, command macro UI, quick exe
 }
 ```
 
-## FILE: MCPEDL/Script/Command-Vault/README.md (19 lines, 783 bytes)
+## FILE: MCPEDL/Script/Command-Vault/README.md (19 lines, 787 bytes)
 
 ```
 # Command Vault
@@ -752,7 +773,7 @@ Download the current release of **Command Vault** for Minecraft Bedrock Edition.
 ## Download
 
 - **Package format:** `.mcpack`
-- **Direct download:** [Download Command Vault (.mcpack)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Command-Vault/CommandVault%20V2.mcpack)
+- **Direct download:** [Download Command Vault (.mcpack)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Command-Vault/CommandVault%20V2.0.1.mcpack)
 
 ## Installation
 
@@ -765,7 +786,7 @@ Download the current release of **Command Vault** for Minecraft Bedrock Edition.
 For gameplay features, usage details, compatibility notes, and other project information, read the [full description](https://github.com/AllensCreations/MCPE-Curseforges/blob/main/MCPEDL/Script/Command-Vault/DESCRIPTION.md).
 ```
 
-## FILE: MCPEDL/Script/README.md (32 lines, 3313 bytes)
+## FILE: MCPEDL/Script/README.md (32 lines, 3317 bytes)
 
 ```
 # Scripts
@@ -786,7 +807,7 @@ Standalone Minecraft Bedrock Script packs by ALNStudios. Script projects use the
 | Gameplay Optimizer | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Script/Gameplay-Optimizer/) | [MCPACK](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Gameplay-Optimizer/GameplayOptimizer%20V2.mcpack) |
 | ALNMobStacker | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Script/ALN-MobStacker/) | [MCPACK](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/ALN-MobStacker/ALNMobStacker%20V2.mcpack) |
 | ALNSpawnControl | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Script/ALNSpawnControl/) | [MCPACK](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/ALNSpawnControl/ALNSpawnControl%20V2.mcpack) |
-| Command Vault | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Script/Command-Vault/) | [MCPACK](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Command-Vault/CommandVault%20V2.mcpack) |
+| Command Vault | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Script/Command-Vault/) | [MCPACK](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Command-Vault/CommandVault%20V2.0.1.mcpack) |
 
 ## Attribution
 
