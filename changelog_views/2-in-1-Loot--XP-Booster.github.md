@@ -1,29 +1,21 @@
 # Changelog — 2-in-1 Loot & XP Booster
 
-## [1.0.13] - 2026-11-16 - Drop Limit and Cleaner Menus
+## [1.0.13] - 2026-11-17
 
 ### Improved & Balanced
 - **Drop limit**: Extra Loot drops are now capped per moment, which protects busy servers and big farms.
 - **Lighter farms**: The Loot booster no longer tracks item drops while nobody online has it turned on.
 - **Clean Action Bar**: Pressing Apply twice quickly no longer shows an outdated Action Bar message.
-
-<details>
-<summary><b>1.0.x</b> (10 releases)</summary>
-
-### [1.0.12] - 2026-11-16 - Orb XP Restored
-
-#### Improved & Balanced
 - **Orb XP back**: The XP booster multiplies XP orbs again, so Mending repairs your gear from the extra XP. Orbs near you are collected instantly.
 - **Your orbs only**: Only the orbs closest to you are multiplied, so other players' orbs are never touched.
 - **XP orb limit**: Extra orbs are capped per moment to protect busy servers.
-
-### [1.0.11] - 2026-11-16 - Direct XP and Fair Drops
-
-#### Improved & Balanced
 - **Exact XP**: The XP booster now adds the extra XP straight to you instead of spawning extra orbs, so the amount is exact and there is far less lag. XP orbs are no longer pulled to you instantly.
 - **Your XP only**: Other players' XP orbs are never touched.
 - **Real mobs only**: Armor stands, boats and minecarts are no longer treated as mob loot.
 - **Fair drops**: Block and mob drops now go to the nearest player who caused them, so nobody multiplies another player's drops on a shared server.
+
+<details>
+<summary><b>1.0.x</b> (8 releases)</summary>
 
 ### [1.0.10] - 2026-11-16
 

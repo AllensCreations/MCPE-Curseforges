@@ -63,7 +63,7 @@ Export: two plain .txt files. `<name>.txt` = the pack (index, these instructions
 - NEW pack: read SKILL.md first, then follow PACK_GENERATOR_INSTRUCTIONS.md Part 4 and deliver ONE pack `.sh` from `scripts/make_pack_script.py` (the project travels inside it as base64). NEVER deliver separate zip, pack, json, js or b64 files.
 - INSTRUCTIONS.md wins over PACK_GENERATOR_INSTRUCTIONS.md on any conflict. These instructions win over both on the reply format and the Termux script.
 - Update: keep pack and module UUIDs unchanged.
-- Vanilla reference: `reference/bedrock-samples/bedrock-samples.min.json` (repo, ~5 MB, NOT in this export) holds every vanilla Mojang behavior/resource pack JSON as one object (`.behavior_pack.entities.zombie`, `.behavior_pack.recipes`, `.resource_pack.entity` ...). Never guess a vanilla component, event, loot or recipe shape: list the exact section under File Needed, then copy the shape from it.
+- Vanilla reference: `reference/bedrock-samples/bedrock-samples.min.json.gz` (repo, gzip file of about 8 MB, NOT in this export; unzip it first) holds every vanilla Mojang behavior/resource pack JSON as one object once unzipped (`.behavior_pack.entities.zombie`, `.behavior_pack.recipes`, `.resource_pack.entity` ...). Never guess a vanilla component, event, loot or recipe shape: list the exact section under File Needed, then copy the shape from it.
 - UI work (menus, forms, HUD, screens): follow INSTRUCTIONS.md 1.13 and apply the ALN UI Redesign skin from `assets/aln-ui-redesign/` (README.txt, design.json, font/README.txt in the tools txt). Textures are not exported; if the pack's resource_pack is missing, ask for it. Never claim anything was tested in Minecraft unless it was.
 - Update: deliver the repo change as the Termux script below. New pack: the pack `.sh` above. Never a separate payload or base64 file.
 
@@ -214,42 +214,34 @@ git config --global credential.helper store
 
 ## File Contents
 
-## FILE: changelog_views/2-in-1-Loot--XP-Booster.curseforge.html (3 lines, 6525 bytes)
+## FILE: changelog_views/2-in-1-Loot--XP-Booster.curseforge.html (3 lines, 6310 bytes)
 
 ```
-<h2>1.0.13 - 2026-11-16 - Drop Limit and Cleaner Menus</h2><h3>Improved &amp; Balanced</h3><ul><li><strong>Drop limit</strong>: Extra Loot drops are now capped per moment, which protects busy servers and big farms.</li><li><strong>Lighter farms</strong>: The Loot booster no longer tracks item drops while nobody online has it turned on.</li><li><strong>Clean Action Bar</strong>: Pressing Apply twice quickly no longer shows an outdated Action Bar message.</li></ul>
-<h2>1.0.x (10 releases)</h2><div class="spoiler"><h3>1.0.12 - 2026-11-16 - Orb XP Restored</h3><h4>Improved &amp; Balanced</h4><ul><li><strong>Orb XP back</strong>: The XP booster multiplies XP orbs again, so Mending repairs your gear from the extra XP. Orbs near you are collected instantly.</li><li><strong>Your orbs only</strong>: Only the orbs closest to you are multiplied, so other players&#x27; orbs are never touched.</li><li><strong>XP orb limit</strong>: Extra orbs are capped per moment to protect busy servers.</li></ul><h3>1.0.11 - 2026-11-16 - Direct XP and Fair Drops</h3><h4>Improved &amp; Balanced</h4><ul><li><strong>Exact XP</strong>: The XP booster now adds the extra XP straight to you instead of spawning extra orbs, so the amount is exact and there is far less lag. XP orbs are no longer pulled to you instantly.</li><li><strong>Your XP only</strong>: Other players&#x27; XP orbs are never touched.</li><li><strong>Real mobs only</strong>: Armor stands, boats and minecarts are no longer treated as mob loot.</li><li><strong>Fair drops</strong>: Block and mob drops now go to the nearest player who caused them, so nobody multiplies another player&#x27;s drops on a shared server.</li></ul><h3>1.0.10 - 2026-11-16</h3><h4>Improved &amp; Balanced</h4><ul><li><strong>Normal font restored</strong>: The Booster menus use the normal Minecraft font again. The pixel font and its files are removed.</li><li><strong>Silk Touch safe</strong>: Mining with Silk Touch now drops the block once. The Loot booster no longer multiplies it.</li><li><strong>Pixel text</strong>: The Booster menus now use the Pixelify Sans pixel font. Enable the Redesigned UI Resource Pack together with the Behavior Pack.</li><li><strong>Book only</strong>: The Booster menu now opens only from a plain Book renamed to Booster. A Book and Quill no longer opens it.</li></ul><h3>1.0.7 - 2026-11-16</h3><h4>Improved &amp; Balanced</h4><ul><li><strong>More Fortune-style loot</strong>: The Loot booster now also multiplies drops from amethyst clusters, glowstone, sea lanterns, melons, nether wart, sweet berries, wheat, carrots, potatoes and beetroot, on top of ores, ancient debris, gilded blackstone and mob loot.</li><li><strong>Loot only where it counts</strong>: The Loot booster now multiplies drops from ores, ancient debris, gilded blackstone and mobs you kill. Normal blocks such as dirt, stone, wood and crops drop as usual.</li></ul><h3>1.0.5 - 2026-11-16</h3><h4>Improved &amp; Balanced</h4><ul><li><strong>Apply closes the menu</strong>: Pressing Apply on the XP &amp; Loot Booster screen now closes the menu instead of returning to the main menu.</li></ul><h3>1.0.4 - 2026-11-16</h3><h4>Improved &amp; Balanced</h4><ul><li><strong>Loot back to 32x</strong>: The Loot slider has six levels, 1x up to 32x. XP keeps seven levels up to 64x. A saved Loot level above 32x drops to 32x.</li><li><strong>Boosters switch</strong>: A new on/off switch on the XP &amp; Loot Booster screen turns both boosters off and on without losing your levels.</li><li><strong>XP orb limit</strong>: Extra XP orbs are now capped per moment across all players, which protects busy servers.</li></ul><h3>1.0.3 - 2026-11-16</h3><h4>Improved &amp; Balanced</h4><ul><li><strong>Plain multiplier sliders</strong>: The Loot and XP sliders now use the same seven levels, 1x, 2x, 4x, 8x, 16x, 32x and 64x, and the tier names are gone.</li><li><strong>Loot up to 64x</strong>: Loot can now reach 64x, matching XP. Your saved Loot and XP levels carry over unchanged.</li><li><strong>ALNStudios look</strong>: The menus follow the ALNStudios Redesigned UI standard with a gold title, bold buttons with icons and a Back button on About.</li><li><strong>Menus keep going</strong>: After Apply or Back the main menu opens again. Exit or the close button closes it.</li><li><strong>Action Bar feedback</strong>: Applied settings now show on the Action Bar instead of in chat.</li></ul><h3>1.0.2 - 2026-11-12</h3><h4>Improved &amp; Balanced</h4><ul><li><strong>Three-button menu</strong>: The Booster menu now has only XP &amp; Loot Booster, About and Exit.</li><li><strong>One screen, two sliders</strong>: XP &amp; Loot Booster sets both boosters with a Loot slider and an XP slider, saved together with one Apply button. Each slider is labeled with your current tier name, and the new tier names are shown in chat and the Action Bar after Apply.</li><li><strong>New About screen</strong>: About now introduces ALNStudios and the two packs in this add-on.</li></ul><h4>Fixed</h4><ul><li><strong>Menu stays out of the way</strong>: Exit closes the menu without changing your settings.</li></ul><h3>1.0.1 - 2026-11-12 - Redesigned Menu and Tiers</h3><h4>Added</h4><ul><li><strong>About button</strong>: The Booster menu now has an About screen explaining each booster.</li><li><strong>Named tiers</strong>: Loot runs Normal, Quite Good, Great, Amazing, Insane and The Leprechaun. XP adds Legendary and The Sage.</li><li><strong>Cheatstick menu skin</strong>: The Redesigned UI Resource Pack styles the Booster menus with a dark panel and blue border.</li></ul><h4>Improved &amp; Balanced</h4><ul><li><strong>Fortune-style loot</strong>: Drops roll a random bonus up to the tier&#x27;s maximum instead of always using it. Loot tops out at 32x.</li><li><strong>XP maximum</strong>: XP can now reach 64x.</li><li><strong>Colored text</strong>: Tier names and menu labels use distinct colors.</li></ul><h3>1.0.0 - 2026-11-12 - First Release</h3><h4>Added</h4><ul><li><strong>Booster menu</strong>: Rename a Book or a Book and Quill to Booster and right-click to set your Loot Drop and XP Gain multipliers.</li><li><strong>Loot Drop multiplier</strong>: Blocks you break and mobs you kill drop up to 32 times their normal stacks, except from chests, barrels, ender chests and shulker boxes.</li><li><strong>XP Gain multiplier</strong>: Nearby XP orbs are multiplied and collected instantly.</li><li><strong>Redesigned UI</strong>: A Resource Pack with the Cheatstick menu textures.</li></ul></div>
+<h2>1.0.13 - 2026-11-17</h2><h3>Improved &amp; Balanced</h3><ul><li><strong>Drop limit</strong>: Extra Loot drops are now capped per moment, which protects busy servers and big farms.</li><li><strong>Lighter farms</strong>: The Loot booster no longer tracks item drops while nobody online has it turned on.</li><li><strong>Clean Action Bar</strong>: Pressing Apply twice quickly no longer shows an outdated Action Bar message.</li><li><strong>Orb XP back</strong>: The XP booster multiplies XP orbs again, so Mending repairs your gear from the extra XP. Orbs near you are collected instantly.</li><li><strong>Your orbs only</strong>: Only the orbs closest to you are multiplied, so other players&#x27; orbs are never touched.</li><li><strong>XP orb limit</strong>: Extra orbs are capped per moment to protect busy servers.</li><li><strong>Exact XP</strong>: The XP booster now adds the extra XP straight to you instead of spawning extra orbs, so the amount is exact and there is far less lag. XP orbs are no longer pulled to you instantly.</li><li><strong>Your XP only</strong>: Other players&#x27; XP orbs are never touched.</li><li><strong>Real mobs only</strong>: Armor stands, boats and minecarts are no longer treated as mob loot.</li><li><strong>Fair drops</strong>: Block and mob drops now go to the nearest player who caused them, so nobody multiplies another player&#x27;s drops on a shared server.</li></ul>
+<h2>1.0.x (8 releases)</h2><div class="spoiler"><h3>1.0.10 - 2026-11-16</h3><h4>Improved &amp; Balanced</h4><ul><li><strong>Normal font restored</strong>: The Booster menus use the normal Minecraft font again. The pixel font and its files are removed.</li><li><strong>Silk Touch safe</strong>: Mining with Silk Touch now drops the block once. The Loot booster no longer multiplies it.</li><li><strong>Pixel text</strong>: The Booster menus now use the Pixelify Sans pixel font. Enable the Redesigned UI Resource Pack together with the Behavior Pack.</li><li><strong>Book only</strong>: The Booster menu now opens only from a plain Book renamed to Booster. A Book and Quill no longer opens it.</li></ul><h3>1.0.7 - 2026-11-16</h3><h4>Improved &amp; Balanced</h4><ul><li><strong>More Fortune-style loot</strong>: The Loot booster now also multiplies drops from amethyst clusters, glowstone, sea lanterns, melons, nether wart, sweet berries, wheat, carrots, potatoes and beetroot, on top of ores, ancient debris, gilded blackstone and mob loot.</li><li><strong>Loot only where it counts</strong>: The Loot booster now multiplies drops from ores, ancient debris, gilded blackstone and mobs you kill. Normal blocks such as dirt, stone, wood and crops drop as usual.</li></ul><h3>1.0.5 - 2026-11-16</h3><h4>Improved &amp; Balanced</h4><ul><li><strong>Apply closes the menu</strong>: Pressing Apply on the XP &amp; Loot Booster screen now closes the menu instead of returning to the main menu.</li></ul><h3>1.0.4 - 2026-11-16</h3><h4>Improved &amp; Balanced</h4><ul><li><strong>Loot back to 32x</strong>: The Loot slider has six levels, 1x up to 32x. XP keeps seven levels up to 64x. A saved Loot level above 32x drops to 32x.</li><li><strong>Boosters switch</strong>: A new on/off switch on the XP &amp; Loot Booster screen turns both boosters off and on without losing your levels.</li><li><strong>XP orb limit</strong>: Extra XP orbs are now capped per moment across all players, which protects busy servers.</li></ul><h3>1.0.3 - 2026-11-16</h3><h4>Improved &amp; Balanced</h4><ul><li><strong>Plain multiplier sliders</strong>: The Loot and XP sliders now use the same seven levels, 1x, 2x, 4x, 8x, 16x, 32x and 64x, and the tier names are gone.</li><li><strong>Loot up to 64x</strong>: Loot can now reach 64x, matching XP. Your saved Loot and XP levels carry over unchanged.</li><li><strong>ALNStudios look</strong>: The menus follow the ALNStudios Redesigned UI standard with a gold title, bold buttons with icons and a Back button on About.</li><li><strong>Menus keep going</strong>: After Apply or Back the main menu opens again. Exit or the close button closes it.</li><li><strong>Action Bar feedback</strong>: Applied settings now show on the Action Bar instead of in chat.</li></ul><h3>1.0.2 - 2026-11-12</h3><h4>Improved &amp; Balanced</h4><ul><li><strong>Three-button menu</strong>: The Booster menu now has only XP &amp; Loot Booster, About and Exit.</li><li><strong>One screen, two sliders</strong>: XP &amp; Loot Booster sets both boosters with a Loot slider and an XP slider, saved together with one Apply button. Each slider is labeled with your current tier name, and the new tier names are shown in chat and the Action Bar after Apply.</li><li><strong>New About screen</strong>: About now introduces ALNStudios and the two packs in this add-on.</li></ul><h4>Fixed</h4><ul><li><strong>Menu stays out of the way</strong>: Exit closes the menu without changing your settings.</li></ul><h3>1.0.1 - 2026-11-12 - Redesigned Menu and Tiers</h3><h4>Added</h4><ul><li><strong>About button</strong>: The Booster menu now has an About screen explaining each booster.</li><li><strong>Named tiers</strong>: Loot runs Normal, Quite Good, Great, Amazing, Insane and The Leprechaun. XP adds Legendary and The Sage.</li><li><strong>Cheatstick menu skin</strong>: The Redesigned UI Resource Pack styles the Booster menus with a dark panel and blue border.</li></ul><h4>Improved &amp; Balanced</h4><ul><li><strong>Fortune-style loot</strong>: Drops roll a random bonus up to the tier&#x27;s maximum instead of always using it. Loot tops out at 32x.</li><li><strong>XP maximum</strong>: XP can now reach 64x.</li><li><strong>Colored text</strong>: Tier names and menu labels use distinct colors.</li></ul><h3>1.0.0 - 2026-11-12 - First Release</h3><h4>Added</h4><ul><li><strong>Booster menu</strong>: Rename a Book or a Book and Quill to Booster and right-click to set your Loot Drop and XP Gain multipliers.</li><li><strong>Loot Drop multiplier</strong>: Blocks you break and mobs you kill drop up to 32 times their normal stacks, except from chests, barrels, ender chests and shulker boxes.</li><li><strong>XP Gain multiplier</strong>: Nearby XP orbs are multiplied and collected instantly.</li><li><strong>Redesigned UI</strong>: A Resource Pack with the Cheatstick menu textures.</li></ul></div>
 ```
 
-## FILE: changelog_views/2-in-1-Loot--XP-Booster.github.md (94 lines, 5605 bytes)
+## FILE: changelog_views/2-in-1-Loot--XP-Booster.github.md (86 lines, 5422 bytes)
 
 ```
 # Changelog — 2-in-1 Loot & XP Booster
 
-## [1.0.13] - 2026-11-16 - Drop Limit and Cleaner Menus
+## [1.0.13] - 2026-11-17
 
 ### Improved & Balanced
 - **Drop limit**: Extra Loot drops are now capped per moment, which protects busy servers and big farms.
 - **Lighter farms**: The Loot booster no longer tracks item drops while nobody online has it turned on.
 - **Clean Action Bar**: Pressing Apply twice quickly no longer shows an outdated Action Bar message.
-
-<details>
-<summary><b>1.0.x</b> (10 releases)</summary>
-
-### [1.0.12] - 2026-11-16 - Orb XP Restored
-
-#### Improved & Balanced
 - **Orb XP back**: The XP booster multiplies XP orbs again, so Mending repairs your gear from the extra XP. Orbs near you are collected instantly.
 - **Your orbs only**: Only the orbs closest to you are multiplied, so other players' orbs are never touched.
 - **XP orb limit**: Extra orbs are capped per moment to protect busy servers.
-
-### [1.0.11] - 2026-11-16 - Direct XP and Fair Drops
-
-#### Improved & Balanced
 - **Exact XP**: The XP booster now adds the extra XP straight to you instead of spawning extra orbs, so the amount is exact and there is far less lag. XP orbs are no longer pulled to you instantly.
 - **Your XP only**: Other players' XP orbs are never touched.
 - **Real mobs only**: Armor stands, boats and minecarts are no longer treated as mob loot.
 - **Fair drops**: Block and mob drops now go to the nearest player who caused them, so nobody multiplies another player's drops on a shared server.
+
+<details>
+<summary><b>1.0.x</b> (8 releases)</summary>
 
 ### [1.0.10] - 2026-11-16
 
@@ -937,32 +929,25 @@ system.runInterval(() => {
 }, XP_INTERVAL_TICKS);
 ```
 
-## FILE: MCPEDL/Addons/2-in-1-Loot--XP-Booster/CHANGELOG.md (154 lines, 6246 bytes)
+## FILE: MCPEDL/Addons/2-in-1-Loot--XP-Booster/CHANGELOG.md (161 lines, 6245 bytes)
 
 ```
 # Changelog — 2-in-1 Loot & XP Booster
 
 ---
 
-## [1.0.13] - 2026-11-16 - Drop Limit and Cleaner Menus
+## [1.0.13] - 2026-11-17
+
+**What's new in v1.0.13:** Packed with 3 updates, from v1.0.11 through v1.0.13. Includes: Drop Limit and Cleaner Menus; Orb XP Restored; Direct XP and Fair Drops.
 
 ### Improved & Balanced
 
 - **Drop limit**: Extra Loot drops are now capped per moment, which protects busy servers and big farms.
 - **Lighter farms**: The Loot booster no longer tracks item drops while nobody online has it turned on.
 - **Clean Action Bar**: Pressing Apply twice quickly no longer shows an outdated Action Bar message.
-
-## [1.0.12] - 2026-11-16 - Orb XP Restored
-
-### Improved & Balanced
-
 - **Orb XP back**: The XP booster multiplies XP orbs again, so Mending repairs your gear from the extra XP. Orbs near you are collected instantly.
 - **Your orbs only**: Only the orbs closest to you are multiplied, so other players' orbs are never touched.
 - **XP orb limit**: Extra orbs are capped per moment to protect busy servers.
-
-## [1.0.11] - 2026-11-16 - Direct XP and Fair Drops
-
-### Improved & Balanced
 - **Exact XP**: The XP booster now adds the extra XP straight to you instead of spawning extra orbs, so the amount is exact and there is far less lag. XP orbs are no longer pulled to you instantly.
 - **Your XP only**: Other players' XP orbs are never touched.
 - **Real mobs only**: Armor stands, boats and minecarts are no longer treated as mob loot.
@@ -979,6 +964,8 @@ system.runInterval(() => {
 - **Pixel text**: The Booster menus now use the Pixelify Sans pixel font. Enable the Redesigned UI Resource Pack together with the Behavior Pack.
 - **Book only**: The Booster menu now opens only from a plain Book renamed to Booster. A Book and Quill no longer opens it.
 
+
+
 ## [1.0.7] - 2026-11-16
 
 **What's new in v1.0.7:** Packed with 2 updates, from v1.0.6 through v1.0.7. Includes: Fortune and Looting Style Loot; Ores and Mob Loot Only.
@@ -990,6 +977,8 @@ system.runInterval(() => {
 
 
 
+
+
 ## [1.0.5] - 2026-11-16
 
 **What's new in v1.0.5:** Packed with the v1.0.5 update. Includes: Apply Closes Menu.
@@ -997,6 +986,8 @@ system.runInterval(() => {
 ### Improved & Balanced
 
 - **Apply closes the menu**: Pressing Apply on the XP & Loot Booster screen now closes the menu instead of returning to the main menu.
+
+
 
 
 
@@ -1018,6 +1009,8 @@ system.runInterval(() => {
 
 
 
+
+
 ## [1.0.3] - 2026-11-16
 
 **What's new in v1.0.3:** Packed with the v1.0.3 update. Includes: Simplified Booster Sliders.
@@ -1029,6 +1022,8 @@ system.runInterval(() => {
 - **ALNStudios look**: The menus follow the ALNStudios Redesigned UI standard with a gold title, bold buttons with icons and a Back button on About.
 - **Menus keep going**: After Apply or Back the main menu opens again. Exit or the close button closes it.
 - **Action Bar feedback**: Applied settings now show on the Action Bar instead of in chat.
+
+
 
 
 
@@ -1062,6 +1057,8 @@ system.runInterval(() => {
 
 
 
+
+
 ## [1.0.1] - 2026-11-12 - Redesigned Menu and Tiers
 
 ### Added
@@ -1073,6 +1070,8 @@ system.runInterval(() => {
 - **Fortune-style loot**: Drops roll a random bonus up to the tier's maximum instead of always using it. Loot tops out at 32x.
 - **XP maximum**: XP can now reach 64x.
 - **Colored text**: Tier names and menu labels use distinct colors.
+
+
 
 
 
