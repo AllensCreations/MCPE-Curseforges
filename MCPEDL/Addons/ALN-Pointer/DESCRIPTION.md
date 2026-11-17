@@ -77,7 +77,7 @@ You get an ALN Pointer, use it, and pick the toggles you want in the ALNStudios 
 
 - Minecraft Bedrock Edition: 1.26.60
 - Experimental features: No experiment requirement detected in the inspected files.
-- Achievements: Likely achievement-friendly. The pointer needs no cheats to use, but getting one with a command needs cheats, and cheats disable achievements in that world.
+- Achievements: Likely achievement-friendly.
 - Verification: Source created, not tested in game.
 
 ## Creator and Permissions
@@ -104,3 +104,4 @@ You get an ALN Pointer, use it, and pick the toggles you want in the ALNStudios 
 ## Search & Discovery Keywords
 
 Minecraft Bedrock add-on, ALN Pointer Bedrock mod, Minecraft PE PVP toggles, Auto Totem, Infinite Totem, Aura Mode, Always Critical, Bow Aimbot, Water Clutch, Minecraft PE mouse pointer item, MCPEDL add-on, CurseForge Bedrock, ALNStudios.
+
