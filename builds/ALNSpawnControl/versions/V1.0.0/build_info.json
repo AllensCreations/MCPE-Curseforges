@@ -1,0 +1,8 @@
+{
+  "changelog_version": "1.0.0",
+  "manifest_version": "1.0.0",
+  "packages": {
+    "ALNSpawnControl V1.0.0.mcpack": "bf309f20c46cb54737f608f64bb9b7f49954ef3dc824482c55be23a6673b9c7c"
+  },
+  "source_sha256": "df781ccc2edab3b3245ed09fbb32317b6fa7a1eacc8a1f917272e2a79aecd953"
+}
