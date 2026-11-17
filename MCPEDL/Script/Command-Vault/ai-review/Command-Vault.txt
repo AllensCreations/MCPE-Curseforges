@@ -4,7 +4,7 @@
 
 - **Export request:** `MCPEDL/Script/Command-Vault`
 - **Destination:** `MCPEDL/Script/Command-Vault`
-- **CURRENT VERSION: v1 / NEXT UPDATE: v2**  (`MCPEDL/Script/Command-Vault/CHANGELOG.md`)
+- **CURRENT VERSION: v2 / NEXT UPDATE: v3**  (`MCPEDL/Script/Command-Vault/CHANGELOG.md`)
 - **Text files:** 15
 - **Skipped binary:** 0
 - **Paths not found:** 0
@@ -188,23 +188,36 @@ git config --global credential.helper store
 
 ## File Contents
 
-## FILE: changelog_views/Command-Vault.curseforge.html (2 lines, 362 bytes)
+## FILE: changelog_views/Command-Vault.curseforge.html (3 lines, 839 bytes)
 
 ```
-<h2>1.0.0 - 2026-11-18</h2><h3>Added</h3><ul><li><strong>Command Vault Form UI</strong>: Action and modal menus for saving, browsing, and executing command macros.</li><li><strong>Dynamic Property Storage</strong>: Persistent per-player command list storage.</li><li><strong>Anvil Key Activation</strong>: Trigger the menu using an Anvil-renamed book.</li></ul>
+<h2>2.0.0 - 2026-11-18 - Delete Command Feature</h2><h3>Added</h3><ul><li><strong>Delete Command Button</strong>: New main menu button opens a multi-select modal form.</li><li><strong>Multi-Toggle Deletion Form</strong>: Individual toggle per saved command; delete multiple macros in one operation.</li><li><strong>Batch Delete Feedback</strong>: Action bar shows count deleted and plays a break sound on success.</li></ul>
+<h2>1.0.x (1 release)</h2><div class="spoiler"><h3>1.0.0 - 2026-11-18</h3><h4>Added</h4><ul><li><strong>Command Vault Form UI</strong>: Action and modal menus for saving, browsing, and executing command macros.</li><li><strong>Dynamic Property Storage</strong>: Persistent per-player command list storage.</li><li><strong>Anvil Key Activation</strong>: Trigger the menu using an Anvil-renamed book.</li></ul></div>
 ```
 
-## FILE: changelog_views/Command-Vault.github.md (9 lines, 320 bytes)
+## FILE: changelog_views/Command-Vault.github.md (21 lines, 741 bytes)
 
 ```
 # Changelog — Command Vault
 
-## [1.0.0] - 2026-11-18
+## [2.0.0] - 2026-11-18 - Delete Command Feature
 
 ### Added
+- **Delete Command Button**: New main menu button opens a multi-select modal form.
+- **Multi-Toggle Deletion Form**: Individual toggle per saved command; delete multiple macros in one operation.
+- **Batch Delete Feedback**: Action bar shows count deleted and plays a break sound on success.
+
+<details>
+<summary><b>1.0.x</b> (1 release)</summary>
+
+### [1.0.0] - 2026-11-18
+
+#### Added
 - **Command Vault Form UI**: Action and modal menus for saving, browsing, and executing command macros.
 - **Dynamic Property Storage**: Persistent per-player command list storage.
 - **Anvil Key Activation**: Trigger the menu using an Anvil-renamed book.
+
+</details>
 ```
 
 ## FILE: description_views/Command-Vault.listing.md (65 lines, 11171 bytes)
@@ -300,11 +313,11 @@ Leave clear space around the logo. No Minecraft, Mojang or Microsoft logos, no w
 {
   "format_version": 2,
   "header": {
-    "name": "Command Vault (v1)",
+    "name": "Command Vault (v2)",
     "description": "Saved command macro and quick-execute UI menu. by ALNStudios",
     "uuid": "20d71889-5d8a-4e87-a926-3fe7365a2bf7",
     "version": [
-      1,
+      2,
       0,
       0
     ],
@@ -320,7 +333,7 @@ Leave clear space around the logo. No Minecraft, Mojang or Microsoft logos, no w
       "language": "javascript",
       "uuid": "08edd354-0ac7-4023-b665-990d16d3140c",
       "version": [
-        1,
+        2,
         0,
         0
       ],
@@ -341,13 +354,13 @@ Leave clear space around the logo. No Minecraft, Mojang or Microsoft logos, no w
     "authors": [
       "ALNStudios"
     ],
-    "version": "1.0.0",
+    "version": "2.0.0",
     "product_type": "addon"
   }
 }
 ```
 
-## FILE: MCPEDL/Script/Command-Vault/behavior_pack/scripts/command_storage.js (48 lines, 1247 bytes)
+## FILE: MCPEDL/Script/Command-Vault/behavior_pack/scripts/command_storage.js (60 lines, 1721 bytes)
 
 ```
 const PROP_KEY = "aln_saved_commands";
@@ -397,13 +410,25 @@ export function saveCommand(player, label, commandStr) {
     return { success: false, command: sanitized, message: String(err) };
   }
 }
+export function deleteCommandsByIndex(player, indicesToDelete) {
+  const current = getSavedCommands(player);
+  const deleteSet = new Set(indicesToDelete);
+  const remaining = current.filter((_, idx) => !deleteSet.has(idx));
+
+  try {
+    player.setDynamicProperty(PROP_KEY, JSON.stringify(remaining));
+    return { success: true, deletedCount: current.length - remaining.length };
+  } catch (err) {
+    return { success: false, deletedCount: 0, message: String(err) };
+  }
+}
 ```
 
-## FILE: MCPEDL/Script/Command-Vault/behavior_pack/scripts/command_ui.js (122 lines, 3858 bytes)
+## FILE: MCPEDL/Script/Command-Vault/behavior_pack/scripts/command_ui.js (176 lines, 5545 bytes)
 
 ```
 import { ActionFormData, ModalFormData } from "@minecraft/server-ui";
-import { getSavedCommands, saveCommand } from "./command_storage.js";
+import { deleteCommandsByIndex, getSavedCommands, saveCommand } from "./command_storage.js";
 
 export function openMainMenu(player) {
   const commands = getSavedCommands(player);
@@ -412,8 +437,9 @@ export function openMainMenu(player) {
     .body(`§7Saved Commands: §b${commands.length}`)
     .button("§aCreate Command", "textures/items/book_writable")
     .button("§eExecute Command", "textures/items/repeater")
+    .button("§cDelete Command", "textures/ui/cancel")
     .button("§bAbout", "textures/items/paper")
-    .button("§cExit", "textures/ui/cancel");
+    .button("§8Exit", "textures/ui/cancel");
 
   form.show(player).then((res) => {
     if (res.canceled) return;
@@ -426,9 +452,12 @@ export function openMainMenu(player) {
         openExecuteCommandScreen(player);
         break;
       case 2:
-        openAboutScreen(player);
+        openDeleteCommandScreen(player);
         break;
       case 3:
+        openAboutScreen(player);
+        break;
+      case 4:
       default:
         break;
     }
@@ -504,6 +533,55 @@ export function openExecuteCommandScreen(player) {
   }).catch(() => {});
 }
 
+export function openDeleteCommandScreen(player) {
+  const commands = getSavedCommands(player);
+  if (commands.length === 0) {
+    player.onScreenDisplay.setActionBar("§c[CommandVault] §fNo saved commands to delete!");
+    openMainMenu(player);
+    return;
+  }
+
+  const form = new ModalFormData()
+    .title("§c§lDelete Commands");
+
+  for (const c of commands) {
+    const itemLabel = (c.label && c.label !== c.command)
+      ? `${c.label} (/${c.command})`
+      : `/${c.command}`;
+    form.toggle(`Delete ${itemLabel}`, false);
+  }
+
+  form.submitButton("Delete Selected");
+
+  form.show(player).then((res) => {
+    if (res.canceled) {
+      openMainMenu(player);
+      return;
+    }
+
+    const indicesToDelete = [];
+    res.formValues.forEach((val, idx) => {
+      if (val === true) {
+        indicesToDelete.push(idx);
+      }
+    });
+
+    if (indicesToDelete.length === 0) {
+      player.onScreenDisplay.setActionBar("§e[CommandVault] §fNo commands selected for deletion.");
+    } else {
+      const result = deleteCommandsByIndex(player, indicesToDelete);
+      if (result.success) {
+        player.playSound("random.break");
+        player.onScreenDisplay.setActionBar(`§c[CommandVault] §fDeleted §e${result.deletedCount} §fcommand(s).`);
+      } else {
+        player.onScreenDisplay.setActionBar(`§c[CommandVault] §fError: ${result.message || "Failed to delete commands."}`);
+      }
+    }
+
+    openMainMenu(player);
+  }).catch(() => {});
+}
+
 export function openAboutScreen(player) {
   const form = new ActionFormData()
     .title("§b§lAbout ALN:CommandVault")
@@ -514,7 +592,8 @@ export function openAboutScreen(player) {
       "1. Rename a vanilla Book or Quill to 'Command Vault' on an Anvil.\n" +
       "2. Right-click or hold the book to open the vault menu.\n" +
       "3. Use 'Create Command' to save commands with custom labels.\n" +
-      "4. Execute saved macros directly with player command authority."
+      "4. Execute saved macros directly with player command authority.\n" +
+      "5. Use 'Delete Command' to toggle and remove multiple saved macros."
     )
     .button("§7Back to Menu", "textures/ui/refresh_light");
 
@@ -550,12 +629,19 @@ world.afterEvents.itemUse.subscribe((event) => {
 });
 ```
 
-## FILE: MCPEDL/Script/Command-Vault/CHANGELOG.md (11 lines, 325 bytes)
+## FILE: MCPEDL/Script/Command-Vault/CHANGELOG.md (18 lines, 677 bytes)
 
 ```
 # Changelog — Command Vault
 
 ---
+
+## [2.0.0] - 2026-11-18 - Delete Command Feature
+
+### Added
+- **Delete Command Button**: New main menu button opens a multi-select modal form.
+- **Multi-Toggle Deletion Form**: Individual toggle per saved command; delete multiple macros in one operation.
+- **Batch Delete Feedback**: Action bar shows count deleted and plays a break sound on success.
 
 ## [1.0.0] - 2026-11-18
 
@@ -659,7 +745,7 @@ Download the current release of **Command Vault** for Minecraft Bedrock Edition.
 ## Download
 
 - **Package format:** `.mcpack`
-- **Direct download:** [Download Command Vault (.mcpack)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Command-Vault/CommandVault%20V1.0.0.mcpack)
+- **Direct download:** [Download Command Vault (.mcpack)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Command-Vault/CommandVault%20V2.0.0.mcpack)
 
 ## Installation
 
@@ -693,7 +779,7 @@ Standalone Minecraft Bedrock Script packs by ALNStudios. Script projects use the
 | Gameplay Optimizer | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Script/Gameplay-Optimizer/) | [MCPACK](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Gameplay-Optimizer/GameplayOptimizer%20V2.0.0.mcpack) |
 | ALNMobStacker | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Script/ALN-MobStacker/) | [MCPACK](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/ALN-MobStacker/ALNMobStacker%20V2.0.0.mcpack) |
 | ALNSpawnControl | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Script/ALNSpawnControl/) | [MCPACK](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/ALNSpawnControl/ALNSpawnControl%20V2.0.0.mcpack) |
-| Command Vault | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Script/Command-Vault/) | [MCPACK](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Command-Vault/CommandVault%20V1.0.0.mcpack) |
+| Command Vault | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Script/Command-Vault/) | [MCPACK](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Command-Vault/CommandVault%20V2.0.0.mcpack) |
 
 ## Attribution
 

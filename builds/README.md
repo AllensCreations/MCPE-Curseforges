@@ -78,7 +78,7 @@ This directory stores compiled Add-ons (`.mcaddon`), Maps (`.mcworld`), Scripts 
 | **Gameplay Optimizer** | Script Pack (.mcpack) | [Download (.mcpack)](Gameplay-Optimizer/GameplayOptimizer%20V2.0.0.mcpack) | [`Gameplay-Optimizer/`](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/builds/Gameplay-Optimizer/) |
 | **ALNMobStacker** | Script Pack (.mcpack) | [Download (.mcpack)](ALN-MobStacker/ALNMobStacker%20V2.0.0.mcpack) | [`ALN-MobStacker/`](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/builds/ALN-MobStacker/) |
 | **ALNSpawnControl** | Script Pack (.mcpack) | [Download (.mcpack)](ALNSpawnControl/ALNSpawnControl%20V2.0.0.mcpack) | [`ALNSpawnControl/`](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/builds/ALNSpawnControl/) |
-| **Command Vault** | Script Pack (.mcpack) | [Download (.mcpack)](Command-Vault/CommandVault%20V1.0.0.mcpack) | [`Command-Vault/`](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/builds/Command-Vault/) |
+| **Command Vault** | Script Pack (.mcpack) | [Download (.mcpack)](Command-Vault/CommandVault%20V2.0.0.mcpack) | [`Command-Vault/`](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/builds/Command-Vault/) |
 
 ---
 

@@ -8,7 +8,7 @@ This folder contains compiled release packages for **Command Vault** by ALNStudi
 
 | File Name | Format | Size | Description | Download Link |
 | :--- | :--- | :--- | :--- | :--- |
-| **`CommandVault V1.0.0.mcpack`** | `.mcpack` | ~3 KB | Script Behavior Pack archive ready for import. | [Download (.mcpack)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Command-Vault/CommandVault%20V1.0.0.mcpack) |
+| **`CommandVault V2.0.0.mcpack`** | `.mcpack` | ~3 KB | Script Behavior Pack archive ready for import. | [Download (.mcpack)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Command-Vault/CommandVault%20V2.0.0.mcpack) |
 
 ---
 
