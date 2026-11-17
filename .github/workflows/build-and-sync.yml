@@ -171,6 +171,12 @@ jobs:
       - name: Refresh Listing Kits (name, summary, description HTML, image prompts)
         run: python3 scripts/build_listing_kits.py --all || echo "::warning::Some listing kits could not be built (see log)."
 
+      - name: Refresh per-package AI review files
+        run: python3 scripts/auto_ai_review.py
+
+      - name: Build MCPEDL catalog index
+        run: python3 scripts/build_mcpedl_readme.py
+
       - name: Verify builds/ snapshots match source and manifest versions (report only)
         continue-on-error: true
         run: python3 scripts/step_summary.py "Snapshot verification" -- python3 scripts/auto_bump_and_build.py --verify || true
@@ -192,10 +198,11 @@ jobs:
           git config user.name  "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
 
-          for dir in MCPEDL builds changelog_views description_views; do
+          for dir in MCPEDL builds changelog_views description_views ai-review; do
             if [ -d "$dir" ]; then git add "$dir"; fi
           done
           if [ -f README.md ]; then git add README.md; fi
+          if [ -f MCPEDL/README.md ]; then git add MCPEDL/README.md; fi
           if [ -f scripts/CRAFTING_TABLE.png ]; then git add scripts/CRAFTING_TABLE.png; fi
           if compgen -G "assets/CRAFTING_RECIPE*.png" > /dev/null; then git add assets/CRAFTING_RECIPE*.png; fi
           if [ -f Mcpeworlds/README.md ]; then git add Mcpeworlds/README.md; fi

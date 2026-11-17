@@ -2,6 +2,12 @@
 
 ---
 
+## [v98] - 2026-11-18 - Auto AI Review & MCPEDL Catalog Sync in Build Workflow
+
+### Added
+- **Automated AI Review in Build & Sync**: Added `python3 scripts/auto_ai_review.py` to `.github/workflows/build-and-sync.yml` so changed packs automatically receive updated review files in their respective `MCPEDL/*/*/ai-review/` directories and root `ai-review/tools.txt`.
+- **Automated MCPEDL Catalog Sync**: Integrated `python3 scripts/build_mcpedl_readme.py` to auto-regenerate `MCPEDL/README.md` and committed it alongside `ai-review/` on every push/nightly build.
+
 ## [v97] - 2026-11-18 - AI Review update_pack Fallback & Instruction Policy Alignment
 
 ### Fixed
