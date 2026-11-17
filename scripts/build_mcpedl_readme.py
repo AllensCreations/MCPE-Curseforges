@@ -19,6 +19,7 @@ from urllib.parse import quote
 
 CATEGORIES = (("Addons", "Add-ons"), ("Maps", "Maps"), ("Script", "Scripts"), ("Minigame", "Minigames"))
 CHANGELOG_TOP = re.compile(r"(?m)^## \[(\d+\.\d+\.\d+)\]")
+RAW = "https://github.com/AllensCreations/MCPE-Curseforges/raw/main/"
 HEADER = (
     "# MCPEDL Catalog\n\n"
     "Generated file. Do not edit by hand: it is rebuilt with every build.\n"
@@ -67,7 +68,7 @@ def render(root):
             review = p / "ai-review" / f"{p.name}.txt"
             if not review.is_file():
                 warnings.append(f"no AI review file for {cat}/{p.name}")
-            ai = f"[AI review]({link(mcpedl, review)})" if review.is_file() else "-"
+            ai = f"[Download]({RAW}{quote(review.relative_to(root).as_posix())})" if review.is_file() else "-"
             title = pack_title(p).replace("|", "/")
             rows.append(f"| **{title}** | {pack_version(p)} | [Source]({link(mcpedl, p)}) | {ai} |")
         sections.append(f"## {label}\n\n" + "\n".join(rows) + "\n")

@@ -2,6 +2,11 @@
 
 ---
 
+## [v88] - 2026-11-17 - AI Review Direct Link
+
+### Improved & Balanced
+- **AI review download**: the AI review column in `MCPEDL/README.md` now links straight to the raw file instead of the GitHub viewer page.
+
 ## [v87] - 2026-11-17 - One Build for AI Review and MCPEDL README
 
 ### Added
