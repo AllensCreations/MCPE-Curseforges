@@ -1,19 +1,28 @@
 # Changelog — ALN:MobStacker
 
-## [1.0.2] - 2026-11-16 - Persistent Stacks
+## [1.0.3] - 2026-11-17 - Mixed Zombie Stacks
 
 ### Added
-- **Rare Drops**: A Sneak Kill now rolls the rare drops of Rabbits (Rabbit's Foot), Zombies (Iron Ingot, Carrot or Potato), Zombified Piglins (Gold Ingot) and Drowned (Copper Ingot) at their vanilla chances, raised by Looting.
+- **Random Spawn Stacks**: Zombie, Husk, Drowned and Zombified Piglin stacks now mix babies and adults, and each mob that replaces a killed one is a fresh random spawn that can be a baby or wear armor like a normal spawn.
 
 ### Improved & Balanced
+- **Mixed Merging**: These four mobs now merge even when wearing armor or holding items, so their gear is not kept.
+- **Sneak Kill Experience**: A Sneak Kill on these four mobs now counts about one baby in twenty for the baby experience bonus.
+
+<details>
+<summary><b>1.0.x</b> (3 releases)</summary>
+
+### [1.0.2] - 2026-11-16 - Persistent Stacks
+
+#### Added
+- **Rare Drops**: A Sneak Kill now rolls the rare drops of Rabbits (Rabbit's Foot), Zombies (Iron Ingot, Carrot or Potato), Zombified Piglins (Gold Ingot) and Drowned (Copper Ingot) at their vanilla chances, raised by Looting.
+
+#### Improved & Balanced
 - **Persistent Stacks**: Merged stacks are now spawned to stay in the world, so they should not despawn when you walk away.
 - **Batched Merging**: Merging is now done in small batches and skips dimensions with no players, so large farms should cause less stutter.
 
-### Fixed
+#### Fixed
 - **Guardian Drops**: A Sneak Kill on a stack of Guardians now includes Raw Fish and Prismarine Crystals.
-
-<details>
-<summary><b>1.0.x</b> (2 releases)</summary>
 
 ### [1.0.1] - 2026-11-16 - Gear Safe Stacking
 
