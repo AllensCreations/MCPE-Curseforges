@@ -1,8 +1,18 @@
 # Changelog — 2-in-1 Loot & XP Booster
 
-## [1.0.13] - 2026-11-17
+## [1.0.14] - 2026-11-17 - Smoother Boosters and Safer Loot
 
 ### Improved & Balanced
+- **No place-and-break farming**: Ancient debris, melons, glowstone and sea lanterns are no longer multiplied, because they drop themselves or can be crafted back into the same block.
+- **Lighter XP checks**: The XP booster now works out which player an orb belongs to once per pass and no longer moves orbs that are already next to you, which reduces lag in busy XP farms.
+- **Item tracking limit**: The Loot booster stops tracking new item drops once a very large number are waiting, which protects busy servers.
+
+<details>
+<summary><b>1.0.x</b> (9 releases)</summary>
+
+### [1.0.13] - 2026-11-17
+
+#### Improved & Balanced
 - **Drop limit**: Extra Loot drops are now capped per moment, which protects busy servers and big farms.
 - **Lighter farms**: The Loot booster no longer tracks item drops while nobody online has it turned on.
 - **Clean Action Bar**: Pressing Apply twice quickly no longer shows an outdated Action Bar message.
@@ -13,9 +23,6 @@
 - **Your XP only**: Other players' XP orbs are never touched.
 - **Real mobs only**: Armor stands, boats and minecarts are no longer treated as mob loot.
 - **Fair drops**: Block and mob drops now go to the nearest player who caused them, so nobody multiplies another player's drops on a shared server.
-
-<details>
-<summary><b>1.0.x</b> (8 releases)</summary>
 
 ### [1.0.10] - 2026-11-16
 

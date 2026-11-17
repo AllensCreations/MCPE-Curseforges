@@ -8,7 +8,7 @@ Generated file. Do not edit by hand: it is rebuilt with every build.
 
 | Pack | Version | Source | AI review |
 | :-- | :-- | :-- | :-- |
-| **2-in-1 Loot & XP Booster** | 1.0.13 | [Source](Addons/2-in-1-Loot--XP-Booster) | [Download](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/MCPEDL/Addons/2-in-1-Loot--XP-Booster/ai-review/2-in-1-Loot--XP-Booster.txt) |
+| **2-in-1 Loot & XP Booster** | 1.0.14 | [Source](Addons/2-in-1-Loot--XP-Booster) | [Download](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/MCPEDL/Addons/2-in-1-Loot--XP-Booster/ai-review/2-in-1-Loot--XP-Booster.txt) |
 | **ALN MoreDiscs** | 1.1.1 | [Source](Addons/ALN-MoreDiscs) | [Download](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/MCPEDL/Addons/ALN-MoreDiscs/ai-review/ALN-MoreDiscs.txt) |
 | **ALN Quiver** | 1.0.0 | [Source](Addons/ALN-Quiver) | [Download](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/MCPEDL/Addons/ALN-Quiver/ai-review/ALN-Quiver.txt) |
 | **ALN Wireless Headphones** | 1.0.0 | [Source](Addons/ALN-Wireless-Headphones) | [Download](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/MCPEDL/Addons/ALN-Wireless-Headphones/ai-review/ALN-Wireless-Headphones.txt) |
