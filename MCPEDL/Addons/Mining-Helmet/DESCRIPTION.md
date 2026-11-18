@@ -74,12 +74,12 @@ The helmet provides moving light while worn, and holding a Lantern or Torch can 
 ### 1. Lantern Recipe (Level 15)
 Combine a standard **Lantern** with a **Golden Helmet** in a crafting table to produce the Level 15 Mining Helmet.
 
-![Crafting Recipe: Lantern Mining Helmet](https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/MCPEDL/Addons/Mining-Helmet/recipe_lantern.png)
+
 
 ### 2. Torch Recipe (Level 10)
 Combine a standard **Torch** with a **Golden Helmet** to craft the Level 10 Mining Helmet for early survival.
 
-![Crafting Recipe: Torch Mining Helmet](https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/MCPEDL/Addons/Mining-Helmet/recipe_torch.png)
+
 
 ---
 

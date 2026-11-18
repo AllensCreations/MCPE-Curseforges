@@ -17,83 +17,83 @@ Grimoire Relics V2 adds a collection of magical tomes to Minecraft Bedrock Editi
 
 ## The 20 Grimoire Relics
 
-### <img src="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/MCPEDL/Addons/Grimoire-Relics-V2/assets/items/tome_phoenix.png" width="20" height="20" alt="Infernal Phoenix"> **Infernal Phoenix**
+### **Infernal Phoenix**
 - **Abilities & Mechanics**: Permanent Fire Resistance. Attackers that melee hit you are set on fire for 5s; targets you melee hit burn for 5s.
 - **Acquisition**: **Ancient Relic (Loot Only)**: Bastion Treasure
 
-### <img src="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/MCPEDL/Addons/Grimoire-Relics-V2/assets/items/tome_abyss.png" width="20" height="20" alt="Abyssal Tide"> **Abyssal Tide**
+### **Abyssal Tide**
 - **Abilities & Mechanics**: Permanent Water Breathing. Night Vision while underwater. Dolphin's Grace while swimming.
 - **Acquisition**: Craftable; also found in Shipwreck Treasure
 
-### <img src="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/MCPEDL/Addons/Grimoire-Relics-V2/assets/items/tome_zephyr.png" width="20" height="20" alt="Zephyr Wind"> **Zephyr Wind**
+### **Zephyr Wind**
 - **Abilities & Mechanics**: Speed II + Jump Boost I. Auto Slow Falling when plunging (while falling quickly). Fall damage is healed back right after it lands; a fatal fall is not prevented.
 - **Acquisition**: Craftable
 
-### <img src="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/MCPEDL/Addons/Grimoire-Relics-V2/assets/items/tome_lich.png" width="20" height="20" alt="Necrotic Lich"> **Necrotic Lich**
+### **Necrotic Lich**
 - **Abilities & Mechanics**: Melee strikes inflict Wither II for 3s on victims.
 - **Acquisition**: **Ancient Relic (Loot Only)**: Bastion Treasure
 
-### <img src="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/MCPEDL/Addons/Grimoire-Relics-V2/assets/items/tome_titan.png" width="20" height="20" alt="Mountain Titan"> **Mountain Titan**
+### **Mountain Titan**
 - **Abilities & Mechanics**: Permanent Resistance II and Slowness I. Complete knockback immunity (cancels knockback velocity on damage).
 - **Acquisition**: Craftable
 
-### <img src="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/MCPEDL/Addons/Grimoire-Relics-V2/assets/items/tome_vampire.png" width="20" height="20" alt="Blood Vampire"> **Blood Vampire**
+### **Blood Vampire**
 - **Abilities & Mechanics**: Life Leech: Every successful melee strike restores 1 full heart (2 HP).
 - **Acquisition**: **Ancient Relic (Loot Only)**: Dungeon Monster Rooms
 
-### <img src="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/MCPEDL/Addons/Grimoire-Relics-V2/assets/items/tome_lunar.png" width="20" height="20" alt="Lunar Eclipse"> **Lunar Eclipse**
+### **Lunar Eclipse**
 - **Abilities & Mechanics**: Nocturnal Blessing: Invisibility and Strength I during nighttime in the Overworld.
 - **Acquisition**: Craftable
 
-### <img src="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/MCPEDL/Addons/Grimoire-Relics-V2/assets/items/tome_solar.png" width="20" height="20" alt="Solar Dawn"> **Solar Dawn**
+### **Solar Dawn**
 - **Abilities & Mechanics**: Solar Nourishment: Saturation and Regeneration I under open daylight skies in the Overworld.
 - **Acquisition**: Craftable
 
-### <img src="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/MCPEDL/Addons/Grimoire-Relics-V2/assets/items/tome_druid.png" width="20" height="20" alt="Verdant Druid"> **Verdant Druid**
+### **Verdant Druid**
 - **Abilities & Mechanics**: Poison immunity. Naturally fertilizes crops and advances saplings within a 3-block radius.
 - **Acquisition**: Craftable
 
-### <img src="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/MCPEDL/Addons/Grimoire-Relics-V2/assets/items/tome_frost.png" width="20" height="20" alt="Frost Weaver"> **Frost Weaver**
+### **Frost Weaver**
 - **Abilities & Mechanics**: Frost Walker II (freezes water underfoot into frosted ice, unless sneaking). Powder snow freezing damage is healed back right after it lands.
 - **Acquisition**: Craftable
 
-### <img src="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/MCPEDL/Addons/Grimoire-Relics-V2/assets/items/tome_storm.png" width="20" height="20" alt="Stormcaller"> **Stormcaller**
+### **Stormcaller**
 - **Abilities & Mechanics**: Speed III outdoors during rain or thunderstorms. 15% chance to strike melee attackers with real lightning.
 - **Acquisition**: Craftable
 
-### <img src="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/MCPEDL/Addons/Grimoire-Relics-V2/assets/items/tome_delver.png" width="20" height="20" alt="Deep Delver"> **Deep Delver**
+### **Deep Delver**
 - **Abilities & Mechanics**: Permanent Haste II. Places a light block at your feet while you are below Y=55 and not under open sky.
 - **Acquisition**: Craftable; also found in Dungeon Monster Rooms
 
-### <img src="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/MCPEDL/Addons/Grimoire-Relics-V2/assets/items/tome_void.png" width="20" height="20" alt="Void Phantom"> **Void Phantom**
+### **Void Phantom**
 - **Abilities & Mechanics**: In The End, the first void rescue triggers a brief 2-second upward lift, followed by a 1-second Slow Falling cushion when safe ground is detected during descent. The rescue continues if you remove the tome from your offhand. After safe touchdown, the activated Void Phantom is consumed from your offhand or inventory if it can be found. Only one rescue can activate per player session.
 - **Acquisition**: **Ancient Relic (Loot Only)**: Ancient Cities
 
-### <img src="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/MCPEDL/Addons/Grimoire-Relics-V2/assets/items/tome_golem.png" width="20" height="20" alt="Iron Golem"> **Iron Golem**
+### **Iron Golem**
 - **Abilities & Mechanics**: Fortified Armor: Grants 4 Absorption hearts every 30s. Melee strikes launch enemies upward into the air.
 - **Acquisition**: Craftable
 
-### <img src="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/MCPEDL/Addons/Grimoire-Relics-V2/assets/items/tome_hydra.png" width="20" height="20" alt="Venom Hydra"> **Venom Hydra**
+### **Venom Hydra**
 - **Abilities & Mechanics**: Full immunity to Poison and Wither. Melee attacks inflict Poison II (5s).
 - **Acquisition**: Craftable
 
-### <img src="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/MCPEDL/Addons/Grimoire-Relics-V2/assets/items/tome_alchemist.png" width="20" height="20" alt="Cursed Alchemist"> **Cursed Alchemist**
+### **Cursed Alchemist**
 - **Abilities & Mechanics**: Potion Mastery: Keeps active beneficial potion effects from expiring while the tome is equipped.
 - **Acquisition**: Craftable; also found in Stronghold Libraries
 
-### <img src="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/MCPEDL/Addons/Grimoire-Relics-V2/assets/items/tome_seraph.png" width="20" height="20" alt="Radiant Seraph"> **Radiant Seraph**
+### **Radiant Seraph**
 - **Abilities & Mechanics**: Permanent Regeneration II. Complete immunity to Blindness and Nausea.
 - **Acquisition**: Craftable
 
-### <img src="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/MCPEDL/Addons/Grimoire-Relics-V2/assets/items/tome_scholar.png" width="20" height="20" alt="Arcane Scholar"> **Arcane Scholar**
+### **Arcane Scholar**
 - **Abilities & Mechanics**: Arcane Intellect: Triples all experience gained from mob drops, mining, and orbs.
 - **Acquisition**: Craftable; also found in Stronghold Libraries
 
-### <img src="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/MCPEDL/Addons/Grimoire-Relics-V2/assets/items/tome_mirror.png" width="20" height="20" alt="Mirror Trickster"> **Mirror Trickster**
+### **Mirror Trickster**
 - **Abilities & Mechanics**: Elusive Phase: 25% chance upon taking damage to heal that damage back and blink 3 blocks backward through smoke. A fatal hit is not prevented.
 - **Acquisition**: **Ancient Relic (Loot Only)**: Ancient Cities
 
-### <img src="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/MCPEDL/Addons/Grimoire-Relics-V2/assets/items/tome_dragon.png" width="20" height="20" alt="Cataclysm Dragon"> **Cataclysm Dragon**
+### **Cataclysm Dragon**
 - **Abilities & Mechanics**: Strength II and Resistance I. Dragon breath and explosion damage is healed back right after it lands; a fatal hit is not prevented.
 - **Acquisition**: **Ancient Relic (Loot Only)**: End Cities
 
@@ -104,7 +104,6 @@ Grimoire Relics V2 adds a collection of magical tomes to Minecraft Bedrock Editi
 There are **14 craftable tomes** made at a standard Crafting Table using shaped recipes arranged around a central Book. The recipes are available through the crafting table. The **6 Ancient Relics** (Void Phantom, Cataclysm Dragon, Necrotic Lich, Mirror Trickster, Blood Vampire, and Infernal Phoenix) cannot be crafted and are found through exploration loot:
 
 <p align="center">
-  <img src="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/MCPEDL/Addons/Grimoire-Relics-V2/assets/all_recipes_sheet.png" alt="Grimoire Relics V2 Crafting Recipes" width="850">
 </p>
 
 ---

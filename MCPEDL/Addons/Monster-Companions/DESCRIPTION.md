@@ -120,7 +120,7 @@ Equipping a Saddle onto supported large companions enables manual mounting and d
 
 ### Primal Beast Biscuit
 
-![Primal Beast Biscuit Item](https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/MCPEDL/Addons/Monster-Companions/beast_biscuit_preview.png)
+
 
 ### Use
 - **Effect**: Gives a wild hostile mob a chance to become your companion and restores health to an injured companion.
@@ -145,7 +145,7 @@ Equipping a Saddle onto supported large companions enables manual mounting and d
 
 ### Primal Beast Biscuit Recipe
 
-![Crafting Recipe: Primal Beast Biscuit](https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/MCPEDL/Addons/Monster-Companions/beast_biscuit_recipe.png)
+
 
 - Type: Shapeless Crafting Table Recipe
 - Ingredients: 1 Rotten Flesh, 1 Bone, 1 Sweet Berries, 1 Honey Bottle
