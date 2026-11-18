@@ -445,10 +445,10 @@ Videos and streams are welcome with credit. Redistribution of original or modifi
 scriptevent allenscreations:end
 ```
 
-## FILE: MCPEDL/Minigame/Shared-Hivemind-Inventory/behavior_pack/functions/give_controller.mcfunction (2 lines, 32 bytes)
+## FILE: MCPEDL/Minigame/Shared-Hivemind-Inventory/behavior_pack/functions/give_controller.mcfunction (2 lines, 49 bytes)
 
 ```
-give @s aln:minigame_controller
+give @s aln:shared_hivemind_inventory_controller
 ```
 
 ## FILE: MCPEDL/Minigame/Shared-Hivemind-Inventory/behavior_pack/functions/team_inventory/join_message.mcfunction (3 lines, 88 bytes)
@@ -457,14 +457,14 @@ give @s aln:minigame_controller
 tellraw @s {"rawtext":[{"text":"§a[Team Inventory] §fSyncing shared inventory..."}]}
 ```
 
-## FILE: MCPEDL/Minigame/Shared-Hivemind-Inventory/behavior_pack/items/controller.json (28 lines, 621 bytes)
+## FILE: MCPEDL/Minigame/Shared-Hivemind-Inventory/behavior_pack/items/controller.json (28 lines, 638 bytes)
 
 ```
 {
   "format_version": "1.26.40",
   "minecraft:item": {
     "description": {
-      "identifier": "aln:minigame_controller",
+      "identifier": "aln:shared_hivemind_inventory_controller",
       "menu_category": {
         "category": "items"
       }
@@ -551,13 +551,13 @@ tellraw @s {"rawtext":[{"text":"§a[Team Inventory] §fSyncing shared inventory.
 }
 ```
 
-## FILE: MCPEDL/Minigame/Shared-Hivemind-Inventory/behavior_pack/scripts/controller.js (186 lines, 5436 bytes)
+## FILE: MCPEDL/Minigame/Shared-Hivemind-Inventory/behavior_pack/scripts/controller.js (186 lines, 5453 bytes)
 
 ```
 import { world, system, ItemStack, EntityComponentTypes, GameMode } from "@minecraft/server";
 import { ActionFormData, FormCancelationReason } from "@minecraft/server-ui";
 
-const CONTROLLER_ID = "aln:minigame_controller";
+const CONTROLLER_ID = "aln:shared_hivemind_inventory_controller";
 const STATE_KEY = "game_state";
 const OPERATOR_LEVEL = 2;
 

@@ -1,1 +1,1 @@
-give @s aln:minigame_controller
+give @s aln:random_drop_chaos_controller

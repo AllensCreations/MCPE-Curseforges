@@ -1,1 +1,1 @@
-give @s aln:minigame_controller
+give @s aln:trivia_vault_controller

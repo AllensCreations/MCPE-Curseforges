@@ -1,1 +1,1 @@
-give @s aln:minigame_controller
+give @s aln:mob_chaos_roulette_controller

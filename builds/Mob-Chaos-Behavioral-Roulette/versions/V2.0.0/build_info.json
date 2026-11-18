@@ -2,7 +2,7 @@
   "changelog_version": "2.0.0",
   "manifest_version": "2.0.0",
   "packages": {
-    "MobChaos V2.mcaddon": "4281f19e140c44d034cf4bde7f666fe3ca20bc86fdb35d8ac8ad6743b5e10bfe"
+    "MobChaos V2.mcaddon": "8eac95811b08a59ed742de2cbe95184d6e97b4c9ce15b95cd05b2878933edb12"
   },
-  "source_sha256": "8c16d956c4574f18bd3edc31193b5cf3dbbd43fd6ea188925901d304dd846c21"
+  "source_sha256": "5341535155e563b7d61d546913e7939f5d667be55f44c50d9084e7b9c9c1dbc2"
 }

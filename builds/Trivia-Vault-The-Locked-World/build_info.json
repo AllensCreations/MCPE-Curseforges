@@ -2,7 +2,7 @@
   "changelog_version": "2.0.0",
   "manifest_version": "2.0.0",
   "packages": {
-    "TriviaVault V2.mcaddon": "c2ee7a840dd9a6910573c9856ea03ec34cc230d9f88ae6512090341ea0c57dab"
+    "TriviaVault V2.mcaddon": "59ca452f47f12a3404b737817f497796ef789e84451d6280a2e7ff2f6addffc6"
   },
-  "source_sha256": "79e1da8362f59f601cc53064e750a666a0ebd8d0599bab0c7dc66592fc3182df"
+  "source_sha256": "3071f6ae54f267c372bea224ac98c8b387f3b3f3d0855308cde9b9c194583b9d"
 }

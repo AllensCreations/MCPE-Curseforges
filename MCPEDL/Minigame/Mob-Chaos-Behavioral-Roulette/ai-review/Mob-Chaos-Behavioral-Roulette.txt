@@ -348,10 +348,10 @@ Leave clear space around the logo. No Minecraft, Mojang or Microsoft logos, no w
 scriptevent allenscreations:end
 ```
 
-## FILE: MCPEDL/Minigame/Mob-Chaos-Behavioral-Roulette/behavior_pack/functions/give_controller.mcfunction (2 lines, 32 bytes)
+## FILE: MCPEDL/Minigame/Mob-Chaos-Behavioral-Roulette/behavior_pack/functions/give_controller.mcfunction (2 lines, 42 bytes)
 
 ```
-give @s aln:minigame_controller
+give @s aln:mob_chaos_roulette_controller
 ```
 
 ## FILE: MCPEDL/Minigame/Mob-Chaos-Behavioral-Roulette/behavior_pack/functions/restart_game.mcfunction (2 lines, 36 bytes)
@@ -366,14 +366,14 @@ scriptevent allenscreations:restart
 scriptevent allenscreations:start
 ```
 
-## FILE: MCPEDL/Minigame/Mob-Chaos-Behavioral-Roulette/behavior_pack/items/controller.json (28 lines, 582 bytes)
+## FILE: MCPEDL/Minigame/Mob-Chaos-Behavioral-Roulette/behavior_pack/items/controller.json (28 lines, 592 bytes)
 
 ```
 {
   "format_version": "1.20.80",
   "minecraft:item": {
     "description": {
-      "identifier": "aln:minigame_controller",
+      "identifier": "aln:mob_chaos_roulette_controller",
       "menu_category": {
         "category": "items"
       }
@@ -459,13 +459,13 @@ scriptevent allenscreations:start
 }
 ```
 
-## FILE: MCPEDL/Minigame/Mob-Chaos-Behavioral-Roulette/behavior_pack/scripts/main.js (775 lines, 24498 bytes)
+## FILE: MCPEDL/Minigame/Mob-Chaos-Behavioral-Roulette/behavior_pack/scripts/main.js (775 lines, 24508 bytes)
 
 ```
 import { world, system, ItemStack, EntityComponentTypes } from "@minecraft/server";
 import { ActionFormData } from "@minecraft/server-ui";
 
-const CONTROLLER_ID = "aln:minigame_controller";
+const CONTROLLER_ID = "aln:mob_chaos_roulette_controller";
 const STATE_KEY = "game_state";
 const BLOCK_KEY = "block_damage";
 const INTERVAL_KEY = "shuffle_seconds";

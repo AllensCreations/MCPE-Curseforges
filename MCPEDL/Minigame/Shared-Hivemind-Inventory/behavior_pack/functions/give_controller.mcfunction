@@ -1,1 +1,1 @@
-give @s aln:minigame_controller
+give @s aln:shared_hivemind_inventory_controller

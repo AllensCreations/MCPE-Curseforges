@@ -336,20 +336,20 @@ Leave clear space around the logo. No Minecraft, Mojang or Microsoft logos, no w
 scriptevent allenscreations:end
 ```
 
-## FILE: MCPEDL/Minigame/Alphabet-Scavenger-Hunt/behavior_pack/functions/give_controller.mcfunction (2 lines, 32 bytes)
+## FILE: MCPEDL/Minigame/Alphabet-Scavenger-Hunt/behavior_pack/functions/give_controller.mcfunction (2 lines, 47 bytes)
 
 ```
-give @s aln:minigame_controller
+give @s aln:alphabet_scavenger_hunt_controller
 ```
 
-## FILE: MCPEDL/Minigame/Alphabet-Scavenger-Hunt/behavior_pack/items/controller.json (28 lines, 626 bytes)
+## FILE: MCPEDL/Minigame/Alphabet-Scavenger-Hunt/behavior_pack/items/controller.json (28 lines, 641 bytes)
 
 ```
 {
   "format_version": "1.26.40",
   "minecraft:item": {
     "description": {
-      "identifier": "aln:minigame_controller",
+      "identifier": "aln:alphabet_scavenger_hunt_controller",
       "menu_category": {
         "category": "items"
       }
@@ -446,13 +446,13 @@ give @s aln:minigame_controller
 }
 ```
 
-## FILE: MCPEDL/Minigame/Alphabet-Scavenger-Hunt/behavior_pack/scripts/controller.js (181 lines, 5235 bytes)
+## FILE: MCPEDL/Minigame/Alphabet-Scavenger-Hunt/behavior_pack/scripts/controller.js (181 lines, 5250 bytes)
 
 ```
 import { world, system, ItemStack, EntityComponentTypes, GameMode } from "@minecraft/server";
 import { ActionFormData, FormCancelationReason } from "@minecraft/server-ui";
 
-const CONTROLLER_ID = "aln:minigame_controller";
+const CONTROLLER_ID = "aln:alphabet_scavenger_hunt_controller";
 const STATE_KEY = "game_state";
 const OPERATOR_LEVEL = 2;
 

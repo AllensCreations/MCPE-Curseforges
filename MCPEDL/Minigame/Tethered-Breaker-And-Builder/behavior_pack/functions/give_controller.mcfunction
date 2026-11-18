@@ -1,1 +1,1 @@
-give @s aln:minigame_controller
+give @s aln:tethered_breaker_builder_controller

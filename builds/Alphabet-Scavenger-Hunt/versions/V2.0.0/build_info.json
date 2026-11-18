@@ -2,7 +2,7 @@
   "changelog_version": "2.0.0",
   "manifest_version": "2.0.0",
   "packages": {
-    "AlphabetHunt V2.mcaddon": "07f9c998059175e71205c2b208e2eb50295a970976f758ddb7e4fff83ac0ea42"
+    "AlphabetHunt V2.mcaddon": "8dfe13c3467117f863769a3aad21c7b5db8f94405602e919b9a8529358b3ca54"
   },
-  "source_sha256": "5e427d06182c4ae00884786e0541b9eab5c40185e3c13c1b42c732f284225d97"
+  "source_sha256": "e0ef9518de933ff8edab2b10bbf0283ef5bdce3264a406bfba42ed150bb1aaac"
 }

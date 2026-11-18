@@ -2,7 +2,7 @@
   "format_version": "1.20.80",
   "minecraft:item": {
     "description": {
-      "identifier": "aln:minigame_controller",
+      "identifier": "aln:mob_chaos_roulette_controller",
       "menu_category": {
         "category": "items"
       }

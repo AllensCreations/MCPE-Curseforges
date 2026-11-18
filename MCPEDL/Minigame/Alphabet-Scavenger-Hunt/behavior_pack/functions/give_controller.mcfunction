@@ -1,1 +1,1 @@
-give @s aln:minigame_controller
+give @s aln:alphabet_scavenger_hunt_controller

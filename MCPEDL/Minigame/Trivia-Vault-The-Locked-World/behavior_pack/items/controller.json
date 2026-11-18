@@ -2,7 +2,7 @@
   "format_version": "1.26.0",
   "minecraft:item": {
     "description": {
-      "identifier": "aln:minigame_controller",
+      "identifier": "aln:trivia_vault_controller",
       "menu_category": {
         "category": "items"
       }

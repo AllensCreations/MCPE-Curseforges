@@ -1,7 +1,7 @@
 import { world, system, ItemStack, EntityComponentTypes, GameMode } from "@minecraft/server";
 import { ActionFormData, FormCancelationReason } from "@minecraft/server-ui";
 
-const CONTROLLER_ID = "aln:minigame_controller";
+const CONTROLLER_ID = "aln:trivia_vault_controller";
 const STATE_KEY = "game_state";
 const OPERATOR_LEVEL = 2;
 

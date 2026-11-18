@@ -340,20 +340,20 @@ Leave clear space around the logo. No Minecraft, Mojang or Microsoft logos, no w
 scriptevent allenscreations:end
 ```
 
-## FILE: MCPEDL/Minigame/Minecraft-But-Every-Drop-is-Random-Chaos-Edition/behavior_pack/functions/give_controller.mcfunction (2 lines, 32 bytes)
+## FILE: MCPEDL/Minigame/Minecraft-But-Every-Drop-is-Random-Chaos-Edition/behavior_pack/functions/give_controller.mcfunction (2 lines, 41 bytes)
 
 ```
-give @s aln:minigame_controller
+give @s aln:random_drop_chaos_controller
 ```
 
-## FILE: MCPEDL/Minigame/Minecraft-But-Every-Drop-is-Random-Chaos-Edition/behavior_pack/items/controller.json (28 lines, 626 bytes)
+## FILE: MCPEDL/Minigame/Minecraft-But-Every-Drop-is-Random-Chaos-Edition/behavior_pack/items/controller.json (28 lines, 635 bytes)
 
 ```
 {
   "format_version": "1.26.60",
   "minecraft:item": {
     "description": {
-      "identifier": "aln:minigame_controller",
+      "identifier": "aln:random_drop_chaos_controller",
       "menu_category": {
         "category": "items"
       }
@@ -448,13 +448,13 @@ give @s aln:minigame_controller
 }
 ```
 
-## FILE: MCPEDL/Minigame/Minecraft-But-Every-Drop-is-Random-Chaos-Edition/behavior_pack/scripts/controller.js (181 lines, 5235 bytes)
+## FILE: MCPEDL/Minigame/Minecraft-But-Every-Drop-is-Random-Chaos-Edition/behavior_pack/scripts/controller.js (181 lines, 5244 bytes)
 
 ```
 import { world, system, ItemStack, EntityComponentTypes, GameMode } from "@minecraft/server";
 import { ActionFormData, FormCancelationReason } from "@minecraft/server-ui";
 
-const CONTROLLER_ID = "aln:minigame_controller";
+const CONTROLLER_ID = "aln:random_drop_chaos_controller";
 const STATE_KEY = "game_state";
 const OPERATOR_LEVEL = 2;
 

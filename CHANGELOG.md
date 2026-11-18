@@ -1,3 +1,11 @@
+## [v110] - 2026-11-18 - [Specific Minigame Controller Identifiers]
+### Improved & Balanced
+- **Minigames**: Standardized all 6 minigame controllers from generic \`aln:minigame_controller\` to specific isolated identifiers \`aln:<minigame_name>_controller\` (e.g. \`aln:alphabet_scavenger_hunt_controller\`, \`aln:trivia_vault_controller\`, etc.) across all items, scripts, and mcfunctions.
+- **Instruction Files**: Updated \`INSTRUCTIONS.md\` and \`PACK_GENERATOR_INSTRUCTIONS.md\` to mandate \`aln:<minigame_name>_controller\`.
+- **Tools Bundle**: Regenerated \`ai-review/tools.txt\` and all minigame review files.
+
+---
+
 ## [v109] - 2026-11-18 - [Instruction Optimization & Manifest Template Alignment]
 ### Improved & Balanced
 - **PACK_GENERATOR_INSTRUCTIONS.md (4.3)**: Corrected manifest template name field from legacy \`Add-on Name (v1.0.0)\` to single-version \`Add-on Name (v1)\`.

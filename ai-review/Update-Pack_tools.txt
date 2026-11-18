@@ -81,7 +81,7 @@ description: Create a NEW addon, map, script or minigame for the MCPE-Curseforge
 - [ ] Reply = **File Needed**, **Changelog**, **Termux Script**, in that order, no text before, between or after, no Summary. The `.sh` is attached, never pasted.
 ```
 
-## FILE: PACK_GENERATOR_INSTRUCTIONS.md (365 lines, 37072 bytes)
+## FILE: PACK_GENERATOR_INSTRUCTIONS.md (365 lines, 37079 bytes)
 
 ````
 # Pack Generator Instructions (AI Agent, v29)
@@ -330,7 +330,7 @@ resource_pack/manifest.json
 resource_pack/textures/item_texture.json
 resource_pack/textures/items/controller.png    16 x 16, from repo, NEVER redrawn
 ```
-Controller (item `aln:minigame_controller`; NEVER opt out): ALN UI Redesign main menu per `INSTRUCTIONS.md` 1.13/1.14 with exactly 3 buttons **Start**, **About**, **Exit** (this order); while running the first button = **End Game**. All of it lives in `controller.js`: NEVER build another form.
+Controller (item `aln:<minigame_name>_controller`; NEVER opt out): ALN UI Redesign main menu per `INSTRUCTIONS.md` 1.13/1.14 with exactly 3 buttons **Start**, **About**, **Exit** (this order); while running the first button = **End Game**. All of it lives in `controller.js`: NEVER build another form.
 - Only host/operator gets/uses it, via `isHost` in `controller.js`, NEVER `player.isOp()` alone. Start works while not running (re-read state after form closes). Running: End Game -> confirm form (**End Game** / **Back**) -> `endGame()`, no cheats. Start opens How to play (rules, **Start Game**, **Back**). About: creator, pack + version, one line, profiles, Back.
 - KEPT while the game runs. `consumeOnStart: true` restores old behavior (Start consumes first Controller unless `getGameMode()` is `GameMode.Creative`; End Game then only reachable by a host still carrying one).
 - Game logic calls `endGame()` on win/lose. `endGame()` sets `ended`, gives host/operator a fresh Controller if none.
@@ -450,7 +450,7 @@ Same rules as `INSTRUCTIONS.md` 1.12. Read it when a mechanic hits a vanilla lim
 - Ship the JSON AND the PNGs. The JSON is the source: later changes edit the JSON and rerun the script, NEVER the PNG. `--preview [file]` writes a review sheet outside the project: NEVER ship it.
 ````
 
-## FILE: INSTRUCTIONS.md (280 lines, 39756 bytes)
+## FILE: INSTRUCTIONS.md (280 lines, 39770 bytes)
 
 ````
 # Instructions: Core Repository Policy (v27)
@@ -619,7 +619,7 @@ Payload import:
 
 Scripts and minigames:
 - Script project `MCPEDL/Script/<Name>/`: script BP, `.mcpack`. Minigame `MCPEDL/Minigame/<Name>/`: BP + RP, `.mcaddon`.
-- Every Minigame ships Controller (`aln:minigame_controller`, `controller.png` 16x16 at `Mcpeworlds/assets/resources_pack/textures/items/controller.png`). Opens the ALN UI Redesign main menu (1.14): exactly 3 buttons, **Start**, **About**, **Exit**; while running the first button = **End Game**. The importer installs the skin font, `pixelify.js` and the About icon into the minigame. State (idle/running/ended) in a world dynamic property. NEVER opt out.
+- Every Minigame ships Controller (`aln:<minigame_name>_controller`, `controller.png` 16x16 at `Mcpeworlds/assets/resources_pack/textures/items/controller.png`). Opens the ALN UI Redesign main menu (1.14): exactly 3 buttons, **Start**, **About**, **Exit**; while running the first button = **End Game**. The importer installs the skin font, `pixelify.js` and the About icon into the minigame. State (idle/running/ended) in a world dynamic property. NEVER opt out.
 - Only host/operator gets and uses it. Start works while idle. End Game asks confirm, calls `endGame()`, needs no cheats. Start opens the How to play page (Start Game + Back) before the game begins. About page has creator, version, one line on the pack, profiles and a Back button. Game ends via win/lose logic calling `endGame()`.
 - Controller KEPT while game runs. `consumeOnStart: true` in `registerController` restores old behavior (Start consumes first Controller unless Creative; End Game only reachable by host still carrying one). Host/operator gets one on every spawn (incl. death) when carrying none; game end gives a fresh one.
 - Stuck state: NEVER stay `running` forever. On world load, a script that cannot restore a live game resets to `idle` and gives Controller. `give_controller.mcfunction`, `end_game.mcfunction` ship with every Controller minigame but need cheats: last resort, NEVER only recovery.
@@ -670,7 +670,7 @@ Applies to every addon, map, script, minigame, item, entity, block, trade, recip
 - Modular: one small file per workaround with one entry point (script: `behavior_pack/scripts/lib/<name>.js` imported relatively; data: its own function file, entity or item definition). Reuse an existing module. NEVER copy the logic per feature.
 - Safe: idempotent setup, caps and cleanup for spawned entities and loops, nothing that corrupts worlds or other packs.
 - Conflict Prevention & Isolation:
-  1. Custom namespace isolation: Always prefix custom items, blocks, and entities with `aln:<name>` (e.g. `aln:minigame_controller`).
+  1. Custom namespace isolation: Always prefix custom items, blocks, and entities with `aln:<name>` (e.g. `aln:<minigame_name>_controller`).
   2. Avoid Vanilla Entity Overrides: Overriding vanilla entity JSON files (e.g. `entities/zombie.json`) completely wipes out other addons modifying the same entity in Bedrock's load order. Whenever possible, hook into vanilla entity mechanics using `@minecraft/server` Script API event subscriptions (`world.afterEvents.entityDie`, `playerInteractWithEntity`, `entityHurt`, etc.) rather than replacing the vanilla entity JSON.
 - Docs (`DOCS_RULES.md`): player-facing result only, no code or API names; the trade-off under Good To Know. State achievement and experiment impact per 1.2.
 

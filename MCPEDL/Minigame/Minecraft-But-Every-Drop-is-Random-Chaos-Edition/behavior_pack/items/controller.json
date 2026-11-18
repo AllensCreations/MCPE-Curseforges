@@ -2,7 +2,7 @@
   "format_version": "1.26.60",
   "minecraft:item": {
     "description": {
-      "identifier": "aln:minigame_controller",
+      "identifier": "aln:random_drop_chaos_controller",
       "menu_category": {
         "category": "items"
       }
