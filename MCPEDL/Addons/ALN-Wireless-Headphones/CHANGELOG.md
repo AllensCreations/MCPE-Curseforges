@@ -2,6 +2,13 @@
 
 ---
 
+## [v8] - 2026-11-18 - Music-Only Audio
+
+### Improved & Balanced
+- **Headphone Audio**: The headphone music always plays as music, so its volume stays steady wherever you walk and follows your Music volume setting.
+
+---
+
 ## [v6] - 2026-11-18 - Custom Disc Support
 
 ### Added

@@ -6,6 +6,13 @@
 
 ---
 
+## [v118] - 2026-11-18 - Music-Only Audio
+
+### Improved & Balanced
+- **ALN Wireless Headphones**: The headphone music always plays as music, with a steady volume.
+
+---
+
 ## [v117] - 2026-11-18 - Custom Disc Support
 
 ### Added

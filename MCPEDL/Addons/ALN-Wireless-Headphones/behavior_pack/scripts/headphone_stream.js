@@ -16,11 +16,10 @@ const listening = new Set();
 const streams = new Map();
 
 function stopAudio(player) {
-  const stream = streams.get(player.id);
-  if (stream) {
+  if (streams.has(player.id)) {
     streams.delete(player.id);
     try {
-      player.runCommand("stopsound @s " + stream.soundId);
+      player.stopMusic();
     } catch (error) {}
   }
   try {
@@ -43,7 +42,9 @@ function ensureStream(player, status) {
   }
   try {
     player.addTag(LISTEN_TAG);
-    player.playSound(status.info.soundId, { volume: 1.0 });
+  } catch (error) {}
+  try {
+    player.playMusic(status.info.soundId, { volume: 1.0, fade: 0.0, loop: false });
   } catch (error) {}
   const stream = {
     soundId: status.info.soundId,

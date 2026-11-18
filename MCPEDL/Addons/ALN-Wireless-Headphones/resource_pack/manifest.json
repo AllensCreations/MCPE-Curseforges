@@ -1,11 +1,11 @@
 {
   "format_version": 2,
   "header": {
-    "name": "ALN Wireless Headphones (v6)",
+    "name": "ALN Wireless Headphones (v8)",
     "description": "Textures for the add-on. by ALNStudios",
     "uuid": "a0390eec-e584-411c-90bf-c171e84f5a73",
     "version": [
-      6,
+      8,
       0,
       0
     ],
@@ -20,7 +20,7 @@
       "type": "resources",
       "uuid": "24a6840b-a678-4dfb-a4c1-d5724ef3f61f",
       "version": [
-        6,
+        8,
         0,
         0
       ]
@@ -31,6 +31,6 @@
       "ALNStudios"
     ],
     "product_type": "addon",
-    "version": "6.0.0"
+    "version": "8.0.0"
   }
 }
