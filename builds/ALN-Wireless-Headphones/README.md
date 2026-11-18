@@ -8,7 +8,7 @@ This folder contains compiled release packages for **ALN Wireless Headphones** b
 
 | File Name | Format | Size | Description | Download Link |
 | :--- | :--- | :--- | :--- | :--- |
-| **`ALNWirelessHeadphones V5.mcaddon`** | `.mcaddon` | ~11 KB | Complete bundle containing both Behavior Pack and Resource Pack. | [Download (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/ALN-Wireless-Headphones/ALNWirelessHeadphones%20V5.mcaddon) |
+| **`ALNWirelessHeadphones V6.mcaddon`** | `.mcaddon` | ~11 KB | Complete bundle containing both Behavior Pack and Resource Pack. | [Download (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/ALN-Wireless-Headphones/ALNWirelessHeadphones%20V6.mcaddon) |
 
 ---
 

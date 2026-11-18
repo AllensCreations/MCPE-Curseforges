@@ -4,7 +4,7 @@
 
 - **Export request:** `MCPEDL/Addons/ALN-Wireless-Headphones`
 - **Destination:** `MCPEDL/Addons/ALN-Wireless-Headphones`
-- **CURRENT VERSION: v5 / NEXT UPDATE: v6**  (`MCPEDL/Addons/ALN-Wireless-Headphones/CHANGELOG.md`)
+- **CURRENT VERSION: v6 / NEXT UPDATE: v7**  (`MCPEDL/Addons/ALN-Wireless-Headphones/CHANGELOG.md`)
 - **Text files:** 28
 - **Skipped binary:** 4
 - **Paths not found:** 0
@@ -225,34 +225,45 @@ git config --global credential.helper store
 
 ## File Contents
 
-## FILE: changelog_views/ALN-Wireless-Headphones.curseforge.html (5 lines, 2640 bytes)
+## FILE: changelog_views/ALN-Wireless-Headphones.curseforge.html (6 lines, 3006 bytes)
 
 ```
-<h2>v5 - 2026-11-18 - Muted Jukebox &amp; Worn Model</h2><h3>Added</h3><ul><li><strong>Worn Model</strong>: The Wireless Headphones now show on your character&#x27;s head.</li><li><strong>Muted Jukebox</strong>: Pairing mutes the Jukebox for everyone. Only players wearing the headphones hear the music.</li><li><strong>Unpairing</strong>: Sneak and use the headphones on their paired Jukebox again to unpair it and unmute it.</li></ul><h3>Improved &amp; Balanced</h3><ul><li><strong>Long Distance</strong>: A paired Jukebox now stays loaded, so the music follows it from far away.</li><li><strong>Paired Action Bar</strong>: The Action Bar shows Paired while you wear the headphones, and the timer follows the audio you hear.</li><li><strong>Empty Jukebox Pairing</strong>: You can pair a Jukebox that has no disc, which suits a playlist.</li></ul><h3>Fixed</h3><ul><li><strong>Pairing</strong>: Sneak and use on a Jukebox now pairs the headphones instead of putting them on.</li></ul>
+<h2>v6 - 2026-11-18 - Custom Disc Support</h2><h3>Added</h3><ul><li><strong>Custom Discs</strong>: Music discs from other add-ons now play through the headphones when the disc item is named &lt;namespace&gt;:music_disc_&lt;name&gt; and its sound is record.&lt;name&gt;. Their total time shows as --:--.</li></ul>
+<h2>5.0.x (1 release)</h2><div class="spoiler"><h3>v5 - 2026-11-18 - Muted Jukebox &amp; Worn Model</h3><h4>Added</h4><ul><li><strong>Worn Model</strong>: The Wireless Headphones now show on your character&#x27;s head.</li><li><strong>Muted Jukebox</strong>: Pairing mutes the Jukebox for everyone. Only players wearing the headphones hear the music.</li><li><strong>Unpairing</strong>: Sneak and use the headphones on their paired Jukebox again to unpair it and unmute it.</li></ul><h4>Improved &amp; Balanced</h4><ul><li><strong>Long Distance</strong>: A paired Jukebox now stays loaded, so the music follows it from far away.</li><li><strong>Paired Action Bar</strong>: The Action Bar shows Paired while you wear the headphones, and the timer follows the audio you hear.</li><li><strong>Empty Jukebox Pairing</strong>: You can pair a Jukebox that has no disc, which suits a playlist.</li></ul><h4>Fixed</h4><ul><li><strong>Pairing</strong>: Sneak and use on a Jukebox now pairs the headphones instead of putting them on.</li></ul></div>
 <h2>4.0.x (1 release)</h2><div class="spoiler"><h3>v4 - 2026-11-18 - Headphones Item Fix</h3><h4>Fixed</h4><ul><li><strong>Wireless Headphones</strong>: The headphones now load correctly, showing their icon, stacking to 1 and appearing in the Helmet group of the creative inventory.</li></ul></div>
 <h2>3.0.x (1 release)</h2><div class="spoiler"><h3>v3 - 2026-11-18 - Direct Audio Streaming &amp; Disconnect Feedback</h3><h4>Added</h4><ul><li><strong>Direct Audio Streaming</strong>: Wireless Headphones now actively stream the music disc audio straight into your ears using `playMusic`, letting you hear the music anywhere while the Jukebox is loaded.</li></ul><h4>Improved &amp; Balanced</h4><ul><li><strong>Disconnect State</strong>: If the paired Jukebox chunk unloads or the dimension is unavailable, the Action Bar clearly displays `Disconnected` and stops audio streaming cleanly until reconnected.</li><li><strong>Auto-Stop on Unequip</strong>: Removing the Wireless Headphones immediately stops the streamed audio.</li></ul></div>
 <h2>2.0.x (1 release)</h2><div class="spoiler"><h3>v2 - 2026-11-16 - First Release</h3><h4>Added</h4><ul><li><strong>Wireless Headphones</strong>: A craftable helmet made from 2 Iron Ingots, 1 Redstone Dust and 2 Leather that streams a paired Jukebox to your Action Bar.</li><li><strong>Jukebox Pairing</strong>: Sneak and use the headphones on a Jukebox with a music disc to pair it. A chime plays and the Action Bar confirms it.</li><li><strong>Live Track Display</strong>: While worn, the Action Bar shows the disc name with elapsed and total time, and clears when you take the headphones off.</li></ul></div>
 ```
 
-## FILE: changelog_views/ALN-Wireless-Headphones.github.md (53 lines, 2346 bytes)
+## FILE: changelog_views/ALN-Wireless-Headphones.github.md (63 lines, 2678 bytes)
 
 ```
 # Changelog — ALN Wireless Headphones
 
-## [v5] - 2026-11-18 - Muted Jukebox & Worn Model
+## [v6] - 2026-11-18 - Custom Disc Support
 
 ### Added
+- **Custom Discs**: Music discs from other add-ons now play through the headphones when the disc item is named <namespace>:music_disc_<name> and its sound is record.<name>. Their total time shows as --:--.
+
+<details>
+<summary><b>5.0.x</b> (1 release)</summary>
+
+### [v5] - 2026-11-18 - Muted Jukebox & Worn Model
+
+#### Added
 - **Worn Model**: The Wireless Headphones now show on your character's head.
 - **Muted Jukebox**: Pairing mutes the Jukebox for everyone. Only players wearing the headphones hear the music.
 - **Unpairing**: Sneak and use the headphones on their paired Jukebox again to unpair it and unmute it.
 
-### Improved & Balanced
+#### Improved & Balanced
 - **Long Distance**: A paired Jukebox now stays loaded, so the music follows it from far away.
 - **Paired Action Bar**: The Action Bar shows Paired while you wear the headphones, and the timer follows the audio you hear.
 - **Empty Jukebox Pairing**: You can pair a Jukebox that has no disc, which suits a playlist.
 
-### Fixed
+#### Fixed
 - **Pairing**: Sneak and use on a Jukebox now pairs the headphones instead of putting them on.
+
+</details>
 
 <details>
 <summary><b>4.0.x</b> (1 release)</summary>
@@ -373,11 +384,11 @@ This marker does not encrypt the pack or prevent extraction or editing.
 {
   "format_version": 2,
   "header": {
-    "name": "ALN Wireless Headphones (v5)",
+    "name": "ALN Wireless Headphones (v6)",
     "description": "Wear Wireless Headphones to stream a paired Jukebox to your Action Bar. by ALNStudios",
     "uuid": "4fa0e63a-a24b-430c-b00c-d25aaa097b23",
     "version": [
-      5,
+      6,
       0,
       0
     ],
@@ -392,7 +403,7 @@ This marker does not encrypt the pack or prevent extraction or editing.
       "type": "data",
       "uuid": "6ed2e0ea-13a7-4490-a494-f594dcc47ccf",
       "version": [
-        5,
+        6,
         0,
         0
       ]
@@ -402,7 +413,7 @@ This marker does not encrypt the pack or prevent extraction or editing.
       "language": "javascript",
       "uuid": "fcaddf1f-d6bf-456c-a627-d79cc87ce374",
       "version": [
-        5,
+        6,
         0,
         0
       ],
@@ -413,7 +424,7 @@ This marker does not encrypt the pack or prevent extraction or editing.
     {
       "uuid": "a0390eec-e584-411c-90bf-c171e84f5a73",
       "version": [
-        5,
+        6,
         0,
         0
       ]
@@ -428,7 +439,7 @@ This marker does not encrypt the pack or prevent extraction or editing.
       "ALNStudios"
     ],
     "product_type": "addon",
-    "version": "5.0.0"
+    "version": "6.0.0"
   }
 }
 ```
@@ -471,7 +482,7 @@ This marker does not encrypt the pack or prevent extraction or editing.
 }
 ```
 
-## FILE: MCPEDL/Addons/ALN-Wireless-Headphones/behavior_pack/scripts/headphone_common.js (214 lines, 6137 bytes)
+## FILE: MCPEDL/Addons/ALN-Wireless-Headphones/behavior_pack/scripts/headphone_common.js (220 lines, 6359 bytes)
 
 ```
 import { world, system } from "@minecraft/server";
@@ -516,13 +527,19 @@ export function sessionKey(dimensionId, x, y, z) {
 }
 
 export function discInfo(typeId) {
-  const shortId = typeId.replace("minecraft:", "").replace(/^(music_disc_|record_)/, "");
-  const known = DISCS[shortId];
+  const vanilla = typeId.startsWith("minecraft:");
+  const shortId = typeId.replace(/^[^:]*:/, "").replace(/^(music_disc_|record_)/, "");
+  const known = vanilla ? DISCS[shortId] : undefined;
   const soundId = "record." + shortId;
   if (known) {
     return { name: known[0], totalSeconds: known[1], soundId };
   }
-  return { name: shortId.replace(/_/g, " "), totalSeconds: undefined, soundId };
+  const pretty = shortId
+    .split("_")
+    .filter((word) => word.length > 0)
+    .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+    .join(" ");
+  return { name: pretty || shortId, totalSeconds: undefined, soundId };
 }
 
 export function formatTime(totalSeconds) {
@@ -1025,10 +1042,17 @@ import "./headphone_mute.js";
 import "./headphone_stream.js";
 ```
 
-## FILE: MCPEDL/Addons/ALN-Wireless-Headphones/CHANGELOG.md (46 lines, 2158 bytes)
+## FILE: MCPEDL/Addons/ALN-Wireless-Headphones/CHANGELOG.md (53 lines, 2424 bytes)
 
 ```
 # Changelog — ALN Wireless Headphones
+
+---
+
+## [v6] - 2026-11-18 - Custom Disc Support
+
+### Added
+- **Custom Discs**: Music discs from other add-ons now play through the headphones when the disc item is named <namespace>:music_disc_<name> and its sound is record.<name>. Their total time shows as --:--.
 
 ---
 
@@ -1075,7 +1099,7 @@ import "./headphone_stream.js";
 - **Live Track Display**: While worn, the Action Bar shows the disc name with elapsed and total time, and clears when you take the headphones off.
 ```
 
-## FILE: MCPEDL/Addons/ALN-Wireless-Headphones/DESCRIPTION.md (76 lines, 4864 bytes)
+## FILE: MCPEDL/Addons/ALN-Wireless-Headphones/DESCRIPTION.md (76 lines, 5022 bytes)
 
 ```
 # ALN Wireless Headphones — Stream a Jukebox to Your Action Bar
@@ -1108,7 +1132,7 @@ Craft the Wireless Headphones, hold them, and sneak while using a Jukebox to pai
 ### Live Audio & Action Bar Player
 - **What Happens**: While worn, the music disc audio streams straight to your headphones and the Action Bar shows the artist, title, elapsed time, and total duration.
 - **How It Works**: A paired Jukebox playing cat streams the track audio directly to you while displaying the track name and progress like 0:42 out of 3:05.
-- **Good To Know**: A paired Jukebox is kept loaded so the music can follow it from far away. The game limits how many areas can be kept loaded, so a Jukebox beyond that limit may show as not loaded when you are away. Total times are supported for all vanilla discs.
+- **Good To Know**: A paired Jukebox is kept loaded so the music can follow it from far away. The game limits how many areas can be kept loaded, so a Jukebox beyond that limit may show as not loaded when you are away. Total times are supported for all vanilla discs. Discs from other add-ons also play when the disc item is named <namespace>:music_disc_<name> and its sound is record.<name>. Their total time shows as --:--.
 
 ## How to Use
 
@@ -1182,7 +1206,7 @@ Download the current release of **ALN Wireless Headphones** for Minecraft Bedroc
 ## Download
 
 - **Package format:** `.mcaddon`
-- **Direct download:** [Download ALN Wireless Headphones (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/ALN-Wireless-Headphones/ALNWirelessHeadphones%20V5.mcaddon)
+- **Direct download:** [Download ALN Wireless Headphones (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/ALN-Wireless-Headphones/ALNWirelessHeadphones%20V6.mcaddon)
 
 ## Installation
 
@@ -1237,11 +1261,11 @@ This marker does not encrypt the pack or prevent extraction or editing.
 {
   "format_version": 2,
   "header": {
-    "name": "ALN Wireless Headphones (v5)",
+    "name": "ALN Wireless Headphones (v6)",
     "description": "Textures for the add-on. by ALNStudios",
     "uuid": "a0390eec-e584-411c-90bf-c171e84f5a73",
     "version": [
-      5,
+      6,
       0,
       0
     ],
@@ -1256,7 +1280,7 @@ This marker does not encrypt the pack or prevent extraction or editing.
       "type": "resources",
       "uuid": "24a6840b-a678-4dfb-a4c1-d5724ef3f61f",
       "version": [
-        5,
+        6,
         0,
         0
       ]
@@ -1267,7 +1291,7 @@ This marker does not encrypt the pack or prevent extraction or editing.
       "ALNStudios"
     ],
     "product_type": "addon",
-    "version": "5.0.0"
+    "version": "6.0.0"
   }
 }
 ```
@@ -1486,7 +1510,7 @@ Source files for established Minecraft Bedrock add-ons by ALNStudios.
 | Enchanter | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/Enchanter/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Enchanter/Enchanter%20V2.mcaddon) |
 | ALN Quiver | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/ALN-Quiver/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/ALN-Quiver/ALNQuiver%20V2.mcaddon) |
 | Expanded Basic Arsenal | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/Expanded-Basic-Arsenal/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Expanded-Basic-Arsenal/ExpandedBasicArsenal%20V2.mcaddon) |
-| ALN Wireless Headphones | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/ALN-Wireless-Headphones/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/ALN-Wireless-Headphones/ALNWirelessHeadphones%20V5.mcaddon) |
+| ALN Wireless Headphones | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/ALN-Wireless-Headphones/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/ALN-Wireless-Headphones/ALNWirelessHeadphones%20V6.mcaddon) |
 | ALN MoreDiscs | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/ALN-MoreDiscs/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/ALN-MoreDiscs/ALNMoreDiscs%20V2.mcaddon) |
 | ALN Pointer | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/ALN-Pointer/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/ALN-Pointer/ALNPointer%20V2.mcaddon) |
 
@@ -1505,7 +1529,7 @@ Videos and streams are welcome with credit. Redistribution of original or modifi
 - [Minigames](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Minigame#available-minigames)
 ```
 
-## FILE: Package/ALN-Wireless-Headphones.listing.md (72 lines, 14406 bytes)
+## FILE: Package/ALN-Wireless-Headphones.listing.md (72 lines, 14582 bytes)
 
 ````
 # Listing Kit: ALN Wireless Headphones
@@ -1533,7 +1557,7 @@ Paste into the CurseForge description editor in source (HTML) mode.
 <h2 style="font-size:17px;text-align:left"><span style="background-color:#15803d;color:#ffffff;border-radius:20px">&nbsp;&nbsp;About&nbsp;&nbsp;</span></h2>
 <p>Craft the Wireless Headphones, hold them, and sneak while using a Jukebox to pair them. The Jukebox goes quiet for everyone. Put the headphones on your head and the music plays only in your ears, with the track and timer on your Action Bar, for as long as you wear them. Take them off and the music stops.</p>
 <h2 style="font-size:17px;text-align:left"><span style="background-color:#15803d;color:#ffffff;border-radius:20px">&nbsp;&nbsp;What You Get&nbsp;&nbsp;</span></h2>
-<div style="display:flex;flex-wrap:wrap;gap:10px"><div style="flex:1;min-width:200px;border:1px solid #8a94a3;border-radius:16px"><div style="background-color:#15803d;color:#ffffff;border-radius:16px;font-size:16px;line-height:2.2"><strong>&nbsp;&nbsp;Wireless Headphones</strong></div><div style="margin-left:12px;margin-right:12px"><p><span>A helmet that stacks to 1 and goes in the head slot. It gives no armor protection.</span><br><span style="font-size:13px;color:#8a94a3"><strong>How It Works:</strong> Craft it with 2 Iron Ingots, 1 Redstone Dust and 2 Leather. Row 1 is Iron Ingot, Redstone Dust, Iron Ingot. Row 2 is Leather, empty, Leather.</span><br><span style="font-size:13px;color:#8a94a3"><strong>Good To Know:</strong> The recipe is unlocked from the start. The headphones show on your character's head while worn.</span></p></div></div><div style="flex:1;min-width:200px;border:1px solid #8a94a3;border-radius:16px"><div style="background-color:#15803d;color:#ffffff;border-radius:16px;font-size:16px;line-height:2.2"><strong>&nbsp;&nbsp;Jukebox Pairing</strong></div><div style="margin-left:12px;margin-right:12px"><p><span>Sneak and use the headphones on a Jukebox to pair them. A chime plays and the Action Bar confirms it. The Jukebox is muted for everyone.</span><br><span style="font-size:13px;color:#8a94a3"><strong>How It Works:</strong> Hold the headphones, crouch, then use them on the Jukebox. The paired position is saved on that item and shown in its lore.</span><br><span style="font-size:13px;color:#8a94a3"><strong>Good To Know:</strong> A Jukebox with no disc can be paired. Pairing again moves the link and unmutes the old Jukebox. Sneak and use the headphones on their paired Jukebox to unpair it.</span></p></div></div><div style="flex:1;min-width:200px;border:1px solid #8a94a3;border-radius:16px"><div style="background-color:#15803d;color:#ffffff;border-radius:16px;font-size:16px;line-height:2.2"><strong>&nbsp;&nbsp;Live Audio &amp; Action Bar Player</strong></div><div style="margin-left:12px;margin-right:12px"><p><span>While worn, the music disc audio streams straight to your headphones and the Action Bar shows the artist, title, elapsed time, and total duration.</span><br><span style="font-size:13px;color:#8a94a3"><strong>How It Works:</strong> A paired Jukebox playing cat streams the track audio directly to you while displaying the track name and progress like 0:42 out of 3:05.</span><br><span style="font-size:13px;color:#8a94a3"><strong>Good To Know:</strong> A paired Jukebox is kept loaded so the music can follow it from far away. The game limits how many areas can be kept loaded, so a Jukebox beyond that limit may show as not loaded when you are away. Total times are supported for all vanilla discs.</span></p></div></div></div>
+<div style="display:flex;flex-wrap:wrap;gap:10px"><div style="flex:1;min-width:200px;border:1px solid #8a94a3;border-radius:16px"><div style="background-color:#15803d;color:#ffffff;border-radius:16px;font-size:16px;line-height:2.2"><strong>&nbsp;&nbsp;Wireless Headphones</strong></div><div style="margin-left:12px;margin-right:12px"><p><span>A helmet that stacks to 1 and goes in the head slot. It gives no armor protection.</span><br><span style="font-size:13px;color:#8a94a3"><strong>How It Works:</strong> Craft it with 2 Iron Ingots, 1 Redstone Dust and 2 Leather. Row 1 is Iron Ingot, Redstone Dust, Iron Ingot. Row 2 is Leather, empty, Leather.</span><br><span style="font-size:13px;color:#8a94a3"><strong>Good To Know:</strong> The recipe is unlocked from the start. The headphones show on your character's head while worn.</span></p></div></div><div style="flex:1;min-width:200px;border:1px solid #8a94a3;border-radius:16px"><div style="background-color:#15803d;color:#ffffff;border-radius:16px;font-size:16px;line-height:2.2"><strong>&nbsp;&nbsp;Jukebox Pairing</strong></div><div style="margin-left:12px;margin-right:12px"><p><span>Sneak and use the headphones on a Jukebox to pair them. A chime plays and the Action Bar confirms it. The Jukebox is muted for everyone.</span><br><span style="font-size:13px;color:#8a94a3"><strong>How It Works:</strong> Hold the headphones, crouch, then use them on the Jukebox. The paired position is saved on that item and shown in its lore.</span><br><span style="font-size:13px;color:#8a94a3"><strong>Good To Know:</strong> A Jukebox with no disc can be paired. Pairing again moves the link and unmutes the old Jukebox. Sneak and use the headphones on their paired Jukebox to unpair it.</span></p></div></div><div style="flex:1;min-width:200px;border:1px solid #8a94a3;border-radius:16px"><div style="background-color:#15803d;color:#ffffff;border-radius:16px;font-size:16px;line-height:2.2"><strong>&nbsp;&nbsp;Live Audio &amp; Action Bar Player</strong></div><div style="margin-left:12px;margin-right:12px"><p><span>While worn, the music disc audio streams straight to your headphones and the Action Bar shows the artist, title, elapsed time, and total duration.</span><br><span style="font-size:13px;color:#8a94a3"><strong>How It Works:</strong> A paired Jukebox playing cat streams the track audio directly to you while displaying the track name and progress like 0:42 out of 3:05.</span><br><span style="font-size:13px;color:#8a94a3"><strong>Good To Know:</strong> A paired Jukebox is kept loaded so the music can follow it from far away. The game limits how many areas can be kept loaded, so a Jukebox beyond that limit may show as not loaded when you are away. Total times are supported for all vanilla discs. Discs from other add-ons also play when the disc item is named &lt;namespace&gt;:music_disc_&lt;name&gt; and its sound is record.&lt;name&gt;. Their total time shows as --:--.</span></p></div></div></div>
 <h2 style="font-size:17px;text-align:left"><span style="background-color:#15803d;color:#ffffff;border-radius:20px">&nbsp;&nbsp;Custom Items&nbsp;&nbsp;</span></h2>
 <div style="display:flex;flex-wrap:wrap;gap:10px"><div style="flex:0 1 120px;border:1px solid #8a94a3;border-radius:16px;text-align:center"><p><a href="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/MCPEDL/Addons/ALN-Wireless-Headphones/assets/items/headphones.png"><img src="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/MCPEDL/Addons/ALN-Wireless-Headphones/assets/items/headphones.png" alt="headphones" style="width:64px"></a></p><p style="color:#8a94a3;font-size:13px">headphones</p></div></div>
 <h2 style="font-size:17px;text-align:left"><span style="background-color:#15803d;color:#ffffff;border-radius:20px">&nbsp;&nbsp;Crafting Recipes&nbsp;&nbsp;</span></h2>

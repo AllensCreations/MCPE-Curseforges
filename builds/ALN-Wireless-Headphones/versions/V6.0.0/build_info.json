@@ -1,0 +1,8 @@
+{
+  "changelog_version": "6.0.0",
+  "manifest_version": "6.0.0",
+  "packages": {
+    "ALNWirelessHeadphones V6.mcaddon": "7ff64b6bf90dbe6cab933da86988db7ad7acf2042fee732979090f093402f074"
+  },
+  "source_sha256": "079554a064610b3711675535bf51d785e84b1284e5be9dc0a30c9a84ab5f45d9"
+}
