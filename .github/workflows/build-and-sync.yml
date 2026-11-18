@@ -174,6 +174,16 @@ jobs:
       - name: Refresh per-package AI review files
         run: python3 scripts/auto_ai_review.py
 
+      - name: Upload AI Review Bundle Artifact
+        uses: actions/upload-artifact@4cec3d8aa04e39d1a68397de0c4cd6fb9dce8ec1 # v4.6.1
+        with:
+          name: ai-review-bundle
+          path: |
+            ai-review/tools.txt
+            ai-review/Update-Pack_tools.txt
+            MCPEDL/**/ai-review/*.txt
+          if-no-files-found: ignore
+
       - name: Build MCPEDL catalog index
         run: python3 scripts/build_mcpedl_readme.py
 

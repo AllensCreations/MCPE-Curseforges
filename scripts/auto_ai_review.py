@@ -189,18 +189,17 @@ def main() -> int:
     print(f"{built} package file(s) rebuilt; {len(changed)} path(s) changed.")
 
     # --- Enrich rebuilt files with Graphify graph context ---
-    if built or args.all:
-        enrich = ROOT / "scripts" / "enrich_ai_review.py"
-        if enrich.exists():
-            enrich_args = [sys.executable, str(enrich)]
-            if args.all:
-                enrich_args.append("--all")
-            elif getattr(args, "only", ""):
-                enrich_args += ["--only", args.only]
-            try:
-                subprocess.run(enrich_args, cwd=ROOT, check=True)
-            except subprocess.CalledProcessError as exc:
-                print(f"WARNING: enrich_ai_review.py failed ({exc}); continuing.")
+    enrich = ROOT / "scripts" / "enrich_ai_review.py"
+    if enrich.exists():
+        enrich_args = [sys.executable, str(enrich)]
+        if args.all:
+            enrich_args.append("--all")
+        elif getattr(args, "only", ""):
+            enrich_args += ["--only", args.only]
+        try:
+            subprocess.run(enrich_args, cwd=ROOT, check=True)
+        except subprocess.CalledProcessError as exc:
+            print(f"WARNING: enrich_ai_review.py failed ({exc}); continuing.")
 
     gh = os.environ.get("GITHUB_OUTPUT")
     if gh:
