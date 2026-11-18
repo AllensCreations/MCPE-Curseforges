@@ -13,6 +13,25 @@
       "category": "root"
     },
     {
+      "id": "Category:Reference",
+      "label": "Reference (Official Minecraft Samples)",
+      "type": "reference_hub",
+      "source_file": "reference/",
+      "category": "reference"
+    },
+    {
+      "id": "Reference:bedrock-samples",
+      "label": "Bedrock Samples (Vanilla Templates)",
+      "type": "reference",
+      "source_file": "reference/bedrock-samples"
+    },
+    {
+      "id": "Reference:documentation",
+      "label": "Bedrock Official Docs & Schema",
+      "type": "reference_subsystem",
+      "source_file": "reference/bedrock-samples/documentation"
+    },
+    {
       "id": "Category:Scripts",
       "label": "Build & Release Tooling",
       "type": "category",
@@ -2256,6 +2275,24 @@
   "links": [
     {
       "source": "Repo:MCPE-Curseforges",
+      "target": "Category:Reference",
+      "relation": "contains",
+      "weight": 1.0
+    },
+    {
+      "source": "Category:Reference",
+      "target": "Reference:bedrock-samples",
+      "relation": "contains",
+      "weight": 1.0
+    },
+    {
+      "source": "Reference:bedrock-samples",
+      "target": "Reference:documentation",
+      "relation": "contains",
+      "weight": 1.0
+    },
+    {
+      "source": "Repo:MCPE-Curseforges",
       "target": "Category:Scripts",
       "relation": "contains",
       "weight": 1.0
@@ -2306,6 +2343,12 @@
       "source": "Category:Scripts",
       "target": "Script:build_bedrock_reference.py",
       "relation": "contains",
+      "weight": 1.0
+    },
+    {
+      "source": "Script:build_bedrock_reference.py",
+      "target": "Reference:bedrock-samples",
+      "relation": "indexes",
       "weight": 1.0
     },
     {
@@ -2825,6 +2868,12 @@
       "weight": 1.0
     },
     {
+      "source": "Script:test_bedrock_reference.py",
+      "target": "Reference:bedrock-samples",
+      "relation": "indexes",
+      "weight": 1.0
+    },
+    {
       "source": "Category:Scripts",
       "target": "Script:test_changelog_names.py",
       "relation": "contains",
@@ -3066,6 +3115,18 @@
     },
     {
       "source": "Project:2-in-1-Loot--XP-Booster",
+      "target": "Reference:behavior_pack",
+      "relation": "uses_templates",
+      "weight": 1.0
+    },
+    {
+      "source": "Project:2-in-1-Loot--XP-Booster",
+      "target": "Reference:resource_pack",
+      "relation": "uses_templates",
+      "weight": 1.0
+    },
+    {
+      "source": "Project:2-in-1-Loot--XP-Booster",
       "target": "Pack:2-in-1-Loot--XP-Booster:behavior_pack",
       "relation": "includes",
       "weight": 1.0
@@ -3074,6 +3135,12 @@
       "source": "Pack:2-in-1-Loot--XP-Booster:behavior_pack",
       "target": "JS:2-in-1-Loot--XP-Booster:main.js",
       "relation": "executes",
+      "weight": 1.0
+    },
+    {
+      "source": "JS:2-in-1-Loot--XP-Booster:main.js",
+      "target": "Reference:metadata_script_modules",
+      "relation": "imports_api",
       "weight": 1.0
     },
     {
@@ -3090,6 +3157,18 @@
     },
     {
       "source": "Project:ALN-MoreDiscs",
+      "target": "Reference:behavior_pack",
+      "relation": "uses_templates",
+      "weight": 1.0
+    },
+    {
+      "source": "Project:ALN-MoreDiscs",
+      "target": "Reference:resource_pack",
+      "relation": "uses_templates",
+      "weight": 1.0
+    },
+    {
+      "source": "Project:ALN-MoreDiscs",
       "target": "Pack:ALN-MoreDiscs:behavior_pack",
       "relation": "includes",
       "weight": 1.0
@@ -3101,9 +3180,21 @@
       "weight": 1.0
     },
     {
+      "source": "JS:ALN-MoreDiscs:disc_jukebox.js",
+      "target": "Reference:metadata_script_modules",
+      "relation": "imports_api",
+      "weight": 1.0
+    },
+    {
       "source": "Pack:ALN-MoreDiscs:behavior_pack",
       "target": "JS:ALN-MoreDiscs:main.js",
       "relation": "executes",
+      "weight": 1.0
+    },
+    {
+      "source": "JS:ALN-MoreDiscs:main.js",
+      "target": "Reference:metadata_script_modules",
+      "relation": "imports_api",
       "weight": 1.0
     },
     {
@@ -3120,6 +3211,18 @@
     },
     {
       "source": "Project:ALN-Pointer",
+      "target": "Reference:behavior_pack",
+      "relation": "uses_templates",
+      "weight": 1.0
+    },
+    {
+      "source": "Project:ALN-Pointer",
+      "target": "Reference:resource_pack",
+      "relation": "uses_templates",
+      "weight": 1.0
+    },
+    {
+      "source": "Project:ALN-Pointer",
       "target": "Pack:ALN-Pointer:behavior_pack",
       "relation": "includes",
       "weight": 1.0
@@ -3131,9 +3234,21 @@
       "weight": 1.0
     },
     {
+      "source": "JS:ALN-Pointer:main.js",
+      "target": "Reference:metadata_script_modules",
+      "relation": "imports_api",
+      "weight": 1.0
+    },
+    {
       "source": "Pack:ALN-Pointer:behavior_pack",
       "target": "JS:ALN-Pointer:bowaim.js",
       "relation": "executes",
+      "weight": 1.0
+    },
+    {
+      "source": "JS:ALN-Pointer:bowaim.js",
+      "target": "Reference:metadata_script_modules",
+      "relation": "imports_api",
       "weight": 1.0
     },
     {
@@ -3143,9 +3258,21 @@
       "weight": 1.0
     },
     {
+      "source": "JS:ALN-Pointer:combat.js",
+      "target": "Reference:metadata_script_modules",
+      "relation": "imports_api",
+      "weight": 1.0
+    },
+    {
       "source": "Pack:ALN-Pointer:behavior_pack",
       "target": "JS:ALN-Pointer:info.js",
       "relation": "executes",
+      "weight": 1.0
+    },
+    {
+      "source": "JS:ALN-Pointer:info.js",
+      "target": "Reference:metadata_script_modules",
+      "relation": "imports_api",
       "weight": 1.0
     },
     {
@@ -3155,15 +3282,33 @@
       "weight": 1.0
     },
     {
+      "source": "JS:ALN-Pointer:loops.js",
+      "target": "Reference:metadata_script_modules",
+      "relation": "imports_api",
+      "weight": 1.0
+    },
+    {
       "source": "Pack:ALN-Pointer:behavior_pack",
       "target": "JS:ALN-Pointer:menu.js",
       "relation": "executes",
       "weight": 1.0
     },
     {
+      "source": "JS:ALN-Pointer:menu.js",
+      "target": "Reference:metadata_script_modules",
+      "relation": "imports_api",
+      "weight": 1.0
+    },
+    {
       "source": "Pack:ALN-Pointer:behavior_pack",
       "target": "JS:ALN-Pointer:store.js",
       "relation": "executes",
+      "weight": 1.0
+    },
+    {
+      "source": "JS:ALN-Pointer:store.js",
+      "target": "Reference:metadata_script_modules",
+      "relation": "imports_api",
       "weight": 1.0
     },
     {
@@ -3180,6 +3325,18 @@
     },
     {
       "source": "Project:ALN-Quiver",
+      "target": "Reference:behavior_pack",
+      "relation": "uses_templates",
+      "weight": 1.0
+    },
+    {
+      "source": "Project:ALN-Quiver",
+      "target": "Reference:resource_pack",
+      "relation": "uses_templates",
+      "weight": 1.0
+    },
+    {
+      "source": "Project:ALN-Quiver",
       "target": "Pack:ALN-Quiver:behavior_pack",
       "relation": "includes",
       "weight": 1.0
@@ -3191,9 +3348,21 @@
       "weight": 1.0
     },
     {
+      "source": "JS:ALN-Quiver:main.js",
+      "target": "Reference:metadata_script_modules",
+      "relation": "imports_api",
+      "weight": 1.0
+    },
+    {
       "source": "Pack:ALN-Quiver:behavior_pack",
       "target": "JS:ALN-Quiver:quiver_data.js",
       "relation": "executes",
+      "weight": 1.0
+    },
+    {
+      "source": "JS:ALN-Quiver:quiver_data.js",
+      "target": "Reference:metadata_script_modules",
+      "relation": "imports_api",
       "weight": 1.0
     },
     {
@@ -3203,9 +3372,21 @@
       "weight": 1.0
     },
     {
+      "source": "JS:ALN-Quiver:quiver_feed.js",
+      "target": "Reference:metadata_script_modules",
+      "relation": "imports_api",
+      "weight": 1.0
+    },
+    {
       "source": "Pack:ALN-Quiver:behavior_pack",
       "target": "JS:ALN-Quiver:quiver_storage.js",
       "relation": "executes",
+      "weight": 1.0
+    },
+    {
+      "source": "JS:ALN-Quiver:quiver_storage.js",
+      "target": "Reference:metadata_script_modules",
+      "relation": "imports_api",
       "weight": 1.0
     },
     {
@@ -3222,6 +3403,18 @@
     },
     {
       "source": "Project:ALN-Wireless-Headphones",
+      "target": "Reference:behavior_pack",
+      "relation": "uses_templates",
+      "weight": 1.0
+    },
+    {
+      "source": "Project:ALN-Wireless-Headphones",
+      "target": "Reference:resource_pack",
+      "relation": "uses_templates",
+      "weight": 1.0
+    },
+    {
+      "source": "Project:ALN-Wireless-Headphones",
       "target": "Pack:ALN-Wireless-Headphones:behavior_pack",
       "relation": "includes",
       "weight": 1.0
@@ -3233,9 +3426,21 @@
       "weight": 1.0
     },
     {
+      "source": "JS:ALN-Wireless-Headphones:headphone_common.js",
+      "target": "Reference:metadata_script_modules",
+      "relation": "imports_api",
+      "weight": 1.0
+    },
+    {
       "source": "Pack:ALN-Wireless-Headphones:behavior_pack",
       "target": "JS:ALN-Wireless-Headphones:headphone_link.js",
       "relation": "executes",
+      "weight": 1.0
+    },
+    {
+      "source": "JS:ALN-Wireless-Headphones:headphone_link.js",
+      "target": "Reference:metadata_script_modules",
+      "relation": "imports_api",
       "weight": 1.0
     },
     {
@@ -3245,9 +3450,21 @@
       "weight": 1.0
     },
     {
+      "source": "JS:ALN-Wireless-Headphones:headphone_stream.js",
+      "target": "Reference:metadata_script_modules",
+      "relation": "imports_api",
+      "weight": 1.0
+    },
+    {
       "source": "Pack:ALN-Wireless-Headphones:behavior_pack",
       "target": "JS:ALN-Wireless-Headphones:main.js",
       "relation": "executes",
+      "weight": 1.0
+    },
+    {
+      "source": "JS:ALN-Wireless-Headphones:main.js",
+      "target": "Reference:metadata_script_modules",
+      "relation": "imports_api",
       "weight": 1.0
     },
     {
@@ -3264,6 +3481,18 @@
     },
     {
       "source": "Project:Cheat-Stick",
+      "target": "Reference:behavior_pack",
+      "relation": "uses_templates",
+      "weight": 1.0
+    },
+    {
+      "source": "Project:Cheat-Stick",
+      "target": "Reference:resource_pack",
+      "relation": "uses_templates",
+      "weight": 1.0
+    },
+    {
+      "source": "Project:Cheat-Stick",
       "target": "Pack:Cheat-Stick:behavior_pack",
       "relation": "includes",
       "weight": 1.0
@@ -3275,9 +3504,27 @@
       "weight": 1.0
     },
     {
+      "source": "JS:Cheat-Stick:main.js",
+      "target": "Reference:metadata_script_modules",
+      "relation": "imports_api",
+      "weight": 1.0
+    },
+    {
       "source": "Category:Addons",
       "target": "Project:Copper-Carrier-Logistics",
       "relation": "contains",
+      "weight": 1.0
+    },
+    {
+      "source": "Project:Copper-Carrier-Logistics",
+      "target": "Reference:behavior_pack",
+      "relation": "uses_templates",
+      "weight": 1.0
+    },
+    {
+      "source": "Project:Copper-Carrier-Logistics",
+      "target": "Reference:resource_pack",
+      "relation": "uses_templates",
       "weight": 1.0
     },
     {
@@ -3293,9 +3540,21 @@
       "weight": 1.0
     },
     {
+      "source": "JS:Copper-Carrier-Logistics:carrier.js",
+      "target": "Reference:metadata_script_modules",
+      "relation": "imports_api",
+      "weight": 1.0
+    },
+    {
       "source": "Pack:Copper-Carrier-Logistics:behavior_pack",
       "target": "JS:Copper-Carrier-Logistics:main.js",
       "relation": "executes",
+      "weight": 1.0
+    },
+    {
+      "source": "JS:Copper-Carrier-Logistics:main.js",
+      "target": "Reference:metadata_script_modules",
+      "relation": "imports_api",
       "weight": 1.0
     },
     {
@@ -3305,15 +3564,39 @@
       "weight": 1.0
     },
     {
+      "source": "JS:Copper-Carrier-Logistics:memory.js",
+      "target": "Reference:metadata_script_modules",
+      "relation": "imports_api",
+      "weight": 1.0
+    },
+    {
       "source": "Pack:Copper-Carrier-Logistics:behavior_pack",
       "target": "JS:Copper-Carrier-Logistics:sorting.js",
       "relation": "executes",
       "weight": 1.0
     },
     {
+      "source": "JS:Copper-Carrier-Logistics:sorting.js",
+      "target": "Reference:metadata_script_modules",
+      "relation": "imports_api",
+      "weight": 1.0
+    },
+    {
       "source": "Category:Addons",
       "target": "Project:Enchanter",
       "relation": "contains",
+      "weight": 1.0
+    },
+    {
+      "source": "Project:Enchanter",
+      "target": "Reference:behavior_pack",
+      "relation": "uses_templates",
+      "weight": 1.0
+    },
+    {
+      "source": "Project:Enchanter",
+      "target": "Reference:resource_pack",
+      "relation": "uses_templates",
       "weight": 1.0
     },
     {
@@ -3329,9 +3612,27 @@
       "weight": 1.0
     },
     {
+      "source": "JS:Enchanter:main.js",
+      "target": "Reference:metadata_script_modules",
+      "relation": "imports_api",
+      "weight": 1.0
+    },
+    {
       "source": "Category:Addons",
       "target": "Project:Expanded-Basic-Arsenal",
       "relation": "contains",
+      "weight": 1.0
+    },
+    {
+      "source": "Project:Expanded-Basic-Arsenal",
+      "target": "Reference:behavior_pack",
+      "relation": "uses_templates",
+      "weight": 1.0
+    },
+    {
+      "source": "Project:Expanded-Basic-Arsenal",
+      "target": "Reference:resource_pack",
+      "relation": "uses_templates",
       "weight": 1.0
     },
     {
@@ -3347,9 +3648,21 @@
       "weight": 1.0
     },
     {
+      "source": "JS:Expanded-Basic-Arsenal:main.js",
+      "target": "Reference:metadata_script_modules",
+      "relation": "imports_api",
+      "weight": 1.0
+    },
+    {
       "source": "Pack:Expanded-Basic-Arsenal:behavior_pack",
       "target": "JS:Expanded-Basic-Arsenal:melee_weapons.js",
       "relation": "executes",
+      "weight": 1.0
+    },
+    {
+      "source": "JS:Expanded-Basic-Arsenal:melee_weapons.js",
+      "target": "Reference:metadata_script_modules",
+      "relation": "imports_api",
       "weight": 1.0
     },
     {
@@ -3359,9 +3672,21 @@
       "weight": 1.0
     },
     {
+      "source": "JS:Expanded-Basic-Arsenal:slingshot.js",
+      "target": "Reference:metadata_script_modules",
+      "relation": "imports_api",
+      "weight": 1.0
+    },
+    {
       "source": "Pack:Expanded-Basic-Arsenal:behavior_pack",
       "target": "JS:Expanded-Basic-Arsenal:common.js",
       "relation": "executes",
+      "weight": 1.0
+    },
+    {
+      "source": "JS:Expanded-Basic-Arsenal:common.js",
+      "target": "Reference:metadata_script_modules",
+      "relation": "imports_api",
       "weight": 1.0
     },
     {
@@ -3378,6 +3703,18 @@
     },
     {
       "source": "Project:Fletching-Table-Arsenal",
+      "target": "Reference:behavior_pack",
+      "relation": "uses_templates",
+      "weight": 1.0
+    },
+    {
+      "source": "Project:Fletching-Table-Arsenal",
+      "target": "Reference:resource_pack",
+      "relation": "uses_templates",
+      "weight": 1.0
+    },
+    {
+      "source": "Project:Fletching-Table-Arsenal",
       "target": "Pack:Fletching-Table-Arsenal:behavior_pack",
       "relation": "includes",
       "weight": 1.0
@@ -3389,15 +3726,33 @@
       "weight": 1.0
     },
     {
+      "source": "JS:Fletching-Table-Arsenal:fletcher.js",
+      "target": "Reference:metadata_script_modules",
+      "relation": "imports_api",
+      "weight": 1.0
+    },
+    {
       "source": "Pack:Fletching-Table-Arsenal:behavior_pack",
       "target": "JS:Fletching-Table-Arsenal:impact.js",
       "relation": "executes",
       "weight": 1.0
     },
     {
+      "source": "JS:Fletching-Table-Arsenal:impact.js",
+      "target": "Reference:metadata_script_modules",
+      "relation": "imports_api",
+      "weight": 1.0
+    },
+    {
       "source": "Pack:Fletching-Table-Arsenal:behavior_pack",
       "target": "JS:Fletching-Table-Arsenal:main.js",
       "relation": "executes",
+      "weight": 1.0
+    },
+    {
+      "source": "JS:Fletching-Table-Arsenal:main.js",
+      "target": "Reference:metadata_script_modules",
+      "relation": "imports_api",
       "weight": 1.0
     },
     {
@@ -3410,6 +3765,18 @@
       "source": "Category:Addons",
       "target": "Project:Ghast-Mob-Head-Transformers",
       "relation": "contains",
+      "weight": 1.0
+    },
+    {
+      "source": "Project:Ghast-Mob-Head-Transformers",
+      "target": "Reference:behavior_pack",
+      "relation": "uses_templates",
+      "weight": 1.0
+    },
+    {
+      "source": "Project:Ghast-Mob-Head-Transformers",
+      "target": "Reference:resource_pack",
+      "relation": "uses_templates",
       "weight": 1.0
     },
     {
@@ -3432,6 +3799,18 @@
     },
     {
       "source": "Project:Grand-Banquets",
+      "target": "Reference:behavior_pack",
+      "relation": "uses_templates",
+      "weight": 1.0
+    },
+    {
+      "source": "Project:Grand-Banquets",
+      "target": "Reference:resource_pack",
+      "relation": "uses_templates",
+      "weight": 1.0
+    },
+    {
+      "source": "Project:Grand-Banquets",
       "target": "Pack:Grand-Banquets:behavior_pack",
       "relation": "includes",
       "weight": 1.0
@@ -3440,6 +3819,12 @@
       "source": "Pack:Grand-Banquets:behavior_pack",
       "target": "JS:Grand-Banquets:main.js",
       "relation": "executes",
+      "weight": 1.0
+    },
+    {
+      "source": "JS:Grand-Banquets:main.js",
+      "target": "Reference:metadata_script_modules",
+      "relation": "imports_api",
       "weight": 1.0
     },
     {
@@ -3456,6 +3841,18 @@
     },
     {
       "source": "Project:Grimoire-Relics-V2",
+      "target": "Reference:behavior_pack",
+      "relation": "uses_templates",
+      "weight": 1.0
+    },
+    {
+      "source": "Project:Grimoire-Relics-V2",
+      "target": "Reference:resource_pack",
+      "relation": "uses_templates",
+      "weight": 1.0
+    },
+    {
+      "source": "Project:Grimoire-Relics-V2",
       "target": "Pack:Grimoire-Relics-V2:behavior_pack",
       "relation": "includes",
       "weight": 1.0
@@ -3464,6 +3861,12 @@
       "source": "Pack:Grimoire-Relics-V2:behavior_pack",
       "target": "JS:Grimoire-Relics-V2:main.js",
       "relation": "executes",
+      "weight": 1.0
+    },
+    {
+      "source": "JS:Grimoire-Relics-V2:main.js",
+      "target": "Reference:metadata_script_modules",
+      "relation": "imports_api",
       "weight": 1.0
     },
     {
@@ -3480,6 +3883,18 @@
     },
     {
       "source": "Project:Harvest-Intelligence",
+      "target": "Reference:behavior_pack",
+      "relation": "uses_templates",
+      "weight": 1.0
+    },
+    {
+      "source": "Project:Harvest-Intelligence",
+      "target": "Reference:resource_pack",
+      "relation": "uses_templates",
+      "weight": 1.0
+    },
+    {
+      "source": "Project:Harvest-Intelligence",
       "target": "Pack:Harvest-Intelligence:behavior_pack",
       "relation": "includes",
       "weight": 1.0
@@ -3491,9 +3906,27 @@
       "weight": 1.0
     },
     {
+      "source": "JS:Harvest-Intelligence:main.js",
+      "target": "Reference:metadata_script_modules",
+      "relation": "imports_api",
+      "weight": 1.0
+    },
+    {
       "source": "Category:Addons",
       "target": "Project:Immortal-Pets",
       "relation": "contains",
+      "weight": 1.0
+    },
+    {
+      "source": "Project:Immortal-Pets",
+      "target": "Reference:behavior_pack",
+      "relation": "uses_templates",
+      "weight": 1.0
+    },
+    {
+      "source": "Project:Immortal-Pets",
+      "target": "Reference:resource_pack",
+      "relation": "uses_templates",
       "weight": 1.0
     },
     {
@@ -3509,9 +3942,27 @@
       "weight": 1.0
     },
     {
+      "source": "JS:Immortal-Pets:main.js",
+      "target": "Reference:metadata_script_modules",
+      "relation": "imports_api",
+      "weight": 1.0
+    },
+    {
       "source": "Category:Addons",
       "target": "Project:Magnetic-Satchel",
       "relation": "contains",
+      "weight": 1.0
+    },
+    {
+      "source": "Project:Magnetic-Satchel",
+      "target": "Reference:behavior_pack",
+      "relation": "uses_templates",
+      "weight": 1.0
+    },
+    {
+      "source": "Project:Magnetic-Satchel",
+      "target": "Reference:resource_pack",
+      "relation": "uses_templates",
       "weight": 1.0
     },
     {
@@ -3524,6 +3975,12 @@
       "source": "Pack:Magnetic-Satchel:behavior_pack",
       "target": "JS:Magnetic-Satchel:main.js",
       "relation": "executes",
+      "weight": 1.0
+    },
+    {
+      "source": "JS:Magnetic-Satchel:main.js",
+      "target": "Reference:metadata_script_modules",
+      "relation": "imports_api",
       "weight": 1.0
     },
     {
@@ -3540,6 +3997,18 @@
     },
     {
       "source": "Project:Melody-Figurine",
+      "target": "Reference:behavior_pack",
+      "relation": "uses_templates",
+      "weight": 1.0
+    },
+    {
+      "source": "Project:Melody-Figurine",
+      "target": "Reference:resource_pack",
+      "relation": "uses_templates",
+      "weight": 1.0
+    },
+    {
+      "source": "Project:Melody-Figurine",
       "target": "Pack:Melody-Figurine:behavior_pack",
       "relation": "includes",
       "weight": 1.0
@@ -3548,6 +4017,12 @@
       "source": "Pack:Melody-Figurine:behavior_pack",
       "target": "JS:Melody-Figurine:main.js",
       "relation": "executes",
+      "weight": 1.0
+    },
+    {
+      "source": "JS:Melody-Figurine:main.js",
+      "target": "Reference:metadata_script_modules",
+      "relation": "imports_api",
       "weight": 1.0
     },
     {
@@ -3564,6 +4039,18 @@
     },
     {
       "source": "Project:Mining-Helmet",
+      "target": "Reference:behavior_pack",
+      "relation": "uses_templates",
+      "weight": 1.0
+    },
+    {
+      "source": "Project:Mining-Helmet",
+      "target": "Reference:resource_pack",
+      "relation": "uses_templates",
+      "weight": 1.0
+    },
+    {
+      "source": "Project:Mining-Helmet",
       "target": "Pack:Mining-Helmet:behavior_pack",
       "relation": "includes",
       "weight": 1.0
@@ -3575,9 +4062,21 @@
       "weight": 1.0
     },
     {
+      "source": "JS:Mining-Helmet:main.js",
+      "target": "Reference:metadata_script_modules",
+      "relation": "imports_api",
+      "weight": 1.0
+    },
+    {
       "source": "Pack:Mining-Helmet:behavior_pack",
       "target": "JS:Mining-Helmet:mode.js",
       "relation": "executes",
+      "weight": 1.0
+    },
+    {
+      "source": "JS:Mining-Helmet:mode.js",
+      "target": "Reference:metadata_script_modules",
+      "relation": "imports_api",
       "weight": 1.0
     },
     {
@@ -3590,6 +4089,18 @@
       "source": "Category:Addons",
       "target": "Project:Monster-Companions",
       "relation": "contains",
+      "weight": 1.0
+    },
+    {
+      "source": "Project:Monster-Companions",
+      "target": "Reference:behavior_pack",
+      "relation": "uses_templates",
+      "weight": 1.0
+    },
+    {
+      "source": "Project:Monster-Companions",
+      "target": "Reference:resource_pack",
+      "relation": "uses_templates",
       "weight": 1.0
     },
     {
@@ -3612,6 +4123,18 @@
     },
     {
       "source": "Project:OP-Sponge",
+      "target": "Reference:behavior_pack",
+      "relation": "uses_templates",
+      "weight": 1.0
+    },
+    {
+      "source": "Project:OP-Sponge",
+      "target": "Reference:resource_pack",
+      "relation": "uses_templates",
+      "weight": 1.0
+    },
+    {
+      "source": "Project:OP-Sponge",
       "target": "Pack:OP-Sponge:behavior_pack",
       "relation": "includes",
       "weight": 1.0
@@ -3620,6 +4143,12 @@
       "source": "Pack:OP-Sponge:behavior_pack",
       "target": "JS:OP-Sponge:main.js",
       "relation": "executes",
+      "weight": 1.0
+    },
+    {
+      "source": "JS:OP-Sponge:main.js",
+      "target": "Reference:metadata_script_modules",
+      "relation": "imports_api",
       "weight": 1.0
     },
     {
@@ -3636,6 +4165,18 @@
     },
     {
       "source": "Project:One-Block-Economy",
+      "target": "Reference:behavior_pack",
+      "relation": "uses_templates",
+      "weight": 1.0
+    },
+    {
+      "source": "Project:One-Block-Economy",
+      "target": "Reference:resource_pack",
+      "relation": "uses_templates",
+      "weight": 1.0
+    },
+    {
+      "source": "Project:One-Block-Economy",
       "target": "Pack:One-Block-Economy:behavior_pack",
       "relation": "includes",
       "weight": 1.0
@@ -3647,15 +4188,39 @@
       "weight": 1.0
     },
     {
+      "source": "JS:One-Block-Economy:main.js",
+      "target": "Reference:metadata_script_modules",
+      "relation": "imports_api",
+      "weight": 1.0
+    },
+    {
       "source": "Pack:One-Block-Economy:behavior_pack",
       "target": "JS:One-Block-Economy:phases.js",
       "relation": "executes",
       "weight": 1.0
     },
     {
+      "source": "JS:One-Block-Economy:phases.js",
+      "target": "Reference:metadata_script_modules",
+      "relation": "imports_api",
+      "weight": 1.0
+    },
+    {
       "source": "Category:Addons",
       "target": "Project:Padlock-and-Key",
       "relation": "contains",
+      "weight": 1.0
+    },
+    {
+      "source": "Project:Padlock-and-Key",
+      "target": "Reference:behavior_pack",
+      "relation": "uses_templates",
+      "weight": 1.0
+    },
+    {
+      "source": "Project:Padlock-and-Key",
+      "target": "Reference:resource_pack",
+      "relation": "uses_templates",
       "weight": 1.0
     },
     {
@@ -3671,9 +4236,21 @@
       "weight": 1.0
     },
     {
+      "source": "JS:Padlock-and-Key:main.js",
+      "target": "Reference:metadata_script_modules",
+      "relation": "imports_api",
+      "weight": 1.0
+    },
+    {
       "source": "Pack:Padlock-and-Key:behavior_pack",
       "target": "JS:Padlock-and-Key:doors.js",
       "relation": "executes",
+      "weight": 1.0
+    },
+    {
+      "source": "JS:Padlock-and-Key:doors.js",
+      "target": "Reference:metadata_script_modules",
+      "relation": "imports_api",
       "weight": 1.0
     },
     {
@@ -3683,9 +4260,21 @@
       "weight": 1.0
     },
     {
+      "source": "JS:Padlock-and-Key:lockdata.js",
+      "target": "Reference:metadata_script_modules",
+      "relation": "imports_api",
+      "weight": 1.0
+    },
+    {
       "source": "Pack:Padlock-and-Key:behavior_pack",
       "target": "JS:Padlock-and-Key:pistons.js",
       "relation": "executes",
+      "weight": 1.0
+    },
+    {
+      "source": "JS:Padlock-and-Key:pistons.js",
+      "target": "Reference:metadata_script_modules",
+      "relation": "imports_api",
       "weight": 1.0
     },
     {
@@ -3702,6 +4291,18 @@
     },
     {
       "source": "Project:Passive-Auto-Switch-Tools",
+      "target": "Reference:behavior_pack",
+      "relation": "uses_templates",
+      "weight": 1.0
+    },
+    {
+      "source": "Project:Passive-Auto-Switch-Tools",
+      "target": "Reference:resource_pack",
+      "relation": "uses_templates",
+      "weight": 1.0
+    },
+    {
+      "source": "Project:Passive-Auto-Switch-Tools",
       "target": "Pack:Passive-Auto-Switch-Tools:behavior_pack",
       "relation": "includes",
       "weight": 1.0
@@ -3713,9 +4314,27 @@
       "weight": 1.0
     },
     {
+      "source": "JS:Passive-Auto-Switch-Tools:main.js",
+      "target": "Reference:metadata_script_modules",
+      "relation": "imports_api",
+      "weight": 1.0
+    },
+    {
       "source": "Category:Addons",
       "target": "Project:Selective-Mob-Controller",
       "relation": "contains",
+      "weight": 1.0
+    },
+    {
+      "source": "Project:Selective-Mob-Controller",
+      "target": "Reference:behavior_pack",
+      "relation": "uses_templates",
+      "weight": 1.0
+    },
+    {
+      "source": "Project:Selective-Mob-Controller",
+      "target": "Reference:resource_pack",
+      "relation": "uses_templates",
       "weight": 1.0
     },
     {
@@ -3731,9 +4350,27 @@
       "weight": 1.0
     },
     {
+      "source": "JS:Selective-Mob-Controller:main.js",
+      "target": "Reference:metadata_script_modules",
+      "relation": "imports_api",
+      "weight": 1.0
+    },
+    {
       "source": "Category:Addons",
       "target": "Project:Smart-Tree-Capitator-and-Domino-Ore-Miner",
       "relation": "contains",
+      "weight": 1.0
+    },
+    {
+      "source": "Project:Smart-Tree-Capitator-and-Domino-Ore-Miner",
+      "target": "Reference:behavior_pack",
+      "relation": "uses_templates",
+      "weight": 1.0
+    },
+    {
+      "source": "Project:Smart-Tree-Capitator-and-Domino-Ore-Miner",
+      "target": "Reference:resource_pack",
+      "relation": "uses_templates",
       "weight": 1.0
     },
     {
@@ -3749,9 +4386,27 @@
       "weight": 1.0
     },
     {
+      "source": "JS:Smart-Tree-Capitator-and-Domino-Ore-Miner:main.js",
+      "target": "Reference:metadata_script_modules",
+      "relation": "imports_api",
+      "weight": 1.0
+    },
+    {
       "source": "Category:Addons",
       "target": "Project:Sudden-Death-Roulette",
       "relation": "contains",
+      "weight": 1.0
+    },
+    {
+      "source": "Project:Sudden-Death-Roulette",
+      "target": "Reference:behavior_pack",
+      "relation": "uses_templates",
+      "weight": 1.0
+    },
+    {
+      "source": "Project:Sudden-Death-Roulette",
+      "target": "Reference:resource_pack",
+      "relation": "uses_templates",
       "weight": 1.0
     },
     {
@@ -3767,9 +4422,27 @@
       "weight": 1.0
     },
     {
+      "source": "JS:Sudden-Death-Roulette:main.js",
+      "target": "Reference:metadata_script_modules",
+      "relation": "imports_api",
+      "weight": 1.0
+    },
+    {
       "source": "Category:Addons",
       "target": "Project:Swarm-Mob-Booster",
       "relation": "contains",
+      "weight": 1.0
+    },
+    {
+      "source": "Project:Swarm-Mob-Booster",
+      "target": "Reference:behavior_pack",
+      "relation": "uses_templates",
+      "weight": 1.0
+    },
+    {
+      "source": "Project:Swarm-Mob-Booster",
+      "target": "Reference:resource_pack",
+      "relation": "uses_templates",
       "weight": 1.0
     },
     {
@@ -3785,9 +4458,27 @@
       "weight": 1.0
     },
     {
+      "source": "JS:Swarm-Mob-Booster:main.js",
+      "target": "Reference:metadata_script_modules",
+      "relation": "imports_api",
+      "weight": 1.0
+    },
+    {
       "source": "Category:Addons",
       "target": "Project:Talking-Pirate-Parrots_payload",
       "relation": "contains",
+      "weight": 1.0
+    },
+    {
+      "source": "Project:Talking-Pirate-Parrots_payload",
+      "target": "Reference:behavior_pack",
+      "relation": "uses_templates",
+      "weight": 1.0
+    },
+    {
+      "source": "Project:Talking-Pirate-Parrots_payload",
+      "target": "Reference:resource_pack",
+      "relation": "uses_templates",
       "weight": 1.0
     },
     {
@@ -3803,6 +4494,12 @@
       "weight": 1.0
     },
     {
+      "source": "JS:Talking-Pirate-Parrots_payload:main.js",
+      "target": "Reference:metadata_script_modules",
+      "relation": "imports_api",
+      "weight": 1.0
+    },
+    {
       "source": "Project:Talking-Pirate-Parrots_payload",
       "target": "Pack:Talking-Pirate-Parrots_payload:resource_pack",
       "relation": "includes",
@@ -3812,6 +4509,18 @@
       "source": "Category:Addons",
       "target": "Project:Tameable-Companion-Fox",
       "relation": "contains",
+      "weight": 1.0
+    },
+    {
+      "source": "Project:Tameable-Companion-Fox",
+      "target": "Reference:behavior_pack",
+      "relation": "uses_templates",
+      "weight": 1.0
+    },
+    {
+      "source": "Project:Tameable-Companion-Fox",
+      "target": "Reference:resource_pack",
+      "relation": "uses_templates",
       "weight": 1.0
     },
     {
@@ -3834,6 +4543,18 @@
     },
     {
       "source": "Project:Universal-Leash",
+      "target": "Reference:behavior_pack",
+      "relation": "uses_templates",
+      "weight": 1.0
+    },
+    {
+      "source": "Project:Universal-Leash",
+      "target": "Reference:resource_pack",
+      "relation": "uses_templates",
+      "weight": 1.0
+    },
+    {
+      "source": "Project:Universal-Leash",
       "target": "Pack:Universal-Leash:behavior_pack",
       "relation": "includes",
       "weight": 1.0
@@ -3852,6 +4573,18 @@
     },
     {
       "source": "Project:Vanilla-Quality-of-Life",
+      "target": "Reference:behavior_pack",
+      "relation": "uses_templates",
+      "weight": 1.0
+    },
+    {
+      "source": "Project:Vanilla-Quality-of-Life",
+      "target": "Reference:resource_pack",
+      "relation": "uses_templates",
+      "weight": 1.0
+    },
+    {
+      "source": "Project:Vanilla-Quality-of-Life",
       "target": "Pack:Vanilla-Quality-of-Life:behavior_pack",
       "relation": "includes",
       "weight": 1.0
@@ -3863,9 +4596,21 @@
       "weight": 1.0
     },
     {
+      "source": "JS:Vanilla-Quality-of-Life:main.js",
+      "target": "Reference:metadata_script_modules",
+      "relation": "imports_api",
+      "weight": 1.0
+    },
+    {
       "source": "Pack:Vanilla-Quality-of-Life:behavior_pack",
       "target": "JS:Vanilla-Quality-of-Life:mining-options.js",
       "relation": "executes",
+      "weight": 1.0
+    },
+    {
+      "source": "JS:Vanilla-Quality-of-Life:mining-options.js",
+      "target": "Reference:metadata_script_modules",
+      "relation": "imports_api",
       "weight": 1.0
     },
     {
@@ -3882,6 +4627,18 @@
     },
     {
       "source": "Project:Waypoint-Helper",
+      "target": "Reference:behavior_pack",
+      "relation": "uses_templates",
+      "weight": 1.0
+    },
+    {
+      "source": "Project:Waypoint-Helper",
+      "target": "Reference:resource_pack",
+      "relation": "uses_templates",
+      "weight": 1.0
+    },
+    {
+      "source": "Project:Waypoint-Helper",
       "target": "Pack:Waypoint-Helper:behavior_pack",
       "relation": "includes",
       "weight": 1.0
@@ -3890,6 +4647,12 @@
       "source": "Pack:Waypoint-Helper:behavior_pack",
       "target": "JS:Waypoint-Helper:main.js",
       "relation": "executes",
+      "weight": 1.0
+    },
+    {
+      "source": "JS:Waypoint-Helper:main.js",
+      "target": "Reference:metadata_script_modules",
+      "relation": "imports_api",
       "weight": 1.0
     },
     {
@@ -3912,6 +4675,12 @@
     },
     {
       "source": "Project:ALN-MobStacker",
+      "target": "Reference:metadata_script_modules",
+      "relation": "hooks_api",
+      "weight": 1.0
+    },
+    {
+      "source": "Project:ALN-MobStacker",
       "target": "Pack:ALN-MobStacker:behavior_pack",
       "relation": "includes",
       "weight": 1.0
@@ -3923,9 +4692,21 @@
       "weight": 1.0
     },
     {
+      "source": "JS:ALN-MobStacker:main.js",
+      "target": "Reference:metadata_script_modules",
+      "relation": "imports_api",
+      "weight": 1.0
+    },
+    {
       "source": "Pack:ALN-MobStacker:behavior_pack",
       "target": "JS:ALN-MobStacker:stack_combat.js",
       "relation": "executes",
+      "weight": 1.0
+    },
+    {
+      "source": "JS:ALN-MobStacker:stack_combat.js",
+      "target": "Reference:metadata_script_modules",
+      "relation": "imports_api",
       "weight": 1.0
     },
     {
@@ -3935,15 +4716,33 @@
       "weight": 1.0
     },
     {
+      "source": "JS:ALN-MobStacker:stack_config.js",
+      "target": "Reference:metadata_script_modules",
+      "relation": "imports_api",
+      "weight": 1.0
+    },
+    {
       "source": "Pack:ALN-MobStacker:behavior_pack",
       "target": "JS:ALN-MobStacker:stack_merger.js",
       "relation": "executes",
       "weight": 1.0
     },
     {
+      "source": "JS:ALN-MobStacker:stack_merger.js",
+      "target": "Reference:metadata_script_modules",
+      "relation": "imports_api",
+      "weight": 1.0
+    },
+    {
       "source": "Category:Script",
       "target": "Project:ALNSpawnControl",
       "relation": "contains",
+      "weight": 1.0
+    },
+    {
+      "source": "Project:ALNSpawnControl",
+      "target": "Reference:metadata_script_modules",
+      "relation": "hooks_api",
       "weight": 1.0
     },
     {
@@ -3959,9 +4758,21 @@
       "weight": 1.0
     },
     {
+      "source": "JS:ALNSpawnControl:main.js",
+      "target": "Reference:metadata_script_modules",
+      "relation": "imports_api",
+      "weight": 1.0
+    },
+    {
       "source": "Pack:ALNSpawnControl:behavior_pack",
       "target": "JS:ALNSpawnControl:spawn_filter.js",
       "relation": "executes",
+      "weight": 1.0
+    },
+    {
+      "source": "JS:ALNSpawnControl:spawn_filter.js",
+      "target": "Reference:metadata_script_modules",
+      "relation": "imports_api",
       "weight": 1.0
     },
     {
@@ -3971,15 +4782,33 @@
       "weight": 1.0
     },
     {
+      "source": "JS:ALNSpawnControl:spawn_registry.js",
+      "target": "Reference:metadata_script_modules",
+      "relation": "imports_api",
+      "weight": 1.0
+    },
+    {
       "source": "Pack:ALNSpawnControl:behavior_pack",
       "target": "JS:ALNSpawnControl:spawn_ui.js",
       "relation": "executes",
       "weight": 1.0
     },
     {
+      "source": "JS:ALNSpawnControl:spawn_ui.js",
+      "target": "Reference:metadata_script_modules",
+      "relation": "imports_api",
+      "weight": 1.0
+    },
+    {
       "source": "Category:Script",
       "target": "Project:Always-Critical",
       "relation": "contains",
+      "weight": 1.0
+    },
+    {
+      "source": "Project:Always-Critical",
+      "target": "Reference:metadata_script_modules",
+      "relation": "hooks_api",
       "weight": 1.0
     },
     {
@@ -3995,9 +4824,21 @@
       "weight": 1.0
     },
     {
+      "source": "JS:Always-Critical:main.js",
+      "target": "Reference:metadata_script_modules",
+      "relation": "imports_api",
+      "weight": 1.0
+    },
+    {
       "source": "Category:Script",
       "target": "Project:Chrono-Bed",
       "relation": "contains",
+      "weight": 1.0
+    },
+    {
+      "source": "Project:Chrono-Bed",
+      "target": "Reference:metadata_script_modules",
+      "relation": "hooks_api",
       "weight": 1.0
     },
     {
@@ -4013,9 +4854,21 @@
       "weight": 1.0
     },
     {
+      "source": "JS:Chrono-Bed:chrono_bed.js",
+      "target": "Reference:metadata_script_modules",
+      "relation": "imports_api",
+      "weight": 1.0
+    },
+    {
       "source": "Pack:Chrono-Bed:behavior_pack",
       "target": "JS:Chrono-Bed:main.js",
       "relation": "executes",
+      "weight": 1.0
+    },
+    {
+      "source": "JS:Chrono-Bed:main.js",
+      "target": "Reference:metadata_script_modules",
+      "relation": "imports_api",
       "weight": 1.0
     },
     {
@@ -4025,9 +4878,21 @@
       "weight": 1.0
     },
     {
+      "source": "JS:Chrono-Bed:time_engine.js",
+      "target": "Reference:metadata_script_modules",
+      "relation": "imports_api",
+      "weight": 1.0
+    },
+    {
       "source": "Category:Script",
       "target": "Project:Command-Vault",
       "relation": "contains",
+      "weight": 1.0
+    },
+    {
+      "source": "Project:Command-Vault",
+      "target": "Reference:metadata_script_modules",
+      "relation": "hooks_api",
       "weight": 1.0
     },
     {
@@ -4043,9 +4908,21 @@
       "weight": 1.0
     },
     {
+      "source": "JS:Command-Vault:command_storage.js",
+      "target": "Reference:metadata_script_modules",
+      "relation": "imports_api",
+      "weight": 1.0
+    },
+    {
       "source": "Pack:Command-Vault:behavior_pack",
       "target": "JS:Command-Vault:command_ui.js",
       "relation": "executes",
+      "weight": 1.0
+    },
+    {
+      "source": "JS:Command-Vault:command_ui.js",
+      "target": "Reference:metadata_script_modules",
+      "relation": "imports_api",
       "weight": 1.0
     },
     {
@@ -4055,9 +4932,21 @@
       "weight": 1.0
     },
     {
+      "source": "JS:Command-Vault:main.js",
+      "target": "Reference:metadata_script_modules",
+      "relation": "imports_api",
+      "weight": 1.0
+    },
+    {
       "source": "Category:Script",
       "target": "Project:Gameplay-Optimizer",
       "relation": "contains",
+      "weight": 1.0
+    },
+    {
+      "source": "Project:Gameplay-Optimizer",
+      "target": "Reference:metadata_script_modules",
+      "relation": "hooks_api",
       "weight": 1.0
     },
     {
@@ -4073,9 +4962,21 @@
       "weight": 1.0
     },
     {
+      "source": "JS:Gameplay-Optimizer:main.js",
+      "target": "Reference:metadata_script_modules",
+      "relation": "imports_api",
+      "weight": 1.0
+    },
+    {
       "source": "Pack:Gameplay-Optimizer:behavior_pack",
       "target": "JS:Gameplay-Optimizer:effects.js",
       "relation": "executes",
+      "weight": 1.0
+    },
+    {
+      "source": "JS:Gameplay-Optimizer:effects.js",
+      "target": "Reference:metadata_script_modules",
+      "relation": "imports_api",
       "weight": 1.0
     },
     {
@@ -4085,9 +4986,21 @@
       "weight": 1.0
     },
     {
+      "source": "JS:Gameplay-Optimizer:itemcap.js",
+      "target": "Reference:metadata_script_modules",
+      "relation": "imports_api",
+      "weight": 1.0
+    },
+    {
       "source": "Pack:Gameplay-Optimizer:behavior_pack",
       "target": "JS:Gameplay-Optimizer:menu.js",
       "relation": "executes",
+      "weight": 1.0
+    },
+    {
+      "source": "JS:Gameplay-Optimizer:menu.js",
+      "target": "Reference:metadata_script_modules",
+      "relation": "imports_api",
       "weight": 1.0
     },
     {
@@ -4097,15 +5010,33 @@
       "weight": 1.0
     },
     {
+      "source": "JS:Gameplay-Optimizer:portal.js",
+      "target": "Reference:metadata_script_modules",
+      "relation": "imports_api",
+      "weight": 1.0
+    },
+    {
       "source": "Pack:Gameplay-Optimizer:behavior_pack",
       "target": "JS:Gameplay-Optimizer:settings.js",
       "relation": "executes",
       "weight": 1.0
     },
     {
+      "source": "JS:Gameplay-Optimizer:settings.js",
+      "target": "Reference:metadata_script_modules",
+      "relation": "imports_api",
+      "weight": 1.0
+    },
+    {
       "source": "Category:Script",
       "target": "Project:Living-SMP-Chat",
       "relation": "contains",
+      "weight": 1.0
+    },
+    {
+      "source": "Project:Living-SMP-Chat",
+      "target": "Reference:metadata_script_modules",
+      "relation": "hooks_api",
       "weight": 1.0
     },
     {
@@ -4121,9 +5052,21 @@
       "weight": 1.0
     },
     {
+      "source": "JS:Living-SMP-Chat:chat_director.js",
+      "target": "Reference:metadata_script_modules",
+      "relation": "imports_api",
+      "weight": 1.0
+    },
+    {
       "source": "Pack:Living-SMP-Chat:behavior_pack",
       "target": "JS:Living-SMP-Chat:chat_generator.js",
       "relation": "executes",
+      "weight": 1.0
+    },
+    {
+      "source": "JS:Living-SMP-Chat:chat_generator.js",
+      "target": "Reference:metadata_script_modules",
+      "relation": "imports_api",
       "weight": 1.0
     },
     {
@@ -4133,9 +5076,21 @@
       "weight": 1.0
     },
     {
+      "source": "JS:Living-SMP-Chat:chat_lines_extra.js",
+      "target": "Reference:metadata_script_modules",
+      "relation": "imports_api",
+      "weight": 1.0
+    },
+    {
       "source": "Pack:Living-SMP-Chat:behavior_pack",
       "target": "JS:Living-SMP-Chat:main.js",
       "relation": "executes",
+      "weight": 1.0
+    },
+    {
+      "source": "JS:Living-SMP-Chat:main.js",
+      "target": "Reference:metadata_script_modules",
+      "relation": "imports_api",
       "weight": 1.0
     },
     {
@@ -4145,9 +5100,21 @@
       "weight": 1.0
     },
     {
+      "source": "JS:Living-SMP-Chat:mode.js",
+      "target": "Reference:metadata_script_modules",
+      "relation": "imports_api",
+      "weight": 1.0
+    },
+    {
       "source": "Pack:Living-SMP-Chat:behavior_pack",
       "target": "JS:Living-SMP-Chat:smp_roster.js",
       "relation": "executes",
+      "weight": 1.0
+    },
+    {
+      "source": "JS:Living-SMP-Chat:smp_roster.js",
+      "target": "Reference:metadata_script_modules",
+      "relation": "imports_api",
       "weight": 1.0
     },
     {
@@ -4157,9 +5124,21 @@
       "weight": 1.0
     },
     {
+      "source": "JS:Living-SMP-Chat:smp_voices.js",
+      "target": "Reference:metadata_script_modules",
+      "relation": "imports_api",
+      "weight": 1.0
+    },
+    {
       "source": "Category:Script",
       "target": "Project:Loot-and-XP-Stick",
       "relation": "contains",
+      "weight": 1.0
+    },
+    {
+      "source": "Project:Loot-and-XP-Stick",
+      "target": "Reference:metadata_script_modules",
+      "relation": "hooks_api",
       "weight": 1.0
     },
     {
@@ -4175,9 +5154,21 @@
       "weight": 1.0
     },
     {
+      "source": "JS:Loot-and-XP-Stick:main.js",
+      "target": "Reference:metadata_script_modules",
+      "relation": "imports_api",
+      "weight": 1.0
+    },
+    {
       "source": "Category:Script",
       "target": "Project:Target-HUD-Entity-Inspector",
       "relation": "contains",
+      "weight": 1.0
+    },
+    {
+      "source": "Project:Target-HUD-Entity-Inspector",
+      "target": "Reference:metadata_script_modules",
+      "relation": "hooks_api",
       "weight": 1.0
     },
     {
@@ -4193,15 +5184,33 @@
       "weight": 1.0
     },
     {
+      "source": "JS:Target-HUD-Entity-Inspector:main.js",
+      "target": "Reference:metadata_script_modules",
+      "relation": "imports_api",
+      "weight": 1.0
+    },
+    {
       "source": "Pack:Target-HUD-Entity-Inspector:behavior_pack",
       "target": "JS:Target-HUD-Entity-Inspector:target_hud.js",
       "relation": "executes",
       "weight": 1.0
     },
     {
+      "source": "JS:Target-HUD-Entity-Inspector:target_hud.js",
+      "target": "Reference:metadata_script_modules",
+      "relation": "imports_api",
+      "weight": 1.0
+    },
+    {
       "source": "Category:Script",
       "target": "Project:Universal-Clutch",
       "relation": "contains",
+      "weight": 1.0
+    },
+    {
+      "source": "Project:Universal-Clutch",
+      "target": "Reference:metadata_script_modules",
+      "relation": "hooks_api",
       "weight": 1.0
     },
     {
@@ -4214,6 +5223,12 @@
       "source": "Pack:Universal-Clutch:behavior_pack",
       "target": "JS:Universal-Clutch:main.js",
       "relation": "executes",
+      "weight": 1.0
+    },
+    {
+      "source": "JS:Universal-Clutch:main.js",
+      "target": "Reference:metadata_script_modules",
+      "relation": "imports_api",
       "weight": 1.0
     },
     {
@@ -4241,6 +5256,12 @@
       "weight": 1.0
     },
     {
+      "source": "JS:One-Block-Skyblock-Lucky-Blocks:main.js",
+      "target": "Reference:metadata_script_modules",
+      "relation": "imports_api",
+      "weight": 1.0
+    },
+    {
       "source": "Project:One-Block-Skyblock-Lucky-Blocks",
       "target": "Pack:One-Block-Skyblock-Lucky-Blocks:resource_pack",
       "relation": "includes",
@@ -4262,6 +5283,12 @@
       "source": "Pack:OneBlock-Dirtbound-Kingdom-Beta:behavior_pack",
       "target": "JS:OneBlock-Dirtbound-Kingdom-Beta:main.js",
       "relation": "executes",
+      "weight": 1.0
+    },
+    {
+      "source": "JS:OneBlock-Dirtbound-Kingdom-Beta:main.js",
+      "target": "Reference:metadata_script_modules",
+      "relation": "imports_api",
       "weight": 1.0
     },
     {
@@ -4289,6 +5316,12 @@
       "weight": 1.0
     },
     {
+      "source": "JS:OneBlock-Natural-Market:main.js",
+      "target": "Reference:metadata_script_modules",
+      "relation": "imports_api",
+      "weight": 1.0
+    },
+    {
       "source": "Project:OneBlock-Natural-Market",
       "target": "Pack:OneBlock-Natural-Market:resource_pack",
       "relation": "includes",
@@ -4313,9 +5346,21 @@
       "weight": 1.0
     },
     {
+      "source": "JS:OneBlock-Phase-Evolution:main.js",
+      "target": "Reference:metadata_script_modules",
+      "relation": "imports_api",
+      "weight": 1.0
+    },
+    {
       "source": "Pack:OneBlock-Phase-Evolution:behavior_pack",
       "target": "JS:OneBlock-Phase-Evolution:team_inventory.js",
       "relation": "executes",
+      "weight": 1.0
+    },
+    {
+      "source": "JS:OneBlock-Phase-Evolution:team_inventory.js",
+      "target": "Reference:metadata_script_modules",
+      "relation": "imports_api",
       "weight": 1.0
     },
     {
@@ -4343,9 +5388,21 @@
       "weight": 1.0
     },
     {
+      "source": "JS:OneBlock-Void-Survival:islands.js",
+      "target": "Reference:metadata_script_modules",
+      "relation": "imports_api",
+      "weight": 1.0
+    },
+    {
       "source": "Pack:OneBlock-Void-Survival:behavior_pack",
       "target": "JS:OneBlock-Void-Survival:main.js",
       "relation": "executes",
+      "weight": 1.0
+    },
+    {
+      "source": "JS:OneBlock-Void-Survival:main.js",
+      "target": "Reference:metadata_script_modules",
+      "relation": "imports_api",
       "weight": 1.0
     },
     {
@@ -4355,15 +5412,33 @@
       "weight": 1.0
     },
     {
+      "source": "JS:OneBlock-Void-Survival:mode.js",
+      "target": "Reference:metadata_script_modules",
+      "relation": "imports_api",
+      "weight": 1.0
+    },
+    {
       "source": "Pack:OneBlock-Void-Survival:behavior_pack",
       "target": "JS:OneBlock-Void-Survival:phases.js",
       "relation": "executes",
       "weight": 1.0
     },
     {
+      "source": "JS:OneBlock-Void-Survival:phases.js",
+      "target": "Reference:metadata_script_modules",
+      "relation": "imports_api",
+      "weight": 1.0
+    },
+    {
       "source": "Pack:OneBlock-Void-Survival:behavior_pack",
       "target": "JS:OneBlock-Void-Survival:rarities.js",
       "relation": "executes",
+      "weight": 1.0
+    },
+    {
+      "source": "JS:OneBlock-Void-Survival:rarities.js",
+      "target": "Reference:metadata_script_modules",
+      "relation": "imports_api",
       "weight": 1.0
     },
     {
@@ -4385,9 +5460,21 @@
       "weight": 1.0
     },
     {
+      "source": "JS:Oneblock-SM:config.js",
+      "target": "Reference:metadata_script_modules",
+      "relation": "imports_api",
+      "weight": 1.0
+    },
+    {
       "source": "Pack:Oneblock-SM:behavior_pack",
       "target": "JS:Oneblock-SM:game.js",
       "relation": "executes",
+      "weight": 1.0
+    },
+    {
+      "source": "JS:Oneblock-SM:game.js",
+      "target": "Reference:metadata_script_modules",
+      "relation": "imports_api",
       "weight": 1.0
     },
     {
@@ -4397,15 +5484,33 @@
       "weight": 1.0
     },
     {
+      "source": "JS:Oneblock-SM:main.js",
+      "target": "Reference:metadata_script_modules",
+      "relation": "imports_api",
+      "weight": 1.0
+    },
+    {
       "source": "Pack:Oneblock-SM:behavior_pack",
       "target": "JS:Oneblock-SM:store.js",
       "relation": "executes",
       "weight": 1.0
     },
     {
+      "source": "JS:Oneblock-SM:store.js",
+      "target": "Reference:metadata_script_modules",
+      "relation": "imports_api",
+      "weight": 1.0
+    },
+    {
       "source": "Pack:Oneblock-SM:behavior_pack",
       "target": "JS:Oneblock-SM:ui.js",
       "relation": "executes",
+      "weight": 1.0
+    },
+    {
+      "source": "JS:Oneblock-SM:ui.js",
+      "target": "Reference:metadata_script_modules",
+      "relation": "imports_api",
       "weight": 1.0
     },
     {
@@ -4428,6 +5533,18 @@
     },
     {
       "source": "Project:Alphabet-Scavenger-Hunt",
+      "target": "Reference:behavior_pack",
+      "relation": "uses_templates",
+      "weight": 1.0
+    },
+    {
+      "source": "Project:Alphabet-Scavenger-Hunt",
+      "target": "Reference:resource_pack",
+      "relation": "uses_templates",
+      "weight": 1.0
+    },
+    {
+      "source": "Project:Alphabet-Scavenger-Hunt",
       "target": "Pack:Alphabet-Scavenger-Hunt:behavior_pack",
       "relation": "includes",
       "weight": 1.0
@@ -4439,15 +5556,33 @@
       "weight": 1.0
     },
     {
+      "source": "JS:Alphabet-Scavenger-Hunt:controller.js",
+      "target": "Reference:metadata_script_modules",
+      "relation": "imports_api",
+      "weight": 1.0
+    },
+    {
       "source": "Pack:Alphabet-Scavenger-Hunt:behavior_pack",
       "target": "JS:Alphabet-Scavenger-Hunt:item_data.js",
       "relation": "executes",
       "weight": 1.0
     },
     {
+      "source": "JS:Alphabet-Scavenger-Hunt:item_data.js",
+      "target": "Reference:metadata_script_modules",
+      "relation": "imports_api",
+      "weight": 1.0
+    },
+    {
       "source": "Pack:Alphabet-Scavenger-Hunt:behavior_pack",
       "target": "JS:Alphabet-Scavenger-Hunt:main.js",
       "relation": "executes",
+      "weight": 1.0
+    },
+    {
+      "source": "JS:Alphabet-Scavenger-Hunt:main.js",
+      "target": "Reference:metadata_script_modules",
+      "relation": "imports_api",
       "weight": 1.0
     },
     {
@@ -4464,6 +5599,18 @@
     },
     {
       "source": "Project:Minecraft-But-Every-Drop-is-Random-Chaos-Edition",
+      "target": "Reference:behavior_pack",
+      "relation": "uses_templates",
+      "weight": 1.0
+    },
+    {
+      "source": "Project:Minecraft-But-Every-Drop-is-Random-Chaos-Edition",
+      "target": "Reference:resource_pack",
+      "relation": "uses_templates",
+      "weight": 1.0
+    },
+    {
+      "source": "Project:Minecraft-But-Every-Drop-is-Random-Chaos-Edition",
       "target": "Pack:Minecraft-But-Every-Drop-is-Random-Chaos-Edition:behavior_pack",
       "relation": "includes",
       "weight": 1.0
@@ -4475,9 +5622,21 @@
       "weight": 1.0
     },
     {
+      "source": "JS:Minecraft-But-Every-Drop-is-Random-Chaos-Edition:controller.js",
+      "target": "Reference:metadata_script_modules",
+      "relation": "imports_api",
+      "weight": 1.0
+    },
+    {
       "source": "Pack:Minecraft-But-Every-Drop-is-Random-Chaos-Edition:behavior_pack",
       "target": "JS:Minecraft-But-Every-Drop-is-Random-Chaos-Edition:main.js",
       "relation": "executes",
+      "weight": 1.0
+    },
+    {
+      "source": "JS:Minecraft-But-Every-Drop-is-Random-Chaos-Edition:main.js",
+      "target": "Reference:metadata_script_modules",
+      "relation": "imports_api",
       "weight": 1.0
     },
     {
@@ -4487,9 +5646,21 @@
       "weight": 1.0
     },
     {
+      "source": "JS:Minecraft-But-Every-Drop-is-Random-Chaos-Edition:random_drops.js",
+      "target": "Reference:metadata_script_modules",
+      "relation": "imports_api",
+      "weight": 1.0
+    },
+    {
       "source": "Pack:Minecraft-But-Every-Drop-is-Random-Chaos-Edition:behavior_pack",
       "target": "JS:Minecraft-But-Every-Drop-is-Random-Chaos-Edition:random_loot_table.js",
       "relation": "executes",
+      "weight": 1.0
+    },
+    {
+      "source": "JS:Minecraft-But-Every-Drop-is-Random-Chaos-Edition:random_loot_table.js",
+      "target": "Reference:metadata_script_modules",
+      "relation": "imports_api",
       "weight": 1.0
     },
     {
@@ -4506,6 +5677,18 @@
     },
     {
       "source": "Project:Mob-Chaos-Behavioral-Roulette",
+      "target": "Reference:behavior_pack",
+      "relation": "uses_templates",
+      "weight": 1.0
+    },
+    {
+      "source": "Project:Mob-Chaos-Behavioral-Roulette",
+      "target": "Reference:resource_pack",
+      "relation": "uses_templates",
+      "weight": 1.0
+    },
+    {
+      "source": "Project:Mob-Chaos-Behavioral-Roulette",
       "target": "Pack:Mob-Chaos-Behavioral-Roulette:behavior_pack",
       "relation": "includes",
       "weight": 1.0
@@ -4514,6 +5697,12 @@
       "source": "Pack:Mob-Chaos-Behavioral-Roulette:behavior_pack",
       "target": "JS:Mob-Chaos-Behavioral-Roulette:main.js",
       "relation": "executes",
+      "weight": 1.0
+    },
+    {
+      "source": "JS:Mob-Chaos-Behavioral-Roulette:main.js",
+      "target": "Reference:metadata_script_modules",
+      "relation": "imports_api",
       "weight": 1.0
     },
     {
@@ -4530,6 +5719,18 @@
     },
     {
       "source": "Project:Shared-Hivemind-Inventory",
+      "target": "Reference:behavior_pack",
+      "relation": "uses_templates",
+      "weight": 1.0
+    },
+    {
+      "source": "Project:Shared-Hivemind-Inventory",
+      "target": "Reference:resource_pack",
+      "relation": "uses_templates",
+      "weight": 1.0
+    },
+    {
+      "source": "Project:Shared-Hivemind-Inventory",
       "target": "Pack:Shared-Hivemind-Inventory:behavior_pack",
       "relation": "includes",
       "weight": 1.0
@@ -4541,15 +5742,33 @@
       "weight": 1.0
     },
     {
+      "source": "JS:Shared-Hivemind-Inventory:hard_mode.js",
+      "target": "Reference:metadata_script_modules",
+      "relation": "imports_api",
+      "weight": 1.0
+    },
+    {
       "source": "Pack:Shared-Hivemind-Inventory:behavior_pack",
       "target": "JS:Shared-Hivemind-Inventory:controller.js",
       "relation": "executes",
       "weight": 1.0
     },
     {
+      "source": "JS:Shared-Hivemind-Inventory:controller.js",
+      "target": "Reference:metadata_script_modules",
+      "relation": "imports_api",
+      "weight": 1.0
+    },
+    {
       "source": "Pack:Shared-Hivemind-Inventory:behavior_pack",
       "target": "JS:Shared-Hivemind-Inventory:main.js",
       "relation": "executes",
+      "weight": 1.0
+    },
+    {
+      "source": "JS:Shared-Hivemind-Inventory:main.js",
+      "target": "Reference:metadata_script_modules",
+      "relation": "imports_api",
       "weight": 1.0
     },
     {
@@ -4566,6 +5785,18 @@
     },
     {
       "source": "Project:Tethered-Breaker-And-Builder",
+      "target": "Reference:behavior_pack",
+      "relation": "uses_templates",
+      "weight": 1.0
+    },
+    {
+      "source": "Project:Tethered-Breaker-And-Builder",
+      "target": "Reference:resource_pack",
+      "relation": "uses_templates",
+      "weight": 1.0
+    },
+    {
+      "source": "Project:Tethered-Breaker-And-Builder",
       "target": "Pack:Tethered-Breaker-And-Builder:behavior_pack",
       "relation": "includes",
       "weight": 1.0
@@ -4577,9 +5808,21 @@
       "weight": 1.0
     },
     {
+      "source": "JS:Tethered-Breaker-And-Builder:controller.js",
+      "target": "Reference:metadata_script_modules",
+      "relation": "imports_api",
+      "weight": 1.0
+    },
+    {
       "source": "Pack:Tethered-Breaker-And-Builder:behavior_pack",
       "target": "JS:Tethered-Breaker-And-Builder:main.js",
       "relation": "executes",
+      "weight": 1.0
+    },
+    {
+      "source": "JS:Tethered-Breaker-And-Builder:main.js",
+      "target": "Reference:metadata_script_modules",
+      "relation": "imports_api",
       "weight": 1.0
     },
     {
@@ -4596,6 +5839,18 @@
     },
     {
       "source": "Project:Trivia-Vault-The-Locked-World",
+      "target": "Reference:behavior_pack",
+      "relation": "uses_templates",
+      "weight": 1.0
+    },
+    {
+      "source": "Project:Trivia-Vault-The-Locked-World",
+      "target": "Reference:resource_pack",
+      "relation": "uses_templates",
+      "weight": 1.0
+    },
+    {
+      "source": "Project:Trivia-Vault-The-Locked-World",
       "target": "Pack:Trivia-Vault-The-Locked-World:behavior_pack",
       "relation": "includes",
       "weight": 1.0
@@ -4607,9 +5862,21 @@
       "weight": 1.0
     },
     {
+      "source": "JS:Trivia-Vault-The-Locked-World:consequences.js",
+      "target": "Reference:metadata_script_modules",
+      "relation": "imports_api",
+      "weight": 1.0
+    },
+    {
       "source": "Pack:Trivia-Vault-The-Locked-World:behavior_pack",
       "target": "JS:Trivia-Vault-The-Locked-World:controller.js",
       "relation": "executes",
+      "weight": 1.0
+    },
+    {
+      "source": "JS:Trivia-Vault-The-Locked-World:controller.js",
+      "target": "Reference:metadata_script_modules",
+      "relation": "imports_api",
       "weight": 1.0
     },
     {
@@ -4619,15 +5886,33 @@
       "weight": 1.0
     },
     {
+      "source": "JS:Trivia-Vault-The-Locked-World:difficulty.js",
+      "target": "Reference:metadata_script_modules",
+      "relation": "imports_api",
+      "weight": 1.0
+    },
+    {
       "source": "Pack:Trivia-Vault-The-Locked-World:behavior_pack",
       "target": "JS:Trivia-Vault-The-Locked-World:main.js",
       "relation": "executes",
       "weight": 1.0
     },
     {
+      "source": "JS:Trivia-Vault-The-Locked-World:main.js",
+      "target": "Reference:metadata_script_modules",
+      "relation": "imports_api",
+      "weight": 1.0
+    },
+    {
       "source": "Pack:Trivia-Vault-The-Locked-World:behavior_pack",
       "target": "JS:Trivia-Vault-The-Locked-World:questions.js",
       "relation": "executes",
+      "weight": 1.0
+    },
+    {
+      "source": "JS:Trivia-Vault-The-Locked-World:questions.js",
+      "target": "Reference:metadata_script_modules",
+      "relation": "imports_api",
       "weight": 1.0
     },
     {
