@@ -93,14 +93,6 @@
 ---
 
 
-
----
-
-
-
----
-
-
 <!-- GRAPH-CONTEXT:START -->
 ## Graph Context
 
@@ -245,6 +237,9 @@ Maps/scripts/minigames: same landing page. Use real package format; .mcworld = t
 - NO links, URLs, badges, function/event names, unverified benefits. No boilerplate after title.
 - Insert new entry directly under `---`, above previous release. NEVER edit/delete older entries.
 
+### Item and Block Components
+- When defining `menu_category` for custom items or blocks, `group` MUST start with a namespace (e.g. `minecraft:itemGroup.name.<group>` or `<namespace>:itemGroup.name.<group>`). Unnamespaced group strings like `itemGroup.name.helmet` fail Bedrock parsing (`Failed to parse field ' -> description -> menu_category -> group: string must be prefixed with a namespace (eg. namespace:value)'`). If no vanilla group applies, omit `group` and provide only `category`.
+
 ## Reply Format (STRICT)
 ```
 [SYSTEM_CONFIG]
@@ -340,7 +335,7 @@ git config --global credential.helper store
 
 ```
 
-## FILE: MCPEDL/Addons/ALN-MoreDiscs/behavior_pack/item_catalog/crafting_item_catalog.json (31 lines, 664 bytes)
+## FILE: MCPEDL/Addons/ALN-MoreDiscs/behavior_pack/item_catalog/crafting_item_catalog.json (31 lines, 667 bytes)
 
 ```
 {
@@ -353,7 +348,7 @@ git config --global credential.helper store
           {
             "group_identifier": {
               "icon": "aln:disc_1",
-              "name": "aln:itemGroup.name.morediscs"
+              "name": "minecraft:itemGroup.name.record"
             },
             "items": [
               "aln:disc_1",
@@ -375,7 +370,7 @@ git config --global credential.helper store
 }
 ```
 
-## FILE: MCPEDL/Addons/ALN-MoreDiscs/behavior_pack/items/disc_1.json (29 lines, 611 bytes)
+## FILE: MCPEDL/Addons/ALN-MoreDiscs/behavior_pack/items/disc_1.json (29 lines, 614 bytes)
 
 ```
 {
@@ -385,7 +380,7 @@ git config --global credential.helper store
       "identifier": "aln:disc_1",
       "menu_category": {
         "category": "items",
-        "group": "aln:itemGroup.name.morediscs"
+        "group": "minecraft:itemGroup.name.record"
       }
     },
     "components": {
@@ -408,7 +403,7 @@ git config --global credential.helper store
 }
 ```
 
-## FILE: MCPEDL/Addons/ALN-MoreDiscs/behavior_pack/items/disc_10.json (29 lines, 616 bytes)
+## FILE: MCPEDL/Addons/ALN-MoreDiscs/behavior_pack/items/disc_10.json (29 lines, 619 bytes)
 
 ```
 {
@@ -418,7 +413,7 @@ git config --global credential.helper store
       "identifier": "aln:disc_10",
       "menu_category": {
         "category": "items",
-        "group": "aln:itemGroup.name.morediscs"
+        "group": "minecraft:itemGroup.name.record"
       }
     },
     "components": {
@@ -441,7 +436,7 @@ git config --global credential.helper store
 }
 ```
 
-## FILE: MCPEDL/Addons/ALN-MoreDiscs/behavior_pack/items/disc_2.json (29 lines, 611 bytes)
+## FILE: MCPEDL/Addons/ALN-MoreDiscs/behavior_pack/items/disc_2.json (29 lines, 614 bytes)
 
 ```
 {
@@ -451,7 +446,7 @@ git config --global credential.helper store
       "identifier": "aln:disc_2",
       "menu_category": {
         "category": "items",
-        "group": "aln:itemGroup.name.morediscs"
+        "group": "minecraft:itemGroup.name.record"
       }
     },
     "components": {
@@ -474,7 +469,7 @@ git config --global credential.helper store
 }
 ```
 
-## FILE: MCPEDL/Addons/ALN-MoreDiscs/behavior_pack/items/disc_3.json (29 lines, 611 bytes)
+## FILE: MCPEDL/Addons/ALN-MoreDiscs/behavior_pack/items/disc_3.json (29 lines, 614 bytes)
 
 ```
 {
@@ -484,7 +479,7 @@ git config --global credential.helper store
       "identifier": "aln:disc_3",
       "menu_category": {
         "category": "items",
-        "group": "aln:itemGroup.name.morediscs"
+        "group": "minecraft:itemGroup.name.record"
       }
     },
     "components": {
@@ -507,7 +502,7 @@ git config --global credential.helper store
 }
 ```
 
-## FILE: MCPEDL/Addons/ALN-MoreDiscs/behavior_pack/items/disc_4.json (29 lines, 611 bytes)
+## FILE: MCPEDL/Addons/ALN-MoreDiscs/behavior_pack/items/disc_4.json (29 lines, 614 bytes)
 
 ```
 {
@@ -517,7 +512,7 @@ git config --global credential.helper store
       "identifier": "aln:disc_4",
       "menu_category": {
         "category": "items",
-        "group": "aln:itemGroup.name.morediscs"
+        "group": "minecraft:itemGroup.name.record"
       }
     },
     "components": {
@@ -540,7 +535,7 @@ git config --global credential.helper store
 }
 ```
 
-## FILE: MCPEDL/Addons/ALN-MoreDiscs/behavior_pack/items/disc_5.json (29 lines, 611 bytes)
+## FILE: MCPEDL/Addons/ALN-MoreDiscs/behavior_pack/items/disc_5.json (29 lines, 614 bytes)
 
 ```
 {
@@ -550,7 +545,7 @@ git config --global credential.helper store
       "identifier": "aln:disc_5",
       "menu_category": {
         "category": "items",
-        "group": "aln:itemGroup.name.morediscs"
+        "group": "minecraft:itemGroup.name.record"
       }
     },
     "components": {
@@ -573,7 +568,7 @@ git config --global credential.helper store
 }
 ```
 
-## FILE: MCPEDL/Addons/ALN-MoreDiscs/behavior_pack/items/disc_6.json (29 lines, 611 bytes)
+## FILE: MCPEDL/Addons/ALN-MoreDiscs/behavior_pack/items/disc_6.json (29 lines, 614 bytes)
 
 ```
 {
@@ -583,7 +578,7 @@ git config --global credential.helper store
       "identifier": "aln:disc_6",
       "menu_category": {
         "category": "items",
-        "group": "aln:itemGroup.name.morediscs"
+        "group": "minecraft:itemGroup.name.record"
       }
     },
     "components": {
@@ -606,7 +601,7 @@ git config --global credential.helper store
 }
 ```
 
-## FILE: MCPEDL/Addons/ALN-MoreDiscs/behavior_pack/items/disc_7.json (29 lines, 611 bytes)
+## FILE: MCPEDL/Addons/ALN-MoreDiscs/behavior_pack/items/disc_7.json (29 lines, 614 bytes)
 
 ```
 {
@@ -616,7 +611,7 @@ git config --global credential.helper store
       "identifier": "aln:disc_7",
       "menu_category": {
         "category": "items",
-        "group": "aln:itemGroup.name.morediscs"
+        "group": "minecraft:itemGroup.name.record"
       }
     },
     "components": {
@@ -639,7 +634,7 @@ git config --global credential.helper store
 }
 ```
 
-## FILE: MCPEDL/Addons/ALN-MoreDiscs/behavior_pack/items/disc_8.json (29 lines, 612 bytes)
+## FILE: MCPEDL/Addons/ALN-MoreDiscs/behavior_pack/items/disc_8.json (29 lines, 615 bytes)
 
 ```
 {
@@ -649,7 +644,7 @@ git config --global credential.helper store
       "identifier": "aln:disc_8",
       "menu_category": {
         "category": "items",
-        "group": "aln:itemGroup.name.morediscs"
+        "group": "minecraft:itemGroup.name.record"
       }
     },
     "components": {
@@ -672,7 +667,7 @@ git config --global credential.helper store
 }
 ```
 
-## FILE: MCPEDL/Addons/ALN-MoreDiscs/behavior_pack/items/disc_9.json (29 lines, 612 bytes)
+## FILE: MCPEDL/Addons/ALN-MoreDiscs/behavior_pack/items/disc_9.json (29 lines, 615 bytes)
 
 ```
 {
@@ -682,7 +677,7 @@ git config --global credential.helper store
       "identifier": "aln:disc_9",
       "menu_category": {
         "category": "items",
-        "group": "aln:itemGroup.name.morediscs"
+        "group": "minecraft:itemGroup.name.record"
       }
     },
     "components": {
@@ -1842,7 +1837,7 @@ This marker does not encrypt the pack or prevent extraction or editing.
 }
 ```
 
-## FILE: MCPEDL/Addons/ALN-MoreDiscs/resource_pack/texts/en_US.lang (22 lines, 1745 bytes)
+## FILE: MCPEDL/Addons/ALN-MoreDiscs/resource_pack/texts/en_US.lang (22 lines, 1736 bytes)
 
 ```
 item.aln:disc_1=Music Disc\n§7Track 1: Neon Horizon\n§8ALNStudios Music Series
@@ -1865,7 +1860,7 @@ item.aln:disc_9=Music Disc\n§7Track 9: Pixel Parade\n§8ALNStudios Music Series
 item.aln:disc_9.name=Music Disc\n§7Track 9: Pixel Parade\n§8ALNStudios Music Series
 item.aln:disc_10=Music Disc\n§7Track 10: Golden Hour\n§8ALNStudios Music Series
 item.aln:disc_10.name=Music Disc\n§7Track 10: Golden Hour\n§8ALNStudios Music Series
-aln:itemGroup.name.morediscs=ALN MoreDiscs
+itemGroup.name.record=Music Discs
 ```
 
 ## FILE: MCPEDL/Addons/ALN-MoreDiscs/resource_pack/texts/languages.json (4 lines, 14 bytes)
@@ -5004,7 +4999,7 @@ Source files for established Minecraft Bedrock add-ons by ALNStudios.
 | Enchanter | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/Enchanter/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Enchanter/Enchanter%20V2.mcaddon) |
 | ALN Quiver | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/ALN-Quiver/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/ALN-Quiver/ALNQuiver%20V2.mcaddon) |
 | Expanded Basic Arsenal | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/Expanded-Basic-Arsenal/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Expanded-Basic-Arsenal/ExpandedBasicArsenal%20V2.mcaddon) |
-| ALN Wireless Headphones | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/ALN-Wireless-Headphones/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/ALN-Wireless-Headphones/ALNWirelessHeadphones%20V3.mcaddon) |
+| ALN Wireless Headphones | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/ALN-Wireless-Headphones/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/ALN-Wireless-Headphones/ALNWirelessHeadphones%20V4.mcaddon) |
 | ALN MoreDiscs | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/ALN-MoreDiscs/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/ALN-MoreDiscs/ALNMoreDiscs%20V2.mcaddon) |
 | ALN Pointer | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/ALN-Pointer/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/ALN-Pointer/ALNPointer%20V2.mcaddon) |
 
