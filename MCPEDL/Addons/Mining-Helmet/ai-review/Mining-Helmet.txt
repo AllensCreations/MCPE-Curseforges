@@ -6,7 +6,7 @@
 - **Destination:** `MCPEDL/Addons/Mining-Helmet`
 - **CURRENT VERSION: v2 / NEXT UPDATE: v3**  (`MCPEDL/Addons/Mining-Helmet/CHANGELOG.md`)
 - **Text files:** 29
-- **Skipped binary:** 14
+- **Skipped binary:** 18
 - **Paths not found:** 0
 
 ### Files in this export
@@ -44,6 +44,10 @@
 ### Skipped (binary)
 
 - `MCPEDL/Addons/Mining-Helmet/1791946330457.jpg`
+- `MCPEDL/Addons/Mining-Helmet/assets/items/mining_helmet.png`
+- `MCPEDL/Addons/Mining-Helmet/assets/items/torch_mining_helmet.png`
+- `MCPEDL/Addons/Mining-Helmet/assets/recipes/recipe_lantern.png`
+- `MCPEDL/Addons/Mining-Helmet/assets/recipes/recipe_torch.png`
 - `MCPEDL/Addons/Mining-Helmet/banner.jpg`
 - `MCPEDL/Addons/Mining-Helmet/behavior_pack/pack_icon.png`
 - `MCPEDL/Addons/Mining-Helmet/mcpedl.png`
@@ -57,38 +61,6 @@
 - `MCPEDL/Addons/Mining-Helmet/resource_pack/textures/models/armor/mining_helmet_1.png`
 - `MCPEDL/Addons/Mining-Helmet/resource_pack/textures/models/armor/torch_mining_helmet_1.png`
 - `MCPEDL/Addons/Mining-Helmet/torch_mining_helmet_preview.png`
-
----
-
-
-
----
-
-
-
----
-
-
-
----
-
-
-
----
-
-
-
----
-
-
-
----
-
-
-
----
-
-
 
 ---
 
@@ -328,7 +300,7 @@ git config --global credential.helper store
 </details>
 ```
 
-## FILE: description_views/Mining-Helmet.listing.md (62 lines, 8469 bytes)
+## FILE: description_views/Mining-Helmet.listing.md (66 lines, 10891 bytes)
 
 ````
 # Listing Kit: Mining Helmet
@@ -355,6 +327,10 @@ Paste into the CurseForge description editor in source (HTML) mode.
 <div><div style="border:2px solid #15803d;border-radius:18px;line-height:1.5"><br><h1 style="font-size:34px;text-align:center">Mining Helmet</h1><p style="color:#8a94a3;font-size:14px;text-align:center">by ALNStudios</p><div style="display:flex;flex-wrap:wrap;gap:8px;margin-left:14px;margin-right:14px"><div style="background-color:#dcfce7;color:#14532d;border-radius:20px;font-size:14px;line-height:2"><strong>&nbsp;&nbsp;Bedrock</strong>: 1.21+&nbsp;&nbsp;</div><div style="background-color:#dcfce7;color:#14532d;border-radius:20px;font-size:14px;line-height:2"><strong>&nbsp;&nbsp;Experimental</strong>: No&nbsp;&nbsp;</div><div style="background-color:#dcfce7;color:#14532d;border-radius:20px;font-size:14px;line-height:2"><strong>&nbsp;&nbsp;Achievements</strong>: Likely achievement-friendly&nbsp;&nbsp;</div></div><br></div>
 <h2 style="font-size:17px;text-align:left"><span style="background-color:#15803d;color:#ffffff;border-radius:20px">&nbsp;&nbsp;About&nbsp;&nbsp;</span></h2>
 <p><strong>Mining Helmet</strong> adds wearable headgear with moving light to Minecraft Bedrock Edition. Equipped in your head armor slot, it continuously lights up your surroundings as you walk, run, and dig, leaving both hands free for your pickaxe, weapon, or shield. By default the light follows the spot you are looking at, and a Head Light subpack keeps it above your head instead.</p><p>The helmet provides moving light while worn, and holding a Lantern or Torch can also provide handheld light.</p>
+<h2 style="font-size:17px;text-align:left"><span style="background-color:#15803d;color:#ffffff;border-radius:20px">&nbsp;&nbsp;Custom Items&nbsp;&nbsp;</span></h2>
+<div style="display:flex;flex-wrap:wrap;gap:10px"><div style="flex:0 1 120px;border:1px solid #8a94a3;border-radius:16px;text-align:center"><p><a href="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/MCPEDL/Addons/Mining-Helmet/assets/items/mining_helmet.png"><img src="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/MCPEDL/Addons/Mining-Helmet/assets/items/mining_helmet.png" alt="mining helmet" style="width:64px"></a></p><p style="color:#8a94a3;font-size:13px">mining helmet</p></div><div style="flex:0 1 120px;border:1px solid #8a94a3;border-radius:16px;text-align:center"><p><a href="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/MCPEDL/Addons/Mining-Helmet/assets/items/torch_mining_helmet.png"><img src="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/MCPEDL/Addons/Mining-Helmet/assets/items/torch_mining_helmet.png" alt="torch mining helmet" style="width:64px"></a></p><p style="color:#8a94a3;font-size:13px">torch mining helmet</p></div></div>
+<h2 style="font-size:17px;text-align:left"><span style="background-color:#15803d;color:#ffffff;border-radius:20px">&nbsp;&nbsp;Crafting Recipes&nbsp;&nbsp;</span></h2>
+<div style="display:flex;flex-wrap:wrap;gap:10px"><div style="flex:0 1 400px;border:1px solid #8a94a3;border-radius:16px;text-align:center"><p><a href="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/MCPEDL/Addons/Mining-Helmet/assets/recipes/recipe_lantern.png"><img src="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/MCPEDL/Addons/Mining-Helmet/assets/recipes/recipe_lantern.png" alt="recipe lantern" style="width:100%"></a></p><p style="color:#8a94a3;font-size:13px">recipe lantern</p></div><div style="flex:0 1 400px;border:1px solid #8a94a3;border-radius:16px;text-align:center"><p><a href="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/MCPEDL/Addons/Mining-Helmet/assets/recipes/recipe_torch.png"><img src="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/MCPEDL/Addons/Mining-Helmet/assets/recipes/recipe_torch.png" alt="recipe torch" style="width:100%"></a></p><p style="color:#8a94a3;font-size:13px">recipe torch</p></div></div>
 <h2 style="font-size:17px;text-align:left"><span style="background-color:#15803d;color:#ffffff;border-radius:20px">&nbsp;&nbsp;Get Started&nbsp;&nbsp;</span></h2>
 <table style="width:100%;border:1px solid #8a94a3;border-radius:16px"><tbody><tr><td style="width:44px;text-align:center"><div style="background-color:#15803d;color:#ffffff;font-weight:bold;font-size:15px;text-align:center;border-radius:10px;width:30px;aspect-ratio:1/1;line-height:30px">1</div></td><td style="text-align:left;">Import the complete add-on and enable its included packs in your world settings.</td></tr><tr><td style="width:44px;text-align:center"><div style="background-color:#15803d;color:#ffffff;font-weight:bold;font-size:15px;text-align:center;border-radius:10px;width:30px;aspect-ratio:1/1;line-height:30px">2</div></td><td style="text-align:left;">Craft the Lantern or Torch Mining Helmet using the listed ingredients.</td></tr><tr><td style="width:44px;text-align:center"><div style="background-color:#15803d;color:#ffffff;font-weight:bold;font-size:15px;text-align:center;border-radius:10px;width:30px;aspect-ratio:1/1;line-height:30px">3</div></td><td style="text-align:left;">Equip the helmet in your head armor slot to carry its light with you. Holding a Lantern or Torch can also provide light.</td></tr><tr><td style="width:44px;text-align:center"><div style="background-color:#15803d;color:#ffffff;font-weight:bold;font-size:15px;text-align:center;border-radius:10px;width:30px;aspect-ratio:1/1;line-height:30px">4</div></td><td style="text-align:left;">The light follows your cursor by default. To keep it above your head, choose the Head Light subpack in the Behavior Pack settings.</td></tr></tbody></table>
 <h2 style="font-size:17px;text-align:left"><span style="background-color:#15803d;color:#ffffff;border-radius:20px">&nbsp;&nbsp;Install&nbsp;&nbsp;</span></h2>
@@ -1275,7 +1251,7 @@ export const LIGHT_MODE = "head";
 - **Changelog started**: Version history is recorded from this release onward.
 ```
 
-## FILE: MCPEDL/Addons/Mining-Helmet/DESCRIPTION.md (128 lines, 5298 bytes)
+## FILE: MCPEDL/Addons/Mining-Helmet/DESCRIPTION.md (128 lines, 4980 bytes)
 
 ```
 # Mining Helmet — Dynamic Lighting Add-on
@@ -1354,12 +1330,12 @@ The helmet provides moving light while worn, and holding a Lantern or Torch can 
 ### 1. Lantern Recipe (Level 15)
 Combine a standard **Lantern** with a **Golden Helmet** in a crafting table to produce the Level 15 Mining Helmet.
 
-![Crafting Recipe: Lantern Mining Helmet](https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/MCPEDL/Addons/Mining-Helmet/recipe_lantern.png)
+
 
 ### 2. Torch Recipe (Level 10)
 Combine a standard **Torch** with a **Golden Helmet** to craft the Level 10 Mining Helmet for early survival.
 
-![Crafting Recipe: Torch Mining Helmet](https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/MCPEDL/Addons/Mining-Helmet/recipe_torch.png)
+
 
 ---
 
@@ -1761,7 +1737,7 @@ Source files for established Minecraft Bedrock add-ons by ALNStudios.
 | Enchanter | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/Enchanter/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Enchanter/Enchanter%20V2.mcaddon) |
 | ALN Quiver | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/ALN-Quiver/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/ALN-Quiver/ALNQuiver%20V2.mcaddon) |
 | Expanded Basic Arsenal | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/Expanded-Basic-Arsenal/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Expanded-Basic-Arsenal/ExpandedBasicArsenal%20V2.mcaddon) |
-| ALN Wireless Headphones | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/ALN-Wireless-Headphones/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/ALN-Wireless-Headphones/ALNWirelessHeadphones%20V2.mcaddon) |
+| ALN Wireless Headphones | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/ALN-Wireless-Headphones/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/ALN-Wireless-Headphones/ALNWirelessHeadphones%20V3.mcaddon) |
 | ALN MoreDiscs | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/ALN-MoreDiscs/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/ALN-MoreDiscs/ALNMoreDiscs%20V2.mcaddon) |
 | ALN Pointer | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/ALN-Pointer/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/ALN-Pointer/ALNPointer%20V2.mcaddon) |
 

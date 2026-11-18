@@ -136,38 +136,6 @@
 ---
 
 
-
----
-
-
-
----
-
-
-
----
-
-
-
----
-
-
-
----
-
-
-
----
-
-
-
----
-
-
-
----
-
-
 <!-- GRAPH-CONTEXT:START -->
 ## Graph Context
 
@@ -340,7 +308,7 @@ git config --global credential.helper store
 
 ## File Contents
 
-## FILE: description_views/Grimoire-Relics-V2.listing.md (62 lines, 13972 bytes)
+## FILE: description_views/Grimoire-Relics-V2.listing.md (64 lines, 23925 bytes)
 
 ````
 # Listing Kit: Grimoire Relics V2
@@ -367,6 +335,8 @@ Paste into the CurseForge description editor in source (HTML) mode.
 <div><div style="border:2px solid #15803d;border-radius:18px;line-height:1.5"><br><h1 style="font-size:34px;text-align:center">Grimoire Relics V2</h1><p style="color:#8a94a3;font-size:14px;text-align:center">by ALNStudios</p><div style="display:flex;flex-wrap:wrap;gap:8px;margin-left:14px;margin-right:14px"><div style="background-color:#dcfce7;color:#14532d;border-radius:20px;font-size:14px;line-height:2"><strong>&nbsp;&nbsp;Bedrock</strong>: 1.21+&nbsp;&nbsp;</div><div style="background-color:#dcfce7;color:#14532d;border-radius:20px;font-size:14px;line-height:2"><strong>&nbsp;&nbsp;Experimental</strong>: No&nbsp;&nbsp;</div></div><br></div>
 <h2 style="font-size:17px;text-align:left"><span style="background-color:#15803d;color:#ffffff;border-radius:20px">&nbsp;&nbsp;About&nbsp;&nbsp;</span></h2>
 <p>Grimoire Relics V2 adds a collection of magical tomes to Minecraft Bedrock Edition. Each tome has its own effect and is active while equipped in the offhand. Switching away from a tome stops its relic-specific effects.</p>
+<h2 style="font-size:17px;text-align:left"><span style="background-color:#15803d;color:#ffffff;border-radius:20px">&nbsp;&nbsp;Custom Items&nbsp;&nbsp;</span></h2>
+<div style="display:flex;flex-wrap:wrap;gap:10px"><div style="flex:0 1 120px;border:1px solid #8a94a3;border-radius:16px;text-align:center"><p><a href="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/MCPEDL/Addons/Grimoire-Relics-V2/assets/items/tome_abyss.png"><img src="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/MCPEDL/Addons/Grimoire-Relics-V2/assets/items/tome_abyss.png" alt="tome abyss" style="width:64px"></a></p><p style="color:#8a94a3;font-size:13px">tome abyss</p></div><div style="flex:0 1 120px;border:1px solid #8a94a3;border-radius:16px;text-align:center"><p><a href="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/MCPEDL/Addons/Grimoire-Relics-V2/assets/items/tome_alchemist.png"><img src="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/MCPEDL/Addons/Grimoire-Relics-V2/assets/items/tome_alchemist.png" alt="tome alchemist" style="width:64px"></a></p><p style="color:#8a94a3;font-size:13px">tome alchemist</p></div><div style="flex:0 1 120px;border:1px solid #8a94a3;border-radius:16px;text-align:center"><p><a href="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/MCPEDL/Addons/Grimoire-Relics-V2/assets/items/tome_delver.png"><img src="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/MCPEDL/Addons/Grimoire-Relics-V2/assets/items/tome_delver.png" alt="tome delver" style="width:64px"></a></p><p style="color:#8a94a3;font-size:13px">tome delver</p></div><div style="flex:0 1 120px;border:1px solid #8a94a3;border-radius:16px;text-align:center"><p><a href="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/MCPEDL/Addons/Grimoire-Relics-V2/assets/items/tome_dragon.png"><img src="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/MCPEDL/Addons/Grimoire-Relics-V2/assets/items/tome_dragon.png" alt="tome dragon" style="width:64px"></a></p><p style="color:#8a94a3;font-size:13px">tome dragon</p></div><div style="flex:0 1 120px;border:1px solid #8a94a3;border-radius:16px;text-align:center"><p><a href="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/MCPEDL/Addons/Grimoire-Relics-V2/assets/items/tome_druid.png"><img src="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/MCPEDL/Addons/Grimoire-Relics-V2/assets/items/tome_druid.png" alt="tome druid" style="width:64px"></a></p><p style="color:#8a94a3;font-size:13px">tome druid</p></div><div style="flex:0 1 120px;border:1px solid #8a94a3;border-radius:16px;text-align:center"><p><a href="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/MCPEDL/Addons/Grimoire-Relics-V2/assets/items/tome_frost.png"><img src="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/MCPEDL/Addons/Grimoire-Relics-V2/assets/items/tome_frost.png" alt="tome frost" style="width:64px"></a></p><p style="color:#8a94a3;font-size:13px">tome frost</p></div><div style="flex:0 1 120px;border:1px solid #8a94a3;border-radius:16px;text-align:center"><p><a href="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/MCPEDL/Addons/Grimoire-Relics-V2/assets/items/tome_golem.png"><img src="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/MCPEDL/Addons/Grimoire-Relics-V2/assets/items/tome_golem.png" alt="tome golem" style="width:64px"></a></p><p style="color:#8a94a3;font-size:13px">tome golem</p></div><div style="flex:0 1 120px;border:1px solid #8a94a3;border-radius:16px;text-align:center"><p><a href="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/MCPEDL/Addons/Grimoire-Relics-V2/assets/items/tome_hydra.png"><img src="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/MCPEDL/Addons/Grimoire-Relics-V2/assets/items/tome_hydra.png" alt="tome hydra" style="width:64px"></a></p><p style="color:#8a94a3;font-size:13px">tome hydra</p></div><div style="flex:0 1 120px;border:1px solid #8a94a3;border-radius:16px;text-align:center"><p><a href="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/MCPEDL/Addons/Grimoire-Relics-V2/assets/items/tome_lich.png"><img src="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/MCPEDL/Addons/Grimoire-Relics-V2/assets/items/tome_lich.png" alt="tome lich" style="width:64px"></a></p><p style="color:#8a94a3;font-size:13px">tome lich</p></div><div style="flex:0 1 120px;border:1px solid #8a94a3;border-radius:16px;text-align:center"><p><a href="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/MCPEDL/Addons/Grimoire-Relics-V2/assets/items/tome_lunar.png"><img src="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/MCPEDL/Addons/Grimoire-Relics-V2/assets/items/tome_lunar.png" alt="tome lunar" style="width:64px"></a></p><p style="color:#8a94a3;font-size:13px">tome lunar</p></div><div style="flex:0 1 120px;border:1px solid #8a94a3;border-radius:16px;text-align:center"><p><a href="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/MCPEDL/Addons/Grimoire-Relics-V2/assets/items/tome_mirror.png"><img src="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/MCPEDL/Addons/Grimoire-Relics-V2/assets/items/tome_mirror.png" alt="tome mirror" style="width:64px"></a></p><p style="color:#8a94a3;font-size:13px">tome mirror</p></div><div style="flex:0 1 120px;border:1px solid #8a94a3;border-radius:16px;text-align:center"><p><a href="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/MCPEDL/Addons/Grimoire-Relics-V2/assets/items/tome_phoenix.png"><img src="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/MCPEDL/Addons/Grimoire-Relics-V2/assets/items/tome_phoenix.png" alt="tome phoenix" style="width:64px"></a></p><p style="color:#8a94a3;font-size:13px">tome phoenix</p></div><div style="flex:0 1 120px;border:1px solid #8a94a3;border-radius:16px;text-align:center"><p><a href="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/MCPEDL/Addons/Grimoire-Relics-V2/assets/items/tome_scholar.png"><img src="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/MCPEDL/Addons/Grimoire-Relics-V2/assets/items/tome_scholar.png" alt="tome scholar" style="width:64px"></a></p><p style="color:#8a94a3;font-size:13px">tome scholar</p></div><div style="flex:0 1 120px;border:1px solid #8a94a3;border-radius:16px;text-align:center"><p><a href="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/MCPEDL/Addons/Grimoire-Relics-V2/assets/items/tome_seraph.png"><img src="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/MCPEDL/Addons/Grimoire-Relics-V2/assets/items/tome_seraph.png" alt="tome seraph" style="width:64px"></a></p><p style="color:#8a94a3;font-size:13px">tome seraph</p></div><div style="flex:0 1 120px;border:1px solid #8a94a3;border-radius:16px;text-align:center"><p><a href="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/MCPEDL/Addons/Grimoire-Relics-V2/assets/items/tome_solar.png"><img src="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/MCPEDL/Addons/Grimoire-Relics-V2/assets/items/tome_solar.png" alt="tome solar" style="width:64px"></a></p><p style="color:#8a94a3;font-size:13px">tome solar</p></div><div style="flex:0 1 120px;border:1px solid #8a94a3;border-radius:16px;text-align:center"><p><a href="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/MCPEDL/Addons/Grimoire-Relics-V2/assets/items/tome_storm.png"><img src="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/MCPEDL/Addons/Grimoire-Relics-V2/assets/items/tome_storm.png" alt="tome storm" style="width:64px"></a></p><p style="color:#8a94a3;font-size:13px">tome storm</p></div><div style="flex:0 1 120px;border:1px solid #8a94a3;border-radius:16px;text-align:center"><p><a href="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/MCPEDL/Addons/Grimoire-Relics-V2/assets/items/tome_titan.png"><img src="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/MCPEDL/Addons/Grimoire-Relics-V2/assets/items/tome_titan.png" alt="tome titan" style="width:64px"></a></p><p style="color:#8a94a3;font-size:13px">tome titan</p></div><div style="flex:0 1 120px;border:1px solid #8a94a3;border-radius:16px;text-align:center"><p><a href="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/MCPEDL/Addons/Grimoire-Relics-V2/assets/items/tome_vampire.png"><img src="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/MCPEDL/Addons/Grimoire-Relics-V2/assets/items/tome_vampire.png" alt="tome vampire" style="width:64px"></a></p><p style="color:#8a94a3;font-size:13px">tome vampire</p></div><div style="flex:0 1 120px;border:1px solid #8a94a3;border-radius:16px;text-align:center"><p><a href="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/MCPEDL/Addons/Grimoire-Relics-V2/assets/items/tome_void.png"><img src="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/MCPEDL/Addons/Grimoire-Relics-V2/assets/items/tome_void.png" alt="tome void" style="width:64px"></a></p><p style="color:#8a94a3;font-size:13px">tome void</p></div><div style="flex:0 1 120px;border:1px solid #8a94a3;border-radius:16px;text-align:center"><p><a href="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/MCPEDL/Addons/Grimoire-Relics-V2/assets/items/tome_zephyr.png"><img src="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/MCPEDL/Addons/Grimoire-Relics-V2/assets/items/tome_zephyr.png" alt="tome zephyr" style="width:64px"></a></p><p style="color:#8a94a3;font-size:13px">tome zephyr</p></div></div>
 <h2 style="font-size:17px;text-align:left"><span style="background-color:#15803d;color:#ffffff;border-radius:20px">&nbsp;&nbsp;Crafting Recipes&nbsp;&nbsp;</span></h2>
 <div style="display:flex;flex-wrap:wrap;gap:10px"><div style="flex:0 1 400px;border:1px solid #8a94a3;border-radius:16px;text-align:center"><p><a href="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/MCPEDL/Addons/Grimoire-Relics-V2/assets/recipes/tome_abyss_recipe.png"><img src="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/MCPEDL/Addons/Grimoire-Relics-V2/assets/recipes/tome_abyss_recipe.png" alt="tome abyss recipe" style="width:100%"></a></p><p style="color:#8a94a3;font-size:13px">tome abyss recipe</p></div><div style="flex:0 1 400px;border:1px solid #8a94a3;border-radius:16px;text-align:center"><p><a href="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/MCPEDL/Addons/Grimoire-Relics-V2/assets/recipes/tome_alchemist_recipe.png"><img src="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/MCPEDL/Addons/Grimoire-Relics-V2/assets/recipes/tome_alchemist_recipe.png" alt="tome alchemist recipe" style="width:100%"></a></p><p style="color:#8a94a3;font-size:13px">tome alchemist recipe</p></div><div style="flex:0 1 400px;border:1px solid #8a94a3;border-radius:16px;text-align:center"><p><a href="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/MCPEDL/Addons/Grimoire-Relics-V2/assets/recipes/tome_delver_recipe.png"><img src="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/MCPEDL/Addons/Grimoire-Relics-V2/assets/recipes/tome_delver_recipe.png" alt="tome delver recipe" style="width:100%"></a></p><p style="color:#8a94a3;font-size:13px">tome delver recipe</p></div><div style="flex:0 1 400px;border:1px solid #8a94a3;border-radius:16px;text-align:center"><p><a href="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/MCPEDL/Addons/Grimoire-Relics-V2/assets/recipes/tome_druid_recipe.png"><img src="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/MCPEDL/Addons/Grimoire-Relics-V2/assets/recipes/tome_druid_recipe.png" alt="tome druid recipe" style="width:100%"></a></p><p style="color:#8a94a3;font-size:13px">tome druid recipe</p></div><div style="flex:0 1 400px;border:1px solid #8a94a3;border-radius:16px;text-align:center"><p><a href="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/MCPEDL/Addons/Grimoire-Relics-V2/assets/recipes/tome_frost_recipe.png"><img src="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/MCPEDL/Addons/Grimoire-Relics-V2/assets/recipes/tome_frost_recipe.png" alt="tome frost recipe" style="width:100%"></a></p><p style="color:#8a94a3;font-size:13px">tome frost recipe</p></div><div style="flex:0 1 400px;border:1px solid #8a94a3;border-radius:16px;text-align:center"><p><a href="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/MCPEDL/Addons/Grimoire-Relics-V2/assets/recipes/tome_golem_recipe.png"><img src="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/MCPEDL/Addons/Grimoire-Relics-V2/assets/recipes/tome_golem_recipe.png" alt="tome golem recipe" style="width:100%"></a></p><p style="color:#8a94a3;font-size:13px">tome golem recipe</p></div><div style="flex:0 1 400px;border:1px solid #8a94a3;border-radius:16px;text-align:center"><p><a href="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/MCPEDL/Addons/Grimoire-Relics-V2/assets/recipes/tome_hydra_recipe.png"><img src="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/MCPEDL/Addons/Grimoire-Relics-V2/assets/recipes/tome_hydra_recipe.png" alt="tome hydra recipe" style="width:100%"></a></p><p style="color:#8a94a3;font-size:13px">tome hydra recipe</p></div><div style="flex:0 1 400px;border:1px solid #8a94a3;border-radius:16px;text-align:center"><p><a href="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/MCPEDL/Addons/Grimoire-Relics-V2/assets/recipes/tome_lunar_recipe.png"><img src="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/MCPEDL/Addons/Grimoire-Relics-V2/assets/recipes/tome_lunar_recipe.png" alt="tome lunar recipe" style="width:100%"></a></p><p style="color:#8a94a3;font-size:13px">tome lunar recipe</p></div><div style="flex:0 1 400px;border:1px solid #8a94a3;border-radius:16px;text-align:center"><p><a href="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/MCPEDL/Addons/Grimoire-Relics-V2/assets/recipes/tome_scholar_recipe.png"><img src="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/MCPEDL/Addons/Grimoire-Relics-V2/assets/recipes/tome_scholar_recipe.png" alt="tome scholar recipe" style="width:100%"></a></p><p style="color:#8a94a3;font-size:13px">tome scholar recipe</p></div><div style="flex:0 1 400px;border:1px solid #8a94a3;border-radius:16px;text-align:center"><p><a href="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/MCPEDL/Addons/Grimoire-Relics-V2/assets/recipes/tome_seraph_recipe.png"><img src="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/MCPEDL/Addons/Grimoire-Relics-V2/assets/recipes/tome_seraph_recipe.png" alt="tome seraph recipe" style="width:100%"></a></p><p style="color:#8a94a3;font-size:13px">tome seraph recipe</p></div><div style="flex:0 1 400px;border:1px solid #8a94a3;border-radius:16px;text-align:center"><p><a href="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/MCPEDL/Addons/Grimoire-Relics-V2/assets/recipes/tome_solar_recipe.png"><img src="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/MCPEDL/Addons/Grimoire-Relics-V2/assets/recipes/tome_solar_recipe.png" alt="tome solar recipe" style="width:100%"></a></p><p style="color:#8a94a3;font-size:13px">tome solar recipe</p></div><div style="flex:0 1 400px;border:1px solid #8a94a3;border-radius:16px;text-align:center"><p><a href="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/MCPEDL/Addons/Grimoire-Relics-V2/assets/recipes/tome_storm_recipe.png"><img src="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/MCPEDL/Addons/Grimoire-Relics-V2/assets/recipes/tome_storm_recipe.png" alt="tome storm recipe" style="width:100%"></a></p><p style="color:#8a94a3;font-size:13px">tome storm recipe</p></div><div style="flex:0 1 400px;border:1px solid #8a94a3;border-radius:16px;text-align:center"><p><a href="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/MCPEDL/Addons/Grimoire-Relics-V2/assets/recipes/tome_titan_recipe.png"><img src="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/MCPEDL/Addons/Grimoire-Relics-V2/assets/recipes/tome_titan_recipe.png" alt="tome titan recipe" style="width:100%"></a></p><p style="color:#8a94a3;font-size:13px">tome titan recipe</p></div><div style="flex:0 1 400px;border:1px solid #8a94a3;border-radius:16px;text-align:center"><p><a href="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/MCPEDL/Addons/Grimoire-Relics-V2/assets/recipes/tome_zephyr_recipe.png"><img src="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/MCPEDL/Addons/Grimoire-Relics-V2/assets/recipes/tome_zephyr_recipe.png" alt="tome zephyr recipe" style="width:100%"></a></p><p style="color:#8a94a3;font-size:13px">tome zephyr recipe</p></div></div>
 <h2 style="font-size:17px;text-align:left"><span style="background-color:#15803d;color:#ffffff;border-radius:20px">&nbsp;&nbsp;Install&nbsp;&nbsp;</span></h2>
@@ -4742,7 +4712,7 @@ Initial release of Grimoire Relics V2, a collection of magical tomes that provid
   - **Elemental Visuals:** Added distinct halo effects to reflect each tome's elemental identity.
 ```
 
-## FILE: MCPEDL/Addons/Grimoire-Relics-V2/DESCRIPTION.md (187 lines, 14236 bytes)
+## FILE: MCPEDL/Addons/Grimoire-Relics-V2/DESCRIPTION.md (186 lines, 10263 bytes)
 
 ```
 # Grimoire Relics V2
@@ -4764,83 +4734,83 @@ Grimoire Relics V2 adds a collection of magical tomes to Minecraft Bedrock Editi
 
 ## The 20 Grimoire Relics
 
-### <img src="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/MCPEDL/Addons/Grimoire-Relics-V2/assets/items/tome_phoenix.png" width="20" height="20" alt="Infernal Phoenix"> **Infernal Phoenix**
+### **Infernal Phoenix**
 - **Abilities & Mechanics**: Permanent Fire Resistance. Attackers that melee hit you are set on fire for 5s; targets you melee hit burn for 5s.
 - **Acquisition**: **Ancient Relic (Loot Only)**: Bastion Treasure
 
-### <img src="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/MCPEDL/Addons/Grimoire-Relics-V2/assets/items/tome_abyss.png" width="20" height="20" alt="Abyssal Tide"> **Abyssal Tide**
+### **Abyssal Tide**
 - **Abilities & Mechanics**: Permanent Water Breathing. Night Vision while underwater. Dolphin's Grace while swimming.
 - **Acquisition**: Craftable; also found in Shipwreck Treasure
 
-### <img src="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/MCPEDL/Addons/Grimoire-Relics-V2/assets/items/tome_zephyr.png" width="20" height="20" alt="Zephyr Wind"> **Zephyr Wind**
+### **Zephyr Wind**
 - **Abilities & Mechanics**: Speed II + Jump Boost I. Auto Slow Falling when plunging (while falling quickly). Fall damage is healed back right after it lands; a fatal fall is not prevented.
 - **Acquisition**: Craftable
 
-### <img src="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/MCPEDL/Addons/Grimoire-Relics-V2/assets/items/tome_lich.png" width="20" height="20" alt="Necrotic Lich"> **Necrotic Lich**
+### **Necrotic Lich**
 - **Abilities & Mechanics**: Melee strikes inflict Wither II for 3s on victims.
 - **Acquisition**: **Ancient Relic (Loot Only)**: Bastion Treasure
 
-### <img src="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/MCPEDL/Addons/Grimoire-Relics-V2/assets/items/tome_titan.png" width="20" height="20" alt="Mountain Titan"> **Mountain Titan**
+### **Mountain Titan**
 - **Abilities & Mechanics**: Permanent Resistance II and Slowness I. Complete knockback immunity (cancels knockback velocity on damage).
 - **Acquisition**: Craftable
 
-### <img src="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/MCPEDL/Addons/Grimoire-Relics-V2/assets/items/tome_vampire.png" width="20" height="20" alt="Blood Vampire"> **Blood Vampire**
+### **Blood Vampire**
 - **Abilities & Mechanics**: Life Leech: Every successful melee strike restores 1 full heart (2 HP).
 - **Acquisition**: **Ancient Relic (Loot Only)**: Dungeon Monster Rooms
 
-### <img src="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/MCPEDL/Addons/Grimoire-Relics-V2/assets/items/tome_lunar.png" width="20" height="20" alt="Lunar Eclipse"> **Lunar Eclipse**
+### **Lunar Eclipse**
 - **Abilities & Mechanics**: Nocturnal Blessing: Invisibility and Strength I during nighttime in the Overworld.
 - **Acquisition**: Craftable
 
-### <img src="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/MCPEDL/Addons/Grimoire-Relics-V2/assets/items/tome_solar.png" width="20" height="20" alt="Solar Dawn"> **Solar Dawn**
+### **Solar Dawn**
 - **Abilities & Mechanics**: Solar Nourishment: Saturation and Regeneration I under open daylight skies in the Overworld.
 - **Acquisition**: Craftable
 
-### <img src="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/MCPEDL/Addons/Grimoire-Relics-V2/assets/items/tome_druid.png" width="20" height="20" alt="Verdant Druid"> **Verdant Druid**
+### **Verdant Druid**
 - **Abilities & Mechanics**: Poison immunity. Naturally fertilizes crops and advances saplings within a 3-block radius.
 - **Acquisition**: Craftable
 
-### <img src="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/MCPEDL/Addons/Grimoire-Relics-V2/assets/items/tome_frost.png" width="20" height="20" alt="Frost Weaver"> **Frost Weaver**
+### **Frost Weaver**
 - **Abilities & Mechanics**: Frost Walker II (freezes water underfoot into frosted ice, unless sneaking). Powder snow freezing damage is healed back right after it lands.
 - **Acquisition**: Craftable
 
-### <img src="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/MCPEDL/Addons/Grimoire-Relics-V2/assets/items/tome_storm.png" width="20" height="20" alt="Stormcaller"> **Stormcaller**
+### **Stormcaller**
 - **Abilities & Mechanics**: Speed III outdoors during rain or thunderstorms. 15% chance to strike melee attackers with real lightning.
 - **Acquisition**: Craftable
 
-### <img src="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/MCPEDL/Addons/Grimoire-Relics-V2/assets/items/tome_delver.png" width="20" height="20" alt="Deep Delver"> **Deep Delver**
+### **Deep Delver**
 - **Abilities & Mechanics**: Permanent Haste II. Places a light block at your feet while you are below Y=55 and not under open sky.
 - **Acquisition**: Craftable; also found in Dungeon Monster Rooms
 
-### <img src="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/MCPEDL/Addons/Grimoire-Relics-V2/assets/items/tome_void.png" width="20" height="20" alt="Void Phantom"> **Void Phantom**
+### **Void Phantom**
 - **Abilities & Mechanics**: In The End, the first void rescue triggers a brief 2-second upward lift, followed by a 1-second Slow Falling cushion when safe ground is detected during descent. The rescue continues if you remove the tome from your offhand. After safe touchdown, the activated Void Phantom is consumed from your offhand or inventory if it can be found. Only one rescue can activate per player session.
 - **Acquisition**: **Ancient Relic (Loot Only)**: Ancient Cities
 
-### <img src="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/MCPEDL/Addons/Grimoire-Relics-V2/assets/items/tome_golem.png" width="20" height="20" alt="Iron Golem"> **Iron Golem**
+### **Iron Golem**
 - **Abilities & Mechanics**: Fortified Armor: Grants 4 Absorption hearts every 30s. Melee strikes launch enemies upward into the air.
 - **Acquisition**: Craftable
 
-### <img src="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/MCPEDL/Addons/Grimoire-Relics-V2/assets/items/tome_hydra.png" width="20" height="20" alt="Venom Hydra"> **Venom Hydra**
+### **Venom Hydra**
 - **Abilities & Mechanics**: Full immunity to Poison and Wither. Melee attacks inflict Poison II (5s).
 - **Acquisition**: Craftable
 
-### <img src="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/MCPEDL/Addons/Grimoire-Relics-V2/assets/items/tome_alchemist.png" width="20" height="20" alt="Cursed Alchemist"> **Cursed Alchemist**
+### **Cursed Alchemist**
 - **Abilities & Mechanics**: Potion Mastery: Keeps active beneficial potion effects from expiring while the tome is equipped.
 - **Acquisition**: Craftable; also found in Stronghold Libraries
 
-### <img src="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/MCPEDL/Addons/Grimoire-Relics-V2/assets/items/tome_seraph.png" width="20" height="20" alt="Radiant Seraph"> **Radiant Seraph**
+### **Radiant Seraph**
 - **Abilities & Mechanics**: Permanent Regeneration II. Complete immunity to Blindness and Nausea.
 - **Acquisition**: Craftable
 
-### <img src="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/MCPEDL/Addons/Grimoire-Relics-V2/assets/items/tome_scholar.png" width="20" height="20" alt="Arcane Scholar"> **Arcane Scholar**
+### **Arcane Scholar**
 - **Abilities & Mechanics**: Arcane Intellect: Triples all experience gained from mob drops, mining, and orbs.
 - **Acquisition**: Craftable; also found in Stronghold Libraries
 
-### <img src="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/MCPEDL/Addons/Grimoire-Relics-V2/assets/items/tome_mirror.png" width="20" height="20" alt="Mirror Trickster"> **Mirror Trickster**
+### **Mirror Trickster**
 - **Abilities & Mechanics**: Elusive Phase: 25% chance upon taking damage to heal that damage back and blink 3 blocks backward through smoke. A fatal hit is not prevented.
 - **Acquisition**: **Ancient Relic (Loot Only)**: Ancient Cities
 
-### <img src="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/MCPEDL/Addons/Grimoire-Relics-V2/assets/items/tome_dragon.png" width="20" height="20" alt="Cataclysm Dragon"> **Cataclysm Dragon**
+### **Cataclysm Dragon**
 - **Abilities & Mechanics**: Strength II and Resistance I. Dragon breath and explosion damage is healed back right after it lands; a fatal hit is not prevented.
 - **Acquisition**: **Ancient Relic (Loot Only)**: End Cities
 
@@ -4851,7 +4821,6 @@ Grimoire Relics V2 adds a collection of magical tomes to Minecraft Bedrock Editi
 There are **14 craftable tomes** made at a standard Crafting Table using shaped recipes arranged around a central Book. The recipes are available through the crafting table. The **6 Ancient Relics** (Void Phantom, Cataclysm Dragon, Necrotic Lich, Mirror Trickster, Blood Vampire, and Infernal Phoenix) cannot be crafted and are found through exploration loot:
 
 <p align="center">
-  <img src="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/MCPEDL/Addons/Grimoire-Relics-V2/assets/all_recipes_sheet.png" alt="Grimoire Relics V2 Crafting Recipes" width="850">
 </p>
 
 ---
@@ -5083,7 +5052,7 @@ Source files for established Minecraft Bedrock add-ons by ALNStudios.
 | Enchanter | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/Enchanter/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Enchanter/Enchanter%20V2.mcaddon) |
 | ALN Quiver | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/ALN-Quiver/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/ALN-Quiver/ALNQuiver%20V2.mcaddon) |
 | Expanded Basic Arsenal | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/Expanded-Basic-Arsenal/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Expanded-Basic-Arsenal/ExpandedBasicArsenal%20V2.mcaddon) |
-| ALN Wireless Headphones | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/ALN-Wireless-Headphones/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/ALN-Wireless-Headphones/ALNWirelessHeadphones%20V2.mcaddon) |
+| ALN Wireless Headphones | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/ALN-Wireless-Headphones/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/ALN-Wireless-Headphones/ALNWirelessHeadphones%20V3.mcaddon) |
 | ALN MoreDiscs | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/ALN-MoreDiscs/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/ALN-MoreDiscs/ALNMoreDiscs%20V2.mcaddon) |
 | ALN Pointer | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/ALN-Pointer/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/ALN-Pointer/ALNPointer%20V2.mcaddon) |
 
