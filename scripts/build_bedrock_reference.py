@@ -105,7 +105,9 @@ def collect_pack(pack_dir: Path, unparsed: list, label: str) -> dict:
         parts = rel.parts
         if path.suffix.lower() == ".lang":
             if parts[0] == "texts":
-                section.setdefault("texts", {})[path.stem] = parse_lang(path)
+                # Strictly keep en_US for language references to reduce bloat
+                if path.stem == "en_US":
+                    section.setdefault("texts", {})[path.stem] = parse_lang(path)
             continue
         if path.suffix.lower() != ".json":
             continue

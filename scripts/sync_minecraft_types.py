@@ -70,7 +70,10 @@ def sync_definitions(out_dir):
                 if f.endswith(".zip"):
                     continue
                 fp = os.path.join(root, f)
-                z.write(fp, os.path.relpath(fp, out_path))
+                rel = os.path.relpath(fp, out_path)
+                if f.endswith(".d.ts"):
+                    rel = rel[:-5] + ".txt"
+                z.write(fp, rel)
     print(f"Packaged types zip -> {zip_file}")
 
     readme_path = out_path / "README.md"

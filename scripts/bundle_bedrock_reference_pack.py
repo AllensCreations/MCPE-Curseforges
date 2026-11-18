@@ -59,14 +59,20 @@ def create_bundle(repo_root: Path):
                         z.write(fp, f"bedrock-samples/{rel}")
                         total_uncompressed += sz
 
-        # 3. Add typescript-definitions (.d.ts and .json only)
+        # 3. Add typescript-definitions (.d.ts renamed to .txt, and .json only)
         if types_dir.is_dir():
             for root, _, files in os.walk(types_dir):
                 for f in files:
-                    if f.endswith(".d.ts") or f.endswith(".json"):
-                        fp = os.path.join(root, f)
+                    fp = os.path.join(root, f)
+                    rel = os.path.relpath(fp, types_dir)
+                    if f.endswith(".d.ts"):
+                        # Rename .d.ts to .txt inside the zip
+                        rel_dest = rel[:-5] + ".txt"
                         sz = os.path.getsize(fp)
-                        rel = os.path.relpath(fp, types_dir)
+                        z.write(fp, f"typescript-definitions/{rel_dest}")
+                        total_uncompressed += sz
+                    elif f.endswith(".json"):
+                        sz = os.path.getsize(fp)
                         z.write(fp, f"typescript-definitions/{rel}")
                         total_uncompressed += sz
 
