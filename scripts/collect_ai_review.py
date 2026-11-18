@@ -342,7 +342,7 @@ content = ("# Repo Export\n\n## Index\n\n" + "\n".join(index) + "\n\n---\n\n"
 
 # OTHER: instruction files + helper scripts in ONE txt (text only; binaries are named in the index)
 # Skip tools.txt entirely for update_pack mode (or when AI_SKIP_TOOLS=1) — pack .txt has everything needed
-skip_tools = os.environ.get("AI_SKIP_TOOLS") == "1" or (EXPORT_MODE == "update_pack" and not update_kit and not repo_kit)
+skip_tools = os.environ.get("AI_SKIP_TOOLS") == "1" or (EXPORT_MODE == "update_pack" and not update_kit and not repo_kit and not new_pack)
 # new_pack / UPDATE keyword: lean kit (instructions + UI assets only, no Python scripts)
 # repo_maintenance / REPO keyword: full bundle with all scripts
 if EXPORT_MODE == "new_pack" or new_pack or update_kit:

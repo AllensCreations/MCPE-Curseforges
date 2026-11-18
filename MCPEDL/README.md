@@ -8,7 +8,7 @@ Generated file. Do not edit by hand: it is rebuilt with every build.
 
 | Kit | Download |
 | :-- | :-- |
-| **New Pack Kit** | *(not yet built)* |
+| **New Pack Kit** | [Download](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/ai-review/New-Pack_tools.txt) |
 | **Update Pack Kit** | [Download](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/ai-review/Update-Pack_tools.txt) |
 | **Repo Maintenance Kit** | [Download](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/ai-review/tools.txt) |
 
