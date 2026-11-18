@@ -4,7 +4,7 @@
 
 - **Export request:** `MCPEDL/Addons/ALN-Wireless-Headphones`
 - **Destination:** `MCPEDL/Addons/ALN-Wireless-Headphones`
-- **CURRENT VERSION: v3 / NEXT UPDATE: v4**  (`MCPEDL/Addons/ALN-Wireless-Headphones/CHANGELOG.md`)
+- **CURRENT VERSION: v4 / NEXT UPDATE: v5**  (`MCPEDL/Addons/ALN-Wireless-Headphones/CHANGELOG.md`)
 - **Text files:** 25
 - **Skipped binary:** 3
 - **Paths not found:** 0
@@ -218,26 +218,37 @@ git config --global credential.helper store
 
 ## File Contents
 
-## FILE: changelog_views/ALN-Wireless-Headphones.curseforge.html (3 lines, 1301 bytes)
+## FILE: changelog_views/ALN-Wireless-Headphones.curseforge.html (4 lines, 1600 bytes)
 
 ```
-<h2>v3 - 2026-11-18 - Direct Audio Streaming &amp; Disconnect Feedback</h2><h3>Added</h3><ul><li><strong>Direct Audio Streaming</strong>: Wireless Headphones now actively stream the music disc audio straight into your ears using `playMusic`, letting you hear the music anywhere while the Jukebox is loaded.</li></ul><h3>Improved &amp; Balanced</h3><ul><li><strong>Disconnect State</strong>: If the paired Jukebox chunk unloads or the dimension is unavailable, the Action Bar clearly displays `Disconnected` and stops audio streaming cleanly until reconnected.</li><li><strong>Auto-Stop on Unequip</strong>: Removing the Wireless Headphones immediately stops the streamed audio.</li></ul>
+<h2>v4 - 2026-11-18 - Headphones Item Fix</h2><h3>Fixed</h3><ul><li><strong>Wireless Headphones</strong>: The headphones now load correctly, showing their icon, stacking to 1 and appearing in the Helmet group of the creative inventory.</li></ul>
+<h2>3.0.x (1 release)</h2><div class="spoiler"><h3>v3 - 2026-11-18 - Direct Audio Streaming &amp; Disconnect Feedback</h3><h4>Added</h4><ul><li><strong>Direct Audio Streaming</strong>: Wireless Headphones now actively stream the music disc audio straight into your ears using `playMusic`, letting you hear the music anywhere while the Jukebox is loaded.</li></ul><h4>Improved &amp; Balanced</h4><ul><li><strong>Disconnect State</strong>: If the paired Jukebox chunk unloads or the dimension is unavailable, the Action Bar clearly displays `Disconnected` and stops audio streaming cleanly until reconnected.</li><li><strong>Auto-Stop on Unequip</strong>: Removing the Wireless Headphones immediately stops the streamed audio.</li></ul></div>
 <h2>2.0.x (1 release)</h2><div class="spoiler"><h3>v2 - 2026-11-16 - First Release</h3><h4>Added</h4><ul><li><strong>Wireless Headphones</strong>: A craftable helmet made from 2 Iron Ingots, 1 Redstone Dust and 2 Leather that streams a paired Jukebox to your Action Bar.</li><li><strong>Jukebox Pairing</strong>: Sneak and use the headphones on a Jukebox with a music disc to pair it. A chime plays and the Action Bar confirms it.</li><li><strong>Live Track Display</strong>: While worn, the Action Bar shows the disc name with elapsed and total time, and clears when you take the headphones off.</li></ul></div>
 ```
 
-## FILE: changelog_views/ALN-Wireless-Headphones.github.md (23 lines, 1193 bytes)
+## FILE: changelog_views/ALN-Wireless-Headphones.github.md (33 lines, 1475 bytes)
 
 ```
 # Changelog — ALN Wireless Headphones
 
-## [v3] - 2026-11-18 - Direct Audio Streaming & Disconnect Feedback
+## [v4] - 2026-11-18 - Headphones Item Fix
 
-### Added
+### Fixed
+- **Wireless Headphones**: The headphones now load correctly, showing their icon, stacking to 1 and appearing in the Helmet group of the creative inventory.
+
+<details>
+<summary><b>3.0.x</b> (1 release)</summary>
+
+### [v3] - 2026-11-18 - Direct Audio Streaming & Disconnect Feedback
+
+#### Added
 - **Direct Audio Streaming**: Wireless Headphones now actively stream the music disc audio straight into your ears using `playMusic`, letting you hear the music anywhere while the Jukebox is loaded.
 
-### Improved & Balanced
+#### Improved & Balanced
 - **Disconnect State**: If the paired Jukebox chunk unloads or the dimension is unavailable, the Action Bar clearly displays `Disconnected` and stops audio streaming cleanly until reconnected.
 - **Auto-Stop on Unequip**: Removing the Wireless Headphones immediately stops the streamed audio.
+
+</details>
 
 <details>
 <summary><b>2.0.x</b> (1 release)</summary>
@@ -270,7 +281,7 @@ git config --global credential.helper store
 
 ```
 
-## FILE: MCPEDL/Addons/ALN-Wireless-Headphones/behavior_pack/items/headphones.json (45 lines, 1045 bytes)
+## FILE: MCPEDL/Addons/ALN-Wireless-Headphones/behavior_pack/items/headphones.json (45 lines, 1055 bytes)
 
 ```
 {
@@ -280,7 +291,7 @@ git config --global credential.helper store
       "identifier": "aln:headphones",
       "menu_category": {
         "category": "equipment",
-        "group": "itemGroup.name.helmet"
+        "group": "minecraft:itemGroup.name.helmet"
       }
     },
     "components": {
@@ -334,11 +345,11 @@ This marker does not encrypt the pack or prevent extraction or editing.
 {
   "format_version": 2,
   "header": {
-    "name": "ALN Wireless Headphones (v3)",
+    "name": "ALN Wireless Headphones (v4)",
     "description": "Wear Wireless Headphones to stream a paired Jukebox to your Action Bar. by ALNStudios",
     "uuid": "4fa0e63a-a24b-430c-b00c-d25aaa097b23",
     "version": [
-      3,
+      4,
       0,
       0
     ],
@@ -353,7 +364,7 @@ This marker does not encrypt the pack or prevent extraction or editing.
       "type": "data",
       "uuid": "6ed2e0ea-13a7-4490-a494-f594dcc47ccf",
       "version": [
-        3,
+        4,
         0,
         0
       ]
@@ -363,7 +374,7 @@ This marker does not encrypt the pack or prevent extraction or editing.
       "language": "javascript",
       "uuid": "fcaddf1f-d6bf-456c-a627-d79cc87ce374",
       "version": [
-        3,
+        4,
         0,
         0
       ],
@@ -374,7 +385,7 @@ This marker does not encrypt the pack or prevent extraction or editing.
     {
       "uuid": "a0390eec-e584-411c-90bf-c171e84f5a73",
       "version": [
-        3,
+        4,
         0,
         0
       ]
@@ -389,7 +400,7 @@ This marker does not encrypt the pack or prevent extraction or editing.
       "ALNStudios"
     ],
     "product_type": "addon",
-    "version": "3.0.0"
+    "version": "4.0.0"
   }
 }
 ```
@@ -793,10 +804,17 @@ import "./headphone_link.js";
 import "./headphone_stream.js";
 ```
 
-## FILE: MCPEDL/Addons/ALN-Wireless-Headphones/CHANGELOG.md (22 lines, 1134 bytes)
+## FILE: MCPEDL/Addons/ALN-Wireless-Headphones/CHANGELOG.md (29 lines, 1351 bytes)
 
 ```
 # Changelog — ALN Wireless Headphones
+
+---
+
+## [v4] - 2026-11-18 - Headphones Item Fix
+
+### Fixed
+- **Wireless Headphones**: The headphones now load correctly, showing their icon, stacking to 1 and appearing in the Helmet group of the creative inventory.
 
 ---
 
@@ -926,7 +944,7 @@ Download the current release of **ALN Wireless Headphones** for Minecraft Bedroc
 ## Download
 
 - **Package format:** `.mcaddon`
-- **Direct download:** [Download ALN Wireless Headphones (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/ALN-Wireless-Headphones/ALNWirelessHeadphones%20V3.mcaddon)
+- **Direct download:** [Download ALN Wireless Headphones (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/ALN-Wireless-Headphones/ALNWirelessHeadphones%20V4.mcaddon)
 
 ## Installation
 
@@ -954,11 +972,11 @@ This marker does not encrypt the pack or prevent extraction or editing.
 {
   "format_version": 2,
   "header": {
-    "name": "ALN Wireless Headphones (v3)",
+    "name": "ALN Wireless Headphones (v4)",
     "description": "Textures for the add-on. by ALNStudios",
     "uuid": "a0390eec-e584-411c-90bf-c171e84f5a73",
     "version": [
-      3,
+      4,
       0,
       0
     ],
@@ -973,7 +991,7 @@ This marker does not encrypt the pack or prevent extraction or editing.
       "type": "resources",
       "uuid": "24a6840b-a678-4dfb-a4c1-d5724ef3f61f",
       "version": [
-        3,
+        4,
         0,
         0
       ]
@@ -984,7 +1002,7 @@ This marker does not encrypt the pack or prevent extraction or editing.
       "ALNStudios"
     ],
     "product_type": "addon",
-    "version": "3.0.0"
+    "version": "4.0.0"
   }
 }
 ```
@@ -1055,7 +1073,7 @@ Source files for established Minecraft Bedrock add-ons by ALNStudios.
 | Enchanter | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/Enchanter/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Enchanter/Enchanter%20V2.mcaddon) |
 | ALN Quiver | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/ALN-Quiver/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/ALN-Quiver/ALNQuiver%20V2.mcaddon) |
 | Expanded Basic Arsenal | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/Expanded-Basic-Arsenal/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Expanded-Basic-Arsenal/ExpandedBasicArsenal%20V2.mcaddon) |
-| ALN Wireless Headphones | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/ALN-Wireless-Headphones/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/ALN-Wireless-Headphones/ALNWirelessHeadphones%20V3.mcaddon) |
+| ALN Wireless Headphones | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/ALN-Wireless-Headphones/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/ALN-Wireless-Headphones/ALNWirelessHeadphones%20V4.mcaddon) |
 | ALN MoreDiscs | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/ALN-MoreDiscs/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/ALN-MoreDiscs/ALNMoreDiscs%20V2.mcaddon) |
 | ALN Pointer | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/ALN-Pointer/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/ALN-Pointer/ALNPointer%20V2.mcaddon) |
 
