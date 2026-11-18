@@ -38,42 +38,6 @@
 ---
 
 
-
----
-
-
-
----
-
-
-
----
-
-
-
----
-
-
-
----
-
-
-
----
-
-
-
----
-
-
-
----
-
-
-
----
-
-
 <!-- GRAPH-CONTEXT:START -->
 ## Graph Context
 
@@ -263,7 +227,7 @@ git config --global credential.helper store
 - **Changelog started**: Version history is recorded from this release onward.
 ```
 
-## FILE: description_views/Magnetic-Satchel.listing.md (67 lines, 11876 bytes)
+## FILE: description_views/Magnetic-Satchel.listing.md (69 lines, 13322 bytes)
 
 ````
 # Listing Kit: Magnetic Satchel
@@ -292,12 +256,14 @@ Paste into the CurseForge description editor in source (HTML) mode.
 <p>Collect nearby drops more conveniently while mining, exploring, or fighting mobs.</p><p><strong>Magnetic Satchel</strong> introduces a crafted utility satchel that equips into your offhand slot.  it attracts nearby dropped items within an 8-block radius and draws them toward you.</p><p>Leave your main hand free to hold your pickaxe, weapon, or torches while the satchel gathers all dropped resources directly to your inventory.</p>
 <h2 style="font-size:17px;text-align:left"><span style="background-color:#15803d;color:#ffffff;border-radius:20px">&nbsp;&nbsp;What You Get&nbsp;&nbsp;</span></h2>
 <div style="display:flex;flex-wrap:wrap;gap:10px"><div style="flex:1;min-width:200px;border:1px solid #8a94a3;border-radius:16px"><div style="background-color:#15803d;color:#ffffff;border-radius:16px;font-size:16px;line-height:2.2"><strong>&nbsp;&nbsp;Offhand Equippable</strong></div><div style="margin-left:12px;margin-right:12px"><p><br><span style="font-size:13px;color:#8a94a3"><strong>Description:</strong> Equips in the offhand slot, keeping your main hand free for tools and weapons.</span></p></div></div><div style="flex:1;min-width:200px;border:1px solid #8a94a3;border-radius:16px"><div style="background-color:#15803d;color:#ffffff;border-radius:16px;font-size:16px;line-height:2.2"><strong>&nbsp;&nbsp;8-Block Vacuum Radius</strong></div><div style="margin-left:12px;margin-right:12px"><p><br><span style="font-size:13px;color:#8a94a3"><strong>Description:</strong> Detects and pulls all nearby dropped item entities within an 8-block radius.</span></p></div></div><div style="flex:1;min-width:200px;border:1px solid #8a94a3;border-radius:16px"><div style="background-color:#15803d;color:#ffffff;border-radius:16px;font-size:16px;line-height:2.2"><strong>&nbsp;&nbsp;Item Attraction</strong></div><div style="margin-left:12px;margin-right:12px"><p><br><span style="font-size:13px;color:#8a94a3"><strong>Description:</strong> Uses smooth gentle movement toward the player to glide items toward your chest level.</span></p></div></div><div style="flex:1;min-width:200px;border:1px solid #8a94a3;border-radius:16px"><div style="background-color:#15803d;color:#ffffff;border-radius:16px;font-size:16px;line-height:2.2"><strong>&nbsp;&nbsp;Particle Trails</strong></div><div style="margin-left:12px;margin-right:12px"><p><br><span style="font-size:13px;color:#8a94a3"><strong>Description:</strong> Emits subtle portal particle trails behind moving items as they glide inward.</span></p></div></div><div style="flex:1;min-width:200px;border:1px solid #8a94a3;border-radius:16px"><div style="background-color:#15803d;color:#ffffff;border-radius:16px;font-size:16px;line-height:2.2"><strong>&nbsp;&nbsp;Quick Toggle Switch</strong></div><div style="margin-left:12px;margin-right:12px"><p><br><span style="font-size:13px;color:#8a94a3"><strong>Description:</strong> Sneak and use the satchel while holding it in your main hand to instantly toggle magnetism ON or OFF.</span></p></div></div><div style="flex:1;min-width:200px;border:1px solid #8a94a3;border-radius:16px"><div style="background-color:#15803d;color:#ffffff;border-radius:16px;font-size:16px;line-height:2.2"><strong>&nbsp;&nbsp;Action Bar Feedback</strong></div><div style="margin-left:12px;margin-right:12px"><p><br><span style="font-size:13px;color:#8a94a3"><strong>Description:</strong> Clear action bar HUD indicator displays an on-screen message indicating whether magnetism is active.</span></p></div></div><div style="flex:1;min-width:200px;border:1px solid #8a94a3;border-radius:16px"><div style="background-color:#15803d;color:#ffffff;border-radius:16px;font-size:16px;line-height:2.2"><strong>&nbsp;&nbsp;Flexible Recipes</strong></div><div style="margin-left:12px;margin-right:12px"><p><br><span style="font-size:13px;color:#8a94a3"><strong>Description:</strong> Craftable with either an Ender Pearl or a Compass depending on your survival stage.</span></p></div></div></div>
+<div class="spoiler" title="How It Works" data-title="How It Works"><h3 style="line-height:1.5">How It Works</h3><h3>Equip in Offhand</h3><ul><li><strong>Control / Trigger</strong>: Place into offhand shield slot</li><li><strong>Outcome</strong>: Automatically activates the vacuum pull for all items within 8 blocks.</li></ul><h3>Toggle Active/Disabled</h3><ul><li><strong>Control / Trigger</strong>: Sneak and use the satchel while holding it in your main hand</li><li><strong>Outcome</strong>: Toggles magnetic pull on/off without needing to unequip.</li></ul><h3>Automatic Collection</h3><ul><li><strong>Control / Trigger</strong>: Stand within 8 blocks of dropped items</li><li><strong>Outcome</strong>: Items are drawn toward your player until normal item pickup occurs.</li></ul><h3>Safe Inventory Handling</h3><ul><li><strong>Control / Trigger</strong>: Normal inventory behavior</li><li><strong>Outcome</strong>: When full, items remain nearby when your inventory is full.</li></ul></div>
 <h2 style="font-size:17px;text-align:left"><span style="background-color:#15803d;color:#ffffff;border-radius:20px">&nbsp;&nbsp;Custom Items&nbsp;&nbsp;</span></h2>
 <div style="display:flex;flex-wrap:wrap;gap:10px"><div style="flex:0 1 120px;border:1px solid #8a94a3;border-radius:16px;text-align:center"><p><a href="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/MCPEDL/Addons/Magnetic-Satchel/assets/items/magnetic_satchel.png"><img src="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/MCPEDL/Addons/Magnetic-Satchel/assets/items/magnetic_satchel.png" alt="magnetic satchel" style="width:64px"></a></p><p style="color:#8a94a3;font-size:13px">magnetic satchel</p></div></div>
 <h2 style="font-size:17px;text-align:left"><span style="background-color:#15803d;color:#ffffff;border-radius:20px">&nbsp;&nbsp;Crafting Recipes&nbsp;&nbsp;</span></h2>
 <div style="display:flex;flex-wrap:wrap;gap:10px"><div style="flex:0 1 400px;border:1px solid #8a94a3;border-radius:16px;text-align:center"><p><a href="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/MCPEDL/Addons/Magnetic-Satchel/assets/recipes/magnetic_satchel_recipe.png"><img src="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/MCPEDL/Addons/Magnetic-Satchel/assets/recipes/magnetic_satchel_recipe.png" alt="magnetic satchel recipe" style="width:100%"></a></p><p style="color:#8a94a3;font-size:13px">magnetic satchel recipe</p></div></div>
 <h2 style="font-size:17px;text-align:left"><span style="background-color:#15803d;color:#ffffff;border-radius:20px">&nbsp;&nbsp;Install&nbsp;&nbsp;</span></h2>
 <table style="width:100%;border:1px solid #8a94a3;border-radius:16px"><tbody><tr><td style="width:44px;text-align:center"><div style="background-color:#15803d;color:#ffffff;font-weight:bold;font-size:15px;text-align:center;border-radius:10px;width:30px;aspect-ratio:1/1;line-height:30px">1</div></td><td style="text-align:left;">Download the file from this page and open it with Minecraft.</td></tr><tr><td style="width:44px;text-align:center"><div style="background-color:#15803d;color:#ffffff;font-weight:bold;font-size:15px;text-align:center;border-radius:10px;width:30px;aspect-ratio:1/1;line-height:30px">2</div></td><td style="text-align:left;">Create or edit a world and turn on the new pack(s) in its settings.</td></tr><tr><td style="width:44px;text-align:center"><div style="background-color:#15803d;color:#ffffff;font-weight:bold;font-size:15px;text-align:center;border-radius:10px;width:30px;aspect-ratio:1/1;line-height:30px">3</div></td><td style="text-align:left;">Play. No Experimental toggles needed.</td></tr></tbody></table>
+<div style="border:1px solid #8a94a3;border-radius:16px;text-align:center"><br><div style="background-color:#15803d;color:#ffffff;border-radius:20px;font-size:15px;line-height:2;display:inline-block">&nbsp;&nbsp;<strong>Found a Bug or Have a Suggestion?</strong>&nbsp;&nbsp;</div><p style="font-size:14px;">Please leave a comment on this project page! All bug reports, gameplay feedback, and pack suggestions are welcome and appreciated.</p></div>
 <h2 style="font-size:17px;text-align:left"><span style="background-color:#15803d;color:#ffffff;border-radius:20px">&nbsp;&nbsp;Support&nbsp;&nbsp;</span></h2><div style="border:1px solid #8a94a3;border-radius:16px;text-align:center"><br><a href="https://ko-fi.com/alnstudios"><img src="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/assets/Images/ko-fi.png" alt="Support ALNStudios on Ko-fi" width="250"></a><br><br></div><p style="text-align:center"><a href="https://www.curseforge.com/members/allenscreations/projects"><strong>CurseForge</strong></a> &nbsp;|&nbsp; <a href="https://mcpedl.com/user/alnstudios/"><strong>MCPEDL</strong></a> &nbsp;|&nbsp; <a href="https://ko-fi.com/alnstudios"><strong>Ko-fi</strong></a></p>
 <hr>
 <p style="text-align:center;color:#8a94a3;font-size:13px"><strong>By ALNStudios</strong></p>
@@ -911,7 +877,7 @@ Source files for established Minecraft Bedrock add-ons by ALNStudios.
 | Enchanter | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/Enchanter/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Enchanter/Enchanter%20V2.mcaddon) |
 | ALN Quiver | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/ALN-Quiver/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/ALN-Quiver/ALNQuiver%20V2.mcaddon) |
 | Expanded Basic Arsenal | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/Expanded-Basic-Arsenal/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Expanded-Basic-Arsenal/ExpandedBasicArsenal%20V2.mcaddon) |
-| ALN Wireless Headphones | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/ALN-Wireless-Headphones/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/ALN-Wireless-Headphones/ALNWirelessHeadphones%20V2.mcaddon) |
+| ALN Wireless Headphones | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/ALN-Wireless-Headphones/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/ALN-Wireless-Headphones/ALNWirelessHeadphones%20V3.mcaddon) |
 | ALN MoreDiscs | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/ALN-MoreDiscs/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/ALN-MoreDiscs/ALNMoreDiscs%20V2.mcaddon) |
 | ALN Pointer | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/ALN-Pointer/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/ALN-Pointer/ALNPointer%20V2.mcaddon) |
 

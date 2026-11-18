@@ -40,42 +40,6 @@
 ---
 
 
-
----
-
-
-
----
-
-
-
----
-
-
-
----
-
-
-
----
-
-
-
----
-
-
-
----
-
-
-
----
-
-
-
----
-
-
 <!-- GRAPH-CONTEXT:START -->
 ## Graph Context
 
@@ -268,7 +232,7 @@ git config --global credential.helper store
 - **Global Filter Settings**: Configure whether rules affect natural spawns only or all spawn causes including Spawn Eggs, enable an Admin Tag Lock, and trigger an immediate entity purge.
 ```
 
-## FILE: description_views/ALNSpawnControl.listing.md (69 lines, 17247 bytes)
+## FILE: description_views/ALNSpawnControl.listing.md (70 lines, 17695 bytes)
 
 ````
 # Listing Kit: ALN:SpawnControl
@@ -305,6 +269,7 @@ Paste into the CurseForge description editor in source (HTML) mode.
 <div class="spoiler" title="Do I need experimental toggles?" data-title="Do I need experimental toggles?"><p><strong>Do I need experimental toggles?</strong><br>No experimental toggles or cheats are required for normal menu usage.</p></div><div class="spoiler" title="Does it stop mob spawners?" data-title="Does it stop mob spawners?"><p><strong>Does it stop mob spawners?</strong><br>When set to block natural spawns or all sources, spawner-generated entities of disabled mob types are intercepted upon spawning.</p></div><div class="spoiler" title="Will turning off a mob remove existing ones?" data-title="Will turning off a mob remove existing ones?"><p><strong>Will turning off a mob remove existing ones?</strong><br>New spawns are blocked immediately; use the Purge Loaded Disabled Mobs option in Global Filter Settings to clear existing mobs.</p></div>
 <h2 style="font-size:17px;text-align:left"><span style="background-color:#15803d;color:#ffffff;border-radius:20px">&nbsp;&nbsp;Install&nbsp;&nbsp;</span></h2>
 <table style="width:100%;border:1px solid #8a94a3;border-radius:16px"><tbody><tr><td style="width:44px;text-align:center"><div style="background-color:#15803d;color:#ffffff;font-weight:bold;font-size:15px;text-align:center;border-radius:10px;width:30px;aspect-ratio:1/1;line-height:30px">1</div></td><td style="text-align:left;">Download the file from this page and open it with Minecraft.</td></tr><tr><td style="width:44px;text-align:center"><div style="background-color:#15803d;color:#ffffff;font-weight:bold;font-size:15px;text-align:center;border-radius:10px;width:30px;aspect-ratio:1/1;line-height:30px">2</div></td><td style="text-align:left;">Create or edit a world and turn on the new pack(s) in its settings.</td></tr><tr><td style="width:44px;text-align:center"><div style="background-color:#15803d;color:#ffffff;font-weight:bold;font-size:15px;text-align:center;border-radius:10px;width:30px;aspect-ratio:1/1;line-height:30px">3</div></td><td style="text-align:left;">Play. No Experimental toggles needed.</td></tr></tbody></table>
+<div style="border:1px solid #8a94a3;border-radius:16px;text-align:center"><br><div style="background-color:#15803d;color:#ffffff;border-radius:20px;font-size:15px;line-height:2;display:inline-block">&nbsp;&nbsp;<strong>Found a Bug or Have a Suggestion?</strong>&nbsp;&nbsp;</div><p style="font-size:14px;">Please leave a comment on this project page! All bug reports, gameplay feedback, and pack suggestions are welcome and appreciated.</p></div>
 <h2 style="font-size:17px;text-align:left"><span style="background-color:#15803d;color:#ffffff;border-radius:20px">&nbsp;&nbsp;Support&nbsp;&nbsp;</span></h2><div style="border:1px solid #8a94a3;border-radius:16px;text-align:center"><br><a href="https://ko-fi.com/alnstudios"><img src="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/assets/Images/ko-fi.png" alt="Support ALNStudios on Ko-fi" width="250"></a><br><br></div><p style="text-align:center"><a href="https://www.curseforge.com/members/allenscreations/projects"><strong>CurseForge</strong></a> &nbsp;|&nbsp; <a href="https://mcpedl.com/user/alnstudios/"><strong>MCPEDL</strong></a> &nbsp;|&nbsp; <a href="https://ko-fi.com/alnstudios"><strong>Ko-fi</strong></a></p>
 <hr>
 <p style="text-align:center;color:#8a94a3;font-size:13px"><strong>By ALNStudios</strong></p>
@@ -1089,7 +1054,7 @@ Download the current release of **ALNSpawnControl** for Minecraft Bedrock Editio
 For gameplay features, usage details, compatibility notes, and other project information, read the [full description](https://github.com/AllensCreations/MCPE-Curseforges/blob/main/MCPEDL/Script/ALNSpawnControl/DESCRIPTION.md).
 ```
 
-## FILE: MCPEDL/Script/README.md (32 lines, 3313 bytes)
+## FILE: MCPEDL/Script/README.md (33 lines, 3564 bytes)
 
 ```
 # Scripts
@@ -1110,7 +1075,8 @@ Standalone Minecraft Bedrock Script packs by ALNStudios. Script projects use the
 | Gameplay Optimizer | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Script/Gameplay-Optimizer/) | [MCPACK](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Gameplay-Optimizer/GameplayOptimizer%20V2.mcpack) |
 | ALNMobStacker | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Script/ALN-MobStacker/) | [MCPACK](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/ALN-MobStacker/ALNMobStacker%20V2.mcpack) |
 | ALNSpawnControl | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Script/ALNSpawnControl/) | [MCPACK](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/ALNSpawnControl/ALNSpawnControl%20V2.mcpack) |
-| Command Vault | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Script/Command-Vault/) | [MCPACK](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Command-Vault/CommandVault%20V2.mcpack) |
+| Command Vault | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Script/Command-Vault/) | [MCPACK](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Command-Vault/CommandVault%20V3.mcpack) |
+| Loot and XP Stick | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Script/Loot-and-XP-Stick/) | [MCPACK](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Loot-and-XP-Stick/LootXPStick%20V1.mcpack) |
 
 ## Attribution
 
