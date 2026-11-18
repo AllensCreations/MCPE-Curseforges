@@ -43,6 +43,20 @@
 
 ---
 
+
+<!-- GRAPH-CONTEXT:START -->
+## Graph Context
+
+- **Project:** `Alphabet-Scavenger-Hunt` | Category: `Minigame` | Version: `v2`
+- **Pack Types:** behavior_pack, resource_pack
+- **Scripts:** `controller.js`, `item_data.js`, `main.js`
+- **Siblings in Minigame:** `Category: Minigame`, `Minecraft-But-Every-Drop-is-Random-Chaos-Edition (v2)` (v2), `Mob-Chaos-Behavioral-Roulette (v2)` (v2), `Shared-Hivemind-Inventory (v2)` (v2), `Tethered-Breaker-And-Builder (v2)` (v2), `Trivia-Vault-The-Locked-World (v2)` (v2)
+
+> _Auto-generated from graphify-out/graph.json — do not edit manually._
+<!-- GRAPH-CONTEXT:END -->
+
+---
+
 ## AI Instructions
 
 Repo: https://github.com/AllensCreations/MCPE-Curseforges.git (branch main)

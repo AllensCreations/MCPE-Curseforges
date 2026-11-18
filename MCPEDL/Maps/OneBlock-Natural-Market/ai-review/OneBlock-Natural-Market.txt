@@ -44,6 +44,20 @@
 
 ---
 
+
+<!-- GRAPH-CONTEXT:START -->
+## Graph Context
+
+- **Project:** `OneBlock-Natural-Market` | Category: `Maps` | Version: `v2`
+- **Pack Types:** behavior_pack, resource_pack
+- **Scripts:** `main.js`
+- **Siblings in Maps:** `Category: Maps`, `One-Block-Skyblock-Lucky-Blocks (v2)` (v2), `OneBlock-Dirtbound-Kingdom-Beta (v1)` (v1), `OneBlock-Phase-Evolution (v2)` (v2), `OneBlock-Void-Survival (v3)` (v3), `Oneblock-SM (v2)` (v2)
+
+> _Auto-generated from graphify-out/graph.json — do not edit manually._
+<!-- GRAPH-CONTEXT:END -->
+
+---
+
 ## AI Instructions
 
 Repo: https://github.com/AllensCreations/MCPE-Curseforges.git (branch main)

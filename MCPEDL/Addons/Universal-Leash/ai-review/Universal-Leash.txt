@@ -128,6 +128,19 @@
 
 ---
 
+
+<!-- GRAPH-CONTEXT:START -->
+## Graph Context
+
+- **Project:** `Universal-Leash` | Category: `Addons` | Version: `v3`
+- **Pack Types:** behavior_pack, resource_pack
+- **Siblings in Addons:** `2-in-1-Loot--XP-Booster (v2)` (v2), `ALN-MoreDiscs (v2)` (v2), `ALN-Pointer (v2)` (v2), `ALN-Quiver (v2)` (v2), `ALN-Wireless-Headphones (v2)` (v2), `Category: Addons`, `Cheat-Stick (v4)` (v4), `Copper-Carrier-Logistics (v2)` (v2) …
+
+> _Auto-generated from graphify-out/graph.json — do not edit manually._
+<!-- GRAPH-CONTEXT:END -->
+
+---
+
 ## AI Instructions
 
 Repo: https://github.com/AllensCreations/MCPE-Curseforges.git (branch main)

@@ -1,3 +1,12 @@
+## [v106] - 2026-11-18 - [AI Review + Graphify Integration]
+### Added
+- **enrich_ai_review.py**: New script injecting `## Graph Context` from graph.json into every pack ai-review file — combined deep-code + repo-map in one upload.
+- **Repo Map in tools.txt**: tools.txt now includes a full project-version map from the graph.
+### Improved & Balanced
+- **auto_ai_review.py**: Now auto-runs enrich_ai_review.py after every rebuild so graph context stays fresh.
+
+---
+
 # Changelog — MCPE-Curseforges (whole repository)
 
 ---

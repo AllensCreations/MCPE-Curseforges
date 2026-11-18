@@ -38,6 +38,20 @@
 
 ---
 
+
+<!-- GRAPH-CONTEXT:START -->
+## Graph Context
+
+- **Project:** `Minecraft-But-Every-Drop-is-Random-Chaos-Edition` | Category: `Minigame` | Version: `v2`
+- **Pack Types:** behavior_pack, resource_pack
+- **Scripts:** `controller.js`, `main.js`, `random_drops.js`, `random_loot_table.js`
+- **Siblings in Minigame:** `Alphabet-Scavenger-Hunt (v2)` (v2), `Category: Minigame`, `Mob-Chaos-Behavioral-Roulette (v2)` (v2), `Shared-Hivemind-Inventory (v2)` (v2), `Tethered-Breaker-And-Builder (v2)` (v2), `Trivia-Vault-The-Locked-World (v2)` (v2)
+
+> _Auto-generated from graphify-out/graph.json — do not edit manually._
+<!-- GRAPH-CONTEXT:END -->
+
+---
+
 ## AI Instructions
 
 Repo: https://github.com/AllensCreations/MCPE-Curseforges.git (branch main)
