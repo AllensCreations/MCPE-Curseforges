@@ -62,6 +62,17 @@ def sync_definitions(out_dir):
         summary.append(f"- **{pkg}**: `v{version}`")
         print(f"Synced {pkg} (v{version}) -> {target_pkg_dir}")
 
+    zip_file = out_path / "minecraft-bedrock-types.zip"
+    import zipfile
+    with zipfile.ZipFile(zip_file, "w", zipfile.ZIP_DEFLATED) as z:
+        for root, _, files in os.walk(out_path):
+            for f in files:
+                if f.endswith(".zip"):
+                    continue
+                fp = os.path.join(root, f)
+                z.write(fp, os.path.relpath(fp, out_path))
+    print(f"Packaged types zip -> {zip_file}")
+
     readme_path = out_path / "README.md"
     with open(readme_path, "w") as f_readme:
         f_readme.write("# Minecraft Bedrock Script API TypeScript Definitions\n\n")

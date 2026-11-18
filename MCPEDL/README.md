@@ -12,6 +12,7 @@ Generated file. Do not edit by hand: it is rebuilt with every build.
 | **Update Pack Kit** | [Download](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/ai-review/Update-Pack_tools.txt) |
 | **Repo Maintenance Kit** | [Download](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/ai-review/tools.txt) |
 | **Vanilla Bedrock Reference (JSON.gz)** | [Download](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/reference/bedrock-samples/bedrock-samples.min.json.gz) |
+| **Minecraft Script API TypeScript Definitions (.d.ts Zip)** | [Download](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/reference/typescript-definitions/minecraft-bedrock-types.zip) |
 
 ## Add-ons
 
