@@ -6,6 +6,10 @@
 
 ---
 
+## [v117] - 2026-11-18 - Revert MCPEDL AI Review to Single Text Export
+
+- **MCPEDL Catalog & AI Review**: Reverted back to single `.txt` exports for AI reviews in `MCPEDL/README.md`. Removed `.zip` bundle generation from `scripts/auto_ai_review.py` and `scripts/build_mcpedl_readme.py` to prevent redundant tool downloads and save tokens.
+
 ## [v116] - 2026-11-18 - MCPEDL AI Review Combined Zip Bundles
 
 - **AI Review Bundles**: Updated `scripts/auto_ai_review.py` and `scripts/build_mcpedl_readme.py` to package `<PackName>.txt` and `<PackName>_tools.txt` into a single downloadable `<PackName>.zip` bundle for each pack in MCPEDL catalog.
