@@ -57,16 +57,19 @@ jobs:
       - name: Convert to one minimal JSON
         run: python3 scripts/build_bedrock_reference.py --src "$RUNNER_TEMP/bedrock-samples" --out reference/bedrock-samples
 
+      - name: Fetch Minecraft Script API TypeScript Definitions (.d.ts)
+        run: python3 scripts/sync_minecraft_types.py reference/typescript-definitions
+
       - name: Commit when it changed
         run: |
           set -euo pipefail
-          git add reference/bedrock-samples
+          git add reference/bedrock-samples reference/typescript-definitions
           if git diff --cached --quiet; then
-            echo "Reference is already up to date." | tee -a "$GITHUB_STEP_SUMMARY"
+            echo "Reference and TypeScript definitions are already up to date." | tee -a "$GITHUB_STEP_SUMMARY"
             exit 0
           fi
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git commit -m "chore(reference): update bedrock-samples reference [skip ci]"
+          git commit -m "chore(reference): update bedrock-samples and typescript definitions [skip ci]"
           python3 scripts/git_push_retry.py --branch "${GITHUB_REF_NAME}"
-          echo "Updated reference/bedrock-samples from Mojang/bedrock-samples." >> "$GITHUB_STEP_SUMMARY"
+          echo "Updated reference/bedrock-samples and reference/typescript-definitions." >> "$GITHUB_STEP_SUMMARY"

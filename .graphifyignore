@@ -3,3 +3,8 @@ builds/
 changelog_views/
 Package/
 dashboard/
+archive/
+assets/
+ai-review/
+.github/
+
