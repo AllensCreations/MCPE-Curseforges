@@ -5,7 +5,7 @@ Download the current release of **Command Vault** for Minecraft Bedrock Edition.
 ## Download
 
 - **Package format:** `.mcpack`
-- **Direct download:** [Download Command Vault (.mcpack)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Command-Vault/CommandVault%20V2.0.1.mcpack)
+- **Direct download:** [Download Command Vault (.mcpack)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Command-Vault/CommandVault%20V3.mcpack)
 
 ## Installation
 

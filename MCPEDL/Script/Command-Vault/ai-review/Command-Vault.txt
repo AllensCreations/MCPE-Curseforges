@@ -763,7 +763,7 @@ Minecraft Bedrock add-on, Command Vault Bedrock mod, command macro UI, quick exe
 }
 ```
 
-## FILE: MCPEDL/Script/Command-Vault/README.md (19 lines, 787 bytes)
+## FILE: MCPEDL/Script/Command-Vault/README.md (19 lines, 783 bytes)
 
 ```
 # Command Vault
@@ -773,7 +773,7 @@ Download the current release of **Command Vault** for Minecraft Bedrock Edition.
 ## Download
 
 - **Package format:** `.mcpack`
-- **Direct download:** [Download Command Vault (.mcpack)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Command-Vault/CommandVault%20V2.0.1.mcpack)
+- **Direct download:** [Download Command Vault (.mcpack)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Command-Vault/CommandVault%20V3.mcpack)
 
 ## Installation
 
@@ -786,7 +786,7 @@ Download the current release of **Command Vault** for Minecraft Bedrock Edition.
 For gameplay features, usage details, compatibility notes, and other project information, read the [full description](https://github.com/AllensCreations/MCPE-Curseforges/blob/main/MCPEDL/Script/Command-Vault/DESCRIPTION.md).
 ```
 
-## FILE: MCPEDL/Script/README.md (33 lines, 3568 bytes)
+## FILE: MCPEDL/Script/README.md (33 lines, 3564 bytes)
 
 ```
 # Scripts
@@ -807,7 +807,7 @@ Standalone Minecraft Bedrock Script packs by ALNStudios. Script projects use the
 | Gameplay Optimizer | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Script/Gameplay-Optimizer/) | [MCPACK](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Gameplay-Optimizer/GameplayOptimizer%20V2.mcpack) |
 | ALNMobStacker | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Script/ALN-MobStacker/) | [MCPACK](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/ALN-MobStacker/ALNMobStacker%20V2.mcpack) |
 | ALNSpawnControl | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Script/ALNSpawnControl/) | [MCPACK](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/ALNSpawnControl/ALNSpawnControl%20V2.mcpack) |
-| Command Vault | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Script/Command-Vault/) | [MCPACK](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Command-Vault/CommandVault%20V2.0.1.mcpack) |
+| Command Vault | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Script/Command-Vault/) | [MCPACK](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Command-Vault/CommandVault%20V3.mcpack) |
 | Loot and XP Stick | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Script/Loot-and-XP-Stick/) | [MCPACK](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Loot-and-XP-Stick/LootXPStick%20V1.mcpack) |
 
 ## Attribution
