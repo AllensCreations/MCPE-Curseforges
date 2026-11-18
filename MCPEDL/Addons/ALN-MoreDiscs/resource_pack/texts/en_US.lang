@@ -18,4 +18,4 @@ item.aln:disc_9=Music Disc\n§7Track 9: Pixel Parade\n§8ALNStudios Music Series
 item.aln:disc_9.name=Music Disc\n§7Track 9: Pixel Parade\n§8ALNStudios Music Series
 item.aln:disc_10=Music Disc\n§7Track 10: Golden Hour\n§8ALNStudios Music Series
 item.aln:disc_10.name=Music Disc\n§7Track 10: Golden Hour\n§8ALNStudios Music Series
-aln:itemGroup.name.morediscs=ALN MoreDiscs
+itemGroup.name.record=Music Discs

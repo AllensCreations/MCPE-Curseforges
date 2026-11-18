@@ -6,6 +6,11 @@
 
 ---
 
+## [v115] - 2026-11-18 - ALN MoreDiscs Vanilla Record Group Alignment
+
+### Fixed
+- **ALN MoreDiscs**: Aligned custom disc items and crafting item catalog to standard vanilla record group `minecraft:itemGroup.name.record`, preventing custom group registration conflicts on Bedrock.
+
 ## [v114] - 2026-11-18 - Item menu_category Namespace Validation & Reply Format Standard
 
 ### Fixed
