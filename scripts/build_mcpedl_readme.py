@@ -26,6 +26,7 @@ AI_KITS = (
     ("Update Pack Kit", "ai-review/Update-Pack_tools.txt"),
     ("Repo Maintenance Kit", "ai-review/tools.txt"),
     ("Vanilla Bedrock Reference (JSON.gz)", "reference/bedrock-samples/bedrock-samples.min.json.gz"),
+    ("Complete Bedrock Reference Bundle (Samples, Schemas & Types Zip)", "reference/bedrock-samples/bedrock-reference-pack.zip"),
     ("Minecraft Script API TypeScript Definitions (.d.ts Zip)", "reference/typescript-definitions/minecraft-bedrock-types.zip"),
 )
 HEADER = (

@@ -39,7 +39,7 @@ jobs:
         with:
           python-version: '3.14'
 
-      - name: Fetch bedrock-samples (text files only)
+      - name: Fetch bedrock-samples (text files and schemas)
         env:
           REF: ${{ inputs.ref }}
         run: |
@@ -48,7 +48,12 @@ jobs:
           git clone --depth 1 --filter=blob:none --sparse ${REF:+--branch "$REF"} \
             https://github.com/Mojang/bedrock-samples.git "$SRC"
           git -C "$SRC" sparse-checkout set --no-cone \
-            '/behavior_pack/' '/resource_pack/'
+            '/behavior_pack/' '/resource_pack/' '/metadata/json_schemas/'
+          # copy json schemas to reference/bedrock-samples/json_schemas
+          if [ -d "$SRC/metadata/json_schemas" ]; then
+            mkdir -p reference/bedrock-samples/json_schemas
+            cp -r "$SRC/metadata/json_schemas"/* reference/bedrock-samples/json_schemas/
+          fi
           # drop binaries so the converter only walks text
           find "$SRC/behavior_pack" "$SRC/resource_pack" -type f \
             ! \( -name '*.json' -o -name '*.lang' \) -delete
@@ -60,6 +65,9 @@ jobs:
       - name: Fetch Minecraft Script API TypeScript Definitions (.d.ts)
         run: python3 scripts/sync_minecraft_types.py reference/typescript-definitions
 
+      - name: Bundle Unified Reference Package (Samples, Schemas & Types Zip)
+        run: python3 scripts/bundle_bedrock_reference_pack.py .
+
       - name: Commit when it changed
         run: |
           set -euo pipefail
@@ -70,6 +78,6 @@ jobs:
           fi
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git commit -m "chore(reference): update bedrock-samples and typescript definitions [skip ci]"
+          git commit -m "chore(reference): update bedrock samples, schemas, and types bundle [skip ci]"
           python3 scripts/git_push_retry.py --branch "${GITHUB_REF_NAME}"
           echo "Updated reference/bedrock-samples and reference/typescript-definitions." >> "$GITHUB_STEP_SUMMARY"
