@@ -1,0 +1,8 @@
+{
+  "changelog_version": "3.0.0",
+  "manifest_version": "3.0.0",
+  "packages": {
+    "ALNWirelessHeadphones V3.mcaddon": "063b5c9e43137d792eb26d16c57e1a4e6e1ccb0d71e747e2ed2bd664983bafbe"
+  },
+  "source_sha256": "e4918931238c6f8a3c0803edf1b4ac9eb5b800cbd08bda7264d7bab236da8786"
+}
