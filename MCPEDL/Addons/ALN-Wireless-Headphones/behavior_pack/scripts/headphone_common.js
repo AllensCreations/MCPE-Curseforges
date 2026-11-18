@@ -1,4 +1,5 @@
 import { world, system } from "@minecraft/server";
+import { ALIASED_DISCS } from "./headphone_aliases.js";
 
 export const HEADPHONES_ID = "aln:headphones";
 export const PAIR_KEY = "aln_paired_jukebox";
@@ -44,15 +45,17 @@ export function discInfo(typeId) {
   const shortId = typeId.replace(/^[^:]*:/, "").replace(/^(music_disc_|record_)/, "");
   const known = vanilla ? DISCS[shortId] : undefined;
   const soundId = "record." + shortId;
+  const aliased = vanilla && ALIASED_DISCS.has(shortId);
+  const streamId = aliased ? "aln.hp." + shortId : soundId;
   if (known) {
-    return { name: known[0], totalSeconds: known[1], soundId };
+    return { name: known[0], totalSeconds: known[1], soundId, streamId, aliased };
   }
   const pretty = shortId
     .split("_")
     .filter((word) => word.length > 0)
     .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
     .join(" ");
-  return { name: pretty || shortId, totalSeconds: undefined, soundId };
+  return { name: pretty || shortId, totalSeconds: undefined, soundId, streamId, aliased };
 }
 
 export function formatTime(totalSeconds) {

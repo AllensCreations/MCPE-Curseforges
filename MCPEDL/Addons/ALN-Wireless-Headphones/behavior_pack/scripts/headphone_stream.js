@@ -31,10 +31,10 @@ function stopAudio(player) {
 
 function ensureStream(player, status) {
   const current = streams.get(player.id);
-  if (current && current.trackStart === status.startTick && current.soundId === status.info.soundId) {
+  if (current && current.trackStart === status.startTick && current.soundId === status.info.streamId) {
     return current;
   }
-  if (system.currentTick - status.startTick < MUTE_WINDOW_TICKS + 2) {
+  if (!status.info.aliased && system.currentTick - status.startTick < MUTE_WINDOW_TICKS + 2) {
     return undefined;
   }
   if (current) {
@@ -44,10 +44,10 @@ function ensureStream(player, status) {
     player.addTag(LISTEN_TAG);
   } catch (error) {}
   try {
-    player.playMusic(status.info.soundId, { volume: 1.0, fade: 0.0, loop: false });
+    player.playMusic(status.info.streamId, { volume: 1.0, fade: 0.0, loop: false });
   } catch (error) {}
   const stream = {
-    soundId: status.info.soundId,
+    soundId: status.info.streamId,
     name: status.info.name,
     total: status.info.totalSeconds,
     trackStart: status.startTick,
@@ -77,6 +77,15 @@ function nowPlaying(stream) {
   );
 }
 
+function holdOrStop(player, message) {
+  const stream = streams.get(player.id);
+  if (stream && stream.total !== undefined && streamElapsed(stream) < stream.total) {
+    return nowPlaying(stream);
+  }
+  stopAudio(player);
+  return message;
+}
+
 function renderFeedAndStream(player, item) {
   const pairing = parsePairing(item);
   if (!pairing) {
@@ -87,13 +96,11 @@ function renderFeedAndStream(player, item) {
   try {
     dimension = world.getDimension(pairing.dimension);
   } catch (error) {
-    stopAudio(player);
-    return PREFIX + PAIRED + "\u00a7cJukebox dimension is unavailable.";
+    return holdOrStop(player, PREFIX + PAIRED + "\u00a7cJukebox dimension is unavailable.");
   }
   const location = { x: pairing.x, y: pairing.y, z: pairing.z };
   if (!dimension.isChunkLoaded(location)) {
-    stopAudio(player);
-    return PREFIX + PAIRED + "\u00a7cJukebox is not loaded.";
+    return holdOrStop(player, PREFIX + PAIRED + "\u00a7cJukebox is not loaded.");
   }
   const block = dimension.getBlock(location);
   if (!block || block.typeId !== JUKEBOX_ID) {

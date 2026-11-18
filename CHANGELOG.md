@@ -1,3 +1,10 @@
+## [v114] - 2026-11-18 - ALN Wireless Headphones Music Follows You
+
+### Fixed
+- **ALN Wireless Headphones**: The paired Jukebox is now silent for headphone wearers, so the music no longer fades with distance, and it keeps playing until the track ends if the Jukebox is not loaded.
+
+---
+
 ## [v113] - 2026-11-18 - [ALN Wireless Headphones Audio Streaming & Fix]
 ### Added
 - **ALN Wireless Headphones**: Enabled live disc audio streaming directly into the player's headphones via `player.playMusic()` when worn.

@@ -1,11 +1,11 @@
 {
   "format_version": 2,
   "header": {
-    "name": "ALN Wireless Headphones (v8)",
+    "name": "ALN Wireless Headphones (v9)",
     "description": "Wear Wireless Headphones to stream a paired Jukebox to your Action Bar. by ALNStudios",
     "uuid": "4fa0e63a-a24b-430c-b00c-d25aaa097b23",
     "version": [
-      8,
+      9,
       0,
       0
     ],
@@ -20,7 +20,7 @@
       "type": "data",
       "uuid": "6ed2e0ea-13a7-4490-a494-f594dcc47ccf",
       "version": [
-        8,
+        9,
         0,
         0
       ]
@@ -30,7 +30,7 @@
       "language": "javascript",
       "uuid": "fcaddf1f-d6bf-456c-a627-d79cc87ce374",
       "version": [
-        8,
+        9,
         0,
         0
       ],
@@ -41,7 +41,7 @@
     {
       "uuid": "a0390eec-e584-411c-90bf-c171e84f5a73",
       "version": [
-        8,
+        9,
         0,
         0
       ]
@@ -56,6 +56,6 @@
       "ALNStudios"
     ],
     "product_type": "addon",
-    "version": "8.0.0"
+    "version": "9.0.0"
   }
 }

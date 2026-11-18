@@ -45,7 +45,8 @@ system.runInterval(() => {
       if (status.state !== "playing") {
         continue;
       }
-      const selector = system.currentTick - status.startTick <= MUTE_WINDOW_TICKS ? "@a" : "@a[tag=!" + LISTEN_TAG + "]";
+      const everyone = status.info.aliased || system.currentTick - status.startTick <= MUTE_WINDOW_TICKS;
+      const selector = everyone ? "@a" : "@a[tag=!" + LISTEN_TAG + "]";
       dimension.runCommand("stopsound " + selector + " " + status.info.soundId);
     } catch (error) {
       keep.push(entry);
