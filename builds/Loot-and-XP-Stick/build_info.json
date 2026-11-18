@@ -1,0 +1,8 @@
+{
+  "changelog_version": "1.0.0",
+  "manifest_version": "1.0.0",
+  "packages": {
+    "LootXPStick V1.mcpack": "dcc0cb24a58567b20fc5cb824bd580e330f76573a252dcf70f4032189b07e9ee"
+  },
+  "source_sha256": "8822e7547c61eb9015beaf603f2cda563dafdf425cee6de1988fd4b276f55f36"
+}

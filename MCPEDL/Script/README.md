@@ -17,6 +17,7 @@ Standalone Minecraft Bedrock Script packs by ALNStudios. Script projects use the
 | ALNMobStacker | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Script/ALN-MobStacker/) | [MCPACK](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/ALN-MobStacker/ALNMobStacker%20V2.mcpack) |
 | ALNSpawnControl | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Script/ALNSpawnControl/) | [MCPACK](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/ALNSpawnControl/ALNSpawnControl%20V2.mcpack) |
 | Command Vault | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Script/Command-Vault/) | [MCPACK](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Command-Vault/CommandVault%20V2.0.1.mcpack) |
+| Loot and XP Stick | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Script/Loot-and-XP-Stick/) | [MCPACK](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Loot-and-XP-Stick/LootXPStick%20V1.mcpack) |
 
 ## Attribution
 

@@ -2,7 +2,7 @@
 
 Generated file. Do not edit by hand: it is rebuilt with every build.
 
-32 Add-ons · 6 Maps · 9 Scripts · 6 Minigames
+32 Add-ons · 6 Maps · 10 Scripts · 6 Minigames
 
 ## AI Review Kits
 
@@ -71,6 +71,7 @@ Generated file. Do not edit by hand: it is rebuilt with every build.
 | **Command Vault** | 2.0.1 | [Source](Script/Command-Vault) | [Download](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/MCPEDL/Script/Command-Vault/ai-review/Command-Vault.txt) |
 | **Gameplay Optimizer** | - | [Source](Script/Gameplay-Optimizer) | [Download](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/MCPEDL/Script/Gameplay-Optimizer/ai-review/Gameplay-Optimizer.txt) |
 | **Living SMP Chat** | 1.0.8 | [Source](Script/Living-SMP-Chat) | [Download](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/MCPEDL/Script/Living-SMP-Chat/ai-review/Living-SMP-Chat.txt) |
+| **Loot and XP Stick** | 1.0.0 | [Source](Script/Loot-and-XP-Stick) | [Download](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/MCPEDL/Script/Loot-and-XP-Stick/ai-review/Loot-and-XP-Stick.txt) |
 | **Target HUD Entity Inspector** | 1.1.1 | [Source](Script/Target-HUD-Entity-Inspector) | [Download](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/MCPEDL/Script/Target-HUD-Entity-Inspector/ai-review/Target-HUD-Entity-Inspector.txt) |
 | **Universal Clutch** | 1.5.4 | [Source](Script/Universal-Clutch) | [Download](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/MCPEDL/Script/Universal-Clutch/ai-review/Universal-Clutch.txt) |
 

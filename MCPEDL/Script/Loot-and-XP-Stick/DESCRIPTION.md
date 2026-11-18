@@ -75,3 +75,4 @@ Ever wished you could speed up survival gathering or XP grinding without bloated
 ## Search & Discovery Keywords
 
 Minecraft Bedrock add-on, MCPEDL add-on, CurseForge Bedrock, ALNStudios, Loot and XP Stick, XP multiplier script, drop booster, Bedrock loot multiplier, Bedrock XP booster.
+

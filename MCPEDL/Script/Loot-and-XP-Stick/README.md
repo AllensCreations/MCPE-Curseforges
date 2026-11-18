@@ -5,7 +5,7 @@ Download the current release of **Loot and XP Stick** for Minecraft Bedrock Edit
 ## Download
 
 - **Package format:** `.mcpack`
-- **Direct download:** [Download Loot and XP Stick (.mcpack)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Loot-XP-Stick/LootXPStick%20V1.mcpack)
+- **Direct download:** [Download Loot and XP Stick (.mcpack)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Loot-and-XP-Stick/LootXPStick%20V1.mcpack)
 
 ## Installation
 
@@ -15,4 +15,4 @@ Download the current release of **Loot and XP Stick** for Minecraft Bedrock Edit
 
 ## Pack Information
 
-For gameplay features, usage details, compatibility notes, and other project information, read the [full description](https://github.com/AllensCreations/MCPE-Curseforges/blob/main/MCPEDL/Script/Loot-XP-Stick/DESCRIPTION.md).
+For gameplay features, usage details, compatibility notes, and other project information, read the [full description](https://github.com/AllensCreations/MCPE-Curseforges/blob/main/MCPEDL/Script/Loot-and-XP-Stick/DESCRIPTION.md).
