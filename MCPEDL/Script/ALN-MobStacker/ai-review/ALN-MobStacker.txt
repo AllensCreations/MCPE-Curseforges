@@ -87,12 +87,15 @@
 ---
 
 
+
+---
+
+
 <!-- GRAPH-CONTEXT:START -->
 ## Graph Context
 
 - **Project:** `ALN-MobStacker` | Category: `Script` | Version: `v2`
 - **Pack Types:** behavior_pack
-- **Scripts:** `main.js`, `stack_combat.js`, `stack_config.js`, `stack_merger.js`
 - **Siblings in Script:** `ALNSpawnControl (v2)` (v2), `Always-Critical (v2)` (v2), `Category: Script`, `Chrono-Bed (v2)` (v2), `Command-Vault (v3)` (v3), `Gameplay-Optimizer (v2)` (v2), `Living-SMP-Chat (v2)` (v2), `Loot-and-XP-Stick (v1)` (v1) …
 
 > _Auto-generated from graphify-out/graph.json — do not edit manually._

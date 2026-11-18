@@ -97,12 +97,15 @@
 ---
 
 
+
+---
+
+
 <!-- GRAPH-CONTEXT:START -->
 ## Graph Context
 
 - **Project:** `Shared-Hivemind-Inventory` | Category: `Minigame` | Version: `v2`
 - **Pack Types:** behavior_pack, resource_pack
-- **Scripts:** `hard_mode.js`, `controller.js`, `main.js`
 - **Siblings in Minigame:** `Alphabet-Scavenger-Hunt (v2)` (v2), `Category: Minigame`, `Minecraft-But-Every-Drop-is-Random-Chaos-Edition (v2)` (v2), `Mob-Chaos-Behavioral-Roulette (v2)` (v2), `Tethered-Breaker-And-Builder (v2)` (v2), `Trivia-Vault-The-Locked-World (v2)` (v2)
 
 > _Auto-generated from graphify-out/graph.json — do not edit manually._

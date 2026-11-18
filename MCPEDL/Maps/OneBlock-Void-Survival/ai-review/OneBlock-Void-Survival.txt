@@ -142,12 +142,15 @@
 ---
 
 
+
+---
+
+
 <!-- GRAPH-CONTEXT:START -->
 ## Graph Context
 
 - **Project:** `OneBlock-Void-Survival` | Category: `Maps` | Version: `v3`
 - **Pack Types:** behavior_pack
-- **Scripts:** `islands.js`, `main.js`, `mode.js`, `phases.js`, `rarities.js`
 - **Siblings in Maps:** `Category: Maps`, `One-Block-Skyblock-Lucky-Blocks (v2)` (v2), `OneBlock-Dirtbound-Kingdom-Beta (v1)` (v1), `OneBlock-Natural-Market (v2)` (v2), `OneBlock-Phase-Evolution (v2)` (v2), `Oneblock-SM (v2)` (v2)
 
 > _Auto-generated from graphify-out/graph.json — do not edit manually._
