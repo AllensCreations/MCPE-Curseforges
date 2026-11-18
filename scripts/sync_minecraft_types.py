@@ -10,6 +10,7 @@ import json
 import tarfile
 import tempfile
 import urllib.request
+import zipfile
 from pathlib import Path
 
 PACKAGES = [
@@ -62,19 +63,20 @@ def sync_definitions(out_dir):
         summary.append(f"- **{pkg}**: `v{version}`")
         print(f"Synced {pkg} (v{version}) -> {target_pkg_dir}")
 
+    # Flat zip archive of types at root: e.g. server.txt, server-ui.txt, etc.
     zip_file = out_path / "minecraft-bedrock-types.zip"
-    import zipfile
     with zipfile.ZipFile(zip_file, "w", zipfile.ZIP_DEFLATED) as z:
-        for root, _, files in os.walk(out_path):
-            for f in files:
-                if f.endswith(".zip"):
-                    continue
-                fp = os.path.join(root, f)
-                rel = os.path.relpath(fp, out_path)
-                if f.endswith(".d.ts"):
-                    rel = rel[:-5] + ".txt"
-                z.write(fp, rel)
-    print(f"Packaged types zip -> {zip_file}")
+        for pkg_dir in sorted(out_path.iterdir()):
+            if not pkg_dir.is_dir():
+                continue
+            pkg_name = pkg_dir.name
+            for f in sorted(pkg_dir.iterdir()):
+                if f.name.endswith(".d.ts"):
+                    z.write(f, f"{pkg_name}.txt")
+                elif f.name == "info.json":
+                    z.write(f, f"{pkg_name}_info.json")
+
+    print(f"Packaged flat types zip -> {zip_file}")
 
     readme_path = out_path / "README.md"
     with open(readme_path, "w") as f_readme:
