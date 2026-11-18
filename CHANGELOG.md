@@ -1,3 +1,11 @@
+## [v109] - 2026-11-18 - [Instruction Optimization & Manifest Template Alignment]
+### Improved & Balanced
+- **PACK_GENERATOR_INSTRUCTIONS.md (4.3)**: Corrected manifest template name field from legacy \`Add-on Name (v1.0.0)\` to single-version \`Add-on Name (v1)\`.
+- **Instruction Audit**: Verified all excerpt sections between \`INSTRUCTIONS.md\` and \`PACK_GENERATOR_INSTRUCTIONS.md\` are 100% synchronized with zero line divergence or truncation.
+- **Tools Bundle**: Regenerated \`ai-review/tools.txt\` and \`Update-Pack_tools.txt\`.
+
+---
+
 ## [v108] - 2026-11-18 - [Conflict Prevention Standards & Instruction Updates]
 ### Added
 - **INSTRUCTIONS.md (1.12)**: Formally added Conflict Prevention & Isolation rules (mandatory `aln:<name>` namespace and Script API event delegation over vanilla entity JSON replacement).

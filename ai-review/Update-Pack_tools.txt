@@ -81,7 +81,7 @@ description: Create a NEW addon, map, script or minigame for the MCPE-Curseforge
 - [ ] Reply = **File Needed**, **Changelog**, **Termux Script**, in that order, no text before, between or after, no Summary. The `.sh` is attached, never pasted.
 ```
 
-## FILE: PACK_GENERATOR_INSTRUCTIONS.md (365 lines, 37076 bytes)
+## FILE: PACK_GENERATOR_INSTRUCTIONS.md (365 lines, 37072 bytes)
 
 ````
 # Pack Generator Instructions (AI Agent, v29)
@@ -268,7 +268,7 @@ texture_sources/      optional pixel JSON for custom textures (4.13). NEVER insi
 {
   "format_version": 2,
   "header": {
-    "name": "Add-on Name (v1.0.0)",
+    "name": "Add-on Name (v1)",
     "description": "Textures for the add-on. by ALNStudios",
     "uuid": "<fresh uuid v4>",
     "version": [1, 0, 0],

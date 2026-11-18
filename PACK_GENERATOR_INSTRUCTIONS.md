@@ -182,7 +182,7 @@ texture_sources/      optional pixel JSON for custom textures (4.13). NEVER insi
 {
   "format_version": 2,
   "header": {
-    "name": "Add-on Name (v1.0.0)",
+    "name": "Add-on Name (v1)",
     "description": "Textures for the add-on. by ALNStudios",
     "uuid": "<fresh uuid v4>",
     "version": [1, 0, 0],
