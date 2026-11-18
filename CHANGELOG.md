@@ -1,3 +1,10 @@
+## [v115] - 2026-11-18 - ALN Wireless Headphones Music Restored
+
+### Fixed
+- **ALN Wireless Headphones**: The headphones play the music again, and the paired Jukebox is no longer silenced for people wearing them.
+
+---
+
 ## [v114] - 2026-11-18 - ALN Wireless Headphones Music Follows You
 
 ### Fixed

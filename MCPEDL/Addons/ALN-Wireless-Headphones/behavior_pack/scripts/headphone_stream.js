@@ -31,10 +31,10 @@ function stopAudio(player) {
 
 function ensureStream(player, status) {
   const current = streams.get(player.id);
-  if (current && current.trackStart === status.startTick && current.soundId === status.info.streamId) {
+  if (current && current.trackStart === status.startTick && current.soundId === status.info.soundId) {
     return current;
   }
-  if (!status.info.aliased && system.currentTick - status.startTick < MUTE_WINDOW_TICKS + 2) {
+  if (system.currentTick - status.startTick < MUTE_WINDOW_TICKS + 2) {
     return undefined;
   }
   if (current) {
@@ -44,10 +44,10 @@ function ensureStream(player, status) {
     player.addTag(LISTEN_TAG);
   } catch (error) {}
   try {
-    player.playMusic(status.info.streamId, { volume: 1.0, fade: 0.0, loop: false });
+    player.playMusic(status.info.soundId, { volume: 1.0, fade: 0.0, loop: false });
   } catch (error) {}
   const stream = {
-    soundId: status.info.streamId,
+    soundId: status.info.soundId,
     name: status.info.name,
     total: status.info.totalSeconds,
     trackStart: status.startTick,

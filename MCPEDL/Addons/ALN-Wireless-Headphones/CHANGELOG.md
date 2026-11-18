@@ -2,6 +2,13 @@
 
 ---
 
+## [v10] - 2026-11-18 - Music Restored
+
+### Fixed
+- **Silent Headphones**: The headphones play the music again. The paired Jukebox is no longer silenced for people wearing them.
+
+---
+
 ## [v9] - 2026-11-18 - Music Follows You
 
 ### Improved & Balanced
