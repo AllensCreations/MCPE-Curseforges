@@ -1,17 +1,17 @@
-# 2-in-1 Loot & XP Booster — Use a Normal Stick for Loot and XP Multipliers
+# 2-in-1 Loot & XP Booster — Renamed Book Menu for Loot and XP Multipliers
 
 **By ALNStudios**
 
 [![Minecraft Bedrock](https://img.shields.io/badge/Minecraft%20Bedrock-Stable%20Release-brightgreen?style=flat-square&logo=minecraft)](https://github.com/AllensCreations/MCPE-Curseforges)
 [![Format](https://img.shields.io/badge/Format-.MCPACK%20%7C%20.MCADDON%20%7C%20.MCWORLD-blue?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges)
 
-**Use a normal Stick to open the booster menu, then set Loot up to 32x and XP up to 64x with two sliders and an on/off switch.**
+**Rename a Book to Booster, then set Loot up to 32x and XP up to 64x with two sliders and an on/off switch.**
 
-> Adds a Stick-activated Booster menu with a Loot slider up to 32x, an XP slider up to 64x and an on/off switch.
+> Adds a Booster menu with a Loot slider up to 32x, an XP slider up to 64x and an on/off switch.
 
 ## Overview
 
-Hold a standard Stick and use it. A menu opens with three buttons: XP & Loot Booster, About and Exit.
+You rename a Book to Booster on an anvil and right-click with it. A menu opens with three buttons: XP & Loot Booster, About and Exit.
 
 ## Showcase / Previews
 
@@ -23,8 +23,8 @@ Hold a standard Stick and use it. A menu opens with three buttons: XP & Loot Boo
 
 ## Key Features
 
-### Normal Stick Control Panel
-- **What Happens**: Hold a normal Stick and use it to instantly open the Booster control menu without needing an anvil or rename.
+### Renamed Book Control Panel
+- **What Happens**: Rename a Book to "Booster" on an anvil, then right-click with it to open the Booster menu.
 - **Good To Know**: Each player keeps their own settings, which are saved between sessions.
 
 ### Loot Drop Booster
@@ -44,14 +44,13 @@ Hold a standard Stick and use it. A menu opens with three buttons: XP & Loot Boo
 
 ## How to Use
 
-1. Take a normal Stick in your hand.
-2. Right-click or hold and use the Stick, then choose XP & Loot Booster.
+1. Rename a Book to Booster on an anvil.
+2. Hold it and right-click, then choose XP & Loot Booster.
 3. Drag the Loot and XP sliders, switch Boosters on or off, press Apply and check the Action Bar for your values.
 
 ## Common Questions
 
-- **Do I need to craft or rename a special item?**: No. Any normal Stick instantly triggers the menu when used.
-- **Does the multiplier apply to other players?**: No. Each player chooses their own individual Loot and XP multipliers.
+- **Does the multiplier apply to other players?**: No. Each player chooses their own Loot and XP multipliers.
 - **Can I turn it off?**: Yes. Open XP & Loot Booster, switch Boosters Off and press Apply. Your levels are kept.
 
 ## Compatibility

@@ -2,15 +2,15 @@
 
 ---
 
+## [v105] - 2026-11-18 - Revert Stick Trigger in 2-in-1 Loot & XP Booster Addon
+
+### Fixed
+- **Reverted Stick Trigger to Book**: Reverted the 2-in-1 Loot & XP Booster Addon back to its v2 book trigger requirement. Stick triggering is now exclusive to the standalone Script pack.
+
 ## 2026-11-18 - New Script Loot and XP Stick
 
 ### Added
 - **Loot and XP Stick**: New script project created from a pack script.
-
-## [v104] - 2026-11-18 - Stick Activation for Booster Menu
-
-### Improved & Balanced
-- **Normal Stick Activation**: Replaced the anvil-renamed book requirement with an immediate normal Stick trigger, allowing players to open the booster panel instantly using any standard vanilla Stick.
 
 ## [v103] - 2026-11-18 - Fix Submenu Transitions
 
