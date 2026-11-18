@@ -1,3 +1,17 @@
+## [v112] - 2026-11-18 - [New Pack Kit Restoration]
+### Fixed
+- **collect_ai_review.py**: Resolved an issue where `skip_tools` suppressed `New-Pack_tools.txt` generation in `new_pack` mode.
+- **MCPEDL Catalog**: Built and linked `ai-review/New-Pack_tools.txt` as the New Pack Kit download in `MCPEDL/README.md`.
+
+---
+
+## [v111] - 2026-11-18 - [AI Review Pipeline Consolidation]
+### Improved & Balanced
+- **Workflow Automation**: Integrated the AI review bundle artifact upload directly into `build-and-sync.yml` and removed redundant `collect-ai-review-files.yml`.
+- **Graph Context Persistence**: Configured `auto_ai_review.py` to unconditionally run `enrich_ai_review.py`, preserving Graphify repo maps and dependency graphs across automated builds.
+
+---
+
 ## [v110] - 2026-11-18 - [Specific Minigame Controller Identifiers]
 ### Improved & Balanced
 - **Minigames**: Standardized all 6 minigame controllers from generic \`aln:minigame_controller\` to specific isolated identifiers \`aln:<minigame_name>_controller\` (e.g. \`aln:alphabet_scavenger_hunt_controller\`, \`aln:trivia_vault_controller\`, etc.) across all items, scripts, and mcfunctions.
