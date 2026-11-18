@@ -39,7 +39,7 @@ This directory stores compiled Add-ons (`.mcaddon`), Maps (`.mcworld`), Scripts 
 | **Enchanter** | Add-on (.mcaddon) | [Download (.mcaddon)](Enchanter/Enchanter%20V2.mcaddon) | [`Enchanter/`](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/builds/Enchanter/) |
 | **ALN Quiver** | Add-on (.mcaddon) | [Download (.mcaddon)](ALN-Quiver/ALNQuiver%20V2.mcaddon) | [`ALN-Quiver/`](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/builds/ALN-Quiver/) |
 | **Expanded Basic Arsenal** | Add-on (.mcaddon) | [Download (.mcaddon)](Expanded-Basic-Arsenal/ExpandedBasicArsenal%20V2.mcaddon) | [`Expanded-Basic-Arsenal/`](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/builds/Expanded-Basic-Arsenal/) |
-| **ALN Wireless Headphones** | Add-on (.mcaddon) | [Download (.mcaddon)](ALN-Wireless-Headphones/ALNWirelessHeadphones%20V8.mcaddon) | [`ALN-Wireless-Headphones/`](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/builds/ALN-Wireless-Headphones/) |
+| **ALN Wireless Headphones** | Add-on (.mcaddon) | [Download (.mcaddon)](ALN-Wireless-Headphones/ALNWirelessHeadphones%20V9.mcaddon) | [`ALN-Wireless-Headphones/`](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/builds/ALN-Wireless-Headphones/) |
 | **ALN MoreDiscs** | Add-on (.mcaddon) | [Download (.mcaddon)](ALN-MoreDiscs/ALNMoreDiscs%20V3.mcaddon) | [`ALN-MoreDiscs/`](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/builds/ALN-MoreDiscs/) |
 | **ALN Pointer** | Add-on (.mcaddon) | [Download (.mcaddon)](ALN-Pointer/ALNPointer%20V2.mcaddon) | [`ALN-Pointer/`](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/builds/ALN-Pointer/) |
 

@@ -1,9 +1,22 @@
 # Changelog — ALN Wireless Headphones
 
-## [v8] - 2026-11-18 - Music-Only Audio
+## [v9] - 2026-11-18 - Music Follows You
 
 ### Improved & Balanced
+- **Far Away Listening**: If the paired Jukebox is not loaded while you are away, the music keeps playing until the track ends instead of cutting out.
+
+### Fixed
+- **Fading Music**: The paired Jukebox is now silent for you as well, so the music no longer fades as you walk away. Discs from other add-ons may still fade with distance.
+
+<details>
+<summary><b>8.0.x</b> (1 release)</summary>
+
+### [v8] - 2026-11-18 - Music-Only Audio
+
+#### Improved & Balanced
 - **Headphone Audio**: The headphone music always plays as music, so its volume stays steady wherever you walk and follows your Music volume setting.
+
+</details>
 
 <details>
 <summary><b>6.0.x</b> (1 release)</summary>
