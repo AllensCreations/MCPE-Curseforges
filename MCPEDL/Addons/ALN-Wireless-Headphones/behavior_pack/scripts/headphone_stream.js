@@ -1,116 +1,126 @@
 import { world, system, EquipmentSlot } from "@minecraft/server";
 import {
   HEADPHONES_ID,
-  PAIR_KEY,
   JUKEBOX_ID,
+  LISTEN_TAG,
+  MUTE_WINDOW_TICKS,
   PREFIX,
   formatTime,
-  readJukebox,
-  resetSession
+  parsePairing,
+  readJukebox
 } from "./headphone_common.js";
 
-const STREAM_INTERVAL_TICKS = 10;
+const STREAM_INTERVAL_TICKS = 5;
+const PAIRED = "\u00a7aPaired \u00a78| ";
 const listening = new Set();
-const playerAudioState = new Map();
+const streams = new Map();
 
-function stopPlayerAudio(player) {
-  if (playerAudioState.has(player.id)) {
-    playerAudioState.delete(player.id);
+function stopAudio(player) {
+  const stream = streams.get(player.id);
+  if (stream) {
+    streams.delete(player.id);
     try {
-      player.stopMusic();
-    } catch (e) {}
-  }
-}
-
-function syncPlayerAudio(player, trackSoundId) {
-  const current = playerAudioState.get(player.id);
-  if (current !== trackSoundId) {
-    playerAudioState.set(player.id, trackSoundId);
-    try {
-      player.playMusic(trackSoundId, {
-        volume: 1.0,
-        fade: 0.0,
-        loop: false
-      });
-    } catch (e) {}
-  }
-}
-
-function parsePairing(item) {
-  const raw = item.getDynamicProperty(PAIR_KEY);
-  if (typeof raw !== "string") {
-    return undefined;
+      player.runCommand("stopsound @s " + stream.soundId);
+    } catch (error) {}
   }
   try {
-    const data = JSON.parse(raw);
-    if (
-      typeof data.x === "number" &&
-      typeof data.y === "number" &&
-      typeof data.z === "number" &&
-      typeof data.dimension === "string"
-    ) {
-      return data;
+    if (player.hasTag(LISTEN_TAG)) {
+      player.removeTag(LISTEN_TAG);
     }
-  } catch (error) {
+  } catch (error) {}
+}
+
+function ensureStream(player, status) {
+  const current = streams.get(player.id);
+  if (current && current.trackStart === status.startTick && current.soundId === status.info.soundId) {
+    return current;
+  }
+  if (system.currentTick - status.startTick < MUTE_WINDOW_TICKS + 2) {
     return undefined;
   }
-  return undefined;
+  if (current) {
+    stopAudio(player);
+  }
+  try {
+    player.addTag(LISTEN_TAG);
+    player.playSound(status.info.soundId, { volume: 1.0 });
+  } catch (error) {}
+  const stream = {
+    soundId: status.info.soundId,
+    name: status.info.name,
+    total: status.info.totalSeconds,
+    trackStart: status.startTick,
+    startedTick: system.currentTick
+  };
+  streams.set(player.id, stream);
+  return stream;
+}
+
+function streamElapsed(stream) {
+  const seconds = (system.currentTick - stream.startedTick) / 20;
+  return stream.total === undefined ? seconds : Math.min(seconds, stream.total);
+}
+
+function nowPlaying(stream) {
+  const total = stream.total === undefined ? "--:--" : formatTime(stream.total);
+  return (
+    PREFIX +
+    PAIRED +
+    "\u00a7fNow Playing: \u00a7e" +
+    stream.name +
+    " \u00a78| \u00a7b[ " +
+    formatTime(streamElapsed(stream)) +
+    " / " +
+    total +
+    " ]"
+  );
 }
 
 function renderFeedAndStream(player, item) {
   const pairing = parsePairing(item);
   if (!pairing) {
-    stopPlayerAudio(player);
-    return PREFIX + "\u00a77Not paired. Sneak and use on a Jukebox with a disc.";
+    stopAudio(player);
+    return PREFIX + "\u00a77Not paired. Sneak and use on a Jukebox.";
   }
   let dimension;
   try {
     dimension = world.getDimension(pairing.dimension);
   } catch (error) {
-    stopPlayerAudio(player);
-    return PREFIX + "\u00a7cDisconnected. Jukebox dimension is unavailable.";
+    stopAudio(player);
+    return PREFIX + PAIRED + "\u00a7cJukebox dimension is unavailable.";
   }
   const location = { x: pairing.x, y: pairing.y, z: pairing.z };
   if (!dimension.isChunkLoaded(location)) {
-    resetSession(pairing.dimension, pairing.x, pairing.y, pairing.z);
-    stopPlayerAudio(player);
-    return PREFIX + "\u00a7cDisconnected. Jukebox chunk is not loaded.";
+    stopAudio(player);
+    return PREFIX + PAIRED + "\u00a7cJukebox is not loaded.";
   }
   const block = dimension.getBlock(location);
   if (!block || block.typeId !== JUKEBOX_ID) {
-    stopPlayerAudio(player);
-    return PREFIX + "\u00a7cDisconnected. Paired Jukebox no longer exists.";
+    stopAudio(player);
+    return PREFIX + PAIRED + "\u00a7cJukebox no longer exists.";
   }
   const status = readJukebox(block, pairing.dimension);
   if (status.state === "empty") {
-    stopPlayerAudio(player);
-    return PREFIX + "\u00a77Jukebox has no disc.";
+    stopAudio(player);
+    return PREFIX + PAIRED + "\u00a77Jukebox has no disc.";
   }
   if (status.state === "stopped") {
-    stopPlayerAudio(player);
-    return PREFIX + "\u00a77Jukebox is not playing. \u00a78| \u00a7e" + status.info.name;
+    const stream = streams.get(player.id);
+    if (stream && stream.total !== undefined && streamElapsed(stream) < stream.total) {
+      return nowPlaying(stream);
+    }
+    stopAudio(player);
+    return PREFIX + PAIRED + "\u00a77Waiting for the next track. \u00a78| \u00a7e" + status.info.name;
   }
   if (status.state !== "playing") {
-    stopPlayerAudio(player);
-    return PREFIX + "\u00a7cJukebox data unavailable.";
+    stopAudio(player);
+    return PREFIX + PAIRED + "\u00a7cJukebox data unavailable.";
   }
-
-  // Jukebox is actively playing: stream the music disc directly into the player's headphones
-  if (status.info.soundId) {
-    syncPlayerAudio(player, status.info.soundId);
+  const stream = ensureStream(player, status);
+  if (!stream) {
+    return PREFIX + PAIRED + "\u00a77Syncing...";
   }
-
-  const total = status.info.totalSeconds === undefined ? "--:--" : formatTime(status.info.totalSeconds);
-  return (
-    PREFIX +
-    "\u00a7fNow Playing: \u00a7e" +
-    status.info.name +
-    " \u00a78| \u00a7b[ " +
-    formatTime(status.elapsedSeconds) +
-    " / " +
-    total +
-    " ]"
-  );
+  return nowPlaying(stream);
 }
 
 system.runInterval(() => {
@@ -125,8 +135,10 @@ system.runInterval(() => {
         player.onScreenDisplay.setActionBar(renderFeedAndStream(player, head));
       } else if (listening.has(player.id)) {
         listening.delete(player.id);
-        stopPlayerAudio(player);
+        stopAudio(player);
         player.onScreenDisplay.setActionBar("");
+      } else if (player.hasTag(LISTEN_TAG)) {
+        player.removeTag(LISTEN_TAG);
       }
     } catch (error) {
       continue;
@@ -135,7 +147,7 @@ system.runInterval(() => {
   for (const id of listening) {
     if (!present.has(id)) {
       listening.delete(id);
-      playerAudioState.delete(id);
+      streams.delete(id);
     }
   }
 }, STREAM_INTERVAL_TICKS);

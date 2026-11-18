@@ -11,34 +11,34 @@
 
 ## Overview
 
-Craft the Wireless Headphones, hold them, and sneak while using a Jukebox that has a music disc inside. Put the headphones on your head: the music streams directly into your ears and the Action Bar shows the track and timer for as long as you wear them. Take them off and both the audio and display stop cleanly.
+Craft the Wireless Headphones, hold them, and sneak while using a Jukebox to pair them. The Jukebox goes quiet for everyone. Put the headphones on your head and the music plays only in your ears, with the track and timer on your Action Bar, for as long as you wear them. Take them off and the music stops.
 
 ## Key Features
 
 ### Wireless Headphones
 - **What Happens**: A helmet that stacks to 1 and goes in the head slot. It gives no armor protection.
 - **How It Works**: Craft it with 2 Iron Ingots, 1 Redstone Dust and 2 Leather. Row 1 is Iron Ingot, Redstone Dust, Iron Ingot. Row 2 is Leather, empty, Leather.
-- **Good To Know**: The recipe is unlocked from the start. The helmet has no worn model, so it appears only in the inventory and hand.
+- **Good To Know**: The recipe is unlocked from the start. The headphones show on your character's head while worn.
 
 ### Jukebox Pairing
-- **What Happens**: Sneak and use the headphones on a Jukebox that holds a music disc. A chime plays and the Action Bar confirms the pairing.
+- **What Happens**: Sneak and use the headphones on a Jukebox to pair them. A chime plays and the Action Bar confirms it. The Jukebox is muted for everyone.
 - **How It Works**: Hold the headphones, crouch, then use them on the Jukebox. The paired position is saved on that item and shown in its lore.
-- **Good To Know**: A Jukebox with no disc is refused. Pairing again overwrites the old link.
+- **Good To Know**: A Jukebox with no disc can be paired. Pairing again moves the link and unmutes the old Jukebox. Sneak and use the headphones on their paired Jukebox to unpair it.
 
 ### Live Audio & Action Bar Player
 - **What Happens**: While worn, the music disc audio streams straight to your headphones and the Action Bar shows the artist, title, elapsed time, and total duration.
 - **How It Works**: A paired Jukebox playing cat streams the track audio directly to you while displaying the track name and progress like 0:42 out of 3:05.
-- **Good To Know**: The stream requires the Jukebox chunk to remain loaded. If the chunk unloads, the headphones display Disconnected and stop playing audio. Total times are supported for all vanilla discs.
+- **Good To Know**: A paired Jukebox is kept loaded so the music can follow it from far away. The game limits how many areas can be kept loaded, so a Jukebox beyond that limit may show as not loaded when you are away. Total times are supported for all vanilla discs.
 
 ## How to Use
 
 1. Craft the Wireless Headphones at a Crafting Table.
-2. Hold them, sneak, and use them on a Jukebox that has a music disc.
+2. Hold them, sneak, and use them on a Jukebox. It goes quiet.
 3. Wear them in the helmet slot and watch the Action Bar for the track and timer.
 
 ## Common Questions
 
-- **Does the timer start from the beginning of the song?**: The timer starts when the Jukebox is seen playing. A disc started by a player counts from about the moment it began, and a disc that was already playing before pairing starts at 0:00.
+- **Does the timer start from the beginning of the song?**: The timer follows the audio in your ears. Putting the headphones on starts the current track from its beginning.
 - **What happens when I take the headphones off?**: The streamed music immediately stops and the Action Bar display clears. Put them back on to resume listening.
 
 ## Compatibility

@@ -6,6 +6,16 @@
 
 ---
 
+## [v116] - 2026-11-18 - Muted Jukebox & Worn Model
+
+### Added
+- **ALN Wireless Headphones**: Worn model, muted paired Jukebox, unpairing and long-distance listening.
+
+### Fixed
+- **ALN Wireless Headphones**: Pairing now works with a sneak and use on a Jukebox.
+
+---
+
 ## [v115] - 2026-11-18 - ALN MoreDiscs Vanilla Record Group Alignment
 
 ### Fixed

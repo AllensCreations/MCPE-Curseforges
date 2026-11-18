@@ -2,8 +2,11 @@ import { world, system } from "@minecraft/server";
 
 export const HEADPHONES_ID = "aln:headphones";
 export const PAIR_KEY = "aln_paired_jukebox";
+export const REGISTRY_KEY = "aln_hp_jukeboxes";
+export const LISTEN_TAG = "aln_hp_listening";
 export const JUKEBOX_ID = "minecraft:jukebox";
 export const PREFIX = "\u00a7d[\u266b HEADPHONES] ";
+export const MUTE_WINDOW_TICKS = 20;
 
 const DISCS = {
   "13": ["C418 - 13", 178],
@@ -103,9 +106,91 @@ export function readJukebox(block, dimensionId) {
   if (info.totalSeconds !== undefined) {
     elapsedSeconds = Math.min(elapsedSeconds, info.totalSeconds);
   }
-  return { state: "playing", info, elapsedSeconds };
+  return { state: "playing", info, elapsedSeconds, startTick: session.startTick };
 }
 
+export function parsePairing(item) {
+  const raw = item.getDynamicProperty(PAIR_KEY);
+  if (typeof raw !== "string") {
+    return undefined;
+  }
+  try {
+    const data = JSON.parse(raw);
+    if (
+      typeof data.x === "number" &&
+      typeof data.y === "number" &&
+      typeof data.z === "number" &&
+      typeof data.dimension === "string"
+    ) {
+      return data;
+    }
+  } catch (error) {
+    return undefined;
+  }
+  return undefined;
+}
+
+export function samePos(a, b) {
+  return a.x === b.x && a.y === b.y && a.z === b.z && a.dimension === b.dimension;
+}
+
+export function loadRegistry() {
+  const raw = world.getDynamicProperty(REGISTRY_KEY);
+  if (typeof raw !== "string") {
+    return [];
+  }
+  try {
+    const list = JSON.parse(raw);
+    return Array.isArray(list) ? list : [];
+  } catch (error) {
+    return [];
+  }
+}
+
+export function saveRegistry(list) {
+  world.setDynamicProperty(REGISTRY_KEY, JSON.stringify(list));
+}
+
+export function isRegistered(pos) {
+  return loadRegistry().some((entry) => samePos(entry, pos));
+}
+
+export function addToRegistry(pos) {
+  const list = loadRegistry();
+  if (!list.some((entry) => samePos(entry, pos))) {
+    list.push({ x: pos.x, y: pos.y, z: pos.z, dimension: pos.dimension });
+    saveRegistry(list);
+  }
+}
+
+export function removeFromRegistry(pos) {
+  saveRegistry(loadRegistry().filter((entry) => !samePos(entry, pos)));
+}
+
+function areaName(pos) {
+  const part = (n) => String(n).replace("-", "n");
+  return "alnhp_" + pos.dimension.replace("minecraft:", "") + "_" + part(pos.x) + "_" + part(pos.y) + "_" + part(pos.z);
+}
+
+export function keepLoaded(pos) {
+  try {
+    const dimension = world.getDimension(pos.dimension);
+    const result = dimension.runCommand(
+      "tickingarea add circle " + pos.x + " " + pos.y + " " + pos.z + " 1 " + areaName(pos)
+    );
+    return result.successCount > 0;
+  } catch (error) {
+    return false;
+  }
+}
+
+export function releaseLoaded(pos) {
+  try {
+    world.getDimension(pos.dimension).runCommand("tickingarea remove " + areaName(pos));
+  } catch (error) {
+    return;
+  }
+}
 
 world.afterEvents.playerInteractWithBlock.subscribe((event) => {
   const block = event.block;

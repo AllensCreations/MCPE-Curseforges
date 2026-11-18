@@ -2,6 +2,23 @@
 
 ---
 
+## [v5] - 2026-11-18 - Muted Jukebox & Worn Model
+
+### Added
+- **Worn Model**: The Wireless Headphones now show on your character's head.
+- **Muted Jukebox**: Pairing mutes the Jukebox for everyone. Only players wearing the headphones hear the music.
+- **Unpairing**: Sneak and use the headphones on their paired Jukebox again to unpair it and unmute it.
+
+### Improved & Balanced
+- **Long Distance**: A paired Jukebox now stays loaded, so the music follows it from far away.
+- **Paired Action Bar**: The Action Bar shows Paired while you wear the headphones, and the timer follows the audio you hear.
+- **Empty Jukebox Pairing**: You can pair a Jukebox that has no disc, which suits a playlist.
+
+### Fixed
+- **Pairing**: Sneak and use on a Jukebox now pairs the headphones instead of putting them on.
+
+---
+
 ## [v4] - 2026-11-18 - Headphones Item Fix
 
 ### Fixed
