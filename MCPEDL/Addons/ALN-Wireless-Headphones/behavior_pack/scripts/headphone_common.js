@@ -40,13 +40,19 @@ export function sessionKey(dimensionId, x, y, z) {
 }
 
 export function discInfo(typeId) {
-  const shortId = typeId.replace("minecraft:", "").replace(/^(music_disc_|record_)/, "");
-  const known = DISCS[shortId];
+  const vanilla = typeId.startsWith("minecraft:");
+  const shortId = typeId.replace(/^[^:]*:/, "").replace(/^(music_disc_|record_)/, "");
+  const known = vanilla ? DISCS[shortId] : undefined;
   const soundId = "record." + shortId;
   if (known) {
     return { name: known[0], totalSeconds: known[1], soundId };
   }
-  return { name: shortId.replace(/_/g, " "), totalSeconds: undefined, soundId };
+  const pretty = shortId
+    .split("_")
+    .filter((word) => word.length > 0)
+    .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+    .join(" ");
+  return { name: pretty || shortId, totalSeconds: undefined, soundId };
 }
 
 export function formatTime(totalSeconds) {

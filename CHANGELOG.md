@@ -6,6 +6,13 @@
 
 ---
 
+## [v117] - 2026-11-18 - Custom Disc Support
+
+### Added
+- **ALN Wireless Headphones**: Custom music discs from other add-ons now play through the headphones.
+
+---
+
 ## [v116] - 2026-11-18 - Muted Jukebox & Worn Model
 
 ### Added

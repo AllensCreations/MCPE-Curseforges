@@ -2,6 +2,13 @@
 
 ---
 
+## [v6] - 2026-11-18 - Custom Disc Support
+
+### Added
+- **Custom Discs**: Music discs from other add-ons now play through the headphones when the disc item is named <namespace>:music_disc_<name> and its sound is record.<name>. Their total time shows as --:--.
+
+---
+
 ## [v5] - 2026-11-18 - Muted Jukebox & Worn Model
 
 ### Added
