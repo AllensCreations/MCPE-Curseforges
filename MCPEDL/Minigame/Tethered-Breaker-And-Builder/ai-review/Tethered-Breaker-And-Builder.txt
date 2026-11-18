@@ -39,10 +39,6 @@
 ---
 
 
-
----
-
-
 <!-- GRAPH-CONTEXT:START -->
 ## Graph Context
 
@@ -395,20 +391,20 @@ Videos and streams are welcome with credit. Redistribution of original or modifi
 scriptevent allenscreations:end
 ```
 
-## FILE: MCPEDL/Minigame/Tethered-Breaker-And-Builder/behavior_pack/functions/give_controller.mcfunction (2 lines, 35 bytes)
+## FILE: MCPEDL/Minigame/Tethered-Breaker-And-Builder/behavior_pack/functions/give_controller.mcfunction (2 lines, 32 bytes)
 
 ```
-give @s allenscreations:controller
+give @s aln:minigame_controller
 ```
 
-## FILE: MCPEDL/Minigame/Tethered-Breaker-And-Builder/behavior_pack/items/controller.json (28 lines, 629 bytes)
+## FILE: MCPEDL/Minigame/Tethered-Breaker-And-Builder/behavior_pack/items/controller.json (28 lines, 626 bytes)
 
 ```
 {
   "format_version": "1.26.40",
   "minecraft:item": {
     "description": {
-      "identifier": "allenscreations:controller",
+      "identifier": "aln:minigame_controller",
       "menu_category": {
         "category": "items"
       }
@@ -495,13 +491,13 @@ give @s allenscreations:controller
 }
 ```
 
-## FILE: MCPEDL/Minigame/Tethered-Breaker-And-Builder/behavior_pack/scripts/controller.js (153 lines, 4356 bytes)
+## FILE: MCPEDL/Minigame/Tethered-Breaker-And-Builder/behavior_pack/scripts/controller.js (153 lines, 4353 bytes)
 
 ```
 import { world, system, ItemStack, EntityComponentTypes, GameMode } from "@minecraft/server";
 import { ActionFormData, FormCancelationReason } from "@minecraft/server-ui";
 
-const CONTROLLER_ID = "allenscreations:controller";
+const CONTROLLER_ID = "aln:minigame_controller";
 const STATE_KEY = "game_state";
 const OPERATOR_LEVEL = 2;
 

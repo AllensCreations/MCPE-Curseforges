@@ -64,10 +64,6 @@
 > _Auto-generated from graphify-out/graph.json — do not edit manually._
 <!-- GRAPH-CONTEXT:END -->
 
-
-
-
-
 # Pack Tools and Instructions
 
 ## Index

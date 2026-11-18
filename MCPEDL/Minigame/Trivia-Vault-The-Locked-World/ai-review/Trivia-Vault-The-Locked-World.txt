@@ -40,10 +40,6 @@
 ---
 
 
-
----
-
-
 <!-- GRAPH-CONTEXT:START -->
 ## Graph Context
 
@@ -382,20 +378,20 @@ Videos and streams are welcome with credit. Redistribution of original or modifi
 scriptevent allenscreations:end
 ```
 
-## FILE: MCPEDL/Minigame/Trivia-Vault-The-Locked-World/behavior_pack/functions/give_controller.mcfunction (2 lines, 35 bytes)
+## FILE: MCPEDL/Minigame/Trivia-Vault-The-Locked-World/behavior_pack/functions/give_controller.mcfunction (2 lines, 32 bytes)
 
 ```
-give @s allenscreations:controller
+give @s aln:minigame_controller
 ```
 
-## FILE: MCPEDL/Minigame/Trivia-Vault-The-Locked-World/behavior_pack/items/controller.json (28 lines, 628 bytes)
+## FILE: MCPEDL/Minigame/Trivia-Vault-The-Locked-World/behavior_pack/items/controller.json (28 lines, 625 bytes)
 
 ```
 {
   "format_version": "1.26.0",
   "minecraft:item": {
     "description": {
-      "identifier": "allenscreations:controller",
+      "identifier": "aln:minigame_controller",
       "menu_category": {
         "category": "items"
       }
@@ -503,13 +499,13 @@ give @s allenscreations:controller
 export const CONSEQUENCES = [{"kind":"hotbar","message":"A randomly selected hotbar item is destroyed."},{"kind":"anvil","message":"An anvil hazard appears overhead."},{"kind":"creepers","message":"Ten hostile creepers spawn nearby. Escape immediately."},{"kind":"damage","message":"The vault deals a brutal burst of damage."},{"kind":"hunger","message":"The vault drains your hunger."},{"kind":"poison","message":"A poison effect takes hold."},{"kind":"weakness","message":"Your strength is sapped."},{"kind":"slowness","message":"Your movement slows sharply."},{"kind":"blindness","message":"Darkness clouds your vision."},{"kind":"fire","message":"You are set ablaze."},{"kind":"lightning","message":"Lightning strikes near you."},{"kind":"teleport","message":"The vault displaces you nearby."},{"kind":"xp","message":"You lose some experience."},{"kind":"drop","message":"A randomly selected inventory stack is lost from your inventory."},{"kind":"phantoms","message":"Three phantoms attack from above."},{"kind":"spiders","message":"A pack of five hostile spiders attacks."},{"kind":"skeletons","message":"Five skeletons spawn nearby and attack."},{"kind":"zombies","message":"Five zombies spawn nearby and attack."},{"kind":"silverfish","message":"A swarm of eight silverfish attacks."},{"kind":"slimes","message":"Four hostile slimes spawn nearby."},{"kind":"hunger","message":"Your hunger is drained again."},{"kind":"damage","message":"The vault deals a brutal burst of damage."},{"kind":"hotbar","message":"A randomly selected hotbar item is destroyed."},{"kind":"anvil","message":"An anvil hazard appears overhead."},{"kind":"creepers","message":"Ten hostile creepers spawn nearby. Escape immediately."},{"kind":"poison","message":"A stronger poison effect takes hold."},{"kind":"weakness","message":"Your attack power is weakened."},{"kind":"slowness","message":"Your legs feel heavy."},{"kind":"fire","message":"Flames surround your position."},{"kind":"lightning","message":"A second lightning strike lands nearby."},{"kind":"teleport","message":"You are displaced to another nearby spot."},{"kind":"xp","message":"Your stored experience is reduced."},{"kind":"drop","message":"A randomly selected inventory stack is lost from your inventory."},{"kind":"phantoms","message":"Three phantoms attack from above."},{"kind":"spiders","message":"A pack of five hostile spiders attacks."},{"kind":"skeletons","message":"Five skeletons spawn nearby and attack."},{"kind":"zombies","message":"Five zombies spawn nearby and attack."},{"kind":"silverfish","message":"A swarm of eight silverfish attacks."},{"kind":"slimes","message":"Four hostile slimes spawn nearby."},{"kind":"damage","message":"The vault deals a brutal burst of damage."},{"kind":"hotbar","message":"A randomly selected hotbar item is destroyed."},{"kind":"anvil","message":"An anvil hazard appears overhead."},{"kind":"creepers","message":"Ten hostile creepers spawn nearby. Escape immediately."},{"kind":"poison","message":"Poison weakens you again."},{"kind":"hunger","message":"Your hunger meter drops again."},{"kind":"fire","message":"You burn for longer."},{"kind":"lightning","message":"Lightning flashes beside you."},{"kind":"drop","message":"A randomly selected inventory stack is lost from your inventory."},{"kind":"teleport","message":"You are shoved away from your position."},{"kind":"damage","message":"The vault deals a brutal burst of damage."},{"kind":"blocks_radius","message":"The block type you tried to mine disappears within a 20-block radius."}];
 ```
 
-## FILE: MCPEDL/Minigame/Trivia-Vault-The-Locked-World/behavior_pack/scripts/controller.js (181 lines, 5238 bytes)
+## FILE: MCPEDL/Minigame/Trivia-Vault-The-Locked-World/behavior_pack/scripts/controller.js (181 lines, 5235 bytes)
 
 ```
 import { world, system, ItemStack, EntityComponentTypes, GameMode } from "@minecraft/server";
 import { ActionFormData, FormCancelationReason } from "@minecraft/server-ui";
 
-const CONTROLLER_ID = "allenscreations:controller";
+const CONTROLLER_ID = "aln:minigame_controller";
 const STATE_KEY = "game_state";
 const OPERATOR_LEVEL = 2;
 
