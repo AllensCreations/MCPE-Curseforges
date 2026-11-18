@@ -1,17 +1,27 @@
 # Changelog — 2-in-1 Loot & XP Booster
 
-## [v2] - 2026-11-17
+## [3.0.0] - 2026-11-18 - Stick Activation for Booster Menu
 
-### Fixed
+### Improved & Balanced
+- **Normal Stick Activation**: Replaced the anvil-renamed book requirement with an immediate normal Stick trigger, allowing players to open the booster panel instantly using any standard vanilla Stick.
+
+<details>
+<summary><b>2.0.x</b> (1 release)</summary>
+
+### [v2] - 2026-11-17
+
+#### Fixed
 - **Bone meal crops**: Crops sped up with bone meal are no longer multiplied when broken.
 - **Nearby items left alone**: Only items that drop the instant you break a block or kill a mob are multiplied, so items thrown or dropped nearby a moment earlier or later are no longer multiplied.
 - **Fully grown crops only**: Wheat, carrots, potatoes, beetroot, nether wart and sweet berries are multiplied only when fully grown, so replanting and breaking young crops no longer gives free items.
 - **Carrier mobs skipped**: Donkeys, mules, llamas, allays, foxes and villagers no longer multiply the items they carry when killed.
 
-### Improved & Balanced
+#### Improved & Balanced
 - **No place-and-break farming**: Ancient debris, melons, glowstone and sea lanterns are no longer multiplied, because they drop themselves or can be crafted back into the same block.
 - **Lighter XP checks**: The XP booster now works out which player an orb belongs to once per pass and no longer moves orbs that are already next to you, which reduces lag in busy XP farms.
 - **Item tracking limit**: The Loot booster stops tracking new item drops once a very large number are waiting, which protects busy servers.
+
+</details>
 
 <details>
 <summary><b>1.0.x</b> (9 releases)</summary>

@@ -16,7 +16,7 @@ Generated file. Do not edit by hand: it is rebuilt with every build.
 
 | Pack | Version | Source | AI review |
 | :-- | :-- | :-- | :-- |
-| **2-in-1 Loot & XP Booster** | 1.0.13 | [Source](Addons/2-in-1-Loot--XP-Booster) | [Download](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/MCPEDL/Addons/2-in-1-Loot--XP-Booster/ai-review/2-in-1-Loot--XP-Booster.txt) |
+| **2-in-1 Loot & XP Booster** | 3.0.0 | [Source](Addons/2-in-1-Loot--XP-Booster) | [Download](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/MCPEDL/Addons/2-in-1-Loot--XP-Booster/ai-review/2-in-1-Loot--XP-Booster.txt) |
 | **ALN MoreDiscs** | 1.1.0 | [Source](Addons/ALN-MoreDiscs) | [Download](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/MCPEDL/Addons/ALN-MoreDiscs/ai-review/ALN-MoreDiscs.txt) |
 | **ALN Pointer** | - | [Source](Addons/ALN-Pointer) | [Download](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/MCPEDL/Addons/ALN-Pointer/ai-review/ALN-Pointer.txt) |
 | **ALN Quiver** | - | [Source](Addons/ALN-Quiver) | [Download](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/MCPEDL/Addons/ALN-Quiver/ai-review/ALN-Quiver.txt) |
