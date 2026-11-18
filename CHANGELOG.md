@@ -5,6 +5,11 @@
 
 ---
 
+## [v118] - 2026-11-18 - MCPEDL AI Review Revert & Vanilla Reference Link
+
+- **MCPEDL Catalog & AI Review**: Reverted back to single `.txt` exports for AI reviews in `MCPEDL/README.md`, removing `.zip` bundle generation.
+- **Vanilla Reference in Kits Table**: Added `Vanilla Bedrock Reference (JSON.gz)` to the AI Review Kits table in `MCPEDL/README.md` via `scripts/build_mcpedl_readme.py` and updated `scripts/collect_ai_review.py` instructions with the direct download URL for external AI agents.
+
 ## [v114] - 2026-11-18 - ALN Wireless Headphones Music Follows You
 
 ### Fixed

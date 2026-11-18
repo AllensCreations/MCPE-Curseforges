@@ -25,6 +25,7 @@ AI_KITS = (
     ("New Pack Kit", "ai-review/New-Pack_tools.txt"),
     ("Update Pack Kit", "ai-review/Update-Pack_tools.txt"),
     ("Repo Maintenance Kit", "ai-review/tools.txt"),
+    ("Vanilla Bedrock Reference (JSON.gz)", "reference/bedrock-samples/bedrock-samples.min.json.gz"),
 )
 HEADER = (
     "# MCPEDL Catalog\n\n"
