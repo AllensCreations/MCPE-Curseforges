@@ -1,12 +1,23 @@
 # Changelog — ALN MoreDiscs
 
-## [v2] - 2026-11-17 - Disc Group
+## [v3] - 2026-11-18 - Headphones Disc Names
 
-### Added
+### Improved & Balanced
+- **Headphones Naming**: All ten discs now use the music disc naming that ALN Wireless Headphones expects.
+- **Craft Again**: Discs from earlier versions in existing worlds no longer work and must be crafted again.
+
+<details>
+<summary><b>2.0.x</b> (1 release)</summary>
+
+### [v2] - 2026-11-17 - Disc Group
+
+#### Added
 - **Creative Group**: All ten discs now sit together in their own ALN MoreDiscs group in the Items tab of the creative inventory.
 
-### Fixed
+#### Fixed
 - **Disc Group**: The discs now use their own group name instead of the vanilla music disc group name.
+
+</details>
 
 <details>
 <summary><b>1.1.x</b> (1 release)</summary>

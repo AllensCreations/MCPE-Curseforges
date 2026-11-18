@@ -4,7 +4,7 @@
 
 - **Export request:** `MCPEDL/Addons/ALN-MoreDiscs`
 - **Destination:** `MCPEDL/Addons/ALN-MoreDiscs`
-- **CURRENT VERSION: v2 / NEXT UPDATE: v3**  (`MCPEDL/Addons/ALN-MoreDiscs/CHANGELOG.md`)
+- **CURRENT VERSION: v3 / NEXT UPDATE: v4**  (`MCPEDL/Addons/ALN-MoreDiscs/CHANGELOG.md`)
 - **Text files:** 45
 - **Skipped binary:** 30
 - **Paths not found:** 0
@@ -89,30 +89,6 @@
 - `MCPEDL/Addons/ALN-MoreDiscs/resource_pack/textures/items/aln_disc_7.png`
 - `MCPEDL/Addons/ALN-MoreDiscs/resource_pack/textures/items/aln_disc_8.png`
 - `MCPEDL/Addons/ALN-MoreDiscs/resource_pack/textures/items/aln_disc_9.png`
-
----
-
-
-
----
-
-
-
----
-
-
-
----
-
-
-
----
-
-
-
----
-
-
 
 ---
 
@@ -292,26 +268,38 @@ git config --global credential.helper store
 
 ## File Contents
 
-## FILE: changelog_views/ALN-MoreDiscs.curseforge.html (4 lines, 1771 bytes)
+## FILE: changelog_views/ALN-MoreDiscs.curseforge.html (5 lines, 2167 bytes)
 
 ```
-<h2>v2 - 2026-11-17 - Disc Group</h2><h3>Added</h3><ul><li><strong>Creative Group</strong>: All ten discs now sit together in their own ALN MoreDiscs group in the Items tab of the creative inventory.</li></ul><h3>Fixed</h3><ul><li><strong>Disc Group</strong>: The discs now use their own group name instead of the vanilla music disc group name.</li></ul>
+<h2>v3 - 2026-11-18 - Headphones Disc Names</h2><h3>Improved &amp; Balanced</h3><ul><li><strong>Headphones Naming</strong>: All ten discs now use the music disc naming that ALN Wireless Headphones expects.</li><li><strong>Craft Again</strong>: Discs from earlier versions in existing worlds no longer work and must be crafted again.</li></ul>
+<h2>2.0.x (1 release)</h2><div class="spoiler"><h3>v2 - 2026-11-17 - Disc Group</h3><h4>Added</h4><ul><li><strong>Creative Group</strong>: All ten discs now sit together in their own ALN MoreDiscs group in the Items tab of the creative inventory.</li></ul><h4>Fixed</h4><ul><li><strong>Disc Group</strong>: The discs now use their own group name instead of the vanilla music disc group name.</li></ul></div>
 <h2>1.1.x (1 release)</h2><div class="spoiler"><h3>1.1.0 - 2026-11-16 - Ten Discs</h3><h4>Added</h4><ul><li><strong>Five New Discs</strong>: Track 6 Midnight Drive, Track 7 Sunlit Meadow, Track 8 Deepslate Echoes, Track 9 Pixel Parade and Track 10 Golden Hour, each an original track.</li><li><strong>New Recipes</strong>: The new discs use the same recipe layout with Iron Ingot, Gold Ingot, Emerald, Nether Quartz or Blaze Powder as the accent item.</li></ul><h4>Improved &amp; Balanced</h4><ul><li><strong>Disc Icons</strong>: All ten discs now use a tilted vanilla-style disc icon with a label color of their own.</li></ul></div>
 <h2>1.0.x (1 release)</h2><div class="spoiler"><h3>1.0.0 - 2026-11-16 - First Release</h3><h4>Added</h4><ul><li><strong>Five Music Discs</strong>: Track 1 Neon Horizon, Track 2 Ember Lantern, Track 3 Quiet Tides, Track 4 Crystal Caverns and Track 5 Starlight Express, each an original track.</li><li><strong>Survival Recipes</strong>: Each disc is crafted from Paper, Coal, Flint, a Note Block and one accent item, and all recipes are unlocked from the start.</li><li><strong>Jukebox Playback</strong>: Use a disc on a Jukebox to play it, use it again to take the disc out, and see note particles while it plays.</li><li><strong>Headphones Announcements</strong>: Starting and stopping a disc announces the track number, name and length for ALN Wireless Headphones.</li></ul></div>
 ```
 
-## FILE: changelog_views/ALN-MoreDiscs.github.md (37 lines, 1590 bytes)
+## FILE: changelog_views/ALN-MoreDiscs.github.md (48 lines, 1946 bytes)
 
 ```
 # Changelog — ALN MoreDiscs
 
-## [v2] - 2026-11-17 - Disc Group
+## [v3] - 2026-11-18 - Headphones Disc Names
 
-### Added
+### Improved & Balanced
+- **Headphones Naming**: All ten discs now use the music disc naming that ALN Wireless Headphones expects.
+- **Craft Again**: Discs from earlier versions in existing worlds no longer work and must be crafted again.
+
+<details>
+<summary><b>2.0.x</b> (1 release)</summary>
+
+### [v2] - 2026-11-17 - Disc Group
+
+#### Added
 - **Creative Group**: All ten discs now sit together in their own ALN MoreDiscs group in the Items tab of the creative inventory.
 
-### Fixed
+#### Fixed
 - **Disc Group**: The discs now use their own group name instead of the vanilla music disc group name.
+
+</details>
 
 <details>
 <summary><b>1.1.x</b> (1 release)</summary>
@@ -359,7 +347,7 @@ git config --global credential.helper store
 
 ```
 
-## FILE: MCPEDL/Addons/ALN-MoreDiscs/behavior_pack/item_catalog/crafting_item_catalog.json (31 lines, 667 bytes)
+## FILE: MCPEDL/Addons/ALN-MoreDiscs/behavior_pack/item_catalog/crafting_item_catalog.json (31 lines, 867 bytes)
 
 ```
 {
@@ -371,20 +359,20 @@ git config --global credential.helper store
         "groups": [
           {
             "group_identifier": {
-              "icon": "aln:disc_1",
+              "icon": "aln:music_disc_neon_horizon",
               "name": "minecraft:itemGroup.name.record"
             },
             "items": [
-              "aln:disc_1",
-              "aln:disc_2",
-              "aln:disc_3",
-              "aln:disc_4",
-              "aln:disc_5",
-              "aln:disc_6",
-              "aln:disc_7",
-              "aln:disc_8",
-              "aln:disc_9",
-              "aln:disc_10"
+              "aln:music_disc_neon_horizon",
+              "aln:music_disc_ember_lantern",
+              "aln:music_disc_quiet_tides",
+              "aln:music_disc_crystal_caverns",
+              "aln:music_disc_starlight_express",
+              "aln:music_disc_midnight_drive",
+              "aln:music_disc_sunlit_meadow",
+              "aln:music_disc_deepslate_echoes",
+              "aln:music_disc_pixel_parade",
+              "aln:music_disc_golden_hour"
             ]
           }
         ]
@@ -394,14 +382,14 @@ git config --global credential.helper store
 }
 ```
 
-## FILE: MCPEDL/Addons/ALN-MoreDiscs/behavior_pack/items/disc_1.json (29 lines, 614 bytes)
+## FILE: MCPEDL/Addons/ALN-MoreDiscs/behavior_pack/items/disc_1.json (29 lines, 649 bytes)
 
 ```
 {
   "format_version": "1.21.50",
   "minecraft:item": {
     "description": {
-      "identifier": "aln:disc_1",
+      "identifier": "aln:music_disc_neon_horizon",
       "menu_category": {
         "category": "items",
         "group": "minecraft:itemGroup.name.record"
@@ -414,27 +402,27 @@ git config --global credential.helper store
         }
       },
       "minecraft:display_name": {
-        "value": "item.aln:disc_1"
+        "value": "item.aln:music_disc_neon_horizon"
       },
       "minecraft:max_stack_size": 1,
       "minecraft:record": {
         "comparator_signal": 3,
         "duration": 76,
-        "sound_event": "record.aln_track_1"
+        "sound_event": "record.neon_horizon"
       }
     }
   }
 }
 ```
 
-## FILE: MCPEDL/Addons/ALN-MoreDiscs/behavior_pack/items/disc_10.json (29 lines, 619 bytes)
+## FILE: MCPEDL/Addons/ALN-MoreDiscs/behavior_pack/items/disc_10.json (29 lines, 648 bytes)
 
 ```
 {
   "format_version": "1.21.50",
   "minecraft:item": {
     "description": {
-      "identifier": "aln:disc_10",
+      "identifier": "aln:music_disc_golden_hour",
       "menu_category": {
         "category": "items",
         "group": "minecraft:itemGroup.name.record"
@@ -447,27 +435,27 @@ git config --global credential.helper store
         }
       },
       "minecraft:display_name": {
-        "value": "item.aln:disc_10"
+        "value": "item.aln:music_disc_golden_hour"
       },
       "minecraft:max_stack_size": 1,
       "minecraft:record": {
         "comparator_signal": 12,
         "duration": 84,
-        "sound_event": "record.aln_track_10"
+        "sound_event": "record.golden_hour"
       }
     }
   }
 }
 ```
 
-## FILE: MCPEDL/Addons/ALN-MoreDiscs/behavior_pack/items/disc_2.json (29 lines, 614 bytes)
+## FILE: MCPEDL/Addons/ALN-MoreDiscs/behavior_pack/items/disc_2.json (29 lines, 652 bytes)
 
 ```
 {
   "format_version": "1.21.50",
   "minecraft:item": {
     "description": {
-      "identifier": "aln:disc_2",
+      "identifier": "aln:music_disc_ember_lantern",
       "menu_category": {
         "category": "items",
         "group": "minecraft:itemGroup.name.record"
@@ -480,27 +468,27 @@ git config --global credential.helper store
         }
       },
       "minecraft:display_name": {
-        "value": "item.aln:disc_2"
+        "value": "item.aln:music_disc_ember_lantern"
       },
       "minecraft:max_stack_size": 1,
       "minecraft:record": {
         "comparator_signal": 4,
         "duration": 82,
-        "sound_event": "record.aln_track_2"
+        "sound_event": "record.ember_lantern"
       }
     }
   }
 }
 ```
 
-## FILE: MCPEDL/Addons/ALN-MoreDiscs/behavior_pack/items/disc_3.json (29 lines, 614 bytes)
+## FILE: MCPEDL/Addons/ALN-MoreDiscs/behavior_pack/items/disc_3.json (29 lines, 646 bytes)
 
 ```
 {
   "format_version": "1.21.50",
   "minecraft:item": {
     "description": {
-      "identifier": "aln:disc_3",
+      "identifier": "aln:music_disc_quiet_tides",
       "menu_category": {
         "category": "items",
         "group": "minecraft:itemGroup.name.record"
@@ -513,27 +501,27 @@ git config --global credential.helper store
         }
       },
       "minecraft:display_name": {
-        "value": "item.aln:disc_3"
+        "value": "item.aln:music_disc_quiet_tides"
       },
       "minecraft:max_stack_size": 1,
       "minecraft:record": {
         "comparator_signal": 5,
         "duration": 85,
-        "sound_event": "record.aln_track_3"
+        "sound_event": "record.quiet_tides"
       }
     }
   }
 }
 ```
 
-## FILE: MCPEDL/Addons/ALN-MoreDiscs/behavior_pack/items/disc_4.json (29 lines, 614 bytes)
+## FILE: MCPEDL/Addons/ALN-MoreDiscs/behavior_pack/items/disc_4.json (29 lines, 658 bytes)
 
 ```
 {
   "format_version": "1.21.50",
   "minecraft:item": {
     "description": {
-      "identifier": "aln:disc_4",
+      "identifier": "aln:music_disc_crystal_caverns",
       "menu_category": {
         "category": "items",
         "group": "minecraft:itemGroup.name.record"
@@ -546,27 +534,27 @@ git config --global credential.helper store
         }
       },
       "minecraft:display_name": {
-        "value": "item.aln:disc_4"
+        "value": "item.aln:music_disc_crystal_caverns"
       },
       "minecraft:max_stack_size": 1,
       "minecraft:record": {
         "comparator_signal": 6,
         "duration": 58,
-        "sound_event": "record.aln_track_4"
+        "sound_event": "record.crystal_caverns"
       }
     }
   }
 }
 ```
 
-## FILE: MCPEDL/Addons/ALN-MoreDiscs/behavior_pack/items/disc_5.json (29 lines, 614 bytes)
+## FILE: MCPEDL/Addons/ALN-MoreDiscs/behavior_pack/items/disc_5.json (29 lines, 664 bytes)
 
 ```
 {
   "format_version": "1.21.50",
   "minecraft:item": {
     "description": {
-      "identifier": "aln:disc_5",
+      "identifier": "aln:music_disc_starlight_express",
       "menu_category": {
         "category": "items",
         "group": "minecraft:itemGroup.name.record"
@@ -579,27 +567,27 @@ git config --global credential.helper store
         }
       },
       "minecraft:display_name": {
-        "value": "item.aln:disc_5"
+        "value": "item.aln:music_disc_starlight_express"
       },
       "minecraft:max_stack_size": 1,
       "minecraft:record": {
         "comparator_signal": 7,
         "duration": 70,
-        "sound_event": "record.aln_track_5"
+        "sound_event": "record.starlight_express"
       }
     }
   }
 }
 ```
 
-## FILE: MCPEDL/Addons/ALN-MoreDiscs/behavior_pack/items/disc_6.json (29 lines, 614 bytes)
+## FILE: MCPEDL/Addons/ALN-MoreDiscs/behavior_pack/items/disc_6.json (29 lines, 655 bytes)
 
 ```
 {
   "format_version": "1.21.50",
   "minecraft:item": {
     "description": {
-      "identifier": "aln:disc_6",
+      "identifier": "aln:music_disc_midnight_drive",
       "menu_category": {
         "category": "items",
         "group": "minecraft:itemGroup.name.record"
@@ -612,27 +600,27 @@ git config --global credential.helper store
         }
       },
       "minecraft:display_name": {
-        "value": "item.aln:disc_6"
+        "value": "item.aln:music_disc_midnight_drive"
       },
       "minecraft:max_stack_size": 1,
       "minecraft:record": {
         "comparator_signal": 8,
         "duration": 75,
-        "sound_event": "record.aln_track_6"
+        "sound_event": "record.midnight_drive"
       }
     }
   }
 }
 ```
 
-## FILE: MCPEDL/Addons/ALN-MoreDiscs/behavior_pack/items/disc_7.json (29 lines, 614 bytes)
+## FILE: MCPEDL/Addons/ALN-MoreDiscs/behavior_pack/items/disc_7.json (29 lines, 652 bytes)
 
 ```
 {
   "format_version": "1.21.50",
   "minecraft:item": {
     "description": {
-      "identifier": "aln:disc_7",
+      "identifier": "aln:music_disc_sunlit_meadow",
       "menu_category": {
         "category": "items",
         "group": "minecraft:itemGroup.name.record"
@@ -645,27 +633,27 @@ git config --global credential.helper store
         }
       },
       "minecraft:display_name": {
-        "value": "item.aln:disc_7"
+        "value": "item.aln:music_disc_sunlit_meadow"
       },
       "minecraft:max_stack_size": 1,
       "minecraft:record": {
         "comparator_signal": 9,
         "duration": 55,
-        "sound_event": "record.aln_track_7"
+        "sound_event": "record.sunlit_meadow"
       }
     }
   }
 }
 ```
 
-## FILE: MCPEDL/Addons/ALN-MoreDiscs/behavior_pack/items/disc_8.json (29 lines, 615 bytes)
+## FILE: MCPEDL/Addons/ALN-MoreDiscs/behavior_pack/items/disc_8.json (29 lines, 662 bytes)
 
 ```
 {
   "format_version": "1.21.50",
   "minecraft:item": {
     "description": {
-      "identifier": "aln:disc_8",
+      "identifier": "aln:music_disc_deepslate_echoes",
       "menu_category": {
         "category": "items",
         "group": "minecraft:itemGroup.name.record"
@@ -678,27 +666,27 @@ git config --global credential.helper store
         }
       },
       "minecraft:display_name": {
-        "value": "item.aln:disc_8"
+        "value": "item.aln:music_disc_deepslate_echoes"
       },
       "minecraft:max_stack_size": 1,
       "minecraft:record": {
         "comparator_signal": 10,
         "duration": 85,
-        "sound_event": "record.aln_track_8"
+        "sound_event": "record.deepslate_echoes"
       }
     }
   }
 }
 ```
 
-## FILE: MCPEDL/Addons/ALN-MoreDiscs/behavior_pack/items/disc_9.json (29 lines, 615 bytes)
+## FILE: MCPEDL/Addons/ALN-MoreDiscs/behavior_pack/items/disc_9.json (29 lines, 650 bytes)
 
 ```
 {
   "format_version": "1.21.50",
   "minecraft:item": {
     "description": {
-      "identifier": "aln:disc_9",
+      "identifier": "aln:music_disc_pixel_parade",
       "menu_category": {
         "category": "items",
         "group": "minecraft:itemGroup.name.record"
@@ -711,13 +699,13 @@ git config --global credential.helper store
         }
       },
       "minecraft:display_name": {
-        "value": "item.aln:disc_9"
+        "value": "item.aln:music_disc_pixel_parade"
       },
       "minecraft:max_stack_size": 1,
       "minecraft:record": {
         "comparator_signal": 11,
         "duration": 71,
-        "sound_event": "record.aln_track_9"
+        "sound_event": "record.pixel_parade"
       }
     }
   }
@@ -739,11 +727,11 @@ This marker does not encrypt the pack or prevent extraction or editing.
 {
   "format_version": 2,
   "header": {
-    "name": "ALN MoreDiscs (v2)",
+    "name": "ALN MoreDiscs (v3)",
     "description": "ALN:MoreDiscs by ALNStudios: Adds 10 custom music discs for Jukeboxes & Wireless Headphones. Create custom personal packs at: https://alnstudios-more-discs.vercel.app",
     "uuid": "96a63a52-ef96-468f-ae36-b6d52dd57ac2",
     "version": [
-      2,
+      3,
       0,
       0
     ],
@@ -760,7 +748,7 @@ This marker does not encrypt the pack or prevent extraction or editing.
       "uuid": "9bea39e7-1e66-4072-9b33-cb0a6338ba6c",
       "entry": "scripts/main.js",
       "version": [
-        2,
+        3,
         0,
         0
       ]
@@ -770,7 +758,7 @@ This marker does not encrypt the pack or prevent extraction or editing.
     {
       "uuid": "428fa8bb-b2df-4222-a02f-609c97cc967e",
       "version": [
-        2,
+        3,
         0,
         0
       ]
@@ -785,19 +773,19 @@ This marker does not encrypt the pack or prevent extraction or editing.
       "ALNStudios"
     ],
     "product_type": "addon",
-    "version": "2.0.0"
+    "version": "3.0.0"
   }
 }
 ```
 
-## FILE: MCPEDL/Addons/ALN-MoreDiscs/behavior_pack/recipes/disc_1.json (41 lines, 673 bytes)
+## FILE: MCPEDL/Addons/ALN-MoreDiscs/behavior_pack/recipes/disc_1.json (41 lines, 707 bytes)
 
 ```
 {
   "format_version": "1.21.50",
   "minecraft:recipe_shaped": {
     "description": {
-      "identifier": "aln:disc_1_recipe"
+      "identifier": "aln:music_disc_neon_horizon_recipe"
     },
     "tags": [
       "crafting_table"
@@ -825,7 +813,7 @@ This marker does not encrypt the pack or prevent extraction or editing.
       }
     },
     "result": {
-      "item": "aln:disc_1",
+      "item": "aln:music_disc_neon_horizon",
       "count": 1
     },
     "unlock": {
@@ -835,14 +823,14 @@ This marker does not encrypt the pack or prevent extraction or editing.
 }
 ```
 
-## FILE: MCPEDL/Addons/ALN-MoreDiscs/behavior_pack/recipes/disc_10.json (41 lines, 679 bytes)
+## FILE: MCPEDL/Addons/ALN-MoreDiscs/behavior_pack/recipes/disc_10.json (41 lines, 709 bytes)
 
 ```
 {
   "format_version": "1.21.50",
   "minecraft:recipe_shaped": {
     "description": {
-      "identifier": "aln:disc_10_recipe"
+      "identifier": "aln:music_disc_golden_hour_recipe"
     },
     "tags": [
       "crafting_table"
@@ -870,7 +858,7 @@ This marker does not encrypt the pack or prevent extraction or editing.
       }
     },
     "result": {
-      "item": "aln:disc_10",
+      "item": "aln:music_disc_golden_hour",
       "count": 1
     },
     "unlock": {
@@ -880,14 +868,14 @@ This marker does not encrypt the pack or prevent extraction or editing.
 }
 ```
 
-## FILE: MCPEDL/Addons/ALN-MoreDiscs/behavior_pack/recipes/disc_2.json (41 lines, 677 bytes)
+## FILE: MCPEDL/Addons/ALN-MoreDiscs/behavior_pack/recipes/disc_2.json (41 lines, 713 bytes)
 
 ```
 {
   "format_version": "1.21.50",
   "minecraft:recipe_shaped": {
     "description": {
-      "identifier": "aln:disc_2_recipe"
+      "identifier": "aln:music_disc_ember_lantern_recipe"
     },
     "tags": [
       "crafting_table"
@@ -915,7 +903,7 @@ This marker does not encrypt the pack or prevent extraction or editing.
       }
     },
     "result": {
-      "item": "aln:disc_2",
+      "item": "aln:music_disc_ember_lantern",
       "count": 1
     },
     "unlock": {
@@ -925,14 +913,14 @@ This marker does not encrypt the pack or prevent extraction or editing.
 }
 ```
 
-## FILE: MCPEDL/Addons/ALN-MoreDiscs/behavior_pack/recipes/disc_3.json (41 lines, 679 bytes)
+## FILE: MCPEDL/Addons/ALN-MoreDiscs/behavior_pack/recipes/disc_3.json (41 lines, 711 bytes)
 
 ```
 {
   "format_version": "1.21.50",
   "minecraft:recipe_shaped": {
     "description": {
-      "identifier": "aln:disc_3_recipe"
+      "identifier": "aln:music_disc_quiet_tides_recipe"
     },
     "tags": [
       "crafting_table"
@@ -960,7 +948,7 @@ This marker does not encrypt the pack or prevent extraction or editing.
       }
     },
     "result": {
-      "item": "aln:disc_3",
+      "item": "aln:music_disc_quiet_tides",
       "count": 1
     },
     "unlock": {
@@ -970,14 +958,14 @@ This marker does not encrypt the pack or prevent extraction or editing.
 }
 ```
 
-## FILE: MCPEDL/Addons/ALN-MoreDiscs/behavior_pack/recipes/disc_4.json (41 lines, 679 bytes)
+## FILE: MCPEDL/Addons/ALN-MoreDiscs/behavior_pack/recipes/disc_4.json (41 lines, 719 bytes)
 
 ```
 {
   "format_version": "1.21.50",
   "minecraft:recipe_shaped": {
     "description": {
-      "identifier": "aln:disc_4_recipe"
+      "identifier": "aln:music_disc_crystal_caverns_recipe"
     },
     "tags": [
       "crafting_table"
@@ -1005,7 +993,7 @@ This marker does not encrypt the pack or prevent extraction or editing.
       }
     },
     "result": {
-      "item": "aln:disc_4",
+      "item": "aln:music_disc_crystal_caverns",
       "count": 1
     },
     "unlock": {
@@ -1015,14 +1003,14 @@ This marker does not encrypt the pack or prevent extraction or editing.
 }
 ```
 
-## FILE: MCPEDL/Addons/ALN-MoreDiscs/behavior_pack/recipes/disc_5.json (41 lines, 677 bytes)
+## FILE: MCPEDL/Addons/ALN-MoreDiscs/behavior_pack/recipes/disc_5.json (41 lines, 721 bytes)
 
 ```
 {
   "format_version": "1.21.50",
   "minecraft:recipe_shaped": {
     "description": {
-      "identifier": "aln:disc_5_recipe"
+      "identifier": "aln:music_disc_starlight_express_recipe"
     },
     "tags": [
       "crafting_table"
@@ -1050,7 +1038,7 @@ This marker does not encrypt the pack or prevent extraction or editing.
       }
     },
     "result": {
-      "item": "aln:disc_5",
+      "item": "aln:music_disc_starlight_express",
       "count": 1
     },
     "unlock": {
@@ -1060,14 +1048,14 @@ This marker does not encrypt the pack or prevent extraction or editing.
 }
 ```
 
-## FILE: MCPEDL/Addons/ALN-MoreDiscs/behavior_pack/recipes/disc_6.json (41 lines, 675 bytes)
+## FILE: MCPEDL/Addons/ALN-MoreDiscs/behavior_pack/recipes/disc_6.json (41 lines, 713 bytes)
 
 ```
 {
   "format_version": "1.21.50",
   "minecraft:recipe_shaped": {
     "description": {
-      "identifier": "aln:disc_6_recipe"
+      "identifier": "aln:music_disc_midnight_drive_recipe"
     },
     "tags": [
       "crafting_table"
@@ -1095,7 +1083,7 @@ This marker does not encrypt the pack or prevent extraction or editing.
       }
     },
     "result": {
-      "item": "aln:disc_6",
+      "item": "aln:music_disc_midnight_drive",
       "count": 1
     },
     "unlock": {
@@ -1105,14 +1093,14 @@ This marker does not encrypt the pack or prevent extraction or editing.
 }
 ```
 
-## FILE: MCPEDL/Addons/ALN-MoreDiscs/behavior_pack/recipes/disc_7.json (41 lines, 675 bytes)
+## FILE: MCPEDL/Addons/ALN-MoreDiscs/behavior_pack/recipes/disc_7.json (41 lines, 711 bytes)
 
 ```
 {
   "format_version": "1.21.50",
   "minecraft:recipe_shaped": {
     "description": {
-      "identifier": "aln:disc_7_recipe"
+      "identifier": "aln:music_disc_sunlit_meadow_recipe"
     },
     "tags": [
       "crafting_table"
@@ -1140,7 +1128,7 @@ This marker does not encrypt the pack or prevent extraction or editing.
       }
     },
     "result": {
-      "item": "aln:disc_7",
+      "item": "aln:music_disc_sunlit_meadow",
       "count": 1
     },
     "unlock": {
@@ -1150,14 +1138,14 @@ This marker does not encrypt the pack or prevent extraction or editing.
 }
 ```
 
-## FILE: MCPEDL/Addons/ALN-MoreDiscs/behavior_pack/recipes/disc_8.json (41 lines, 672 bytes)
+## FILE: MCPEDL/Addons/ALN-MoreDiscs/behavior_pack/recipes/disc_8.json (41 lines, 714 bytes)
 
 ```
 {
   "format_version": "1.21.50",
   "minecraft:recipe_shaped": {
     "description": {
-      "identifier": "aln:disc_8_recipe"
+      "identifier": "aln:music_disc_deepslate_echoes_recipe"
     },
     "tags": [
       "crafting_table"
@@ -1185,7 +1173,7 @@ This marker does not encrypt the pack or prevent extraction or editing.
       }
     },
     "result": {
-      "item": "aln:disc_8",
+      "item": "aln:music_disc_deepslate_echoes",
       "count": 1
     },
     "unlock": {
@@ -1195,14 +1183,14 @@ This marker does not encrypt the pack or prevent extraction or editing.
 }
 ```
 
-## FILE: MCPEDL/Addons/ALN-MoreDiscs/behavior_pack/recipes/disc_9.json (41 lines, 671 bytes)
+## FILE: MCPEDL/Addons/ALN-MoreDiscs/behavior_pack/recipes/disc_9.json (41 lines, 705 bytes)
 
 ```
 {
   "format_version": "1.21.50",
   "minecraft:recipe_shaped": {
     "description": {
-      "identifier": "aln:disc_9_recipe"
+      "identifier": "aln:music_disc_pixel_parade_recipe"
     },
     "tags": [
       "crafting_table"
@@ -1230,7 +1218,7 @@ This marker does not encrypt the pack or prevent extraction or editing.
       }
     },
     "result": {
-      "item": "aln:disc_9",
+      "item": "aln:music_disc_pixel_parade",
       "count": 1
     },
     "unlock": {
@@ -1240,22 +1228,22 @@ This marker does not encrypt the pack or prevent extraction or editing.
 }
 ```
 
-## FILE: MCPEDL/Addons/ALN-MoreDiscs/behavior_pack/scripts/disc_jukebox.js (210 lines, 6286 bytes)
+## FILE: MCPEDL/Addons/ALN-MoreDiscs/behavior_pack/scripts/disc_jukebox.js (210 lines, 6492 bytes)
 
 ```
 import { world, system } from "@minecraft/server";
 
 const DISCS = {
-  "aln:disc_1": { track: 1, title: "Neon Horizon", seconds: 76, sound: "record.aln_track_1" },
-  "aln:disc_2": { track: 2, title: "Ember Lantern", seconds: 82, sound: "record.aln_track_2" },
-  "aln:disc_3": { track: 3, title: "Quiet Tides", seconds: 85, sound: "record.aln_track_3" },
-  "aln:disc_4": { track: 4, title: "Crystal Caverns", seconds: 58, sound: "record.aln_track_4" },
-  "aln:disc_5": { track: 5, title: "Starlight Express", seconds: 70, sound: "record.aln_track_5" },
-  "aln:disc_6": { track: 6, title: "Midnight Drive", seconds: 75, sound: "record.aln_track_6" },
-  "aln:disc_7": { track: 7, title: "Sunlit Meadow", seconds: 55, sound: "record.aln_track_7" },
-  "aln:disc_8": { track: 8, title: "Deepslate Echoes", seconds: 85, sound: "record.aln_track_8" },
-  "aln:disc_9": { track: 9, title: "Pixel Parade", seconds: 71, sound: "record.aln_track_9" },
-  "aln:disc_10": { track: 10, title: "Golden Hour", seconds: 84, sound: "record.aln_track_10" }
+  "aln:music_disc_neon_horizon": { track: 1, title: "Neon Horizon", seconds: 76, sound: "record.neon_horizon" },
+  "aln:music_disc_ember_lantern": { track: 2, title: "Ember Lantern", seconds: 82, sound: "record.ember_lantern" },
+  "aln:music_disc_quiet_tides": { track: 3, title: "Quiet Tides", seconds: 85, sound: "record.quiet_tides" },
+  "aln:music_disc_crystal_caverns": { track: 4, title: "Crystal Caverns", seconds: 58, sound: "record.crystal_caverns" },
+  "aln:music_disc_starlight_express": { track: 5, title: "Starlight Express", seconds: 70, sound: "record.starlight_express" },
+  "aln:music_disc_midnight_drive": { track: 6, title: "Midnight Drive", seconds: 75, sound: "record.midnight_drive" },
+  "aln:music_disc_sunlit_meadow": { track: 7, title: "Sunlit Meadow", seconds: 55, sound: "record.sunlit_meadow" },
+  "aln:music_disc_deepslate_echoes": { track: 8, title: "Deepslate Echoes", seconds: 85, sound: "record.deepslate_echoes" },
+  "aln:music_disc_pixel_parade": { track: 9, title: "Pixel Parade", seconds: 71, sound: "record.pixel_parade" },
+  "aln:music_disc_golden_hour": { track: 10, title: "Golden Hour", seconds: 84, sound: "record.golden_hour" }
 };
 
 const JUKEBOX = "minecraft:jukebox";
@@ -1462,12 +1450,18 @@ import { initDiscJukebox } from "./disc_jukebox.js";
 initDiscJukebox();
 ```
 
-## FILE: MCPEDL/Addons/ALN-MoreDiscs/CHANGELOG.md (29 lines, 1456 bytes)
+## FILE: MCPEDL/Addons/ALN-MoreDiscs/CHANGELOG.md (35 lines, 1742 bytes)
 
 ```
 # Changelog — ALN MoreDiscs
 
 ---
+
+## [v3] - 2026-11-18 - Headphones Disc Names
+
+### Improved & Balanced
+- **Headphones Naming**: All ten discs now use the music disc naming that ALN Wireless Headphones expects.
+- **Craft Again**: Discs from earlier versions in existing worlds no longer work and must be crafted again.
 
 ## [v2] - 2026-11-17 - Disc Group
 
@@ -1678,7 +1672,7 @@ Download the current release of **ALN MoreDiscs** for Minecraft Bedrock Edition.
 ## Download
 
 - **Package format:** `.mcaddon`
-- **Direct download:** [Download ALN MoreDiscs (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/ALN-MoreDiscs/ALNMoreDiscs%20V2.mcaddon)
+- **Direct download:** [Download ALN MoreDiscs (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/ALN-MoreDiscs/ALNMoreDiscs%20V3.mcaddon)
 
 ## Installation
 
@@ -1706,11 +1700,11 @@ This marker does not encrypt the pack or prevent extraction or editing.
 {
   "format_version": 2,
   "header": {
-    "name": "ALN MoreDiscs (v2)",
+    "name": "ALN MoreDiscs (v3)",
     "description": "Disc textures, names and music tracks for ALN MoreDiscs. by ALNStudios",
     "uuid": "428fa8bb-b2df-4222-a02f-609c97cc967e",
     "version": [
-      2,
+      3,
       0,
       0
     ],
@@ -1725,7 +1719,7 @@ This marker does not encrypt the pack or prevent extraction or editing.
       "type": "resources",
       "uuid": "084c6d11-2f61-4186-9b73-fbaa8f293328",
       "version": [
-        2,
+        3,
         0,
         0
       ]
@@ -1736,18 +1730,18 @@ This marker does not encrypt the pack or prevent extraction or editing.
       "ALNStudios"
     ],
     "product_type": "addon",
-    "version": "2.0.0"
+    "version": "3.0.0"
   }
 }
 ```
 
-## FILE: MCPEDL/Addons/ALN-MoreDiscs/resource_pack/sounds/sound_definitions.json (116 lines, 2374 bytes)
+## FILE: MCPEDL/Addons/ALN-MoreDiscs/resource_pack/sounds/sound_definitions.json (116 lines, 2397 bytes)
 
 ```
 {
   "format_version": "1.14.0",
   "sound_definitions": {
-    "record.aln_track_1": {
+    "record.neon_horizon": {
       "category": "record",
       "max_distance": 64,
       "sounds": [
@@ -1758,7 +1752,7 @@ This marker does not encrypt the pack or prevent extraction or editing.
         }
       ]
     },
-    "record.aln_track_2": {
+    "record.ember_lantern": {
       "category": "record",
       "max_distance": 64,
       "sounds": [
@@ -1769,7 +1763,7 @@ This marker does not encrypt the pack or prevent extraction or editing.
         }
       ]
     },
-    "record.aln_track_3": {
+    "record.quiet_tides": {
       "category": "record",
       "max_distance": 64,
       "sounds": [
@@ -1780,7 +1774,7 @@ This marker does not encrypt the pack or prevent extraction or editing.
         }
       ]
     },
-    "record.aln_track_4": {
+    "record.crystal_caverns": {
       "category": "record",
       "max_distance": 64,
       "sounds": [
@@ -1791,7 +1785,7 @@ This marker does not encrypt the pack or prevent extraction or editing.
         }
       ]
     },
-    "record.aln_track_5": {
+    "record.starlight_express": {
       "category": "record",
       "max_distance": 64,
       "sounds": [
@@ -1802,7 +1796,7 @@ This marker does not encrypt the pack or prevent extraction or editing.
         }
       ]
     },
-    "record.aln_track_6": {
+    "record.midnight_drive": {
       "category": "record",
       "max_distance": 64,
       "sounds": [
@@ -1813,7 +1807,7 @@ This marker does not encrypt the pack or prevent extraction or editing.
         }
       ]
     },
-    "record.aln_track_7": {
+    "record.sunlit_meadow": {
       "category": "record",
       "max_distance": 64,
       "sounds": [
@@ -1824,7 +1818,7 @@ This marker does not encrypt the pack or prevent extraction or editing.
         }
       ]
     },
-    "record.aln_track_8": {
+    "record.deepslate_echoes": {
       "category": "record",
       "max_distance": 64,
       "sounds": [
@@ -1835,7 +1829,7 @@ This marker does not encrypt the pack or prevent extraction or editing.
         }
       ]
     },
-    "record.aln_track_9": {
+    "record.pixel_parade": {
       "category": "record",
       "max_distance": 64,
       "sounds": [
@@ -1846,7 +1840,7 @@ This marker does not encrypt the pack or prevent extraction or editing.
         }
       ]
     },
-    "record.aln_track_10": {
+    "record.golden_hour": {
       "category": "record",
       "max_distance": 64,
       "sounds": [
@@ -1861,29 +1855,29 @@ This marker does not encrypt the pack or prevent extraction or editing.
 }
 ```
 
-## FILE: MCPEDL/Addons/ALN-MoreDiscs/resource_pack/texts/en_US.lang (22 lines, 1736 bytes)
+## FILE: MCPEDL/Addons/ALN-MoreDiscs/resource_pack/texts/en_US.lang (22 lines, 2102 bytes)
 
 ```
-item.aln:disc_1=Music Disc\n§7Track 1: Neon Horizon\n§8ALNStudios Music Series
-item.aln:disc_1.name=Music Disc\n§7Track 1: Neon Horizon\n§8ALNStudios Music Series
-item.aln:disc_2=Music Disc\n§7Track 2: Ember Lantern\n§8ALNStudios Music Series
-item.aln:disc_2.name=Music Disc\n§7Track 2: Ember Lantern\n§8ALNStudios Music Series
-item.aln:disc_3=Music Disc\n§7Track 3: Quiet Tides\n§8ALNStudios Music Series
-item.aln:disc_3.name=Music Disc\n§7Track 3: Quiet Tides\n§8ALNStudios Music Series
-item.aln:disc_4=Music Disc\n§7Track 4: Crystal Caverns\n§8ALNStudios Music Series
-item.aln:disc_4.name=Music Disc\n§7Track 4: Crystal Caverns\n§8ALNStudios Music Series
-item.aln:disc_5=Music Disc\n§7Track 5: Starlight Express\n§8ALNStudios Music Series
-item.aln:disc_5.name=Music Disc\n§7Track 5: Starlight Express\n§8ALNStudios Music Series
-item.aln:disc_6=Music Disc\n§7Track 6: Midnight Drive\n§8ALNStudios Music Series
-item.aln:disc_6.name=Music Disc\n§7Track 6: Midnight Drive\n§8ALNStudios Music Series
-item.aln:disc_7=Music Disc\n§7Track 7: Sunlit Meadow\n§8ALNStudios Music Series
-item.aln:disc_7.name=Music Disc\n§7Track 7: Sunlit Meadow\n§8ALNStudios Music Series
-item.aln:disc_8=Music Disc\n§7Track 8: Deepslate Echoes\n§8ALNStudios Music Series
-item.aln:disc_8.name=Music Disc\n§7Track 8: Deepslate Echoes\n§8ALNStudios Music Series
-item.aln:disc_9=Music Disc\n§7Track 9: Pixel Parade\n§8ALNStudios Music Series
-item.aln:disc_9.name=Music Disc\n§7Track 9: Pixel Parade\n§8ALNStudios Music Series
-item.aln:disc_10=Music Disc\n§7Track 10: Golden Hour\n§8ALNStudios Music Series
-item.aln:disc_10.name=Music Disc\n§7Track 10: Golden Hour\n§8ALNStudios Music Series
+item.aln:music_disc_neon_horizon=Music Disc\n§7Track 1: Neon Horizon\n§8ALNStudios Music Series
+item.aln:music_disc_neon_horizon.name=Music Disc\n§7Track 1: Neon Horizon\n§8ALNStudios Music Series
+item.aln:music_disc_ember_lantern=Music Disc\n§7Track 2: Ember Lantern\n§8ALNStudios Music Series
+item.aln:music_disc_ember_lantern.name=Music Disc\n§7Track 2: Ember Lantern\n§8ALNStudios Music Series
+item.aln:music_disc_quiet_tides=Music Disc\n§7Track 3: Quiet Tides\n§8ALNStudios Music Series
+item.aln:music_disc_quiet_tides.name=Music Disc\n§7Track 3: Quiet Tides\n§8ALNStudios Music Series
+item.aln:music_disc_crystal_caverns=Music Disc\n§7Track 4: Crystal Caverns\n§8ALNStudios Music Series
+item.aln:music_disc_crystal_caverns.name=Music Disc\n§7Track 4: Crystal Caverns\n§8ALNStudios Music Series
+item.aln:music_disc_starlight_express=Music Disc\n§7Track 5: Starlight Express\n§8ALNStudios Music Series
+item.aln:music_disc_starlight_express.name=Music Disc\n§7Track 5: Starlight Express\n§8ALNStudios Music Series
+item.aln:music_disc_midnight_drive=Music Disc\n§7Track 6: Midnight Drive\n§8ALNStudios Music Series
+item.aln:music_disc_midnight_drive.name=Music Disc\n§7Track 6: Midnight Drive\n§8ALNStudios Music Series
+item.aln:music_disc_sunlit_meadow=Music Disc\n§7Track 7: Sunlit Meadow\n§8ALNStudios Music Series
+item.aln:music_disc_sunlit_meadow.name=Music Disc\n§7Track 7: Sunlit Meadow\n§8ALNStudios Music Series
+item.aln:music_disc_deepslate_echoes=Music Disc\n§7Track 8: Deepslate Echoes\n§8ALNStudios Music Series
+item.aln:music_disc_deepslate_echoes.name=Music Disc\n§7Track 8: Deepslate Echoes\n§8ALNStudios Music Series
+item.aln:music_disc_pixel_parade=Music Disc\n§7Track 9: Pixel Parade\n§8ALNStudios Music Series
+item.aln:music_disc_pixel_parade.name=Music Disc\n§7Track 9: Pixel Parade\n§8ALNStudios Music Series
+item.aln:music_disc_golden_hour=Music Disc\n§7Track 10: Golden Hour\n§8ALNStudios Music Series
+item.aln:music_disc_golden_hour.name=Music Disc\n§7Track 10: Golden Hour\n§8ALNStudios Music Series
 itemGroup.name.record=Music Discs
 ```
 
@@ -5023,8 +5017,8 @@ Source files for established Minecraft Bedrock add-ons by ALNStudios.
 | Enchanter | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/Enchanter/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Enchanter/Enchanter%20V2.mcaddon) |
 | ALN Quiver | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/ALN-Quiver/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/ALN-Quiver/ALNQuiver%20V2.mcaddon) |
 | Expanded Basic Arsenal | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/Expanded-Basic-Arsenal/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Expanded-Basic-Arsenal/ExpandedBasicArsenal%20V2.mcaddon) |
-| ALN Wireless Headphones | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/ALN-Wireless-Headphones/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/ALN-Wireless-Headphones/ALNWirelessHeadphones%20V4.mcaddon) |
-| ALN MoreDiscs | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/ALN-MoreDiscs/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/ALN-MoreDiscs/ALNMoreDiscs%20V2.mcaddon) |
+| ALN Wireless Headphones | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/ALN-Wireless-Headphones/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/ALN-Wireless-Headphones/ALNWirelessHeadphones%20V8.mcaddon) |
+| ALN MoreDiscs | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/ALN-MoreDiscs/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/ALN-MoreDiscs/ALNMoreDiscs%20V3.mcaddon) |
 | ALN Pointer | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/ALN-Pointer/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/ALN-Pointer/ALNPointer%20V2.mcaddon) |
 
 Download links point to the currently published package files.
