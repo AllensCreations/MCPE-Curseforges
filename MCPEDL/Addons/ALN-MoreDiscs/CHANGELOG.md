@@ -2,6 +2,12 @@
 
 ---
 
+## [v3] - 2026-11-18 - Headphones Disc Names
+
+### Improved & Balanced
+- **Headphones Naming**: All ten discs now use the music disc naming that ALN Wireless Headphones expects.
+- **Craft Again**: Discs from earlier versions in existing worlds no longer work and must be crafted again.
+
 ## [v2] - 2026-11-17 - Disc Group
 
 ### Added

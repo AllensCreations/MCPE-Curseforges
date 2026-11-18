@@ -2,7 +2,7 @@
   "format_version": "1.21.50",
   "minecraft:recipe_shaped": {
     "description": {
-      "identifier": "aln:disc_8_recipe"
+      "identifier": "aln:music_disc_deepslate_echoes_recipe"
     },
     "tags": [
       "crafting_table"
@@ -30,7 +30,7 @@
       }
     },
     "result": {
-      "item": "aln:disc_8",
+      "item": "aln:music_disc_deepslate_echoes",
       "count": 1
     },
     "unlock": {

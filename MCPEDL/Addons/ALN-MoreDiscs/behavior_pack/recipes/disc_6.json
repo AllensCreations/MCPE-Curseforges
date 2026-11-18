@@ -2,7 +2,7 @@
   "format_version": "1.21.50",
   "minecraft:recipe_shaped": {
     "description": {
-      "identifier": "aln:disc_6_recipe"
+      "identifier": "aln:music_disc_midnight_drive_recipe"
     },
     "tags": [
       "crafting_table"
@@ -30,7 +30,7 @@
       }
     },
     "result": {
-      "item": "aln:disc_6",
+      "item": "aln:music_disc_midnight_drive",
       "count": 1
     },
     "unlock": {

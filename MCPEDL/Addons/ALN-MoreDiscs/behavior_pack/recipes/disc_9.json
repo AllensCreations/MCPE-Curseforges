@@ -2,7 +2,7 @@
   "format_version": "1.21.50",
   "minecraft:recipe_shaped": {
     "description": {
-      "identifier": "aln:disc_9_recipe"
+      "identifier": "aln:music_disc_pixel_parade_recipe"
     },
     "tags": [
       "crafting_table"
@@ -30,7 +30,7 @@
       }
     },
     "result": {
-      "item": "aln:disc_9",
+      "item": "aln:music_disc_pixel_parade",
       "count": 1
     },
     "unlock": {

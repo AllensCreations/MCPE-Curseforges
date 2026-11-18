@@ -2,7 +2,7 @@
   "format_version": "1.21.50",
   "minecraft:item": {
     "description": {
-      "identifier": "aln:disc_7",
+      "identifier": "aln:music_disc_sunlit_meadow",
       "menu_category": {
         "category": "items",
         "group": "minecraft:itemGroup.name.record"
@@ -15,13 +15,13 @@
         }
       },
       "minecraft:display_name": {
-        "value": "item.aln:disc_7"
+        "value": "item.aln:music_disc_sunlit_meadow"
       },
       "minecraft:max_stack_size": 1,
       "minecraft:record": {
         "comparator_signal": 9,
         "duration": 55,
-        "sound_event": "record.aln_track_7"
+        "sound_event": "record.sunlit_meadow"
       }
     }
   }

@@ -2,7 +2,7 @@
   "format_version": "1.21.50",
   "minecraft:recipe_shaped": {
     "description": {
-      "identifier": "aln:disc_4_recipe"
+      "identifier": "aln:music_disc_crystal_caverns_recipe"
     },
     "tags": [
       "crafting_table"
@@ -30,7 +30,7 @@
       }
     },
     "result": {
-      "item": "aln:disc_4",
+      "item": "aln:music_disc_crystal_caverns",
       "count": 1
     },
     "unlock": {

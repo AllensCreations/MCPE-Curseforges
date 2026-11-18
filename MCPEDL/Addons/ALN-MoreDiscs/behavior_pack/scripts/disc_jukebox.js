@@ -1,16 +1,16 @@
 import { world, system } from "@minecraft/server";
 
 const DISCS = {
-  "aln:disc_1": { track: 1, title: "Neon Horizon", seconds: 76, sound: "record.aln_track_1" },
-  "aln:disc_2": { track: 2, title: "Ember Lantern", seconds: 82, sound: "record.aln_track_2" },
-  "aln:disc_3": { track: 3, title: "Quiet Tides", seconds: 85, sound: "record.aln_track_3" },
-  "aln:disc_4": { track: 4, title: "Crystal Caverns", seconds: 58, sound: "record.aln_track_4" },
-  "aln:disc_5": { track: 5, title: "Starlight Express", seconds: 70, sound: "record.aln_track_5" },
-  "aln:disc_6": { track: 6, title: "Midnight Drive", seconds: 75, sound: "record.aln_track_6" },
-  "aln:disc_7": { track: 7, title: "Sunlit Meadow", seconds: 55, sound: "record.aln_track_7" },
-  "aln:disc_8": { track: 8, title: "Deepslate Echoes", seconds: 85, sound: "record.aln_track_8" },
-  "aln:disc_9": { track: 9, title: "Pixel Parade", seconds: 71, sound: "record.aln_track_9" },
-  "aln:disc_10": { track: 10, title: "Golden Hour", seconds: 84, sound: "record.aln_track_10" }
+  "aln:music_disc_neon_horizon": { track: 1, title: "Neon Horizon", seconds: 76, sound: "record.neon_horizon" },
+  "aln:music_disc_ember_lantern": { track: 2, title: "Ember Lantern", seconds: 82, sound: "record.ember_lantern" },
+  "aln:music_disc_quiet_tides": { track: 3, title: "Quiet Tides", seconds: 85, sound: "record.quiet_tides" },
+  "aln:music_disc_crystal_caverns": { track: 4, title: "Crystal Caverns", seconds: 58, sound: "record.crystal_caverns" },
+  "aln:music_disc_starlight_express": { track: 5, title: "Starlight Express", seconds: 70, sound: "record.starlight_express" },
+  "aln:music_disc_midnight_drive": { track: 6, title: "Midnight Drive", seconds: 75, sound: "record.midnight_drive" },
+  "aln:music_disc_sunlit_meadow": { track: 7, title: "Sunlit Meadow", seconds: 55, sound: "record.sunlit_meadow" },
+  "aln:music_disc_deepslate_echoes": { track: 8, title: "Deepslate Echoes", seconds: 85, sound: "record.deepslate_echoes" },
+  "aln:music_disc_pixel_parade": { track: 9, title: "Pixel Parade", seconds: 71, sound: "record.pixel_parade" },
+  "aln:music_disc_golden_hour": { track: 10, title: "Golden Hour", seconds: 84, sound: "record.golden_hour" }
 };
 
 const JUKEBOX = "minecraft:jukebox";

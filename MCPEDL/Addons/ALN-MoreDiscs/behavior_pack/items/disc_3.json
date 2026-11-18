@@ -2,7 +2,7 @@
   "format_version": "1.21.50",
   "minecraft:item": {
     "description": {
-      "identifier": "aln:disc_3",
+      "identifier": "aln:music_disc_quiet_tides",
       "menu_category": {
         "category": "items",
         "group": "minecraft:itemGroup.name.record"
@@ -15,13 +15,13 @@
         }
       },
       "minecraft:display_name": {
-        "value": "item.aln:disc_3"
+        "value": "item.aln:music_disc_quiet_tides"
       },
       "minecraft:max_stack_size": 1,
       "minecraft:record": {
         "comparator_signal": 5,
         "duration": 85,
-        "sound_event": "record.aln_track_3"
+        "sound_event": "record.quiet_tides"
       }
     }
   }

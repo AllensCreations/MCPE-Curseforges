@@ -6,6 +6,11 @@
 
 ---
 
+## [v114] - 2026-11-18 - Headphones Disc Names
+
+### Improved & Balanced
+- **ALN MoreDiscs**: All ten discs now use the music disc naming that ALN Wireless Headphones expects. Discs from earlier versions in existing worlds must be crafted again.
+
 ## [v117] - 2026-11-18 - Revert MCPEDL AI Review to Single Text Export
 
 - **MCPEDL Catalog & AI Review**: Reverted back to single `.txt` exports for AI reviews in `MCPEDL/README.md`. Removed `.zip` bundle generation from `scripts/auto_ai_review.py` and `scripts/build_mcpedl_readme.py` to prevent redundant tool downloads and save tokens.
