@@ -5,6 +5,10 @@
 
 ---
 
+## [v119] - 2026-11-18 - Switch AI review vanilla reference to bedrock.dev
+
+- **Vanilla Reference Source**: Updated `scripts/collect_ai_review.py` to use `https://bedrock.dev/` as the primary vanilla reference API instead of the gzipped local file. bedrock.dev mirrors the official Mojang add-on documentation for every version.
+
 ## [v118] - 2026-11-18 - MCPEDL AI Review Revert & Vanilla Reference Link
 
 - **MCPEDL Catalog & AI Review**: Reverted back to single `.txt` exports for AI reviews in `MCPEDL/README.md`, removing `.zip` bundle generation.
