@@ -1,1 +1,1 @@
-give @s allenscreations:controller
+give @s aln:minigame_controller

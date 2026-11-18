@@ -1,3 +1,12 @@
+## [v107] - 2026-11-18 - [Fix Duplicate UUIDs and Standardize Minigame Controller]
+### Fixed
+- **OneBlock-Void-Survival**: Generated unique manifest and module UUIDs for the embedded world behavior pack to avoid client duplicate-pack UUID collisions.
+- **Minigames**: Migrated custom item identifier from `allenscreations:controller` to `aln:minigame_controller` across all 6 minigame packs (functions, items, scripts).
+### Added
+- **AI Review**: Refreshed all package AI reviews with standardized identifiers and graph linkages.
+
+---
+
 ## [v106] - 2026-11-18 - [AI Review + Graphify Integration]
 ### Added
 - **enrich_ai_review.py**: New script injecting `## Graph Context` from graph.json into every pack ai-review file — combined deep-code + repo-map in one upload.

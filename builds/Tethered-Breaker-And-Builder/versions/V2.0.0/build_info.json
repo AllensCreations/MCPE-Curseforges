@@ -2,7 +2,7 @@
   "changelog_version": "2.0.0",
   "manifest_version": "2.0.0",
   "packages": {
-    "TetheredBuilder V2.mcaddon": "d3bb036e825012adf6aa44bb4c5dea3e9a1047d63565923163b0e5a3c9b2ce1d"
+    "TetheredBuilder V2.mcaddon": "7eeb0dcc4411063d11d7e1194fb8eb2ffac2c768eb21fd6bd18d85ba68463bbf"
   },
-  "source_sha256": "f9c47bca15229fba71ce0609e2e1062484a3beb5e51afd9d93f24933be23035f"
+  "source_sha256": "3c5eb892a39d4999434d7276d0488172afbe64ed040027465eb39276bdf92e2d"
 }

@@ -1,7 +1,7 @@
 import { world, system, ItemStack, EntityComponentTypes } from "@minecraft/server";
 import { ActionFormData } from "@minecraft/server-ui";
 
-const CONTROLLER_ID = "allenscreations:controller";
+const CONTROLLER_ID = "aln:minigame_controller";
 const STATE_KEY = "game_state";
 const BLOCK_KEY = "block_damage";
 const INTERVAL_KEY = "shuffle_seconds";
