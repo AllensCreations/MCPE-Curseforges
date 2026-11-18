@@ -11,6 +11,30 @@ import {
 
 const STREAM_INTERVAL_TICKS = 10;
 const listening = new Set();
+const playerAudioState = new Map();
+
+function stopPlayerAudio(player) {
+  if (playerAudioState.has(player.id)) {
+    playerAudioState.delete(player.id);
+    try {
+      player.stopMusic();
+    } catch (e) {}
+  }
+}
+
+function syncPlayerAudio(player, trackSoundId) {
+  const current = playerAudioState.get(player.id);
+  if (current !== trackSoundId) {
+    playerAudioState.set(player.id, trackSoundId);
+    try {
+      player.playMusic(trackSoundId, {
+        volume: 1.0,
+        fade: 0.0,
+        loop: false
+      });
+    } catch (e) {}
+  }
+}
 
 function parsePairing(item) {
   const raw = item.getDynamicProperty(PAIR_KEY);
@@ -33,36 +57,49 @@ function parsePairing(item) {
   return undefined;
 }
 
-function renderFeed(item) {
+function renderFeedAndStream(player, item) {
   const pairing = parsePairing(item);
   if (!pairing) {
+    stopPlayerAudio(player);
     return PREFIX + "\u00a77Not paired. Sneak and use on a Jukebox with a disc.";
   }
   let dimension;
   try {
     dimension = world.getDimension(pairing.dimension);
   } catch (error) {
-    return PREFIX + "\u00a7cPaired Jukebox dimension is unavailable.";
+    stopPlayerAudio(player);
+    return PREFIX + "\u00a7cDisconnected. Jukebox dimension is unavailable.";
   }
   const location = { x: pairing.x, y: pairing.y, z: pairing.z };
   if (!dimension.isChunkLoaded(location)) {
     resetSession(pairing.dimension, pairing.x, pairing.y, pairing.z);
-    return PREFIX + "\u00a77Signal lost. Jukebox chunk is not loaded.";
+    stopPlayerAudio(player);
+    return PREFIX + "\u00a7cDisconnected. Jukebox chunk is not loaded.";
   }
   const block = dimension.getBlock(location);
   if (!block || block.typeId !== JUKEBOX_ID) {
-    return PREFIX + "\u00a7cPaired Jukebox no longer exists.";
+    stopPlayerAudio(player);
+    return PREFIX + "\u00a7cDisconnected. Paired Jukebox no longer exists.";
   }
   const status = readJukebox(block, pairing.dimension);
   if (status.state === "empty") {
+    stopPlayerAudio(player);
     return PREFIX + "\u00a77Jukebox has no disc.";
   }
   if (status.state === "stopped") {
+    stopPlayerAudio(player);
     return PREFIX + "\u00a77Jukebox is not playing. \u00a78| \u00a7e" + status.info.name;
   }
   if (status.state !== "playing") {
+    stopPlayerAudio(player);
     return PREFIX + "\u00a7cJukebox data unavailable.";
   }
+
+  // Jukebox is actively playing: stream the music disc directly into the player's headphones
+  if (status.info.soundId) {
+    syncPlayerAudio(player, status.info.soundId);
+  }
+
   const total = status.info.totalSeconds === undefined ? "--:--" : formatTime(status.info.totalSeconds);
   return (
     PREFIX +
@@ -85,9 +122,10 @@ system.runInterval(() => {
       const head = equippable ? equippable.getEquipment(EquipmentSlot.Head) : undefined;
       if (head && head.typeId === HEADPHONES_ID) {
         listening.add(player.id);
-        player.onScreenDisplay.setActionBar(renderFeed(head));
+        player.onScreenDisplay.setActionBar(renderFeedAndStream(player, head));
       } else if (listening.has(player.id)) {
         listening.delete(player.id);
+        stopPlayerAudio(player);
         player.onScreenDisplay.setActionBar("");
       }
     } catch (error) {
@@ -97,6 +135,7 @@ system.runInterval(() => {
   for (const id of listening) {
     if (!present.has(id)) {
       listening.delete(id);
+      playerAudioState.delete(id);
     }
   }
 }, STREAM_INTERVAL_TICKS);

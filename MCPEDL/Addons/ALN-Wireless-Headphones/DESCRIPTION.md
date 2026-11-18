@@ -11,7 +11,7 @@
 
 ## Overview
 
-Craft the Wireless Headphones, hold them, and sneak while using a Jukebox that has a music disc inside. Put the headphones on your head and the Action Bar shows the track and a timer for as long as you wear them. Take them off and the display clears.
+Craft the Wireless Headphones, hold them, and sneak while using a Jukebox that has a music disc inside. Put the headphones on your head: the music streams directly into your ears and the Action Bar shows the track and timer for as long as you wear them. Take them off and both the audio and display stop cleanly.
 
 ## Key Features
 
@@ -25,10 +25,10 @@ Craft the Wireless Headphones, hold them, and sneak while using a Jukebox that h
 - **How It Works**: Hold the headphones, crouch, then use them on the Jukebox. The paired position is saved on that item and shown in its lore.
 - **Good To Know**: A Jukebox with no disc is refused. Pairing again overwrites the old link.
 
-### Live Action Bar Player
-- **What Happens**: While worn, the Action Bar shows the disc as artist and title, plus elapsed and total time.
-- **How It Works**: A paired Jukebox playing cat shows the track name with a time such as 0:42 out of 3:05.
-- **Good To Know**: The display needs the Jukebox area to be loaded. If it is not, the bar says the signal is lost. Total times are listed for the 22 vanilla discs; other discs show no total.
+### Live Audio & Action Bar Player
+- **What Happens**: While worn, the music disc audio streams straight to your headphones and the Action Bar shows the artist, title, elapsed time, and total duration.
+- **How It Works**: A paired Jukebox playing cat streams the track audio directly to you while displaying the track name and progress like 0:42 out of 3:05.
+- **Good To Know**: The stream requires the Jukebox chunk to remain loaded. If the chunk unloads, the headphones display Disconnected and stop playing audio. Total times are supported for all vanilla discs.
 
 ## How to Use
 
@@ -39,7 +39,7 @@ Craft the Wireless Headphones, hold them, and sneak while using a Jukebox that h
 ## Common Questions
 
 - **Does the timer start from the beginning of the song?**: The timer starts when the Jukebox is seen playing. A disc started by a player counts from about the moment it began, and a disc that was already playing before pairing starts at 0:00.
-- **What happens when I take the headphones off?**: The Action Bar feed is cleared right away. Wear them again to resume the display.
+- **What happens when I take the headphones off?**: The streamed music immediately stops and the Action Bar display clears. Put them back on to resume listening.
 
 ## Compatibility
 

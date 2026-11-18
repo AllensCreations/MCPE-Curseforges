@@ -1,3 +1,11 @@
+## [v113] - 2026-11-18 - [ALN Wireless Headphones Audio Streaming & Fix]
+### Added
+- **ALN Wireless Headphones**: Enabled live disc audio streaming directly into the player's headphones via `player.playMusic()` when worn.
+### Improved & Balanced
+- **ALN Wireless Headphones**: Updated unloaded chunk feedback to `Disconnected` and cleanly halted audio streaming when disconnected or unequipped.
+
+---
+
 ## [v112] - 2026-11-18 - [New Pack Kit Restoration]
 ### Fixed
 - **collect_ai_review.py**: Resolved an issue where `skip_tools` suppressed `New-Pack_tools.txt` generation in `new_pack` mode.

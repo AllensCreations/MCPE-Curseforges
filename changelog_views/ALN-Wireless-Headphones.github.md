@@ -1,8 +1,22 @@
 # Changelog — ALN Wireless Headphones
 
-## [v2] - 2026-11-16 - First Release
+## [v3] - 2026-11-18 - Direct Audio Streaming & Disconnect Feedback
 
 ### Added
+- **Direct Audio Streaming**: Wireless Headphones now actively stream the music disc audio straight into your ears using `playMusic`, letting you hear the music anywhere while the Jukebox is loaded.
+
+### Improved & Balanced
+- **Disconnect State**: If the paired Jukebox chunk unloads or the dimension is unavailable, the Action Bar clearly displays `Disconnected` and stops audio streaming cleanly until reconnected.
+- **Auto-Stop on Unequip**: Removing the Wireless Headphones immediately stops the streamed audio.
+
+<details>
+<summary><b>2.0.x</b> (1 release)</summary>
+
+### [v2] - 2026-11-16 - First Release
+
+#### Added
 - **Wireless Headphones**: A craftable helmet made from 2 Iron Ingots, 1 Redstone Dust and 2 Leather that streams a paired Jukebox to your Action Bar.
 - **Jukebox Pairing**: Sneak and use the headphones on a Jukebox with a music disc to pair it. A chime plays and the Action Bar confirms it.
 - **Live Track Display**: While worn, the Action Bar shows the disc name with elapsed and total time, and clears when you take the headphones off.
+
+</details>

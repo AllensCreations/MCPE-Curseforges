@@ -2,6 +2,17 @@
 
 ---
 
+## [v3] - 2026-11-18 - Direct Audio Streaming & Disconnect Feedback
+
+### Added
+- **Direct Audio Streaming**: Wireless Headphones now actively stream the music disc audio straight into your ears using `playMusic`, letting you hear the music anywhere while the Jukebox is loaded.
+
+### Improved & Balanced
+- **Disconnect State**: If the paired Jukebox chunk unloads or the dimension is unavailable, the Action Bar clearly displays `Disconnected` and stops audio streaming cleanly until reconnected.
+- **Auto-Stop on Unequip**: Removing the Wireless Headphones immediately stops the streamed audio.
+
+---
+
 ## [v2] - 2026-11-16 - First Release
 
 ### Added

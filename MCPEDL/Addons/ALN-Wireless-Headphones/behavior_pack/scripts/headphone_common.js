@@ -39,10 +39,11 @@ export function sessionKey(dimensionId, x, y, z) {
 export function discInfo(typeId) {
   const shortId = typeId.replace("minecraft:", "").replace(/^(music_disc_|record_)/, "");
   const known = DISCS[shortId];
+  const soundId = "record." + shortId;
   if (known) {
-    return { name: known[0], totalSeconds: known[1] };
+    return { name: known[0], totalSeconds: known[1], soundId };
   }
-  return { name: shortId.replace(/_/g, " "), totalSeconds: undefined };
+  return { name: shortId.replace(/_/g, " "), totalSeconds: undefined, soundId };
 }
 
 export function formatTime(totalSeconds) {
