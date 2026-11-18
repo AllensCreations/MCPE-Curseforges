@@ -1,8 +1,8 @@
 {
-  "changelog_version": "4.0.0",
-  "manifest_version": "4.0.0",
+  "changelog_version": "5.0.0",
+  "manifest_version": "5.0.0",
   "packages": {
-    "ALNWirelessHeadphones V4.mcaddon": "e4ffc41e5cc73f9a52a75dd5b203e6281d58d980ce5d78f32846a6ad9ca08ca1"
+    "ALNWirelessHeadphones V5.mcaddon": "9596f0ff104bb8f3a0848ede7058e89da0b3cd99ea19335c04d7ff54ea93ff37"
   },
-  "source_sha256": "e6c326cef922ca9498a44145c081bf2698b757cbb1c64a6a1348c529145d2cb9"
+  "source_sha256": "2456bf5dd35c164f3d35cf59a51131ea15574e59a4d625aa00fa06f3dd851b58"
 }
