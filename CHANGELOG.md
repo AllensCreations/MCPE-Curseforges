@@ -2,6 +2,11 @@
 
 ---
 
+## 2026-11-18 - New Script Loot and XP Stick
+
+### Added
+- **Loot and XP Stick**: New script project created from a pack script.
+
 ## [v104] - 2026-11-18 - Stick Activation for Booster Menu
 
 ### Improved & Balanced

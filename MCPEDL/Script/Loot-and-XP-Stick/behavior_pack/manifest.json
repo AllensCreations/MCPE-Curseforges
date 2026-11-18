@@ -1,0 +1,47 @@
+{
+  "format_version": 2,
+  "header": {
+    "name": "Loot and XP Stick (v1)",
+    "description": "Right-click a stick to configure Loot and XP multipliers. by ALNStudios",
+    "uuid": "0923bd4b-9004-4110-88aa-959eb53ec419",
+    "version": [
+      1,
+      0,
+      0
+    ],
+    "min_engine_version": [
+      1,
+      26,
+      60
+    ]
+  },
+  "modules": [
+    {
+      "type": "script",
+      "language": "javascript",
+      "uuid": "118bcfe2-61e0-4347-91bb-2dd3e5cb6a1a",
+      "version": [
+        1,
+        0,
+        0
+      ],
+      "entry": "scripts/main.js"
+    }
+  ],
+  "dependencies": [
+    {
+      "module_name": "@minecraft/server",
+      "version": "2.11.0"
+    },
+    {
+      "module_name": "@minecraft/server-ui",
+      "version": "2.3.0"
+    }
+  ],
+  "metadata": {
+    "authors": [
+      "ALNStudios"
+    ],
+    "version": "1.0.0"
+  }
+}
