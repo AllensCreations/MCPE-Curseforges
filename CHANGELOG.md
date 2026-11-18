@@ -6,6 +6,10 @@
 
 ---
 
+## [v116] - 2026-11-18 - MCPEDL AI Review Combined Zip Bundles
+
+- **AI Review Bundles**: Updated `scripts/auto_ai_review.py` and `scripts/build_mcpedl_readme.py` to package `<PackName>.txt` and `<PackName>_tools.txt` into a single downloadable `<PackName>.zip` bundle for each pack in MCPEDL catalog.
+
 ## [v118] - 2026-11-18 - Music-Only Audio
 
 ### Improved & Balanced
