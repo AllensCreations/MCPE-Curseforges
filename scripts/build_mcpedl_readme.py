@@ -21,14 +21,29 @@ CATEGORIES = (("Addons", "Add-ons"), ("Maps", "Maps"), ("Script", "Scripts"), ("
 CHANGELOG_TOP = re.compile(r"(?m)^## \[(\d+\.\d+\.\d+)\]")
 RAW = "https://github.com/AllensCreations/MCPE-Curseforges/raw/main/"
 GITHUB_RAW = "https://github.com/AllensCreations/MCPE-Curseforges/raw/main/"
-AI_KITS = (
-    ("New Pack Kit", "ai-review/New-Pack_tools.txt"),
-    ("Update Pack Kit", "ai-review/Update-Pack_tools.txt"),
-    ("Repo Maintenance Kit", "ai-review/tools.txt"),
-    ("Vanilla Bedrock Reference (JSON.gz)", "reference/bedrock-samples/bedrock-samples.min.json.gz"),
-    ("Complete Bedrock Reference Bundle (Samples, Schemas & Types Zip)", "reference/bedrock-samples/bedrock-reference-pack.zip"),
-    ("Minecraft Script API TypeScript Definitions (.d.ts Zip)", "reference/typescript-definitions/minecraft-bedrock-types.zip"),
-)
+
+
+def get_ai_kits(root: Path):
+    bedrock_dir = root / "reference" / "bedrock-samples"
+    zips = sorted(bedrock_dir.glob("bedrock-reference-pack-*.zip"))
+    if zips:
+        bundle_path = zips[-1].relative_to(root).as_posix()
+        bundle_label = f"Bedrock Reference Bundle ({zips[-1].stem.replace('bedrock-reference-pack-', 'v')})"
+    else:
+        bundle_path = "reference/bedrock-samples/bedrock-reference-pack.zip"
+        bundle_label = "Complete Bedrock Reference Bundle (Samples, Schemas & Types Zip)"
+
+    return (
+        ("New Pack Kit", "ai-review/New-Pack_tools.txt"),
+        ("Update Pack Kit", "ai-review/Update-Pack_tools.txt"),
+        ("Repo Maintenance Kit", "ai-review/tools.txt"),
+        ("Bedrock Samples (AI Review)", "ai-review/bedrock-samples.txt"),
+        ("Vanilla Bedrock Reference (JSON.gz)", "reference/bedrock-samples/bedrock-samples.min.json.gz"),
+        (bundle_label, bundle_path),
+        ("Minecraft Script API TypeScript Definitions (.d.ts Zip)", "reference/typescript-definitions/minecraft-bedrock-types.zip"),
+    )
+
+
 HEADER = (
     "# MCPEDL Catalog\n\n"
     "Generated file. Do not edit by hand: it is rebuilt with every build.\n"
@@ -69,7 +84,7 @@ def render(root):
 
     # AI Review Kits section
     kit_rows = ["| Kit | Download |", "| :-- | :-- |"]
-    for kit_label, kit_rel in AI_KITS:
+    for kit_label, kit_rel in get_ai_kits(root):
         kit_path = root / kit_rel
         if kit_path.is_file():
             kit_rows.append(f"| **{kit_label}** | [Download]({GITHUB_RAW}{kit_rel}) |")

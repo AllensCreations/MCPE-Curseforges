@@ -71,7 +71,7 @@ jobs:
       - name: Commit when it changed
         run: |
           set -euo pipefail
-          git add reference/bedrock-samples reference/typescript-definitions
+          git add reference/bedrock-samples reference/typescript-definitions ai-review/
           if git diff --cached --quiet; then
             echo "Reference and TypeScript definitions are already up to date." | tee -a "$GITHUB_STEP_SUMMARY"
             exit 0
