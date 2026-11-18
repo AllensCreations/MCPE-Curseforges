@@ -5,7 +5,7 @@
       "identifier": "aln:headphones",
       "menu_category": {
         "category": "equipment",
-        "group": "itemGroup.name.helmet"
+        "group": "minecraft:itemGroup.name.helmet"
       }
     },
     "components": {

@@ -2,6 +2,13 @@
 
 ---
 
+## [v4] - 2026-11-18 - Headphones Item Fix
+
+### Fixed
+- **Wireless Headphones**: The headphones now load correctly, showing their icon, stacking to 1 and appearing in the Helmet group of the creative inventory.
+
+---
+
 ## [v3] - 2026-11-18 - Direct Audio Streaming & Disconnect Feedback
 
 ### Added

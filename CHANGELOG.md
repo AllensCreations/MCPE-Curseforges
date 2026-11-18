@@ -6,6 +6,13 @@
 
 ---
 
+## [v114] - 2026-11-18 - Headphones Item Fix
+
+### Fixed
+- **ALN Wireless Headphones**: The item now loads correctly, with its icon, a stack size of 1 and its place in the Helmet group.
+
+---
+
 ## [v112] - 2026-11-18 - [New Pack Kit Restoration]
 ### Fixed
 - **collect_ai_review.py**: Resolved an issue where `skip_tools` suppressed `New-Pack_tools.txt` generation in `new_pack` mode.
