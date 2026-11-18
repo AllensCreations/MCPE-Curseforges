@@ -65,10 +65,6 @@
 ---
 
 
-
----
-
-
 <!-- GRAPH-CONTEXT:START -->
 ## Graph Context
 
@@ -213,6 +209,9 @@ Maps/scripts/minigames: same landing page. Use real package format; .mcworld = t
 - NO links, URLs, badges, function/event names, unverified benefits. No boilerplate after title.
 - Insert new entry directly under `---`, above previous release. NEVER edit/delete older entries.
 
+### Item and Block Components
+- When defining `menu_category` for custom items or blocks, `group` MUST start with a namespace (e.g. `minecraft:itemGroup.name.<group>` or `<namespace>:itemGroup.name.<group>`). Unnamespaced group strings like `itemGroup.name.helmet` fail Bedrock parsing (`Failed to parse field ' -> description -> menu_category -> group: string must be prefixed with a namespace (eg. namespace:value)'`). If no vanilla group applies, omit `group` and provide only `category`.
+
 ## Reply Format (STRICT)
 ```
 [SYSTEM_CONFIG]
@@ -310,7 +309,7 @@ git config --global credential.helper store
 
 ```
 
-## FILE: MCPEDL/Addons/Mining-Helmet/behavior_pack/items/mining_helmet.json (47 lines, 1100 bytes)
+## FILE: MCPEDL/Addons/Mining-Helmet/behavior_pack/items/mining_helmet.json (47 lines, 1110 bytes)
 
 ```
 {
@@ -320,7 +319,7 @@ git config --global credential.helper store
       "identifier": "custom:mining_helmet",
       "menu_category": {
         "category": "equipment",
-        "group": "itemGroup.name.helmet"
+        "group": "minecraft:itemGroup.name.helmet"
       }
     },
     "components": {
@@ -361,7 +360,7 @@ git config --global credential.helper store
 }
 ```
 
-## FILE: MCPEDL/Addons/Mining-Helmet/behavior_pack/items/torch_mining_helmet.json (47 lines, 1120 bytes)
+## FILE: MCPEDL/Addons/Mining-Helmet/behavior_pack/items/torch_mining_helmet.json (47 lines, 1130 bytes)
 
 ```
 {
@@ -371,7 +370,7 @@ git config --global credential.helper store
       "identifier": "custom:torch_mining_helmet",
       "menu_category": {
         "category": "equipment",
-        "group": "itemGroup.name.helmet"
+        "group": "minecraft:itemGroup.name.helmet"
       }
     },
     "components": {
@@ -1671,7 +1670,7 @@ Source files for established Minecraft Bedrock add-ons by ALNStudios.
 | Enchanter | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/Enchanter/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Enchanter/Enchanter%20V2.mcaddon) |
 | ALN Quiver | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/ALN-Quiver/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/ALN-Quiver/ALNQuiver%20V2.mcaddon) |
 | Expanded Basic Arsenal | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/Expanded-Basic-Arsenal/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Expanded-Basic-Arsenal/ExpandedBasicArsenal%20V2.mcaddon) |
-| ALN Wireless Headphones | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/ALN-Wireless-Headphones/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/ALN-Wireless-Headphones/ALNWirelessHeadphones%20V3.mcaddon) |
+| ALN Wireless Headphones | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/ALN-Wireless-Headphones/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/ALN-Wireless-Headphones/ALNWirelessHeadphones%20V4.mcaddon) |
 | ALN MoreDiscs | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/ALN-MoreDiscs/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/ALN-MoreDiscs/ALNMoreDiscs%20V2.mcaddon) |
 | ALN Pointer | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/ALN-Pointer/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/ALN-Pointer/ALNPointer%20V2.mcaddon) |
 

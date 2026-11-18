@@ -2,7 +2,7 @@
   "changelog_version": "2.0.0",
   "manifest_version": "2.0.0",
   "packages": {
-    "GrimoireRelics V2.mcaddon": "2c7930cc05d3bcebdd8622bb803074f11f02b52aa523dee4f7d4d8e1894515ad"
+    "GrimoireRelics V2.mcaddon": "dcc7e52e03829b5ee144418c8309b0c895588616785fc63ed5b2a957834f55f9"
   },
-  "source_sha256": "f37356af5dc3047ef5b9c85bf5122513f8e4f3a215ff5f33c96cc10e67cc37c2"
+  "source_sha256": "355df68a4d7fddbc43b7a29d768c41f25e6c82ded1931693b963788a0f364989"
 }

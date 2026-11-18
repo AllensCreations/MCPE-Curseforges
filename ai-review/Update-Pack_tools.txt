@@ -450,10 +450,10 @@ Same rules as `INSTRUCTIONS.md` 1.12. Read it when a mechanic hits a vanilla lim
 - Ship the JSON AND the PNGs. The JSON is the source: later changes edit the JSON and rerun the script, NEVER the PNG. `--preview [file]` writes a review sheet outside the project: NEVER ship it.
 ````
 
-## FILE: INSTRUCTIONS.md (280 lines, 40193 bytes)
+## FILE: INSTRUCTIONS.md (282 lines, 40887 bytes)
 
 ````
-# Instructions: Core Repository Policy (v27)
+# Instructions: Core Repository Policy (v28)
 
 
 Repo policy, docs rules for AllensCreations/MCPE-Curseforges (creator name `ALNStudios`). Generating a new project: `PACK_GENERATOR_INSTRUCTIONS.md`.
@@ -698,6 +698,7 @@ Placeholders `<PackName>`, `<MainAction>`, `<version>`. NEVER hardcode one pack.
 - Trusted sources (rely strictly and exclusively on these; NEVER invent API methods, outdated syntax or item ids): Microsoft Learn Script API (https://learn.microsoft.com/en-us/minecraft/creator/scriptapi/); NPM `@minecraft/server` (https://www.npmjs.com/package/@minecraft/server), `@minecraft/server-ui` (https://www.npmjs.com/package/@minecraft/server-ui), `@minecraft/math` (https://www.npmjs.com/package/@minecraft/math); Microsoft Scripting Samples (https://github.com/microsoft/minecraft-scripting-samples); Microsoft Add-On Samples (https://github.com/microsoft/minecraft-samples); Mojang Bedrock Samples (https://github.com/Mojang/bedrock-samples) with `resource_pack/textures` and `behavior_pack/recipes` for vanilla textures, recipes, definitions. Priority and disagreements follow 1.1: report, NEVER choose silently.
 - Failure (script does not load, texture does not render, syntax changed in a newer update): read the sample repositories and Learn docs above for the exact updated syntax, manifest dependency versions, valid vanilla identifiers and working patterns BEFORE rewriting code.
 - Output: complete ready-to-use files with exact repo-root-relative paths, delivered ONLY as the single `.sh` and reply format above (Reply Format, Termux Script Rules).
+- Item/Block menu_category: When defining `menu_category` in custom items or blocks, `group` MUST start with a namespace (e.g. `minecraft:itemGroup.name.<group>` or `<pack_namespace>:itemGroup.name.<group>`). Unnamespaced group strings (such as `itemGroup.name.helmet`) fail Bedrock parsing (`Failed to parse field ' -> description -> menu_category -> group: string must be prefixed with a namespace (eg. namespace:value)'`). When no specific vanilla group applies, omit `group` and specify only `category` (`items`, `equipment`, `construction`, `nature`).
 
 ---
 
@@ -715,6 +716,7 @@ Placeholders `<PackName>`, `<MainAction>`, `<version>`. NEVER hardcode one pack.
 - [ ] Changed JSON validated. Instruction file changed: `scripts/check_instruction_files.py` passes.
 
 ## Version History
+- **v28:** Required namespace prefix for all item and block `menu_category.group` definitions (e.g. `minecraft:itemGroup.name.<group>`).
 - **v27:** Standardized instruction naming format to bold with parentheses (**`(<Shortcut> VX.<ext>)`**) and clarified engaging Hook Questions for pack documentation.
 - **v26:** Standardized downloadable build package filenames to `VX` format (`<Shortcut> VX.<ext>`); updated `make_pack_script.py` to auto-build description and changelog views on new pack creation.
 - **v25:** Updated instructions to reflect single-version `vX` scheme (Bedrock `[X, 0, 0]`), 3-mode AI review export (`update_pack`, `new_pack`, `repo_maintenance`), and gzipped Bedrock reference.

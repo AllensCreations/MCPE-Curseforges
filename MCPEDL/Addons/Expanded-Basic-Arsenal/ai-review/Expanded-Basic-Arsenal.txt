@@ -86,10 +86,6 @@
 ---
 
 
-
----
-
-
 <!-- GRAPH-CONTEXT:START -->
 ## Graph Context
 
@@ -233,6 +229,9 @@ Maps/scripts/minigames: same landing page. Use real package format; .mcworld = t
 - Entry: `- **Title**: player impact.`
 - NO links, URLs, badges, function/event names, unverified benefits. No boilerplate after title.
 - Insert new entry directly under `---`, above previous release. NEVER edit/delete older entries.
+
+### Item and Block Components
+- When defining `menu_category` for custom items or blocks, `group` MUST start with a namespace (e.g. `minecraft:itemGroup.name.<group>` or `<namespace>:itemGroup.name.<group>`). Unnamespaced group strings like `itemGroup.name.helmet` fail Bedrock parsing (`Failed to parse field ' -> description -> menu_category -> group: string must be prefixed with a namespace (eg. namespace:value)'`). If no vanilla group applies, omit `group` and provide only `category`.
 
 ## Reply Format (STRICT)
 ```
@@ -582,7 +581,7 @@ git config --global credential.helper store
 }
 ```
 
-## FILE: MCPEDL/Addons/Expanded-Basic-Arsenal/behavior_pack/items/copper_dagger.json (33 lines, 737 bytes)
+## FILE: MCPEDL/Addons/Expanded-Basic-Arsenal/behavior_pack/items/copper_dagger.json (33 lines, 747 bytes)
 
 ```
 {
@@ -592,7 +591,7 @@ git config --global credential.helper store
       "identifier": "aln:copper_dagger",
       "menu_category": {
         "category": "equipment",
-        "group": "itemGroup.name.sword"
+        "group": "minecraft:itemGroup.name.sword"
       }
     },
     "components": {
@@ -619,7 +618,7 @@ git config --global credential.helper store
 }
 ```
 
-## FILE: MCPEDL/Addons/Expanded-Basic-Arsenal/behavior_pack/items/flint_spear.json (34 lines, 776 bytes)
+## FILE: MCPEDL/Addons/Expanded-Basic-Arsenal/behavior_pack/items/flint_spear.json (34 lines, 786 bytes)
 
 ```
 {
@@ -629,7 +628,7 @@ git config --global credential.helper store
       "identifier": "aln:flint_spear",
       "menu_category": {
         "category": "equipment",
-        "group": "itemGroup.name.sword"
+        "group": "minecraft:itemGroup.name.sword"
       }
     },
     "components": {
@@ -693,7 +692,7 @@ git config --global credential.helper store
 }
 ```
 
-## FILE: MCPEDL/Addons/Expanded-Basic-Arsenal/behavior_pack/items/wooden_club.json (33 lines, 731 bytes)
+## FILE: MCPEDL/Addons/Expanded-Basic-Arsenal/behavior_pack/items/wooden_club.json (33 lines, 741 bytes)
 
 ```
 {
@@ -703,7 +702,7 @@ git config --global credential.helper store
       "identifier": "aln:wooden_club",
       "menu_category": {
         "category": "equipment",
-        "group": "itemGroup.name.sword"
+        "group": "minecraft:itemGroup.name.sword"
       }
     },
     "components": {
@@ -2042,7 +2041,7 @@ Source files for established Minecraft Bedrock add-ons by ALNStudios.
 | Enchanter | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/Enchanter/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Enchanter/Enchanter%20V2.mcaddon) |
 | ALN Quiver | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/ALN-Quiver/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/ALN-Quiver/ALNQuiver%20V2.mcaddon) |
 | Expanded Basic Arsenal | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/Expanded-Basic-Arsenal/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Expanded-Basic-Arsenal/ExpandedBasicArsenal%20V2.mcaddon) |
-| ALN Wireless Headphones | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/ALN-Wireless-Headphones/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/ALN-Wireless-Headphones/ALNWirelessHeadphones%20V3.mcaddon) |
+| ALN Wireless Headphones | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/ALN-Wireless-Headphones/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/ALN-Wireless-Headphones/ALNWirelessHeadphones%20V4.mcaddon) |
 | ALN MoreDiscs | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/ALN-MoreDiscs/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/ALN-MoreDiscs/ALNMoreDiscs%20V2.mcaddon) |
 | ALN Pointer | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/ALN-Pointer/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/ALN-Pointer/ALNPointer%20V2.mcaddon) |
 

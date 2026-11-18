@@ -136,10 +136,6 @@
 ---
 
 
-
----
-
-
 <!-- GRAPH-CONTEXT:START -->
 ## Graph Context
 
@@ -284,6 +280,9 @@ Maps/scripts/minigames: same landing page. Use real package format; .mcworld = t
 - NO links, URLs, badges, function/event names, unverified benefits. No boilerplate after title.
 - Insert new entry directly under `---`, above previous release. NEVER edit/delete older entries.
 
+### Item and Block Components
+- When defining `menu_category` for custom items or blocks, `group` MUST start with a namespace (e.g. `minecraft:itemGroup.name.<group>` or `<namespace>:itemGroup.name.<group>`). Unnamespaced group strings like `itemGroup.name.helmet` fail Bedrock parsing (`Failed to parse field ' -> description -> menu_category -> group: string must be prefixed with a namespace (eg. namespace:value)'`). If no vanilla group applies, omit `group` and provide only `category`.
+
 ## Reply Format (STRICT)
 ```
 [SYSTEM_CONFIG]
@@ -344,7 +343,7 @@ ID,Real Name,Identifier,Acquisition Type,Category,Art Style & Design Suggestion
 
 ```
 
-## FILE: MCPEDL/Addons/Grimoire-Relics-V2/behavior_pack/items/tome_abyss.json (47 lines, 1052 bytes)
+## FILE: MCPEDL/Addons/Grimoire-Relics-V2/behavior_pack/items/tome_abyss.json (47 lines, 1062 bytes)
 
 ```
 {
@@ -354,7 +353,7 @@ ID,Real Name,Identifier,Acquisition Type,Category,Art Style & Design Suggestion
       "identifier": "custom:tome_abyss",
       "menu_category": {
         "category": "equipment",
-        "group": "itemGroup.name.book"
+        "group": "minecraft:itemGroup.name.book"
       }
     },
     "components": {
@@ -396,7 +395,7 @@ ID,Real Name,Identifier,Acquisition Type,Category,Art Style & Design Suggestion
 }
 ```
 
-## FILE: MCPEDL/Addons/Grimoire-Relics-V2/behavior_pack/items/tome_alchemist.json (47 lines, 1068 bytes)
+## FILE: MCPEDL/Addons/Grimoire-Relics-V2/behavior_pack/items/tome_alchemist.json (47 lines, 1078 bytes)
 
 ```
 {
@@ -406,7 +405,7 @@ ID,Real Name,Identifier,Acquisition Type,Category,Art Style & Design Suggestion
       "identifier": "custom:tome_alchemist",
       "menu_category": {
         "category": "equipment",
-        "group": "itemGroup.name.book"
+        "group": "minecraft:itemGroup.name.book"
       }
     },
     "components": {
@@ -448,7 +447,7 @@ ID,Real Name,Identifier,Acquisition Type,Category,Art Style & Design Suggestion
 }
 ```
 
-## FILE: MCPEDL/Addons/Grimoire-Relics-V2/behavior_pack/items/tome_delver.json (47 lines, 1054 bytes)
+## FILE: MCPEDL/Addons/Grimoire-Relics-V2/behavior_pack/items/tome_delver.json (47 lines, 1064 bytes)
 
 ```
 {
@@ -458,7 +457,7 @@ ID,Real Name,Identifier,Acquisition Type,Category,Art Style & Design Suggestion
       "identifier": "custom:tome_delver",
       "menu_category": {
         "category": "equipment",
-        "group": "itemGroup.name.book"
+        "group": "minecraft:itemGroup.name.book"
       }
     },
     "components": {
@@ -500,7 +499,7 @@ ID,Real Name,Identifier,Acquisition Type,Category,Art Style & Design Suggestion
 }
 ```
 
-## FILE: MCPEDL/Addons/Grimoire-Relics-V2/behavior_pack/items/tome_dragon.json (47 lines, 1059 bytes)
+## FILE: MCPEDL/Addons/Grimoire-Relics-V2/behavior_pack/items/tome_dragon.json (47 lines, 1069 bytes)
 
 ```
 {
@@ -510,7 +509,7 @@ ID,Real Name,Identifier,Acquisition Type,Category,Art Style & Design Suggestion
       "identifier": "custom:tome_dragon",
       "menu_category": {
         "category": "equipment",
-        "group": "itemGroup.name.book"
+        "group": "minecraft:itemGroup.name.book"
       }
     },
     "components": {
@@ -552,7 +551,7 @@ ID,Real Name,Identifier,Acquisition Type,Category,Art Style & Design Suggestion
 }
 ```
 
-## FILE: MCPEDL/Addons/Grimoire-Relics-V2/behavior_pack/items/tome_druid.json (47 lines, 1053 bytes)
+## FILE: MCPEDL/Addons/Grimoire-Relics-V2/behavior_pack/items/tome_druid.json (47 lines, 1063 bytes)
 
 ```
 {
@@ -562,7 +561,7 @@ ID,Real Name,Identifier,Acquisition Type,Category,Art Style & Design Suggestion
       "identifier": "custom:tome_druid",
       "menu_category": {
         "category": "equipment",
-        "group": "itemGroup.name.book"
+        "group": "minecraft:itemGroup.name.book"
       }
     },
     "components": {
@@ -604,7 +603,7 @@ ID,Real Name,Identifier,Acquisition Type,Category,Art Style & Design Suggestion
 }
 ```
 
-## FILE: MCPEDL/Addons/Grimoire-Relics-V2/behavior_pack/items/tome_frost.json (47 lines, 1052 bytes)
+## FILE: MCPEDL/Addons/Grimoire-Relics-V2/behavior_pack/items/tome_frost.json (47 lines, 1062 bytes)
 
 ```
 {
@@ -614,7 +613,7 @@ ID,Real Name,Identifier,Acquisition Type,Category,Art Style & Design Suggestion
       "identifier": "custom:tome_frost",
       "menu_category": {
         "category": "equipment",
-        "group": "itemGroup.name.book"
+        "group": "minecraft:itemGroup.name.book"
       }
     },
     "components": {
@@ -656,7 +655,7 @@ ID,Real Name,Identifier,Acquisition Type,Category,Art Style & Design Suggestion
 }
 ```
 
-## FILE: MCPEDL/Addons/Grimoire-Relics-V2/behavior_pack/items/tome_golem.json (47 lines, 1050 bytes)
+## FILE: MCPEDL/Addons/Grimoire-Relics-V2/behavior_pack/items/tome_golem.json (47 lines, 1060 bytes)
 
 ```
 {
@@ -666,7 +665,7 @@ ID,Real Name,Identifier,Acquisition Type,Category,Art Style & Design Suggestion
       "identifier": "custom:tome_golem",
       "menu_category": {
         "category": "equipment",
-        "group": "itemGroup.name.book"
+        "group": "minecraft:itemGroup.name.book"
       }
     },
     "components": {
@@ -708,7 +707,7 @@ ID,Real Name,Identifier,Acquisition Type,Category,Art Style & Design Suggestion
 }
 ```
 
-## FILE: MCPEDL/Addons/Grimoire-Relics-V2/behavior_pack/items/tome_hydra.json (47 lines, 1051 bytes)
+## FILE: MCPEDL/Addons/Grimoire-Relics-V2/behavior_pack/items/tome_hydra.json (47 lines, 1061 bytes)
 
 ```
 {
@@ -718,7 +717,7 @@ ID,Real Name,Identifier,Acquisition Type,Category,Art Style & Design Suggestion
       "identifier": "custom:tome_hydra",
       "menu_category": {
         "category": "equipment",
-        "group": "itemGroup.name.book"
+        "group": "minecraft:itemGroup.name.book"
       }
     },
     "components": {
@@ -760,7 +759,7 @@ ID,Real Name,Identifier,Acquisition Type,Category,Art Style & Design Suggestion
 }
 ```
 
-## FILE: MCPEDL/Addons/Grimoire-Relics-V2/behavior_pack/items/tome_lich.json (47 lines, 1050 bytes)
+## FILE: MCPEDL/Addons/Grimoire-Relics-V2/behavior_pack/items/tome_lich.json (47 lines, 1060 bytes)
 
 ```
 {
@@ -770,7 +769,7 @@ ID,Real Name,Identifier,Acquisition Type,Category,Art Style & Design Suggestion
       "identifier": "custom:tome_lich",
       "menu_category": {
         "category": "equipment",
-        "group": "itemGroup.name.book"
+        "group": "minecraft:itemGroup.name.book"
       }
     },
     "components": {
@@ -812,7 +811,7 @@ ID,Real Name,Identifier,Acquisition Type,Category,Art Style & Design Suggestion
 }
 ```
 
-## FILE: MCPEDL/Addons/Grimoire-Relics-V2/behavior_pack/items/tome_lunar.json (47 lines, 1053 bytes)
+## FILE: MCPEDL/Addons/Grimoire-Relics-V2/behavior_pack/items/tome_lunar.json (47 lines, 1063 bytes)
 
 ```
 {
@@ -822,7 +821,7 @@ ID,Real Name,Identifier,Acquisition Type,Category,Art Style & Design Suggestion
       "identifier": "custom:tome_lunar",
       "menu_category": {
         "category": "equipment",
-        "group": "itemGroup.name.book"
+        "group": "minecraft:itemGroup.name.book"
       }
     },
     "components": {
@@ -864,7 +863,7 @@ ID,Real Name,Identifier,Acquisition Type,Category,Art Style & Design Suggestion
 }
 ```
 
-## FILE: MCPEDL/Addons/Grimoire-Relics-V2/behavior_pack/items/tome_mirror.json (47 lines, 1059 bytes)
+## FILE: MCPEDL/Addons/Grimoire-Relics-V2/behavior_pack/items/tome_mirror.json (47 lines, 1069 bytes)
 
 ```
 {
@@ -874,7 +873,7 @@ ID,Real Name,Identifier,Acquisition Type,Category,Art Style & Design Suggestion
       "identifier": "custom:tome_mirror",
       "menu_category": {
         "category": "equipment",
-        "group": "itemGroup.name.book"
+        "group": "minecraft:itemGroup.name.book"
       }
     },
     "components": {
@@ -916,7 +915,7 @@ ID,Real Name,Identifier,Acquisition Type,Category,Art Style & Design Suggestion
 }
 ```
 
-## FILE: MCPEDL/Addons/Grimoire-Relics-V2/behavior_pack/items/tome_phoenix.json (47 lines, 1062 bytes)
+## FILE: MCPEDL/Addons/Grimoire-Relics-V2/behavior_pack/items/tome_phoenix.json (47 lines, 1072 bytes)
 
 ```
 {
@@ -926,7 +925,7 @@ ID,Real Name,Identifier,Acquisition Type,Category,Art Style & Design Suggestion
       "identifier": "custom:tome_phoenix",
       "menu_category": {
         "category": "equipment",
-        "group": "itemGroup.name.book"
+        "group": "minecraft:itemGroup.name.book"
       }
     },
     "components": {
@@ -968,7 +967,7 @@ ID,Real Name,Identifier,Acquisition Type,Category,Art Style & Design Suggestion
 }
 ```
 
-## FILE: MCPEDL/Addons/Grimoire-Relics-V2/behavior_pack/items/tome_scholar.json (47 lines, 1060 bytes)
+## FILE: MCPEDL/Addons/Grimoire-Relics-V2/behavior_pack/items/tome_scholar.json (47 lines, 1070 bytes)
 
 ```
 {
@@ -978,7 +977,7 @@ ID,Real Name,Identifier,Acquisition Type,Category,Art Style & Design Suggestion
       "identifier": "custom:tome_scholar",
       "menu_category": {
         "category": "equipment",
-        "group": "itemGroup.name.book"
+        "group": "minecraft:itemGroup.name.book"
       }
     },
     "components": {
@@ -1020,7 +1019,7 @@ ID,Real Name,Identifier,Acquisition Type,Category,Art Style & Design Suggestion
 }
 ```
 
-## FILE: MCPEDL/Addons/Grimoire-Relics-V2/behavior_pack/items/tome_seraph.json (47 lines, 1057 bytes)
+## FILE: MCPEDL/Addons/Grimoire-Relics-V2/behavior_pack/items/tome_seraph.json (47 lines, 1067 bytes)
 
 ```
 {
@@ -1030,7 +1029,7 @@ ID,Real Name,Identifier,Acquisition Type,Category,Art Style & Design Suggestion
       "identifier": "custom:tome_seraph",
       "menu_category": {
         "category": "equipment",
-        "group": "itemGroup.name.book"
+        "group": "minecraft:itemGroup.name.book"
       }
     },
     "components": {
@@ -1072,7 +1071,7 @@ ID,Real Name,Identifier,Acquisition Type,Category,Art Style & Design Suggestion
 }
 ```
 
-## FILE: MCPEDL/Addons/Grimoire-Relics-V2/behavior_pack/items/tome_solar.json (47 lines, 1050 bytes)
+## FILE: MCPEDL/Addons/Grimoire-Relics-V2/behavior_pack/items/tome_solar.json (47 lines, 1060 bytes)
 
 ```
 {
@@ -1082,7 +1081,7 @@ ID,Real Name,Identifier,Acquisition Type,Category,Art Style & Design Suggestion
       "identifier": "custom:tome_solar",
       "menu_category": {
         "category": "equipment",
-        "group": "itemGroup.name.book"
+        "group": "minecraft:itemGroup.name.book"
       }
     },
     "components": {
@@ -1124,7 +1123,7 @@ ID,Real Name,Identifier,Acquisition Type,Category,Art Style & Design Suggestion
 }
 ```
 
-## FILE: MCPEDL/Addons/Grimoire-Relics-V2/behavior_pack/items/tome_storm.json (47 lines, 1051 bytes)
+## FILE: MCPEDL/Addons/Grimoire-Relics-V2/behavior_pack/items/tome_storm.json (47 lines, 1061 bytes)
 
 ```
 {
@@ -1134,7 +1133,7 @@ ID,Real Name,Identifier,Acquisition Type,Category,Art Style & Design Suggestion
       "identifier": "custom:tome_storm",
       "menu_category": {
         "category": "equipment",
-        "group": "itemGroup.name.book"
+        "group": "minecraft:itemGroup.name.book"
       }
     },
     "components": {
@@ -1176,7 +1175,7 @@ ID,Real Name,Identifier,Acquisition Type,Category,Art Style & Design Suggestion
 }
 ```
 
-## FILE: MCPEDL/Addons/Grimoire-Relics-V2/behavior_pack/items/tome_titan.json (47 lines, 1054 bytes)
+## FILE: MCPEDL/Addons/Grimoire-Relics-V2/behavior_pack/items/tome_titan.json (47 lines, 1064 bytes)
 
 ```
 {
@@ -1186,7 +1185,7 @@ ID,Real Name,Identifier,Acquisition Type,Category,Art Style & Design Suggestion
       "identifier": "custom:tome_titan",
       "menu_category": {
         "category": "equipment",
-        "group": "itemGroup.name.book"
+        "group": "minecraft:itemGroup.name.book"
       }
     },
     "components": {
@@ -1228,7 +1227,7 @@ ID,Real Name,Identifier,Acquisition Type,Category,Art Style & Design Suggestion
 }
 ```
 
-## FILE: MCPEDL/Addons/Grimoire-Relics-V2/behavior_pack/items/tome_vampire.json (47 lines, 1059 bytes)
+## FILE: MCPEDL/Addons/Grimoire-Relics-V2/behavior_pack/items/tome_vampire.json (47 lines, 1069 bytes)
 
 ```
 {
@@ -1238,7 +1237,7 @@ ID,Real Name,Identifier,Acquisition Type,Category,Art Style & Design Suggestion
       "identifier": "custom:tome_vampire",
       "menu_category": {
         "category": "equipment",
-        "group": "itemGroup.name.book"
+        "group": "minecraft:itemGroup.name.book"
       }
     },
     "components": {
@@ -1280,7 +1279,7 @@ ID,Real Name,Identifier,Acquisition Type,Category,Art Style & Design Suggestion
 }
 ```
 
-## FILE: MCPEDL/Addons/Grimoire-Relics-V2/behavior_pack/items/tome_void.json (47 lines, 1049 bytes)
+## FILE: MCPEDL/Addons/Grimoire-Relics-V2/behavior_pack/items/tome_void.json (47 lines, 1059 bytes)
 
 ```
 {
@@ -1290,7 +1289,7 @@ ID,Real Name,Identifier,Acquisition Type,Category,Art Style & Design Suggestion
       "identifier": "custom:tome_void",
       "menu_category": {
         "category": "equipment",
-        "group": "itemGroup.name.book"
+        "group": "minecraft:itemGroup.name.book"
       }
     },
     "components": {
@@ -1332,7 +1331,7 @@ ID,Real Name,Identifier,Acquisition Type,Category,Art Style & Design Suggestion
 }
 ```
 
-## FILE: MCPEDL/Addons/Grimoire-Relics-V2/behavior_pack/items/tome_zephyr.json (47 lines, 1054 bytes)
+## FILE: MCPEDL/Addons/Grimoire-Relics-V2/behavior_pack/items/tome_zephyr.json (47 lines, 1064 bytes)
 
 ```
 {
@@ -1342,7 +1341,7 @@ ID,Real Name,Identifier,Acquisition Type,Category,Art Style & Design Suggestion
       "identifier": "custom:tome_zephyr",
       "menu_category": {
         "category": "equipment",
-        "group": "itemGroup.name.book"
+        "group": "minecraft:itemGroup.name.book"
       }
     },
     "components": {
@@ -4988,7 +4987,7 @@ Source files for established Minecraft Bedrock add-ons by ALNStudios.
 | Enchanter | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/Enchanter/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Enchanter/Enchanter%20V2.mcaddon) |
 | ALN Quiver | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/ALN-Quiver/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/ALN-Quiver/ALNQuiver%20V2.mcaddon) |
 | Expanded Basic Arsenal | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/Expanded-Basic-Arsenal/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Expanded-Basic-Arsenal/ExpandedBasicArsenal%20V2.mcaddon) |
-| ALN Wireless Headphones | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/ALN-Wireless-Headphones/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/ALN-Wireless-Headphones/ALNWirelessHeadphones%20V3.mcaddon) |
+| ALN Wireless Headphones | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/ALN-Wireless-Headphones/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/ALN-Wireless-Headphones/ALNWirelessHeadphones%20V4.mcaddon) |
 | ALN MoreDiscs | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/ALN-MoreDiscs/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/ALN-MoreDiscs/ALNMoreDiscs%20V2.mcaddon) |
 | ALN Pointer | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/ALN-Pointer/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/ALN-Pointer/ALNPointer%20V2.mcaddon) |
 
