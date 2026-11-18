@@ -1,8 +1,0 @@
-{
-  "changelog_version": "2.0.0",
-  "manifest_version": "2.0.0",
-  "packages": {
-    "ALNWirelessHeadphones V2.mcaddon": "5378cdc733379be2ae9d981570fad2d51407e3f0ff8d715aaafcef2a4e0fad3f"
-  },
-  "source_sha256": "2590c020204bd3f7fe86b74d6c9c960ab2eeb1f0ca0636c6b4baff69f72e054b"
-}

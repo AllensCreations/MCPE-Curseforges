@@ -1,9 +1,19 @@
 # Changelog — ALN Wireless Headphones
 
-## [v6] - 2026-11-18 - Custom Disc Support
+## [v8] - 2026-11-18 - Music-Only Audio
 
-### Added
+### Improved & Balanced
+- **Headphone Audio**: The headphone music always plays as music, so its volume stays steady wherever you walk and follows your Music volume setting.
+
+<details>
+<summary><b>6.0.x</b> (1 release)</summary>
+
+### [v6] - 2026-11-18 - Custom Disc Support
+
+#### Added
 - **Custom Discs**: Music discs from other add-ons now play through the headphones when the disc item is named <namespace>:music_disc_<name> and its sound is record.<name>. Their total time shows as --:--.
+
+</details>
 
 <details>
 <summary><b>5.0.x</b> (1 release)</summary>

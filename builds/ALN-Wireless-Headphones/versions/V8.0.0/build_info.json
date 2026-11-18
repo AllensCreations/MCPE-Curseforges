@@ -1,0 +1,8 @@
+{
+  "changelog_version": "8.0.0",
+  "manifest_version": "8.0.0",
+  "packages": {
+    "ALNWirelessHeadphones V8.mcaddon": "ce1f1db1948ce4b6029fc3fbe79f0fb0dd210e2e4aca3d0657aaa51611f19d8d"
+  },
+  "source_sha256": "e6ccf57f999b4affb507fdc3faa9d47357ff9c30b669897d3957765c86e39ef3"
+}
