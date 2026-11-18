@@ -1,6 +1,6 @@
 # Changelog — Loot and XP Stick
 
-## [1.0.0] - 2026-11-18
+## [v1] - 2026-11-18
 
 ### Added
 - **Stick Trigger Interface**: Right-click or hold a regular vanilla stick to open the booster settings menu.

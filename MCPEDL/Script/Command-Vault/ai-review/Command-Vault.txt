@@ -4,7 +4,7 @@
 
 - **Export request:** `MCPEDL/Script/Command-Vault`
 - **Destination:** `MCPEDL/Script/Command-Vault`
-- **CURRENT VERSION: v2 / NEXT UPDATE: v3**  (`MCPEDL/Script/Command-Vault/CHANGELOG.md`)
+- **CURRENT VERSION: v3 / NEXT UPDATE: v4**  (`MCPEDL/Script/Command-Vault/CHANGELOG.md`)
 - **Text files:** 15
 - **Skipped binary:** 1
 - **Paths not found:** 0
@@ -192,20 +192,20 @@ git config --global credential.helper store
 
 ## File Contents
 
-## FILE: changelog_views/Command-Vault.curseforge.html (4 lines, 1154 bytes)
+## FILE: changelog_views/Command-Vault.curseforge.html (4 lines, 1145 bytes)
 
 ```
-<h2>2.0.1 - 2026-11-18 - Fix Submenu Transitions</h2><h3>Fixed</h3><ul><li><strong>Submenu Dialog Stalling</strong>: Wrapped submenu transitions in `system.run()` to prevent Minecraft Bedrock from silently ignoring consecutive modal form requests when clicking Delete Command.</li></ul>
-<h2>2.0.x (1 release)</h2><div class="spoiler"><h3>2.0.0 - 2026-11-17</h3><h4>Added</h4><ul><li><strong>Delete Command Button</strong>: New main menu button opens a multi-select modal form.</li><li><strong>Multi-Toggle Deletion Form</strong>: Individual toggle per saved command; delete multiple macros in one operation.</li><li><strong>Batch Delete Feedback</strong>: Action bar shows count deleted and plays a break sound on success.</li></ul></div>
-<h2>1.0.x (1 release)</h2><div class="spoiler"><h3>1.0.0 - 2026-11-18</h3><h4>Added</h4><ul><li><strong>Command Vault Form UI</strong>: Action and modal menus for saving, browsing, and executing command macros.</li><li><strong>Dynamic Property Storage</strong>: Persistent per-player command list storage.</li><li><strong>Anvil Key Activation</strong>: Trigger the menu using an Anvil-renamed book.</li></ul></div>
+<h2>v3 - 2026-11-18 - Fix Submenu Transitions</h2><h3>Fixed</h3><ul><li><strong>Submenu Dialog Stalling</strong>: Wrapped submenu transitions in `system.run()` to prevent Minecraft Bedrock from silently ignoring consecutive modal form requests when clicking Delete Command.</li></ul>
+<h2>2.0.x (1 release)</h2><div class="spoiler"><h3>v2 - 2026-11-17</h3><h4>Added</h4><ul><li><strong>Delete Command Button</strong>: New main menu button opens a multi-select modal form.</li><li><strong>Multi-Toggle Deletion Form</strong>: Individual toggle per saved command; delete multiple macros in one operation.</li><li><strong>Batch Delete Feedback</strong>: Action bar shows count deleted and plays a break sound on success.</li></ul></div>
+<h2>1.0.x (1 release)</h2><div class="spoiler"><h3>v1 - 2026-11-18</h3><h4>Added</h4><ul><li><strong>Command Vault Form UI</strong>: Action and modal menus for saving, browsing, and executing command macros.</li><li><strong>Dynamic Property Storage</strong>: Persistent per-player command list storage.</li><li><strong>Anvil Key Activation</strong>: Trigger the menu using an Anvil-renamed book.</li></ul></div>
 ```
 
-## FILE: changelog_views/Command-Vault.github.md (31 lines, 1038 bytes)
+## FILE: changelog_views/Command-Vault.github.md (31 lines, 1029 bytes)
 
 ```
 # Changelog — Command Vault
 
-## [2.0.1] - 2026-11-18 - Fix Submenu Transitions
+## [v3] - 2026-11-18 - Fix Submenu Transitions
 
 ### Fixed
 - **Submenu Dialog Stalling**: Wrapped submenu transitions in `system.run()` to prevent Minecraft Bedrock from silently ignoring consecutive modal form requests when clicking Delete Command.
@@ -213,7 +213,7 @@ git config --global credential.helper store
 <details>
 <summary><b>2.0.x</b> (1 release)</summary>
 
-### [2.0.0] - 2026-11-17
+### [v2] - 2026-11-17
 
 #### Added
 - **Delete Command Button**: New main menu button opens a multi-select modal form.
@@ -225,7 +225,7 @@ git config --global credential.helper store
 <details>
 <summary><b>1.0.x</b> (1 release)</summary>
 
-### [1.0.0] - 2026-11-18
+### [v1] - 2026-11-18
 
 #### Added
 - **Command Vault Form UI**: Action and modal menus for saving, browsing, and executing command macros.
@@ -322,19 +322,19 @@ Leave clear space around the logo. No Minecraft, Mojang or Microsoft logos, no w
 
 ```
 
-## FILE: MCPEDL/Script/Command-Vault/behavior_pack/manifest.json (49 lines, 869 bytes)
+## FILE: MCPEDL/Script/Command-Vault/behavior_pack/manifest.json (49 lines, 865 bytes)
 
 ```
 {
   "format_version": 2,
   "header": {
-    "name": "Command Vault (v2.0.1)",
+    "name": "Command Vault (v3)",
     "description": "Saved command macro and quick-execute UI menu. by ALNStudios",
     "uuid": "20d71889-5d8a-4e87-a926-3fe7365a2bf7",
     "version": [
-      2,
+      3,
       0,
-      1
+      0
     ],
     "min_engine_version": [
       1,
@@ -348,9 +348,9 @@ Leave clear space around the logo. No Minecraft, Mojang or Microsoft logos, no w
       "language": "javascript",
       "uuid": "08edd354-0ac7-4023-b665-990d16d3140c",
       "version": [
-        2,
+        3,
         0,
-        1
+        0
       ],
       "entry": "scripts/main.js"
     }
@@ -369,7 +369,7 @@ Leave clear space around the logo. No Minecraft, Mojang or Microsoft logos, no w
     "authors": [
       "ALNStudios"
     ],
-    "version": "2.0.1",
+    "version": "3.0.0",
     "product_type": "addon"
   }
 }
@@ -649,19 +649,19 @@ world.afterEvents.itemUse.subscribe((event) => {
 });
 ```
 
-## FILE: MCPEDL/Script/Command-Vault/CHANGELOG.md (26 lines, 998 bytes)
+## FILE: MCPEDL/Script/Command-Vault/CHANGELOG.md (26 lines, 989 bytes)
 
 ```
 # Changelog — Command Vault
 
 ---
 
-## [2.0.1] - 2026-11-18 - Fix Submenu Transitions
+## [v3] - 2026-11-18 - Fix Submenu Transitions
 
 ### Fixed
 - **Submenu Dialog Stalling**: Wrapped submenu transitions in `system.run()` to prevent Minecraft Bedrock from silently ignoring consecutive modal form requests when clicking Delete Command.
 
-## [2.0.0] - 2026-11-17
+## [v2] - 2026-11-17
 
 **What's new in v2.0.0:** Packed with the v2.0.0 update. Includes: Delete Command Feature.
 
@@ -671,7 +671,7 @@ world.afterEvents.itemUse.subscribe((event) => {
 - **Multi-Toggle Deletion Form**: Individual toggle per saved command; delete multiple macros in one operation.
 - **Batch Delete Feedback**: Action bar shows count deleted and plays a break sound on success.
 
-## [1.0.0] - 2026-11-18
+## [v1] - 2026-11-18
 
 ### Added
 - **Command Vault Form UI**: Action and modal menus for saving, browsing, and executing command macros.
@@ -786,7 +786,7 @@ Download the current release of **Command Vault** for Minecraft Bedrock Edition.
 For gameplay features, usage details, compatibility notes, and other project information, read the [full description](https://github.com/AllensCreations/MCPE-Curseforges/blob/main/MCPEDL/Script/Command-Vault/DESCRIPTION.md).
 ```
 
-## FILE: MCPEDL/Script/README.md (32 lines, 3317 bytes)
+## FILE: MCPEDL/Script/README.md (33 lines, 3568 bytes)
 
 ```
 # Scripts
@@ -808,6 +808,7 @@ Standalone Minecraft Bedrock Script packs by ALNStudios. Script projects use the
 | ALNMobStacker | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Script/ALN-MobStacker/) | [MCPACK](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/ALN-MobStacker/ALNMobStacker%20V2.mcpack) |
 | ALNSpawnControl | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Script/ALNSpawnControl/) | [MCPACK](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/ALNSpawnControl/ALNSpawnControl%20V2.mcpack) |
 | Command Vault | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Script/Command-Vault/) | [MCPACK](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Command-Vault/CommandVault%20V2.0.1.mcpack) |
+| Loot and XP Stick | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Script/Loot-and-XP-Stick/) | [MCPACK](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Loot-and-XP-Stick/LootXPStick%20V1.mcpack) |
 
 ## Attribution
 
