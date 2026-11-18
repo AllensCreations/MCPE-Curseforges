@@ -409,9 +409,10 @@ def mechanics_spoilers(sec, acc):
             continue
         content = blocks_to_html(sbody, acc)
         title_esc = html.escape(sname, quote=True)
+        # CurseForge standard spoiler format: <h2>Title</h2><div class="spoiler">content</div>
         spoilers.append(
-            f'<div class="spoiler" title="{title_esc}" data-title="{title_esc}">'
-            f'<h3 style="color:{HEAD};line-height:1.5">{inline(sname)}</h3>'
+            f'{h2(inline(sname), acc)}\n'
+            f'<div class="spoiler" title="{title_esc}" data-title="{title_esc}">\n'
             f'{content}</div>'
         )
     return spoilers
