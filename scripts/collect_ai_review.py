@@ -164,6 +164,9 @@ Maps/scripts/minigames: same landing page. Use real package format; .mcworld = t
 - NO links, URLs, badges, function/event names, unverified benefits. No boilerplate after title.
 - Insert new entry directly under `---`, above previous release. NEVER edit/delete older entries.
 
+### Item and Block Components
+- When defining `menu_category` for custom items or blocks, `group` MUST start with a namespace (e.g. `minecraft:itemGroup.name.<group>` or `<namespace>:itemGroup.name.<group>`). Unnamespaced group strings like `itemGroup.name.helmet` fail Bedrock parsing (`Failed to parse field ' -> description -> menu_category -> group: string must be prefixed with a namespace (eg. namespace:value)'`). If no vanilla group applies, omit `group` and provide only `category`.
+
 ## Reply Format (STRICT)
 ```
 [SYSTEM_CONFIG]

@@ -6,6 +6,13 @@
 
 ---
 
+## [v114] - 2026-11-18 - Item menu_category Namespace Validation & Reply Format Standard
+
+### Fixed
+- **Item Group Namespaces**: Prefixed all creative menu_category `group` strings with `minecraft:` across ALN Wireless Headphones, Expanded Basic Arsenal, Grimoire Relics V2, and Mining Helmet, preventing Bedrock parsing errors.
+### Improved & Balanced
+- **Instructions & AI Review**: Enforced mandatory namespace prefixing on all item/block `menu_category.group` entries in `INSTRUCTIONS.md` and `scripts/collect_ai_review.py`, and reaffirmed strict Reply Format requirements for AI reviews.
+
 ## [v114] - 2026-11-18 - Headphones Item Fix
 
 ### Fixed

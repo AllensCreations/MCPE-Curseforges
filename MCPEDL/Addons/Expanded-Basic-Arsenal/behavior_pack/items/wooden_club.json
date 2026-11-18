@@ -5,7 +5,7 @@
       "identifier": "aln:wooden_club",
       "menu_category": {
         "category": "equipment",
-        "group": "itemGroup.name.sword"
+        "group": "minecraft:itemGroup.name.sword"
       }
     },
     "components": {

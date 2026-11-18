@@ -5,7 +5,7 @@
       "identifier": "custom:tome_lich",
       "menu_category": {
         "category": "equipment",
-        "group": "itemGroup.name.book"
+        "group": "minecraft:itemGroup.name.book"
       }
     },
     "components": {
