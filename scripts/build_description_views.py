@@ -381,6 +381,42 @@ def support(acc):
     return h2("Support", acc) + frame + links
 
 
+def feedback_box(acc):
+    """Prominent note encouraging players to comment bug reports, errors, and feature suggestions."""
+    return (f'<div style="background-color:{PANEL};border:1px solid {LINE};border-radius:{RADIUS};text-align:center"><br>'
+            f'<div style="background-color:{acc};color:{INK};border-radius:20px;font-size:15px;line-height:2;display:inline-block">'
+            f'&nbsp;&nbsp;<strong>Found a Bug or Have a Suggestion?</strong>&nbsp;&nbsp;</div>'
+            f'<p style="font-size:14px;color:{TEXT}">Please leave a comment on this project page! '
+            f'All bug reports, gameplay feedback, and pack suggestions are welcome and appreciated.</p></div>')
+
+
+def mechanics_spoilers(sec, acc):
+    """Detailed gameplay mechanics, rosters, or stats placed inside collapsible spoilers."""
+    standard_sections = {
+        "overview", "key features", "how to use", "commands", "common questions",
+        "compatibility", "compatibility and world settings", "compatibility and setup",
+        "compatibility and limitations", "creator and permissions", "guidelines and attribution",
+        "search & discovery keywords", "download", "installation", "pack information",
+        "showcase", "preview", "previews", "crafting recipes", "recipes", "feedback and suggestions",
+        "help and suggestions"
+    }
+    spoilers = []
+    for sname, sbody in sec.items():
+        slower = sname.lower().strip()
+        if slower in standard_sections or re.match(r"(?i)(showcase|previews?)", slower):
+            continue
+        if not sbody.strip():
+            continue
+        content = blocks_to_html(sbody, acc)
+        title_esc = html.escape(sname, quote=True)
+        spoilers.append(
+            f'<div class="spoiler" title="{title_esc}" data-title="{title_esc}">'
+            f'<h3 style="color:{HEAD};line-height:1.5">{inline(sname)}</h3>'
+            f'{content}</div>'
+        )
+    return spoilers
+
+
 IMG_EXT = {".png", ".jpg", ".jpeg", ".gif", ".webp"}
 MEDIA_KINDS = ("snapshots", "items", "recipes")
 
@@ -477,6 +513,9 @@ def render(md, fallback="", icon_url=None, latest=None, accent=None, style="mini
         parts += [h2("Screenshots", acc), gallery("snapshots", media["snapshots"])]
     if sec.get("Key Features", "").strip():
         parts += [h2("What You Get", acc), cards(sec["Key Features"], acc)]
+    mech = mechanics_spoilers(sec, acc)
+    if mech:
+        parts += mech
     if media.get("items"):
         parts += [h2("Custom Items", acc), gallery("items", media["items"])]
     if media.get("recipes"):
@@ -489,6 +528,7 @@ def render(md, fallback="", icon_url=None, latest=None, accent=None, style="mini
     if sec.get("Common Questions", "").strip():
         parts += [h2("Common Questions", acc), questions(sec["Common Questions"])]
     parts += [h2("Install", acc), steps(INSTALL, acc)]
+    parts.append(feedback_box(acc))
     parts.append(support(acc))
     parts.append("<hr>")
     parts.append(f'<p style="text-align:center;color:{MUTED};font-size:13px"><strong>By ALNStudios</strong></p>')
