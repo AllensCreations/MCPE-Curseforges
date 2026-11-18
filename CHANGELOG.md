@@ -1,3 +1,12 @@
+## [v108] - 2026-11-18 - [Conflict Prevention Standards & Instruction Updates]
+### Added
+- **INSTRUCTIONS.md (1.12)**: Formally added Conflict Prevention & Isolation rules (mandatory `aln:<name>` namespace and Script API event delegation over vanilla entity JSON replacement).
+### Improved & Balanced
+- **Instruction Files**: Updated `allenscreations:controller` references to `aln:minigame_controller` in `INSTRUCTIONS.md` and `PACK_GENERATOR_INSTRUCTIONS.md`.
+- **Tools Bundle**: Regenerated `ai-review/tools.txt` and `Update-Pack_tools.txt` with the latest rules.
+
+---
+
 ## [v107] - 2026-11-18 - [Fix Duplicate UUIDs and Standardize Minigame Controller]
 ### Fixed
 - **OneBlock-Void-Survival**: Generated unique manifest and module UUIDs for the embedded world behavior pack to avoid client duplicate-pack UUID collisions.

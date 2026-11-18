@@ -244,7 +244,7 @@ resource_pack/manifest.json
 resource_pack/textures/item_texture.json
 resource_pack/textures/items/controller.png    16 x 16, from repo, NEVER redrawn
 ```
-Controller (item `allenscreations:controller`; NEVER opt out): ALN UI Redesign main menu per `INSTRUCTIONS.md` 1.13/1.14 with exactly 3 buttons **Start**, **About**, **Exit** (this order); while running the first button = **End Game**. All of it lives in `controller.js`: NEVER build another form.
+Controller (item `aln:minigame_controller`; NEVER opt out): ALN UI Redesign main menu per `INSTRUCTIONS.md` 1.13/1.14 with exactly 3 buttons **Start**, **About**, **Exit** (this order); while running the first button = **End Game**. All of it lives in `controller.js`: NEVER build another form.
 - Only host/operator gets/uses it, via `isHost` in `controller.js`, NEVER `player.isOp()` alone. Start works while not running (re-read state after form closes). Running: End Game -> confirm form (**End Game** / **Back**) -> `endGame()`, no cheats. Start opens How to play (rules, **Start Game**, **Back**). About: creator, pack + version, one line, profiles, Back.
 - KEPT while the game runs. `consumeOnStart: true` restores old behavior (Start consumes first Controller unless `getGameMode()` is `GameMode.Creative`; End Game then only reachable by a host still carrying one).
 - Game logic calls `endGame()` on win/lose. `endGame()` sets `ended`, gives host/operator a fresh Controller if none.

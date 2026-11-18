@@ -164,7 +164,7 @@ Payload import:
 
 Scripts and minigames:
 - Script project `MCPEDL/Script/<Name>/`: script BP, `.mcpack`. Minigame `MCPEDL/Minigame/<Name>/`: BP + RP, `.mcaddon`.
-- Every Minigame ships Controller (`allenscreations:controller`, `controller.png` 16x16 at `Mcpeworlds/assets/resources_pack/textures/items/controller.png`). Opens the ALN UI Redesign main menu (1.14): exactly 3 buttons, **Start**, **About**, **Exit**; while running the first button = **End Game**. The importer installs the skin font, `pixelify.js` and the About icon into the minigame. State (idle/running/ended) in a world dynamic property. NEVER opt out.
+- Every Minigame ships Controller (`aln:minigame_controller`, `controller.png` 16x16 at `Mcpeworlds/assets/resources_pack/textures/items/controller.png`). Opens the ALN UI Redesign main menu (1.14): exactly 3 buttons, **Start**, **About**, **Exit**; while running the first button = **End Game**. The importer installs the skin font, `pixelify.js` and the About icon into the minigame. State (idle/running/ended) in a world dynamic property. NEVER opt out.
 - Only host/operator gets and uses it. Start works while idle. End Game asks confirm, calls `endGame()`, needs no cheats. Start opens the How to play page (Start Game + Back) before the game begins. About page has creator, version, one line on the pack, profiles and a Back button. Game ends via win/lose logic calling `endGame()`.
 - Controller KEPT while game runs. `consumeOnStart: true` in `registerController` restores old behavior (Start consumes first Controller unless Creative; End Game only reachable by host still carrying one). Host/operator gets one on every spawn (incl. death) when carrying none; game end gives a fresh one.
 - Stuck state: NEVER stay `running` forever. On world load, a script that cannot restore a live game resets to `idle` and gives Controller. `give_controller.mcfunction`, `end_game.mcfunction` ship with every Controller minigame but need cheats: last resort, NEVER only recovery.
@@ -214,6 +214,9 @@ Applies to every addon, map, script, minigame, item, entity, block, trade, recip
 - NEVER invent an API, component, event or behavior. Use only what the looked-up stable version (1.2) provides and the repo scripts accept. Cannot verify: say so in DESCRIPTION.md.
 - Modular: one small file per workaround with one entry point (script: `behavior_pack/scripts/lib/<name>.js` imported relatively; data: its own function file, entity or item definition). Reuse an existing module. NEVER copy the logic per feature.
 - Safe: idempotent setup, caps and cleanup for spawned entities and loops, nothing that corrupts worlds or other packs.
+- Conflict Prevention & Isolation:
+  1. Custom namespace isolation: Always prefix custom items, blocks, and entities with `aln:<name>` (e.g. `aln:minigame_controller`).
+  2. Avoid Vanilla Entity Overrides: Overriding vanilla entity JSON files (e.g. `entities/zombie.json`) completely wipes out other addons modifying the same entity in Bedrock's load order. Whenever possible, hook into vanilla entity mechanics using `@minecraft/server` Script API event subscriptions (`world.afterEvents.entityDie`, `playerInteractWithEntity`, `entityHurt`, etc.) rather than replacing the vanilla entity JSON.
 - Docs (`DOCS_RULES.md`): player-facing result only, no code or API names; the trade-off under Good To Know. State achievement and experiment impact per 1.2.
 
 ### 1.13 ALN UI Redesign (UI skin)
