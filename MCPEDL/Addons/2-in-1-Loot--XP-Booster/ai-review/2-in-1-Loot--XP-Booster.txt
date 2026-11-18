@@ -13,7 +13,6 @@
 
 - `changelog_views/2-in-1-Loot--XP-Booster.curseforge.html`
 - `changelog_views/2-in-1-Loot--XP-Booster.github.md`
-- `description_views/2-in-1-Loot--XP-Booster.listing.md`
 - `MCPEDL/Addons/2-in-1-Loot--XP-Booster/assets/snapshots/.gitkeep`
 - `MCPEDL/Addons/2-in-1-Loot--XP-Booster/behavior_pack/LOCK`
 - `MCPEDL/Addons/2-in-1-Loot--XP-Booster/behavior_pack/manifest.json`
@@ -31,6 +30,7 @@
 - `MCPEDL/Addons/2-in-1-Loot--XP-Booster/resource_pack/textures/ui/cheatstick/panel.json`
 - `MCPEDL/Addons/2-in-1-Loot--XP-Booster/resource_pack/ui/server_form.json`
 - `MCPEDL/Addons/README.md`
+- `Package/2-in-1-Loot--XP-Booster.listing.md`
 
 ### Skipped (binary)
 
@@ -49,10 +49,6 @@
 - `MCPEDL/Addons/2-in-1-Loot--XP-Booster/resource_pack/textures/ui/cheatstick/button_pressed.png`
 - `MCPEDL/Addons/2-in-1-Loot--XP-Booster/resource_pack/textures/ui/cheatstick/panel.png`
 - `MCPEDL/Addons/2-in-1-Loot--XP-Booster/resource_pack/textures/ui/cheatstick/title_bar.png`
-
----
-
-
 
 ---
 
@@ -338,82 +334,6 @@ git config --global credential.helper store
 
 </details>
 ```
-
-## FILE: description_views/2-in-1-Loot--XP-Booster.listing.md (72 lines, 17629 bytes)
-
-````
-# Listing Kit: 2-in-1 Loot & XP Booster
-
-Tap the Copy button on a block, then paste it into the CurseForge listing. Generated from DESCRIPTION.md: edit that, not this file.
-
-## Package Name
-
-```text
-2-in-1 Loot & XP Booster
-```
-
-## Summary (105/256)
-
-```text
-Rename a Book to Booster, then set Loot up to 32x and XP up to 64x with two sliders and an on/off switch.
-```
-
-## Description (HTML)
-
-Paste into the CurseForge description editor in source (HTML) mode.
-
-```html
-<div><div style="border:2px solid #15803d;border-radius:18px;line-height:1.5"><br><h1 style="font-size:34px;text-align:center">2-in-1 Loot &amp; XP Booster</h1><p style="color:#8a94a3;font-size:14px;text-align:center">by ALNStudios</p><p style="text-align:center"><span style="background-color:#15803d;color:#ffffff;border-radius:20px;font-size:16px">&nbsp;&nbsp;<strong>Rename a Book to Booster, then set Loot up to 32x and XP up to 64x with two sliders and an on/off switch.</strong>&nbsp;&nbsp;</span></p><p style="text-align:center;margin-left:16px;margin-right:16px">Adds a Booster menu with a Loot slider up to 32x, an XP slider up to 64x and an on/off switch.</p><div style="display:flex;flex-wrap:wrap;gap:8px;margin-left:14px;margin-right:14px"><div style="background-color:#dcfce7;color:#14532d;border-radius:20px;font-size:14px;line-height:2"><strong>&nbsp;&nbsp;Bedrock</strong>: 1.26+&nbsp;&nbsp;</div><div style="background-color:#dcfce7;color:#14532d;border-radius:20px;font-size:14px;line-height:2"><strong>&nbsp;&nbsp;Experimental</strong>: No&nbsp;&nbsp;</div><div style="background-color:#dcfce7;color:#14532d;border-radius:20px;font-size:14px;line-height:2"><strong>&nbsp;&nbsp;Achievements</strong>: Likely achievement-friendly&nbsp;&nbsp;</div></div><br></div>
-<h2 style="font-size:17px;text-align:left"><span style="background-color:#15803d;color:#ffffff;border-radius:20px">&nbsp;&nbsp;About&nbsp;&nbsp;</span></h2>
-<p>You rename a Book to Booster on an anvil and right-click with it. A menu opens with three buttons: XP &amp; Loot Booster, About and Exit.</p>
-<h2 style="font-size:17px;text-align:left"><span style="background-color:#15803d;color:#ffffff;border-radius:20px">&nbsp;&nbsp;Showcase&nbsp;&nbsp;</span></h2>
-<div style="display:flex;flex-wrap:wrap;gap:10px"><div style="flex:1 1 300px;border:1px solid #8a94a3;border-radius:16px;text-align:center"><p><strong>Booster Toggled On</strong></p><p><a href="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/8f0ab1fe93e6ba15024af670baf457deb090facd/MCPEDL/Addons/2-in-1-Loot--XP-Booster/Screen_Recording_20261113_131721.gif"><img src="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/8f0ab1fe93e6ba15024af670baf457deb090facd/MCPEDL/Addons/2-in-1-Loot--XP-Booster/Screen_Recording_20261113_131721.gif" alt="Booster Toggled On" style="width:100%"></a></p></div><div style="flex:1 1 300px;border:1px solid #8a94a3;border-radius:16px;text-align:center"><p><strong>Booster Toggled Off</strong></p><p><a href="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/85f45452b283e0f8505fb0935610ef1fb67677e3/MCPEDL/Addons/2-in-1-Loot--XP-Booster/Screen_Recording_20261113_131753.gif"><img src="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/85f45452b283e0f8505fb0935610ef1fb67677e3/MCPEDL/Addons/2-in-1-Loot--XP-Booster/Screen_Recording_20261113_131753.gif" alt="Booster Toggled Off" style="width:100%"></a></p></div></div>
-<h2 style="font-size:17px;text-align:left"><span style="background-color:#15803d;color:#ffffff;border-radius:20px">&nbsp;&nbsp;Screenshots&nbsp;&nbsp;</span></h2>
-<div style="display:flex;flex-wrap:wrap;gap:10px"><div style="flex:1 1 300px;border:1px solid #8a94a3;border-radius:16px;text-align:center"><p><a href="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/MCPEDL/Addons/2-in-1-Loot--XP-Booster/assets/snapshots/MAIN%20MENU.jpg"><img src="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/MCPEDL/Addons/2-in-1-Loot--XP-Booster/assets/snapshots/MAIN%20MENU.jpg" alt="MAIN MENU" style="width:100%"></a></p><p style="color:#8a94a3;font-size:13px">MAIN MENU</p></div><div style="flex:1 1 300px;border:1px solid #8a94a3;border-radius:16px;text-align:center"><p><a href="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/MCPEDL/Addons/2-in-1-Loot--XP-Booster/assets/snapshots/TOGGLED%20OFF.gif"><img src="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/MCPEDL/Addons/2-in-1-Loot--XP-Booster/assets/snapshots/TOGGLED%20OFF.gif" alt="TOGGLED OFF" style="width:100%"></a></p><p style="color:#8a94a3;font-size:13px">TOGGLED OFF</p></div><div style="flex:1 1 300px;border:1px solid #8a94a3;border-radius:16px;text-align:center"><p><a href="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/MCPEDL/Addons/2-in-1-Loot--XP-Booster/assets/snapshots/TOGGLED%20ON.gif"><img src="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/MCPEDL/Addons/2-in-1-Loot--XP-Booster/assets/snapshots/TOGGLED%20ON.gif" alt="TOGGLED ON" style="width:100%"></a></p><p style="color:#8a94a3;font-size:13px">TOGGLED ON</p></div><div style="flex:1 1 300px;border:1px solid #8a94a3;border-radius:16px;text-align:center"><p><a href="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/MCPEDL/Addons/2-in-1-Loot--XP-Booster/assets/snapshots/XP%20%26%20LOOT%20MENU.jpg"><img src="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/MCPEDL/Addons/2-in-1-Loot--XP-Booster/assets/snapshots/XP%20%26%20LOOT%20MENU.jpg" alt="XP &amp; LOOT MENU" style="width:100%"></a></p><p style="color:#8a94a3;font-size:13px">XP &amp; LOOT MENU</p></div></div>
-<h2 style="font-size:17px;text-align:left"><span style="background-color:#15803d;color:#ffffff;border-radius:20px">&nbsp;&nbsp;What You Get&nbsp;&nbsp;</span></h2>
-<div style="display:flex;flex-wrap:wrap;gap:10px"><div style="flex:1;min-width:200px;border:1px solid #8a94a3;border-radius:16px"><div style="background-color:#15803d;color:#ffffff;border-radius:16px;font-size:16px;line-height:2.2"><strong>&nbsp;&nbsp;Renamed Book Control Panel</strong></div><div style="margin-left:12px;margin-right:12px"><p><span>Rename a Book to "Booster" on an anvil, then right-click with it to open the Booster menu.</span><br><span style="font-size:13px;color:#8a94a3"><strong>Good To Know:</strong> Each player keeps their own settings, which are saved between sessions.</span></p></div></div><div style="flex:1;min-width:200px;border:1px solid #8a94a3;border-radius:16px"><div style="background-color:#15803d;color:#ffffff;border-radius:16px;font-size:16px;line-height:2.2"><strong>&nbsp;&nbsp;Loot Drop Booster</strong></div><div style="margin-left:12px;margin-right:12px"><p><span>Drag the Loot slider across six levels, 1x, 2x, 4x, 8x, 16x and 32x, for ores, crops and other Fortune-style blocks you break and for mobs you kill.</span><br><span style="font-size:13px;color:#8a94a3"><strong>Good To Know:</strong> Each drop rolls a random bonus up to the level you pick. It works like a Fortune and Looting bonus, but with its own random roll. Ores, gilded blackstone, amethyst clusters, nether wart, sweet berries, wheat, carrots, potatoes, beetroot and mob loot are multiplied, so normal blocks such as dirt, stone and wood drop as usual, and unstackable items such as tools are left alone. Mining with Silk Touch drops the block once and is never multiplied. Crops, nether wart and sweet berries are multiplied only when fully grown, and crops sped up with bone meal are not multiplied. Blocks that drop themselves or can be crafted back from their drops, such as ancient debris, melons, glowstone and sea lanterns, are never multiplied, so they cannot be farmed by placing and breaking. Fortune still works, and the booster multiplies on top of it. Only real mobs count, so armor stands, boats, minecarts and mobs that carry items, such as donkeys, mules, llamas, allays, foxes and villagers, are not multiplied, and each drop goes to the nearest player who caused it. Only drops that appear the instant you break a block or kill a mob are multiplied, so items thrown or dropped nearby are left alone. Extra drops are capped per moment to protect busy servers.</span></p></div></div><div style="flex:1;min-width:200px;border:1px solid #8a94a3;border-radius:16px"><div style="background-color:#15803d;color:#ffffff;border-radius:16px;font-size:16px;line-height:2.2"><strong>&nbsp;&nbsp;XP Gain Booster</strong></div><div style="margin-left:12px;margin-right:12px"><p><span>Drag the XP slider across seven levels, 1x, 2x, 4x, 8x, 16x, 32x and 64x, and each XP orb near you is turned into that many orbs.</span><br><span style="font-size:13px;color:#8a94a3"><strong>Good To Know:</strong> The orbs are collected instantly, so Mending repairs your gear from the extra XP. Only the orbs closest to you are multiplied, so other players' orbs are never affected, and extra orbs are capped per moment to protect busy servers.</span></p></div></div><div style="flex:1;min-width:200px;border:1px solid #8a94a3;border-radius:16px"><div style="background-color:#15803d;color:#ffffff;border-radius:16px;font-size:16px;line-height:2.2"><strong>&nbsp;&nbsp;About Screen</strong></div><div style="margin-left:12px;margin-right:12px"><p><span>The About button shows the creator, the add-on version, a short note on both packs, the CurseForge and MCPEDL profiles and an unofficial-product notice.</span></p></div></div><div style="flex:1;min-width:200px;border:1px solid #8a94a3;border-radius:16px"><div style="background-color:#15803d;color:#ffffff;border-radius:16px;font-size:16px;line-height:2.2"><strong>&nbsp;&nbsp;Redesigned UI</strong></div><div style="margin-left:12px;margin-right:12px"><p><span>A small Resource Pack named Redesigned UI gives the Booster menus the ALNStudios look, with a dark panel, a blue border, a gold title and icon buttons.</span><br><span style="font-size:13px;color:#8a94a3"><strong>Good To Know:</strong> Enable the Resource Pack together with the Behavior Pack.</span></p></div></div></div>
-<h2 style="font-size:17px;text-align:left"><span style="background-color:#15803d;color:#ffffff;border-radius:20px">&nbsp;&nbsp;Get Started&nbsp;&nbsp;</span></h2>
-<table style="width:100%;border:1px solid #8a94a3;border-radius:16px"><tbody><tr><td style="width:44px;text-align:center"><div style="background-color:#15803d;color:#ffffff;font-weight:bold;font-size:15px;text-align:center;border-radius:10px;width:30px;aspect-ratio:1/1;line-height:30px">1</div></td><td style="text-align:left;">Rename a Book to Booster on an anvil.</td></tr><tr><td style="width:44px;text-align:center"><div style="background-color:#15803d;color:#ffffff;font-weight:bold;font-size:15px;text-align:center;border-radius:10px;width:30px;aspect-ratio:1/1;line-height:30px">2</div></td><td style="text-align:left;">Hold it and right-click, then choose XP &amp; Loot Booster.</td></tr><tr><td style="width:44px;text-align:center"><div style="background-color:#15803d;color:#ffffff;font-weight:bold;font-size:15px;text-align:center;border-radius:10px;width:30px;aspect-ratio:1/1;line-height:30px">3</div></td><td style="text-align:left;">Drag the Loot and XP sliders, switch Boosters on or off, press Apply and check the Action Bar for your values.</td></tr></tbody></table>
-<h2 style="font-size:17px;text-align:left"><span style="background-color:#15803d;color:#ffffff;border-radius:20px">&nbsp;&nbsp;Common Questions&nbsp;&nbsp;</span></h2>
-<div class="spoiler" title="Does the multiplier apply to other players?" data-title="Does the multiplier apply to other players?"><p><strong>Does the multiplier apply to other players?</strong><br>No. Each player chooses their own Loot and XP multipliers.</p></div><div class="spoiler" title="Can I turn it off?" data-title="Can I turn it off?"><p><strong>Can I turn it off?</strong><br>Yes. Open XP &amp; Loot Booster, switch Boosters Off and press Apply. Your levels are kept.</p></div>
-<h2 style="font-size:17px;text-align:left"><span style="background-color:#15803d;color:#ffffff;border-radius:20px">&nbsp;&nbsp;Install&nbsp;&nbsp;</span></h2>
-<table style="width:100%;border:1px solid #8a94a3;border-radius:16px"><tbody><tr><td style="width:44px;text-align:center"><div style="background-color:#15803d;color:#ffffff;font-weight:bold;font-size:15px;text-align:center;border-radius:10px;width:30px;aspect-ratio:1/1;line-height:30px">1</div></td><td style="text-align:left;">Download the file from this page and open it with Minecraft.</td></tr><tr><td style="width:44px;text-align:center"><div style="background-color:#15803d;color:#ffffff;font-weight:bold;font-size:15px;text-align:center;border-radius:10px;width:30px;aspect-ratio:1/1;line-height:30px">2</div></td><td style="text-align:left;">Create or edit a world and turn on the new pack(s) in its settings.</td></tr><tr><td style="width:44px;text-align:center"><div style="background-color:#15803d;color:#ffffff;font-weight:bold;font-size:15px;text-align:center;border-radius:10px;width:30px;aspect-ratio:1/1;line-height:30px">3</div></td><td style="text-align:left;">Play. No Experimental toggles needed.</td></tr></tbody></table>
-<div style="border:1px solid #8a94a3;border-radius:16px;text-align:center"><br><div style="background-color:#15803d;color:#ffffff;border-radius:20px;font-size:15px;line-height:2;display:inline-block">&nbsp;&nbsp;<strong>Found a Bug or Have a Suggestion?</strong>&nbsp;&nbsp;</div><p style="font-size:14px;">Please leave a comment on this project page! All bug reports, gameplay feedback, and pack suggestions are welcome and appreciated.</p></div>
-<h2 style="font-size:17px;text-align:left"><span style="background-color:#15803d;color:#ffffff;border-radius:20px">&nbsp;&nbsp;Support&nbsp;&nbsp;</span></h2><div style="border:1px solid #8a94a3;border-radius:16px;text-align:center"><br><a href="https://ko-fi.com/alnstudios"><img src="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/assets/Images/ko-fi.png" alt="Support ALNStudios on Ko-fi" width="250"></a><br><br></div><p style="text-align:center"><a href="https://www.curseforge.com/members/allenscreations/projects"><strong>CurseForge</strong></a> &nbsp;|&nbsp; <a href="https://mcpedl.com/user/alnstudios/"><strong>MCPEDL</strong></a> &nbsp;|&nbsp; <a href="https://ko-fi.com/alnstudios"><strong>Ko-fi</strong></a></p>
-<hr>
-<p style="text-align:center;color:#8a94a3;font-size:13px"><strong>By ALNStudios</strong></p>
-<div class="spoiler"><p style="font-size:13px"><strong>Permissions and credits</strong></p><ul style="font-size:13px"><li>Rights: All rights reserved for ALNStudios.</li><li>Content creators: You may feature this creation in videos and streams with credit to ALNStudios.</li><li>Redistribution: Do not re-upload this pack or provide direct monetized download bypasses. Link to this page.</li><li>Unofficial community creation. Not an official Minecraft product and not approved by or associated with Mojang or Microsoft.</li></ul></div>
-<p style="text-align:center;color:#8a94a3;font-size:12px">Minecraft Bedrock add-on, 2-in-1 Loot &amp; XP Booster Bedrock mod, loot multiplier, XP multiplier, renamed book menu, Minecraft PE survival, MCPEDL add-on, CurseForge Bedrock, ALNStudios.</p></div>
-```
-
-## AI Image Prompts
-
-### Reference Images
-
-- **Logo reference**: attach your own logo. The generator uses it only for brand colors and mood. The result must be a new design, not a copy.
-- **Snapshot references**: attach 1 to 4 of your in-game snapshots of this pack. The generator copies their look, not their screen layout.
-
-### Logo Prompt
-
-```text
-Use the attached logo only as a brand reference for its color palette and overall mood. Do not copy it. Create a new, original logo with a different composition and a different main symbol. Do not just recolor, resize, crop, mirror or tweak the attached logo.
-Create a clean, square (1:1) logo image for the Minecraft Bedrock add-on "2-in-1 Loot & XP Booster". Rename a Book to Booster, then set Loot up to 32x and XP up to 64x with two sliders and an on/off switch.
-Base the main symbol on the pack idea above. Match the blocky look of the attached in-game snapshots. Center the logo, use a simple background, and keep it readable at small sizes.
-Text: "2-in-1 Loot & XP Booster" and, in small letters, "ALNStudios". ALNStudios is the brand name, so always keep it and never remove or change it. Spell both exactly.
-Do not add Minecraft, Mojang or Microsoft logos, watermarks, or characters from other games.
-```
-
-### Banner Prompt
-
-```text
-Create a wide (16:9) banner image for the Minecraft Bedrock add-on "2-in-1 Loot & XP Booster". Rename a Book to Booster, then set Loot up to 32x and XP up to 64x with two sliders and an on/off switch.
-Use the attached in-game snapshots as scene and style references: copy their blocky look, lighting, colors and the kind of scenery they show. Make a new composition inspired by them. Do not copy the on-screen HUD, chat or hotbar.
-Use the attached logo only as a brand reference for its colors and mood. Do not copy it. Put a new, original logo design in the banner, large enough to read, on the left or center.
-Hint at these pack features visually: Renamed Book Control Panel, Loot Drop Booster, XP Gain Booster, About Screen, Redesigned UI.
-Text: "2-in-1 Loot & XP Booster" and, in small letters, "by ALNStudios". ALNStudios is the brand name, so always keep it and never remove or change it. Spell both exactly.
-Leave clear space around the logo. No Minecraft, Mojang or Microsoft logos, no watermarks.
-```
-````
 
 ## FILE: MCPEDL/Addons/2-in-1-Loot--XP-Booster/assets/snapshots/.gitkeep (1 lines, 0 bytes)
 
@@ -1537,3 +1457,79 @@ Videos and streams are welcome with credit. Redistribution of original or modifi
 - [Scripts](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Script#available-scripts)
 - [Minigames](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Minigame#available-minigames)
 ```
+
+## FILE: Package/2-in-1-Loot--XP-Booster.listing.md (72 lines, 17629 bytes)
+
+````
+# Listing Kit: 2-in-1 Loot & XP Booster
+
+Tap the Copy button on a block, then paste it into the CurseForge listing. Generated from DESCRIPTION.md: edit that, not this file.
+
+## Package Name
+
+```text
+2-in-1 Loot & XP Booster
+```
+
+## Summary (105/256)
+
+```text
+Rename a Book to Booster, then set Loot up to 32x and XP up to 64x with two sliders and an on/off switch.
+```
+
+## Description (HTML)
+
+Paste into the CurseForge description editor in source (HTML) mode.
+
+```html
+<div><div style="border:2px solid #15803d;border-radius:18px;line-height:1.5"><br><h1 style="font-size:34px;text-align:center">2-in-1 Loot &amp; XP Booster</h1><p style="color:#8a94a3;font-size:14px;text-align:center">by ALNStudios</p><p style="text-align:center"><span style="background-color:#15803d;color:#ffffff;border-radius:20px;font-size:16px">&nbsp;&nbsp;<strong>Rename a Book to Booster, then set Loot up to 32x and XP up to 64x with two sliders and an on/off switch.</strong>&nbsp;&nbsp;</span></p><p style="text-align:center;margin-left:16px;margin-right:16px">Adds a Booster menu with a Loot slider up to 32x, an XP slider up to 64x and an on/off switch.</p><div style="display:flex;flex-wrap:wrap;gap:8px;margin-left:14px;margin-right:14px"><div style="background-color:#dcfce7;color:#14532d;border-radius:20px;font-size:14px;line-height:2"><strong>&nbsp;&nbsp;Bedrock</strong>: 1.26+&nbsp;&nbsp;</div><div style="background-color:#dcfce7;color:#14532d;border-radius:20px;font-size:14px;line-height:2"><strong>&nbsp;&nbsp;Experimental</strong>: No&nbsp;&nbsp;</div><div style="background-color:#dcfce7;color:#14532d;border-radius:20px;font-size:14px;line-height:2"><strong>&nbsp;&nbsp;Achievements</strong>: Likely achievement-friendly&nbsp;&nbsp;</div></div><br></div>
+<h2 style="font-size:17px;text-align:left"><span style="background-color:#15803d;color:#ffffff;border-radius:20px">&nbsp;&nbsp;About&nbsp;&nbsp;</span></h2>
+<p>You rename a Book to Booster on an anvil and right-click with it. A menu opens with three buttons: XP &amp; Loot Booster, About and Exit.</p>
+<h2 style="font-size:17px;text-align:left"><span style="background-color:#15803d;color:#ffffff;border-radius:20px">&nbsp;&nbsp;Showcase&nbsp;&nbsp;</span></h2>
+<div style="display:flex;flex-wrap:wrap;gap:10px"><div style="flex:1 1 300px;border:1px solid #8a94a3;border-radius:16px;text-align:center"><p><strong>Booster Toggled On</strong></p><p><a href="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/8f0ab1fe93e6ba15024af670baf457deb090facd/MCPEDL/Addons/2-in-1-Loot--XP-Booster/Screen_Recording_20261113_131721.gif"><img src="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/8f0ab1fe93e6ba15024af670baf457deb090facd/MCPEDL/Addons/2-in-1-Loot--XP-Booster/Screen_Recording_20261113_131721.gif" alt="Booster Toggled On" style="width:100%"></a></p></div><div style="flex:1 1 300px;border:1px solid #8a94a3;border-radius:16px;text-align:center"><p><strong>Booster Toggled Off</strong></p><p><a href="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/85f45452b283e0f8505fb0935610ef1fb67677e3/MCPEDL/Addons/2-in-1-Loot--XP-Booster/Screen_Recording_20261113_131753.gif"><img src="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/85f45452b283e0f8505fb0935610ef1fb67677e3/MCPEDL/Addons/2-in-1-Loot--XP-Booster/Screen_Recording_20261113_131753.gif" alt="Booster Toggled Off" style="width:100%"></a></p></div></div>
+<h2 style="font-size:17px;text-align:left"><span style="background-color:#15803d;color:#ffffff;border-radius:20px">&nbsp;&nbsp;Screenshots&nbsp;&nbsp;</span></h2>
+<div style="display:flex;flex-wrap:wrap;gap:10px"><div style="flex:1 1 300px;border:1px solid #8a94a3;border-radius:16px;text-align:center"><p><a href="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/MCPEDL/Addons/2-in-1-Loot--XP-Booster/assets/snapshots/MAIN%20MENU.jpg"><img src="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/MCPEDL/Addons/2-in-1-Loot--XP-Booster/assets/snapshots/MAIN%20MENU.jpg" alt="MAIN MENU" style="width:100%"></a></p><p style="color:#8a94a3;font-size:13px">MAIN MENU</p></div><div style="flex:1 1 300px;border:1px solid #8a94a3;border-radius:16px;text-align:center"><p><a href="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/MCPEDL/Addons/2-in-1-Loot--XP-Booster/assets/snapshots/TOGGLED%20OFF.gif"><img src="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/MCPEDL/Addons/2-in-1-Loot--XP-Booster/assets/snapshots/TOGGLED%20OFF.gif" alt="TOGGLED OFF" style="width:100%"></a></p><p style="color:#8a94a3;font-size:13px">TOGGLED OFF</p></div><div style="flex:1 1 300px;border:1px solid #8a94a3;border-radius:16px;text-align:center"><p><a href="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/MCPEDL/Addons/2-in-1-Loot--XP-Booster/assets/snapshots/TOGGLED%20ON.gif"><img src="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/MCPEDL/Addons/2-in-1-Loot--XP-Booster/assets/snapshots/TOGGLED%20ON.gif" alt="TOGGLED ON" style="width:100%"></a></p><p style="color:#8a94a3;font-size:13px">TOGGLED ON</p></div><div style="flex:1 1 300px;border:1px solid #8a94a3;border-radius:16px;text-align:center"><p><a href="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/MCPEDL/Addons/2-in-1-Loot--XP-Booster/assets/snapshots/XP%20%26%20LOOT%20MENU.jpg"><img src="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/MCPEDL/Addons/2-in-1-Loot--XP-Booster/assets/snapshots/XP%20%26%20LOOT%20MENU.jpg" alt="XP &amp; LOOT MENU" style="width:100%"></a></p><p style="color:#8a94a3;font-size:13px">XP &amp; LOOT MENU</p></div></div>
+<h2 style="font-size:17px;text-align:left"><span style="background-color:#15803d;color:#ffffff;border-radius:20px">&nbsp;&nbsp;What You Get&nbsp;&nbsp;</span></h2>
+<div style="display:flex;flex-wrap:wrap;gap:10px"><div style="flex:1;min-width:200px;border:1px solid #8a94a3;border-radius:16px"><div style="background-color:#15803d;color:#ffffff;border-radius:16px;font-size:16px;line-height:2.2"><strong>&nbsp;&nbsp;Renamed Book Control Panel</strong></div><div style="margin-left:12px;margin-right:12px"><p><span>Rename a Book to "Booster" on an anvil, then right-click with it to open the Booster menu.</span><br><span style="font-size:13px;color:#8a94a3"><strong>Good To Know:</strong> Each player keeps their own settings, which are saved between sessions.</span></p></div></div><div style="flex:1;min-width:200px;border:1px solid #8a94a3;border-radius:16px"><div style="background-color:#15803d;color:#ffffff;border-radius:16px;font-size:16px;line-height:2.2"><strong>&nbsp;&nbsp;Loot Drop Booster</strong></div><div style="margin-left:12px;margin-right:12px"><p><span>Drag the Loot slider across six levels, 1x, 2x, 4x, 8x, 16x and 32x, for ores, crops and other Fortune-style blocks you break and for mobs you kill.</span><br><span style="font-size:13px;color:#8a94a3"><strong>Good To Know:</strong> Each drop rolls a random bonus up to the level you pick. It works like a Fortune and Looting bonus, but with its own random roll. Ores, gilded blackstone, amethyst clusters, nether wart, sweet berries, wheat, carrots, potatoes, beetroot and mob loot are multiplied, so normal blocks such as dirt, stone and wood drop as usual, and unstackable items such as tools are left alone. Mining with Silk Touch drops the block once and is never multiplied. Crops, nether wart and sweet berries are multiplied only when fully grown, and crops sped up with bone meal are not multiplied. Blocks that drop themselves or can be crafted back from their drops, such as ancient debris, melons, glowstone and sea lanterns, are never multiplied, so they cannot be farmed by placing and breaking. Fortune still works, and the booster multiplies on top of it. Only real mobs count, so armor stands, boats, minecarts and mobs that carry items, such as donkeys, mules, llamas, allays, foxes and villagers, are not multiplied, and each drop goes to the nearest player who caused it. Only drops that appear the instant you break a block or kill a mob are multiplied, so items thrown or dropped nearby are left alone. Extra drops are capped per moment to protect busy servers.</span></p></div></div><div style="flex:1;min-width:200px;border:1px solid #8a94a3;border-radius:16px"><div style="background-color:#15803d;color:#ffffff;border-radius:16px;font-size:16px;line-height:2.2"><strong>&nbsp;&nbsp;XP Gain Booster</strong></div><div style="margin-left:12px;margin-right:12px"><p><span>Drag the XP slider across seven levels, 1x, 2x, 4x, 8x, 16x, 32x and 64x, and each XP orb near you is turned into that many orbs.</span><br><span style="font-size:13px;color:#8a94a3"><strong>Good To Know:</strong> The orbs are collected instantly, so Mending repairs your gear from the extra XP. Only the orbs closest to you are multiplied, so other players' orbs are never affected, and extra orbs are capped per moment to protect busy servers.</span></p></div></div><div style="flex:1;min-width:200px;border:1px solid #8a94a3;border-radius:16px"><div style="background-color:#15803d;color:#ffffff;border-radius:16px;font-size:16px;line-height:2.2"><strong>&nbsp;&nbsp;About Screen</strong></div><div style="margin-left:12px;margin-right:12px"><p><span>The About button shows the creator, the add-on version, a short note on both packs, the CurseForge and MCPEDL profiles and an unofficial-product notice.</span></p></div></div><div style="flex:1;min-width:200px;border:1px solid #8a94a3;border-radius:16px"><div style="background-color:#15803d;color:#ffffff;border-radius:16px;font-size:16px;line-height:2.2"><strong>&nbsp;&nbsp;Redesigned UI</strong></div><div style="margin-left:12px;margin-right:12px"><p><span>A small Resource Pack named Redesigned UI gives the Booster menus the ALNStudios look, with a dark panel, a blue border, a gold title and icon buttons.</span><br><span style="font-size:13px;color:#8a94a3"><strong>Good To Know:</strong> Enable the Resource Pack together with the Behavior Pack.</span></p></div></div></div>
+<h2 style="font-size:17px;text-align:left"><span style="background-color:#15803d;color:#ffffff;border-radius:20px">&nbsp;&nbsp;Get Started&nbsp;&nbsp;</span></h2>
+<table style="width:100%;border:1px solid #8a94a3;border-radius:16px"><tbody><tr><td style="width:44px;text-align:center"><div style="background-color:#15803d;color:#ffffff;font-weight:bold;font-size:15px;text-align:center;border-radius:10px;width:30px;aspect-ratio:1/1;line-height:30px">1</div></td><td style="text-align:left;">Rename a Book to Booster on an anvil.</td></tr><tr><td style="width:44px;text-align:center"><div style="background-color:#15803d;color:#ffffff;font-weight:bold;font-size:15px;text-align:center;border-radius:10px;width:30px;aspect-ratio:1/1;line-height:30px">2</div></td><td style="text-align:left;">Hold it and right-click, then choose XP &amp; Loot Booster.</td></tr><tr><td style="width:44px;text-align:center"><div style="background-color:#15803d;color:#ffffff;font-weight:bold;font-size:15px;text-align:center;border-radius:10px;width:30px;aspect-ratio:1/1;line-height:30px">3</div></td><td style="text-align:left;">Drag the Loot and XP sliders, switch Boosters on or off, press Apply and check the Action Bar for your values.</td></tr></tbody></table>
+<h2 style="font-size:17px;text-align:left"><span style="background-color:#15803d;color:#ffffff;border-radius:20px">&nbsp;&nbsp;Common Questions&nbsp;&nbsp;</span></h2>
+<div class="spoiler" title="Does the multiplier apply to other players?" data-title="Does the multiplier apply to other players?"><p><strong>Does the multiplier apply to other players?</strong><br>No. Each player chooses their own Loot and XP multipliers.</p></div><div class="spoiler" title="Can I turn it off?" data-title="Can I turn it off?"><p><strong>Can I turn it off?</strong><br>Yes. Open XP &amp; Loot Booster, switch Boosters Off and press Apply. Your levels are kept.</p></div>
+<h2 style="font-size:17px;text-align:left"><span style="background-color:#15803d;color:#ffffff;border-radius:20px">&nbsp;&nbsp;Install&nbsp;&nbsp;</span></h2>
+<table style="width:100%;border:1px solid #8a94a3;border-radius:16px"><tbody><tr><td style="width:44px;text-align:center"><div style="background-color:#15803d;color:#ffffff;font-weight:bold;font-size:15px;text-align:center;border-radius:10px;width:30px;aspect-ratio:1/1;line-height:30px">1</div></td><td style="text-align:left;">Download the file from this page and open it with Minecraft.</td></tr><tr><td style="width:44px;text-align:center"><div style="background-color:#15803d;color:#ffffff;font-weight:bold;font-size:15px;text-align:center;border-radius:10px;width:30px;aspect-ratio:1/1;line-height:30px">2</div></td><td style="text-align:left;">Create or edit a world and turn on the new pack(s) in its settings.</td></tr><tr><td style="width:44px;text-align:center"><div style="background-color:#15803d;color:#ffffff;font-weight:bold;font-size:15px;text-align:center;border-radius:10px;width:30px;aspect-ratio:1/1;line-height:30px">3</div></td><td style="text-align:left;">Play. No Experimental toggles needed.</td></tr></tbody></table>
+<div style="border:1px solid #8a94a3;border-radius:16px;text-align:center"><br><div style="background-color:#15803d;color:#ffffff;border-radius:20px;font-size:15px;line-height:2;display:inline-block">&nbsp;&nbsp;<strong>Found a Bug or Have a Suggestion?</strong>&nbsp;&nbsp;</div><p style="font-size:14px;">Please leave a comment on this project page! All bug reports, gameplay feedback, and pack suggestions are welcome and appreciated.</p></div>
+<h2 style="font-size:17px;text-align:left"><span style="background-color:#15803d;color:#ffffff;border-radius:20px">&nbsp;&nbsp;Support&nbsp;&nbsp;</span></h2><div style="border:1px solid #8a94a3;border-radius:16px;text-align:center"><br><a href="https://ko-fi.com/alnstudios"><img src="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/assets/Images/ko-fi.png" alt="Support ALNStudios on Ko-fi" width="250"></a><br><br></div><p style="text-align:center"><a href="https://www.curseforge.com/members/allenscreations/projects"><strong>CurseForge</strong></a> &nbsp;|&nbsp; <a href="https://mcpedl.com/user/alnstudios/"><strong>MCPEDL</strong></a> &nbsp;|&nbsp; <a href="https://ko-fi.com/alnstudios"><strong>Ko-fi</strong></a></p>
+<hr>
+<p style="text-align:center;color:#8a94a3;font-size:13px"><strong>By ALNStudios</strong></p>
+<div class="spoiler"><p style="font-size:13px"><strong>Permissions and credits</strong></p><ul style="font-size:13px"><li>Rights: All rights reserved for ALNStudios.</li><li>Content creators: You may feature this creation in videos and streams with credit to ALNStudios.</li><li>Redistribution: Do not re-upload this pack or provide direct monetized download bypasses. Link to this page.</li><li>Unofficial community creation. Not an official Minecraft product and not approved by or associated with Mojang or Microsoft.</li></ul></div>
+<p style="text-align:center;color:#8a94a3;font-size:12px">Minecraft Bedrock add-on, 2-in-1 Loot &amp; XP Booster Bedrock mod, loot multiplier, XP multiplier, renamed book menu, Minecraft PE survival, MCPEDL add-on, CurseForge Bedrock, ALNStudios.</p></div>
+```
+
+## AI Image Prompts
+
+### Reference Images
+
+- **Logo reference**: attach your own logo. The generator uses it only for brand colors and mood. The result must be a new design, not a copy.
+- **Snapshot references**: attach 1 to 4 of your in-game snapshots of this pack. The generator copies their look, not their screen layout.
+
+### Logo Prompt
+
+```text
+Use the attached logo only as a brand reference for its color palette and overall mood. Do not copy it. Create a new, original logo with a different composition and a different main symbol. Do not just recolor, resize, crop, mirror or tweak the attached logo.
+Create a clean, square (1:1) logo image for the Minecraft Bedrock add-on "2-in-1 Loot & XP Booster". Rename a Book to Booster, then set Loot up to 32x and XP up to 64x with two sliders and an on/off switch.
+Base the main symbol on the pack idea above. Match the blocky look of the attached in-game snapshots. Center the logo, use a simple background, and keep it readable at small sizes.
+Text: "2-in-1 Loot & XP Booster" and, in small letters, "ALNStudios". ALNStudios is the brand name, so always keep it and never remove or change it. Spell both exactly.
+Do not add Minecraft, Mojang or Microsoft logos, watermarks, or characters from other games.
+```
+
+### Banner Prompt
+
+```text
+Create a wide (16:9) banner image for the Minecraft Bedrock add-on "2-in-1 Loot & XP Booster". Rename a Book to Booster, then set Loot up to 32x and XP up to 64x with two sliders and an on/off switch.
+Use the attached in-game snapshots as scene and style references: copy their blocky look, lighting, colors and the kind of scenery they show. Make a new composition inspired by them. Do not copy the on-screen HUD, chat or hotbar.
+Use the attached logo only as a brand reference for its colors and mood. Do not copy it. Put a new, original logo design in the banner, large enough to read, on the left or center.
+Hint at these pack features visually: Renamed Book Control Panel, Loot Drop Booster, XP Gain Booster, About Screen, Redesigned UI.
+Text: "2-in-1 Loot & XP Booster" and, in small letters, "by ALNStudios". ALNStudios is the brand name, so always keep it and never remove or change it. Spell both exactly.
+Leave clear space around the logo. No Minecraft, Mojang or Microsoft logos, no watermarks.
+```
+````

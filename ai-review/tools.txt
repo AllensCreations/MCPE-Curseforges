@@ -524,7 +524,7 @@ Same rules as `INSTRUCTIONS.md` 1.12. Read it when a mechanic hits a vanilla lim
 - Ship the JSON AND the PNGs. The JSON is the source: later changes edit the JSON and rerun the script, NEVER the PNG. `--preview [file]` writes a review sheet outside the project: NEVER ship it.
 ````
 
-## FILE: INSTRUCTIONS.md (280 lines, 40223 bytes)
+## FILE: INSTRUCTIONS.md (280 lines, 40193 bytes)
 
 ````
 # Instructions: Core Repository Policy (v27)
@@ -560,7 +560,7 @@ Output ONLY, in order, exact headings:
 `.sh` named per 1.1, attached as a downloadable file. Order:
 1. `#!/data/data/com.termux/files/usr/bin/bash` + `set -e`
 2. `cd "$HOME/MCPE-Curseforges"` (clone first if missing)
-3. Discard the generated folders (`git checkout -- description_views changelog_views`, CI rebuilds them), then `git pull --rebase --autostash`.
+3. Discard the generated folders (`git checkout -- Package changelog_views`, CI rebuilds them), then `git pull --rebase --autostash`.
 4. Apply ALL changes inside the script. PROJECT UPDATE = search and replace: write a spec and run `python3 scripts/make_update_script.py spec.txt` (format in `scripts/apply_update.py`: `@@ replace`/`replace-all`/`insert-after`/`insert-before`/`delete`/`append`/`create`, exact match, atomic, idempotent; `--verify <clone>` dry-runs it). Size decides the method. SMALL update (a few edits, under about 60% of any file touched): search and replace only. LARGE update (most of a file, many new files, a redesign): use the best method, `@@ create`/`@@ overwrite` in the same spec, never many fragile edits. Either way ONE `.sh`. The tool also sets the manifest version, validates JSON/JS, writes both changelogs. Deliver ONLY the `.sh`: NEVER a separate `.zip`, pack file (`.mcaddon`/`.mcworld`/`.mcpack`), `.json`, `.js` or `.b64`. A NEW project is one pack `.sh` from `scripts/make_pack_script.py` (`PACK_GENERATOR_INSTRUCTIONS.md` Part 4).
 5. Validate every changed `.json` with python3. Stop on error.
 6. Run `python3 scripts/check_instruction_files.py` when an instruction file changed.
@@ -651,7 +651,7 @@ Implementation:
 - Applies to all new recipes and any recipe touched. Check type against Samples first.
 
 ### 1.5 Recipe Images, Sprites, and Platform Descriptions
-- ALWAYS: every custom crafting recipe gets a diagram and its custom result item gets a sprite. The build makes both with `scripts/generate_recipe_images.py --all --items-from-recipes` (PNGs in `<pack>/assets/recipes/` and `<pack>/assets/items/`, sprites 128x128 nearest-neighbor); agents NEVER run it, they keep the recipe JSON and the add-on textures correct. A custom item WITHOUT a recipe that the DESCRIPTION shows: the update script runs `scripts/generate_recipe_images.py --project <pack> --item <id>`. `<pack>/assets/snapshots/` holds screenshots and GIFs the user uploads: NEVER rename, edit or delete. The file name is the caption on the page (`01-Cursor-Light.png` -> "Cursor Light"; a leading number only sets the order). `scripts/build_description_views.py` shows all three folders automatically in responsive galleries (`Custom Items`, `Crafting Recipes`, `Screenshots`) on the CurseForge page; NEVER manually insert raw HTML `<img>` tags for asset files into `DESCRIPTION.md` (which blocks the automated gallery renderer from displaying them). Commit the images in the same task. ONLY for DESCRIPTION. AI image generation prompts for banners and logos belong solely in the generated Listing Kit (`description_views/<Name>.listing.md`) under AI Image Prompts; NEVER use AI image generation for recipes or item sprites unless asked.
+- ALWAYS: every custom crafting recipe gets a diagram and its custom result item gets a sprite. The build makes both with `scripts/generate_recipe_images.py --all --items-from-recipes` (PNGs in `<pack>/assets/recipes/` and `<pack>/assets/items/`, sprites 128x128 nearest-neighbor); agents NEVER run it, they keep the recipe JSON and the add-on textures correct. A custom item WITHOUT a recipe that the DESCRIPTION shows: the update script runs `scripts/generate_recipe_images.py --project <pack> --item <id>`. `<pack>/assets/snapshots/` holds screenshots and GIFs the user uploads: NEVER rename, edit or delete. The file name is the caption on the page (`01-Cursor-Light.png` -> "Cursor Light"; a leading number only sets the order). `scripts/build_description_views.py` shows all three folders automatically in responsive galleries (`Custom Items`, `Crafting Recipes`, `Screenshots`) on the CurseForge page; NEVER manually insert raw HTML `<img>` tags for asset files into `DESCRIPTION.md` (which blocks the automated gallery renderer from displaying them). Commit the images in the same task. ONLY for DESCRIPTION. AI image generation prompts for banners and logos belong solely in the generated Listing Kit (`Package/<Name>.listing.md`) under AI Image Prompts; NEVER use AI image generation for recipes or item sprites unless asked.
 - ALWAYS verified absolute raw GitHub URLs. Confirm image exists, committed, matches item/recipe. Remove outdated.
 - Sprites: real texture from add-on or authoritative vanilla source. Inventory-style, NEVER cropped world textures. Block-only: build small isometric cube from verified top+side faces, NEVER stretch one face.
 - Build diagrams by code from recipe JSON + add-on result texture + Samples vanilla textures (`BEDROCK_SAMPLES_ROOT`; workflow clones to `/tmp/bedrock-samples`). Recipe JSON authoritative. NEVER change a recipe to fit an image.
@@ -799,7 +799,7 @@ Placeholders `<PackName>`, `<MainAction>`, `<version>`. NEVER hardcode one pack.
 - **v21:** New 1.15 (Bedrock Developer Role and Trusted Sources): official NPM packages first, the trusted source list, texture/registration split, failure procedure. `@minecraft/math` stays blocked by the payload allow-list until `build_payload.py` lists it.
 - **v19:** The separate description views (`<Name>.curseforge.html`) and `image_prompts/` were removed. The Listing Kit is the only generated listing file.
 - **v20:** The description HTML has no pack logo. New look: rounded hero (title, tagline pill, badge pills), green heading chips, feature cards with a green title header, rounded step badges. A command like `/give @s aln:item` keeps its colon.
-- **v18:** Listing Kit per pack (`description_views/<Name>.listing.md`): name, summary, description HTML and image prompts with Copy buttons.
+- **v18:** Listing Kit per pack (`Package/<Name>.listing.md`): name, summary, description HTML and image prompts with Copy buttons.
 - **v17:** Controller menu follows the ALN UI Redesign / 1.14 (3-button main menu, About, skin font, ALNStudios title, action bar feedback). `registerController` needs `title`, `version` (== Behavior Pack version), `about`.
 - **v16:** Test World removed. Importer creates `assets/` per project. New pack skill `mcpe-new-pack` (`SKILL.md` at the root of every AI review zip). Register CurseForge ID starts the build.
 - **v15:** `min_engine_version` is written as `[1, RELEASE, PATCH]` (game 26.60 = `[1, 26, 60]`, never `[26, 60, 0]`), docs use `1.26.60`.
@@ -808,7 +808,7 @@ Placeholders `<PackName>`, `<MainAction>`, `<version>`. NEVER hardcode one pack.
 - **v12:** Part 3 moved to `CHECKRM_REFERENCE.md`; Dirtbound spec moved to its project folder; scripts reference-only for agents; duplicates and contradictions removed; size cap 60,000 bytes.
 ````
 
-## FILE: DOCS_RULES.md (207 lines, 19236 bytes)
+## FILE: DOCS_RULES.md (207 lines, 19225 bytes)
 
 ````
 # Docs Rules: README, DESCRIPTION, CHANGELOG, Audit and References (Parts 2-3, v2)
@@ -821,7 +821,7 @@ Single source for every doc rule and template (2.1 to 2.5), the `/checkrm` audit
 - DESCRIPTION.md: full product page. NEVER release version in title.
 - CHANGELOG.md: player-visible changes only. Plain text, only source of truth.
 - Catalogs (download source of truth, tables allowed): `MCPEDL/Addons/README.md#available-add-ons`, `MCPEDL/Maps/README.md#available-maps`, `MCPEDL/Script/README.md#available-scripts`, `MCPEDL/Minigame/README.md#available-minigames`, `builds/README.md#available-pack-and-map-builds`.
-- Index: `MCPEDL/README.md` is generated by `scripts/build_mcpedl_readme.py` (run by Build Changed Packs & Sync Catalogs after the AI review files): per pack Version, Source and AI review links, grouped by type. NEVER hand-edit.
+- Index: `MCPEDL/README.md` is generated by `scripts/build_mcpedl_readme.py` (run by Build Changed Packs & Sync Catalogs after the AI review files): per pack Version, Source, Package and AI review links, grouped by type. NEVER hand-edit.
 - ALWAYS move verified player-facing text from a long README into DESCRIPTION before replacing it. NEVER lose verified info. NEVER duplicate full descriptions.
 
 ### 2.2 Writing
@@ -847,8 +847,8 @@ Single source for every doc rule and template (2.1 to 2.5), the `/checkrm` audit
 - Repo links: relative. Published pages: full URLs `https://github.com/AllensCreations/MCPE-Curseforges/tree/main/<path>`, `.../raw/main/builds/<file>`.
 - Spoiler (CurseForge `</>`): `<h2>Title</h2><div class="spoiler">content</div>`. Preview first. HTML only for listing images and a verified spoiler.
 - Changelog views: `changelog_views/<Name>.github.md` + `.curseforge.html` generated by `scripts/build_changelog_views.py`. NEVER add HTML/folds/links to CHANGELOG.md. NEVER hand-edit views.
-- Description HTML: rendered from DESCRIPTION.md by `scripts/build_description_views.py` (a library, writes no file) into the Listing Kit below; NEVER recreate separate `description_views/<Name>.curseforge.html` or `image_prompts/` files (one dark green accent (#15803d) on every page, minimal theme-following style only; hero with badges: lowest Minecraft version read from the manifests as `1.26+`, `Experimental: No` always, achievements; feature cards; Get Started steps; Commands box; NO changelog box and NO pack version; CurseForge-supported HTML only). Assets in `assets/items/`, `assets/recipes/`, and `assets/snapshots/` automatically build responsive galleries (`Custom Items`, `Crafting Recipes`, `Screenshots`); NEVER manually embed raw `<img>` tags for asset files into `DESCRIPTION.md`, as find_media skips files already present in the markdown. DESCRIPTION.md stays the source. NEVER hand-edit views.
-- Listing Kit: `description_views/<Name>.listing.md` generated from DESCRIPTION.md by `scripts/build_listing_kits.py` (refreshed by Build Changed Packs & Sync Catalogs). One page with Package name, Summary (max 256, the DESCRIPTION tagline as plain text), the description HTML and the Logo/Banner AI image prompts, each in its own code block so GitHub shows a Copy button. AI image generation prompts for banners/logos are generated automatically here; recipes and sprites use pixel/vector generators, NEVER AI generation. The HTML has no pack logo. NEVER hand-edit.
+- Description HTML: rendered from DESCRIPTION.md by `scripts/build_description_views.py` (a library, writes no file) into the Listing Kit below; NEVER recreate separate `Package/<Name>.curseforge.html` or `image_prompts/` files (one dark green accent (#15803d) on every page, minimal theme-following style only; hero with badges: lowest Minecraft version read from the manifests as `1.26+`, `Experimental: No` always, achievements; feature cards; Get Started steps; Commands box; NO changelog box and NO pack version; CurseForge-supported HTML only). Assets in `assets/items/`, `assets/recipes/`, and `assets/snapshots/` automatically build responsive galleries (`Custom Items`, `Crafting Recipes`, `Screenshots`); NEVER manually embed raw `<img>` tags for asset files into `DESCRIPTION.md`, as find_media skips files already present in the markdown. DESCRIPTION.md stays the source. NEVER hand-edit views.
+- Listing Kit: `Package/<Name>.listing.md` generated from DESCRIPTION.md by `scripts/build_listing_kits.py` (refreshed by Build Changed Packs & Sync Catalogs). One page with Package name, Summary (max 256, the DESCRIPTION tagline as plain text), the description HTML and the Logo/Banner AI image prompts, each in its own code block so GitHub shows a Copy button. AI image generation prompts for banners/logos are generated automatically here; recipes and sprites use pixel/vector generators, NEVER AI generation. The HTML has no pack logo. NEVER hand-edit.
 - Media: payloads contain no screenshots. Add them on the platform after publishing.
 
 ### 2.4 Attribution and keywords
@@ -4587,7 +4587,7 @@ if __name__ == "__main__":
     sys.exit(main())
 ```
 
-## FILE: scripts/make_pack_script.py (250 lines, 10098 bytes)
+## FILE: scripts/make_pack_script.py (250 lines, 10078 bytes)
 
 ```
 #!/usr/bin/env python3
@@ -4650,7 +4650,7 @@ case "$ACTION" in create|stage) ;; *) echo "Usage: bash $SCRIPT_NAME [create|sta
 cd "$HOME"
 [ -d "$HOME/MCPE-Curseforges" ] || git clone "$REPO" "$HOME/MCPE-Curseforges"
 cd "$HOME/MCPE-Curseforges"
-git checkout -q -- description_views changelog_views 2>/dev/null || true
+git checkout -q -- Package changelog_views 2>/dev/null || true
 git pull --rebase --autostash
 
 for f in scripts/import_project_payload.py scripts/build_payload.py scripts/manifest_tools.py; do
@@ -4725,7 +4725,7 @@ if f"## {date} - {title}" not in t:
     p.write_text(t[:i] + "\n" + entry.rstrip("\n") + "\n" + t[i:], encoding="utf-8")
 ALN_LOG
 
-git add -A -- "$DEST_REAL" CHANGELOG.md description_views/ changelog_views/
+git add -A -- "$DEST_REAL" CHANGELOG.md Package/ changelog_views/
 if git diff --cached --quiet; then
   echo "Nothing to commit"
 else
@@ -4841,7 +4841,7 @@ if __name__ == "__main__":
     main()
 ```
 
-## FILE: scripts/make_update_script.py (167 lines, 6742 bytes)
+## FILE: scripts/make_update_script.py (167 lines, 6732 bytes)
 
 ```
 #!/usr/bin/env python3
@@ -4890,7 +4890,7 @@ DEST="@@PROJECT@@"
 cd "$HOME"
 [ -d "$HOME/MCPE-Curseforges" ] || git clone "$REPO" "$HOME/MCPE-Curseforges"
 cd "$HOME/MCPE-Curseforges"
-git checkout -q -- description_views changelog_views 2>/dev/null || true
+git checkout -q -- Package changelog_views 2>/dev/null || true
 git pull --rebase --autostash
 [ -f scripts/apply_update.py ] || { echo "ERROR: scripts/apply_update.py is missing in the repo. Apply the Search-Replace-Update script first."; exit 1; }
 
