@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Build one Listing Kit per pack: every text you paste into a CurseForge listing, in one Markdown page.
 
-Output: description_views/<n>.listing.md. GitHub shows each ```text block with a Copy button, so open the file on GitHub
+Output: Package/<n>.listing.md. GitHub shows each ```text block with a Copy button, so open the file on GitHub
 and tap Copy next to: Package name, Summary (max 256), the description HTML, and the Logo / Banner AI image prompts.
 Everything comes from DESCRIPTION.md (same code as build_description_views.py and build_image_prompts.py).
 
@@ -106,7 +106,7 @@ def main(argv=None):
     ap.add_argument("--project", help="one pack folder, e.g. MCPEDL/Addons/Mining-Helmet")
     ap.add_argument("--all", action="store_true", help="every pack under MCPEDL/*/*")
     ap.add_argument("--check", action="store_true", help="write nothing; exit 1 if a kit is missing or stale")
-    ap.add_argument("--out", default="description_views", help="output folder (default: description_views)")
+    ap.add_argument("--out", default="Package", help="output folder (default: Package)")
     ap.add_argument("--root", default=".", help="repo root")
     a = ap.parse_args(argv)
     if not a.project and not a.all:

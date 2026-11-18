@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Renderer library: the CurseForge description HTML built from a pack's DESCRIPTION.md.
 
-It writes no files. scripts/build_listing_kits.py calls it and puts the HTML into description_views/<n>.listing.md
+It writes no files. scripts/build_listing_kits.py calls it and puts the HTML into Package/<n>.listing.md
 (the only generated listing file; the separate .curseforge.html views were removed).
 DESCRIPTION.md stays the only source of truth.
 

@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Builds MCPEDL/README.md: every pack grouped by type, with Version, Source and AI review.
+"""Builds MCPEDL/README.md: every pack grouped by type, with Version, Source, Package and AI review.
 
 Generated file. The Build Changed Packs & Sync Catalogs workflow runs this after the per-pack AI review
 files are refreshed. Output has no dates, so an unchanged repo gives an identical file.
@@ -82,14 +82,16 @@ def render(root):
         if not projects:
             continue
         counts.append(f"{len(projects)} {label}")
-        rows = ["| Pack | Version | Source | AI review |", "| :-- | :-- | :-- | :-- |"]
+        rows = ["| Pack | Version | Source | Package | AI review |", "| :-- | :-- | :-- | :-- | :-- |"]
         for p in projects:
             review = p / "ai-review" / f"{p.name}.txt"
             if not review.is_file():
                 warnings.append(f"no AI review file for {cat}/{p.name}")
             ai = f"[Download]({RAW}{quote(review.relative_to(root).as_posix())})" if review.is_file() else "-"
+            listing = root / "Package" / f"{p.name}.listing.md"
+            pkg = f"[Package]({link(mcpedl, listing)})" if listing.is_file() else "-"
             title = pack_title(p).replace("|", "/")
-            rows.append(f"| **{title}** | {pack_version(p)} | [Source]({link(mcpedl, p)}) | {ai} |")
+            rows.append(f"| **{title}** | {pack_version(p)} | [Source]({link(mcpedl, p)}) | {pkg} | {ai} |")
         sections.append(f"## {label}\n\n" + "\n".join(rows) + "\n")
     body = HEADER + ("\n" + " · ".join(counts) + "\n" if counts else "\nNo packs yet.\n")
     body += "\n" + ai_kits_section

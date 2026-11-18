@@ -58,7 +58,7 @@ case "$ACTION" in create|stage) ;; *) echo "Usage: bash $SCRIPT_NAME [create|sta
 cd "$HOME"
 [ -d "$HOME/MCPE-Curseforges" ] || git clone "$REPO" "$HOME/MCPE-Curseforges"
 cd "$HOME/MCPE-Curseforges"
-git checkout -q -- description_views changelog_views 2>/dev/null || true
+git checkout -q -- Package changelog_views 2>/dev/null || true
 git pull --rebase --autostash
 
 for f in scripts/import_project_payload.py scripts/build_payload.py scripts/manifest_tools.py; do
@@ -133,7 +133,7 @@ if f"## {date} - {title}" not in t:
     p.write_text(t[:i] + "\n" + entry.rstrip("\n") + "\n" + t[i:], encoding="utf-8")
 ALN_LOG
 
-git add -A -- "$DEST_REAL" CHANGELOG.md description_views/ changelog_views/
+git add -A -- "$DEST_REAL" CHANGELOG.md Package/ changelog_views/
 if git diff --cached --quiet; then
   echo "Nothing to commit"
 else

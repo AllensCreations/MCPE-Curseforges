@@ -182,9 +182,9 @@ class DescriptionViewTests(unittest.TestCase):
             import build_listing_kits as blk
             self.assertEqual(blk.main(["--root", d, "--all"]), 0)
             self.assertEqual(blk.main(["--root", d, "--all", "--check"]), 0)
-            self.assertEqual(sorted(p.name for p in (Path(d) / "description_views").iterdir()), ["Demo-Pack.listing.md"])
+            self.assertEqual(sorted(p.name for p in (Path(d) / "Package").iterdir()), ["Demo-Pack.listing.md"])
             self.assertFalse((Path(d) / "image_prompts").exists())
-            (Path(d) / "description_views" / "Demo-Pack.listing.md").write_text("old", encoding="utf-8")
+            (Path(d) / "Package" / "Demo-Pack.listing.md").write_text("old", encoding="utf-8")
             self.assertEqual(blk.main(["--root", d, "--all", "--check"]), 1)
 
 

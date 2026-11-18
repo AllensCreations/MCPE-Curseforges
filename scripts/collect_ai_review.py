@@ -282,7 +282,7 @@ for d in list(dests):
     view_name = pathlib.PurePosixPath(d).name
     for ext in (".github.md", ".curseforge.html"):
         add(root / "changelog_views" / (view_name + ext))
-    add(root / "description_views" / (view_name + ".listing.md"))
+    add(root / "Package" / (view_name + ".listing.md"))
 
 files = sorted(selected, key=str.lower)
 if missing:

@@ -110,7 +110,7 @@ def main() -> int:
                     entries.append((cat, name, top_version(pack), txt.relative_to(ROOT).as_posix()))
                 continue
             extras = [ROOT / "changelog_views" / (name + ext) for ext in (".github.md", ".curseforge.html")]
-            extras.append(ROOT / "description_views" / (name + ".listing.md"))
+            extras.append(ROOT / "Package" / (name + ".listing.md"))
             src_hash = digest(list(files_under(pack)) + [x for x in extras if x.is_file()])
             fresh = txt.is_file() and stamp.is_file() and stamp.read_text().strip() == src_hash
             if fresh and not args.all:

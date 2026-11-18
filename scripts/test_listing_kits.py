@@ -23,7 +23,7 @@ class ListingKitTests(unittest.TestCase):
 
     def kit(self):
         self.assertEqual(blk.main(["--all", "--root", str(self.root)]), 0)
-        return (self.root / "description_views/Demo-Pack.listing.md").read_text(encoding="utf-8")
+        return (self.root / "Package/Demo-Pack.listing.md").read_text(encoding="utf-8")
 
     def test_every_part_is_in_a_copy_block(self):
         k = self.kit()
@@ -50,7 +50,7 @@ class ListingKitTests(unittest.TestCase):
         self.assertEqual(blk.main(["--all", "--check", "--root", str(self.root)]), 1)
         self.kit()
         self.assertEqual(blk.main(["--all", "--check", "--root", str(self.root)]), 0)
-        (self.root / "description_views/Demo-Pack.listing.md").write_text("old", encoding="utf-8")
+        (self.root / "Package/Demo-Pack.listing.md").write_text("old", encoding="utf-8")
         self.assertEqual(blk.main(["--all", "--check", "--root", str(self.root)]), 1)
 
 

@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Library: the Logo and Banner image prompt text built from a pack's DESCRIPTION.md.
 
-It writes no files. scripts/build_listing_kits.py calls it and puts the prompts into description_views/<n>.listing.md
+It writes no files. scripts/build_listing_kits.py calls it and puts the prompts into Package/<n>.listing.md
 (the separate image_prompts/ files were removed). Prompt text only, it never makes images.
 
 Run: python3 scripts/build_listing_kits.py --all | --project MCPEDL/Addons/<n> [--check]
