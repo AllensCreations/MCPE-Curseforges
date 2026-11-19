@@ -9,7 +9,7 @@ const SPARKS = "minecraft:critical_hit_emitter";
 
 const NO_TOTEM = new Set([EntityDamageCause.void, EntityDamageCause.selfDestruct, EntityDamageCause.override]);
 const BLOCKED = new Set([EntityDamageCause.entityAttack, EntityDamageCause.projectile]);
-const replaying = new Set();
+
 
 const slot = (p, which) => p.getComponent(EntityComponentTypes.Equippable)?.getEquipmentSlot(which);
 const bag = (p) => p.getComponent(EntityComponentTypes.Inventory)?.container;
@@ -66,21 +66,25 @@ function onHurt(event) {
     system.run(() => victim.isValid && victim.playSound("item.shield.block"));
     return;
   }
+  if (isOn(victim, "neverDie") && !NO_TOTEM.has(src.cause)) {
+    const left = victim.getComponent(EntityComponentTypes.Health)?.currentValue ?? 0;
+    if (left > 0 && event.damage >= left - 1) {
+      event.damage = Math.max(0, left - 1);
+      return;
+    }
+  }
   const infinite = isOn(victim, "infiniteTotem");
   if (!infinite && !isOn(victim, "autoTotem")) return;
-  if (NO_TOTEM.has(src.cause) || replaying.has(victim.id) || hands(victim).includes(TOTEM)) return;
+  if (NO_TOTEM.has(src.cause) || hands(victim).includes(TOTEM)) return;
   if (!infinite && totemIndex(victim) < 0) return;
   const health = victim.getComponent(EntityComponentTypes.Health);
   if (!health || health.currentValue - event.damage > 0) return;
   const amount = event.damage;
   event.cancel = true;
-  replaying.add(victim.id);
   system.run(() => {
-    if (victim.isValid) {
-      equipTotem(victim);
-      victim.applyDamage(amount, replayOptions(src));
-    }
-    system.runTimeout(() => replaying.delete(victim.id), 5);
+    if (!victim.isValid) return;
+    equipTotem(victim);
+    if (hands(victim).includes(TOTEM)) victim.applyDamage(amount, replayOptions(src));
   });
 }
 

@@ -1,13 +1,13 @@
-# Combat Helper — A cursor-shaped item that opens a menu of 9 PVP toggles
+# Combat Helper — A cursor-shaped item that opens a menu of 10 PVP toggles
 
 **By ALNStudios**
 
 [![Minecraft Bedrock](https://img.shields.io/badge/Minecraft%20Bedrock-Stable%20Release-brightgreen?style=flat-square&logo=minecraft)](https://github.com/AllensCreations/MCPE-Curseforges)
 [![Format](https://img.shields.io/badge/Format-.MCPACK%20%7C%20.MCADDON%20%7C%20.MCWORLD-blue?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges)
 
-**Use the Combat Helper item to switch 9 PVP toggles on or off per player, including Auto Totem and Bow Aimbot, and set friends and slider values.**
+**Use the Combat Helper item to switch 10 PVP toggles on or off per player, including Auto Totem and Bow Aimbot, and set friends and slider values.**
 
-> The Combat Helper is a cursor-shaped item that opens a menu with 9 toggles, a friends list and tuning sliders, each saved separately for every player. It suits friends who practice PVP in a world they own and want to pick their own settings.
+> The Combat Helper is a cursor-shaped item that opens a menu with 10 toggles, a friends list and tuning sliders, each saved separately for every player. It suits friends who practice PVP in a world they own and want to pick their own settings.
 
 ## Overview
 
@@ -21,7 +21,7 @@ You get a Combat Helper, use it, and pick the toggles you want in the ALNStudios
 - **Good To Know**: With Give Starter Item on, a full inventory on first join means the Combat Helper is offered again on your next join.
 
 ### Combat Toggles Menu
-- **What Happens**: The main menu has three buttons: Combat Menu, About and Exit. Combat Menu opens a screen with Combat Toggles, Friends and Tuning. Combat Toggles lists 9 switches with a one-line explanation under each, and Apply saves them and closes the menu.
+- **What Happens**: The main menu has three buttons: Combat Menu, About and Exit. Combat Menu opens a screen with Combat Toggles, Friends and Tuning. Combat Toggles lists 10 switches with a one-line explanation under each, and Apply saves them and closes the menu.
 - **How It Works**: Flip the switches you want, then tap Apply. Closing the screen without Apply brings you back one screen.
 - **Good To Know**: Toggles are saved per player, so each person in a world picks their own.
 
@@ -69,6 +69,11 @@ You get a Combat Helper, use it, and pick the toggles you want in the ALNStudios
 - **What Happens**: Each time you hurt a mob or player, the action bar shows how much damage the hit did, in points and in hearts.
 - **How It Works**: Switch it on and hit something.
 - **Good To Know**: It also counts the hits made by Aura Mode.
+
+### Never Die
+- **What Happens**: Any hit that would kill you leaves you at half a heart instead, and while you are at half a heart further damage is blocked, so you never die.
+- **How It Works**: Switch Never Die on. It works against explosions such as creepers, mobs, arrows, fire and falls.
+- **Good To Know**: It cannot stop the void or the kill command. It is used before the totem toggles, so no totem is spent while Never Die is on.
 
 ### Friends
 - **What Happens**: You pick online players as friends, and Aura Mode and Bow Aimbot skip them.
@@ -133,5 +138,5 @@ You get a Combat Helper, use it, and pick the toggles you want in the ALNStudios
 
 ## Search & Discovery Keywords
 
-Minecraft Bedrock add-on, Combat Helper Bedrock mod, Minecraft PE PVP toggles, Auto Totem, Infinite Totem, Aura Mode, Always Critical, Bow Aimbot, Water Clutch, Auto Golden Apple, Damage Display, friends list, Minecraft PE mouse pointer item, MCPEDL add-on, CurseForge Bedrock, ALNStudios.
+Minecraft Bedrock add-on, Combat Helper Bedrock mod, Minecraft PE PVP toggles, Auto Totem, Infinite Totem, Aura Mode, Always Critical, Bow Aimbot, Water Clutch, Never Die, Auto Golden Apple, Damage Display, friends list, Minecraft PE mouse pointer item, MCPEDL add-on, CurseForge Bedrock, ALNStudios.
 

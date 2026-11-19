@@ -2,6 +2,14 @@
 
 ---
 
+## [v6] - 2026-11-19 - Never Die
+
+### Added
+- **Never Die**: A new toggle that keeps you at half a heart instead of dying, even from a one-hit explosion such as a creeper. The void and the kill command still work. The combat toggles screen now has 10 switches.
+
+### Fixed
+- **Totem After A Pop**: Auto Totem and Infinite Totem no longer ignore deadly hits that land within a quarter second after a totem pops, such as the second damage of an explosion.
+
 ## [v5] - 2026-11-19 - Friends and Tuning
 
 ### Added
