@@ -1,10 +1,11 @@
 import { world, system, EntityComponentTypes, GameMode } from "@minecraft/server";
 import { PLAYER_ID } from "./info.js";
 import { isOn } from "./store.js";
+import { tune } from "./tuning.js";
+import { isFriend } from "./friends.js";
 
 const ARROW = "minecraft:arrow";
-const RANGE = 48;
-const MIN_COS = Math.cos((25 * Math.PI) / 180);
+
 const GRAVITY = 0.05;
 const MIN_SPEED = 0.8;
 
@@ -12,17 +13,17 @@ const minus = (a, b) => ({ x: a.x - b.x, y: a.y - b.y, z: a.z - b.z });
 const length = (v) => Math.hypot(v.x, v.y, v.z);
 
 function candidates(owner) {
-  const options = { location: owner.location, maxDistance: RANGE };
+  const options = { location: owner.location, maxDistance: tune(owner, "aimRange") };
   const mobs = owner.dimension.getEntities({ ...options, families: ["monster"] });
   const players = owner.dimension.getPlayers({ ...options, excludeGameModes: [GameMode.Creative, GameMode.Spectator] });
-  return [...mobs, ...players].filter((e) => e.id !== owner.id);
+  return [...mobs, ...players].filter((e) => e.id !== owner.id && !isFriend(owner, e));
 }
 
 function pickTarget(owner) {
   const eye = owner.getHeadLocation();
   const view = owner.getViewDirection();
   let best;
-  let bestCos = MIN_COS;
+  let bestCos = Math.cos((tune(owner, "aimCone") * Math.PI) / 180);
   for (const entity of candidates(owner)) {
     const offset = minus(entity.getHeadLocation(), eye);
     const distance = length(offset);

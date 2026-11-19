@@ -8,6 +8,8 @@ export const FEATURES = [
   { id: "bowAimbot", name: "Bow Aimbot", info: "Arrows you shoot steer toward the target you aim at." },
   { id: "waterClutch", name: "Always Water Clutch", info: "Places temporary water under you before a long fall lands." },
   { id: "shield", name: "Shield Always Active", info: "Blocks hits from the front while you carry a shield." },
+  { id: "autoGapple", name: "Auto Golden Apple", info: "Eats a golden apple for you when your health is 4 hearts or less." },
+  { id: "damageDisplay", name: "Damage Display", info: "Shows the damage of each hit you land on the action bar." },
 ];
 
 const KEY = "aln_pointer_toggles";
@@ -36,8 +38,22 @@ export function activeNames(player) {
   return FEATURES.filter((f) => isOn(player, f.id)).map((f) => f.name);
 }
 
+export function quickSwitch(player) {
+  const old = read(player);
+  const on = FEATURES.filter((f) => old[f.id] === true).map((f) => f.id);
+  const last = Array.isArray(old._last) ? old._last : [];
+  if (!on.length && !last.length) return "Nothing to bring back. Turn some toggles on first.";
+  const data = { _last: on.length ? on : last };
+  FEATURES.forEach((f) => {
+    data[f.id] = on.length ? false : last.includes(f.id);
+  });
+  cache.set(player.id, data);
+  player.setDynamicProperty(KEY, JSON.stringify(data));
+  return on.length ? "All toggles off. Sneak and use again to bring them back." : `${last.length} toggles back on.`;
+}
+
 export function applyValues(player, values) {
-  const data = {};
+  const data = { _last: read(player)._last };
   FEATURES.forEach((f, i) => {
     data[f.id] = values[i] === true;
   });

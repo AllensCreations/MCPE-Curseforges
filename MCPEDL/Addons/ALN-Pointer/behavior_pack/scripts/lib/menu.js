@@ -2,6 +2,8 @@ import { system } from "@minecraft/server";
 import { ActionFormData, ModalFormData, FormCancelationReason } from "@minecraft/server-ui";
 import { PACK_NAME, PACK_VERSION } from "./info.js";
 import { FEATURES, isOn, applyValues, activeNames } from "./store.js";
+import { others, isFriend, applyFriends, friendNames } from "./friends.js";
+import { TUNING, tune, applyTuning, resetTuning } from "./tuning.js";
 
 const ABOUT_ICON = "textures/items/name_tag";
 const EXIT_ICON = "textures/items/door_wood";
@@ -12,7 +14,7 @@ const mainTitle = () => `§l§6@ALNStudios §e${PACK_NAME}§r (v${PACK_VERSION})
 const wait = (ticks) => new Promise((resolve) => system.runTimeout(resolve, ticks));
 const opt = (form, name, ...args) => (typeof form[name] === "function" ? form[name](...args) : form);
 
-function tell(player, color, text) {
+export function tell(player, color, text) {
   try {
     player.onScreenDisplay.setActionBar(`${color}${text}`);
   } catch (e) {}
@@ -63,7 +65,7 @@ async function openToggles(player) {
   const res = await present(form, player);
   if (!res) return;
   if (res.canceled) {
-    openMain(player);
+    openHub(player);
     return;
   }
   const values = (res.formValues ?? []).filter((v) => typeof v === "boolean");
@@ -76,17 +78,98 @@ async function openToggles(player) {
   tell(player, "§a", `${count} of ${FEATURES.length} toggles on.`);
 }
 
+async function openFriends(player) {
+  const shown = others(player).slice(0, 30);
+  if (!shown.length) {
+    tell(player, "§e", "No other players are online.");
+    openHub(player);
+    return;
+  }
+  const saved = friendNames(player);
+  let form = new ModalFormData().title(bold("Friends"));
+  form = opt(form, "header", bold(PACK_NAME));
+  form = opt(form, "label", bold("Tick a player to make them a friend. Aura Mode and Bow Aimbot skip your friends."));
+  form = opt(form, "label", bold(saved.length ? `Saved friends: ${saved.join(", ")}` : "No friends saved yet."));
+  form = opt(form, "divider");
+  for (const other of shown) form = form.toggle(bold(other.name), { defaultValue: isFriend(player, other) });
+  form = opt(form, "submitButton", bold("Apply"));
+  const res = await present(form, player);
+  if (!res) return;
+  if (res.canceled) {
+    openHub(player);
+    return;
+  }
+  const values = (res.formValues ?? []).filter((v) => typeof v === "boolean");
+  if (values.length !== shown.length) {
+    tell(player, "§c", "The friends could not be read.");
+    return;
+  }
+  applyFriends(player, shown, values);
+  tell(player, "§a", `${friendNames(player).length} friends saved.`);
+}
+
+async function openTuning(player) {
+  let form = new ModalFormData().title(bold("Tuning"));
+  form = opt(form, "header", bold(PACK_NAME));
+  form = opt(form, "label", bold("Drag the sliders. Every player keeps their own values."));
+  form = opt(form, "divider");
+  for (const t of TUNING) {
+    form = form.slider(bold(t.name), t.min, t.max, { defaultValue: tune(player, t.id), valueStep: t.step });
+  }
+  form = opt(form, "divider");
+  form = form.toggle(bold("Reset everything to the defaults"), { defaultValue: false });
+  form = opt(form, "submitButton", bold("Apply"));
+  const res = await present(form, player);
+  if (!res) return;
+  if (res.canceled) {
+    openHub(player);
+    return;
+  }
+  const values = res.formValues ?? [];
+  const numbers = values.filter((v) => typeof v === "number");
+  const flags = values.filter((v) => typeof v === "boolean");
+  if (numbers.length !== TUNING.length) {
+    tell(player, "§c", "The sliders could not be read.");
+    return;
+  }
+  if (flags[0] === true) {
+    resetTuning(player);
+    tell(player, "§a", "Tuning reset to the defaults.");
+    return;
+  }
+  applyTuning(player, numbers);
+  tell(player, "§a", "Tuning saved.");
+}
+
+async function openHub(player) {
+  const body = `${activeNames(player).length} of ${FEATURES.length} toggles on. ${friendNames(player).length} friends saved.`;
+  const form = new ActionFormData()
+    .title(bold("Combat Menu"))
+    .body(bold(body))
+    .button(bold("Combat Toggles"))
+    .button(bold("Friends"))
+    .button(bold("Tuning"))
+    .button(bold("Back"), EXIT_ICON);
+  const res = await present(form, player);
+  if (!res) return;
+  if (res.canceled || res.selection === 3) {
+    openMain(player);
+    return;
+  }
+  [openToggles, openFriends, openTuning][res.selection](player);
+}
+
 export async function openMain(player) {
   const active = activeNames(player);
   const body = active.length ? `On: ${active.join(", ")}` : "No toggles are on.";
   const form = new ActionFormData()
     .title(mainTitle())
     .body(bold(body))
-    .button(bold("Combat Toggles"))
+    .button(bold("Combat Menu"))
     .button(bold("About"), ABOUT_ICON)
     .button(bold("Exit"), EXIT_ICON);
   const res = await present(form, player);
   if (!res || res.canceled) return;
-  if (res.selection === 0) openToggles(player);
+  if (res.selection === 0) openHub(player);
   else if (res.selection === 1) openAbout(player);
 }

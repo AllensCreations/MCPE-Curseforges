@@ -1,11 +1,12 @@
 import { world, system, EntityComponentTypes, EntityDamageCause, EquipmentSlot, ItemStack } from "@minecraft/server";
 import { PLAYER_ID } from "./info.js";
 import { isOn } from "./store.js";
+import { tune } from "./tuning.js";
 
 const TOTEM = "minecraft:totem_of_undying";
 const SHIELD = "minecraft:shield";
 const SPARKS = "minecraft:critical_hit_emitter";
-const CRIT = 1.5;
+
 const NO_TOTEM = new Set([EntityDamageCause.void, EntityDamageCause.selfDestruct, EntityDamageCause.override]);
 const BLOCKED = new Set([EntityDamageCause.entityAttack, EntityDamageCause.projectile]);
 const replaying = new Set();
@@ -56,7 +57,7 @@ function onHurt(event) {
   const src = event.damageSource;
   const hitter = src.damagingEntity;
   if (src.cause === EntityDamageCause.entityAttack && hitter?.typeId === PLAYER_ID && isOn(hitter, "alwaysCritical") && !hitter.isFalling) {
-    event.damage *= CRIT;
+    event.damage *= tune(hitter, "critPercent") / 100;
     system.run(() => victim.isValid && victim.dimension.spawnParticle(SPARKS, victim.getHeadLocation()));
   }
   if (victim.typeId !== PLAYER_ID) return;

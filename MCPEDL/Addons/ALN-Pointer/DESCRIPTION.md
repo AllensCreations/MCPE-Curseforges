@@ -1,13 +1,13 @@
-# Combat Helper — A cursor-shaped item that opens a menu of 7 PVP toggles
+# Combat Helper — A cursor-shaped item that opens a menu of 9 PVP toggles
 
 **By ALNStudios**
 
 [![Minecraft Bedrock](https://img.shields.io/badge/Minecraft%20Bedrock-Stable%20Release-brightgreen?style=flat-square&logo=minecraft)](https://github.com/AllensCreations/MCPE-Curseforges)
 [![Format](https://img.shields.io/badge/Format-.MCPACK%20%7C%20.MCADDON%20%7C%20.MCWORLD-blue?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges)
 
-**Use the Combat Helper item to switch 7 PVP toggles on or off per player, including Auto Totem and Bow Aimbot.**
+**Use the Combat Helper item to switch 9 PVP toggles on or off per player, including Auto Totem and Bow Aimbot, and set friends and slider values.**
 
-> The Combat Helper is a cursor-shaped item that opens a menu with 7 toggles, each saved separately for every player. It suits friends who practice PVP in a world they own and want to pick their own settings.
+> The Combat Helper is a cursor-shaped item that opens a menu with 9 toggles, a friends list and tuning sliders, each saved separately for every player. It suits friends who practice PVP in a world they own and want to pick their own settings.
 
 ## Overview
 
@@ -16,13 +16,13 @@ You get a Combat Helper, use it, and pick the toggles you want in the ALNStudios
 ## Key Features
 
 ### Combat Helper Item
-- **What Happens**: A cursor-shaped item that opens the toggle menu when you use it. You receive one the first time you join a world, you can craft more from wool, and it also sits in the Equipment tab of the Creative inventory.
-- **How It Works**: Hold the Combat Helper and use it, like right-clicking on PC or tapping on mobile. To craft one, fill the top row of a crafting table with wool, then the left and middle squares of the middle row, then the left and right squares of the bottom row. This takes 7 wool of any color and the shape looks like a cursor.
-- **Good To Know**: If your inventory is full on first join, the Combat Helper is offered again on your next join.
+- **What Happens**: A cursor-shaped item that opens the toggle menu when you use it. You craft one from wool, take one from the Equipment tab of the Creative inventory, or turn on the Give Starter Item pack setting to receive one the first time you join a world.
+- **How It Works**: Hold the Combat Helper and use it, like right-clicking on PC or tapping on mobile. Sneak while you use it to switch all your toggles off or back on. To craft one, fill the top row of a crafting table with wool, then the left and middle squares of the middle row, then the left and right squares of the bottom row. This takes 7 wool of any color and the shape looks like a cursor.
+- **Good To Know**: With Give Starter Item on, a full inventory on first join means the Combat Helper is offered again on your next join.
 
 ### Combat Toggles Menu
-- **What Happens**: The main menu has three buttons: Combat Toggles, About and Exit. Combat Toggles lists 7 switches with a one-line explanation under each, and Apply saves them and closes the menu.
-- **How It Works**: Flip the switches you want, then tap Apply. Closing the screen without Apply brings you back to the main menu.
+- **What Happens**: The main menu has three buttons: Combat Menu, About and Exit. Combat Menu opens a screen with Combat Toggles, Friends and Tuning. Combat Toggles lists 9 switches with a one-line explanation under each, and Apply saves them and closes the menu.
+- **How It Works**: Flip the switches you want, then tap Apply. Closing the screen without Apply brings you back one screen.
 - **Good To Know**: Toggles are saved per player, so each person in a world picks their own.
 
 ### Auto Totem
@@ -60,12 +60,42 @@ You get a Combat Helper, use it, and pick the toggles you want in the ALNStudios
 - **How It Works**: Keep a shield in your hand or off hand and switch Shield Always Active on.
 - **Good To Know**: Hits from behind and other damage, such as fire or explosions, are not blocked.
 
+### Auto Golden Apple
+- **What Happens**: When your health drops to 4 hearts or less, one golden apple from your inventory is eaten for you, giving Regeneration II for 5 seconds and Absorption for 2 minutes.
+- **How It Works**: Keep a golden apple anywhere in your inventory and switch Auto Golden Apple on.
+- **Good To Know**: It waits 20 seconds between apples, it does not restore hunger, and it does nothing in Creative or Spectator mode.
+
+### Damage Display
+- **What Happens**: Each time you hurt a mob or player, the action bar shows how much damage the hit did, in points and in hearts.
+- **How It Works**: Switch it on and hit something.
+- **Good To Know**: It also counts the hits made by Aura Mode.
+
+### Friends
+- **What Happens**: You pick online players as friends, and Aura Mode and Bow Aimbot skip them.
+- **How It Works**: Open the Combat Menu, tap Friends, tick the players you want and tap Apply.
+- **Good To Know**: Friends stay on your list when they go offline. The list is yours alone, so a friend is only safe from your toggles, not the other way round.
+
+### Tuning
+- **What Happens**: Six sliders change how strong the toggles are: Aura range (2 to 6 blocks), Aura damage (1 to 10), Aura targets (1 to 5), Bow Aimbot range (16 to 96 blocks), Bow Aimbot angle (5 to 45 degrees) and Always Critical damage (110 to 300 percent).
+- **How It Works**: Open the Combat Menu, tap Tuning, drag the sliders and tap Apply. A reset switch at the bottom puts everything back to the defaults.
+- **Good To Know**: The starting values match the old fixed numbers, so nothing changes until you move a slider.
+
+### Quick Toggle
+- **What Happens**: Sneaking while you use the Combat Helper switches every toggle off at once, and doing it again brings the same toggles back.
+- **How It Works**: Crouch and use the item instead of opening the menu.
+- **Good To Know**: Your friends and tuning stay as they are.
+
+### Starter Item Pack Setting
+- **What Happens**: The behavior pack has a choice between No Starter Item, which is the default, and Give Starter Item, which gives each player a Combat Helper the first time they join the world.
+- **How It Works**: Open the world settings, go to Behavior Packs, tap Combat Helper and use the subpack slider to pick Give Starter Item.
+- **Good To Know**: Each player gets one the first time they join with the setting on, and a player who already has one saved from before is not given another.
+
 ## How to Use
 
-1. Join your world and find the Combat Helper in your inventory, craft one from 7 wool in a cursor shape, or take it from the Equipment tab of the Creative inventory.
-2. Hold the Combat Helper and use it to open the ALNStudios menu, then tap Combat Toggles.
+1. Craft a Combat Helper from 7 wool in a cursor shape, take one from the Equipment tab of the Creative inventory, or turn on Give Starter Item to receive one when you first join.
+2. Hold the Combat Helper and use it to open the ALNStudios menu, then tap Combat Menu and Combat Toggles.
 3. Switch on the toggles you want and tap Apply. The action bar shows how many toggles are on.
-4. Use the Combat Helper again any time to change your toggles.
+4. Use the Combat Helper again any time to change your toggles, or open Friends and Tuning from the Combat Menu.
 
 ## Common Questions
 
@@ -103,5 +133,5 @@ You get a Combat Helper, use it, and pick the toggles you want in the ALNStudios
 
 ## Search & Discovery Keywords
 
-Minecraft Bedrock add-on, Combat Helper Bedrock mod, Minecraft PE PVP toggles, Auto Totem, Infinite Totem, Aura Mode, Always Critical, Bow Aimbot, Water Clutch, Minecraft PE mouse pointer item, MCPEDL add-on, CurseForge Bedrock, ALNStudios.
+Minecraft Bedrock add-on, Combat Helper Bedrock mod, Minecraft PE PVP toggles, Auto Totem, Infinite Totem, Aura Mode, Always Critical, Bow Aimbot, Water Clutch, Auto Golden Apple, Damage Display, friends list, Minecraft PE mouse pointer item, MCPEDL add-on, CurseForge Bedrock, ALNStudios.
 

@@ -1,9 +1,8 @@
 import { world, system, EntityDamageCause, GameMode } from "@minecraft/server";
 import { isOn, anyOn } from "./store.js";
+import { tune } from "./tuning.js";
+import { isFriend } from "./friends.js";
 
-const AURA_RANGE = 4;
-const AURA_DAMAGE = 5;
-const AURA_TARGETS = 3;
 const MIN_FALL = 3;
 const WATER_LIFETIME = 40;
 const falls = new Map();
@@ -12,15 +11,15 @@ const dist = (a, e) => Math.hypot(e.location.x - a.x, e.location.y - a.y, e.loca
 const skip = (p) => p.getGameMode() === GameMode.Creative || p.getGameMode() === GameMode.Spectator;
 
 function aura(p) {
-  const opts = { location: p.location, maxDistance: AURA_RANGE };
+  const opts = { location: p.location, maxDistance: tune(p, "auraRange") };
   const found = new Map();
   const mobs = p.dimension.getEntities({ ...opts, families: ["monster"] });
   const foes = p.dimension.getPlayers({ ...opts, excludeGameModes: [GameMode.Creative, GameMode.Spectator] });
-  for (const e of [...mobs, ...foes]) if (e.id !== p.id) found.set(e.id, e);
+  for (const e of [...mobs, ...foes]) if (e.id !== p.id && !isFriend(p, e)) found.set(e.id, e);
   [...found.values()]
     .sort((a, b) => dist(p.location, a) - dist(p.location, b))
-    .slice(0, AURA_TARGETS)
-    .forEach((t) => t.applyDamage(AURA_DAMAGE, { cause: EntityDamageCause.entityAttack, damagingEntity: p }));
+    .slice(0, tune(p, "auraTargets"))
+    .forEach((t) => t.applyDamage(tune(p, "auraDamage"), { cause: EntityDamageCause.entityAttack, damagingEntity: p }));
 }
 
 function clutch(p) {
