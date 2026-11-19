@@ -1,8 +1,8 @@
 {
-  "changelog_version": "14.0.0",
-  "manifest_version": "14.0.0",
+  "changelog_version": "15.0.0",
+  "manifest_version": "15.0.0",
   "packages": {
-    "ALNPointer V14.mcaddon": "3c2ba69075ce39e9d77cb63159769e977c14f1e6a1119f3df60916acb2e3d532"
+    "ALNPointer V15.mcaddon": "26eb4959ebdc1ccc0ce18ecf40b1c734b4bd89619124b0660a62fada1431d2b3"
   },
-  "source_sha256": "bf5bdc2eb1b859913b7f3def01235c1b14d0ccecec702eff24c473c8c24fac17"
+  "source_sha256": "e194a81a5d7453ed0b82e6f5954740b656ba904e86c2366ca2a5426def9939dc"
 }

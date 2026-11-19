@@ -4,7 +4,7 @@
 
 - **Export request:** `MCPEDL/Addons/ALN-Pointer`
 - **Destination:** `MCPEDL/Addons/ALN-Pointer`
-- **CURRENT VERSION: v14 / NEXT UPDATE: v15**  (`MCPEDL/Addons/ALN-Pointer/CHANGELOG.md`)
+- **CURRENT VERSION: v15 / NEXT UPDATE: v16**  (`MCPEDL/Addons/ALN-Pointer/CHANGELOG.md`)
 - **Text files:** 47
 - **Skipped binary:** 13
 - **Paths not found:** 0
@@ -74,10 +74,6 @@
 - `MCPEDL/Addons/ALN-Pointer/resource_pack/textures/items/aln_pointer.png`
 - `MCPEDL/Addons/ALN-Pointer/resource_pack/textures/particle/aln_circle.png`
 - `MCPEDL/Addons/ALN-Pointer/resource_pack/textures/particle/aln_target.png`
-
----
-
-
 
 ---
 
@@ -256,10 +252,11 @@ git config --global credential.helper store
 
 ## File Contents
 
-## FILE: changelog_views/ALN-Pointer.curseforge.html (14 lines, 9311 bytes)
+## FILE: changelog_views/ALN-Pointer.curseforge.html (15 lines, 9741 bytes)
 
 ```
-<h2>v14 - 2026-11-19 - One Circle Picture</h2><h3>Changed</h3><ul><li><strong>Aim Circle</strong>: The screen circle now uses one 16 by 16 picture, resource_pack/textures/particle/aln_circle.png, and the game stretches it to the size that matches the Bow Aimbot angle. The 10 separate aln_circle_4 to aln_circle_13 pictures are no longer used.</li></ul>
+<h2>v15 - 2026-11-19 - Circle Size By Degrees</h2><h3>Changed</h3><ul><li><strong>Aim Circle</strong>: The on-screen circle is now sized by the Bow Aimbot angle. At the default 25 degrees it is shown at the 40 by 40 picture&#x27;s own size, and other angles are scaled from that in proportion to the angle, from 8 pixels at 5 degrees up to 102 pixels at 50 degrees.</li></ul>
+<h2>14.0.x (1 release)</h2><div class="spoiler"><h3>v14 - 2026-11-19 - One Circle Picture</h3><h4>Changed</h4><ul><li><strong>Aim Circle</strong>: The screen circle now uses one 16 by 16 picture, resource_pack/textures/particle/aln_circle.png, and the game stretches it to the size that matches the Bow Aimbot angle. The 10 separate aln_circle_4 to aln_circle_13 pictures are no longer used.</li></ul></div>
 <h2>13.0.x (1 release)</h2><div class="spoiler"><h3>v13 - 2026-11-19 - Crosshair Circle On Screen</h3><h4>Changed</h4><ul><li><strong>Aim Circle</strong>: The circle is now drawn on the screen at your crosshair instead of in the world, so it stays exactly on the crosshair and does not lag when you turn. It uses the same 10 circle pictures, aln_circle_4.png to aln_circle_13.png, chosen by the Bow Aimbot angle. This adds a resource pack file, ui/hud_screen.json, and it uses the screen title while you hold a bow with Target Highlight on.</li></ul></div>
 <h2>12.0.x (1 release)</h2><div class="spoiler"><h3>v12 - 2026-11-19 - Aim Circle Pictures</h3><h4>Changed</h4><ul><li><strong>Aim Circle</strong>: The circle around your crosshair is now a picture instead of flame dots. There are 10 circle pictures, 4 by 4 up to 13 by 13 pixels, one for each Bow Aimbot angle from 5 to 50 degrees. They are the files aln_circle_4.png to aln_circle_13.png in resource_pack/textures/particle.</li><li><strong>Smooth Following</strong>: The target picture and the aim circle now refresh every tick instead of 4 times a second, so they follow the target and your crosshair without flickering.</li><li><strong>Bow Aimbot Angle</strong>: The angle slider in Tuning now goes up to 50 degrees.</li></ul></div>
 <h2>11.0.x (1 release)</h2><div class="spoiler"><h3>v11 - 2026-11-19 - Parry Text Removed</h3><h4>Changed</h4><ul><li><strong>Parry Effect</strong>: Blocking a hit with Shield Always Active no longer shows &quot;Parried!&quot; on the action bar. The sparks, the shield sound and the push on a melee attacker stay.</li></ul></div>
@@ -274,15 +271,25 @@ git config --global credential.helper store
 <h2>2.0.x (1 release)</h2><div class="spoiler"><h3>v2 - 2026-11-16 - First Release</h3><h4>Added</h4><ul><li><strong>ALN Pointer</strong>: A cursor-shaped item that opens the ALNStudios menu. You get one the first time you join a world, and it is in the Equipment tab of the Creative inventory.</li><li><strong>Combat Toggles Menu</strong>: A screen with 7 switches and a short explanation under each. Apply saves them for you and closes the menu, and each player keeps their own settings.</li><li><strong>Auto Totem</strong>: Moves a Totem of Undying from your inventory into your off hand before a hit that would kill you.</li><li><strong>Infinite Totem</strong>: Puts a new Totem of Undying in your off hand before a deadly hit when you have none left.</li><li><strong>Aura Mode</strong>: Hits up to 3 nearby hostile mobs and players within 4 blocks for 5 damage every half second.</li><li><strong>Always Critical</strong>: Every melee hit deals 1.5 times damage and shows the critical hit sparks.</li><li><strong>Bow Aimbot</strong>: Arrows from a bow or crossbow steer toward the target nearest your crosshair within 48 blocks.</li><li><strong>Always Water Clutch</strong>: Places water where you land after a fall of 3 blocks or more, then removes it after about 2 seconds.</li><li><strong>Shield Always Active</strong>: Blocks melee hits and arrows from the front whenever you carry a shield.</li></ul></div>
 ```
 
-## FILE: changelog_views/ALN-Pointer.github.md (166 lines, 8463 bytes)
+## FILE: changelog_views/ALN-Pointer.github.md (176 lines, 8870 bytes)
 
 ```
 # Changelog — ALN Pointer
 
-## [v14] - 2026-11-19 - One Circle Picture
+## [v15] - 2026-11-19 - Circle Size By Degrees
 
 ### Changed
+- **Aim Circle**: The on-screen circle is now sized by the Bow Aimbot angle. At the default 25 degrees it is shown at the 40 by 40 picture's own size, and other angles are scaled from that in proportion to the angle, from 8 pixels at 5 degrees up to 102 pixels at 50 degrees.
+
+<details>
+<summary><b>14.0.x</b> (1 release)</summary>
+
+### [v14] - 2026-11-19 - One Circle Picture
+
+#### Changed
 - **Aim Circle**: The screen circle now uses one 16 by 16 picture, resource_pack/textures/particle/aln_circle.png, and the game stretches it to the size that matches the Bow Aimbot angle. The 10 separate aln_circle_4 to aln_circle_13 pictures are no longer used.
+
+</details>
 
 <details>
 <summary><b>13.0.x</b> (1 release)</summary>
@@ -504,11 +511,11 @@ This marker does not encrypt the pack or prevent extraction or editing.
 {
   "format_version": 2,
   "header": {
-    "name": "Combat Helper (v14)",
+    "name": "Combat Helper (v15)",
     "description": "A cursor-shaped item that opens a menu of PVP toggles. by ALNStudios",
     "uuid": "eec0404f-e785-480e-839e-0da27c699c31",
     "version": [
-      14,
+      15,
       0,
       0
     ],
@@ -523,7 +530,7 @@ This marker does not encrypt the pack or prevent extraction or editing.
       "type": "data",
       "uuid": "13407ddf-e15f-4d9c-90ec-eaa908a586a1",
       "version": [
-        14,
+        15,
         0,
         0
       ]
@@ -534,7 +541,7 @@ This marker does not encrypt the pack or prevent extraction or editing.
       "uuid": "63e54d22-75a9-41f8-9e7e-67b0553aace3",
       "entry": "scripts/main.js",
       "version": [
-        14,
+        15,
         0,
         0
       ]
@@ -556,7 +563,7 @@ This marker does not encrypt the pack or prevent extraction or editing.
     {
       "uuid": "8232add1-8bcd-4f9b-92e8-59dfc483f35f",
       "version": [
-        14,
+        15,
         0,
         0
       ]
@@ -575,7 +582,7 @@ This marker does not encrypt the pack or prevent extraction or editing.
       "ALNStudios"
     ],
     "product_type": "addon",
-    "version": "14.0.0"
+    "version": "15.0.0"
   }
 }
 ```
@@ -1106,7 +1113,7 @@ export function initGear() {
 
 ```
 export const PACK_NAME = "Combat Helper";
-export const PACK_VERSION = "14";
+export const PACK_VERSION = "15";
 export const POINTER_ID = "allenscreations:aln_pointer";
 export const PLAYER_ID = "minecraft:player";
 ```
@@ -1636,12 +1643,17 @@ initGear();
 }
 ```
 
-## FILE: MCPEDL/Addons/ALN-Pointer/CHANGELOG.md (108 lines, 7631 bytes)
+## FILE: MCPEDL/Addons/ALN-Pointer/CHANGELOG.md (113 lines, 7968 bytes)
 
 ```
 # Changelog — ALN Pointer
 
 ---
+
+## [v15] - 2026-11-19 - Circle Size By Degrees
+
+### Changed
+- **Aim Circle**: The on-screen circle is now sized by the Bow Aimbot angle. At the default 25 degrees it is shown at the 40 by 40 picture's own size, and other angles are scaled from that in proportion to the angle, from 8 pixels at 5 degrees up to 102 pixels at 50 degrees.
 
 ## [v14] - 2026-11-19 - One Circle Picture
 
@@ -1942,7 +1954,7 @@ Download the current release of **Combat Helper** for Minecraft Bedrock Edition.
 ## Download
 
 - **Package format:** `.mcaddon`
-- **Direct download:** [Download Combat Helper (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/ALN-Pointer/ALNPointer%20V14.mcaddon)
+- **Direct download:** [Download Combat Helper (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/ALN-Pointer/ALNPointer%20V15.mcaddon)
 
 ## Installation
 
@@ -1970,11 +1982,11 @@ This marker does not encrypt the pack or prevent extraction or editing.
 {
   "format_version": 2,
   "header": {
-    "name": "Combat Helper (v14)",
+    "name": "Combat Helper (v15)",
     "description": "Combat Helper item texture. by ALNStudios",
     "uuid": "8232add1-8bcd-4f9b-92e8-59dfc483f35f",
     "version": [
-      14,
+      15,
       0,
       0
     ],
@@ -1989,7 +2001,7 @@ This marker does not encrypt the pack or prevent extraction or editing.
       "type": "resources",
       "uuid": "83f195c6-92d3-428a-b707-06188b6a5f8d",
       "version": [
-        14,
+        15,
         0,
         0
       ]
@@ -2000,7 +2012,7 @@ This marker does not encrypt the pack or prevent extraction or editing.
       "ALNStudios"
     ],
     "product_type": "addon",
-    "version": "14.0.0"
+    "version": "15.0.0"
   }
 }
 ```
@@ -2454,7 +2466,7 @@ This marker does not encrypt the pack or prevent extraction or editing.
 
 ```
 
-## FILE: MCPEDL/Addons/ALN-Pointer/resource_pack/ui/hud_screen.json (300 lines, 6563 bytes)
+## FILE: MCPEDL/Addons/ALN-Pointer/resource_pack/ui/hud_screen.json (300 lines, 6561 bytes)
 
 ```
 {
@@ -2463,8 +2475,8 @@ This marker does not encrypt the pack or prevent extraction or editing.
     "type": "image",
     "texture": "textures/particle/aln_circle",
     "size": [
-      32,
-      32
+      8,
+      8
     ],
     "anchor_from": "center",
     "anchor_to": "center",
@@ -2484,8 +2496,8 @@ This marker does not encrypt the pack or prevent extraction or editing.
     "type": "image",
     "texture": "textures/particle/aln_circle",
     "size": [
-      40,
-      40
+      15,
+      15
     ],
     "anchor_from": "center",
     "anchor_to": "center",
@@ -2505,8 +2517,8 @@ This marker does not encrypt the pack or prevent extraction or editing.
     "type": "image",
     "texture": "textures/particle/aln_circle",
     "size": [
-      48,
-      48
+      23,
+      23
     ],
     "anchor_from": "center",
     "anchor_to": "center",
@@ -2526,8 +2538,8 @@ This marker does not encrypt the pack or prevent extraction or editing.
     "type": "image",
     "texture": "textures/particle/aln_circle",
     "size": [
-      56,
-      56
+      31,
+      31
     ],
     "anchor_from": "center",
     "anchor_to": "center",
@@ -2547,8 +2559,8 @@ This marker does not encrypt the pack or prevent extraction or editing.
     "type": "image",
     "texture": "textures/particle/aln_circle",
     "size": [
-      64,
-      64
+      40,
+      40
     ],
     "anchor_from": "center",
     "anchor_to": "center",
@@ -2568,8 +2580,8 @@ This marker does not encrypt the pack or prevent extraction or editing.
     "type": "image",
     "texture": "textures/particle/aln_circle",
     "size": [
-      72,
-      72
+      50,
+      50
     ],
     "anchor_from": "center",
     "anchor_to": "center",
@@ -2589,8 +2601,8 @@ This marker does not encrypt the pack or prevent extraction or editing.
     "type": "image",
     "texture": "textures/particle/aln_circle",
     "size": [
-      80,
-      80
+      60,
+      60
     ],
     "anchor_from": "center",
     "anchor_to": "center",
@@ -2610,8 +2622,8 @@ This marker does not encrypt the pack or prevent extraction or editing.
     "type": "image",
     "texture": "textures/particle/aln_circle",
     "size": [
-      88,
-      88
+      72,
+      72
     ],
     "anchor_from": "center",
     "anchor_to": "center",
@@ -2631,8 +2643,8 @@ This marker does not encrypt the pack or prevent extraction or editing.
     "type": "image",
     "texture": "textures/particle/aln_circle",
     "size": [
-      96,
-      96
+      86,
+      86
     ],
     "anchor_from": "center",
     "anchor_to": "center",
@@ -2652,8 +2664,8 @@ This marker does not encrypt the pack or prevent extraction or editing.
     "type": "image",
     "texture": "textures/particle/aln_circle",
     "size": [
-      104,
-      104
+      102,
+      102
     ],
     "anchor_from": "center",
     "anchor_to": "center",
@@ -3107,7 +3119,7 @@ Source files for established Minecraft Bedrock add-ons by ALNStudios.
 | Expanded Basic Arsenal | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/Expanded-Basic-Arsenal/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Expanded-Basic-Arsenal/ExpandedBasicArsenal%20V2.mcaddon) |
 | ALN Wireless Headphones | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/ALN-Wireless-Headphones/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/ALN-Wireless-Headphones/ALNWirelessHeadphones%20V11.mcaddon) |
 | ALN MoreDiscs | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/ALN-MoreDiscs/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/ALN-MoreDiscs/ALNMoreDiscs%20V3.mcaddon) |
-| ALN Pointer | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/ALN-Pointer/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/ALN-Pointer/ALNPointer%20V14.mcaddon) |
+| ALN Pointer | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/ALN-Pointer/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/ALN-Pointer/ALNPointer%20V15.mcaddon) |
 
 Download links point to the currently published package files.
 

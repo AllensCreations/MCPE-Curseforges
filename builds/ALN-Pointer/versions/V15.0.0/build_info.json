@@ -1,0 +1,8 @@
+{
+  "changelog_version": "15.0.0",
+  "manifest_version": "15.0.0",
+  "packages": {
+    "ALNPointer V15.mcaddon": "26eb4959ebdc1ccc0ce18ecf40b1c734b4bd89619124b0660a62fada1431d2b3"
+  },
+  "source_sha256": "e194a81a5d7453ed0b82e6f5954740b656ba904e86c2366ca2a5426def9939dc"
+}
