@@ -409,13 +409,6 @@
         "minecraft:loot": {
           "table": "loot_tables/empty.json"
         },
-        "become_zombie": {
-          "minecraft:transformation": {
-            "into": "minecraft:zoglin<allenscreations:on_tame>",
-            "transformation_sound": "mob.hoglin.converted_to_zombified",
-            "keep_level": true
-          }
-        },
         "minecraft:rideable": {
           "seat_count": 1,
           "crouching_skip_interact": true,
@@ -496,6 +489,14 @@
             "event": "allenscreations:on_tame",
             "target": "self"
           }
+        }
+      },
+      "allenscreations:become_zoglin_companion": {
+        "minecraft:transformation": {
+          "into": "minecraft:zoglin<allenscreations:on_tame>",
+          "transformation_sound": "mob.hoglin.converted_to_zombified",
+          "keep_level": true,
+          "keep_owner": true
         }
       }
     },
@@ -735,11 +736,33 @@
         }
       },
       "become_zombie_event": {
-        "add": {
-          "component_groups": [
-            "become_zombie"
-          ]
-        }
+        "sequence": [
+          {
+            "filters": {
+              "test": "is_family",
+              "subject": "self",
+              "operator": "!=",
+              "value": "monster_companion"
+            },
+            "add": {
+              "component_groups": [
+                "become_zombie"
+              ]
+            }
+          },
+          {
+            "filters": {
+              "test": "is_family",
+              "subject": "self",
+              "value": "monster_companion"
+            },
+            "add": {
+              "component_groups": [
+                "allenscreations:become_zoglin_companion"
+              ]
+            }
+          }
+        ]
       },
       "start_zombification_event": {
         "add": {

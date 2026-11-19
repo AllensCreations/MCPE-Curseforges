@@ -11,6 +11,15 @@
 
 ---
 
+## [v123] - 2026-11-19 - Monster Companions Recipe and Hoglin Load Fixes
+
+### Fixed
+
+- **Monster Companions recipes**: Both biscuit recipes load without errors and unlock on picking up an ingredient.
+- **Monster Companions Hoglin**: The tamed Hoglin loads correctly and still becomes a tamed Zoglin outside the Nether.
+- **Monster Companions Zombie**: Removed an invalid animation entry from the Zombie in the Resource Pack.
+
+
 ## [v121] - 2026-11-19 - Monster Companions Error Fixes
 
 ### Fixed

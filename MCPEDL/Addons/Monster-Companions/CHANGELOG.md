@@ -2,6 +2,14 @@
 
 ---
 
+## [v7] - 2026-11-19 - Recipe and Hoglin Load Fixes
+
+### Fixed
+
+- **Biscuit recipes**: The Primal Beast Biscuit and Golden Beast Biscuit recipes now load without errors and unlock when you pick up one of their ingredients.
+- **Tamed Hoglin**: The Hoglin no longer fails to load, and a tamed Hoglin that leaves the Nether still turns into a tamed Zoglin.
+- **Zombie appearance**: The Zombie no longer reports a loading error in the Resource Pack.
+
 ## [v6] - 2026-11-19 - Content Log Error Fixes
 
 ### Fixed
