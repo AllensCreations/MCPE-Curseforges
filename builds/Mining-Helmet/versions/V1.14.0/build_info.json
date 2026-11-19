@@ -1,8 +1,0 @@
-{
-  "changelog_version": "1.14.5",
-  "manifest_version": "1.14.0",
-  "packages": {
-    "MiningHelmet V1.14.0.mcaddon": "86adecf460d02d7c3673cfe3f6a568df05446fd2d7362371da7a8281bd175584"
-  },
-  "source_sha256": "f9a4699099bdaab69330b73dd9ff2247d982f037a0b26df70e2be69a129e0d27"
-}

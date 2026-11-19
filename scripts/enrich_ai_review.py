@@ -184,11 +184,15 @@ def inject_section(txt_path: Path, section: str) -> bool:
     # Find insertion point: after "## Index" block, before "## AI Instructions"
     insert_marker = "## AI Instructions"
     if insert_marker in content_clean:
-        pos = content_clean.index(insert_marker)
-        new_content = content_clean[:pos] + section + "\n---\n\n" + content_clean[pos:]
+        prefix, suffix = content_clean.split(insert_marker, 1)
+        prefix = re.sub(r"(\n\s*---\s*)+\n*$", "\n\n", prefix)
+        new_content = prefix.rstrip() + "\n\n---\n\n" + section.strip() + "\n\n---\n\n" + insert_marker + suffix
     else:
         # Fallback: prepend
-        new_content = section + "\n" + content_clean
+        new_content = section.strip() + "\n\n---\n\n" + content_clean.lstrip()
+
+    # Clean up any multi-delimiter runs or excessive empty lines
+    new_content = re.sub(r"\n{3,}", "\n\n", new_content)
 
     if new_content == content:
         return False

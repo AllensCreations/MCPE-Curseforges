@@ -1,8 +1,0 @@
-{
-  "changelog_version": "9.0.0",
-  "manifest_version": "9.0.0",
-  "packages": {
-    "MonsterCompanions V9.mcaddon": "81d80f9cffd982951cd510a5f2bc216d0bd1740d145094748eb8156e512bfc52"
-  },
-  "source_sha256": "e1bedde95ea13d9767a1f4116cd2eb573a2ac9e0f849d54c7e393f6420bb704e"
-}

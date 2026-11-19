@@ -1,8 +1,0 @@
-{
-  "changelog_version": "9.0.0",
-  "manifest_version": "9.0.0",
-  "packages": {
-    "ALNPointer V9.mcaddon": "9e098d2146fb2bd412695cfe21914b16fc4419deebaef93f90b72bed3f94ab8b"
-  },
-  "source_sha256": "48e3cb200fee7e9dc44c29a1b57aed838a36d6f597e7924148c38452adb7ca04"
-}

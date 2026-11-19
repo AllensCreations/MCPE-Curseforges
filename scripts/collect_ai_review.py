@@ -14,12 +14,11 @@ automatic per-package run (scripts/auto_ai_review.py).
 import os, re, pathlib
 
 EXPORT_MODE = os.environ.get("EXPORT_MODE", "update_pack").strip().lower()
-# Tool files for new_pack: instructions, UI assets, and generator/validator scripts per SKILL.md & PACK_GENERATOR_INSTRUCTIONS.md
+# Tool files for new_pack: UI assets and generator/validator scripts per SKILL.md.
+# High-volume documentation (INSTRUCTIONS.md, PACK_GENERATOR_INSTRUCTIONS.md, DOCS_RULES.md)
+# is indexed in Context7 and queried dynamically to optimize tokens.
 LEAN_TOOL_FILES = [
     ".agents/skills/mcpe-new-pack/SKILL.md",
-    "PACK_GENERATOR_INSTRUCTIONS.md",
-    "INSTRUCTIONS.md",
-    "DOCS_RULES.md",
     "scripts/make_pack_script.py",
     "scripts/build_payload.py",
     "scripts/import_project_payload.py",
@@ -33,20 +32,13 @@ LEAN_TOOL_FILES = [
     "assets/aln-ui-redesign/font/pixelify.js",
 ]
 
-AI_PROMPT = r'''# AI Instructions
+AI_PROMPT = r'''# AI Instructions & Review Notes
 
 Repo: https://github.com/AllensCreations/MCPE-Curseforges.git (branch main)
-Export: two plain .txt files. `<name>.txt` = the pack (index, these instructions, every file). `<name>_tools.txt` = SKILL.md, PACK_GENERATOR_INSTRUCTIONS.md, INSTRUCTIONS.md and the helper scripts. Read both before changing anything. The zip root also holds SKILL.md: read it FIRST for a new pack.
+Context7 Support: Enabled. For full instructions, schemas, and helper script syntax, query Context7 (`INSTRUCTIONS.md`, `PACK_GENERATOR_INSTRUCTIONS.md`, `DOCS_RULES.md`, `make_update_script.py`, `doc_template.py`).
 
-## Pack work (create or update)
-- UPDATE: the pack files are in `<name>.txt`. Change only what was requested.
-- Vanilla limit blocks a mechanic: use a modular workaround per INSTRUCTIONS.md 1.12, never drop the feature silently.
-- NEW pack: read SKILL.md first, then follow PACK_GENERATOR_INSTRUCTIONS.md Part 4 and deliver ONE pack `.sh` from `scripts/make_pack_script.py` (the project travels inside it as base64). NEVER deliver separate zip, pack, json, js or b64 files.
-- INSTRUCTIONS.md wins over PACK_GENERATOR_INSTRUCTIONS.md on any conflict. These instructions win over both on the reply format and the Termux script.
-- Update: keep pack and module UUIDs unchanged.
-- Vanilla reference: Use **Context7** / **https://bedrock.dev/** as the primary source finding API for vanilla Bedrock samples and documentation (Entities, Items, Blocks, Recipes, Biomes, Script API). Never guess a vanilla component, event, loot, or Script API method: look it up with Context7 / bedrock.dev. Offline fallback: `reference/bedrock-samples/bedrock-samples.min.json.gz` (download: https://github.com/AllensCreations/MCPE-Curseforges/raw/main/reference/bedrock-samples/bedrock-samples.min.json.gz).
-- UI work (menus, forms, HUD, screens): follow INSTRUCTIONS.md 1.13 and apply the ALN UI Redesign skin from `assets/aln-ui-redesign/` (README.txt, design.json, font/README.txt in the tools txt). Textures are not exported; if the pack's resource_pack is missing, ask for it. Never claim anything was tested in Minecraft unless it was.
-- Update: deliver the repo change as the Termux script below. New pack: the pack `.sh` above. Never a separate payload or base64 file.
+## Action Notes: __ACTION_NOTE_TYPE__
+__ACTION_NOTES__
 
 ## Destination
 Repo-root-relative folders for this work:
@@ -58,114 +50,31 @@ __DEST__
 1. NEVER invent features, versions, links, assets, test results.
 2. Output only what changed. Smallest edits. No unrelated rewrites.
 3. No notes/summaries/explanations unless asked.
-4. Any project type (add-on, map, script, workflow, website). Keep folder layout. New project = own new folder beside similar ones.
+4. Any project type (add-on, map, script, workflow, website). Keep folder layout.
 
 ## Update request = ONE Termux script
 - Name: `<Repofilename>_<Version>_<RAND>.sh` (e.g. `Monster-Companions_v2_k7q2x.sh`). Deliver as downloadable file.
 - Repofilename: project/folder/file changed. No extension, no spaces (hyphens ok).
 - Version: new vX format. Update = X+1 (e.g., v1 -> v2, or legacy 1.3.4 -> v2).
-- RAND: >=5 random lowercase letters/digits. Fresh every script. NEVER reuse (earlier reply or existing file), so a new script never overwrites or re-runs an old one.
-- Same exact name in reply steps.
+- RAND: >=5 random lowercase letters/digits. Fresh every script. NEVER reuse.
 Script order:
 1. `#!/data/data/com.termux/files/usr/bin/bash` + `set -e`
 2. `cd "$HOME/MCPE-Curseforges"`; `git clone` repo URL first if folder missing
 3. `git pull --rebase`
-4. Apply ALL changes as exact search-and-replace edits: write a spec and run `python3 scripts/make_update_script.py spec.txt` (format in `scripts/apply_update.py`; `--verify <clone>` dry-runs it). The tool applies edits atomically, sets the manifest version and writes both changelogs. Size decides the method. SMALL update (a few edits, under about 60% of any file touched): search and replace only. LARGE update (most of a file, many new files, a redesign): use the best method, `@@ create`/`@@ overwrite` in the same spec, never many fragile edits. Either way ONE `.sh`. No separate downloads.
+4. Apply ALL changes as exact search-and-replace edits via `python3 scripts/make_update_script.py spec.txt` (format queryable via Context7).
 5. Validate every changed .json with python3. Stop on error.
-5b. Verify top CHANGELOG.md heading == new vX == script filename version. Stop on mismatch. If project has manifests: run `python3 scripts/manifest_tools.py --project "$DEST" --set X.0.0` (or `vX`), then `python3 scripts/manifest_tools.py --project "$DEST" --check` and `python3 scripts/validate_manifest_titles.py --project "$DEST"`. Stop on error. Every update must change the manifests so the build changes. Never hand-edit manifest JSON for versions.
-5c. If INSTRUCTIONS.md or PACK_GENERATOR_INSTRUCTIONS.md changed: run `python3 scripts/check_instruction_files.py`. Stop on error
+5b. Verify top CHANGELOG.md heading == new vX == script filename version. If project has manifests: run `python3 scripts/manifest_tools.py --project "$DEST" --set X.0.0` (or `vX`).
 6. `git add` changed paths only; `git commit -m "<short message>"`; `git push`
-6b. Add an entry to the ROOT `CHANGELOG.md` (repo-wide, newest first under `---`): `## [vN] - YYYY-MM-DD - [Update Name]` (N = `REPO_VERSION` + 1, a single whole number such as v80, set by the update tool, never by hand), groups `### Added` / `### Improved & Balanced` / `### Fixed`, bullets `- **Title**: what changed`. Every script, tooling-only included.
-7. After push, do NOT start any workflow. Build Changed Packs & Sync Catalogs runs by itself on every push and rebuilds everything. Nothing auto-bumps; Publish to CurseForge uploads the newest changelog version as written.
-8. Idempotent: skip anything already applied.
-9. Last line, reached only after a successful push: `rm -f -- "$SELF"` (the script deletes itself; save `SELF="$(readlink -f -- "$0")"` on line 2, before the `cd`).
+6b. Add an entry to the ROOT `CHANGELOG.md`: `## [vN] - YYYY-MM-DD - [Update Name]`
+7. Idempotent: skip anything already applied.
+8. Last line: `rm -f -- "$SELF"` (self-deleting script).
 
-## Docs (every update, same script)
-- Templates STRICT: README.md, DESCRIPTION.md, CHANGELOG.md match templates below exactly: same headings, text, order, labels, bullet format. NEVER add/remove/rename/merge/reorder sections. No boilerplate/extra text. No placeholders: fill every [bracket] with verified content. Accuracy + requested scope outrank template.
-- CHANGELOG.md: MANDATORY every update, no exceptions. Add new release entry for the change.
-- README.md + DESCRIPTION.md: after change, analyze both in destination folder. Edit ONLY if change makes them inaccurate/incomplete. NEVER remove verified content.
-
-### Versions (vX ONLY)
-- Format: single-number version `vX` (e.g. `v2`, `v3`). Old 3-part versions X.Y.Z convert by incrementing major (X+1).
-- Update: X+1 (v1 -> v2, v2 -> v3).
-- New vX goes in CHANGELOG heading + script filename.
-- Manifest versions: Bedrock requires a 3-integer array, so `vX` is mapped internally to `[X, 0, 0]` by `manifest_tools.py --set vX` (never hand-edit JSON). NEVER hand-edit README download links. Build Changed Packs & Sync Catalogs aligns a pack to its highest existing version and rebuilds.
-- NEVER put release version in README/DESCRIPTION titles. NEVER reuse a heading.
-
-### Changelog views
-- `changelog_views/<Name>.github.md` (newest open, older folded by minor series) and `changelog_views/<Name>.curseforge.html` (CurseForge spoilers, paste into project description): generated from CHANGELOG.md by `scripts/build_changelog_views.py`.
-- CHANGELOG.md = plain text, exact template format, only source of truth. NEVER add HTML/fold markup/links to it. NEVER edit views by hand. NEVER create/change views inside the .sh.
-- Refresh: Build Changed Packs & Sync Catalogs; Collect Files for AI Review (tick commit_changelog_views to save); or `python3 scripts/build_changelog_views.py --project <Name>`.
-
-### Writing
-- Player-facing only. In-game display names, never identifiers, file names, JSON, events, code.
-- "Behavior Pack" / "Resource Pack", NEVER BP/RP.
-- README: no code blocks, emojis, hype, badges.
-- DESCRIPTION: exactly the two Minecraft Bedrock + Format badges from repo template, no others. May keep existing item sprites + recipe diagrams.
-- No Markdown tables. Use `### Feature Name` cards with `- **What Happens**: ...` bullets.
-- Paragraphs <=4 sentences. Verified facts only. Verification line = source created | package built | in-game tested, NEVER mixed.
-
-### README.md (add-on): download landing page only, EXACTLY 11 non-empty lines
-```
-# [Name]
-
-Download the current release of **[Name]** for Minecraft Bedrock Edition.
-
-## Download
-
-- **Package format:** `.mcaddon`
-- **Direct download:** [Download [Name] (.mcaddon)](link)
-
-## Installation
-
-1. Download the package using the link above.
-2. Open the downloaded file with Minecraft to import it.
-3. If the package contains a pack that must be enabled separately, activate it in your world's settings.
-
-## Pack Information
-
-For gameplay features, usage details, compatibility notes, and other project information, read the [full description](DESCRIPTION link).
-```
-Maps/scripts/minigames: same landing page. Use real package format; .mcworld = tell players to open the imported world. Product details live in DESCRIPTION.md.
-
-### DESCRIPTION.md order
-1. `# [Name] — [subtitle]` (no release version)
-2. `**By ALNStudios**`
-3. Two exact badges (Minecraft Bedrock "Stable Release", Format) from repo template
-4. Summary
-5. `## Overview`
-6. `## Key Features`
-7. `## How to Use`
-8. `## Compatibility`: Minecraft Bedrock Edition, Experimental features, Achievements, Verification
-9. `## Creator and Permissions`: `- Creator: ALNStudios`, `- Profiles:` CurseForge https://www.curseforge.com/members/allenscreations/projects · MCPEDL https://mcpedl.com/user/alnstudios/, then the two clickable listing images (HTML, `width="45%"`, no `height`, raw URLs `assets/Images/curseforge.jpg`, `assets/Images/MCPEDL.jpg`). NEVER edit/copy the images
-10. `## Guidelines and Attribution`
-11. `---` then `## Search & Discovery Keywords` from real features
-- Add-ons: Achievements line ALWAYS `Likely achievement-friendly`; add caveats if world settings/cheats can disable achievements.
-
-### Guidelines and Attribution block, exactly
-```
-- Creator: ALNStudios
-- Rights & Reservation: All rights reserved for ALNStudios.
-- Content Creators: Content creators are permitted to feature this creation in videos and streams with credit to ALNStudios.
-- Redistribution: Do not re-upload this pack or provide direct monetized download bypasses. Link directly to the official repository page.
-- Disclaimer: This is an unofficial community creation. It is not an official Minecraft product and is not approved by or associated with Mojang or Microsoft.
-
----
-
-© All rights reserved for ALNStudios.
-
----
-```
-
-### CHANGELOG.md
-- `# Changelog — [Name]`, `---`, then newest first: `## [vX] - YYYY-MM-DD - [Update Name]` (date: `TZ=Asia/Singapore date +%F`). [Update Name] = short player-facing title (2-6 words) of what is new. REQUIRED on every new entry.
-- Groups: `### Added`, `### Improved & Balanced`, `### Fixed` (bugs as in-game experience). Omit empty groups. Each group >=1 bullet.
-- Entry: `- **Title**: player impact.`
-- NO links, URLs, badges, function/event names, unverified benefits. No boilerplate after title.
-- Insert new entry directly under `---`, above previous release. NEVER edit/delete older entries.
-
-### Item and Block Components
-- When defining `menu_category` for custom items or blocks, `group` MUST start with a namespace (e.g. `minecraft:itemGroup.name.<group>` or `<namespace>:itemGroup.name.<group>`). Unnamespaced group strings like `itemGroup.name.helmet` fail Bedrock parsing (`Failed to parse field ' -> description -> menu_category -> group: string must be prefixed with a namespace (eg. namespace:value)'`). If no vanilla group applies, omit `group` and provide only `category`.
+## Documentation Standards
+- Query Context7 for exact `DOCS_RULES.md` formatting templates.
+- CHANGELOG.md: MANDATORY on every update (`## [vX] - YYYY-MM-DD - [Update Name]`).
+- Player-facing only: in-game item names ("Diamond"), NEVER code identifiers (`minecraft:diamond`), internal function names, or raw JSON keys.
+- README.md: download landing page only (11 non-empty lines).
+- DESCRIPTION.md: full details, standard badges, feature cards, guidelines block.
 
 ## Reply Format (STRICT)
 ```
@@ -174,22 +83,10 @@ Mode: Direct Execution
 Token_Efficiency: Maximum
 Rules: no greeting, intro, outro, offers, restating. High technical accuracy.
 ```
-Output ONLY these three sections, in order, exact headings:
+Output ONLY these three sections in order:
 1. **File Needed:** repo-root-relative path of each file created/edited.
 2. **Changelog:** bullets, brief summary of changes.
-3. **Termux Script:** ONE fenced `bash` block holding ONLY the run commands: `bash ~/storage/downloads/<Repofilename>_<Version>_<RAND>.sh` (a new pack may add the same line with `stage`). The .sh is attached, NEVER pasted. NEVER a Summary section.
-- The .sh (`<Repofilename>_<Version>_<RAND>.sh`, random chars included) is the downloadable file. Exact same name in the command.
-- NEVER text before, between, after. NEVER rename/merge/reorder/skip a section. Nothing to report: `- None`.
-- Unclear request: ask ONE line, then proceed with defaults.
-- First-time Termux setup, ONLY if the user asks:
-```
-pkg update -y && pkg install -y git python curl
-termux-setup-storage
-git config --global user.name "ALNStudios"
-git config --global user.email "your-email@example.com"
-git config --global credential.helper store
-```
-- Push password = GitHub Personal Access Token (repo + workflow scopes), NOT account password. Same token starts the build after push.
+3. **Termux Script:** ONE fenced `bash` block holding ONLY the run commands: `bash ~/storage/downloads/<Repofilename>_<Version>_<RAND>.sh`.
 '''
 
 raw_paths = [p.strip().strip("'\"") for p in re.split(r"[,\n]", os.environ["PATHS"]) if p.strip()]
@@ -224,6 +121,7 @@ label = ("New-Pack" if new_pack else
 
 root = pathlib.Path(".").resolve()
 SKIP_DIRS = {".git", "db", "node_modules", "__pycache__", "exports", "ai-review"}
+SKIP_FILENAMES = {"LOCK", ".gitkeep"}
 selected, skipped, missing = {}, [], []
 dests = []
 
@@ -247,6 +145,8 @@ def add(p: pathlib.Path):
     except ValueError:
         return  # outside the repo
     if any(part in SKIP_DIRS for part in rel.parts):
+        return
+    if p.name in SKIP_FILENAMES:
         return
     if not p.is_file():
         return
@@ -279,9 +179,9 @@ for entry in raw_paths:
 # Always include the docs next to (or one level above) each destination,
 # so the AI can see the current CHANGELOG.md and version. add() ignores missing files.
 for d in list(dests):
-    for base in (root / d, (root / d).parent):
-        for doc in ("CHANGELOG.md", "README.md", "DESCRIPTION.md"):
-            add(base / doc)
+    base = root / d
+    for doc in ("CHANGELOG.md", "README.md", "DESCRIPTION.md"):
+        add(base / doc)
     view_name = pathlib.PurePosixPath(d).name
     for ext in (".github.md", ".curseforge.html"):
         add(root / "changelog_views" / (view_name + ext))
@@ -337,9 +237,39 @@ if missing:
     index += ["", "### Not found", ""] + [f"- `{m}`" for m in missing]
 if skipped:
     index += ["", "### Skipped (binary)", ""] + [f"- `{x}`" for x in skipped[:1000]]
-instructions = AI_PROMPT.replace("__DEST__", "\n".join("- " + d for d in dests) or "- .")
+if new_pack:
+    action_type = "Package Creation Notes"
+    action_notes = (
+        "- **Mode**: NEW pack creation.\n"
+        "- Follow PACK_GENERATOR_INSTRUCTIONS.md (query via Context7).\n"
+        "- Deliver ONE pack `.sh` generated from `scripts/make_pack_script.py` with base64 payload."
+    )
+elif repo_kit:
+    action_type = "Repo Improvement / Maintenance Notes"
+    action_notes = (
+        "- **Mode**: Repository maintenance & tooling improvement.\n"
+        "- Follow standard Python script practices in `scripts/`.\n"
+        "- Validate changes using `python3 scripts/check_instruction_files.py` and unit tests."
+    )
+else:
+    action_type = "Package Update Notes"
+    v_info = ", ".join(v.split('  (')[0] for v in version_lines) if version_lines else "Target Update: vNext"
+    action_notes = (
+        f"- **Mode**: UPDATE existing package ({v_info}).\n"
+        "- Retain all UUIDs in manifests.\n"
+        "- Update CHANGELOG.md with a new release entry at top under `---`.\n"
+        "- Deliver changes as ONE Termux update script (`scripts/make_update_script.py`).\n"
+        "- Need command formats or templates? Query Context7 for `make_update_script.py` and `DOCS_RULES.md`."
+    )
+
+instructions = (
+    AI_PROMPT
+    .replace("__ACTION_NOTE_TYPE__", action_type)
+    .replace("__ACTION_NOTES__", action_notes)
+    .replace("__DEST__", "\n".join("- " + d for d in dests) or "- .")
+)
 content = ("# Repo Export\n\n## Index\n\n" + "\n".join(index) + "\n\n---\n\n"
-           + "## AI Instructions\n\n" + instructions.replace("# AI Instructions", "", 1).strip() + "\n\n---\n\n"
+           + instructions.strip() + "\n\n---\n\n"
            + "## File Contents\n" + "".join(b for _, b in blocks))
 (out / name).write_text(content, encoding="utf-8")
 
@@ -351,8 +281,7 @@ skip_tools = os.environ.get("AI_SKIP_TOOLS") == "1" or (EXPORT_MODE == "update_p
 if EXPORT_MODE == "new_pack" or new_pack or update_kit:
     tool_files = LEAN_TOOL_FILES
 else:
-
-    tool_files = [".agents/skills/mcpe-new-pack/SKILL.md", "PACK_GENERATOR_INSTRUCTIONS.md", "INSTRUCTIONS.md", "DOCS_RULES.md"] + [
+    tool_files = [".agents/skills/mcpe-new-pack/SKILL.md"] + [
         "scripts/" + t for t in (
             "build_payload.py", "import_project_payload.py", "crafting_template.py",
             "generate_recipe_images.py", "convert_crafting_recipe_svgs_to_png.py",

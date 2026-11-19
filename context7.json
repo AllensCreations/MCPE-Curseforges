@@ -1,0 +1,38 @@
+{
+  "$schema": "https://context7.com/schema/context7.json",
+  "projectTitle": "ALNStudios Minecraft Bedrock Add-ons",
+  "description": "Monorepo containing Minecraft Bedrock add-ons, maps, scripts, and minigames for CurseForge and MCPEDL by ALNStudios.",
+  "folders": [
+    "scripts"
+  ],
+  "excludeFolders": [
+    "builds",
+    "Package",
+    "changelog_views",
+    "dashboard",
+    "graphify-out",
+    "archive",
+    "ai-review",
+    "assets",
+    "reference",
+    "tests",
+    "MCPEDL",
+    "Mcpeworlds",
+    "maps"
+  ],
+  "excludeFiles": [
+    "descriptions.zip",
+    "CHANGELOG.md",
+    "WorkflowFixes_v95_wf9x2.sh",
+    "fix_pack_icons.sh",
+    "requirements.txt"
+  ],
+  "rules": [
+    "Instructions and standards are centralized in INSTRUCTIONS.md, PACK_GENERATOR_INSTRUCTIONS.md, and DOCS_RULES.md; query via Context7 rather than inlining into review files.",
+    "Always follow DOCS_RULES.md: player-facing text only, display names (e.g. 'Diamond'), no code identifiers or raw file/module paths in descriptions.",
+    "Do not hand-edit generated files: MCPEDL/README.md, Package/*.listing.md, changelog_views/*, builds/README.md.",
+    "All packaging and catalog synchronization must use scripts/auto_bump_and_build.py.",
+    "Version formats follow 3-part semantic versioning (Vmajor.minor.patch) for packs.",
+    "Keep old build snapshots pruned: retain at least 1 current and 1 old version snapshot per project."
+  ]
+}

@@ -482,7 +482,8 @@ def _write_rebuilt_projects(rebuilt_projects):
 # README synchronization
 # ─────────────────────────────────────────────────────────────────────────────
 
-VERSION_KEEP = int(os.environ.get("KEEP_VERSIONS", "5"))
+# Keep at least 1 old and 1 current version snapshot (total 2)
+VERSION_KEEP = int(os.environ.get("KEEP_VERSIONS", "2"))
 
 
 def _version_sort_key(folder_name):

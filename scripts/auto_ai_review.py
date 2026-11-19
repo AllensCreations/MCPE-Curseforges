@@ -24,6 +24,7 @@ import subprocess
 import sys
 import tempfile
 import urllib.parse
+import zipfile
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -33,8 +34,7 @@ RAW = GITHUB + "/raw/main"
 OUT_DIR = "ai-review"
 START, END = "<!-- AI-REVIEW:START -->", "<!-- AI-REVIEW:END -->"
 SKIP = {".git", "node_modules", "__pycache__", OUT_DIR, "db", "exports"}
-TOOL_INPUTS = ["INSTRUCTIONS.md", "PACK_GENERATOR_INSTRUCTIONS.md", "DOCS_RULES.md",
-               ".agents/skills/mcpe-new-pack/SKILL.md", "scripts/*.py", "assets/aln-ui-redesign"]
+TOOL_INPUTS = [".agents/skills/mcpe-new-pack/SKILL.md", "scripts/*.py", "assets/aln-ui-redesign"]
 
 
 def digest(paths) -> str:
@@ -163,8 +163,24 @@ def main() -> int:
                 except subprocess.CalledProcessError:
                     print(f"::warning::{kit_name} could not be built; skipped.")
 
-    # Root README list (only between the markers)
 
+    # Package AI review zips (combining <PackName>.txt and <PackName>_tools.txt from Update-Pack kit)
+    update_tools = tools_dir / "Update-Pack_tools.txt"
+    for cat, pack in packages():
+        name = pack.name
+        txt = pack / OUT_DIR / f"{name}.txt"
+        if not txt.is_file():
+            continue
+        zpath = pack / OUT_DIR / f"{name}.zip"
+        if not zpath.is_file() or txt.stat().st_mtime > zpath.stat().st_mtime or (update_tools.is_file() and update_tools.stat().st_mtime > zpath.stat().st_mtime):
+            with zipfile.ZipFile(zpath, "w", compression=zipfile.ZIP_DEFLATED) as zf:
+                zf.write(txt, arcname=f"{name}.txt")
+                if update_tools.is_file():
+                    zf.write(update_tools, arcname=f"{name}_tools.txt")
+            changed.append(zpath.relative_to(ROOT).as_posix())
+            print(f"Bundled {zpath.relative_to(ROOT)}")
+
+    # Root README list (only between the markers)
 
     readme = ROOT / "README.md"
     if not args.no_readme and readme.is_file():

@@ -1,343 +1,3 @@
-# Repo Export
-
-## Index
-
-- **Export request:** `MCPEDL/Script/Command-Vault`
-- **Destination:** `MCPEDL/Script/Command-Vault`
-- **CURRENT VERSION: v3 / NEXT UPDATE: v4**  (`MCPEDL/Script/Command-Vault/CHANGELOG.md`)
-- **Text files:** 15
-- **Skipped binary:** 1
-- **Paths not found:** 0
-
-### Files in this export
-
-- `changelog_views/Command-Vault.curseforge.html`
-- `changelog_views/Command-Vault.github.md`
-- `MCPEDL/Script/Command-Vault/assets/items/.gitkeep`
-- `MCPEDL/Script/Command-Vault/assets/recipes/.gitkeep`
-- `MCPEDL/Script/Command-Vault/assets/snapshots/.gitkeep`
-- `MCPEDL/Script/Command-Vault/behavior_pack/manifest.json`
-- `MCPEDL/Script/Command-Vault/behavior_pack/scripts/command_storage.js`
-- `MCPEDL/Script/Command-Vault/behavior_pack/scripts/command_ui.js`
-- `MCPEDL/Script/Command-Vault/behavior_pack/scripts/main.js`
-- `MCPEDL/Script/Command-Vault/CHANGELOG.md`
-- `MCPEDL/Script/Command-Vault/DESCRIPTION.md`
-- `MCPEDL/Script/Command-Vault/project.json`
-- `MCPEDL/Script/Command-Vault/README.md`
-- `MCPEDL/Script/README.md`
-- `Package/Command-Vault.listing.md`
-
-### Skipped (binary)
-
-- `MCPEDL/Script/Command-Vault/behavior_pack/pack_icon.png`
-
----
-
-
-
----
-
-
-
----
-
-
-
----
-
-
-
----
-
-
-
----
-
-
-
----
-
-
-
----
-
-
-
----
-
-
-
----
-
-
-
----
-
-
-
----
-
-
-
----
-
-
-
----
-
-
-
----
-
-
-
----
-
-
-
----
-
-
-
----
-
-
-
----
-
-
-
----
-
-
-
----
-
-
-
----
-
-
-
----
-
-
-
----
-
-
-
----
-
-
-
----
-
-
-
----
-
-
-
----
-
-
-
----
-
-
-
----
-
-
-
----
-
-
-
----
-
-
-
----
-
-
-
----
-
-
-
----
-
-
-
----
-
-
-
----
-
-
-
----
-
-
-
----
-
-
-
----
-
-
-
----
-
-
-
----
-
-
-
----
-
-
-
----
-
-
-
----
-
-
-
----
-
-
-
----
-
-
-
----
-
-
-
----
-
-
-
----
-
-
-
----
-
-
-
----
-
-
-
----
-
-
-
----
-
-
-
----
-
-
-
----
-
-
-
----
-
-
-
----
-
-
-
----
-
-
-
----
-
-
-
----
-
-
-
----
-
-
-
----
-
-
-
----
-
-
-
----
-
-
-
----
-
-
-
----
-
-
-
----
-
-
-
----
-
-
-
----
-
-
-
----
-
-
-
----
-
-
-
----
-
-
-
----
-
-
-
----
-
-
-
----
-
-
-
----
-
-
 <!-- GRAPH-CONTEXT:START -->
 ## Graph Context
 
@@ -350,20 +10,48 @@
 
 ---
 
-## AI Instructions
+# Repo Export
+
+## Index
+
+- **Export request:** `MCPEDL/Script/Command-Vault`
+- **Destination:** `MCPEDL/Script/Command-Vault`
+- **CURRENT VERSION: v3 / NEXT UPDATE: v4**  (`MCPEDL/Script/Command-Vault/CHANGELOG.md`)
+- **Text files:** 11
+- **Skipped binary:** 1
+- **Paths not found:** 0
+
+### Files in this export
+
+- `changelog_views/Command-Vault.curseforge.html`
+- `changelog_views/Command-Vault.github.md`
+- `MCPEDL/Script/Command-Vault/behavior_pack/manifest.json`
+- `MCPEDL/Script/Command-Vault/behavior_pack/scripts/command_storage.js`
+- `MCPEDL/Script/Command-Vault/behavior_pack/scripts/command_ui.js`
+- `MCPEDL/Script/Command-Vault/behavior_pack/scripts/main.js`
+- `MCPEDL/Script/Command-Vault/CHANGELOG.md`
+- `MCPEDL/Script/Command-Vault/DESCRIPTION.md`
+- `MCPEDL/Script/Command-Vault/project.json`
+- `MCPEDL/Script/Command-Vault/README.md`
+- `Package/Command-Vault.listing.md`
+
+### Skipped (binary)
+
+- `MCPEDL/Script/Command-Vault/behavior_pack/pack_icon.png`
+
+---
+
+# AI Instructions & Review Notes
 
 Repo: https://github.com/AllensCreations/MCPE-Curseforges.git (branch main)
-Export: two plain .txt files. `<name>.txt` = the pack (index, these instructions, every file). `<name>_tools.txt` = SKILL.md, PACK_GENERATOR_INSTRUCTIONS.md, INSTRUCTIONS.md and the helper scripts. Read both before changing anything. The zip root also holds SKILL.md: read it FIRST for a new pack.
+Context7 Support: Enabled. For full instructions, schemas, and helper script syntax, query Context7 (`INSTRUCTIONS.md`, `PACK_GENERATOR_INSTRUCTIONS.md`, `DOCS_RULES.md`, `make_update_script.py`, `doc_template.py`).
 
-## Pack work (create or update)
-- UPDATE: the pack files are in `<name>.txt`. Change only what was requested.
-- Vanilla limit blocks a mechanic: use a modular workaround per INSTRUCTIONS.md 1.12, never drop the feature silently.
-- NEW pack: read SKILL.md first, then follow PACK_GENERATOR_INSTRUCTIONS.md Part 4 and deliver ONE pack `.sh` from `scripts/make_pack_script.py` (the project travels inside it as base64). NEVER deliver separate zip, pack, json, js or b64 files.
-- INSTRUCTIONS.md wins over PACK_GENERATOR_INSTRUCTIONS.md on any conflict. These instructions win over both on the reply format and the Termux script.
-- Update: keep pack and module UUIDs unchanged.
-- Vanilla reference: `reference/bedrock-samples/bedrock-samples.min.json.gz` (repo, gzip file of about 8 MB, NOT in this export; unzip it first) holds every vanilla Mojang behavior/resource pack JSON as one object once unzipped (`.behavior_pack.entities.zombie`, `.behavior_pack.recipes`, `.resource_pack.entity` ...). Never guess a vanilla component, event, loot or recipe shape: list the exact section under File Needed, then copy the shape from it.
-- UI work (menus, forms, HUD, screens): follow INSTRUCTIONS.md 1.13 and apply the ALN UI Redesign skin from `assets/aln-ui-redesign/` (README.txt, design.json, font/README.txt in the tools txt). Textures are not exported; if the pack's resource_pack is missing, ask for it. Never claim anything was tested in Minecraft unless it was.
-- Update: deliver the repo change as the Termux script below. New pack: the pack `.sh` above. Never a separate payload or base64 file.
+## Action Notes: Package Update Notes
+- **Mode**: UPDATE existing package (CURRENT VERSION: v3 / NEXT UPDATE: v4).
+- Retain all UUIDs in manifests.
+- Update CHANGELOG.md with a new release entry at top under `---`.
+- Deliver changes as ONE Termux update script (`scripts/make_update_script.py`).
+- Need command formats or templates? Query Context7 for `make_update_script.py` and `DOCS_RULES.md`.
 
 ## Destination
 Repo-root-relative folders for this work:
@@ -375,111 +63,31 @@ Repo-root-relative folders for this work:
 1. NEVER invent features, versions, links, assets, test results.
 2. Output only what changed. Smallest edits. No unrelated rewrites.
 3. No notes/summaries/explanations unless asked.
-4. Any project type (add-on, map, script, workflow, website). Keep folder layout. New project = own new folder beside similar ones.
+4. Any project type (add-on, map, script, workflow, website). Keep folder layout.
 
 ## Update request = ONE Termux script
 - Name: `<Repofilename>_<Version>_<RAND>.sh` (e.g. `Monster-Companions_v2_k7q2x.sh`). Deliver as downloadable file.
 - Repofilename: project/folder/file changed. No extension, no spaces (hyphens ok).
 - Version: new vX format. Update = X+1 (e.g., v1 -> v2, or legacy 1.3.4 -> v2).
-- RAND: >=5 random lowercase letters/digits. Fresh every script. NEVER reuse (earlier reply or existing file), so a new script never overwrites or re-runs an old one.
-- Same exact name in reply steps.
+- RAND: >=5 random lowercase letters/digits. Fresh every script. NEVER reuse.
 Script order:
 1. `#!/data/data/com.termux/files/usr/bin/bash` + `set -e`
 2. `cd "$HOME/MCPE-Curseforges"`; `git clone` repo URL first if folder missing
 3. `git pull --rebase`
-4. Apply ALL changes as exact search-and-replace edits: write a spec and run `python3 scripts/make_update_script.py spec.txt` (format in `scripts/apply_update.py`; `--verify <clone>` dry-runs it). The tool applies edits atomically, sets the manifest version and writes both changelogs. Size decides the method. SMALL update (a few edits, under about 60% of any file touched): search and replace only. LARGE update (most of a file, many new files, a redesign): use the best method, `@@ create`/`@@ overwrite` in the same spec, never many fragile edits. Either way ONE `.sh`. No separate downloads.
+4. Apply ALL changes as exact search-and-replace edits via `python3 scripts/make_update_script.py spec.txt` (format queryable via Context7).
 5. Validate every changed .json with python3. Stop on error.
-5b. Verify top CHANGELOG.md heading == new vX == script filename version. Stop on mismatch. If project has manifests: run `python3 scripts/manifest_tools.py --project "$DEST" --set X.0.0` (or `vX`), then `python3 scripts/manifest_tools.py --project "$DEST" --check` and `python3 scripts/validate_manifest_titles.py --project "$DEST"`. Stop on error. Every update must change the manifests so the build changes. Never hand-edit manifest JSON for versions.
-5c. If INSTRUCTIONS.md or PACK_GENERATOR_INSTRUCTIONS.md changed: run `python3 scripts/check_instruction_files.py`. Stop on error
+5b. Verify top CHANGELOG.md heading == new vX == script filename version. If project has manifests: run `python3 scripts/manifest_tools.py --project "$DEST" --set X.0.0` (or `vX`).
 6. `git add` changed paths only; `git commit -m "<short message>"`; `git push`
-6b. Add an entry to the ROOT `CHANGELOG.md` (repo-wide, newest first under `---`): `## [vN] - YYYY-MM-DD - [Update Name]` (N = `REPO_VERSION` + 1, a single whole number such as v80, set by the update tool, never by hand), groups `### Added` / `### Improved & Balanced` / `### Fixed`, bullets `- **Title**: what changed`. Every script, tooling-only included.
-7. After push, do NOT start any workflow. Build Changed Packs & Sync Catalogs runs by itself on every push and rebuilds everything. Nothing auto-bumps; Publish to CurseForge uploads the newest changelog version as written.
-8. Idempotent: skip anything already applied.
-9. Last line, reached only after a successful push: `rm -f -- "$SELF"` (the script deletes itself; save `SELF="$(readlink -f -- "$0")"` on line 2, before the `cd`).
+6b. Add an entry to the ROOT `CHANGELOG.md`: `## [vN] - YYYY-MM-DD - [Update Name]`
+7. Idempotent: skip anything already applied.
+8. Last line: `rm -f -- "$SELF"` (self-deleting script).
 
-## Docs (every update, same script)
-- Templates STRICT: README.md, DESCRIPTION.md, CHANGELOG.md match templates below exactly: same headings, text, order, labels, bullet format. NEVER add/remove/rename/merge/reorder sections. No boilerplate/extra text. No placeholders: fill every [bracket] with verified content. Accuracy + requested scope outrank template.
-- CHANGELOG.md: MANDATORY every update, no exceptions. Add new release entry for the change.
-- README.md + DESCRIPTION.md: after change, analyze both in destination folder. Edit ONLY if change makes them inaccurate/incomplete. NEVER remove verified content.
-
-### Versions (vX ONLY)
-- Format: single-number version `vX` (e.g. `v2`, `v3`). Old 3-part versions X.Y.Z convert by incrementing major (X+1).
-- Update: X+1 (v1 -> v2, v2 -> v3).
-- New vX goes in CHANGELOG heading + script filename.
-- Manifest versions: Bedrock requires a 3-integer array, so `vX` is mapped internally to `[X, 0, 0]` by `manifest_tools.py --set vX` (never hand-edit JSON). NEVER hand-edit README download links. Build Changed Packs & Sync Catalogs aligns a pack to its highest existing version and rebuilds.
-- NEVER put release version in README/DESCRIPTION titles. NEVER reuse a heading.
-
-### Changelog views
-- `changelog_views/<Name>.github.md` (newest open, older folded by minor series) and `changelog_views/<Name>.curseforge.html` (CurseForge spoilers, paste into project description): generated from CHANGELOG.md by `scripts/build_changelog_views.py`.
-- CHANGELOG.md = plain text, exact template format, only source of truth. NEVER add HTML/fold markup/links to it. NEVER edit views by hand. NEVER create/change views inside the .sh.
-- Refresh: Build Changed Packs & Sync Catalogs; Collect Files for AI Review (tick commit_changelog_views to save); or `python3 scripts/build_changelog_views.py --project <Name>`.
-
-### Writing
-- Player-facing only. In-game display names, never identifiers, file names, JSON, events, code.
-- "Behavior Pack" / "Resource Pack", NEVER BP/RP.
-- README: no code blocks, emojis, hype, badges.
-- DESCRIPTION: exactly the two Minecraft Bedrock + Format badges from repo template, no others. May keep existing item sprites + recipe diagrams.
-- No Markdown tables. Use `### Feature Name` cards with `- **What Happens**: ...` bullets.
-- Paragraphs <=4 sentences. Verified facts only. Verification line = source created | package built | in-game tested, NEVER mixed.
-
-### README.md (add-on): download landing page only, EXACTLY 11 non-empty lines
-```
-# [Name]
-
-Download the current release of **[Name]** for Minecraft Bedrock Edition.
-
-## Download
-
-- **Package format:** `.mcaddon`
-- **Direct download:** [Download [Name] (.mcaddon)](link)
-
-## Installation
-
-1. Download the package using the link above.
-2. Open the downloaded file with Minecraft to import it.
-3. If the package contains a pack that must be enabled separately, activate it in your world's settings.
-
-## Pack Information
-
-For gameplay features, usage details, compatibility notes, and other project information, read the [full description](DESCRIPTION link).
-```
-Maps/scripts/minigames: same landing page. Use real package format; .mcworld = tell players to open the imported world. Product details live in DESCRIPTION.md.
-
-### DESCRIPTION.md order
-1. `# [Name] — [subtitle]` (no release version)
-2. `**By ALNStudios**`
-3. Two exact badges (Minecraft Bedrock "Stable Release", Format) from repo template
-4. Summary
-5. `## Overview`
-6. `## Key Features`
-7. `## How to Use`
-8. `## Compatibility`: Minecraft Bedrock Edition, Experimental features, Achievements, Verification
-9. `## Creator and Permissions`: `- Creator: ALNStudios`, `- Profiles:` CurseForge https://www.curseforge.com/members/allenscreations/projects · MCPEDL https://mcpedl.com/user/alnstudios/, then the two clickable listing images (HTML, `width="45%"`, no `height`, raw URLs `assets/Images/curseforge.jpg`, `assets/Images/MCPEDL.jpg`). NEVER edit/copy the images
-10. `## Guidelines and Attribution`
-11. `---` then `## Search & Discovery Keywords` from real features
-- Add-ons: Achievements line ALWAYS `Likely achievement-friendly`; add caveats if world settings/cheats can disable achievements.
-
-### Guidelines and Attribution block, exactly
-```
-- Creator: ALNStudios
-- Rights & Reservation: All rights reserved for ALNStudios.
-- Content Creators: Content creators are permitted to feature this creation in videos and streams with credit to ALNStudios.
-- Redistribution: Do not re-upload this pack or provide direct monetized download bypasses. Link directly to the official repository page.
-- Disclaimer: This is an unofficial community creation. It is not an official Minecraft product and is not approved by or associated with Mojang or Microsoft.
-
----
-
-© All rights reserved for ALNStudios.
-
----
-```
-
-### CHANGELOG.md
-- `# Changelog — [Name]`, `---`, then newest first: `## [vX] - YYYY-MM-DD - [Update Name]` (date: `TZ=Asia/Singapore date +%F`). [Update Name] = short player-facing title (2-6 words) of what is new. REQUIRED on every new entry.
-- Groups: `### Added`, `### Improved & Balanced`, `### Fixed` (bugs as in-game experience). Omit empty groups. Each group >=1 bullet.
-- Entry: `- **Title**: player impact.`
-- NO links, URLs, badges, function/event names, unverified benefits. No boilerplate after title.
-- Insert new entry directly under `---`, above previous release. NEVER edit/delete older entries.
+## Documentation Standards
+- Query Context7 for exact `DOCS_RULES.md` formatting templates.
+- CHANGELOG.md: MANDATORY on every update (`## [vX] - YYYY-MM-DD - [Update Name]`).
+- Player-facing only: in-game item names ("Diamond"), NEVER code identifiers (`minecraft:diamond`), internal function names, or raw JSON keys.
+- README.md: download landing page only (11 non-empty lines).
+- DESCRIPTION.md: full details, standard badges, feature cards, guidelines block.
 
 ## Reply Format (STRICT)
 ```
@@ -488,22 +96,10 @@ Mode: Direct Execution
 Token_Efficiency: Maximum
 Rules: no greeting, intro, outro, offers, restating. High technical accuracy.
 ```
-Output ONLY these three sections, in order, exact headings:
+Output ONLY these three sections in order:
 1. **File Needed:** repo-root-relative path of each file created/edited.
 2. **Changelog:** bullets, brief summary of changes.
-3. **Termux Script:** ONE fenced `bash` block holding ONLY the run commands: `bash ~/storage/downloads/<Repofilename>_<Version>_<RAND>.sh` (a new pack may add the same line with `stage`). The .sh is attached, NEVER pasted. NEVER a Summary section.
-- The .sh (`<Repofilename>_<Version>_<RAND>.sh`, random chars included) is the downloadable file. Exact same name in the command.
-- NEVER text before, between, after. NEVER rename/merge/reorder/skip a section. Nothing to report: `- None`.
-- Unclear request: ask ONE line, then proceed with defaults.
-- First-time Termux setup, ONLY if the user asks:
-```
-pkg update -y && pkg install -y git python curl
-termux-setup-storage
-git config --global user.name "ALNStudios"
-git config --global user.email "your-email@example.com"
-git config --global credential.helper store
-```
-- Push password = GitHub Personal Access Token (repo + workflow scopes), NOT account password. Same token starts the build after push.
+3. **Termux Script:** ONE fenced `bash` block holding ONLY the run commands: `bash ~/storage/downloads/<Repofilename>_<Version>_<RAND>.sh`.
 
 ---
 
@@ -550,24 +146,6 @@ git config --global credential.helper store
 - **Anvil Key Activation**: Trigger the menu using an Anvil-renamed book.
 
 </details>
-```
-
-## FILE: MCPEDL/Script/Command-Vault/assets/items/.gitkeep (1 lines, 0 bytes)
-
-```
-
-```
-
-## FILE: MCPEDL/Script/Command-Vault/assets/recipes/.gitkeep (1 lines, 0 bytes)
-
-```
-
-```
-
-## FILE: MCPEDL/Script/Command-Vault/assets/snapshots/.gitkeep (1 lines, 0 bytes)
-
-```
-
 ```
 
 ## FILE: MCPEDL/Script/Command-Vault/behavior_pack/manifest.json (49 lines, 865 bytes)
@@ -1032,43 +610,6 @@ Download the current release of **Command Vault** for Minecraft Bedrock Edition.
 ## Pack Information
 
 For gameplay features, usage details, compatibility notes, and other project information, read the [full description](https://github.com/AllensCreations/MCPE-Curseforges/blob/main/MCPEDL/Script/Command-Vault/DESCRIPTION.md).
-```
-
-## FILE: MCPEDL/Script/README.md (33 lines, 3564 bytes)
-
-```
-# Scripts
-
-Standalone Minecraft Bedrock Script packs by ALNStudios. Script projects use the `.mcpack` format and are tested with the Creative foundation.
-
-## Available Scripts
-
-| Project | Source | Download |
-| :--- | :--- | :--- |
-| *No standalone Script packs currently published.* | | |
-| Chrono-Bed | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Script/Chrono-Bed/) | [MCPACK](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Chrono-Bed/ChronoBed%20V2.mcpack) |
-| Target HUD Entity Inspector | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Script/Target-HUD-Entity-Inspector/) | [MCPACK](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Target-HUD-Entity-Inspector/TargetHUD%20V2.mcpack) |
-| Waypoint Helper | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Script/Waypoint-Helper/) | [MCPACK](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Waypoint-Helper/WaypointHelper%20V2.mcaddon) |
-| Always Critical | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Script/Always-Critical/) | [MCPACK](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Always-Critical/AlwaysCritical%20V2.mcpack) |
-| Universal Clutch | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Script/Universal-Clutch) | [MCPACK](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Universal-Clutch/UniversalClutch%20V2.mcpack) |
-| Living SMP Chat | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Script/Living-SMP-Chat/) | [MCPACK](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Living-SMP-Chat/LivingSMPChat%20V2.mcpack) |
-| Gameplay Optimizer | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Script/Gameplay-Optimizer/) | [MCPACK](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Gameplay-Optimizer/GameplayOptimizer%20V2.mcpack) |
-| ALNMobStacker | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Script/ALN-MobStacker/) | [MCPACK](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/ALN-MobStacker/ALNMobStacker%20V2.mcpack) |
-| ALNSpawnControl | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Script/ALNSpawnControl/) | [MCPACK](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/ALNSpawnControl/ALNSpawnControl%20V2.mcpack) |
-| Command Vault | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Script/Command-Vault/) | [MCPACK](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Command-Vault/CommandVault%20V3.mcpack) |
-| Loot and XP Stick | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Script/Loot-and-XP-Stick/) | [MCPACK](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Loot-and-XP-Stick/LootXPStick%20V1.mcpack) |
-
-## Attribution
-
-Created by ALNStudios. All rights reserved.
-
-Videos and streams are welcome with credit. Redistribution of original or modified files without permission is prohibited.
-
-## Related Directories
-
-- [Add-ons](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons#available-add-ons)
-- [Maps](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Maps#available-maps)
-- [Minigames](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Minigame#available-minigames)
 ```
 
 ## FILE: Package/Command-Vault.listing.md (66 lines, 11619 bytes)

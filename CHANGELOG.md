@@ -1,3 +1,16 @@
+## [v144] - 2026-11-19 - Context7 Full Support, Build Pruning & AI Review Token Optimization
+
+### Added
+- **Context7 Configuration**: Added root `context7.json` and `llms.txt` with optimized exclusions and high-density Bedrock add-on development rules.
+- **Build Snapshot Pruning**: Added `scripts/prune_old_builds.py` to prune builds while retaining at least 1 current and 1 old version snapshot per project, freeing 240+ MB.
+
+### Improved & Balanced
+- **Token-Efficient AI Review**: Streamlined `scripts/collect_ai_review.py` and `scripts/auto_ai_review.py` to use dynamic Action Notes (Update/Creation/Maintenance) and delegate instruction schemas and script formats to Context7 querying.
+- **Cleaned Review Exports**: Excluded redundant upstream category READMEs and non-code marker files (`LOCK`, `.gitkeep`) from AI review bundles.
+- **Build Retention Policy**: Updated `scripts/auto_bump_and_build.py` default `KEEP_VERSIONS` to 2.
+
+---
+
 ## [v120] - 2026-11-19 - Switch AI Review to Context7, Remove Bundled Reference Files
 
 ### Changed
