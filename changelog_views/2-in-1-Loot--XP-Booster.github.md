@@ -1,9 +1,20 @@
 # Changelog — 2-in-1 Loot & XP Booster
 
-## [v5] - 2026-11-19 - Faster Mob Loot
+## [v6] - 2026-11-19 - Mob Loot Rolls
 
 ### Improved & Balanced
+- **Mob loot rolls**: Mobs are now boosted by rolling their loot again with the weapon you killed with, so rare drops stay rare but get more chances to appear.
+- **Lighter mob farms**: The booster no longer tracks nearby items for mob kills, which reduces lag and removes the 2x limit on rare drops.
+
+<details>
+<summary><b>5.0.x</b> (1 release)</summary>
+
+### [v5] - 2026-11-19 - Faster Mob Loot
+
+#### Improved & Balanced
 - **Faster mob kills**: The booster now remembers each mob's rare drop list instead of rebuilding it on every kill, which reduces lag in mob farms.
+
+</details>
 
 <details>
 <summary><b>4.0.x</b> (1 release)</summary>
