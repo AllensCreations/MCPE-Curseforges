@@ -5,13 +5,13 @@
 [![Minecraft Bedrock](https://img.shields.io/badge/Minecraft%20Bedrock-Stable%20Release-brightgreen?style=flat-square&logo=minecraft)](https://github.com/AllensCreations/MCPE-Curseforges)
 [![Format](https://img.shields.io/badge/Format-.MCPACK%20%7C%20.MCADDON%20%7C%20.MCWORLD-blue?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges)
 
-**Control world mob spawns with individual switches for 58 creatures, presets, and filter rules opened from a Spawn Manager book.**
+**Control world mob spawns with individual switches for 58 creatures, presets, and filter rules opened from a Spawn Control book.**
 
 > ALN:SpawnControl adds an interactive in-game control panel to configure individual mob spawning rules across 4 categorized rosters. It suits world builders, realm administrators, and survival players wanting a fine-tuned environment without custom entities.
 
 ## Overview
 
-Rename a vanilla Book to "Spawn Manager" on an Anvil and use it to open the control panel. From the dashboard, players can inspect active mob counts, configure 4 categorized mob rosters with individual toggles, apply one-tap presets, configure global filter modes, or purge existing disabled mobs. All preferences are saved persistently to world storage.
+Rename a vanilla Book to "Spawn Control" on an Anvil and use it to open the control panel. From the dashboard, players can inspect active mob counts, configure 4 categorized mob rosters with individual toggles, apply one-tap presets, configure global filter modes, or purge existing disabled mobs. All preferences are saved persistently to world storage.
 
 ## Key Features
 
@@ -44,7 +44,7 @@ Rename a vanilla Book to "Spawn Manager" on an Anvil and use it to open the cont
 ## How to Use
 
 1. Import the .mcpack file and activate ALN:SpawnControl in your world's Behavior Packs.
-2. Place a Book or Writable Book in an Anvil and rename it to "Spawn Manager".
+2. Place a Book or Writable Book in an Anvil and rename it to "Spawn Control".
 3. Hold the renamed book and use it to open the ALN:SpawnControl control panel.
 
 ## Common Questions
@@ -83,5 +83,5 @@ Rename a vanilla Book to "Spawn Manager" on an Anvil and use it to open the cont
 
 ## Search & Discovery Keywords
 
-Minecraft Bedrock add-on, ALN:SpawnControl Bedrock mod, mob spawn whitelist, custom mob toggle, spawn manager book, Minecraft PE survival, MCPEDL add-on, CurseForge Bedrock, ALNStudios.
+Minecraft Bedrock add-on, ALN:SpawnControl Bedrock mod, mob spawn whitelist, custom mob toggle, spawn control book, Minecraft PE survival, MCPEDL add-on, CurseForge Bedrock, ALNStudios.
 

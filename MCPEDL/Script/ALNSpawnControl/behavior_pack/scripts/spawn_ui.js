@@ -42,12 +42,12 @@ export function registerSpawnUI() {
     }
 
     const nameTag = item.nameTag;
-    if (!nameTag || nameTag.trim().toLowerCase() !== "spawn manager") {
+    if (!nameTag || nameTag.trim().toLowerCase() !== "spawn control") {
       return;
     }
 
     if (!hasAdminPermission(player)) {
-      player.onScreenDisplay.setActionBar("§c[SpawnControl] §fOnly admins can open Spawn Manager!");
+      player.onScreenDisplay.setActionBar("§c[SpawnControl] §fOnly admins can open Spawn Control!");
       return;
     }
 
