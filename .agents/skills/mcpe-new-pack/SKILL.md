@@ -14,9 +14,9 @@ description: Create a NEW addon, map, script or minigame for the MCPE-Curseforge
 
 ## Do these in order
 
-1. **Read first, then build.** `INSTRUCTIONS.md` (Reply Format, Termux Script Rules, 1.1 to 1.4, 1.7, 1.12), then `DOCS_RULES.md` (2.1 to 2.5), then ALL of `PACK_GENERATOR_INSTRUCTIONS.md`. Then read the scripts that decide what passes: `scripts/build_payload.py`, `scripts/doc_template.py`, `scripts/import_project_payload.py`, `scripts/make_pack_script.py` (plus `scripts/pixel_json_to_png.py` when drawing textures).
+1. **Read first, then build.** `INSTRUCTIONS.md` (Reply Format, Termux Script Rules, 1.1 to 1.4, 1.7, 1.12), then `DOCS_RULES.md` (2.1 to 2.5), then ALL of `PACK_GENERATOR_INSTRUCTIONS.md`. Read through Context7 (INSTRUCTIONS.md 1.16: four fixed libraries, `query-docs` only; an attached `tools.txt` wins on any difference). Then read the scripts that decide what passes: `scripts/build_payload.py`, `scripts/doc_template.py`, `scripts/import_project_payload.py`, `scripts/make_pack_script.py` (plus `scripts/pixel_json_to_png.py` when drawing textures).
 2. **Type.** If the user did not say addon, map, script or minigame, ask the exact question in 4.0 and wait. NEVER guess.
-3. **Look up** the latest stable Bedrock release and `@minecraft/server` / `@minecraft/server-ui` versions now. Record the date. NEVER use numbers from memory or from this repo's old packs.
+3. **Look up** with Context7 `query-docs` (`/microsoftdocs/minecraft-creator`, `/mojang/bedrock-samples`, `/websites/wiki_bedrock_dev`) the latest stable Bedrock release and `@minecraft/server` / `@minecraft/server-ui` versions now, and verify every API member and JSON field before using it. Record the date. NEVER use numbers from memory or from this repo's old packs.
 4. **Build** the project in scratch `build/<Name>/` using the 4.2 layout. Fresh v4 UUIDs for every header and module. Write the BP manifest (with the looked-up `min_engine_version`) BEFORE running the script.
 5. **Run `scripts/make_pack_script.py build/<Name>`.** Fix every failure, including every `DOC:` line, and rerun until SELF-TEST PASSED, PACK SCRIPT OK and BUILD OK print. Then `python3 doc_template.py --style build/<Name>`, rewrite every STYLE hint with a specific fact, rebuild.
 6. **Deliver** exactly ONE file: `<Name>_<Version>_<Rand>.sh`. Reply in the three sections of 4.11 and nothing else.
@@ -40,7 +40,7 @@ description: Create a NEW addon, map, script or minigame for the MCPE-Curseforge
 
 ## Before replying (tick every line)
 
-- [ ] I read the three instruction files and the four scripts from this export, not from memory.
+- [ ] I read the three instruction files and the four scripts through Context7 or this export, not from memory, and every API member was verified in a query result.
 - [ ] Type was given or asked. Versions and `min_engine_version` were looked up today and the date is recorded.
 - [ ] SELF-TEST PASSED, PACK SCRIPT OK and BUILD OK were printed by a real run; exactly one `.sh` exists.
 - [ ] No `DOC:` failures, no STYLE hints, no placeholders, no `test_world.json`, no `assets/` in the payload.

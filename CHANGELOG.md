@@ -11,6 +11,14 @@
 
 ---
 
+## [v127] - 2026-11-19 - Context7 MCP Documentation Lookup
+
+### Added
+- **Context7 lookup rule (1.16)**: documentation, API, vanilla data and repo scripts are now read through Context7 query-docs from four fixed libraries instead of pasted URLs.
+
+### Improved & Balanced
+- **Source references**: source priority, version refs and trusted sources now point to the Context7 libraries; the generator, new-pack skill and docs rules follow.
+
 ## [v126] - 2026-11-19 - Rare Mob Drops
 
 ### Improved & Balanced

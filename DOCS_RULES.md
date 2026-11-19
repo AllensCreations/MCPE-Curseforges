@@ -1,4 +1,4 @@
-# Docs Rules: README, DESCRIPTION, CHANGELOG, Audit and References (Parts 2-3, v2)
+# Docs Rules: README, DESCRIPTION, CHANGELOG, Audit and References (Parts 2-3, v3)
 
 Single source for every doc rule and template (2.1 to 2.5), the `/checkrm` audit (3.1, 3.2) and the Minecraft Wiki and Bedrock Samples references (3.3, 3.4). `PACK_GENERATOR_INSTRUCTIONS.md` uses it too. `INSTRUCTIONS.md` Part 1 wins on conflict. `scripts/doc_template.py` enforces the templates below (`DOC:` failures). Script and file disagree: report it, follow the script for what the build accepts.
 
@@ -194,7 +194,7 @@ CHANGELOG.md. Newest first. Groups: Added, Improved & Balanced, Fixed (bugs as i
 ### 3.4 Mojang Bedrock Samples Reference
 - Wiki sprite names: `Invicon_<Title_Case_Name>.png`, `ItemSprite_<lowercase-hyphenated-name>.png`. Look up by Wiki name, NEVER identifier. Fetch with available web tool; shell blocked: report, NEVER route around, fall back to Samples. Image license rules: 1.5.
 - Wiki, `en_US.lang`, Samples lag each other. ALWAYS check Samples `version.json`, state the version a claim was verified against.
-- Samples = truth for vanilla ids, textures, recipes, components, entities, formats (1.1 source priority). Root `BEDROCK_SAMPLES_ROOT` (workflow clones to `/tmp/bedrock-samples`).
+- Samples = truth for vanilla ids, textures, recipes, components, entities, formats (1.1 source priority). Root `BEDROCK_SAMPLES_ROOT` (workflow clones to `/tmp/bedrock-samples`). Agents read it through Context7 `/mojang/bedrock-samples` (INSTRUCTIONS.md 1.16).
 - Layout: `resource_pack/` (`textures/items/`, `textures/blocks/`, `textures/models/armor/`, `textures/ui/`, `attachables/`, `texts/`), `behavior_pack/` (`items/`, `entities/`, `recipes/`, `loot_tables/`).
 - Content changes per release: ALWAYS verify checked-out version, confirm each path exists. NEVER hardcode values (armor defense, durability) from memory.
 - Ids != texture filenames. Inventory all recipes, map every ingredient, report unresolved together. NEVER placeholder.
@@ -202,5 +202,5 @@ CHANGELOG.md. Newest first. Groups: Added, Improved & Balanced, Fixed (bugs as i
 - Block icons render in game from top+side textures: build isometric view from real faces for cube sprites.
 - An id valid elsewhere may not exist in Bedrock (`oak_door` = `wooden_door`). Confirm id appears in Samples recipes/loot tables/trades before documenting.
 - Custom items use the add-on's own RP textures. Vanilla `behavior_pack/recipes/` = reference for recipe format, group tags, ingredient ids.
-- Checkout missing/asset absent: report. Only GitHub reachable: `git clone --filter=blob:none --sparse` then `git sparse-checkout set --no-cone <paths>`.
+- Context7 first (1.16). Library empty or asset absent: report. Only GitHub reachable: `git clone --filter=blob:none --sparse` then `git sparse-checkout set --no-cone <paths>`.
 - Scale 16x16 textures with nearest-neighbor (`Image.Resampling.NEAREST`).
