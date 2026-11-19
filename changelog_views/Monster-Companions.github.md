@@ -1,13 +1,26 @@
 # Changelog — Monster Companions
 
-## [v4] - 2026-11-19 - Warden and Wither Companions
+## [v5] - 2026-11-19 - Equal Taming Chances
 
-### Added
+### Improved & Balanced
+- **Taming chances**: Every mob is now tamed with a 50% chance per Primal Beast Biscuit, including the Warden and the Wither.
+- **Tamed Warden**: Melee damage is halved from 30 to 15 once tamed.
+- **Taming protection**: A newly tamed Warden or Wither gets 10 seconds of Resistance.
+- **Wither mount**: The rider sits higher above the Wither's heads, and the Wither flies a little faster when ridden.
+
+<details>
+<summary><b>4.0.x</b> (1 release)</summary>
+
+### [v4] - 2026-11-19 - Warden and Wither Companions
+
+#### Added
 - **Boss Subpack**: Choose Default to keep the Warden and the Wither as vanilla bosses, or With Bosses to tame them, in the Behavior Pack settings.
 - **Tameable Warden**: On the With Bosses subpack, a Primal Beast Biscuit has a 10% chance to tame a Warden into a companion.
 - **Tameable Wither**: On the With Bosses subpack, a Primal Beast Biscuit has a 10% chance to tame a Wither into a companion.
 - **Rideable Warden**: A tamed Warden can be ridden and steered on the ground.
 - **Rideable Wither**: A tamed Wither can be ridden and steered through the air.
+
+</details>
 
 <details>
 <summary><b>3.0.x</b> (1 release)</summary>

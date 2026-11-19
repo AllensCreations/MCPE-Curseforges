@@ -4,7 +4,7 @@
 
 - **Export request:** `MCPEDL/Addons/Monster-Companions`
 - **Destination:** `MCPEDL/Addons/Monster-Companions`
-- **CURRENT VERSION: v4 / NEXT UPDATE: v5**  (`MCPEDL/Addons/Monster-Companions/CHANGELOG.md`)
+- **CURRENT VERSION: v5 / NEXT UPDATE: v6**  (`MCPEDL/Addons/Monster-Companions/CHANGELOG.md`)
 - **Text files:** 65
 - **Skipped binary:** 16
 - **Paths not found:** 0
@@ -273,10 +273,11 @@ git config --global credential.helper store
 
 ## File Contents
 
-## FILE: changelog_views/Monster-Companions.curseforge.html (14 lines, 5079 bytes)
+## FILE: changelog_views/Monster-Companions.curseforge.html (15 lines, 5702 bytes)
 
 ```
-<h2>v4 - 2026-11-19 - Warden and Wither Companions</h2><h3>Added</h3><ul><li><strong>Boss Subpack</strong>: Choose Default to keep the Warden and the Wither as vanilla bosses, or With Bosses to tame them, in the Behavior Pack settings.</li><li><strong>Tameable Warden</strong>: On the With Bosses subpack, a Primal Beast Biscuit has a 10% chance to tame a Warden into a companion.</li><li><strong>Tameable Wither</strong>: On the With Bosses subpack, a Primal Beast Biscuit has a 10% chance to tame a Wither into a companion.</li><li><strong>Rideable Warden</strong>: A tamed Warden can be ridden and steered on the ground.</li><li><strong>Rideable Wither</strong>: A tamed Wither can be ridden and steered through the air.</li></ul>
+<h2>v5 - 2026-11-19 - Equal Taming Chances</h2><h3>Improved &amp; Balanced</h3><ul><li><strong>Taming chances</strong>: Every mob is now tamed with a 50% chance per Primal Beast Biscuit, including the Warden and the Wither.</li><li><strong>Tamed Warden</strong>: Melee damage is halved from 30 to 15 once tamed.</li><li><strong>Taming protection</strong>: A newly tamed Warden or Wither gets 10 seconds of Resistance.</li><li><strong>Wither mount</strong>: The rider sits higher above the Wither&#x27;s heads, and the Wither flies a little faster when ridden.</li></ul>
+<h2>4.0.x (1 release)</h2><div class="spoiler"><h3>v4 - 2026-11-19 - Warden and Wither Companions</h3><h4>Added</h4><ul><li><strong>Boss Subpack</strong>: Choose Default to keep the Warden and the Wither as vanilla bosses, or With Bosses to tame them, in the Behavior Pack settings.</li><li><strong>Tameable Warden</strong>: On the With Bosses subpack, a Primal Beast Biscuit has a 10% chance to tame a Warden into a companion.</li><li><strong>Tameable Wither</strong>: On the With Bosses subpack, a Primal Beast Biscuit has a 10% chance to tame a Wither into a companion.</li><li><strong>Rideable Warden</strong>: A tamed Warden can be ridden and steered on the ground.</li><li><strong>Rideable Wither</strong>: A tamed Wither can be ridden and steered through the air.</li></ul></div>
 <h2>3.0.x (1 release)</h2><div class="spoiler"><h3>v3 - 2026-11-13</h3><h4>Added</h4><ul><li><strong>Pink eyes</strong>: Tamed Zombies and Skeletons now have pink eyes, so you can tell them apart from wild ones.</li></ul></div>
 <h2>2.0.x (1 release)</h2><div class="spoiler"><h3>2.0.0 - 2026-11-08</h3><h4>Improved &amp; Balanced</h4><ul><li><strong>Taming chances</strong>: Every mob is now twice as likely to be tamed with each Primal Beast Biscuit, up to a 75% chance per attempt.</li><li><strong>Golden Beast Biscuit</strong>: The Regeneration it gives a companion now lasts 30 seconds instead of 5.</li></ul><h4>Added</h4><ul><li><strong>Rideable Breeze</strong>: A tamed Breeze can now be ridden and steered on the ground.</li><li><strong>Rideable Ghast</strong>: A tamed Ghast can now be ridden and steered through the air.</li><li><strong>Rideable Phantom</strong>: A tamed Phantom can now be ridden and steered through the air.</li></ul></div>
 <h2>1.13.x (1 release)</h2><div class="spoiler"><h3>1.13.0 - 2026-11-04</h3><h4>Improved &amp; Balanced</h4><ul><li><strong>Peaceful difficulty</strong>: Tamed companions are no longer removed from the world when the game is set to Peaceful.</li><li><strong>Player safety</strong>: Tamed companions no longer turn on players when a vanilla anger, night-time, or raid behavior triggers.</li></ul></div>
@@ -291,19 +292,32 @@ git config --global credential.helper store
 <h2>1.0.x (1 release)</h2><div class="spoiler"><h3>1.0.0 - 2026-11-04</h3><h4>v1.2.x (v1.2.14)</h4><ul><li><strong>Witch healing</strong>: The tamed Witch now throws a visible Regeneration splash potion at you every 25 to 40 seconds. Companions standing next to you are healed too.</li><li><strong>Witch splash safety</strong>: A tamed Witch no longer throws harmful potions at enemies standing within 4 blocks of you.</li><li><strong>Peaceful difficulty</strong>: Minecraft removes all hostile mobs on Peaceful, including tamed companions, so play on Easy or higher to keep them.</li></ul><h4>Added</h4><ul></ul><h4>Fixed</h4><ul></ul><h4>Known Limitations</h4><ul></ul><h4>Added</h4><ul></ul><h4>Improved &amp; Balanced</h4><ul></ul></div>
 ```
 
-## FILE: changelog_views/Monster-Companions.github.md (155 lines, 4508 bytes)
+## FILE: changelog_views/Monster-Companions.github.md (168 lines, 5047 bytes)
 
 ```
 # Changelog — Monster Companions
 
-## [v4] - 2026-11-19 - Warden and Wither Companions
+## [v5] - 2026-11-19 - Equal Taming Chances
 
-### Added
+### Improved & Balanced
+- **Taming chances**: Every mob is now tamed with a 50% chance per Primal Beast Biscuit, including the Warden and the Wither.
+- **Tamed Warden**: Melee damage is halved from 30 to 15 once tamed.
+- **Taming protection**: A newly tamed Warden or Wither gets 10 seconds of Resistance.
+- **Wither mount**: The rider sits higher above the Wither's heads, and the Wither flies a little faster when ridden.
+
+<details>
+<summary><b>4.0.x</b> (1 release)</summary>
+
+### [v4] - 2026-11-19 - Warden and Wither Companions
+
+#### Added
 - **Boss Subpack**: Choose Default to keep the Warden and the Wither as vanilla bosses, or With Bosses to tame them, in the Behavior Pack settings.
 - **Tameable Warden**: On the With Bosses subpack, a Primal Beast Biscuit has a 10% chance to tame a Warden into a companion.
 - **Tameable Wither**: On the With Bosses subpack, a Primal Beast Biscuit has a 10% chance to tame a Wither into a companion.
 - **Rideable Warden**: A tamed Warden can be ridden and steered on the ground.
 - **Rideable Wither**: A tamed Wither can be ridden and steered through the air.
+
+</details>
 
 <details>
 <summary><b>3.0.x</b> (1 release)</summary>
@@ -806,7 +820,7 @@ git config --global credential.helper store
       },
       "allenscreations:wild": {
         "minecraft:tameable": {
-          "probability": 0.3,
+          "probability": 0.5,
           "tame_items": [
             "allenscreations:beast_biscuit"
           ],
@@ -1876,7 +1890,7 @@ git config --global credential.helper store
 }
 ```
 
-## FILE: MCPEDL/Addons/Monster-Companions/behavior_pack/entities/breeze.json (695 lines, 18292 bytes)
+## FILE: MCPEDL/Addons/Monster-Companions/behavior_pack/entities/breeze.json (695 lines, 18291 bytes)
 
 ```
 {
@@ -2560,7 +2574,7 @@ git config --global credential.helper store
       },
       "allenscreations:wild": {
         "minecraft:tameable": {
-          "probability": 0.24,
+          "probability": 0.5,
           "tame_items": [
             "allenscreations:beast_biscuit"
           ],
@@ -3179,7 +3193,7 @@ git config --global credential.helper store
       },
       "allenscreations:wild": {
         "minecraft:tameable": {
-          "probability": 0.7,
+          "probability": 0.5,
           "tame_items": [
             "allenscreations:beast_biscuit"
           ],
@@ -5030,7 +5044,7 @@ git config --global credential.helper store
       },
       "allenscreations:wild": {
         "minecraft:tameable": {
-          "probability": 0.6,
+          "probability": 0.5,
           "tame_items": [
             "allenscreations:beast_biscuit"
           ],
@@ -5312,7 +5326,7 @@ git config --global credential.helper store
 }
 ```
 
-## FILE: MCPEDL/Addons/Monster-Companions/behavior_pack/entities/enderman.json (595 lines, 15175 bytes)
+## FILE: MCPEDL/Addons/Monster-Companions/behavior_pack/entities/enderman.json (595 lines, 15174 bytes)
 
 ```
 {
@@ -5576,7 +5590,7 @@ git config --global credential.helper store
       },
       "allenscreations:wild": {
         "minecraft:tameable": {
-          "probability": 0.24,
+          "probability": 0.5,
           "tame_items": [
             "allenscreations:beast_biscuit"
           ],
@@ -5911,7 +5925,7 @@ git config --global credential.helper store
 }
 ```
 
-## FILE: MCPEDL/Addons/Monster-Companions/behavior_pack/entities/evocation_illager.json (764 lines, 21032 bytes)
+## FILE: MCPEDL/Addons/Monster-Companions/behavior_pack/entities/evocation_illager.json (764 lines, 21031 bytes)
 
 ```
 {
@@ -6564,7 +6578,7 @@ git config --global credential.helper store
       },
       "allenscreations:wild": {
         "minecraft:tameable": {
-          "probability": 0.24,
+          "probability": 0.5,
           "tame_items": [
             "allenscreations:beast_biscuit"
           ],
@@ -7065,7 +7079,7 @@ git config --global credential.helper store
       },
       "allenscreations:wild": {
         "minecraft:tameable": {
-          "probability": 0.2,
+          "probability": 0.5,
           "tame_items": [
             "allenscreations:beast_biscuit"
           ],
@@ -7640,7 +7654,7 @@ git config --global credential.helper store
       },
       "allenscreations:wild": {
         "minecraft:tameable": {
-          "probability": 0.4,
+          "probability": 0.5,
           "tame_items": [
             "allenscreations:beast_biscuit"
           ],
@@ -9003,7 +9017,7 @@ git config --global credential.helper store
       },
       "allenscreations:wild": {
         "minecraft:tameable": {
-          "probability": 0.6,
+          "probability": 0.5,
           "tame_items": [
             "allenscreations:beast_biscuit"
           ],
@@ -9951,7 +9965,7 @@ git config --global credential.helper store
       },
       "allenscreations:wild": {
         "minecraft:tameable": {
-          "probability": 0.2,
+          "probability": 0.5,
           "tame_items": [
             "allenscreations:beast_biscuit"
           ],
@@ -10487,7 +10501,7 @@ git config --global credential.helper store
       },
       "allenscreations:wild": {
         "minecraft:tameable": {
-          "probability": 0.6,
+          "probability": 0.5,
           "tame_items": [
             "allenscreations:beast_biscuit"
           ],
@@ -11930,7 +11944,7 @@ git config --global credential.helper store
       },
       "allenscreations:wild": {
         "minecraft:tameable": {
-          "probability": 0.4,
+          "probability": 0.5,
           "tame_items": [
             "allenscreations:beast_biscuit"
           ],
@@ -13576,7 +13590,7 @@ git config --global credential.helper store
 }
 ```
 
-## FILE: MCPEDL/Addons/Monster-Companions/behavior_pack/entities/piglin_brute.json (659 lines, 17016 bytes)
+## FILE: MCPEDL/Addons/Monster-Companions/behavior_pack/entities/piglin_brute.json (659 lines, 17015 bytes)
 
 ```
 {
@@ -14054,7 +14068,7 @@ git config --global credential.helper store
       },
       "allenscreations:wild": {
         "minecraft:tameable": {
-          "probability": 0.24,
+          "probability": 0.5,
           "tame_items": [
             "allenscreations:beast_biscuit"
           ],
@@ -14830,7 +14844,7 @@ git config --global credential.helper store
       },
       "allenscreations:wild": {
         "minecraft:tameable": {
-          "probability": 0.4,
+          "probability": 0.5,
           "tame_items": [
             "allenscreations:beast_biscuit"
           ],
@@ -15030,7 +15044,7 @@ git config --global credential.helper store
 }
 ```
 
-## FILE: MCPEDL/Addons/Monster-Companions/behavior_pack/entities/ravager.json (939 lines, 24353 bytes)
+## FILE: MCPEDL/Addons/Monster-Companions/behavior_pack/entities/ravager.json (939 lines, 24352 bytes)
 
 ```
 {
@@ -15470,7 +15484,7 @@ git config --global credential.helper store
       },
       "allenscreations:wild": {
         "minecraft:tameable": {
-          "probability": 0.16,
+          "probability": 0.5,
           "tame_items": [
             "allenscreations:beast_biscuit"
           ],
@@ -16901,7 +16915,7 @@ git config --global credential.helper store
       },
       "allenscreations:wild": {
         "minecraft:tameable": {
-          "probability": 0.6,
+          "probability": 0.5,
           "tame_items": [
             "allenscreations:beast_biscuit"
           ],
@@ -17106,7 +17120,7 @@ git config --global credential.helper store
 }
 ```
 
-## FILE: MCPEDL/Addons/Monster-Companions/behavior_pack/entities/slime.json (559 lines, 14207 bytes)
+## FILE: MCPEDL/Addons/Monster-Companions/behavior_pack/entities/slime.json (559 lines, 14206 bytes)
 
 ```
 {
@@ -17550,7 +17564,7 @@ git config --global credential.helper store
       },
       "allenscreations:wild": {
         "minecraft:tameable": {
-          "probability": 0.75,
+          "probability": 0.5,
           "tame_items": [
             "allenscreations:beast_biscuit"
           ],
@@ -17669,7 +17683,7 @@ git config --global credential.helper store
 }
 ```
 
-## FILE: MCPEDL/Addons/Monster-Companions/behavior_pack/entities/snow_golem.json (455 lines, 11998 bytes)
+## FILE: MCPEDL/Addons/Monster-Companions/behavior_pack/entities/snow_golem.json (455 lines, 11997 bytes)
 
 ```
 {
@@ -18059,7 +18073,7 @@ git config --global credential.helper store
       },
       "allenscreations:wild": {
         "minecraft:tameable": {
-          "probability": 0.75,
+          "probability": 0.5,
           "tame_items": [
             "allenscreations:beast_biscuit"
           ],
@@ -18676,7 +18690,7 @@ git config --global credential.helper store
       },
       "allenscreations:wild": {
         "minecraft:tameable": {
-          "probability": 0.7,
+          "probability": 0.5,
           "tame_items": [
             "allenscreations:beast_biscuit"
           ],
@@ -20195,7 +20209,7 @@ git config --global credential.helper store
 }
 ```
 
-## FILE: MCPEDL/Addons/Monster-Companions/behavior_pack/entities/vindicator.json (880 lines, 23134 bytes)
+## FILE: MCPEDL/Addons/Monster-Companions/behavior_pack/entities/vindicator.json (880 lines, 23133 bytes)
 
 ```
 {
@@ -20765,7 +20779,7 @@ git config --global credential.helper store
       },
       "allenscreations:wild": {
         "minecraft:tameable": {
-          "probability": 0.36,
+          "probability": 0.5,
           "tame_items": [
             "allenscreations:beast_biscuit"
           ],
@@ -21883,7 +21897,7 @@ git config --global credential.helper store
       },
       "allenscreations:wild": {
         "minecraft:tameable": {
-          "probability": 0.4,
+          "probability": 0.5,
           "tame_items": [
             "allenscreations:beast_biscuit"
           ],
@@ -22003,7 +22017,7 @@ git config --global credential.helper store
 }
 ```
 
-## FILE: MCPEDL/Addons/Monster-Companions/behavior_pack/entities/wither_skeleton.json (847 lines, 22410 bytes)
+## FILE: MCPEDL/Addons/Monster-Companions/behavior_pack/entities/wither_skeleton.json (847 lines, 22409 bytes)
 
 ```
 {
@@ -22839,7 +22853,7 @@ git config --global credential.helper store
       },
       "allenscreations:wild": {
         "minecraft:tameable": {
-          "probability": 0.24,
+          "probability": 0.5,
           "tame_items": [
             "allenscreations:beast_biscuit"
           ],
@@ -23294,7 +23308,7 @@ git config --global credential.helper store
       },
       "allenscreations:wild": {
         "minecraft:tameable": {
-          "probability": 0.3,
+          "probability": 0.5,
           "tame_items": [
             "allenscreations:beast_biscuit"
           ],
@@ -24465,7 +24479,7 @@ git config --global credential.helper store
       },
       "allenscreations:wild": {
         "minecraft:tameable": {
-          "probability": 0.7,
+          "probability": 0.5,
           "tame_items": [
             "allenscreations:beast_biscuit"
           ],
@@ -25396,7 +25410,7 @@ git config --global credential.helper store
       },
       "allenscreations:wild": {
         "minecraft:tameable": {
-          "probability": 0.6,
+          "probability": 0.5,
           "tame_items": [
             "allenscreations:beast_biscuit"
           ],
@@ -26470,7 +26484,7 @@ git config --global credential.helper store
       },
       "allenscreations:wild": {
         "minecraft:tameable": {
-          "probability": 0.7,
+          "probability": 0.5,
           "tame_items": [
             "allenscreations:beast_biscuit"
           ],
@@ -28129,7 +28143,7 @@ git config --global credential.helper store
       },
       "allenscreations:wild": {
         "minecraft:tameable": {
-          "probability": 0.7,
+          "probability": 0.5,
           "tame_items": [
             "allenscreations:beast_biscuit"
           ],
@@ -29226,11 +29240,11 @@ This marker does not encrypt the pack or prevent extraction or editing.
 {
   "format_version": 2,
   "header": {
-    "name": "Monster Companions (v4)",
+    "name": "Monster Companions (v5)",
     "description": "Tame hostile monsters into loyal bodyguards and rideable mounts with Beast Biscuits!. by ALNStudios",
     "uuid": "51f090e5-374b-42c6-a122-bcef2a0f0356",
     "version": [
-      4,
+      5,
       0,
       0
     ],
@@ -29246,7 +29260,7 @@ This marker does not encrypt the pack or prevent extraction or editing.
       "type": "data",
       "uuid": "8c424ffd-8631-4a9b-a7f0-505af3fa6823",
       "version": [
-        4,
+        5,
         0,
         0
       ]
@@ -29256,7 +29270,7 @@ This marker does not encrypt the pack or prevent extraction or editing.
     {
       "uuid": "7216d2ae-eb79-49ec-ba4f-25fab6d1f65d",
       "version": [
-        4,
+        5,
         0,
         0
       ]
@@ -29267,7 +29281,7 @@ This marker does not encrypt the pack or prevent extraction or editing.
       "ALNStudios"
     ],
     "product_type": "addon",
-    "version": "4.0.0"
+    "version": "5.0.0"
   },
   "subpacks": [
     {
@@ -29364,7 +29378,7 @@ This marker does not encrypt the pack or prevent extraction or editing.
 Default subpack: the Warden and the Wither stay vanilla.
 ```
 
-## FILE: MCPEDL/Addons/Monster-Companions/behavior_pack/subpacks/with_bosses/entities/warden.json (522 lines, 13944 bytes)
+## FILE: MCPEDL/Addons/Monster-Companions/behavior_pack/subpacks/with_bosses/entities/warden.json (526 lines, 14054 bytes)
 
 ```
 {
@@ -29683,6 +29697,9 @@ Default subpack: the Warden and the Wither stay vanilla.
           ]
         },
         "minecraft:persistent": {},
+        "minecraft:attack": {
+          "damage": 15
+        },
         "minecraft:ambient_sound_interval": {
           "event_name": "ambient",
           "range": 4.0,
@@ -29714,7 +29731,7 @@ Default subpack: the Warden and the Wither stay vanilla.
       },
       "allenscreations:wild": {
         "minecraft:tameable": {
-          "probability": 0.1,
+          "probability": 0.5,
           "tame_items": [
             "allenscreations:beast_biscuit"
           ],
@@ -29867,7 +29884,8 @@ Default subpack: the Warden and the Wither stay vanilla.
         },
         "queue_command": {
           "command": [
-            "particle minecraft:heart_particle ~ ~1.5 ~"
+            "particle minecraft:heart_particle ~ ~1.5 ~",
+            "effect @s resistance 10 5 true"
           ]
         }
       },
@@ -29890,7 +29908,7 @@ Default subpack: the Warden and the Wither stay vanilla.
 }
 ```
 
-## FILE: MCPEDL/Addons/Monster-Companions/behavior_pack/subpacks/with_bosses/entities/wither.json (438 lines, 11471 bytes)
+## FILE: MCPEDL/Addons/Monster-Companions/behavior_pack/subpacks/with_bosses/entities/wither.json (439 lines, 11516 bytes)
 
 ```
 {
@@ -30063,7 +30081,8 @@ Default subpack: the Warden and the Wither stay vanilla.
         },
         "queue_command": {
           "command": [
-            "particle minecraft:heart_particle ~ ~1.5 ~"
+            "particle minecraft:heart_particle ~ ~1.5 ~",
+            "effect @s resistance 10 5 true"
           ]
         }
       },
@@ -30284,7 +30303,7 @@ Default subpack: the Warden and the Wither stay vanilla.
             {
               "position": [
                 0.0,
-                3.0,
+                3.4,
                 0.0
               ]
             }
@@ -30298,7 +30317,7 @@ Default subpack: the Warden and the Wither stay vanilla.
           "vertical_velocity": 0.5
         },
         "minecraft:flying_speed": {
-          "value": 0.08
+          "value": 0.1
         },
         "minecraft:body_rotation_always_follows_head": {},
         "minecraft:physics": {
@@ -30310,7 +30329,7 @@ Default subpack: the Warden and the Wither stay vanilla.
       },
       "allenscreations:wild": {
         "minecraft:tameable": {
-          "probability": 0.1,
+          "probability": 0.5,
           "tame_items": [
             "allenscreations:beast_biscuit"
           ],
@@ -30332,12 +30351,21 @@ Default subpack: the Warden and the Wither stay vanilla.
 }
 ```
 
-## FILE: MCPEDL/Addons/Monster-Companions/CHANGELOG.md (176 lines, 6148 bytes)
+## FILE: MCPEDL/Addons/Monster-Companions/CHANGELOG.md (185 lines, 6619 bytes)
 
 ```
 # Changelog — Monster Companions
 
 ---
+
+## [v5] - 2026-11-19 - Equal Taming Chances
+
+### Improved & Balanced
+
+- **Taming chances**: Every mob is now tamed with a 50% chance per Primal Beast Biscuit, including the Warden and the Wither.
+- **Tamed Warden**: Melee damage is halved from 30 to 15 once tamed.
+- **Taming protection**: A newly tamed Warden or Wither gets 10 seconds of Resistance.
+- **Wither mount**: The rider sits higher above the Wither's heads, and the Wither flies a little faster when ridden.
 
 ## [v4] - 2026-11-19 - Warden and Wither Companions
 
@@ -30512,7 +30540,7 @@ Default subpack: the Warden and the Wither stay vanilla.
 - **Biscuit Recipe:** One Rotten Flesh, one Bone, one Sweet Berries, and one Honey Bottle craft four Primal Beast Biscuits.
 ```
 
-## FILE: MCPEDL/Addons/Monster-Companions/DESCRIPTION.md (201 lines, 9950 bytes)
+## FILE: MCPEDL/Addons/Monster-Companions/DESCRIPTION.md (201 lines, 9868 bytes)
 
 ```
 # Monster Companions
@@ -30547,7 +30575,7 @@ The add-on lets players tame selected hostile mobs and use supported creatures a
 ## Features and Mechanics
 
 ### Taming Chances
-Taming is no longer guaranteed. Each Primal Beast Biscuit you feed a wild hostile mob gives it a chance to become your companion, and a biscuit is used up on every attempt. Weaker mobs such as Zombies, Spiders, and Slimes are the easiest to win over, while powerful mobs such as Ghasts, Iron Golems, and Ravagers take many more attempts. Mobs do not need to be wounded first, so you can try at full health.
+Taming is no longer guaranteed. Each Primal Beast Biscuit you feed a wild hostile mob has a 50% chance to make it your companion, the same for every mob, and a biscuit is used up on every attempt. Mobs do not need to be wounded first, so you can try at full health.
 
 ### Automatic Bodyguard
 Companions now protect you on their own. When a hostile mob that is already angry at something comes within range of you, nearby companions step in and attack it without waiting for you to be hit first. They also keep defending you when you are hurt and join any fight you start. Companions never attack you, other players, or one another.
@@ -30572,8 +30600,8 @@ Tap a companion with an empty hand to make it sit and hold its position, and tap
 
 ### Boss Subpack
 Open the Behavior Pack settings and choose a subpack. Default keeps the Warden and the Wither as vanilla bosses, and With Bosses lets you tame them.
-- **What Happens**: On the With Bosses subpack, each Primal Beast Biscuit has a 10% chance to tame a wild Warden or Wither.
-- **Tamed Warden**: Follows and defends you, can be ridden and steered on the ground, and no longer applies Darkness.
+- **What Happens**: On the With Bosses subpack, each Primal Beast Biscuit has a 50% chance to tame a wild Warden or Wither, like every other mob.
+- **Tamed Warden**: Follows and defends you, can be ridden and steered on the ground, no longer applies Darkness, and deals 15 melee damage instead of 30.
 - **Tamed Wither**: Follows and defends you, can be ridden and steered through the air, and no longer shows a boss bar.
 
 ### Riding Companions
@@ -30793,7 +30821,7 @@ Download the current release of **Monster Companions** for Minecraft Bedrock Edi
 ## Download
 
 - **Package format:** `.mcaddon`
-- **Direct download:** [Download Monster Companions (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Monster-Companions/MonsterCompanions%20V4.mcaddon)
+- **Direct download:** [Download Monster Companions (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Monster-Companions/MonsterCompanions%20V5.mcaddon)
 
 ## Installation
 
@@ -31158,11 +31186,11 @@ This marker does not encrypt the pack or prevent extraction or editing.
 {
   "format_version": 2,
   "header": {
-    "name": "Monster Companions (v4)",
+    "name": "Monster Companions (v5)",
     "description": "Custom textures, icons, and language definitions for Monster Companions. by ALNStudios",
     "uuid": "7216d2ae-eb79-49ec-ba4f-25fab6d1f65d",
     "version": [
-      4,
+      5,
       0,
       0
     ],
@@ -31178,7 +31206,7 @@ This marker does not encrypt the pack or prevent extraction or editing.
       "type": "resources",
       "uuid": "a7052966-2e1a-4eb4-a6fb-1a0d2c4175f5",
       "version": [
-        4,
+        5,
         0,
         0
       ]
@@ -31189,7 +31217,7 @@ This marker does not encrypt the pack or prevent extraction or editing.
       "ALNStudios"
     ],
     "product_type": "addon",
-    "version": "4.0.0"
+    "version": "5.0.0"
   }
 }
 ```
@@ -31273,7 +31301,7 @@ Source files for established Minecraft Bedrock add-ons by ALNStudios.
 | Ghast Mob Head Transformers | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/Ghast-Mob-Head-Transformers/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Ghast-Mob-Head-Transformers/GhastMobHeads%20V2.mcaddon) |
 | Immortal Pets | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/Immortal-Pets/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Immortal-Pets/ImmortalPets%20V2.mcaddon) |
 | Mining Helmet | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/Mining-Helmet/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Mining-Helmet/MiningHelmet%20V2.mcaddon) |
-| Monster Companions | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/Monster-Companions/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Monster-Companions/MonsterCompanions%20V4.mcaddon) |
+| Monster Companions | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/Monster-Companions/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Monster-Companions/MonsterCompanions%20V5.mcaddon) |
 | Passive Auto-Switch Tools | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/Passive-Auto-Switch-Tools/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Passive-Auto-Switch-Tools/AutoSwitchTools%20V2.mcaddon) |
 | Tameable Companion Fox | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/Tameable-Companion-Fox/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Tameable-Companion-Fox/CompanionFox%20V2.mcaddon) |
 | Vanilla Quality of Life | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/Vanilla-Quality-of-Life/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Vanilla-Quality-of-Life/VanillaQoL%20V3.mcaddon) |
@@ -31319,7 +31347,7 @@ Videos and streams are welcome with credit. Redistribution of original or modifi
 - [TypeScript Definitions (.d.ts)](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/reference/typescript-definitions)
 ```
 
-## FILE: Package/Monster-Companions.listing.md (76 lines, 17482 bytes)
+## FILE: Package/Monster-Companions.listing.md (76 lines, 17400 bytes)
 
 ````
 # Listing Kit: Monster Companions
@@ -31350,7 +31378,7 @@ Paste into the CurseForge description editor in source (HTML) mode.
 <div style="display:flex;flex-wrap:wrap;gap:10px"><div style="flex:1 1 300px;border:1px solid #8a94a3;border-radius:16px;text-align:center"><p><a href="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/MCPEDL/Addons/Monster-Companions/assets/snapshots/beast_biscuit_preview.png"><img src="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/MCPEDL/Addons/Monster-Companions/assets/snapshots/beast_biscuit_preview.png" alt="beast biscuit preview" style="width:100%"></a></p><p style="color:#8a94a3;font-size:13px">beast biscuit preview</p></div></div>
 <h2 style="font-size:17px;text-align:left"><span style="background-color:#15803d;color:#ffffff;border-radius:20px">&nbsp;&nbsp;Features and Mechanics&nbsp;&nbsp;</span></h2>
 <div class="spoiler" title="Features and Mechanics" data-title="Features and Mechanics">
-<h3>Taming Chances</h3><p>Taming is no longer guaranteed. Each Primal Beast Biscuit you feed a wild hostile mob gives it a chance to become your companion, and a biscuit is used up on every attempt. Weaker mobs such as Zombies, Spiders, and Slimes are the easiest to win over, while powerful mobs such as Ghasts, Iron Golems, and Ravagers take many more attempts. Mobs do not need to be wounded first, so you can try at full health.</p><h3>Automatic Bodyguard</h3><p>Companions now protect you on their own. When a hostile mob that is already angry at something comes within range of you, nearby companions step in and attack it without waiting for you to be hit first. They also keep defending you when you are hurt and join any fight you start. Companions never attack you, other players, or one another.</p><h3>Sit and Stay</h3><p>Tap a companion with an empty hand to make it sit and hold its position, and tap again to have it follow you. This works for ground companions that cannot be ridden. Flying companions and rideable mounts always follow you.</p><h3>Companion Squad Mechanics</h3><ul><li>Perimeter buffer: Companions follow the player while keeping a buffer distance to prevent obstructing the player camera or mining path. If the player sprints ahead, companions teleport behind the player safely.</li><li>Friendly-fire immunity: Companions avoid friendly-fire damage and do not target teammates.</li><li>Peaceful difficulty: Minecraft removes hostile mobs on Peaceful, including tamed companions. Use Easy or higher.</li><li>Player safe: Tamed companions never turn hostile toward players.</li><li>Auto-protect: Companions defend you from nearby aggressive hostile mobs even before you are attacked.</li><li>Visual status indicators: Tamed companions display an always-visible floating nameplate above their head. Custom name tags can be applied directly without an anvil.</li><li>Pink eyes: Tamed Zombies and Skeletons have pink eyes.</li><li>Taming feedback: Hearts confirm when a Primal Beast Biscuit tames a mob.</li><li>In-combat healing: Feeding a wounded companion a Primal Beast Biscuit restores 10 HP (5 hearts).</li><li>Witch healing: A tamed Witch throws a Regeneration splash potion at you every 25 to 40 seconds, which also heals companions standing next to you.</li><li>Sunlight protection: Tamed Zombies, Skeletons, and Phantoms can wear helmets to prevent burning in direct sunlight.</li><li>Kamikaze Creepers: Tamed Creepers will rush enemy threats that damage the player and detonate on the target as a single-use explosive bodyguard.</li><li>Spirit Vexes: Tamed Evokers summon Spirit Vexes that attack hostiles and despawn naturally when their lifespan ends without turning on players.</li></ul><h3>Boss Subpack</h3><p>Open the Behavior Pack settings and choose a subpack. Default keeps the Warden and the Wither as vanilla bosses, and With Bosses lets you tame them.</p><ul><li><strong>What Happens</strong>: On the With Bosses subpack, each Primal Beast Biscuit has a 10% chance to tame a wild Warden or Wither.</li><li><strong>Tamed Warden</strong>: Follows and defends you, can be ridden and steered on the ground, and no longer applies Darkness.</li><li><strong>Tamed Wither</strong>: Follows and defends you, can be ridden and steered through the air, and no longer shows a boss bar.</li></ul><h3>Riding Companions</h3><p>Equipping a Saddle onto supported large companions enables manual mounting and direct steering:</p><ul><li>Mount prompt: Uses Minecraft's normal mount prompt on touch controls, controllers, and keyboard/mouse.</li><li>Sneak-to-interact: Crouching allows players to feed, heal, lead, or rename mounts without accidentally mounting.</li><li>Manual steering: Autonomous wandering and head-turning are disabled while mounted.</li><li>Wall climbing: Tamed Spiders and Cave Spiders can scale vertical surfaces and cliffs while mounted.</li><li>Supported mounts: Spider, Cave Spider, Ravager, Iron Golem, Hoglin, Zoglin, Breeze, Ghast, and Phantom. The With Bosses subpack adds Warden and Wither.</li><li>Flying mounts: Tamed Ghasts and Phantoms can be steered through the air while mounted. A tamed Wither can too on the With Bosses subpack.</li></ul></div>
+<h3>Taming Chances</h3><p>Taming is no longer guaranteed. Each Primal Beast Biscuit you feed a wild hostile mob has a 50% chance to make it your companion, the same for every mob, and a biscuit is used up on every attempt. Mobs do not need to be wounded first, so you can try at full health.</p><h3>Automatic Bodyguard</h3><p>Companions now protect you on their own. When a hostile mob that is already angry at something comes within range of you, nearby companions step in and attack it without waiting for you to be hit first. They also keep defending you when you are hurt and join any fight you start. Companions never attack you, other players, or one another.</p><h3>Sit and Stay</h3><p>Tap a companion with an empty hand to make it sit and hold its position, and tap again to have it follow you. This works for ground companions that cannot be ridden. Flying companions and rideable mounts always follow you.</p><h3>Companion Squad Mechanics</h3><ul><li>Perimeter buffer: Companions follow the player while keeping a buffer distance to prevent obstructing the player camera or mining path. If the player sprints ahead, companions teleport behind the player safely.</li><li>Friendly-fire immunity: Companions avoid friendly-fire damage and do not target teammates.</li><li>Peaceful difficulty: Minecraft removes hostile mobs on Peaceful, including tamed companions. Use Easy or higher.</li><li>Player safe: Tamed companions never turn hostile toward players.</li><li>Auto-protect: Companions defend you from nearby aggressive hostile mobs even before you are attacked.</li><li>Visual status indicators: Tamed companions display an always-visible floating nameplate above their head. Custom name tags can be applied directly without an anvil.</li><li>Pink eyes: Tamed Zombies and Skeletons have pink eyes.</li><li>Taming feedback: Hearts confirm when a Primal Beast Biscuit tames a mob.</li><li>In-combat healing: Feeding a wounded companion a Primal Beast Biscuit restores 10 HP (5 hearts).</li><li>Witch healing: A tamed Witch throws a Regeneration splash potion at you every 25 to 40 seconds, which also heals companions standing next to you.</li><li>Sunlight protection: Tamed Zombies, Skeletons, and Phantoms can wear helmets to prevent burning in direct sunlight.</li><li>Kamikaze Creepers: Tamed Creepers will rush enemy threats that damage the player and detonate on the target as a single-use explosive bodyguard.</li><li>Spirit Vexes: Tamed Evokers summon Spirit Vexes that attack hostiles and despawn naturally when their lifespan ends without turning on players.</li></ul><h3>Boss Subpack</h3><p>Open the Behavior Pack settings and choose a subpack. Default keeps the Warden and the Wither as vanilla bosses, and With Bosses lets you tame them.</p><ul><li><strong>What Happens</strong>: On the With Bosses subpack, each Primal Beast Biscuit has a 50% chance to tame a wild Warden or Wither, like every other mob.</li><li><strong>Tamed Warden</strong>: Follows and defends you, can be ridden and steered on the ground, no longer applies Darkness, and deals 15 melee damage instead of 30.</li><li><strong>Tamed Wither</strong>: Follows and defends you, can be ridden and steered through the air, and no longer shows a boss bar.</li></ul><h3>Riding Companions</h3><p>Equipping a Saddle onto supported large companions enables manual mounting and direct steering:</p><ul><li>Mount prompt: Uses Minecraft's normal mount prompt on touch controls, controllers, and keyboard/mouse.</li><li>Sneak-to-interact: Crouching allows players to feed, heal, lead, or rename mounts without accidentally mounting.</li><li>Manual steering: Autonomous wandering and head-turning are disabled while mounted.</li><li>Wall climbing: Tamed Spiders and Cave Spiders can scale vertical surfaces and cliffs while mounted.</li><li>Supported mounts: Spider, Cave Spider, Ravager, Iron Golem, Hoglin, Zoglin, Breeze, Ghast, and Phantom. The With Bosses subpack adds Warden and Wither.</li><li>Flying mounts: Tamed Ghasts and Phantoms can be steered through the air while mounted. A tamed Wither can too on the With Bosses subpack.</li></ul></div>
 <h2 style="font-size:17px;text-align:left"><span style="background-color:#15803d;color:#ffffff;border-radius:20px">&nbsp;&nbsp;Tameable Mob Roster (31 Mobs)&nbsp;&nbsp;</span></h2>
 <div class="spoiler" title="Tameable Mob Roster (31 Mobs)" data-title="Tameable Mob Roster (31 Mobs)">
 <h3>Undead</h3><ul><li><strong>Supported Mobs</strong>: Zombie, Drowned, Husk, Zombie Villager, Zombified Pigman</li><li><strong>Special Abilities</strong>: Helmet sunlight protection, melee defense</li></ul><h3>Skeletons</h3><ul><li><strong>Supported Mobs</strong>: Skeleton, Stray, Bogged, Parched, Wither Skeleton</li><li><strong>Special Abilities</strong>: Ranged arrow support, Wither effect, Weakness arrows</li></ul><h3>Tricky Trials</h3><ul><li><strong>Supported Mobs</strong>: Breeze</li><li><strong>Special Abilities</strong>: Wind Charge projectile launcher, rideable mount</li></ul><h3>Nether Beasts</h3><ul><li><strong>Supported Mobs</strong>: Hoglin, Zoglin</li><li><strong>Special Abilities</strong>: High knockback, rideable war beast</li></ul><h3>Explosives</h3><ul><li><strong>Supported Mobs</strong>: Creeper</li><li><strong>Special Abilities</strong>: Targeted single-use defensive explosion</li></ul><h3>Arachnids</h3><ul><li><strong>Supported Mobs</strong>: Spider, Cave Spider</li><li><strong>Special Abilities</strong>: Vertical wall climbing, rideable mount</li></ul><h3>Dimensionals</h3><ul><li><strong>Supported Mobs</strong>: Enderman</li><li><strong>Special Abilities</strong>: Teleport interception, heavy melee damage</li></ul><h3>Piglins</h3><ul><li><strong>Supported Mobs</strong>: Piglin, Piglin Brute</li><li><strong>Special Abilities</strong>: High attack speed, battle axe sweeps</li></ul><h3>Occult and Slimes</h3><ul><li><strong>Supported Mobs</strong>: Witch, Slime, Magma Cube</li><li><strong>Special Abilities</strong>: Lingering potion effects, crowd control</li></ul><h3>Nether and Sky</h3><ul><li><strong>Supported Mobs</strong>: Blaze, Ghast, Phantom</li><li><strong>Special Abilities</strong>: Fireball artillery, aerial escort, flying mounts</li></ul><h3>Illagers</h3><ul><li><strong>Supported Mobs</strong>: Ravager, Vindicator, Pillager, Evoker</li><li><strong>Special Abilities</strong>: Heavy mount, fangs, spirit vex minions</li></ul><h3>Golems</h3><ul><li><strong>Supported Mobs</strong>: Iron Golem, Snow Golem</li><li><strong>Special Abilities</strong>: Frontline defense, rideable mount</li></ul><h3>Bosses (With Bosses Subpack)</h3><ul><li><strong>Supported Mobs</strong>: Warden, Wither</li><li><strong>Special Abilities</strong>: Boss-level health, rideable ground mount (Warden), rideable flying mount (Wither)</li></ul></div>
