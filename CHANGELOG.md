@@ -11,6 +11,14 @@
 
 ---
 
+## [v125] - 2026-11-19 - Monster Companions Biscuit Recipe Format Fix
+
+### Fixed
+
+- **Monster Companions recipes**: Both biscuit recipes use a newer recipe format to stop loading errors.
+
+
+
 ## [v124] - 2026-11-19 - Monster Companions Biscuit Recipe Fix
 
 ### Fixed

@@ -2,6 +2,12 @@
 
 ---
 
+## [v9] - 2026-11-19 - Biscuit Recipe Format Fix
+
+### Fixed
+
+- **Biscuit recipes**: The Primal Beast Biscuit and Golden Beast Biscuit recipes now use a newer recipe format to stop loading errors.
+
 ## [v8] - 2026-11-19 - Biscuit Recipe Fix
 
 ### Fixed
