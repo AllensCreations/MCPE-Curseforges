@@ -10,16 +10,14 @@
 
 ---
 
----
-
 # Repo Export
 
 ## Index
 
 - **Export request:** `MCPEDL/Minigame/Tethered-Breaker-And-Builder`
 - **Destination:** `MCPEDL/Minigame/Tethered-Breaker-And-Builder`
-- **CURRENT VERSION: v2 / NEXT UPDATE: v3**  (`MCPEDL/Minigame/Tethered-Breaker-And-Builder/CHANGELOG.md`)
-- **Text files:** 15
+- **CURRENT VERSION: v3 / NEXT UPDATE: v4**  (`MCPEDL/Minigame/Tethered-Breaker-And-Builder/CHANGELOG.md`)
+- **Text files:** 16
 - **Skipped binary:** 4
 - **Paths not found:** 0
 
@@ -38,6 +36,7 @@
 - `MCPEDL/Minigame/Tethered-Breaker-And-Builder/project.json`
 - `MCPEDL/Minigame/Tethered-Breaker-And-Builder/README.md`
 - `MCPEDL/Minigame/Tethered-Breaker-And-Builder/resource_pack/manifest.json`
+- `MCPEDL/Minigame/Tethered-Breaker-And-Builder/resource_pack/particles/tether_leash.json`
 - `MCPEDL/Minigame/Tethered-Breaker-And-Builder/resource_pack/textures/item_texture.json`
 - `Package/Tethered-Breaker-And-Builder.listing.md`
 
@@ -56,7 +55,7 @@ Repo: https://github.com/AllensCreations/MCPE-Curseforges.git (branch main)
 Context7 Support: Enabled. For full instructions, schemas, and helper script syntax, query Context7 (`INSTRUCTIONS.md`, `PACK_GENERATOR_INSTRUCTIONS.md`, `DOCS_RULES.md`, `make_update_script.py`, `doc_template.py`).
 
 ## Action Notes: Package Update Notes
-- **Mode**: UPDATE existing package (CURRENT VERSION: v2 / NEXT UPDATE: v3).
+- **Mode**: UPDATE existing package (CURRENT VERSION: v3 / NEXT UPDATE: v4).
 - Retain all UUIDs in manifests.
 - Update CHANGELOG.md with a new release entry at top under `---`.
 - Deliver changes as ONE Termux update script (`scripts/make_update_script.py`).
@@ -114,27 +113,35 @@ Output ONLY these three sections in order:
 
 ## File Contents
 
-## FILE: changelog_views/Tethered-Breaker-And-Builder.curseforge.html (5 lines, 3907 bytes)
+## FILE: changelog_views/Tethered-Breaker-And-Builder.curseforge.html (5 lines, 4736 bytes)
 
 ```
-<h2>2.0.1 - 2026-11-20 - Test Dummy</h2><h3>Added</h3><ul><li><strong>Test Dummy</strong>: The Controller has a new Spawn Test Dummy option for testing alone. It places a stand-in partner next to you that you are leashed to once you pick a role. Removing it, or ending the challenge, takes it away. A real partner who picks the other role replaces it.</li></ul>
-<h2>2.0.x (1 release)</h2><div class="spoiler"><h3>v2 - 2026-11-14</h3><h4>Added</h4><ul><li><strong>Waiting for partner</strong>: If your partner leaves or has not chosen a role yet, the screen says you are waiting and the leash timers pause.</li><li><strong>Role menu protection</strong>: Players are protected for five seconds while the role menu is open.</li></ul><h4>Improved &amp; Balanced</h4><ul><li><strong>Smoother gameplay</strong>: The leash, restrictions and on-screen display do far less work, which cuts lag, especially on phones and busy worlds.</li><li><strong>Lighter beam</strong>: The leash beam is drawn less often with fewer particles, and is hidden when partners are very close.</li><li><strong>Steadier on-screen display</strong>: The leash distance is shown in half-meter steps and only refreshes when it changes.</li><li><strong>No cost between games</strong>: The pack does no leash work until a challenge is started and stops when it ends.</li></ul><h4>Fixed</h4><ul><li><strong>Restriction messages</strong>: Messages explaining blocked actions now appear right away, even before both roles are chosen.</li><li><strong>Controller after respawn</strong>: The host or an operator gets the Controller back after respawning when no challenge is running.</li></ul></div>
+<h2>v3 - 2026-11-20 - Leash Limit</h2><h3>Improved &amp; Balanced</h3><ul><li><strong>Rope limit</strong>: The tether is now 10 meters long. Partners can no longer get farther apart than that, including straight up or down, so building or flying away from your partner pulls you back.</li><li><strong>Tension</strong>: You feel tension from 6 meters and are pulled toward your partner beyond 8 meters. The pull now works up and down as well. Strain damage starts beyond 9 meters.</li><li><strong>Leash look</strong>: The beam is now a brown leash-style line that keeps the same color at every distance. The on-screen display still shows the four distance states.</li><li><strong>Own beam particle</strong>: The beam no longer uses the built-in flame, spark and happy particles, so it needs no extra particle variables.</li></ul>
+<h2>2.0.x (2 releases)</h2><div class="spoiler"><h3>2.0.1 - 2026-11-20 - Test Dummy</h3><h4>Added</h4><ul><li><strong>Test Dummy</strong>: The Controller has a new Spawn Test Dummy option for testing alone. It places a stand-in partner next to you that you are leashed to once you pick a role. Removing it, or ending the challenge, takes it away. A real partner who picks the other role replaces it.</li></ul><h3>v2 - 2026-11-14</h3><h4>Added</h4><ul><li><strong>Waiting for partner</strong>: If your partner leaves or has not chosen a role yet, the screen says you are waiting and the leash timers pause.</li><li><strong>Role menu protection</strong>: Players are protected for five seconds while the role menu is open.</li></ul><h4>Improved &amp; Balanced</h4><ul><li><strong>Smoother gameplay</strong>: The leash, restrictions and on-screen display do far less work, which cuts lag, especially on phones and busy worlds.</li><li><strong>Lighter beam</strong>: The leash beam is drawn less often with fewer particles, and is hidden when partners are very close.</li><li><strong>Steadier on-screen display</strong>: The leash distance is shown in half-meter steps and only refreshes when it changes.</li><li><strong>No cost between games</strong>: The pack does no leash work until a challenge is started and stops when it ends.</li></ul><h4>Fixed</h4><ul><li><strong>Restriction messages</strong>: Messages explaining blocked actions now appear right away, even before both roles are chosen.</li><li><strong>Controller after respawn</strong>: The host or an operator gets the Controller back after respawning when no challenge is running.</li></ul></div>
 <h2>1.12.x (1 release)</h2><div class="spoiler"><h3>1.12.0 - 2026-10-29</h3><h4>Improved &amp; Balanced</h4><ul><li><strong>Maintenance release</strong>: Repackaged the pack; no gameplay changes were recorded.</li></ul></div>
 <h2>1.7.x (1 release)</h2><div class="spoiler"><h3>1.7.0 - 2026-10-27</h3><h4>Added</h4><ul><li><strong>Controller</strong>: The host or an operator starts the challenge from the ALNStudios Controller. Roles and the leash are active only while the challenge is running.</li><li><strong>Win condition</strong>: Defeating the Ender Dragon ends the challenge.</li><li><strong>Recall</strong>: Partners who stay more than 64 blocks apart, or in different dimensions, are brought together.</li></ul><h4>Improved &amp; Balanced</h4><ul><li><strong>Role choice</strong>: Each role can be held by one player. Players without a role cannot build, mine or fight, and are asked again until they choose.</li><li><strong>Breaker limits</strong>: Spawn eggs, boats, minecarts, armor stands, item frames, paintings, end crystals and bone meal are now blocked along with buckets and fire. Anything placed anyway is removed and returned.</li><li><strong>Builder limits</strong>: Builders can no longer hurt anything with bows, tridents or thrown items, or set off TNT.</li><li><strong>Gentler leash</strong>: The pull is weaker and stays horizontal. Strain damage starts after 3 seconds and never takes you below one heart. Creative and spectator players are not pulled.</li></ul><h4>Fixed</h4><ul><li><strong>Pack failed to work</strong>: The pack stopped working after the role menu in current versions of Minecraft. The leash, restrictions and respawn support now work.</li><li><strong>Role cheating</strong>: Closing the role menu no longer removes restrictions, and roles cannot be changed with the tag command.</li><li><strong>Lag from distant partners</strong>: Very distant partners no longer cause lag from beam particles.</li><li><strong>Joining</strong>: Joining the world no longer teleports you to your partner.</li><li><strong>Restriction messages</strong>: Messages explaining blocked actions now stay on screen.</li><li><strong>Description</strong>: Removed the claim that the Builder has exclusive crafting.</li></ul></div>
 ```
 
-## FILE: changelog_views/Tethered-Breaker-And-Builder.github.md (64 lines, 3448 bytes)
+## FILE: changelog_views/Tethered-Breaker-And-Builder.github.md (72 lines, 4185 bytes)
 
 ```
 # Changelog — Tethered: Breaker and Builder
 
-## [2.0.1] - 2026-11-20 - Test Dummy
+## [v3] - 2026-11-20 - Leash Limit
 
-### Added
-- **Test Dummy**: The Controller has a new Spawn Test Dummy option for testing alone. It places a stand-in partner next to you that you are leashed to once you pick a role. Removing it, or ending the challenge, takes it away. A real partner who picks the other role replaces it.
+### Improved & Balanced
+- **Rope limit**: The tether is now 10 meters long. Partners can no longer get farther apart than that, including straight up or down, so building or flying away from your partner pulls you back.
+- **Tension**: You feel tension from 6 meters and are pulled toward your partner beyond 8 meters. The pull now works up and down as well. Strain damage starts beyond 9 meters.
+- **Leash look**: The beam is now a brown leash-style line that keeps the same color at every distance. The on-screen display still shows the four distance states.
+- **Own beam particle**: The beam no longer uses the built-in flame, spark and happy particles, so it needs no extra particle variables.
 
 <details>
-<summary><b>2.0.x</b> (1 release)</summary>
+<summary><b>2.0.x</b> (2 releases)</summary>
+
+### [2.0.1] - 2026-11-20 - Test Dummy
+
+#### Added
+- **Test Dummy**: The Controller has a new Spawn Test Dummy option for testing alone. It places a stand-in partner next to you that you are leashed to once you pick a role. Removing it, or ending the challenge, takes it away. A real partner who picks the other role replaces it.
 
 ### [v2] - 2026-11-14
 
@@ -235,19 +242,19 @@ give @s aln:tethered_breaker_builder_controller
 }
 ```
 
-## FILE: MCPEDL/Minigame/Tethered-Breaker-And-Builder/behavior_pack/manifest.json (58 lines, 1092 bytes)
+## FILE: MCPEDL/Minigame/Tethered-Breaker-And-Builder/behavior_pack/manifest.json (58 lines, 1088 bytes)
 
 ```
 {
   "format_version": 2,
   "header": {
-    "name": "Tethered Breaker and Builder (v2.0.1)",
+    "name": "Tethered Breaker and Builder (v3)",
     "description": "2-Player Asymmetric Co-op challenge with a dynamic elastic leash. by ALNStudios",
     "uuid": "57d260b6-c748-4db4-8feb-0d5d6be74613",
     "version": [
-      2,
+      3,
       0,
-      1
+      0
     ],
     "min_engine_version": [
       1,
@@ -262,9 +269,9 @@ give @s aln:tethered_breaker_builder_controller
       "language": "javascript",
       "uuid": "969f8937-48b6-4394-9cbf-c4224c551d7b",
       "version": [
-        2,
+        3,
         0,
-        1
+        0
       ],
       "entry": "scripts/main.js"
     }
@@ -273,9 +280,9 @@ give @s aln:tethered_breaker_builder_controller
     {
       "uuid": "f3a1c7e2-6b84-4d19-9a52-0c7e5d8b1a36",
       "version": [
-        2,
+        3,
         0,
-        1
+        0
       ]
     },
     {
@@ -292,7 +299,7 @@ give @s aln:tethered_breaker_builder_controller
       "ALNStudios"
     ],
     "product_type": "addon",
-    "version": "2.0.1"
+    "version": "3.0.0"
   }
 }
 ```
@@ -458,7 +465,7 @@ export function registerController(options) {
 }
 ```
 
-## FILE: MCPEDL/Minigame/Tethered-Breaker-And-Builder/behavior_pack/scripts/main.js (641 lines, 20952 bytes)
+## FILE: MCPEDL/Minigame/Tethered-Breaker-And-Builder/behavior_pack/scripts/main.js (668 lines, 21991 bytes)
 
 ```
 import { world, system, GameMode, EntityDamageCause } from "@minecraft/server";
@@ -467,9 +474,10 @@ import { registerController, endGame, isRunning, onStateChange } from "./control
 
 const CONFIG = {
   TICK_STEP: 2,
-  TENSE_DISTANCE: 10,
-  MAX_TETHER_DISTANCE: 15,
-  DAMAGE_DISTANCE: 18,
+  TENSE_DISTANCE: 6,
+  MAX_TETHER_DISTANCE: 8,
+  DAMAGE_DISTANCE: 9,
+  ROPE_LIMIT: 10,
   RECALL_DISTANCE: 64,
   RECALL_TICKS: 100,
   DIMENSION_RECALL_TICKS: 300,
@@ -484,6 +492,7 @@ const CONFIG = {
   HUD_REFRESH_TICKS: 20,
   WAIT_HUD_TICKS: 20,
   MAX_PULL: 0.6,
+  MAX_VPULL: 0.5,
   RESPAWN_DELAY_TICKS: 10,
   RESPAWN_GRACE_TICKS: 100,
   PROMPT_GRACE_TICKS: 100,
@@ -498,17 +507,14 @@ const MAX_SQ = CONFIG.MAX_TETHER_DISTANCE * CONFIG.MAX_TETHER_DISTANCE;
 const DAMAGE_SQ = CONFIG.DAMAGE_DISTANCE * CONFIG.DAMAGE_DISTANCE;
 const RECALL_SQ = CONFIG.RECALL_DISTANCE * CONFIG.RECALL_DISTANCE;
 const BEAM_MIN_SQ = CONFIG.BEAM_MIN_DISTANCE * CONFIG.BEAM_MIN_DISTANCE;
+const ROPE_SQ = CONFIG.ROPE_LIMIT * CONFIG.ROPE_LIMIT;
 
 const ROLE_PROP = "tether:role";
 const BREAKER = "breaker";
 const BUILDER = "builder";
 const WAIT_TEXT = "§7[LEASH: WAITING] §fWaiting for your partner";
-const PARTICLES = [
-  "minecraft:villager_happy",
-  "minecraft:electric_spark_particle",
-  "minecraft:basic_flame_particle",
-  "minecraft:basic_flame_particle"
-];
+const LEASH_PARTICLE = "tether:leash_beam";
+const PARTICLES = [LEASH_PARTICLE, LEASH_PARTICLE, LEASH_PARTICLE, LEASH_PARTICLE];
 
 const FORBIDDEN_EXACT = new Set([
   "minecraft:flint_and_steel", "minecraft:fire_charge", "minecraft:armor_stand",
@@ -827,12 +833,40 @@ function renderBeam(dim, a, b, dist, particle) {
   } catch {}
 }
 
-function pull(p, dx, dz, strength) {
+function pull(p, dx, dz, up, strength) {
   const m = mode(p);
   if (m === GameMode.Creative || m === GameMode.Spectator) return;
   kb.x = dx * strength;
   kb.z = dz * strength;
-  try { p.applyKnockback(kb, 0); } catch {}
+  const v = up > 0 ? Math.min(CONFIG.MAX_VPULL, up * strength) : 0;
+  try { p.applyKnockback(kb, v); } catch {}
+}
+
+function tpTo(p, x, y, z) {
+  const dest = { x, y, z };
+  try {
+    p.teleport(dest, { dimension: p.dimension, checkForBlocks: true });
+  } catch {
+    try { p.teleport(dest, { dimension: p.dimension }); } catch {}
+  }
+}
+
+function clampRope(A, B, la, lb, dist) {
+  const cA = mode(A) === GameMode.Creative;
+  const cB = mode(B) === GameMode.Creative;
+  if (cA && cB) return;
+  const ancA = anchored(A);
+  const ancB = anchored(B);
+  let wa = 0.5;
+  if (cA || (ancA && !ancB)) wa = 0;
+  else if (cB || (ancB && !ancA)) wa = 1;
+  const wb = 1 - wa;
+  const f = (dist - CONFIG.ROPE_LIMIT) / dist;
+  const mx = (lb.x - la.x) * f;
+  const my = (lb.y - la.y) * f;
+  const mz = (lb.z - la.z) * f;
+  if (wa > 0) tpTo(A, la.x + mx * wa, la.y + my * wa, la.z + mz * wa);
+  if (wb > 0) tpTo(B, lb.x - mx * wb, lb.y - my * wb, lb.z - mz * wb);
 }
 
 function anchored(p) {
@@ -935,6 +969,7 @@ function tick() {
   }
   hud(A, tether.text);
   hud(B, tether.text);
+  if (d2 > ROPE_SQ) clampRope(A, B, la, lb, dist);
 
   if (level < 2) {
     tether.strainTicks = 0;
@@ -943,18 +978,17 @@ function tick() {
   }
 
   const hd = Math.sqrt(dx * dx + dz * dz);
-  if (hd > 0.01) {
-    const ux = dx / hd;
-    const uz = dz / hd;
-    const s = Math.min(CONFIG.MAX_PULL, 0.2 + (dist - CONFIG.MAX_TETHER_DISTANCE) * 0.04);
-    const anchorA = anchored(A);
-    const anchorB = anchored(B);
-    if (anchorA && !anchorB) pull(B, -ux, -uz, s);
-    else if (anchorB && !anchorA) pull(A, ux, uz, s);
-    else {
-      pull(A, ux, uz, s * 0.6);
-      pull(B, -ux, -uz, s * 0.6);
-    }
+  const ux = hd > 0.01 ? dx / hd : 0;
+  const uz = hd > 0.01 ? dz / hd : 0;
+  const vy = dy / dist;
+  const s = Math.min(CONFIG.MAX_PULL, 0.2 + (dist - CONFIG.MAX_TETHER_DISTANCE) * 0.1);
+  const anchorA = anchored(A);
+  const anchorB = anchored(B);
+  if (anchorA && !anchorB) pull(B, -ux, -uz, -vy, s);
+  else if (anchorB && !anchorA) pull(A, ux, uz, vy, s);
+  else {
+    pull(A, ux, uz, vy, s * 0.6);
+    pull(B, -ux, -uz, -vy, s * 0.6);
   }
 
   tether.soundCd += step;
@@ -1102,12 +1136,20 @@ registerController({
 });
 ```
 
-## FILE: MCPEDL/Minigame/Tethered-Breaker-And-Builder/CHANGELOG.md (59 lines, 3344 bytes)
+## FILE: MCPEDL/Minigame/Tethered-Breaker-And-Builder/CHANGELOG.md (67 lines, 4078 bytes)
 
 ```
 # Changelog — Tethered: Breaker and Builder
 
 ---
+
+## [v3] - 2026-11-20 - Leash Limit
+
+### Improved & Balanced
+- **Rope limit**: The tether is now 10 meters long. Partners can no longer get farther apart than that, including straight up or down, so building or flying away from your partner pulls you back.
+- **Tension**: You feel tension from 6 meters and are pulled toward your partner beyond 8 meters. The pull now works up and down as well. Strain damage starts beyond 9 meters.
+- **Leash look**: The beam is now a brown leash-style line that keeps the same color at every distance. The on-screen display still shows the four distance states.
+- **Own beam particle**: The beam no longer uses the built-in flame, spark and happy particles, so it needs no extra particle variables.
 
 ## [2.0.1] - 2026-11-20 - Test Dummy
 
@@ -1163,7 +1205,7 @@ registerController({
 - **Description**: Removed the claim that the Builder has exclusive crafting.
 ```
 
-## FILE: MCPEDL/Minigame/Tethered-Breaker-And-Builder/DESCRIPTION.md (73 lines, 3770 bytes)
+## FILE: MCPEDL/Minigame/Tethered-Breaker-And-Builder/DESCRIPTION.md (73 lines, 3875 bytes)
 
 ```
 # Tethered: Breaker and Builder — Two-Player Co-op Challenge
@@ -1177,7 +1219,7 @@ Work together as a mining-and-combat partner and a building specialist while an 
 
 ## Overview
 
-Two players share a 15-meter tether. The Breaker handles mining and combat but cannot place blocks or fluids.
+Two players share a 10-meter tether. The Breaker handles mining and combat but cannot place blocks or fluids.
 
 ## Key Features
 
@@ -1185,7 +1227,7 @@ Two players share a 15-meter tether. The Breaker handles mining and combat but c
 - **What Happens**: Each player chooses Breaker or Builder when the challenge starts.
 
 ### Elastic Tether
-- **What Happens**: Partners are pulled toward each other beyond 15 meters, with strain damage beyond 18 meters after a short grace period.
+- **What Happens**: Partners feel tension from 6 meters and are pulled toward each other beyond 8 meters, including up and down. They can never get more than 10 meters apart, and strain damage applies beyond 9 meters after a short grace period.
 
 ### Tension Feedback
 - **What Happens**: A particle beam, sound cues and an on-screen display show four distance states: slack, tense, overstretched and strained.
@@ -1245,7 +1287,7 @@ Minecraft Bedrock co-op challenge, Tethered Breaker and Builder, asymmetric two-
 {"type": "minigame", "name": "Tethered Breaker and Builder"}
 ```
 
-## FILE: MCPEDL/Minigame/Tethered-Breaker-And-Builder/README.md (19 lines, 870 bytes)
+## FILE: MCPEDL/Minigame/Tethered-Breaker-And-Builder/README.md (19 lines, 866 bytes)
 
 ```
 # Tethered Breaker and Builder
@@ -1255,7 +1297,7 @@ Download the current release of **Tethered Breaker and Builder** for Minecraft B
 ## Download
 
 - **Package format:** `.mcaddon`
-- **Direct download:** [Download Tethered Breaker and Builder (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Tethered-Breaker-And-Builder/TetheredBuilder%20V2.0.1.mcaddon)
+- **Direct download:** [Download Tethered Breaker and Builder (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Tethered-Breaker-And-Builder/TetheredBuilder%20V3.mcaddon)
 
 ## Installation
 
@@ -1268,19 +1310,19 @@ Download the current release of **Tethered Breaker and Builder** for Minecraft B
 For gameplay features, usage details, compatibility notes, and other project information, read the [full description](https://github.com/AllensCreations/MCPE-Curseforges/blob/main/MCPEDL/Minigame/Tethered-Breaker-And-Builder/DESCRIPTION.md).
 ```
 
-## FILE: MCPEDL/Minigame/Tethered-Breaker-And-Builder/resource_pack/manifest.json (37 lines, 630 bytes)
+## FILE: MCPEDL/Minigame/Tethered-Breaker-And-Builder/resource_pack/manifest.json (37 lines, 626 bytes)
 
 ```
 {
   "format_version": 2,
   "header": {
-    "name": "Tethered Breaker and Builder (v2.0.1)",
+    "name": "Tethered Breaker and Builder (v3)",
     "description": "Controller icon for the Tethered challenge. by ALNStudios",
     "uuid": "f3a1c7e2-6b84-4d19-9a52-0c7e5d8b1a36",
     "version": [
-      2,
+      3,
       0,
-      1
+      0
     ],
     "min_engine_version": [
       1,
@@ -1293,9 +1335,9 @@ For gameplay features, usage details, compatibility notes, and other project inf
       "type": "resources",
       "uuid": "8c2e94d7-1f60-4b3a-a7d5-39e0b6c4f812",
       "version": [
-        2,
+        3,
         0,
-        1
+        0
       ]
     }
   ],
@@ -1304,7 +1346,53 @@ For gameplay features, usage details, compatibility notes, and other project inf
       "ALNStudios"
     ],
     "product_type": "addon",
-    "version": "2.0.1"
+    "version": "3.0.0"
+  }
+}
+```
+
+## FILE: MCPEDL/Minigame/Tethered-Breaker-And-Builder/resource_pack/particles/tether_leash.json (42 lines, 1066 bytes)
+
+```
+{
+  "format_version": "1.10.0",
+  "particle_effect": {
+    "description": {
+      "identifier": "tether:leash_beam",
+      "basic_render_parameters": {
+        "material": "particles_alpha",
+        "texture": "textures/particle/particles"
+      }
+    },
+    "components": {
+      "minecraft:emitter_rate_instant": {
+        "num_particles": 1
+      },
+      "minecraft:emitter_lifetime_expression": {
+        "activation_expression": 1,
+        "expiration_expression": 0
+      },
+      "minecraft:emitter_shape_sphere": {
+        "radius": 0.01,
+        "direction": [0, 0, 0]
+      },
+      "minecraft:particle_lifetime_expression": {
+        "max_lifetime": 0.3
+      },
+      "minecraft:particle_appearance_billboard": {
+        "size": [0.09, 0.09],
+        "facing_camera_mode": "lookat_xyz",
+        "uv": {
+          "texture_width": 128,
+          "texture_height": 128,
+          "uv": [0, 16],
+          "uv_size": [8, 8]
+        }
+      },
+      "minecraft:particle_appearance_tinting": {
+        "color": [0.545, 0.353, 0.169, 1.0]
+      }
+    }
   }
 }
 ```
@@ -1323,7 +1411,7 @@ For gameplay features, usage details, compatibility notes, and other project inf
 }
 ```
 
-## FILE: Package/Tethered-Breaker-And-Builder.listing.md (66 lines, 11388 bytes)
+## FILE: Package/Tethered-Breaker-And-Builder.listing.md (66 lines, 11493 bytes)
 
 ````
 # Listing Kit: Tethered
@@ -1349,9 +1437,9 @@ Paste into the CurseForge description editor in source (HTML) mode.
 ```html
 <div><div style="border:2px solid #15803d;border-radius:18px;line-height:1.5"><br><h1 style="font-size:34px;text-align:center">Tethered</h1><p style="color:#8a94a3;font-size:14px;text-align:center">by ALNStudios</p><div style="display:flex;flex-wrap:wrap;gap:8px;margin-left:14px;margin-right:14px"><div style="background-color:#dcfce7;color:#14532d;border-radius:20px;font-size:14px;line-height:2"><strong>&nbsp;&nbsp;Bedrock</strong>: 1.26+&nbsp;&nbsp;</div><div style="background-color:#dcfce7;color:#14532d;border-radius:20px;font-size:14px;line-height:2"><strong>&nbsp;&nbsp;Experimental</strong>: No&nbsp;&nbsp;</div><div style="background-color:#dcfce7;color:#14532d;border-radius:20px;font-size:14px;line-height:2"><strong>&nbsp;&nbsp;Achievements</strong>: Likely achievement-friendly. Operator commands require cheats, which disables achievements&nbsp;&nbsp;</div></div><br></div>
 <h2 style="font-size:17px;text-align:left"><span style="background-color:#15803d;color:#ffffff;border-radius:20px">&nbsp;&nbsp;About&nbsp;&nbsp;</span></h2>
-<p>Two players share a 15-meter tether. The Breaker handles mining and combat but cannot place blocks or fluids.</p>
+<p>Two players share a 10-meter tether. The Breaker handles mining and combat but cannot place blocks or fluids.</p>
 <h2 style="font-size:17px;text-align:left"><span style="background-color:#15803d;color:#ffffff;border-radius:20px">&nbsp;&nbsp;What You Get&nbsp;&nbsp;</span></h2>
-<div style="display:flex;flex-wrap:wrap;gap:10px"><div style="flex:1;min-width:200px;border:1px solid #8a94a3;border-radius:16px"><div style="background-color:#15803d;color:#ffffff;border-radius:16px;font-size:16px;line-height:2.2"><strong>&nbsp;&nbsp;Asymmetric Roles</strong></div><div style="margin-left:12px;margin-right:12px"><p><span>Each player chooses Breaker or Builder when the challenge starts.</span></p></div></div><div style="flex:1;min-width:200px;border:1px solid #8a94a3;border-radius:16px"><div style="background-color:#15803d;color:#ffffff;border-radius:16px;font-size:16px;line-height:2.2"><strong>&nbsp;&nbsp;Elastic Tether</strong></div><div style="margin-left:12px;margin-right:12px"><p><span>Partners are pulled toward each other beyond 15 meters, with strain damage beyond 18 meters after a short grace period.</span></p></div></div><div style="flex:1;min-width:200px;border:1px solid #8a94a3;border-radius:16px"><div style="background-color:#15803d;color:#ffffff;border-radius:16px;font-size:16px;line-height:2.2"><strong>&nbsp;&nbsp;Tension Feedback</strong></div><div style="margin-left:12px;margin-right:12px"><p><span>A particle beam, sound cues and an on-screen display show four distance states: slack, tense, overstretched and strained.</span></p></div></div><div style="flex:1;min-width:200px;border:1px solid #8a94a3;border-radius:16px"><div style="background-color:#15803d;color:#ffffff;border-radius:16px;font-size:16px;line-height:2.2"><strong>&nbsp;&nbsp;Recall</strong></div><div style="margin-left:12px;margin-right:12px"><p><span>Partners who are very far apart or in different dimensions for too long are brought back together.</span></p></div></div><div style="flex:1;min-width:200px;border:1px solid #8a94a3;border-radius:16px"><div style="background-color:#15803d;color:#ffffff;border-radius:16px;font-size:16px;line-height:2.2"><strong>&nbsp;&nbsp;Respawn Support</strong></div><div style="margin-left:12px;margin-right:12px"><p><span>A partner who dies respawns beside the survivor with temporary protection.</span></p></div></div><div style="flex:1;min-width:200px;border:1px solid #8a94a3;border-radius:16px"><div style="background-color:#15803d;color:#ffffff;border-radius:16px;font-size:16px;line-height:2.2"><strong>&nbsp;&nbsp;Controller</strong></div><div style="margin-left:12px;margin-right:12px"><p><span>The host or an operator uses the ALNStudios Controller to start the challenge, read the rules and, for solo testing, spawn a Test Dummy partner to be leashed to.</span></p></div></div></div>
+<div style="display:flex;flex-wrap:wrap;gap:10px"><div style="flex:1;min-width:200px;border:1px solid #8a94a3;border-radius:16px"><div style="background-color:#15803d;color:#ffffff;border-radius:16px;font-size:16px;line-height:2.2"><strong>&nbsp;&nbsp;Asymmetric Roles</strong></div><div style="margin-left:12px;margin-right:12px"><p><span>Each player chooses Breaker or Builder when the challenge starts.</span></p></div></div><div style="flex:1;min-width:200px;border:1px solid #8a94a3;border-radius:16px"><div style="background-color:#15803d;color:#ffffff;border-radius:16px;font-size:16px;line-height:2.2"><strong>&nbsp;&nbsp;Elastic Tether</strong></div><div style="margin-left:12px;margin-right:12px"><p><span>Partners feel tension from 6 meters and are pulled toward each other beyond 8 meters, including up and down. They can never get more than 10 meters apart, and strain damage applies beyond 9 meters after a short grace period.</span></p></div></div><div style="flex:1;min-width:200px;border:1px solid #8a94a3;border-radius:16px"><div style="background-color:#15803d;color:#ffffff;border-radius:16px;font-size:16px;line-height:2.2"><strong>&nbsp;&nbsp;Tension Feedback</strong></div><div style="margin-left:12px;margin-right:12px"><p><span>A particle beam, sound cues and an on-screen display show four distance states: slack, tense, overstretched and strained.</span></p></div></div><div style="flex:1;min-width:200px;border:1px solid #8a94a3;border-radius:16px"><div style="background-color:#15803d;color:#ffffff;border-radius:16px;font-size:16px;line-height:2.2"><strong>&nbsp;&nbsp;Recall</strong></div><div style="margin-left:12px;margin-right:12px"><p><span>Partners who are very far apart or in different dimensions for too long are brought back together.</span></p></div></div><div style="flex:1;min-width:200px;border:1px solid #8a94a3;border-radius:16px"><div style="background-color:#15803d;color:#ffffff;border-radius:16px;font-size:16px;line-height:2.2"><strong>&nbsp;&nbsp;Respawn Support</strong></div><div style="margin-left:12px;margin-right:12px"><p><span>A partner who dies respawns beside the survivor with temporary protection.</span></p></div></div><div style="flex:1;min-width:200px;border:1px solid #8a94a3;border-radius:16px"><div style="background-color:#15803d;color:#ffffff;border-radius:16px;font-size:16px;line-height:2.2"><strong>&nbsp;&nbsp;Controller</strong></div><div style="margin-left:12px;margin-right:12px"><p><span>The host or an operator uses the ALNStudios Controller to start the challenge, read the rules and, for solo testing, spawn a Test Dummy partner to be leashed to.</span></p></div></div></div>
 <h2 style="font-size:17px;text-align:left"><span style="background-color:#15803d;color:#ffffff;border-radius:20px">&nbsp;&nbsp;Get Started&nbsp;&nbsp;</span></h2>
 <table style="width:100%;border:1px solid #8a94a3;border-radius:16px"><tbody><tr><td style="width:44px;text-align:center"><div style="background-color:#15803d;color:#ffffff;font-weight:bold;font-size:15px;text-align:center;border-radius:10px;width:30px;aspect-ratio:1/1;line-height:30px">1</div></td><td style="text-align:left;">Import and enable the pack in a Minecraft Bedrock world.</td></tr><tr><td style="width:44px;text-align:center"><div style="background-color:#15803d;color:#ffffff;font-weight:bold;font-size:15px;text-align:center;border-radius:10px;width:30px;aspect-ratio:1/1;line-height:30px">2</div></td><td style="text-align:left;">The host or an operator uses the Controller and chooses Start.</td></tr><tr><td style="width:44px;text-align:center"><div style="background-color:#15803d;color:#ffffff;font-weight:bold;font-size:15px;text-align:center;border-radius:10px;width:30px;aspect-ratio:1/1;line-height:30px">3</div></td><td style="text-align:left;">Each player picks a role from the menu.</td></tr><tr><td style="width:44px;text-align:center"><div style="background-color:#15803d;color:#ffffff;font-weight:bold;font-size:15px;text-align:center;border-radius:10px;width:30px;aspect-ratio:1/1;line-height:30px">4</div></td><td style="text-align:left;">The Breaker gathers and defends while the Builder constructs. Stay within the leash range.</td></tr></tbody></table>
 <h2 style="font-size:17px;text-align:left"><span style="background-color:#15803d;color:#ffffff;border-radius:20px">&nbsp;&nbsp;Install&nbsp;&nbsp;</span></h2>

@@ -1,12 +1,20 @@
 # Changelog — Tethered: Breaker and Builder
 
-## [2.0.1] - 2026-11-20 - Test Dummy
+## [v3] - 2026-11-20 - Leash Limit
 
-### Added
-- **Test Dummy**: The Controller has a new Spawn Test Dummy option for testing alone. It places a stand-in partner next to you that you are leashed to once you pick a role. Removing it, or ending the challenge, takes it away. A real partner who picks the other role replaces it.
+### Improved & Balanced
+- **Rope limit**: The tether is now 10 meters long. Partners can no longer get farther apart than that, including straight up or down, so building or flying away from your partner pulls you back.
+- **Tension**: You feel tension from 6 meters and are pulled toward your partner beyond 8 meters. The pull now works up and down as well. Strain damage starts beyond 9 meters.
+- **Leash look**: The beam is now a brown leash-style line that keeps the same color at every distance. The on-screen display still shows the four distance states.
+- **Own beam particle**: The beam no longer uses the built-in flame, spark and happy particles, so it needs no extra particle variables.
 
 <details>
-<summary><b>2.0.x</b> (1 release)</summary>
+<summary><b>2.0.x</b> (2 releases)</summary>
+
+### [2.0.1] - 2026-11-20 - Test Dummy
+
+#### Added
+- **Test Dummy**: The Controller has a new Spawn Test Dummy option for testing alone. It places a stand-in partner next to you that you are leashed to once you pick a role. Removing it, or ending the challenge, takes it away. A real partner who picks the other role replaces it.
 
 ### [v2] - 2026-11-14
 
