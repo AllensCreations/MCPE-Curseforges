@@ -1,12 +1,24 @@
 # Changelog — Monster Companions
 
-## [v5] - 2026-11-19 - Equal Taming Chances
+## [v6] - 2026-11-19 - Content Log Error Fixes
 
-### Improved & Balanced
+### Fixed
+- **Taming feedback**: Taming a mob now plays the level-up sound and shows the totem particles instead of failing to load.
+- **Companion protection**: Companions are protected from damage by you and other companions, and the Behavior Pack no longer reports loading errors for it.
+- **Loyal Vex**: Summoned loyal Vexes now show the totem particles without a loading error.
+
+<details>
+<summary><b>5.0.x</b> (1 release)</summary>
+
+### [v5] - 2026-11-19 - Equal Taming Chances
+
+#### Improved & Balanced
 - **Taming chances**: Every mob is now tamed with a 50% chance per Primal Beast Biscuit, including the Warden and the Wither.
 - **Tamed Warden**: Melee damage is halved from 30 to 15 once tamed.
 - **Taming protection**: A newly tamed Warden or Wither gets 10 seconds of Resistance.
 - **Wither mount**: The rider sits higher above the Wither's heads, and the Wither flies a little faster when ridden.
+
+</details>
 
 <details>
 <summary><b>4.0.x</b> (1 release)</summary>
