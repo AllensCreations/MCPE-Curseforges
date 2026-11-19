@@ -34,10 +34,10 @@ When aiming down and falling beyond the configured block height threshold, the a
 - **Description**: When falling to certain death with no clutch item, automatically searches inventory and equips a Totem of Undying into the offhand slot before impact.
 
 ### Authentic Boat Placement
-- **Description**: Places the boat on the ground below and seats the player in it at the same moment, from about 7 blocks up. The boat is removed if the player dies.
+- **Description**: Places the boat on the ground below and seats the player in it at the same moment, from about 7 blocks up. The boat is removed if the player dies within a few seconds of the clutch.
 
 ### Timed Placement
-- **Description**: Uses velocity-based vertical raycasting to trigger placements shortly before impact rather than snapping prematurely.
+- **Description**: Checks the blocks below you and triggers placements shortly before impact rather than snapping prematurely.
 
 ### Arm Placement Animation
 - **Description**: Triggers vanilla arm swing animations (the standard arm-swing animation) synced directly to placement audio.
@@ -59,7 +59,7 @@ When aiming down and falling beyond the configured block height threshold, the a
 
 ### Twisting Vines
 - **Placement Target**: Top Face of Solid Ground Block
-- **Effect**: Nether-native climbing vine; resets vertical momentum and absorbs fall damage
+- **Effect**: Nether-native climbing vine placed to soften the landing
 
 ### Hay Bale
 - **Placement Target**: Impact Air Block
@@ -75,7 +75,7 @@ When aiming down and falling beyond the configured block height threshold, the a
 
 ### Scaffolding
 - **Placement Target**: Impact Air Block
-- **Effect**: Traverses falling entity momentum and absorbs fall damage
+- **Effect**: Placed to soften the landing
 
 ### Boat / Raft
 - **Placement Target**: Impact Air Coordinate
@@ -83,7 +83,7 @@ When aiming down and falling beyond the configured block height threshold, the a
 
 ### Sweet Berries
 - **Placement Target**: Impact Air Block
-- **Effect**: Places sweet berry bush to decelerate and cancel fall damage
+- **Effect**: Places a sweet berry bush to soften the landing
 
 ### Totem of Undying
 - **Placement Target**: Offhand Slot (Emergency Swap)
@@ -97,11 +97,9 @@ The player must be falling from the selected height threshold while looking down
 
 ---
 
----
-
 ## Operating Modes & Subpack Configuration
 
-Universal Clutch supports three distinct operating modes selectable via subpack settings slider in World Settings or customizable per-player in-game:
+Universal Clutch supports three distinct operating modes selectable via subpack settings slider in World Settings or customizable per-player in-game.
 
 Each player can turn Universal Clutch off or on with the commands `/scriptevent clutch:off` and `/scriptevent clutch:on` (cheats required). The setting is saved per player.
 
@@ -122,7 +120,7 @@ Configurable via the Behavior Pack subpack settings slider in World Settings:
 2. **Simple Mode (Held Item Only):** Traditional manual clutching. Only executes if a supported clutch item is already held in mainhand or offhand.
 3. **Extreme Mode (Auto-Switch, No Look-Down Needed):** Hands-free safety system with auto item switching that works without looking down. If inventory has no clutch item, the add-on cannot assist.
 
-#---
+---
 
 ## Highlights & Performance
 
@@ -134,12 +132,10 @@ Configurable via the Behavior Pack subpack settings slider in World Settings:
 
 ## Compatibility
 
-- Minecraft Bedrock Edition 1.21.0+
+- Minecraft Bedrock Edition 1.21.20+
 - Compatible with Bedrock 1.21.50+ and 1.26.0+ releases
 - Check the current pack listing for setup requirements.
 - Multiplayer behavior should be checked in the target game version.
-
----
 - Experimental features: Not verified.
 - Achievements: Likely achievement-friendly.
 - Verification: Source created, not tested in game.

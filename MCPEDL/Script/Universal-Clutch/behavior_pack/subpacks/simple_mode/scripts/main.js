@@ -58,6 +58,7 @@ const NO_CLUTCH_SURFACES = new Set([
 ]);
 
 const ENABLED_PROPERTY = "clutch_enabled";
+const BOAT_CLEAR_TICKS = 100;
 
 const activeWaterClutches = new Map();
 const activePowderSnowClutches = new Map();
@@ -125,7 +126,7 @@ function trackPlayerFall(player, vel) {
     return 0;
   }
   if (!tracker) {
-    tracker = { startY: loc.y, fallDist: 0 };
+    tracker = { startY: loc.y, fallDist: 0, mode: getPlayerMode(player), threshold: getPlayerThreshold(player) };
     fallTrackers.set(player.id, tracker);
   } else {
     if (loc.y > tracker.startY) tracker.startY = loc.y;
@@ -318,7 +319,11 @@ function findGroundBelow(dimension, location) {
   const px = Math.floor(location.x);
   const pz = Math.floor(location.z);
   const startY = Math.floor(location.y);
-  const minY = Math.max(dimension.minHeight ?? -64, startY - 16);
+  let worldMinY = -64;
+  try {
+    worldMinY = dimension.heightRange.min;
+  } catch {}
+  const minY = Math.max(worldMinY, startY - 9);
 
   for (let y = startY; y >= minY; y--) {
     let block;
@@ -418,7 +423,7 @@ function consumeClutchItem(player, clutchData, replacementTypeId) {
   } catch {}
 }
 
-function placeBoatClutch(dimension, airBlock, entityType, player, distToSurface, fallSpeed) {
+function placeBoatClutch(dimension, airBlock, entityType, player) {
   try {
     const boat = dimension.spawnEntity(entityType, {
       x: airBlock.location.x + 0.5,
@@ -427,7 +432,7 @@ function placeBoatClutch(dimension, airBlock, entityType, player, distToSurface,
     });
     if (!boat) return false;
 
-    clutchBoats.set(player.id, boat);
+    clutchBoats.set(player.id, { boat, tick: system.currentTick });
 
     const seatPlayer = () => {
       try {
@@ -564,7 +569,7 @@ function executeClutch(player, velocity, clutchData, ground, distToSurface) {
       break;
     }
     case "boat": {
-      if (placeBoatClutch(dimension, airBlockAbove, definition.entityType, player, distToSurface, velocity.y)) {
+      if (placeBoatClutch(dimension, airBlockAbove, definition.entityType, player)) {
         consumeClutchItem(player, clutchData);
         placed = true;
       }
@@ -633,7 +638,7 @@ system.runInterval(() => {
       const currentFallDist = trackPlayerFall(player, vel);
       if (vel.y > -0.5) continue;
 
-      const threshold = getPlayerThreshold(player);
+      const threshold = fallTrackers.get(player.id)?.threshold ?? getPlayerThreshold(player);
       const ground = findGroundBelow(player.dimension, player.location);
       if (!ground) continue;
 
@@ -644,7 +649,7 @@ system.runInterval(() => {
       const totalDrop = tracker ? tracker.startY - (ground.surfaceY + 1) : currentFallDist;
       if (currentFallDist < threshold && totalDrop < threshold) continue;
 
-      const mode = getPlayerMode(player);
+      const mode = tracker?.mode ?? getPlayerMode(player);
       const fallSpeed = Math.abs(vel.y);
 
       if (mode === "extreme") {
@@ -662,12 +667,10 @@ system.runInterval(() => {
       const rot = player.getRotation();
       if (mode !== "extreme" && rot.x < 55) continue;
 
-      if (distToSurface > 7) continue;
+      const triggerDist = Math.min(7, Math.max(4, fallSpeed * 2.6 + 1.5));
+      if (distToSurface > triggerDist) continue;
 
       const clutchData = acquireClutchItem(player, mode);
-      const isBoat = clutchData?.definition?.category === "boat";
-      const maxTrigger = isBoat ? 7 : Math.min(7, Math.max(4, fallSpeed * 2.6 + 1.5));
-      if (distToSurface > maxTrigger) continue;
 
       if (clutchData) {
         executeClutch(player, vel, clutchData, ground, distToSurface);
@@ -679,10 +682,12 @@ system.runInterval(() => {
 }, 1);
 
 function clearClutchBoat(playerId) {
-  const boat = clutchBoats.get(playerId);
+  const entry = clutchBoats.get(playerId);
   clutchBoats.delete(playerId);
   try {
-    if (boat && boat.isValid()) boat.remove();
+    if (entry && entry.boat.isValid() && system.currentTick - entry.tick <= BOAT_CLEAR_TICKS) {
+      entry.boat.remove();
+    }
   } catch {}
 }
 

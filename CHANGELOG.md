@@ -1,3 +1,13 @@
+## [v116] - 2026-11-19 - Boat and Switching Fixes
+
+### Improved & Balanced
+
+- **Universal Clutch v3**: Held items are no longer switched before it is time to place them, and falling checks less ground.
+
+### Fixed
+
+- **Universal Clutch v3**: Fixed an old boat being removed when you die long after a boat clutch.
+
 ## [v115] - 2026-11-18 - ALN Wireless Headphones Music Restored
 
 ### Fixed

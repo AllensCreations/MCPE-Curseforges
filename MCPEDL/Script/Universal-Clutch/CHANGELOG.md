@@ -2,6 +2,17 @@
 
 ---
 
+## [v3] - 2026-11-19 - Boat and Switching Fixes
+
+### Improved & Balanced
+
+- **Item Switching**: Your held item is no longer switched until it is time to place it.
+- **Lighter Performance**: Less ground checking while falling.
+
+### Fixed
+
+- **Old Boats**: Fixed an old boat being removed when you die long after a boat clutch.
+
 ## [v2] - 2026-11-17
 
 **What's new in v1.5.6:** Packed with 2 updates, from v1.5.5 through v1.5.6. Includes: Lighter Performance; Instant Boat Clutch.
