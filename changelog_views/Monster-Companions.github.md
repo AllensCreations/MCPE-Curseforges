@@ -1,11 +1,21 @@
 # Changelog — Monster Companions
 
-## [v7] - 2026-11-19 - Recipe and Hoglin Load Fixes
+## [v8] - 2026-11-19 - Biscuit Recipe Fix
 
 ### Fixed
+- **Biscuit recipes**: The Primal Beast Biscuit and Golden Beast Biscuit recipes no longer report loading errors and are available from the start.
+
+<details>
+<summary><b>7.0.x</b> (1 release)</summary>
+
+### [v7] - 2026-11-19 - Recipe and Hoglin Load Fixes
+
+#### Fixed
 - **Biscuit recipes**: The Primal Beast Biscuit and Golden Beast Biscuit recipes now load without errors and unlock when you pick up one of their ingredients.
 - **Tamed Hoglin**: The Hoglin no longer fails to load, and a tamed Hoglin that leaves the Nether still turns into a tamed Zoglin.
 - **Zombie appearance**: The Zombie no longer reports a loading error in the Resource Pack.
+
+</details>
 
 <details>
 <summary><b>6.0.x</b> (1 release)</summary>

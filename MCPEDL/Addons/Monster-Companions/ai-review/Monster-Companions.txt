@@ -4,7 +4,7 @@
 
 - **Export request:** `MCPEDL/Addons/Monster-Companions`
 - **Destination:** `MCPEDL/Addons/Monster-Companions`
-- **CURRENT VERSION: v7 / NEXT UPDATE: v8**  (`MCPEDL/Addons/Monster-Companions/CHANGELOG.md`)
+- **CURRENT VERSION: v8 / NEXT UPDATE: v9**  (`MCPEDL/Addons/Monster-Companions/CHANGELOG.md`)
 - **Text files:** 65
 - **Skipped binary:** 16
 - **Paths not found:** 0
@@ -95,10 +95,6 @@
 - `MCPEDL/Addons/Monster-Companions/resource_pack/textures/entity/monster_companions/skeleton_tamed.png`
 - `MCPEDL/Addons/Monster-Companions/resource_pack/textures/entity/monster_companions/zombie_tamed.png`
 - `MCPEDL/Addons/Monster-Companions/resource_pack/textures/items/beast_biscuit.png`
-
----
-
-
 
 ---
 
@@ -277,10 +273,11 @@ git config --global credential.helper store
 
 ## File Contents
 
-## FILE: changelog_views/Monster-Companions.curseforge.html (17 lines, 6829 bytes)
+## FILE: changelog_views/Monster-Companions.curseforge.html (18 lines, 7117 bytes)
 
 ```
-<h2>v7 - 2026-11-19 - Recipe and Hoglin Load Fixes</h2><h3>Fixed</h3><ul><li><strong>Biscuit recipes</strong>: The Primal Beast Biscuit and Golden Beast Biscuit recipes now load without errors and unlock when you pick up one of their ingredients.</li><li><strong>Tamed Hoglin</strong>: The Hoglin no longer fails to load, and a tamed Hoglin that leaves the Nether still turns into a tamed Zoglin.</li><li><strong>Zombie appearance</strong>: The Zombie no longer reports a loading error in the Resource Pack.</li></ul>
+<h2>v8 - 2026-11-19 - Biscuit Recipe Fix</h2><h3>Fixed</h3><ul><li><strong>Biscuit recipes</strong>: The Primal Beast Biscuit and Golden Beast Biscuit recipes no longer report loading errors and are available from the start.</li></ul>
+<h2>7.0.x (1 release)</h2><div class="spoiler"><h3>v7 - 2026-11-19 - Recipe and Hoglin Load Fixes</h3><h4>Fixed</h4><ul><li><strong>Biscuit recipes</strong>: The Primal Beast Biscuit and Golden Beast Biscuit recipes now load without errors and unlock when you pick up one of their ingredients.</li><li><strong>Tamed Hoglin</strong>: The Hoglin no longer fails to load, and a tamed Hoglin that leaves the Nether still turns into a tamed Zoglin.</li><li><strong>Zombie appearance</strong>: The Zombie no longer reports a loading error in the Resource Pack.</li></ul></div>
 <h2>6.0.x (1 release)</h2><div class="spoiler"><h3>v6 - 2026-11-19 - Content Log Error Fixes</h3><h4>Fixed</h4><ul><li><strong>Taming feedback</strong>: Taming a mob now plays the level-up sound and shows the totem particles instead of failing to load.</li><li><strong>Companion protection</strong>: Companions are protected from damage by you and other companions, and the Behavior Pack no longer reports loading errors for it.</li><li><strong>Loyal Vex</strong>: Summoned loyal Vexes now show the totem particles without a loading error.</li></ul></div>
 <h2>5.0.x (1 release)</h2><div class="spoiler"><h3>v5 - 2026-11-19 - Equal Taming Chances</h3><h4>Improved &amp; Balanced</h4><ul><li><strong>Taming chances</strong>: Every mob is now tamed with a 50% chance per Primal Beast Biscuit, including the Warden and the Wither.</li><li><strong>Tamed Warden</strong>: Melee damage is halved from 30 to 15 once tamed.</li><li><strong>Taming protection</strong>: A newly tamed Warden or Wither gets 10 seconds of Resistance.</li><li><strong>Wither mount</strong>: The rider sits higher above the Wither&#x27;s heads, and the Wither flies a little faster when ridden.</li></ul></div>
 <h2>4.0.x (1 release)</h2><div class="spoiler"><h3>v4 - 2026-11-19 - Warden and Wither Companions</h3><h4>Added</h4><ul><li><strong>Boss Subpack</strong>: Choose Default to keep the Warden and the Wither as vanilla bosses, or With Bosses to tame them, in the Behavior Pack settings.</li><li><strong>Tameable Warden</strong>: On the With Bosses subpack, a Primal Beast Biscuit has a 10% chance to tame a Warden into a companion.</li><li><strong>Tameable Wither</strong>: On the With Bosses subpack, a Primal Beast Biscuit has a 10% chance to tame a Wither into a companion.</li><li><strong>Rideable Warden</strong>: A tamed Warden can be ridden and steered on the ground.</li><li><strong>Rideable Wither</strong>: A tamed Wither can be ridden and steered through the air.</li></ul></div>
@@ -298,17 +295,27 @@ git config --global credential.helper store
 <h2>1.0.x (1 release)</h2><div class="spoiler"><h3>1.0.0 - 2026-11-04</h3><h4>v1.2.x (v1.2.14)</h4><ul><li><strong>Witch healing</strong>: The tamed Witch now throws a visible Regeneration splash potion at you every 25 to 40 seconds. Companions standing next to you are healed too.</li><li><strong>Witch splash safety</strong>: A tamed Witch no longer throws harmful potions at enemies standing within 4 blocks of you.</li><li><strong>Peaceful difficulty</strong>: Minecraft removes all hostile mobs on Peaceful, including tamed companions, so play on Easy or higher to keep them.</li></ul><h4>Added</h4><ul></ul><h4>Fixed</h4><ul></ul><h4>Known Limitations</h4><ul></ul><h4>Added</h4><ul></ul><h4>Improved &amp; Balanced</h4><ul></ul></div>
 ```
 
-## FILE: changelog_views/Monster-Companions.github.md (192 lines, 6062 bytes)
+## FILE: changelog_views/Monster-Companions.github.md (202 lines, 6332 bytes)
 
 ```
 # Changelog — Monster Companions
 
-## [v7] - 2026-11-19 - Recipe and Hoglin Load Fixes
+## [v8] - 2026-11-19 - Biscuit Recipe Fix
 
 ### Fixed
+- **Biscuit recipes**: The Primal Beast Biscuit and Golden Beast Biscuit recipes no longer report loading errors and are available from the start.
+
+<details>
+<summary><b>7.0.x</b> (1 release)</summary>
+
+### [v7] - 2026-11-19 - Recipe and Hoglin Load Fixes
+
+#### Fixed
 - **Biscuit recipes**: The Primal Beast Biscuit and Golden Beast Biscuit recipes now load without errors and unlock when you pick up one of their ingredients.
 - **Tamed Hoglin**: The Hoglin no longer fails to load, and a tamed Hoglin that leaves the Nether still turns into a tamed Zoglin.
 - **Zombie appearance**: The Zombie no longer reports a loading error in the Resource Pack.
+
+</details>
 
 <details>
 <summary><b>6.0.x</b> (1 release)</summary>
@@ -29167,11 +29174,11 @@ This marker does not encrypt the pack or prevent extraction or editing.
 {
   "format_version": 2,
   "header": {
-    "name": "Monster Companions (v7)",
+    "name": "Monster Companions (v8)",
     "description": "Tame hostile monsters into loyal bodyguards and rideable mounts with Beast Biscuits!. by ALNStudios",
     "uuid": "51f090e5-374b-42c6-a122-bcef2a0f0356",
     "version": [
-      7,
+      8,
       0,
       0
     ],
@@ -29187,7 +29194,7 @@ This marker does not encrypt the pack or prevent extraction or editing.
       "type": "data",
       "uuid": "8c424ffd-8631-4a9b-a7f0-505af3fa6823",
       "version": [
-        7,
+        8,
         0,
         0
       ]
@@ -29197,7 +29204,7 @@ This marker does not encrypt the pack or prevent extraction or editing.
     {
       "uuid": "7216d2ae-eb79-49ec-ba4f-25fab6d1f65d",
       "version": [
-        7,
+        8,
         0,
         0
       ]
@@ -29208,7 +29215,7 @@ This marker does not encrypt the pack or prevent extraction or editing.
       "ALNStudios"
     ],
     "product_type": "addon",
-    "version": "7.0.0"
+    "version": "8.0.0"
   },
   "subpacks": [
     {
@@ -30270,12 +30277,18 @@ Default subpack: the Warden and the Wither stay vanilla.
 }
 ```
 
-## FILE: MCPEDL/Addons/Monster-Companions/CHANGELOG.md (201 lines, 7498 bytes)
+## FILE: MCPEDL/Addons/Monster-Companions/CHANGELOG.md (207 lines, 7700 bytes)
 
 ```
 # Changelog — Monster Companions
 
 ---
+
+## [v8] - 2026-11-19 - Biscuit Recipe Fix
+
+### Fixed
+
+- **Biscuit recipes**: The Primal Beast Biscuit and Golden Beast Biscuit recipes no longer report loading errors and are available from the start.
 
 ## [v7] - 2026-11-19 - Recipe and Hoglin Load Fixes
 
@@ -30475,7 +30488,7 @@ Default subpack: the Warden and the Wither stay vanilla.
 - **Biscuit Recipe:** One Rotten Flesh, one Bone, one Sweet Berries, and one Honey Bottle craft four Primal Beast Biscuits.
 ```
 
-## FILE: MCPEDL/Addons/Monster-Companions/DESCRIPTION.md (201 lines, 9874 bytes)
+## FILE: MCPEDL/Addons/Monster-Companions/DESCRIPTION.md (201 lines, 9834 bytes)
 
 ```
 # Monster Companions
@@ -30641,7 +30654,7 @@ Equipping a Saddle onto supported large companions enables manual mounting and d
 - Type: Shapeless Crafting Table Recipe
 - Ingredients: 1 Rotten Flesh, 1 Bone, 1 Sweet Berries, 1 Honey Bottle
 - Yield: 4x Primal Beast Biscuits
-- Recipe book: The recipe unlocks when you pick up one of its ingredients.
+- Recipe book: The recipe is available from the start.
 - Offline crafting: The recipe is included with the add-on, so internet access is not needed during local gameplay after import.
 
 ### Golden Beast Biscuit Recipe
@@ -30649,7 +30662,7 @@ Equipping a Saddle onto supported large companions enables manual mounting and d
 - Type: Shapeless Crafting Table Recipe
 - Ingredients: 1 Primal Beast Biscuit, 1 Gold Ingot
 - Yield: 1x Golden Beast Biscuit
-- Recipe book: The recipe unlocks when you pick up one of its ingredients.
+- Recipe book: The recipe is available from the start.
 
 ---
 
@@ -30756,7 +30769,7 @@ Download the current release of **Monster Companions** for Minecraft Bedrock Edi
 ## Download
 
 - **Package format:** `.mcaddon`
-- **Direct download:** [Download Monster Companions (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Monster-Companions/MonsterCompanions%20V7.mcaddon)
+- **Direct download:** [Download Monster Companions (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Monster-Companions/MonsterCompanions%20V8.mcaddon)
 
 ## Installation
 
@@ -31074,11 +31087,11 @@ This marker does not encrypt the pack or prevent extraction or editing.
 {
   "format_version": 2,
   "header": {
-    "name": "Monster Companions (v7)",
+    "name": "Monster Companions (v8)",
     "description": "Custom textures, icons, and language definitions for Monster Companions. by ALNStudios",
     "uuid": "7216d2ae-eb79-49ec-ba4f-25fab6d1f65d",
     "version": [
-      7,
+      8,
       0,
       0
     ],
@@ -31094,7 +31107,7 @@ This marker does not encrypt the pack or prevent extraction or editing.
       "type": "resources",
       "uuid": "a7052966-2e1a-4eb4-a6fb-1a0d2c4175f5",
       "version": [
-        7,
+        8,
         0,
         0
       ]
@@ -31105,7 +31118,7 @@ This marker does not encrypt the pack or prevent extraction or editing.
       "ALNStudios"
     ],
     "product_type": "addon",
-    "version": "7.0.0"
+    "version": "8.0.0"
   }
 }
 ```
@@ -31189,7 +31202,7 @@ Source files for established Minecraft Bedrock add-ons by ALNStudios.
 | Ghast Mob Head Transformers | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/Ghast-Mob-Head-Transformers/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Ghast-Mob-Head-Transformers/GhastMobHeads%20V2.mcaddon) |
 | Immortal Pets | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/Immortal-Pets/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Immortal-Pets/ImmortalPets%20V2.mcaddon) |
 | Mining Helmet | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/Mining-Helmet/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Mining-Helmet/MiningHelmet%20V2.mcaddon) |
-| Monster Companions | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/Monster-Companions/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Monster-Companions/MonsterCompanions%20V7.mcaddon) |
+| Monster Companions | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/Monster-Companions/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Monster-Companions/MonsterCompanions%20V8.mcaddon) |
 | Passive Auto-Switch Tools | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/Passive-Auto-Switch-Tools/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Passive-Auto-Switch-Tools/AutoSwitchTools%20V2.mcaddon) |
 | Tameable Companion Fox | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/Tameable-Companion-Fox/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Tameable-Companion-Fox/CompanionFox%20V2.mcaddon) |
 | Vanilla Quality of Life | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/Vanilla-Quality-of-Life/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Vanilla-Quality-of-Life/VanillaQoL%20V3.mcaddon) |
