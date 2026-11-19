@@ -1,8 +1,8 @@
 {
-  "changelog_version": "4.0.0",
-  "manifest_version": "4.0.0",
+  "changelog_version": "5.0.0",
+  "manifest_version": "5.0.0",
   "packages": {
-    "ALNPointer V4.mcaddon": "8fb8191469fae403c55fe3e4f1cbd09590b344a13488d5128b1fc59259763a0e"
+    "ALNPointer V5.mcaddon": "9bece7f923270d7c8b6147a4ef583f00bf370e1c9023a02f946d32726a5a0adc"
   },
-  "source_sha256": "80e5fed41229dea58fb7964af8bcf36b2801ed02d42c749cdf849bbfaf3dc63b"
+  "source_sha256": "e9cc6fd330b4dd649a9c488a02532786f001af7d4d815fae7387cb1d2fe33d22"
 }

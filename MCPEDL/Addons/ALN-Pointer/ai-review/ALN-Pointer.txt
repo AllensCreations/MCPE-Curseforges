@@ -4,8 +4,8 @@
 
 - **Export request:** `MCPEDL/Addons/ALN-Pointer`
 - **Destination:** `MCPEDL/Addons/ALN-Pointer`
-- **CURRENT VERSION: v4 / NEXT UPDATE: v5**  (`MCPEDL/Addons/ALN-Pointer/CHANGELOG.md`)
-- **Text files:** 27
+- **CURRENT VERSION: v5 / NEXT UPDATE: v6**  (`MCPEDL/Addons/ALN-Pointer/CHANGELOG.md`)
+- **Text files:** 33
 - **Skipped binary:** 5
 - **Paths not found:** 0
 
@@ -22,11 +22,17 @@
 - `MCPEDL/Addons/ALN-Pointer/behavior_pack/recipes/aln_pointer.json`
 - `MCPEDL/Addons/ALN-Pointer/behavior_pack/scripts/lib/bowaim.js`
 - `MCPEDL/Addons/ALN-Pointer/behavior_pack/scripts/lib/combat.js`
+- `MCPEDL/Addons/ALN-Pointer/behavior_pack/scripts/lib/extras.js`
+- `MCPEDL/Addons/ALN-Pointer/behavior_pack/scripts/lib/friends.js`
 - `MCPEDL/Addons/ALN-Pointer/behavior_pack/scripts/lib/info.js`
 - `MCPEDL/Addons/ALN-Pointer/behavior_pack/scripts/lib/loops.js`
 - `MCPEDL/Addons/ALN-Pointer/behavior_pack/scripts/lib/menu.js`
+- `MCPEDL/Addons/ALN-Pointer/behavior_pack/scripts/lib/saved.js`
 - `MCPEDL/Addons/ALN-Pointer/behavior_pack/scripts/lib/store.js`
+- `MCPEDL/Addons/ALN-Pointer/behavior_pack/scripts/lib/tuning.js`
 - `MCPEDL/Addons/ALN-Pointer/behavior_pack/scripts/main.js`
+- `MCPEDL/Addons/ALN-Pointer/behavior_pack/subpacks/gift/items/aln_gift_on.json`
+- `MCPEDL/Addons/ALN-Pointer/behavior_pack/subpacks/none/items/aln_gift_off.json`
 - `MCPEDL/Addons/ALN-Pointer/CHANGELOG.md`
 - `MCPEDL/Addons/ALN-Pointer/DESCRIPTION.md`
 - `MCPEDL/Addons/ALN-Pointer/LOCK`
@@ -224,23 +230,43 @@ git config --global credential.helper store
 
 ## File Contents
 
-## FILE: changelog_views/ALN-Pointer.curseforge.html (4 lines, 2428 bytes)
+## FILE: changelog_views/ALN-Pointer.curseforge.html (5 lines, 3937 bytes)
 
 ```
-<h2>v4 - 2026-11-19 - New Name</h2><h3>Changed</h3><ul><li><strong>New Name</strong>: The add-on is now called Combat Helper. The item, its menus, the pack titles and the description all use the new name. The item still uses the cursor look, and your existing item, saved toggles and worlds keep working.</li></ul>
+<h2>v5 - 2026-11-19 - Friends and Tuning</h2><h3>Added</h3><ul><li><strong>Friends</strong>: Pick online players as friends in the new Combat Menu. Aura Mode and Bow Aimbot skip your friends, and the list is kept when they go offline.</li><li><strong>Tuning</strong>: Six sliders change Aura range, Aura damage, Aura targets, Bow Aimbot range, Bow Aimbot angle and Always Critical damage. The starting values match the old fixed numbers, and a reset switch restores them.</li><li><strong>Auto Golden Apple</strong>: Eats a golden apple from your inventory for you when your health is 4 hearts or less, with a 20 second wait between apples.</li><li><strong>Damage Display</strong>: Shows the damage of each hit you land on the action bar.</li><li><strong>Quick Toggle</strong>: Sneak while using the Combat Helper to switch all your toggles off, and do it again to bring them back.</li><li><strong>Starter Item Setting</strong>: A pack choice between No Starter Item (default) and Give Starter Item, which gives each player a Combat Helper the first time they join.</li></ul><h3>Changed</h3><ul><li><strong>Combat Menu</strong>: The first main menu button is now Combat Menu, which opens Combat Toggles, Friends and Tuning. The combat toggles screen now has 9 switches.</li><li><strong>Starter Item</strong>: The Combat Helper is no longer given automatically on first join. Turn on Give Starter Item in the pack settings to get the old behavior.</li></ul>
+<h2>4.0.x (1 release)</h2><div class="spoiler"><h3>v4 - 2026-11-19 - New Name</h3><h4>Changed</h4><ul><li><strong>New Name</strong>: The add-on is now called Combat Helper. The item, its menus, the pack titles and the description all use the new name. The item still uses the cursor look, and your existing item, saved toggles and worlds keep working.</li></ul></div>
 <h2>3.0.x (1 release)</h2><div class="spoiler"><h3>v3 - 2026-11-19 - Wool Recipe</h3><h4>Added</h4><ul><li><strong>Wool Recipe</strong>: The ALN Pointer can now be crafted from 7 wool of any color in a cursor shape: the top row, the left and middle squares of the middle row, and the left and right squares of the bottom row. The recipe is unlocked from the start.</li></ul><h4>Fixed</h4><ul><li><strong>Menu Version</strong>: The menu title now shows the same version as the pack.</li><li><strong>Totem Exclusions</strong>: Auto Totem and Infinite Totem now skip the kill command and script-set deaths, which a totem cannot stop in vanilla Minecraft, instead of reacting to them.</li></ul></div>
 <h2>2.0.x (1 release)</h2><div class="spoiler"><h3>v2 - 2026-11-16 - First Release</h3><h4>Added</h4><ul><li><strong>ALN Pointer</strong>: A cursor-shaped item that opens the ALNStudios menu. You get one the first time you join a world, and it is in the Equipment tab of the Creative inventory.</li><li><strong>Combat Toggles Menu</strong>: A screen with 7 switches and a short explanation under each. Apply saves them for you and closes the menu, and each player keeps their own settings.</li><li><strong>Auto Totem</strong>: Moves a Totem of Undying from your inventory into your off hand before a hit that would kill you.</li><li><strong>Infinite Totem</strong>: Puts a new Totem of Undying in your off hand before a deadly hit when you have none left.</li><li><strong>Aura Mode</strong>: Hits up to 3 nearby hostile mobs and players within 4 blocks for 5 damage every half second.</li><li><strong>Always Critical</strong>: Every melee hit deals 1.5 times damage and shows the critical hit sparks.</li><li><strong>Bow Aimbot</strong>: Arrows from a bow or crossbow steer toward the target nearest your crosshair within 48 blocks.</li><li><strong>Always Water Clutch</strong>: Places water where you land after a fall of 3 blocks or more, then removes it after about 2 seconds.</li><li><strong>Shield Always Active</strong>: Blocks melee hits and arrows from the front whenever you carry a shield.</li></ul></div>
 ```
 
-## FILE: changelog_views/ALN-Pointer.github.md (39 lines, 2185 bytes)
+## FILE: changelog_views/ALN-Pointer.github.md (58 lines, 3531 bytes)
 
 ```
 # Changelog — ALN Pointer
 
-## [v4] - 2026-11-19 - New Name
+## [v5] - 2026-11-19 - Friends and Tuning
+
+### Added
+- **Friends**: Pick online players as friends in the new Combat Menu. Aura Mode and Bow Aimbot skip your friends, and the list is kept when they go offline.
+- **Tuning**: Six sliders change Aura range, Aura damage, Aura targets, Bow Aimbot range, Bow Aimbot angle and Always Critical damage. The starting values match the old fixed numbers, and a reset switch restores them.
+- **Auto Golden Apple**: Eats a golden apple from your inventory for you when your health is 4 hearts or less, with a 20 second wait between apples.
+- **Damage Display**: Shows the damage of each hit you land on the action bar.
+- **Quick Toggle**: Sneak while using the Combat Helper to switch all your toggles off, and do it again to bring them back.
+- **Starter Item Setting**: A pack choice between No Starter Item (default) and Give Starter Item, which gives each player a Combat Helper the first time they join.
 
 ### Changed
+- **Combat Menu**: The first main menu button is now Combat Menu, which opens Combat Toggles, Friends and Tuning. The combat toggles screen now has 9 switches.
+- **Starter Item**: The Combat Helper is no longer given automatically on first join. Turn on Give Starter Item in the pack settings to get the old behavior.
+
+<details>
+<summary><b>4.0.x</b> (1 release)</summary>
+
+### [v4] - 2026-11-19 - New Name
+
+#### Changed
 - **New Name**: The add-on is now called Combat Helper. The item, its menus, the pack titles and the description all use the new name. The item still uses the cursor look, and your existing item, saved toggles and worlds keep working.
+
+</details>
 
 <details>
 <summary><b>3.0.x</b> (1 release)</summary>
@@ -329,17 +355,17 @@ Pack marker included in the exported Minecraft Bedrock pack.
 This marker does not encrypt the pack or prevent extraction or editing.
 ```
 
-## FILE: MCPEDL/Addons/ALN-Pointer/behavior_pack/manifest.json (66 lines, 1147 bytes)
+## FILE: MCPEDL/Addons/ALN-Pointer/behavior_pack/manifest.json (78 lines, 1365 bytes)
 
 ```
 {
   "format_version": 2,
   "header": {
-    "name": "Combat Helper (v4)",
+    "name": "Combat Helper (v5)",
     "description": "A cursor-shaped item that opens a menu of PVP toggles. by ALNStudios",
     "uuid": "eec0404f-e785-480e-839e-0da27c699c31",
     "version": [
-      4,
+      5,
       0,
       0
     ],
@@ -354,7 +380,7 @@ This marker does not encrypt the pack or prevent extraction or editing.
       "type": "data",
       "uuid": "13407ddf-e15f-4d9c-90ec-eaa908a586a1",
       "version": [
-        4,
+        5,
         0,
         0
       ]
@@ -365,17 +391,29 @@ This marker does not encrypt the pack or prevent extraction or editing.
       "uuid": "63e54d22-75a9-41f8-9e7e-67b0553aace3",
       "entry": "scripts/main.js",
       "version": [
-        4,
+        5,
         0,
         0
       ]
+    }
+  ],
+  "subpacks": [
+    {
+      "folder_name": "none",
+      "name": "No Starter Item",
+      "memory_tier": 1
+    },
+    {
+      "folder_name": "gift",
+      "name": "Give Starter Item",
+      "memory_tier": 0
     }
   ],
   "dependencies": [
     {
       "uuid": "8232add1-8bcd-4f9b-92e8-59dfc483f35f",
       "version": [
-        4,
+        5,
         0,
         0
       ]
@@ -394,7 +432,7 @@ This marker does not encrypt the pack or prevent extraction or editing.
       "ALNStudios"
     ],
     "product_type": "addon",
-    "version": "4.0.0"
+    "version": "5.0.0"
   }
 }
 ```
@@ -432,16 +470,17 @@ This marker does not encrypt the pack or prevent extraction or editing.
 }
 ```
 
-## FILE: MCPEDL/Addons/ALN-Pointer/behavior_pack/scripts/lib/bowaim.js (78 lines, 2572 bytes)
+## FILE: MCPEDL/Addons/ALN-Pointer/behavior_pack/scripts/lib/bowaim.js (79 lines, 2668 bytes)
 
 ```
 import { world, system, EntityComponentTypes, GameMode } from "@minecraft/server";
 import { PLAYER_ID } from "./info.js";
 import { isOn } from "./store.js";
+import { tune } from "./tuning.js";
+import { isFriend } from "./friends.js";
 
 const ARROW = "minecraft:arrow";
-const RANGE = 48;
-const MIN_COS = Math.cos((25 * Math.PI) / 180);
+
 const GRAVITY = 0.05;
 const MIN_SPEED = 0.8;
 
@@ -449,17 +488,17 @@ const minus = (a, b) => ({ x: a.x - b.x, y: a.y - b.y, z: a.z - b.z });
 const length = (v) => Math.hypot(v.x, v.y, v.z);
 
 function candidates(owner) {
-  const options = { location: owner.location, maxDistance: RANGE };
+  const options = { location: owner.location, maxDistance: tune(owner, "aimRange") };
   const mobs = owner.dimension.getEntities({ ...options, families: ["monster"] });
   const players = owner.dimension.getPlayers({ ...options, excludeGameModes: [GameMode.Creative, GameMode.Spectator] });
-  return [...mobs, ...players].filter((e) => e.id !== owner.id);
+  return [...mobs, ...players].filter((e) => e.id !== owner.id && !isFriend(owner, e));
 }
 
 function pickTarget(owner) {
   const eye = owner.getHeadLocation();
   const view = owner.getViewDirection();
   let best;
-  let bestCos = MIN_COS;
+  let bestCos = Math.cos((tune(owner, "aimCone") * Math.PI) / 180);
   for (const entity of candidates(owner)) {
     const offset = minus(entity.getHeadLocation(), eye);
     const distance = length(offset);
@@ -514,17 +553,18 @@ export function initBowAim() {
 }
 ```
 
-## FILE: MCPEDL/Addons/ALN-Pointer/behavior_pack/scripts/lib/combat.js (89 lines, 3478 bytes)
+## FILE: MCPEDL/Addons/ALN-Pointer/behavior_pack/scripts/lib/combat.js (90 lines, 3526 bytes)
 
 ```
 import { world, system, EntityComponentTypes, EntityDamageCause, EquipmentSlot, ItemStack } from "@minecraft/server";
 import { PLAYER_ID } from "./info.js";
 import { isOn } from "./store.js";
+import { tune } from "./tuning.js";
 
 const TOTEM = "minecraft:totem_of_undying";
 const SHIELD = "minecraft:shield";
 const SPARKS = "minecraft:critical_hit_emitter";
-const CRIT = 1.5;
+
 const NO_TOTEM = new Set([EntityDamageCause.void, EntityDamageCause.selfDestruct, EntityDamageCause.override]);
 const BLOCKED = new Set([EntityDamageCause.entityAttack, EntityDamageCause.projectile]);
 const replaying = new Set();
@@ -575,7 +615,7 @@ function onHurt(event) {
   const src = event.damageSource;
   const hitter = src.damagingEntity;
   if (src.cause === EntityDamageCause.entityAttack && hitter?.typeId === PLAYER_ID && isOn(hitter, "alwaysCritical") && !hitter.isFalling) {
-    event.damage *= CRIT;
+    event.damage *= tune(hitter, "critPercent") / 100;
     system.run(() => victim.isValid && victim.dimension.spawnParticle(SPARKS, victim.getHeadLocation()));
   }
   if (victim.typeId !== PLAYER_ID) return;
@@ -607,24 +647,107 @@ export function initCombat() {
 }
 ```
 
+## FILE: MCPEDL/Addons/ALN-Pointer/behavior_pack/scripts/lib/extras.js (57 lines, 1887 bytes)
+
+```
+import { world, system, EntityComponentTypes, GameMode } from "@minecraft/server";
+import { PLAYER_ID } from "./info.js";
+import { isOn, anyOn } from "./store.js";
+
+const APPLE = "minecraft:golden_apple";
+const LOW_HEALTH = 8;
+const COOLDOWN = 400;
+const last = new Map();
+
+function feed(p) {
+  if (p.getGameMode() === GameMode.Creative || p.getGameMode() === GameMode.Spectator) return;
+  const health = p.getComponent(EntityComponentTypes.Health);
+  if (!health || health.currentValue <= 0 || health.currentValue > LOW_HEALTH) return;
+  if (system.currentTick - (last.get(p.id) ?? -COOLDOWN) < COOLDOWN) return;
+  const box = p.getComponent(EntityComponentTypes.Inventory)?.container;
+  if (!box) return;
+  for (let i = 0; i < box.size; i++) {
+    const item = box.getItem(i);
+    if (item?.typeId !== APPLE) continue;
+    if (item.amount > 1) {
+      item.amount -= 1;
+      box.setItem(i, item);
+    } else {
+      box.setItem(i, undefined);
+    }
+    p.addEffect("regeneration", 100, { amplifier: 1 });
+    p.addEffect("absorption", 2400);
+    p.playSound("random.burp");
+    last.set(p.id, system.currentTick);
+    return;
+  }
+}
+
+function show(event) {
+  const by = event.damageSource.damagingEntity;
+  if (by?.typeId !== PLAYER_ID || !isOn(by, "damageDisplay")) return;
+  const points = Math.round(event.damage * 10) / 10;
+  const hearts = Math.round(event.damage * 5) / 10;
+  try {
+    by.onScreenDisplay.setActionBar(`§c-${points} §7(${hearts} hearts)`);
+  } catch (e) {}
+}
+
+export function initExtras() {
+  system.runInterval(() => {
+    if (!anyOn("autoGapple")) return;
+    for (const p of world.getAllPlayers()) {
+      if (!p.isValid || !isOn(p, "autoGapple")) continue;
+      try {
+        feed(p);
+      } catch (e) {}
+    }
+  }, 10);
+  world.afterEvents.entityHurt.subscribe(show);
+  world.afterEvents.playerLeave.subscribe(({ playerId }) => last.delete(playerId));
+}
+```
+
+## FILE: MCPEDL/Addons/ALN-Pointer/behavior_pack/scripts/lib/friends.js (19 lines, 706 bytes)
+
+```
+import { world } from "@minecraft/server";
+import { PLAYER_ID } from "./info.js";
+import { readSaved, writeSaved } from "./saved.js";
+
+const KEY = "aln_pointer_friends";
+
+export const isFriend = (owner, other) => other.typeId === PLAYER_ID && readSaved(owner, KEY)[other.id] !== undefined;
+export const friendNames = (player) => Object.values(readSaved(player, KEY));
+export const others = (player) => world.getAllPlayers().filter((p) => p.id !== player.id);
+
+export function applyFriends(player, shown, values) {
+  const data = { ...readSaved(player, KEY) };
+  shown.forEach((p, i) => {
+    if (values[i] === true) data[p.id] = p.name;
+    else delete data[p.id];
+  });
+  writeSaved(player, KEY, data);
+}
+```
+
 ## FILE: MCPEDL/Addons/ALN-Pointer/behavior_pack/scripts/lib/info.js (5 lines, 177 bytes)
 
 ```
 export const PACK_NAME = "Combat Helper";
-export const PACK_VERSION = "4";
+export const PACK_VERSION = "5";
 export const POINTER_ID = "allenscreations:aln_pointer";
 export const PLAYER_ID = "minecraft:player";
 ```
 
-## FILE: MCPEDL/Addons/ALN-Pointer/behavior_pack/scripts/lib/loops.js (68 lines, 2388 bytes)
+## FILE: MCPEDL/Addons/ALN-Pointer/behavior_pack/scripts/lib/loops.js (67 lines, 2445 bytes)
 
 ```
 import { world, system, EntityDamageCause, GameMode } from "@minecraft/server";
 import { isOn, anyOn } from "./store.js";
+import { tune } from "./tuning.js";
+import { isFriend } from "./friends.js";
 
-const AURA_RANGE = 4;
-const AURA_DAMAGE = 5;
-const AURA_TARGETS = 3;
 const MIN_FALL = 3;
 const WATER_LIFETIME = 40;
 const falls = new Map();
@@ -633,15 +756,15 @@ const dist = (a, e) => Math.hypot(e.location.x - a.x, e.location.y - a.y, e.loca
 const skip = (p) => p.getGameMode() === GameMode.Creative || p.getGameMode() === GameMode.Spectator;
 
 function aura(p) {
-  const opts = { location: p.location, maxDistance: AURA_RANGE };
+  const opts = { location: p.location, maxDistance: tune(p, "auraRange") };
   const found = new Map();
   const mobs = p.dimension.getEntities({ ...opts, families: ["monster"] });
   const foes = p.dimension.getPlayers({ ...opts, excludeGameModes: [GameMode.Creative, GameMode.Spectator] });
-  for (const e of [...mobs, ...foes]) if (e.id !== p.id) found.set(e.id, e);
+  for (const e of [...mobs, ...foes]) if (e.id !== p.id && !isFriend(p, e)) found.set(e.id, e);
   [...found.values()]
     .sort((a, b) => dist(p.location, a) - dist(p.location, b))
-    .slice(0, AURA_TARGETS)
-    .forEach((t) => t.applyDamage(AURA_DAMAGE, { cause: EntityDamageCause.entityAttack, damagingEntity: p }));
+    .slice(0, tune(p, "auraTargets"))
+    .forEach((t) => t.applyDamage(tune(p, "auraDamage"), { cause: EntityDamageCause.entityAttack, damagingEntity: p }));
 }
 
 function clutch(p) {
@@ -688,13 +811,15 @@ export function initLoops() {
 }
 ```
 
-## FILE: MCPEDL/Addons/ALN-Pointer/behavior_pack/scripts/lib/menu.js (93 lines, 3249 bytes)
+## FILE: MCPEDL/Addons/ALN-Pointer/behavior_pack/scripts/lib/menu.js (176 lines, 6362 bytes)
 
 ```
 import { system } from "@minecraft/server";
 import { ActionFormData, ModalFormData, FormCancelationReason } from "@minecraft/server-ui";
 import { PACK_NAME, PACK_VERSION } from "./info.js";
 import { FEATURES, isOn, applyValues, activeNames } from "./store.js";
+import { others, isFriend, applyFriends, friendNames } from "./friends.js";
+import { TUNING, tune, applyTuning, resetTuning } from "./tuning.js";
 
 const ABOUT_ICON = "textures/items/name_tag";
 const EXIT_ICON = "textures/items/door_wood";
@@ -705,7 +830,7 @@ const mainTitle = () => `§l§6@ALNStudios §e${PACK_NAME}§r (v${PACK_VERSION})
 const wait = (ticks) => new Promise((resolve) => system.runTimeout(resolve, ticks));
 const opt = (form, name, ...args) => (typeof form[name] === "function" ? form[name](...args) : form);
 
-function tell(player, color, text) {
+export function tell(player, color, text) {
   try {
     player.onScreenDisplay.setActionBar(`${color}${text}`);
   } catch (e) {}
@@ -756,7 +881,7 @@ async function openToggles(player) {
   const res = await present(form, player);
   if (!res) return;
   if (res.canceled) {
-    openMain(player);
+    openHub(player);
     return;
   }
   const values = (res.formValues ?? []).filter((v) => typeof v === "boolean");
@@ -769,23 +894,136 @@ async function openToggles(player) {
   tell(player, "§a", `${count} of ${FEATURES.length} toggles on.`);
 }
 
+async function openFriends(player) {
+  const shown = others(player).slice(0, 30);
+  if (!shown.length) {
+    tell(player, "§e", "No other players are online.");
+    openHub(player);
+    return;
+  }
+  const saved = friendNames(player);
+  let form = new ModalFormData().title(bold("Friends"));
+  form = opt(form, "header", bold(PACK_NAME));
+  form = opt(form, "label", bold("Tick a player to make them a friend. Aura Mode and Bow Aimbot skip your friends."));
+  form = opt(form, "label", bold(saved.length ? `Saved friends: ${saved.join(", ")}` : "No friends saved yet."));
+  form = opt(form, "divider");
+  for (const other of shown) form = form.toggle(bold(other.name), { defaultValue: isFriend(player, other) });
+  form = opt(form, "submitButton", bold("Apply"));
+  const res = await present(form, player);
+  if (!res) return;
+  if (res.canceled) {
+    openHub(player);
+    return;
+  }
+  const values = (res.formValues ?? []).filter((v) => typeof v === "boolean");
+  if (values.length !== shown.length) {
+    tell(player, "§c", "The friends could not be read.");
+    return;
+  }
+  applyFriends(player, shown, values);
+  tell(player, "§a", `${friendNames(player).length} friends saved.`);
+}
+
+async function openTuning(player) {
+  let form = new ModalFormData().title(bold("Tuning"));
+  form = opt(form, "header", bold(PACK_NAME));
+  form = opt(form, "label", bold("Drag the sliders. Every player keeps their own values."));
+  form = opt(form, "divider");
+  for (const t of TUNING) {
+    form = form.slider(bold(t.name), t.min, t.max, { defaultValue: tune(player, t.id), valueStep: t.step });
+  }
+  form = opt(form, "divider");
+  form = form.toggle(bold("Reset everything to the defaults"), { defaultValue: false });
+  form = opt(form, "submitButton", bold("Apply"));
+  const res = await present(form, player);
+  if (!res) return;
+  if (res.canceled) {
+    openHub(player);
+    return;
+  }
+  const values = res.formValues ?? [];
+  const numbers = values.filter((v) => typeof v === "number");
+  const flags = values.filter((v) => typeof v === "boolean");
+  if (numbers.length !== TUNING.length) {
+    tell(player, "§c", "The sliders could not be read.");
+    return;
+  }
+  if (flags[0] === true) {
+    resetTuning(player);
+    tell(player, "§a", "Tuning reset to the defaults.");
+    return;
+  }
+  applyTuning(player, numbers);
+  tell(player, "§a", "Tuning saved.");
+}
+
+async function openHub(player) {
+  const body = `${activeNames(player).length} of ${FEATURES.length} toggles on. ${friendNames(player).length} friends saved.`;
+  const form = new ActionFormData()
+    .title(bold("Combat Menu"))
+    .body(bold(body))
+    .button(bold("Combat Toggles"))
+    .button(bold("Friends"))
+    .button(bold("Tuning"))
+    .button(bold("Back"), EXIT_ICON);
+  const res = await present(form, player);
+  if (!res) return;
+  if (res.canceled || res.selection === 3) {
+    openMain(player);
+    return;
+  }
+  [openToggles, openFriends, openTuning][res.selection](player);
+}
+
 export async function openMain(player) {
   const active = activeNames(player);
   const body = active.length ? `On: ${active.join(", ")}` : "No toggles are on.";
   const form = new ActionFormData()
     .title(mainTitle())
     .body(bold(body))
-    .button(bold("Combat Toggles"))
+    .button(bold("Combat Menu"))
     .button(bold("About"), ABOUT_ICON)
     .button(bold("Exit"), EXIT_ICON);
   const res = await present(form, player);
   if (!res || res.canceled) return;
-  if (res.selection === 0) openToggles(player);
+  if (res.selection === 0) openHub(player);
   else if (res.selection === 1) openAbout(player);
 }
 ```
 
-## FILE: MCPEDL/Addons/ALN-Pointer/behavior_pack/scripts/lib/store.js (58 lines, 1908 bytes)
+## FILE: MCPEDL/Addons/ALN-Pointer/behavior_pack/scripts/lib/saved.js (28 lines, 763 bytes)
+
+```
+import { world } from "@minecraft/server";
+
+const cache = new Map();
+
+export function readSaved(player, key) {
+  const id = `${key}|${player.id}`;
+  if (cache.has(id)) return cache.get(id);
+  let data = {};
+  const raw = player.getDynamicProperty(key);
+  if (typeof raw === "string") {
+    try {
+      const parsed = JSON.parse(raw);
+      if (parsed && typeof parsed === "object") data = parsed;
+    } catch (e) {}
+  }
+  cache.set(id, data);
+  return data;
+}
+
+export function writeSaved(player, key, data) {
+  cache.set(`${key}|${player.id}`, data);
+  player.setDynamicProperty(key, JSON.stringify(data));
+}
+
+world.afterEvents.playerLeave.subscribe(({ playerId }) => {
+  for (const id of [...cache.keys()]) if (id.endsWith(`|${playerId}`)) cache.delete(id);
+});
+```
+
+## FILE: MCPEDL/Addons/ALN-Pointer/behavior_pack/scripts/lib/store.js (74 lines, 2818 bytes)
 
 ```
 import { world } from "@minecraft/server";
@@ -798,6 +1036,8 @@ export const FEATURES = [
   { id: "bowAimbot", name: "Bow Aimbot", info: "Arrows you shoot steer toward the target you aim at." },
   { id: "waterClutch", name: "Always Water Clutch", info: "Places temporary water under you before a long fall lands." },
   { id: "shield", name: "Shield Always Active", info: "Blocks hits from the front while you carry a shield." },
+  { id: "autoGapple", name: "Auto Golden Apple", info: "Eats a golden apple for you when your health is 4 hearts or less." },
+  { id: "damageDisplay", name: "Damage Display", info: "Shows the damage of each hit you land on the action bar." },
 ];
 
 const KEY = "aln_pointer_toggles";
@@ -826,8 +1066,22 @@ export function activeNames(player) {
   return FEATURES.filter((f) => isOn(player, f.id)).map((f) => f.name);
 }
 
+export function quickSwitch(player) {
+  const old = read(player);
+  const on = FEATURES.filter((f) => old[f.id] === true).map((f) => f.id);
+  const last = Array.isArray(old._last) ? old._last : [];
+  if (!on.length && !last.length) return "Nothing to bring back. Turn some toggles on first.";
+  const data = { _last: on.length ? on : last };
+  FEATURES.forEach((f) => {
+    data[f.id] = on.length ? false : last.includes(f.id);
+  });
+  cache.set(player.id, data);
+  player.setDynamicProperty(KEY, JSON.stringify(data));
+  return on.length ? "All toggles off. Sneak and use again to bring them back." : `${last.length} toggles back on.`;
+}
+
 export function applyValues(player, values) {
-  const data = {};
+  const data = { _last: read(player)._last };
   FEATURES.forEach((f, i) => {
     data[f.id] = values[i] === true;
   });
@@ -847,24 +1101,61 @@ world.afterEvents.playerLeave.subscribe(({ playerId }) => {
 });
 ```
 
-## FILE: MCPEDL/Addons/ALN-Pointer/behavior_pack/scripts/main.js (25 lines, 894 bytes)
+## FILE: MCPEDL/Addons/ALN-Pointer/behavior_pack/scripts/lib/tuning.js (28 lines, 1139 bytes)
 
 ```
-import { world, ItemStack, EntityComponentTypes } from "@minecraft/server";
+import { readSaved, writeSaved } from "./saved.js";
+
+const KEY = "aln_pointer_tuning";
+
+export const TUNING = [
+  { id: "auraRange", name: "Aura range (blocks)", min: 2, max: 6, step: 1, def: 4 },
+  { id: "auraDamage", name: "Aura damage (half hearts)", min: 1, max: 10, step: 1, def: 5 },
+  { id: "auraTargets", name: "Aura targets per hit", min: 1, max: 5, step: 1, def: 3 },
+  { id: "aimRange", name: "Bow Aimbot range (blocks)", min: 16, max: 96, step: 8, def: 48 },
+  { id: "aimCone", name: "Bow Aimbot angle (degrees)", min: 5, max: 45, step: 5, def: 25 },
+  { id: "critPercent", name: "Always Critical damage (percent)", min: 110, max: 300, step: 10, def: 150 },
+];
+
+export function tune(player, id) {
+  const value = readSaved(player, KEY)[id];
+  return typeof value === "number" ? value : TUNING.find((t) => t.id === id).def;
+}
+
+export function applyTuning(player, values) {
+  const data = {};
+  TUNING.forEach((t, i) => {
+    if (typeof values[i] === "number") data[t.id] = Math.min(t.max, Math.max(t.min, values[i]));
+  });
+  writeSaved(player, KEY, data);
+}
+
+export const resetTuning = (player) => writeSaved(player, KEY, {});
+```
+
+## FILE: MCPEDL/Addons/ALN-Pointer/behavior_pack/scripts/main.js (31 lines, 1181 bytes)
+
+```
+import { world, ItemStack, ItemTypes, EntityComponentTypes } from "@minecraft/server";
 import { POINTER_ID } from "./lib/info.js";
-import { openMain } from "./lib/menu.js";
+import { openMain, tell } from "./lib/menu.js";
+import { quickSwitch } from "./lib/store.js";
 import { initCombat } from "./lib/combat.js";
 import { initLoops } from "./lib/loops.js";
 import { initBowAim } from "./lib/bowaim.js";
+import { initExtras } from "./lib/extras.js";
 
 const GIVEN_KEY = "aln_pointer_given";
+const GIFT_MARKER = "allenscreations:aln_gift_on";
 
 world.afterEvents.itemUse.subscribe(({ source, itemStack }) => {
-  if (itemStack?.typeId === POINTER_ID) openMain(source);
+  if (itemStack?.typeId !== POINTER_ID) return;
+  if (source.isSneaking) tell(source, "§e", quickSwitch(source));
+  else openMain(source);
 });
 
 world.afterEvents.playerSpawn.subscribe(({ player, initialSpawn }) => {
-  if (!initialSpawn || player.getDynamicProperty(GIVEN_KEY) === true) return;
+  if (!initialSpawn || !ItemTypes.get(GIFT_MARKER) || player.getDynamicProperty(GIVEN_KEY) === true) return;
   const inventory = player.getComponent(EntityComponentTypes.Inventory)?.container;
   if (!inventory) return;
   const left = inventory.addItem(new ItemStack(POINTER_ID, 1));
@@ -874,14 +1165,67 @@ world.afterEvents.playerSpawn.subscribe(({ player, initialSpawn }) => {
 initCombat();
 initLoops();
 initBowAim();
+initExtras();
 ```
 
-## FILE: MCPEDL/Addons/ALN-Pointer/CHANGELOG.md (31 lines, 2051 bytes)
+## FILE: MCPEDL/Addons/ALN-Pointer/behavior_pack/subpacks/gift/items/aln_gift_on.json (15 lines, 262 bytes)
+
+```
+{
+  "format_version": "1.21.60",
+  "minecraft:item": {
+    "description": {
+      "identifier": "allenscreations:aln_gift_on",
+      "menu_category": {
+        "category": "none"
+      }
+    },
+    "components": {
+      "minecraft:max_stack_size": 1
+    }
+  }
+}
+```
+
+## FILE: MCPEDL/Addons/ALN-Pointer/behavior_pack/subpacks/none/items/aln_gift_off.json (15 lines, 263 bytes)
+
+```
+{
+  "format_version": "1.21.60",
+  "minecraft:item": {
+    "description": {
+      "identifier": "allenscreations:aln_gift_off",
+      "menu_category": {
+        "category": "none"
+      }
+    },
+    "components": {
+      "minecraft:max_stack_size": 1
+    }
+  }
+}
+```
+
+## FILE: MCPEDL/Addons/ALN-Pointer/CHANGELOG.md (45 lines, 3328 bytes)
 
 ```
 # Changelog — ALN Pointer
 
 ---
+
+## [v5] - 2026-11-19 - Friends and Tuning
+
+### Added
+- **Friends**: Pick online players as friends in the new Combat Menu. Aura Mode and Bow Aimbot skip your friends, and the list is kept when they go offline.
+- **Tuning**: Six sliders change Aura range, Aura damage, Aura targets, Bow Aimbot range, Bow Aimbot angle and Always Critical damage. The starting values match the old fixed numbers, and a reset switch restores them.
+- **Auto Golden Apple**: Eats a golden apple from your inventory for you when your health is 4 hearts or less, with a 20 second wait between apples.
+- **Damage Display**: Shows the damage of each hit you land on the action bar.
+- **Quick Toggle**: Sneak while using the Combat Helper to switch all your toggles off, and do it again to bring them back.
+- **Starter Item Setting**: A pack choice between No Starter Item (default) and Give Starter Item, which gives each player a Combat Helper the first time they join.
+
+### Changed
+- **Combat Menu**: The first main menu button is now Combat Menu, which opens Combat Toggles, Friends and Tuning. The combat toggles screen now has 9 switches.
+- **Starter Item**: The Combat Helper is no longer given automatically on first join. Turn on Give Starter Item in the pack settings to get the old behavior.
 
 ## [v4] - 2026-11-19 - New Name
 
@@ -911,19 +1255,19 @@ initBowAim();
 - **Shield Always Active**: Blocks melee hits and arrows from the front whenever you carry a shield.
 ```
 
-## FILE: MCPEDL/Addons/ALN-Pointer/DESCRIPTION.md (108 lines, 7837 bytes)
+## FILE: MCPEDL/Addons/ALN-Pointer/DESCRIPTION.md (138 lines, 10657 bytes)
 
 ```
-# Combat Helper — A cursor-shaped item that opens a menu of 7 PVP toggles
+# Combat Helper — A cursor-shaped item that opens a menu of 9 PVP toggles
 
 **By ALNStudios**
 
 [![Minecraft Bedrock](https://img.shields.io/badge/Minecraft%20Bedrock-Stable%20Release-brightgreen?style=flat-square&logo=minecraft)](https://github.com/AllensCreations/MCPE-Curseforges)
 [![Format](https://img.shields.io/badge/Format-.MCPACK%20%7C%20.MCADDON%20%7C%20.MCWORLD-blue?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges)
 
-**Use the Combat Helper item to switch 7 PVP toggles on or off per player, including Auto Totem and Bow Aimbot.**
+**Use the Combat Helper item to switch 9 PVP toggles on or off per player, including Auto Totem and Bow Aimbot, and set friends and slider values.**
 
-> The Combat Helper is a cursor-shaped item that opens a menu with 7 toggles, each saved separately for every player. It suits friends who practice PVP in a world they own and want to pick their own settings.
+> The Combat Helper is a cursor-shaped item that opens a menu with 9 toggles, a friends list and tuning sliders, each saved separately for every player. It suits friends who practice PVP in a world they own and want to pick their own settings.
 
 ## Overview
 
@@ -932,13 +1276,13 @@ You get a Combat Helper, use it, and pick the toggles you want in the ALNStudios
 ## Key Features
 
 ### Combat Helper Item
-- **What Happens**: A cursor-shaped item that opens the toggle menu when you use it. You receive one the first time you join a world, you can craft more from wool, and it also sits in the Equipment tab of the Creative inventory.
-- **How It Works**: Hold the Combat Helper and use it, like right-clicking on PC or tapping on mobile. To craft one, fill the top row of a crafting table with wool, then the left and middle squares of the middle row, then the left and right squares of the bottom row. This takes 7 wool of any color and the shape looks like a cursor.
-- **Good To Know**: If your inventory is full on first join, the Combat Helper is offered again on your next join.
+- **What Happens**: A cursor-shaped item that opens the toggle menu when you use it. You craft one from wool, take one from the Equipment tab of the Creative inventory, or turn on the Give Starter Item pack setting to receive one the first time you join a world.
+- **How It Works**: Hold the Combat Helper and use it, like right-clicking on PC or tapping on mobile. Sneak while you use it to switch all your toggles off or back on. To craft one, fill the top row of a crafting table with wool, then the left and middle squares of the middle row, then the left and right squares of the bottom row. This takes 7 wool of any color and the shape looks like a cursor.
+- **Good To Know**: With Give Starter Item on, a full inventory on first join means the Combat Helper is offered again on your next join.
 
 ### Combat Toggles Menu
-- **What Happens**: The main menu has three buttons: Combat Toggles, About and Exit. Combat Toggles lists 7 switches with a one-line explanation under each, and Apply saves them and closes the menu.
-- **How It Works**: Flip the switches you want, then tap Apply. Closing the screen without Apply brings you back to the main menu.
+- **What Happens**: The main menu has three buttons: Combat Menu, About and Exit. Combat Menu opens a screen with Combat Toggles, Friends and Tuning. Combat Toggles lists 9 switches with a one-line explanation under each, and Apply saves them and closes the menu.
+- **How It Works**: Flip the switches you want, then tap Apply. Closing the screen without Apply brings you back one screen.
 - **Good To Know**: Toggles are saved per player, so each person in a world picks their own.
 
 ### Auto Totem
@@ -976,12 +1320,42 @@ You get a Combat Helper, use it, and pick the toggles you want in the ALNStudios
 - **How It Works**: Keep a shield in your hand or off hand and switch Shield Always Active on.
 - **Good To Know**: Hits from behind and other damage, such as fire or explosions, are not blocked.
 
+### Auto Golden Apple
+- **What Happens**: When your health drops to 4 hearts or less, one golden apple from your inventory is eaten for you, giving Regeneration II for 5 seconds and Absorption for 2 minutes.
+- **How It Works**: Keep a golden apple anywhere in your inventory and switch Auto Golden Apple on.
+- **Good To Know**: It waits 20 seconds between apples, it does not restore hunger, and it does nothing in Creative or Spectator mode.
+
+### Damage Display
+- **What Happens**: Each time you hurt a mob or player, the action bar shows how much damage the hit did, in points and in hearts.
+- **How It Works**: Switch it on and hit something.
+- **Good To Know**: It also counts the hits made by Aura Mode.
+
+### Friends
+- **What Happens**: You pick online players as friends, and Aura Mode and Bow Aimbot skip them.
+- **How It Works**: Open the Combat Menu, tap Friends, tick the players you want and tap Apply.
+- **Good To Know**: Friends stay on your list when they go offline. The list is yours alone, so a friend is only safe from your toggles, not the other way round.
+
+### Tuning
+- **What Happens**: Six sliders change how strong the toggles are: Aura range (2 to 6 blocks), Aura damage (1 to 10), Aura targets (1 to 5), Bow Aimbot range (16 to 96 blocks), Bow Aimbot angle (5 to 45 degrees) and Always Critical damage (110 to 300 percent).
+- **How It Works**: Open the Combat Menu, tap Tuning, drag the sliders and tap Apply. A reset switch at the bottom puts everything back to the defaults.
+- **Good To Know**: The starting values match the old fixed numbers, so nothing changes until you move a slider.
+
+### Quick Toggle
+- **What Happens**: Sneaking while you use the Combat Helper switches every toggle off at once, and doing it again brings the same toggles back.
+- **How It Works**: Crouch and use the item instead of opening the menu.
+- **Good To Know**: Your friends and tuning stay as they are.
+
+### Starter Item Pack Setting
+- **What Happens**: The behavior pack has a choice between No Starter Item, which is the default, and Give Starter Item, which gives each player a Combat Helper the first time they join the world.
+- **How It Works**: Open the world settings, go to Behavior Packs, tap Combat Helper and use the subpack slider to pick Give Starter Item.
+- **Good To Know**: Each player gets one the first time they join with the setting on, and a player who already has one saved from before is not given another.
+
 ## How to Use
 
-1. Join your world and find the Combat Helper in your inventory, craft one from 7 wool in a cursor shape, or take it from the Equipment tab of the Creative inventory.
-2. Hold the Combat Helper and use it to open the ALNStudios menu, then tap Combat Toggles.
+1. Craft a Combat Helper from 7 wool in a cursor shape, take one from the Equipment tab of the Creative inventory, or turn on Give Starter Item to receive one when you first join.
+2. Hold the Combat Helper and use it to open the ALNStudios menu, then tap Combat Menu and Combat Toggles.
 3. Switch on the toggles you want and tap Apply. The action bar shows how many toggles are on.
-4. Use the Combat Helper again any time to change your toggles.
+4. Use the Combat Helper again any time to change your toggles, or open Friends and Tuning from the Combat Menu.
 
 ## Common Questions
 
@@ -1019,7 +1393,7 @@ You get a Combat Helper, use it, and pick the toggles you want in the ALNStudios
 
 ## Search & Discovery Keywords
 
-Minecraft Bedrock add-on, Combat Helper Bedrock mod, Minecraft PE PVP toggles, Auto Totem, Infinite Totem, Aura Mode, Always Critical, Bow Aimbot, Water Clutch, Minecraft PE mouse pointer item, MCPEDL add-on, CurseForge Bedrock, ALNStudios.
+Minecraft Bedrock add-on, Combat Helper Bedrock mod, Minecraft PE PVP toggles, Auto Totem, Infinite Totem, Aura Mode, Always Critical, Bow Aimbot, Water Clutch, Auto Golden Apple, Damage Display, friends list, Minecraft PE mouse pointer item, MCPEDL add-on, CurseForge Bedrock, ALNStudios.
 ```
 
 ## FILE: MCPEDL/Addons/ALN-Pointer/LOCK (5 lines, 167 bytes)
@@ -1050,7 +1424,7 @@ Download the current release of **Combat Helper** for Minecraft Bedrock Edition.
 ## Download
 
 - **Package format:** `.mcaddon`
-- **Direct download:** [Download Combat Helper (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/ALN-Pointer/ALNPointer%20V4.mcaddon)
+- **Direct download:** [Download Combat Helper (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/ALN-Pointer/ALNPointer%20V5.mcaddon)
 
 ## Installation
 
@@ -1078,11 +1452,11 @@ This marker does not encrypt the pack or prevent extraction or editing.
 {
   "format_version": 2,
   "header": {
-    "name": "Combat Helper (v4)",
+    "name": "Combat Helper (v5)",
     "description": "Combat Helper item texture. by ALNStudios",
     "uuid": "8232add1-8bcd-4f9b-92e8-59dfc483f35f",
     "version": [
-      4,
+      5,
       0,
       0
     ],
@@ -1097,7 +1471,7 @@ This marker does not encrypt the pack or prevent extraction or editing.
       "type": "resources",
       "uuid": "83f195c6-92d3-428a-b707-06188b6a5f8d",
       "version": [
-        4,
+        5,
         0,
         0
       ]
@@ -1108,7 +1482,7 @@ This marker does not encrypt the pack or prevent extraction or editing.
       "ALNStudios"
     ],
     "product_type": "addon",
-    "version": "4.0.0"
+    "version": "5.0.0"
   }
 }
 ```
@@ -1476,7 +1850,7 @@ Source files for established Minecraft Bedrock add-ons by ALNStudios.
 | Expanded Basic Arsenal | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/Expanded-Basic-Arsenal/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Expanded-Basic-Arsenal/ExpandedBasicArsenal%20V2.mcaddon) |
 | ALN Wireless Headphones | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/ALN-Wireless-Headphones/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/ALN-Wireless-Headphones/ALNWirelessHeadphones%20V11.mcaddon) |
 | ALN MoreDiscs | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/ALN-MoreDiscs/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/ALN-MoreDiscs/ALNMoreDiscs%20V3.mcaddon) |
-| ALN Pointer | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/ALN-Pointer/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/ALN-Pointer/ALNPointer%20V4.mcaddon) |
+| ALN Pointer | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/ALN-Pointer/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/ALN-Pointer/ALNPointer%20V5.mcaddon) |
 
 Download links point to the currently published package files.
 
@@ -1494,7 +1868,7 @@ Videos and streams are welcome with credit. Redistribution of original or modifi
 - [TypeScript Definitions (.d.ts)](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/reference/typescript-definitions)
 ```
 
-## FILE: Package/ALN-Pointer.listing.md (72 lines, 19961 bytes)
+## FILE: Package/ALN-Pointer.listing.md (72 lines, 25274 bytes)
 
 ````
 # Listing Kit: Combat Helper
@@ -1507,10 +1881,10 @@ Tap the Copy button on a block, then paste it into the CurseForge listing. Gener
 Combat Helper
 ```
 
-## Summary (109/256)
+## Summary (144/256)
 
 ```text
-Use the Combat Helper item to switch 7 PVP toggles on or off per player, including Auto Totem and Bow Aimbot.
+Use the Combat Helper item to switch 9 PVP toggles on or off per player, including Auto Totem and Bow Aimbot, and set friends and slider values.
 ```
 
 ## Description (HTML)
@@ -1518,17 +1892,17 @@ Use the Combat Helper item to switch 7 PVP toggles on or off per player, includi
 Paste into the CurseForge description editor in source (HTML) mode.
 
 ```html
-<div><div style="border:2px solid #15803d;border-radius:18px;line-height:1.5"><br><h1 style="font-size:34px;text-align:center">Combat Helper</h1><p style="color:#8a94a3;font-size:14px;text-align:center">by ALNStudios</p><p style="text-align:center"><span style="background-color:#15803d;color:#ffffff;border-radius:20px;font-size:16px">&nbsp;&nbsp;<strong>Use the Combat Helper item to switch 7 PVP toggles on or off per player, including Auto Totem and Bow Aimbot.</strong>&nbsp;&nbsp;</span></p><p style="text-align:center;margin-left:16px;margin-right:16px">The Combat Helper is a cursor-shaped item that opens a menu with 7 toggles, each saved separately for every player. It suits friends who practice PVP in a world they own and want to pick their own settings.</p><div style="display:flex;flex-wrap:wrap;gap:8px;margin-left:14px;margin-right:14px"><div style="background-color:#dcfce7;color:#14532d;border-radius:20px;font-size:14px;line-height:2"><strong>&nbsp;&nbsp;Bedrock</strong>: 1.26+&nbsp;&nbsp;</div><div style="background-color:#dcfce7;color:#14532d;border-radius:20px;font-size:14px;line-height:2"><strong>&nbsp;&nbsp;Experimental</strong>: No&nbsp;&nbsp;</div><div style="background-color:#dcfce7;color:#14532d;border-radius:20px;font-size:14px;line-height:2"><strong>&nbsp;&nbsp;Achievements</strong>: Likely achievement-friendly&nbsp;&nbsp;</div></div><br></div>
+<div><div style="border:2px solid #15803d;border-radius:18px;line-height:1.5"><br><h1 style="font-size:34px;text-align:center">Combat Helper</h1><p style="color:#8a94a3;font-size:14px;text-align:center">by ALNStudios</p><p style="text-align:center"><span style="background-color:#15803d;color:#ffffff;border-radius:20px;font-size:16px">&nbsp;&nbsp;<strong>Use the Combat Helper item to switch 9 PVP toggles on or off per player, including Auto Totem and Bow Aimbot, and set friends and slider values.</strong>&nbsp;&nbsp;</span></p><p style="text-align:center;margin-left:16px;margin-right:16px">The Combat Helper is a cursor-shaped item that opens a menu with 9 toggles, a friends list and tuning sliders, each saved separately for every player. It suits friends who practice PVP in a world they own and want to pick their own settings.</p><div style="display:flex;flex-wrap:wrap;gap:8px;margin-left:14px;margin-right:14px"><div style="background-color:#dcfce7;color:#14532d;border-radius:20px;font-size:14px;line-height:2"><strong>&nbsp;&nbsp;Bedrock</strong>: 1.26+&nbsp;&nbsp;</div><div style="background-color:#dcfce7;color:#14532d;border-radius:20px;font-size:14px;line-height:2"><strong>&nbsp;&nbsp;Experimental</strong>: No&nbsp;&nbsp;</div><div style="background-color:#dcfce7;color:#14532d;border-radius:20px;font-size:14px;line-height:2"><strong>&nbsp;&nbsp;Achievements</strong>: Likely achievement-friendly&nbsp;&nbsp;</div></div><br></div>
 <h2 style="font-size:17px;text-align:left"><span style="background-color:#15803d;color:#ffffff;border-radius:20px">&nbsp;&nbsp;About&nbsp;&nbsp;</span></h2>
 <p>You get a Combat Helper, use it, and pick the toggles you want in the ALNStudios menu. The toggles then run by themselves whenever you fight, shoot or fall, and vanilla Minecraft has no equivalent switches. The features are cheat-style helpers, so use them only on worlds where everyone agrees.</p>
 <h2 style="font-size:17px;text-align:left"><span style="background-color:#15803d;color:#ffffff;border-radius:20px">&nbsp;&nbsp;Screenshots&nbsp;&nbsp;</span></h2>
 <div style="display:flex;flex-wrap:wrap;gap:10px"><div style="flex:1 1 300px;border:1px solid #8a94a3;border-radius:16px;text-align:center"><p><a href="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/MCPEDL/Addons/ALN-Pointer/assets/snapshots/HOW%20TO%20CRAFT.jpg"><img src="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/MCPEDL/Addons/ALN-Pointer/assets/snapshots/HOW%20TO%20CRAFT.jpg" alt="HOW TO CRAFT" style="width:100%"></a></p><p style="color:#8a94a3;font-size:13px">HOW TO CRAFT</p></div></div>
 <h2 style="font-size:17px;text-align:left"><span style="background-color:#15803d;color:#ffffff;border-radius:20px">&nbsp;&nbsp;What You Get&nbsp;&nbsp;</span></h2>
-<div style="display:flex;flex-wrap:wrap;gap:10px"><div style="flex:1;min-width:200px;border:1px solid #8a94a3;border-radius:16px"><div style="background-color:#15803d;color:#ffffff;border-radius:16px;font-size:16px;line-height:2.2"><strong>&nbsp;&nbsp;Combat Helper Item</strong></div><div style="margin-left:12px;margin-right:12px"><p><span>A cursor-shaped item that opens the toggle menu when you use it. You receive one the first time you join a world, you can craft more from wool, and it also sits in the Equipment tab of the Creative inventory.</span><br><span style="font-size:13px;color:#8a94a3"><strong>How It Works:</strong> Hold the Combat Helper and use it, like right-clicking on PC or tapping on mobile. To craft one, fill the top row of a crafting table with wool, then the left and middle squares of the middle row, then the left and right squares of the bottom row. This takes 7 wool of any color and the shape looks like a cursor.</span><br><span style="font-size:13px;color:#8a94a3"><strong>Good To Know:</strong> If your inventory is full on first join, the Combat Helper is offered again on your next join.</span></p></div></div><div style="flex:1;min-width:200px;border:1px solid #8a94a3;border-radius:16px"><div style="background-color:#15803d;color:#ffffff;border-radius:16px;font-size:16px;line-height:2.2"><strong>&nbsp;&nbsp;Combat Toggles Menu</strong></div><div style="margin-left:12px;margin-right:12px"><p><span>The main menu has three buttons: Combat Toggles, About and Exit. Combat Toggles lists 7 switches with a one-line explanation under each, and Apply saves them and closes the menu.</span><br><span style="font-size:13px;color:#8a94a3"><strong>How It Works:</strong> Flip the switches you want, then tap Apply. Closing the screen without Apply brings you back to the main menu.</span><br><span style="font-size:13px;color:#8a94a3"><strong>Good To Know:</strong> Toggles are saved per player, so each person in a world picks their own.</span></p></div></div><div style="flex:1;min-width:200px;border:1px solid #8a94a3;border-radius:16px"><div style="background-color:#15803d;color:#ffffff;border-radius:16px;font-size:16px;line-height:2.2"><strong>&nbsp;&nbsp;Auto Totem</strong></div><div style="margin-left:12px;margin-right:12px"><p><span>When a hit would kill you and you hold no Totem of Undying, one from your inventory moves into your off hand first, so the totem saves you.</span><br><span style="font-size:13px;color:#8a94a3"><strong>How It Works:</strong> Keep a Totem of Undying anywhere in your inventory and switch Auto Totem on.</span><br><span style="font-size:13px;color:#8a94a3"><strong>Good To Know:</strong> It does nothing without a totem in your inventory, and it cannot help against the void or the kill command.</span></p></div></div><div style="flex:1;min-width:200px;border:1px solid #8a94a3;border-radius:16px"><div style="background-color:#15803d;color:#ffffff;border-radius:16px;font-size:16px;line-height:2.2"><strong>&nbsp;&nbsp;Infinite Totem</strong></div><div style="margin-left:12px;margin-right:12px"><p><span>Works like Auto Totem, and when you have no totem at all it puts a new Totem of Undying in your off hand before a deadly hit.</span><br><span style="font-size:13px;color:#8a94a3"><strong>How It Works:</strong> Switch it on and keep fighting. Each totem that pops is replaced before the next deadly hit.</span><br><span style="font-size:13px;color:#8a94a3"><strong>Good To Know:</strong> An item that was in your off hand moves to your inventory, or drops at your feet if the inventory is full.</span></p></div></div><div style="flex:1;min-width:200px;border:1px solid #8a94a3;border-radius:16px"><div style="background-color:#15803d;color:#ffffff;border-radius:16px;font-size:16px;line-height:2.2"><strong>&nbsp;&nbsp;Aura Mode</strong></div><div style="margin-left:12px;margin-right:12px"><p><span>Every half second, you hit up to 3 of the nearest hostile mobs and other players within 4 blocks for 5 damage (2.5 hearts), without clicking.</span><br><span style="font-size:13px;color:#8a94a3"><strong>How It Works:</strong> Stand near enemies with Aura Mode on and they take damage automatically.</span><br><span style="font-size:13px;color:#8a94a3"><strong>Good To Know:</strong> Players in Creative or Spectator mode are never hit, and passive mobs are left alone.</span></p></div></div><div style="flex:1;min-width:200px;border:1px solid #8a94a3;border-radius:16px"><div style="background-color:#15803d;color:#ffffff;border-radius:16px;font-size:16px;line-height:2.2"><strong>&nbsp;&nbsp;Always Critical</strong></div><div style="margin-left:12px;margin-right:12px"><p><span>Every melee hit you land deals 1.5 times damage and shows the critical hit sparks, the same bonus as a vanilla critical hit, without jumping first.</span><br><span style="font-size:13px;color:#8a94a3"><strong>How It Works:</strong> Hit a mob or player with a sword or axe while Always Critical is on.</span><br><span style="font-size:13px;color:#8a94a3"><strong>Good To Know:</strong> A hit made while you are already falling is left as vanilla, so the bonus never stacks.</span></p></div></div><div style="flex:1;min-width:200px;border:1px solid #8a94a3;border-radius:16px"><div style="background-color:#15803d;color:#ffffff;border-radius:16px;font-size:16px;line-height:2.2"><strong>&nbsp;&nbsp;Bow Aimbot</strong></div><div style="margin-left:12px;margin-right:12px"><p><span>Arrows you shoot from a bow or crossbow steer toward the hostile mob or player closest to your crosshair within 48 blocks and 25 degrees of where you look.</span><br><span style="font-size:13px;color:#8a94a3"><strong>How It Works:</strong> Aim roughly at a target and release. The arrow leads a moving target and allows for arrow drop.</span><br><span style="font-size:13px;color:#8a94a3"><strong>Good To Know:</strong> If nothing is near your crosshair, the arrow flies as normal.</span></p></div></div><div style="flex:1;min-width:200px;border:1px solid #8a94a3;border-radius:16px"><div style="background-color:#15803d;color:#ffffff;border-radius:16px;font-size:16px;line-height:2.2"><strong>&nbsp;&nbsp;Always Water Clutch</strong></div><div style="margin-left:12px;margin-right:12px"><p><span>When you fall 3 blocks or more and the ground is close, a water block appears in the space you land in, so the fall does no damage, and it disappears after about 2 seconds.</span><br><span style="font-size:13px;color:#8a94a3"><strong>How It Works:</strong> Switch it on and jump. No water bucket is needed.</span><br><span style="font-size:13px;color:#8a94a3"><strong>Good To Know:</strong> It does not trigger in Creative or Spectator mode, while gliding or flying, or over water.</span></p></div></div><div style="flex:1;min-width:200px;border:1px solid #8a94a3;border-radius:16px"><div style="background-color:#15803d;color:#ffffff;border-radius:16px;font-size:16px;line-height:2.2"><strong>&nbsp;&nbsp;Shield Always Active</strong></div><div style="margin-left:12px;margin-right:12px"><p><span>While you carry a shield in either hand, every melee hit and arrow from the front half of your view is fully blocked, even if you are not holding the block button.</span><br><span style="font-size:13px;color:#8a94a3"><strong>How It Works:</strong> Keep a shield in your hand or off hand and switch Shield Always Active on.</span><br><span style="font-size:13px;color:#8a94a3"><strong>Good To Know:</strong> Hits from behind and other damage, such as fire or explosions, are not blocked.</span></p></div></div></div>
+<div style="display:flex;flex-wrap:wrap;gap:10px"><div style="flex:1;min-width:200px;border:1px solid #8a94a3;border-radius:16px"><div style="background-color:#15803d;color:#ffffff;border-radius:16px;font-size:16px;line-height:2.2"><strong>&nbsp;&nbsp;Combat Helper Item</strong></div><div style="margin-left:12px;margin-right:12px"><p><span>A cursor-shaped item that opens the toggle menu when you use it. You craft one from wool, take one from the Equipment tab of the Creative inventory, or turn on the Give Starter Item pack setting to receive one the first time you join a world.</span><br><span style="font-size:13px;color:#8a94a3"><strong>How It Works:</strong> Hold the Combat Helper and use it, like right-clicking on PC or tapping on mobile. Sneak while you use it to switch all your toggles off or back on. To craft one, fill the top row of a crafting table with wool, then the left and middle squares of the middle row, then the left and right squares of the bottom row. This takes 7 wool of any color and the shape looks like a cursor.</span><br><span style="font-size:13px;color:#8a94a3"><strong>Good To Know:</strong> With Give Starter Item on, a full inventory on first join means the Combat Helper is offered again on your next join.</span></p></div></div><div style="flex:1;min-width:200px;border:1px solid #8a94a3;border-radius:16px"><div style="background-color:#15803d;color:#ffffff;border-radius:16px;font-size:16px;line-height:2.2"><strong>&nbsp;&nbsp;Combat Toggles Menu</strong></div><div style="margin-left:12px;margin-right:12px"><p><span>The main menu has three buttons: Combat Menu, About and Exit. Combat Menu opens a screen with Combat Toggles, Friends and Tuning. Combat Toggles lists 9 switches with a one-line explanation under each, and Apply saves them and closes the menu.</span><br><span style="font-size:13px;color:#8a94a3"><strong>How It Works:</strong> Flip the switches you want, then tap Apply. Closing the screen without Apply brings you back one screen.</span><br><span style="font-size:13px;color:#8a94a3"><strong>Good To Know:</strong> Toggles are saved per player, so each person in a world picks their own.</span></p></div></div><div style="flex:1;min-width:200px;border:1px solid #8a94a3;border-radius:16px"><div style="background-color:#15803d;color:#ffffff;border-radius:16px;font-size:16px;line-height:2.2"><strong>&nbsp;&nbsp;Auto Totem</strong></div><div style="margin-left:12px;margin-right:12px"><p><span>When a hit would kill you and you hold no Totem of Undying, one from your inventory moves into your off hand first, so the totem saves you.</span><br><span style="font-size:13px;color:#8a94a3"><strong>How It Works:</strong> Keep a Totem of Undying anywhere in your inventory and switch Auto Totem on.</span><br><span style="font-size:13px;color:#8a94a3"><strong>Good To Know:</strong> It does nothing without a totem in your inventory, and it cannot help against the void or the kill command.</span></p></div></div><div style="flex:1;min-width:200px;border:1px solid #8a94a3;border-radius:16px"><div style="background-color:#15803d;color:#ffffff;border-radius:16px;font-size:16px;line-height:2.2"><strong>&nbsp;&nbsp;Infinite Totem</strong></div><div style="margin-left:12px;margin-right:12px"><p><span>Works like Auto Totem, and when you have no totem at all it puts a new Totem of Undying in your off hand before a deadly hit.</span><br><span style="font-size:13px;color:#8a94a3"><strong>How It Works:</strong> Switch it on and keep fighting. Each totem that pops is replaced before the next deadly hit.</span><br><span style="font-size:13px;color:#8a94a3"><strong>Good To Know:</strong> An item that was in your off hand moves to your inventory, or drops at your feet if the inventory is full.</span></p></div></div><div style="flex:1;min-width:200px;border:1px solid #8a94a3;border-radius:16px"><div style="background-color:#15803d;color:#ffffff;border-radius:16px;font-size:16px;line-height:2.2"><strong>&nbsp;&nbsp;Aura Mode</strong></div><div style="margin-left:12px;margin-right:12px"><p><span>Every half second, you hit up to 3 of the nearest hostile mobs and other players within 4 blocks for 5 damage (2.5 hearts), without clicking.</span><br><span style="font-size:13px;color:#8a94a3"><strong>How It Works:</strong> Stand near enemies with Aura Mode on and they take damage automatically.</span><br><span style="font-size:13px;color:#8a94a3"><strong>Good To Know:</strong> Players in Creative or Spectator mode are never hit, and passive mobs are left alone.</span></p></div></div><div style="flex:1;min-width:200px;border:1px solid #8a94a3;border-radius:16px"><div style="background-color:#15803d;color:#ffffff;border-radius:16px;font-size:16px;line-height:2.2"><strong>&nbsp;&nbsp;Always Critical</strong></div><div style="margin-left:12px;margin-right:12px"><p><span>Every melee hit you land deals 1.5 times damage and shows the critical hit sparks, the same bonus as a vanilla critical hit, without jumping first.</span><br><span style="font-size:13px;color:#8a94a3"><strong>How It Works:</strong> Hit a mob or player with a sword or axe while Always Critical is on.</span><br><span style="font-size:13px;color:#8a94a3"><strong>Good To Know:</strong> A hit made while you are already falling is left as vanilla, so the bonus never stacks.</span></p></div></div><div style="flex:1;min-width:200px;border:1px solid #8a94a3;border-radius:16px"><div style="background-color:#15803d;color:#ffffff;border-radius:16px;font-size:16px;line-height:2.2"><strong>&nbsp;&nbsp;Bow Aimbot</strong></div><div style="margin-left:12px;margin-right:12px"><p><span>Arrows you shoot from a bow or crossbow steer toward the hostile mob or player closest to your crosshair within 48 blocks and 25 degrees of where you look.</span><br><span style="font-size:13px;color:#8a94a3"><strong>How It Works:</strong> Aim roughly at a target and release. The arrow leads a moving target and allows for arrow drop.</span><br><span style="font-size:13px;color:#8a94a3"><strong>Good To Know:</strong> If nothing is near your crosshair, the arrow flies as normal.</span></p></div></div><div style="flex:1;min-width:200px;border:1px solid #8a94a3;border-radius:16px"><div style="background-color:#15803d;color:#ffffff;border-radius:16px;font-size:16px;line-height:2.2"><strong>&nbsp;&nbsp;Always Water Clutch</strong></div><div style="margin-left:12px;margin-right:12px"><p><span>When you fall 3 blocks or more and the ground is close, a water block appears in the space you land in, so the fall does no damage, and it disappears after about 2 seconds.</span><br><span style="font-size:13px;color:#8a94a3"><strong>How It Works:</strong> Switch it on and jump. No water bucket is needed.</span><br><span style="font-size:13px;color:#8a94a3"><strong>Good To Know:</strong> It does not trigger in Creative or Spectator mode, while gliding or flying, or over water.</span></p></div></div><div style="flex:1;min-width:200px;border:1px solid #8a94a3;border-radius:16px"><div style="background-color:#15803d;color:#ffffff;border-radius:16px;font-size:16px;line-height:2.2"><strong>&nbsp;&nbsp;Shield Always Active</strong></div><div style="margin-left:12px;margin-right:12px"><p><span>While you carry a shield in either hand, every melee hit and arrow from the front half of your view is fully blocked, even if you are not holding the block button.</span><br><span style="font-size:13px;color:#8a94a3"><strong>How It Works:</strong> Keep a shield in your hand or off hand and switch Shield Always Active on.</span><br><span style="font-size:13px;color:#8a94a3"><strong>Good To Know:</strong> Hits from behind and other damage, such as fire or explosions, are not blocked.</span></p></div></div><div style="flex:1;min-width:200px;border:1px solid #8a94a3;border-radius:16px"><div style="background-color:#15803d;color:#ffffff;border-radius:16px;font-size:16px;line-height:2.2"><strong>&nbsp;&nbsp;Auto Golden Apple</strong></div><div style="margin-left:12px;margin-right:12px"><p><span>When your health drops to 4 hearts or less, one golden apple from your inventory is eaten for you, giving Regeneration II for 5 seconds and Absorption for 2 minutes.</span><br><span style="font-size:13px;color:#8a94a3"><strong>How It Works:</strong> Keep a golden apple anywhere in your inventory and switch Auto Golden Apple on.</span><br><span style="font-size:13px;color:#8a94a3"><strong>Good To Know:</strong> It waits 20 seconds between apples, it does not restore hunger, and it does nothing in Creative or Spectator mode.</span></p></div></div><div style="flex:1;min-width:200px;border:1px solid #8a94a3;border-radius:16px"><div style="background-color:#15803d;color:#ffffff;border-radius:16px;font-size:16px;line-height:2.2"><strong>&nbsp;&nbsp;Damage Display</strong></div><div style="margin-left:12px;margin-right:12px"><p><span>Each time you hurt a mob or player, the action bar shows how much damage the hit did, in points and in hearts.</span><br><span style="font-size:13px;color:#8a94a3"><strong>How It Works:</strong> Switch it on and hit something.</span><br><span style="font-size:13px;color:#8a94a3"><strong>Good To Know:</strong> It also counts the hits made by Aura Mode.</span></p></div></div><div style="flex:1;min-width:200px;border:1px solid #8a94a3;border-radius:16px"><div style="background-color:#15803d;color:#ffffff;border-radius:16px;font-size:16px;line-height:2.2"><strong>&nbsp;&nbsp;Friends</strong></div><div style="margin-left:12px;margin-right:12px"><p><span>You pick online players as friends, and Aura Mode and Bow Aimbot skip them.</span><br><span style="font-size:13px;color:#8a94a3"><strong>How It Works:</strong> Open the Combat Menu, tap Friends, tick the players you want and tap Apply.</span><br><span style="font-size:13px;color:#8a94a3"><strong>Good To Know:</strong> Friends stay on your list when they go offline. The list is yours alone, so a friend is only safe from your toggles, not the other way round.</span></p></div></div><div style="flex:1;min-width:200px;border:1px solid #8a94a3;border-radius:16px"><div style="background-color:#15803d;color:#ffffff;border-radius:16px;font-size:16px;line-height:2.2"><strong>&nbsp;&nbsp;Tuning</strong></div><div style="margin-left:12px;margin-right:12px"><p><span>Six sliders change how strong the toggles are: Aura range (2 to 6 blocks), Aura damage (1 to 10), Aura targets (1 to 5), Bow Aimbot range (16 to 96 blocks), Bow Aimbot angle (5 to 45 degrees) and Always Critical damage (110 to 300 percent).</span><br><span style="font-size:13px;color:#8a94a3"><strong>How It Works:</strong> Open the Combat Menu, tap Tuning, drag the sliders and tap Apply. A reset switch at the bottom puts everything back to the defaults.</span><br><span style="font-size:13px;color:#8a94a3"><strong>Good To Know:</strong> The starting values match the old fixed numbers, so nothing changes until you move a slider.</span></p></div></div><div style="flex:1;min-width:200px;border:1px solid #8a94a3;border-radius:16px"><div style="background-color:#15803d;color:#ffffff;border-radius:16px;font-size:16px;line-height:2.2"><strong>&nbsp;&nbsp;Quick Toggle</strong></div><div style="margin-left:12px;margin-right:12px"><p><span>Sneaking while you use the Combat Helper switches every toggle off at once, and doing it again brings the same toggles back.</span><br><span style="font-size:13px;color:#8a94a3"><strong>How It Works:</strong> Crouch and use the item instead of opening the menu.</span><br><span style="font-size:13px;color:#8a94a3"><strong>Good To Know:</strong> Your friends and tuning stay as they are.</span></p></div></div><div style="flex:1;min-width:200px;border:1px solid #8a94a3;border-radius:16px"><div style="background-color:#15803d;color:#ffffff;border-radius:16px;font-size:16px;line-height:2.2"><strong>&nbsp;&nbsp;Starter Item Pack Setting</strong></div><div style="margin-left:12px;margin-right:12px"><p><span>The behavior pack has a choice between No Starter Item, which is the default, and Give Starter Item, which gives each player a Combat Helper the first time they join the world.</span><br><span style="font-size:13px;color:#8a94a3"><strong>How It Works:</strong> Open the world settings, go to Behavior Packs, tap Combat Helper and use the subpack slider to pick Give Starter Item.</span><br><span style="font-size:13px;color:#8a94a3"><strong>Good To Know:</strong> Each player gets one the first time they join with the setting on, and a player who already has one saved from before is not given another.</span></p></div></div></div>
 <h2 style="font-size:17px;text-align:left"><span style="background-color:#15803d;color:#ffffff;border-radius:20px">&nbsp;&nbsp;Custom Items&nbsp;&nbsp;</span></h2>
 <div style="display:flex;flex-wrap:wrap;gap:10px"><div style="flex:0 1 120px;border:1px solid #8a94a3;border-radius:16px;text-align:center"><p><a href="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/MCPEDL/Addons/ALN-Pointer/assets/items/aln_pointer.png"><img src="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/MCPEDL/Addons/ALN-Pointer/assets/items/aln_pointer.png" alt="aln pointer" style="width:64px"></a></p><p style="color:#8a94a3;font-size:13px">aln pointer</p></div></div>
 <h2 style="font-size:17px;text-align:left"><span style="background-color:#15803d;color:#ffffff;border-radius:20px">&nbsp;&nbsp;Get Started&nbsp;&nbsp;</span></h2>
-<table style="width:100%;border:1px solid #8a94a3;border-radius:16px"><tbody><tr><td style="width:44px;text-align:center"><div style="background-color:#15803d;color:#ffffff;font-weight:bold;font-size:15px;text-align:center;border-radius:10px;width:30px;aspect-ratio:1/1;line-height:30px">1</div></td><td style="text-align:left;">Join your world and find the Combat Helper in your inventory, craft one from 7 wool in a cursor shape, or take it from the Equipment tab of the Creative inventory.</td></tr><tr><td style="width:44px;text-align:center"><div style="background-color:#15803d;color:#ffffff;font-weight:bold;font-size:15px;text-align:center;border-radius:10px;width:30px;aspect-ratio:1/1;line-height:30px">2</div></td><td style="text-align:left;">Hold the Combat Helper and use it to open the ALNStudios menu, then tap Combat Toggles.</td></tr><tr><td style="width:44px;text-align:center"><div style="background-color:#15803d;color:#ffffff;font-weight:bold;font-size:15px;text-align:center;border-radius:10px;width:30px;aspect-ratio:1/1;line-height:30px">3</div></td><td style="text-align:left;">Switch on the toggles you want and tap Apply. The action bar shows how many toggles are on.</td></tr><tr><td style="width:44px;text-align:center"><div style="background-color:#15803d;color:#ffffff;font-weight:bold;font-size:15px;text-align:center;border-radius:10px;width:30px;aspect-ratio:1/1;line-height:30px">4</div></td><td style="text-align:left;">Use the Combat Helper again any time to change your toggles.</td></tr></tbody></table>
+<table style="width:100%;border:1px solid #8a94a3;border-radius:16px"><tbody><tr><td style="width:44px;text-align:center"><div style="background-color:#15803d;color:#ffffff;font-weight:bold;font-size:15px;text-align:center;border-radius:10px;width:30px;aspect-ratio:1/1;line-height:30px">1</div></td><td style="text-align:left;">Craft a Combat Helper from 7 wool in a cursor shape, take one from the Equipment tab of the Creative inventory, or turn on Give Starter Item to receive one when you first join.</td></tr><tr><td style="width:44px;text-align:center"><div style="background-color:#15803d;color:#ffffff;font-weight:bold;font-size:15px;text-align:center;border-radius:10px;width:30px;aspect-ratio:1/1;line-height:30px">2</div></td><td style="text-align:left;">Hold the Combat Helper and use it to open the ALNStudios menu, then tap Combat Menu and Combat Toggles.</td></tr><tr><td style="width:44px;text-align:center"><div style="background-color:#15803d;color:#ffffff;font-weight:bold;font-size:15px;text-align:center;border-radius:10px;width:30px;aspect-ratio:1/1;line-height:30px">3</div></td><td style="text-align:left;">Switch on the toggles you want and tap Apply. The action bar shows how many toggles are on.</td></tr><tr><td style="width:44px;text-align:center"><div style="background-color:#15803d;color:#ffffff;font-weight:bold;font-size:15px;text-align:center;border-radius:10px;width:30px;aspect-ratio:1/1;line-height:30px">4</div></td><td style="text-align:left;">Use the Combat Helper again any time to change your toggles, or open Friends and Tuning from the Combat Menu.</td></tr></tbody></table>
 <h2 style="font-size:17px;text-align:left"><span style="background-color:#15803d;color:#ffffff;border-radius:20px">&nbsp;&nbsp;Common Questions&nbsp;&nbsp;</span></h2>
 <div class="spoiler" title="How do I get another Combat Helper?" data-title="How do I get another Combat Helper?"><p><strong>How do I get another Combat Helper?</strong><br>Craft one from 7 wool on a crafting table, laid out like a cursor with the top row full, the left and middle squares of the middle row, and the left and right squares of the bottom row. You can also take one from the Equipment tab of the Creative inventory, or use the command /give @s allenscreations:aln_pointer, which needs cheats.</p></div><div class="spoiler" title="Do my toggles affect other players?" data-title="Do my toggles affect other players?"><p><strong>Do my toggles affect other players?</strong><br>No. Each player has their own saved toggles, and a toggle only changes what that player does.</p></div><div class="spoiler" title="Can I use it on a server?" data-title="Can I use it on a server?"><p><strong>Can I use it on a server?</strong><br>These features act like cheats. Many servers ban them, so use them only where the owner and the other players agree.</p></div>
 <h2 style="font-size:17px;text-align:left"><span style="background-color:#15803d;color:#ffffff;border-radius:20px">&nbsp;&nbsp;Install&nbsp;&nbsp;</span></h2>
@@ -1538,7 +1912,7 @@ Paste into the CurseForge description editor in source (HTML) mode.
 <hr>
 <p style="text-align:center;color:#8a94a3;font-size:13px"><strong>By ALNStudios</strong></p>
 <div class="spoiler"><p style="font-size:13px"><strong>Permissions and credits</strong></p><ul style="font-size:13px"><li>Rights: All rights reserved for ALNStudios.</li><li>Content creators: You may feature this creation in videos and streams with credit to ALNStudios.</li><li>Redistribution: Do not re-upload this pack or provide direct monetized download bypasses. Link to this page.</li><li>Unofficial community creation. Not an official Minecraft product and not approved by or associated with Mojang or Microsoft.</li></ul></div>
-<p style="text-align:center;color:#8a94a3;font-size:12px">Minecraft Bedrock add-on, Combat Helper Bedrock mod, Minecraft PE PVP toggles, Auto Totem, Infinite Totem, Aura Mode, Always Critical, Bow Aimbot, Water Clutch, Minecraft PE mouse pointer item, MCPEDL add-on, CurseForge Bedrock, ALNStudios.</p></div>
+<p style="text-align:center;color:#8a94a3;font-size:12px">Minecraft Bedrock add-on, Combat Helper Bedrock mod, Minecraft PE PVP toggles, Auto Totem, Infinite Totem, Aura Mode, Always Critical, Bow Aimbot, Water Clutch, Auto Golden Apple, Damage Display, friends list, Minecraft PE mouse pointer item, MCPEDL add-on, CurseForge Bedrock, ALNStudios.</p></div>
 ```
 
 ## AI Image Prompts
@@ -1552,7 +1926,7 @@ Paste into the CurseForge description editor in source (HTML) mode.
 
 ```text
 Use the attached logo only as a brand reference for its color palette and overall mood. Do not copy it. Create a new, original logo with a different composition and a different main symbol. Do not just recolor, resize, crop, mirror or tweak the attached logo.
-Create a clean, square (1:1) logo image for the Minecraft Bedrock add-on "Combat Helper". Use the Combat Helper item to switch 7 PVP toggles on or off per player, including Auto Totem and Bow Aimbot.
+Create a clean, square (1:1) logo image for the Minecraft Bedrock add-on "Combat Helper". Use the Combat Helper item to switch 9 PVP toggles on or off per player, including Auto Totem and Bow Aimbot, and set friends and slider values.
 Base the main symbol on the pack idea above. Match the blocky look of the attached in-game snapshots. Center the logo, use a simple background, and keep it readable at small sizes.
 Text: "Combat Helper" and, in small letters, "ALNStudios". ALNStudios is the brand name, so always keep it and never remove or change it. Spell both exactly.
 Do not add Minecraft, Mojang or Microsoft logos, watermarks, or characters from other games.
@@ -1561,7 +1935,7 @@ Do not add Minecraft, Mojang or Microsoft logos, watermarks, or characters from 
 ### Banner Prompt
 
 ```text
-Create a wide (16:9) banner image for the Minecraft Bedrock add-on "Combat Helper". Use the Combat Helper item to switch 7 PVP toggles on or off per player, including Auto Totem and Bow Aimbot.
+Create a wide (16:9) banner image for the Minecraft Bedrock add-on "Combat Helper". Use the Combat Helper item to switch 9 PVP toggles on or off per player, including Auto Totem and Bow Aimbot, and set friends and slider values.
 Use the attached in-game snapshots as scene and style references: copy their blocky look, lighting, colors and the kind of scenery they show. Make a new composition inspired by them. Do not copy the on-screen HUD, chat or hotbar.
 Use the attached logo only as a brand reference for its colors and mood. Do not copy it. Put a new, original logo design in the banner, large enough to read, on the left or center.
 Hint at these pack features visually: Combat Helper Item, Combat Toggles Menu, Auto Totem, Infinite Totem, Aura Mode.
