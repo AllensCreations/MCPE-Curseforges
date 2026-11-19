@@ -4,8 +4,8 @@
     "type": "image",
     "texture": "textures/particle/aln_circle",
     "size": [
-      32,
-      32
+      8,
+      8
     ],
     "anchor_from": "center",
     "anchor_to": "center",
@@ -25,8 +25,8 @@
     "type": "image",
     "texture": "textures/particle/aln_circle",
     "size": [
-      40,
-      40
+      15,
+      15
     ],
     "anchor_from": "center",
     "anchor_to": "center",
@@ -46,8 +46,8 @@
     "type": "image",
     "texture": "textures/particle/aln_circle",
     "size": [
-      48,
-      48
+      23,
+      23
     ],
     "anchor_from": "center",
     "anchor_to": "center",
@@ -67,8 +67,8 @@
     "type": "image",
     "texture": "textures/particle/aln_circle",
     "size": [
-      56,
-      56
+      31,
+      31
     ],
     "anchor_from": "center",
     "anchor_to": "center",
@@ -88,8 +88,8 @@
     "type": "image",
     "texture": "textures/particle/aln_circle",
     "size": [
-      64,
-      64
+      40,
+      40
     ],
     "anchor_from": "center",
     "anchor_to": "center",
@@ -109,8 +109,8 @@
     "type": "image",
     "texture": "textures/particle/aln_circle",
     "size": [
-      72,
-      72
+      50,
+      50
     ],
     "anchor_from": "center",
     "anchor_to": "center",
@@ -130,8 +130,8 @@
     "type": "image",
     "texture": "textures/particle/aln_circle",
     "size": [
-      80,
-      80
+      60,
+      60
     ],
     "anchor_from": "center",
     "anchor_to": "center",
@@ -151,8 +151,8 @@
     "type": "image",
     "texture": "textures/particle/aln_circle",
     "size": [
-      88,
-      88
+      72,
+      72
     ],
     "anchor_from": "center",
     "anchor_to": "center",
@@ -172,8 +172,8 @@
     "type": "image",
     "texture": "textures/particle/aln_circle",
     "size": [
-      96,
-      96
+      86,
+      86
     ],
     "anchor_from": "center",
     "anchor_to": "center",
@@ -193,8 +193,8 @@
     "type": "image",
     "texture": "textures/particle/aln_circle",
     "size": [
-      104,
-      104
+      102,
+      102
     ],
     "anchor_from": "center",
     "anchor_to": "center",

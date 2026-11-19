@@ -11,6 +11,11 @@
 
 ---
 
+## [v139] - 2026-11-19 - Circle Size By Degrees
+
+### Changed
+- **Aim Circle**: The on-screen circle is now sized by the Bow Aimbot angle. At the default 25 degrees it is shown at the 40 by 40 picture's own size, and other angles are scaled from that in proportion to the angle, from 8 pixels at 5 degrees up to 102 pixels at 50 degrees.
+
 ## [v138] - 2026-11-19 - One Circle Picture
 
 ### Changed
