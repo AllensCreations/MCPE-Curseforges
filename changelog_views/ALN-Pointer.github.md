@@ -1,9 +1,19 @@
 # Changelog — ALN Pointer
 
-## [v15] - 2026-11-19 - Circle Size By Degrees
+## [v16] - 2026-11-19 - Circle Size Matches Degrees
 
 ### Changed
+- **Aim Circle**: The on-screen circle size is now exactly proportional to the Bow Aimbot angle. Each degree adds 1.6 pixels, so 25 degrees is the 40 by 40 size, 5 degrees is 8, 50 degrees is 80, and doubling the angle doubles the circle.
+
+<details>
+<summary><b>15.0.x</b> (1 release)</summary>
+
+### [v15] - 2026-11-19 - Circle Size By Degrees
+
+#### Changed
 - **Aim Circle**: The on-screen circle is now sized by the Bow Aimbot angle. At the default 25 degrees it is shown at the 40 by 40 picture's own size, and other angles are scaled from that in proportion to the angle, from 8 pixels at 5 degrees up to 102 pixels at 50 degrees.
+
+</details>
 
 <details>
 <summary><b>14.0.x</b> (1 release)</summary>
