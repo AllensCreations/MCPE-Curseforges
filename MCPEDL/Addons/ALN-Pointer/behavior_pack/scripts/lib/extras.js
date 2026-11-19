@@ -1,4 +1,4 @@
-import { world, system, EntityComponentTypes, EntityDamageCause, EquipmentSlot, GameMode } from "@minecraft/server";
+import { world, system, EntityComponentTypes, EntityDamageCause, EquipmentSlot, GameMode, MolangVariableMap } from "@minecraft/server";
 import { PLAYER_ID } from "./info.js";
 import { isOn, anyOn } from "./store.js";
 import { tune } from "./tuning.js";
@@ -70,30 +70,19 @@ function knock(event) {
 }
 
 const RING_DISTANCE = 6;
-const RING_POINTS = 24;
 
 function circle(p) {
   const eye = p.getHeadLocation();
   const v = p.getViewDirection();
-  let rx = v.z;
-  let rz = -v.x;
-  const size = Math.hypot(rx, rz);
-  if (size < 0.001) return;
-  rx /= size;
-  rz /= size;
-  const ux = v.y * rz;
-  const uy = v.z * rx - v.x * rz;
-  const uz = -v.y * rx;
-  const radius = RING_DISTANCE * Math.tan((tune(p, "aimCone") * Math.PI) / 180);
-  const cx = eye.x + v.x * RING_DISTANCE;
-  const cy = eye.y + v.y * RING_DISTANCE;
-  const cz = eye.z + v.z * RING_DISTANCE;
-  for (let i = 0; i < RING_POINTS; i++) {
-    const a = (i / RING_POINTS) * 2 * Math.PI;
-    const c = Math.cos(a) * radius;
-    const s = Math.sin(a) * radius;
-    p.spawnParticle("minecraft:basic_flame_particle", { x: cx + c * rx + s * ux, y: cy + s * uy, z: cz + c * rz + s * uz });
-  }
+  const cone = tune(p, "aimCone");
+  const picture = Math.min(13, Math.max(4, Math.round(cone / 5) + 3));
+  const map = new MolangVariableMap();
+  map.setFloat("variable.r", RING_DISTANCE * Math.tan((cone * Math.PI) / 180));
+  p.spawnParticle(
+    `allenscreations:aln_circle_${picture}`,
+    { x: eye.x + v.x * RING_DISTANCE, y: eye.y + v.y * RING_DISTANCE, z: eye.z + v.z * RING_DISTANCE },
+    map
+  );
 }
 
 function mark(p) {
@@ -150,6 +139,6 @@ export function initExtras() {
         mark(p);
       } catch (e) {}
     }
-  }, 5);
+  }, 1);
   world.afterEvents.playerLeave.subscribe(({ playerId }) => last.delete(playerId));
 }

@@ -11,6 +11,13 @@
 
 ---
 
+## [v136] - 2026-11-19 - Aim Circle Pictures
+
+### Changed
+- **Aim Circle**: The circle around your crosshair is now a picture instead of flame dots. There are 10 circle pictures, 4 by 4 up to 13 by 13 pixels, one for each Bow Aimbot angle from 5 to 50 degrees. They are the files aln_circle_4.png to aln_circle_13.png in resource_pack/textures/particle.
+- **Smooth Following**: The target picture and the aim circle now refresh every tick instead of 4 times a second, so they follow the target and your crosshair without flickering.
+- **Bow Aimbot Angle**: The angle slider in Tuning now goes up to 50 degrees.
+
 ## [v135] - 2026-11-19 - Parry Text Removed
 
 ### Changed
