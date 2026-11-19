@@ -30,7 +30,7 @@ The add-on lets players tame selected hostile mobs and use supported creatures a
 ## Features and Mechanics
 
 ### Taming Chances
-Taming is no longer guaranteed. Each Primal Beast Biscuit you feed a wild hostile mob gives it a chance to become your companion, and a biscuit is used up on every attempt. Weaker mobs such as Zombies, Spiders, and Slimes are the easiest to win over, while powerful mobs such as Ghasts, Iron Golems, and Ravagers take many more attempts. Mobs do not need to be wounded first, so you can try at full health.
+Taming is no longer guaranteed. Each Primal Beast Biscuit you feed a wild hostile mob has a 50% chance to make it your companion, the same for every mob, and a biscuit is used up on every attempt. Mobs do not need to be wounded first, so you can try at full health.
 
 ### Automatic Bodyguard
 Companions now protect you on their own. When a hostile mob that is already angry at something comes within range of you, nearby companions step in and attack it without waiting for you to be hit first. They also keep defending you when you are hurt and join any fight you start. Companions never attack you, other players, or one another.
@@ -55,8 +55,8 @@ Tap a companion with an empty hand to make it sit and hold its position, and tap
 
 ### Boss Subpack
 Open the Behavior Pack settings and choose a subpack. Default keeps the Warden and the Wither as vanilla bosses, and With Bosses lets you tame them.
-- **What Happens**: On the With Bosses subpack, each Primal Beast Biscuit has a 10% chance to tame a wild Warden or Wither.
-- **Tamed Warden**: Follows and defends you, can be ridden and steered on the ground, and no longer applies Darkness.
+- **What Happens**: On the With Bosses subpack, each Primal Beast Biscuit has a 50% chance to tame a wild Warden or Wither, like every other mob.
+- **Tamed Warden**: Follows and defends you, can be ridden and steered on the ground, no longer applies Darkness, and deals 15 melee damage instead of 30.
 - **Tamed Wither**: Follows and defends you, can be ridden and steered through the air, and no longer shows a boss bar.
 
 ### Riding Companions

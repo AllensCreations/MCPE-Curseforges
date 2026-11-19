@@ -700,7 +700,7 @@
       },
       "allenscreations:wild": {
         "minecraft:tameable": {
-          "probability": 0.2,
+          "probability": 0.5,
           "tame_items": [
             "allenscreations:beast_biscuit"
           ],

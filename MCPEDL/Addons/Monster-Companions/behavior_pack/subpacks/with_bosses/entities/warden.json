@@ -314,6 +314,9 @@
           ]
         },
         "minecraft:persistent": {},
+        "minecraft:attack": {
+          "damage": 15
+        },
         "minecraft:ambient_sound_interval": {
           "event_name": "ambient",
           "range": 4.0,
@@ -345,7 +348,7 @@
       },
       "allenscreations:wild": {
         "minecraft:tameable": {
-          "probability": 0.1,
+          "probability": 0.5,
           "tame_items": [
             "allenscreations:beast_biscuit"
           ],
@@ -498,7 +501,8 @@
         },
         "queue_command": {
           "command": [
-            "particle minecraft:heart_particle ~ ~1.5 ~"
+            "particle minecraft:heart_particle ~ ~1.5 ~",
+            "effect @s resistance 10 5 true"
           ]
         }
       },

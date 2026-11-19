@@ -2,6 +2,15 @@
 
 ---
 
+## [v5] - 2026-11-19 - Equal Taming Chances
+
+### Improved & Balanced
+
+- **Taming chances**: Every mob is now tamed with a 50% chance per Primal Beast Biscuit, including the Warden and the Wither.
+- **Tamed Warden**: Melee damage is halved from 30 to 15 once tamed.
+- **Taming protection**: A newly tamed Warden or Wither gets 10 seconds of Resistance.
+- **Wither mount**: The rider sits higher above the Wither's heads, and the Wither flies a little faster when ridden.
+
 ## [v4] - 2026-11-19 - Warden and Wither Companions
 
 ### Added

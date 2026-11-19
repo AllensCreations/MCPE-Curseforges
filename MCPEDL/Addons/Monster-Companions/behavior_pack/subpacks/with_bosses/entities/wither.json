@@ -168,7 +168,8 @@
         },
         "queue_command": {
           "command": [
-            "particle minecraft:heart_particle ~ ~1.5 ~"
+            "particle minecraft:heart_particle ~ ~1.5 ~",
+            "effect @s resistance 10 5 true"
           ]
         }
       },
@@ -389,7 +390,7 @@
             {
               "position": [
                 0.0,
-                3.0,
+                3.4,
                 0.0
               ]
             }
@@ -403,7 +404,7 @@
           "vertical_velocity": 0.5
         },
         "minecraft:flying_speed": {
-          "value": 0.08
+          "value": 0.1
         },
         "minecraft:body_rotation_always_follows_head": {},
         "minecraft:physics": {
@@ -415,7 +416,7 @@
       },
       "allenscreations:wild": {
         "minecraft:tameable": {
-          "probability": 0.1,
+          "probability": 0.5,
           "tame_items": [
             "allenscreations:beast_biscuit"
           ],
