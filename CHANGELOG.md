@@ -1,6 +1,6 @@
 ## [v7] - 2026-11-20 - [No Booster Limit]
 
-- 2-in-1 Loot & XP Booster: Removed the per-moment drop and XP orb limits and the limit Action Bar message.
+- 2-in-1 Loot & XP Booster: Removed the drop and XP orb limits and all Action Bar messages.
 
 ## [v17] - 2026-11-20 - ALN-Pointer Circle Zoom
 

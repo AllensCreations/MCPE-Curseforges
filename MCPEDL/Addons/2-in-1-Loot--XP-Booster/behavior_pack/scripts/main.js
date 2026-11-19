@@ -22,7 +22,6 @@ const DROP_TAG = "aln_boosted_drop";
 const XP_TAG = "aln_boosted_xp";
 const XP_RADIUS = 8;
 const XP_PICKUP_SQUARED = 1;
-const BAR_DELAY_TICKS = 50;
 const XP_INTERVAL_TICKS = 2;
 const MAX_FERTILIZED = 4096;
 const MAX_FORM_RETRIES = 8;
@@ -57,7 +56,6 @@ const GROWTH_RULES = {
   "minecraft:sweet_berry_bush": ["growth", 3],
 };
 const fertilized = new Set();
-const barTimers = new Map();
 const openMenus = new Set();
 const boosts = new Map();
 
@@ -215,21 +213,6 @@ async function boosterScreen(player) {
   player.setDynamicProperty(MOBS_KEY, switches[3]);
   boosts.set(player.id, { loot: lootIndex, xp: xpIndex, on, ores: switches[1], crops: switches[2], mobs: switches[3] });
   player.playSound("random.orb");
-  const pending = barTimers.get(player.id);
-  if (pending !== undefined) {
-    system.clearRun(pending);
-    barTimers.delete(player.id);
-  }
-  if (!on) {
-    player.onScreenDisplay.setActionBar("§eBoosters turned off");
-    return undefined;
-  }
-  player.onScreenDisplay.setActionBar(`§aLoot Booster set to ${LOOT_LEVELS[lootIndex]}x`);
-  const timer = system.runTimeout(() => {
-    barTimers.delete(player.id);
-    if (player.isValid) player.onScreenDisplay.setActionBar(`§aXP Booster set to ${XP_LEVELS[xpIndex]}x`);
-  }, BAR_DELAY_TICKS);
-  barTimers.set(player.id, timer);
   return undefined;
 }
 
@@ -279,11 +262,6 @@ world.afterEvents.itemUse.subscribe((event) => {
 world.afterEvents.playerLeave.subscribe(({ playerId }) => {
   boosts.delete(playerId);
   openMenus.delete(playerId);
-  const pending = barTimers.get(playerId);
-  if (pending !== undefined) {
-    system.clearRun(pending);
-    barTimers.delete(playerId);
-  }
 });
 
 system.beforeEvents.startup.subscribe(({ customCommandRegistry }) => {
@@ -329,7 +307,7 @@ function rollMultiplier(max) {
   return 1 + Math.floor(Math.random() * max);
 }
 
-function addExtraBlockLoot(player, dimension, center, permutation, tool, maxMultiplier, skipSelf) {
+function addExtraBlockLoot(dimension, center, permutation, tool, maxMultiplier, skipSelf) {
   const rounds = rollMultiplier(maxMultiplier) - 1;
   if (rounds <= 0) return;
   const typeId = permutation.type.id;
@@ -419,7 +397,7 @@ world.afterEvents.playerBreakBlock.subscribe((event) => {
   if (hasSilkTouch(itemStackBeforeBreak)) return;
 
   const center = { x: origin.x + 0.5, y: origin.y + 0.5, z: origin.z + 0.5 };
-  addExtraBlockLoot(player, dimension, center, brokenBlockPermutation, itemStackBeforeBreak, maxMultiplier, category === "ores");
+  addExtraBlockLoot(dimension, center, brokenBlockPermutation, itemStackBeforeBreak, maxMultiplier, category === "ores");
 });
 
 world.afterEvents.entityDie.subscribe(({ deadEntity, damageSource }) => {
