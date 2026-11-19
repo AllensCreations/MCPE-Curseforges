@@ -108,6 +108,7 @@ async function openController(player, attempt = 0) {
     .body(`${config.gameInfo}\n\nState: ${getState()}\n${note}`)
     .button("Start")
     .button("How to play");
+  for (const x of config.extras) form.button(typeof x.label === "function" ? x.label() : x.label);
   let res;
   try {
     res = await form.show(player);
@@ -124,6 +125,8 @@ async function openController(player, attempt = 0) {
     runStart(player);
   } else if (res.selection === 1) {
     showHowToPlay(player);
+  } else {
+    try { config.extras[res.selection - 2]?.run(player); } catch {}
   }
 }
 
@@ -136,6 +139,7 @@ export function registerController(options) {
     howToPlay: options?.howToPlay ?? "",
     onStart: options?.onStart ?? (() => {}),
     onEnd: options?.onEnd ?? (() => {}),
+    extras: Array.isArray(options?.extras) ? options.extras : [],
   };
 
   world.afterEvents.itemUse.subscribe(({ source, itemStack }) => {

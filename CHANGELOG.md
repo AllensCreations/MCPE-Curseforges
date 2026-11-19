@@ -19,6 +19,11 @@
 
 ---
 
+## [v147] - 2026-11-20 - Test Dummy
+
+### Added
+- **Test Dummy**: The Controller has a new Spawn Test Dummy option for testing alone. It places a stand-in partner next to you that you are leashed to once you pick a role. Removing it, or ending the challenge, takes it away. A real partner who picks the other role replaces it.
+
 ## [v146] - 2026-11-20 - Faster Grinders
 
 ### Added

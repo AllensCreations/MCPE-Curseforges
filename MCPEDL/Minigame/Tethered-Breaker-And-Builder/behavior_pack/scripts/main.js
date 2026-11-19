@@ -26,7 +26,8 @@ const CONFIG = {
   PROMPT_GRACE_TICKS: 100,
   NOTICE_TICKS: 60,
   NOTICE_REPEAT_TICKS: 20,
-  PROMPT_SWEEP_TICKS: 200
+  PROMPT_SWEEP_TICKS: 200,
+  DUMMY_ENTITY: "minecraft:armor_stand"
 };
 
 const TENSE_SQ = CONFIG.TENSE_DISTANCE * CONFIG.TENSE_DISTANCE;
@@ -62,6 +63,7 @@ const beamPos = { x: 0, y: 0, z: 0 };
 const kb = { x: 0, z: 0 };
 
 let pair = null;
+let dummy = null;
 let pairDirty = true;
 let tickId;
 let sweepId;
@@ -230,6 +232,55 @@ world.beforeEvents.entityHurt.subscribe((ev) => {
   notify(attacker, "§cOnly the Breaker can attack!");
 });
 
+const DUMMY_TAG = "tethered_test_dummy";
+
+function dummyValid() {
+  try { return !!dummy && dummy.isValid; } catch { return false; }
+}
+
+function removeDummy(player) {
+  try { if (dummyValid()) dummy.remove(); } catch {}
+  try {
+    for (const e of player?.dimension?.getEntities({ tags: [DUMMY_TAG] }) ?? []) {
+      try { e.remove(); } catch {}
+    }
+  } catch {}
+  dummy = null;
+  pairDirty = true;
+}
+
+function spawnDummy(player) {
+  removeDummy(player);
+  try {
+    const l = player.location;
+    const d = player.dimension.spawnEntity(CONFIG.DUMMY_ENTITY, { x: l.x + 2, y: l.y, z: l.z });
+    d.nameTag = "Test Dummy";
+    d.addTag(DUMMY_TAG);
+    dummy = d;
+    pairDirty = true;
+    player.sendMessage(isRunning()
+      ? "§a[TETHERED] Test Dummy spawned. Pick a role and you are leashed to it."
+      : "§a[TETHERED] Test Dummy spawned. Press Start, pick a role, and you are leashed to it.");
+  } catch {
+    player.sendMessage("§c[TETHERED] The Test Dummy could not be spawned here.");
+  }
+}
+
+function toggleDummy(player) {
+  if (dummyValid()) {
+    removeDummy(player);
+    player.sendMessage("§e[TETHERED] Test Dummy removed.");
+  } else {
+    spawnDummy(player);
+  }
+}
+
+function recall(a, b) {
+  if (a === dummy) safeTeleport(a, b);
+  else safeTeleport(b, a);
+}
+
+
 function computePair() {
   let breaker;
   let builder;
@@ -239,7 +290,12 @@ function computePair() {
     if (r === BREAKER && !breaker) breaker = p;
     else if (r === BUILDER && !builder) builder = p;
   }
-  return breaker && builder ? { breaker, builder } : null;
+  if (breaker && builder) return { breaker, builder };
+  if (dummyValid()) {
+    if (breaker) return { breaker, builder: dummy };
+    if (builder) return { breaker: dummy, builder };
+  }
+  return null;
 }
 
 function getPair() {
@@ -261,6 +317,7 @@ function isAlive(p) {
 }
 
 function hud(p, text) {
+  if (p.typeId !== "minecraft:player") return;
   const now = system.currentTick;
   const n = notices.get(p.id);
   const out = n && n.until > now ? n.text : text;
@@ -366,7 +423,7 @@ function tick() {
     hud(A, text);
     hud(B, text);
     if (tether.dimTicks >= CONFIG.DIMENSION_RECALL_TICKS) {
-      safeTeleport(B, A);
+      recall(A, B);
       tether.dimTicks = 0;
     }
     return;
@@ -389,7 +446,7 @@ function tick() {
     hud(B, text);
     tether.key = -1;
     if (tether.farTicks >= CONFIG.RECALL_TICKS) {
-      safeTeleport(B, A);
+      recall(A, B);
       tether.farTicks = 0;
     }
     return;
@@ -441,10 +498,8 @@ function tick() {
   tether.soundCd += step;
   if (tether.soundCd >= 16) {
     tether.soundCd = 0;
-    try {
-      A.playSound("note.bass", { volume: 0.8, pitch: 0.5 });
-      B.playSound("note.bass", { volume: 0.8, pitch: 0.5 });
-    } catch {}
+    try { A.playSound("note.bass", { volume: 0.8, pitch: 0.5 }); } catch {}
+    try { B.playSound("note.bass", { volume: 0.8, pitch: 0.5 }); } catch {}
   }
 
   if (level === 2) {
@@ -505,7 +560,7 @@ world.afterEvents.playerSpawn.subscribe(({ player, initialSpawn }) => {
       player.addEffect("resistance", CONFIG.RESPAWN_GRACE_TICKS, { amplifier: 4, showParticles: false });
       player.addEffect("regeneration", CONFIG.RESPAWN_GRACE_TICKS, { amplifier: 1, showParticles: false });
       player.sendMessage("§a[TETHERED] You respawned and re-anchored to your partner!");
-      partner.sendMessage(`§a[TETHERED] ${player.name} respawned at your position.`);
+      if (partner.typeId === "minecraft:player") partner.sendMessage(`§a[TETHERED] ${player.name} respawned at your position.`);
     } catch {}
   }, CONFIG.RESPAWN_DELAY_TICKS);
 });
@@ -537,6 +592,10 @@ function forceRole(target, role) {
 }
 
 system.afterEvents.scriptEventReceive.subscribe((ev) => {
+  if (ev.id === "tether:dummy") {
+    if (ev.sourceEntity?.typeId === "minecraft:player") toggleDummy(ev.sourceEntity);
+    return;
+  }
   if (!isRunning()) return;
   if (ev.id === "tether:reset") {
     for (const p of world.getAllPlayers()) setRole(p, undefined);
@@ -558,6 +617,10 @@ registerController({
   title: "Tethered: Breaker and Builder",
   gameInfo: "Type: Co-op challenge\nPlayers: 2 (one Breaker, one Builder)\nGoal: Defeat the Ender Dragon together while tethered within 15 meters.",
   howToPlay: "Goal: Defeat the Ender Dragon as a pair.\nRoles: The Breaker mines and fights but cannot place anything. The Builder places blocks and fluids but cannot mine or attack.\nLeash: Stay within 15 meters. Beyond that you are pulled together, and beyond 18 meters you take strain damage.\nHow it ends: The Ender Dragon dies, or an operator uses the end game function.",
+  extras: [{
+    label: () => (dummyValid() ? "Remove Test Dummy (testing only)" : "Spawn Test Dummy (testing only)"),
+    run: (player) => toggleDummy(player)
+  }],
   onStart: () => {
     resetTether();
     for (const p of world.getAllPlayers()) {
@@ -567,6 +630,7 @@ registerController({
     world.sendMessage("§a[TETHERED] The challenge has started. Choose your roles.");
   },
   onEnd: () => {
+    removeDummy();
     resetTether();
     notices.clear();
     hudState.clear();

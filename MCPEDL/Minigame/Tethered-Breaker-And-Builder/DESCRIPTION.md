@@ -29,7 +29,7 @@ Two players share a 15-meter tether. The Breaker handles mining and combat but c
 - **What Happens**: A partner who dies respawns beside the survivor with temporary protection.
 
 ### Controller
-- **What Happens**: The host or an operator uses the ALNStudios Controller to start the challenge and read the rules.
+- **What Happens**: The host or an operator uses the ALNStudios Controller to start the challenge, read the rules and, for solo testing, spawn a Test Dummy partner to be leashed to.
 
 ## How to Use
 

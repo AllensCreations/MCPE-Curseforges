@@ -2,6 +2,11 @@
 
 ---
 
+## [2.0.1] - 2026-11-20 - Test Dummy
+
+### Added
+- **Test Dummy**: The Controller has a new Spawn Test Dummy option for testing alone. It places a stand-in partner next to you that you are leashed to once you pick a role. Removing it, or ending the challenge, takes it away. A real partner who picks the other role replaces it.
+
 ## [v2] - 2026-11-14
 
 **What's new in v1.12.1:** Packed with the v1.12.1 update. Includes: Performance and Stability.
