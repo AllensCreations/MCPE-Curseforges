@@ -48,7 +48,7 @@ You get a Combat Helper, use it, and pick the toggles you want in the ALNStudios
 ### Bow Aimbot
 - **What Happens**: Arrows you shoot from a bow or crossbow steer toward the hostile mob or player closest to your crosshair within 48 blocks and 25 degrees of where you look.
 - **How It Works**: Aim roughly at a target and release. The arrow leads a moving target and allows for arrow drop.
-- **Good To Know**: If nothing is near your crosshair, the arrow flies as normal.
+- **Good To Know**: If nothing is near your crosshair, the arrow flies as normal. A mob or player hidden behind blocks is never chosen.
 
 ### Always Water Clutch
 - **What Happens**: When you fall 3 blocks or more and the ground is close, a water block appears in the space you land in, so the fall does no damage, and it is removed as soon as you stop falling, together with any water that spread from it.
@@ -86,9 +86,9 @@ You get a Combat Helper, use it, and pick the toggles you want in the ALNStudios
 - **Good To Know**: It cancels the push by about the usual amount, so a strong knockback enchantment can still move you a little.
 
 ### Target Highlight
-- **What Happens**: While you hold a bow or crossbow, angry particles appear above the target Bow Aimbot will pick, and the action bar names it.
+- **What Happens**: While you hold a bow or crossbow, a small target picture floats above the mob or player Bow Aimbot will pick, the action bar names it, and a circle of flame dots shows the aim range around your crosshair. Only you see them.
 - **How It Works**: Switch on both Bow Aimbot and Target Highlight, hold a bow and aim near an enemy.
-- **Good To Know**: It does nothing when Bow Aimbot is off or when no target is near your crosshair.
+- **Good To Know**: It does nothing when Bow Aimbot is off, and the target picture only shows when a target is inside the circle. The circle can be switched off in Tuning, and its size follows the Bow Aimbot angle.
 
 ### Practice Dummy
 - **What Happens**: A zombie called Practice Dummy appears 3 blocks in front of you. It cannot move or hurt you and it heals fast, so you can test Aura Mode, Always Critical and Damage Display.
@@ -101,7 +101,7 @@ You get a Combat Helper, use it, and pick the toggles you want in the ALNStudios
 - **Good To Know**: Friends stay on your list when they go offline. The list is yours alone, so a friend is only safe from your toggles, not the other way round.
 
 ### Tuning
-- **What Happens**: Seven sliders and two choices change how the toggles behave: Aura range (2 to 6 blocks), Aura damage (1 to 10), Aura targets (1 to 5), Bow Aimbot range (16 to 96 blocks), Bow Aimbot angle (5 to 45 degrees), Always Critical damage (110 to 300 percent), Knockback you deal (0 to 200 percent), Aura hits (mobs and players, mobs only or players only) and whether Aura turns you to face the target.
+- **What Happens**: Seven sliders and three choices change how the toggles behave: Aura range (2 to 6 blocks), Aura damage (1 to 10), Aura targets (1 to 5), Bow Aimbot range (16 to 96 blocks), Bow Aimbot angle (5 to 45 degrees), Always Critical damage (110 to 300 percent), Knockback you deal (0 to 200 percent), Aura hits (mobs and players, mobs only or players only) whether Aura turns you to face the target, and whether Target Highlight draws the aim circle.
 - **How It Works**: Open the Combat Menu, tap Tuning, drag the sliders and tap Apply. A reset switch at the bottom puts everything back to the defaults.
 - **Good To Know**: The starting values match the old fixed numbers, so nothing changes until you move a slider.
 

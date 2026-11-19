@@ -19,6 +19,25 @@ function candidates(owner) {
   return [...mobs, ...players].filter((e) => e.id !== owner.id && !isFriend(owner, e));
 }
 
+function seen(owner, entity) {
+  const eye = owner.getHeadLocation();
+  const base = entity.location;
+  const points = [entity.getHeadLocation(), { x: base.x, y: base.y + 0.6, z: base.z }];
+  for (const point of points) {
+    const offset = minus(point, eye);
+    const distance = length(offset);
+    if (distance < 0.5) return true;
+    const direction = { x: offset.x / distance, y: offset.y / distance, z: offset.z / distance };
+    const hit = owner.dimension.getBlockFromRay(eye, direction, {
+      maxDistance: distance - 0.3,
+      includeLiquidBlocks: false,
+      includePassableBlocks: false,
+    });
+    if (!hit) return true;
+  }
+  return false;
+}
+
 export function pickTarget(owner) {
   const eye = owner.getHeadLocation();
   const view = owner.getViewDirection();
@@ -29,7 +48,7 @@ export function pickTarget(owner) {
     const distance = length(offset);
     if (distance < 1) continue;
     const cos = (view.x * offset.x + view.y * offset.y + view.z * offset.z) / distance;
-    if (cos > bestCos) {
+    if (cos > bestCos && seen(owner, entity)) {
       bestCos = cos;
       best = entity;
     }

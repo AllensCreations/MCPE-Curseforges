@@ -13,7 +13,7 @@ export const FEATURES = [
   { id: "neverDie", name: "Never Die", info: "Keeps you at half a heart instead of dying, except in the void or from the kill command." },
   { id: "keepGear", name: "Keep Gear On Death", info: "Keeps your items and armor when you die, for you only." },
   { id: "noKnockback", name: "No Knockback", info: "Cancels the push you get from melee hits." },
-  { id: "targetHighlight", name: "Target Highlight", info: "Marks who Bow Aimbot picks while you hold a bow." },
+  { id: "targetHighlight", name: "Target Highlight", info: "Shows a target image over who Bow Aimbot picks and a circle for its aim range." },
 ];
 
 const KEY = "aln_pointer_toggles";

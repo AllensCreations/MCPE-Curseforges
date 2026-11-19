@@ -69,13 +69,41 @@ function knock(event) {
   });
 }
 
+const RING_DISTANCE = 6;
+const RING_POINTS = 24;
+
+function circle(p) {
+  const eye = p.getHeadLocation();
+  const v = p.getViewDirection();
+  let rx = v.z;
+  let rz = -v.x;
+  const size = Math.hypot(rx, rz);
+  if (size < 0.001) return;
+  rx /= size;
+  rz /= size;
+  const ux = v.y * rz;
+  const uy = v.z * rx - v.x * rz;
+  const uz = -v.y * rx;
+  const radius = RING_DISTANCE * Math.tan((tune(p, "aimCone") * Math.PI) / 180);
+  const cx = eye.x + v.x * RING_DISTANCE;
+  const cy = eye.y + v.y * RING_DISTANCE;
+  const cz = eye.z + v.z * RING_DISTANCE;
+  for (let i = 0; i < RING_POINTS; i++) {
+    const a = (i / RING_POINTS) * 2 * Math.PI;
+    const c = Math.cos(a) * radius;
+    const s = Math.sin(a) * radius;
+    p.spawnParticle("minecraft:basic_flame_particle", { x: cx + c * rx + s * ux, y: cy + s * uy, z: cz + c * rz + s * uz });
+  }
+}
+
 function mark(p) {
   const held = p.getComponent(EntityComponentTypes.Equippable)?.getEquipmentSlot(EquipmentSlot.Mainhand)?.getItem()?.typeId;
   if (!BOWS.has(held)) return;
+  if (tune(p, "aimCircle") === 1) circle(p);
   const target = pickTarget(p);
   if (!target) return;
   const head = target.getHeadLocation();
-  target.dimension.spawnParticle("minecraft:villager_angry", { x: head.x, y: head.y + 0.8, z: head.z });
+  p.spawnParticle("allenscreations:aln_target", { x: head.x, y: head.y + 0.8, z: head.z });
   const name = target.typeId === PLAYER_ID ? target.name : target.typeId.replace("minecraft:", "");
   p.onScreenDisplay.setActionBar(`§cLocked on: ${name}`);
 }

@@ -12,6 +12,7 @@ export const TUNING = [
   { id: "knockback", name: "Knockback you deal (percent)", min: 0, max: 200, step: 25, def: 100 },
   { id: "auraTarget", name: "Aura hits", min: 0, max: 2, step: 1, def: 0, choices: ["Mobs and players", "Mobs only", "Players only"] },
   { id: "auraFace", name: "Aura turns you to face the target", min: 0, max: 1, step: 1, def: 0, choices: ["No", "Yes"] },
+  { id: "aimCircle", name: "Target Highlight aim circle", min: 0, max: 1, step: 1, def: 1, choices: ["Off", "On"] },
 ];
 
 export function tune(player, id) {

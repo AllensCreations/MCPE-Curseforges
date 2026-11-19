@@ -2,6 +2,15 @@
 
 ---
 
+## [v9] - 2026-11-19 - Target Image and Line Of Sight
+
+### Added
+- **Target Picture**: Target Highlight now shows a small picture above the target Bow Aimbot picks, only visible to you. The picture is the file resource_pack/textures/particle/aln_target.png, a 16 by 16 image.
+- **Aim Circle**: Target Highlight also draws a circle of flame dots around your crosshair that shows the Bow Aimbot aim range. A new Tuning choice switches it on or off.
+
+### Changed
+- **Line Of Sight**: Bow Aimbot now ignores mobs and players that are hidden behind blocks, and picks the one closest to your crosshair among those you can see.
+
 ## [v8] - 2026-11-19 - Water Clutch Cleanup
 
 ### Fixed
