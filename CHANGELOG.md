@@ -11,6 +11,11 @@
 
 ---
 
+## [v138] - 2026-11-19 - One Circle Picture
+
+### Changed
+- **Aim Circle**: The screen circle now uses one 16 by 16 picture, resource_pack/textures/particle/aln_circle.png, and the game stretches it to the size that matches the Bow Aimbot angle. The 10 separate aln_circle_4 to aln_circle_13 pictures are no longer used.
+
 ## [v137] - 2026-11-19 - Crosshair Circle On Screen
 
 ### Changed

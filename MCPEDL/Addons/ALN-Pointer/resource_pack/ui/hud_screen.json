@@ -2,7 +2,7 @@
   "namespace": "hud",
   "aln_circle_4": {
     "type": "image",
-    "texture": "textures/particle/aln_circle_4",
+    "texture": "textures/particle/aln_circle",
     "size": [
       32,
       32
@@ -23,7 +23,7 @@
   },
   "aln_circle_5": {
     "type": "image",
-    "texture": "textures/particle/aln_circle_5",
+    "texture": "textures/particle/aln_circle",
     "size": [
       40,
       40
@@ -44,7 +44,7 @@
   },
   "aln_circle_6": {
     "type": "image",
-    "texture": "textures/particle/aln_circle_6",
+    "texture": "textures/particle/aln_circle",
     "size": [
       48,
       48
@@ -65,7 +65,7 @@
   },
   "aln_circle_7": {
     "type": "image",
-    "texture": "textures/particle/aln_circle_7",
+    "texture": "textures/particle/aln_circle",
     "size": [
       56,
       56
@@ -86,7 +86,7 @@
   },
   "aln_circle_8": {
     "type": "image",
-    "texture": "textures/particle/aln_circle_8",
+    "texture": "textures/particle/aln_circle",
     "size": [
       64,
       64
@@ -107,7 +107,7 @@
   },
   "aln_circle_9": {
     "type": "image",
-    "texture": "textures/particle/aln_circle_9",
+    "texture": "textures/particle/aln_circle",
     "size": [
       72,
       72
@@ -128,7 +128,7 @@
   },
   "aln_circle_10": {
     "type": "image",
-    "texture": "textures/particle/aln_circle_10",
+    "texture": "textures/particle/aln_circle",
     "size": [
       80,
       80
@@ -149,7 +149,7 @@
   },
   "aln_circle_11": {
     "type": "image",
-    "texture": "textures/particle/aln_circle_11",
+    "texture": "textures/particle/aln_circle",
     "size": [
       88,
       88
@@ -170,7 +170,7 @@
   },
   "aln_circle_12": {
     "type": "image",
-    "texture": "textures/particle/aln_circle_12",
+    "texture": "textures/particle/aln_circle",
     "size": [
       96,
       96
@@ -191,7 +191,7 @@
   },
   "aln_circle_13": {
     "type": "image",
-    "texture": "textures/particle/aln_circle_13",
+    "texture": "textures/particle/aln_circle",
     "size": [
       104,
       104

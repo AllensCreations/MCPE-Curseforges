@@ -1,11 +1,11 @@
 {
   "format_version": 2,
   "header": {
-    "name": "Combat Helper (v13)",
+    "name": "Combat Helper (v14)",
     "description": "A cursor-shaped item that opens a menu of PVP toggles. by ALNStudios",
     "uuid": "eec0404f-e785-480e-839e-0da27c699c31",
     "version": [
-      13,
+      14,
       0,
       0
     ],
@@ -20,7 +20,7 @@
       "type": "data",
       "uuid": "13407ddf-e15f-4d9c-90ec-eaa908a586a1",
       "version": [
-        13,
+        14,
         0,
         0
       ]
@@ -31,7 +31,7 @@
       "uuid": "63e54d22-75a9-41f8-9e7e-67b0553aace3",
       "entry": "scripts/main.js",
       "version": [
-        13,
+        14,
         0,
         0
       ]
@@ -53,7 +53,7 @@
     {
       "uuid": "8232add1-8bcd-4f9b-92e8-59dfc483f35f",
       "version": [
-        13,
+        14,
         0,
         0
       ]
@@ -72,6 +72,6 @@
       "ALNStudios"
     ],
     "product_type": "addon",
-    "version": "13.0.0"
+    "version": "14.0.0"
   }
 }
