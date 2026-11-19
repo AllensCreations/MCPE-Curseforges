@@ -8,7 +8,7 @@ This folder contains compiled release packages for **Combat Helper** by ALNStudi
 
 | File Name | Format | Size | Description | Download Link |
 | :--- | :--- | :--- | :--- | :--- |
-| **`ALNPointer V8.mcaddon`** | `.mcaddon` | ~138 KB | Complete bundle containing both Behavior Pack and Resource Pack. | [Download (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/ALN-Pointer/ALNPointer%20V8.mcaddon) |
+| **`ALNPointer V9.mcaddon`** | `.mcaddon` | ~139 KB | Complete bundle containing both Behavior Pack and Resource Pack. | [Download (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/ALN-Pointer/ALNPointer%20V9.mcaddon) |
 
 ---
 
