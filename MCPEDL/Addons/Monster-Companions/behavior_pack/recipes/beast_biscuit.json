@@ -28,7 +28,16 @@
     },
     "unlock": [
       {
-        "context": "AlwaysUnlocked"
+        "item": "minecraft:rotten_flesh"
+      },
+      {
+        "item": "minecraft:bone"
+      },
+      {
+        "item": "minecraft:sweet_berries"
+      },
+      {
+        "item": "minecraft:honey_bottle"
       }
     ]
   }
