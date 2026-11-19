@@ -4,7 +4,7 @@
 
 - **Export request:** `MCPEDL/Script/ALNSpawnControl`
 - **Destination:** `MCPEDL/Script/ALNSpawnControl`
-- **CURRENT VERSION: v2 / NEXT UPDATE: v3**  (`MCPEDL/Script/ALNSpawnControl/CHANGELOG.md`)
+- **CURRENT VERSION: v3 / NEXT UPDATE: v4**  (`MCPEDL/Script/ALNSpawnControl/CHANGELOG.md`)
 - **Text files:** 16
 - **Skipped binary:** 6
 - **Paths not found:** 0
@@ -214,24 +214,36 @@ git config --global credential.helper store
 
 ## File Contents
 
-## FILE: changelog_views/ALNSpawnControl.curseforge.html (2 lines, 767 bytes)
+## FILE: changelog_views/ALNSpawnControl.curseforge.html (3 lines, 1201 bytes)
 
 ```
-<h2>v2 - 2026-11-17</h2><h3>Added</h3><ul><li><strong>Spawn Control Book</strong>: Right-click a Book renamed to &quot;Spawn Control&quot; to open the interactive control panel.</li><li><strong>Categorized Mob Switches</strong>: Toggle individual spawn rules across 58 mobs in 4 groups: Overworld Hostiles, Passive &amp; Neutral Mobs, Nether &amp; End Mobs, and Bosses &amp; Rare Mobs.</li><li><strong>Quick Presets</strong>: Apply one-tap presets to enable all mobs, disable all hostiles, disable all passives, or disable all mobs.</li><li><strong>Global Filter Settings</strong>: Configure whether rules affect natural spawns only or all spawn causes including Spawn Eggs, enable an Admin Tag Lock, and trigger an immediate entity purge.</li></ul>
+<h2>v3 - 2026-11-19 - Book Renamed to Spawn Control</h2><h3>Improved &amp; Balanced</h3><ul><li><strong>Book Trigger Rename</strong>: The book must now be renamed to &quot;Spawn Control&quot; instead of &quot;Spawn Manager&quot; to open the control panel.</li><li><strong>Book Only</strong>: Only a regular Book opens the control panel; a Book and Quill no longer works.</li></ul>
+<h2>2.0.x (1 release)</h2><div class="spoiler"><h3>v2 - 2026-11-17</h3><h4>Added</h4><ul><li><strong>Spawn Manager Book</strong>: Right-click a Book or Writable Book renamed to &quot;Spawn Manager&quot; to open the interactive control panel.</li><li><strong>Categorized Mob Switches</strong>: Toggle individual spawn rules across 58 mobs in 4 groups: Overworld Hostiles, Passive &amp; Neutral Mobs, Nether &amp; End Mobs, and Bosses &amp; Rare Mobs.</li><li><strong>Quick Presets</strong>: Apply one-tap presets to enable all mobs, disable all hostiles, disable all passives, or disable all mobs.</li><li><strong>Global Filter Settings</strong>: Configure whether rules affect natural spawns only or all spawn causes including Spawn Eggs, enable an Admin Tag Lock, and trigger an immediate entity purge.</li></ul></div>
 ```
 
-## FILE: changelog_views/ALNSpawnControl.github.md (10 lines, 687 bytes)
+## FILE: changelog_views/ALNSpawnControl.github.md (21 lines, 1060 bytes)
 
 ```
 # Changelog — ALN:SpawnControl
 
-## [v2] - 2026-11-17
+## [v3] - 2026-11-19 - Book Renamed to Spawn Control
 
-### Added
-- **Spawn Control Book**: Right-click a Book renamed to "Spawn Control" to open the interactive control panel.
+### Improved & Balanced
+- **Book Trigger Rename**: The book must now be renamed to "Spawn Control" instead of "Spawn Manager" to open the control panel.
+- **Book Only**: Only a regular Book opens the control panel; a Book and Quill no longer works.
+
+<details>
+<summary><b>2.0.x</b> (1 release)</summary>
+
+### [v2] - 2026-11-17
+
+#### Added
+- **Spawn Manager Book**: Right-click a Book or Writable Book renamed to "Spawn Manager" to open the interactive control panel.
 - **Categorized Mob Switches**: Toggle individual spawn rules across 58 mobs in 4 groups: Overworld Hostiles, Passive & Neutral Mobs, Nether & End Mobs, and Bosses & Rare Mobs.
 - **Quick Presets**: Apply one-tap presets to enable all mobs, disable all hostiles, disable all passives, or disable all mobs.
 - **Global Filter Settings**: Configure whether rules affect natural spawns only or all spawn causes including Spawn Eggs, enable an Admin Tag Lock, and trigger an immediate entity purge.
+
+</details>
 ```
 
 ## FILE: MCPEDL/Script/ALNSpawnControl/assets/items/.gitkeep (1 lines, 0 bytes)
@@ -258,11 +270,11 @@ git config --global credential.helper store
 {
   "format_version": 2,
   "header": {
-    "name": "ALN:SpawnControl (v2)",
+    "name": "ALN:SpawnControl (v3)",
     "description": "Custom mob spawn whitelist and categorized form control panel. by ALNStudios",
     "uuid": "698a7800-3ede-4b9b-8cab-e61eaa1c17c8",
     "version": [
-      2,
+      3,
       0,
       0
     ],
@@ -278,7 +290,7 @@ git config --global credential.helper store
       "language": "javascript",
       "uuid": "23b82696-046f-45bf-a630-6e5de0e46dee",
       "version": [
-        2,
+        3,
         0,
         0
       ],
@@ -300,7 +312,7 @@ git config --global credential.helper store
       "ALNStudios"
     ],
     "product_type": "addon",
-    "version": "2.0.0"
+    "version": "3.0.0"
   }
 }
 ```
@@ -549,7 +561,7 @@ export function getAllMobIds() {
 }
 ```
 
-## FILE: MCPEDL/Script/ALNSpawnControl/behavior_pack/scripts/spawn_ui.js (286 lines, 8493 bytes)
+## FILE: MCPEDL/Script/ALNSpawnControl/behavior_pack/scripts/spawn_ui.js (286 lines, 8453 bytes)
 
 ```
 import { world, system } from "@minecraft/server";
@@ -591,7 +603,7 @@ export function registerSpawnUI() {
     }
 
     const typeId = item.typeId;
-    if (typeId !== "minecraft:book" && typeId !== "minecraft:writable_book") {
+    if (typeId !== "minecraft:book") {
       return;
     }
 
@@ -839,12 +851,18 @@ function purgeDisabledEntities(player) {
 }
 ```
 
-## FILE: MCPEDL/Script/ALNSpawnControl/CHANGELOG.md (16 lines, 777 bytes)
+## FILE: MCPEDL/Script/ALNSpawnControl/CHANGELOG.md (22 lines, 1081 bytes)
 
 ```
 # Changelog — ALN:SpawnControl
 
 ---
+
+## [v3] - 2026-11-19 - Book Renamed to Spawn Control
+
+### Improved & Balanced
+- **Book Trigger Rename**: The book must now be renamed to "Spawn Control" instead of "Spawn Manager" to open the control panel.
+- **Book Only**: Only a regular Book opens the control panel; a Book and Quill no longer works.
 
 ## [v2] - 2026-11-17
 
@@ -852,13 +870,13 @@ function purgeDisabledEntities(player) {
 
 ### Added
 
-- **Spawn Control Book**: Right-click a Book renamed to "Spawn Control" to open the interactive control panel.
+- **Spawn Manager Book**: Right-click a Book or Writable Book renamed to "Spawn Manager" to open the interactive control panel.
 - **Categorized Mob Switches**: Toggle individual spawn rules across 58 mobs in 4 groups: Overworld Hostiles, Passive & Neutral Mobs, Nether & End Mobs, and Bosses & Rare Mobs.
 - **Quick Presets**: Apply one-tap presets to enable all mobs, disable all hostiles, disable all passives, or disable all mobs.
 - **Global Filter Settings**: Configure whether rules affect natural spawns only or all spawn causes including Spawn Eggs, enable an Admin Tag Lock, and trigger an immediate entity purge.
 ```
 
-## FILE: MCPEDL/Script/ALNSpawnControl/DESCRIPTION.md (88 lines, 6137 bytes)
+## FILE: MCPEDL/Script/ALNSpawnControl/DESCRIPTION.md (88 lines, 6143 bytes)
 
 ```
 # ALN:SpawnControl — Custom Mob Spawn Whitelist & Toggle UI
@@ -969,7 +987,7 @@ Download the current release of **ALNSpawnControl** for Minecraft Bedrock Editio
 ## Download
 
 - **Package format:** `.mcpack`
-- **Direct download:** [Download ALNSpawnControl (.mcpack)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/ALNSpawnControl/ALNSpawnControl%20V2.mcpack)
+- **Direct download:** [Download ALNSpawnControl (.mcpack)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/ALNSpawnControl/ALNSpawnControl%20V3.mcpack)
 
 ## Installation
 
@@ -1002,7 +1020,7 @@ Standalone Minecraft Bedrock Script packs by ALNStudios. Script projects use the
 | Living SMP Chat | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Script/Living-SMP-Chat/) | [MCPACK](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Living-SMP-Chat/LivingSMPChat%20V2.mcpack) |
 | Gameplay Optimizer | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Script/Gameplay-Optimizer/) | [MCPACK](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Gameplay-Optimizer/GameplayOptimizer%20V2.mcpack) |
 | ALNMobStacker | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Script/ALN-MobStacker/) | [MCPACK](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/ALN-MobStacker/ALNMobStacker%20V2.mcpack) |
-| ALNSpawnControl | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Script/ALNSpawnControl/) | [MCPACK](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/ALNSpawnControl/ALNSpawnControl%20V2.mcpack) |
+| ALNSpawnControl | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Script/ALNSpawnControl/) | [MCPACK](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/ALNSpawnControl/ALNSpawnControl%20V3.mcpack) |
 | Command Vault | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Script/Command-Vault/) | [MCPACK](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Command-Vault/CommandVault%20V3.mcpack) |
 | Loot and XP Stick | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Script/Loot-and-XP-Stick/) | [MCPACK](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Loot-and-XP-Stick/LootXPStick%20V1.mcpack) |
 
@@ -1019,7 +1037,7 @@ Videos and streams are welcome with credit. Redistribution of original or modifi
 - [Minigames](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Minigame#available-minigames)
 ```
 
-## FILE: Package/ALNSpawnControl.listing.md (70 lines, 17695 bytes)
+## FILE: Package/ALNSpawnControl.listing.md (70 lines, 17701 bytes)
 
 ````
 # Listing Kit: ALN:SpawnControl
