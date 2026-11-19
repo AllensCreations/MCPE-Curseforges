@@ -11,6 +11,11 @@
 
 ---
 
+## [v123] - 2026-11-19 - Publish to CurseForge accepts vX headings
+
+### Fixed
+- **Publish to CurseForge**: the latest changelog heading check now accepts the vX version format (for example [v3]) as well as X.Y.Z, so packs on the new version scheme can be published.
+
 ## [v128] - 2026-11-19 - Monster Companions Mount Hint Text Fix
 
 ### Fixed

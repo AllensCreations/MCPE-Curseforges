@@ -18,7 +18,7 @@ import auto_bump_and_build as builder
 
 REPO_ROOT = Path(builder.REPO_ROOT)
 CHANGELOG_HEADER = re.compile(
-    r"^## \[(\d+\.\d+\.\d+(?:\.\d+)?)\] - (\d{4}-\d{2}-\d{2})(?: - (\S.*?))?\s*$"
+    r"^## \[((?:[vV]\d+|\d+\.\d+\.\d+)(?:\.\d+)?)\] - (\d{4}-\d{2}-\d{2})(?: - (\S.*?))?\s*$"
 )
 PACKAGE_EXTENSIONS = {
     "Addons": ".mcaddon",
