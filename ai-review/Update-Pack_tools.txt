@@ -29,7 +29,7 @@
 
 ## File Contents
 
-## FILE: .agents/skills/mcpe-new-pack/SKILL.md (48 lines, 5004 bytes)
+## FILE: .agents/skills/mcpe-new-pack/SKILL.md (48 lines, 5388 bytes)
 
 ```
 ---
@@ -48,9 +48,9 @@ description: Create a NEW addon, map, script or minigame for the MCPE-Curseforge
 
 ## Do these in order
 
-1. **Read first, then build.** `INSTRUCTIONS.md` (Reply Format, Termux Script Rules, 1.1 to 1.4, 1.7, 1.12), then `DOCS_RULES.md` (2.1 to 2.5), then ALL of `PACK_GENERATOR_INSTRUCTIONS.md`. Then read the scripts that decide what passes: `scripts/build_payload.py`, `scripts/doc_template.py`, `scripts/import_project_payload.py`, `scripts/make_pack_script.py` (plus `scripts/pixel_json_to_png.py` when drawing textures).
+1. **Read first, then build.** `INSTRUCTIONS.md` (Reply Format, Termux Script Rules, 1.1 to 1.4, 1.7, 1.12), then `DOCS_RULES.md` (2.1 to 2.5), then ALL of `PACK_GENERATOR_INSTRUCTIONS.md`. Read through Context7 (INSTRUCTIONS.md 1.16: four fixed libraries, `query-docs` only; an attached `tools.txt` wins on any difference). Then read the scripts that decide what passes: `scripts/build_payload.py`, `scripts/doc_template.py`, `scripts/import_project_payload.py`, `scripts/make_pack_script.py` (plus `scripts/pixel_json_to_png.py` when drawing textures).
 2. **Type.** If the user did not say addon, map, script or minigame, ask the exact question in 4.0 and wait. NEVER guess.
-3. **Look up** the latest stable Bedrock release and `@minecraft/server` / `@minecraft/server-ui` versions now. Record the date. NEVER use numbers from memory or from this repo's old packs.
+3. **Look up** with Context7 `query-docs` (`/microsoftdocs/minecraft-creator`, `/mojang/bedrock-samples`, `/websites/wiki_bedrock_dev`) the latest stable Bedrock release and `@minecraft/server` / `@minecraft/server-ui` versions now, and verify every API member and JSON field before using it. Record the date. NEVER use numbers from memory or from this repo's old packs.
 4. **Build** the project in scratch `build/<Name>/` using the 4.2 layout. Fresh v4 UUIDs for every header and module. Write the BP manifest (with the looked-up `min_engine_version`) BEFORE running the script.
 5. **Run `scripts/make_pack_script.py build/<Name>`.** Fix every failure, including every `DOC:` line, and rerun until SELF-TEST PASSED, PACK SCRIPT OK and BUILD OK print. Then `python3 doc_template.py --style build/<Name>`, rewrite every STYLE hint with a specific fact, rebuild.
 6. **Deliver** exactly ONE file: `<Name>_<Version>_<Rand>.sh`. Reply in the three sections of 4.11 and nothing else.
@@ -74,17 +74,17 @@ description: Create a NEW addon, map, script or minigame for the MCPE-Curseforge
 
 ## Before replying (tick every line)
 
-- [ ] I read the three instruction files and the four scripts from this export, not from memory.
+- [ ] I read the three instruction files and the four scripts through Context7 or this export, not from memory, and every API member was verified in a query result.
 - [ ] Type was given or asked. Versions and `min_engine_version` were looked up today and the date is recorded.
 - [ ] SELF-TEST PASSED, PACK SCRIPT OK and BUILD OK were printed by a real run; exactly one `.sh` exists.
 - [ ] No `DOC:` failures, no STYLE hints, no placeholders, no `test_world.json`, no `assets/` in the payload.
 - [ ] Reply = **File Needed**, **Changelog**, **Termux Script**, in that order, no text before, between or after, no Summary. The `.sh` is attached, never pasted.
 ```
 
-## FILE: PACK_GENERATOR_INSTRUCTIONS.md (365 lines, 37079 bytes)
+## FILE: PACK_GENERATOR_INSTRUCTIONS.md (381 lines, 39693 bytes)
 
 ````
-# Pack Generator Instructions (AI Agent, v29)
+# Pack Generator Instructions (AI Agent, v30)
 
 
 Builds a complete **addon**, **map**, **script**, or **minigame** from the user's idea. Returns ONE Termux `.sh` pack script that carries the whole project inside it (as base64). No other file is delivered.
@@ -98,7 +98,7 @@ Read `.agents/skills/mcpe-new-pack/SKILL.md` first (it is also `SKILL.md` at the
 | 4 | Generator: ask type, build, check, deliver, reply |
 
 Precedence: Part 1 wins. `DOCS_RULES.md` follows Part 1. Part 4 follows both. `INSTRUCTIONS.md` wins on conflict. Accuracy and requested scope outrank any template. Script and file disagree: tell the user.
-Order of work: read Part 1, `DOCS_RULES.md`, then Part 4 from 4.0. Unclear request: ask ONE line, then proceed.
+Order of work: read Part 1 (incl. 1.16), `DOCS_RULES.md`, then Part 4 from 4.0. Query Context7 per 1.16 before writing any code, manifest, JSON or doc fact. Unclear request: ask ONE line, then proceed.
 
 ---
 
@@ -108,8 +108,8 @@ Order of work: read Part 1, `DOCS_RULES.md`, then Part 4 from 4.0. Unclear reque
 - ALWAYS inspect source files before claims. Ask only if an unresolved choice affects gameplay, compatibility, distribution, data loss, or versioning. Else use defaults.
 - NEVER invent features, versions, links, assets, test results, compatibility, achievement support, performance, platform behavior. Separate verified facts from assumptions.
 - NEVER claim in-game test/function run/gameplay result unless tested in Minecraft. Archive/JSON/syntax checks prove structure only.
-- Source priority (report disagreements, NEVER choose silently): 1 add-on's own files; 2 Mojang Bedrock Samples (reference/bedrock-samples/bedrock-samples.min.json.gz, https://github.com/Mojang/bedrock-samples): vanilla ids, textures, recipes, components, formats;
- 3 Minecraft Creator Docs (https://learn.microsoft.com/en-us/minecraft/creator/?view=minecraft-bedrock-stable): stable versions, API; 4 Minecraft Wiki (https://minecraft.wiki/): display names, edition, icon look; 5 Bedrock Wiki (https://wiki.bedrock.dev/): formats, techniques. Sources 4-5 NEVER override 1-3 on ids, versions, API.
+- Source priority (report disagreements, NEVER choose silently). Read sources 2, 3 and 5 through Context7 (1.16): 1 add-on's own files; 2 Mojang Bedrock Samples (`/mojang/bedrock-samples`; offline copy reference/bedrock-samples/bedrock-samples.min.json.gz): vanilla ids, textures, recipes, components, formats;
+ 3 Minecraft Creator Docs (`/microsoftdocs/minecraft-creator`): stable versions, API; 4 Minecraft Wiki (https://minecraft.wiki/, not in Context7, only through a web tool when one exists): display names, edition, icon look; 5 Bedrock Wiki (`/websites/wiki_bedrock_dev`): formats, techniques. Sources 4-5 NEVER override 1-3 on ids, versions, API.
 - NEVER comments in shipped `.js`, `.mcfunction`, `.json`. Explanations go in docs or handoff.
 - NEVER imply Mojang/Microsoft endorsement.
 - `.sh` names: `(Repofilename)_(Version)_(Rand).sh`. Repofilename = project/folder/file changed, no extension, no spaces (hyphens). Version = new `vX` (e.g. `v2`, or legacy `X.Y.Z`), instruction version (`v5`) or repo version (`v80`). Rand = >=5 random lowercase/digits, fresh each time (`head -c 200 /dev/urandom | tr -dc 'a-z0-9' | head -c 6`), NEVER reused. Example `Dirtbound_v2_k7q2x.sh`. Same name in reply and run command.
@@ -118,7 +118,7 @@ Order of work: read Part 1, `DOCS_RULES.md`, then Part 4 from 4.0. Unclear reque
 ### 1.2 Versions and Compatibility
 Latest stable:
 - ALWAYS look up latest stable Bedrock release and Script API module versions at time of work. Record date. NEVER trust numbers in this file or memory.
-- Refs: Creator Docs; Script API versioning (https://learn.microsoft.com/en-us/minecraft/creator/documents/scripting/versioning?view=minecraft-bedrock-stable); `@minecraft/server` and `@minecraft/server-ui` stable references; latest platform version guidance. Community wikis NEVER pick versions or confirm API.
+- Refs: Context7 `/microsoftdocs/minecraft-creator` (Script API versioning, `@minecraft/server` and `@minecraft/server-ui` stable references, platform version guidance), queried per 1.16. Community wikis NEVER pick versions or confirm API.
 - Pick highest stable module version supported by target game and every dependency (check peers). NEVER preview/beta/RC unless a requested feature needs it; then disclose in docs and handoff.
 - Game version and module version are separate. NEVER infer one from the other.
 
@@ -192,12 +192,27 @@ Open until confirmed in game. NEVER state as fact in docs.
 6. Experiment/achievement state of each `Mcpeworlds/` foundation.
 
 ### 1.15 Bedrock Developer Role and Trusted Sources
-- Role: expert Minecraft Bedrock Add-on and Script API developer. Build and maintain complete Behavior Packs, Resource Packs and Script API modules. Official NPM packages first (`@minecraft/server`, `@minecraft/server-ui`, `@minecraft/math`); on any error, deprecated API or version mismatch verify against the official GitHub repositories and Microsoft Learn below.
+- Role: expert Minecraft Bedrock Add-on and Script API developer. Build and maintain complete Behavior Packs, Resource Packs and Script API modules. Official NPM packages first (`@minecraft/server`, `@minecraft/server-ui`, `@minecraft/math`); on any error, deprecated API or version mismatch verify through the Context7 libraries below (1.16).
 - Structure: valid `manifest.json` (1.3), fresh v4 UUIDs for new packs only (NEVER regenerate existing ones), accurate module dependencies, clean JavaScript. NEVER ship TypeScript (`build_payload.py` allows only `.js`). `@minecraft/math` is NOT in `ALLOWED_MODULES` of `build_payload.py` (1.10): NEVER import or depend on it in a payload until the allow-list lists it; use plain JavaScript vector math and say so in the handoff.
 - Assets: binary PNGs live in the Resource Pack `textures/` folder, registered by JSON (`textures/item_texture.json`, `textures/terrain_texture.json`), NEVER mixed with the registration files. Recipes reference vanilla item identifiers directly. NEVER duplicate vanilla PNGs unless needed as templates.
-- Trusted sources (rely strictly and exclusively on these; NEVER invent API methods, outdated syntax or item ids): Microsoft Learn Script API (https://learn.microsoft.com/en-us/minecraft/creator/scriptapi/); NPM `@minecraft/server` (https://www.npmjs.com/package/@minecraft/server), `@minecraft/server-ui` (https://www.npmjs.com/package/@minecraft/server-ui), `@minecraft/math` (https://www.npmjs.com/package/@minecraft/math); Microsoft Scripting Samples (https://github.com/microsoft/minecraft-scripting-samples); Microsoft Add-On Samples (https://github.com/microsoft/minecraft-samples); Mojang Bedrock Samples (https://github.com/Mojang/bedrock-samples) with `resource_pack/textures` and `behavior_pack/recipes` for vanilla textures, recipes, definitions. Priority and disagreements follow 1.1: report, NEVER choose silently.
-- Failure (script does not load, texture does not render, syntax changed in a newer update): read the sample repositories and Learn docs above for the exact updated syntax, manifest dependency versions, valid vanilla identifiers and working patterns BEFORE rewriting code.
+- Trusted sources (rely strictly and exclusively on these four Context7 libraries, queried per 1.16; NEVER invent API methods, outdated syntax or item ids): `/microsoftdocs/minecraft-creator` (Script API, `@minecraft/server`, `@minecraft/server-ui`, JSON schemas, versions); `/mojang/bedrock-samples` (vanilla textures, recipes, entities, definitions, formats); `/websites/wiki_bedrock_dev` (manifest structure, techniques); `/allenscreations/mcpe-curseforges` (this repo's rules and scripts). No other library, site or package page is a source. Priority and disagreements follow 1.1: report, NEVER choose silently.
+- Failure (script does not load, texture does not render, syntax changed in a newer update): query the Context7 libraries above (1.16) for the exact updated syntax, manifest dependency versions, valid vanilla identifiers and working patterns BEFORE rewriting code.
 - Output: complete ready-to-use files with exact repo-root-relative paths, delivered ONLY as the single `.sh` and reply format above (Reply Format, Termux Script Rules).
+
+### 1.16 Documentation Lookup (Context7 MCP)
+Docs, API, vanilla data and repo files are read with the Context7 MCP tool `query-docs`. NEVER by pasted URL, NEVER from memory. Applies to every addon, map, script, minigame, update and docs task.
+- Libraries: ONLY these four, IDs passed exactly. NEVER call `resolve-library-id`, NEVER query any other library.
+  - `/mojang/bedrock-samples`: vanilla ids, textures, recipes, components, entities, formats, `version.json` (1.1 priority 2).
+  - `/microsoftdocs/minecraft-creator`: `@minecraft/server` and `@minecraft/server-ui` API, JSON schemas, stable and module versions (1.1 priority 3).
+  - `/websites/wiki_bedrock_dev`: manifest structure, scripting guides, techniques (1.1 priority 5).
+  - `/allenscreations/mcpe-curseforges`: this repo's instruction files, `scripts/`, `SKILL.md`.
+- Before ANY code, manifest, JSON, `.mcfunction`, recipe, version or doc fact: query first, write second. One topic per query. Name the exact member, file, id or schema and the module or game version (e.g. `ItemStack constructor @minecraft/server`, `recipe_shaped format`).
+- Verify every import, class, method, property, event, enum, component and JSON field against the retrieved text before using it. NEVER guess. NEVER outdated syntax: the `mojang-minecraft` modules, `world.events`, 1.x-era imports.
+- Empty or doubtful result: retry once with a narrower query, then stop. Say "not verified" (1.2), NEVER fill the gap from memory. Results that disagree with each other: report per 1.1.
+- Context7 is an index and can lag the game. Versions come from the retrieved text only, with the query date. A result that does not state the latest stable version = "not verified". Preview/beta members only as 1.2 allows.
+- Repo files: `/allenscreations/mcpe-curseforges` is the repo as last indexed. A file attached in the conversation (e.g. `tools.txt`) or read from a clone wins; tell the user about any difference. Scripts that must run (`build_payload.py`, `doc_template.py`, `import_project_payload.py`, `make_pack_script.py`, `pixel_json_to_png.py`) need the COMPLETE unchanged text: a snippet is not enough. Incomplete: ask the user to attach `tools.txt`, NEVER rewrite from memory.
+- Handoff: one bullet `Docs queried (YYYY-MM-DD): <library IDs and topics>`.
+- NEVER put library IDs, query text or the word Context7 in shipped files or player-facing docs (2.2).
 
 ---
 
@@ -210,7 +225,7 @@ Every README, DESCRIPTION and CHANGELOG rule and template: `DOCS_RULES.md` (sect
 
 Agent builds a full project from the user's idea and returns ONE `.sh` pack script (`scripts/make_pack_script.py`). The user runs it in Termux (`bash <file>.sh` creates the project, builds worlds, pushes; `bash <file>.sh stage` only copies it to `MCPEDL/incoming/`) or runs GitHub workflow **Create Project from Base64** with `payload_file` = the `.sh` (the workflow only reads the payload block, it never runs the file).
 
-Source of truth = scripts: `scripts/build_payload.py` (packager + checks), `scripts/doc_template.py`, `scripts/import_project_payload.py` from ALNStudios/MCPE-Curseforges. ALWAYS read them before building. Disagreement with this file: tell the user. Repo unreadable: ask user to paste `build_payload.py` + `doc_template.py`, use that exact text. NEVER rewrite a script from memory. NEVER use a stale copy.
+Source of truth = scripts: `scripts/build_payload.py` (packager + checks), `scripts/doc_template.py`, `scripts/import_project_payload.py` from ALNStudios/MCPE-Curseforges. ALWAYS read them before building. Disagreement with this file: tell the user. Read them through Context7 `/allenscreations/mcpe-curseforges` (1.16); an attached `tools.txt` wins on any difference. Complete text not retrievable: ask the user to attach `tools.txt`, use that exact text. NEVER rewrite a script from memory. NEVER use a stale copy.
 
 ### 4.0 Ask the type first
 Type unknown: ask exactly this, wait:
@@ -368,7 +383,7 @@ registerController({
 ### 4.8 Build the pack script
 NEVER hand-write ZIP, base64 or the `.sh`. `scripts/make_pack_script.py` installs missing Ledger/Controller files, runs every `build_payload.py` check, builds the ZIP in memory and writes ONE Termux `.sh` that carries the project as a base64 block at its end. It writes nothing else. The importer reads that same block.
 1. Create `build/<Name>/` per 4.2 incl. `project.json` + BP manifest with looked-up `min_engine_version`. `build/` is scratch.
-2. Get `scripts/make_pack_script.py`, `build_payload.py`, `import_project_payload.py`, `doc_template.py`, plus `pixel_json_to_png.py` when `texture_sources/` exists (repo or pasted), all in one folder next to `build/`.
+2. Get `scripts/make_pack_script.py`, `build_payload.py`, `import_project_payload.py`, `doc_template.py`, plus `pixel_json_to_png.py` when `texture_sources/` exists (complete text from `/allenscreations/mcpe-curseforges` via Context7, or from the attached `tools.txt`), all in one folder next to `build/`.
 3. With `texture_sources/`: `python3 pixel_json_to_png.py build/Name` first, fix every FAIL line, rerun (4.13). Then `python3 make_pack_script.py build/Name` (`--check-only` to test only).
 4. Fix every failure incl. every `DOC:`, rerun. Put the SELF-TEST PASSED + PACK SCRIPT OK + BUILD OK (+ PIXEL TEXTURES OK when textures were drawn) result after the file name in File Needed. Proves structure only. Node MUST be installed for syntax check; if output says not checked, say so.
 5. Run `python3 doc_template.py --style build/Name`; rewrite every STYLE hint with a specific fact, rebuild.
@@ -376,6 +391,7 @@ NEVER hand-write ZIP, base64 or the `.sh`. `scripts/make_pack_script.py` install
 
 ### 4.9 Final self-check before replying
 - [ ] Type asked/given before building.
+- [ ] Context7 queried (1.16) before code, manifests, JSON and version claims; four fixed libraries only; `Docs queried` bullet written.
 - [ ] SELF-TEST PASSED + PACK SCRIPT OK + BUILD OK printed; exactly one `.sh` delivered, no other file.
 - [ ] Module versions latest stable, date recorded. `min_engine_version` looked up in the form `[1, RELEASE, PATCH]`, docs state only a verified minimum.
 - [ ] Docs state achievement status (+cheats caveat), experiments, "not tested in game"; no `DOC:` failures; no STYLE hints; tagline one concrete sentence.
@@ -421,7 +437,7 @@ Every reply = exactly these three sections, this order, these headings (`INSTRUC
 
 **File Needed:** the one pack `.sh`, attached as the downloadable file, then its check result on the same line, e.g. `<Name>_<Version>_<Rand>.sh (SELF-TEST PASSED, PACK SCRIPT OK, BUILD OK)`. No other file.
 
-**Changelog:** brief bullets: what the project does; `min_engine_version` and module versions with the check date (verified or not verified); deviations from this file or `None`; `Source created, not tested in game.`
+**Changelog:** brief bullets: what the project does; `min_engine_version` and module versions with the check date (verified or not verified); `Docs queried (date): <library IDs and topics>`; deviations from this file or `None`; `Source created, not tested in game.`
 
 **Termux Script:** ONE fenced `bash` block with ONLY the run commands, nothing else inside it:
 ```bash
@@ -450,10 +466,10 @@ Same rules as `INSTRUCTIONS.md` 1.12. Read it when a mechanic hits a vanilla lim
 - Ship the JSON AND the PNGs. The JSON is the source: later changes edit the JSON and rerun the script, NEVER the PNG. `--preview [file]` writes a review sheet outside the project: NEVER ship it.
 ````
 
-## FILE: INSTRUCTIONS.md (282 lines, 40887 bytes)
+## FILE: INSTRUCTIONS.md (299 lines, 43366 bytes)
 
 ````
-# Instructions: Core Repository Policy (v28)
+# Instructions: Core Repository Policy (v29)
 
 
 Repo policy, docs rules for AllensCreations/MCPE-Curseforges (creator name `ALNStudios`). Generating a new project: `PACK_GENERATOR_INSTRUCTIONS.md`.
@@ -465,7 +481,8 @@ Repo policy, docs rules for AllensCreations/MCPE-Curseforges (creator name `ALNS
 | Docs audit (`/checkrm`) | this file + `DOCS_RULES.md` | 1.1; all of `DOCS_RULES.md` |
 | Version, manifest, LOCK, recipe, function, build, workflow, OneBlock changes | this file | 1.1 to 1.12 |
 | New mechanic hits a vanilla limit | this file | 1.12 |
-| Script API code, manifests, textures, error fixes | this file | 1.2, 1.15 |
+| Script API code, manifests, textures, error fixes | this file | 1.2, 1.15, 1.16 |
+| Any API, vanilla id, version or repo-script lookup | this file | 1.16 (Context7) |
 | Recipe images, sprites | this file + `DOCS_RULES.md` | 1.5; 3.3, 3.4 |
 | New addon / map / script / minigame | `PACK_GENERATOR_INSTRUCTIONS.md` | all |
 Read only the files and sections the task needs. Changing an instruction file: read both.
@@ -516,8 +533,8 @@ Part 1 wins. `DOCS_RULES.md` never overrides it. Generator file never overrides 
 - ALWAYS inspect source files before claims. Ask only if an unresolved choice affects gameplay, compatibility, distribution, data loss, or versioning. Else use defaults.
 - NEVER invent features, versions, links, assets, test results, compatibility, achievement support, performance, platform behavior. Separate verified facts from assumptions.
 - NEVER claim in-game test/function run/gameplay result unless tested in Minecraft. Archive/JSON/syntax checks prove structure only.
-- Source priority (report disagreements, NEVER choose silently): 1 add-on's own files; 2 Mojang Bedrock Samples (reference/bedrock-samples/bedrock-samples.min.json.gz, https://github.com/Mojang/bedrock-samples): vanilla ids, textures, recipes, components, formats;
- 3 Minecraft Creator Docs (https://learn.microsoft.com/en-us/minecraft/creator/?view=minecraft-bedrock-stable): stable versions, API; 4 Minecraft Wiki (https://minecraft.wiki/): display names, edition, icon look; 5 Bedrock Wiki (https://wiki.bedrock.dev/): formats, techniques. Sources 4-5 NEVER override 1-3 on ids, versions, API.
+- Source priority (report disagreements, NEVER choose silently). Read sources 2, 3 and 5 through Context7 (1.16): 1 add-on's own files; 2 Mojang Bedrock Samples (`/mojang/bedrock-samples`; offline copy reference/bedrock-samples/bedrock-samples.min.json.gz): vanilla ids, textures, recipes, components, formats;
+ 3 Minecraft Creator Docs (`/microsoftdocs/minecraft-creator`): stable versions, API; 4 Minecraft Wiki (https://minecraft.wiki/, not in Context7, only through a web tool when one exists): display names, edition, icon look; 5 Bedrock Wiki (`/websites/wiki_bedrock_dev`): formats, techniques. Sources 4-5 NEVER override 1-3 on ids, versions, API.
 - NEVER comments in shipped `.js`, `.mcfunction`, `.json`. Explanations go in docs or handoff.
 - NEVER imply Mojang/Microsoft endorsement.
 - `.sh` names: `(Repofilename)_(Version)_(Rand).sh`. Repofilename = project/folder/file changed, no extension, no spaces (hyphens). Version = new `vX` (e.g. `v2`, or legacy `X.Y.Z`), instruction version (`v5`) or repo version (`v80`). Rand = >=5 random lowercase/digits, fresh each time (`head -c 200 /dev/urandom | tr -dc 'a-z0-9' | head -c 6`), NEVER reused. Example `Dirtbound_v2_k7q2x.sh`. Same name in reply and run command.
@@ -526,7 +543,7 @@ Part 1 wins. `DOCS_RULES.md` never overrides it. Generator file never overrides 
 ### 1.2 Versions and Compatibility
 Latest stable:
 - ALWAYS look up latest stable Bedrock release and Script API module versions at time of work. Record date. NEVER trust numbers in this file or memory.
-- Refs: Creator Docs; Script API versioning (https://learn.microsoft.com/en-us/minecraft/creator/documents/scripting/versioning?view=minecraft-bedrock-stable); `@minecraft/server` and `@minecraft/server-ui` stable references; latest platform version guidance. Community wikis NEVER pick versions or confirm API.
+- Refs: Context7 `/microsoftdocs/minecraft-creator` (Script API versioning, `@minecraft/server` and `@minecraft/server-ui` stable references, platform version guidance), queried per 1.16. Community wikis NEVER pick versions or confirm API.
 - Pick highest stable module version supported by target game and every dependency (check peers). NEVER preview/beta/RC unless a requested feature needs it; then disclose in docs and handoff.
 - Game version and module version are separate. NEVER infer one from the other.
 
@@ -692,13 +709,28 @@ Placeholders `<PackName>`, `<MainAction>`, `<version>`. NEVER hardcode one pack.
 - NEVER slide or fade animations in UI JSON. Use the skin in `assets/aln-ui-redesign/` (1.13).
 
 ### 1.15 Bedrock Developer Role and Trusted Sources
-- Role: expert Minecraft Bedrock Add-on and Script API developer. Build and maintain complete Behavior Packs, Resource Packs and Script API modules. Official NPM packages first (`@minecraft/server`, `@minecraft/server-ui`, `@minecraft/math`); on any error, deprecated API or version mismatch verify against the official GitHub repositories and Microsoft Learn below.
+- Role: expert Minecraft Bedrock Add-on and Script API developer. Build and maintain complete Behavior Packs, Resource Packs and Script API modules. Official NPM packages first (`@minecraft/server`, `@minecraft/server-ui`, `@minecraft/math`); on any error, deprecated API or version mismatch verify through the Context7 libraries below (1.16).
 - Structure: valid `manifest.json` (1.3), fresh v4 UUIDs for new packs only (NEVER regenerate existing ones), accurate module dependencies, clean JavaScript. NEVER ship TypeScript (`build_payload.py` allows only `.js`). `@minecraft/math` is NOT in `ALLOWED_MODULES` of `build_payload.py` (1.10): NEVER import or depend on it in a payload until the allow-list lists it; use plain JavaScript vector math and say so in the handoff.
 - Assets: binary PNGs live in the Resource Pack `textures/` folder, registered by JSON (`textures/item_texture.json`, `textures/terrain_texture.json`), NEVER mixed with the registration files. Recipes reference vanilla item identifiers directly. NEVER duplicate vanilla PNGs unless needed as templates.
-- Trusted sources (rely strictly and exclusively on these; NEVER invent API methods, outdated syntax or item ids): Microsoft Learn Script API (https://learn.microsoft.com/en-us/minecraft/creator/scriptapi/); NPM `@minecraft/server` (https://www.npmjs.com/package/@minecraft/server), `@minecraft/server-ui` (https://www.npmjs.com/package/@minecraft/server-ui), `@minecraft/math` (https://www.npmjs.com/package/@minecraft/math); Microsoft Scripting Samples (https://github.com/microsoft/minecraft-scripting-samples); Microsoft Add-On Samples (https://github.com/microsoft/minecraft-samples); Mojang Bedrock Samples (https://github.com/Mojang/bedrock-samples) with `resource_pack/textures` and `behavior_pack/recipes` for vanilla textures, recipes, definitions. Priority and disagreements follow 1.1: report, NEVER choose silently.
-- Failure (script does not load, texture does not render, syntax changed in a newer update): read the sample repositories and Learn docs above for the exact updated syntax, manifest dependency versions, valid vanilla identifiers and working patterns BEFORE rewriting code.
+- Trusted sources (rely strictly and exclusively on these four Context7 libraries, queried per 1.16; NEVER invent API methods, outdated syntax or item ids): `/microsoftdocs/minecraft-creator` (Script API, `@minecraft/server`, `@minecraft/server-ui`, JSON schemas, versions); `/mojang/bedrock-samples` (vanilla textures, recipes, entities, definitions, formats); `/websites/wiki_bedrock_dev` (manifest structure, techniques); `/allenscreations/mcpe-curseforges` (this repo's rules and scripts). No other library, site or package page is a source. Priority and disagreements follow 1.1: report, NEVER choose silently.
+- Failure (script does not load, texture does not render, syntax changed in a newer update): query the Context7 libraries above (1.16) for the exact updated syntax, manifest dependency versions, valid vanilla identifiers and working patterns BEFORE rewriting code.
 - Output: complete ready-to-use files with exact repo-root-relative paths, delivered ONLY as the single `.sh` and reply format above (Reply Format, Termux Script Rules).
 - Item/Block menu_category: When defining `menu_category` in custom items or blocks, `group` MUST start with a namespace (e.g. `minecraft:itemGroup.name.<group>` or `<pack_namespace>:itemGroup.name.<group>`). Unnamespaced group strings (such as `itemGroup.name.helmet`) fail Bedrock parsing (`Failed to parse field ' -> description -> menu_category -> group: string must be prefixed with a namespace (eg. namespace:value)'`). When no specific vanilla group applies, omit `group` and specify only `category` (`items`, `equipment`, `construction`, `nature`).
+
+### 1.16 Documentation Lookup (Context7 MCP)
+Docs, API, vanilla data and repo files are read with the Context7 MCP tool `query-docs`. NEVER by pasted URL, NEVER from memory. Applies to every addon, map, script, minigame, update and docs task.
+- Libraries: ONLY these four, IDs passed exactly. NEVER call `resolve-library-id`, NEVER query any other library.
+  - `/mojang/bedrock-samples`: vanilla ids, textures, recipes, components, entities, formats, `version.json` (1.1 priority 2).
+  - `/microsoftdocs/minecraft-creator`: `@minecraft/server` and `@minecraft/server-ui` API, JSON schemas, stable and module versions (1.1 priority 3).
+  - `/websites/wiki_bedrock_dev`: manifest structure, scripting guides, techniques (1.1 priority 5).
+  - `/allenscreations/mcpe-curseforges`: this repo's instruction files, `scripts/`, `SKILL.md`.
+- Before ANY code, manifest, JSON, `.mcfunction`, recipe, version or doc fact: query first, write second. One topic per query. Name the exact member, file, id or schema and the module or game version (e.g. `ItemStack constructor @minecraft/server`, `recipe_shaped format`).
+- Verify every import, class, method, property, event, enum, component and JSON field against the retrieved text before using it. NEVER guess. NEVER outdated syntax: the `mojang-minecraft` modules, `world.events`, 1.x-era imports.
+- Empty or doubtful result: retry once with a narrower query, then stop. Say "not verified" (1.2), NEVER fill the gap from memory. Results that disagree with each other: report per 1.1.
+- Context7 is an index and can lag the game. Versions come from the retrieved text only, with the query date. A result that does not state the latest stable version = "not verified". Preview/beta members only as 1.2 allows.
+- Repo files: `/allenscreations/mcpe-curseforges` is the repo as last indexed. A file attached in the conversation (e.g. `tools.txt`) or read from a clone wins; tell the user about any difference. Scripts that must run (`build_payload.py`, `doc_template.py`, `import_project_payload.py`, `make_pack_script.py`, `pixel_json_to_png.py`) need the COMPLETE unchanged text: a snippet is not enough. Incomplete: ask the user to attach `tools.txt`, NEVER rewrite from memory.
+- Handoff: one bullet `Docs queried (YYYY-MM-DD): <library IDs and topics>`.
+- NEVER put library IDs, query text or the word Context7 in shipped files or player-facing docs (2.2).
 
 ---
 
@@ -716,6 +748,7 @@ Placeholders `<PackName>`, `<MainAction>`, `<version>`. NEVER hardcode one pack.
 - [ ] Changed JSON validated. Instruction file changed: `scripts/check_instruction_files.py` passes.
 
 ## Version History
+- **v29:** New 1.16 (Documentation Lookup): docs, API, vanilla data and repo scripts are read with Context7 `query-docs` from four fixed libraries instead of pasted URLs. Source priority, 1.2 refs and 1.15 trusted sources point to those libraries.
 - **v28:** Required namespace prefix for all item and block `menu_category.group` definitions (e.g. `minecraft:itemGroup.name.<group>`).
 - **v27:** Standardized instruction naming format to bold with parentheses (**`(<Shortcut> VX.<ext>)`**) and clarified engaging Hook Questions for pack documentation.
 - **v26:** Standardized downloadable build package filenames to `VX` format (`<Shortcut> VX.<ext>`); updated `make_pack_script.py` to auto-build description and changelog views on new pack creation.
@@ -736,10 +769,10 @@ Placeholders `<PackName>`, `<MainAction>`, `<version>`. NEVER hardcode one pack.
 - **v12:** Part 3 moved to `CHECKRM_REFERENCE.md`; Dirtbound spec moved to its project folder; scripts reference-only for agents; duplicates and contradictions removed; size cap 60,000 bytes.
 ````
 
-## FILE: DOCS_RULES.md (207 lines, 19225 bytes)
+## FILE: DOCS_RULES.md (207 lines, 19330 bytes)
 
 ````
-# Docs Rules: README, DESCRIPTION, CHANGELOG, Audit and References (Parts 2-3, v2)
+# Docs Rules: README, DESCRIPTION, CHANGELOG, Audit and References (Parts 2-3, v3)
 
 Single source for every doc rule and template (2.1 to 2.5), the `/checkrm` audit (3.1, 3.2) and the Minecraft Wiki and Bedrock Samples references (3.3, 3.4). `PACK_GENERATOR_INSTRUCTIONS.md` uses it too. `INSTRUCTIONS.md` Part 1 wins on conflict. `scripts/doc_template.py` enforces the templates below (`DOC:` failures). Script and file disagree: report it, follow the script for what the build accepts.
 
@@ -935,7 +968,7 @@ CHANGELOG.md. Newest first. Groups: Added, Improved & Balanced, Fixed (bugs as i
 ### 3.4 Mojang Bedrock Samples Reference
 - Wiki sprite names: `Invicon_<Title_Case_Name>.png`, `ItemSprite_<lowercase-hyphenated-name>.png`. Look up by Wiki name, NEVER identifier. Fetch with available web tool; shell blocked: report, NEVER route around, fall back to Samples. Image license rules: 1.5.
 - Wiki, `en_US.lang`, Samples lag each other. ALWAYS check Samples `version.json`, state the version a claim was verified against.
-- Samples = truth for vanilla ids, textures, recipes, components, entities, formats (1.1 source priority). Root `BEDROCK_SAMPLES_ROOT` (workflow clones to `/tmp/bedrock-samples`).
+- Samples = truth for vanilla ids, textures, recipes, components, entities, formats (1.1 source priority). Root `BEDROCK_SAMPLES_ROOT` (workflow clones to `/tmp/bedrock-samples`). Agents read it through Context7 `/mojang/bedrock-samples` (INSTRUCTIONS.md 1.16).
 - Layout: `resource_pack/` (`textures/items/`, `textures/blocks/`, `textures/models/armor/`, `textures/ui/`, `attachables/`, `texts/`), `behavior_pack/` (`items/`, `entities/`, `recipes/`, `loot_tables/`).
 - Content changes per release: ALWAYS verify checked-out version, confirm each path exists. NEVER hardcode values (armor defense, durability) from memory.
 - Ids != texture filenames. Inventory all recipes, map every ingredient, report unresolved together. NEVER placeholder.
@@ -943,7 +976,7 @@ CHANGELOG.md. Newest first. Groups: Added, Improved & Balanced, Fixed (bugs as i
 - Block icons render in game from top+side textures: build isometric view from real faces for cube sprites.
 - An id valid elsewhere may not exist in Bedrock (`oak_door` = `wooden_door`). Confirm id appears in Samples recipes/loot tables/trades before documenting.
 - Custom items use the add-on's own RP textures. Vanilla `behavior_pack/recipes/` = reference for recipe format, group tags, ingredient ids.
-- Checkout missing/asset absent: report. Only GitHub reachable: `git clone --filter=blob:none --sparse` then `git sparse-checkout set --no-cone <paths>`.
+- Context7 first (1.16). Library empty or asset absent: report. Only GitHub reachable: `git clone --filter=blob:none --sparse` then `git sparse-checkout set --no-cone <paths>`.
 - Scale 16x16 textures with nearest-neighbor (`Image.Resampling.NEAREST`).
 ````
 
