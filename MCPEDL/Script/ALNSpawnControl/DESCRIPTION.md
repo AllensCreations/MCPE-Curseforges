@@ -44,7 +44,7 @@ Rename a vanilla Book to "Spawn Control" on an Anvil and use it to open the cont
 ## How to Use
 
 1. Import the .mcpack file and activate ALN:SpawnControl in your world's Behavior Packs.
-2. Place a Book or Writable Book in an Anvil and rename it to "Spawn Control".
+2. Place a Book (not a Book and Quill) in an Anvil and rename it to "Spawn Control".
 3. Hold the renamed book and use it to open the ALN:SpawnControl control panel.
 
 ## Common Questions

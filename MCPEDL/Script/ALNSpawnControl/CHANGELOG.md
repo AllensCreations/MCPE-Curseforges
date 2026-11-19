@@ -2,6 +2,12 @@
 
 ---
 
+## [v3] - 2026-11-19 - Book Renamed to Spawn Control
+
+### Improved & Balanced
+- **Book Trigger Rename**: The book must now be renamed to "Spawn Control" instead of "Spawn Manager" to open the control panel.
+- **Book Only**: Only a regular Book opens the control panel; a Book and Quill no longer works.
+
 ## [v2] - 2026-11-17
 
 **What's new in v1.0.0:** Packed with the v1.0.0 update. Includes: First Release.

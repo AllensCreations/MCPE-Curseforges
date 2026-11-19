@@ -37,7 +37,7 @@ export function registerSpawnUI() {
     }
 
     const typeId = item.typeId;
-    if (typeId !== "minecraft:book" && typeId !== "minecraft:writable_book") {
+    if (typeId !== "minecraft:book") {
       return;
     }
 
