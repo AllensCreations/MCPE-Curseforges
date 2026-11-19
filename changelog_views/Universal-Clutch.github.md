@@ -1,14 +1,28 @@
 # Changelog — Universal Clutch
 
-## [v2] - 2026-11-17
+## [v3] - 2026-11-19 - Boat and Switching Fixes
 
 ### Improved & Balanced
+- **Item Switching**: Your held item is no longer switched until it is time to place it.
+- **Lighter Performance**: Less ground checking while falling.
+
+### Fixed
+- **Old Boats**: Fixed an old boat being removed when you die long after a boat clutch.
+
+<details>
+<summary><b>2.0.x</b> (1 release)</summary>
+
+### [v2] - 2026-11-17
+
+#### Improved & Balanced
 - **Lighter Performance**: Universal Clutch does less work for players who are not falling.
 - **Extreme Mode**: Checks your inventory less often during a fall.
 - **Instant Boat Seating**: The boat is placed and you are seated in it at the same moment.
 
-### Fixed
+#### Fixed
 - **Boat After Death**: Fixed being moved into the boat after respawning when you died during a boat clutch.
+
+</details>
 
 <details>
 <summary><b>1.5.x</b> (4 releases)</summary>

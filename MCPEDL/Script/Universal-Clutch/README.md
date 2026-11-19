@@ -5,7 +5,7 @@ Download the current release of **Universal Clutch** for Minecraft Bedrock Editi
 ## Download
 
 - **Package format:** `.mcpack`
-- **Direct download:** [Download Universal Clutch (.mcpack)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Universal-Clutch/UniversalClutch%20V2.mcpack)
+- **Direct download:** [Download Universal Clutch (.mcpack)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Universal-Clutch/UniversalClutch%20V3.mcpack)
 
 ## Installation
 

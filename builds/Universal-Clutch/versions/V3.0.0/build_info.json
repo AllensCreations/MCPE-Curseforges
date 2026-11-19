@@ -1,0 +1,8 @@
+{
+  "changelog_version": "3.0.0",
+  "manifest_version": "3.0.0",
+  "packages": {
+    "UniversalClutch V3.mcpack": "0ca25afce7e5f3f868ebe569a05c1832ec09f8116e93161c3c4f852722ab6b91"
+  },
+  "source_sha256": "2ab4935e6d327d8be36f252c559508b55a3c55f60c0ac1929a4c409d17ccf93a"
+}
