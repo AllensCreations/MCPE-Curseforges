@@ -4,7 +4,7 @@
 
 - **Export request:** `MCPEDL/Addons/2-in-1-Loot--XP-Booster`
 - **Destination:** `MCPEDL/Addons/2-in-1-Loot--XP-Booster`
-- **CURRENT VERSION: v2 / NEXT UPDATE: v3**  (`MCPEDL/Addons/2-in-1-Loot--XP-Booster/CHANGELOG.md`)
+- **CURRENT VERSION: v3 / NEXT UPDATE: v4**  (`MCPEDL/Addons/2-in-1-Loot--XP-Booster/CHANGELOG.md`)
 - **Text files:** 20
 - **Skipped binary:** 15
 - **Paths not found:** 0
@@ -53,190 +53,6 @@
 ---
 
 
-
----
-
-
-
----
-
-
-
----
-
-
-
----
-
-
-
----
-
-
-
----
-
-
-
----
-
-
-
----
-
-
-
----
-
-
-
----
-
-
-
----
-
-
-
----
-
-
-
----
-
-
-
----
-
-
-
----
-
-
-
----
-
-
-
----
-
-
-
----
-
-
-
----
-
-
-
----
-
-
-
----
-
-
-
----
-
-
-
----
-
-
-
----
-
-
-
----
-
-
-
----
-
-
-
----
-
-
-
----
-
-
-
----
-
-
-
----
-
-
-
----
-
-
-
----
-
-
-
----
-
-
-
----
-
-
-
----
-
-
-
----
-
-
-
----
-
-
-
----
-
-
-
----
-
-
-
----
-
-
-
----
-
-
-
----
-
-
-
----
-
-
-
----
-
-
-
----
-
-
-
----
-
-
 <!-- GRAPH-CONTEXT:START -->
 ## Graph Context
 
@@ -260,7 +76,7 @@ Export: two plain .txt files. `<name>.txt` = the pack (index, these instructions
 - NEW pack: read SKILL.md first, then follow PACK_GENERATOR_INSTRUCTIONS.md Part 4 and deliver ONE pack `.sh` from `scripts/make_pack_script.py` (the project travels inside it as base64). NEVER deliver separate zip, pack, json, js or b64 files.
 - INSTRUCTIONS.md wins over PACK_GENERATOR_INSTRUCTIONS.md on any conflict. These instructions win over both on the reply format and the Termux script.
 - Update: keep pack and module UUIDs unchanged.
-- Vanilla reference: `reference/bedrock-samples/bedrock-samples.min.json.gz` (repo, gzip file of about 8 MB, NOT in this export; unzip it first) holds every vanilla Mojang behavior/resource pack JSON as one object once unzipped (`.behavior_pack.entities.zombie`, `.behavior_pack.recipes`, `.resource_pack.entity` ...). Never guess a vanilla component, event, loot or recipe shape: list the exact section under File Needed, then copy the shape from it.
+- Vanilla reference: Use **Context7** / **https://bedrock.dev/** as the primary source finding API for vanilla Bedrock samples and documentation (Entities, Items, Blocks, Recipes, Biomes, Script API). Never guess a vanilla component, event, loot, or Script API method: look it up with Context7 / bedrock.dev. Offline fallback: `reference/bedrock-samples/bedrock-samples.min.json.gz` (download: https://github.com/AllensCreations/MCPE-Curseforges/raw/main/reference/bedrock-samples/bedrock-samples.min.json.gz).
 - UI work (menus, forms, HUD, screens): follow INSTRUCTIONS.md 1.13 and apply the ALN UI Redesign skin from `assets/aln-ui-redesign/` (README.txt, design.json, font/README.txt in the tools txt). Textures are not exported; if the pack's resource_pack is missing, ask for it. Never claim anything was tested in Minecraft unless it was.
 - Update: deliver the repo change as the Termux script below. New pack: the pack `.sh` above. Never a separate payload or base64 file.
 
@@ -380,6 +196,9 @@ Maps/scripts/minigames: same landing page. Use real package format; .mcworld = t
 - NO links, URLs, badges, function/event names, unverified benefits. No boilerplate after title.
 - Insert new entry directly under `---`, above previous release. NEVER edit/delete older entries.
 
+### Item and Block Components
+- When defining `menu_category` for custom items or blocks, `group` MUST start with a namespace (e.g. `minecraft:itemGroup.name.<group>` or `<namespace>:itemGroup.name.<group>`). Unnamespaced group strings like `itemGroup.name.helmet` fail Bedrock parsing (`Failed to parse field ' -> description -> menu_category -> group: string must be prefixed with a namespace (eg. namespace:value)'`). If no vanilla group applies, omit `group` and provide only `category`.
+
 ## Reply Format (STRICT)
 ```
 [SYSTEM_CONFIG]
@@ -408,30 +227,50 @@ git config --global credential.helper store
 
 ## File Contents
 
-## FILE: changelog_views/2-in-1-Loot--XP-Booster.curseforge.html (3 lines, 7668 bytes)
+## FILE: changelog_views/2-in-1-Loot--XP-Booster.curseforge.html (4 lines, 8752 bytes)
 
 ```
-<h2>v2 - 2026-11-17</h2><h3>Fixed</h3><ul><li><strong>Bone meal crops</strong>: Crops sped up with bone meal are no longer multiplied when broken.</li><li><strong>Nearby items left alone</strong>: Only items that drop the instant you break a block or kill a mob are multiplied, so items thrown or dropped nearby a moment earlier or later are no longer multiplied.</li><li><strong>Fully grown crops only</strong>: Wheat, carrots, potatoes, beetroot, nether wart and sweet berries are multiplied only when fully grown, so replanting and breaking young crops no longer gives free items.</li><li><strong>Carrier mobs skipped</strong>: Donkeys, mules, llamas, allays, foxes and villagers no longer multiply the items they carry when killed.</li></ul><h3>Improved &amp; Balanced</h3><ul><li><strong>No place-and-break farming</strong>: Ancient debris, melons, glowstone and sea lanterns are no longer multiplied, because they drop themselves or can be crafted back into the same block.</li><li><strong>Lighter XP checks</strong>: The XP booster now works out which player an orb belongs to once per pass and no longer moves orbs that are already next to you, which reduces lag in busy XP farms.</li><li><strong>Item tracking limit</strong>: The Loot booster stops tracking new item drops once a very large number are waiting, which protects busy servers.</li></ul>
+<h2>v3 - 2026-11-19 - Loot Tables and Commands</h2><h3>Added</h3><ul><li><strong>Booster command</strong>: Type /aln:booster in chat to open the Booster menu without renaming a Book.</li><li><strong>Loot switches</strong>: The XP &amp; Loot Booster menu now has Ores, Crops and Mobs switches, so you can choose which kinds of loot are boosted.</li><li><strong>Limit message</strong>: A short Action Bar message tells you when the booster limit is reached and some extras were skipped.</li></ul><h3>Improved &amp; Balanced</h3><ul><li><strong>Real loot rolls</strong>: Ores and crops are now boosted by rolling the block&#x27;s own loot again, so only items the block can really drop are multiplied and a wrong tool gives no bonus.</li><li><strong>Matching mob drops</strong>: Mob loot is matched against what that mob can drop, so items thrown or dropped nearby are no longer multiplied.</li></ul><h3>Fixed</h3><ul><li><strong>Version number</strong>: The menu title and About screen now show the current add-on version.</li></ul>
+<h2>2.0.x (1 release)</h2><div class="spoiler"><h3>v2 - 2026-11-17</h3><h4>Fixed</h4><ul><li><strong>Bone meal crops</strong>: Crops sped up with bone meal are no longer multiplied when broken.</li><li><strong>Nearby items left alone</strong>: Only items that drop the instant you break a block or kill a mob are multiplied, so items thrown or dropped nearby a moment earlier or later are no longer multiplied.</li><li><strong>Fully grown crops only</strong>: Wheat, carrots, potatoes, beetroot, nether wart and sweet berries are multiplied only when fully grown, so replanting and breaking young crops no longer gives free items.</li><li><strong>Carrier mobs skipped</strong>: Donkeys, mules, llamas, allays, foxes and villagers no longer multiply the items they carry when killed.</li></ul><h4>Improved &amp; Balanced</h4><ul><li><strong>No place-and-break farming</strong>: Ancient debris, melons, glowstone and sea lanterns are no longer multiplied, because they drop themselves or can be crafted back into the same block.</li><li><strong>Lighter XP checks</strong>: The XP booster now works out which player an orb belongs to once per pass and no longer moves orbs that are already next to you, which reduces lag in busy XP farms.</li><li><strong>Item tracking limit</strong>: The Loot booster stops tracking new item drops once a very large number are waiting, which protects busy servers.</li></ul></div>
 <h2>1.0.x (9 releases)</h2><div class="spoiler"><h3>1.0.13 - 2026-11-17</h3><h4>Improved &amp; Balanced</h4><ul><li><strong>Drop limit</strong>: Extra Loot drops are now capped per moment, which protects busy servers and big farms.</li><li><strong>Lighter farms</strong>: The Loot booster no longer tracks item drops while nobody online has it turned on.</li><li><strong>Clean Action Bar</strong>: Pressing Apply twice quickly no longer shows an outdated Action Bar message.</li><li><strong>Orb XP back</strong>: The XP booster multiplies XP orbs again, so Mending repairs your gear from the extra XP. Orbs near you are collected instantly.</li><li><strong>Your orbs only</strong>: Only the orbs closest to you are multiplied, so other players&#x27; orbs are never touched.</li><li><strong>XP orb limit</strong>: Extra orbs are capped per moment to protect busy servers.</li><li><strong>Exact XP</strong>: The XP booster now adds the extra XP straight to you instead of spawning extra orbs, so the amount is exact and there is far less lag. XP orbs are no longer pulled to you instantly.</li><li><strong>Your XP only</strong>: Other players&#x27; XP orbs are never touched.</li><li><strong>Real mobs only</strong>: Armor stands, boats and minecarts are no longer treated as mob loot.</li><li><strong>Fair drops</strong>: Block and mob drops now go to the nearest player who caused them, so nobody multiplies another player&#x27;s drops on a shared server.</li></ul><h3>1.0.10 - 2026-11-16</h3><h4>Improved &amp; Balanced</h4><ul><li><strong>Normal font restored</strong>: The Booster menus use the normal Minecraft font again. The pixel font and its files are removed.</li><li><strong>Silk Touch safe</strong>: Mining with Silk Touch now drops the block once. The Loot booster no longer multiplies it.</li><li><strong>Pixel text</strong>: The Booster menus now use the Pixelify Sans pixel font. Enable the Redesigned UI Resource Pack together with the Behavior Pack.</li><li><strong>Book only</strong>: The Booster menu now opens only from a plain Book renamed to Booster. A Book and Quill no longer opens it.</li></ul><h3>1.0.7 - 2026-11-16</h3><h4>Improved &amp; Balanced</h4><ul><li><strong>More Fortune-style loot</strong>: The Loot booster now also multiplies drops from amethyst clusters, glowstone, sea lanterns, melons, nether wart, sweet berries, wheat, carrots, potatoes and beetroot, on top of ores, ancient debris, gilded blackstone and mob loot.</li><li><strong>Loot only where it counts</strong>: The Loot booster now multiplies drops from ores, ancient debris, gilded blackstone and mobs you kill. Normal blocks such as dirt, stone, wood and crops drop as usual.</li></ul><h3>1.0.5 - 2026-11-16</h3><h4>Improved &amp; Balanced</h4><ul><li><strong>Apply closes the menu</strong>: Pressing Apply on the XP &amp; Loot Booster screen now closes the menu instead of returning to the main menu.</li></ul><h3>1.0.4 - 2026-11-16</h3><h4>Improved &amp; Balanced</h4><ul><li><strong>Loot back to 32x</strong>: The Loot slider has six levels, 1x up to 32x. XP keeps seven levels up to 64x. A saved Loot level above 32x drops to 32x.</li><li><strong>Boosters switch</strong>: A new on/off switch on the XP &amp; Loot Booster screen turns both boosters off and on without losing your levels.</li><li><strong>XP orb limit</strong>: Extra XP orbs are now capped per moment across all players, which protects busy servers.</li></ul><h3>1.0.3 - 2026-11-16</h3><h4>Improved &amp; Balanced</h4><ul><li><strong>Plain multiplier sliders</strong>: The Loot and XP sliders now use the same seven levels, 1x, 2x, 4x, 8x, 16x, 32x and 64x, and the tier names are gone.</li><li><strong>Loot up to 64x</strong>: Loot can now reach 64x, matching XP. Your saved Loot and XP levels carry over unchanged.</li><li><strong>ALNStudios look</strong>: The menus follow the ALNStudios Redesigned UI standard with a gold title, bold buttons with icons and a Back button on About.</li><li><strong>Menus keep going</strong>: After Apply or Back the main menu opens again. Exit or the close button closes it.</li><li><strong>Action Bar feedback</strong>: Applied settings now show on the Action Bar instead of in chat.</li></ul><h3>1.0.2 - 2026-11-12</h3><h4>Improved &amp; Balanced</h4><ul><li><strong>Three-button menu</strong>: The Booster menu now has only XP &amp; Loot Booster, About and Exit.</li><li><strong>One screen, two sliders</strong>: XP &amp; Loot Booster sets both boosters with a Loot slider and an XP slider, saved together with one Apply button. Each slider is labeled with your current tier name, and the new tier names are shown in chat and the Action Bar after Apply.</li><li><strong>New About screen</strong>: About now introduces ALNStudios and the two packs in this add-on.</li></ul><h4>Fixed</h4><ul><li><strong>Menu stays out of the way</strong>: Exit closes the menu without changing your settings.</li></ul><h3>1.0.1 - 2026-11-12 - Redesigned Menu and Tiers</h3><h4>Added</h4><ul><li><strong>About button</strong>: The Booster menu now has an About screen explaining each booster.</li><li><strong>Named tiers</strong>: Loot runs Normal, Quite Good, Great, Amazing, Insane and The Leprechaun. XP adds Legendary and The Sage.</li><li><strong>Cheatstick menu skin</strong>: The Redesigned UI Resource Pack styles the Booster menus with a dark panel and blue border.</li></ul><h4>Improved &amp; Balanced</h4><ul><li><strong>Fortune-style loot</strong>: Drops roll a random bonus up to the tier&#x27;s maximum instead of always using it. Loot tops out at 32x.</li><li><strong>XP maximum</strong>: XP can now reach 64x.</li><li><strong>Colored text</strong>: Tier names and menu labels use distinct colors.</li></ul><h3>1.0.0 - 2026-11-12 - First Release</h3><h4>Added</h4><ul><li><strong>Booster menu</strong>: Rename a Book or a Book and Quill to Booster and right-click to set your Loot Drop and XP Gain multipliers.</li><li><strong>Loot Drop multiplier</strong>: Blocks you break and mobs you kill drop up to 32 times their normal stacks, except from chests, barrels, ender chests and shulker boxes.</li><li><strong>XP Gain multiplier</strong>: Nearby XP orbs are multiplied and collected instantly.</li><li><strong>Redesigned UI</strong>: A Resource Pack with the Cheatstick menu textures.</li></ul></div>
 ```
 
-## FILE: changelog_views/2-in-1-Loot--XP-Booster.github.md (99 lines, 6619 bytes)
+## FILE: changelog_views/2-in-1-Loot--XP-Booster.github.md (118 lines, 7554 bytes)
 
 ```
 # Changelog — 2-in-1 Loot & XP Booster
 
-## [v2] - 2026-11-17
+## [v3] - 2026-11-19 - Loot Tables and Commands
+
+### Added
+- **Booster command**: Type /aln:booster in chat to open the Booster menu without renaming a Book.
+- **Loot switches**: The XP & Loot Booster menu now has Ores, Crops and Mobs switches, so you can choose which kinds of loot are boosted.
+- **Limit message**: A short Action Bar message tells you when the booster limit is reached and some extras were skipped.
+
+### Improved & Balanced
+- **Real loot rolls**: Ores and crops are now boosted by rolling the block's own loot again, so only items the block can really drop are multiplied and a wrong tool gives no bonus.
+- **Matching mob drops**: Mob loot is matched against what that mob can drop, so items thrown or dropped nearby are no longer multiplied.
 
 ### Fixed
+- **Version number**: The menu title and About screen now show the current add-on version.
+
+<details>
+<summary><b>2.0.x</b> (1 release)</summary>
+
+### [v2] - 2026-11-17
+
+#### Fixed
 - **Bone meal crops**: Crops sped up with bone meal are no longer multiplied when broken.
 - **Nearby items left alone**: Only items that drop the instant you break a block or kill a mob are multiplied, so items thrown or dropped nearby a moment earlier or later are no longer multiplied.
 - **Fully grown crops only**: Wheat, carrots, potatoes, beetroot, nether wart and sweet berries are multiplied only when fully grown, so replanting and breaking young crops no longer gives free items.
 - **Carrier mobs skipped**: Donkeys, mules, llamas, allays, foxes and villagers no longer multiply the items they carry when killed.
 
-### Improved & Balanced
+#### Improved & Balanced
 - **No place-and-break farming**: Ancient debris, melons, glowstone and sea lanterns are no longer multiplied, because they drop themselves or can be crafted back into the same block.
 - **Lighter XP checks**: The XP booster now works out which player an orb belongs to once per pass and no longer moves orbs that are already next to you, which reduces lag in busy XP farms.
 - **Item tracking limit**: The Loot booster stops tracking new item drops once a very large number are waiting, which protects busy servers.
+
+</details>
 
 <details>
 <summary><b>1.0.x</b> (9 releases)</summary>
@@ -539,11 +378,11 @@ This marker does not encrypt the pack or prevent extraction or editing.
 {
   "format_version": 2,
   "header": {
-    "name": "2-in-1 Loot & XP Booster (v2)",
+    "name": "2-in-1 Loot & XP Booster (v3)",
     "description": "Loot and XP multipliers controlled from a renamed Book. by ALNStudios",
     "uuid": "ac428a01-d829-4779-aeb1-52bbb3d37e0d",
     "version": [
-      2,
+      3,
       0,
       0
     ],
@@ -559,7 +398,7 @@ This marker does not encrypt the pack or prevent extraction or editing.
       "language": "javascript",
       "uuid": "7234ab02-50fd-43f5-b082-493403c5aaa4",
       "version": [
-        2,
+        3,
         0,
         0
       ],
@@ -570,7 +409,7 @@ This marker does not encrypt the pack or prevent extraction or editing.
     {
       "uuid": "c36706a8-ddfe-419f-bd1b-69d929186543",
       "version": [
-        2,
+        3,
         0,
         0
       ]
@@ -589,19 +428,19 @@ This marker does not encrypt the pack or prevent extraction or editing.
       "ALNStudios"
     ],
     "product_type": "addon",
-    "version": "2.0.0"
+    "version": "3.0.0"
   }
 }
 ```
 
-## FILE: MCPEDL/Addons/2-in-1-Loot--XP-Booster/behavior_pack/scripts/main.js (518 lines, 16488 bytes)
+## FILE: MCPEDL/Addons/2-in-1-Loot--XP-Booster/behavior_pack/scripts/main.js (626 lines, 20545 bytes)
 
 ```
-import { world, system, EntityComponentTypes } from "@minecraft/server";
+import { world, system, EntityComponentTypes, CommandPermissionLevel, CustomCommandStatus } from "@minecraft/server";
 import { ActionFormData, ModalFormData, FormCancelationReason } from "@minecraft/server-ui";
 
 const PACK_NAME = "2-in-1 Loot & XP Booster";
-const VERSION = "1.0.16";
+const VERSION = "3";
 const TITLE = `§l§6@ALNStudios §e${PACK_NAME}§r (v${VERSION})`;
 const ABOUT_TITLE = "About ALNStudios";
 const ICON_MAIN = "textures/items/experience_bottle";
@@ -612,6 +451,9 @@ const XP_LEVELS = [1, 2, 4, 8, 16, 32, 64];
 const LOOT_KEY = "aln_loot_index";
 const XP_KEY = "aln_xp_index";
 const ENABLED_KEY = "aln_boost_enabled";
+const ORES_KEY = "aln_loot_ores";
+const CROPS_KEY = "aln_loot_crops";
+const MOBS_KEY = "aln_loot_mobs";
 const BOOK_ID = "minecraft:book";
 const TRIGGER_NAME = "booster";
 const DROP_TAG = "aln_boosted_drop";
@@ -622,7 +464,6 @@ const MAX_LOOT_SPAWNS_PER_TICK = 64;
 const MAX_RECENT_ITEMS = 2000;
 const XP_PICKUP_SQUARED = 1;
 const BAR_DELAY_TICKS = 50;
-const BLOCK_RADIUS = 1.5;
 const MOB_RADIUS = 2.2;
 const XP_INTERVAL_TICKS = 2;
 const SPAWN_WINDOW_TICKS = 4;
@@ -630,6 +471,10 @@ const DROP_TICK_SLACK = 2;
 const MAX_FERTILIZED = 4096;
 const CLAIM_LIFETIME_TICKS = 10;
 const MAX_FORM_RETRIES = 8;
+const LOOT_SAMPLES = 6;
+const CAP_NOTICE_TICKS = 200;
+const CATEGORIES = ["ores", "crops", "mobs"];
+const CATEGORY_NAMES = { ores: "Ores", crops: "Crops", mobs: "Mobs" };
 const NON_MOB_TYPES = new Set([
   "minecraft:armor_stand",
   "minecraft:player",
@@ -649,16 +494,7 @@ const NON_MOB_TYPES = new Set([
   "minecraft:copper_golem",
 ]);
 const NON_MOB_FAMILIES = ["inanimate", "projectile", "minecart", "boat"];
-const LOOT_BLOCKS = new Set([
-  "minecraft:gilded_blackstone",
-  "minecraft:amethyst_cluster",
-  "minecraft:wheat",
-  "minecraft:carrots",
-  "minecraft:potatoes",
-  "minecraft:beetroot",
-  "minecraft:nether_wart",
-  "minecraft:sweet_berry_bush",
-]);
+const ORE_EXTRAS = new Set(["minecraft:gilded_blackstone", "minecraft:amethyst_cluster"]);
 const GROWTH_RULES = {
   "minecraft:wheat": ["growth", 7],
   "minecraft:carrots": ["growth", 7],
@@ -670,6 +506,7 @@ const GROWTH_RULES = {
 const recentItems = new Map();
 const fertilized = new Set();
 const barTimers = new Map();
+const capNotices = new Map();
 let lootActive = false;
 let lootTick = -1;
 let lootSpawned = 0;
@@ -690,6 +527,9 @@ function getBoost(player) {
       loot: readIndex(player, LOOT_KEY, LOOT_LEVELS),
       xp: readIndex(player, XP_KEY, XP_LEVELS),
       on: player.getDynamicProperty(ENABLED_KEY) !== false,
+      ores: player.getDynamicProperty(ORES_KEY) !== false,
+      crops: player.getDynamicProperty(CROPS_KEY) !== false,
+      mobs: player.getDynamicProperty(MOBS_KEY) !== false,
     };
     boosts.set(player.id, boost);
   }
@@ -706,8 +546,22 @@ function xpMultiplier(player) {
   return boost.on ? XP_LEVELS[boost.xp] : 1;
 }
 
-function isLootBlock(typeId) {
-  return typeId.endsWith("_ore") || LOOT_BLOCKS.has(typeId);
+function blockCategory(typeId) {
+  if (GROWTH_RULES[typeId]) return "crops";
+  if (typeId.endsWith("_ore") || ORE_EXTRAS.has(typeId)) return "ores";
+  return undefined;
+}
+
+function notifyCapped(player) {
+  const now = system.currentTick;
+  const last = capNotices.get(player.id);
+  if (last !== undefined && now - last < CAP_NOTICE_TICKS) return;
+  capNotices.set(player.id, now);
+  try {
+    player.onScreenDisplay.setActionBar("§eBooster limit reached, some extras were skipped");
+  } catch (error) {
+    return;
+  }
 }
 
 function isGrown(permutation) {
@@ -734,8 +588,10 @@ function statusLine(player) {
   const boost = getBoost(player);
   const loot = LOOT_LEVELS[boost.loot];
   const xp = XP_LEVELS[boost.xp];
-  if (!boost.on) return `Boosters are off. Saved: Loot ${loot}x | XP ${xp}x`;
-  return `Loot Booster: ${loot}x | XP Booster: ${xp}x`;
+  const skipped = CATEGORIES.filter((category) => !boost[category]).map((category) => CATEGORY_NAMES[category]);
+  const skipText = skipped.length > 0 ? `\nLoot skips: ${skipped.join(", ")}` : "";
+  if (!boost.on) return `Boosters are off. Saved: Loot ${loot}x | XP ${xp}x${skipText}`;
+  return `Loot Booster: ${loot}x | XP Booster: ${xp}x${skipText}`;
 }
 
 function bold(text) {
@@ -795,6 +651,10 @@ async function boosterScreen(player) {
   addIfSupported(form, "divider");
   addIfSupported(form, "label", `Loot slider 1 to ${LOOT_LEVELS.length} = ${levelText(LOOT_LEVELS)}`);
   form.slider(bold("Loot Booster"), 1, LOOT_LEVELS.length, { defaultValue: boost.loot + 1, valueStep: 1 });
+  addIfSupported(form, "label", "Loot applies to:");
+  form.toggle(bold("Ores"), { defaultValue: boost.ores });
+  form.toggle(bold("Crops"), { defaultValue: boost.crops });
+  form.toggle(bold("Mobs"), { defaultValue: boost.mobs });
   addIfSupported(form, "divider");
   addIfSupported(form, "label", `XP slider 1 to ${XP_LEVELS.length} = ${levelText(XP_LEVELS)}`);
   form.slider(bold("XP Booster"), 1, XP_LEVELS.length, { defaultValue: boost.xp + 1, valueStep: 1 });
@@ -807,7 +667,7 @@ async function boosterScreen(player) {
   const values = response.formValues ?? [];
   const switches = values.filter((value) => typeof value === "boolean");
   const sliders = values.filter((value) => typeof value === "number");
-  if (switches.length < 1 || sliders.length < 2) return "main";
+  if (switches.length < 4 || sliders.length < 2) return "main";
 
   const on = switches[0];
   const lootIndex = Math.min(Math.max(Math.round(sliders[0]) - 1, 0), LOOT_LEVELS.length - 1);
@@ -815,7 +675,10 @@ async function boosterScreen(player) {
   player.setDynamicProperty(LOOT_KEY, lootIndex);
   player.setDynamicProperty(XP_KEY, xpIndex);
   player.setDynamicProperty(ENABLED_KEY, on);
-  boosts.set(player.id, { loot: lootIndex, xp: xpIndex, on });
+  player.setDynamicProperty(ORES_KEY, switches[1]);
+  player.setDynamicProperty(CROPS_KEY, switches[2]);
+  player.setDynamicProperty(MOBS_KEY, switches[3]);
+  boosts.set(player.id, { loot: lootIndex, xp: xpIndex, on, ores: switches[1], crops: switches[2], mobs: switches[3] });
   player.playSound("random.orb");
   refreshLootActive();
   const pending = barTimers.get(player.id);
@@ -882,10 +745,34 @@ world.afterEvents.itemUse.subscribe((event) => {
 world.afterEvents.playerLeave.subscribe(({ playerId }) => {
   boosts.delete(playerId);
   openMenus.delete(playerId);
+  capNotices.delete(playerId);
   const pending = barTimers.get(playerId);
   if (pending !== undefined) {
     system.clearRun(pending);
     barTimers.delete(playerId);
+  }
+});
+
+system.beforeEvents.startup.subscribe(({ customCommandRegistry }) => {
+  try {
+    customCommandRegistry.registerCommand(
+      {
+        name: "aln:booster",
+        description: "Open the XP & Loot Booster menu",
+        permissionLevel: CommandPermissionLevel.Any,
+        cheatsRequired: false,
+      },
+      (origin) => {
+        const player = origin.sourceEntity ?? origin.initiator;
+        if (!player || player.typeId !== "minecraft:player") {
+          return { status: CustomCommandStatus.Failure, message: "Only players can open the booster menu." };
+        }
+        system.run(() => openPanel(player));
+        return { status: CustomCommandStatus.Success, message: "Close the chat to open the booster menu." };
+      },
+    );
+  } catch (error) {
+    return;
   }
 });
 
@@ -899,7 +786,7 @@ world.afterEvents.entitySpawn.subscribe(({ entity }) => {
 function refreshLootActive() {
   let active = false;
   for (const player of world.getAllPlayers()) {
-    if (player.isValid && lootMultiplier(player) > 1) {
+    if (player.isValid && lootMultiplier(player) > 1 && getBoost(player).mobs) {
       active = true;
       break;
     }
@@ -968,7 +855,7 @@ function rollMultiplier(max) {
   return 1 + Math.floor(Math.random() * max);
 }
 
-function multiplyDrops(dimension, radius, maxMultiplier, claim) {
+function multiplyDrops(player, dimension, radius, maxMultiplier, claim, allowed) {
   if (maxMultiplier <= 1) return;
   const now = system.currentTick;
   if (now !== lootTick) {
@@ -997,10 +884,15 @@ function multiplyDrops(dimension, radius, maxMultiplier, claim) {
       const component = entity.getComponent(EntityComponentTypes.Item);
       const stack = component ? component.itemStack : undefined;
       if (!stack || stack.maxAmount <= 1) continue;
+      if (allowed && !allowed.has(stack.typeId)) continue;
 
       let remaining = stack.amount * (rollMultiplier(maxMultiplier) - 1);
       const location = entity.location;
-      while (remaining > 0 && lootSpawned < MAX_LOOT_SPAWNS_PER_TICK) {
+      while (remaining > 0) {
+        if (lootSpawned >= MAX_LOOT_SPAWNS_PER_TICK) {
+          notifyCapped(player);
+          break;
+        }
         const amount = Math.min(stack.maxAmount, remaining);
         const copy = stack.clone();
         copy.amount = amount;
@@ -1012,6 +904,57 @@ function multiplyDrops(dimension, radius, maxMultiplier, claim) {
     } catch (error) {
       continue;
     }
+  }
+}
+
+function addExtraBlockLoot(player, dimension, center, permutation, tool, maxMultiplier, skipSelf) {
+  const rounds = rollMultiplier(maxMultiplier) - 1;
+  if (rounds <= 0) return;
+  const now = system.currentTick;
+  if (now !== lootTick) {
+    lootTick = now;
+    lootSpawned = 0;
+  }
+  const typeId = permutation.type.id;
+  const manager = world.getLootTableManager();
+  for (let round = 0; round < rounds; round++) {
+    let stacks;
+    try {
+      stacks = manager.generateLootFromBlockPermutation(permutation, tool);
+    } catch (error) {
+      return;
+    }
+    if (!stacks) return;
+    for (const stack of stacks) {
+      if (stack.maxAmount <= 1) continue;
+      if (skipSelf && stack.typeId === typeId) continue;
+      if (lootSpawned >= MAX_LOOT_SPAWNS_PER_TICK) {
+        notifyCapped(player);
+        return;
+      }
+      try {
+        const spawned = dimension.spawnItem(stack, center);
+        spawned.addTag(DROP_TAG);
+        lootSpawned++;
+      } catch (error) {
+        return;
+      }
+    }
+  }
+}
+
+function expectedMobDrops(entity) {
+  try {
+    const manager = world.getLootTableManager();
+    const types = new Set();
+    for (let sample = 0; sample < LOOT_SAMPLES; sample++) {
+      const stacks = manager.generateLootFromEntity(entity);
+      if (!stacks) return undefined;
+      for (const stack of stacks) types.add(stack.typeId);
+    }
+    return types;
+  } catch (error) {
+    return undefined;
   }
 }
 
@@ -1033,18 +976,18 @@ world.afterEvents.playerPlaceBlock.subscribe(({ block }) => {
 world.afterEvents.playerBreakBlock.subscribe((event) => {
   const { player, block, brokenBlockPermutation, dimension, itemStackBeforeBreak } = event;
   const origin = block.location;
-  const center = { x: origin.x + 0.5, y: origin.y + 0.5, z: origin.z + 0.5 };
-  const claim = addClaim(dimension, center, player.id);
   const wasFertilized = fertilized.delete(blockKey(dimension, origin));
 
   const maxMultiplier = lootMultiplier(player);
   if (maxMultiplier <= 1) return;
-  if (!isLootBlock(brokenBlockPermutation.type.id)) return;
+  const category = blockCategory(brokenBlockPermutation.type.id);
+  if (!category || !getBoost(player)[category]) return;
   if (!isGrown(brokenBlockPermutation)) return;
   if (wasFertilized) return;
   if (hasSilkTouch(itemStackBeforeBreak)) return;
 
-  system.run(() => multiplyDrops(dimension, BLOCK_RADIUS, maxMultiplier, claim));
+  const center = { x: origin.x + 0.5, y: origin.y + 0.5, z: origin.z + 0.5 };
+  addExtraBlockLoot(player, dimension, center, brokenBlockPermutation, itemStackBeforeBreak, maxMultiplier, category === "ores");
 });
 
 world.afterEvents.entityDie.subscribe(({ deadEntity, damageSource }) => {
@@ -1056,9 +999,10 @@ world.afterEvents.entityDie.subscribe(({ deadEntity, damageSource }) => {
   const claim = addClaim(dimension, deadEntity.location, killer.id);
 
   const maxMultiplier = lootMultiplier(killer);
-  if (maxMultiplier <= 1) return;
+  if (maxMultiplier <= 1 || !getBoost(killer).mobs) return;
 
-  system.run(() => multiplyDrops(dimension, MOB_RADIUS, maxMultiplier, claim));
+  const allowed = expectedMobDrops(deadEntity);
+  system.run(() => multiplyDrops(killer, dimension, MOB_RADIUS, maxMultiplier, claim, allowed));
 });
 
 function hasNearerPlayer(orbLocation, player, players) {
@@ -1099,7 +1043,10 @@ system.runInterval(() => {
         if (hasNearerPlayer(orbLocation, player, players)) continue;
         if (!orb.hasTag(XP_TAG)) {
           const extra = multiplier - 1;
-          if (budget < extra) continue;
+          if (budget < extra) {
+            notifyCapped(player);
+            continue;
+          }
           orb.addTag(XP_TAG);
           for (let i = 0; i < extra; i++) {
             const bonus = dimension.spawnEntity("minecraft:xp_orb", location);
@@ -1116,12 +1063,29 @@ system.runInterval(() => {
 }, XP_INTERVAL_TICKS);
 ```
 
-## FILE: MCPEDL/Addons/2-in-1-Loot--XP-Booster/CHANGELOG.md (194 lines, 7634 bytes)
+## FILE: MCPEDL/Addons/2-in-1-Loot--XP-Booster/CHANGELOG.md (211 lines, 8502 bytes)
 
 ```
 # Changelog — 2-in-1 Loot & XP Booster
 
 ---
+
+## [v3] - 2026-11-19 - Loot Tables and Commands
+
+### Added
+
+- **Booster command**: Type /aln:booster in chat to open the Booster menu without renaming a Book.
+- **Loot switches**: The XP & Loot Booster menu now has Ores, Crops and Mobs switches, so you can choose which kinds of loot are boosted.
+- **Limit message**: A short Action Bar message tells you when the booster limit is reached and some extras were skipped.
+
+### Improved & Balanced
+
+- **Real loot rolls**: Ores and crops are now boosted by rolling the block's own loot again, so only items the block can really drop are multiplied and a wrong tool gives no bonus.
+- **Matching mob drops**: Mob loot is matched against what that mob can drop, so items thrown or dropped nearby are no longer multiplied.
+
+### Fixed
+
+- **Version number**: The menu title and About screen now show the current add-on version.
 
 ## [v2] - 2026-11-17
 
@@ -1314,7 +1278,7 @@ system.runInterval(() => {
 - **Redesigned UI**: A Resource Pack with the Cheatstick menu textures.
 ```
 
-## FILE: MCPEDL/Addons/2-in-1-Loot--XP-Booster/DESCRIPTION.md (88 lines, 6091 bytes)
+## FILE: MCPEDL/Addons/2-in-1-Loot--XP-Booster/DESCRIPTION.md (88 lines, 6570 bytes)
 
 ```
 # 2-in-1 Loot & XP Booster — Renamed Book Menu for Loot and XP Multipliers
@@ -1344,15 +1308,15 @@ You rename a Book to Booster on an anvil and right-click with it. A menu opens w
 
 ### Renamed Book Control Panel
 - **What Happens**: Rename a Book to "Booster" on an anvil, then right-click with it to open the Booster menu.
-- **Good To Know**: Each player keeps their own settings, which are saved between sessions.
+- **Good To Know**: Each player keeps their own settings, which are saved between sessions. You can also open the menu with the /aln:booster command.
 
 ### Loot Drop Booster
 - **What Happens**: Drag the Loot slider across six levels, 1x, 2x, 4x, 8x, 16x and 32x, for ores, crops and other Fortune-style blocks you break and for mobs you kill.
-- **Good To Know**: Each drop rolls a random bonus up to the level you pick. It works like a Fortune and Looting bonus, but with its own random roll. Ores, gilded blackstone, amethyst clusters, nether wart, sweet berries, wheat, carrots, potatoes, beetroot and mob loot are multiplied, so normal blocks such as dirt, stone and wood drop as usual, and unstackable items such as tools are left alone. Mining with Silk Touch drops the block once and is never multiplied. Crops, nether wart and sweet berries are multiplied only when fully grown, and crops sped up with bone meal are not multiplied. Blocks that drop themselves or can be crafted back from their drops, such as ancient debris, melons, glowstone and sea lanterns, are never multiplied, so they cannot be farmed by placing and breaking. Fortune still works, and the booster multiplies on top of it. Only real mobs count, so armor stands, boats, minecarts and mobs that carry items, such as donkeys, mules, llamas, allays, foxes and villagers, are not multiplied, and each drop goes to the nearest player who caused it. Only drops that appear the instant you break a block or kill a mob are multiplied, so items thrown or dropped nearby are left alone. Extra drops are capped per moment to protect busy servers.
+- **Good To Know**: Each drop rolls a random bonus up to the level you pick. It works like a Fortune and Looting bonus, but with its own random roll. Ores, gilded blackstone, amethyst clusters, nether wart, sweet berries, wheat, carrots, potatoes, beetroot and mob loot are multiplied, so normal blocks such as dirt, stone and wood drop as usual, and unstackable items such as tools are left alone. Mining with Silk Touch drops the block once and is never multiplied. Blocks are boosted by rolling their loot again, so only items that block can really drop are multiplied, and mob drops are matched against what that mob can drop. The Ores, Crops and Mobs switches let you choose which kinds of loot are boosted. Crops, nether wart and sweet berries are multiplied only when fully grown, and crops sped up with bone meal are not multiplied. Blocks that drop themselves or can be crafted back from their drops, such as ancient debris, melons, glowstone and sea lanterns, are never multiplied, so they cannot be farmed by placing and breaking. Fortune still works, and the booster multiplies on top of it. Only real mobs count, so armor stands, boats, minecarts and mobs that carry items, such as donkeys, mules, llamas, allays, foxes and villagers, are not multiplied, and each drop goes to the nearest player who caused it. Only drops that appear the instant you break a block or kill a mob are multiplied, so items thrown or dropped nearby are left alone. Extra drops are capped per moment to protect busy servers, and a short Action Bar message tells you when the limit is reached.
 
 ### XP Gain Booster
 - **What Happens**: Drag the XP slider across seven levels, 1x, 2x, 4x, 8x, 16x, 32x and 64x, and each XP orb near you is turned into that many orbs.
-- **Good To Know**: The orbs are collected instantly, so Mending repairs your gear from the extra XP. Only the orbs closest to you are multiplied, so other players' orbs are never affected, and extra orbs are capped per moment to protect busy servers.
+- **Good To Know**: The orbs are collected instantly, so Mending repairs your gear from the extra XP. Only the orbs closest to you are multiplied, so other players' orbs are never affected, and extra orbs are capped per moment to protect busy servers, with a short Action Bar message when the limit is reached.
 
 ### About Screen
 - **What Happens**: The About button shows the creator, the add-on version, a short note on both packs, the CurseForge and MCPEDL profiles and an unofficial-product notice.
@@ -1365,7 +1329,7 @@ You rename a Book to Booster on an anvil and right-click with it. A menu opens w
 
 1. Rename a Book to Booster on an anvil.
 2. Hold it and right-click, then choose XP & Loot Booster.
-3. Drag the Loot and XP sliders, switch Boosters on or off, press Apply and check the Action Bar for your values.
+3. Drag the Loot and XP sliders, switch Boosters on or off, choose whether Ores, Crops and Mobs are boosted, press Apply and check the Action Bar for your values.
 
 ## Common Questions
 
@@ -1433,7 +1397,7 @@ Download the current release of **2-in-1 Loot & XP Booster** for Minecraft Bedro
 ## Download
 
 - **Package format:** `.mcaddon`
-- **Direct download:** [Download 2-in-1 Loot & XP Booster (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/2-in-1-Loot--XP-Booster/LootXPBooster%20V2.mcaddon)
+- **Direct download:** [Download 2-in-1 Loot & XP Booster (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/2-in-1-Loot--XP-Booster/LootXPBooster%20V3.mcaddon)
 
 ## Installation
 
@@ -1461,11 +1425,11 @@ This marker does not encrypt the pack or prevent extraction or editing.
 {
   "format_version": 2,
   "header": {
-    "name": "Redesigned UI (v2)",
+    "name": "Redesigned UI (v3)",
     "description": "ALNStudios Redesigned UI skin for the Booster menus. by ALNStudios",
     "uuid": "c36706a8-ddfe-419f-bd1b-69d929186543",
     "version": [
-      2,
+      3,
       0,
       0
     ],
@@ -1480,7 +1444,7 @@ This marker does not encrypt the pack or prevent extraction or editing.
       "type": "resources",
       "uuid": "a22e0559-f882-4b93-b587-b17de35134a7",
       "version": [
-        2,
+        3,
         0,
         0
       ]
@@ -1491,7 +1455,7 @@ This marker does not encrypt the pack or prevent extraction or editing.
       "ALNStudios"
     ],
     "product_type": "addon",
-    "version": "2.0.0"
+    "version": "3.0.0"
   }
 }
 ```
@@ -1582,7 +1546,7 @@ This marker does not encrypt the pack or prevent extraction or editing.
 }
 ```
 
-## FILE: MCPEDL/Addons/README.md (55 lines, 9092 bytes)
+## FILE: MCPEDL/Addons/README.md (56 lines, 9225 bytes)
 
 ```
 # Add-ons
@@ -1596,7 +1560,7 @@ Source files for established Minecraft Bedrock add-ons by ALNStudios.
 | Ghast Mob Head Transformers | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/Ghast-Mob-Head-Transformers/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Ghast-Mob-Head-Transformers/GhastMobHeads%20V2.mcaddon) |
 | Immortal Pets | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/Immortal-Pets/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Immortal-Pets/ImmortalPets%20V2.mcaddon) |
 | Mining Helmet | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/Mining-Helmet/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Mining-Helmet/MiningHelmet%20V2.mcaddon) |
-| Monster Companions | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/Monster-Companions/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Monster-Companions/MonsterCompanions%20V3.mcaddon) |
+| Monster Companions | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/Monster-Companions/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Monster-Companions/MonsterCompanions%20V12.mcaddon) |
 | Passive Auto-Switch Tools | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/Passive-Auto-Switch-Tools/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Passive-Auto-Switch-Tools/AutoSwitchTools%20V2.mcaddon) |
 | Tameable Companion Fox | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/Tameable-Companion-Fox/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Tameable-Companion-Fox/CompanionFox%20V2.mcaddon) |
 | Vanilla Quality of Life | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/Vanilla-Quality-of-Life/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Vanilla-Quality-of-Life/VanillaQoL%20V3.mcaddon) |
@@ -1618,13 +1582,13 @@ Source files for established Minecraft Bedrock add-ons by ALNStudios.
 | OP Sponge | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/OP-Sponge/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/OP-Sponge/OPSponge%20V2.mcaddon) |
 | Cheat Stick | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/Cheat-Stick/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Cheat-Stick/CheatStick%20V4.mcaddon) |
 | Waypoint Helper | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/Waypoint-Helper/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Waypoint-Helper/WaypointHelper%20V2.mcaddon) |
-| 2-in-1 Loot & XP Booster | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/2-in-1-Loot--XP-Booster/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/2-in-1-Loot--XP-Booster/LootXPBooster%20V2.mcaddon) |
+| 2-in-1 Loot & XP Booster | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/2-in-1-Loot--XP-Booster/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/2-in-1-Loot--XP-Booster/LootXPBooster%20V3.mcaddon) |
 | Enchanter | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/Enchanter/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Enchanter/Enchanter%20V2.mcaddon) |
 | ALN Quiver | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/ALN-Quiver/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/ALN-Quiver/ALNQuiver%20V2.mcaddon) |
 | Expanded Basic Arsenal | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/Expanded-Basic-Arsenal/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Expanded-Basic-Arsenal/ExpandedBasicArsenal%20V2.mcaddon) |
-| ALN Wireless Headphones | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/ALN-Wireless-Headphones/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/ALN-Wireless-Headphones/ALNWirelessHeadphones%20V3.mcaddon) |
-| ALN MoreDiscs | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/ALN-MoreDiscs/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/ALN-MoreDiscs/ALNMoreDiscs%20V2.mcaddon) |
-| ALN Pointer | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/ALN-Pointer/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/ALN-Pointer/ALNPointer%20V2.mcaddon) |
+| ALN Wireless Headphones | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/ALN-Wireless-Headphones/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/ALN-Wireless-Headphones/ALNWirelessHeadphones%20V11.mcaddon) |
+| ALN MoreDiscs | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/ALN-MoreDiscs/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/ALN-MoreDiscs/ALNMoreDiscs%20V3.mcaddon) |
+| ALN Pointer | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/ALN-Pointer/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/ALN-Pointer/ALNPointer%20V3.mcaddon) |
 
 Download links point to the currently published package files.
 
@@ -1639,9 +1603,10 @@ Videos and streams are welcome with credit. Redistribution of original or modifi
 - [Maps](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Maps#available-maps)
 - [Scripts](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Script#available-scripts)
 - [Minigames](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Minigame#available-minigames)
+- [TypeScript Definitions (.d.ts)](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/reference/typescript-definitions)
 ```
 
-## FILE: Package/2-in-1-Loot--XP-Booster.listing.md (72 lines, 17629 bytes)
+## FILE: Package/2-in-1-Loot--XP-Booster.listing.md (72 lines, 18108 bytes)
 
 ````
 # Listing Kit: 2-in-1 Loot & XP Booster
@@ -1673,9 +1638,9 @@ Paste into the CurseForge description editor in source (HTML) mode.
 <h2 style="font-size:17px;text-align:left"><span style="background-color:#15803d;color:#ffffff;border-radius:20px">&nbsp;&nbsp;Screenshots&nbsp;&nbsp;</span></h2>
 <div style="display:flex;flex-wrap:wrap;gap:10px"><div style="flex:1 1 300px;border:1px solid #8a94a3;border-radius:16px;text-align:center"><p><a href="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/MCPEDL/Addons/2-in-1-Loot--XP-Booster/assets/snapshots/MAIN%20MENU.jpg"><img src="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/MCPEDL/Addons/2-in-1-Loot--XP-Booster/assets/snapshots/MAIN%20MENU.jpg" alt="MAIN MENU" style="width:100%"></a></p><p style="color:#8a94a3;font-size:13px">MAIN MENU</p></div><div style="flex:1 1 300px;border:1px solid #8a94a3;border-radius:16px;text-align:center"><p><a href="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/MCPEDL/Addons/2-in-1-Loot--XP-Booster/assets/snapshots/TOGGLED%20OFF.gif"><img src="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/MCPEDL/Addons/2-in-1-Loot--XP-Booster/assets/snapshots/TOGGLED%20OFF.gif" alt="TOGGLED OFF" style="width:100%"></a></p><p style="color:#8a94a3;font-size:13px">TOGGLED OFF</p></div><div style="flex:1 1 300px;border:1px solid #8a94a3;border-radius:16px;text-align:center"><p><a href="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/MCPEDL/Addons/2-in-1-Loot--XP-Booster/assets/snapshots/TOGGLED%20ON.gif"><img src="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/MCPEDL/Addons/2-in-1-Loot--XP-Booster/assets/snapshots/TOGGLED%20ON.gif" alt="TOGGLED ON" style="width:100%"></a></p><p style="color:#8a94a3;font-size:13px">TOGGLED ON</p></div><div style="flex:1 1 300px;border:1px solid #8a94a3;border-radius:16px;text-align:center"><p><a href="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/MCPEDL/Addons/2-in-1-Loot--XP-Booster/assets/snapshots/XP%20%26%20LOOT%20MENU.jpg"><img src="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/MCPEDL/Addons/2-in-1-Loot--XP-Booster/assets/snapshots/XP%20%26%20LOOT%20MENU.jpg" alt="XP &amp; LOOT MENU" style="width:100%"></a></p><p style="color:#8a94a3;font-size:13px">XP &amp; LOOT MENU</p></div></div>
 <h2 style="font-size:17px;text-align:left"><span style="background-color:#15803d;color:#ffffff;border-radius:20px">&nbsp;&nbsp;What You Get&nbsp;&nbsp;</span></h2>
-<div style="display:flex;flex-wrap:wrap;gap:10px"><div style="flex:1;min-width:200px;border:1px solid #8a94a3;border-radius:16px"><div style="background-color:#15803d;color:#ffffff;border-radius:16px;font-size:16px;line-height:2.2"><strong>&nbsp;&nbsp;Renamed Book Control Panel</strong></div><div style="margin-left:12px;margin-right:12px"><p><span>Rename a Book to "Booster" on an anvil, then right-click with it to open the Booster menu.</span><br><span style="font-size:13px;color:#8a94a3"><strong>Good To Know:</strong> Each player keeps their own settings, which are saved between sessions.</span></p></div></div><div style="flex:1;min-width:200px;border:1px solid #8a94a3;border-radius:16px"><div style="background-color:#15803d;color:#ffffff;border-radius:16px;font-size:16px;line-height:2.2"><strong>&nbsp;&nbsp;Loot Drop Booster</strong></div><div style="margin-left:12px;margin-right:12px"><p><span>Drag the Loot slider across six levels, 1x, 2x, 4x, 8x, 16x and 32x, for ores, crops and other Fortune-style blocks you break and for mobs you kill.</span><br><span style="font-size:13px;color:#8a94a3"><strong>Good To Know:</strong> Each drop rolls a random bonus up to the level you pick. It works like a Fortune and Looting bonus, but with its own random roll. Ores, gilded blackstone, amethyst clusters, nether wart, sweet berries, wheat, carrots, potatoes, beetroot and mob loot are multiplied, so normal blocks such as dirt, stone and wood drop as usual, and unstackable items such as tools are left alone. Mining with Silk Touch drops the block once and is never multiplied. Crops, nether wart and sweet berries are multiplied only when fully grown, and crops sped up with bone meal are not multiplied. Blocks that drop themselves or can be crafted back from their drops, such as ancient debris, melons, glowstone and sea lanterns, are never multiplied, so they cannot be farmed by placing and breaking. Fortune still works, and the booster multiplies on top of it. Only real mobs count, so armor stands, boats, minecarts and mobs that carry items, such as donkeys, mules, llamas, allays, foxes and villagers, are not multiplied, and each drop goes to the nearest player who caused it. Only drops that appear the instant you break a block or kill a mob are multiplied, so items thrown or dropped nearby are left alone. Extra drops are capped per moment to protect busy servers.</span></p></div></div><div style="flex:1;min-width:200px;border:1px solid #8a94a3;border-radius:16px"><div style="background-color:#15803d;color:#ffffff;border-radius:16px;font-size:16px;line-height:2.2"><strong>&nbsp;&nbsp;XP Gain Booster</strong></div><div style="margin-left:12px;margin-right:12px"><p><span>Drag the XP slider across seven levels, 1x, 2x, 4x, 8x, 16x, 32x and 64x, and each XP orb near you is turned into that many orbs.</span><br><span style="font-size:13px;color:#8a94a3"><strong>Good To Know:</strong> The orbs are collected instantly, so Mending repairs your gear from the extra XP. Only the orbs closest to you are multiplied, so other players' orbs are never affected, and extra orbs are capped per moment to protect busy servers.</span></p></div></div><div style="flex:1;min-width:200px;border:1px solid #8a94a3;border-radius:16px"><div style="background-color:#15803d;color:#ffffff;border-radius:16px;font-size:16px;line-height:2.2"><strong>&nbsp;&nbsp;About Screen</strong></div><div style="margin-left:12px;margin-right:12px"><p><span>The About button shows the creator, the add-on version, a short note on both packs, the CurseForge and MCPEDL profiles and an unofficial-product notice.</span></p></div></div><div style="flex:1;min-width:200px;border:1px solid #8a94a3;border-radius:16px"><div style="background-color:#15803d;color:#ffffff;border-radius:16px;font-size:16px;line-height:2.2"><strong>&nbsp;&nbsp;Redesigned UI</strong></div><div style="margin-left:12px;margin-right:12px"><p><span>A small Resource Pack named Redesigned UI gives the Booster menus the ALNStudios look, with a dark panel, a blue border, a gold title and icon buttons.</span><br><span style="font-size:13px;color:#8a94a3"><strong>Good To Know:</strong> Enable the Resource Pack together with the Behavior Pack.</span></p></div></div></div>
+<div style="display:flex;flex-wrap:wrap;gap:10px"><div style="flex:1;min-width:200px;border:1px solid #8a94a3;border-radius:16px"><div style="background-color:#15803d;color:#ffffff;border-radius:16px;font-size:16px;line-height:2.2"><strong>&nbsp;&nbsp;Renamed Book Control Panel</strong></div><div style="margin-left:12px;margin-right:12px"><p><span>Rename a Book to "Booster" on an anvil, then right-click with it to open the Booster menu.</span><br><span style="font-size:13px;color:#8a94a3"><strong>Good To Know:</strong> Each player keeps their own settings, which are saved between sessions. You can also open the menu with the /aln:booster command.</span></p></div></div><div style="flex:1;min-width:200px;border:1px solid #8a94a3;border-radius:16px"><div style="background-color:#15803d;color:#ffffff;border-radius:16px;font-size:16px;line-height:2.2"><strong>&nbsp;&nbsp;Loot Drop Booster</strong></div><div style="margin-left:12px;margin-right:12px"><p><span>Drag the Loot slider across six levels, 1x, 2x, 4x, 8x, 16x and 32x, for ores, crops and other Fortune-style blocks you break and for mobs you kill.</span><br><span style="font-size:13px;color:#8a94a3"><strong>Good To Know:</strong> Each drop rolls a random bonus up to the level you pick. It works like a Fortune and Looting bonus, but with its own random roll. Ores, gilded blackstone, amethyst clusters, nether wart, sweet berries, wheat, carrots, potatoes, beetroot and mob loot are multiplied, so normal blocks such as dirt, stone and wood drop as usual, and unstackable items such as tools are left alone. Mining with Silk Touch drops the block once and is never multiplied. Blocks are boosted by rolling their loot again, so only items that block can really drop are multiplied, and mob drops are matched against what that mob can drop. The Ores, Crops and Mobs switches let you choose which kinds of loot are boosted. Crops, nether wart and sweet berries are multiplied only when fully grown, and crops sped up with bone meal are not multiplied. Blocks that drop themselves or can be crafted back from their drops, such as ancient debris, melons, glowstone and sea lanterns, are never multiplied, so they cannot be farmed by placing and breaking. Fortune still works, and the booster multiplies on top of it. Only real mobs count, so armor stands, boats, minecarts and mobs that carry items, such as donkeys, mules, llamas, allays, foxes and villagers, are not multiplied, and each drop goes to the nearest player who caused it. Only drops that appear the instant you break a block or kill a mob are multiplied, so items thrown or dropped nearby are left alone. Extra drops are capped per moment to protect busy servers, and a short Action Bar message tells you when the limit is reached.</span></p></div></div><div style="flex:1;min-width:200px;border:1px solid #8a94a3;border-radius:16px"><div style="background-color:#15803d;color:#ffffff;border-radius:16px;font-size:16px;line-height:2.2"><strong>&nbsp;&nbsp;XP Gain Booster</strong></div><div style="margin-left:12px;margin-right:12px"><p><span>Drag the XP slider across seven levels, 1x, 2x, 4x, 8x, 16x, 32x and 64x, and each XP orb near you is turned into that many orbs.</span><br><span style="font-size:13px;color:#8a94a3"><strong>Good To Know:</strong> The orbs are collected instantly, so Mending repairs your gear from the extra XP. Only the orbs closest to you are multiplied, so other players' orbs are never affected, and extra orbs are capped per moment to protect busy servers, with a short Action Bar message when the limit is reached.</span></p></div></div><div style="flex:1;min-width:200px;border:1px solid #8a94a3;border-radius:16px"><div style="background-color:#15803d;color:#ffffff;border-radius:16px;font-size:16px;line-height:2.2"><strong>&nbsp;&nbsp;About Screen</strong></div><div style="margin-left:12px;margin-right:12px"><p><span>The About button shows the creator, the add-on version, a short note on both packs, the CurseForge and MCPEDL profiles and an unofficial-product notice.</span></p></div></div><div style="flex:1;min-width:200px;border:1px solid #8a94a3;border-radius:16px"><div style="background-color:#15803d;color:#ffffff;border-radius:16px;font-size:16px;line-height:2.2"><strong>&nbsp;&nbsp;Redesigned UI</strong></div><div style="margin-left:12px;margin-right:12px"><p><span>A small Resource Pack named Redesigned UI gives the Booster menus the ALNStudios look, with a dark panel, a blue border, a gold title and icon buttons.</span><br><span style="font-size:13px;color:#8a94a3"><strong>Good To Know:</strong> Enable the Resource Pack together with the Behavior Pack.</span></p></div></div></div>
 <h2 style="font-size:17px;text-align:left"><span style="background-color:#15803d;color:#ffffff;border-radius:20px">&nbsp;&nbsp;Get Started&nbsp;&nbsp;</span></h2>
-<table style="width:100%;border:1px solid #8a94a3;border-radius:16px"><tbody><tr><td style="width:44px;text-align:center"><div style="background-color:#15803d;color:#ffffff;font-weight:bold;font-size:15px;text-align:center;border-radius:10px;width:30px;aspect-ratio:1/1;line-height:30px">1</div></td><td style="text-align:left;">Rename a Book to Booster on an anvil.</td></tr><tr><td style="width:44px;text-align:center"><div style="background-color:#15803d;color:#ffffff;font-weight:bold;font-size:15px;text-align:center;border-radius:10px;width:30px;aspect-ratio:1/1;line-height:30px">2</div></td><td style="text-align:left;">Hold it and right-click, then choose XP &amp; Loot Booster.</td></tr><tr><td style="width:44px;text-align:center"><div style="background-color:#15803d;color:#ffffff;font-weight:bold;font-size:15px;text-align:center;border-radius:10px;width:30px;aspect-ratio:1/1;line-height:30px">3</div></td><td style="text-align:left;">Drag the Loot and XP sliders, switch Boosters on or off, press Apply and check the Action Bar for your values.</td></tr></tbody></table>
+<table style="width:100%;border:1px solid #8a94a3;border-radius:16px"><tbody><tr><td style="width:44px;text-align:center"><div style="background-color:#15803d;color:#ffffff;font-weight:bold;font-size:15px;text-align:center;border-radius:10px;width:30px;aspect-ratio:1/1;line-height:30px">1</div></td><td style="text-align:left;">Rename a Book to Booster on an anvil.</td></tr><tr><td style="width:44px;text-align:center"><div style="background-color:#15803d;color:#ffffff;font-weight:bold;font-size:15px;text-align:center;border-radius:10px;width:30px;aspect-ratio:1/1;line-height:30px">2</div></td><td style="text-align:left;">Hold it and right-click, then choose XP &amp; Loot Booster.</td></tr><tr><td style="width:44px;text-align:center"><div style="background-color:#15803d;color:#ffffff;font-weight:bold;font-size:15px;text-align:center;border-radius:10px;width:30px;aspect-ratio:1/1;line-height:30px">3</div></td><td style="text-align:left;">Drag the Loot and XP sliders, switch Boosters on or off, choose whether Ores, Crops and Mobs are boosted, press Apply and check the Action Bar for your values.</td></tr></tbody></table>
 <h2 style="font-size:17px;text-align:left"><span style="background-color:#15803d;color:#ffffff;border-radius:20px">&nbsp;&nbsp;Common Questions&nbsp;&nbsp;</span></h2>
 <div class="spoiler" title="Does the multiplier apply to other players?" data-title="Does the multiplier apply to other players?"><p><strong>Does the multiplier apply to other players?</strong><br>No. Each player chooses their own Loot and XP multipliers.</p></div><div class="spoiler" title="Can I turn it off?" data-title="Can I turn it off?"><p><strong>Can I turn it off?</strong><br>Yes. Open XP &amp; Loot Booster, switch Boosters Off and press Apply. Your levels are kept.</p></div>
 <h2 style="font-size:17px;text-align:left"><span style="background-color:#15803d;color:#ffffff;border-radius:20px">&nbsp;&nbsp;Install&nbsp;&nbsp;</span></h2>

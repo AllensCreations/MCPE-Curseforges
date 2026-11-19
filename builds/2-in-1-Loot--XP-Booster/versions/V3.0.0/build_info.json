@@ -2,7 +2,7 @@
   "changelog_version": "3.0.0",
   "manifest_version": "3.0.0",
   "packages": {
-    "LootXPBooster V3.mcaddon": "953831e7d0c98f5c796338084047800052adfdc288c573ddd5aefa2e62568981"
+    "LootXPBooster V3.mcaddon": "348a24ca388162c04bb1a6554f71b48a711994eb2165b37ed33fa19d315124a1"
   },
-  "source_sha256": "f41abb5465db508761fd2f3306fc110f9f2d2a9f1e55266f4d838ae4ef05ffe6"
+  "source_sha256": "618ce9c12bda67c29902985128cda7a5da46eba3c660bcef630b2d98154fb19e"
 }

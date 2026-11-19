@@ -1,17 +1,36 @@
 # Changelog — 2-in-1 Loot & XP Booster
 
-## [v2] - 2026-11-17
+## [v3] - 2026-11-19 - Loot Tables and Commands
+
+### Added
+- **Booster command**: Type /aln:booster in chat to open the Booster menu without renaming a Book.
+- **Loot switches**: The XP & Loot Booster menu now has Ores, Crops and Mobs switches, so you can choose which kinds of loot are boosted.
+- **Limit message**: A short Action Bar message tells you when the booster limit is reached and some extras were skipped.
+
+### Improved & Balanced
+- **Real loot rolls**: Ores and crops are now boosted by rolling the block's own loot again, so only items the block can really drop are multiplied and a wrong tool gives no bonus.
+- **Matching mob drops**: Mob loot is matched against what that mob can drop, so items thrown or dropped nearby are no longer multiplied.
 
 ### Fixed
+- **Version number**: The menu title and About screen now show the current add-on version.
+
+<details>
+<summary><b>2.0.x</b> (1 release)</summary>
+
+### [v2] - 2026-11-17
+
+#### Fixed
 - **Bone meal crops**: Crops sped up with bone meal are no longer multiplied when broken.
 - **Nearby items left alone**: Only items that drop the instant you break a block or kill a mob are multiplied, so items thrown or dropped nearby a moment earlier or later are no longer multiplied.
 - **Fully grown crops only**: Wheat, carrots, potatoes, beetroot, nether wart and sweet berries are multiplied only when fully grown, so replanting and breaking young crops no longer gives free items.
 - **Carrier mobs skipped**: Donkeys, mules, llamas, allays, foxes and villagers no longer multiply the items they carry when killed.
 
-### Improved & Balanced
+#### Improved & Balanced
 - **No place-and-break farming**: Ancient debris, melons, glowstone and sea lanterns are no longer multiplied, because they drop themselves or can be crafted back into the same block.
 - **Lighter XP checks**: The XP booster now works out which player an orb belongs to once per pass and no longer moves orbs that are already next to you, which reduces lag in busy XP farms.
 - **Item tracking limit**: The Loot booster stops tracking new item drops once a very large number are waiting, which protects busy servers.
+
+</details>
 
 <details>
 <summary><b>1.0.x</b> (9 releases)</summary>
