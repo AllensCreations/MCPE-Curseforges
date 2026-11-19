@@ -11,6 +11,11 @@
 
 ---
 
+## [v134] - 2026-11-19 - Shield Parry Effect
+
+### Added
+- **Parry Effect**: Every hit that Shield Always Active blocks now shows sparks in front of you, plays the shield sound, shows "Parried!" on the action bar and pushes a melee attacker back.
+
 ## [v133] - 2026-11-19 - Target Image and Line Of Sight
 
 ### Added

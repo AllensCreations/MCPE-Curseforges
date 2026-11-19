@@ -55,6 +55,28 @@ function replayOptions(src) {
   return proj ? { damagingEntity: by, damagingProjectile: proj } : { cause: src.cause, damagingEntity: by };
 }
 
+function parry(victim, src) {
+  const foe = src.damagingEntity;
+  system.run(() => {
+    if (!victim.isValid) return;
+    const view = victim.getViewDirection();
+    const head = victim.getHeadLocation();
+    const at = { x: head.x + view.x * 0.9, y: head.y - 0.4 + view.y * 0.9, z: head.z + view.z * 0.9 };
+    victim.playSound("item.shield.block");
+    victim.dimension.spawnParticle(SPARKS, at);
+    victim.dimension.spawnParticle(SPARKS, { x: at.x, y: at.y + 0.2, z: at.z });
+    try {
+      victim.onScreenDisplay.setActionBar("§b§lParried!");
+      if (foe?.isValid && src.cause === EntityDamageCause.entityAttack) {
+        const dx = foe.location.x - victim.location.x;
+        const dz = foe.location.z - victim.location.z;
+        const size = Math.hypot(dx, dz) || 1;
+        foe.applyKnockback({ x: (dx / size) * 0.6, z: (dz / size) * 0.6 }, 0.25);
+      }
+    } catch (e) {}
+  });
+}
+
 function pop(p) {
   if (system.currentTick - (popped.get(p.id) ?? -40) < 40) return;
   popped.set(p.id, system.currentTick);
@@ -76,7 +98,7 @@ function onHurt(event) {
   if (victim.typeId !== PLAYER_ID) return;
   if (isOn(victim, "shield") && BLOCKED.has(src.cause) && hands(victim).includes(SHIELD) && facing(victim, src)) {
     event.cancel = true;
-    system.run(() => victim.isValid && victim.playSound("item.shield.block"));
+    parry(victim, src);
     return;
   }
   if (isOn(victim, "neverDie") && !NO_TOTEM.has(src.cause)) {
