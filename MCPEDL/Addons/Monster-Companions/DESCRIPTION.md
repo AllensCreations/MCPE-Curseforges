@@ -161,7 +161,7 @@ Equipping a Saddle onto supported large companions enables manual mounting and d
 - Type: Shapeless Crafting Table Recipe
 - Ingredients: 1 Rotten Flesh, 1 Bone, 1 Sweet Berries, 1 Honey Bottle
 - Yield: 4x Primal Beast Biscuits
-- Recipe book: The recipe unlocks when you pick up one of its ingredients.
+- Recipe book: The recipe is available from the start.
 - Offline crafting: The recipe is included with the add-on, so internet access is not needed during local gameplay after import.
 
 ### Golden Beast Biscuit Recipe
@@ -169,7 +169,7 @@ Equipping a Saddle onto supported large companions enables manual mounting and d
 - Type: Shapeless Crafting Table Recipe
 - Ingredients: 1 Primal Beast Biscuit, 1 Gold Ingot
 - Yield: 1x Golden Beast Biscuit
-- Recipe book: The recipe unlocks when you pick up one of its ingredients.
+- Recipe book: The recipe is available from the start.
 
 ---
 

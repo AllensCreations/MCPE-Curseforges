@@ -25,11 +25,6 @@
     "result": {
       "item": "allenscreations:beast_biscuit",
       "count": 4
-    },
-    "unlock": [
-      {
-        "context": "AlwaysUnlocked"
-      }
-    ]
+    }
   }
 }

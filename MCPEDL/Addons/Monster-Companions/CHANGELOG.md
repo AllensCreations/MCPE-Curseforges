@@ -2,6 +2,12 @@
 
 ---
 
+## [v8] - 2026-11-19 - Biscuit Recipe Fix
+
+### Fixed
+
+- **Biscuit recipes**: The Primal Beast Biscuit and Golden Beast Biscuit recipes no longer report loading errors and are available from the start.
+
 ## [v7] - 2026-11-19 - Recipe and Hoglin Load Fixes
 
 ### Fixed

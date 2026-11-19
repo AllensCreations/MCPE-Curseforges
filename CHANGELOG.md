@@ -11,6 +11,14 @@
 
 ---
 
+## [v124] - 2026-11-19 - Monster Companions Biscuit Recipe Fix
+
+### Fixed
+
+- **Monster Companions recipes**: Both biscuit recipes load without errors and are available from the start.
+
+
+
 ## [v123] - 2026-11-19 - Monster Companions Recipe and Hoglin Load Fixes
 
 ### Fixed
