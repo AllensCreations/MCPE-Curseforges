@@ -5,7 +5,7 @@
 - **Export request:** `MCPEDL/Addons/ALN-Pointer`
 - **Destination:** `MCPEDL/Addons/ALN-Pointer`
 - **CURRENT VERSION: v11 / NEXT UPDATE: v12**  (`MCPEDL/Addons/ALN-Pointer/CHANGELOG.md`)
-- **Text files:** 35
+- **Text files:** 36
 - **Skipped binary:** 5
 - **Paths not found:** 0
 
@@ -43,6 +43,7 @@
 - `MCPEDL/Addons/ALN-Pointer/resource_pack/manifest.json`
 - `MCPEDL/Addons/ALN-Pointer/resource_pack/particles/aln_target.json`
 - `MCPEDL/Addons/ALN-Pointer/resource_pack/textures/item_texture.json`
+- `MCPEDL/Addons/ALN-Pointer/resource_pack/textures/particle/.gitkeep`
 - `MCPEDL/Addons/ALN-Pointer/texture_sources/aln_pointer.json`
 - `MCPEDL/Addons/README.md`
 - `Package/ALN-Pointer.listing.md`
@@ -54,14 +55,6 @@
 - `MCPEDL/Addons/ALN-Pointer/behavior_pack/pack_icon.png`
 - `MCPEDL/Addons/ALN-Pointer/resource_pack/pack_icon.png`
 - `MCPEDL/Addons/ALN-Pointer/resource_pack/textures/items/aln_pointer.png`
-
----
-
-
-
----
-
-
 
 ---
 
@@ -1998,6 +1991,12 @@ This marker does not encrypt the pack or prevent extraction or editing.
     }
   }
 }
+```
+
+## FILE: MCPEDL/Addons/ALN-Pointer/resource_pack/textures/particle/.gitkeep (2 lines, 1 bytes)
+
+```
+
 ```
 
 ## FILE: MCPEDL/Addons/ALN-Pointer/texture_sources/aln_pointer.json (303 lines, 3261 bytes)
