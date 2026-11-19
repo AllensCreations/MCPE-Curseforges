@@ -10,14 +10,6 @@
 
 ---
 
----
-
----
-
----
-
----
-
 # Repo Export
 
 ## Index
@@ -167,19 +159,19 @@ Output ONLY these three sections in order:
 </details>
 ```
 
-## FILE: MCPEDL/Script/ALNSpawnControl/behavior_pack/manifest.json (49 lines, 884 bytes)
+## FILE: MCPEDL/Script/ALNSpawnControl/behavior_pack/manifest.json (49 lines, 888 bytes)
 
 ```
 {
   "format_version": 2,
   "header": {
-    "name": "ALN:SpawnControl (v3)",
+    "name": "ALN:SpawnControl (v3.0.1)",
     "description": "Custom mob spawn whitelist and categorized form control panel. by ALNStudios",
     "uuid": "698a7800-3ede-4b9b-8cab-e61eaa1c17c8",
     "version": [
       3,
       0,
-      0
+      1
     ],
     "min_engine_version": [
       1,
@@ -195,7 +187,7 @@ Output ONLY these three sections in order:
       "version": [
         3,
         0,
-        0
+        1
       ],
       "entry": "scripts/main.js"
     }
@@ -215,7 +207,7 @@ Output ONLY these three sections in order:
       "ALNStudios"
     ],
     "product_type": "addon",
-    "version": "3.0.0"
+    "version": "3.0.1"
   }
 }
 ```
@@ -967,7 +959,7 @@ Minecraft Bedrock add-on, ALN:SpawnControl Bedrock mod, mob spawn whitelist, cus
 }
 ```
 
-## FILE: MCPEDL/Script/ALNSpawnControl/README.md (19 lines, 796 bytes)
+## FILE: MCPEDL/Script/ALNSpawnControl/README.md (19 lines, 800 bytes)
 
 ```
 # ALNSpawnControl
@@ -977,7 +969,7 @@ Download the current release of **ALNSpawnControl** for Minecraft Bedrock Editio
 ## Download
 
 - **Package format:** `.mcpack`
-- **Direct download:** [Download ALNSpawnControl (.mcpack)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/ALNSpawnControl/ALNSpawnControl%20V3.mcpack)
+- **Direct download:** [Download ALNSpawnControl (.mcpack)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/ALNSpawnControl/ALNSpawnControl%20V3.0.1.mcpack)
 
 ## Installation
 

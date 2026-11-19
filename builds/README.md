@@ -78,7 +78,7 @@ This directory stores compiled Add-ons (`.mcaddon`), Maps (`.mcworld`), Scripts 
 | **Living SMP Chat** | Script Pack (.mcpack) | [Download (.mcpack)](Living-SMP-Chat/LivingSMPChat%20V2.mcpack) | [`Living-SMP-Chat/`](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/builds/Living-SMP-Chat/) |
 | **Gameplay Optimizer** | Script Pack (.mcpack) | [Download (.mcpack)](Gameplay-Optimizer/GameplayOptimizer%20V2.mcpack) | [`Gameplay-Optimizer/`](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/builds/Gameplay-Optimizer/) |
 | **ALNMobStacker** | Script Pack (.mcpack) | [Download (.mcpack)](ALN-MobStacker/ALNMobStacker%20V3.mcpack) | [`ALN-MobStacker/`](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/builds/ALN-MobStacker/) |
-| **ALNSpawnControl** | Script Pack (.mcpack) | [Download (.mcpack)](ALNSpawnControl/ALNSpawnControl%20V3.mcpack) | [`ALNSpawnControl/`](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/builds/ALNSpawnControl/) |
+| **ALNSpawnControl** | Script Pack (.mcpack) | [Download (.mcpack)](ALNSpawnControl/ALNSpawnControl%20V3.0.1.mcpack) | [`ALNSpawnControl/`](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/builds/ALNSpawnControl/) |
 | **Command Vault** | Script Pack (.mcpack) | [Download (.mcpack)](Command-Vault/CommandVault%20V3.mcpack) | [`Command-Vault/`](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/builds/Command-Vault/) |
 | **Loot and XP Stick** | Script Pack (.mcpack) | [Download (.mcpack)](Loot-and-XP-Stick/LootXPStick%20V1.mcpack) | [`Loot-and-XP-Stick/`](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/builds/Loot-and-XP-Stick/) |
 
