@@ -1,9 +1,19 @@
 # Changelog — ALN Pointer
 
-## [v13] - 2026-11-19 - Crosshair Circle On Screen
+## [v14] - 2026-11-19 - One Circle Picture
 
 ### Changed
+- **Aim Circle**: The screen circle now uses one 16 by 16 picture, resource_pack/textures/particle/aln_circle.png, and the game stretches it to the size that matches the Bow Aimbot angle. The 10 separate aln_circle_4 to aln_circle_13 pictures are no longer used.
+
+<details>
+<summary><b>13.0.x</b> (1 release)</summary>
+
+### [v13] - 2026-11-19 - Crosshair Circle On Screen
+
+#### Changed
 - **Aim Circle**: The circle is now drawn on the screen at your crosshair instead of in the world, so it stays exactly on the crosshair and does not lag when you turn. It uses the same 10 circle pictures, aln_circle_4.png to aln_circle_13.png, chosen by the Bow Aimbot angle. This adds a resource pack file, ui/hud_screen.json, and it uses the screen title while you hold a bow with Target Highlight on.
+
+</details>
 
 <details>
 <summary><b>12.0.x</b> (1 release)</summary>
