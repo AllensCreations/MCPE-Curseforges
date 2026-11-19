@@ -11,6 +11,12 @@
 
 ---
 
+## [v140] - 2026-11-19 - Faster Mob Loot
+
+### Improved & Balanced
+
+- **Faster mob kills**: The booster now remembers each mob's rare drop list instead of rebuilding it on every kill, which reduces lag in mob farms.
+
 ## [v139] - 2026-11-19 - Circle Size By Degrees
 
 ### Changed

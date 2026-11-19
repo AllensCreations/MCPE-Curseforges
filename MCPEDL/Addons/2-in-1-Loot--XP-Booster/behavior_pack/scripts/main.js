@@ -2,7 +2,7 @@ import { world, system, EntityComponentTypes, CommandPermissionLevel, CustomComm
 import { ActionFormData, ModalFormData, FormCancelationReason } from "@minecraft/server-ui";
 
 const PACK_NAME = "2-in-1 Loot & XP Booster";
-const VERSION = "4";
+const VERSION = "5";
 const TITLE = `§l§6@ALNStudios §e${PACK_NAME}§r (v${VERSION})`;
 const ABOUT_TITLE = "About ALNStudios";
 const ICON_MAIN = "textures/items/experience_bottle";
@@ -70,6 +70,7 @@ const recentItems = new Map();
 const fertilized = new Set();
 const barTimers = new Map();
 const capNotices = new Map();
+const rareCache = new Map();
 let lootActive = false;
 let lootTick = -1;
 let lootSpawned = 0;
@@ -541,10 +542,14 @@ function expectedMobDrops(entity) {
       if (!stacks) return undefined;
       for (const stack of stacks) common.add(stack.typeId);
     }
-    const rare = new Set();
-    if (entity.typeId.startsWith("minecraft:")) {
-      const table = manager.getLootTable(`entities/${entity.typeId.slice(10)}`);
-      collectTableTypes(table, rare, 0);
+    let rare = rareCache.get(entity.typeId);
+    if (!rare) {
+      rare = new Set();
+      if (entity.typeId.startsWith("minecraft:")) {
+        const table = manager.getLootTable(`entities/${entity.typeId.slice(10)}`);
+        collectTableTypes(table, rare, 0);
+      }
+      rareCache.set(entity.typeId, rare);
     }
     return { common, rare };
   } catch (error) {
