@@ -2,6 +2,12 @@
 
 ---
 
+## [v10] - 2026-11-19 - Golden Beast Biscuit Recipe
+
+### Changed
+
+- **Golden Beast Biscuit recipe**: Craft it by placing a Primal Beast Biscuit in the middle of a crafting table and surrounding it with 8 Gold Ingots, like a Golden Carrot.
+
 ## [v9] - 2026-11-19 - Biscuit Recipe Format Fix
 
 ### Fixed

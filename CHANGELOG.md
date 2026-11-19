@@ -11,6 +11,14 @@
 
 ---
 
+## [v126] - 2026-11-19 - Monster Companions Golden Beast Biscuit Recipe
+
+### Changed
+
+- **Monster Companions Golden Beast Biscuit**: Now crafted with a Primal Beast Biscuit surrounded by 8 Gold Ingots.
+
+
+
 ## [v125] - 2026-11-19 - Monster Companions Biscuit Recipe Format Fix
 
 ### Fixed

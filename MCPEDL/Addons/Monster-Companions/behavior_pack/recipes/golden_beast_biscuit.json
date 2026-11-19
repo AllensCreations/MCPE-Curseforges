@@ -1,28 +1,28 @@
 {
   "format_version": "1.21.0",
-  "minecraft:recipe_shapeless": {
+  "minecraft:recipe_shaped": {
     "description": {
       "identifier": "allenscreations:golden_beast_biscuit_recipe"
     },
     "tags": [
       "crafting_table"
     ],
-    "ingredients": [
-      {
-        "item": "allenscreations:beast_biscuit"
-      },
-      {
-        "item": "minecraft:gold_ingot"
-      }
+    "pattern": [
+      "GGG",
+      "GBG",
+      "GGG"
     ],
+    "key": {
+      "G": {
+        "item": "minecraft:gold_ingot"
+      },
+      "B": {
+        "item": "allenscreations:beast_biscuit"
+      }
+    },
     "result": {
       "item": "allenscreations:golden_beast_biscuit",
       "count": 1
-    },
-    "unlock": [
-      {
-        "context": "AlwaysUnlocked"
-      }
-    ]
+    }
   }
 }

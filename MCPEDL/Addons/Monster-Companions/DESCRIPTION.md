@@ -145,7 +145,7 @@ Equipping a Saddle onto supported large companions enables manual mounting and d
 ### Golden Beast Biscuit
 - **Effect**: Fully heals an injured companion (40 HP, 20 hearts). It does not tame wild mobs.
 - **Bonus**: The companion also gains Regeneration III for 30 seconds.
-- **Crafting**: 1 Primal Beast Biscuit and 1 Gold Ingot make 1 Golden Beast Biscuit at a crafting table.
+- **Crafting**: Put 1 Primal Beast Biscuit in the middle of a crafting table and surround it with 8 Gold Ingots.
 - **How to Use**: Feed it to an injured companion. It cannot be used to tame wild mobs.
 - **Appearance**: Uses the Primal Beast Biscuit icon with an enchanted glint.
 - **Stack Size**: 64
@@ -166,8 +166,8 @@ Equipping a Saddle onto supported large companions enables manual mounting and d
 
 ### Golden Beast Biscuit Recipe
 
-- Type: Shapeless Crafting Table Recipe
-- Ingredients: 1 Primal Beast Biscuit, 1 Gold Ingot
+- Type: Shaped Crafting Table Recipe
+- Ingredients: 1 Primal Beast Biscuit in the center, 8 Gold Ingots around it
 - Yield: 1x Golden Beast Biscuit
 - Recipe book: The recipe is available from the start.
 
