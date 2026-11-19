@@ -4,7 +4,7 @@
 
 - **Export request:** `MCPEDL/Addons/Grimoire-Relics-V2`
 - **Destination:** `MCPEDL/Addons/Grimoire-Relics-V2`
-- **CURRENT VERSION: v2 / NEXT UPDATE: v3**  (`MCPEDL/Addons/Grimoire-Relics-V2/CHANGELOG.md`)
+- **CURRENT VERSION: v3 / NEXT UPDATE: v4**  (`MCPEDL/Addons/Grimoire-Relics-V2/CHANGELOG.md`)
 - **Text files:** 56
 - **Skipped binary:** 62
 - **Paths not found:** 0
@@ -136,294 +136,6 @@
 ---
 
 
-
----
-
-
-
----
-
-
-
----
-
-
-
----
-
-
-
----
-
-
-
----
-
-
-
----
-
-
-
----
-
-
-
----
-
-
-
----
-
-
-
----
-
-
-
----
-
-
-
----
-
-
-
----
-
-
-
----
-
-
-
----
-
-
-
----
-
-
-
----
-
-
-
----
-
-
-
----
-
-
-
----
-
-
-
----
-
-
-
----
-
-
-
----
-
-
-
----
-
-
-
----
-
-
-
----
-
-
-
----
-
-
-
----
-
-
-
----
-
-
-
----
-
-
-
----
-
-
-
----
-
-
-
----
-
-
-
----
-
-
-
----
-
-
-
----
-
-
-
----
-
-
-
----
-
-
-
----
-
-
-
----
-
-
-
----
-
-
-
----
-
-
-
----
-
-
-
----
-
-
-
----
-
-
-
----
-
-
-
----
-
-
-
----
-
-
-
----
-
-
-
----
-
-
-
----
-
-
-
----
-
-
-
----
-
-
-
----
-
-
-
----
-
-
-
----
-
-
-
----
-
-
-
----
-
-
-
----
-
-
-
----
-
-
-
----
-
-
-
----
-
-
-
----
-
-
-
----
-
-
-
----
-
-
-
----
-
-
-
----
-
-
-
----
-
-
-
----
-
-
-
----
-
-
-
----
-
-
 <!-- GRAPH-CONTEXT:START -->
 ## Graph Context
 
@@ -447,7 +159,7 @@ Export: two plain .txt files. `<name>.txt` = the pack (index, these instructions
 - NEW pack: read SKILL.md first, then follow PACK_GENERATOR_INSTRUCTIONS.md Part 4 and deliver ONE pack `.sh` from `scripts/make_pack_script.py` (the project travels inside it as base64). NEVER deliver separate zip, pack, json, js or b64 files.
 - INSTRUCTIONS.md wins over PACK_GENERATOR_INSTRUCTIONS.md on any conflict. These instructions win over both on the reply format and the Termux script.
 - Update: keep pack and module UUIDs unchanged.
-- Vanilla reference: `reference/bedrock-samples/bedrock-samples.min.json.gz` (repo, gzip file of about 8 MB, NOT in this export; unzip it first) holds every vanilla Mojang behavior/resource pack JSON as one object once unzipped (`.behavior_pack.entities.zombie`, `.behavior_pack.recipes`, `.resource_pack.entity` ...). Never guess a vanilla component, event, loot or recipe shape: list the exact section under File Needed, then copy the shape from it.
+- Vanilla reference: Use **Context7** / **https://bedrock.dev/** as the primary source finding API for vanilla Bedrock samples and documentation (Entities, Items, Blocks, Recipes, Biomes, Script API). Never guess a vanilla component, event, loot, or Script API method: look it up with Context7 / bedrock.dev. Offline fallback: `reference/bedrock-samples/bedrock-samples.min.json.gz` (download: https://github.com/AllensCreations/MCPE-Curseforges/raw/main/reference/bedrock-samples/bedrock-samples.min.json.gz).
 - UI work (menus, forms, HUD, screens): follow INSTRUCTIONS.md 1.13 and apply the ALN UI Redesign skin from `assets/aln-ui-redesign/` (README.txt, design.json, font/README.txt in the tools txt). Textures are not exported; if the pack's resource_pack is missing, ask for it. Never claim anything was tested in Minecraft unless it was.
 - Update: deliver the repo change as the Termux script below. New pack: the pack `.sh` above. Never a separate payload or base64 file.
 
@@ -3478,11 +3190,11 @@ This marker does not encrypt the pack or prevent extraction or editing.
 {
   "format_version": 2,
   "header": {
-    "name": "Grimoire Relics V2 (v2)",
+    "name": "Grimoire Relics V2 (v3)",
     "description": "Grimoire Relics. 20 magical tomes (14 craftable, 6 Ancient Relics) whose buffs, auras and reactive powers work only while held in your offhand. by ALNStudios",
     "uuid": "72a2d49b-0a13-4a3d-a038-e7ba05f0f6df",
     "version": [
-      2,
+      3,
       0,
       0
     ],
@@ -3497,7 +3209,7 @@ This marker does not encrypt the pack or prevent extraction or editing.
       "type": "data",
       "uuid": "e5b1fc4f-fbfe-42c9-b139-bdc486e45590",
       "version": [
-        2,
+        3,
         0,
         0
       ]
@@ -3507,7 +3219,7 @@ This marker does not encrypt the pack or prevent extraction or editing.
       "language": "javascript",
       "uuid": "d9ffe8f5-b6f2-47af-9676-c324dd51a90f",
       "version": [
-        2,
+        3,
         0,
         0
       ],
@@ -3518,7 +3230,7 @@ This marker does not encrypt the pack or prevent extraction or editing.
     {
       "uuid": "cefdddd0-186d-4bc2-ad03-553ce7d08676",
       "version": [
-        2,
+        3,
         0,
         0
       ]
@@ -3533,7 +3245,7 @@ This marker does not encrypt the pack or prevent extraction or editing.
       "ALNStudios"
     ],
     "product_type": "addon",
-    "version": "2.0.0"
+    "version": "3.0.0"
   }
 }
 ```
@@ -4070,7 +3782,7 @@ This marker does not encrypt the pack or prevent extraction or editing.
 }
 ```
 
-## FILE: MCPEDL/Addons/Grimoire-Relics-V2/behavior_pack/scripts/main.js (679 lines, 23472 bytes)
+## FILE: MCPEDL/Addons/Grimoire-Relics-V2/behavior_pack/scripts/main.js (711 lines, 25940 bytes)
 
 ```
 import { world, system, EquipmentSlot } from "@minecraft/server";
@@ -4078,6 +3790,7 @@ import { world, system, EquipmentSlot } from "@minecraft/server";
 const EFFECT_TICKS = 60;
 const NV_TICKS = 260;
 const OWN_TICKS = 640;
+const FROST_COST_EVERY = 4;
 const MELEE = "entityAttack";
 const states = new Map();
 const badParticles = new Set();
@@ -4304,7 +4017,7 @@ const RELICS = {
   "custom:tome_frost": {
     name: "Frost Weaver", info: ["Frost Walker II: walk on water", "Powder snow damage healed back"],
     particle: "minecraft:snowflake_particle", ids: [],
-    tick: (p) => {
+    tick: (p, s) => {
       if (p.isSneaking) return;
       const l = p.location;
       const bx = Math.floor(l.x), by = Math.floor(l.y) - 1, bz = Math.floor(l.z);
@@ -4317,7 +4030,10 @@ const RELICS = {
           froze = true;
         }
       }
-      if (froze) damageOffhand(p, 1);
+      if (froze) {
+        s.frost = (s.frost || 0) + 1;
+        if (s.frost % FROST_COST_EVERY === 0) damageOffhand(p, 1);
+      }
     },
     onHurt: (p, ev) => {
       if (ev.damageSource.cause === "freezing") {
@@ -4361,7 +4077,7 @@ const RELICS = {
     end: (p, s) => clearLight(p, s)
   },
   "custom:tome_void": {
-    name: "Void Phantom", info: ["End-only: one-time 2s Level 60 phase elevation from void", "Touchdown 1s slow falling | Single use; breaks after safe touchdown"],
+    name: "Void Phantom", info: ["End only: 2s phase lift out of the void", "Then 1s slow falling; single use"],
     particle: "minecraft:basic_portal_particle", ids: [],
     fast: (p, s) => {
       if (p.dimension.id !== "minecraft:the_end") return;
@@ -4617,24 +4333,52 @@ function relicOf(p) {
   return item ? RELICS[item.typeId] : undefined;
 }
 
-function loreFor(cfg) {
-  return ["§8Offhand Relic", ...cfg.info.map((t) => "§7• " + t)];
+const STORY = {
+  "custom:tome_phoenix": ["Born in the ash of a fallen kingdom,", "it burns what dares to touch its keeper."],
+  "custom:tome_abyss": ["A drowned scholar bound the tide to ink.", "The sea still answers to its pages."],
+  "custom:tome_zephyr": ["Written on a feather the wind refused to", "let fall. Its reader never lands hard."],
+  "custom:tome_lich": ["The lich signed its last page in withered", "ink. Each blow remembers its grave."],
+  "custom:tome_titan": ["Carved from a mountain's heart, it", "teaches the body to stand like stone."],
+  "custom:tome_vampire": ["A name crossed out a hundred times.", "What it takes, it returns to you."],
+  "custom:tome_lunar": ["Its pages open only when the moon rises.", "Night wears the reader as a cloak."],
+  "custom:tome_solar": ["Pressed between two sunrises, this tome", "keeps the first warm light of day."],
+  "custom:tome_druid": ["Seeds slept in its binding for an age.", "Where the keeper walks, green returns."],
+  "custom:tome_frost": ["Its first line was written on a lake", "that never cracked beneath the weaver."],
+  "custom:tome_storm": ["A thunderhead was folded into its spine.", "It wakes when the clouds break open."],
+  "custom:tome_delver": ["Found in a mine no map remembers.", "Its pages glow where the stone is dark."],
+  "custom:tome_void": ["Torn from the edge of the End. It sings", "once to a falling soul, then is gone."],
+  "custom:tome_golem": ["Wrought of iron and a villager's prayer.", "It guards, and it throws what it hates."],
+  "custom:tome_hydra": ["Every head drips a different verse.", "None of them is kind to a foe."],
+  "custom:tome_alchemist": ["Its author brewed until the cauldron", "brewed back. The potions never fade."],
+  "custom:tome_seraph": ["A choir once sang these words aloud.", "Light still mends whoever holds them."],
+  "custom:tome_scholar": ["Margins crammed with the notes of ten", "thousand lives. Learning pays triple."],
+  "custom:tome_mirror": ["The reflection on its cover blinks first.", "A trickster steps where you stood."],
+  "custom:tome_dragon": ["The last dragon wrote one page, then", "roared. The world still shakes from it."],
+};
+
+function loreFor(id) {
+  const lines = ["§8Offhand Relic", ...RELICS[id].info.map((t) => "§7• " + t)];
+  const tale = STORY[id];
+  if (tale) lines.push("§5Legend", ...tale.map((t) => "§8§o" + t));
+  return lines.slice(0, 20);
+}
+
+function refreshLore(item) {
+  const want = loreFor(item.typeId);
+  const have = item.getLore();
+  if (have.length === want.length && have.every((t, i) => t === want[i])) return false;
+  item.setLore(want);
+  return true;
 }
 
 function ensureLore(p) {
   const eq = p.getComponent("minecraft:equippable");
   const off = eq && eq.getEquipment(EquipmentSlot.Offhand);
-  if (off && RELICS[off.typeId] && off.getLore().length === 0) {
-    off.setLore(loreFor(RELICS[off.typeId]));
-    eq.setEquipment(EquipmentSlot.Offhand, off);
-  }
+  if (off && RELICS[off.typeId] && refreshLore(off)) eq.setEquipment(EquipmentSlot.Offhand, off);
   const c = p.getComponent("minecraft:inventory").container;
   for (let i = 0; i < c.size; i++) {
     const item = c.getItem(i);
-    if (item && RELICS[item.typeId] && item.getLore().length === 0) {
-      item.setLore(loreFor(RELICS[item.typeId]));
-      c.setItem(i, item);
-    }
+    if (item && RELICS[item.typeId] && refreshLore(item)) c.setItem(i, item);
   }
 }
 
@@ -4754,12 +4498,22 @@ world.afterEvents.playerLeave.subscribe((ev) => {
 });
 ```
 
-## FILE: MCPEDL/Addons/Grimoire-Relics-V2/CHANGELOG.md (176 lines, 7800 bytes)
+## FILE: MCPEDL/Addons/Grimoire-Relics-V2/CHANGELOG.md (186 lines, 8397 bytes)
 
 ```
 # Changelog - Grimoire Relics V2
 
 ---
+
+## [v3] - 2026-11-19 - Tome Lore Stories
+
+### Added
+- **Tome Lore Stories**: Every tome now shows a short legend in its tooltip under the ability list.
+### Improved & Balanced
+- **Frost Weaver Durability**: Frost Walker II now costs 1 durability for every 4 freezes instead of every freeze, so a tome lasts much longer when crossing water.
+- **Refreshing Tooltips**: Tome tooltips update themselves when their text changes, so older tomes pick up the new ability text and legends.
+### Fixed
+- **Void Phantom Tooltip**: The two over-long tooltip lines are shortened so they are no longer cut off.
 
 ## [v2] - 2026-11-16
 
@@ -4934,7 +4688,7 @@ Initial release of Grimoire Relics V2, a collection of magical tomes that provid
   - **Elemental Visuals:** Added distinct halo effects to reflect each tome's elemental identity.
 ```
 
-## FILE: MCPEDL/Addons/Grimoire-Relics-V2/DESCRIPTION.md (186 lines, 10263 bytes)
+## FILE: MCPEDL/Addons/Grimoire-Relics-V2/DESCRIPTION.md (186 lines, 10314 bytes)
 
 ```
 # Grimoire Relics V2
@@ -5053,7 +4807,7 @@ There are **14 craftable tomes** made at a standard Crafting Table using shaped 
 - **100 durability points**: Each Grimoire possesses a durability health bar.
 - **Event-Only Wear**: Passive stat buffs (such as Water Breathing, Speed, or Haste) do **not** drain durability. Durability is consumed strictly upon active mechanical execution:
   - *Combat triggers* (e.g. Phoenix burn on hit/hurt, Vampire life-steal, Iron Golem absorption & launch, Hydra poison, Lich wither): 1 durability per event.
-  - *Environmental abilities* (e.g. Druid crop boost, Frost Weaver water freeze, Stormcaller lightning strike, Mirror Trickster blink): 1 to 2 durability per event.
+  - *Environmental abilities* (e.g. Druid crop boost, Stormcaller lightning strike, Mirror Trickster blink): 1 to 2 durability per event. Frost Weaver costs 1 durability for every 4 times it freezes water underfoot.
   - *Emergency Lifesavers* (Void Phantom): single use; the relic is consumed after a safe touchdown.
 - **Enchanting Table & Anvil Compatible**:
   - Can be enchanted via the Enchanting Table or Anvil with enchantments like **Mending**, **Efficiency**, and **Unbreaking**.
@@ -5142,7 +4896,7 @@ Download the current release of **Grimoire Relics V2** for Minecraft Bedrock Edi
 ## Download
 
 - **Package format:** `.mcaddon`
-- **Direct download:** [Download Grimoire Relics V2 (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Grimoire-Relics-V2/GrimoireRelics%20V2.mcaddon)
+- **Direct download:** [Download Grimoire Relics V2 (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Grimoire-Relics-V2/GrimoireRelics%20V3.mcaddon)
 
 ## Installation
 
@@ -5170,11 +4924,11 @@ This marker does not encrypt the pack or prevent extraction or editing.
 {
   "format_version": 2,
   "header": {
-    "name": "Grimoire Relics V2 (v2)",
+    "name": "Grimoire Relics V2 (v3)",
     "description": "Grimoire Relics resource pack with the 20 tome icons. by ALNStudios",
     "uuid": "cefdddd0-186d-4bc2-ad03-553ce7d08676",
     "version": [
-      2,
+      3,
       0,
       0
     ],
@@ -5189,7 +4943,7 @@ This marker does not encrypt the pack or prevent extraction or editing.
       "type": "resources",
       "uuid": "40aee9ba-808f-401a-9abe-2509ab23d1db",
       "version": [
-        2,
+        3,
         0,
         0
       ]
@@ -5201,7 +4955,7 @@ This marker does not encrypt the pack or prevent extraction or editing.
       "ALNStudios"
     ],
     "product_type": "addon",
-    "version": "2.0.0"
+    "version": "3.0.0"
   }
 }
 ```
@@ -5234,7 +4988,7 @@ This marker does not encrypt the pack or prevent extraction or editing.
 }
 ```
 
-## FILE: MCPEDL/Addons/README.md (55 lines, 9092 bytes)
+## FILE: MCPEDL/Addons/README.md (56 lines, 9226 bytes)
 
 ```
 # Add-ons
@@ -5248,11 +5002,11 @@ Source files for established Minecraft Bedrock add-ons by ALNStudios.
 | Ghast Mob Head Transformers | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/Ghast-Mob-Head-Transformers/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Ghast-Mob-Head-Transformers/GhastMobHeads%20V2.mcaddon) |
 | Immortal Pets | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/Immortal-Pets/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Immortal-Pets/ImmortalPets%20V2.mcaddon) |
 | Mining Helmet | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/Mining-Helmet/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Mining-Helmet/MiningHelmet%20V2.mcaddon) |
-| Monster Companions | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/Monster-Companions/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Monster-Companions/MonsterCompanions%20V3.mcaddon) |
+| Monster Companions | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/Monster-Companions/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Monster-Companions/MonsterCompanions%20V12.mcaddon) |
 | Passive Auto-Switch Tools | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/Passive-Auto-Switch-Tools/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Passive-Auto-Switch-Tools/AutoSwitchTools%20V2.mcaddon) |
 | Tameable Companion Fox | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/Tameable-Companion-Fox/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Tameable-Companion-Fox/CompanionFox%20V2.mcaddon) |
 | Vanilla Quality of Life | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/Vanilla-Quality-of-Life/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Vanilla-Quality-of-Life/VanillaQoL%20V3.mcaddon) |
-| Grimoire Relics V2 | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/Grimoire-Relics-V2/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Grimoire-Relics-V2/GrimoireRelics%20V2.mcaddon) |
+| Grimoire Relics V2 | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/Grimoire-Relics-V2/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Grimoire-Relics-V2/GrimoireRelics%20V3.mcaddon) |
 | Grand Banquets | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/Grand-Banquets/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Grand-Banquets/GrandBanquets%20V2.mcaddon) |
 | Magnetic Satchel | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/Magnetic-Satchel) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Magnetic-Satchel/MagneticSatchel%20V2.mcaddon) |
 | Sudden Death Roulette The Diamond Race | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/Sudden-Death-Roulette) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Sudden-Death-Roulette/SuddenDeath%20V2.mcaddon) |
@@ -5270,13 +5024,13 @@ Source files for established Minecraft Bedrock add-ons by ALNStudios.
 | OP Sponge | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/OP-Sponge/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/OP-Sponge/OPSponge%20V2.mcaddon) |
 | Cheat Stick | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/Cheat-Stick/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Cheat-Stick/CheatStick%20V4.mcaddon) |
 | Waypoint Helper | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/Waypoint-Helper/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Waypoint-Helper/WaypointHelper%20V2.mcaddon) |
-| 2-in-1 Loot & XP Booster | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/2-in-1-Loot--XP-Booster/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/2-in-1-Loot--XP-Booster/LootXPBooster%20V2.mcaddon) |
+| 2-in-1 Loot & XP Booster | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/2-in-1-Loot--XP-Booster/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/2-in-1-Loot--XP-Booster/LootXPBooster%20V6.mcaddon) |
 | Enchanter | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/Enchanter/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Enchanter/Enchanter%20V2.mcaddon) |
 | ALN Quiver | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/ALN-Quiver/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/ALN-Quiver/ALNQuiver%20V2.mcaddon) |
 | Expanded Basic Arsenal | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/Expanded-Basic-Arsenal/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Expanded-Basic-Arsenal/ExpandedBasicArsenal%20V2.mcaddon) |
-| ALN Wireless Headphones | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/ALN-Wireless-Headphones/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/ALN-Wireless-Headphones/ALNWirelessHeadphones%20V4.mcaddon) |
-| ALN MoreDiscs | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/ALN-MoreDiscs/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/ALN-MoreDiscs/ALNMoreDiscs%20V2.mcaddon) |
-| ALN Pointer | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/ALN-Pointer/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/ALN-Pointer/ALNPointer%20V2.mcaddon) |
+| ALN Wireless Headphones | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/ALN-Wireless-Headphones/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/ALN-Wireless-Headphones/ALNWirelessHeadphones%20V11.mcaddon) |
+| ALN MoreDiscs | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/ALN-MoreDiscs/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/ALN-MoreDiscs/ALNMoreDiscs%20V3.mcaddon) |
+| ALN Pointer | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/ALN-Pointer/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/ALN-Pointer/ALNPointer%20V15.mcaddon) |
 
 Download links point to the currently published package files.
 
@@ -5291,9 +5045,10 @@ Videos and streams are welcome with credit. Redistribution of original or modifi
 - [Maps](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Maps#available-maps)
 - [Scripts](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Script#available-scripts)
 - [Minigames](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Minigame#available-minigames)
+- [TypeScript Definitions (.d.ts)](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/reference/typescript-definitions)
 ```
 
-## FILE: Package/Grimoire-Relics-V2.listing.md (77 lines, 34556 bytes)
+## FILE: Package/Grimoire-Relics-V2.listing.md (77 lines, 34607 bytes)
 
 ````
 # Listing Kit: Grimoire Relics V2
@@ -5328,7 +5083,7 @@ Paste into the CurseForge description editor in source (HTML) mode.
 <p>There are <strong>14 craftable tomes</strong> made at a standard Crafting Table using shaped recipes arranged around a central Book. The recipes are available through the crafting table. The <strong>6 Ancient Relics</strong> (Void Phantom, Cataclysm Dragon, Necrotic Lich, Mirror Trickster, Blood Vampire, and Infernal Phoenix) cannot be crafted and are found through exploration loot:</p></div>
 <h2 style="font-size:17px;text-align:left"><span style="background-color:#15803d;color:#ffffff;border-radius:20px">&nbsp;&nbsp;Durability, Enchanting &amp; World Generation&nbsp;&nbsp;</span></h2>
 <div class="spoiler" title="Durability, Enchanting &amp; World Generation" data-title="Durability, Enchanting &amp; World Generation">
-<h3>Durability, Enchanting, and Repairing</h3><ul><li><strong>100 durability points</strong>: Each Grimoire possesses a durability health bar.</li><li><strong>Event-Only Wear</strong>: Passive stat buffs (such as Water Breathing, Speed, or Haste) do <strong>not</strong> drain durability. Durability is consumed strictly upon active mechanical execution:</li><li><em>Combat triggers</em> (e.g. Phoenix burn on hit/hurt, Vampire life-steal, Iron Golem absorption &amp; launch, Hydra poison, Lich wither): 1 durability per event.</li><li><em>Environmental abilities</em> (e.g. Druid crop boost, Frost Weaver water freeze, Stormcaller lightning strike, Mirror Trickster blink): 1 to 2 durability per event.</li><li><em>Emergency Lifesavers</em> (Void Phantom): single use; the relic is consumed after a safe touchdown.</li><li><strong>Enchanting Table &amp; Anvil Compatible</strong>:</li><li>Can be enchanted via the Enchanting Table or Anvil with enchantments like <strong>Mending</strong>, <strong>Efficiency</strong>, and <strong>Unbreaking</strong>.</li><li><strong>Mending</strong> restores tome durability automatically as you collect experience orbs.</li><li><strong>Anvil Repairing</strong>:</li><li>Combine two of the same tomes on an Anvil to restore their remaining durability.</li><li>Can also be repaired on an Anvil using standard <strong>Books</strong> at a strict <strong>1:1 ratio</strong> (1 book restores 1 durability point).</li><li><strong>Shatter</strong>: If durability reaches 0 without being repaired or protected, the tome shatters with an item break sound and particles and is removed from your equipment.</li></ul><h3>World Chest Distribution</h3><p>The pack includes exploration loot entries for Ancient Relics. Their intended locations are:</p><ul><li><strong>Ancient Cities</strong>: Chance for <strong>Void Phantom</strong> and <strong>Mirror Trickster</strong>.</li><li><strong>Bastion Remnants (Treasure)</strong>: <strong>Infernal Phoenix</strong> and <strong>Necrotic Lich</strong>.</li><li><strong>End Cities</strong>: <strong>Cataclysm Dragon</strong>.</li><li><strong>Stronghold Libraries</strong>: <strong>Arcane Scholar</strong> and <strong>Cursed Alchemist</strong>.</li><li><strong>Shipwreck Treasuries</strong>: <strong>Abyssal Tide</strong>.</li><li><strong>Monster Rooms / Simple Dungeons</strong>: <strong>Blood Vampire</strong> and <strong>Deep Delver</strong>.</li><li><strong>Enchanted Golden Apples</strong>: No longer appear in Ancient City and Bastion Treasure chests; the tomes take their place.</li></ul></div>
+<h3>Durability, Enchanting, and Repairing</h3><ul><li><strong>100 durability points</strong>: Each Grimoire possesses a durability health bar.</li><li><strong>Event-Only Wear</strong>: Passive stat buffs (such as Water Breathing, Speed, or Haste) do <strong>not</strong> drain durability. Durability is consumed strictly upon active mechanical execution:</li><li><em>Combat triggers</em> (e.g. Phoenix burn on hit/hurt, Vampire life-steal, Iron Golem absorption &amp; launch, Hydra poison, Lich wither): 1 durability per event.</li><li><em>Environmental abilities</em> (e.g. Druid crop boost, Stormcaller lightning strike, Mirror Trickster blink): 1 to 2 durability per event. Frost Weaver costs 1 durability for every 4 times it freezes water underfoot.</li><li><em>Emergency Lifesavers</em> (Void Phantom): single use; the relic is consumed after a safe touchdown.</li><li><strong>Enchanting Table &amp; Anvil Compatible</strong>:</li><li>Can be enchanted via the Enchanting Table or Anvil with enchantments like <strong>Mending</strong>, <strong>Efficiency</strong>, and <strong>Unbreaking</strong>.</li><li><strong>Mending</strong> restores tome durability automatically as you collect experience orbs.</li><li><strong>Anvil Repairing</strong>:</li><li>Combine two of the same tomes on an Anvil to restore their remaining durability.</li><li>Can also be repaired on an Anvil using standard <strong>Books</strong> at a strict <strong>1:1 ratio</strong> (1 book restores 1 durability point).</li><li><strong>Shatter</strong>: If durability reaches 0 without being repaired or protected, the tome shatters with an item break sound and particles and is removed from your equipment.</li></ul><h3>World Chest Distribution</h3><p>The pack includes exploration loot entries for Ancient Relics. Their intended locations are:</p><ul><li><strong>Ancient Cities</strong>: Chance for <strong>Void Phantom</strong> and <strong>Mirror Trickster</strong>.</li><li><strong>Bastion Remnants (Treasure)</strong>: <strong>Infernal Phoenix</strong> and <strong>Necrotic Lich</strong>.</li><li><strong>End Cities</strong>: <strong>Cataclysm Dragon</strong>.</li><li><strong>Stronghold Libraries</strong>: <strong>Arcane Scholar</strong> and <strong>Cursed Alchemist</strong>.</li><li><strong>Shipwreck Treasuries</strong>: <strong>Abyssal Tide</strong>.</li><li><strong>Monster Rooms / Simple Dungeons</strong>: <strong>Blood Vampire</strong> and <strong>Deep Delver</strong>.</li><li><strong>Enchanted Golden Apples</strong>: No longer appear in Ancient City and Bastion Treasure chests; the tomes take their place.</li></ul></div>
 <h2 style="font-size:17px;text-align:left"><span style="background-color:#15803d;color:#ffffff;border-radius:20px">&nbsp;&nbsp;In-Game Information&nbsp;&nbsp;</span></h2>
 <div class="spoiler" title="In-Game Information" data-title="In-Game Information">
 <ul><li><strong>Offhand use</strong>: Equip a tome in your offhand to activate its abilities.</li><li><strong>Item descriptions</strong>: Tome lore describes its main abilities and conditions.</li><li><strong>Recipe guide</strong>: The image above shows the crafting patterns for craftable tomes.</li><li><strong>Status icons</strong>: The Resource Pack hides the on-screen status effect icons.</li></ul></div>
