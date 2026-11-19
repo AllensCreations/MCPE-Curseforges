@@ -1,9 +1,19 @@
 # Changelog — 2-in-1 Loot & XP Booster
 
-## [v4] - 2026-11-19 - Rare Mob Drops
+## [v5] - 2026-11-19 - Faster Mob Loot
 
 ### Improved & Balanced
+- **Faster mob kills**: The booster now remembers each mob's rare drop list instead of rebuilding it on every kill, which reduces lag in mob farms.
+
+<details>
+<summary><b>4.0.x</b> (1 release)</summary>
+
+### [v4] - 2026-11-19 - Rare Mob Drops
+
+#### Improved & Balanced
 - **Rare mob drops**: Rare mob drops still drop and are now boosted by a smaller amount, up to 2x, while common drops keep your full Loot level.
+
+</details>
 
 <details>
 <summary><b>3.0.x</b> (1 release)</summary>

@@ -4,7 +4,7 @@
 
 - **Export request:** `MCPEDL/Addons/2-in-1-Loot--XP-Booster`
 - **Destination:** `MCPEDL/Addons/2-in-1-Loot--XP-Booster`
-- **CURRENT VERSION: v4 / NEXT UPDATE: v5**  (`MCPEDL/Addons/2-in-1-Loot--XP-Booster/CHANGELOG.md`)
+- **CURRENT VERSION: v5 / NEXT UPDATE: v6**  (`MCPEDL/Addons/2-in-1-Loot--XP-Booster/CHANGELOG.md`)
 - **Text files:** 20
 - **Skipped binary:** 15
 - **Paths not found:** 0
@@ -49,94 +49,6 @@
 - `MCPEDL/Addons/2-in-1-Loot--XP-Booster/resource_pack/textures/ui/cheatstick/button_pressed.png`
 - `MCPEDL/Addons/2-in-1-Loot--XP-Booster/resource_pack/textures/ui/cheatstick/panel.png`
 - `MCPEDL/Addons/2-in-1-Loot--XP-Booster/resource_pack/textures/ui/cheatstick/title_bar.png`
-
----
-
-
-
----
-
-
-
----
-
-
-
----
-
-
-
----
-
-
-
----
-
-
-
----
-
-
-
----
-
-
-
----
-
-
-
----
-
-
-
----
-
-
-
----
-
-
-
----
-
-
-
----
-
-
-
----
-
-
-
----
-
-
-
----
-
-
-
----
-
-
-
----
-
-
-
----
-
-
-
----
-
-
-
----
-
-
 
 ---
 
@@ -315,24 +227,35 @@ git config --global credential.helper store
 
 ## File Contents
 
-## FILE: changelog_views/2-in-1-Loot--XP-Booster.curseforge.html (5 lines, 9052 bytes)
+## FILE: changelog_views/2-in-1-Loot--XP-Booster.curseforge.html (6 lines, 9361 bytes)
 
 ```
-<h2>v4 - 2026-11-19 - Rare Mob Drops</h2><h3>Improved &amp; Balanced</h3><ul><li><strong>Rare mob drops</strong>: Rare mob drops still drop and are now boosted by a smaller amount, up to 2x, while common drops keep your full Loot level.</li></ul>
+<h2>v5 - 2026-11-19 - Faster Mob Loot</h2><h3>Improved &amp; Balanced</h3><ul><li><strong>Faster mob kills</strong>: The booster now remembers each mob&#x27;s rare drop list instead of rebuilding it on every kill, which reduces lag in mob farms.</li></ul>
+<h2>4.0.x (1 release)</h2><div class="spoiler"><h3>v4 - 2026-11-19 - Rare Mob Drops</h3><h4>Improved &amp; Balanced</h4><ul><li><strong>Rare mob drops</strong>: Rare mob drops still drop and are now boosted by a smaller amount, up to 2x, while common drops keep your full Loot level.</li></ul></div>
 <h2>3.0.x (1 release)</h2><div class="spoiler"><h3>v3 - 2026-11-19 - Loot Tables and Commands</h3><h4>Added</h4><ul><li><strong>Booster command</strong>: Type /aln:booster in chat to open the Booster menu without renaming a Book.</li><li><strong>Loot switches</strong>: The XP &amp; Loot Booster menu now has Ores, Crops and Mobs switches, so you can choose which kinds of loot are boosted.</li><li><strong>Limit message</strong>: A short Action Bar message tells you when the booster limit is reached and some extras were skipped.</li></ul><h4>Improved &amp; Balanced</h4><ul><li><strong>Real loot rolls</strong>: Ores and crops are now boosted by rolling the block&#x27;s own loot again, so only items the block can really drop are multiplied and a wrong tool gives no bonus.</li><li><strong>Matching mob drops</strong>: Mob loot is matched against what that mob can drop, so items thrown or dropped nearby are no longer multiplied.</li></ul><h4>Fixed</h4><ul><li><strong>Version number</strong>: The menu title and About screen now show the current add-on version.</li></ul></div>
 <h2>2.0.x (1 release)</h2><div class="spoiler"><h3>v2 - 2026-11-17</h3><h4>Fixed</h4><ul><li><strong>Bone meal crops</strong>: Crops sped up with bone meal are no longer multiplied when broken.</li><li><strong>Nearby items left alone</strong>: Only items that drop the instant you break a block or kill a mob are multiplied, so items thrown or dropped nearby a moment earlier or later are no longer multiplied.</li><li><strong>Fully grown crops only</strong>: Wheat, carrots, potatoes, beetroot, nether wart and sweet berries are multiplied only when fully grown, so replanting and breaking young crops no longer gives free items.</li><li><strong>Carrier mobs skipped</strong>: Donkeys, mules, llamas, allays, foxes and villagers no longer multiply the items they carry when killed.</li></ul><h4>Improved &amp; Balanced</h4><ul><li><strong>No place-and-break farming</strong>: Ancient debris, melons, glowstone and sea lanterns are no longer multiplied, because they drop themselves or can be crafted back into the same block.</li><li><strong>Lighter XP checks</strong>: The XP booster now works out which player an orb belongs to once per pass and no longer moves orbs that are already next to you, which reduces lag in busy XP farms.</li><li><strong>Item tracking limit</strong>: The Loot booster stops tracking new item drops once a very large number are waiting, which protects busy servers.</li></ul></div>
 <h2>1.0.x (9 releases)</h2><div class="spoiler"><h3>1.0.13 - 2026-11-17</h3><h4>Improved &amp; Balanced</h4><ul><li><strong>Drop limit</strong>: Extra Loot drops are now capped per moment, which protects busy servers and big farms.</li><li><strong>Lighter farms</strong>: The Loot booster no longer tracks item drops while nobody online has it turned on.</li><li><strong>Clean Action Bar</strong>: Pressing Apply twice quickly no longer shows an outdated Action Bar message.</li><li><strong>Orb XP back</strong>: The XP booster multiplies XP orbs again, so Mending repairs your gear from the extra XP. Orbs near you are collected instantly.</li><li><strong>Your orbs only</strong>: Only the orbs closest to you are multiplied, so other players&#x27; orbs are never touched.</li><li><strong>XP orb limit</strong>: Extra orbs are capped per moment to protect busy servers.</li><li><strong>Exact XP</strong>: The XP booster now adds the extra XP straight to you instead of spawning extra orbs, so the amount is exact and there is far less lag. XP orbs are no longer pulled to you instantly.</li><li><strong>Your XP only</strong>: Other players&#x27; XP orbs are never touched.</li><li><strong>Real mobs only</strong>: Armor stands, boats and minecarts are no longer treated as mob loot.</li><li><strong>Fair drops</strong>: Block and mob drops now go to the nearest player who caused them, so nobody multiplies another player&#x27;s drops on a shared server.</li></ul><h3>1.0.10 - 2026-11-16</h3><h4>Improved &amp; Balanced</h4><ul><li><strong>Normal font restored</strong>: The Booster menus use the normal Minecraft font again. The pixel font and its files are removed.</li><li><strong>Silk Touch safe</strong>: Mining with Silk Touch now drops the block once. The Loot booster no longer multiplies it.</li><li><strong>Pixel text</strong>: The Booster menus now use the Pixelify Sans pixel font. Enable the Redesigned UI Resource Pack together with the Behavior Pack.</li><li><strong>Book only</strong>: The Booster menu now opens only from a plain Book renamed to Booster. A Book and Quill no longer opens it.</li></ul><h3>1.0.7 - 2026-11-16</h3><h4>Improved &amp; Balanced</h4><ul><li><strong>More Fortune-style loot</strong>: The Loot booster now also multiplies drops from amethyst clusters, glowstone, sea lanterns, melons, nether wart, sweet berries, wheat, carrots, potatoes and beetroot, on top of ores, ancient debris, gilded blackstone and mob loot.</li><li><strong>Loot only where it counts</strong>: The Loot booster now multiplies drops from ores, ancient debris, gilded blackstone and mobs you kill. Normal blocks such as dirt, stone, wood and crops drop as usual.</li></ul><h3>1.0.5 - 2026-11-16</h3><h4>Improved &amp; Balanced</h4><ul><li><strong>Apply closes the menu</strong>: Pressing Apply on the XP &amp; Loot Booster screen now closes the menu instead of returning to the main menu.</li></ul><h3>1.0.4 - 2026-11-16</h3><h4>Improved &amp; Balanced</h4><ul><li><strong>Loot back to 32x</strong>: The Loot slider has six levels, 1x up to 32x. XP keeps seven levels up to 64x. A saved Loot level above 32x drops to 32x.</li><li><strong>Boosters switch</strong>: A new on/off switch on the XP &amp; Loot Booster screen turns both boosters off and on without losing your levels.</li><li><strong>XP orb limit</strong>: Extra XP orbs are now capped per moment across all players, which protects busy servers.</li></ul><h3>1.0.3 - 2026-11-16</h3><h4>Improved &amp; Balanced</h4><ul><li><strong>Plain multiplier sliders</strong>: The Loot and XP sliders now use the same seven levels, 1x, 2x, 4x, 8x, 16x, 32x and 64x, and the tier names are gone.</li><li><strong>Loot up to 64x</strong>: Loot can now reach 64x, matching XP. Your saved Loot and XP levels carry over unchanged.</li><li><strong>ALNStudios look</strong>: The menus follow the ALNStudios Redesigned UI standard with a gold title, bold buttons with icons and a Back button on About.</li><li><strong>Menus keep going</strong>: After Apply or Back the main menu opens again. Exit or the close button closes it.</li><li><strong>Action Bar feedback</strong>: Applied settings now show on the Action Bar instead of in chat.</li></ul><h3>1.0.2 - 2026-11-12</h3><h4>Improved &amp; Balanced</h4><ul><li><strong>Three-button menu</strong>: The Booster menu now has only XP &amp; Loot Booster, About and Exit.</li><li><strong>One screen, two sliders</strong>: XP &amp; Loot Booster sets both boosters with a Loot slider and an XP slider, saved together with one Apply button. Each slider is labeled with your current tier name, and the new tier names are shown in chat and the Action Bar after Apply.</li><li><strong>New About screen</strong>: About now introduces ALNStudios and the two packs in this add-on.</li></ul><h4>Fixed</h4><ul><li><strong>Menu stays out of the way</strong>: Exit closes the menu without changing your settings.</li></ul><h3>1.0.1 - 2026-11-12 - Redesigned Menu and Tiers</h3><h4>Added</h4><ul><li><strong>About button</strong>: The Booster menu now has an About screen explaining each booster.</li><li><strong>Named tiers</strong>: Loot runs Normal, Quite Good, Great, Amazing, Insane and The Leprechaun. XP adds Legendary and The Sage.</li><li><strong>Cheatstick menu skin</strong>: The Redesigned UI Resource Pack styles the Booster menus with a dark panel and blue border.</li></ul><h4>Improved &amp; Balanced</h4><ul><li><strong>Fortune-style loot</strong>: Drops roll a random bonus up to the tier&#x27;s maximum instead of always using it. Loot tops out at 32x.</li><li><strong>XP maximum</strong>: XP can now reach 64x.</li><li><strong>Colored text</strong>: Tier names and menu labels use distinct colors.</li></ul><h3>1.0.0 - 2026-11-12 - First Release</h3><h4>Added</h4><ul><li><strong>Booster menu</strong>: Rename a Book or a Book and Quill to Booster and right-click to set your Loot Drop and XP Gain multipliers.</li><li><strong>Loot Drop multiplier</strong>: Blocks you break and mobs you kill drop up to 32 times their normal stacks, except from chests, barrels, ender chests and shulker boxes.</li><li><strong>XP Gain multiplier</strong>: Nearby XP orbs are multiplied and collected instantly.</li><li><strong>Redesigned UI</strong>: A Resource Pack with the Cheatstick menu textures.</li></ul></div>
 ```
 
-## FILE: changelog_views/2-in-1-Loot--XP-Booster.github.md (128 lines, 7834 bytes)
+## FILE: changelog_views/2-in-1-Loot--XP-Booster.github.md (138 lines, 8116 bytes)
 
 ```
 # Changelog — 2-in-1 Loot & XP Booster
 
-## [v4] - 2026-11-19 - Rare Mob Drops
+## [v5] - 2026-11-19 - Faster Mob Loot
 
 ### Improved & Balanced
+- **Faster mob kills**: The booster now remembers each mob's rare drop list instead of rebuilding it on every kill, which reduces lag in mob farms.
+
+<details>
+<summary><b>4.0.x</b> (1 release)</summary>
+
+### [v4] - 2026-11-19 - Rare Mob Drops
+
+#### Improved & Balanced
 - **Rare mob drops**: Rare mob drops still drop and are now boosted by a smaller amount, up to 2x, while common drops keep your full Loot level.
+
+</details>
 
 <details>
 <summary><b>3.0.x</b> (1 release)</summary>
@@ -477,11 +400,11 @@ This marker does not encrypt the pack or prevent extraction or editing.
 {
   "format_version": 2,
   "header": {
-    "name": "2-in-1 Loot & XP Booster (v4)",
+    "name": "2-in-1 Loot & XP Booster (v5)",
     "description": "Loot and XP multipliers controlled from a renamed Book. by ALNStudios",
     "uuid": "ac428a01-d829-4779-aeb1-52bbb3d37e0d",
     "version": [
-      4,
+      5,
       0,
       0
     ],
@@ -497,7 +420,7 @@ This marker does not encrypt the pack or prevent extraction or editing.
       "language": "javascript",
       "uuid": "7234ab02-50fd-43f5-b082-493403c5aaa4",
       "version": [
-        4,
+        5,
         0,
         0
       ],
@@ -508,7 +431,7 @@ This marker does not encrypt the pack or prevent extraction or editing.
     {
       "uuid": "c36706a8-ddfe-419f-bd1b-69d929186543",
       "version": [
-        4,
+        5,
         0,
         0
       ]
@@ -527,19 +450,19 @@ This marker does not encrypt the pack or prevent extraction or editing.
       "ALNStudios"
     ],
     "product_type": "addon",
-    "version": "4.0.0"
+    "version": "5.0.0"
   }
 }
 ```
 
-## FILE: MCPEDL/Addons/2-in-1-Loot--XP-Booster/behavior_pack/scripts/main.js (658 lines, 21588 bytes)
+## FILE: MCPEDL/Addons/2-in-1-Loot--XP-Booster/behavior_pack/scripts/main.js (663 lines, 21731 bytes)
 
 ```
 import { world, system, EntityComponentTypes, CommandPermissionLevel, CustomCommandStatus } from "@minecraft/server";
 import { ActionFormData, ModalFormData, FormCancelationReason } from "@minecraft/server-ui";
 
 const PACK_NAME = "2-in-1 Loot & XP Booster";
-const VERSION = "4";
+const VERSION = "5";
 const TITLE = `§l§6@ALNStudios §e${PACK_NAME}§r (v${VERSION})`;
 const ABOUT_TITLE = "About ALNStudios";
 const ICON_MAIN = "textures/items/experience_bottle";
@@ -607,6 +530,7 @@ const recentItems = new Map();
 const fertilized = new Set();
 const barTimers = new Map();
 const capNotices = new Map();
+const rareCache = new Map();
 let lootActive = false;
 let lootTick = -1;
 let lootSpawned = 0;
@@ -1078,10 +1002,14 @@ function expectedMobDrops(entity) {
       if (!stacks) return undefined;
       for (const stack of stacks) common.add(stack.typeId);
     }
-    const rare = new Set();
-    if (entity.typeId.startsWith("minecraft:")) {
-      const table = manager.getLootTable(`entities/${entity.typeId.slice(10)}`);
-      collectTableTypes(table, rare, 0);
+    let rare = rareCache.get(entity.typeId);
+    if (!rare) {
+      rare = new Set();
+      if (entity.typeId.startsWith("minecraft:")) {
+        const table = manager.getLootTable(`entities/${entity.typeId.slice(10)}`);
+        collectTableTypes(table, rare, 0);
+      }
+      rareCache.set(entity.typeId, rare);
     }
     return { common, rare };
   } catch (error) {
@@ -1194,12 +1122,18 @@ system.runInterval(() => {
 }, XP_INTERVAL_TICKS);
 ```
 
-## FILE: MCPEDL/Addons/2-in-1-Loot--XP-Booster/CHANGELOG.md (217 lines, 8712 bytes)
+## FILE: MCPEDL/Addons/2-in-1-Loot--XP-Booster/CHANGELOG.md (223 lines, 8926 bytes)
 
 ```
 # Changelog — 2-in-1 Loot & XP Booster
 
 ---
+
+## [v5] - 2026-11-19 - Faster Mob Loot
+
+### Improved & Balanced
+
+- **Faster mob kills**: The booster now remembers each mob's rare drop list instead of rebuilding it on every kill, which reduces lag in mob farms.
 
 ## [v4] - 2026-11-19 - Rare Mob Drops
 
@@ -1534,7 +1468,7 @@ Download the current release of **2-in-1 Loot & XP Booster** for Minecraft Bedro
 ## Download
 
 - **Package format:** `.mcaddon`
-- **Direct download:** [Download 2-in-1 Loot & XP Booster (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/2-in-1-Loot--XP-Booster/LootXPBooster%20V4.mcaddon)
+- **Direct download:** [Download 2-in-1 Loot & XP Booster (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/2-in-1-Loot--XP-Booster/LootXPBooster%20V5.mcaddon)
 
 ## Installation
 
@@ -1562,11 +1496,11 @@ This marker does not encrypt the pack or prevent extraction or editing.
 {
   "format_version": 2,
   "header": {
-    "name": "Redesigned UI (v4)",
+    "name": "Redesigned UI (v5)",
     "description": "ALNStudios Redesigned UI skin for the Booster menus. by ALNStudios",
     "uuid": "c36706a8-ddfe-419f-bd1b-69d929186543",
     "version": [
-      4,
+      5,
       0,
       0
     ],
@@ -1581,7 +1515,7 @@ This marker does not encrypt the pack or prevent extraction or editing.
       "type": "resources",
       "uuid": "a22e0559-f882-4b93-b587-b17de35134a7",
       "version": [
-        4,
+        5,
         0,
         0
       ]
@@ -1592,7 +1526,7 @@ This marker does not encrypt the pack or prevent extraction or editing.
       "ALNStudios"
     ],
     "product_type": "addon",
-    "version": "4.0.0"
+    "version": "5.0.0"
   }
 }
 ```
@@ -1683,7 +1617,7 @@ This marker does not encrypt the pack or prevent extraction or editing.
 }
 ```
 
-## FILE: MCPEDL/Addons/README.md (56 lines, 9225 bytes)
+## FILE: MCPEDL/Addons/README.md (56 lines, 9226 bytes)
 
 ```
 # Add-ons
@@ -1719,13 +1653,13 @@ Source files for established Minecraft Bedrock add-ons by ALNStudios.
 | OP Sponge | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/OP-Sponge/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/OP-Sponge/OPSponge%20V2.mcaddon) |
 | Cheat Stick | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/Cheat-Stick/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Cheat-Stick/CheatStick%20V4.mcaddon) |
 | Waypoint Helper | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/Waypoint-Helper/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Waypoint-Helper/WaypointHelper%20V2.mcaddon) |
-| 2-in-1 Loot & XP Booster | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/2-in-1-Loot--XP-Booster/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/2-in-1-Loot--XP-Booster/LootXPBooster%20V4.mcaddon) |
+| 2-in-1 Loot & XP Booster | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/2-in-1-Loot--XP-Booster/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/2-in-1-Loot--XP-Booster/LootXPBooster%20V5.mcaddon) |
 | Enchanter | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/Enchanter/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Enchanter/Enchanter%20V2.mcaddon) |
 | ALN Quiver | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/ALN-Quiver/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/ALN-Quiver/ALNQuiver%20V2.mcaddon) |
 | Expanded Basic Arsenal | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/Expanded-Basic-Arsenal/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Expanded-Basic-Arsenal/ExpandedBasicArsenal%20V2.mcaddon) |
 | ALN Wireless Headphones | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/ALN-Wireless-Headphones/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/ALN-Wireless-Headphones/ALNWirelessHeadphones%20V11.mcaddon) |
 | ALN MoreDiscs | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/ALN-MoreDiscs/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/ALN-MoreDiscs/ALNMoreDiscs%20V3.mcaddon) |
-| ALN Pointer | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/ALN-Pointer/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/ALN-Pointer/ALNPointer%20V3.mcaddon) |
+| ALN Pointer | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/ALN-Pointer/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/ALN-Pointer/ALNPointer%20V15.mcaddon) |
 
 Download links point to the currently published package files.
 
