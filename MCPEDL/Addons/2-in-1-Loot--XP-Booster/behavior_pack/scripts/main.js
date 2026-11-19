@@ -2,7 +2,7 @@ import { world, system, EntityComponentTypes, CommandPermissionLevel, CustomComm
 import { ActionFormData, ModalFormData, FormCancelationReason } from "@minecraft/server-ui";
 
 const PACK_NAME = "2-in-1 Loot & XP Booster";
-const VERSION = "3";
+const VERSION = "4";
 const TITLE = `§l§6@ALNStudios §e${PACK_NAME}§r (v${VERSION})`;
 const ABOUT_TITLE = "About ALNStudios";
 const ICON_MAIN = "textures/items/experience_bottle";
@@ -34,6 +34,7 @@ const MAX_FERTILIZED = 4096;
 const CLAIM_LIFETIME_TICKS = 10;
 const MAX_FORM_RETRIES = 8;
 const LOOT_SAMPLES = 6;
+const RARE_MAX_MULTIPLIER = 2;
 const CAP_NOTICE_TICKS = 200;
 const CATEGORIES = ["ores", "crops", "mobs"];
 const CATEGORY_NAMES = { ores: "Ores", crops: "Crops", mobs: "Mobs" };
@@ -446,9 +447,13 @@ function multiplyDrops(player, dimension, radius, maxMultiplier, claim, allowed)
       const component = entity.getComponent(EntityComponentTypes.Item);
       const stack = component ? component.itemStack : undefined;
       if (!stack || stack.maxAmount <= 1) continue;
-      if (allowed && !allowed.has(stack.typeId)) continue;
+      let cap = maxMultiplier;
+      if (allowed) {
+        if (allowed.rare.has(stack.typeId) && !allowed.common.has(stack.typeId)) cap = Math.min(maxMultiplier, RARE_MAX_MULTIPLIER);
+        else if (!allowed.common.has(stack.typeId)) continue;
+      }
 
-      let remaining = stack.amount * (rollMultiplier(maxMultiplier) - 1);
+      let remaining = stack.amount * (rollMultiplier(cap) - 1);
       const location = entity.location;
       while (remaining > 0) {
         if (lootSpawned >= MAX_LOOT_SPAWNS_PER_TICK) {
@@ -505,16 +510,43 @@ function addExtraBlockLoot(player, dimension, center, permutation, tool, maxMult
   }
 }
 
+function collectEntryTypes(entry, types, depth) {
+  if (!entry || depth > 3) return;
+  try {
+    if (entry.name && entry.name.id) types.add(entry.name.id);
+    if (entry.lootTable) collectTableTypes(entry.lootTable, types, depth + 1);
+    if (entry.subTable) collectEntryTypes(entry.subTable, types, depth + 1);
+  } catch (error) {
+    return;
+  }
+}
+
+function collectTableTypes(table, types, depth) {
+  if (!table || depth > 3) return;
+  try {
+    for (const pool of table.pools) {
+      for (const entry of pool.entries) collectEntryTypes(entry, types, depth);
+    }
+  } catch (error) {
+    return;
+  }
+}
+
 function expectedMobDrops(entity) {
   try {
     const manager = world.getLootTableManager();
-    const types = new Set();
+    const common = new Set();
     for (let sample = 0; sample < LOOT_SAMPLES; sample++) {
       const stacks = manager.generateLootFromEntity(entity);
       if (!stacks) return undefined;
-      for (const stack of stacks) types.add(stack.typeId);
+      for (const stack of stacks) common.add(stack.typeId);
     }
-    return types;
+    const rare = new Set();
+    if (entity.typeId.startsWith("minecraft:")) {
+      const table = manager.getLootTable(`entities/${entity.typeId.slice(10)}`);
+      collectTableTypes(table, rare, 0);
+    }
+    return { common, rare };
   } catch (error) {
     return undefined;
   }

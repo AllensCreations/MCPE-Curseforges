@@ -11,6 +11,12 @@
 
 ---
 
+## [v126] - 2026-11-19 - Rare Mob Drops
+
+### Improved & Balanced
+
+- **Rare mob drops**: Rare mob drops still drop and are now boosted by a smaller amount, up to 2x, while common drops keep your full Loot level.
+
 ## [v125] - 2026-11-19 - Loot Tables and Commands
 
 ### Added
