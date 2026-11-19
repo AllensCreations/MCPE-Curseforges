@@ -25,15 +25,15 @@ You rename a Book to Booster on an anvil and right-click with it. A menu opens w
 
 ### Renamed Book Control Panel
 - **What Happens**: Rename a Book to "Booster" on an anvil, then right-click with it to open the Booster menu.
-- **Good To Know**: Each player keeps their own settings, which are saved between sessions.
+- **Good To Know**: Each player keeps their own settings, which are saved between sessions. You can also open the menu with the /aln:booster command.
 
 ### Loot Drop Booster
 - **What Happens**: Drag the Loot slider across six levels, 1x, 2x, 4x, 8x, 16x and 32x, for ores, crops and other Fortune-style blocks you break and for mobs you kill.
-- **Good To Know**: Each drop rolls a random bonus up to the level you pick. It works like a Fortune and Looting bonus, but with its own random roll. Ores, gilded blackstone, amethyst clusters, nether wart, sweet berries, wheat, carrots, potatoes, beetroot and mob loot are multiplied, so normal blocks such as dirt, stone and wood drop as usual, and unstackable items such as tools are left alone. Mining with Silk Touch drops the block once and is never multiplied. Crops, nether wart and sweet berries are multiplied only when fully grown, and crops sped up with bone meal are not multiplied. Blocks that drop themselves or can be crafted back from their drops, such as ancient debris, melons, glowstone and sea lanterns, are never multiplied, so they cannot be farmed by placing and breaking. Fortune still works, and the booster multiplies on top of it. Only real mobs count, so armor stands, boats, minecarts and mobs that carry items, such as donkeys, mules, llamas, allays, foxes and villagers, are not multiplied, and each drop goes to the nearest player who caused it. Only drops that appear the instant you break a block or kill a mob are multiplied, so items thrown or dropped nearby are left alone. Extra drops are capped per moment to protect busy servers.
+- **Good To Know**: Each drop rolls a random bonus up to the level you pick. It works like a Fortune and Looting bonus, but with its own random roll. Ores, gilded blackstone, amethyst clusters, nether wart, sweet berries, wheat, carrots, potatoes, beetroot and mob loot are multiplied, so normal blocks such as dirt, stone and wood drop as usual, and unstackable items such as tools are left alone. Mining with Silk Touch drops the block once and is never multiplied. Blocks are boosted by rolling their loot again, so only items that block can really drop are multiplied, and mob drops are matched against what that mob can drop. The Ores, Crops and Mobs switches let you choose which kinds of loot are boosted. Crops, nether wart and sweet berries are multiplied only when fully grown, and crops sped up with bone meal are not multiplied. Blocks that drop themselves or can be crafted back from their drops, such as ancient debris, melons, glowstone and sea lanterns, are never multiplied, so they cannot be farmed by placing and breaking. Fortune still works, and the booster multiplies on top of it. Only real mobs count, so armor stands, boats, minecarts and mobs that carry items, such as donkeys, mules, llamas, allays, foxes and villagers, are not multiplied, and each drop goes to the nearest player who caused it. Only drops that appear the instant you break a block or kill a mob are multiplied, so items thrown or dropped nearby are left alone. Extra drops are capped per moment to protect busy servers, and a short Action Bar message tells you when the limit is reached.
 
 ### XP Gain Booster
 - **What Happens**: Drag the XP slider across seven levels, 1x, 2x, 4x, 8x, 16x, 32x and 64x, and each XP orb near you is turned into that many orbs.
-- **Good To Know**: The orbs are collected instantly, so Mending repairs your gear from the extra XP. Only the orbs closest to you are multiplied, so other players' orbs are never affected, and extra orbs are capped per moment to protect busy servers.
+- **Good To Know**: The orbs are collected instantly, so Mending repairs your gear from the extra XP. Only the orbs closest to you are multiplied, so other players' orbs are never affected, and extra orbs are capped per moment to protect busy servers, with a short Action Bar message when the limit is reached.
 
 ### About Screen
 - **What Happens**: The About button shows the creator, the add-on version, a short note on both packs, the CurseForge and MCPEDL profiles and an unofficial-product notice.
@@ -46,7 +46,7 @@ You rename a Book to Booster on an anvil and right-click with it. A menu opens w
 
 1. Rename a Book to Booster on an anvil.
 2. Hold it and right-click, then choose XP & Loot Booster.
-3. Drag the Loot and XP sliders, switch Boosters on or off, press Apply and check the Action Bar for your values.
+3. Drag the Loot and XP sliders, switch Boosters on or off, choose whether Ores, Crops and Mobs are boosted, press Apply and check the Action Bar for your values.
 
 ## Common Questions
 

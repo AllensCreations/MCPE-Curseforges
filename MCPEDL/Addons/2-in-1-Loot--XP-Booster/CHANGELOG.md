@@ -2,6 +2,23 @@
 
 ---
 
+## [v3] - 2026-11-19 - Loot Tables and Commands
+
+### Added
+
+- **Booster command**: Type /aln:booster in chat to open the Booster menu without renaming a Book.
+- **Loot switches**: The XP & Loot Booster menu now has Ores, Crops and Mobs switches, so you can choose which kinds of loot are boosted.
+- **Limit message**: A short Action Bar message tells you when the booster limit is reached and some extras were skipped.
+
+### Improved & Balanced
+
+- **Real loot rolls**: Ores and crops are now boosted by rolling the block's own loot again, so only items the block can really drop are multiplied and a wrong tool gives no bonus.
+- **Matching mob drops**: Mob loot is matched against what that mob can drop, so items thrown or dropped nearby are no longer multiplied.
+
+### Fixed
+
+- **Version number**: The menu title and About screen now show the current add-on version.
+
 ## [v2] - 2026-11-17
 
 **What's new in v1.0.16:** Packed with 3 updates, from v1.0.14 through v1.0.16. Includes: Bone Meal and Drop Timing; Crop and Carrier Fixes; Smoother Boosters and Safer Loot.
