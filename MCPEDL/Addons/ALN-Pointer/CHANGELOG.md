@@ -2,6 +2,11 @@
 
 ---
 
+## [v16] - 2026-11-19 - Circle Size Matches Degrees
+
+### Changed
+- **Aim Circle**: The on-screen circle size is now exactly proportional to the Bow Aimbot angle. Each degree adds 1.6 pixels, so 25 degrees is the 40 by 40 size, 5 degrees is 8, 50 degrees is 80, and doubling the angle doubles the circle.
+
 ## [v15] - 2026-11-19 - Circle Size By Degrees
 
 ### Changed

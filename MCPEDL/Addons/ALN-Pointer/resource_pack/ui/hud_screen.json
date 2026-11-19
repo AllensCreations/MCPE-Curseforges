@@ -25,8 +25,8 @@
     "type": "image",
     "texture": "textures/particle/aln_circle",
     "size": [
-      15,
-      15
+      16,
+      16
     ],
     "anchor_from": "center",
     "anchor_to": "center",
@@ -46,8 +46,8 @@
     "type": "image",
     "texture": "textures/particle/aln_circle",
     "size": [
-      23,
-      23
+      24,
+      24
     ],
     "anchor_from": "center",
     "anchor_to": "center",
@@ -67,8 +67,8 @@
     "type": "image",
     "texture": "textures/particle/aln_circle",
     "size": [
-      31,
-      31
+      32,
+      32
     ],
     "anchor_from": "center",
     "anchor_to": "center",
@@ -109,8 +109,8 @@
     "type": "image",
     "texture": "textures/particle/aln_circle",
     "size": [
-      50,
-      50
+      48,
+      48
     ],
     "anchor_from": "center",
     "anchor_to": "center",
@@ -130,8 +130,8 @@
     "type": "image",
     "texture": "textures/particle/aln_circle",
     "size": [
-      60,
-      60
+      56,
+      56
     ],
     "anchor_from": "center",
     "anchor_to": "center",
@@ -151,8 +151,8 @@
     "type": "image",
     "texture": "textures/particle/aln_circle",
     "size": [
-      72,
-      72
+      64,
+      64
     ],
     "anchor_from": "center",
     "anchor_to": "center",
@@ -172,8 +172,8 @@
     "type": "image",
     "texture": "textures/particle/aln_circle",
     "size": [
-      86,
-      86
+      72,
+      72
     ],
     "anchor_from": "center",
     "anchor_to": "center",
@@ -193,8 +193,8 @@
     "type": "image",
     "texture": "textures/particle/aln_circle",
     "size": [
-      102,
-      102
+      80,
+      80
     ],
     "anchor_from": "center",
     "anchor_to": "center",
