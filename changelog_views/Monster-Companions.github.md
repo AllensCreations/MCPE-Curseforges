@@ -1,9 +1,19 @@
 # Changelog — Monster Companions
 
-## [v8] - 2026-11-19 - Biscuit Recipe Fix
+## [v9] - 2026-11-19 - Biscuit Recipe Format Fix
 
 ### Fixed
+- **Biscuit recipes**: The Primal Beast Biscuit and Golden Beast Biscuit recipes now use a newer recipe format to stop loading errors.
+
+<details>
+<summary><b>8.0.x</b> (1 release)</summary>
+
+### [v8] - 2026-11-19 - Biscuit Recipe Fix
+
+#### Fixed
 - **Biscuit recipes**: The Primal Beast Biscuit and Golden Beast Biscuit recipes no longer report loading errors and are available from the start.
+
+</details>
 
 <details>
 <summary><b>7.0.x</b> (1 release)</summary>
