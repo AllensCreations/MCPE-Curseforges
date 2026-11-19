@@ -2,7 +2,7 @@ import { world, system, EntityComponentTypes, CommandPermissionLevel, CustomComm
 import { ActionFormData, ModalFormData, FormCancelationReason } from "@minecraft/server-ui";
 
 const PACK_NAME = "2-in-1 Loot & XP Booster";
-const VERSION = "6";
+const VERSION = "7";
 const TITLE = `§l§6@ALNStudios §e${PACK_NAME}§r (v${VERSION})`;
 const ABOUT_TITLE = "About ALNStudios";
 const ICON_MAIN = "textures/items/experience_bottle";
@@ -21,14 +21,11 @@ const TRIGGER_NAME = "booster";
 const DROP_TAG = "aln_boosted_drop";
 const XP_TAG = "aln_boosted_xp";
 const XP_RADIUS = 8;
-const MAX_XP_SPAWNS_PER_PASS = 128;
-const MAX_LOOT_SPAWNS_PER_TICK = 64;
 const XP_PICKUP_SQUARED = 1;
 const BAR_DELAY_TICKS = 50;
 const XP_INTERVAL_TICKS = 2;
 const MAX_FERTILIZED = 4096;
 const MAX_FORM_RETRIES = 8;
-const CAP_NOTICE_TICKS = 200;
 const CATEGORIES = ["ores", "crops", "mobs"];
 const CATEGORY_NAMES = { ores: "Ores", crops: "Crops", mobs: "Mobs" };
 const NON_MOB_TYPES = new Set([
@@ -61,9 +58,6 @@ const GROWTH_RULES = {
 };
 const fertilized = new Set();
 const barTimers = new Map();
-const capNotices = new Map();
-let lootTick = -1;
-let lootSpawned = 0;
 const openMenus = new Set();
 const boosts = new Map();
 
@@ -103,18 +97,6 @@ function blockCategory(typeId) {
   if (GROWTH_RULES[typeId]) return "crops";
   if (typeId.endsWith("_ore") || ORE_EXTRAS.has(typeId)) return "ores";
   return undefined;
-}
-
-function notifyCapped(player) {
-  const now = system.currentTick;
-  const last = capNotices.get(player.id);
-  if (last !== undefined && now - last < CAP_NOTICE_TICKS) return;
-  capNotices.set(player.id, now);
-  try {
-    player.onScreenDisplay.setActionBar("§eBooster limit reached, some extras were skipped");
-  } catch (error) {
-    return;
-  }
 }
 
 function isGrown(permutation) {
@@ -297,7 +279,6 @@ world.afterEvents.itemUse.subscribe((event) => {
 world.afterEvents.playerLeave.subscribe(({ playerId }) => {
   boosts.delete(playerId);
   openMenus.delete(playerId);
-  capNotices.delete(playerId);
   const pending = barTimers.get(playerId);
   if (pending !== undefined) {
     system.clearRun(pending);
@@ -351,11 +332,6 @@ function rollMultiplier(max) {
 function addExtraBlockLoot(player, dimension, center, permutation, tool, maxMultiplier, skipSelf) {
   const rounds = rollMultiplier(maxMultiplier) - 1;
   if (rounds <= 0) return;
-  const now = system.currentTick;
-  if (now !== lootTick) {
-    lootTick = now;
-    lootSpawned = 0;
-  }
   const typeId = permutation.type.id;
   const manager = world.getLootTableManager();
   for (let round = 0; round < rounds; round++) {
@@ -369,14 +345,9 @@ function addExtraBlockLoot(player, dimension, center, permutation, tool, maxMult
     for (const stack of stacks) {
       if (stack.maxAmount <= 1) continue;
       if (skipSelf && stack.typeId === typeId) continue;
-      if (lootSpawned >= MAX_LOOT_SPAWNS_PER_TICK) {
-        notifyCapped(player);
-        return;
-      }
       try {
         const spawned = dimension.spawnItem(stack, center);
         spawned.addTag(DROP_TAG);
-        lootSpawned++;
       } catch (error) {
         return;
       }
@@ -387,11 +358,6 @@ function addExtraBlockLoot(player, dimension, center, permutation, tool, maxMult
 function addExtraMobLoot(player, deadEntity, maxMultiplier) {
   const rounds = rollMultiplier(maxMultiplier) - 1;
   if (rounds <= 0) return;
-  const now = system.currentTick;
-  if (now !== lootTick) {
-    lootTick = now;
-    lootSpawned = 0;
-  }
   let dimension;
   let location;
   let tool;
@@ -414,14 +380,9 @@ function addExtraMobLoot(player, deadEntity, maxMultiplier) {
     if (!stacks) return;
     for (const stack of stacks) {
       if (stack.maxAmount <= 1) continue;
-      if (lootSpawned >= MAX_LOOT_SPAWNS_PER_TICK) {
-        notifyCapped(player);
-        return;
-      }
       try {
         const spawned = dimension.spawnItem(stack, location);
         spawned.addTag(DROP_TAG);
-        lootSpawned++;
       } catch (error) {
         return;
       }
@@ -483,7 +444,6 @@ function hasNearerPlayer(orbLocation, player, players) {
 }
 
 system.runInterval(() => {
-  let budget = MAX_XP_SPAWNS_PER_PASS;
   const players = world.getAllPlayers();
   for (const player of players) {
     if (!player.isValid) continue;
@@ -510,16 +470,11 @@ system.runInterval(() => {
         if (hasNearerPlayer(orbLocation, player, players)) continue;
         if (!orb.hasTag(XP_TAG)) {
           const extra = multiplier - 1;
-          if (budget < extra) {
-            notifyCapped(player);
-            continue;
-          }
           orb.addTag(XP_TAG);
           for (let i = 0; i < extra; i++) {
             const bonus = dimension.spawnEntity("minecraft:xp_orb", location);
             bonus.addTag(XP_TAG);
           }
-          budget -= extra;
         }
         if (distanceSquared(orbLocation, location) > XP_PICKUP_SQUARED) orb.teleport(location);
       } catch (error) {

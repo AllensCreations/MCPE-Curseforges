@@ -2,6 +2,13 @@
 
 ---
 
+## [v7] - 2026-11-20 - No Booster Limit
+
+### Improved & Balanced
+
+- **No booster limit**: Extra Loot drops and extra XP orbs are no longer capped per moment, so every boosted drop and orb appears.
+- **No limit message**: The Booster limit Action Bar message is removed. Apply still shows your new levels on the Action Bar.
+
 ## [v6] - 2026-11-19 - Mob Loot Rolls
 
 ### Improved & Balanced
