@@ -2,6 +2,13 @@
 
 ---
 
+## [v6] - 2026-11-19 - Mob Loot Rolls
+
+### Improved & Balanced
+
+- **Mob loot rolls**: Mobs are now boosted by rolling their loot again with the weapon you killed with, so rare drops stay rare but get more chances to appear.
+- **Lighter mob farms**: The booster no longer tracks nearby items for mob kills, which reduces lag and removes the 2x limit on rare drops.
+
 ## [v5] - 2026-11-19 - Faster Mob Loot
 
 ### Improved & Balanced

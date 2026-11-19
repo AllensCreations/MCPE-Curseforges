@@ -2,7 +2,7 @@ import { world, system, EntityComponentTypes, CommandPermissionLevel, CustomComm
 import { ActionFormData, ModalFormData, FormCancelationReason } from "@minecraft/server-ui";
 
 const PACK_NAME = "2-in-1 Loot & XP Booster";
-const VERSION = "5";
+const VERSION = "6";
 const TITLE = `§l§6@ALNStudios §e${PACK_NAME}§r (v${VERSION})`;
 const ABOUT_TITLE = "About ALNStudios";
 const ICON_MAIN = "textures/items/experience_bottle";
@@ -23,18 +23,11 @@ const XP_TAG = "aln_boosted_xp";
 const XP_RADIUS = 8;
 const MAX_XP_SPAWNS_PER_PASS = 128;
 const MAX_LOOT_SPAWNS_PER_TICK = 64;
-const MAX_RECENT_ITEMS = 2000;
 const XP_PICKUP_SQUARED = 1;
 const BAR_DELAY_TICKS = 50;
-const MOB_RADIUS = 2.2;
 const XP_INTERVAL_TICKS = 2;
-const SPAWN_WINDOW_TICKS = 4;
-const DROP_TICK_SLACK = 2;
 const MAX_FERTILIZED = 4096;
-const CLAIM_LIFETIME_TICKS = 10;
 const MAX_FORM_RETRIES = 8;
-const LOOT_SAMPLES = 6;
-const RARE_MAX_MULTIPLIER = 2;
 const CAP_NOTICE_TICKS = 200;
 const CATEGORIES = ["ores", "crops", "mobs"];
 const CATEGORY_NAMES = { ores: "Ores", crops: "Crops", mobs: "Mobs" };
@@ -66,17 +59,13 @@ const GROWTH_RULES = {
   "minecraft:nether_wart": ["age", 3],
   "minecraft:sweet_berry_bush": ["growth", 3],
 };
-const recentItems = new Map();
 const fertilized = new Set();
 const barTimers = new Map();
 const capNotices = new Map();
-const rareCache = new Map();
-let lootActive = false;
 let lootTick = -1;
 let lootSpawned = 0;
 const openMenus = new Set();
 const boosts = new Map();
-const claims = [];
 
 function readIndex(player, key, levels) {
   const value = player.getDynamicProperty(key);
@@ -244,7 +233,6 @@ async function boosterScreen(player) {
   player.setDynamicProperty(MOBS_KEY, switches[3]);
   boosts.set(player.id, { loot: lootIndex, xp: xpIndex, on, ores: switches[1], crops: switches[2], mobs: switches[3] });
   player.playSound("random.orb");
-  refreshLootActive();
   const pending = barTimers.get(player.id);
   if (pending !== undefined) {
     system.clearRun(pending);
@@ -340,70 +328,11 @@ system.beforeEvents.startup.subscribe(({ customCommandRegistry }) => {
   }
 });
 
-world.afterEvents.entitySpawn.subscribe(({ entity }) => {
-  if (!lootActive) return;
-  if (!entity.isValid || entity.typeId !== "minecraft:item") return;
-  if (recentItems.size >= MAX_RECENT_ITEMS) return;
-  recentItems.set(entity.id, system.currentTick);
-});
-
-function refreshLootActive() {
-  let active = false;
-  for (const player of world.getAllPlayers()) {
-    if (player.isValid && lootMultiplier(player) > 1 && getBoost(player).mobs) {
-      active = true;
-      break;
-    }
-  }
-  lootActive = active;
-}
-
-system.runInterval(refreshLootActive, 20);
-
-system.runInterval(() => {
-  if (recentItems.size === 0) return;
-  const now = system.currentTick;
-  for (const [id, tick] of recentItems) {
-    if (now - tick > 40) recentItems.delete(id);
-  }
-}, 40);
-
-system.runInterval(() => {
-  if (claims.length === 0) return;
-  const now = system.currentTick;
-  let expired = 0;
-  while (expired < claims.length && now - claims[expired].tick > CLAIM_LIFETIME_TICKS) expired++;
-  if (expired > 0) claims.splice(0, expired);
-}, CLAIM_LIFETIME_TICKS);
-
-function addClaim(dimension, center, ownerId) {
-  const claim = {
-    dim: dimension.id,
-    x: center.x,
-    y: center.y,
-    z: center.z,
-    tick: system.currentTick,
-    owner: ownerId,
-  };
-  claims.push(claim);
-  return claim;
-}
-
 function distanceSquared(a, b) {
   const dx = a.x - b.x;
   const dy = a.y - b.y;
   const dz = a.z - b.z;
   return dx * dx + dy * dy + dz * dz;
-}
-
-function isNearestClaim(claim, location) {
-  const own = distanceSquared(claim, location);
-  for (const other of claims) {
-    if (other === claim || other.dim !== claim.dim) continue;
-    if (Math.abs(other.tick - claim.tick) > SPAWN_WINDOW_TICKS) continue;
-    if (distanceSquared(other, location) < own) return false;
-  }
-  return true;
 }
 
 function isMob(entity) {
@@ -417,62 +346,6 @@ function isMob(entity) {
 
 function rollMultiplier(max) {
   return 1 + Math.floor(Math.random() * max);
-}
-
-function multiplyDrops(player, dimension, radius, maxMultiplier, claim, allowed) {
-  if (maxMultiplier <= 1) return;
-  const now = system.currentTick;
-  if (now !== lootTick) {
-    lootTick = now;
-    lootSpawned = 0;
-  }
-  let found;
-  try {
-    found = dimension.getEntities({
-      type: "minecraft:item",
-      location: claim,
-      maxDistance: radius,
-    });
-  } catch (error) {
-    return;
-  }
-
-  for (const entity of found) {
-    try {
-      if (!entity.isValid || entity.hasTag(DROP_TAG)) continue;
-      const born = recentItems.get(entity.id);
-      if (born === undefined || Math.abs(born - claim.tick) > DROP_TICK_SLACK) continue;
-      if (!isNearestClaim(claim, entity.location)) continue;
-      entity.addTag(DROP_TAG);
-
-      const component = entity.getComponent(EntityComponentTypes.Item);
-      const stack = component ? component.itemStack : undefined;
-      if (!stack || stack.maxAmount <= 1) continue;
-      let cap = maxMultiplier;
-      if (allowed) {
-        if (allowed.rare.has(stack.typeId) && !allowed.common.has(stack.typeId)) cap = Math.min(maxMultiplier, RARE_MAX_MULTIPLIER);
-        else if (!allowed.common.has(stack.typeId)) continue;
-      }
-
-      let remaining = stack.amount * (rollMultiplier(cap) - 1);
-      const location = entity.location;
-      while (remaining > 0) {
-        if (lootSpawned >= MAX_LOOT_SPAWNS_PER_TICK) {
-          notifyCapped(player);
-          break;
-        }
-        const amount = Math.min(stack.maxAmount, remaining);
-        const copy = stack.clone();
-        copy.amount = amount;
-        const spawned = dimension.spawnItem(copy, location);
-        spawned.addTag(DROP_TAG);
-        lootSpawned++;
-        remaining -= amount;
-      }
-    } catch (error) {
-      continue;
-    }
-  }
 }
 
 function addExtraBlockLoot(player, dimension, center, permutation, tool, maxMultiplier, skipSelf) {
@@ -511,49 +384,48 @@ function addExtraBlockLoot(player, dimension, center, permutation, tool, maxMult
   }
 }
 
-function collectEntryTypes(entry, types, depth) {
-  if (!entry || depth > 3) return;
+function addExtraMobLoot(player, deadEntity, maxMultiplier) {
+  const rounds = rollMultiplier(maxMultiplier) - 1;
+  if (rounds <= 0) return;
+  const now = system.currentTick;
+  if (now !== lootTick) {
+    lootTick = now;
+    lootSpawned = 0;
+  }
+  let dimension;
+  let location;
+  let tool;
   try {
-    if (entry.name && entry.name.id) types.add(entry.name.id);
-    if (entry.lootTable) collectTableTypes(entry.lootTable, types, depth + 1);
-    if (entry.subTable) collectEntryTypes(entry.subTable, types, depth + 1);
+    dimension = deadEntity.dimension;
+    location = deadEntity.location;
+    const equippable = player.getComponent(EntityComponentTypes.Equippable);
+    tool = equippable ? equippable.getEquipment("Mainhand") : undefined;
   } catch (error) {
     return;
   }
-}
-
-function collectTableTypes(table, types, depth) {
-  if (!table || depth > 3) return;
-  try {
-    for (const pool of table.pools) {
-      for (const entry of pool.entries) collectEntryTypes(entry, types, depth);
+  const manager = world.getLootTableManager();
+  for (let round = 0; round < rounds; round++) {
+    let stacks;
+    try {
+      stacks = manager.generateLootFromEntity(deadEntity, tool);
+    } catch (error) {
+      return;
     }
-  } catch (error) {
-    return;
-  }
-}
-
-function expectedMobDrops(entity) {
-  try {
-    const manager = world.getLootTableManager();
-    const common = new Set();
-    for (let sample = 0; sample < LOOT_SAMPLES; sample++) {
-      const stacks = manager.generateLootFromEntity(entity);
-      if (!stacks) return undefined;
-      for (const stack of stacks) common.add(stack.typeId);
-    }
-    let rare = rareCache.get(entity.typeId);
-    if (!rare) {
-      rare = new Set();
-      if (entity.typeId.startsWith("minecraft:")) {
-        const table = manager.getLootTable(`entities/${entity.typeId.slice(10)}`);
-        collectTableTypes(table, rare, 0);
+    if (!stacks) return;
+    for (const stack of stacks) {
+      if (stack.maxAmount <= 1) continue;
+      if (lootSpawned >= MAX_LOOT_SPAWNS_PER_TICK) {
+        notifyCapped(player);
+        return;
       }
-      rareCache.set(entity.typeId, rare);
+      try {
+        const spawned = dimension.spawnItem(stack, location);
+        spawned.addTag(DROP_TAG);
+        lootSpawned++;
+      } catch (error) {
+        return;
+      }
     }
-    return { common, rare };
-  } catch (error) {
-    return undefined;
   }
 }
 
@@ -594,14 +466,10 @@ world.afterEvents.entityDie.subscribe(({ deadEntity, damageSource }) => {
   if (!killer || killer.typeId !== "minecraft:player") return;
   if (!isMob(deadEntity)) return;
 
-  const dimension = deadEntity.dimension;
-  const claim = addClaim(dimension, deadEntity.location, killer.id);
-
   const maxMultiplier = lootMultiplier(killer);
   if (maxMultiplier <= 1 || !getBoost(killer).mobs) return;
 
-  const allowed = expectedMobDrops(deadEntity);
-  system.run(() => multiplyDrops(killer, dimension, MOB_RADIUS, maxMultiplier, claim, allowed));
+  addExtraMobLoot(killer, deadEntity, maxMultiplier);
 });
 
 function hasNearerPlayer(orbLocation, player, players) {
