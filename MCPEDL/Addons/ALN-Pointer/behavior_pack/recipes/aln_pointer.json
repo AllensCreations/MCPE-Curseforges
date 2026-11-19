@@ -1,0 +1,28 @@
+{
+  "format_version": "1.21.60",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "allenscreations:aln_pointer"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      "###",
+      "## ",
+      "# #"
+    ],
+    "key": {
+      "#": {
+        "tag": "minecraft:wool"
+      }
+    },
+    "unlock": {
+      "context": "AlwaysUnlocked"
+    },
+    "result": {
+      "item": "allenscreations:aln_pointer",
+      "count": 1
+    }
+  }
+}

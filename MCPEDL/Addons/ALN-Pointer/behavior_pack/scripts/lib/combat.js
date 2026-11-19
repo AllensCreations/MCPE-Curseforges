@@ -6,7 +6,7 @@ const TOTEM = "minecraft:totem_of_undying";
 const SHIELD = "minecraft:shield";
 const SPARKS = "minecraft:critical_hit_emitter";
 const CRIT = 1.5;
-const NO_TOTEM = new Set([EntityDamageCause.void, EntityDamageCause.suicide]);
+const NO_TOTEM = new Set([EntityDamageCause.void, EntityDamageCause.selfDestruct, EntityDamageCause.override]);
 const BLOCKED = new Set([EntityDamageCause.entityAttack, EntityDamageCause.projectile]);
 const replaying = new Set();
 

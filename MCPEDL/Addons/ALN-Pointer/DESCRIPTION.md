@@ -16,8 +16,8 @@ You get an ALN Pointer, use it, and pick the toggles you want in the ALNStudios 
 ## Key Features
 
 ### ALN Pointer Item
-- **What Happens**: A cursor-shaped item that opens the toggle menu when you use it. You receive one the first time you join a world, and it also sits in the Equipment tab of the Creative inventory.
-- **How It Works**: Hold the pointer and use it, like right-clicking on PC or tapping on mobile.
+- **What Happens**: A cursor-shaped item that opens the toggle menu when you use it. You receive one the first time you join a world, you can craft more from wool, and it also sits in the Equipment tab of the Creative inventory.
+- **How It Works**: Hold the pointer and use it, like right-clicking on PC or tapping on mobile. To craft one, fill the top row of a crafting table with wool, then the left and middle squares of the middle row, then the left and right squares of the bottom row. This takes 7 wool of any color and the shape looks like a cursor.
 - **Good To Know**: If your inventory is full on first join, the pointer is offered again on your next join.
 
 ### Combat Toggles Menu
@@ -62,14 +62,14 @@ You get an ALN Pointer, use it, and pick the toggles you want in the ALNStudios 
 
 ## How to Use
 
-1. Join your world and find the ALN Pointer in your inventory, or take it from the Equipment tab of the Creative inventory.
+1. Join your world and find the ALN Pointer in your inventory, craft one from 7 wool in a cursor shape, or take it from the Equipment tab of the Creative inventory.
 2. Hold the ALN Pointer and use it to open the ALNStudios menu, then tap Combat Toggles.
 3. Switch on the toggles you want and tap Apply. The action bar shows how many toggles are on.
 4. Use the pointer again any time to change your toggles.
 
 ## Common Questions
 
-- **How do I get another pointer?**: Take one from the Equipment tab of the Creative inventory, or use the command /give @s allenscreations:aln_pointer, which needs cheats.
+- **How do I get another pointer?**: Craft one from 7 wool on a crafting table, laid out like a cursor with the top row full, the left and middle squares of the middle row, and the left and right squares of the bottom row. You can also take one from the Equipment tab of the Creative inventory, or use the command /give @s allenscreations:aln_pointer, which needs cheats.
 - **Do my toggles affect other players?**: No. Each player has their own saved toggles, and a toggle only changes what that player does.
 - **Can I use it on a server?**: These features act like cheats. Many servers ban them, so use them only where the owner and the other players agree.
 

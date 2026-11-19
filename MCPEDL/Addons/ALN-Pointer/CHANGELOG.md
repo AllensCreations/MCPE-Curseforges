@@ -2,6 +2,15 @@
 
 ---
 
+## [v3] - 2026-11-19 - Wool Recipe
+
+### Added
+- **Wool Recipe**: The ALN Pointer can now be crafted from 7 wool of any color in a cursor shape: the top row, the left and middle squares of the middle row, and the left and right squares of the bottom row. The recipe is unlocked from the start.
+
+### Fixed
+- **Menu Version**: The menu title now shows the same version as the pack.
+- **Totem Exclusions**: Auto Totem and Infinite Totem now skip the kill command and script-set deaths, which a totem cannot stop in vanilla Minecraft, instead of reacting to them.
+
 ## [v2] - 2026-11-16 - First Release
 
 ### Added
