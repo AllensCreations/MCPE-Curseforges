@@ -2,6 +2,12 @@
 
 ---
 
+## [v12] - 2026-11-19 - Mount Hint Text Fix
+
+### Fixed
+
+- **Riding hint text**: Riding a companion such as the Warden now shows a readable dismount hint instead of raw text.
+
 ## [v11] - 2026-11-19 - Primal Beast Biscuit Recipe
 
 ### Fixed

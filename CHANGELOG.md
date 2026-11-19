@@ -11,6 +11,14 @@
 
 ---
 
+## [v128] - 2026-11-19 - Monster Companions Mount Hint Text Fix
+
+### Fixed
+
+- **Monster Companions riding hint**: Rideable companions show a readable dismount hint.
+
+
+
 ## [v127] - 2026-11-19 - Monster Companions Primal Beast Biscuit Recipe
 
 ### Fixed

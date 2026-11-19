@@ -1,3 +1,19 @@
 ## Monster Companions - en_US Language File
 item.allenscreations:beast_biscuit.name=Primal Beast Biscuit
 item.allenscreations:golden_beast_biscuit.name=Golden Beast Biscuit
+action.hint.exit.breeze=Sneak to dismount
+action.hint.exit.cave_spider=Sneak to dismount
+action.hint.exit.ghast=Sneak to dismount
+action.hint.exit.hoglin=Sneak to dismount
+action.hint.exit.husk=Sneak to dismount
+action.hint.exit.iron_golem=Sneak to dismount
+action.hint.exit.phantom=Sneak to dismount
+action.hint.exit.ravager=Sneak to dismount
+action.hint.exit.spider=Sneak to dismount
+action.hint.exit.warden=Sneak to dismount
+action.hint.exit.wither=Sneak to dismount
+action.hint.exit.zoglin=Sneak to dismount
+action.hint.exit.zombie=Sneak to dismount
+action.hint.exit.zombie_pigman=Sneak to dismount
+action.hint.exit.zombie_villager=Sneak to dismount
+action.hint.exit.zombie_villager_v2=Sneak to dismount
