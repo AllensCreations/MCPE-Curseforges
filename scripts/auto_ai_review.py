@@ -24,7 +24,6 @@ import subprocess
 import sys
 import tempfile
 import urllib.parse
-import zipfile
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -163,35 +162,6 @@ def main() -> int:
                         print(f"Built {kit_path.relative_to(ROOT)}")
                 except subprocess.CalledProcessError:
                     print(f"::warning::{kit_name} could not be built; skipped.")
-
-    # Package per-pack AI review + Bedrock sample reference bundle zips
-    # Contents: <PackName>.txt, bedrock-samples.txt, server.txt, server-ui.txt, server-admin.txt
-    sample_txt = ROOT / "ai-review" / "bedrock-samples.txt"
-    types_dir = ROOT / "reference" / "typescript-definitions"
-    types_files = [(types_dir / mod / f"{mod}.d.ts", f"{mod}.txt") for mod in ("server", "server-ui", "server-admin")]
-
-    for cat, pack in packages():
-        name = pack.name
-        txt = pack / OUT_DIR / f"{name}.txt"
-        if not txt.is_file():
-            continue
-        zpath = pack / OUT_DIR / f"{name}.zip"
-        needs_build = (
-            args.all
-            or not zpath.is_file()
-            or txt.stat().st_mtime > zpath.stat().st_mtime
-            or (sample_txt.is_file() and sample_txt.stat().st_mtime > zpath.stat().st_mtime)
-        )
-        if needs_build:
-            with zipfile.ZipFile(zpath, "w", compression=zipfile.ZIP_DEFLATED) as zf:
-                zf.write(txt, arcname=f"{name}.txt")
-                if sample_txt.is_file():
-                    zf.write(sample_txt, arcname="bedrock-samples.txt")
-                for src_dts, dst_name in types_files:
-                    if src_dts.is_file():
-                        zf.write(src_dts, arcname=dst_name)
-            changed.append(zpath.relative_to(ROOT).as_posix())
-            print(f"Bundled {zpath.relative_to(ROOT)}")
 
     # Root README list (only between the markers)
 

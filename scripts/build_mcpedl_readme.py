@@ -102,12 +102,10 @@ def render(root):
         counts.append(f"{len(projects)} {label}")
         rows = ["| Pack | Version | Source | Package | AI review |", "| :-- | :-- | :-- | :-- | :-- |"]
         for p in projects:
-            review_zip = p / "ai-review" / f"{p.name}.zip"
-            review_txt = p / "ai-review" / f"{p.name}.txt"
-            target_review = review_zip if review_zip.is_file() else (review_txt if review_txt.is_file() else None)
-            if not target_review:
+            review = p / "ai-review" / f"{p.name}.txt"
+            if not review.is_file():
                 warnings.append(f"no AI review file for {cat}/{p.name}")
-            ai = f"[Download]({RAW}{quote(target_review.relative_to(root).as_posix())})" if target_review else "-"
+            ai = f"[Download]({RAW}{quote(review.relative_to(root).as_posix())})" if review.is_file() else "-"
             listing = root / "Package" / f"{p.name}.listing.md"
             pkg = f"[Package]({link(mcpedl, listing)})" if listing.is_file() else "-"
             title = pack_title(p).replace("|", "/")

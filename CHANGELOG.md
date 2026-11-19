@@ -1,3 +1,16 @@
+## [v120] - 2026-11-19 - Switch AI Review to Context7, Remove Bundled Reference Files
+
+### Changed
+- **AI Review**: Per-pack AI review downloads in `MCPEDL/README.md` now link directly to `<PackName>.txt`. Removed `bedrock-samples.txt`, `server.txt`, `server-ui.txt`, and `server-admin.txt` from per-pack zip bundles — no longer needed since Context7 provides live, up-to-date Minecraft Bedrock API and vanilla reference documentation.
+- **Vanilla Reference Source**: Updated `scripts/collect_ai_review.py` instructions to use **Context7** (https://context7.com) as the primary vanilla reference API for AI agents working on pack updates.
+
+### Cleanup
+- Removed all 54 per-pack `ai-review/*.zip` files from `MCPEDL/*/ai-review/`.
+- `scripts/auto_ai_review.py` no longer generates per-pack zip bundles.
+- `scripts/build_mcpedl_readme.py` links `.txt` files directly in the AI Review column.
+
+---
+
 ## [v117] - 2026-11-19 - ALN Wireless Headphones Steadier Music
 
 ### Fixed
