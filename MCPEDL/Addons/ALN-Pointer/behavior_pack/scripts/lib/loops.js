@@ -36,6 +36,38 @@ function aura(p) {
     });
 }
 
+const WATERS = new Set(["minecraft:water", "minecraft:flowing_water"]);
+
+function drop(p, spot) {
+  const dim = p.dimension;
+  const owned = [];
+  for (let dx = -1; dx <= 1; dx++) {
+    for (let dy = -1; dy <= 1; dy++) {
+      for (let dz = -1; dz <= 1; dz++) {
+        const b = dim.getBlock({ x: spot.x + dx, y: spot.y + dy, z: spot.z + dz });
+        if (b?.isAir) owned.push(b.location);
+      }
+    }
+  }
+  spot.setType("minecraft:water");
+  let age = 0;
+  const id = system.runInterval(() => {
+    age += 2;
+    let done = age >= WATER_LIFETIME;
+    try {
+      if (!done) done = !p.isValid || (age >= 6 && (p.isOnGround || p.getVelocity().y > -0.1));
+    } catch (e) {
+      done = true;
+    }
+    if (!done) return;
+    system.clearRun(id);
+    for (const at of owned) {
+      const b = dim.getBlock(at);
+      if (b && WATERS.has(b.typeId)) b.setType("minecraft:air");
+    }
+  }, 2);
+}
+
 function clutch(p) {
   if (skip(p) || p.isOnGround || !p.isFalling || p.isGliding || p.isFlying || p.isInWater) {
     falls.delete(p.id);
@@ -53,14 +85,8 @@ function clutch(p) {
   });
   const spot = hit?.block.above();
   if (!spot?.isAir) return;
-  spot.setType("minecraft:water");
   falls.delete(p.id);
-  const dim = p.dimension;
-  const at = spot.location;
-  system.runTimeout(() => {
-    const b = dim.getBlock(at);
-    if (b?.typeId === "minecraft:water") b.setType("minecraft:air");
-  }, WATER_LIFETIME);
+  drop(p, spot);
 }
 
 function each(id, fn) {

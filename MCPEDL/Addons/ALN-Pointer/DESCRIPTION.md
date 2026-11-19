@@ -51,7 +51,7 @@ You get a Combat Helper, use it, and pick the toggles you want in the ALNStudios
 - **Good To Know**: If nothing is near your crosshair, the arrow flies as normal.
 
 ### Always Water Clutch
-- **What Happens**: When you fall 3 blocks or more and the ground is close, a water block appears in the space you land in, so the fall does no damage, and it disappears after about 2 seconds.
+- **What Happens**: When you fall 3 blocks or more and the ground is close, a water block appears in the space you land in, so the fall does no damage, and it is removed as soon as you stop falling, together with any water that spread from it.
 - **How It Works**: Switch it on and jump. No water bucket is needed.
 - **Good To Know**: It does not trigger in Creative or Spectator mode, while gliding or flying, or over water.
 

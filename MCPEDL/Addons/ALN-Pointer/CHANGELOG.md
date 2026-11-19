@@ -2,6 +2,11 @@
 
 ---
 
+## [v8] - 2026-11-19 - Water Clutch Cleanup
+
+### Fixed
+- **Water Cleanup**: Always Water Clutch now removes its water as soon as you land, including the water that spread sideways from it, instead of leaving it behind. It still removes the water after about 2 seconds at most.
+
 ## [v7] - 2026-11-19 - Gear and Dummy
 
 ### Added
