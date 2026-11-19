@@ -1,13 +1,13 @@
 {
   "format_version": 2,
   "header": {
-    "name": "ALN:SpawnControl (v3)",
+    "name": "ALN:SpawnControl (v3.0.1)",
     "description": "Custom mob spawn whitelist and categorized form control panel. by ALNStudios",
     "uuid": "698a7800-3ede-4b9b-8cab-e61eaa1c17c8",
     "version": [
       3,
       0,
-      0
+      1
     ],
     "min_engine_version": [
       1,
@@ -23,7 +23,7 @@
       "version": [
         3,
         0,
-        0
+        1
       ],
       "entry": "scripts/main.js"
     }
@@ -43,6 +43,6 @@
       "ALNStudios"
     ],
     "product_type": "addon",
-    "version": "3.0.0"
+    "version": "3.0.1"
   }
 }
