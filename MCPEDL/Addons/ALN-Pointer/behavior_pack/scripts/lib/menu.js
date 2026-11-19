@@ -39,7 +39,7 @@ async function openAbout(player) {
   const body = [
     "Creator: ALNStudios",
     `${PACK_NAME} v${PACK_VERSION}`,
-    "A pointer item that opens a menu of PVP toggles.",
+    "A cursor-shaped item that opens a menu of PVP toggles.",
     "CurseForge: allenscreations",
     "MCPEDL: alnstudios",
     "Not affiliated with Mojang.",

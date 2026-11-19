@@ -11,6 +11,11 @@
 
 ---
 
+## [v128] - 2026-11-19 - New Name
+
+### Changed
+- **New Name**: The add-on is now called Combat Helper. The item, its menus, the pack titles and the description all use the new name. The item still uses the cursor look, and your existing item, saved toggles and worlds keep working.
+
 ## [v127] - 2026-11-19 - Context7 MCP Documentation Lookup
 
 ### Added

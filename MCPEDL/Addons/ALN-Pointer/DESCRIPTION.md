@@ -1,24 +1,24 @@
-# ALN Pointer — A pointer item that opens a menu of 7 PVP toggles
+# Combat Helper — A cursor-shaped item that opens a menu of 7 PVP toggles
 
 **By ALNStudios**
 
 [![Minecraft Bedrock](https://img.shields.io/badge/Minecraft%20Bedrock-Stable%20Release-brightgreen?style=flat-square&logo=minecraft)](https://github.com/AllensCreations/MCPE-Curseforges)
 [![Format](https://img.shields.io/badge/Format-.MCPACK%20%7C%20.MCADDON%20%7C%20.MCWORLD-blue?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges)
 
-**Use the ALN Pointer item to switch 7 PVP toggles on or off per player, including Auto Totem and Bow Aimbot.**
+**Use the Combat Helper item to switch 7 PVP toggles on or off per player, including Auto Totem and Bow Aimbot.**
 
-> The ALN Pointer is a cursor-shaped item that opens a menu with 7 toggles, each saved separately for every player. It suits friends who practice PVP in a world they own and want to pick their own settings.
+> The Combat Helper is a cursor-shaped item that opens a menu with 7 toggles, each saved separately for every player. It suits friends who practice PVP in a world they own and want to pick their own settings.
 
 ## Overview
 
-You get an ALN Pointer, use it, and pick the toggles you want in the ALNStudios menu. The toggles then run by themselves whenever you fight, shoot or fall, and vanilla Minecraft has no equivalent switches. The features are cheat-style helpers, so use them only on worlds where everyone agrees.
+You get a Combat Helper, use it, and pick the toggles you want in the ALNStudios menu. The toggles then run by themselves whenever you fight, shoot or fall, and vanilla Minecraft has no equivalent switches. The features are cheat-style helpers, so use them only on worlds where everyone agrees.
 
 ## Key Features
 
-### ALN Pointer Item
+### Combat Helper Item
 - **What Happens**: A cursor-shaped item that opens the toggle menu when you use it. You receive one the first time you join a world, you can craft more from wool, and it also sits in the Equipment tab of the Creative inventory.
-- **How It Works**: Hold the pointer and use it, like right-clicking on PC or tapping on mobile. To craft one, fill the top row of a crafting table with wool, then the left and middle squares of the middle row, then the left and right squares of the bottom row. This takes 7 wool of any color and the shape looks like a cursor.
-- **Good To Know**: If your inventory is full on first join, the pointer is offered again on your next join.
+- **How It Works**: Hold the Combat Helper and use it, like right-clicking on PC or tapping on mobile. To craft one, fill the top row of a crafting table with wool, then the left and middle squares of the middle row, then the left and right squares of the bottom row. This takes 7 wool of any color and the shape looks like a cursor.
+- **Good To Know**: If your inventory is full on first join, the Combat Helper is offered again on your next join.
 
 ### Combat Toggles Menu
 - **What Happens**: The main menu has three buttons: Combat Toggles, About and Exit. Combat Toggles lists 7 switches with a one-line explanation under each, and Apply saves them and closes the menu.
@@ -62,14 +62,14 @@ You get an ALN Pointer, use it, and pick the toggles you want in the ALNStudios 
 
 ## How to Use
 
-1. Join your world and find the ALN Pointer in your inventory, craft one from 7 wool in a cursor shape, or take it from the Equipment tab of the Creative inventory.
-2. Hold the ALN Pointer and use it to open the ALNStudios menu, then tap Combat Toggles.
+1. Join your world and find the Combat Helper in your inventory, craft one from 7 wool in a cursor shape, or take it from the Equipment tab of the Creative inventory.
+2. Hold the Combat Helper and use it to open the ALNStudios menu, then tap Combat Toggles.
 3. Switch on the toggles you want and tap Apply. The action bar shows how many toggles are on.
-4. Use the pointer again any time to change your toggles.
+4. Use the Combat Helper again any time to change your toggles.
 
 ## Common Questions
 
-- **How do I get another pointer?**: Craft one from 7 wool on a crafting table, laid out like a cursor with the top row full, the left and middle squares of the middle row, and the left and right squares of the bottom row. You can also take one from the Equipment tab of the Creative inventory, or use the command /give @s allenscreations:aln_pointer, which needs cheats.
+- **How do I get another Combat Helper?**: Craft one from 7 wool on a crafting table, laid out like a cursor with the top row full, the left and middle squares of the middle row, and the left and right squares of the bottom row. You can also take one from the Equipment tab of the Creative inventory, or use the command /give @s allenscreations:aln_pointer, which needs cheats.
 - **Do my toggles affect other players?**: No. Each player has their own saved toggles, and a toggle only changes what that player does.
 - **Can I use it on a server?**: These features act like cheats. Many servers ban them, so use them only where the owner and the other players agree.
 
@@ -103,5 +103,5 @@ You get an ALN Pointer, use it, and pick the toggles you want in the ALNStudios 
 
 ## Search & Discovery Keywords
 
-Minecraft Bedrock add-on, ALN Pointer Bedrock mod, Minecraft PE PVP toggles, Auto Totem, Infinite Totem, Aura Mode, Always Critical, Bow Aimbot, Water Clutch, Minecraft PE mouse pointer item, MCPEDL add-on, CurseForge Bedrock, ALNStudios.
+Minecraft Bedrock add-on, Combat Helper Bedrock mod, Minecraft PE PVP toggles, Auto Totem, Infinite Totem, Aura Mode, Always Critical, Bow Aimbot, Water Clutch, Minecraft PE mouse pointer item, MCPEDL add-on, CurseForge Bedrock, ALNStudios.
 

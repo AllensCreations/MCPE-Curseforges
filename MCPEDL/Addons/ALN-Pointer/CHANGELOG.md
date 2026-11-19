@@ -2,6 +2,11 @@
 
 ---
 
+## [v4] - 2026-11-19 - New Name
+
+### Changed
+- **New Name**: The add-on is now called Combat Helper. The item, its menus, the pack titles and the description all use the new name. The item still uses the cursor look, and your existing item, saved toggles and worlds keep working.
+
 ## [v3] - 2026-11-19 - Wool Recipe
 
 ### Added
