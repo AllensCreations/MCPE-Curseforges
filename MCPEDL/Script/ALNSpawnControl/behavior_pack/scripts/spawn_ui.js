@@ -91,6 +91,7 @@ function openMainMenu(player) {
   form.button("§5Bosses & Rare Mobs\n§8Warden, Wither, Dragon...");
   form.button("§6⚡ Quick Presets\n§8Enable/Disable Groups");
   form.button("§3⚙ Global Filter Settings\n§8Mode & Admin Lock");
+  form.button("§c🗑 Purge Disabled Mobs\n§8Choose what gets removed");
 
   form.show(player).then((response) => {
     if (response.canceled) {
@@ -115,6 +116,9 @@ function openMainMenu(player) {
         break;
       case 5:
         openGlobalSettingsMenu(player);
+        break;
+      case 6:
+        openPurgeMenu(player);
         break;
     }
   });
@@ -241,21 +245,82 @@ function openGlobalSettingsMenu(player) {
 
     const blockSpawnEggs = Boolean(response.formValues[1]);
     const adminOnly = Boolean(response.formValues[2]);
-    const purgeNow = Boolean(response.formValues[3]);
 
     saveSpawnConfig(world, { blockSpawnEggs, adminOnly });
-
-    if (purgeNow) {
-      purgeDisabledEntities(player);
-    } else {
-      player.onScreenDisplay.setActionBar("§a[SpawnControl] §fSaved global filter settings!");
-    }
+    player.onScreenDisplay.setActionBar("§a[SpawnControl] §fSaved global filter settings!");
   });
 }
 
-function purgeDisabledEntities(player) {
+function isTamedEntity(entity) {
+  try {
+    if (entity.getComponent("minecraft:is_tamed")) {
+      return true;
+    }
+  } catch (e) {
+  }
+  try {
+    const tameable = entity.getComponent("minecraft:tameable");
+    if (tameable && tameable.isTamed === true) {
+      return true;
+    }
+  } catch (e) {
+  }
+  return false;
+}
+
+function isNameTaggedEntity(entity) {
+  try {
+    return typeof entity.nameTag === "string" && entity.nameTag.length > 0;
+  } catch (e) {
+    return false;
+  }
+}
+
+function openPurgeMenu(player) {
+  const categoryKeys = Object.keys(MOB_CATEGORIES);
+  const form = new ModalFormData();
+  form.title("§c🗑 Purge Disabled Mobs");
+
+  form.toggle("§e« Back to Main Menu §7(Turn ON to return)", { defaultValue: false });
+
+  for (const key of categoryKeys) {
+    form.toggle(`Purge ${MOB_CATEGORIES[key].name}`, { defaultValue: true });
+  }
+
+  form.toggle("Include Tamed Mobs", { defaultValue: false });
+  form.toggle("Include Name-Tagged Mobs", { defaultValue: false });
+
+  form.show(player).then((response) => {
+    if (response.canceled || !response.formValues) {
+      return;
+    }
+
+    if (Boolean(response.formValues[0])) {
+      system.run(() => openMainMenu(player));
+      return;
+    }
+
+    const selectedIds = new Set();
+    categoryKeys.forEach((key, index) => {
+      if (Boolean(response.formValues[index + 1])) {
+        for (const mob of MOB_CATEGORIES[key].mobs) {
+          selectedIds.add(mob.id);
+        }
+      }
+    });
+
+    const includeTamed = Boolean(response.formValues[categoryKeys.length + 1]);
+    const includeNamed = Boolean(response.formValues[categoryKeys.length + 2]);
+
+    purgeDisabledEntities(player, selectedIds, includeTamed, includeNamed);
+  });
+}
+
+function purgeDisabledEntities(player, selectedIds, includeTamed, includeNamed) {
   const rules = getSpawnRules(world);
   let purgedCount = 0;
+  let skippedTamed = 0;
+  let skippedNamed = 0;
 
   const dimensions = ["overworld", "nether", "the_end"];
   for (const dimId of dimensions) {
@@ -269,17 +334,28 @@ function purgeDisabledEntities(player) {
         if (!entity || !entity.isValid) {
           continue;
         }
-        if (rules[entity.typeId] === false) {
-          try {
-            entity.remove();
-            purgedCount++;
-          } catch (e) {
-          }
+        if (rules[entity.typeId] !== false || !selectedIds.has(entity.typeId)) {
+          continue;
+        }
+        if (!includeTamed && isTamedEntity(entity)) {
+          skippedTamed++;
+          continue;
+        }
+        if (!includeNamed && isNameTaggedEntity(entity)) {
+          skippedNamed++;
+          continue;
+        }
+        try {
+          entity.remove();
+          purgedCount++;
+        } catch (e) {
         }
       }
     } catch (e) {
     }
   }
 
-  player.onScreenDisplay.setActionBar(`§a[SpawnControl] §fPurged ${purgedCount} disabled mobs!`);
+  player.onScreenDisplay.setActionBar(
+    `§a[SpawnControl] §fPurged ${purgedCount} mobs. §7Kept: ${skippedTamed} tamed, ${skippedNamed} named.`
+  );
 }

@@ -2,6 +2,16 @@
 
 ---
 
+## [v3.0.1] - 2026-11-20 - Separate Purge Menu
+
+### Added
+- **Purge Disabled Mobs Menu**: A new main menu button opens a purge screen of its own, separate from Global Filter Settings.
+- **Choose What Gets Purged**: Pick which of the 4 mob groups are purged, and choose whether tamed mobs and name-tagged mobs are included.
+
+### Improved & Balanced
+- **Pets and Named Mobs Stay Safe**: A purge no longer removes tamed or name-tagged mobs unless you turn them on.
+- **Cleaner Global Filter Settings**: The purge switch moved out of Global Filter Settings into the new menu.
+
 ## [v3] - 2026-11-19 - Book Renamed to Spawn Control
 
 ### Improved & Balanced

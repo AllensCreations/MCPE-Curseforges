@@ -11,7 +11,7 @@
 
 ## Overview
 
-Rename a vanilla Book to "Spawn Control" on an Anvil and use it to open the control panel. From the dashboard, players can inspect active mob counts, configure 4 categorized mob rosters with individual toggles, apply one-tap presets, configure global filter modes, or purge existing disabled mobs. All preferences are saved persistently to world storage.
+Rename a vanilla Book to "Spawn Control" on an Anvil and use it to open the control panel. From the dashboard, players can inspect active mob counts, configure 4 categorized mob rosters with individual toggles, apply one-tap presets, configure global filter modes, or open the separate purge menu to remove existing disabled mobs. All preferences are saved persistently to world storage.
 
 ## Key Features
 
@@ -34,8 +34,9 @@ Rename a vanilla Book to "Spawn Control" on an Anvil and use it to open the cont
 - **How It Works**: Leaving natural spawn mode active allows administrators to test mobs using Spawn Eggs while preventing wild spawns.
 
 ### Entity Purge
-- **What Happens**: An optional purge action scans loaded chunks in all three dimensions and removes mobs whose toggles are currently disabled.
-- **Good To Know**: Toggling this option inside Global Filter Settings runs a single-pass removal and reports the number of purged entities.
+- **What Happens**: A dedicated Purge Disabled Mobs menu scans loaded chunks in all three dimensions and removes mobs whose toggles are currently disabled.
+- **How It Works**: Choose which of the 4 groups are purged, and decide whether tamed mobs and name-tagged mobs are included. Submitting the menu runs a single-pass removal and reports how many mobs were purged and how many tamed or named mobs were kept.
+- **Good To Know**: Tamed mobs and name-tagged mobs are kept by default.
 
 ### Admin Tag Lock
 - **What Happens**: An optional permission lock restricts opening the control panel to players carrying the administrator tag.
@@ -51,7 +52,7 @@ Rename a vanilla Book to "Spawn Control" on an Anvil and use it to open the cont
 
 - **Do I need experimental toggles?**: No experimental toggles or cheats are required for normal menu usage.
 - **Does it stop mob spawners?**: When set to block natural spawns or all sources, spawner-generated entities of disabled mob types are intercepted upon spawning.
-- **Will turning off a mob remove existing ones?**: New spawns are blocked immediately; use the Purge Loaded Disabled Mobs option in Global Filter Settings to clear existing mobs.
+- **Will turning off a mob remove existing ones?**: New spawns are blocked immediately; use the Purge Disabled Mobs menu to clear existing mobs. Tamed and name-tagged mobs are kept unless you include them.
 
 ## Compatibility
 
