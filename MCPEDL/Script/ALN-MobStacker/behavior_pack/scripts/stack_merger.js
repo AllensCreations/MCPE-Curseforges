@@ -2,6 +2,8 @@ import { system, world } from "@minecraft/server";
 import {
   DIMENSION_IDS,
   FARM_ANIMAL_SET,
+  IDLE_PASSES_BEFORE_SLOWDOWN,
+  IDLE_SLOW_FACTOR,
   JOBS_PER_TICK,
   MAX_ENTITIES_PER_JOB,
   MAX_STACK_SIZE,
@@ -14,14 +16,19 @@ import {
   isStackExcluded,
   mergeKey,
   readMeta,
+  rememberStack,
   restoreAppearance,
   spawnMatching,
   stackCache,
+  stackLabel,
 } from "./stack_config.js";
 
 const RADIUS_SQUARED = MERGE_RADIUS * MERGE_RADIUS;
 const queue = [];
 const cursors = new Map();
+let idlePasses = 0;
+let idleSkip = 0;
+let passMerged = false;
 
 function cellOf(location) {
   return [
@@ -97,8 +104,21 @@ function mergeGroup(group) {
         }
       }
     }
-    if (host.entity.isValid && (absorbed > 0 || host.count > 1)) {
+    if (!host.entity.isValid) continue;
+    if (absorbed > 0) {
+      passMerged = true;
       placeHost(host, total);
+    } else if (host.count > 1) {
+      const entity = host.entity;
+      const stale =
+        entity.nameTag !== stackLabel(host.count, entity.typeId, host.meta.isBaby) ||
+        (!entity.hasTag(PERSISTENT_TAG) && !(host.meta.isBaby && FARM_ANIMAL_SET.has(entity.typeId)));
+      if (stale) {
+        passMerged = true;
+        placeHost(host, host.count);
+      } else {
+        rememberStack(entity, host.count, host.meta);
+      }
     }
   }
 }
@@ -143,6 +163,13 @@ function runJob(job) {
 
 function buildQueue() {
   if (queue.length > 0) return;
+  if (idlePasses >= IDLE_PASSES_BEFORE_SLOWDOWN) {
+    idleSkip++;
+    if (idleSkip < IDLE_SLOW_FACTOR) return;
+    idleSkip = 0;
+  }
+  idlePasses = passMerged ? 0 : idlePasses + 1;
+  passMerged = false;
   for (const id of DIMENSION_IDS) {
     try {
       const dimension = world.getDimension(id);
@@ -169,5 +196,13 @@ export function startMerger() {
 
   world.afterEvents.entityRemove.subscribe((event) => {
     stackCache.delete(event.removedEntityId);
+  });
+
+  world.afterEvents.entitySpawn.subscribe((event) => {
+    try {
+      if (STACKABLE_MOBS.has(event.entity.typeId)) idlePasses = 0;
+    } catch (error) {
+      return;
+    }
   });
 }

@@ -47,6 +47,10 @@ export const FARM_ANIMAL_SET = new Set(FARM_ANIMALS);
 
 export const MAX_SPAWN_TRIES = 8;
 export const GEAR_DROP_CHANCE = 0.01;
+export const GEAR_LOOTING_BONUS = 0.005;
+export const GRINDER_BATCH_SIZE = 5;
+export const IDLE_PASSES_BEFORE_SLOWDOWN = 3;
+export const IDLE_SLOW_FACTOR = 4;
 export const GEAR_DROP_ITEMS = [
   "minecraft:leather_helmet",
   "minecraft:leather_chestplate",

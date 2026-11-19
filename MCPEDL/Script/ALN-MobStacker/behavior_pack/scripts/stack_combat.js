@@ -4,6 +4,8 @@ import {
   FARM_ANIMAL_SET,
   GEAR_DROP_CHANCE,
   GEAR_DROP_ITEMS,
+  GEAR_LOOTING_BONUS,
+  GRINDER_BATCH_SIZE,
   LOOT,
   PERSISTENT_TAG,
   STACKABLE_MOBS,
@@ -44,7 +46,7 @@ function pickWeighted(entries) {
   return entries[entries.length - 1];
 }
 
-function rollUnit(typeId, def, meta, looting, totals) {
+function rollUnit(typeId, def, meta, looting, totals, playerKill) {
   for (const [id, min, max] of def.drops) {
     addTotal(totals, id, randomInt(min, max) * lootMultiplier(looting));
   }
@@ -55,10 +57,10 @@ function rollUnit(typeId, def, meta, looting, totals) {
       addTotal(totals, entry[0], randomInt(entry[1], entry[2]) * lootMultiplier(looting));
     }
   }
-  if (def.gear && Math.random() < GEAR_DROP_CHANCE) {
+  if (playerKill && def.gear && Math.random() < GEAR_DROP_CHANCE + GEAR_LOOTING_BONUS * looting) {
     addTotal(totals, GEAR_DROP_ITEMS[randomInt(0, GEAR_DROP_ITEMS.length - 1)], 1);
   }
-  if (def.rare) {
+  if (playerKill && def.rare) {
     for (const rare of def.rare) {
       if (Math.random() < rare.chance + rare.bonus * looting) {
         addTotal(totals, rare.ids[randomInt(0, rare.ids.length - 1)], 1);
@@ -78,7 +80,7 @@ function rollExperience(def, meta) {
   return randomInt(def.xp[0], def.xp[1]);
 }
 
-function computeDrops(typeId, meta, units, looting, burning) {
+function computeDrops(typeId, meta, units, looting, burning, playerKill) {
   const base = LOOT[typeId];
   const totals = new Map();
   let xp = 0;
@@ -88,8 +90,8 @@ function computeDrops(typeId, meta, units, looting, burning) {
   const sampled = Math.min(units, SAMPLE_LIMIT);
   const scale = units / sampled;
   for (let i = 0; i < sampled; i++) {
-    xp += rollExperience(def, meta);
-    if (!isBabyAnimal) rollUnit(typeId, def, meta, looting, totals);
+    if (playerKill) xp += rollExperience(def, meta);
+    if (!isBabyAnimal) rollUnit(typeId, def, meta, looting, totals, playerKill);
   }
   if (scale !== 1) {
     xp = Math.round(xp * scale);
@@ -220,7 +222,7 @@ function handleDeath(event) {
 
   if (isPlayerKill && killer.isSneaking) {
     const looting = lootingLevel(killer);
-    const { totals, xp } = computeDrops(typeId, meta, count - 1, looting, isBurning(dead));
+    const { totals, xp } = computeDrops(typeId, meta, count - 1, looting, isBurning(dead), true);
     spawnDrops(dimension, location, totals, xp);
     killer.onScreenDisplay.setActionBar(
       "§6[MobStacker] §aCleared x" + count + " " + mobName(typeId, meta.isBaby) + " §7(Looting " + looting + ")"
@@ -228,8 +230,14 @@ function handleDeath(event) {
     return;
   }
 
+  const batch = isPlayerKill ? 1 : Math.min(GRINDER_BATCH_SIZE, count);
+  if (batch > 1) {
+    const extra = computeDrops(typeId, meta, batch - 1, 0, isBurning(dead), false);
+    spawnDrops(dimension, location, extra.totals, 0);
+  }
+  if (count - batch < 1) return;
   try {
-    respawnStack(dimension, typeId, location, count - 1, meta);
+    respawnStack(dimension, typeId, location, count - batch, meta);
   } catch (error) {
     return;
   }

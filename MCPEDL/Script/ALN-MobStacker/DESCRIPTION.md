@@ -29,12 +29,12 @@ Build a farm or grinder as usual. Mobs of the same kind that stand close togethe
 
 ### One-by-One Unpeeling
 - **What Happens**: Killing a stacked mob normally removes one mob from the stack. The stack stays in place with its count lowered by one, and the mob you killed drops its normal loot.
-- **How It Works**: Mobs that die to fall damage, lava, fire or a trident lose one from the stack each time, so a grinder keeps working on the same stack.
+- **How It Works**: A stack mob that dies to fall damage, lava, fire or anything else that is not a player takes up to 5 stack mobs with it at once, so a grinder clears a big stack faster. The extra mobs drop their normal items, without experience or rare drops.
 - **Good To Know**: A baby stack is replaced by a baby and an adult stack by an adult, so a stack never turns into the other kind.
 
 ### Sneak Kill
 - **What Happens**: Sneak while you kill a stacked mob and the whole remaining stack is cleared at once. The extra mobs drop their loot and experience together, and an action bar message shows the stack size, mob name and Looting level.
-- **Good To Know**: Sneak Kill drops the regular items of each mob type, plus the rare drops of Rabbits, Zombies, Zombified Piglins and Drowned at their vanilla chances. Zombie and Husk stacks also have a small chance of dropping a piece of armor for each extra mob. Cow, Pig, Sheep, Chicken, Rabbit and Mooshroom stacks that are burning when you kill them drop cooked meat. Big piles of drops appear over a few ticks, up to 256 item piles per kill.
+- **Good To Know**: Sneak Kill drops the regular items of each mob type, plus the rare drops of Rabbits, Zombies, Zombified Piglins and Drowned at their vanilla chances. Zombie and Husk stacks also have a small chance of dropping a piece of armor for each extra mob, a little higher with Looting. Cow, Pig, Sheep, Chicken, Rabbit and Mooshroom stacks that are burning when you kill them drop cooked meat. Big piles of drops appear over a few ticks, up to 256 item piles per kill.
 
 ### Looting Bonus
 - **What Happens**: Looting on the weapon in your main hand, levels 1 to 3, raises the drops of each extra mob in a Sneak Kill. Each extra mob multiplies its drops by a random 1 up to the Looting level plus 1.

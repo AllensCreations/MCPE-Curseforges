@@ -15,6 +15,15 @@
 
 ---
 
+## [v146] - 2026-11-20 - Faster Grinders
+
+### Added
+- **Grinder Batches**: A stack mob that dies to lava, fall damage, fire or anything else that is not a player now takes up to 5 stack mobs with it at once, dropping their normal items without experience or rare drops.
+
+### Improved & Balanced
+- **Idle Scanning**: Merging now checks less often after several quiet passes with nothing to merge, and checks normally again when a new mob appears.
+- **Armor Drop Chance**: Looting now raises the chance that a Zombie or Husk stack drops armor in a Sneak Kill.
+
 ## [v145] - 2026-11-19 - Circle Size Matches Degrees
 
 ### Changed
