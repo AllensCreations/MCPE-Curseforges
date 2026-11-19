@@ -1,6 +1,8 @@
-import { world, system, EntityComponentTypes, GameMode } from "@minecraft/server";
+import { world, system, EntityComponentTypes, EntityDamageCause, EquipmentSlot, GameMode } from "@minecraft/server";
 import { PLAYER_ID } from "./info.js";
 import { isOn, anyOn } from "./store.js";
+import { tune } from "./tuning.js";
+import { pickTarget } from "./bowaim.js";
 
 const APPLE = "minecraft:golden_apple";
 const LOW_HEALTH = 8;
@@ -41,6 +43,65 @@ function show(event) {
   } catch (e) {}
 }
 
+const KNOCK = 0.4;
+const BOWS = new Set(["minecraft:bow", "minecraft:crossbow"]);
+const dummies = new Map();
+
+function knock(event) {
+  const src = event.damageSource;
+  const by = src.damagingEntity;
+  const victim = event.hurtEntity;
+  if (src.cause !== EntityDamageCause.entityAttack || !by?.isValid || !victim.isValid) return;
+  let dx = victim.location.x - by.location.x;
+  let dz = victim.location.z - by.location.z;
+  const size = Math.hypot(dx, dz);
+  if (size < 0.001) return;
+  dx /= size;
+  dz /= size;
+  let push = 0;
+  if (by.typeId === PLAYER_ID && tune(by, "knockback") !== 100) push = ((tune(by, "knockback") - 100) / 100) * KNOCK;
+  if (victim.typeId === PLAYER_ID && isOn(victim, "noKnockback")) push = -KNOCK;
+  if (!push) return;
+  system.run(() => {
+    try {
+      if (victim.isValid) victim.applyKnockback({ x: dx * push, z: dz * push }, push * 0.5);
+    } catch (e) {}
+  });
+}
+
+function mark(p) {
+  const held = p.getComponent(EntityComponentTypes.Equippable)?.getEquipmentSlot(EquipmentSlot.Mainhand)?.getItem()?.typeId;
+  if (!BOWS.has(held)) return;
+  const target = pickTarget(p);
+  if (!target) return;
+  const head = target.getHeadLocation();
+  target.dimension.spawnParticle("minecraft:villager_angry", { x: head.x, y: head.y + 0.8, z: head.z });
+  const name = target.typeId === PLAYER_ID ? target.name : target.typeId.replace("minecraft:", "");
+  p.onScreenDisplay.setActionBar(`§cLocked on: ${name}`);
+}
+
+export function spawnDummy(p) {
+  try {
+    const old = dummies.get(p.id);
+    if (old?.isValid) old.remove();
+    const view = p.getViewDirection();
+    const size = Math.hypot(view.x, view.z) || 1;
+    const at = { x: p.location.x + (view.x / size) * 3, y: p.location.y, z: p.location.z + (view.z / size) * 3 };
+    const dummy = p.dimension.spawnEntity("minecraft:zombie", at);
+    dummy.nameTag = "Practice Dummy";
+    const quiet = { showParticles: false };
+    dummy.addEffect("slowness", 2400, { amplifier: 255, ...quiet });
+    dummy.addEffect("weakness", 2400, { amplifier: 255, ...quiet });
+    dummy.addEffect("regeneration", 2400, { amplifier: 4, ...quiet });
+    dummy.addEffect("fire_resistance", 2400, quiet);
+    dummies.set(p.id, dummy);
+    system.runTimeout(() => dummy.isValid && dummy.remove(), 2400);
+    return true;
+  } catch (e) {
+    return false;
+  }
+}
+
 export function initExtras() {
   system.runInterval(() => {
     if (!anyOn("autoGapple")) return;
@@ -52,5 +113,15 @@ export function initExtras() {
     }
   }, 10);
   world.afterEvents.entityHurt.subscribe(show);
+  world.afterEvents.entityHurt.subscribe(knock);
+  system.runInterval(() => {
+    if (!anyOn("targetHighlight")) return;
+    for (const p of world.getAllPlayers()) {
+      if (!p.isValid || !isOn(p, "targetHighlight") || !isOn(p, "bowAimbot")) continue;
+      try {
+        mark(p);
+      } catch (e) {}
+    }
+  }, 5);
   world.afterEvents.playerLeave.subscribe(({ playerId }) => last.delete(playerId));
 }

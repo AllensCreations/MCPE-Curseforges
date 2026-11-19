@@ -1,13 +1,13 @@
-# Combat Helper — A cursor-shaped item that opens a menu of 10 PVP toggles
+# Combat Helper — A cursor-shaped item that opens a menu of 13 PVP toggles
 
 **By ALNStudios**
 
 [![Minecraft Bedrock](https://img.shields.io/badge/Minecraft%20Bedrock-Stable%20Release-brightgreen?style=flat-square&logo=minecraft)](https://github.com/AllensCreations/MCPE-Curseforges)
 [![Format](https://img.shields.io/badge/Format-.MCPACK%20%7C%20.MCADDON%20%7C%20.MCWORLD-blue?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges)
 
-**Use the Combat Helper item to switch 10 PVP toggles on or off per player, including Auto Totem and Bow Aimbot, and set friends and slider values.**
+**Use the Combat Helper item to switch 13 PVP toggles on or off per player, including Auto Totem and Bow Aimbot, and set friends and slider values.**
 
-> The Combat Helper is a cursor-shaped item that opens a menu with 10 toggles, a friends list and tuning sliders, each saved separately for every player. It suits friends who practice PVP in a world they own and want to pick their own settings.
+> The Combat Helper is a cursor-shaped item that opens a menu with 13 toggles, a friends list and tuning sliders, each saved separately for every player. It suits friends who practice PVP in a world they own and want to pick their own settings.
 
 ## Overview
 
@@ -21,7 +21,7 @@ You get a Combat Helper, use it, and pick the toggles you want in the ALNStudios
 - **Good To Know**: With Give Starter Item on, a full inventory on first join means the Combat Helper is offered again on your next join.
 
 ### Combat Toggles Menu
-- **What Happens**: The main menu has three buttons: Combat Menu, About and Exit. Combat Menu opens a screen with Combat Toggles, Friends and Tuning. Combat Toggles lists 10 switches with a one-line explanation under each, and Apply saves them and closes the menu.
+- **What Happens**: The main menu has three buttons: Combat Menu, About and Exit. Combat Menu opens a screen with Combat Toggles, Friends, Tuning and Practice Dummy. Combat Toggles lists 13 switches with a one-line explanation under each, and Apply saves them and closes the menu.
 - **How It Works**: Flip the switches you want, then tap Apply. Closing the screen without Apply brings you back one screen.
 - **Good To Know**: Toggles are saved per player, so each person in a world picks their own.
 
@@ -73,7 +73,27 @@ You get a Combat Helper, use it, and pick the toggles you want in the ALNStudios
 ### Never Die
 - **What Happens**: Any hit that would kill you leaves you at half a heart instead, and while you are at half a heart further damage is blocked, so you never die.
 - **How It Works**: Switch Never Die on. It works against explosions such as creepers, mobs, arrows, fire and falls.
-- **Good To Know**: It cannot stop the void or the kill command. It is used before the totem toggles, so no totem is spent while Never Die is on.
+- **Good To Know**: It cannot stop the void or the kill command. It is used before the totem toggles, so no totem is spent while Never Die is on. When it saves you from a deadly hit you see the totem particles and hear the totem sound.
+
+### Keep Gear On Death
+- **What Happens**: When you die, your items and armor are set aside and given back when you respawn, so nothing drops, and only you keep your gear.
+- **How It Works**: Switch Keep Gear On Death on. After you respawn, your inventory, armor and off hand are back as they were.
+- **Good To Know**: The items are held in memory, so they are lost if the world closes before you respawn. A totem that saves you does not trigger it.
+
+### No Knockback
+- **What Happens**: Melee hits no longer push you back, or push you much less.
+- **How It Works**: Switch it on and take a hit. The script pushes you the other way by the amount a hit normally pushes you.
+- **Good To Know**: It cancels the push by about the usual amount, so a strong knockback enchantment can still move you a little.
+
+### Target Highlight
+- **What Happens**: While you hold a bow or crossbow, angry particles appear above the target Bow Aimbot will pick, and the action bar names it.
+- **How It Works**: Switch on both Bow Aimbot and Target Highlight, hold a bow and aim near an enemy.
+- **Good To Know**: It does nothing when Bow Aimbot is off or when no target is near your crosshair.
+
+### Practice Dummy
+- **What Happens**: A zombie called Practice Dummy appears 3 blocks in front of you. It cannot move or hurt you and it heals fast, so you can test Aura Mode, Always Critical and Damage Display.
+- **How It Works**: Open the Combat Menu and tap Practice Dummy.
+- **Good To Know**: It disappears after 2 minutes, and spawning a new one removes your old one.
 
 ### Friends
 - **What Happens**: You pick online players as friends, and Aura Mode and Bow Aimbot skip them.
@@ -81,7 +101,7 @@ You get a Combat Helper, use it, and pick the toggles you want in the ALNStudios
 - **Good To Know**: Friends stay on your list when they go offline. The list is yours alone, so a friend is only safe from your toggles, not the other way round.
 
 ### Tuning
-- **What Happens**: Six sliders change how strong the toggles are: Aura range (2 to 6 blocks), Aura damage (1 to 10), Aura targets (1 to 5), Bow Aimbot range (16 to 96 blocks), Bow Aimbot angle (5 to 45 degrees) and Always Critical damage (110 to 300 percent).
+- **What Happens**: Seven sliders and two choices change how the toggles behave: Aura range (2 to 6 blocks), Aura damage (1 to 10), Aura targets (1 to 5), Bow Aimbot range (16 to 96 blocks), Bow Aimbot angle (5 to 45 degrees), Always Critical damage (110 to 300 percent), Knockback you deal (0 to 200 percent), Aura hits (mobs and players, mobs only or players only) and whether Aura turns you to face the target.
 - **How It Works**: Open the Combat Menu, tap Tuning, drag the sliders and tap Apply. A reset switch at the bottom puts everything back to the defaults.
 - **Good To Know**: The starting values match the old fixed numbers, so nothing changes until you move a slider.
 
@@ -138,5 +158,5 @@ You get a Combat Helper, use it, and pick the toggles you want in the ALNStudios
 
 ## Search & Discovery Keywords
 
-Minecraft Bedrock add-on, Combat Helper Bedrock mod, Minecraft PE PVP toggles, Auto Totem, Infinite Totem, Aura Mode, Always Critical, Bow Aimbot, Water Clutch, Never Die, Auto Golden Apple, Damage Display, friends list, Minecraft PE mouse pointer item, MCPEDL add-on, CurseForge Bedrock, ALNStudios.
+Minecraft Bedrock add-on, Combat Helper Bedrock mod, Minecraft PE PVP toggles, Auto Totem, Infinite Totem, Aura Mode, Always Critical, Bow Aimbot, Water Clutch, Never Die, Keep Gear, Practice Dummy, Auto Golden Apple, Damage Display, friends list, Minecraft PE mouse pointer item, MCPEDL add-on, CurseForge Bedrock, ALNStudios.
 

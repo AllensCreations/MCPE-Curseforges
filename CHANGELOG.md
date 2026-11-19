@@ -11,6 +11,20 @@
 
 ---
 
+## [v131] - 2026-11-19 - Gear and Dummy
+
+### Added
+- **Keep Gear On Death**: Your items, armor and off hand are set aside when you die and given back when you respawn, for you only and without changing the world rules.
+- **No Knockback**: Cancels the push you get from melee hits.
+- **Target Highlight**: Shows particles above the target Bow Aimbot picks and names it on the action bar while you hold a bow.
+- **Practice Dummy**: A new Combat Menu button that spawns a harmless zombie 3 blocks in front of you for testing, for 2 minutes.
+- **Knockback Slider**: A Tuning slider that makes the knockback you deal weaker or stronger, from 0 to 200 percent.
+- **Aura Options**: Tuning choices for Aura Mode to hit mobs and players, mobs only or players only, and to turn you to face the target with a hit sound.
+- **Totem Pop Effect**: Never Die now shows the totem particles and plays the totem sound when it saves you from a deadly hit.
+
+### Changed
+- **Combat Toggles**: The toggles screen now has 13 switches, and the Combat Menu has a Practice Dummy button before Back.
+
 ## [v130] - 2026-11-19 - Never Die
 
 ### Added

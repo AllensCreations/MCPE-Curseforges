@@ -19,7 +19,7 @@ function candidates(owner) {
   return [...mobs, ...players].filter((e) => e.id !== owner.id && !isFriend(owner, e));
 }
 
-function pickTarget(owner) {
+export function pickTarget(owner) {
   const eye = owner.getHeadLocation();
   const view = owner.getViewDirection();
   let best;

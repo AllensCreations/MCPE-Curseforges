@@ -6,6 +6,7 @@ import { initCombat } from "./lib/combat.js";
 import { initLoops } from "./lib/loops.js";
 import { initBowAim } from "./lib/bowaim.js";
 import { initExtras } from "./lib/extras.js";
+import { initGear } from "./lib/gear.js";
 
 const GIVEN_KEY = "aln_pointer_given";
 const GIFT_MARKER = "allenscreations:aln_gift_on";
@@ -28,3 +29,4 @@ initCombat();
 initLoops();
 initBowAim();
 initExtras();
+initGear();

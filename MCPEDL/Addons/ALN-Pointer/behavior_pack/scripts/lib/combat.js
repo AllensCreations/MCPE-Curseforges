@@ -2,10 +2,13 @@ import { world, system, EntityComponentTypes, EntityDamageCause, EquipmentSlot, 
 import { PLAYER_ID } from "./info.js";
 import { isOn } from "./store.js";
 import { tune } from "./tuning.js";
+import { saveGear, restoreGear, hasStash } from "./gear.js";
 
 const TOTEM = "minecraft:totem_of_undying";
 const SHIELD = "minecraft:shield";
 const SPARKS = "minecraft:critical_hit_emitter";
+const POP = "minecraft:totem_particle";
+const popped = new Map();
 
 const NO_TOTEM = new Set([EntityDamageCause.void, EntityDamageCause.selfDestruct, EntityDamageCause.override]);
 const BLOCKED = new Set([EntityDamageCause.entityAttack, EntityDamageCause.projectile]);
@@ -52,6 +55,16 @@ function replayOptions(src) {
   return proj ? { damagingEntity: by, damagingProjectile: proj } : { cause: src.cause, damagingEntity: by };
 }
 
+function pop(p) {
+  if (system.currentTick - (popped.get(p.id) ?? -40) < 40) return;
+  popped.set(p.id, system.currentTick);
+  system.run(() => {
+    if (!p.isValid) return;
+    p.dimension.spawnParticle(POP, p.getHeadLocation());
+    p.playSound("random.totem");
+  });
+}
+
 function onHurt(event) {
   const victim = event.hurtEntity;
   const src = event.damageSource;
@@ -69,7 +82,29 @@ function onHurt(event) {
   if (isOn(victim, "neverDie") && !NO_TOTEM.has(src.cause)) {
     const left = victim.getComponent(EntityComponentTypes.Health)?.currentValue ?? 0;
     if (left > 0 && event.damage >= left - 1) {
+      if (event.damage >= left) pop(victim);
       event.damage = Math.max(0, left - 1);
+      return;
+    }
+  }
+  if (isOn(victim, "keepGear") && !hasStash(victim)) {
+    const life = victim.getComponent(EntityComponentTypes.Health);
+    const totemSaves =
+      !NO_TOTEM.has(src.cause) &&
+      (hands(victim).includes(TOTEM) || isOn(victim, "infiniteTotem") || (isOn(victim, "autoTotem") && totemIndex(victim) >= 0));
+    if (life && !totemSaves && life.currentValue - event.damage <= 0) {
+      const dealt = event.damage;
+      event.cancel = true;
+      system.run(() => {
+        if (!victim.isValid) return;
+        saveGear(victim);
+        victim.applyDamage(dealt, replayOptions(src));
+        system.runTimeout(() => {
+          try {
+            if (victim.isValid && victim.getComponent(EntityComponentTypes.Health).currentValue > 0) restoreGear(victim);
+          } catch (e) {}
+        }, 3);
+      });
       return;
     }
   }

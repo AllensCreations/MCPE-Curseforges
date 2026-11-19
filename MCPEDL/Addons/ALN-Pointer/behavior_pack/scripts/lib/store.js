@@ -11,6 +11,9 @@ export const FEATURES = [
   { id: "autoGapple", name: "Auto Golden Apple", info: "Eats a golden apple for you when your health is 4 hearts or less." },
   { id: "damageDisplay", name: "Damage Display", info: "Shows the damage of each hit you land on the action bar." },
   { id: "neverDie", name: "Never Die", info: "Keeps you at half a heart instead of dying, except in the void or from the kill command." },
+  { id: "keepGear", name: "Keep Gear On Death", info: "Keeps your items and armor when you die, for you only." },
+  { id: "noKnockback", name: "No Knockback", info: "Cancels the push you get from melee hits." },
+  { id: "targetHighlight", name: "Target Highlight", info: "Marks who Bow Aimbot picks while you hold a bow." },
 ];
 
 const KEY = "aln_pointer_toggles";

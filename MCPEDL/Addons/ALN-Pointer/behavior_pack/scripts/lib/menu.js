@@ -4,6 +4,7 @@ import { PACK_NAME, PACK_VERSION } from "./info.js";
 import { FEATURES, isOn, applyValues, activeNames } from "./store.js";
 import { others, isFriend, applyFriends, friendNames } from "./friends.js";
 import { TUNING, tune, applyTuning, resetTuning } from "./tuning.js";
+import { spawnDummy } from "./extras.js";
 
 const ABOUT_ICON = "textures/items/name_tag";
 const EXIT_ICON = "textures/items/door_wood";
@@ -111,10 +112,12 @@ async function openFriends(player) {
 async function openTuning(player) {
   let form = new ModalFormData().title(bold("Tuning"));
   form = opt(form, "header", bold(PACK_NAME));
-  form = opt(form, "label", bold("Drag the sliders. Every player keeps their own values."));
+  form = opt(form, "label", bold("Drag the sliders and pick the options. Every player keeps their own values."));
   form = opt(form, "divider");
   for (const t of TUNING) {
-    form = form.slider(bold(t.name), t.min, t.max, { defaultValue: tune(player, t.id), valueStep: t.step });
+    form = t.choices
+      ? form.dropdown(bold(t.name), t.choices.map((c) => bold(c)), { defaultValueIndex: tune(player, t.id) })
+      : form.slider(bold(t.name), t.min, t.max, { defaultValue: tune(player, t.id), valueStep: t.step });
   }
   form = opt(form, "divider");
   form = form.toggle(bold("Reset everything to the defaults"), { defaultValue: false });
@@ -149,11 +152,17 @@ async function openHub(player) {
     .button(bold("Combat Toggles"))
     .button(bold("Friends"))
     .button(bold("Tuning"))
+    .button(bold("Practice Dummy"))
     .button(bold("Back"), EXIT_ICON);
   const res = await present(form, player);
   if (!res) return;
-  if (res.canceled || res.selection === 3) {
+  if (res.canceled || res.selection === 4) {
     openMain(player);
+    return;
+  }
+  if (res.selection === 3) {
+    const ok = spawnDummy(player);
+    tell(player, ok ? "§a" : "§c", ok ? "Practice Dummy spawned. It stays for 2 minutes." : "The Practice Dummy could not spawn here.");
     return;
   }
   [openToggles, openFriends, openTuning][res.selection](player);

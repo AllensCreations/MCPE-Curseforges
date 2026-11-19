@@ -9,6 +9,9 @@ export const TUNING = [
   { id: "aimRange", name: "Bow Aimbot range (blocks)", min: 16, max: 96, step: 8, def: 48 },
   { id: "aimCone", name: "Bow Aimbot angle (degrees)", min: 5, max: 45, step: 5, def: 25 },
   { id: "critPercent", name: "Always Critical damage (percent)", min: 110, max: 300, step: 10, def: 150 },
+  { id: "knockback", name: "Knockback you deal (percent)", min: 0, max: 200, step: 25, def: 100 },
+  { id: "auraTarget", name: "Aura hits", min: 0, max: 2, step: 1, def: 0, choices: ["Mobs and players", "Mobs only", "Players only"] },
+  { id: "auraFace", name: "Aura turns you to face the target", min: 0, max: 1, step: 1, def: 0, choices: ["No", "Yes"] },
 ];
 
 export function tune(player, id) {
