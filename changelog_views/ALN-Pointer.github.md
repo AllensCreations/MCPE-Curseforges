@@ -1,8 +1,19 @@
 # Changelog — ALN Pointer
 
-## [v5] - 2026-11-19 - Friends and Tuning
+## [v6] - 2026-11-19 - Never Die
 
 ### Added
+- **Never Die**: A new toggle that keeps you at half a heart instead of dying, even from a one-hit explosion such as a creeper. The void and the kill command still work. The combat toggles screen now has 10 switches.
+
+### Fixed
+- **Totem After A Pop**: Auto Totem and Infinite Totem no longer ignore deadly hits that land within a quarter second after a totem pops, such as the second damage of an explosion.
+
+<details>
+<summary><b>5.0.x</b> (1 release)</summary>
+
+### [v5] - 2026-11-19 - Friends and Tuning
+
+#### Added
 - **Friends**: Pick online players as friends in the new Combat Menu. Aura Mode and Bow Aimbot skip your friends, and the list is kept when they go offline.
 - **Tuning**: Six sliders change Aura range, Aura damage, Aura targets, Bow Aimbot range, Bow Aimbot angle and Always Critical damage. The starting values match the old fixed numbers, and a reset switch restores them.
 - **Auto Golden Apple**: Eats a golden apple from your inventory for you when your health is 4 hearts or less, with a 20 second wait between apples.
@@ -10,9 +21,11 @@
 - **Quick Toggle**: Sneak while using the Combat Helper to switch all your toggles off, and do it again to bring them back.
 - **Starter Item Setting**: A pack choice between No Starter Item (default) and Give Starter Item, which gives each player a Combat Helper the first time they join.
 
-### Changed
+#### Changed
 - **Combat Menu**: The first main menu button is now Combat Menu, which opens Combat Toggles, Friends and Tuning. The combat toggles screen now has 9 switches.
 - **Starter Item**: The Combat Helper is no longer given automatically on first join. Turn on Give Starter Item in the pack settings to get the old behavior.
+
+</details>
 
 <details>
 <summary><b>4.0.x</b> (1 release)</summary>
