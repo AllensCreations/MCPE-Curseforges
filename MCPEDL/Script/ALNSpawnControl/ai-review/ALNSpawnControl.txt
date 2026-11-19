@@ -40,98 +40,6 @@
 ---
 
 
-
----
-
-
-
----
-
-
-
----
-
-
-
----
-
-
-
----
-
-
-
----
-
-
-
----
-
-
-
----
-
-
-
----
-
-
-
----
-
-
-
----
-
-
-
----
-
-
-
----
-
-
-
----
-
-
-
----
-
-
-
----
-
-
-
----
-
-
-
----
-
-
-
----
-
-
-
----
-
-
-
----
-
-
-
----
-
-
-
----
-
-
 <!-- GRAPH-CONTEXT:START -->
 ## Graph Context
 
@@ -155,7 +63,7 @@ Export: two plain .txt files. `<name>.txt` = the pack (index, these instructions
 - NEW pack: read SKILL.md first, then follow PACK_GENERATOR_INSTRUCTIONS.md Part 4 and deliver ONE pack `.sh` from `scripts/make_pack_script.py` (the project travels inside it as base64). NEVER deliver separate zip, pack, json, js or b64 files.
 - INSTRUCTIONS.md wins over PACK_GENERATOR_INSTRUCTIONS.md on any conflict. These instructions win over both on the reply format and the Termux script.
 - Update: keep pack and module UUIDs unchanged.
-- Vanilla reference: `reference/bedrock-samples/bedrock-samples.min.json.gz` (repo, gzip file of about 8 MB, NOT in this export; unzip it first) holds every vanilla Mojang behavior/resource pack JSON as one object once unzipped (`.behavior_pack.entities.zombie`, `.behavior_pack.recipes`, `.resource_pack.entity` ...). Never guess a vanilla component, event, loot or recipe shape: list the exact section under File Needed, then copy the shape from it.
+- Vanilla reference: Use **https://bedrock.dev/** as the primary API source (community mirror of official Mojang add-on docs, versioned). Navigate to the target version > Entities / Items / Blocks / Recipes / Biomes etc. Never guess a vanilla component, event, loot or recipe shape: always look it up on bedrock.dev first. Offline fallback: `reference/bedrock-samples/bedrock-samples.min.json.gz` (download: https://github.com/AllensCreations/MCPE-Curseforges/raw/main/reference/bedrock-samples/bedrock-samples.min.json.gz).
 - UI work (menus, forms, HUD, screens): follow INSTRUCTIONS.md 1.13 and apply the ALN UI Redesign skin from `assets/aln-ui-redesign/` (README.txt, design.json, font/README.txt in the tools txt). Textures are not exported; if the pack's resource_pack is missing, ask for it. Never claim anything was tested in Minecraft unless it was.
 - Update: deliver the repo change as the Termux script below. New pack: the pack `.sh` above. Never a separate payload or base64 file.
 
@@ -275,6 +183,9 @@ Maps/scripts/minigames: same landing page. Use real package format; .mcworld = t
 - NO links, URLs, badges, function/event names, unverified benefits. No boilerplate after title.
 - Insert new entry directly under `---`, above previous release. NEVER edit/delete older entries.
 
+### Item and Block Components
+- When defining `menu_category` for custom items or blocks, `group` MUST start with a namespace (e.g. `minecraft:itemGroup.name.<group>` or `<namespace>:itemGroup.name.<group>`). Unnamespaced group strings like `itemGroup.name.helmet` fail Bedrock parsing (`Failed to parse field ' -> description -> menu_category -> group: string must be prefixed with a namespace (eg. namespace:value)'`). If no vanilla group applies, omit `group` and provide only `category`.
+
 ## Reply Format (STRICT)
 ```
 [SYSTEM_CONFIG]
@@ -306,7 +217,7 @@ git config --global credential.helper store
 ## FILE: changelog_views/ALNSpawnControl.curseforge.html (2 lines, 767 bytes)
 
 ```
-<h2>v2 - 2026-11-17</h2><h3>Added</h3><ul><li><strong>Spawn Control Book</strong>: Right-click a Book or Writable Book renamed to &quot;Spawn Control&quot; to open the interactive control panel.</li><li><strong>Categorized Mob Switches</strong>: Toggle individual spawn rules across 58 mobs in 4 groups: Overworld Hostiles, Passive &amp; Neutral Mobs, Nether &amp; End Mobs, and Bosses &amp; Rare Mobs.</li><li><strong>Quick Presets</strong>: Apply one-tap presets to enable all mobs, disable all hostiles, disable all passives, or disable all mobs.</li><li><strong>Global Filter Settings</strong>: Configure whether rules affect natural spawns only or all spawn causes including Spawn Eggs, enable an Admin Tag Lock, and trigger an immediate entity purge.</li></ul>
+<h2>v2 - 2026-11-17</h2><h3>Added</h3><ul><li><strong>Spawn Manager Book</strong>: Right-click a Book or Writable Book renamed to &quot;Spawn Manager&quot; to open the interactive control panel.</li><li><strong>Categorized Mob Switches</strong>: Toggle individual spawn rules across 58 mobs in 4 groups: Overworld Hostiles, Passive &amp; Neutral Mobs, Nether &amp; End Mobs, and Bosses &amp; Rare Mobs.</li><li><strong>Quick Presets</strong>: Apply one-tap presets to enable all mobs, disable all hostiles, disable all passives, or disable all mobs.</li><li><strong>Global Filter Settings</strong>: Configure whether rules affect natural spawns only or all spawn causes including Spawn Eggs, enable an Admin Tag Lock, and trigger an immediate entity purge.</li></ul>
 ```
 
 ## FILE: changelog_views/ALNSpawnControl.github.md (10 lines, 687 bytes)
@@ -317,7 +228,7 @@ git config --global credential.helper store
 ## [v2] - 2026-11-17
 
 ### Added
-- **Spawn Control Book**: Right-click a Book or Writable Book renamed to "Spawn Control" to open the interactive control panel.
+- **Spawn Manager Book**: Right-click a Book or Writable Book renamed to "Spawn Manager" to open the interactive control panel.
 - **Categorized Mob Switches**: Toggle individual spawn rules across 58 mobs in 4 groups: Overworld Hostiles, Passive & Neutral Mobs, Nether & End Mobs, and Bosses & Rare Mobs.
 - **Quick Presets**: Apply one-tap presets to enable all mobs, disable all hostiles, disable all passives, or disable all mobs.
 - **Global Filter Settings**: Configure whether rules affect natural spawns only or all spawn causes including Spawn Eggs, enable an Admin Tag Lock, and trigger an immediate entity purge.
@@ -941,7 +852,7 @@ function purgeDisabledEntities(player) {
 
 ### Added
 
-- **Spawn Control Book**: Right-click a Book or Writable Book renamed to "Spawn Control" to open the interactive control panel.
+- **Spawn Manager Book**: Right-click a Book or Writable Book renamed to "Spawn Manager" to open the interactive control panel.
 - **Categorized Mob Switches**: Toggle individual spawn rules across 58 mobs in 4 groups: Overworld Hostiles, Passive & Neutral Mobs, Nether & End Mobs, and Bosses & Rare Mobs.
 - **Quick Presets**: Apply one-tap presets to enable all mobs, disable all hostiles, disable all passives, or disable all mobs.
 - **Global Filter Settings**: Configure whether rules affect natural spawns only or all spawn causes including Spawn Eggs, enable an Admin Tag Lock, and trigger an immediate entity purge.
@@ -1087,7 +998,7 @@ Standalone Minecraft Bedrock Script packs by ALNStudios. Script projects use the
 | Target HUD Entity Inspector | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Script/Target-HUD-Entity-Inspector/) | [MCPACK](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Target-HUD-Entity-Inspector/TargetHUD%20V2.mcpack) |
 | Waypoint Helper | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Script/Waypoint-Helper/) | [MCPACK](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Waypoint-Helper/WaypointHelper%20V2.mcaddon) |
 | Always Critical | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Script/Always-Critical/) | [MCPACK](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Always-Critical/AlwaysCritical%20V2.mcpack) |
-| Universal Clutch | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Script/Universal-Clutch) | [MCPACK](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Universal-Clutch/UniversalClutch%20V2.mcpack) |
+| Universal Clutch | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Script/Universal-Clutch) | [MCPACK](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Universal-Clutch/UniversalClutch%20V3.mcpack) |
 | Living SMP Chat | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Script/Living-SMP-Chat/) | [MCPACK](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Living-SMP-Chat/LivingSMPChat%20V2.mcpack) |
 | Gameplay Optimizer | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Script/Gameplay-Optimizer/) | [MCPACK](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Gameplay-Optimizer/GameplayOptimizer%20V2.mcpack) |
 | ALNMobStacker | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Script/ALN-MobStacker/) | [MCPACK](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/ALN-MobStacker/ALNMobStacker%20V2.mcpack) |
