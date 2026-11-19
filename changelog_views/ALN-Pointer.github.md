@@ -1,9 +1,31 @@
 # Changelog — ALN Pointer
 
-## [v11] - 2026-11-19 - Parry Text Removed
+## [v13] - 2026-11-19 - Crosshair Circle On Screen
 
 ### Changed
+- **Aim Circle**: The circle is now drawn on the screen at your crosshair instead of in the world, so it stays exactly on the crosshair and does not lag when you turn. It uses the same 10 circle pictures, aln_circle_4.png to aln_circle_13.png, chosen by the Bow Aimbot angle. This adds a resource pack file, ui/hud_screen.json, and it uses the screen title while you hold a bow with Target Highlight on.
+
+<details>
+<summary><b>12.0.x</b> (1 release)</summary>
+
+### [v12] - 2026-11-19 - Aim Circle Pictures
+
+#### Changed
+- **Aim Circle**: The circle around your crosshair is now a picture instead of flame dots. There are 10 circle pictures, 4 by 4 up to 13 by 13 pixels, one for each Bow Aimbot angle from 5 to 50 degrees. They are the files aln_circle_4.png to aln_circle_13.png in resource_pack/textures/particle.
+- **Smooth Following**: The target picture and the aim circle now refresh every tick instead of 4 times a second, so they follow the target and your crosshair without flickering.
+- **Bow Aimbot Angle**: The angle slider in Tuning now goes up to 50 degrees.
+
+</details>
+
+<details>
+<summary><b>11.0.x</b> (1 release)</summary>
+
+### [v11] - 2026-11-19 - Parry Text Removed
+
+#### Changed
 - **Parry Effect**: Blocking a hit with Shield Always Active no longer shows "Parried!" on the action bar. The sparks, the shield sound and the push on a melee attacker stay.
+
+</details>
 
 <details>
 <summary><b>10.0.x</b> (1 release)</summary>

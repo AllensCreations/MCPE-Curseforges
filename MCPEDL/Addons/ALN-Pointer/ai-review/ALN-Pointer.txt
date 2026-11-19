@@ -4,8 +4,8 @@
 
 - **Export request:** `MCPEDL/Addons/ALN-Pointer`
 - **Destination:** `MCPEDL/Addons/ALN-Pointer`
-- **CURRENT VERSION: v11 / NEXT UPDATE: v12**  (`MCPEDL/Addons/ALN-Pointer/CHANGELOG.md`)
-- **Text files:** 36
+- **CURRENT VERSION: v13 / NEXT UPDATE: v14**  (`MCPEDL/Addons/ALN-Pointer/CHANGELOG.md`)
+- **Text files:** 47
 - **Skipped binary:** 6
 - **Paths not found:** 0
 
@@ -41,9 +41,20 @@
 - `MCPEDL/Addons/ALN-Pointer/README.md`
 - `MCPEDL/Addons/ALN-Pointer/resource_pack/LOCK`
 - `MCPEDL/Addons/ALN-Pointer/resource_pack/manifest.json`
+- `MCPEDL/Addons/ALN-Pointer/resource_pack/particles/aln_circle_10.json`
+- `MCPEDL/Addons/ALN-Pointer/resource_pack/particles/aln_circle_11.json`
+- `MCPEDL/Addons/ALN-Pointer/resource_pack/particles/aln_circle_12.json`
+- `MCPEDL/Addons/ALN-Pointer/resource_pack/particles/aln_circle_13.json`
+- `MCPEDL/Addons/ALN-Pointer/resource_pack/particles/aln_circle_4.json`
+- `MCPEDL/Addons/ALN-Pointer/resource_pack/particles/aln_circle_5.json`
+- `MCPEDL/Addons/ALN-Pointer/resource_pack/particles/aln_circle_6.json`
+- `MCPEDL/Addons/ALN-Pointer/resource_pack/particles/aln_circle_7.json`
+- `MCPEDL/Addons/ALN-Pointer/resource_pack/particles/aln_circle_8.json`
+- `MCPEDL/Addons/ALN-Pointer/resource_pack/particles/aln_circle_9.json`
 - `MCPEDL/Addons/ALN-Pointer/resource_pack/particles/aln_target.json`
 - `MCPEDL/Addons/ALN-Pointer/resource_pack/textures/item_texture.json`
 - `MCPEDL/Addons/ALN-Pointer/resource_pack/textures/particle/.gitkeep`
+- `MCPEDL/Addons/ALN-Pointer/resource_pack/ui/hud_screen.json`
 - `MCPEDL/Addons/ALN-Pointer/texture_sources/aln_pointer.json`
 - `MCPEDL/Addons/README.md`
 - `Package/ALN-Pointer.listing.md`
@@ -234,10 +245,12 @@ git config --global credential.helper store
 
 ## File Contents
 
-## FILE: changelog_views/ALN-Pointer.curseforge.html (11 lines, 7609 bytes)
+## FILE: changelog_views/ALN-Pointer.curseforge.html (13 lines, 8903 bytes)
 
 ```
-<h2>v11 - 2026-11-19 - Parry Text Removed</h2><h3>Changed</h3><ul><li><strong>Parry Effect</strong>: Blocking a hit with Shield Always Active no longer shows &quot;Parried!&quot; on the action bar. The sparks, the shield sound and the push on a melee attacker stay.</li></ul>
+<h2>v13 - 2026-11-19 - Crosshair Circle On Screen</h2><h3>Changed</h3><ul><li><strong>Aim Circle</strong>: The circle is now drawn on the screen at your crosshair instead of in the world, so it stays exactly on the crosshair and does not lag when you turn. It uses the same 10 circle pictures, aln_circle_4.png to aln_circle_13.png, chosen by the Bow Aimbot angle. This adds a resource pack file, ui/hud_screen.json, and it uses the screen title while you hold a bow with Target Highlight on.</li></ul>
+<h2>12.0.x (1 release)</h2><div class="spoiler"><h3>v12 - 2026-11-19 - Aim Circle Pictures</h3><h4>Changed</h4><ul><li><strong>Aim Circle</strong>: The circle around your crosshair is now a picture instead of flame dots. There are 10 circle pictures, 4 by 4 up to 13 by 13 pixels, one for each Bow Aimbot angle from 5 to 50 degrees. They are the files aln_circle_4.png to aln_circle_13.png in resource_pack/textures/particle.</li><li><strong>Smooth Following</strong>: The target picture and the aim circle now refresh every tick instead of 4 times a second, so they follow the target and your crosshair without flickering.</li><li><strong>Bow Aimbot Angle</strong>: The angle slider in Tuning now goes up to 50 degrees.</li></ul></div>
+<h2>11.0.x (1 release)</h2><div class="spoiler"><h3>v11 - 2026-11-19 - Parry Text Removed</h3><h4>Changed</h4><ul><li><strong>Parry Effect</strong>: Blocking a hit with Shield Always Active no longer shows &quot;Parried!&quot; on the action bar. The sparks, the shield sound and the push on a melee attacker stay.</li></ul></div>
 <h2>10.0.x (1 release)</h2><div class="spoiler"><h3>v10 - 2026-11-19 - Shield Parry Effect</h3><h4>Added</h4><ul><li><strong>Parry Effect</strong>: Every hit that Shield Always Active blocks now shows sparks in front of you, plays the shield sound, shows &quot;Parried!&quot; on the action bar and pushes a melee attacker back.</li></ul></div>
 <h2>9.0.x (1 release)</h2><div class="spoiler"><h3>v9 - 2026-11-19 - Target Image and Line Of Sight</h3><h4>Added</h4><ul><li><strong>Target Picture</strong>: Target Highlight now shows a small picture above the target Bow Aimbot picks, only visible to you. The picture is the file resource_pack/textures/particle/aln_target.png, a 16 by 16 image.</li><li><strong>Aim Circle</strong>: Target Highlight also draws a circle of flame dots around your crosshair that shows the Bow Aimbot aim range. A new Tuning choice switches it on or off.</li></ul><h4>Changed</h4><ul><li><strong>Line Of Sight</strong>: Bow Aimbot now ignores mobs and players that are hidden behind blocks, and picks the one closest to your crosshair among those you can see.</li></ul></div>
 <h2>8.0.x (1 release)</h2><div class="spoiler"><h3>v8 - 2026-11-19 - Water Clutch Cleanup</h3><h4>Fixed</h4><ul><li><strong>Water Cleanup</strong>: Always Water Clutch now removes its water as soon as you land, including the water that spread sideways from it, instead of leaving it behind. It still removes the water after about 2 seconds at most.</li></ul></div>
@@ -249,15 +262,37 @@ git config --global credential.helper store
 <h2>2.0.x (1 release)</h2><div class="spoiler"><h3>v2 - 2026-11-16 - First Release</h3><h4>Added</h4><ul><li><strong>ALN Pointer</strong>: A cursor-shaped item that opens the ALNStudios menu. You get one the first time you join a world, and it is in the Equipment tab of the Creative inventory.</li><li><strong>Combat Toggles Menu</strong>: A screen with 7 switches and a short explanation under each. Apply saves them for you and closes the menu, and each player keeps their own settings.</li><li><strong>Auto Totem</strong>: Moves a Totem of Undying from your inventory into your off hand before a hit that would kill you.</li><li><strong>Infinite Totem</strong>: Puts a new Totem of Undying in your off hand before a deadly hit when you have none left.</li><li><strong>Aura Mode</strong>: Hits up to 3 nearby hostile mobs and players within 4 blocks for 5 damage every half second.</li><li><strong>Always Critical</strong>: Every melee hit deals 1.5 times damage and shows the critical hit sparks.</li><li><strong>Bow Aimbot</strong>: Arrows from a bow or crossbow steer toward the target nearest your crosshair within 48 blocks.</li><li><strong>Always Water Clutch</strong>: Places water where you land after a fall of 3 blocks or more, then removes it after about 2 seconds.</li><li><strong>Shield Always Active</strong>: Blocks melee hits and arrows from the front whenever you carry a shield.</li></ul></div>
 ```
 
-## FILE: changelog_views/ALN-Pointer.github.md (134 lines, 6853 bytes)
+## FILE: changelog_views/ALN-Pointer.github.md (156 lines, 8073 bytes)
 
 ```
 # Changelog — ALN Pointer
 
-## [v11] - 2026-11-19 - Parry Text Removed
+## [v13] - 2026-11-19 - Crosshair Circle On Screen
 
 ### Changed
+- **Aim Circle**: The circle is now drawn on the screen at your crosshair instead of in the world, so it stays exactly on the crosshair and does not lag when you turn. It uses the same 10 circle pictures, aln_circle_4.png to aln_circle_13.png, chosen by the Bow Aimbot angle. This adds a resource pack file, ui/hud_screen.json, and it uses the screen title while you hold a bow with Target Highlight on.
+
+<details>
+<summary><b>12.0.x</b> (1 release)</summary>
+
+### [v12] - 2026-11-19 - Aim Circle Pictures
+
+#### Changed
+- **Aim Circle**: The circle around your crosshair is now a picture instead of flame dots. There are 10 circle pictures, 4 by 4 up to 13 by 13 pixels, one for each Bow Aimbot angle from 5 to 50 degrees. They are the files aln_circle_4.png to aln_circle_13.png in resource_pack/textures/particle.
+- **Smooth Following**: The target picture and the aim circle now refresh every tick instead of 4 times a second, so they follow the target and your crosshair without flickering.
+- **Bow Aimbot Angle**: The angle slider in Tuning now goes up to 50 degrees.
+
+</details>
+
+<details>
+<summary><b>11.0.x</b> (1 release)</summary>
+
+### [v11] - 2026-11-19 - Parry Text Removed
+
+#### Changed
 - **Parry Effect**: Blocking a hit with Shield Always Active no longer shows "Parried!" on the action bar. The sparks, the shield sound and the push on a melee attacker stay.
+
+</details>
 
 <details>
 <summary><b>10.0.x</b> (1 release)</summary>
@@ -447,11 +482,11 @@ This marker does not encrypt the pack or prevent extraction or editing.
 {
   "format_version": 2,
   "header": {
-    "name": "Combat Helper (v11)",
+    "name": "Combat Helper (v13)",
     "description": "A cursor-shaped item that opens a menu of PVP toggles. by ALNStudios",
     "uuid": "eec0404f-e785-480e-839e-0da27c699c31",
     "version": [
-      11,
+      13,
       0,
       0
     ],
@@ -466,7 +501,7 @@ This marker does not encrypt the pack or prevent extraction or editing.
       "type": "data",
       "uuid": "13407ddf-e15f-4d9c-90ec-eaa908a586a1",
       "version": [
-        11,
+        13,
         0,
         0
       ]
@@ -477,7 +512,7 @@ This marker does not encrypt the pack or prevent extraction or editing.
       "uuid": "63e54d22-75a9-41f8-9e7e-67b0553aace3",
       "entry": "scripts/main.js",
       "version": [
-        11,
+        13,
         0,
         0
       ]
@@ -499,7 +534,7 @@ This marker does not encrypt the pack or prevent extraction or editing.
     {
       "uuid": "8232add1-8bcd-4f9b-92e8-59dfc483f35f",
       "version": [
-        11,
+        13,
         0,
         0
       ]
@@ -518,7 +553,7 @@ This marker does not encrypt the pack or prevent extraction or editing.
       "ALNStudios"
     ],
     "product_type": "addon",
-    "version": "11.0.0"
+    "version": "13.0.0"
   }
 }
 ```
@@ -813,7 +848,7 @@ export function initCombat() {
 }
 ```
 
-## FILE: MCPEDL/Addons/ALN-Pointer/behavior_pack/scripts/lib/extras.js (156 lines, 5516 bytes)
+## FILE: MCPEDL/Addons/ALN-Pointer/behavior_pack/scripts/lib/extras.js (146 lines, 5147 bytes)
 
 ```
 import { world, system, EntityComponentTypes, EntityDamageCause, EquipmentSlot, GameMode } from "@minecraft/server";
@@ -887,37 +922,23 @@ function knock(event) {
   });
 }
 
-const RING_DISTANCE = 6;
-const RING_POINTS = 24;
+const hud = new Map();
 
-function circle(p) {
-  const eye = p.getHeadLocation();
-  const v = p.getViewDirection();
-  let rx = v.z;
-  let rz = -v.x;
-  const size = Math.hypot(rx, rz);
-  if (size < 0.001) return;
-  rx /= size;
-  rz /= size;
-  const ux = v.y * rz;
-  const uy = v.z * rx - v.x * rz;
-  const uz = -v.y * rx;
-  const radius = RING_DISTANCE * Math.tan((tune(p, "aimCone") * Math.PI) / 180);
-  const cx = eye.x + v.x * RING_DISTANCE;
-  const cy = eye.y + v.y * RING_DISTANCE;
-  const cz = eye.z + v.z * RING_DISTANCE;
-  for (let i = 0; i < RING_POINTS; i++) {
-    const a = (i / RING_POINTS) * 2 * Math.PI;
-    const c = Math.cos(a) * radius;
-    const s = Math.sin(a) * radius;
-    p.spawnParticle("minecraft:basic_flame_particle", { x: cx + c * rx + s * ux, y: cy + s * uy, z: cz + c * rz + s * uz });
-  }
+function setCircle(p, name) {
+  if ((hud.get(p.id) ?? "") === name) return;
+  if (name) hud.set(p.id, name);
+  else hud.delete(p.id);
+  p.onScreenDisplay.setTitle(name, { fadeInDuration: 0, stayDuration: 72000, fadeOutDuration: 0 });
 }
 
 function mark(p) {
   const held = p.getComponent(EntityComponentTypes.Equippable)?.getEquipmentSlot(EquipmentSlot.Mainhand)?.getItem()?.typeId;
-  if (!BOWS.has(held)) return;
-  if (tune(p, "aimCircle") === 1) circle(p);
+  if (!BOWS.has(held)) {
+    setCircle(p, "");
+    return;
+  }
+  setCircle(p, tune(p, "aimCircle") === 1 ? `aln_c${Math.min(13, Math.max(4, Math.round(tune(p, "aimCone") / 5) + 3))}` : "");
+
   const target = pickTarget(p);
   if (!target) return;
   const head = target.getHeadLocation();
@@ -961,15 +982,19 @@ export function initExtras() {
   world.afterEvents.entityHurt.subscribe(show);
   world.afterEvents.entityHurt.subscribe(knock);
   system.runInterval(() => {
-    if (!anyOn("targetHighlight")) return;
+    if (!anyOn("targetHighlight") && !hud.size) return;
     for (const p of world.getAllPlayers()) {
-      if (!p.isValid || !isOn(p, "targetHighlight") || !isOn(p, "bowAimbot")) continue;
+      if (!p.isValid) continue;
       try {
-        mark(p);
+        if (isOn(p, "targetHighlight") && isOn(p, "bowAimbot")) mark(p);
+        else if (hud.has(p.id)) setCircle(p, "");
       } catch (e) {}
     }
-  }, 5);
-  world.afterEvents.playerLeave.subscribe(({ playerId }) => last.delete(playerId));
+  }, 1);
+  world.afterEvents.playerLeave.subscribe(({ playerId }) => {
+    last.delete(playerId);
+    hud.delete(playerId);
+  });
 }
 ```
 
@@ -1059,7 +1084,7 @@ export function initGear() {
 
 ```
 export const PACK_NAME = "Combat Helper";
-export const PACK_VERSION = "11";
+export const PACK_VERSION = "13";
 export const POINTER_ID = "allenscreations:aln_pointer";
 export const PLAYER_ID = "minecraft:player";
 ```
@@ -1490,7 +1515,7 @@ export const TUNING = [
   { id: "auraDamage", name: "Aura damage (half hearts)", min: 1, max: 10, step: 1, def: 5 },
   { id: "auraTargets", name: "Aura targets per hit", min: 1, max: 5, step: 1, def: 3 },
   { id: "aimRange", name: "Bow Aimbot range (blocks)", min: 16, max: 96, step: 8, def: 48 },
-  { id: "aimCone", name: "Bow Aimbot angle (degrees)", min: 5, max: 45, step: 5, def: 25 },
+  { id: "aimCone", name: "Bow Aimbot angle (degrees)", min: 5, max: 50, step: 5, def: 25 },
   { id: "critPercent", name: "Always Critical damage (percent)", min: 110, max: 300, step: 10, def: 150 },
   { id: "knockback", name: "Knockback you deal (percent)", min: 0, max: 200, step: 25, def: 100 },
   { id: "auraTarget", name: "Aura hits", min: 0, max: 2, step: 1, def: 0, choices: ["Mobs and players", "Mobs only", "Players only"] },
@@ -1589,12 +1614,24 @@ initGear();
 }
 ```
 
-## FILE: MCPEDL/Addons/ALN-Pointer/CHANGELOG.md (91 lines, 6231 bytes)
+## FILE: MCPEDL/Addons/ALN-Pointer/CHANGELOG.md (103 lines, 7311 bytes)
 
 ```
 # Changelog — ALN Pointer
 
 ---
+
+## [v13] - 2026-11-19 - Crosshair Circle On Screen
+
+### Changed
+- **Aim Circle**: The circle is now drawn on the screen at your crosshair instead of in the world, so it stays exactly on the crosshair and does not lag when you turn. It uses the same 10 circle pictures, aln_circle_4.png to aln_circle_13.png, chosen by the Bow Aimbot angle. This adds a resource pack file, ui/hud_screen.json, and it uses the screen title while you hold a bow with Target Highlight on.
+
+## [v12] - 2026-11-19 - Aim Circle Pictures
+
+### Changed
+- **Aim Circle**: The circle around your crosshair is now a picture instead of flame dots. There are 10 circle pictures, 4 by 4 up to 13 by 13 pixels, one for each Bow Aimbot angle from 5 to 50 degrees. They are the files aln_circle_4.png to aln_circle_13.png in resource_pack/textures/particle.
+- **Smooth Following**: The target picture and the aim circle now refresh every tick instead of 4 times a second, so they follow the target and your crosshair without flickering.
+- **Bow Aimbot Angle**: The angle slider in Tuning now goes up to 50 degrees.
 
 ## [v11] - 2026-11-19 - Parry Text Removed
 
@@ -1684,7 +1721,7 @@ initGear();
 - **Shield Always Active**: Blocks melee hits and arrows from the front whenever you carry a shield.
 ```
 
-## FILE: MCPEDL/Addons/ALN-Pointer/DESCRIPTION.md (163 lines, 13414 bytes)
+## FILE: MCPEDL/Addons/ALN-Pointer/DESCRIPTION.md (163 lines, 13464 bytes)
 
 ```
 # Combat Helper — A cursor-shaped item that opens a menu of 13 PVP toggles
@@ -1775,7 +1812,7 @@ You get a Combat Helper, use it, and pick the toggles you want in the ALNStudios
 - **Good To Know**: It cancels the push by about the usual amount, so a strong knockback enchantment can still move you a little.
 
 ### Target Highlight
-- **What Happens**: While you hold a bow or crossbow, a small target picture floats above the mob or player Bow Aimbot will pick, the action bar names it, and a circle of flame dots shows the aim range around your crosshair. Only you see them.
+- **What Happens**: While you hold a bow or crossbow, a small target picture floats above the mob or player Bow Aimbot will pick, the action bar names it, and a circle picture sits on your crosshair on the screen to show the aim range, so it never lags behind when you turn. Only you see them.
 - **How It Works**: Switch on both Bow Aimbot and Target Highlight, hold a bow and aim near an enemy.
 - **Good To Know**: It does nothing when Bow Aimbot is off, and the target picture only shows when a target is inside the circle. The circle can be switched off in Tuning, and its size follows the Bow Aimbot angle.
 
@@ -1790,7 +1827,7 @@ You get a Combat Helper, use it, and pick the toggles you want in the ALNStudios
 - **Good To Know**: Friends stay on your list when they go offline. The list is yours alone, so a friend is only safe from your toggles, not the other way round.
 
 ### Tuning
-- **What Happens**: Seven sliders and three choices change how the toggles behave: Aura range (2 to 6 blocks), Aura damage (1 to 10), Aura targets (1 to 5), Bow Aimbot range (16 to 96 blocks), Bow Aimbot angle (5 to 45 degrees), Always Critical damage (110 to 300 percent), Knockback you deal (0 to 200 percent), Aura hits (mobs and players, mobs only or players only) whether Aura turns you to face the target, and whether Target Highlight draws the aim circle.
+- **What Happens**: Seven sliders and three choices change how the toggles behave: Aura range (2 to 6 blocks), Aura damage (1 to 10), Aura targets (1 to 5), Bow Aimbot range (16 to 96 blocks), Bow Aimbot angle (5 to 50 degrees), Always Critical damage (110 to 300 percent), Knockback you deal (0 to 200 percent), Aura hits (mobs and players, mobs only or players only) whether Aura turns you to face the target, and whether Target Highlight draws the aim circle.
 - **How It Works**: Open the Combat Menu, tap Tuning, drag the sliders and tap Apply. A reset switch at the bottom puts everything back to the defaults.
 - **Good To Know**: The starting values match the old fixed numbers, so nothing changes until you move a slider.
 
@@ -1878,7 +1915,7 @@ Download the current release of **Combat Helper** for Minecraft Bedrock Edition.
 ## Download
 
 - **Package format:** `.mcaddon`
-- **Direct download:** [Download Combat Helper (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/ALN-Pointer/ALNPointer%20V11.mcaddon)
+- **Direct download:** [Download Combat Helper (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/ALN-Pointer/ALNPointer%20V13.mcaddon)
 
 ## Installation
 
@@ -1906,11 +1943,11 @@ This marker does not encrypt the pack or prevent extraction or editing.
 {
   "format_version": 2,
   "header": {
-    "name": "Combat Helper (v11)",
+    "name": "Combat Helper (v13)",
     "description": "Combat Helper item texture. by ALNStudios",
     "uuid": "8232add1-8bcd-4f9b-92e8-59dfc483f35f",
     "version": [
-      11,
+      13,
       0,
       0
     ],
@@ -1925,7 +1962,7 @@ This marker does not encrypt the pack or prevent extraction or editing.
       "type": "resources",
       "uuid": "83f195c6-92d3-428a-b707-06188b6a5f8d",
       "version": [
-        11,
+        13,
         0,
         0
       ]
@@ -1936,12 +1973,402 @@ This marker does not encrypt the pack or prevent extraction or editing.
       "ALNStudios"
     ],
     "product_type": "addon",
-    "version": "11.0.0"
+    "version": "13.0.0"
   }
 }
 ```
 
-## FILE: MCPEDL/Addons/ALN-Pointer/resource_pack/particles/aln_target.json (35 lines, 857 bytes)
+## FILE: MCPEDL/Addons/ALN-Pointer/resource_pack/particles/aln_circle_10.json (35 lines, 880 bytes)
+
+```
+{
+  "format_version": "1.10.0",
+  "particle_effect": {
+    "description": {
+      "identifier": "allenscreations:aln_circle_10",
+      "basic_render_parameters": {
+        "material": "particles_alpha",
+        "texture": "textures/particle/aln_circle_10"
+      }
+    },
+    "components": {
+      "minecraft:emitter_rate_instant": {
+        "num_particles": 1
+      },
+      "minecraft:emitter_lifetime_once": {
+        "active_time": 1
+      },
+      "minecraft:emitter_shape_point": {},
+      "minecraft:particle_lifetime_expression": {
+        "max_lifetime": 0.1
+      },
+      "minecraft:particle_appearance_billboard": {
+        "size": ["variable.r", "variable.r"],
+        "facing_camera_mode": "lookat_xyz",
+        "uv": {
+          "texture_width": 10,
+          "texture_height": 10,
+          "uv": [0, 0],
+          "uv_size": [10, 10]
+        }
+      }
+    }
+  }
+}
+```
+
+## FILE: MCPEDL/Addons/ALN-Pointer/resource_pack/particles/aln_circle_11.json (35 lines, 880 bytes)
+
+```
+{
+  "format_version": "1.10.0",
+  "particle_effect": {
+    "description": {
+      "identifier": "allenscreations:aln_circle_11",
+      "basic_render_parameters": {
+        "material": "particles_alpha",
+        "texture": "textures/particle/aln_circle_11"
+      }
+    },
+    "components": {
+      "minecraft:emitter_rate_instant": {
+        "num_particles": 1
+      },
+      "minecraft:emitter_lifetime_once": {
+        "active_time": 1
+      },
+      "minecraft:emitter_shape_point": {},
+      "minecraft:particle_lifetime_expression": {
+        "max_lifetime": 0.1
+      },
+      "minecraft:particle_appearance_billboard": {
+        "size": ["variable.r", "variable.r"],
+        "facing_camera_mode": "lookat_xyz",
+        "uv": {
+          "texture_width": 11,
+          "texture_height": 11,
+          "uv": [0, 0],
+          "uv_size": [11, 11]
+        }
+      }
+    }
+  }
+}
+```
+
+## FILE: MCPEDL/Addons/ALN-Pointer/resource_pack/particles/aln_circle_12.json (35 lines, 880 bytes)
+
+```
+{
+  "format_version": "1.10.0",
+  "particle_effect": {
+    "description": {
+      "identifier": "allenscreations:aln_circle_12",
+      "basic_render_parameters": {
+        "material": "particles_alpha",
+        "texture": "textures/particle/aln_circle_12"
+      }
+    },
+    "components": {
+      "minecraft:emitter_rate_instant": {
+        "num_particles": 1
+      },
+      "minecraft:emitter_lifetime_once": {
+        "active_time": 1
+      },
+      "minecraft:emitter_shape_point": {},
+      "minecraft:particle_lifetime_expression": {
+        "max_lifetime": 0.1
+      },
+      "minecraft:particle_appearance_billboard": {
+        "size": ["variable.r", "variable.r"],
+        "facing_camera_mode": "lookat_xyz",
+        "uv": {
+          "texture_width": 12,
+          "texture_height": 12,
+          "uv": [0, 0],
+          "uv_size": [12, 12]
+        }
+      }
+    }
+  }
+}
+```
+
+## FILE: MCPEDL/Addons/ALN-Pointer/resource_pack/particles/aln_circle_13.json (35 lines, 880 bytes)
+
+```
+{
+  "format_version": "1.10.0",
+  "particle_effect": {
+    "description": {
+      "identifier": "allenscreations:aln_circle_13",
+      "basic_render_parameters": {
+        "material": "particles_alpha",
+        "texture": "textures/particle/aln_circle_13"
+      }
+    },
+    "components": {
+      "minecraft:emitter_rate_instant": {
+        "num_particles": 1
+      },
+      "minecraft:emitter_lifetime_once": {
+        "active_time": 1
+      },
+      "minecraft:emitter_shape_point": {},
+      "minecraft:particle_lifetime_expression": {
+        "max_lifetime": 0.1
+      },
+      "minecraft:particle_appearance_billboard": {
+        "size": ["variable.r", "variable.r"],
+        "facing_camera_mode": "lookat_xyz",
+        "uv": {
+          "texture_width": 13,
+          "texture_height": 13,
+          "uv": [0, 0],
+          "uv_size": [13, 13]
+        }
+      }
+    }
+  }
+}
+```
+
+## FILE: MCPEDL/Addons/ALN-Pointer/resource_pack/particles/aln_circle_4.json (35 lines, 874 bytes)
+
+```
+{
+  "format_version": "1.10.0",
+  "particle_effect": {
+    "description": {
+      "identifier": "allenscreations:aln_circle_4",
+      "basic_render_parameters": {
+        "material": "particles_alpha",
+        "texture": "textures/particle/aln_circle_4"
+      }
+    },
+    "components": {
+      "minecraft:emitter_rate_instant": {
+        "num_particles": 1
+      },
+      "minecraft:emitter_lifetime_once": {
+        "active_time": 1
+      },
+      "minecraft:emitter_shape_point": {},
+      "minecraft:particle_lifetime_expression": {
+        "max_lifetime": 0.1
+      },
+      "minecraft:particle_appearance_billboard": {
+        "size": ["variable.r", "variable.r"],
+        "facing_camera_mode": "lookat_xyz",
+        "uv": {
+          "texture_width": 4,
+          "texture_height": 4,
+          "uv": [0, 0],
+          "uv_size": [4, 4]
+        }
+      }
+    }
+  }
+}
+```
+
+## FILE: MCPEDL/Addons/ALN-Pointer/resource_pack/particles/aln_circle_5.json (35 lines, 874 bytes)
+
+```
+{
+  "format_version": "1.10.0",
+  "particle_effect": {
+    "description": {
+      "identifier": "allenscreations:aln_circle_5",
+      "basic_render_parameters": {
+        "material": "particles_alpha",
+        "texture": "textures/particle/aln_circle_5"
+      }
+    },
+    "components": {
+      "minecraft:emitter_rate_instant": {
+        "num_particles": 1
+      },
+      "minecraft:emitter_lifetime_once": {
+        "active_time": 1
+      },
+      "minecraft:emitter_shape_point": {},
+      "minecraft:particle_lifetime_expression": {
+        "max_lifetime": 0.1
+      },
+      "minecraft:particle_appearance_billboard": {
+        "size": ["variable.r", "variable.r"],
+        "facing_camera_mode": "lookat_xyz",
+        "uv": {
+          "texture_width": 5,
+          "texture_height": 5,
+          "uv": [0, 0],
+          "uv_size": [5, 5]
+        }
+      }
+    }
+  }
+}
+```
+
+## FILE: MCPEDL/Addons/ALN-Pointer/resource_pack/particles/aln_circle_6.json (35 lines, 874 bytes)
+
+```
+{
+  "format_version": "1.10.0",
+  "particle_effect": {
+    "description": {
+      "identifier": "allenscreations:aln_circle_6",
+      "basic_render_parameters": {
+        "material": "particles_alpha",
+        "texture": "textures/particle/aln_circle_6"
+      }
+    },
+    "components": {
+      "minecraft:emitter_rate_instant": {
+        "num_particles": 1
+      },
+      "minecraft:emitter_lifetime_once": {
+        "active_time": 1
+      },
+      "minecraft:emitter_shape_point": {},
+      "minecraft:particle_lifetime_expression": {
+        "max_lifetime": 0.1
+      },
+      "minecraft:particle_appearance_billboard": {
+        "size": ["variable.r", "variable.r"],
+        "facing_camera_mode": "lookat_xyz",
+        "uv": {
+          "texture_width": 6,
+          "texture_height": 6,
+          "uv": [0, 0],
+          "uv_size": [6, 6]
+        }
+      }
+    }
+  }
+}
+```
+
+## FILE: MCPEDL/Addons/ALN-Pointer/resource_pack/particles/aln_circle_7.json (35 lines, 874 bytes)
+
+```
+{
+  "format_version": "1.10.0",
+  "particle_effect": {
+    "description": {
+      "identifier": "allenscreations:aln_circle_7",
+      "basic_render_parameters": {
+        "material": "particles_alpha",
+        "texture": "textures/particle/aln_circle_7"
+      }
+    },
+    "components": {
+      "minecraft:emitter_rate_instant": {
+        "num_particles": 1
+      },
+      "minecraft:emitter_lifetime_once": {
+        "active_time": 1
+      },
+      "minecraft:emitter_shape_point": {},
+      "minecraft:particle_lifetime_expression": {
+        "max_lifetime": 0.1
+      },
+      "minecraft:particle_appearance_billboard": {
+        "size": ["variable.r", "variable.r"],
+        "facing_camera_mode": "lookat_xyz",
+        "uv": {
+          "texture_width": 7,
+          "texture_height": 7,
+          "uv": [0, 0],
+          "uv_size": [7, 7]
+        }
+      }
+    }
+  }
+}
+```
+
+## FILE: MCPEDL/Addons/ALN-Pointer/resource_pack/particles/aln_circle_8.json (35 lines, 874 bytes)
+
+```
+{
+  "format_version": "1.10.0",
+  "particle_effect": {
+    "description": {
+      "identifier": "allenscreations:aln_circle_8",
+      "basic_render_parameters": {
+        "material": "particles_alpha",
+        "texture": "textures/particle/aln_circle_8"
+      }
+    },
+    "components": {
+      "minecraft:emitter_rate_instant": {
+        "num_particles": 1
+      },
+      "minecraft:emitter_lifetime_once": {
+        "active_time": 1
+      },
+      "minecraft:emitter_shape_point": {},
+      "minecraft:particle_lifetime_expression": {
+        "max_lifetime": 0.1
+      },
+      "minecraft:particle_appearance_billboard": {
+        "size": ["variable.r", "variable.r"],
+        "facing_camera_mode": "lookat_xyz",
+        "uv": {
+          "texture_width": 8,
+          "texture_height": 8,
+          "uv": [0, 0],
+          "uv_size": [8, 8]
+        }
+      }
+    }
+  }
+}
+```
+
+## FILE: MCPEDL/Addons/ALN-Pointer/resource_pack/particles/aln_circle_9.json (35 lines, 874 bytes)
+
+```
+{
+  "format_version": "1.10.0",
+  "particle_effect": {
+    "description": {
+      "identifier": "allenscreations:aln_circle_9",
+      "basic_render_parameters": {
+        "material": "particles_alpha",
+        "texture": "textures/particle/aln_circle_9"
+      }
+    },
+    "components": {
+      "minecraft:emitter_rate_instant": {
+        "num_particles": 1
+      },
+      "minecraft:emitter_lifetime_once": {
+        "active_time": 1
+      },
+      "minecraft:emitter_shape_point": {},
+      "minecraft:particle_lifetime_expression": {
+        "max_lifetime": 0.1
+      },
+      "minecraft:particle_appearance_billboard": {
+        "size": ["variable.r", "variable.r"],
+        "facing_camera_mode": "lookat_xyz",
+        "uv": {
+          "texture_width": 9,
+          "texture_height": 9,
+          "uv": [0, 0],
+          "uv_size": [9, 9]
+        }
+      }
+    }
+  }
+}
+```
+
+## FILE: MCPEDL/Addons/ALN-Pointer/resource_pack/particles/aln_target.json (35 lines, 856 bytes)
 
 ```
 {
@@ -1963,7 +2390,7 @@ This marker does not encrypt the pack or prevent extraction or editing.
       },
       "minecraft:emitter_shape_point": {},
       "minecraft:particle_lifetime_expression": {
-        "max_lifetime": 0.35
+        "max_lifetime": 0.1
       },
       "minecraft:particle_appearance_billboard": {
         "size": [0.4, 0.4],
@@ -1998,6 +2425,310 @@ This marker does not encrypt the pack or prevent extraction or editing.
 
 ```
 
+```
+
+## FILE: MCPEDL/Addons/ALN-Pointer/resource_pack/ui/hud_screen.json (300 lines, 6587 bytes)
+
+```
+{
+  "namespace": "hud",
+  "aln_circle_4": {
+    "type": "image",
+    "texture": "textures/particle/aln_circle_4",
+    "size": [
+      32,
+      32
+    ],
+    "anchor_from": "center",
+    "anchor_to": "center",
+    "layer": 10,
+    "bindings": [
+      {
+        "binding_name": "#hud_title_text_string"
+      },
+      {
+        "binding_type": "view",
+        "source_property_name": "(#hud_title_text_string = 'aln_c4')",
+        "target_property_name": "#visible"
+      }
+    ]
+  },
+  "aln_circle_5": {
+    "type": "image",
+    "texture": "textures/particle/aln_circle_5",
+    "size": [
+      40,
+      40
+    ],
+    "anchor_from": "center",
+    "anchor_to": "center",
+    "layer": 10,
+    "bindings": [
+      {
+        "binding_name": "#hud_title_text_string"
+      },
+      {
+        "binding_type": "view",
+        "source_property_name": "(#hud_title_text_string = 'aln_c5')",
+        "target_property_name": "#visible"
+      }
+    ]
+  },
+  "aln_circle_6": {
+    "type": "image",
+    "texture": "textures/particle/aln_circle_6",
+    "size": [
+      48,
+      48
+    ],
+    "anchor_from": "center",
+    "anchor_to": "center",
+    "layer": 10,
+    "bindings": [
+      {
+        "binding_name": "#hud_title_text_string"
+      },
+      {
+        "binding_type": "view",
+        "source_property_name": "(#hud_title_text_string = 'aln_c6')",
+        "target_property_name": "#visible"
+      }
+    ]
+  },
+  "aln_circle_7": {
+    "type": "image",
+    "texture": "textures/particle/aln_circle_7",
+    "size": [
+      56,
+      56
+    ],
+    "anchor_from": "center",
+    "anchor_to": "center",
+    "layer": 10,
+    "bindings": [
+      {
+        "binding_name": "#hud_title_text_string"
+      },
+      {
+        "binding_type": "view",
+        "source_property_name": "(#hud_title_text_string = 'aln_c7')",
+        "target_property_name": "#visible"
+      }
+    ]
+  },
+  "aln_circle_8": {
+    "type": "image",
+    "texture": "textures/particle/aln_circle_8",
+    "size": [
+      64,
+      64
+    ],
+    "anchor_from": "center",
+    "anchor_to": "center",
+    "layer": 10,
+    "bindings": [
+      {
+        "binding_name": "#hud_title_text_string"
+      },
+      {
+        "binding_type": "view",
+        "source_property_name": "(#hud_title_text_string = 'aln_c8')",
+        "target_property_name": "#visible"
+      }
+    ]
+  },
+  "aln_circle_9": {
+    "type": "image",
+    "texture": "textures/particle/aln_circle_9",
+    "size": [
+      72,
+      72
+    ],
+    "anchor_from": "center",
+    "anchor_to": "center",
+    "layer": 10,
+    "bindings": [
+      {
+        "binding_name": "#hud_title_text_string"
+      },
+      {
+        "binding_type": "view",
+        "source_property_name": "(#hud_title_text_string = 'aln_c9')",
+        "target_property_name": "#visible"
+      }
+    ]
+  },
+  "aln_circle_10": {
+    "type": "image",
+    "texture": "textures/particle/aln_circle_10",
+    "size": [
+      80,
+      80
+    ],
+    "anchor_from": "center",
+    "anchor_to": "center",
+    "layer": 10,
+    "bindings": [
+      {
+        "binding_name": "#hud_title_text_string"
+      },
+      {
+        "binding_type": "view",
+        "source_property_name": "(#hud_title_text_string = 'aln_c10')",
+        "target_property_name": "#visible"
+      }
+    ]
+  },
+  "aln_circle_11": {
+    "type": "image",
+    "texture": "textures/particle/aln_circle_11",
+    "size": [
+      88,
+      88
+    ],
+    "anchor_from": "center",
+    "anchor_to": "center",
+    "layer": 10,
+    "bindings": [
+      {
+        "binding_name": "#hud_title_text_string"
+      },
+      {
+        "binding_type": "view",
+        "source_property_name": "(#hud_title_text_string = 'aln_c11')",
+        "target_property_name": "#visible"
+      }
+    ]
+  },
+  "aln_circle_12": {
+    "type": "image",
+    "texture": "textures/particle/aln_circle_12",
+    "size": [
+      96,
+      96
+    ],
+    "anchor_from": "center",
+    "anchor_to": "center",
+    "layer": 10,
+    "bindings": [
+      {
+        "binding_name": "#hud_title_text_string"
+      },
+      {
+        "binding_type": "view",
+        "source_property_name": "(#hud_title_text_string = 'aln_c12')",
+        "target_property_name": "#visible"
+      }
+    ]
+  },
+  "aln_circle_13": {
+    "type": "image",
+    "texture": "textures/particle/aln_circle_13",
+    "size": [
+      104,
+      104
+    ],
+    "anchor_from": "center",
+    "anchor_to": "center",
+    "layer": 10,
+    "bindings": [
+      {
+        "binding_name": "#hud_title_text_string"
+      },
+      {
+        "binding_type": "view",
+        "source_property_name": "(#hud_title_text_string = 'aln_c13')",
+        "target_property_name": "#visible"
+      }
+    ]
+  },
+  "aln_circle_panel": {
+    "type": "panel",
+    "controls": [
+      {
+        "aln_circle_4@hud.aln_circle_4": {}
+      },
+      {
+        "aln_circle_5@hud.aln_circle_5": {}
+      },
+      {
+        "aln_circle_6@hud.aln_circle_6": {}
+      },
+      {
+        "aln_circle_7@hud.aln_circle_7": {}
+      },
+      {
+        "aln_circle_8@hud.aln_circle_8": {}
+      },
+      {
+        "aln_circle_9@hud.aln_circle_9": {}
+      },
+      {
+        "aln_circle_10@hud.aln_circle_10": {}
+      },
+      {
+        "aln_circle_11@hud.aln_circle_11": {}
+      },
+      {
+        "aln_circle_12@hud.aln_circle_12": {}
+      },
+      {
+        "aln_circle_13@hud.aln_circle_13": {}
+      }
+    ]
+  },
+  "aln_circle_factory": {
+    "type": "panel",
+    "factory": {
+      "name": "hud_title_text_factory",
+      "control_ids": {
+        "hud_title_text": "aln_circle_panel@hud.aln_circle_panel"
+      }
+    }
+  },
+  "hud_title_text/title_frame/title": {
+    "modifications": [
+      {
+        "array_name": "bindings",
+        "operation": "insert_back",
+        "value": {
+          "binding_type": "view",
+          "source_property_name": "((#text - 'aln_c') = #text)",
+          "target_property_name": "#visible"
+        }
+      }
+    ]
+  },
+  "hud_title_text/title_frame/title_background": {
+    "modifications": [
+      {
+        "array_name": "bindings",
+        "operation": "insert_back",
+        "value": [
+          {
+            "binding_name": "#hud_title_text_string"
+          },
+          {
+            "binding_type": "view",
+            "source_property_name": "((#hud_title_text_string - 'aln_c') = #hud_title_text_string)",
+            "target_property_name": "#visible"
+          }
+        ]
+      }
+    ]
+  },
+  "root_panel": {
+    "modifications": [
+      {
+        "array_name": "controls",
+        "operation": "insert_front",
+        "value": {
+          "aln_circle_factory@hud.aln_circle_factory": {}
+        }
+      }
+    ]
+  }
+}
 ```
 
 ## FILE: MCPEDL/Addons/ALN-Pointer/texture_sources/aln_pointer.json (303 lines, 3261 bytes)
@@ -2349,7 +3080,7 @@ Source files for established Minecraft Bedrock add-ons by ALNStudios.
 | Expanded Basic Arsenal | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/Expanded-Basic-Arsenal/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Expanded-Basic-Arsenal/ExpandedBasicArsenal%20V2.mcaddon) |
 | ALN Wireless Headphones | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/ALN-Wireless-Headphones/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/ALN-Wireless-Headphones/ALNWirelessHeadphones%20V11.mcaddon) |
 | ALN MoreDiscs | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/ALN-MoreDiscs/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/ALN-MoreDiscs/ALNMoreDiscs%20V3.mcaddon) |
-| ALN Pointer | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/ALN-Pointer/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/ALN-Pointer/ALNPointer%20V11.mcaddon) |
+| ALN Pointer | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/ALN-Pointer/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/ALN-Pointer/ALNPointer%20V13.mcaddon) |
 
 Download links point to the currently published package files.
 
@@ -2367,7 +3098,7 @@ Videos and streams are welcome with credit. Redistribution of original or modifi
 - [TypeScript Definitions (.d.ts)](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/reference/typescript-definitions)
 ```
 
-## FILE: Package/ALN-Pointer.listing.md (72 lines, 30023 bytes)
+## FILE: Package/ALN-Pointer.listing.md (72 lines, 30073 bytes)
 
 ````
 # Listing Kit: Combat Helper
@@ -2397,7 +3128,7 @@ Paste into the CurseForge description editor in source (HTML) mode.
 <h2 style="font-size:17px;text-align:left"><span style="background-color:#15803d;color:#ffffff;border-radius:20px">&nbsp;&nbsp;Screenshots&nbsp;&nbsp;</span></h2>
 <div style="display:flex;flex-wrap:wrap;gap:10px"><div style="flex:1 1 300px;border:1px solid #8a94a3;border-radius:16px;text-align:center"><p><a href="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/MCPEDL/Addons/ALN-Pointer/assets/snapshots/HOW%20TO%20CRAFT.jpg"><img src="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/MCPEDL/Addons/ALN-Pointer/assets/snapshots/HOW%20TO%20CRAFT.jpg" alt="HOW TO CRAFT" style="width:100%"></a></p><p style="color:#8a94a3;font-size:13px">HOW TO CRAFT</p></div></div>
 <h2 style="font-size:17px;text-align:left"><span style="background-color:#15803d;color:#ffffff;border-radius:20px">&nbsp;&nbsp;What You Get&nbsp;&nbsp;</span></h2>
-<div style="display:flex;flex-wrap:wrap;gap:10px"><div style="flex:1;min-width:200px;border:1px solid #8a94a3;border-radius:16px"><div style="background-color:#15803d;color:#ffffff;border-radius:16px;font-size:16px;line-height:2.2"><strong>&nbsp;&nbsp;Combat Helper Item</strong></div><div style="margin-left:12px;margin-right:12px"><p><span>A cursor-shaped item that opens the toggle menu when you use it. You craft one from wool, take one from the Equipment tab of the Creative inventory, or turn on the Give Starter Item pack setting to receive one the first time you join a world.</span><br><span style="font-size:13px;color:#8a94a3"><strong>How It Works:</strong> Hold the Combat Helper and use it, like right-clicking on PC or tapping on mobile. Sneak while you use it to switch all your toggles off or back on. To craft one, fill the top row of a crafting table with wool, then the left and middle squares of the middle row, then the left and right squares of the bottom row. This takes 7 wool of any color and the shape looks like a cursor.</span><br><span style="font-size:13px;color:#8a94a3"><strong>Good To Know:</strong> With Give Starter Item on, a full inventory on first join means the Combat Helper is offered again on your next join.</span></p></div></div><div style="flex:1;min-width:200px;border:1px solid #8a94a3;border-radius:16px"><div style="background-color:#15803d;color:#ffffff;border-radius:16px;font-size:16px;line-height:2.2"><strong>&nbsp;&nbsp;Combat Toggles Menu</strong></div><div style="margin-left:12px;margin-right:12px"><p><span>The main menu has three buttons: Combat Menu, About and Exit. Combat Menu opens a screen with Combat Toggles, Friends, Tuning and Practice Dummy. Combat Toggles lists 13 switches with a one-line explanation under each, and Apply saves them and closes the menu.</span><br><span style="font-size:13px;color:#8a94a3"><strong>How It Works:</strong> Flip the switches you want, then tap Apply. Closing the screen without Apply brings you back one screen.</span><br><span style="font-size:13px;color:#8a94a3"><strong>Good To Know:</strong> Toggles are saved per player, so each person in a world picks their own.</span></p></div></div><div style="flex:1;min-width:200px;border:1px solid #8a94a3;border-radius:16px"><div style="background-color:#15803d;color:#ffffff;border-radius:16px;font-size:16px;line-height:2.2"><strong>&nbsp;&nbsp;Auto Totem</strong></div><div style="margin-left:12px;margin-right:12px"><p><span>When a hit would kill you and you hold no Totem of Undying, one from your inventory moves into your off hand first, so the totem saves you.</span><br><span style="font-size:13px;color:#8a94a3"><strong>How It Works:</strong> Keep a Totem of Undying anywhere in your inventory and switch Auto Totem on.</span><br><span style="font-size:13px;color:#8a94a3"><strong>Good To Know:</strong> It does nothing without a totem in your inventory, and it cannot help against the void or the kill command.</span></p></div></div><div style="flex:1;min-width:200px;border:1px solid #8a94a3;border-radius:16px"><div style="background-color:#15803d;color:#ffffff;border-radius:16px;font-size:16px;line-height:2.2"><strong>&nbsp;&nbsp;Infinite Totem</strong></div><div style="margin-left:12px;margin-right:12px"><p><span>Works like Auto Totem, and when you have no totem at all it puts a new Totem of Undying in your off hand before a deadly hit.</span><br><span style="font-size:13px;color:#8a94a3"><strong>How It Works:</strong> Switch it on and keep fighting. Each totem that pops is replaced before the next deadly hit.</span><br><span style="font-size:13px;color:#8a94a3"><strong>Good To Know:</strong> An item that was in your off hand moves to your inventory, or drops at your feet if the inventory is full.</span></p></div></div><div style="flex:1;min-width:200px;border:1px solid #8a94a3;border-radius:16px"><div style="background-color:#15803d;color:#ffffff;border-radius:16px;font-size:16px;line-height:2.2"><strong>&nbsp;&nbsp;Aura Mode</strong></div><div style="margin-left:12px;margin-right:12px"><p><span>Every half second, you hit up to 3 of the nearest hostile mobs and other players within 4 blocks for 5 damage (2.5 hearts), without clicking.</span><br><span style="font-size:13px;color:#8a94a3"><strong>How It Works:</strong> Stand near enemies with Aura Mode on and they take damage automatically.</span><br><span style="font-size:13px;color:#8a94a3"><strong>Good To Know:</strong> Players in Creative or Spectator mode are never hit, and passive mobs are left alone.</span></p></div></div><div style="flex:1;min-width:200px;border:1px solid #8a94a3;border-radius:16px"><div style="background-color:#15803d;color:#ffffff;border-radius:16px;font-size:16px;line-height:2.2"><strong>&nbsp;&nbsp;Always Critical</strong></div><div style="margin-left:12px;margin-right:12px"><p><span>Every melee hit you land deals 1.5 times damage and shows the critical hit sparks, the same bonus as a vanilla critical hit, without jumping first.</span><br><span style="font-size:13px;color:#8a94a3"><strong>How It Works:</strong> Hit a mob or player with a sword or axe while Always Critical is on.</span><br><span style="font-size:13px;color:#8a94a3"><strong>Good To Know:</strong> A hit made while you are already falling is left as vanilla, so the bonus never stacks.</span></p></div></div><div style="flex:1;min-width:200px;border:1px solid #8a94a3;border-radius:16px"><div style="background-color:#15803d;color:#ffffff;border-radius:16px;font-size:16px;line-height:2.2"><strong>&nbsp;&nbsp;Bow Aimbot</strong></div><div style="margin-left:12px;margin-right:12px"><p><span>Arrows you shoot from a bow or crossbow steer toward the hostile mob or player closest to your crosshair within 48 blocks and 25 degrees of where you look.</span><br><span style="font-size:13px;color:#8a94a3"><strong>How It Works:</strong> Aim roughly at a target and release. The arrow leads a moving target and allows for arrow drop.</span><br><span style="font-size:13px;color:#8a94a3"><strong>Good To Know:</strong> If nothing is near your crosshair, the arrow flies as normal. A mob or player hidden behind blocks is never chosen.</span></p></div></div><div style="flex:1;min-width:200px;border:1px solid #8a94a3;border-radius:16px"><div style="background-color:#15803d;color:#ffffff;border-radius:16px;font-size:16px;line-height:2.2"><strong>&nbsp;&nbsp;Always Water Clutch</strong></div><div style="margin-left:12px;margin-right:12px"><p><span>When you fall 3 blocks or more and the ground is close, a water block appears in the space you land in, so the fall does no damage, and it is removed as soon as you stop falling, together with any water that spread from it.</span><br><span style="font-size:13px;color:#8a94a3"><strong>How It Works:</strong> Switch it on and jump. No water bucket is needed.</span><br><span style="font-size:13px;color:#8a94a3"><strong>Good To Know:</strong> It does not trigger in Creative or Spectator mode, while gliding or flying, or over water.</span></p></div></div><div style="flex:1;min-width:200px;border:1px solid #8a94a3;border-radius:16px"><div style="background-color:#15803d;color:#ffffff;border-radius:16px;font-size:16px;line-height:2.2"><strong>&nbsp;&nbsp;Shield Always Active</strong></div><div style="margin-left:12px;margin-right:12px"><p><span>While you carry a shield in either hand, every melee hit and arrow from the front half of your view is fully blocked, even if you are not holding the block button.</span><br><span style="font-size:13px;color:#8a94a3"><strong>How It Works:</strong> Keep a shield in your hand or off hand and switch Shield Always Active on.</span><br><span style="font-size:13px;color:#8a94a3"><strong>Good To Know:</strong> Hits from behind and other damage, such as fire or explosions, are not blocked. Each block plays the shield sound, shows sparks in front of you, and pushes a melee attacker back.</span></p></div></div><div style="flex:1;min-width:200px;border:1px solid #8a94a3;border-radius:16px"><div style="background-color:#15803d;color:#ffffff;border-radius:16px;font-size:16px;line-height:2.2"><strong>&nbsp;&nbsp;Auto Golden Apple</strong></div><div style="margin-left:12px;margin-right:12px"><p><span>When your health drops to 4 hearts or less, one golden apple from your inventory is eaten for you, giving Regeneration II for 5 seconds and Absorption for 2 minutes.</span><br><span style="font-size:13px;color:#8a94a3"><strong>How It Works:</strong> Keep a golden apple anywhere in your inventory and switch Auto Golden Apple on.</span><br><span style="font-size:13px;color:#8a94a3"><strong>Good To Know:</strong> It waits 20 seconds between apples, it does not restore hunger, and it does nothing in Creative or Spectator mode.</span></p></div></div><div style="flex:1;min-width:200px;border:1px solid #8a94a3;border-radius:16px"><div style="background-color:#15803d;color:#ffffff;border-radius:16px;font-size:16px;line-height:2.2"><strong>&nbsp;&nbsp;Damage Display</strong></div><div style="margin-left:12px;margin-right:12px"><p><span>Each time you hurt a mob or player, the action bar shows how much damage the hit did, in points and in hearts.</span><br><span style="font-size:13px;color:#8a94a3"><strong>How It Works:</strong> Switch it on and hit something.</span><br><span style="font-size:13px;color:#8a94a3"><strong>Good To Know:</strong> It also counts the hits made by Aura Mode.</span></p></div></div><div style="flex:1;min-width:200px;border:1px solid #8a94a3;border-radius:16px"><div style="background-color:#15803d;color:#ffffff;border-radius:16px;font-size:16px;line-height:2.2"><strong>&nbsp;&nbsp;Never Die</strong></div><div style="margin-left:12px;margin-right:12px"><p><span>Any hit that would kill you leaves you at half a heart instead, and while you are at half a heart further damage is blocked, so you never die.</span><br><span style="font-size:13px;color:#8a94a3"><strong>How It Works:</strong> Switch Never Die on. It works against explosions such as creepers, mobs, arrows, fire and falls.</span><br><span style="font-size:13px;color:#8a94a3"><strong>Good To Know:</strong> It cannot stop the void or the kill command. It is used before the totem toggles, so no totem is spent while Never Die is on. When it saves you from a deadly hit you see the totem particles and hear the totem sound.</span></p></div></div><div style="flex:1;min-width:200px;border:1px solid #8a94a3;border-radius:16px"><div style="background-color:#15803d;color:#ffffff;border-radius:16px;font-size:16px;line-height:2.2"><strong>&nbsp;&nbsp;Keep Gear On Death</strong></div><div style="margin-left:12px;margin-right:12px"><p><span>When you die, your items and armor are set aside and given back when you respawn, so nothing drops, and only you keep your gear.</span><br><span style="font-size:13px;color:#8a94a3"><strong>How It Works:</strong> Switch Keep Gear On Death on. After you respawn, your inventory, armor and off hand are back as they were.</span><br><span style="font-size:13px;color:#8a94a3"><strong>Good To Know:</strong> The items are held in memory, so they are lost if the world closes before you respawn. A totem that saves you does not trigger it.</span></p></div></div><div style="flex:1;min-width:200px;border:1px solid #8a94a3;border-radius:16px"><div style="background-color:#15803d;color:#ffffff;border-radius:16px;font-size:16px;line-height:2.2"><strong>&nbsp;&nbsp;No Knockback</strong></div><div style="margin-left:12px;margin-right:12px"><p><span>Melee hits no longer push you back, or push you much less.</span><br><span style="font-size:13px;color:#8a94a3"><strong>How It Works:</strong> Switch it on and take a hit. The script pushes you the other way by the amount a hit normally pushes you.</span><br><span style="font-size:13px;color:#8a94a3"><strong>Good To Know:</strong> It cancels the push by about the usual amount, so a strong knockback enchantment can still move you a little.</span></p></div></div><div style="flex:1;min-width:200px;border:1px solid #8a94a3;border-radius:16px"><div style="background-color:#15803d;color:#ffffff;border-radius:16px;font-size:16px;line-height:2.2"><strong>&nbsp;&nbsp;Target Highlight</strong></div><div style="margin-left:12px;margin-right:12px"><p><span>While you hold a bow or crossbow, a small target picture floats above the mob or player Bow Aimbot will pick, the action bar names it, and a circle of flame dots shows the aim range around your crosshair. Only you see them.</span><br><span style="font-size:13px;color:#8a94a3"><strong>How It Works:</strong> Switch on both Bow Aimbot and Target Highlight, hold a bow and aim near an enemy.</span><br><span style="font-size:13px;color:#8a94a3"><strong>Good To Know:</strong> It does nothing when Bow Aimbot is off, and the target picture only shows when a target is inside the circle. The circle can be switched off in Tuning, and its size follows the Bow Aimbot angle.</span></p></div></div><div style="flex:1;min-width:200px;border:1px solid #8a94a3;border-radius:16px"><div style="background-color:#15803d;color:#ffffff;border-radius:16px;font-size:16px;line-height:2.2"><strong>&nbsp;&nbsp;Practice Dummy</strong></div><div style="margin-left:12px;margin-right:12px"><p><span>A zombie called Practice Dummy appears 3 blocks in front of you. It cannot move or hurt you and it heals fast, so you can test Aura Mode, Always Critical and Damage Display.</span><br><span style="font-size:13px;color:#8a94a3"><strong>How It Works:</strong> Open the Combat Menu and tap Practice Dummy.</span><br><span style="font-size:13px;color:#8a94a3"><strong>Good To Know:</strong> It disappears after 2 minutes, and spawning a new one removes your old one.</span></p></div></div><div style="flex:1;min-width:200px;border:1px solid #8a94a3;border-radius:16px"><div style="background-color:#15803d;color:#ffffff;border-radius:16px;font-size:16px;line-height:2.2"><strong>&nbsp;&nbsp;Friends</strong></div><div style="margin-left:12px;margin-right:12px"><p><span>You pick online players as friends, and Aura Mode and Bow Aimbot skip them.</span><br><span style="font-size:13px;color:#8a94a3"><strong>How It Works:</strong> Open the Combat Menu, tap Friends, tick the players you want and tap Apply.</span><br><span style="font-size:13px;color:#8a94a3"><strong>Good To Know:</strong> Friends stay on your list when they go offline. The list is yours alone, so a friend is only safe from your toggles, not the other way round.</span></p></div></div><div style="flex:1;min-width:200px;border:1px solid #8a94a3;border-radius:16px"><div style="background-color:#15803d;color:#ffffff;border-radius:16px;font-size:16px;line-height:2.2"><strong>&nbsp;&nbsp;Tuning</strong></div><div style="margin-left:12px;margin-right:12px"><p><span>Seven sliders and three choices change how the toggles behave: Aura range (2 to 6 blocks), Aura damage (1 to 10), Aura targets (1 to 5), Bow Aimbot range (16 to 96 blocks), Bow Aimbot angle (5 to 45 degrees), Always Critical damage (110 to 300 percent), Knockback you deal (0 to 200 percent), Aura hits (mobs and players, mobs only or players only) whether Aura turns you to face the target, and whether Target Highlight draws the aim circle.</span><br><span style="font-size:13px;color:#8a94a3"><strong>How It Works:</strong> Open the Combat Menu, tap Tuning, drag the sliders and tap Apply. A reset switch at the bottom puts everything back to the defaults.</span><br><span style="font-size:13px;color:#8a94a3"><strong>Good To Know:</strong> The starting values match the old fixed numbers, so nothing changes until you move a slider.</span></p></div></div><div style="flex:1;min-width:200px;border:1px solid #8a94a3;border-radius:16px"><div style="background-color:#15803d;color:#ffffff;border-radius:16px;font-size:16px;line-height:2.2"><strong>&nbsp;&nbsp;Quick Toggle</strong></div><div style="margin-left:12px;margin-right:12px"><p><span>Sneaking while you use the Combat Helper switches every toggle off at once, and doing it again brings the same toggles back.</span><br><span style="font-size:13px;color:#8a94a3"><strong>How It Works:</strong> Crouch and use the item instead of opening the menu.</span><br><span style="font-size:13px;color:#8a94a3"><strong>Good To Know:</strong> Your friends and tuning stay as they are.</span></p></div></div><div style="flex:1;min-width:200px;border:1px solid #8a94a3;border-radius:16px"><div style="background-color:#15803d;color:#ffffff;border-radius:16px;font-size:16px;line-height:2.2"><strong>&nbsp;&nbsp;Starter Item Pack Setting</strong></div><div style="margin-left:12px;margin-right:12px"><p><span>The behavior pack has a choice between No Starter Item, which is the default, and Give Starter Item, which gives each player a Combat Helper the first time they join the world.</span><br><span style="font-size:13px;color:#8a94a3"><strong>How It Works:</strong> Open the world settings, go to Behavior Packs, tap Combat Helper and use the subpack slider to pick Give Starter Item.</span><br><span style="font-size:13px;color:#8a94a3"><strong>Good To Know:</strong> Each player gets one the first time they join with the setting on, and a player who already has one saved from before is not given another.</span></p></div></div></div>
+<div style="display:flex;flex-wrap:wrap;gap:10px"><div style="flex:1;min-width:200px;border:1px solid #8a94a3;border-radius:16px"><div style="background-color:#15803d;color:#ffffff;border-radius:16px;font-size:16px;line-height:2.2"><strong>&nbsp;&nbsp;Combat Helper Item</strong></div><div style="margin-left:12px;margin-right:12px"><p><span>A cursor-shaped item that opens the toggle menu when you use it. You craft one from wool, take one from the Equipment tab of the Creative inventory, or turn on the Give Starter Item pack setting to receive one the first time you join a world.</span><br><span style="font-size:13px;color:#8a94a3"><strong>How It Works:</strong> Hold the Combat Helper and use it, like right-clicking on PC or tapping on mobile. Sneak while you use it to switch all your toggles off or back on. To craft one, fill the top row of a crafting table with wool, then the left and middle squares of the middle row, then the left and right squares of the bottom row. This takes 7 wool of any color and the shape looks like a cursor.</span><br><span style="font-size:13px;color:#8a94a3"><strong>Good To Know:</strong> With Give Starter Item on, a full inventory on first join means the Combat Helper is offered again on your next join.</span></p></div></div><div style="flex:1;min-width:200px;border:1px solid #8a94a3;border-radius:16px"><div style="background-color:#15803d;color:#ffffff;border-radius:16px;font-size:16px;line-height:2.2"><strong>&nbsp;&nbsp;Combat Toggles Menu</strong></div><div style="margin-left:12px;margin-right:12px"><p><span>The main menu has three buttons: Combat Menu, About and Exit. Combat Menu opens a screen with Combat Toggles, Friends, Tuning and Practice Dummy. Combat Toggles lists 13 switches with a one-line explanation under each, and Apply saves them and closes the menu.</span><br><span style="font-size:13px;color:#8a94a3"><strong>How It Works:</strong> Flip the switches you want, then tap Apply. Closing the screen without Apply brings you back one screen.</span><br><span style="font-size:13px;color:#8a94a3"><strong>Good To Know:</strong> Toggles are saved per player, so each person in a world picks their own.</span></p></div></div><div style="flex:1;min-width:200px;border:1px solid #8a94a3;border-radius:16px"><div style="background-color:#15803d;color:#ffffff;border-radius:16px;font-size:16px;line-height:2.2"><strong>&nbsp;&nbsp;Auto Totem</strong></div><div style="margin-left:12px;margin-right:12px"><p><span>When a hit would kill you and you hold no Totem of Undying, one from your inventory moves into your off hand first, so the totem saves you.</span><br><span style="font-size:13px;color:#8a94a3"><strong>How It Works:</strong> Keep a Totem of Undying anywhere in your inventory and switch Auto Totem on.</span><br><span style="font-size:13px;color:#8a94a3"><strong>Good To Know:</strong> It does nothing without a totem in your inventory, and it cannot help against the void or the kill command.</span></p></div></div><div style="flex:1;min-width:200px;border:1px solid #8a94a3;border-radius:16px"><div style="background-color:#15803d;color:#ffffff;border-radius:16px;font-size:16px;line-height:2.2"><strong>&nbsp;&nbsp;Infinite Totem</strong></div><div style="margin-left:12px;margin-right:12px"><p><span>Works like Auto Totem, and when you have no totem at all it puts a new Totem of Undying in your off hand before a deadly hit.</span><br><span style="font-size:13px;color:#8a94a3"><strong>How It Works:</strong> Switch it on and keep fighting. Each totem that pops is replaced before the next deadly hit.</span><br><span style="font-size:13px;color:#8a94a3"><strong>Good To Know:</strong> An item that was in your off hand moves to your inventory, or drops at your feet if the inventory is full.</span></p></div></div><div style="flex:1;min-width:200px;border:1px solid #8a94a3;border-radius:16px"><div style="background-color:#15803d;color:#ffffff;border-radius:16px;font-size:16px;line-height:2.2"><strong>&nbsp;&nbsp;Aura Mode</strong></div><div style="margin-left:12px;margin-right:12px"><p><span>Every half second, you hit up to 3 of the nearest hostile mobs and other players within 4 blocks for 5 damage (2.5 hearts), without clicking.</span><br><span style="font-size:13px;color:#8a94a3"><strong>How It Works:</strong> Stand near enemies with Aura Mode on and they take damage automatically.</span><br><span style="font-size:13px;color:#8a94a3"><strong>Good To Know:</strong> Players in Creative or Spectator mode are never hit, and passive mobs are left alone.</span></p></div></div><div style="flex:1;min-width:200px;border:1px solid #8a94a3;border-radius:16px"><div style="background-color:#15803d;color:#ffffff;border-radius:16px;font-size:16px;line-height:2.2"><strong>&nbsp;&nbsp;Always Critical</strong></div><div style="margin-left:12px;margin-right:12px"><p><span>Every melee hit you land deals 1.5 times damage and shows the critical hit sparks, the same bonus as a vanilla critical hit, without jumping first.</span><br><span style="font-size:13px;color:#8a94a3"><strong>How It Works:</strong> Hit a mob or player with a sword or axe while Always Critical is on.</span><br><span style="font-size:13px;color:#8a94a3"><strong>Good To Know:</strong> A hit made while you are already falling is left as vanilla, so the bonus never stacks.</span></p></div></div><div style="flex:1;min-width:200px;border:1px solid #8a94a3;border-radius:16px"><div style="background-color:#15803d;color:#ffffff;border-radius:16px;font-size:16px;line-height:2.2"><strong>&nbsp;&nbsp;Bow Aimbot</strong></div><div style="margin-left:12px;margin-right:12px"><p><span>Arrows you shoot from a bow or crossbow steer toward the hostile mob or player closest to your crosshair within 48 blocks and 25 degrees of where you look.</span><br><span style="font-size:13px;color:#8a94a3"><strong>How It Works:</strong> Aim roughly at a target and release. The arrow leads a moving target and allows for arrow drop.</span><br><span style="font-size:13px;color:#8a94a3"><strong>Good To Know:</strong> If nothing is near your crosshair, the arrow flies as normal. A mob or player hidden behind blocks is never chosen.</span></p></div></div><div style="flex:1;min-width:200px;border:1px solid #8a94a3;border-radius:16px"><div style="background-color:#15803d;color:#ffffff;border-radius:16px;font-size:16px;line-height:2.2"><strong>&nbsp;&nbsp;Always Water Clutch</strong></div><div style="margin-left:12px;margin-right:12px"><p><span>When you fall 3 blocks or more and the ground is close, a water block appears in the space you land in, so the fall does no damage, and it is removed as soon as you stop falling, together with any water that spread from it.</span><br><span style="font-size:13px;color:#8a94a3"><strong>How It Works:</strong> Switch it on and jump. No water bucket is needed.</span><br><span style="font-size:13px;color:#8a94a3"><strong>Good To Know:</strong> It does not trigger in Creative or Spectator mode, while gliding or flying, or over water.</span></p></div></div><div style="flex:1;min-width:200px;border:1px solid #8a94a3;border-radius:16px"><div style="background-color:#15803d;color:#ffffff;border-radius:16px;font-size:16px;line-height:2.2"><strong>&nbsp;&nbsp;Shield Always Active</strong></div><div style="margin-left:12px;margin-right:12px"><p><span>While you carry a shield in either hand, every melee hit and arrow from the front half of your view is fully blocked, even if you are not holding the block button.</span><br><span style="font-size:13px;color:#8a94a3"><strong>How It Works:</strong> Keep a shield in your hand or off hand and switch Shield Always Active on.</span><br><span style="font-size:13px;color:#8a94a3"><strong>Good To Know:</strong> Hits from behind and other damage, such as fire or explosions, are not blocked. Each block plays the shield sound, shows sparks in front of you, and pushes a melee attacker back.</span></p></div></div><div style="flex:1;min-width:200px;border:1px solid #8a94a3;border-radius:16px"><div style="background-color:#15803d;color:#ffffff;border-radius:16px;font-size:16px;line-height:2.2"><strong>&nbsp;&nbsp;Auto Golden Apple</strong></div><div style="margin-left:12px;margin-right:12px"><p><span>When your health drops to 4 hearts or less, one golden apple from your inventory is eaten for you, giving Regeneration II for 5 seconds and Absorption for 2 minutes.</span><br><span style="font-size:13px;color:#8a94a3"><strong>How It Works:</strong> Keep a golden apple anywhere in your inventory and switch Auto Golden Apple on.</span><br><span style="font-size:13px;color:#8a94a3"><strong>Good To Know:</strong> It waits 20 seconds between apples, it does not restore hunger, and it does nothing in Creative or Spectator mode.</span></p></div></div><div style="flex:1;min-width:200px;border:1px solid #8a94a3;border-radius:16px"><div style="background-color:#15803d;color:#ffffff;border-radius:16px;font-size:16px;line-height:2.2"><strong>&nbsp;&nbsp;Damage Display</strong></div><div style="margin-left:12px;margin-right:12px"><p><span>Each time you hurt a mob or player, the action bar shows how much damage the hit did, in points and in hearts.</span><br><span style="font-size:13px;color:#8a94a3"><strong>How It Works:</strong> Switch it on and hit something.</span><br><span style="font-size:13px;color:#8a94a3"><strong>Good To Know:</strong> It also counts the hits made by Aura Mode.</span></p></div></div><div style="flex:1;min-width:200px;border:1px solid #8a94a3;border-radius:16px"><div style="background-color:#15803d;color:#ffffff;border-radius:16px;font-size:16px;line-height:2.2"><strong>&nbsp;&nbsp;Never Die</strong></div><div style="margin-left:12px;margin-right:12px"><p><span>Any hit that would kill you leaves you at half a heart instead, and while you are at half a heart further damage is blocked, so you never die.</span><br><span style="font-size:13px;color:#8a94a3"><strong>How It Works:</strong> Switch Never Die on. It works against explosions such as creepers, mobs, arrows, fire and falls.</span><br><span style="font-size:13px;color:#8a94a3"><strong>Good To Know:</strong> It cannot stop the void or the kill command. It is used before the totem toggles, so no totem is spent while Never Die is on. When it saves you from a deadly hit you see the totem particles and hear the totem sound.</span></p></div></div><div style="flex:1;min-width:200px;border:1px solid #8a94a3;border-radius:16px"><div style="background-color:#15803d;color:#ffffff;border-radius:16px;font-size:16px;line-height:2.2"><strong>&nbsp;&nbsp;Keep Gear On Death</strong></div><div style="margin-left:12px;margin-right:12px"><p><span>When you die, your items and armor are set aside and given back when you respawn, so nothing drops, and only you keep your gear.</span><br><span style="font-size:13px;color:#8a94a3"><strong>How It Works:</strong> Switch Keep Gear On Death on. After you respawn, your inventory, armor and off hand are back as they were.</span><br><span style="font-size:13px;color:#8a94a3"><strong>Good To Know:</strong> The items are held in memory, so they are lost if the world closes before you respawn. A totem that saves you does not trigger it.</span></p></div></div><div style="flex:1;min-width:200px;border:1px solid #8a94a3;border-radius:16px"><div style="background-color:#15803d;color:#ffffff;border-radius:16px;font-size:16px;line-height:2.2"><strong>&nbsp;&nbsp;No Knockback</strong></div><div style="margin-left:12px;margin-right:12px"><p><span>Melee hits no longer push you back, or push you much less.</span><br><span style="font-size:13px;color:#8a94a3"><strong>How It Works:</strong> Switch it on and take a hit. The script pushes you the other way by the amount a hit normally pushes you.</span><br><span style="font-size:13px;color:#8a94a3"><strong>Good To Know:</strong> It cancels the push by about the usual amount, so a strong knockback enchantment can still move you a little.</span></p></div></div><div style="flex:1;min-width:200px;border:1px solid #8a94a3;border-radius:16px"><div style="background-color:#15803d;color:#ffffff;border-radius:16px;font-size:16px;line-height:2.2"><strong>&nbsp;&nbsp;Target Highlight</strong></div><div style="margin-left:12px;margin-right:12px"><p><span>While you hold a bow or crossbow, a small target picture floats above the mob or player Bow Aimbot will pick, the action bar names it, and a circle picture sits on your crosshair on the screen to show the aim range, so it never lags behind when you turn. Only you see them.</span><br><span style="font-size:13px;color:#8a94a3"><strong>How It Works:</strong> Switch on both Bow Aimbot and Target Highlight, hold a bow and aim near an enemy.</span><br><span style="font-size:13px;color:#8a94a3"><strong>Good To Know:</strong> It does nothing when Bow Aimbot is off, and the target picture only shows when a target is inside the circle. The circle can be switched off in Tuning, and its size follows the Bow Aimbot angle.</span></p></div></div><div style="flex:1;min-width:200px;border:1px solid #8a94a3;border-radius:16px"><div style="background-color:#15803d;color:#ffffff;border-radius:16px;font-size:16px;line-height:2.2"><strong>&nbsp;&nbsp;Practice Dummy</strong></div><div style="margin-left:12px;margin-right:12px"><p><span>A zombie called Practice Dummy appears 3 blocks in front of you. It cannot move or hurt you and it heals fast, so you can test Aura Mode, Always Critical and Damage Display.</span><br><span style="font-size:13px;color:#8a94a3"><strong>How It Works:</strong> Open the Combat Menu and tap Practice Dummy.</span><br><span style="font-size:13px;color:#8a94a3"><strong>Good To Know:</strong> It disappears after 2 minutes, and spawning a new one removes your old one.</span></p></div></div><div style="flex:1;min-width:200px;border:1px solid #8a94a3;border-radius:16px"><div style="background-color:#15803d;color:#ffffff;border-radius:16px;font-size:16px;line-height:2.2"><strong>&nbsp;&nbsp;Friends</strong></div><div style="margin-left:12px;margin-right:12px"><p><span>You pick online players as friends, and Aura Mode and Bow Aimbot skip them.</span><br><span style="font-size:13px;color:#8a94a3"><strong>How It Works:</strong> Open the Combat Menu, tap Friends, tick the players you want and tap Apply.</span><br><span style="font-size:13px;color:#8a94a3"><strong>Good To Know:</strong> Friends stay on your list when they go offline. The list is yours alone, so a friend is only safe from your toggles, not the other way round.</span></p></div></div><div style="flex:1;min-width:200px;border:1px solid #8a94a3;border-radius:16px"><div style="background-color:#15803d;color:#ffffff;border-radius:16px;font-size:16px;line-height:2.2"><strong>&nbsp;&nbsp;Tuning</strong></div><div style="margin-left:12px;margin-right:12px"><p><span>Seven sliders and three choices change how the toggles behave: Aura range (2 to 6 blocks), Aura damage (1 to 10), Aura targets (1 to 5), Bow Aimbot range (16 to 96 blocks), Bow Aimbot angle (5 to 50 degrees), Always Critical damage (110 to 300 percent), Knockback you deal (0 to 200 percent), Aura hits (mobs and players, mobs only or players only) whether Aura turns you to face the target, and whether Target Highlight draws the aim circle.</span><br><span style="font-size:13px;color:#8a94a3"><strong>How It Works:</strong> Open the Combat Menu, tap Tuning, drag the sliders and tap Apply. A reset switch at the bottom puts everything back to the defaults.</span><br><span style="font-size:13px;color:#8a94a3"><strong>Good To Know:</strong> The starting values match the old fixed numbers, so nothing changes until you move a slider.</span></p></div></div><div style="flex:1;min-width:200px;border:1px solid #8a94a3;border-radius:16px"><div style="background-color:#15803d;color:#ffffff;border-radius:16px;font-size:16px;line-height:2.2"><strong>&nbsp;&nbsp;Quick Toggle</strong></div><div style="margin-left:12px;margin-right:12px"><p><span>Sneaking while you use the Combat Helper switches every toggle off at once, and doing it again brings the same toggles back.</span><br><span style="font-size:13px;color:#8a94a3"><strong>How It Works:</strong> Crouch and use the item instead of opening the menu.</span><br><span style="font-size:13px;color:#8a94a3"><strong>Good To Know:</strong> Your friends and tuning stay as they are.</span></p></div></div><div style="flex:1;min-width:200px;border:1px solid #8a94a3;border-radius:16px"><div style="background-color:#15803d;color:#ffffff;border-radius:16px;font-size:16px;line-height:2.2"><strong>&nbsp;&nbsp;Starter Item Pack Setting</strong></div><div style="margin-left:12px;margin-right:12px"><p><span>The behavior pack has a choice between No Starter Item, which is the default, and Give Starter Item, which gives each player a Combat Helper the first time they join the world.</span><br><span style="font-size:13px;color:#8a94a3"><strong>How It Works:</strong> Open the world settings, go to Behavior Packs, tap Combat Helper and use the subpack slider to pick Give Starter Item.</span><br><span style="font-size:13px;color:#8a94a3"><strong>Good To Know:</strong> Each player gets one the first time they join with the setting on, and a player who already has one saved from before is not given another.</span></p></div></div></div>
 <h2 style="font-size:17px;text-align:left"><span style="background-color:#15803d;color:#ffffff;border-radius:20px">&nbsp;&nbsp;Custom Items&nbsp;&nbsp;</span></h2>
 <div style="display:flex;flex-wrap:wrap;gap:10px"><div style="flex:0 1 120px;border:1px solid #8a94a3;border-radius:16px;text-align:center"><p><a href="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/MCPEDL/Addons/ALN-Pointer/assets/items/aln_pointer.png"><img src="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/MCPEDL/Addons/ALN-Pointer/assets/items/aln_pointer.png" alt="aln pointer" style="width:64px"></a></p><p style="color:#8a94a3;font-size:13px">aln pointer</p></div></div>
 <h2 style="font-size:17px;text-align:left"><span style="background-color:#15803d;color:#ffffff;border-radius:20px">&nbsp;&nbsp;Get Started&nbsp;&nbsp;</span></h2>
