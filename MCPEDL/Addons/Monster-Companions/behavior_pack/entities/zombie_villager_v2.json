@@ -975,7 +975,7 @@
                   ]
                 }
               },
-              "deals_damage": false
+              "deals_damage": "no"
             }
           ]
         },
@@ -2061,12 +2061,6 @@
             "allenscreations:companion"
           ]
         },
-        "emit_particle": {
-          "particle": "totem_particle"
-        },
-        "play_sound": {
-          "sound": "random.levelup"
-        },
         "remove": {
           "component_groups": [
             "allenscreations:wild"
@@ -2074,6 +2068,8 @@
         },
         "queue_command": {
           "command": [
+            "particle minecraft:totem_particle ~ ~1 ~",
+            "playsound random.levelup @a ~ ~ ~",
             "particle minecraft:heart_particle ~ ~1.5 ~"
           ]
         }

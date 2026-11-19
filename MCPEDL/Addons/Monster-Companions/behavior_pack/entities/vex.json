@@ -215,7 +215,7 @@
                   ]
                 }
               },
-              "deals_damage": false
+              "deals_damage": "no"
             }
           ]
         },
@@ -252,8 +252,10 @@
             "allenscreations:loyal_vex"
           ]
         },
-        "emit_particle": {
-          "particle": "totem_particle"
+        "queue_command": {
+          "command": [
+            "particle minecraft:totem_particle ~ ~1 ~"
+          ]
         }
       }
     }

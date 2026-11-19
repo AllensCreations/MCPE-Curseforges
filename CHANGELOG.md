@@ -11,6 +11,12 @@
 
 ---
 
+## [v121] - 2026-11-19 - Monster Companions Error Fixes
+
+### Fixed
+
+- **Monster Companions**: Fixed Behavior Pack loading errors for taming feedback, companion damage protection and loyal Vex particles.
+
 ## [v122] - 2026-11-19 - Equal Taming Chances
 
 ### Improved & Balanced

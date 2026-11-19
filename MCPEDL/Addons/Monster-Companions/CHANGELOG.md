@@ -2,6 +2,14 @@
 
 ---
 
+## [v6] - 2026-11-19 - Content Log Error Fixes
+
+### Fixed
+
+- **Taming feedback**: Taming a mob now plays the level-up sound and shows the totem particles instead of failing to load.
+- **Companion protection**: Companions are protected from damage by you and other companions, and the Behavior Pack no longer reports loading errors for it.
+- **Loyal Vex**: Summoned loyal Vexes now show the totem particles without a loading error.
+
 ## [v5] - 2026-11-19 - Equal Taming Chances
 
 ### Improved & Balanced
