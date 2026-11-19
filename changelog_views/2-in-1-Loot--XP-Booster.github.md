@@ -1,10 +1,21 @@
 # Changelog — 2-in-1 Loot & XP Booster
 
-## [v6] - 2026-11-19 - Mob Loot Rolls
+## [v7] - 2026-11-20 - No Booster Limit
 
 ### Improved & Balanced
+- **No booster limit**: Extra Loot drops and extra XP orbs are no longer capped per moment, so every boosted drop and orb appears.
+- **No limit message**: The Booster limit Action Bar message is removed. Apply still shows your new levels on the Action Bar.
+
+<details>
+<summary><b>6.0.x</b> (1 release)</summary>
+
+### [v6] - 2026-11-19 - Mob Loot Rolls
+
+#### Improved & Balanced
 - **Mob loot rolls**: Mobs are now boosted by rolling their loot again with the weapon you killed with, so rare drops stay rare but get more chances to appear.
 - **Lighter mob farms**: The booster no longer tracks nearby items for mob kills, which reduces lag and removes the 2x limit on rare drops.
+
+</details>
 
 <details>
 <summary><b>5.0.x</b> (1 release)</summary>
