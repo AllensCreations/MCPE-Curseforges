@@ -1,8 +1,16 @@
 # Changelog — ALN Pointer
 
-## [v7] - 2026-11-19 - Gear and Dummy
+## [v8] - 2026-11-19 - Water Clutch Cleanup
 
-### Added
+### Fixed
+- **Water Cleanup**: Always Water Clutch now removes its water as soon as you land, including the water that spread sideways from it, instead of leaving it behind. It still removes the water after about 2 seconds at most.
+
+<details>
+<summary><b>7.0.x</b> (1 release)</summary>
+
+### [v7] - 2026-11-19 - Gear and Dummy
+
+#### Added
 - **Keep Gear On Death**: Your items, armor and off hand are set aside when you die and given back when you respawn, for you only and without changing the world rules.
 - **No Knockback**: Cancels the push you get from melee hits.
 - **Target Highlight**: Shows particles above the target Bow Aimbot picks and names it on the action bar while you hold a bow.
@@ -11,8 +19,10 @@
 - **Aura Options**: Tuning choices for Aura Mode to hit mobs and players, mobs only or players only, and to turn you to face the target with a hit sound.
 - **Totem Pop Effect**: Never Die now shows the totem particles and plays the totem sound when it saves you from a deadly hit.
 
-### Changed
+#### Changed
 - **Combat Toggles**: The toggles screen now has 13 switches, and the Combat Menu has a Practice Dummy button before Back.
+
+</details>
 
 <details>
 <summary><b>6.0.x</b> (1 release)</summary>
