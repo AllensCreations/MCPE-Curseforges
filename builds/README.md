@@ -42,7 +42,7 @@ This directory stores compiled Add-ons (`.mcaddon`), Maps (`.mcworld`), Scripts 
 | **ALN Wireless Headphones** | Add-on (.mcaddon) | [Download (.mcaddon)](ALN-Wireless-Headphones/ALNWirelessHeadphones%20V11.mcaddon) | [`ALN-Wireless-Headphones/`](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/builds/ALN-Wireless-Headphones/) |
 | **ALN MoreDiscs** | Add-on (.mcaddon) | [Download (.mcaddon)](ALN-MoreDiscs/ALNMoreDiscs%20V3.mcaddon) | [`ALN-MoreDiscs/`](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/builds/ALN-MoreDiscs/) |
 | **ALN Pointer** | Add-on (.mcaddon) | [Download (.mcaddon)](ALN-Pointer/ALNPointer%20V17.mcaddon) | [`ALN-Pointer/`](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/builds/ALN-Pointer/) |
-| **ALN-GlobalMarket** | Complete Pack (`.mcaddon`) | [Download (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/ALN-GlobalMarket/ALNGlobalMarket%20V1.mcaddon) | [`ALN-GlobalMarket/`](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/builds/ALN-GlobalMarket/) |
+| **ALN-GlobalMarket** | Add-on (.mcaddon) | [Download (.mcaddon)](ALN-GlobalMarket/ALNGlobalMarket%20V1.mcaddon) | [`ALN-GlobalMarket/`](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/builds/ALN-GlobalMarket/) |
 
 ### Worlds and Maps
 
@@ -61,7 +61,7 @@ This directory stores compiled Add-ons (`.mcaddon`), Maps (`.mcworld`), Scripts 
 | :--- | :--- | :--- | :--- |
 | **Alphabet Scavenger Hunt** | Minigame (.mcaddon) | [Download (.mcaddon)](Alphabet-Scavenger-Hunt/AlphabetHunt%20V2.mcaddon) | [`Alphabet-Scavenger-Hunt/`](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/builds/Alphabet-Scavenger-Hunt) |
 | **Team Inventory** | Minigame (.mcaddon) | [Download (.mcaddon)](Shared-Hivemind-Inventory/TeamInventory%20V2.mcaddon) | [`Shared-Hivemind-Inventory/`](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/builds/Shared-Hivemind-Inventory) |
-| **Tethered: Breaker & Builder** | Minigame (.mcaddon) | [Download (.mcaddon)](Tethered-Breaker-And-Builder/TetheredBuilder%20V2.mcaddon) | [`Tethered-Breaker-And-Builder/`](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/builds/Tethered-Breaker-And-Builder) |
+| **Tethered: Breaker & Builder** | Minigame (.mcaddon) | [Download (.mcaddon)](Tethered-Breaker-And-Builder/TetheredBuilder%20V2.0.1.mcaddon) | [`Tethered-Breaker-And-Builder/`](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/builds/Tethered-Breaker-And-Builder) |
 | **Trivia Vault The Locked World** | Minigame (.mcaddon) | [Download (.mcaddon)](Trivia-Vault-The-Locked-World/TriviaVault%20V2.mcaddon) | [`Trivia-Vault-The-Locked-World/`](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/builds/Trivia-Vault-The-Locked-World) |
 | **Mob Chaos Behavioral Roulette** | Minigame (.mcaddon) | [Download (.mcaddon)](Mob-Chaos-Behavioral-Roulette/MobChaos%20V2.mcaddon) | [`Mob-Chaos-Behavioral-Roulette/`](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/builds/Mob-Chaos-Behavioral-Roulette) |
 | **Minecraft, But Every Drop is Random Chaos Edition** | Minigame (.mcaddon) | [Download (.mcaddon)](Minecraft-But-Every-Drop-is-Random-Chaos-Edition/MinecraftButEveryDropIsRandomChaosEdition%20V2.mcaddon) | [`Minecraft-But-Every-Drop-is-Random-Chaos-Edition/`](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/builds/Minecraft-But-Every-Drop-is-Random-Chaos-Edition/) |
