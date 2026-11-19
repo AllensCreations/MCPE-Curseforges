@@ -2,7 +2,7 @@
 
 Generated file. Do not edit by hand: it is rebuilt with every build.
 
-32 Add-ons · 6 Maps · 10 Scripts · 6 Minigames
+33 Add-ons · 6 Maps · 10 Scripts · 6 Minigames
 
 ## AI Review Kits
 
@@ -24,6 +24,7 @@ Generated file. Do not edit by hand: it is rebuilt with every build.
 | **ALN MoreDiscs** | 1.1.0 | [Source](Addons/ALN-MoreDiscs) | [Package](../Package/ALN-MoreDiscs.listing.md) | [Download](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/MCPEDL/Addons/ALN-MoreDiscs/ai-review/ALN-MoreDiscs.txt) |
 | **ALN Quiver** | - | [Source](Addons/ALN-Quiver) | [Package](../Package/ALN-Quiver.listing.md) | [Download](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/MCPEDL/Addons/ALN-Quiver/ai-review/ALN-Quiver.txt) |
 | **ALN Wireless Headphones** | - | [Source](Addons/ALN-Wireless-Headphones) | [Package](../Package/ALN-Wireless-Headphones.listing.md) | [Download](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/MCPEDL/Addons/ALN-Wireless-Headphones/ai-review/ALN-Wireless-Headphones.txt) |
+| **ALN-GlobalMarket** | 1.0.0 | [Source](Addons/ALN-GlobalMarket) | [Package](../Package/ALN-GlobalMarket.listing.md) | [Download](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/MCPEDL/Addons/ALN-GlobalMarket/ai-review/ALN-GlobalMarket.txt) |
 | **Cheat Stick** | 2.0.0 | [Source](Addons/Cheat-Stick) | [Package](../Package/Cheat-Stick.listing.md) | [Download](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/MCPEDL/Addons/Cheat-Stick/ai-review/Cheat-Stick.txt) |
 | **Combat Helper** | - | [Source](Addons/ALN-Pointer) | [Package](../Package/ALN-Pointer.listing.md) | [Download](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/MCPEDL/Addons/ALN-Pointer/ai-review/ALN-Pointer.txt) |
 | **Copper-Carrier Logistics** | 1.0.0 | [Source](Addons/Copper-Carrier-Logistics) | [Package](../Package/Copper-Carrier-Logistics.listing.md) | [Download](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/MCPEDL/Addons/Copper-Carrier-Logistics/ai-review/Copper-Carrier-Logistics.txt) |
