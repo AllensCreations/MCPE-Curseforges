@@ -1,9 +1,19 @@
 # Changelog — Monster Companions
 
-## [v10] - 2026-11-19 - Golden Beast Biscuit Recipe
+## [v11] - 2026-11-19 - Primal Beast Biscuit Recipe
 
-### Changed
+### Fixed
+- **Primal Beast Biscuit recipe**: The recipe now loads without errors. Place Rotten Flesh and a Bone on the top row and Sweet Berries and a Honey Bottle on the bottom row of the crafting grid.
+
+<details>
+<summary><b>10.0.x</b> (1 release)</summary>
+
+### [v10] - 2026-11-19 - Golden Beast Biscuit Recipe
+
+#### Changed
 - **Golden Beast Biscuit recipe**: Craft it by placing a Primal Beast Biscuit in the middle of a crafting table and surrounding it with 8 Gold Ingots, like a Golden Carrot.
+
+</details>
 
 <details>
 <summary><b>9.0.x</b> (1 release)</summary>

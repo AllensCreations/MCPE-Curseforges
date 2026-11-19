@@ -4,7 +4,7 @@
 
 - **Export request:** `MCPEDL/Addons/Monster-Companions`
 - **Destination:** `MCPEDL/Addons/Monster-Companions`
-- **CURRENT VERSION: v10 / NEXT UPDATE: v11**  (`MCPEDL/Addons/Monster-Companions/CHANGELOG.md`)
+- **CURRENT VERSION: v11 / NEXT UPDATE: v12**  (`MCPEDL/Addons/Monster-Companions/CHANGELOG.md`)
 - **Text files:** 65
 - **Skipped binary:** 16
 - **Paths not found:** 0
@@ -273,10 +273,11 @@ git config --global credential.helper store
 
 ## File Contents
 
-## FILE: changelog_views/Monster-Companions.curseforge.html (20 lines, 7726 bytes)
+## FILE: changelog_views/Monster-Companions.curseforge.html (21 lines, 8072 bytes)
 
 ```
-<h2>v10 - 2026-11-19 - Golden Beast Biscuit Recipe</h2><h3>Changed</h3><ul><li><strong>Golden Beast Biscuit recipe</strong>: Craft it by placing a Primal Beast Biscuit in the middle of a crafting table and surrounding it with 8 Gold Ingots, like a Golden Carrot.</li></ul>
+<h2>v11 - 2026-11-19 - Primal Beast Biscuit Recipe</h2><h3>Fixed</h3><ul><li><strong>Primal Beast Biscuit recipe</strong>: The recipe now loads without errors. Place Rotten Flesh and a Bone on the top row and Sweet Berries and a Honey Bottle on the bottom row of the crafting grid.</li></ul>
+<h2>10.0.x (1 release)</h2><div class="spoiler"><h3>v10 - 2026-11-19 - Golden Beast Biscuit Recipe</h3><h4>Changed</h4><ul><li><strong>Golden Beast Biscuit recipe</strong>: Craft it by placing a Primal Beast Biscuit in the middle of a crafting table and surrounding it with 8 Gold Ingots, like a Golden Carrot.</li></ul></div>
 <h2>9.0.x (1 release)</h2><div class="spoiler"><h3>v9 - 2026-11-19 - Biscuit Recipe Format Fix</h3><h4>Fixed</h4><ul><li><strong>Biscuit recipes</strong>: The Primal Beast Biscuit and Golden Beast Biscuit recipes now use a newer recipe format to stop loading errors.</li></ul></div>
 <h2>8.0.x (1 release)</h2><div class="spoiler"><h3>v8 - 2026-11-19 - Biscuit Recipe Fix</h3><h4>Fixed</h4><ul><li><strong>Biscuit recipes</strong>: The Primal Beast Biscuit and Golden Beast Biscuit recipes no longer report loading errors and are available from the start.</li></ul></div>
 <h2>7.0.x (1 release)</h2><div class="spoiler"><h3>v7 - 2026-11-19 - Recipe and Hoglin Load Fixes</h3><h4>Fixed</h4><ul><li><strong>Biscuit recipes</strong>: The Primal Beast Biscuit and Golden Beast Biscuit recipes now load without errors and unlock when you pick up one of their ingredients.</li><li><strong>Tamed Hoglin</strong>: The Hoglin no longer fails to load, and a tamed Hoglin that leaves the Nether still turns into a tamed Zoglin.</li><li><strong>Zombie appearance</strong>: The Zombie no longer reports a loading error in the Resource Pack.</li></ul></div>
@@ -297,15 +298,25 @@ git config --global credential.helper store
 <h2>1.0.x (1 release)</h2><div class="spoiler"><h3>1.0.0 - 2026-11-04</h3><h4>v1.2.x (v1.2.14)</h4><ul><li><strong>Witch healing</strong>: The tamed Witch now throws a visible Regeneration splash potion at you every 25 to 40 seconds. Companions standing next to you are healed too.</li><li><strong>Witch splash safety</strong>: A tamed Witch no longer throws harmful potions at enemies standing within 4 blocks of you.</li><li><strong>Peaceful difficulty</strong>: Minecraft removes all hostile mobs on Peaceful, including tamed companions, so play on Easy or higher to keep them.</li></ul><h4>Added</h4><ul></ul><h4>Fixed</h4><ul></ul><h4>Known Limitations</h4><ul></ul><h4>Added</h4><ul></ul><h4>Improved &amp; Balanced</h4><ul></ul></div>
 ```
 
-## FILE: changelog_views/Monster-Companions.github.md (222 lines, 6905 bytes)
+## FILE: changelog_views/Monster-Companions.github.md (232 lines, 7233 bytes)
 
 ```
 # Changelog — Monster Companions
 
-## [v10] - 2026-11-19 - Golden Beast Biscuit Recipe
+## [v11] - 2026-11-19 - Primal Beast Biscuit Recipe
 
-### Changed
+### Fixed
+- **Primal Beast Biscuit recipe**: The recipe now loads without errors. Place Rotten Flesh and a Bone on the top row and Sweet Berries and a Honey Bottle on the bottom row of the crafting grid.
+
+<details>
+<summary><b>10.0.x</b> (1 release)</summary>
+
+### [v10] - 2026-11-19 - Golden Beast Biscuit Recipe
+
+#### Changed
 - **Golden Beast Biscuit recipe**: Craft it by placing a Primal Beast Biscuit in the middle of a crafting table and surrounding it with 8 Gold Ingots, like a Golden Carrot.
+
+</details>
 
 <details>
 <summary><b>9.0.x</b> (1 release)</summary>
@@ -29196,11 +29207,11 @@ This marker does not encrypt the pack or prevent extraction or editing.
 {
   "format_version": 2,
   "header": {
-    "name": "Monster Companions (v10)",
+    "name": "Monster Companions (v11)",
     "description": "Tame hostile monsters into loyal bodyguards and rideable mounts with Beast Biscuits!. by ALNStudios",
     "uuid": "51f090e5-374b-42c6-a122-bcef2a0f0356",
     "version": [
-      10,
+      11,
       0,
       0
     ],
@@ -29216,7 +29227,7 @@ This marker does not encrypt the pack or prevent extraction or editing.
       "type": "data",
       "uuid": "8c424ffd-8631-4a9b-a7f0-505af3fa6823",
       "version": [
-        10,
+        11,
         0,
         0
       ]
@@ -29226,7 +29237,7 @@ This marker does not encrypt the pack or prevent extraction or editing.
     {
       "uuid": "7216d2ae-eb79-49ec-ba4f-25fab6d1f65d",
       "version": [
-        10,
+        11,
         0,
         0
       ]
@@ -29237,7 +29248,7 @@ This marker does not encrypt the pack or prevent extraction or editing.
       "ALNStudios"
     ],
     "product_type": "addon",
-    "version": "10.0.0"
+    "version": "11.0.0"
   },
   "subpacks": [
     {
@@ -29254,41 +29265,43 @@ This marker does not encrypt the pack or prevent extraction or editing.
 }
 ```
 
-## FILE: MCPEDL/Addons/Monster-Companions/behavior_pack/recipes/beast_biscuit.json (35 lines, 616 bytes)
+## FILE: MCPEDL/Addons/Monster-Companions/behavior_pack/recipes/beast_biscuit.json (37 lines, 654 bytes)
 
 ```
 {
   "format_version": "1.21.0",
-  "minecraft:recipe_shapeless": {
+  "minecraft:recipe_shaped": {
     "description": {
       "identifier": "allenscreations:beast_biscuit_recipe"
     },
     "tags": [
       "crafting_table"
     ],
-    "ingredients": [
-      {
+    "pattern": [
+      "RB",
+      "SH"
+    ],
+    "key": {
+      "R": {
         "item": "minecraft:rotten_flesh"
       },
-      {
+      "B": {
         "item": "minecraft:bone"
       },
-      {
+      "S": {
         "item": "minecraft:sweet_berries"
       },
-      {
+      "H": {
         "item": "minecraft:honey_bottle"
       }
-    ],
+    },
     "result": {
       "item": "allenscreations:beast_biscuit",
       "count": 4
     },
-    "unlock": [
-      {
-        "context": "AlwaysUnlocked"
-      }
-    ]
+    "unlock": {
+      "context": "AlwaysUnlocked"
+    }
   }
 }
 ```
@@ -30300,12 +30313,18 @@ Default subpack: the Warden and the Wither stay vanilla.
 }
 ```
 
-## FILE: MCPEDL/Addons/Monster-Companions/CHANGELOG.md (219 lines, 8137 bytes)
+## FILE: MCPEDL/Addons/Monster-Companions/CHANGELOG.md (225 lines, 8396 bytes)
 
 ```
 # Changelog — Monster Companions
 
 ---
+
+## [v11] - 2026-11-19 - Primal Beast Biscuit Recipe
+
+### Fixed
+
+- **Primal Beast Biscuit recipe**: The recipe now loads without errors. Place Rotten Flesh and a Bone on the top row and Sweet Berries and a Honey Bottle on the bottom row of the crafting grid.
 
 ## [v10] - 2026-11-19 - Golden Beast Biscuit Recipe
 
@@ -30523,7 +30542,7 @@ Default subpack: the Warden and the Wither stay vanilla.
 - **Biscuit Recipe:** One Rotten Flesh, one Bone, one Sweet Berries, and one Honey Bottle craft four Primal Beast Biscuits.
 ```
 
-## FILE: MCPEDL/Addons/Monster-Companions/DESCRIPTION.md (201 lines, 9864 bytes)
+## FILE: MCPEDL/Addons/Monster-Companions/DESCRIPTION.md (201 lines, 9888 bytes)
 
 ```
 # Monster Companions
@@ -30686,8 +30705,8 @@ Equipping a Saddle onto supported large companions enables manual mounting and d
 
 
 
-- Type: Shapeless Crafting Table Recipe
-- Ingredients: 1 Rotten Flesh, 1 Bone, 1 Sweet Berries, 1 Honey Bottle
+- Type: Shaped Crafting Table Recipe (2x2)
+- Ingredients: Top row: 1 Rotten Flesh, 1 Bone. Bottom row: 1 Sweet Berries, 1 Honey Bottle
 - Yield: 4x Primal Beast Biscuits
 - Recipe book: The recipe is available from the start.
 - Offline crafting: The recipe is included with the add-on, so internet access is not needed during local gameplay after import.
@@ -30804,7 +30823,7 @@ Download the current release of **Monster Companions** for Minecraft Bedrock Edi
 ## Download
 
 - **Package format:** `.mcaddon`
-- **Direct download:** [Download Monster Companions (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Monster-Companions/MonsterCompanions%20V10.mcaddon)
+- **Direct download:** [Download Monster Companions (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Monster-Companions/MonsterCompanions%20V11.mcaddon)
 
 ## Installation
 
@@ -31122,11 +31141,11 @@ This marker does not encrypt the pack or prevent extraction or editing.
 {
   "format_version": 2,
   "header": {
-    "name": "Monster Companions (v10)",
+    "name": "Monster Companions (v11)",
     "description": "Custom textures, icons, and language definitions for Monster Companions. by ALNStudios",
     "uuid": "7216d2ae-eb79-49ec-ba4f-25fab6d1f65d",
     "version": [
-      10,
+      11,
       0,
       0
     ],
@@ -31142,7 +31161,7 @@ This marker does not encrypt the pack or prevent extraction or editing.
       "type": "resources",
       "uuid": "a7052966-2e1a-4eb4-a6fb-1a0d2c4175f5",
       "version": [
-        10,
+        11,
         0,
         0
       ]
@@ -31153,7 +31172,7 @@ This marker does not encrypt the pack or prevent extraction or editing.
       "ALNStudios"
     ],
     "product_type": "addon",
-    "version": "10.0.0"
+    "version": "11.0.0"
   }
 }
 ```
@@ -31237,7 +31256,7 @@ Source files for established Minecraft Bedrock add-ons by ALNStudios.
 | Ghast Mob Head Transformers | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/Ghast-Mob-Head-Transformers/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Ghast-Mob-Head-Transformers/GhastMobHeads%20V2.mcaddon) |
 | Immortal Pets | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/Immortal-Pets/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Immortal-Pets/ImmortalPets%20V2.mcaddon) |
 | Mining Helmet | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/Mining-Helmet/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Mining-Helmet/MiningHelmet%20V2.mcaddon) |
-| Monster Companions | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/Monster-Companions/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Monster-Companions/MonsterCompanions%20V10.mcaddon) |
+| Monster Companions | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/Monster-Companions/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Monster-Companions/MonsterCompanions%20V11.mcaddon) |
 | Passive Auto-Switch Tools | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/Passive-Auto-Switch-Tools/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Passive-Auto-Switch-Tools/AutoSwitchTools%20V2.mcaddon) |
 | Tameable Companion Fox | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/Tameable-Companion-Fox/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Tameable-Companion-Fox/CompanionFox%20V2.mcaddon) |
 | Vanilla Quality of Life | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/Vanilla-Quality-of-Life/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Vanilla-Quality-of-Life/VanillaQoL%20V3.mcaddon) |
