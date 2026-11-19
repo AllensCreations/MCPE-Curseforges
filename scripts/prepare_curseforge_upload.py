@@ -386,6 +386,8 @@ def _intro(new_version, versions, names=()):
     names = [name for name in names if name]
     named = f" Includes: {'; '.join(names)}." if names else ""
     if len(versions) == 1:
+        if str(versions[0]).lstrip("vV") == str(new_version).lstrip("vV"):
+            return f"**What's new in v{new_version}:**{named}" if names else ""
         return f"**What's new in v{new_version}:** Packed with the v{versions[0]} update.{named}"
     return (
         f"**What's new in v{new_version}:** Packed with {len(versions)} updates, "
@@ -396,7 +398,8 @@ def _intro(new_version, versions, names=()):
 def render_flat_entry(new_version, date_text, merged):
     """ONE markdown entry for beta (and for CHANGELOG.md): every merged entry grouped by heading."""
     body = _merge_bodies([entry[3].partition("\n")[2] for entry in merged])
-    return f"## [v{new_version}] - {date_text}\n\n{_intro(new_version, [e[1] for e in merged], [_entry_name(e) for e in merged])}\n\n{body}"
+    intro = _intro(new_version, [e[1] for e in merged], [_entry_name(e) for e in merged])
+    return f"## [v{new_version}] - {date_text}\n\n" + (intro + "\n\n" if intro else "") + body
 
 
 def changelog_type(release_type):

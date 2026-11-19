@@ -11,6 +11,13 @@
 
 ---
 
+## [v142] - 2026-11-19 - Upload Intro and Loot Table Check
+
+### Added
+- **Loot table check**: `scripts/check_loot_tables.py --project <folder> --samples <bedrock-samples clone>` compares a pack's loot tables with the vanilla ones. It fails when a pack table is spelled differently from a vanilla table (it would override nothing) and lists vanilla entries that the pack copy lost or added.
+### Fixed
+- **Upload changelog intro**: a CurseForge changelog entry for a single update no longer starts with the filler line "Packed with the vX update" when the version is the same. The line stays for merged updates.
+
 ## [v141] - 2026-11-19 - Mob Loot Rolls
 
 ### Improved & Balanced
