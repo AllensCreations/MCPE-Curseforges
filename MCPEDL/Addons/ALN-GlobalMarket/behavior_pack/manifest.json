@@ -1,0 +1,47 @@
+{
+  "format_version": 2,
+  "header": {
+    "name": "ALN-GlobalMarket (v1)",
+    "description": "Player-to-player barter market with escrow and offline payouts, by ALNStudios.",
+    "uuid": "58c2ca6d-59a3-451a-9506-4995a7e0d23e",
+    "version": [
+      1,
+      0,
+      0
+    ],
+    "min_engine_version": [
+      1,
+      26,
+      50
+    ]
+  },
+  "modules": [
+    {
+      "type": "script",
+      "language": "javascript",
+      "entry": "scripts/main.js",
+      "uuid": "4809d8a3-d47a-4fae-b056-bc1cac59a5be",
+      "version": [
+        1,
+        0,
+        0
+      ]
+    }
+  ],
+  "dependencies": [
+    {
+      "module_name": "@minecraft/server",
+      "version": "2.11.0"
+    },
+    {
+      "module_name": "@minecraft/server-ui",
+      "version": "2.3.0"
+    }
+  ],
+  "metadata": {
+    "authors": [
+      "ALNStudios"
+    ],
+    "version": "1.0.0"
+  }
+}
