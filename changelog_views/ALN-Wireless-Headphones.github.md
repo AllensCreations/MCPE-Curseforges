@@ -1,9 +1,27 @@
 # Changelog — ALN Wireless Headphones
 
-## [v10] - 2026-11-18 - Music Restored
+## [v11] - 2026-11-19 - Steadier Music
+
+### Improved & Balanced
+- **Far Away Listening**: Discs from other add-ons keep playing for up to 10 minutes while the Jukebox is not loaded.
+- **Loaded-Area Retry**: A Jukebox that could not be kept loaded is retried every few seconds.
+- **Loaded-Area Check**: The Jukebox now keeps only its own chunk loaded, and the game's capacity is checked before pairing.
+- **Mid-Track Sync**: When the game supports seeking within a sound, the headphones join a track in sync instead of waiting for the next one.
 
 ### Fixed
+- **Headphone Sync**: The headphone music now starts together with the Jukebox. If you put the headphones on mid-track, they wait for the next track and the Jukebox stays audible until then.
+- **Loaded-Area Warning**: Pairing a Jukebox that already has a loaded area no longer shows a false limit warning.
+- **Other Jukeboxes**: Muting now only affects players within 96 blocks of the paired Jukebox, so the same disc playing elsewhere is no longer silenced for faraway players.
+
+<details>
+<summary><b>10.0.x</b> (1 release)</summary>
+
+### [v10] - 2026-11-18 - Music Restored
+
+#### Fixed
 - **Silent Headphones**: The headphones play the music again. The paired Jukebox is no longer silenced for people wearing them.
+
+</details>
 
 <details>
 <summary><b>9.0.x</b> (1 release)</summary>

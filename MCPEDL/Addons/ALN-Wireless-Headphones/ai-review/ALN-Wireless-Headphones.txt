@@ -4,7 +4,7 @@
 
 - **Export request:** `MCPEDL/Addons/ALN-Wireless-Headphones`
 - **Destination:** `MCPEDL/Addons/ALN-Wireless-Headphones`
-- **CURRENT VERSION: v10 / NEXT UPDATE: v11**  (`MCPEDL/Addons/ALN-Wireless-Headphones/CHANGELOG.md`)
+- **CURRENT VERSION: v11 / NEXT UPDATE: v12**  (`MCPEDL/Addons/ALN-Wireless-Headphones/CHANGELOG.md`)
 - **Text files:** 28
 - **Skipped binary:** 4
 - **Paths not found:** 0
@@ -50,62 +50,6 @@
 ---
 
 
-
----
-
-
-
----
-
-
-
----
-
-
-
----
-
-
-
----
-
-
-
----
-
-
-
----
-
-
-
----
-
-
-
----
-
-
-
----
-
-
-
----
-
-
-
----
-
-
-
----
-
-
-
----
-
-
 <!-- GRAPH-CONTEXT:START -->
 ## Graph Context
 
@@ -129,7 +73,7 @@ Export: two plain .txt files. `<name>.txt` = the pack (index, these instructions
 - NEW pack: read SKILL.md first, then follow PACK_GENERATOR_INSTRUCTIONS.md Part 4 and deliver ONE pack `.sh` from `scripts/make_pack_script.py` (the project travels inside it as base64). NEVER deliver separate zip, pack, json, js or b64 files.
 - INSTRUCTIONS.md wins over PACK_GENERATOR_INSTRUCTIONS.md on any conflict. These instructions win over both on the reply format and the Termux script.
 - Update: keep pack and module UUIDs unchanged.
-- Vanilla reference: `reference/bedrock-samples/bedrock-samples.min.json.gz` (repo, gzip file of about 8 MB, NOT in this export; unzip it first) holds every vanilla Mojang behavior/resource pack JSON as one object once unzipped (`.behavior_pack.entities.zombie`, `.behavior_pack.recipes`, `.resource_pack.entity` ...). Never guess a vanilla component, event, loot or recipe shape: list the exact section under File Needed, then copy the shape from it.
+- Vanilla reference: Use **https://bedrock.dev/** as the primary API source (community mirror of official Mojang add-on docs, versioned). Navigate to the target version > Entities / Items / Blocks / Recipes / Biomes etc. Never guess a vanilla component, event, loot or recipe shape: always look it up on bedrock.dev first. Offline fallback: `reference/bedrock-samples/bedrock-samples.min.json.gz` (download: https://github.com/AllensCreations/MCPE-Curseforges/raw/main/reference/bedrock-samples/bedrock-samples.min.json.gz).
 - UI work (menus, forms, HUD, screens): follow INSTRUCTIONS.md 1.13 and apply the ALN UI Redesign skin from `assets/aln-ui-redesign/` (README.txt, design.json, font/README.txt in the tools txt). Textures are not exported; if the pack's resource_pack is missing, ask for it. Never claim anything was tested in Minecraft unless it was.
 - Update: deliver the repo change as the Termux script below. New pack: the pack `.sh` above. Never a separate payload or base64 file.
 
@@ -280,10 +224,11 @@ git config --global credential.helper store
 
 ## File Contents
 
-## FILE: changelog_views/ALN-Wireless-Headphones.curseforge.html (9 lines, 4102 bytes)
+## FILE: changelog_views/ALN-Wireless-Headphones.curseforge.html (10 lines, 5360 bytes)
 
 ```
-<h2>v10 - 2026-11-18 - Music Restored</h2><h3>Fixed</h3><ul><li><strong>Silent Headphones</strong>: The headphones play the music again. The paired Jukebox is no longer silenced for people wearing them.</li></ul>
+<h2>v11 - 2026-11-19 - Steadier Music</h2><h3>Improved &amp; Balanced</h3><ul><li><strong>Far Away Listening</strong>: Discs from other add-ons keep playing for up to 10 minutes while the Jukebox is not loaded.</li><li><strong>Loaded-Area Retry</strong>: A Jukebox that could not be kept loaded is retried every few seconds.</li><li><strong>Loaded-Area Check</strong>: The Jukebox now keeps only its own chunk loaded, and the game&#x27;s capacity is checked before pairing.</li><li><strong>Mid-Track Sync</strong>: When the game supports seeking within a sound, the headphones join a track in sync instead of waiting for the next one.</li></ul><h3>Fixed</h3><ul><li><strong>Headphone Sync</strong>: The headphone music now starts together with the Jukebox. If you put the headphones on mid-track, they wait for the next track and the Jukebox stays audible until then.</li><li><strong>Loaded-Area Warning</strong>: Pairing a Jukebox that already has a loaded area no longer shows a false limit warning.</li><li><strong>Other Jukeboxes</strong>: Muting now only affects players within 96 blocks of the paired Jukebox, so the same disc playing elsewhere is no longer silenced for faraway players.</li></ul>
+<h2>10.0.x (1 release)</h2><div class="spoiler"><h3>v10 - 2026-11-18 - Music Restored</h3><h4>Fixed</h4><ul><li><strong>Silent Headphones</strong>: The headphones play the music again. The paired Jukebox is no longer silenced for people wearing them.</li></ul></div>
 <h2>9.0.x (1 release)</h2><div class="spoiler"><h3>v9 - 2026-11-18 - Music Follows You</h3><h4>Improved &amp; Balanced</h4><ul><li><strong>Far Away Listening</strong>: If the paired Jukebox is not loaded while you are away, the music keeps playing until the track ends instead of cutting out.</li></ul><h4>Fixed</h4><ul><li><strong>Fading Music</strong>: The paired Jukebox is now silent for you as well, so the music no longer fades as you walk away. Discs from other add-ons may still fade with distance.</li></ul></div>
 <h2>8.0.x (1 release)</h2><div class="spoiler"><h3>v8 - 2026-11-18 - Music-Only Audio</h3><h4>Improved &amp; Balanced</h4><ul><li><strong>Headphone Audio</strong>: The headphone music always plays as music, so its volume stays steady wherever you walk and follows your Music volume setting.</li></ul></div>
 <h2>6.0.x (1 release)</h2><div class="spoiler"><h3>v6 - 2026-11-18 - Custom Disc Support</h3><h4>Added</h4><ul><li><strong>Custom Discs</strong>: Music discs from other add-ons now play through the headphones when the disc item is named &lt;namespace&gt;:music_disc_&lt;name&gt; and its sound is record.&lt;name&gt;. Their total time shows as --:--.</li></ul></div>
@@ -293,15 +238,33 @@ git config --global credential.helper store
 <h2>2.0.x (1 release)</h2><div class="spoiler"><h3>v2 - 2026-11-16 - First Release</h3><h4>Added</h4><ul><li><strong>Wireless Headphones</strong>: A craftable helmet made from 2 Iron Ingots, 1 Redstone Dust and 2 Leather that streams a paired Jukebox to your Action Bar.</li><li><strong>Jukebox Pairing</strong>: Sneak and use the headphones on a Jukebox with a music disc to pair it. A chime plays and the Action Bar confirms it.</li><li><strong>Live Track Display</strong>: While worn, the Action Bar shows the disc name with elapsed and total time, and clears when you take the headphones off.</li></ul></div>
 ```
 
-## FILE: changelog_views/ALN-Wireless-Headphones.github.md (96 lines, 3682 bytes)
+## FILE: changelog_views/ALN-Wireless-Headphones.github.md (114 lines, 4787 bytes)
 
 ```
 # Changelog — ALN Wireless Headphones
 
-## [v10] - 2026-11-18 - Music Restored
+## [v11] - 2026-11-19 - Steadier Music
+
+### Improved & Balanced
+- **Far Away Listening**: Discs from other add-ons keep playing for up to 10 minutes while the Jukebox is not loaded.
+- **Loaded-Area Retry**: A Jukebox that could not be kept loaded is retried every few seconds.
+- **Loaded-Area Check**: The Jukebox now keeps only its own chunk loaded, and the game's capacity is checked before pairing.
+- **Mid-Track Sync**: When the game supports seeking within a sound, the headphones join a track in sync instead of waiting for the next one.
 
 ### Fixed
+- **Headphone Sync**: The headphone music now starts together with the Jukebox. If you put the headphones on mid-track, they wait for the next track and the Jukebox stays audible until then.
+- **Loaded-Area Warning**: Pairing a Jukebox that already has a loaded area no longer shows a false limit warning.
+- **Other Jukeboxes**: Muting now only affects players within 96 blocks of the paired Jukebox, so the same disc playing elsewhere is no longer silenced for faraway players.
+
+<details>
+<summary><b>10.0.x</b> (1 release)</summary>
+
+### [v10] - 2026-11-18 - Music Restored
+
+#### Fixed
 - **Silent Headphones**: The headphones play the music again. The paired Jukebox is no longer silenced for people wearing them.
+
+</details>
 
 <details>
 <summary><b>9.0.x</b> (1 release)</summary>
@@ -475,11 +438,11 @@ This marker does not encrypt the pack or prevent extraction or editing.
 {
   "format_version": 2,
   "header": {
-    "name": "ALN Wireless Headphones (v10)",
+    "name": "ALN Wireless Headphones (v11)",
     "description": "Wear Wireless Headphones to stream a paired Jukebox to your Action Bar. by ALNStudios",
     "uuid": "4fa0e63a-a24b-430c-b00c-d25aaa097b23",
     "version": [
-      10,
+      11,
       0,
       0
     ],
@@ -494,7 +457,7 @@ This marker does not encrypt the pack or prevent extraction or editing.
       "type": "data",
       "uuid": "6ed2e0ea-13a7-4490-a494-f594dcc47ccf",
       "version": [
-        10,
+        11,
         0,
         0
       ]
@@ -504,7 +467,7 @@ This marker does not encrypt the pack or prevent extraction or editing.
       "language": "javascript",
       "uuid": "fcaddf1f-d6bf-456c-a627-d79cc87ce374",
       "version": [
-        10,
+        11,
         0,
         0
       ],
@@ -515,7 +478,7 @@ This marker does not encrypt the pack or prevent extraction or editing.
     {
       "uuid": "a0390eec-e584-411c-90bf-c171e84f5a73",
       "version": [
-        10,
+        11,
         0,
         0
       ]
@@ -530,7 +493,7 @@ This marker does not encrypt the pack or prevent extraction or editing.
       "ALNStudios"
     ],
     "product_type": "addon",
-    "version": "10.0.0"
+    "version": "11.0.0"
   }
 }
 ```
@@ -573,7 +536,7 @@ This marker does not encrypt the pack or prevent extraction or editing.
 }
 ```
 
-## FILE: MCPEDL/Addons/ALN-Wireless-Headphones/behavior_pack/scripts/headphone_common.js (220 lines, 6359 bytes)
+## FILE: MCPEDL/Addons/ALN-Wireless-Headphones/behavior_pack/scripts/headphone_common.js (277 lines, 7768 bytes)
 
 ```
 import { world, system } from "@minecraft/server";
@@ -739,10 +702,14 @@ export function isRegistered(pos) {
   return loadRegistry().some((entry) => samePos(entry, pos));
 }
 
-export function addToRegistry(pos) {
+export function getRegistryEntry(pos) {
+  return loadRegistry().find((entry) => samePos(entry, pos));
+}
+
+export function addToRegistry(pos, kept) {
   const list = loadRegistry();
   if (!list.some((entry) => samePos(entry, pos))) {
-    list.push({ x: pos.x, y: pos.y, z: pos.z, dimension: pos.dimension });
+    list.push({ x: pos.x, y: pos.y, z: pos.z, dimension: pos.dimension, kept: kept !== false });
     saveRegistry(list);
   }
 }
@@ -756,19 +723,72 @@ function areaName(pos) {
   return "alnhp_" + pos.dimension.replace("minecraft:", "") + "_" + part(pos.x) + "_" + part(pos.y) + "_" + part(pos.z);
 }
 
-export function keepLoaded(pos) {
+function tickingManager() {
   try {
-    const dimension = world.getDimension(pos.dimension);
-    const result = dimension.runCommand(
-      "tickingarea add circle " + pos.x + " " + pos.y + " " + pos.z + " 1 " + areaName(pos)
-    );
-    return result.successCount > 0;
+    const manager = world.tickingAreaManager;
+    return manager && typeof manager.hasCapacity === "function" ? manager : undefined;
+  } catch (error) {
+    return undefined;
+  }
+}
+
+function keepLoadedByManager(manager, pos) {
+  const name = areaName(pos);
+  if (manager.hasTickingArea(name)) {
+    return true;
+  }
+  const options = {
+    dimension: world.getDimension(pos.dimension),
+    from: { x: pos.x, y: pos.y, z: pos.z },
+    to: { x: pos.x, y: pos.y, z: pos.z }
+  };
+  if (!manager.hasCapacity(options)) {
+    return false;
+  }
+  const pending = manager.createTickingArea(name, options);
+  if (pending && typeof pending.catch === "function") {
+    pending.catch(() => {});
+  }
+  return true;
+}
+
+export function keepLoaded(pos) {
+  const manager = tickingManager();
+  if (manager) {
+    try {
+      return keepLoadedByManager(manager, pos);
+    } catch (error) {}
+  }
+  let dimension;
+  try {
+    dimension = world.getDimension(pos.dimension);
+  } catch (error) {
+    return false;
+  }
+  const command = "tickingarea add circle " + pos.x + " " + pos.y + " " + pos.z + " 1 " + areaName(pos);
+  try {
+    if (dimension.runCommand(command).successCount > 0) {
+      return true;
+    }
+  } catch (error) {}
+  releaseLoaded(pos);
+  try {
+    return dimension.runCommand(command).successCount > 0;
   } catch (error) {
     return false;
   }
 }
 
 export function releaseLoaded(pos) {
+  const manager = tickingManager();
+  if (manager) {
+    try {
+      if (manager.hasTickingArea(areaName(pos))) {
+        manager.removeTickingArea(areaName(pos));
+        return;
+      }
+    } catch (error) {}
+  }
   try {
     world.getDimension(pos.dimension).runCommand("tickingarea remove " + areaName(pos));
   } catch (error) {
@@ -797,7 +817,7 @@ world.afterEvents.playerInteractWithBlock.subscribe((event) => {
 });
 ```
 
-## FILE: MCPEDL/Addons/ALN-Wireless-Headphones/behavior_pack/scripts/headphone_link.js (103 lines, 3122 bytes)
+## FILE: MCPEDL/Addons/ALN-Wireless-Headphones/behavior_pack/scripts/headphone_link.js (105 lines, 3180 bytes)
 
 ```
 import { world, system, EquipmentSlot } from "@minecraft/server";
@@ -807,7 +827,7 @@ import {
   JUKEBOX_ID,
   parsePairing,
   samePos,
-  isRegistered,
+  getRegistryEntry,
   addToRegistry,
   removeFromRegistry,
   keepLoaded,
@@ -861,15 +881,17 @@ function pairOrUnpair(player, pos) {
     "\u00a78" + pos.dimension.replace("minecraft:", "")
   ]);
   found.save(found.item);
-  const alreadyRegistered = isRegistered(pos);
-  addToRegistry(pos);
-  const kept = alreadyRegistered ? true : keepLoaded(pos);
+  const known = getRegistryEntry(pos);
+  const kept = known ? known.kept !== false : keepLoaded(pos);
+  if (!known) {
+    addToRegistry(pos, kept);
+  }
   resetSession(pos.dimension, pos.x, pos.y, pos.z);
   player.playSound("note.pling");
   if (kept) {
     player.onScreenDisplay.setActionBar("\u00a7a[Headphones] \u00a7fPaired! The Jukebox is muted. Wear the headphones to listen.");
   } else {
-    player.onScreenDisplay.setActionBar("\u00a7a[Headphones] \u00a7fPaired! \u00a7eThe Jukebox can only stay loaded while you are near (loaded-area limit reached).");
+    player.onScreenDisplay.setActionBar("\u00a7a[Headphones] \u00a7fPaired! \u00a7eThe Jukebox can only stay loaded while you are near (loaded-area limit reached). It retries every few seconds.");
   }
 }
 
@@ -904,7 +926,7 @@ if (beforeInteract) {
 }
 ```
 
-## FILE: MCPEDL/Addons/ALN-Wireless-Headphones/behavior_pack/scripts/headphone_mute.js (58 lines, 1426 bytes)
+## FILE: MCPEDL/Addons/ALN-Wireless-Headphones/behavior_pack/scripts/headphone_mute.js (72 lines, 1882 bytes)
 
 ```
 import { world, system } from "@minecraft/server";
@@ -915,10 +937,13 @@ import {
   loadRegistry,
   saveRegistry,
   releaseLoaded,
+  keepLoaded,
   readJukebox
 } from "./headphone_common.js";
 
 const MUTE_INTERVAL_TICKS = 5;
+const MUTE_RADIUS = 96;
+const RETRY_TICKS = 100;
 
 system.runInterval(() => {
   const list = loadRegistry();
@@ -926,6 +951,7 @@ system.runInterval(() => {
     return;
   }
   const keep = [];
+  let changed = false;
   for (const entry of list) {
     let dimension;
     try {
@@ -936,6 +962,10 @@ system.runInterval(() => {
     }
     const location = { x: entry.x, y: entry.y, z: entry.z };
     try {
+      if (entry.kept === false && system.currentTick % RETRY_TICKS < MUTE_INTERVAL_TICKS && keepLoaded(entry)) {
+        entry.kept = true;
+        changed = true;
+      }
       if (!dimension.isChunkLoaded(location)) {
         keep.push(entry);
         continue;
@@ -954,19 +984,25 @@ system.runInterval(() => {
       if (status.state !== "playing") {
         continue;
       }
-      const selector = system.currentTick - status.startTick <= MUTE_WINDOW_TICKS ? "@a" : "@a[tag=!" + LISTEN_TAG + "]";
-      dimension.runCommand("stopsound " + selector + " " + status.info.soundId);
+      const area = "x=" + entry.x + ",y=" + entry.y + ",z=" + entry.z + ",r=" + MUTE_RADIUS;
+      const selector =
+        system.currentTick - status.startTick <= MUTE_WINDOW_TICKS
+          ? "@a[" + area + "]"
+          : "@a[" + area + ",tag=!" + LISTEN_TAG + "]";
+      try {
+        dimension.runCommand("stopsound " + selector + " " + status.info.soundId);
+      } catch (error) {}
     } catch (error) {
       keep.push(entry);
     }
   }
-  if (keep.length !== list.length) {
+  if (changed || keep.length !== list.length) {
     saveRegistry(keep);
   }
 }, MUTE_INTERVAL_TICKS);
 ```
 
-## FILE: MCPEDL/Addons/ALN-Wireless-Headphones/behavior_pack/scripts/headphone_stream.js (162 lines, 4614 bytes)
+## FILE: MCPEDL/Addons/ALN-Wireless-Headphones/behavior_pack/scripts/headphone_stream.js (194 lines, 5521 bytes)
 
 ```
 import { world, system, EquipmentSlot } from "@minecraft/server";
@@ -982,6 +1018,9 @@ import {
 } from "./headphone_common.js";
 
 const STREAM_INTERVAL_TICKS = 5;
+const START_GRACE_TICKS = 100;
+const MAX_UNKNOWN_HOLD_SECONDS = 600;
+let canSeek = false;
 const PAIRED = "\u00a7aPaired \u00a78| ";
 const listening = new Set();
 const streams = new Map();
@@ -1000,13 +1039,29 @@ function stopAudio(player) {
   } catch (error) {}
 }
 
+function tagListening(player) {
+  try {
+    if (!player.hasTag(LISTEN_TAG)) {
+      player.addTag(LISTEN_TAG);
+    }
+  } catch (error) {}
+}
+
 function ensureStream(player, status) {
   const current = streams.get(player.id);
   if (current && current.trackStart === status.startTick && current.soundId === status.info.soundId) {
     return current;
   }
-  if (system.currentTick - status.startTick < MUTE_WINDOW_TICKS + 2) {
-    return undefined;
+  const sinceStart = system.currentTick - status.startTick;
+  if (sinceStart < MUTE_WINDOW_TICKS + 2) {
+    return "sync";
+  }
+  if (sinceStart > START_GRACE_TICKS && !canSeek) {
+    if (current) {
+      stopAudio(player);
+    }
+    tagListening(player);
+    return "late";
   }
   if (current) {
     stopAudio(player);
@@ -1014,22 +1069,31 @@ function ensureStream(player, status) {
   try {
     player.addTag(LISTEN_TAG);
   } catch (error) {}
+  let offset = 0;
   try {
-    player.playMusic(status.info.soundId, { volume: 1.0, fade: 0.0, loop: false });
+    const instance = player.playMusic(status.info.soundId, { volume: 1.0, fade: 0.0, loop: false });
+    if (instance && typeof instance.seekTo === "function") {
+      canSeek = true;
+      if (sinceStart > START_GRACE_TICKS) {
+        instance.seekTo(sinceStart / 20);
+        offset = sinceStart / 20;
+      }
+    }
   } catch (error) {}
   const stream = {
     soundId: status.info.soundId,
     name: status.info.name,
     total: status.info.totalSeconds,
     trackStart: status.startTick,
-    startedTick: system.currentTick
+    startedTick: system.currentTick,
+    offset
   };
   streams.set(player.id, stream);
   return stream;
 }
 
 function streamElapsed(stream) {
-  const seconds = (system.currentTick - stream.startedTick) / 20;
+  const seconds = (system.currentTick - stream.startedTick) / 20 + (stream.offset || 0);
   return stream.total === undefined ? seconds : Math.min(seconds, stream.total);
 }
 
@@ -1050,7 +1114,8 @@ function nowPlaying(stream) {
 
 function holdOrStop(player, message) {
   const stream = streams.get(player.id);
-  if (stream && stream.total !== undefined && streamElapsed(stream) < stream.total) {
+  const limit = stream ? (stream.total === undefined ? MAX_UNKNOWN_HOLD_SECONDS : stream.total) : 0;
+  if (stream && streamElapsed(stream) < limit) {
     return nowPlaying(stream);
   }
   stopAudio(player);
@@ -1096,7 +1161,10 @@ function renderFeedAndStream(player, item) {
     return PREFIX + PAIRED + "\u00a7cJukebox data unavailable.";
   }
   const stream = ensureStream(player, status);
-  if (!stream) {
+  if (stream === "late") {
+    return PREFIX + PAIRED + "\u00a77Waiting for the next track. \u00a78| \u00a7e" + status.info.name;
+  }
+  if (stream === "sync") {
     return PREFIX + PAIRED + "\u00a77Syncing...";
   }
   return nowPlaying(stream);
@@ -1141,10 +1209,25 @@ import "./headphone_mute.js";
 import "./headphone_stream.js";
 ```
 
-## FILE: MCPEDL/Addons/ALN-Wireless-Headphones/CHANGELOG.md (77 lines, 3235 bytes)
+## FILE: MCPEDL/Addons/ALN-Wireless-Headphones/CHANGELOG.md (92 lines, 4275 bytes)
 
 ```
 # Changelog — ALN Wireless Headphones
+
+---
+
+## [v11] - 2026-11-19 - Steadier Music
+
+### Improved & Balanced
+- **Far Away Listening**: Discs from other add-ons keep playing for up to 10 minutes while the Jukebox is not loaded.
+- **Loaded-Area Retry**: A Jukebox that could not be kept loaded is retried every few seconds.
+- **Loaded-Area Check**: The Jukebox now keeps only its own chunk loaded, and the game's capacity is checked before pairing.
+- **Mid-Track Sync**: When the game supports seeking within a sound, the headphones join a track in sync instead of waiting for the next one.
+
+### Fixed
+- **Headphone Sync**: The headphone music now starts together with the Jukebox. If you put the headphones on mid-track, they wait for the next track and the Jukebox stays audible until then.
+- **Loaded-Area Warning**: Pairing a Jukebox that already has a loaded area no longer shows a false limit warning.
+- **Other Jukeboxes**: Muting now only affects players within 96 blocks of the paired Jukebox, so the same disc playing elsewhere is no longer silenced for faraway players.
 
 ---
 
@@ -1222,7 +1305,7 @@ import "./headphone_stream.js";
 - **Live Track Display**: While worn, the Action Bar shows the disc name with elapsed and total time, and clears when you take the headphones off.
 ```
 
-## FILE: MCPEDL/Addons/ALN-Wireless-Headphones/DESCRIPTION.md (76 lines, 5214 bytes)
+## FILE: MCPEDL/Addons/ALN-Wireless-Headphones/DESCRIPTION.md (76 lines, 5437 bytes)
 
 ```
 # ALN Wireless Headphones — Stream a Jukebox to Your Action Bar
@@ -1255,7 +1338,7 @@ Craft the Wireless Headphones, hold them, and sneak while using a Jukebox to pai
 ### Live Audio & Action Bar Player
 - **What Happens**: While worn, the music disc audio streams straight to your headphones and the Action Bar shows the artist, title, elapsed time, and total duration.
 - **How It Works**: A paired Jukebox playing cat streams the track audio directly to you while displaying the track name and progress like 0:42 out of 3:05.
-- **Good To Know**: A paired Jukebox is kept loaded so the music can follow it from far away. The game limits how many areas can be kept loaded, so a Jukebox beyond that limit may show as not loaded when you are away. Total times are supported for all vanilla discs. Discs from other add-ons also play when the disc item is named <namespace>:music_disc_<name> and its sound is record.<name>. Their total time shows as --:--. The headphone audio keeps a steady volume wherever you go and follows your Music volume setting. If the Jukebox is not loaded while you are away, the music keeps playing until the track ends.
+- **Good To Know**: A paired Jukebox is kept loaded so the music can follow it from far away. The game limits how many areas can be kept loaded, so a Jukebox beyond that limit may show as not loaded when you are away. Total times are supported for all vanilla discs. Discs from other add-ons also play when the disc item is named <namespace>:music_disc_<name> and its sound is record.<name>. Their total time shows as --:--. The headphone audio keeps a steady volume wherever you go and follows your Music volume setting. If the Jukebox is not loaded while you are away, the music keeps playing until the track ends, and for up to 10 minutes with discs from other add-ons. A Jukebox that could not be kept loaded is retried every few seconds.
 
 ## How to Use
 
@@ -1265,7 +1348,7 @@ Craft the Wireless Headphones, hold them, and sneak while using a Jukebox to pai
 
 ## Common Questions
 
-- **Does the timer start from the beginning of the song?**: The timer follows the audio in your ears. Putting the headphones on starts the current track from its beginning.
+- **Does the timer start from the beginning of the song?**: The timer follows the audio in your ears. The audio starts when a track begins. If you put the headphones on mid-track, the Action Bar shows Waiting for the next track and the Jukebox stays audible until then.
 - **What happens when I take the headphones off?**: The streamed music immediately stops and the Action Bar display clears. Put them back on to resume listening.
 
 ## Compatibility
@@ -1329,7 +1412,7 @@ Download the current release of **ALN Wireless Headphones** for Minecraft Bedroc
 ## Download
 
 - **Package format:** `.mcaddon`
-- **Direct download:** [Download ALN Wireless Headphones (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/ALN-Wireless-Headphones/ALNWirelessHeadphones%20V10.mcaddon)
+- **Direct download:** [Download ALN Wireless Headphones (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/ALN-Wireless-Headphones/ALNWirelessHeadphones%20V11.mcaddon)
 
 ## Installation
 
@@ -1384,11 +1467,11 @@ This marker does not encrypt the pack or prevent extraction or editing.
 {
   "format_version": 2,
   "header": {
-    "name": "ALN Wireless Headphones (v10)",
+    "name": "ALN Wireless Headphones (v11)",
     "description": "Textures for the add-on. by ALNStudios",
     "uuid": "a0390eec-e584-411c-90bf-c171e84f5a73",
     "version": [
-      10,
+      11,
       0,
       0
     ],
@@ -1403,7 +1486,7 @@ This marker does not encrypt the pack or prevent extraction or editing.
       "type": "resources",
       "uuid": "24a6840b-a678-4dfb-a4c1-d5724ef3f61f",
       "version": [
-        10,
+        11,
         0,
         0
       ]
@@ -1414,7 +1497,7 @@ This marker does not encrypt the pack or prevent extraction or editing.
       "ALNStudios"
     ],
     "product_type": "addon",
-    "version": "10.0.0"
+    "version": "11.0.0"
   }
 }
 ```
@@ -1593,7 +1676,7 @@ item.aln:headphones=Wireless Headphones
 [{"name": "aln_headphones", "size": 16, "palette": {"0": "#00000000", "1": "#1a1a22", "2": "#4a4a55", "3": "#8a8a98", "4": "#c2305a", "5": "#ea5f88", "6": "#7d1d3b", "7": "#2d2d38"}, "pixels": [[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0], [0, 0, 0, 0, 1, 3, 3, 3, 3, 2, 2, 1, 0, 0, 0, 0], [0, 0, 0, 1, 3, 2, 1, 1, 1, 1, 2, 2, 1, 0, 0, 0], [0, 0, 1, 3, 2, 1, 0, 0, 0, 0, 1, 2, 2, 1, 0, 0], [0, 0, 1, 3, 2, 1, 0, 0, 0, 0, 1, 2, 2, 1, 0, 0], [0, 1, 1, 1, 1, 1, 0, 0, 0, 0, 1, 1, 1, 1, 1, 0], [0, 1, 5, 5, 4, 1, 0, 0, 0, 0, 1, 5, 4, 4, 1, 0], [0, 1, 5, 4, 4, 1, 0, 0, 0, 0, 1, 5, 4, 4, 1, 0], [0, 1, 4, 4, 6, 1, 0, 0, 0, 0, 1, 4, 4, 6, 1, 0], [0, 1, 4, 6, 6, 1, 0, 0, 0, 0, 1, 4, 6, 6, 1, 0], [0, 1, 7, 7, 7, 1, 0, 0, 0, 0, 1, 7, 7, 7, 1, 0], [0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 1, 1, 1, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]]}]
 ```
 
-## FILE: MCPEDL/Addons/README.md (55 lines, 9093 bytes)
+## FILE: MCPEDL/Addons/README.md (56 lines, 9224 bytes)
 
 ```
 # Add-ons
@@ -1633,7 +1716,7 @@ Source files for established Minecraft Bedrock add-ons by ALNStudios.
 | Enchanter | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/Enchanter/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Enchanter/Enchanter%20V2.mcaddon) |
 | ALN Quiver | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/ALN-Quiver/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/ALN-Quiver/ALNQuiver%20V2.mcaddon) |
 | Expanded Basic Arsenal | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/Expanded-Basic-Arsenal/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Expanded-Basic-Arsenal/ExpandedBasicArsenal%20V2.mcaddon) |
-| ALN Wireless Headphones | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/ALN-Wireless-Headphones/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/ALN-Wireless-Headphones/ALNWirelessHeadphones%20V10.mcaddon) |
+| ALN Wireless Headphones | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/ALN-Wireless-Headphones/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/ALN-Wireless-Headphones/ALNWirelessHeadphones%20V11.mcaddon) |
 | ALN MoreDiscs | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/ALN-MoreDiscs/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/ALN-MoreDiscs/ALNMoreDiscs%20V3.mcaddon) |
 | ALN Pointer | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/ALN-Pointer/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/ALN-Pointer/ALNPointer%20V2.mcaddon) |
 
@@ -1650,9 +1733,10 @@ Videos and streams are welcome with credit. Redistribution of original or modifi
 - [Maps](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Maps#available-maps)
 - [Scripts](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Script#available-scripts)
 - [Minigames](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Minigame#available-minigames)
+- [TypeScript Definitions (.d.ts)](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/reference/typescript-definitions)
 ```
 
-## FILE: Package/ALN-Wireless-Headphones.listing.md (72 lines, 14774 bytes)
+## FILE: Package/ALN-Wireless-Headphones.listing.md (72 lines, 14997 bytes)
 
 ````
 # Listing Kit: ALN Wireless Headphones
@@ -1680,7 +1764,7 @@ Paste into the CurseForge description editor in source (HTML) mode.
 <h2 style="font-size:17px;text-align:left"><span style="background-color:#15803d;color:#ffffff;border-radius:20px">&nbsp;&nbsp;About&nbsp;&nbsp;</span></h2>
 <p>Craft the Wireless Headphones, hold them, and sneak while using a Jukebox to pair them. The Jukebox goes quiet for everyone. Put the headphones on your head and the music plays only in your ears, with the track and timer on your Action Bar, for as long as you wear them. Take them off and the music stops.</p>
 <h2 style="font-size:17px;text-align:left"><span style="background-color:#15803d;color:#ffffff;border-radius:20px">&nbsp;&nbsp;What You Get&nbsp;&nbsp;</span></h2>
-<div style="display:flex;flex-wrap:wrap;gap:10px"><div style="flex:1;min-width:200px;border:1px solid #8a94a3;border-radius:16px"><div style="background-color:#15803d;color:#ffffff;border-radius:16px;font-size:16px;line-height:2.2"><strong>&nbsp;&nbsp;Wireless Headphones</strong></div><div style="margin-left:12px;margin-right:12px"><p><span>A helmet that stacks to 1 and goes in the head slot. It gives no armor protection.</span><br><span style="font-size:13px;color:#8a94a3"><strong>How It Works:</strong> Craft it with 2 Iron Ingots, 1 Redstone Dust and 2 Leather. Row 1 is Iron Ingot, Redstone Dust, Iron Ingot. Row 2 is Leather, empty, Leather.</span><br><span style="font-size:13px;color:#8a94a3"><strong>Good To Know:</strong> The recipe is unlocked from the start. The headphones show on your character's head while worn.</span></p></div></div><div style="flex:1;min-width:200px;border:1px solid #8a94a3;border-radius:16px"><div style="background-color:#15803d;color:#ffffff;border-radius:16px;font-size:16px;line-height:2.2"><strong>&nbsp;&nbsp;Jukebox Pairing</strong></div><div style="margin-left:12px;margin-right:12px"><p><span>Sneak and use the headphones on a Jukebox to pair them. A chime plays and the Action Bar confirms it. The Jukebox is muted for everyone.</span><br><span style="font-size:13px;color:#8a94a3"><strong>How It Works:</strong> Hold the headphones, crouch, then use them on the Jukebox. The paired position is saved on that item and shown in its lore.</span><br><span style="font-size:13px;color:#8a94a3"><strong>Good To Know:</strong> A Jukebox with no disc can be paired. Pairing again moves the link and unmutes the old Jukebox. Sneak and use the headphones on their paired Jukebox to unpair it.</span></p></div></div><div style="flex:1;min-width:200px;border:1px solid #8a94a3;border-radius:16px"><div style="background-color:#15803d;color:#ffffff;border-radius:16px;font-size:16px;line-height:2.2"><strong>&nbsp;&nbsp;Live Audio &amp; Action Bar Player</strong></div><div style="margin-left:12px;margin-right:12px"><p><span>While worn, the music disc audio streams straight to your headphones and the Action Bar shows the artist, title, elapsed time, and total duration.</span><br><span style="font-size:13px;color:#8a94a3"><strong>How It Works:</strong> A paired Jukebox playing cat streams the track audio directly to you while displaying the track name and progress like 0:42 out of 3:05.</span><br><span style="font-size:13px;color:#8a94a3"><strong>Good To Know:</strong> A paired Jukebox is kept loaded so the music can follow it from far away. The game limits how many areas can be kept loaded, so a Jukebox beyond that limit may show as not loaded when you are away. Total times are supported for all vanilla discs. Discs from other add-ons also play when the disc item is named &lt;namespace&gt;:music_disc_&lt;name&gt; and its sound is record.&lt;name&gt;. Their total time shows as --:--. The headphone audio keeps a steady volume wherever you go and follows your Music volume setting. If the Jukebox is not loaded while you are away, the music keeps playing until the track ends.</span></p></div></div></div>
+<div style="display:flex;flex-wrap:wrap;gap:10px"><div style="flex:1;min-width:200px;border:1px solid #8a94a3;border-radius:16px"><div style="background-color:#15803d;color:#ffffff;border-radius:16px;font-size:16px;line-height:2.2"><strong>&nbsp;&nbsp;Wireless Headphones</strong></div><div style="margin-left:12px;margin-right:12px"><p><span>A helmet that stacks to 1 and goes in the head slot. It gives no armor protection.</span><br><span style="font-size:13px;color:#8a94a3"><strong>How It Works:</strong> Craft it with 2 Iron Ingots, 1 Redstone Dust and 2 Leather. Row 1 is Iron Ingot, Redstone Dust, Iron Ingot. Row 2 is Leather, empty, Leather.</span><br><span style="font-size:13px;color:#8a94a3"><strong>Good To Know:</strong> The recipe is unlocked from the start. The headphones show on your character's head while worn.</span></p></div></div><div style="flex:1;min-width:200px;border:1px solid #8a94a3;border-radius:16px"><div style="background-color:#15803d;color:#ffffff;border-radius:16px;font-size:16px;line-height:2.2"><strong>&nbsp;&nbsp;Jukebox Pairing</strong></div><div style="margin-left:12px;margin-right:12px"><p><span>Sneak and use the headphones on a Jukebox to pair them. A chime plays and the Action Bar confirms it. The Jukebox is muted for everyone.</span><br><span style="font-size:13px;color:#8a94a3"><strong>How It Works:</strong> Hold the headphones, crouch, then use them on the Jukebox. The paired position is saved on that item and shown in its lore.</span><br><span style="font-size:13px;color:#8a94a3"><strong>Good To Know:</strong> A Jukebox with no disc can be paired. Pairing again moves the link and unmutes the old Jukebox. Sneak and use the headphones on their paired Jukebox to unpair it.</span></p></div></div><div style="flex:1;min-width:200px;border:1px solid #8a94a3;border-radius:16px"><div style="background-color:#15803d;color:#ffffff;border-radius:16px;font-size:16px;line-height:2.2"><strong>&nbsp;&nbsp;Live Audio &amp; Action Bar Player</strong></div><div style="margin-left:12px;margin-right:12px"><p><span>While worn, the music disc audio streams straight to your headphones and the Action Bar shows the artist, title, elapsed time, and total duration.</span><br><span style="font-size:13px;color:#8a94a3"><strong>How It Works:</strong> A paired Jukebox playing cat streams the track audio directly to you while displaying the track name and progress like 0:42 out of 3:05.</span><br><span style="font-size:13px;color:#8a94a3"><strong>Good To Know:</strong> A paired Jukebox is kept loaded so the music can follow it from far away. The game limits how many areas can be kept loaded, so a Jukebox beyond that limit may show as not loaded when you are away. Total times are supported for all vanilla discs. Discs from other add-ons also play when the disc item is named &lt;namespace&gt;:music_disc_&lt;name&gt; and its sound is record.&lt;name&gt;. Their total time shows as --:--. The headphone audio keeps a steady volume wherever you go and follows your Music volume setting. If the Jukebox is not loaded while you are away, the music keeps playing until the track ends, and for up to 10 minutes with discs from other add-ons. A Jukebox that could not be kept loaded is retried every few seconds.</span></p></div></div></div>
 <h2 style="font-size:17px;text-align:left"><span style="background-color:#15803d;color:#ffffff;border-radius:20px">&nbsp;&nbsp;Custom Items&nbsp;&nbsp;</span></h2>
 <div style="display:flex;flex-wrap:wrap;gap:10px"><div style="flex:0 1 120px;border:1px solid #8a94a3;border-radius:16px;text-align:center"><p><a href="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/MCPEDL/Addons/ALN-Wireless-Headphones/assets/items/headphones.png"><img src="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/MCPEDL/Addons/ALN-Wireless-Headphones/assets/items/headphones.png" alt="headphones" style="width:64px"></a></p><p style="color:#8a94a3;font-size:13px">headphones</p></div></div>
 <h2 style="font-size:17px;text-align:left"><span style="background-color:#15803d;color:#ffffff;border-radius:20px">&nbsp;&nbsp;Crafting Recipes&nbsp;&nbsp;</span></h2>
@@ -1688,7 +1772,7 @@ Paste into the CurseForge description editor in source (HTML) mode.
 <h2 style="font-size:17px;text-align:left"><span style="background-color:#15803d;color:#ffffff;border-radius:20px">&nbsp;&nbsp;Get Started&nbsp;&nbsp;</span></h2>
 <table style="width:100%;border:1px solid #8a94a3;border-radius:16px"><tbody><tr><td style="width:44px;text-align:center"><div style="background-color:#15803d;color:#ffffff;font-weight:bold;font-size:15px;text-align:center;border-radius:10px;width:30px;aspect-ratio:1/1;line-height:30px">1</div></td><td style="text-align:left;">Craft the Wireless Headphones at a Crafting Table.</td></tr><tr><td style="width:44px;text-align:center"><div style="background-color:#15803d;color:#ffffff;font-weight:bold;font-size:15px;text-align:center;border-radius:10px;width:30px;aspect-ratio:1/1;line-height:30px">2</div></td><td style="text-align:left;">Hold them, sneak, and use them on a Jukebox. It goes quiet.</td></tr><tr><td style="width:44px;text-align:center"><div style="background-color:#15803d;color:#ffffff;font-weight:bold;font-size:15px;text-align:center;border-radius:10px;width:30px;aspect-ratio:1/1;line-height:30px">3</div></td><td style="text-align:left;">Wear them in the helmet slot and watch the Action Bar for the track and timer.</td></tr></tbody></table>
 <h2 style="font-size:17px;text-align:left"><span style="background-color:#15803d;color:#ffffff;border-radius:20px">&nbsp;&nbsp;Common Questions&nbsp;&nbsp;</span></h2>
-<div class="spoiler" title="Does the timer start from the beginning of the song?" data-title="Does the timer start from the beginning of the song?"><p><strong>Does the timer start from the beginning of the song?</strong><br>The timer follows the audio in your ears. Putting the headphones on starts the current track from its beginning.</p></div><div class="spoiler" title="What happens when I take the headphones off?" data-title="What happens when I take the headphones off?"><p><strong>What happens when I take the headphones off?</strong><br>The streamed music immediately stops and the Action Bar display clears. Put them back on to resume listening.</p></div>
+<div class="spoiler" title="Does the timer start from the beginning of the song?" data-title="Does the timer start from the beginning of the song?"><p><strong>Does the timer start from the beginning of the song?</strong><br>The timer follows the audio in your ears. The audio starts when a track begins. If you put the headphones on mid-track, the Action Bar shows Waiting for the next track and the Jukebox stays audible until then.</p></div><div class="spoiler" title="What happens when I take the headphones off?" data-title="What happens when I take the headphones off?"><p><strong>What happens when I take the headphones off?</strong><br>The streamed music immediately stops and the Action Bar display clears. Put them back on to resume listening.</p></div>
 <h2 style="font-size:17px;text-align:left"><span style="background-color:#15803d;color:#ffffff;border-radius:20px">&nbsp;&nbsp;Install&nbsp;&nbsp;</span></h2>
 <table style="width:100%;border:1px solid #8a94a3;border-radius:16px"><tbody><tr><td style="width:44px;text-align:center"><div style="background-color:#15803d;color:#ffffff;font-weight:bold;font-size:15px;text-align:center;border-radius:10px;width:30px;aspect-ratio:1/1;line-height:30px">1</div></td><td style="text-align:left;">Download the file from this page and open it with Minecraft.</td></tr><tr><td style="width:44px;text-align:center"><div style="background-color:#15803d;color:#ffffff;font-weight:bold;font-size:15px;text-align:center;border-radius:10px;width:30px;aspect-ratio:1/1;line-height:30px">2</div></td><td style="text-align:left;">Create or edit a world and turn on the new pack(s) in its settings.</td></tr><tr><td style="width:44px;text-align:center"><div style="background-color:#15803d;color:#ffffff;font-weight:bold;font-size:15px;text-align:center;border-radius:10px;width:30px;aspect-ratio:1/1;line-height:30px">3</div></td><td style="text-align:left;">Play. No Experimental toggles needed.</td></tr></tbody></table>
 <div style="border:1px solid #8a94a3;border-radius:16px;text-align:center"><br><div style="background-color:#15803d;color:#ffffff;border-radius:20px;font-size:15px;line-height:2;display:inline-block">&nbsp;&nbsp;<strong>Found a Bug or Have a Suggestion?</strong>&nbsp;&nbsp;</div><p style="font-size:14px;">Please leave a comment on this project page! All bug reports, gameplay feedback, and pack suggestions are welcome and appreciated.</p></div>
