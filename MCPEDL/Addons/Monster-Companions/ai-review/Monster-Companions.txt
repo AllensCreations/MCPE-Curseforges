@@ -4,7 +4,7 @@
 
 - **Export request:** `MCPEDL/Addons/Monster-Companions`
 - **Destination:** `MCPEDL/Addons/Monster-Companions`
-- **CURRENT VERSION: v11 / NEXT UPDATE: v12**  (`MCPEDL/Addons/Monster-Companions/CHANGELOG.md`)
+- **CURRENT VERSION: v12 / NEXT UPDATE: v13**  (`MCPEDL/Addons/Monster-Companions/CHANGELOG.md`)
 - **Text files:** 65
 - **Skipped binary:** 16
 - **Paths not found:** 0
@@ -273,10 +273,11 @@ git config --global credential.helper store
 
 ## File Contents
 
-## FILE: changelog_views/Monster-Companions.curseforge.html (21 lines, 8072 bytes)
+## FILE: changelog_views/Monster-Companions.curseforge.html (22 lines, 8334 bytes)
 
 ```
-<h2>v11 - 2026-11-19 - Primal Beast Biscuit Recipe</h2><h3>Fixed</h3><ul><li><strong>Primal Beast Biscuit recipe</strong>: The recipe now loads without errors. Place Rotten Flesh and a Bone on the top row and Sweet Berries and a Honey Bottle on the bottom row of the crafting grid.</li></ul>
+<h2>v12 - 2026-11-19 - Mount Hint Text Fix</h2><h3>Fixed</h3><ul><li><strong>Riding hint text</strong>: Riding a companion such as the Warden now shows a readable dismount hint instead of raw text.</li></ul>
+<h2>11.0.x (1 release)</h2><div class="spoiler"><h3>v11 - 2026-11-19 - Primal Beast Biscuit Recipe</h3><h4>Fixed</h4><ul><li><strong>Primal Beast Biscuit recipe</strong>: The recipe now loads without errors. Place Rotten Flesh and a Bone on the top row and Sweet Berries and a Honey Bottle on the bottom row of the crafting grid.</li></ul></div>
 <h2>10.0.x (1 release)</h2><div class="spoiler"><h3>v10 - 2026-11-19 - Golden Beast Biscuit Recipe</h3><h4>Changed</h4><ul><li><strong>Golden Beast Biscuit recipe</strong>: Craft it by placing a Primal Beast Biscuit in the middle of a crafting table and surrounding it with 8 Gold Ingots, like a Golden Carrot.</li></ul></div>
 <h2>9.0.x (1 release)</h2><div class="spoiler"><h3>v9 - 2026-11-19 - Biscuit Recipe Format Fix</h3><h4>Fixed</h4><ul><li><strong>Biscuit recipes</strong>: The Primal Beast Biscuit and Golden Beast Biscuit recipes now use a newer recipe format to stop loading errors.</li></ul></div>
 <h2>8.0.x (1 release)</h2><div class="spoiler"><h3>v8 - 2026-11-19 - Biscuit Recipe Fix</h3><h4>Fixed</h4><ul><li><strong>Biscuit recipes</strong>: The Primal Beast Biscuit and Golden Beast Biscuit recipes no longer report loading errors and are available from the start.</li></ul></div>
@@ -298,15 +299,25 @@ git config --global credential.helper store
 <h2>1.0.x (1 release)</h2><div class="spoiler"><h3>1.0.0 - 2026-11-04</h3><h4>v1.2.x (v1.2.14)</h4><ul><li><strong>Witch healing</strong>: The tamed Witch now throws a visible Regeneration splash potion at you every 25 to 40 seconds. Companions standing next to you are healed too.</li><li><strong>Witch splash safety</strong>: A tamed Witch no longer throws harmful potions at enemies standing within 4 blocks of you.</li><li><strong>Peaceful difficulty</strong>: Minecraft removes all hostile mobs on Peaceful, including tamed companions, so play on Easy or higher to keep them.</li></ul><h4>Added</h4><ul></ul><h4>Fixed</h4><ul></ul><h4>Known Limitations</h4><ul></ul><h4>Added</h4><ul></ul><h4>Improved &amp; Balanced</h4><ul></ul></div>
 ```
 
-## FILE: changelog_views/Monster-Companions.github.md (232 lines, 7233 bytes)
+## FILE: changelog_views/Monster-Companions.github.md (242 lines, 7477 bytes)
 
 ```
 # Changelog — Monster Companions
 
-## [v11] - 2026-11-19 - Primal Beast Biscuit Recipe
+## [v12] - 2026-11-19 - Mount Hint Text Fix
 
 ### Fixed
+- **Riding hint text**: Riding a companion such as the Warden now shows a readable dismount hint instead of raw text.
+
+<details>
+<summary><b>11.0.x</b> (1 release)</summary>
+
+### [v11] - 2026-11-19 - Primal Beast Biscuit Recipe
+
+#### Fixed
 - **Primal Beast Biscuit recipe**: The recipe now loads without errors. Place Rotten Flesh and a Bone on the top row and Sweet Berries and a Honey Bottle on the bottom row of the crafting grid.
+
+</details>
 
 <details>
 <summary><b>10.0.x</b> (1 release)</summary>
@@ -29207,11 +29218,11 @@ This marker does not encrypt the pack or prevent extraction or editing.
 {
   "format_version": 2,
   "header": {
-    "name": "Monster Companions (v11)",
+    "name": "Monster Companions (v12)",
     "description": "Tame hostile monsters into loyal bodyguards and rideable mounts with Beast Biscuits!. by ALNStudios",
     "uuid": "51f090e5-374b-42c6-a122-bcef2a0f0356",
     "version": [
-      11,
+      12,
       0,
       0
     ],
@@ -29227,7 +29238,7 @@ This marker does not encrypt the pack or prevent extraction or editing.
       "type": "data",
       "uuid": "8c424ffd-8631-4a9b-a7f0-505af3fa6823",
       "version": [
-        11,
+        12,
         0,
         0
       ]
@@ -29237,7 +29248,7 @@ This marker does not encrypt the pack or prevent extraction or editing.
     {
       "uuid": "7216d2ae-eb79-49ec-ba4f-25fab6d1f65d",
       "version": [
-        11,
+        12,
         0,
         0
       ]
@@ -29248,7 +29259,7 @@ This marker does not encrypt the pack or prevent extraction or editing.
       "ALNStudios"
     ],
     "product_type": "addon",
-    "version": "11.0.0"
+    "version": "12.0.0"
   },
   "subpacks": [
     {
@@ -30313,12 +30324,18 @@ Default subpack: the Warden and the Wither stay vanilla.
 }
 ```
 
-## FILE: MCPEDL/Addons/Monster-Companions/CHANGELOG.md (225 lines, 8396 bytes)
+## FILE: MCPEDL/Addons/Monster-Companions/CHANGELOG.md (231 lines, 8571 bytes)
 
 ```
 # Changelog — Monster Companions
 
 ---
+
+## [v12] - 2026-11-19 - Mount Hint Text Fix
+
+### Fixed
+
+- **Riding hint text**: Riding a companion such as the Warden now shows a readable dismount hint instead of raw text.
 
 ## [v11] - 2026-11-19 - Primal Beast Biscuit Recipe
 
@@ -30823,7 +30840,7 @@ Download the current release of **Monster Companions** for Minecraft Bedrock Edi
 ## Download
 
 - **Package format:** `.mcaddon`
-- **Direct download:** [Download Monster Companions (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Monster-Companions/MonsterCompanions%20V11.mcaddon)
+- **Direct download:** [Download Monster Companions (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Monster-Companions/MonsterCompanions%20V12.mcaddon)
 
 ## Installation
 
@@ -31141,11 +31158,11 @@ This marker does not encrypt the pack or prevent extraction or editing.
 {
   "format_version": 2,
   "header": {
-    "name": "Monster Companions (v11)",
+    "name": "Monster Companions (v12)",
     "description": "Custom textures, icons, and language definitions for Monster Companions. by ALNStudios",
     "uuid": "7216d2ae-eb79-49ec-ba4f-25fab6d1f65d",
     "version": [
-      11,
+      12,
       0,
       0
     ],
@@ -31161,7 +31178,7 @@ This marker does not encrypt the pack or prevent extraction or editing.
       "type": "resources",
       "uuid": "a7052966-2e1a-4eb4-a6fb-1a0d2c4175f5",
       "version": [
-        11,
+        12,
         0,
         0
       ]
@@ -31172,7 +31189,7 @@ This marker does not encrypt the pack or prevent extraction or editing.
       "ALNStudios"
     ],
     "product_type": "addon",
-    "version": "11.0.0"
+    "version": "12.0.0"
   }
 }
 ```
@@ -31209,12 +31226,28 @@ This marker does not encrypt the pack or prevent extraction or editing.
 }
 ```
 
-## FILE: MCPEDL/Addons/Monster-Companions/resource_pack/texts/en_US.lang (4 lines, 173 bytes)
+## FILE: MCPEDL/Addons/Monster-Companions/resource_pack/texts/en_US.lang (20 lines, 881 bytes)
 
 ```
 ## Monster Companions - en_US Language File
 item.allenscreations:beast_biscuit.name=Primal Beast Biscuit
 item.allenscreations:golden_beast_biscuit.name=Golden Beast Biscuit
+action.hint.exit.breeze=Sneak to dismount
+action.hint.exit.cave_spider=Sneak to dismount
+action.hint.exit.ghast=Sneak to dismount
+action.hint.exit.hoglin=Sneak to dismount
+action.hint.exit.husk=Sneak to dismount
+action.hint.exit.iron_golem=Sneak to dismount
+action.hint.exit.phantom=Sneak to dismount
+action.hint.exit.ravager=Sneak to dismount
+action.hint.exit.spider=Sneak to dismount
+action.hint.exit.warden=Sneak to dismount
+action.hint.exit.wither=Sneak to dismount
+action.hint.exit.zoglin=Sneak to dismount
+action.hint.exit.zombie=Sneak to dismount
+action.hint.exit.zombie_pigman=Sneak to dismount
+action.hint.exit.zombie_villager=Sneak to dismount
+action.hint.exit.zombie_villager_v2=Sneak to dismount
 ```
 
 ## FILE: MCPEDL/Addons/Monster-Companions/resource_pack/texts/languages.json (4 lines, 14 bytes)
@@ -31256,7 +31289,7 @@ Source files for established Minecraft Bedrock add-ons by ALNStudios.
 | Ghast Mob Head Transformers | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/Ghast-Mob-Head-Transformers/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Ghast-Mob-Head-Transformers/GhastMobHeads%20V2.mcaddon) |
 | Immortal Pets | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/Immortal-Pets/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Immortal-Pets/ImmortalPets%20V2.mcaddon) |
 | Mining Helmet | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/Mining-Helmet/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Mining-Helmet/MiningHelmet%20V2.mcaddon) |
-| Monster Companions | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/Monster-Companions/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Monster-Companions/MonsterCompanions%20V11.mcaddon) |
+| Monster Companions | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/Monster-Companions/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Monster-Companions/MonsterCompanions%20V12.mcaddon) |
 | Passive Auto-Switch Tools | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/Passive-Auto-Switch-Tools/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Passive-Auto-Switch-Tools/AutoSwitchTools%20V2.mcaddon) |
 | Tameable Companion Fox | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/Tameable-Companion-Fox/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Tameable-Companion-Fox/CompanionFox%20V2.mcaddon) |
 | Vanilla Quality of Life | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/Vanilla-Quality-of-Life/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Vanilla-Quality-of-Life/VanillaQoL%20V3.mcaddon) |

@@ -8,7 +8,7 @@ This folder contains compiled release packages for **Monster Companions** by ALN
 
 | File Name | Format | Size | Description | Download Link |
 | :--- | :--- | :--- | :--- | :--- |
-| **`MonsterCompanions V11.mcaddon`** | `.mcaddon` | ~423 KB | Complete bundle containing both Behavior Pack and Resource Pack. | [Download (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Monster-Companions/MonsterCompanions%20V11.mcaddon) |
+| **`MonsterCompanions V12.mcaddon`** | `.mcaddon` | ~423 KB | Complete bundle containing both Behavior Pack and Resource Pack. | [Download (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Monster-Companions/MonsterCompanions%20V12.mcaddon) |
 
 ---
 

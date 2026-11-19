@@ -1,9 +1,19 @@
 # Changelog — Monster Companions
 
-## [v11] - 2026-11-19 - Primal Beast Biscuit Recipe
+## [v12] - 2026-11-19 - Mount Hint Text Fix
 
 ### Fixed
+- **Riding hint text**: Riding a companion such as the Warden now shows a readable dismount hint instead of raw text.
+
+<details>
+<summary><b>11.0.x</b> (1 release)</summary>
+
+### [v11] - 2026-11-19 - Primal Beast Biscuit Recipe
+
+#### Fixed
 - **Primal Beast Biscuit recipe**: The recipe now loads without errors. Place Rotten Flesh and a Bone on the top row and Sweet Berries and a Honey Bottle on the bottom row of the crafting grid.
+
+</details>
 
 <details>
 <summary><b>10.0.x</b> (1 release)</summary>
