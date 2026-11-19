@@ -1,4 +1,4 @@
-import { world, system, EntityComponentTypes, EntityDamageCause, EquipmentSlot, GameMode, MolangVariableMap } from "@minecraft/server";
+import { world, system, EntityComponentTypes, EntityDamageCause, EquipmentSlot, GameMode } from "@minecraft/server";
 import { PLAYER_ID } from "./info.js";
 import { isOn, anyOn } from "./store.js";
 import { tune } from "./tuning.js";
@@ -69,26 +69,23 @@ function knock(event) {
   });
 }
 
-const RING_DISTANCE = 6;
+const hud = new Map();
 
-function circle(p) {
-  const eye = p.getHeadLocation();
-  const v = p.getViewDirection();
-  const cone = tune(p, "aimCone");
-  const picture = Math.min(13, Math.max(4, Math.round(cone / 5) + 3));
-  const map = new MolangVariableMap();
-  map.setFloat("variable.r", RING_DISTANCE * Math.tan((cone * Math.PI) / 180));
-  p.spawnParticle(
-    `allenscreations:aln_circle_${picture}`,
-    { x: eye.x + v.x * RING_DISTANCE, y: eye.y + v.y * RING_DISTANCE, z: eye.z + v.z * RING_DISTANCE },
-    map
-  );
+function setCircle(p, name) {
+  if ((hud.get(p.id) ?? "") === name) return;
+  if (name) hud.set(p.id, name);
+  else hud.delete(p.id);
+  p.onScreenDisplay.setTitle(name, { fadeInDuration: 0, stayDuration: 72000, fadeOutDuration: 0 });
 }
 
 function mark(p) {
   const held = p.getComponent(EntityComponentTypes.Equippable)?.getEquipmentSlot(EquipmentSlot.Mainhand)?.getItem()?.typeId;
-  if (!BOWS.has(held)) return;
-  if (tune(p, "aimCircle") === 1) circle(p);
+  if (!BOWS.has(held)) {
+    setCircle(p, "");
+    return;
+  }
+  setCircle(p, tune(p, "aimCircle") === 1 ? `aln_c${Math.min(13, Math.max(4, Math.round(tune(p, "aimCone") / 5) + 3))}` : "");
+
   const target = pickTarget(p);
   if (!target) return;
   const head = target.getHeadLocation();
@@ -132,13 +129,17 @@ export function initExtras() {
   world.afterEvents.entityHurt.subscribe(show);
   world.afterEvents.entityHurt.subscribe(knock);
   system.runInterval(() => {
-    if (!anyOn("targetHighlight")) return;
+    if (!anyOn("targetHighlight") && !hud.size) return;
     for (const p of world.getAllPlayers()) {
-      if (!p.isValid || !isOn(p, "targetHighlight") || !isOn(p, "bowAimbot")) continue;
+      if (!p.isValid) continue;
       try {
-        mark(p);
+        if (isOn(p, "targetHighlight") && isOn(p, "bowAimbot")) mark(p);
+        else if (hud.has(p.id)) setCircle(p, "");
       } catch (e) {}
     }
   }, 1);
-  world.afterEvents.playerLeave.subscribe(({ playerId }) => last.delete(playerId));
+  world.afterEvents.playerLeave.subscribe(({ playerId }) => {
+    last.delete(playerId);
+    hud.delete(playerId);
+  });
 }

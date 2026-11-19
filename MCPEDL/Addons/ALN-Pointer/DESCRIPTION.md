@@ -86,7 +86,7 @@ You get a Combat Helper, use it, and pick the toggles you want in the ALNStudios
 - **Good To Know**: It cancels the push by about the usual amount, so a strong knockback enchantment can still move you a little.
 
 ### Target Highlight
-- **What Happens**: While you hold a bow or crossbow, a small target picture floats above the mob or player Bow Aimbot will pick, the action bar names it, and a circle picture shows the aim range around your crosshair. Both refresh every tick so they follow smoothly. Only you see them.
+- **What Happens**: While you hold a bow or crossbow, a small target picture floats above the mob or player Bow Aimbot will pick, the action bar names it, and a circle picture sits on your crosshair on the screen to show the aim range, so it never lags behind when you turn. Only you see them.
 - **How It Works**: Switch on both Bow Aimbot and Target Highlight, hold a bow and aim near an enemy.
 - **Good To Know**: It does nothing when Bow Aimbot is off, and the target picture only shows when a target is inside the circle. The circle can be switched off in Tuning, and its size follows the Bow Aimbot angle.
 

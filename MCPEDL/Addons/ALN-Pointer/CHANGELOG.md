@@ -2,6 +2,11 @@
 
 ---
 
+## [v13] - 2026-11-19 - Crosshair Circle On Screen
+
+### Changed
+- **Aim Circle**: The circle is now drawn on the screen at your crosshair instead of in the world, so it stays exactly on the crosshair and does not lag when you turn. It uses the same 10 circle pictures, aln_circle_4.png to aln_circle_13.png, chosen by the Bow Aimbot angle. This adds a resource pack file, ui/hud_screen.json, and it uses the screen title while you hold a bow with Target Highlight on.
+
 ## [v12] - 2026-11-19 - Aim Circle Pictures
 
 ### Changed

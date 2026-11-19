@@ -1,0 +1,299 @@
+{
+  "namespace": "hud",
+  "aln_circle_4": {
+    "type": "image",
+    "texture": "textures/particle/aln_circle_4",
+    "size": [
+      32,
+      32
+    ],
+    "anchor_from": "center",
+    "anchor_to": "center",
+    "layer": 10,
+    "bindings": [
+      {
+        "binding_name": "#hud_title_text_string"
+      },
+      {
+        "binding_type": "view",
+        "source_property_name": "(#hud_title_text_string = 'aln_c4')",
+        "target_property_name": "#visible"
+      }
+    ]
+  },
+  "aln_circle_5": {
+    "type": "image",
+    "texture": "textures/particle/aln_circle_5",
+    "size": [
+      40,
+      40
+    ],
+    "anchor_from": "center",
+    "anchor_to": "center",
+    "layer": 10,
+    "bindings": [
+      {
+        "binding_name": "#hud_title_text_string"
+      },
+      {
+        "binding_type": "view",
+        "source_property_name": "(#hud_title_text_string = 'aln_c5')",
+        "target_property_name": "#visible"
+      }
+    ]
+  },
+  "aln_circle_6": {
+    "type": "image",
+    "texture": "textures/particle/aln_circle_6",
+    "size": [
+      48,
+      48
+    ],
+    "anchor_from": "center",
+    "anchor_to": "center",
+    "layer": 10,
+    "bindings": [
+      {
+        "binding_name": "#hud_title_text_string"
+      },
+      {
+        "binding_type": "view",
+        "source_property_name": "(#hud_title_text_string = 'aln_c6')",
+        "target_property_name": "#visible"
+      }
+    ]
+  },
+  "aln_circle_7": {
+    "type": "image",
+    "texture": "textures/particle/aln_circle_7",
+    "size": [
+      56,
+      56
+    ],
+    "anchor_from": "center",
+    "anchor_to": "center",
+    "layer": 10,
+    "bindings": [
+      {
+        "binding_name": "#hud_title_text_string"
+      },
+      {
+        "binding_type": "view",
+        "source_property_name": "(#hud_title_text_string = 'aln_c7')",
+        "target_property_name": "#visible"
+      }
+    ]
+  },
+  "aln_circle_8": {
+    "type": "image",
+    "texture": "textures/particle/aln_circle_8",
+    "size": [
+      64,
+      64
+    ],
+    "anchor_from": "center",
+    "anchor_to": "center",
+    "layer": 10,
+    "bindings": [
+      {
+        "binding_name": "#hud_title_text_string"
+      },
+      {
+        "binding_type": "view",
+        "source_property_name": "(#hud_title_text_string = 'aln_c8')",
+        "target_property_name": "#visible"
+      }
+    ]
+  },
+  "aln_circle_9": {
+    "type": "image",
+    "texture": "textures/particle/aln_circle_9",
+    "size": [
+      72,
+      72
+    ],
+    "anchor_from": "center",
+    "anchor_to": "center",
+    "layer": 10,
+    "bindings": [
+      {
+        "binding_name": "#hud_title_text_string"
+      },
+      {
+        "binding_type": "view",
+        "source_property_name": "(#hud_title_text_string = 'aln_c9')",
+        "target_property_name": "#visible"
+      }
+    ]
+  },
+  "aln_circle_10": {
+    "type": "image",
+    "texture": "textures/particle/aln_circle_10",
+    "size": [
+      80,
+      80
+    ],
+    "anchor_from": "center",
+    "anchor_to": "center",
+    "layer": 10,
+    "bindings": [
+      {
+        "binding_name": "#hud_title_text_string"
+      },
+      {
+        "binding_type": "view",
+        "source_property_name": "(#hud_title_text_string = 'aln_c10')",
+        "target_property_name": "#visible"
+      }
+    ]
+  },
+  "aln_circle_11": {
+    "type": "image",
+    "texture": "textures/particle/aln_circle_11",
+    "size": [
+      88,
+      88
+    ],
+    "anchor_from": "center",
+    "anchor_to": "center",
+    "layer": 10,
+    "bindings": [
+      {
+        "binding_name": "#hud_title_text_string"
+      },
+      {
+        "binding_type": "view",
+        "source_property_name": "(#hud_title_text_string = 'aln_c11')",
+        "target_property_name": "#visible"
+      }
+    ]
+  },
+  "aln_circle_12": {
+    "type": "image",
+    "texture": "textures/particle/aln_circle_12",
+    "size": [
+      96,
+      96
+    ],
+    "anchor_from": "center",
+    "anchor_to": "center",
+    "layer": 10,
+    "bindings": [
+      {
+        "binding_name": "#hud_title_text_string"
+      },
+      {
+        "binding_type": "view",
+        "source_property_name": "(#hud_title_text_string = 'aln_c12')",
+        "target_property_name": "#visible"
+      }
+    ]
+  },
+  "aln_circle_13": {
+    "type": "image",
+    "texture": "textures/particle/aln_circle_13",
+    "size": [
+      104,
+      104
+    ],
+    "anchor_from": "center",
+    "anchor_to": "center",
+    "layer": 10,
+    "bindings": [
+      {
+        "binding_name": "#hud_title_text_string"
+      },
+      {
+        "binding_type": "view",
+        "source_property_name": "(#hud_title_text_string = 'aln_c13')",
+        "target_property_name": "#visible"
+      }
+    ]
+  },
+  "aln_circle_panel": {
+    "type": "panel",
+    "controls": [
+      {
+        "aln_circle_4@hud.aln_circle_4": {}
+      },
+      {
+        "aln_circle_5@hud.aln_circle_5": {}
+      },
+      {
+        "aln_circle_6@hud.aln_circle_6": {}
+      },
+      {
+        "aln_circle_7@hud.aln_circle_7": {}
+      },
+      {
+        "aln_circle_8@hud.aln_circle_8": {}
+      },
+      {
+        "aln_circle_9@hud.aln_circle_9": {}
+      },
+      {
+        "aln_circle_10@hud.aln_circle_10": {}
+      },
+      {
+        "aln_circle_11@hud.aln_circle_11": {}
+      },
+      {
+        "aln_circle_12@hud.aln_circle_12": {}
+      },
+      {
+        "aln_circle_13@hud.aln_circle_13": {}
+      }
+    ]
+  },
+  "aln_circle_factory": {
+    "type": "panel",
+    "factory": {
+      "name": "hud_title_text_factory",
+      "control_ids": {
+        "hud_title_text": "aln_circle_panel@hud.aln_circle_panel"
+      }
+    }
+  },
+  "hud_title_text/title_frame/title": {
+    "modifications": [
+      {
+        "array_name": "bindings",
+        "operation": "insert_back",
+        "value": {
+          "binding_type": "view",
+          "source_property_name": "((#text - 'aln_c') = #text)",
+          "target_property_name": "#visible"
+        }
+      }
+    ]
+  },
+  "hud_title_text/title_frame/title_background": {
+    "modifications": [
+      {
+        "array_name": "bindings",
+        "operation": "insert_back",
+        "value": [
+          {
+            "binding_name": "#hud_title_text_string"
+          },
+          {
+            "binding_type": "view",
+            "source_property_name": "((#hud_title_text_string - 'aln_c') = #hud_title_text_string)",
+            "target_property_name": "#visible"
+          }
+        ]
+      }
+    ]
+  },
+  "root_panel": {
+    "modifications": [
+      {
+        "array_name": "controls",
+        "operation": "insert_front",
+        "value": {
+          "aln_circle_factory@hud.aln_circle_factory": {}
+        }
+      }
+    ]
+  }
+}
