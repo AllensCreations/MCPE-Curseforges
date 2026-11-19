@@ -1,34 +1,33 @@
 {
   "format_version": "1.21.0",
-  "minecraft:recipe_shapeless": {
+  "minecraft:recipe_shaped": {
     "description": {
       "identifier": "allenscreations:beast_biscuit_recipe"
     },
     "tags": [
       "crafting_table"
     ],
-    "ingredients": [
-      {
+    "pattern": [
+      "RB",
+      "SH"
+    ],
+    "key": {
+      "R": {
         "item": "minecraft:rotten_flesh"
       },
-      {
+      "B": {
         "item": "minecraft:bone"
       },
-      {
+      "S": {
         "item": "minecraft:sweet_berries"
       },
-      {
+      "H": {
         "item": "minecraft:honey_bottle"
       }
-    ],
+    },
     "result": {
       "item": "allenscreations:beast_biscuit",
       "count": 4
-    },
-    "unlock": [
-      {
-        "context": "AlwaysUnlocked"
-      }
-    ]
+    }
   }
 }

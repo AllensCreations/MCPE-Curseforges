@@ -158,8 +158,8 @@ Equipping a Saddle onto supported large companions enables manual mounting and d
 
 
 
-- Type: Shapeless Crafting Table Recipe
-- Ingredients: 1 Rotten Flesh, 1 Bone, 1 Sweet Berries, 1 Honey Bottle
+- Type: Shaped Crafting Table Recipe (2x2)
+- Ingredients: Top row: 1 Rotten Flesh, 1 Bone. Bottom row: 1 Sweet Berries, 1 Honey Bottle
 - Yield: 4x Primal Beast Biscuits
 - Recipe book: The recipe is available from the start.
 - Offline crafting: The recipe is included with the add-on, so internet access is not needed during local gameplay after import.

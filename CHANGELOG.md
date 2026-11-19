@@ -11,6 +11,14 @@
 
 ---
 
+## [v127] - 2026-11-19 - Monster Companions Primal Beast Biscuit Recipe
+
+### Fixed
+
+- **Monster Companions Primal Beast Biscuit**: The recipe loads without errors and uses a 2x2 layout.
+
+
+
 ## [v126] - 2026-11-19 - Monster Companions Golden Beast Biscuit Recipe
 
 ### Changed

@@ -2,6 +2,12 @@
 
 ---
 
+## [v11] - 2026-11-19 - Primal Beast Biscuit Recipe
+
+### Fixed
+
+- **Primal Beast Biscuit recipe**: The recipe now loads without errors. Place Rotten Flesh and a Bone on the top row and Sweet Berries and a Honey Bottle on the bottom row of the crafting grid.
+
 ## [v10] - 2026-11-19 - Golden Beast Biscuit Recipe
 
 ### Changed
