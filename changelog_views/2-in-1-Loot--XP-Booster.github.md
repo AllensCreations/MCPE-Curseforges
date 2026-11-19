@@ -1,18 +1,28 @@
 # Changelog — 2-in-1 Loot & XP Booster
 
-## [v3] - 2026-11-19 - Loot Tables and Commands
+## [v4] - 2026-11-19 - Rare Mob Drops
 
-### Added
+### Improved & Balanced
+- **Rare mob drops**: Rare mob drops still drop and are now boosted by a smaller amount, up to 2x, while common drops keep your full Loot level.
+
+<details>
+<summary><b>3.0.x</b> (1 release)</summary>
+
+### [v3] - 2026-11-19 - Loot Tables and Commands
+
+#### Added
 - **Booster command**: Type /aln:booster in chat to open the Booster menu without renaming a Book.
 - **Loot switches**: The XP & Loot Booster menu now has Ores, Crops and Mobs switches, so you can choose which kinds of loot are boosted.
 - **Limit message**: A short Action Bar message tells you when the booster limit is reached and some extras were skipped.
 
-### Improved & Balanced
+#### Improved & Balanced
 - **Real loot rolls**: Ores and crops are now boosted by rolling the block's own loot again, so only items the block can really drop are multiplied and a wrong tool gives no bonus.
 - **Matching mob drops**: Mob loot is matched against what that mob can drop, so items thrown or dropped nearby are no longer multiplied.
 
-### Fixed
+#### Fixed
 - **Version number**: The menu title and About screen now show the current add-on version.
+
+</details>
 
 <details>
 <summary><b>2.0.x</b> (1 release)</summary>
