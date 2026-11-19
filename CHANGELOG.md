@@ -1,3 +1,10 @@
+## [v117] - 2026-11-19 - ALN Wireless Headphones Steadier Music
+
+### Fixed
+- **ALN Wireless Headphones**: The headphone music now starts in sync with the Jukebox, keeps playing longer while you are away, and loaded-area warnings and muting are more accurate.
+
+---
+
 ## [v116] - 2026-11-19 - Boat and Switching Fixes
 
 ### Improved & Balanced

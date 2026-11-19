@@ -5,7 +5,7 @@ import {
   JUKEBOX_ID,
   parsePairing,
   samePos,
-  isRegistered,
+  getRegistryEntry,
   addToRegistry,
   removeFromRegistry,
   keepLoaded,
@@ -59,15 +59,17 @@ function pairOrUnpair(player, pos) {
     "\u00a78" + pos.dimension.replace("minecraft:", "")
   ]);
   found.save(found.item);
-  const alreadyRegistered = isRegistered(pos);
-  addToRegistry(pos);
-  const kept = alreadyRegistered ? true : keepLoaded(pos);
+  const known = getRegistryEntry(pos);
+  const kept = known ? known.kept !== false : keepLoaded(pos);
+  if (!known) {
+    addToRegistry(pos, kept);
+  }
   resetSession(pos.dimension, pos.x, pos.y, pos.z);
   player.playSound("note.pling");
   if (kept) {
     player.onScreenDisplay.setActionBar("\u00a7a[Headphones] \u00a7fPaired! The Jukebox is muted. Wear the headphones to listen.");
   } else {
-    player.onScreenDisplay.setActionBar("\u00a7a[Headphones] \u00a7fPaired! \u00a7eThe Jukebox can only stay loaded while you are near (loaded-area limit reached).");
+    player.onScreenDisplay.setActionBar("\u00a7a[Headphones] \u00a7fPaired! \u00a7eThe Jukebox can only stay loaded while you are near (loaded-area limit reached). It retries every few seconds.");
   }
 }
 

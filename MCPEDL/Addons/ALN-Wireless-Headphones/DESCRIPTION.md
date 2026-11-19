@@ -28,7 +28,7 @@ Craft the Wireless Headphones, hold them, and sneak while using a Jukebox to pai
 ### Live Audio & Action Bar Player
 - **What Happens**: While worn, the music disc audio streams straight to your headphones and the Action Bar shows the artist, title, elapsed time, and total duration.
 - **How It Works**: A paired Jukebox playing cat streams the track audio directly to you while displaying the track name and progress like 0:42 out of 3:05.
-- **Good To Know**: A paired Jukebox is kept loaded so the music can follow it from far away. The game limits how many areas can be kept loaded, so a Jukebox beyond that limit may show as not loaded when you are away. Total times are supported for all vanilla discs. Discs from other add-ons also play when the disc item is named <namespace>:music_disc_<name> and its sound is record.<name>. Their total time shows as --:--. The headphone audio keeps a steady volume wherever you go and follows your Music volume setting. If the Jukebox is not loaded while you are away, the music keeps playing until the track ends.
+- **Good To Know**: A paired Jukebox is kept loaded so the music can follow it from far away. The game limits how many areas can be kept loaded, so a Jukebox beyond that limit may show as not loaded when you are away. Total times are supported for all vanilla discs. Discs from other add-ons also play when the disc item is named <namespace>:music_disc_<name> and its sound is record.<name>. Their total time shows as --:--. The headphone audio keeps a steady volume wherever you go and follows your Music volume setting. If the Jukebox is not loaded while you are away, the music keeps playing until the track ends, and for up to 10 minutes with discs from other add-ons. A Jukebox that could not be kept loaded is retried every few seconds.
 
 ## How to Use
 
@@ -38,7 +38,7 @@ Craft the Wireless Headphones, hold them, and sneak while using a Jukebox to pai
 
 ## Common Questions
 
-- **Does the timer start from the beginning of the song?**: The timer follows the audio in your ears. Putting the headphones on starts the current track from its beginning.
+- **Does the timer start from the beginning of the song?**: The timer follows the audio in your ears. The audio starts when a track begins. If you put the headphones on mid-track, the Action Bar shows Waiting for the next track and the Jukebox stays audible until then.
 - **What happens when I take the headphones off?**: The streamed music immediately stops and the Action Bar display clears. Put them back on to resume listening.
 
 ## Compatibility

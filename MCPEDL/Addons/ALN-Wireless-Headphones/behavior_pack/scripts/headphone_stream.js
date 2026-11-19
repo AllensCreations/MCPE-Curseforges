@@ -11,6 +11,9 @@ import {
 } from "./headphone_common.js";
 
 const STREAM_INTERVAL_TICKS = 5;
+const START_GRACE_TICKS = 100;
+const MAX_UNKNOWN_HOLD_SECONDS = 600;
+let canSeek = false;
 const PAIRED = "\u00a7aPaired \u00a78| ";
 const listening = new Set();
 const streams = new Map();
@@ -29,13 +32,29 @@ function stopAudio(player) {
   } catch (error) {}
 }
 
+function tagListening(player) {
+  try {
+    if (!player.hasTag(LISTEN_TAG)) {
+      player.addTag(LISTEN_TAG);
+    }
+  } catch (error) {}
+}
+
 function ensureStream(player, status) {
   const current = streams.get(player.id);
   if (current && current.trackStart === status.startTick && current.soundId === status.info.soundId) {
     return current;
   }
-  if (system.currentTick - status.startTick < MUTE_WINDOW_TICKS + 2) {
-    return undefined;
+  const sinceStart = system.currentTick - status.startTick;
+  if (sinceStart < MUTE_WINDOW_TICKS + 2) {
+    return "sync";
+  }
+  if (sinceStart > START_GRACE_TICKS && !canSeek) {
+    if (current) {
+      stopAudio(player);
+    }
+    tagListening(player);
+    return "late";
   }
   if (current) {
     stopAudio(player);
@@ -43,22 +62,31 @@ function ensureStream(player, status) {
   try {
     player.addTag(LISTEN_TAG);
   } catch (error) {}
+  let offset = 0;
   try {
-    player.playMusic(status.info.soundId, { volume: 1.0, fade: 0.0, loop: false });
+    const instance = player.playMusic(status.info.soundId, { volume: 1.0, fade: 0.0, loop: false });
+    if (instance && typeof instance.seekTo === "function") {
+      canSeek = true;
+      if (sinceStart > START_GRACE_TICKS) {
+        instance.seekTo(sinceStart / 20);
+        offset = sinceStart / 20;
+      }
+    }
   } catch (error) {}
   const stream = {
     soundId: status.info.soundId,
     name: status.info.name,
     total: status.info.totalSeconds,
     trackStart: status.startTick,
-    startedTick: system.currentTick
+    startedTick: system.currentTick,
+    offset
   };
   streams.set(player.id, stream);
   return stream;
 }
 
 function streamElapsed(stream) {
-  const seconds = (system.currentTick - stream.startedTick) / 20;
+  const seconds = (system.currentTick - stream.startedTick) / 20 + (stream.offset || 0);
   return stream.total === undefined ? seconds : Math.min(seconds, stream.total);
 }
 
@@ -79,7 +107,8 @@ function nowPlaying(stream) {
 
 function holdOrStop(player, message) {
   const stream = streams.get(player.id);
-  if (stream && stream.total !== undefined && streamElapsed(stream) < stream.total) {
+  const limit = stream ? (stream.total === undefined ? MAX_UNKNOWN_HOLD_SECONDS : stream.total) : 0;
+  if (stream && streamElapsed(stream) < limit) {
     return nowPlaying(stream);
   }
   stopAudio(player);
@@ -125,7 +154,10 @@ function renderFeedAndStream(player, item) {
     return PREFIX + PAIRED + "\u00a7cJukebox data unavailable.";
   }
   const stream = ensureStream(player, status);
-  if (!stream) {
+  if (stream === "late") {
+    return PREFIX + PAIRED + "\u00a77Waiting for the next track. \u00a78| \u00a7e" + status.info.name;
+  }
+  if (stream === "sync") {
     return PREFIX + PAIRED + "\u00a77Syncing...";
   }
   return nowPlaying(stream);

@@ -161,10 +161,14 @@ export function isRegistered(pos) {
   return loadRegistry().some((entry) => samePos(entry, pos));
 }
 
-export function addToRegistry(pos) {
+export function getRegistryEntry(pos) {
+  return loadRegistry().find((entry) => samePos(entry, pos));
+}
+
+export function addToRegistry(pos, kept) {
   const list = loadRegistry();
   if (!list.some((entry) => samePos(entry, pos))) {
-    list.push({ x: pos.x, y: pos.y, z: pos.z, dimension: pos.dimension });
+    list.push({ x: pos.x, y: pos.y, z: pos.z, dimension: pos.dimension, kept: kept !== false });
     saveRegistry(list);
   }
 }
@@ -178,19 +182,72 @@ function areaName(pos) {
   return "alnhp_" + pos.dimension.replace("minecraft:", "") + "_" + part(pos.x) + "_" + part(pos.y) + "_" + part(pos.z);
 }
 
-export function keepLoaded(pos) {
+function tickingManager() {
   try {
-    const dimension = world.getDimension(pos.dimension);
-    const result = dimension.runCommand(
-      "tickingarea add circle " + pos.x + " " + pos.y + " " + pos.z + " 1 " + areaName(pos)
-    );
-    return result.successCount > 0;
+    const manager = world.tickingAreaManager;
+    return manager && typeof manager.hasCapacity === "function" ? manager : undefined;
+  } catch (error) {
+    return undefined;
+  }
+}
+
+function keepLoadedByManager(manager, pos) {
+  const name = areaName(pos);
+  if (manager.hasTickingArea(name)) {
+    return true;
+  }
+  const options = {
+    dimension: world.getDimension(pos.dimension),
+    from: { x: pos.x, y: pos.y, z: pos.z },
+    to: { x: pos.x, y: pos.y, z: pos.z }
+  };
+  if (!manager.hasCapacity(options)) {
+    return false;
+  }
+  const pending = manager.createTickingArea(name, options);
+  if (pending && typeof pending.catch === "function") {
+    pending.catch(() => {});
+  }
+  return true;
+}
+
+export function keepLoaded(pos) {
+  const manager = tickingManager();
+  if (manager) {
+    try {
+      return keepLoadedByManager(manager, pos);
+    } catch (error) {}
+  }
+  let dimension;
+  try {
+    dimension = world.getDimension(pos.dimension);
+  } catch (error) {
+    return false;
+  }
+  const command = "tickingarea add circle " + pos.x + " " + pos.y + " " + pos.z + " 1 " + areaName(pos);
+  try {
+    if (dimension.runCommand(command).successCount > 0) {
+      return true;
+    }
+  } catch (error) {}
+  releaseLoaded(pos);
+  try {
+    return dimension.runCommand(command).successCount > 0;
   } catch (error) {
     return false;
   }
 }
 
 export function releaseLoaded(pos) {
+  const manager = tickingManager();
+  if (manager) {
+    try {
+      if (manager.hasTickingArea(areaName(pos))) {
+        manager.removeTickingArea(areaName(pos));
+        return;
+      }
+    } catch (error) {}
+  }
   try {
     world.getDimension(pos.dimension).runCommand("tickingarea remove " + areaName(pos));
   } catch (error) {

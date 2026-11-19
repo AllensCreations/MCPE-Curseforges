@@ -6,10 +6,13 @@ import {
   loadRegistry,
   saveRegistry,
   releaseLoaded,
+  keepLoaded,
   readJukebox
 } from "./headphone_common.js";
 
 const MUTE_INTERVAL_TICKS = 5;
+const MUTE_RADIUS = 96;
+const RETRY_TICKS = 100;
 
 system.runInterval(() => {
   const list = loadRegistry();
@@ -17,6 +20,7 @@ system.runInterval(() => {
     return;
   }
   const keep = [];
+  let changed = false;
   for (const entry of list) {
     let dimension;
     try {
@@ -27,6 +31,10 @@ system.runInterval(() => {
     }
     const location = { x: entry.x, y: entry.y, z: entry.z };
     try {
+      if (entry.kept === false && system.currentTick % RETRY_TICKS < MUTE_INTERVAL_TICKS && keepLoaded(entry)) {
+        entry.kept = true;
+        changed = true;
+      }
       if (!dimension.isChunkLoaded(location)) {
         keep.push(entry);
         continue;
@@ -45,13 +53,19 @@ system.runInterval(() => {
       if (status.state !== "playing") {
         continue;
       }
-      const selector = system.currentTick - status.startTick <= MUTE_WINDOW_TICKS ? "@a" : "@a[tag=!" + LISTEN_TAG + "]";
-      dimension.runCommand("stopsound " + selector + " " + status.info.soundId);
+      const area = "x=" + entry.x + ",y=" + entry.y + ",z=" + entry.z + ",r=" + MUTE_RADIUS;
+      const selector =
+        system.currentTick - status.startTick <= MUTE_WINDOW_TICKS
+          ? "@a[" + area + "]"
+          : "@a[" + area + ",tag=!" + LISTEN_TAG + "]";
+      try {
+        dimension.runCommand("stopsound " + selector + " " + status.info.soundId);
+      } catch (error) {}
     } catch (error) {
       keep.push(entry);
     }
   }
-  if (keep.length !== list.length) {
+  if (changed || keep.length !== list.length) {
     saveRegistry(keep);
   }
 }, MUTE_INTERVAL_TICKS);
