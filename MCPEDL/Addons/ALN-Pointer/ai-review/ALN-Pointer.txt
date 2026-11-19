@@ -6,7 +6,7 @@
 - **Destination:** `MCPEDL/Addons/ALN-Pointer`
 - **CURRENT VERSION: v3 / NEXT UPDATE: v4**  (`MCPEDL/Addons/ALN-Pointer/CHANGELOG.md`)
 - **Text files:** 27
-- **Skipped binary:** 3
+- **Skipped binary:** 5
 - **Paths not found:** 0
 
 ### Files in this export
@@ -43,6 +43,8 @@
 
 - `MCPEDL/Addons/ALN-Pointer/assets/items/aln_pointer.png`
 - `MCPEDL/Addons/ALN-Pointer/assets/snapshots/HOW TO CRAFT.jpg`
+- `MCPEDL/Addons/ALN-Pointer/behavior_pack/pack_icon.png`
+- `MCPEDL/Addons/ALN-Pointer/resource_pack/pack_icon.png`
 - `MCPEDL/Addons/ALN-Pointer/resource_pack/textures/items/aln_pointer.png`
 
 ---

@@ -2,7 +2,7 @@
   "changelog_version": "3.0.0",
   "manifest_version": "3.0.0",
   "packages": {
-    "ALNPointer V3.mcaddon": "803f44b8d4d51f3ebd4d246e7dbb103be4bfccba35219a76657d6eadbd9a973e"
+    "ALNPointer V3.mcaddon": "29ff2b25f77b1165362213baf387bed46707c66be32064356bab75b580ffa5d7"
   },
-  "source_sha256": "564f2703b58bbe84370783baf0235ad151f19c175ec55b4dafce6649ce269a4f"
+  "source_sha256": "1b41f3d0c81f5c8bd3eaed3eaeadd162f41c8b7a6240d7874b8a1ae0bc154049"
 }
