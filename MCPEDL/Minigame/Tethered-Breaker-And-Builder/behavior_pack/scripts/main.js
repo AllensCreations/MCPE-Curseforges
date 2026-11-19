@@ -4,9 +4,10 @@ import { registerController, endGame, isRunning, onStateChange } from "./control
 
 const CONFIG = {
   TICK_STEP: 2,
-  TENSE_DISTANCE: 10,
-  MAX_TETHER_DISTANCE: 15,
-  DAMAGE_DISTANCE: 18,
+  TENSE_DISTANCE: 6,
+  MAX_TETHER_DISTANCE: 8,
+  DAMAGE_DISTANCE: 9,
+  ROPE_LIMIT: 10,
   RECALL_DISTANCE: 64,
   RECALL_TICKS: 100,
   DIMENSION_RECALL_TICKS: 300,
@@ -21,6 +22,7 @@ const CONFIG = {
   HUD_REFRESH_TICKS: 20,
   WAIT_HUD_TICKS: 20,
   MAX_PULL: 0.6,
+  MAX_VPULL: 0.5,
   RESPAWN_DELAY_TICKS: 10,
   RESPAWN_GRACE_TICKS: 100,
   PROMPT_GRACE_TICKS: 100,
@@ -35,17 +37,14 @@ const MAX_SQ = CONFIG.MAX_TETHER_DISTANCE * CONFIG.MAX_TETHER_DISTANCE;
 const DAMAGE_SQ = CONFIG.DAMAGE_DISTANCE * CONFIG.DAMAGE_DISTANCE;
 const RECALL_SQ = CONFIG.RECALL_DISTANCE * CONFIG.RECALL_DISTANCE;
 const BEAM_MIN_SQ = CONFIG.BEAM_MIN_DISTANCE * CONFIG.BEAM_MIN_DISTANCE;
+const ROPE_SQ = CONFIG.ROPE_LIMIT * CONFIG.ROPE_LIMIT;
 
 const ROLE_PROP = "tether:role";
 const BREAKER = "breaker";
 const BUILDER = "builder";
 const WAIT_TEXT = "§7[LEASH: WAITING] §fWaiting for your partner";
-const PARTICLES = [
-  "minecraft:villager_happy",
-  "minecraft:electric_spark_particle",
-  "minecraft:basic_flame_particle",
-  "minecraft:basic_flame_particle"
-];
+const LEASH_PARTICLE = "tether:leash_beam";
+const PARTICLES = [LEASH_PARTICLE, LEASH_PARTICLE, LEASH_PARTICLE, LEASH_PARTICLE];
 
 const FORBIDDEN_EXACT = new Set([
   "minecraft:flint_and_steel", "minecraft:fire_charge", "minecraft:armor_stand",
@@ -365,12 +364,40 @@ function renderBeam(dim, a, b, dist, particle) {
   } catch {}
 }
 
-function pull(p, dx, dz, strength) {
+function pull(p, dx, dz, up, strength) {
   const m = mode(p);
   if (m === GameMode.Creative || m === GameMode.Spectator) return;
   kb.x = dx * strength;
   kb.z = dz * strength;
-  try { p.applyKnockback(kb, 0); } catch {}
+  const v = up > 0 ? Math.min(CONFIG.MAX_VPULL, up * strength) : 0;
+  try { p.applyKnockback(kb, v); } catch {}
+}
+
+function tpTo(p, x, y, z) {
+  const dest = { x, y, z };
+  try {
+    p.teleport(dest, { dimension: p.dimension, checkForBlocks: true });
+  } catch {
+    try { p.teleport(dest, { dimension: p.dimension }); } catch {}
+  }
+}
+
+function clampRope(A, B, la, lb, dist) {
+  const cA = mode(A) === GameMode.Creative;
+  const cB = mode(B) === GameMode.Creative;
+  if (cA && cB) return;
+  const ancA = anchored(A);
+  const ancB = anchored(B);
+  let wa = 0.5;
+  if (cA || (ancA && !ancB)) wa = 0;
+  else if (cB || (ancB && !ancA)) wa = 1;
+  const wb = 1 - wa;
+  const f = (dist - CONFIG.ROPE_LIMIT) / dist;
+  const mx = (lb.x - la.x) * f;
+  const my = (lb.y - la.y) * f;
+  const mz = (lb.z - la.z) * f;
+  if (wa > 0) tpTo(A, la.x + mx * wa, la.y + my * wa, la.z + mz * wa);
+  if (wb > 0) tpTo(B, lb.x - mx * wb, lb.y - my * wb, lb.z - mz * wb);
 }
 
 function anchored(p) {
@@ -473,6 +500,7 @@ function tick() {
   }
   hud(A, tether.text);
   hud(B, tether.text);
+  if (d2 > ROPE_SQ) clampRope(A, B, la, lb, dist);
 
   if (level < 2) {
     tether.strainTicks = 0;
@@ -481,18 +509,17 @@ function tick() {
   }
 
   const hd = Math.sqrt(dx * dx + dz * dz);
-  if (hd > 0.01) {
-    const ux = dx / hd;
-    const uz = dz / hd;
-    const s = Math.min(CONFIG.MAX_PULL, 0.2 + (dist - CONFIG.MAX_TETHER_DISTANCE) * 0.04);
-    const anchorA = anchored(A);
-    const anchorB = anchored(B);
-    if (anchorA && !anchorB) pull(B, -ux, -uz, s);
-    else if (anchorB && !anchorA) pull(A, ux, uz, s);
-    else {
-      pull(A, ux, uz, s * 0.6);
-      pull(B, -ux, -uz, s * 0.6);
-    }
+  const ux = hd > 0.01 ? dx / hd : 0;
+  const uz = hd > 0.01 ? dz / hd : 0;
+  const vy = dy / dist;
+  const s = Math.min(CONFIG.MAX_PULL, 0.2 + (dist - CONFIG.MAX_TETHER_DISTANCE) * 0.1);
+  const anchorA = anchored(A);
+  const anchorB = anchored(B);
+  if (anchorA && !anchorB) pull(B, -ux, -uz, -vy, s);
+  else if (anchorB && !anchorA) pull(A, ux, uz, vy, s);
+  else {
+    pull(A, ux, uz, vy, s * 0.6);
+    pull(B, -ux, -uz, -vy, s * 0.6);
   }
 
   tether.soundCd += step;

@@ -19,6 +19,14 @@
 
 ---
 
+## [v148] - 2026-11-20 - Leash Limit
+
+### Improved & Balanced
+- **Rope limit**: The tether is now 10 meters long. Partners can no longer get farther apart than that, including straight up or down, so building or flying away from your partner pulls you back.
+- **Tension**: You feel tension from 6 meters and are pulled toward your partner beyond 8 meters. The pull now works up and down as well. Strain damage starts beyond 9 meters.
+- **Leash look**: The beam is now a brown leash-style line that keeps the same color at every distance. The on-screen display still shows the four distance states.
+- **Own beam particle**: The beam no longer uses the built-in flame, spark and happy particles, so it needs no extra particle variables.
+
 ## [v147] - 2026-11-20 - Test Dummy
 
 ### Added

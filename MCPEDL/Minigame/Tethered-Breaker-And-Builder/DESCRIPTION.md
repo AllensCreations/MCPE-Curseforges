@@ -9,7 +9,7 @@ Work together as a mining-and-combat partner and a building specialist while an 
 
 ## Overview
 
-Two players share a 15-meter tether. The Breaker handles mining and combat but cannot place blocks or fluids.
+Two players share a 10-meter tether. The Breaker handles mining and combat but cannot place blocks or fluids.
 
 ## Key Features
 
@@ -17,7 +17,7 @@ Two players share a 15-meter tether. The Breaker handles mining and combat but c
 - **What Happens**: Each player chooses Breaker or Builder when the challenge starts.
 
 ### Elastic Tether
-- **What Happens**: Partners are pulled toward each other beyond 15 meters, with strain damage beyond 18 meters after a short grace period.
+- **What Happens**: Partners feel tension from 6 meters and are pulled toward each other beyond 8 meters, including up and down. They can never get more than 10 meters apart, and strain damage applies beyond 9 meters after a short grace period.
 
 ### Tension Feedback
 - **What Happens**: A particle beam, sound cues and an on-screen display show four distance states: slack, tense, overstretched and strained.
