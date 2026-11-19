@@ -23,6 +23,9 @@
     "result": {
       "item": "allenscreations:golden_beast_biscuit",
       "count": 1
+    },
+    "unlock": {
+      "context": "AlwaysUnlocked"
     }
   }
 }

@@ -1,9 +1,19 @@
 # Changelog — Monster Companions
 
-## [v9] - 2026-11-19 - Biscuit Recipe Format Fix
+## [v10] - 2026-11-19 - Golden Beast Biscuit Recipe
 
-### Fixed
+### Changed
+- **Golden Beast Biscuit recipe**: Craft it by placing a Primal Beast Biscuit in the middle of a crafting table and surrounding it with 8 Gold Ingots, like a Golden Carrot.
+
+<details>
+<summary><b>9.0.x</b> (1 release)</summary>
+
+### [v9] - 2026-11-19 - Biscuit Recipe Format Fix
+
+#### Fixed
 - **Biscuit recipes**: The Primal Beast Biscuit and Golden Beast Biscuit recipes now use a newer recipe format to stop loading errors.
+
+</details>
 
 <details>
 <summary><b>8.0.x</b> (1 release)</summary>
