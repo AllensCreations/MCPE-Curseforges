@@ -1,8 +1,8 @@
 {
-  "changelog_version": "6.0.0",
-  "manifest_version": "6.0.0",
+  "changelog_version": "7.0.0",
+  "manifest_version": "7.0.0",
   "packages": {
-    "MonsterCompanions V6.mcaddon": "316b40ce2c518d3577ba434dc6144cc199af16a0dc8b5e970f40f5d21fed74b1"
+    "MonsterCompanions V7.mcaddon": "75bcaafff205fbbcdfd432407127cdb11478c880ae25e65c547f86bb51291c65"
   },
-  "source_sha256": "ccbb5cb961738696718569296a095a1b68f23b794b7f13e148e183a4a0050f7c"
+  "source_sha256": "b7b097a3936b011ad7e088398d6906c88394210e925f4037efd7fb4de4390654"
 }
