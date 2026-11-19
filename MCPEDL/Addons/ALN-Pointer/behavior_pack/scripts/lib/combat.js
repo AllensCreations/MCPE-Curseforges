@@ -66,7 +66,7 @@ function parry(victim, src) {
     victim.dimension.spawnParticle(SPARKS, at);
     victim.dimension.spawnParticle(SPARKS, { x: at.x, y: at.y + 0.2, z: at.z });
     try {
-      victim.onScreenDisplay.setActionBar("§b§lParried!");
+
       if (foe?.isValid && src.cause === EntityDamageCause.entityAttack) {
         const dx = foe.location.x - victim.location.x;
         const dz = foe.location.z - victim.location.z;

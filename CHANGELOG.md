@@ -11,6 +11,11 @@
 
 ---
 
+## [v135] - 2026-11-19 - Parry Text Removed
+
+### Changed
+- **Parry Effect**: Blocking a hit with Shield Always Active no longer shows "Parried!" on the action bar. The sparks, the shield sound and the push on a melee attacker stay.
+
 ## [v134] - 2026-11-19 - Shield Parry Effect
 
 ### Added

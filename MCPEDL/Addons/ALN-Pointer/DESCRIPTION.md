@@ -58,7 +58,7 @@ You get a Combat Helper, use it, and pick the toggles you want in the ALNStudios
 ### Shield Always Active
 - **What Happens**: While you carry a shield in either hand, every melee hit and arrow from the front half of your view is fully blocked, even if you are not holding the block button.
 - **How It Works**: Keep a shield in your hand or off hand and switch Shield Always Active on.
-- **Good To Know**: Hits from behind and other damage, such as fire or explosions, are not blocked. Each block plays the shield sound, shows sparks in front of you and "Parried!" on the action bar, and pushes a melee attacker back.
+- **Good To Know**: Hits from behind and other damage, such as fire or explosions, are not blocked. Each block plays the shield sound, shows sparks in front of you, and pushes a melee attacker back.
 
 ### Auto Golden Apple
 - **What Happens**: When your health drops to 4 hearts or less, one golden apple from your inventory is eaten for you, giving Regeneration II for 5 seconds and Absorption for 2 minutes.
