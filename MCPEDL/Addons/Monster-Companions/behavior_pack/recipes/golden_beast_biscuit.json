@@ -22,10 +22,7 @@
     },
     "unlock": [
       {
-        "item": "allenscreations:beast_biscuit"
-      },
-      {
-        "item": "minecraft:gold_ingot"
+        "context": "AlwaysUnlocked"
       }
     ]
   }
