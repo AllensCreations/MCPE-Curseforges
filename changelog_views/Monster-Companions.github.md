@@ -1,9 +1,23 @@
 # Changelog — Monster Companions
 
-## [v3] - 2026-11-13
+## [v4] - 2026-11-19 - Warden and Wither Companions
 
 ### Added
+- **Boss Subpack**: Choose Default to keep the Warden and the Wither as vanilla bosses, or With Bosses to tame them, in the Behavior Pack settings.
+- **Tameable Warden**: On the With Bosses subpack, a Primal Beast Biscuit has a 10% chance to tame a Warden into a companion.
+- **Tameable Wither**: On the With Bosses subpack, a Primal Beast Biscuit has a 10% chance to tame a Wither into a companion.
+- **Rideable Warden**: A tamed Warden can be ridden and steered on the ground.
+- **Rideable Wither**: A tamed Wither can be ridden and steered through the air.
+
+<details>
+<summary><b>3.0.x</b> (1 release)</summary>
+
+### [v3] - 2026-11-13
+
+#### Added
 - **Pink eyes**: Tamed Zombies and Skeletons now have pink eyes, so you can tell them apart from wild ones.
+
+</details>
 
 <details>
 <summary><b>2.0.x</b> (1 release)</summary>

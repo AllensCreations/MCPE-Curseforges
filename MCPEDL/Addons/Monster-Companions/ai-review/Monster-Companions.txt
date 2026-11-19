@@ -4,8 +4,8 @@
 
 - **Export request:** `MCPEDL/Addons/Monster-Companions`
 - **Destination:** `MCPEDL/Addons/Monster-Companions`
-- **CURRENT VERSION: v3 / NEXT UPDATE: v4**  (`MCPEDL/Addons/Monster-Companions/CHANGELOG.md`)
-- **Text files:** 62
+- **CURRENT VERSION: v4 / NEXT UPDATE: v5**  (`MCPEDL/Addons/Monster-Companions/CHANGELOG.md`)
+- **Text files:** 65
 - **Skipped binary:** 16
 - **Paths not found:** 0
 
@@ -55,6 +55,9 @@
 - `MCPEDL/Addons/Monster-Companions/behavior_pack/manifest.json`
 - `MCPEDL/Addons/Monster-Companions/behavior_pack/recipes/beast_biscuit.json`
 - `MCPEDL/Addons/Monster-Companions/behavior_pack/recipes/golden_beast_biscuit.json`
+- `MCPEDL/Addons/Monster-Companions/behavior_pack/subpacks/default/subpack.txt`
+- `MCPEDL/Addons/Monster-Companions/behavior_pack/subpacks/with_bosses/entities/warden.json`
+- `MCPEDL/Addons/Monster-Companions/behavior_pack/subpacks/with_bosses/entities/wither.json`
 - `MCPEDL/Addons/Monster-Companions/CHANGELOG.md`
 - `MCPEDL/Addons/Monster-Companions/DESCRIPTION.md`
 - `MCPEDL/Addons/Monster-Companions/IMAGE_PROMPTS.md`
@@ -96,118 +99,6 @@
 ---
 
 
-
----
-
-
-
----
-
-
-
----
-
-
-
----
-
-
-
----
-
-
-
----
-
-
-
----
-
-
-
----
-
-
-
----
-
-
-
----
-
-
-
----
-
-
-
----
-
-
-
----
-
-
-
----
-
-
-
----
-
-
-
----
-
-
-
----
-
-
-
----
-
-
-
----
-
-
-
----
-
-
-
----
-
-
-
----
-
-
-
----
-
-
-
----
-
-
-
----
-
-
-
----
-
-
-
----
-
-
-
----
-
-
 <!-- GRAPH-CONTEXT:START -->
 ## Graph Context
 
@@ -231,7 +122,7 @@ Export: two plain .txt files. `<name>.txt` = the pack (index, these instructions
 - NEW pack: read SKILL.md first, then follow PACK_GENERATOR_INSTRUCTIONS.md Part 4 and deliver ONE pack `.sh` from `scripts/make_pack_script.py` (the project travels inside it as base64). NEVER deliver separate zip, pack, json, js or b64 files.
 - INSTRUCTIONS.md wins over PACK_GENERATOR_INSTRUCTIONS.md on any conflict. These instructions win over both on the reply format and the Termux script.
 - Update: keep pack and module UUIDs unchanged.
-- Vanilla reference: `reference/bedrock-samples/bedrock-samples.min.json.gz` (repo, gzip file of about 8 MB, NOT in this export; unzip it first) holds every vanilla Mojang behavior/resource pack JSON as one object once unzipped (`.behavior_pack.entities.zombie`, `.behavior_pack.recipes`, `.resource_pack.entity` ...). Never guess a vanilla component, event, loot or recipe shape: list the exact section under File Needed, then copy the shape from it.
+- Vanilla reference: Use **Context7** / **https://bedrock.dev/** as the primary source finding API for vanilla Bedrock samples and documentation (Entities, Items, Blocks, Recipes, Biomes, Script API). Never guess a vanilla component, event, loot, or Script API method: look it up with Context7 / bedrock.dev. Offline fallback: `reference/bedrock-samples/bedrock-samples.min.json.gz` (download: https://github.com/AllensCreations/MCPE-Curseforges/raw/main/reference/bedrock-samples/bedrock-samples.min.json.gz).
 - UI work (menus, forms, HUD, screens): follow INSTRUCTIONS.md 1.13 and apply the ALN UI Redesign skin from `assets/aln-ui-redesign/` (README.txt, design.json, font/README.txt in the tools txt). Textures are not exported; if the pack's resource_pack is missing, ask for it. Never claim anything was tested in Minecraft unless it was.
 - Update: deliver the repo change as the Termux script below. New pack: the pack `.sh` above. Never a separate payload or base64 file.
 
@@ -351,6 +242,9 @@ Maps/scripts/minigames: same landing page. Use real package format; .mcworld = t
 - NO links, URLs, badges, function/event names, unverified benefits. No boilerplate after title.
 - Insert new entry directly under `---`, above previous release. NEVER edit/delete older entries.
 
+### Item and Block Components
+- When defining `menu_category` for custom items or blocks, `group` MUST start with a namespace (e.g. `minecraft:itemGroup.name.<group>` or `<namespace>:itemGroup.name.<group>`). Unnamespaced group strings like `itemGroup.name.helmet` fail Bedrock parsing (`Failed to parse field ' -> description -> menu_category -> group: string must be prefixed with a namespace (eg. namespace:value)'`). If no vanilla group applies, omit `group` and provide only `category`.
+
 ## Reply Format (STRICT)
 ```
 [SYSTEM_CONFIG]
@@ -379,10 +273,11 @@ git config --global credential.helper store
 
 ## File Contents
 
-## FILE: changelog_views/Monster-Companions.curseforge.html (13 lines, 4292 bytes)
+## FILE: changelog_views/Monster-Companions.curseforge.html (14 lines, 5079 bytes)
 
 ```
-<h2>v3 - 2026-11-13</h2><h3>Added</h3><ul><li><strong>Pink eyes</strong>: Tamed Zombies and Skeletons now have pink eyes, so you can tell them apart from wild ones.</li></ul>
+<h2>v4 - 2026-11-19 - Warden and Wither Companions</h2><h3>Added</h3><ul><li><strong>Boss Subpack</strong>: Choose Default to keep the Warden and the Wither as vanilla bosses, or With Bosses to tame them, in the Behavior Pack settings.</li><li><strong>Tameable Warden</strong>: On the With Bosses subpack, a Primal Beast Biscuit has a 10% chance to tame a Warden into a companion.</li><li><strong>Tameable Wither</strong>: On the With Bosses subpack, a Primal Beast Biscuit has a 10% chance to tame a Wither into a companion.</li><li><strong>Rideable Warden</strong>: A tamed Warden can be ridden and steered on the ground.</li><li><strong>Rideable Wither</strong>: A tamed Wither can be ridden and steered through the air.</li></ul>
+<h2>3.0.x (1 release)</h2><div class="spoiler"><h3>v3 - 2026-11-13</h3><h4>Added</h4><ul><li><strong>Pink eyes</strong>: Tamed Zombies and Skeletons now have pink eyes, so you can tell them apart from wild ones.</li></ul></div>
 <h2>2.0.x (1 release)</h2><div class="spoiler"><h3>2.0.0 - 2026-11-08</h3><h4>Improved &amp; Balanced</h4><ul><li><strong>Taming chances</strong>: Every mob is now twice as likely to be tamed with each Primal Beast Biscuit, up to a 75% chance per attempt.</li><li><strong>Golden Beast Biscuit</strong>: The Regeneration it gives a companion now lasts 30 seconds instead of 5.</li></ul><h4>Added</h4><ul><li><strong>Rideable Breeze</strong>: A tamed Breeze can now be ridden and steered on the ground.</li><li><strong>Rideable Ghast</strong>: A tamed Ghast can now be ridden and steered through the air.</li><li><strong>Rideable Phantom</strong>: A tamed Phantom can now be ridden and steered through the air.</li></ul></div>
 <h2>1.13.x (1 release)</h2><div class="spoiler"><h3>1.13.0 - 2026-11-04</h3><h4>Improved &amp; Balanced</h4><ul><li><strong>Peaceful difficulty</strong>: Tamed companions are no longer removed from the world when the game is set to Peaceful.</li><li><strong>Player safety</strong>: Tamed companions no longer turn on players when a vanilla anger, night-time, or raid behavior triggers.</li></ul></div>
 <h2>1.12.x (1 release)</h2><div class="spoiler"><h3>1.12.0 - 2026-11-03</h3><h4>Improved &amp; Balanced</h4><ul><li><strong>Taming feedback</strong>: The on-screen &quot;Companion tamed!&quot; message has been removed. Hearts still appear when a mob is tamed.</li></ul></div>
@@ -396,15 +291,29 @@ git config --global credential.helper store
 <h2>1.0.x (1 release)</h2><div class="spoiler"><h3>1.0.0 - 2026-11-04</h3><h4>v1.2.x (v1.2.14)</h4><ul><li><strong>Witch healing</strong>: The tamed Witch now throws a visible Regeneration splash potion at you every 25 to 40 seconds. Companions standing next to you are healed too.</li><li><strong>Witch splash safety</strong>: A tamed Witch no longer throws harmful potions at enemies standing within 4 blocks of you.</li><li><strong>Peaceful difficulty</strong>: Minecraft removes all hostile mobs on Peaceful, including tamed companions, so play on Easy or higher to keep them.</li></ul><h4>Added</h4><ul></ul><h4>Fixed</h4><ul></ul><h4>Known Limitations</h4><ul></ul><h4>Added</h4><ul></ul><h4>Improved &amp; Balanced</h4><ul></ul></div>
 ```
 
-## FILE: changelog_views/Monster-Companions.github.md (141 lines, 3815 bytes)
+## FILE: changelog_views/Monster-Companions.github.md (155 lines, 4508 bytes)
 
 ```
 # Changelog — Monster Companions
 
-## [v3] - 2026-11-13
+## [v4] - 2026-11-19 - Warden and Wither Companions
 
 ### Added
+- **Boss Subpack**: Choose Default to keep the Warden and the Wither as vanilla bosses, or With Bosses to tame them, in the Behavior Pack settings.
+- **Tameable Warden**: On the With Bosses subpack, a Primal Beast Biscuit has a 10% chance to tame a Warden into a companion.
+- **Tameable Wither**: On the With Bosses subpack, a Primal Beast Biscuit has a 10% chance to tame a Wither into a companion.
+- **Rideable Warden**: A tamed Warden can be ridden and steered on the ground.
+- **Rideable Wither**: A tamed Wither can be ridden and steered through the air.
+
+<details>
+<summary><b>3.0.x</b> (1 release)</summary>
+
+### [v3] - 2026-11-13
+
+#### Added
 - **Pink eyes**: Tamed Zombies and Skeletons now have pink eyes, so you can tell them apart from wild ones.
+
+</details>
 
 <details>
 <summary><b>2.0.x</b> (1 release)</summary>
@@ -29311,17 +29220,17 @@ Pack marker included in the exported Minecraft Bedrock pack.
 This marker does not encrypt the pack or prevent extraction or editing.
 ```
 
-## FILE: MCPEDL/Addons/Monster-Companions/behavior_pack/manifest.json (48 lines, 862 bytes)
+## FILE: MCPEDL/Addons/Monster-Companions/behavior_pack/manifest.json (60 lines, 1143 bytes)
 
 ```
 {
   "format_version": 2,
   "header": {
-    "name": "Monster Companions (v3)",
+    "name": "Monster Companions (v4)",
     "description": "Tame hostile monsters into loyal bodyguards and rideable mounts with Beast Biscuits!. by ALNStudios",
     "uuid": "51f090e5-374b-42c6-a122-bcef2a0f0356",
     "version": [
-      3,
+      4,
       0,
       0
     ],
@@ -29337,7 +29246,7 @@ This marker does not encrypt the pack or prevent extraction or editing.
       "type": "data",
       "uuid": "8c424ffd-8631-4a9b-a7f0-505af3fa6823",
       "version": [
-        3,
+        4,
         0,
         0
       ]
@@ -29347,7 +29256,7 @@ This marker does not encrypt the pack or prevent extraction or editing.
     {
       "uuid": "7216d2ae-eb79-49ec-ba4f-25fab6d1f65d",
       "version": [
-        3,
+        4,
         0,
         0
       ]
@@ -29358,8 +29267,20 @@ This marker does not encrypt the pack or prevent extraction or editing.
       "ALNStudios"
     ],
     "product_type": "addon",
-    "version": "3.0.0"
-  }
+    "version": "4.0.0"
+  },
+  "subpacks": [
+    {
+      "folder_name": "with_bosses",
+      "name": "With Bosses (Tame and Ride Warden and Wither)",
+      "memory_tier": 1
+    },
+    {
+      "folder_name": "default",
+      "name": "Default (Warden and Wither Stay Vanilla)",
+      "memory_tier": 2
+    }
+  ]
 }
 ```
 
@@ -29437,12 +29358,996 @@ This marker does not encrypt the pack or prevent extraction or editing.
 }
 ```
 
-## FILE: MCPEDL/Addons/Monster-Companions/CHANGELOG.md (166 lines, 5523 bytes)
+## FILE: MCPEDL/Addons/Monster-Companions/behavior_pack/subpacks/default/subpack.txt (2 lines, 57 bytes)
+
+```
+Default subpack: the Warden and the Wither stay vanilla.
+```
+
+## FILE: MCPEDL/Addons/Monster-Companions/behavior_pack/subpacks/with_bosses/entities/warden.json (522 lines, 13944 bytes)
+
+```
+{
+  "format_version": "1.26.0",
+  "minecraft:entity": {
+    "description": {
+      "identifier": "minecraft:warden",
+      "is_experimental": false,
+      "is_summonable": true,
+      "is_spawnable": true,
+      "spawn_category": "monster"
+    },
+    "components": {
+      "minecraft:ambient_sound_interval": {
+        "event_name": "ambient",
+        "event_names": [
+          {
+            "condition": "query.anger_level(this) >= 80",
+            "event_name": "angry"
+          },
+          {
+            "condition": "query.anger_level(this) >= 40",
+            "event_name": "agitated"
+          }
+        ],
+        "range": 4.0,
+        "value": 2.0
+      },
+      "minecraft:attack": {
+        "damage": 30
+      },
+      "minecraft:behavior.float": {
+        "priority": 0
+      },
+      "minecraft:behavior.melee_box_attack": {
+        "melee_fov": 360,
+        "speed_multiplier": 1.2,
+        "priority": 4
+      },
+      "minecraft:behavior.random_look_around": {
+        "priority": 11
+      },
+      "minecraft:behavior.random_stroll": {
+        "priority": 9,
+        "speed_multiplier": 0.5
+      },
+      "minecraft:behavior.sonic_boom": {
+        "duration": 3,
+        "speed_multiplier": 1.2,
+        "attack_damage": 10,
+        "attack_cooldown": 2,
+        "knockback_vertical_strength": 0.5,
+        "knockback_horizontal_strength": 2.5,
+        "knockback_height_cap": 0.5,
+        "attack_sound": "sonic_boom",
+        "charge_sound": "sonic_charge",
+        "priority": 3
+      },
+      "minecraft:breathable": {
+        "suffocate_time": 0,
+        "total_supply": 15
+      },
+      "minecraft:can_climb": {},
+      "minecraft:collision_box": {
+        "height": 2.9,
+        "width": 0.9
+      },
+      "minecraft:experience_reward": {
+        "on_bred": "Math.Random(1,7)",
+        "on_death": "query.last_hit_by_player ? 5 : 0"
+      },
+      "minecraft:fire_immune": {},
+      "minecraft:follow_range": 30,
+      "minecraft:health": {
+        "max": 500,
+        "value": 500
+      },
+      "minecraft:heartbeat": {
+        "interval": "2.0 - math.clamp(query.anger_level / 80 * 1.5, 0, 1.5)"
+      },
+      "minecraft:is_hidden_when_invisible": {},
+      "minecraft:jump.static": {},
+      "minecraft:knockback_resistance": {
+        "value": 1.0
+      },
+      "minecraft:loot": {
+        "table": "loot_tables/entities/warden.json"
+      },
+      "minecraft:movement": {
+        "value": 0.3
+      },
+      "minecraft:movement.basic": {},
+      "minecraft:movement_sound_distance_offset": {
+        "value": 0.55
+      },
+      "minecraft:nameable": {},
+      "minecraft:navigation.walk": {
+        "avoid_damage_blocks": true,
+        "can_path_over_lava": true,
+        "can_path_over_water": true,
+        "using_door_annotation": true
+      },
+      "minecraft:physics": {},
+      "minecraft:preferred_path": {
+        "max_fall_blocks": 20
+      },
+      "minecraft:type_family": {
+        "family": [
+          "warden",
+          "monster",
+          "mob"
+        ]
+      },
+      "minecraft:vibration_damper": {}
+    },
+    "component_groups": {
+      "emerging": {
+        "minecraft:behavior.emerge": {
+          "duration": 7.0,
+          "on_done": {
+            "event": "minecraft:emerged",
+            "target": "self"
+          }
+        }
+      },
+      "pushable": {
+        "minecraft:pushable": {
+          "is_pushable": true,
+          "is_pushable_by_piston": true
+        }
+      },
+      "allenscreations:companion": {
+        "minecraft:is_tamed": {},
+        "minecraft:behavior.follow_owner": {
+          "priority": 3,
+          "speed_multiplier": 1.35,
+          "start_distance": 9.0,
+          "stop_distance": 4.5,
+          "post_teleport_distance": 5,
+          "can_teleport": true
+        },
+        "minecraft:behavior.owner_hurt_by_target": {
+          "priority": 1,
+          "entity_types": [
+            {
+              "filters": {
+                "all_of": [
+                  {
+                    "test": "is_family",
+                    "subject": "other",
+                    "operator": "!=",
+                    "value": "monster_companion"
+                  },
+                  {
+                    "test": "is_family",
+                    "subject": "other",
+                    "operator": "!=",
+                    "value": "player"
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        "minecraft:behavior.owner_hurt_target": {
+          "priority": 2,
+          "entity_types": [
+            {
+              "filters": {
+                "all_of": [
+                  {
+                    "test": "is_family",
+                    "subject": "other",
+                    "operator": "!=",
+                    "value": "monster_companion"
+                  },
+                  {
+                    "test": "is_family",
+                    "subject": "other",
+                    "operator": "!=",
+                    "value": "player"
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        "minecraft:behavior.hurt_by_target": {
+          "priority": 99,
+          "entity_types": [
+            {
+              "filters": {
+                "all_of": [
+                  {
+                    "test": "is_family",
+                    "subject": "other",
+                    "operator": "!=",
+                    "value": "monster_companion"
+                  },
+                  {
+                    "test": "is_family",
+                    "subject": "other",
+                    "operator": "!=",
+                    "value": "player"
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        "minecraft:damage_sensor": {
+          "triggers": [
+            {
+              "on_damage": {
+                "filters": {
+                  "any_of": [
+                    {
+                      "test": "is_family",
+                      "subject": "other",
+                      "value": "player"
+                    },
+                    {
+                      "test": "is_family",
+                      "subject": "other",
+                      "value": "monster_companion"
+                    }
+                  ]
+                }
+              },
+              "deals_damage": false
+            }
+          ]
+        },
+        "minecraft:healable": {
+          "items": [
+            {
+              "item": "allenscreations:beast_biscuit",
+              "heal_amount": 10
+            },
+            {
+              "item": "allenscreations:golden_beast_biscuit",
+              "heal_amount": 40,
+              "effects": [
+                {
+                  "name": "regeneration",
+                  "chance": 1.0,
+                  "duration": 30,
+                  "amplifier": 2
+                }
+              ]
+            }
+          ]
+        },
+        "minecraft:nameable": {
+          "always_show": true,
+          "allow_name_tag_renaming": true
+        },
+        "minecraft:loot": {
+          "table": "loot_tables/empty.json"
+        },
+        "minecraft:behavior.nearest_attackable_target": {
+          "priority": 2,
+          "within_radius": 16,
+          "must_see": true,
+          "reselect_targets": true,
+          "entity_types": [
+            {
+              "filters": {
+                "all_of": [
+                  {
+                    "test": "is_family",
+                    "subject": "other",
+                    "value": "monster"
+                  },
+                  {
+                    "test": "is_family",
+                    "subject": "other",
+                    "operator": "!=",
+                    "value": "monster_companion"
+                  },
+                  {
+                    "test": "has_target",
+                    "subject": "other"
+                  },
+                  {
+                    "test": "owner_distance",
+                    "subject": "self",
+                    "operator": "<=",
+                    "value": 16
+                  }
+                ]
+              },
+              "max_dist": 16
+            }
+          ]
+        },
+        "minecraft:sittable": {
+          "sit_event": {
+            "event": "allenscreations:stay_on",
+            "target": "self"
+          },
+          "stand_event": {
+            "event": "allenscreations:stay_off",
+            "target": "self"
+          }
+        },
+        "minecraft:behavior.stay_while_sitting": {
+          "priority": 2
+        },
+        "minecraft:type_family": {
+          "family": [
+            "warden",
+            "monster",
+            "mob",
+            "monster_companion"
+          ]
+        },
+        "minecraft:persistent": {},
+        "minecraft:ambient_sound_interval": {
+          "event_name": "ambient",
+          "range": 4.0,
+          "value": 2.0
+        },
+        "minecraft:heartbeat": {
+          "interval": "2.0"
+        },
+        "minecraft:rideable": {
+          "seat_count": 1,
+          "crouching_skip_interact": true,
+          "interact_text": "action.interact.mount",
+          "controlling_seat": 0,
+          "family_types": [
+            "player"
+          ],
+          "seats": [
+            {
+              "position": [
+                0.0,
+                2.7,
+                0.0
+              ]
+            }
+          ]
+        },
+        "minecraft:input_ground_controlled": {},
+        "minecraft:behavior.player_ride_tamed": {}
+      },
+      "allenscreations:wild": {
+        "minecraft:tameable": {
+          "probability": 0.1,
+          "tame_items": [
+            "allenscreations:beast_biscuit"
+          ],
+          "tame_event": {
+            "event": "allenscreations:on_tame",
+            "target": "self"
+          }
+        },
+        "minecraft:anger_level": {
+          "angry_threshold": 80,
+          "angry_boost": 20,
+          "anger_decrement_interval": 1.0,
+          "default_annoyingness": 35,
+          "default_projectile_annoyingness": 10,
+          "max_anger": 150,
+          "on_increase_sounds": [
+            {
+              "condition": "query.anger_level(this) >= 40",
+              "sound": "listening_angry"
+            },
+            {
+              "condition": "query.anger_level(this) >= 0",
+              "sound": "listening"
+            }
+          ],
+          "nuisance_filter": {
+            "all_of": [
+              {
+                "operator": "not",
+                "test": "is_family",
+                "subject": "other",
+                "value": "warden"
+              },
+              {
+                "operator": "not",
+                "test": "is_family",
+                "subject": "other",
+                "value": "inanimate"
+              }
+            ]
+          },
+          "remove_targets_below_angry_threshold": true
+        },
+        "minecraft:behavior.dig": {
+          "duration": 5.5,
+          "idle_time": 60,
+          "vibration_is_disturbance": true,
+          "suspicion_is_disturbance": true,
+          "on_start": {
+            "event": "on_digging_event"
+          },
+          "priority": 1
+        },
+        "minecraft:behavior.investigate_suspicious_location": {
+          "speed_multiplier": 0.7,
+          "priority": 5
+        },
+        "minecraft:behavior.roar": {
+          "duration": 4.2,
+          "priority": 2
+        },
+        "minecraft:behavior.sniff": {
+          "duration": 4.16,
+          "sniffing_radius": 24,
+          "suspicion_radius_horizontal": 6,
+          "suspicion_radius_vertical": 20,
+          "cooldown_range": {
+            "min": 5,
+            "max": 10
+          },
+          "priority": 6
+        },
+        "minecraft:mob_effect": {
+          "cooldown_time": 6,
+          "effect_range": 20,
+          "effect_time": 13,
+          "entity_filter": {
+            "all_of": [
+              {
+                "subject": "other",
+                "test": "is_family",
+                "value": "player"
+              },
+              {
+                "operator": "not",
+                "test": "has_ability",
+                "subject": "other",
+                "value": "invulnerable"
+              }
+            ]
+          },
+          "mob_effect": "darkness"
+        },
+        "minecraft:suspect_tracking": {},
+        "minecraft:vibration_listener": {}
+      }
+    },
+    "events": {
+      "minecraft:emerged": {
+        "add": {
+          "component_groups": [
+            "pushable"
+          ]
+        },
+        "remove": {
+          "component_groups": [
+            "emerging"
+          ]
+        }
+      },
+      "minecraft:spawn_emerging": {
+        "add": {
+          "component_groups": [
+            "emerging",
+            "allenscreations:wild"
+          ]
+        }
+      },
+      "minecraft:entity_spawned": {
+        "add": {
+          "component_groups": [
+            "pushable",
+            "allenscreations:wild"
+          ]
+        }
+      },
+      "on_digging_event": {
+        "remove": {
+          "component_groups": [
+            "pushable"
+          ]
+        }
+      },
+      "allenscreations:on_tame": {
+        "add": {
+          "component_groups": [
+            "allenscreations:companion"
+          ]
+        },
+        "emit_particle": {
+          "particle": "totem_particle"
+        },
+        "play_sound": {
+          "sound": "random.levelup"
+        },
+        "remove": {
+          "component_groups": [
+            "allenscreations:wild"
+          ]
+        },
+        "queue_command": {
+          "command": [
+            "particle minecraft:heart_particle ~ ~1.5 ~"
+          ]
+        }
+      },
+      "allenscreations:stay_on": {
+        "queue_command": {
+          "command": [
+            "title @p actionbar \u00a7eStay"
+          ]
+        }
+      },
+      "allenscreations:stay_off": {
+        "queue_command": {
+          "command": [
+            "title @p actionbar \u00a7aFollow"
+          ]
+        }
+      }
+    }
+  }
+}
+```
+
+## FILE: MCPEDL/Addons/Monster-Companions/behavior_pack/subpacks/with_bosses/entities/wither.json (438 lines, 11471 bytes)
+
+```
+{
+  "format_version": "1.26.50",
+  "minecraft:entity": {
+    "description": {
+      "identifier": "minecraft:wither",
+      "is_experimental": false,
+      "is_summonable": true,
+      "is_spawnable": true,
+      "spawn_category": "monster"
+    },
+    "components": {
+      "minecraft:behavior.float": {
+        "priority": 1
+      },
+      "minecraft:behavior.hurt_by_target": {
+        "priority": 2
+      },
+      "minecraft:behavior.look_at_player": {
+        "look_time": {
+          "min": 1,
+          "max": 2
+        },
+        "priority": 6
+      },
+      "minecraft:behavior.look_at_target": {
+        "look_time": {
+          "min": 1,
+          "max": 2
+        },
+        "priority": 5
+      },
+      "minecraft:behavior.nearest_attackable_target": {
+        "must_see": true,
+        "entity_types": [
+          {
+            "filters": {
+              "AND": [
+                {
+                  "test": "is_family",
+                  "subject": 1,
+                  "operator": 0,
+                  "value": "player"
+                }
+              ]
+            },
+            "max_dist": 70
+          },
+          {
+            "filters": {
+              "AND": [
+                {
+                  "test": "is_family",
+                  "subject": 1,
+                  "operator": 1,
+                  "value": "undead"
+                },
+                {
+                  "test": "is_family",
+                  "subject": 1,
+                  "operator": 1,
+                  "value": "inanimate"
+                }
+              ]
+            },
+            "max_dist": 70
+          }
+        ],
+        "priority": 3
+      },
+      "minecraft:behavior.random_look_around": {
+        "priority": 7
+      },
+      "minecraft:behavior.random_stroll": {
+        "priority": 5,
+        "speed_multiplier": 1
+      },
+      "minecraft:behavior.wither_random_attack_pos_goal": {
+        "priority": 3
+      },
+      "minecraft:breathable": {
+        "breathes_water": true,
+        "suffocate_time": 0,
+        "total_supply": 15
+      },
+      "minecraft:can_climb": {},
+      "minecraft:can_fly": {},
+      "minecraft:collision_box": {
+        "height": 3,
+        "width": 1
+      },
+      "minecraft:conditional_bandwidth_optimization": {},
+      "minecraft:damage_sensor": {
+        "triggers": {
+          "deals_damage": "no",
+          "on_damage": {
+            "filters": {
+              "subject": "other",
+              "test": "is_family",
+              "value": "undead"
+            }
+          }
+        }
+      },
+      "minecraft:experience_reward": {
+        "on_death": "50"
+      },
+      "minecraft:fire_immune": {},
+      "minecraft:freezing_immune": {},
+      "minecraft:health": {
+        "max": 600,
+        "value": 600
+      },
+      "minecraft:is_hidden_when_invisible": {},
+      "minecraft:jump.static": {},
+      "minecraft:loot": {
+        "table": "loot_tables/entities/wither_boss.json"
+      },
+      "minecraft:movement": {
+        "value": 0.25
+      },
+      "minecraft:movement.basic": {
+        "max_turn": 180.0
+      },
+      "minecraft:nameable": {},
+      "minecraft:navigation.walk": {
+        "avoid_water": true,
+        "can_path_over_water": true,
+        "using_door_annotation": true
+      },
+      "minecraft:persistent": {},
+      "minecraft:physics": {},
+      "minecraft:pushable_by_entity": {},
+      "minecraft:pushable_by_block": {},
+      "minecraft:type_family": {
+        "family": [
+          "wither",
+          "skeleton",
+          "monster",
+          "undead",
+          "mob"
+        ]
+      }
+    },
+    "events": {
+      "minecraft:entity_spawned": {
+        "add": {
+          "component_groups": [
+            "allenscreations:wild"
+          ]
+        }
+      },
+      "allenscreations:on_tame": {
+        "add": {
+          "component_groups": [
+            "allenscreations:companion"
+          ]
+        },
+        "emit_particle": {
+          "particle": "totem_particle"
+        },
+        "play_sound": {
+          "sound": "random.levelup"
+        },
+        "remove": {
+          "component_groups": [
+            "allenscreations:wild"
+          ]
+        },
+        "queue_command": {
+          "command": [
+            "particle minecraft:heart_particle ~ ~1.5 ~"
+          ]
+        }
+      },
+      "allenscreations:stay_on": {
+        "queue_command": {
+          "command": [
+            "title @p actionbar \u00a7eStay"
+          ]
+        }
+      },
+      "allenscreations:stay_off": {
+        "queue_command": {
+          "command": [
+            "title @p actionbar \u00a7aFollow"
+          ]
+        }
+      }
+    },
+    "component_groups": {
+      "allenscreations:companion": {
+        "minecraft:is_tamed": {},
+        "minecraft:behavior.follow_owner": {
+          "priority": 3,
+          "speed_multiplier": 1.35,
+          "start_distance": 9.0,
+          "stop_distance": 4.5,
+          "post_teleport_distance": 5,
+          "can_teleport": true
+        },
+        "minecraft:behavior.owner_hurt_by_target": {
+          "priority": 1,
+          "entity_types": [
+            {
+              "filters": {
+                "all_of": [
+                  {
+                    "test": "is_family",
+                    "subject": "other",
+                    "operator": "!=",
+                    "value": "monster_companion"
+                  },
+                  {
+                    "test": "is_family",
+                    "subject": "other",
+                    "operator": "!=",
+                    "value": "player"
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        "minecraft:behavior.owner_hurt_target": {
+          "priority": 2,
+          "entity_types": [
+            {
+              "filters": {
+                "all_of": [
+                  {
+                    "test": "is_family",
+                    "subject": "other",
+                    "operator": "!=",
+                    "value": "monster_companion"
+                  },
+                  {
+                    "test": "is_family",
+                    "subject": "other",
+                    "operator": "!=",
+                    "value": "player"
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        "minecraft:behavior.hurt_by_target": {
+          "priority": 99,
+          "entity_types": [
+            {
+              "filters": {
+                "all_of": [
+                  {
+                    "test": "is_family",
+                    "subject": "other",
+                    "operator": "!=",
+                    "value": "monster_companion"
+                  },
+                  {
+                    "test": "is_family",
+                    "subject": "other",
+                    "operator": "!=",
+                    "value": "player"
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        "minecraft:damage_sensor": {
+          "triggers": [
+            {
+              "on_damage": {
+                "filters": {
+                  "any_of": [
+                    {
+                      "test": "is_family",
+                      "subject": "other",
+                      "value": "player"
+                    },
+                    {
+                      "test": "is_family",
+                      "subject": "other",
+                      "value": "monster_companion"
+                    }
+                  ]
+                }
+              },
+              "deals_damage": false
+            }
+          ]
+        },
+        "minecraft:healable": {
+          "items": [
+            {
+              "item": "allenscreations:beast_biscuit",
+              "heal_amount": 10
+            },
+            {
+              "item": "allenscreations:golden_beast_biscuit",
+              "heal_amount": 40,
+              "effects": [
+                {
+                  "name": "regeneration",
+                  "chance": 1.0,
+                  "duration": 30,
+                  "amplifier": 2
+                }
+              ]
+            }
+          ]
+        },
+        "minecraft:nameable": {
+          "always_show": true,
+          "allow_name_tag_renaming": true
+        },
+        "minecraft:loot": {
+          "table": "loot_tables/empty.json"
+        },
+        "minecraft:behavior.nearest_attackable_target": {
+          "priority": 2,
+          "within_radius": 16,
+          "must_see": true,
+          "reselect_targets": true,
+          "entity_types": [
+            {
+              "filters": {
+                "all_of": [
+                  {
+                    "test": "is_family",
+                    "subject": "other",
+                    "value": "monster"
+                  },
+                  {
+                    "test": "is_family",
+                    "subject": "other",
+                    "operator": "!=",
+                    "value": "monster_companion"
+                  },
+                  {
+                    "test": "has_target",
+                    "subject": "other"
+                  },
+                  {
+                    "test": "owner_distance",
+                    "subject": "self",
+                    "operator": "<=",
+                    "value": 16
+                  }
+                ]
+              },
+              "max_dist": 16
+            }
+          ]
+        },
+        "minecraft:sittable": {
+          "sit_event": {
+            "event": "allenscreations:stay_on",
+            "target": "self"
+          },
+          "stand_event": {
+            "event": "allenscreations:stay_off",
+            "target": "self"
+          }
+        },
+        "minecraft:behavior.stay_while_sitting": {
+          "priority": 2
+        },
+        "minecraft:type_family": {
+          "family": [
+            "wither",
+            "skeleton",
+            "monster",
+            "undead",
+            "mob",
+            "monster_companion"
+          ]
+        },
+        "minecraft:rideable": {
+          "seat_count": 1,
+          "crouching_skip_interact": true,
+          "interact_text": "action.interact.mount",
+          "controlling_seat": 0,
+          "family_types": [
+            "player"
+          ],
+          "dismount_mode": "on_top_center",
+          "seats": [
+            {
+              "position": [
+                0.0,
+                3.0,
+                0.0
+              ]
+            }
+          ]
+        },
+        "minecraft:free_camera_controlled": {
+          "strafe_speed_modifier": 1.0,
+          "backwards_movement_modifier": 0.5
+        },
+        "minecraft:vertical_movement_action": {
+          "vertical_velocity": 0.5
+        },
+        "minecraft:flying_speed": {
+          "value": 0.08
+        },
+        "minecraft:body_rotation_always_follows_head": {},
+        "minecraft:physics": {
+          "has_gravity": false
+        },
+        "minecraft:behavior.player_ride_tamed": {
+          "priority": 1
+        }
+      },
+      "allenscreations:wild": {
+        "minecraft:tameable": {
+          "probability": 0.1,
+          "tame_items": [
+            "allenscreations:beast_biscuit"
+          ],
+          "tame_event": {
+            "event": "allenscreations:on_tame",
+            "target": "self"
+          }
+        },
+        "minecraft:boss": {
+          "hud_range": 55,
+          "should_darken_sky": true
+        },
+        "minecraft:behavior.wither_target_highest_damage": {
+          "priority": 1
+        }
+      }
+    }
+  }
+}
+```
+
+## FILE: MCPEDL/Addons/Monster-Companions/CHANGELOG.md (176 lines, 6148 bytes)
 
 ```
 # Changelog — Monster Companions
 
 ---
+
+## [v4] - 2026-11-19 - Warden and Wither Companions
+
+### Added
+
+- **Boss Subpack**: Choose Default to keep the Warden and the Wither as vanilla bosses, or With Bosses to tame them, in the Behavior Pack settings.
+- **Tameable Warden**: On the With Bosses subpack, a Primal Beast Biscuit has a 10% chance to tame a Warden into a companion.
+- **Tameable Wither**: On the With Bosses subpack, a Primal Beast Biscuit has a 10% chance to tame a Wither into a companion.
+- **Rideable Warden**: A tamed Warden can be ridden and steered on the ground.
+- **Rideable Wither**: A tamed Wither can be ridden and steered through the air.
 
 ## [v3] - 2026-11-13
 
@@ -29607,7 +30512,7 @@ This marker does not encrypt the pack or prevent extraction or editing.
 - **Biscuit Recipe:** One Rotten Flesh, one Bone, one Sweet Berries, and one Honey Bottle craft four Primal Beast Biscuits.
 ```
 
-## FILE: MCPEDL/Addons/Monster-Companions/DESCRIPTION.md (190 lines, 9101 bytes)
+## FILE: MCPEDL/Addons/Monster-Companions/DESCRIPTION.md (201 lines, 9950 bytes)
 
 ```
 # Monster Companions
@@ -29665,14 +30570,20 @@ Tap a companion with an empty hand to make it sit and hold its position, and tap
 - Kamikaze Creepers: Tamed Creepers will rush enemy threats that damage the player and detonate on the target as a single-use explosive bodyguard.
 - Spirit Vexes: Tamed Evokers summon Spirit Vexes that attack hostiles and despawn naturally when their lifespan ends without turning on players.
 
+### Boss Subpack
+Open the Behavior Pack settings and choose a subpack. Default keeps the Warden and the Wither as vanilla bosses, and With Bosses lets you tame them.
+- **What Happens**: On the With Bosses subpack, each Primal Beast Biscuit has a 10% chance to tame a wild Warden or Wither.
+- **Tamed Warden**: Follows and defends you, can be ridden and steered on the ground, and no longer applies Darkness.
+- **Tamed Wither**: Follows and defends you, can be ridden and steered through the air, and no longer shows a boss bar.
+
 ### Riding Companions
 Equipping a Saddle onto supported large companions enables manual mounting and direct steering:
 - Mount prompt: Uses Minecraft's normal mount prompt on touch controls, controllers, and keyboard/mouse.
 - Sneak-to-interact: Crouching allows players to feed, heal, lead, or rename mounts without accidentally mounting.
 - Manual steering: Autonomous wandering and head-turning are disabled while mounted.
 - Wall climbing: Tamed Spiders and Cave Spiders can scale vertical surfaces and cliffs while mounted.
-- Supported mounts: Spider, Cave Spider, Ravager, Iron Golem, Hoglin, Zoglin, Breeze, Ghast, and Phantom.
-- Flying mounts: Tamed Ghasts and Phantoms can be steered through the air while mounted.
+- Supported mounts: Spider, Cave Spider, Ravager, Iron Golem, Hoglin, Zoglin, Breeze, Ghast, and Phantom. The With Bosses subpack adds Warden and Wither.
+- Flying mounts: Tamed Ghasts and Phantoms can be steered through the air while mounted. A tamed Wither can too on the With Bosses subpack.
 
 ---
 
@@ -29725,6 +30636,11 @@ Equipping a Saddle onto supported large companions enables manual mounting and d
 ### Golems
 - **Supported Mobs**: Iron Golem, Snow Golem
 - **Special Abilities**: Frontline defense, rideable mount
+
+### Bosses (With Bosses Subpack)
+- **Supported Mobs**: Warden, Wither
+- **Special Abilities**: Boss-level health, rideable ground mount (Warden), rideable flying mount (Wither)
+
 
 ---
 
@@ -29797,7 +30713,7 @@ Equipping a Saddle onto supported large companions enables manual mounting and d
 
 ## Search & Discovery Keywords
 
-Monster Companions Bedrock add-on, Taming chances Minecraft Bedrock, auto-protect bodyguard mobs Minecraft Bedrock, Companion Squad Mechanics Minecraft Bedrock, Mount Mechanics and Bedrock Ride UI Minecraft Bedrock, Undead Minecraft Bedrock, Minecraft PE mod, MCPEDL add-on, CurseForge Bedrock, ALNStudios, Minecraft Bedrock add-on.
+Monster Companions Bedrock add-on, Taming chances Minecraft Bedrock, auto-protect bodyguard mobs Minecraft Bedrock, Companion Squad Mechanics Minecraft Bedrock, Mount Mechanics and Bedrock Ride UI Minecraft Bedrock, Undead Minecraft Bedrock, tame Warden and Wither Minecraft Bedrock, Minecraft PE mod, MCPEDL add-on, CurseForge Bedrock, ALNStudios, Minecraft Bedrock add-on.
 ```
 
 ## FILE: MCPEDL/Addons/Monster-Companions/IMAGE_PROMPTS.md (48 lines, 3286 bytes)
@@ -29877,7 +30793,7 @@ Download the current release of **Monster Companions** for Minecraft Bedrock Edi
 ## Download
 
 - **Package format:** `.mcaddon`
-- **Direct download:** [Download Monster Companions (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Monster-Companions/MonsterCompanions%20V3.mcaddon)
+- **Direct download:** [Download Monster Companions (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Monster-Companions/MonsterCompanions%20V4.mcaddon)
 
 ## Installation
 
@@ -30242,11 +31158,11 @@ This marker does not encrypt the pack or prevent extraction or editing.
 {
   "format_version": 2,
   "header": {
-    "name": "Monster Companions (v3)",
+    "name": "Monster Companions (v4)",
     "description": "Custom textures, icons, and language definitions for Monster Companions. by ALNStudios",
     "uuid": "7216d2ae-eb79-49ec-ba4f-25fab6d1f65d",
     "version": [
-      3,
+      4,
       0,
       0
     ],
@@ -30262,7 +31178,7 @@ This marker does not encrypt the pack or prevent extraction or editing.
       "type": "resources",
       "uuid": "a7052966-2e1a-4eb4-a6fb-1a0d2c4175f5",
       "version": [
-        3,
+        4,
         0,
         0
       ]
@@ -30273,7 +31189,7 @@ This marker does not encrypt the pack or prevent extraction or editing.
       "ALNStudios"
     ],
     "product_type": "addon",
-    "version": "3.0.0"
+    "version": "4.0.0"
   }
 }
 ```
@@ -30343,7 +31259,7 @@ item.allenscreations:golden_beast_biscuit.name=Golden Beast Biscuit
 }
 ```
 
-## FILE: MCPEDL/Addons/README.md (55 lines, 9092 bytes)
+## FILE: MCPEDL/Addons/README.md (56 lines, 9224 bytes)
 
 ```
 # Add-ons
@@ -30357,7 +31273,7 @@ Source files for established Minecraft Bedrock add-ons by ALNStudios.
 | Ghast Mob Head Transformers | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/Ghast-Mob-Head-Transformers/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Ghast-Mob-Head-Transformers/GhastMobHeads%20V2.mcaddon) |
 | Immortal Pets | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/Immortal-Pets/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Immortal-Pets/ImmortalPets%20V2.mcaddon) |
 | Mining Helmet | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/Mining-Helmet/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Mining-Helmet/MiningHelmet%20V2.mcaddon) |
-| Monster Companions | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/Monster-Companions/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Monster-Companions/MonsterCompanions%20V3.mcaddon) |
+| Monster Companions | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/Monster-Companions/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Monster-Companions/MonsterCompanions%20V4.mcaddon) |
 | Passive Auto-Switch Tools | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/Passive-Auto-Switch-Tools/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Passive-Auto-Switch-Tools/AutoSwitchTools%20V2.mcaddon) |
 | Tameable Companion Fox | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/Tameable-Companion-Fox/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Tameable-Companion-Fox/CompanionFox%20V2.mcaddon) |
 | Vanilla Quality of Life | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/Vanilla-Quality-of-Life/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Vanilla-Quality-of-Life/VanillaQoL%20V3.mcaddon) |
@@ -30383,8 +31299,8 @@ Source files for established Minecraft Bedrock add-ons by ALNStudios.
 | Enchanter | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/Enchanter/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Enchanter/Enchanter%20V2.mcaddon) |
 | ALN Quiver | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/ALN-Quiver/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/ALN-Quiver/ALNQuiver%20V2.mcaddon) |
 | Expanded Basic Arsenal | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/Expanded-Basic-Arsenal/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Expanded-Basic-Arsenal/ExpandedBasicArsenal%20V2.mcaddon) |
-| ALN Wireless Headphones | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/ALN-Wireless-Headphones/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/ALN-Wireless-Headphones/ALNWirelessHeadphones%20V3.mcaddon) |
-| ALN MoreDiscs | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/ALN-MoreDiscs/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/ALN-MoreDiscs/ALNMoreDiscs%20V2.mcaddon) |
+| ALN Wireless Headphones | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/ALN-Wireless-Headphones/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/ALN-Wireless-Headphones/ALNWirelessHeadphones%20V11.mcaddon) |
+| ALN MoreDiscs | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/ALN-MoreDiscs/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/ALN-MoreDiscs/ALNMoreDiscs%20V3.mcaddon) |
 | ALN Pointer | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/ALN-Pointer/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/ALN-Pointer/ALNPointer%20V2.mcaddon) |
 
 Download links point to the currently published package files.
@@ -30400,9 +31316,10 @@ Videos and streams are welcome with credit. Redistribution of original or modifi
 - [Maps](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Maps#available-maps)
 - [Scripts](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Script#available-scripts)
 - [Minigames](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Minigame#available-minigames)
+- [TypeScript Definitions (.d.ts)](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/reference/typescript-definitions)
 ```
 
-## FILE: Package/Monster-Companions.listing.md (76 lines, 16509 bytes)
+## FILE: Package/Monster-Companions.listing.md (76 lines, 17482 bytes)
 
 ````
 # Listing Kit: Monster Companions
@@ -30433,10 +31350,10 @@ Paste into the CurseForge description editor in source (HTML) mode.
 <div style="display:flex;flex-wrap:wrap;gap:10px"><div style="flex:1 1 300px;border:1px solid #8a94a3;border-radius:16px;text-align:center"><p><a href="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/MCPEDL/Addons/Monster-Companions/assets/snapshots/beast_biscuit_preview.png"><img src="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/MCPEDL/Addons/Monster-Companions/assets/snapshots/beast_biscuit_preview.png" alt="beast biscuit preview" style="width:100%"></a></p><p style="color:#8a94a3;font-size:13px">beast biscuit preview</p></div></div>
 <h2 style="font-size:17px;text-align:left"><span style="background-color:#15803d;color:#ffffff;border-radius:20px">&nbsp;&nbsp;Features and Mechanics&nbsp;&nbsp;</span></h2>
 <div class="spoiler" title="Features and Mechanics" data-title="Features and Mechanics">
-<h3>Taming Chances</h3><p>Taming is no longer guaranteed. Each Primal Beast Biscuit you feed a wild hostile mob gives it a chance to become your companion, and a biscuit is used up on every attempt. Weaker mobs such as Zombies, Spiders, and Slimes are the easiest to win over, while powerful mobs such as Ghasts, Iron Golems, and Ravagers take many more attempts. Mobs do not need to be wounded first, so you can try at full health.</p><h3>Automatic Bodyguard</h3><p>Companions now protect you on their own. When a hostile mob that is already angry at something comes within range of you, nearby companions step in and attack it without waiting for you to be hit first. They also keep defending you when you are hurt and join any fight you start. Companions never attack you, other players, or one another.</p><h3>Sit and Stay</h3><p>Tap a companion with an empty hand to make it sit and hold its position, and tap again to have it follow you. This works for ground companions that cannot be ridden. Flying companions and rideable mounts always follow you.</p><h3>Companion Squad Mechanics</h3><ul><li>Perimeter buffer: Companions follow the player while keeping a buffer distance to prevent obstructing the player camera or mining path. If the player sprints ahead, companions teleport behind the player safely.</li><li>Friendly-fire immunity: Companions avoid friendly-fire damage and do not target teammates.</li><li>Peaceful difficulty: Minecraft removes hostile mobs on Peaceful, including tamed companions. Use Easy or higher.</li><li>Player safe: Tamed companions never turn hostile toward players.</li><li>Auto-protect: Companions defend you from nearby aggressive hostile mobs even before you are attacked.</li><li>Visual status indicators: Tamed companions display an always-visible floating nameplate above their head. Custom name tags can be applied directly without an anvil.</li><li>Pink eyes: Tamed Zombies and Skeletons have pink eyes.</li><li>Taming feedback: Hearts confirm when a Primal Beast Biscuit tames a mob.</li><li>In-combat healing: Feeding a wounded companion a Primal Beast Biscuit restores 10 HP (5 hearts).</li><li>Witch healing: A tamed Witch throws a Regeneration splash potion at you every 25 to 40 seconds, which also heals companions standing next to you.</li><li>Sunlight protection: Tamed Zombies, Skeletons, and Phantoms can wear helmets to prevent burning in direct sunlight.</li><li>Kamikaze Creepers: Tamed Creepers will rush enemy threats that damage the player and detonate on the target as a single-use explosive bodyguard.</li><li>Spirit Vexes: Tamed Evokers summon Spirit Vexes that attack hostiles and despawn naturally when their lifespan ends without turning on players.</li></ul><h3>Riding Companions</h3><p>Equipping a Saddle onto supported large companions enables manual mounting and direct steering:</p><ul><li>Mount prompt: Uses Minecraft's normal mount prompt on touch controls, controllers, and keyboard/mouse.</li><li>Sneak-to-interact: Crouching allows players to feed, heal, lead, or rename mounts without accidentally mounting.</li><li>Manual steering: Autonomous wandering and head-turning are disabled while mounted.</li><li>Wall climbing: Tamed Spiders and Cave Spiders can scale vertical surfaces and cliffs while mounted.</li><li>Supported mounts: Spider, Cave Spider, Ravager, Iron Golem, Hoglin, Zoglin, Breeze, Ghast, and Phantom.</li><li>Flying mounts: Tamed Ghasts and Phantoms can be steered through the air while mounted.</li></ul></div>
+<h3>Taming Chances</h3><p>Taming is no longer guaranteed. Each Primal Beast Biscuit you feed a wild hostile mob gives it a chance to become your companion, and a biscuit is used up on every attempt. Weaker mobs such as Zombies, Spiders, and Slimes are the easiest to win over, while powerful mobs such as Ghasts, Iron Golems, and Ravagers take many more attempts. Mobs do not need to be wounded first, so you can try at full health.</p><h3>Automatic Bodyguard</h3><p>Companions now protect you on their own. When a hostile mob that is already angry at something comes within range of you, nearby companions step in and attack it without waiting for you to be hit first. They also keep defending you when you are hurt and join any fight you start. Companions never attack you, other players, or one another.</p><h3>Sit and Stay</h3><p>Tap a companion with an empty hand to make it sit and hold its position, and tap again to have it follow you. This works for ground companions that cannot be ridden. Flying companions and rideable mounts always follow you.</p><h3>Companion Squad Mechanics</h3><ul><li>Perimeter buffer: Companions follow the player while keeping a buffer distance to prevent obstructing the player camera or mining path. If the player sprints ahead, companions teleport behind the player safely.</li><li>Friendly-fire immunity: Companions avoid friendly-fire damage and do not target teammates.</li><li>Peaceful difficulty: Minecraft removes hostile mobs on Peaceful, including tamed companions. Use Easy or higher.</li><li>Player safe: Tamed companions never turn hostile toward players.</li><li>Auto-protect: Companions defend you from nearby aggressive hostile mobs even before you are attacked.</li><li>Visual status indicators: Tamed companions display an always-visible floating nameplate above their head. Custom name tags can be applied directly without an anvil.</li><li>Pink eyes: Tamed Zombies and Skeletons have pink eyes.</li><li>Taming feedback: Hearts confirm when a Primal Beast Biscuit tames a mob.</li><li>In-combat healing: Feeding a wounded companion a Primal Beast Biscuit restores 10 HP (5 hearts).</li><li>Witch healing: A tamed Witch throws a Regeneration splash potion at you every 25 to 40 seconds, which also heals companions standing next to you.</li><li>Sunlight protection: Tamed Zombies, Skeletons, and Phantoms can wear helmets to prevent burning in direct sunlight.</li><li>Kamikaze Creepers: Tamed Creepers will rush enemy threats that damage the player and detonate on the target as a single-use explosive bodyguard.</li><li>Spirit Vexes: Tamed Evokers summon Spirit Vexes that attack hostiles and despawn naturally when their lifespan ends without turning on players.</li></ul><h3>Boss Subpack</h3><p>Open the Behavior Pack settings and choose a subpack. Default keeps the Warden and the Wither as vanilla bosses, and With Bosses lets you tame them.</p><ul><li><strong>What Happens</strong>: On the With Bosses subpack, each Primal Beast Biscuit has a 10% chance to tame a wild Warden or Wither.</li><li><strong>Tamed Warden</strong>: Follows and defends you, can be ridden and steered on the ground, and no longer applies Darkness.</li><li><strong>Tamed Wither</strong>: Follows and defends you, can be ridden and steered through the air, and no longer shows a boss bar.</li></ul><h3>Riding Companions</h3><p>Equipping a Saddle onto supported large companions enables manual mounting and direct steering:</p><ul><li>Mount prompt: Uses Minecraft's normal mount prompt on touch controls, controllers, and keyboard/mouse.</li><li>Sneak-to-interact: Crouching allows players to feed, heal, lead, or rename mounts without accidentally mounting.</li><li>Manual steering: Autonomous wandering and head-turning are disabled while mounted.</li><li>Wall climbing: Tamed Spiders and Cave Spiders can scale vertical surfaces and cliffs while mounted.</li><li>Supported mounts: Spider, Cave Spider, Ravager, Iron Golem, Hoglin, Zoglin, Breeze, Ghast, and Phantom. The With Bosses subpack adds Warden and Wither.</li><li>Flying mounts: Tamed Ghasts and Phantoms can be steered through the air while mounted. A tamed Wither can too on the With Bosses subpack.</li></ul></div>
 <h2 style="font-size:17px;text-align:left"><span style="background-color:#15803d;color:#ffffff;border-radius:20px">&nbsp;&nbsp;Tameable Mob Roster (31 Mobs)&nbsp;&nbsp;</span></h2>
 <div class="spoiler" title="Tameable Mob Roster (31 Mobs)" data-title="Tameable Mob Roster (31 Mobs)">
-<h3>Undead</h3><ul><li><strong>Supported Mobs</strong>: Zombie, Drowned, Husk, Zombie Villager, Zombified Pigman</li><li><strong>Special Abilities</strong>: Helmet sunlight protection, melee defense</li></ul><h3>Skeletons</h3><ul><li><strong>Supported Mobs</strong>: Skeleton, Stray, Bogged, Parched, Wither Skeleton</li><li><strong>Special Abilities</strong>: Ranged arrow support, Wither effect, Weakness arrows</li></ul><h3>Tricky Trials</h3><ul><li><strong>Supported Mobs</strong>: Breeze</li><li><strong>Special Abilities</strong>: Wind Charge projectile launcher, rideable mount</li></ul><h3>Nether Beasts</h3><ul><li><strong>Supported Mobs</strong>: Hoglin, Zoglin</li><li><strong>Special Abilities</strong>: High knockback, rideable war beast</li></ul><h3>Explosives</h3><ul><li><strong>Supported Mobs</strong>: Creeper</li><li><strong>Special Abilities</strong>: Targeted single-use defensive explosion</li></ul><h3>Arachnids</h3><ul><li><strong>Supported Mobs</strong>: Spider, Cave Spider</li><li><strong>Special Abilities</strong>: Vertical wall climbing, rideable mount</li></ul><h3>Dimensionals</h3><ul><li><strong>Supported Mobs</strong>: Enderman</li><li><strong>Special Abilities</strong>: Teleport interception, heavy melee damage</li></ul><h3>Piglins</h3><ul><li><strong>Supported Mobs</strong>: Piglin, Piglin Brute</li><li><strong>Special Abilities</strong>: High attack speed, battle axe sweeps</li></ul><h3>Occult and Slimes</h3><ul><li><strong>Supported Mobs</strong>: Witch, Slime, Magma Cube</li><li><strong>Special Abilities</strong>: Lingering potion effects, crowd control</li></ul><h3>Nether and Sky</h3><ul><li><strong>Supported Mobs</strong>: Blaze, Ghast, Phantom</li><li><strong>Special Abilities</strong>: Fireball artillery, aerial escort, flying mounts</li></ul><h3>Illagers</h3><ul><li><strong>Supported Mobs</strong>: Ravager, Vindicator, Pillager, Evoker</li><li><strong>Special Abilities</strong>: Heavy mount, fangs, spirit vex minions</li></ul><h3>Golems</h3><ul><li><strong>Supported Mobs</strong>: Iron Golem, Snow Golem</li><li><strong>Special Abilities</strong>: Frontline defense, rideable mount</li></ul></div>
+<h3>Undead</h3><ul><li><strong>Supported Mobs</strong>: Zombie, Drowned, Husk, Zombie Villager, Zombified Pigman</li><li><strong>Special Abilities</strong>: Helmet sunlight protection, melee defense</li></ul><h3>Skeletons</h3><ul><li><strong>Supported Mobs</strong>: Skeleton, Stray, Bogged, Parched, Wither Skeleton</li><li><strong>Special Abilities</strong>: Ranged arrow support, Wither effect, Weakness arrows</li></ul><h3>Tricky Trials</h3><ul><li><strong>Supported Mobs</strong>: Breeze</li><li><strong>Special Abilities</strong>: Wind Charge projectile launcher, rideable mount</li></ul><h3>Nether Beasts</h3><ul><li><strong>Supported Mobs</strong>: Hoglin, Zoglin</li><li><strong>Special Abilities</strong>: High knockback, rideable war beast</li></ul><h3>Explosives</h3><ul><li><strong>Supported Mobs</strong>: Creeper</li><li><strong>Special Abilities</strong>: Targeted single-use defensive explosion</li></ul><h3>Arachnids</h3><ul><li><strong>Supported Mobs</strong>: Spider, Cave Spider</li><li><strong>Special Abilities</strong>: Vertical wall climbing, rideable mount</li></ul><h3>Dimensionals</h3><ul><li><strong>Supported Mobs</strong>: Enderman</li><li><strong>Special Abilities</strong>: Teleport interception, heavy melee damage</li></ul><h3>Piglins</h3><ul><li><strong>Supported Mobs</strong>: Piglin, Piglin Brute</li><li><strong>Special Abilities</strong>: High attack speed, battle axe sweeps</li></ul><h3>Occult and Slimes</h3><ul><li><strong>Supported Mobs</strong>: Witch, Slime, Magma Cube</li><li><strong>Special Abilities</strong>: Lingering potion effects, crowd control</li></ul><h3>Nether and Sky</h3><ul><li><strong>Supported Mobs</strong>: Blaze, Ghast, Phantom</li><li><strong>Special Abilities</strong>: Fireball artillery, aerial escort, flying mounts</li></ul><h3>Illagers</h3><ul><li><strong>Supported Mobs</strong>: Ravager, Vindicator, Pillager, Evoker</li><li><strong>Special Abilities</strong>: Heavy mount, fangs, spirit vex minions</li></ul><h3>Golems</h3><ul><li><strong>Supported Mobs</strong>: Iron Golem, Snow Golem</li><li><strong>Special Abilities</strong>: Frontline defense, rideable mount</li></ul><h3>Bosses (With Bosses Subpack)</h3><ul><li><strong>Supported Mobs</strong>: Warden, Wither</li><li><strong>Special Abilities</strong>: Boss-level health, rideable ground mount (Warden), rideable flying mount (Wither)</li></ul></div>
 <h2 style="font-size:17px;text-align:left"><span style="background-color:#15803d;color:#ffffff;border-radius:20px">&nbsp;&nbsp;Item Specifications&nbsp;&nbsp;</span></h2>
 <div class="spoiler" title="Item Specifications" data-title="Item Specifications">
 <h3>Primal Beast Biscuit</h3><h3>Use</h3><ul><li><strong>Effect</strong>: Gives a wild hostile mob a chance to become your companion and restores health to an injured companion.</li></ul><h3>Healing Value</h3><ul><li><strong>Specification</strong>: 10 HP (5 Hearts)</li></ul><h3>Stack Size</h3><ul><li><strong>Specification</strong>: 64</li></ul><h3>Golden Beast Biscuit</h3><ul><li><strong>Effect</strong>: Fully heals an injured companion (40 HP, 20 hearts). It does not tame wild mobs.</li><li><strong>Bonus</strong>: The companion also gains Regeneration III for 30 seconds.</li><li><strong>Crafting</strong>: 1 Primal Beast Biscuit and 1 Gold Ingot make 1 Golden Beast Biscuit at a crafting table.</li><li><strong>How to Use</strong>: Feed it to an injured companion. It cannot be used to tame wild mobs.</li><li><strong>Appearance</strong>: Uses the Primal Beast Biscuit icon with an enchanted glint.</li><li><strong>Stack Size</strong>: 64</li></ul></div>
@@ -30451,7 +31368,7 @@ Paste into the CurseForge description editor in source (HTML) mode.
 <hr>
 <p style="text-align:center;color:#8a94a3;font-size:13px"><strong>By ALNStudios</strong></p>
 <div class="spoiler"><p style="font-size:13px"><strong>Permissions and credits</strong></p><ul style="font-size:13px"><li>Rights: All rights reserved for ALNStudios.</li><li>Content creators: You may feature this creation in videos and streams with credit to ALNStudios.</li><li>Redistribution: Do not re-upload this pack or provide direct monetized download bypasses. Link to this page.</li><li>Unofficial community creation. Not an official Minecraft product and not approved by or associated with Mojang or Microsoft.</li></ul></div>
-<p style="text-align:center;color:#8a94a3;font-size:12px">Monster Companions Bedrock add-on, Taming chances Minecraft Bedrock, auto-protect bodyguard mobs Minecraft Bedrock, Companion Squad Mechanics Minecraft Bedrock, Mount Mechanics and Bedrock Ride UI Minecraft Bedrock, Undead Minecraft Bedrock, Minecraft PE mod, MCPEDL add-on, CurseForge Bedrock, ALNStudios, Minecraft Bedrock add-on.</p></div>
+<p style="text-align:center;color:#8a94a3;font-size:12px">Monster Companions Bedrock add-on, Taming chances Minecraft Bedrock, auto-protect bodyguard mobs Minecraft Bedrock, Companion Squad Mechanics Minecraft Bedrock, Mount Mechanics and Bedrock Ride UI Minecraft Bedrock, Undead Minecraft Bedrock, tame Warden and Wither Minecraft Bedrock, Minecraft PE mod, MCPEDL add-on, CurseForge Bedrock, ALNStudios, Minecraft Bedrock add-on.</p></div>
 ```
 
 ## AI Image Prompts
