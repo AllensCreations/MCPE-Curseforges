@@ -5,7 +5,9 @@ name: Publish to CurseForge
 #
 #   1. Pick a registered pack (list comes from builds/Curseforge_IDs.json, written by
 #      "Register CurseForge ID", which also refreshes the dropdown).
-#   2. The version is the newest changelog entry (no bump). Write the version in CHANGELOG.md.
+#   2. The version is the newest changelog entry (no bump), a single number written as vX
+#      (## [v12] - date; [12], v12 and dated/undated headings also work). CHANGELOG.md is read, never
+#      rewritten, so every pack's changelog works as it is. Manifests become [X, 0, 0] and (vX).
 #   3. The changelog is GROUPED: every CHANGELOG.md entry newer than the last published version
 #      is merged under one heading, so a publish after several unpublished updates still shows
 #      all of them, grouped by section, from the last publish up to the latest.
@@ -111,8 +113,10 @@ jobs:
       - name: Install build dependency
         run: python3 -m pip install -r requirements.txt
 
-      - name: Migrate legacy project versions before publishing
-        run: python3 scripts/migrate_three_part_versions.py
+      # Disabled: versions are single numbers (vX) now. The publish script still reads old X.Y.Z
+      # registry values by itself, so this three-part migration is no longer needed.
+      # - name: Migrate legacy project versions before publishing
+      #   run: python3 scripts/migrate_three_part_versions.py
 
       - name: Validate inputs and load ID from registry
         env:
@@ -137,6 +141,13 @@ jobs:
               print(f"::error::{exc}")
               sys.exit(1)
           print(f"CurseForge project {info['project_id']}, last published: {info.get('last_published_version', 'never')}")
+          try:
+              category, name = release.project_from_path(os.environ["PROJECT_PATH"])
+              newest, _ = release.latest_changelog_entry(release.REPO_ROOT / "MCPEDL" / category / name / "CHANGELOG.md")
+              print(f"Newest changelog version: v{newest}")
+          except (OSError, ValueError) as exc:
+              print(f"::error::{exc}")
+              sys.exit(1)
           PY
 
       - name: Bump version, group changelog since last publish, build and upload (once)

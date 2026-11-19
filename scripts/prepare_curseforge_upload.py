@@ -17,9 +17,25 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import auto_bump_and_build as builder
 
 REPO_ROOT = Path(builder.REPO_ROOT)
-CHANGELOG_HEADER = re.compile(
-    r"^## \[((?:[vV]\d+|\d+\.\d+\.\d+)(?:\.\d+)?)\] - (\d{4}-\d{2}-\d{2})(?: - (\S.*?))?\s*$"
-)
+_HEADER_TAIL = r"(?:\s*[-\u2013\u2014:|]\s*(\d{4}-\d{2}-\d{2}))?(?:\s*[-\u2013\u2014:|]\s*(\S.*?))?\s*$"
+_HEADER_BRACKET = re.compile(r"^##\s+\[\s*([vV]?\d+(?:\.\d+){0,3})\s*\]" + _HEADER_TAIL)
+_HEADER_PLAIN = re.compile(r"^##\s+([vV]\d+(?:\.\d+){0,3}|\d+(?:\.\d+){2,3})" + _HEADER_TAIL)
+
+
+class _ChangelogHeader:
+    """Any changelog heading with a version: '## [v12] - 2026-11-19 - Name', '## [12]', '## v12',
+    '## [1.2.3]'. Groups: 1 = version, 2 = date (optional), 3 = name (optional).
+    A bare number outside brackets (e.g. '## 2026') is NOT a version."""
+
+    @staticmethod
+    def fullmatch(text):
+        text = text.rstrip()
+        return _HEADER_BRACKET.fullmatch(text) or _HEADER_PLAIN.fullmatch(text)
+
+    match = fullmatch
+
+
+CHANGELOG_HEADER = _ChangelogHeader()
 PACKAGE_EXTENSIONS = {
     "Addons": ".mcaddon",
     "Maps": ".mcworld",
@@ -34,15 +50,20 @@ def latest_changelog_entry(path):
     if not headings:
         raise ValueError(f"No version entry found in {path}")
 
-    match = CHANGELOG_HEADER.fullmatch(headings[0].group())
-    if not match:
-        raise ValueError(f"Latest changelog heading must be a dated version in {path}")
+    index, match = None, None
+    for position, heading in enumerate(headings):
+        match = CHANGELOG_HEADER.fullmatch(heading.group())
+        if match:
+            index = position
+            break
+    if index is None:
+        raise ValueError(f"No version heading such as '## [v12] - 2026-11-19' found in {path}")
 
-    end = headings[1].start() if len(headings) > 1 else len(text)
-    entry = text[headings[0].start():end].strip()
+    end = headings[index + 1].start() if len(headings) > index + 1 else len(text)
+    entry = text[headings[index].start():end].strip()
     if not entry.partition("\n")[2].strip():
         raise ValueError(f"Latest changelog entry is empty in {path}")
-    return ".".join(str(part) for part in parse_version(match.group(1))), entry
+    return format_version(parse_version(match.group(1))), entry
 
 
 def project_from_path(project_path):
@@ -56,10 +77,8 @@ def project_from_path(project_path):
 
 
 def align_manifests(project_dir, changelog_version):
-    target = [int(part) for part in changelog_version.split(".")]
-    if len(target) != 3:
-        raise ValueError(f"Version must be X.Y.Z, found {changelog_version!r}")
-    full_version = changelog_version
+    target = list(parse_version(changelog_version))  # vX -> [X, 0, 0] (what Bedrock needs)
+    full_version = format_version(target)            # "12" -> title "(v12)"
     manifest_paths = [
         path for path in sorted(project_dir.rglob("manifest.json"))
         if not {"world", "worlds", "behavior_packs", "resource_packs"}.intersection(path.parts)
@@ -99,11 +118,11 @@ def align_manifests(project_dir, changelog_version):
         header = data["header"]
         header["version"] = target
         if isinstance(header.get("name"), str):
-            name = re.sub(r"(?:\s*\(v\d+\.\d+\.\d+(?:\.\d+)?\))+\s*$", "", header["name"]).rstrip()
+            name = re.sub(r"(?:\s*\(v\d+(?:\.\d+){0,3}\))+\s*$", "", header["name"]).rstrip()
             header["name"] = f"{name} (v{full_version})"
         if not isinstance(data.get("metadata"), dict):
             data["metadata"] = {}
-        data["metadata"]["version"] = full_version
+        data["metadata"]["version"] = ".".join(str(part) for part in target)
         for module in data.get("modules", []):
             if isinstance(module, dict) and isinstance(module.get("version"), list):
                 module["version"] = target
@@ -235,12 +254,27 @@ def save_info(project_path, project_id, last_published_version=None, last_releas
 
 
 def parse_version(text):
-    """Parse X.Y.Z; accept legacy X.Y.Z.A temporarily and map it to X.Z.A."""
-    parts = tuple(int(part) for part in str(text).split("."))
-    if len(parts) == 4: parts = (parts[0], parts[2], parts[3])
-    if len(parts) != 3 or any(part < 0 for part in parts):
-        raise ValueError(f"Invalid X.Y.Z version: {text!r}")
-    return parts
+    """Parse a project version into a sortable (X, Y, Z) tuple.
+
+    Current format is a single number: 'v12' / 'V12' / '12' -> (12, 0, 0).
+    Legacy 'X.Y.Z' stays (X, Y, Z); legacy 'X.Y.Z.A' maps to (X, Z, A).
+    """
+    raw = str(text).strip()
+    match = re.fullmatch(r"[vV]?(\d+)(?:\.(\d+)\.(\d+)(?:\.(\d+))?)?", raw)
+    if not match:
+        raise ValueError(f"Invalid version {text!r}: expected vX, e.g. v12.")
+    major, second, third, fourth = match.groups()
+    if second is None:
+        return (int(major), 0, 0)
+    if fourth is not None:
+        return (int(major), int(third), int(fourth))
+    return (int(major), int(second), int(third))
+
+
+def format_version(parts):
+    """(12, 0, 0) -> '12' (shown as v12); a legacy (1, 2, 3) -> '1.2.3'."""
+    parts = tuple(parts)
+    return str(parts[0]) if tuple(parts[1:]) == (0, 0) else ".".join(str(part) for part in parts)
 
 def split_changelog(text):
     """Split into (preamble, [segment, ...]); each segment starts at a '## ' heading."""
@@ -362,7 +396,7 @@ def _intro(new_version, versions, names=()):
 def render_flat_entry(new_version, date_text, merged):
     """ONE markdown entry for beta (and for CHANGELOG.md): every merged entry grouped by heading."""
     body = _merge_bodies([entry[3].partition("\n")[2] for entry in merged])
-    return f"## [{new_version}] - {date_text}\n\n{_intro(new_version, [e[1] for e in merged], [_entry_name(e) for e in merged])}\n\n{body}"
+    return f"## [v{new_version}] - {date_text}\n\n{_intro(new_version, [e[1] for e in merged], [_entry_name(e) for e in merged])}\n\n{body}"
 
 
 def changelog_type(release_type):
@@ -405,18 +439,16 @@ def merge_baseline(release_type, info):
     return (release or published) if release_type == "release" else published
 
 def next_version(highest, release_type):
-    """Update: X.Y.(Z+1); Beta: X.(Y+1).0; Release: (X+1).0.0."""
+    """keep: the newest changelog version as written; anything else: X + 1 (versions are single numbers)."""
     major, minor, patch = highest[:3]
-    if release_type == "release": return f"{major + 1}.0.0"
-    if release_type == "beta": return f"{major}.{minor + 1}.0"
-    if release_type == "keep": return f"{major}.{minor}.{patch}"  # no bump: publish the newest changelog version as written
-    return f"{major}.{minor}.{patch + 1}"
+    if release_type == "keep": return format_version((major, minor, patch))
+    return str(major + 1)
 
 def prior_version(version):
     major, minor, patch = parse_version(version)
-    if patch: return f"{major}.{minor}.{patch - 1}"
-    if minor: return f"{major}.{minor - 1}.0"
-    return f"{max(major - 1, 0)}.0.0" if major else version
+    if patch: return format_version((major, minor, patch - 1))
+    if minor: return format_version((major, minor - 1, 0))
+    return format_version((max(major - 1, 0), 0, 0)) if major else format_version((major, minor, patch))
 
 def baselines_after(release_type, info, version):
     fallback = info.get("last_published_version") or prior_version(version)
@@ -431,12 +463,13 @@ def combine_changelog(project_dir, changelog_path, last_published=None, today=No
     for segment in segments:
         heading = segment.splitlines()[0]
         match = CHANGELOG_HEADER.fullmatch(heading)
-        if not match: break
-        normalized_version = ".".join(str(part) for part in parse_version(match.group(1)))
+        if not match: continue  # '## [Unreleased]', '## Notes' ... are not versions: skip them
+        normalized_version = format_version(parse_version(match.group(1)))
         entries.append((parse_version(match.group(1)), normalized_version, heading, segment))
-    if not entries: raise ValueError(f"Latest changelog heading must be a dated X.Y.Z version in {changelog_path}")
+    if not entries: raise ValueError(f"No version heading such as '## [v12] - 2026-11-19' found in {changelog_path}")
     baseline_text = merge_baseline(release_type, {"last_published_version": last_published, "last_release_version": last_release})
     baseline = parse_version(baseline_text) if baseline_text else None
+    if baseline: baseline_text = format_version(baseline)  # registry may hold 'v12'; show it once as v12
     merged = entries[:1] if baseline is None else [entry for entry in entries if entry[0] > baseline]
     if not merged and release_type in {"beta", "keep"}:
         raise ValueError(f"Nothing new to publish: no changelog entry newer than v{baseline_text}. Add a changelog entry first.")
@@ -447,7 +480,7 @@ def combine_changelog(project_dir, changelog_path, last_published=None, today=No
         since = f"newer than the last publish (v{baseline_text})" if baseline_text else "(no previous publish)"
         print(
             f"Grouping {len(merged)} changelog entr{'y' if len(merged) == 1 else 'ies'} {since}: "
-            f"v{'.'.join(map(str, oldest))} through v{'.'.join(map(str, newest))}."
+            f"v{format_version(oldest)} through v{format_version(newest)}."
         )
     # The build no longer bumps manifests, so changelog entries can be ahead of both the manifests
     # and the last publish. The new version must always be above everything it groups.
@@ -464,13 +497,9 @@ def combine_changelog(project_dir, changelog_path, last_published=None, today=No
     remaining = []
     for segment in segments:
         if segment.splitlines()[0] in consumed: continue
-        first, sep, rest = segment.partition("\n")
-        match = CHANGELOG_HEADER.fullmatch(first)
-        if match:
-            normalized = ".".join(str(part) for part in parse_version(match.group(1)))
-            first = f"## [{normalized}] - {match.group(2)}" + (f" - {match.group(3).strip()}" if match.group(3) else "")
-        remaining.append(first + (sep + rest if sep else ""))
-    changelog_path.write_text(preamble + file_entry + "\n\n" + "\n\n".join(remaining).lstrip(), encoding="utf-8")
+        remaining.append(segment)  # every other heading stays exactly as written
+    if release_type != "keep":  # keep = publish as written: CHANGELOG.md is not touched
+        changelog_path.write_text(preamble + file_entry + "\n\n" + "\n\n".join(remaining).lstrip(), encoding="utf-8")
     return new_version, upload_changelog
 
 
@@ -503,11 +532,12 @@ def find_map_package(project_dir, built_name, variant):
     )
 
 def upload_name(release_type, project_name, extension, map_variant="default", version="", title=None):
-    """'MiningHelmet V2.0.0.mcaddon'; non-default maps add ' Creative' etc. release_type and title
+    """'MiningHelmet V2.mcaddon'; non-default maps add ' Creative' etc. release_type and title
     are kept for compatibility; the name is the project's filename shortcut plus the version."""
     shortcut = builder.manifest_tools.shortcut_for_slug(project_name) if getattr(builder, "manifest_tools", None) else re.sub(r"[^A-Za-z0-9]", "", project_name) or "Pack"
     variant = "" if map_variant == "default" else f" {map_variant}"
-    tag = f" V{version}" if version else ""
+    shown = str(version).lstrip("vV")
+    tag = f" V{shown}" if shown else ""
     return f"{shortcut}{tag}{variant}{extension}"
 
 

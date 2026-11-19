@@ -109,13 +109,14 @@ def publish(project_path, release_type="keep", map_variant="default"):
         uploaded.append(package_path.name)
 
     release.save_info(pack_key, project_id, version, **release.baselines_after(release_type, info, version))
-    previous = info.get("last_published_version") or "never"
+    previous = info.get("last_published_version")
+    previous = "v" + release.format_version(release.parse_version(previous)) if previous else "never"
     excerpt = changelog_excerpt(category, project_name)
     files = ", ".join(f"`{n}`" for n in uploaded)
     write_summary(
         f"### ✅ Published to CurseForge: {project_name}\n\n"
         "| | |\n|---|---|\n"
-        f"| Version | `{version}` (previous: `{previous}`) |\n"
+        f"| Version | `v{version}` (previous: `{previous}`) |\n"
         f"| Uploaded | {files} |\n"
         f"| CurseForge project ID | `{project_id}` |\n"
         "| Release type | Release |\n\n"

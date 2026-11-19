@@ -98,249 +98,106 @@ class AutoPublishTests(unittest.TestCase):
             self.assertEqual(saved["MCPEDL/Addons/Old"]["last_published_version"], "1.0.0")
             self.assertFalse(legacy.exists())
 
-    def test_beta_merges_all_unreleased_entries_into_one_grouped_entry(self):
-        with tempfile.TemporaryDirectory() as temp:
-            project = Path(temp)
-            (project / "manifest.json").write_text('{"header":{"version":[1,4,2]}}')
-            log = project / "CHANGELOG.md"
-            log.write_text(
-                "# Changelog\n\n"
-                "## [1.4.2] - 2026-10-30\n\n### Fixed\n- C\n\n"
-                "## [1.3.1] - 2026-10-10\n\n### Fixed\n- D\n\n"
-                "## [1.4.1] - 2026-10-20\n\n### Fixed\n- B\n\n"
-                "## [1.3.0] - 2026-10-01\n\n- A\n"
-            )
-            version, entry = publisher.release.combine_changelog(
-                project, log, "1.3.0", today=datetime.date(2026, 11, 3), release_type="beta"
-            )
-            self.assertEqual(version, "1.5.0")
-            self.assertIn("## [1.5.0] - 2026-11-03", entry)
-            self.assertIn("Packed with 3 updates", entry)
-            self.assertEqual(entry.count("### Fixed"), 1)  # one grouped list, not one per version
-            for expected in ("- B", "- C", "- D"):
-                self.assertIn(expected, entry)
-            self.assertNotIn("- A", entry)
-            self.assertNotIn("<div", entry)
-            self.assertEqual(publisher.release.changelog_type("beta"), "markdown")
-            text = log.read_text()
-            self.assertTrue(text.index("[1.5.0]") < text.index("[1.3.0]"))
-            self.assertNotIn("## [1.4.2]", text)
-            with self.assertRaisesRegex(ValueError, "Nothing new"):
-                publisher.release.combine_changelog(project, log, "1.5.0", release_type="beta")
+    # ---- single-number versions (vX) and tolerant changelog headings ----
 
-    def _project(self, temp, manifest, log_text):
+    def _log(self, temp, text):
         project = Path(temp)
-        (project / "manifest.json").write_text(json.dumps({"header": {"version": manifest}}))
+        (project / "manifest.json").write_text('{"header":{"version":[1,0,0]}}')
         log = project / "CHANGELOG.md"
-        log.write_text(log_text)
+        log.write_text(text)
         return project, log
 
-    def _publish(self, project, log, info, release_type, day):
+    def test_parse_and_format_single_number_versions(self):
         rel = publisher.release
-        version, entry = rel.combine_changelog(
-            project, log, info.get("last_published_version"), today=datetime.date(2026, 11, day),
-            release_type=release_type, last_release=info.get("last_release_version"),
-        )
-        updates = rel.baselines_after(release_type, info, version)
-        info["last_published_version"] = version
-        info.update(updates)
-        (project / "manifest.json").write_text(json.dumps({"header": {"version": [int(p) for p in version.split(".")[:3]]}}))
-        return version, entry
-
-
-    def test_release_with_no_new_entry_still_promotes_published_betas(self):
-        with tempfile.TemporaryDirectory() as temp:
-            project, log = self._project(
-                temp, [1, 3, 1],
-                "# Changelog\n\n## [1.3.1] - 2026-11-01\n\n### Fixed\n- Beta fix\n\n## [1.3.0] - 2026-10-01\n\n- Base\n",
-            )
-            info = {"project_id": "1", "last_published_version": "1.3.1", "last_release_version": "1.3.0"}
-            version, entry = self._publish(project, log, info, "release", 3)
-            self.assertEqual(version, "2.0.0")
-            self.assertIn("Beta fix", entry)
-            with self.assertRaisesRegex(ValueError, "Nothing new"):
-                publisher.release.combine_changelog(project, log, "2.0.0", release_type="beta")
-
-    def test_first_ever_beta_records_the_version_before_it_as_release_baseline(self):
-        with tempfile.TemporaryDirectory() as temp:
-            project, log = self._project(
-                temp, [1, 0, 0], "# Changelog\n\n## [1.0.0] - 2026-10-01\n\n- First\n",
-            )
-            info = {"project_id": "1"}
-            version, _ = self._publish(project, log, info, "beta", 1)
-            self.assertEqual(version, "1.1.0")
-            self.assertEqual(info["last_release_version"], "1.0.0")
-            log.write_text(log.read_text().replace("# Changelog\n\n", "# Changelog\n\n## [1.1.1] - 2026-11-02\n\n- Second\n\n", 1))
-            self._publish(project, log, info, "beta", 2)
-            version, entry = self._publish(project, log, info, "release", 3)
-            self.assertEqual(version, "2.0.0")
-            self.assertIn("First", entry)
-
-    def test_old_registry_entry_without_release_field_falls_back_to_last_published(self):
-        rel = publisher.release
-        info = {"project_id": "1", "last_published_version": "1.2.0"}
-        for kind in ("release", "beta"):
-            self.assertEqual(rel.merge_baseline(kind, info), "1.2.0")
-        self.assertEqual(rel.baselines_after("beta", info, "1.2.1"),
-                         {"last_release_version": "1.2.0"})
-        self.assertEqual(rel.baselines_after("release", info, "2.0.0"),
-                         {"last_release_version": "2.0.0"})
-
-    def test_upload_copy_uses_short_name_and_version(self):
-        rel = publisher.release
-        self.assertEqual(rel.upload_name("beta", "Monster-Companions", ".mcaddon", "default", "1.2.5"), "MonsterCompanions V1.2.5.mcaddon")
-        self.assertEqual(rel.upload_name("release", "Mining-Helmet", ".mcaddon", "default", "2.0.0"), "MiningHelmet V2.0.0.mcaddon")
-        self.assertEqual(rel.upload_name("release", "Oneblock-SM", ".mcworld", "Creative", "1.0.0"), "OneblockSM V1.0.0 Creative.mcworld")
-        
-        with tempfile.TemporaryDirectory() as temp:
-            src = Path(temp) / "Pack V1.2.3.mcaddon"
-            src.write_bytes(b"x")
-            with patch.dict(os.environ, {"RUNNER_TEMP": temp}):
-                staged = rel.stage_upload_copy(src, "beta", "Pack", "default", "1.1.0")
-            self.assertEqual(staged.name, "Pack V1.1.0.mcaddon")
-            self.assertEqual(staged.read_bytes(), b"x")
-
-    def test_legacy_four_part_version_mapping(self):
-        rel = publisher.release
+        for text in ("v12", "V12", "12"):
+            self.assertEqual(rel.parse_version(text), (12, 0, 0))
+        self.assertEqual(rel.format_version((12, 0, 0)), "12")
         self.assertEqual(rel.parse_version("1.2.3"), (1, 2, 3))
-        self.assertEqual(rel.parse_version("1.2.3.4"), (1, 3, 4))
-        self.assertEqual(rel.next_version((1, 2, 3), "beta"), "1.3.0")
-        self.assertEqual(rel.next_version((1, 2, 3), "release"), "2.0.0")
-        self.assertEqual(rel.prior_version("1.3.4"), "1.3.3")
-        self.assertTrue(rel.CHANGELOG_HEADER.fullmatch("## [1.2.3.4] - 2026-11-06"))
+        self.assertEqual(rel.format_version((1, 2, 3)), "1.2.3")
+        with self.assertRaisesRegex(ValueError, "expected vX"):
+            rel.parse_version("twelve")
 
-    def test_new_version_rules(self):
-        nxt = publisher.release.next_version
-        self.assertEqual(nxt((1, 3, 5), "beta"), "1.4.0")
-        self.assertEqual(nxt((1, 3, 5), "update"), "1.3.6")
-        self.assertEqual(nxt((1, 3, 5), "release"), "2.0.0")
+    def test_any_changelog_heading_style_is_understood(self):
+        rel = publisher.release
+        for heading, version in (
+            ("## [v12] - 2026-11-19", "v12"), ("## [V12] - 2026-11-19 - Big Update", "V12"),
+            ("## [12] - 2026-11-19", "12"), ("## v12", "v12"), ("## [v12]", "v12"),
+            ("## [v12] \u2013 2026-11-19 \u2013 Name", "v12"), ("## v12: Name", "v12"),
+            ("## [1.2.3] - 2026-11-06", "1.2.3"), ("## [v12] - 2026-11-19\r", "v12"),
+        ):
+            match = rel.CHANGELOG_HEADER.fullmatch(heading)
+            self.assertIsNotNone(match, heading)
+            self.assertEqual(match.group(1), version, heading)
+        for heading in ("## [Unreleased]", "## Notes", "## 2026-11-19", "## 2026", "## v12 things"):
+            self.assertIsNone(rel.CHANGELOG_HEADER.fullmatch(heading), heading)
 
-    def _history(self, temp):
-        return self._project(
-            temp, [1, 3, 5],
-            "# Changelog \u2014 Demo\n\n---\n\n"
-            "## [1.3.5] - 2026-11-01\n\n### Fixed\n- Fix 135\n\n"
-            "## [1.3.2] - 2026-10-20\n\n### Added\n- Add 132\n\n"
-            "## [1.2.0] - 2026-10-01\n\n### Added\n- Add 120\n\n"
-            "## [1.1.0] - 2026-09-01\n\n### Added\n- Add 110\n",
-        )
+    def test_every_bump_is_plus_one(self):
+        rel = publisher.release
+        for kind in ("release", "beta", "update"):
+            self.assertEqual(rel.next_version((12, 0, 0), kind), "13")
+        self.assertEqual(rel.next_version((12, 0, 0), "keep"), "12")
+        self.assertEqual(rel.prior_version("v12"), "11")
 
-
-
-    def test_plain_style_has_no_html(self):
+    def test_keep_publishes_newest_and_never_touches_the_changelog(self):
         with tempfile.TemporaryDirectory() as temp:
-            project, log = self._history(temp)
-            with patch.dict(os.environ, {"CURSEFORGE_CHANGELOG_STYLE": "plain"}):
-                _, entry = publisher.release.combine_changelog(
-                    project, log, "1.3.0", release_type="beta",
-                    today=datetime.date(2026, 11, 4),
-                )
-            self.assertNotIn("<div", entry)
-            self.assertIn("Packed with 2 updates", entry)
-            with patch.dict(os.environ, {"CURSEFORGE_CHANGELOG_STYLE": "plain"}):
-                self.assertEqual(publisher.release.changelog_type("beta"), "markdown")
-
-    def test_publish_records_release_version_only_for_releases(self):
-        for release_type, expect_release in (("beta", None), ("release", "2.0.0")):
-            with tempfile.TemporaryDirectory() as temp:
-                root = Path(temp)
-                (root / "builds").mkdir(parents=True)
-                (root / "builds/.three_part_version_migrated").touch()
-                (root / "builds/Curseforge_IDs.json").write_text(
-                    '{"MCPEDL/Addons/Example":{"project_id":"5","last_published_version":"1.3.1","last_release_version":"1.3.0"}}'
-                )
-                package = root / "Example.mcaddon"
-                package.touch()
-                version = "2.0.0" if release_type == "release" else "1.3.2"
-
-                def prepare(project, rtype, map_variant, rebuild, bump, version=version):
-                    metadata = root / "meta.json"
-                    metadata.touch()
-                    return package, metadata, "5", root / "info.json", [], version
-
-                with patch.object(publisher.release, "REPO_ROOT", root):
-                    with patch.object(publisher.release, "prepare", side_effect=prepare):
-                        with patch.dict(os.environ, {"CURSEFORGE_API_TOKEN": "t"}):
-                            with patch.object(publisher.subprocess, "run"):
-                                publisher.publish("MCPEDL/Addons/Example", release_type=release_type)
-                saved = json.loads((root / "builds/Curseforge_IDs.json").read_text())["MCPEDL/Addons/Example"]
-                self.assertEqual(saved["last_published_version"], version)
-                self.assertEqual(saved["last_release_version"], expect_release or "1.3.0")
-
-
-class PublishGroupingTests(unittest.TestCase):
-    """Publish groups every changelog entry since the last publish; the build never bumps."""
-
-    CHANGELOG = (
-        "# Changelog \u2014 Demo\n\n"
-        "## [1.2.3] - 2026-11-10\n\n### Fixed\n- **A**: fix three\n\n"
-        "## [1.2.2] - 2026-11-05\n\n### Added\n- **B**: add two\n\n### Fixed\n- **C**: fix two\n\n"
-        "## [1.2.1] - 2026-11-01\n\n### Added\n- **D**: add one\n\n"
-        "## [1.1.0] - 2026-10-01\n\n### Added\n- **E**: already published\n"
-    )
-
-    def combine(self, last_published="1.1.0"):
-        with tempfile.TemporaryDirectory() as temp:
-            project = Path(temp)
-            changelog = project / "CHANGELOG.md"
-            changelog.write_text(self.CHANGELOG, encoding="utf-8")
+            original = ("# Changelog\n\n## [Unreleased]\n\n- soon\n\n## v12\n\n### Fixed\n- B\n\n"
+                        "## [11] - 2026-11-01\n\n### Added\n- A\n\n## [v10] - 2026-10-01\n\n- Old\n")
+            project, log = self._log(temp, original)
             version, upload = publisher.release.combine_changelog(
-                project, changelog, last_published, today=datetime.date(2026, 11, 12), release_type="beta",
-            )
-            return version, upload, changelog.read_text(encoding="utf-8")
+                project, log, "v10", today=datetime.date(2026, 11, 19), release_type="keep")
+            self.assertEqual(version, "12")
+            self.assertIn("Packed with 2 updates, from v11 through v12", upload)
+            self.assertNotIn("Old", upload)
+            self.assertNotIn("soon", upload)
+            self.assertEqual(log.read_text(), original)  # not rewritten
+            with self.assertRaisesRegex(ValueError, "Nothing new"):
+                publisher.release.combine_changelog(project, log, "v12", release_type="keep")
+            self.assertEqual(publisher.release.latest_changelog_entry(log)[0], "12")
 
-    def test_groups_everything_since_last_publish_up_to_latest(self):
-        version, upload, saved = self.combine()
-        self.assertIn("Packed with 3 updates, from v1.2.1 through v1.2.3", upload)
-        for line in ("**A**: fix three", "**B**: add two", "**C**: fix two", "**D**: add one"):
-            self.assertIn(line, upload)
-        self.assertNotIn("already published", upload)
-        self.assertEqual(upload.count("### Fixed"), 1)
-        self.assertEqual(upload.count("### Added"), 1)
-        self.assertIn("already published", saved)
-
-    def test_new_version_is_above_every_grouped_entry(self):
-        # Manifests are no longer bumped by the build, so they can still sit at the last publish.
-        version, _, _ = self.combine()
-        self.assertEqual(version, "1.3.0")
-
-    def test_keep_publishes_newest_changelog_version_without_bumping(self):
+    def test_registry_value_with_v_prefix_works(self):
         with tempfile.TemporaryDirectory() as temp:
-            project = Path(temp)
-            changelog = project / "CHANGELOG.md"
-            changelog.write_text(self.CHANGELOG, encoding="utf-8")
-            version, upload = publisher.release.combine_changelog(
-                project, changelog, "1.1.0", today=datetime.date(2026, 11, 12), release_type="keep",
-            )
-        self.assertEqual(version, "1.2.3")
-        self.assertIn("from v1.2.1 through v1.2.3", upload)
+            project, log = self._log(temp, "# Changelog\n\n## [v12] - 2026-11-19\n\n- New\n\n## [v11] - 2026-11-01\n\n- Prev\n")
+            version, _ = publisher.release.combine_changelog(project, log, "v11", release_type="keep")
+            self.assertEqual(version, "12")
 
-    def test_keep_with_nothing_new_is_refused(self):
-        with tempfile.TemporaryDirectory() as temp:
-            project = Path(temp)
-            (project / "CHANGELOG.md").write_text(self.CHANGELOG, encoding="utf-8")
-            with self.assertRaisesRegex(ValueError, "Nothing new to publish"):
-                publisher.release.combine_changelog(project, project / "CHANGELOG.md", "1.2.3", release_type="keep")
-
-    def test_nothing_new_since_last_publish_is_refused(self):
-        with self.assertRaisesRegex(ValueError, "Nothing new to publish"):
-            self.combine(last_published="1.2.3")
-
-    def test_pending_packs_lists_unpublished_and_outdated(self):
+    def test_manifests_become_x_0_0_with_v_title(self):
         with tempfile.TemporaryDirectory() as temp:
             root = Path(temp)
-            registry = {}
-            for name, changelog, last in (("New", "1.0.0", None), ("Behind", "1.2.0", "1.1.9"), ("Current", "2.0.0", "2.0.0")):
-                folder = root / "MCPEDL" / "Addons" / name
-                folder.mkdir(parents=True)
-                (folder / "CHANGELOG.md").write_text(f"# Changelog\n\n---\n\n## [{changelog}] - 2026-01-01\n\n### Added\n- **x**: y.\n", encoding="utf-8")
-                entry = {"project_id": "123"}
-                if last:
-                    entry["last_published_version"] = last
-                registry[f"MCPEDL/Addons/{name}"] = entry
+            project = root / "MCPEDL/Addons/Pack"
+            project.mkdir(parents=True)
+            (project / "manifest.json").write_text(json.dumps({
+                "header": {"name": "Pack (v11)", "uuid": "a", "version": [11, 0, 0]},
+                "modules": [{"version": [11, 0, 0]}],
+            }))
+            with patch.object(publisher.release, "REPO_ROOT", root):
+                publisher.release.align_manifests(project, "12")
+            data = json.loads((project / "manifest.json").read_text())
+            self.assertEqual(data["header"]["version"], [12, 0, 0])
+            self.assertEqual(data["header"]["name"], "Pack (v12)")
+            self.assertEqual(data["modules"][0]["version"], [12, 0, 0])
+            self.assertEqual(data["metadata"]["version"], "12.0.0")
+            with patch.object(publisher.release, "REPO_ROOT", root):
+                with self.assertRaisesRegex(ValueError, "older than"):
+                    publisher.release.align_manifests(project, "v11")
+
+    def test_upload_name_uses_single_number(self):
+        rel = publisher.release
+        self.assertEqual(rel.upload_name("release", "Mining-Helmet", ".mcaddon", "default", "12"), "MiningHelmet V12.mcaddon")
+        self.assertEqual(rel.upload_name("release", "Mining-Helmet", ".mcaddon", "default", "v12"), "MiningHelmet V12.mcaddon")
+        self.assertEqual(rel.upload_name("release", "Oneblock-SM", ".mcworld", "Creative", "3"), "OneblockSM V3 Creative.mcworld")
+
+    def test_pending_packs_with_mixed_heading_styles(self):
+        with tempfile.TemporaryDirectory() as temp:
+            root = Path(temp)
             (root / "builds").mkdir()
-            (root / "builds" / ".three_part_version_migrated").write_text("", encoding="utf-8")
-            (root / "builds" / "Curseforge_IDs.json").write_text(json.dumps(registry), encoding="utf-8")
+            (root / "builds/.three_part_version_migrated").touch()
+            registry = {}
+            for name, heading, last in (("New", "## v1", None), ("Behind", "## [v12] - 2026-11-01", "v11"), ("Current", "## [5]", "v5")):
+                pack = root / "MCPEDL/Addons" / name
+                pack.mkdir(parents=True)
+                (pack / "CHANGELOG.md").write_text(f"# Changelog\n\n{heading}\n\n- x\n")
+                registry[f"MCPEDL/Addons/{name}"] = {"project_id": "1", **({"last_published_version": last} if last else {})}
+            (root / "builds/Curseforge_IDs.json").write_text(json.dumps(registry))
             with patch.object(publisher.release, "REPO_ROOT", root):
                 self.assertEqual(publisher.pending_packs(), ["MCPEDL/Addons/Behind", "MCPEDL/Addons/New"])
 
