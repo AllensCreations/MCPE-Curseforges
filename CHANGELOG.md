@@ -1,3 +1,7 @@
+## [v17] - 2026-11-20 - ALN-Pointer Circle Zoom
+
+- ALN-Pointer: Aim circle now uses zoom and Bow Aimbot only targets inside it.
+
 ## [v144] - 2026-11-19 - Context7 Full Support, Build Pruning & AI Review Token Optimization
 
 ### Added

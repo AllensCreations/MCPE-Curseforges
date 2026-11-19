@@ -2,6 +2,13 @@
 
 ---
 
+## [v17] - 2026-11-20 - Circle Zoom
+
+### Changed
+- **Aim Circle**: The circle is now sized by a zoom setting instead of degrees. It is centered on your crosshair and its size no longer depends on your screen size or GUI scale.
+- **Bow Aimbot**: It now only locks onto a mob or player that is inside the circle, and picks the one closest to the center. The Locked on marker uses the same circle.
+- **Tuning**: The Bow Aimbot angle slider is replaced by Aim circle zoom (50 to 300 percent) and a new Your game FOV setting slider (30 to 110) that matches the circle to your in-game field of view.
+
 ## [v16] - 2026-11-19 - Circle Size Matches Degrees
 
 ### Changed

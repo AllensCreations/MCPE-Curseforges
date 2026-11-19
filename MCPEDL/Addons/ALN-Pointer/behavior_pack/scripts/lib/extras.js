@@ -84,7 +84,8 @@ function mark(p) {
     setCircle(p, "");
     return;
   }
-  setCircle(p, tune(p, "aimCircle") === 1 ? `aln_c${Math.min(13, Math.max(4, Math.round(tune(p, "aimCone") / 5) + 3))}` : "");
+  const zoom = Math.min(300, Math.max(50, Math.round(tune(p, "aimZoom") / 10) * 10));
+  setCircle(p, tune(p, "aimCircle") === 1 ? `aln_z${zoom}` : "");
 
   const target = pickTarget(p);
   if (!target) return;

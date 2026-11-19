@@ -38,18 +38,44 @@ function seen(owner, entity) {
   return false;
 }
 
+// The aim circle is CIRCLE_HEIGHT of the screen height at 100% zoom.
+// Keep this equal to the circle size in resource_pack/ui/hud_screen.json (20%).
+const CIRCLE_HEIGHT = 0.2;
+
+const dot = (a, b) => a.x * b.x + a.y * b.y + a.z * b.z;
+
+// Circle radius in "screen units" (offset from the crosshair divided by depth).
+// Half the screen height equals tan(FOV / 2), so the circle radius is its height fraction times that.
+function circleRadius(owner) {
+  const diameter = CIRCLE_HEIGHT * (tune(owner, "aimZoom") / 100);
+  return diameter * Math.tan((tune(owner, "screenFov") * Math.PI) / 360);
+}
+
 export function pickTarget(owner) {
   const eye = owner.getHeadLocation();
   const view = owner.getViewDirection();
+  const flat = Math.hypot(view.x, view.z);
+  const right = flat < 1e-6 ? { x: 1, y: 0, z: 0 } : { x: -view.z / flat, y: 0, z: view.x / flat };
+  const up = {
+    x: right.y * view.z - right.z * view.y,
+    y: right.z * view.x - right.x * view.z,
+    z: right.x * view.y - right.y * view.x,
+  };
+  const radius = circleRadius(owner);
   let best;
-  let bestCos = Math.cos((tune(owner, "aimCone") * Math.PI) / 180);
+  let bestDist = radius;
   for (const entity of candidates(owner)) {
-    const offset = minus(entity.getHeadLocation(), eye);
-    const distance = length(offset);
-    if (distance < 1) continue;
-    const cos = (view.x * offset.x + view.y * offset.y + view.z * offset.z) / distance;
-    if (cos > bestCos && seen(owner, entity)) {
-      bestCos = cos;
+    const base = entity.location;
+    const points = [entity.getHeadLocation(), { x: base.x, y: base.y + 0.6, z: base.z }];
+    let dist = Infinity;
+    for (const point of points) {
+      const offset = minus(point, eye);
+      const depth = dot(offset, view);
+      if (depth < 1) continue;
+      dist = Math.min(dist, Math.hypot(dot(offset, right) / depth, dot(offset, up) / depth));
+    }
+    if (dist <= bestDist && seen(owner, entity)) {
+      bestDist = dist;
       best = entity;
     }
   }
