@@ -2,6 +2,16 @@
 
 ---
 
+## [v4] - 2026-11-19 - Warden and Wither Companions
+
+### Added
+
+- **Boss Subpack**: Choose Default to keep the Warden and the Wither as vanilla bosses, or With Bosses to tame them, in the Behavior Pack settings.
+- **Tameable Warden**: On the With Bosses subpack, a Primal Beast Biscuit has a 10% chance to tame a Warden into a companion.
+- **Tameable Wither**: On the With Bosses subpack, a Primal Beast Biscuit has a 10% chance to tame a Wither into a companion.
+- **Rideable Warden**: A tamed Warden can be ridden and steered on the ground.
+- **Rideable Wither**: A tamed Wither can be ridden and steered through the air.
+
 ## [v3] - 2026-11-13
 
 **What's new in v2.0.1:** Packed with the v2.0.1 update.

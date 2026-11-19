@@ -53,14 +53,20 @@ Tap a companion with an empty hand to make it sit and hold its position, and tap
 - Kamikaze Creepers: Tamed Creepers will rush enemy threats that damage the player and detonate on the target as a single-use explosive bodyguard.
 - Spirit Vexes: Tamed Evokers summon Spirit Vexes that attack hostiles and despawn naturally when their lifespan ends without turning on players.
 
+### Boss Subpack
+Open the Behavior Pack settings and choose a subpack. Default keeps the Warden and the Wither as vanilla bosses, and With Bosses lets you tame them.
+- **What Happens**: On the With Bosses subpack, each Primal Beast Biscuit has a 10% chance to tame a wild Warden or Wither.
+- **Tamed Warden**: Follows and defends you, can be ridden and steered on the ground, and no longer applies Darkness.
+- **Tamed Wither**: Follows and defends you, can be ridden and steered through the air, and no longer shows a boss bar.
+
 ### Riding Companions
 Equipping a Saddle onto supported large companions enables manual mounting and direct steering:
 - Mount prompt: Uses Minecraft's normal mount prompt on touch controls, controllers, and keyboard/mouse.
 - Sneak-to-interact: Crouching allows players to feed, heal, lead, or rename mounts without accidentally mounting.
 - Manual steering: Autonomous wandering and head-turning are disabled while mounted.
 - Wall climbing: Tamed Spiders and Cave Spiders can scale vertical surfaces and cliffs while mounted.
-- Supported mounts: Spider, Cave Spider, Ravager, Iron Golem, Hoglin, Zoglin, Breeze, Ghast, and Phantom.
-- Flying mounts: Tamed Ghasts and Phantoms can be steered through the air while mounted.
+- Supported mounts: Spider, Cave Spider, Ravager, Iron Golem, Hoglin, Zoglin, Breeze, Ghast, and Phantom. The With Bosses subpack adds Warden and Wither.
+- Flying mounts: Tamed Ghasts and Phantoms can be steered through the air while mounted. A tamed Wither can too on the With Bosses subpack.
 
 ---
 
@@ -113,6 +119,11 @@ Equipping a Saddle onto supported large companions enables manual mounting and d
 ### Golems
 - **Supported Mobs**: Iron Golem, Snow Golem
 - **Special Abilities**: Frontline defense, rideable mount
+
+### Bosses (With Bosses Subpack)
+- **Supported Mobs**: Warden, Wither
+- **Special Abilities**: Boss-level health, rideable ground mount (Warden), rideable flying mount (Wither)
+
 
 ---
 
@@ -185,5 +196,5 @@ Equipping a Saddle onto supported large companions enables manual mounting and d
 
 ## Search & Discovery Keywords
 
-Monster Companions Bedrock add-on, Taming chances Minecraft Bedrock, auto-protect bodyguard mobs Minecraft Bedrock, Companion Squad Mechanics Minecraft Bedrock, Mount Mechanics and Bedrock Ride UI Minecraft Bedrock, Undead Minecraft Bedrock, Minecraft PE mod, MCPEDL add-on, CurseForge Bedrock, ALNStudios, Minecraft Bedrock add-on.
+Monster Companions Bedrock add-on, Taming chances Minecraft Bedrock, auto-protect bodyguard mobs Minecraft Bedrock, Companion Squad Mechanics Minecraft Bedrock, Mount Mechanics and Bedrock Ride UI Minecraft Bedrock, Undead Minecraft Bedrock, tame Warden and Wither Minecraft Bedrock, Minecraft PE mod, MCPEDL add-on, CurseForge Bedrock, ALNStudios, Minecraft Bedrock add-on.
 

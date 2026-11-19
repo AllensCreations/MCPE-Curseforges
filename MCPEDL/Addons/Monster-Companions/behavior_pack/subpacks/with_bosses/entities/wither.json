@@ -1,0 +1,437 @@
+{
+  "format_version": "1.26.50",
+  "minecraft:entity": {
+    "description": {
+      "identifier": "minecraft:wither",
+      "is_experimental": false,
+      "is_summonable": true,
+      "is_spawnable": true,
+      "spawn_category": "monster"
+    },
+    "components": {
+      "minecraft:behavior.float": {
+        "priority": 1
+      },
+      "minecraft:behavior.hurt_by_target": {
+        "priority": 2
+      },
+      "minecraft:behavior.look_at_player": {
+        "look_time": {
+          "min": 1,
+          "max": 2
+        },
+        "priority": 6
+      },
+      "minecraft:behavior.look_at_target": {
+        "look_time": {
+          "min": 1,
+          "max": 2
+        },
+        "priority": 5
+      },
+      "minecraft:behavior.nearest_attackable_target": {
+        "must_see": true,
+        "entity_types": [
+          {
+            "filters": {
+              "AND": [
+                {
+                  "test": "is_family",
+                  "subject": 1,
+                  "operator": 0,
+                  "value": "player"
+                }
+              ]
+            },
+            "max_dist": 70
+          },
+          {
+            "filters": {
+              "AND": [
+                {
+                  "test": "is_family",
+                  "subject": 1,
+                  "operator": 1,
+                  "value": "undead"
+                },
+                {
+                  "test": "is_family",
+                  "subject": 1,
+                  "operator": 1,
+                  "value": "inanimate"
+                }
+              ]
+            },
+            "max_dist": 70
+          }
+        ],
+        "priority": 3
+      },
+      "minecraft:behavior.random_look_around": {
+        "priority": 7
+      },
+      "minecraft:behavior.random_stroll": {
+        "priority": 5,
+        "speed_multiplier": 1
+      },
+      "minecraft:behavior.wither_random_attack_pos_goal": {
+        "priority": 3
+      },
+      "minecraft:breathable": {
+        "breathes_water": true,
+        "suffocate_time": 0,
+        "total_supply": 15
+      },
+      "minecraft:can_climb": {},
+      "minecraft:can_fly": {},
+      "minecraft:collision_box": {
+        "height": 3,
+        "width": 1
+      },
+      "minecraft:conditional_bandwidth_optimization": {},
+      "minecraft:damage_sensor": {
+        "triggers": {
+          "deals_damage": "no",
+          "on_damage": {
+            "filters": {
+              "subject": "other",
+              "test": "is_family",
+              "value": "undead"
+            }
+          }
+        }
+      },
+      "minecraft:experience_reward": {
+        "on_death": "50"
+      },
+      "minecraft:fire_immune": {},
+      "minecraft:freezing_immune": {},
+      "minecraft:health": {
+        "max": 600,
+        "value": 600
+      },
+      "minecraft:is_hidden_when_invisible": {},
+      "minecraft:jump.static": {},
+      "minecraft:loot": {
+        "table": "loot_tables/entities/wither_boss.json"
+      },
+      "minecraft:movement": {
+        "value": 0.25
+      },
+      "minecraft:movement.basic": {
+        "max_turn": 180.0
+      },
+      "minecraft:nameable": {},
+      "minecraft:navigation.walk": {
+        "avoid_water": true,
+        "can_path_over_water": true,
+        "using_door_annotation": true
+      },
+      "minecraft:persistent": {},
+      "minecraft:physics": {},
+      "minecraft:pushable_by_entity": {},
+      "minecraft:pushable_by_block": {},
+      "minecraft:type_family": {
+        "family": [
+          "wither",
+          "skeleton",
+          "monster",
+          "undead",
+          "mob"
+        ]
+      }
+    },
+    "events": {
+      "minecraft:entity_spawned": {
+        "add": {
+          "component_groups": [
+            "allenscreations:wild"
+          ]
+        }
+      },
+      "allenscreations:on_tame": {
+        "add": {
+          "component_groups": [
+            "allenscreations:companion"
+          ]
+        },
+        "emit_particle": {
+          "particle": "totem_particle"
+        },
+        "play_sound": {
+          "sound": "random.levelup"
+        },
+        "remove": {
+          "component_groups": [
+            "allenscreations:wild"
+          ]
+        },
+        "queue_command": {
+          "command": [
+            "particle minecraft:heart_particle ~ ~1.5 ~"
+          ]
+        }
+      },
+      "allenscreations:stay_on": {
+        "queue_command": {
+          "command": [
+            "title @p actionbar \u00a7eStay"
+          ]
+        }
+      },
+      "allenscreations:stay_off": {
+        "queue_command": {
+          "command": [
+            "title @p actionbar \u00a7aFollow"
+          ]
+        }
+      }
+    },
+    "component_groups": {
+      "allenscreations:companion": {
+        "minecraft:is_tamed": {},
+        "minecraft:behavior.follow_owner": {
+          "priority": 3,
+          "speed_multiplier": 1.35,
+          "start_distance": 9.0,
+          "stop_distance": 4.5,
+          "post_teleport_distance": 5,
+          "can_teleport": true
+        },
+        "minecraft:behavior.owner_hurt_by_target": {
+          "priority": 1,
+          "entity_types": [
+            {
+              "filters": {
+                "all_of": [
+                  {
+                    "test": "is_family",
+                    "subject": "other",
+                    "operator": "!=",
+                    "value": "monster_companion"
+                  },
+                  {
+                    "test": "is_family",
+                    "subject": "other",
+                    "operator": "!=",
+                    "value": "player"
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        "minecraft:behavior.owner_hurt_target": {
+          "priority": 2,
+          "entity_types": [
+            {
+              "filters": {
+                "all_of": [
+                  {
+                    "test": "is_family",
+                    "subject": "other",
+                    "operator": "!=",
+                    "value": "monster_companion"
+                  },
+                  {
+                    "test": "is_family",
+                    "subject": "other",
+                    "operator": "!=",
+                    "value": "player"
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        "minecraft:behavior.hurt_by_target": {
+          "priority": 99,
+          "entity_types": [
+            {
+              "filters": {
+                "all_of": [
+                  {
+                    "test": "is_family",
+                    "subject": "other",
+                    "operator": "!=",
+                    "value": "monster_companion"
+                  },
+                  {
+                    "test": "is_family",
+                    "subject": "other",
+                    "operator": "!=",
+                    "value": "player"
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        "minecraft:damage_sensor": {
+          "triggers": [
+            {
+              "on_damage": {
+                "filters": {
+                  "any_of": [
+                    {
+                      "test": "is_family",
+                      "subject": "other",
+                      "value": "player"
+                    },
+                    {
+                      "test": "is_family",
+                      "subject": "other",
+                      "value": "monster_companion"
+                    }
+                  ]
+                }
+              },
+              "deals_damage": false
+            }
+          ]
+        },
+        "minecraft:healable": {
+          "items": [
+            {
+              "item": "allenscreations:beast_biscuit",
+              "heal_amount": 10
+            },
+            {
+              "item": "allenscreations:golden_beast_biscuit",
+              "heal_amount": 40,
+              "effects": [
+                {
+                  "name": "regeneration",
+                  "chance": 1.0,
+                  "duration": 30,
+                  "amplifier": 2
+                }
+              ]
+            }
+          ]
+        },
+        "minecraft:nameable": {
+          "always_show": true,
+          "allow_name_tag_renaming": true
+        },
+        "minecraft:loot": {
+          "table": "loot_tables/empty.json"
+        },
+        "minecraft:behavior.nearest_attackable_target": {
+          "priority": 2,
+          "within_radius": 16,
+          "must_see": true,
+          "reselect_targets": true,
+          "entity_types": [
+            {
+              "filters": {
+                "all_of": [
+                  {
+                    "test": "is_family",
+                    "subject": "other",
+                    "value": "monster"
+                  },
+                  {
+                    "test": "is_family",
+                    "subject": "other",
+                    "operator": "!=",
+                    "value": "monster_companion"
+                  },
+                  {
+                    "test": "has_target",
+                    "subject": "other"
+                  },
+                  {
+                    "test": "owner_distance",
+                    "subject": "self",
+                    "operator": "<=",
+                    "value": 16
+                  }
+                ]
+              },
+              "max_dist": 16
+            }
+          ]
+        },
+        "minecraft:sittable": {
+          "sit_event": {
+            "event": "allenscreations:stay_on",
+            "target": "self"
+          },
+          "stand_event": {
+            "event": "allenscreations:stay_off",
+            "target": "self"
+          }
+        },
+        "minecraft:behavior.stay_while_sitting": {
+          "priority": 2
+        },
+        "minecraft:type_family": {
+          "family": [
+            "wither",
+            "skeleton",
+            "monster",
+            "undead",
+            "mob",
+            "monster_companion"
+          ]
+        },
+        "minecraft:rideable": {
+          "seat_count": 1,
+          "crouching_skip_interact": true,
+          "interact_text": "action.interact.mount",
+          "controlling_seat": 0,
+          "family_types": [
+            "player"
+          ],
+          "dismount_mode": "on_top_center",
+          "seats": [
+            {
+              "position": [
+                0.0,
+                3.0,
+                0.0
+              ]
+            }
+          ]
+        },
+        "minecraft:free_camera_controlled": {
+          "strafe_speed_modifier": 1.0,
+          "backwards_movement_modifier": 0.5
+        },
+        "minecraft:vertical_movement_action": {
+          "vertical_velocity": 0.5
+        },
+        "minecraft:flying_speed": {
+          "value": 0.08
+        },
+        "minecraft:body_rotation_always_follows_head": {},
+        "minecraft:physics": {
+          "has_gravity": false
+        },
+        "minecraft:behavior.player_ride_tamed": {
+          "priority": 1
+        }
+      },
+      "allenscreations:wild": {
+        "minecraft:tameable": {
+          "probability": 0.1,
+          "tame_items": [
+            "allenscreations:beast_biscuit"
+          ],
+          "tame_event": {
+            "event": "allenscreations:on_tame",
+            "target": "self"
+          }
+        },
+        "minecraft:boss": {
+          "hud_range": 55,
+          "should_darken_sky": true
+        },
+        "minecraft:behavior.wither_target_highest_damage": {
+          "priority": 1
+        }
+      }
+    }
+  }
+}
