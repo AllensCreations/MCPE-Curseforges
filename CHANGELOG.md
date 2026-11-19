@@ -11,6 +11,16 @@
 
 ---
 
+## [v143] - 2026-11-19 - Tome Lore Stories
+
+### Added
+- **Tome Lore Stories**: Every tome now shows a short legend in its tooltip under the ability list.
+### Improved & Balanced
+- **Frost Weaver Durability**: Frost Walker II now costs 1 durability for every 4 freezes instead of every freeze, so a tome lasts much longer when crossing water.
+- **Refreshing Tooltips**: Tome tooltips update themselves when their text changes, so older tomes pick up the new ability text and legends.
+### Fixed
+- **Void Phantom Tooltip**: The two over-long tooltip lines are shortened so they are no longer cut off.
+
 ## [v142] - 2026-11-19 - Upload Intro and Loot Table Check
 
 ### Added

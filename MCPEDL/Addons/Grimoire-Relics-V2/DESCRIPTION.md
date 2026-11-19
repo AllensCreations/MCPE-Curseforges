@@ -114,7 +114,7 @@ There are **14 craftable tomes** made at a standard Crafting Table using shaped 
 - **100 durability points**: Each Grimoire possesses a durability health bar.
 - **Event-Only Wear**: Passive stat buffs (such as Water Breathing, Speed, or Haste) do **not** drain durability. Durability is consumed strictly upon active mechanical execution:
   - *Combat triggers* (e.g. Phoenix burn on hit/hurt, Vampire life-steal, Iron Golem absorption & launch, Hydra poison, Lich wither): 1 durability per event.
-  - *Environmental abilities* (e.g. Druid crop boost, Frost Weaver water freeze, Stormcaller lightning strike, Mirror Trickster blink): 1 to 2 durability per event.
+  - *Environmental abilities* (e.g. Druid crop boost, Stormcaller lightning strike, Mirror Trickster blink): 1 to 2 durability per event. Frost Weaver costs 1 durability for every 4 times it freezes water underfoot.
   - *Emergency Lifesavers* (Void Phantom): single use; the relic is consumed after a safe touchdown.
 - **Enchanting Table & Anvil Compatible**:
   - Can be enchanted via the Enchanting Table or Anvil with enchantments like **Mending**, **Efficiency**, and **Unbreaking**.

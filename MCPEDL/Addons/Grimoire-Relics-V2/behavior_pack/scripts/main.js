@@ -3,6 +3,7 @@ import { world, system, EquipmentSlot } from "@minecraft/server";
 const EFFECT_TICKS = 60;
 const NV_TICKS = 260;
 const OWN_TICKS = 640;
+const FROST_COST_EVERY = 4;
 const MELEE = "entityAttack";
 const states = new Map();
 const badParticles = new Set();
@@ -229,7 +230,7 @@ const RELICS = {
   "custom:tome_frost": {
     name: "Frost Weaver", info: ["Frost Walker II: walk on water", "Powder snow damage healed back"],
     particle: "minecraft:snowflake_particle", ids: [],
-    tick: (p) => {
+    tick: (p, s) => {
       if (p.isSneaking) return;
       const l = p.location;
       const bx = Math.floor(l.x), by = Math.floor(l.y) - 1, bz = Math.floor(l.z);
@@ -242,7 +243,10 @@ const RELICS = {
           froze = true;
         }
       }
-      if (froze) damageOffhand(p, 1);
+      if (froze) {
+        s.frost = (s.frost || 0) + 1;
+        if (s.frost % FROST_COST_EVERY === 0) damageOffhand(p, 1);
+      }
     },
     onHurt: (p, ev) => {
       if (ev.damageSource.cause === "freezing") {
@@ -286,7 +290,7 @@ const RELICS = {
     end: (p, s) => clearLight(p, s)
   },
   "custom:tome_void": {
-    name: "Void Phantom", info: ["End-only: one-time 2s Level 60 phase elevation from void", "Touchdown 1s slow falling | Single use; breaks after safe touchdown"],
+    name: "Void Phantom", info: ["End only: 2s phase lift out of the void", "Then 1s slow falling; single use"],
     particle: "minecraft:basic_portal_particle", ids: [],
     fast: (p, s) => {
       if (p.dimension.id !== "minecraft:the_end") return;
@@ -542,24 +546,52 @@ function relicOf(p) {
   return item ? RELICS[item.typeId] : undefined;
 }
 
-function loreFor(cfg) {
-  return ["§8Offhand Relic", ...cfg.info.map((t) => "§7• " + t)];
+const STORY = {
+  "custom:tome_phoenix": ["Born in the ash of a fallen kingdom,", "it burns what dares to touch its keeper."],
+  "custom:tome_abyss": ["A drowned scholar bound the tide to ink.", "The sea still answers to its pages."],
+  "custom:tome_zephyr": ["Written on a feather the wind refused to", "let fall. Its reader never lands hard."],
+  "custom:tome_lich": ["The lich signed its last page in withered", "ink. Each blow remembers its grave."],
+  "custom:tome_titan": ["Carved from a mountain's heart, it", "teaches the body to stand like stone."],
+  "custom:tome_vampire": ["A name crossed out a hundred times.", "What it takes, it returns to you."],
+  "custom:tome_lunar": ["Its pages open only when the moon rises.", "Night wears the reader as a cloak."],
+  "custom:tome_solar": ["Pressed between two sunrises, this tome", "keeps the first warm light of day."],
+  "custom:tome_druid": ["Seeds slept in its binding for an age.", "Where the keeper walks, green returns."],
+  "custom:tome_frost": ["Its first line was written on a lake", "that never cracked beneath the weaver."],
+  "custom:tome_storm": ["A thunderhead was folded into its spine.", "It wakes when the clouds break open."],
+  "custom:tome_delver": ["Found in a mine no map remembers.", "Its pages glow where the stone is dark."],
+  "custom:tome_void": ["Torn from the edge of the End. It sings", "once to a falling soul, then is gone."],
+  "custom:tome_golem": ["Wrought of iron and a villager's prayer.", "It guards, and it throws what it hates."],
+  "custom:tome_hydra": ["Every head drips a different verse.", "None of them is kind to a foe."],
+  "custom:tome_alchemist": ["Its author brewed until the cauldron", "brewed back. The potions never fade."],
+  "custom:tome_seraph": ["A choir once sang these words aloud.", "Light still mends whoever holds them."],
+  "custom:tome_scholar": ["Margins crammed with the notes of ten", "thousand lives. Learning pays triple."],
+  "custom:tome_mirror": ["The reflection on its cover blinks first.", "A trickster steps where you stood."],
+  "custom:tome_dragon": ["The last dragon wrote one page, then", "roared. The world still shakes from it."],
+};
+
+function loreFor(id) {
+  const lines = ["§8Offhand Relic", ...RELICS[id].info.map((t) => "§7• " + t)];
+  const tale = STORY[id];
+  if (tale) lines.push("§5Legend", ...tale.map((t) => "§8§o" + t));
+  return lines.slice(0, 20);
+}
+
+function refreshLore(item) {
+  const want = loreFor(item.typeId);
+  const have = item.getLore();
+  if (have.length === want.length && have.every((t, i) => t === want[i])) return false;
+  item.setLore(want);
+  return true;
 }
 
 function ensureLore(p) {
   const eq = p.getComponent("minecraft:equippable");
   const off = eq && eq.getEquipment(EquipmentSlot.Offhand);
-  if (off && RELICS[off.typeId] && off.getLore().length === 0) {
-    off.setLore(loreFor(RELICS[off.typeId]));
-    eq.setEquipment(EquipmentSlot.Offhand, off);
-  }
+  if (off && RELICS[off.typeId] && refreshLore(off)) eq.setEquipment(EquipmentSlot.Offhand, off);
   const c = p.getComponent("minecraft:inventory").container;
   for (let i = 0; i < c.size; i++) {
     const item = c.getItem(i);
-    if (item && RELICS[item.typeId] && item.getLore().length === 0) {
-      item.setLore(loreFor(RELICS[item.typeId]));
-      c.setItem(i, item);
-    }
+    if (item && RELICS[item.typeId] && refreshLore(item)) c.setItem(i, item);
   }
 }
 
