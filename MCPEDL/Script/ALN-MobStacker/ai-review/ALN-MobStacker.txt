@@ -10,25 +10,13 @@
 
 ---
 
----
-
----
-
----
-
----
-
----
-
----
-
 # Repo Export
 
 ## Index
 
 - **Export request:** `MCPEDL/Script/ALN-MobStacker`
 - **Destination:** `MCPEDL/Script/ALN-MobStacker`
-- **CURRENT VERSION: v2 / NEXT UPDATE: v3**  (`MCPEDL/Script/ALN-MobStacker/CHANGELOG.md`)
+- **CURRENT VERSION: v3 / NEXT UPDATE: v4**  (`MCPEDL/Script/ALN-MobStacker/CHANGELOG.md`)
 - **Text files:** 12
 - **Skipped binary:** 0
 - **Paths not found:** 0
@@ -56,7 +44,7 @@ Repo: https://github.com/AllensCreations/MCPE-Curseforges.git (branch main)
 Context7 Support: Enabled. For full instructions, schemas, and helper script syntax, query Context7 (`INSTRUCTIONS.md`, `PACK_GENERATOR_INSTRUCTIONS.md`, `DOCS_RULES.md`, `make_update_script.py`, `doc_template.py`).
 
 ## Action Notes: Package Update Notes
-- **Mode**: UPDATE existing package (CURRENT VERSION: v2 / NEXT UPDATE: v3).
+- **Mode**: UPDATE existing package (CURRENT VERSION: v3 / NEXT UPDATE: v4).
 - Retain all UUIDs in manifests.
 - Update CHANGELOG.md with a new release entry at top under `---`.
 - Deliver changes as ONE Termux update script (`scripts/make_update_script.py`).
@@ -114,26 +102,41 @@ Output ONLY these three sections in order:
 
 ## File Contents
 
-## FILE: changelog_views/ALN-MobStacker.curseforge.html (3 lines, 3693 bytes)
+## FILE: changelog_views/ALN-MobStacker.curseforge.html (4 lines, 4391 bytes)
 
 ```
-<h2>v2 - 2026-11-17 - Armor Drops and Smoother Loot</h2><h3>Added</h3><ul><li><strong>Armor Drops</strong>: A Sneak Kill on Zombie and Husk stacks now has a small chance per extra mob to drop a piece of armor.</li></ul><h3>Improved &amp; Balanced</h3><ul><li><strong>Smoother Loot</strong>: Sneak Kill drops now appear over a few ticks instead of all at once, and a single kill spawns at most 256 item piles.</li><li><strong>Baby Farm Stacks</strong>: Baby farm animal stacks now keep their original mob, so its growth timer is no longer reset when the stack forms.</li></ul>
+<h2>v3 - 2026-11-20 - Faster Grinders</h2><h3>Added</h3><ul><li><strong>Grinder Batches</strong>: A stack mob that dies to lava, fall damage, fire or anything else that is not a player now takes up to 5 stack mobs with it at once, dropping their normal items without experience or rare drops.</li></ul><h3>Improved &amp; Balanced</h3><ul><li><strong>Idle Scanning</strong>: Merging now checks less often after several quiet passes with nothing to merge, and checks normally again when a new mob appears.</li><li><strong>Armor Drop Chance</strong>: Looting now raises the chance that a Zombie or Husk stack drops armor in a Sneak Kill.</li></ul>
+<h2>2.0.x (1 release)</h2><div class="spoiler"><h3>v2 - 2026-11-17 - Armor Drops and Smoother Loot</h3><h4>Added</h4><ul><li><strong>Armor Drops</strong>: A Sneak Kill on Zombie and Husk stacks now has a small chance per extra mob to drop a piece of armor.</li></ul><h4>Improved &amp; Balanced</h4><ul><li><strong>Smoother Loot</strong>: Sneak Kill drops now appear over a few ticks instead of all at once, and a single kill spawns at most 256 item piles.</li><li><strong>Baby Farm Stacks</strong>: Baby farm animal stacks now keep their original mob, so its growth timer is no longer reset when the stack forms.</li></ul></div>
 <h2>1.0.x (5 releases)</h2><div class="spoiler"><h3>1.0.4 - 2026-11-17 - Separate Baby Stacks</h3><h4>Improved &amp; Balanced</h4><ul><li><strong>Baby and Adult Stacks</strong>: Babies and adults of every mob type stay in separate stacks again, and a killed stack mob is replaced by the same kind.</li><li><strong>Zombie Variants</strong>: Zombies, Husks, Drowned and Zombified Piglins each keep their own stack, and armored ones stay separate again.</li></ul><h4>Fixed</h4><ul><li><strong>Random Babies</strong>: Adult stacks no longer turn into random baby mobs when a mob is killed.</li></ul><h3>1.0.3 - 2026-11-17 - Mixed Zombie Stacks</h3><h4>Added</h4><ul><li><strong>Random Spawn Stacks</strong>: Zombie, Husk, Drowned and Zombified Piglin stacks now mix babies and adults, and each mob that replaces a killed one is a fresh random spawn that can be a baby or wear armor like a normal spawn.</li></ul><h4>Improved &amp; Balanced</h4><ul><li><strong>Mixed Merging</strong>: These four mobs now merge even when wearing armor or holding items, so their gear is not kept.</li><li><strong>Sneak Kill Experience</strong>: A Sneak Kill on these four mobs now counts about one baby in twenty for the baby experience bonus.</li></ul><h3>1.0.2 - 2026-11-16 - Persistent Stacks</h3><h4>Added</h4><ul><li><strong>Rare Drops</strong>: A Sneak Kill now rolls the rare drops of Rabbits (Rabbit&#x27;s Foot), Zombies (Iron Ingot, Carrot or Potato), Zombified Piglins (Gold Ingot) and Drowned (Copper Ingot) at their vanilla chances, raised by Looting.</li></ul><h4>Improved &amp; Balanced</h4><ul><li><strong>Persistent Stacks</strong>: Merged stacks are now spawned to stay in the world, so they should not despawn when you walk away.</li><li><strong>Batched Merging</strong>: Merging is now done in small batches and skips dimensions with no players, so large farms should cause less stutter.</li></ul><h4>Fixed</h4><ul><li><strong>Guardian Drops</strong>: A Sneak Kill on a stack of Guardians now includes Raw Fish and Prismarine Crystals.</li></ul><h3>1.0.1 - 2026-11-16 - Gear Safe Stacking</h3><h4>Added</h4><ul><li><strong>Cooked Meat Drops</strong>: A Sneak Kill on a burning stack of Cows, Pigs, Sheep, Chickens, Rabbits or Mooshrooms now drops cooked meat.</li></ul><h4>Improved &amp; Balanced</h4><ul><li><strong>Gear Safe Stacking</strong>: Mobs wearing armor or holding items are no longer merged, so their gear is never lost. Skeletons, Strays and Boggeds holding only their bow still stack.</li></ul><h4>Fixed</h4><ul><li><strong>Sheep Mutton Drops</strong>: A Sneak Kill on a stack of Sheep now drops Raw Mutton.</li></ul><h3>1.0.0 - 2026-11-16 - First Release</h3><h4>Added</h4><ul><li><strong>Mob Merging</strong>: Identical farm animals and grinder mobs within 4 blocks merge into one mob with a gold count label and no stack size limit.</li><li><strong>One-by-One Unpeeling</strong>: Killing a stacked mob removes one from the stack and keeps the rest in place.</li><li><strong>Sneak Kill</strong>: Sneaking during a kill clears the whole stack with drops and experience scaled by Looting.</li></ul></div>
 ```
 
-## FILE: changelog_views/ALN-MobStacker.github.md (64 lines, 3198 bytes)
+## FILE: changelog_views/ALN-MobStacker.github.md (78 lines, 3825 bytes)
 
 ```
 # Changelog — ALN:MobStacker
 
-## [v2] - 2026-11-17 - Armor Drops and Smoother Loot
+## [v3] - 2026-11-20 - Faster Grinders
 
 ### Added
-- **Armor Drops**: A Sneak Kill on Zombie and Husk stacks now has a small chance per extra mob to drop a piece of armor.
+- **Grinder Batches**: A stack mob that dies to lava, fall damage, fire or anything else that is not a player now takes up to 5 stack mobs with it at once, dropping their normal items without experience or rare drops.
 
 ### Improved & Balanced
+- **Idle Scanning**: Merging now checks less often after several quiet passes with nothing to merge, and checks normally again when a new mob appears.
+- **Armor Drop Chance**: Looting now raises the chance that a Zombie or Husk stack drops armor in a Sneak Kill.
+
+<details>
+<summary><b>2.0.x</b> (1 release)</summary>
+
+### [v2] - 2026-11-17 - Armor Drops and Smoother Loot
+
+#### Added
+- **Armor Drops**: A Sneak Kill on Zombie and Husk stacks now has a small chance per extra mob to drop a piece of armor.
+
+#### Improved & Balanced
 - **Smoother Loot**: Sneak Kill drops now appear over a few ticks instead of all at once, and a single kill spawns at most 256 item piles.
 - **Baby Farm Stacks**: Baby farm animal stacks now keep their original mob, so its growth timer is no longer reset when the stack forms.
+
+</details>
 
 <details>
 <summary><b>1.0.x</b> (5 releases)</summary>
@@ -195,11 +198,11 @@ Output ONLY these three sections in order:
 {
   "format_version": 2,
   "header": {
-    "name": "ALN:MobStacker (v2)",
+    "name": "ALN:MobStacker (v3)",
     "description": "Stacks nearby identical farm animals and grinder mobs into one counted mob to cut entity lag. by ALNStudios",
     "uuid": "e42a0f6c-e2a5-4f8f-ab41-4e25ba6cee40",
     "version": [
-      2,
+      3,
       0,
       0
     ],
@@ -216,7 +219,7 @@ Output ONLY these three sections in order:
       "entry": "scripts/main.js",
       "uuid": "7c42741a-ae21-4cec-8bef-ea682106eed4",
       "version": [
-        2,
+        3,
         0,
         0
       ]
@@ -233,7 +236,7 @@ Output ONLY these three sections in order:
       "ALNStudios"
     ],
     "product_type": "addon",
-    "version": "2.0.0"
+    "version": "3.0.0"
   }
 }
 ```
@@ -248,7 +251,7 @@ startMerger();
 startCombat();
 ```
 
-## FILE: MCPEDL/Script/ALN-MobStacker/behavior_pack/scripts/stack_combat.js (241 lines, 7100 bytes)
+## FILE: MCPEDL/Script/ALN-MobStacker/behavior_pack/scripts/stack_combat.js (249 lines, 7531 bytes)
 
 ```
 import { EntityComponentTypes, EquipmentSlot, ItemStack, system, world } from "@minecraft/server";
@@ -257,6 +260,8 @@ import {
   FARM_ANIMAL_SET,
   GEAR_DROP_CHANCE,
   GEAR_DROP_ITEMS,
+  GEAR_LOOTING_BONUS,
+  GRINDER_BATCH_SIZE,
   LOOT,
   PERSISTENT_TAG,
   STACKABLE_MOBS,
@@ -297,7 +302,7 @@ function pickWeighted(entries) {
   return entries[entries.length - 1];
 }
 
-function rollUnit(typeId, def, meta, looting, totals) {
+function rollUnit(typeId, def, meta, looting, totals, playerKill) {
   for (const [id, min, max] of def.drops) {
     addTotal(totals, id, randomInt(min, max) * lootMultiplier(looting));
   }
@@ -308,10 +313,10 @@ function rollUnit(typeId, def, meta, looting, totals) {
       addTotal(totals, entry[0], randomInt(entry[1], entry[2]) * lootMultiplier(looting));
     }
   }
-  if (def.gear && Math.random() < GEAR_DROP_CHANCE) {
+  if (playerKill && def.gear && Math.random() < GEAR_DROP_CHANCE + GEAR_LOOTING_BONUS * looting) {
     addTotal(totals, GEAR_DROP_ITEMS[randomInt(0, GEAR_DROP_ITEMS.length - 1)], 1);
   }
-  if (def.rare) {
+  if (playerKill && def.rare) {
     for (const rare of def.rare) {
       if (Math.random() < rare.chance + rare.bonus * looting) {
         addTotal(totals, rare.ids[randomInt(0, rare.ids.length - 1)], 1);
@@ -331,7 +336,7 @@ function rollExperience(def, meta) {
   return randomInt(def.xp[0], def.xp[1]);
 }
 
-function computeDrops(typeId, meta, units, looting, burning) {
+function computeDrops(typeId, meta, units, looting, burning, playerKill) {
   const base = LOOT[typeId];
   const totals = new Map();
   let xp = 0;
@@ -341,8 +346,8 @@ function computeDrops(typeId, meta, units, looting, burning) {
   const sampled = Math.min(units, SAMPLE_LIMIT);
   const scale = units / sampled;
   for (let i = 0; i < sampled; i++) {
-    xp += rollExperience(def, meta);
-    if (!isBabyAnimal) rollUnit(typeId, def, meta, looting, totals);
+    if (playerKill) xp += rollExperience(def, meta);
+    if (!isBabyAnimal) rollUnit(typeId, def, meta, looting, totals, playerKill);
   }
   if (scale !== 1) {
     xp = Math.round(xp * scale);
@@ -473,7 +478,7 @@ function handleDeath(event) {
 
   if (isPlayerKill && killer.isSneaking) {
     const looting = lootingLevel(killer);
-    const { totals, xp } = computeDrops(typeId, meta, count - 1, looting, isBurning(dead));
+    const { totals, xp } = computeDrops(typeId, meta, count - 1, looting, isBurning(dead), true);
     spawnDrops(dimension, location, totals, xp);
     killer.onScreenDisplay.setActionBar(
       "§6[MobStacker] §aCleared x" + count + " " + mobName(typeId, meta.isBaby) + " §7(Looting " + looting + ")"
@@ -481,8 +486,14 @@ function handleDeath(event) {
     return;
   }
 
+  const batch = isPlayerKill ? 1 : Math.min(GRINDER_BATCH_SIZE, count);
+  if (batch > 1) {
+    const extra = computeDrops(typeId, meta, batch - 1, 0, isBurning(dead), false);
+    spawnDrops(dimension, location, extra.totals, 0);
+  }
+  if (count - batch < 1) return;
   try {
-    respawnStack(dimension, typeId, location, count - 1, meta);
+    respawnStack(dimension, typeId, location, count - batch, meta);
   } catch (error) {
     return;
   }
@@ -493,7 +504,7 @@ export function startCombat() {
 }
 ```
 
-## FILE: MCPEDL/Script/ALN-MobStacker/behavior_pack/scripts/stack_config.js (355 lines, 11828 bytes)
+## FILE: MCPEDL/Script/ALN-MobStacker/behavior_pack/scripts/stack_config.js (359 lines, 11987 bytes)
 
 ```
 import { EntityComponentTypes, EquipmentSlot } from "@minecraft/server";
@@ -545,6 +556,10 @@ export const FARM_ANIMAL_SET = new Set(FARM_ANIMALS);
 
 export const MAX_SPAWN_TRIES = 8;
 export const GEAR_DROP_CHANCE = 0.01;
+export const GEAR_LOOTING_BONUS = 0.005;
+export const GRINDER_BATCH_SIZE = 5;
+export const IDLE_PASSES_BEFORE_SLOWDOWN = 3;
+export const IDLE_SLOW_FACTOR = 4;
 export const GEAR_DROP_ITEMS = [
   "minecraft:leather_helmet",
   "minecraft:leather_chestplate",
@@ -852,13 +867,15 @@ export function restoreAppearance(entity, meta) {
 }
 ```
 
-## FILE: MCPEDL/Script/ALN-MobStacker/behavior_pack/scripts/stack_merger.js (174 lines, 4653 bytes)
+## FILE: MCPEDL/Script/ALN-MobStacker/behavior_pack/scripts/stack_merger.js (209 lines, 5640 bytes)
 
 ```
 import { system, world } from "@minecraft/server";
 import {
   DIMENSION_IDS,
   FARM_ANIMAL_SET,
+  IDLE_PASSES_BEFORE_SLOWDOWN,
+  IDLE_SLOW_FACTOR,
   JOBS_PER_TICK,
   MAX_ENTITIES_PER_JOB,
   MAX_STACK_SIZE,
@@ -871,14 +888,19 @@ import {
   isStackExcluded,
   mergeKey,
   readMeta,
+  rememberStack,
   restoreAppearance,
   spawnMatching,
   stackCache,
+  stackLabel,
 } from "./stack_config.js";
 
 const RADIUS_SQUARED = MERGE_RADIUS * MERGE_RADIUS;
 const queue = [];
 const cursors = new Map();
+let idlePasses = 0;
+let idleSkip = 0;
+let passMerged = false;
 
 function cellOf(location) {
   return [
@@ -954,8 +976,21 @@ function mergeGroup(group) {
         }
       }
     }
-    if (host.entity.isValid && (absorbed > 0 || host.count > 1)) {
+    if (!host.entity.isValid) continue;
+    if (absorbed > 0) {
+      passMerged = true;
       placeHost(host, total);
+    } else if (host.count > 1) {
+      const entity = host.entity;
+      const stale =
+        entity.nameTag !== stackLabel(host.count, entity.typeId, host.meta.isBaby) ||
+        (!entity.hasTag(PERSISTENT_TAG) && !(host.meta.isBaby && FARM_ANIMAL_SET.has(entity.typeId)));
+      if (stale) {
+        passMerged = true;
+        placeHost(host, host.count);
+      } else {
+        rememberStack(entity, host.count, host.meta);
+      }
     }
   }
 }
@@ -1000,6 +1035,13 @@ function runJob(job) {
 
 function buildQueue() {
   if (queue.length > 0) return;
+  if (idlePasses >= IDLE_PASSES_BEFORE_SLOWDOWN) {
+    idleSkip++;
+    if (idleSkip < IDLE_SLOW_FACTOR) return;
+    idleSkip = 0;
+  }
+  idlePasses = passMerged ? 0 : idlePasses + 1;
+  passMerged = false;
   for (const id of DIMENSION_IDS) {
     try {
       const dimension = world.getDimension(id);
@@ -1027,15 +1069,32 @@ export function startMerger() {
   world.afterEvents.entityRemove.subscribe((event) => {
     stackCache.delete(event.removedEntityId);
   });
+
+  world.afterEvents.entitySpawn.subscribe((event) => {
+    try {
+      if (STACKABLE_MOBS.has(event.entity.typeId)) idlePasses = 0;
+    } catch (error) {
+      return;
+    }
+  });
 }
 ```
 
-## FILE: MCPEDL/Script/ALN-MobStacker/CHANGELOG.md (61 lines, 3119 bytes)
+## FILE: MCPEDL/Script/ALN-MobStacker/CHANGELOG.md (70 lines, 3676 bytes)
 
 ```
 # Changelog — ALN:MobStacker
 
 ---
+
+## [v3] - 2026-11-20 - Faster Grinders
+
+### Added
+- **Grinder Batches**: A stack mob that dies to lava, fall damage, fire or anything else that is not a player now takes up to 5 stack mobs with it at once, dropping their normal items without experience or rare drops.
+
+### Improved & Balanced
+- **Idle Scanning**: Merging now checks less often after several quiet passes with nothing to merge, and checks normally again when a new mob appears.
+- **Armor Drop Chance**: Looting now raises the chance that a Zombie or Husk stack drops armor in a Sneak Kill.
 
 ## [v2] - 2026-11-17 - Armor Drops and Smoother Loot
 
@@ -1095,7 +1154,7 @@ export function startMerger() {
 - **Sneak Kill**: Sneaking during a kill clears the whole stack with drops and experience scaled by Looting.
 ```
 
-## FILE: MCPEDL/Script/ALN-MobStacker/DESCRIPTION.md (86 lines, 6361 bytes)
+## FILE: MCPEDL/Script/ALN-MobStacker/DESCRIPTION.md (86 lines, 6499 bytes)
 
 ```
 # ALN:MobStacker — Lag-Free Farm and Grinder Condenser
@@ -1129,12 +1188,12 @@ Build a farm or grinder as usual. Mobs of the same kind that stand close togethe
 
 ### One-by-One Unpeeling
 - **What Happens**: Killing a stacked mob normally removes one mob from the stack. The stack stays in place with its count lowered by one, and the mob you killed drops its normal loot.
-- **How It Works**: Mobs that die to fall damage, lava, fire or a trident lose one from the stack each time, so a grinder keeps working on the same stack.
+- **How It Works**: A stack mob that dies to fall damage, lava, fire or anything else that is not a player takes up to 5 stack mobs with it at once, so a grinder clears a big stack faster. The extra mobs drop their normal items, without experience or rare drops.
 - **Good To Know**: A baby stack is replaced by a baby and an adult stack by an adult, so a stack never turns into the other kind.
 
 ### Sneak Kill
 - **What Happens**: Sneak while you kill a stacked mob and the whole remaining stack is cleared at once. The extra mobs drop their loot and experience together, and an action bar message shows the stack size, mob name and Looting level.
-- **Good To Know**: Sneak Kill drops the regular items of each mob type, plus the rare drops of Rabbits, Zombies, Zombified Piglins and Drowned at their vanilla chances. Zombie and Husk stacks also have a small chance of dropping a piece of armor for each extra mob. Cow, Pig, Sheep, Chicken, Rabbit and Mooshroom stacks that are burning when you kill them drop cooked meat. Big piles of drops appear over a few ticks, up to 256 item piles per kill.
+- **Good To Know**: Sneak Kill drops the regular items of each mob type, plus the rare drops of Rabbits, Zombies, Zombified Piglins and Drowned at their vanilla chances. Zombie and Husk stacks also have a small chance of dropping a piece of armor for each extra mob, a little higher with Looting. Cow, Pig, Sheep, Chicken, Rabbit and Mooshroom stacks that are burning when you kill them drop cooked meat. Big piles of drops appear over a few ticks, up to 256 item piles per kill.
 
 ### Looting Bonus
 - **What Happens**: Looting on the weapon in your main hand, levels 1 to 3, raises the drops of each extra mob in a Sneak Kill. Each extra mob multiplies its drops by a random 1 up to the Looting level plus 1.
@@ -1200,7 +1259,7 @@ Download the current release of **ALNMobStacker** for Minecraft Bedrock Edition.
 ## Download
 
 - **Package format:** `.mcpack`
-- **Direct download:** [Download ALNMobStacker (.mcpack)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/ALN-MobStacker/ALNMobStacker%20V2.mcpack)
+- **Direct download:** [Download ALNMobStacker (.mcpack)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/ALN-MobStacker/ALNMobStacker%20V3.mcpack)
 
 ## Installation
 
@@ -1213,7 +1272,7 @@ Download the current release of **ALNMobStacker** for Minecraft Bedrock Edition.
 For gameplay features, usage details, compatibility notes, and other project information, read the [full description](https://github.com/AllensCreations/MCPE-Curseforges/blob/main/MCPEDL/Script/ALN-MobStacker/DESCRIPTION.md).
 ```
 
-## FILE: Package/ALN-MobStacker.listing.md (68 lines, 15208 bytes)
+## FILE: Package/ALN-MobStacker.listing.md (68 lines, 15346 bytes)
 
 ````
 # Listing Kit: ALN:MobStacker
@@ -1241,7 +1300,7 @@ Paste into the CurseForge description editor in source (HTML) mode.
 <h2 style="font-size:17px;text-align:left"><span style="background-color:#15803d;color:#ffffff;border-radius:20px">&nbsp;&nbsp;About&nbsp;&nbsp;</span></h2>
 <p>Build a farm or grinder as usual. Mobs of the same kind that stand close together merge into one mob labelled with how many it holds. Killing the stack removes one mob at a time, or you can sneak while you strike the final blow to clear the whole stack at once. Looting on your held weapon raises the drops from the cleared stack.</p>
 <h2 style="font-size:17px;text-align:left"><span style="background-color:#15803d;color:#ffffff;border-radius:20px">&nbsp;&nbsp;What You Get&nbsp;&nbsp;</span></h2>
-<div style="display:flex;flex-wrap:wrap;gap:10px"><div style="flex:1;min-width:200px;border:1px solid #8a94a3;border-radius:16px"><div style="background-color:#15803d;color:#ffffff;border-radius:16px;font-size:16px;line-height:2.2"><strong>&nbsp;&nbsp;Mob Merging</strong></div><div style="margin-left:12px;margin-right:12px"><p><span>Identical mobs within 4 blocks of each other merge into one mob about once a second. The merged mob shows a label such as <code>[x12] Cow</code> in gold and white.</span><br><span style="font-size:13px;color:#8a94a3"><strong>How It Works:</strong> Twenty cows packed in a pen become one Cow labelled <code>[x20]</code>. The label appears when you look at the mob.</span><br><span style="font-size:13px;color:#8a94a3"><strong>Good To Know:</strong> There is no stack size limit. Mobs absorbed into a stack disappear without dropping anything. Merged stacks are set to stay in the world, so they should not despawn when you walk away. Baby farm animal stacks keep their original mob, so its growth is not reset, but killing one mob of a baby stack spawns a new baby that starts growing from the beginning.</span></p></div></div><div style="flex:1;min-width:200px;border:1px solid #8a94a3;border-radius:16px"><div style="background-color:#15803d;color:#ffffff;border-radius:16px;font-size:16px;line-height:2.2"><strong>&nbsp;&nbsp;Supported Mobs</strong></div><div style="margin-left:12px;margin-right:12px"><p><span>Farm animals: Cow, Pig, Sheep, Chicken, Rabbit, Mooshroom, Goat, Frog. Grinder mobs: Zombie, Skeleton, Spider, Cave Spider, Creeper, Drowned, Husk, Stray, Blaze, Magma Cube, Slime, Enderman, Witch, Zombified Piglin, Guardian, Bogged, Breeze.</span></p></div></div><div style="flex:1;min-width:200px;border:1px solid #8a94a3;border-radius:16px"><div style="background-color:#15803d;color:#ffffff;border-radius:16px;font-size:16px;line-height:2.2"><strong>&nbsp;&nbsp;Merge Rules</strong></div><div style="margin-left:12px;margin-right:12px"><p><span>Adults merge with adults and babies merge with babies, and the two never share a stack. Zombies, Husks, Drowned and Zombified Piglins each keep their own stacks. Sheep merge only with sheep of the same color and shear state, and slimes and magma cubes merge only with the same size.</span><br><span style="font-size:13px;color:#8a94a3"><strong>Good To Know:</strong> Tamed mobs, leashed mobs and mobs you named with a Name Tag never merge into a stack. Mobs wearing armor or holding items stay separate, including armored Zombies. Skeletons, Strays and Boggeds holding only their bow still merge.</span></p></div></div><div style="flex:1;min-width:200px;border:1px solid #8a94a3;border-radius:16px"><div style="background-color:#15803d;color:#ffffff;border-radius:16px;font-size:16px;line-height:2.2"><strong>&nbsp;&nbsp;One-by-One Unpeeling</strong></div><div style="margin-left:12px;margin-right:12px"><p><span>Killing a stacked mob normally removes one mob from the stack. The stack stays in place with its count lowered by one, and the mob you killed drops its normal loot.</span><br><span style="font-size:13px;color:#8a94a3"><strong>How It Works:</strong> Mobs that die to fall damage, lava, fire or a trident lose one from the stack each time, so a grinder keeps working on the same stack.</span><br><span style="font-size:13px;color:#8a94a3"><strong>Good To Know:</strong> A baby stack is replaced by a baby and an adult stack by an adult, so a stack never turns into the other kind.</span></p></div></div><div style="flex:1;min-width:200px;border:1px solid #8a94a3;border-radius:16px"><div style="background-color:#15803d;color:#ffffff;border-radius:16px;font-size:16px;line-height:2.2"><strong>&nbsp;&nbsp;Sneak Kill</strong></div><div style="margin-left:12px;margin-right:12px"><p><span>Sneak while you kill a stacked mob and the whole remaining stack is cleared at once. The extra mobs drop their loot and experience together, and an action bar message shows the stack size, mob name and Looting level.</span><br><span style="font-size:13px;color:#8a94a3"><strong>Good To Know:</strong> Sneak Kill drops the regular items of each mob type, plus the rare drops of Rabbits, Zombies, Zombified Piglins and Drowned at their vanilla chances. Zombie and Husk stacks also have a small chance of dropping a piece of armor for each extra mob. Cow, Pig, Sheep, Chicken, Rabbit and Mooshroom stacks that are burning when you kill them drop cooked meat. Big piles of drops appear over a few ticks, up to 256 item piles per kill.</span></p></div></div><div style="flex:1;min-width:200px;border:1px solid #8a94a3;border-radius:16px"><div style="background-color:#15803d;color:#ffffff;border-radius:16px;font-size:16px;line-height:2.2"><strong>&nbsp;&nbsp;Looting Bonus</strong></div><div style="margin-left:12px;margin-right:12px"><p><span>Looting on the weapon in your main hand, levels 1 to 3, raises the drops of each extra mob in a Sneak Kill. Each extra mob multiplies its drops by a random 1 up to the Looting level plus 1.</span><br><span style="font-size:13px;color:#8a94a3"><strong>How It Works:</strong> With Looting III, each extra Zombie in a cleared stack drops its Rotten Flesh multiplied by 1 to 4.</span></p></div></div></div>
+<div style="display:flex;flex-wrap:wrap;gap:10px"><div style="flex:1;min-width:200px;border:1px solid #8a94a3;border-radius:16px"><div style="background-color:#15803d;color:#ffffff;border-radius:16px;font-size:16px;line-height:2.2"><strong>&nbsp;&nbsp;Mob Merging</strong></div><div style="margin-left:12px;margin-right:12px"><p><span>Identical mobs within 4 blocks of each other merge into one mob about once a second. The merged mob shows a label such as <code>[x12] Cow</code> in gold and white.</span><br><span style="font-size:13px;color:#8a94a3"><strong>How It Works:</strong> Twenty cows packed in a pen become one Cow labelled <code>[x20]</code>. The label appears when you look at the mob.</span><br><span style="font-size:13px;color:#8a94a3"><strong>Good To Know:</strong> There is no stack size limit. Mobs absorbed into a stack disappear without dropping anything. Merged stacks are set to stay in the world, so they should not despawn when you walk away. Baby farm animal stacks keep their original mob, so its growth is not reset, but killing one mob of a baby stack spawns a new baby that starts growing from the beginning.</span></p></div></div><div style="flex:1;min-width:200px;border:1px solid #8a94a3;border-radius:16px"><div style="background-color:#15803d;color:#ffffff;border-radius:16px;font-size:16px;line-height:2.2"><strong>&nbsp;&nbsp;Supported Mobs</strong></div><div style="margin-left:12px;margin-right:12px"><p><span>Farm animals: Cow, Pig, Sheep, Chicken, Rabbit, Mooshroom, Goat, Frog. Grinder mobs: Zombie, Skeleton, Spider, Cave Spider, Creeper, Drowned, Husk, Stray, Blaze, Magma Cube, Slime, Enderman, Witch, Zombified Piglin, Guardian, Bogged, Breeze.</span></p></div></div><div style="flex:1;min-width:200px;border:1px solid #8a94a3;border-radius:16px"><div style="background-color:#15803d;color:#ffffff;border-radius:16px;font-size:16px;line-height:2.2"><strong>&nbsp;&nbsp;Merge Rules</strong></div><div style="margin-left:12px;margin-right:12px"><p><span>Adults merge with adults and babies merge with babies, and the two never share a stack. Zombies, Husks, Drowned and Zombified Piglins each keep their own stacks. Sheep merge only with sheep of the same color and shear state, and slimes and magma cubes merge only with the same size.</span><br><span style="font-size:13px;color:#8a94a3"><strong>Good To Know:</strong> Tamed mobs, leashed mobs and mobs you named with a Name Tag never merge into a stack. Mobs wearing armor or holding items stay separate, including armored Zombies. Skeletons, Strays and Boggeds holding only their bow still merge.</span></p></div></div><div style="flex:1;min-width:200px;border:1px solid #8a94a3;border-radius:16px"><div style="background-color:#15803d;color:#ffffff;border-radius:16px;font-size:16px;line-height:2.2"><strong>&nbsp;&nbsp;One-by-One Unpeeling</strong></div><div style="margin-left:12px;margin-right:12px"><p><span>Killing a stacked mob normally removes one mob from the stack. The stack stays in place with its count lowered by one, and the mob you killed drops its normal loot.</span><br><span style="font-size:13px;color:#8a94a3"><strong>How It Works:</strong> A stack mob that dies to fall damage, lava, fire or anything else that is not a player takes up to 5 stack mobs with it at once, so a grinder clears a big stack faster. The extra mobs drop their normal items, without experience or rare drops.</span><br><span style="font-size:13px;color:#8a94a3"><strong>Good To Know:</strong> A baby stack is replaced by a baby and an adult stack by an adult, so a stack never turns into the other kind.</span></p></div></div><div style="flex:1;min-width:200px;border:1px solid #8a94a3;border-radius:16px"><div style="background-color:#15803d;color:#ffffff;border-radius:16px;font-size:16px;line-height:2.2"><strong>&nbsp;&nbsp;Sneak Kill</strong></div><div style="margin-left:12px;margin-right:12px"><p><span>Sneak while you kill a stacked mob and the whole remaining stack is cleared at once. The extra mobs drop their loot and experience together, and an action bar message shows the stack size, mob name and Looting level.</span><br><span style="font-size:13px;color:#8a94a3"><strong>Good To Know:</strong> Sneak Kill drops the regular items of each mob type, plus the rare drops of Rabbits, Zombies, Zombified Piglins and Drowned at their vanilla chances. Zombie and Husk stacks also have a small chance of dropping a piece of armor for each extra mob, a little higher with Looting. Cow, Pig, Sheep, Chicken, Rabbit and Mooshroom stacks that are burning when you kill them drop cooked meat. Big piles of drops appear over a few ticks, up to 256 item piles per kill.</span></p></div></div><div style="flex:1;min-width:200px;border:1px solid #8a94a3;border-radius:16px"><div style="background-color:#15803d;color:#ffffff;border-radius:16px;font-size:16px;line-height:2.2"><strong>&nbsp;&nbsp;Looting Bonus</strong></div><div style="margin-left:12px;margin-right:12px"><p><span>Looting on the weapon in your main hand, levels 1 to 3, raises the drops of each extra mob in a Sneak Kill. Each extra mob multiplies its drops by a random 1 up to the Looting level plus 1.</span><br><span style="font-size:13px;color:#8a94a3"><strong>How It Works:</strong> With Looting III, each extra Zombie in a cleared stack drops its Rotten Flesh multiplied by 1 to 4.</span></p></div></div></div>
 <h2 style="font-size:17px;text-align:left"><span style="background-color:#15803d;color:#ffffff;border-radius:20px">&nbsp;&nbsp;Get Started&nbsp;&nbsp;</span></h2>
 <table style="width:100%;border:1px solid #8a94a3;border-radius:16px"><tbody><tr><td style="width:44px;text-align:center"><div style="background-color:#15803d;color:#ffffff;font-weight:bold;font-size:15px;text-align:center;border-radius:10px;width:30px;aspect-ratio:1/1;line-height:30px">1</div></td><td style="text-align:left;">Enable the Behavior Pack on your world.</td></tr><tr><td style="width:44px;text-align:center"><div style="background-color:#15803d;color:#ffffff;font-weight:bold;font-size:15px;text-align:center;border-radius:10px;width:30px;aspect-ratio:1/1;line-height:30px">2</div></td><td style="text-align:left;">Gather several mobs of the same kind within 4 blocks of each other and wait a few seconds until one mob shows a count label.</td></tr><tr><td style="width:44px;text-align:center"><div style="background-color:#15803d;color:#ffffff;font-weight:bold;font-size:15px;text-align:center;border-radius:10px;width:30px;aspect-ratio:1/1;line-height:30px">3</div></td><td style="text-align:left;">Hit the stack to remove one mob at a time, or sneak while you kill it to clear the whole stack and collect the boosted drops.</td></tr></tbody></table>
 <h2 style="font-size:17px;text-align:left"><span style="background-color:#15803d;color:#ffffff;border-radius:20px">&nbsp;&nbsp;Common Questions&nbsp;&nbsp;</span></h2>
