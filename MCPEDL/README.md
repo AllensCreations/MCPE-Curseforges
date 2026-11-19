@@ -12,9 +12,9 @@ Generated file. Do not edit by hand: it is rebuilt with every build.
 | **Update Pack Kit** | [Download](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/ai-review/Update-Pack_tools.txt) |
 | **Repo Maintenance Kit** | [Download](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/ai-review/tools.txt) |
 | **Bedrock Samples (AI Review)** | [Download](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/ai-review/bedrock-samples.txt) |
-| **Vanilla Bedrock Reference (JSON.gz)** | *(not yet built)* |
-| **Complete Bedrock Reference Bundle (Samples, Schemas & Types Zip)** | *(not yet built)* |
-| **Minecraft Script API TypeScript Definitions (.d.ts Zip)** | *(not yet built)* |
+| **Vanilla Bedrock Reference (JSON.gz)** | [Download](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/reference/bedrock-samples/bedrock-samples.min.json.gz) |
+| **Bedrock Reference Bundle (v1.26.60)** | [Download](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/reference/bedrock-samples/bedrock-reference-pack-1.26.60.zip) |
+| **Minecraft Script API TypeScript Definitions (.d.ts Zip)** | [Download](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/reference/typescript-definitions/minecraft-bedrock-types.zip) |
 
 ## Add-ons
 
@@ -22,10 +22,10 @@ Generated file. Do not edit by hand: it is rebuilt with every build.
 | :-- | :-- | :-- | :-- | :-- |
 | **2-in-1 Loot & XP Booster** | 1.0.13 | [Source](Addons/2-in-1-Loot--XP-Booster) | [Package](../Package/2-in-1-Loot--XP-Booster.listing.md) | [Download](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/MCPEDL/Addons/2-in-1-Loot--XP-Booster/ai-review/2-in-1-Loot--XP-Booster.txt) |
 | **ALN MoreDiscs** | 1.1.0 | [Source](Addons/ALN-MoreDiscs) | [Package](../Package/ALN-MoreDiscs.listing.md) | [Download](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/MCPEDL/Addons/ALN-MoreDiscs/ai-review/ALN-MoreDiscs.txt) |
-| **ALN Pointer** | - | [Source](Addons/ALN-Pointer) | [Package](../Package/ALN-Pointer.listing.md) | [Download](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/MCPEDL/Addons/ALN-Pointer/ai-review/ALN-Pointer.txt) |
 | **ALN Quiver** | - | [Source](Addons/ALN-Quiver) | [Package](../Package/ALN-Quiver.listing.md) | [Download](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/MCPEDL/Addons/ALN-Quiver/ai-review/ALN-Quiver.txt) |
 | **ALN Wireless Headphones** | - | [Source](Addons/ALN-Wireless-Headphones) | [Package](../Package/ALN-Wireless-Headphones.listing.md) | [Download](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/MCPEDL/Addons/ALN-Wireless-Headphones/ai-review/ALN-Wireless-Headphones.txt) |
 | **Cheat Stick** | 2.0.0 | [Source](Addons/Cheat-Stick) | [Package](../Package/Cheat-Stick.listing.md) | [Download](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/MCPEDL/Addons/Cheat-Stick/ai-review/Cheat-Stick.txt) |
+| **Combat Helper** | - | [Source](Addons/ALN-Pointer) | [Package](../Package/ALN-Pointer.listing.md) | [Download](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/MCPEDL/Addons/ALN-Pointer/ai-review/ALN-Pointer.txt) |
 | **Copper-Carrier Logistics** | 1.0.0 | [Source](Addons/Copper-Carrier-Logistics) | [Package](../Package/Copper-Carrier-Logistics.listing.md) | [Download](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/MCPEDL/Addons/Copper-Carrier-Logistics/ai-review/Copper-Carrier-Logistics.txt) |
 | **Enchanter** | 1.0.1 | [Source](Addons/Enchanter) | [Package](../Package/Enchanter.listing.md) | [Download](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/MCPEDL/Addons/Enchanter/ai-review/Enchanter.txt) |
 | **Expanded Basic Arsenal** | - | [Source](Addons/Expanded-Basic-Arsenal) | [Package](../Package/Expanded-Basic-Arsenal.listing.md) | [Download](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/MCPEDL/Addons/Expanded-Basic-Arsenal/ai-review/Expanded-Basic-Arsenal.txt) |

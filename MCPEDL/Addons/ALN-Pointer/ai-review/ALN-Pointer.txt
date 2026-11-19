@@ -4,7 +4,7 @@
 
 - **Export request:** `MCPEDL/Addons/ALN-Pointer`
 - **Destination:** `MCPEDL/Addons/ALN-Pointer`
-- **CURRENT VERSION: v3 / NEXT UPDATE: v4**  (`MCPEDL/Addons/ALN-Pointer/CHANGELOG.md`)
+- **CURRENT VERSION: v4 / NEXT UPDATE: v5**  (`MCPEDL/Addons/ALN-Pointer/CHANGELOG.md`)
 - **Text files:** 27
 - **Skipped binary:** 5
 - **Paths not found:** 0
@@ -46,18 +46,6 @@
 - `MCPEDL/Addons/ALN-Pointer/behavior_pack/pack_icon.png`
 - `MCPEDL/Addons/ALN-Pointer/resource_pack/pack_icon.png`
 - `MCPEDL/Addons/ALN-Pointer/resource_pack/textures/items/aln_pointer.png`
-
----
-
-
-
----
-
-
-
----
-
-
 
 ---
 
@@ -236,26 +224,37 @@ git config --global credential.helper store
 
 ## File Contents
 
-## FILE: changelog_views/ALN-Pointer.curseforge.html (3 lines, 2060 bytes)
+## FILE: changelog_views/ALN-Pointer.curseforge.html (4 lines, 2428 bytes)
 
 ```
-<h2>v3 - 2026-11-19 - Wool Recipe</h2><h3>Added</h3><ul><li><strong>Wool Recipe</strong>: The ALN Pointer can now be crafted from 7 wool of any color in a cursor shape: the top row, the left and middle squares of the middle row, and the left and right squares of the bottom row. The recipe is unlocked from the start.</li></ul><h3>Fixed</h3><ul><li><strong>Menu Version</strong>: The menu title now shows the same version as the pack.</li><li><strong>Totem Exclusions</strong>: Auto Totem and Infinite Totem now skip the kill command and script-set deaths, which a totem cannot stop in vanilla Minecraft, instead of reacting to them.</li></ul>
+<h2>v4 - 2026-11-19 - New Name</h2><h3>Changed</h3><ul><li><strong>New Name</strong>: The add-on is now called Combat Helper. The item, its menus, the pack titles and the description all use the new name. The item still uses the cursor look, and your existing item, saved toggles and worlds keep working.</li></ul>
+<h2>3.0.x (1 release)</h2><div class="spoiler"><h3>v3 - 2026-11-19 - Wool Recipe</h3><h4>Added</h4><ul><li><strong>Wool Recipe</strong>: The ALN Pointer can now be crafted from 7 wool of any color in a cursor shape: the top row, the left and middle squares of the middle row, and the left and right squares of the bottom row. The recipe is unlocked from the start.</li></ul><h4>Fixed</h4><ul><li><strong>Menu Version</strong>: The menu title now shows the same version as the pack.</li><li><strong>Totem Exclusions</strong>: Auto Totem and Infinite Totem now skip the kill command and script-set deaths, which a totem cannot stop in vanilla Minecraft, instead of reacting to them.</li></ul></div>
 <h2>2.0.x (1 release)</h2><div class="spoiler"><h3>v2 - 2026-11-16 - First Release</h3><h4>Added</h4><ul><li><strong>ALN Pointer</strong>: A cursor-shaped item that opens the ALNStudios menu. You get one the first time you join a world, and it is in the Equipment tab of the Creative inventory.</li><li><strong>Combat Toggles Menu</strong>: A screen with 7 switches and a short explanation under each. Apply saves them for you and closes the menu, and each player keeps their own settings.</li><li><strong>Auto Totem</strong>: Moves a Totem of Undying from your inventory into your off hand before a hit that would kill you.</li><li><strong>Infinite Totem</strong>: Puts a new Totem of Undying in your off hand before a deadly hit when you have none left.</li><li><strong>Aura Mode</strong>: Hits up to 3 nearby hostile mobs and players within 4 blocks for 5 damage every half second.</li><li><strong>Always Critical</strong>: Every melee hit deals 1.5 times damage and shows the critical hit sparks.</li><li><strong>Bow Aimbot</strong>: Arrows from a bow or crossbow steer toward the target nearest your crosshair within 48 blocks.</li><li><strong>Always Water Clutch</strong>: Places water where you land after a fall of 3 blocks or more, then removes it after about 2 seconds.</li><li><strong>Shield Always Active</strong>: Blocks melee hits and arrows from the front whenever you carry a shield.</li></ul></div>
 ```
 
-## FILE: changelog_views/ALN-Pointer.github.md (29 lines, 1834 bytes)
+## FILE: changelog_views/ALN-Pointer.github.md (39 lines, 2185 bytes)
 
 ```
 # Changelog — ALN Pointer
 
-## [v3] - 2026-11-19 - Wool Recipe
+## [v4] - 2026-11-19 - New Name
 
-### Added
+### Changed
+- **New Name**: The add-on is now called Combat Helper. The item, its menus, the pack titles and the description all use the new name. The item still uses the cursor look, and your existing item, saved toggles and worlds keep working.
+
+<details>
+<summary><b>3.0.x</b> (1 release)</summary>
+
+### [v3] - 2026-11-19 - Wool Recipe
+
+#### Added
 - **Wool Recipe**: The ALN Pointer can now be crafted from 7 wool of any color in a cursor shape: the top row, the left and middle squares of the middle row, and the left and right squares of the bottom row. The recipe is unlocked from the start.
 
-### Fixed
+#### Fixed
 - **Menu Version**: The menu title now shows the same version as the pack.
 - **Totem Exclusions**: Auto Totem and Infinite Totem now skip the kill command and script-set deaths, which a totem cannot stop in vanilla Minecraft, instead of reacting to them.
+
+</details>
 
 <details>
 <summary><b>2.0.x</b> (1 release)</summary>
@@ -294,7 +293,7 @@ git config --global credential.helper store
 
 ```
 
-## FILE: MCPEDL/Addons/ALN-Pointer/behavior_pack/items/aln_pointer.json (23 lines, 452 bytes)
+## FILE: MCPEDL/Addons/ALN-Pointer/behavior_pack/items/aln_pointer.json (23 lines, 454 bytes)
 
 ```
 {
@@ -314,7 +313,7 @@ git config --global credential.helper store
         }
       },
       "minecraft:display_name": {
-        "value": "§l§6ALN §ePointer"
+        "value": "§l§6Combat §eHelper"
       }
     }
   }
@@ -330,17 +329,17 @@ Pack marker included in the exported Minecraft Bedrock pack.
 This marker does not encrypt the pack or prevent extraction or editing.
 ```
 
-## FILE: MCPEDL/Addons/ALN-Pointer/behavior_pack/manifest.json (66 lines, 1139 bytes)
+## FILE: MCPEDL/Addons/ALN-Pointer/behavior_pack/manifest.json (66 lines, 1147 bytes)
 
 ```
 {
   "format_version": 2,
   "header": {
-    "name": "ALN Pointer (v3)",
-    "description": "A pointer item that opens a menu of PVP toggles. by ALNStudios",
+    "name": "Combat Helper (v4)",
+    "description": "A cursor-shaped item that opens a menu of PVP toggles. by ALNStudios",
     "uuid": "eec0404f-e785-480e-839e-0da27c699c31",
     "version": [
-      3,
+      4,
       0,
       0
     ],
@@ -355,7 +354,7 @@ This marker does not encrypt the pack or prevent extraction or editing.
       "type": "data",
       "uuid": "13407ddf-e15f-4d9c-90ec-eaa908a586a1",
       "version": [
-        3,
+        4,
         0,
         0
       ]
@@ -366,7 +365,7 @@ This marker does not encrypt the pack or prevent extraction or editing.
       "uuid": "63e54d22-75a9-41f8-9e7e-67b0553aace3",
       "entry": "scripts/main.js",
       "version": [
-        3,
+        4,
         0,
         0
       ]
@@ -376,7 +375,7 @@ This marker does not encrypt the pack or prevent extraction or editing.
     {
       "uuid": "8232add1-8bcd-4f9b-92e8-59dfc483f35f",
       "version": [
-        3,
+        4,
         0,
         0
       ]
@@ -395,7 +394,7 @@ This marker does not encrypt the pack or prevent extraction or editing.
       "ALNStudios"
     ],
     "product_type": "addon",
-    "version": "3.0.0"
+    "version": "4.0.0"
   }
 }
 ```
@@ -608,11 +607,11 @@ export function initCombat() {
 }
 ```
 
-## FILE: MCPEDL/Addons/ALN-Pointer/behavior_pack/scripts/lib/info.js (5 lines, 175 bytes)
+## FILE: MCPEDL/Addons/ALN-Pointer/behavior_pack/scripts/lib/info.js (5 lines, 177 bytes)
 
 ```
-export const PACK_NAME = "ALN Pointer";
-export const PACK_VERSION = "3";
+export const PACK_NAME = "Combat Helper";
+export const PACK_VERSION = "4";
 export const POINTER_ID = "allenscreations:aln_pointer";
 export const PLAYER_ID = "minecraft:player";
 ```
@@ -689,7 +688,7 @@ export function initLoops() {
 }
 ```
 
-## FILE: MCPEDL/Addons/ALN-Pointer/behavior_pack/scripts/lib/menu.js (93 lines, 3243 bytes)
+## FILE: MCPEDL/Addons/ALN-Pointer/behavior_pack/scripts/lib/menu.js (93 lines, 3249 bytes)
 
 ```
 import { system } from "@minecraft/server";
@@ -733,7 +732,7 @@ async function openAbout(player) {
   const body = [
     "Creator: ALNStudios",
     `${PACK_NAME} v${PACK_VERSION}`,
-    "A pointer item that opens a menu of PVP toggles.",
+    "A cursor-shaped item that opens a menu of PVP toggles.",
     "CurseForge: allenscreations",
     "MCPEDL: alnstudios",
     "Not affiliated with Mojang.",
@@ -877,12 +876,17 @@ initLoops();
 initBowAim();
 ```
 
-## FILE: MCPEDL/Addons/ALN-Pointer/CHANGELOG.md (26 lines, 1770 bytes)
+## FILE: MCPEDL/Addons/ALN-Pointer/CHANGELOG.md (31 lines, 2051 bytes)
 
 ```
 # Changelog — ALN Pointer
 
 ---
+
+## [v4] - 2026-11-19 - New Name
+
+### Changed
+- **New Name**: The add-on is now called Combat Helper. The item, its menus, the pack titles and the description all use the new name. The item still uses the cursor look, and your existing item, saved toggles and worlds keep working.
 
 ## [v3] - 2026-11-19 - Wool Recipe
 
@@ -907,30 +911,30 @@ initBowAim();
 - **Shield Always Active**: Blocks melee hits and arrows from the front whenever you carry a shield.
 ```
 
-## FILE: MCPEDL/Addons/ALN-Pointer/DESCRIPTION.md (108 lines, 7792 bytes)
+## FILE: MCPEDL/Addons/ALN-Pointer/DESCRIPTION.md (108 lines, 7837 bytes)
 
 ```
-# ALN Pointer — A pointer item that opens a menu of 7 PVP toggles
+# Combat Helper — A cursor-shaped item that opens a menu of 7 PVP toggles
 
 **By ALNStudios**
 
 [![Minecraft Bedrock](https://img.shields.io/badge/Minecraft%20Bedrock-Stable%20Release-brightgreen?style=flat-square&logo=minecraft)](https://github.com/AllensCreations/MCPE-Curseforges)
 [![Format](https://img.shields.io/badge/Format-.MCPACK%20%7C%20.MCADDON%20%7C%20.MCWORLD-blue?style=flat-square)](https://github.com/AllensCreations/MCPE-Curseforges)
 
-**Use the ALN Pointer item to switch 7 PVP toggles on or off per player, including Auto Totem and Bow Aimbot.**
+**Use the Combat Helper item to switch 7 PVP toggles on or off per player, including Auto Totem and Bow Aimbot.**
 
-> The ALN Pointer is a cursor-shaped item that opens a menu with 7 toggles, each saved separately for every player. It suits friends who practice PVP in a world they own and want to pick their own settings.
+> The Combat Helper is a cursor-shaped item that opens a menu with 7 toggles, each saved separately for every player. It suits friends who practice PVP in a world they own and want to pick their own settings.
 
 ## Overview
 
-You get an ALN Pointer, use it, and pick the toggles you want in the ALNStudios menu. The toggles then run by themselves whenever you fight, shoot or fall, and vanilla Minecraft has no equivalent switches. The features are cheat-style helpers, so use them only on worlds where everyone agrees.
+You get a Combat Helper, use it, and pick the toggles you want in the ALNStudios menu. The toggles then run by themselves whenever you fight, shoot or fall, and vanilla Minecraft has no equivalent switches. The features are cheat-style helpers, so use them only on worlds where everyone agrees.
 
 ## Key Features
 
-### ALN Pointer Item
+### Combat Helper Item
 - **What Happens**: A cursor-shaped item that opens the toggle menu when you use it. You receive one the first time you join a world, you can craft more from wool, and it also sits in the Equipment tab of the Creative inventory.
-- **How It Works**: Hold the pointer and use it, like right-clicking on PC or tapping on mobile. To craft one, fill the top row of a crafting table with wool, then the left and middle squares of the middle row, then the left and right squares of the bottom row. This takes 7 wool of any color and the shape looks like a cursor.
-- **Good To Know**: If your inventory is full on first join, the pointer is offered again on your next join.
+- **How It Works**: Hold the Combat Helper and use it, like right-clicking on PC or tapping on mobile. To craft one, fill the top row of a crafting table with wool, then the left and middle squares of the middle row, then the left and right squares of the bottom row. This takes 7 wool of any color and the shape looks like a cursor.
+- **Good To Know**: If your inventory is full on first join, the Combat Helper is offered again on your next join.
 
 ### Combat Toggles Menu
 - **What Happens**: The main menu has three buttons: Combat Toggles, About and Exit. Combat Toggles lists 7 switches with a one-line explanation under each, and Apply saves them and closes the menu.
@@ -974,14 +978,14 @@ You get an ALN Pointer, use it, and pick the toggles you want in the ALNStudios 
 
 ## How to Use
 
-1. Join your world and find the ALN Pointer in your inventory, craft one from 7 wool in a cursor shape, or take it from the Equipment tab of the Creative inventory.
-2. Hold the ALN Pointer and use it to open the ALNStudios menu, then tap Combat Toggles.
+1. Join your world and find the Combat Helper in your inventory, craft one from 7 wool in a cursor shape, or take it from the Equipment tab of the Creative inventory.
+2. Hold the Combat Helper and use it to open the ALNStudios menu, then tap Combat Toggles.
 3. Switch on the toggles you want and tap Apply. The action bar shows how many toggles are on.
-4. Use the pointer again any time to change your toggles.
+4. Use the Combat Helper again any time to change your toggles.
 
 ## Common Questions
 
-- **How do I get another pointer?**: Craft one from 7 wool on a crafting table, laid out like a cursor with the top row full, the left and middle squares of the middle row, and the left and right squares of the bottom row. You can also take one from the Equipment tab of the Creative inventory, or use the command /give @s allenscreations:aln_pointer, which needs cheats.
+- **How do I get another Combat Helper?**: Craft one from 7 wool on a crafting table, laid out like a cursor with the top row full, the left and middle squares of the middle row, and the left and right squares of the bottom row. You can also take one from the Equipment tab of the Creative inventory, or use the command /give @s allenscreations:aln_pointer, which needs cheats.
 - **Do my toggles affect other players?**: No. Each player has their own saved toggles, and a toggle only changes what that player does.
 - **Can I use it on a server?**: These features act like cheats. Many servers ban them, so use them only where the owner and the other players agree.
 
@@ -1015,7 +1019,7 @@ You get an ALN Pointer, use it, and pick the toggles you want in the ALNStudios 
 
 ## Search & Discovery Keywords
 
-Minecraft Bedrock add-on, ALN Pointer Bedrock mod, Minecraft PE PVP toggles, Auto Totem, Infinite Totem, Aura Mode, Always Critical, Bow Aimbot, Water Clutch, Minecraft PE mouse pointer item, MCPEDL add-on, CurseForge Bedrock, ALNStudios.
+Minecraft Bedrock add-on, Combat Helper Bedrock mod, Minecraft PE PVP toggles, Auto Totem, Infinite Totem, Aura Mode, Always Critical, Bow Aimbot, Water Clutch, Minecraft PE mouse pointer item, MCPEDL add-on, CurseForge Bedrock, ALNStudios.
 ```
 
 ## FILE: MCPEDL/Addons/ALN-Pointer/LOCK (5 lines, 167 bytes)
@@ -1027,26 +1031,26 @@ Required repository marker for build validation.
 This marker does not encrypt source files or prevent extraction of distributable packages.
 ```
 
-## FILE: MCPEDL/Addons/ALN-Pointer/project.json (5 lines, 47 bytes)
+## FILE: MCPEDL/Addons/ALN-Pointer/project.json (5 lines, 49 bytes)
 
 ```
 {
   "type": "addon",
-  "name": "ALN Pointer"
+  "name": "Combat Helper"
 }
 ```
 
-## FILE: MCPEDL/Addons/ALN-Pointer/README.md (19 lines, 774 bytes)
+## FILE: MCPEDL/Addons/ALN-Pointer/README.md (19 lines, 780 bytes)
 
 ```
-# ALN Pointer
+# Combat Helper
 
-Download the current release of **ALN Pointer** for Minecraft Bedrock Edition.
+Download the current release of **Combat Helper** for Minecraft Bedrock Edition.
 
 ## Download
 
 - **Package format:** `.mcaddon`
-- **Direct download:** [Download ALN Pointer (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/ALN-Pointer/ALNPointer%20V3.mcaddon)
+- **Direct download:** [Download Combat Helper (.mcaddon)](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/ALN-Pointer/ALNPointer%20V4.mcaddon)
 
 ## Installation
 
@@ -1068,17 +1072,17 @@ Pack marker included in the exported Minecraft Bedrock pack.
 This marker does not encrypt the pack or prevent extraction or editing.
 ```
 
-## FILE: MCPEDL/Addons/ALN-Pointer/resource_pack/manifest.json (37 lines, 587 bytes)
+## FILE: MCPEDL/Addons/ALN-Pointer/resource_pack/manifest.json (37 lines, 595 bytes)
 
 ```
 {
   "format_version": 2,
   "header": {
-    "name": "ALN Pointer (v3)",
-    "description": "Pointer item texture. by ALNStudios",
+    "name": "Combat Helper (v4)",
+    "description": "Combat Helper item texture. by ALNStudios",
     "uuid": "8232add1-8bcd-4f9b-92e8-59dfc483f35f",
     "version": [
-      3,
+      4,
       0,
       0
     ],
@@ -1093,7 +1097,7 @@ This marker does not encrypt the pack or prevent extraction or editing.
       "type": "resources",
       "uuid": "83f195c6-92d3-428a-b707-06188b6a5f8d",
       "version": [
-        3,
+        4,
         0,
         0
       ]
@@ -1104,7 +1108,7 @@ This marker does not encrypt the pack or prevent extraction or editing.
       "ALNStudios"
     ],
     "product_type": "addon",
-    "version": "3.0.0"
+    "version": "4.0.0"
   }
 }
 ```
@@ -1472,7 +1476,7 @@ Source files for established Minecraft Bedrock add-ons by ALNStudios.
 | Expanded Basic Arsenal | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/Expanded-Basic-Arsenal/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/Expanded-Basic-Arsenal/ExpandedBasicArsenal%20V2.mcaddon) |
 | ALN Wireless Headphones | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/ALN-Wireless-Headphones/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/ALN-Wireless-Headphones/ALNWirelessHeadphones%20V11.mcaddon) |
 | ALN MoreDiscs | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/ALN-MoreDiscs/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/ALN-MoreDiscs/ALNMoreDiscs%20V3.mcaddon) |
-| ALN Pointer | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/ALN-Pointer/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/ALN-Pointer/ALNPointer%20V3.mcaddon) |
+| ALN Pointer | [Source](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/MCPEDL/Addons/ALN-Pointer/) | [MCADDON](https://github.com/AllensCreations/MCPE-Curseforges/raw/main/builds/ALN-Pointer/ALNPointer%20V4.mcaddon) |
 
 Download links point to the currently published package files.
 
@@ -1490,23 +1494,23 @@ Videos and streams are welcome with credit. Redistribution of original or modifi
 - [TypeScript Definitions (.d.ts)](https://github.com/AllensCreations/MCPE-Curseforges/tree/main/reference/typescript-definitions)
 ```
 
-## FILE: Package/ALN-Pointer.listing.md (72 lines, 19890 bytes)
+## FILE: Package/ALN-Pointer.listing.md (72 lines, 19961 bytes)
 
 ````
-# Listing Kit: ALN Pointer
+# Listing Kit: Combat Helper
 
 Tap the Copy button on a block, then paste it into the CurseForge listing. Generated from DESCRIPTION.md: edit that, not this file.
 
 ## Package Name
 
 ```text
-ALN Pointer
+Combat Helper
 ```
 
-## Summary (107/256)
+## Summary (109/256)
 
 ```text
-Use the ALN Pointer item to switch 7 PVP toggles on or off per player, including Auto Totem and Bow Aimbot.
+Use the Combat Helper item to switch 7 PVP toggles on or off per player, including Auto Totem and Bow Aimbot.
 ```
 
 ## Description (HTML)
@@ -1514,19 +1518,19 @@ Use the ALN Pointer item to switch 7 PVP toggles on or off per player, including
 Paste into the CurseForge description editor in source (HTML) mode.
 
 ```html
-<div><div style="border:2px solid #15803d;border-radius:18px;line-height:1.5"><br><h1 style="font-size:34px;text-align:center">ALN Pointer</h1><p style="color:#8a94a3;font-size:14px;text-align:center">by ALNStudios</p><p style="text-align:center"><span style="background-color:#15803d;color:#ffffff;border-radius:20px;font-size:16px">&nbsp;&nbsp;<strong>Use the ALN Pointer item to switch 7 PVP toggles on or off per player, including Auto Totem and Bow Aimbot.</strong>&nbsp;&nbsp;</span></p><p style="text-align:center;margin-left:16px;margin-right:16px">The ALN Pointer is a cursor-shaped item that opens a menu with 7 toggles, each saved separately for every player. It suits friends who practice PVP in a world they own and want to pick their own settings.</p><div style="display:flex;flex-wrap:wrap;gap:8px;margin-left:14px;margin-right:14px"><div style="background-color:#dcfce7;color:#14532d;border-radius:20px;font-size:14px;line-height:2"><strong>&nbsp;&nbsp;Bedrock</strong>: 1.26+&nbsp;&nbsp;</div><div style="background-color:#dcfce7;color:#14532d;border-radius:20px;font-size:14px;line-height:2"><strong>&nbsp;&nbsp;Experimental</strong>: No&nbsp;&nbsp;</div><div style="background-color:#dcfce7;color:#14532d;border-radius:20px;font-size:14px;line-height:2"><strong>&nbsp;&nbsp;Achievements</strong>: Likely achievement-friendly&nbsp;&nbsp;</div></div><br></div>
+<div><div style="border:2px solid #15803d;border-radius:18px;line-height:1.5"><br><h1 style="font-size:34px;text-align:center">Combat Helper</h1><p style="color:#8a94a3;font-size:14px;text-align:center">by ALNStudios</p><p style="text-align:center"><span style="background-color:#15803d;color:#ffffff;border-radius:20px;font-size:16px">&nbsp;&nbsp;<strong>Use the Combat Helper item to switch 7 PVP toggles on or off per player, including Auto Totem and Bow Aimbot.</strong>&nbsp;&nbsp;</span></p><p style="text-align:center;margin-left:16px;margin-right:16px">The Combat Helper is a cursor-shaped item that opens a menu with 7 toggles, each saved separately for every player. It suits friends who practice PVP in a world they own and want to pick their own settings.</p><div style="display:flex;flex-wrap:wrap;gap:8px;margin-left:14px;margin-right:14px"><div style="background-color:#dcfce7;color:#14532d;border-radius:20px;font-size:14px;line-height:2"><strong>&nbsp;&nbsp;Bedrock</strong>: 1.26+&nbsp;&nbsp;</div><div style="background-color:#dcfce7;color:#14532d;border-radius:20px;font-size:14px;line-height:2"><strong>&nbsp;&nbsp;Experimental</strong>: No&nbsp;&nbsp;</div><div style="background-color:#dcfce7;color:#14532d;border-radius:20px;font-size:14px;line-height:2"><strong>&nbsp;&nbsp;Achievements</strong>: Likely achievement-friendly&nbsp;&nbsp;</div></div><br></div>
 <h2 style="font-size:17px;text-align:left"><span style="background-color:#15803d;color:#ffffff;border-radius:20px">&nbsp;&nbsp;About&nbsp;&nbsp;</span></h2>
-<p>You get an ALN Pointer, use it, and pick the toggles you want in the ALNStudios menu. The toggles then run by themselves whenever you fight, shoot or fall, and vanilla Minecraft has no equivalent switches. The features are cheat-style helpers, so use them only on worlds where everyone agrees.</p>
+<p>You get a Combat Helper, use it, and pick the toggles you want in the ALNStudios menu. The toggles then run by themselves whenever you fight, shoot or fall, and vanilla Minecraft has no equivalent switches. The features are cheat-style helpers, so use them only on worlds where everyone agrees.</p>
 <h2 style="font-size:17px;text-align:left"><span style="background-color:#15803d;color:#ffffff;border-radius:20px">&nbsp;&nbsp;Screenshots&nbsp;&nbsp;</span></h2>
 <div style="display:flex;flex-wrap:wrap;gap:10px"><div style="flex:1 1 300px;border:1px solid #8a94a3;border-radius:16px;text-align:center"><p><a href="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/MCPEDL/Addons/ALN-Pointer/assets/snapshots/HOW%20TO%20CRAFT.jpg"><img src="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/MCPEDL/Addons/ALN-Pointer/assets/snapshots/HOW%20TO%20CRAFT.jpg" alt="HOW TO CRAFT" style="width:100%"></a></p><p style="color:#8a94a3;font-size:13px">HOW TO CRAFT</p></div></div>
 <h2 style="font-size:17px;text-align:left"><span style="background-color:#15803d;color:#ffffff;border-radius:20px">&nbsp;&nbsp;What You Get&nbsp;&nbsp;</span></h2>
-<div style="display:flex;flex-wrap:wrap;gap:10px"><div style="flex:1;min-width:200px;border:1px solid #8a94a3;border-radius:16px"><div style="background-color:#15803d;color:#ffffff;border-radius:16px;font-size:16px;line-height:2.2"><strong>&nbsp;&nbsp;ALN Pointer Item</strong></div><div style="margin-left:12px;margin-right:12px"><p><span>A cursor-shaped item that opens the toggle menu when you use it. You receive one the first time you join a world, you can craft more from wool, and it also sits in the Equipment tab of the Creative inventory.</span><br><span style="font-size:13px;color:#8a94a3"><strong>How It Works:</strong> Hold the pointer and use it, like right-clicking on PC or tapping on mobile. To craft one, fill the top row of a crafting table with wool, then the left and middle squares of the middle row, then the left and right squares of the bottom row. This takes 7 wool of any color and the shape looks like a cursor.</span><br><span style="font-size:13px;color:#8a94a3"><strong>Good To Know:</strong> If your inventory is full on first join, the pointer is offered again on your next join.</span></p></div></div><div style="flex:1;min-width:200px;border:1px solid #8a94a3;border-radius:16px"><div style="background-color:#15803d;color:#ffffff;border-radius:16px;font-size:16px;line-height:2.2"><strong>&nbsp;&nbsp;Combat Toggles Menu</strong></div><div style="margin-left:12px;margin-right:12px"><p><span>The main menu has three buttons: Combat Toggles, About and Exit. Combat Toggles lists 7 switches with a one-line explanation under each, and Apply saves them and closes the menu.</span><br><span style="font-size:13px;color:#8a94a3"><strong>How It Works:</strong> Flip the switches you want, then tap Apply. Closing the screen without Apply brings you back to the main menu.</span><br><span style="font-size:13px;color:#8a94a3"><strong>Good To Know:</strong> Toggles are saved per player, so each person in a world picks their own.</span></p></div></div><div style="flex:1;min-width:200px;border:1px solid #8a94a3;border-radius:16px"><div style="background-color:#15803d;color:#ffffff;border-radius:16px;font-size:16px;line-height:2.2"><strong>&nbsp;&nbsp;Auto Totem</strong></div><div style="margin-left:12px;margin-right:12px"><p><span>When a hit would kill you and you hold no Totem of Undying, one from your inventory moves into your off hand first, so the totem saves you.</span><br><span style="font-size:13px;color:#8a94a3"><strong>How It Works:</strong> Keep a Totem of Undying anywhere in your inventory and switch Auto Totem on.</span><br><span style="font-size:13px;color:#8a94a3"><strong>Good To Know:</strong> It does nothing without a totem in your inventory, and it cannot help against the void or the kill command.</span></p></div></div><div style="flex:1;min-width:200px;border:1px solid #8a94a3;border-radius:16px"><div style="background-color:#15803d;color:#ffffff;border-radius:16px;font-size:16px;line-height:2.2"><strong>&nbsp;&nbsp;Infinite Totem</strong></div><div style="margin-left:12px;margin-right:12px"><p><span>Works like Auto Totem, and when you have no totem at all it puts a new Totem of Undying in your off hand before a deadly hit.</span><br><span style="font-size:13px;color:#8a94a3"><strong>How It Works:</strong> Switch it on and keep fighting. Each totem that pops is replaced before the next deadly hit.</span><br><span style="font-size:13px;color:#8a94a3"><strong>Good To Know:</strong> An item that was in your off hand moves to your inventory, or drops at your feet if the inventory is full.</span></p></div></div><div style="flex:1;min-width:200px;border:1px solid #8a94a3;border-radius:16px"><div style="background-color:#15803d;color:#ffffff;border-radius:16px;font-size:16px;line-height:2.2"><strong>&nbsp;&nbsp;Aura Mode</strong></div><div style="margin-left:12px;margin-right:12px"><p><span>Every half second, you hit up to 3 of the nearest hostile mobs and other players within 4 blocks for 5 damage (2.5 hearts), without clicking.</span><br><span style="font-size:13px;color:#8a94a3"><strong>How It Works:</strong> Stand near enemies with Aura Mode on and they take damage automatically.</span><br><span style="font-size:13px;color:#8a94a3"><strong>Good To Know:</strong> Players in Creative or Spectator mode are never hit, and passive mobs are left alone.</span></p></div></div><div style="flex:1;min-width:200px;border:1px solid #8a94a3;border-radius:16px"><div style="background-color:#15803d;color:#ffffff;border-radius:16px;font-size:16px;line-height:2.2"><strong>&nbsp;&nbsp;Always Critical</strong></div><div style="margin-left:12px;margin-right:12px"><p><span>Every melee hit you land deals 1.5 times damage and shows the critical hit sparks, the same bonus as a vanilla critical hit, without jumping first.</span><br><span style="font-size:13px;color:#8a94a3"><strong>How It Works:</strong> Hit a mob or player with a sword or axe while Always Critical is on.</span><br><span style="font-size:13px;color:#8a94a3"><strong>Good To Know:</strong> A hit made while you are already falling is left as vanilla, so the bonus never stacks.</span></p></div></div><div style="flex:1;min-width:200px;border:1px solid #8a94a3;border-radius:16px"><div style="background-color:#15803d;color:#ffffff;border-radius:16px;font-size:16px;line-height:2.2"><strong>&nbsp;&nbsp;Bow Aimbot</strong></div><div style="margin-left:12px;margin-right:12px"><p><span>Arrows you shoot from a bow or crossbow steer toward the hostile mob or player closest to your crosshair within 48 blocks and 25 degrees of where you look.</span><br><span style="font-size:13px;color:#8a94a3"><strong>How It Works:</strong> Aim roughly at a target and release. The arrow leads a moving target and allows for arrow drop.</span><br><span style="font-size:13px;color:#8a94a3"><strong>Good To Know:</strong> If nothing is near your crosshair, the arrow flies as normal.</span></p></div></div><div style="flex:1;min-width:200px;border:1px solid #8a94a3;border-radius:16px"><div style="background-color:#15803d;color:#ffffff;border-radius:16px;font-size:16px;line-height:2.2"><strong>&nbsp;&nbsp;Always Water Clutch</strong></div><div style="margin-left:12px;margin-right:12px"><p><span>When you fall 3 blocks or more and the ground is close, a water block appears in the space you land in, so the fall does no damage, and it disappears after about 2 seconds.</span><br><span style="font-size:13px;color:#8a94a3"><strong>How It Works:</strong> Switch it on and jump. No water bucket is needed.</span><br><span style="font-size:13px;color:#8a94a3"><strong>Good To Know:</strong> It does not trigger in Creative or Spectator mode, while gliding or flying, or over water.</span></p></div></div><div style="flex:1;min-width:200px;border:1px solid #8a94a3;border-radius:16px"><div style="background-color:#15803d;color:#ffffff;border-radius:16px;font-size:16px;line-height:2.2"><strong>&nbsp;&nbsp;Shield Always Active</strong></div><div style="margin-left:12px;margin-right:12px"><p><span>While you carry a shield in either hand, every melee hit and arrow from the front half of your view is fully blocked, even if you are not holding the block button.</span><br><span style="font-size:13px;color:#8a94a3"><strong>How It Works:</strong> Keep a shield in your hand or off hand and switch Shield Always Active on.</span><br><span style="font-size:13px;color:#8a94a3"><strong>Good To Know:</strong> Hits from behind and other damage, such as fire or explosions, are not blocked.</span></p></div></div></div>
+<div style="display:flex;flex-wrap:wrap;gap:10px"><div style="flex:1;min-width:200px;border:1px solid #8a94a3;border-radius:16px"><div style="background-color:#15803d;color:#ffffff;border-radius:16px;font-size:16px;line-height:2.2"><strong>&nbsp;&nbsp;Combat Helper Item</strong></div><div style="margin-left:12px;margin-right:12px"><p><span>A cursor-shaped item that opens the toggle menu when you use it. You receive one the first time you join a world, you can craft more from wool, and it also sits in the Equipment tab of the Creative inventory.</span><br><span style="font-size:13px;color:#8a94a3"><strong>How It Works:</strong> Hold the Combat Helper and use it, like right-clicking on PC or tapping on mobile. To craft one, fill the top row of a crafting table with wool, then the left and middle squares of the middle row, then the left and right squares of the bottom row. This takes 7 wool of any color and the shape looks like a cursor.</span><br><span style="font-size:13px;color:#8a94a3"><strong>Good To Know:</strong> If your inventory is full on first join, the Combat Helper is offered again on your next join.</span></p></div></div><div style="flex:1;min-width:200px;border:1px solid #8a94a3;border-radius:16px"><div style="background-color:#15803d;color:#ffffff;border-radius:16px;font-size:16px;line-height:2.2"><strong>&nbsp;&nbsp;Combat Toggles Menu</strong></div><div style="margin-left:12px;margin-right:12px"><p><span>The main menu has three buttons: Combat Toggles, About and Exit. Combat Toggles lists 7 switches with a one-line explanation under each, and Apply saves them and closes the menu.</span><br><span style="font-size:13px;color:#8a94a3"><strong>How It Works:</strong> Flip the switches you want, then tap Apply. Closing the screen without Apply brings you back to the main menu.</span><br><span style="font-size:13px;color:#8a94a3"><strong>Good To Know:</strong> Toggles are saved per player, so each person in a world picks their own.</span></p></div></div><div style="flex:1;min-width:200px;border:1px solid #8a94a3;border-radius:16px"><div style="background-color:#15803d;color:#ffffff;border-radius:16px;font-size:16px;line-height:2.2"><strong>&nbsp;&nbsp;Auto Totem</strong></div><div style="margin-left:12px;margin-right:12px"><p><span>When a hit would kill you and you hold no Totem of Undying, one from your inventory moves into your off hand first, so the totem saves you.</span><br><span style="font-size:13px;color:#8a94a3"><strong>How It Works:</strong> Keep a Totem of Undying anywhere in your inventory and switch Auto Totem on.</span><br><span style="font-size:13px;color:#8a94a3"><strong>Good To Know:</strong> It does nothing without a totem in your inventory, and it cannot help against the void or the kill command.</span></p></div></div><div style="flex:1;min-width:200px;border:1px solid #8a94a3;border-radius:16px"><div style="background-color:#15803d;color:#ffffff;border-radius:16px;font-size:16px;line-height:2.2"><strong>&nbsp;&nbsp;Infinite Totem</strong></div><div style="margin-left:12px;margin-right:12px"><p><span>Works like Auto Totem, and when you have no totem at all it puts a new Totem of Undying in your off hand before a deadly hit.</span><br><span style="font-size:13px;color:#8a94a3"><strong>How It Works:</strong> Switch it on and keep fighting. Each totem that pops is replaced before the next deadly hit.</span><br><span style="font-size:13px;color:#8a94a3"><strong>Good To Know:</strong> An item that was in your off hand moves to your inventory, or drops at your feet if the inventory is full.</span></p></div></div><div style="flex:1;min-width:200px;border:1px solid #8a94a3;border-radius:16px"><div style="background-color:#15803d;color:#ffffff;border-radius:16px;font-size:16px;line-height:2.2"><strong>&nbsp;&nbsp;Aura Mode</strong></div><div style="margin-left:12px;margin-right:12px"><p><span>Every half second, you hit up to 3 of the nearest hostile mobs and other players within 4 blocks for 5 damage (2.5 hearts), without clicking.</span><br><span style="font-size:13px;color:#8a94a3"><strong>How It Works:</strong> Stand near enemies with Aura Mode on and they take damage automatically.</span><br><span style="font-size:13px;color:#8a94a3"><strong>Good To Know:</strong> Players in Creative or Spectator mode are never hit, and passive mobs are left alone.</span></p></div></div><div style="flex:1;min-width:200px;border:1px solid #8a94a3;border-radius:16px"><div style="background-color:#15803d;color:#ffffff;border-radius:16px;font-size:16px;line-height:2.2"><strong>&nbsp;&nbsp;Always Critical</strong></div><div style="margin-left:12px;margin-right:12px"><p><span>Every melee hit you land deals 1.5 times damage and shows the critical hit sparks, the same bonus as a vanilla critical hit, without jumping first.</span><br><span style="font-size:13px;color:#8a94a3"><strong>How It Works:</strong> Hit a mob or player with a sword or axe while Always Critical is on.</span><br><span style="font-size:13px;color:#8a94a3"><strong>Good To Know:</strong> A hit made while you are already falling is left as vanilla, so the bonus never stacks.</span></p></div></div><div style="flex:1;min-width:200px;border:1px solid #8a94a3;border-radius:16px"><div style="background-color:#15803d;color:#ffffff;border-radius:16px;font-size:16px;line-height:2.2"><strong>&nbsp;&nbsp;Bow Aimbot</strong></div><div style="margin-left:12px;margin-right:12px"><p><span>Arrows you shoot from a bow or crossbow steer toward the hostile mob or player closest to your crosshair within 48 blocks and 25 degrees of where you look.</span><br><span style="font-size:13px;color:#8a94a3"><strong>How It Works:</strong> Aim roughly at a target and release. The arrow leads a moving target and allows for arrow drop.</span><br><span style="font-size:13px;color:#8a94a3"><strong>Good To Know:</strong> If nothing is near your crosshair, the arrow flies as normal.</span></p></div></div><div style="flex:1;min-width:200px;border:1px solid #8a94a3;border-radius:16px"><div style="background-color:#15803d;color:#ffffff;border-radius:16px;font-size:16px;line-height:2.2"><strong>&nbsp;&nbsp;Always Water Clutch</strong></div><div style="margin-left:12px;margin-right:12px"><p><span>When you fall 3 blocks or more and the ground is close, a water block appears in the space you land in, so the fall does no damage, and it disappears after about 2 seconds.</span><br><span style="font-size:13px;color:#8a94a3"><strong>How It Works:</strong> Switch it on and jump. No water bucket is needed.</span><br><span style="font-size:13px;color:#8a94a3"><strong>Good To Know:</strong> It does not trigger in Creative or Spectator mode, while gliding or flying, or over water.</span></p></div></div><div style="flex:1;min-width:200px;border:1px solid #8a94a3;border-radius:16px"><div style="background-color:#15803d;color:#ffffff;border-radius:16px;font-size:16px;line-height:2.2"><strong>&nbsp;&nbsp;Shield Always Active</strong></div><div style="margin-left:12px;margin-right:12px"><p><span>While you carry a shield in either hand, every melee hit and arrow from the front half of your view is fully blocked, even if you are not holding the block button.</span><br><span style="font-size:13px;color:#8a94a3"><strong>How It Works:</strong> Keep a shield in your hand or off hand and switch Shield Always Active on.</span><br><span style="font-size:13px;color:#8a94a3"><strong>Good To Know:</strong> Hits from behind and other damage, such as fire or explosions, are not blocked.</span></p></div></div></div>
 <h2 style="font-size:17px;text-align:left"><span style="background-color:#15803d;color:#ffffff;border-radius:20px">&nbsp;&nbsp;Custom Items&nbsp;&nbsp;</span></h2>
 <div style="display:flex;flex-wrap:wrap;gap:10px"><div style="flex:0 1 120px;border:1px solid #8a94a3;border-radius:16px;text-align:center"><p><a href="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/MCPEDL/Addons/ALN-Pointer/assets/items/aln_pointer.png"><img src="https://raw.githubusercontent.com/AllensCreations/MCPE-Curseforges/main/MCPEDL/Addons/ALN-Pointer/assets/items/aln_pointer.png" alt="aln pointer" style="width:64px"></a></p><p style="color:#8a94a3;font-size:13px">aln pointer</p></div></div>
 <h2 style="font-size:17px;text-align:left"><span style="background-color:#15803d;color:#ffffff;border-radius:20px">&nbsp;&nbsp;Get Started&nbsp;&nbsp;</span></h2>
-<table style="width:100%;border:1px solid #8a94a3;border-radius:16px"><tbody><tr><td style="width:44px;text-align:center"><div style="background-color:#15803d;color:#ffffff;font-weight:bold;font-size:15px;text-align:center;border-radius:10px;width:30px;aspect-ratio:1/1;line-height:30px">1</div></td><td style="text-align:left;">Join your world and find the ALN Pointer in your inventory, craft one from 7 wool in a cursor shape, or take it from the Equipment tab of the Creative inventory.</td></tr><tr><td style="width:44px;text-align:center"><div style="background-color:#15803d;color:#ffffff;font-weight:bold;font-size:15px;text-align:center;border-radius:10px;width:30px;aspect-ratio:1/1;line-height:30px">2</div></td><td style="text-align:left;">Hold the ALN Pointer and use it to open the ALNStudios menu, then tap Combat Toggles.</td></tr><tr><td style="width:44px;text-align:center"><div style="background-color:#15803d;color:#ffffff;font-weight:bold;font-size:15px;text-align:center;border-radius:10px;width:30px;aspect-ratio:1/1;line-height:30px">3</div></td><td style="text-align:left;">Switch on the toggles you want and tap Apply. The action bar shows how many toggles are on.</td></tr><tr><td style="width:44px;text-align:center"><div style="background-color:#15803d;color:#ffffff;font-weight:bold;font-size:15px;text-align:center;border-radius:10px;width:30px;aspect-ratio:1/1;line-height:30px">4</div></td><td style="text-align:left;">Use the pointer again any time to change your toggles.</td></tr></tbody></table>
+<table style="width:100%;border:1px solid #8a94a3;border-radius:16px"><tbody><tr><td style="width:44px;text-align:center"><div style="background-color:#15803d;color:#ffffff;font-weight:bold;font-size:15px;text-align:center;border-radius:10px;width:30px;aspect-ratio:1/1;line-height:30px">1</div></td><td style="text-align:left;">Join your world and find the Combat Helper in your inventory, craft one from 7 wool in a cursor shape, or take it from the Equipment tab of the Creative inventory.</td></tr><tr><td style="width:44px;text-align:center"><div style="background-color:#15803d;color:#ffffff;font-weight:bold;font-size:15px;text-align:center;border-radius:10px;width:30px;aspect-ratio:1/1;line-height:30px">2</div></td><td style="text-align:left;">Hold the Combat Helper and use it to open the ALNStudios menu, then tap Combat Toggles.</td></tr><tr><td style="width:44px;text-align:center"><div style="background-color:#15803d;color:#ffffff;font-weight:bold;font-size:15px;text-align:center;border-radius:10px;width:30px;aspect-ratio:1/1;line-height:30px">3</div></td><td style="text-align:left;">Switch on the toggles you want and tap Apply. The action bar shows how many toggles are on.</td></tr><tr><td style="width:44px;text-align:center"><div style="background-color:#15803d;color:#ffffff;font-weight:bold;font-size:15px;text-align:center;border-radius:10px;width:30px;aspect-ratio:1/1;line-height:30px">4</div></td><td style="text-align:left;">Use the Combat Helper again any time to change your toggles.</td></tr></tbody></table>
 <h2 style="font-size:17px;text-align:left"><span style="background-color:#15803d;color:#ffffff;border-radius:20px">&nbsp;&nbsp;Common Questions&nbsp;&nbsp;</span></h2>
-<div class="spoiler" title="How do I get another pointer?" data-title="How do I get another pointer?"><p><strong>How do I get another pointer?</strong><br>Craft one from 7 wool on a crafting table, laid out like a cursor with the top row full, the left and middle squares of the middle row, and the left and right squares of the bottom row. You can also take one from the Equipment tab of the Creative inventory, or use the command /give @s allenscreations:aln_pointer, which needs cheats.</p></div><div class="spoiler" title="Do my toggles affect other players?" data-title="Do my toggles affect other players?"><p><strong>Do my toggles affect other players?</strong><br>No. Each player has their own saved toggles, and a toggle only changes what that player does.</p></div><div class="spoiler" title="Can I use it on a server?" data-title="Can I use it on a server?"><p><strong>Can I use it on a server?</strong><br>These features act like cheats. Many servers ban them, so use them only where the owner and the other players agree.</p></div>
+<div class="spoiler" title="How do I get another Combat Helper?" data-title="How do I get another Combat Helper?"><p><strong>How do I get another Combat Helper?</strong><br>Craft one from 7 wool on a crafting table, laid out like a cursor with the top row full, the left and middle squares of the middle row, and the left and right squares of the bottom row. You can also take one from the Equipment tab of the Creative inventory, or use the command /give @s allenscreations:aln_pointer, which needs cheats.</p></div><div class="spoiler" title="Do my toggles affect other players?" data-title="Do my toggles affect other players?"><p><strong>Do my toggles affect other players?</strong><br>No. Each player has their own saved toggles, and a toggle only changes what that player does.</p></div><div class="spoiler" title="Can I use it on a server?" data-title="Can I use it on a server?"><p><strong>Can I use it on a server?</strong><br>These features act like cheats. Many servers ban them, so use them only where the owner and the other players agree.</p></div>
 <h2 style="font-size:17px;text-align:left"><span style="background-color:#15803d;color:#ffffff;border-radius:20px">&nbsp;&nbsp;Install&nbsp;&nbsp;</span></h2>
 <table style="width:100%;border:1px solid #8a94a3;border-radius:16px"><tbody><tr><td style="width:44px;text-align:center"><div style="background-color:#15803d;color:#ffffff;font-weight:bold;font-size:15px;text-align:center;border-radius:10px;width:30px;aspect-ratio:1/1;line-height:30px">1</div></td><td style="text-align:left;">Download the file from this page and open it with Minecraft.</td></tr><tr><td style="width:44px;text-align:center"><div style="background-color:#15803d;color:#ffffff;font-weight:bold;font-size:15px;text-align:center;border-radius:10px;width:30px;aspect-ratio:1/1;line-height:30px">2</div></td><td style="text-align:left;">Create or edit a world and turn on the new pack(s) in its settings.</td></tr><tr><td style="width:44px;text-align:center"><div style="background-color:#15803d;color:#ffffff;font-weight:bold;font-size:15px;text-align:center;border-radius:10px;width:30px;aspect-ratio:1/1;line-height:30px">3</div></td><td style="text-align:left;">Play. No Experimental toggles needed.</td></tr></tbody></table>
 <div style="border:1px solid #8a94a3;border-radius:16px;text-align:center"><br><div style="background-color:#15803d;color:#ffffff;border-radius:20px;font-size:15px;line-height:2;display:inline-block">&nbsp;&nbsp;<strong>Found a Bug or Have a Suggestion?</strong>&nbsp;&nbsp;</div><p style="font-size:14px;">Please leave a comment on this project page! All bug reports, gameplay feedback, and pack suggestions are welcome and appreciated.</p></div>
@@ -1534,7 +1538,7 @@ Paste into the CurseForge description editor in source (HTML) mode.
 <hr>
 <p style="text-align:center;color:#8a94a3;font-size:13px"><strong>By ALNStudios</strong></p>
 <div class="spoiler"><p style="font-size:13px"><strong>Permissions and credits</strong></p><ul style="font-size:13px"><li>Rights: All rights reserved for ALNStudios.</li><li>Content creators: You may feature this creation in videos and streams with credit to ALNStudios.</li><li>Redistribution: Do not re-upload this pack or provide direct monetized download bypasses. Link to this page.</li><li>Unofficial community creation. Not an official Minecraft product and not approved by or associated with Mojang or Microsoft.</li></ul></div>
-<p style="text-align:center;color:#8a94a3;font-size:12px">Minecraft Bedrock add-on, ALN Pointer Bedrock mod, Minecraft PE PVP toggles, Auto Totem, Infinite Totem, Aura Mode, Always Critical, Bow Aimbot, Water Clutch, Minecraft PE mouse pointer item, MCPEDL add-on, CurseForge Bedrock, ALNStudios.</p></div>
+<p style="text-align:center;color:#8a94a3;font-size:12px">Minecraft Bedrock add-on, Combat Helper Bedrock mod, Minecraft PE PVP toggles, Auto Totem, Infinite Totem, Aura Mode, Always Critical, Bow Aimbot, Water Clutch, Minecraft PE mouse pointer item, MCPEDL add-on, CurseForge Bedrock, ALNStudios.</p></div>
 ```
 
 ## AI Image Prompts
@@ -1548,20 +1552,20 @@ Paste into the CurseForge description editor in source (HTML) mode.
 
 ```text
 Use the attached logo only as a brand reference for its color palette and overall mood. Do not copy it. Create a new, original logo with a different composition and a different main symbol. Do not just recolor, resize, crop, mirror or tweak the attached logo.
-Create a clean, square (1:1) logo image for the Minecraft Bedrock add-on "ALN Pointer". Use the ALN Pointer item to switch 7 PVP toggles on or off per player, including Auto Totem and Bow Aimbot.
+Create a clean, square (1:1) logo image for the Minecraft Bedrock add-on "Combat Helper". Use the Combat Helper item to switch 7 PVP toggles on or off per player, including Auto Totem and Bow Aimbot.
 Base the main symbol on the pack idea above. Match the blocky look of the attached in-game snapshots. Center the logo, use a simple background, and keep it readable at small sizes.
-Text: "ALN Pointer" and, in small letters, "ALNStudios". ALNStudios is the brand name, so always keep it and never remove or change it. Spell both exactly.
+Text: "Combat Helper" and, in small letters, "ALNStudios". ALNStudios is the brand name, so always keep it and never remove or change it. Spell both exactly.
 Do not add Minecraft, Mojang or Microsoft logos, watermarks, or characters from other games.
 ```
 
 ### Banner Prompt
 
 ```text
-Create a wide (16:9) banner image for the Minecraft Bedrock add-on "ALN Pointer". Use the ALN Pointer item to switch 7 PVP toggles on or off per player, including Auto Totem and Bow Aimbot.
+Create a wide (16:9) banner image for the Minecraft Bedrock add-on "Combat Helper". Use the Combat Helper item to switch 7 PVP toggles on or off per player, including Auto Totem and Bow Aimbot.
 Use the attached in-game snapshots as scene and style references: copy their blocky look, lighting, colors and the kind of scenery they show. Make a new composition inspired by them. Do not copy the on-screen HUD, chat or hotbar.
 Use the attached logo only as a brand reference for its colors and mood. Do not copy it. Put a new, original logo design in the banner, large enough to read, on the left or center.
-Hint at these pack features visually: ALN Pointer Item, Combat Toggles Menu, Auto Totem, Infinite Totem, Aura Mode.
-Text: "ALN Pointer" and, in small letters, "by ALNStudios". ALNStudios is the brand name, so always keep it and never remove or change it. Spell both exactly.
+Hint at these pack features visually: Combat Helper Item, Combat Toggles Menu, Auto Totem, Infinite Totem, Aura Mode.
+Text: "Combat Helper" and, in small letters, "by ALNStudios". ALNStudios is the brand name, so always keep it and never remove or change it. Spell both exactly.
 Leave clear space around the logo. No Minecraft, Mojang or Microsoft logos, no watermarks.
 ```
 ````

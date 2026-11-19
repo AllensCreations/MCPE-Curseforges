@@ -1,13 +1,23 @@
 # Changelog — ALN Pointer
 
-## [v3] - 2026-11-19 - Wool Recipe
+## [v4] - 2026-11-19 - New Name
 
-### Added
+### Changed
+- **New Name**: The add-on is now called Combat Helper. The item, its menus, the pack titles and the description all use the new name. The item still uses the cursor look, and your existing item, saved toggles and worlds keep working.
+
+<details>
+<summary><b>3.0.x</b> (1 release)</summary>
+
+### [v3] - 2026-11-19 - Wool Recipe
+
+#### Added
 - **Wool Recipe**: The ALN Pointer can now be crafted from 7 wool of any color in a cursor shape: the top row, the left and middle squares of the middle row, and the left and right squares of the bottom row. The recipe is unlocked from the start.
 
-### Fixed
+#### Fixed
 - **Menu Version**: The menu title now shows the same version as the pack.
 - **Totem Exclusions**: Auto Totem and Infinite Totem now skip the kill command and script-set deaths, which a totem cannot stop in vanilla Minecraft, instead of reacting to them.
+
+</details>
 
 <details>
 <summary><b>2.0.x</b> (1 release)</summary>
